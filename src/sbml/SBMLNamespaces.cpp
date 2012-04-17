@@ -326,11 +326,13 @@ SBMLNamespaces::getNamespaces() const
 }
 
 
-void
+int
 SBMLNamespaces::addNamespaces(const XMLNamespaces * xmlns)
 {
+  int success = LIBSBML_OPERATION_SUCCESS;
+
   if (xmlns == NULL)
-    return;
+    return LIBSBML_INVALID_OBJECT;
 
   if (!mNamespaces) 
   {
@@ -344,9 +346,11 @@ SBMLNamespaces::addNamespaces(const XMLNamespaces * xmlns)
   {
     if (!(mNamespaces->hasNS(xmlns->getURI(i), xmlns->getPrefix(i))))
     {
-      mNamespaces->add(xmlns->getURI(i), xmlns->getPrefix(i));
+      success = mNamespaces->add(xmlns->getURI(i), xmlns->getPrefix(i));
     }
   }
+
+  return success;
 }
 
 /*
@@ -450,7 +454,7 @@ SBMLNamespaces::addPkgNamespaces (const XMLNamespaces *xmlns)
 }
 /** @endcond */
 
-void
+int
 SBMLNamespaces::addNamespace(const std::string &uri, const std::string &prefix)
 {
   if (!mNamespaces) 
@@ -458,7 +462,7 @@ SBMLNamespaces::addNamespace(const std::string &uri, const std::string &prefix)
     initSBMLNamespace();
   }
 
-  mNamespaces->add(uri, prefix);
+  return mNamespaces->add(uri, prefix);
 }
 
 
@@ -863,12 +867,14 @@ SBMLNamespaces_getSBMLNamespaceURI(unsigned int level, unsigned int version)
  * @param xmlns the XML namespaces to be added.
  */
 LIBSBML_EXTERN
-void
+int
 SBMLNamespaces_addNamespaces(SBMLNamespaces_t *sbmlns,
                              const XMLNamespaces_t * xmlns)
 {
   if (sbmlns != NULL)
-    sbmlns->addNamespaces(xmlns);
+    return sbmlns->addNamespaces(xmlns);
+  else
+    return LIBSBML_INVALID_OBJECT;
 }
 
 /**

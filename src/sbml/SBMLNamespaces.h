@@ -401,8 +401,16 @@ else
    * @endif
    *
    * @param xmlns the XML namespaces to be added.
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
+   * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT @endlink
    */
-  void addNamespaces(const XMLNamespaces * xmlns);
+  int addNamespaces(const XMLNamespaces * xmlns);
 
 
   /**
@@ -411,8 +419,16 @@ else
    * 
    * @param uri    the XML namespace to be added.
    * @param prefix the prefix of the namespace to be added.
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
+   * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT @endlink
    */
-  void addNamespace(const std::string& uri, const std::string &prefix);
+  int addNamespace(const std::string& uri, const std::string &prefix);
 
 
   /**
@@ -673,7 +689,7 @@ SBMLNamespaces_getSBMLNamespaceURI(unsigned int level, unsigned int version);
 
 
 LIBSBML_EXTERN
-void
+int
 SBMLNamespaces_addNamespaces(SBMLNamespaces_t *sbmlns,
                              const XMLNamespaces_t * xmlns);
 
