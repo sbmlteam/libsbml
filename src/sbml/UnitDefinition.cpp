@@ -569,7 +569,7 @@ UnitDefinition::addUnit (const Unit* u)
   {
     return LIBSBML_VERSION_MISMATCH;
   }
-  else if (matchesSBMLNamespaces(static_cast<const SBase *>(u)) == false)
+  else if (matchesRequiredSBMLNamespacesForAddition(static_cast<const SBase *>(u)) == false)
   {
     return LIBSBML_NAMESPACES_MISMATCH;
   }

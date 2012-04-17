@@ -1146,7 +1146,7 @@ Model::addFunctionDefinition (const FunctionDefinition* fd)
   {
     return LIBSBML_VERSION_MISMATCH;
   }
-  else if (matchesSBMLNamespaces(static_cast<const SBase *>(fd)) == false)
+  else if (matchesRequiredSBMLNamespacesForAddition(static_cast<const SBase *>(fd)) == false)
   {
     return LIBSBML_NAMESPACES_MISMATCH;
   }
@@ -1186,7 +1186,7 @@ Model::addUnitDefinition (const UnitDefinition* ud)
   {
     return LIBSBML_VERSION_MISMATCH;
   }
-  else if (matchesSBMLNamespaces(static_cast<const SBase *>(ud)) == false)
+  else if (matchesRequiredSBMLNamespacesForAddition(static_cast<const SBase *>(ud)) == false)
   {
     return LIBSBML_NAMESPACES_MISMATCH;
   }
@@ -1226,7 +1226,7 @@ Model::addCompartmentType (const CompartmentType* ct)
   {
     return LIBSBML_VERSION_MISMATCH;
   }
-  else if (matchesSBMLNamespaces(static_cast<const SBase *>(ct)) == false)
+  else if (matchesRequiredSBMLNamespacesForAddition(static_cast<const SBase *>(ct)) == false)
   {
     return LIBSBML_NAMESPACES_MISMATCH;
   }
@@ -1266,7 +1266,7 @@ Model::addSpeciesType (const SpeciesType* st)
   {
     return LIBSBML_VERSION_MISMATCH;
   }
-  else if (matchesSBMLNamespaces(static_cast<const SBase *>(st)) == false)
+  else if (matchesRequiredSBMLNamespacesForAddition(static_cast<const SBase *>(st)) == false)
   {
     return LIBSBML_NAMESPACES_MISMATCH;
   }
@@ -1306,7 +1306,7 @@ Model::addCompartment (const Compartment* c)
   {
     return LIBSBML_VERSION_MISMATCH;
   }
-  else if (matchesSBMLNamespaces(static_cast<const SBase *>(c)) == false)
+  else if (matchesRequiredSBMLNamespacesForAddition(static_cast<const SBase *>(c)) == false)
   {
     return LIBSBML_NAMESPACES_MISMATCH;
   }
@@ -1346,7 +1346,7 @@ Model::addSpecies (const Species* s)
   {
     return LIBSBML_VERSION_MISMATCH;
   }
-  else if (matchesSBMLNamespaces(static_cast<const SBase *>(s)) == false)
+  else if (matchesRequiredSBMLNamespacesForAddition(static_cast<const SBase *>(s)) == false)
   {
     return LIBSBML_NAMESPACES_MISMATCH;
   }
@@ -1386,7 +1386,7 @@ Model::addParameter (const Parameter* p)
   {
     return LIBSBML_VERSION_MISMATCH;
   }
-  else if (matchesSBMLNamespaces(static_cast<const SBase *>(p)) == false)
+  else if (matchesRequiredSBMLNamespacesForAddition(static_cast<const SBase *>(p)) == false)
   {
     return LIBSBML_NAMESPACES_MISMATCH;
   }
@@ -1435,7 +1435,7 @@ Model::addInitialAssignment (const InitialAssignment* ia)
   {
     return LIBSBML_VERSION_MISMATCH;
   }
-  else if (matchesSBMLNamespaces(static_cast<const SBase *>(ia)) == false)
+  else if (matchesRequiredSBMLNamespacesForAddition(static_cast<const SBase *>(ia)) == false)
   {
     return LIBSBML_NAMESPACES_MISMATCH;
   }
@@ -1475,7 +1475,7 @@ Model::addRule (const Rule* r)
   {
     return LIBSBML_VERSION_MISMATCH;
   }
-  else if (matchesSBMLNamespaces(static_cast<const SBase *>(r)) == false)
+  else if (matchesRequiredSBMLNamespacesForAddition(static_cast<const SBase *>(r)) == false)
   {
     return LIBSBML_NAMESPACES_MISMATCH;
   }
@@ -1516,7 +1516,7 @@ Model::addConstraint (const Constraint* c)
   {
     return LIBSBML_VERSION_MISMATCH;
   }
-  else if (matchesSBMLNamespaces(static_cast<const SBase *>(c)) == false)
+  else if (matchesRequiredSBMLNamespacesForAddition(static_cast<const SBase *>(c)) == false)
   {
     return LIBSBML_NAMESPACES_MISMATCH;
   }
@@ -1551,7 +1551,7 @@ Model::addReaction (const Reaction* r)
   {
     return LIBSBML_VERSION_MISMATCH;
   }
-  else if (matchesSBMLNamespaces(static_cast<const SBase *>(r)) == false)
+  else if (matchesRequiredSBMLNamespacesForAddition(static_cast<const SBase *>(r)) == false)
   {
     return LIBSBML_NAMESPACES_MISMATCH;
   }
@@ -1591,7 +1591,7 @@ Model::addEvent (const Event* e)
   {
     return LIBSBML_VERSION_MISMATCH;
   }
-  else if (matchesSBMLNamespaces(static_cast<const SBase *>(e)) == false)
+  else if (matchesRequiredSBMLNamespacesForAddition(static_cast<const SBase *>(e)) == false)
   {
     return LIBSBML_NAMESPACES_MISMATCH;
   }

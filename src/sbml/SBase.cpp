@@ -2971,6 +2971,62 @@ SBase::hasValidLevelVersionNamespaceCombination()
 bool
 SBase::matchesSBMLNamespaces(const SBase * sb)
 {
+  bool match = matchesCoreSBMLNamespace(sb);
+
+  if (match == true)
+  {
+    SBMLNamespaces *sbmlns = getSBMLNamespaces();
+    SBMLNamespaces *sbmlns_rhs = sb->getSBMLNamespaces();
+
+    if (sbmlns->getNamespaces()->containIdenticalSetNS(
+      sbmlns_rhs->getNamespaces()) == false)
+    {
+      match = false;
+    }
+  }
+
+  return match;
+}
+
+bool
+SBase::matchesRequiredSBMLNamespacesForAddition(const SBase * sb)
+{
+  // if core does not match forget it
+  bool match = matchesCoreSBMLNamespace(sb);
+
+  if (match == true)
+  {
+    XMLNamespaces *xmlns = getSBMLNamespaces()->getNamespaces();
+    XMLNamespaces *xmlns_rhs = sb->getSBMLNamespaces()->getNamespaces();
+
+    // if child has a package it must match the parent
+    for (unsigned int i = 0; i < xmlns_rhs->getNumNamespaces(); i++)
+    {
+      // look to see if the beginning f the uri looks like a package uri
+      // and if there is a second 'version'
+      std::string uri = xmlns_rhs->getURI(i);
+      size_t version = uri.find("http://www.sbml.org/sbml/level3/version");
+      if (version != string::npos) 
+      {
+        version = uri.find("version", version+33);
+      }
+      if (version != string::npos)
+      {
+        if (xmlns->containsUri(uri) == false)
+        {
+          match = false;
+        }
+      }
+    }
+  }
+
+  return match;
+}
+
+
+bool
+SBase::matchesCoreSBMLNamespace(const SBase * sb)
+{
   bool match = false;
 
   SBMLNamespaces *sbmlns = getSBMLNamespaces();
@@ -2982,14 +3038,24 @@ SBase::matchesSBMLNamespaces(const SBase * sb)
   if (sbmlns->getVersion() != sbmlns_rhs->getVersion())
     return match;
 
-  if (sbmlns->getNamespaces()->containIdenticalSetNS(sbmlns_rhs->getNamespaces()) 
-                                       == true)
+  std::string coreNs = SBMLNamespaces::getSBMLNamespaceURI(
+                       sbmlns->getLevel(), sbmlns->getVersion());
+
+  if (sbmlns->getNamespaces()->containsUri(coreNs)
+    && sbmlns_rhs->getNamespaces()->containsUri(coreNs))
   {
     match = true;
   }
 
+  //if (sbmlns->getNamespaces()->containIdenticalSetNS(sbmlns_rhs->getNamespaces()) 
+  //                                     == true)
+  //{
+  //  match = true;
+  //}
+
   return match;
 }
+
 
 bool 
 SBase::hasValidLevelVersionNamespaceCombination(int typecode, XMLNamespaces *xmlns)

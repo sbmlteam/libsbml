@@ -2761,6 +2761,18 @@ s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></b
 
 
   /**
+   * Returns @c true if this object's set of XML namespaces are a subset
+   * of the given object's XML namespaces.
+   *
+   * @param sb an object to compare with respect to namespaces
+   *
+   * @return boolean, @c true if this object's collection of namespaces is
+   * a subset of @p sb's, @c false otherwise.
+   */
+  bool matchesRequiredSBMLNamespacesForAddition(const SBase * sb);
+  
+  
+  /**
    * Sets the user data of this element. This can be used by the application
    * developer to attach custom information to the node. In case of a deep
    * copy this attribute will passed as it is. The attribute will be never
@@ -2800,6 +2812,8 @@ protected:
   virtual void setElementText(const std::string &text);
 
   /** @cond doxygen-libsbml-internal */
+
+  bool matchesCoreSBMLNamespace(const SBase * sb);
 
   
   /**

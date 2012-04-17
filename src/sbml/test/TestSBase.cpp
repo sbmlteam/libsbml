@@ -2253,6 +2253,78 @@ START_TEST(test_SBase_matchesSBMLNamespaces)
 }
 END_TEST
 
+START_TEST(test_SBase_matchesRequiredSBMLNamespacesForAddition)
+{
+  SBMLNamespaces *sbmlns1 = new SBMLNamespaces(3,1);
+  SBMLNamespaces *sbmlns2 = new SBMLNamespaces(2,4);
+
+  Species * s = new Species(sbmlns1);
+  Parameter * p = new Parameter(sbmlns1);
+
+  fail_unless(s->matchesRequiredSBMLNamespacesForAddition((SBase *)(p)) == true);
+  fail_unless(p->matchesRequiredSBMLNamespacesForAddition((SBase *)(s)) == true);
+
+  p = new Parameter(sbmlns2);
+
+  fail_unless(s->matchesRequiredSBMLNamespacesForAddition((SBase *)(p)) == false);
+  fail_unless(p->matchesRequiredSBMLNamespacesForAddition((SBase *)(s)) == false);
+
+  sbmlns1->addNamespace("http:foo", "bar");
+
+  Compartment *c = new Compartment(sbmlns1);
+
+  fail_unless(s->matchesRequiredSBMLNamespacesForAddition((SBase *)(c)) == true);
+  fail_unless(c->matchesRequiredSBMLNamespacesForAddition((SBase *)(s)) == true);
+  fail_unless(p->matchesRequiredSBMLNamespacesForAddition((SBase *)(c)) == false);
+  fail_unless(c->matchesRequiredSBMLNamespacesForAddition((SBase *)(p)) == false);
+
+  sbmlns1->addNamespace("http://www.sbml.org/sbml/level3/version1/qual/version1", "bar1");
+  s = new Species(sbmlns1);
+
+  fail_unless(s->matchesRequiredSBMLNamespacesForAddition((SBase *)(c)) == true);
+  fail_unless(c->matchesRequiredSBMLNamespacesForAddition((SBase *)(s)) == false);
+
+  sbmlns2 = new SBMLNamespaces(3,1);
+  sbmlns2->addNamespace("http://www.sbml.org/sbml/level3/version1/qual/version1", "bar1");
+  c = new Compartment(sbmlns2);
+
+  fail_unless(s->matchesRequiredSBMLNamespacesForAddition((SBase *)(c)) == true);
+  fail_unless(c->matchesRequiredSBMLNamespacesForAddition((SBase *)(s)) == true);
+
+  sbmlns1 = new SBMLNamespaces(3,1);
+  p = new Parameter(sbmlns1);
+
+  fail_unless(p->matchesRequiredSBMLNamespacesForAddition((SBase *)(c)) == false);
+  fail_unless(c->matchesRequiredSBMLNamespacesForAddition((SBase *)(p)) == true);
+
+  sbmlns1->addNamespace("http://www.sbml.org/sbml/level3/version1/qual/version2", "bar2");
+  p = new Parameter(sbmlns1);
+
+  fail_unless(p->matchesRequiredSBMLNamespacesForAddition((SBase *)(c)) == false);
+  fail_unless(c->matchesRequiredSBMLNamespacesForAddition((SBase *)(p)) == false);
+
+  sbmlns1 = new SBMLNamespaces(3,1);
+  sbmlns1->addNamespace("http://www.sbml.org/sbml/level3/version1/qual/version1", "bar1");
+  sbmlns1->removeNamespace(SBMLNamespaces::getSBMLNamespaceURI(3,1));
+  p = new Parameter(sbmlns1);
+
+  fail_unless(p->matchesRequiredSBMLNamespacesForAddition((SBase *)(c)) == false);
+  fail_unless(c->matchesRequiredSBMLNamespacesForAddition((SBase *)(p)) == false);
+
+  sbmlns1 = new SBMLNamespaces(3,1);
+  sbmlns1->addNamespace("http://www.sbml.org/sbml/level3/version1/qual/version1", "bar1");
+  sbmlns1->addNamespace("http://www.sbml.org/sbml/level3/version1/comp/version1", "comp");
+  p = new Parameter(sbmlns1);
+
+  fail_unless(p->matchesRequiredSBMLNamespacesForAddition((SBase *)(c)) == true);
+  fail_unless(c->matchesRequiredSBMLNamespacesForAddition((SBase *)(p)) == false);
+
+  delete s;
+  delete p;
+  delete c;
+}
+END_TEST
+
 START_TEST(test_SBase_userData)
 {
   Species s1(3, 1);
@@ -2326,6 +2398,7 @@ create_suite_SBase (void)
   tcase_add_test(tcase, test_SBase_getQualifiersFromResources );
   tcase_add_test(tcase, test_SBase_hasValidLevelVersionNamespaceCombination);
   tcase_add_test(tcase, test_SBase_matchesSBMLNamespaces);
+  tcase_add_test(tcase, test_SBase_matchesRequiredSBMLNamespacesForAddition);
   tcase_add_test(tcase, test_SBase_userData);
 
   suite_add_tcase(suite, tcase);

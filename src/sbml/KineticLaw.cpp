@@ -588,7 +588,7 @@ KineticLaw::addParameter (const Parameter* p)
   {
     return LIBSBML_VERSION_MISMATCH;
   }
-  else if (matchesSBMLNamespaces(static_cast<const SBase *>(p)) == false)
+  else if (matchesRequiredSBMLNamespacesForAddition(static_cast<const SBase *>(p)) == false)
   {
     return LIBSBML_NAMESPACES_MISMATCH;
   }
@@ -628,7 +628,7 @@ KineticLaw::addLocalParameter (const LocalParameter* p)
   {
     return LIBSBML_VERSION_MISMATCH;
   }
-  else if (matchesSBMLNamespaces(static_cast<const SBase *>(p)) == false)
+  else if (matchesRequiredSBMLNamespacesForAddition(static_cast<const SBase *>(p)) == false)
   {
     return LIBSBML_NAMESPACES_MISMATCH;
   }
