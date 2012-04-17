@@ -148,7 +148,7 @@ option(WITH_WALL     "Compile with -Wall, so that the compiler will display all 
 mark_as_advanced(WITH_WALL)
 
 if(WITH_WALL)
-    if(MSVC)
+    if(MSVC OR USING_INTEL)
         add_definitions(/W4)
     else()
         add_definitions(-Wall)
@@ -560,7 +560,14 @@ SET(CMAKE_INSTALL_LIBDIR ${CMAKE_INSTALL_PREFIX}/lib CACHE PATH "Full path to th
 ###############################################################################
 #
 # Set up remaining variables, add option for universal binaries
-#
+# 
+
+set(USING_INTEL)
+if (WIN32 AND CMAKE_C_COMPILER AND ${CMAKE_C_COMPILER} MATCHES ".*icl.*$") 
+  message(STATUS "Detected Intel Compiler")
+  set(USING_INTEL TRUE)
+endif ()
+
 
 set(BUILD_DEFINITIONS)
 if(UNIX)
@@ -611,7 +618,7 @@ else(UNIX)
     add_definitions(-DPACKAGE_VERSION=\"${PACKAGE_VERSION}\"  -DPACKAGE_NAME=\"${PROJECT_NAME}\")
     add_definitions(-DWIN32 -DLIBSBML_EXPORTS -DLIBLAX_EXPORTS)
     set(BUILD_DEFINITIONS "${BUILD_DEFINITIONS} -DWIN32 -DLIBSBML_EXPORTS -DLIBLAX_EXPORTS")
-    if(MSVC)
+    if(MSVC OR USING_INTEL)
         add_definitions(-D_CRT_SECURE_NO_WARNINGS -D_CRT_NONSTDC_NO_DEPRECATE)
         set(BUILD_DEFINITIONS "${BUILD_DEFINITIONS} -D_CRT_SECURE_NO_WARNINGS")
         option(WITH_STATIC_RUNTIME "Compile using the static MSVC Runtime." OFF)
@@ -654,7 +661,7 @@ else(UNIX)
             # this is necessary to build with libxml2 on mingw
             add_definitions(-DLIBXML_STATIC)
         endif(WITH_LIBXML)
-    endif(MSVC)
+    endif(MSVC OR USING_INTEL)
 
 endif(UNIX)
 
