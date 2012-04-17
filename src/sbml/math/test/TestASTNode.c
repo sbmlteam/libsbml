@@ -38,7 +38,7 @@
 #include <limits.h>
 #include <check.h>
 
-#if WIN32 && !defined(CYGWIN)
+#if defined(WIN32) && !defined(CYGWIN)
 #include <math.h>
 extern int isnan(double x); 
 extern int isinf(double x); 

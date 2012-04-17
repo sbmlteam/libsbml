@@ -30,7 +30,7 @@
 
 #include <sbml/common/libsbml-namespace.h>
 
-#if ( WIN32 && ! defined CYGWIN )
+#if ( defined WIN32 && ! defined CYGWIN )
 
 #if ( ! defined LIBSBML_STATIC )
 /**

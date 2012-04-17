@@ -361,7 +361,7 @@ START_TEST (test_SBML_formulaToString)
   {
     "1",
     "2.1",
-#if WIN32 && !defined(CYGWIN)
+#if defined(WIN32) && !defined(CYGWIN)
     "2.100000e-010",
 #else
     "2.100000e-10",

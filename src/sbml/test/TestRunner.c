@@ -44,7 +44,7 @@
 BEGIN_C_DECLS
 
 
-#if WIN32 && !defined(CYGWIN)
+#if defined(WIN32) && !defined(CYGWIN)
 #include <math.h>
 int isnan(double x) { return x != x; }
 int isinf(double x) { return !isnan(x) && isnan(x - x); }

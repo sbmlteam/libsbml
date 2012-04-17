@@ -39,7 +39,7 @@
  * LIBLAX_EXTERN functions as being imported from a DLL, wheras this DLL
  * sees symbols defined with this macro as being exported.
  */
-# if (WIN32 && ! defined CYGWIN && ! defined LIBLAX_STATIC )
+# if (defined(WIN32) && ! defined CYGWIN && ! defined LIBLAX_STATIC )
 #   if LIBLAX_EXPORTS
 #     define LIBLAX_EXTERN __declspec(dllexport)
 #   else
@@ -66,7 +66,7 @@
  * For an explanation of why this is safe, see:
  *   - http://www.unknownroad.com/rtfm/VisualStudio/warningC4251.html
  */
-#if (WIN32 && ! defined CYGWIN)
+#if (defined(WIN32) && ! defined CYGWIN)
 #pragma warning(disable: 4251)
 #endif
 
