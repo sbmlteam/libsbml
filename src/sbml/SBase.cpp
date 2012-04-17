@@ -3000,7 +3000,7 @@ SBase::matchesRequiredSBMLNamespacesForAddition(const SBase * sb)
     XMLNamespaces *xmlns_rhs = sb->getSBMLNamespaces()->getNamespaces();
 
     // if child has a package it must match the parent
-    for (unsigned int i = 0; i < xmlns_rhs->getNumNamespaces(); i++)
+    for (int i = 0; i < xmlns_rhs->getNumNamespaces(); i++)
     {
       // look to see if the beginning f the uri looks like a package uri
       // and if there is a second 'version'
