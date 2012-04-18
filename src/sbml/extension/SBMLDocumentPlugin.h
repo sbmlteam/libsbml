@@ -168,7 +168,7 @@ public:
    * Predicate returning @c true or @c false depending on whether this
    * SBMLDocumentPlugin's "required" attribute has been set.
    *
-   * @htmlinclude libsbml-comment-set-methods.html
+   * @htmlinclude comment-set-methods.html
    * 
    * @return @c true if the "required" attribute of this SBMLDocument has been
    * set, @c false otherwise.
@@ -179,7 +179,7 @@ public:
   /**
    * Unsets the value of the "required" attribute of this SBMLDocumentPlugin.
    *
-   * @htmlinclude libsbml-comment-set-methods.html
+   * @htmlinclude comment-set-methods.html
    *
    * @return integer value indicating success/failure of the
    * function.  @if clike The value is drawn from the
