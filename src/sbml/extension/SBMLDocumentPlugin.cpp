@@ -45,7 +45,7 @@ SBMLDocumentPlugin::SBMLDocumentPlugin (const std::string &uri,
                                         const std::string &prefix,
                                         SBMLNamespaces *sbmlns)
   : SBasePlugin(uri,prefix,sbmlns)
-  , mRequired(false)
+  , mRequired(true)
   , mIsSetRequired(false)
 {
 }
@@ -160,10 +160,10 @@ SBMLDocumentPlugin::writeAttributes (XMLOutputStream& stream) const
     return;
 
   //cout << "[DEBUG] SBMLDocumentPlugin::writeAttributes() " << endl;
-
-  XMLTriple tripleRequired("required", mURI, mPrefix);
-
-  stream.writeAttribute(tripleRequired, mRequired);
+  if (isSetRequired()) {
+    XMLTriple tripleRequired("required", mURI, mPrefix);
+    stream.writeAttribute(tripleRequired, mRequired);
+  }
 }
 
 /** @endcond doxygen-libsbml-internal */
