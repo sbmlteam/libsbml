@@ -2425,7 +2425,8 @@ START_TEST(test_LayoutWriting_multipleTimes)
 {
   LayoutPkgNamespaces ns (2,1);
   SBMLDocument doc(&ns);
-  doc.setPkgRequired("layout", false);
+  int rv = doc.setPkgRequired("layout", false);
+  fail_unless(rv==LIBSBML_UNEXPECTED_ATTRIBUTE);
   
   Model* model = doc.createModel();
   model->setId("test1");
