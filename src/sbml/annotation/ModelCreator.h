@@ -406,6 +406,15 @@ public:
   bool hasRequiredAttributes();
   
 
+  /** @cond doxygen-libsbml-internal */
+  
+  bool hasBeenModified();
+
+  void resetModifiedFlags();
+   
+  
+  /** @endcond */
+
 protected:
   /** @cond doxygen-libsbml-internal */
 
@@ -416,6 +425,8 @@ protected:
   std::string mOrganization;
 
   XMLNode * mAdditionalRDF;
+
+  bool mHasBeenModified;
 
   /** @endcond */
 };

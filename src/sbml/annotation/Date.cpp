@@ -47,7 +47,8 @@ Date::Date(unsigned int year, unsigned int month,
     unsigned int day, unsigned int hour, 
     unsigned int minute, unsigned int second,
     unsigned int sign, unsigned int hoursOffset,
-    unsigned int minutesOffset)
+    unsigned int minutesOffset) :
+  mHasBeenModified (false)
 {
   mYear   = year;
   mMonth  = month;
@@ -67,7 +68,8 @@ Date::Date(unsigned int year, unsigned int month,
 /*
  * creates a date from a string
  */
-Date::Date (const std::string& date) 
+Date::Date (const std::string& date) :
+  mHasBeenModified (false)
 { 
   if (&(date) == NULL)
     mDate = "";
@@ -103,6 +105,8 @@ Date::Date(const Date& orig)
     mMinutesOffset  = orig.mMinutesOffset;;
 
     mDate = orig.mDate;
+
+    mHasBeenModified = orig.mHasBeenModified;
   }
 }
 
@@ -129,6 +133,8 @@ Date& Date::operator=(const Date& rhs)
     mMinutesOffset  = rhs.mMinutesOffset;;
 
     mDate = rhs.mDate;
+
+    mHasBeenModified = rhs.mHasBeenModified;
   }
 
   return *this;
@@ -158,6 +164,7 @@ Date::setYear    (unsigned int year)
   {
     mYear = year;
     parseDateNumbersToString();
+    mHasBeenModified = true;
     return LIBSBML_OPERATION_SUCCESS;
   }
 }
@@ -178,6 +185,7 @@ Date::setMonth   (unsigned int month)
   {
     mMonth = month;
     parseDateNumbersToString();
+    mHasBeenModified = true;
     return LIBSBML_OPERATION_SUCCESS;
   }
 }
@@ -235,6 +243,7 @@ Date::setDay     (unsigned int day)
   {
     mDay = day;
     parseDateNumbersToString();
+    mHasBeenModified = true;
     return LIBSBML_OPERATION_SUCCESS;
   }
 } 
@@ -255,6 +264,7 @@ Date::setHour    (unsigned int hour)
   {
     mHour = hour;
     parseDateNumbersToString();
+    mHasBeenModified = true;
     return LIBSBML_OPERATION_SUCCESS;
   }
 }
@@ -275,6 +285,7 @@ Date::setMinute  (unsigned int minute)
   {
     mMinute = minute;
     parseDateNumbersToString();
+    mHasBeenModified = true;
     return LIBSBML_OPERATION_SUCCESS;
   }
 }
@@ -295,6 +306,7 @@ Date::setSecond  (unsigned int second)
   {
     mSecond = second;
     parseDateNumbersToString();
+    mHasBeenModified = true;
     return LIBSBML_OPERATION_SUCCESS;
   }
 }
@@ -315,6 +327,7 @@ Date::setSignOffset    (unsigned int sign)
   {
     mSignOffset = sign;
     parseDateNumbersToString();
+    mHasBeenModified = true;
     return LIBSBML_OPERATION_SUCCESS;
   }
 }
@@ -336,6 +349,7 @@ Date::setHoursOffset    (unsigned int hour)
   {
     mHoursOffset = hour;
     parseDateNumbersToString();
+    mHasBeenModified = true;
     return LIBSBML_OPERATION_SUCCESS;
   }
 }
@@ -356,6 +370,7 @@ Date::setMinutesOffset  (unsigned int minute)
   {
     mMinutesOffset = minute;
     parseDateNumbersToString();
+    mHasBeenModified = true;
     return LIBSBML_OPERATION_SUCCESS;
   }
 }
@@ -386,6 +401,7 @@ Date::setDateAsString (const std::string& date)
     // rewrite date string to reflect the defaults
     parseDateStringToNumbers();
     parseDateNumbersToString();
+    mHasBeenModified = true;
     return LIBSBML_OPERATION_SUCCESS;
   }
 
@@ -404,6 +420,7 @@ Date::setDateAsString (const std::string& date)
   {
     parseDateStringToNumbers();
     parseDateNumbersToString();
+    mHasBeenModified = true;
     return LIBSBML_OPERATION_SUCCESS;
   }
 }
@@ -640,6 +657,21 @@ Date::representsValidDate()
   
   return valid;
 }
+
+bool
+Date::hasBeenModified()
+{
+  return mHasBeenModified;
+}
+
+void
+Date::resetModifiedFlags()
+{
+  mHasBeenModified = false;
+}
+
+
+
 /** @endcond */
 
 

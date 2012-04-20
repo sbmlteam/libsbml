@@ -2083,6 +2083,7 @@ END_TEST
 
 START_TEST (test_SBase_setModelHistory_Model)
 {
+  S->setMetaId("_001");
   ModelHistory_t * history = ModelHistory_create();
   ModelCreator_t * mc = ModelCreator_create();
   Date_t * date = 
@@ -2109,6 +2110,7 @@ END_TEST
 START_TEST (test_SBase_setModelHistoryL3)
 {
   SBase_t *sb = new Species(3,1);
+  sb->setMetaId("_s");
   ModelHistory_t *mh = ModelHistory_create();
   ModelCreator_t * mc = ModelCreator_create();
   Date_t * date = 

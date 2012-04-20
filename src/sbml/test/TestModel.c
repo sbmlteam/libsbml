@@ -188,6 +188,7 @@ END_TEST
 
 START_TEST(test_Model_setgetModelHistory)
 {
+  M->setMetaId("_001");
   ModelHistory_t * history = ModelHistory_create();
   ModelCreator_t * mc = ModelCreator_create();
   Date_t * date = 

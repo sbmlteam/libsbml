@@ -44,7 +44,8 @@ LIBSBML_CPP_NAMESPACE_BEGIN
  * Creates a new ModelCreator.
  */
 ModelCreator::ModelCreator () :
- mAdditionalRDF(NULL)
+    mAdditionalRDF(NULL)
+  , mHasBeenModified (false)
 {
 }
 
@@ -52,7 +53,8 @@ ModelCreator::ModelCreator () :
  * create a new ModelCreator from an XMLNode
  */
 ModelCreator::ModelCreator(const XMLNode creator):
-  mAdditionalRDF(NULL)
+    mAdditionalRDF(NULL)
+  , mHasBeenModified (false)
 {
   // check that this is the right place in the RDF Annotation
   if (creator.getName() == "li")
@@ -126,6 +128,9 @@ ModelCreator::ModelCreator(const ModelCreator& orig)
       this->mAdditionalRDF = orig.mAdditionalRDF->clone();
     else
       this->mAdditionalRDF = NULL;
+
+    mHasBeenModified = orig.mHasBeenModified;
+
   }
 }
 
@@ -151,6 +156,8 @@ ModelCreator& ModelCreator::operator=(const ModelCreator& rhs)
       this->mAdditionalRDF = rhs.mAdditionalRDF->clone();
     else
       this->mAdditionalRDF = NULL;
+
+    mHasBeenModified = rhs.mHasBeenModified;
   }
 
   return *this;
@@ -214,6 +221,7 @@ ModelCreator::setFamilyName(const std::string& name)
   else
   {
     mFamilyName = name;
+    mHasBeenModified = true;
     return LIBSBML_OPERATION_SUCCESS;
   }
 }
@@ -232,6 +240,7 @@ ModelCreator::setGivenName(const std::string& name)
   else
   {
     mGivenName = name;
+    mHasBeenModified = true;
     return LIBSBML_OPERATION_SUCCESS;
   }
 }
@@ -250,6 +259,7 @@ ModelCreator::setEmail(const std::string& email)
   else
   {
     mEmail = email;
+    mHasBeenModified = true;
     return LIBSBML_OPERATION_SUCCESS;
   }
 }
@@ -265,6 +275,7 @@ ModelCreator::setOrganization(const std::string& organization)
   else
   {
     mOrganization = organization;
+    mHasBeenModified = true;
     return LIBSBML_OPERATION_SUCCESS;
   }
 }
@@ -284,6 +295,7 @@ ModelCreator::unsetFamilyName()
 
   if (mFamilyName.empty()) 
   {
+    mHasBeenModified = true;
     return LIBSBML_OPERATION_SUCCESS;
   }
   else
@@ -300,6 +312,7 @@ ModelCreator::unsetGivenName()
 
   if (mGivenName.empty()) 
   {
+    mHasBeenModified = true;
     return LIBSBML_OPERATION_SUCCESS;
   }
   else
@@ -316,6 +329,7 @@ ModelCreator::unsetEmail()
 
   if (mEmail.empty()) 
   {
+    mHasBeenModified = true;
     return LIBSBML_OPERATION_SUCCESS;
   }
   else
@@ -332,6 +346,7 @@ ModelCreator::unsetOrganization()
 
   if (mOrganization.empty()) 
   {
+    mHasBeenModified = true;
     return LIBSBML_OPERATION_SUCCESS;
   }
   else
@@ -373,6 +388,18 @@ ModelCreator::hasRequiredAttributes()
   return valid;
 }
 
+bool
+ModelCreator::hasBeenModified()
+{
+  return mHasBeenModified;
+}
+
+
+void
+ModelCreator::resetModifiedFlags()
+{
+  mHasBeenModified = false;
+}
 
 
 /**

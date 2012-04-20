@@ -55,7 +55,9 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 /*
  * create a new CVTerm
  */
-CVTerm::CVTerm(QualifierType_t type)
+CVTerm::CVTerm(QualifierType_t type) :
+    mHasBeenModified (false)
+
 {
   mResources = new XMLAttributes();
 
@@ -73,7 +75,8 @@ CVTerm::CVTerm(QualifierType_t type)
  * this assumes that the XMLNode has a prefix 
  * that represents a CV term
  */
-CVTerm::CVTerm(const XMLNode node)
+CVTerm::CVTerm(const XMLNode node) :
+    mHasBeenModified (false)
 {
   const string& name = node.getName();
   const string& prefix = node.getPrefix();
@@ -133,6 +136,7 @@ CVTerm::CVTerm(const CVTerm& orig)
     mModelQualifier = orig.mModelQualifier;
     mBiolQualifier  = orig.mBiolQualifier;
     mResources      = new XMLAttributes(*orig.mResources);
+    mHasBeenModified = orig.mHasBeenModified;
   }
 }
 
@@ -154,6 +158,8 @@ CVTerm::operator=(const CVTerm& rhs)
 
     delete mResources;
     mResources=new XMLAttributes(*rhs.mResources);
+
+    mHasBeenModified = rhs.mHasBeenModified;
   }
 
   return *this;
@@ -190,6 +196,7 @@ CVTerm::setQualifierType(QualifierType_t type)
     mModelQualifier = BQM_UNKNOWN;
   }
 
+  mHasBeenModified = true;
   return LIBSBML_OPERATION_SUCCESS;
 }
 
@@ -205,6 +212,7 @@ CVTerm::setModelQualifierType(ModelQualifierType_t type)
   {
     mModelQualifier = type;
     mBiolQualifier = BQB_UNKNOWN;
+    mHasBeenModified = true;
     return LIBSBML_OPERATION_SUCCESS;
   }
   else
@@ -226,6 +234,7 @@ CVTerm::setBiologicalQualifierType(BiolQualifierType_t type)
   {
     mBiolQualifier = type;
     mModelQualifier = BQM_UNKNOWN;
+    mHasBeenModified = true;
     return LIBSBML_OPERATION_SUCCESS;
   }
   else
@@ -348,6 +357,7 @@ CVTerm::addResource(const std::string& resource)
   }
   else
   {
+    mHasBeenModified = true;
     return mResources->addResource("rdf:resource", resource);
   }
 }
@@ -364,6 +374,7 @@ CVTerm::removeResource(std::string resource)
   {
     if (resource == mResources->getValue(n))
     {
+      mHasBeenModified = true;
       result = mResources->removeResource(n);
     }
   }
@@ -420,6 +431,22 @@ CVTerm::hasRequiredAttributes()
 
   return valid;
 }
+
+bool
+CVTerm::hasBeenModified()
+{
+  return mHasBeenModified;
+}
+
+void
+CVTerm::resetModifiedFlags()
+{
+  mHasBeenModified = false;
+}
+
+
+
+
 /** @endcond */
 
 

@@ -46,7 +46,8 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 /*
  * Creates a new ModelHistory.
  */
-ModelHistory::ModelHistory ()
+ ModelHistory::ModelHistory ():
+  mHasBeenModified (false)
 {
   mCreatedDate = NULL;
 //  mModifiedDate = NULL;
@@ -107,6 +108,7 @@ ModelHistory::ModelHistory(const ModelHistory& orig)
     {
       mCreatedDate = NULL;
     }
+    mHasBeenModified = orig.mHasBeenModified;
   }
 }
 
@@ -160,6 +162,8 @@ ModelHistory::operator=(const ModelHistory& rhs)
       setCreatedDate(rhs.mCreatedDate);
     else
       mCreatedDate = NULL;
+
+    mHasBeenModified = rhs.mHasBeenModified;
   }
 
   return *this;
@@ -193,6 +197,7 @@ ModelHistory::addCreator(ModelCreator * creator)
   else
   {
     mCreators->add((void *)(creator->clone()));
+    mHasBeenModified = true;
     return LIBSBML_OPERATION_SUCCESS;
   }
 }
@@ -212,6 +217,7 @@ ModelHistory::setCreatedDate(Date* date)
   {
     delete mCreatedDate;
     mCreatedDate = 0;
+    mHasBeenModified = true;
     return LIBSBML_OPERATION_SUCCESS;
   }
   else if (!date->representsValidDate())
@@ -222,6 +228,7 @@ ModelHistory::setCreatedDate(Date* date)
   {
     delete mCreatedDate;
     mCreatedDate = date->clone();
+    mHasBeenModified = true;
     return LIBSBML_OPERATION_SUCCESS;
   }
 }
@@ -256,6 +263,7 @@ ModelHistory::addModifiedDate(Date * date)
   else
   {
     mModifiedDates->add((void *)(date->clone()));
+    mHasBeenModified = true;
     return LIBSBML_OPERATION_SUCCESS;
   }
 }
@@ -315,7 +323,7 @@ ModelHistory::getModifiedDate(unsigned int n)
 unsigned int 
 ModelHistory::getNumCreators()
 {
-  return mCreators->getSize();
+  return mCreators != NULL ? mCreators->getSize() : 0;
 }
 
 
@@ -390,12 +398,66 @@ ModelHistory::hasRequiredAttributes()
   {
     return valid;
   }
-  
-  valid = getModifiedDate()->representsValidDate();
+  for (unsigned int i = 0; i < getNumModifiedDates(); i++)
+  {
+    valid = getModifiedDate(i)->representsValidDate();
+  }
 
   return valid;
 }
 
+bool
+ModelHistory::hasBeenModified()
+{
+  unsigned int i = 0;
+  
+  // check whether individual creators have been modifed
+  while (mHasBeenModified == false && i < getNumCreators())
+  {
+    mHasBeenModified = getCreator(i)->hasBeenModified();
+    i++;
+  }
+
+  // check whether created date has been modified
+  if (mHasBeenModified == false && isSetCreatedDate() == true)
+  {
+    mHasBeenModified = getCreatedDate()->hasBeenModified();
+  }
+
+  // check whether modified dates have been modified
+  i = 0;
+  while (mHasBeenModified == false && i < getNumModifiedDates())
+  {
+    mHasBeenModified = getModifiedDate(i)->hasBeenModified();
+    i++;
+  }
+
+  return mHasBeenModified;
+}
+
+
+void
+ModelHistory::resetModifiedFlags()
+{
+  unsigned int i = 0;
+  
+  for (i = 0; i < getNumCreators(); i++)
+  {
+    getCreator(i)->resetModifiedFlags();
+  }
+
+  if (isSetCreatedDate() == true)
+  {
+    getCreatedDate()->resetModifiedFlags();
+  }
+
+  for (i = 0; i < getNumModifiedDates(); i++)
+  {
+    getModifiedDate(i)->resetModifiedFlags();
+  }
+
+  mHasBeenModified = false;
+}
 
 /**
  * Creates a new ModelHistory_t structure and returns a pointer to it.

@@ -200,6 +200,11 @@ RDFAnnotationParser::deriveCVTermsFromAnnotation(
       n++;
     }
   }
+  // rest modified flags
+  for (n = 0; n < CVTerms->getSize(); n++)
+  {
+    static_cast<CVTerm*>(CVTerms->get(n))->resetModifiedFlags();
+  }
   
 }
 
@@ -352,6 +357,7 @@ RDFAnnotationParser::deriveHistoryFromAnnotation(
       }
     }
   }
+  history->resetModifiedFlags();
 
   return history;
 }

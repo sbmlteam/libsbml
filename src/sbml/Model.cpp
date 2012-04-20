@@ -2309,13 +2309,15 @@ Model::appendAnnotation (const std::string& annotation)
 void
 Model::syncAnnotation ()
 {
+  SBase::syncAnnotation();
+
   //if (mAnnotationChanged == false)
   //  return;
 
-  if (mHistoryChanged == false && mCVTermsChanged == false)
-    return;
-  else
-    reconstructRDFAnnotation();
+  //if (mHistoryChanged == false && mCVTermsChanged == false)
+  //  return;
+  //else
+  //  reconstructRDFAnnotation();
 
   //bool hasRDF = false;
   //bool hasAdditionalRDF = false;

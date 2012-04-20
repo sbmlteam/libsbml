@@ -518,6 +518,15 @@ public:
    */ 
   bool hasRequiredAttributes();
 
+    
+  /** @cond doxygen-libsbml-internal */
+   
+  bool hasBeenModified();
+
+  void resetModifiedFlags();
+   
+  /** @endcond */
+
 
 protected:
   /** @cond doxygen-libsbml-internal */
@@ -535,6 +544,9 @@ protected:
    */
   
   List * mModifiedDates;
+
+  bool mHasBeenModified;
+
 
   /** @endcond */
 };

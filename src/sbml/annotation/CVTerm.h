@@ -757,6 +757,15 @@ public:
    */ 
   bool hasRequiredAttributes();
 
+  /** @cond doxygen-libsbml-internal */
+  
+  bool hasBeenModified();
+
+  void resetModifiedFlags();
+   
+  
+  /** @endcond */
+
 
 protected:
   /** @cond doxygen-libsbml-internal */
@@ -766,6 +775,8 @@ protected:
   QualifierType_t       mQualifier;
   ModelQualifierType_t  mModelQualifier;
   BiolQualifierType_t   mBiolQualifier;
+
+  bool mHasBeenModified;
 
   /** @endcond */
 };
