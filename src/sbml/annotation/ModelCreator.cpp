@@ -59,34 +59,48 @@ ModelCreator::ModelCreator(const XMLNode creator):
   // check that this is the right place in the RDF Annotation
   if (creator.getName() == "li")
   {
-    for (unsigned int n = 0; n < creator.getNumChildren(); n++)
+    unsigned int numChildren = creator.getNumChildren();
+    unsigned int n;
+
+    // we expect an N / EMAIL / ORG in that order 
+    // find the positions of the first occurence of each
+    int Npos = -1;
+    int EMAILpos = -1;
+    int ORGpos = -1;
+    for (n = 0; n < numChildren; n++)
     {
       const string& name = creator.getChild(n).getName();
-      if (name == "N")
-      {
-        for (unsigned int p = 0; p < creator.getChild(n).getNumChildren(); p++)
-        {
-          XMLNode names = creator.getChild(n).getChild(p);
-          if (names.getName() == "Family")
-          {
-            setFamilyName(names.getChild(0).getCharacters());
-          }
-          else if (names.getName() == "Given")
-          {
-            setGivenName(names.getChild(0).getCharacters());
-          }
-        }
+      if (name == "N" && Npos < 0)
+        Npos = n;
+      else if (name == "EMAIL" && EMAILpos < 0 && n > Npos)
+        EMAILpos = n;
+      else if (name == "ORG" && ORGpos < 0 && n > EMAILpos)
+        ORGpos = n;
+    }
 
-      }
-      else if (name == "EMAIL")
-      {
-        setEmail(creator.getChild(n).getChild(0).getCharacters());
-      }
-      else if (name == "ORG")
-      {
-        setOrganization(creator.getChild(n).getChild(0).getChild(0).getCharacters());
-      }
-      else
+    //get Names
+    if (Npos >= 0)
+    {
+      setFamilyName(creator.getChild(Npos).getChild("Family").getChild(0).getCharacters());
+      setGivenName(creator.getChild(Npos).getChild("Given").getChild(0).getCharacters());
+    }
+
+    // get EMAIL
+    if (EMAILpos >= 0)
+    {
+      setEmail(creator.getChild(EMAILpos).getChild(0).getCharacters());
+    }
+
+    // get ORG
+    if (ORGpos >= 0)
+    {
+      setOrganization(creator.getChild(ORGpos).getChild("Orgname")
+                             .getChild(0).getCharacters());
+    }
+    // loop thru and save any other elements
+    for (n = 0; n < creator.getNumChildren(); n++)
+    {
+      if (n != Npos && n != EMAILpos && n!= ORGpos)
       {
         if (mAdditionalRDF == NULL)
         {
