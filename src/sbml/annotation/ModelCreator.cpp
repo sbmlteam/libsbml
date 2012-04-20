@@ -59,8 +59,8 @@ ModelCreator::ModelCreator(const XMLNode creator):
   // check that this is the right place in the RDF Annotation
   if (creator.getName() == "li")
   {
-    unsigned int numChildren = creator.getNumChildren();
-    unsigned int n;
+    int numChildren = static_cast<int>(creator.getNumChildren());
+    int n;
 
     // we expect an N / EMAIL / ORG in that order 
     // find the positions of the first occurence of each
@@ -98,7 +98,8 @@ ModelCreator::ModelCreator(const XMLNode creator):
                              .getChild(0).getCharacters());
     }
     // loop thru and save any other elements
-    for (n = 0; n < creator.getNumChildren(); n++)
+    numChildren = static_cast<int>(creator.getNumChildren());
+    for (n = 0; n < numChildren; n++)
     {
       if (n != Npos && n != EMAILpos && n!= ORGpos)
       {
