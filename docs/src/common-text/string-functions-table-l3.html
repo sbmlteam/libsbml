@@ -230,7 +230,7 @@
 </tr>
 <tr><td><code>and</code></td>
     <td><em>x, y, z...</em></td>
-    <td>boolean and(<em>x, y, z...</em>): returns true if all of its arguments are true.  Note that 'and' is an n-ary function, taking 0 or more arguments, and that and() returns 'true'.</em></td>
+    <td>boolean and(<em>x, y, z...</em>): returns true if all of its arguments are true.  Note that 'and' is an n-ary function, taking 0 or more arguments, and that and() returns 'true'.</td>
     <td>All arguments must be boolean</td>
     <td></td>
 </tr>
@@ -242,49 +242,73 @@
 </tr>
 <tr><td><code>or</code></td>
     <td><em>x, y, z...</em></td>
-    <td>boolean or(<em>x, y, z...</em>): returns true if at least one of its arguments is true.  Note that 'or' is an n-ary function, taking 0 or more arguments, and that or() returns 'false'.</em></td>
+    <td>boolean or(<em>x, y, z...</em>): returns true if at least one of its arguments is true.  Note that 'or' is an n-ary function, taking 0 or more arguments, and that or() returns 'false'.</td>
     <td>All arguments must be boolean</td>
     <td></td>
 </tr>
 <tr><td><code>xor</code></td>
     <td><em>x, y, z...</em></td>
-    <td>boolean xor(<em>x, y, z...</em>): returns true if an odd number of its arguments is true.  Note that 'xor' is an n-ary function, taking 0 or more arguments</em></td>
+    <td>boolean xor(<em>x, y, z...</em>): returns true if an odd number of its arguments is true.  Note that 'xor' is an n-ary function, taking 0 or more arguments, and that xor() returns 'false'</td>
     <td>All arguments must be boolean</td>
     <td></td>
 </tr>
 <tr><td><code>eq</code></td>
     <td><em>x, y, z...</em></td>
-    <td>boolean eq(<em>x, y, z...</em>): returns true if all arguments are equal.  Note that 'eq' is an n-ary function, but must take 2 or more arguments</em></td>
+    <td>boolean eq(<em>x, y, z...</em>): returns true if all arguments are equal.  Note that 'eq' is an n-ary function, but must take 2 or more arguments</td>
     <td></td>
     <td></td>
 </tr>
 <tr><td><code>geq</code></td>
     <td><em>x, y, z...</em></td>
-    <td>boolean geq(<em>x, y, z...</em>): returns true if each argument is greater than or equal to the argument following it.  Note that 'geq' is an n-ary function, but must take 2 or more arguments</em></td>
+    <td>boolean geq(<em>x, y, z...</em>): returns true if each argument is greater than or equal to the argument following it.  Note that 'geq' is an n-ary function, but must take 2 or more arguments</td>
     <td></td>
     <td></td>
 </tr>
 <tr><td><code>gt</code></td>
     <td><em>x, y, z...</em></td>
-    <td>boolean gt(<em>x, y, z...</em>): returns true if each argument is greater than the argument following it.  Note that 'gt' is an n-ary function, but must take 2 or more arguments</em></td>
+    <td>boolean gt(<em>x, y, z...</em>): returns true if each argument is greater than the argument following it.  Note that 'gt' is an n-ary function, but must take 2 or more arguments</td>
     <td></td>
     <td></td>
 </tr>
 <tr><td><code>leq</code></td>
     <td><em>x, y, z...</em></td>
-    <td>boolean leq(<em>x, y, z...</em>): returns true if each argument is less than or equal to the argument following it.  Note that 'leq' is an n-ary function, but must take 2 or more arguments</em></td>
+    <td>boolean leq(<em>x, y, z...</em>): returns true if each argument is less than or equal to the argument following it.  Note that 'leq' is an n-ary function, but must take 2 or more arguments</td>
     <td></td>
     <td></td>
 </tr>
 <tr><td><code>lt</code></td>
     <td><em>x, y, z...</em></td>
-    <td>boolean lt(<em>x, y, z...</em>): returns true if each argument is less than the argument following it.  Note that 'lt' is an n-ary function, but must take 2 or more arguments</em></td>
+    <td>boolean lt(<em>x, y, z...</em>): returns true if each argument is less than the argument following it.  Note that 'lt' is an n-ary function, but must take 2 or more arguments</td>
     <td></td>
     <td></td>
 </tr>
 <tr><td><code>neq</code></td>
     <td><em>x, y</em></td>
-    <td>boolean <em>x</em> != <em>y</em>: returns true unless x and y are equal.</em></td>
+    <td>boolean <em>x</em> != <em>y</em>: returns true unless x and y are equal.</td>
+    <td></td>
+    <td></td>
+</tr>
+<tr><td><code>plus</code></td>
+    <td><em>x, y, z...</em></td>
+    <td><em>x</em> + <em>y</em> + <em>z</em> + <em>...</em>: The sum of the arguments of the function.  Note that 'plus' is an n-ary function taking 0 or more arguments, and that 'plus()' returns 0.</td>
+    <td></td>
+    <td></td>
+</tr>
+<tr><td><code>times</code></td>
+    <td><em>x, y, z...</em></td>
+    <td><em>x</em> * <em>y</em> * <em>z</em> * <em>...</em>: The product of the arguments of the function.  Note that 'times' is an n-ary function taking 0 or more arguments, and that 'times()' returns 1.</td>
+    <td></td>
+    <td></td>
+</tr>
+<tr><td><code>minus</code></td>
+    <td><em>x, y</em></td>
+    <td><em>x</em> - <em>y</em></td>
+    <td></td>
+    <td></td>
+</tr>
+<tr><td><code>divide</code></td>
+    <td><em>x, y</em></td>
+    <td><em>x</em> / <em>y</em></td>
     <td></td>
     <td></td>
 </tr>

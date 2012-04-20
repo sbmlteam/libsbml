@@ -18,9 +18,11 @@ foreach(example
 	addModelHistory
 	appendAnnotation
 	callExternalValidator
+	checkTestCases
 	convertSBML
 	createExampleSBML
 	echoSBML
+	generateTestsFrom
 	printAnnotation
 	printMath
 	printNotes
