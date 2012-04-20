@@ -47,6 +47,7 @@ class TestL3Species < Test::Unit::TestCase
   end
 
   def test_L3_Species_ModelHistory
+    @@s.setMetaId("_3")
     history = LibSBML::ModelHistory.new()
     i = @@s.setModelHistory(history)
     assert( i == LibSBML::LIBSBML_INVALID_OBJECT )

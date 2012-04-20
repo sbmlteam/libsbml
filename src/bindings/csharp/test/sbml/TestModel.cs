@@ -1102,6 +1102,7 @@ namespace LibSBMLCSTest.sbml {
 
     public void test_Model_setgetModelHistory()
     {
+      M.setMetaId("_001");
       ModelHistory history = new  ModelHistory();
       ModelCreator mc = new  ModelCreator();
       Date date = new  Date(2005,12,30,12,15,45,1,2,0);

@@ -433,7 +433,7 @@ END_TEST
 START_TEST (test_L3_Species_ModelHistory)
 {
   ModelHistory_t * history = ModelHistory_create();
-  S->setMetaId("_3");
+  SBase_setMetaId((SBase_t *)(S), "_3");
   int i = SBase_setModelHistory((SBase_t *)(S), history);
 
   fail_unless( i == LIBSBML_INVALID_OBJECT );

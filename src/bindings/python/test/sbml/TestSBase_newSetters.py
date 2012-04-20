@@ -1027,6 +1027,7 @@ class TestSBase_newSetters(unittest.TestCase):
 
   def test_SBase_setModelHistoryL3(self):
     sb = libsbml.Species(3,1)
+    sb.setMetaId("_s")
     mh = libsbml.ModelHistory()
     mc = libsbml.ModelCreator()
     date = libsbml.Date(2005,12,30,12,15,45,1,2,0)
@@ -1050,6 +1051,7 @@ class TestSBase_newSetters(unittest.TestCase):
     pass  
 
   def test_SBase_setModelHistory_Model(self):
+    self.S.setMetaId("_001")
     history = libsbml.ModelHistory()
     mc = libsbml.ModelCreator()
     date = libsbml.Date(2005,12,30,12,15,45,1,2,0)

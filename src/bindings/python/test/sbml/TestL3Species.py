@@ -53,6 +53,7 @@ class TestL3Species(unittest.TestCase):
     pass  
 
   def test_L3_Species_ModelHistory(self):
+    (self.S).setMetaId("_3")
     history = libsbml.ModelHistory()
     i = (self.S).setModelHistory(history)
     self.assert_( i == libsbml.LIBSBML_INVALID_OBJECT )

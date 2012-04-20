@@ -897,6 +897,7 @@ class TestModel(unittest.TestCase):
     pass  
 
   def test_Model_setgetModelHistory(self):
+    self.M.setMetaId("_001")
     history = libsbml.ModelHistory()
     mc = libsbml.ModelCreator()
     date = libsbml.Date(2005,12,30,12,15,45,1,2,0)

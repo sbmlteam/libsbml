@@ -1122,6 +1122,7 @@ namespace LibSBMLCSTest.sbml {
 
     public void test_Model_setModelHistory1()
     {
+      M.setMetaId("_001");
       ModelHistory mh = new  ModelHistory();
       int i = M.setModelHistory(mh);
       assertTrue( i == libsbml.LIBSBML_INVALID_OBJECT );
@@ -1134,6 +1135,7 @@ namespace LibSBMLCSTest.sbml {
 
     public void test_Model_setModelHistory2()
     {
+      M.setMetaId("_001");
       int i = M.setModelHistory(null);
       assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS );
       assertEquals( false, M.isSetModelHistory() );

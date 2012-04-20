@@ -890,6 +890,7 @@ class TestModel < Test::Unit::TestCase
   end
 
   def test_Model_setgetModelHistory
+    @@m.setMetaId("_001")
     history = LibSBML::ModelHistory.new()
     mc = LibSBML::ModelCreator.new()
     date = LibSBML::Date.new(2005,12,30,12,15,45,1,2,0)

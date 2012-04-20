@@ -149,6 +149,7 @@ namespace LibSBMLCSTest.sbml {
 
     public void test_L3_Species_ModelHistory()
     {
+      (S).setMetaId("_3");
       ModelHistory history = new  ModelHistory();
       int i = (S).setModelHistory(history);
       assertTrue( i == libsbml.LIBSBML_INVALID_OBJECT );

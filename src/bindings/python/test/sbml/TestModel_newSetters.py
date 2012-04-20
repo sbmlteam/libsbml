@@ -953,6 +953,7 @@ class TestModel_newSetters(unittest.TestCase):
     pass  
 
   def test_Model_setModelHistory1(self):
+    self.M.setMetaId("_001")
     mh = libsbml.ModelHistory()
     i = self.M.setModelHistory(mh)
     self.assert_( i == libsbml.LIBSBML_INVALID_OBJECT )
@@ -964,6 +965,7 @@ class TestModel_newSetters(unittest.TestCase):
     pass  
 
   def test_Model_setModelHistory2(self):
+    self.M.setMetaId("_001")
     i = self.M.setModelHistory(None)
     self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
     self.assertEqual( False, self.M.isSetModelHistory() )

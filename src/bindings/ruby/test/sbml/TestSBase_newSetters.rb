@@ -1017,6 +1017,7 @@ class TestSBase_newSetters < Test::Unit::TestCase
 
   def test_SBase_setModelHistoryL3
     sb = LibSBML::Species.new(3,1)
+    sb.setMetaId("_s")
     mh = LibSBML::ModelHistory.new()
     mc = LibSBML::ModelCreator.new()
     date = LibSBML::Date.new(2005,12,30,12,15,45,1,2,0)
@@ -1040,6 +1041,7 @@ class TestSBase_newSetters < Test::Unit::TestCase
   end
 
   def test_SBase_setModelHistory_Model
+    @@s.setMetaId("_001")
     history = LibSBML::ModelHistory.new()
     mc = LibSBML::ModelCreator.new()
     date = LibSBML::Date.new(2005,12,30,12,15,45,1,2,0)

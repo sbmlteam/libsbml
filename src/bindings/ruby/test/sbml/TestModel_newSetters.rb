@@ -947,6 +947,7 @@ class TestModel_newSetters < Test::Unit::TestCase
   end
 
   def test_Model_setModelHistory1
+    @@m.setMetaId("_001")
     mh = LibSBML::ModelHistory.new()
     i = @@m.setModelHistory(mh)
     assert( i == LibSBML::LIBSBML_INVALID_OBJECT )
@@ -958,6 +959,7 @@ class TestModel_newSetters < Test::Unit::TestCase
   end
 
   def test_Model_setModelHistory2
+    @@m.setMetaId("_001")
     i = @@m.setModelHistory(nil)
     assert( i == LibSBML::LIBSBML_OPERATION_SUCCESS )
     assert_equal false, @@m.isSetModelHistory()

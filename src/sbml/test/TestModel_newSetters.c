@@ -178,7 +178,7 @@ END_TEST
 
 START_TEST (test_Model_setModelHistory1)
 {
-  M->setMetaId("_001");
+  SBase_setMetaId((SBase_t *) (M), "_001");
   ModelHistory_t *mh = ModelHistory_create();
   int i = Model_setModelHistory(M, mh);
 
@@ -197,7 +197,7 @@ END_TEST
 
 START_TEST (test_Model_setModelHistory2)
 {
-  M->setMetaId("_001");
+  SBase_setMetaId((SBase_t *) (M), "_001");
   int i = Model_setModelHistory(M, NULL);
 
   fail_unless( i == LIBSBML_OPERATION_SUCCESS );
