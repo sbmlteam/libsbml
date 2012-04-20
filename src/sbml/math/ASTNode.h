@@ -848,6 +848,18 @@ public:
 
 
   /**
+   * Get the value of this operator node as a string.  This function may be called
+   * on nodes that are operators, i.e., nodes for which
+   * @if clike isOperator()@else ASTNode::isOperator()@endif
+   * returns @c true.
+   * 
+   * @return the name of this operator ASTNode as a string (or NULL if not an operator).
+   */
+  LIBSBML_EXTERN
+  const char* getOperatorName () const;
+
+
+  /**
    * Get the value of the numerator of this node.  This function should be
    * called only when
    * @if clike getType()@else ASTNode::getType()@endif

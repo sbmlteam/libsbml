@@ -29,7 +29,6 @@
 #include <functional>
 #include <typeinfo>
 
-#include <sbml/SBMLTypes.h>
 #include <sbml/SBMLVisitor.h>
 
 #include <sbml/units/FormulaUnitsData.h>
@@ -37,6 +36,12 @@
 #include <sbml/validator/VConstraint.h>
 #include <sbml/validator/Validator.h>
 #include <sbml/validator/UnitConsistencyValidator.h>
+#include <sbml/AlgebraicRule.h>
+#include <sbml/AssignmentRule.h>
+#include <sbml/RateRule.h>
+#include <sbml/ModifierSpeciesReference.h>
+#include <sbml/SBMLDocument.h>
+#include <sbml/SBMLReader.h>
 
 /** @cond doxygen-ignored */
 

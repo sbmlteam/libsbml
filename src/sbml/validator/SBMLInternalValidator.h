@@ -56,7 +56,7 @@
 
 #include <sbml/SBMLNamespaces.h>
 #include <sbml/validator/SBMLValidator.h>
-#include <sbml/SBMLTypes.h>
+#include <sbml/SBMLError.h>
 
 
 #ifdef __cplusplus

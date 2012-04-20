@@ -30,6 +30,7 @@ foreach(example
 	printUnits
 	readSBML
 	translateMath
+	translateL3Math
 	unsetAnnotation
 	unsetNotes
 	validateSBML

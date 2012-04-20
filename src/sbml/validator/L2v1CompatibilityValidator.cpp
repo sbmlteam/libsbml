@@ -29,7 +29,6 @@
 
 #ifndef doxygen_ignore
 
-#include <sbml/SBMLTypes.h>
 #include <sbml/validator/L2v1CompatibilityValidator.h>
 
 

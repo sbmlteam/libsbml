@@ -45,7 +45,7 @@ main (int argc, char *argv[])
   printf( "\n" );
   printf( "        filename: %s\n" , filename     );
   printf( "       file size: %lu\n", size         );
-  printf( "  read time (ms): %lu\n", stop - start );
+  printf( "  read time (ms): %llu\n", stop - start );
   printf( "        error(s): %u\n" , errors       );
 
   if (errors > 0) SBMLDocument_printErrors(d, stdout);

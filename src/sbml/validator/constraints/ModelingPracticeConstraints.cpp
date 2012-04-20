@@ -28,7 +28,6 @@
  * ---------------------------------------------------------------------- -->*/
 
 #ifndef AddingConstraintsToValidator
-#include <sbml/SBMLTypes.h>
 #include <sbml/validator/VConstraint.h>
 #endif
 

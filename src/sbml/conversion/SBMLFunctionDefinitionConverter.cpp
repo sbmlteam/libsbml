@@ -31,7 +31,8 @@
 #include <sbml/conversion/SBMLFunctionDefinitionConverter.h>
 #include <sbml/conversion/SBMLConverterRegistry.h>
 #include <sbml/conversion/SBMLConverterRegister.h>
-#include <sbml/SBMLTypes.h>
+#include <sbml/SBMLDocument.h>
+#include <sbml/Model.h>
 
 #ifdef __cplusplus
 

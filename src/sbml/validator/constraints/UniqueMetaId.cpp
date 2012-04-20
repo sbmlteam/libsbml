@@ -27,8 +27,9 @@
  * and also available online as http://sbml.org/software/libsbml/license.html
  * ---------------------------------------------------------------------- -->*/
 
-#include <sbml/SBMLTypes.h>
 #include "UniqueMetaId.h"
+#include <SBMLDocument.h>
+#include <ModifierSpeciesReference.h>
 
 /** @cond doxygen-ignored */
 

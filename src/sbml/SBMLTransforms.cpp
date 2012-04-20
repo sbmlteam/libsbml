@@ -26,7 +26,7 @@
  * ---------------------------------------------------------------------- -->*/
 
 #include <sbml/SBMLTransforms.h>
-#include <sbml/SBMLTypes.h>
+#include <sbml/Model.h>
 
 #include <cstring>
 #include <math.h>

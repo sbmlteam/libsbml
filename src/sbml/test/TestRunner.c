@@ -77,7 +77,7 @@ Suite *create_suite_InitialAssignment             (void);
 Suite *create_suite_InitialAssignment_newSetters  (void);
 Suite *create_suite_KineticLaw                    (void);
 Suite *create_suite_KineticLaw_newSetters         (void);
-Suite *create_suite_L3_KineticLaw                    (void);
+Suite *create_suite_L3_KineticLaw                 (void);
 Suite *create_suite_ListOf                        (void);
 Suite *create_suite_Model                         (void);
 Suite *create_suite_L3_Model                      (void);
@@ -101,10 +101,6 @@ Suite *create_suite_SBase_newSetters              (void);
 Suite *create_suite_SBMLConvert                   (void);
 Suite *create_suite_SBMLConvertStrict             (void);
 Suite *create_suite_SBMLDocument                  (void);
-/* these files no longer exist in libSBML - SK 13/02/2007
-Suite *create_suite_SBMLFormatter                 (void);
-Suite *create_suite_SBMLHandler                   (void);
-*/
 Suite *create_suite_SBMLError                     (void);
 Suite *create_suite_SBMLReader                    (void);
 Suite *create_suite_SBMLWriter                    (void);
@@ -227,7 +223,7 @@ main (int argc, char* argv[])
   srunner_add_suite( runner, create_suite_InitialAssignment_newSetters  () );
   srunner_add_suite( runner, create_suite_KineticLaw                    () );
   srunner_add_suite( runner, create_suite_KineticLaw_newSetters         () );
-  srunner_add_suite( runner, create_suite_L3_KineticLaw                    () );
+  srunner_add_suite( runner, create_suite_L3_KineticLaw                 () );
   srunner_add_suite( runner, create_suite_ListOf                        () );
   srunner_add_suite( runner, create_suite_Model                         () );
   srunner_add_suite( runner, create_suite_L3_Model                      () );
@@ -258,7 +254,7 @@ main (int argc, char* argv[])
   srunner_add_suite( runner, create_suite_SpeciesType_newSetters        () );
   srunner_add_suite( runner, create_suite_StoichiometryMath             () );
   srunner_add_suite( runner, create_suite_Trigger                       () );
-  srunner_add_suite( runner, create_suite_L3Trigger                       () );
+  srunner_add_suite( runner, create_suite_L3Trigger                     () );
   srunner_add_suite( runner, create_suite_Unit                          () );
   srunner_add_suite( runner, create_suite_L3_Unit                       () );
   srunner_add_suite( runner, create_suite_Unit_newSetters               () );

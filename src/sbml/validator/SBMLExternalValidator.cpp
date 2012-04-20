@@ -29,7 +29,6 @@
  */
 
 #include <sbml/validator/SBMLExternalValidator.h>
-#include <sbml/SBMLTypes.h>
 
 #ifdef __cplusplus
 
@@ -37,10 +36,13 @@
 #include <string>
 #include <vector>
 #include <map>
+#include <sstream>
 
 #include <sbml/common/sbmlfwd.h>
 #include <sbml/xml/XMLInputStream.h>
 #include <sbml/xml/XMLNode.h>
+#include <sbml/SBMLError.h>
+#include <sbml/SBMLWriter.h>
 
 #if defined (WIN32) && !defined (CYGWIN)
 

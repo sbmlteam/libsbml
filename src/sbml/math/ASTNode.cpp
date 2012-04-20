@@ -166,6 +166,16 @@ static const char *AST_RELATIONAL_STRINGS[] =
 };
 
 
+static const char *AST_OPERATOR_STRINGS[] =
+{
+    "divide"
+  , "minus"
+  , "plus"
+  , "times"
+  , "power"
+};
+
+
 /*
  * Creates a new ASTNode.
  *
@@ -1060,6 +1070,27 @@ ASTNode::getName () const
 }
 
 
+LIBSBML_EXTERN
+const char*
+ASTNode::getOperatorName () const
+{
+  switch(mType) {
+  case AST_DIVIDE:
+    return AST_OPERATOR_STRINGS[0];
+  case AST_MINUS:
+    return AST_OPERATOR_STRINGS[1];
+  case AST_PLUS:
+    return AST_OPERATOR_STRINGS[2];
+  case AST_TIMES:
+    return AST_OPERATOR_STRINGS[3];
+  case AST_POWER:
+    return AST_OPERATOR_STRINGS[4];
+  default:
+    return NULL;
+  }
+}
+
+
 /*
  * @return the value of the numerator of this ASTNode.  This function
  * should be called only when getType() == AST_RATIONAL.
@@ -1684,7 +1715,7 @@ LIBSBML_EXTERN
 int
 ASTNode::setName (const char *name)
 {
-  if (mName == name) 
+  if (getName() == name) 
     return LIBSBML_OPERATION_SUCCESS;
 
 

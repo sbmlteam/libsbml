@@ -29,8 +29,9 @@
 #include <sbml/conversion/SBMLLevelVersionConverter.h>
 #include <sbml/conversion/SBMLConverterRegistry.h>
 #include <sbml/extension/SBMLExtensionRegistry.h>
-
-#include <sbml/SBMLTypes.h>
+#include <sbml/SBMLWriter.h>
+#include <sbml/SBMLReader.h>
+#include <sbml/Model.h>
 
 #ifdef __cplusplus
 

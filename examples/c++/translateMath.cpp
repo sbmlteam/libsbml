@@ -68,9 +68,12 @@ main (int argc, char* argv[])
       {
         str    = StringBuffer_getBuffer(sb);
         result = (str[0] == '<') ? translateMathML(str) : translateInfix(str);
-
-        cout << "Result:" << endl << endl << result << endl << endl << endl;
-
+        if (result==NULL) {
+          cout << "Unable to parse string." << endl;
+        }
+        else {
+          cout << "Result:" << endl << endl << result << endl << endl << endl;
+        }
         StringBuffer_reset(sb);
         break;
       }

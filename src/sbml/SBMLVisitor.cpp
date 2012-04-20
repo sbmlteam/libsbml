@@ -25,8 +25,13 @@
  * and also available online as http://sbml.org/software/libsbml/license.html
  * ---------------------------------------------------------------------- -->*/
 
-#include <sbml/SBMLTypes.h>
 #include <sbml/SBMLVisitor.h>
+#include <sbml/SBMLDocument.h>
+#include <sbml/Model.h>
+#include <sbml/AlgebraicRule.h>
+#include <sbml/AssignmentRule.h>
+#include <sbml/RateRule.h>
+#include <sbml/ModifierSpeciesReference.h>
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 

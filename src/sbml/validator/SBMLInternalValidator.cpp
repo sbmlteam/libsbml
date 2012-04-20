@@ -27,7 +27,6 @@
  */
 
 #include <sbml/validator/SBMLInternalValidator.h>
-#include <sbml/SBMLTypes.h>
 
 #ifdef __cplusplus
 
@@ -50,6 +49,12 @@
 #include <sbml/validator/L2v4CompatibilityValidator.h>
 #include <sbml/validator/L3v1CompatibilityValidator.h>
 #include <sbml/validator/InternalConsistencyValidator.h>
+#include <sbml/SBMLDocument.h>
+#include <sbml/SBMLWriter.h>
+#include <sbml/SBMLReader.h>
+#include <sbml/AlgebraicRule.h>
+#include <sbml/AssignmentRule.h>
+#include <sbml/RateRule.h>
 
 
 

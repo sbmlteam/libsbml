@@ -77,7 +77,7 @@ main()
     stop   = getCurrentMillis();
     
     printf("\n%s\n= %.10g\n\n", SBML_formulaToString(n), result);
-    printf("evaluation time: %lu ms\n\n", stop - start);
+    printf("evaluation time: %llu ms\n\n", stop - start);
     
     free(line);
     ASTNode_free(n);  

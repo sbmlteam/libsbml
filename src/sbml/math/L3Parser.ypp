@@ -1,0 +1,830 @@
+/**
+ * @file    L3Parser.ypp
+ * @brief   Definition of the level 3 infix-to-mathml parser.
+ * @author  Lucian Smith
+ * 
+ * 
+ * <!--------------------------------------------------------------------------
+ * This file is part of libSBML.  Please visit http://sbml.org for more
+ * information about SBML, and the latest version of libSBML.
+ *
+ * Copyright (C) 2009-2012 jointly by the following organizations: 
+ *     1. California Institute of Technology, Pasadena, CA, USA
+ *     2. EMBL European Bioinformatics Institute (EBML-EBI), Hinxton, UK
+ *  
+ * Copyright (C) 2006-2008 by the California Institute of Technology,
+ *     Pasadena, CA, USA 
+ *  
+ * Copyright (C) 2002-2005 jointly by the following organizations: 
+ *     1. California Institute of Technology, Pasadena, CA, USA
+ *     2. Japan Science and Technology Agency, Japan
+ * 
+ * This library is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation.  A copy of the license agreement is provided
+ * in the file named "LICENSE.txt" included with this software distribution and
+ * also available online as http://sbml.org/software/libsbml/license.html
+ * ---------------------------------------------------------------------- -->*/
+
+/** @cond doxygen-libsbml-internal */
+/**
+ * This file is designed to be compiled by the 'bison' program with the
+ * command:
+ *
+ * bison -v L3Parser.ypp
+ *
+ * (the '-v' creates a file called 'L3Parser.output' which can be examined
+ * to piece together the explicit logic of the parser.)
+ *
+ * This command produces the file 'L3Parser.tab.cpp' which is included
+ * explicitly in the libsbml distribution.  Automatic creation of this
+ * file is not yet incorporated into the CMake system; it must be
+ * run by hand before change here will make it into the actual libsbml
+ * library.
+ *
+ * Bison v2.4.2 was used to create the .cpp file when this file was
+ * first created.  It does not rely on odd features of the bison
+ * parser, so other versions should work fine.
+ *
+ * This file currently compiles with zero reduce/reduce errors and zero
+ * shift/reduce warnings.
+ */
+/** @endcond */
+%{
+  //#define YYSTYPE double
+#include "L3Parser.h"
+  using namespace std;
+
+  int sbml_yylex(void);
+  L3Parser* l3p = NULL;
+  void sbml_yyerror(char const *);
+  int sbml_yylloc_first_position = 1;
+  int sbml_yylloc_last_position = 1;
+%}
+
+/*Bison declarations */
+%union {
+  ASTNode* astnode;
+  char character;
+  const string* word;
+  double numdouble;
+  long   numlong;
+  double mantissa;
+  long   rational;
+}
+
+%type <astnode> node nodelist number
+
+%left '&' '|' /* Boolean functions and, or */
+%left '<' '>' '=' '!' /* Boolean comparison functions (gt, lt, eq, etc.) */
+%left NOT /* boolean negation--unary not */
+%left '-' '+'
+%left '*' '/' '%'
+%right '^'    /* exponentiation        */
+%left NEG     /* negation--unary minus */
+
+%token YYEOF 0 "end of string"
+%token  <numdouble> DOUBLE "number"
+%token  <numlong> INTEGER "integer"
+%token  <mantissa> E_NOTATION "number in e-notation form"
+%token  <rational> RATIONAL "number in rational notation"
+%token  <word> SYMBOL "element name"
+
+
+%name-prefix="sbml_yy"
+%debug
+%error-verbose
+%% /* The grammar: */
+
+input:          /* empty */
+        |       node {l3p->outputNode = $1}
+        |       error {}
+        |       node error {delete $1;}
+        ;
+
+node:           number {$$ = $1;}
+        |       SYMBOL {
+                   $$ = new ASTNode();
+                   string name(*$1);
+                   $$->setName(name.c_str());
+                   if (l3p->model == NULL ||
+                       (l3p->model->getSpecies(name) == NULL
+                        && l3p->model->getCompartment(name) == NULL
+                        && l3p->model->getReaction(name) == NULL
+                        && l3p->model->getParameter(name) == NULL
+                        && l3p->model->getSpeciesReference(name) == NULL)) {
+                     //The symbol is not used in any other mathematical context in the SBML model, so we can see if it matches a list of pre-defined names
+                     ASTNodeType_t type = l3p->getSymbolFor(name);
+                     if (type != AST_UNKNOWN) $$->setType(type);
+                     if (type==AST_REAL) {
+                       if (l3p->caselessStrCmp(name, "inf"))          $$->setValue(numeric_limits<double>::infinity());
+                       if (l3p->caselessStrCmp(name, "infinity"))     $$->setValue(numeric_limits<double>::infinity());
+                       if (l3p->caselessStrCmp(name, "nan"))          $$->setValue(numeric_limits<double>::quiet_NaN());
+                       if (l3p->caselessStrCmp(name, "notanumber"))   $$->setValue(numeric_limits<double>::quiet_NaN());
+                     }
+                     if (!l3p->avocsymbol && type==AST_NAME_AVOGADRO) {
+                       //Don't parse 'avogadro' as a csymbol.
+                       $$->setName(name.c_str());
+                       $$->setType(AST_NAME);
+                     }
+                   }
+        }
+        |       '(' node ')'  {$$ = $2;}
+        |       node '^' node {$$ = new ASTNode(AST_POWER); $$->addChild($1); $$->addChild($3);}
+        |       node '*' node {
+                  if ($1->getType()==AST_TIMES) {
+                    $$ = $1;
+                    $$->addChild($3);
+                  }
+                  else {
+                    $$ = new ASTNode(AST_TIMES);
+                    $$->addChild($1);
+                    $$->addChild($3);
+                  }
+                }
+        |       node '+' node {
+                  if ($1->getType()==AST_PLUS) {
+                    $$ = $1;
+                    $$->addChild($3);
+                  }
+                  else {
+                    $$ = new ASTNode(AST_PLUS);
+                    $$->addChild($1);
+                    $$->addChild($3);
+                  }
+                }
+        |       node '/' node {$$ = new ASTNode(AST_DIVIDE); $$->addChild($1); $$->addChild($3);}
+        |       node '-' node {$$ = new ASTNode(AST_MINUS); $$->addChild($1); $$->addChild($3);}
+        |       node '%' node {$$ = l3p->createModuloTree($1, $3);}
+        |       node '>' node {$$ = new ASTNode(AST_RELATIONAL_GT); $$->addChild($1); $$->addChild($3);}
+        |       node '<' node {$$ = new ASTNode(AST_RELATIONAL_LT); $$->addChild($1); $$->addChild($3);}
+        |       '-' node %prec NEG {
+                  if (l3p->collapseminus) {
+                    if ($2->getType()==AST_REAL) {
+                      $$ = $2;
+                      $$->setValue(-$$->getReal());
+                    }
+                    else if ($2->getType()==AST_INTEGER) {
+                      $$ = $2;
+                      $$->setValue(-$$->getInteger());
+                    }
+                    else if ($2->getType()==AST_REAL_E) {
+                      $$ = $2;
+                      $$->setValue(-$$->getMantissa(), $$->getExponent());
+                    }
+                    else if ($2->getType()==AST_RATIONAL) {
+                      $$ = $2;
+                      $$->setValue(-$$->getNumerator(), $$->getDenominator());
+                    }
+                    else if ($2->getType()==AST_MINUS && $2->getNumChildren()==1) {
+                      $$ = $2->getChild(0);
+                      $2->removeChild(0);
+                      delete $2;
+                    }
+                    else {
+                      $$ = new ASTNode(AST_MINUS);    
+                      $$->addChild($2);
+                    }
+                  }
+                  else {
+                    $$ = new ASTNode(AST_MINUS);
+                    $$->addChild($2);
+                  }
+                }
+        |       node '>' '=' node {$$ = new ASTNode(AST_RELATIONAL_GEQ); $$->addChild($1); $$->addChild($4);}
+        |       node '<' '=' node {$$ = new ASTNode(AST_RELATIONAL_LEQ); $$->addChild($1); $$->addChild($4);}
+        |       node '=' '=' node {$$ = new ASTNode(AST_RELATIONAL_EQ); $$->addChild($1); $$->addChild($4);}
+        |       node '!' '=' node {$$ = new ASTNode(AST_RELATIONAL_NEQ); $$->addChild($1); $$->addChild($4);}
+        |       node '<' '>' node {$$ = new ASTNode(AST_RELATIONAL_NEQ); $$->addChild($1); $$->addChild($4);}
+        |       node '>' '<' node {$$ = new ASTNode(AST_RELATIONAL_NEQ); $$->addChild($1); $$->addChild($4);}
+        |       node '&' '&' node {$$ = new ASTNode(AST_LOGICAL_AND); $$->addChild($1); $$->addChild($4);}
+        |       node '|' '|' node {$$ = new ASTNode(AST_LOGICAL_OR); $$->addChild($1); $$->addChild($4);}
+        |       '!' node %prec NOT {$$ = new ASTNode(AST_LOGICAL_NOT); $$->addChild($2);}
+        |       SYMBOL '(' ')' {
+                   $$ = new ASTNode(AST_FUNCTION);
+                   string name(*$1);
+                   $$->setName($1->c_str());
+                   if (l3p->model == NULL || l3p->model->getFunctionDefinition(name) == NULL) {
+                     //The symbol is not used in any other mathematical context in the SBML model, so we can see if it matches a list of pre-defined names
+                     ASTNodeType_t type = l3p->getFunctionFor(name);
+                     if (type != AST_UNKNOWN) $$->setType(type);
+                     if (l3p->checkNumArguments($$)) YYABORT;
+                   }
+        }
+        |       SYMBOL '(' nodelist ')' {
+                   $$ = $3;
+                   string name(*$1);
+                   $$->setName($1->c_str());
+                   $$->setType(AST_FUNCTION);
+                   if (l3p->model == NULL || l3p->model->getFunctionDefinition(name) == NULL) {
+                     //The symbol is not used in any other mathematical context in the SBML model, so we can see if it matches a list of pre-defined names
+                     ASTNodeType_t type = l3p->getFunctionFor(name);
+                     if (type != AST_UNKNOWN) $$->setType(type);
+                     if (type==AST_FUNCTION_ROOT && l3p->caselessStrCmp(name, "sqrt")) {
+                       //Add a '2' node before the existing child.
+                       ASTNode* int2 = new ASTNode(AST_INTEGER);
+                       int2->setValue(2);
+                       $$->prependChild(int2);
+                     }
+                     if (type==AST_FUNCTION_POWER && l3p->caselessStrCmp(name, "sqr")) {
+                       //Add a '2' node after the existing child.
+                       ASTNode* int2 = new ASTNode(AST_INTEGER);
+                       int2->setValue(2);
+                       $$->addChild(int2);
+                     }
+                     if (type==AST_FUNCTION_LOG && l3p->caselessStrCmp(name, "log10")) {
+                       //Add a '10' node before the existing child.
+                       ASTNode* int10 = new ASTNode(AST_INTEGER);
+                       int10->setValue(10);
+                       $$->prependChild(int10);
+                     }
+                     if (type==AST_FUNCTION_LOG && l3p->caselessStrCmp(name, "log")) {
+                       //If there is exactly one argument, change it to log10, ln, or give a special error message, depending on a user setting (by default, parse to log10).
+                       if ($$->getNumChildren() == 1) {
+                         ASTNode* int10;
+                         switch(l3p->parselog) {
+                         case L3P_PARSE_LOG_AS_LOG10:
+                           int10 = new ASTNode(AST_INTEGER);
+                           int10->setValue(10);
+                           $$->prependChild(int10);
+                           break;
+                         case L3P_PARSE_LOG_AS_LN:
+                           $$->setType(AST_FUNCTION_LN);
+                           break;
+                         case L3P_PARSE_LOG_AS_ERROR:
+                           l3p->setError("Writing a function as 'log(x)' was legal in the L1 parser, but translated as the natural log, not the base-10 log.  This construct is disallowed entirely as being ambiguous, and you are encouraged instead to use 'ln(x)', 'log10(x)', or 'log(base, x)'.");
+                           YYABORT;
+                         }
+                       }
+                     }
+                   }
+                   if (l3p->checkNumArguments($$)) YYABORT;
+        }
+        ;
+
+number:         DOUBLE {$$ = new ASTNode(); $$->setValue($1);} 
+        |       E_NOTATION {$$ = new ASTNode(); $$->setValue($1, l3p->exponent);}
+        |       INTEGER {$$ = new ASTNode(); $$->setValue($1);}
+        |       RATIONAL {$$ = new ASTNode(); $$->setValue($1, l3p->denominator);}
+        |       number SYMBOL {
+                  $$ = $1;
+                  if ($$->getUnits() != "") {
+                    l3p->setError("Can't use " + *$2 + " as a unit, because the unit is already set for this number.");
+                    YYERROR;
+                  }
+                  if (!l3p->parseunits) {
+                    l3p->setError("The ability to associate units with numbers has been disabled in this software.");
+                    YYERROR;
+                  }
+                  $$->setUnits(*$2);
+               }
+        ;
+
+nodelist:       node {$$ = new ASTNode(AST_FUNCTION); $$->addChild($1);}
+        |       nodelist ',' node {$$ = $1;  $$->addChild($3);}
+        ;
+
+%%
+
+
+void sbml_yyerror(char const *s)
+{
+  l3p->setError(s);
+}
+
+int sbml_yylex(void)
+{
+  char cc = 0;
+  l3p->input.get(cc);
+
+  //If we're done with the input:
+  if (l3p->input.eof()) {
+    return 0;
+  }
+  //If something else went wrong:
+  if (!l3p->input.good()) {
+    l3p->setError("The input is no longer good, for an unknown reason.");
+    return -1;
+  }
+
+  // Skip white space.
+  while ((cc == ' ' || cc == '\t' || cc == '\n' || cc == '\r')
+         && !l3p->input.eof()) {
+    l3p->input.get(cc);
+  }
+  if (l3p->input.eof()) return 0;
+
+  // Parse words
+  if (isalpha(cc) || cc == '_') {
+    string word;
+    while ((isalpha(cc) || isdigit(cc) || cc == '_') && !l3p->input.eof()) {
+      word += cc;
+      l3p->input.get(cc);
+    }
+    if (!l3p->input.eof()) {
+      l3p->input.unget();
+    }
+    sbml_yylval.word = l3p->addWord(word);
+    //cout << "\tRead word '" << word << "'." << endl;
+    return SYMBOL;
+  }
+
+  // Parse numbers
+  if (isdigit(cc) || (cc=='.' && isdigit(l3p->input.peek()))) {
+    double number;
+    long numlong;
+    bool isdouble = false;
+    l3p->input.unget();
+    if (cc != '.') {
+      l3p->input >> numlong;
+    }
+    else {
+      numlong = 0;
+    }
+    if (l3p->input.peek() == '.') {
+      isdouble = true;
+      number = numlong;
+      l3p->input.get();
+      if (isdigit(l3p->input.peek())) {
+        streampos numbegin = l3p->input.tellg();
+        l3p->input >> numlong;
+        streampos numend = l3p->input.tellg();
+        double fraction = numlong/pow(10.0, static_cast<long>(numend-numbegin));
+        number += fraction;
+      }
+    }
+    if (l3p->input.peek() == 'e' || l3p->input.peek() == 'E') {
+      l3p->input.get();
+      cc = l3p->input.get();
+      if (!(isdigit(cc) || cc=='-' || cc=='+')) {
+        l3p->input.unget();
+        l3p->input.unget();
+      }
+      else {
+        if (!isdouble) {
+          //It is now!
+          number = numlong;
+        }
+        bool isneg = false;
+        if (cc=='-') {
+          isneg = true;
+        }
+        else if (isdigit(cc)) {
+          l3p->input.unget();
+        }
+        l3p->input >> numlong;
+        if (isneg) {
+          numlong = -numlong;
+        }
+        l3p->exponent = numlong;
+        sbml_yylval.mantissa = number;
+        return E_NOTATION;
+      }
+    }
+    if (isdouble) {
+      sbml_yylval.numdouble = number;
+      return DOUBLE;
+    }
+    else {
+      sbml_yylval.numlong = numlong;
+      return INTEGER;
+    }
+  }
+  else if (cc=='(') {
+    streampos rationalbegin = l3p->input.tellg();
+    cc = l3p->input.get();
+    if (cc== '-' && isdigit(l3p->input.peek()) || isdigit(cc)) {
+      l3p->input.unget();
+      long numerator;
+      l3p->input >> numerator;
+      cc = l3p->input.get();
+      if (cc=='/') {
+        cc = l3p->input.get();
+        if (cc== '-' && isdigit(l3p->input.peek()) || isdigit(cc)) {
+          l3p->input.unget();
+          long denominator;
+          l3p->input >> denominator; 
+          cc = l3p->input.get();
+          if (cc==')') {
+            //Actually a rational number!
+            sbml_yylval.rational = numerator;
+            l3p->denominator = denominator;
+            return RATIONAL;
+          }
+        }
+      }
+    }
+    l3p->input.seekg(rationalbegin, ios::beg); // Not actually a rational number.
+    return '(';
+  }
+
+  //Otherwise, return the character we are looking at (like '*', '+', etc.
+  return cc;
+}
+
+L3Parser::L3Parser()
+  : input()
+  , outputNode(NULL)
+  , error()
+  , words()
+  , exponent(0)
+  , denominator(0)
+  , defaultParserSettings()
+  , model(NULL)
+  , parselog(L3P_PARSE_LOG_AS_LOG10)
+  , collapseminus(L3P_EXPAND_UNARY_MINUS)
+  , parseunits(L3P_PARSE_UNITS)
+  , avocsymbol(L3P_AVOGADRO_IS_CSYMBOL)
+{
+}
+
+L3Parser::~L3Parser ()
+{
+  for (map<string, string*>::iterator word = words.begin(); word != words.end(); word++) {
+    delete (*word).second;
+  }
+}
+
+ASTNodeType_t L3Parser::getSymbolFor(string name) const
+{
+  if (caselessStrCmp(name, "true"))         return AST_CONSTANT_TRUE;
+  if (caselessStrCmp(name, "false"))        return AST_CONSTANT_FALSE;
+  if (caselessStrCmp(name, "pi"))           return AST_CONSTANT_PI;
+  if (caselessStrCmp(name, "exponentiale")) return AST_CONSTANT_E;
+  if (caselessStrCmp(name, "avogadro"))     return AST_NAME_AVOGADRO;
+  if (caselessStrCmp(name, "time"))         return AST_NAME_TIME;
+  if (caselessStrCmp(name, "inf"))          return AST_REAL;
+  if (caselessStrCmp(name, "infinity"))     return AST_REAL;
+  if (caselessStrCmp(name, "nan"))          return AST_REAL;
+  if (caselessStrCmp(name, "notanumber"))   return AST_REAL;
+  return AST_UNKNOWN;
+}
+
+ASTNodeType_t L3Parser::getFunctionFor(string name) const
+{
+  if (caselessStrCmp(name, "abs"))      return AST_FUNCTION_ABS;
+  if (caselessStrCmp(name, "acos"))     return AST_FUNCTION_ARCCOS;
+  if (caselessStrCmp(name, "arccos"))   return AST_FUNCTION_ARCCOS;
+  if (caselessStrCmp(name, "acosh"))    return AST_FUNCTION_ARCCOSH;
+  if (caselessStrCmp(name, "arccosh"))  return AST_FUNCTION_ARCCOSH;
+  if (caselessStrCmp(name, "acot"))     return AST_FUNCTION_ARCCOT;
+  if (caselessStrCmp(name, "arccot"))   return AST_FUNCTION_ARCCOT;
+  if (caselessStrCmp(name, "acoth"))    return AST_FUNCTION_ARCCOTH;
+  if (caselessStrCmp(name, "arccoth"))  return AST_FUNCTION_ARCCOTH;
+  if (caselessStrCmp(name, "acsc"))     return AST_FUNCTION_ARCCSC;
+  if (caselessStrCmp(name, "arccsc"))   return AST_FUNCTION_ARCCSC;
+  if (caselessStrCmp(name, "acsch"))    return AST_FUNCTION_ARCCSCH;
+  if (caselessStrCmp(name, "arccsch"))  return AST_FUNCTION_ARCCSCH;
+  if (caselessStrCmp(name, "asec"))     return AST_FUNCTION_ARCSEC;
+  if (caselessStrCmp(name, "arcsec"))   return AST_FUNCTION_ARCSEC;
+  if (caselessStrCmp(name, "asech"))    return AST_FUNCTION_ARCSECH;
+  if (caselessStrCmp(name, "arcsech"))  return AST_FUNCTION_ARCSECH;
+  if (caselessStrCmp(name, "asin"))     return AST_FUNCTION_ARCSIN;
+  if (caselessStrCmp(name, "arcsin"))   return AST_FUNCTION_ARCSIN;
+  if (caselessStrCmp(name, "atan"))     return AST_FUNCTION_ARCTAN;
+  if (caselessStrCmp(name, "arctan"))   return AST_FUNCTION_ARCTAN;
+  if (caselessStrCmp(name, "atanh"))    return AST_FUNCTION_ARCTANH;
+  if (caselessStrCmp(name, "arctanh"))  return AST_FUNCTION_ARCTANH;
+  if (caselessStrCmp(name, "ceil"))     return AST_FUNCTION_CEILING;
+  if (caselessStrCmp(name, "ceiling"))  return AST_FUNCTION_CEILING;
+  if (caselessStrCmp(name, "cos"))      return AST_FUNCTION_COS;
+  if (caselessStrCmp(name, "cosh"))     return AST_FUNCTION_COSH;
+  if (caselessStrCmp(name, "cot"))      return AST_FUNCTION_COT;
+  if (caselessStrCmp(name, "coth"))     return AST_FUNCTION_COTH;
+  if (caselessStrCmp(name, "csc"))      return AST_FUNCTION_CSC;
+  if (caselessStrCmp(name, "csch"))     return AST_FUNCTION_CSCH;
+  if (caselessStrCmp(name, "delay"))    return AST_FUNCTION_DELAY;
+  if (caselessStrCmp(name, "exp"))      return AST_FUNCTION_EXP;
+  if (caselessStrCmp(name, "factorial")) return AST_FUNCTION_FACTORIAL;
+  if (caselessStrCmp(name, "floor"))    return AST_FUNCTION_FLOOR;
+  if (caselessStrCmp(name, "log"))      return AST_FUNCTION_LOG;
+  if (caselessStrCmp(name, "ln"))       return AST_FUNCTION_LN;
+  if (caselessStrCmp(name, "log10"))    return AST_FUNCTION_LOG;
+  if (caselessStrCmp(name, "piecewise")) return AST_FUNCTION_PIECEWISE;
+  if (caselessStrCmp(name, "power"))    return AST_POWER;
+  if (caselessStrCmp(name, "sqr"))      return AST_FUNCTION_POWER;
+  if (caselessStrCmp(name, "sqrt"))     return AST_FUNCTION_ROOT;
+  if (caselessStrCmp(name, "root"))     return AST_FUNCTION_ROOT;
+  if (caselessStrCmp(name, "sec"))      return AST_FUNCTION_SEC;
+  if (caselessStrCmp(name, "sech"))     return AST_FUNCTION_SECH;
+  if (caselessStrCmp(name, "sin"))      return AST_FUNCTION_SIN;
+  if (caselessStrCmp(name, "sinh"))     return AST_FUNCTION_SINH;
+  if (caselessStrCmp(name, "tan"))      return AST_FUNCTION_TAN;
+  if (caselessStrCmp(name, "tanh"))     return AST_FUNCTION_TANH;
+  if (caselessStrCmp(name, "and"))      return AST_LOGICAL_AND;
+  if (caselessStrCmp(name, "not"))      return AST_LOGICAL_NOT;
+  if (caselessStrCmp(name, "or"))       return AST_LOGICAL_OR;
+  if (caselessStrCmp(name, "xor"))      return AST_LOGICAL_XOR;
+  if (caselessStrCmp(name, "eq"))       return AST_RELATIONAL_EQ;
+  if (caselessStrCmp(name, "equals"))   return AST_RELATIONAL_EQ;
+  if (caselessStrCmp(name, "geq"))      return AST_RELATIONAL_GEQ;
+  if (caselessStrCmp(name, "gt"))       return AST_RELATIONAL_GT;
+  if (caselessStrCmp(name, "leq"))      return AST_RELATIONAL_LEQ;
+  if (caselessStrCmp(name, "lt"))       return AST_RELATIONAL_LT;
+  if (caselessStrCmp(name, "neq"))      return AST_RELATIONAL_NEQ;
+  if (caselessStrCmp(name, "divide"))   return AST_DIVIDE;
+  if (caselessStrCmp(name, "minus"))    return AST_MINUS;
+  if (caselessStrCmp(name, "plus"))     return AST_PLUS;
+  if (caselessStrCmp(name, "times"))    return AST_TIMES;
+  return AST_UNKNOWN;
+}
+
+ASTNode* L3Parser::createModuloTree(ASTNode* x, ASTNode* y) const
+{
+  if (x==NULL || y==NULL) return NULL;
+  ASTNode* pASTNode = new ASTNode(); 
+  //The following code was lifted wholesale from Copasi's  CEvaluationNodeOperator::createModuloTree.  Thanks, Copasi!
+
+  // Frank noticed that this should actually be implemented as a
+  // piecewise function because if one of the arguments is
+  // negative, the definition is different
+  pASTNode->setType(AST_FUNCTION_PIECEWISE);
+  // the first child is the true branch
+  // x%y -> x-ceil(x/y)*y
+  ASTNode* pASTNodeTrue = new ASTNode();
+  pASTNodeTrue->setType(AST_MINUS);
+  ASTNode* tmpASTNode = new ASTNode(AST_DIVIDE);
+  tmpASTNode->addChild(x);
+  tmpASTNode->addChild(y);
+  ASTNode* tmpASTNode2 = new ASTNode(AST_FUNCTION_CEILING);
+  tmpASTNode2->addChild(tmpASTNode);
+  tmpASTNode = new ASTNode(AST_TIMES);
+  tmpASTNode->addChild(new ASTNode(*y));
+  tmpASTNode->addChild(tmpASTNode2);
+  pASTNodeTrue->addChild(new ASTNode(*x));
+  pASTNodeTrue->addChild(tmpASTNode);
+  pASTNode->addChild(pASTNodeTrue);
+  // now comes the condition
+  // if exactly one of the arguments to modulo is a negative number
+  // we use the ceil branch, else we use the floor branch
+  // x < 0 xor y < 0
+  // xor
+  ASTNode* pASTNodeCondition = new ASTNode();
+  pASTNodeCondition->setType(AST_LOGICAL_XOR);
+  // x < 0
+  // <
+  tmpASTNode = new ASTNode(AST_RELATIONAL_LT);
+  // x
+  tmpASTNode->addChild(new ASTNode(*x));
+  // 0
+  tmpASTNode2 = new ASTNode(AST_INTEGER);
+  tmpASTNode2->setValue(0);
+  tmpASTNode->addChild(tmpASTNode2);
+  pASTNodeCondition->addChild(tmpASTNode);
+  // y < 0
+  // <
+  tmpASTNode = new ASTNode(AST_RELATIONAL_LT);
+  // y
+  tmpASTNode->addChild(new ASTNode(*y));
+  // 0
+  tmpASTNode2 = new ASTNode(AST_INTEGER);
+  tmpASTNode2->setValue(0);
+  tmpASTNode->addChild(tmpASTNode2);
+  pASTNodeCondition->addChild(tmpASTNode);
+  pASTNode->addChild(pASTNodeCondition);
+  // last is the false branch
+  // x%y -> x-floor(x/y)*y
+  ASTNode* pASTNodeFalse = new ASTNode();
+  pASTNodeFalse->setType(AST_MINUS);
+  tmpASTNode = new ASTNode(AST_DIVIDE);
+  tmpASTNode->addChild(new ASTNode(*x));
+  tmpASTNode->addChild(new ASTNode(*y));
+  tmpASTNode2 = new ASTNode(AST_FUNCTION_FLOOR);
+  tmpASTNode2->addChild(tmpASTNode);
+  tmpASTNode = new ASTNode(AST_TIMES);
+  tmpASTNode->addChild(new ASTNode(*y));
+  tmpASTNode->addChild(tmpASTNode2);
+  pASTNodeFalse->addChild(new ASTNode(*x));
+  pASTNodeFalse->addChild(tmpASTNode);
+  pASTNode->addChild(pASTNodeFalse);
+  return pASTNode;
+}
+
+void L3Parser::setParseLog(l3p_log_type parseas)
+{
+  parselog = parseas;
+}
+
+void L3Parser::setCollapseMinus(bool collapse)
+{
+  collapseminus = collapse;
+}
+
+void L3Parser::setParseUnits(bool units)
+{
+  parseunits = units;
+}
+
+void L3Parser::setAvoCsymbol(bool avo)
+{
+  avocsymbol = avo;
+}
+
+bool L3Parser::caselessStrCmp(const string& lhs, const string& rhs) const
+{
+  if (lhs.size() != rhs.size()) return false;
+
+  for (size_t i = 0; i < lhs.size(); ++i) {
+    if (toupper(lhs[i]) != toupper(rhs[i])) return false;
+  }
+  return true;
+
+}
+
+void L3Parser::setInput(const char* c)
+{
+  input.clear();
+  input.str(c);
+}
+
+void L3Parser::setError(const char* c)
+{
+  string err = c;
+  setError(err);
+}
+
+void L3Parser::setError(string c)
+{
+  stringstream err;
+  streampos position = input.tellg();
+  if (position== (streampos)-1) {
+    position = input.str().size();
+  }
+  err << "Error when parsing input '" << input.str() << "' at position " << position << ":  " << c;
+  error = err.str();
+}
+
+void L3Parser::clear()
+{
+  input.clear();
+  input.str("");
+  outputNode = NULL;
+  error = "";
+  model = defaultParserSettings.getModel();
+  parselog = defaultParserSettings.getParseLog();
+  collapseminus = defaultParserSettings.getCollapseMinus();
+  parseunits = defaultParserSettings.getParseUnits();
+  avocsymbol = defaultParserSettings.getAvogadroCsymbol();
+}
+
+string L3Parser::getError()
+{
+  return error;
+}
+    
+string* L3Parser::addWord(const std::string& word)
+{
+  //cout << "The word is: " << word << endl;
+  map<string, string*>::iterator found = words.find(word);
+  if (found != words.end()) {
+    return (*found).second;
+  }
+  else {
+    string* savedword = new string(word);
+    words.insert(make_pair(word, savedword));
+    return savedword;
+  }
+}
+
+bool L3Parser::checkNumArguments(const ASTNode* function)
+{
+  unsigned int children = function->getNumChildren();
+  stringstream error;
+  string name = "";
+  if (function->isOperator()) {
+    name = function->getOperatorName();
+  }
+  else {
+    name = function->getName();
+  }
+  error << "The function '" << name << "' takes ";
+  switch(function->getType()) {
+  case AST_FUNCTION_ABS:
+  case AST_FUNCTION_ARCCOS:
+  case AST_FUNCTION_ARCCOSH:
+  case AST_FUNCTION_ARCCOT:
+  case AST_FUNCTION_ARCCOTH:
+  case AST_FUNCTION_ARCCSC:
+  case AST_FUNCTION_ARCCSCH:
+  case AST_FUNCTION_ARCSEC:
+  case AST_FUNCTION_ARCSECH:
+  case AST_FUNCTION_ARCSIN:
+  case AST_FUNCTION_ARCSINH:
+  case AST_FUNCTION_ARCTAN:
+  case AST_FUNCTION_ARCTANH:
+  case AST_FUNCTION_CEILING:
+  case AST_FUNCTION_COS:
+  case AST_FUNCTION_COSH:
+  case AST_FUNCTION_COT:
+  case AST_FUNCTION_COTH:
+  case AST_FUNCTION_CSC:
+  case AST_FUNCTION_CSCH:
+  case AST_FUNCTION_EXP:
+  case AST_FUNCTION_FACTORIAL:
+  case AST_FUNCTION_FLOOR:
+  case AST_FUNCTION_LN:
+  case AST_FUNCTION_SEC:
+  case AST_FUNCTION_SECH:
+  case AST_FUNCTION_SIN:
+  case AST_FUNCTION_SINH:
+  case AST_FUNCTION_TAN:
+  case AST_FUNCTION_TANH:
+  case AST_LOGICAL_NOT:
+
+    if (children != 1) {
+      error << "exactly one argument, but " << children << " were found.";
+      l3p->setError(error.str());
+      return true;
+    }
+    return false;
+  case AST_DIVIDE:
+  case AST_POWER:
+  case AST_RELATIONAL_NEQ:
+  case AST_FUNCTION_DELAY:
+  case AST_FUNCTION_POWER:
+  case AST_FUNCTION_LOG:       // a log ASTNode has a child for base
+
+    if (children != 2) {
+      error << "exactly two arguments, but " << children << " were found.";
+      l3p->setError(error.str());
+      return true;
+    }
+    return false;
+
+  case AST_RELATIONAL_EQ:
+  case AST_RELATIONAL_GEQ:
+  case AST_RELATIONAL_GT:
+  case AST_RELATIONAL_LEQ:
+  case AST_RELATIONAL_LT:
+    if (children <= 1) {
+      error << "at least two arguments, but " << children << " were found.";
+      l3p->setError(error.str());
+      return true;
+    }
+    return false;
+
+  case AST_FUNCTION_PIECEWISE:
+    if (children == 0) {
+      error << "at least one argument, but none were found.";
+      l3p->setError(error.str());
+      return true;
+    }
+    return false;
+
+  case AST_FUNCTION_ROOT:
+  case AST_MINUS:
+    if (children < 1 || children > 2) {
+      error << "exactly one or two arguments, but " << children << " were found.";
+      l3p->setError(error.str());
+      return true;
+    }
+    return false;
+      
+  case AST_TIMES:
+  case AST_PLUS:
+  case AST_LOGICAL_AND:
+  case AST_LOGICAL_OR:
+  case AST_LOGICAL_XOR:
+  default:
+    //n-ary 0 or more arguments
+    return false;
+  }
+}
+
+L3ParserSettings L3Parser::getDefaultParserSettings()
+{
+  return defaultParserSettings;
+}
+
+ASTNode_t *
+SBML_parseL3Formula (const char *formula)
+{
+  if (l3p==NULL) {
+    l3p = new L3Parser();
+  }
+  L3ParserSettings l3ps = l3p->getDefaultParserSettings();
+  return SBML_parseL3Formula(formula, l3ps);
+}
+
+ASTNode_t *
+SBML_parseL3Formula (const char *formula, L3ParserSettings settings)
+{
+  if (l3p==NULL) {
+    l3p = new L3Parser();
+  }
+  l3p->clear();
+  l3p->setInput(formula);
+  l3p->model = settings.getModel();
+  l3p->parselog = settings.getParseLog();
+  l3p->collapseminus = settings.getCollapseMinus();
+  l3p->parseunits = settings.getParseUnits();
+  l3p->avocsymbol = settings.getAvogadroCsymbol();
+  sbml_yyparse();
+  return l3p->outputNode;
+  
+}
+char* SBML_getLastParseL3Error()
+{
+  //cout << l3p->getError() << endl;
+  return safe_strdup(l3p->getError().c_str());
+}

@@ -82,6 +82,7 @@
 #include <sbml/math/FormulaParser.h>
 #include <sbml/math/FormulaFormatter.h>
 #include <sbml/math/MathML.h>
+#include <sbml/math/L3Parser.h>
 
 #include <sbml/annotation/ModelHistory.h>
 #include <sbml/annotation/ModelCreator.h>

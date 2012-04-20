@@ -33,7 +33,9 @@
 
 #include <sbml/SBMLNamespaces.h>
 #include <sbml/validator/SBMLValidator.h>
+#ifndef LIBSBML_USE_STRICT_INCLUDES
 #include <sbml/SBMLTypes.h>
+#endif
 
 
 #ifdef __cplusplus

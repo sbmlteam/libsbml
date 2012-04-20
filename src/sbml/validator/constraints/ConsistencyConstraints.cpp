@@ -34,12 +34,14 @@
 #include <cstring>
 #include <list>
 
-#include <sbml/SBMLTypes.h>
 #include <sbml/SBMLTypeCodes.h>
 #include <sbml/SBO.h>
 #include <sbml/validator/VConstraint.h>
 #include <sbml/units/UnitFormulaFormatter.h>
 #include <sbml/units/FormulaUnitsData.h>
+#include <sbml/AssignmentRule.h>
+#include <sbml/AlgebraicRule.h>
+#include <sbml/RateRule.h>
 
 #include <sbml/util/List.h>
 

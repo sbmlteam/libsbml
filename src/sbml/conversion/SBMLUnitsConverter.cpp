@@ -31,7 +31,8 @@
 #include <sbml/conversion/SBMLConverterRegister.h>
 #include <sbml/extension/SBasePlugin.h>
 
-#include <sbml/SBMLTypes.h>
+#include <sbml/Model.h>
+#include <sbml/AlgebraicRule.h>
 
 #ifdef __cplusplus
 

@@ -28,8 +28,10 @@
  * ---------------------------------------------------------------------- -->*/
 
 #ifndef AddingConstraintsToValidator
-#include <sbml/SBMLTypes.h>
 #include <sbml/SBase.h>
+#include <sbml/AssignmentRule.h>
+#include <sbml/RateRule.h>
+#include <sbml/AlgebraicRule.h>
 #include <sbml/validator/VConstraint.h>
 #include <math.h>
 #include "DuplicateTopLevelAnnotation.h"
