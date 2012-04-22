@@ -28,8 +28,8 @@
  * ---------------------------------------------------------------------- -->*/
 
 #include "UniqueMetaId.h"
-#include <SBMLDocument.h>
-#include <ModifierSpeciesReference.h>
+#include <sbml/SBMLDocument.h>
+#include <sbml/ModifierSpeciesReference.h>
 
 /** @cond doxygen-ignored */
 
