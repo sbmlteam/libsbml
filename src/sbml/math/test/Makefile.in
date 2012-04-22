@@ -61,7 +61,6 @@ test_sources =           \
   TestReadFromFile1.cpp  \
   TestReadFromFile2.cpp  \
   TestValidASTNode.cpp   \
-  TestL3FormulaParser.c \
   TestRunner.c
 
 extra_CPPFLAGS = -I.. -I../..
