@@ -61,7 +61,7 @@ START_TEST (test_c_locale_snprintf)
    */
   if ( lc != NULL )
   {
-    fail_unless( c_locale_snprintf(s, sizeof(s), "%3.2f", 3.14) == 4 );
+    fail_unless( snprintf(s, sizeof(s), "%3.2f", 3.14) == 4 );
     fail_unless( !strcmp(s, "3,14")                         );
   }
 
