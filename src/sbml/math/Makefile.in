@@ -55,6 +55,8 @@ headers =            \
   FormulaFormatter.h \
   FormulaParser.h    \
   FormulaTokenizer.h \
+  L3Parser.h         \
+  L3ParserSettings.h \
   MathML.h
 
 header_inst_prefix = math
@@ -64,6 +66,9 @@ sources =            \
   FormulaFormatter.c \
   FormulaParser.c    \
   FormulaTokenizer.c \
+  L3Parser.tab.cpp   \
+  L3Parser.ypp       \
+  L3ParserSettings.cpp \
   MathML.cpp
 
 
