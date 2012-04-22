@@ -67,7 +67,6 @@ sources =            \
   FormulaParser.c    \
   FormulaTokenizer.c \
   L3Parser.tab.cpp   \
-  L3Parser.ypp       \
   L3ParserSettings.cpp \
   MathML.cpp
 
