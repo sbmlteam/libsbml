@@ -214,7 +214,7 @@ public class TestSBase_newSetters {
     i = S.appendAnnotation("<prA:other xmlns:prA=\"http://some\">This is additional</prA:other>");
     XMLNode t1 = S.getAnnotation();
     assertTrue( t1.getNumChildren() == 2 );
-    assertTrue(t1.getChild(0)..getChild(0).getCharacters().equals(    "This is a test note"));
+    assertTrue(t1.getChild(0).getChild(0).getCharacters().equals(    "This is a test note"));
     XMLNode c1 = t1.getChild(1);
     assertTrue( c1.getNumChildren() == 1 );
     assertTrue(c1.getChild(0).getCharacters().equals( "This is additional"));
