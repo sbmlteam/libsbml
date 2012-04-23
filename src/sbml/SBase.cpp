@@ -5285,6 +5285,13 @@ SBase::checkAnnotation()
   {
     XMLNode topLevel = mAnnotation->getChild(nNodes);
 
+    // the top level must be an element (so it should be a start)
+    if (topLevel.isStart() == false)
+    {
+      logError(AnnotationNotElement, getLevel(), getVersion());
+      nNodes++;
+      continue;
+    }
     std::string uri = topLevel.getURI();
     std::string prefix = topLevel.getPrefix();
 

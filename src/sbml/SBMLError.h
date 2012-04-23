@@ -809,6 +809,7 @@ typedef enum
 , RDFAboutTagNotMetaid                  = 99403 /*!< RDF <code>&lt;about&gt;</code> tag is not metaid.. */
 , RDFNotCompleteModelHistory            = 99404 /*!< RDF does not contain valid ModelHistory.. */
 , RDFNotModelHistory                    = 99405 /*!< RDF does not result in a ModelHistory.. */
+, AnnotationNotElement                  = 99406 /*!< Annotation must contain element. */
 , InconsistentArgUnitsWarnings          = 99502
 , InconsistentPowerUnitsWarnings        = 99503
 , InconsistentExponUnitsWarnings        = 99504

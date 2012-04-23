@@ -8394,6 +8394,29 @@ static const sbmlErrorTableEntry errorTable[] =
      "L2V4 Section 6.3",
      "L3V1 Section 6.3"}
    },
+  
+  //99406
+  {   
+    AnnotationNotElement,   
+    "Annotation must contain element.",
+    LIBSBML_CAT_SBML,   
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_ERROR,
+    LIBSBML_SEV_ERROR,
+    LIBSBML_SEV_ERROR,
+    LIBSBML_SEV_ERROR,
+    "An annotation must contain elements; with each top-level element "
+    "placed in a unique namespace.",
+    {"",
+     "",
+     "L2V2 Section 3.3.3",
+     "L2V3 Section 3.2.4",
+     "L2V4 Section 3.2.4",
+     "L3V1 Section 3.2.4"}
+   },
+
   /* --------------------------------------------------------------------------
    * These are internal errors that reverts to 10501.
    * ----------------------------------------------------------------------- */
