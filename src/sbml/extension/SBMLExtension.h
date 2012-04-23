@@ -425,8 +425,9 @@ GroupsExtension::init()
   //    For example, two plugin objects (plugged in SBMLDocument and Model elements) are 
   //    required for the groups extension.
   //
-  //    Since only 'required' attribute is used in SBMLDocument by the groups package, existing
-  //    SBMLDocumentPlugin class can be used as-is for the plugin.
+  //    Since only 'required' attribute is used in SBMLDocument by the groups package, and
+  //    the 'required' flag must always be 'false', the existing
+  //    SBMLDocumentPluginNotRequired class can be used as-is for the plugin.
   //
   //    Since the lists of supported package versions (currently only L3V1-groups-V1 supported )
   //    are equal in the both plugin objects, the same vector object is given to each 
@@ -440,7 +441,7 @@ GroupsExtension::init()
   SBaseExtensionPoint sbmldocExtPoint("core",SBML_DOCUMENT);
   SBaseExtensionPoint modelExtPoint("core",SBML_MODEL);
 
-  SBasePluginCreator<SBMLDocumentPlugin, GroupsExtension> sbmldocPluginCreator(sbmldocExtPoint,packageURIs);
+  SBasePluginCreator<SBMLDocumentPluginNotRequired, GroupsExtension> sbmldocPluginCreator(sbmldocExtPoint,packageURIs);
   SBasePluginCreator<GroupsModelPlugin,   GroupsExtension> modelPluginCreator(modelExtPoint,packageURIs);
 
   //--------------------------------------------------------------------------------------

@@ -1,8 +1,9 @@
 /**
- * @file    LayoutSBMLDocumentPlugin.h
- * @brief   Definition of LayoutSBMLDocumentPlugin, the plugin class of 
- *          layout package for Model element.
- * @author  Akiya Jouraku
+ * @file    SBMLDocumentPluginNotRequired.h
+ * @brief   Definition of SBMLDocumentPluginNotRequired, the plugin class of 
+ *          layout package for the SBMLDocument element, whose 'required' attribute
+ *          must be 'false'.
+ * @author  Lucian Smith
  *
  *
  * <!--------------------------------------------------------------------------
@@ -28,48 +29,42 @@
  * ------------------------------------------------------------------------ -->
  */
 
-#ifndef LayoutSBMLDocumentPlugin_h
-#define LayoutSBMLDocumentPlugin_h
-
-
-#include <sbml/common/extern.h>
-#include <sbml/common/sbmlfwd.h>
-#include <sbml/packages/layout/common/layoutfwd.h>
+#ifndef SBMLDocumentPluginNotRequired_h
+#define SBMLDocumentPluginNotRequired_h
 
 #ifdef __cplusplus
 
 #include <sbml/extension/SBMLDocumentPlugin.h>
-#include <sbml/packages/layout/sbml/Layout.h>
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
-class LIBSBML_EXTERN LayoutSBMLDocumentPlugin : public SBMLDocumentPlugin
+class LIBSBML_EXTERN SBMLDocumentPluginNotRequired : public SBMLDocumentPlugin
 {
 public:
 
   /**
    * Constructor
    */
-  LayoutSBMLDocumentPlugin (const std::string &uri, const std::string &prefix,
-                            LayoutPkgNamespaces* layoutns);
+  SBMLDocumentPluginNotRequired (const std::string &uri, const std::string &prefix,
+                                 SBMLNamespaces *sbmlns);
 
 
   /**
    * Copy constructor. Creates a copy of this SBase object.
    */
-  LayoutSBMLDocumentPlugin(const LayoutSBMLDocumentPlugin& orig);
+  SBMLDocumentPluginNotRequired(const SBMLDocumentPluginNotRequired& orig);
 
 
   /**
    * Assignment operator for SBMLDocumentPlugin.
    */
-  LayoutSBMLDocumentPlugin& operator=(const LayoutSBMLDocumentPlugin& orig);
+  SBMLDocumentPluginNotRequired& operator=(const SBMLDocumentPluginNotRequired& orig);
 
 
   /**
    * Destroy this object.
    */
-  virtual ~LayoutSBMLDocumentPlugin ();
+  virtual ~SBMLDocumentPluginNotRequired ();
 
 #ifndef SWIG
 
@@ -89,7 +84,7 @@ public:
   /**
    *
    * Sets the bool value of "required" attribute of corresponding package
-   * in SBMLDocument element.  The layout package is required to set this value
+   * in SBMLDocument element.  This package is required to set this value
    * to 'false'; attempting to set it to 'true' will result in an error.
    *
    * @param value the bool value of "required" attribute of corresponding 
@@ -105,7 +100,7 @@ public:
   virtual int setRequired(bool value);
 
   /**
-   * Doesn't do anything:  it is illegal to unset the 'required' attribute in the layout package,
+   * Doesn't do anything:  it is illegal to unset the 'required' attribute in this package,
    * as it must always be set to 'false'.
    *
    * @return integer value indicating success/failure of the
@@ -122,4 +117,4 @@ public:
 LIBSBML_CPP_NAMESPACE_END
 
 #endif  /* __cplusplus */
-#endif  /* LayoutSBMLDocumentPlugin_h */
+#endif  /* SBMLDocumentPluginNotRequired_h */

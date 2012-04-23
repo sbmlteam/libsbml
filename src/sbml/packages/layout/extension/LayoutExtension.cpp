@@ -29,12 +29,11 @@
 #include <sbml/extension/SBMLExtensionRegister.h>
 #include <sbml/extension/SBMLExtensionRegistry.h>
 #include <sbml/extension/SBasePluginCreator.h>
-#include <sbml/extension/SBMLDocumentPlugin.h>
+#include <sbml/extension/SBMLDocumentPluginNotRequired.h>
 #include <sbml/SBMLDocument.h>
 
 #include <sbml/packages/layout/extension/LayoutExtension.h>
 #include <sbml/packages/layout/extension/LayoutModelPlugin.h>
-#include <sbml/packages/layout/extension/LayoutSBMLDocumentPlugin.h>
 #include <sbml/packages/layout/extension/LayoutSpeciesReferencePlugin.h>
 
 
@@ -395,7 +394,7 @@ LayoutExtension::init()
   SBaseExtensionPoint sprExtPoint("core",SBML_SPECIES_REFERENCE);
   SBaseExtensionPoint msprExtPoint("core",SBML_MODIFIER_SPECIES_REFERENCE);
 
-  SBasePluginCreator<LayoutSBMLDocumentPlugin, LayoutExtension>     sbmldocPluginCreator(sbmldocExtPoint,packageURIs);
+  SBasePluginCreator<SBMLDocumentPluginNotRequired,LayoutExtension> sbmldocPluginCreator(sbmldocExtPoint,packageURIs);
   SBasePluginCreator<LayoutModelPlugin,  LayoutExtension>           modelPluginCreator(modelExtPoint,packageURIs);
   SBasePluginCreator<LayoutSpeciesReferencePlugin, LayoutExtension> sprPluginCreator(sprExtPoint,L2packageURI);
   SBasePluginCreator<LayoutSpeciesReferencePlugin, LayoutExtension> msprPluginCreator(msprExtPoint,L2packageURI);

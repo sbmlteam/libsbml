@@ -1,6 +1,6 @@
 /**
- * @file    LayoutSBMLDocumentPlugin.cpp
- * @brief   Implementation of LayoutSBMLDocumentPlugin, the plugin class of 
+ * @file    SBMLDocumentPluginNotRequired.cpp
+ * @brief   Implementation of SBMLDocumentPluginNotRequired, the plugin class of 
  *          layout package for the Model element.
  * @author  Akiya Jouraku
  *
@@ -28,7 +28,7 @@
  * ------------------------------------------------------------------------ -->
  */
 
-#include <sbml/packages/layout/extension/LayoutSBMLDocumentPlugin.h>
+#include <sbml/extension/SBMLDocumentPluginNotRequired.h>
 #include <sbml/packages/layout/util/LayoutAnnotation.h>
 
 #include <iostream>
@@ -43,10 +43,10 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 /*
  * 
  */
-LayoutSBMLDocumentPlugin::LayoutSBMLDocumentPlugin (const std::string &uri, 
-                                                    const std::string &prefix,
-                                                    LayoutPkgNamespaces *layoutns)
-  : SBMLDocumentPlugin(uri,prefix,layoutns)
+SBMLDocumentPluginNotRequired::SBMLDocumentPluginNotRequired (const std::string &uri, 
+                                                              const std::string &prefix,
+                                                              SBMLNamespaces *sbmlns)
+  : SBMLDocumentPlugin(uri,prefix,sbmlns)
 {
   mRequired = false;
   mIsSetRequired = true;
@@ -56,7 +56,7 @@ LayoutSBMLDocumentPlugin::LayoutSBMLDocumentPlugin (const std::string &uri,
 /*
  * Copy constructor. Creates a copy of this SBase object.
  */
-LayoutSBMLDocumentPlugin::LayoutSBMLDocumentPlugin(const LayoutSBMLDocumentPlugin& orig)
+SBMLDocumentPluginNotRequired::SBMLDocumentPluginNotRequired(const SBMLDocumentPluginNotRequired& orig)
   : SBMLDocumentPlugin(orig)
 {
   mRequired = false;
@@ -64,16 +64,13 @@ LayoutSBMLDocumentPlugin::LayoutSBMLDocumentPlugin(const LayoutSBMLDocumentPlugi
 }
 
 
-LayoutSBMLDocumentPlugin& 
-LayoutSBMLDocumentPlugin::operator=(const LayoutSBMLDocumentPlugin& orig)
+SBMLDocumentPluginNotRequired& 
+SBMLDocumentPluginNotRequired::operator=(const SBMLDocumentPluginNotRequired& orig)
 {
   if(&orig!=this)
   {
-    this->SBasePlugin::operator =(orig);
-    mRequired = orig.mRequired;
-    mIsSetRequired = orig.mIsSetRequired;
+    this->SBMLDocumentPlugin::operator =(orig);
   }    
-
   return *this;
 }
 
@@ -81,11 +78,11 @@ LayoutSBMLDocumentPlugin::operator=(const LayoutSBMLDocumentPlugin& orig)
 /*
  * Destroy this object.
  */
-LayoutSBMLDocumentPlugin::~LayoutSBMLDocumentPlugin () {}
+SBMLDocumentPluginNotRequired::~SBMLDocumentPluginNotRequired () {}
 
 
 void 
-LayoutSBMLDocumentPlugin::readAttributes (const XMLAttributes& attributes,
+SBMLDocumentPluginNotRequired::readAttributes (const XMLAttributes& attributes,
                                           const ExpectedAttributes& expectedAttributes)
 {
   //If we're reading from a file, the file might erroneously not have set the 'required' flag:
@@ -93,10 +90,10 @@ LayoutSBMLDocumentPlugin::readAttributes (const XMLAttributes& attributes,
   SBMLDocumentPlugin::readAttributes(attributes, expectedAttributes);
 
   //Alternatively, it might have set the 'required' flag to be 'false':
-  if (mIsSetRequired && mRequired==false) {
+  if (mIsSetRequired && mRequired==true) {
     std::ostringstream msg;
     msg << "Package '" << getPrefix() << 
-      "' may not be set 'required=true', as there is no way to change the mathematical interpretation of the model using the constructs in the package.";
+      "' may not be set 'required=true', as there is no way to change the mathematical interpretation of the model using the constructs in this package.";
     //LS DEBUG:  'Not Schema Conformant' is a generic error code; we really need a better one here.
     getErrorLog()->logError(NotSchemaConformant, getLevel(), getVersion(), msg.str());
   }
@@ -104,7 +101,7 @@ LayoutSBMLDocumentPlugin::readAttributes (const XMLAttributes& attributes,
 
 
 int 
-LayoutSBMLDocumentPlugin::setRequired(bool required)
+SBMLDocumentPluginNotRequired::setRequired(bool required)
 {
   if ( mSBMLExt->getLevel(mURI) < 3) {
     // required attribute is not defined for SBML Level 2 .
@@ -120,7 +117,7 @@ LayoutSBMLDocumentPlugin::setRequired(bool required)
 }
 
 int 
-LayoutSBMLDocumentPlugin::unsetRequired()
+SBMLDocumentPluginNotRequired::unsetRequired()
 {
   return LIBSBML_OPERATION_FAILED;
 }
