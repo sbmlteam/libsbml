@@ -3694,8 +3694,7 @@ SBase::readOtherXML (XMLInputStream& stream)
 
   bool read = false;
 
-//  for (size_t i=0; i < mPlugins.size(); i++)
-  for (size_t i=0; i < 0; i++)
+  for (size_t i=0; i < mPlugins.size(); i++)
   {
     if (mPlugins[i]->readOtherXML(this, stream))
       read = true;
