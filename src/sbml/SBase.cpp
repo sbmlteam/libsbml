@@ -1260,19 +1260,6 @@ SBase::appendAnnotation (const XMLNode* annotation)
     new_annotation = annotation->clone();
   }
 
-  // take out an attempt to merge rdf
-//
-//  // parse new_annotation and add mCVTerms (if any) 
-//  if (RDFAnnotationParser::hasCVTermRDFAnnotation(new_annotation))
-//  {
-//    RDFAnnotationParser::parseRDFAnnotation(new_annotation,mCVTerms);
-////    mCVTermsChanged = true;
-//  }
-
-  // delete RDFAnnotation (CVTerm and ModelHistory) from new_annotation 
-//  XMLNode* tmp_annotation = RDFAnnotationParser::deleteRDFAnnotation(new_annotation);
-//  delete new_annotation;
-//  new_annotation = tmp_annotation;
 
   if (mAnnotation != NULL)
   {
@@ -1283,34 +1270,6 @@ SBase::appendAnnotation (const XMLNode* annotation)
       mAnnotation->unsetEnd();
     }
 
-    //for(unsigned int i=0; i < new_annotation->getNumChildren(); i++)
-    //{
-    //  if (new_annotation->getChild(i).getName() == "RDF")
-    //  {
-    //    if (RDFAnnotationParser::hasRDFAnnotation(mAnnotation))
-    //    {
-    //      unsigned int n = 0;
-    //      while(n < mAnnotation->getNumChildren())
-    //      {
-    //        if (mAnnotation->getChild(n).getName() == "RDF")
-    //        {
-    //          break;
-    //        }
-    //        n++;
-    //      }
-    //      success = mAnnotation->getChild(n).addChild(
-    //                                new_annotation->getChild(i).getChild(0));
-    //    }
-    //    else
-    //    {
-    //      success = mAnnotation->addChild(new_annotation->getChild(i));
-    //    }
-    //  }
-    //  else
-    //  {
-    //    success = mAnnotation->addChild(new_annotation->getChild(i));
-    //  }
-    //}
 
     // create a list of existing top level ns
     IdList topLevelNs;
@@ -1326,7 +1285,7 @@ SBase::appendAnnotation (const XMLNode* annotation)
     {
       if (topLevelNs.contains(new_annotation->getChild(i).getName()) == false)
       {
-        success = mAnnotation->addChild(new_annotation->getChild(i));
+        mAnnotation->addChild(new_annotation->getChild(i));
       }
       else
       {
@@ -1334,17 +1293,24 @@ SBase::appendAnnotation (const XMLNode* annotation)
       }
     }
 
+    delete new_annotation;
+
+    if (duplicates > 0)
+    {
+      success = LIBSBML_DUPLICATE_ANNOTATION_NS;
+    }
+    else
+    {
+      success = setAnnotation(mAnnotation->clone());
+    }
+
+
   }
   else
   {
     success = setAnnotation(new_annotation);
-  }
 
-  delete new_annotation;
-
-  if (duplicates > 0)
-  {
-    success = LIBSBML_DUPLICATE_ANNOTATION_NS;
+    delete new_annotation;
   }
 
   return success;
