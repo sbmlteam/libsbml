@@ -55,7 +55,7 @@ subdirs =
 headers   = \
 LayoutExtension.h \
 LayoutModelPlugin.h \
-LayoutSBMLDocumentPlugin.h 
+LayoutSBMLDocumentPlugin.h \
 LayoutSpeciesReferencePlugin.h 
 
 header_inst_prefix = packages/layout/extension
@@ -63,7 +63,7 @@ header_inst_prefix = packages/layout/extension
 sources   = \
 LayoutExtension.cpp \
 LayoutModelPlugin.cpp \
-LayoutSBMLDocumentPlugin.cpp 
+LayoutSBMLDocumentPlugin.cpp \
 LayoutSpeciesReferencePlugin.cpp 
 
 extra_CPPFLAGS = -I../../..
