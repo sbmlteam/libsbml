@@ -3394,37 +3394,47 @@ SBase::read (XMLInputStream& stream)
       int i = xmlns->getIndexByPrefix(element.getPrefix());
       if (i < xmlns->getNumNamespaces())
       {
-        if (xmlns->getURI(i) != this->getSBMLNamespaces()->getURI())
+        bool errorLoggedAlready = false;
+        bool error = false;
+        if (i > -1)
         {
-          /* if there is a mismatch in level/version this will already
-           * be logged; do not need another 
-           */
-          bool errorLoggedAlready = false;
-          for (unsigned int n = 0; n < this->getErrorLog()->getNumErrors(); n++)
+          if (xmlns->getURI(i) != this->getSBMLNamespaces()->getURI())
           {
-            unsigned int errorId = 
-                               this->getErrorLog()->getError(n)->getErrorId();
-            if (errorId == MissingOrInconsistentLevel
-              || errorId == MissingOrInconsistentVersion
-              || errorId == InvalidSBMLLevelVersion
-              || errorId == InvalidNamespaceOnSBML)
-            {
-              errorLoggedAlready = true;
-            }
-
-          }
-          if (errorLoggedAlready == false)
-          {
-            static ostringstream errMsg;
-            errMsg.str("");
-            errMsg << "The prefix for the <sbml> element does not match "
-              << "the prefix for the SBML namespace.  This means that "
-              << "the <sbml> element in not in the SBMLNamespace."<< endl;
-
-            logError(InvalidNamespaceOnSBML, 
-                      getLevel(), getVersion(), errMsg.str());
+            error = true;
           }
         }
+        else if ( i == -1)
+        {
+          error = true;
+        }
+
+        /* if there is a mismatch in level/version this will already
+         * be logged; do not need another error
+         */
+        for (unsigned int n = 0; n < this->getErrorLog()->getNumErrors(); n++)
+        {
+          unsigned int errorId = 
+                             this->getErrorLog()->getError(n)->getErrorId();
+          if (errorId == MissingOrInconsistentLevel
+            || errorId == MissingOrInconsistentVersion
+            || errorId == InvalidSBMLLevelVersion
+            || errorId == InvalidNamespaceOnSBML)
+          {
+            errorLoggedAlready = true;
+          }
+        }
+       
+        if (error == true && errorLoggedAlready == false)
+        {
+          static ostringstream errMsg;
+          errMsg.str("");
+          errMsg << "The prefix for the <sbml> element does not match "
+            << "the prefix for the SBML namespace.  This means that "
+            << "the <sbml> element in not in the SBMLNamespace."<< endl;
+
+          logError(InvalidNamespaceOnSBML, 
+                    getLevel(), getVersion(), errMsg.str());
+        }      
       }
     }
 
