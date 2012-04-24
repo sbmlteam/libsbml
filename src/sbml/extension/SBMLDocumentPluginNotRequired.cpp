@@ -29,7 +29,6 @@
  */
 
 #include <sbml/extension/SBMLDocumentPluginNotRequired.h>
-#include <sbml/packages/layout/util/LayoutAnnotation.h>
 
 #include <iostream>
 #include <string>
@@ -49,7 +48,6 @@ SBMLDocumentPluginNotRequired::SBMLDocumentPluginNotRequired (const std::string 
   : SBMLDocumentPlugin(uri,prefix,sbmlns)
 {
   mRequired = false;
-  mIsSetRequired = true;
 }
 
 
@@ -60,7 +58,6 @@ SBMLDocumentPluginNotRequired::SBMLDocumentPluginNotRequired(const SBMLDocumentP
   : SBMLDocumentPlugin(orig)
 {
   mRequired = false;
-  mIsSetRequired = true;
 }
 
 
@@ -91,15 +88,12 @@ SBMLDocumentPluginNotRequired::readAttributes (const XMLAttributes& attributes,
 
   //Alternatively, it might have set the 'required' flag to be 'false':
   if (mIsSetRequired && mRequired==true) {
-    std::ostringstream msg;
-    msg << "Package '" << getPrefix() << 
-      "' may not be set 'required=true', as there is no way to change the mathematical interpretation of the model using the constructs in this package.";
-    //LS DEBUG:  'Not Schema Conformant' is a generic error code; we really need a better one here.
-    getErrorLog()->logError(NotSchemaConformant, getLevel(), getVersion(), msg.str());
+    getErrorLog()
+      ->logError(PackageRequiredShouldBeFalse, getLevel(), getVersion());
   }
 }
 
-
+#if(0)
 int 
 SBMLDocumentPluginNotRequired::setRequired(bool required)
 {
@@ -121,7 +115,7 @@ SBMLDocumentPluginNotRequired::unsetRequired()
 {
   return LIBSBML_OPERATION_FAILED;
 }
-
+#endif //0
 
 LIBSBML_CPP_NAMESPACE_END
 

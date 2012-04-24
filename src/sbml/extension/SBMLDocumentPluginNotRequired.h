@@ -81,6 +81,7 @@ public:
 
 #endif //SWIG
 
+#if (0)
   /**
    *
    * Sets the bool value of "required" attribute of corresponding package
@@ -110,7 +111,7 @@ public:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
    */
   virtual int unsetRequired();
-
+#endif //0
 
 };
 
