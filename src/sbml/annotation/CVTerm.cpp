@@ -638,7 +638,7 @@ CVTerm_getResourceURI(CVTerm_t * cv, unsigned int n)
  *
  * @return integer value indicating success/failure of the
  * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif The possible values
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
  * returned by this function are:
  * @li LIBSBML_OPERATION_SUCCESS
  * @li LIBSBML_INVALID_OBJECT
@@ -660,7 +660,7 @@ CVTerm_setQualifierType(CVTerm_t * term, QualifierType_t type)
  *
  * @return integer value indicating success/failure of the
  * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif The possible values
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
  * returned by this function are:
  * @li LIBSBML_OPERATION_SUCCESS
  * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
@@ -686,7 +686,7 @@ CVTerm_setModelQualifierType(CVTerm_t * term, ModelQualifierType_t type)
  *
  * @return integer value indicating success/failure of the
  * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif The possible values
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
  * returned by this function are:
  * @li LIBSBML_OPERATION_SUCCESS
  * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
@@ -711,7 +711,7 @@ CVTerm_setBiologicalQualifierType(CVTerm_t * term, BiolQualifierType_t type)
  *
  * @return integer value indicating success/failure of the
  * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif The possible values
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
  * returned by this function are:
  * @li LIBSBML_OPERATION_SUCCESS
  * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
@@ -740,7 +740,7 @@ CVTerm_setModelQualifierTypeByString(CVTerm_t * term, const char* qualifier)
  *
  * @return integer value indicating success/failure of the
  * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif The possible values
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
  * returned by this function are:
  * @li LIBSBML_OPERATION_SUCCESS
  * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
@@ -769,7 +769,7 @@ CVTerm_setBiologicalQualifierTypeByString(CVTerm_t * term, const char* qualifier
  *
  * @return integer value indicating success/failure of the
  * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif The possible values
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
  * returned by this function are:
  * @li LIBSBML_OPERATION_SUCCESS
  * @li LIBSBML_OPERATION_FAILED
@@ -794,7 +794,7 @@ CVTerm_addResource(CVTerm_t * term, const char * resource)
  *
  * @return integer value indicating success/failure of the
  * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif The possible values
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
  * returned by this function are:
  * @li LIBSBML_OPERATION_SUCCESS
  * @li LIBSBML_INVALID_ATTRIBUTE_VALUE

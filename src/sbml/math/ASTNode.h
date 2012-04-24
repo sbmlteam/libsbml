@@ -78,7 +78,7 @@
  *
  * @if clike <h3><a class="anchor" name="ASTNodeType_t">
  * ASTNodeType_t</a></h3> @else <h3><a class="anchor"
- * name="ASTNodeType_t">The set of possible %ASTNode types</a></h3> @endif
+ * name="ASTNodeType_t">The set of possible %ASTNode types</a></h3> @endif@~
  *
  * @if clike Every ASTNode has an associated type code to indicate,
  * for example, whether it holds a number or stands for an arithmetic
@@ -93,7 +93,7 @@
  * libsbmlConstants}.  Their names begin with the characters @c AST_.  The
  * list of possible types is quite long, because it covers all the
  * mathematical functions that are permitted in SBML.  The values are shown
- * in the following table: @endif
+ * in the following table: @endif@~
  *
  * @htmlinclude astnode-types.html
  *
@@ -139,8 +139,8 @@
  * 
  * <h3><a class="anchor" name="math-convert">Converting between ASTs and text strings</a></h3>
  * 
- * The text-string form of mathematical formulas produced by @if clike SBML_formulaToString()@endif@if csharp SBML_formulaToString()@endif@if python libsbml.formulaToString()@endif@if java <code><a href="libsbml.html#formulaToString(org.sbml.libsbml.ASTNode)">libsbml.formulaToString()</a></code>@endif and
- * read by @if clike SBML_parseFormula()@endif@if csharp SBML_parseFormula()@endif@if python libsbml.parseFormula()@endif@if java <code><a href="libsbml.html#parseFormula(java.lang.String)">libsbml.parseFormula()</a></code>@endif
+ * The text-string form of mathematical formulas produced by @if clike SBML_formulaToString()@endif@if csharp SBML_formulaToString()@endif@if python libsbml.formulaToString()@endif@if java <code><a href="libsbml.html#formulaToString(org.sbml.libsbml.ASTNode)">libsbml.formulaToString()</a></code>@endif@~ and
+ * read by @if clike SBML_parseFormula()@endif@if csharp SBML_parseFormula()@endif@if python libsbml.parseFormula()@endif@if java <code><a href="libsbml.html#parseFormula(java.lang.String)">libsbml.parseFormula()</a></code>@endif@~
  * are simple C-inspired infix notation taken from SBML Level&nbsp;1.  A
  * formula in this text-string form can be handed to a program that
  * understands SBML Level&nbsp;1 mathematical expressions, or used as part
@@ -386,10 +386,10 @@ public:
    * @if clike setType()@else ASTNode::setType(int)@endif.
    *
    * @param type an optional
-   * @if clike @link #ASTNodeType_t ASTNodeType_t@endlink@else type@endif
+   * @if clike @link #ASTNodeType_t ASTNodeType_t@endlink@else type@endif@~
    * code indicating the type of node to create.
    *
-   * @if notcpp @docnote @htmlinclude warn-default-args-in-docs.html @endif
+   * @if notcpp @docnote @htmlinclude warn-default-args-in-docs.html @endif@~
    */
   LIBSBML_EXTERN
   ASTNode (ASTNodeType_t type = AST_UNKNOWN);
@@ -500,7 +500,7 @@ public:
    * render the representation invalid.  Callers need to be careful to use
    * this method in the context of other operations to create complete and
    * correct formulas.  The method
-   * @if clike isWellFormedASTNode()@else ASTNode::isWellFormedASTNode()@endif
+   * @if clike isWellFormedASTNode()@else ASTNode::isWellFormedASTNode()@endif@~
    * may also be useful for checking the results of node modifications.
    *
    * @see prependChild(ASTNode* child)
@@ -628,7 +628,7 @@ public:
    * 
    * @return the nth child of this ASTNode or @c NULL if this node has no nth
    * child (<code>n &gt; </code>
-   * @if clike getNumChildren()@else ASTNode::getNumChildren()@endif
+   * @if clike getNumChildren()@else ASTNode::getNumChildren()@endif@~
    * <code>- 1</code>).
    */
   LIBSBML_EXTERN
@@ -639,7 +639,7 @@ public:
    * Get the left child of this node.
    * 
    * @return the left child of this ASTNode.  This is equivalent to calling
-   * @if clike getChild()@else ASTNode::getChild(unsigned int)@endif
+   * @if clike getChild()@else ASTNode::getChild(unsigned int)@endif@~
    * with an argument of @c 0.
    */
   LIBSBML_EXTERN
@@ -651,7 +651,7 @@ public:
    *
    * @return the right child of this ASTNode, or @c NULL if this node has no
    * right child.  If
-   * @if clike getNumChildren()@else ASTNode::getNumChildren()@endif
+   * @if clike getNumChildren()@else ASTNode::getNumChildren()@endif@~
    * <code>&gt; 1</code>, then this is equivalent to:
    * @code
    * getChild( getNumChildren() - 1 );
@@ -718,7 +718,7 @@ public:
    * 
    * @return the nth annotation of this ASTNode, or @c NULL if this node has
    * no nth annotation (<code>n &gt;</code>
-   * @if clike getNumChildren()@else ASTNode::getNumChildren()@endif
+   * @if clike getNumChildren()@else ASTNode::getNumChildren()@endif@~
    * <code>- 1</code>).
    *
    * @see ASTNode::addSemanticsAnnotation(XMLNode* sAnnotation)
@@ -786,7 +786,7 @@ public:
   /**
    * Get the value of this node as a single character.  This function
    * should be called only when
-   * @if clike getType()@else ASTNode::getType()@endif returns
+   * @if clike getType()@else ASTNode::getType()@endif@~ returns
    * @link ASTNodeType_t#AST_PLUS AST_PLUS@endlink,
    * @link ASTNodeType_t#AST_MINUS AST_MINUS@endlink,
    * @link ASTNodeType_t#AST_TIMES AST_TIMES@endlink,
@@ -825,7 +825,7 @@ public:
   /**
    * Get the value of this node as an integer. This function should be
    * called only when
-   * @if clike getType()@else ASTNode::getType()@endif
+   * @if clike getType()@else ASTNode::getType()@endif@~
    * <code>== @link ASTNodeType_t#AST_INTEGER AST_INTEGER@endlink</code>.
    * 
    * @return the value of this ASTNode as a (<code>long</code>) integer. 
@@ -837,9 +837,9 @@ public:
   /**
    * Get the value of this node as a string.  This function may be called
    * on nodes that (1) are not operators, i.e., nodes for which
-   * @if clike isOperator()@else ASTNode::isOperator()@endif
+   * @if clike isOperator()@else ASTNode::isOperator()@endif@~
    * returns @c false, and (2) are not numbers, i.e.,
-   * @if clike isNumber()@else ASTNode::isNumber()@endif returns @c false.
+   * @if clike isNumber()@else ASTNode::isNumber()@endif@~ returns @c false.
    * 
    * @return the value of this ASTNode as a string.
    */
@@ -850,7 +850,7 @@ public:
   /**
    * Get the value of this operator node as a string.  This function may be called
    * on nodes that are operators, i.e., nodes for which
-   * @if clike isOperator()@else ASTNode::isOperator()@endif
+   * @if clike isOperator()@else ASTNode::isOperator()@endif@~
    * returns @c true.
    * 
    * @return the name of this operator ASTNode as a string (or NULL if not an operator).
@@ -862,7 +862,7 @@ public:
   /**
    * Get the value of the numerator of this node.  This function should be
    * called only when
-   * @if clike getType()@else ASTNode::getType()@endif
+   * @if clike getType()@else ASTNode::getType()@endif@~
    * <code>== @link ASTNodeType_t#AST_RATIONAL AST_RATIONAL@endlink</code>.
    * 
    * @return the value of the numerator of this ASTNode.  
@@ -874,7 +874,7 @@ public:
   /**
    * Get the value of the denominator of this node.  This function should
    * be called only when
-   * @if clike getType()@else ASTNode::getType()@endif
+   * @if clike getType()@else ASTNode::getType()@endif@~
    * <code>== @link ASTNodeType_t#AST_RATIONAL AST_RATIONAL@endlink</code>.
    * 
    * @return the value of the denominator of this ASTNode.
@@ -886,7 +886,7 @@ public:
   /**
    * Get the real-numbered value of this node.  This function
    * should be called only when
-   * @if clike isReal()@else ASTNode::isReal()@endif
+   * @if clike isReal()@else ASTNode::isReal()@endif@~
    * <code>== true</code>.
    *
    * This function performs the necessary arithmetic if the node type is
@@ -902,10 +902,10 @@ public:
 
   /**
    * Get the mantissa value of this node.  This function should be called
-   * only when @if clike getType()@else ASTNode::getType()@endif
+   * only when @if clike getType()@else ASTNode::getType()@endif@~
    * returns @link ASTNodeType_t#AST_REAL_E AST_REAL_E@endlink
    * or @link ASTNodeType_t#AST_REAL AST_REAL@endlink.
-   * If @if clike getType()@else ASTNode::getType()@endif
+   * If @if clike getType()@else ASTNode::getType()@endif@~
    * returns @link ASTNodeType_t#AST_REAL AST_REAL@endlink,
    * this method is identical to
    * @if clike getReal()@else ASTNode::getReal()@endif.
@@ -919,7 +919,7 @@ public:
   /**
    * Get the exponent value of this ASTNode.  This function should be
    * called only when
-   * @if clike getType()@else ASTNode::getType()@endif
+   * @if clike getType()@else ASTNode::getType()@endif@~
    * returns @link ASTNodeType_t#AST_REAL_E AST_REAL_E@endlink
    * or @link ASTNodeType_t#AST_REAL AST_REAL@endlink.
    * 
@@ -1220,7 +1220,7 @@ public:
    * 
    * For numbers, unary minus nodes can be "collapsed" by negating the
    * number.  In fact, 
-   * @if clike SBML_parseFormula()@endif@if csharp SBML_parseFormula()@endif@if python libsbml.parseFormula()@endif@if java <code><a href="libsbml.html#parseFormula(java.lang.String)">libsbml.parseFormula()</a></code>@endif
+   * @if clike SBML_parseFormula()@endif@if csharp SBML_parseFormula()@endif@if python libsbml.parseFormula()@endif@if java <code><a href="libsbml.html#parseFormula(java.lang.String)">libsbml.parseFormula()</a></code>@endif@~
    * does this during its parsing process.
    * However, unary minus nodes for symbols
    * (@link ASTNodeType_t#AST_NAME AST_NAME@endlink) cannot
@@ -1376,9 +1376,9 @@ public:
    * As a side-effect, this ASTNode object's type will be reset to
    * @link ASTNodeType_t#AST_NAME AST_NAME@endlink if (and <em>only
    * if</em>) the ASTNode was previously an operator (
-   * @if clike isOperator()@else ASTNode::isOperator()@endif
+   * @if clike isOperator()@else ASTNode::isOperator()@endif@~
    * <code>== true</code>), number (
-   * @if clike isNumber()@else ASTNode::isNumber()@endif
+   * @if clike isNumber()@else ASTNode::isNumber()@endif@~
    * <code>== true</code>), or unknown.
    * This allows names to be set for @link ASTNodeType_t#AST_FUNCTION
    * AST_FUNCTION@endlink nodes and the like.
@@ -1497,7 +1497,7 @@ public:
    * The units will be set @em only if this ASTNode object represents a
    * MathML <code>&lt;cn&gt;</code> element, i.e., represents a number.
    * Callers may use
-   * @if clike isNumber()@else ASTNode::isNumber()@endif
+   * @if clike isNumber()@else ASTNode::isNumber()@endif@~
    * to inquire whether the node is of that type.
    *
    * @htmlinclude about-sbml-units-attrib.html
@@ -1747,7 +1747,7 @@ public:
   *
   * @if clike
   * @see ASTNode::setUserData
-  * @endif
+  * @endif@~
   */
   LIBSBML_EXTERN
   void *getUserData() const;
@@ -2315,7 +2315,7 @@ ASTNode_isSqrt (const ASTNode_t *node);
  * otherwise.
  *
  * For numbers, unary minus nodes can be "collapsed" by negating the
- * number.  In fact, @if clike SBML_parseFormula()@endif@if csharp SBML_parseFormula()@endif@if python libsbml.parseFormula()@endif@if java <code><a href="libsbml.html#parseFormula(java.lang.String)">libsbml.parseFormula()</a></code>@endif
+ * number.  In fact, @if clike SBML_parseFormula()@endif@if csharp SBML_parseFormula()@endif@if python libsbml.parseFormula()@endif@if java <code><a href="libsbml.html#parseFormula(java.lang.String)">libsbml.parseFormula()</a></code>@endif@~
  * does this during its parse.
  * However, unary minus nodes for symbols (@c AST_NAMES) cannot be
  * "collapsed", so this predicate function is necessary.

@@ -189,7 +189,7 @@ public:
    * this would require a value of @c 1 for the sign field, @c 5 for the
    * hour offset and @c 0 for the minutes offset.
    * 
-   * @if notcpp @docnote @htmlinclude warn-default-args-in-docs.html @endif
+   * @if notcpp @docnote @htmlinclude warn-default-args-in-docs.html @endif@~
    */
   Date(unsigned int year = 2000, unsigned int month = 1, 
     unsigned int day = 1, unsigned int hour = 0, 
@@ -264,7 +264,7 @@ public:
    *
    * @param orig the object to copy.
    * 
-   * @throws @if python ValueError @else SBMLConstructorException @endif
+   * @throws @if python ValueError @else SBMLConstructorException @endif@~
    * Thrown if the argument @p orig is @c NULL.
    */
   Date(const Date& orig);
@@ -276,7 +276,7 @@ public:
    * @param rhs The object whose values are used as the basis of the
    * assignment.
    *
-   * @throws @if python ValueError @else SBMLConstructorException @endif
+   * @throws @if python ValueError @else SBMLConstructorException @endif@~
    * Thrown if the argument @p rhs is @c NULL.
    */
   Date& operator=(const Date& rhs);
@@ -423,7 +423,7 @@ public:
    *
    * @return integer value indicating success/failure of the
    * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
+   * enumeration #OperationReturnValues_t. @endif@~ The possible values
    * returned by this function are:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE @endlink
@@ -439,7 +439,7 @@ public:
    *
    * @return integer value indicating success/failure of the
    * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
+   * enumeration #OperationReturnValues_t. @endif@~ The possible values
    * returned by this function are:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE @endlink
@@ -455,7 +455,7 @@ public:
    *
    * @return integer value indicating success/failure of the
    * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
+   * enumeration #OperationReturnValues_t. @endif@~ The possible values
    * returned by this function are:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE @endlink
@@ -471,7 +471,7 @@ public:
    *
    * @return integer value indicating success/failure of the
    * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
+   * enumeration #OperationReturnValues_t. @endif@~ The possible values
    * returned by this function are:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE @endlink
@@ -487,7 +487,7 @@ public:
    *
    * @return integer value indicating success/failure of the
    * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
+   * enumeration #OperationReturnValues_t. @endif@~ The possible values
    * returned by this function are:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE @endlink
@@ -503,7 +503,7 @@ public:
    *
    * @return integer value indicating success/failure of the
    * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
+   * enumeration #OperationReturnValues_t. @endif@~ The possible values
    * returned by this function are:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE @endlink
@@ -521,7 +521,7 @@ public:
    *
    * @return integer value indicating success/failure of the
    * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
+   * enumeration #OperationReturnValues_t. @endif@~ The possible values
    * returned by this function are:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE @endlink
@@ -538,7 +538,7 @@ public:
    *
    * @return integer value indicating success/failure of the
    * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
+   * enumeration #OperationReturnValues_t. @endif@~ The possible values
    * returned by this function are:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE @endlink
@@ -555,7 +555,7 @@ public:
    *
    * @return integer value indicating success/failure of the
    * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
+   * enumeration #OperationReturnValues_t. @endif@~ The possible values
    * returned by this function are:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE @endlink
@@ -617,7 +617,7 @@ public:
    *
    * @return integer value indicating success/failure of the
    * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
+   * enumeration #OperationReturnValues_t. @endif@~ The possible values
    * returned by this function are:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE @endlink

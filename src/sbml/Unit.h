@@ -80,7 +80,7 @@
  * <h3><a class="anchor" name="UnitKind_t">UnitKind_t</a></h3>
  * @else
  * <h3><a class="anchor" name="UnitKind_t">%Unit identification codes</a></h3>
- * @endif
+ * @endif@~
  *
  * As discussed above, SBML defines a set of base units which serves as the
  * starting point for new unit definitions.  This set of base units
@@ -125,7 +125,7 @@
  * integer constants whose names begin with the characters
  * <code>UNIT_KIND_</code>.  These constants are defined in the class
  * @link libsbml libsbml@endlink.
- * @endif
+ * @endif@~
  *
  * As a consequence of the fact that libSBML supports models in all Levels
  * and Versions of SBML, libSBML's set of @c UNIT_KIND_ values is a union
@@ -152,7 +152,7 @@
  * @if clike The table below lists the symbols defined in the
  * @c UnitKind_t enumeration, and their
  * meanings. @else The table below lists the unit
- * constants defined in libSBML, and their meanings. @endif
+ * constants defined in libSBML, and their meanings. @endif@~
  *
  * @htmlinclude unitkind-table.html
  * 
@@ -210,7 +210,7 @@ public:
    * @param version an unsigned int, the SBML Version to assign to this
    * Unit
    *
-   * @throws @if python ValueError @else SBMLConstructorException @endif
+   * @throws @if python ValueError @else SBMLConstructorException @endif@~
    * Thrown if the given @p level and @p version combination, or this kind
    * of SBML object, are either invalid or mismatched with respect to the
    * parent SBMLDocument object.
@@ -242,7 +242,7 @@ public:
    *
    * @param sbmlns an SBMLNamespaces object.
    *
-   * @throws @if python ValueError @else SBMLConstructorException @endif
+   * @throws @if python ValueError @else SBMLConstructorException @endif@~
    * Thrown if the given @p level and @p version combination, or this kind
    * of SBML object, are either invalid or mismatched with respect to the
    * parent SBMLDocument object.
@@ -271,7 +271,7 @@ public:
    *
    * @param orig the object to copy.
    * 
-   * @throws @if python ValueError @else SBMLConstructorException @endif
+   * @throws @if python ValueError @else SBMLConstructorException @endif@~
    * Thrown if the argument @p orig is @c NULL.
    */
   Unit(const Unit& orig);
@@ -283,7 +283,7 @@ public:
    * @param rhs The object whose values are used as the basis of the
    * assignment.
    *
-   * @throws @if python ValueError @else SBMLConstructorException @endif
+   * @throws @if python ValueError @else SBMLConstructorException @endif@~
    * Thrown if the argument @p rhs is @c NULL.
    */
   Unit& operator=(const Unit& rhs);
@@ -345,7 +345,7 @@ public:
    * value from the set of constants whose names begin
    * with <code>UNIT_KIND_</code> defined in the class
    * @link libsbml libsbml@endlink.
-   * @endif
+   * @endif@~
    */
   UnitKind_t getKind () const;
 
@@ -772,7 +772,7 @@ public:
    * @endif@if python
    * @param kind a unit identifier chosen from the set of constants whose
    * names begin with <code>UNIT_KIND_</code> in @link libsbml libsbml@endlink.
-   * @endif
+   * @endif@~
    *
    * @return integer value indicating success/failure of the
    * function. The possible values
@@ -886,7 +886,7 @@ public:
    * codes</em>.  In the C# language interface for libSBML, the type codes
    * are defined as static integer constants in the interface class @link
    * libsbmlcs.libsbml@endlink.  The names of the type codes all begin with
-   * the characters @c SBML_. @endif
+   * the characters @c SBML_. @endif@~
    *
    * @return the SBML type code for this object, or @link SBMLTypeCode_t#SBML_UNKNOWN SBML_UNKNOWN@endlink (default).
    *
@@ -936,7 +936,7 @@ public:
    * will be a static method on the class (i.e., Unit), and the
    * other will be a standalone top-level function with the name
    * Unit_isBuiltIn(). They are functionally
-   * identical. @endif
+   * identical. @endif@~
    */
   static bool isBuiltIn (const std::string& name, unsigned int level);
 
@@ -973,7 +973,7 @@ public:
    * will be a static method on the class (i.e., Unit), and the
    * other will be a standalone top-level function with the name
    * Unit_isUnitKind(). They are functionally
-   * identical. @endif
+   * identical. @endif@~
    */
   static bool isUnitKind (const std::string& name,
                           unsigned int level, unsigned int version);
@@ -999,9 +999,9 @@ public:
    * will be a static method on the class (i.e., Unit), and the
    * other will be a standalone top-level function with the name
    * Unit_areIdentical(). They are functionally
-   * identical. @endif
+   * identical. @endif@~
    *
-   * @see @if clike areEquivalent() @else Unit::areEquivalent(Unit u1, %Unit u2) @endif
+   * @see @if clike areEquivalent() @else Unit::areEquivalent(Unit u1, %Unit u2) @endif@~
    */
   static bool areIdentical(Unit * unit1, Unit * unit2);
 
@@ -1029,9 +1029,9 @@ public:
    * will be a static method on the class (i.e., Unit), and the
    * other will be a standalone top-level function with the name
    * Unit_areEquivalent(). They are functionally
-   * identical. @endif
+   * identical. @endif@~
    * 
-   * @see @if clike areIdentical() @else Unit::areIdentical(Unit u1, %Unit u2) @endif
+   * @see @if clike areIdentical() @else Unit::areIdentical(Unit u1, %Unit u2) @endif@~
    */
   static bool areEquivalent(Unit * unit1, Unit * unit2);
 
@@ -1056,10 +1056,10 @@ public:
    * will be a static method on the class (i.e., Unit), and the
    * other will be a standalone top-level function with the name
    * Unit_removeScale(). They are functionally
-   * identical. @endif
+   * identical. @endif@~
    *
-   * @see @if clike convertToSI() @else Unit::convertToSI(Unit u) @endif
-   * @see @if clike merge() @else Unit::merge(Unit u1, Unit u2) @endif
+   * @see @if clike convertToSI() @else Unit::convertToSI(Unit u) @endif@~
+   * @see @if clike merge() @else Unit::merge(Unit u1, Unit u2) @endif@~
    */
   static int removeScale(Unit * unit);
 
@@ -1088,10 +1088,10 @@ public:
    * will be a static method on the class (i.e., Unit), and the
    * other will be a standalone top-level function with the name
    * Unit_merge(). They are functionally
-   * identical. @endif
+   * identical. @endif@~
    * 
-   * @see @if clike convertToSI() @else Unit::convertToSI(Unit u) @endif
-   * @see @if clike removeScale() @else Unit::removeScale(Unit u) @endif
+   * @see @if clike convertToSI() @else Unit::convertToSI(Unit u) @endif@~
+   * @see @if clike removeScale() @else Unit::removeScale(Unit u) @endif@~
    */
   static void merge(Unit * unit1, Unit * unit2);
 
@@ -1114,9 +1114,9 @@ public:
    * will be a static method on the class (i.e., Unit), and the
    * other will be a standalone top-level function with the name
    * Unit_convertToSI(). They are functionally
-   * identical. @endif
+   * identical. @endif@~
    *
-   * @see @if clike merge() @else Unit::merge(Unit u1, Unit u2) @endif
+   * @see @if clike merge() @else Unit::merge(Unit u1, Unit u2) @endif@~
    */
   static UnitDefinition * convertToSI(const Unit * unit);
 
@@ -1343,7 +1343,7 @@ public:
    * codes</em>.  In the C# language interface for libSBML, the type codes
    * are defined as static integer constants in the interface class @link
    * libsbmlcs.libsbml@endlink.  The names of the type codes all begin with
-   * the characters @c SBML_. @endif
+   * the characters @c SBML_. @endif@~
    *
    * @return the SBML type code for this object, or @link SBMLTypeCode_t#SBML_UNKNOWN SBML_UNKNOWN@endlink (default).
    *
@@ -1376,7 +1376,7 @@ public:
    * codes</em>.  In the C# language interface for libSBML, the type codes
    * are defined as static integer constants in the interface class @link
    * libsbmlcs.libsbml@endlink.  The names of the type codes all begin with
-   * the characters @c SBML_. @endif
+   * the characters @c SBML_. @endif@~
    * 
    * @return the SBML type code for the objects contained in this ListOf
    * instance, or @link SBMLTypeCode_t#SBML_UNKNOWN SBML_UNKNOWN@endlink (default).

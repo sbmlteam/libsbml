@@ -303,7 +303,7 @@ public:
    * @param version an unsigned int, the SBML Version to assign to this
    * UnitDefinition
    *
-   * @throws @if python ValueError @else SBMLConstructorException @endif
+   * @throws @if python ValueError @else SBMLConstructorException @endif@~
    * Thrown if the given @p level and @p version combination, or this kind
    * of SBML object, are either invalid or mismatched with respect to the
    * parent SBMLDocument object.
@@ -335,7 +335,7 @@ public:
    *
    * @param sbmlns an SBMLNamespaces object.
    *
-   * @throws @if python ValueError @else SBMLConstructorException @endif
+   * @throws @if python ValueError @else SBMLConstructorException @endif@~
    * Thrown if the given @p level and @p version combination, or this kind
    * of SBML object, are either invalid or mismatched with respect to the
    * parent SBMLDocument object.
@@ -365,7 +365,7 @@ public:
    *
    * @param orig the object to copy.
    * 
-   * @throws @if python ValueError @else SBMLConstructorException @endif
+   * @throws @if python ValueError @else SBMLConstructorException @endif@~
    * Thrown if the argument @p orig is @c NULL.
    */
   UnitDefinition(const UnitDefinition& orig);
@@ -377,7 +377,7 @@ public:
    * @param rhs The object whose values are used as the basis of the
    * assignment.
    *
-   * @throws @if python ValueError @else SBMLConstructorException @endif
+   * @throws @if python ValueError @else SBMLConstructorException @endif@~
    * Thrown if the argument @p rhs is @c NULL.
    */
   UnitDefinition& operator=(const UnitDefinition& rhs);
@@ -774,7 +774,7 @@ public:
    * codes</em>.  In the C# language interface for libSBML, the type codes
    * are defined as static integer constants in the interface class @link
    * libsbmlcs.libsbml@endlink.  The names of the type codes all begin with
-   * the characters @c SBML_. @endif
+   * the characters @c SBML_. @endif@~
    *
    * @return the SBML type code for this object, or @link SBMLTypeCode_t#SBML_UNKNOWN SBML_UNKNOWN@endlink (default).
    *
@@ -820,7 +820,7 @@ public:
    * non-C++ language interfaces for libSBML will contain two variants.  One
    * will be a static method on the class (i.e., UnitDefinition), and the
    * other will be a standalone top-level function with the name
-   * UnitDefinition_simplify(). They are functionally identical. @endif
+   * UnitDefinition_simplify(). They are functionally identical. @endif@~
    */
   static void simplify(UnitDefinition * ud);
 
@@ -835,7 +835,7 @@ public:
    * non-C++ language interfaces for libSBML will contain two variants.  One
    * will be a static method on the class (i.e., UnitDefinition), and the
    * other will be a standalone top-level function with the name
-   * UnitDefinition_reorder(). They are functionally identical. @endif
+   * UnitDefinition_reorder(). They are functionally identical. @endif@~
    */
   static void reorder(UnitDefinition * ud);
 
@@ -853,7 +853,7 @@ public:
    * non-C++ language interfaces for libSBML will contain two variants.  One
    * will be a static method on the class (i.e., UnitDefinition), and the
    * other will be a standalone top-level function with the name
-   * UnitDefinition_convertToSI(). They are functionally identical. @endif
+   * UnitDefinition_convertToSI(). They are functionally identical. @endif@~
    */
   static UnitDefinition * convertToSI(const UnitDefinition *ud);
 
@@ -880,7 +880,7 @@ public:
    * non-C++ language interfaces for libSBML will contain two variants.  One
    * will be a static method on the class (i.e., UnitDefinition), and the
    * other will be a standalone top-level function with the name
-   * UnitDefinition_areIdentical(). They are functionally identical. @endif
+   * UnitDefinition_areIdentical(). They are functionally identical. @endif@~
    *
    * @see UnitDefinition::areEquivalent(const UnitDefinition * ud1, const %UnitDefinition * ud2)
    * @see Unit::areIdentical(Unit * unit1, %Unit * unit2)
@@ -911,7 +911,7 @@ public:
    * non-C++ language interfaces for libSBML will contain two variants.  One
    * will be a static method on the class (i.e., UnitDefinition), and the
    * other will be a standalone top-level function with the name
-   * UnitDefinition_areEquivalent(). They are functionally identical. @endif
+   * UnitDefinition_areEquivalent(). They are functionally identical. @endif@~
    *
    * @see UnitDefinition::areIdentical(const UnitDefinition * ud1, const %UnitDefinition * ud2)
    * @see Unit::areEquivalent(Unit * unit1, %Unit * unit2)
@@ -943,7 +943,7 @@ public:
    * non-C++ language interfaces for libSBML will contain two variants.  One
    * will be a static method on the class (i.e., UnitDefinition), and the
    * other will be a standalone top-level function with the name
-   * UnitDefinition_combine(). They are functionally identical. @endif
+   * UnitDefinition_combine(). They are functionally identical. @endif@~
    */
   static UnitDefinition* combine(UnitDefinition * ud1, UnitDefinition * ud2);
 
@@ -980,7 +980,7 @@ public:
    * non-C++ language interfaces for libSBML will contain two variants.  One
    * will be a static method on the class (i.e., UnitDefinition), and the
    * other will be a standalone top-level function with the name
-   * UnitDefinition_printUnits(). They are functionally identical. @endif
+   * UnitDefinition_printUnits(). They are functionally identical. @endif@~
    */
   static std::string printUnits(const UnitDefinition * ud, 
                                 bool compact = false);
@@ -1155,7 +1155,7 @@ public:
    * codes</em>.  In the C# language interface for libSBML, the type codes
    * are defined as static integer constants in the interface class @link
    * libsbmlcs.libsbml@endlink.  The names of the type codes all begin with
-   * the characters @c SBML_. @endif
+   * the characters @c SBML_. @endif@~
    *
    * @return the SBML type code for this object, or @link SBMLTypeCode_t#SBML_UNKNOWN SBML_UNKNOWN@endlink (default).
    *
@@ -1188,7 +1188,7 @@ public:
    * codes</em>.  In the C# language interface for libSBML, the type codes
    * are defined as static integer constants in the interface class @link
    * libsbmlcs.libsbml@endlink.  The names of the type codes all begin with
-   * the characters @c SBML_. @endif
+   * the characters @c SBML_. @endif@~
    * 
    * @return the SBML type code for the objects contained in this ListOf
    * instance, or @link SBMLTypeCode_t#SBML_UNKNOWN SBML_UNKNOWN@endlink (default).

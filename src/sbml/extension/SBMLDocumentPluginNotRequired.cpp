@@ -78,6 +78,7 @@ SBMLDocumentPluginNotRequired::operator=(const SBMLDocumentPluginNotRequired& or
 SBMLDocumentPluginNotRequired::~SBMLDocumentPluginNotRequired () {}
 
 
+/** @cond doxygen-libsbml-internal */
 void 
 SBMLDocumentPluginNotRequired::readAttributes (const XMLAttributes& attributes,
                                           const ExpectedAttributes& expectedAttributes)
@@ -92,6 +93,8 @@ SBMLDocumentPluginNotRequired::readAttributes (const XMLAttributes& attributes,
       ->logError(PackageRequiredShouldBeFalse, getLevel(), getVersion());
   }
 }
+/** @endcond */
+
 
 #if(0)
 int 

@@ -84,10 +84,10 @@ public:
    * will be a static method on the class (i.e., SyntaxChecker), and the
    * other will be a standalone top-level function with the name
    * SyntaxChecker_isValidSBMLSId(). They are functionally
-   * identical. @endif
+   * identical. @endif@~
    *
-   * @see @if clike isValidUnitSId(std::string sid) @else SyntaxChecker::isValidUnitSId(std::string sid) @endif
-   * @see @if clike isValidXMLID(std::string sid) @else SyntaxChecker::isValidXMLID(std::string sid) @endif
+   * @see @if clike isValidUnitSId(std::string sid) @else SyntaxChecker::isValidUnitSId(std::string sid) @endif@~
+   * @see @if clike isValidXMLID(std::string sid) @else SyntaxChecker::isValidXMLID(std::string sid) @endif@~
    */  
   static bool isValidSBMLSId(std::string sid);
 
@@ -140,10 +140,10 @@ public:
    * will be a static method on the class (i.e., SyntaxChecker), and the
    * other will be a standalone top-level function with the name
    * SyntaxChecker_isValidXMLID(). They are functionally
-   * identical. @endif
+   * identical. @endif@~
    * 
-   * @see @if clike isValidSBMLSId(std::string sid) @else SyntaxChecker::isValidSBMLSId(std::string sid) @endif
-   * @see @if clike isValidUnitSId(std::string sid) @else SyntaxChecker::isValidUnitSId(std::string sid) @endif
+   * @see @if clike isValidSBMLSId(std::string sid) @else SyntaxChecker::isValidSBMLSId(std::string sid) @endif@~
+   * @see @if clike isValidUnitSId(std::string sid) @else SyntaxChecker::isValidUnitSId(std::string sid) @endif@~
    */  
   static bool isValidXMLID(std::string id);
 
@@ -177,10 +177,10 @@ public:
    * will be a static method on the class (i.e., SyntaxChecker), and the
    * other will be a standalone top-level function with the name
    * SyntaxChecker_isValidUnitSId(). They are functionally
-   * identical. @endif
+   * identical. @endif@~
    *
-   * @see @if clike isValidSBMLSId(std::string sid) @else SyntaxChecker::isValidSBMLSId(std::string sid) @endif
-   * @see @if clike isValidXMLID(std::string sid) @else SyntaxChecker::isValidXMLID(std::string sid) @endif
+   * @see @if clike isValidSBMLSId(std::string sid) @else SyntaxChecker::isValidSBMLSId(std::string sid) @endif@~
+   * @see @if clike isValidXMLID(std::string sid) @else SyntaxChecker::isValidXMLID(std::string sid) @endif@~
    */
    static bool isValidUnitSId(std::string units);
 
@@ -261,9 +261,9 @@ public:
    * will be a static method on the class (i.e., SyntaxChecker), and the
    * other will be a standalone top-level function with the name
    * SyntaxChecker_hasExpectedXHTMLSyntax(). They are functionally
-   * identical. @endif
+   * identical. @endif@~
    *
-   * @if notcpp @docnote @htmlinclude warn-default-args-in-docs.html @endif
+   * @if notcpp @docnote @htmlinclude warn-default-args-in-docs.html @endif@~
    */
   static bool hasExpectedXHTMLSyntax(const XMLNode * xhtml, 
                                      SBMLNamespaces * sbmlns = NULL); 

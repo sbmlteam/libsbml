@@ -239,7 +239,7 @@ public:
    * @param version an unsigned int, the SBML Version to assign to this
    * InitialAssignment
    *
-   * @throws @if python ValueError @else SBMLConstructorException @endif
+   * @throws @if python ValueError @else SBMLConstructorException @endif@~
    * Thrown if the given @p level and @p version combination, or this kind
    * of SBML object, are either invalid or mismatched with respect to the
    * parent SBMLDocument object.
@@ -272,7 +272,7 @@ public:
    *
    * @param sbmlns an SBMLNamespaces object.
    *
-   * @throws @if python ValueError @else SBMLConstructorException @endif
+   * @throws @if python ValueError @else SBMLConstructorException @endif@~
    * Thrown if the given @p level and @p version combination, or this kind
    * of SBML object, are either invalid or mismatched with respect to the
    * parent SBMLDocument object.
@@ -302,7 +302,7 @@ public:
    *
    * @param orig the object to copy.
    * 
-   * @throws @if python ValueError @else SBMLConstructorException @endif
+   * @throws @if python ValueError @else SBMLConstructorException @endif@~
    * Thrown if the argument @p orig is @c NULL.
    */
   InitialAssignment (const InitialAssignment& orig);
@@ -314,7 +314,7 @@ public:
    * @param rhs The object whose values are used as the basis of the
    * assignment.
    *
-   * @throws @if python ValueError @else SBMLConstructorException @endif
+   * @throws @if python ValueError @else SBMLConstructorException @endif@~
    * Thrown if the argument @p rhs is @c NULL.
    */
   InitialAssignment& operator=(const InitialAssignment& rhs);
@@ -418,7 +418,7 @@ public:
    * The units are calculated based on the mathematical expression in the
    * InitialAssignment and the model quantities referenced by
    * <code>&lt;ci&gt;</code> elements used within that expression.  The
-   * @if java InitialAssignment::getDerivedUnitDefinition()@else getDerivedUnitDefinition()@endif
+   * @if java InitialAssignment::getDerivedUnitDefinition()@else getDerivedUnitDefinition()@endif@~
    * method returns the calculated units.
    *
    * Note that the functionality that facilitates unit analysis depends 
@@ -431,13 +431,13 @@ public:
    * units.  In those cases, it is not possible to calculate the units of
    * the overall expression without making assumptions.  LibSBML does not
    * make assumptions about the units, and
-   * @if java InitialAssignment::getDerivedUnitDefinition()@else getDerivedUnitDefinition()@endif
+   * @if java InitialAssignment::getDerivedUnitDefinition()@else getDerivedUnitDefinition()@endif@~
    * only returns the units as far as it is able to determine them.  For
    * example, in an expression <em>X + Y</em>, if <em>X</em> has
    * unambiguously-defined units and <em>Y</em> does not, it will return
    * the units of <em>X</em>.  <strong>It is important that callers also
    * invoke the method</strong>
-   * @if java InitialAssignment::containsUndeclaredUnits()@else containsUndeclaredUnits()@endif
+   * @if java InitialAssignment::containsUndeclaredUnits()@else containsUndeclaredUnits()@endif@~
    * <strong>to determine whether this situation holds</strong>.  Callers
    * may wish to take suitable actions in those scenarios.
    * 
@@ -457,7 +457,7 @@ public:
    * The units are calculated based on the mathematical expression in the
    * InitialAssignment and the model quantities referenced by
    * <code>&lt;ci&gt;</code> elements used within that expression.  The
-   * @if java InitialAssignment::getDerivedUnitDefinition()@else getDerivedUnitDefinition()@endif
+   * @if java InitialAssignment::getDerivedUnitDefinition()@else getDerivedUnitDefinition()@endif@~
    * method returns the calculated units.
    *
    * Note that the functionality that facilitates unit analysis depends 
@@ -470,13 +470,13 @@ public:
    * units.  In those cases, it is not possible to calculate the units of
    * the overall expression without making assumptions.  LibSBML does not
    * make assumptions about the units, and
-   * @if java InitialAssignment::getDerivedUnitDefinition()@else getDerivedUnitDefinition()@endif
+   * @if java InitialAssignment::getDerivedUnitDefinition()@else getDerivedUnitDefinition()@endif@~
    * only returns the units as far as it is able to determine them.  For
    * example, in an expression <em>X + Y</em>, if <em>X</em> has
    * unambiguously-defined units and <em>Y</em> does not, it will return
    * the units of <em>X</em>.  <strong>It is important that callers also
    * invoke the method</strong>
-   * @if java InitialAssignment::containsUndeclaredUnits()@else containsUndeclaredUnits()@endif
+   * @if java InitialAssignment::containsUndeclaredUnits()@else containsUndeclaredUnits()@endif@~
    * <strong>to determine whether this situation holds</strong>.  Callers
    * may wish to take suitable actions in those scenarios.
    * 
@@ -499,7 +499,7 @@ public:
    *
    * @note A return value of @c true indicates that the UnitDefinition
    * returned by
-   * @if java InitialAssignment::getDerivedUnitDefinition()@else getDerivedUnitDefinition()@endif
+   * @if java InitialAssignment::getDerivedUnitDefinition()@else getDerivedUnitDefinition()@endif@~
    * may not accurately represent the units of the expression.
    *
    * @see getDerivedUnitDefinition()
@@ -518,7 +518,7 @@ public:
    *
    * @note A return value of @c true indicates that the UnitDefinition
    * returned by
-   * @if java InitialAssignment::getDerivedUnitDefinition()@else getDerivedUnitDefinition()@endif
+   * @if java InitialAssignment::getDerivedUnitDefinition()@else getDerivedUnitDefinition()@endif@~
    * may not accurately represent the units of the expression.
    *
    * @see getDerivedUnitDefinition()
@@ -549,7 +549,7 @@ public:
    * codes</em>.  In the C# language interface for libSBML, the type codes
    * are defined as static integer constants in the interface class @link
    * libsbmlcs.libsbml@endlink.  The names of the type codes all begin with
-   * the characters @c SBML_. @endif
+   * the characters @c SBML_. @endif@~
    *
    * @return the SBML type code for this object, or @link SBMLTypeCode_t#SBML_UNKNOWN SBML_UNKNOWN@endlink (default).
    *
@@ -774,7 +774,7 @@ public:
    * codes</em>.  In the C# language interface for libSBML, the type codes
    * are defined as static integer constants in the interface class @link
    * libsbmlcs.libsbml@endlink.  The names of the type codes all begin with
-   * the characters @c SBML_. @endif
+   * the characters @c SBML_. @endif@~
    *
    * @return the SBML type code for this object, or @link SBMLTypeCode_t#SBML_UNKNOWN SBML_UNKNOWN@endlink (default).
    *
@@ -807,7 +807,7 @@ public:
    * codes</em>.  In the C# language interface for libSBML, the type codes
    * are defined as static integer constants in the interface class @link
    * libsbmlcs.libsbml@endlink.  The names of the type codes all begin with
-   * the characters @c SBML_. @endif
+   * the characters @c SBML_. @endif@~
    * 
    * @return the SBML type code for the objects contained in this ListOf
    * instance, or @link SBMLTypeCode_t#SBML_UNKNOWN SBML_UNKNOWN@endlink (default).

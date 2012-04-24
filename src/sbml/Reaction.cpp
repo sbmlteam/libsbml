@@ -2310,7 +2310,7 @@ Reaction_isSetReversible (const Reaction_t *r)
  *
  * @return integer value indicating success/failure of the
  * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif The possible values
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
  * returned by this function are:
  * @li LIBSBML_OPERATION_SUCCESS
  * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
@@ -2334,7 +2334,7 @@ Reaction_setId (Reaction_t *r, const char *sid)
  *
  * @return integer value indicating success/failure of the
  * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif The possible values
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
  * returned by this function are:
  * @li LIBSBML_OPERATION_SUCCESS
  * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
@@ -2358,7 +2358,7 @@ Reaction_setName (Reaction_t *r, const char *name)
  *
  * @return integer value indicating success/failure of the
  * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif The possible values
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
  * returned by this function are:
  * @li LIBSBML_OPERATION_SUCCESS
  * @li LIBSBML_LEVEL_MISMATCH
@@ -2380,7 +2380,7 @@ Reaction_setKineticLaw (Reaction_t *r, const KineticLaw_t *kl)
  *
  * @return integer value indicating success/failure of the
  * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif The possible values
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
  * returned by this function are:
  * @li LIBSBML_OPERATION_SUCCESS
  */
@@ -2400,7 +2400,7 @@ Reaction_setReversible (Reaction_t *r, int value)
  *
  * @return integer value indicating success/failure of the
  * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif The possible values
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
  * returned by this function are:
  * @li LIBSBML_OPERATION_SUCCESS
  */
@@ -2420,7 +2420,7 @@ Reaction_setFast (Reaction_t *r, int value)
  *
  * @return integer value indicating success/failure of the
  * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif The possible values
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
  * returned by this function are:
  * @li LIBSBML_OPERATION_SUCCESS
  * @li LIBSBML_UNEXPECTED_ATTRIBUTE
@@ -2446,7 +2446,7 @@ Reaction_setCompartment (Reaction_t *r, const char *compartment)
  *
  * @return integer value indicating success/failure of the
  * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif The possible values
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
  * returned by this function are:
  * @li LIBSBML_OPERATION_SUCCESS
  * @li LIBSBML_OPERATION_FAILED
@@ -2467,7 +2467,7 @@ Reaction_unsetName (Reaction_t *r)
  *
  * @return integer value indicating success/failure of the
  * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif The possible values
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
  * returned by this function are:
  * @li LIBSBML_OPERATION_SUCCESS
  * @li LIBSBML_UNEXPECTED_ATTRIBUTE
@@ -2489,7 +2489,7 @@ Reaction_unsetCompartment (Reaction_t *r)
  *
  * @return integer value indicating success/failure of the
  * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif The possible values
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
  * returned by this function are:
  * @li LIBSBML_OPERATION_SUCCESS
  * @li LIBSBML_OPERATION_FAILED
@@ -2510,7 +2510,7 @@ Reaction_unsetKineticLaw (Reaction_t *r)
  *
  * @return integer value indicating success/failure of the
  * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif The possible values
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
  * returned by this function are:
  * @li LIBSBML_OPERATION_SUCCESS
  * @li LIBSBML_OPERATION_FAILED
@@ -2558,7 +2558,7 @@ Reaction_hasRequiredAttributes(Reaction_t *r)
  *
  * @return integer value indicating success/failure of the
  * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif The possible values
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
  * returned by this function are:
  * @li LIBSBML_OPERATION_SUCCESS
  * @li LIBSBML_LEVEL_MISMATCH
@@ -2581,7 +2581,7 @@ Reaction_addReactant (Reaction_t *r, const SpeciesReference_t *sr)
  *
  * @return integer value indicating success/failure of the
  * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif The possible values
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
  * returned by this function are:
  * @li LIBSBML_OPERATION_SUCCESS
  * @li LIBSBML_LEVEL_MISMATCH
@@ -2605,7 +2605,7 @@ Reaction_addProduct (Reaction_t *r, const SpeciesReference_t *sr)
  *
  * @return integer value indicating success/failure of the
  * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif The possible values
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
  * returned by this function are:
  * @li LIBSBML_OPERATION_SUCCESS
  * @li LIBSBML_UNEXPECTED_ATTRIBUTE

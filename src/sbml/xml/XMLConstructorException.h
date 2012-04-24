@@ -1,6 +1,6 @@
 /**
- * @file    XMLConstuctorException.h
- * @brief   XMLConstuctorException an exception thrown by XML classes
+ * @file    XMLConstructorException.h
+ * @brief   XMLConstructorException an exception thrown by XML classes
  * @author  Ben Bornstein
  * 
  * <!--------------------------------------------------------------------------
@@ -37,7 +37,7 @@
  * callers, those classes will throw an XMLConstructorException.  @if cpp
  * Callers can use the standard C++ <code>std::exception</code> method
  * <code>what()</code> to extract the diagnostic message stored with the
- * exception.@endif
+ * exception.@endif@~
  * <p>
  * In languages that don't have an exception mechanism (e.g., C), the
  * constructors generally try to return an error code instead of throwing

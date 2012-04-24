@@ -114,7 +114,7 @@ public:
    * @param rhs The object whose values are used as the basis of the
    * assignment.
    *
-   * @throws @if python ValueError @else SBMLConstructorException @endif
+   * @throws @if python ValueError @else SBMLConstructorException @endif@~
    * Thrown if the argument @p rhs is @c NULL.
    */
   SBMLUnitsConverter& operator=(const SBMLUnitsConverter& rhs);
@@ -155,7 +155,7 @@ public:
    * 
    * @return  integer value indicating the success/failure of the operation.
    * @if clike The value is drawn from the enumeration
-   * #OperationReturnValues_t. @endif The possible values are:
+   * #OperationReturnValues_t. @endif@~ The possible values are:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT @endlink
    * @li @link OperationReturnValues_t#LIBSBML_CONV_CONVERSION_NOT_AVAILABLE LIBSBML_CONV_CONVERSION_NOT_AVAILABLE @endlink

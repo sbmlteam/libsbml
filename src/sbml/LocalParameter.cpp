@@ -774,7 +774,7 @@ LocalParameter_isSetUnits (const LocalParameter_t *p)
  *
  * @return integer value indicating success/failure of the
  * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif The possible values
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
  * returned by this function are:
  * @li LIBSBML_OPERATION_SUCCESS
  * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
@@ -803,7 +803,7 @@ LocalParameter_setId (LocalParameter_t *p, const char *sid)
  *
  * @return integer value indicating success/failure of the
  * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif The possible values
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
  * returned by this function are:
  * @li LIBSBML_OPERATION_SUCCESS
  * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
@@ -830,7 +830,7 @@ LocalParameter_setName (LocalParameter_t *p, const char *name)
  *
  * @return integer value indicating success/failure of the
  * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif The possible values
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
  * returned by this function are:
  * @li LIBSBML_OPERATION_SUCCESS
  */
@@ -855,7 +855,7 @@ LocalParameter_setValue (LocalParameter_t *p, double value)
  *
  * @return integer value indicating success/failure of the
  * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif The possible values
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
  * returned by this function are:
  * @li LIBSBML_OPERATION_SUCCESS
  * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
@@ -881,7 +881,7 @@ LocalParameter_setUnits (LocalParameter_t *p, const char *units)
  *
  * @return integer value indicating success/failure of the
  * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif The possible values
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
  * returned by this function are:
  * @li LIBSBML_OPERATION_SUCCESS
  * @li LIBSBML_OPERATION_FAILED
@@ -909,7 +909,7 @@ LocalParameter_unsetName (LocalParameter_t *p)
  *
  * @return integer value indicating success/failure of the
  * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif The possible values
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
  * returned by this function are:
  * @li LIBSBML_OPERATION_SUCCESS
  */
@@ -931,7 +931,7 @@ LocalParameter_unsetValue (LocalParameter_t *p)
  *
  * @return integer value indicating success/failure of the
  * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif The possible values
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
  * returned by this function are:
  * @li LIBSBML_OPERATION_SUCCESS
  * @li LIBSBML_OPERATION_FAILED

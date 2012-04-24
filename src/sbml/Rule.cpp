@@ -1973,7 +1973,7 @@ Rule_isSetUnits (const Rule_t *r)
  *
  * @return integer value indicating success/failure of the
  * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif The possible values
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
  * returned by this function are:
  * @li LIBSBML_OPERATION_SUCCESS
  * @li LIBSBML_INVALID_OBJECT
@@ -2004,7 +2004,7 @@ Rule_setFormula (Rule_t *r, const char *formula)
  *
  * @return integer value indicating success/failure of the
  * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif The possible values
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
  * returned by this function are:
  * @li LIBSBML_OPERATION_SUCCESS
  * @li LIBSBML_INVALID_OBJECT
@@ -2025,7 +2025,7 @@ Rule_setMath (Rule_t *r, const ASTNode_t *math)
  *
  * @return integer value indicating success/failure of the
  * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif The possible values
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
  * returned by this function are:
  * @li LIBSBML_OPERATION_SUCCESS
  * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
@@ -2051,7 +2051,7 @@ Rule_setVariable (Rule_t *r, const char *sid)
  *
  * @return integer value indicating success/failure of the
  * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif The possible values
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
  * returned by this function are:
  * @li LIBSBML_OPERATION_SUCCESS
  * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
@@ -2076,7 +2076,7 @@ Rule_setUnits (Rule_t *r, const char *sname)
  *
  * @return integer value indicating success/failure of the
  * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif The possible values
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
  * returned by this function are:
  * @li LIBSBML_OPERATION_SUCCESS
  * @li LIBSBML_OPERATION_FAILED
@@ -2218,7 +2218,7 @@ Rule_getL1TypeCode (const Rule_t *r)
  *
  * @return integer value indicating success/failure of the
  * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif The possible values
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
  * returned by this function are:
  * @li LIBSBML_OPERATION_SUCCESS
  * @li LIBSBML_INVALID_ATTRIBUTE_VALUE

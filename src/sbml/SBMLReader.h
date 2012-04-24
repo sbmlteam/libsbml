@@ -68,9 +68,9 @@
  * The compression feature requires that the @em zlib (for @em gzip and @em
  * zip formats) and/or @em bzip2 (for @em bzip2 format) be available on the
  * system running libSBML, and that libSBML was configured with their
- * support compiled-in.  Please see the libSBML @if clike <a href="libsbml-installation.html">installation instructions</a> @endif@if python <a href="libsbml-installation.html">installation instructions</a> @endif@if java  <a href="../../../libsbml-installation.html">installation instructions</a> @endif for more information about this.  The methods
- * @if java SBMLReader::hasZlib()@else hasZlib()@endif and
- * @if java SBMLReader::hasBzip2()@else hasBzip2()@endif
+ * support compiled-in.  Please see the libSBML @if clike <a href="libsbml-installation.html">installation instructions</a> @endif@if python <a href="libsbml-installation.html">installation instructions</a> @endif@if java  <a href="../../../libsbml-installation.html">installation instructions</a> @endif@~ for more information about this.  The methods
+ * @if java SBMLReader::hasZlib()@else hasZlib()@endif@~ and
+ * @if java SBMLReader::hasBzip2()@else hasBzip2()@endif@~
  * can be used by an application to query at run-time whether support
  * for the compression libraries is available in the present copy of
  * libSBML.
@@ -136,7 +136,7 @@ public:
    *
    * If the file @p filename could not be read, the file-reading error will
    * appear first.  The error code @if clike (a value drawn from the enumeration
-   * #XMLErrorCode_t) @endif can provide a clue about what happened.  For example,
+   * #XMLErrorCode_t) @endif@~ can provide a clue about what happened.  For example,
    * a file might be unreadable (either because it does not actually exist
    * or because the user does not have the necessary access priviledges to
    * read it) or some sort of file operation error may have been reported
@@ -221,7 +221,7 @@ public:
      }
   }
  @endverbatim
- @endif
+ @endif@~
    *
    * If the given filename ends with the suffix @c ".gz" (for example, @c
    * "myfile.xml.gz"), the file is assumed to be compressed in @em gzip
@@ -278,7 +278,7 @@ public:
    *
    * If the file @p filename could not be read, the file-reading error will
    * appear first.  The error code @if clike (a value drawn from the enumeration
-   * #XMLErrorCode_t)@endif can provide a clue about what happened.  For example,
+   * #XMLErrorCode_t)@endif@~ can provide a clue about what happened.  For example,
    * a file might be unreadable (either because it does not actually exist
    * or because the user does not have the necessary access priviledges to
    * read it) or some sort of file operation error may have been reported
@@ -341,7 +341,7 @@ public:
      # Handle other error cases here.
    
  @endverbatim
- @endif
+ @endif@~
    *
    * If the given filename ends with the suffix @c ".gz" (for example, @c
    * "myfile.xml.gz"), the file is assumed to be compressed in @em gzip
@@ -415,9 +415,9 @@ public:
    * non-C++ language interfaces for libSBML will contain two variants.  One
    * will be a static method on the class (i.e., SBMLReader), and the other
    * will be a standalone top-level function with the name
-   * SBMLReader_hasZlib(). They are functionally identical. @endif
+   * SBMLReader_hasZlib(). They are functionally identical. @endif@~
    *
-   * @see @if clike hasBzip2() @else SBMLReader::hasBzip2() @endif
+   * @see @if clike hasBzip2() @else SBMLReader::hasBzip2() @endif@~
    */
   static bool hasZlib();
 
@@ -433,9 +433,9 @@ public:
    * non-C++ language interfaces for libSBML will contain two variants.  One
    * will be a static method on the class (i.e., SBMLReader), and the other
    * will be a standalone top-level function with the name
-   * SBMLReader_hasBzip2(). They are functionally identical. @endif
+   * SBMLReader_hasBzip2(). They are functionally identical. @endif@~
    *
-   * @see @if clike hasZlib() @else SBMLReader::hasZlib() @endif
+   * @see @if clike hasZlib() @else SBMLReader::hasZlib() @endif@~
    */
   static bool hasBzip2();
 
@@ -446,7 +446,7 @@ protected:
   /**
    * Used by readSBML() and readSBMLFromString().
    *
-   * @if notcpp @docnote @htmlinclude warn-default-args-in-docs.html @endif
+   * @if notcpp @docnote @htmlinclude warn-default-args-in-docs.html @endif@~
    */
   SBMLDocument* readInternal (const char* content, bool isFile = true);
 

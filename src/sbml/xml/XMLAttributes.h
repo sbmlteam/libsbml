@@ -45,7 +45,7 @@
  * callers, those classes will throw an XMLConstructorException.  @if cpp
  * Callers can use the standard C++ <code>std::exception</code> method
  * <code>what()</code> to extract the diagnostic message stored with the
- * exception.@endif
+ * exception.@endif@~
  * <p>
  * In languages that don't have an exception mechanism (e.g., C), the
  * constructors generally try to return an error code instead of throwing
@@ -100,7 +100,7 @@ public:
    *
    * @p orig the XMLAttributes object to copy.
    *
-   * @throws @if python ValueError @else XMLConstructorException @endif
+   * @throws @if python ValueError @else XMLConstructorException @endif@~
    * Thrown if the argument @p orig is @c NULL.
    */
   XMLAttributes(const XMLAttributes& orig);
@@ -112,7 +112,7 @@ public:
    * @param rhs The XMLAttributes object whose values are used as the basis
    * of the assignment.
    *
-   * @throws @if python ValueError @else XMLConstructorException @endif
+   * @throws @if python ValueError @else XMLConstructorException @endif@~
    * Thrown if the argument @p rhs is @c NULL.
    */
   XMLAttributes& operator=(const XMLAttributes& rhs);
@@ -143,7 +143,7 @@ public:
    * @note if local name with the same namespace URI already exists in this 
    * attribute set, its value and prefix will be replaced.
    *
-   * @if notcpp @docnote @htmlinclude warn-default-args-in-docs.html @endif
+   * @if notcpp @docnote @htmlinclude warn-default-args-in-docs.html @endif@~
    */
   int add (  const std::string& name
 	    , const std::string& value
@@ -522,7 +522,7 @@ public:
    * be used to read a value for an attribute name with a prefix and
    * namespace.
    *
-   * @if notcpp @docnote @htmlinclude warn-default-args-in-docs.html @endif
+   * @if notcpp @docnote @htmlinclude warn-default-args-in-docs.html @endif@~
    */
   bool readInto (  const std::string&  name
                  , bool&               value
@@ -554,7 +554,7 @@ public:
    *
    * @returns @c true if the attribute was read into value, @c false otherwise.
    *
-   * @if notcpp @docnote @htmlinclude warn-default-args-in-docs.html @endif
+   * @if notcpp @docnote @htmlinclude warn-default-args-in-docs.html @endif@~
    */
   bool readInto (  const XMLTriple& triple
                  , bool&        value
@@ -592,7 +592,7 @@ public:
    * should be used to read a value for an attribute name with a prefix and
    * namespace.
    *
-   * @if notcpp @docnote @htmlinclude warn-default-args-in-docs.html @endif
+   * @if notcpp @docnote @htmlinclude warn-default-args-in-docs.html @endif@~
    */
   bool readInto (  const std::string&  name
                  , double&             value
@@ -624,7 +624,7 @@ public:
    *
    * @returns @c true if the attribute was read into value, @c false otherwise.
    *
-   * @if notcpp @docnote @htmlinclude warn-default-args-in-docs.html @endif
+   * @if notcpp @docnote @htmlinclude warn-default-args-in-docs.html @endif@~
    */
   bool readInto (  const XMLTriple&  triple
                  , double&           value
@@ -661,7 +661,7 @@ public:
    * be used to read a value for an attribute name with a prefix and
    * namespace.
    *
-   * @if notcpp @docnote @htmlinclude warn-default-args-in-docs.html @endif
+   * @if notcpp @docnote @htmlinclude warn-default-args-in-docs.html @endif@~
    */
   bool readInto (  const std::string&  name
                  , long&               value
@@ -693,7 +693,7 @@ public:
    *
    * @returns @c true if the attribute was read into value, @c false otherwise.
    *
-   * @if notcpp @docnote @htmlinclude warn-default-args-in-docs.html @endif
+   * @if notcpp @docnote @htmlinclude warn-default-args-in-docs.html @endif@~
    */
   bool readInto (  const XMLTriple& triple
                  , long&            value
@@ -730,7 +730,7 @@ public:
    * be used to read a value for an attribute name with a prefix and
    * namespace.
    *
-   * @if notcpp @docnote @htmlinclude warn-default-args-in-docs.html @endif
+   * @if notcpp @docnote @htmlinclude warn-default-args-in-docs.html @endif@~
    */
   bool readInto (  const std::string&  name
                  , int&                value
@@ -762,7 +762,7 @@ public:
    *
    * @returns @c true if the attribute was read into value, @c false otherwise.
    *
-   * @if notcpp @docnote @htmlinclude warn-default-args-in-docs.html @endif
+   * @if notcpp @docnote @htmlinclude warn-default-args-in-docs.html @endif@~
    */
   bool readInto (  const XMLTriple& triple
                  , int&             value
@@ -799,7 +799,7 @@ public:
    * ...) const should be used to read a value for an attribute name with a
    * prefix and namespace.
    *
-   * @if notcpp @docnote @htmlinclude warn-default-args-in-docs.html @endif
+   * @if notcpp @docnote @htmlinclude warn-default-args-in-docs.html @endif@~
    */
   bool readInto (  const std::string&  name
                  , unsigned int&       value
@@ -831,7 +831,7 @@ public:
    *
    * @returns @c true if the attribute was read into value, @c false otherwise.
    *
-   * @if notcpp @docnote @htmlinclude warn-default-args-in-docs.html @endif
+   * @if notcpp @docnote @htmlinclude warn-default-args-in-docs.html @endif@~
    */
   bool readInto (  const XMLTriple& triple
                  , unsigned int&    value
@@ -862,7 +862,7 @@ public:
    * should be used to read a value for an attribute name with a prefix and
    * namespace.
    *
-   * @if notcpp @docnote @htmlinclude warn-default-args-in-docs.html @endif
+   * @if notcpp @docnote @htmlinclude warn-default-args-in-docs.html @endif@~
    */
   bool readInto (  const std::string&  name
                  , std::string&        value
@@ -888,7 +888,7 @@ public:
    *
    * @returns @c true if the attribute was read into value, @c false otherwise.
    *
-   * @if notcpp @docnote @htmlinclude warn-default-args-in-docs.html @endif
+   * @if notcpp @docnote @htmlinclude warn-default-args-in-docs.html @endif@~
    */
   bool readInto (  const XMLTriple& triple
                  , std::string&     value

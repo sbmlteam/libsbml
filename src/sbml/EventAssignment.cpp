@@ -1111,7 +1111,7 @@ EventAssignment_isSetMath (const EventAssignment_t *ea)
  *
  * @return integer value indicating success/failure of the
  * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif The possible values
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
  * returned by this function are:
  * @li LIBSBML_OPERATION_SUCCESS
  * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
@@ -1141,7 +1141,7 @@ EventAssignment_setVariable (EventAssignment_t *ea, const char *sid)
  *
  * @return integer value indicating success/failure of the
  * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif The possible values
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
  * returned by this function are:
  * @li LIBSBML_OPERATION_SUCCESS
  * @li LIBSBML_INVALID_OBJECT

@@ -41,14 +41,14 @@
  * SBMLErrorLog is derived from XMLErrorLog, an object class that serves
  * exactly the same purpose but for the XML parsing layer.  XMLErrorLog
  * provides crucial methods such as
- * @if java XMLErrorLog::getNumErrors()@else getNumErrors()@endif
+ * @if java XMLErrorLog::getNumErrors()@else getNumErrors()@endif@~
  * for determining how many SBMLError or XMLError objects are in the log.
  * SBMLErrorLog inherits these methods.
  *
  * The general approach to working with SBMLErrorLog in user programs
  * involves first obtaining a pointer to a log from a libSBML object such
  * as SBMLDocument.  Callers should then use
- * @if java XMLErrorLog::getNumErrors()@else getNumErrors() @endif to inquire how
+ * @if java XMLErrorLog::getNumErrors()@else getNumErrors() @endif@~ to inquire how
  * many objects there are in the list.  (The answer may be 0.)  If there is
  * at least one SBMLError object in the SBMLErrorLog instance, callers can
  * then iterate over the list using
@@ -90,7 +90,7 @@ public:
    *
    * Index @p n is counted from 0.  Callers should first inquire about the
    * number of items in the log by using the
-   * @if java XMLErrorLog::getNumErrors()@else getNumErrors()@endif method.
+   * @if java XMLErrorLog::getNumErrors()@else getNumErrors()@endif@~ method.
    * Attempts to use an error index number that exceeds the actual number
    * of errors in the log will result in a @c NULL being returned.
    *
@@ -126,7 +126,7 @@ public:
    * the interface class <code><a
    * href="libsbmlConstants.html">libsbmlConstants</a></code> @endif@if python @param severity a
    * value from the set of <code>LIBSBML_SEV_</code> constants defined by
-   * the interface class @link libsbml libsbml@endlink. @endif
+   * the interface class @link libsbml libsbml@endlink. @endif@~
    *
    * @return a count of the number of errors with the given severity code.
    *
@@ -170,7 +170,7 @@ public:
    * @param category an integer indicating the category to which the error
    * belongs.
    *
-   * @if notcpp @docnote @htmlinclude warn-default-args-in-docs.html @endif
+   * @if notcpp @docnote @htmlinclude warn-default-args-in-docs.html @endif@~
    */
   void logError
   (

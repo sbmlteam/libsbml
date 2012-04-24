@@ -1,5 +1,5 @@
 /**
- * @file    RDFAnnotation.cpp
+ * @file    RDFAnnotationParser.cpp
  * @brief   RDFAnnotation I/O
  * @author  Sarah Keating
  * 
@@ -427,7 +427,7 @@ RDFAnnotationParser::createRDFDescription(const std::string & metaid)
   return new XMLNode(descrip_token);
 }
 
-/** endcond */
+/** @endcond */
 
 /*
  * this is here because we originally exposed the function
@@ -577,7 +577,7 @@ RDFAnnotationParser::createRDFDescriptionWithCVTerms(const SBase * object)
   return description;
 }
 
-/** endcond */
+/** @endcond */
 
 /*
  * takes a Model creator information
@@ -896,7 +896,7 @@ RDFAnnotationParser::createRDFDescriptionWithHistory(const SBase * object)
   return description;
 }
 
-/** endcond */
+/** @endcond */
 
 
 XMLNode *

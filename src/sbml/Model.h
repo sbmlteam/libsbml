@@ -196,7 +196,7 @@ model.setId("BestModelEver");
 Species sp = model.createSpecies();
 sp.setId("MySpecies");
 @endverbatim
- * @endif
+ * @endif@~
  * 
  * The <code>create<span
  * class="placeholder"><em>Object</em></span>()</code> methods return a
@@ -418,7 +418,7 @@ public:
    * @param version an unsigned int, the SBML Version to assign to this
    * Model
    *
-   * @throws @if python ValueError @else SBMLConstructorException @endif
+   * @throws @if python ValueError @else SBMLConstructorException @endif@~
    * Thrown if the given @p level and @p version combination, or this kind
    * of SBML object, are either invalid or mismatched with respect to the
    * parent SBMLDocument object.
@@ -450,7 +450,7 @@ public:
    *
    * @param sbmlns an SBMLNamespaces object.
    *
-   * @throws @if python ValueError @else SBMLConstructorException @endif
+   * @throws @if python ValueError @else SBMLConstructorException @endif@~
    * Thrown if the given @p level and @p version combination, or this kind
    * of SBML object, are either invalid or mismatched with respect to the
    * parent SBMLDocument object.
@@ -480,7 +480,7 @@ public:
    *
    * @param orig the object to copy.
    * 
-   * @throws @if python ValueError @else SBMLConstructorException @endif
+   * @throws @if python ValueError @else SBMLConstructorException @endif@~
    * Thrown if the argument @p orig is @c NULL.
    */
   Model(const Model& orig);
@@ -492,7 +492,7 @@ public:
    * @param rhs The object whose values are used as the basis of the
    * assignment.
    *
-   * @throws @if python ValueError @else SBMLConstructorException @endif
+   * @throws @if python ValueError @else SBMLConstructorException @endif@~
    * Thrown if the argument @p rhs is @c NULL.
    */
   Model& operator=(const Model& rhs);
@@ -2687,7 +2687,7 @@ public:
    *
    * @return integer value indicating success/failure of the
    * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
+   * enumeration #OperationReturnValues_t. @endif@~ The possible values
    * returned by this function are:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
@@ -2745,10 +2745,6 @@ public:
    */
   void convertL1ToL2 ();
 
-  /** @endcond */
-
-
-  /** @cond doxygen-libsbml-internal */
 
   /*
    * Converts the model to a from SBML Level 1 to Level 3.
@@ -2759,10 +2755,6 @@ public:
    */
   void convertL1ToL3 ();
 
-  /** @endcond */
-
-
-  /** @cond doxygen-libsbml-internal */
 
   /*
    * Converts the model to a from SBML Level 2 to Level 3.
@@ -2773,10 +2765,6 @@ public:
    */
   void convertL2ToL3 ();
 
-  /** @endcond */
-
-
-  /** @cond doxygen-libsbml-internal */
   
   /*
    * Converts the model to a from SBML Level 2 to Level 1.
@@ -2787,9 +2775,6 @@ public:
    */
   void convertL2ToL1 (bool strict = false);
 
-  /** @endcond */
-
-  /** @cond doxygen-libsbml-internal */
 
   /*
    * Converts the model to a from SBML Level 3 to Level 1.
@@ -2800,9 +2785,6 @@ public:
    */
   void convertL3ToL1 ();
 
-  /** @endcond */
-
-  /** @cond doxygen-libsbml-internal */
 
   /*
    * Converts the model to a from SBML Level 3 to Level 2.
@@ -2813,25 +2795,14 @@ public:
    */
   void convertL3ToL2 (bool strict = false);
 
-  /** @endcond */
-
-  /** @cond doxygen-libsbml-internal */
   //void convertTimeWith(ASTNode* conversionFactor);
-  /** @endcond */
 
-  /** @cond doxygen-libsbml-internal */
   //void convertExtentWith(ASTNode* conversionFactor);
-  /** @endcond */
 
-  /** @cond doxygen-libsbml-internal */
   //void convertSubstanceWith(ASTNode* conversionFactor);
-  /** @endcond */
 
 
-
-  /** @cond doxygen-libsbml-internal */
-
-  /*****************************************************
+  /* ****************************************************
    * helper functions used by the main conversion functions 
    *******************************************************/
 
@@ -2840,18 +2811,12 @@ public:
    */
   void addModifiers ();
 
-  /** @endcond */
-  
-  /** @cond doxygen-libsbml-internal */
 
   /* declares constant = false for any L1 compartment/parameter
    * assigned by a rule
    */
   void addConstantAttribute ();
 
-  /** @endcond */
-
-  /** @cond doxygen-libsbml-internal */
 
   /* in L1 spatialDimensions did not exist as an attribute
    * but was considered to be '3'
@@ -2860,9 +2825,6 @@ public:
    */
   void setSpatialDimensions (double dims = 3.0);
 
-  /** @endcond */
-
-  /** @cond doxygen-libsbml-internal */
 
   /* in L1 and L2 there were built in values for key units
    * such as 'volume', 'length', 'area', 'substance' and 'time'
@@ -2871,65 +2833,32 @@ public:
    */
   void addDefinitionsForDefaultUnits ();
 
-  /** @endcond */
-
-  /** @cond doxygen-libsbml-internal */
 
   void convertParametersToLocals(unsigned int level, unsigned int version);
-  /** @endcond */
 
-  /** @cond doxygen-libsbml-internal */
 
   void setSpeciesReferenceConstantValueAndStoichiometry();
- 
-  /** @endcond */
-
-  /** @cond doxygen-libsbml-internal */
 
   /* new functions for strict conversion */
   void removeMetaId();
 
-  /** @endcond */
-
-
-  /** @cond doxygen-libsbml-internal */
 
   void removeSBOTerms(bool strict);
 
-  /** @endcond */
-
-
-  /** @cond doxygen-libsbml-internal */
 
   void removeHasOnlySubstanceUnits();
 
-  /** @endcond */
-
-
-  /** @cond doxygen-libsbml-internal */
 
   void removeSBOTermsNotInL2V2(bool strict);
 
-  /** @endcond */
-
-
-  /** @cond doxygen-libsbml-internal */
 
   void removeDuplicateTopLevelAnnotations();
 
-  /** @endcond */
-
-  
-  /** @cond doxygen-libsbml-internal */
 
   /*
    */
   void removeParameterRuleUnits (bool strict);
 
-  /** @endcond */
-
-
-  /** @cond doxygen-libsbml-internal */
 
   /* StoichiometryMath does not exist in L3 but the id of
    * the species Reference can be used as a variable
@@ -2937,51 +2866,30 @@ public:
    */
   void convertStoichiometryMath ();
 
-  /** @endcond */
-  /** @cond doxygen-libsbml-internal */
 
   /* assigns the required values to L2 defaults
    */
   void assignRequiredValues ();
 
-  /** @endcond */
-  /** @cond doxygen-libsbml-internal */
 
   /* deal with units values on L3 model
    */
   void dealWithModelUnits ();
 
-  /** @endcond */
-  
-  /** @cond doxygen-libsbml-internal */
   
   void dealWithStoichiometry ();
- 
-  /** @endcond */
- 
-  /** @cond doxygen-libsbml-internal */
+
   
   void dealWithEvents (bool strict);
- 
-  /** @endcond */
- 
-  /** @cond doxygen-libsbml-internal */
+
 
   /* declares constant = false for any L1 compartment/parameter
    * assigned by a rule
    */
 //  void convertLayoutFromAnnotation ();
 
-  /** @endcond */
-
-  /** @cond doxygen-libsbml-internal */
-
 //  void convertLayoutToAnnotation ();
 
-  /** @endcond */
-
-  
-  /** @cond doxygen-libsbml-internal */
 
   /*
    * Converts the model to a from SBML Level 1 to Level 2.
@@ -2992,11 +2900,7 @@ public:
    */
   void convertToL2Strict ();
 
-  /** @endcond */
 
-
-  /** @cond doxygen-libsbml-internal */
-  
   /*
    * Sets the parent SBMLDocument of this SBML object.
    *
@@ -3021,6 +2925,7 @@ public:
 
   /** @endcond */
 
+
   /**
    * Returns the libSBML type code for this %SBML object.
    * 
@@ -3044,7 +2949,7 @@ public:
    * codes</em>.  In the C# language interface for libSBML, the type codes
    * are defined as static integer constants in the interface class @link
    * libsbmlcs.libsbml@endlink.  The names of the type codes all begin with
-   * the characters @c SBML_. @endif
+   * the characters @c SBML_. @endif@~
    *
    * @return the SBML type code for this object, or @link SBMLTypeCode_t#SBML_UNKNOWN SBML_UNKNOWN@endlink (default).
    *
@@ -3115,6 +3020,7 @@ public:
    * @c false otherwise.
    */
   bool isPopulatedListFormulaUnitsData();
+
 
   /** @cond doxygen-libsbml-internal */
 

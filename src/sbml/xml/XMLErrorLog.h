@@ -40,7 +40,7 @@
  * mismatched tags or other problems).
  *
  * A typical approach for using this error log is to first use
- * @if java XMLErrorLog::getNumErrors()@else getNumErrors()@endif
+ * @if java XMLErrorLog::getNumErrors()@else getNumErrors()@endif@~
  * to inquire how many XMLError object instances it contains, and then to
  * iterate over the list of objects one at a time using
  * getError(unsigned int n) const.  Indexing in the list begins at 0.
@@ -200,7 +200,7 @@ public:
    * @param stream the ostream or ostringstream object indicating where
    * the output should be printed.
    *
-   * @if notcpp @docnote @htmlinclude warn-default-args-in-docs.html @endif
+   * @if notcpp @docnote @htmlinclude warn-default-args-in-docs.html @endif@~
    */
   void printErrors (std::ostream& stream = std::cerr) const;
 

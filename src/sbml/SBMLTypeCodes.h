@@ -152,7 +152,7 @@ typedef enum
  * codes</em>.  In the C# language interface for libSBML, the type codes
  * are defined as static integer constants in the interface class @link
  * libsbmlcs.libsbml@endlink.  The names of the type codes all begin with
- * the characters @c SBML_. @endif
+ * the characters @c SBML_. @endif@~
  *
  * @return a human readable name for the given
  * @if clike #SBMLTypeCode_t value@else SBML type code@endif.

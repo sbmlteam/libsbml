@@ -405,7 +405,7 @@ public:
    * @param version an unsigned int, the SBML Version to assign to this
    * Species
    *
-   * @throws @if python ValueError @else SBMLConstructorException @endif
+   * @throws @if python ValueError @else SBMLConstructorException @endif@~
    * Thrown if the given @p level and @p version combination, or this kind
    * of SBML object, are either invalid or mismatched with respect to the
    * parent SBMLDocument object.
@@ -444,7 +444,7 @@ public:
    *
    * @param sbmlns an SBMLNamespaces object.
    *
-   * @throws @if python ValueError @else SBMLConstructorException @endif
+   * @throws @if python ValueError @else SBMLConstructorException @endif@~
    * Thrown if the given @p level and @p version combination, or this kind
    * of SBML object, are either invalid or mismatched with respect to the
    * parent SBMLDocument object.
@@ -474,7 +474,7 @@ public:
    *
    * @param orig the object to copy.
    * 
-   * @throws @if python ValueError @else SBMLConstructorException @endif
+   * @throws @if python ValueError @else SBMLConstructorException @endif@~
    * Thrown if the argument @p orig is @c NULL.
    */
   Species(const Species& orig);
@@ -486,7 +486,7 @@ public:
    * @param rhs The object whose values are used as the basis of the
    * assignment.
    *
-   * @throws @if python ValueError @else SBMLConstructorException @endif
+   * @throws @if python ValueError @else SBMLConstructorException @endif@~
    * Thrown if the argument @p rhs is @c NULL.
    */
   Species& operator=(const Species& rhs);
@@ -1288,7 +1288,7 @@ public:
    * compartment)</em> in which the species is located, or finally, if
    * these are not redefined by the Model, the relevant SBML default units
    * for those quantities.  Following that procedure, the method
-   * @if java Species::getDerivedUnitDefinition()@else getDerivedUnitDefinition()@endif
+   * @if java Species::getDerivedUnitDefinition()@else getDerivedUnitDefinition()@endif@~
    * returns a UnitDefinition based on the
    * interpreted units of this species's amount or concentration.
    *
@@ -1307,7 +1307,7 @@ public:
    * In SBML Level&nbsp;2 specifications prior to Version&nbsp;3, Species
    * includes an additional attribute named "spatialSizeUnits", which
    * allows explicitly setting the units of size for initial concentration.
-   * The @if java Species::getDerivedUnitDefinition()@else getDerivedUnitDefinition()@endif
+   * The @if java Species::getDerivedUnitDefinition()@else getDerivedUnitDefinition()@endif@~
    * takes this into account for models
    * expressed in SBML Level&nbsp;2 Versions&nbsp;1 and&nbsp;2.
    *
@@ -1331,7 +1331,7 @@ public:
    * compartment)</em> in which the species is located, or finally, if
    * these are not redefined by the Model, the relevant SBML default units
    * for those quantities.  Following that procedure, the method
-   * @if java Species::getDerivedUnitDefinition()@else getDerivedUnitDefinition()@endif
+   * @if java Species::getDerivedUnitDefinition()@else getDerivedUnitDefinition()@endif@~
    * returns a UnitDefinition based on the
    * interpreted units of this species's amount or concentration.
    *
@@ -1350,7 +1350,7 @@ public:
    * In SBML Level&nbsp;2 specifications prior to Version&nbsp;3, Species
    * includes an additional attribute named "spatialSizeUnits", which
    * allows explicitly setting the units of size for initial concentration.
-   * The @if java Species::getDerivedUnitDefinition()@else getDerivedUnitDefinition()@endif
+   * The @if java Species::getDerivedUnitDefinition()@else getDerivedUnitDefinition()@endif@~
    * takes this into account for models
    * expressed in SBML Level&nbsp;2 Versions&nbsp;1 and&nbsp;2.
    *
@@ -1385,7 +1385,7 @@ public:
    * codes</em>.  In the C# language interface for libSBML, the type codes
    * are defined as static integer constants in the interface class @link
    * libsbmlcs.libsbml@endlink.  The names of the type codes all begin with
-   * the characters @c SBML_. @endif
+   * the characters @c SBML_. @endif@~
    *
    * @return the SBML type code for this object, or @link SBMLTypeCode_t#SBML_UNKNOWN SBML_UNKNOWN@endlink (default).
    *
@@ -1602,7 +1602,7 @@ public:
    * codes</em>.  In the C# language interface for libSBML, the type codes
    * are defined as static integer constants in the interface class @link
    * libsbmlcs.libsbml@endlink.  The names of the type codes all begin with
-   * the characters @c SBML_. @endif
+   * the characters @c SBML_. @endif@~
    *
    * @return the SBML type code for this object, or @link SBMLTypeCode_t#SBML_UNKNOWN SBML_UNKNOWN@endlink (default).
    *
@@ -1635,7 +1635,7 @@ public:
    * codes</em>.  In the C# language interface for libSBML, the type codes
    * are defined as static integer constants in the interface class @link
    * libsbmlcs.libsbml@endlink.  The names of the type codes all begin with
-   * the characters @c SBML_. @endif
+   * the characters @c SBML_. @endif@~
    * 
    * @return the SBML type code for the objects contained in this ListOf
    * instance, or @link SBMLTypeCode_t#SBML_UNKNOWN SBML_UNKNOWN@endlink (default).

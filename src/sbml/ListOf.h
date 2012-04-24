@@ -40,7 +40,7 @@
  * class for implementing the ListOf__ classes.  It provides methods for
  * working generically with the various SBML lists of objects in a program.
  * LibSBML uses this separate list class rather than ordinary
- * @if clike C&#43;&#43; @endif@if java Java@endif@if python Python@endif lists,
+ * @if clike C&#43;&#43; @endif@if java Java@endif@if python Python@endif@~ lists,
  * so that it can provide the methods and features associated with SBase.
  *
  * @see ListOfFunctionDefinitions
@@ -112,7 +112,7 @@ public:
    * @param version the Version within the SBML Level; if not assigned,
    * defaults to the value of SBML_DEFAULT_VERSION.
    * 
-   * @if notcpp @docnote @htmlinclude warn-default-args-in-docs.html @endif
+   * @if notcpp @docnote @htmlinclude warn-default-args-in-docs.html @endif@~
    */
   ListOf (unsigned int level   = SBML_DEFAULT_LEVEL, 
           unsigned int version = SBML_DEFAULT_VERSION);
@@ -330,7 +330,7 @@ public:
    * @param doDelete if @c true (default), all items are deleted and cleared.
    * Otherwise, all items are just cleared and not deleted.
    * 
-   * @if notcpp @docnote @htmlinclude warn-default-args-in-docs.html @endif
+   * @if notcpp @docnote @htmlinclude warn-default-args-in-docs.html @endif@~
    */ 
   void clear (bool doDelete = true);
 
@@ -340,7 +340,7 @@ public:
    *
    * @return integer value indicating success/failure of the
    * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
+   * enumeration #OperationReturnValues_t. @endif@~ The possible values
    * returned by this function are:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
@@ -436,7 +436,7 @@ public:
    * codes</em>.  In the C# language interface for libSBML, the type codes
    * are defined as static integer constants in the interface class @link
    * libsbmlcs.libsbml@endlink.  The names of the type codes all begin with
-   * the characters @c SBML_. @endif
+   * the characters @c SBML_. @endif@~
    *
    * @return the SBML type code for this object, or @link SBMLTypeCode_t#SBML_UNKNOWN SBML_UNKNOWN@endlink (default).
    *
@@ -468,7 +468,7 @@ public:
    * codes</em>.  In the C# language interface for libSBML, the type codes
    * are defined as static integer constants in the interface class @link
    * libsbmlcs.libsbml@endlink.  The names of the type codes all begin with
-   * the characters @c SBML_. @endif
+   * the characters @c SBML_. @endif@~
    * 
    * @return the SBML type code for the objects contained in this ListOf
    * instance, or @link SBMLTypeCode_t#SBML_UNKNOWN SBML_UNKNOWN@endlink (default).

@@ -406,6 +406,8 @@ ModelHistory::hasRequiredAttributes()
   return valid;
 }
 
+
+/** @cond doxygen-libsbml-internal */
 bool
 ModelHistory::hasBeenModified()
 {
@@ -434,8 +436,10 @@ ModelHistory::hasBeenModified()
 
   return mHasBeenModified;
 }
+/** @endcond */
 
 
+/** @cond doxygen-libsbml-internal */
 void
 ModelHistory::resetModifiedFlags()
 {
@@ -458,6 +462,8 @@ ModelHistory::resetModifiedFlags()
 
   mHasBeenModified = false;
 }
+/** @endcond */
+
 
 /**
  * Creates a new ModelHistory_t structure and returns a pointer to it.
@@ -576,7 +582,7 @@ int ModelHistory_isSetModifiedDate(ModelHistory_t * mh)
  *
  * @return integer value indicating success/failure of the
  * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif The possible values
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
  * returned by this function are:
  * @li LIBSBML_OPERATION_SUCCESS
  * @li LIBSBML_INVALID_OBJECT
@@ -599,7 +605,7 @@ int ModelHistory_setCreatedDate(ModelHistory_t * mh,
  *
  * @return integer value indicating success/failure of the
  * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif The possible values
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
  * returned by this function are:
  * @li LIBSBML_OPERATION_SUCCESS
  * @li LIBSBML_INVALID_OBJECT
@@ -623,7 +629,7 @@ ModelHistory_setModifiedDate(ModelHistory_t * mh,
  *
  * @return integer value indicating success/failure of the
  * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif The possible values
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
  * returned by this function are:
  * @li LIBSBML_OPERATION_SUCCESS
  * @li LIBSBML_INVALID_OBJECT

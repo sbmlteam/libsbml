@@ -181,7 +181,7 @@ public:
    * @param rhs The object whose values are used as the basis of the
    * assignment.
    *
-   * @throws @if python ValueError @else SBMLConstructorException @endif
+   * @throws @if python ValueError @else SBMLConstructorException @endif@~
    * Thrown if the argument @p rhs is @c NULL.
    */
   SBase& operator=(const SBase& rhs);
@@ -804,7 +804,7 @@ public:
    * codes</em>.  In the C# language interface for libSBML, the type codes
    * are defined as static integer constants in the interface class @link
    * libsbmlcs.libsbml libsbml@endlink.  The names of the type codes all begin with
-   * the characters @c SBML_. @endif
+   * the characters @c SBML_. @endif@~
    *
    * This method searches the tree of objects that are parents of this
    * object, and returns the first one that has the given SBML type code.
@@ -820,7 +820,7 @@ public:
    * to the given @if clike #SBMLTypeCode_t value@else SBML object type
    * code@endif, or @c NULL if no ancestor exists.
    *
-   * @if notcpp @docnote @htmlinclude warn-default-args-in-docs.html @endif
+   * @if notcpp @docnote @htmlinclude warn-default-args-in-docs.html @endif@~
    */
   SBase* getAncestorOfType(int type, const std::string pkgName = "core");
 
@@ -848,7 +848,7 @@ public:
    * codes</em>.  In the C# language interface for libSBML, the type codes
    * are defined as static integer constants in the interface class @link
    * libsbmlcs.libsbml libsbml@endlink.  The names of the type codes all begin with
-   * the characters @c SBML_. @endif
+   * the characters @c SBML_. @endif@~
    *
    * This method searches the tree of objects that are parents of this
    * object, and returns the first one that has the given SBML type code.
@@ -864,7 +864,7 @@ public:
    * to the given @if clike #SBMLTypeCode_t value@else SBML object type
    * code@endif, or @c NULL if no ancestor exists.
    *
-   * @if notcpp @docnote @htmlinclude warn-default-args-in-docs.html @endif
+   * @if notcpp @docnote @htmlinclude warn-default-args-in-docs.html @endif@~
    */
   const SBase* getAncestorOfType(int type, const std::string pkgName = "core") const;
 
@@ -1613,7 +1613,7 @@ s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></b
 SBMLDocument s = new SBMLDocument(3, 1);
 s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></body>");
 @endverbatim
-   * @endif
+   * @endif@~
    *
    * @param notes an XML string that is to be used as the content of the
    * "notes" subelement of this object
@@ -1755,7 +1755,7 @@ s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></b
    * @see connectToChild()
    * @if clike
    * @see enablePackageInternal()
-   * @endif
+   * @endif@~
    */
   virtual void setSBMLDocument (SBMLDocument* d);
   /** @endcond */
@@ -1787,7 +1787,7 @@ s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></b
    * @if clike
    * @see setSBMLDocument()
    * @see enablePackageInternal()
-   * @endif
+   * @endif@~
    */
   virtual void connectToChild ();
 
@@ -2063,8 +2063,8 @@ s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></b
   /**
    * Adds a copy of the given CVTerm object to this SBML object.
    *
-   * @param term the CVTerm to assign
-   * 
+   * @param term the CVTerm to assign.
+   *
    * @param newBag if @c true, creates a new RDF bag with the same identifier
    * as a previous bag, and if @c false, adds the term to an existing
    * RDF bag with the same type of qualifier as the term being added.
@@ -2089,7 +2089,7 @@ s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></b
    * addition, the caller should make sure to free the original object if
    * it is no longer being used, or else a memory leak will result.
    *
-   * @if notcpp @docnote @htmlinclude warn-default-args-in-docs.html @endif
+   * @if notcpp @docnote @htmlinclude warn-default-args-in-docs.html @endif@~
    */
   int addCVTerm(CVTerm * term, bool newBag = false);
 
@@ -2184,7 +2184,7 @@ s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></b
    * names begin with <code>BQB_</code> in the interface class
    * {@link libsbmlConstants}.@endif@if csharp whose
    * names begin with <code>BQB_</code> in the interface class
-   * @link libsbmlcs.libsbml libsbml@endlink.@endif
+   * @link libsbmlcs.libsbml libsbml@endlink.@endif@~
    *
    * This method searches the controlled-vocabulary annotations
    * (i.e., the list of CVTerm objects) on the present object, then out of
@@ -2198,7 +2198,7 @@ s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></b
    * begins with <code>BQB_</code> from the interface
    * class {@link libsbmlConstants}.@endif@if csharp whose
    * names begin with <code>BQB_</code> in the interface class
-   * @link libsbmlcs.libsbml libsbml@endlink.@endif
+   * @link libsbmlcs.libsbml libsbml@endlink.@endif@~
    *
    * @param resource string representing the resource; e.g.,
    * <code>"http://www.geneontology.org/#GO:0005892"</code>.
@@ -2234,7 +2234,7 @@ s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></b
    * list of <code>BQB_</code> constants defined in @link libsbmlcs.libsbml libsbml@endlink
    * may be expanded in later libSBML releases, to match
    * the values defined by MIRIAM at that later time.
-   * @endif
+   * @endif@~
    */
   BiolQualifierType_t getResourceBiologicalQualifier(std::string resource);
 
@@ -2265,7 +2265,7 @@ s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></b
    * names begin with <code>BQM_</code> in the interface class
    * {@link libsbmlConstants}.@endif@if csharp whose
    * names begin with <code>BQB_</code> in the interface class
-   * @link libsbmlcs.libsbml libsbml@endlink.@endif
+   * @link libsbmlcs.libsbml libsbml@endlink.@endif@~
    *
    * This method method searches the controlled-vocabulary annotations
    * (i.e., the list of CVTerm objects) on the present object, then out of
@@ -2279,13 +2279,13 @@ s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></b
    * begins with <code>BQM_</code> from the interface
    * class {@link libsbmlConstants}.@endif@if csharp whose
    * names begin with <code>BQB_</code> in the interface class
-   * @link libsbmlcs.libsbml libsbml@endlink.@endif
+   * @link libsbmlcs.libsbml libsbml@endlink.@endif@~
    *
    * @param resource string representing the resource; e.g.,
    * <code>"http://www.geneontology.org/#GO:0005892"</code>.
    *
    * @return the @if clike #ModelQualifierType_t value@else model qualifier
-   * type@endif associated with the resource, or @link
+   * type@endif@~ associated with the resource, or @link
    * ModelQualifierType_t#BQM_UNKNOWN BQM_UNKNOWN@endlink if the resource
    * does not exist.
    *
@@ -2316,7 +2316,7 @@ s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></b
    * list of <code>BQM_</code> constants defined in @link libsbmlcs.libsbml libsbml@endlink
    * may be expanded in later libSBML releases, to match
    * the values defined by MIRIAM at that later time.
-   * @endif
+   * @endif@~
    */
   ModelQualifierType_t getResourceModelQualifier(std::string resource);
 
@@ -2394,7 +2394,7 @@ s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></b
    * LibSBML C interface, in which class and subclass information is not
    * readily available.
    *
-   * @return the @if clike #SBMLTypeCode_t value@else SBML object type code@endif
+   * @return the @if clike #SBMLTypeCode_t value@else SBML object type code@endif@~
    * of this SBML object or
    * @link SBMLTypeCode_t#SBML_UNKNOWN SBML_UNKNOWN@endlink (the default).
    *
@@ -2528,7 +2528,7 @@ s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></b
    *
    * @return integer value indicating success/failure of the
    * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
+   * enumeration #OperationReturnValues_t. @endif@~ The possible values
    * returned by this function are:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    * @li @link OperationReturnValues_t#LIBSBML_PKG_UNKNOWN LIBSBML_PKG_UNKNOWN @endlink
@@ -2551,7 +2551,7 @@ s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></b
    * 
    * @return integer value indicating success/failure of the
    * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
+   * enumeration #OperationReturnValues_t. @endif@~ The possible values
    * returned by this function are:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    * @li @link OperationReturnValues_t#LIBSBML_PKG_UNKNOWN LIBSBML_PKG_UNKNOWN @endlink
@@ -2572,7 +2572,7 @@ s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></b
    *
    * @if clike
    * @see setSBMLDocument()
-   * @endif
+   * @endif@~
    * @see connectToChild()
    */
   virtual void enablePackageInternal(const std::string& pkgURI, const std::string& pkgPrefix, bool flag);
@@ -2683,7 +2683,7 @@ s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></b
    *   mReactans.write(stream);
    *   mProducts.write(stream);
    *   ...
-   * </pre>@endif
+   * </pre>@endif@~
    */
   virtual void writeElements (XMLOutputStream& stream) const;
   /** @endcond */
@@ -2740,7 +2740,7 @@ s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></b
    *
    * @return integer value indicating success/failure of the
    * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
+   * enumeration #OperationReturnValues_t. @endif@~ The possible values
    * returned by this function are:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
@@ -2795,7 +2795,7 @@ s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></b
    * 
    * @if clike
    * @see ASTNode::setUserData(void *userData)
-   * @endif
+   * @endif@~
    */  
   void *getUserData() const;
 
@@ -2810,6 +2810,7 @@ protected:
    * @param text the text string found between the element tags.
    */ 
   virtual void setElementText(const std::string &text);
+
 
   /** @cond doxygen-libsbml-internal */
 
@@ -2834,7 +2835,7 @@ protected:
    *
    * @param orig the object to copy.
    * 
-   * @throws @if python ValueError @else SBMLConstructorException @endif
+   * @throws @if python ValueError @else SBMLConstructorException @endif@~
    * Thrown if the argument @p orig is @c NULL.
   */
   SBase(const SBase& orig);
@@ -2915,7 +2916,7 @@ protected:
    *
    * This is essentially a short form of getErrorLog()->logError(...)
    *
-   * @if notcpp @docnote @htmlinclude warn-default-args-in-docs.html @endif
+   * @if notcpp @docnote @htmlinclude warn-default-args-in-docs.html @endif@~
    */
   void logError (  unsigned int       id
                  , const unsigned int level   = 2
@@ -3032,7 +3033,7 @@ protected:
    * If the syntax of the unit attribute of this object is incorrect, 
    * an error is logged
    *
-   * @if notcpp @docnote @htmlinclude warn-default-args-in-docs.html @endif
+   * @if notcpp @docnote @htmlinclude warn-default-args-in-docs.html @endif@~
    */
   void checkUnitSyntax(unsigned int flag = 0);
 #endif
@@ -3100,7 +3101,7 @@ protected:
    *
    * @return integer value indicating success/failure of the
    * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
+   * enumeration #OperationReturnValues_t. @endif@~ The possible values
    * returned by this function are:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE @endlink
@@ -3157,7 +3158,7 @@ SBase.readExtensionAttributes(attributes);
 @verbatim
 SBase.readExtensionAttributes(attributes);
 @endverbatim
-   * @endif
+   * @endif@~
    */
   virtual void readExtensionAttributes (const XMLAttributes& attributes);
 

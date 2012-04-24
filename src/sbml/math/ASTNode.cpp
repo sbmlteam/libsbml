@@ -703,7 +703,7 @@ ASTNode::canonicalizeRelational ()
  *
  * @return integer value indicating success/failure of the
  * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif The possible values
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
  * returned by this function are:
  * @li LIBSBML_OPERATION_SUCCESS
  * @li LIBSBML_OPERATION_FAILED
@@ -731,7 +731,7 @@ ASTNode::addChild (ASTNode* child)
  *
  * @return integer value indicating success/failure of the
  * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif The possible values
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
  * returned by this function are:
  * @li LIBSBML_OPERATION_SUCCESS
  * @li LIBSBML_OPERATION_FAILED
@@ -2474,7 +2474,7 @@ ASTNode_free (ASTNode_t *node)
  *
  * @return integer value indicating success/failure of the
  * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t.  @endif The possible values
+ * enumeration #OperationReturnValues_t.  @endif@~ The possible values
  * returned by this function are:
  * @li LIBSBML_OPERATION_SUCCESS
  * @li LIBSBML_UNEXPECTED_ATTRIBUTE
@@ -2531,7 +2531,7 @@ ASTNode_canonicalize (ASTNode_t *node)
  *
  * @return integer value indicating success/failure of the
  * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t.  @endif The possible values
+ * enumeration #OperationReturnValues_t.  @endif@~ The possible values
  * returned by this function are:
  * @li LIBSBML_OPERATION_SUCCESS
  * @li LIBSBML_OPERATION_FAILED
@@ -2553,7 +2553,7 @@ ASTNode_addChild (ASTNode_t *node, ASTNode_t *child)
  * 
  * @return integer value indicating success/failure of the
  * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif The possible values
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
  * returned by this function are:
  * @li LIBSBML_OPERATION_SUCCESS
  * @li LIBSBML_OPERATION_FAILED
@@ -3283,7 +3283,7 @@ ASTNode_hasUnits (const ASTNode_t *node)
  *
  * @return integer value indicating success/failure of the
  * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t.  @endif The possible values
+ * enumeration #OperationReturnValues_t.  @endif@~ The possible values
  * returned by this function are:
  * @li LIBSBML_OPERATION_SUCCESS
  * @li LIBSBML_INVALID_OBJECT
@@ -3307,7 +3307,7 @@ ASTNode_setCharacter (ASTNode_t *node, char value)
  *
  * @return integer value indicating success/failure of the
  * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t.  @endif The possible values
+ * enumeration #OperationReturnValues_t.  @endif@~ The possible values
  * returned by this function are:
  * @li LIBSBML_OPERATION_SUCCESS
  * @li LIBSBML_INVALID_OBJECT
@@ -3327,7 +3327,7 @@ ASTNode_setName (ASTNode_t *node, const char *name)
  *
  * @return integer value indicating success/failure of the
  * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t.  @endif The possible values
+ * enumeration #OperationReturnValues_t.  @endif@~ The possible values
  * returned by this function are:
  * @li LIBSBML_OPERATION_SUCCESS
  * @li LIBSBML_INVALID_OBJECT
@@ -3347,7 +3347,7 @@ ASTNode_setInteger (ASTNode_t *node, long value)
  *
  * @return integer value indicating success/failure of the
  * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t.  @endif The possible values
+ * enumeration #OperationReturnValues_t.  @endif@~ The possible values
  * returned by this function are:
  * @li LIBSBML_OPERATION_SUCCESS
  * @li LIBSBML_INVALID_OBJECT
@@ -3371,7 +3371,7 @@ ASTNode_setRational (ASTNode_t *node, long numerator, long denominator)
  *
  * @return integer value indicating success/failure of the
  * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t.  @endif The possible values
+ * enumeration #OperationReturnValues_t.  @endif@~ The possible values
  * returned by this function are:
  * @li LIBSBML_OPERATION_SUCCESS
  * @li LIBSBML_INVALID_OBJECT
@@ -3391,7 +3391,7 @@ ASTNode_setReal (ASTNode_t *node, double value)
  *
  * @return integer value indicating success/failure of the
  * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t.  @endif The possible values
+ * enumeration #OperationReturnValues_t.  @endif@~ The possible values
  * returned by this function are:
  * @li LIBSBML_OPERATION_SUCCESS
  * @li LIBSBML_INVALID_OBJECT
@@ -3410,7 +3410,7 @@ ASTNode_setRealWithExponent (ASTNode_t *node, double mantissa, long exponent)
  *
  * @return integer value indicating success/failure of the
  * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t.  @endif The possible values
+ * enumeration #OperationReturnValues_t.  @endif@~ The possible values
  * returned by this function are:
  * @li LIBSBML_OPERATION_SUCCESS
  * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
@@ -3487,7 +3487,7 @@ ASTNode_setStyle (ASTNode_t *node, const char *style)
  *
  * @return integer value indicating success/failure of the
  * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif The possible values
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
  * returned by this function are:
  * @li LIBSBML_OPERATION_SUCCESS
  * @li LIBSBML_UNEXPECTED_ATTRIBUTE
@@ -3510,7 +3510,7 @@ ASTNode_setUnits (ASTNode_t *node, const char *units)
  *
  * @return integer value indicating success/failure of the
  * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t.  @endif The possible values
+ * enumeration #OperationReturnValues_t.  @endif@~ The possible values
  * returned by this function are:
  * @li LIBSBML_OPERATION_SUCCESS
  * @li LIBSBML_INVALID_OBJECT
@@ -3575,7 +3575,7 @@ ASTNode_unsetStyle (ASTNode_t *node)
  *
  * @return integer value indicating success/failure of the
  * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif The possible values
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
  * returned by this function are:
  * @li LIBSBML_OPERATION_SUCCESS
  * @li LIBSBML_UNEXPECTED_ATTRIBUTE
@@ -3648,7 +3648,7 @@ ASTNode_getParentSBMLObject(ASTNode_t* node)
  *
  * @return integer value indicating success/failure of the
  * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t.  @endif The possible values
+ * enumeration #OperationReturnValues_t.  @endif@~ The possible values
  * returned by this function are:
  * @li LIBSBML_OPERATION_SUCCESS
  * @li LIBSBML_INDEX_EXCEEDS_SIZE
@@ -3675,7 +3675,7 @@ ASTNode_removeChild(ASTNode_t* node, unsigned int n)
  *
  * @return integer value indicating success/failure of the
  * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t.  @endif The possible values
+ * enumeration #OperationReturnValues_t.  @endif@~ The possible values
  * returned by this function are:
  * @li LIBSBML_OPERATION_SUCCESS
  * @li LIBSBML_INDEX_EXCEEDS_SIZE
@@ -3701,7 +3701,7 @@ ASTNode_replaceChild(ASTNode_t* node, unsigned int n, ASTNode_t * newChild)
  *
  * @return integer value indicating success/failure of the
  * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t.  @endif The possible values
+ * enumeration #OperationReturnValues_t.  @endif@~ The possible values
  * returned by this function are:
  * @li LIBSBML_OPERATION_SUCCESS
  * @li LIBSBML_INDEX_EXCEEDS_SIZE
@@ -3726,7 +3726,7 @@ ASTNode_insertChild(ASTNode_t* node, unsigned int n, ASTNode_t * newChild)
  *
  * @return integer value indicating success/failure of the
  * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t.  @endif The possible values
+ * enumeration #OperationReturnValues_t.  @endif@~ The possible values
  * returned by this function are:
  * @li LIBSBML_OPERATION_SUCCESS
  * @li LIBSBML_OPERATION_FAILED
@@ -3782,7 +3782,7 @@ ASTNode_getSemanticsAnnotation(ASTNode_t* node, unsigned int n)
  *
  * @return integer value indicating success/failure of the
  * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t.  @endif The possible values
+ * enumeration #OperationReturnValues_t.  @endif@~ The possible values
  * returned by this function are:
  * @li LIBSBML_OPERATION_SUCCESS
  * @li LIBSBML_OPERATION_FAILED

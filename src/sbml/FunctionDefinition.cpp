@@ -1232,7 +1232,7 @@ FunctionDefinition_isSetMath (const FunctionDefinition_t *fd)
  *
  * @return integer value indicating success/failure of the
  * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif The possible values
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
  * returned by this function are:
  * @li LIBSBML_OPERATION_SUCCESS
  * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
@@ -1260,7 +1260,7 @@ FunctionDefinition_setId (FunctionDefinition_t *fd, const char *sid)
  *
  * @return integer value indicating success/failure of the
  * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif The possible values
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
  * returned by this function are:
  * @li LIBSBML_OPERATION_SUCCESS
  * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
@@ -1291,7 +1291,7 @@ FunctionDefinition_setName (FunctionDefinition_t *fd, const char *name)
  *
  * @return integer value indicating success/failure of the
  * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif The possible values
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
  * returned by this function are:
  * @li LIBSBML_OPERATION_SUCCESS
  * @li LIBSBML_INVALID_OBJECT
@@ -1314,7 +1314,7 @@ FunctionDefinition_setMath (FunctionDefinition_t *fd, const ASTNode_t *math)
  *
  * @return integer value indicating success/failure of the
  * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif The possible values
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
  * returned by this function are:
  * @li LIBSBML_OPERATION_SUCCESS
  * @li LIBSBML_OPERATION_FAILED
@@ -1452,6 +1452,7 @@ ListOfFunctionDefinitions_removeById (ListOf_t *lo, const char *sid)
     return NULL;
 }
 
+/** @endcond */
 /** @endcond */
 
 LIBSBML_CPP_NAMESPACE_END

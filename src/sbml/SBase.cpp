@@ -666,6 +666,8 @@ SBase::getAnnotation ()
   return mAnnotation;
 }
 
+
+/** @cond doxygen-libsbml-internal */
 std::string 
 SBase::getURI() const
 {
@@ -689,6 +691,8 @@ SBase::getURI() const
 
   return getElementNamespace();
 }
+/** @endcond */
+
 
 /*
  * @return the annotation of this SBML object by string.
@@ -2708,7 +2712,7 @@ SBase::disablePackage(const std::string& pkgURI, const std::string& prefix)
  *
  * @return integer value indicating success/failure of the
  * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif The possible values
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
  * returned by this function are:
  * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
  * @li LIBSBML_PKG_UNKNOWN      
@@ -4763,6 +4767,8 @@ SBase::syncAnnotation ()
 }
 /** @endcond */
 
+
+/** @cond doxygen-libsbml-internal */
 void
 SBase::reconstructRDFAnnotation()
 {
@@ -5047,6 +5053,9 @@ SBase::reconstructRDFAnnotation()
   if (history != NULL) delete history;
   if (cvTerms != NULL) delete cvTerms;
 }
+/** @endcond */
+
+
 /** @cond doxygen-libsbml-internal */
 /*
  * Checks that SBML element has been read in the proper order.  If object
@@ -5634,7 +5643,7 @@ SBase::getElementNamespace() const
  *
  * @return integer value indicating success/failure of the
  * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif The possible values
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
  * returned by this function are:
  * @li LIBSBML_OPERATION_SUCCESS
  * @li LIBSBML_OPERATION_FAILED
@@ -5663,7 +5672,7 @@ SBase_addCVTerm(SBase_t *sb, CVTerm_t *term)
  *
  * @return integer value indicating success/failure of the
  * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif The possible values
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
  * returned by this function are:
  * @li LIBSBML_OPERATION_SUCCESS
  * @li LIBSBML_OPERATION_FAILED
@@ -5738,7 +5747,7 @@ SBase_getCVTerm(SBase_t *sb, unsigned int n)
  *
  * @return integer value indicating success/failure of the
  * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif The possible values
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
  * returned by this function are:
  * @li LIBSBML_OPERATION_SUCCESS
  * @li LIBSBML_OPERATION_FAILED
@@ -5789,7 +5798,7 @@ SBase_isSetModelHistory(SBase_t *sb)
  *
  * @return integer value indicating success/failure of the
  * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif The possible values
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
  * returned by this function are:
  * @li LIBSBML_OPERATION_SUCCESS
  * @li LIBSBML_INVALID_OBJECT
@@ -5808,7 +5817,7 @@ SBase_setModelHistory(SBase_t *sb, ModelHistory_t *history)
  *
  * @return integer value indicating success/failure of the
  * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif The possible values
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
  * returned by this function are:
  * @li LIBSBML_OPERATION_SUCCESS
  * @li LIBSBML_OPERATION_FAILED
@@ -6249,7 +6258,7 @@ SBase_isSetSBOTerm (const SBase_t *sb)
  *
  * @return integer value indicating success/failure of the
  * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif The possible values
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
  * returned by this function are:
  * @li LIBSBML_OPERATION_SUCCESS
  * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
@@ -6294,7 +6303,7 @@ SBase_setMetaId (SBase_t *sb, const char *metaid)
 // *
 // * @return integer value indicating success/failure of the
 // * function.  @if clike The value is drawn from the
-// * enumeration #OperationReturnValues_t. @endif The possible values
+// * enumeration #OperationReturnValues_t. @endif@~ The possible values
 // * returned by this function are:
 // *
 // * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
@@ -6322,7 +6331,7 @@ SBase_setMetaId (SBase_t *sb, const char *metaid)
 // *
 // * @return integer value indicating success/failure of the
 // * function.  @if clike The value is drawn from the
-// * enumeration #OperationReturnValues_t. @endif The possible values
+// * enumeration #OperationReturnValues_t. @endif@~ The possible values
 // * returned by this function are:
 // *
 // * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
@@ -6359,7 +6368,7 @@ SBase_setMetaId (SBase_t *sb, const char *metaid)
  *
  * @return integer value indicating success/failure of the
  * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif The possible values
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
  * returned by this function are:
  * @li LIBSBML_OPERATION_SUCCESS
  * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
@@ -6396,7 +6405,7 @@ SBase_setSBOTerm (SBase_t *sb, int value)
  *
  * @return integer value indicating success/failure of the
  * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif The possible values
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
  * returned by this function are:
  * @li LIBSBML_OPERATION_SUCCESS
  * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
@@ -6422,7 +6431,7 @@ SBase_setSBOTermID (SBase_t *sb, const char* sboid)
  *
  * @return integer value indicating success/failure of the
  * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif The possible values
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
  * returned by this function are:
  * @li LIBSBML_OPERATION_SUCCESS
  */
@@ -6445,7 +6454,7 @@ SBase_setNamespaces (SBase_t *sb, XMLNamespaces_t *xmlns)
  *
  * @return integer value indicating success/failure of the
  * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif The possible values
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
  * returned by this function are:
  * @li LIBSBML_OPERATION_SUCCESS
  * @li LIBSBML_INVALID_OBJECT
@@ -6469,7 +6478,7 @@ SBase_setNotes (SBase_t *sb, XMLNode_t *notes)
  *
  * @return integer value indicating success/failure of the
  * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif The possible values
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
  * returned by this function are:
  * @li LIBSBML_OPERATION_SUCCESS
  * @li LIBSBML_INVALID_OBJECT
@@ -6503,7 +6512,7 @@ SBase_setNotesString (SBase_t *sb, char *notes)
  *
  * @return integer value indicating success/failure of the
  * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif The possible values
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
  * returned by this function are:
  * @li LIBSBML_OPERATION_SUCCESS
  * @li LIBSBML_INVALID_OBJECT
@@ -6528,7 +6537,7 @@ SBase_appendNotes (SBase_t *sb, XMLNode_t *notes)
  *
  * @return integer value indicating success/failure of the
  * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif The possible values
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
  * returned by this function are:
  * @li LIBSBML_OPERATION_SUCCESS
  * @li LIBSBML_INVALID_OBJECT
@@ -6558,7 +6567,7 @@ SBase_appendNotesString (SBase_t *sb, char *notes)
  *
  * @return integer value indicating success/failure of the
  * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif The possible values
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
  * returned by this function are:
  * @li LIBSBML_OPERATION_SUCCESS
  */
@@ -6581,7 +6590,7 @@ SBase_setAnnotation (SBase_t *sb, XMLNode_t *annotation)
  *
  * @return integer value indicating success/failure of the
  * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif The possible values
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
  * returned by this function are:
  * @li LIBSBML_OPERATION_SUCCESS
  * @li LIBSBML_OPERATION_FAILED
@@ -6614,7 +6623,7 @@ SBase_setAnnotationString (SBase_t *sb, char *annotation)
  *
  * @return integer value indicating success/failure of the
  * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif The possible values
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
  * returned by this function are:
  * @li LIBSBML_OPERATION_SUCCESS
  * @li LIBSBML_OPERATION_FAILED
@@ -6638,7 +6647,7 @@ SBase_appendAnnotation (SBase_t *sb, XMLNode_t *annotation)
  *
  * @return integer value indicating success/failure of the
  * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif The possible values
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
  * returned by this function are:
  * @li LIBSBML_OPERATION_SUCCESS
  * @li LIBSBML_OPERATION_FAILED
@@ -6666,7 +6675,7 @@ SBase_appendAnnotationString (SBase_t *sb, char *annotation)
  *
  * @return integer value indicating success/failure of the
  * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif The possible values
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
  * returned by this function are:
  * @li LIBSBML_OPERATION_SUCCESS
  * @li LIBSBML_OPERATION_FAILED
@@ -6689,7 +6698,7 @@ SBase_unsetMetaId (SBase_t *sb)
 *
 * @return integer value indicating success/failure of the
 * function.  @if clike The value is drawn from the
-* enumeration #OperationReturnValues_t. @endif The possible values
+* enumeration #OperationReturnValues_t. @endif@~ The possible values
 * returned by this function are:
 *
 * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
@@ -6710,7 +6719,7 @@ SBase_unsetId (SBase_t *sb)
 // *
 // * @return integer value indicating success/failure of the
 // * function.  @if clike The value is drawn from the
-// * enumeration #OperationReturnValues_t. @endif The possible values
+// * enumeration #OperationReturnValues_t. @endif@~ The possible values
 // * returned by this function are:
 // *
 // * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
@@ -6731,7 +6740,7 @@ SBase_unsetId (SBase_t *sb)
  *
  * @return integer value indicating success/failure of the
  * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif The possible values
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
  * returned by this function are:
  * @li LIBSBML_OPERATION_SUCCESS
  */
@@ -6753,7 +6762,7 @@ SBase_unsetNotes (SBase_t *sb)
  *
  * @return integer value indicating success/failure of the
  * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif The possible values
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
  * returned by this function are:
  * @li LIBSBML_OPERATION_SUCCESS
  */
@@ -6775,7 +6784,7 @@ SBase_unsetAnnotation (SBase_t *sb)
  *
  * @return integer value indicating success/failure of the
  * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif The possible values
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
  * returned by this function are:
  * @li LIBSBML_OPERATION_SUCCESS
  * @li LIBSBML_UNEXPECTED_ATTRIBUTE
@@ -6951,7 +6960,7 @@ SBase_getPlugin(SBase_t *sb, const char *package)
  *
  * @return integer value indicating success/failure of the
  * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t.  @endif The possible values
+ * enumeration #OperationReturnValues_t.  @endif@~ The possible values
  * returned by this function are:
  * @li LIBSBML_OPERATION_SUCCESS
  * @li LIBSBML_OPERATION_FAILED

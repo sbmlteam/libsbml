@@ -86,7 +86,7 @@ public:
    *
    * @param c the SBMLConverter object to copy.
    * 
-   * @throws @if python ValueError @else SBMLConstructorException @endif
+   * @throws @if python ValueError @else SBMLConstructorException @endif@~
    * Thrown if the argument @p orig is @c NULL.
    */
   SBMLConverter(const SBMLConverter& c);
@@ -104,7 +104,7 @@ public:
    * @param rhs The object whose values are used as the basis of the
    * assignment.
    *
-   * @throws @if python ValueError @else SBMLConstructorException @endif
+   * @throws @if python ValueError @else SBMLConstructorException @endif@~
    * Thrown if the argument @p rhs is @c NULL.
    */
   SBMLConverter& operator=(const SBMLConverter& rhs);
@@ -189,7 +189,7 @@ public:
    * 
    * @return integer value indicating the success/failure of the operation.
    * @if clike The value is drawn from the enumeration
-   * #OperationReturnValues_t. @endif The set of possible values that may
+   * #OperationReturnValues_t. @endif@~ The set of possible values that may
    * be returned ultimately depends on the specific subclass of
    * SBMLConverter being used, but the default method can return the
    * following values:
@@ -210,7 +210,7 @@ public:
    * 
    * @return integer value indicating the success/failure of the operation.
    * @if clike The value is drawn from the enumeration
-   * #OperationReturnValues_t. @endif The set of possible values that may
+   * #OperationReturnValues_t. @endif@~ The set of possible values that may
    * be returned ultimately depends on the specific subclass of
    * SBMLConverter being used, but the default method can return the
    * following values:
@@ -251,7 +251,7 @@ public:
    * 
    * @return  integer value indicating the success/failure of the operation.
    * @if clike The value is drawn from the enumeration
-   * #OperationReturnValues_t. @endif The set of possible values that may
+   * #OperationReturnValues_t. @endif@~ The set of possible values that may
    * be returned depends on the converter subclass; please consult
    * the documentation for the relevant class to find out what the
    * possibilities are.

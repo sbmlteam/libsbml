@@ -27,7 +27,7 @@
  *
  * @class XMLInputStream
  *
- * @if notclike @internal @endif
+ * @if notclike @internal @endif@~
  */
 
 #ifndef XMLInputStream_h
@@ -72,7 +72,7 @@ public:
    *
    * @p errorLog the XMLErrorLog object to use.
    *
-   * @if notcpp @docnote @htmlinclude warn-default-args-in-docs.html @endif
+   * @if notcpp @docnote @htmlinclude warn-default-args-in-docs.html @endif@~
    */
   XMLInputStream (  const char*        content
                   , bool               isFile   = true
@@ -160,7 +160,7 @@ public:
    *
    * @return integer value indicating success/failure of the
    * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
+   * enumeration #OperationReturnValues_t. @endif@~ The possible values
    * returned by this function are:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    * @li @link OperationReturnValues_t#@link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink @endlink

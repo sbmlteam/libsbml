@@ -130,7 +130,7 @@ UnitKind_equals (UnitKind_t uk1, UnitKind_t uk2);
  * string @p name (determined in a case-insensitive
  * manner).@endif@if java a value the set of <code>UNIT_KIND_</code> codes
  * defined in class {@link libsbmlConstants}, corresponding to the string
- * @p name (determined in a case-insensitive manner).@endif
+ * @p name (determined in a case-insensitive manner).@endif@~
  *
  * @note For more information about the libSBML unit codes, please refer to
  * the class documentation for Unit.
@@ -148,7 +148,7 @@ UnitKind_forName (const char *name);
  * defined in the class @link libsbml libsbml@endlink
  * @endif@if java a value from the set of <code>UNIT_KIND_</code> codes
  * defined in the class {@link libsbmlConstants}
- * @endif
+ * @endif@~
  *
  * @return the name corresponding to the given unit code.
  *

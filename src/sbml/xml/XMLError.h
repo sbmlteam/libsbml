@@ -53,7 +53,7 @@
  * changing their behavior if desired. @else This
  * error identifier is one of the constants listed in the next section below.
  * Applications can use the error identifiers as a means of recognizing the
- * error encountered and changing their behavior if desired.  @endif
+ * error encountered and changing their behavior if desired.  @endif@~
  *
  * Integer error codes are useful for software, but not so much for telling
  * humans what happened.  For this reason, XMLError also provides two text
@@ -67,7 +67,7 @@
  * Each XMLError object also contains a category code; its value may be
  * retrieved using the method XMLError::getCategory().  Category values
  * are drawn from @if clike the enumeration <a class="el" href="#XMLErrorCategory_t">XMLErrorCategory_t</a> described below.@else a
- * set of constants whose names begin with the characters @c LIBSBML_CAT_, described below.@endif &nbsp;Categories
+ * set of constants whose names begin with the characters @c LIBSBML_CAT_, described below.@endif@~ &nbsp;Categories
  * are used by libSBML to provide more information to calling programs about
  * the nature of a given error.  
  *
@@ -122,7 +122,7 @@
  * The error and warning codes returned by the XML layer in libSBML are
  * listed in the table below.  In the libSBML C# language interface,
  * these error identifiers are currently implemented as static integer
- * constants defined in the interface class @link libsbmlcs.libsbml@endlink.@endif
+ * constants defined in the interface class @link libsbmlcs.libsbml@endlink.@endif@~
  *
  * <center>
  * <table cellspacing="1" cellpadding="1" border="0" class="text-table width80 normal-font alt-row-colors">
@@ -225,7 +225,7 @@
  * As is the case with the error codes, in the libSBML C# language
  * interface, the category identifiers are currently implemented as static
  * integer constants defined in the interface
- * class @link libsbmlcs.libsbml@endlink. @endif
+ * class @link libsbmlcs.libsbml@endlink. @endif@~
  *
  * <center>
  * <table width="90%" cellspacing="1" cellpadding="1" border="0" class="text-table width80 normal-font alt-row-colors">
@@ -291,7 +291,7 @@
  * As is the case with the category codes, in the libSBML C# language
  * interface, these severity codes are currently
  * implemented as static integer constants defined in the interface class
- * @link libsbmlcs.libsbml@endlink.@endif
+ * @link libsbmlcs.libsbml@endlink.@endif@~
  *
  * <center>
  * <table width="90%" cellspacing="1" cellpadding="1" border="0" class="text-table width80 normal-font alt-row-colors">
@@ -552,7 +552,7 @@ public:
    * integer constants in the file
    * "libsbmlConstants.java".  See the <a class="el"
    * href="#XMLErrorCode_t">top of this documentation</a> for a table
-   * listing the possible values and their meanings. @endif The argument @p
+   * listing the possible values and their meanings. @endif@~ The argument @p
    * errorId to this constructor @em can be (but does not have to be) a
    * value from this @if clike enumeration. If it is a value
    * from <a class="el" href="#XMLErrorCode_t">XMLErrorCode_t</a>, the
@@ -571,7 +571,7 @@ public:
    * passed in the argument @p details to this constructor.  In addition,
    * all the predefined error identifiers have associated values for the @p
    * severity and @p category codes, and these fields are filled-in as
-   * well. @endif
+   * well. @endif@~
    *
    * If the error identifier @p errorId is a number greater than 9999, this
    * constructor assumes that the error was generated from another part of
@@ -608,7 +608,7 @@ public:
    * codes, callers do not need to fill in @p severity and @p category in a
    * call to this constructor.  Conversely, if @p errorId is not an existing
    * XML-level error code, callers can use other values for @p severity and
-   * @p category. @endif
+   * @p category. @endif@~
    *
    * @param errorId an unsigned int, the identification number of the error.
    * 
@@ -627,7 +627,7 @@ public:
    * @param category an integer indicating the category to which the error
    * belongs.
    *
-   * @if notcpp @docnote @htmlinclude warn-default-args-in-docs.html @endif
+   * @if notcpp @docnote @htmlinclude warn-default-args-in-docs.html @endif@~
    */
   XMLError
   (
@@ -645,7 +645,7 @@ public:
    *
    * @p orig the XMLError object to copy.
    *
-   * @throws @if python ValueError @else XMLConstructorException @endif
+   * @throws @if python ValueError @else XMLConstructorException @endif@~
    * Thrown if the argument @p orig is @c NULL.
    */
   XMLError(const XMLError& orig);
@@ -657,7 +657,7 @@ public:
    * @param rhs The XMLError object whose values are used as the basis
    * of the assignment.
    *
-   * @throws @if python ValueError @else XMLConstructorException @endif
+   * @throws @if python ValueError @else XMLConstructorException @endif@~
    * Thrown if the argument @p rhs is @c NULL.
    */
   XMLError& operator=(const XMLError& rhs);
@@ -854,7 +854,7 @@ public:
    * object (via XMLError::getSeverity()) and then comparing it to the
    * value @link XMLErrorSeverity_t#LIBSBML_SEV_INFO LIBSBML_SEV_INFO@endlink from the
    * @if clike enumeration #XMLErrorSeverity_t. @else set of predefined
-   * severity codes.@endif
+   * severity codes.@endif@~
    *
    * @return @c true if this XMLError is for informational purposes only,
    * @c false otherwise.
@@ -874,7 +874,7 @@ public:
    * object (via XMLError::getSeverity()) and then comparing it to the
    * value @link XMLErrorSeverity_t#LIBSBML_SEV_WARNING LIBSBML_SEV_WARNING@endlink from the
    * @if clike enumeration #XMLErrorSeverity_t. @else set of predefined
-   * severity codes.@endif
+   * severity codes.@endif@~
    *
    * @return @c true if this error is a warning, @c false otherwise.
    *
@@ -893,7 +893,7 @@ public:
    * object (via XMLError::getSeverity()) and then comparing it to the
    * value @link XMLErrorSeverity_t#LIBSBML_SEV_ERROR LIBSBML_SEV_ERROR@endlink from the
    * @if clike enumeration #XMLErrorSeverity_t. @else set of predefined
-   * severity codes.@endif
+   * severity codes.@endif@~
    *
    * @return @c true if this error is an error, @c false otherwise.
    *
@@ -911,7 +911,7 @@ public:
    * This is equivalent to obtaining the severity code from an XMLError
    * object (via XMLError::getSeverity()) and then comparing it to the
    * value @link XMLErrorSeverity_t#LIBSBML_SEV_FATAL LIBSBML_SEV_FATAL@endlink from the
-   * @if clike enumeration #XMLErrorSeverity_t. @else set of predefined severity codes.@endif
+   * @if clike enumeration #XMLErrorSeverity_t. @else set of predefined severity codes.@endif@~
    *
    * @return @c true if this error is a fatal error, @c false otherwise.
    *
@@ -929,7 +929,7 @@ public:
    * This is equivalent to obtaining the category identifier from an
    * XMLError object (via XMLError::getCategory()) and then comparing it to
    * the value @link XMLErrorCategory_t#LIBSBML_CAT_INTERNAL LIBSBML_CAT_INTERNAL@endlink from the
-   * @if clike enumeration #XMLErrorCategory_t. @else set of predefined category codes.@endif
+   * @if clike enumeration #XMLErrorCategory_t. @else set of predefined category codes.@endif@~
    *
    * @return @c true or @c false
    *
@@ -946,7 +946,7 @@ public:
    * This is equivalent to obtaining the category identifier from an
    * XMLError object (via XMLError::getCategory()) and then comparing it to
    * the value @link XMLErrorCategory_t#LIBSBML_CAT_SYSTEM LIBSBML_CAT_SYSTEM@endlink from the
-   * @if clike enumeration #XMLErrorCategory_t. @else set of predefined category codes.@endif
+   * @if clike enumeration #XMLErrorCategory_t. @else set of predefined category codes.@endif@~
    *
    * @return @c true or @c false
    *
@@ -964,7 +964,7 @@ public:
    * This is equivalent to obtaining the category identifier from an
    * XMLError object (via XMLError::getCategory()) and then comparing it to
    * the value @link XMLErrorCategory_t#LIBSBML_CAT_XML LIBSBML_CAT_XML@endlink from the
-   * @if clike enumeration #XMLErrorCategory_t. @else set of predefined category codes.@endif
+   * @if clike enumeration #XMLErrorCategory_t. @else set of predefined category codes.@endif@~
    *
    * @return @c true or @c false
    *
@@ -982,7 +982,7 @@ public:
    * This is equivalent to obtaining the error identifier from an
    * XMLError object (via XMLError::getErrorId()) and then comparing it to
    * the value XMLUnknownError or UnknownError from the
-   * @if clike enumeration #XMLErrorCode_t. @else set of predefined error codes.@endif
+   * @if clike enumeration #XMLErrorCode_t. @else set of predefined error codes.@endif@~
    *
    * @return @c true or @c false
    */
@@ -1026,7 +1026,7 @@ public:
    * @param code the error code whose message is sought; it must be a
    * predefined value from @if clike <a class="el" href="#XMLErrorCode_t">
    * XMLErrorCode_t</a>. @else <a class="el" href="#XMLErrorCode_t">the set
-   * of predefined error identifiers</a>.@endif
+   * of predefined error identifiers</a>.@endif@~
    */
   static const std::string getStandardMessage (const int code);
 

@@ -93,7 +93,7 @@ public:
    *
    * @param orig the object to copy.
    * 
-   * @throws @if python ValueError @else SBMLConstructorException @endif
+   * @throws @if python ValueError @else SBMLConstructorException @endif@~
    * Thrown if the argument @p orig is @c NULL.
    */
   SBMLValidator(const SBMLValidator& orig);
@@ -111,7 +111,7 @@ public:
    * @param rhs The object whose values are used as the basis of the
    * assignment.
    *
-   * @throws @if python ValueError @else SBMLConstructorException @endif
+   * @throws @if python ValueError @else SBMLConstructorException @endif@~
    * Thrown if the argument @p rhs is @c NULL.
    */
   SBMLValidator& operator=(const SBMLValidator& rhs);
@@ -152,7 +152,7 @@ public:
    * 
    * @return an integer value indicating the success/failure of the
    * validation.  @if clike The value is drawn from the enumeration
-   * #OperationReturnValues_t. @endif The possible values returned by this
+   * #OperationReturnValues_t. @endif@~ The possible values returned by this
    * function are
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    *
@@ -166,7 +166,7 @@ public:
    *
    * @return an integer value indicating the success/failure of the
    * validation.  @if clike The value is drawn from the enumeration
-   * #OperationReturnValues_t. @endif The possible values returned by this
+   * #OperationReturnValues_t. @endif@~ The possible values returned by this
    * function are determined by the specific subclasses of this class.
    */
   virtual unsigned int validate(); 
@@ -179,7 +179,7 @@ public:
    * call this method after you have processed the list of failures from
    * the last validation run and before validating the next document.
    *
-   * @if clike @see getFailures() @endif
+   * @if clike @see getFailures() @endif@~
    */
   virtual void clearFailures ();
 
@@ -201,7 +201,7 @@ public:
    *
    * @param err an SBMLError object representing an error or warning
    *
-   * @if clike @see getFailures() @endif
+   * @if clike @see getFailures() @endif@~
    */
   void logFailure (const SBMLError& err);
 
@@ -245,7 +245,7 @@ public:
    * 
    * @return the SBMLErrorLog used for the SBMLDocument
    * 
-   * @if clike @see getFailures() @endif
+   * @if clike @see getFailures() @endif@~
    */
   SBMLErrorLog* getErrorLog ();
 

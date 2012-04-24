@@ -198,7 +198,7 @@ extern L3Parser* l3p;
  * Parses the given SBML formula and returns a representation of it as an
  * Abstract Syntax Tree (AST).
  *
- * @if clike The text-string form of mathematical formulas produced by
+ * The text-string form of mathematical formulas produced by
  * SBML_l3FormulaToString() and read by SBML_parseL3Formula() are expanded
  * versions of the SBML_formulaToString() and SBML_parseFormula() functions
  * that worked to produce and consume the defined L1-infix syntax, with the
@@ -293,15 +293,15 @@ extern L3Parser* l3p;
  * @htmlinclude string-values-table-l3.html
  * 
  * @param formula the text-string formula expression to be parsed
- * @param model the model for which the formula expression is being parsed for, to resolve any ambiguities between pre-defined symbols and model-defined symbols.
+ * @param settings the settings for the parser behavior
  *
  * @return the root node of the AST, or NULL if an error occurred in
  * parsing the formula
  *
- * @if clike @see SBML_formulaToString()@endif
- * @if csharp @see SBML_formulaToString()@endif
- * @if python @see libsbml.formulaToString()@endif
- * @if java @see formulaToString(ASTNode tree)@endif
+ * @if clike @see SBML_formulaToString()@endif@~
+ * @if csharp @see SBML_formulaToString()@endif@~
+ * @if python @see libsbml.formulaToString()@endif@~
+ * @if java @see formulaToString(ASTNode tree)@endif@~
  */
 LIBSBML_EXTERN
 ASTNode_t *

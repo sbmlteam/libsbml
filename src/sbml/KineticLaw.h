@@ -141,7 +141,7 @@ public:
    * @param version an unsigned int, the SBML Version to assign to this
    * KineticLaw
    *
-   * @throws @if python ValueError @else SBMLConstructorException @endif
+   * @throws @if python ValueError @else SBMLConstructorException @endif@~
    * Thrown if the given @p level and @p version combination, or this kind
    * of SBML object, are either invalid or mismatched with respect to the
    * parent SBMLDocument object.
@@ -173,7 +173,7 @@ public:
    *
    * @param sbmlns an SBMLNamespaces object.
    *
-   * @throws @if python ValueError @else SBMLConstructorException @endif
+   * @throws @if python ValueError @else SBMLConstructorException @endif@~
    * Thrown if the given @p level and @p version combination, or this kind
    * of SBML object, are either invalid or mismatched with respect to the
    * parent SBMLDocument object.
@@ -203,7 +203,7 @@ public:
    *
    * @param orig the object to copy.
    * 
-   * @throws @if python ValueError @else SBMLConstructorException @endif
+   * @throws @if python ValueError @else SBMLConstructorException @endif@~
    * Thrown if the argument @p orig is @c NULL.
    */
   KineticLaw (const KineticLaw& orig);
@@ -215,7 +215,7 @@ public:
    * @param rhs The object whose values are used as the basis of the
    * assignment.
    *
-   * @throws @if python ValueError @else SBMLConstructorException @endif
+   * @throws @if python ValueError @else SBMLConstructorException @endif@~
    * Thrown if the argument @p rhs is @c NULL.
    */
   KineticLaw& operator=(const KineticLaw& rhs);
@@ -339,7 +339,7 @@ public:
    * This is functionally identical to the method
    * @if java KineticLaw::isSetMath()@else isSetMath()@endif.  It is
    * provided in order to mirror the parallel between
-   * @if java KineticLaw::getFormula()@else getFormula()@endif and
+   * @if java KineticLaw::getFormula()@else getFormula()@endif@~ and
    * @if java KineticLaw::getMath()@else getMath()@endif.
    *
    * @return @c true if the formula (meaning the @c math subelement) of
@@ -359,7 +359,7 @@ public:
    * This is identical to the method
    * @if java KineticLaw::isSetFormula()@else isSetFormula()@endif.
    * It is provided in order to mirror the parallel between
-   * @if java KineticLaw::getFormula()@else getFormula()@endif and
+   * @if java KineticLaw::getFormula()@else getFormula()@endif@~ and
    * @if java KineticLaw::getMath()@else getMath()@endif.
    * 
    * @return @c true if the formula (meaning the @c math subelement) of
@@ -557,7 +557,7 @@ public:
    * instance in the KineticLaw</em>.  In addition, the caller should make
    * sure to free the original object if it is no longer being used, or
    * else a memory leak will result.  Please see
-   * @if java KineticLaw::createParameter()@else createParameter()@endif
+   * @if java KineticLaw::createParameter()@else createParameter()@endif@~
    * for a method that does not lead to these issues.
    *
    * @see createParameter()
@@ -589,7 +589,7 @@ public:
    * instance in the KineticLaw</em>.  In addition, the caller should make
    * sure to free the original object if it is no longer being used, or
    * else a memory leak will result.  Please see
-   * @if java KineticLaw::createParameter()@else createParameter()@endif
+   * @if java KineticLaw::createParameter()@else createParameter()@endif@~
    * for a method that does not lead to these issues.
    *
    * @see createLocalParameter()
@@ -763,7 +763,7 @@ public:
    * The units are calculated based on the mathematical expression in the
    * KineticLaw and the model quantities referenced by
    * <code>&lt;ci&gt;</code> elements used within that expression.  The
-   * @if java KineticLaw::getDerivedUnitDefinition()@else getDerivedUnitDefinition()@endif
+   * @if java KineticLaw::getDerivedUnitDefinition()@else getDerivedUnitDefinition()@endif@~
    * method returns the calculated units.
    *
    * Note that the functionality that facilitates unit analysis depends 
@@ -776,13 +776,13 @@ public:
    * units.  In those cases, it is not possible to calculate the units of
    * the overall expression without making assumptions.  LibSBML does not
    * make assumptions about the units, and
-   * @if java KineticLaw::getDerivedUnitDefinition()@else getDerivedUnitDefinition()@endif
+   * @if java KineticLaw::getDerivedUnitDefinition()@else getDerivedUnitDefinition()@endif@~
    * only returns the units as far as it is able to determine them.  For
    * example, in an expression <em>X + Y</em>, if <em>X</em> has
    * unambiguously-defined units and <em>Y</em> does not, it will return
    * the units of <em>X</em>.  <strong>It is important that callers also
    * invoke the method</strong>
-   * @if java KineticLaw::containsUndeclaredUnits()@else containsUndeclaredUnits()@endif
+   * @if java KineticLaw::containsUndeclaredUnits()@else containsUndeclaredUnits()@endif@~
    * <strong>to determine whether this situation holds</strong>.  Callers may
    * wish to take suitable actions in those scenarios.
    *
@@ -802,7 +802,7 @@ public:
    * The units are calculated based on the mathematical expression in the
    * KineticLaw and the model quantities referenced by
    * <code>&lt;ci&gt;</code> elements used within that expression.  The
-   * @if java KineticLaw::getDerivedUnitDefinition()@else getDerivedUnitDefinition()@endif
+   * @if java KineticLaw::getDerivedUnitDefinition()@else getDerivedUnitDefinition()@endif@~
    * method returns the calculated units.
    *
    * Note that the functionality that facilitates unit analysis depends 
@@ -815,13 +815,13 @@ public:
    * units.  In those cases, it is not possible to calculate the units of
    * the overall expression without making assumptions.  LibSBML does not
    * make assumptions about the units, and
-   * @if java KineticLaw::getDerivedUnitDefinition()@else getDerivedUnitDefinition()@endif
+   * @if java KineticLaw::getDerivedUnitDefinition()@else getDerivedUnitDefinition()@endif@~
    * only returns the units as far as it is able to determine them.  For
    * example, in an expression <em>X + Y</em>, if <em>X</em> has
    * unambiguously-defined units and <em>Y</em> does not, it will return
    * the units of <em>X</em>.  <strong>It is important that callers also
    * invoke the method</strong>
-   * @if java KineticLaw::containsUndeclaredUnits()@else containsUndeclaredUnits()@endif
+   * @if java KineticLaw::containsUndeclaredUnits()@else containsUndeclaredUnits()@endif@~
    * <strong>to determine whether this situation holds</strong>.  Callers
    * may wish to take suitable actions in those scenarios.
    *
@@ -844,7 +844,7 @@ public:
    *
    * @note A return value of @c true indicates that the UnitDefinition
    * returned by
-   * @if java KineticLaw::getDerivedUnitDefinition()@else getDerivedUnitDefinition()@endif
+   * @if java KineticLaw::getDerivedUnitDefinition()@else getDerivedUnitDefinition()@endif@~
    * may not accurately represent the units of the expression.
    *
    * @see getDerivedUnitDefinition()
@@ -863,7 +863,7 @@ public:
    *
    * @note A return value of @c true indicates that the UnitDefinition
    * returned by
-   * @if java KineticLaw::getDerivedUnitDefinition()@else getDerivedUnitDefinition()@endif
+   * @if java KineticLaw::getDerivedUnitDefinition()@else getDerivedUnitDefinition()@endif@~
    * may not accurately represent the units of the expression.
    *
    * @see getDerivedUnitDefinition()
@@ -990,7 +990,7 @@ public:
    * codes</em>.  In the C# language interface for libSBML, the type codes
    * are defined as static integer constants in the interface class @link
    * libsbmlcs.libsbml@endlink.  The names of the type codes all begin with
-   * the characters @c SBML_. @endif
+   * the characters @c SBML_. @endif@~
    *
    * @return the SBML type code for this object, or @link
    * SBMLTypeCode_t#SBML_UNKNOWN SBML_UNKNOWN@endlink (default).
@@ -1061,7 +1061,7 @@ public:
    *
    * @return integer value indicating success/failure of the
    * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
+   * enumeration #OperationReturnValues_t. @endif@~ The possible values
    * returned by this function are:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink

@@ -138,8 +138,6 @@ AlgebraicRule::getInternalIdOnly() const
   return mInternalIdOnly;
 }
 
-  /** @endcond */
-
-
 /** @endcond */
+
 LIBSBML_CPP_NAMESPACE_END

@@ -48,7 +48,3 @@ XMLConstructorException::XMLConstructorException(std::string message):
 /** @endcond */
 
 LIBSBML_CPP_NAMESPACE_END
-
-
-/** @endcond */
-

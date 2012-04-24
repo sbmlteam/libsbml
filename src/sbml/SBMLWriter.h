@@ -55,7 +55,7 @@
  * The compression feature requires that the @em zlib (for @em gzip and @em
  * zip formats) and/or @em bzip2 (for @em bzip2 format) be available on the
  * system running libSBML, and that libSBML was configured with their
- * support compiled-in.  Please see the libSBML @if clike <a href="libsbml-installation.html">installation instructions</a>@endif@if python <a href="libsbml-installation.html">installation instructions</a>@endif@if java  <a href="../../../libsbml-installation.html">installation instructions</a>@endif for 
+ * support compiled-in.  Please see the libSBML @if clike <a href="libsbml-installation.html">installation instructions</a>@endif@if python <a href="libsbml-installation.html">installation instructions</a>@endif@if java  <a href="../../../libsbml-installation.html">installation instructions</a>@endif@~ for 
  * more information about this.  The methods
  * SBMLWriter::hasZlib() and
  * SBMLWriter::hasBzip2()
@@ -275,11 +275,11 @@ public:
    * non-C++ language interfaces for libSBML will contain two variants.  One
    * will be a static method on the class (i.e., SBMLWriter), and the other
    * will be a standalone top-level function with the name
-   * SBMLWriter_hasZlib(). They are functionally identical. @endif
+   * SBMLWriter_hasZlib(). They are functionally identical. @endif@~
    *
    * @return @c true if libSBML is linked with zlib, @c false otherwise.
    *
-   * @see @if clike hasBzip2() @else SBMLWriter::hasBzip2() @endif
+   * @see @if clike hasBzip2() @else SBMLWriter::hasBzip2() @endif@~
    */
   static bool hasZlib();
 
@@ -298,11 +298,11 @@ public:
    * non-C++ language interfaces for libSBML will contain two variants.  One
    * will be a static method on the class (i.e., SBMLWriter), and the other
    * will be a standalone top-level function with the name
-   * SBMLWriter_hasZlib(). They are functionally identical. @endif
+   * SBMLWriter_hasZlib(). They are functionally identical. @endif@~
    *
    * @return @c true if libSBML is linked with bzip2, @c false otherwise.
    *
-   * @see @if clike hasZlib() @else SBMLWriter::hasZlib() @endif
+   * @see @if clike hasZlib() @else SBMLWriter::hasZlib() @endif@~
    */
   static bool hasBzip2();
 
@@ -459,7 +459,7 @@ SBMLWriter_hasBzip2 ();
  *
  * @if clike @warning Note that the string is owned by the caller and
  * should be freed (with the normal string <code>free()</code> C++
- * function) after it is no longer needed.@endif
+ * function) after it is no longer needed.@endif@~
  *
  * @see SBMLWriter::hasZlib()
  * @see SBMLWriter::hasBzip2()
@@ -484,7 +484,7 @@ writeSBML (const SBMLDocument_t *d, const char *filename);
  *
  * @if clike @warning Note that the string is owned by the caller and
  * should be freed (with the normal string <code>free()</code> C++
- * function) after it is no longer needed.@endif
+ * function) after it is no longer needed.@endif@~
  */
 LIBSBML_EXTERN
 char *
@@ -515,7 +515,7 @@ writeSBMLToString (const SBMLDocument_t *d);
  *
  * @if clike @warning Note that the string is owned by the caller and
  * should be freed (with the normal string <code>free()</code> C++
- * function) after it is no longer needed.@endif
+ * function) after it is no longer needed.@endif@~
  *
  * @see SBMLWriter::hasZlib()
  * @see SBMLWriter::hasBzip2()

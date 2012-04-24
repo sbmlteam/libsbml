@@ -345,7 +345,7 @@ public:
    * @param version an unsigned int, the SBML Version to assign to this
    * Compartment
    *
-   * @throws @if python ValueError @else SBMLConstructorException @endif
+   * @throws @if python ValueError @else SBMLConstructorException @endif@~
    * Thrown if the given @p level and @p version combination, or this kind
    * of SBML object, are either invalid or mismatched with respect to the
    * parent SBMLDocument object.
@@ -384,7 +384,7 @@ public:
    *
    * @param sbmlns an SBMLNamespaces object.
    *
-   * @throws @if python ValueError @else SBMLConstructorException @endif
+   * @throws @if python ValueError @else SBMLConstructorException @endif@~
    * Thrown if the given @p level and @p version combination, or this kind
    * of SBML object, are either invalid or mismatched with respect to the
    * parent SBMLDocument object.
@@ -414,7 +414,7 @@ public:
    * 
    * @param orig the Compartment instance to copy.
    *
-   * @throws @if python ValueError @else SBMLConstructorException @endif
+   * @throws @if python ValueError @else SBMLConstructorException @endif@~
    * Thrown if the argument @p orig is @c NULL.
    */
   Compartment(const Compartment& orig);
@@ -426,7 +426,7 @@ public:
    * @param rhs The object whose values are used as the basis of the
    * assignment.
    *
-   * @throws @if python ValueError @else SBMLConstructorException @endif
+   * @throws @if python ValueError @else SBMLConstructorException @endif@~
    * Thrown if the argument @p rhs is @c NULL.
    */
   Compartment& operator=(const Compartment& rhs);
@@ -545,8 +545,8 @@ public:
    * compartments may be other than three-dimensional and therefore the
    * "volume" attribute is named "size" in Level&nbsp;2.  LibSBML provides
    * both
-   * @if java Compartment::getSize()@else getSize()@endif and
-   * @if java Compartment::getVolume()@else getVolume()@endif for
+   * @if java Compartment::getSize()@else getSize()@endif@~ and
+   * @if java Compartment::getVolume()@else getVolume()@endif@~ for
    * easier compatibility between SBML Levels.
    *
    * @return the value of the "size" attribute ("volume" in Level&nbsp;1) of
@@ -568,8 +568,8 @@ public:
    * compartments may be other than three-dimensional and therefore the
    * "volume" attribute is named "size" in Level&nbsp;2.  LibSBML provides
    * both
-   * @if java Compartment::getSize()@else getSize()@endif and
-   * @if java Compartment::getVolume()@else getVolume()@endif
+   * @if java Compartment::getSize()@else getSize()@endif@~ and
+   * @if java Compartment::getVolume()@else getVolume()@endif@~
    * for easier compatibility between SBML Levels.
    *
    * @return the value of the "volume" attribute ("size" in Level&nbsp;2) of
@@ -598,7 +598,7 @@ public:
    * @note @htmlinclude unassigned-units-are-not-a-default.html
    *
    * @see isSetUnits()
-   * @see @if java Compartment::setUnits(String sid)@else setUnits()@endif
+   * @see @if java Compartment::setUnits(String sid)@else setUnits()@endif@~
    * @see getSize()
    */
   const std::string& getUnits () const;
@@ -666,8 +666,8 @@ public:
    * This method is similar but not identical to
    * @if java Compartment::isSetVolume()@else isSetVolume()@endif.  The latter
    * should be used in the context of SBML Level&nbsp;1 models instead of
-   * @if java Compartment::isSetSize()@else isSetSize()@endif
-   * because @if java Compartment::isSetVolume()@else isSetVolume()@endif
+   * @if java Compartment::isSetSize()@else isSetSize()@endif@~
+   * because @if java Compartment::isSetVolume()@else isSetVolume()@endif@~
    * performs extra processing to take into account the difference in
    * default values between SBML Levels 1 and 2.
    * 
@@ -702,7 +702,7 @@ public:
    * therefore may or may not be set.
    *
    * @see isSetSize()
-   * @see @if java Compartment::setVolume(double value)@else setVolume()@endif
+   * @see @if java Compartment::setVolume(double value)@else setVolume()@endif@~
    */
   bool isSetVolume () const;
 
@@ -846,7 +846,7 @@ public:
    * Compartment.
    *
    * This method is identical to
-   * @if java Compartment::setVolume(double value)@else setVolume()@endif
+   * @if java Compartment::setVolume(double value)@else setVolume()@endif@~
    * and is provided for compatibility between
    * SBML Level&nbsp;1 and Level&nbsp;2.
    *
@@ -870,7 +870,7 @@ public:
    * Compartment.
    *
    * This method is identical to
-   * @if java Compartment::setVolume(double value)@else setVolume()@endif
+   * @if java Compartment::setVolume(double value)@else setVolume()@endif@~
    * and is provided for compatibility between SBML Level&nbsp;1 and
    * Level&nbsp;2.
    * 
@@ -1163,7 +1163,7 @@ public:
    * codes</em>.  In the C# language interface for libSBML, the type codes
    * are defined as static integer constants in the interface class @link
    * libsbmlcs.libsbml@endlink.  The names of the type codes all begin with
-   * the characters @c SBML_. @endif
+   * the characters @c SBML_. @endif@~
    *
    * @return the SBML type code for this object, or
    * @link SBMLTypeCode_t#SBML_UNKNOWN SBML_UNKNOWN@endlink (default).
@@ -1351,7 +1351,7 @@ public:
    * codes</em>.  In the C# language interface for libSBML, the type codes
    * are defined as static integer constants in the interface class @link
    * libsbmlcs.libsbml@endlink.  The names of the type codes all begin with
-   * the characters @c SBML_. @endif
+   * the characters @c SBML_. @endif@~
    *
    * @return the SBML type code for this object, or @link SBMLTypeCode_t#SBML_UNKNOWN SBML_UNKNOWN@endlink (default).
    *
@@ -1384,7 +1384,7 @@ public:
    * codes</em>.  In the C# language interface for libSBML, the type codes
    * are defined as static integer constants in the interface class @link
    * libsbmlcs.libsbml@endlink.  The names of the type codes all begin with
-   * the characters @c SBML_. @endif
+   * the characters @c SBML_. @endif@~
    * 
    * @return the SBML type code for the objects contained in this ListOf
    * instance, or @link SBMLTypeCode_t#SBML_UNKNOWN SBML_UNKNOWN@endlink (default).

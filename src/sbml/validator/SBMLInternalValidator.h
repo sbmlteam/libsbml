@@ -96,7 +96,7 @@ public:
    * set of constants whose names begin with the characters <code>LIBSBML_CAT_</code>
    * in the interface class @link libsbml libsbml@endlink.
    * The following are the possible choices:
-   * @endif
+   * @endif@~
    * <ul>
    * <li> @link SBMLErrorCategory_t#LIBSBML_CAT_GENERAL_CONSISTENCY
    * LIBSBML_CAT_GENERAL_CONSISTENCY@endlink: Correctness and consistency
@@ -165,7 +165,7 @@ public:
    * applied.
    * 
    * @param category a value drawn from @if clike #SBMLErrorCategory_t@else
-   * the set of SBML error categories@endif indicating the
+   * the set of SBML error categories@endif@~ indicating the
    * consistency checking/validation to be turned on or off.
    *
    * @param apply a boolean indicating whether the checks indicated by
@@ -204,7 +204,7 @@ public:
    * set of constants whose names begin with the characters <code>LIBSBML_CAT_</code>
    * in the interface class @link libsbml libsbml@endlink.
    * The following are the possible choices:
-   * @endif
+   * @endif@~
    * <ul>
    * <li> @link SBMLErrorCategory_t#LIBSBML_CAT_GENERAL_CONSISTENCY
    * LIBSBML_CAT_GENERAL_CONSISTENCY@endlink: Correctness and consistency
@@ -273,7 +273,7 @@ public:
    * applied.
    * 
    * @param category a value drawn from @if clike #SBMLErrorCategory_t@else
-   * the set of SBML error categories@endif indicating the consistency
+   * the set of SBML error categories@endif@~ indicating the consistency
    * checking/validation to be turned on or off.
    *
    * @param apply a boolean indicating whether the checks indicated by
@@ -446,7 +446,7 @@ public:
    *
    * @param orig the object to copy.
    * 
-   * @throws @if python ValueError @else SBMLConstructorException @endif
+   * @throws @if python ValueError @else SBMLConstructorException @endif@~
    * Thrown if the argument @p orig is @c NULL.
    */
   SBMLInternalValidator(const SBMLInternalValidator& orig);

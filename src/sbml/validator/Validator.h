@@ -85,13 +85,13 @@ public:
    *
    * @param category code indicating the kind of validations that this
    * validator will perform.  The category code value must be
-   * @if clike taken from the enumeration #SBMLErrorCategory_t @endif
+   * @if clike taken from the enumeration #SBMLErrorCategory_t @endif@~
    * @if java one of of the values from the set of constants whose names
    * begin with the characters <code>LIBSBML_CAT_</code> in the interface
-   * class {@link libsbmlConstants}.@endif
+   * class {@link libsbmlConstants}.@endif@~
    * @if python one of of the values from the set of constants whose names
    * begin with the characters <code>LIBSBML_CAT_</code> in the interface
-   * class @link libsbml libsbml@endlink.@endif
+   * class @link libsbml libsbml@endlink.@endif@~
    */
   Validator ( SBMLErrorCategory_t category = LIBSBML_CAT_SBML );
 

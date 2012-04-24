@@ -80,7 +80,7 @@
  * includes all the SBML validation rule numbers listed in the appendices
  * of the SBML specification documents, as well as some additional
  * libSBML-specific error codes.
- * @endif
+ * @endif@~
  * 
  * Error codes are useful mainly for software.  For human readers,
  * SBMLError also includes text messages that describe the nature of a
@@ -134,11 +134,11 @@
  * @link SBMLErrorCategory_t#LIBSBML_CAT_MATHML_CONSISTENCY LIBSBML_CAT_MATHML_CONSISTENCY@endlink
  * is the category for MathML consistency checking; and
  * so on.
- * @endif
+ * @endif@~
  *
  * In addition, SBMLError also has a severity code.  Its value may be
  * retrieved using the method SBMLError::getSeverity().  The possible
- * severity values are the same as those reported by @if clike XMLError.@endif@if python XMLError.@endif@if java <code><a href="XMLError.html">XMLError</a></code>.@endif 
+ * severity values are the same as those reported by @if clike XMLError.@endif@if python XMLError.@endif@if java <code><a href="XMLError.html">XMLError</a></code>.@endif@~ 
  * Severity levels currently range from informational
  * (@link XMLErrorSeverity_t#LIBSBML_SEV_INFO LIBSBML_SEV_INFO@endlink)
  * to fatal errors
@@ -221,7 +221,7 @@
  * each column refer to whether the severity of the condition in that
  * particular Level+Version of SBML.  The codes stand for the following:
  *
- * @endif
+ * @endif@~
  *
  * <table cellspacing="1" cellpadding="2" border="0" class="normal-font">
  * <tr><td class="s-na">N</td><td>= Not applicable</td></tr>
@@ -302,7 +302,7 @@
  * The following table lists each possible value and a brief description of
  * its meaning.
  * 
- * @endif
+ * @endif@~
  * 
  * <center>
  * <table width="90%" cellspacing="1" cellpadding="4" border="0"  class="text-table normal-font alt-row-colors">
@@ -416,7 +416,7 @@
  * They are implemented as static integer constants defined in the
  * interface class @link libsbml libsbml@endlink, and have names beginning
  * with <code>LIBSBML_SEV_</code>.
- * @endif
+ * @endif@~
  */
 
 #ifndef SBMLError_h
@@ -1027,7 +1027,7 @@ public:
    * numbers are defined as unsigned integer constants in the interface
    * class @link libsbml libsbml@endlink.  See the <a class="el"
    * href="#SBMLErrorCode_t">top of this documentation page</a> for a table
-   * listing the possible values and their meanings. @endif The argument 
+   * listing the possible values and their meanings. @endif@~ The argument 
    * @p errorId to this constructor @em can be (but does not have to be) a
    * value from this @if clike enumeration. If it @em is a value
    * from <a class="el" href="#SBMLErrorCode_t">SBMLErrorCode_t</a>, the
@@ -1047,7 +1047,7 @@ public:
    * passed in the argument @p details to this constructor.  In addition,
    * all the predefined error identifiers have associated values for the 
    * @p severity and @p category codes, and these fields are filled-in using
-   * the libSBML defaults for each different error identifier. @endif
+   * the libSBML defaults for each different error identifier. @endif@~
    *
    * If the error identifier @p errorId is a number greater than 99999, the
    * SBMLError class assumes the error was generated from another part of
@@ -1084,7 +1084,7 @@ public:
    * codes, callers do not need to fill in @p severity and @p category in a
    * call to this constructor.  Conversely, if @p errorId is not an existing
    * SBML-level error code, callers can use other values for @p severity and
-   * @p category. @endif
+   * @p category. @endif@~
    *
    * Please see the top of the documentation for SBMLError for a longer
    * discussion of the possible error codes, their meanings, and their
@@ -1111,7 +1111,7 @@ public:
    * @param category an integer indicating the category to which the error
    * belongs.
    *
-   * @if notcpp @docnote @htmlinclude warn-default-args-in-docs.html @endif
+   * @if notcpp @docnote @htmlinclude warn-default-args-in-docs.html @endif@~
    */
   SBMLError
   (

@@ -28,7 +28,7 @@
  * @class XMLHandler
  * @brief Class providing a unified interface to different XML parsers.
  *
- * @if notclike @internal @endif
+ * @if notclike @internal @endif@~
  */
 
 #ifndef XMLHandler_h

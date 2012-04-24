@@ -222,8 +222,7 @@ class LIBSBML_EXTERN CVTerm
 public:
 
   /**
-   * Creates an empty CVTerm, optionally with the given
-   * @if clike #QualifierType_t value@else qualifier@endif &nbsp; @p type.
+   * Creates an empty CVTerm, optionally with the given @if clike #QualifierType_t value@else qualifier@endif@~ @p type.
    *
    * The SBML Level&nbsp;2 and Level&nbsp;3 specifications define a simple
    * format for annotating models when (a) referring to controlled
@@ -248,8 +247,7 @@ public:
    * QualifierType_t#BIOLOGICAL_QUALIFIER BIOLOGICAL_QUALIFIER@endlink.  If
    * an explicit value for @p type is not given, this method defaults to
    * using @link QualifierType_t#UNKNOWN_QUALIFIER
-   * UNKNOWN_QUALIFIER@endlink.  The
-   * @if clike #QualifierType_t value@else qualifier type@endif 
+   * UNKNOWN_QUALIFIER@endlink.  The @if clike #QualifierType_t value@else qualifier type@endif@~ 
    * can be set later using the
    * CVTerm::setQualifierType(@if java int type@endif) method.
    *
@@ -259,9 +257,9 @@ public:
    * qualifiers web page</a> for an explanation of the meaning of these
    * different qualifiers.
    *
-   * @param type a @if clike #QualifierType_t value@else qualifier type@endif
+   * @param type a @if clike #QualifierType_t value@else qualifier type@endif@~
    *
-   * @if notcpp @docnote @htmlinclude warn-default-args-in-docs.html @endif
+   * @if notcpp @docnote @htmlinclude warn-default-args-in-docs.html @endif@~
    */
   CVTerm(QualifierType_t type = UNKNOWN_QUALIFIER);
 
@@ -315,7 +313,7 @@ public:
    * 
    * @param orig the CVTerm instance to copy.
    * 
-   * @throws @if python ValueError @else SBMLConstructorException @endif
+   * @throws @if python ValueError @else SBMLConstructorException @endif@~
    * Thrown if the argument @p orig is @c NULL.
    */
   CVTerm(const CVTerm& orig);
@@ -327,7 +325,7 @@ public:
    * @param rhs The object whose values are used as the basis of the
    * assignment.
    *
-   * @throws @if python ValueError @else SBMLConstructorException @endif
+   * @throws @if python ValueError @else SBMLConstructorException @endif@~
    * Thrown if the argument @p rhs is @c NULL.
    */
   CVTerm& operator=(const CVTerm& rhs);
@@ -346,8 +344,8 @@ public:
    *
    * @htmlinclude cvterm-common-description-text.html
    *
-   * The placeholder <span class="code" style="background-color:
-   * #bbb">RELATION_ELEMENT</span> refers to a BioModels.net qualifier
+   * The placeholder <span class="code" style="background-color: #bbb">
+   * RELATION_ELEMENT</span> refers to a BioModels.net qualifier
    * element name.  This is an element in either the XML namespace
    * <code>"http://biomodels.net/model-qualifiers"</code> (for model
    * qualifiers) or <code>"http://biomodels.net/biology-qualifiers"</code>
@@ -368,7 +366,7 @@ public:
    * the @em other two methods to call to find out the specific
    * relationship.
    *
-   * @return the @if clike #QualifierType_t value@else qualifier type@endif
+   * @return the @if clike #QualifierType_t value@else qualifier type@endif@~
    * of this object or @link QualifierType_t#UNKNOWN_QUALIFIER UNKNOWN_QUALIFIER@endlink
    * (the default).
    *
@@ -384,8 +382,8 @@ public:
    * 
    * @htmlinclude cvterm-common-description-text.html
    *
-   * The placeholder <span class="code" style="background-color:
-   * #bbb">RELATION_ELEMENT</span> refers to a BioModels.net qualifier
+   * The placeholder <span class="code" style="background-color: #bbb">
+   * RELATION_ELEMENT</span> refers to a BioModels.net qualifier
    * element name.  This is an element in either the XML namespace
    * <code>"http://biomodels.net/model-qualifiers"</code> (for model
    * qualifiers) or <code>"http://biomodels.net/biology-qualifiers"</code>
@@ -404,7 +402,7 @@ public:
    * unknown by libSBML and reported as
    * @link ModelQualifierType_t#BQM_UNKNOWN BQM_UNKNOWN@endlink.
    *
-   * @return the @if clike #ModelQualifierType_t value@else model qualifier type@endif
+   * @return the @if clike #ModelQualifierType_t value@else model qualifier type@endif@~
    * of this object or @link ModelQualifierType_t#BQM_UNKNOWN BQM_UNKNOWN@endlink
    * (the default).
    */
@@ -416,8 +414,8 @@ public:
    * 
    * @htmlinclude cvterm-common-description-text.html
    *
-   * The placeholder <span class="code" style="background-color:
-   * #bbb">RELATION_ELEMENT</span> refers to a BioModels.net qualifier
+   * The placeholder <span class="code" style="background-color: #bbb">
+   * RELATION_ELEMENT</span> refers to a BioModels.net qualifier
    * element name.  This is an element in either the XML namespace
    * <code>"http://biomodels.net/model-qualifiers"</code> (for model
    * qualifiers) or <code>"http://biomodels.net/biology-qualifiers"</code>
@@ -445,7 +443,7 @@ public:
    * unknown by libSBML and reported as
    * @link BiolQualifierType_t#BQB_UNKNOWN BQB_UNKNOWN@endlink.
    *
-   * @return the @if clike #BiolQualifierType_t value@else biology qualifier type@endif
+   * @return the @if clike #BiolQualifierType_t value@else biology qualifier type@endif@~
    * of this object or @link BiolQualifierType_t#BQB_UNKNOWN BQB_UNKNOWN@endlink
    * (the default).
    */
@@ -462,8 +460,8 @@ public:
    * CVTerm objects using an XMLAttributes object.  Each attribute stored
    * inside the XMLAttributes will have the same name (specifically,
    * &quot;<code>rdf:resource</code>&quot;) but a different value, and the
-   * value will be a <span class="code" style="background-color:
-   * #d0d0ee">resource URI</span> shown in the XML template above.
+   * value will be a <span class="code" style="background-color: #d0d0ee">
+   * resource URI</span> shown in the XML template above.
    *
    * A valid CVTerm entity must always have at least one resource and
    * a value for the relationship qualifier.
@@ -487,8 +485,8 @@ public:
    * CVTerm objects using an XMLAttributes object.  Each attribute stored
    * inside the XMLAttributes will have the same name (specifically,
    * &quot;<code>rdf:resource</code>&quot;) but a different value, and the
-   * value will be a <span class="code" style="background-color:
-   * #d0d0ee">resource URI</span> shown in the XML template above.
+   * value will be a <span class="code" style="background-color: #d0d0ee">
+   * resource URI</span> shown in the XML template above.
    *
    * A valid CVTerm entity must always have at least one resource and
    * a value for the relationship qualifier.
@@ -550,7 +548,7 @@ public:
 
   
   /**
-   * Sets the @if clike #QualifierType_t@else qualifier code@endif of this
+   * Sets the @if clike #QualifierType_t@else qualifier code@endif@~ of this
    * CVTerm object.
    *
    * @param type the @if clike #QualifierType_t value@else qualifier type@endif.
@@ -563,10 +561,10 @@ public:
 
 
   /**
-   * Sets the @if clike #ModelQualifierType_t value@else model qualifier type@endif
+   * Sets the @if clike #ModelQualifierType_t value@else model qualifier type@endif@~
    * of this CVTerm object.
    *
-   * @param type the @if clike #ModelQualifierType_t value@else model qualifier type@endif
+   * @param type the @if clike #ModelQualifierType_t value@else model qualifier type@endif@~
    *
    * @return integer value indicating success/failure of the
    * function. The possible values returned by this function are:
@@ -585,7 +583,7 @@ public:
 
 
   /**
-   * Sets the @if clike #BiolQualifierType_t value@else biology qualifier type@endif
+   * Sets the @if clike #BiolQualifierType_t value@else biology qualifier type@endif@~
    * of this CVTerm object.
    *
    * @param type the @if clike #BiolQualifierType_t value@else biology qualifier type@endif.
@@ -597,7 +595,7 @@ public:
    *
    * @note If the Qualifier Type of this object is not
    * @link QualifierType_t#BIOLOGICAL_QUALIFIER BIOLOGICAL_QUALIFIER@endlink,
-   * then the @if clike #BiolQualifierType_t value@else biology qualifier type@endif will default
+   * then the @if clike #BiolQualifierType_t value@else biology qualifier type@endif@~ will default
    * to @link BiolQualifierType_t#BQB_UNKNOWN BQB_UNKNOWN@endlink.
    *
    * @see getQualifierType()
@@ -607,7 +605,7 @@ public:
 
 
   /**
-   * Sets the @if clike #ModelQualifierType_t@endif@if java model qualifier type code@endif value of this CVTerm object.
+   * Sets the @if clike #ModelQualifierType_t@endif@if java model qualifier type code@endif@~ value of this CVTerm object.
    *
    * @param qualifier the string representing a model qualifier
    *
@@ -629,7 +627,7 @@ public:
 
 
   /**
-   * Sets the @if clike #BiolQualifierType_t@endif@if java biology qualifier type code@endif of this CVTerm object.
+   * Sets the @if clike #BiolQualifierType_t@endif@if java biology qualifier type code@endif@~ of this CVTerm object.
    *
    * @param qualifier the string representing a biology qualifier
    *
@@ -641,7 +639,7 @@ public:
    *
    * @note If the Qualifier Type of this object is not
    * @link QualifierType_t#BIOLOGICAL_QUALIFIER BIOLOGICAL_QUALIFIER@endlink,
-   * then the @if clike #BiolQualifierType_t@endif@if java biology qualifier type code@endif value will default
+   * then the @if clike #BiolQualifierType_t@endif@if java biology qualifier type code@endif@~ value will default
    * to @link BiolQualifierType_t#BQB_UNKNOWN BQB_UNKNOWN@endlink.
    *
    * @see getQualifierType()
@@ -687,12 +685,12 @@ public:
    * element's meta identifier, which is a field available on all SBML
    * components derived from the SBase base object class.  The <span
    * style="border-bottom: 2px dotted #888">dotted</span> portions are
-   * optional, and the ellipses <span class="code" style="background-color:
-   * #edd">...</span> are placeholders for zero or more elements of the
-   * same form as the immediately preceding element.  The placeholder <span
-   * class="code" style="background-color: #bbb">RELATION_ELEMENT</span>
-   * refers to a BioModels.net qualifier element name.  This is an element
-   * in either the XML namespace
+   * optional, and the ellipses <span class="code"
+   * style="background-color: #edd">...</span> are placeholders for zero or
+   * more elements of the same form as the immediately preceding element.
+   * The placeholder <span class="code" style="background-color: #bbb">
+   * RELATION_ELEMENT</span> refers to a BioModels.net qualifier element
+   * name.  This is an element in either the XML namespace
    * <code>"http://biomodels.net/model-qualifiers"</code> (for model
    * qualifiers) or <code>"http://biomodels.net/biology-qualifiers"</code>
    * (for biological qualifier).

@@ -56,7 +56,7 @@
  * (e.g., using SBMLDocument::getNumErrors()), access the Model object, and
  * perform other actions such as consistency-checking and model
  * translation.
- * @endif
+ * @endif@~
  * 
  * When creating fresh models programmatically, the starting point is
  * typically the creation of an SBMLDocument object instance.  The
@@ -136,7 +136,7 @@
  * that they may not be interested by calling
  * SBMLDocument::setConsistencyChecks(int categ, boolean onoff) with
  * appropriate parameters.
- * @endif
+ * @endif@~
  *
  * These methods have slightly different relevance depending on whether a
  * model is created programmaticaly from scratch, or whether it is read in
@@ -150,7 +150,7 @@
  * the results by calling SBMLDocument::getNumErrors()
  *
  * @li Call @if java SBMLDocument::setConsistencyChecks(int categ, boolean
- * onoff) @else SBMLDocument::setConsistencyChecks() @endif to configure
+ * onoff) @else SBMLDocument::setConsistencyChecks() @endif@~ to configure
  * which checks will be performed by SBMLDocument::checkConsistency()
  *
  * @li Call SBMLDocument::checkConsistency(), then inquire about the results by
@@ -164,7 +164,7 @@
  * results by using SBMLDocument::getNumErrors()
  * 
  * @li Call @if java SBMLDocument::setConsistencyChecks(int categ, boolean
- * onoff) @else SBMLDocument::setConsistencyChecks() @endif to configure
+ * onoff) @else SBMLDocument::setConsistencyChecks() @endif@~ to configure
  * which checks are performed by SBMLDocument::checkConsistency()
  * 
  * @li Call SBMLDocument::checkConsistency(), then inquire about the results
@@ -172,7 +172,7 @@
  *
  * @if clike An example of using the consistency-checking
  * and validation facilities is provided in this manual in the
- * section @ref libsbml-example. @endif
+ * section @ref libsbml-example. @endif@~
  * 
  * @section converting Converting documents between Levels and Versions of SBML
  *
@@ -185,11 +185,11 @@
  * can be translated downward as well, if they do not use constructs
  * specific to more advanced Levels of SBML.
  *
- * Calling @if java SBMLDocument::setLevelAndVersion(long lev, long ver, boolean strict) @else SBMLDocument::setLevelAndVersion() @endif will not @em necessarily lead
+ * Calling @if java SBMLDocument::setLevelAndVersion(long lev, long ver, boolean strict) @else SBMLDocument::setLevelAndVersion() @endif@~ will not @em necessarily lead
  * to a successful conversion.  The method will return a boolean value
  * to indicate success or failure.  Callers must check the error log (see 
  * next section) attached to the SBMLDocument object after calling
- * @if java SBMLDocument::setLevelAndVersion(long lev, long ver) @else SBMLDocument::setLevelAndVersion() @endif in order to assess whether any
+ * @if java SBMLDocument::setLevelAndVersion(long lev, long ver) @else SBMLDocument::setLevelAndVersion() @endif@~ in order to assess whether any
  * problems arose.
  *
  * If an application is interested in translating to a lower Level and/or
@@ -229,7 +229,7 @@
  * reported through a single common interface involving the object class
  * SBMLError.
  *
- * The methods SBMLDocument::getNumErrors(), @if java SBMLDocument::getError(long n) @else SBMLDocument::getError() @endif and
+ * The methods SBMLDocument::getNumErrors(), @if java SBMLDocument::getError(long n) @else SBMLDocument::getError() @endif@~ and
  * SBMLDocument::printErrors() allow callers to interact with the warnings
  * or errors logged.  Alternatively, callers may retrieve the entire log as
  * an SBMLErrorLog object using the method SBMLDocument::getErrorLog().
@@ -244,7 +244,7 @@
  *
  * @if clike An example of using the error facility is
  * provided in this manual in the
- * section @ref libsbml-example. @endif
+ * section @ref libsbml-example. @endif@~
  * 
  */
 
@@ -318,9 +318,9 @@ public:
    * will be a static method on the class (i.e., SBMLDocument), and the
    * other will be a standalone top-level function with the name
    * SBMLDocument_getDefaultLevel(). They are functionally
-   * identical. @endif
+   * identical. @endif@~
    * 
-   * @see @if clike getDefaultVersion() @else SBMLDocument::getDefaultVersion() @endif
+   * @see @if clike getDefaultVersion() @else SBMLDocument::getDefaultVersion() @endif@~
    */
   static unsigned int getDefaultLevel ();
 
@@ -344,9 +344,9 @@ public:
    * will be a static method on the class (i.e., SBMLDocument), and the
    * other will be a standalone top-level function with the name
    * SBMLDocument_getDefaultVersion(). They are functionally
-   * identical. @endif
+   * identical. @endif@~
    *
-   * @see @if clike getDefaultLevel() @else SBMLDocument::getDefaultLevel() @endif
+   * @see @if clike getDefaultLevel() @else SBMLDocument::getDefaultLevel() @endif@~
    */
   static unsigned int getDefaultVersion ();
 
@@ -376,12 +376,12 @@ public:
    *
    * @param version an integer for the Version within the SBML Level
    *
-   * @throws @if python ValueError @else SBMLConstructorException @endif
+   * @throws @if python ValueError @else SBMLConstructorException @endif@~
    * Thrown if the given @p level and @p version combination, or this kind
    * of SBML object, are either invalid or mismatched with respect to the
    * parent SBMLDocument object.
    *
-   * @if notcpp @docnote @htmlinclude warn-default-args-in-docs.html @endif
+   * @if notcpp @docnote @htmlinclude warn-default-args-in-docs.html @endif@~
    *
    * @see SBMLDocument::setLevelAndVersion(@if java long lev, long ver, boolean strict@endif)
    * @see getDefaultLevel()
@@ -403,7 +403,7 @@ public:
    *
    * @param sbmlns an SBMLNamespaces object.
    *
-   * @throws @if python ValueError @else SBMLConstructorException @endif
+   * @throws @if python ValueError @else SBMLConstructorException @endif@~
    * Thrown if the given @p level and @p version combination, or this kind
    * of SBML object, are either invalid or mismatched with respect to the
    * parent SBMLDocument object.
@@ -422,7 +422,7 @@ public:
    *
    * @param orig the object to copy.
    * 
-   * @throws @if python ValueError @else SBMLConstructorException @endif
+   * @throws @if python ValueError @else SBMLConstructorException @endif@~
    * Thrown if the argument @p orig is @c NULL.
    */
   SBMLDocument (const SBMLDocument& orig);
@@ -434,7 +434,7 @@ public:
    * @param rhs The object whose values are used as the basis of the
    * assignment.
    *
-   * @throws @if python ValueError @else SBMLConstructorException @endif
+   * @throws @if python ValueError @else SBMLConstructorException @endif@~
    * Thrown if the argument @p rhs is @c NULL.
    */
   SBMLDocument& operator=(const SBMLDocument& rhs);
@@ -633,7 +633,7 @@ public:
    * find out whether it is Level&nbsp;1.  (If the conversion to
    * Level&nbsp;1 failed, the Level of this model will be left unchanged.)
    *
-   * @if notcpp @docnote @htmlinclude warn-default-args-in-docs.html @endif
+   * @if notcpp @docnote @htmlinclude warn-default-args-in-docs.html @endif@~
    * 
    * @see checkL1Compatibility()
    * @see checkL2v1Compatibility()
@@ -660,7 +660,7 @@ public:
    *
    * @return integer value indicating success/failure of the
    * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
+   * enumeration #OperationReturnValues_t. @endif@~ The possible values
    * returned by this function are:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    * @li @link OperationReturnValues_t#LIBSBML_LEVEL_MISMATCH LIBSBML_LEVEL_MISMATCH @endlink
@@ -683,7 +683,7 @@ public:
    *
    * @param sid the identifier of the new Model to create.
    *
-   * @if notcpp @docnote @htmlinclude warn-default-args-in-docs.html @endif
+   * @if notcpp @docnote @htmlinclude warn-default-args-in-docs.html @endif@~
    *
    * @see getModel()
    * @see SBMLDocument::setModel(@if java Model m@endif)
@@ -730,7 +730,7 @@ public:
    * set of constants whose names begin with the characters <code>LIBSBML_CAT_</code>
    * in the interface class @link libsbml libsbml@endlink.
    * The following are the possible choices:
-   * @endif
+   * @endif@~
    * <ul>
    * <li> @link SBMLErrorCategory_t#LIBSBML_CAT_GENERAL_CONSISTENCY
    * LIBSBML_CAT_GENERAL_CONSISTENCY@endlink: Correctness and consistency
@@ -799,7 +799,7 @@ public:
    * applied.
    * 
    * @param category a value drawn from @if clike #SBMLErrorCategory_t@else
-   * the set of SBML error categories@endif indicating the
+   * the set of SBML error categories@endif@~ indicating the
    * consistency checking/validation to be turned on or off.
    *
    * @param apply a boolean indicating whether the checks indicated by
@@ -838,7 +838,7 @@ public:
    * set of constants whose names begin with the characters <code>LIBSBML_CAT_</code>
    * in the interface class @link libsbml libsbml@endlink.
    * The following are the possible choices:
-   * @endif
+   * @endif@~
    * <ul>
    * <li> @link SBMLErrorCategory_t#LIBSBML_CAT_GENERAL_CONSISTENCY
    * LIBSBML_CAT_GENERAL_CONSISTENCY@endlink: Correctness and consistency
@@ -907,7 +907,7 @@ public:
    * applied.
    * 
    * @param category a value drawn from @if clike #SBMLErrorCategory_t@else
-   * the set of SBML error categories@endif indicating the consistency
+   * the set of SBML error categories@endif@~ indicating the consistency
    * checking/validation to be turned on or off.
    *
    * @param apply a boolean indicating whether the checks indicated by
@@ -1102,7 +1102,7 @@ public:
    * @param stream the ostream or ostringstream object indicating where
    * the output should be printed.
    *
-   * @if notcpp @docnote @htmlinclude warn-default-args-in-docs.html @endif
+   * @if notcpp @docnote @htmlinclude warn-default-args-in-docs.html @endif@~
    *
    * @see getNumErrors()
    * @see getErrorLog()
@@ -1142,7 +1142,7 @@ public:
    * 
    * @return integer value indicating success/failure of the
    * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
+   * enumeration #OperationReturnValues_t. @endif@~ The possible values
    * returned by this function are:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED  @endlink
@@ -1187,7 +1187,7 @@ public:
    * codes</em>.  In the C# language interface for libSBML, the type codes
    * are defined as static integer constants in the interface class @link
    * libsbmlcs.libsbml@endlink.  The names of the type codes all begin with
-   * the characters @c SBML_. @endif
+   * the characters @c SBML_. @endif@~
    *
    * @return the SBML type code for this object, or @link SBMLTypeCode_t#SBML_UNKNOWN SBML_UNKNOWN@endlink (default).
    *
@@ -1248,7 +1248,7 @@ public:
    *
    * @return integer value indicating success/failure of the
    * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
+   * enumeration #OperationReturnValues_t. @endif@~ The possible values
    * returned by this function are:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    * @li @link OperationReturnValues_t#LIBSBML_PKG_UNKNOWN_VERSION LIBSBML_PKG_UNKNOWN_VERSION @endlink
@@ -1279,7 +1279,7 @@ public:
    *
    * @return integer value indicating success/failure of the
    * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
+   * enumeration #OperationReturnValues_t. @endif@~ The possible values
    * returned by this function are:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    * @li @link OperationReturnValues_t#LIBSBML_PKG_UNKNOWN_VERSION LIBSBML_PKG_UNKNOWN_VERSION @endlink
@@ -1338,7 +1338,7 @@ public:
    *
    * @return integer value indicating success/failure of the
    * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
+   * enumeration #OperationReturnValues_t. @endif@~ The possible values
    * returned by this function are:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    * @li @link OperationReturnValues_t#LIBSBML_PKG_UNKNOWN_VERSION LIBSBML_PKG_UNKNOWN_VERSION @endlink

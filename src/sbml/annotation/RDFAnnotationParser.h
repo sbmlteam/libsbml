@@ -43,7 +43,7 @@
  * and converted into a list of CVTerm objects.  There
  * are different versions of the main method,
  * @if clike RDFAnnotationParser::parseRDFAnnotation(const XMLNode *annotation, %List *CVTerms)
- * @endif@if java RDFAnnotationParser::parseRDFAnnotation(const XMLNode *annotation, %CVTermList *CVTerms) @endif
+ * @endif@if java RDFAnnotationParser::parseRDFAnnotation(const XMLNode *annotation, %CVTermList *CVTerms) @endif@~
  * and RDFAnnotationParser::parseRDFAnnotation(const XMLNode *annotation), 
  * used depending on whether the annotation in question concerns the MIRIAM
  * model history or other MIRIAM resource annotations.  A special object
@@ -110,9 +110,9 @@ public:
    * be a static method on the class (i.e., RDFAnnotationParser), and the
    * other will be a standalone top-level function with the name
    * RDFAnnotationParser_parseRDFAnnotation(). They are functionally
-   * identical. @endif
+   * identical. @endif@~
    *
-   * @see @if clike parseRDFAnnotation(const XMLNode *annotation) @else RDFAnnotationParser::parseRDFAnnotation(const XMLNode *annotation) @endif
+   * @see @if clike parseRDFAnnotation(const XMLNode *annotation) @else RDFAnnotationParser::parseRDFAnnotation(const XMLNode *annotation) @endif@~
    */
   static void parseRDFAnnotation(const XMLNode *annotation, List *CVTerms,
                   XMLInputStream* stream = NULL, const char* metaId = NULL);
@@ -134,7 +134,7 @@ public:
    * be a static method on the class (i.e., RDFAnnotationParser), and the
    * other will be a standalone top-level function with the name
    * RDFAnnotationParser_parseRDFAnnotation(). They are functionally
-   * identical. @endif
+   * identical. @endif@~
    *
    * @return a pointer to the ModelHistory created.
    */
@@ -194,7 +194,7 @@ success = annot.addChild(RDF)                       # Put the RDF annotation int
 success = sbmlObject.setAnnotation(annot)           # Set object's annotation to what we built.
 ...                                                 # Check "success" return code value.
 @endverbatim
-   * @endif
+   * @endif@~
    * The SBML specification contains more information about the format of
    * annotations.  We urge readers to consult Section&nbsp;6 of the SBML
    * Level&nbsp;2 (Versions 2&ndash;4) and SBML Level&nbsp;3 specification
@@ -207,9 +207,9 @@ success = sbmlObject.setAnnotation(annot)           # Set object's annotation to
    * be a static method on the class (i.e., RDFAnnotationParser), and the
    * other will be a standalone top-level function with the name
    * RDFAnnotationParser_createAnnotation(). They are functionally
-   * identical. @endif
+   * identical. @endif@~
    *
-   * @see @if clike createRDFAnnotation() @else RDFAnnotationParser::createRDFAnnotation() @endif
+   * @see @if clike createRDFAnnotation() @else RDFAnnotationParser::createRDFAnnotation() @endif@~
    */
   static XMLNode * createAnnotation();
 
@@ -233,7 +233,7 @@ success = sbmlObject.setAnnotation(annot)           # Set object's annotation to
    *
    * Note that this does not create the containing SBML
    * <code>&lt;annotation&gt;</code> element; the method
-   * @if clike createAnnotation()@else RDFAnnotationParser::createAnnotation()@endif
+   * @if clike createAnnotation()@else RDFAnnotationParser::createAnnotation()@endif@~
    * is available for creating the container.
    *
    * @return a pointer to an XMLNode
@@ -243,9 +243,9 @@ success = sbmlObject.setAnnotation(annot)           # Set object's annotation to
    * be a static method on the class (i.e., RDFAnnotationParser), and the
    * other will be a standalone top-level function with the name
    * RDFAnnotationParser_createRDFAnnotation(). They are functionally
-   * identical. @endif
+   * identical. @endif@~
    *
-   * @see @if clike createAnnotation() @else RDFAnnotationParser::createAnnotation() @endif
+   * @see @if clike createAnnotation() @else RDFAnnotationParser::createAnnotation() @endif@~
    */
   static XMLNode * createRDFAnnotation();
 
@@ -270,7 +270,7 @@ success = sbmlObject.setAnnotation(annot)           # Set object's annotation to
    * Note that this method does @em not create a complete annotation or
    * even an RDF element; it only creates the "Description" portion.  Callers
    * will need to use other methods such as
-   * @if clike createRDFAnnotation()@else RDFAnnotationParser::createRDFAnnotation()@endif
+   * @if clike createRDFAnnotation()@else RDFAnnotationParser::createRDFAnnotation()@endif@~
    * to create the rest of the structure for an annotation.
    *
    * @param obj the object to which the "Description" refers
@@ -283,9 +283,9 @@ success = sbmlObject.setAnnotation(annot)           # Set object's annotation to
    * be a static method on the class (i.e., RDFAnnotationParser), and the
    * other will be a standalone top-level function with the name
    * RDFAnnotationParser_createRDFDescription(). They are functionally
-   * identical. @endif
+   * identical. @endif@~
    *
-   * @see @if clike createRDFAnnotation() @else RDFAnnotationParser::createRDFAnnotation() @endif
+   * @see @if clike createRDFAnnotation() @else RDFAnnotationParser::createRDFAnnotation() @endif@~
    */
   static XMLNode * createRDFDescription(const SBase *obj);
 
@@ -296,7 +296,7 @@ success = sbmlObject.setAnnotation(annot)           # Set object's annotation to
    *
    * This essentially takes the given SBML object, reads out the CVTerm objects
    * attached to it, calls
-   * @if clike createRDFDescription()@else RDFAnnotationParser::createRDFDescription(SBase object)@endif
+   * @if clike createRDFDescription()@else RDFAnnotationParser::createRDFDescription(SBase object)@endif@~
    * to create an RDF "Description" element to hold the terms and adds
    * each term with appropriate qualifiers.
    *
@@ -310,7 +310,7 @@ success = sbmlObject.setAnnotation(annot)           # Set object's annotation to
    * be a static method on the class (i.e., RDFAnnotationParser), and the
    * other will be a standalone top-level function with the name
    * RDFAnnotationParser_createRDFDescriptionWithCVTerms(). They are functionally
-   * identical. @endif
+   * identical. @endif@~
    */
   static XMLNode * createCVTerms(const SBase *obj);
 
@@ -320,13 +320,13 @@ success = sbmlObject.setAnnotation(annot)           # Set object's annotation to
    * around it.
    *
    * This essentially takes the given SBML object, calls
-   * @if clike RDFAnnotationParser::createRDFDescriptionWithCVTerms()@else RDFAnnotationParser::createRDFDescriptionWithCVTerms(SBase obj)@endif
+   * @if clike RDFAnnotationParser::createRDFDescriptionWithCVTerms()@else RDFAnnotationParser::createRDFDescriptionWithCVTerms(SBase obj)@endif@~
    * to read out the CVTerm objects
    * attached to it, calls
-   * @if clike createRDFAnnotation()@else RDFAnnotationParser::createRDFAnnotation()@endif
+   * @if clike createRDFAnnotation()@else RDFAnnotationParser::createRDFAnnotation()@endif@~
    * to create an RDF
    * annotation to hold the terms, and finally calls
-   * @if clike createAnnotation()@else RDFAnnotationParser::createAnnotation()@endif
+   * @if clike createAnnotation()@else RDFAnnotationParser::createAnnotation()@endif@~
    * to wrap the result as an SBML <code>&lt;annotation&gt;</code> element.
    *
    * @param obj the SBML object to start from
@@ -338,7 +338,7 @@ success = sbmlObject.setAnnotation(annot)           # Set object's annotation to
    * be a static method on the class (i.e., RDFAnnotationParser), and the
    * other will be a standalone top-level function with the name
    * RDFAnnotationParser_parseCVTerms(). They are functionally
-   * identical. @endif
+   * identical. @endif@~
    */
   static XMLNode * parseCVTerms(const SBase * obj);
 
@@ -361,7 +361,7 @@ success = sbmlObject.setAnnotation(annot)           # Set object's annotation to
    * be a static method on the class (i.e., RDFAnnotationParser), and the
    * other will be a standalone top-level function with the name
    * RDFAnnotationParser_parseModelHistory(). They are functionally
-   * identical. @endif
+   * identical. @endif@~
    */
   static XMLNode * parseModelHistory(const SBase * obj);
 
@@ -380,7 +380,7 @@ success = sbmlObject.setAnnotation(annot)           # Set object's annotation to
    * be a static method on the class (i.e., RDFAnnotationParser), and the
    * other will be a standalone top-level function with the name
    * RDFAnnotationParser_parseOnlyModelHistory(). They are functionally
-   * identical. @endif
+   * identical. @endif@~
    */
   static XMLNode * parseOnlyModelHistory(const SBase * obj);
 
@@ -407,7 +407,7 @@ success = sbmlObject.setAnnotation(annot)           # Set object's annotation to
    * be a static method on the class (i.e., RDFAnnotationParser), and the
    * other will be a standalone top-level function with the name
    * RDFAnnotationParser_deleteRDFAnnotation(). They are functionally
-   * identical. @endif
+   * identical. @endif@~
    */
   static XMLNode * deleteRDFAnnotation(const XMLNode *annotation);
 
@@ -434,7 +434,7 @@ success = sbmlObject.setAnnotation(annot)           # Set object's annotation to
    * be a static method on the class (i.e., RDFAnnotationParser), and the
    * other will be a standalone top-level function with the name
    * RDFAnnotationParser_deleteRDFAnnotation(). They are functionally
-   * identical. @endif
+   * identical. @endif@~
    */
   static XMLNode * deleteRDFHistoryAnnotation(const XMLNode *annotation);
 
@@ -461,7 +461,7 @@ success = sbmlObject.setAnnotation(annot)           # Set object's annotation to
    * be a static method on the class (i.e., RDFAnnotationParser), and the
    * other will be a standalone top-level function with the name
    * RDFAnnotationParser_deleteRDFAnnotation(). They are functionally
-   * identical. @endif
+   * identical. @endif@~
    */
   static XMLNode * deleteRDFCVTermAnnotation(const XMLNode *annotation);
 

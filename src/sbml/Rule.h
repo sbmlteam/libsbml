@@ -56,7 +56,7 @@
  * distinguishing rules; specifically, it uses an attribute whose value is
  * drawn from an enumeration of 3 values.  LibSBML supports this using methods
  * that work @if clike a libSBML enumeration type, RuleType_t, whose values
- * are @else with the enumeration values @endif listed below.
+ * are @else with the enumeration values @endif@~ listed below.
  *
  * @li @link RuleType_t#RULE_TYPE_RATE RULE_TYPE_RATE@endlink: Indicates
  * the rule is a "rate" rule.
@@ -168,7 +168,7 @@ public:
    *
    * @param orig the object to copy.
    * 
-   * @throws @if python ValueError @else SBMLConstructorException @endif
+   * @throws @if python ValueError @else SBMLConstructorException @endif@~
    * Thrown if the argument @p orig is @c NULL.
    */
   Rule (const Rule& orig);
@@ -180,7 +180,7 @@ public:
    * @param rhs The object whose values are used as the basis of the
    * assignment.
    *
-   * @throws @if python ValueError @else SBMLConstructorException @endif
+   * @throws @if python ValueError @else SBMLConstructorException @endif@~
    * Thrown if the argument @p rhs is @c NULL.
    */
   Rule& operator=(const Rule& rhs);
@@ -492,7 +492,7 @@ public:
    * unambiguously-defined units and <em>Y</em> does not, it will return
    * the units of <em>X</em>.  <strong>It is important that callers also
    * invoke the method</strong>
-   * @if java Rule::containsUndeclaredUnits()@else containsUndeclaredUnits()@endif
+   * @if java Rule::containsUndeclaredUnits()@else containsUndeclaredUnits()@endif@~
    * <strong>to determine whether this situation holds</strong>.  Callers may
    * wish to take suitable actions in those scenarios.
    * 
@@ -528,7 +528,7 @@ public:
    * unambiguously-defined units and <em>Y</em> does not, it will return
    * the units of <em>X</em>.  <strong>It is important that callers also
    * invoke the method</strong>
-   * @if java Rule::containsUndeclaredUnits()@else containsUndeclaredUnits()@endif
+   * @if java Rule::containsUndeclaredUnits()@else containsUndeclaredUnits()@endif@~
    * <strong>to determine whether this situation holds</strong>.  Callers
    * may wish to take suitable actions in those scenarios.
    * 
@@ -702,7 +702,7 @@ public:
    * codes</em>.  In the C# language interface for libSBML, the type codes
    * are defined as static integer constants in the interface class @link
    * libsbmlcs.libsbml@endlink.  The names of the type codes all begin with
-   * the characters @c SBML_. @endif
+   * the characters @c SBML_. @endif@~
    *
    * @return the SBML type code for this object, or @link
    * SBMLTypeCode_t#SBML_UNKNOWN SBML_UNKNOWN@endlink (default).
@@ -999,7 +999,7 @@ public:
    * codes</em>.  In the C# language interface for libSBML, the type codes
    * are defined as static integer constants in the interface class @link
    * libsbmlcs.libsbml@endlink.  The names of the type codes all begin with
-   * the characters @c SBML_. @endif
+   * the characters @c SBML_. @endif@~
    *
    * @return the SBML type code for this object, or @link SBMLTypeCode_t#SBML_UNKNOWN SBML_UNKNOWN@endlink (default).
    *
@@ -1032,7 +1032,7 @@ public:
    * codes</em>.  In the C# language interface for libSBML, the type codes
    * are defined as static integer constants in the interface class @link
    * libsbmlcs.libsbml@endlink.  The names of the type codes all begin with
-   * the characters @c SBML_. @endif
+   * the characters @c SBML_. @endif@~
    * 
    * @return the SBML type code for the objects contained in this ListOf
    * instance, or @link SBMLTypeCode_t#SBML_UNKNOWN SBML_UNKNOWN@endlink (default).

@@ -130,5 +130,4 @@ AssignmentRule::renameSIdRefs(std::string oldid, std::string newid)
   }
 }
 
-/** @endcond */
 LIBSBML_CPP_NAMESPACE_END
