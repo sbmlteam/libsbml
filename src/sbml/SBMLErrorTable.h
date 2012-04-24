@@ -8022,6 +8022,23 @@ static const sbmlErrorTableEntry errorTable[] =
     "this information."
   },
 
+  //99109
+  {
+    PackageRequiredShouldBeFalse,
+    "This package expects required to be false.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_WARNING,
+    "The 'required' attribute for this package is expected to be 'false' "
+    "as there is no way to change the mathematical interpretation of the "
+    "model using the constructs in this package."
+  },
+
   //99127
   {
     SubsUnitsAllowedInKL,

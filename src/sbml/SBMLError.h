@@ -790,6 +790,7 @@ typedef enum
 , InvalidRuleOrdering                   = 99106 /*!< Invalid ordering of rules. */
 , RequiredPackagePresent                = 99107 /*!< The SBML document requires an SBML Level 3 package unavailable in this software. */
 , UnrequiredPackagePresent              = 99108 /*!< The SBML document uses an SBML Level 3 package unavailable in this software. */
+, PackageRequiredShouldBeFalse          = 99109 /*!< This package expects required to be false. */
 , SubsUnitsAllowedInKL                  = 99127 /*!< Disallowed value for attribute 'substanceUnits' on KineticLaw object. */
 , TimeUnitsAllowedInKL                  = 99128 /*!< Disallowed value for attribute 'timeUnits' on KineticLaw object. */
 , FormulaInLevel1KL                     = 99129 /*!< Only predefined functions are allowed in SBML Level 1 formulas. */
