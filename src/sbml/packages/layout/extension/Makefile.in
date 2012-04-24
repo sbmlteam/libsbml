@@ -1,4 +1,4 @@
-## @configure_input@
+ ## @configure_input@
 ##
 ## Filename    : Makefile.in
 ## Description : Makefile template for libsbml layout extension
@@ -55,7 +55,6 @@ subdirs =
 headers   = \
 LayoutExtension.h \
 LayoutModelPlugin.h \
-LayoutSBMLDocumentPlugin.h \
 LayoutSpeciesReferencePlugin.h 
 
 header_inst_prefix = packages/layout/extension
@@ -63,7 +62,6 @@ header_inst_prefix = packages/layout/extension
 sources   = \
 LayoutExtension.cpp \
 LayoutModelPlugin.cpp \
-LayoutSBMLDocumentPlugin.cpp \
 LayoutSpeciesReferencePlugin.cpp 
 
 extra_CPPFLAGS = -I../../..
