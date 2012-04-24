@@ -300,6 +300,7 @@ extern L3Parser* l3p;
  *
  * @if clike @see SBML_formulaToString()@endif
  * @if csharp @see SBML_formulaToString()@endif
+ * @if python @see libsbml.formulaToString()@endif
  * @if java @see formulaToString(ASTNode tree)@endif
  */
 LIBSBML_EXTERN

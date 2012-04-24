@@ -76,8 +76,8 @@ BEGIN_C_DECLS
  * Levels&nbsp;2 and&nbsp;3.  LibSBML implements a parser and converter to
  * translate formulas between this text-string representation and MathML.
  * The principal entry points to the translation system are
- * @if java <code><a href="libsbml.html#formulaToString(org.sbml.libsbml.ASTNode)">libsbml.formulaToString()</a></code>@else SBML_formulaToString()@endif
- * and @if java <code><a href="libsbml.html#parseFormula(java.lang.String)">libsbml.parseFormula()</a></code>@else SBML_parseFormula()@endif.
+ * @if clike SBML_formulaToString()@endif@if csharp SBML_formulaToString()@endif@if python libsbml.formulaToString()@else <code><a href="libsbml.html#formulaToString(org.sbml.libsbml.ASTNode)">libsbml.formulaToString()</a></code>@endif
+ * and @if clike SBML_parseFormula()@endif@if csharp SBML_parseFormula()@endif@if python libsbml.parseFormula()@else <code><a href="libsbml.html#parseFormula(java.lang.String)">libsbml.parseFormula()</a></code>@endif
  *
  * LibSBML also provides a lower-level interface to the formula parser.
  * This takes the form of the C functions

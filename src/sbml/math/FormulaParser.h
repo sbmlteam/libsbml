@@ -43,27 +43,14 @@ BEGIN_C_DECLS
  * Parses the given SBML formula and returns a representation of it as an
  * Abstract Syntax Tree (AST).
  *
- * @if clike The text-string form of mathematical formulas produced by
- * SBML_formulaToString() and read by SBML_parseFormula() are simple
- * C-inspired infix notation taken from SBML Level&nbsp;1.  A formula in
- * this text-string form therefore can be handed to a program that
- * understands SBML Level&nbsp;1 mathematical expressions, or used as part
- * of a formula translation system.  The syntax is described in detail in
- * the documentation for ASTNode. @endif@if csharp The text-string form of
- * mathematical formulas produced by SBML_formulaToString() and read by
- * SBML_parseFormula() are simple C-inspired infix notation taken from SBML
- * Level&nbsp;1.  A formula in this text-string form therefore can be
- * handed to a program that understands SBML Level&nbsp;1 mathematical
- * expressions, or used as part of a formula translation system.  The
- * syntax is described in detail in the documentation for
- * ASTNode. @else The text-string form of mathematical formulas produced by <code><a
- * href="libsbml.html">libsbml.formulaToString()</a></code> and read by
- * <code><a href="libsbml.html">libsbml.parseFormula()</a></code> are
- * simple C-inspired infix notation taken from SBML Level&nbsp;1.  A
+ * The text-string form of mathematical formulas produced by
+ * @if clike SBML_formulaToString()@endif@if csharp SBML_formulaToString()@endif@if python libsbml.formulaToString()@else <code><a href="libsbml.html#formulaToString(org.sbml.libsbml.ASTNode)">libsbml.formulaToString()</a></code>@endif
+ * and read by @if clike SBML_parseFormula()@endif@if csharp SBML_parseFormula()@endif@if python libsbml.parseFormula()@else <code><a href="libsbml.html#parseFormula(java.lang.String)">libsbml.parseFormula()</a></code>@endif
+ * use a simple C-inspired infix notation taken from SBML Level&nbsp;1.  A
  * formula in this text-string form therefore can be handed to a program
  * that understands SBML Level&nbsp;1 mathematical expressions, or used as
  * part of a formula translation system.  The syntax is described in detail
- * in the documentation for ASTNode.  @endif
+ * in the documentation for ASTNode. 
  *
  * This returns the root node of the AST corresponding to the formula.  If
  * the formula contains a syntax error, @c NULL is returned instead.
@@ -122,6 +109,7 @@ BEGIN_C_DECLS
  *
  * @if clike @see SBML_formulaToString()@endif
  * @if csharp @see SBML_formulaToString()@endif
+ * @if python @see libsbml.formulaToString()@endif
  * @if java @see formulaToString(ASTNode tree)@endif
  */
 LIBSBML_EXTERN
