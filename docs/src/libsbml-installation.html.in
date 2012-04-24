@@ -33,6 +33,9 @@
 </td></tr><tr><td>
 <a href="#locations">4. Files installed by libSBML, and their locations</a>
 
+</td></tr><tr><td>
+<a href="#problems">5. What to do if problems arise</a>
+
 </td></tr>
 </table>
 </center>
@@ -1187,3 +1190,32 @@ x86-64).
 </center>
 
 
+<!-- ---------------------------------------------------------------------- -->
+<h2><a class="anchor" name="problems">5. What to do if problems arise</a></h2>
+<!-- ---------------------------------------------------------------------- -->
+
+Given the large number of variables that are involved in installing libSBML
+(e.g., operating systems versions, library versions, etc.), it is not
+impossible that issues arise when you try to get libSBML working.  We
+offer the following tips for what to do if you encounter problems:
+
+<ol>
+
+<li>Check the <a href="libsbml-issues.html">list of known issues</a> elsewhere in this
+  manual.  There, we try to describe the known problems, limitations and
+  possible pitfalls in using libSBML.
+
+<li>Ask for help on <a href="libsbml-communications.html">the libSBML and SBML mailing lists</a>.
+
+<li>Contact the developers directly by sending email
+to <a href="mailto:libsbml-team@caltech.edu">libsbml-team@caltech.edu</a>.
+  Please make sure to include the following information:
+  <ul style="margin-top: 1em">
+    <li>The version of libSBML you are using,
+    <li>The operating system, and operating system version, that you are using,
+    <li>The programming language you are using, 
+    <li>A description of what you are trying to do, and
+    <li>A copy of any error messages or other diagnostic messages printed
+    by libSBML or your compiler or any other software involved in the problem.
+
+</ol>
