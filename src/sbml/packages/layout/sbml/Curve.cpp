@@ -329,7 +329,8 @@ Curve::getNumCurveSegments () const
 LineSegment*
 Curve::createLineSegment ()
 {
-  LineSegment* ls = new LineSegment(static_cast<LayoutPkgNamespaces*>(mSBMLNamespaces));
+  LAYOUT_CREATE_NS(layoutns,getSBMLNamespaces());
+  LineSegment* ls = new LineSegment(layoutns);
 
   this->mCurveSegments.appendAndOwn(ls);
   return ls;
@@ -342,7 +343,8 @@ Curve::createLineSegment ()
  */
 CubicBezier* Curve::createCubicBezier ()
 {
-  CubicBezier* cb = new CubicBezier(static_cast<LayoutPkgNamespaces*>(mSBMLNamespaces));
+  LAYOUT_CREATE_NS(layoutns,getSBMLNamespaces());
+  CubicBezier* cb = new CubicBezier(layoutns);
 
   this->mCurveSegments.appendAndOwn(cb);
   return cb;
@@ -612,7 +614,7 @@ ListOfLineSegments::createObject (XMLInputStream& stream)
     }
 
     //std::cout << "[DEBUG] ListOfLineSegments::createObject () : type " << type << std::endl;
-	LAYOUT_CREATE_NS(layoutns,this->getSBMLNamespaces());
+    LAYOUT_CREATE_NS(layoutns,this->getSBMLNamespaces());
     if(type=="LineSegment")
     {
       object = new LineSegment(layoutns);

@@ -1108,7 +1108,8 @@ Layout::getNumAdditionalGraphicalObjects () const
 CompartmentGlyph* 
 Layout::createCompartmentGlyph ()
 {
-  CompartmentGlyph* p = new CompartmentGlyph(static_cast<LayoutPkgNamespaces*>(mSBMLNamespaces));
+  LAYOUT_CREATE_NS(layoutns,getSBMLNamespaces());
+  CompartmentGlyph* p = new CompartmentGlyph(layoutns);
 
   this->mCompartmentGlyphs.appendAndOwn(p);
   return p;
@@ -1122,7 +1123,8 @@ Layout::createCompartmentGlyph ()
 SpeciesGlyph* 
 Layout::createSpeciesGlyph ()
 {
-  SpeciesGlyph* p = new SpeciesGlyph(static_cast<LayoutPkgNamespaces*>(mSBMLNamespaces));
+  LAYOUT_CREATE_NS(layoutns,getSBMLNamespaces());
+  SpeciesGlyph* p = new SpeciesGlyph(layoutns);
 
   this->mSpeciesGlyphs.appendAndOwn(p);
   return p;
@@ -1136,7 +1138,8 @@ Layout::createSpeciesGlyph ()
 ReactionGlyph* 
 Layout::createReactionGlyph ()
 {
-  ReactionGlyph* p = new ReactionGlyph(static_cast<LayoutPkgNamespaces*>(mSBMLNamespaces));
+  LAYOUT_CREATE_NS(layoutns,getSBMLNamespaces());
+  ReactionGlyph* p = new ReactionGlyph(layoutns);
 
   this->mReactionGlyphs.appendAndOwn(p);
   return p;
@@ -1150,7 +1153,8 @@ Layout::createReactionGlyph ()
 TextGlyph* 
 Layout::createTextGlyph ()
 {
-  TextGlyph* p = new TextGlyph(static_cast<LayoutPkgNamespaces*>(mSBMLNamespaces));
+  LAYOUT_CREATE_NS(layoutns,getSBMLNamespaces());
+  TextGlyph* p = new TextGlyph(layoutns);
 
   this->mTextGlyphs.appendAndOwn(p);
   return p;
@@ -1165,7 +1169,8 @@ Layout::createTextGlyph ()
 GraphicalObject* 
 Layout::createAdditionalGraphicalObject ()
 {
-  GraphicalObject* p = new GraphicalObject(static_cast<LayoutPkgNamespaces*>(mSBMLNamespaces));
+  LAYOUT_CREATE_NS(layoutns,getSBMLNamespaces());
+  GraphicalObject* p = new GraphicalObject(layoutns);
 
   this->mAdditionalGraphicalObjects.appendAndOwn(p);
   return p;

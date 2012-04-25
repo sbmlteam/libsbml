@@ -457,7 +457,8 @@ bool ReactionGlyph::isSetCurve () const
 SpeciesReferenceGlyph*
 ReactionGlyph::createSpeciesReferenceGlyph ()
 {
-  SpeciesReferenceGlyph* srg = new SpeciesReferenceGlyph();
+  LAYOUT_CREATE_NS(layoutns,getSBMLNamespaces());
+  SpeciesReferenceGlyph* srg = new SpeciesReferenceGlyph(layoutns);
 
   this->mSpeciesReferenceGlyphs.appendAndOwn(srg);
   return srg;

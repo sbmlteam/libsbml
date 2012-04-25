@@ -418,7 +418,8 @@ LayoutModelPlugin::createLayout ()
   Layout* l = 0;
   try
   {  
-    l = new Layout(static_cast<LayoutPkgNamespaces*>(mSBMLNS));
+    LAYOUT_CREATE_NS(layoutns,getSBMLNamespaces());
+    l = new Layout(layoutns);
   }
   catch(...)
   {
