@@ -1865,6 +1865,7 @@ ListOfCompartmentGlyphs::createObject (XMLInputStream& stream)
 
   if (name == "compartmentGlyph")
   {
+    SBMLNamespaces* sbmlns = this->getSBMLNamespaces();
     LAYOUT_CREATE_NS(layoutns1,sbmlns);
     object = new CompartmentGlyph(layoutns1);
     appendAndOwn(object);
