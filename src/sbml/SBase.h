@@ -1772,7 +1772,7 @@ s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></b
    *
    * @param sb the SBML object to use
    */
-  void connectToParent (SBase* parent);
+  virtual void connectToParent (SBase* parent);
 
 
   /**

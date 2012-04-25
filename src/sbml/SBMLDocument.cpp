@@ -612,6 +612,9 @@ SBMLDocument::setModel (const Model* m)
     mModel = (m != NULL) ? new Model(*m) : NULL;
 
     if (mModel != NULL) mModel->connectToParent(this);
+    if (getURI() != mModel->getURI()) {
+      mModel->setElementNamespace(getURI());
+    }
     
     return LIBSBML_OPERATION_SUCCESS;
   }

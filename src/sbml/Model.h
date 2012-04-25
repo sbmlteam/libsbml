@@ -407,6 +407,7 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 
 class LIBSBML_EXTERN Model : public SBase
 {
+  friend class SBMLDocument; //So that SBMLDocument can change the element namespace if it needs to.
 public:
 
   /**
