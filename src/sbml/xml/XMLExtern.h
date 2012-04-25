@@ -49,7 +49,8 @@
 #   define LIBLAX_EXTERN
 # endif
 
-
+#undef BEGIN_C_DECLS
+#undef END_C_DECLS
 #if defined(__cplusplus)
 #  define BEGIN_C_DECLS extern "C" {
 #  define END_C_DECLS   }
