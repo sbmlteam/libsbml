@@ -865,7 +865,8 @@ ListOfSpeciesReferenceGlyphs::createObject (XMLInputStream& stream)
 
   if (name == "speciesReferenceGlyph")
   {
-    object = new SpeciesReferenceGlyph();
+    LAYOUT_CREATE_NS(layoutns,this->getSBMLNamespaces());
+    object = new SpeciesReferenceGlyph(layoutns);
     appendAndOwn(object);
 //    mItems.push_back(object);
   }

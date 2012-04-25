@@ -1662,9 +1662,8 @@ ListOfLayouts::createObject (XMLInputStream& stream)
 
   if (name == "layout")
   {
-    SBMLNamespaces* sbmlns = this->getSBMLNamespaces();
-	LAYOUT_CREATE_NS(layoutns1,sbmlns);
-    object = new Layout(layoutns1);
+    LAYOUT_CREATE_NS(layoutns,this->getSBMLNamespaces());
+    object = new Layout(layoutns);
     appendAndOwn(object);
     //mItems.push_back(object);
   }
@@ -1865,9 +1864,8 @@ ListOfCompartmentGlyphs::createObject (XMLInputStream& stream)
 
   if (name == "compartmentGlyph")
   {
-    SBMLNamespaces* sbmlns = this->getSBMLNamespaces();
-    LAYOUT_CREATE_NS(layoutns1,sbmlns);
-    object = new CompartmentGlyph(layoutns1);
+    LAYOUT_CREATE_NS(layoutns,this->getSBMLNamespaces());
+    object = new CompartmentGlyph(layoutns);
     appendAndOwn(object);
 //    mItems.push_back(object);
   }
@@ -2048,7 +2046,8 @@ ListOfSpeciesGlyphs::createObject (XMLInputStream& stream)
 
   if (name == "speciesGlyph")
   {
-    object = new SpeciesGlyph();
+    LAYOUT_CREATE_NS(layoutns,this->getSBMLNamespaces());
+    object = new SpeciesGlyph(layoutns);
     appendAndOwn(object);
 //    mItems.push_back(object);
   }
@@ -2226,7 +2225,8 @@ ListOfReactionGlyphs::createObject (XMLInputStream& stream)
 
   if (name == "reactionGlyph")
   {
-    object = new ReactionGlyph();
+    LAYOUT_CREATE_NS(layoutns,this->getSBMLNamespaces());
+    object = new ReactionGlyph(layoutns);
     appendAndOwn(object);
 //    mItems.push_back(object);
   }
@@ -2404,7 +2404,8 @@ ListOfTextGlyphs::createObject (XMLInputStream& stream)
 
   if (name == "textGlyph")
   {
-    object = new TextGlyph();
+    LAYOUT_CREATE_NS(layoutns,this->getSBMLNamespaces());
+    object = new TextGlyph(layoutns);
     appendAndOwn(object);
 //    mItems.push_back(object);
   }
@@ -2582,9 +2583,8 @@ ListOfGraphicalObjects::createObject (XMLInputStream& stream)
 
   if (name == "graphicalObject")
   {
-    SBMLNamespaces* sbmlns = this->getSBMLNamespaces();
-    LAYOUT_CREATE_NS(layoutns1,sbmlns);
-    object = new GraphicalObject(layoutns1);
+    LAYOUT_CREATE_NS(layoutns,this->getSBMLNamespaces());
+    object = new GraphicalObject(layoutns);
     appendAndOwn(object);
 //    mItems.push_back(object);
   }

@@ -612,7 +612,7 @@ ListOfLineSegments::createObject (XMLInputStream& stream)
     }
 
     //std::cout << "[DEBUG] ListOfLineSegments::createObject () : type " << type << std::endl;
-	LAYOUT_CREATE_NS(layoutns,mSBMLNamespaces);
+	LAYOUT_CREATE_NS(layoutns,this->getSBMLNamespaces());
     if(type=="LineSegment")
     {
       object = new LineSegment(layoutns);
