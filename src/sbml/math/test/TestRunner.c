@@ -55,6 +55,7 @@ Suite *create_suite_ASTNode          (void);
 Suite *create_suite_FormulaFormatter (void);
 Suite *create_suite_FormulaParser    (void);
 //Suite *create_suite_L3FormulaParser  (void);
+Suite *create_suite_L3FormulaParserC (void);
 Suite *create_suite_FormulaTokenizer (void);
 Suite *create_suite_ReadMathML       (void);
 Suite *create_suite_WriteMathML      (void);
@@ -114,6 +115,7 @@ main (void)
   srunner_add_suite( runner, create_suite_FormulaFormatter () );
   srunner_add_suite( runner, create_suite_FormulaParser    () );
 //  srunner_add_suite( runner, create_suite_L3FormulaParser  () );
+  srunner_add_suite( runner, create_suite_L3FormulaParserC () );
   srunner_add_suite( runner, create_suite_FormulaTokenizer () );
   srunner_add_suite( runner, create_suite_ReadMathML       () );
   srunner_add_suite( runner, create_suite_WriteMathML      () );

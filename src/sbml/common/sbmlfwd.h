@@ -365,6 +365,12 @@ typedef CLASS_OR_STRUCT SBasePlugin    SBasePlugin_t;
  */
 typedef CLASS_OR_STRUCT SBMLDocumentPlugin    SBMLDocumentPlugin_t;
 
+/**
+ * @var typedef class L3ParserSettings L3ParserSettings_t
+ */
+typedef CLASS_OR_STRUCT L3ParserSettings    L3ParserSettings_t;
+
+
 
 
 LIBSBML_CPP_NAMESPACE_END

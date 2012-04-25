@@ -2529,24 +2529,26 @@ L3ParserSettings L3Parser::getDefaultParserSettings()
   return defaultParserSettings;
 }
 
-ASTNode_t *
-SBML_parseL3Formula (const char *formula)
+
+ASTNode *
+L3Parser::parseL3Formula (std::string formula)
 {
   if (l3p==NULL) {
     l3p = new L3Parser();
   }
   L3ParserSettings l3ps = l3p->getDefaultParserSettings();
-  return SBML_parseL3Formula(formula, l3ps);
+  return L3Parser::parseL3Formula(formula, l3ps);
 }
 
-ASTNode_t *
-SBML_parseL3Formula (const char *formula, L3ParserSettings settings)
+
+ASTNode *
+L3Parser::parseL3Formula (std::string formula, L3ParserSettings settings)
 {
   if (l3p==NULL) {
     l3p = new L3Parser();
   }
   l3p->clear();
-  l3p->setInput(formula);
+  l3p->setInput(formula.c_str());
   l3p->model = settings.getModel();
   l3p->parselog = settings.getParseLog();
   l3p->collapseminus = settings.getCollapseMinus();
@@ -2556,9 +2558,45 @@ SBML_parseL3Formula (const char *formula, L3ParserSettings settings)
   return l3p->outputNode;
   
 }
-char* SBML_getLastParseL3Error()
+
+
+char* 
+L3Parser::getLastParseL3Error()
 {
   //cout << l3p->getError() << endl;
   return safe_strdup(l3p->getError().c_str());
 }
+
+
+LIBSBML_EXTERN
+ASTNode_t *
+SBML_parseL3Formula (const char *formula)
+{
+  return L3Parser::parseL3Formula(formula);
+}
+
+
+LIBSBML_EXTERN
+ASTNode_t *
+SBML_parseL3FormulaWithSettings (const char *formula, L3ParserSettings_t * settings)
+{
+  return L3Parser::parseL3Formula(formula, *(settings));
+}
+
+
+LIBSBML_EXTERN
+ASTNode_t *
+SBML_parseL3FormulaWithModel (const char *formula, Model_t * model)
+{
+  return L3Parser::parseL3Formula(formula, model);
+}
+
+
+LIBSBML_EXTERN
+char*
+SBML_getLastParseL3Error()
+{
+  return L3Parser::getLastParseL3Error();
+}
+
 

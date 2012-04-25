@@ -148,10 +148,10 @@ char *
 translateInfix (const char* formula, const L3ParserSettings& settings)
 {
   char*    result;
-  ASTNode* math = SBML_parseL3Formula(formula, settings);
+  ASTNode* math = L3Parser::parseL3Formula(formula, settings);
 
   if (math==NULL) {
-    result = SBML_getLastParseL3Error();
+    result = L3Parser::getLastParseL3Error();
   }
   else {
     result = writeMathMLToString(math);

@@ -60,12 +60,10 @@
 #ifndef L3ParserSettings_h
 #define L3ParserSettings_h
 
-#ifdef __cplusplus
-
 #include <sbml/common/libsbml-namespace.h>
 #include <sbml/common/extern.h>
+#include <sbml/common/sbmlfwd.h>
 
-LIBSBML_CPP_NAMESPACE_BEGIN
 
 /** 
   * The l3p_log_type enum defines three options:
@@ -74,9 +72,10 @@ LIBSBML_CPP_NAMESPACE_BEGIN
   * @li L3P_PARSE_LOG_AS_ERROR (2): refuse to parse 'log(x)' at all, and set an error message 
       telling the user to use 'log10(x)', 'ln(x)', or 'log(base, x)' instead.
   */
-enum l3p_log_type {L3P_PARSE_LOG_AS_LOG10=0,
-                   L3P_PARSE_LOG_AS_LN=1,
-                   L3P_PARSE_LOG_AS_ERROR=2};
+typedef enum {L3P_PARSE_LOG_AS_LOG10=0,
+      L3P_PARSE_LOG_AS_LN=1,
+      L3P_PARSE_LOG_AS_ERROR=2
+     } l3p_log_type ;
 
 #define L3P_COLLAPSE_UNARY_MINUS true
 #define L3P_EXPAND_UNARY_MINUS   false
@@ -86,6 +85,11 @@ enum l3p_log_type {L3P_PARSE_LOG_AS_LOG10=0,
 
 #define L3P_AVOGADRO_IS_CSYMBOL true
 #define L3P_AVOGADRO_IS_NAME    false
+
+#ifdef __cplusplus
+
+
+LIBSBML_CPP_NAMESPACE_BEGIN
 
 class Model;
 
@@ -228,4 +232,95 @@ LIBSBML_CPP_NAMESPACE_END
 
 #endif  /* __cplusplus */
 
+LIBSBML_CPP_NAMESPACE_BEGIN
+BEGIN_C_DECLS
+
+
+LIBSBML_EXTERN
+L3ParserSettings_t *
+L3ParserSettings_create ();
+
+
+LIBSBML_EXTERN
+void
+L3ParserSettings_free (L3ParserSettings_t * settings);
+
+
+LIBSBML_EXTERN
+void
+L3ParserSettings_setModel (L3ParserSettings_t * settings, Model_t * model);
+
+
+LIBSBML_EXTERN
+Model_t *
+L3ParserSettings_getModel (L3ParserSettings_t * settings);
+
+
+LIBSBML_EXTERN
+void
+L3ParserSettings_unsetModel (L3ParserSettings_t * settings);
+
+
+LIBSBML_EXTERN
+void
+L3ParserSettings_setParseLog (L3ParserSettings_t * settings, l3p_log_type type);
+
+
+LIBSBML_EXTERN
+l3p_log_type
+L3ParserSettings_getParseLog (L3ParserSettings_t * settings);
+
+
+LIBSBML_EXTERN
+void
+L3ParserSettings_setCollapseMinus (L3ParserSettings_t * settings, int flag);
+
+
+LIBSBML_EXTERN
+int
+L3ParserSettings_getCollapseMinus (L3ParserSettings_t * settings);
+
+
+LIBSBML_EXTERN
+void
+L3ParserSettings_setTargetL2 (L3ParserSettings_t * settings);
+
+
+LIBSBML_EXTERN
+int
+L3ParserSettings_getTargetL2 (L3ParserSettings_t * settings);
+
+
+LIBSBML_EXTERN
+void
+L3ParserSettings_setTargetL3 (L3ParserSettings_t * settings);
+
+
+LIBSBML_EXTERN
+int
+L3ParserSettings_getTargetL3 (L3ParserSettings_t * settings);
+
+
+LIBSBML_EXTERN
+void
+L3ParserSettings_setParseUnits (L3ParserSettings_t * settings, int flag);
+
+
+LIBSBML_EXTERN
+int
+L3ParserSettings_getParseUnits (L3ParserSettings_t * settings);
+
+
+LIBSBML_EXTERN
+void
+L3ParserSettings_setAvogadroCsymbol (L3ParserSettings_t * settings, int flag);
+
+
+LIBSBML_EXTERN
+int
+L3ParserSettings_getAvogadroCsymbol (L3ParserSettings_t * settings);
+
+
+END_C_DECLS
+LIBSBML_CPP_NAMESPACE_END
 #endif /* L3ParserSettings_h */
