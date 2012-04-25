@@ -53,6 +53,7 @@ thisdir = src/sbml/extension
 headers =            \
   SBasePlugin.h \
   SBMLDocumentPlugin.h \
+  SBMLDocumentPluginNotRequired.h \
   SBaseExtensionPoint.h \
   SBasePluginCreatorBase.h \
   SBasePluginCreator.h \
@@ -68,6 +69,7 @@ header_inst_prefix = extension
 sources =                      \
   SBasePlugin.cpp              \
   SBMLDocumentPlugin.cpp       \
+  SBMLDocumentPluginNotRequired.cpp       \
   SBaseExtensionPoint.cpp      \
   SBasePluginCreatorBase.cpp   \
   SBMLExtension.cpp            \
