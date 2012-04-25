@@ -489,6 +489,25 @@ GroupsExtension::init()
 #ifndef SBMLExtension_h
 #define SBMLExtension_h
 
+
+#ifndef EXTENSION_CREATE_NS
+#define EXTENSION_CREATE_NS(type,variable,sbmlns)\
+  type* variable;\
+  {\
+      XMLNamespaces* xmlns = sbmlns->getNamespaces();\
+      variable = dynamic_cast<type*>(sbmlns);\
+      if (variable == NULL)\
+      {\
+       variable = new type(sbmlns->getLevel(), sbmlns->getVersion());\
+       for (int i = 0; i < xmlns->getNumNamespaces(); i++)\
+       {\
+         if (!variable->getNamespaces()->hasURI(xmlns->getURI(i)))\
+           variable->getNamespaces()->add(xmlns->getURI(i), xmlns->getPrefix(i));\
+       }\
+    }\
+  }
+#endif
+
 #include <sbml/extension/SBasePluginCreatorBase.h>
 #include <sbml/extension/SBaseExtensionPoint.h>
 

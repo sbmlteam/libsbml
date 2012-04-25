@@ -1663,17 +1663,7 @@ ListOfLayouts::createObject (XMLInputStream& stream)
   if (name == "layout")
   {
     SBMLNamespaces* sbmlns = this->getSBMLNamespaces();
-    XMLNamespaces* xmlns = sbmlns->getNamespaces();
-    LayoutPkgNamespaces* layoutns1 = dynamic_cast<LayoutPkgNamespaces*>(sbmlns);
-    if (layoutns1 == NULL)
-    {
-       layoutns1 = new LayoutPkgNamespaces(sbmlns->getLevel(), sbmlns->getVersion());
-       for (int i = 0; i < xmlns->getNumNamespaces(); i++)
-       {         
-         if (!layoutns1->getNamespaces()->hasURI(xmlns->getURI(i)))
-           layoutns1->getNamespaces()->add(xmlns->getURI(i), xmlns->getPrefix(i));
-       }
-    }
+	LAYOUT_CREATE_NS(layoutns1,sbmlns);
     object = new Layout(layoutns1);
     appendAndOwn(object);
     //mItems.push_back(object);
@@ -1875,7 +1865,8 @@ ListOfCompartmentGlyphs::createObject (XMLInputStream& stream)
 
   if (name == "compartmentGlyph")
   {
-    object = new CompartmentGlyph(static_cast<LayoutPkgNamespaces*>(mSBMLNamespaces));
+    LAYOUT_CREATE_NS(layoutns1,sbmlns);
+    object = new CompartmentGlyph(layoutns1);
     appendAndOwn(object);
 //    mItems.push_back(object);
   }
@@ -2591,18 +2582,7 @@ ListOfGraphicalObjects::createObject (XMLInputStream& stream)
   if (name == "graphicalObject")
   {
     SBMLNamespaces* sbmlns = this->getSBMLNamespaces();
-    XMLNamespaces* xmlns = sbmlns->getNamespaces();
-    LayoutPkgNamespaces* layoutns1 = dynamic_cast<LayoutPkgNamespaces*>(sbmlns);
-    if (layoutns1 == NULL)
-    {
-       layoutns1 = new LayoutPkgNamespaces(sbmlns->getLevel(), sbmlns->getVersion());
-       for (int i = 0; i < xmlns->getNumNamespaces(); i++)
-       {         
-         if (!layoutns1->getNamespaces()->hasURI(xmlns->getURI(i)))
-           layoutns1->getNamespaces()->add(xmlns->getURI(i), xmlns->getPrefix(i));
-       }
-    }
-
+    LAYOUT_CREATE_NS(layoutns1,sbmlns);
     object = new GraphicalObject(layoutns1);
     appendAndOwn(object);
 //    mItems.push_back(object);

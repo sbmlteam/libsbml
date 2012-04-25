@@ -34,6 +34,13 @@
 #include <sbml/extension/SBMLExtensionNamespaces.h>
 #include <sbml/extension/SBMLExtensionRegister.h>
 
+
+#ifndef LAYOUT_CREATE_NS
+#define LAYOUT_CREATE_NS(variable,sbmlns)\
+  EXTENSION_CREATE_NS(LayoutPkgNamespaces,variable,sbmlns);
+#endif
+
+
 #ifdef __cplusplus
 
 #include <vector>

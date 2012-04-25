@@ -612,14 +612,14 @@ ListOfLineSegments::createObject (XMLInputStream& stream)
     }
 
     //std::cout << "[DEBUG] ListOfLineSegments::createObject () : type " << type << std::endl;
-
+	LAYOUT_CREATE_NS(layoutns,mSBMLNamespaces);
     if(type=="LineSegment")
     {
-      object = new LineSegment(static_cast<LayoutPkgNamespaces*>(mSBMLNamespaces));
+      object = new LineSegment(layoutns);
     }
     else if(type=="CubicBezier")
     {
-      object = new CubicBezier(static_cast<LayoutPkgNamespaces*>(mSBMLNamespaces));
+      object = new CubicBezier(layoutns);
     }
   }
   
