@@ -729,6 +729,12 @@ public:
   unsigned int getColumn() const;
   /** @endcond */
 
+  /** @cond doxygen-libsbml-internal */
+  /* gets the SBMLnamespaces - internal use only*/
+  virtual SBMLNamespaces * getSBMLNamespaces() const;
+  /** @endcond */
+
+
 protected:
   /** @cond doxygen-libsbml-internal */
   /**

@@ -2718,7 +2718,7 @@ s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></b
 
   /** @cond doxygen-libsbml-internal */
   /* gets the SBMLnamespaces - internal use only*/
-  SBMLNamespaces * getSBMLNamespaces() const;
+  virtual SBMLNamespaces * getSBMLNamespaces() const;
   /** @endcond */
 
 

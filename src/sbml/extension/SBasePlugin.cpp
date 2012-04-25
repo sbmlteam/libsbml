@@ -291,6 +291,19 @@ SBasePlugin::getColumn() const
 }
 /** @endcond */
 
+SBMLNamespaces *
+SBasePlugin::getSBMLNamespaces() const
+{
+  if (mSBML != NULL)
+    return mSBML->getSBMLNamespaces();
+  else if (mParent != NULL)
+    return mParent->getSBMLNamespaces();
+  else if (mSBMLNS != NULL)
+    return mSBMLNS;
+  else
+    return new SBMLNamespaces();
+}
+
 
 /*
  * Returns the package version of this plugin object.
