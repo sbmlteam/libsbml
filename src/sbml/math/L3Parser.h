@@ -63,6 +63,8 @@ class FormulaUnitsData;
 class LIBSBML_EXTERN L3Parser
 {
 public:
+
+#ifndef SWIG
   std::stringstream input;
   ASTNode* outputNode;
   std::string error;
@@ -78,7 +80,8 @@ public:
   bool parseunits;
   bool avocsymbol;
 
-
+#endif
+  
   L3Parser();
   ~L3Parser();
 
@@ -323,6 +326,7 @@ public:
   static char* getLastParseL3Error();
 };
 
+#ifndef SWIG
 /** @cond doxygen-libsbml-internal */
 
 /**
@@ -332,7 +336,7 @@ public:
 extern L3Parser* l3p;
 /** @endcond */
 
-
+#endif
 
 LIBSBML_CPP_NAMESPACE_END
 

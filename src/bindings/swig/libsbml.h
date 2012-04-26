@@ -92,6 +92,8 @@
 #include <sbml/math/MathML.h>
 #include <sbml/math/FormulaFormatter.h>
 #include <sbml/math/FormulaParser.h>
+#include <sbml/math/L3Parser.h>
+#include <sbml/math/L3ParserSettings.h>
 
 #include <sbml/xml/XMLAttributes.h>
 #include <sbml/xml/XMLNamespaces.h>

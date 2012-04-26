@@ -232,6 +232,8 @@ LIBSBML_CPP_NAMESPACE_END
 
 #endif  /* __cplusplus */
 
+#ifndef SWIG
+
 LIBSBML_CPP_NAMESPACE_BEGIN
 BEGIN_C_DECLS
 
@@ -323,4 +325,7 @@ L3ParserSettings_getAvogadroCsymbol (L3ParserSettings_t * settings);
 
 END_C_DECLS
 LIBSBML_CPP_NAMESPACE_END
+
+#endif
+
 #endif /* L3ParserSettings_h */
