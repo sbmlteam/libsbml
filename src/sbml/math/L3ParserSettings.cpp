@@ -46,15 +46,6 @@ L3ParserSettings::L3ParserSettings()
 {
 }
 
-L3ParserSettings::L3ParserSettings(Model* model)
-  : mModel (model)
-  , mParselog(L3P_PARSE_LOG_AS_LOG10)
-  , mCollapseminus(L3P_EXPAND_UNARY_MINUS)
-  , mParseunits(L3P_PARSE_UNITS)
-  , mAvoCsymbol(L3P_AVOGADRO_IS_CSYMBOL)
-{
-}
-
 L3ParserSettings::L3ParserSettings(Model* model, l3p_log_type parselog, bool collapseminus, bool parseunits, bool avocsymbol)
   : mModel (model)
   , mParselog(parselog)

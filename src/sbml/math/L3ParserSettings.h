@@ -113,14 +113,6 @@ public:
    */
   L3ParserSettings(Model* model, l3p_log_type parselog, bool collapseminus, bool parseunits, bool avocsymbol);
 
-  /** 
-   * Creates a new L3ParserSettings object sets with provided Model pointer, and setting everything else to the default (L3P_PARSE_LOG_AS_LOG10, L3P_EXPAND_UNARY_MINUS, L3P_PARSE_UNITS, and L3P_AVOGADRO_IS_CSYMBOL).  This constructor allows the use of a Model* pointer instead of an actual L3ParserSettings object when using the function SBML_parseL3formula().
-   *
-   * @param model a Model pointer, to use in parsing infix functions.
-   *
-   */
-  L3ParserSettings(Model* model);
-
   /**
    * Destroys this L3ParserSettings.
    */

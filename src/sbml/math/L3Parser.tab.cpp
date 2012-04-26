@@ -2542,6 +2542,18 @@ L3Parser::parseL3Formula (std::string formula)
 
 
 ASTNode *
+L3Parser::parseL3Formula (std::string formula, Model* model)
+{
+  if (l3p==NULL) {
+    l3p = new L3Parser();
+  }
+  L3ParserSettings l3ps = l3p->getDefaultParserSettings();
+  l3ps.setModel(model);
+  return L3Parser::parseL3Formula(formula, l3ps);
+}
+
+
+ASTNode *
 L3Parser::parseL3Formula (std::string formula, L3ParserSettings settings)
 {
   if (l3p==NULL) {
@@ -2559,6 +2571,20 @@ L3Parser::parseL3Formula (std::string formula, L3ParserSettings settings)
   
 }
 
+void
+L3Parser::setDefaultSettings(L3ParserSettings settings)
+{
+  defaultParserSettings = settings;
+}
+
+void
+L3Parser::setGlobalDefaultSettings(L3ParserSettings settings)
+{
+  if (l3p==NULL) {
+    l3p = new L3Parser();
+  }
+  l3p->setDefaultSettings(settings);
+}
 
 char* 
 L3Parser::getLastParseL3Error()
@@ -2591,6 +2617,13 @@ SBML_parseL3FormulaWithModel (const char *formula, Model_t * model)
   return L3Parser::parseL3Formula(formula, model);
 }
 
+
+LIBSBML_EXTERN
+void 
+SBML_setDefaultL3ParserSettings (L3ParserSettings_t *settings)
+{
+  return L3Parser::setGlobalDefaultSettings(*(settings));
+}
 
 LIBSBML_EXTERN
 char*
