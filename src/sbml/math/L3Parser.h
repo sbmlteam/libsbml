@@ -164,6 +164,10 @@ public:
    * the error message set from a 'setError' function.
    */
   std::string getError();
+  
+  
+#ifndef SWIG
+  
   /**
    * The bison parser needs string pointers to pass around from function to
    * function.  In order to not create too many of these objects, and to
@@ -177,6 +181,9 @@ public:
    * found, the previously-created pointer is returned.
    */
   std::string* addWord(const std::string& word);
+  
+#endif 
+  
   /**
    * This function checks the provided ASTNode function to see if it is a 
    * known function with the wrong number of arguments.  If so, an error is set
