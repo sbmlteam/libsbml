@@ -381,7 +381,7 @@ th.dirtab {
 hr {
     height: 0px;
     border: none;
-    border-top: 1px solid #4A6AAA;
+    border-top: 1px solid #443;
 }
 
 hr.footer {
@@ -1291,7 +1291,7 @@ signatureTitle {
 pre.signature { 
   font-size: 14px;
   font-weight:  bold;
-  margin-left: 5ex;
+  margin-left: 16px;
 }
 
 .signatureArrow { 
