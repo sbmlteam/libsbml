@@ -50,6 +50,9 @@ STABLE RELEASE
 
 * Miscellaneous
 
+  - Doxygen versions 1.7 and 1.8 are now supported.  (However, older
+    versions of Doxygen are no longer supported.)
+
 * Configuration/build system changes
 
 EXPERIMENTAL RELEASE
