@@ -1232,3 +1232,51 @@ span.comment {
 .navpath li.footer a {
     font-weight: bold;
 }
+
+.signatureTable { 
+  font-size: 14px;
+  border: 0px none;
+  border-collapse: collapse;
+}
+
+td.signatureIntro { 
+  font-size: 14px;  
+  margin-left: 0px;
+  margin-right: 20px;
+  padding-top: 0.5ex;
+  padding-left: 0px;
+  border: 0px none;
+  border-collapse: collapse;
+}
+
+td.signatureBlock { 
+  font-family: Lucida Sans, Tahoma, Helvetica, Arial, Sans, sans-serif;
+  font-size: 14px;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  border: 1px dotted #aaaaaa;
+  border-collapse: collapse;
+}
+
+signatureTitle { 
+}
+
+pre.signature { 
+  font-size: 14px;
+  font-weight:  bold;
+  margin-left: 5ex;
+}
+
+.signatureArrow { 
+  padding: 0;
+  margin: 0;
+  border: 0;
+  vertical-align: baseline;
+}
+
+docnote { 
+  margin-left: 1cm;
+  margin-top: 0;
+}
