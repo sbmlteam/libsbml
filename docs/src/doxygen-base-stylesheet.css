@@ -857,38 +857,63 @@ dl.section
     padding: 0 0 0 6px;
 }
 
+dl.return 
+{
+    border-left:4px solid;
+    border-color: #443;
+}
+
+dl.params 
+{
+    border-left:4px solid;
+    border-color: #443;
+}
+
+dl.see 
+{
+    border-left:4px solid;
+    border-color: #443;
+}
+
 dl.note
 {
+    border-left:4px solid;
     border-color: #D0C000;
 }
 
 dl.warning, dl.attention
 {
+    border-left:4px solid;
     border-color: #FF0000;
 }
 
 dl.pre, dl.post, dl.invariant
 {
+    border-left:4px solid;
     border-color: #00D000;
 }
 
 dl.deprecated
 {
+    border-left:4px solid;
     border-color: #505050;
 }
 
 dl.todo
 {
+    border-left:4px solid;
     border-color: #00C0E0;
 }
 
 dl.test
 {
+    border-left:4px solid;
     border-color: #3030E0;
 }
 
 dl.bug
 {
+    border-left:4px solid;
     border-color: #C08050;
 }
 
