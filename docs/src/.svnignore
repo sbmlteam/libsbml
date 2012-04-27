@@ -21,3 +21,4 @@ perlmod
 java-files
 libsbml-installation.html
 *.class
+doxygen-version-specific.txt
