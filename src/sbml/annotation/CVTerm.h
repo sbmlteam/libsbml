@@ -52,34 +52,34 @@
  * such as Species, Compartment, etc.  The following template illustrates
  * the different parts of SBML annotations in XML form:
  * 
- <div class="fragment">
- &lt;<span style="background-color: #bbb">SBML_ELEMENT</span> <span style="background-color: #d0eed0">+++</span> metaid=&quot;<span style="border-bottom: 1px solid black">meta id</span>&quot; <span style="background-color: #d0eed0">+++</span>&gt;<br>
- &nbsp;&nbsp;<span style="background-color: #d0eed0">+++</span><br>
- &nbsp;&nbsp;&lt;annotation&gt;<br>
- &nbsp;&nbsp;&nbsp;&nbsp;<span style="background-color: #d0eed0">+++</span><br>
- &nbsp;&nbsp;&nbsp;&nbsp;&lt;rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"<br>
- &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;xmlns:dc="http://purl.org/dc/elements/1.1/"<br>
- &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;xmlns:dcterm="http://purl.org/dc/terms/"<br>
- &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;xmlns:vcard="http://www.w3.org/2001/vcard-rdf/3.0#"<br>
- &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;xmlns:bqbiol="http://biomodels.net/biology-qualifiers/"<br>
- &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;xmlns:bqmodel="http://biomodels.net/model-qualifiers/" &gt;<br>
- &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;rdf:Description rdf:about=&quot;#<span style="border-bottom: 1px solid black">meta id</span>&quot;&gt;<br>
- &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="background-color: #e0e0e0; border-bottom: 2px dotted #888">HISTORY</span><br>
- &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span style="background-color: #bbb">RELATION_ELEMENT</span>&gt;<br>
- &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;rdf:Bag&gt;<br>
- &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;rdf:li rdf:resource=&quot;<span style="background-color: #d0d0ee">URI</span>&quot; /&gt;<br>
- &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="background-color: #edd">...</span><br>
- &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/rdf:Bag&gt;<br>
- &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/<span style="background-color: #bbb">RELATION_ELEMENT</span>&gt;<br>
- &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="background-color: #edd">...</span><br>
- &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/rdf:Description&gt;<br>
- &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="background-color: #d0eed0">+++</span><br>
- &nbsp;&nbsp;&nbsp;&nbsp;&lt;/rdf:RDF&gt;<br>
- &nbsp;&nbsp;&nbsp;&nbsp;<span style="background-color: #d0eed0">+++</span><br>
- &nbsp;&nbsp;&lt;/annotation&gt;<br>
- &nbsp;&nbsp;<span style="background-color: #d0eed0">+++</span><br>
- &lt;/<span style="background-color: #bbb">SBML_ELEMENT</span>&gt;<br>
- </div>
+ <pre class="fragment">
+ &lt;<span style="background-color: #bbb">SBML_ELEMENT</span> <span style="background-color: #d0eed0">+++</span> metaid=&quot;<span style="border-bottom: 1px solid black">meta id</span>&quot; <span style="background-color: #d0eed0">+++</span>&gt;
+   <span style="background-color: #d0eed0">+++</span>
+   &lt;annotation&gt;
+     <span style="background-color: #d0eed0">+++</span>
+     &lt;rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+              xmlns:dc="http://purl.org/dc/elements/1.1/"
+              xmlns:dcterm="http://purl.org/dc/terms/"
+              xmlns:vcard="http://www.w3.org/2001/vcard-rdf/3.0#"
+              xmlns:bqbiol="http://biomodels.net/biology-qualifiers/"
+              xmlns:bqmodel="http://biomodels.net/model-qualifiers/" &gt;
+       &lt;rdf:Description rdf:about=&quot;#<span style="border-bottom: 1px solid black">meta id</span>&quot;&gt;
+         <span style="background-color: #e0e0e0; border-bottom: 2px dotted #888">HISTORY</span>
+         &lt;<span style="background-color: #bbb">RELATION_ELEMENT</span>&gt;
+           &lt;rdf:Bag&gt;
+             &lt;rdf:li rdf:resource=&quot;<span style="background-color: #d0d0ee">URI</span>&quot; /&gt;
+             <span style="background-color: #edd">...</span>
+           &lt;/rdf:Bag&gt;
+         &lt;/<span style="background-color: #bbb">RELATION_ELEMENT</span>&gt;
+         <span style="background-color: #edd">...</span>
+       &lt;/rdf:Description&gt;
+       <span style="background-color: #d0eed0">+++</span>
+     &lt;/rdf:RDF&gt;
+     <span style="background-color: #d0eed0">+++</span>
+   &lt;/annotation&gt;
+   <span style="background-color: #d0eed0">+++</span>
+ &lt;/<span style="background-color: #bbb">SBML_ELEMENT</span>&gt;
+ </pre>
  * 
  * In the template above, the placeholder
  * <span class="code" style="background-color: #bbb">SBML_ELEMENT</span> stands for
@@ -667,18 +667,18 @@ public:
    * together identified uniquely using a URI.  The following template
    * illustrates the structure:
    *
-   <DIV class="fragment">
-   &lt;rdf:Description rdf:about=&quot;#<span style="border-bottom: 1px solid black">meta id</span>&quot;&gt;<br>
-   &nbsp;&nbsp;<span style="background-color: #e0e0e0; border-bottom: 2px dotted #888">HISTORY</span><br>
-   &nbsp;&nbsp;&lt;<span style="background-color: #bbb">RELATION_ELEMENT</span>&gt;<br>
-   &nbsp;&nbsp;&nbsp;&nbsp;&lt;rdf:Bag&gt;<br>
-   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;rdf:li rdf:resource=&quot;<span style="background-color: #d0d0ee">resource URI</span>&quot; /&gt;<br>
-   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="background-color: #edd">...</span><br>
-   &nbsp;&nbsp;&nbsp;&nbsp;&lt;/rdf:Bag&gt;<br>
-   &nbsp;&nbsp;&lt;/<span style="background-color: #bbb">RELATION_ELEMENT</span>&gt;<br>
-   &nbsp;&nbsp;<span style="background-color: #edd">...</span><br>
-   &lt;/rdf:Description&gt;<br>
-   </div>
+   <pre class="fragment">
+   &lt;rdf:Description rdf:about=&quot;#<span style="border-bottom: 1px solid black">meta id</span>&quot;&gt;
+     <span style="background-color: #e0e0e0; border-bottom: 2px dotted #888">HISTORY</span>
+     &lt;<span style="background-color: #bbb">RELATION_ELEMENT</span>&gt;
+       &lt;rdf:Bag&gt;
+         &lt;rdf:li rdf:resource=&quot;<span style="background-color: #d0d0ee">resource URI</span>&quot; /&gt;
+         <span style="background-color: #edd">...</span>
+       &lt;/rdf:Bag&gt;
+     &lt;/<span style="background-color: #bbb">RELATION_ELEMENT</span>&gt;
+     <span style="background-color: #edd">...</span>
+   &lt;/rdf:Description&gt;
+   </pre>
    *
    * In the template above, the placeholder <span class="code"
    * style="border-bottom: 1px solid black">meta id</span> stands for the

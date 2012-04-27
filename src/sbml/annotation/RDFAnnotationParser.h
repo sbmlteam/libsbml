@@ -262,11 +262,11 @@ success = sbmlObject.setAnnotation(annot)           # Set object's annotation to
    * (where <span class="code" style="background-color: #eed0d0">metaid</span> 
    * the value of the "metaid" attribute of the argument):
    * 
- <div class="fragment">
- &lt;rdf:Description rdf:about=&quot;#<span style="background-color: #eed0d0">metaid</span>&quot; xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"&gt;<br>
- ...<br>
- &lt;/rdf:Description&gt;<br>
- </div>
+ <pre class="fragment">
+ &lt;rdf:Description rdf:about=&quot;#<span style="background-color: #eed0d0">metaid</span>&quot; xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"&gt;
+ ...
+ &lt;/rdf:Description&gt;
+ </pre>
    * Note that this method does @em not create a complete annotation or
    * even an RDF element; it only creates the "Description" portion.  Callers
    * will need to use other methods such as
