@@ -36,4 +36,6 @@ Systems Biology Markup Language (SBML).
 
 @htmlinclude FUNDING.txt
 
+@htmlinclude libsbml-doxygen.html
+
 */

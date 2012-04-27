@@ -23,7 +23,7 @@ PROJECT_NAME           = "@PACKAGE_NAME@ Octave API"
 # This could be handy for archiving the generated documentation or 
 # if some version control system is used.
 
-PROJECT_NUMBER         = "@PACKAGE_NAME@ @PACKAGE_VERSION@ Octave API"
+PROJECT_NUMBER         = "@PACKAGE_VERSION@"
 
 # The HTML_OUTPUT tag is used to specify where the HTML docs will be put. 
 # If a relative path is entered the value of OUTPUT_DIRECTORY will be 

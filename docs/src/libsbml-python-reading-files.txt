@@ -41,7 +41,6 @@ basic, convenient, global functions for reading SBML:
 filename)@endlink.  This function takes a file name, attempts to read an
 SBML document from the file, and returns a @link libsbml.SBMLDocument
 SBMLDocument@endlink object if successful.
-
 @li @link libsbml.readSBMLFromString() readSBMLFromString(string
 xml)@endlink.  This function takes a string assumed to contain XML content,
 attempts to read an SBML document from the string, and returns a @link
@@ -76,10 +75,8 @@ Version&nbsp;3) of "metaid" and "sboTerm", as well as the subelements
 libsbml.SBase SBase@endlink (and thus its subclasses such as @link
 libsbml.SBMLDocument SBMLDocument@endlink) provides methods for querying
 this information:
-
 @li @link libsbml.SBMLDocument.getLevel() SBMLDocument.getLevel()@endlink
 returns the SBML Level of the model.
-
 @li @link libsbml.SBMLDocument.getVersion()
 SBMLDocument.getVersion()@endlink returns the SBML Version within the Level
 of the model.
@@ -115,19 +112,16 @@ more complete list:
 SBMLDocument.getNumErrors()@endlink returns a count of the diagnostic
 messages logged during while attempting to read an SBML model using either
 libsbml::readSBMLFromFile() or libsbml::readSBMLFromString().
-
 @li @link libsbml.SBMLDocument.getError() SBMLDocument.getError(int
 n)@endlink returns the error indexed by integer @c n in the error log.  The
 @link libsbml.SBMLError SBMLError@endlink object class provides methods
 for displaying an error message, assessing the severity of the problem
 encountered, and for finding out the line and column number of where the
 problem occurred in the SBML input.
-
 @li @link libsbml.SBMLDocument.printErrors()
 SBMLDocument.printErrors()@endlink prints to standard output all of the
 errors and diagnostics logged with the given @link libsbml.SBMLDocument
 SBMLDocument@endlink().
-
 @li @link libsbml.SBMLDocument.printErrors() SBMLDocument.printErrors(ostream stream)@endlink is
 identical to the method above, but prints all of the diagnostics to the
 given output stream instead of the terminal.
@@ -149,37 +143,31 @@ checks (errors) encountered.  Use the @link
 libsbml.SBMLDocument.getNumErrors() SBMLDocument.getNumErrors()@endlink and
 @link libsbml.SBMLDocument.getError() SBMLDocument.getError(int n)@endlink
 interfaces to examine the individual errors.
-
 @li @link libsbml.SBMLDocument.checkL1Compatibility()
 SBMLDocument.checkL1Compatibility()@endlink peforms a set of semantic
 consistency checks on the document to establish whether it can be converted
 to SBML Level&nbsp;1, and returns the number of failures.  If all the
 checks succeed, it returns 0.
-
 @li @link libsbml.SBMLDocument.checkL2v1Compatibility()
 SBMLDocument.checkL2v1Compatibility()@endlink peforms a set of semantic
 consistency checks on the document to establish whether it can be converted
 to SBML Level&nbsp;2 Version 1, and returns the number of failures.  If all
 the checks succeed, it returns 0.
-
 @li @link libsbml.SBMLDocument.checkL2v2Compatibility()
 SBMLDocument.checkL2v2Compatibility()@endlink peforms a set of semantic
 consistency checks on the document to establish whether it can be converted
 to SBML Level&nbsp;2 Version&nbsp;2, and returns the number of failures.
 If all the checks succeed, it returns 0.
-
 @li @link libsbml.SBMLDocument.checkL2v3Compatibility()
 SBMLDocument.checkL2v3Compatibility()@endlink peforms a set of semantic
 consistency checks on the document to establish whether it can be converted
 to SBML Level&nbsp;2 Version&nbsp;3, and returns the number of failures.
 If all the checks succeed, it returns 0.
-
 @li @link libsbml.SBMLDocument.checkL2v4Compatibility()
 SBMLDocument.checkL2v4Compatibility()@endlink peforms a set of semantic
 consistency checks on the document to establish whether it can be converted
 to SBML Level&nbsp;2 Version&nbsp;4, and returns the number of failures.
 If all the checks succeed, it returns 0.
-
 @li @link libsbml.SBMLDocument.checkL3v1Compatibility()
 SBMLDocument.checkL3v1Compatibility()@endlink peforms a set of semantic
 consistency checks on the document to establish whether it can be converted
@@ -199,11 +187,9 @@ provides the following methods for this purposes:
 writes the given SBML document to a file, and returns either @c 1 on
 success or @c 0 on failure.  Reasons for failure can be, for example, that
 the named file could not be opened for writing.
-
 @li @link libsbml.writeSBMLToString() libsbml.writeSBMLToString(SBMLDocument d)@endlink returns
 the given SBML document as a character string, or returns an empty string
 if a failure occurred.
-
 @li @link libsbml.writeSBML() libsbml.writeSBML(SBMLDocument d, ostream stream)@endlink
 writes the given SBML document to an <code>ostream</code> output stream,
 and returns either @c 1 on success or @c 0 on failure.

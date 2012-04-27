@@ -37,11 +37,9 @@ reflected in the documentation produced by Doxygen.  Thus, when documenting
 a class, concentrate on the .h files.  However, and confusingly, <em> C
 functions must be documented in the .cpp files</em>.  Thus, the rule is:
 document classes in .h files, but document C functions in the .cpp files.
-
-@li Doxygen tags can be prefixed with either @c \@ or @c \\.  Since it
+@li Doxygen tags can be prefixed with either @c \@ or @c @\\ .  Since it
 doesn't matter which, we may as well use the @c \@ form because it's also
 used by Javadoc (and thus is easier to remember for Java programmers).
-
 @li Doxygen comments consist of a C-style comment block beginning with two
 asterisks (@c *) characters, as in the following example:
 @verbatim
@@ -52,7 +50,6 @@ asterisks (@c *) characters, as in the following example:
 If your comment does @em not begin with <code>/**</code>, then it will be
 ignored by Doxygen.  This can be either bad or good, depending on the
 intention behind the comment.
-
 @li Please write in complete sentences, with correct English grammar and
 punctuation.  @em Do @em not treat new lines as new sentences or beginnings
 of different comments.  Here is an example of what should be @em avoided:
@@ -66,7 +63,6 @@ The text above doesn't end sentences with periods, doesn't begin sentences
 with capitals, doesn't form complete sentences, etc.  When Doxygen is used
 to generate HTML documentation from this, it turns into one long run-on
 paragraph, and it's unreadable.
-
 @li Please write sentences with @em two (2) spaces after the terminating
 period, not one.  First, this makes the resulting text easier to read
 compared to when sentence-ending periods are followed by only one space.
@@ -74,7 +70,6 @@ Second, text editing programs such as Emacs have special features to
 recognize sentences based on this pattern, and they make proficient users
 of those editors much happier because they can use sentence-oriented
 editing commands.
-
 @li Watch out that Doxygen automatically turns entity names it recognizes
 in text into links to the definition of that entity.  This is usually what
 you want to have happen; for example, when describing the Model class, you
@@ -85,7 +80,6 @@ linking a word, put a percentage sign (\%) in front of it, as in @c
 \%%Model.  Doxygen will remove the percentage sign and leave the rest of
 the word unlinked, resulting in the plain word %Model appearing in the
 finished document.
-
 @li We are using a feature of Doxygen that makes it use the first sentence
 of a documentation comment as the "brief" description of the entity being
 described (which may be a class, a method, a class data member, a function,
@@ -110,13 +104,11 @@ text in the as in the following example:
  */
 @endverbatim
 The visual split makes it really obvious what's going to happen.
-
 @li Please try to limit lengths of lines to 79 characters long or less.
 This makes code and documentation generally easier to read and edit in
 different software tools.  Sometimes it's too difficult to avoid a long
 line, and then it's okay, but generally it's possible to reformat code in
 such away as to keep things to 79 characters.
-
 @li Sometimes code is meant to be part of the internal implementation and
 not advertised to users of the library.  To make Doxygen ignore blocks of
 code, wrap the code with the comment
@@ -402,7 +394,6 @@ command.  The following example illustrates this:
  */
 CompartmentType (const std::string& id = "", const std::string& name = "");
 @endverbatim
-
 @li Please try to leave 2 blank lines between method declarations and other
 items in the definitions of classes.  This makes it easier for the eye to
 spot transitions between method definitions, despite the blank lines that

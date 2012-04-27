@@ -31,7 +31,7 @@ top-level container for storing SBML content and data associated with
 it (such as warnings and error messages).  Here is a simple example to
 start this discussion:
 
-<div class="fragment"><pre class="fragment">
+<pre class="fragment">
 import org.sbml.libsbml.SBMLReader;
 import org.sbml.libsbml.SBMLDocument;
 
@@ -73,7 +73,7 @@ public class ReadSBML
     }
   }
 }
-</pre></div>
+</pre>
 
 The code above illustrates probably the simplest possible use of
 libSBML: reading a model and printing any errors encountered.  The
@@ -119,9 +119,9 @@ with a prefix of <code>/usr/local</code> and did a normal "make install",
 and you are using the typical <em>sh</em> or <em>bash</em> shell in your
 terminal, you would need to execute
 
-<div class="fragment"><pre class="fragment">
+<pre class="fragment">
   export LD_LIBRARY_PATH="/usr/local/lib:$LD_LIBRARY_PATH"
-</pre></div>
+</pre>
 
 or put the above in your shell's initialization file (<code>.bashrc</code>
 or <code>.profile</code> in your home directory) and cause the shell to
@@ -136,9 +136,9 @@ interpreter when it is started.
 If you are running under Mac&nbsp;OS instead of Linux, your 
 <em>sh</em> or <em>bash</em> shell settings instead need to be
 
-<div class="fragment"><pre class="fragment">
+<pre class="fragment">
   export DYLD_LIBRARY_PATH="/usr/local/lib:$LD_LIBRARY_PATH"
-</pre></div>
+</pre>
 
 
 <h2><a class="anchor" name="reading">Reading SBML</a></h2>

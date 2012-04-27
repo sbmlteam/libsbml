@@ -1,0 +1,1234 @@
+/* The standard CSS for doxygen */
+
+body, table, div, p, dl {
+    color: #332;
+    font-family: Lucida Sans, Tahoma, Helvetica, Arial, Sans, sans-serif;
+    font-size: 12px;
+    line-height: 140%;
+}
+
+/* @group Heading Levels */
+
+h1 {
+    font-size: 150%;
+}
+
+.title {
+    font-size: 20px;
+    font-weight: bold;
+    margin: 10px 2px;
+}
+
+h2, h2 a {
+    font-size: 18px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    margin-top: 1em;
+    padding-top: 0.5em;
+    color: #443;
+}
+
+h2 a.anchor, h3 a.anchor, h4 a.anchor {
+    color: #443;
+}
+
+h3, h3 a {
+    font-family: Lucida Sans, Tahoma, Helvetica, Arial, Sans, sans-serif;
+    font-size: 16px;
+    font-style: italic;
+    font-weight: bold;
+    padding-top: 0.5em;
+    padding-bottom: 3px;
+}
+
+h3 code {
+    font-size: 14px;
+}
+
+h4, h4 a {
+    color: #443;
+    font-style: italic;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+h4 code {
+    font-size: 12px;
+}
+
+dt {
+    font-weight: bold;
+}
+
+div.multicol {
+    -moz-column-gap: 1em;
+    -webkit-column-gap: 1em;
+    -moz-column-count: 3;
+    -webkit-column-count: 3;
+}
+
+p.startli, p.startdd, p.starttd {
+    margin-top: 2px;
+}
+
+p.endli {
+    margin-bottom: 0px;
+}
+
+p.enddd {
+    margin-bottom: 4px;
+}
+
+p.endtd {
+    margin-bottom: 2px;
+}
+
+/* @end */
+
+caption {
+    font-style: italic;
+}
+
+span.legend {
+    font-size: 70%;
+    text-align: center;
+}
+
+h3.version {
+    font-size: 90%;
+    text-align: center;
+}
+
+div.qindex, div.navtab{
+    background-color: #EBEFF6;
+    border: 1px solid #A3B4D7;
+    text-align: center;
+}
+
+div.qindex, div.navpath {
+    width: 100%;
+    line-height: 140%;
+}
+
+div.navtab {
+    margin-right: 15px;
+}
+
+/* @group Link Styling */
+
+a {
+    color: #1133a9;
+    font-weight: normal;
+    text-decoration: none;
+}
+
+.contents a:visited {
+    color: #5580cf;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+a.qindex {
+    font-weight: bold;
+}
+
+a.qindexHL {
+    font-weight: bold;
+    background-color: #9CAFD4;
+    color: #ffffff;
+    border: 1px double #869DCA;
+}
+
+.contents a.qindexHL:visited {
+    color: #ffffff;
+}
+
+a.el {
+    font-weight: bold;
+}
+
+a.elRef {
+}
+
+a.code, a.code:visited {
+    color: #4665A2; 
+}
+
+a.codeRef, a.codeRef:visited {
+    color: #4665A2; 
+}
+
+/* @end */
+
+dl.el {
+    margin-left: -1cm;
+}
+
+.fragment {
+}
+
+pre.fragment {
+    font-family: "Courier New", Courier, monospace, fixed;
+    font-size:  9pt;
+    font-weight: bold;
+    border: 1px solid orange;
+    background-color: #f0f0f0;
+    color: #222;
+    padding: 5px;
+    margin: 15px;
+    overflow: auto;
+    word-wrap: break-word;
+    line-height: 125%;
+    -webkit-border-top-left-radius: 8px;
+    -webkit-border-top-right-radius: 8px;
+    -moz-border-radius-topleft: 8px;
+    -moz-border-radius-topright: 8px;
+    -moz-border-radius-bottomleft: 8px;
+    -moz-border-radius-bottomright: 8px;
+    -webkit-border-bottom-left-radius: 8px;
+    -webkit-border-bottom-right-radius: 8px;
+}
+
+div.ah {
+    background-color: black;
+    font-weight: bold;
+    color: #ffffff;
+    margin-bottom: 3px;
+    margin-top: 3px;
+    padding: 0.2em;
+    border: solid thin #333;
+    border-radius: 0.5em;
+    -webkit-border-radius: .5em;
+    -moz-border-radius: .5em;
+    box-shadow: 2px 2px 3px #999;
+    -webkit-box-shadow: 2px 2px 3px #999;
+    -moz-box-shadow: rgba(0, 0, 0, 0.15) 2px 2px 2px;
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#eee), to(#000),color-stop(0.3, #444));
+    background-image: -moz-linear-gradient(center top, #eee 0%, #444 40%, #000);
+}
+
+div.groupHeader {
+    margin-left: 16px;
+    margin-top: 12px;
+    font-weight: bold;
+}
+
+div.groupText {
+    margin-left: 16px;
+    font-style: italic;
+}
+
+body {
+    background-color: white;
+    color: black;
+    margin: 0;
+}
+
+div.contents {
+    margin-top: 10px;
+    margin-left: 8px;
+    margin-right: 8px;
+}
+
+td.indexkey {
+    font-weight: bold;
+    border-bottom: 1px dotted #ccc;
+    width: 30%;
+    margin: 2px 0px 2px 0;
+    padding-right  : 10px; 
+    padding-top    : 3px; 
+    padding-left   : 10px; 
+    padding-bottom : 2px; 
+    vertical-align: middle;
+}
+
+td.indexvalue {
+    font-style: italic;
+    vertical-align: middle;
+    border-bottom: 1px dotted #ccc;
+    padding: 2px 10px;
+    margin: 2px 0px;
+}
+
+tr.memlist {
+    background-color: #EEF1F7;
+}
+
+p.formulaDsp {
+    text-align: center;
+}
+
+img.formulaDsp {
+    
+}
+
+img.formulaInl {
+    vertical-align: middle;
+}
+
+div.center {
+    text-align: center;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    padding: 0px;
+}
+
+div.center img {
+    border: 0px;
+}
+
+address.footer {
+    text-align: right;
+    padding-right: 12px;
+}
+
+img.footer {
+    border: 0px;
+    vertical-align: middle;
+}
+
+/* @group Code Colorization */
+
+span.keyword {
+    color: #008000
+}
+
+span.keywordtype {
+    color: #604020
+}
+
+span.keywordflow {
+    color: #e08000
+}
+
+span.comment {
+    color: #800000
+}
+
+span.preprocessor {
+    color: #806020
+}
+
+span.stringliteral {
+    color: #002080
+}
+
+span.charliteral {
+    color: #008080
+}
+
+span.vhdldigit { 
+    color: #ff00ff 
+}
+
+span.vhdlchar { 
+    color: #000000 
+}
+
+span.vhdlkeyword { 
+    color: #700070 
+}
+
+span.vhdllogic { 
+    color: #ff0000 
+}
+
+blockquote {
+    background-color: #F7F8FB;
+    border-left: 2px solid #9CAFD4;
+    margin: 4px 24px 0 4px;
+    padding: 2px 12px 2px 16px;
+}
+
+/* @end */
+
+/*
+  .search {
+  color: #003399;
+  font-weight: bold;
+  }
+
+form.search {
+margin-bottom: 0px;
+margin-top: 0px;
+}
+
+input.search {
+font-size: 75%;
+color: #000080;
+font-weight: normal;
+background-color: #e8eef2;
+}
+*/
+
+td.tiny {
+    font-size: 75%;
+}
+
+.dirtab {
+    padding: 4px;
+    border-collapse: collapse;
+    border: 1px solid #A3B4D7;
+}
+
+th.dirtab {
+    background: #EBEFF6;
+    font-weight: bold;
+}
+
+hr {
+    height: 0px;
+    border: none;
+    border-top: 1px solid #4A6AAA;
+}
+
+hr.footer {
+    height: 1px;
+}
+
+/* @group Member Descriptions */
+
+table.memberdecls {
+    border-spacing: 0px;
+    padding: 0px;
+}
+
+.mdescLeft, .mdescRight,
+.memItemLeft, .memItemRight,
+.memTemplItemLeft, .memTemplItemRight, .memTemplParams {
+    background-color: #fafafa;
+    border: none;
+    margin: 4px;
+    padding: 1px 0 0 8px;
+}
+
+.mdescLeft, .mdescRight {
+    padding: 0px 8px 8px 8px;
+    color: #555;
+    font-style: italic;
+}
+
+.mdescRight code {
+    color: #555;
+}
+
+.memItemLeft, .memItemRight, .memTemplParams {
+    border-top: 1px solid #C4CFE5;
+    font-weight: bold;
+    color: #222;
+    padding-bottom: 2px;
+}
+
+.memItemLeft, .memTemplItemLeft {
+    white-space: nowrap;
+}
+
+.memItemRight {
+    width: 100%;
+}
+
+.memTemplParams {
+    color: #4665A2;
+    white-space: nowrap;
+}
+
+/* @end */
+
+/* @group Member Details */
+
+/* Styles for detailed member documentation */
+
+.memtemplate {
+    font-size: 80%;
+    color: #4665A2;
+    font-weight: normal;
+    margin-left: 9px;
+}
+
+.memnav {
+    background-color: #EBEFF6;
+    border: 1px solid #A3B4D7;
+    text-align: center;
+    margin: 2px;
+    margin-right: 15px;
+    padding: 2px;
+}
+
+.mempage {
+    width: 100%;
+}
+
+.memitem {
+    padding: 0;
+    margin-bottom: 2em;
+    margin-right: 5px;
+}
+
+.memname {
+    white-space: nowrap;
+    font-weight: bold;
+    margin-left: 6px;
+}
+
+.memproto, dl.reflist dt {
+    border-top: 1px solid #b5b5b5;
+    border-left: 1px solid #b5b5b5;
+    border-right: 1px solid #b5b5b5;
+    padding: 6px 0px 6px 0px;
+    color: #253555;
+    font-weight: bold;
+    text-shadow: 0px 1px 1px rgba(255, 255, 255, 0.9);
+    /* opera specific markup */
+    box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.15);
+    border-top-right-radius: 8px;
+    border-top-left-radius: 8px;
+
+    background-color: #dfdfdf;
+    -moz-box-shadow: 5px 5px 5px #bbb;
+    -webkit-box-shadow: 5px 5px 5px #bbb;
+    background: -moz-linear-gradient(top, #e5e5e5, #ccc); 
+    background: -webkit-gradient(linear, left top, left bottom, from(#e5e5e5), to(#bbb)); 
+    background-image: linear-gradient(top, #e5e5e5, #ccc);
+    background-color: #e5e5e5;
+}
+
+.memdoc, dl.reflist dd {
+    border-bottom: 1px solid #b5b5b5;      
+    border-left: 1px solid #b5b5b5;      
+    border-right: 1px solid #b5b5b5; 
+    padding: 2px 5px;
+    background-color: #fff;
+    border-top-width: 0;
+    /* opera specific markup */
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+    box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.15);
+    /* firefox specific markup */
+    -moz-border-radius-bottomleft: 8px;
+    -moz-border-radius-bottomright: 8px;
+    -moz-box-shadow: rgba(0, 0, 0, 0.15) 5px 5px 5px;
+    background-image: -moz-linear-gradient(center top, #FFFFFF 0%, #FFFFFF 60%, #F7F8FB 95%, #efefef);
+    /* webkit specific markup */
+    -webkit-border-bottom-left-radius: 8px;
+    -webkit-border-bottom-right-radius: 8px;
+    -webkit-box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.15);
+    background-image: -webkit-gradient(linear,center top,center bottom,from(#FFFFFF), color-stop(0.6,#FFFFFF), color-stop(0.60,#FFFFFF), color-stop(0.95,#F7F8FB), to(#efefef));
+}
+
+dl.reflist dt {
+    padding: 5px;
+}
+
+dl.reflist dd {
+    margin: 0px 0px 10px 0px;
+    padding: 5px;
+}
+
+.paramkey {
+    text-align: right;
+}
+
+.paramtype {
+    white-space: nowrap;
+}
+
+.paramname {
+    color: #602020;
+    white-space: nowrap;
+    vertical-align: top;
+}
+
+.paramname em {
+    font-style: normal;
+}
+
+.params, .retval, .exception, .tparams {
+    border-spacing: 6px 2px;
+}       
+
+.params .paramname, .retval .paramname {
+    font-weight: bold;
+    vertical-align: top;
+}
+
+.params .paramtype {
+    font-style: italic;
+    vertical-align: top;
+}       
+
+.params .paramdir {
+    font-family: "courier new",courier,monospace;
+    vertical-align: top;
+}
+
+
+
+
+/* @end */
+
+/* @group Directory (tree) */
+
+/* for the tree view */
+
+.ftvtree {
+    font-family: sans-serif;
+    margin: 0px;
+}
+
+/* these are for tree view when used as main index */
+
+.directory {
+    font-size: 9pt;
+    font-weight: bold;
+    margin: 5px;
+}
+
+.directory h3 {
+    margin: 0px;
+    margin-top: 1em;
+    font-size: 11pt;
+}
+
+/*
+  The following two styles can be used to replace the root node title
+  with an image of your choice.  Simply uncomment the next two styles,
+  specify the name of your image and be sure to set 'height' to the
+  proper pixel height of your image.
+  */
+
+/*
+  .directory h3.swap {
+  height: 61px;
+  background-repeat: no-repeat;
+  background-image: url("yourimage.gif");
+  }
+  .directory h3.swap span {
+  display: none;
+  }
+  */
+
+.directory > h3 {
+    margin-top: 0;
+}
+
+.directory p {
+    margin: 0px;
+    white-space: nowrap;
+}
+
+.directory div {
+    display: none;
+    margin: 0px;
+}
+
+.directory img {
+    vertical-align: -30%;
+}
+
+/* these are for tree view when not used as main index */
+
+.directory-alt {
+    font-size: 100%;
+    font-weight: bold;
+}
+
+.directory-alt h3 {
+    margin: 0px;
+    margin-top: 1em;
+    font-size: 11pt;
+}
+
+.directory-alt > h3 {
+    margin-top: 0;
+}
+
+.directory-alt p {
+    margin: 0px;
+    white-space: nowrap;
+}
+
+.directory-alt div {
+    display: none;
+    margin: 0px;
+}
+
+.directory-alt img {
+    vertical-align: -30%;
+}
+
+/* @end */
+
+div.dynheader {
+    margin-top: 8px;
+}
+
+address {
+    font-style: normal;
+    color: #2A3D61;
+}
+
+table.doxtable {
+    border-collapse:collapse;
+    margin-top: 4px;
+    margin-bottom: 4px;
+}
+
+table.doxtable td, table.doxtable th {
+    border: 1px solid #2D4068;
+    padding: 3px 7px 2px;
+}
+
+table.doxtable th {
+    background-color: #374F7F;
+    color: #FFFFFF;
+    font-size: 110%;
+    padding-bottom: 4px;
+    padding-top: 5px;
+}
+
+table.fieldtable {
+    width: 100%;
+    margin-bottom: 10px;
+    border: 1px solid #b5b5b5;
+    border-spacing: 0px;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    border-radius: 4px;
+    -moz-box-shadow: rgba(0, 0, 0, 0.15) 2px 2px 2px;
+    -webkit-box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.15);
+    box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.15);
+}
+
+.fieldtable td, .fieldtable th {
+    padding: 3px 7px 2px;
+}
+
+.fieldtable td.fieldtype, .fieldtable td.fieldname {
+    white-space: nowrap;
+    border-right: 1px solid #b5b5b5;
+    border-bottom: 1px solid #b5b5b5;
+    vertical-align: top;
+}
+
+.fieldtable td.fielddoc {
+    border-bottom: 1px solid #b5b5b5;
+    width: 100%;
+}
+
+.fieldtable tr:last-child td {
+    border-bottom: none;
+}
+
+.fieldtable th {
+    background-image:url('nav_f.png');
+    background-repeat:repeat-x;
+    background-color: #E2E8F2;
+    font-size: 90%;
+    color: #253555;
+    padding-bottom: 4px;
+    padding-top: 5px;
+    text-align:left;
+    -moz-border-radius-topleft: 4px;
+    -moz-border-radius-topright: 4px;
+    -webkit-border-top-left-radius: 4px;
+    -webkit-border-top-right-radius: 4px;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    border-bottom: 1px solid #b5b5b5;
+}
+
+
+.tabsearch {
+    top: 0px;
+    left: 10px;
+    height: 36px;
+    background-image: url('tab_b.png');
+    z-index: 101;
+    overflow: hidden;
+    font-size: 13px;
+}
+
+.navpath ul
+{
+    font-size: 11px;
+    background-image:url('tab_b.png');
+    background-repeat:repeat-x;
+    height:30px;
+    line-height:30px;
+    color:#8AA0CC;
+    border:solid 1px #C2CDE4;
+    overflow:hidden;
+    margin:0px;
+    padding:0px;
+}
+
+.navpath li
+{
+    list-style-type:none;
+    float:left;
+    padding-left:10px;
+    padding-right:15px;
+    background-image:url('bc_s.png');
+    background-repeat:no-repeat;
+    background-position:right;
+    color:#364D7C;
+}
+
+.navpath li.navelem a
+{
+    height:32px;
+    display:block;
+    text-decoration: none;
+    outline: none;
+}
+
+.navpath li.navelem a:hover
+{
+    color:#6884BD;
+}
+
+.navpath li.footer
+{
+    list-style-type:none;
+    float:right;
+    padding-left:10px;
+    padding-right:15px;
+    background-image:none;
+    background-repeat:no-repeat;
+    background-position:right;
+    color:#364D7C;
+    font-size: 8pt;
+}
+
+
+div.summary
+{
+    float: right;
+    font-size: 8pt;
+    padding-right: 5px;
+    width: 50%;
+    text-align: right;
+}       
+
+div.summary a
+{
+    white-space: nowrap;
+}
+
+div.ingroups
+{
+    margin-left: 5px;
+    font-size: 8pt;
+    padding-left: 5px;
+    width: 50%;
+    text-align: left;
+}
+
+div.ingroups a
+{
+    white-space: nowrap;
+}
+
+div.header
+{
+    background-image:url('nav_h.png');
+    background-repeat:repeat-x;
+    background-color: #F9FAFC;
+    margin:  0px;
+    border-bottom: 1px solid #C4CFE5;
+}
+
+div.headertitle
+{
+    padding: 5px 5px 5px 7px;
+}
+
+dl
+{
+    padding: 0 0 0 10px;
+}
+
+/* dl.note, dl.warning, dl.attention, dl.pre, dl.post, dl.invariant, dl.deprecated, dl.todo, dl.test, dl.bug */
+dl.section
+{
+    border-left:4px solid;
+    padding: 0 0 0 6px;
+}
+
+dl.note
+{
+    border-color: #D0C000;
+}
+
+dl.warning, dl.attention
+{
+    border-color: #FF0000;
+}
+
+dl.pre, dl.post, dl.invariant
+{
+    border-color: #00D000;
+}
+
+dl.deprecated
+{
+    border-color: #505050;
+}
+
+dl.todo
+{
+    border-color: #00C0E0;
+}
+
+dl.test
+{
+    border-color: #3030E0;
+}
+
+dl.bug
+{
+    border-color: #C08050;
+}
+
+dl.section dd {
+    margin-bottom: 6px;
+}
+
+
+#projectlogo
+{
+    text-align: center;
+    vertical-align: bottom;
+    border-collapse: separate;
+}
+
+#projectlogo img
+{ 
+    border: 0px none;
+}
+
+#projectname
+{
+    font: 300% Lucida Sans, Tahoma, Helvetica, Arial, Sans, sans-serif;
+    margin: 0px;
+    padding: 0px;
+}
+
+#projectbrief
+{
+    font-family: Lucida Sans, Tahoma, Helvetica, Arial, Sans, sans-serif;
+    font-style: italic;
+    font-size: 10px
+    padding: 0px 0px 5px 0px;
+    margin: 0px;
+}
+
+#projectnumber
+{
+    font: 18px Lucida Sans, Tahoma, Helvetica, Arial, Sans, sans-serif;
+    position: absolute;
+    right: 10px;
+    top: 20px;
+}
+
+#titlearea
+{
+    padding: 0px;
+    margin: 0px;
+    width: 100%;
+}
+
+.image
+{
+    text-align: center;
+}
+
+.dotgraph
+{
+    text-align: center;
+}
+
+.mscgraph
+{
+    text-align: center;
+}
+
+.caption
+{
+    font-style: italic;
+}
+
+div.zoom
+{
+    border: 1px solid #90A5CE;
+}
+
+dl.citelist {
+    margin-bottom:50px;
+}
+
+dl.citelist dt {
+    color:#334975;
+    float:left;
+    font-weight:bold;
+    margin-right:10px;
+    padding:5px;
+}
+
+dl.citelist dd {
+    margin:2px 0;
+    padding:5px 0;
+}
+
+div.toc {
+    padding: 14px 25px;
+    background-color: #F4F6FA;
+    border: 1px solid #D8DFEE;
+    border-radius: 7px 7px 7px 7px;
+    float: right;
+    height: auto;
+    margin: 0 20px 10px 10px;
+    width: 200px;
+}
+
+div.toc li {
+    background: url("bdwn.png") no-repeat scroll 0 5px transparent;
+    font: 10px/1.2 Verdana,DejaVu Sans,Geneva,sans-serif;
+    margin-top: 5px;
+    padding-left: 10px;
+    padding-top: 2px;
+}
+
+div.toc h3 {
+    font: bold 12px/1.2 Arial,FreeSans,sans-serif;
+    color: #4665A2;
+    border-bottom: 0 none;
+    margin: 0;
+}
+
+div.toc ul {
+    list-style: none outside none;
+    border: medium none;
+    padding: 0px;
+}       
+
+div.toc li.level1 {
+    margin-left: 0px;
+}
+
+div.toc li.level2 {
+    margin-left: 15px;
+}
+
+div.toc li.level3 {
+    margin-left: 30px;
+}
+
+div.toc li.level4 {
+    margin-left: 45px;
+}
+
+
+@media print
+{
+    #top { display: none; }
+    #side-nav { display: none; }
+    #nav-path { display: none; }
+    body { overflow:visible; }
+    h1, h2, h3, h4, h5, h6 { page-break-after: avoid; }
+    .summary { display: none; }
+    .memitem { page-break-inside: avoid; }
+    #doc-content
+    {
+        margin-left:0 !important;
+        height:auto !important;
+        width:auto !important;
+        overflow:inherit;
+        display:inline;
+    }
+    pre.fragment
+    {
+        overflow: visible;
+        text-wrap: unrestricted;
+        white-space: -moz-pre-wrap; /* Moz */
+        white-space: -pre-wrap; /* Opera 4-6 */
+        white-space: -o-pre-wrap; /* Opera 7 */
+        white-space: pre-wrap; /* CSS3  */
+        word-wrap: break-word; /* IE 5.5+ */
+    }
+}
+
+
+/* LibSBML additions */
+
+pre { 
+    font-size: 12px;
+}
+
+tt {
+    width: 92%;
+    padding-left: 5px;
+    margin: 7px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+code, .code {
+    font-family: "Courier New", Courier, monospace, fixed;
+    font-weight: bold;
+    color: black;
+}
+
+/* This shows up in javadoc output. */
+a code {
+    color: #1133a9;
+    text-decoration: none;
+}
+
+.papers {
+  border: 1px solid #cbb;
+  padding: 4px;
+  margin: 1.5em 4em 1.5em 4em;
+  text-align: left;
+  background-color: #edd;
+  -webkit-border-top-left-radius: 8px;
+  -webkit-border-top-right-radius: 8px;
+  -webkit-border-bottom-left-radius: 8px;
+  -webkit-border-bottom-right-radius: 8px;
+  moz-border-radius-topleft: 8px;
+  moz-border-radius-topright: 8px;
+  moz-border-radius-bottomleft: 8px;
+  moz-border-radius-bottomright: 8px;
+}
+
+#doc-content li {
+    padding-bottom: 0.5em;
+}
+
+#doc-content li:first-child {
+    padding-top: 0.5em;
+}
+
+#doc-content #main-page-sections li,
+#doc-content .memdoc li {
+    padding-bottom: 0;
+    padding-top: 0;
+}
+
+#doc-content #main-page-sections li:first-child,
+#doc-content .memdoc li:first-child {
+    padding-bottom: 0;
+}
+
+#doc-content .section.see dd a.el {
+    line-height: 100%;
+}
+
+.top-caption {
+  padding-top: 1em;
+  padding-bottom: 0.5em;
+  caption-side: top;
+}
+
+.bottom-caption {
+  padding-top: 0.5em;
+  padding-bottom: 1em;
+  caption-side: bottom;
+}
+
+
+.text-table {
+  border-top: 1px solid #aaa;
+  border-bottom: 1px solid #aaa;
+  border-collapse: collapse;
+  margin: 0.5em auto 1em auto;
+  -webkit-margin: 1em auto 1em auto;
+}
+
+.text-table {
+  font-size: 12px;
+}
+
+.text-table th {
+  font-size: 12px;
+  background-color: #dfdfdf;
+  padding: 3px 0.5em 1px 0.5em;
+  border-bottom: 1px solid #bbb;
+  vertical-align: bottom;
+}
+
+.text-table td { 
+  padding: 2px 0.5em;
+  line-height: 140%;
+}
+
+.width80 {
+  margin-left: 3em;
+  margin-right: 3em;
+}
+
+.bigger-row-spacing td {
+  padding-top: 0.35em !important;  
+  padding-bottom: 0.35em !important;  
+}
+
+#main-page-sections H2,
+#main-page-sections H2 a
+{
+  font-size: 16px;
+  text-shadow: none;
+  border: none;
+  background-color: white;
+  background: none;
+  padding-top: 0.2em;
+  padding-bottom: 0;
+  -moz-box-shadow: none;
+  -webkit-box-shadow: none;
+}
+
+#main-page-sections ul a.el { 
+  font-size: 10pt;
+  font-weight: normal;
+  line-height: 120%;
+}
+
+.placeholder { 
+  font-style: italic;
+  background-color: #ffeaba;
+  border-left: 1px solid #ffeaba;
+  border-right: 3px solid #ffeaba;
+}
+
+.screenshot {
+  -moz-box-shadow: 5px 5px 5px #d0d0d0;
+  -webkit-box-shadow: 5px 5px 5px #d0d0d0;
+}
+
+#normal-formatting h2 {
+  -moz-box-shadow: none;
+  -webkit-box-shadow: none;
+  text-shadow: none;
+  background: none;
+  border: none;
+  padding-bottom: 0;
+}
+
+span.comment {
+  color: #777;
+}
+
+#projectname:before {
+    content: url(official-sbml-supported-32.jpg);
+    margin: 5px 15px 0px 5px;
+    vertical-align: -5%;
+}
+
+#projectnumber:before {
+    content: "Developer's guide for libSBML version ";
+}
+
+.navpath li.footer a {
+    font-weight: bold;
+}

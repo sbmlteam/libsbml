@@ -31,12 +31,10 @@ the number could be stored in a @c double data type.  This is done
 so that when an %SBML model is read in and then written out again, the
 amount of change introduced by libSBML to the SBML during the round-trip
 activity is minimized.
- 
 @li Rational numbers are represented in an AST node using separate
 numerator and denominator values.  These can be retrieved using the methods
 @link ASTNode::getNumerator() getNumerator() @endlink and @link
 ASTNode::getDenominator() getDenominator() @endlink on an ASTNode object.
-
 @li The children of an ASTNode are other ASTNode objects.  The list of
 children is empty for nodes that are leaf elements, such as numbers.
 For nodes that are actually roots of expression subtrees, the list of
@@ -124,7 +122,6 @@ SBML_formulaToString(const ASTNode* tree) @endlink</code> reads an
 AST, converts it to a text string in SBML Level&nbsp;1 formula syntax, and
 returns it.  The caller owns the character string returned and should free
 it after it is no longer needed.
-
 @li <code>ASTNode * SBML_parseFormula(const char* formula)</code> reads a
 text-string containing a mathematical expression in SBML Level&nbsp;1 syntax and
 returns an AST corresponding to the expression.
@@ -199,76 +196,56 @@ The methods on ASTNode for this purpose are the following:
 
 @li <code>ASTNodeType_t @link ASTNode::getType() getType() @endlink</code>
 returns the type of this AST node.
-
 @li <code>bool @link ASTNode::isConstant() isConstant() @endlink</code>
 returns @c true if this AST node is a MathML constant (@c true, @c false,
 @c pi, @c exponentiale), @c false otherwise.
-
 @li <code>bool @link ASTNode::isBoolean() isBoolean() @endlink</code>
 returns @c true if this AST node returns a boolean value (by being either a
 logical operator, a relational operator, or the constant @c true or @c
 false).
-
 @li <code>bool @link ASTNode::isFunction() isFunction() @endlink</code>
 returns @c true if this AST node is a function (i.e., a MathML defined
 function such as @c exp or else a function defined by a FunctionDefinition
 in the Model).
-
 @li <code>bool @link ASTNode::isInfinity() isInfinity() @endlink</code>
 returns @c true if this AST node is the special IEEE 754 value infinity.
-
 @li <code>bool @link ASTNode::isInteger() isInteger() @endlink</code>
 returns @c true if this AST node is holding an integer value.
-
 @li <code>bool @link ASTNode::isNumber() isNumber() @endlink</code> returns
 @c true if this AST node is holding any number.
-
 @li <code>bool @link ASTNode::isLambda() isLambda() @endlink</code> returns
 @c true if this AST node is a MathML @c lambda construct.
-
 @li <code>bool @link ASTNode::isLog10() isLog10() @endlink</code> returns
 @c true if this AST node represents the @c log10 function, specifically,
 that its type is @c AST_FUNCTION_LOG and it has two children, the first of
 which is an integer equal to 10.
-
 @li <code>bool @link ASTNode::isLogical() isLogical() @endlink</code>
 returns @c true if this AST node is a logical operator (@c and, @c or, @c
 not, @c xor).
-
 @li <code>bool @link ASTNode::isName() isName() @endlink</code> returns @c
 true if this AST node is a user-defined name or (in SBML Levels&nbsp;2
 and&nbsp;3) one of the two special @c csymbol constructs "delay" or "time".
-
 @li <code>bool @link ASTNode::isNaN() isNaN() @endlink</code> returns @c
 true if this AST node has the special IEEE 754 value "not a number" (NaN).
-
 @li <code>bool @link ASTNode::isNegInfinity() isNegInfinity()
 @endlink</code> returns @c true if this AST node has the special IEEE 754
 value of negative infinity.
-
 @li <code>bool @link ASTNode::isOperator() isOperator() @endlink</code>
 returns @c true if this AST node is an operator (e.g., @c +, @c -, etc.)
-
 @li <code>bool @link ASTNode::isPiecewise() isPiecewise() @endlink</code>
 returns @c true if this AST node is the MathML @c piecewise function.
-
 @li <code>bool @link ASTNode::isRational() isRational() @endlink</code>
 returns @c true if this AST node is a rational number having a numerator
 and a denominator.
-
 @li <code>bool @link ASTNode::isReal() isReal() @endlink</code> returns @c
 true if this AST node is a real number (specifically, @c AST_REAL_E or
 @c AST_RATIONAL).
-
 @li <code>bool @link ASTNode::isRelational() isRelational() @endlink</code>
 returns @c true if this AST node is a relational operator.
-
 @li <code>bool @link ASTNode::isSqrt() isSqrt() @endlink</code> returns @c
 true if this AST node is the square-root operator
-
 @li <code>bool @link ASTNode::isUMinus() isUMinus() @endlink</code> returns
 @c true if this AST node is a unary minus.
-
 @li <code>bool @link ASTNode::isUnknown() isUnknown() @endlink</code>
 returns @c true if this AST node's type is unknown.
 
@@ -279,20 +256,13 @@ following are the ASTNode object methods available for returning values
 from nodes:
 
 @li <code>long @link ASTNode::getInteger() getInteger() @endlink</code> 
-
 @li <code>char @link ASTNode::getCharacter() getCharacter() @endlink</code> 
-
 @li <code>const char* @link ASTNode::getName() getName() @endlink</code> 
-
 @li <code>long @link ASTNode::getNumerator() getNumerator() @endlink</code> 
-
 @li <code>long @link ASTNode::getDenominator() getDenominator()
 @endlink</code>
-
 @li <code>double @link ASTNode::getReal() getReal() @endlink</code> 
-
 @li <code>double @link ASTNode::getMantissa() getMantissa() @endlink</code> 
-
 @li <code>long @link ASTNode::getExponent() getExponent() @endlink</code> 
 
 
@@ -305,32 +275,26 @@ value) @endlink</code> sets the value of this ASTNode to the given
 character <code>value</code>.  If character is one of @c +, @c -, @c *, @c
 / or @c ^, the node type will be to the appropriate operator type.  For all
 other characters, the node type will be set to @c AST_UNKNOWN.
-
 @li <code>void @link ASTNode::setName(const char *name) setName(const char
 *name) @endlink</code> sets the value of this AST node to the given
 <code>name</code>.  The node type will be set (to @c AST_NAME) <em>only
 if</em> the AST node was previously an operator (<code>isOperator(node) !=
 0</code>) or number (<code>isNumber(node) != 0</code>).  This allows names
 to be set for @c AST_FUNCTIONs and the like.
-
 @li <code>void @link ASTNode::setValue(int value) setValue(int value)
 @endlink</code> sets the value of the node to the given integer
 <code>value</code>.  Equivalent to the next method.
-
 @li <code>void @link ASTNode::setValue(long value) setValue(long value)
 @endlink</code> sets the value of the node to the given integer
 <code>value</code>.  Equivalent to the previous method.  No, this is not a
 G&ouml;delian self-referential loop.
-
 @li <code>void @link ASTNode::setValue(long numerator, long denominator)
 setValue(long numerator, long denominator) @endlink</code> sets the value
 of this ASTNode to the given rational <code>value</code> in two parts: the
 numerator and denominator.  The node type is set to @c AST_RATIONAL.
-
 @li <code>void @link ASTNode::setValue(double value) setValue(double value)
 @endlink</code> sets the value of this ASTNode to the given real (double)
 <code>value</code> and sets the node type to @c AST_REAL.
-
 @li <code>void @link ASTNode::setValue(double mantissa, long exponent)
 setValue(double mantissa, long exponent) @endlink</code> sets the value of
 this ASTNode to a real (double) using the two parts given: the mantissa and
@@ -345,37 +309,29 @@ ASTNode(ASTNodeType_t type) @endlink</code> creates a new ASTNode object
 and returns a pointer to it.  The returned node will have the given
 <code>type</code>, or a type of @c AST_UNKNOWN if no argument
 <code>type</code> is explicitly given or the type code is unrecognized.
-
 @li <code>unsigned int @link ASTNode::getNumChildren() getNumChildren()
 @endlink</code> returns the number of children of this AST node or
 <code>0</code> is this node has no children.
-
 @li <code>void @link ASTNode::addChild(ASTNode* child) addChild(ASTNode*
 child) @endlink</code> adds the given node as a child of this AST node.
 Child nodes are added in left-to-right order.
-
 @li <code>void @link ASTNode::prependChild(ASTNode* child)
 prependChild(ASTNode* child) @endlink</code> adds the given node as a child
 of this AST node.  This method adds child nodes in right-to-left order.
-
 @li <code>ASTNode* @link ASTNode::getChild (unsigned int n) getChild
 (unsigned int n) @endlink</code> returns the <code>n</code>th child of this
 AST node or @c NULL if this node has no <code>n</code>th child [i.e., if
 <code>n &gt; (node->getNumChildren() - 1)</code>, where <code>node</code>
 is a pointer to a node].
-
 @li <code>ASTNode* @link ASTNode::getLeftChild() getLeftChild()
 @endlink</code> returns the left child of this AST node.  This is
 equivalent to <code>getChild(0)</code>.
-
 @li <code>ASTNode* @link ASTNode::getRightChild() getRightChild()
 @endlink</code> returns the right child of this AST node or @c NULL if this
 node has no right child.
-
 @li <code>void @link ASTNode::swapChildren(ASTNode *that)
 swapChildren(ASTNode *that) @endlink</code> swaps the children of this
 ASTNode with the children of @c that ASTNode.
-
 @li <code>void @link ASTNode::setType(ASTNodeType_t type)
 setType(ASTNodeType_t type) @endlink</code> sets the type of this ASTNode
 to the given <a href="_a_s_t_node_8h.html">ASTNodeType_t</a>

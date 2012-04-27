@@ -598,7 +598,7 @@ HTML_FOOTER            = doxygen-footer.html
 # fine-tune the look of the HTML output. If the tag is left blank doxygen 
 # will generate a default style sheet
 
-HTML_STYLESHEET        = doxygen-base.css
+HTML_STYLESHEET        = doxygen-base-stylesheet.css
 
 # If the HTML_ALIGN_MEMBERS tag is set to YES, the members of classes, 
 # files or namespaces will be aligned in HTML using tables. If set to 
@@ -1084,7 +1084,7 @@ DOT_CLEANUP            = YES
 DOT_MULTI_TARGETS      = YES
 
 #---------------------------------------------------------------------------
-# Configuration::addtions related to the search engine   
+# Configuration:additions related to the search engine   
 #---------------------------------------------------------------------------
 
 # The SEARCHENGINE tag specifies whether or not a search engine should be 
@@ -1093,3 +1093,8 @@ DOT_MULTI_TARGETS      = YES
 SEARCHENGINE           = YES
 SERVER_BASED_SEARCH    = NO
 
+#---------------------------------------------------------------------------
+# Configuration: handling of Doxygen version-specific features
+#---------------------------------------------------------------------------
+
+@INCLUDE = doxygen-version-specific.txt

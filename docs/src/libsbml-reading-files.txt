@@ -57,7 +57,6 @@ programming sense) for reading SBML:
 @li <code>SBMLDocument* readSBMLFromFile(const char* filename)</code>.  This
 function takes a file name, attempts to read an SBML document from the
 file, and returns a pointer to an SBMLDocument object if successful.
-
 @li <code>SBMLDocument* readSBMLFromString(const char* xml)</code>.  This
 function takes a string, attempts to read an SBML document from the string,
 and returns a pointer to an SBMLDocument object if successful.
@@ -92,7 +91,6 @@ SBMLDocument) provides methods for querying this information:
 @li <code>unsigned int @link SBMLDocument::getLevel()
 getLevel()@endlink</code> on an SBMLDocument object returns the SBML Level
 of the model.
-
 @li <code>unsigned int @link SBMLDocument::getVersion()
 getVersion()@endlink</code> on an SBMLDocument object returns the SBML
 Version within the Level of the model.
@@ -117,7 +115,6 @@ getNumErrors()@endlink</code> on an SBMLDocument object returns a count of
 the diagnostic messages logged while attempting to read an SBML model using
 either <code>SBMLReader::readSBMLFromFile(const std::string& filename)</code> or
 <code>SBMLReader::readSBMLFromString(const std::string& xml)</code>.
-
 @li <code>const SBMLError* @link SBMLDocument::getError()
 getError(unsigned int n)@endlink</code> returns a specific error
 indexed by the integer @c n.  (Callers should first use <code>@link
@@ -126,7 +123,6 @@ number of errors, so that they can know the range of valid index numbers.)
 The SBMLError object class provides methods for assessing the severity of
 the problem encountered and for finding out the line and column number of
 where the problem occurred in the SBML input.
-
 @li <code>void @link SBMLDocument::printErrors()
 printErrors(std::ostream& stream = std::cerr)@endlink</code> on
 an SBMLDocument object prints all of the diagnostics to the given output
@@ -150,37 +146,31 @@ and reports the number of failed checks (errors) encountered.  Callers may
 use <code>@link SBMLDocument::getNumErrors() getNumErrors()@endlink</code>
 and <code>@link SBMLDocument::getError() getError(unsigned
 int n)@endlink</code> interfaces to examine the individual errors.
-
 @li <code>unsigned int @link SBMLDocument::checkL1Compatibility()
 checkL1Compatibility()@endlink</code> peforms a set of semantic consistency
 checks on the document to establish whether it can be converted to SBML
 Level&nbsp;1, and returns the number of failures.  If all the checks
 succeed, it returns @c 0.
-
 @li <code>unsigned int @link SBMLDocument::checkL2v1Compatibility()
 checkL2v1Compatibility()@endlink</code> peforms a set of semantic
 consistency checks on the document to establish whether it can be converted
 to SBML Level&nbsp;2 Version 1, and returns the number of failures.  If all
 the checks succeed, it returns @c 0.
-
 @li <code>unsigned int @link SBMLDocument::checkL2v2Compatibility()
 checkL2v2Compatibility()@endlink</code> peforms a set of semantic
 consistency checks on the document to establish whether it can be converted
 to SBML Level&nbsp;2 Version&nbsp;2, and returns the number of failures.
 If all the checks succeed, it returns @c 0.
-
 @li <code>unsigned int @link SBMLDocument::checkL2v3Compatibility()
 checkL2v3Compatibility()@endlink</code> peforms a set of semantic
 consistency checks on the document to establish whether it can be converted
 to SBML Level&nbsp;2 Version&nbsp;3, and returns the number of failures.
 If all the checks succeed, it returns @c 0.
-
 @li <code>unsigned int @link SBMLDocument::checkL2v4Compatibility()
 checkL2v4Compatibility()@endlink</code> peforms a set of semantic
 consistency checks on the document to establish whether it can be converted
 to SBML Level&nbsp;2 Version&nbsp;4, and returns the number of failures.
 If all the checks succeed, it returns @c 0.
-
 @li <code>unsigned int @link SBMLDocument::checkL3v1Compatibility()
 checkL3v1Compatibility()@endlink</code> peforms a set of semantic
 consistency checks on the document to establish whether it can be converted
@@ -201,13 +191,11 @@ following methods:
 writes the given SBML document to the named file and returns either @c true
 on success or @c false on failure.  Reasons for failure can be, for
 example, that the named file could not be opened for writing.
-
 @li char* <code>SBMLWriter::writeSBMLToString(const SBMLDocument* d)
 </code> writes the given SBML document to a character string and returns a
 pointer to it, or returns @c NULL if a failure occurred.  The string is
 owned by the caller and should be freed (using the standard C function
 <code>free()</code>) after it is no longer needed.
-
 @li bool <code>SBMLWriter::writeSBML(const SBMLDocument* d, std::ostream& stream)</code> 
 writes the given SBML document to the given output stream and returns
 either @c true on success or @c false on failure.
