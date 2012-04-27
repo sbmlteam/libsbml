@@ -558,7 +558,7 @@ SBMLDoclet.class: SBMLDoclet.java
 # between doxygen and javadoc.  Let's ignore the warnings to avoid
 # confusing users.
 
-java-ignorable-warnings = "warning - @param argument|Custom tags that could"
+java-ignorable-warnings = "warning - @param argument|Custom tags that could|@~ is an unknown tag"
 
 # 2011-02-13 <mhucka@caltech.edu> We now do an evil work-around for the
 # problem that SWIG refuses to attach documentation to certain things:
@@ -590,14 +590,14 @@ java-manual $(java-manual): $(core-sources) SBMLDoclet.class
 	    -windowtitle $(javadoc-windowtitle) \
 	    -doctitle $(javadoc-doctitle) \
 	    -overview libsbml-java-fake-overview.html \
-	    -stylesheetfile doxygen-base.css \
+	    -stylesheetfile doxygen-base-stylesheet.css \
 	    -d $(java-manual) \
 	    -tag note:a:"Note:" \
 	    -tag warning:a:"Warning:" \
 	    -tag docnote:a:"Documentation note:" \
 	    -sourcepath $(java-local-dir) org.sbml.libsbml \
         2>&1 | egrep -v $(java-ignorable-warnings) 
-	cp -f doxygen-base.css $(java-manual)
+	cp -f doxygen-base-stylesheet.css $(java-manual)
 	cp -f $(logo-file) $(java-manual)
 	cp -f $(logo-file) $(java-manual)/$(java-class-path)/
 	cp -f graphics/*.png $(java-manual)
