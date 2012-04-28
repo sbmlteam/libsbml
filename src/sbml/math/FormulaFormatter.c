@@ -34,8 +34,9 @@
 #  define isnan(d)  _isnan(d)
 #endif
 
+
+/** @cond doxygen-c-only */
 /**
- * @if doxygen-c-only
  * Converts an AST to a string representation of a formula using a syntax
  * basically derived from SBML Level&nbsp;1.
  *
@@ -110,8 +111,7 @@
  * mathematical formula.  The caller owns the returned string and is
  * responsible for freeing it when it is no longer needed.
  *
- * SBML_parseFormula()
- * @endif
+ * @see SBML_parseFormula()
  */
 LIBSBML_EXTERN
 char *
@@ -133,6 +133,7 @@ SBML_formulaToString (const ASTNode_t *tree)
   }
   return s;
 }
+/** @endcond */
 
 
 /**
