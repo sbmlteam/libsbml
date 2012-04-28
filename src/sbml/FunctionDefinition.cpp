@@ -1009,7 +1009,6 @@ ListOfFunctionDefinitions::createObject (XMLInputStream& stream)
 
 /** @cond doxygen-c-only */
 
-
 /**
  * Creates a new FunctionDefinition_t structure using the given SBML @p level
  * and @p version values.
@@ -1452,7 +1451,6 @@ ListOfFunctionDefinitions_removeById (ListOf_t *lo, const char *sid)
     return NULL;
 }
 
-/** @endcond */
 /** @endcond */
 
 LIBSBML_CPP_NAMESPACE_END
