@@ -293,8 +293,8 @@ static const StateActionPair_t Action[] =
 /** @endcond */
 
 
+/** @cond doxygen-c-only */
 /**
- * @if doxygen-c-only
  * Parses the given SBML formula and returns a representation of it as an
  * Abstract Syntax Tree (AST).
  *
@@ -370,7 +370,6 @@ static const StateActionPair_t Action[] =
  * parsing the formula
  *
  * @see SBML_formulaToString()
- * @endif
  */
 LIBSBML_EXTERN
 ASTNode_t *
@@ -451,10 +450,10 @@ SBML_parseFormula (const char *formula)
 
   return node;
 }
+/** @endcond */
 
 
 /** @cond doxygen-libsbml-internal */
-
 
 /**
  * @return the action for the current state and token.
