@@ -108,10 +108,8 @@
  *
  * @li @link RuleType_t#RULE_TYPE_RATE RULE_TYPE_RATE@endlink: Indicates
  * the rule is a "rate" rule.
- * 
  * @li @link RuleType_t#RULE_TYPE_SCALAR RULE_TYPE_SCALAR@endlink:
  * Indicates the rule is a "scalar" rule.
- *
  * @li @link RuleType_t#RULE_TYPE_INVALID RULE_TYPE_INVALID@endlink:
  * Indicates the rule type is unknown or not yet set.
  *
