@@ -187,16 +187,16 @@ Writing SBML is, in the end, a very simple matter in libSBML.  The library
 provides the class SBMLWriter for this purpose, and SBMLWriter offers the
 following methods:
 
-@li bool <code>SBMLWriter::writeSBMLToFile(const SBMLDocument* d, const std::string& filename)</code> 
+@li <code>bool SBMLWriter::writeSBMLToFile(const SBMLDocument* d, const std::string& filename)</code> 
 writes the given SBML document to the named file and returns either @c true
 on success or @c false on failure.  Reasons for failure can be, for
 example, that the named file could not be opened for writing.
-@li char* <code>SBMLWriter::writeSBMLToString(const SBMLDocument* d)
+@li <code>char* SBMLWriter::writeSBMLToString(const SBMLDocument* d)
 </code> writes the given SBML document to a character string and returns a
 pointer to it, or returns @c NULL if a failure occurred.  The string is
 owned by the caller and should be freed (using the standard C function
 <code>free()</code>) after it is no longer needed.
-@li bool <code>SBMLWriter::writeSBML(const SBMLDocument* d, std::ostream& stream)</code> 
+@li <code>bool SBMLWriter::writeSBML(const SBMLDocument* d, std::ostream& stream)</code> 
 writes the given SBML document to the given output stream and returns
 either @c true on success or @c false on failure.
 
