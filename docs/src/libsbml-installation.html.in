@@ -182,16 +182,21 @@ and Unicode support. It will by default attempt to use the <a
 target="_blank" href="http://xmlsoft.org">libxml2</a> XML library; if you
 do not have libxml2 version 2.6.16 or later on your system, the
 <code>configure</code> program will terminate with an error explaining it
-cannot find libxml2.  In that case, you can inform the
-<code>configure</code> program to use the <a target="_blank"
+cannot find libxml2.  (<em>Important</em>: libSBML needs the development
+libraries for libxml2, not only the runtime library, which on systems such
+as Linux means that you need to have installed <em>both</em> the basic
+libxml2 distribution and the <code>-dev</code> distribution.  These
+distributions typically have the root names <code>libxml2</code>
+and <code>libxml2-dev</code>, often followed by a version number.)
+
+<p> Instead of using libxml2, you can inform the <code>configure</code>
+program to use the <a target="_blank"
 href="http://expat.sourceforge.net/">Expat</a> or <a target="_blank"
-href="http://http://xerces.apache.org/xerces-c/">Xerces</a> libraries
-instead.  Many Linux and other UNIX-like systems provide one or more of
-these libraries either as part of their standard distribution or as an
-optional RPM, Debian, Mandrake or other package distributions.  (Libxml2
-appears to be the most commonly available library on Linux and
-Mac&nbsp;OS&nbsp;X systems.)  To use Expat, run the libSBML configuration
-program as follows:
+href="http://http://xerces.apache.org/xerces-c/">Xerces</a> libraries.
+Many Linux and other UNIX-like systems provide one or more of these
+libraries either as part of their standard distribution or as an optional
+RPM, Debian, Mandrake or other package distributions.  To use Expat, run
+the libSBML configuration program as follows:
 
 <div class="fragment"><pre class="fragment">
   ./configure --with-expat
