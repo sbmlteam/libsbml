@@ -4,10 +4,13 @@
 <tr><td style="font-size: small;">
 <ul>
 <li style="font-size: small;"><a href="#uninstall-unix">Uninstalling
-libSBML on Linux, Mac&nbsp;OS X, Cygwin, and Solaris</a></li> 
+libSBML on Linux, Cygwin, and similar Unix-like systems</a></li> 
 
 <li style="font-size: small;"><a href="#uninstall-windows">Uninstalling
 libSBML on Windows</a></li>
+
+<li style="font-size: small;"><a href="#uninstall-macos">Uninstalling
+libSBML on Mac OS X</a></li>
 </ul>
 </td>
 </tr>
@@ -20,8 +23,8 @@ libSBML on Windows</a></li>
 instructions below depending on the kind of operating system involved.
 
 
-<h3><a class="anchor" name="uninstall-unix">Linux, Mac&nbsp;OS&nbsp;X, and
-Solaris</a></h3>
+<h3><a class="anchor" name="uninstall-unix">Linux, Cygwin and similar
+Unix-like systems</a></h3>
 
 <p>
 The libSBML build system comes with a command for uninstalling libSBML
@@ -51,14 +54,37 @@ installed by the original <code>make install</code>.)
 
 <h3><a class="anchor" name="uninstall-windows">Windows</a></h3>
 
-<p>As part of the installation process on Windows, the libSBML installer
-program places an uninstaller program in the top-level folder where libSBML
-is installed.  This uninstaller is named <code>Uninstall_libSBML.bat</code>. 
-</p>
+<p>On Windows, you have two possible approaches for uninstalling libSBML.
+You can use either approach.
+<ol>
 
-<p>To uninstall libSBML on Windows systems, navigate to the libSBML
-installation folder (which might be, for example, <code>C:\Program
-Files\SBML\libSBML-3.1.1-expat</code>) and execute
-<code>Uninstall_libSBML.bat</code>.  It will remove the files installed 
-by the libSBML Windows installer.
-</p>
+<li>The first approach is to use the regular Windows <em>add/remove
+software</em> interface, available in the Windows control panel.
+
+<li>The second is to use libSBML's uninstaller directly. As part of the
+installation process on Windows, the libSBML installer program places an
+uninstaller program in the top-level folder where libSBML is installed.
+This uninstaller is named <code>Uninstall_libSBML.bat</code>.  To use it,
+navigate to the libSBML installation folder (which might be, for example,
+<code>C:\Program Files\SBML\libSBML-3.1.1-expat</code>) and execute
+<code>Uninstall_libSBML.bat</code>.  It will remove the files installed by
+the libSBML Windows installer.  
+
+</ol>
+
+
+<h3><a class="anchor" name="uninstall-macos">Mac OS X</a></h3>
+
+<p>The Mac OS X installer for libSBML places an uninstall script in the
+<code>bin</code> subdirectory of the location where you installed libSBML.
+(This location is <code>/usr/local</code> by default.)  To run the
+uninstaller, start a terminal shell and type the following command at the
+prompt:
+
+<pre class="fragment">
+  sudo /usr/local/bin/uninstall-libsbml-pkg.sh
+</pre>
+
+<p>If, on the other hand, you built and installed libSBML from the source
+distribution, then you can use the <nobr><code>make uninstall</code></nobr>
+command <a href="#uninstall-unix">mentioned above</a>.
