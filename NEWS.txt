@@ -50,10 +50,17 @@ STABLE RELEASE
 
 * Miscellaneous
 
-  - Doxygen versions 1.7 and 1.8 are now supported.  (However, older
-    versions of Doxygen are no longer supported.)
+  - The uninstallation instructions were out of date.  This is now
+    updated, for example to mention that the Mac OS X installer does
+    in fact provide an uninstall script.
 
 * Configuration/build system changes
+
+  - Doxygen versions 1.7 and 1.8 are now supported, but due to
+    differences in the new version, older versions of Doxygen are no
+    longer supported.  The 'configure' script will now only accept
+    version 1.7 at minimum.
+
 
 EXPERIMENTAL RELEASE
 
