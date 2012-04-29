@@ -305,33 +305,49 @@ href="libsbml-installation.html">installation instructions</a>.
 <p> Once that is done, and libSBML has been installed on your system, then
 Python needs just one more thing to be informed where to find the libSBML
 package: it needs the environment variable named <code>PYTHONPATH</code> to
-be set.  On Unix-based systems at least, if <em><span
-class="placeholder">DIR</span></em> is the value of the
+be set.  If <em><span class="placeholder">DIR</span></em> is the value of the
 <nobr><code>--prefix=</code><em><span
 class="placeholder">DIR</span></em></nobr> option given during
 configuration of libSBML and <em><span
 class="placeholder">version</span></em> is the version of your copy of
 Python, then the value of <code>PYTHONPATH</code> needs to be set as
-follows:
+follows on Ubuntu&nbsp;11 systems:
 
 <pre class="fragment" style="font-size: 12px">
 export PYTHONPATH=<u><em><span
 class="placeholder">DIR</span></em></u>/lib/<u><em><span class="placeholder">version</span></em></u>/site-packages
 </pre>
 
-for <i>sh</i>-based shells such as Bash, or 
+and as follows for other Linux systems:
+
+<pre class="fragment" style="font-size: 12px">
+export PYTHONPATH=<u><em><span
+class="placeholder">DIR</span></em></u>/lib/<u><em><span class="placeholder">version</span></em></u>/dist-packages
+</pre>
+
+The above is for <i>sh</i>-based shells such as Bash; if you use
+<i>csh</i>-based shells, then the appropriate syntax is instead
 
 <pre class="fragment" style="font-size: 12px">
 setenv PYTHONPATH  <u><em><span
 class="placeholder">DIR</span></em></u>/lib/<u><em><span class="placeholder">version</span></em></u>/site-packages
 </pre>
-for <i>csh</i>-based shells.  In other words, the <code>PYTHONPATH</code>
-environment variable needs to be set to the
-<nobr><code>site-packages</code></nobr> directory path where the libSBML
-library has been installed.  Please see the section titled "<a
-href="libsbml-installation.html#locations">Files installed by libSBML, and
-their locations</a>" elsewhere in this manual for more information about
-the files installed for libSBML.
+
+and 
+
+<pre class="fragment" style="font-size: 12px">
+setenv PYTHONPATH  <u><em><span
+class="placeholder">DIR</span></em></u>/lib/<u><em><span class="placeholder">version</span></em></u>/dist-packages
+</pre>
+
+for Ubuntu&nbsp;11 and non-Ubuntu systems, respectively.  In other words,
+the <code>PYTHONPATH</code> environment variable needs to be set to the
+<nobr><code>site-packages</code></nobr> or
+<nobr><code>dist-packages</code></nobr> (depending on the flavor of Linux)
+directory path where the libSBML library has been installed.  Please see
+the section titled "<a href="libsbml-installation.html#locations">Files
+installed by libSBML, and their locations</a>" elsewhere in this manual for
+more information about the files installed for libSBML.
 
 <p> Once the <code>PYTHONPATH</code> variable has been set, you should be
 able to start the Python interpreter and type the following command to
