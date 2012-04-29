@@ -1150,7 +1150,20 @@ class="placeholder">DIR</span></em></nobr> option to the
       <nobr><em><span class="placeholder">DIR</span></em><code>/lib/perl5/site_perl/</code><em><span class="placeholder">perl-version</span></em><code>/</code><em><span class="placeholder">platform</span></em><code>/</code></nobr></td>
   <td>(2)</td>
 </tr><tr>
-  <td>Python</td>
+  <td>Python<br>(Ubuntu 11)</td>
+  <td>
+    <nobr><em>(native C++ library)</em></nobr><br>
+    <nobr><em>(Python module file)</em></nobr><br>
+    <nobr><em>(Compiled module file)</em></nobr><br>
+    <nobr><em>(Path configuration file)</em></nobr>
+  </td>
+  <td><nobr><em><span class="placeholder">DIR</span></em><code>/lib/</code><em><span class="placeholder">python-version</span></em><code>/dist-packages/libsbml/</code></nobr><br>
+      <nobr><em><span class="placeholder">DIR</span></em><code>/lib/</code><em><span class="placeholder">python-version</span></em><code>/dist-packages/libsbml/</code></nobr><br>
+      <nobr><em><span class="placeholder">DIR</span></em><code>/lib/</code><em><span class="placeholder">python-version</span></em><code>/dist-packages/libsbml/</code></nobr><br>
+      <nobr><em><span class="placeholder">DIR</span></em><code>/lib/</code><em><span class="placeholder">python-version</span></em><code>/dist-packages/</code></nobr></td>
+  <td>(2)</td>
+</tr><tr>
+  <td>Python<br>(Other Linuxes)</td>
   <td>
     <nobr><em>(native C++ library)</em></nobr><br>
     <nobr><em>(Python module file)</em></nobr><br>
