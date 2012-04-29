@@ -1004,6 +1004,12 @@ def rewriteDocstringForPython (docstring):
 
   docstring = rewriteCommonReferences(docstring)  
 
+  # Remove @~, which we use as a hack in Doxygen 1.7-1.8
+
+  docstring = docstring.replace(r'@~', '')
+
+  # Take out the C++ comment start and end.
+
   docstring = docstring.replace('/**', '').replace('*/', '')
   p = re.compile('^(\s*)\*([ \t]*)', re.MULTILINE)
   docstring = p.sub(r'\2', docstring)
