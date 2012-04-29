@@ -28,8 +28,13 @@ h2, h2 a {
     color: #443;
 }
 
-h2 a.anchor, h3 a.anchor, h4 a.anchor {
+h2 {
+    padding-bottom: 2px;
+}
+
+h2 a.anchor, h3 a.anchor, h4 a.anchor, h2 a:hover, h3 a:hover, h4 a:hover {
     color: #443;
+    text-decoration: none;
 }
 
 h3, h3 a {
@@ -753,12 +758,13 @@ table.fieldtable {
 .navpath ul
 {
     font-size: 11px;
-    background-image:url('tab_b.png');
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#f8f8f8), to(#bbb),color-stop(0.5, #ddd));
+    background-image: -moz-linear-gradient(center top, #f8f8f8 0%, #ddd 50%, #bbb);
     background-repeat:repeat-x;
     height:30px;
     line-height:30px;
-    color:#8AA0CC;
-    border:solid 1px #C2CDE4;
+    color: #93a1b8;
+    border: solid 1px #93a1b8;
     overflow:hidden;
     margin:0px;
     padding:0px;
@@ -1304,4 +1310,8 @@ pre.signature {
 docnote { 
   margin-left: 1cm;
   margin-top: 0;
+}
+
+div.contents hr { 
+  margin: 2em 0 2em 0;
 }
