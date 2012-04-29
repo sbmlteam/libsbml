@@ -115,7 +115,7 @@ translateMathML (const char *xml)
   if (xml[0] == '<' && xml[1] != '?')
   {
     char *header  = "<?xml version='1.0' encoding='UTF-8'?>\n";
-    char *content = calloc( strlen(xml) + strlen(header) + 1, sizeof(char) );
+    char *content = (char *) calloc( strlen(xml) + strlen(header) + 1, sizeof(char) );
 
     strncat(content, header, strlen(header));
     strncat(content, xml, strlen(xml));

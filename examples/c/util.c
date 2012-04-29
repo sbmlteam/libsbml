@@ -138,7 +138,7 @@ get_line ( FILE *fp )
     cp = strchr( s, '\n' );
     if ( cp != NULL ) *cp = '\0';
     if ( line == NULL )
-      line = calloc( 1+strlen(s), sizeof(char) );
+      line = (char *) calloc( 1+strlen(s), sizeof(char) );
     else
       line = (char *)realloc( line, 1+strlen( s )+strlen( line ) );
     strcat( line, s );
