@@ -116,6 +116,16 @@ a single space is valid (albeit not a very useful one).  This highlights
 another issue: different versions of the underlying XML parsers may behave
 differently in the face of unusual (though not necessarily illegal) inputs.
 
+<li style="margin-bottom: 1em">Expat 2.1.0 appears to have a configuration
+issue.  If CMake is used to compile the expat library and configure is
+used to configure libSBML the system reports <code>
+checking for Expat version >= 1.95.8... 
+*** The Expat header file (version 2.1.0) does not match
+*** the Expat library found (version 2.0.1).</code>. However if the gnumake 
+./configure, make & make install is used to build the Expat library the 
+header mismatch is avoided.
+
+
 </ol>
 
 
