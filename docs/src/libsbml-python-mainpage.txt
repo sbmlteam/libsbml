@@ -37,4 +37,6 @@ imported the libsbml library).
 
 @htmlinclude FUNDING.txt
 
+@htmlinclude libsbml-doxygen.html
+
 */
