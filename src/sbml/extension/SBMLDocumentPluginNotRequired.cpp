@@ -83,14 +83,24 @@ void
 SBMLDocumentPluginNotRequired::readAttributes (const XMLAttributes& attributes,
                                           const ExpectedAttributes& expectedAttributes)
 {
+  if (&attributes == NULL || &expectedAttributes == NULL ) return;
+  
   //If we're reading from a file, the file might erroneously not have set the 'required' flag:
   mIsSetRequired = false;
+
   SBMLDocumentPlugin::readAttributes(attributes, expectedAttributes);
 
-  //Alternatively, it might have set the 'required' flag to be 'false':
-  if (mIsSetRequired && mRequired==true) {
-    getErrorLog()
-      ->logError(PackageRequiredShouldBeFalse, getLevel(), getVersion());
+  // Layout and render (and presumably more plugins) also have a vital use case for L2 models, we cannot
+  // preclude people from using them by adding the error below. 
+  if ( mSBMLExt->getLevel(mURI) > 2)
+  {    
+    
+    //Alternatively, it might have set the 'required' flag to be 'false':
+    if (mIsSetRequired && mRequired==true) 
+	{
+      getErrorLog()
+        ->logError(PackageRequiredShouldBeFalse, getLevel(), getVersion());
+    }
   }
 }
 /** @endcond */
