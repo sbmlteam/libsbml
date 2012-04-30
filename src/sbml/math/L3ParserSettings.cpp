@@ -61,12 +61,12 @@ L3ParserSettings::~L3ParserSettings()
 
 
 
-void L3ParserSettings::setModel(Model* model)
+void L3ParserSettings::setModel(const Model* model)
 {
   mModel = model;
 }
 
-Model* L3ParserSettings::getModel() const
+const Model* L3ParserSettings::getModel() const
 {
   return mModel;
 }
@@ -176,7 +176,7 @@ L3ParserSettings_free (L3ParserSettings_t * settings)
  */
 LIBSBML_EXTERN
 void
-L3ParserSettings_setModel (L3ParserSettings_t * settings, Model_t * model)
+L3ParserSettings_setModel (L3ParserSettings_t * settings, const Model_t * model)
 {
   if (settings == NULL)
     return;
@@ -193,7 +193,7 @@ L3ParserSettings_setModel (L3ParserSettings_t * settings, Model_t * model)
  * @return the Model_t* object associated with this L3ParserSettings_t object.
  */
 LIBSBML_EXTERN
-Model_t *
+const Model_t *
 L3ParserSettings_getModel (L3ParserSettings_t * settings)
 {
   if (settings == NULL)

@@ -96,7 +96,7 @@ class Model;
 class LIBSBML_EXTERN L3ParserSettings
 {
 private:
-  Model* mModel;
+  const Model* mModel;
   l3p_log_type mParselog;
   bool mCollapseminus;
   bool mParseunits;
@@ -124,12 +124,12 @@ public:
    *
    * @param model The Model* object to which infix strings are to be compared.
    */
-  void setModel(Model* model);
+  void setModel(const Model* model);
 
   /*
    * Returns the model this L3ParserSettings object has currently stored to compare infix strings to.
    */
-  Model* getModel() const;
+  const Model* getModel() const;
 
   /**
    * Sets the model this L3ParserSettings object has currently stored to NULL, so no comparisons with any model will be performed when parsing.
@@ -242,11 +242,11 @@ L3ParserSettings_free (L3ParserSettings_t * settings);
 
 LIBSBML_EXTERN
 void
-L3ParserSettings_setModel (L3ParserSettings_t * settings, Model_t * model);
+L3ParserSettings_setModel (L3ParserSettings_t * settings, const Model_t * model);
 
 
 LIBSBML_EXTERN
-Model_t *
+const Model_t *
 L3ParserSettings_getModel (L3ParserSettings_t * settings);
 
 

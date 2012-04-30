@@ -27,6 +27,8 @@
 
 #include <sbml/common/common.h>
 #include <sbml/math/L3Parser.h>
+#include <sbml/math/L3ParserSettings.h>
+#include <sbml/Model.h>
 #include <sbml/Reaction.h>
 
 #include <check.h>
@@ -1463,7 +1465,7 @@ START_TEST (test_SBML_C_parseL3Formula_collapseminussettings1)
   fail_unless( ASTNode_getNumChildren(c) == 0, NULL );
 
   ASTNode_free(r);
-  L3ParserSettings_t *settings = L3ParserSettings_create();
+  L3ParserSettings_t *settings = SBML_getDefaultL3ParserSettings();
 
   //Explicit parsing to collapse the minuses
   L3ParserSettings_setCollapseMinus(settings, 1);
@@ -1519,7 +1521,7 @@ START_TEST (test_SBML_C_parseL3Formula_collapseminussettings2)
   fail_unless( ASTNode_getNumChildren(c) == 0, NULL );
 
   ASTNode_free(r);
-  L3ParserSettings_t *settings = L3ParserSettings_create();
+  L3ParserSettings_t *settings = SBML_getDefaultL3ParserSettings();
 
   //Explicit parsing to collapse the minuses
   L3ParserSettings_setCollapseMinus(settings, 1);
@@ -1584,7 +1586,7 @@ START_TEST (test_SBML_C_parseL3Formula_collapseminussettings3)
   fail_unless( ASTNode_getNumChildren(c) == 0, NULL );
 
   ASTNode_free(r);
-  L3ParserSettings_t *settings = L3ParserSettings_create();
+  L3ParserSettings_t *settings = SBML_getDefaultL3ParserSettings();
 
   //Explicit parsing to collapse the minuses
   L3ParserSettings_setCollapseMinus(settings, 1);
@@ -1667,7 +1669,7 @@ START_TEST (test_SBML_C_parseL3Formula_collapseminussettings4)
   fail_unless( ASTNode_getNumChildren(c) == 0, NULL );
 
   ASTNode_free(r);
-  L3ParserSettings_t *settings = L3ParserSettings_create();
+  L3ParserSettings_t *settings = SBML_getDefaultL3ParserSettings();
 
   //Explicit parsing to collapse the minuses
   L3ParserSettings_setCollapseMinus(settings, 1);
@@ -1725,7 +1727,7 @@ END_TEST
 START_TEST (test_SBML_C_parseL3Formula_collapseminussettings5)
 {
   ////Explicit parsing to collapse the minuses
-  L3ParserSettings_t *settings = L3ParserSettings_create();
+  L3ParserSettings_t *settings = SBML_getDefaultL3ParserSettings();
   L3ParserSettings_setCollapseMinus(settings, 1);
   fail_unless(L3ParserSettings_getCollapseMinus(settings) == 1);
 
@@ -1788,7 +1790,7 @@ START_TEST (test_SBML_C_parseL3Formula_targetl2settings)
   fail_unless( ASTNode_getNumChildren(r) ==   0, NULL );
   ASTNode_free(r);
 
-  L3ParserSettings_t *settings = L3ParserSettings_create();
+  L3ParserSettings_t *settings = SBML_getDefaultL3ParserSettings();
   L3ParserSettings_setTargetL2(settings);
   fail_unless(L3ParserSettings_getTargetL2(settings) == 1);
   fail_unless(L3ParserSettings_getTargetL3(settings) == 0);
@@ -1830,7 +1832,7 @@ START_TEST (test_SBML_C_parseL3Formula_avogadrosettings)
   fail_unless( ASTNode_getNumChildren(r) ==   0, NULL );
   ASTNode_free(r);
 
-  L3ParserSettings_t *settings = L3ParserSettings_create();
+  L3ParserSettings_t *settings = SBML_getDefaultL3ParserSettings();
   L3ParserSettings_setAvogadroCsymbol(settings, 0);
   fail_unless(L3ParserSettings_getAvogadroCsymbol(settings) == 0);
   fail_unless(L3ParserSettings_getTargetL2(settings) == 0);
@@ -1866,7 +1868,7 @@ START_TEST (test_SBML_C_parseL3Formula_unitssettings)
   fail_unless( ASTNode_getNumChildren(r) ==   0, NULL );
   ASTNode_free(r);
 
-  L3ParserSettings_t *settings = L3ParserSettings_create();
+  L3ParserSettings_t *settings = SBML_getDefaultL3ParserSettings();
   L3ParserSettings_setParseUnits(settings, 0);
   fail_unless(L3ParserSettings_getParseUnits(settings) == 0);
   fail_unless(L3ParserSettings_getTargetL2(settings) == 0);

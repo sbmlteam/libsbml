@@ -1,6 +1,6 @@
 /**
  * @file    L3Parser.h
- * @brief   Definition of the level 3 infix-to-mathml parser.
+ * @brief   Definition of the level 3 infix-to-mathml parser C functions.
  * @author  Lucian Smith
  * 
  * 
@@ -29,227 +29,8 @@
 #ifndef L3Parser_h
 #define L3Parser_h
 
-#include <sbml/common/libsbml-namespace.h>
 #include <sbml/common/extern.h>
 #include <sbml/math/ASTNode.h>
-#include <sbml/Model.h>
-#include <sbml/math/L3ParserSettings.h>
-
-#ifdef __cplusplus
-
-#include <sstream>
-
-
-LIBSBML_CPP_NAMESPACE_BEGIN
-
-class SBMLVisitor;
-class FormulaUnitsData;
-
-#ifndef SWIG //Hide the entire class from SWIG
-/** @cond doxygen-libsbml-internal */
-/**
- * @class L3Parser
- * @brief Class providing functionality for the bison-generated parser.
- *
- * The L3Parser class is an internal class designed to hold the guts of the bison parser, plus
- * the lexer.  It is designed to be a global singleton object, because that's the cleanest way
- * I could find to incorporate functions into the bison framework.
- *
- * The functions declared in this file are defined in the file L3Parser.ypp, which
- * must be compiled by bison to create L3Parser.tab.cpp, the file included in
- * libsbml.  For more details, see the L3Parser.ypp file.
- *
- * Within the various 'sbml_yylex*' functions that bison creates, functions
- * from the global 'l3p' object (of the L3Parser class) are used to calculate
- * necessary information for the parsing of the string, and to determine appropriate
- * error messages when things go wrong.
- * @internal
- */
-class LIBSBML_EXTERN L3Parser
-{
-public:
-
-  std::stringstream input;
-  ASTNode* outputNode;
-  std::string error;
-  std::map<std::string, std::string*> words;
-  long exponent;
-  long denominator;
-
-  //settings:
-  L3ParserSettings defaultParserSettings;
-  Model* model;
-  l3p_log_type parselog;
-  bool collapseminus;
-  bool parseunits;
-  bool avocsymbol;
-
-  L3Parser();
-  ~L3Parser();
-
-  //Functions needed for the parser and the lexer:
-  /**
-   * Compares 'name' against a list of known constants, and returns the particular
-   * constant type (AST_CONSTANT_TRUE, AST_CONSTANT_PI, AST_NAME_TIME) associated
-   * with that string (with case ignored).  For the mathematical constants
-   * infinity and notanumber, AST_REAL is returned, and the parser must then
-   * examine the string again to discover what to do with the ASTNode.
-   */
-  ASTNodeType_t getSymbolFor(std::string name) const;
-  /**
-   * Compares 'name' against a list of known functions allowed in the MathML
-   * of SBML Level 2 and 3.  Multiple mappings of string->type are present,
-   * so that (for example) both the strings 'acos' and 'arccos' return the
-   * type AST_FUNCTION_ARCCOS.  "log" returns AST_FUNCTION_LOG, so when 
-   * user preference is taken into consideration, 'name' must once again
-   * be checked.
-   */
-  ASTNodeType_t getFunctionFor(std::string name) const;
-  /**
-   * This function creates an ASTNode that is a 'piecewise' function that
-   * mimics the 'modulo' function 'x % y'.  It was modified from the
-   * function of the same name in Copasi in its  CEvaluationNodeOperator 
-   * class, which itself had modifications submitted by Frank Bergmann.  
-   */
-  ASTNode*      createModuloTree(ASTNode* x, ASTNode* y) const;
-  /**
-   * Sets the member variable 'collapseminus' to the provided boolean value.  Used in parsing
-   * unary minuses.
-   */
-  void setCollapseMinus(bool collapse);
-  /**
-   * Sets the member variable 'parselog' to the provided enum.  Used in parsing
-   * strings with the function "log" with a single argument.
-   */
-  void setParseLog(l3p_log_type parseas);
-  /**
-   * Sets the member variable 'parseunits' to the provided boolean.  Used in
-   * deciding whether strings that assign units to numbers (like "10 mL") 
-   * are parsed correctly, or as errors.
-   */
-  void setParseUnits(bool units);
-  /**
-   * Sets the member variable 'avocsymbol' to the provided boolean. Used in
-   * deciding whether to parse the string 'avogadro' as an ASTNode of type
-   * AST_NAME_AVOGADRO or AST_NAME with the name 'avogadro'.
-   */
-  void setAvoCsymbol(bool avo);
-  /**
-   * Compares the two strings, and returns 'true' if they are equivalent,
-   * ignoring case.  Used in the parser and in the 'getSymbolFor' and 
-   * 'getFunctionFor' functions.
-   */
-  bool caselessStrCmp(const std::string& lhs, const std::string& rhs) const;
-  /**
-   * Sets the input string to be parsed, copied to the 'input' stringstream
-   * member variable.
-   */
-  void setInput(const char* c);
-  /**
-   * Sets the error string so that it can be retrieved by the function 
-   * 'SBML_getLastParseL3Error'.
-   */
-  void setError(const char* c);
-  /**
-   * Sets the error string so that it can be retrieved by the function 
-   * 'SBML_getLastParseL3Error'.
-   */
-  void setError(std::string c);
-  /**
-   * Resets the L3Parser object, removing any error or input strings,
-   * setting the output ASTNode to NULL, and resetting all parser settings
-   * to that stored in the 'defaultParserSettings' member variable.
-   */
-  void clear();
-  /**
-   * Returns the 'error' member variable, which is either empty or contains
-   * the error message set from a 'setError' function.
-   */
-  std::string getError();
-  
-  /**
-   * The bison parser needs string pointers to pass around from function to
-   * function.  In order to not create too many of these objects, and to
-   * ensure that they are properly deleted, the lexer calls this function
-   * when it encounters a valid ID string to get a stable pointer that can 
-   * be passed to the parser functions.
-   * 
-   * In this function, 'word' is looked up in a hash map of strings to 
-   * string pointers; if it is not found, a new string pointer containing
-   * the string is created, added to the hash, and returned.  If it is
-   * found, the previously-created pointer is returned.
-   */
-  std::string* addWord(const std::string& word);
-  
-  /**
-   * This function checks the provided ASTNode function to see if it is a 
-   * known function with the wrong number of arguments.  If so, an error is set
-   * (using the 'setError' function) and 'true' is returned.  If the
-   * correct number of arguments is provided, 'false' is returned.
-   */
-  bool checkNumArguments(const ASTNode* function);
-  /**
-   * Provides a copy of the default parser settings member variable.
-   */
-  L3ParserSettings getDefaultParserSettings();
-
-  /**
-   * Parses the provided string to an ASTNode, using the default settings, namely:
-   * @li No 'Model' object to compare strings against.
-   * @li Parses "log(x)" as the log base-10 of x.
-   * @li Parses "[number] [id]' by setting id to the unit of the number.
-   * @li Parses "avogadro" to an ASTNode of type AST_NAME_AVOGADRO.
-   * @li Always creates explicit ASTNodes of type AST_MINUS for all unary minuses.
-   *
-   * For other aspects of this function, @see SBML_parseL3Formula(const char *formula, L3ParserSettings settings)
-   */
-  static ASTNode * parseL3Formula(const std::string formula);
-
-  /**
-   * Parses the provided string to an ASTNode, using the provided settings.
-   */
-  static ASTNode * parseL3Formula(const std::string formula,
-                                  L3ParserSettings settings);
-
-
-  /**
-   * Parses the provided string to an ASTNode, using the default setting but the provided Model* object.
-   */
-  static ASTNode * parseL3Formula(const std::string formula,
-                                  Model* model);
-
-
-  /*
-   * Change the default settings for this parser to the settings provided.  All subsequent
-   * calls to parseL3Formula with no 'settings' argument will use these settings
-   * instead of the defaults.
-   */
-  void setDefaultSettings(L3ParserSettings settings);
-
-  /*
-   * Change the default settings for the global 'l3p' parser to the settings provided.  All subsequent
-   * calls to parseL3Formula with no 'settings' argument will use these settings
-   * instead of the defaults.
-   */
-  static void setGlobalDefaultSettings(L3ParserSettings settings);
-
-  /**
-   * If the either versions of the function @see SBML_parseL3Formula() returns NULL, an error 
-   * is set internally which is accessible via this function.  The returned error will 
-   * report the string it was trying to parse, which character it had parsed when it 
-   * encountered the error, and what the error was.
-   * 
-   */
-  static char* getLastParseL3Error();
-};
-/** @endcond */ //The entire class should be invisible to the documentation.
-#endif //The entire class should be invisible to SWIG, too.
-
-LIBSBML_CPP_NAMESPACE_END
-
-#endif  /* __cplusplus */
-
-LIBSBML_CPP_NAMESPACE_BEGIN
 BEGIN_C_DECLS
 
 
@@ -402,7 +183,7 @@ SBML_parseL3Formula (const char *formula);
  */
 LIBSBML_EXTERN
 ASTNode_t *
-SBML_parseL3FormulaWithModel (const char *formula, Model_t * model);
+SBML_parseL3FormulaWithModel (const char *formula, const Model_t * model);
 
 
 /**
@@ -428,12 +209,10 @@ SBML_parseL3FormulaWithModel (const char *formula, Model_t * model);
  */
 LIBSBML_EXTERN
 ASTNode_t *
-SBML_parseL3FormulaWithSettings (const char *formula, L3ParserSettings_t *settings);
+SBML_parseL3FormulaWithSettings (const char *formula, const L3ParserSettings_t *settings);
 
 /*
- * Changes the default settings for the SBML_parseL3Formula function.  All
- * subsequent calls to SBML_parseL3Formula() and SBML_parseL3FormulaWithModel() 
- * will use the settings provided here, instead of the defaults.
+ * Get a copy of the default settings for the SBML_parseL3Formula function.
  * 
  * @if clike @see SBML_parseL3Formula()@endif@~
  * @if csharp @see SBML_parseL3Formula()@endif@~
@@ -445,8 +224,8 @@ SBML_parseL3FormulaWithSettings (const char *formula, L3ParserSettings_t *settin
  * @if java @see SBML_parseL3FormulaWithModel()@endif@~
  */
 LIBSBML_EXTERN
-void
-SBML_setDefaultL3ParserSettings (L3ParserSettings_t *settings);
+L3ParserSettings_t*
+SBML_getDefaultL3ParserSettings ();
 
 
 /**
