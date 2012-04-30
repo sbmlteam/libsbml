@@ -1523,6 +1523,97 @@ public:
 
 
   /**
+   * Removes the top-level element within the "annotation" 
+   * subelement of this SBML object with the given name and optional URI.
+   *
+   * SBML places a few restrictions on the organization of the content of
+   * annotations; these are intended to help software tools read and write
+   * the data as well as help reduce conflicts between annotations added by
+   * different tools.  Please see the SBML specifications for more details.
+   *
+   * Calling this method allows a particular annotation element to be removed
+   * whilst the remaining annotations remain intact.
+   *
+   * @param elementName a string representing the name of the top level
+   * annotation element that is to be removed
+   * @param elementURI an optional string that is used to check both the name
+   * and URI of the top level element to be removed
+   *
+   * @return integer value indicating success/failure of the
+   * function.  The possible values returned by this function are:
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
+   * @li @link OperationReturnValues_t#LIBSBML_ANNOTATION_NAME_NOT_FOUND LIBSBML_ANNOTATION_NAME_NOT_FOUND @endlink
+   * @li @link OperationReturnValues_t#LIBSBML_ANNOTATION_NS_NOT_FOUND LIBSBML_ANNOTATION_NS_NOT_FOUND @endlink
+   *
+   * @see replaceTopLevelAnnotationElement(const XMLNode *)
+   * @see replaceTopLevelAnnotationElement(const std::string&)
+   */
+  int removeTopLevelAnnotationElement(const std::string elementName, 
+    const std::string elementURI = "");
+
+
+  /**
+   * Replaces the given top-level element within the "annotation" 
+   * subelement of this SBML object and with the annotation element supplied.
+   *
+   * SBML places a few restrictions on the organization of the content of
+   * annotations; these are intended to help software tools read and write
+   * the data as well as help reduce conflicts between annotations added by
+   * different tools.  Please see the SBML specifications for more details.
+   *
+   * This method determines the name of the element to be replaced from the
+   * annotation argument. Functionally it is equivalent to calling
+   * <code> removeTopLevelAnnotationElement(name); appendAnnotation(annotation_with_name);
+   * </code> with the exception that the placement of the annotation element remains
+   * the same.
+   *
+   * @param annotation XMLNode representing the replacement top level annotation 
+   *
+   * @return integer value indicating success/failure of the
+   * function.  The possible values returned by this function are:
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
+   * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT @endlink
+   *
+   * @see removeTopLevelAnnotationElement(const std::string elementName, 
+    const std::string elementURI = "")
+   * @see replaceTopLevelAnnotationElement(const std::string&)
+   */
+  int replaceTopLevelAnnotationElement(const XMLNode* annotation);
+
+
+  /**
+   * Replaces the given top-level element within the "annotation" 
+   * subelement of this SBML object and with the annotation element supplied.
+   *
+   * SBML places a few restrictions on the organization of the content of
+   * annotations; these are intended to help software tools read and write
+   * the data as well as help reduce conflicts between annotations added by
+   * different tools.  Please see the SBML specifications for more details.
+   *
+   * This method determines the name of the element to be replaced from the
+   * annotation argument. Functionally it is equivalent to calling
+   * <code> removeTopLevelAnnotationElement(name); appendAnnotation(annotation_with_name);
+   * </code> with the exception that the placement of the annotation element remains
+   * the same.
+   *
+   * @param annotation string representing the replacement top level annotation 
+   *
+   * @return integer value indicating success/failure of the
+   * function.  The possible values returned by this function are:
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
+   * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT @endlink
+   *
+   * @see removeTopLevelAnnotationElement(const std::string elementName, 
+    const std::string elementURI = "")
+   * @see replaceTopLevelAnnotationElement(const XMLNode*)
+   */
+  int replaceTopLevelAnnotationElement(const std::string& annotation);
+
+
+  /**
    * Sets the value of the "notes" subelement of this SBML object.
    *
    * The content of @p notes is copied, and any existing content of this
@@ -3514,6 +3605,32 @@ SBase_appendAnnotation (SBase_t *sb, XMLNode_t *annotation);
 LIBSBML_EXTERN
 int
 SBase_appendAnnotationString (SBase_t *sb, char *annotation);
+
+
+LIBSBML_EXTERN
+int
+SBase_appendAnnotationString (SBase_t *sb, char *annotation);
+
+
+LIBSBML_EXTERN
+int
+SBase_removeTopLevelAnnotationElement (SBase_t *sb, char *name);
+
+
+LIBSBML_EXTERN
+int
+SBase_removeTopLevelAnnotationElementWithURI (SBase_t *sb, const char *name, 
+                                              const char *uri);
+
+
+LIBSBML_EXTERN
+int
+SBase_replaceTopLevelAnnotationElement (SBase_t *sb, XMLNode_t *annotation);
+
+
+LIBSBML_EXTERN
+int
+SBase_replaceTopLevelAnnotationElementString (SBase_t *sb, char *annotation);
 
 
 LIBSBML_EXTERN

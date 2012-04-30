@@ -123,6 +123,25 @@ typedef enum
      * is being used to add an annotation that has a namespace that is already
      * present in the existing annotation. */
 
+  , LIBSBML_ANNOTATION_NAME_NOT_FOUND   = -12
+    /*!< The existing annotation does not have a top-level element with
+     * the given name. This error is
+     * typically returned in situations where the 
+     * replaceTopLevelAnnotationElement function or 
+     * the removeTopLevelAnnotationElement function 
+     * is being used to replace or remove an annotation with a name that does
+     * not match the name of any toplevel element that is already
+     * present in the existing annotation. */
+
+   , LIBSBML_ANNOTATION_NS_NOT_FOUND   = -13
+    /*!< The existing annotation does not have a top-level element with
+     * the given namespace. This error is
+     * typically returned in situations where the 
+     * replaceTopLevelAnnotationElement function or 
+     * the removeTopLevelAnnotationElement function 
+     * is being used to replace or remove an annotation with a namespace that does
+     * not match the namespace of any toplevel element that is already
+     * present in the existing annotation. */
    /* ---------------------------------------------------------------------------
     *   
     *              Return codes for package extension

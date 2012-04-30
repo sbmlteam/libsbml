@@ -1357,6 +1357,114 @@ SBase::appendAnnotation (const std::string& annotation)
 }
 
 
+int
+SBase::removeTopLevelAnnotationElement(const std::string elementName, 
+    const std::string elementURI)
+{
+  
+  int success = LIBSBML_OPERATION_FAILED;
+  if (mAnnotation == NULL)
+  {
+    success = LIBSBML_OPERATION_SUCCESS;
+    return success;
+  }
+  
+  int index = mAnnotation->getIndex(elementName);
+  if (index < 0)
+  {
+    // the annotation does not have a child of this name
+    success = LIBSBML_ANNOTATION_NAME_NOT_FOUND;
+    return success;
+  }
+  else
+  {
+    // check uri matches
+    std::string prefix = mAnnotation->getChild(index).getPrefix();
+
+    if (elementURI.empty() == false 
+      && elementURI != mAnnotation->getChild(index).getNamespaceURI(prefix))
+    {
+      success = LIBSBML_ANNOTATION_NS_NOT_FOUND;
+      return success;
+    }
+    
+    // remove the annotation at the index corresponding to the name
+    mAnnotation->removeChild(index);
+    if (mAnnotation->getNumChildren() == 0)
+    {
+      delete mAnnotation;
+      mAnnotation = NULL;
+    }
+
+    // check success 
+    if (mAnnotation == NULL || mAnnotation->getIndex(elementName) < 0)
+    {
+      success = LIBSBML_OPERATION_SUCCESS;
+    }
+  }
+
+  return success;
+}
+
+
+int 
+SBase::replaceTopLevelAnnotationElement(const XMLNode* annotation)
+{
+  int success = LIBSBML_OPERATION_FAILED;
+  XMLNode * replacement = NULL;
+  if (annotation->getName() == "annotation")
+  {
+    if (annotation->getNumChildren() != 1)
+    {
+      success = LIBSBML_INVALID_OBJECT;
+      return success;
+    }
+    else 
+    {
+      replacement = annotation->getChild(0).clone();
+    }
+  }
+  else
+  {
+    replacement = annotation->clone();
+  }
+
+  success = removeTopLevelAnnotationElement(replacement->getName());
+  if (success == LIBSBML_OPERATION_SUCCESS)
+  {
+    success = appendAnnotation(annotation);
+  }
+
+  delete (replacement);
+
+  return success;
+}
+
+
+int 
+SBase::replaceTopLevelAnnotationElement(const std::string& annotation)
+{
+  int success = LIBSBML_OPERATION_FAILED;
+  XMLNode* annt_xmln;
+  if (getSBMLDocument() != NULL)
+  {
+    XMLNamespaces* xmlns = getSBMLDocument()->getNamespaces();
+    annt_xmln = XMLNode::convertStringToXMLNode(annotation,xmlns);
+  }
+  else
+  {
+    annt_xmln = XMLNode::convertStringToXMLNode(annotation);
+  }
+  
+  if(annt_xmln != NULL)
+  {
+    success = replaceTopLevelAnnotationElement(annt_xmln);
+    delete annt_xmln;
+  }
+
+  return success;
+}
+
 
 /*
  * Sets the notes of this SBML object to a copy of notes.
@@ -6660,6 +6768,71 @@ SBase_appendAnnotationString (SBase_t *sb, char *annotation)
   {
     if (annotation != NULL)
       return sb->appendAnnotation(annotation);
+    else
+      return LIBSBML_INVALID_OBJECT;
+  }
+  else
+    return LIBSBML_INVALID_OBJECT;
+}
+
+
+LIBSBML_EXTERN
+int
+SBase_removeTopLevelAnnotationElement (SBase_t *sb, char *name)
+{
+  if (sb != NULL)
+  {
+    if (name != NULL)
+      return sb->removeTopLevelAnnotationElement(name);
+    else
+      return LIBSBML_INVALID_OBJECT;
+  }
+  else
+    return LIBSBML_INVALID_OBJECT;
+}
+
+
+LIBSBML_EXTERN
+int
+SBase_removeTopLevelAnnotationElementWithURI (SBase_t *sb, const char *name, 
+                                              const char *uri)
+{
+  if (sb != NULL)
+  {
+    if (name != NULL && uri != NULL)
+      return sb->removeTopLevelAnnotationElement(name, uri);
+    else
+      return LIBSBML_INVALID_OBJECT;
+  }
+  else
+    return LIBSBML_INVALID_OBJECT;
+}
+
+
+LIBSBML_EXTERN
+int
+SBase_replaceTopLevelAnnotationElement (SBase_t *sb, XMLNode_t *annotation)
+{
+  if (sb != NULL)
+  {
+    if (annotation != NULL)
+      return sb->replaceTopLevelAnnotationElement(annotation);
+    else
+      return LIBSBML_INVALID_OBJECT;
+  }
+  else
+    return LIBSBML_INVALID_OBJECT;
+}
+
+
+LIBSBML_EXTERN
+int
+SBase_replaceTopLevelAnnotationElementString (SBase_t *sb, char *annotation)
+{
+  if (sb != NULL)
+  {
+    if (annotation != NULL)
+      return sb->replaceTopLevelAnnotationElement(annotation);
     else
       return LIBSBML_INVALID_OBJECT;
   }

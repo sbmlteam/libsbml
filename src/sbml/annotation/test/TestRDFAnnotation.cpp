@@ -1651,6 +1651,7 @@ START_TEST (test_RDFAnnotation_testHasHistoryRDFAnnotationBadAbout)
 }
 END_TEST
 
+
 START_TEST (test_RDFAnnotation_testCreateAnnotations)
 {
   XMLNode *ann = RDFAnnotationParser::createAnnotation();
@@ -1731,6 +1732,7 @@ START_TEST (test_RDFAnnotation_testCreateAnnotations)
 }
 END_TEST
 
+
 START_TEST (test_RDFAnnotation_deleteCVTerms)
 {
   XMLNode* node = m->getCompartment(0)->getAnnotation();
@@ -1797,6 +1799,210 @@ START_TEST (test_RDFAnnotation_deleteCVTerms)
 END_TEST
 
 
+START_TEST (test_RDFAnnotation_removeSingleAnnotation)
+{
+  XMLNode* n1 = NULL;
+
+
+  int i = m->getCompartment(0)->removeTopLevelAnnotationElement("RDF");
+  n1 = m->getCompartment(0)->getAnnotation();
+
+  fail_unless (i == LIBSBML_OPERATION_SUCCESS);
+  fail_unless (n1 == NULL);
+
+  i = m->getCompartment(2)->removeTopLevelAnnotationElement("JDesignerLayout");
+  n1 = m->getCompartment(2)->getAnnotation();
+
+  fail_unless (i == LIBSBML_OPERATION_SUCCESS);
+  fail_unless (n1 == NULL);
+
+  i = m->getCompartment(3)->removeTopLevelAnnotationElement("RDF", "http://www.w3.org/1999/02/22-rdf-syntax-ns#");
+  n1 = m->getCompartment(3)->getAnnotation();
+
+  fail_unless (i == LIBSBML_OPERATION_SUCCESS);
+  fail_unless (n1 == NULL);
+}
+END_TEST
+
+
+START_TEST (test_RDFAnnotation_removeSingleAnnotation1)
+{
+  XMLNode* n1 = NULL;
+
+
+  int i = m->getCompartment(0)->removeTopLevelAnnotationElement("RDF1");
+  n1 = m->getCompartment(0)->getAnnotation();
+
+  fail_unless (i == LIBSBML_ANNOTATION_NAME_NOT_FOUND);
+  fail_unless (n1->getNumChildren() == 1);
+
+  i = m->getCompartment(2)->removeTopLevelAnnotationElement("JDLayout");
+  n1 = m->getCompartment(2)->getAnnotation();
+
+  fail_unless (i == LIBSBML_ANNOTATION_NAME_NOT_FOUND);
+  fail_unless (n1->getNumChildren() == 1);
+
+  i = m->getCompartment(3)->removeTopLevelAnnotationElement("RDF", "http://www.w3.org/1999/02/22-rdf-syntax-ns");
+  n1 = m->getCompartment(3)->getAnnotation();
+
+  fail_unless (i == LIBSBML_ANNOTATION_NS_NOT_FOUND);
+  fail_unless (n1->getNumChildren() == 1);
+}
+END_TEST
+
+
+START_TEST (test_RDFAnnotation_removeAnnotation)
+{
+  XMLNode* n1 = NULL;
+
+  const char * expected =
+    "<annotation>\n"
+		"  <rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:dc=\"http://purl.org/dc/elements/1.1/\" xmlns:dcterms=\"http://purl.org/dc/terms/\" xmlns:vCard=\"http://www.w3.org/2001/vcard-rdf/3.0#\" xmlns:bqbiol=\"http://biomodels.net/biology-qualifiers/\" xmlns:bqmodel=\"http://biomodels.net/model-qualifiers/\">\n"
+    "    <rdf:Description rdf:about=\"#_000005\">\n"
+		"      <bqbiol:is>\n"
+		"        <rdf:Bag>\n"
+		"          <rdf:li rdf:resource=\"http://www.geneontology.org/#GO:0007274\"/>\n"
+		"        </rdf:Bag>\n"
+		"      </bqbiol:is>\n"
+		"    </rdf:Description>\n"
+		"    <rdf:Description>\n"
+    "      <rdf:other/>\n"
+		"    </rdf:Description>\n"
+		"  </rdf:RDF>\n"
+    "</annotation>";
+
+  int i = m->getCompartment(4)->removeTopLevelAnnotationElement("JDesignerLayout");
+  n1 = m->getCompartment(4)->getAnnotation();
+
+  fail_unless(i == LIBSBML_OPERATION_SUCCESS);
+  fail_unless( equals(expected, n1->toXMLString().c_str()) );
+
+  i = m->getListOfCompartments()->removeTopLevelAnnotationElement("RDF");
+  fail_unless(i == LIBSBML_OPERATION_SUCCESS);
+
+}
+END_TEST
+
+
+START_TEST (test_RDFAnnotation_replaceAnnotation)
+{
+  XMLNode* node = m->getCompartment(3)->getAnnotation();
+  XMLNode* n1 = NULL;
+
+  const char * expected =
+    "<annotation>\n"
+		"  <rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:dc=\"http://purl.org/dc/elements/1.1/\" xmlns:dcterms=\"http://purl.org/dc/terms/\" xmlns:vCard=\"http://www.w3.org/2001/vcard-rdf/3.0#\" xmlns:bqbiol=\"http://biomodels.net/biology-qualifiers/\" xmlns:bqmodel=\"http://biomodels.net/model-qualifiers/\">\n"
+    "    <rdf:Description rdf:about=\"#_000002\">\n"
+		"      <bqbiol:is>\n"
+		"        <rdf:Bag>\n"
+		"          <rdf:li rdf:resource=\"http://www.geneontology.org/#GO:0007274\"/>\n"
+		"        </rdf:Bag>\n"
+		"      </bqbiol:is>\n"
+		"    </rdf:Description>\n"
+		"  </rdf:RDF>\n"
+    "</annotation>";
+
+  int i = m->getCompartment(0)->replaceTopLevelAnnotationElement(node);
+  n1 = m->getCompartment(0)->getAnnotation();
+
+  fail_unless ( i == LIBSBML_OPERATION_SUCCESS);
+  fail_unless( equals(expected, n1->toXMLString().c_str()) );
+}
+END_TEST
+
+
+START_TEST (test_RDFAnnotation_replaceAnnotation1)
+{
+  XMLNode* n1 = NULL;
+
+  const char * noRDF = "<annotation>\n"
+		"  <jd2:JDesignerLayout version=\"2.0\" MajorVersion=\"2\" MinorVersion=\"3\" BuildVersion=\"41\">\n"
+		"    <jd2:header>\n"
+		"      <jd2:VersionHeader JDesignerVersion=\"2.0\"/>\n"
+		"      <jd2:ModelHeader Author=\"Sarah\" ModelVersion=\"0.0\" ModelTitle=\"mine\"/>\n"
+		"      <jd2:TimeCourseDetails timeStart=\"0\" timeEnd=\"12\" numberOfPoints=\"1000\"/>\n"
+		"    </jd2:header>\n"
+		"  </jd2:JDesignerLayout>\n"
+    "</annotation>";
+
+  const char * expected =
+    "<annotation>\n"
+		"  <jd2:JDesignerLayout version=\"2.0\" MajorVersion=\"2\" MinorVersion=\"3\" BuildVersion=\"41\">\n"
+		"    <jd2:header>\n"
+		"      <jd2:VersionHeader JDesignerVersion=\"2.0\"/>\n"
+		"      <jd2:ModelHeader Author=\"Sarah\" ModelVersion=\"0.0\" ModelTitle=\"mine\"/>\n"
+		"      <jd2:TimeCourseDetails timeStart=\"0\" timeEnd=\"12\" numberOfPoints=\"1000\"/>\n"
+		"    </jd2:header>\n"
+		"  </jd2:JDesignerLayout>\n"
+		"  <rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:dc=\"http://purl.org/dc/elements/1.1/\" xmlns:dcterms=\"http://purl.org/dc/terms/\" xmlns:vCard=\"http://www.w3.org/2001/vcard-rdf/3.0#\" xmlns:bqbiol=\"http://biomodels.net/biology-qualifiers/\" xmlns:bqmodel=\"http://biomodels.net/model-qualifiers/\">\n"
+    "    <rdf:Description rdf:about=\"#_000005\">\n"
+		"      <bqbiol:is>\n"
+		"        <rdf:Bag>\n"
+		"          <rdf:li rdf:resource=\"http://www.geneontology.org/#GO:0007274\"/>\n"
+		"        </rdf:Bag>\n"
+		"      </bqbiol:is>\n"
+		"    </rdf:Description>\n"
+		"    <rdf:Description>\n"
+    "      <rdf:other/>\n"
+		"    </rdf:Description>\n"
+		"  </rdf:RDF>\n"
+    "</annotation>";
+
+  int i = m->getCompartment(4)->replaceTopLevelAnnotationElement(noRDF);
+  n1 = m->getCompartment(4)->getAnnotation();
+
+  fail_unless ( i == LIBSBML_OPERATION_SUCCESS);
+  fail_unless( equals(expected, n1->toXMLString().c_str()) );
+}
+END_TEST
+
+
+START_TEST (test_RDFAnnotation_replaceAnnotation2)
+{
+  XMLNode* n1 = NULL;
+
+  const char * jd = "  <jd2:JDesignerLayout version=\"2.0\" MajorVersion=\"2\" MinorVersion=\"3\" BuildVersion=\"41\">\n"
+		"    <jd2:header>\n"
+		"      <jd2:VersionHeader JDesignerVersion=\"2.0\"/>\n"
+		"      <jd2:ModelHeader Author=\"Sarah\" ModelVersion=\"0.0\" ModelTitle=\"mine\"/>\n"
+		"      <jd2:TimeCourseDetails timeStart=\"0\" timeEnd=\"12\" numberOfPoints=\"1000\"/>\n"
+		"    </jd2:header>\n"
+		"  </jd2:JDesignerLayout>";
+
+  const char * twoAnn =
+    "<annotation>\n"
+		"  <jd2:JDesignerLayout version=\"2.0\" MajorVersion=\"2\" MinorVersion=\"3\" BuildVersion=\"41\">\n"
+		"    <jd2:header>\n"
+		"      <jd2:VersionHeader JDesignerVersion=\"2.0\"/>\n"
+		"      <jd2:ModelHeader Author=\"Sarah\" ModelVersion=\"0.0\" ModelTitle=\"mine\"/>\n"
+		"      <jd2:TimeCourseDetails timeStart=\"0\" timeEnd=\"12\" numberOfPoints=\"1000\"/>\n"
+		"    </jd2:header>\n"
+		"  </jd2:JDesignerLayout>\n"
+		"  <rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:dc=\"http://purl.org/dc/elements/1.1/\" xmlns:dcterms=\"http://purl.org/dc/terms/\" xmlns:vCard=\"http://www.w3.org/2001/vcard-rdf/3.0#\" xmlns:bqbiol=\"http://biomodels.net/biology-qualifiers/\" xmlns:bqmodel=\"http://biomodels.net/model-qualifiers/\">\n"
+    "    <rdf:Description rdf:about=\"#_000005\">\n"
+		"      <bqbiol:is>\n"
+		"        <rdf:Bag>\n"
+		"          <rdf:li rdf:resource=\"http://www.geneontology.org/#GO:0007274\"/>\n"
+		"        </rdf:Bag>\n"
+		"      </bqbiol:is>\n"
+		"    </rdf:Description>\n"
+		"    <rdf:Description>\n"
+    "      <rdf:other/>\n"
+		"    </rdf:Description>\n"
+		"  </rdf:RDF>\n"
+    "</annotation>";
+
+  int i = m->getCompartment(4)->replaceTopLevelAnnotationElement(twoAnn);
+  fail_unless ( i == LIBSBML_INVALID_OBJECT);
+
+  i = m->getCompartment(4)->replaceTopLevelAnnotationElement(jd);
+  n1 = m->getCompartment(4)->getAnnotation();
+
+  fail_unless ( i == LIBSBML_OPERATION_SUCCESS);
+  fail_unless( equals(twoAnn, n1->toXMLString().c_str()) );
+}
+END_TEST
+
 
 /* when I rewrote the parsing an annotation that has not been touched
  * does not get "recreated" - so I took out these tests
@@ -1833,6 +2039,12 @@ create_suite_RDFAnnotation (void)
   tcase_add_test(tcase, test_RDFAnnotation_testHasHistoryRDFAnnotationBadAbout );
   tcase_add_test(tcase, test_RDFAnnotation_testCreateAnnotations );
   tcase_add_test(tcase, test_RDFAnnotation_deleteCVTerms );
+  tcase_add_test(tcase, test_RDFAnnotation_removeSingleAnnotation );
+  tcase_add_test(tcase, test_RDFAnnotation_removeSingleAnnotation1 );
+  tcase_add_test(tcase, test_RDFAnnotation_removeAnnotation );
+  tcase_add_test(tcase, test_RDFAnnotation_replaceAnnotation );
+  tcase_add_test(tcase, test_RDFAnnotation_replaceAnnotation1 );
+  tcase_add_test(tcase, test_RDFAnnotation_replaceAnnotation2 );
   suite_add_tcase(suite, tcase);
 
   return suite;
