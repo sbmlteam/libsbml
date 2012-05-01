@@ -242,6 +242,14 @@ my %IgnoreTestFunc = (
   test_Reaction_addModifier3                     => 0,
   test_Reaction_createModifier                   => 0,
   test_Reaction_removeModifier                   => 0,
+  test_RDFAnnotation_testHasRDFAnnotation        => 0,
+  test_RDFAnnotation_testHasAdditionalRDFAnnotation => 0,
+  test_RDFAnnotation_testHasCVTermRDFAnnotation  => 0,
+  test_RDFAnnotation_testHasHistoryRDFAnnotation => 0,
+  test_RDFAnnotation_testHasCVTermRDFAnnotationBadAbout => 0,
+  test_RDFAnnotation_testHasHistoryRDFAnnotationBadAbout => 0,
+  test_RDFAnnotation_testCreateAnnotations       => 0,
+  test_RDFAnnotation_deleteCVTerms               => 0,
 );
 
 ######################################################################
