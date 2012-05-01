@@ -370,6 +370,11 @@ LIBSBML_CPP_NAMESPACE_USE
 %newobject writeMathMLToString;
 %newobject SBML_formulaToString;
 %newobject SBML_parseFormula;
+%newobject SBML_parseL3Formula;
+%newobject SBML_parseL3FormulaWithModel;
+%newobject SBML_parseL3FormulaWithSettings;
+%newobject SBML_getDefaultL3ParserSettings;
+%newobject SBML_getLastParseL3Error;
 %newobject ASTNode::deepCopy;
 %newobject ASTNode::getListOfNodes();
 %newobject *::remove;
@@ -415,6 +420,11 @@ LIBSBML_CPP_NAMESPACE_USE
  */
 %rename(formulaToString) SBML_formulaToString;
 %rename(parseFormula)    SBML_parseFormula;
+%rename(parseL3Formula)    SBML_parseL3Formula;
+%rename(parseL3FormulaWithModel)    SBML_parseL3FormulaWithModel;
+%rename(parseL3FormulaWithSettings)    SBML_parseL3FormulaWithSettings;
+%rename(getDefaultL3ParserSettings)    SBML_getDefaultL3ParserSettings;
+%rename(getLastParseL3Error)    SBML_getLastParseL3Error;
 
 
 /**
