@@ -136,6 +136,7 @@ distfiles =                                                  \
         common-text/libsbml-facility-only-warning.html       \
         common-text/math-functions.html                      \
         common-text/math-precedence-table.html               \
+        common-text/math-precedence-table-l3.html            \
         common-text/not-sbml-warning.html                    \
         common-text/note-reading-zipped-files.html           \
         common-text/note-writing-zipped-files.html           \
@@ -151,6 +152,8 @@ distfiles =                                                  \
         common-text/species-boundarycondition.html           \
         common-text/species-hasonlysubstance.html            \
         common-text/string-functions-table.html              \
+        common-text/string-functions-table-l3.html           \
+        common-text/string-values-table-l3.html              \
         common-text/unassigned-units-are-not-a-default.html  \
         common-text/unitid-syntax.html                       \
         common-text/unitkind-table.html                      \
