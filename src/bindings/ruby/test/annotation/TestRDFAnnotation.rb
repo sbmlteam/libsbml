@@ -2,7 +2,8 @@
 # @brief   fomula units data unit tests
 #
 # @author  Akiya Jouraku (Ruby conversion)
-# @author  Ben Bornstein 
+# @author  Ben Bornstein
+ 
 # 
 # ====== WARNING ===== WARNING ===== WARNING ===== WARNING ===== WARNING ======
 #
@@ -88,6 +89,26 @@ class TestRDFAnnotation < Test::Unit::TestCase
     "      <jd2:TimeCourseDetails timeStart=\"0\" timeEnd=\"10\" numberOfPoints=\"1000\"/>\n" + 
     "    </jd2:header>\n" + 
     "  </jd2:JDesignerLayout>\n" + 
+    "</annotation>"
+    assert_equal true, equals(expected,node.toXMLString())
+  end
+
+  def test_RDFAnnotation_deleteWithOtherRDF
+    c = @@m.getCompartment(5)
+    node = c.getAnnotation()
+    expected = "<annotation>\n" +
+    "  <jd2:JDesignerLayout version=\"2.0\" MajorVersion=\"2\" MinorVersion=\"0\" BuildVersion=\"41\">\n" + 
+    "    <jd2:header>\n"+ 
+    "      <jd2:VersionHeader JDesignerVersion=\"2.0\"/>\n" + 
+    "      <jd2:ModelHeader Author=\"Mr Untitled\" ModelVersion=\"0.0\" ModelTitle=\"untitled\"/>\n" + 
+    "      <jd2:TimeCourseDetails timeStart=\"0\" timeEnd=\"10\" numberOfPoints=\"1000\"/>\n" + 
+    "    </jd2:header>\n" + 
+    "  </jd2:JDesignerLayout>\n" + 
+    "  <rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:dc=\"http://purl.org/dc/elements/1.1/\" xmlns:dcterms=\"http://purl.org/dc/terms/\" xmlns:vCard=\"http://www.w3.org/2001/vcard-rdf/3.0#\" xmlns:bqbiol=\"http://biomodels.net/biology-qualifiers/\" xmlns:bqmodel=\"http://biomodels.net/model-qualifiers/\">\n" + 
+    "    <rdf:Description>\n" + 
+    "      <rdf:other/>\n" + 
+    "    </rdf:Description>\n" + 
+    "  </rdf:RDF>\n" + 
     "</annotation>"
     assert_equal true, equals(expected,node.toXMLString())
   end
@@ -182,6 +203,39 @@ class TestRDFAnnotation < Test::Unit::TestCase
     assert ((  "http://www.w3.org/1999/02/22-rdf-syntax-ns#" == li3.getURI() ))
     assert( li3.getNumChildren() == 0 )
     node = nil
+    node1 = LibSBML::RDFAnnotationParser.parseCVTerms(nil)
+    assert( node1 == nil )
+    node1 = LibSBML::RDFAnnotationParser.createCVTerms(nil)
+    assert( node1 == nil )
+    node1 = LibSBML::RDFAnnotationParser.parseCVTerms(@@m.getCompartment(2))
+    assert( node1 == nil )
+    node1 = LibSBML::RDFAnnotationParser.createCVTerms(@@m.getCompartment(2))
+    assert( node1 == nil )
+    node1 = LibSBML::RDFAnnotationParser.parseCVTerms(@@m)
+    assert( node1 == nil )
+    node1 = LibSBML::RDFAnnotationParser.createCVTerms(@@m)
+    assert( node1 == nil )
+    c = LibSBML::Compartment.new(3,1)
+    c.setMetaId("_002")
+    node1 = LibSBML::RDFAnnotationParser.parseCVTerms(c)
+    assert( node1 == nil )
+    node1 = LibSBML::RDFAnnotationParser.createCVTerms(c)
+    assert( node1 == nil )
+    cv = LibSBML::CVTerm.new(LibSBML::BIOLOGICAL_QUALIFIER)
+    cv.setBiologicalQualifierType(23)
+    cv.addResource("http://myres")
+    c.addCVTerm(cv)
+    node1 = LibSBML::RDFAnnotationParser.createCVTerms(c)
+    assert( node1 == nil )
+    c = nil
+    m1 = LibSBML::Model.new(3,1)
+    m1.setMetaId("_002")
+    cv = LibSBML::CVTerm.new(LibSBML::MODEL_QUALIFIER)
+    cv.setModelQualifierType(23)
+    cv.addResource("http://myres")
+    m1.addCVTerm(cv)
+    node1 = LibSBML::RDFAnnotationParser.createCVTerms(m1)
+    assert( node1 == nil )
   end
 
   def test_RDFAnnotation_parseModelHistory
@@ -263,6 +317,236 @@ class TestRDFAnnotation < Test::Unit::TestCase
     assert ((  "http://purl.org/dc/terms/" == mo_date.getURI() ))
     assert( mo_date.getNumChildren() == 1 )
     node = nil
+  end
+
+  def test_RDFAnnotation_removeAnnotation
+    n1 = nil
+    expected = "<annotation>\n" + 
+    "  <rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:dc=\"http://purl.org/dc/elements/1.1/\" xmlns:dcterms=\"http://purl.org/dc/terms/\" xmlns:vCard=\"http://www.w3.org/2001/vcard-rdf/3.0#\" xmlns:bqbiol=\"http://biomodels.net/biology-qualifiers/\" xmlns:bqmodel=\"http://biomodels.net/model-qualifiers/\">\n" + 
+    "    <rdf:Description rdf:about=\"#_000005\">\n" + 
+    "      <bqbiol:is>\n" + 
+    "        <rdf:Bag>\n" + 
+    "          <rdf:li rdf:resource=\"http://www.geneontology.org/#GO:0007274\"/>\n" + 
+    "        </rdf:Bag>\n" + 
+    "      </bqbiol:is>\n" + 
+    "    </rdf:Description>\n" + 
+    "    <rdf:Description>\n" + 
+    "      <rdf:other/>\n" + 
+    "    </rdf:Description>\n" + 
+    "  </rdf:RDF>\n" + 
+    "</annotation>"
+    i = @@m.getCompartment(4).removeTopLevelAnnotationElement("JDesignerLayout")
+    n1 = @@m.getCompartment(4).getAnnotation()
+    assert( i == LibSBML::LIBSBML_OPERATION_SUCCESS )
+    assert_equal true, equals(expected,n1.toXMLString())
+    i = @@m.getListOfCompartments().removeTopLevelAnnotationElement("RDF")
+    assert( i == LibSBML::LIBSBML_OPERATION_SUCCESS )
+  end
+
+  def test_RDFAnnotation_removeSingleAnnotation
+    n1 = nil
+    i = @@m.getCompartment(0).removeTopLevelAnnotationElement("RDF")
+    n1 = @@m.getCompartment(0).getAnnotation()
+    assert( i == LibSBML::LIBSBML_OPERATION_SUCCESS )
+    assert( n1 == nil )
+    i = @@m.getCompartment(2).removeTopLevelAnnotationElement("JDesignerLayout")
+    n1 = @@m.getCompartment(2).getAnnotation()
+    assert( i == LibSBML::LIBSBML_OPERATION_SUCCESS )
+    assert( n1 == nil )
+    i = @@m.getCompartment(3).removeTopLevelAnnotationElement("RDF", "http://www.w3.org/1999/02/22-rdf-syntax-ns#")
+    n1 = @@m.getCompartment(3).getAnnotation()
+    assert( i == LibSBML::LIBSBML_OPERATION_SUCCESS )
+    assert( n1 == nil )
+  end
+
+  def test_RDFAnnotation_removeSingleAnnotation1
+    n1 = nil
+    i = @@m.getCompartment(0).removeTopLevelAnnotationElement("RDF1")
+    n1 = @@m.getCompartment(0).getAnnotation()
+    assert( i == LibSBML::LIBSBML_ANNOTATION_NAME_NOT_FOUND )
+    assert( n1.getNumChildren() == 1 )
+    i = @@m.getCompartment(2).removeTopLevelAnnotationElement("JDLayout")
+    n1 = @@m.getCompartment(2).getAnnotation()
+    assert( i == LibSBML::LIBSBML_ANNOTATION_NAME_NOT_FOUND )
+    assert( n1.getNumChildren() == 1 )
+    i = @@m.getCompartment(3).removeTopLevelAnnotationElement("RDF", "http://www.w3.org/1999/02/22-rdf-syntax-ns")
+    n1 = @@m.getCompartment(3).getAnnotation()
+    assert( i == LibSBML::LIBSBML_ANNOTATION_NS_NOT_FOUND )
+    assert( n1.getNumChildren() == 1 )
+  end
+
+  def test_RDFAnnotation_replaceAnnotation
+    node = @@m.getCompartment(3).getAnnotation()
+    n1 = nil
+    expected = "<annotation>\n" + 
+    "  <rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:dc=\"http://purl.org/dc/elements/1.1/\" xmlns:dcterms=\"http://purl.org/dc/terms/\" xmlns:vCard=\"http://www.w3.org/2001/vcard-rdf/3.0#\" xmlns:bqbiol=\"http://biomodels.net/biology-qualifiers/\" xmlns:bqmodel=\"http://biomodels.net/model-qualifiers/\">\n" + 
+    "    <rdf:Description rdf:about=\"#_000002\">\n" + 
+    "      <bqbiol:is>\n" + 
+    "        <rdf:Bag>\n" + 
+    "          <rdf:li rdf:resource=\"http://www.geneontology.org/#GO:0007274\"/>\n" + 
+    "        </rdf:Bag>\n" + 
+    "      </bqbiol:is>\n" + 
+    "    </rdf:Description>\n" + 
+    "  </rdf:RDF>\n" + 
+    "</annotation>"
+    i = @@m.getCompartment(0).replaceTopLevelAnnotationElement(node)
+    n1 = @@m.getCompartment(0).getAnnotation()
+    assert( i == LibSBML::LIBSBML_OPERATION_SUCCESS )
+    assert_equal true, equals(expected,n1.toXMLString())
+  end
+
+  def test_RDFAnnotation_replaceAnnotation1
+    n1 = nil
+    noRDF = "<annotation>\n" +
+    "  <jd2:JDesignerLayout version=\"2.0\" MajorVersion=\"2\" MinorVersion=\"3\" BuildVersion=\"41\">\n" + 
+    "    <jd2:header>\n" + 
+    "      <jd2:VersionHeader JDesignerVersion=\"2.0\"/>\n" + 
+    "      <jd2:ModelHeader Author=\"Sarah\" ModelVersion=\"0.0\" ModelTitle=\"mine\"/>\n" + 
+    "      <jd2:TimeCourseDetails timeStart=\"0\" timeEnd=\"12\" numberOfPoints=\"1000\"/>\n" + 
+    "    </jd2:header>\n" + 
+    "  </jd2:JDesignerLayout>\n" + 
+    "</annotation>"
+    expected = "<annotation>\n" + 
+    "  <jd2:JDesignerLayout version=\"2.0\" MajorVersion=\"2\" MinorVersion=\"3\" BuildVersion=\"41\">\n" + 
+    "    <jd2:header>\n" + 
+    "      <jd2:VersionHeader JDesignerVersion=\"2.0\"/>\n" + 
+    "      <jd2:ModelHeader Author=\"Sarah\" ModelVersion=\"0.0\" ModelTitle=\"mine\"/>\n" + 
+    "      <jd2:TimeCourseDetails timeStart=\"0\" timeEnd=\"12\" numberOfPoints=\"1000\"/>\n" + 
+    "    </jd2:header>\n" + 
+    "  </jd2:JDesignerLayout>\n"+ 
+    "  <rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:dc=\"http://purl.org/dc/elements/1.1/\" xmlns:dcterms=\"http://purl.org/dc/terms/\" xmlns:vCard=\"http://www.w3.org/2001/vcard-rdf/3.0#\" xmlns:bqbiol=\"http://biomodels.net/biology-qualifiers/\" xmlns:bqmodel=\"http://biomodels.net/model-qualifiers/\">\n" + 
+    "    <rdf:Description rdf:about=\"#_000005\">\n" + 
+    "      <bqbiol:is>\n" + 
+    "        <rdf:Bag>\n" + 
+    "          <rdf:li rdf:resource=\"http://www.geneontology.org/#GO:0007274\"/>\n" + 
+    "        </rdf:Bag>\n" + 
+    "      </bqbiol:is>\n" + 
+    "    </rdf:Description>\n" + 
+    "    <rdf:Description>\n" + 
+    "      <rdf:other/>\n" + 
+    "    </rdf:Description>\n" + 
+    "  </rdf:RDF>\n" + 
+    "</annotation>"
+    i = @@m.getCompartment(4).replaceTopLevelAnnotationElement(noRDF)
+    n1 = @@m.getCompartment(4).getAnnotation()
+    assert( i == LibSBML::LIBSBML_OPERATION_SUCCESS )
+    assert_equal true, equals(expected,n1.toXMLString())
+  end
+
+  def test_RDFAnnotation_replaceAnnotation2
+    n1 = nil
+    jd = "  <jd2:JDesignerLayout version=\"2.0\" MajorVersion=\"2\" MinorVersion=\"3\" BuildVersion=\"41\">\n" +
+    "    <jd2:header>\n" + 
+    "      <jd2:VersionHeader JDesignerVersion=\"2.0\"/>\n" + 
+    "      <jd2:ModelHeader Author=\"Sarah\" ModelVersion=\"0.0\" ModelTitle=\"mine\"/>\n" + 
+    "      <jd2:TimeCourseDetails timeStart=\"0\" timeEnd=\"12\" numberOfPoints=\"1000\"/>\n" + 
+    "    </jd2:header>\n" + 
+    "  </jd2:JDesignerLayout>"
+    twoAnn = "<annotation>\n" + 
+    "  <jd2:JDesignerLayout version=\"2.0\" MajorVersion=\"2\" MinorVersion=\"3\" BuildVersion=\"41\">\n" + 
+    "    <jd2:header>\n" + 
+    "      <jd2:VersionHeader JDesignerVersion=\"2.0\"/>\n" + 
+    "      <jd2:ModelHeader Author=\"Sarah\" ModelVersion=\"0.0\" ModelTitle=\"mine\"/>\n" + 
+    "      <jd2:TimeCourseDetails timeStart=\"0\" timeEnd=\"12\" numberOfPoints=\"1000\"/>\n" + 
+    "    </jd2:header>\n" + 
+    "  </jd2:JDesignerLayout>\n" + 
+    "  <rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:dc=\"http://purl.org/dc/elements/1.1/\" xmlns:dcterms=\"http://purl.org/dc/terms/\" xmlns:vCard=\"http://www.w3.org/2001/vcard-rdf/3.0#\" xmlns:bqbiol=\"http://biomodels.net/biology-qualifiers/\" xmlns:bqmodel=\"http://biomodels.net/model-qualifiers/\">\n" + 
+    "    <rdf:Description rdf:about=\"#_000005\">\n" + 
+    "      <bqbiol:is>\n" + 
+    "        <rdf:Bag>\n" + 
+    "          <rdf:li rdf:resource=\"http://www.geneontology.org/#GO:0007274\"/>\n" + 
+    "        </rdf:Bag>\n" + 
+    "      </bqbiol:is>\n" + 
+    "    </rdf:Description>\n" + 
+    "    <rdf:Description>\n" + 
+    "      <rdf:other/>\n" + 
+    "    </rdf:Description>\n" + 
+    "  </rdf:RDF>\n" + 
+    "</annotation>"
+    i = @@m.getCompartment(4).replaceTopLevelAnnotationElement(twoAnn)
+    assert( i == LibSBML::LIBSBML_INVALID_OBJECT )
+    i = @@m.getCompartment(4).replaceTopLevelAnnotationElement(jd)
+    n1 = @@m.getCompartment(4).getAnnotation()
+    assert( i == LibSBML::LIBSBML_OPERATION_SUCCESS )
+    assert_equal true, equals(twoAnn,n1.toXMLString())
+  end
+
+  def test_RDFAnnotation_testAnnotationForMetaId
+    doc = LibSBML::SBMLDocument.new( 3,1 )
+    model = doc.createModel()
+    assert( model != nil )
+    model.setId("test1")
+    term = LibSBML::CVTerm.new( LibSBML::MODEL_QUALIFIER )
+    term.addResource("testResource")
+    term.setModelQualifierType(LibSBML::BQM_IS)
+    model.setMetaId("t1")
+    model.addCVTerm(term)
+    model.setMetaId("")
+    test = model.toSBML()
+    assert( test ==  "<model id=\"test1\"/>" )
+  end
+
+  def test_RDFAnnotation_testMissingAbout
+    withAbout = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" + 
+    "  <annotation>\n" + 
+    "    <rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:dc=\"http://purl.org/dc/elements/1.1/\" xmlns:dcterms=\"http://purl.org/dc/terms/\" xmlns:vCard=\"http://www.w3.org/2001/vcard-rdf/3.0#\" xmlns:bqbiol=\"http://biomodels.net/biology-qualifiers/\" xmlns:bqmodel=\"http://biomodels.net/model-qualifiers/\">\n" + 
+    "      <rdf:Description rdf:about=\"#_000004\">\n" + 
+    "        <bqbiol:is>\n" + 
+    "          <rdf:Bag>\n" +    
+    "            <rdf:li rdf:resource=\"http://www.geneontology.org/#GO:0007274\"/>\n" + 
+    "          </rdf:Bag>\n" + 
+    "        </bqbiol:is>\n" + 
+    "      </rdf:Description>\n" + 
+    "    </rdf:RDF>\n" + 
+    "  </annotation>"
+    emptyAbout = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" + 
+    "  <annotation>\n" + 
+    "    <rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:dc=\"http://purl.org/dc/elements/1.1/\" xmlns:dcterms=\"http://purl.org/dc/terms/\" xmlns:vCard=\"http://www.w3.org/2001/vcard-rdf/3.0#\" xmlns:bqbiol=\"http://biomodels.net/biology-qualifiers/\" xmlns:bqmodel=\"http://biomodels.net/model-qualifiers/\">\n" + 
+    "      <rdf:Description rdf:about=\"\">\n" + 
+    "        <bqbiol:is>\n" + 
+    "          <rdf:Bag>\n" + 
+    "            <rdf:li rdf:resource=\"http://www.geneontology.org/#GO:0007274\"/>\n" + 
+    "          </rdf:Bag>\n" + 
+    "        </bqbiol:is>\n" + 
+    "      </rdf:Description>\n" + 
+    "    </rdf:RDF>\n" + 
+    "  </annotation>"
+    noAbout = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" + 
+    "  <annotation>\n" + 
+    "    <rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:dc=\"http://purl.org/dc/elements/1.1/\" xmlns:dcterms=\"http://purl.org/dc/terms/\" xmlns:vCard=\"http://www.w3.org/2001/vcard-rdf/3.0#\" xmlns:bqbiol=\"http://biomodels.net/biology-qualifiers/\" xmlns:bqmodel=\"http://biomodels.net/model-qualifiers/\">\n" + 
+    "      <rdf:Description>\n" + 
+    "        <bqbiol:is>\n" + 
+    "          <rdf:Bag>\n" + 
+    "            <rdf:li rdf:resource=\"http://www.geneontology.org/#GO:0007274\"/>\n" + 
+    "          </rdf:Bag>\n" + 
+    "        </bqbiol:is>\n" + 
+    "      </rdf:Description>\n" + 
+    "    </rdf:RDF>\n" + 
+    "  </annotation>"
+    cvTerms = LibSBML::CVTermList.new()
+    stream = LibSBML::XMLInputStream.new( withAbout,false )
+    node = LibSBML::XMLNode.new( stream )
+    LibSBML::RDFAnnotationParser.parseRDFAnnotation(node,cvTerms)
+    assert( cvTerms.getSize() == 1 )
+    cvTerms = LibSBML::CVTermList.new()
+    LibSBML::RDFAnnotationParser.parseRDFAnnotation(node,cvTerms )
+    assert( cvTerms.getSize() == 1 )
+    cvTerms = nil
+    cvTerms = nil
+    cvTerms = LibSBML::CVTermList.new()
+    stream1 = LibSBML::XMLInputStream.new( emptyAbout,false )
+    node1 = LibSBML::XMLNode.new( stream1 )
+    LibSBML::RDFAnnotationParser.parseRDFAnnotation(node1,cvTerms)
+    assert( cvTerms.getSize() == 0 )
+    cvTerms = nil
+    cvTerms = nil
+    cvTerms = LibSBML::CVTermList.new()
+    stream2 = LibSBML::XMLInputStream.new( noAbout,false )
+    node2 = LibSBML::XMLNode.new( stream2 )
+    LibSBML::RDFAnnotationParser.parseRDFAnnotation(node2,cvTerms)
+    assert( cvTerms.getSize() == 0 )
+    cvTerms = nil
+    cvTerms = nil
   end
 
   def test_RDFAnnotation_testMissingMetaId
