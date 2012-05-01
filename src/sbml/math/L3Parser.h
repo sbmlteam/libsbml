@@ -31,6 +31,7 @@
 
 #include <sbml/common/extern.h>
 #include <sbml/math/ASTNode.h>
+LIBSBML_CPP_NAMESPACE_BEGIN
 BEGIN_C_DECLS
 
 
