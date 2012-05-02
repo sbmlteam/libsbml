@@ -140,7 +140,8 @@ SBMLDocumentPlugin::readAttributes (const XMLAttributes& attributes,
   {  
     // check level of document version smaller than plugin
     // and report invalid if it is
-    if (this->getSBMLDocument()->getLevel() < mSBMLExt->getLevel(mURI))
+    if (this->getSBMLDocument() != NULL &&
+        this->getSBMLDocument()->getLevel() < mSBMLExt->getLevel(mURI))
     {
       // we should not have a package ns in an l2 document
       this->getSBMLDocument()->getErrorLog()->logError(L3PackageOnLowerSBML, 
