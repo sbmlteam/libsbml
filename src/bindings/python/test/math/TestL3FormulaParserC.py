@@ -805,6 +805,449 @@ class TestL3FormulaParserC(unittest.TestCase):
     _dummyList = [ r ]; _dummyList[:] = []; del _dummyList
     pass  
 
+  def test_SBML_C_parseL3Formula_modelPresent1(self):
+    model = libsbml.Model(3,1)
+    p = model.createParameter()
+    p.setId( "infinity")
+    r = libsbml.parseL3FormulaWithModel("infinity", model)
+    self.assert_( r.getType() == libsbml.AST_NAME )
+    self.assert_((  "infinity" == r.getName() ))
+    self.assert_( r.getNumChildren() == 0 )
+    _dummyList = [ r ]; _dummyList[:] = []; del _dummyList
+    pass  
+
+  def test_SBML_C_parseL3Formula_modelPresent2(self):
+    model = libsbml.Model(3,1)
+    p = model.createSpecies()
+    p.setId( "true")
+    r = libsbml.parseL3FormulaWithModel("true", model)
+    self.assert_( r.getType() == libsbml.AST_NAME )
+    self.assert_((  "true" == r.getName() ))
+    self.assert_( r.getNumChildren() == 0 )
+    _dummyList = [ r ]; _dummyList[:] = []; del _dummyList
+    pass  
+
+  def test_SBML_C_parseL3Formula_modelPresent3(self):
+    model = libsbml.Model(3,1)
+    p = model.createCompartment()
+    p.setId( "NaN")
+    r = libsbml.parseL3FormulaWithModel("NaN", model)
+    self.assert_( r.getType() == libsbml.AST_NAME )
+    self.assert_((  "NaN" == r.getName() ))
+    self.assert_( r.getNumChildren() == 0 )
+    _dummyList = [ r ]; _dummyList[:] = []; del _dummyList
+    pass  
+
+  def test_SBML_C_parseL3Formula_modelPresent4(self):
+    model = libsbml.Model(3,1)
+    p = model.createReaction()
+    p.setId( "pi")
+    r = libsbml.parseL3FormulaWithModel("pi", model)
+    self.assert_( r.getType() == libsbml.AST_NAME )
+    self.assert_((  "pi" == r.getName() ))
+    self.assert_( r.getNumChildren() == 0 )
+    _dummyList = [ r ]; _dummyList[:] = []; del _dummyList
+    pass  
+
+  def test_SBML_C_parseL3Formula_modelPresent5(self):
+    model = libsbml.Model(3,1)
+    p = model.createReaction()
+    sr = p.createProduct()
+    sr.setId( "avogadro")
+    r = libsbml.parseL3FormulaWithModel("avogadro", model)
+    self.assert_( r.getType() == libsbml.AST_NAME )
+    self.assert_((  "avogadro" == r.getName() ))
+    self.assert_( r.getNumChildren() == 0 )
+    _dummyList = [ r ]; _dummyList[:] = []; del _dummyList
+    pass  
+
+  def test_SBML_C_parseL3Formula_modelPresent6(self):
+    model = libsbml.Model(3,1)
+    p = model.createReaction()
+    sr = p.createProduct()
+    sr.setId( "AVOGADRO")
+    r = libsbml.parseL3FormulaWithModel("avogadro", model)
+    self.assert_( r.getType() == libsbml.AST_NAME_AVOGADRO )
+    self.assert_((  "avogadro" == r.getName() ))
+    self.assert_( r.getNumChildren() == 0 )
+    _dummyList = [ r ]; _dummyList[:] = []; del _dummyList
+    pass  
+
+  def test_SBML_C_parseL3Formula_modelPresent7(self):
+    model = libsbml.Model(3,1)
+    p = model.createFunctionDefinition()
+    p.setId( "sin")
+    r = libsbml.parseL3FormulaWithModel("sin(x, y)", model)
+    self.assert_( r.getType() == libsbml.AST_FUNCTION )
+    self.assert_((  "sin" == r.getName() ))
+    self.assert_( r.getNumChildren() == 2 )
+    _dummyList = [ r ]; _dummyList[:] = []; del _dummyList
+    pass  
+
+  def test_SBML_C_parseL3Formula_modulo(self):
+    r = libsbml.parseL3Formula("x % y")
+    self.assert_((  "piecewise(x - y * ceil(x / y), xor(lt(x, 0), lt(y, 0)), x - y * floor(x / y))" == libsbml.formulaToString(r) ))
+    _dummyList = [ r ]; _dummyList[:] = []; del _dummyList
+    pass  
+
+  def test_SBML_C_parseL3Formula_negInf(self):
+    r = libsbml.parseL3Formula("-inf")
+    self.assert_( r.getType() == libsbml.AST_MINUS )
+    self.assert_( r.getCharacter() == '-' )
+    self.assert_( r.getNumChildren() == 1 )
+    c = r.getLeftChild()
+    self.assert_( c.getType() == libsbml.AST_REAL )
+    self.assert_( math.isinf(c.getReal()) == True )
+    self.assert_( c.getNumChildren() == 0 )
+    _dummyList = [ r ]; _dummyList[:] = []; del _dummyList
+    pass  
+
+  def test_SBML_C_parseL3Formula_negZero(self):
+    r = libsbml.parseL3Formula("-0.0")
+    self.assert_( r.getType() == libsbml.AST_MINUS )
+    self.assert_( r.getCharacter() == '-' )
+    self.assert_( r.getNumChildren() == 1 )
+    c = r.getLeftChild()
+    self.assert_( c.getType() == libsbml.AST_REAL )
+    self.assert_( c.getReal() == 0 )
+    self.assert_( c.getNumChildren() == 0 )
+    _dummyList = [ r ]; _dummyList[:] = []; del _dummyList
+    pass  
+
+  def test_SBML_C_parseL3Formula_oddMathML1(self):
+    r = libsbml.parseL3Formula("sqrt(3)")
+    self.assert_( r.getType() == libsbml.AST_FUNCTION_ROOT )
+    self.assert_( r.getNumChildren() == 2 )
+    c = r.getLeftChild()
+    self.assert_( c.getType() == libsbml.AST_INTEGER )
+    self.assert_( c.getInteger() == 2 )
+    self.assert_( c.getNumChildren() == 0 )
+    c = r.getRightChild()
+    self.assert_( c.getType() == libsbml.AST_INTEGER )
+    self.assert_( c.getInteger() == 3 )
+    self.assert_( c.getNumChildren() == 0 )
+    _dummyList = [ r ]; _dummyList[:] = []; del _dummyList
+    pass  
+
+  def test_SBML_C_parseL3Formula_oddMathML2(self):
+    r = libsbml.parseL3Formula("sqr(3)")
+    self.assert_( r.getType() == libsbml.AST_FUNCTION_POWER )
+    self.assert_( r.getNumChildren() == 2 )
+    c = r.getLeftChild()
+    self.assert_( c.getType() == libsbml.AST_INTEGER )
+    self.assert_( c.getInteger() == 3 )
+    self.assert_( c.getNumChildren() == 0 )
+    c = r.getRightChild()
+    self.assert_( c.getType() == libsbml.AST_INTEGER )
+    self.assert_( c.getInteger() == 2 )
+    self.assert_( c.getNumChildren() == 0 )
+    _dummyList = [ r ]; _dummyList[:] = []; del _dummyList
+    pass  
+
+  def test_SBML_C_parseL3Formula_oddMathML3(self):
+    r = libsbml.parseL3Formula("log10(3)")
+    self.assert_( r.getType() == libsbml.AST_FUNCTION_LOG )
+    self.assert_( r.getNumChildren() == 2 )
+    c = r.getLeftChild()
+    self.assert_( c.getType() == libsbml.AST_INTEGER )
+    self.assert_( c.getInteger() == 10 )
+    self.assert_( c.getNumChildren() == 0 )
+    c = r.getRightChild()
+    self.assert_( c.getType() == libsbml.AST_INTEGER )
+    self.assert_( c.getInteger() == 3 )
+    self.assert_( c.getNumChildren() == 0 )
+    _dummyList = [ r ]; _dummyList[:] = []; del _dummyList
+    pass  
+
+  def test_SBML_C_parseL3Formula_oddMathML4(self):
+    r = libsbml.parseL3Formula("log(4.4, 3)")
+    self.assert_( r.getType() == libsbml.AST_FUNCTION_LOG )
+    self.assert_( r.getNumChildren() == 2 )
+    c = r.getLeftChild()
+    self.assert_( c.getType() == libsbml.AST_REAL )
+    self.assert_( c.getReal() == 4.4 )
+    self.assert_( c.getNumChildren() == 0 )
+    c = r.getRightChild()
+    self.assert_( c.getType() == libsbml.AST_INTEGER )
+    self.assert_( c.getInteger() == 3 )
+    self.assert_( c.getNumChildren() == 0 )
+    _dummyList = [ r ]; _dummyList[:] = []; del _dummyList
+    pass  
+
+  def test_SBML_C_parseL3Formula_oddMathML5(self):
+    r = libsbml.parseL3Formula("root(1.1, 3)")
+    self.assert_( r.getType() == libsbml.AST_FUNCTION_ROOT )
+    self.assert_( r.getNumChildren() == 2 )
+    c = r.getLeftChild()
+    self.assert_( c.getType() == libsbml.AST_REAL )
+    self.assert_( c.getReal() == 1.1 )
+    self.assert_( c.getNumChildren() == 0 )
+    c = r.getRightChild()
+    self.assert_( c.getType() == libsbml.AST_INTEGER )
+    self.assert_( c.getInteger() == 3 )
+    self.assert_( c.getNumChildren() == 0 )
+    _dummyList = [ r ]; _dummyList[:] = []; del _dummyList
+    pass  
+
+  def test_SBML_C_parseL3Formula_parselogsettings(self):
+    r = libsbml.parseL3Formula("log(4.4)")
+    self.assert_( r.getType() == libsbml.AST_FUNCTION_LOG )
+    self.assert_( r.getNumChildren() == 2 )
+    c = r.getLeftChild()
+    self.assert_( c.getType() == libsbml.AST_INTEGER )
+    self.assert_( c.getInteger() == 10 )
+    self.assert_( c.getNumChildren() == 0 )
+    c = r.getRightChild()
+    self.assert_( c.getType() == libsbml.AST_REAL )
+    self.assert_( c.getReal() == 4.4 )
+    self.assert_( c.getNumChildren() == 0 )
+    _dummyList = [ r ]; _dummyList[:] = []; del _dummyList
+    settings = libsbml.L3ParserSettings()
+    settings.setParseLog(libsbml.L3P_PARSE_LOG_AS_LN)
+    self.assert_( settings.getParseLog() == libsbml.L3P_PARSE_LOG_AS_LN )
+    r = libsbml.parseL3FormulaWithSettings("log(4.4)", settings)
+    self.assert_( r.getType() == libsbml.AST_FUNCTION_LN )
+    self.assert_( r.getNumChildren() == 1 )
+    c = r.getLeftChild()
+    self.assert_( c.getType() == libsbml.AST_REAL )
+    self.assert_( c.getReal() == 4.4 )
+    self.assert_( c.getNumChildren() == 0 )
+    _dummyList = [ r ]; _dummyList[:] = []; del _dummyList
+    settings.setParseLog(libsbml.L3P_PARSE_LOG_AS_LOG10)
+    self.assert_( settings.getParseLog() == libsbml.L3P_PARSE_LOG_AS_LOG10 )
+    r = libsbml.parseL3FormulaWithSettings("log(4.4)", settings)
+    self.assert_( r.getType() == libsbml.AST_FUNCTION_LOG )
+    self.assert_( r.getNumChildren() == 2 )
+    c = r.getLeftChild()
+    self.assert_( c.getType() == libsbml.AST_INTEGER )
+    self.assert_( c.getInteger() == 10 )
+    self.assert_( c.getNumChildren() == 0 )
+    c = r.getRightChild()
+    self.assert_( c.getType() == libsbml.AST_REAL )
+    self.assert_( c.getReal() == 4.4 )
+    self.assert_( c.getNumChildren() == 0 )
+    _dummyList = [ r ]; _dummyList[:] = []; del _dummyList
+    settings.setParseLog(libsbml.L3P_PARSE_LOG_AS_ERROR)
+    self.assert_( settings.getParseLog() == libsbml.L3P_PARSE_LOG_AS_ERROR )
+    r = libsbml.parseL3FormulaWithSettings("log(4.4)", settings)
+    self.assert_( r == None )
+    self.assert_((  "Error when parsing input 'log(4.4)' at position 8:  Writing a function as 'log(x)' was legal in the L1 parser, but translated as the natural log, not the base-10 log.  This construct is disallowed entirely as being ambiguous, and you are encouraged instead to use 'ln(x)', 'log10(x)', or 'log(base, x)'." == libsbml.getLastParseL3Error() ))
+    _dummyList = [ settings ]; _dummyList[:] = []; del _dummyList
+    pass  
+
+  def test_SBML_C_parseL3Formula_precedence(self):
+    root = libsbml.parseL3Formula("a && b == !c - d * e^-f ")
+    self.assert_( root.getType() == libsbml.AST_LOGICAL_AND )
+    self.assert_((  "and" == root.getName() ))
+    self.assert_( root.getNumChildren() == 2 )
+    left = root.getLeftChild()
+    self.assert_( left.getType() == libsbml.AST_NAME )
+    self.assert_((  "a" == left.getName() ))
+    self.assert_( left.getNumChildren() == 0 )
+    right = root.getRightChild()
+    self.assert_( right.getType() == libsbml.AST_RELATIONAL_EQ )
+    self.assert_((  "eq" == right.getName() ))
+    self.assert_( right.getNumChildren() == 2 )
+    left = right.getLeftChild()
+    self.assert_( left.getType() == libsbml.AST_NAME )
+    self.assert_((  "b" == left.getName() ))
+    self.assert_( left.getNumChildren() == 0 )
+    right = right.getRightChild()
+    self.assert_( right.getType() == libsbml.AST_LOGICAL_NOT )
+    self.assert_((  "not" == right.getName() ))
+    self.assert_( right.getNumChildren() == 1 )
+    right = right.getLeftChild()
+    self.assert_( right.getType() == libsbml.AST_MINUS )
+    self.assert_( right.getCharacter() == '-' )
+    self.assert_( right.getNumChildren() == 2 )
+    left = right.getLeftChild()
+    self.assert_( left.getType() == libsbml.AST_NAME )
+    self.assert_((  "c" == left.getName() ))
+    self.assert_( left.getNumChildren() == 0 )
+    right = right.getRightChild()
+    self.assert_( right.getType() == libsbml.AST_TIMES )
+    self.assert_( right.getCharacter() == '*' )
+    self.assert_( right.getNumChildren() == 2 )
+    left = right.getLeftChild()
+    self.assert_( left.getType() == libsbml.AST_NAME )
+    self.assert_((  "d" == left.getName() ))
+    self.assert_( left.getNumChildren() == 0 )
+    right = right.getRightChild()
+    self.assert_( right.getType() == libsbml.AST_POWER )
+    self.assert_( right.getCharacter() == '^' )
+    self.assert_( right.getNumChildren() == 2 )
+    left = right.getLeftChild()
+    self.assert_( left.getType() == libsbml.AST_NAME )
+    self.assert_((  "e" == left.getName() ))
+    self.assert_( left.getNumChildren() == 0 )
+    right = right.getRightChild()
+    self.assert_( right.getType() == libsbml.AST_MINUS )
+    self.assert_( right.getCharacter() == '-' )
+    self.assert_( right.getNumChildren() == 1 )
+    left = right.getLeftChild()
+    self.assert_( left.getType() == libsbml.AST_NAME )
+    self.assert_((  "f" == left.getName() ))
+    self.assert_( left.getNumChildren() == 0 )
+    _dummyList = [ root ]; _dummyList[:] = []; del _dummyList
+    pass  
+
+  def test_SBML_C_parseL3Formula_rational1(self):
+    r = libsbml.parseL3Formula("(3/4)")
+    self.assert_( r.getType() == libsbml.AST_RATIONAL )
+    self.assert_( r.getNumerator() == 3 )
+    self.assert_( r.getDenominator() == 4 )
+    self.assert_( r.getNumChildren() == 0 )
+    _dummyList = [ r ]; _dummyList[:] = []; del _dummyList
+    pass  
+
+  def test_SBML_C_parseL3Formula_rational2(self):
+    r = libsbml.parseL3Formula("(3/4) mL")
+    self.assert_( r.getType() == libsbml.AST_RATIONAL )
+    self.assert_( r.getNumerator() == 3 )
+    self.assert_( r.getDenominator() == 4 )
+    self.assert_((  "mL" == r.getUnits() ))
+    self.assert_( r.getNumChildren() == 0 )
+    _dummyList = [ r ]; _dummyList[:] = []; del _dummyList
+    pass  
+
+  def test_SBML_C_parseL3Formula_rational3(self):
+    r = libsbml.parseL3Formula("3/4")
+    self.assert_( r.getType() == libsbml.AST_DIVIDE )
+    self.assert_( r.getCharacter() == '/' )
+    self.assert_( r.getNumChildren() == 2 )
+    c = r.getLeftChild()
+    self.assert_( c.getType() == libsbml.AST_INTEGER )
+    self.assert_( c.getInteger() == 3 )
+    self.assert_( c.getNumChildren() == 0 )
+    c = r.getRightChild()
+    self.assert_( c.getType() == libsbml.AST_INTEGER )
+    self.assert_( c.getInteger() == 4 )
+    self.assert_( c.getNumChildren() == 0 )
+    _dummyList = [ r ]; _dummyList[:] = []; del _dummyList
+    pass  
+
+  def test_SBML_C_parseL3Formula_rational4(self):
+    r = libsbml.parseL3Formula("(3/x)")
+    self.assert_( r.getType() == libsbml.AST_DIVIDE )
+    self.assert_( r.getCharacter() == '/' )
+    self.assert_( r.getNumChildren() == 2 )
+    c = r.getLeftChild()
+    self.assert_( c.getType() == libsbml.AST_INTEGER )
+    self.assert_( c.getInteger() == 3 )
+    self.assert_( c.getNumChildren() == 0 )
+    c = r.getRightChild()
+    self.assert_( c.getType() == libsbml.AST_NAME )
+    self.assert_((  "x" == c.getName() ))
+    self.assert_( c.getNumChildren() == 0 )
+    _dummyList = [ r ]; _dummyList[:] = []; del _dummyList
+    pass  
+
+  def test_SBML_C_parseL3Formula_rational5(self):
+    r = libsbml.parseL3Formula("(3/4.4)")
+    self.assert_( r.getType() == libsbml.AST_DIVIDE )
+    self.assert_( r.getCharacter() == '/' )
+    self.assert_( r.getNumChildren() == 2 )
+    c = r.getLeftChild()
+    self.assert_( c.getType() == libsbml.AST_INTEGER )
+    self.assert_( c.getInteger() == 3 )
+    self.assert_( c.getNumChildren() == 0 )
+    c = r.getRightChild()
+    self.assert_( c.getType() == libsbml.AST_REAL )
+    self.assert_( c.getReal() == 4.4 )
+    self.assert_( c.getNumChildren() == 0 )
+    _dummyList = [ r ]; _dummyList[:] = []; del _dummyList
+    pass  
+
+  def test_SBML_C_parseL3Formula_rational6(self):
+    r = libsbml.parseL3Formula("3/4 ml")
+    self.assert_( r.getType() == libsbml.AST_DIVIDE )
+    self.assert_( r.getCharacter() == '/' )
+    self.assert_( r.getNumChildren() == 2 )
+    c = r.getLeftChild()
+    self.assert_( c.getType() == libsbml.AST_INTEGER )
+    self.assert_( c.getInteger() == 3 )
+    self.assert_( c.getNumChildren() == 0 )
+    c = r.getRightChild()
+    self.assert_( c.getType() == libsbml.AST_INTEGER )
+    self.assert_( c.getInteger() == 4 )
+    self.assert_((  "ml" == c.getUnits() ))
+    self.assert_( c.getNumChildren() == 0 )
+    _dummyList = [ r ]; _dummyList[:] = []; del _dummyList
+    pass  
+
+  def test_SBML_C_parseL3Formula_rational7(self):
+    r = libsbml.parseL3Formula("(3/4.4) ml")
+    self.assert_( r == None )
+    self.assert_((  "Error when parsing input '(3/4.4) ml' at position 10:  syntax error, unexpected element name" == libsbml.getLastParseL3Error() ))
+    pass  
+
+  def test_SBML_C_parseL3Formula_targetl2settings(self):
+    r = libsbml.parseL3Formula("4 mL")
+    self.assert_( r.getType() == libsbml.AST_INTEGER )
+    self.assert_( r.getInteger() == 4 )
+    self.assert_((  "mL" == r.getUnits() ))
+    self.assert_( r.getNumChildren() == 0 )
+    _dummyList = [ r ]; _dummyList[:] = []; del _dummyList
+    r = libsbml.parseL3Formula("avogadro")
+    self.assert_( r.getType() == libsbml.AST_NAME_AVOGADRO )
+    self.assert_( r.getNumChildren() == 0 )
+    _dummyList = [ r ]; _dummyList[:] = []; del _dummyList
+    settings = libsbml.getDefaultL3ParserSettings()
+    settings.targetL2()
+    self.assert_( settings.getTargetL2() == 1 )
+    self.assert_( settings.getTargetL3() == 0 )
+    r = libsbml.parseL3FormulaWithSettings("4 mL", settings)
+    self.assert_( r == None )
+    self.assert_((  "Error when parsing input '4 mL' at position 4:  The ability to associate units with numbers has been disabled in this software." == libsbml.getLastParseL3Error() ))
+    r = libsbml.parseL3FormulaWithSettings("avogadro", settings)
+    self.assert_( r.getType() == libsbml.AST_NAME )
+    self.assert_((  "avogadro" == r.getName() ))
+    self.assert_( r.getNumChildren() == 0 )
+    _dummyList = [ r ]; _dummyList[:] = []; del _dummyList
+    settings.targetL3()
+    self.assert_( settings.getTargetL2() == 0 )
+    self.assert_( settings.getTargetL3() == 1 )
+    r = libsbml.parseL3FormulaWithSettings("4 mL", settings)
+    self.assert_( r.getType() == libsbml.AST_INTEGER )
+    self.assert_( r.getInteger() == 4 )
+    self.assert_((  "mL" == r.getUnits() ))
+    self.assert_( r.getNumChildren() == 0 )
+    _dummyList = [ r ]; _dummyList[:] = []; del _dummyList
+    r = libsbml.parseL3FormulaWithSettings("avogadro", settings)
+    self.assert_( r.getType() == libsbml.AST_NAME_AVOGADRO )
+    self.assert_( r.getNumChildren() == 0 )
+    _dummyList = [ r ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ settings ]; _dummyList[:] = []; del _dummyList
+    pass  
+
+  def test_SBML_C_parseL3Formula_unitssettings(self):
+    r = libsbml.parseL3Formula("4 mL")
+    self.assert_( r.getType() == libsbml.AST_INTEGER )
+    self.assert_( r.getInteger() == 4 )
+    self.assert_((  "mL" == r.getUnits() ))
+    self.assert_( r.getNumChildren() == 0 )
+    _dummyList = [ r ]; _dummyList[:] = []; del _dummyList
+    settings = libsbml.getDefaultL3ParserSettings()
+    settings.setParseUnits(0)
+    self.assert_( settings.getParseUnits() == 0 )
+    self.assert_( settings.getTargetL2() == 0 )
+    self.assert_( settings.getTargetL3() == 0 )
+    r = libsbml.parseL3FormulaWithSettings("4 mL", settings)
+    self.assert_( r == None )
+    self.assert_((  "Error when parsing input '4 mL' at position 4:  The ability to associate units with numbers has been disabled in this software." == libsbml.getLastParseL3Error() ))
+    settings.setParseUnits(1)
+    self.assert_( settings.getParseUnits() == 1 )
+    self.assert_( settings.getTargetL2() == 0 )
+    self.assert_( settings.getTargetL3() == 1 )
+    r = libsbml.parseL3FormulaWithSettings("4 mL", settings)
+    self.assert_( r.getType() == libsbml.AST_INTEGER )
+    self.assert_( r.getInteger() == 4 )
+    self.assert_((  "mL" == r.getUnits() ))
+    self.assert_( r.getNumChildren() == 0 )
+    _dummyList = [ r ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ settings ]; _dummyList[:] = []; del _dummyList
+    pass  
+
 def suite():
   suite = unittest.TestSuite()
   suite.addTest(unittest.makeSuite(TestL3FormulaParserC))
