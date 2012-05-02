@@ -199,7 +199,7 @@ namespace LibSBMLCSTest.annotation {
     {
       Compartment c = m.getCompartment(5);
       XMLNode node = c.getAnnotation();
-      string expected = "<annotation>\n""  <jd2:JDesignerLayout version=\"2.0\" MajorVersion=\"2\" MinorVersion=\"0\" BuildVersion=\"41\">\n" + 
+      string expected = "<annotation>\n" + "  <jd2:JDesignerLayout version=\"2.0\" MajorVersion=\"2\" MinorVersion=\"0\" BuildVersion=\"41\">\n" + 
     "    <jd2:header>\n" + 
     "      <jd2:VersionHeader JDesignerVersion=\"2.0\"/>\n" + 
     "      <jd2:ModelHeader Author=\"Mr Untitled\" ModelVersion=\"0.0\" ModelTitle=\"untitled\"/>\n" + 
@@ -508,7 +508,7 @@ namespace LibSBMLCSTest.annotation {
     public void test_RDFAnnotation_replaceAnnotation1()
     {
       XMLNode n1 = null;
-      string noRDF = "<annotation>\n""  <jd2:JDesignerLayout version=\"2.0\" MajorVersion=\"2\" MinorVersion=\"3\" BuildVersion=\"41\">\n" + 
+      string noRDF = "<annotation>\n" + "  <jd2:JDesignerLayout version=\"2.0\" MajorVersion=\"2\" MinorVersion=\"3\" BuildVersion=\"41\">\n" + 
     "    <jd2:header>\n" + 
     "      <jd2:VersionHeader JDesignerVersion=\"2.0\"/>\n" + 
     "      <jd2:ModelHeader Author=\"Sarah\" ModelVersion=\"0.0\" ModelTitle=\"mine\"/>\n" + 
@@ -546,7 +546,7 @@ namespace LibSBMLCSTest.annotation {
     public void test_RDFAnnotation_replaceAnnotation2()
     {
       XMLNode n1 = null;
-      string jd = "  <jd2:JDesignerLayout version=\"2.0\" MajorVersion=\"2\" MinorVersion=\"3\" BuildVersion=\"41\">\n""    <jd2:header>\n" + 
+      string jd = "  <jd2:JDesignerLayout version=\"2.0\" MajorVersion=\"2\" MinorVersion=\"3\" BuildVersion=\"41\">\n" + "    <jd2:header>\n" + 
     "      <jd2:VersionHeader JDesignerVersion=\"2.0\"/>\n" + 
     "      <jd2:ModelHeader Author=\"Sarah\" ModelVersion=\"0.0\" ModelTitle=\"mine\"/>\n" + 
     "      <jd2:TimeCourseDetails timeStart=\"0\" timeEnd=\"12\" numberOfPoints=\"1000\"/>\n" + 
@@ -635,24 +635,24 @@ namespace LibSBMLCSTest.annotation {
     "      </rdf:Description>\n" + 
     "    </rdf:RDF>\n" + 
     "  </annotation>";
-      List cvTerms = List();
+      CVTermList cvTerms = new CVTermList();
       XMLInputStream stream = new XMLInputStream ( withAbout,false );
       XMLNode node = new XMLNode ( stream );
       RDFAnnotationParser.parseRDFAnnotation(node,cvTerms);
       assertTrue( cvTerms.getSize() == 1 );
-      cvTerms = List();
+      cvTerms = new CVTermList();
       RDFAnnotationParser.parseRDFAnnotation(node,cvTerms );
       assertTrue( cvTerms.getSize() == 1 );
       cvTerms = null;
       cvTerms = null;
-      cvTerms = List();
+      cvTerms = new CVTermList();
       XMLInputStream stream1 = new XMLInputStream ( emptyAbout,false );
       XMLNode node1 = new XMLNode ( stream1 );
       RDFAnnotationParser.parseRDFAnnotation(node1,cvTerms);
       assertTrue( cvTerms.getSize() == 0 );
       cvTerms = null;
       cvTerms = null;
-      cvTerms = List();
+      cvTerms = new CVTermList();
       XMLInputStream stream2 = new XMLInputStream ( noAbout,false );
       XMLNode node2 = new XMLNode ( stream2 );
       RDFAnnotationParser.parseRDFAnnotation(node2,cvTerms);
