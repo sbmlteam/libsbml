@@ -291,6 +291,8 @@ SBasePlugin::getColumn() const
 }
 /** @endcond */
 
+
+/** @cond doxygen-libsbml-internal */
 SBMLNamespaces *
 SBasePlugin::getSBMLNamespaces() const
 {
@@ -303,6 +305,7 @@ SBasePlugin::getSBMLNamespaces() const
   else
     return new SBMLNamespaces();
 }
+/** @endcond */
 
 
 /*
