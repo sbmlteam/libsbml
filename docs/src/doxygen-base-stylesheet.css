@@ -73,7 +73,7 @@ div.multicol {
 }
 
 p.startli, p.startdd, p.starttd {
-    margin-top: 2px;
+    margin-top: 0.5em;
 }
 
 p.endli {
@@ -873,6 +873,11 @@ dl.params
 {
     border-left:4px solid;
     border-color: #443;
+    border-spacing: 0px;
+}
+
+dl.params table {
+    border-spacing: 0px;
 }
 
 dl.see 
@@ -1134,22 +1139,23 @@ a code {
   moz-border-radius-bottomright: 8px;
 }
 
-#doc-content li {
-    padding-bottom: 0.5em;
-}
-
-#doc-content li:first-child {
+#doc-content ul li ul {
     padding-top: 0.5em;
 }
 
-#doc-content #main-page-sections li,
+#doc-content li:first-child {
+}
+
 #doc-content .memdoc li {
+    padding-bottom: 0.5em;
+}
+
+#doc-content #main-page-sections li {
     padding-bottom: 0;
     padding-top: 0;
 }
 
-#doc-content #main-page-sections li:first-child,
-#doc-content .memdoc li:first-child {
+#doc-content #main-page-sections li:first-child {
     padding-bottom: 0;
 }
 
