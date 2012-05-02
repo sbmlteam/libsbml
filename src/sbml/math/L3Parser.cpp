@@ -65,7 +65,7 @@
 /* "%code top" blocks.  */
 
 /* Line 171 of yacc.c  */
-#line 52 "L3Parser.ypp"
+#line 52 "L3parser.ypp"
 
 
  /** @cond doxygen-libsbml-internal */
@@ -87,7 +87,7 @@
 /* Copy the first part of user declarations.  */
 
 /* Line 189 of yacc.c  */
-#line 57 "L3Parser.ypp"
+#line 57 "L3parser.ypp"
 
 /**
  *
@@ -339,7 +339,7 @@ typedef union YYSTYPE
 {
 
 /* Line 214 of yacc.c  */
-#line 263 "L3Parser.ypp"
+#line 263 "L3parser.ypp"
 
   ASTNode* astnode;
   char character;
@@ -1632,35 +1632,35 @@ yyreduce:
         case 3:
 
 /* Line 1464 of yacc.c  */
-#line 297 "L3Parser.ypp"
+#line 297 "L3parser.ypp"
     {l3p->outputNode = (yyvsp[(1) - (1)].astnode);}
     break;
 
   case 4:
 
 /* Line 1464 of yacc.c  */
-#line 298 "L3Parser.ypp"
+#line 298 "L3parser.ypp"
     {;}
     break;
 
   case 5:
 
 /* Line 1464 of yacc.c  */
-#line 299 "L3Parser.ypp"
+#line 299 "L3parser.ypp"
     {delete (yyvsp[(1) - (2)].astnode);;}
     break;
 
   case 6:
 
 /* Line 1464 of yacc.c  */
-#line 302 "L3Parser.ypp"
+#line 302 "L3parser.ypp"
     {(yyval.astnode) = (yyvsp[(1) - (1)].astnode);;}
     break;
 
   case 7:
 
 /* Line 1464 of yacc.c  */
-#line 303 "L3Parser.ypp"
+#line 303 "L3parser.ypp"
     {
                    (yyval.astnode) = new ASTNode();
                    string name(*(yyvsp[(1) - (1)].word));
@@ -1692,21 +1692,21 @@ yyreduce:
   case 8:
 
 /* Line 1464 of yacc.c  */
-#line 329 "L3Parser.ypp"
+#line 329 "L3parser.ypp"
     {(yyval.astnode) = (yyvsp[(2) - (3)].astnode);;}
     break;
 
   case 9:
 
 /* Line 1464 of yacc.c  */
-#line 330 "L3Parser.ypp"
+#line 330 "L3parser.ypp"
     {(yyval.astnode) = new ASTNode(AST_POWER); (yyval.astnode)->addChild((yyvsp[(1) - (3)].astnode)); (yyval.astnode)->addChild((yyvsp[(3) - (3)].astnode));;}
     break;
 
   case 10:
 
 /* Line 1464 of yacc.c  */
-#line 331 "L3Parser.ypp"
+#line 331 "L3parser.ypp"
     {
                   if ((yyvsp[(1) - (3)].astnode)->getType()==AST_TIMES) {
                     (yyval.astnode) = (yyvsp[(1) - (3)].astnode);
@@ -1723,7 +1723,7 @@ yyreduce:
   case 11:
 
 /* Line 1464 of yacc.c  */
-#line 342 "L3Parser.ypp"
+#line 342 "L3parser.ypp"
     {
                   if ((yyvsp[(1) - (3)].astnode)->getType()==AST_PLUS) {
                     (yyval.astnode) = (yyvsp[(1) - (3)].astnode);
@@ -1740,42 +1740,42 @@ yyreduce:
   case 12:
 
 /* Line 1464 of yacc.c  */
-#line 353 "L3Parser.ypp"
+#line 353 "L3parser.ypp"
     {(yyval.astnode) = new ASTNode(AST_DIVIDE); (yyval.astnode)->addChild((yyvsp[(1) - (3)].astnode)); (yyval.astnode)->addChild((yyvsp[(3) - (3)].astnode));;}
     break;
 
   case 13:
 
 /* Line 1464 of yacc.c  */
-#line 354 "L3Parser.ypp"
+#line 354 "L3parser.ypp"
     {(yyval.astnode) = new ASTNode(AST_MINUS); (yyval.astnode)->addChild((yyvsp[(1) - (3)].astnode)); (yyval.astnode)->addChild((yyvsp[(3) - (3)].astnode));;}
     break;
 
   case 14:
 
 /* Line 1464 of yacc.c  */
-#line 355 "L3Parser.ypp"
+#line 355 "L3parser.ypp"
     {(yyval.astnode) = l3p->createModuloTree((yyvsp[(1) - (3)].astnode), (yyvsp[(3) - (3)].astnode));;}
     break;
 
   case 15:
 
 /* Line 1464 of yacc.c  */
-#line 356 "L3Parser.ypp"
+#line 356 "L3parser.ypp"
     {(yyval.astnode) = new ASTNode(AST_RELATIONAL_GT); (yyval.astnode)->addChild((yyvsp[(1) - (3)].astnode)); (yyval.astnode)->addChild((yyvsp[(3) - (3)].astnode));;}
     break;
 
   case 16:
 
 /* Line 1464 of yacc.c  */
-#line 357 "L3Parser.ypp"
+#line 357 "L3parser.ypp"
     {(yyval.astnode) = new ASTNode(AST_RELATIONAL_LT); (yyval.astnode)->addChild((yyvsp[(1) - (3)].astnode)); (yyval.astnode)->addChild((yyvsp[(3) - (3)].astnode));;}
     break;
 
   case 17:
 
 /* Line 1464 of yacc.c  */
-#line 358 "L3Parser.ypp"
+#line 358 "L3parser.ypp"
     {
                   if (l3p->collapseminus) {
                     if ((yyvsp[(2) - (2)].astnode)->getType()==AST_REAL) {
@@ -1814,70 +1814,70 @@ yyreduce:
   case 18:
 
 /* Line 1464 of yacc.c  */
-#line 391 "L3Parser.ypp"
+#line 391 "L3parser.ypp"
     {(yyval.astnode) = new ASTNode(AST_RELATIONAL_GEQ); (yyval.astnode)->addChild((yyvsp[(1) - (4)].astnode)); (yyval.astnode)->addChild((yyvsp[(4) - (4)].astnode));;}
     break;
 
   case 19:
 
 /* Line 1464 of yacc.c  */
-#line 392 "L3Parser.ypp"
+#line 392 "L3parser.ypp"
     {(yyval.astnode) = new ASTNode(AST_RELATIONAL_LEQ); (yyval.astnode)->addChild((yyvsp[(1) - (4)].astnode)); (yyval.astnode)->addChild((yyvsp[(4) - (4)].astnode));;}
     break;
 
   case 20:
 
 /* Line 1464 of yacc.c  */
-#line 393 "L3Parser.ypp"
+#line 393 "L3parser.ypp"
     {(yyval.astnode) = new ASTNode(AST_RELATIONAL_EQ); (yyval.astnode)->addChild((yyvsp[(1) - (4)].astnode)); (yyval.astnode)->addChild((yyvsp[(4) - (4)].astnode));;}
     break;
 
   case 21:
 
 /* Line 1464 of yacc.c  */
-#line 394 "L3Parser.ypp"
+#line 394 "L3parser.ypp"
     {(yyval.astnode) = new ASTNode(AST_RELATIONAL_NEQ); (yyval.astnode)->addChild((yyvsp[(1) - (4)].astnode)); (yyval.astnode)->addChild((yyvsp[(4) - (4)].astnode));;}
     break;
 
   case 22:
 
 /* Line 1464 of yacc.c  */
-#line 395 "L3Parser.ypp"
+#line 395 "L3parser.ypp"
     {(yyval.astnode) = new ASTNode(AST_RELATIONAL_NEQ); (yyval.astnode)->addChild((yyvsp[(1) - (4)].astnode)); (yyval.astnode)->addChild((yyvsp[(4) - (4)].astnode));;}
     break;
 
   case 23:
 
 /* Line 1464 of yacc.c  */
-#line 396 "L3Parser.ypp"
+#line 396 "L3parser.ypp"
     {(yyval.astnode) = new ASTNode(AST_RELATIONAL_NEQ); (yyval.astnode)->addChild((yyvsp[(1) - (4)].astnode)); (yyval.astnode)->addChild((yyvsp[(4) - (4)].astnode));;}
     break;
 
   case 24:
 
 /* Line 1464 of yacc.c  */
-#line 397 "L3Parser.ypp"
+#line 397 "L3parser.ypp"
     {(yyval.astnode) = new ASTNode(AST_LOGICAL_AND); (yyval.astnode)->addChild((yyvsp[(1) - (4)].astnode)); (yyval.astnode)->addChild((yyvsp[(4) - (4)].astnode));;}
     break;
 
   case 25:
 
 /* Line 1464 of yacc.c  */
-#line 398 "L3Parser.ypp"
+#line 398 "L3parser.ypp"
     {(yyval.astnode) = new ASTNode(AST_LOGICAL_OR); (yyval.astnode)->addChild((yyvsp[(1) - (4)].astnode)); (yyval.astnode)->addChild((yyvsp[(4) - (4)].astnode));;}
     break;
 
   case 26:
 
 /* Line 1464 of yacc.c  */
-#line 399 "L3Parser.ypp"
+#line 399 "L3parser.ypp"
     {(yyval.astnode) = new ASTNode(AST_LOGICAL_NOT); (yyval.astnode)->addChild((yyvsp[(2) - (2)].astnode));;}
     break;
 
   case 27:
 
 /* Line 1464 of yacc.c  */
-#line 400 "L3Parser.ypp"
+#line 400 "L3parser.ypp"
     {
                    (yyval.astnode) = new ASTNode(AST_FUNCTION);
                    string name(*(yyvsp[(1) - (3)].word));
@@ -1894,7 +1894,7 @@ yyreduce:
   case 28:
 
 /* Line 1464 of yacc.c  */
-#line 411 "L3Parser.ypp"
+#line 411 "L3parser.ypp"
     {
                    (yyval.astnode) = (yyvsp[(3) - (4)].astnode);
                    string name(*(yyvsp[(1) - (4)].word));
@@ -1949,35 +1949,35 @@ yyreduce:
   case 29:
 
 /* Line 1464 of yacc.c  */
-#line 462 "L3Parser.ypp"
+#line 462 "L3parser.ypp"
     {(yyval.astnode) = new ASTNode(); (yyval.astnode)->setValue((yyvsp[(1) - (1)].numdouble));;}
     break;
 
   case 30:
 
 /* Line 1464 of yacc.c  */
-#line 463 "L3Parser.ypp"
+#line 463 "L3parser.ypp"
     {(yyval.astnode) = new ASTNode(); (yyval.astnode)->setValue((yyvsp[(1) - (1)].mantissa), l3p->exponent);;}
     break;
 
   case 31:
 
 /* Line 1464 of yacc.c  */
-#line 464 "L3Parser.ypp"
+#line 464 "L3parser.ypp"
     {(yyval.astnode) = new ASTNode(); (yyval.astnode)->setValue((yyvsp[(1) - (1)].numlong));;}
     break;
 
   case 32:
 
 /* Line 1464 of yacc.c  */
-#line 465 "L3Parser.ypp"
+#line 465 "L3parser.ypp"
     {(yyval.astnode) = new ASTNode(); (yyval.astnode)->setValue((yyvsp[(1) - (1)].rational), l3p->denominator);;}
     break;
 
   case 33:
 
 /* Line 1464 of yacc.c  */
-#line 466 "L3Parser.ypp"
+#line 466 "L3parser.ypp"
     {
                   (yyval.astnode) = (yyvsp[(1) - (2)].astnode);
                   if ((yyval.astnode)->getUnits() != "") {
@@ -1995,14 +1995,14 @@ yyreduce:
   case 34:
 
 /* Line 1464 of yacc.c  */
-#line 480 "L3Parser.ypp"
+#line 480 "L3parser.ypp"
     {(yyval.astnode) = new ASTNode(AST_FUNCTION); (yyval.astnode)->addChild((yyvsp[(1) - (1)].astnode));;}
     break;
 
   case 35:
 
 /* Line 1464 of yacc.c  */
-#line 481 "L3Parser.ypp"
+#line 481 "L3parser.ypp"
     {(yyval.astnode) = (yyvsp[(1) - (3)].astnode);  (yyval.astnode)->addChild((yyvsp[(3) - (3)].astnode));;}
     break;
 
@@ -2221,7 +2221,7 @@ yyreturn:
 
 
 /* Line 1684 of yacc.c  */
-#line 484 "L3Parser.ypp"
+#line 484 "L3parser.ypp"
 
 
 
@@ -2737,7 +2737,194 @@ L3ParserSettings L3Parser::getDefaultL3ParserSettings()
 /** Everything above this point is internal. */
 /** @endcond */
 
-
+/** @cond doxygen-c-only */
+/**
+ * Parses the given mathematical formula and returns a representation of it
+ * as an Abstract Syntax Tree (AST).
+ *
+ * The text-string form of mathematical formulas read by this function
+ * are expanded versions of the formats produced and read by @if clike SBML_formulaToString()@endif@if csharp SBML_formulaToString()@endif@if python libsbml.formulaToString()@endif@if java <code><a href="libsbml.html#formulaToString(org.sbml.libsbml.ASTNode)">libsbml.formulaToString()</a></code>@endif@~
+ * and @if clike SBML_parseFormula()@endif@if csharp SBML_parseFormula()@endif@if python libsbml.parseFormula()@endif@if java <code><a href="libsbml.html#parseFormula(java.lang.String)">libsbml.parseFormula()</a></code>@endif@~, 
+ * respectively.  The latter two libSBML functions were originally
+ * developed to support conversion between SBML Levels&nbsp;1 and&nbsp;2,
+ * and were focused on the syntax of mathematical formulas used in SBML
+ * Level&nbsp;1.  With time, and the use of MathML in SBML Levels&nbsp;2
+ * and&nbsp;3, it became clear that supporting Level&nbsp;2 and&nbsp;3's
+ * expanded mathematical syntax would be useful for software developers.
+ * To maintain backwards compatibility, the original
+ * @if clike SBML_formulaToString()@endif@if csharp SBML_formulaToString()@endif@if python libsbml.formulaToString()@endif@if java <code><a href="libsbml.html#formulaToString(org.sbml.libsbml.ASTNode)">libsbml.formulaToString()</a></code>@endif@~
+ * and @if clike SBML_parseFormula()@endif@if csharp SBML_parseFormula()@endif@if python libsbml.parseFormula()@endif@if java <code><a href="libsbml.html#parseFormula(java.lang.String)">libsbml.parseFormula()</a></code>@endif@~
+ * have been left untouched, and instead, the new functionality is
+ * provided in the form of
+ * @if clike SBML_parseL3Formula()@endif@if csharp SBML_parseL3Formula()@endif@if python libsbml.parseL3Formula()@endif@if java <code><a href="libsbml.html#parseL3Formula(java.lang.String)">libsbml.parseL3Formula()</a></code>@endif@~.
+ *
+ * The following are the differences in the formula syntax supported by
+ * this function, compared to what is supported by  @if clike SBML_parseFormula()@endif@if csharp SBML_parseFormula()@endif@if python libsbml.parseFormula()@endif@if java <code><a href="libsbml.html#parseFormula(java.lang.String)">libsbml.parseFormula()</a></code>@endif@~:
+ *
+ * @li Units may be asociated with bare numbers, using the following syntax:
+ * <div style="margin: 10px auto 10px 25px; display: block">
+ * <span class="code" style="background-color: #d0d0ee">number</span>
+ * <span class="code" style="background-color: #edd">unit</span>
+ * </div>
+ * The <span class="code" style="background-color: #d0d0ee">number</span>
+ * may be in any form (an integer, real, or rational
+ * number), and the 
+ * <span class="code" style="background-color: #edd">unit</span>
+ * must conform to the syntax of an SBML identifier (technically, the
+ * type defined as @c SId in the SBML specifications).  The whitespace between
+ * <span class="code" style="background-color: #d0d0ee">number</span>
+ * and <span class="code" style="background-color: #edd">unit</span>
+ * is optional.
+ * @li The Boolean function symbols @c &&, @c ||, @c !, and @c != may be used.
+ * @li The @em modulo operation is allowed as the symbol @c @% and 
+ * will produce a piecewise function in the MathML.
+ * @li All inverse trigonometric functions may be defined in the infix
+ * either using @c arc as a prefix or simply @c a; in other words, both
+ * @c arccsc and @c acsc are interpreted as the operator @em arccosecant
+ * defined in MathML.  (Many functions in the SBML Level&nbsp;1 infix-notation
+ * parser implemented by @if clike SBML_parseFormula()@endif@if csharp SBML_parseFormula()@endif@if python libsbml.parseFormula()@endif@if java <code><a href="libsbml.html#parseFormula(java.lang.String)">libsbml.parseFormula()</a></code>@endif@~
+ * are defined this way as well, but not all.)
+ * @li The following expression is parsed as a rational number instead of
+ * as a numerical division:
+ * <pre style="display: block; margin-left: 25px">
+ * (<span class="code" style="background-color: #d0d0ee">integer</span>/<span class="code" style="background-color: #d0d0ee">integer</span>)</pre>
+ * No spaces are allowed in this construct; in other words,
+ * &quot;<code>(3 / 4)</code>&quot; will be parsed into the MathML
+ * <code>&lt;divide&gt;</code> construct rather than a rational number.  The 
+ * general number syntax allows you to assign units to a rational number, e.g.,
+ * &quot;<code>(3/4) ml</code>&quot;.  (If the string is a division, units
+ * are not interpreted in this way.)
+ * @li Various settings may be altered by using an L3ParserSettings object
+ * in conjunction with the alternative function call
+ * @if clike SBML_parseL3FormulaWithSettings()@endif@if csharp SBML_parseL3FormulaWithSettings()@endif@if python libsbml.parseL3FormulaWithSettings()@endif@if java <code><a href="libsbml.html#parseL3FormulaWithSettings(java.lang.String)">libsbml.parseL3FormulaWithSettings()</a></code>@endif@~, including the following:
+ * <ul>
+ * <li> The function @c log with a single argument (&quot;<code>log(x)</code>&quot;) 
+ * can be parsed as <code>log10(x)</code>, <code>ln(x)</code>, or treated
+ * as an error based on the settings.
+ * <li> Unary minuses may be collapsed or expanded.
+ * <li> Parsing of units can be turned on and off.
+ * <li> The string @c avogadro can be parsed as a MathML @em csymbol or
+ * as an identifier.
+ * <li> A Model object may optionally be provided to the parser using
+ * the variant function call @if clike  SBML_parseL3FormulaWithModel()@endif@if csharp  SBML_parseL3FormulaWithModel()@endif@if python  libsbml.SBML_parseL3FormulaWithModel()@endif@if java  SBML_parseL3FormulaWithModel()@endif@~.
+ * When this is done, identifiers (values of type @c SId) from that model
+ * are used in preference to pre-defined MathML definitions.  More
+ * precisely, the Model entities whose identifiers will shadow identical
+ * symbols in the mathematical formula are: Species, Compartment,
+ * Parameter, Reaction, and SpeciesReference.  For instance, if the parser
+ * is given a Model containing a Species with the identifier
+ * &quot;<code>pi</code>&quot;, and the formula to be parsed is
+ * &quot;<code>3*pi</code>&quot;, the MathML produced will contain the
+ * construct <code>&lt;ci&gt; pi &lt;/ci&gt;</code> instead of the
+ * construct <code>&lt;pi/&gt;</code>.
+ * <li> Similarly, when a Model object is provided, @c SId values of
+ * user-defined functions present in the model will be used preferentially
+ * over pre-defined MathML functions.  For example, if the passed-in Model
+ * contains a FunctionDefinition with the identifier
+ * &quot;<code>sin</code>&quot;, that function will be used instead of the
+ * predefined MathML function <code>&lt;sin/&gt;</code>.
+ * </ul>
+ * These configuration settings cannot be changed using @em this function
+ * (i.e., @if clike SBML_parseL3Formula()@endif@if csharp SBML_parseL3Formula()@endif@if python libsbml.parseL3Formula()@endif@if java <code><a href="libsbml.html#parseL3Formula(java.lang.String)">libsbml.parseL3Formula()</a></code>@endif@~), 
+ * but they can be change on a per-call basis by using the alternative function 
+ * @if clike SBML_parseL3FormulaWithSettings()@endif@if csharp SBML_parseL3FormulaWithSettings()@endif@if python libsbml.parseL3FormulaWithSettings()@endif@if java <code><a href="libsbml.html#parseL3FormulaWithSettings(java.lang.String)">libsbml.parseL3FormulaWithSettings()</a></code>@endif@~
+ *
+ * This function returns the root node of the AST corresponding to the
+ * formula given as the argument.  If the formula contains a syntax error,
+ * this function will return @c NULL instead.  When @c NULL is returned, an
+ * error is set; information about the error can be retrieved using
+ * @if clike SBML_getLastParseL3Error()@endif@if csharp SBML_getLastParseL3Error()@endif@if python libsbml.getLastParseL3Error()@endif@if java <code><a href="libsbml.html#getLastParseL3Error(java.lang.String)">libsbml.getLastParseL3Error()</a></code>@endif@~.
+ *
+ * Note that this facility and the SBML Level&nbsp;1-based @if clike SBML_parseFormula()@endif@if csharp SBML_parseFormula()@endif@if python libsbml.parseFormula()@endif@if java <code><a href="libsbml.html#parseFormula(java.lang.String)">libsbml.parseFormula()</a></scode>@endif@~
+ * are provided as a convenience by libSBML&mdash;the MathML standard does not
+ * actually define a "string-form" equivalent to MathML expressions, so the
+ * choice of formula syntax is arbitrary.  The approach taken by libSBML is
+ * to start with the syntax defined by SBML Level&nbsp;1 (which in fact
+ * used a text-string representation of formulas, and not MathML), and
+ * expand it to include the above functionality.  This formula syntax is
+ * based mostly on C programming syntax, and may contain operators,
+ * function calls, symbols, and white space characters.  The following
+ * table provides the precedence rules for the different entities that may
+ * appear in formula strings.
+ *
+ * @htmlinclude math-precedence-table-l3.html
+ * 
+ * In the table above, @em operand implies the construct is an operand, @em
+ * prefix implies the operation is applied to the following arguments, @em
+ * unary implies there is one argument, and @em binary implies there are
+ * two arguments.  The values in the <b>Precedence</b> column show how the
+ * order of different types of operation are determined.  For example, the
+ * expression <code>a + b * c</code> is evaluated as <code>a + (b * c)</code> 
+ * because the @c * operator has higher precedence.  The
+ * <b>Associates</b> column shows how the order of similar precedence
+ * operations is determined; for example, <code>a && b || c</code> is
+ * evaluated as <code>(a && b) || c</code> because the @c && and @c ||
+ * operators are left-associative and have the same precedence.
+ *
+ * The function call syntax consists of a function name, followed by optional
+ * white space, followed by an opening parenthesis token, followed by a
+ * sequence of zero or more arguments separated by commas (with each comma
+ * optionally preceded and/or followed by zero or more white space
+ * characters), followed by a closing parenthesis token.  The function name
+ * must be chosen from one of the pre-defined functions in SBML or a
+ * user-defined function in the model.  The following table lists the names
+ * of certain common mathematical functions; this table corresponds to
+ * Table&nbsp;6 in the <a target="_blank" href="http://sbml.org/Documents/Specifications#SBML_Level_1_Version_2">SBML Level&nbsp;1 Version&nbsp;2 specification</a> with additions based on the 
+ * functions added in SBML Level 2 and Level 3:
+ *
+ * @htmlinclude string-functions-table-l3.html
+ *
+ * Note that this function's interpretation of the string
+ * &quot;<code>log</code>&quot; as a function with a single argument can be
+ * changed; use the function @if clike SBML_parseL3FormulaWithSettings()@endif@if csharp SBML_parseL3FormulaWithSettings()@endif@if python libsbml.parseL3FormulaWithSettings()@endif@if java <code><a href="libsbml.html#parseL3FormulaWithSettings(java.lang.String)">libsbml.parseL3FormulaWithSettings()</a></code>@endif@~
+ * instead of this function and pass it an appropriate L3ParserSettings
+ * object.  By default, unlike the SBML Level&nbsp;1 parser implemented by
+ * @if clike SBML_parseFormula()@endif@if csharp SBML_parseFormula()@endif@if python libsbml.parseFormula()@endif@if java <code><a href="libsbml.html#parseFormula(java.lang.String)">libsbml.parseFormula()</a></code>@endif@~, 
+ * the string &quot;<code>log</code>&quot; is interpreted as the base&nbsp;10
+ * logarithm, and @em not as the natural logarithm.  However, you can change
+ * the interpretation to be base-10 log, natural log, or as an error; since
+ * the name "log" by itself is ambiguous, you require that the parser uses
+ * @c log10 or @c ln instead, which are more clear.  Please refer to
+ * @if clike SBML_parseL3FormulaWithSettings()@endif@if csharp SBML_parseL3FormulaWithSettings()@endif@if python libsbml.parseL3FormulaWithSettings()@endif@if java <code><a href="libsbml.html#parseL3FormulaWithSettings(java.lang.String)">libsbml.parseL3FormulaWithSettings()</a></code>@endif@~.
+ * 
+ * In addition, the following symbols will be translated to their MathML
+ * equivalents, if no symbol with the same @c SId identifier string exists
+ * in the Model object provided:
+ *
+ * @htmlinclude string-values-table-l3.html
+ * 
+ * Note that whether the string &quot;<code>avogadro</code>&quot; is parsed
+ * as an AST node of type @c AST_NAME_AVOGADRO or @c AST_NAME is
+ * configurable; use the alternate version of this function, called
+ * @if clike SBML_parseL3FormulaWithSettings()@endif@if csharp SBML_parseL3FormulaWithSettings()@endif@if python libsbml.parseL3FormulaWithSettings()@endif@if java <code><a href="libsbml.html#parseL3FormulaWithSettings(java.lang.String)">libsbml.parseL3FormulaWithSettings()</a></code>@endif@~.
+ * This functionality is provided because SBML Level&nbsp;2 models may not
+ * use @c AST_NAME_AVOGADRO AST nodes.
+ *
+ * @param formula the text-string formula expression to be parsed
+ *
+ * @return the root node of an AST representing the mathematical formula,
+ * or @c NULL if an error occurred while parsing the formula.  When @c NULL
+ * is returned, an error is recorded internally; information about the
+ * error can be retrieved using 
+ * @if clike SBML_getLastParseL3Error()@endif@if csharp SBML_getLastParseL3Error()@endif@if python libsbml.getLastParseL3Error()@endif@if java <code><a href="libsbml.html#getLastParseL3Error(java.lang.String)">libsbml.getLastParseL3Error()</a></code>@endif@~.
+ *
+ * @if clike @see SBML_getLastParseL3Error()@endif@~
+ * @if csharp @see SBML_getLastParseL3Error()@endif@~
+ * @if python libsbml.getLastParseL3Error()@endif@~
+ * @if java @see SBML_getLastParseL3Error()@endif@~
+ * @if clike @see SBML_formulaToString()@endif@~
+ * @if csharp @see SBML_formulaToString()@endif@~
+ * @if python @see libsbml.formulaToString()@endif@~
+ * @if java @see formulaToString()@endif@~
+ * @if clike @see SBML_parseL3FormulaWithModel()@endif@~
+ * @if csharp @see SBML_parseL3FormulaWithModel()@endif@~
+ * @if python @see libsbml.SBML_parseL3FormulaWithModel()@endif@~
+ * @if java @see SBML_parseL3FormulaWithModel()@endif@~
+ * @if clike @see SBML_parseL3FormulaWithSettings()@endif@~
+ * @if csharp @see SBML_parseL3FormulaWithSettings()@endif@~
+ * @if python @see libsbml.SBML_parseL3FormulaWithSettings()@endif@~
+ * @if java @see SBML_parseL3FormulaWithSettings()@endif@~
+ */
 LIBSBML_EXTERN
 ASTNode_t *
 SBML_parseL3Formula (const char *formula)
@@ -2750,6 +2937,40 @@ SBML_parseL3Formula (const char *formula)
 }
 
 
+/**
+ * Parses the given mathematical formula using specific a specific Model to
+ * resolve symbols, and returns an Abstract Syntax Tree (AST)
+ * representation of the result.
+ *
+ * This is identical to @if clike SBML_parseL3Formula()@endif@if csharp SBML_parseL3Formula()@endif@if python libsbml.parseL3Formula()@endif@if java <code><a href="libsbml.html#parseL3Formula(org.sbml.libsbml.ASTNode)">libsbml.parseL3Formula()</a></code>@endif@~,
+ * except that this function uses the given model in the argument @p model
+ * to check against identifiers that appear in the @p formula.
+ *
+ * For more details about the parser, please see the definition of
+ * the function SBML_parseL3Formula().
+ *
+ * @param formula the mathematical formula expression to be parsed
+ * @param model the Model object to use for checking identifiers
+ *
+ * @return the root node of an AST representing the mathematical formula,
+ * or @c NULL if an error occurred while parsing the formula.  When @c NULL
+ * is returned, an error is recorded internally; information about the
+ * error can be retrieved using
+ * @if clike SBML_getLastParseL3Error()@endif@if csharp SBML_getLastParseL3Error()@endif@if python libsbml.getLastParseL3Error()@endif@if java <code><a href="libsbml.html#getLastParseL3Error(java.lang.String)">libsbml.getLastParseL3Error()</a></code>@endif@~.
+ * 
+ * @if clike @see SBML_getLastParseL3Error()@endif@~
+ * @if csharp @see SBML_getLastParseL3Error()@endif@~
+ * @if python libsbml.getLastParseL3Error()@endif@~
+ * @if java @see SBML_getLastParseL3Error()@endif@~
+ * @if clike @see SBML_parseL3Formula()@endif@~
+ * @if csharp @see SBML_parseL3Formula()@endif@~
+ * @if python @see libsbml.SBML_parseL3Formula()@endif@~
+ * @if java @see SBML_parseL3Formula()@endif@~
+ * @if clike @see SBML_parseL3FormulaWithSettings()@endif@~
+ * @if csharp @see SBML_parseL3FormulaWithSettings()@endif@~
+ * @if python @see libsbml.SBML_parseL3FormulaWithSettings()@endif@~
+ * @if java @see SBML_parseL3FormulaWithSettings()@endif@~
+ */
 LIBSBML_EXTERN
 ASTNode_t *
 SBML_parseL3FormulaWithModel (const char *formula, const Model_t * model)
@@ -2763,6 +2984,66 @@ SBML_parseL3FormulaWithModel (const char *formula, const Model_t * model)
 }
 
 
+/**
+ * Parses the given mathematical formula using specific parser settings and
+ * returns an Abstract Syntax Tree (AST) representation of the result.
+ *
+ * This is identical to @if clike SBML_parseL3Formula()@endif@if csharp SBML_parseL3Formula()@endif@if python libsbml.parseL3Formula()@endif@if java <code><a href="libsbml.html#parseL3Formula(org.sbml.libsbml.ASTNode)">libsbml.parseL3Formula()</a></code>@endif@~,
+ * except that this function uses the parser settings given in the argument
+ * @p settings.  The settings override the default parsing behavior.
+ *
+ * The parameter @p settings allows callers to change the following parsing
+ * behaviors:
+ *
+ * @li Use a specific Model object against which identifiers to compare
+ * identifiers.  This causes the parser to search the Model for identifiers
+ * that the parser encounters in the formula.  If a given symbol in the
+ * formula matches the identifier of a Species, Compartment, Parameter,
+ * Reaction, SpeciesReference or FunctionDefinition in the Model, then the
+ * symbol is assumed to refer to that model entity instead of any possible
+ * mathematical terms with the same symbol.  For example, if the parser is
+ * given a Model containing a Species with the identifier
+ * &quot;<code>pi</code>&quot;, and the formula to be parsed is
+ * &quot;<code>3*pi</code>&quot;, the MathML produced will contain the
+ * construct <code>&lt;ci&gt; pi &lt;/ci&gt;</code> instead of the
+ * construct <code>&lt;pi/&gt;</code>.
+ * @li Whether to parse &quot;<code>log(x)</code>&quot; with a single
+ * argument as the base 10
+ * logarithm of x, the natural logarithm of x, or treat the case as an
+ * error.
+ * @li Whether to parse &quot;<code>number id</code>&quot; by interpreting
+ * @c id as the identifier of a unit of measurement associated with the
+ * number, or whether to treat the case as an error.
+ * @li Whether to parse &quot;<code>avogadro</code>&quot; as an ASTNode of
+ * type @c AST_NAME_AVOGADRO or as type @c AST_NAME.
+ * @li Whether to always create explicit ASTNodes of type @c AST_MINUS for
+ * all unary minuses, or collapse them when possible.
+ *
+ * For more details about the parser, please see the definition of
+ * L3ParserSettings_t and @if clike SBML_parseL3Formula()@endif@if csharp SBML_parseL3Formula()@endif@if python libsbml.parseL3Formula()@endif@if java <code><a href="libsbml.html#parseL3Formula(java.lang.String)">libsbml.parseL3Formula()</a></code>@endif@~.
+ *
+ * @param formula the mathematical formula expression to be parsed
+ * @param settings the settings to be used for this parser invocation
+ *
+ * @return the root node of an AST representing the mathematical formula,
+ * or @c NULL if an error occurred while parsing the formula.  When @c NULL
+ * is returned, an error is recorded internally; information about the
+ * error can be retrieved using
+ * @if clike SBML_getLastParseL3Error()@endif@if csharp SBML_getLastParseL3Error()@endif@if python libsbml.getLastParseL3Error()@endif@if java <code><a href="libsbml.html#getLastParseL3Error(java.lang.String)">libsbml.getLastParseL3Error()</a></code>@endif@~.
+ * 
+ * @if clike @see SBML_getLastParseL3Error()@endif@~
+ * @if csharp @see SBML_getLastParseL3Error()@endif@~
+ * @if python libsbml.getLastParseL3Error()@endif@~
+ * @if java @see SBML_getLastParseL3Error()@endif@~
+ * @if clike @see SBML_parseL3Formula()@endif@~
+ * @if csharp @see SBML_parseL3Formula()@endif@~
+ * @if python @see libsbml.SBML_parseL3Formula()@endif@~
+ * @if java @see SBML_parseL3Formula()@endif@~
+ * @if clike @see SBML_parseL3FormulaWithModel()@endif@~
+ * @if csharp @see SBML_parseL3FormulaWithModel()@endif@~
+ * @if python @see libsbml.SBML_parseL3FormulaWithModel()@endif@~
+ * @if java @see SBML_parseL3FormulaWithModel()@endif@~
+ */
 LIBSBML_EXTERN
 ASTNode_t *
 SBML_parseL3FormulaWithSettings (const char *formula, const L3ParserSettings_t * settings)
@@ -2782,6 +3063,52 @@ SBML_parseL3FormulaWithSettings (const char *formula, const L3ParserSettings_t *
 }
 
 
+/**
+ * Returns a copy of the default parser settings used by @if clike SBML_parseL3Formula()@endif@if csharp SBML_parseL3Formula()@endif@if python libsbml.parseL3Formula()@endif@if java <code><a href="libsbml.html#parseL3Formula(java.lang.String)">libsbml.parseL3Formula()</a></code>@endif@~.
+ * 
+ * The settings structure allows callers to change the following parsing
+ * behaviors:
+ * 
+ * @li Use a specific Model object against which identifiers to compare
+ * identifiers.  This causes the parser to search the Model for identifiers
+ * that the parser encounters in the formula.  If a given symbol in the
+ * formula matches the identifier of a Species, Compartment, Parameter,
+ * Reaction, SpeciesReference or FunctionDefinition in the Model, then the
+ * symbol is assumed to refer to that model entity instead of any possible
+ * mathematical terms with the same symbol.  For example, if the parser is
+ * given a Model containing a Species with the identifier
+ * &quot;<code>pi</code>&quot;, and the formula to be parsed is
+ * &quot;<code>3*pi</code>&quot;, the MathML produced will contain the
+ * construct <code>&lt;ci&gt; pi &lt;/ci&gt;</code> instead of the
+ * construct <code>&lt;pi/&gt;</code>.
+ * @li Whether to parse &quot;<code>log(x)</code>&quot; with a single
+ * argument as the base 10
+ * logarithm of x, the natural logarithm of x, or treat the case as an
+ * error.
+ * @li Whether to parse &quot;<code>number id</code>&quot; by interpreting
+ * @c id as the identifier of a unit of measurement associated with the
+ * number, or whether to treat the case as an error.
+ * @li Whether to parse &quot;<code>avogadro</code>&quot; as an ASTNode of
+ * type @c AST_NAME_AVOGADRO or as type @c AST_NAME.
+ * @li Whether to always create explicit ASTNode objects of type @c AST_MINUS
+ * for all unary minus operators in a formula, or collapse them when possible.
+ *
+ * For more details about the parser, please see the definition of
+ * L3ParserSettings_t and @if clike SBML_parseL3Formula()@endif@if csharp SBML_parseL3Formula()@endif@if python libsbml.parseL3Formula()@endif@if java <code><a href="libsbml.html#parseL3Formula(java.lang.String)">libsbml.parseL3Formula()</a></code>@endif@~.
+ * 
+ * @if clike @see SBML_parseL3Formula()@endif@~
+ * @if csharp @see SBML_parseL3Formula()@endif@~
+ * @if python @see libsbml.SBML_parseL3Formula()@endif@~
+ * @if java @see SBML_parseL3Formula()@endif@~
+ * @if clike @see SBML_parseL3FormulaWithModel()@endif@~
+ * @if csharp @see SBML_parseL3FormulaWithModel()@endif@~
+ * @if python @see libsbml.SBML_parseL3FormulaWithModel()@endif@~
+ * @if java @see SBML_parseL3FormulaWithModel()@endif@~
+ * @if clike @see SBML_parseL3FormulaWithSettings()@endif@~
+ * @if csharp @see SBML_parseL3FormulaWithSettings()@endif@~
+ * @if python @see libsbml.SBML_parseL3FormulaWithSettings()@endif@~
+ * @if java @see SBML_parseL3FormulaWithSettings()@endif@~
+ */
 LIBSBML_EXTERN
 L3ParserSettings_t* 
 SBML_getDefaultL3ParserSettings ()
@@ -2792,6 +3119,31 @@ SBML_getDefaultL3ParserSettings ()
   return new L3ParserSettings(l3p->getDefaultL3ParserSettings());
 }
 
+/**
+ * Returns the last error reported by the parser.
+ *
+ * If @if clike SBML_parseL3Formula()@endif@if csharp SBML_parseL3Formula()@endif@if python libsbml.parseL3Formula()@endif@if java <code><a href="libsbml.html#parseL3Formula(java.lang.String)">libsbml.parseL3Formula()</a></code>@endif@~, 
+ * @if clike SBML_parseL3FormulaWithSettings()@endif@if csharp SBML_parseL3FormulaWithSettings()@endif@if python libsbml.parseL3FormulaWithSettings()@endif@if java <code><a href="libsbml.html#parseL3FormulaWithSettings(java.lang.String)">libsbml.parseL3FormulaWithSettings()</a></code>@endif@~, or
+ * @if clike SBML_parseL3FormulaWithModel()@endif@if csharp SBML_parseL3FormulaWithModel()@endif@if python libsbml.parseL3FormulaWithModel()@endif@if java <code><a href="libsbml.html#parseL3FormulaWithModel(java.lang.String)">libsbml.parseL3FormulaWithModel()</a></code>@endif@~ return @c NULL, an error is set internally which is accessible
+ * via this function. 
+ *
+ * @return a string describing the error that occurred.  This will contain
+ * the string the parser was trying to parse, which character it had parsed
+ * when it encountered the error, and a description of the error.
+ *
+ * @if clike @see SBML_parseL3Formula()@endif@~
+ * @if csharp @see SBML_parseL3Formula()@endif@~
+ * @if python @see libsbml.SBML_parseL3Formula()@endif@~
+ * @if java @see SBML_parseL3Formula()@endif@~
+ * @if clike @see SBML_parseL3FormulaWithModel()@endif@~
+ * @if csharp @see SBML_parseL3FormulaWithModel()@endif@~
+ * @if python @see libsbml.SBML_parseL3FormulaWithModel()@endif@~
+ * @if java @see SBML_parseL3FormulaWithModel()@endif@~
+ * @if clike @see SBML_parseL3FormulaWithSettings()@endif@~
+ * @if csharp @see SBML_parseL3FormulaWithSettings()@endif@~
+ * @if python @see libsbml.SBML_parseL3FormulaWithSettings()@endif@~
+ * @if java @see SBML_parseL3FormulaWithSettings()@endif@~
+ */
 LIBSBML_EXTERN
 char*
 SBML_getLastParseL3Error()
@@ -2801,4 +3153,5 @@ SBML_getLastParseL3Error()
   }
   return safe_strdup(l3p->getError().c_str());
 }
+/** @endcond */ //C-only documentation bit.
 
