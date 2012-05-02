@@ -106,7 +106,7 @@ STABLE RELEASE
     been placed into the sbml namespace. LibSBML was failing to report this.
     This has now been fixed.
 
-    
+
 
 * Miscellaneous
 
@@ -134,6 +134,23 @@ STABLE RELEASE
 EXPERIMENTAL RELEASE
 
 * New features
+
+  - New macros provided so that SBMLNamespaces objects may easily be created
+    to allow package elements to be extended by other packages (for example:
+    a comp:modelDefinition to have a layout:listOfLayouts).  These macros
+    now used throughout package system when creating new package elements.
+
+  - In 'comp':
+    -  ExternalModelDefinitions have a new function, 'getReferencedModel'
+       that tries to find the referenced document and model, if the reference
+       URI is a 'file' type.  If the SBMLDocument has its fileURI set, this will
+       use that to search for relative filenames.
+
+    -  With the above in place, automated flattening now works with
+       ExternalModelDefinitions that point to local files.
+
+    -  May now use ModelDefinitions to create the main Model of an SBMLDocument.
+
 
 * Bug fixes
 
