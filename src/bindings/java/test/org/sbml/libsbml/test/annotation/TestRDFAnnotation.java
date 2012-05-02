@@ -3,7 +3,8 @@
  * @brief   fomula units data unit tests
  *
  * @author  Akiya Jouraku (Java conversion)
- * @author  Ben Bornstein 
+ * @author  Ben Bornstein
+ 
  * 
  * ====== WARNING ===== WARNING ===== WARNING ===== WARNING ===== WARNING ======
  *
@@ -185,18 +186,31 @@ public class TestRDFAnnotation {
   {
     Compartment c = m.getCompartment(5);
     XMLNode node = c.getAnnotation();
-    String expected = "<annotation>\n""  <jd2:JDesignerLayout version=\"2.0\" MajorVersion=\"2\" MinorVersion=\"0\" BuildVersion=\"41\">\n" + 
-    "    <jd2:header>\n" + 
-    "      <jd2:VersionHeader JDesignerVersion=\"2.0\"/>\n" + 
-    "      <jd2:ModelHeader Author=\"Mr Untitled\" ModelVersion=\"0.0\" ModelTitle=\"untitled\"/>\n" + 
-    "      <jd2:TimeCourseDetails timeStart=\"0\" timeEnd=\"10\" numberOfPoints=\"1000\"/>\n" + 
-    "    </jd2:header>\n" + 
-    "  </jd2:JDesignerLayout>\n" + 
-    "  <rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:dc=\"http://purl.org/dc/elements/1.1/\" xmlns:dcterms=\"http://purl.org/dc/terms/\" xmlns:vCard=\"http://www.w3.org/2001/vcard-rdf/3.0#\" xmlns:bqbiol=\"http://biomodels.net/biology-qualifiers/\" xmlns:bqmodel=\"http://biomodels.net/model-qualifiers/\">\n" + 
-    "    <rdf:Description>\n" + 
-    "      <rdf:other/>\n" + 
-    "    </rdf:Description>\n" + 
-    "  </rdf:RDF>\n" + 
+    String expected = "<annotation>\n" + 
+"  <jd2:JDesignerLayout version=\"2.0\" MajorVersion=\"2\" MinorVersion=\"0\" BuildVersion=\"41\">\n"
+ + 
+    "    <jd2:header>\n"
+ + 
+    "      <jd2:VersionHeader JDesignerVersion=\"2.0\"/>\n"
+ + 
+    "      <jd2:ModelHeader Author=\"Mr Untitled\" ModelVersion=\"0.0\" ModelTitle=\"untitled\"/>\n"
+ + 
+    "      <jd2:TimeCourseDetails timeStart=\"0\" timeEnd=\"10\" numberOfPoints=\"1000\"/>\n"
+ + 
+    "    </jd2:header>\n"
+ + 
+    "  </jd2:JDesignerLayout>\n"
+ + 
+    "  <rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:dc=\"http://purl.org/dc/elements/1.1/\" xmlns:dcterms=\"http://purl.org/dc/terms/\" xmlns:vCard=\"http://www.w3.org/2001/vcard-rdf/3.0#\" xmlns:bqbiol=\"http://biomodels.net/biology-qualifiers/\" xmlns:bqmodel=\"http://biomodels.net/model-qualifiers/\">\n"
+ + 
+    "    <rdf:Description>\n"
+ + 
+    "      <rdf:other/>\n"
+ + 
+    "    </rdf:Description>\n"
+ + 
+    "  </rdf:RDF>\n"
+ + 
     "</annotation>";
     assertEquals( true, equals(expected,node.toXMLString()) );
   }
@@ -414,19 +428,32 @@ public class TestRDFAnnotation {
   public void test_RDFAnnotation_removeAnnotation()
   {
     XMLNode n1 = null;
-    String expected = "<annotation>\n" + 
-    "  <rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:dc=\"http://purl.org/dc/elements/1.1/\" xmlns:dcterms=\"http://purl.org/dc/terms/\" xmlns:vCard=\"http://www.w3.org/2001/vcard-rdf/3.0#\" xmlns:bqbiol=\"http://biomodels.net/biology-qualifiers/\" xmlns:bqmodel=\"http://biomodels.net/model-qualifiers/\">\n" + 
-    "    <rdf:Description rdf:about=\"#_000005\">\n" + 
-    "      <bqbiol:is>\n" + 
-    "        <rdf:Bag>\n" + 
-    "          <rdf:li rdf:resource=\"http://www.geneontology.org/#GO:0007274\"/>\n" + 
-    "        </rdf:Bag>\n" + 
-    "      </bqbiol:is>\n" + 
-    "    </rdf:Description>\n" + 
-    "    <rdf:Description>\n" + 
-    "      <rdf:other/>\n" + 
-    "    </rdf:Description>\n" + 
-    "  </rdf:RDF>\n" + 
+    String expected = "<annotation>\n"
+ + 
+    "  <rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:dc=\"http://purl.org/dc/elements/1.1/\" xmlns:dcterms=\"http://purl.org/dc/terms/\" xmlns:vCard=\"http://www.w3.org/2001/vcard-rdf/3.0#\" xmlns:bqbiol=\"http://biomodels.net/biology-qualifiers/\" xmlns:bqmodel=\"http://biomodels.net/model-qualifiers/\">\n"
+ + 
+    "    <rdf:Description rdf:about=\"#_000005\">\n"
+ + 
+    "      <bqbiol:is>\n"
+ + 
+    "        <rdf:Bag>\n"
+ + 
+    "          <rdf:li rdf:resource=\"http://www.geneontology.org/#GO:0007274\"/>\n"
+ + 
+    "        </rdf:Bag>\n"
+ + 
+    "      </bqbiol:is>\n"
+ + 
+    "    </rdf:Description>\n"
+ + 
+    "    <rdf:Description>\n"
+ + 
+    "      <rdf:other/>\n"
+ + 
+    "    </rdf:Description>\n"
+ + 
+    "  </rdf:RDF>\n"
+ + 
     "</annotation>";
     int i = m.getCompartment(4).removeTopLevelAnnotationElement("JDesignerLayout");
     n1 = m.getCompartment(4).getAnnotation();
@@ -474,16 +501,26 @@ public class TestRDFAnnotation {
   {
     XMLNode node = m.getCompartment(3).getAnnotation();
     XMLNode n1 = null;
-    String expected = "<annotation>\n" + 
-    "  <rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:dc=\"http://purl.org/dc/elements/1.1/\" xmlns:dcterms=\"http://purl.org/dc/terms/\" xmlns:vCard=\"http://www.w3.org/2001/vcard-rdf/3.0#\" xmlns:bqbiol=\"http://biomodels.net/biology-qualifiers/\" xmlns:bqmodel=\"http://biomodels.net/model-qualifiers/\">\n" + 
-    "    <rdf:Description rdf:about=\"#_000002\">\n" + 
-    "      <bqbiol:is>\n" + 
-    "        <rdf:Bag>\n" + 
-    "          <rdf:li rdf:resource=\"http://www.geneontology.org/#GO:0007274\"/>\n" + 
-    "        </rdf:Bag>\n" + 
-    "      </bqbiol:is>\n" + 
-    "    </rdf:Description>\n" + 
-    "  </rdf:RDF>\n" + 
+    String expected = "<annotation>\n"
+ + 
+    "  <rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:dc=\"http://purl.org/dc/elements/1.1/\" xmlns:dcterms=\"http://purl.org/dc/terms/\" xmlns:vCard=\"http://www.w3.org/2001/vcard-rdf/3.0#\" xmlns:bqbiol=\"http://biomodels.net/biology-qualifiers/\" xmlns:bqmodel=\"http://biomodels.net/model-qualifiers/\">\n"
+ + 
+    "    <rdf:Description rdf:about=\"#_000002\">\n"
+ + 
+    "      <bqbiol:is>\n"
+ + 
+    "        <rdf:Bag>\n"
+ + 
+    "          <rdf:li rdf:resource=\"http://www.geneontology.org/#GO:0007274\"/>\n"
+ + 
+    "        </rdf:Bag>\n"
+ + 
+    "      </bqbiol:is>\n"
+ + 
+    "    </rdf:Description>\n"
+ + 
+    "  </rdf:RDF>\n"
+ + 
     "</annotation>";
     int i = m.getCompartment(0).replaceTopLevelAnnotationElement(node);
     n1 = m.getCompartment(0).getAnnotation();
@@ -494,34 +531,62 @@ public class TestRDFAnnotation {
   public void test_RDFAnnotation_replaceAnnotation1()
   {
     XMLNode n1 = null;
-    String noRDF = "<annotation>\n""  <jd2:JDesignerLayout version=\"2.0\" MajorVersion=\"2\" MinorVersion=\"3\" BuildVersion=\"41\">\n" + 
-    "    <jd2:header>\n" + 
-    "      <jd2:VersionHeader JDesignerVersion=\"2.0\"/>\n" + 
-    "      <jd2:ModelHeader Author=\"Sarah\" ModelVersion=\"0.0\" ModelTitle=\"mine\"/>\n" + 
-    "      <jd2:TimeCourseDetails timeStart=\"0\" timeEnd=\"12\" numberOfPoints=\"1000\"/>\n" + 
-    "    </jd2:header>\n" + 
-    "  </jd2:JDesignerLayout>\n" + 
+    String noRDF = "<annotation>\n" + 
+"  <jd2:JDesignerLayout version=\"2.0\" MajorVersion=\"2\" MinorVersion=\"3\" BuildVersion=\"41\">\n"
+ + 
+    "    <jd2:header>\n"
+ + 
+    "      <jd2:VersionHeader JDesignerVersion=\"2.0\"/>\n"
+ + 
+    "      <jd2:ModelHeader Author=\"Sarah\" ModelVersion=\"0.0\" ModelTitle=\"mine\"/>\n"
+ + 
+    "      <jd2:TimeCourseDetails timeStart=\"0\" timeEnd=\"12\" numberOfPoints=\"1000\"/>\n"
+ + 
+    "    </jd2:header>\n"
+ + 
+    "  </jd2:JDesignerLayout>\n"
+ + 
     "</annotation>";
-    String expected = "<annotation>\n" + 
-    "  <jd2:JDesignerLayout version=\"2.0\" MajorVersion=\"2\" MinorVersion=\"3\" BuildVersion=\"41\">\n" + 
-    "    <jd2:header>\n" + 
-    "      <jd2:VersionHeader JDesignerVersion=\"2.0\"/>\n" + 
-    "      <jd2:ModelHeader Author=\"Sarah\" ModelVersion=\"0.0\" ModelTitle=\"mine\"/>\n" + 
-    "      <jd2:TimeCourseDetails timeStart=\"0\" timeEnd=\"12\" numberOfPoints=\"1000\"/>\n" + 
-    "    </jd2:header>\n" + 
-    "  </jd2:JDesignerLayout>\n" + 
-    "  <rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:dc=\"http://purl.org/dc/elements/1.1/\" xmlns:dcterms=\"http://purl.org/dc/terms/\" xmlns:vCard=\"http://www.w3.org/2001/vcard-rdf/3.0#\" xmlns:bqbiol=\"http://biomodels.net/biology-qualifiers/\" xmlns:bqmodel=\"http://biomodels.net/model-qualifiers/\">\n" + 
-    "    <rdf:Description rdf:about=\"#_000005\">\n" + 
-    "      <bqbiol:is>\n" + 
-    "        <rdf:Bag>\n" + 
-    "          <rdf:li rdf:resource=\"http://www.geneontology.org/#GO:0007274\"/>\n" + 
-    "        </rdf:Bag>\n" + 
-    "      </bqbiol:is>\n" + 
-    "    </rdf:Description>\n" + 
-    "    <rdf:Description>\n" + 
-    "      <rdf:other/>\n" + 
-    "    </rdf:Description>\n" + 
-    "  </rdf:RDF>\n" + 
+    String expected = "<annotation>\n"
+ + 
+    "  <jd2:JDesignerLayout version=\"2.0\" MajorVersion=\"2\" MinorVersion=\"3\" BuildVersion=\"41\">\n"
+ + 
+    "    <jd2:header>\n"
+ + 
+    "      <jd2:VersionHeader JDesignerVersion=\"2.0\"/>\n"
+ + 
+    "      <jd2:ModelHeader Author=\"Sarah\" ModelVersion=\"0.0\" ModelTitle=\"mine\"/>\n"
+ + 
+    "      <jd2:TimeCourseDetails timeStart=\"0\" timeEnd=\"12\" numberOfPoints=\"1000\"/>\n"
+ + 
+    "    </jd2:header>\n"
+ + 
+    "  </jd2:JDesignerLayout>\n"
+ + 
+    "  <rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:dc=\"http://purl.org/dc/elements/1.1/\" xmlns:dcterms=\"http://purl.org/dc/terms/\" xmlns:vCard=\"http://www.w3.org/2001/vcard-rdf/3.0#\" xmlns:bqbiol=\"http://biomodels.net/biology-qualifiers/\" xmlns:bqmodel=\"http://biomodels.net/model-qualifiers/\">\n"
+ + 
+    "    <rdf:Description rdf:about=\"#_000005\">\n"
+ + 
+    "      <bqbiol:is>\n"
+ + 
+    "        <rdf:Bag>\n"
+ + 
+    "          <rdf:li rdf:resource=\"http://www.geneontology.org/#GO:0007274\"/>\n"
+ + 
+    "        </rdf:Bag>\n"
+ + 
+    "      </bqbiol:is>\n"
+ + 
+    "    </rdf:Description>\n"
+ + 
+    "    <rdf:Description>\n"
+ + 
+    "      <rdf:other/>\n"
+ + 
+    "    </rdf:Description>\n"
+ + 
+    "  </rdf:RDF>\n"
+ + 
     "</annotation>";
     int i = m.getCompartment(4).replaceTopLevelAnnotationElement(noRDF);
     n1 = m.getCompartment(4).getAnnotation();
@@ -532,32 +597,58 @@ public class TestRDFAnnotation {
   public void test_RDFAnnotation_replaceAnnotation2()
   {
     XMLNode n1 = null;
-    String jd = "  <jd2:JDesignerLayout version=\"2.0\" MajorVersion=\"2\" MinorVersion=\"3\" BuildVersion=\"41\">\n""    <jd2:header>\n" + 
-    "      <jd2:VersionHeader JDesignerVersion=\"2.0\"/>\n" + 
-    "      <jd2:ModelHeader Author=\"Sarah\" ModelVersion=\"0.0\" ModelTitle=\"mine\"/>\n" + 
-    "      <jd2:TimeCourseDetails timeStart=\"0\" timeEnd=\"12\" numberOfPoints=\"1000\"/>\n" + 
-    "    </jd2:header>\n" + 
+    String jd = "  <jd2:JDesignerLayout version=\"2.0\" MajorVersion=\"2\" MinorVersion=\"3\" BuildVersion=\"41\">\n" + 
+"    <jd2:header>\n"
+ + 
+    "      <jd2:VersionHeader JDesignerVersion=\"2.0\"/>\n"
+ + 
+    "      <jd2:ModelHeader Author=\"Sarah\" ModelVersion=\"0.0\" ModelTitle=\"mine\"/>\n"
+ + 
+    "      <jd2:TimeCourseDetails timeStart=\"0\" timeEnd=\"12\" numberOfPoints=\"1000\"/>\n"
+ + 
+    "    </jd2:header>\n"
+ + 
     "  </jd2:JDesignerLayout>";
-    String twoAnn = "<annotation>\n" + 
-    "  <jd2:JDesignerLayout version=\"2.0\" MajorVersion=\"2\" MinorVersion=\"3\" BuildVersion=\"41\">\n" + 
-    "    <jd2:header>\n" + 
-    "      <jd2:VersionHeader JDesignerVersion=\"2.0\"/>\n" + 
-    "      <jd2:ModelHeader Author=\"Sarah\" ModelVersion=\"0.0\" ModelTitle=\"mine\"/>\n" + 
-    "      <jd2:TimeCourseDetails timeStart=\"0\" timeEnd=\"12\" numberOfPoints=\"1000\"/>\n" + 
-    "    </jd2:header>\n" + 
-    "  </jd2:JDesignerLayout>\n" + 
-    "  <rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:dc=\"http://purl.org/dc/elements/1.1/\" xmlns:dcterms=\"http://purl.org/dc/terms/\" xmlns:vCard=\"http://www.w3.org/2001/vcard-rdf/3.0#\" xmlns:bqbiol=\"http://biomodels.net/biology-qualifiers/\" xmlns:bqmodel=\"http://biomodels.net/model-qualifiers/\">\n" + 
-    "    <rdf:Description rdf:about=\"#_000005\">\n" + 
-    "      <bqbiol:is>\n" + 
-    "        <rdf:Bag>\n" + 
-    "          <rdf:li rdf:resource=\"http://www.geneontology.org/#GO:0007274\"/>\n" + 
-    "        </rdf:Bag>\n" + 
-    "      </bqbiol:is>\n" + 
-    "    </rdf:Description>\n" + 
-    "    <rdf:Description>\n" + 
-    "      <rdf:other/>\n" + 
-    "    </rdf:Description>\n" + 
-    "  </rdf:RDF>\n" + 
+    String twoAnn = "<annotation>\n"
+ + 
+    "  <jd2:JDesignerLayout version=\"2.0\" MajorVersion=\"2\" MinorVersion=\"3\" BuildVersion=\"41\">\n"
+ + 
+    "    <jd2:header>\n"
+ + 
+    "      <jd2:VersionHeader JDesignerVersion=\"2.0\"/>\n"
+ + 
+    "      <jd2:ModelHeader Author=\"Sarah\" ModelVersion=\"0.0\" ModelTitle=\"mine\"/>\n"
+ + 
+    "      <jd2:TimeCourseDetails timeStart=\"0\" timeEnd=\"12\" numberOfPoints=\"1000\"/>\n"
+ + 
+    "    </jd2:header>\n"
+ + 
+    "  </jd2:JDesignerLayout>\n"
+ + 
+    "  <rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:dc=\"http://purl.org/dc/elements/1.1/\" xmlns:dcterms=\"http://purl.org/dc/terms/\" xmlns:vCard=\"http://www.w3.org/2001/vcard-rdf/3.0#\" xmlns:bqbiol=\"http://biomodels.net/biology-qualifiers/\" xmlns:bqmodel=\"http://biomodels.net/model-qualifiers/\">\n"
+ + 
+    "    <rdf:Description rdf:about=\"#_000005\">\n"
+ + 
+    "      <bqbiol:is>\n"
+ + 
+    "        <rdf:Bag>\n"
+ + 
+    "          <rdf:li rdf:resource=\"http://www.geneontology.org/#GO:0007274\"/>\n"
+ + 
+    "        </rdf:Bag>\n"
+ + 
+    "      </bqbiol:is>\n"
+ + 
+    "    </rdf:Description>\n"
+ + 
+    "    <rdf:Description>\n"
+ + 
+    "      <rdf:other/>\n"
+ + 
+    "    </rdf:Description>\n"
+ + 
+    "  </rdf:RDF>\n"
+ + 
     "</annotation>";
     int i = m.getCompartment(4).replaceTopLevelAnnotationElement(twoAnn);
     assertTrue( i == libsbml.LIBSBML_INVALID_OBJECT );
@@ -585,60 +676,93 @@ public class TestRDFAnnotation {
 
   public void test_RDFAnnotation_testMissingAbout()
   {
-    String withAbout = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" + 
-    "  <annotation>\n" + 
-    "    <rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:dc=\"http://purl.org/dc/elements/1.1/\" xmlns:dcterms=\"http://purl.org/dc/terms/\" xmlns:vCard=\"http://www.w3.org/2001/vcard-rdf/3.0#\" xmlns:bqbiol=\"http://biomodels.net/biology-qualifiers/\" xmlns:bqmodel=\"http://biomodels.net/model-qualifiers/\">\n" + 
-    "      <rdf:Description rdf:about=\"#_000004\">\n" + 
-    "        <bqbiol:is>\n" + 
-    "          <rdf:Bag>\n" + 
-    "            <rdf:li rdf:resource=\"http://www.geneontology.org/#GO:0007274\"/>\n" + 
-    "          </rdf:Bag>\n" + 
-    "        </bqbiol:is>\n" + 
-    "      </rdf:Description>\n" + 
-    "    </rdf:RDF>\n" + 
+    String withAbout = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
+ + 
+    "  <annotation>\n"
+ + 
+    "    <rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:dc=\"http://purl.org/dc/elements/1.1/\" xmlns:dcterms=\"http://purl.org/dc/terms/\" xmlns:vCard=\"http://www.w3.org/2001/vcard-rdf/3.0#\" xmlns:bqbiol=\"http://biomodels.net/biology-qualifiers/\" xmlns:bqmodel=\"http://biomodels.net/model-qualifiers/\">\n"
+ + 
+    "      <rdf:Description rdf:about=\"#_000004\">\n"
+ + 
+    "        <bqbiol:is>\n"
+ + 
+    "          <rdf:Bag>\n"
+ + 
+    "            <rdf:li rdf:resource=\"http://www.geneontology.org/#GO:0007274\"/>\n"
+ + 
+    "          </rdf:Bag>\n"
+ + 
+    "        </bqbiol:is>\n"
+ + 
+    "      </rdf:Description>\n"
+ + 
+    "    </rdf:RDF>\n"
+ + 
     "  </annotation>";
-    String emptyAbout = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" + 
-    "  <annotation>\n" + 
-    "    <rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:dc=\"http://purl.org/dc/elements/1.1/\" xmlns:dcterms=\"http://purl.org/dc/terms/\" xmlns:vCard=\"http://www.w3.org/2001/vcard-rdf/3.0#\" xmlns:bqbiol=\"http://biomodels.net/biology-qualifiers/\" xmlns:bqmodel=\"http://biomodels.net/model-qualifiers/\">\n" + 
-    "      <rdf:Description rdf:about=\"\">\n" + 
-    "        <bqbiol:is>\n" + 
-    "          <rdf:Bag>\n" + 
-    "            <rdf:li rdf:resource=\"http://www.geneontology.org/#GO:0007274\"/>\n" + 
-    "          </rdf:Bag>\n" + 
-    "        </bqbiol:is>\n" + 
-    "      </rdf:Description>\n" + 
-    "    </rdf:RDF>\n" + 
+    String emptyAbout = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
+ + 
+    "  <annotation>\n"
+ + 
+    "    <rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:dc=\"http://purl.org/dc/elements/1.1/\" xmlns:dcterms=\"http://purl.org/dc/terms/\" xmlns:vCard=\"http://www.w3.org/2001/vcard-rdf/3.0#\" xmlns:bqbiol=\"http://biomodels.net/biology-qualifiers/\" xmlns:bqmodel=\"http://biomodels.net/model-qualifiers/\">\n"
+ + 
+    "      <rdf:Description rdf:about=\"\">\n"
+ + 
+    "        <bqbiol:is>\n"
+ + 
+    "          <rdf:Bag>\n"
+ + 
+    "            <rdf:li rdf:resource=\"http://www.geneontology.org/#GO:0007274\"/>\n"
+ + 
+    "          </rdf:Bag>\n"
+ + 
+    "        </bqbiol:is>\n"
+ + 
+    "      </rdf:Description>\n"
+ + 
+    "    </rdf:RDF>\n"
+ + 
     "  </annotation>";
-    String noAbout = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" + 
-    "  <annotation>\n" + 
-    "    <rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:dc=\"http://purl.org/dc/elements/1.1/\" xmlns:dcterms=\"http://purl.org/dc/terms/\" xmlns:vCard=\"http://www.w3.org/2001/vcard-rdf/3.0#\" xmlns:bqbiol=\"http://biomodels.net/biology-qualifiers/\" xmlns:bqmodel=\"http://biomodels.net/model-qualifiers/\">\n" + 
-    "      <rdf:Description>\n" + 
-    "        <bqbiol:is>\n" + 
-    "          <rdf:Bag>\n" + 
-    "            <rdf:li rdf:resource=\"http://www.geneontology.org/#GO:0007274\"/>\n" + 
-    "          </rdf:Bag>\n" + 
-    "        </bqbiol:is>\n" + 
-    "      </rdf:Description>\n" + 
-    "    </rdf:RDF>\n" + 
+    String noAbout = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
+ + 
+    "  <annotation>\n"
+ + 
+    "    <rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:dc=\"http://purl.org/dc/elements/1.1/\" xmlns:dcterms=\"http://purl.org/dc/terms/\" xmlns:vCard=\"http://www.w3.org/2001/vcard-rdf/3.0#\" xmlns:bqbiol=\"http://biomodels.net/biology-qualifiers/\" xmlns:bqmodel=\"http://biomodels.net/model-qualifiers/\">\n"
+ + 
+    "      <rdf:Description>\n"
+ + 
+    "        <bqbiol:is>\n"
+ + 
+    "          <rdf:Bag>\n"
+ + 
+    "            <rdf:li rdf:resource=\"http://www.geneontology.org/#GO:0007274\"/>\n"
+ + 
+    "          </rdf:Bag>\n"
+ + 
+    "        </bqbiol:is>\n"
+ + 
+    "      </rdf:Description>\n"
+ + 
+    "    </rdf:RDF>\n"
+ + 
     "  </annotation>";
-    List cvTerms = List();
+    CVTermList cvTerms = new CVTermList();
     XMLInputStream stream = new XMLInputStream ( withAbout,false );
     XMLNode node = new XMLNode ( stream );
     RDFAnnotationParser.parseRDFAnnotation(node,cvTerms);
     assertTrue( cvTerms.getSize() == 1 );
-    cvTerms = List();
+    cvTerms = new CVTermList();
     RDFAnnotationParser.parseRDFAnnotation(node,cvTerms);
     assertTrue( cvTerms.getSize() == 1 );
     cvTerms = null;
     cvTerms = null;
-    cvTerms = List();
+    cvTerms = new CVTermList();
     XMLInputStream stream1 = new XMLInputStream ( emptyAbout,false );
     XMLNode node1 = new XMLNode ( stream1 );
     RDFAnnotationParser.parseRDFAnnotation(node1,cvTerms);
     assertTrue( cvTerms.getSize() == 0 );
     cvTerms = null;
     cvTerms = null;
-    cvTerms = List();
+    cvTerms = new CVTermList();
     XMLInputStream stream2 = new XMLInputStream ( noAbout,false );
     XMLNode node2 = new XMLNode ( stream2 );
     RDFAnnotationParser.parseRDFAnnotation(node2,cvTerms);

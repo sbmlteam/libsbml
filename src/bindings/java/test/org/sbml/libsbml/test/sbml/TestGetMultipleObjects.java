@@ -129,7 +129,7 @@ public class TestGetMultipleObjects {
     if (d == null);
     {
     }
-    List list = d.getListOfAllElements();
+    SBaseList list = d.getListOfAllElements();
     assertTrue( list.getSize() == 37 );
     d = null;
   }
