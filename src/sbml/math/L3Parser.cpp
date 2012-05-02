@@ -73,7 +73,7 @@
 
 
 /* Line 171 of yacc.c  */
-#line 77 "L3parser.cpp"
+#line 77 "L3Parser.cpp"
 /* Substitute the variable and function names.  */
 #define yyparse         sbml_yyparse
 #define yylex           sbml_yylex
@@ -294,7 +294,7 @@ public:
 
 
 /* Line 189 of yacc.c  */
-#line 298 "L3parser.cpp"
+#line 298 "L3Parser.cpp"
 
 /* Enabling traces.  */
 #ifndef YYDEBUG
@@ -352,7 +352,7 @@ typedef union YYSTYPE
 
 
 /* Line 214 of yacc.c  */
-#line 356 "L3parser.cpp"
+#line 356 "L3Parser.cpp"
 } YYSTYPE;
 # define YYSTYPE_IS_TRIVIAL 1
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */
@@ -364,7 +364,7 @@ typedef union YYSTYPE
 
 
 /* Line 264 of yacc.c  */
-#line 368 "L3parser.cpp"
+#line 368 "L3Parser.cpp"
 
 #ifdef short
 # undef short
@@ -2009,7 +2009,7 @@ yyreduce:
 
 
 /* Line 1464 of yacc.c  */
-#line 2013 "L3parser.cpp"
+#line 2013 "L3Parser.cpp"
       default: break;
     }
   YY_SYMBOL_PRINT ("-> $$ =", yyr1[yyn], &yyval, &yyloc);
