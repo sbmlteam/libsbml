@@ -24,7 +24,7 @@ STABLE RELEASE
       classes via the class API, otherwise the original annotation
       is returned.
       
-    - We reassesed the use of the appendAnnotation function. Previously
+    - We reassessed the use of the appendAnnotation function. Previously
       any annotation was appended regardless of whether the existing
       annotation already contained a top level element with the same
       namespace.  We considered this to be a bug, since it would result
@@ -44,9 +44,69 @@ STABLE RELEASE
       use the API provided or contruct their own annotation and use the
       setAnnotation function. 
 
+    - New functions removeTopLevelAnnotationElement(std::string name) and 
+      replaceTopLevelAnnotationElement(XMLNode* annotation) have been 
+      introduced to allow users to remove or replace a single top level
+      annotation element whilst conserving any other annotation that may be
+      present.
+
 * New features
 
+  - There is now a version of the infix to MathML parser that is independent
+    of L1 constructs. This parser is available as three functions: 
+    SBML_parseL3Formula(""), SBML_parseL3FormulaWithModel("", Model*) and
+    SBML_parseL3FormulaWithSettings("", L3ParserSettings *). There is 
+    a new object L3ParserSettings that allows the user to tailor the
+    results of the function, for example to parse "log" as natural log
+    or log base 10; to allow users to enter units on numbers as "10m" or
+    to disable this feature along with some other options. 
+
+  - The getLine() and getColumn() functions did on some occasions return
+    a maximum int value when they could not be determined. This produced
+    inconsistent behaviour as some XML parsers return '0' as if they cannot
+    determine location.  This has been unified and libSBML will now return
+    '0' if the location is unknown.
+
+  - There is a new class SBMLDocumentPluginNotRequired which allows a 
+    package code to derive from an object where the required attribute is
+    considered 'false' until it has been set. Note this is not a "default"
+    value it is just the value with which the boolean attribute is 
+    initialised.  The existing SBMLDocumentPlugin class assumes a value
+    of 'true'.  This is in fact a change in behaviour but since users
+    should set this value it should not cause a problem.
+ 
+
 * Bug fixes
+
+  - Tracker issue#3509843
+    The annotation element in SBML should contain only elements.  Schema
+    validation reports this but libSBML was not. This has been corrected.  
+    Thanks to Camille Laibe for still running schema validation and reporting 
+    the issue.
+
+  - There was a subtle bug involving accessing a NULL ModelHistory object.
+    This has been fixed.
+
+  - Area units were not being properly converted between SBML Levels. They 
+    are now.
+
+  - An AST plus or times node that was created with more than two children
+    was written out as only having two children; thus losing information.
+    This behaviour has been corrected.
+
+  - Functions used to add objects to other objects in libSBML check that
+    the SBML Level/Version/Namespaces of the objects correspond. However
+    these checks were imposing the condition that the number of namespaces
+    on both objects be the same.  This is not a necessary condition and
+    the code has been relaxed.  Thanks to Chris Myers for pointing it
+    out.
+
+  - In XML if the sbml element is not prefixed but the only declaration 
+    of the sbml namespace is, then technically the sbml element has not
+    been placed into the sbml namespace. LibSBML was failing to report this.
+    This has now been fixed.
+
+    
 
 * Miscellaneous
 
@@ -60,6 +120,15 @@ STABLE RELEASE
     differences in the new version, older versions of Doxygen are no
     longer supported.  The 'configure' script will now only accept
     version 1.7 at minimum.
+
+  - Some changes have been made to facilitate building libSBML
+    with the Borland compiler.  This included standardising the use
+    of #ifdefined rather than using #if.  Thanks to Totte Karlsson for
+    the effort of getting this to work.
+
+  - The CMake build has been updated to facilitate the use of the Intel
+    compiler.
+
 
 
 EXPERIMENTAL RELEASE
