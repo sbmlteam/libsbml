@@ -92,7 +92,7 @@ BEGIN_C_DECLS
  * &quot;<code>(3/4) ml</code>&quot;.  (If the string is a division, units
  * are not interpreted in this way.)
  * @li Various settings may be altered by using an L3ParserSettings object
- * inconjunction with the alternative function call
+ * in conjunction with the alternative function call
  * @if clike SBML_parseL3FormulaWithSettings()@endif@if csharp SBML_parseL3FormulaWithSettings()@endif@if python libsbml.parseL3FormulaWithSettings()@endif@if java <code><a href="libsbml.html#parseL3FormulaWithSettings(java.lang.String)">libsbml.parseL3FormulaWithSettings()</a></code>@endif@~, including the following:
  * <ul>
  * <li> The function @c log with a single argument (&quot;<code>log(x)</code>&quot;) 
@@ -116,7 +116,7 @@ BEGIN_C_DECLS
  * construct <code>&lt;pi/&gt;</code>.
  * <li> Similarly, when a Model object is provided, @c SId values of
  * user-defined functions present in the model will be used preferentially
- * over pre-defined MathML functions3.  For example, if the passed-in Model
+ * over pre-defined MathML functions.  For example, if the passed-in Model
  * contains a FunctionDefinition with the identifier
  * &quot;<code>sin</code>&quot;, that function will be used instead of the
  * predefined MathML function <code>&lt;sin/&gt;</code>.
@@ -289,7 +289,8 @@ SBML_parseL3FormulaWithModel (const char *formula, const Model_t * model);
  * &quot;<code>3*pi</code>&quot;, the MathML produced will contain the
  * construct <code>&lt;ci&gt; pi &lt;/ci&gt;</code> instead of the
  * construct <code>&lt;pi/&gt;</code>.
- * @li Whether to parse &quot;<code>log(x)</code>&quot; as the base 10
+ * @li Whether to parse &quot;<code>log(x)</code>&quot; with a single
+ * argument as the base 10
  * logarithm of x, the natural logarithm of x, or treat the case as an
  * error.
  * @li Whether to parse &quot;<code>number id</code>&quot; by interpreting
@@ -348,7 +349,8 @@ SBML_parseL3FormulaWithSettings (const char *formula, const L3ParserSettings_t *
  * &quot;<code>3*pi</code>&quot;, the MathML produced will contain the
  * construct <code>&lt;ci&gt; pi &lt;/ci&gt;</code> instead of the
  * construct <code>&lt;pi/&gt;</code>.
- * @li Whether to parse &quot;<code>log(x)</code>&quot; as the base 10
+ * @li Whether to parse &quot;<code>log(x)</code>&quot; with a single
+ * argument as the base 10
  * logarithm of x, the natural logarithm of x, or treat the case as an
  * error.
  * @li Whether to parse &quot;<code>number id</code>&quot; by interpreting

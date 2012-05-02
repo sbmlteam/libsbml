@@ -30,30 +30,33 @@
  * @brief A helper class for modulating how the function SBML_parseL3Formula behaves.
  *
  * An L3ParserSettings object can be created to pass in to the function
- * SBML_parseL3Formula to change its behavior:  how a given infix string
- * will be translated to ASTNodes.  The behavior can be changed in the
+ * SBML_parseL3FormulaWithSettings to change its behavior:  how a given infix string
+ * will be translated to AST nodes.  The behavior can be changed in the
  * following ways:
  * 
- * @li A Model object can be compared to the infix, so that the IDs of function definitions defined
-     in the model with the same ID as built-in MathML functions will be translated
-     as functions, and not as the built-in MathML function.  Similarly, elements found
-     in the model whose IDs may be used in MathML expressions whose IDs may also match 
-     pre-defined SBML terms (time, avogadro, infinity, etc.) will be translated as 
-     element IDs, and not as the pre-defined SBML term.
- * @li The function 'log' with one argument ('log(x)') can be interpreted three
-     different ways:  as the log base 10 (the default), as the natural log (<ln/>),
-     or as an error.
- * @li A 'unary minus' (a minus sign that is associated with a single value to
-     its right like '-x', as opposed to a minus sign that connects two variables
-     like 'x - y') can be interpreted as a separate ASTNode in all cases (the default)
-     or can be 'collapsed' if two in a row are encountered, or if the subject of
-     the minus sign is a number.
- * @li The translated ASTNodes can be targetted for Level 3 SBML (the default) or 
-     for Level 2.  When the target is L2, infix describing a number with a unit
-     ('4.3 mL') is interpreted as an error (as L2 MathML cannot have units attached to 
-     numbers, unlike L3 MathML), and the string 'avogadro' is translated as 
-     the name of an element, and not the specially-defined 'avogadro' csymbol introduced
-     in SBML Level 3.
+ * @li Use a specific Model object against which identifiers to compare
+ * identifiers.  This causes the parser to search the Model for identifiers
+ * that the parser encounters in the formula.  If a given symbol in the
+ * formula matches the identifier of a Species, Compartment, Parameter,
+ * Reaction, SpeciesReference or FunctionDefinition in the Model, then the
+ * symbol is assumed to refer to that model entity instead of any possible
+ * mathematical terms with the same symbol.  For example, if the parser is
+ * given a Model containing a Species with the identifier
+ * &quot;<code>pi</code>&quot;, and the formula to be parsed is
+ * &quot;<code>3*pi</code>&quot;, the MathML produced will contain the
+ * construct <code>&lt;ci&gt; pi &lt;/ci&gt;</code> instead of the
+ * construct <code>&lt;pi/&gt;</code>.
+ * @li Whether to parse &quot;<code>log(x)</code>&quot; with a single
+ * argument as the base 10
+ * logarithm of x, the natural logarithm of x, or treat the case as an
+ * error.
+ * @li Whether to parse &quot;<code>number id</code>&quot; by interpreting
+ * @c id as the identifier of a unit of measurement associated with the
+ * number, or whether to treat the case as an error.
+ * @li Whether to parse &quot;<code>avogadro</code>&quot; as an ASTNode of
+ * type @c AST_NAME_AVOGADRO or as type @c AST_NAME.
+ * @li Whether to always create explicit ASTNodes of type @c AST_MINUS for
+ * all unary minuses, or collapse them when possible.
  *
  */
 
@@ -73,9 +76,9 @@
       telling the user to use 'log10(x)', 'ln(x)', or 'log(base, x)' instead.
   */
 typedef enum {L3P_PARSE_LOG_AS_LOG10=0,
-      L3P_PARSE_LOG_AS_LN=1,
-      L3P_PARSE_LOG_AS_ERROR=2
-     } l3p_log_type ;
+              L3P_PARSE_LOG_AS_LN=1,
+              L3P_PARSE_LOG_AS_ERROR=2
+} l3p_log_type ;
 
 #define L3P_COLLAPSE_UNARY_MINUS true
 #define L3P_EXPAND_UNARY_MINUS   false
@@ -157,7 +160,7 @@ public:
   l3p_log_type getParseLog() const;
 
   /**
-   * Sets whether to collapse unary minuses (L3P_COLLAPSE_UNARY_MINUS, true) or whether to leave them expanded (L3P_EXPAND_UNARY_MINUS, false).  Unary minuses found in infix will always be translated into an ASTNode of type AST_MINUS in the latter case, and subsequent pairs will disappear entirely in the former case, as well as numbers (AST_INTEGER, AST_REAL, AST_REAL_E, and AST_RATIONAL) nodes being given negative values.
+   * Sets whether to collapse unary minuses (L3P_COLLAPSE_UNARY_MINUS, true) or whether to leave them expanded (L3P_EXPAND_UNARY_MINUS, false).  Unary minuses found in infix will always be translated into an AST node of type AST_MINUS in the latter case, and subsequent pairs will disappear entirely in the former case, as well as numbers (AST_INTEGER, AST_REAL, AST_REAL_E, and AST_RATIONAL) nodes being given negative values.
    *
    *@param collapseminus A boolean indicating whether to collapse unary minuses (L3P_COLLAPSE_UNARY_MINUS, true) or whether to leave them expanded (L3P_EXPAND_UNARY_MINUS, false).
    */
@@ -171,22 +174,22 @@ public:
   bool getCollapseMinus() const;
 
   /**
-   * Sets up this L3ParserSettings object to create ASTNodes that are capable of being used unmodified in SBML Level 2 documents:  this means that infix that associates a unit definition with a number is treated as an error, and that the string 'avogadro' is converted to an ASTNode of type AST_NAME instead of AST_NAME_AVOGADRO.
+   * Sets up this L3ParserSettings object to create AST nodes that are capable of being used unmodified in SBML Level 2 documents:  this means that infix that associates a unit definition with a number is treated as an error, and that the string 'avogadro' is converted to an AST of type AST_NAME instead of AST_NAME_AVOGADRO.
    */
   void targetL2();
 
   /**
-   * Sets up this L3ParserSettings object to create ASTNodes that are targetted to the capabilities of SBML Level 3 documents:  this means that infix that associates a unit definition with a number is parsed correctly and used to set the 'unit' of the ASTNode, and that the string 'avogadro' is converted to an ASTNode of type AST_NAME_AVOGADRO instead of AST_NAME.
+   * Sets up this L3ParserSettings object to create AST nodes that are targetted to the capabilities of SBML Level 3 documents:  this means that infix that associates a unit definition with a number is parsed correctly and used to set the 'unit' of the AST, and that the string 'avogadro' is converted to an AST of type AST_NAME_AVOGADRO instead of AST_NAME.
    */
   void targetL3();
 
   /**
-   * Returns a boolean indicating whether this L3ParserSettings object is set up to produce ASTNodes appropriate for inclusion in SBML Level 2 documents:  units on numbers are treated as errors, and 'avogadro' is interpreted as AST_NAME and not AST_NAME_AVOGADRO.  (Both must be true, or this routine will return 'false'.)
+   * Returns a boolean indicating whether this L3ParserSettings object is set up to produce AST nodes appropriate for inclusion in SBML Level 2 documents:  units on numbers are treated as errors, and 'avogadro' is interpreted as AST_NAME and not AST_NAME_AVOGADRO.  (Both must be true, or this routine will return 'false'.)
    */
   bool getTargetL2() const;
 
   /**
-   * Returns a boolean indicating whether this L3ParserSettings object is set up to produce ASTNodes that take full advantage of properties present in SBML Level 2 documents:  units are properly interpreted, and 'avogadro' is interpreted as AST_NAME_AVOGADRO and not AST_NAME.  (Both must be true, or this routine will return 'false'.)
+   * Returns a boolean indicating whether this L3ParserSettings object is set up to produce AST nodes that take full advantage of properties present in SBML Level 2 documents:  units are properly interpreted, and 'avogadro' is interpreted as AST_NAME_AVOGADRO and not AST_NAME.  (Both must be true, or this routine will return 'false'.)
    */
   bool getTargetL3() const;
 
@@ -205,7 +208,7 @@ public:
   bool getParseUnits() const;
 
   /**
-   * Sets whether to translate the string "avogadro" (in any capitalization) into an ASTNode of type AST_NAME_AVOGADRO (L3P_AVOGADRO_IS_CSYMBOL, true) or whether to translate it into an ASTNode of type AST_NAME (L3P_AVOGADRO_IS_NAME, false).  'Avogadro' is a pre-defined csymbol in SBML Level 3, but was not defined in SBML Level 2, so this should be set to 'false' when parsing infix destined for SBML Level 2 documents.
+   * Sets whether to translate the string "avogadro" (in any capitalization) into an AST node of type AST_NAME_AVOGADRO (L3P_AVOGADRO_IS_CSYMBOL, true) or whether to translate it into an AST of type AST_NAME (L3P_AVOGADRO_IS_NAME, false).  'Avogadro' is a pre-defined csymbol in SBML Level 3, but was not defined in SBML Level 2, so this should be set to 'false' when parsing infix destined for SBML Level 2 documents.
    *
    *@param units A boolean indicating whether to parse "avogadro" as a csymbol (L3P_AVOGADRO_IS_CSYMBOL, true) or to parse it as a normal AST_NAME (L3P_AVOGADRO_IS_NAME, false).
    */

@@ -94,10 +94,10 @@ SBMLDocumentPluginNotRequired::readAttributes (const XMLAttributes& attributes,
   // preclude people from using them by adding the error below. 
   if ( mSBMLExt->getLevel(mURI) > 2)
   {    
-    
+
     //Alternatively, it might have set the 'required' flag to be 'false':
     if (mIsSetRequired && mRequired==true) 
-	{
+    {
       getErrorLog()
         ->logError(PackageRequiredShouldBeFalse, getLevel(), getVersion());
     }
