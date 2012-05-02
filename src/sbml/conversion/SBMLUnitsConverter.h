@@ -131,7 +131,7 @@ public:
 
   /**
    * Returns @c true if this converter object's properties match the given
-   * properties.
+   * properties. 
    *
    * A typical use of this method involves creating a ConversionProperties
    * object, setting the options desired, and then calling this method on
@@ -149,9 +149,9 @@ public:
   virtual bool matchesProperties(const ConversionProperties &props) const;
 
   
-  /** 
-   * This function converts the units in the model to base SI units;
-   * namely metre, kilogram, second, Ampere, Kelvin, mole and candela.
+  /**
+   * Convers the units in the model to base SI units; namely metre,
+   * kilogram, second, Ampere, Kelvin, mole and candela.
    * 
    * @return  integer value indicating the success/failure of the operation.
    * @if clike The value is drawn from the enumeration

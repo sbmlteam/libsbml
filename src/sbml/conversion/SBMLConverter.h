@@ -147,8 +147,8 @@ public:
    * 
    * @return the default properties for the converter.
    *
-   * @see setProperties(const ConversionProperties *props)
-   * @see matchesProperties(const ConversionProperties &props)
+   * @see setProperties()
+   * @see matchesProperties()
    */
   virtual ConversionProperties getDefaultProperties() const;
 
@@ -182,7 +182,7 @@ public:
   virtual bool matchesProperties(const ConversionProperties &props) const;
 
 
-  /** 
+  /**
    * Sets the current SBML document to the given SBMLDocument object.
    * 
    * @param doc the document to use for this conversion.
@@ -198,7 +198,7 @@ public:
   virtual int setDocument(const SBMLDocument* doc);
 
 
-  /** 
+  /**
    * Sets the configuration properties to be used by this converter.
    * 
    * A given converter exposes one or more properties that can be adjusted
@@ -218,12 +218,12 @@ public:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
    *
    * @see getProperties()
-   * @see matchesProperties(const ConversionProperties &props)
+   * @see matchesProperties()
    */  
   virtual int setProperties(const ConversionProperties *props);
 
 
-  /** 
+  /**
    * Returns the current properties in effect for this converter.
    * 
    * A given converter exposes one or more properties that can be adjusted
@@ -234,13 +234,13 @@ public:
    * 
    * @return the currently set configuration properties.
    *
-   * @see setProperties(const ConversionProperties *props)
-   * @see matchesProperties(const ConversionProperties &props)
+   * @see setProperties()
+   * @see matchesProperties()
    */
   virtual ConversionProperties* getProperties() const;
 
 
-  /** 
+  /**
    * Perform the conversion.
    *
    * This method causes the converter to do the actual conversion work,
