@@ -6775,7 +6775,34 @@ SBase_appendAnnotationString (SBase_t *sb, char *annotation)
     return LIBSBML_INVALID_OBJECT;
 }
 
-
+/**
+ * Removes the top-level element within the "annotation" 
+ * subelement of this SBML object with the given name.
+ *
+ * SBML places a few restrictions on the organization of the content of
+ * annotations; these are intended to help software tools read and write
+ * the data as well as help reduce conflicts between annotations added by
+ * different tools.  Please see the SBML specifications for more details.
+ *
+ * Calling this method allows a particular annotation element to be removed
+ * whilst the remaining annotations remain intact.
+ *
+ * @param sb SBase_t object containing the annotation to be altered
+ * @param elementName a string representing the name of the top level
+ * annotation element that is to be removed
+ *
+ * @return integer value indicating success/failure of the
+ * function.  The possible values returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_ANNOTATION_NAME_NOT_FOUND LIBSBML_ANNOTATION_NAME_NOT_FOUND @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_ANNOTATION_NS_NOT_FOUND LIBSBML_ANNOTATION_NS_NOT_FOUND @endlink
+ *
+ * @see SBase_removeTopLevelAnnotationElementWithURI (SBase_t *, 
+ *  const char *, const char *)
+ * @see SBase_replaceTopLevelAnnotationElement (SBase_t *, XMLNode_t *)
+ * @see SBase_replaceTopLevelAnnotationElementString (SBase_t *, char *)
+ */
 LIBSBML_EXTERN
 int
 SBase_removeTopLevelAnnotationElement (SBase_t *sb, char *name)
@@ -6792,6 +6819,35 @@ SBase_removeTopLevelAnnotationElement (SBase_t *sb, char *name)
 }
 
 
+/**
+ * Removes the top-level element within the "annotation" 
+ * subelement of this SBML object with the given name and URI.
+ *
+ * SBML places a few restrictions on the organization of the content of
+ * annotations; these are intended to help software tools read and write
+ * the data as well as help reduce conflicts between annotations added by
+ * different tools.  Please see the SBML specifications for more details.
+ *
+ * Calling this method allows a particular annotation element to be removed
+ * whilst the remaining annotations remain intact.
+ *
+ * @param sb SBase_t object containing the annotation to be altered
+ * @param elementName a string representing the name of the top level
+ * annotation element that is to be removed
+ * @param elementURI a string that is used to check both the name
+ * and URI of the top level element to be removed
+ *
+ * @return integer value indicating success/failure of the
+ * function.  The possible values returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_ANNOTATION_NAME_NOT_FOUND LIBSBML_ANNOTATION_NAME_NOT_FOUND @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_ANNOTATION_NS_NOT_FOUND LIBSBML_ANNOTATION_NS_NOT_FOUND @endlink
+ *
+ * @see SBase_removeTopLevelAnnotationElement (SBase_t *, const char *)
+ * @see SBase_replaceTopLevelAnnotationElement (SBase_t *, XMLNode_t *)
+ * @see SBase_replaceTopLevelAnnotationElementString (SBase_t *, char *)
+ */
 LIBSBML_EXTERN
 int
 SBase_removeTopLevelAnnotationElementWithURI (SBase_t *sb, const char *name, 
@@ -6809,6 +6865,36 @@ SBase_removeTopLevelAnnotationElementWithURI (SBase_t *sb, const char *name,
 }
 
 
+/**
+ * Replaces the given top-level element within the "annotation" 
+ * subelement of this SBML object and with the annotation element supplied.
+ *
+ * SBML places a few restrictions on the organization of the content of
+ * annotations; these are intended to help software tools read and write
+ * the data as well as help reduce conflicts between annotations added by
+ * different tools.  Please see the SBML specifications for more details.
+ *
+ * This method determines the name of the element to be replaced from the
+ * annotation argument. Functionally it is equivalent to calling
+ * <code> SBase_removeTopLevelAnnotationElement(sb, name); 
+ * SBase_appendAnnotation(sb, annotation_with_name);
+ * </code> with the exception that the placement of the annotation element remains
+ * the same.
+ *
+ * @param sb SBase_t object containing the annotation to be altered
+ * @param annotation XMLNode representing the replacement top level annotation 
+ *
+ * @return integer value indicating success/failure of the
+ * function.  The possible values returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT @endlink
+ *
+ * @see SBase_removeTopLevelAnnotationElement (SBase_t *, const char *)
+ * @see SBase_removeTopLevelAnnotationElementWithURI (SBase_t *, 
+ *  const char *, const char *)
+ * @see SBase_replaceTopLevelAnnotationElementString (SBase_t *, char *)
+ */
 LIBSBML_EXTERN
 int
 SBase_replaceTopLevelAnnotationElement (SBase_t *sb, XMLNode_t *annotation)
@@ -6825,6 +6911,36 @@ SBase_replaceTopLevelAnnotationElement (SBase_t *sb, XMLNode_t *annotation)
 }
 
 
+/**
+ * Replaces the given top-level element within the "annotation" 
+ * subelement of this SBML object and with the annotation element supplied.
+ *
+ * SBML places a few restrictions on the organization of the content of
+ * annotations; these are intended to help software tools read and write
+ * the data as well as help reduce conflicts between annotations added by
+ * different tools.  Please see the SBML specifications for more details.
+ *
+ * This method determines the name of the element to be replaced from the
+ * annotation argument. Functionally it is equivalent to calling
+ * <code> SBase_removeTopLevelAnnotationElement(sb, name); 
+ * SBase_appendAnnotation(sb, annotation_with_name);
+ * </code> with the exception that the placement of the annotation element remains
+ * the same.
+ *
+ * @param sb SBase_t object containing the annotation to be altered
+ * @param annotation string representing the replacement top level annotation 
+ *
+ * @return integer value indicating success/failure of the
+ * function.  The possible values returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT @endlink
+ *
+ * @see SBase_removeTopLevelAnnotationElement (SBase_t *, const char *)
+ * @see SBase_removeTopLevelAnnotationElementWithURI (SBase_t *, 
+ *  const char *, const char *)
+ * @see SBase_replaceTopLevelAnnotationElement (SBase_t *, XMLNode_t *)
+ */
 LIBSBML_EXTERN
 int
 SBase_replaceTopLevelAnnotationElementString (SBase_t *sb, char *annotation)

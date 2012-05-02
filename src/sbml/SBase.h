@@ -1577,7 +1577,7 @@ public:
    * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT @endlink
    *
    * @see removeTopLevelAnnotationElement(const std::string elementName, 
-    const std::string elementURI = "")
+   * const std::string elementURI = "")
    * @see replaceTopLevelAnnotationElement(const std::string&)
    */
   int replaceTopLevelAnnotationElement(const XMLNode* annotation);
