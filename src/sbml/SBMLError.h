@@ -537,6 +537,7 @@ typedef enum
 , LevelPositiveInteger                  = 20105 /*!< The 'level' attribute must have a positive integer value. */
 , VersionPositiveInteger                = 20106 /*!< The 'version' attribute must have a positive integer value. */
 , AllowedAttributesOnSBML               = 20108 /*!< Invalid attribute found on the SBML container element. */
+, L3PackageOnLowerSBML                  = 20109 /*!< An L3 package ns found on the SBML container element. */
 , MissingModel                          = 20201 /*!< No model definition found. */
 , IncorrectOrderInModel                 = 20202 /*!< Incorrect ordering of components within the Model object. */
 , EmptyListElement                      = 20203 /*!< Empty ListOf___ object found. */

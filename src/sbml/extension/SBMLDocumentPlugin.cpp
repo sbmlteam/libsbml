@@ -137,10 +137,24 @@ SBMLDocumentPlugin::readAttributes (const XMLAttributes& attributes,
   SBasePlugin::readAttributes(attributes, expectedAttributes);
 
   if ( mSBMLExt->getLevel(mURI) > 2)
-  {    
-    XMLTriple tripleRequired("required", mURI, mPrefix);
-    if (attributes.readInto(tripleRequired, mRequired, getErrorLog(), true, getLine(), getColumn())) {
-      mIsSetRequired = true;
+  {  
+    // check level of document version smaller than plugin
+    // and report invalid if it is
+    if (this->getSBMLDocument()->getLevel() < mSBMLExt->getLevel(mURI))
+    {
+      // we should not have a package ns in an l2 document
+      this->getSBMLDocument()->getErrorLog()->logError(L3PackageOnLowerSBML, 
+                                      this->getSBMLDocument()->getLevel(), 
+                                      this->getSBMLDocument()->getVersion());
+    }
+    else
+    {
+      XMLTriple tripleRequired("required", mURI, mPrefix);
+      if (attributes.readInto(tripleRequired, mRequired, getErrorLog(), 
+                              true, getLine(), getColumn())) 
+      {
+        mIsSetRequired = true;
+      }
     }
   }
 }

@@ -2303,6 +2303,27 @@ static const sbmlErrorTableEntry errorTable[] =
      "L3V1 Section 4.1"}
   },
 
+  //20109
+  {
+    L3PackageOnLowerSBML,
+    "An L3 package ns found on the SBML container element.",
+    LIBSBML_CAT_SBML,
+    LIBSBML_SEV_WARNING,
+    LIBSBML_SEV_WARNING,
+    LIBSBML_SEV_WARNING,
+    LIBSBML_SEV_WARNING,
+    LIBSBML_SEV_WARNING,
+    LIBSBML_SEV_WARNING,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    "It is not possible to use SBML L3 packages with earlier levels of SBML.",
+    {"",
+     "",
+     "",
+     "",
+     "",
+     ""}
+  },
+
   //20201
   {
     MissingModel,
