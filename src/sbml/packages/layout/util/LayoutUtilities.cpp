@@ -45,10 +45,14 @@
 
 #include <sbml/packages/layout/util/LayoutUtilities.h>
 #include <sbml/xml/XMLAttributes.h>
+#include <sbml/common/extern.h>
+
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
-void addSBaseAttributes(const SBase& object,XMLAttributes& att)
+LIBSBML_EXTERN
+void 
+addSBaseAttributes(const SBase& object,XMLAttributes& att)
 {
    if(object.isSetMetaId())
    { 
@@ -56,7 +60,9 @@ void addSBaseAttributes(const SBase& object,XMLAttributes& att)
    }
 }
 
-void addGraphicalObjectAttributes(const GraphicalObject& object,XMLAttributes& att)
+LIBSBML_EXTERN
+void 
+addGraphicalObjectAttributes(const GraphicalObject& object,XMLAttributes& att)
 {
     att.add("id",object.getId());
 }
@@ -65,7 +71,9 @@ void addGraphicalObjectAttributes(const GraphicalObject& object,XMLAttributes& a
 
 // copies the attributes from source to target
 // this is sued in the assignment operators and copy constructors
-void copySBaseAttributes(const SBase& source,SBase& target)
+LIBSBML_EXTERN
+void 
+copySBaseAttributes(const SBase& source,SBase& target)
 {
     target.setMetaId(source.getMetaId());
 //    target.setId(source.getId());
