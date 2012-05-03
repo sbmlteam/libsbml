@@ -41,7 +41,7 @@ STABLE RELEASE
       CVTerms. Thus the appendAnnotation function no longer treats RDF
       as a "special" case.  If there is existing RDF, no further RDF will 
       be appended. Users wishing to alter existing History or CVTerms should
-      use the API provided or contruct their own annotation and use the
+      use the API provided or construct their own annotation and use the
       setAnnotation function. 
 
     - New functions removeTopLevelAnnotationElement(std::string name) and 
@@ -150,13 +150,6 @@ EXPERIMENTAL RELEASE
        ExternalModelDefinitions that point to local files.
 
     -  May now use ModelDefinitions to create the main Model of an SBMLDocument.
-
-
-* Bug fixes
-
-* Miscellaneous
-
-* Configuration/build system changes
 
 
 ======================================================================
