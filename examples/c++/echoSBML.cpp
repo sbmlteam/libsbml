@@ -26,7 +26,7 @@ main (int argc, char* argv[])
 
 //  writeSBML(readSBML(argv[1]), argv[2]);
   SBMLDocument *d = readSBML(argv[1]);
-  if ( d->getNumErrors() > 0)
+  if ( d->getErrorLog()->getNumFailsWithSeverity(LIBSBML_SEV_ERROR) > 0)
   {
     d->printErrors();
   }
