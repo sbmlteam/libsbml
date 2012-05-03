@@ -1321,3 +1321,15 @@ docnote {
 div.contents hr { 
   margin: 2em 0 2em 0;
 }
+
+table.params td {
+    padding-left: 1em;
+}
+
+table.params td.paramname {
+    padding-left: 0;
+}
+
+.textblock ul li {
+    padding-bottom: 0.5em;
+}
