@@ -53,9 +53,9 @@
  * <li> The function @c log with a single argument (&quot;<code>log(x)</code>&quot;) 
  * can be parsed as <code>log10(x)</code>, <code>ln(x)</code>, or treated
  * as an error, as desired.
- * <li> Multiple unary minuses in a row (e.g., &quot;<code>- -3</code>&quot;)
- * can be turned into a single minus in the AST representation, or the multiple
- * minuses can be preserved.
+ * <li> Pairs of multiple unary minuses in a row
+ * (e.g., &quot;<code>- -3</code>&quot;) can be turned into a single minus
+ * in the AST representation, or the multiple minuses can be preserved.
  * <li> Parsing of units can be turned on and off.
  * <li> The string @c avogadro can be parsed as a MathML @em csymbol or
  * as an identifier.
@@ -111,16 +111,22 @@
 
 
 /** 
-  * The l3p_log_type enum defines three options:
-  * @li L3P_PARSE_LOG_AS_LOG10 (0):  parse 'log(x)' as the log base-10 of x, or 'log10(x)'.
-  * @li L3P_PARSE_LOG_AS_LN (1): parse 'log(x)' as the natural log of x, or 'ln(x)'.
-  * @li L3P_PARSE_LOG_AS_ERROR (2): refuse to parse 'log(x)' at all, and set an error message 
-      telling the user to use 'log10(x)', 'ln(x)', or 'log(base, x)' instead.
+ * Configuration values for handling @c log in formulas.
   */
-typedef enum {L3P_PARSE_LOG_AS_LOG10=0,
-              L3P_PARSE_LOG_AS_LN=1,
-              L3P_PARSE_LOG_AS_ERROR=2
-} l3p_log_type ;
+typedef enum
+{
+    L3P_PARSE_LOG_AS_LOG10 = 0,
+    /*!< Parse <code>log(x)</code> as the base-10 logarithm of @c x. */
+
+    L3P_PARSE_LOG_AS_LN    = 1,
+    /*!< Parse <code>log(x)</code> as the natural logarithm of @c x. */
+
+    L3P_PARSE_LOG_AS_ERROR = 2
+    /*!< Refuse to parse <code>log(x)</code> at all, and set an error message 
+      telling the user to use <code>log10(x)</code>, <code>ln(x)</code>,
+      or <code>log(base, x)</code> instead. */
+
+} l3p_log_type;
 
 
 #define L3P_COLLAPSE_UNARY_MINUS true
@@ -168,7 +174,7 @@ public:
    * @param model a Model object to be used for disambiguating identifiers
    * 
    * @param parselog a flag that controls how the parser will handle
-   * apparent calls to logarithm operators in formulas
+   * the symbol @c log in formulas
    *
    * @param collapseminus a flag that controls how the parser will handle
    * multiple minus signs in a row
@@ -241,153 +247,302 @@ public:
 
 
   /**
-   * Sets what to do with infix strings with the function 'log' with one
-   * argument, according to the provided type.
+   * Sets the behavior for handling @c log in mathematical formulas.
    *
-   * @param type One of three options to set how 'log' with one argument is interpreted:
-   * @li L3P_PARSE_LOG_AS_LOG10 (0)
-   * @li L3P_PARSE_LOG_AS_LN (1)
-   * @li L3P_PARSE_LOG_AS_ERROR (2)
+   * The function @c log with a single argument
+   * (&quot;<code>log(x)</code>&quot;) can be parsed as
+   * <code>log10(x)</code>, <code>ln(x)</code>, or treated as an error, as
+   * desired.
+   *
+   * @param type a constant, one of following three possibilities:
+   * @li @link l3p_log_type#L3P_PARSE_LOG_AS_LOG10 L3P_PARSE_LOG_AS_LOG10@endlink
+   * @li @link l3p_log_type#L3P_PARSE_LOG_AS_LN L3P_PARSE_LOG_AS_LN@endlink
+   * @li @link l3p_log_type#L3P_PARSE_LOG_AS_ERROR L3P_PARSE_LOG_AS_ERROR@endlink
+   *
+   * @see getParseLog()
    */
   void setParseLog(l3p_log_type type);
 
 
   /**
-   * Returns the current setting indicating what to do with infix strings
-   * with the function 'log' with one argument.
+   * Returns the current setting indicating what to do with formulas
+   * containing the function @c log with one argument.
    *
-   * @return One of three options to set how 'log' with one argument is interpreted:
-   * @li L3P_PARSE_LOG_AS_LOG10 (0)
-   * @li L3P_PARSE_LOG_AS_LN (1)
-   * @li L3P_PARSE_LOG_AS_ERROR (2)
+   * The function @c log with a single argument
+   * (&quot;<code>log(x)</code>&quot;) can be parsed as
+   * <code>log10(x)</code>, <code>ln(x)</code>, or treated as an error, as
+   * desired.
+   *
+   * @return One of following three constants:
+   * @li @link l3p_log_type#L3P_PARSE_LOG_AS_LOG10 L3P_PARSE_LOG_AS_LOG10@endlink
+   * @li @link l3p_log_type#L3P_PARSE_LOG_AS_LN L3P_PARSE_LOG_AS_LN@endlink
+   * @li @link l3p_log_type#L3P_PARSE_LOG_AS_ERROR L3P_PARSE_LOG_AS_ERROR@endlink
+   *
+   * @see setParseLog()
    */
   l3p_log_type getParseLog() const;
 
 
-  /**
-   * Sets whether to collapse unary minuses (L3P_COLLAPSE_UNARY_MINUS,
-   * true) or whether to leave them expanded (L3P_EXPAND_UNARY_MINUS,
-   * false).  Unary minuses found in infix will always be translated into
+/* Need figure out what this bit about numbers means:
+
+   * Unary minuses found in infix will always be translated into
    * an AST node of type AST_MINUS in the latter case, and subsequent pairs
    * will disappear entirely in the former case, as well as numbers
    * (AST_INTEGER, AST_REAL, AST_REAL_E, and AST_RATIONAL) nodes being
    * given negative values.
+*/
+
+  /**
+   * Sets the behavior for handling multiple unary minuses appearing 
+   * in mathematical formulas.
    *
-   * @param collapseminus A boolean indicating whether to collapse unary
-   * minuses (L3P_COLLAPSE_UNARY_MINUS, true) or whether to leave them
-   * expanded (L3P_EXPAND_UNARY_MINUS, false).
+   * Pairs of multiple unary minuses in a row (e.g., &quot;<code>-
+   * -3</code>&quot;) can be turned into a single minus in the AST
+   * representation, or the multiple minuses can be preserved.  This method
+   * lets you tell the parser which behavior to use.  The two possibilities
+   * are represented using the following constants:
+   *
+   * @li @link L3P_COLLAPSE_UNARY_MINUS@endlink (value = @c true): collapse
+   * pairs of multiple unary minuses into a single AST node of type @c
+   * AST_MINUS.
+   * @li @link L3P_EXPAND_UNARY_MINUS@endlink (value = @c false): do not
+   * collapse pairs of unary minuses, and instead translate each one into
+   * an AST node of type @c AST_MINUS.
+   *
+   * @param collapseminus a boolean value (one of the constants
+   * @link L3P_COLLAPSE_UNARY_MINUS@endlink or
+   * @link L3P_EXPAND_UNARY_MINUS@endlink) indicating how multiple
+   * unary minuses should be handled.
+   *
+   * @see getCollapseMinus()
    */
   void setCollapseMinus(bool collapseminus);
 
 
   /**
-   * Returns whether the L3ParserSettings object is set to collapse unary
-   * minuses (L3P_COLLAPSE_UNARY_MINUS, true) or whether to leave them
-   * expanded (L3P_EXPAND_UNARY_MINUS, false).
+   * Returns a flag indicating the current behavior set for handling
+   * multiple unary minuses in formulas.
    *
-   * @return A boolean indicating whether unary minuses are set to be
-   * collapsed (L3P_COLLAPSE_UNARY_MINUS, true) or whether they are set to
-   * be left expanded (L3P_EXPAND_UNARY_MINUS, false).
+   * Pairs of multiple unary minuses in a row (e.g., &quot;<code>-
+   * -3</code>&quot;) can be turned into a single minus in the AST
+   * representation, or the multiple minuses can be preserved.  This method
+   * lets you tell the parser which behavior to use.  The two possibilities
+   * are represented using the following constants:
+   *
+   * @li @link L3P_COLLAPSE_UNARY_MINUS@endlink (value = @c true): collapse
+   * pairs of multiple unary minuses into a single AST node of type @c
+   * AST_MINUS.
+   * @li @link L3P_EXPAND_UNARY_MINUS@endlink (value = @c false): do not
+   * collapse pairs of unary minuses, and instead translate each one into
+   * an AST node of type @c AST_MINUS.
+   *
+   * @return A boolean, one of @link L3P_COLLAPSE_UNARY_MINUS@endlink or
+   * @link L3P_EXPAND_UNARY_MINUS@endlink.
+   *
+   * @see setCollapseMinus()
    */
   bool getCollapseMinus() const;
 
 
   /**
-   * Sets up this L3ParserSettings object to create AST nodes that are
-   * capable of being used unmodified in SBML Level 2 documents: this means
-   * that infix that associates a unit definition with a number is treated
-   * as an error, and that the string 'avogadro' is converted to an AST of
-   * type AST_NAME instead of AST_NAME_AVOGADRO.
+   * Sets the parser to create AST trees that are usable unmodified in
+   * SBML Level&nbsp;2 documents.
+   *
+   * Certain differences between SBML Level&nbsp;2 and Level&nbsp;3 lead to
+   * differences in the ASTNode trees produced for representing mathematical
+   * formulas.  In particular:
+   *
+   * @li In SBML Level&nbsp;2, there is no means of associating a unit of
+   * measurement with a pure number in a formula, while SBML Level&nbsp;3
+   * does define a syntax for this.
+   * @li SBML Level&nbsp;3 defines a @em csymbol for Avogadro's constant;
+   * this @em csymbol is not defined in SBML Level&nbsp;2.
+   *
+   * The consequence of these differences is that if SBML Level&nbsp;2 is
+   * the target, (1) parsing of formula strings containing units needs to
+   * be treated as an error, and (2) the string @c avogadro must be
+   * converted to an ASTNode of type @c AST_NAME instead of @c
+   * AST_NAME_AVOGADRO.
+   *
+   * @see getTargetL3()
+   * @see getTargetL2()
+   * @see setTargetL3()
    */
   void targetL2();
 
 
   /**
-   * Sets up this L3ParserSettings object to create AST nodes that are
-   * targetted to the capabilities of SBML Level 3 documents: this means
-   * that infix that associates a unit definition with a number is parsed
-   * correctly and used to set the 'unit' of the AST, and that the string
-   * 'avogadro' is converted to an AST of type AST_NAME_AVOGADRO instead of
-   * AST_NAME.
+   * Sets the parser to create AST trees that are usable unmodified in
+   * SBML Level&nbsp;3 documents.
+   *
+   * Certain differences between SBML Level&nbsp;2 and Level&nbsp;3 lead to
+   * differences in the ASTNode trees produced for representing mathematical
+   * formulas.  In particular:
+   *
+   * @li In SBML Level&nbsp;2, there is no means of associating a unit of
+   * measurement with a pure number in a formula, while SBML Level&nbsp;3
+   * does define a syntax for this.
+   * @li SBML Level&nbsp;3 defines a @em csymbol for Avogadro's constant;
+   * this @em csymbol is not defined in SBML Level&nbsp;2.
+   *
+   * The consequence of these differences is that if SBML Level&nbsp;3 is
+   * the target, (1) formula strings are allowed to specify units after
+   * numbers, and (2) the string @c avogadro is converted to an ASTNode of
+   * type @c AST_NAME_AVOGADRO.
+   *
+   * @see getTargetL3()
+   * @see getTargetL2()
+   * @see setTargetL2()
    */
   void targetL3();
 
 
   /**
-   * Returns a boolean indicating whether this L3ParserSettings object is
-   * set up to produce AST nodes appropriate for inclusion in SBML Level 2
-   * documents: units on numbers are treated as errors, and 'avogadro' is
-   * interpreted as AST_NAME and not AST_NAME_AVOGADRO.  (Both must be
-   * true, or this routine will return 'false'.)
+   * Returns @c true if the current setting is oriented towards SBML
+   * Level&nbsp;2, @c false otherwise.
+   *
+   * @return @c true if this L3ParserSettings object is set up to produce
+   * AST nodes appropriate for inclusion in SBML Level&nbsp;2 documents:
+   * units on numbers are treated as errors, and the string @c avogadro is
+   * interpreted as @c AST_NAME and not @c AST_NAME_AVOGADRO.  (Both must
+   * be true, or this routine will return @c false.)
+   *
+   * @see getTargetL3()
+   * @see setTargetL2()
+   * @see setTargetL3()
    */
   bool getTargetL2() const;
 
 
   /**
-   * Returns a boolean indicating whether this L3ParserSettings object is
-   * set up to produce AST nodes that take full advantage of properties
-   * present in SBML Level 2 documents: units are properly interpreted, and
-   * 'avogadro' is interpreted as AST_NAME_AVOGADRO and not AST_NAME.
-   * (Both must be true, or this routine will return 'false'.)
+   * Returns @c true if the current setting is oriented towards SBML
+   * Level&nbsp;3, @c false otherwise.
+   *
+   * @return @c true if this L3ParserSettings object is set up to produce
+   * AST nodes that take full advantage of properties present in SBML
+   * Level&nbsp;3 documents: units are properly interpreted, and @c
+   * avogadro is interpreted as @c AST_NAME_AVOGADRO and not @c AST_NAME.
+   * (Both must be true, or this routine will return @c false.)
+   *
+   * @see getTargetL2()
+   * @see setTargetL3()
+   * @see setTargetL2()
    */
   bool getTargetL3() const;
 
 
   /**
-   * Sets whether to parse units associated with number (L3P_PARSE_UNITS,
-   * true) or whether to treat units as errors (L3P_NO_UNITS, false).  SBML
-   * Level 3 allows the setting of a 'sbml:units' attribute on MathML <cn>
-   * elements, which is settable in infix as the unit definition ID string
-   * used after a number.  Some examples include: "4 mL" (for integers),
-   * "2.01 Hz" (for reals), "3.1e-6 M" (for real numbers using e-notation),
-   * and "(5/8) inches" (for rational numbers).  To produce a valid SBML
-   * file, the UnitDefinition must exist in the final model, or the unit
-   * must be obtained from the list of pre-defined units in Table 2 of the
-   * SBML specification.
+   * Sets the parser's behavior in handling units associated with numbers
+   * in a mathematical formula.
    *
-   * @param units A boolean indicating whether to parse units
-   * (L3P_PARSE_UNITS, true) or whether to treat these strings as errors
-   * (L3P_NO_UNITS, false).
+   * In SBML Level&nbsp;2, there is no means of associating a unit of
+   * measurement with a pure number in a formula, while SBML Level&nbsp;3
+   * does define a syntax for this.  In Level&nbsp;3, MathML
+   * <code>&lt;cn&gt;</code> elements can have an attribute named @c units
+   * placed in the SBML namespace, which can be used to indicate the units
+   * to be associated with the number.  The text-string infix formula
+   * parser allows units to be placed after raw numbers; they are
+   * interpreted as unit identifiers for units defined by the SBML
+   * specification or in the containing Model object.  Some examples
+   * include: &quot;<code>4 mL</code>&quot;, &quot;<code>2.01
+   * Hz</code>&quot;, &quot;<code>3.1e-6 M</code>&quot;, and
+   * &quot;<code>(5/8) inches</code>&quot;.  To produce a valid SBML model,
+   * there must either exist a UnitDefinition corresponding to the
+   * identifier of the unit, or the unit must be defined in Table&nbsp;2 of
+   * the SBML specification.
+   *
+   * @param units A boolean indicating whether to parse units:
+   * @li @link L3P_PARSE_UNITS@endlink (value = @c true): parse units
+   * in the text-string formula.
+   * @li @link L3P_NO_UNITS@endlink (value = @c false): treat units
+   * in the text-string formula as errors.
+   *
+   * @see getParseUnits()
    */
   void setParseUnits(bool units);
 
 
   /**
-   * Returns whether the L3ParserSettings object is set to parse units
-   * (L3P_PARSE_UNITS, true) or whether to treat these strings as errors
-   * (L3P_NO_UNITS, false).
+   * Returns @c if the current settings allow units in text-string
+   * mathematical formulas.
    *
-   * @return A boolean indicating whether units are set to be parsed
-   * (L3P_PARSE_UNITS, true) or whether they are set to be treated as errors
-   * (L3P_NO_UNITS, false).
+   * In SBML Level&nbsp;2, there is no means of associating a unit of
+   * measurement with a pure number in a formula, while SBML Level&nbsp;3
+   * does define a syntax for this.  In Level&nbsp;3, MathML
+   * <code>&lt;cn&gt;</code> elements can have an attribute named @c units
+   * placed in the SBML namespace, which can be used to indicate the units
+   * to be associated with the number.  The text-string infix formula
+   * parser allows units to be placed after raw numbers; they are
+   * interpreted as unit identifiers for units defined by the SBML
+   * specification or in the containing Model object.  Some examples
+   * include: &quot;<code>4 mL</code>&quot;, &quot;<code>2.01
+   * Hz</code>&quot;, &quot;<code>3.1e-6 M</code>&quot;, and
+   * &quot;<code>(5/8) inches</code>&quot;.  To produce a valid SBML model,
+   * there must either exist a UnitDefinition corresponding to the
+   * identifier of the unit, or the unit must be defined in Table&nbsp;2 of
+   * the SBML specification.
+   *
+   * @return A boolean indicating whether to parse units:
+   * @li @link L3P_PARSE_UNITS@endlink (value = @c true): parse units
+   * in the text-string formula.
+   * @li @link L3P_NO_UNITS@endlink (value = @c false): treat units
+   * in the text-string formula as errors.
+   *
+   * @see setParseUnits()
    */
   bool getParseUnits() const;
 
 
   /**
-   * Sets whether to translate the string "avogadro" (in any
-   * capitalization) into an AST node of type AST_NAME_AVOGADRO
-   * (L3P_AVOGADRO_IS_CSYMBOL, true) or whether to translate it into an AST
-   * of type AST_NAME (L3P_AVOGADRO_IS_NAME, false).  'Avogadro' is a
-   * pre-defined csymbol in SBML Level 3, but was not defined in SBML Level
-   * 2, so this should be set to 'false' when parsing infix destined for
-   * SBML Level 2 documents.
+   * Sets the parser's behavior in handling the string @c avogadro in
+   * mathematical formulas.
    *
-   * @param units A boolean indicating whether to parse "avogadro" as a
-   * csymbol (L3P_AVOGADRO_IS_CSYMBOL, true) or to parse it as a normal
-   * AST_NAME (L3P_AVOGADRO_IS_NAME, false).
+   * SBML Level&nbsp;3 defines a symbol for representing the value of
+   * Avogadro's constant, but it is not defined in SBML Level&nbsp;2.  As a
+   * result, the text-string formula parser must behave differently
+   * depending on which SBML Level is being targeted.  The argument to this
+   * method can be one of two values:
+   *
+   * @li @link L3P_AVOGADRO_IS_CSYMBOL@endlink (value = @c true): tells the
+   * parser to translate the string @c avogadro (in any capitalization)
+   * into an AST node of type @c AST_NAME_AVOGADRO.
+   * @li @link L3P_AVOGADRO_IS_NAME@endlink (value = @c false): tells the
+   * parser to translate the string @c avogadro into an AST of type @c
+   * AST_NAME.
+   *
+   * Since SBML Level&nbsp;2 does not define a symbol for Avogadro's
+   * constant, the value should be set to @c false when parsing text-string
+   * formulas intended for use in SBML Level&nbsp;2 documents.
+   *
+   * @param l2only a boolean value (one of the constants
+   * @link L3P_AVOGADRO_IS_CSYMBOL@endlink or
+   * @link L3P_AVOGADRO_IS_NAME@endlink) indicating how the string
+   * @c avogadro should be treated when encountered in a formula.
+   *
+   * @see getAvogadroCsymbol()
    */
   void setAvogadroCsymbol(bool l2only);
 
 
   /**
-   * Returns whether the L3ParserSettings object is set to parse "avogadro"
-   * as a csymbol (L3P_AVOGADRO_IS_CSYMBOL, true) or whether to parse it as
-   * a normal AST_NAME (L3P_AVOGADRO_IS_NAME, false).
+   * Returns @c true if the current settings are oriented towards handling
+   * @c avogadro for SBML Level&nbsp;3.
    *
-   * @return A boolean indicating whether "avogadro" is to be parsed as a
-   * csymbol (L3P_AVOGADRO_IS_CSYMBOL, true) or whether to parse it as a
-   * normal AST_NAME (L3P_AVOGADRO_IS_NAME, false).
+   * SBML Level&nbsp;3 defines a symbol for representing the value of
+   * Avogadro's constant, but it is not defined in SBML Level&nbsp;2.  As a
+   * result, the text-string formula parser must behave differently
+   * depending on which SBML Level is being targeted.
+   *
+   * @return A boolean indicating which mode is currently set; the value is
+   * one of the following possibilities:
+   * @li @link L3P_AVOGADRO_IS_CSYMBOL@endlink (value = @c true): tells the
+   * parser to translate the string @c avogadro (in any capitalization)
+   * into an AST node of type @c AST_NAME_AVOGADRO.
+   * @li @link L3P_AVOGADRO_IS_NAME@endlink (value = @c false): tells the
+   * parser to translate the string @c avogadro into an AST of type @c
+   * AST_NAME.
+   *
+   * @see setAvogadroCsymbol()
    */
   bool getAvogadroCsymbol() const;
 };
