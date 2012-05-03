@@ -98,10 +98,13 @@ BEGIN_C_DECLS
  * <li> The function @c log with a single argument (&quot;<code>log(x)</code>&quot;) 
  * can be parsed as <code>log10(x)</code>, <code>ln(x)</code>, or treated
  * as an error, as desired.
- * <li> Multiple unary minuses in a row (e.g., &quot;<code>- -3</code>&quot;)
- * can be turned into a single minus in the AST representation, or the multiple
- * minuses can be preserved.
- * <li> Parsing of units can be turned on and off.
+ * <li> Unary minus signs can be collapsed or preserved; that is,
+ * sequential pairs of unary minuses (e.g., &quot;<code>- -3</code>&quot;)
+ * can be removed from the input entirely and single unary minuses can be
+ * incorporated into the number node, or all minuses can be preserved in
+ * the AST node structure.
+ * <li> Parsing of units embedded in the input string can be turned on and
+ * off.
  * <li> The string @c avogadro can be parsed as a MathML @em csymbol or
  * as an identifier.
  * <li> A Model object may optionally be provided to the parser using
@@ -304,7 +307,7 @@ SBML_parseL3FormulaWithModel (const char *formula, const Model_t * model);
  * @li Whether to parse &quot;<code>avogadro</code>&quot; as an ASTNode of
  * type @c AST_NAME_AVOGADRO or as type @c AST_NAME.
  * @li Whether to always create explicit ASTNodes of type @c AST_MINUS for
- * all unary minuses, or collapse them when possible.
+ * all unary minuses, or collapse and remove minuses where possible.
  *
  * For more details about the parser, please see the definition of
  * L3ParserSettings_t and @if clike SBML_parseL3Formula()@endif@if csharp SBML_parseL3Formula()@endif@if python libsbml.parseL3Formula()@endif@if java <code><a href="libsbml.html#parseL3Formula(java.lang.String)">libsbml.parseL3Formula()</a></code>@endif@~.
@@ -368,8 +371,8 @@ SBML_parseL3FormulaWithSettings (const char *formula, const L3ParserSettings_t *
  * number, or whether to treat the case as an error.
  * @li Whether to parse &quot;<code>avogadro</code>&quot; as an ASTNode of
  * type @c AST_NAME_AVOGADRO or as type @c AST_NAME.
- * @li Whether to always create explicit ASTNode objects of type @c AST_MINUS
- * for all unary minus operators in a formula, or collapse them when possible.
+ * @li Whether to always create explicit ASTNodes of type @c AST_MINUS for
+ * all unary minuses, or collapse and remove minuses where possible.
  *
  * For more details about the parser, please see the definition of
  * L3ParserSettings_t and @if clike SBML_parseL3Formula()@endif@if csharp SBML_parseL3Formula()@endif@if python libsbml.parseL3Formula()@endif@if java <code><a href="libsbml.html#parseL3Formula(java.lang.String)">libsbml.parseL3Formula()</a></code>@endif@~.
