@@ -198,11 +198,13 @@ BEGIN_C_DECLS
  * @htmlinclude string-values-table-l3.html
  * 
  * Note that whether the string &quot;<code>avogadro</code>&quot; is parsed
- * as an AST node of type @c AST_NAME_AVOGADRO or @c AST_NAME is
- * configurable; use the alternate version of this function, called
+ * as an AST node of type @link ASTNodeType_t#AST_NAME_AVOGADRO
+ * AST_NAME_AVOGADRO@endlink or @link ASTNodeType_t#AST_NAME
+ * AST_NAME@endlink is configurable; use the alternate version of this
+ * function, called
  * @if clike SBML_parseL3FormulaWithSettings()@endif@if csharp SBML_parseL3FormulaWithSettings()@endif@if python libsbml.parseL3FormulaWithSettings()@endif@if java <code><a href="libsbml.html#parseL3FormulaWithSettings(java.lang.String)">libsbml.parseL3FormulaWithSettings()</a></code>@endif@~.
  * This functionality is provided because SBML Level&nbsp;2 models may not
- * use @c AST_NAME_AVOGADRO AST nodes.
+ * use @link ASTNodeType_t#AST_NAME_AVOGADRO AST_NAME_AVOGADRO@endlink AST nodes.
  *
  * @param formula the text-string formula expression to be parsed
  *
@@ -305,9 +307,11 @@ SBML_parseL3FormulaWithModel (const char *formula, const Model_t * model);
  * @c id as the identifier of a unit of measurement associated with the
  * number, or whether to treat the case as an error.
  * @li Whether to parse &quot;<code>avogadro</code>&quot; as an ASTNode of
- * type @c AST_NAME_AVOGADRO or as type @c AST_NAME.
- * @li Whether to always create explicit ASTNodes of type @c AST_MINUS for
- * all unary minuses, or collapse and remove minuses where possible.
+ * type @link ASTNodeType_t#AST_NAME_AVOGADRO AST_NAME_AVOGADRO@endlink or
+ * as type @link ASTNodeType_t#AST_NAME AST_NAME@endlink.
+ * @li Whether to always create explicit ASTNodes of type @link
+ * ASTNodeType_t#AST_MINUS AST_MINUS@endlink for all unary minuses, or
+ * collapse and remove minuses where possible.
  *
  * For more details about the parser, please see the definition of
  * L3ParserSettings_t and @if clike SBML_parseL3Formula()@endif@if csharp SBML_parseL3Formula()@endif@if python libsbml.parseL3Formula()@endif@if java <code><a href="libsbml.html#parseL3Formula(java.lang.String)">libsbml.parseL3Formula()</a></code>@endif@~.
@@ -370,9 +374,11 @@ SBML_parseL3FormulaWithSettings (const char *formula, const L3ParserSettings_t *
  * @c id as the identifier of a unit of measurement associated with the
  * number, or whether to treat the case as an error.
  * @li Whether to parse &quot;<code>avogadro</code>&quot; as an ASTNode of
- * type @c AST_NAME_AVOGADRO or as type @c AST_NAME.
- * @li Whether to always create explicit ASTNodes of type @c AST_MINUS for
- * all unary minuses, or collapse and remove minuses where possible.
+ * type @link ASTNodeType_t#AST_NAME_AVOGADRO AST_NAME_AVOGADRO@endlink or
+ * as type @link ASTNodeType_t#AST_NAME AST_NAME@endlink.
+ * @li Whether to always create explicit ASTNodes of type @link
+ * ASTNodeType_t#AST_MINUS AST_MINUS@endlink for all unary minuses, or
+ * collapse and remove minuses where possible.
  *
  * For more details about the parser, please see the definition of
  * L3ParserSettings_t and @if clike SBML_parseL3Formula()@endif@if csharp SBML_parseL3Formula()@endif@if python libsbml.parseL3Formula()@endif@if java <code><a href="libsbml.html#parseL3Formula(java.lang.String)">libsbml.parseL3Formula()</a></code>@endif@~.
