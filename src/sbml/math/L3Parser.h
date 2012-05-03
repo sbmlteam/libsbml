@@ -97,19 +97,23 @@ BEGIN_C_DECLS
  * <ul>
  * <li> The function @c log with a single argument (&quot;<code>log(x)</code>&quot;) 
  * can be parsed as <code>log10(x)</code>, <code>ln(x)</code>, or treated
- * as an error based on the settings.
- * <li> Unary minuses may be collapsed or expanded.
+ * as an error, as desired.
+ * <li> Multiple unary minuses in a row (e.g., &quot;<code>- -3</code>&quot;)
+ * can be turned into a single minus in the AST representation, or the multiple
+ * minuses can be preserved.
  * <li> Parsing of units can be turned on and off.
  * <li> The string @c avogadro can be parsed as a MathML @em csymbol or
  * as an identifier.
  * <li> A Model object may optionally be provided to the parser using
  * the variant function call @if clike  SBML_parseL3FormulaWithModel()@endif@if csharp  SBML_parseL3FormulaWithModel()@endif@if python  libsbml.SBML_parseL3FormulaWithModel()@endif@if java  SBML_parseL3FormulaWithModel()@endif@~.
- * When this is done, identifiers (values of type @c SId) from that model
- * are used in preference to pre-defined MathML definitions.  More
- * precisely, the Model entities whose identifiers will shadow identical
- * symbols in the mathematical formula are: Species, Compartment,
- * Parameter, Reaction, and SpeciesReference.  For instance, if the parser
- * is given a Model containing a Species with the identifier
+ * or stored in a L3ParserSettings object passed to the variant function
+ * @if clike SBML_parseL3FormulaWithSettings()@endif@if csharp SBML_parseL3FormulaWithSettings()@endif@if python libsbml.parseL3FormulaWithSettings()@endif@if java <code><a href="libsbml.html#parseL3FormulaWithSettings(java.lang.String)">libsbml.parseL3FormulaWithSettings()</a></code>@endif@~.
+ * When a Model object is provided, identifiers (values of type @c SId)
+ * from that model are used in preference to pre-defined MathML
+ * definitions.  More precisely, the Model entities whose identifiers will
+ * shadow identical symbols in the mathematical formula are: Species,
+ * Compartment, Parameter, Reaction, and SpeciesReference.  For instance,
+ * if the parser is given a Model containing a Species with the identifier
  * &quot;<code>pi</code>&quot;, and the formula to be parsed is
  * &quot;<code>3*pi</code>&quot;, the MathML produced will contain the
  * construct <code>&lt;ci&gt; pi &lt;/ci&gt;</code> instead of the
@@ -240,6 +244,7 @@ SBML_parseL3Formula (const char *formula);
  * the function SBML_parseL3Formula().
  *
  * @param formula the mathematical formula expression to be parsed
+ *
  * @param model the Model object to use for checking identifiers
  *
  * @return the root node of an AST representing the mathematical formula,
@@ -305,6 +310,7 @@ SBML_parseL3FormulaWithModel (const char *formula, const Model_t * model);
  * L3ParserSettings_t and @if clike SBML_parseL3Formula()@endif@if csharp SBML_parseL3Formula()@endif@if python libsbml.parseL3Formula()@endif@if java <code><a href="libsbml.html#parseL3Formula(java.lang.String)">libsbml.parseL3Formula()</a></code>@endif@~.
  *
  * @param formula the mathematical formula expression to be parsed
+ *
  * @param settings the settings to be used for this parser invocation
  *
  * @return the root node of an AST representing the mathematical formula,
@@ -313,6 +319,10 @@ SBML_parseL3FormulaWithModel (const char *formula, const Model_t * model);
  * error can be retrieved using
  * @if clike SBML_getLastParseL3Error()@endif@if csharp SBML_getLastParseL3Error()@endif@if python libsbml.getLastParseL3Error()@endif@if java <code><a href="libsbml.html#getLastParseL3Error(java.lang.String)">libsbml.getLastParseL3Error()</a></code>@endif@~.
  * 
+ * @if clike @see SBML_getDefaultL3ParserSettings()@endif@~
+ * @if csharp @see SBML_getDefaultL3ParserSettings()@endif@~
+ * @if python @see libsbml.SBML_getDefaultL3ParserSettings()@endif@~
+ * @if java @see SBML_getDefaultL3ParserSettings()@endif@~
  * @if clike @see SBML_getLastParseL3Error()@endif@~
  * @if csharp @see SBML_getLastParseL3Error()@endif@~
  * @if python libsbml.getLastParseL3Error()@endif@~
