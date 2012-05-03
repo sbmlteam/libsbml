@@ -80,13 +80,13 @@ main (int argc, char* argv[])
           printf( "Now parsing 'log(x)' as an error\n\n> ");
         }
         else if (strcmp(line, "EXPAND_UMINUS")==0) {
-          L3ParserSettings_setCollapseMinus(settings, 0);
+          L3ParserSettings_setParseCollapseMinus(settings, 0);
           printf( "Will now leave multiple unary minuses expanded, ");
           printf("and all negative numbers will be translated using the ");
           printf("<minus> construct.\n\n> ");
         }
         else if (strcmp(line, "COLLAPSE_UMINUS")==0) {
-          L3ParserSettings_setCollapseMinus(settings, 1);
+          L3ParserSettings_setParseCollapseMinus(settings, 1);
           printf( "Will now collapse multiple unary minuses, and incorporate ");
           printf("a negative sign into digits.\n\n> ");
         }

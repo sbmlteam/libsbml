@@ -46,7 +46,7 @@ L3ParserSettings::L3ParserSettings()
 {
 }
 
-L3ParserSettings::L3ParserSettings(Model* model, l3p_log_type parselog, bool collapseminus, bool parseunits, bool avocsymbol)
+L3ParserSettings::L3ParserSettings(Model* model, ParseLogType_t parselog, bool collapseminus, bool parseunits, bool avocsymbol)
   : mModel (model)
   , mParselog(parselog)
   , mCollapseminus(collapseminus)
@@ -77,34 +77,34 @@ void L3ParserSettings::unsetModel()
 }
 
 
-void L3ParserSettings::setParseLog(l3p_log_type type)
+void L3ParserSettings::setParseLog(ParseLogType_t type)
 {
   mParselog = type;
 }
 
-l3p_log_type L3ParserSettings::getParseLog() const
+ParseLogType_t L3ParserSettings::getParseLog() const
 {
   return mParselog;
 }
 
 
-void L3ParserSettings::setCollapseMinus(bool collapseminus)
+void L3ParserSettings::setParseCollapseMinus(bool collapseminus)
 {
   mCollapseminus = collapseminus;
 }
 
-bool L3ParserSettings::getCollapseMinus() const
+bool L3ParserSettings::getParseCollapseMinus() const
 {
   return mCollapseminus;
 }
 
-void L3ParserSettings::targetL2()
+void L3ParserSettings::setTargetL2()
 {
   mParseunits = false;
   mAvoCsymbol = false;
 }
 
-void L3ParserSettings::targetL3()
+void L3ParserSettings::setTargetL3()
 {
   mParseunits = true;
   mAvoCsymbol = true;
@@ -131,12 +131,12 @@ bool L3ParserSettings::getParseUnits() const
 }
 
 
-void L3ParserSettings::setAvogadroCsymbol(bool avo)
+void L3ParserSettings::setParseAvogadroCsymbol(bool avo)
 {
   mAvoCsymbol = avo;
 }
 
-bool L3ParserSettings::getAvogadroCsymbol() const
+bool L3ParserSettings::getParseAvogadroCsymbol() const
 {
   return mAvoCsymbol;
 }
@@ -229,12 +229,12 @@ L3ParserSettings_unsetModel (L3ParserSettings_t * settings)
  * @li L3P_PARSE_LOG_AS_ERROR (2)
  *
  * @param settings the L3ParserSettings_t structure on which to set the option.
- * @param type l3p_log_type log parsing option to associate with this 
+ * @param type ParseLogType_t log parsing option to associate with this 
  * L3ParserSettings_t object.
  */
 LIBSBML_EXTERN
 void
-L3ParserSettings_setParseLog (L3ParserSettings_t * settings, l3p_log_type type)
+L3ParserSettings_setParseLog (L3ParserSettings_t * settings, ParseLogType_t type)
 {
   if (settings == NULL)
     return;
@@ -254,11 +254,11 @@ L3ParserSettings_setParseLog (L3ParserSettings_t * settings, l3p_log_type type)
  *
  * @param settings the L3ParserSettings_t structure on which to set the Model.
  *
- * @return l3p_log_type log parsing option to associate with this 
+ * @return ParseLogType_t log parsing option to associate with this 
  * L3ParserSettings_t object.
  */
 LIBSBML_EXTERN
-l3p_log_type
+ParseLogType_t
 L3ParserSettings_getParseLog (L3ParserSettings_t * settings)
 {
   if (settings == NULL)
@@ -280,12 +280,12 @@ L3ParserSettings_getParseLog (L3ParserSettings_t * settings)
  */
 LIBSBML_EXTERN
 void
-L3ParserSettings_setCollapseMinus (L3ParserSettings_t * settings, int flag)
+L3ParserSettings_setParseCollapseMinus (L3ParserSettings_t * settings, int flag)
 {
   if (settings == NULL)
     return;
 
-  settings->setCollapseMinus(static_cast<bool>(flag));
+  settings->setParseCollapseMinus(static_cast<bool>(flag));
 }
 
 
@@ -302,12 +302,12 @@ L3ParserSettings_setCollapseMinus (L3ParserSettings_t * settings, int flag)
  */
 LIBSBML_EXTERN
 int
-L3ParserSettings_getCollapseMinus (L3ParserSettings_t * settings)
+L3ParserSettings_getParseCollapseMinus (L3ParserSettings_t * settings)
 {
   if (settings == NULL)
     return 0;
 
-  return (static_cast<int>(settings->getCollapseMinus()));
+  return (static_cast<int>(settings->getParseCollapseMinus()));
 }
 
 
@@ -323,7 +323,7 @@ L3ParserSettings_setTargetL2 (L3ParserSettings_t * settings)
   if (settings == NULL)
     return;
 
-  settings->targetL2();
+  settings->setTargetL2();
 }
 
 
@@ -358,7 +358,7 @@ L3ParserSettings_setTargetL3 (L3ParserSettings_t * settings)
   if (settings == NULL)
     return;
 
-  settings->targetL3();
+  settings->setTargetL3();
 }
 
 
@@ -427,12 +427,12 @@ L3ParserSettings_getParseUnits (L3ParserSettings_t * settings)
  */
 LIBSBML_EXTERN
 void
-L3ParserSettings_setAvogadroCsymbol (L3ParserSettings_t * settings, int flag)
+L3ParserSettings_setParseAvogadroCsymbol (L3ParserSettings_t * settings, int flag)
 {
   if (settings == NULL)
     return;
 
-  settings->setAvogadroCsymbol(static_cast<bool>(flag));
+  settings->setParseAvogadroCsymbol(static_cast<bool>(flag));
 }
 
 
@@ -446,12 +446,12 @@ L3ParserSettings_setAvogadroCsymbol (L3ParserSettings_t * settings, int flag)
  */
 LIBSBML_EXTERN
 int
-L3ParserSettings_getAvogadroCsymbol (L3ParserSettings_t * settings)
+L3ParserSettings_getParseAvogadroCsymbol (L3ParserSettings_t * settings)
 {
   if (settings == NULL)
     return 0;
 
-  return (static_cast<int>(settings->getAvogadroCsymbol()));
+  return (static_cast<int>(settings->getParseAvogadroCsymbol()));
 }
 
 

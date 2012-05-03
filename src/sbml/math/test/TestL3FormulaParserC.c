@@ -1468,8 +1468,8 @@ START_TEST (test_SBML_C_parseL3Formula_collapseminussettings1)
   L3ParserSettings_t *settings = SBML_getDefaultL3ParserSettings();
 
   //Explicit parsing to collapse the minuses
-  L3ParserSettings_setCollapseMinus(settings, 1);
-  fail_unless(L3ParserSettings_getCollapseMinus(settings) == 1);
+  L3ParserSettings_setParseCollapseMinus(settings, 1);
+  fail_unless(L3ParserSettings_getParseCollapseMinus(settings) == 1);
 
   r = SBML_parseL3FormulaWithSettings("--4.4", settings);
   fail_unless( ASTNode_getType       (r) == AST_REAL, NULL );
@@ -1479,8 +1479,8 @@ START_TEST (test_SBML_C_parseL3Formula_collapseminussettings1)
   ASTNode_free(r);
 
   //Explicit parsing to expand the minuses
-  L3ParserSettings_setCollapseMinus(settings, 0);
-  fail_unless(L3ParserSettings_getCollapseMinus(settings) == 0);
+  L3ParserSettings_setParseCollapseMinus(settings, 0);
+  fail_unless(L3ParserSettings_getParseCollapseMinus(settings) == 0);
 
   r = SBML_parseL3FormulaWithSettings("--4.4", settings);
 
@@ -1524,8 +1524,8 @@ START_TEST (test_SBML_C_parseL3Formula_collapseminussettings2)
   L3ParserSettings_t *settings = SBML_getDefaultL3ParserSettings();
 
   //Explicit parsing to collapse the minuses
-  L3ParserSettings_setCollapseMinus(settings, 1);
-  fail_unless(L3ParserSettings_getCollapseMinus(settings) == 1);
+  L3ParserSettings_setParseCollapseMinus(settings, 1);
+  fail_unless(L3ParserSettings_getParseCollapseMinus(settings) == 1);
 
   r = SBML_parseL3FormulaWithSettings("--x", settings);
   fail_unless( ASTNode_getType       (r) == AST_NAME, NULL );
@@ -1535,8 +1535,8 @@ START_TEST (test_SBML_C_parseL3Formula_collapseminussettings2)
   ASTNode_free(r);
 
   //Explicit parsing to expand the minuses
-  L3ParserSettings_setCollapseMinus(settings, 0);
-  fail_unless(L3ParserSettings_getCollapseMinus(settings) == 0);
+  L3ParserSettings_setParseCollapseMinus(settings, 0);
+  fail_unless(L3ParserSettings_getParseCollapseMinus(settings) == 0);
 
   r = SBML_parseL3FormulaWithSettings("--x", settings);
 
@@ -1589,8 +1589,8 @@ START_TEST (test_SBML_C_parseL3Formula_collapseminussettings3)
   L3ParserSettings_t *settings = SBML_getDefaultL3ParserSettings();
 
   //Explicit parsing to collapse the minuses
-  L3ParserSettings_setCollapseMinus(settings, 1);
-  fail_unless(L3ParserSettings_getCollapseMinus(settings) == 1);
+  L3ParserSettings_setParseCollapseMinus(settings, 1);
+  fail_unless(L3ParserSettings_getParseCollapseMinus(settings) == 1);
 
   r = SBML_parseL3FormulaWithSettings("x---4.4", settings);
   fail_unless( ASTNode_getType       (r) == AST_MINUS, NULL );
@@ -1609,8 +1609,8 @@ START_TEST (test_SBML_C_parseL3Formula_collapseminussettings3)
   ASTNode_free(r);
 
   //Explicit parsing to expand the minuses
-  L3ParserSettings_setCollapseMinus(settings, 0);
-  fail_unless(L3ParserSettings_getCollapseMinus(settings) == 0);
+  L3ParserSettings_setParseCollapseMinus(settings, 0);
+  fail_unless(L3ParserSettings_getParseCollapseMinus(settings) == 0);
 
   r = SBML_parseL3FormulaWithSettings("x---4.4", settings);
 
@@ -1672,8 +1672,8 @@ START_TEST (test_SBML_C_parseL3Formula_collapseminussettings4)
   L3ParserSettings_t *settings = SBML_getDefaultL3ParserSettings();
 
   //Explicit parsing to collapse the minuses
-  L3ParserSettings_setCollapseMinus(settings, 1);
-  fail_unless(L3ParserSettings_getCollapseMinus(settings) == 1);
+  L3ParserSettings_setParseCollapseMinus(settings, 1);
+  fail_unless(L3ParserSettings_getParseCollapseMinus(settings) == 1);
 
   r = SBML_parseL3FormulaWithSettings("x---y", settings);
   fail_unless( ASTNode_getType       (r) == AST_MINUS, NULL );
@@ -1692,8 +1692,8 @@ START_TEST (test_SBML_C_parseL3Formula_collapseminussettings4)
   ASTNode_free(r);
 
   //Explicit parsing to expand the minuses
-  L3ParserSettings_setCollapseMinus(settings, 0);
-  fail_unless(L3ParserSettings_getCollapseMinus(settings) == 0);
+  L3ParserSettings_setParseCollapseMinus(settings, 0);
+  fail_unless(L3ParserSettings_getParseCollapseMinus(settings) == 0);
 
   r = SBML_parseL3FormulaWithSettings("x---y", settings);
 
@@ -1728,8 +1728,8 @@ START_TEST (test_SBML_C_parseL3Formula_collapseminussettings5)
 {
   ////Explicit parsing to collapse the minuses
   L3ParserSettings_t *settings = SBML_getDefaultL3ParserSettings();
-  L3ParserSettings_setCollapseMinus(settings, 1);
-  fail_unless(L3ParserSettings_getCollapseMinus(settings) == 1);
+  L3ParserSettings_setParseCollapseMinus(settings, 1);
+  fail_unless(L3ParserSettings_getParseCollapseMinus(settings) == 1);
 
   ASTNode_t* r = SBML_parseL3FormulaWithSettings("---4", settings);
   fail_unless( ASTNode_getType       (r) == AST_INTEGER, NULL );
@@ -1833,8 +1833,8 @@ START_TEST (test_SBML_C_parseL3Formula_avogadrosettings)
   ASTNode_free(r);
 
   L3ParserSettings_t *settings = SBML_getDefaultL3ParserSettings();
-  L3ParserSettings_setAvogadroCsymbol(settings, 0);
-  fail_unless(L3ParserSettings_getAvogadroCsymbol(settings) == 0);
+  L3ParserSettings_setParseAvogadroCsymbol(settings, 0);
+  fail_unless(L3ParserSettings_getParseAvogadroCsymbol(settings) == 0);
   fail_unless(L3ParserSettings_getTargetL2(settings) == 0);
   fail_unless(L3ParserSettings_getTargetL3(settings) == 0);
 
@@ -1844,8 +1844,8 @@ START_TEST (test_SBML_C_parseL3Formula_avogadrosettings)
   fail_unless( ASTNode_getNumChildren(r) == 0  , NULL );
   ASTNode_free(r);
 
-  L3ParserSettings_setAvogadroCsymbol(settings, 1);
-  fail_unless(L3ParserSettings_getAvogadroCsymbol(settings) == 1);
+  L3ParserSettings_setParseAvogadroCsymbol(settings, 1);
+  fail_unless(L3ParserSettings_getParseAvogadroCsymbol(settings) == 1);
   fail_unless(L3ParserSettings_getTargetL2(settings) == 0);
   fail_unless(L3ParserSettings_getTargetL3(settings) == 1);
 

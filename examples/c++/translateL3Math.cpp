@@ -77,15 +77,15 @@ main (int argc, char* argv[])
           cout << "Now parsing 'log(x)' as an error" << endl << endl << "> ";
         }
         else if (strcmp(line, "EXPAND_UMINUS")==0) {
-          settings.setCollapseMinus(L3P_EXPAND_UNARY_MINUS);
+          settings.setParseCollapseMinus(L3P_EXPAND_UNARY_MINUS);
           cout << "Will now leave multiple unary minuses expanded, and all negative numbers will be translated using the <minus> construct." << endl << endl << "> ";
         }
         else if (strcmp(line, "COLLAPSE_UMINUS")==0) {
-          settings.setCollapseMinus(L3P_COLLAPSE_UNARY_MINUS);
+          settings.setParseCollapseMinus(L3P_COLLAPSE_UNARY_MINUS);
           cout << "Will now collapse multiple unary minuses, and incorporate a negative sign into digits." << endl << endl << "> ";
         }
         else if (strcmp(line, "TARGETL2")==0) {
-          settings.targetL2();
+          settings.setTargetL2();
           cout << "Will now target SBML Level 2 MathML, with no units on numbers, and no csymbol 'avogadro'." << endl << endl << "> ";
         }
         else if (strcmp(line, "NO_UNITS")==0) {
@@ -97,7 +97,7 @@ main (int argc, char* argv[])
           cout << "Will now target MathML but with units on numbers." << endl << endl << "> ";
         }
         else if (strcmp(line, "TARGETL3")==0) {
-          settings.targetL3();
+          settings.setTargetL3();
           cout << "Will now target SBML Level 3 MathML, including having units on numbers, and the csymbol 'avogadro'." << endl << endl << "> ";
         }
         else if (line[0] == 'F' && line[1] == 'I' && line[2]=='L' && line[3]=='E' && line[4]==':') {

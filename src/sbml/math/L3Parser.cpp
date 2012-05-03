@@ -150,7 +150,7 @@ public:
   //settings:
   L3ParserSettings defaultL3ParserSettings;
   const Model* model;
-  l3p_log_type parselog;
+  ParseLogType_t parselog;
   bool collapseminus;
   bool parseunits;
   bool avocsymbol;
@@ -192,7 +192,7 @@ public:
    * Sets the member variable 'parselog' to the provided enum.  Used in parsing
    * strings with the function "log" with a single argument.
    */
-  void setParseLog(l3p_log_type parseas);
+  void setParseLog(ParseLogType_t parseas);
   /**
    * Sets the member variable 'parseunits' to the provided boolean.  Used in
    * deciding whether strings that assign units to numbers (like "10 mL") 
@@ -2538,7 +2538,7 @@ ASTNode* L3Parser::createModuloTree(ASTNode* x, ASTNode* y) const
   return pASTNode;
 }
 
-void L3Parser::setParseLog(l3p_log_type parseas)
+void L3Parser::setParseLog(ParseLogType_t parseas)
 {
   parselog = parseas;
 }
@@ -2600,9 +2600,9 @@ void L3Parser::clear()
   error = "";
   model = defaultL3ParserSettings.getModel();
   parselog = defaultL3ParserSettings.getParseLog();
-  collapseminus = defaultL3ParserSettings.getCollapseMinus();
+  collapseminus = defaultL3ParserSettings.getParseCollapseMinus();
   parseunits = defaultL3ParserSettings.getParseUnits();
-  avocsymbol = defaultL3ParserSettings.getAvogadroCsymbol();
+  avocsymbol = defaultL3ParserSettings.getParseAvogadroCsymbol();
 }
 
 string L3Parser::getError()
@@ -3055,9 +3055,9 @@ SBML_parseL3FormulaWithSettings (const char *formula, const L3ParserSettings_t *
   l3p->setInput(formula);
   l3p->model = settings->getModel();
   l3p->parselog = settings->getParseLog();
-  l3p->collapseminus = settings->getCollapseMinus();
+  l3p->collapseminus = settings->getParseCollapseMinus();
   l3p->parseunits = settings->getParseUnits();
-  l3p->avocsymbol = settings->getAvogadroCsymbol();
+  l3p->avocsymbol = settings->getParseAvogadroCsymbol();
   sbml_yyparse();
   return l3p->outputNode;
 }

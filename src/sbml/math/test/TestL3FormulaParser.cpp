@@ -1459,7 +1459,7 @@ START_TEST (test_SBML_parseL3Formula_collapseminussettings1)
   L3ParserSettings settings;
 
   //Explicit parsing to collapse the minuses
-  settings.setCollapseMinus(L3P_COLLAPSE_UNARY_MINUS);
+  settings.setParseCollapseMinus(L3P_COLLAPSE_UNARY_MINUS);
   r = SBML_parseL3FormulaWithSettings("--4.4", &settings);
   fail_unless( ASTNode_getType       (r) == AST_REAL, NULL );
   fail_unless( ASTNode_getReal       (r) == 4.4, NULL );
@@ -1468,7 +1468,7 @@ START_TEST (test_SBML_parseL3Formula_collapseminussettings1)
   ASTNode_free(r);
 
   //Explicit parsing to expand the minuses
-  settings.setCollapseMinus(L3P_EXPAND_UNARY_MINUS);
+  settings.setParseCollapseMinus(L3P_EXPAND_UNARY_MINUS);
   r = SBML_parseL3Formula("--4.4");
 
   fail_unless( ASTNode_getType       (r) == AST_MINUS, NULL );
@@ -1510,7 +1510,7 @@ START_TEST (test_SBML_parseL3Formula_collapseminussettings2)
   L3ParserSettings settings;
 
   //Explicit parsing to collapse the minuses
-  settings.setCollapseMinus(L3P_COLLAPSE_UNARY_MINUS);
+  settings.setParseCollapseMinus(L3P_COLLAPSE_UNARY_MINUS);
   r = SBML_parseL3FormulaWithSettings("--x", &settings);
   fail_unless( ASTNode_getType       (r) == AST_NAME, NULL );
   fail_unless( !strcmp(ASTNode_getName(r), "x"), NULL );
@@ -1519,7 +1519,7 @@ START_TEST (test_SBML_parseL3Formula_collapseminussettings2)
   ASTNode_free(r);
 
   //Explicit parsing to expand the minuses
-  settings.setCollapseMinus(L3P_EXPAND_UNARY_MINUS);
+  settings.setParseCollapseMinus(L3P_EXPAND_UNARY_MINUS);
   r = SBML_parseL3FormulaWithSettings("--x", &settings);
 
   fail_unless( ASTNode_getType       (r) == AST_MINUS, NULL );
@@ -1570,7 +1570,7 @@ START_TEST (test_SBML_parseL3Formula_collapseminussettings3)
   L3ParserSettings settings;
 
   //Explicit parsing to collapse the minuses
-  settings.setCollapseMinus(L3P_COLLAPSE_UNARY_MINUS);
+  settings.setParseCollapseMinus(L3P_COLLAPSE_UNARY_MINUS);
   r = SBML_parseL3FormulaWithSettings("x---4.4", &settings);
   fail_unless( ASTNode_getType       (r) == AST_MINUS, NULL );
   fail_unless( ASTNode_getNumChildren(r) == 2  , NULL );
@@ -1588,7 +1588,7 @@ START_TEST (test_SBML_parseL3Formula_collapseminussettings3)
   ASTNode_free(r);
 
   //Explicit parsing to expand the minuses
-  settings.setCollapseMinus(L3P_EXPAND_UNARY_MINUS);
+  settings.setParseCollapseMinus(L3P_EXPAND_UNARY_MINUS);
   r = SBML_parseL3FormulaWithSettings("x---4.4", &settings);
 
   fail_unless( ASTNode_getType       (r) == AST_MINUS, NULL );
@@ -1648,7 +1648,7 @@ START_TEST (test_SBML_parseL3Formula_collapseminussettings4)
   L3ParserSettings settings;
 
   //Explicit parsing to collapse the minuses
-  settings.setCollapseMinus(L3P_COLLAPSE_UNARY_MINUS);
+  settings.setParseCollapseMinus(L3P_COLLAPSE_UNARY_MINUS);
   r = SBML_parseL3FormulaWithSettings("x---y", &settings);
   fail_unless( ASTNode_getType       (r) == AST_MINUS, NULL );
   fail_unless( ASTNode_getNumChildren(r) == 2  , NULL );
@@ -1666,7 +1666,7 @@ START_TEST (test_SBML_parseL3Formula_collapseminussettings4)
   ASTNode_free(r);
 
   //Explicit parsing to expand the minuses
-  settings.setCollapseMinus(L3P_EXPAND_UNARY_MINUS);
+  settings.setParseCollapseMinus(L3P_EXPAND_UNARY_MINUS);
   r = SBML_parseL3FormulaWithSettings("x---y", &settings);
 
   fail_unless( ASTNode_getType       (r) == AST_MINUS, NULL );
@@ -1699,7 +1699,7 @@ START_TEST (test_SBML_parseL3Formula_collapseminussettings5)
 {
   //Explicit parsing to collapse the minuses
   L3ParserSettings settings;
-  settings.setCollapseMinus(L3P_COLLAPSE_UNARY_MINUS);
+  settings.setParseCollapseMinus(L3P_COLLAPSE_UNARY_MINUS);
   ASTNode_t* r = SBML_parseL3FormulaWithSettings("---4", &settings);
   fail_unless( ASTNode_getType       (r) == AST_INTEGER, NULL );
   fail_unless( ASTNode_getInteger    (r) == -4, NULL );
@@ -1759,7 +1759,7 @@ START_TEST (test_SBML_parseL3Formula_targetl2settings)
   ASTNode_free(r);
 
   L3ParserSettings settings;
-  settings.targetL2();
+  settings.setTargetL2();
   r = SBML_parseL3FormulaWithSettings("4 mL", &settings);
   fail_unless(r == NULL, NULL);
   fail_unless( !strcmp(SBML_getLastParseL3Error(), "Error when parsing input '4 mL' at position 4:  The ability to associate units with numbers has been disabled in this software."), NULL );
@@ -1770,7 +1770,7 @@ START_TEST (test_SBML_parseL3Formula_targetl2settings)
   fail_unless( ASTNode_getNumChildren(r) == 0  , NULL );
   ASTNode_free(r);
 
-  settings.targetL3();
+  settings.setTargetL3();
   r = SBML_parseL3FormulaWithSettings("4 mL", &settings);
   fail_unless( ASTNode_getType       (r) == AST_INTEGER, NULL );
   fail_unless( ASTNode_getInteger    (r) ==   4, NULL );
@@ -1794,7 +1794,7 @@ START_TEST (test_SBML_parseL3Formula_avogadrosettings)
   ASTNode_free(r);
 
   L3ParserSettings settings;
-  settings.setAvogadroCsymbol(L3P_AVOGADRO_IS_NAME);
+  settings.setParseAvogadroCsymbol(L3P_AVOGADRO_IS_NAME);
   fail_unless(settings.getTargetL2() == false, NULL);
   fail_unless(settings.getTargetL3() == false, NULL);
 
@@ -1804,7 +1804,7 @@ START_TEST (test_SBML_parseL3Formula_avogadrosettings)
   fail_unless( ASTNode_getNumChildren(r) == 0  , NULL );
   ASTNode_free(r);
 
-  settings.setAvogadroCsymbol(L3P_AVOGADRO_IS_CSYMBOL);
+  settings.setParseAvogadroCsymbol(L3P_AVOGADRO_IS_CSYMBOL);
   fail_unless(settings.getTargetL2() == false, NULL);
   fail_unless(settings.getTargetL3() == true, NULL);
 

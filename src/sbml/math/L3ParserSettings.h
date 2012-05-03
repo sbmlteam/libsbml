@@ -126,7 +126,7 @@ typedef enum
       telling the user to use <code>log10(x)</code>, <code>ln(x)</code>,
       or <code>log(base, x)</code> instead. */
 
-} l3p_log_type;
+} ParseLogType_t;
 
 
 #define L3P_COLLAPSE_UNARY_MINUS true
@@ -149,7 +149,7 @@ class LIBSBML_EXTERN L3ParserSettings
 {
 private:
   const Model* mModel;
-  l3p_log_type mParselog;
+  ParseLogType_t mParselog;
   bool mCollapseminus;
   bool mParseunits;
   bool mAvoCsymbol;
@@ -186,7 +186,7 @@ public:
    * @param avocsymbol a flag that controls how the parser will handle
    * the appearance of the symbol @c avogadro in a formula
    */
-  L3ParserSettings(Model* model, l3p_log_type parselog,
+  L3ParserSettings(Model* model, ParseLogType_t parselog,
                    bool collapseminus, bool parseunits, bool avocsymbol);
 
 
@@ -255,13 +255,13 @@ public:
    * desired.
    *
    * @param type a constant, one of following three possibilities:
-   * @li @link l3p_log_type#L3P_PARSE_LOG_AS_LOG10 L3P_PARSE_LOG_AS_LOG10@endlink
-   * @li @link l3p_log_type#L3P_PARSE_LOG_AS_LN L3P_PARSE_LOG_AS_LN@endlink
-   * @li @link l3p_log_type#L3P_PARSE_LOG_AS_ERROR L3P_PARSE_LOG_AS_ERROR@endlink
+   * @li @link ParseLogType_t#L3P_PARSE_LOG_AS_LOG10 L3P_PARSE_LOG_AS_LOG10@endlink
+   * @li @link ParseLogType_t#L3P_PARSE_LOG_AS_LN L3P_PARSE_LOG_AS_LN@endlink
+   * @li @link ParseLogType_t#L3P_PARSE_LOG_AS_ERROR L3P_PARSE_LOG_AS_ERROR@endlink
    *
    * @see getParseLog()
    */
-  void setParseLog(l3p_log_type type);
+  void setParseLog(ParseLogType_t type);
 
 
   /**
@@ -274,13 +274,13 @@ public:
    * desired.
    *
    * @return One of following three constants:
-   * @li @link l3p_log_type#L3P_PARSE_LOG_AS_LOG10 L3P_PARSE_LOG_AS_LOG10@endlink
-   * @li @link l3p_log_type#L3P_PARSE_LOG_AS_LN L3P_PARSE_LOG_AS_LN@endlink
-   * @li @link l3p_log_type#L3P_PARSE_LOG_AS_ERROR L3P_PARSE_LOG_AS_ERROR@endlink
+   * @li @link ParseLogType_t#L3P_PARSE_LOG_AS_LOG10 L3P_PARSE_LOG_AS_LOG10@endlink
+   * @li @link ParseLogType_t#L3P_PARSE_LOG_AS_LN L3P_PARSE_LOG_AS_LN@endlink
+   * @li @link ParseLogType_t#L3P_PARSE_LOG_AS_ERROR L3P_PARSE_LOG_AS_ERROR@endlink
    *
    * @see setParseLog()
    */
-  l3p_log_type getParseLog() const;
+  ParseLogType_t getParseLog() const;
 
 
 /* Need figure out what this bit about numbers means:
@@ -314,9 +314,9 @@ public:
    * @link L3P_EXPAND_UNARY_MINUS@endlink) indicating how multiple
    * unary minuses should be handled.
    *
-   * @see getCollapseMinus()
+   * @see getParseCollapseMinus()
    */
-  void setCollapseMinus(bool collapseminus);
+  void setParseCollapseMinus(bool collapseminus);
 
 
   /**
@@ -339,9 +339,9 @@ public:
    * @return A boolean, one of @link L3P_COLLAPSE_UNARY_MINUS@endlink or
    * @link L3P_EXPAND_UNARY_MINUS@endlink.
    *
-   * @see setCollapseMinus()
+   * @see setParseCollapseMinus()
    */
-  bool getCollapseMinus() const;
+  bool getParseCollapseMinus() const;
 
 
   /**
@@ -368,7 +368,7 @@ public:
    * @see getTargetL2()
    * @see setTargetL3()
    */
-  void targetL2();
+  void setTargetL2();
 
 
   /**
@@ -394,7 +394,7 @@ public:
    * @see getTargetL2()
    * @see setTargetL2()
    */
-  void targetL3();
+  void setTargetL3();
 
 
   /**
@@ -519,9 +519,9 @@ public:
    * @link L3P_AVOGADRO_IS_NAME@endlink) indicating how the string
    * @c avogadro should be treated when encountered in a formula.
    *
-   * @see getAvogadroCsymbol()
+   * @see getParseAvogadroCsymbol()
    */
-  void setAvogadroCsymbol(bool l2only);
+  void setParseAvogadroCsymbol(bool l2only);
 
 
   /**
@@ -542,9 +542,9 @@ public:
    * parser to translate the string @c avogadro into an AST of type @c
    * AST_NAME.
    *
-   * @see setAvogadroCsymbol()
+   * @see setParseAvogadroCsymbol()
    */
-  bool getAvogadroCsymbol() const;
+  bool getParseAvogadroCsymbol() const;
 };
 
 
@@ -585,22 +585,22 @@ L3ParserSettings_unsetModel (L3ParserSettings_t * settings);
 
 LIBSBML_EXTERN
 void
-L3ParserSettings_setParseLog (L3ParserSettings_t * settings, l3p_log_type type);
+L3ParserSettings_setParseLog (L3ParserSettings_t * settings, ParseLogType_t type);
 
 
 LIBSBML_EXTERN
-l3p_log_type
+ParseLogType_t
 L3ParserSettings_getParseLog (L3ParserSettings_t * settings);
 
 
 LIBSBML_EXTERN
 void
-L3ParserSettings_setCollapseMinus (L3ParserSettings_t * settings, int flag);
+L3ParserSettings_setParseCollapseMinus (L3ParserSettings_t * settings, int flag);
 
 
 LIBSBML_EXTERN
 int
-L3ParserSettings_getCollapseMinus (L3ParserSettings_t * settings);
+L3ParserSettings_getParseCollapseMinus (L3ParserSettings_t * settings);
 
 
 LIBSBML_EXTERN
@@ -635,12 +635,12 @@ L3ParserSettings_getParseUnits (L3ParserSettings_t * settings);
 
 LIBSBML_EXTERN
 void
-L3ParserSettings_setAvogadroCsymbol (L3ParserSettings_t * settings, int flag);
+L3ParserSettings_setParseAvogadroCsymbol (L3ParserSettings_t * settings, int flag);
 
 
 LIBSBML_EXTERN
 int
-L3ParserSettings_getAvogadroCsymbol (L3ParserSettings_t * settings);
+L3ParserSettings_getParseAvogadroCsymbol (L3ParserSettings_t * settings);
 
 
 END_C_DECLS
