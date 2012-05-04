@@ -130,7 +130,7 @@ typedef enum
      * replaceTopLevelAnnotationElement function or 
      * the removeTopLevelAnnotationElement function 
      * is being used to replace or remove an annotation with a name that does
-     * not match the name of any toplevel element that is already
+     * not match the name of any top-level element that is already
      * present in the existing annotation. */
 
    , LIBSBML_ANNOTATION_NS_NOT_FOUND   = -13
@@ -140,7 +140,7 @@ typedef enum
      * replaceTopLevelAnnotationElement function or 
      * the removeTopLevelAnnotationElement function 
      * is being used to replace or remove an annotation with a namespace that does
-     * not match the namespace of any toplevel element that is already
+     * not match the namespace of any top-level element that is already
      * present in the existing annotation. */
    /* ---------------------------------------------------------------------------
     *   
