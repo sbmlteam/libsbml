@@ -98,28 +98,6 @@ bool L3ParserSettings::getParseCollapseMinus() const
   return mCollapseminus;
 }
 
-void L3ParserSettings::setTargetL2()
-{
-  mParseunits = false;
-  mAvoCsymbol = false;
-}
-
-void L3ParserSettings::setTargetL3()
-{
-  mParseunits = true;
-  mAvoCsymbol = true;
-}
-
-bool L3ParserSettings::getTargetL2() const
-{
-  return (!mParseunits && !mAvoCsymbol);
-}
-
-bool L3ParserSettings::getTargetL3() const
-{
-  return (mParseunits && mAvoCsymbol);
-}
-
 void L3ParserSettings::setParseUnits(bool units)
 {
   mParseunits = units;
@@ -308,76 +286,6 @@ L3ParserSettings_getParseCollapseMinus (L3ParserSettings_t * settings)
     return 0;
 
   return (static_cast<int>(settings->getParseCollapseMinus()));
-}
-
-
-/**
- * Sets the targetL2 option associated with this L3ParserSettings_t object.  
- *
- * @param settings the L3ParserSettings_t structure on which to set the option.
- */
-LIBSBML_EXTERN
-void
-L3ParserSettings_setTargetL2 (L3ParserSettings_t * settings)
-{
-  if (settings == NULL)
-    return;
-
-  settings->setTargetL2();
-}
-
-
-/**
- * Retrieves the targetL2 option associated with this L3ParserSettings_t object.  
- *
- * @param settings the L3ParserSettings_t structure from which to get the option.
- *
- * @return an integer indicating whether L2 math is being targeted (non-zero) 
- * or not (zero).
- */
-LIBSBML_EXTERN
-int
-L3ParserSettings_getTargetL2 (L3ParserSettings_t * settings)
-{
-  if (settings == NULL)
-    return 0;
-
-  return (static_cast<int>(settings->getTargetL2()));
-}
-
-
-/**
- * Sets the targetL3 option associated with this L3ParserSettings_t object.  
- *
- * @param settings the L3ParserSettings_t structure on which to set the option.
- */
-LIBSBML_EXTERN
-void
-L3ParserSettings_setTargetL3 (L3ParserSettings_t * settings)
-{
-  if (settings == NULL)
-    return;
-
-  settings->setTargetL3();
-}
-
-
-/**
- * Retrieves the targetL3 option associated with this L3ParserSettings_t object.  
- *
- * @param settings the L3ParserSettings_t structure from which to get the option.
- *
- * @return an integer indicating whether L3 math is being targeted (non-zero) 
- * or not (zero).
- */
-LIBSBML_EXTERN
-int
-L3ParserSettings_getTargetL3 (L3ParserSettings_t * settings)
-{
-  if (settings == NULL)
-    return 0;
-
-  return (static_cast<int>(settings->getTargetL3()));
 }
 
 

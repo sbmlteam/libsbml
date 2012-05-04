@@ -1985,7 +1985,7 @@ yyreduce:
                     YYERROR;
                   }
                   if (!l3p->parseunits) {
-                    l3p->setError("The ability to associate units with numbers has been disabled in this software.");
+                    l3p->setError("The ability to associate units with numbers has been disabled.");
                     YYERROR;
                   }
                   (yyval.astnode)->setUnits(*(yyvsp[(2) - (2)].word));

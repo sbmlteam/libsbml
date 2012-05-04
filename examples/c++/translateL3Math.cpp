@@ -85,7 +85,8 @@ main (int argc, char* argv[])
           cout << "Will now collapse multiple unary minuses, and incorporate a negative sign into digits." << endl << endl << "> ";
         }
         else if (strcmp(line, "TARGETL2")==0) {
-          settings.setTargetL2();
+          settings.setParseUnits(false);
+          settings.setParseAvogadroCsymbol(false);
           cout << "Will now target SBML Level 2 MathML, with no units on numbers, and no csymbol 'avogadro'." << endl << endl << "> ";
         }
         else if (strcmp(line, "NO_UNITS")==0) {
@@ -97,7 +98,8 @@ main (int argc, char* argv[])
           cout << "Will now target MathML but with units on numbers." << endl << endl << "> ";
         }
         else if (strcmp(line, "TARGETL3")==0) {
-          settings.setTargetL3();
+          settings.setParseUnits(true);
+          settings.setParseAvogadroCsymbol(true);
           cout << "Will now target SBML Level 3 MathML, including having units on numbers, and the csymbol 'avogadro'." << endl << endl << "> ";
         }
         else if (line[0] == 'F' && line[1] == 'I' && line[2]=='L' && line[3]=='E' && line[4]==':') {

@@ -1743,49 +1743,6 @@ START_TEST (test_SBML_parseL3Formula_collapseminussettings5)
 END_TEST
 
 
-START_TEST (test_SBML_parseL3Formula_targetl2settings)
-{
-  ASTNode_t *r = SBML_parseL3Formula("4 mL");
-
-  fail_unless( ASTNode_getType       (r) == AST_INTEGER, NULL );
-  fail_unless( ASTNode_getInteger    (r) ==   4, NULL );
-  fail_unless( !strcmp(ASTNode_getUnits(r), "mL"), NULL );
-  fail_unless( ASTNode_getNumChildren(r) ==   0, NULL );
-  ASTNode_free(r);
-
-  r = SBML_parseL3Formula("avogadro");
-  fail_unless( ASTNode_getType       (r) == AST_NAME_AVOGADRO, NULL );
-  fail_unless( ASTNode_getNumChildren(r) ==   0, NULL );
-  ASTNode_free(r);
-
-  L3ParserSettings settings;
-  settings.setTargetL2();
-  r = SBML_parseL3FormulaWithSettings("4 mL", &settings);
-  fail_unless(r == NULL, NULL);
-  fail_unless( !strcmp(SBML_getLastParseL3Error(), "Error when parsing input '4 mL' at position 4:  The ability to associate units with numbers has been disabled in this software."), NULL );
-
-  r = SBML_parseL3FormulaWithSettings("avogadro", &settings);
-  fail_unless( ASTNode_getType       (r) == AST_NAME, NULL );
-  fail_unless( !strcmp(ASTNode_getName(r), "avogadro") , NULL );
-  fail_unless( ASTNode_getNumChildren(r) == 0  , NULL );
-  ASTNode_free(r);
-
-  settings.setTargetL3();
-  r = SBML_parseL3FormulaWithSettings("4 mL", &settings);
-  fail_unless( ASTNode_getType       (r) == AST_INTEGER, NULL );
-  fail_unless( ASTNode_getInteger    (r) ==   4, NULL );
-  fail_unless( !strcmp(ASTNode_getUnits(r), "mL"), NULL );
-  fail_unless( ASTNode_getNumChildren(r) ==   0, NULL );
-  ASTNode_free(r);
-
-  r = SBML_parseL3FormulaWithSettings("avogadro", &settings);
-  fail_unless( ASTNode_getType       (r) == AST_NAME_AVOGADRO, NULL );
-  fail_unless( ASTNode_getNumChildren(r) ==   0, NULL );
-  ASTNode_free(r);
-}
-END_TEST
-
-
 START_TEST (test_SBML_parseL3Formula_avogadrosettings)
 {
   ASTNode_t *r = SBML_parseL3Formula("avogadro");
@@ -1795,8 +1752,6 @@ START_TEST (test_SBML_parseL3Formula_avogadrosettings)
 
   L3ParserSettings settings;
   settings.setParseAvogadroCsymbol(L3P_AVOGADRO_IS_NAME);
-  fail_unless(settings.getTargetL2() == false, NULL);
-  fail_unless(settings.getTargetL3() == false, NULL);
 
   r = SBML_parseL3FormulaWithSettings("avogadro", &settings);
   fail_unless( ASTNode_getType       (r) == AST_NAME, NULL );
@@ -1805,8 +1760,6 @@ START_TEST (test_SBML_parseL3Formula_avogadrosettings)
   ASTNode_free(r);
 
   settings.setParseAvogadroCsymbol(L3P_AVOGADRO_IS_CSYMBOL);
-  fail_unless(settings.getTargetL2() == false, NULL);
-  fail_unless(settings.getTargetL3() == true, NULL);
 
   r = SBML_parseL3FormulaWithSettings("avogadro", &settings);
   fail_unless( ASTNode_getType       (r) == AST_NAME_AVOGADRO, NULL );
@@ -1828,15 +1781,11 @@ START_TEST (test_SBML_parseL3Formula_unitssettings)
 
   L3ParserSettings settings;
   settings.setParseUnits(L3P_NO_UNITS);
-  fail_unless(settings.getTargetL2() == false, NULL);
-  fail_unless(settings.getTargetL3() == false, NULL);
   r = SBML_parseL3FormulaWithSettings("4 mL", &settings);
   fail_unless(r == NULL, NULL);
-  fail_unless( !strcmp(SBML_getLastParseL3Error(), "Error when parsing input '4 mL' at position 4:  The ability to associate units with numbers has been disabled in this software."), NULL );
+  fail_unless( !strcmp(SBML_getLastParseL3Error(), "Error when parsing input '4 mL' at position 4:  The ability to associate units with numbers has been disabled."), NULL );
 
   settings.setParseUnits(L3P_PARSE_UNITS);
-  fail_unless(settings.getTargetL2() == false, NULL);
-  fail_unless(settings.getTargetL3() == true, NULL);
   r = SBML_parseL3FormulaWithSettings("4 mL", &settings);
   fail_unless( ASTNode_getType       (r) == AST_INTEGER, NULL );
   fail_unless( ASTNode_getInteger    (r) ==   4, NULL );
@@ -1920,7 +1869,6 @@ create_suite_L3FormulaParser (void)
   tcase_add_test( tcase, test_SBML_parseL3Formula_collapseminussettings3);
   tcase_add_test( tcase, test_SBML_parseL3Formula_collapseminussettings4);
   tcase_add_test( tcase, test_SBML_parseL3Formula_collapseminussettings5);
-  tcase_add_test( tcase, test_SBML_parseL3Formula_targetl2settings);
   tcase_add_test( tcase, test_SBML_parseL3Formula_avogadrosettings);
   tcase_add_test( tcase, test_SBML_parseL3Formula_unitssettings);
 

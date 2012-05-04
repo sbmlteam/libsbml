@@ -397,97 +397,6 @@ public:
 
 
   /**
-   * Sets the parser to create AST trees that are usable unmodified in
-   * SBML Level&nbsp;2 documents.
-   *
-   * Certain differences between SBML Level&nbsp;2 and Level&nbsp;3 lead to
-   * differences in the ASTNode trees produced for representing mathematical
-   * formulas.  In particular:
-   *
-   * @li In SBML Level&nbsp;2, there is no means of associating a unit of
-   * measurement with a pure number in a formula, while SBML Level&nbsp;3
-   * does define a syntax for this.
-   * @li SBML Level&nbsp;3 defines a @em csymbol for Avogadro's constant;
-   * this @em csymbol is not defined in SBML Level&nbsp;2.
-   *
-   * The consequence of these differences is that if SBML Level&nbsp;2 is
-   * the target, (1) parsing of formula strings containing units needs to
-   * be treated as an error, and (2) the string @c avogadro must be
-   * converted to an ASTNode of type @link ASTNodeType_t#AST_NAME
-   * AST_NAME@endlink instead of @link ASTNodeType_t#AST_NAME_AVOGADRO
-   * AST_NAME_AVOGADRO@endlink.
-   *
-   * @see getTargetL3()
-   * @see getTargetL2()
-   * @see setTargetL3()
-   */
-  void setTargetL2();
-
-
-  /**
-   * Sets the parser to create AST trees that are usable unmodified in
-   * SBML Level&nbsp;3 documents.
-   *
-   * Certain differences between SBML Level&nbsp;2 and Level&nbsp;3 lead to
-   * differences in the ASTNode trees produced for representing mathematical
-   * formulas.  In particular:
-   *
-   * @li In SBML Level&nbsp;2, there is no means of associating a unit of
-   * measurement with a pure number in a formula, while SBML Level&nbsp;3
-   * does define a syntax for this.
-   * @li SBML Level&nbsp;3 defines a @em csymbol for Avogadro's constant;
-   * this @em csymbol is not defined in SBML Level&nbsp;2.
-   *
-   * The consequence of these differences is that if SBML Level&nbsp;3 is
-   * the target, (1) formula strings are allowed to specify units after
-   * numbers, and (2) the string @c avogadro is converted to an ASTNode of
-   * type @link ASTNodeType_t#AST_NAME_AVOGADRO AST_NAME_AVOGADRO@endlink.
-   *
-   * @see getTargetL3()
-   * @see getTargetL2()
-   * @see setTargetL2()
-   */
-  void setTargetL3();
-
-
-  /**
-   * Returns @c true if the current setting is oriented towards SBML
-   * Level&nbsp;2, @c false otherwise.
-   *
-   * @return @c true if this L3ParserSettings object is set up to produce
-   * AST nodes appropriate for inclusion in SBML Level&nbsp;2 documents:
-   * units on numbers are treated as errors, and the string @c avogadro is
-   * interpreted as @link ASTNodeType_t#AST_NAME AST_NAME@endlink and not
-   * @link ASTNodeType_t#AST_NAME_AVOGADRO AST_NAME_AVOGADRO@endlink.
-   * (Both must be true, or this routine will return @c false.)
-   *
-   * @see getTargetL3()
-   * @see setTargetL2()
-   * @see setTargetL3()
-   */
-  bool getTargetL2() const;
-
-
-  /**
-   * Returns @c true if the current setting is oriented towards SBML
-   * Level&nbsp;3, @c false otherwise.
-   *
-   * @return @c true if this L3ParserSettings object is set up to produce
-   * AST nodes that take full advantage of properties present in SBML
-   * Level&nbsp;3 documents: units are properly interpreted, and @c
-   * avogadro is interpreted as @link ASTNodeType_t#AST_NAME_AVOGADRO
-   * AST_NAME_AVOGADRO@endlink and not @link ASTNodeType_t#AST_NAME
-   * AST_NAME@endlink.  (Both must be true, or this routine will return @c
-   * false.)
-   *
-   * @see getTargetL2()
-   * @see setTargetL3()
-   * @see setTargetL2()
-   */
-  bool getTargetL3() const;
-
-
-  /**
    * Sets the parser's behavior in handling units associated with numbers
    * in a mathematical formula.
    *
@@ -537,6 +446,10 @@ public:
    * there must either exist a UnitDefinition corresponding to the
    * identifier of the unit, or the unit must be defined in Table&nbsp;2 of
    * the SBML specification.
+   *
+   * Since SBML Level&nbsp;2 does not have the ability to associate units with
+   * pure numbers, the value should be set to @c false when parsing text-string
+   * formulas intended for use in SBML Level&nbsp;2 documents.
    *
    * @return A boolean indicating whether to parse units:
    * @li @link L3P_PARSE_UNITS@endlink (value = @c true): parse units
@@ -659,26 +572,6 @@ L3ParserSettings_setParseCollapseMinus (L3ParserSettings_t * settings, int flag)
 LIBSBML_EXTERN
 int
 L3ParserSettings_getParseCollapseMinus (L3ParserSettings_t * settings);
-
-
-LIBSBML_EXTERN
-void
-L3ParserSettings_setTargetL2 (L3ParserSettings_t * settings);
-
-
-LIBSBML_EXTERN
-int
-L3ParserSettings_getTargetL2 (L3ParserSettings_t * settings);
-
-
-LIBSBML_EXTERN
-void
-L3ParserSettings_setTargetL3 (L3ParserSettings_t * settings);
-
-
-LIBSBML_EXTERN
-int
-L3ParserSettings_getTargetL3 (L3ParserSettings_t * settings);
 
 
 LIBSBML_EXTERN
