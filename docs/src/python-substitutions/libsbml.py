@@ -4265,6 +4265,28 @@ LIBSBML_NAMESPACE_MISMATCH = _libsbml.LIBSBML_NAMESPACE_MISMATCH
     ## properties of the SBMLNamespaces objects possessed by the
     ## SBML objects do not correspond in some way.
      
+LIBSBML_ANNOTATION_NAME_NOT_FOUND = libsbml.LIBSBML_ANNOTATION_NAME_NOT_FOUND
+    ## @var long LIBSBML_ANNOTATION_NAME_NOT_FOUND
+    ## @brief One of the possible libSBML operation return codes.
+    ##
+    ## This code has the following meaning: The existing annotation does
+    ## not have a top-level element with the given name. This error is
+    ## typically returned in situations one of the annotation replacement
+    ## functions is being used to replace or remove an annotation with a
+    ## name that does not match the name of any top-level element that is
+    ## already present in the existing annotation.
+
+LIBSBML_ANNOTATION_NS_NOT_FOUND = libsbml.LIBSBML_ANNOTATION_NS_NOT_FOUND
+    ## @var long LIBSBML_ANNOTATION_NS_NOT_FOUND
+    ## @brief One of the possible libSBML operation return codes.
+    ##
+    ## This code has the following meaning: The existing annotation does
+    ## not have a top-level element with the given namespace. This error is
+    ## typically returned in situations where one of the annotation
+    ## replacement functinos is being used to remove an annotation with a
+    ## namespace that does not match the namespace of any top-level element
+    ## that is already present in the existing annotation.
+
 LIBSBML_PKG_VERSION_MISMATCH  = _libsbml.LIBSBML_PKG_VERSION_MISMATCH
     ## @var long LIBSBML_PKG_VERSION_MISMATCH
     ## @brief One of the possible libSBML package operation return codes.
@@ -4830,6 +4852,58 @@ AST_RELATIONAL_NEQ = _libsbml.AST_RELATIONAL_NEQ
     ##
     ## One of the possible ASTNode types.  Each ASTNode has
     ## a type whose value is one of the elements of this enumeration.
+
+L3P_PARSE_LOG_AS_LOG10 = libsbml.L3P_PARSE_LOG_AS_LOG10
+    ## @var long L3P_PARSE_LOG_AS_LOG10
+    ##
+    ## Parse <code>log(x)</code> as the natural logarithm of <code>x</code>.
+
+L3P_PARSE_LOG_AS_LN = libsbml. L3P_PARSE_LOG_AS_LN
+    ## @var long L3P_PARSE_LOG_AS_LN
+    ##
+    ## Refuse to parse <code>log(x)</code> at all, and set an error message 
+    ## telling the user to use <code>log10(x)</code>, <code>ln(x)</code>,
+    ## or <code>log(base, x)</code> instead.
+
+L3P_PARSE_LOG_AS_ERROR = libsbml. L3P_PARSE_LOG_AS_ERROR
+    ## @var long L3P_PARSE_LOG_AS_ERROR
+    ##
+    ## Collapse unary minuses where possible when parsing text-string
+    ## formulas.
+
+L3P_COLLAPSE_UNARY_MINUS = libsbml. L3P_COLLAPSE_UNARY_MINUS
+    ## @var long L3P_COLLAPSE_UNARY_MINUS
+    ##
+    ## Retain unary minuses in the AST representation when parsing
+    ## text-string formulas.
+
+L3P_EXPAND_UNARY_MINUS = libsbml. L3P_EXPAND_UNARY_MINUS
+    ## @var long L3P_EXPAND_UNARY_MINUS
+    ##
+    ## Parse units in text-string formulas when parsing
+    ## text-string formulas.
+
+L3P_PARSE_UNITS = libsbml. L3P_PARSE_UNITS
+    ## @var long L3P_PARSE_UNITS
+    ##
+    ## Do not recognize units in text-string formulas&mdash;treat them as
+    ## errors.
+
+L3P_NO_UNITS = libsbml. L3P_NO_UNITS
+    ## @var long L3P_NO_UNITS
+    ##
+    ## Recognize 'avogadro' as an SBML Level 3 symbol when parsing
+    ## text-string formulas.
+
+L3P_AVOGADRO_IS_CSYMBOL = libsbml. L3P_AVOGADRO_IS_CSYMBOL
+    ## @var long L3P_AVOGADRO_IS_CSYMBOL
+    ##
+    ## Do not treat 'avogadro' specially&mdash;consider it a plain symbol
+    ## name when parsing text-string formulas.
+
+L3P_AVOGADRO_IS_NAME = libsbml. L3P_AVOGADRO_IS_NAME
+    ## @var long L3P_AVOGADRO_IS_NAME
+    ##
 
 MODEL_QUALIFIER = _libsbml.MODEL_QUALIFIER
     ## @var long MODEL_QUALIFIER
