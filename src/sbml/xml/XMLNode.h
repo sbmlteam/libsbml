@@ -185,7 +185,7 @@ public:
    * @param line an unsigned int, the line number (default = 0).
    * @param column an unsigned int, the column number (default = 0).
    *
-   * @if notcpp @docnote @htmlinclude warn-default-args-in-docs.html @endif@~
+   * @if notcpp @htmlinclude warn-default-args-in-docs.html @endif@~
    */
   XMLNode (  const XMLTriple&     triple
            , const XMLAttributes& attributes
@@ -202,7 +202,7 @@ public:
    * @param line an unsigned int, the line number (default = 0).
    * @param column an unsigned int, the column number (default = 0).
    *
-   * @if notcpp @docnote @htmlinclude warn-default-args-in-docs.html @endif@~
+   * @if notcpp @htmlinclude warn-default-args-in-docs.html @endif@~
   */
   XMLNode (  const XMLTriple&      triple
            , const XMLAttributes&  attributes
@@ -217,7 +217,7 @@ public:
    * @param line an unsigned int, the line number (default = 0).
    * @param column an unsigned int, the column number (default = 0).
    *
-   * @if notcpp @docnote @htmlinclude warn-default-args-in-docs.html @endif@~
+   * @if notcpp @htmlinclude warn-default-args-in-docs.html @endif@~
    */
   XMLNode (  const XMLTriple&    triple
            , const unsigned int  line   = 0
@@ -231,7 +231,7 @@ public:
    * @param line an unsigned int, the line number (default = 0).
    * @param column an unsigned int, the column number (default = 0).
    *
-   * @if notcpp @docnote @htmlinclude warn-default-args-in-docs.html @endif@~
+   * @if notcpp @htmlinclude warn-default-args-in-docs.html @endif@~
    */
   XMLNode (  const std::string&  chars
            , const unsigned int  line   = 0
@@ -495,7 +495,7 @@ public:
    * @return a XMLNode which is converted from string @p xmlstr.  If the
    * conversion failed, this method returns @c NULL.
    *
-   * @if notcpp @docnote @htmlinclude warn-default-args-in-docs.html @endif@~
+   * @if notcpp @htmlinclude warn-default-args-in-docs.html @endif@~
    */
   static XMLNode* convertStringToXMLNode(const std::string& xmlstr,
                                          const XMLNamespaces* xmlns = NULL);

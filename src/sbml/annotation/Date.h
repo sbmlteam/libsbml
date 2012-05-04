@@ -189,7 +189,7 @@ public:
    * this would require a value of @c 1 for the sign field, @c 5 for the
    * hour offset and @c 0 for the minutes offset.
    * 
-   * @if notcpp @docnote @htmlinclude warn-default-args-in-docs.html @endif@~
+   * @if notcpp @htmlinclude warn-default-args-in-docs.html @endif@~
    */
   Date(unsigned int year = 2000, unsigned int month = 1, 
     unsigned int day = 1, unsigned int hour = 0, 

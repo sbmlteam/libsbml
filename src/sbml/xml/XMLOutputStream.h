@@ -58,7 +58,7 @@ public:
   /**
    * Creates a new XMLOutputStream that wraps stream.
    *
-   * @if notcpp @docnote @htmlinclude warn-default-args-in-docs.html @endif@~
+   * @if notcpp @htmlinclude warn-default-args-in-docs.html @endif@~
    */
   XMLOutputStream (  std::ostream&       stream
                    , const std::string&  encoding     = "UTF-8"
@@ -318,7 +318,7 @@ protected:
   /**
    * Outputs indentation whitespace.
    *
-   * @if notcpp @docnote @htmlinclude warn-default-args-in-docs.html @endif@~
+   * @if notcpp @htmlinclude warn-default-args-in-docs.html @endif@~
    */
   void writeIndent (bool isEnd = false);
 
@@ -408,7 +408,7 @@ public:
   /**
    * Creates a new XMLOutputStream that wraps stream.
    *
-   * @if notcpp @docnote @htmlinclude warn-default-args-in-docs.html @endif@~
+   * @if notcpp @htmlinclude warn-default-args-in-docs.html @endif@~
    */
   XMLOutputStringStream (  std::ostringstream& stream
                          , const std::string&  encoding     = "UTF-8"
@@ -431,7 +431,7 @@ public:
   /**
    * Creates a new XMLOutputStream that wraps stream.
    *
-   * @if notcpp @docnote @htmlinclude warn-default-args-in-docs.html @endif@~
+   * @if notcpp @htmlinclude warn-default-args-in-docs.html @endif@~
    */
   XMLOutputFileStream (  std::ofstream&      stream
                        , const std::string&  encoding     = "UTF-8"

@@ -104,7 +104,7 @@ public:
    * @param reactNo integer indicating which Reaction within the Model
    * contains the KineticLaw under consideration (default = -1).
    *
-   * @if notcpp @docnote @htmlinclude warn-default-args-in-docs.html @endif@~
+   * @if notcpp @htmlinclude warn-default-args-in-docs.html @endif@~
    */
   UnitDefinition * getUnitDefinition(const ASTNode * node, 
     bool inKL = false, int reactNo = -1);

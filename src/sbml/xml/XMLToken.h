@@ -77,7 +77,7 @@ public:
    * @param line an unsigned int, the line number (default = 0).
    * @param column an unsigned int, the column number (default = 0).
    *
-   * @if notcpp @docnote @htmlinclude warn-default-args-in-docs.html @endif@~
+   * @if notcpp @htmlinclude warn-default-args-in-docs.html @endif@~
    */
   XMLToken (  const XMLTriple&      triple
             , const XMLAttributes&  attributes
@@ -94,7 +94,7 @@ public:
    * @param line an unsigned int, the line number (default = 0).
    * @param column an unsigned int, the column number (default = 0).
    *
-   * @if notcpp @docnote @htmlinclude warn-default-args-in-docs.html @endif@~
+   * @if notcpp @htmlinclude warn-default-args-in-docs.html @endif@~
    */
   XMLToken (  const XMLTriple&      triple
             , const XMLAttributes&  attributes
@@ -109,7 +109,7 @@ public:
    * @param line an unsigned int, the line number (default = 0).
    * @param column an unsigned int, the column number (default = 0).
    *
-   * @if notcpp @docnote @htmlinclude warn-default-args-in-docs.html @endif@~
+   * @if notcpp @htmlinclude warn-default-args-in-docs.html @endif@~
    */
   XMLToken (  const XMLTriple&    triple
             , const unsigned int  line   = 0
@@ -126,7 +126,7 @@ public:
    * @throws @if python ValueError @else XMLConstructorException @endif@~
    * Thrown if the argument @p orig is @c NULL.
    *
-   * @if notcpp @docnote @htmlinclude warn-default-args-in-docs.html @endif@~
+   * @if notcpp @htmlinclude warn-default-args-in-docs.html @endif@~
    */
   XMLToken (  const std::string&  chars
             , const unsigned int  line   = 0
@@ -216,7 +216,7 @@ public:
    * @note if local name with the same namespace URI already exists in the
    * attribute set, its value and prefix will be replaced.
    *
-   * @if notcpp @docnote @htmlinclude warn-default-args-in-docs.html @endif@~
+   * @if notcpp @htmlinclude warn-default-args-in-docs.html @endif@~
    */
   int addAttr (  const std::string& name
 	        , const std::string& value
@@ -317,7 +317,7 @@ public:
    * @return the index of an attribute with the given local name and namespace URI, 
    * or <code>-1</code> if not present.
    *
-   * @if notcpp @docnote @htmlinclude warn-default-args-in-docs.html @endif@~
+   * @if notcpp @htmlinclude warn-default-args-in-docs.html @endif@~
    */
   int getAttrIndex (const std::string& name, const std::string& uri="") const;
 
@@ -438,7 +438,7 @@ public:
    * Use XMLToken::hasAttr(@if java String name, String uri@endif)
    * to test for attribute existence.
    *
-   * @if notcpp @docnote @htmlinclude warn-default-args-in-docs.html @endif@~
+   * @if notcpp @htmlinclude warn-default-args-in-docs.html @endif@~
    */
   std::string getAttrValue (const std::string name, const std::string uri="") const;
 
@@ -483,7 +483,7 @@ public:
    * @return @c true if an attribute with the given local name and namespace 
    * URI exists in the attribute set in this XMLToken, @c false otherwise.
    *
-   * @if notcpp @docnote @htmlinclude warn-default-args-in-docs.html @endif@~
+   * @if notcpp @htmlinclude warn-default-args-in-docs.html @endif@~
    */
   bool hasAttr (const std::string name, const std::string uri="") const;
 
@@ -556,7 +556,7 @@ public:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    * @li @link OperationReturnValues_t#LIBSBML_INVALID_XML_OPERATION LIBSBML_INVALID_XML_OPERATION @endlink
    *
-   * @if notcpp @docnote @htmlinclude warn-default-args-in-docs.html @endif@~
+   * @if notcpp @htmlinclude warn-default-args-in-docs.html @endif@~
    */
   int addNamespace (const std::string& uri, const std::string& prefix = "");
 
@@ -693,7 +693,7 @@ public:
    *
    * @note If @p prefix does not exist, an empty string will be returned.
    *
-   * @if notcpp @docnote @htmlinclude warn-default-args-in-docs.html @endif@~
+   * @if notcpp @htmlinclude warn-default-args-in-docs.html @endif@~
    */
   std::string getNamespaceURI (const std::string& prefix = "") const;
 

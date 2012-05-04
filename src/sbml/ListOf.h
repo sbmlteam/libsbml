@@ -112,7 +112,7 @@ public:
    * @param version the Version within the SBML Level; if not assigned,
    * defaults to the value of SBML_DEFAULT_VERSION.
    * 
-   * @if notcpp @docnote @htmlinclude warn-default-args-in-docs.html @endif@~
+   * @if notcpp @htmlinclude warn-default-args-in-docs.html @endif@~
    */
   ListOf (unsigned int level   = SBML_DEFAULT_LEVEL, 
           unsigned int version = SBML_DEFAULT_VERSION);
@@ -330,7 +330,7 @@ public:
    * @param doDelete if @c true (default), all items are deleted and cleared.
    * Otherwise, all items are just cleared and not deleted.
    * 
-   * @if notcpp @docnote @htmlinclude warn-default-args-in-docs.html @endif@~
+   * @if notcpp @htmlinclude warn-default-args-in-docs.html @endif@~
    */ 
   void clear (bool doDelete = true);
 

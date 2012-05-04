@@ -342,7 +342,7 @@ XMLToken::setAttributes(const XMLAttributes& attributes)
  * @note if local name with the same namespace URI already exists in the
  * attribute set, its value and prefix will be replaced.
  *
- * @docnote The native C++ implementation of this method defines a
+ * The native C++ implementation of this method defines a
  * default argument value.  In the documentation generated for different
  * libSBML language bindings, you may or may not see corresponding
  * arguments in the method declarations.  For example, in Java, a default
@@ -487,7 +487,7 @@ XMLToken::clearAttributes()
  * @return the index of an attribute with the given local name and namespace URI, 
  * or -1 if not present.
  *
- * @docnote The native C++ implementation of this method defines a
+ * The native C++ implementation of this method defines a
  * default argument value.  In the documentation generated for different
  * libSBML language bindings, you may or may not see corresponding
  * arguments in the method declarations.  For example, in Java, a default
@@ -645,7 +645,7 @@ XMLToken::getAttrValue (int index) const
  * returned.  
  * Use hasAttr(name, uri) to test for attribute existence.
  *
- * @docnote The native C++ implementation of this method defines a
+ * The native C++ implementation of this method defines a
  * default argument value.  In the documentation generated for different
  * libSBML language bindings, you may or may not see corresponding
  * arguments in the method declarations.  For example, in Java, a default
@@ -711,17 +711,7 @@ XMLToken::hasAttr (int index) const
  * @return @c true if an attribute with the given local name and namespace 
  * URI exists in the attribute set in this XMLToken, @c false otherwise.
  *
- * @docnote The native C++ implementation of this method defines a
- * default argument value.  In the documentation generated for different
- * libSBML language bindings, you may or may not see corresponding
- * arguments in the method declarations.  For example, in Java, a default
- * argument is handled by declaring two separate methods, with one of
- * them having the argument and the other one lacking the argument.
- * However, the libSBML documentation will be @em identical for both
- * methods.  Consequently, if you are reading this and do not see an
- * argument even though one is described, please look for descriptions of
- * other variants of this method near where this one appears in the
- * documentation.
+ * @if notcpp @htmlinclude warn-default-args-in-docs.html @endif@~
  */
 bool 
 XMLToken::hasAttr (const std::string name, const std::string uri) const

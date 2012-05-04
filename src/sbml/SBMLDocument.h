@@ -381,7 +381,7 @@ public:
    * of SBML object, are either invalid or mismatched with respect to the
    * parent SBMLDocument object.
    *
-   * @if notcpp @docnote @htmlinclude warn-default-args-in-docs.html @endif@~
+   * @if notcpp @htmlinclude warn-default-args-in-docs.html @endif@~
    *
    * @see SBMLDocument::setLevelAndVersion(@if java long lev, long ver, boolean strict@endif)
    * @see getDefaultLevel()
@@ -633,7 +633,7 @@ public:
    * find out whether it is Level&nbsp;1.  (If the conversion to
    * Level&nbsp;1 failed, the Level of this model will be left unchanged.)
    *
-   * @if notcpp @docnote @htmlinclude warn-default-args-in-docs.html @endif@~
+   * @if notcpp @htmlinclude warn-default-args-in-docs.html @endif@~
    * 
    * @see checkL1Compatibility()
    * @see checkL2v1Compatibility()
@@ -683,7 +683,7 @@ public:
    *
    * @param sid the identifier of the new Model to create.
    *
-   * @if notcpp @docnote @htmlinclude warn-default-args-in-docs.html @endif@~
+   * @if notcpp @htmlinclude warn-default-args-in-docs.html @endif@~
    *
    * @see getModel()
    * @see SBMLDocument::setModel(@if java Model m@endif)
@@ -1102,7 +1102,7 @@ public:
    * @param stream the ostream or ostringstream object indicating where
    * the output should be printed.
    *
-   * @if notcpp @docnote @htmlinclude warn-default-args-in-docs.html @endif@~
+   * @if notcpp @htmlinclude warn-default-args-in-docs.html @endif@~
    *
    * @see getNumErrors()
    * @see getErrorLog()

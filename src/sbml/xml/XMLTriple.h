@@ -113,7 +113,7 @@ public:
    * @throws @if python ValueError @else XMLConstructorException @endif@~
    * Thrown if the argument @p orig is @c NULL.
    *
-   * @if notcpp @docnote @htmlinclude warn-default-args-in-docs.html @endif@~
+   * @if notcpp @htmlinclude warn-default-args-in-docs.html @endif@~
    */
   XMLTriple (const std::string& triplet, const char sepchar = ' ');
 

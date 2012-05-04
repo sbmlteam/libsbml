@@ -259,7 +259,7 @@ public:
    *
    * @param type a @if clike #QualifierType_t value@else qualifier type@endif@~
    *
-   * @if notcpp @docnote @htmlinclude warn-default-args-in-docs.html @endif@~
+   * @if notcpp @htmlinclude warn-default-args-in-docs.html @endif@~
    */
   CVTerm(QualifierType_t type = UNKNOWN_QUALIFIER);
 

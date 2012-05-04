@@ -399,7 +399,7 @@ public:
    * @if clike @link #ASTNodeType_t ASTNodeType_t@endlink@else type@endif@~
    * code indicating the type of node to create.
    *
-   * @if notcpp @docnote @htmlinclude warn-default-args-in-docs.html @endif@~
+   * @if notcpp @htmlinclude warn-default-args-in-docs.html @endif@~
    */
   LIBSBML_EXTERN
   ASTNode (ASTNodeType_t type = AST_UNKNOWN);

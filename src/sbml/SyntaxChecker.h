@@ -263,7 +263,7 @@ public:
    * SyntaxChecker_hasExpectedXHTMLSyntax(). They are functionally
    * identical. @endif@~
    *
-   * @if notcpp @docnote @htmlinclude warn-default-args-in-docs.html @endif@~
+   * @if notcpp @htmlinclude warn-default-args-in-docs.html @endif@~
    */
   static bool hasExpectedXHTMLSyntax(const XMLNode * xhtml, 
                                      SBMLNamespaces * sbmlns = NULL); 

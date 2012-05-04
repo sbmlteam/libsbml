@@ -72,7 +72,7 @@ public:
    *
    * @p errorLog the XMLErrorLog object to use.
    *
-   * @if notcpp @docnote @htmlinclude warn-default-args-in-docs.html @endif@~
+   * @if notcpp @htmlinclude warn-default-args-in-docs.html @endif@~
    */
   XMLInputStream (  const char*        content
                   , bool               isFile   = true

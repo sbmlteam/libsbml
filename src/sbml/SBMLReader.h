@@ -446,7 +446,7 @@ protected:
   /**
    * Used by readSBML() and readSBMLFromString().
    *
-   * @if notcpp @docnote @htmlinclude warn-default-args-in-docs.html @endif@~
+   * @if notcpp @htmlinclude warn-default-args-in-docs.html @endif@~
    */
   SBMLDocument* readInternal (const char* content, bool isFile = true);
 

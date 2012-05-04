@@ -820,7 +820,7 @@ public:
    * to the given @if clike #SBMLTypeCode_t value@else SBML object type
    * code@endif, or @c NULL if no ancestor exists.
    *
-   * @if notcpp @docnote @htmlinclude warn-default-args-in-docs.html @endif@~
+   * @if notcpp @htmlinclude warn-default-args-in-docs.html @endif@~
    */
   SBase* getAncestorOfType(int type, const std::string pkgName = "core");
 
@@ -864,7 +864,7 @@ public:
    * to the given @if clike #SBMLTypeCode_t value@else SBML object type
    * code@endif, or @c NULL if no ancestor exists.
    *
-   * @if notcpp @docnote @htmlinclude warn-default-args-in-docs.html @endif@~
+   * @if notcpp @htmlinclude warn-default-args-in-docs.html @endif@~
    */
   const SBase* getAncestorOfType(int type, const std::string pkgName = "core") const;
 
@@ -2178,7 +2178,7 @@ s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></b
    * addition, the caller should make sure to free the original object if
    * it is no longer being used, or else a memory leak will result.
    *
-   * @if notcpp @docnote @htmlinclude warn-default-args-in-docs.html @endif@~
+   * @if notcpp @htmlinclude warn-default-args-in-docs.html @endif@~
    */
   int addCVTerm(CVTerm * term, bool newBag = false);
 
@@ -3005,7 +3005,7 @@ protected:
    *
    * This is essentially a short form of getErrorLog()->logError(...)
    *
-   * @if notcpp @docnote @htmlinclude warn-default-args-in-docs.html @endif@~
+   * @if notcpp @htmlinclude warn-default-args-in-docs.html @endif@~
    */
   void logError (  unsigned int       id
                  , const unsigned int level   = 2
@@ -3122,7 +3122,7 @@ protected:
    * If the syntax of the unit attribute of this object is incorrect, 
    * an error is logged
    *
-   * @if notcpp @docnote @htmlinclude warn-default-args-in-docs.html @endif@~
+   * @if notcpp @htmlinclude warn-default-args-in-docs.html @endif@~
    */
   void checkUnitSyntax(unsigned int flag = 0);
 #endif
