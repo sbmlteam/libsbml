@@ -597,7 +597,6 @@ java-manual $(java-manual): $(core-sources) SBMLDoclet.class
 	    -d $(java-manual) \
 	    -tag note:a:"Note:" \
 	    -tag warning:a:"Warning:" \
-	    -tag docnote:a:"Documentation note:" \
 	    -sourcepath $(java-local-dir) org.sbml.libsbml \
         2>&1 | egrep -v $(java-ignorable-warnings) 
 	cp -f doxygen-base-stylesheet.css $(java-manual)
