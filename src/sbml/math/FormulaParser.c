@@ -373,7 +373,7 @@ static const StateActionPair_t Action[] =
  * @see SBML_formulaToString()
  * @if clike @see SBML_parseL3Formula()@endif@~
  * @if csharp @see SBML_parseL3Formula()@endif@~
- * @if python @see libsbml.SBML_parseL3Formula()@endif@~
+ * @if python @see libsbml.parseL3Formula()@endif@~
  * @if java @see SBML_parseL3Formula()@endif@~
  */
 LIBSBML_EXTERN

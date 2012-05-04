@@ -110,7 +110,7 @@ BEGIN_C_DECLS
  * @if java @see parseFormula(java.lang.String)@endif@~
  * @if clike @see SBML_parseL3Formula()@endif@~
  * @if csharp @see SBML_parseL3Formula()@endif@~
- * @if python @see libsbml.SBML_parseL3Formula()@endif@~
+ * @if python @see libsbml.parseL3Formula()@endif@~
  * @if java @see <code><a href="libsbml.html#parseL3Formula(String formula)">libsbml.parseL3Formula(String formula)</a></code>@endif@~
  */
 LIBSBML_EXTERN

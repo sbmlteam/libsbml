@@ -93,15 +93,15 @@
  *
  * @if clike @see SBML_parseL3FormulaWithSettings()@endif@~
  * @if csharp @see SBML_parseL3FormulaWithSettings()@endif@~
- * @if python @see libsbml.SBML_parseL3FormulaWithSettings()@endif@~
+ * @if python @see libsbml.parseL3FormulaWithSettings()@endif@~
  * @if java @see <code><a href="libsbml.html#parseL3FormulaWithSettings(String formula, L3ParserSettings settings)">libsbml.parseL3FormulaWithSettings(String formula, L3ParserSettings settings)</a></code>@endif@~
  * @if clike @see SBML_parseL3Formula()@endif@~
  * @if csharp @see SBML_parseL3Formula()@endif@~
- * @if python @see libsbml.SBML_parseL3Formula()@endif@~
+ * @if python @see libsbml.parseL3Formula()@endif@~
  * @if java @see <code><a href="libsbml.html#parseL3Formula(String formula)">libsbml.parseL3Formula(String formula)</a></code>@endif@~
  * @if clike @see SBML_parseL3FormulaWithModel()@endif@~
  * @if csharp @see SBML_parseL3FormulaWithModel()@endif@~
- * @if python @see libsbml.SBML_parseL3FormulaWithModel()@endif@~
+ * @if python @see libsbml.parseL3FormulaWithModel()@endif@~
  * @if java @see <code><a href="libsbml.html#parseL3FormulaWithModel(String formula, Model model)">parseL3FormulaWithModel(String formula, Model model)</a></code>@endif@~
  */
 
