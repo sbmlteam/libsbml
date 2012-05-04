@@ -964,7 +964,8 @@ def rewriteDocstringForCSharp (docstring):
 
   # Do replacements on some documentation text we sometimes use.
 
-  docstring = docstring.replace(r'libsbmlConstants', 'libsbmlcs.libsbml')
+  p = re.compile(r'libsbmlConstants([@.])')
+  docstring = p.sub(r'libsbmlcs.libsbml\1', docstring)
 
   # Fix @link for constants that we forgot conditionalize in the source.
 
