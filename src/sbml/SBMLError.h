@@ -537,7 +537,7 @@ typedef enum
 , LevelPositiveInteger                  = 20105 /*!< The 'level' attribute must have a positive integer value. */
 , VersionPositiveInteger                = 20106 /*!< The 'version' attribute must have a positive integer value. */
 , AllowedAttributesOnSBML               = 20108 /*!< Invalid attribute found on the SBML container element. */
-, L3PackageOnLowerSBML                  = 20109 /*!< An L3 package ns found on the SBML container element. */
+, L3PackageOnLowerSBML                  = 20109 /*!< An L3 package ns found on the SBML container element.. */
 , MissingModel                          = 20201 /*!< No model definition found. */
 , IncorrectOrderInModel                 = 20202 /*!< Incorrect ordering of components within the Model object. */
 , EmptyListElement                      = 20203 /*!< Empty ListOf___ object found. */
@@ -733,9 +733,9 @@ typedef enum
 , ConversionFactorNotInL1               = 91015 /*!< SBML Level 1 does not support the 'conversionFactor' attribute. */
 , CompartmentNotOnL1Reaction            = 91016 /*!< SBML Level 1 does not support the 'compartment' attribute on Reaction objects. */
 , ExtentUnitsNotSubstance               = 91017 /*!< Units of extent must be compatible with units of substance. */
-, GlobalUnitsNotDeclared                = 91018 /*!< Global units must be refer to unit kind or unitDefinition. */
-, HasOnlySubstanceUnitsNotinL1          = 91019 /*!< The concept of hasOnlySubstanceUnits was not available in SBML Level 1. */
-, AvogadroNotSupported                  = 91020 /*!< Avogadro not supported in Levels 2 and 1. */
+, GlobalUnitsNotDeclared                = 91018 /*!< Global units must be refer to unit kind or unitDefinition.. */
+, HasOnlySubstanceUnitsNotinL1          = 91019 /*!< The concept of hasOnlySubstanceUnits was not available in SBML Level 1.. */
+, AvogadroNotSupported                  = 91020 /*!< Avogadro not supported in Levels 2 and 1.. */
 , NoConstraintsInL2v1                   = 92001 /*!< SBML Level 2 Version 1 does not support Constraint objects. */
 , NoInitialAssignmentsInL2v1            = 92002 /*!< SBML Level 2 Version 1 does not support InitialAssignment objects. */
 , NoSpeciesTypeInL2v1                   = 92003 /*!< SBML Level 2 Version 1 does not support SpeciesType objects. */
@@ -791,7 +791,7 @@ typedef enum
 , InvalidRuleOrdering                   = 99106 /*!< Invalid ordering of rules. */
 , RequiredPackagePresent                = 99107 /*!< The SBML document requires an SBML Level 3 package unavailable in this software. */
 , UnrequiredPackagePresent              = 99108 /*!< The SBML document uses an SBML Level 3 package unavailable in this software. */
-, PackageRequiredShouldBeFalse          = 99109 /*!< This package expects required to be false. */
+, PackageRequiredShouldBeFalse          = 99109 /*!< This package expects required to be false.. */
 , SubsUnitsAllowedInKL                  = 99127 /*!< Disallowed value for attribute 'substanceUnits' on KineticLaw object. */
 , TimeUnitsAllowedInKL                  = 99128 /*!< Disallowed value for attribute 'timeUnits' on KineticLaw object. */
 , FormulaInLevel1KL                     = 99129 /*!< Only predefined functions are allowed in SBML Level 1 formulas. */
@@ -811,7 +811,7 @@ typedef enum
 , RDFAboutTagNotMetaid                  = 99403 /*!< RDF <code>&lt;about&gt;</code> tag is not metaid.. */
 , RDFNotCompleteModelHistory            = 99404 /*!< RDF does not contain valid ModelHistory.. */
 , RDFNotModelHistory                    = 99405 /*!< RDF does not result in a ModelHistory.. */
-, AnnotationNotElement                  = 99406 /*!< Annotation must contain element. */
+, AnnotationNotElement                  = 99406 /*!< Annotation must contain element.. */
 , InconsistentArgUnitsWarnings          = 99502
 , InconsistentPowerUnitsWarnings        = 99503
 , InconsistentExponUnitsWarnings        = 99504
