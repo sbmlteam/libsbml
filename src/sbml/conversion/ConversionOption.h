@@ -41,7 +41,7 @@
  * @li A @em key, acting as the name of the option;
  * @li A @em value of this option;
  * @li A @em type for the value; this is chosen from  the enumeration type
- * #ConversionOptionType_t; and
+ * <a class="el" href="#ConversionOptionType_t">ConversionOptionType_t</a>; and
  * @li A @em description consisting of a text string that describes the
  * option in some way.
  *

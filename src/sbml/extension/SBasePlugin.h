@@ -153,8 +153,6 @@
  *in their packages, otherwise package developers must implement a new SBMLDocumentPlugin derived class.)
  *</p>
  *
- *  </li>
- *
  *  <li> <p>LayoutModelPlugin class for Model element</p>
  *    <ul>
  *       <li> &lt;listOfLayouts&gt; element is added to Model object.
@@ -235,8 +233,6 @@
  *        </ul>
  *      </ul>
  *    </li>
- * </ol>
- *
  */
 
 #ifndef SBasePlugin_h

@@ -86,11 +86,18 @@
  * @link ASTNode.h::ASTNodeType_t ASTNodeType_t@endlink.  The list of
  * possible types is quite long, because it covers all the mathematical
  * functions that are permitted in SBML.  The values are shown in the
- * following table: @else Every ASTNode has an associated
+ * following table: @endif@if java Every ASTNode has an associated
  * type code to indicate, for example, whether it holds a number or stands for
  * an arithmetic operator.  The type is recorded as a value drawn from a
  * set of static integer constants defined in the class {@link
  * libsbmlConstants}.  Their names begin with the characters @c AST_.  The
+ * list of possible types is quite long, because it covers all the
+ * mathematical functions that are permitted in SBML.  The values are shown
+ * in the following table: @else python Every ASTNode has an associated
+ * type code to indicate, for example, whether it holds a number or stands for
+ * an arithmetic operator.  The type is recorded as a value drawn from a
+ * set of static integer constants defined in the class {@link
+ * libsbml}.  Their names begin with the characters @c AST_.  The
  * list of possible types is quite long, because it covers all the
  * mathematical functions that are permitted in SBML.  The values are shown
  * in the following table: @endif@~
@@ -744,14 +751,14 @@ public:
    * <code>predicate(node)</code> returns @c true (non-zero).
    *
    * For portability between different programming languages, the predicate
-   * is passed in as a pointer to a function.  The function definition must
-   * have the type @link ASTNode.h::ASTNodePredicate ASTNodePredicate
-   * @endlink, which is defined as
+   * is passed in as a pointer to a function.  @if clike The function
+   * definition must have the type @link ASTNode::ASTNodePredicate
+   * ASTNodePredicate @endlink, which is defined as
    * @code
    * int (*ASTNodePredicate) (const ASTNode_t *node);
    * @endcode
    * where a return value of non-zero represents @c true and zero
-   * represents @c false.
+   * represents @c false. @endif
    *
    * @param predicate the predicate to use
    *
