@@ -299,18 +299,19 @@ static const StateActionPair_t Action[] =
  * Abstract Syntax Tree (AST).
  *
  * @if clike The text-string form of mathematical formulas produced by
- * SBML_formulaToString() and read by SBML_parseFormula() are simple
- * C-inspired infix notation taken from SBML Level&nbsp;1.  A formula in
+ * SBML_formulaToString() and read by SBML_parseFormula() and SBML_parseL3Formula() 
+ * are in a simple C-inspired infix notation.  A formula in
  * this text-string form therefore can be handed to a program that
- * understands SBML Level&nbsp;1 mathematical expressions, or used as part
+ * understands SBML mathematical expressions, or used as part
  * of a formula translation system.  The syntax is described in detail in
  * the documentation for ASTNode. @endif@if java The text-string form of
  * mathematical formulas produced by <code><a
  * href="libsbml.html">libsbml.formulaToString()</a></code> and read by
- * <code><a href="libsbml.html">libsbml.parseFormula()</a></code> are
- * simple C-inspired infix notation taken from SBML Level&nbsp;1.  A
+ * <code><a href="libsbml.html">libsbml.parseFormula()</a></code> and
+ * <code><a href="libsbml.html">libsbml.parseL3Formula()</a></code> 
+ * are in a simple C-inspired infix notation.  A
  * formula in this text-string form therefore can be handed to a program
- * that understands SBML Level&nbsp;1 mathematical expressions, or used as
+ * that understands SBML mathematical expressions, or used as
  * part of a formula translation system.  The syntax is described in detail
  * in the documentation for ASTNode.   @endif
  *
@@ -370,6 +371,10 @@ static const StateActionPair_t Action[] =
  * parsing the formula
  *
  * @see SBML_formulaToString()
+ * @if clike @see SBML_parseL3Formula()@endif@~
+ * @if csharp @see SBML_parseL3Formula()@endif@~
+ * @if python @see libsbml.SBML_parseL3Formula()@endif@~
+ * @if java @see SBML_parseL3Formula()@endif@~
  */
 LIBSBML_EXTERN
 ASTNode_t *

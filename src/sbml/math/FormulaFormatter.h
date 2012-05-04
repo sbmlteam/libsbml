@@ -108,6 +108,10 @@ BEGIN_C_DECLS
  * @if csharp @see SBML_parseFormula()@endif@~
  * @if python @see libsbml.parseFormula()@endif@~
  * @if java @see parseFormula(java.lang.String)@endif@~
+ * @if clike @see SBML_parseL3Formula()@endif@~
+ * @if csharp @see SBML_parseL3Formula()@endif@~
+ * @if python @see libsbml.SBML_parseL3Formula()@endif@~
+ * @if java @see SBML_parseL3Formula()@endif@~
  */
 LIBSBML_EXTERN
 char *

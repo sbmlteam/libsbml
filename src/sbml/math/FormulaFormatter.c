@@ -41,20 +41,22 @@
  * basically derived from SBML Level&nbsp;1.
  *
  * @if clike The text-string form of mathematical formulas produced by
- * SBML_formulaToString() and read by SBML_parseFormula() are simple
- * C-inspired infix notation taken from SBML Level&nbsp;1.  A formula in
+ * SBML_formulaToString() and read by SBML_parseFormula() and SBML_parseL3Formula() 
+ * are in a C-inspired infix notation.  A formula in
  * this text-string form therefore can be handed to a program that
- * understands SBML Level&nbsp;1 mathematical expressions, or used as part
+ * understands SBML mathematical expressions, or used as part
  * of a formula translation system.  The syntax is described in detail in
  * the documentation for ASTNode. @endif@if java The text-string form of
  * mathematical formulas produced by <code><a
  * href="libsbml.html#formulaToString(org.sbml.libsbml.ASTNode)">
  * libsbml.formulaToString()</a></code> and read by
  * <code><a href="libsbml.html#parseFormula(java.lang.String)">
- * libsbml.parseFormula()</a></code> are
- * simple C-inspired infix notation taken from SBML Level&nbsp;1.  A
+ * libsbml.parseFormula()</a></code> and
+ * <code><a href="libsbml.html#parseL3Formula(java.lang.String)">
+ * libsbml.parseL3Formula()</a></code> are in a 
+ * simple C-inspired infix notation.  A
  * formula in this text-string form therefore can be handed to a program
- * that understands SBML Level&nbsp;1 mathematical expressions, or used as
+ * that understands SBML mathematical expressions, or used as
  * part of a formula translation system.  The syntax is described in detail
  * in the documentation for ASTNode.   @endif
  *
@@ -112,6 +114,7 @@
  * responsible for freeing it when it is no longer needed.
  *
  * @see SBML_parseFormula()
+ * @see SBML_parseL3Formula()
  */
 LIBSBML_EXTERN
 char *

@@ -141,9 +141,10 @@
  * 
  * The text-string form of mathematical formulas produced by @if clike SBML_formulaToString()@endif@if csharp SBML_formulaToString()@endif@if python libsbml.formulaToString()@endif@if java <code><a href="libsbml.html#formulaToString(org.sbml.libsbml.ASTNode)">libsbml.formulaToString()</a></code>@endif@~ and
  * read by @if clike SBML_parseFormula()@endif@if csharp SBML_parseFormula()@endif@if python libsbml.parseFormula()@endif@if java <code><a href="libsbml.html#parseFormula(java.lang.String)">libsbml.parseFormula()</a></code>@endif@~
- * are simple C-inspired infix notation taken from SBML Level&nbsp;1.  A
+ * and @if clike SBML_parseL3Formula()@endif@if csharp SBML_parseL3Formula()@endif@if python libsbml.parseL3Formula()@endif@if java <code><a href="libsbml.html#parseL3Formula(java.lang.String)">libsbml.parseL3Formula()</a></code>@endif@~
+ * are in a simple C-inspired infix notation.  A
  * formula in this text-string form can be handed to a program that
- * understands SBML Level&nbsp;1 mathematical expressions, or used as part
+ * understands SBML mathematical expressions, or used as part
  * of a translation system.  The libSBML distribution comes with an example
  * program in the @c "examples" subdirectory called @c translateMath that
  * implements an interactive command-line demonstration of translating
@@ -200,6 +201,15 @@
  * @htmlinclude math-functions.html
  * 
  * @warning @htmlinclude L1-math-syntax-warning.html
+ *
+ * @if clike @see SBML_parseL3Formula()@endif@~
+ * @if csharp @see SBML_parseL3Formula()@endif@~
+ * @if python @see libsbml.SBML_parseL3Formula()@endif@~
+ * @if java @see SBML_parseL3Formula()@endif@~
+ * @if clike @see SBML_parseFormula()@endif@~
+ * @if csharp @see SBML_parseFormula()@endif@~
+ * @if python @see libsbml.SBML_parseFormula()@endif@~
+ * @if java @see SBML_parseFormula()@endif@~
  */
 
 #ifndef ASTNode_h
@@ -798,6 +808,7 @@ public:
   LIBSBML_EXTERN
   char getCharacter () const;
 
+
   /**
    * Get the id of this ASTNode.  
    * 
@@ -805,6 +816,7 @@ public:
    */
   LIBSBML_EXTERN
   std::string getId () const;
+
 
   /**
    * Get the class of this ASTNode.  
@@ -814,6 +826,7 @@ public:
   LIBSBML_EXTERN
   std::string getClass () const;
 
+
   /**
    * Get the style of this ASTNode.  
    * 
@@ -821,6 +834,7 @@ public:
    */
   LIBSBML_EXTERN
   std::string getStyle () const;
+
 
   /**
    * Get the value of this node as an integer. This function should be
@@ -963,6 +977,10 @@ public:
    * @note The <code>sbml:units</code> attribute is only available in SBML
    * Level&nbsp;3.  It may not be used in Levels 1&ndash;2 of SBML.
    * 
+   * @if clike @see SBML_parseL3Formula()@endif@~
+   * @if csharp @see SBML_parseL3Formula()@endif@~
+   * @if python @see libsbml.SBML_parseL3Formula()@endif@~
+   * @if java @see SBML_parseL3Formula()@endif@~
    */
   LIBSBML_EXTERN
   std::string getUnits () const;
@@ -973,6 +991,11 @@ public:
    * symbol @c avogadro.  The predicate returns @c false (zero) otherwise.
    * 
    * @return @c true if this ASTNode is the special symbol avogadro.
+   *
+   * @if clike @see SBML_parseL3Formula()@endif@~
+   * @if csharp @see SBML_parseL3Formula()@endif@~
+   * @if python @see libsbml.SBML_parseL3Formula()@endif@~
+   * @if java @see SBML_parseL3Formula()@endif@~
    */
   LIBSBML_EXTERN
   bool isAvogadro () const;
@@ -1076,6 +1099,11 @@ public:
    * 
    * @return @c true if the given ASTNode represents a log10() function, @c
    * false otherwise.
+   *
+   * @if clike @see SBML_parseL3Formula()@endif@~
+   * @if csharp @see SBML_parseL3Formula()@endif@~
+   * @if python @see libsbml.SBML_parseL3Formula()@endif@~
+   * @if java @see SBML_parseL3Formula()@endif@~
    */
   LIBSBML_EXTERN
   bool isLog10 () const;
@@ -1221,15 +1249,23 @@ public:
    * For numbers, unary minus nodes can be "collapsed" by negating the
    * number.  In fact, 
    * @if clike SBML_parseFormula()@endif@if csharp SBML_parseFormula()@endif@if python libsbml.parseFormula()@endif@if java <code><a href="libsbml.html#parseFormula(java.lang.String)">libsbml.parseFormula()</a></code>@endif@~
-   * does this during its parsing process.
-   * However, unary minus nodes for symbols
+   * does this during its parsing process, and 
+   * @if clike SBML_parseL3Formula()@endif@if csharp SBML_parseL3Formula()@endif@if python libsbml.parseL3Formula()@endif@if java <code><a href="libsbml.html#parseL3Formula(java.lang.String)">libsbml.parseL3Formula()</a></code>@endif@~
+   * has a configuration option that allows this behavior to be turned
+   * on or off.  However, unary minus nodes for symbols
    * (@link ASTNodeType_t#AST_NAME AST_NAME@endlink) cannot
    * be "collapsed", so this predicate function is necessary.
    * 
    * @return @c true if this ASTNode is a unary minus, @c false otherwise.
+   *
+   * @if clike @see SBML_parseL3Formula()@endif@~
+   * @if csharp @see SBML_parseL3Formula()@endif@~
+   * @if python @see libsbml.SBML_parseL3Formula()@endif@~
+   * @if java @see SBML_parseL3Formula()@endif@~
    */
   LIBSBML_EXTERN
   bool isUMinus () const;
+
 
   /**
    * Predicate returning @c true (non-zero) if this node is a unary plus
@@ -1241,6 +1277,7 @@ public:
    */
   LIBSBML_EXTERN
   bool isUPlus () const;
+
 
   /**
    * Predicate returning @c true (non-zero) if this node has an unknown type.
@@ -1260,6 +1297,7 @@ public:
   LIBSBML_EXTERN
   bool isUnknown () const;
 
+
   /**
    * Predicate returning @c true (non-zero) if this node has the mathml attribute
    * <code>id</code>.
@@ -1268,6 +1306,7 @@ public:
    */
   LIBSBML_EXTERN
   bool isSetId() const;
+
   
   /**
    * Predicate returning @c true (non-zero) if this node has the mathml attribute
@@ -1278,6 +1317,7 @@ public:
   LIBSBML_EXTERN
   bool isSetClass() const;
 
+
   /**
    * Predicate returning @c true (non-zero) if this node has the mathml attribute
    * <code>style</code>.
@@ -1286,6 +1326,7 @@ public:
    */
   LIBSBML_EXTERN
   bool isSetStyle() const;
+
     
   /**
    * Predicate returning @c true (non-zero) if this node has the attribute
@@ -1557,6 +1598,7 @@ public:
   virtual void replaceIDWithFunction(const std::string& id, const ASTNode* function);
   /** @endcond */
 
+
   /** @cond doxygen-libsbml-internal */
   /**
    * Replaces any 'AST_NAME_TIME' nodes with a node that multiplies time by the given function.
@@ -1590,6 +1632,7 @@ public:
   LIBSBML_EXTERN
   int unsetId ();
 
+
   /**
    * Unsets the mathml class of this ASTNode.
    *
@@ -1601,6 +1644,7 @@ public:
   LIBSBML_EXTERN
   int unsetClass ();
 
+
   /**
    * Unsets the mathml style of this ASTNode.
    *
@@ -1611,6 +1655,7 @@ public:
    */
   LIBSBML_EXTERN
   int unsetStyle ();
+
 
   /** @cond doxygen-libsbml-internal */
 
@@ -2205,6 +2250,11 @@ ASTNode_isLambda (const ASTNode_t *node);
  *
  * More precisley, the node type is @c AST_FUNCTION_LOG with two children
  * the first of which is an @c AST_INTEGER equal to 10.
+ *
+ * @if clike @see SBML_parseL3Formula()@endif@~
+ * @if csharp @see SBML_parseL3Formula()@endif@~
+ * @if python @see libsbml.SBML_parseL3Formula()@endif@~
+ * @if java @see SBML_parseL3Formula()@endif@~
  */
 LIBSBML_EXTERN
 int
@@ -2316,12 +2366,19 @@ ASTNode_isSqrt (const ASTNode_t *node);
  *
  * For numbers, unary minus nodes can be "collapsed" by negating the
  * number.  In fact, @if clike SBML_parseFormula()@endif@if csharp SBML_parseFormula()@endif@if python libsbml.parseFormula()@endif@if java <code><a href="libsbml.html#parseFormula(java.lang.String)">libsbml.parseFormula()</a></code>@endif@~
- * does this during its parse.
- * However, unary minus nodes for symbols (@c AST_NAMES) cannot be
- * "collapsed", so this predicate function is necessary.
+ * does this during its parse, and 
+ * @if clike SBML_parseL3Formula()@endif@if csharp SBML_parseL3Formula()@endif@if python libsbml.parseL3Formula()@endif@if java <code><a href="libsbml.html#parseL3Formula(java.lang.String)">libsbml.parseL3Formula()</a></code>@endif@~
+ * has a configuration option that allows this behavior to be turned
+ * on or off.  However, unary minus nodes for symbols (@c AST_NAMES) 
+ * cannot be "collapsed", so this predicate function is necessary.
  *
  * A node is defined as a unary minus node if it is of type @c AST_MINUS
  * and has exactly one child.
+ *
+ * @if clike @see SBML_parseL3Formula()@endif@~
+ * @if csharp @see SBML_parseL3Formula()@endif@~
+ * @if python @see libsbml.SBML_parseL3Formula()@endif@~
+ * @if java @see SBML_parseL3Formula()@endif@~
  */
 LIBSBML_EXTERN
 int
