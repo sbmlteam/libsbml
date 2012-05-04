@@ -501,9 +501,25 @@ XMLNode::write (XMLOutputStream& stream) const
 
   if (children > 0)
   {
-    for (unsigned int c = 0; c < children; ++c) stream << getChild(c);
+    bool haveTextNode = false;
+    for (unsigned int c = 0; c < children; ++c) 
+    {
+        const XMLNode& current = getChild(c);
+        stream << current;
+        haveTextNode |= current.isText();
+    }
+
     if (!mTriple.isEmpty())
+    {
+      // edge case ... we have an element with a couple of elements, and 
+      // one is a text node (ugly!) in this case we can get a hanging
+      // indent ... so we downindent ... 
+      if (children > 1 && haveTextNode)
+      {
+        stream.downIndent();
+      }
       stream.endElement( mTriple );
+    }
   }
   else if ( isStart() && !isEnd() ) 
   {
