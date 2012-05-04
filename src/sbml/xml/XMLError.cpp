@@ -486,7 +486,7 @@ XMLError::clone() const
 /*
  * @return the id of this XMLError.
  */
-const unsigned int
+unsigned int
 XMLError::getErrorId () const
 {
   return mErrorId;

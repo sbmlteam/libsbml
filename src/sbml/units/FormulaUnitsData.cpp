@@ -249,7 +249,7 @@ FormulaUnitsData::getComponentTypecode()
   return mTypeOfElement; 
 }
 
-const int
+int
 FormulaUnitsData::getComponentTypecode() const 
 { 
   return mTypeOfElement; 
@@ -275,7 +275,7 @@ FormulaUnitsData::getContainsUndeclaredUnits()
   * @return @c true if the FormulaUnitsData includes parameters/numbers 
   * with undeclared units, @c false otherwise.
   */
-const bool 
+bool 
 FormulaUnitsData::getContainsUndeclaredUnits() const
 { 
   return mContainsUndeclaredUnits; 
@@ -295,7 +295,7 @@ FormulaUnitsData::getCanIgnoreUndeclaredUnits()
   * @return @c true if the parameters/numbers 
   * with undeclared units can be ignored, @c false otherwise.
   */
-const bool 
+bool 
 FormulaUnitsData::getCanIgnoreUndeclaredUnits() const 
 { 
   return mCanIgnoreUndeclaredUnits; 

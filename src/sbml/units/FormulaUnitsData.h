@@ -167,7 +167,7 @@ public:
    * @return the value of the SBMLTypeCode_t of this 
    * FormulaUnitsData.
    */
-  const int getComponentTypecode() const;
+  int getComponentTypecode() const;
 
 
   /**
@@ -187,7 +187,7 @@ public:
    * @return @c true if the FormulaUnitsData includes parameters/numbers 
    * with undeclared units, @c false otherwise.
    */
-  const bool getContainsUndeclaredUnits() const;
+  bool getContainsUndeclaredUnits() const;
 
 
   /**
@@ -225,7 +225,7 @@ public:
    * @return @c true if the parameters/numbers 
    * with undeclared units can be ignored, @c false otherwise.
    */
-  const bool getCanIgnoreUndeclaredUnits() const;
+  bool getCanIgnoreUndeclaredUnits() const;
 
 
   /**

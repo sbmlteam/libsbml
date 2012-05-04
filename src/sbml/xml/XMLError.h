@@ -679,7 +679,7 @@ public:
    * @see getCategory()
    * @see getSeverity()
    */
-  const unsigned int getErrorId () const;
+  unsigned int getErrorId () const;
 
 
   /**
