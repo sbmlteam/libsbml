@@ -140,8 +140,8 @@
  * <h3><a class="anchor" name="math-convert">Converting between ASTs and text strings</a></h3>
  * 
  * The text-string form of mathematical formulas produced by @if clike SBML_formulaToString()@endif@if csharp SBML_formulaToString()@endif@if python libsbml.formulaToString()@endif@if java <code><a href="libsbml.html#formulaToString(org.sbml.libsbml.ASTNode)">libsbml.formulaToString()</a></code>@endif@~ and
- * read by @if clike SBML_parseFormula()@endif@if csharp SBML_parseFormula()@endif@if python libsbml.parseFormula()@endif@if java <code><a href="libsbml.html#parseFormula(java.lang.String)">libsbml.parseFormula()</a></code>@endif@~
- * and @if clike SBML_parseL3Formula()@endif@if csharp SBML_parseL3Formula()@endif@if python libsbml.parseL3Formula()@endif@if java <code><a href="libsbml.html#parseL3Formula(java.lang.String)">libsbml.parseL3Formula()</a></code>@endif@~
+ * read by @if clike SBML_parseFormula()@endif@if csharp SBML_parseFormula()@endif@if python libsbml.parseFormula()@endif@if java <code><a href="libsbml.html#parseFormula(java.lang.String)">libsbml.parseFormula(String formula)</a></code>@endif@~
+ * and @if clike SBML_parseL3Formula()@endif@if csharp SBML_parseL3Formula()@endif@if python libsbml.parseL3Formula()@endif@if java <code><a href="libsbml.html#parseL3Formula(java.lang.String)">libsbml.parseL3Formula(String formula)</a></code>@endif@~
  * are in a simple C-inspired infix notation.  A
  * formula in this text-string form can be handed to a program that
  * understands SBML mathematical expressions, or used as part
@@ -205,11 +205,11 @@
  * @if clike @see SBML_parseL3Formula()@endif@~
  * @if csharp @see SBML_parseL3Formula()@endif@~
  * @if python @see libsbml.SBML_parseL3Formula()@endif@~
- * @if java @see SBML_parseL3Formula()@endif@~
+ * @if java @see <code><a href="libsbml.html#parseL3Formula(String formula)">libsbml.parseL3Formula(String formula)</a></code>@endif@~
  * @if clike @see SBML_parseFormula()@endif@~
  * @if csharp @see SBML_parseFormula()@endif@~
  * @if python @see libsbml.SBML_parseFormula()@endif@~
- * @if java @see SBML_parseFormula()@endif@~
+ * @if java @see <code><a href="libsbml.html#parseFormula(String formula)">libsbml.parseFormula(String formula)</a></code>@endif@~
  */
 
 #ifndef ASTNode_h
@@ -980,7 +980,7 @@ public:
    * @if clike @see SBML_parseL3Formula()@endif@~
    * @if csharp @see SBML_parseL3Formula()@endif@~
    * @if python @see libsbml.SBML_parseL3Formula()@endif@~
-   * @if java @see SBML_parseL3Formula()@endif@~
+   * @if java @see <code><a href="libsbml.html#parseL3Formula(String formula)">libsbml.parseL3Formula(String formula)</a></code>@endif@~
    */
   LIBSBML_EXTERN
   std::string getUnits () const;
@@ -995,7 +995,7 @@ public:
    * @if clike @see SBML_parseL3Formula()@endif@~
    * @if csharp @see SBML_parseL3Formula()@endif@~
    * @if python @see libsbml.SBML_parseL3Formula()@endif@~
-   * @if java @see SBML_parseL3Formula()@endif@~
+   * @if java @see <code><a href="libsbml.html#parseL3Formula(String formula)">libsbml.parseL3Formula(String formula)</a></code>@endif@~
    */
   LIBSBML_EXTERN
   bool isAvogadro () const;
@@ -1103,7 +1103,7 @@ public:
    * @if clike @see SBML_parseL3Formula()@endif@~
    * @if csharp @see SBML_parseL3Formula()@endif@~
    * @if python @see libsbml.SBML_parseL3Formula()@endif@~
-   * @if java @see SBML_parseL3Formula()@endif@~
+   * @if java @see <code><a href="libsbml.html#parseL3Formula(String formula)">libsbml.parseL3Formula(String formula)</a></code>@endif@~
    */
   LIBSBML_EXTERN
   bool isLog10 () const;
@@ -1248,9 +1248,9 @@ public:
    * 
    * For numbers, unary minus nodes can be "collapsed" by negating the
    * number.  In fact, 
-   * @if clike SBML_parseFormula()@endif@if csharp SBML_parseFormula()@endif@if python libsbml.parseFormula()@endif@if java <code><a href="libsbml.html#parseFormula(java.lang.String)">libsbml.parseFormula()</a></code>@endif@~
+   * @if clike SBML_parseFormula()@endif@if csharp SBML_parseFormula()@endif@if python libsbml.parseFormula()@endif@if java <code><a href="libsbml.html#parseFormula(java.lang.String)">libsbml.parseFormula(String formula)</a></code>@endif@~
    * does this during its parsing process, and 
-   * @if clike SBML_parseL3Formula()@endif@if csharp SBML_parseL3Formula()@endif@if python libsbml.parseL3Formula()@endif@if java <code><a href="libsbml.html#parseL3Formula(java.lang.String)">libsbml.parseL3Formula()</a></code>@endif@~
+   * @if clike SBML_parseL3Formula()@endif@if csharp SBML_parseL3Formula()@endif@if python libsbml.parseL3Formula()@endif@if java <code><a href="libsbml.html#parseL3Formula(java.lang.String)">libsbml.parseL3Formula(String formula)</a></code>@endif@~
    * has a configuration option that allows this behavior to be turned
    * on or off.  However, unary minus nodes for symbols
    * (@link ASTNodeType_t#AST_NAME AST_NAME@endlink) cannot
@@ -1261,7 +1261,7 @@ public:
    * @if clike @see SBML_parseL3Formula()@endif@~
    * @if csharp @see SBML_parseL3Formula()@endif@~
    * @if python @see libsbml.SBML_parseL3Formula()@endif@~
-   * @if java @see SBML_parseL3Formula()@endif@~
+   * @if java @see <code><a href="libsbml.html#parseL3Formula(String formula)">libsbml.parseL3Formula(String formula)</a></code>@endif@~
    */
   LIBSBML_EXTERN
   bool isUMinus () const;
@@ -2254,7 +2254,7 @@ ASTNode_isLambda (const ASTNode_t *node);
  * @if clike @see SBML_parseL3Formula()@endif@~
  * @if csharp @see SBML_parseL3Formula()@endif@~
  * @if python @see libsbml.SBML_parseL3Formula()@endif@~
- * @if java @see SBML_parseL3Formula()@endif@~
+ * @if java @see <code><a href="libsbml.html#parseL3Formula(String formula)">libsbml.parseL3Formula(String formula)</a></code>@endif@~
  */
 LIBSBML_EXTERN
 int
@@ -2365,9 +2365,9 @@ ASTNode_isSqrt (const ASTNode_t *node);
  * otherwise.
  *
  * For numbers, unary minus nodes can be "collapsed" by negating the
- * number.  In fact, @if clike SBML_parseFormula()@endif@if csharp SBML_parseFormula()@endif@if python libsbml.parseFormula()@endif@if java <code><a href="libsbml.html#parseFormula(java.lang.String)">libsbml.parseFormula()</a></code>@endif@~
+ * number.  In fact, @if clike SBML_parseFormula()@endif@if csharp SBML_parseFormula()@endif@if python libsbml.parseFormula()@endif@if java <code><a href="libsbml.html#parseFormula(java.lang.String)">libsbml.parseFormula(String formula)</a></code>@endif@~
  * does this during its parse, and 
- * @if clike SBML_parseL3Formula()@endif@if csharp SBML_parseL3Formula()@endif@if python libsbml.parseL3Formula()@endif@if java <code><a href="libsbml.html#parseL3Formula(java.lang.String)">libsbml.parseL3Formula()</a></code>@endif@~
+ * @if clike SBML_parseL3Formula()@endif@if csharp SBML_parseL3Formula()@endif@if python libsbml.parseL3Formula()@endif@if java <code><a href="libsbml.html#parseL3Formula(java.lang.String)">libsbml.parseL3Formula(String formula)</a></code>@endif@~
  * has a configuration option that allows this behavior to be turned
  * on or off.  However, unary minus nodes for symbols (@c AST_NAMES) 
  * cannot be "collapsed", so this predicate function is necessary.
@@ -2378,7 +2378,7 @@ ASTNode_isSqrt (const ASTNode_t *node);
  * @if clike @see SBML_parseL3Formula()@endif@~
  * @if csharp @see SBML_parseL3Formula()@endif@~
  * @if python @see libsbml.SBML_parseL3Formula()@endif@~
- * @if java @see SBML_parseL3Formula()@endif@~
+ * @if java @see <code><a href="libsbml.html#parseL3Formula(String formula)">libsbml.parseL3Formula(String formula)</a></code>@endif@~
  */
 LIBSBML_EXTERN
 int

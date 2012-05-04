@@ -118,7 +118,6 @@
  * feel best matches their target audience.
  *
  * @see ListOfParameters
- * @if java @see ListOfParameters@endif@~
  *
  * <!-- leave this next break as-is to work around some doxygen bug -->
  */ 

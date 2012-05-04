@@ -3013,6 +3013,7 @@ public:
    */
   void populateListFormulaUnitsData();
 
+
   /**
    * Predicate returning @c true if 
    * the list of FormulaUnitsData is populated.

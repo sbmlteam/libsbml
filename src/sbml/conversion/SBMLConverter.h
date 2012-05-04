@@ -147,8 +147,8 @@ public:
    * 
    * @return the default properties for the converter.
    *
-   * @see setProperties()
-   * @see matchesProperties()
+   * @see setProperties(@if java ConversionProperties props@endif)
+   * @see matchesProperties(@if java ConversionProperties props@endif)
    */
   virtual ConversionProperties getDefaultProperties() const;
 
@@ -218,7 +218,7 @@ public:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
    *
    * @see getProperties()
-   * @see matchesProperties()
+   * @see matchesProperties(@if java ConversionProperties props@endif)
    */  
   virtual int setProperties(const ConversionProperties *props);
 
@@ -234,8 +234,8 @@ public:
    * 
    * @return the currently set configuration properties.
    *
-   * @see setProperties()
-   * @see matchesProperties()
+   * @see setProperties(@if java ConversionProperties props@endif)
+   * @see matchesProperties(@if java ConversionProperties props@endif)
    */
   virtual ConversionProperties* getProperties() const;
 

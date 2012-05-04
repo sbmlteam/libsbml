@@ -294,11 +294,9 @@ success = sbmlObject.setAnnotation(annot)           # Set object's annotation to
    * Takes a list of CVTerm objects and creates a the RDF "Description"
    * element.
    *
-   * This essentially takes the given SBML object, reads out the CVTerm objects
-   * attached to it, calls
-   * @if clike createRDFDescription()@else RDFAnnotationParser::createRDFDescription(SBase object)@endif@~
-   * to create an RDF "Description" element to hold the terms and adds
-   * each term with appropriate qualifiers.
+   * This essentially takes the given SBML object, reads out the CVTerm
+   * objects attached to it, creates an RDF "Description" element to hold
+   * the terms, and adds each term with appropriate qualifiers.
    *
    * @param obj the SBML object to start from
    *
@@ -309,7 +307,7 @@ success = sbmlObject.setAnnotation(annot)           # Set object's annotation to
    * language interfaces for libSBML will contain two variants.  One will
    * be a static method on the class (i.e., RDFAnnotationParser), and the
    * other will be a standalone top-level function with the name
-   * RDFAnnotationParser_createRDFDescriptionWithCVTerms(). They are functionally
+   * createRDFDescription(@if java SBase obj@endif). They are functionally
    * identical. @endif@~
    */
   static XMLNode * createCVTerms(const SBase *obj);
@@ -319,15 +317,13 @@ success = sbmlObject.setAnnotation(annot)           # Set object's annotation to
    * Takes a list of CVTerm objects and creates a complete SBML annotation
    * around it.
    *
-   * This essentially takes the given SBML object, calls
-   * @if clike RDFAnnotationParser::createRDFDescriptionWithCVTerms()@else RDFAnnotationParser::createRDFDescriptionWithCVTerms(SBase obj)@endif@~
-   * to read out the CVTerm objects
-   * attached to it, calls
-   * @if clike createRDFAnnotation()@else RDFAnnotationParser::createRDFAnnotation()@endif@~
-   * to create an RDF
-   * annotation to hold the terms, and finally calls
-   * @if clike createAnnotation()@else RDFAnnotationParser::createAnnotation()@endif@~
-   * to wrap the result as an SBML <code>&lt;annotation&gt;</code> element.
+   * This essentially takes the given SBML object, reads out the CVTerm
+   * objects attached to it, calls @if clike createRDFAnnotation()@else
+   * RDFAnnotationParser::createRDFAnnotation()@endif@~ to create an RDF
+   * annotation to hold the terms, and finally calls @if clike
+   * createAnnotation()@else
+   * RDFAnnotationParser::createAnnotation()@endif@~ to wrap the result as
+   * an SBML <code>&lt;annotation&gt;</code> element.
    *
    * @param obj the SBML object to start from
    *
@@ -360,8 +356,8 @@ success = sbmlObject.setAnnotation(annot)           # Set object's annotation to
    * language interfaces for libSBML will contain two variants.  One will
    * be a static method on the class (i.e., RDFAnnotationParser), and the
    * other will be a standalone top-level function with the name
-   * RDFAnnotationParser_parseModelHistory(). They are functionally
-   * identical. @endif@~
+   * RDFAnnotationParser_parseModelHistory(@if java Sbase obj@endif). They
+   * are functionally identical. @endif@~
    */
   static XMLNode * parseModelHistory(const SBase * obj);
 

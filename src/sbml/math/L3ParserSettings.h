@@ -34,14 +34,14 @@
  * The function
  * @if clike SBML_parseL3FormulaWithSettings()@endif@if csharp SBML_parseL3FormulaWithSettings()@endif@if python libsbml.parseL3FormulaWithSettings()@endif@if java <code><a href="libsbml.html#parseL3FormulaWithSettings(java.lang.String)">libsbml.parseL3FormulaWithSettings()</a></code>@endif@~,
  * along with its variants 
- * @if clike SBML_parseFormula()@endif@if csharp SBML_parseFormula()@endif@if python libsbml.parseFormula()@endif@if java <code><a href="libsbml.html#parseFormula(java.lang.String)">libsbml.parseFormula()</a></code>@endif@~
+ * @if clike SBML_parseFormula()@endif@if csharp SBML_parseFormula()@endif@if python libsbml.parseFormula()@endif@if java <code><a href="libsbml.html#parseFormula(java.lang.String)">libsbml.parseFormula(String formula)</a></code>@endif@~
  * and
  * @if clike SBML_parseL3FormulaWithModel()@endif@if csharp SBML_parseL3FormulaWithModel()@endif@if python libsbml.parseL3FormulaWithModel()@endif@if java <code><a href="libsbml.html#parseL3FormulaWithModel(java.lang.String)">libsbml.parseL3FormulaWithModel()</a></code>@endif@~,
  * are the interfaces to a parser for mathematical formulas expressed as
  * text strings.  The parser converts the text-string formulas into
  * Abstract Syntax Trees (ASTs), represented in libSBML using ASTNode
  * objects. Compared to the parser implemented by the function
- * @if clike SBML_parseFormula()@endif@if csharp SBML_parseFormula()@endif@if python libsbml.parseFormula()@endif@if java <code><a href="libsbml.html#parseFormula(java.lang.String)">libsbml.parseFormula()</a></code>@endif@~,
+ * @if clike SBML_parseFormula()@endif@if csharp SBML_parseFormula()@endif@if python libsbml.parseFormula()@endif@if java <code><a href="libsbml.html#parseFormula(java.lang.String)">libsbml.parseFormula(String formula)</a></code>@endif@~,
  * which was designed primarily for converting the mathematical formula
  * strings in SBML Level&nbsp;1, the "L3" variant of the parser accepts an
  * extended formula syntax.  It also has a number of configurable behaviors.
@@ -63,7 +63,7 @@
  * <li> The string @c avogadro can be parsed as a MathML @em csymbol or
  * as an identifier.
  * <li> A Model object may optionally be provided to the parser using
- * the variant function call @if clike  SBML_parseL3FormulaWithModel()@endif@if csharp  SBML_parseL3FormulaWithModel()@endif@if python  libsbml.SBML_parseL3FormulaWithModel()@endif@if java  SBML_parseL3FormulaWithModel()@endif@~.
+ * the variant function call @if clike  SBML_parseL3FormulaWithModel()@endif@if csharp  SBML_parseL3FormulaWithModel()@endif@if python  libsbml.SBML_parseL3FormulaWithModel()@endif@if java <code><a href="libsbml.html#parseL3FormulaWithModel(java.lang.String)">libsbml.parseL3FormulaWithModel()</a></code>@endif@~.
  * or stored in a L3ParserSettings object passed to the variant function
  * @if clike SBML_parseL3FormulaWithSettings()@endif@if csharp SBML_parseL3FormulaWithSettings()@endif@if python libsbml.parseL3FormulaWithSettings()@endif@if java <code><a href="libsbml.html#parseL3FormulaWithSettings(java.lang.String)">libsbml.parseL3FormulaWithSettings()</a></code>@endif@~.
  * When a Model object is provided, identifiers (values of type @c SId)
@@ -85,7 +85,7 @@
  * </ul>
  *
  * To obtain the default configuration values, callers can use the function
- * @if clike SBML_getDefaultL3ParserSettings()@endif@if csharp SBML_getDefaultL3ParserSettings()@endif@if python libsbml.SBML_getDefaultL3ParserSettings()@endif@if java SBML_getDefaultL3ParserSettings()@endif@~.
+ * @if clike SBML_getDefaultL3ParserSettings()@endif@if csharp SBML_getDefaultL3ParserSettings()@endif@if python libsbml.SBML_getDefaultL3ParserSettings()@endif@if java <code><a href="libsbml.html#getDefaultL3ParserSettings()">libsbml.getDefaultL3ParserSettings()</a></code>@endif@~.
  * To change the configuration, callers can create an L3ParserSettings
  * object, set the desired characteristics using the methods
  * provided, and pass that object to
@@ -94,15 +94,15 @@
  * @if clike @see SBML_parseL3FormulaWithSettings()@endif@~
  * @if csharp @see SBML_parseL3FormulaWithSettings()@endif@~
  * @if python @see libsbml.SBML_parseL3FormulaWithSettings()@endif@~
- * @if java @see SBML_parseL3FormulaWithSettings()@endif@~
+ * @if java @see <code><a href="libsbml.html#parseL3FormulaWithSettings(String formula, L3ParserSettings settings)">libsbml.parseL3FormulaWithSettings(String formula, L3ParserSettings settings)</a></code>@endif@~
  * @if clike @see SBML_parseL3Formula()@endif@~
  * @if csharp @see SBML_parseL3Formula()@endif@~
  * @if python @see libsbml.SBML_parseL3Formula()@endif@~
- * @if java @see SBML_parseL3Formula()@endif@~
+ * @if java @see <code><a href="libsbml.html#parseL3Formula(String formula)">libsbml.parseL3Formula(String formula)</a></code>@endif@~
  * @if clike @see SBML_parseL3FormulaWithModel()@endif@~
  * @if csharp @see SBML_parseL3FormulaWithModel()@endif@~
  * @if python @see libsbml.SBML_parseL3FormulaWithModel()@endif@~
- * @if java @see SBML_parseL3FormulaWithModel()@endif@~
+ * @if java @see <code><a href="libsbml.html#parseL3FormulaWithModel(String formula, Model model)">parseL3FormulaWithModel(String formula, Model model)</a></code>@endif@~
  */
 
 #ifndef L3ParserSettings_h
@@ -153,7 +153,7 @@ typedef enum
  */
 #define L3P_NO_UNITS false
 /*!<
- * Do not recognize units in text-string formulas -- treat them as errors.
+ * Do not recognize units in text-string formulas&mdash;treat them as errors.
  * @see @link setParseCollapseMinus()@endlink
  * @see @link getParseCollapseMinus()@endlink
  */
@@ -166,7 +166,7 @@ typedef enum
  */
 #define L3P_AVOGADRO_IS_NAME    false
 /*!<
- * Do not treat 'avogadro' specially -- consider it a plain symbol name.
+ * Do not treat 'avogadro' specially&mdash;consider it a plain symbol name.
  * @see @link getParseAvogadroCsymbol()@endlink
  * @see @link setParseAvogadroCsymbol()@endlink
  */
@@ -220,16 +220,16 @@ public:
    * the appearance of the symbol @c avogadro in a formula
    *
    * @see getModel()
-   * @see setModel()
+   * @see setModel(@if java Model model@endif)
    * @see unsetModel()
    * @see getParseLog()
-   * @see setParseLog()
+   * @see setParseLog(@if java int type@endif)
    * @see getParseUnits()
-   * @see setParseUnits()
+   * @see setParseUnits(@if java boolean units@endif)
    * @see getParseCollapseMinus()
-   * @see setParseCollapseMinus()
+   * @see setParseCollapseMinus(@if java boolean collapseminus@endif)
    * @see getParseAvogadroCsymbol()
-   * @see setParseAvogadroCsymbol()
+   * @see setParseAvogadroCsymbol(@if java boolean l2only@endif)
    */
   L3ParserSettings(Model* model, ParseLogType_t parselog,
                    bool collapseminus, bool parseunits, bool avocsymbol);
@@ -276,7 +276,7 @@ public:
   /**
    * Returns the Model object referenced by this L3ParserSettings object.
    *
-   * @see setModel()
+   * @see setModel(@if java Model model@endif)
    * @see unsetModel()
    */
   const Model* getModel() const;
@@ -285,7 +285,7 @@ public:
   /**
    * Sets the Model reference in this L3ParserSettings object to @c NULL.
    *
-   * @see setModel()
+   * @see setModel(@if java Model model@endif)
    * @see getModel()
    */
   void unsetModel();
@@ -323,7 +323,7 @@ public:
    * @li @link ParseLogType_t#L3P_PARSE_LOG_AS_LN L3P_PARSE_LOG_AS_LN@endlink
    * @li @link ParseLogType_t#L3P_PARSE_LOG_AS_ERROR L3P_PARSE_LOG_AS_ERROR@endlink
    *
-   * @see setParseLog()
+   * @see setParseLog(@if java int type@endif)
    */
   ParseLogType_t getParseLog() const;
 
@@ -391,7 +391,7 @@ public:
    * @return A boolean, one of @link L3P_COLLAPSE_UNARY_MINUS@endlink or
    * @link L3P_EXPAND_UNARY_MINUS@endlink.
    *
-   * @see setParseCollapseMinus()
+   * @see setParseCollapseMinus(@if java boolean collapseminus@endif)
    */
   bool getParseCollapseMinus() const;
 
@@ -544,7 +544,7 @@ public:
    * @li @link L3P_NO_UNITS@endlink (value = @c false): treat units
    * in the text-string formula as errors.
    *
-   * @see setParseUnits()
+   * @see setParseUnits(@if java boolean units@endif)
    */
   bool getParseUnits() const;
 
@@ -600,7 +600,7 @@ public:
    * parser to translate the string @c avogadro into an AST of type @link
    * ASTNodeType_t#AST_NAME AST_NAME@endlink.
    *
-   * @see setParseAvogadroCsymbol()
+   * @see setParseAvogadroCsymbol(@if java boolean l2only@endif)
    */
   bool getParseAvogadroCsymbol() const;
 };
