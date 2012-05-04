@@ -851,7 +851,7 @@ div.headertitle
     padding: 5px 5px 5px 7px;
 }
 
-dl
+#doc-content dl
 {
     padding: 0 0 0 10px;
 }
@@ -1314,11 +1314,6 @@ pre.signature {
   vertical-align: baseline;
 }
 
-docnote { 
-  margin-left: 1cm;
-  margin-top: 0;
-}
-
 div.contents hr { 
   margin: 2em 0 2em 0;
 }
@@ -1492,3 +1487,8 @@ tr.TableSubHeadingColor th {
   text-align: right;
 }
 
+#doc-content dl.docnote 
+{
+    border-left:4px solid;
+    border-color: orange;
+}
