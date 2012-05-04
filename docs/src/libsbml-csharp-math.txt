@@ -44,10 +44,10 @@ expression.
 
 For many applications, the details of ASTs are irrelevant because the
 applications can use the text-string based translation functions such as
-libsbmlcs.formulaToString() and libsbmlcs.parseFormula().  If
-you find the complexity of using the AST representation of expressions too
-high for your purposes, perhaps the string-based functions will be more
-suitable.
+libsbmlcs.formulaToString(), libsbmlcs.parseL3Formula(), and
+libsbmlcs.parseFormula().  If you find the complexity of using the AST
+representation of expressions too high for your purposes, perhaps the
+string-based functions will be more suitable.
 
 Finally, it is worth noting that the AST and MathML handling code in
 libSBML remains written in C, not C++, as all of libSBML was originally
@@ -57,7 +57,7 @@ C-like than following a C++ style, and that's the reason.
 
 @section math-convert Converting between ASTs and Text Strings
 
-SBML Level 2 represents mathematical expressions using <a
+SBML Levels 2 and 3 represents mathematical expressions using <a
 href="http://www.w3.org/Math/">MathML&nbsp;2.0</a> (more specifically, a
 subset of the <em>content</em> portion of MathML&nbsp;2.0), but most
 software applications using libSBML do not use MathML directly.  Instead,
@@ -119,10 +119,10 @@ public class Example
 
 The text-string form of mathematical formulas produced by
 libsbmlcs.libsbml.formulaToString() and read by
-libsbmlcs.libsbml.parseFormula() are simple C-inspired infix notation taken
-from SBML Level&nbsp;1.  It is summarized in the next section below.  A
-formula in this text-string form therefore can be handed to a program that
-understands SBML Level&nbsp;1 mathematical expressions, or used as part of
+libsbmlcs.libsbml.parseL3Formula() and libsbmlcs.libsbml.parseFormula() are
+in a simple C-inspired infix notation.  It is summarized in the next section
+below.  A formula in this text-string form therefore can be handed to a
+program that understands SBML mathematical expressions, or used as part of
 a translation system.  In summary, the functions available are the
 following:
 
@@ -135,6 +135,10 @@ should free it after it is no longer needed.
 reads a text-string containing a mathematical expression in
 SBML Level&nbsp;1 syntax, and returns an AST corresponding to the
 expression.
+@li libsbmlcs.libsbml.parseL3Formula(string) \f$\rightarrow\f$ @link libsbmlcs.ASTNode ASTNode@endlink
+reads a text-string containing a mathematical expression in
+an expanded syntax more compatible with SBML Levels&nbsp;2 and&nbsp;3,
+and returns an AST corresponding to the expression.
 
 
 @section math-diffs The String Formula Syntax and Differences with MathML

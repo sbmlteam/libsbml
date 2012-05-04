@@ -43,9 +43,10 @@ expression.
 
 For many applications, the details of ASTs are irrelevant because the
 applications can use the text-string based translation functions such as
-SBML_formulaToString() and SBML_parseFormula().  If you find the
-complexity of using the AST representation of expressions too high for your
-purposes, perhaps the string-based functions will be more suitable.
+SBML_formulaToString(), SBML_parseL3Formula() and SBML_parseFormula().  If
+you find the complexity of using the AST representation of expressions too
+high for your purposes, perhaps the string-based functions will be more
+suitable.
 
 Finally, it is worth noting that the AST and MathML handling code in
 libSBML remains written in C, not C++.  (All of libSBML was originally
@@ -107,10 +108,10 @@ main (int argc, char *argv[])
 @endverbatim
 
 The text-string form of mathematical formulas produced by
-SBML_formulaToString() and read by SBML_parseFormula() are simple
-C-inspired infix notation taken from SBML Level&nbsp;1.  It is summarized
-in the next section below.  A formula in this text-string form therefore
-can be handed to a program that understands SBML Level&nbsp;1 mathematical
+SBML_formulaToString() and read by SBML_parseFormula() and
+SBML_parseL3Formula() are in a simple C-inspired infix notation.  It is
+summarized in the next section below.  A formula in this text-string form
+therefore can be handed to a program that understands SBML mathematical
 expressions, or used as part of a translation system.  The libSBML
 distribution comes with an example program in the @c "examples"
 subdirectory called @c translateMath that implements an interactive
@@ -125,6 +126,10 @@ it after it is no longer needed.
 @li <code>ASTNode * SBML_parseFormula(const char* formula)</code> reads a
 text-string containing a mathematical expression in SBML Level&nbsp;1 syntax and
 returns an AST corresponding to the expression.
+@li <code>ASTNode * SBML_parseL3Formula(const char* formula)</code> reads a
+reads a text-string containing a mathematical expression in
+an expanded syntax more compatible with SBML Levels&nbsp;2 and&nbsp;3,
+and returns an AST corresponding to the expression.
 
 
 @section math-diffs The string formula syntax and differences with MathML

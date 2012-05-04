@@ -110,8 +110,10 @@ the expression.
 applications can use libSBML's text-string based translation functions such
 as <code><a
 href="org/sbml/libsbml/libsbml.html#formulaToString(org.sbml.libsbml.ASTNode)">libsbml.formulaToString</a>(<a
-href="org/sbml/libsbml/ASTNode.html">ASTNode</a>)</code> and <code><a
-href="org/sbml/libsbml/libsbml.html#parseFormula(java.lang.String)">libsbml.parseFormula</a>(java.lang.String)</code>.
+href="org/sbml/libsbml/ASTNode.html">ASTNode</a>)</code>, <code><a
+href="org/sbml/libsbml/libsbml.html#parseFormula(java.lang.String)">libsbml.parseFormula</a>(java.lang.String)</code>
+and <code><a
+href="org/sbml/libsbml/libsbml.html#parseL3Formula(java.lang.String)">libsbml.parseL3Formula</a>(java.lang.String)</code>
 If you find the complexity of using the AST representation of expressions
 too high for your purposes, perhaps the string-based functions will be more
 suitable.
@@ -205,16 +207,18 @@ public class example
 </pre>
 
 <p> The text-string form of mathematical formulas produced by <code><a
-href="org/sbml/libsbml/libsbml.html#formulaToString(org.sbml.libsbml.ASTNode)">
-libsbml.formulaToString</a>(<a href="org/sbml/libsbml/ASTNode.html">ASTNode</a>)</code>
-and read by <code><a
-href="org/sbml/libsbml/libsbml.html#parseFormula(java.lang.String)">libsbml.parseFormula</a>(java.lang.String)</code>
-are simple C-inspired infix notation taken from SBML Level&nbsp;1.  It is
-summarized in the next section below.  A formula in this text-string form
-therefore can be handed to a program that understands SBML Level&nbsp;1
-mathematical expressions, or used as part of a translation system.  In
-summary, the functions available are the following:
-</p>
+ href="org/sbml/libsbml/libsbml.html#formulaToString(org.sbml.libsbml.ASTNode)">
+libsbml.formulaToString</a>(<a
+ href="org/sbml/libsbml/ASTNode.html">ASTNode</a>)</code> and read by
+<code><a
+ href="org/sbml/libsbml/libsbml.html#parseFormula(java.lang.String)">libsbml.parseFormula</a>(java.lang.String)</code>
+and <code><a
+ href="org/sbml/libsbml/libsbml.html#parseL3Formula(java.lang.String)">libsbml.parseL3Formula</a>(java.lang.String)</code>
+are in a simple C-inspired infix notation.  It is summarized in the next section
+below.  A formula in this text-string form therefore can be handed to a
+program that understands SBML mathematical expressions, or
+used as part of a translation system.  In summary, the functions available
+are the following: </p>
 
 <ul>
 
@@ -230,6 +234,12 @@ string returned and should free it after it is no longer needed.
 </code> reads a text-string containing a mathematical
 expression in SBML Level&nbsp;1 syntax, and returns an AST corresponding to
 the expression.
+
+<li style="margin-bottom: 1em"> <code>static <a href="org/sbml/libsbml/ASTNode.html">ASTNode</a>
+<a href="org/sbml/libsbml/libsbml.html#parseL3Formula(java.lang.String)">libsbml.parseL3Formula</a>(java.lang.String)
+</code> reads a text-string containing a mathematical expression in
+an expanded syntax more compatible with SBML Levels&nbsp;2 and&nbsp;3,
+and returns an AST corresponding to the expression.
 
 </ul>
 

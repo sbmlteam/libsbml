@@ -2,7 +2,6 @@ This section documents the following known problems, limitations, and
 possible pitfalls in using libSBML:
 <ul style="line-height: 150%">
 <li><a href="#name-collisions">Name collisions in mathematical expressions</a></li>
-<li><a href="#math-syntax-diffs">Differences in mathematical formula syntax</a></li>
 <li><a href="#xml-parser-diffs">Differences in XML parser behavior</a></li>
 <li><a href="#cannot-report-10312">Cannot report a failure of validation rule #10312</a></li>
 <li><a href="#diff-20413">Different error number (either 20413 or 20409) may be reported depending on Level of SBML in use</a></li>
@@ -46,28 +45,6 @@ to avoid this problem are either to avoid using the strings "pi" and "Pi"
 in this context, or to avoid using the text-string expressions altogether
 and instead use ASTs.  All libSBML methods that accept text-string
 mathematical formulas have variants that accept ASTs instead.
-
-
-<h2><a class="anchor" name="math-syntax-diffs"/>Differences in mathematical formula syntax</a></h2>
-
-The functions <code>char* SBML_formulaToString(const ASTNode* tree)</code>
-and <code>ASTNode* SBML_parseFormula(const char* formula)</code> (and their
-equivalents in the different language bindings supported by libSBML) can be
-used to convert mathematical formulas to/from a text-string format.
-However, MathML (the XML encoding format used in SBML Levels&nbsp;2
-and&nbsp;3 for mathematical formulas) does not have a defined standard
-text-string representation.  LibSBML arbitrarily uses the syntax defined by
-SBML Level&nbsp;1 (which used a text-string representation of formulas and
-not MathML).  For the most part, this syntax maps directly to MathML, but
-<em>there are differences</em> in a few of the symbols used to represent
-the common mathematical functions.  In particular, in the text-string
-syntax, <code>log(x)</code> represents the natural logarithm, whereas in
-MathML, the natural logarithm is <code>&lt;ln/&gt;</code>.  Application
-writers are urged to consult the documentation for
-<code>SBML_formulaToString()</code> and <code>SBML_parseFormula()</code>,
-and to be careful when translating between text forms and MathML forms
-(especially if their application provides a direct text-string input
-facility to users).
 
 
 <h2><a class="anchor" name="xml-parser-diffs"/>Differences in XML parser behavior</a></h2>
