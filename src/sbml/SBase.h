@@ -328,7 +328,7 @@ public:
    * all plugins associated with this element, or @c NULL if no such object
    * is found.
    *
-   * @param id string representing the metaid of objects to find
+   * @param metaid string representing the metaid of objects to find
    *
    * @return pointer to the first element found with the given metaid.
    */
@@ -1859,7 +1859,7 @@ s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></b
    * addXXX, createXXX, and connectToChild functions of the
    * parent element).
    *
-   * @param sb the SBML object to use
+   * @param parent the SBML object to use
    */
   virtual void connectToParent (SBase* parent);
 

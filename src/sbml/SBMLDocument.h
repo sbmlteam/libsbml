@@ -648,6 +648,11 @@ public:
 
 
   /** @cond doxygen-libsbml-internal */
+  /**
+   * @param package
+   * @param level
+   * @param version
+   */
   void updateSBMLNamespace(const std::string& package, unsigned int level, 
                            unsigned int version);
   /** @endcond */

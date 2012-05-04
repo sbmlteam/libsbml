@@ -233,6 +233,8 @@
  *        </ul>
  *      </ul>
  *    </li>
+ *
+ * </ol>
  */
 
 #ifndef SBasePlugin_h
