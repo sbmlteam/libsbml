@@ -1118,9 +1118,10 @@ code, .code {
 }
 
 /* This shows up in javadoc output. */
-a code {
+a code, code a {
     color: #1133a9;
     text-decoration: none;
+    font-weight: bold;
 }
 
 .papers {
@@ -1333,3 +1334,161 @@ table.params td.paramname {
 .textblock ul li {
     padding-bottom: 0.5em;
 }
+
+
+/* The next two items remove <hr> lines (because Javadoc loves to 
+   insert them all over the place) and adds a line after (only) top-level
+   <dl> elements.  The result is that documentation for functions in
+   Javadoc get lines between them, but the hardwired-by-Javadoc <hr>
+   elements are made invisible. */
+
+body > hr {
+    display: none;
+}
+
+body > dl {
+  border-bottom: 1px solid #bbb;
+}
+
+body div.contents ol li {
+  margin-bottom: 0.5em;
+}
+
+/* Hackacious correction for Javadoc, which doesn't have .contents.
+   This uses the fact that Javadoc (but not doxygen) adds a bgcolor attrib. */
+
+body[bgcolor="white"] {
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+/* The next are for javadoc */
+
+TD.footer {
+  font-family: Lucida Sans, Tahoma, Helvetica, Arial, Sans, sans-serif;
+  font-size: 12px;
+}
+
+.footercomment {
+  font-family: Lucida Sans, Tahoma, Helvetica, Arial, Sans, sans-serif;
+  font-size: x-small;
+  font-style: italic;
+  color: #555555;
+}
+
+table[border="1"] {
+    border: none;
+    border-bottom: 1px solid #666;
+}
+
+body > table {
+  margin-top: 2em;
+}
+
+table[summary=""] {
+  margin-top: 0;
+}
+
+td.NavBarCell1,
+td.NavBarCell2,
+td.NavBarCell3 {
+  background-color: #eee;
+}
+
+td.NavBarCell3 {  
+  padding: 4px;
+}
+
+td.NavBarCell1Rev {
+  margin-bottom: 0;
+  border: 1px solid gray;
+  font-size: 18px;
+  line-height: 120%;
+}
+
+font.NavBarFont1Rev { 
+  background-color: white;
+}
+
+td[align="right"] {
+  background-color: #eee;  
+  vertical-align: bottom;
+  padding: 5px;
+}
+
+tr.TableRowColor td {
+  font-style: italic;
+  color: #666;
+  border: none;
+  border-bottom: 1px solid #bbb;
+  vertical-align: top;
+  padding-top: 4px;
+} 
+
+tr.TableRowColor td code {
+  font-style: normal;
+  color: #444;
+  padding-left: 4px;
+  line-height: 18px;
+} 
+
+tr.TableHeadingColor th font b {
+  font-size: 18px;
+}
+
+tr.TableSubHeadingColor th {
+  border: none;
+  border-top: 1px solid #bbb;
+  background-color: #d0d0d0;
+  padding: 5px;
+}
+
+tr.TableHeadingColor th {
+  color: black;
+  letter-spacing: 1px;
+  font-family: Lucida Sans, Tahoma, Helvetica, Arial, Sans, sans-serif;
+  font-size: 18px;
+  padding: 5px 2px;
+  background-color: #ddd;
+  line-height: 150%;
+  border-bottom: 1px solid #aaa;
+  border-top: 3px solid #888;
+  border-left: none;
+  border-right: none;
+}
+
+tr.TableHeadingColor th font b {
+  font-size: 18px;
+}
+
+tr.TableSubHeadingColor th {
+  border: none;
+  border-top: 1px solid #bbb;
+  background-color: #d0d0d0;
+  padding: 5px;
+}
+
+
+.navpath {
+  margin: 5px auto;
+}
+
+.center {
+  text-align: center;
+}
+
+.center img { 
+  margin-bottom: 10px;
+}
+
+.toptitle {
+  position: absolute;
+  right: 10px;
+  top: 12px;
+  font-weight: bold;
+  font-size: 12px;
+  width: 200px;
+  line-height: 110%;
+  text-align: right;
+}
+
