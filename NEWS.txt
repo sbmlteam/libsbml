@@ -105,6 +105,12 @@ STABLE RELEASE
     of the sbml namespace is, then technically the sbml element has not
     been placed into the sbml namespace. LibSBML was failing to report this.
     This has now been fixed.
+    
+  - There was a curious indentation issue that arose if notes used text as
+    child elements of an element that also had another non-text child element.
+    This could proliferate and cause models where the indentation ran into
+    the thousands of spaces.  This has been sorted out and no longer
+    happens.
 
 
 
