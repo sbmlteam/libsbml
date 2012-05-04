@@ -966,6 +966,11 @@ def rewriteDocstringForCSharp (docstring):
 
   docstring = docstring.replace(r'libsbmlConstants', 'libsbmlcs.libsbml')
 
+  # Fix @link for constants that we forgot conditionalize in the source.
+
+  p = re.compile(r'@link +([A-Z_0-9]+?)@endlink', re.DOTALL)
+  docstring = p.sub(r'@link libsbml.\1@endlink', docstring)
+
   # Can't use math symbols.  Kluge around it.
 
   docstring = re.sub(r'\\f\$\\geq\\f\$', '>=', docstring)
