@@ -561,7 +561,7 @@ SBMLDoclet.class: SBMLDoclet.java
 # between doxygen and javadoc.  Let's ignore the warnings to avoid
 # confusing users.
 
-java-ignorable-warnings = "warning - @param argument|Custom tags that could|@~ is an unknown tag"
+java-ignorable-warnings = "warning - @param argument|Custom tags that could"
 
 # 2011-02-13 <mhucka@caltech.edu> We now do an evil work-around for the
 # problem that SWIG refuses to attach documentation to certain things:
