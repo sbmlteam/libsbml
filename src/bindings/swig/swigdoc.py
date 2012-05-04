@@ -875,11 +875,14 @@ def rewriteDocstringForJava (docstring):
 
   docstring = sanitizeForHTML(docstring)
 
-  # Fix up for a problem introduced by sanitizeForHTML -- should fix
-  # properly some day.
+  # Fix up for a problem introduced by sanitizeForHTML: it puts {@link ...}
+  # into the arguments of functions mentioned in @see's, if the function
+  # has more than one argument.  This gets rid of the @link's.  This should
+  # be fixed properly some day.
 
-  p = re.compile('((@see|@throws)\s+[\w ,(]*){@link\s+([^}]+?)}')
-  docstring = p.sub(r'\1\3', docstring)
+  p = re.compile('((@see|@throws)\s+[\w ,(#]*){@link\s+([^}]+?)}')
+  while re.search(p, docstring) != None:
+    docstring = p.sub(r'\1\3', docstring)
 
   # Inside of @see, change double colons to pound signs.
 
