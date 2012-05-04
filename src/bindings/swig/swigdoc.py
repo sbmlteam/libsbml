@@ -549,6 +549,7 @@ def rewriteCommonReferences (docstring):
     docstring = re.sub(r'XMLErrorCode_t#',          target, docstring)
     docstring = re.sub(r'XMLErrorCategory_t#',      target, docstring)
     docstring = re.sub(r'XMLErrorSeverity_t#',      target, docstring)
+    docstring = re.sub(r'ParseLogType_t#',          target, docstring)
 
   return docstring
 
@@ -694,6 +695,10 @@ def sanitizeForHTML (docstring):
 
   Performs HTML transformations on the C++/Doxygen docstring.
   """
+
+  # Remove @~, which we use as a hack in Doxygen 1.7-1.8
+
+  docstring = docstring.replace(r'@~', '')
 
   # First do conditional section inclusion based on the current language.
   # Our possible conditional elements and their meanings are:
@@ -1003,10 +1008,6 @@ def rewriteDocstringForPython (docstring):
   """
 
   docstring = rewriteCommonReferences(docstring)  
-
-  # Remove @~, which we use as a hack in Doxygen 1.7-1.8
-
-  docstring = docstring.replace(r'@~', '')
 
   # Take out the C++ comment start and end.
 
