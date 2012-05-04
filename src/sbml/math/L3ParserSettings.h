@@ -135,40 +135,40 @@ typedef enum
 #define L3P_COLLAPSE_UNARY_MINUS true
 /*!<
  * Collapse unary minuses where possible.
- * @see @link getParseCollapseMinus()@endlink
- * @see @link setParseCollapseMinus()@endlink
+ * @see getParseCollapseMinus()
+ * @see setParseCollapseMinus()
  */
 #define L3P_EXPAND_UNARY_MINUS   false
 /*!<
  * Retain unary minuses in the AST representation.
- * @see @link getParseCollapseMinus()@endlink
- * @see @link setParseCollapseMinus()@endlink
+ * @see getParseCollapseMinus()
+ * @see setParseCollapseMinus()
  */
 
 #define L3P_PARSE_UNITS  true
 /*!<
  * Parse units in text-string formulas.
- * @see @link setParseCollapseMinus()@endlink
- * @see @link getParseCollapseMinus()@endlink
+ * @see setParseCollapseMinus()
+ * @see getParseCollapseMinus()
  */
 #define L3P_NO_UNITS false
 /*!<
  * Do not recognize units in text-string formulas&mdash;treat them as errors.
- * @see @link setParseCollapseMinus()@endlink
- * @see @link getParseCollapseMinus()@endlink
+ * @see setParseCollapseMinus()
+ * @see getParseCollapseMinus()
  */
 
 #define L3P_AVOGADRO_IS_CSYMBOL true
 /*!<
  * Recognize 'avogadro' as an SBML Level 3 symbol.
- * @see @link getParseAvogadroCsymbol()@endlink
- * @see @link setParseAvogadroCsymbol()@endlink
+ * @see getParseAvogadroCsymbol()
+ * @see setParseAvogadroCsymbol()
  */
 #define L3P_AVOGADRO_IS_NAME    false
 /*!<
  * Do not treat 'avogadro' specially&mdash;consider it a plain symbol name.
- * @see @link getParseAvogadroCsymbol()@endlink
- * @see @link setParseAvogadroCsymbol()@endlink
+ * @see getParseAvogadroCsymbol()
+ * @see setParseAvogadroCsymbol()
  */
 
 #ifdef __cplusplus
