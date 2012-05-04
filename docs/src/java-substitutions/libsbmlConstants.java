@@ -180,6 +180,32 @@ public interface libsbmlConstants
 
 
     /**
+     * One of the possible libSBML operation return codes.
+     *
+     * This code has the following meaning: The existing annotation does
+     * not have a top-level element with the given name. This error is
+     * typically returned in situations one of the annotation replacement
+     * functions is being used to replace or remove an annotation with a
+     * name that does not match the name of any top-level element that is
+     * already present in the existing annotation.
+     */
+    public final static int LIBSBML_ANNOTATION_NAME_NOT_FOUND = -12;
+
+
+    /**
+     * One of the possible libSBML operation return codes.
+     *
+     * This code has the following meaning: The existing annotation does
+     * not have a top-level element with the given namespace. This error is
+     * typically returned in situations where one of the annotation
+     * replacement functinos is being used to remove an annotation with a
+     * namespace that does not match the namespace of any top-level element
+     * that is already present in the existing annotation.
+     */
+    public final static int LIBSBML_ANNOTATION_NS_NOT_FOUND = -13;
+
+
+    /**
      * One of the possible libSBML package operation return codes.
      *
      * This code has the following meaning: the Version of the package
@@ -1742,6 +1768,71 @@ public interface libsbmlConstants
      * a type whose value is one of the elements of this enumeration.
      */
     public final static int AST_UNKNOWN = AST_RELATIONAL_NEQ + 1;
+
+
+    // ParseLogType_t
+
+    /**
+     * Parse <code>log(x)</code> as the base-10 logarithm of <code>x</code>.
+     */
+    public final static int L3P_PARSE_LOG_AS_LOG10 = 0;
+
+
+    /**
+     * Parse <code>log(x)</code> as the natural logarithm of <code>x</code>.
+     */
+    public final static int L3P_PARSE_LOG_AS_LN = 1;
+
+
+    /**
+     * Refuse to parse <code>log(x)</code> at all, and set an error message 
+     * telling the user to use <code>log10(x)</code>, <code>ln(x)</code>,
+     * or <code>log(base, x)</code> instead.
+     */
+    public final static int L3P_PARSE_LOG_AS_ERROR = 2;
+
+
+    /**
+     * Collapse unary minuses where possible when parsing text-string
+     * formulas.
+     */
+    public final static boolean L3P_COLLAPSE_UNARY_MINUS = true;
+
+
+    /**
+     * Retain unary minuses in the AST representation when parsing
+     * text-string formulas.
+     */
+    public final static boolean L3P_EXPAND_UNARY_MINUS = false;
+
+
+    /**
+     * Parse units in text-string formulas when parsing
+     * text-string formulas.
+     */
+    public final static boolean L3P_PARSE_UNITS = true;
+
+
+    /**
+     * Do not recognize units in text-string formulas&mdash;treat them as
+     * errors.
+     */
+    public final static boolean L3P_NO_UNITS = false;
+
+
+    /**
+     * Recognize 'avogadro' as an SBML Level 3 symbol when parsing
+     * text-string formulas.
+     */
+    public final static boolean L3P_AVOGADRO_IS_CSYMBOL = true;
+
+
+    /**
+     * Do not treat 'avogadro' specially&mdash;consider it a plain symbol
+     * name when parsing text-string formulas.
+     */
+    public final static boolean L3P_AVOGADRO_IS_NAME = false;
+
 
     // XMLErrorCode_t 
   
