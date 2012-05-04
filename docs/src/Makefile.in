@@ -450,11 +450,16 @@ ifdef USE_PYTHON
 python-sources   = ../../src/bindings/python/libsbml-doxygen.py
 python-subst-dir = python-substitutions
 
+# Certain things like parameters will never match up in Doxygen.
+# Ignore those warnings to avoid confusing people.
+
+python-ignorable-warnings = "is not found in the argument list|The following parameters of libsbml|parameter 'args'"
+
 python-manual $(python-manual): doxygen-config-python.txt $(python-sources)
 	mkdir -p $(python-manual)
 	./pythondocpreprocessor.py $(python-sources) libsbml.py $(wildcard $(python-subst-dir)/*.py)
 	$(call preprocess_doxygen)
-	$(DOXYGEN) doxygen-config-python.txt
+	$(DOXYGEN) doxygen-config-python.txt 2>&1 | egrep -v $(python-ignorable-warnings) 
 	$(call postprocess_doxygen,$(python-manual))
 endif
 

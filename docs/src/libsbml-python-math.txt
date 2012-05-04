@@ -330,7 +330,7 @@ mantissa and the exponent.  The node type is set to @c AST_REAL_E.
 
 The following are some miscellaneous methods for manipulating ASTs:
 
-@li <code>ASTNode</code> @link libsbml.ASTNode.ASTNode() ASTNode.ASTNode(long)@endlink creates a new ASTNode object
+@li <code>ASTNode</code> @link libsbml.ASTNode ASTNode.ASTNode(long)@endlink creates a new ASTNode object
 and returns a pointer to it.  The returned node will have the type
 identified by the code passed as the argument, or a type of @c AST_UNKNOWN if
 no type is explicitly given or the type code is unrecognized.
@@ -345,7 +345,7 @@ right-to-left order.
 child of this AST node or @c NULL if this node has no nth child (<code>n &gt;
 (@link libsbml.ASTNode.getNumChildren() ASTNode.getNumChildren()@endlink - 1)</code>).
 @li <code>ASTNode</code> @link libsbml.ASTNode.getLeftChild() ASTNode.getLeftChild()@endlink returns the left child of
-this AST node.  This is equivalent to @link libsbml.ASTNode.getChild(0) ASTNode.getChild()@endlink;
+this AST node.  This is equivalent to @link libsbml.ASTNode.getChild() ASTNode.getChild()@endlink;
 @li <code>ASTNode</code> @link libsbml.ASTNode.getRightChild() ASTNode.getRightChild()@endlink
 returns the right child of this AST node or @c NULL if this node has no right
 child.

@@ -109,7 +109,7 @@ INPUT_FILTER           = ./pythondocfilter.py
 # Because of the way the proxies are done, @param never works properly.
 # So don't bother telling us.
 
-WARN_IF_DOC_ERROR      = NO
+WARN_IF_DOC_ERROR      = YES
 
 # According to the Doxygen 1.5.4 docs, you're supposed to set this for Python.
 
