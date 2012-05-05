@@ -61,11 +61,12 @@ STABLE RELEASE
     or log base 10; to allow users to enter units on numbers as "10m" or
     to disable this feature along with some other options. 
 
-  - The getLine() and getColumn() functions did on some occasions return
-    a maximum int value when they could not be determined. This produced
-    inconsistent behaviour as some XML parsers return '0' as if they cannot
-    determine location.  This has been unified and libSBML will now return
-    '0' if the location is unknown.
+  - The getLine() and getColumn() functions did on some occasions
+    return a maximum int value when the correct lines and columns
+    could not be determined. This produced inconsistent behaviour as
+    some XML parsers return '0' as if they cannot determine location.
+    This has been unified and libSBML's getLine()/getColumn() will now
+    return '0' if the location is unknown.
 
   - There is a new class SBMLDocumentPluginNotRequired which allows a 
     package code to derive from an object where the required attribute is
@@ -74,7 +75,6 @@ STABLE RELEASE
     initialised.  The existing SBMLDocumentPlugin class assumes a value
     of 'true'.  This is in fact a change in behaviour but since users
     should set this value it should not cause a problem.
- 
 
 * Bug fixes
 
@@ -112,8 +112,6 @@ STABLE RELEASE
     the thousands of spaces.  This has been sorted out and no longer
     happens.
 
-
-
 * Miscellaneous
 
   - The uninstallation instructions were out of date.  This is now
@@ -134,7 +132,6 @@ STABLE RELEASE
 
   - The CMake build has been updated to facilitate the use of the Intel
     compiler.
-
 
 
 EXPERIMENTAL RELEASE
