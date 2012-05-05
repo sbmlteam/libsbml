@@ -1480,7 +1480,6 @@ void dealWithL1Stoichiometry(Model & m, bool l2)
 
 void dealWithAssigningL1Stoichiometry(Model & m, bool l2)
 {
-  unsigned int idCount = 0;
   //char newid[15];
   std::string id;
 
