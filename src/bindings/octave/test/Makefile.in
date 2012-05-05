@@ -61,7 +61,7 @@ distfiles = Makefile.in $(local_sources)
 # removed during "make clean" and "make distclean".
 
 symlinks = $(shell find . -type l)
-extra_distclean = $(symlinks)
+extra_distclean = $(symlinks) Makefile
 
 
 # -----------------------------------------------------------------------------

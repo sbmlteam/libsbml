@@ -141,7 +141,10 @@ distfiles =                            \
   t/07__TestRDFAnnotation2.t           \
   t/l1v1-branch.xml
 
-extra_distclean = Makefile-perl Makefile-perl.old
+extra_distclean = Makefile-perl Makefile-perl.old Makefile Makefile.PL \
+	local-downcast-extension.i local-downcast-extension.cpp \
+	local-downcast-namespaces.i local-downcast-namespaces.cpp \
+	local-packages.i local-downcast-plugins.cpp local-downcast.cpp
 
 
 # -----------------------------------------------------------------------------

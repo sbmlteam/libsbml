@@ -69,6 +69,8 @@ distfiles = Makefile.in README.txt index.html.in        \
             README-Building_libsbml-5_with_CMake.pdf    \
             README-Package_Integration.pdf
 
+extra_distclean = formatted index.html
+
 
 # -----------------------------------------------------------------------------
 # Primary build actions

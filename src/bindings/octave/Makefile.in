@@ -90,7 +90,7 @@ distfiles = Makefile.in CMakeLists.txt FindOctave.cmake buildLibSBMLOctave.m
 
 extra_clean = TranslateSBML.$(OCTAVEEXT) OutputSBML.$(OCTAVEEXT)
 
-extra_distclean = $(matlab_sources)
+extra_distclean = $(matlab_sources) Makefile
 
 ifeq "$(HOST_TYPE)" "cygwin"
 

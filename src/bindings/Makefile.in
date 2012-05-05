@@ -97,6 +97,7 @@ swig_extras =                \
 
 distfiles = Makefile.in $(swig_extras) 
 
+extra_distclean = swig/libsbml-packages.h swig/libsbml-packages.i
 
 # -----------------------------------------------------------------------------
 # Primary build actions

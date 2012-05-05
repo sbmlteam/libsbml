@@ -208,7 +208,8 @@ distfiles = Makefile.in                \
 extra_clean = $(class_files) $(check_sources:.java=.class) test_copy1.xml \
   test_write.xml TestFilenameFilter.class $(wildcard test.xml.*) out.xml
 
-extra_distclean =
+extra_distclean = Manifest.txt local-downcast-extension.i \
+	local-downcast-namespaces.i local-packages.i
 
 # For Linux/Unix, LD_LIBRARY_PATH *may* need to contain one or more library
 # paths to libsbml.so, libxerces-c.so and/or libexpat.so and/or the

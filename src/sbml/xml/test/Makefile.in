@@ -140,13 +140,12 @@ localobjfiles = $(filter %.lo,$(tmp))
 otherdirs     = .. ../.. ../../util ../../annotation \
                ../../validator ../../validator/constraints ../../units ../../compress \
                ../../common ../../math ../../extension ../../conversion
-			   
+
 ifdef USE_LAYOUT
   otherdirs +=	../../packages/layout/extension ../../packages/layout/sbml \
 				../../packages/layout/common  ../../packages/layout/util 
 endif
-			   
-			   
+
 otherobjfiles = $(wildcard $(addsuffix /*.lo,$(otherdirs)))
 
 test_objfiles = $(localobjfiles) $(otherobjfiles)
@@ -156,6 +155,8 @@ ifdef USE_LIBCHECK
 else
   check:; @echo Please first rerun 'configure' with the --with-check flag; exit 1
 endif
+
+extra_distclean = TestRunner
 
 
 # -----------------------------------------------------------------------------

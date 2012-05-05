@@ -125,7 +125,12 @@ all:
 apath_thisdir   = $(top_srcdir)/$(thisdir)
 staging         = libsbml-dist
 
-extra_distclean = $(staging) *.pkg disk-image disk-image-previous
+extra_distclean = $(staging) *.pkg disk-image disk-image-previous build.sh \
+	libsbml-package.pmdoc/01local-contents.xml \
+	libsbml-package.pmdoc/01local.xml \
+	libsbml-package.pmdoc/index.xml \
+	resources/package-intro.txt \
+	resources/package-readme.txt
 
 remove_staging_dir = \
   { test ! -d $(staging) \

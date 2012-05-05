@@ -233,7 +233,8 @@ tmpfiles = $(wildcard test*.xml*)
 extra_clean = $(csproxy_lib) $(dllimport_lib) $(check_runner_exe) \
 	      $(tmpfiles) $(sn_keyfile) $(wildcard test.xml.*) out.xml
 
-extra_distclean =
+extra_distclean = libsbml_wrap-win.h local-downcast-extension.i \
+	local-downcast-namespaces.i local-packages.i
 
 # library distributions shouldn't have to run SWIG because we provide the
 # wrapper file ready-made.

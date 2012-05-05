@@ -98,18 +98,23 @@ endif
 # We don't want to remove the formatted docs during a regular make clean,
 # only a distclean.
 
-extra_distclean =                 \
-        Makefile                  \
-        $(docs)                   \
-        doxygen-config-c.txt      \
-        doxygen-config-cpp.txt    \
-        doxygen-config-csharp.txt \
-        doxygen-config-matlab.txt \
-        doxygen-config-octave.txt \
-        doxygen-config-perl.txt   \
-        doxygen-config-python.txt \
-        libsbml.py                \
-	*.class
+extra_distclean =                           \
+        Makefile                            \
+        $(docs)                             \
+        *.class                             \
+        common-text/libsbml-version.html    \
+        doxygen-version-specific.txt        \
+        java-files                          \
+        libsbml-installation.html           \
+        xml                                 \
+        doxygen-config-c.txt                \
+        doxygen-config-cpp.txt              \
+        doxygen-config-csharp.txt           \
+        doxygen-config-matlab.txt           \
+        doxygen-config-octave.txt           \
+        doxygen-config-perl.txt             \
+        doxygen-config-python.txt           \
+        libsbml.py
 
 # The `make dist' rules for this directory are more complicated than usual.
 # There are additional separate rules below.

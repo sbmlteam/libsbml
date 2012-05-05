@@ -79,6 +79,8 @@ distfiles =                  \
 
 extra_clean = test.log
 
+extra_distclean = Makefile
+
 
 # -----------------------------------------------------------------------------
 # Primary build actions

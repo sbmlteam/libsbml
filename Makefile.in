@@ -349,9 +349,9 @@ distfiles =                         \
   configure                         \
   configure.ac                      \
   libsbml.spec.in                   \
-  CMakeLists.txt					\
-  common.cmake						\
-  layout-package.cmake				\
+  CMakeLists.txt                    \
+  common.cmake                      \
+  layout-package.cmake              \
   $(examples)                              
 
 # The files listed in `extra_distclean' are items created by configure or
@@ -361,14 +361,16 @@ distfiles =                         \
 extra_distclean = config.status config.cache config.log autom4te.cache \
 	src/sbml/common/config.h src/sbml/common/stamp-h1 config/lt_link_helper.sh \
 	config/mkoctfile_wrapper.sh libtool doltlibtool doltcompile \
-	config/makefile-common-vars.mk config/chk_swig_version.sh
+	config/makefile-common-vars.mk config/chk_swig_version.sh \
+	examples/c/Makefile examples/c++/Makefile examples/csharp/Makefile \
+	examples/java/Makefile
 
 # It's safer to remove and recreate the copy of the include files (in the
 # 'include' directory) after a make clean.  Previously we did it in a make
 # distclean only, but I've run into situations where the copy didn't get
 # updated.  This is a bit of a sledgehammer, but it's not too bad.
 
-extra_clean = include libsbml.pc libsbml.spec
+extra_clean = include libsbml.pc libsbml.spec config/*.class
 
 ifeq "$(HOST_TYPE)" "cygwin"
   extra_clean += libsbml.la

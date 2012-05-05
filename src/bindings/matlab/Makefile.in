@@ -87,6 +87,8 @@ binaries := $(addprefix TranslateSBML.,$(possible_mexext)) \
 
 extra_clean := $(binaries) runTests.log
 
+extra_distclean = Makefile
+
 
 # -----------------------------------------------------------------------------
 # Primary build actions
