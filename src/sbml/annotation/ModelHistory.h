@@ -42,34 +42,34 @@
  * a single date of @em creation, and one or more @em modification dates.
  * The overall XML form of this data takes the following form:
  * 
-<pre class="fragment">
-&lt;dc:creator&gt;
-  &lt;rdf:Bag&gt;
-    &lt;rdf:li rdf:parseType="Resource"&gt;
-      <span style="background-color: #d0eed0">+++</span>
-      &lt;vCard:N rdf:parseType="Resource"&gt;
-        &lt;vCard:Family&gt;<span style="background-color: #bbb">family name</span>&lt;/vCard:Family&gt;
-        &lt;vCard:Given&gt;<span style="background-color: #bbb">given name</span>&lt;/vCard:Given&gt;
-      &lt;/vCard:N&gt;
-      <span style="background-color: #d0eed0">+++</span>
-      <span style="border-bottom: 2px dotted #888">&lt;vCard:EMAIL&gt;<span style="background-color: #bbb">email address</span>&lt;/vCard:EMAIL&gt;</span>
-      <span style="background-color: #d0eed0">+++</span>
-      <span style="border-bottom: 2px dotted #888">&lt;vCard:ORG rdf:parseType="Resource"&gt;</span>
-       <span style="border-bottom: 2px dotted #888">&lt;vCard:Orgname&gt;<span style="background-color: #bbb">organization name</span>&lt;/vCard:Orgname&gt;</span>
-      <span style="border-bottom: 2px dotted #888">&lt;/vCard:ORG&gt;</span>
-      <span style="background-color: #d0eed0">+++</span>
-    &lt;/rdf:li&gt;
-    <span style="background-color: #edd">...</span>
-  &lt;/rdf:Bag&gt;
-&lt;/dc:creator&gt;
-&lt;dcterms:created rdf:parseType="Resource"&gt;
-  &lt;dcterms:W3CDTF&gt;<span style="background-color: #bbb">creation date</span>&lt;/dcterms:W3CDTF&gt;
-&lt;/dcterms:created&gt;
-&lt;dcterms:modified rdf:parseType="Resource"&gt;
-  &lt;dcterms:W3CDTF&gt;<span style="background-color: #bbb">modification date</span>&lt;/dcterms:W3CDTF&gt;
-&lt;/dcterms:modified&gt;
-<span style="background-color: #edd">...</span>
-</pre>
+ <pre class="fragment">
+ &lt;dc:creator&gt;
+   &lt;rdf:Bag&gt;
+     &lt;rdf:li rdf:parseType="Resource"&gt;
+       <span style="background-color: #d0eed0">+++</span>
+       &lt;vCard:N rdf:parseType="Resource"&gt;
+         &lt;vCard:Family&gt;<span style="background-color: #bbb">family name</span>&lt;/vCard:Family&gt;
+         &lt;vCard:Given&gt;<span style="background-color: #bbb">given name</span>&lt;/vCard:Given&gt;
+       &lt;/vCard:N&gt;
+       <span style="background-color: #d0eed0">+++</span>
+       <span style="border-bottom: 2px dotted #888">&lt;vCard:EMAIL&gt;<span style="background-color: #bbb">email address</span>&lt;/vCard:EMAIL&gt;</span>
+       <span style="background-color: #d0eed0">+++</span>
+       <span style="border-bottom: 2px dotted #888">&lt;vCard:ORG rdf:parseType="Resource"&gt;</span>
+        <span style="border-bottom: 2px dotted #888">&lt;vCard:Orgname&gt;<span style="background-color: #bbb">organization name</span>&lt;/vCard:Orgname&gt;</span>
+       <span style="border-bottom: 2px dotted #888">&lt;/vCard:ORG&gt;</span>
+       <span style="background-color: #d0eed0">+++</span>
+     &lt;/rdf:li&gt;
+     <span style="background-color: #edd">...</span>
+   &lt;/rdf:Bag&gt;
+ &lt;/dc:creator&gt;
+ &lt;dcterms:created rdf:parseType="Resource"&gt;
+   &lt;dcterms:W3CDTF&gt;<span style="background-color: #bbb">creation date</span>&lt;/dcterms:W3CDTF&gt;
+ &lt;/dcterms:created&gt;
+ &lt;dcterms:modified rdf:parseType="Resource"&gt;
+   &lt;dcterms:W3CDTF&gt;<span style="background-color: #bbb">modification date</span>&lt;/dcterms:W3CDTF&gt;
+ &lt;/dcterms:modified&gt;
+ <span style="background-color: #edd">...</span>
+ </pre>
  *
  * In the template above, the <span style="border-bottom: 2px dotted #888">underlined</span>
  * portions are optional, the symbol
@@ -117,18 +117,18 @@
  * annotations in SBML.  The following template illustrates these different
  * fields when they are written in XML form:
  *
-<pre class="fragment">
-&lt;vCard:N rdf:parseType="Resource"&gt;
-  &lt;vCard:Family&gt;<span style="background-color: #bbb">family name</span>&lt;/vCard:Family&gt;
-  &lt;vCard:Given&gt;<span style="background-color: #bbb">given name</span>&lt;/vCard:Given&gt;
-&lt;/vCard:N&gt;
-...
-&lt;vCard:EMAIL&gt;<span style="background-color: #bbb">email address</span>&lt;/vCard:EMAIL&gt;
-...
-&lt;vCard:ORG rdf:parseType="Resource"&gt;
-  &lt;vCard:Orgname&gt;<span style="background-color: #bbb">organization</span>&lt;/vCard:Orgname&gt;
-&lt;/vCard:ORG&gt;
-</pre>
+ <pre class="fragment">
+ &lt;vCard:N rdf:parseType="Resource"&gt;
+   &lt;vCard:Family&gt;<span style="background-color: #bbb">family name</span>&lt;/vCard:Family&gt;
+   &lt;vCard:Given&gt;<span style="background-color: #bbb">given name</span>&lt;/vCard:Given&gt;
+ &lt;/vCard:N&gt;
+ ...
+ &lt;vCard:EMAIL&gt;<span style="background-color: #bbb">email address</span>&lt;/vCard:EMAIL&gt;
+ ...
+ &lt;vCard:ORG rdf:parseType="Resource"&gt;
+   &lt;vCard:Orgname&gt;<span style="background-color: #bbb">organization</span>&lt;/vCard:Orgname&gt;
+ &lt;/vCard:ORG&gt;
+ </pre>
  *
  * Each of the separate data values
  * <span class="code" style="background-color: #bbb">family name</span>,

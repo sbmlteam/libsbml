@@ -50,18 +50,18 @@
  * annotations in SBML.  The following template illustrates these different
  * fields when they are written in XML form:
  *
-<pre class="fragment">
-&lt;vCard:N rdf:parseType="Resource"&gt;
-  &lt;vCard:Family&gt;<span style="background-color: #bbb">family name</span>&lt;/vCard:Family&gt;
-  &lt;vCard:Given&gt;<span style="background-color: #bbb">given name</span>&lt;/vCard:Given&gt;
-&lt;/vCard:N&gt;
-...
-&lt;vCard:EMAIL&gt;<span style="background-color: #bbb">email address</span>&lt;/vCard:EMAIL&gt;
-...
-&lt;vCard:ORG rdf:parseType="Resource"&gt;
-  &lt;vCard:Orgname&gt;<span style="background-color: #bbb">organization</span>&lt;/vCard:Orgname&gt;
-&lt;/vCard:ORG&gt;
-</pre>
+ <pre class="fragment">
+ &lt;vCard:N rdf:parseType="Resource"&gt;
+   &lt;vCard:Family&gt;<span style="background-color: #bbb">family name</span>&lt;/vCard:Family&gt;
+   &lt;vCard:Given&gt;<span style="background-color: #bbb">given name</span>&lt;/vCard:Given&gt;
+ &lt;/vCard:N&gt;
+ ...
+ &lt;vCard:EMAIL&gt;<span style="background-color: #bbb">email address</span>&lt;/vCard:EMAIL&gt;
+ ...
+ &lt;vCard:ORG rdf:parseType="Resource"&gt;
+   &lt;vCard:Orgname&gt;<span style="background-color: #bbb">organization</span>&lt;/vCard:Orgname&gt;
+ &lt;/vCard:ORG&gt;
+ </pre>
  *
  * Each of the separate data values
  * <span class="code" style="background-color: #bbb">family name</span>,
