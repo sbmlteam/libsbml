@@ -2334,14 +2334,14 @@ int sbml_yylex(void)
   else if (cc=='(') {
     streampos rationalbegin = l3p->input.tellg();
     cc = l3p->input.get();
-    if (cc== '-' && isdigit(l3p->input.peek()) || isdigit(cc)) {
+    if ((cc== '-' && isdigit(l3p->input.peek())) || isdigit(cc)) {
       l3p->input.unget();
       long numerator;
       l3p->input >> numerator;
       cc = l3p->input.get();
       if (cc=='/') {
         cc = l3p->input.get();
-        if (cc== '-' && isdigit(l3p->input.peek()) || isdigit(cc)) {
+        if ((cc== '-' && isdigit(l3p->input.peek())) || isdigit(cc)) {
           l3p->input.unget();
           long denominator;
           l3p->input >> denominator; 
