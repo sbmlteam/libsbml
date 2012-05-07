@@ -40,6 +40,9 @@
 
 #include <sbml/common/extern.h>
 
+LIBSBML_CPP_NAMESPACE_USE
+
+
 BEGIN_C_DECLS
 
 static FunctionDefinition_t *FD;

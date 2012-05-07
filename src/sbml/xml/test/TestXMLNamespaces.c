@@ -31,6 +31,7 @@
 #include <check.h>
 
 #if defined(__cplusplus)
+LIBSBML_CPP_NAMESPACE_USE
 CK_CPPSTART
 #endif
 

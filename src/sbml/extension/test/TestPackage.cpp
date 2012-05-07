@@ -35,6 +35,7 @@
 
 #include "TestPackage.h"
 
+LIBSBML_CPP_NAMESPACE_USE
 
 const std::string& TestExtension::getPackageName ()
 {

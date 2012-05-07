@@ -61,6 +61,8 @@
  */
 BEGIN_C_DECLS
 
+LIBSBML_CPP_NAMESPACE_USE
+
 Suite *create_suite_Point                 (void);
 Suite *create_suite_Dimensions            (void);
 Suite *create_suite_BoundingBox           (void);

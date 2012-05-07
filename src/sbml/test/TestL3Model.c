@@ -38,6 +38,9 @@
 
 #include <sbml/common/extern.h>
 
+LIBSBML_CPP_NAMESPACE_USE
+
+
 BEGIN_C_DECLS
 
 static Model_t *M;

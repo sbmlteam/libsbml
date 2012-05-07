@@ -45,7 +45,7 @@
 
 #include <vector>
 
-
+LIBSBML_CPP_NAMESPACE_BEGIN
 
 class  TestExtension : public SBMLExtension
 {
@@ -108,6 +108,6 @@ public:
                                      const std::string& pkgPrefix, bool flag);
 
 };
-
+LIBSBML_CPP_NAMESPACE_END
 #endif //__cplusplus
 #endif //LIBSBML_EXTENSION_TEST_TESTPACKAGE

@@ -37,6 +37,7 @@
 #include <check.h>
 
 #ifdef __cplusplus
+LIBSBML_CPP_NAMESPACE_USE
 CK_CPPSTART
 #endif
 

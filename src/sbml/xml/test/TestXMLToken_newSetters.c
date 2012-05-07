@@ -40,6 +40,7 @@
 #include <sbml/common/extern.h>
 
 #if defined(__cplusplus)
+LIBSBML_CPP_NAMESPACE_USE
 CK_CPPSTART
 #endif
 

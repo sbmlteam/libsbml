@@ -36,6 +36,9 @@
 
 #include <sbml/common/extern.h>
 
+LIBSBML_CPP_NAMESPACE_USE
+
+
 BEGIN_C_DECLS
 
 START_TEST (test_SBMLConvert_invalidLevelVersion)

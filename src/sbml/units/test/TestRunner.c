@@ -32,6 +32,7 @@
 #include <sbml/common/extern.h>
 #include <sbml/util/memory.h>
 
+LIBSBML_CPP_NAMESPACE_USE
 
 /**
  * Test suite creation function prototypes.

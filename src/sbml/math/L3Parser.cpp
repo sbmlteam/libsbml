@@ -106,14 +106,16 @@
  * functions, but for now, the only interface with the library is defined
  * in the L3Parser.h file.
  */
+
+#include <sbml/common/libsbml-namespace.h>
 #include <sbml/math/L3Parser.h>
 #include <sbml/Model.h>
 #include <sbml/math/L3ParserSettings.h>
 
 #include <sstream>
 
+LIBSBML_CPP_NAMESPACE_USE
 LIBSBML_CPP_NAMESPACE_BEGIN
-
 class SBMLVisitor;
 class FormulaUnitsData;
 
@@ -281,8 +283,9 @@ public:
    */
   static char* getLastParseL3Error();
 };
-
 #endif //The entire class should be invisible to SWIG, too.
+
+LIBSBML_CPP_NAMESPACE_END
 
   using namespace std;
 
@@ -2737,6 +2740,9 @@ L3ParserSettings L3Parser::getDefaultL3ParserSettings()
 /** Everything above this point is internal. */
 /** @endcond */
 
+LIBSBML_CPP_NAMESPACE_BEGIN
+BEGIN_C_DECLS
+
 /** @cond doxygen-c-only */
 /**
  * Parses the given mathematical formula and returns a representation of it
@@ -3158,4 +3164,7 @@ SBML_getLastParseL3Error()
   return safe_strdup(l3p->getError().c_str());
 }
 /** @endcond */ //C-only documentation bit.
+
+END_C_DECLS
+LIBSBML_CPP_NAMESPACE_END
 

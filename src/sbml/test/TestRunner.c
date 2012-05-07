@@ -34,6 +34,9 @@
 #include <check.h>
 
 
+LIBSBML_CPP_NAMESPACE_USE
+
+
 /**
  * Test suite creation function prototypes.
  *
