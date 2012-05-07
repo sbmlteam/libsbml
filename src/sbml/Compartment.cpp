@@ -1180,7 +1180,7 @@ Compartment::readL2Attributes (const XMLAttributes& attributes)
   //                     default="3" }  (L2v1 ->)
   mExplicitlySetSpatialDimensions = attributes.readInto("spatialDimensions", 
                                     mSpatialDimensions, getErrorLog(), false, getLine(), getColumn());
-  if (mSpatialDimensions < 0 || mSpatialDimensions > 3)
+  if (/*mSpatialDimensions < 0 ||*/ mSpatialDimensions > 3)
   {
     std::string message = "The spatialDimensions attribute on ";
     message += "a <compartment> may only have values 0, 1, 2 or 3.";
@@ -1330,7 +1330,7 @@ Compartment::writeAttributes (XMLOutputStream& stream) const
     if (level == 2)
     {
       unsigned int sd = mSpatialDimensions;
-      if (sd >= 0 && sd <= 2)
+      if (/*sd >= 0 &&*/ sd <= 2)
       {
         stream.writeAttribute("spatialDimensions", sd);
       }

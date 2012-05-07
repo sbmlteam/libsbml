@@ -799,7 +799,7 @@ case 3:
           }
           break;
         case 171:
-          if ((c3 == 160))
+          if (c3 == 160)
           {
             letter = true;
           }

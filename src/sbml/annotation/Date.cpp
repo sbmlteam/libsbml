@@ -254,7 +254,7 @@ Date::setDay     (unsigned int day)
 int 
 Date::setHour    (unsigned int hour)
 {
-  if (hour < 0 || hour > 23)
+  if (/*hour < 0 ||*/ hour > 23)
   {
     mHour = 0;
     parseDateNumbersToString();
@@ -275,7 +275,7 @@ Date::setHour    (unsigned int hour)
 int 
 Date::setMinute  (unsigned int minute)
 {
-  if (minute < 0 || minute > 59)
+  if (/*minute < 0 ||*/ minute > 59)
   {
     mMinute = 0;
     parseDateNumbersToString();
@@ -296,7 +296,7 @@ Date::setMinute  (unsigned int minute)
 int 
 Date::setSecond  (unsigned int second)
 {
-  if (second < 0 || second > 59)
+  if (/*second < 0 ||*/ second > 59)
   {
     mSecond = 0;
     parseDateNumbersToString();
@@ -317,7 +317,7 @@ Date::setSecond  (unsigned int second)
 int 
 Date::setSignOffset    (unsigned int sign)
 {
-  if (sign < 0 || sign > 1)
+  if (/*sign < 0 ||*/ sign > 1)
   {
     mSignOffset = 0;
     parseDateNumbersToString();
@@ -339,7 +339,7 @@ Date::setSignOffset    (unsigned int sign)
 int 
 Date::setHoursOffset    (unsigned int hour)
 {
-  if (hour < 0 || hour > 12)
+  if (/*hour < 0 ||*/ hour > 12)
   {
     mHoursOffset = 0;
     parseDateNumbersToString();
@@ -360,7 +360,7 @@ Date::setHoursOffset    (unsigned int hour)
 int 
 Date::setMinutesOffset  (unsigned int minute)
 {
-  if (minute < 0 || minute > 59)
+  if (/*minute < 0 ||*/ minute > 59)
   {
     mMinutesOffset = 0;
     parseDateNumbersToString();

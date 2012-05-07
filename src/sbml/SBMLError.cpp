@@ -193,7 +193,7 @@ SBMLError::SBMLError (  const unsigned int errorId
   // it is, fill in the fields of the error object with the appropriate
   // content.  If it's not in the table, take the content as-is.
 
-  if ( mErrorId >= 0 && mErrorId < XMLErrorCodesUpperBound )
+  if ( /*mErrorId >= 0 &&*/ mErrorId < XMLErrorCodesUpperBound )
   {
     // The error was caught during the XML read and the XMLError
     // constructor will have filled in all the right pieces.
