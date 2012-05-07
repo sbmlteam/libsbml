@@ -643,7 +643,7 @@ function compile_mex(include_dir, library_dir, matlab_octave)
   disp(sprintf('* Creating mex files in %s', pwd));  
 
   % list the possible opts files to be tried
-  optsfiles = {'', './mexopts-lion.sh', './mexopts-R2009-R2010.sh', './mexopts-R2008.sh', './mexopts-R2007.sh'};
+  optsfiles = {'', './mexopts-lion.sh', './mexopts-xcode43.sh', './mexopts-R2009-R2010.sh', './mexopts-R2008.sh', './mexopts-R2007.sh'};
   
   success = 0;
   n = 1;

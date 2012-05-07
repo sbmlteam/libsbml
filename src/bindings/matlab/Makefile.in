@@ -73,6 +73,7 @@ distfiles =                      \
         mexopts-R2007.sh         \
         mexopts-R2008.sh         \
         mexopts-R2009-R2010.sh   \
+        mexopts-xcode43.sh       \
         mexopts-lion.sh          \
         test.xml                 \
         test/CMakeLists.txt           
