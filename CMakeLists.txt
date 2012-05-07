@@ -572,6 +572,14 @@ endif ()
 set(BUILD_DEFINITIONS)
 if(UNIX)
     if(APPLE)
+        # on osx starting with xcode 4.3 the system root is in 
+        # the app bundle, however cmake (up to 2.8.8) does not seem
+        # to update the path, so lets try it here
+        if (CMAKE_OSX_SYSROOT AND NOT EXISTS ${CMAKE_OSX_SYSROOT})
+          if (EXISTS "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/${CMAKE_OSX_SYSROOT}")
+            set(CMAKE_OSX_SYSROOT "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/${CMAKE_OSX_SYSROOT}" CACHE STRING "The SDK root to be used" FORCE)
+          endif()
+        endif()
         add_definitions(-DMACOSX)
         set(BUILD_DEFINITIONS "${BUILD_DEFINITIONS} -DMACOSX")
 
