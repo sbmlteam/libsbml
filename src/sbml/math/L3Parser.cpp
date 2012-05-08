@@ -2290,7 +2290,9 @@ int sbml_yylex(void)
         streampos numbegin = l3p->input.tellg();
         l3p->input >> numlong;
         streampos numend = l3p->input.tellg();
-        double fraction = numlong/pow(10.0, ( numend != -1 ? static_cast<long>(numend-numbegin) : 1 ));
+        if (numend < 0)
+            numend = l3p->input.str().length();
+        double fraction = numlong/pow(10.0, static_cast<long>(numend-numbegin));
         number += fraction;
       }
     }
