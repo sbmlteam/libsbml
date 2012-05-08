@@ -35,6 +35,30 @@ import math
 import unittest
 import libsbml
 
+def isnan(x):
+  return (x != x)
+  pass
+
+def util_isInf(*x):
+  return ( (x[0] == util_PosInf()) or  (x[0] == util_NegInf()) )
+
+def util_NaN():
+  z = 1e300
+  z = z * z
+
+  return z - z
+
+def util_PosInf():
+  z = 1e300
+  z = z * z
+
+  return z
+
+def util_NegInf():
+  z = 1e300
+  z = z * z
+
+  return -z 
 
 class TestL3FormulaParserC(unittest.TestCase):
 
@@ -630,7 +654,7 @@ class TestL3FormulaParserC(unittest.TestCase):
   def test_SBML_C_parseL3Formula_constants10(self):
     r = libsbml.parseL3Formula("notanumber")
     self.assert_( r.getType() == libsbml.AST_REAL )
-    self.assert_( math.isnan(r.getReal()) == 1 )
+    self.assert_( isnan(r.getReal()) == 1 )
     self.assert_( r.getNumChildren() == 0 )
     _dummyList = [ r ]; _dummyList[:] = []; del _dummyList
     pass  
@@ -638,7 +662,7 @@ class TestL3FormulaParserC(unittest.TestCase):
   def test_SBML_C_parseL3Formula_constants11(self):
     r = libsbml.parseL3Formula("nan")
     self.assert_( r.getType() == libsbml.AST_REAL )
-    self.assert_( math.isnan(r.getReal()) == 1 )
+    self.assert_( isnan(r.getReal()) == 1 )
     self.assert_( r.getNumChildren() == 0 )
     _dummyList = [ r ]; _dummyList[:] = []; del _dummyList
     pass  
@@ -646,7 +670,7 @@ class TestL3FormulaParserC(unittest.TestCase):
   def test_SBML_C_parseL3Formula_constants12(self):
     r = libsbml.parseL3Formula("NaN")
     self.assert_( r.getType() == libsbml.AST_REAL )
-    self.assert_( math.isnan(r.getReal()) == 1 )
+    self.assert_( isnan(r.getReal()) == 1 )
     self.assert_( r.getNumChildren() == 0 )
     _dummyList = [ r ]; _dummyList[:] = []; del _dummyList
     pass  
@@ -689,7 +713,7 @@ class TestL3FormulaParserC(unittest.TestCase):
   def test_SBML_C_parseL3Formula_constants7(self):
     r = libsbml.parseL3Formula("inf")
     self.assert_( r.getType() == libsbml.AST_REAL )
-    self.assert_( math.isinf(r.getReal()) == True )
+    self.assert_( util_isInf(r.getReal()) == True )
     self.assert_( r.getNumChildren() == 0 )
     _dummyList = [ r ]; _dummyList[:] = []; del _dummyList
     pass  
@@ -697,7 +721,7 @@ class TestL3FormulaParserC(unittest.TestCase):
   def test_SBML_C_parseL3Formula_constants8(self):
     r = libsbml.parseL3Formula("infinity")
     self.assert_( r.getType() == libsbml.AST_REAL )
-    self.assert_( math.isinf(r.getReal()) == True )
+    self.assert_( util_isInf(r.getReal()) == True )
     self.assert_( r.getNumChildren() == 0 )
     _dummyList = [ r ]; _dummyList[:] = []; del _dummyList
     pass  
@@ -705,7 +729,7 @@ class TestL3FormulaParserC(unittest.TestCase):
   def test_SBML_C_parseL3Formula_constants9(self):
     r = libsbml.parseL3Formula("INF")
     self.assert_( r.getType() == libsbml.AST_REAL )
-    self.assert_( math.isinf(r.getReal()) == True )
+    self.assert_( util_isInf(r.getReal()) == True )
     self.assert_( r.getNumChildren() == 0 )
     _dummyList = [ r ]; _dummyList[:] = []; del _dummyList
     pass  
@@ -893,7 +917,7 @@ class TestL3FormulaParserC(unittest.TestCase):
     self.assert_( r.getNumChildren() == 1 )
     c = r.getLeftChild()
     self.assert_( c.getType() == libsbml.AST_REAL )
-    self.assert_( math.isinf(c.getReal()) == True )
+    self.assert_( util_isInf(c.getReal()) == True )
     self.assert_( c.getNumChildren() == 0 )
     _dummyList = [ r ]; _dummyList[:] = []; del _dummyList
     pass  
