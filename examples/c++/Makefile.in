@@ -93,7 +93,7 @@ experimental_examples = addCustomValidator callExternalValidator \
                appendAnnotation printAnnotation printNotes unsetAnnotation \
                unsetNotes createExampleSBML addCVTerms addModelHistory \
 			   addingEvidenceCodes_1 addingEvidenceCodes_2 printSupported \
-			   printRegisteredPackages
+			   printRegisteredPackages translateL3Math
 
 experimental: $(experimental_examples)
 
@@ -137,6 +137,9 @@ unsetNotes: unsetNotes.cpp util.c
 	$(CXX) $(CXXFLAGS) $(CPPFLAGS) $(LDFLAGS) -o $@ $^ $(LIBS)
 
 createExampleSBML: createExampleSBML.cpp
+	$(CXX) $(CXXFLAGS) $(CPPFLAGS) $(LDFLAGS) -o $@ $^ $(LIBS)
+
+translateL3Math: translateL3Math.cpp
 	$(CXX) $(CXXFLAGS) $(CPPFLAGS) $(LDFLAGS) -o $@ $^ $(LIBS)
 
 clean:
