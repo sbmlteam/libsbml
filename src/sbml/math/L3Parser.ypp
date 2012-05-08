@@ -72,14 +72,16 @@
  * functions, but for now, the only interface with the library is defined
  * in the L3Parser.h file.
  */
+
+#include <sbml/common/libsbml-namespace.h>
 #include <sbml/math/L3Parser.h>
 #include <sbml/Model.h>
 #include <sbml/math/L3ParserSettings.h>
 
 #include <sstream>
 
+LIBSBML_CPP_NAMESPACE_USE
 LIBSBML_CPP_NAMESPACE_BEGIN
-
 class SBMLVisitor;
 class FormulaUnitsData;
 
@@ -247,8 +249,9 @@ public:
    */
   static char* getLastParseL3Error();
 };
-
 #endif //The entire class should be invisible to SWIG, too.
+
+LIBSBML_CPP_NAMESPACE_END
 
   using namespace std;
 
@@ -286,7 +289,6 @@ public:
 %token  <mantissa> E_NOTATION "number in e-notation form"
 %token  <rational> RATIONAL "number in rational notation"
 %token  <word> SYMBOL "element name"
-
 
 %name-prefix="sbml_yy"
 %debug
@@ -590,14 +592,14 @@ int sbml_yylex(void)
   else if (cc=='(') {
     streampos rationalbegin = l3p->input.tellg();
     cc = l3p->input.get();
-    if (cc== '-' && isdigit(l3p->input.peek()) || isdigit(cc)) {
+    if ((cc== '-' && isdigit(l3p->input.peek())) || isdigit(cc)) {
       l3p->input.unget();
       long numerator;
       l3p->input >> numerator;
       cc = l3p->input.get();
       if (cc=='/') {
         cc = l3p->input.get();
-        if (cc== '-' && isdigit(l3p->input.peek()) || isdigit(cc)) {
+        if ((cc== '-' && isdigit(l3p->input.peek())) || isdigit(cc)) {
           l3p->input.unget();
           long denominator;
           l3p->input >> denominator; 
@@ -996,6 +998,9 @@ L3ParserSettings L3Parser::getDefaultL3ParserSettings()
 /** Everything above this point is internal. */
 /** @endcond */
 
+LIBSBML_CPP_NAMESPACE_BEGIN
+BEGIN_C_DECLS
+
 /** @cond doxygen-c-only */
 /**
  * Parses the given mathematical formula and returns a representation of it
@@ -1171,7 +1176,7 @@ L3ParserSettings L3Parser::getDefaultL3ParserSettings()
  *
  * @if clike @see SBML_getLastParseL3Error()@endif@~
  * @if csharp @see SBML_getLastParseL3Error()@endif@~
- * @if python libsbml.getLastParseL3Error()@endif@~
+ * @if python @see libsbml.getLastParseL3Error()@endif@~
  * @if java @see SBML_getLastParseL3Error()@endif@~
  * @if clike @see SBML_formulaToString()@endif@~
  * @if csharp @see SBML_formulaToString()@endif@~
@@ -1283,7 +1288,7 @@ SBML_parseL3FormulaWithModel (const char *formula, const Model_t * model)
  * all unary minuses, or collapse them when possible.
  *
  * For more details about the parser, please see the definition of
- * L3ParserSettings_t and @if clike SBML_parseL3Formula()@endif@if csharp SBML_parseL3Formula()@endif@if python libsbml.parseL3Formula()@endif@if java <code><a href="libsbml.html#parseL3Formula(java.lang.String)">libsbml.parseL3Formula()</a></code>@endif@~.
+ * L3ParserSettings and @if clike SBML_parseL3Formula()@endif@if csharp SBML_parseL3Formula()@endif@if python libsbml.parseL3Formula()@endif@if java <code><a href="libsbml.html#parseL3Formula(java.lang.String)">libsbml.parseL3Formula()</a></code>@endif@~.
  *
  * @param formula the mathematical formula expression to be parsed
  * @param settings the settings to be used for this parser invocation
@@ -1357,7 +1362,7 @@ SBML_parseL3FormulaWithSettings (const char *formula, const L3ParserSettings_t *
  * for all unary minus operators in a formula, or collapse them when possible.
  *
  * For more details about the parser, please see the definition of
- * L3ParserSettings_t and @if clike SBML_parseL3Formula()@endif@if csharp SBML_parseL3Formula()@endif@if python libsbml.parseL3Formula()@endif@if java <code><a href="libsbml.html#parseL3Formula(java.lang.String)">libsbml.parseL3Formula()</a></code>@endif@~.
+ * L3ParserSettings and @if clike SBML_parseL3Formula()@endif@if csharp SBML_parseL3Formula()@endif@if python libsbml.parseL3Formula()@endif@if java <code><a href="libsbml.html#parseL3Formula(java.lang.String)">libsbml.parseL3Formula()</a></code>@endif@~.
  * 
  * @if clike @see SBML_parseL3Formula()@endif@~
  * @if csharp @see SBML_parseL3Formula()@endif@~
@@ -1417,3 +1422,6 @@ SBML_getLastParseL3Error()
   return safe_strdup(l3p->getError().c_str());
 }
 /** @endcond */ //C-only documentation bit.
+
+END_C_DECLS
+LIBSBML_CPP_NAMESPACE_END
