@@ -145,6 +145,9 @@ unsetAnnotation: unsetAnnotation.c util.c
 unsetNotes: unsetNotes.c util.c
 	$(CC) $(CFLAGS) $(CPPFLAGS) $(LDFLAGS) -o $@ $^ $(LIBS)
 
+translateL3Math: translateL3Math.c util.c
+	$(CC) $(CFLAGS) $(CPPFLAGS) $(LDFLAGS) -o $@ $^ $(LIBS)
+
 clean:
 	/bin/rm -f *~ $(programs) $(patsubst %,%.exe,$(programs))
 
