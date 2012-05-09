@@ -100,6 +100,7 @@ copy %LIBSBML_ROOT%\examples\c\printUnits.c printUnits.c
 copy %LIBSBML_ROOT%\examples\c\printSupported.c printSupported.c
 copy %LIBSBML_ROOT%\examples\c\readSBML.c readSBML.c
 copy %LIBSBML_ROOT%\examples\c\translateMath.c translateMath.c
+copy %LIBSBML_ROOT%\examples\c\translateL3Math.c translateL3Math.c
 copy %LIBSBML_ROOT%\examples\c\unsetAnnotation.c unsetAnnotation.c
 copy %LIBSBML_ROOT%\examples\c\unsetNotes.c unsetNotes.c
 copy %LIBSBML_ROOT%\examples\c\util.c util.c
@@ -129,6 +130,7 @@ copy "%LIBSBML_ROOT%\examples\c++\printSupported.cpp" printSupported.cpp
 copy "%LIBSBML_ROOT%\examples\c++\printUnits.cpp" printUnits.cpp
 copy "%LIBSBML_ROOT%\examples\c++\readSBML.cpp" readSBML.cpp
 copy "%LIBSBML_ROOT%\examples\c++\translateMath.cpp" translateMath.cpp
+copy "%LIBSBML_ROOT%\examples\c++\translateL3Math.cpp" translateL3Math.cpp
 copy "%LIBSBML_ROOT%\examples\c++\unsetAnnotation.cpp" unsetAnnotation.cpp
 copy "%LIBSBML_ROOT%\examples\c++\unsetNotes.cpp" unsetNotes.cpp
 copy "%LIBSBML_ROOT%\examples\c++\util.h" util.h
