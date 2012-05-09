@@ -5,22 +5,22 @@
 ## Author(s)   : SBML Team <sbml-team@caltech.edu>
 ## Organization: California Institute of Technology
 ## Created     : 2004-05-31
-## 
+##
 ## <!--------------------------------------------------------------------------
 ## This file is part of libSBML.  Please visit http://sbml.org for more
 ## information about SBML, and the latest version of libSBML.
 ##
-## Copyright (C) 2009-2012 jointly by the following organizations: 
+## Copyright (C) 2009-2012 jointly by the following organizations:
 ##     1. California Institute of Technology, Pasadena, CA, USA
 ##     2. EMBL European Bioinformatics Institute (EBML-EBI), Hinxton, UK
-##  
+##
 ## Copyright (C) 2006-2008 by the California Institute of Technology,
-##     Pasadena, CA, USA 
-##  
-## Copyright (C) 2002-2005 jointly by the following organizations: 
+##     Pasadena, CA, USA
+##
+## Copyright (C) 2002-2005 jointly by the following organizations:
 ##     1. California Institute of Technology, Pasadena, CA, USA
 ##     2. Japan Science and Technology Agency, Japan
-## 
+##
 ## This library is free software; you can redistribute it and/or modify it
 ## under the terms of the GNU Lesser General Public License as published by
 ## the Free Software Foundation.  A copy of the license agreement is provided
@@ -40,7 +40,7 @@
 include @top_srcdir@/config/makefile-common-vars.mk
 
 # `srcdir' points to the current directory, but should be set by configure.
-# `subdir' must be set manually to the relative dir under `srcdir'.  Don't 
+# `subdir' must be set manually to the relative dir under `srcdir'.  Don't
 # set `subdir' to an absolute path, or some make actions will fail.
 
 srcdir  = @srcdir@
@@ -77,6 +77,7 @@ examples =                                                          \
   examples/c/printUnits.c                                           \
   examples/c/readSBML.c                                             \
   examples/c/translateMath.c                                        \
+  examples/c/translateL3Math.c                                      \
   examples/c/util.c                                                 \
   examples/c/util.h                                                 \
   examples/c/validateSBML.c                                         \
@@ -102,6 +103,7 @@ examples =                                                          \
   examples/c++/printUnits.cpp                                       \
   examples/c++/readSBML.cpp                                         \
   examples/c++/translateMath.cpp                                    \
+  examples/c++/translateL3Math.cpp                                  \
   examples/c++/unsetAnnotation.cpp                                  \
   examples/c++/unsetNotes.cpp                                       \
   examples/c++/util.c                                               \
@@ -286,7 +288,7 @@ docs =         \
   NEWS.txt     \
   README.txt   \
   VERSION.txt  \
-  $(examples)                                          
+  $(examples)
 
 # Variables `subdirs', `headers', `sources', `libraries', `extra_CPPFLAGS',
 # `extra_CXXFLAGS', `extra_LDFLAGS', `extra_clean', and `distfiles' are
@@ -352,7 +354,7 @@ distfiles =                         \
   CMakeLists.txt                    \
   common.cmake                      \
   layout-package.cmake              \
-  $(examples)                              
+  $(examples)
 
 # The files listed in `extra_distclean' are items created by configure or
 # make, and that are removed by the default rules for `make distclean' in
@@ -433,7 +435,7 @@ ifneq "$(MAKEFLAGS)" ""
 	$(MAKE) -$(MAKEFLAGS) -w -C macosx $(MAKECMDGOALS)
 else
 	$(MAKE) -w -C macosx $(MAKECMDGOALS)
-endif	
+endif
 
 #
 # Create an RPM distribution.
@@ -468,7 +470,7 @@ tags: etags-recursive ctags-recursive
 
 base-libs = -lsbml -lstdc++ -lm
 
-COMPRESS_CPFLAGS    = ${ZLIB_CPPFLAGS} ${BZ2_CPPFLAGS} 
+COMPRESS_CPFLAGS    = ${ZLIB_CPPFLAGS} ${BZ2_CPPFLAGS}
 COMPRESS_LDFLAGS    = ${ZLIB_LDFLAGS} ${BZ2_LDFLAGS}
 COMPRESS_LIBS       = ${ZLIB_LIBS} ${BZ2_LIBS}
 
@@ -517,7 +519,7 @@ define install-linux-warning-msg
   (such as Linux), you will also need to do one of the following:
   1) run 'ldconfig' (see the man page if this is unfamiliar)
   2) set the LD_LIBRARY_PATH (or equivalent) environment variable
-  to contain the path "$(DESTDIR)$(LIBDIR)" so that programs can 
+  to contain the path "$(DESTDIR)$(LIBDIR)" so that programs can
   find the libSBML library at run-time.
 
 endef
@@ -525,21 +527,21 @@ define install-darwin-warning-msg
 
   The installation of libSBML is finished.  To use the library, you
   may also need to set your DYLD_LIBRARY_PATH environment to contain
-  the path "$(DESTDIR)$(LIBDIR)" so that programs can find the 
+  the path "$(DESTDIR)$(LIBDIR)" so that programs can find the
   libSBML library at run-time.
 
 endef
 define uninstall-warning-msg
 
   Uninstallation complete.  WARNING: if you have run libSBML's 'configure'
-  utility since the time of the last installation of libSBML on this computer, 
+  utility since the time of the last installation of libSBML on this computer,
   the uninstallation just performed may not have removed all of the libSBML
   files.  The 'make uninstall' command only knows about the files installed
   by libSBML according to its MOST RECENT CONFIGURATION.
 
 endef
 
-install: all install-recursive install-warnings install-pc 
+install: all install-recursive install-warnings install-pc
 
 # Only in the case of Java can we make the docs without doxygen.
 ifdef USE_JAVA
@@ -566,7 +568,7 @@ endif
 install-pc: libsbml.pc
 	$(INSTALL_SH) libsbml.pc -m 0644 "$(DESTDIR)$(LIBDIR)/pkgconfig/libsbml.pc"
 
-uninstall: uninstall-recursive uninstall-libsbml-pc 
+uninstall: uninstall-recursive uninstall-libsbml-pc
 	@if test -d "$(DESTDIR)$(LIBDIR)"; then \
 	  if test -n "`find $(DESTDIR)$(LIBDIR) -maxdepth 0 -empty`"; then \
 	    echo rmdir "$(DESTDIR)$(LIBDIR)"; \
