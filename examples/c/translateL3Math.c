@@ -10,8 +10,6 @@
  */
 
 
-#include <iostream>
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -22,9 +20,6 @@
 
 #define BUFFER_SIZE 1024
 
-
-using namespace std;
-LIBSBML_CPP_NAMESPACE_USE
 
 char *translateInfix  (const char *formula, L3ParserSettings_t* settings);
 char *translateMathML (const char *xml);
@@ -37,6 +32,7 @@ main (int argc, char* argv[])
   char         *result;
   char         *buffer  = (char*)calloc( 1, sizeof(char) );
   unsigned long len;
+  L3ParserSettings_t* settings;
   int           reading = 1;
   SBMLDocument_t*   doc = NULL;
   StringBuffer_t* sb = StringBuffer_create(1024);
@@ -48,7 +44,7 @@ main (int argc, char* argv[])
   printf( "triggers translation.\n" );
   printf( "\n" );
 
-  L3ParserSettings_t* settings = L3ParserSettings_create();
+  settings = L3ParserSettings_create();
   while (reading)
   {
     printf( "Enter infix formula, MathML expression, \n");
@@ -90,11 +86,6 @@ main (int argc, char* argv[])
           printf( "Will now collapse multiple unary minuses, and incorporate ");
           printf("a negative sign into digits.\n\n> ");
         }
-        else if (strcmp(line, "TARGETL2")==0) {
-          L3ParserSettings_setTargetL2(settings );
-          printf( "Will now target SBML Level 2 MathML, with no units on ");
-          printf("numbers, and no csymbol 'avogadro'.\n\n> ");
-        }
         else if (strcmp(line, "NO_UNITS")==0) {
           L3ParserSettings_setParseUnits(settings, 0);
           printf( "Will now target MathML but with no units on numbers.\n\n> ");
@@ -103,17 +94,13 @@ main (int argc, char* argv[])
           L3ParserSettings_setParseUnits(settings, 1);
           printf( "Will now target MathML but with units on numbers.\n\n> ");
         }
-        else if (strcmp(line, "TARGETL3")==0) {
-          L3ParserSettings_setTargetL3(settings);
-          printf( "Will now target SBML Level 3 MathML, including having ");
-          printf("units on numbers, and the csymbol 'avogadro'.\n\n> ");;
-        }
         else if (line[0] == 'F' && line[1] == 'I' && line[2]=='L' 
           && line[3]=='E' && line[4]==':') {
-          string filename(line);
-          filename = filename.substr(5, filename.size());
-          delete doc;
-          doc = readSBMLFromFile(filename.c_str());
+		  int len = strlen(line);
+		  char *filename = (char*) malloc(len-5+1);
+		  strncpy(filename, line+5, len-5);
+		  SBMLDocument_free(doc);
+          doc = readSBMLFromFile(filename);
           if (SBMLDocument_getModel(doc)==NULL) {
             printf( "File '%s' not found or no model present.", filename);
             printf( "Clearing the Model parsing object.\n\n> ");
@@ -161,7 +148,7 @@ char *
 translateInfix (const char* formula, L3ParserSettings_t* settings)
 {
   char*    result;
-  ASTNode* math = SBML_parseL3FormulaWithSettings(formula, settings);
+  ASTNode_t* math = SBML_parseL3FormulaWithSettings(formula, settings);
 
   if (math==NULL) {
     result = SBML_getLastParseL3Error();
