@@ -347,16 +347,20 @@ public:
    * always preserve them.  The two possibilities are represented using the
    * following constants:
    *
-   * @li @link L3P_COLLAPSE_UNARY_MINUS@endlink (value = @c true): collapse
-   * unary minuses where possible.
-   * @li @link L3P_EXPAND_UNARY_MINUS@endlink (value = @c false): do not
-   * collapse unary minuses, and instead translate each one into an AST
-   * node of type @link ASTNodeType_t#AST_MINUS AST_MINUS@endlink.
+   * @li @link ParseLogType_t#L3P_COLLAPSE_UNARY_MINUS
+   * L3P_COLLAPSE_UNARY_MINUS@endlink (value = @c true): collapse unary
+   * minuses where possible.
+   * @li @link ParseLogType_t#L3P_EXPAND_UNARY_MINUS
+   * L3P_EXPAND_UNARY_MINUS@endlink (value = @c false): do not collapse
+   * unary minuses, and instead translate each one into an AST node of type
+   * @link ASTNodeType_t#AST_MINUS AST_MINUS@endlink.
    *
    * @param collapseminus a boolean value (one of the constants
-   * @link L3P_COLLAPSE_UNARY_MINUS@endlink or
-   * @link L3P_EXPAND_UNARY_MINUS@endlink) indicating how unary minus
-   * signs in the input should be handled.
+   * @link ParseLogType_t#L3P_COLLAPSE_UNARY_MINUS
+   * L3P_COLLAPSE_UNARY_MINUS@endlink or
+   * @link ParseLogType_t#L3P_EXPAND_UNARY_MINUS
+   * L3P_EXPAND_UNARY_MINUS@endlink) indicating how unary minus signs in
+   * the input should be handled.
    *
    * @see getParseCollapseMinus()
    */
@@ -382,14 +386,18 @@ public:
    * always preserve them.  The two possibilities are represented using the
    * following constants:
    *
-   * @li @link L3P_COLLAPSE_UNARY_MINUS@endlink (value = @c true): collapse
-   * unary minuses where possible.
-   * @li @link L3P_EXPAND_UNARY_MINUS@endlink (value = @c false): do not
-   * collapse unary minuses, and instead translate each one into an AST
-   * node of type @link ASTNodeType_t#AST_MINUS AST_MINUS@endlink.
+   * @li @link ParseLogType_t#L3P_COLLAPSE_UNARY_MINUS
+   * L3P_COLLAPSE_UNARY_MINUS@endlink (value = @c true): collapse unary
+   * minuses where possible.
+   * @li @link ParseLogType_t#L3P_EXPAND_UNARY_MINUS
+   * L3P_EXPAND_UNARY_MINUS@endlink (value = @c false): do not collapse
+   * unary minuses, and instead translate each one into an AST node of type
+   * @link ASTNodeType_t#AST_MINUS AST_MINUS@endlink.
    *
-   * @return A boolean, one of @link L3P_COLLAPSE_UNARY_MINUS@endlink or
-   * @link L3P_EXPAND_UNARY_MINUS@endlink.
+   * @return A boolean, one of @link
+   * ParseLogType_t#L3P_COLLAPSE_UNARY_MINUS
+   * L3P_COLLAPSE_UNARY_MINUS@endlink or @link
+   * ParseLogType_t#L3P_EXPAND_UNARY_MINUS L3P_EXPAND_UNARY_MINUS@endlink.
    *
    * @see setParseCollapseMinus(@if java boolean collapseminus@endif)
    */
@@ -417,10 +425,10 @@ public:
    * the SBML specification.
    *
    * @param units A boolean indicating whether to parse units:
-   * @li @link L3P_PARSE_UNITS@endlink (value = @c true): parse units
-   * in the text-string formula.
-   * @li @link L3P_NO_UNITS@endlink (value = @c false): treat units
-   * in the text-string formula as errors.
+   * @li @link ParseLogType_t#L3P_PARSE_UNITS L3P_PARSE_UNITS@endlink
+   * (value = @c true): parse units in the text-string formula.
+   * @li @link ParseLogType_t#L3P_NO_UNITS L3P_NO_UNITS@endlink (value = @c
+   * false): treat units in the text-string formula as errors.
    *
    * @see getParseUnits()
    */
@@ -452,10 +460,10 @@ public:
    * formulas intended for use in SBML Level&nbsp;2 documents.
    *
    * @return A boolean indicating whether to parse units:
-   * @li @link L3P_PARSE_UNITS@endlink (value = @c true): parse units
-   * in the text-string formula.
-   * @li @link L3P_NO_UNITS@endlink (value = @c false): treat units
-   * in the text-string formula as errors.
+   * @li @link ParseLogType_t#L3P_PARSE_UNITS L3P_PARSE_UNITS@endlink
+   * (value = @c true): parse units in the text-string formula.
+   * @li @link ParseLogType_t#L3P_NO_UNITS L3P_NO_UNITS@endlink (value = @c
+   * false): treat units in the text-string formula as errors.
    *
    * @see setParseUnits(@if java boolean units@endif)
    */
@@ -472,12 +480,14 @@ public:
    * depending on which SBML Level is being targeted.  The argument to this
    * method can be one of two values:
    *
-   * @li @link L3P_AVOGADRO_IS_CSYMBOL@endlink (value = @c true): tells the
-   * parser to translate the string @c avogadro (in any capitalization)
-   * into an AST node of type @link ASTNodeType_t#AST_NAME_AVOGADRO
+   * @li @link ParseLogType_t#L3P_AVOGADRO_IS_CSYMBOL
+   * L3P_AVOGADRO_IS_CSYMBOL@endlink (value = @c true): tells the parser to
+   * translate the string @c avogadro (in any capitalization) into an AST
+   * node of type @link ASTNodeType_t#AST_NAME_AVOGADRO
    * AST_NAME_AVOGADRO@endlink.
-   * @li @link L3P_AVOGADRO_IS_NAME@endlink (value = @c false): tells the
-   * parser to translate the string @c avogadro into an AST of type @link
+   * @li @link ParseLogType_t#L3P_AVOGADRO_IS_NAME
+   * L3P_AVOGADRO_IS_NAME@endlink (value = @c false): tells the parser to
+   * translate the string @c avogadro into an AST of type @link
    * ASTNodeType_t#AST_NAME AST_NAME@endlink.
    *
    * Since SBML Level&nbsp;2 does not define a symbol for Avogadro's
@@ -485,9 +495,11 @@ public:
    * formulas intended for use in SBML Level&nbsp;2 documents.
    *
    * @param l2only a boolean value (one of the constants
-   * @link L3P_AVOGADRO_IS_CSYMBOL@endlink or
-   * @link L3P_AVOGADRO_IS_NAME@endlink) indicating how the string
-   * @c avogadro should be treated when encountered in a formula.
+   * @link ParseLogType_t#L3P_AVOGADRO_IS_CSYMBOL
+   * L3P_AVOGADRO_IS_CSYMBOL@endlink or
+   * @link ParseLogType_t#L3P_AVOGADRO_IS_NAME
+   * L3P_AVOGADRO_IS_NAME@endlink) indicating how the string @c avogadro
+   * should be treated when encountered in a formula.
    *
    * @see getParseAvogadroCsymbol()
    */
@@ -505,12 +517,14 @@ public:
    *
    * @return A boolean indicating which mode is currently set; the value is
    * one of the following possibilities:
-   * @li @link L3P_AVOGADRO_IS_CSYMBOL@endlink (value = @c true): tells the
-   * parser to translate the string @c avogadro (in any capitalization)
-   * into an AST node of type @link ASTNodeType_t#AST_NAME_AVOGADRO
+   * @li @link ParseLogType_t#L3P_AVOGADRO_IS_CSYMBOL
+   * L3P_AVOGADRO_IS_CSYMBOL@endlink (value = @c true): tells the parser to
+   * translate the string @c avogadro (in any capitalization) into an AST
+   * node of type @link ASTNodeType_t#AST_NAME_AVOGADRO
    * AST_NAME_AVOGADRO@endlink.
-   * @li @link L3P_AVOGADRO_IS_NAME@endlink (value = @c false): tells the
-   * parser to translate the string @c avogadro into an AST of type @link
+   * @li @link ParseLogType_t#L3P_AVOGADRO_IS_NAME
+   * L3P_AVOGADRO_IS_NAME@endlink (value = @c false): tells the parser to
+   * translate the string @c avogadro into an AST of type @link
    * ASTNodeType_t#AST_NAME AST_NAME@endlink.
    *
    * @see setParseAvogadroCsymbol(@if java boolean l2only@endif)
