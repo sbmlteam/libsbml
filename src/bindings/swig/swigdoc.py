@@ -59,6 +59,7 @@ libsbmlclasses = ["AlgebraicRule",
                   "InitialAssignment",
                   "KineticLaw",
                   "libsbml",
+                  "L3ParserSettings",
                   "List",
                   "ListOf",
                   "ListOfCompartmentTypes",
@@ -805,7 +806,7 @@ def sanitizeForHTML (docstring):
   # cross-links just for the Java case, let's automate.  This needs to be
   # done better (e.g., by not hard-wiring the class names).
 
-  p = re.compile(r'(\W)(' + '|'.join(libsbmlclasses) + r')\b([^:])', re.DOTALL)
+  p = re.compile(r'([^a-zA-Z0-9_">])(' + '|'.join(libsbmlclasses) + r')\b([^:])', re.DOTALL)
   if language == 'csharp':
     docstring = p.sub(translateClassRefCSharp, docstring)
   elif language == 'java':
@@ -880,7 +881,7 @@ def rewriteDocstringForJava (docstring):
   # has more than one argument.  This gets rid of the @link's.  This should
   # be fixed properly some day.
 
-  p = re.compile('((@see|@throws)\s+[\w ,(#]*){@link\s+([^}]+?)}')
+  p = re.compile(r'((@see|@throws)\s+[\w\\ ,.\'"=<>()#]*?){@link\s+([^}]+?)}')
   while re.search(p, docstring) != None:
     docstring = p.sub(r'\1\3', docstring)
 
@@ -904,7 +905,7 @@ def rewriteDocstringForJava (docstring):
 
   # The syntax for @link is vastly different.
   
-  p = re.compile('@link([\s/*]+[\w\s,.:#()*]+[\s/*]+[\w():#]+[\s/*]*)@endlink', re.DOTALL)
+  p = re.compile('@link([\s/*]+[\w\s,.:#()*]+[\s/*]*[\w():#]+[\s/*]*)@endlink', re.DOTALL)
   docstring = p.sub(r'{@link \1}', docstring)
 
   # Outside of @see and other constructs, dot is used to reference members
