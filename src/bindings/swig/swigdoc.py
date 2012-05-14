@@ -806,7 +806,7 @@ def sanitizeForHTML (docstring):
   # cross-links just for the Java case, let's automate.  This needs to be
   # done better (e.g., by not hard-wiring the class names).
 
-  p = re.compile(r'([^a-zA-Z0-9_">])(' + '|'.join(libsbmlclasses) + r')\b([^:])', re.DOTALL)
+  p = re.compile(r'([^a-zA-Z0-9_.">])(' + '|'.join(libsbmlclasses) + r')\b([^:])', re.DOTALL)
   if language == 'csharp':
     docstring = p.sub(translateClassRefCSharp, docstring)
   elif language == 'java':
