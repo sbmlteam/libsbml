@@ -182,6 +182,7 @@ pre.fragment {
     background-color: #f0f0f0;
     color: #222;
     padding: 5px;
+    padding-top: 6px;
     margin: 15px;
     overflow: auto;
     word-wrap: break-word;
