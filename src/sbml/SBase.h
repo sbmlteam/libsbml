@@ -435,7 +435,7 @@ public:
    * data type of "id" is always either <code>Sid</code> or
    * <code>UnitSId</code>, depending on the object in question.  Both
    * data types are defined as follows:
-   * <pre style="margin-left: 2em; border: none; font-weight: bold; font-size: 13px; color: black">
+   * <pre style="margin-left: 2em; border: none; font-weight: bold; color: black">
    *   letter ::= 'a'..'z','A'..'Z'
    *   digit  ::= '0'..'9'
    *   idChar ::= letter | digit | '_'
@@ -2003,7 +2003,7 @@ s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></b
    * data type of "id" is always either <code>Sid</code> or
    * <code>UnitSId</code>, depending on the object in question.  Both
    * data types are defined as follows:
-   * <pre style="margin-left: 2em; border: none; font-weight: bold; font-size: 13px; color: black">
+   * <pre style="margin-left: 2em; border: none; font-weight: bold; color: black">
    *   letter ::= 'a'..'z','A'..'Z'
    *   digit  ::= '0'..'9'
    *   idChar ::= letter | digit | '_'
