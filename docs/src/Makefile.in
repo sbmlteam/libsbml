@@ -323,7 +323,8 @@ distfiles =                                                  \
 
 # Additional odds and ends.
 
-logo-file = graphics/official-sbml-supported-32.jpg
+logo-files = graphics/official-sbml-supported-32.jpg \
+	     graphics/official-sbml-supported-40.jpg
 
 # Error msg used below.  Do not put a period on the last sentence because
 # one will be added automatically.
@@ -430,7 +431,7 @@ define preprocess_doxygen
 endef
 
 define postprocess_doxygen
-  cp $(logo-file) $(1)
+  cp $(logo-files) $(1)
   cp graphics/*.gif $(1)
   cp graphics/*.png $(1)
   cp common-text/simple-ast.svg $(1)
@@ -610,8 +611,8 @@ java-manual $(java-manual): $(core-sources) SBMLDoclet.class
 	    -sourcepath $(java-local-dir) org.sbml.libsbml \
         2>&1 | egrep -v $(java-ignorable-warnings) 
 	cp -f doxygen-base-stylesheet.css $(java-manual)
-	cp -f $(logo-file) $(java-manual)
-	cp -f $(logo-file) $(java-manual)/$(java-class-path)/
+	cp -f $(logo-files) $(java-manual)
+	cp -f $(logo-files) $(java-manual)/$(java-class-path)/
 	cp -f graphics/*.png $(java-manual)
 	cp -f graphics/*.jpg $(java-manual)/$(java-class-path)/
 	cp -f common-text/*.svg $(java-manual)/$(java-class-path)/
