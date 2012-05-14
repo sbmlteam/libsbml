@@ -91,18 +91,22 @@
  * provided, and pass that object to
  * @if clike SBML_parseL3FormulaWithSettings()@endif@if csharp SBML_parseL3FormulaWithSettings()@endif@if python libsbml.parseL3FormulaWithSettings()@endif@if java <code><a href="libsbml.html#parseL3FormulaWithSettings(java.lang.String)">libsbml.parseL3FormulaWithSettings()</a></code>@endif@~.
  *
- * @if clike @see SBML_parseL3FormulaWithSettings()@endif@~
- * @if csharp @see SBML_parseL3FormulaWithSettings()@endif@~
- * @if python @see libsbml.parseL3FormulaWithSettings()@endif@~
- * @if java @see <code><a href="libsbml.html#parseL3FormulaWithSettings(String formula, L3ParserSettings settings)">libsbml.parseL3FormulaWithSettings(String formula, L3ParserSettings settings)</a></code>@endif@~
- * @if clike @see SBML_parseL3Formula()@endif@~
- * @if csharp @see SBML_parseL3Formula()@endif@~
- * @if python @see libsbml.parseL3Formula()@endif@~
- * @if java @see <code><a href="libsbml.html#parseL3Formula(String formula)">libsbml.parseL3Formula(String formula)</a></code>@endif@~
- * @if clike @see SBML_parseL3FormulaWithModel()@endif@~
- * @if csharp @see SBML_parseL3FormulaWithModel()@endif@~
- * @if python @see libsbml.parseL3FormulaWithModel()@endif@~
- * @if java @see <code><a href="libsbml.html#parseL3FormulaWithModel(String formula, Model model)">parseL3FormulaWithModel(String formula, Model model)</a></code>@endif@~
+ * @if clike @see SBML_parseL3FormulaWithSettings()
+ * @see SBML_parseL3Formula()
+ * @see SBML_parseL3FormulaWithModel()
+ * @endif@~
+ * @if csharp @see SBML_parseL3FormulaWithSettings()
+ * @see SBML_parseL3Formula()
+ * @see SBML_parseL3FormulaWithModel()
+ * @endif@~
+ * @if python @see libsbml.parseL3FormulaWithSettings()
+ * @see libsbml.parseL3Formula()
+ * @see libsbml.parseL3FormulaWithModel()
+ * @endif@~
+ * @if java @see <code><a href="libsbml.html#parseL3FormulaWithSettings(String formula, L3ParserSettings settings)">libsbml.parseL3FormulaWithSettings(String formula, L3ParserSettings settings)</a></code>
+ * @see <code><a href="libsbml.html#parseL3Formula(String formula)">libsbml.parseL3Formula(String formula)</a></code>
+ * @see <code><a href="libsbml.html#parseL3FormulaWithModel(String formula, Model model)">parseL3FormulaWithModel(String formula, Model model)</a></code>
+ * @endif@~
  */
 
 #ifndef L3ParserSettings_h
