@@ -1541,21 +1541,26 @@ td.s-na {
   text-align: center;
 }
 
+/* 
+ * Multicolumn list solution found here:
+ * http://weedygarden.net/2012/04/css3-multi-column-lists/
+ */
+
 .columnlist {
     margin: 1em 0;
     padding-left: auto;
     padding-right: auto;
-    -moz-column-count: 3;
-    -moz-column-gap: 1.5em;
-    -webkit-column-count: 3;
-    -webkit-column-gap: 1.5em;
-    column-count: 3;
-    column-gap: 1.5em;
-}
-
-.list3 {
     display: inline-block;
     *display: inline;
     *zoom: 1;
     width: 95%;
+}
+
+.list3 {
+    column-count: 3;
+    -moz-column-count: 3;
+    -moz-column-gap: 1.5em;
+    -webkit-column-count: 3;
+    -webkit-column-gap: 1.5em;
+    column-gap: 1.5em;
 }
