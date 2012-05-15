@@ -43,8 +43,8 @@ BEGIN_C_DECLS
  * basically derived from SBML Level&nbsp;1.
  *
  * The text-string form of mathematical formulas produced by
- * @if clike SBML_formulaToString()@endif@if csharp SBML_formulaToString()@endif@if python libsbml.formulaToString()@endif@if java <code><a href="libsbml.html#formulaToString(org.sbml.libsbml.ASTNode)">libsbml.formulaToString()</a></code>@endif@~
- * and read by @if clike SBML_parseFormula()@endif@if csharp SBML_parseFormula()@endif@if python libsbml.parseFormula()@endif@if java <code><a href="libsbml.html#parseFormula(java.lang.String)">libsbml.parseFormula()</a></code>@endif@~
+ * @if clike SBML_formulaToString()@endif@if csharp SBML_formulaToString()@endif@if python libsbml.formulaToString()@endif@if java <code><a href="libsbml.html#formulaToString(org.sbml.libsbml.ASTNode)">libsbml.formulaToString(ASTNode tree)</a></code>@endif@~
+ * and read by @if clike SBML_parseFormula()@endif@if csharp SBML_parseFormula()@endif@if python libsbml.parseFormula()@endif@if java <code><a href="libsbml.html#parseFormula(java.lang.String)">libsbml.parseFormula(String formula)</a></code>@endif@~
  * use a simple C-inspired infix notation taken from SBML Level&nbsp;1.  A
  * formula in this text-string form therefore can be handed to a program
  * that understands SBML Level&nbsp;1 mathematical expressions, or used as
@@ -104,14 +104,34 @@ BEGIN_C_DECLS
  * mathematical formula.  The caller owns the returned string and is
  * responsible for freeing it when it is no longer needed.
  *
- * @if clike @see SBML_parseFormula()@endif@~
- * @if csharp @see SBML_parseFormula()@endif@~
- * @if python @see libsbml.parseFormula()@endif@~
- * @if java @see parseFormula(java.lang.String)@endif@~
- * @if clike @see SBML_parseL3Formula()@endif@~
- * @if csharp @see SBML_parseL3Formula()@endif@~
- * @if python @see libsbml.parseL3Formula()@endif@~
- * @if java @see <code><a href="libsbml.html#parseL3Formula(String formula)">libsbml.parseL3Formula(String formula)</a></code>@endif@~
+ * @if clike @see SBML_formulaToString()
+ * @see SBML_parseL3FormulaWithSettings()
+ * @see SBML_parseL3Formula()
+ * @see SBML_parseL3FormulaWithModel()
+ * @see SBML_getLastParseL3Error()
+ * @see SBML_getDefaultL3ParserSettings()
+ * @endif@~
+ * @if csharp @see SBML_formulaToString()
+ * @see SBML_parseL3FormulaWithSettings()
+ * @see SBML_parseL3Formula()
+ * @see SBML_parseL3FormulaWithModel()
+ * @see SBML_getLastParseL3Error()
+ * @see SBML_getDefaultL3ParserSettings()
+ * @endif@~
+ * @if python @see libsbml.formulaToString()
+ * @see libsbml.parseL3FormulaWithSettings()
+ * @see libsbml.parseL3Formula()
+ * @see libsbml.parseL3FormulaWithModel()
+ * @see libsbml.getLastParseL3Error()
+ * @see libsbml.getDefaultL3ParserSettings()
+ * @endif@~
+ * @if java @see <code><a href="libsbml.html#formulaToString(org.sbml.libsbml.ASTNode tree)">libsbml.formulaToString(ASTNode tree)</a></code>
+ * @see <code><a href="libsbml.html#parseL3FormulaWithSettings(java.lang.String, org.sbml.libsbml.L3ParserSettings)">libsbml.parseL3FormulaWithSettings(String formula, L3ParserSettings settings)</a></code>
+ * @see <code><a href="libsbml.html#parseL3Formula(java.lang.String)">libsbml.parseL3Formula(String formula)</a></code>
+ * @see <code><a href="libsbml.html#parseL3FormulaWithModel(java.lang.String, org.sbml.libsbml.Model)">parseL3FormulaWithModel(String formula, Model model)</a></code>
+ * @see <code><a href="libsbml.html#getLastParseL3Error()">getLastParseL3Error()</a></code>
+ * @see <code><a href="libsbml.html#getDefaultL3ParserSettings()">getDefaultL3ParserSettings()</a></code>
+ * @endif@~
  */
 LIBSBML_EXTERN
 char *

@@ -44,8 +44,8 @@ BEGIN_C_DECLS
  * Abstract Syntax Tree (AST).
  *
  * The text-string form of mathematical formulas produced by
- * @if clike SBML_formulaToString()@endif@if csharp SBML_formulaToString()@endif@if python libsbml.formulaToString()@endif@if java <code><a href="libsbml.html#formulaToString(org.sbml.libsbml.ASTNode)">libsbml.formulaToString()</a></code>@endif@~
- * and read by @if clike SBML_parseFormula()@endif@if csharp SBML_parseFormula()@endif@if python libsbml.parseFormula()@endif@if java <code><a href="libsbml.html#parseFormula(java.lang.String)">libsbml.parseFormula()</a></code>@endif@~
+ * @if clike SBML_formulaToString()@endif@if csharp SBML_formulaToString()@endif@if python libsbml.formulaToString()@endif@if java <code><a href="libsbml.html#formulaToString(org.sbml.libsbml.ASTNode)">libsbml.formulaToString(ASTNode tree)</a></code>@endif@~
+ * and read by @if clike SBML_parseFormula()@endif@if csharp SBML_parseFormula()@endif@if python libsbml.parseFormula()@endif@if java <code><a href="libsbml.html#parseFormula(java.lang.String)">libsbml.parseFormula(String formula)</a></code>@endif@~
  * and
  * @if clike SBML_parseL3Formula()@endif@if csharp SBML_parseL3Formula()@endif@if python libsbml.parseL3Formula()@endif@if java <code><a href="libsbml.html#parseL3Formula(java.lang.String)">libsbml.parseL3Formula(String formula)</a></code>@endif@~
  * use a simple C-inspired infix notation.  A
@@ -109,14 +109,34 @@ BEGIN_C_DECLS
  * @return the root node of the AST, or NULL if an error occurred in
  * parsing the formula
  *
- * @if clike @see SBML_parseL3Formula()@endif@~
- * @if csharp @see SBML_parseL3Formula()@endif@~
- * @if python @see libsbml.parseL3Formula()@endif@~
- * @if java @see <code><a href="libsbml.html#parseL3Formula(String formula)">libsbml.parseL3Formula(String formula)</a></code>@endif@~
- * @if clike @see SBML_formulaToString()@endif@~
- * @if csharp @see SBML_formulaToString()@endif@~
- * @if python @see libsbml.formulaToString()@endif@~
- * @if java @see formulaToString(ASTNode tree)@endif@~
+ * @if clike @see SBML_formulaToString()
+ * @see SBML_parseL3FormulaWithSettings()
+ * @see SBML_parseL3Formula()
+ * @see SBML_parseL3FormulaWithModel()
+ * @see SBML_getLastParseL3Error()
+ * @see SBML_getDefaultL3ParserSettings()
+ * @endif@~
+ * @if csharp @see SBML_formulaToString()
+ * @see SBML_parseL3FormulaWithSettings()
+ * @see SBML_parseL3Formula()
+ * @see SBML_parseL3FormulaWithModel()
+ * @see SBML_getLastParseL3Error()
+ * @see SBML_getDefaultL3ParserSettings()
+ * @endif@~
+ * @if python @see libsbml.formulaToString()
+ * @see libsbml.parseL3FormulaWithSettings()
+ * @see libsbml.parseL3Formula()
+ * @see libsbml.parseL3FormulaWithModel()
+ * @see libsbml.getLastParseL3Error()
+ * @see libsbml.getDefaultL3ParserSettings()
+ * @endif@~
+ * @if java @see <code><a href="libsbml.html#formulaToString(org.sbml.libsbml.ASTNode tree)">libsbml.formulaToString(ASTNode tree)</a></code>
+ * @see <code><a href="libsbml.html#parseL3FormulaWithSettings(java.lang.String, org.sbml.libsbml.L3ParserSettings)">libsbml.parseL3FormulaWithSettings(String formula, L3ParserSettings settings)</a></code>
+ * @see <code><a href="libsbml.html#parseL3Formula(java.lang.String)">libsbml.parseL3Formula(String formula)</a></code>
+ * @see <code><a href="libsbml.html#parseL3FormulaWithModel(java.lang.String, org.sbml.libsbml.Model)">parseL3FormulaWithModel(String formula, Model model)</a></code>
+ * @see <code><a href="libsbml.html#getLastParseL3Error()">getLastParseL3Error()</a></code>
+ * @see <code><a href="libsbml.html#getDefaultL3ParserSettings()">getDefaultL3ParserSettings()</a></code>
+ * @endif@~
  */
 LIBSBML_EXTERN
 ASTNode_t *

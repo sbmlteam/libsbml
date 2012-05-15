@@ -2845,7 +2845,7 @@ BEGIN_C_DECLS
  * error is set; information about the error can be retrieved using
  * @if clike SBML_getLastParseL3Error()@endif@if csharp SBML_getLastParseL3Error()@endif@if python libsbml.getLastParseL3Error()@endif@if java <code><a href="libsbml.html#getLastParseL3Error(java.lang.String)">libsbml.getLastParseL3Error()</a></code>@endif@~.
  *
- * Note that this facility and the SBML Level&nbsp;1-based @if clike SBML_parseFormula()@endif@if csharp SBML_parseFormula()@endif@if python libsbml.parseFormula()@endif@if java <code><a href="libsbml.html#parseFormula(java.lang.String)">libsbml.parseFormula()</a></scode>@endif@~
+ * Note that this facility and the SBML Level&nbsp;1-based @if clike SBML_parseFormula()@endif@if csharp SBML_parseFormula()@endif@if python libsbml.parseFormula()@endif@if java <code><a href="libsbml.html#parseFormula(java.lang.String)">libsbml.parseFormula()</a></code>@endif@~
  * are provided as a convenience by libSBML&mdash;the MathML standard does not
  * actually define a "string-form" equivalent to MathML expressions, so the
  * choice of formula syntax is arbitrary.  The approach taken by libSBML is
