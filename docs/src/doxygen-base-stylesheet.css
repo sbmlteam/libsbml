@@ -1540,3 +1540,22 @@ td.s-na {
   font-weight: bold;
   text-align: center;
 }
+
+.columnlist {
+    margin: 1em 0;
+    padding-left: auto;
+    padding-right: auto;
+    -moz-column-count: 3;
+    -moz-column-gap: 1.5em;
+    -webkit-column-count: 3;
+    -webkit-column-gap: 1.5em;
+    column-count: 3;
+    column-gap: 1.5em;
+}
+
+.list3 {
+    display: inline-block;
+    *display: inline;
+    *zoom: 1;
+    width: 95%;
+}
