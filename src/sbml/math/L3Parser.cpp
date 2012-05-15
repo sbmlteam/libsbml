@@ -297,7 +297,7 @@ LIBSBML_CPP_NAMESPACE_END
 
 
 /* Line 189 of yacc.c  */
-#line 298 "L3Parser.cpp"
+#line 301 "L3Parser.cpp"
 
 /* Enabling traces.  */
 #ifndef YYDEBUG
@@ -342,7 +342,7 @@ typedef union YYSTYPE
 {
 
 /* Line 214 of yacc.c  */
-#line 263 "L3Parser.ypp"
+#line 266 "L3Parser.ypp"
 
   ASTNode* astnode;
   char character;
@@ -355,7 +355,7 @@ typedef union YYSTYPE
 
 
 /* Line 214 of yacc.c  */
-#line 356 "L3Parser.cpp"
+#line 359 "L3Parser.cpp"
 } YYSTYPE;
 # define YYSTYPE_IS_TRIVIAL 1
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */
@@ -367,7 +367,7 @@ typedef union YYSTYPE
 
 
 /* Line 264 of yacc.c  */
-#line 368 "L3Parser.cpp"
+#line 371 "L3Parser.cpp"
 
 #ifdef short
 # undef short
@@ -664,10 +664,10 @@ static const yytype_int8 yyrhs[] =
 /* YYRLINE[YYN] -- source line where rule number YYN was defined.  */
 static const yytype_uint16 yyrline[] =
 {
-       0,   296,   296,   297,   298,   299,   302,   303,   329,   330,
-     331,   342,   353,   354,   355,   356,   357,   358,   391,   392,
-     393,   394,   395,   396,   397,   398,   399,   400,   411,   462,
-     463,   464,   465,   466,   480,   481
+       0,   298,   298,   299,   300,   301,   304,   305,   331,   332,
+     333,   344,   355,   356,   357,   358,   359,   360,   393,   394,
+     395,   396,   397,   398,   399,   400,   401,   402,   413,   464,
+     465,   466,   467,   468,   482,   483
 };
 #endif
 
@@ -1635,35 +1635,35 @@ yyreduce:
         case 3:
 
 /* Line 1464 of yacc.c  */
-#line 297 "L3Parser.ypp"
+#line 299 "L3Parser.ypp"
     {l3p->outputNode = (yyvsp[(1) - (1)].astnode);}
     break;
 
   case 4:
 
 /* Line 1464 of yacc.c  */
-#line 298 "L3Parser.ypp"
+#line 300 "L3Parser.ypp"
     {;}
     break;
 
   case 5:
 
 /* Line 1464 of yacc.c  */
-#line 299 "L3Parser.ypp"
+#line 301 "L3Parser.ypp"
     {delete (yyvsp[(1) - (2)].astnode);;}
     break;
 
   case 6:
 
 /* Line 1464 of yacc.c  */
-#line 302 "L3Parser.ypp"
+#line 304 "L3Parser.ypp"
     {(yyval.astnode) = (yyvsp[(1) - (1)].astnode);;}
     break;
 
   case 7:
 
 /* Line 1464 of yacc.c  */
-#line 303 "L3Parser.ypp"
+#line 305 "L3Parser.ypp"
     {
                    (yyval.astnode) = new ASTNode();
                    string name(*(yyvsp[(1) - (1)].word));
@@ -1695,21 +1695,21 @@ yyreduce:
   case 8:
 
 /* Line 1464 of yacc.c  */
-#line 329 "L3Parser.ypp"
+#line 331 "L3Parser.ypp"
     {(yyval.astnode) = (yyvsp[(2) - (3)].astnode);;}
     break;
 
   case 9:
 
 /* Line 1464 of yacc.c  */
-#line 330 "L3Parser.ypp"
+#line 332 "L3Parser.ypp"
     {(yyval.astnode) = new ASTNode(AST_POWER); (yyval.astnode)->addChild((yyvsp[(1) - (3)].astnode)); (yyval.astnode)->addChild((yyvsp[(3) - (3)].astnode));;}
     break;
 
   case 10:
 
 /* Line 1464 of yacc.c  */
-#line 331 "L3Parser.ypp"
+#line 333 "L3Parser.ypp"
     {
                   if ((yyvsp[(1) - (3)].astnode)->getType()==AST_TIMES) {
                     (yyval.astnode) = (yyvsp[(1) - (3)].astnode);
@@ -1726,7 +1726,7 @@ yyreduce:
   case 11:
 
 /* Line 1464 of yacc.c  */
-#line 342 "L3Parser.ypp"
+#line 344 "L3Parser.ypp"
     {
                   if ((yyvsp[(1) - (3)].astnode)->getType()==AST_PLUS) {
                     (yyval.astnode) = (yyvsp[(1) - (3)].astnode);
@@ -1743,42 +1743,42 @@ yyreduce:
   case 12:
 
 /* Line 1464 of yacc.c  */
-#line 353 "L3Parser.ypp"
+#line 355 "L3Parser.ypp"
     {(yyval.astnode) = new ASTNode(AST_DIVIDE); (yyval.astnode)->addChild((yyvsp[(1) - (3)].astnode)); (yyval.astnode)->addChild((yyvsp[(3) - (3)].astnode));;}
     break;
 
   case 13:
 
 /* Line 1464 of yacc.c  */
-#line 354 "L3Parser.ypp"
+#line 356 "L3Parser.ypp"
     {(yyval.astnode) = new ASTNode(AST_MINUS); (yyval.astnode)->addChild((yyvsp[(1) - (3)].astnode)); (yyval.astnode)->addChild((yyvsp[(3) - (3)].astnode));;}
     break;
 
   case 14:
 
 /* Line 1464 of yacc.c  */
-#line 355 "L3Parser.ypp"
+#line 357 "L3Parser.ypp"
     {(yyval.astnode) = l3p->createModuloTree((yyvsp[(1) - (3)].astnode), (yyvsp[(3) - (3)].astnode));;}
     break;
 
   case 15:
 
 /* Line 1464 of yacc.c  */
-#line 356 "L3Parser.ypp"
+#line 358 "L3Parser.ypp"
     {(yyval.astnode) = new ASTNode(AST_RELATIONAL_GT); (yyval.astnode)->addChild((yyvsp[(1) - (3)].astnode)); (yyval.astnode)->addChild((yyvsp[(3) - (3)].astnode));;}
     break;
 
   case 16:
 
 /* Line 1464 of yacc.c  */
-#line 357 "L3Parser.ypp"
+#line 359 "L3Parser.ypp"
     {(yyval.astnode) = new ASTNode(AST_RELATIONAL_LT); (yyval.astnode)->addChild((yyvsp[(1) - (3)].astnode)); (yyval.astnode)->addChild((yyvsp[(3) - (3)].astnode));;}
     break;
 
   case 17:
 
 /* Line 1464 of yacc.c  */
-#line 358 "L3Parser.ypp"
+#line 360 "L3Parser.ypp"
     {
                   if (l3p->collapseminus) {
                     if ((yyvsp[(2) - (2)].astnode)->getType()==AST_REAL) {
@@ -1817,70 +1817,70 @@ yyreduce:
   case 18:
 
 /* Line 1464 of yacc.c  */
-#line 391 "L3Parser.ypp"
+#line 393 "L3Parser.ypp"
     {(yyval.astnode) = new ASTNode(AST_RELATIONAL_GEQ); (yyval.astnode)->addChild((yyvsp[(1) - (4)].astnode)); (yyval.astnode)->addChild((yyvsp[(4) - (4)].astnode));;}
     break;
 
   case 19:
 
 /* Line 1464 of yacc.c  */
-#line 392 "L3Parser.ypp"
+#line 394 "L3Parser.ypp"
     {(yyval.astnode) = new ASTNode(AST_RELATIONAL_LEQ); (yyval.astnode)->addChild((yyvsp[(1) - (4)].astnode)); (yyval.astnode)->addChild((yyvsp[(4) - (4)].astnode));;}
     break;
 
   case 20:
 
 /* Line 1464 of yacc.c  */
-#line 393 "L3Parser.ypp"
+#line 395 "L3Parser.ypp"
     {(yyval.astnode) = new ASTNode(AST_RELATIONAL_EQ); (yyval.astnode)->addChild((yyvsp[(1) - (4)].astnode)); (yyval.astnode)->addChild((yyvsp[(4) - (4)].astnode));;}
     break;
 
   case 21:
 
 /* Line 1464 of yacc.c  */
-#line 394 "L3Parser.ypp"
+#line 396 "L3Parser.ypp"
     {(yyval.astnode) = new ASTNode(AST_RELATIONAL_NEQ); (yyval.astnode)->addChild((yyvsp[(1) - (4)].astnode)); (yyval.astnode)->addChild((yyvsp[(4) - (4)].astnode));;}
     break;
 
   case 22:
 
 /* Line 1464 of yacc.c  */
-#line 395 "L3Parser.ypp"
+#line 397 "L3Parser.ypp"
     {(yyval.astnode) = new ASTNode(AST_RELATIONAL_NEQ); (yyval.astnode)->addChild((yyvsp[(1) - (4)].astnode)); (yyval.astnode)->addChild((yyvsp[(4) - (4)].astnode));;}
     break;
 
   case 23:
 
 /* Line 1464 of yacc.c  */
-#line 396 "L3Parser.ypp"
+#line 398 "L3Parser.ypp"
     {(yyval.astnode) = new ASTNode(AST_RELATIONAL_NEQ); (yyval.astnode)->addChild((yyvsp[(1) - (4)].astnode)); (yyval.astnode)->addChild((yyvsp[(4) - (4)].astnode));;}
     break;
 
   case 24:
 
 /* Line 1464 of yacc.c  */
-#line 397 "L3Parser.ypp"
+#line 399 "L3Parser.ypp"
     {(yyval.astnode) = new ASTNode(AST_LOGICAL_AND); (yyval.astnode)->addChild((yyvsp[(1) - (4)].astnode)); (yyval.astnode)->addChild((yyvsp[(4) - (4)].astnode));;}
     break;
 
   case 25:
 
 /* Line 1464 of yacc.c  */
-#line 398 "L3Parser.ypp"
+#line 400 "L3Parser.ypp"
     {(yyval.astnode) = new ASTNode(AST_LOGICAL_OR); (yyval.astnode)->addChild((yyvsp[(1) - (4)].astnode)); (yyval.astnode)->addChild((yyvsp[(4) - (4)].astnode));;}
     break;
 
   case 26:
 
 /* Line 1464 of yacc.c  */
-#line 399 "L3Parser.ypp"
+#line 401 "L3Parser.ypp"
     {(yyval.astnode) = new ASTNode(AST_LOGICAL_NOT); (yyval.astnode)->addChild((yyvsp[(2) - (2)].astnode));;}
     break;
 
   case 27:
 
 /* Line 1464 of yacc.c  */
-#line 400 "L3Parser.ypp"
+#line 402 "L3Parser.ypp"
     {
                    (yyval.astnode) = new ASTNode(AST_FUNCTION);
                    string name(*(yyvsp[(1) - (3)].word));
@@ -1897,7 +1897,7 @@ yyreduce:
   case 28:
 
 /* Line 1464 of yacc.c  */
-#line 411 "L3Parser.ypp"
+#line 413 "L3Parser.ypp"
     {
                    (yyval.astnode) = (yyvsp[(3) - (4)].astnode);
                    string name(*(yyvsp[(1) - (4)].word));
@@ -1952,35 +1952,35 @@ yyreduce:
   case 29:
 
 /* Line 1464 of yacc.c  */
-#line 462 "L3Parser.ypp"
+#line 464 "L3Parser.ypp"
     {(yyval.astnode) = new ASTNode(); (yyval.astnode)->setValue((yyvsp[(1) - (1)].numdouble));;}
     break;
 
   case 30:
 
 /* Line 1464 of yacc.c  */
-#line 463 "L3Parser.ypp"
+#line 465 "L3Parser.ypp"
     {(yyval.astnode) = new ASTNode(); (yyval.astnode)->setValue((yyvsp[(1) - (1)].mantissa), l3p->exponent);;}
     break;
 
   case 31:
 
 /* Line 1464 of yacc.c  */
-#line 464 "L3Parser.ypp"
+#line 466 "L3Parser.ypp"
     {(yyval.astnode) = new ASTNode(); (yyval.astnode)->setValue((yyvsp[(1) - (1)].numlong));;}
     break;
 
   case 32:
 
 /* Line 1464 of yacc.c  */
-#line 465 "L3Parser.ypp"
+#line 467 "L3Parser.ypp"
     {(yyval.astnode) = new ASTNode(); (yyval.astnode)->setValue((yyvsp[(1) - (1)].rational), l3p->denominator);;}
     break;
 
   case 33:
 
 /* Line 1464 of yacc.c  */
-#line 466 "L3Parser.ypp"
+#line 468 "L3Parser.ypp"
     {
                   (yyval.astnode) = (yyvsp[(1) - (2)].astnode);
                   if ((yyval.astnode)->getUnits() != "") {
@@ -1998,21 +1998,21 @@ yyreduce:
   case 34:
 
 /* Line 1464 of yacc.c  */
-#line 480 "L3Parser.ypp"
+#line 482 "L3Parser.ypp"
     {(yyval.astnode) = new ASTNode(AST_FUNCTION); (yyval.astnode)->addChild((yyvsp[(1) - (1)].astnode));;}
     break;
 
   case 35:
 
 /* Line 1464 of yacc.c  */
-#line 481 "L3Parser.ypp"
+#line 483 "L3Parser.ypp"
     {(yyval.astnode) = (yyvsp[(1) - (3)].astnode);  (yyval.astnode)->addChild((yyvsp[(3) - (3)].astnode));;}
     break;
 
 
 
 /* Line 1464 of yacc.c  */
-#line 2013 "L3Parser.cpp"
+#line 2016 "L3Parser.cpp"
       default: break;
     }
   YY_SYMBOL_PRINT ("-> $$ =", yyr1[yyn], &yyval, &yyloc);
@@ -2224,7 +2224,7 @@ yyreturn:
 
 
 /* Line 1684 of yacc.c  */
-#line 484 "L3Parser.ypp"
+#line 486 "L3Parser.ypp"
 
 
 
