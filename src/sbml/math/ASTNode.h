@@ -80,27 +80,23 @@
  * ASTNodeType_t</a></h3> @else <h3><a class="anchor"
  * name="ASTNodeType_t">The set of possible %ASTNode types</a></h3> @endif@~
  *
- * @if clike Every ASTNode has an associated type code to indicate,
+ * Every ASTNode has an associated type code to indicate,
  * for example, whether it holds a number or stands for an arithmetic
- * operator.  The type is recorded as a value drawn from the enumeration 
- * @link ASTNode.h::ASTNodeType_t ASTNodeType_t@endlink.  The list of
- * possible types is quite long, because it covers all the mathematical
- * functions that are permitted in SBML.  The values are shown in the
- * following table: @endif@if java Every ASTNode has an associated
- * type code to indicate, for example, whether it holds a number or stands for
- * an arithmetic operator.  The type is recorded as a value drawn from a
+ * operator.
+ * @if clike The type is recorded as a value drawn from the enumeration 
+ * @link ASTNode.h::ASTNodeType_t ASTNodeType_t@endlink.@endif
+ * @if java The type is recorded as a value drawn from a
  * set of static integer constants defined in the class {@link
- * libsbmlConstants}.  Their names begin with the characters @c AST_.  The
- * list of possible types is quite long, because it covers all the
- * mathematical functions that are permitted in SBML.  The values are shown
- * in the following table: @else python Every ASTNode has an associated
- * type code to indicate, for example, whether it holds a number or stands for
- * an arithmetic operator.  The type is recorded as a value drawn from a
+ * libsbmlConstants}. Their names begin with the characters @c AST_.@endif
+ * @if python The type is recorded as a value drawn from a
  * set of static integer constants defined in the class {@link
- * libsbml}.  Their names begin with the characters @c AST_.  The
- * list of possible types is quite long, because it covers all the
- * mathematical functions that are permitted in SBML.  The values are shown
- * in the following table: @endif@~
+ * libsbml}. Their names begin with the characters @c AST_.@endif
+ * @if csharp The type is recorded as a value drawn from a
+ * set of static integer constants defined in the class {@link
+ * libsbml}. Their names begin with the characters @c AST_.@endif
+ * The list of possible types is quite long, because it covers all the
+ * mathematical functions that are permitted in SBML. The values are shown
+ * in the following table:
  *
  * @htmlinclude astnode-types.html
  *
