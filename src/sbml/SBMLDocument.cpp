@@ -1202,7 +1202,7 @@ SBMLDocument::isSetPkgRequired(const std::string& package)
 bool 
 SBMLDocument::isIgnoredPackage(const std::string& pkgURI)
 {
-  if (isSetPkgRequired(pkgURI) && !isPkgURIEnabled(pkgURI))
+  if (isSetPackageRequired(pkgURI) && !isPackageURIEnabled(pkgURI))
     return true;
 
   return false;

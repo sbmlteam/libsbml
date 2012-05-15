@@ -1398,7 +1398,7 @@ public:
    * @return a boolean
    *
    * @deprecated Replaced in libSBML 5.2.0 by
-   * isIgnoredPkg(@if java String pkgURI flag@endif)
+   * isIgnoredPackage(@if java String pkgURI flag@endif)
    */
   bool isIgnoredPkg(const std::string& pkgURI);
   

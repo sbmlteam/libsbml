@@ -2836,14 +2836,14 @@ SBase::enablePackage(const std::string& pkgURI, const std::string& prefix, bool 
   //
   if (flag)
   {
-    if (isPkgURIEnabled(pkgURI))
+    if (isPackageURIEnabled(pkgURI))
     {
       return LIBSBML_OPERATION_SUCCESS;
     }
   }
   else
   {
-    if (!isPkgURIEnabled(pkgURI))
+    if (!isPackageURIEnabled(pkgURI))
     {
       return LIBSBML_OPERATION_SUCCESS;
     }
@@ -2862,7 +2862,7 @@ SBase::enablePackage(const std::string& pkgURI, const std::string& prefix, bool 
   //
   // Checks version conflicts of the given package
   //
-  if (flag && isPkgEnabled(sbmlext->getName()))
+  if (flag && isPackageEnabled(sbmlext->getName()))
   {
     return LIBSBML_PKG_CONFLICTED_VERSION;
   }
@@ -2872,7 +2872,7 @@ SBase::enablePackage(const std::string& pkgURI, const std::string& prefix, bool 
   // consistent with those of this object.
   //
   /* if we happen to be using layout in L2 we cannot do the version
-   * check since the uri has no way of telling which sbml versio
+   * check since the uri has no way of telling which sbml version is being used.
    */
   if (sbmlext->getName() == "layout") 
   {
@@ -4579,13 +4579,13 @@ SBase::storeUnknownExtAttribute(const std::string& element,
   //
   // Checks if the extension package is enabled.
   //
-  if (!mSBML->isPkgURIEnabled(uri))
+  if (!mSBML->isPackageURIEnabled(uri))
   {
     //
     // Checks if the extension package with the uri is unsupporeted
     // (ignored)
     //
-    if (mSBML->isIgnoredPkg(uri))
+    if (mSBML->isIgnoredPackage(uri))
     {
       std::string name   = xattr.getName(index);
       std::string prefix = xattr.getPrefix(index);
@@ -4594,7 +4594,7 @@ SBase::storeUnknownExtAttribute(const std::string& element,
       mAttributesOfUnknownPkg.add(name,value,uri,prefix);
 
       /* this is now caught earlier and so can be ignored here
-      if (mSBML->getPkgRequired(uri))
+      if (mSBML->getPackageRequired(uri))
       {
         logUnknownAttribute(prefix + ":" + name, getLevel(), getVersion(), element);
       }
@@ -4622,7 +4622,7 @@ SBase::storeUnknownExtElement(XMLInputStream &stream)
   {
     return false;
   }
-  else if (mSBML->isIgnoredPkg(uri))
+  else if (mSBML->isIgnoredPackage(uri))
   {
     //
     // Checks if the extension package with the uri is unknown
@@ -4631,7 +4631,7 @@ SBase::storeUnknownExtElement(XMLInputStream &stream)
     /* do not need to do this now i have logged this as
      * a required package that cannot be interpreted
      
-    if (mSBML->getPkgRequired(uri))
+    if (mSBML->getPackageRequired(uri))
     {
       const string& name   = stream.peek().getName();
       string prefix = stream.peek().getPrefix();
