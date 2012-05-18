@@ -724,6 +724,13 @@ SBase::divideAssignmentsToSIdByFunction(const std::string& id, const ASTNode* fu
 }
 /** @endcond */
 
+/** @cond doxygen-libsbml-internal */
+void 
+SBase::multiplyAssignmentsToSIdByFunction(const std::string& id, const ASTNode* function)
+{
+}
+/** @endcond */
+
 void *
 SBase::getUserData() const
 {

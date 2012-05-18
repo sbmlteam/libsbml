@@ -310,6 +310,14 @@ public:
 
   /** @cond doxygen-libsbml-internal */
   /**
+   * If this assignment assigns a value to the 'id' element, replace the 'math' object with the function (existing*function). 
+   */
+  virtual void multiplyAssignmentsToSIdByFunction(const std::string& id, const ASTNode* function);
+  /** @endcond */
+
+
+  /** @cond doxygen-libsbml-internal */
+  /**
    * Returns the first child element found that has the given id in the
    * model-wide SId namespace from all plugins associated with this
    * element, or @c NULL if no such object is found.

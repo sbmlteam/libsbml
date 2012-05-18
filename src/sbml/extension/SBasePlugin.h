@@ -661,6 +661,13 @@ public:
 
   /** @cond doxygen-libsbml-internal */
   /**
+   * If this assignment assigns a value to the 'id' element, replace the 'math' object with the function (existing*function). 
+   */
+  virtual void multiplyAssignmentsToSIdByFunction(const std::string& id, const ASTNode* function);
+  /** @endcond */
+
+  /** @cond doxygen-libsbml-internal */
+  /**
    * Check to see if the given prefix is used by any of the IDs defined by extension elements.  A package that defines its own 'id' attribute for a core element would check that attribute here.
    */
   virtual bool hasIdentifierBeginningWith(const std::string& prefix);

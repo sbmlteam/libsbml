@@ -640,6 +640,13 @@ public:
   virtual void divideAssignmentsToSIdByFunction(const std::string& id, const ASTNode* function);
   /** @endcond */
 
+  /** @cond doxygen-libsbml-internal */
+  /**
+   * If this assignment assigns a value to the 'id' element, replace the 'math' object with the function (existing*function). 
+   */
+  virtual void multiplyAssignmentsToSIdByFunction(const std::string& id, const ASTNode* function);
+  /** @endcond */
+
 
 protected:
   /** @cond doxygen-libsbml-internal */

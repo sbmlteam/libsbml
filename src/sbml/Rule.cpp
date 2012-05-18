@@ -830,7 +830,6 @@ Rule::renameUnitSIdRefs(std::string oldid, std::string newid)
   }
 }
 
-/** @cond doxygen-libsbml-internal */
 void 
 Rule::replaceSIDWithFunction(const std::string& id, const ASTNode* function)
 {
@@ -844,9 +843,7 @@ Rule::replaceSIDWithFunction(const std::string& id, const ASTNode* function)
     }
   }
 }
-/** @endcond */
 
-/** @cond doxygen-libsbml-internal */
 void 
 Rule::divideAssignmentsToSIdByFunction(const std::string& id, const ASTNode* function)
 {
@@ -857,9 +854,18 @@ Rule::divideAssignmentsToSIdByFunction(const std::string& id, const ASTNode* fun
     mMath->addChild(function->deepCopy());
   }
 }
-/** @endcond */
 
-/** @cond doxygen-libsbml-internal */
+void 
+Rule::multiplyAssignmentsToSIdByFunction(const std::string& id, const ASTNode* function)
+{
+  if (mVariable == id && isSetMath()) {
+    ASTNode* temp = mMath;
+    mMath = new ASTNode(AST_TIMES);
+    mMath->addChild(temp);
+    mMath->addChild(function->deepCopy());
+  }
+}
+
 bool 
 Rule::hasRequiredAttributes() const
 {

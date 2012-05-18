@@ -1171,7 +1171,6 @@ KineticLaw::renameUnitSIdRefs(std::string oldid, std::string newid)
   if (mSubstanceUnits == oldid) mSubstanceUnits = newid;
 }
 
-/** @cond doxygen-libsbml-internal */
 void 
 KineticLaw::replaceSIDWithFunction(const std::string& id, const ASTNode* function)
 {
@@ -1185,9 +1184,7 @@ KineticLaw::replaceSIDWithFunction(const std::string& id, const ASTNode* functio
     }
   }
 }
-/** @endcond */
 
-/** @cond doxygen-libsbml-internal */
 void 
 KineticLaw::divideAssignmentsToSIdByFunction(const std::string& id, const ASTNode* function)
 {
@@ -1200,7 +1197,20 @@ KineticLaw::divideAssignmentsToSIdByFunction(const std::string& id, const ASTNod
     mMath->addChild(function->deepCopy());
   }
 }
-/** @endcond */
+
+void 
+KineticLaw::multiplyAssignmentsToSIdByFunction(const std::string& id, const ASTNode* function)
+{
+  SBase* parentrxn = getParentSBMLObject();
+  if (parentrxn==NULL) return;
+  if (parentrxn->getId() == id && isSetMath()) {
+    ASTNode* temp = mMath;
+    mMath = new ASTNode(AST_TIMES);
+    mMath->addChild(temp);
+    mMath->addChild(function->deepCopy());
+  }
+}
+
 
 /** @cond doxygen-libsbml-internal */
 /*
