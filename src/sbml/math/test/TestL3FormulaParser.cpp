@@ -1798,6 +1798,50 @@ START_TEST (test_SBML_parseL3Formula_unitssettings)
 END_TEST
 
 
+START_TEST (test_SBML_parseL3Formula_power)
+{
+  ASTNode_t *r = SBML_parseL3Formula("pow(1.1, 3)");
+
+  fail_unless( ASTNode_getType       (r) == AST_POWER, NULL );
+  fail_unless( ASTNode_getNumChildren(r) == 2  , NULL );
+
+  ASTNode_t *c = ASTNode_getLeftChild(r);
+
+  fail_unless( ASTNode_getType       (c) == AST_REAL, NULL );
+  fail_unless( ASTNode_getReal       (c) == 1.1, NULL );
+  fail_unless( ASTNode_getNumChildren(c) == 0, NULL );
+
+  c = ASTNode_getRightChild(r);
+
+  fail_unless( ASTNode_getType       (c) == AST_INTEGER, NULL );
+  fail_unless( ASTNode_getInteger    (c) == 3, NULL );
+  fail_unless( ASTNode_getNumChildren(c) == 0, NULL );
+
+  ASTNode_free(r);
+
+  r = SBML_parseL3Formula("Power(1.1, 3)");
+
+  fail_unless( ASTNode_getType       (r) == AST_POWER, NULL );
+  fail_unless( ASTNode_getNumChildren(r) == 2  , NULL );
+
+  c = ASTNode_getLeftChild(r);
+
+  fail_unless( ASTNode_getType       (c) == AST_REAL, NULL );
+  fail_unless( ASTNode_getReal       (c) == 1.1, NULL );
+  fail_unless( ASTNode_getNumChildren(c) == 0, NULL );
+
+  c = ASTNode_getRightChild(r);
+
+  fail_unless( ASTNode_getType       (c) == AST_INTEGER, NULL );
+  fail_unless( ASTNode_getInteger    (c) == 3, NULL );
+  fail_unless( ASTNode_getNumChildren(c) == 0, NULL );
+
+  ASTNode_free(r);
+
+}
+END_TEST
+
+
 Suite *
 create_suite_L3FormulaParser (void) 
 { 
@@ -1872,6 +1916,7 @@ create_suite_L3FormulaParser (void)
   tcase_add_test( tcase, test_SBML_parseL3Formula_collapseminussettings5);
   tcase_add_test( tcase, test_SBML_parseL3Formula_avogadrosettings);
   tcase_add_test( tcase, test_SBML_parseL3Formula_unitssettings);
+  tcase_add_test( tcase, test_SBML_parseL3Formula_power);
 
   suite_add_tcase(suite, tcase);
 
