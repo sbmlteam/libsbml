@@ -1976,7 +1976,7 @@ ASTNode::replaceIDWithFunction(const std::string& id, const ASTNode* function)
   for (unsigned int i=0; i<getNumChildren(); i++) {
     ASTNode* child = getChild(i);
     if (child->getType() == AST_NAME &&
-        child->getId() == id) {
+        child->getName() == id) {
       replaceChild(i, function->deepCopy());
     }
     else {

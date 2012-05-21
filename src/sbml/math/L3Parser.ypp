@@ -703,6 +703,7 @@ ASTNodeType_t L3Parser::getFunctionFor(string name) const
   if (caselessStrCmp(name, "log10"))    return AST_FUNCTION_LOG;
   if (caselessStrCmp(name, "piecewise")) return AST_FUNCTION_PIECEWISE;
   if (caselessStrCmp(name, "power"))    return AST_POWER;
+  if (caselessStrCmp(name, "pow"))      return AST_POWER;
   if (caselessStrCmp(name, "sqr"))      return AST_FUNCTION_POWER;
   if (caselessStrCmp(name, "sqrt"))     return AST_FUNCTION_ROOT;
   if (caselessStrCmp(name, "root"))     return AST_FUNCTION_ROOT;
