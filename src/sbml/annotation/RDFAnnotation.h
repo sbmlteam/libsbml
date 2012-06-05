@@ -26,6 +26,6 @@
  * ------------------------------------------------------------------------ -->
  */
 
-// for backward compatability
+/* for backward compatability */
 
 #include "RDFAnnotationParser.h"
