@@ -257,7 +257,7 @@ static const sbmlErrorTableEntry errorTable[] =
       Category_* To be strictly in line with sbml specifications it should
       * only allow semantics on csymbol until l2v3 rel 2
       * BUT since no one ever applied it anyway I havent implemented
-      * this as it would require a seperate rule that then
+      * this as it would require a separate rule that then
       * reverted to this id
       */
     DisallowedDefinitionURLUse,
@@ -8593,7 +8593,7 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_WARNING,   
     LIBSBML_SEV_WARNING,
     LIBSBML_SEV_WARNING,
-    "The SBOTerm used is not recognised by libSBML and therefore the correct "
+    "The SBOTerm used is not recognized by libSBML and therefore the correct "
     "parentage cannot be checked. However, since libSBML is referring to a "
     "snapshot of the SBO tree the term may now exist."
   },
@@ -8630,7 +8630,7 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
     "The 'spatialDimensions' attribute on <compartment> was not available "
-    "in SBML Level 1. In order for the internal respresentation of a "
+    "in SBML Level 1. In order for the internal representation of a "
     "<compartment> to be correct, the value for the spatialDimensions "
     "member variable should be '3'."
   },
@@ -8649,7 +8649,7 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_ERROR,   
     "The 'compartmentType' attribute on <compartment> was not available "
     "in SBML Level 1 or SBML Level 2 Version 1. In order for the internal "
-    "respresentation of a <compartment> to be correct, the value for the "
+    "representation of a <compartment> to be correct, the value for the "
     "compartmentType member variable should be not be set."
   },
 
@@ -8666,7 +8666,7 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
     "The 'constant' attribute on <compartment> and <parameter> was not "
-    "available in SBML Level 1. In order for the internal respresentation "
+    "available in SBML Level 1. In order for the internal representation "
     "of <compartment> and <parameter> to be correct, the value for the "
     "constant member variable should be 'false' if the <compartment> or "
     "<parameter> is the variable of a <rule> otherwise it can be either "
@@ -8687,7 +8687,7 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_NOT_APPLICABLE,
     "The 'metaid' attribute on all <SBase> objects was not available "
     "in SBML Level 1. In order for the internal "
-    "respresentation to be correct, the value for the "
+    "representation to be correct, the value for the "
     "'metaid' member variable should be not be set."
   },
 
@@ -8707,7 +8707,7 @@ static const sbmlErrorTableEntry errorTable[] =
     "<delay>, <species>, <speciesType>, <stoichiometryMath>, <trigger> "
     "<unit> and <unitDefinition> was not available before SBML Level 2 "
     "Version 3. In order for the internal "
-    "respresentation of these components to be correct, the value for the "
+    "representation of these components to be correct, the value for the "
     "sboTerm member variable should be '-1'."
   },
 
@@ -8759,7 +8759,7 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_ERROR,   
     "The <compartmentType> component was introduced in SBML Level 2 Version "
-    "2. In order for the internal respresentation of a <model> to "
+    "2. In order for the internal representation of a <model> to "
     "be correct, the <listOfCompartmentTypes> component should be empty."
   },
 
@@ -8776,7 +8776,7 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
     "The <constraint> component was introduced in SBML Level 2 Version "
-    "2. In order for the internal respresentation of a <model> to "
+    "2. In order for the internal representation of a <model> to "
     "be correct, the <listOfConstraints> component should be empty."
   },
 
@@ -8793,7 +8793,7 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
     "The <event> component was introduced in SBML Level 2 Version "
-    "1. In order for the internal respresentation of a <model> to "
+    "1. In order for the internal representation of a <model> to "
     "be correct, the <listOfEvents> component should be empty."
   },
 
@@ -8813,7 +8813,7 @@ static const sbmlErrorTableEntry errorTable[] =
     "<functionDefinition>, <kineticLaw>, <model>, <parameter>, <reaction> "
     "<rule> and <speciesReferenece> was not available before SBML Level 2 "
     "Version 2. In order for the internal "
-    "respresentation of these components to be correct, the value for the "
+    "representation of these components to be correct, the value for the "
     "sboTerm member variable should be '-1'."
   },
 
@@ -8830,7 +8830,7 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
     "The <functionDefinition> component was introduced in SBML Level 2 Version "
-    "1. In order for the internal respresentation of a <model> to "
+    "1. In order for the internal representation of a <model> to "
     "be correct, the <listOfFunctionDefinitions> component should be empty."
   },
 
@@ -8901,7 +8901,7 @@ static const sbmlErrorTableEntry errorTable[] =
     "of <species> to be correct, the value for the "
     "constant member variable should be 'false' if (1) the <species> is the "
     "variable of a <rule> or (2) the 'boundaryCondition' attribute is 'false' "
-    "and the <species> is a procduct/reactant in a <reaction>. Otherwise it "
+    "and the <species> is a product/reactant in a <reaction>. Otherwise it "
     "can be either 'true' or 'false' without affecting the interpretation of "
     "the model."
   },
