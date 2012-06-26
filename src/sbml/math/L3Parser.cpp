@@ -2274,63 +2274,67 @@ int sbml_yylex(void)
   if (isdigit(cc) || (cc=='.' && isdigit(l3p->input.peek()))) {
     double number;
     long numlong;
-    bool isdouble = false;
     l3p->input.unget();
-    if (cc != '.') {
-      l3p->input >> numlong;
-    }
-    else {
-      numlong = 0;
-    }
-    if (l3p->input.peek() == '.') {
-      isdouble = true;
-      number = numlong;
-      l3p->input.get();
-      if (isdigit(l3p->input.peek())) {
-        streampos numbegin = l3p->input.tellg();
-        l3p->input >> numlong;
-        streampos numend = l3p->input.tellg();
-        if (numend < 0)
-            numend = l3p->input.str().length();
-        double fraction = numlong/pow(10.0, static_cast<long>(numend-numbegin));
-        number += fraction;
-      }
-    }
-    if (l3p->input.peek() == 'e' || l3p->input.peek() == 'E') {
-      l3p->input.get();
+    streampos numbegin = l3p->input.tellg();
+    l3p->input >> numlong;
+    l3p->input.clear();
+    l3p->input.seekg(numbegin);
+    l3p->input >> number;
+    streampos numend = l3p->input.tellg();
+    l3p->input.clear();
+    l3p->input.seekg(numbegin);
+    bool decimal = false;
+    bool e = false;
+    while (l3p->input.tellg() != numend) {
       cc = l3p->input.get();
-      if (!(isdigit(cc) || cc=='-' || cc=='+')) {
-        l3p->input.unget();
-        l3p->input.unget();
+      if (cc=='.') {
+        decimal = true;
       }
-      else {
-        if (!isdouble) {
-          //It is now!
-          number = numlong;
-        }
-        bool isneg = false;
-        if (cc=='-') {
-          isneg = true;
-        }
-        else if (isdigit(cc)) {
-          l3p->input.unget();
-        }
-        l3p->input >> numlong;
-        if (isneg) {
-          numlong = -numlong;
-        }
-        l3p->exponent = numlong;
-        sbml_yylval.mantissa = number;
-        return E_NOTATION;
+      if (cc=='e' || cc=='E') {
+        e = true;
       }
     }
-    if (isdouble) {
+    if (!decimal && !e && number == static_cast<double>(numlong)) {
+      sbml_yylval.numlong = numlong;
+      return INTEGER;
+    }
+    if (!e) {
       sbml_yylval.numdouble = number;
       return DOUBLE;
     }
+    l3p->input.clear();
+    l3p->input.seekg(numbegin);
+    string mantissa = "";
+    while (l3p->input.tellg() != numend && (isdigit(cc) || cc=='.')) {
+      cc = l3p->input.get();
+      mantissa += cc;
+    }
+    if (cc=='e' || cc=='E') {
+      mantissa.pop_back();
+      if (l3p->input.peek()=='+') {
+        cc = l3p->input.get();
+      }
+      bool isneg = false;
+      if (l3p->input.peek()=='-') {
+        cc = l3p->input.get();
+        isneg = true;
+      }
+      l3p->input >> numlong;
+      if (isneg) {
+        numlong = -numlong;
+      }
+      stringstream mantissastr;
+      mantissastr.str(mantissa);
+      mantissastr >> number;
+      l3p->exponent = numlong;
+      sbml_yylval.mantissa = number;
+      return E_NOTATION;
+    }
     else {
-      sbml_yylval.numlong = numlong;
-      return INTEGER;
+      assert(false); //How did this happen?
+      //This is an error condition, but parsing the value as a double should be sufficient.
+      sbml_yylval.numdouble = number;
+      return DOUBLE;
     }
   }
   else if (cc=='(') {
@@ -2357,6 +2361,7 @@ int sbml_yylex(void)
         }
       }
     }
+	l3p->input.clear();
     l3p->input.seekg(rationalbegin, ios::beg); // Not actually a rational number.
     return '(';
   }

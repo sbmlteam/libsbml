@@ -1842,6 +1842,62 @@ START_TEST (test_SBML_parseL3Formula_power)
 END_TEST
 
 
+START_TEST (test_SBML_parseL3Formula_longint)
+{
+  ASTNode_t *r = SBML_parseL3Formula("166112956810631");
+
+  fail_unless( ASTNode_getType       (r) == AST_REAL, NULL );
+  fail_unless( ASTNode_getReal       (r) == 166112956810631.0, NULL );
+  fail_unless( ASTNode_getNumChildren(r) == 0  , NULL );
+
+  ASTNode_free(r);
+
+}
+END_TEST
+
+
+START_TEST (test_SBML_parseL3Formula_longdecimal)
+{
+  ASTNode_t *r = SBML_parseL3Formula("0.00166112956810631");
+
+  fail_unless( ASTNode_getType       (r) == AST_REAL, NULL );
+  fail_unless( ASTNode_getReal       (r) == 0.00166112956810631, NULL );
+  fail_unless( ASTNode_getNumChildren(r) == 0  , NULL );
+
+  ASTNode_free(r);
+
+}
+END_TEST
+
+
+START_TEST (test_SBML_parseL3Formula_longnumberparen)
+{
+  ASTNode_t *r = SBML_parseL3Formula("(0.00166112956810631)");
+
+  fail_unless( ASTNode_getType       (r) == AST_REAL, NULL );
+  fail_unless( ASTNode_getReal       (r) == 0.00166112956810631, NULL );
+  fail_unless( ASTNode_getNumChildren(r) == 0  , NULL );
+
+  ASTNode_free(r);
+
+}
+END_TEST
+
+
+START_TEST (test_SBML_parseL3Formula_crazylong)
+{
+  ASTNode_t *r = SBML_parseL3Formula("(1234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890)");
+
+  fail_unless( ASTNode_getType(r)             == AST_REAL, NULL );
+  fail_unless( util_isInf(ASTNode_getReal(r)) ==  1, NULL );
+  fail_unless( ASTNode_getNumChildren(r)      ==  0, NULL );
+
+  ASTNode_free(r);
+
+}
+END_TEST
+
+
 Suite *
 create_suite_L3FormulaParser (void) 
 { 
@@ -1917,7 +1973,10 @@ create_suite_L3FormulaParser (void)
   tcase_add_test( tcase, test_SBML_parseL3Formula_avogadrosettings);
   tcase_add_test( tcase, test_SBML_parseL3Formula_unitssettings);
   tcase_add_test( tcase, test_SBML_parseL3Formula_power);
-
+  tcase_add_test( tcase, test_SBML_parseL3Formula_longint);
+  tcase_add_test( tcase, test_SBML_parseL3Formula_longdecimal);
+  tcase_add_test( tcase, test_SBML_parseL3Formula_longnumberparen);
+  tcase_add_test( tcase, test_SBML_parseL3Formula_crazylong);
   suite_add_tcase(suite, tcase);
 
   return suite;
