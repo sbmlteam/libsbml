@@ -64,7 +64,7 @@ logs in the source code repository at
 ======================================================================
 
 
-1.1 Linux, MacOS X, FreeBSD, and Solaris
+2.1 Linux, MacOS X, FreeBSD, and Solaris
 ----------------------------------------
 
 At the Unix command prompt, untar the distribution, cd into it (e.g.,
@@ -139,7 +139,7 @@ command:
   make uninstall
 
 
-1.2 Windows
+2.2 Windows
 -----------
 
 Download and run the self-extracting windows installer for libSBML.
@@ -154,7 +154,7 @@ Multithreaded DLL or Debug Multithreaded DLL version of the VC++
 runtime, respectively.
 
 
-2. INTRODUCTION
+3. INTRODUCTION
 ======================================================================
 
 This README file describes libSBML, a library for reading, writing and
@@ -248,7 +248,7 @@ Feature Highlights:
   and closely reflects the actual API.
 
 
-3. DETAILED INSTRUCTIONS FOR CONFIGURING AND INSTALLING LIBSBML
+4. DETAILED INSTRUCTIONS FOR CONFIGURING AND INSTALLING LIBSBML
 ======================================================================
 
 Detailed instructions for building and configuring libSBML are now
@@ -278,7 +278,7 @@ of the current libSBML-5:
   (4) docs/00README-ChangesInSBase.txt
 
 
-4. REPORTING BUGS AND OTHER PROBLEMS
+5. REPORTING BUGS AND OTHER PROBLEMS
 ======================================================================
 
 We invite you to report bugs and other problems using the issue
@@ -294,7 +294,7 @@ experienced the issue and offer a workaround more quickly than the
 libSBML developers can respond.
 
 
-5. MAILING LISTS
+6. MAILING LISTS
 ======================================================================
 
 There are two kinds of mailing lists available: normal discussion
@@ -333,7 +333,7 @@ list by visiting the following URL:
   https://lists.sourceforge.net/lists/listinfo/sbml-svn
 
 
-6. LICENSING AND DISTRIBUTION
+7. LICENSING AND DISTRIBUTION
 ======================================================================
 
 LibSBML incorporates a third-party software library, MiniZip
@@ -383,7 +383,7 @@ Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
 MA 02110-1301, USA.
 
 
-7. ACKNOWLEDGMENTS
+8. ACKNOWLEDGMENTS
 ======================================================================
 
 This and other projects of the SBML Team have been supported by the
