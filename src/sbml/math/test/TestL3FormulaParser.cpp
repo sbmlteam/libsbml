@@ -1898,6 +1898,146 @@ START_TEST (test_SBML_parseL3Formula_crazylong)
 END_TEST
 
 
+START_TEST (test_SBML_parseL3Formula_easunit)
+{
+  ASTNode_t *r = SBML_parseL3Formula("1.01e");
+
+  fail_unless( ASTNode_getType       (r) == AST_REAL, NULL );
+  fail_unless( ASTNode_getReal       (r) == 1.01, NULL );
+  fail_unless( ASTNode_getNumChildren(r) == 0  , NULL );
+  fail_unless( !strcmp(ASTNode_getUnits(r), "e"), NULL );
+
+  ASTNode_free(r);
+
+}
+END_TEST
+
+
+START_TEST (test_SBML_parseL3Formula_easunitparen)
+{
+  ASTNode_t *r = SBML_parseL3Formula("(1.01e)");
+
+  fail_unless( ASTNode_getType       (r) == AST_REAL, NULL );
+  fail_unless( ASTNode_getReal       (r) == 1.01, NULL );
+  fail_unless( ASTNode_getNumChildren(r) == 0  , NULL );
+  fail_unless( !strcmp(ASTNode_getUnits(r), "e"), NULL );
+
+  ASTNode_free(r);
+
+}
+END_TEST
+
+
+START_TEST (test_SBML_parseL3Formula_easunitint)
+{
+  ASTNode_t *r = SBML_parseL3Formula("101e");
+
+  fail_unless( ASTNode_getType       (r) == AST_INTEGER, NULL );
+  fail_unless( ASTNode_getInteger    (r) == 101, NULL );
+  fail_unless( ASTNode_getNumChildren(r) == 0  , NULL );
+  fail_unless( !strcmp(ASTNode_getUnits(r), "e"), NULL );
+
+  ASTNode_free(r);
+
+}
+END_TEST
+
+
+START_TEST (test_SBML_parseL3Formula_ergunit)
+{
+  ASTNode_t *r = SBML_parseL3Formula("101erg");
+
+  fail_unless( ASTNode_getType       (r) == AST_INTEGER, NULL );
+  fail_unless( ASTNode_getInteger    (r) == 101, NULL );
+  fail_unless( ASTNode_getNumChildren(r) == 0  , NULL );
+  fail_unless( !strcmp(ASTNode_getUnits(r), "erg"), NULL );
+
+  ASTNode_free(r);
+
+}
+END_TEST
+
+
+START_TEST (test_SBML_parseL3Formula_longinterg)
+{
+  ASTNode_t *r = SBML_parseL3Formula("166112956810631erg");
+
+  fail_unless( ASTNode_getType       (r) == AST_REAL, NULL );
+  fail_unless( ASTNode_getReal       (r) == 166112956810631.0, NULL );
+  fail_unless( ASTNode_getNumChildren(r) == 0  , NULL );
+  fail_unless( !strcmp(ASTNode_getUnits(r), "erg"), NULL );
+
+  ASTNode_free(r);
+
+}
+END_TEST
+
+
+START_TEST (test_SBML_parseL3Formula_longdecimalerg)
+{
+  ASTNode_t *r = SBML_parseL3Formula("0.00166112956810631erg");
+
+  fail_unless( ASTNode_getType       (r) == AST_REAL, NULL );
+  fail_unless( ASTNode_getReal       (r) == 0.00166112956810631, NULL );
+  fail_unless( ASTNode_getNumChildren(r) == 0  , NULL );
+  fail_unless( !strcmp(ASTNode_getUnits(r), "erg"), NULL );
+
+  ASTNode_free(r);
+
+}
+END_TEST
+
+
+START_TEST (test_SBML_parseL3Formula_longnumberparenerg)
+{
+  ASTNode_t *r = SBML_parseL3Formula("(0.00166112956810631erg)");
+
+  fail_unless( ASTNode_getType       (r) == AST_REAL, NULL );
+  fail_unless( ASTNode_getReal       (r) == 0.00166112956810631, NULL );
+  fail_unless( ASTNode_getNumChildren(r) == 0  , NULL );
+  fail_unless( !strcmp(ASTNode_getUnits(r), "erg"), NULL );
+
+  ASTNode_free(r);
+
+}
+END_TEST
+
+
+START_TEST (test_SBML_parseL3Formula_crazylongerg)
+{
+  ASTNode_t *r = SBML_parseL3Formula("(1234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890erg)");
+
+  fail_unless( ASTNode_getType(r)             == AST_REAL, NULL );
+  fail_unless( util_isInf(ASTNode_getReal(r)) ==  1, NULL );
+  fail_unless( ASTNode_getNumChildren(r)      ==  0, NULL );
+  fail_unless( !strcmp(ASTNode_getUnits(r), "erg"), NULL );
+
+  ASTNode_free(r);
+
+}
+END_TEST
+
+
+START_TEST (test_SBML_parseL3Formula_wrongnum)
+{
+  ASTNode_t *r = SBML_parseL3Formula("1.2.4");
+
+  fail_unless(r == NULL, NULL);
+  fail_unless( !strcmp(SBML_getLastParseL3Error(), "Error when parsing input '1.2.4' at position 5:  syntax error, unexpected number"), NULL);
+}
+END_TEST
+
+
+START_TEST (test_SBML_parseL3Formula_wrongnum2)
+{
+  ASTNode_t *r = SBML_parseL3Formula("1.2.");
+
+  fail_unless(r == NULL, NULL);
+  fail_unless( !strcmp(SBML_getLastParseL3Error(), "Error when parsing input '1.2.' at position 4:  syntax error, unexpected $undefined"), NULL);
+}
+END_TEST
+
+
 Suite *
 create_suite_L3FormulaParser (void) 
 { 
@@ -1977,6 +2117,16 @@ create_suite_L3FormulaParser (void)
   tcase_add_test( tcase, test_SBML_parseL3Formula_longdecimal);
   tcase_add_test( tcase, test_SBML_parseL3Formula_longnumberparen);
   tcase_add_test( tcase, test_SBML_parseL3Formula_crazylong);
+  tcase_add_test( tcase, test_SBML_parseL3Formula_easunit);
+  tcase_add_test( tcase, test_SBML_parseL3Formula_easunitparen);
+  tcase_add_test( tcase, test_SBML_parseL3Formula_easunitint);
+  tcase_add_test( tcase, test_SBML_parseL3Formula_ergunit);
+  tcase_add_test( tcase, test_SBML_parseL3Formula_longinterg);
+  tcase_add_test( tcase, test_SBML_parseL3Formula_longdecimalerg);
+  tcase_add_test( tcase, test_SBML_parseL3Formula_longnumberparenerg);
+  tcase_add_test( tcase, test_SBML_parseL3Formula_crazylongerg);
+  tcase_add_test( tcase, test_SBML_parseL3Formula_wrongnum);
+  tcase_add_test( tcase, test_SBML_parseL3Formula_wrongnum2);
   suite_add_tcase(suite, tcase);
 
   return suite;

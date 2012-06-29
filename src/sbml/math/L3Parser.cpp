@@ -2280,6 +2280,32 @@ int sbml_yylex(void)
     l3p->input.clear();
     l3p->input.seekg(numbegin);
     l3p->input >> number;
+    if (l3p->input.fail()) {
+      //The only reason I know of for this to happen is that there was a number followed by an 'e'.
+      l3p->input.clear(); //clear the error.
+      l3p->input.seekg(numbegin);
+      string failnum = "";
+      cc = l3p->input.get();
+      bool decimal = false;
+      while (l3p->input.good() && (isdigit(cc) || cc=='.')) {
+        failnum += cc;
+        cc = l3p->input.get();
+      }
+      if (cc=='e' || cc=='E') {
+        l3p->input.unget();
+        //We're going to call yylex recursively here, so we need to swap out l3p->input
+        streampos numend = l3p->input.tellg();
+        string tempinput = l3p->input.str();
+        l3p->input.str(failnum);
+        int ret = sbml_yylex();
+        l3p->input.str(tempinput);
+        l3p->input.clear();
+        l3p->input.seekg(numend);
+        return ret;
+      }
+      //Something weird went wrong; give up.
+      return -1;
+    }
     streampos numend = l3p->input.tellg();
     l3p->input.clear();
     l3p->input.seekg(numbegin);
@@ -2304,13 +2330,13 @@ int sbml_yylex(void)
     }
     l3p->input.clear();
     l3p->input.seekg(numbegin);
+    cc = l3p->input.get();
     string mantissa = "";
     while (l3p->input.tellg() != numend && (isdigit(cc) || cc=='.')) {
-      cc = l3p->input.get();
       mantissa += cc;
+      cc = l3p->input.get();
     }
     if (cc=='e' || cc=='E') {
-      mantissa.pop_back();
       if (l3p->input.peek()=='+') {
         cc = l3p->input.get();
       }
