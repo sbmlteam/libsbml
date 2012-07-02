@@ -140,6 +140,7 @@ option(WITH_JAVA     "Generate Java language bindings."   OFF)
 option(WITH_PYTHON   "Generate Python language bindings." OFF)
 option(WITH_PERL     "Generate Perl language bindings."   OFF)
 option(WITH_RUBY     "Generate Ruby language bindings"    OFF)
+option(WITH_R        "Generate R language bindings"       OFF)
 option(WITH_OCTAVE   "Generate Octave language bindings." OFF)
 option(WITH_MATLAB   "Generate MATLAB language bindings." OFF)
 
