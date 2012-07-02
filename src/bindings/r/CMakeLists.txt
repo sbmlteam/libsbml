@@ -31,13 +31,17 @@ include(${SWIG_USE_FILE})
 
 SET(R_INCLUDE_DIRS "" CACHE PATH "R include directory")
 SET(R_LIB "" CACHE FILEPATH "R library")
+SET(R_INTERPRETER "" CACHE FILEPATH "R interpreter")
+SET(R_ADITIONAL_PATH_ENTRIES "" CACHE STRING "Additional paths to the RTOOLS / GCC binary directories to build package")
 if (NOT R_INCLUDE_DIRS)
 	message(FATAL_ERROR "Need the R include directory, please specify R_INCLUDE_DIRS")
 endif()
 if (NOT R_LIB)
 	message(FATAL_ERROR "Need the R library, please specify R_LIB")
 endif()
-
+if (NOT R_INTERPRETER)
+	message(FATAL_ERROR "Need the R interpreter in order to create an R package") 
+endif()
 
 
 ####################################################################
@@ -114,6 +118,7 @@ file(APPEND "${CMAKE_CURRENT_SOURCE_DIR}/local-downcast-plugins.cpp" "\n")
 
 ADD_CUSTOM_COMMAND(	
     OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/libsbml_wrap.cpp
+	       ${CMAKE_CURRENT_BINARY_DIR}/libSBML.R
     COMMAND "${SWIG_EXECUTABLE}"
     ARGS	-I${CMAKE_CURRENT_SOURCE_DIR}/../swig/
 			-I${CMAKE_CURRENT_SOURCE_DIR} 
@@ -158,4 +163,76 @@ if (UNIX)
 endif()
 target_link_libraries(binding_r_lib ${LIBSBML_LIBRARY}-static ${R_LIB})
 install(TARGETS binding_r_lib DESTINATION lib )
+
+####################################################################
+#
+# create the r package
+#
+
+MACRO (TODAY RESULT) 
+    IF (WIN32) 
+        EXECUTE_PROCESS(COMMAND "cmd" " /C date /T" OUTPUT_VARIABLE ${RESULT} OUTPUT_STRIP_TRAILING_WHITESPACE) 
+        string(REGEX REPLACE "(..)/(..)/..(..).*" "\\1/\\2/\\3" ${RESULT} ${${RESULT}}) 
+    ELSEIF(UNIX) 
+        EXECUTE_PROCESS(COMMAND "date" "+%Y-%m-%d" OUTPUT_VARIABLE ${RESULT} OUTPUT_STRIP_TRAILING_WHITESPACE) 
+        string(REGEX REPLACE "(..)/(..)/..(..).*" "\\1/\\2/\\3" ${RESULT} ${${RESULT}}) 
+    ELSE (WIN32) 
+        MESSAGE(SEND_ERROR "date not implemented") 
+        SET(${RESULT} 000000) 
+    ENDIF (WIN32) 
+ENDMACRO (TODAY) 
+
+TODAY(CURRENT_DATE) 
+
+file(MAKE_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/libSBML")
+
+set(R_LIBRARY_DESTINATION "${CMAKE_CURRENT_BINARY_DIR}/libSBML/inst/libs")
+if (WIN32)
+if (CMAKE_SYSTEM_PROCESSOR STREQUAL "x86")
+set(R_LIBRARY_DESTINATION "${R_LIBRARY_DESTINATION}/i386")
+else()
+set(R_LIBRARY_DESTINATION "${R_LIBRARY_DESTINATION}/x64")
+endif()
+endif()
+
+file(MAKE_DIRECTORY ${R_LIBRARY_DESTINATION})
+file(MAKE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/libSBML/R)
+file(MAKE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/temp)
+configure_file (
+  "${CMAKE_CURRENT_SOURCE_DIR}/DESCRIPTION.in"
+  "${CMAKE_CURRENT_BINARY_DIR}/libSBML/DESCRIPTION"
+  )
+configure_file (
+  "${CMAKE_CURRENT_SOURCE_DIR}/NAMESPACE"
+  "${CMAKE_CURRENT_BINARY_DIR}/libSBML/NAMESPACE"
+)
+
+get_target_property(LIBSBML_R_NATIVELIB binding_r_lib LOCATION)
+
+add_custom_command(	
+    OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/libSBML_5.5.0.zip
+	COMMAND "${CMAKE_COMMAND}"
+			-DFILENAME=\"${CMAKE_CURRENT_BINARY_DIR}/libSBML.R\"
+			-P "${CMAKE_CURRENT_SOURCE_DIR}/patch-swig-file.cmake"
+	COMMAND "${CMAKE_COMMAND}"
+	ARGS  -E copy_if_different 
+		 ${LIBSBML_R_NATIVELIB}
+		 ${R_LIBRARY_DESTINATION}
+	COMMAND "${CMAKE_COMMAND}"
+	ARGS  -E copy_if_different 
+		 ${CMAKE_CURRENT_BINARY_DIR}/libSBML.R
+		 ${CMAKE_CURRENT_BINARY_DIR}/libSBML/R
+    COMMAND "${R_INTERPRETER}"
+    ARGS  CMD INSTALL --build 
+	      --no-libs 
+		  --no-test-load 
+		  --no-clean-on-error 
+		  --no-multiarch 
+		  libSBML
+		  -l temp		  
+	MAIN_DEPENDENCY ${CMAKE_CURRENT_BINARY_DIR}/libSBML.R
+	DEPENDS ${SWIG_DEPENDENCIES}
+    COMMENT "Create R Package") 
+
+add_custom_target(binding_r_package ALL DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/libSBML_5.5.0.zip binding_r_lib)
 
