@@ -158,7 +158,7 @@ set_target_properties (binding_r_lib PROPERTIES OUTPUT_NAME "libSBML")
 if (UNIX)
 	set_target_properties (binding_r_lib PROPERTIES PREFIX "")
 	if (APPLE)
-		set_target_properties (binding_r_lib PROPERTIES SUFFIX ".bundle")
+		set_target_properties (binding_r_lib PROPERTIES SUFFIX ".so")
 	endif()
 endif()
 target_link_libraries(binding_r_lib ${LIBSBML_LIBRARY}-static ${R_LIB})
@@ -187,15 +187,7 @@ TODAY(CURRENT_DATE)
 file(MAKE_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/libSBML")
 
 set(R_LIBRARY_DESTINATION "${CMAKE_CURRENT_BINARY_DIR}/libSBML/inst/libs")
-if (WIN32)
-if (CMAKE_SYSTEM_PROCESSOR STREQUAL "x86")
-set(R_LIBRARY_DESTINATION "${R_LIBRARY_DESTINATION}/i386")
-else()
-set(R_LIBRARY_DESTINATION "${R_LIBRARY_DESTINATION}/x64")
-endif()
-endif()
 
-file(MAKE_DIRECTORY ${R_LIBRARY_DESTINATION})
 file(MAKE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/libSBML/R)
 file(MAKE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/temp)
 configure_file (
@@ -208,6 +200,63 @@ configure_file (
 )
 
 get_target_property(LIBSBML_R_NATIVELIB binding_r_lib LOCATION)
+
+if (APPLE AND ENABLE_UNIVERSAL)
+
+file(MAKE_DIRECTORY ${R_LIBRARY_DESTINATION})
+file(MAKE_DIRECTORY ${R_LIBRARY_DESTINATION}/i386)
+file(MAKE_DIRECTORY ${R_LIBRARY_DESTINATION}/x86_64)
+
+add_custom_command(	
+    OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/libSBML_5.5.0.zip
+	COMMAND "${CMAKE_COMMAND}"
+			-DFILENAME=\"${CMAKE_CURRENT_BINARY_DIR}/libSBML.R\"
+			-P "${CMAKE_CURRENT_SOURCE_DIR}/patch-swig-file.cmake"
+	COMMAND "${CMAKE_COMMAND}"
+	ARGS  -E copy_if_different 
+		 ${LIBSBML_R_NATIVELIB}
+		 ${R_LIBRARY_DESTINATION}/i386
+	COMMAND "${CMAKE_COMMAND}"
+	ARGS  -E copy_if_different
+		 ${LIBSBML_R_NATIVELIB}
+		 ${R_LIBRARY_DESTINATION}/x86_64
+	COMMAND "${CMAKE_COMMAND}"
+	ARGS  -E copy_if_different 
+		 ${CMAKE_CURRENT_BINARY_DIR}/libSBML.R
+		 ${CMAKE_CURRENT_BINARY_DIR}/libSBML/R
+    COMMAND "${R_INTERPRETER}"
+    ARGS  CMD INSTALL --build 
+	      --no-libs 
+		  --no-test-load 
+		  --no-clean-on-error 
+		  --no-multiarch 
+		  libSBML
+		  -l temp		  
+	MAIN_DEPENDENCY ${CMAKE_CURRENT_BINARY_DIR}/libSBML.R
+	DEPENDS ${SWIG_DEPENDENCIES}
+    COMMENT "Create R Package") 
+
+else(APPLE AND ENABLE_UNIVERSAL)
+
+
+if (WIN32)
+if (CMAKE_SYSTEM_PROCESSOR STREQUAL "x86" OR CMAKE_SYSTEM_PROCESSOR STREQUAL "i386")
+set(R_LIBRARY_DESTINATION "${R_LIBRARY_DESTINATION}/i386")
+else()
+set(R_LIBRARY_DESTINATION "${R_LIBRARY_DESTINATION}/x64")
+endif()
+endif()
+
+if (APPLE)
+if (CMAKE_SYSTEM_PROCESSOR STREQUAL "x86" OR CMAKE_SYSTEM_PROCESSOR STREQUAL "i386")
+set(R_LIBRARY_DESTINATION "${R_LIBRARY_DESTINATION}/i386")
+else()
+set(R_LIBRARY_DESTINATION "${R_LIBRARY_DESTINATION}/x86_64")
+endif()
+endif(APPLE)
+
+
+file(MAKE_DIRECTORY ${R_LIBRARY_DESTINATION})
 
 add_custom_command(	
     OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/libSBML_5.5.0.zip
@@ -233,6 +282,6 @@ add_custom_command(
 	MAIN_DEPENDENCY ${CMAKE_CURRENT_BINARY_DIR}/libSBML.R
 	DEPENDS ${SWIG_DEPENDENCIES}
     COMMENT "Create R Package") 
-
+endif(APPLE AND ENABLE_UNIVERSAL)
 add_custom_target(binding_r_package ALL DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/libSBML_5.5.0.zip binding_r_lib)
 
