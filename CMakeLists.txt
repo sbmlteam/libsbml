@@ -40,7 +40,6 @@ include (CheckCSourceRuns)
 include (CheckSymbolExists)
 include (CheckTypeSize)
 
-
 ###############################################################################
 #
 # Parse VERSION.txt to determine the package version
@@ -163,7 +162,15 @@ if(LIBSBML_USE_STRICT_INCLUDES)
 endif(LIBSBML_USE_STRICT_INCLUDES)
 mark_as_advanced(LIBSBML_USE_STRICT_INCLUDES)
 
-
+set(LIBSBML_BUILD_TYPE "native")
+if (NOT CMAKE_SIZEOF_VOID_P OR CMAKE_SIZEOF_VOID_P EQUAL 4)
+  set(LIBSBML_BUILD_TYPE "32bit")
+else()
+  set(LIBSBML_BUILD_TYPE "64bit")
+endif()
+if (APPLE AND ENABLE_UNIVERSAL)
+  set(LIBSBML_BUILD_TYPE "universal")
+endif()
 
 # When allocation of memory fails or the libSBML C API is unable to open
 # a file, libSBML can exit the current process. By default this behavior
@@ -232,7 +239,9 @@ endif()
 if(WITH_SWIG)
     find_program(SWIG_EXECUTABLE
         NAMES swig
-        PATHS c:/swigwin-2.0.4
+        PATHS 
+		      c:/swigwin-2.0.7
+		      c:/swigwin-2.0.4
               c:/swigwin-2.0.2
               c:/swigwin-2.0.1
               c:/swigwin-2.0.0
