@@ -33,7 +33,7 @@ SET(R_INCLUDE_DIRS)
 SET(R_LIB)
 SET(R_INTERPRETER)
 SET(R_ADITIONAL_PATH_ENTRIES "" CACHE STRING "Additional paths to the RTOOLS / GCC binary directories to build package")
-
+SET(CMAKE_FIND_FRAMEWORK NEVER)
 # first lets search for the include/lib/interpreter if a user did not specify them
 if (NOT R_INCLUDE_DIRS)
     find_path(R_INCLUDE_DIRS
@@ -61,9 +61,9 @@ if (NOT R_LIB)
 			PATHS /usr/lib /usr/local/lib /usr/lib/R/lib
 			    $ENV{ProgramFiles}/R/R-2.15.1/bin${R_SUFFIX}
 			    $ENV{ProgramW6432}/R/R-2.15.1/bin${R_SUFFIX}
-				/Library/Frameworks/R.framework/Versions/Current/Resources/lib
-                ${CMAKE_SOURCE_DIR}
-				${LIBSBML_DEPENDENCY_DIR}/lib
+				  /Library/Frameworks/R.framework/Versions/Current/Resources/lib
+          ${CMAKE_SOURCE_DIR}
+				  ${LIBSBML_DEPENDENCY_DIR}/lib
 			DOC "The file name of the R library."
 			)
 endif()
