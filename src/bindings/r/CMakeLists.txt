@@ -29,11 +29,10 @@
 find_package(SWIG REQUIRED)
 include(${SWIG_USE_FILE})
 
-SET(R_INCLUDE_DIRS "" CACHE PATH "R include directory")
-SET(R_LIB "" CACHE FILEPATH "R library")
-SET(R_INTERPRETER "" CACHE FILEPATH "R interpreter")
+SET(R_INCLUDE_DIRS)
+SET(R_LIB)
+SET(R_INTERPRETER)
 SET(R_ADITIONAL_PATH_ENTRIES "" CACHE STRING "Additional paths to the RTOOLS / GCC binary directories to build package")
-
 
 # first lets search for the include/lib/interpreter if a user did not specify them
 if (NOT R_INCLUDE_DIRS)
@@ -42,6 +41,7 @@ if (NOT R_INCLUDE_DIRS)
         PATHS /usr/include /usr/local/include /usr/share/R/include
 		      /Library/Frameworks/R.framework/Versions/Current/Resources/include
 			  $ENV{ProgramFiles}/R/R-2.15.1/include
+			  $ENV{ProgramW6432}/R/R-2.15.1/include
               ${CMAKE_SOURCE_DIR}/include
               ${LIBSBML_DEPENDENCY_DIR}/include
         DOC "The directory containing the R include files."
@@ -60,6 +60,7 @@ if (NOT R_LIB)
 			NAMES Rlib.lib R
 			PATHS /usr/lib /usr/local/lib /usr/lib/R/lib
 			    $ENV{ProgramFiles}/R/R-2.15.1/bin${R_SUFFIX}
+			    $ENV{ProgramW6432}/R/R-2.15.1/bin${R_SUFFIX}
 				/Library/Frameworks/R.framework/Versions/Current/Resources/lib
                 ${CMAKE_SOURCE_DIR}
 				${LIBSBML_DEPENDENCY_DIR}/lib
@@ -71,12 +72,22 @@ if (NOT R_INTERPRETER)
         NAMES R
         PATHS 
 		      $ENV{ProgramFiles}/R/R-2.15.1/bin
+		      $ENV{ProgramW6432}/R/R-2.15.1/bin
 			  /Library/Frameworks/R.framework/Versions/Current/Resources/R
               /usr/local/bin
               /usr/bin
         DOC "The file name of the R interpreter."
         )
 endif()
+
+# message(
+# "
+#              R_INCLUDE_DIRS = ${R_INCLUDE_DIRS}
+#                       R_LIB = ${R_LIB}
+#               R_INTERPRETER = ${R_INTERPRETER}
+#    R_ADITIONAL_PATH_ENTRIES = ${R_ADITIONAL_PATH_ENTRIES}
+# 
+# ")
 
 # if we have not found something, stop here to ask for it
 if (NOT R_INTERPRETER)
