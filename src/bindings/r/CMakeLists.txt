@@ -34,14 +34,15 @@ SET(R_LIB)
 SET(R_INTERPRETER)
 SET(R_ADITIONAL_PATH_ENTRIES "" CACHE STRING "Additional paths to the RTOOLS / GCC binary directories to build package")
 SET(CMAKE_FIND_FRAMEWORK NEVER)
+SET(CMAKE_FIND_APPBUNDLE NEVER)
 # first lets search for the include/lib/interpreter if a user did not specify them
 if (NOT R_INCLUDE_DIRS)
     find_path(R_INCLUDE_DIRS
         NAMES R.h
         PATHS /usr/include /usr/local/include /usr/share/R/include
-		      /Library/Frameworks/R.framework/Versions/Current/Resources/include
-			  $ENV{ProgramFiles}/R/R-2.15.1/include
-			  $ENV{ProgramW6432}/R/R-2.15.1/include
+              /Library/Frameworks/R.framework/Versions/Current/Resources/include
+              $ENV{ProgramFiles}/R/R-2.15.1/include
+              $ENV{ProgramW6432}/R/R-2.15.1/include
               ${CMAKE_SOURCE_DIR}/include
               ${LIBSBML_DEPENDENCY_DIR}/include
         DOC "The directory containing the R include files."
@@ -59,23 +60,23 @@ if (NOT R_LIB)
 	find_library(R_LIB
 			NAMES Rlib.lib R
 			PATHS /usr/lib /usr/local/lib /usr/lib/R/lib
-			    $ENV{ProgramFiles}/R/R-2.15.1/bin${R_SUFFIX}
-			    $ENV{ProgramW6432}/R/R-2.15.1/bin${R_SUFFIX}
-				  /Library/Frameworks/R.framework/Versions/Current/Resources/lib
+          $ENV{ProgramFiles}/R/R-2.15.1/bin${R_SUFFIX}
+          $ENV{ProgramW6432}/R/R-2.15.1/bin${R_SUFFIX}
+          /Library/Frameworks/R.framework/Versions/Current/Resources/lib
           ${CMAKE_SOURCE_DIR}
-				  ${LIBSBML_DEPENDENCY_DIR}/lib
+          ${LIBSBML_DEPENDENCY_DIR}/lib
 			DOC "The file name of the R library."
 			)
 endif()
 if (NOT R_INTERPRETER)
 	find_program(R_INTERPRETER
-        NAMES R
+        NAMES R R32 R64
         PATHS 
-		      $ENV{ProgramFiles}/R/R-2.15.1/bin
-		      $ENV{ProgramW6432}/R/R-2.15.1/bin
-			  /Library/Frameworks/R.framework/Versions/Current/Resources/R
-              /usr/local/bin
-              /usr/bin
+          $ENV{ProgramFiles}/R/R-2.15.1/bin
+          $ENV{ProgramW6432}/R/R-2.15.1/bin
+          /Library/Frameworks/R.framework/Versions/Current/Resources/bin/
+          /usr/local/bin
+          /usr/bin
         DOC "The file name of the R interpreter."
         )
 endif()
