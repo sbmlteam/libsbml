@@ -341,3 +341,11 @@ add_custom_command(
 endif(APPLE AND ENABLE_UNIVERSAL)
 add_custom_target(binding_r_package ALL DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/libSBML_5.5.0.zip binding_r_lib)
 
+if(WITH_CHECK AND NOT MSVC)
+
+	# running a basic test printing the 
+	add_test(test_r_binding ${R_INTERPRETER} --slave -e 
+	".libPaths('temp');library(libSBML);cat(getLibSBMLDottedVersion() == '${PACKAGE_VERSION}')")
+	set_tests_properties(test_r_binding PROPERTIES PASS_REGULAR_EXPRESSION "TRUE" )
+
+endif()
