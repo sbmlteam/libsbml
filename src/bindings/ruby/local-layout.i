@@ -66,6 +66,9 @@ SBMLCONSTRUCTOR_EXCEPTION(ReactionGlyph)
 SBMLCONSTRUCTOR_EXCEPTION(SpeciesGlyph)
 SBMLCONSTRUCTOR_EXCEPTION(SpeciesReferenceGlyph)
 SBMLCONSTRUCTOR_EXCEPTION(TextGlyph)
+SBMLCONSTRUCTOR_EXCEPTION(ListOfReferenceGlyphs)
+SBMLCONSTRUCTOR_EXCEPTION(ReferenceGlyph)
+SBMLCONSTRUCTOR_EXCEPTION(GeneralGlyph)
 
 /**
  * Convert LineSegment objects into the most specific type possible.

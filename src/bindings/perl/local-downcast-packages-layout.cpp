@@ -30,6 +30,9 @@ else if (pkgName == "layout")
 			else if(name == "listOfTextGlyphs"){
 				return SWIGTYPE_p_ListOfTextGlyphs;
 			}
+			else if(name == "listOfReferenceGlyphs"){
+				return SWIGTYPE_p_ListOfReferenceGlyphs;
+			}
 			return SWIGTYPE_p_ListOf;
 			
 		case SBML_LAYOUT_BOUNDINGBOX:
@@ -70,6 +73,12 @@ else if (pkgName == "layout")
 			
 		case SBML_LAYOUT_TEXTGLYPH:
 			return SWIGTYPE_p_TextGlyph;
+			
+		case SBML_LAYOUT_REFERENCEGLYPH:
+			return SWIGTYPE_p_ReferenceGlyph;
+			
+		case SBML_LAYOUT_GENERALGLYPH:
+			return SWIGTYPE_p_GeneralGlyph;
 			
 		default:
 			return SWIGTYPE_p_SBase;

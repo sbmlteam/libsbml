@@ -88,6 +88,11 @@
 			     {
 		               return new ListOfTextGlyphs(cPtr, owner);
                              }
+					 else if(name =="listOfReferenceGlyphs")
+			     {
+		               return new ListOfReferenceGlyphs(cPtr, owner);
+                             }
+					 
 		             return new ListOf(cPtr, owner);
 				
 			case (int) libsbml.SBML_LAYOUT_BOUNDINGBOX:
@@ -128,6 +133,13 @@
 				
 			case (int) libsbml.SBML_LAYOUT_TEXTGLYPH:
 				return new TextGlyph(cPtr, owner);
+			
+			case (int) libsbml.SBML_LAYOUT_REFERENCEGLYPH:
+				return new ReferenceGlyph(cPtr, owner);
+			
+			case (int) libsbml.SBML_LAYOUT_GENERALGLYPH:
+				return new GeneralGlyph(cPtr, owner);
+			
 			default:
 				return new SBase(cPtr, owner);
 		}
@@ -165,6 +177,8 @@ COVARIANT_RTYPE_CLONE(ReactionGlyph)
 COVARIANT_RTYPE_CLONE(SpeciesGlyph)
 COVARIANT_RTYPE_CLONE(SpeciesReferenceGlyph)
 COVARIANT_RTYPE_CLONE(TextGlyph)
+COVARIANT_RTYPE_CLONE(ReferenceGlyph)
+COVARIANT_RTYPE_CLONE(GeneralGlyph)
 COVARIANT_RTYPE_CLONE(ListOfGraphicalObjects)
 COVARIANT_RTYPE_CLONE(ListOfLayouts)
 COVARIANT_RTYPE_CLONE(ListOfLineSegments)
@@ -173,6 +187,7 @@ COVARIANT_RTYPE_CLONE(ListOfSpeciesGlyphs)
 COVARIANT_RTYPE_CLONE(ListOfSpeciesReferenceGlyphs)
 COVARIANT_RTYPE_CLONE(ListOfTextGlyphs)
 COVARIANT_RTYPE_CLONE(ListOfCompartmentGlyphs)
+COVARIANT_RTYPE_CLONE(ListOfReferenceGlyphs)
 
 COVARIANT_RTYPE_LISTOF_GET_REMOVE(GraphicalObject)
 COVARIANT_RTYPE_LISTOF_GET_REMOVE(Layout)
@@ -182,6 +197,8 @@ COVARIANT_RTYPE_LISTOF_GET_REMOVE(SpeciesGlyph)
 COVARIANT_RTYPE_LISTOF_GET_REMOVE(SpeciesReferenceGlyph)
 COVARIANT_RTYPE_LISTOF_GET_REMOVE(TextGlyph)
 COVARIANT_RTYPE_LISTOF_GET_REMOVE(CompartmentGlyph)
+COVARIANT_RTYPE_LISTOF_GET_REMOVE(ReferenceGlyph)
+COVARIANT_RTYPE_LISTOF_GET_REMOVE(GeneralGlyph)
 
 SBMLCONSTRUCTOR_EXCEPTION(BoundingBox)
 SBMLCONSTRUCTOR_EXCEPTION(GraphicalObject)
@@ -191,6 +208,8 @@ SBMLCONSTRUCTOR_EXCEPTION(CubicBezier)
 SBMLCONSTRUCTOR_EXCEPTION(Curve)
 SBMLCONSTRUCTOR_EXCEPTION(Dimensions)
 SBMLCONSTRUCTOR_EXCEPTION(Layout)
+SBMLCONSTRUCTOR_EXCEPTION(ReferenceGlyph)
+SBMLCONSTRUCTOR_EXCEPTION(GeneralGlyph)
 SBMLCONSTRUCTOR_EXCEPTION(LayoutPkgNamespaces)
 SBMLCONSTRUCTOR_EXCEPTION(ListOfCompartmentGlyphs)
 SBMLCONSTRUCTOR_EXCEPTION(ListOfGraphicalObjects)
@@ -200,6 +219,7 @@ SBMLCONSTRUCTOR_EXCEPTION(ListOfReactionGlyphs)
 SBMLCONSTRUCTOR_EXCEPTION(ListOfSpeciesGlyphs)
 SBMLCONSTRUCTOR_EXCEPTION(ListOfSpeciesReferenceGlyphs)
 SBMLCONSTRUCTOR_EXCEPTION(ListOfTextGlyphs)
+SBMLCONSTRUCTOR_EXCEPTION(ListOfReferenceGlyphs)
 SBMLCONSTRUCTOR_EXCEPTION(Point)
 SBMLCONSTRUCTOR_EXCEPTION(ReactionGlyph)
 SBMLCONSTRUCTOR_EXCEPTION(SpeciesGlyph)

@@ -54,6 +54,8 @@
 #include <sbml/packages/layout/sbml/Layout.h>
 #include <sbml/packages/layout/sbml/LineSegment.h>
 #include <sbml/packages/layout/sbml/Point.h>
+#include <sbml/packages/layout/sbml/ReferenceGlyph.h>
+#include <sbml/packages/layout/sbml/GeneralGlyph.h>
 #include <sbml/packages/layout/sbml/ReactionGlyph.h>
 #include <sbml/packages/layout/sbml/SpeciesGlyph.h>
 #include <sbml/packages/layout/sbml/SpeciesReferenceGlyph.h>

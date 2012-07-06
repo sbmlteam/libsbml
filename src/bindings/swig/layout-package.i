@@ -84,6 +84,8 @@
 %include sbml/packages/layout/sbml/CubicBezier.h
 %include sbml/packages/layout/sbml/Curve.h
 %include sbml/packages/layout/sbml/SpeciesReferenceGlyph.h
+%include sbml/packages/layout/sbml/ReferenceGlyph.h
+%include sbml/packages/layout/sbml/GeneralGlyph.h
 %include sbml/packages/layout/sbml/ReactionGlyph.h
 %include sbml/packages/layout/sbml/SpeciesGlyph.h
 %include sbml/packages/layout/sbml/TextGlyph.h
