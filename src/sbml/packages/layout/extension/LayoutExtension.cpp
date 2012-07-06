@@ -126,6 +126,9 @@ const char* SBML_LAYOUT_TYPECODE_STRINGS[] =
   , "SpeciesGlyph"
   , "SpeciesReferenceGlyph"
   , "TextGlyph"
+  , "ReferenceGlyph"
+  , "GeneralGlyph"
+
 };
 
 //------------- (END) -----------------------------------
@@ -320,7 +323,7 @@ const char*
 LayoutExtension::getStringFromTypeCode(int typeCode) const
 {
   int min = SBML_LAYOUT_BOUNDINGBOX;
-  int max = SBML_LAYOUT_TEXTGLYPH;
+  int max = SBML_LAYOUT_GENERALGLYPH;
 
   if ( typeCode < min || typeCode > max)
   {

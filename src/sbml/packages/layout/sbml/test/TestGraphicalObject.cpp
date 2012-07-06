@@ -49,9 +49,15 @@
 #include <sbml/common/extern.h>
 
 #include <sbml/packages/layout/sbml/GraphicalObject.h>
+#include <sbml/packages/layout/sbml/GeneralGlyph.h>
+#include <sbml/packages/layout/sbml/TextGlyph.h>
+#include <sbml/packages/layout/sbml/ReferenceGlyph.h>
 #include <sbml/packages/layout/sbml/BoundingBox.h>
 #include <sbml/packages/layout/sbml/Dimensions.h>
 #include <sbml/packages/layout/sbml/Point.h>
+
+#include <sbml/conversion/ConversionProperties.h>
+#include <sbml/extension/SBasePlugin.h>
 
 #include <check.h>
 
@@ -294,6 +300,68 @@ START_TEST ( test_GraphicalObject_assignmentOperator )
 }
 END_TEST
 
+START_TEST ( test_GeneralGlyph_new )
+{
+  
+  GeneralGlyph glyph;
+  glyph.setId("g1");
+  fail_unless(glyph.getId() == "g1");
+
+  glyph.setReferenceId("sbmlId");
+
+  ReferenceGlyph r2;
+  r2.setId("rg1");
+  r2.setRole("target");
+  r2.setReferenceId("species1");
+
+  fail_unless(glyph.getNumReferenceGlyphs() == 0);
+
+  glyph.addReferenceGlyph(&r2);
+
+  fail_unless(glyph.getNumReferenceGlyphs() == 1);
+
+  fail_unless(glyph.getNumSubGlyphs() == 0);
+
+  TextGlyph text;
+
+  text.setId("text1");
+  text.setText("Some text ...");
+
+  glyph.addSubGlyph(&text);
+
+  fail_unless(glyph.getNumSubGlyphs() == 1);
+
+  std::string result = glyph.toSBML();
+  XMLNode node = glyph.toXML();
+  GeneralGlyph fromXml(node);
+  std::string read = fromXml.toSBML();
+
+  fail_unless(result == read);
+
+  // deletion
+  ReferenceGlyph* temp = glyph.removeReferenceGlyph(0);
+
+  fail_unless(glyph.getNumReferenceGlyphs() == 0);
+
+  std::string ref1 = temp->toSBML();
+  std::string ref2 = r2.toSBML();
+
+  fail_unless(ref1 == ref2);
+  delete temp;
+
+  TextGlyph *temp1 = (TextGlyph*)glyph.removeSubGlyph("text1");
+  
+  fail_unless(temp1 != NULL);
+  fail_unless(glyph.getNumSubGlyphs() == 0);
+
+  std::string sub1 = temp1->toSBML();
+  std::string sub2 = text.toSBML();
+
+  fail_unless( sub1 == sub2 );
+  delete temp1;
+
+}
+END_TEST
 
 Suite *
 create_suite_GraphicalObject (void)
@@ -306,6 +374,7 @@ create_suite_GraphicalObject (void)
                              GraphicalObjectTest_teardown );
 
   tcase_add_test( tcase, test_GraphicalObject_new                              );
+  tcase_add_test( tcase, test_GeneralGlyph_new                                 );
   tcase_add_test( tcase, test_GraphicalObject_new_with_id                      );
   tcase_add_test( tcase, test_GraphicalObject_new_with_id_and_2D_coordinates   );
   tcase_add_test( tcase, test_GraphicalObject_new_with_id_and_3D_coordinates   );

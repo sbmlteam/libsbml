@@ -48,7 +48,6 @@
  */
 
 
-#include <sbml/packages/layout/sbml/GraphicalObject.h>
 #include <sbml/packages/layout/util/LayoutUtilities.h>
 #include <sbml/SBMLErrorLog.h>
 #include <sbml/SBMLVisitor.h>
@@ -59,6 +58,7 @@
 #include <sbml/xml/XMLOutputStream.h>
 
 #include <sbml/packages/layout/extension/LayoutExtension.h>
+#include <sbml/packages/layout/common/LayoutExtensionTypes.h>
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
@@ -594,6 +594,236 @@ GraphicalObject::enablePackageInternal(const std::string& pkgURI,
   mBoundingBox.enablePackageInternal(pkgURI,pkgPrefix,flag);
 }
 
+
+
+/**
+ * Ctor.
+ */
+ListOfGraphicalObjects::ListOfGraphicalObjects(LayoutPkgNamespaces* layoutns)
+  : ListOf(layoutns)
+  , mElementName("listOfAdditionalGraphicalObjects")
+{
+  //
+  // set the element namespace of this object
+  //
+  setElementNamespace(layoutns->getURI());
+}
+
+
+/**
+ * Ctor.
+ */
+ListOfGraphicalObjects::ListOfGraphicalObjects(unsigned int level, unsigned int version, unsigned int pkgVersion)
+  : ListOf(level,version)
+  , mElementName("listOfAdditionalGraphicalObjects")
+{
+  setSBMLNamespacesAndOwn(new LayoutPkgNamespaces(level,version,pkgVersion));
+};
+
+
+/**
+ * @return a (deep) copy of this ListOfUnitDefinitions.
+ */
+ListOfGraphicalObjects*
+ListOfGraphicalObjects::clone () const
+{
+  return new ListOfGraphicalObjects(*this);
+}
+
+
+/**
+ * @return the typecode (int) of SBML objects contained in this ListOf or
+ * SBML_UNKNOWN (default).
+ */
+int
+ListOfGraphicalObjects::getItemTypeCode () const
+{
+  return SBML_LAYOUT_GRAPHICALOBJECT;
+}
+
+
+/**
+ * Subclasses should override this method to return XML element name of
+ * this SBML object.
+ */
+const std::string&
+ListOfGraphicalObjects::getElementName () const
+{  
+  return mElementName;
+}
+
+void 
+ListOfGraphicalObjects::setElementName(const std::string &elementName)
+{
+  mElementName = elementName;
+}
+
+
+/* return nth item in list */
+GraphicalObject *
+ListOfGraphicalObjects::get(unsigned int n)
+{
+  return static_cast<GraphicalObject*>(ListOf::get(n));
+}
+
+
+/* return nth item in list */
+const GraphicalObject *
+ListOfGraphicalObjects::get(unsigned int n) const
+{
+  return static_cast<const GraphicalObject*>(ListOf::get(n));
+}
+
+
+/* return item by id */
+GraphicalObject*
+ListOfGraphicalObjects::get (const std::string& sid)
+{
+  return const_cast<GraphicalObject*>( 
+    static_cast<const ListOfGraphicalObjects&>(*this).get(sid) );
+}
+
+
+/* return item by id */
+const GraphicalObject*
+ListOfGraphicalObjects::get (const std::string& sid) const
+{
+  std::vector<SBase*>::const_iterator result;
+
+  result = std::find_if( mItems.begin(), mItems.end(), IdEq<GraphicalObject>(sid) );
+  return (result == mItems.end()) ? 0 : static_cast <GraphicalObject*> (*result);
+}
+
+
+/* Removes the nth item from this list */
+GraphicalObject*
+ListOfGraphicalObjects::remove (unsigned int n)
+{
+   return static_cast<GraphicalObject*>(ListOf::remove(n));
+}
+
+
+/* Removes item in this list by id */
+GraphicalObject*
+ListOfGraphicalObjects::remove (const std::string& sid)
+{
+  SBase* item = 0;
+  std::vector<SBase*>::iterator result;
+
+  result = std::find_if( mItems.begin(), mItems.end(), IdEq<GraphicalObject>(sid) );
+
+  if (result != mItems.end())
+  {
+    item = *result;
+    mItems.erase(result);
+  }
+
+  return static_cast <GraphicalObject*> (item);
+}
+
+
+/**
+ * @return the SBML object corresponding to next XMLToken in the
+ * XMLInputStream or NULL if the token was not recognized.
+ */
+SBase*
+ListOfGraphicalObjects::createObject (XMLInputStream& stream)
+{
+  const std::string& name   = stream.peek().getName();
+  SBase*        object = 0;
+
+
+  if (name == "graphicalObject")
+  {
+    LAYOUT_CREATE_NS(layoutns,this->getSBMLNamespaces());
+    object = new GraphicalObject(layoutns);
+    appendAndOwn(object);
+  }
+  else if (name == "generalGlyph")
+  {
+    LAYOUT_CREATE_NS(layoutns,this->getSBMLNamespaces());
+    object = new GeneralGlyph(layoutns);
+    appendAndOwn(object);
+  }
+  else if (name == "textGlyph")
+  {
+    LAYOUT_CREATE_NS(layoutns,this->getSBMLNamespaces());
+    object = new TextGlyph(layoutns);
+    appendAndOwn(object);
+  }
+  else if (name == "speciesGlyph")
+  {
+    LAYOUT_CREATE_NS(layoutns,this->getSBMLNamespaces());
+    object = new SpeciesGlyph(layoutns);
+    appendAndOwn(object);
+  }
+  else if (name == "compartmentGlyph")
+  {
+    LAYOUT_CREATE_NS(layoutns,this->getSBMLNamespaces());
+    object = new CompartmentGlyph(layoutns);
+    appendAndOwn(object);
+  }
+  else if (name == "reactionGlyph")
+  {
+    LAYOUT_CREATE_NS(layoutns,this->getSBMLNamespaces());
+    object = new ReactionGlyph(layoutns);
+    appendAndOwn(object);
+  }
+
+  return object;
+}
+
+bool 
+ListOfGraphicalObjects::isValidTypeForList(SBase * item)
+{
+  int tc = item->getTypeCode();
+  return ((tc == SBML_LAYOUT_COMPARTMENTGLYPH )
+    ||    (tc == SBML_LAYOUT_REACTIONGLYPH )
+    ||    (tc == SBML_LAYOUT_SPECIESGLYPH )
+    ||    (tc == SBML_LAYOUT_SPECIESREFERENCEGLYPH )
+    ||    (tc == SBML_LAYOUT_TEXTGLYPH )
+    ||    (tc == SBML_LAYOUT_GRAPHICALOBJECT )
+    ||    (tc == SBML_LAYOUT_REFERENCEGLYPH )
+    ||    (tc == SBML_LAYOUT_GENERALGLYPH )
+    );
+}
+
+/**
+ * Creates an XMLNode object from this.
+ */
+XMLNode ListOfGraphicalObjects::toXML() const
+{
+  XMLNamespaces xmlns = XMLNamespaces();
+  XMLTriple triple = XMLTriple(getElementName(), "http://projects.eml.org/bcb/sbml/level2", "");
+  XMLAttributes att = XMLAttributes();
+  XMLToken token = XMLToken(triple, att, xmlns); 
+  XMLNode node(token);
+  // add the notes and annotations
+  bool end=true;
+  if(this->mNotes)
+  {
+      node.addChild(*this->mNotes);
+      end=false;
+  }
+  if(this->mAnnotation)
+  {
+      node.addChild(*this->mAnnotation);
+      end=false;
+  }
+  unsigned int i,iMax=this->size();
+  const GraphicalObject* object=NULL;
+  for(i=0;i<iMax;++i)
+  {
+    object=dynamic_cast<const GraphicalObject*>(this->get(i));
+    assert(object);
+    node.addChild(object->toXML());
+  }
+  if(end==true && iMax==0)
+  {
+    node.setEnd();
+  }
+  return node;
+}
 
 
 

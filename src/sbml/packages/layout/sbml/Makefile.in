@@ -75,6 +75,8 @@ headers   = \
   Layout.h                    \
   LineSegment.h               \
   Point.h                     \
+  GeneralGlyph.h              \
+  ReferenceGlyph.h            \
   ReactionGlyph.h             \
   SpeciesGlyph.h              \
   SpeciesReferenceGlyph.h     \
@@ -93,6 +95,8 @@ sources   = \
   Layout.cpp                \
   LineSegment.cpp           \
   Point.cpp                 \
+  GeneralGlyph.cpp          \
+  ReferenceGlyph.cpp        \
   ReactionGlyph.cpp         \
   SpeciesGlyph.cpp          \
   SpeciesReferenceGlyph.cpp \

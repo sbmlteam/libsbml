@@ -73,7 +73,9 @@ Suite *create_suite_GraphicalObject       (void);
 Suite *create_suite_CompartmentGlyph      (void);
 Suite *create_suite_SpeciesGlyph          (void);
 Suite *create_suite_ReactionGlyph         (void);
+Suite *create_suite_GeneralGlyph          (void);
 Suite *create_suite_SpeciesReferenceGlyph (void);
+Suite *create_suite_ReferenceGlyph        (void);
 Suite *create_suite_TextGlyph             (void);
 Suite *create_suite_Layout                (void);
 Suite *create_suite_LayoutCreation        (void);
@@ -138,6 +140,8 @@ main (void)
   srunner_add_suite( runner, create_suite_CompartmentGlyph      () );
   srunner_add_suite( runner, create_suite_SpeciesGlyph          () );
   srunner_add_suite( runner, create_suite_ReactionGlyph         () );
+  srunner_add_suite( runner, create_suite_GeneralGlyph          () );
+  srunner_add_suite( runner, create_suite_ReferenceGlyph        () );
   srunner_add_suite( runner, create_suite_SpeciesReferenceGlyph () );
   srunner_add_suite( runner, create_suite_TextGlyph             () );
   srunner_add_suite( runner, create_suite_Layout                () );

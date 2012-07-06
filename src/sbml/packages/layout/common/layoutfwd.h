@@ -82,6 +82,8 @@ typedef CLASS_OR_STRUCT ReactionGlyph                   ReactionGlyph_t;
 typedef CLASS_OR_STRUCT SpeciesGlyph                    SpeciesGlyph_t;
 typedef CLASS_OR_STRUCT SpeciesReferenceGlyph           SpeciesReferenceGlyph_t;
 typedef CLASS_OR_STRUCT TextGlyph                       TextGlyph_t;
+typedef CLASS_OR_STRUCT ReferenceGlyph                  ReferenceGlyph_t;
+typedef CLASS_OR_STRUCT GeneralGlyph                    GeneralGlyph_t;
 
 LIBSBML_CPP_NAMESPACE_END
 

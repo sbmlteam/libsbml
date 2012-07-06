@@ -47,5 +47,7 @@
 #include <sbml/packages/layout/sbml/SpeciesReferenceGlyph.h>
 #include <sbml/packages/layout/sbml/SpeciesReferenceRole.h>
 #include <sbml/packages/layout/sbml/TextGlyph.h>
+#include <sbml/packages/layout/sbml/ReferenceGlyph.h>
+#include <sbml/packages/layout/sbml/GeneralGlyph.h>
 
 #endif  /* LayoutExtensionTypes_h */
