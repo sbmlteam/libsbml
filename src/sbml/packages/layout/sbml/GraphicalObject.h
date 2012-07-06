@@ -73,6 +73,7 @@ class LIBSBML_EXTERN GraphicalObject : public SBase
 protected:
 
   std::string mId;
+  std::string mMetaIdRef;
 
   BoundingBox mBoundingBox;
         
@@ -201,6 +202,29 @@ public:
    */
   virtual int unsetId ();
 
+  /**
+   * Returns the value of the "metaidRef" attribute of this GraphicalObject.
+   */
+  virtual const std::string& getMetaIdRef () const;
+
+
+  /**
+   * Predicate returning @c true or @c false depending on whether this
+   * GraphicalObject's "metaidRef" attribute has been set.
+   */
+  virtual bool isSetMetaIdRef () const;
+
+  
+  /**
+   * Sets the value of the "metaidRef" attribute of this GraphicalObject.
+   */
+  virtual int setMetaIdRef (const std::string& metaid);
+
+
+  /**
+   * Unsets the value of the "metaidRef" attribute of this GraphicalObject.
+   */
+  virtual int unsetMetaIdRef ();
   
   /**
    * Sets the boundingbox for the GraphicalObject.

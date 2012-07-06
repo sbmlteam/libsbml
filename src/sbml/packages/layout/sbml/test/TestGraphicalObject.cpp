@@ -300,6 +300,22 @@ START_TEST ( test_GraphicalObject_assignmentOperator )
 }
 END_TEST
 
+START_TEST ( test_GraphicalObject_metaidRef)
+{
+    GraphicalObject* go1=new GraphicalObject();
+    
+    fail_unless(go1->isSetMetaIdRef() == false);    
+    fail_unless(go1->setMetaIdRef("meta1") == LIBSBML_OPERATION_SUCCESS);
+    fail_unless(go1->isSetMetaIdRef() == true);
+    fail_unless(go1->getMetaIdRef() == "meta1");
+    fail_unless(go1->unsetMetaIdRef() == LIBSBML_OPERATION_SUCCESS);
+    fail_unless(go1->isSetMetaIdRef() == false);
+
+    delete go1;
+}
+END_TEST
+  
+
 START_TEST ( test_GeneralGlyph_new )
 {
   
@@ -381,6 +397,7 @@ create_suite_GraphicalObject (void)
   tcase_add_test( tcase, test_GraphicalObject_new_with_id_point_and_dimensions );
   tcase_add_test( tcase, test_GraphicalObject_new_with_id_and_boundingbox      );
   tcase_add_test( tcase, test_GraphicalObject_setId                            );
+  tcase_add_test( tcase, test_GraphicalObject_metaidRef                        );
   tcase_add_test( tcase, test_GraphicalObject_setBoundingBox                   );
   tcase_add_test( tcase, test_GraphicalObject_copyConstructor                  );
   tcase_add_test( tcase, test_GraphicalObject_assignmentOperator               );

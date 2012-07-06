@@ -67,8 +67,9 @@ LIBSBML_CPP_NAMESPACE_BEGIN
  */
 GraphicalObject::GraphicalObject(unsigned int level, unsigned int version, unsigned int pkgVersion) 
  : SBase (level,version)
-  ,mId("")
-  ,mBoundingBox(level,version,pkgVersion)
+  , mId("")
+  , mMetaIdRef ("")
+  , mBoundingBox(level,version,pkgVersion)
 {
   setSBMLNamespacesAndOwn(new LayoutPkgNamespaces(level,version,pkgVersion));  
 }
@@ -79,8 +80,9 @@ GraphicalObject::GraphicalObject(unsigned int level, unsigned int version, unsig
  */
 GraphicalObject::GraphicalObject (LayoutPkgNamespaces* layoutns)
  : SBase(layoutns)
-  ,mId ("")
-  ,mBoundingBox(layoutns)
+  , mId ("")
+  , mMetaIdRef ("")
+  , mBoundingBox(layoutns)
 {
   //
   // set the element namespace of this object
@@ -101,8 +103,9 @@ GraphicalObject::GraphicalObject (LayoutPkgNamespaces* layoutns)
  */
 GraphicalObject::GraphicalObject (LayoutPkgNamespaces* layoutns, const std::string& id)
  : SBase(layoutns)
-  ,mId (id)
-  ,mBoundingBox(layoutns)
+  , mId (id)
+  , mMetaIdRef ("")
+  , mBoundingBox(layoutns)
 {
   //
   // set the element namespace of this object
@@ -126,6 +129,7 @@ GraphicalObject::GraphicalObject (LayoutPkgNamespaces* layoutns, const std::stri
                                   double x, double y, double w, double h)
   :  SBase(layoutns)
   , mId (id)
+  , mMetaIdRef ("")
   , mBoundingBox( BoundingBox(layoutns, "", x, y, 0.0, w, h, 0.0))
 {
   //
@@ -150,8 +154,9 @@ GraphicalObject::GraphicalObject (LayoutPkgNamespaces* layoutns, const std::stri
                                   double x, double y, double z,
                                   double w, double h, double d)
   : SBase(layoutns)
-  ,mId (id)
-  ,mBoundingBox( BoundingBox(layoutns, "", x, y, z, w, h, d))
+  , mId (id)
+  , mMetaIdRef ("")
+  , mBoundingBox( BoundingBox(layoutns, "", x, y, z, w, h, d))
 {
   //
   // set the element namespace of this object
@@ -176,6 +181,7 @@ GraphicalObject::GraphicalObject (LayoutPkgNamespaces* layoutns, const std::stri
                                   const Dimensions*  d)
   : SBase(layoutns)
   , mId (id)
+  , mMetaIdRef ("")
   , mBoundingBox( BoundingBox(layoutns, "", p, d) )
 {
   //
@@ -199,6 +205,7 @@ GraphicalObject::GraphicalObject (LayoutPkgNamespaces* layoutns, const std::stri
 GraphicalObject::GraphicalObject (LayoutPkgNamespaces* layoutns, const std::string& id, const BoundingBox* bb)
   : SBase(layoutns)
   , mId (id)
+  , mMetaIdRef ("")
   , mBoundingBox(layoutns)
 {
   //
@@ -273,6 +280,7 @@ GraphicalObject::GraphicalObject(const XMLNode& node, unsigned int l2version)
 GraphicalObject::GraphicalObject(const GraphicalObject& source):SBase(source)
 {
     this->mId = source.mId;
+    this->mMetaIdRef = source.mMetaIdRef;
     this->mBoundingBox=*source.getBoundingBox();
 
     connectToChild();
@@ -287,6 +295,7 @@ GraphicalObject& GraphicalObject::operator=(const GraphicalObject& source)
   {
     this->SBase::operator=(source);
     this->mId = source.mId;
+    this->mMetaIdRef = source.mMetaIdRef;
     this->mBoundingBox=*source.getBoundingBox();
 
     connectToChild();
@@ -347,6 +356,53 @@ int GraphicalObject::unsetId ()
     return LIBSBML_OPERATION_FAILED;
   }
 }
+
+
+/**
+  * Returns the value of the "metaidRef" attribute of this GraphicalObject.
+  */
+const std::string& GraphicalObject::getMetaIdRef () const
+{
+  return mMetaIdRef;
+}
+
+
+/**
+  * Predicate returning @c true or @c false depending on whether this
+  * GraphicalObject's "metaidRef" attribute has been set.
+  */
+bool GraphicalObject::isSetMetaIdRef () const
+{
+  return (mMetaIdRef.empty() == false);
+}
+
+/**
+  * Sets the value of the "metaidRef" attribute of this GraphicalObject.
+  */
+int GraphicalObject::setMetaIdRef (const std::string& metaid)
+{
+  if (&metaid != NULL && metaid.empty())
+    return unsetMetaIdRef();
+  return SyntaxChecker::checkAndSetSId(metaid,mMetaIdRef);
+}
+
+
+/**
+  * Unsets the value of the "metaidRef" attribute of this GraphicalObject.
+  */
+int GraphicalObject::unsetMetaIdRef ()
+{
+  mMetaIdRef.erase();
+  if (mMetaIdRef.empty())
+  {
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else
+  {
+    return LIBSBML_OPERATION_FAILED;
+  }
+}
+
 
 /**
  * Sets the boundingbox for the GraphicalObject.
@@ -439,6 +495,7 @@ GraphicalObject::addExpectedAttributes(ExpectedAttributes& attributes)
   SBase::addExpectedAttributes(attributes);
 
   attributes.add("id");
+  attributes.add("metaidRef");
 }
 
 
@@ -462,6 +519,8 @@ void GraphicalObject::readAttributes (const XMLAttributes& attributes,
     logEmptyString(mId, sbmlLevel, sbmlVersion, "<" + getElementName() + ">");
   }
   if (!SyntaxChecker::isValidInternalSId(mId)) logError(InvalidIdSyntax);
+  attributes.readInto("metaidRef", mMetaIdRef, getErrorLog(), false, getLine(), getColumn());
+  if (!SyntaxChecker::isValidInternalSId(mMetaIdRef)) logError(InvalidIdSyntax);
 }
 
 /**
@@ -498,6 +557,9 @@ void GraphicalObject::writeAttributes (XMLOutputStream& stream) const
 {
   SBase::writeAttributes(stream);
   stream.writeAttribute("id", getPrefix(), mId);
+
+  if (isSetMetaIdRef())
+    stream.writeAttribute("metaidRef", getPrefix(), mId);
 
   //
   // (EXTENSION)
