@@ -232,6 +232,7 @@ ADD_CUSTOM_COMMAND(
 	MAIN_DEPENDENCY ${CMAKE_CURRENT_SOURCE_DIR}/TestRW.cs
 	DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/libsbmlcsP.dll
 		${CMAKE_CURRENT_SOURCE_DIR}/TestRunner.cs
+		${CMAKE_CURRENT_SOURCE_DIR}/TestRW.cs
     COMMENT "Build C# TestRuner") 
 
 	
@@ -239,14 +240,22 @@ add_custom_target(binding_csharp_test_runner ALL DEPENDS ${CMAKE_CURRENT_BINARY_
 add_dependencies(binding_csharp_test_runner binding_csharp_managed_lib )
 
 if(UNIX)
-	add_test(test_csharp_bindings mono ${CMAKE_CURRENT_BINARY_DIR}/TestRW.exe ${CMAKE_SOURCE_DIR}/examples/sample-models/from-spec/level-2/)
+	add_test(
+	  NAME test_csharp_bindings 
+	  COMMAND mono 
+	          ${CMAKE_CURRENT_BINARY_DIR}/TestRW.exe 
+			  ${CMAKE_SOURCE_DIR}/examples/sample-models/from-spec/level-2/ 
+			  -p $<TARGET_FILE_DIR:binding_csharp_native_lib>)
 
 	# to run the compiled tests
-	add_test(test_csharp_bindings_full mono
+	add_test(
+	  NAME test_csharp_bindings_full 
+      COMMAND mono
 			${CMAKE_CURRENT_BINARY_DIR}/TestRunner.exe 
 			-d ${CMAKE_SOURCE_DIR}/src/sbml/test/test-data
 			-l ${CMAKE_CURRENT_BINARY_DIR}/libsbmlcsP.dll
-			-w ${CMAKE_CURRENT_SOURCE_DIR})
+			-w ${CMAKE_CURRENT_SOURCE_DIR}
+			-p $<TARGET_FILE_DIR:binding_csharp_native_lib>)
 			
 	# # to run the tests by compiling each source file
 	# add_test(test_csharp_bindings_full  mono
@@ -258,26 +267,30 @@ if(UNIX)
 
 	
 	if(APPLE)
-		set_tests_properties(test_csharp_bindings PROPERTIES ENVIRONMENT "DYLD_LIBRARY_PATH=${CMAKE_CURRENT_BINARY_DIR}:$ENV{DYLD_LIBRARY_PATH}")
-		set_tests_properties(test_csharp_bindings_full PROPERTIES ENVIRONMENT "DYLD_LIBRARY_PATH=${CMAKE_CURRENT_BINARY_DIR}:$ENV{DYLD_LIBRARY_PATH}")
+		set_tests_properties(test_csharp_bindings PROPERTIES ENVIRONMENT "DYLD_LIBRARY_PATH=$<TARGET_FILE_DIR:binding_csharp_native_lib>:${CMAKE_CURRENT_BINARY_DIR}:$ENV{DYLD_LIBRARY_PATH}")
+		set_tests_properties(test_csharp_bindings_full PROPERTIES ENVIRONMENT "DYLD_LIBRARY_PATH=$<TARGET_FILE_DIR:binding_csharp_native_lib>:${CMAKE_CURRENT_BINARY_DIR}:$ENV{DYLD_LIBRARY_PATH}")
 	else()
-		set_tests_properties(test_csharp_bindings PROPERTIES ENVIRONMENT "LD_LIBRARY_PATH=${CMAKE_CURRENT_BINARY_DIR}:$ENV{LD_LIBRARY_PATH}")
-		set_tests_properties(test_csharp_bindings_full PROPERTIES ENVIRONMENT "LD_LIBRARY_PATH=${CMAKE_CURRENT_BINARY_DIR}:$ENV{LD_LIBRARY_PATH}")
+		set_tests_properties(test_csharp_bindings PROPERTIES ENVIRONMENT "LD_LIBRARY_PATH=$<TARGET_FILE_DIR:binding_csharp_native_lib>:${CMAKE_CURRENT_BINARY_DIR}:$ENV{LD_LIBRARY_PATH}")
+		set_tests_properties(test_csharp_bindings_full PROPERTIES ENVIRONMENT "LD_LIBRARY_PATH=$<TARGET_FILE_DIR:binding_csharp_native_lib>:${CMAKE_CURRENT_BINARY_DIR}:$ENV{LD_LIBRARY_PATH}")
 	endif()
 else()
 
 	include(${CMAKE_SOURCE_DIR}/common.cmake)
 	copy_files( ${CMAKE_SOURCE_DIR}/dependencies/bin/ ${CMAKE_CURRENT_BINARY_DIR} *.dll )
 
-	add_test(test_csharp_bindings ${CMAKE_CURRENT_BINARY_DIR}/TestRW.exe ${CMAKE_SOURCE_DIR}/examples/sample-models/from-spec/level-2/)
+	add_test(NAME test_csharp_bindings 
+		COMMAND ${CMAKE_CURRENT_BINARY_DIR}/TestRW.exe ${CMAKE_SOURCE_DIR}/examples/sample-models/from-spec/level-2/
+		-p $<TARGET_FILE_DIR:binding_csharp_native_lib>)
 
 	#  to run the compiled tests
-	add_test(test_csharp_bindings_full 
-			${CMAKE_CURRENT_BINARY_DIR}/TestRunner.exe 
+	add_test(NAME test_csharp_bindings_full 
+			COMMAND ${CMAKE_CURRENT_BINARY_DIR}/TestRunner.exe 
 			-d ${CMAKE_SOURCE_DIR}/src/sbml/test/test-data
 			-l ${CMAKE_CURRENT_BINARY_DIR}/libsbmlcsP.dll
-			-w ${CMAKE_CURRENT_SOURCE_DIR})
+			-w ${CMAKE_CURRENT_SOURCE_DIR}
+			-p $<TARGET_FILE_DIR:binding_csharp_native_lib>)
 	
+
 	# to run the tests by compiling each source file
 	# add_test(test_csharp_bindings_full 
 	# 		${CMAKE_CURRENT_BINARY_DIR}/TestRunner.exe  

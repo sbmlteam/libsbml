@@ -30,6 +30,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.IO;
 using System.Reflection;
+using System.Diagnostics;
 
 namespace LibSBMLCSTestRunner
 {
@@ -61,6 +62,7 @@ namespace LibSBMLCSTestRunner
             Console.WriteLine("\t -l | --lib  <Full path to libsbml C# bindings to be used>");
             Console.WriteLine("\t -a | --additional-tests  <space separated list of additional directories>");
             Console.WriteLine("\t -w | --working-dir   <directory to change into before running tests.>");
+            Console.WriteLine("\t -p | --path   <directory add to the path.>");
             Console.WriteLine();
             Console.WriteLine("For backwards compatibility it is also possible to invoke the testrunner");
             Console.WriteLine("with only the test data directory, in which case tests compiled into the");
@@ -72,11 +74,25 @@ namespace LibSBMLCSTestRunner
 
         static void Main(string[] args)
         {
-            Console.WriteLine("LibSBML C# Testrunner");
+            TestArguments arguments = new TestArguments(args);
+			if (arguments.HaveAdditionalPath)
+			{
+                ProcessStartInfo info = new ProcessStartInfo(
+                                    new FileInfo(Assembly.GetEntryAssembly().Location).FullName,
+                                    arguments.StrippedArgs()
+                                    );
+                info.UseShellExecute = false;
+                info.EnvironmentVariables["PATH"] = arguments.AdditionalPath + ";" + info.EnvironmentVariables["PATH"];
+                info.EnvironmentVariables["LD_LIBRARY_PATH"] = arguments.AdditionalPath + ":" + info.EnvironmentVariables["LD_LIBRARY_PATH"];
+                info.EnvironmentVariables["DYLD_LIBRARY_PATH"] = arguments.AdditionalPath + ":" + info.EnvironmentVariables["DYLD_LIBRARY_PATH"];
+                Process.Start(info);
+				return;
+			}
+			
+			Console.WriteLine("LibSBML C# Testrunner");
             Console.WriteLine("=====================");
 
-            TestArguments arguments = new TestArguments(args);
-
+         
             if (!arguments.IsValid)
             {
                 // for backwards compatibility 
@@ -101,6 +117,14 @@ namespace LibSBMLCSTestRunner
 			
 			if (arguments.HaveWorkingDirectory)
 				Directory.SetCurrentDirectory(arguments.WorkingDirectory);	
+
+            if (File.Exists(arguments.ManagedLibrary))
+                AppDomain.CurrentDomain.AssemblyResolve += delegate(object s, ResolveEventArgs e)
+                                                           {
+                                                               string filename = new AssemblyName(e.Name).Name;
+                                                               string path = string.Format(@"{0}.dll", Path.Combine(new FileInfo(arguments.ManagedLibrary).DirectoryName, filename));
+                                                               return Assembly.LoadFrom(path);
+                                                           };
 
             if (arguments.UseCompiledTests)
             {
@@ -165,7 +189,7 @@ namespace LibSBMLCSTestRunner
             }
 
             PrintErrors();
-            Environment.Exit(1); 
+            Environment.Exit(1);
 
         }
 
@@ -175,7 +199,7 @@ namespace LibSBMLCSTestRunner
         /// </summary>
         /// <param name="args">TestRunner arguments</param>
         private static void CompileAndRunTests(TestArguments args)
-        {            
+        {
 
             string sSource = args.TestDirectory;
             string sData = args.TestDataDirectory;
@@ -208,7 +232,7 @@ namespace LibSBMLCSTestRunner
 
             RunTests(sLibrary, sSource, sData);
         }
-        
+
         private static int RunTestsInDirectory(string testDir, string sData)
         {
             // then compile and run all C# files
@@ -297,7 +321,7 @@ namespace LibSBMLCSTestRunner
 #endif
             // read C# code            
             string source = File.ReadAllText(testFile);
-            
+
             // compile the test file and create an assembly            
             Assembly oTestClass = Compiler.GetAssembly(source);
 
@@ -329,7 +353,7 @@ namespace LibSBMLCSTestRunner
                     // we have a test class: 
                     RunTestsInType(oTestClass, type, sData);
                 }
-            }            
+            }
         }
 
         private static void RunTestsInType(Assembly oTestClass, Type type, string sData)
@@ -345,7 +369,7 @@ namespace LibSBMLCSTestRunner
 
                 foreach (MemberInfo member in members)
                 {
-                    
+
                     // test methods begin with test_
                     if (member.Name.StartsWith("test_"))
                     {
@@ -363,7 +387,7 @@ namespace LibSBMLCSTestRunner
                         {
                             Console.Write("E");
                             _errors.Add(new ErrorDetails(
-                                String.Format("Error in '{0}': ", member.Name), 
+                                String.Format("Error in '{0}': ", member.Name),
                                 ex.InnerException));
                             nFailure++;
                             continue;
@@ -423,10 +447,10 @@ namespace LibSBMLCSTestRunner
             }
             catch (Exception)
             {
-              // 2010-07-22 <mhucka@caltech.edu> Some just don't have a
-              // setup class.  It's confusing to see these errors.  
+                // 2010-07-22 <mhucka@caltech.edu> Some just don't have a
+                // setup class.  It's confusing to see these errors.  
 
-              // Console.WriteLine("Could not run setUp class ... ");
+                // Console.WriteLine("Could not run setUp class ... ");
             }
             return oClass;
         }
@@ -480,7 +504,8 @@ namespace LibSBMLCSTestRunner
         /// Constructs a new TestArguments object from command line arguments.
         /// </summary>
         /// <param name="args">command line arguments</param>
-        public TestArguments(string[] args) : this()
+        public TestArguments(string[] args)
+            : this()
         {
             ParseArguments(args);
         }
@@ -494,8 +519,23 @@ namespace LibSBMLCSTestRunner
             AdditionalTestDirectories = new List<string>();
         }
 
+        private string[] _OriginalArgs;
+        public string[] OriginalArgs
+        {
+            get
+            {
+                return _OriginalArgs;
+            }
+            set
+            {
+                _OriginalArgs = value;
+            }
+        }
+
         public void ParseArguments(string[] args)
         {
+            _OriginalArgs = args;
+
             for (int i = 0; i < args.Length; i++)
             {
                 string current = args[i].ToLowerInvariant();
@@ -505,11 +545,16 @@ namespace LibSBMLCSTestRunner
                 if (haveNext && (current == "-l" || current == "--lib"))
                 {
                     ManagedLibrary = next;
-                    i++;                        
+                    i++;
                 }
                 else if (haveNext && (current == "-d" || current == "--data"))
                 {
                     TestDataDirectory = next;
+                    i++;
+                }
+                else if (haveNext && (current == "-p" || current == "--path"))
+                {
+                    AdditionalPath = next;
                     i++;
                 }
                 else if (haveNext && (current == "-t" || current == "--tests"))
@@ -517,15 +562,15 @@ namespace LibSBMLCSTestRunner
                     TestDirectory = next;
                     i++;
                 }
-				else if (haveNext && (current == "-w" || current == "--working-dir"))
+                else if (haveNext && (current == "-w" || current == "--working-dir"))
                 {
                     WorkingDirectory = next;
                     i++;
                 }
-                else if ( haveNext && (current == "-a" || current == "--additional-tests"))
+                else if (haveNext && (current == "-a" || current == "--additional-tests"))
                 {
                     // consume remaining arguments
-                    string[] additionalDirs = new string[args.Length - (i+1)];
+                    string[] additionalDirs = new string[args.Length - (i + 1)];
                     Array.Copy(args, i + 1, additionalDirs, 0, args.Length - (i + 1));
                     AdditionalTestDirectories.AddRange(additionalDirs);
                     return;
@@ -535,18 +580,18 @@ namespace LibSBMLCSTestRunner
 
         public bool HaveAdditionalDirectories
         {
-            get 
-            { 
-                return AdditionalTestDirectories != null && 
-                AdditionalTestDirectories.Count > 0; 
-            } 
-        } 
+            get
+            {
+                return AdditionalTestDirectories != null &&
+                AdditionalTestDirectories.Count > 0;
+            }
+        }
 
         public bool UseCompiledTests
         {
             get
             {
-                return !string.IsNullOrEmpty(TestDataDirectory) 
+                return !string.IsNullOrEmpty(TestDataDirectory)
                     && string.IsNullOrEmpty(TestDirectory);
             }
         }
@@ -558,6 +603,22 @@ namespace LibSBMLCSTestRunner
             set { _workingDirectory = value; }
         }
 
+        private string _additionalPath;
+        public string AdditionalPath
+        {
+            get { return _additionalPath; }
+            set { _additionalPath = value; }
+        }
+
+        public bool HaveAdditionalPath
+        {
+            get
+            {
+                return !string.IsNullOrEmpty(_additionalPath) &&
+                    Directory.Exists(_additionalPath);
+            }
+        }
+        
         private string _testDirectory;
         public string TestDirectory
         {
@@ -586,13 +647,13 @@ namespace LibSBMLCSTestRunner
             set { _additionalTestDirectories = value; }
         }
 
-        public bool HaveWorkingDirectory 
-		{
-		   get 
-		   {
-		      return !string.IsNullOrEmpty(WorkingDirectory) && Directory.Exists(WorkingDirectory);
-		   }
-		}
+        public bool HaveWorkingDirectory
+        {
+            get
+            {
+                return !string.IsNullOrEmpty(WorkingDirectory) && Directory.Exists(WorkingDirectory);
+            }
+        }
 
 
         /// <summary>
@@ -611,7 +672,7 @@ namespace LibSBMLCSTestRunner
                 {
                     valid &= Directory.Exists(TestDataDirectory) &&
                         Directory.Exists(TestDirectory);
-                    
+
                 }
 
                 valid &= !String.IsNullOrEmpty(ManagedLibrary) &&
@@ -638,18 +699,37 @@ namespace LibSBMLCSTestRunner
             return string.Format(
                 "{0}\tTest Directory        : {1}" +
                 "{0}\tTest Data Directory   : {2}" +
-                "{0}\tTest Managed Library  : {3}"+
-                "{0}\tUse Compiled Tests    : {4}"+
-                "{0}\tHave Additional Tests : {5}"+
+                "{0}\tTest Managed Library  : {3}" +
+                "{0}\tUse Compiled Tests    : {4}" +
+                "{0}\tHave Additional Tests : {5}" +
                 "{0}\tIsValid               : {6}",
-                Environment.NewLine, 
-                TestDirectory, 
-                TestDataDirectory, 
-                ManagedLibrary, 
-                UseCompiledTests, 
-                HaveAdditionalDirectories, 
+                Environment.NewLine,
+                TestDirectory,
+                TestDataDirectory,
+                ManagedLibrary,
+                UseCompiledTests,
+                HaveAdditionalDirectories,
                 IsValid
                 );
+        }
+
+        public string StrippedArgs()
+        {
+            //-t | --tests <Directory containing generated test files>");
+            //-d | --data <Directory containing test-data>");
+            //-l | --lib  <Full path to libsbml C# bindings to be used>");
+            //-a | --additional-tests  <space separated list of additional directories>");
+            //-w | --working-dir   <directory to change into before running tests.>");
+            //-p | --path   <directory add to the path.>");
+            StringBuilder builder = new StringBuilder();
+            for (int i = 0; i < OriginalArgs.Length; i++)
+            {
+                if (OriginalArgs[i] == "-p" || OriginalArgs[i] == "--path")
+                    i = i + 1;
+                else
+                    builder.AppendFormat("\"{0}\" ", OriginalArgs[i]);
+            }
+            return builder.ToString();
         }
     }
 

@@ -237,6 +237,7 @@ INSTALL(TARGETS binding_perl_lib  DESTINATION ${PERL_PACKAGE_INSTALL_BIN_DIR} )
                  WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
                  COMMAND ${PERL_EXECUTABLE} 
                  -I${CMAKE_CURRENT_BINARY_DIR}
+				 -I$<TARGET_FILE_DIR:binding_perl_lib>
 		"-MExtUtils::Command::MM" -e "test_harness(0)" 
 		"${CMAKE_CURRENT_SOURCE_DIR}/t/*.t")
 	

@@ -230,7 +230,8 @@ if(WITH_CHECK)
 	file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/test.py DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
 
 	# run python tests
-	add_test(test_python_binding ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_BINARY_DIR}/test.py
-	         -p ${CTEST_CONFIGURATION_TYPE} -b ${CMAKE_CURRENT_SOURCE_DIR}/test)
+	add_test(NAME test_python_binding 
+	         COMMAND ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_BINARY_DIR}/test.py
+	         -p $<TARGET_FILE_DIR:binding_python_lib> -b ${CMAKE_CURRENT_SOURCE_DIR}/test)
 
 endif()

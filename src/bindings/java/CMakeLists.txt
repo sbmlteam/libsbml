@@ -253,7 +253,7 @@ if(WITH_CHECK)
 	add_test(NAME test_java_binding 
 			WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
 			COMMAND "${Java_JAVA_EXECUTABLE}" 
-	        -Djava.library.path=${CMAKE_CURRENT_BINARY_DIR}
+	        -Djava.library.path=$<TARGET_FILE_DIR:binding_java_lib>
 			-cp "${jar_file}${FILE_SEP}${current_dir}${FILE_SEP}${test_dir}"
 			AutoTestRunner						    
 			)

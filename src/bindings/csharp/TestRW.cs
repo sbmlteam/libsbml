@@ -31,6 +31,8 @@ namespace TestLibSBMLCSharp
     using System.Text;
     using System.IO;
     using libsbmlcs;
+    using System.Diagnostics;
+    using System.Reflection;
 
     class ReadAndWriteSBML
     {
@@ -40,6 +42,21 @@ namespace TestLibSBMLCSharp
 
         static void Main(string[] args)
         {
+            TestArguments arguments = new TestArguments(args);
+            if (arguments.HaveAdditionalPath)
+            {
+                ProcessStartInfo info = new ProcessStartInfo(
+                                    new FileInfo(Assembly.GetEntryAssembly().Location).FullName,
+                                    arguments.StrippedArgs()
+                                    );
+                info.UseShellExecute = false;
+                info.EnvironmentVariables["PATH"] = arguments.AdditionalPath + ";" + info.EnvironmentVariables["PATH"];
+                info.EnvironmentVariables["LD_LIBRARY_PATH"] = arguments.AdditionalPath + ":" + info.EnvironmentVariables["LD_LIBRARY_PATH"];
+                info.EnvironmentVariables["DYLD_LIBRARY_PATH"] = arguments.AdditionalPath + ":" + info.EnvironmentVariables["DYLD_LIBRARY_PATH"];
+                Process.Start(info);
+                return;
+            }
+
 			// 
 			// Ensure that the native library was successfully loaded			
 			// 
@@ -663,6 +680,95 @@ namespace TestLibSBMLCSharp
             ++numErrors;
         }
 
+    }
+
+    /// <summary>
+    /// Test arguments parses the command line arguments given to the testrunner
+    /// </summary>
+    public class TestArguments
+    {
+        /// <summary>
+        /// Constructs a new TestArguments object from command line arguments.
+        /// </summary>
+        /// <param name="args">command line arguments</param>
+        public TestArguments(string[] args)
+            : this()
+        {
+            ParseArguments(args);
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the TestArguments class.
+        /// </summary>
+        public TestArguments()
+        {
+        }
+
+        private string _AdditionalPath;
+        private string[] _OriginalArgs;
+        public string[] OriginalArgs
+        {
+            get
+            {
+                return _OriginalArgs;
+            }
+            set
+            {
+                _OriginalArgs = value;
+            }
+        }
+
+        public void ParseArguments(string[] args)
+        {
+            _OriginalArgs = args;
+
+            for (int i = 0; i < args.Length; i++)
+            {
+                string current = args[i].ToLowerInvariant();
+                bool haveNext = i + 1 < args.Length;
+                string next = (haveNext ? args[i + 1] : null);
+
+
+                if (haveNext && (current == "-p" || current == "--path"))
+                {
+                    AdditionalPath = next;
+                    i++;
+                }
+
+            }
+        }
+
+
+        public string AdditionalPath
+        {
+            get { return _AdditionalPath; }
+            set
+            {
+                _AdditionalPath = value;
+            }
+        }
+
+        public bool HaveAdditionalPath
+        {
+            get
+            {
+                return !string.IsNullOrEmpty(_AdditionalPath) &&
+                    Directory.Exists(_AdditionalPath);
+            }
+        }
+
+        public string StrippedArgs()
+        {
+            StringBuilder builder = new StringBuilder();
+            for (int i = 0; i < OriginalArgs.Length; i++)
+            {
+                if (OriginalArgs[i] == "-p" || OriginalArgs[i] == "--path")
+                    i = i + 1;
+                else
+                    builder.AppendFormat("\"{0}\" ", OriginalArgs[i]);
+            }
+            return builder.ToString();
+        }
     }
 
 }
