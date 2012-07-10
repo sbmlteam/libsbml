@@ -195,6 +195,15 @@ include_directories(BEFORE ${PERL_INCLUDE_PATH})
 
 if (NOT UNIX)
 	add_definitions(-DWIN32SCK_IS_STDSCK -DWIN32IO_IS_STDIO)
+	if (WIN32 AND LIBSBML_BUILD_TYPE STREQUAL "32bit")
+	# these definitions are needed for activestate perl 5.14.2
+	add_definitions(-DUSE_LARGE_FILES
+		-DNO_STRICT 
+		-DPERL_TEXTMODE_SCRIPTS 
+		-DUSE_SITECUSTOMIZE
+		-DPERL_IMPLICIT_CONTEXT 
+		-D_USE_32BIT_TIME_T)
+	endif()
 endif ()
 
 if(APPLE)
