@@ -296,7 +296,7 @@ LIBSBML_CPP_NAMESPACE_END
 %% /* The grammar: */
 
 input:          /* empty */
-        |       node {l3p->outputNode = $1}
+        |       node {l3p->outputNode = $1;}
         |       error {}
         |       node error {delete $1;}
         ;
@@ -578,7 +578,7 @@ int sbml_yylex(void)
         e = true;
       }
     }
-    if (!decimal && !e && number == static_cast<double>(numlong)) {
+    if (!decimal && !e && number == static_cast<double>(numlong) && numlong <= SBML_INT_MAX) {
       sbml_yylval.numlong = numlong;
       return INTEGER;
     }
