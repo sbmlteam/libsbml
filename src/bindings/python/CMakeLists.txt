@@ -104,17 +104,23 @@ endforeach()
 file(APPEND "${CMAKE_CURRENT_SOURCE_DIR}/local-downcast-plugins.cpp" "\n")
 
 
+set (SWIG_PYTHON_SUFFIX "")
+if (PYTHON_VERSION_MAJOR AND ${PYTHON_VERSION_MAJOR} EQUAL "3")
+	set (SWIG_PYTHON_SUFFIX "3")
+endif()
+
+
 ADD_CUSTOM_COMMAND(	
     OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/libsbml_wrap.cpp
 	COMMAND "${PYTHON_EXECUTABLE}"
-	ARGS	"${CMAKE_CURRENT_SOURCE_DIR}/../swig/swigdoc.py"
+	ARGS	"${CMAKE_CURRENT_SOURCE_DIR}/../swig/swigdoc.py${SWIG_PYTHON_SUFFIX}"
 			python
 			-I"${CMAKE_CURRENT_SOURCE_DIR}/../.."
 			-D"${CMAKE_CURRENT_SOURCE_DIR}/../../../docs/src"
 			"${CMAKE_CURRENT_SOURCE_DIR}/../swig/libsbml.i"
 			"${CMAKE_CURRENT_BINARY_DIR}/pydoc-doxygen.i"
     COMMAND "${PYTHON_EXECUTABLE}"
-	ARGS	"${CMAKE_CURRENT_SOURCE_DIR}/doc-converter/rewrite_pydoc.py"
+	ARGS	"${CMAKE_CURRENT_SOURCE_DIR}/doc-converter/rewrite_pydoc.py${SWIG_PYTHON_SUFFIX}"
 			-f "${CMAKE_CURRENT_BINARY_DIR}/pydoc-doxygen.i"
 			-o "${CMAKE_CURRENT_BINARY_DIR}/pydoc-normal.i"
 			-i ${CMAKE_CURRENT_SOURCE_DIR}/../../../docs/src/common-text
@@ -153,11 +159,12 @@ ADD_CUSTOM_COMMAND(
 	ARGS    -E rename pydoc.i pydoc-normal.i 
     MAIN_DEPENDENCY ${CMAKE_CURRENT_SOURCE_DIR}/libsbml.i
 	DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/CMakeLists.txt
+	        ${CMAKE_CURRENT_SOURCE_DIR}/doc-converter/rewrite_pydoc.py${SWIG_PYTHON_SUFFIX}
+			${CMAKE_CURRENT_SOURCE_DIR}/../swig/swigdoc.py${SWIG_PYTHON_SUFFIX}
 	        ${SWIG_DEPENDENCIES}
     COMMENT "Swig Python source") 
 
 add_custom_target(binding_python_swig ALL DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/libsbml_wrap.cpp)
-
 	
 ####################################################################
 #

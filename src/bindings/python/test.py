@@ -56,17 +56,18 @@ if __name__ == "__main__":
     for index in range(1, len(sys.argv)):
       current = sys.argv[index]
       hasNext = (index + 1) < len(sys.argv)
+      nextIndex = (index + 1);
       if current == "-b" and hasNext:
         # allow to set the base path
-        test_basedir = sys.argv[index+1];
-        index = index + 1
+        test_basedir = sys.argv[nextIndex];
+        index = nextIndex
       elif current == "-p" and hasNext:
-	    # add directory to path
-		sys.path.append(sys.argv[index+1])
-		index = index + 1
+        # add directory to path
+        sys.path.append(sys.argv[nextIndex])
+        index = nextIndex
       elif current == "-a" and hasNext:
         # allow to test additional directories
-        test_subdirs = test_subdirs  + sys.argv[index+1:]
+        test_subdirs = test_subdirs  + sys.argv[nextIndex:]
         break;
   if unittest.TextTestRunner(verbosity=1).run(suite()).wasSuccessful() :
     sys.exit(0)
