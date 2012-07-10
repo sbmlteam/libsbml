@@ -195,14 +195,20 @@ include_directories(BEFORE ${PERL_INCLUDE_PATH})
 
 if (NOT UNIX)
 	add_definitions(-DWIN32SCK_IS_STDSCK -DWIN32IO_IS_STDIO)
-	if (WIN32 AND LIBSBML_BUILD_TYPE STREQUAL "32bit")
+	
+	
+	if (MSVC)
 	# these definitions are needed for activestate perl 5.14.2
-	add_definitions(-DUSE_LARGE_FILES
-		-DNO_STRICT 
-		-DPERL_TEXTMODE_SCRIPTS 
+	if (LIBSBML_BUILD_TYPE STREQUAL "32bit")
+	  add_definitions( -D_USE_32BIT_TIME_T -DPERL_TEXTMODE_SCRIPTS -DNO_STRICT ) 
+	elseif(LIBSBML_BUILD_TYPE STREQUAL "64bit")
+		add_definitions( -DUSE_64_BIT_INT -DUSE_ITHREADS -DMULTIPLICITY ) 
+	endif()
+	add_definitions(
+		-DUSE_LARGE_FILES		
 		-DUSE_SITECUSTOMIZE
 		-DPERL_IMPLICIT_CONTEXT 
-		-D_USE_32BIT_TIME_T)
+		)
 	endif()
 endif ()
 
