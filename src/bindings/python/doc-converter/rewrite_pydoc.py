@@ -99,13 +99,17 @@
 ## and also available online as http://sbml.org/software/libsbml/license.html
 ## ------------------------------------------------------------------------ -->
 
+from __future__ import print_function
 import argparse
 import re
 import sys
 import os
 import textwrap
-from htmllib import HTMLParser
 from formatter import NullWriter, AbstractFormatter
+try:
+    from htmllib import HTMLParser
+except Exception:
+    from html.parser import HTMLParser
 
 
 # -----------------------------------------------------------------------------
@@ -500,7 +504,7 @@ def rewrite_htmlinclude(match, include_dir, quietly):
 
     if not valid_file(file_path):
         if not quietly:
-            print "Warning: unable to expand @htmlinclude '" + match.group(1) + "'"
+            print("Warning: unable to expand @htmlinclude '" + match.group(1) + "'")
         return ''
 
     # First, try to see if there's a .txt version.  If so, use that.
@@ -535,7 +539,7 @@ def rewrite_image(match, graphics_dir, quietly):
 
     if not valid_file(file_path):
         if not quietly:
-            print "Warning: unable to open @image txt file for '" + file_name + "'"
+            print("Warning: unable to open @image txt file for '" + file_name + "'")
         return ''
 
     contents = read_file_contents(file_path)
@@ -648,13 +652,13 @@ def main():
     # Sanity-check the arguments.
 
     if not valid_file(input_file, quietly):
-        if not quietly: print "Error: cannot read file '" + input_file + "'"
+        if not quietly: print("Error: cannot read file '" + input_file + "'")
         sys.exit(1)
     elif include_dir and not valid_directory(include_dir, quietly):
-        if not quietly: print "Error: cannot access directory '" + input_file + "'"
+        if not quietly: print("Error: cannot access directory '" + input_file + "'")
         sys.exit(1)
     elif graphics_dir and not valid_directory(graphics_dir, quietly):
-        if not quietly: print "Error: cannot access directory '" + input_file + "'"
+        if not quietly: print("Error: cannot access directory '" + input_file + "'")
         sys.exit(1)
 
     # Let's do this thing.
