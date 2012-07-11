@@ -37,7 +37,7 @@
 
 import os.path, sys
 if not os.path.isfile('build/libsbml/__init__.py'):
-      print "Please run 'make create-build-dir' prior to using this setup script."
+      print("Please run 'make create-build-dir' prior to using this setup script.")
       sys.exit(1)
 
 from distutils.core import setup, Extension
