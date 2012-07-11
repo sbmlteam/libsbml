@@ -24,3 +24,8 @@ test.xml.gz
 .libs
 installed-files.txt
 __pycache__
+local-downcast-extension.cpp
+local-downcast-namespaces.cpp
+local-downcast-plugins.cpp
+local-downcast.cpp
+local-packages.i
