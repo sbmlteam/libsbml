@@ -61,17 +61,24 @@ considered public as object names -- the API of the formatter objects is
 still considered an implementation detail.)
 """
 
-__version__ = '1.1'
+__version__ = '1.2.1'
 __all__ = [
     'ArgumentParser',
     'ArgumentError',
-    'Namespace',
-    'Action',
+    'ArgumentTypeError',
     'FileType',
     'HelpFormatter',
+    'ArgumentDefaultsHelpFormatter',
     'RawDescriptionHelpFormatter',
     'RawTextHelpFormatter',
-    'ArgumentDefaultsHelpFormatter',
+    'Namespace',
+    'Action',
+    'ONE_OR_MORE',
+    'OPTIONAL',
+    'PARSER',
+    'REMAINDER',
+    'SUPPRESS',
+    'ZERO_OR_MORE',
 ]
 
 
@@ -82,6 +89,28 @@ import sys as _sys
 import textwrap as _textwrap
 
 from gettext import gettext as _
+
+try:
+    set
+except NameError:
+    # for python < 2.4 compatibility (sets module is there since 2.3):
+    from sets import Set as set
+
+try:
+    basestring
+except NameError:
+    basestring = str
+
+try:
+    sorted
+except NameError:
+    # for python < 2.4 compatibility:
+    def sorted(iterable, reverse=False):
+        result = list(iterable)
+        result.sort()
+        if reverse:
+            result.reverse()
+        return result
 
 
 def _callable(obj):
@@ -95,6 +124,7 @@ ZERO_OR_MORE = '*'
 ONE_OR_MORE = '+'
 PARSER = 'A...'
 REMAINDER = '...'
+_UNRECOGNIZED_ARGS_ATTR = '_unrecognized_args'
 
 # =============================
 # Utility functions and classes
@@ -385,10 +415,16 @@ class HelpFormatter(object):
                     for action in group._group_actions:
                         group_actions.add(action)
                     if not group.required:
-                        inserts[start] = '['
+                        if start in inserts:
+                            inserts[start] += ' ['
+                        else:
+                            inserts[start] = '['
                         inserts[end] = ']'
                     else:
-                        inserts[start] = '('
+                        if start in inserts:
+                            inserts[start] += ' ('
+                        else:
+                            inserts[start] = '('
                         inserts[end] = ')'
                     for i in range(start + 1, end):
                         inserts[i] = '|'
@@ -1070,7 +1106,12 @@ class _SubParsersAction(Action):
             raise ArgumentError(self, msg)
 
         # parse all the remaining options into the namespace
-        parser.parse_args(arg_strings, namespace)
+        # store any unrecognized options on the object, so that the top
+        # level parser can decide what to do with them
+        namespace, arg_strings = parser.parse_known_args(arg_strings, namespace)
+        if arg_strings:
+            vars(namespace).setdefault(_UNRECOGNIZED_ARGS_ATTR, [])
+            getattr(namespace, _UNRECOGNIZED_ARGS_ATTR).extend(arg_strings)
 
 
 # ==============
@@ -1563,13 +1604,19 @@ class ArgumentParser(_AttributeHolder, _ActionsContainer):
 
         # add help and version arguments if necessary
         # (using explicit default to override global argument_default)
+        if '-' in prefix_chars:
+            default_prefix = '-'
+        else:
+            default_prefix = prefix_chars[0]
         if self.add_help:
             self.add_argument(
-                '-h', '--help', action='help', default=SUPPRESS,
+                default_prefix+'h', default_prefix*2+'help',
+                action='help', default=SUPPRESS,
                 help=_('show this help message and exit'))
         if self.version:
             self.add_argument(
-                '-v', '--version', action='version', default=SUPPRESS,
+                default_prefix+'v', default_prefix*2+'version',
+                action='version', default=SUPPRESS,
                 version=self.version,
                 help=_("show program's version number and exit"))
 
@@ -1685,7 +1732,11 @@ class ArgumentParser(_AttributeHolder, _ActionsContainer):
 
         # parse the arguments and exit if there are any errors
         try:
-            return self._parse_known_args(args, namespace)
+            namespace, args = self._parse_known_args(args, namespace)
+            if hasattr(namespace, _UNRECOGNIZED_ARGS_ATTR):
+                args.extend(getattr(namespace, _UNRECOGNIZED_ARGS_ATTR))
+                delattr(namespace, _UNRECOGNIZED_ARGS_ATTR)
+            return namespace, args
         except ArgumentError:
             err = _sys.exc_info()[1]
             self.error(str(err))
@@ -1786,13 +1837,13 @@ class ArgumentParser(_AttributeHolder, _ActionsContainer):
                     chars = self.prefix_chars
                     if arg_count == 0 and option_string[1] not in chars:
                         action_tuples.append((action, [], option_string))
-                        for char in self.prefix_chars:
-                            option_string = char + explicit_arg[0]
-                            explicit_arg = explicit_arg[1:] or None
-                            optionals_map = self._option_string_actions
-                            if option_string in optionals_map:
-                                action = optionals_map[option_string]
-                                break
+                        char = option_string[0]
+                        option_string = char + explicit_arg[0]
+                        new_explicit_arg = explicit_arg[1:] or None
+                        optionals_map = self._option_string_actions
+                        if option_string in optionals_map:
+                            action = optionals_map[option_string]
+                            explicit_arg = new_explicit_arg
                         else:
                             msg = _('ignored explicit argument %r')
                             raise ArgumentError(action, msg % explicit_arg)
