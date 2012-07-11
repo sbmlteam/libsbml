@@ -23,3 +23,4 @@ test.xml.bz2
 test.xml.gz
 .libs
 installed-files.txt
+__pycache__
