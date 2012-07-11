@@ -101,6 +101,18 @@ foreach(package ${DOWNCAST_EXTENSION})
 endforeach()
 file(APPEND "${CMAKE_CURRENT_SOURCE_DIR}/local-downcast-plugins.cpp" "\n")
 
+#
+# Remove SWIG wrappers if requested
+#
+if (LIBSBML_REMOVE_WRAPPERS)
+  foreach(file 
+    ${CMAKE_CURRENT_BINARY_DIR}/libsbml_wrap.cpp
+  )
+    if (EXISTS ${file})
+      FILE(REMOVE ${file})
+    endif()
+  endforeach()
+endif(LIBSBML_REMOVE_WRAPPERS)
 
 ADD_CUSTOM_COMMAND(	
     OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/libsbml_wrap.cpp

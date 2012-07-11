@@ -50,6 +50,12 @@ endforeach()
 file(APPEND "${CMAKE_CURRENT_SOURCE_DIR}/swig/libsbml-packages.h" "\n")
 
 #
+# When checked removes all generated SWIG wrappers upon configure
+#
+option(LIBSBML_REMOVE_WRAPPERS   "Remove generated SWIG wrappers." OFF)
+mark_as_advanced(LIBSBML_REMOVE_WRAPPERS)
+
+#
 # and build selected language bindings
 #
 

@@ -92,6 +92,20 @@ endforeach()
 file(APPEND "${CMAKE_CURRENT_SOURCE_DIR}/local-packages.i" "\n")
 
 
+#
+# Remove SWIG wrappers if requested
+#
+if (LIBSBML_REMOVE_WRAPPERS)
+  foreach(file 
+    ${CMAKE_CURRENT_BINARY_DIR}/libsbml_wrap.cpp 
+    ${CMAKE_CURRENT_BINARY_DIR}/csdoc.i
+  )
+    if (EXISTS ${file})
+      FILE(REMOVE ${file})
+    endif()
+  endforeach()
+endif(LIBSBML_REMOVE_WRAPPERS)
+
 ####################################################################
 #
 # SWIG C# bindings

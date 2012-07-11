@@ -104,6 +104,23 @@ endforeach()
 file(APPEND "${CMAKE_CURRENT_SOURCE_DIR}/local-downcast-plugins.cpp" "\n")
 
 
+#
+# Remove SWIG wrappers if requested
+#
+if (LIBSBML_REMOVE_WRAPPERS)
+  foreach(file 
+    ${CMAKE_CURRENT_BINARY_DIR}/libsbml_wrap.cpp
+    ${CMAKE_CURRENT_BINARY_DIR}/pydoc-normal.i
+    ${CMAKE_CURRENT_BINARY_DIR}/pydoc-doxygen.i
+  )
+    if (EXISTS ${file})
+      FILE(REMOVE ${file})
+    endif()
+  endforeach()
+endif(LIBSBML_REMOVE_WRAPPERS)
+
+
+
 set (SWIG_PYTHON_SUFFIX "")
 if (PYTHON_VERSION_MAJOR AND ${PYTHON_VERSION_MAJOR} EQUAL "3")
 	set (SWIG_PYTHON_SUFFIX "3")

@@ -138,6 +138,21 @@ else()
   set(JAVA_PACKAGE_JAR_INSTALL_DIR ${MISC_PREFIX}bindings/java)  
 endif()
 
+#
+# Remove SWIG wrappers if requested
+#
+if (LIBSBML_REMOVE_WRAPPERS)
+  foreach(file 
+    ${CMAKE_CURRENT_BINARY_DIR}/libsbml_wrap.cpp 
+    ${CMAKE_CURRENT_BINARY_DIR}/javadoc.i
+  )
+    if (EXISTS ${file})
+      FILE(REMOVE ${file})
+    endif()
+  endforeach()
+endif(LIBSBML_REMOVE_WRAPPERS)
+
+
 ####################################################################
 #
 # Swig bindings
