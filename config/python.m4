@@ -82,14 +82,19 @@ AC_DEFUN([CONFIG_PROG_PYTHON],
 
     PYTHON_NAME="python${PYTHON_VERSION}"
 
-    PYTHON_H="${PYTHON_PREFIX}/include/${PYTHON_NAME}/Python.h"
-    AC_MSG_CHECKING(for Python.h)
-    if test -z $PYTHON_H || ! test -f $PYTHON_H;
-    then
-      AC_MSG_RESULT(no)
-      AC_MSG_ERROR([*** $PYTHON_H missing - please install first or check config.log ***])
+    dnl Find the Python include path.
+
+    AC_MSG_CHECKING([for Python include path])
+    if test -z "$PYTHON_CPPFLAGS"; then
+    	python_path=`$PYTHON -c "import distutils.sysconfig; \
+            print (distutils.sysconfig.get_python_inc ());"`
+    	if test -n "${python_path}"; then
+            python_path="-I$python_path"
+    	fi
+    	PYTHON_CPPFLAGS=$python_path
     fi
-    AC_MSG_RESULT(yes)
+    AC_MSG_RESULT([$PYTHON_CPPFLAGS])
+    AC_SUBST([PYTHON_CPPFLAGS])
 
     dnl Figure out the last bits for linking.
     dnl This comes in part from SWIG 1.3.31's configure.ac file.
@@ -106,17 +111,14 @@ AC_DEFUN([CONFIG_PROG_PYTHON],
 	dnl 3. If it's from anywhere else assume it's either the Fink
 	dnl    version or something else, and don't use -framework.
 
-	
 	if test `expr "${PYTHON_PREFIX}" ':' '/Library/Frameworks/.*'` -ne 0; then
 	  dnl Assume Mac Python from www.python.org/download/mac
 
-   	  PYTHON_CPPFLAGS="-I${PYTHON_PREFIX}/include/${PYTHON_NAME}"
 	  PYTHON_LDFLAGS="-L${PYTHON_PREFIX}/lib/${PYTHON_NAME}/lib-dynload -F/Library/Frameworks -framework Python"
 
 	elif test `expr "${PYTHON_PREFIX}" ':' '/System/Library/Frameworks/.*'` -ne 0; then
 	  dnl MacOSX-installed version of Python (we hope).
 
-   	  PYTHON_CPPFLAGS="-I${PYTHON_PREFIX}/include/${PYTHON_NAME}"
 	  PYTHON_LDFLAGS="-L${PYTHON_PREFIX}/lib/${PYTHON_NAME}/lib-dynload -F/System/Library/Frameworks -framework Python"
 
 	else
@@ -132,13 +134,11 @@ AC_DEFUN([CONFIG_PROG_PYTHON],
             dnl Currently, the environment variables is set in
             dnl src/binding/python/Makefile.in.
   
-   	    PYTHON_CPPFLAGS="-I${PYTHON_PREFIX}/include/${PYTHON_NAME}"
 	    PYTHON_LDFLAGS="-L${PYTHON_PREFIX}/lib/${PYTHON_NAME}/lib-dynload -undefined dynamic_lookup"
 
 	  else
 	    dnl Fink-installed version of Python, or something else.
 
-   	    PYTHON_CPPFLAGS="-I${PYTHON_PREFIX}/include/${PYTHON_NAME}"
 	    PYTHON_LDFLAGS="-L${PYTHON_PREFIX}/lib/${PYTHON_NAME}/lib-dynload -bundle_loader ${PYTHON}"
 
 	  fi
