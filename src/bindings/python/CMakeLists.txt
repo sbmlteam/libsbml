@@ -137,7 +137,7 @@ ADD_CUSTOM_COMMAND(
 			"${CMAKE_CURRENT_SOURCE_DIR}/../swig/libsbml.i"
 			"${CMAKE_CURRENT_BINARY_DIR}/pydoc-doxygen.i"
     COMMAND "${PYTHON_EXECUTABLE}"
-	ARGS	"${CMAKE_CURRENT_SOURCE_DIR}/doc-converter/rewrite_pydoc.py${SWIG_PYTHON_SUFFIX}"
+	ARGS	"${CMAKE_CURRENT_SOURCE_DIR}/doc-converter/rewrite_pydoc.py"
 			-f "${CMAKE_CURRENT_BINARY_DIR}/pydoc-doxygen.i"
 			-o "${CMAKE_CURRENT_BINARY_DIR}/pydoc-normal.i"
 			-i ${CMAKE_CURRENT_SOURCE_DIR}/../../../docs/src/common-text
@@ -176,7 +176,7 @@ ADD_CUSTOM_COMMAND(
 	ARGS    -E rename pydoc.i pydoc-normal.i 
     MAIN_DEPENDENCY ${CMAKE_CURRENT_SOURCE_DIR}/libsbml.i
 	DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/CMakeLists.txt
-	        ${CMAKE_CURRENT_SOURCE_DIR}/doc-converter/rewrite_pydoc.py${SWIG_PYTHON_SUFFIX}
+	        ${CMAKE_CURRENT_SOURCE_DIR}/doc-converter/rewrite_pydoc.py
 			${CMAKE_CURRENT_SOURCE_DIR}/../swig/swigdoc.py${SWIG_PYTHON_SUFFIX}
 	        ${SWIG_DEPENDENCIES}
     COMMENT "Swig Python source") 
