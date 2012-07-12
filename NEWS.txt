@@ -2,6 +2,46 @@
 
 
 ====================================================================
+Version 5.6.0 (Coming soon ...)
+====================================================================
+
+STABLE RELEASE
+
+* New features
+
+  - Support for Python 3.2.
+
+  - R binding
+
+  - Layout additions
+
+* Bug fixes
+
+* Miscellaneous
+
+* Configuration/build system changes
+
+EXPERIMENTAL RELEASE
+
+* New features
+
+  - The Qualitative Modelling package "qual" is now supported. 
+
+  - Groups
+    
+    - support for new attribute 'kind'
+
+  - Spatial
+
+    - fixes ??
+
+  - Render
+
+  - Req
+
+  - Comp
+
+====================================================================
 Version 5.5.0 (2012-05-11)
 ====================================================================
 
