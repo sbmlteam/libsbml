@@ -99,7 +99,6 @@
 ## and also available online as http://sbml.org/software/libsbml/license.html
 ## ------------------------------------------------------------------------ -->
 
-from __future__ import print_function
 import argparse
 import re
 import sys
