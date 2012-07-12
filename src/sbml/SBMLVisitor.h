@@ -442,6 +442,16 @@ public:
   /**
    * Interface method for using the <a target="_blank" 
    * href="http://en.wikipedia.org/wiki/Design_pattern_(computer_science)"><i>Visitor
+   * Pattern</i></a> to perform operations on Reaction objects.
+   *
+   * @param x the Reaction object to visit.
+   */
+  virtual void leave (const SBase     &x);
+
+
+  /**
+   * Interface method for using the <a target="_blank" 
+   * href="http://en.wikipedia.org/wiki/Design_pattern_(computer_science)"><i>Visitor
    * Pattern</i></a> to perform operations on ListOf objects.
    *
    * @param x the ListOf object to visit.

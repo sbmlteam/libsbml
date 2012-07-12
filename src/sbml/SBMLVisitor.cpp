@@ -267,6 +267,12 @@ SBMLVisitor::leave (const Reaction& x)
 
 
 void
+SBMLVisitor::leave (const SBase& x)
+{
+}
+
+
+void
 SBMLVisitor::leave (const ListOf& x, int type)
 {
 }
