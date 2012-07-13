@@ -232,6 +232,13 @@ if(APPLE)
 	#add_definitions(-DPERL_DARWIN)
 endif()
 
+if (MSVC)
+  # the build fails when compiled with packages as the object file is too 
+  # big adding the big flag makes it work!
+  add_definitions(/bigobj)
+endif(MSVC)
+
+
 add_library(binding_perl_lib MODULE ${CMAKE_CURRENT_BINARY_DIR}/LibSBML.cpp)
 set_source_files_properties(${CMAKE_CURRENT_BINARY_DIR}/LibSBML.cpp 
       PROPERTIES OBJECT_DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/LibSBML_wrap.cpp)
