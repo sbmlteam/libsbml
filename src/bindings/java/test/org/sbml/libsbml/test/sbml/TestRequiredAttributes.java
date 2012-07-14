@@ -3,7 +3,7 @@
  * @brief   Test hasRequiredAttributes unit tests
  *
  * @author  Akiya Jouraku (Java conversion)
- * @author  Ben Bornstein 
+ * @author  Ben Bornstein 
  * 
  * ====== WARNING ===== WARNING ===== WARNING ===== WARNING ===== WARNING ======
  *

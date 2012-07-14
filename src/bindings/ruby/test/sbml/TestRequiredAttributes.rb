@@ -2,7 +2,7 @@
 # @brief   Test hasRequiredAttributes unit tests
 #
 # @author  Akiya Jouraku (Ruby conversion)
-# @author  Ben Bornstein 
+# @author  Ben Bornstein 
 #
 #
 # ====== WARNING ===== WARNING ===== WARNING ===== WARNING ===== WARNING ======

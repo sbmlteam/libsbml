@@ -2,7 +2,7 @@
 ///  @brief   ModelCreator unit tests
 ///  @author  Frank Bergmann (Csharp conversion)
 ///  @author  Akiya Jouraku (Csharp conversion)
-///  @author  Sarah Keating 
+///  @author  Sarah Keating 
 /// 
 /// 
 ///  ====== WARNING ===== WARNING ===== WARNING ===== WARNING ===== WARNING ======

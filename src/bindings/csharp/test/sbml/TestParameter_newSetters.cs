@@ -2,7 +2,7 @@
 ///  @brief   Parameter unit tests for new set function API
 ///  @author  Frank Bergmann (Csharp conversion)
 ///  @author  Akiya Jouraku (Csharp conversion)
-///  @author  Sarah Keating 
+///  @author  Sarah Keating 
 /// 
 /// 
 ///  ====== WARNING ===== WARNING ===== WARNING ===== WARNING ===== WARNING ======

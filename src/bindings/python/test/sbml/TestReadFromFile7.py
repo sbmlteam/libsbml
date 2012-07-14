@@ -3,7 +3,7 @@
 # @brief   Reads test-data/l2v3-all.xml into memory and tests it.
 #
 # @author  Akiya Jouraku (Python conversion)
-# @author  Sarah Keating 
+# @author  Sarah Keating 
 # 
 # ====== WARNING ===== WARNING ===== WARNING ===== WARNING ===== WARNING ======
 #

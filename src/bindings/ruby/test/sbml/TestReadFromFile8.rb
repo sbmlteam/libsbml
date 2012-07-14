@@ -2,7 +2,7 @@
 # @brief   Reads test-data/l2v4-new.xml into memory and tests it.
 #
 # @author  Akiya Jouraku (Ruby conversion)
-# @author  Sarah Keating 
+# @author  Sarah Keating 
 #
 #
 # ====== WARNING ===== WARNING ===== WARNING ===== WARNING ===== WARNING ======

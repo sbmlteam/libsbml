@@ -3,7 +3,7 @@
 # @brief   SBML UnitDefinition unit tests for new API
 #
 # @author  Akiya Jouraku (Python conversion)
-# @author  sarah Keating 
+# @author  sarah Keating 
 # 
 # ====== WARNING ===== WARNING ===== WARNING ===== WARNING ===== WARNING ======
 #

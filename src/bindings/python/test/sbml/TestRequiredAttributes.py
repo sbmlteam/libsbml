@@ -3,7 +3,7 @@
 # @brief   Test hasRequiredAttributes unit tests
 #
 # @author  Akiya Jouraku (Python conversion)
-# @author  Ben Bornstein 
+# @author  Ben Bornstein 
 # 
 # ====== WARNING ===== WARNING ===== WARNING ===== WARNING ===== WARNING ======
 #

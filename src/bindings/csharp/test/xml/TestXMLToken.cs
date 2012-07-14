@@ -2,7 +2,7 @@
 ///  @brief   XMLToken unit tests
 ///  @author  Frank Bergmann (Csharp conversion)
 ///  @author  Akiya Jouraku (Csharp conversion)
-///  @author  Michael Hucka <mhucka@caltech.edu> 
+///  @author  Michael Hucka <mhucka@caltech.edu> 
 /// 
 /// 
 ///  ====== WARNING ===== WARNING ===== WARNING ===== WARNING ===== WARNING ======
@@ -412,9 +412,9 @@ namespace LibSBMLCSTest.xml {
       assertTrue( token.getNamespacesLength() == 9 );
       assertTrue( token.getNamespaceIndex( "http://test1.org/") == 0 );
       assertTrue( (  "test2" != token.getNamespacePrefix(1) ) == false );
-      assertTrue( ( 		      "test1" != token.getNamespacePrefix( "http://test1.org/") ) == false );
+      assertTrue( ( 		      "test1" != token.getNamespacePrefix( "http://test1.org/") ) == false );
       assertTrue( (  "http://test2.org/" != token.getNamespaceURI(1) ) == false );
-      assertTrue( ( 		      "http://test2.org/" != token.getNamespaceURI( "test2") ) == false );
+      assertTrue( ( 		      "http://test2.org/" != token.getNamespaceURI( "test2") ) == false );
       assertTrue( token.getNamespaceIndex( "http://test1.org/") == 0 );
       assertTrue( token.getNamespaceIndex( "http://test2.org/") == 1 );
       assertTrue( token.getNamespaceIndex( "http://test5.org/") == 4 );

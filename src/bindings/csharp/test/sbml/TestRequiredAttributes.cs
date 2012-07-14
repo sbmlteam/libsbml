@@ -2,7 +2,7 @@
 ///  @brief   Test hasRequiredAttributes unit tests
 ///  @author  Frank Bergmann (Csharp conversion)
 ///  @author  Akiya Jouraku (Csharp conversion)
-///  @author  Ben Bornstein 
+///  @author  Ben Bornstein 
 /// 
 /// 
 ///  ====== WARNING ===== WARNING ===== WARNING ===== WARNING ===== WARNING ======

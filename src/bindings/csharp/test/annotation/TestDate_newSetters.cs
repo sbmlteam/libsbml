@@ -2,7 +2,7 @@
 ///  @brief   Date unit tests
 ///  @author  Frank Bergmann (Csharp conversion)
 ///  @author  Akiya Jouraku (Csharp conversion)
-///  @author  Sarah Keating 
+///  @author  Sarah Keating 
 /// 
 /// 
 ///  ====== WARNING ===== WARNING ===== WARNING ===== WARNING ===== WARNING ======
@@ -134,13 +134,13 @@ namespace LibSBMLCSTest.annotation {
       assertTrue( date != null );
       int i = date.setDateAsString( "20081-12-30T12:15:45+02:00");
       assertTrue( i == libsbml.LIBSBML_INVALID_ATTRIBUTE_VALUE );
-      assertTrue((                                 "2007-10-23T14:15:16+03:00" == date.getDateAsString() ));
+      assertTrue((                                 "2007-10-23T14:15:16+03:00" == date.getDateAsString() ));
       i = date.setDateAsString( "200-12-30T12:15:45+02:00");
       assertTrue( i == libsbml.LIBSBML_INVALID_ATTRIBUTE_VALUE );
-      assertTrue((                                 "2007-10-23T14:15:16+03:00" == date.getDateAsString() ));
+      assertTrue((                                 "2007-10-23T14:15:16+03:00" == date.getDateAsString() ));
       i = date.setDateAsString("");
       assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS );
-      assertTrue((                             "2000-01-01T00:00:00Z" == date.getDateAsString() ));
+      assertTrue((                             "2000-01-01T00:00:00Z" == date.getDateAsString() ));
       i = date.setDateAsString( "2008-12-30T12:15:45+02:00");
       assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS );
       assertTrue( date.getYear() == 2008 );
@@ -168,7 +168,7 @@ namespace LibSBMLCSTest.annotation {
       i = date.setDay(15);
       assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS );
       assertTrue( date.getDay() == 15 );
-      assertTrue((                             "2005-02-15T12:15:45+02:00" == date.getDateAsString() ));
+      assertTrue((                             "2005-02-15T12:15:45+02:00" == date.getDateAsString() ));
       date = null;
     }
 
@@ -185,7 +185,7 @@ namespace LibSBMLCSTest.annotation {
       i = date.setHour(9);
       assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS );
       assertTrue( date.getHour() == 9 );
-      assertTrue((                             "2005-12-30T09:15:45+02:00" == date.getDateAsString() ));
+      assertTrue((                             "2005-12-30T09:15:45+02:00" == date.getDateAsString() ));
       date = null;
     }
 
@@ -199,7 +199,7 @@ namespace LibSBMLCSTest.annotation {
       i = date.setHoursOffset(11);
       assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS );
       assertTrue( date.getHoursOffset() == 11 );
-      assertTrue((                             "2005-12-30T12:15:45+11:00" == date.getDateAsString() ));
+      assertTrue((                             "2005-12-30T12:15:45+11:00" == date.getDateAsString() ));
       date = null;
     }
 
@@ -216,7 +216,7 @@ namespace LibSBMLCSTest.annotation {
       i = date.setMinute(32);
       assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS );
       assertTrue( date.getMinute() == 32 );
-      assertTrue((                             "2005-12-30T12:32:45+02:00" == date.getDateAsString() ));
+      assertTrue((                             "2005-12-30T12:32:45+02:00" == date.getDateAsString() ));
       date = null;
     }
 
@@ -233,7 +233,7 @@ namespace LibSBMLCSTest.annotation {
       i = date.setMinutesOffset(45);
       assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS );
       assertTrue( date.getMinutesOffset() == 45 );
-      assertTrue((                             "2005-12-30T12:15:45+02:45" == date.getDateAsString() ));
+      assertTrue((                             "2005-12-30T12:15:45+02:45" == date.getDateAsString() ));
       date = null;
     }
 
@@ -250,7 +250,7 @@ namespace LibSBMLCSTest.annotation {
       i = date.setMonth(11);
       assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS );
       assertTrue( date.getMonth() == 11 );
-      assertTrue((                             "2005-11-30T12:15:45+02:00" == date.getDateAsString() ));
+      assertTrue((                             "2005-11-30T12:15:45+02:00" == date.getDateAsString() ));
       date = null;
     }
 
@@ -267,7 +267,7 @@ namespace LibSBMLCSTest.annotation {
       i = date.setSecond(32);
       assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS );
       assertTrue( date.getSecond() == 32 );
-      assertTrue((                             "2005-12-30T12:15:32+02:00" == date.getDateAsString() ));
+      assertTrue((                             "2005-12-30T12:15:32+02:00" == date.getDateAsString() ));
       date = null;
     }
 
@@ -284,7 +284,7 @@ namespace LibSBMLCSTest.annotation {
       i = date.setYear(2008);
       assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS );
       assertTrue( date.getYear() == 2008 );
-      assertTrue((                             "2008-12-30T12:15:45+02:00" == date.getDateAsString() ));
+      assertTrue((                             "2008-12-30T12:15:45+02:00" == date.getDateAsString() ));
       date = null;
     }
 

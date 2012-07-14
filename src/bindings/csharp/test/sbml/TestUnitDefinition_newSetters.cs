@@ -2,7 +2,7 @@
 ///  @brief   SBML UnitDefinition unit tests for new API
 ///  @author  Frank Bergmann (Csharp conversion)
 ///  @author  Akiya Jouraku (Csharp conversion)
-///  @author  sarah Keating 
+///  @author  sarah Keating 
 /// 
 /// 
 ///  ====== WARNING ===== WARNING ===== WARNING ===== WARNING ===== WARNING ======

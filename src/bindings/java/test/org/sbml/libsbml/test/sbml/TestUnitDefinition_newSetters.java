@@ -3,7 +3,7 @@
  * @brief   SBML UnitDefinition unit tests for new API
  *
  * @author  Akiya Jouraku (Java conversion)
- * @author  sarah Keating 
+ * @author  sarah Keating 
  * 
  * ====== WARNING ===== WARNING ===== WARNING ===== WARNING ===== WARNING ======
  *
