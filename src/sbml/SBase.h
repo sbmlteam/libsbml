@@ -3319,6 +3319,13 @@ SBase.readExtensionAttributes(attributes);
    */
   std::string getPrefix() const;
 
+  /**
+   * Return the SBML prefix of this element. This will be the same as getPrefix()
+   * unless the element in question is an element of an SBML extension class.
+   */
+  std::string getSBMLPrefix() const;
+
+
 
   /**
    * Returns the root element of the node tree to which this element is connected.

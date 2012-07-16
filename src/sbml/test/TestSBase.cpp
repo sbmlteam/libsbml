@@ -2325,6 +2325,31 @@ START_TEST(test_SBase_matchesRequiredSBMLNamespacesForAddition)
 }
 END_TEST
 
+START_TEST(test_SBase_prefixMetaIdSBO)
+{
+  Species species(3,1);
+  species.setMetaId("meta1");
+  species.setSBOTerm(245);
+
+  std::string noPrefix = species.toSBML();
+  fail_unless (noPrefix.find(" metaid=") != std::string::npos);
+  fail_unless (noPrefix.find(" sboTerm=") != std::string::npos);
+
+  species.getNamespaces()->remove("");
+  species.getNamespaces()->add(SBMLNamespaces::getSBMLNamespaceURI(3, 1), "l3v1");
+  
+  std::string prefix = species.toSBML();
+  fail_unless (prefix.find(" l3v1:metaid=") != std::string::npos);
+  fail_unless (prefix.find(" l3v1:sboTerm=") != std::string::npos);
+
+  fail_unless (noPrefix != prefix);
+  
+
+
+
+}
+END_TEST
+
 START_TEST(test_SBase_userData)
 {
   Species s1(3, 1);
@@ -2400,6 +2425,8 @@ create_suite_SBase (void)
   tcase_add_test(tcase, test_SBase_matchesSBMLNamespaces);
   tcase_add_test(tcase, test_SBase_matchesRequiredSBMLNamespacesForAddition);
   tcase_add_test(tcase, test_SBase_userData);
+
+  tcase_add_test(tcase, test_SBase_prefixMetaIdSBO);
 
   suite_add_tcase(suite, tcase);
 

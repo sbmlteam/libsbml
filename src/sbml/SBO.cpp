@@ -119,9 +119,9 @@ SBO::readTerm (const XMLAttributes& attributes, SBMLErrorLog* log,
  * Writes sboTerm as an XMLAttribute to the given XMLOutputStream.
  */
 void
-SBO::writeTerm (XMLOutputStream& stream, int sboTerm)
+SBO::writeTerm (XMLOutputStream& stream, int sboTerm, const std::string& prefix)
 {
-  stream.writeAttribute( "sboTerm", intToString(sboTerm) );
+  stream.writeAttribute( "sboTerm", prefix, intToString(sboTerm) );
 }
 /** @endcond */
 

@@ -4702,6 +4702,28 @@ SBase::getPrefix() const
 
 
 /**
+ * Returns the prefix of this element.
+ */
+std::string 
+SBase::getSBMLPrefix() const
+{
+  std::string prefix = "";
+
+  XMLNamespaces *xmlns = getNamespaces();
+  if (xmlns == NULL)
+    return getPrefix();
+
+  for (int i = 0; i < xmlns->getNumNamespaces(); i++)
+  {
+    string uri = xmlns->getURI(i);
+    if (SBMLNamespaces::isSBMLNamespace(uri))
+      return xmlns->getPrefix(i);
+  }
+
+  return getPrefix();
+}
+
+/**
  * Returns the root element of this element.
  *
  * @note The root element may not be an SBMLDocument element. For example,
@@ -4740,10 +4762,10 @@ SBase::writeAttributes (XMLOutputStream& stream) const
 //  }
   unsigned int level   = getLevel();
   unsigned int version = getVersion();
-
+  string sbmlPrefix    = getSBMLPrefix();
   if ( level > 1 && !mMetaId.empty() )
   {
-    stream.writeAttribute("metaid", getPrefix(), mMetaId);
+    stream.writeAttribute("metaid", sbmlPrefix, mMetaId);
   }
 
   //
@@ -4757,7 +4779,7 @@ SBase::writeAttributes (XMLOutputStream& stream) const
   //
   if (level > 2 || ( (level == 2) && (version > 2) ) )
   {
-    SBO::writeTerm(stream, mSBOTerm);
+    SBO::writeTerm(stream, mSBOTerm, sbmlPrefix);
   }
 }
 
