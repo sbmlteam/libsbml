@@ -1030,6 +1030,12 @@ public:
   ReactionGlyph* createReactionGlyph ();
 
   /**
+   * Creates a GeneralGlyph object, adds it to the end of the additional 
+   * objects list and returns a reference to the newly created object.
+   */
+  GeneralGlyph*  createGeneralGlyph();
+
+  /**
    * Creates a TextGlyph object, adds it to the end of the text glyph
    * objects list and returns a pointer to the newly created object.
    */
@@ -1051,6 +1057,7 @@ public:
    */
   
   SpeciesReferenceGlyph* createSpeciesReferenceGlyph();
+
 
   /**
    * Creates a new LineSegment for the Curve object of the last
@@ -1798,6 +1805,14 @@ Layout_createSpeciesGlyph (Layout_t *);
 LIBSBML_EXTERN
 ReactionGlyph_t *
 Layout_createReactionGlyph (Layout_t *);
+
+/**
+ * Creates a GeneralGlyph_t object, adds it to the end of the additional
+ * objects list and returns a pointer to the newly created object.
+ */
+LIBSBML_EXTERN
+GeneralGlyph_t *
+Layout_createGeneralGlyph (Layout_t *);
 
 
 /**

@@ -209,10 +209,6 @@ Layout::Layout(const XMLNode& node, unsigned int l2version)
                 {
                     list.appendAndOwn(new CompartmentGlyph(*innerChild));
                 }
-                else if(innerChildName=="generalGlyph")
-                {
-                    list.appendAndOwn(new GeneralGlyph(*innerChild));
-                }
                 else if(innerChildName=="annotation")
                 {
                     list.setAnnotation(new XMLNode(*innerChild));
@@ -1150,8 +1146,22 @@ Layout::createReactionGlyph ()
   LAYOUT_CREATE_NS(layoutns,getSBMLNamespaces());
   ReactionGlyph* p = new ReactionGlyph(layoutns);
 
-  this->mReactionGlyphs.appendAndOwn(p);
+  this->mReactionGlyphs.appendAndOwn(p);  
   return p;
+}
+
+/**
+ * Creates a GeneralGlyph object, adds it to the end of the additional 
+ * objects list and returns a reference to the newly created object.
+ */
+GeneralGlyph* 
+Layout::createGeneralGlyph ()
+{
+  LAYOUT_CREATE_NS(layoutns,getSBMLNamespaces());
+  GeneralGlyph* g = new GeneralGlyph(layoutns);
+
+  this->mAdditionalGraphicalObjects.appendAndOwn(g);
+  return g;
 }
 
 
@@ -2849,6 +2859,18 @@ Layout_createReactionGlyph (Layout_t *l)
 {
   return l->createReactionGlyph();
 }
+
+/**
+ * Creates a GeneralGlyph_t object, adds it to the end of the additional
+ * objects list and returns a pointer to the newly created object.
+ */
+LIBSBML_EXTERN
+GeneralGlyph_t *
+Layout_createGeneralGlyph (Layout_t *l)
+{
+  return l->createGeneralGlyph();
+}
+
 
 
 /**
