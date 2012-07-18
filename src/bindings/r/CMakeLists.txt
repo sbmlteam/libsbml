@@ -232,7 +232,11 @@ if (UNIX)
 		set_target_properties (binding_r_lib PROPERTIES SUFFIX ".so")
 	endif()
 endif()
+if (R_ADDITIONAL_PATH_ENTRIES)
 target_link_libraries(binding_r_lib ${LIBSBML_LIBRARY}-static ${R_LIB} ${R_ADDITIONAL_PATH_ENTRIES})
+else()
+target_link_libraries(binding_r_lib ${LIBSBML_LIBRARY}-static ${R_LIB})
+endif()
 install(TARGETS binding_r_lib DESTINATION lib )
 
 ####################################################################
