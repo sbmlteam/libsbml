@@ -32,7 +32,7 @@ include(${SWIG_USE_FILE})
 SET(R_INCLUDE_DIRS)
 SET(R_LIB)
 SET(R_INTERPRETER)
-SET(R_ADITIONAL_PATH_ENTRIES "" CACHE STRING "Additional paths to the RTOOLS / GCC binary directories to build package")
+SET(R_ADDITIONAL_PATH_ENTRIES "" CACHE STRING "Additional paths to the RTOOLS / GCC binary directories to build package")
 SET(CMAKE_FIND_FRAMEWORK NEVER)
 SET(CMAKE_FIND_APPBUNDLE NEVER)
 # first lets search for the include/lib/interpreter if a user did not specify them
@@ -86,7 +86,7 @@ endif()
 #              R_INCLUDE_DIRS = ${R_INCLUDE_DIRS}
 #                       R_LIB = ${R_LIB}
 #               R_INTERPRETER = ${R_INTERPRETER}
-#    R_ADITIONAL_PATH_ENTRIES = ${R_ADITIONAL_PATH_ENTRIES}
+#   R_ADDITIONAL_PATH_ENTRIES = ${R_ADDITIONAL_PATH_ENTRIES}
 # 
 # ")
 
@@ -232,7 +232,7 @@ if (UNIX)
 		set_target_properties (binding_r_lib PROPERTIES SUFFIX ".so")
 	endif()
 endif()
-target_link_libraries(binding_r_lib ${LIBSBML_LIBRARY}-static ${R_LIB})
+target_link_libraries(binding_r_lib ${LIBSBML_LIBRARY}-static ${R_LIB} ${R_ADDITIONAL_PATH_ENTRIES})
 install(TARGETS binding_r_lib DESTINATION lib )
 
 ####################################################################
