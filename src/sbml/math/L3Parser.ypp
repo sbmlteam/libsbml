@@ -569,6 +569,7 @@ int sbml_yylex(void)
     l3p->input.seekg(numbegin);
     bool decimal = false;
     bool e = false;
+    bool last_e = false;
     while (l3p->input.tellg() != numend) {
       cc = l3p->input.get();
       if (cc=='.') {
@@ -576,7 +577,15 @@ int sbml_yylex(void)
       }
       if (cc=='e' || cc=='E') {
         e = true;
+        last_e = true;
       }
+      else {
+        last_e = false;
+      }
+    }
+    if (last_e) {
+       e = false;
+       l3p->input.unget();
     }
     if (!decimal && !e && number == static_cast<double>(numlong) && numlong <= SBML_INT_MAX) {
       sbml_yylval.numlong = numlong;
@@ -645,7 +654,7 @@ int sbml_yylex(void)
         }
       }
     }
-	l3p->input.clear();
+    l3p->input.clear();
     l3p->input.seekg(rationalbegin, ios::beg); // Not actually a rational number.
     return '(';
   }
