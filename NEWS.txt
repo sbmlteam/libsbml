@@ -17,6 +17,21 @@ STABLE RELEASE
 
 * Bug fixes
 
+  - When using libSBML compiled with package code attributes from the sbml 
+    namespace were on occasion written out with the package prefix and in some
+    cases the attribute was never prefixed even if it should be.  This has 
+    been fixed.
+    
+  - The L3Parser had some subtle bugs on some operating systems when 
+    dealing with very long numbers or exponentials. These have been
+    tracked down and fixed.
+    
+  - Whilst code explicitly prevented History or CVTerms being added to 
+    the annotation of an object when the object had no metaid attribute set
+    it was still possible to add them directly to the annotation.  Code
+    now checks that an object to which any MIRIAM compliant annotation 
+    is being added has a metaid. 
+
 * Miscellaneous
 
 * Configuration/build system changes
@@ -29,7 +44,8 @@ EXPERIMENTAL RELEASE
 
   - Groups
     
-    - support for new attribute 'kind'
+    - At HARMONY it was agreed that the 'group' element needed an additional
+      attribute 'kind'. This has been added.
 
   - Spatial
 
