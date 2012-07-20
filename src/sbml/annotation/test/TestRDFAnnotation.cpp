@@ -533,12 +533,12 @@ START_TEST (test_RDFAnnotation_testMissingAbout)
  
  // test parsing for specific meta id
  cvTerms = new List();
- RDFAnnotationParser::parseRDFAnnotation( &node, cvTerms, NULL, "_000004" );
+ RDFAnnotationParser::parseRDFAnnotation( &node, cvTerms, "_000004" );
  fail_unless( cvTerms->getSize() == 1 );
 
  // test parsing for a non-existing meta id
  cvTerms = new List();
- RDFAnnotationParser::parseRDFAnnotation( &node, cvTerms, NULL, "badMetaId" );
+ RDFAnnotationParser::parseRDFAnnotation( &node, cvTerms, "badMetaId" );
  fail_unless( cvTerms->getSize() == 0 );
 
 

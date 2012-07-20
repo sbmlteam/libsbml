@@ -99,8 +99,8 @@ void
 RDFAnnotationParser::parseRDFAnnotation(
      const XMLNode * annotation, 
      List * CVTerms, 
-     XMLInputStream* stream /*= NULL*/, 
-     const char* metaId /*= NULL*/)
+     const char* metaId,
+     XMLInputStream* stream /*= NULL*/)
 {
   if (annotation == NULL) 
     return;
@@ -219,8 +219,8 @@ RDFAnnotationParser::deriveCVTermsFromAnnotation(
 ModelHistory*
 RDFAnnotationParser::parseRDFAnnotation(
      const XMLNode * annotation, 
-     XMLInputStream* stream /*= NULL*/, 
-     const char* metaId /*= NULL*/)
+     const char* metaId, 
+     XMLInputStream* stream /*= NULL*/)
 {
   ModelHistory * history = NULL;
 

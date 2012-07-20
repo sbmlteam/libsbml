@@ -3836,7 +3836,7 @@ Model::readOtherXML (XMLInputStream& stream)
     if (RDFAnnotationParser::hasHistoryRDFAnnotation(mAnnotation))
     {
       mHistory = RDFAnnotationParser::parseRDFAnnotation(mAnnotation, 
-                                            &(stream), getMetaId().c_str());
+                                            getMetaId().c_str(), &(stream));
 
       if (mHistory != NULL && mHistory->hasRequiredAttributes() == false)
       {
@@ -3849,7 +3849,7 @@ Model::readOtherXML (XMLInputStream& stream)
       mHistory = NULL;
     if (RDFAnnotationParser::hasCVTermRDFAnnotation(mAnnotation))
       RDFAnnotationParser::parseRDFAnnotation(mAnnotation, mCVTerms, 
-                                                 &(stream), getMetaId().c_str());
+                                                getMetaId().c_str(), &(stream));
 //    new_annotation = RDFAnnotationParser::deleteRDFAnnotation(mAnnotation);
 //    delete mAnnotation;
 //    mAnnotation = new_annotation;

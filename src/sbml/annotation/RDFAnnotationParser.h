@@ -115,7 +115,7 @@ public:
    * @see @if clike parseRDFAnnotation(const XMLNode *annotation) @else RDFAnnotationParser::parseRDFAnnotation(const XMLNode *annotation) @endif@~
    */
   static void parseRDFAnnotation(const XMLNode *annotation, List *CVTerms,
-                  XMLInputStream* stream = NULL, const char* metaId = NULL);
+                  const char* metaId = NULL, XMLInputStream* stream = NULL);
 
 
   /**
@@ -139,7 +139,7 @@ public:
    * @return a pointer to the ModelHistory created.
    */
   static ModelHistory* parseRDFAnnotation(const XMLNode *annotation, 
-    XMLInputStream* stream = NULL, const char* metaId = NULL);
+    const char* metaId = NULL, XMLInputStream* stream = NULL);
 
 
   /**
