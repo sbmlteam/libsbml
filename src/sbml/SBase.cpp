@@ -1107,7 +1107,7 @@ SBase::setAnnotation (const XMLNode* annotation)
       && isSetMetaId() == false)
     {
       mAnnotation = NULL;
-      return LIBSBML_OPERATION_FAILED;
+      return LIBSBML_UNEXPECTED_ATTRIBUTE;
     }
     else
     {
@@ -1275,7 +1275,7 @@ SBase::appendAnnotation (const XMLNode* annotation)
       || RDFAnnotationParser::hasHistoryRDFAnnotation(annotation) == true)
     && isSetMetaId() == false)
   {
-    return success;
+    return LIBSBML_UNEXPECTED_ATTRIBUTE;
   }
 
   XMLNode* new_annotation = NULL;

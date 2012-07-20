@@ -123,7 +123,7 @@ START_TEST (test_RDFAnnotationMetaid_setAnnotation1)
     "</annotation>";
 
 
-  fail_unless(m->setAnnotation(rdfAnn) == LIBSBML_OPERATION_FAILED);
+  fail_unless(m->setAnnotation(rdfAnn) == LIBSBML_UNEXPECTED_ATTRIBUTE);
 
   fail_unless(m->getAnnotation() == NULL);
 
@@ -186,7 +186,7 @@ START_TEST (test_RDFAnnotationMetaid_setAnnotation2)
     "</annotation>";
 
   Compartment * c = m->getCompartment(1);
-  fail_unless(c->appendAnnotation(rdfAnn) == LIBSBML_OPERATION_FAILED);
+  fail_unless(c->appendAnnotation(rdfAnn) == LIBSBML_UNEXPECTED_ATTRIBUTE);
 
   fail_unless( equals (expected, c->getAnnotation()->toXMLString().c_str()));
 
@@ -232,7 +232,7 @@ START_TEST (test_RDFAnnotationMetaid_setAnnotation3)
 
 
   Species *s = m->getSpecies(0);
-  fail_unless(s->setAnnotation(rdfAnn) == LIBSBML_OPERATION_FAILED);
+  fail_unless(s->setAnnotation(rdfAnn) == LIBSBML_UNEXPECTED_ATTRIBUTE);
 
   fail_unless(s->getAnnotation() == NULL);
 
