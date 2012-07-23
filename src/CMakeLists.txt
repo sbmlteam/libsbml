@@ -33,6 +33,17 @@ set(LIBSBML_SOURCES)
 
 ###############################################################################
 #
+# Include all packages
+#
+file(GLOB PACKAGE_OPTIONS "*package.cmake")
+foreach(package ${PACKAGE_OPTIONS})
+
+	include(${package})
+
+endforeach()
+
+###############################################################################
+#
 # Register all packagess
 #
 
