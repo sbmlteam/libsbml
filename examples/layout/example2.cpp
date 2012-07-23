@@ -68,6 +68,10 @@
 #include "sbml/packages/layout/extension/LayoutExtension.h"
 #include "sbml/packages/layout/extension/LayoutModelPlugin.h"
 
+#if (!defined LIBSBML_HAS_PACKAGE_LAYOUT)
+#error "This example requires libSBML to be built with the layout extension."
+#endif
+
 LIBSBML_CPP_NAMESPACE_USE
 
 Species* createSpecies(const char* id, const char* name, const char* compartmentId,Model* model){

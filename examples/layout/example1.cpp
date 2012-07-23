@@ -66,6 +66,10 @@
 #include "sbml/packages/layout/sbml/CubicBezier.h"
 #include "sbml/SBMLWriter.h"
 
+#if (!defined LIBSBML_HAS_PACKAGE_LAYOUT)
+#error "This example requires libSBML to be built with the layout extension."
+#endif
+
 LIBSBML_CPP_NAMESPACE_USE
 
 int main(int argc,char** argv){

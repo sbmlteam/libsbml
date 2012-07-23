@@ -13,6 +13,9 @@
 #include "sbml/SBMLTypes.h"
 #include "sbml/packages/layout/common/LayoutExtensionTypes.h"
 
+#if (!defined LIBSBML_HAS_PACKAGE_LAYOUT)
+#error "This example requires libSBML to be built with the layout extension."
+#endif
 
 using namespace std;
 LIBSBML_CPP_NAMESPACE_USE

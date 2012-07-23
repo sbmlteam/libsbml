@@ -28,12 +28,4 @@ endforeach()
 
 add_executable(example_layout_convertLayout convertLayout.cpp)
 set_target_properties(example_layout_convertLayout PROPERTIES  OUTPUT_NAME convertLayout)
-
-if(ENABLE_RENDER)
-  # if we have the render extension available have the example also 
-  # convert the render information
-  add_definitions(-DCONVERT_RENDER)
-endif(ENABLE_RENDER)
-
 target_link_libraries(example_layout_convertLayout ${LIBSBML_LIBRARY}-static)
-

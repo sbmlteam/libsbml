@@ -29,8 +29,12 @@
 #include "sbml/conversion/ConversionProperties.h"
 #include "sbml/packages/layout/common/LayoutExtensionTypes.h"
 
-#ifdef CONVERT_RENDER
+#ifdef LIBSBML_HAS_PACKAGE_RENDER
 #include "sbml/packages/render/common/RenderExtensionTypes.h"
+#endif
+
+#if (!defined LIBSBML_HAS_PACKAGE_LAYOUT)
+#error "This example requires libSBML to be built with the layout extension."
 #endif
 
 using namespace std;
@@ -77,7 +81,7 @@ public:
     layoutNsUri = "http://projects.eml.org/bcb/sbml/level2";
     layoutNs = new LayoutPkgNamespaces(2, 1);
 
-#ifdef CONVERT_RENDER
+#ifdef LIBSBML_HAS_PACKAGE_RENDER
     foundRenderElements = false;
     renderNsUri = "http://projects.eml.org/bcb/sbml/render/level2";
     renderNs = new RenderPkgNamespaces(2, 1);
@@ -107,7 +111,7 @@ public:
 
     _doc->getSBMLNamespaces()->removePackageNamespace(3, 1, "layout", 1);        
 
-#ifdef CONVERT_RENDER
+#ifdef LIBSBML_HAS_PACKAGE_RENDER
     SBMLDocumentPlugin *rdocPlugin = (SBMLDocumentPlugin*)_doc->getPlugin("render");
     if (rdocPlugin!= NULL)
       rdocPlugin->setElementNamespace(renderNsUri);
@@ -124,7 +128,7 @@ public:
     layoutNsUri = "http://www.sbml.org/sbml/level3/version1/layout/version1";
     layoutNs = new LayoutPkgNamespaces(3, 1, 1);
 
-#ifdef CONVERT_RENDER
+#ifdef LIBSBML_HAS_PACKAGE_RENDER
     foundRenderElements = false;
     renderNsUri = "http://www.sbml.org/sbml/level3/version1/render/version1";
     renderNs = new RenderPkgNamespaces(3, 1, 1);
@@ -153,7 +157,7 @@ public:
     _doc->getSBMLNamespaces()->addPackageNamespace("layout", 1);
     _doc->setPackageRequired("layout", false);
 
-#ifdef CONVERT_RENDER
+#ifdef LIBSBML_HAS_PACKAGE_RENDER
     if (!foundRenderElements)
       return;
 
@@ -180,7 +184,7 @@ public:
     for (unsigned int i = 0; i < list->size(); i++)
       updateNs((Layout*)(list->get(i)));
 
-#ifdef CONVERT_RENDER
+#ifdef LIBSBML_HAS_PACKAGE_RENDER
 
     RenderListOfLayoutsPlugin* lolPlugin = (RenderListOfLayoutsPlugin*)list->getPlugin("render");
     if (lolPlugin != NULL)
@@ -193,7 +197,7 @@ public:
 
   }
 
-#ifdef CONVERT_RENDER
+#ifdef LIBSBML_HAS_PACKAGE_RENDER
 
   void updateNs(ListOfGlobalRenderInformation *list)
   {
@@ -553,7 +557,7 @@ public:
     updateNs(layout->getListOfSpeciesGlyphs());
     updateNs(layout->getListOfTextGlyphs());    
 
-#ifdef CONVERT_RENDER
+#ifdef LIBSBML_HAS_PACKAGE_RENDER
 
     RenderLayoutPlugin* layoutPlugin = (RenderLayoutPlugin*)layout->getPlugin("render");
     if (layoutPlugin != NULL)
@@ -571,7 +575,7 @@ protected:
 
   SBMLDocument* _doc;
 
-#ifdef CONVERT_RENDER
+#ifdef LIBSBML_HAS_PACKAGE_RENDER
   string renderNsUri;
   SBMLNamespaces *renderNs;
   bool foundRenderElements;
@@ -623,7 +627,7 @@ public:
     layoutNsUri = "http://projects.eml.org/bcb/sbml/level2";
     layoutNs = new LayoutPkgNamespaces(2, 1);
 
-#ifdef CONVERT_RENDER
+#ifdef LIBSBML_HAS_PACKAGE_RENDER
     renderNsUri = "http://projects.eml.org/bcb/sbml/render/level2";
     renderNs = new RenderPkgNamespaces(2, 1);
 #endif
@@ -649,7 +653,7 @@ public:
     _doc->getSBMLNamespaces()->removePackageNamespace(3, 1, "layout", 1);        
     _doc->getSBMLNamespaces()->addPackageNamespace("layout", 1);        
 
-#ifdef CONVERT_RENDER
+#ifdef LIBSBML_HAS_PACKAGE_RENDER
     SBMLDocumentPlugin *rdocPlugin = (SBMLDocumentPlugin*)_doc->getPlugin("render");
     if (rdocPlugin!= NULL)
       rdocPlugin->setElementNamespace(renderNsUri);
@@ -668,7 +672,7 @@ public:
     layoutNsUri = "http://www.sbml.org/sbml/level3/version1/layout/version1";
     layoutNs = new LayoutPkgNamespaces(3, 1, 1);
 
-#ifdef CONVERT_RENDER
+#ifdef LIBSBML_HAS_PACKAGE_RENDER
     renderNsUri = "http://www.sbml.org/sbml/level3/version1/render/version1";
     renderNs = new RenderPkgNamespaces(3, 1, 1);
 #endif
@@ -695,7 +699,7 @@ public:
     _doc->getSBMLNamespaces()->addPackageNamespace("layout", 1);
     _doc->setPackageRequired("layout", false);
 
-#ifdef CONVERT_RENDER
+#ifdef LIBSBML_HAS_PACKAGE_RENDER
 
     SBMLDocumentPlugin *rdocPlugin = (SBMLDocumentPlugin*)_doc->getPlugin("render");
     if (rdocPlugin != NULL)
@@ -718,7 +722,7 @@ protected:
 
   SBMLDocument* _doc;
 
-#ifdef CONVERT_RENDER
+#ifdef LIBSBML_HAS_PACKAGE_RENDER
   string renderNsUri;
   SBMLNamespaces *renderNs;
 #endif
@@ -735,6 +739,12 @@ int main(int argc,char** argv)
   if (argc != 3)
   {
     cerr << "usage convertLayout <input> <output>" << endl << endl;
+	
+	cerr << "This converter convertes the SBML Layout "; 
+#ifdef LIBSBML_HAS_PACKAGE_RENDER
+	cerr << "and Render "
+#endif
+	cerr << "package information between SBML Level 2 and Level 3" << endl << endl;
     exit(1);
   }
 

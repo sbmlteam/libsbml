@@ -733,7 +733,7 @@ file(GLOB PACKAGE_OPTIONS "*package.cmake")
 foreach(package ${PACKAGE_OPTIONS})
     include(${package})
 endforeach()
-
+list(REMOVE_DUPLICATE LIBSBML_PACKAGE_INCLUDES)
 
 ###############################################################################
 #
