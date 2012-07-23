@@ -9,4 +9,5 @@ CTAGS
 libsbml.pc
 *.o
 libsbml-config-unix.h
+libsbml-config-packages.h
 .libs

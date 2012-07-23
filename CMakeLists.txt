@@ -487,10 +487,10 @@ if(WITH_CSHARP)
         )
     if(UNIX)
     else()
-        if(${CMAKE_SIZEOF_VOID_P} EQUAL 4)
+        if(CMAKE_SIZEOF_VOID_P EQUAL 4)
             # mark libsbml library as x86
             set(CSHARP_EXTRA_ARGS -platform:x86 )
-        elseif(${CMAKE_SIZEOF_VOID_P} EQUAL 8)
+        elseif(CMAKE_SIZEOF_VOID_P EQUAL 8)
             # mark libsbml library as x64
             set(CSHARP_EXTRA_ARGS -platform:x64 )
         endif()
@@ -724,6 +724,16 @@ if(LIBRARY_COUNT EQUAL 0)
     message(FATAL_ERROR "A XML library must be selected. Please select one of the following: WITH_LIBXML, WITH_EXPAT or WITH_XERCES.")
 endif()
 
+###############################################################################
+#
+# Include options for all libSBML packages
+#
+set(LIBSBML_PACKAGE_INCLUDES)
+file(GLOB PACKAGE_OPTIONS "*package.cmake")
+foreach(package ${PACKAGE_OPTIONS})
+    include(${package})
+endforeach()
+
 
 ###############################################################################
 #
@@ -745,16 +755,6 @@ if(WITH_EXAMPLES)
 
 endif(WITH_EXAMPLES)
 
-
-###############################################################################
-#
-# Include options for all libSBML packages
-#
-
-file(GLOB PACKAGE_OPTIONS "*package.cmake")
-foreach(package ${PACKAGE_OPTIONS})
-    include(${package})
-endforeach()
 
 if(WITH_DOXYGEN)
     add_subdirectory(docs)

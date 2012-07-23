@@ -97,3 +97,5 @@
 /* Define to allow the c-functions in util.c and memory.c exit the 
    application in case of an allocation / file system error. */
 #cmakedefine EXIT_ON_ERROR 1
+
+#include "libsbml-config-packages.h"
