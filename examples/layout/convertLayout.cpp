@@ -740,11 +740,11 @@ int main(int argc,char** argv)
   {
     cerr << "usage convertLayout <input> <output>" << endl << endl;
 	
-	cerr << "This converter convertes the SBML Layout "; 
+	cerr << "This converter converts the SBML Layout "; 
 #ifdef LIBSBML_HAS_PACKAGE_RENDER
 	cerr << "and Render ";
 #endif
-	cerr << "package information between SBML Level 2 and Level 3" << endl << endl;
+	cerr << "package information between SBML Level 2 and Level 3." << endl << endl;
     exit(1);
   }
 
