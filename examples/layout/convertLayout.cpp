@@ -742,7 +742,7 @@ int main(int argc,char** argv)
 	
 	cerr << "This converter convertes the SBML Layout "; 
 #ifdef LIBSBML_HAS_PACKAGE_RENDER
-	cerr << "and Render "
+	cerr << "and Render ";
 #endif
 	cerr << "package information between SBML Level 2 and Level 3" << endl << endl;
     exit(1);
