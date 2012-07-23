@@ -113,7 +113,9 @@ AC_ARG_ENABLE([layout],
 
 if test "$enable_layout" != no; then
   AC_DEFINE([USE_LAYOUT], 1, [Define to 1 to build the SBML layout extension.])
+  AC_DEFINE([LIBSBML_HAS_PACKAGE_LAYOUT], 1, [Define to 1 to build the SBML layout extension.])
   AC_SUBST(USE_LAYOUT, 1)
+  AC_SUBST(LIBSBML_HAS_PACKAGE_LAYOUT, 1)
 fi
 
 dnl -------------------------------------------------------

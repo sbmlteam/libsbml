@@ -86,6 +86,10 @@
 /* Define to 1 to build the SBML layout extension. */
 #undef USE_LAYOUT
 
+/* Define to 1 to build the SBML layout extension. */
+#undef LIBSBML_HAS_PACKAGE_LAYOUT
+
+
 /* Define to 1 to build the SBML groups extension. */
 #undef USE_GROUPS
 
