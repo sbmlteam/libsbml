@@ -102,15 +102,6 @@ if (NOT R_INCLUDE_DIRS)
 endif()
 
 
-####################################################################
-#
-# include package files to obtain all needed arguments
-#
-
-file(GLOB PACKAGE_OPTIONS "${CMAKE_SOURCE_DIR}/*package.cmake")
-foreach(package ${PACKAGE_OPTIONS})
-	include(${package})
-endforeach()
 
 ####################################################################
 #

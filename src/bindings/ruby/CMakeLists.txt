@@ -30,15 +30,6 @@ find_package(SWIG REQUIRED)
 include(${SWIG_USE_FILE})
 include(FindRuby)
 
-####################################################################
-#
-# include package files to obtain all needed arguments
-#
-
-file(GLOB PACKAGE_OPTIONS "${CMAKE_SOURCE_DIR}/*package.cmake")
-foreach(package ${PACKAGE_OPTIONS})
-	include(${package})
-endforeach()
 
 ####################################################################
 #

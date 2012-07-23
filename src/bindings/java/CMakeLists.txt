@@ -44,16 +44,6 @@ configure_file (
 
 ####################################################################
 #
-# include package files to obtain all needed arguments
-# 
-
-file(GLOB PACKAGE_OPTIONS "${CMAKE_SOURCE_DIR}/*package.cmake")
-foreach(package ${PACKAGE_OPTIONS})
-	include(${package})
-endforeach()
-
-####################################################################
-#
 # ensure that javac, jar and python are available
 # 
 
