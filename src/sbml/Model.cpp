@@ -2182,6 +2182,8 @@ Model::setAnnotation (const XMLNode* annotation)
     {
       // parse mAnnotation (if any) and set mHistory
       mHistory = RDFAnnotationParser::parseRDFAnnotation(mAnnotation);
+      mHistoryChanged = true;
+
     }
   }
 

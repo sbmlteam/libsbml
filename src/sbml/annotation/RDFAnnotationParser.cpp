@@ -176,12 +176,32 @@ RDFAnnotationParser::deriveCVTermsFromAnnotation(
   if (annotation == NULL)
     return;
 
+  // the annotation passed in may have a toplevel annotation tag BUT
+  // it may not be- so need to check
+  // if it isnt then it must be RDF or we do not have an rdf annotation
+  bool topLevelIsAnnotation = false;
+  if (annotation->getName() == "annotation")
+  {
+    topLevelIsAnnotation = true;
+  }
+
+
   CVTerm * term;
   if (CVTerms == NULL)
     CVTerms = new List();
 
-  const XMLNode* RDFDesc = 
-                 &(annotation->getChild("RDF").getChild("Description"));
+  const XMLNode* RDFDesc = NULL;
+  if (topLevelIsAnnotation == true)
+  {
+    RDFDesc =  &(annotation->getChild("RDF").getChild("Description"));
+  }
+  else
+  {
+    if (annotation->getName() == "RDF")
+    {
+      RDFDesc = &(annotation->getChild("Description"));
+    }
+  }
   
   // find qualifier nodes and create CVTerms
   
@@ -304,7 +324,28 @@ RDFAnnotationParser::deriveHistoryFromAnnotation(
   if (annotation == NULL)
     return history;
 
-  const XMLNode*  RDFDesc = &(annotation->getChild("RDF").getChild("Description"));
+  // the annotation passed in may have a toplevel annotation tag BUT
+  // it may not be- so need to check
+  // if it isnt then it must be RDF or we do not have an rdf annotation
+  bool topLevelIsAnnotation = false;
+  if (annotation->getName() == "annotation")
+  {
+    topLevelIsAnnotation = true;
+  }
+
+  const XMLNode* RDFDesc = NULL;
+  if (topLevelIsAnnotation == true)
+  {
+    RDFDesc =  &(annotation->getChild("RDF").getChild("Description"));
+  }
+  else
+  {
+    if (annotation->getName() == "RDF")
+    {
+      RDFDesc = &(annotation->getChild("Description"));
+    }
+  }
+  
 
   ModelCreator* creator = NULL;
   Date * modified = NULL;
@@ -541,8 +582,13 @@ RDFAnnotationParser::createRDFDescriptionWithCVTerms(const SBase * object)
         const char* term = BiolQualifierType_toString(
             current->getBiologicalQualifierType());
         if (term == NULL) 
-          return NULL;
-        name = term;        
+        {
+          name = "";
+        }
+        else
+        {
+          name = term;
+        }
       }
       else
       {
@@ -550,30 +596,39 @@ RDFAnnotationParser::createRDFDescriptionWithCVTerms(const SBase * object)
       }
       
 
-      resources = current->getResources();
-      XMLNode   bag(bag_token);
-
-      for (int r = 0; r < resources->getLength(); r++)
+      if (name.empty() == false)
       {
-        XMLAttributes att;
-        att.add(resources->getName(r), resources->getValue(r)); 
-        
-        XMLToken li_token(li_triple, att);
-        li_token.setEnd();
-        XMLNode li(li_token);
+        resources = current->getResources();
+        XMLNode   bag(bag_token);
 
-        bag.addChild(li);
+        for (int r = 0; r < resources->getLength(); r++)
+        {
+          XMLAttributes att;
+          att.add(resources->getName(r), resources->getValue(r)); 
+          
+          XMLToken li_token(li_triple, att);
+          li_token.setEnd();
+          XMLNode li(li_token);
+
+          bag.addChild(li);
+        }
+
+        XMLTriple type_triple(name, uri, prefix);
+        XMLToken  type_token(type_triple, blank_att);
+        XMLNode   type(type_token);
+
+        type.addChild(bag);
+        description->addChild(type);
       }
-
-      XMLTriple type_triple(name, uri, prefix);
-      XMLToken  type_token(type_triple, blank_att);
-      XMLNode   type(type_token);
-
-      type.addChild(bag);
-      description->addChild(type);
     }
 
   }
+  // if all cvterms were bad then the description will contain nothing
+  if (description->getNumChildren() == 0)
+  {
+    return NULL;
+  }
+
   return description;
 }
 
@@ -1161,9 +1216,18 @@ RDFAnnotationParser::hasRDFAnnotation(const XMLNode *annotation)
   const string&  name = annotation->getName();
   unsigned int n = 0;
 
-  if (name != "annotation")
+  // since the argument annotation might be anything we have to make the 
+  // assumption that it is either an annotation element or an RDF element
+  // anything else we have to assume does not have an rdf annotation
+  // that we are capable of parsing
+
+  if (name == "RDF")
   {
-    return hasRDF;
+    return true;
+  }
+  else if (name != "annotation")
+  {
+    return false;
   }
 
   while (n < annotation->getNumChildren())
@@ -1223,6 +1287,9 @@ RDFAnnotationParser::hasAdditionalRDFAnnotation(const XMLNode *annotation)
       !RDFAnnotationParser::hasHistoryRDFAnnotation(annotation))
     {
       hasAdditionalRDF = true;
+    }
+    else
+    {
     }
     
     if (tempCVTerms != NULL)

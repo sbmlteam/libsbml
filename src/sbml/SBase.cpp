@@ -1113,11 +1113,13 @@ SBase::setAnnotation (const XMLNode* annotation)
     delete mAnnotation;
     mAnnotation = NULL;
   }
+
+
   //else if (!(math->isWellFormedASTNode()))
   //{
   //  return LIBSBML_INVALID_OBJECT;
   //}
-  else if (mAnnotation != annotation)
+  if (mAnnotation != annotation)
   { 
     delete mAnnotation;
 
@@ -4891,10 +4893,15 @@ void
 SBase::syncAnnotation ()
 {
   // look to see whether an existing history has been altered 
-  if (mHistoryChanged == false && getModelHistory() != NULL 
-        && getModelHistory()->hasBeenModified() == true)
+  if (mHistoryChanged == false)
   {
-    mHistoryChanged = true;
+    if (getModelHistory() != NULL)
+    {
+      if (getModelHistory()->hasBeenModified() == true)
+      { 
+        mHistoryChanged = true;
+      }
+    }
   }
   // or an existing CVTerm
   if (mCVTermsChanged == false)
@@ -4961,6 +4968,17 @@ SBase::reconstructRDFAnnotation()
     hasRDF = RDFAnnotationParser::hasRDFAnnotation(mAnnotation);
     hasAdditionalRDF = 
       RDFAnnotationParser::hasAdditionalRDFAnnotation(mAnnotation);
+    if (hasAdditionalRDF == false)
+    {
+      // look for bizaare case where a user has added a history annotation
+      // to an object that does not legally include history in MIRIAM compliant
+      // RDF - this needs to get written out as additional RDF
+      if (getLevel() < 3 && getTypeCode() != SBML_MODEL
+        && RDFAnnotationParser::hasHistoryRDFAnnotation(mAnnotation) == true)
+      {
+        hasAdditionalRDF = true;
+      }
+    }
   }
 
   // look at whether the user has changed the RDF elements 
@@ -5167,7 +5185,6 @@ SBase::reconstructRDFAnnotation()
       
       if (hasAdditionalRDF)
       {
-        ////////////still to do
         // here the annotation after removing miriam-rdf has an RDF top level
         // element - the history and cvterms need to go into the RDF as the first 
         // description element
