@@ -1978,11 +1978,16 @@ START_TEST (test_SBase_setSBOTerm2)
   fail_unless( SBase_isSetSBOTerm(S) );
   fail_unless( SBase_getSBOTerm(S) == 5 );
   fail_unless( strcmp(SBase_getSBOTermID(S), "SBO:0000005") == 0);
+  fail_unless( strcmp(SBase_getSBOTermAsURL(S), 
+               "http://identifiers.org/biomodels.sbo/SBO:0000005") == 0);
 
   i = SBase_unsetSBOTerm(S);
 
   fail_unless( i == LIBSBML_OPERATION_SUCCESS );
   fail_unless( !SBase_isSetSBOTerm(S) );
+  fail_unless( SBase_getSBOTerm(S) == -1 );
+  fail_unless( SBase_getSBOTermID(S) == NULL);
+  fail_unless( SBase_getSBOTermAsURL(S) == NULL);
 
   i = SBase_setSBOTerm(S, 0);
 
@@ -1990,6 +1995,8 @@ START_TEST (test_SBase_setSBOTerm2)
   fail_unless( SBase_isSetSBOTerm(S) );
   fail_unless( SBase_getSBOTerm(S) == 0 );
   fail_unless( strcmp(SBase_getSBOTermID(S), "SBO:0000000") == 0);
+  fail_unless( strcmp(SBase_getSBOTermAsURL(S), 
+               "http://identifiers.org/biomodels.sbo/SBO:0000000") == 0);
 
   i = SBase_setSBOTerm(S, 9999999);
 
@@ -1997,6 +2004,8 @@ START_TEST (test_SBase_setSBOTerm2)
   fail_unless( SBase_isSetSBOTerm(S) );
   fail_unless( SBase_getSBOTerm(S) == 9999999 );
   fail_unless( strcmp(SBase_getSBOTermID(S), "SBO:9999999") == 0);
+  fail_unless( strcmp(SBase_getSBOTermAsURL(S), 
+               "http://identifiers.org/biomodels.sbo/SBO:9999999") == 0);
 
   /* set an SBOTerm by ID */
 
@@ -2006,11 +2015,15 @@ START_TEST (test_SBase_setSBOTerm2)
   fail_unless( SBase_isSetSBOTerm(S) );
   fail_unless( SBase_getSBOTerm(S) == 5 );
   fail_unless( strcmp(SBase_getSBOTermID(S), "SBO:0000005") == 0);
+  fail_unless( strcmp(SBase_getSBOTermAsURL(S), 
+               "http://identifiers.org/biomodels.sbo/SBO:0000005") == 0);
 
   i = SBase_unsetSBOTerm(S);
 
   fail_unless( i == LIBSBML_OPERATION_SUCCESS );
   fail_unless( !SBase_isSetSBOTerm(S) );
+  fail_unless( SBase_getSBOTermID(S) == NULL);
+  fail_unless( SBase_getSBOTermAsURL(S) == NULL);
 
   i = SBase_setSBOTermID(S, "SBO:0000000");
 
@@ -2018,6 +2031,8 @@ START_TEST (test_SBase_setSBOTerm2)
   fail_unless( SBase_isSetSBOTerm(S) );
   fail_unless( SBase_getSBOTerm(S) == 0 );
   fail_unless( strcmp(SBase_getSBOTermID(S), "SBO:0000000") == 0);
+  fail_unless( strcmp(SBase_getSBOTermAsURL(S), 
+               "http://identifiers.org/biomodels.sbo/SBO:0000000") == 0);
 
   i = SBase_setSBOTermID(S, "SBO:9999999");
 
@@ -2025,6 +2040,8 @@ START_TEST (test_SBase_setSBOTerm2)
   fail_unless( SBase_isSetSBOTerm(S) );
   fail_unless( SBase_getSBOTerm(S) == 9999999 );
   fail_unless( strcmp(SBase_getSBOTermID(S), "SBO:9999999") == 0);
+  fail_unless( strcmp(SBase_getSBOTermAsURL(S), 
+               "http://identifiers.org/biomodels.sbo/SBO:9999999") == 0);
 
   /* check invalid attribute value */
 
@@ -2033,18 +2050,21 @@ START_TEST (test_SBase_setSBOTerm2)
   fail_unless( i == LIBSBML_INVALID_ATTRIBUTE_VALUE );
   fail_unless( !SBase_isSetSBOTerm(S) );
   fail_unless( SBase_getSBOTermID(S) == NULL);
+  fail_unless( SBase_getSBOTermAsURL(S) == NULL);
 
   i = SBase_setSBOTerm(S, -1);
 
   fail_unless( i == LIBSBML_INVALID_ATTRIBUTE_VALUE );
   fail_unless( !SBase_isSetSBOTerm(S) );
   fail_unless( SBase_getSBOTermID(S) == NULL);
+  fail_unless( SBase_getSBOTermAsURL(S) == NULL);
 
   i = SBase_setSBOTerm(S, 10000000);
 
   fail_unless( i == LIBSBML_INVALID_ATTRIBUTE_VALUE );
   fail_unless( !SBase_isSetSBOTerm(S) );
   fail_unless( SBase_getSBOTermID(S) == NULL);
+  fail_unless( SBase_getSBOTermAsURL(S) == NULL);
 
 }
 END_TEST

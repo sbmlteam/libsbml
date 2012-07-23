@@ -932,6 +932,28 @@ public:
 
 
   /**
+   * Returns the identifiers.org URL representation of the "sboTerm" attribute of
+   * this object.
+   *
+   * This method returns the entire SBO
+   * identifier as a text string in the form 
+   * "http://identifiers.org/biomodels.sbo/SBO:NNNNNNN".
+   *
+   * SBO terms are a type of optional annotation, and each different class
+   * of SBML object derived from SBase imposes its own requirements about
+   * the values permitted for "sboTerm".  Please consult the SBML
+   * Level&nbsp;2 Version&nbsp;4 specification for more information about
+   * the use of SBO and the "sboTerm" attribute.
+   *
+   * @return the value of the "sboTerm" attribute as an identifiers.org URL
+   * (its value will be of the form 
+   * "http://identifiers.org/biomodels.sbo/SBO:NNNNNNN"), or an empty string if
+   * the value is not set.
+   */
+  std::string getSBOTermAsURL () const;
+
+
+  /**
    * Returns the line number on which this object first appears in the XML
    * representation of the SBML document.
    * 
@@ -3504,6 +3526,11 @@ SBase_getSBOTerm (const SBase_t *sb);
 LIBSBML_EXTERN
 char*
 SBase_getSBOTermID (const SBase_t *sb);
+
+
+LIBSBML_EXTERN
+char*
+SBase_getSBOTermAsURL (const SBase_t *sb);
 
 
 LIBSBML_EXTERN

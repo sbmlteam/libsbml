@@ -900,6 +900,27 @@ SBase::getSBOTermID () const
 
 
 /*
+ * @return the sboTerm as a identoifoers.org url.  If not set,
+ * return an empty string.
+ */
+std::string
+SBase::getSBOTermAsURL () const
+{
+  std::string result = "";
+
+  if ( SBO::checkTerm(mSBOTerm) )
+  {
+    ostringstream stream;
+    stream << "http://identifiers.org/biomodels.sbo/SBO:";
+    stream << setw(7) << setfill('0') << mSBOTerm;
+    result = stream.str();
+  }
+
+  return result;
+}
+
+
+/*
  * @return the line number of this SBML object.
  */
 unsigned int
@@ -6193,6 +6214,22 @@ SBase_getSBOTermID (const SBase_t *sb)
 {
   return (sb != NULL && sb->isSetSBOTerm())? 
     safe_strdup(sb->getSBOTermID().c_str()) : NULL;
+}
+
+
+/**
+ * Returns the identifiers.org URL  representation of the "sboTerm" attribute of
+ * this object.
+ *
+ * @return the value of the "sboTerm" attribute as a string of the form
+ * http://identifiers.org/biomodels.sbo/SBO:NNNNNNN, or @c NULL if the value is not set.
+ */
+LIBSBML_EXTERN
+char*
+SBase_getSBOTermAsURL (const SBase_t *sb)
+{
+  return (sb != NULL && sb->isSetSBOTerm())? 
+    safe_strdup(sb->getSBOTermAsURL().c_str()) : NULL;
 }
 
 
