@@ -1406,6 +1406,600 @@ class TestSyncAnnotation(unittest.TestCase):
     self.assertEqual( True, self.equals(expected,self.m.getAnnotation().toXMLString()) )
     pass  
 
+  def test_SyncAnnotation_stringChangesMetaid(self):
+    c = Compartment(3,1)
+    c.setMetaId("_000005")
+    c.setId("A")
+    addedAnn = wrapString("<annotation>\n"
+ + 
+    "  <rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:dc=\"http://purl.org/dc/elements/1.1/\" xmlns:dcterms=\"http://purl.org/dc/terms/\" xmlns:vCard=\"http://www.w3.org/2001/vcard-rdf/3.0#\" xmlns:bqbiol=\"http://biomodels.net/biology-qualifiers/\" xmlns:bqmodel=\"http://biomodels.net/model-qualifiers/\">\n"
+ + 
+    "    <rdf:Description rdf:about=\"#_000003\">\n"
+ + 
+    "      <dc:creator>\n"
+ + 
+    "        <rdf:Bag>\n"
+ + 
+    "          <rdf:li rdf:parseType=\"Resource\">\n"
+ + 
+    "            <vCard:N rdf:parseType=\"Resource\">\n"
+ + 
+    "              <vCard:Family>Le Novere</vCard:Family>\n"
+ + 
+    "              <vCard:Given>Nicolas</vCard:Given>\n"
+ + 
+    "            </vCard:N>\n"
+ + 
+    "            <vCard:EMAIL>lenov@ebi.ac.uk</vCard:EMAIL>\n"
+ + 
+    "            <vCard:ORG rdf:parseType=\"Resource\">\n"
+ + 
+    "              <vCard:Orgname>EMBL-EBI</vCard:Orgname>\n"
+ + 
+    "            </vCard:ORG>\n"
+ + 
+    "          </rdf:li>\n"
+ + 
+    "        </rdf:Bag>\n"
+ + 
+    "      </dc:creator>\n"
+ + 
+    "      <dcterms:created rdf:parseType=\"Resource\">\n"
+ + 
+    "        <dcterms:W3CDTF>2005-02-02T14:56:11</dcterms:W3CDTF>\n"
+ + 
+    "      </dcterms:created>\n"
+ + 
+    "      <dcterms:modified rdf:parseType=\"Resource\">\n"
+ + 
+    "        <dcterms:W3CDTF>2006-05-30T10:46:02</dcterms:W3CDTF>\n"
+ + 
+    "      </dcterms:modified>\n"
+ + 
+    "      <bqbiol:is>\n"
+ + 
+    "        <rdf:Bag>\n"
+ + 
+    "          <rdf:li rdf:resource=\"http://www.geneontology.org/#GO:0007274\"/>\n"
+ + 
+    "        </rdf:Bag>\n"
+ + 
+    "      </bqbiol:is>\n"
+ + 
+    "    </rdf:Description>\n"
+ + 
+    "  </rdf:RDF>\n"
+ + 
+    "</annotation>")
+    c.setAnnotation(addedAnn)
+    expected = wrapString("<compartment metaid=\"_000005\" id=\"A\">\n"
+ + 
+    "  <annotation>\n"
+ + 
+    "    <rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:dc=\"http://purl.org/dc/elements/1.1/\" xmlns:dcterms=\"http://purl.org/dc/terms/\" xmlns:vCard=\"http://www.w3.org/2001/vcard-rdf/3.0#\" xmlns:bqbiol=\"http://biomodels.net/biology-qualifiers/\" xmlns:bqmodel=\"http://biomodels.net/model-qualifiers/\">\n"
+ + 
+    "      <rdf:Description rdf:about=\"#_000003\">\n"
+ + 
+    "        <dc:creator>\n"
+ + 
+    "          <rdf:Bag>\n"
+ + 
+    "            <rdf:li rdf:parseType=\"Resource\">\n"
+ + 
+    "              <vCard:N rdf:parseType=\"Resource\">\n"
+ + 
+    "                <vCard:Family>Le Novere</vCard:Family>\n"
+ + 
+    "                <vCard:Given>Nicolas</vCard:Given>\n"
+ + 
+    "              </vCard:N>\n"
+ + 
+    "              <vCard:EMAIL>lenov@ebi.ac.uk</vCard:EMAIL>\n"
+ + 
+    "              <vCard:ORG>\n"
+ + 
+    "                <vCard:Orgname>EMBL-EBI</vCard:Orgname>\n"
+ + 
+    "              </vCard:ORG>\n"
+ + 
+    "            </rdf:li>\n"
+ + 
+    "          </rdf:Bag>\n"
+ + 
+    "        </dc:creator>\n"
+ + 
+    "        <dcterms:created rdf:parseType=\"Resource\">\n"
+ + 
+    "          <dcterms:W3CDTF>2005-02-02T14:56:11Z</dcterms:W3CDTF>\n"
+ + 
+    "        </dcterms:created>\n"
+ + 
+    "        <dcterms:modified rdf:parseType=\"Resource\">\n"
+ + 
+    "          <dcterms:W3CDTF>2006-05-30T10:46:02Z</dcterms:W3CDTF>\n"
+ + 
+    "        </dcterms:modified>\n"
+ + 
+    "        <bqbiol:is>\n"
+ + 
+    "          <rdf:Bag>\n"
+ + 
+    "            <rdf:li rdf:resource=\"http://www.geneontology.org/#GO:0007274\"/>\n"
+ + 
+    "          </rdf:Bag>\n"
+ + 
+    "        </bqbiol:is>\n"
+ + 
+    "      </rdf:Description>\n"
+ + 
+    "    </rdf:RDF>\n"
+ + 
+    "  </annotation>\n"
+ + 
+    "</compartment>")
+    self.assertEqual( True, self.equals(expected,c.toSBML()) )
+    pass  
+
+  def test_SyncAnnotation_stringChangesMetaid_1(self):
+    c = Model(2, 3)
+    c.setMetaId("_000005")
+    c.setId("A")
+    addedAnn = wrapString("<annotation>\n"
+ + 
+    "  <rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:dc=\"http://purl.org/dc/elements/1.1/\" xmlns:dcterms=\"http://purl.org/dc/terms/\" xmlns:vCard=\"http://www.w3.org/2001/vcard-rdf/3.0#\" xmlns:bqbiol=\"http://biomodels.net/biology-qualifiers/\" xmlns:bqmodel=\"http://biomodels.net/model-qualifiers/\">\n"
+ + 
+    "    <rdf:Description rdf:about=\"#_000003\">\n"
+ + 
+    "      <dc:creator>\n"
+ + 
+    "        <rdf:Bag>\n"
+ + 
+    "          <rdf:li rdf:parseType=\"Resource\">\n"
+ + 
+    "            <vCard:N rdf:parseType=\"Resource\">\n"
+ + 
+    "              <vCard:Family>Le Novere</vCard:Family>\n"
+ + 
+    "              <vCard:Given>Nicolas</vCard:Given>\n"
+ + 
+    "            </vCard:N>\n"
+ + 
+    "            <vCard:EMAIL>lenov@ebi.ac.uk</vCard:EMAIL>\n"
+ + 
+    "            <vCard:ORG rdf:parseType=\"Resource\">\n"
+ + 
+    "              <vCard:Orgname>EMBL-EBI</vCard:Orgname>\n"
+ + 
+    "            </vCard:ORG>\n"
+ + 
+    "          </rdf:li>\n"
+ + 
+    "        </rdf:Bag>\n"
+ + 
+    "      </dc:creator>\n"
+ + 
+    "      <dcterms:created rdf:parseType=\"Resource\">\n"
+ + 
+    "        <dcterms:W3CDTF>2005-02-02T14:56:11</dcterms:W3CDTF>\n"
+ + 
+    "      </dcterms:created>\n"
+ + 
+    "      <dcterms:modified rdf:parseType=\"Resource\">\n"
+ + 
+    "        <dcterms:W3CDTF>2006-05-30T10:46:02</dcterms:W3CDTF>\n"
+ + 
+    "      </dcterms:modified>\n"
+ + 
+    "      <bqbiol:is>\n"
+ + 
+    "        <rdf:Bag>\n"
+ + 
+    "          <rdf:li rdf:resource=\"http://www.geneontology.org/#GO:0007274\"/>\n"
+ + 
+    "        </rdf:Bag>\n"
+ + 
+    "      </bqbiol:is>\n"
+ + 
+    "    </rdf:Description>\n"
+ + 
+    "  </rdf:RDF>\n"
+ + 
+    "</annotation>")
+    c.setAnnotation(addedAnn)
+    expected = wrapString("<model metaid=\"_000005\" id=\"A\">\n"
+ + 
+    "  <annotation>\n"
+ + 
+    "    <rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:dc=\"http://purl.org/dc/elements/1.1/\" xmlns:dcterms=\"http://purl.org/dc/terms/\" xmlns:vCard=\"http://www.w3.org/2001/vcard-rdf/3.0#\" xmlns:bqbiol=\"http://biomodels.net/biology-qualifiers/\" xmlns:bqmodel=\"http://biomodels.net/model-qualifiers/\">\n"
+ + 
+    "      <rdf:Description rdf:about=\"#_000005\">\n"
+ + 
+    "        <dc:creator rdf:parseType=\"Resource\">\n"
+ + 
+    "          <rdf:Bag>\n"
+ + 
+    "            <rdf:li rdf:parseType=\"Resource\">\n"
+ + 
+    "              <vCard:N rdf:parseType=\"Resource\">\n"
+ + 
+    "                <vCard:Family>Le Novere</vCard:Family>\n"
+ + 
+    "                <vCard:Given>Nicolas</vCard:Given>\n"
+ + 
+    "              </vCard:N>\n"
+ + 
+    "              <vCard:EMAIL>lenov@ebi.ac.uk</vCard:EMAIL>\n"
+ + 
+    "              <vCard:ORG>\n"
+ + 
+    "                <vCard:Orgname>EMBL-EBI</vCard:Orgname>\n"
+ + 
+    "              </vCard:ORG>\n"
+ + 
+    "            </rdf:li>\n"
+ + 
+    "          </rdf:Bag>\n"
+ + 
+    "        </dc:creator>\n"
+ + 
+    "        <dcterms:created rdf:parseType=\"Resource\">\n"
+ + 
+    "          <dcterms:W3CDTF>2005-02-02T14:56:11Z</dcterms:W3CDTF>\n"
+ + 
+    "        </dcterms:created>\n"
+ + 
+    "        <dcterms:modified rdf:parseType=\"Resource\">\n"
+ + 
+    "          <dcterms:W3CDTF>2006-05-30T10:46:02Z</dcterms:W3CDTF>\n"
+ + 
+    "        </dcterms:modified>\n"
+ + 
+    "        <bqbiol:is>\n"
+ + 
+    "          <rdf:Bag>\n"
+ + 
+    "            <rdf:li rdf:resource=\"http://www.geneontology.org/#GO:0007274\"/>\n"
+ + 
+    "          </rdf:Bag>\n"
+ + 
+    "        </bqbiol:is>\n"
+ + 
+    "      </rdf:Description>\n"
+ + 
+    "    </rdf:RDF>\n"
+ + 
+    "  </annotation>\n"
+ + 
+    "</model>")
+    self.assertEqual( True, self.equals(expected,c.toSBML()) )
+    pass  
+
+  def test_SyncAnnotation_stringChangesMetaid_2(self):
+    c = Compartment(2,3)
+    c.setMetaId("_000005")
+    c.setId("A")
+    addedAnn = wrapString("<annotation>\n"
+ + 
+    "  <rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:dc=\"http://purl.org/dc/elements/1.1/\" xmlns:dcterms=\"http://purl.org/dc/terms/\" xmlns:vCard=\"http://www.w3.org/2001/vcard-rdf/3.0#\" xmlns:bqbiol=\"http://biomodels.net/biology-qualifiers/\" xmlns:bqmodel=\"http://biomodels.net/model-qualifiers/\">\n"
+ + 
+    "    <rdf:Description rdf:about=\"#_000003\">\n"
+ + 
+    "      <bqbiol:is>\n"
+ + 
+    "        <rdf:Bag>\n"
+ + 
+    "          <rdf:li rdf:resource=\"http://www.geneontology.org/#GO:0007274\"/>\n"
+ + 
+    "        </rdf:Bag>\n"
+ + 
+    "      </bqbiol:is>\n"
+ + 
+    "    </rdf:Description>\n"
+ + 
+    "  </rdf:RDF>\n"
+ + 
+    "</annotation>")
+    c.setAnnotation(addedAnn)
+    expected = wrapString("<compartment metaid=\"_000005\" id=\"A\">\n"
+ + 
+    "  <annotation>\n"
+ + 
+    "    <rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:dc=\"http://purl.org/dc/elements/1.1/\" xmlns:dcterms=\"http://purl.org/dc/terms/\" xmlns:vCard=\"http://www.w3.org/2001/vcard-rdf/3.0#\" xmlns:bqbiol=\"http://biomodels.net/biology-qualifiers/\" xmlns:bqmodel=\"http://biomodels.net/model-qualifiers/\">\n"
+ + 
+    "      <rdf:Description rdf:about=\"#_000005\">\n"
+ + 
+    "        <bqbiol:is>\n"
+ + 
+    "          <rdf:Bag>\n"
+ + 
+    "            <rdf:li rdf:resource=\"http://www.geneontology.org/#GO:0007274\"/>\n"
+ + 
+    "          </rdf:Bag>\n"
+ + 
+    "        </bqbiol:is>\n"
+ + 
+    "      </rdf:Description>\n"
+ + 
+    "    </rdf:RDF>\n"
+ + 
+    "  </annotation>\n"
+ + 
+    "</compartment>")
+    self.assertEqual( True, self.equals(expected,c.toSBML()) )
+    pass  
+
+  def test_SyncAnnotation_stringChangesMetaid_3(self):
+    c = Model(3,1)
+    c.setMetaId("_000005")
+    c.setId("A")
+    addedAnn = wrapString("<annotation>\n"
+ + 
+    "  <rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:dc=\"http://purl.org/dc/elements/1.1/\" xmlns:dcterms=\"http://purl.org/dc/terms/\" xmlns:vCard=\"http://www.w3.org/2001/vcard-rdf/3.0#\" xmlns:bqbiol=\"http://biomodels.net/biology-qualifiers/\" xmlns:bqmodel=\"http://biomodels.net/model-qualifiers/\">\n"
+ + 
+    "    <rdf:Description rdf:about=\"#_000003\">\n"
+ + 
+    "      <dc:creator>\n"
+ + 
+    "        <rdf:Bag>\n"
+ + 
+    "          <rdf:li rdf:parseType=\"Resource\">\n"
+ + 
+    "            <vCard:N rdf:parseType=\"Resource\">\n"
+ + 
+    "              <vCard:Family>Le Novere</vCard:Family>\n"
+ + 
+    "              <vCard:Given>Nicolas</vCard:Given>\n"
+ + 
+    "            </vCard:N>\n"
+ + 
+    "            <vCard:EMAIL>lenov@ebi.ac.uk</vCard:EMAIL>\n"
+ + 
+    "            <vCard:ORG rdf:parseType=\"Resource\">\n"
+ + 
+    "              <vCard:Orgname>EMBL-EBI</vCard:Orgname>\n"
+ + 
+    "            </vCard:ORG>\n"
+ + 
+    "          </rdf:li>\n"
+ + 
+    "        </rdf:Bag>\n"
+ + 
+    "      </dc:creator>\n"
+ + 
+    "      <dcterms:created rdf:parseType=\"Resource\">\n"
+ + 
+    "        <dcterms:W3CDTF>2005-02-02T14:56:11</dcterms:W3CDTF>\n"
+ + 
+    "      </dcterms:created>\n"
+ + 
+    "      <dcterms:modified rdf:parseType=\"Resource\">\n"
+ + 
+    "        <dcterms:W3CDTF>2006-05-30T10:46:02</dcterms:W3CDTF>\n"
+ + 
+    "      </dcterms:modified>\n"
+ + 
+    "      <bqbiol:is>\n"
+ + 
+    "        <rdf:Bag>\n"
+ + 
+    "          <rdf:li rdf:resource=\"http://www.geneontology.org/#GO:0007274\"/>\n"
+ + 
+    "        </rdf:Bag>\n"
+ + 
+    "      </bqbiol:is>\n"
+ + 
+    "    </rdf:Description>\n"
+ + 
+    "  </rdf:RDF>\n"
+ + 
+    "</annotation>")
+    c.setAnnotation(addedAnn)
+    expected = wrapString("<model metaid=\"_000005\" id=\"A\">\n"
+ + 
+    "  <annotation>\n"
+ + 
+    "    <rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:dc=\"http://purl.org/dc/elements/1.1/\" xmlns:dcterms=\"http://purl.org/dc/terms/\" xmlns:vCard=\"http://www.w3.org/2001/vcard-rdf/3.0#\" xmlns:bqbiol=\"http://biomodels.net/biology-qualifiers/\" xmlns:bqmodel=\"http://biomodels.net/model-qualifiers/\">\n"
+ + 
+    "      <rdf:Description rdf:about=\"#_000005\">\n"
+ + 
+    "        <dc:creator>\n"
+ + 
+    "          <rdf:Bag>\n"
+ + 
+    "            <rdf:li rdf:parseType=\"Resource\">\n"
+ + 
+    "              <vCard:N rdf:parseType=\"Resource\">\n"
+ + 
+    "                <vCard:Family>Le Novere</vCard:Family>\n"
+ + 
+    "                <vCard:Given>Nicolas</vCard:Given>\n"
+ + 
+    "              </vCard:N>\n"
+ + 
+    "              <vCard:EMAIL>lenov@ebi.ac.uk</vCard:EMAIL>\n"
+ + 
+    "              <vCard:ORG rdf:parseType=\"Resource\">\n"
+ + 
+    "                <vCard:Orgname>EMBL-EBI</vCard:Orgname>\n"
+ + 
+    "              </vCard:ORG>\n"
+ + 
+    "            </rdf:li>\n"
+ + 
+    "          </rdf:Bag>\n"
+ + 
+    "        </dc:creator>\n"
+ + 
+    "        <dcterms:created rdf:parseType=\"Resource\">\n"
+ + 
+    "          <dcterms:W3CDTF>2005-02-02T14:56:11Z</dcterms:W3CDTF>\n"
+ + 
+    "        </dcterms:created>\n"
+ + 
+    "        <dcterms:modified rdf:parseType=\"Resource\">\n"
+ + 
+    "          <dcterms:W3CDTF>2006-05-30T10:46:02Z</dcterms:W3CDTF>\n"
+ + 
+    "        </dcterms:modified>\n"
+ + 
+    "        <bqbiol:is>\n"
+ + 
+    "          <rdf:Bag>\n"
+ + 
+    "            <rdf:li rdf:resource=\"http://www.geneontology.org/#GO:0007274\"/>\n"
+ + 
+    "          </rdf:Bag>\n"
+ + 
+    "        </bqbiol:is>\n"
+ + 
+    "      </rdf:Description>\n"
+ + 
+    "    </rdf:RDF>\n"
+ + 
+    "  </annotation>\n"
+ + 
+    "</model>")
+    self.assertEqual( True, self.equals(expected,c.toSBML()) )
+    pass  
+
+  def test_SyncAnnotation_stringHistoryWhenNotValid(self):
+    c = Compartment(2,3)
+    c.setMetaId("_000003")
+    c.setId("A")
+    addedAnn = wrapString("<annotation>\n"
+ + 
+    "  <rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:dc=\"http://purl.org/dc/elements/1.1/\" xmlns:dcterms=\"http://purl.org/dc/terms/\" xmlns:vCard=\"http://www.w3.org/2001/vcard-rdf/3.0#\" xmlns:bqbiol=\"http://biomodels.net/biology-qualifiers/\" xmlns:bqmodel=\"http://biomodels.net/model-qualifiers/\">\n"
+ + 
+    "    <rdf:Description rdf:about=\"#_000005\">\n"
+ + 
+    "      <dc:creator>\n"
+ + 
+    "        <rdf:Bag>\n"
+ + 
+    "          <rdf:li rdf:parseType=\"Resource\">\n"
+ + 
+    "            <vCard:N rdf:parseType=\"Resource\">\n"
+ + 
+    "              <vCard:Family>Le Novere</vCard:Family>\n"
+ + 
+    "              <vCard:Given>Nicolas</vCard:Given>\n"
+ + 
+    "            </vCard:N>\n"
+ + 
+    "            <vCard:EMAIL>lenov@ebi.ac.uk</vCard:EMAIL>\n"
+ + 
+    "            <vCard:ORG rdf:parseType=\"Resource\">\n"
+ + 
+    "              <vCard:Orgname>EMBL-EBI</vCard:Orgname>\n"
+ + 
+    "            </vCard:ORG>\n"
+ + 
+    "          </rdf:li>\n"
+ + 
+    "        </rdf:Bag>\n"
+ + 
+    "      </dc:creator>\n"
+ + 
+    "      <dcterms:created rdf:parseType=\"Resource\">\n"
+ + 
+    "        <dcterms:W3CDTF>2005-02-02T14:56:11</dcterms:W3CDTF>\n"
+ + 
+    "      </dcterms:created>\n"
+ + 
+    "      <dcterms:modified rdf:parseType=\"Resource\">\n"
+ + 
+    "        <dcterms:W3CDTF>2006-05-30T10:46:02</dcterms:W3CDTF>\n"
+ + 
+    "      </dcterms:modified>\n"
+ + 
+    "      <bqbiol:is>\n"
+ + 
+    "        <rdf:Bag>\n"
+ + 
+    "          <rdf:li rdf:resource=\"http://www.geneontology.org/#GO:0007274\"/>\n"
+ + 
+    "        </rdf:Bag>\n"
+ + 
+    "      </bqbiol:is>\n"
+ + 
+    "    </rdf:Description>\n"
+ + 
+    "  </rdf:RDF>\n"
+ + 
+    "</annotation>")
+    c.setAnnotation(addedAnn)
+    expected = wrapString("<compartment metaid=\"_000003\" id=\"A\">\n"
+ + 
+    "  <annotation>\n"
+ + 
+    "    <rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:dc=\"http://purl.org/dc/elements/1.1/\" xmlns:dcterms=\"http://purl.org/dc/terms/\" xmlns:vCard=\"http://www.w3.org/2001/vcard-rdf/3.0#\" xmlns:bqbiol=\"http://biomodels.net/biology-qualifiers/\" xmlns:bqmodel=\"http://biomodels.net/model-qualifiers/\">\n"
+ + 
+    "      <rdf:Description rdf:about=\"#_000003\">\n"
+ + 
+    "        <bqbiol:is>\n"
+ + 
+    "          <rdf:Bag>\n"
+ + 
+    "            <rdf:li rdf:resource=\"http://www.geneontology.org/#GO:0007274\"/>\n"
+ + 
+    "          </rdf:Bag>\n"
+ + 
+    "        </bqbiol:is>\n"
+ + 
+    "      </rdf:Description>\n"
+ + 
+    "      <rdf:Description rdf:about=\"#_000005\">\n"
+ + 
+    "        <dc:creator>\n"
+ + 
+    "          <rdf:Bag>\n"
+ + 
+    "            <rdf:li rdf:parseType=\"Resource\">\n"
+ + 
+    "              <vCard:N rdf:parseType=\"Resource\">\n"
+ + 
+    "                <vCard:Family>Le Novere</vCard:Family>\n"
+ + 
+    "                <vCard:Given>Nicolas</vCard:Given>\n"
+ + 
+    "              </vCard:N>\n"
+ + 
+    "              <vCard:EMAIL>lenov@ebi.ac.uk</vCard:EMAIL>\n"
+ + 
+    "              <vCard:ORG rdf:parseType=\"Resource\">\n"
+ + 
+    "                <vCard:Orgname>EMBL-EBI</vCard:Orgname>\n"
+ + 
+    "              </vCard:ORG>\n"
+ + 
+    "            </rdf:li>\n"
+ + 
+    "          </rdf:Bag>\n"
+ + 
+    "        </dc:creator>\n"
+ + 
+    "        <dcterms:created rdf:parseType=\"Resource\">\n"
+ + 
+    "          <dcterms:W3CDTF>2005-02-02T14:56:11Z</dcterms:W3CDTF>\n"
+ + 
+    "        </dcterms:created>\n"
+ + 
+    "        <dcterms:modified rdf:parseType=\"Resource\">\n"
+ + 
+    "          <dcterms:W3CDTF>2006-05-30T10:46:02Z</dcterms:W3CDTF>\n"
+ + 
+    "        </dcterms:modified>\n"
+ + 
+    "      </rdf:Description>\n"
+ + 
+    "    </rdf:RDF>\n"
+ + 
+    "  </annotation>\n"
+ + 
+    "</compartment>")
+    self.assertEqual( True, self.equals(expected,c.toSBML()) )
+    pass  
+
 def suite():
   suite = unittest.TestSuite()
   suite.addTest(unittest.makeSuite(TestSyncAnnotation))
