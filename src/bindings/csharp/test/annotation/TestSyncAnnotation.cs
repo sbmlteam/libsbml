@@ -1008,7 +1008,7 @@ namespace LibSBMLCSTest.annotation {
 
     public void test_SyncAnnotation_stringChangesMetaid1()
     {
-      Model* c = new Model(2, 3);
+      Model c = new Model(2, 3);
       c.setMetaId("_000005");
       c.setId("A");
 
