@@ -32,17 +32,17 @@ function buildSBML(varargin)
 % This file is part of libSBML.  Please visit http://sbml.org for more
 % information about SBML, and the latest version of libSBML.
 %
-% Copyright (C) 2009-2012 jointly by the following organizations: 
+% Copyright (C) 2009-2012 jointly by the following organizations:
 %     1. California Institute of Technology, Pasadena, CA, USA
 %     2. EMBL European Bioinformatics Institute (EBML-EBI), Hinxton, UK
-%  
+%
 % Copyright (C) 2006-2008 by the California Institute of Technology,
-%     Pasadena, CA, USA 
-%  
-% Copyright (C) 2002-2005 jointly by the following organizations: 
+%     Pasadena, CA, USA
+%
+% Copyright (C) 2002-2005 jointly by the following organizations:
 %     1. California Institute of Technology, Pasadena, CA, USA
 %     2. Japan Science and Technology Agency, Japan
-% 
+%
 % This library is free software; you can redistribute it and/or modify
 % it under the terms of the GNU Lesser General Public License as
 % published by the Free Software Foundation.  A copy of the license
@@ -68,20 +68,20 @@ function buildSBML(varargin)
 
     % here we allow input arguments of include and library directories
     % but we only use these if we are in the source tree
-    
+
     if (nargin > 0 && strcmp(location, 'source'))
-      
+
       % we need two arguments
       % one must be the full path to the include directory
       % two must be the full path to the library directory
-      
+
       correctArguments = 0;
       if (nargin == 2)
         include_dir_supplied = varargin{1};
         lib_dir_supplied = varargin{2};
         if checkSuppliedArguments(include_dir_supplied, lib_dir_supplied)
           correctArguments = 1;
-        end;       
+        end;
       end;
       if correctArguments == 0
         message = sprintf('\n%s\n%s\n%s\n', ...
@@ -122,25 +122,25 @@ function buildSBML(varargin)
 function y = isWindows()
 
   y = 1;
-  
+
   if isunix()
     y = 0;
     return;
   end;
-  
+
   if ismac()
     y = 0;
     return;
   end;
-  
+
   if ~ispc()
     message = sprintf('\n%s\n%s\n', ...
       'Unable to determine the type of operating system in use.', ...
       'Please contact libsbml-team@caltech.edu to help resolve this problem.');
     error(message);
   end;
-    
-% 
+
+%
 % Assess our computing environment.
 % -------------------------------------------------------------------------
 function [matlab_octave, bit64] = check_system()
@@ -191,17 +191,17 @@ function [matlab_octave, bit64] = check_system()
 %   LOCATION:
 %     'installed'  -> installation directory
 %     'source'    -> libsbml source tree
-%   
+%
 %  WRITEACCESS:
 %     1 -> we can write in this directory
 %     0 -> we can't write in this directory
 %
 function [location, writeAccess, in_installer] = check_location(matlab_octave)
   disp('* Trying to establish our location ...');
-  
-  % This is where things get iffy.  There are a lot of possibilities, and 
+
+  % This is where things get iffy.  There are a lot of possibilities, and
   % we have to resort to heuristics.
-  % 
+  %
   % Linux and Mac: we look for 2 possibilities
   % - installation dir ends in "libsbml/bindings/matlab"
   %   Detect it by looking for ../../VERSION.txt.
@@ -211,7 +211,7 @@ function [location, writeAccess, in_installer] = check_location(matlab_octave)
   % - source dir ends in "libsbml/src/bindings/matlab"
   %   Detect it by looking for ../../../VERSION.txt.
   %   Assume our library is in ../../
-  % 
+  %
 
   [remain, first] = fileparts(pwd);
   if strcmpi(matlab_octave, 'matlab')
@@ -231,7 +231,7 @@ function [location, writeAccess, in_installer] = check_location(matlab_octave)
   in_installer = 0;
   [above_bindings, bindings] = fileparts(remain);
   if exist(fullfile(above_bindings, 'VERSION.txt'))
-    disp('  - We appear to be in the installation target directory.');  
+    disp('  - We appear to be in the installation target directory.');
     in_installer = 1;
     if isWindows()
       location = above_bindings;
@@ -241,7 +241,7 @@ function [location, writeAccess, in_installer] = check_location(matlab_octave)
   else
     [libsbml_root, src] = fileparts(above_bindings);
     if exist(fullfile(libsbml_root, 'VERSION.txt'))
-      disp('  - We appear to be in the libSBML source tree.'); 
+      disp('  - We appear to be in the libSBML source tree.');
       if isWindows()
         location = libsbml_root;
       else
@@ -271,7 +271,7 @@ function [location, writeAccess, in_installer] = check_location(matlab_octave)
   if ~exist(fullfile(pwd, our_name), 'file') ...
         || ~exist(fullfile(pwd, other_name), 'file')
     error_incorrect_dir('matlab');
-  end;  
+  end;
 
   % Check whether we have write access to this directory.
 
@@ -287,7 +287,7 @@ function [location, writeAccess, in_installer] = check_location(matlab_octave)
   end;
 
 
-% 
+%
 % Find include and library dirs (Linux & Mac case).
 % -------------------------------------------------------------------------
 % Return values:
@@ -302,11 +302,11 @@ function [include, lib] = find_unix_dirs(location, bit64)
   %    look for libsbml.so or libsbml.dylib in ../../../lib{64}/
   % 'source'    -> libsbml source tree
   %    look for libsbml.so or libsbml.dylib in ../../.libs/
-  
+
   if ismac()
     libname = 'libsbml.dylib';
   else
-    libname = 'libsbml.so';  
+    libname = 'libsbml.so';
   end;
 
   if strcmpi(location, 'source')
@@ -348,7 +348,7 @@ function [include, lib] = find_unix_dirs(location, bit64)
       end;
     end;
 
-    % In the installed target directory, include will be something 
+    % In the installed target directory, include will be something
     % like /usr/local/include
     %
     include = fullfile(parent, 'include');
@@ -360,7 +360,7 @@ function [include, lib] = find_unix_dirs(location, bit64)
   end;
 
 
-% 
+%
 % we on occasion allow the user to supply arguments for the directories
 % Check include and library dirs (Linux & Mac case) supplied exist
 % -------------------------------------------------------------------------
@@ -369,7 +369,7 @@ function y = checkSuppliedArguments(include_supplied, lib_supplied)
 
   % assume we find them
   y = 1;
-  
+
   % check the include directory supplied exists
   if exist(include_supplied)
     disp(sprintf('  - Root of includes found at %s', include_supplied));
@@ -382,7 +382,7 @@ function y = checkSuppliedArguments(include_supplied, lib_supplied)
   if ismac()
     libname = 'libsbml.dylib';
   else
-    libname = 'libsbml.so';  
+    libname = 'libsbml.so';
   end;
 
   libfile = fullfile(lib_supplied, libname);
@@ -392,16 +392,16 @@ function y = checkSuppliedArguments(include_supplied, lib_supplied)
     disp(sprintf('  - NOT found %s', libfile));
     y = 0;
   end;
- 
 
-% 
+
+%
 % Drive the build process (Windows version).
 % -------------------------------------------------------------------------
 function build_win(matlab_octave, root, writeAccess, bit64, in_installer)
 
   disp('Phase 2: tests for libraries and other dependencies ...');
   [include_dir, lib] = find_win_dirs(root, bit64, in_installer);
-  
+
   % check that the libraries can all be found
   found = 1;
   for i = 1:length(lib)
@@ -411,7 +411,7 @@ function build_win(matlab_octave, root, writeAccess, bit64, in_installer)
       disp(sprintf('%s not found', lib{i}));
       found = 0;
     end;
-  end; 
+  end;
 
   if (found == 0)
     error (sprintf('Not all dependencies could be found\n%s%s', ...
@@ -420,7 +420,7 @@ function build_win(matlab_octave, root, writeAccess, bit64, in_installer)
     disp('  - All dependencies found.  Good.');
   end;
 
-    
+
   % if we do not have write access need to find somewhere else to build
   if (writeAccess == 0)% must be 0; 1 is for testing
     % create a new dir in the users path
@@ -432,13 +432,13 @@ function build_win(matlab_octave, root, writeAccess, bit64, in_installer)
       % This is Octave.  Octave doesn't have 'userpath'.
       user_dir = tempdir;
     end;
-    disp(sprintf('  - Copying library files to %s ...', user_dir)); 
+    disp(sprintf('  - Copying library files to %s ...', user_dir));
     if (copyLibraries(this_dir, user_dir, lib) == 1)
       disp('  - Copying of library files successful.');
     else
       error('Cannot copy library files on this system');
     end;
-    disp(sprintf('  - Copying MATLAB binding files to %s ...', user_dir)); 
+    disp(sprintf('  - Copying MATLAB binding files to %s ...', user_dir));
     if (copyMatlabDir(this_dir, user_dir) == 1)
       disp('- Copying of MATLAB binding files successful');
     else
@@ -448,7 +448,7 @@ function build_win(matlab_octave, root, writeAccess, bit64, in_installer)
     this_dir = pwd;
     user_dir = pwd;
     % copy the library files to here
-    disp(sprintf('  - Copying library files to %s ...', user_dir)); 
+    disp(sprintf('  - Copying library files to %s ...', user_dir));
     if (copyLibraries(this_dir, user_dir, lib) == 1)
       disp('  - Copying of library files successful');
     else
@@ -459,7 +459,7 @@ function build_win(matlab_octave, root, writeAccess, bit64, in_installer)
   % build the files
   compile_mex(include_dir, lib{1}, matlab_octave);
 
-% 
+%
 % Find include and library dirs (windows case).
 % -------------------------------------------------------------------------
 % Return values:
@@ -490,11 +490,11 @@ function [include, lib] = find_win_dirs(root, bit64, in_installer)
       include = [root, filesep, 'win64', filesep, 'include'];
     end;
   end;
-      
+
   disp(sprintf('  - Checking for the existence of the %s directory ...\n', bin_dir));
   % and are the libraries in this directory
   if ((exist(bin_dir, 'dir') ~= 7) || (exist([bin_dir, filesep, 'libsbml.dll']) == 0))
-      disp(sprintf('%s directory could not be found\n\n%s\n%s %s', bin_dir, ... 
+      disp(sprintf('%s directory could not be found\n\n%s\n%s %s', bin_dir, ...
           'The build process assumes that the libsbml binaries', ...
           'exist at', bin_dir));
       message = sprintf('\n%s\n%s', ...
@@ -515,7 +515,7 @@ function [include, lib] = find_win_dirs(root, bit64, in_installer)
   if (~strcmp(bin_dir, lib_dir))
     disp(sprintf('  - Checking for the existence of the %s directory ...\n', lib_dir));
     if (exist(lib_dir, 'dir') ~= 7)
-        disp(sprintf('%s directory could not be found\n\n%s\n%s %s', lib_dir, ... 
+        disp(sprintf('%s directory could not be found\n\n%s\n%s %s', lib_dir, ...
             'The build process assumes that the libsbml binaries', ...
             'exist at', lib_dir));
         message = sprintf('\n%s\n%s', ...
@@ -535,7 +535,7 @@ function [include, lib] = find_win_dirs(root, bit64, in_installer)
 % check that the include directory exists
   disp(sprintf('  - Checking for the existence of the %s directory ...\n', include));
   if (exist(include, 'dir') ~= 7)
-      disp(sprintf('%s directory could not be found\n\n%s\n%s %s', include, ... 
+      disp(sprintf('%s directory could not be found\n\n%s\n%s %s', include, ...
           'The build process assumes that the libsbml include files', ...
           'exist at', include));
       message = sprintf('\n%s\n%s', ...
@@ -549,7 +549,7 @@ function [include, lib] = find_win_dirs(root, bit64, in_installer)
         include = new_inc_dir;
       end;
   end;
-    
+
   % create the array of library files
   if (bit64 == 32)
     if (in_installer == 0)
@@ -602,16 +602,16 @@ function [include, lib] = find_win_dirs(root, bit64, in_installer)
   end;
 
 
-% 
+%
 % Drive the build process (Mac and Linux version).
 % -------------------------------------------------------------------------
 function build_unix(varargin)
-  
+
   matlab_octave = varargin{1};
   location = varargin{2};
   writeAccess = varargin{3};
   bit64 = varargin{4};
-  
+
   if (nargin == 4)
     [include, lib] = find_unix_dirs(location, bit64);
   else
@@ -621,10 +621,10 @@ function build_unix(varargin)
 
   if writeAccess == 1
     % We can write to the current directory.  Our job is easy-peasy.
-    % 
+    %
     compile_mex(include, lib, matlab_octave);
   else
-    % We don't have write access to this directory.  Copy the files 
+    % We don't have write access to this directory.  Copy the files
     % somewhere else, relocate to there, and then try building.
     %
     working_dir = find_working_dir(matlab_octave);
@@ -636,23 +636,23 @@ function build_unix(varargin)
   end;
 
 
-% 
+%
 % Run mex/mkoctfile.
 % -------------------------------------------------------------------------
 function compile_mex(include_dir, library_dir, matlab_octave)
-  disp(sprintf('* Creating mex files in %s', pwd));  
+  disp(sprintf('* Creating mex files in %s', pwd));
 
   % list the possible opts files to be tried
-  optsfiles = {'', './mexopts-lion.sh', './mexopts-xcode43.sh', './mexopts-R2009-R2010.sh', './mexopts-R2008.sh', './mexopts-R2007.sh'};
-  
+  optsfiles = {'', './mexopts-lion.sh', './mexopts-xcode43.sh', './mexopts-xcode45.sh', './mexopts-R2009-R2010.sh', './mexopts-R2008.sh', './mexopts-R2007.sh'};
+
   success = 0;
   n = 1;
 
-  if strcmpi(matlab_octave, 'matlab')  
+  if strcmpi(matlab_octave, 'matlab')
     while(~success && n < length(optsfiles))
         try
           if ~isempty(optsfiles{n})
-              disp(sprintf('* Trying to compile with mexopts file: %s', optsfiles{n}));  
+              disp(sprintf('* Trying to compile with mexopts file: %s', optsfiles{n}));
           end;
           success = do_compile_mex(include_dir, library_dir, matlab_octave, optsfiles{n});
         catch err
@@ -663,11 +663,11 @@ function compile_mex(include_dir, library_dir, matlab_octave)
   else
     success = do_compile_mex(include_dir, library_dir, matlab_octave, optsfiles{n});
   end;
-  
+
   if ~success
     error('Build failed');
   end;
-  
+
 function success = do_compile_mex(include_dir, library_dir, matlab_octave, altoptions)
 
   inc_arg    = ['-I', include_dir];
@@ -675,10 +675,10 @@ function success = do_compile_mex(include_dir, library_dir, matlab_octave, altop
   added_args = [' '];
 
   if ismac() || isunix()
-    added_args = ['-lsbml'];    
+    added_args = ['-lsbml'];
   end;
 
-  % The messy file handle stuff is because this seems to be the best way to 
+  % The messy file handle stuff is because this seems to be the best way to
   % be able to pass arguments to the feval function.
 
   if strcmpi(matlab_octave, 'matlab')
@@ -695,7 +695,7 @@ function success = do_compile_mex(include_dir, library_dir, matlab_octave, altop
       if ~isempty(altoptions)
         feval(fhandle, 'TranslateSBML.c', '-f', altoptions, inc_arg, lib_arg, added_args);
       else
-        feval(fhandle, 'TranslateSBML.c', inc_arg, lib_arg, added_args);  
+        feval(fhandle, 'TranslateSBML.c', inc_arg, lib_arg, added_args);
       end;
       disp('  - Building OutputSBML ...');
       if ~isempty(altoptions)
@@ -709,7 +709,7 @@ function success = do_compile_mex(include_dir, library_dir, matlab_octave, altop
       fhandle = @mkoctfile;
       disp('  - Building TranslateSBML ...');
       feval(fhandle, '--mex', 'TranslateSBML.c', '-DUSE_OCTAVE', inc_arg, ...
-            '-lbz2', '-lz', library_dir); 
+            '-lbz2', '-lz', library_dir);
       disp('  - Building OutputSBML ...');
       feval(fhandle, '--mex', 'OutputSBML.c', '-DUSE_OCTAVE', inc_arg, ...
             '-lbz2', '-lz', library_dir);
@@ -717,7 +717,7 @@ function success = do_compile_mex(include_dir, library_dir, matlab_octave, altop
       fhandle = @mkoctfile;
       disp('  - Building TranslateSBML ...');
       feval(fhandle, '--mex', 'TranslateSBML.c', '-DUSE_OCTAVE', inc_arg, ...
-            '-lbz2', '-lz', lib_arg, added_args); 
+            '-lbz2', '-lz', lib_arg, added_args);
       disp('  - Building OutputSBML ...');
       feval(fhandle, '--mex', 'OutputSBML.c', '-DUSE_OCTAVE', inc_arg, ...
             '-lbz2', '-lz', lib_arg, added_args);
@@ -733,7 +733,7 @@ function success = do_compile_mex(include_dir, library_dir, matlab_octave, altop
     success = 1;
   end;
 
- 
+
 
 %
 % Find a directory where we can copy our files (Linux & Mac version).
@@ -744,10 +744,10 @@ function working_dir = find_working_dir(matlab_octave)
     user_dir = userpath;
     user_dir = user_dir(1:length(user_dir)-1);
   else
-    % This is Octave.  Octave doesn't have 'userpath'.  
+    % This is Octave.  Octave doesn't have 'userpath'.
     user_dir = tempdir;
   end;
-  
+
   working_dir = fullfile(user_dir, 'libsbml');
 
   if ~exist(working_dir, 'dir')
@@ -758,21 +758,21 @@ function working_dir = find_working_dir(matlab_octave)
   end;
 
 
-% 
+%
 % Copy the matlab binding directory, with tests.
-% 
+%
 % This also creates the necessary directories and subdirectories.
 % -------------------------------------------------------------------------
 function copy_matlab_dir(orig_dir, working_dir)
   disp(sprintf('  - Copying files to %s', working_dir));
-  
+
   % Copy files from src/bindings/matlab.
 
   [success, msg, msgid] = copyfile('TranslateSBML.c', working_dir);
   if ~success
     error(sprintf('\n%s\n%s\n', msg, 'Build failed.'));
   end;
-    
+
   [success, msg, msgid] = copyfile('OutputSBML.c', working_dir);
   if ~success
     error(sprintf('\n%s\n%s\n', msg, 'Build failed.'));
@@ -805,7 +805,7 @@ function copy_matlab_dir(orig_dir, working_dir)
   if ~success
     error(sprintf('\n%s\n%s\n', msg, 'Build failed.'));
   end;
-  
+
   % Copy files from src/bindings/matlab/test/test-data/.
 
   test_data_subdir = fullfile(test_subdir, 'test-data');
@@ -825,7 +825,7 @@ function copy_matlab_dir(orig_dir, working_dir)
   end;
 
 
-% 
+%
 % Print error about being in the wrong location.
 % -------------------------------------------------------------------------
 function error_incorrect_dir(expected)
@@ -838,14 +838,14 @@ function error_incorrect_dir(expected)
 
 
 
-% 
+%
 % Copy library files to the given directory on windows
 % -------------------------------------------------------------------------
 function copied = copyLibraries(orig_dir, target_dir, lib)
-  
+
   copied = 0;
   cd (target_dir);
-  
+
   % if we moving to another location create a libsbml directory
   % if we are staying in src/matlab/bindings copy here
   if (~strcmp(orig_dir, target_dir))
@@ -860,13 +860,13 @@ function copied = copyLibraries(orig_dir, target_dir, lib)
     copyfile(lib{i}, new_dir);
   end;
   cd(orig_dir);
-  
+
   copied = 1;
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
   % creates a copy of the matlab binding directory with tests
   function copied = copyMatlabDir(orig_dir, target_dir)
-    
+
     copied = 0;
     cd (target_dir);
     % create libsbml dir
@@ -884,7 +884,7 @@ function copied = copyLibraries(orig_dir, target_dir, lib)
     copyfile('*.xml', new_dir);
     cd(new_dir);
 %     delete ('buildLibSBML.m');
-    
+
     % create test dir
     testdir = fullfile(pwd, 'test');
     if (exist(testdir, 'dir') == 0)
@@ -892,12 +892,12 @@ function copied = copyLibraries(orig_dir, target_dir, lib)
     end;
     cd('test');
     new_dir = pwd;
-    
+
     %copy test files
     cd(orig_dir);
     cd('test');
     copyfile('*.m', new_dir);
-    
+
     % create test-data dir
     cd(new_dir);
     testdir = fullfile(pwd, 'test-data');
@@ -906,25 +906,25 @@ function copied = copyLibraries(orig_dir, target_dir, lib)
     end;
     cd('test-data');
     new_dir = pwd;
-    
+
     %copy test-data files
     cd(orig_dir);
     cd ('test');
     cd ('test-data');
     copyfile('*.xml', new_dir);
-    
+
     %navigate to new libsbml directory
     cd(new_dir);
     cd ..;
     cd ..;
-    
+
     % put in some tests here
     copied = 1;
 
 
 % =========================================================================
 % The end.
-% 
+%
 % Please leave the following for [X]Emacs users:
 % Local Variables:
 % matlab-indent-level: 2

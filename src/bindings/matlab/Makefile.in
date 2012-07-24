@@ -8,17 +8,17 @@
 ## This file is part of libSBML.  Please visit http://sbml.org for more
 ## information about SBML, and the latest version of libSBML.
 ##
-## Copyright (C) 2009-2012 jointly by the following organizations: 
+## Copyright (C) 2009-2012 jointly by the following organizations:
 ##     1. California Institute of Technology, Pasadena, CA, USA
 ##     2. EMBL European Bioinformatics Institute (EBML-EBI), Hinxton, UK
-##  
+##
 ## Copyright (C) 2006-2008 by the California Institute of Technology,
-##     Pasadena, CA, USA 
-##  
-## Copyright (C) 2002-2005 jointly by the following organizations: 
+##     Pasadena, CA, USA
+##
+## Copyright (C) 2002-2005 jointly by the following organizations:
 ##     1. California Institute of Technology, Pasadena, CA, USA
 ##     2. Japan Science and Technology Agency, Japan
-## 
+##
 ## This library is free software; you can redistribute it and/or modify it
 ## under the terms of the GNU Lesser General Public License as published by
 ## the Free Software Foundation.  A copy of the license agreement is provided
@@ -38,13 +38,13 @@
 include @top_srcdir@/config/makefile-common-vars.mk
 
 # `srcdir' points to the current directory, but should be set by configure.
-# `subdir' must be set manually to the relative dir under srcdir.  Don't 
+# `subdir' must be set manually to the relative dir under srcdir.  Don't
 # set `subdir' to an absolute path, or some make actions will fail.
 
 srcdir  = @srcdir@
 thisdir = src/bindings/matlab
 
-sources = TranslateSBML.c OutputSBML.c 
+sources = TranslateSBML.c OutputSBML.c
 
 subdirs = test
 
@@ -74,9 +74,10 @@ distfiles =                      \
         mexopts-R2008.sh         \
         mexopts-R2009-R2010.sh   \
         mexopts-xcode43.sh       \
+        mexopts-xcode45.sh       \
         mexopts-lion.sh          \
         test.xml                 \
-        test/CMakeLists.txt           
+        test/CMakeLists.txt
 
 # `extra_clean' and `extra_distclean' determine the files and directories
 # removed during "make clean" and "make distclean".
@@ -97,7 +98,7 @@ extra_distclean = Makefile
 
 matlab_args := -nosplash -nodesktop -nojvm
 
-# Figure out the mex extension for this system.  Nasty bit of business, this.
+# Figure out the mex extension for this  system.  Nasty bit of business, this.
 #
 # We can't rely on finding or using Matlab's own "mexext" shell script,
 # because I've seen it report the wrong architecture on some combinatinos
@@ -146,7 +147,7 @@ endef
 here = $(shell /bin/pwd)
 
 $(addprefix %.,$(possible_mexext)): %.c
-	$(call matlabrun,$(MATLAB) $(matlab_args) -r "cd ('$(here)'); buildSBML; quit")	
+	$(call matlabrun,$(MATLAB) $(matlab_args) -r "cd ('$(here)'); buildSBML; quit")
 
 
 # -----------------------------------------------------------------------------
@@ -177,7 +178,7 @@ install: all install-translatesbml install-outputsbml                  \
 	 install-convertformula install-m-contents install-m-translatesbml \
 	 install-m-outputsbml install-m-installsbml
 
-installdirs: 
+installdirs:
 
 uninstall: uninstall-translatesbml uninstall-outputsbml                        \
 	   uninstall-checkandconvert uninstall-isoctave uninstall-issbmlmodel      \
