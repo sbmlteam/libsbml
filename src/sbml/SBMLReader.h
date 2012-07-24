@@ -144,16 +144,16 @@ public:
    * situations using a program fragment such as the following:
    * @if clike
  @verbatim
- SBMLReader* reader = new SBMLReader();
+ SBMLReader reader;
  SBMLDocument* doc  = reader.readSBMLFromFile(filename);
  
  if (doc->getNumErrors() > 0)
  {
-   if (doc->getError(0)->getErrorId() == XMLError::FileUnreadable)
+   if (doc->getError(0)->getErrorId() == XMLError::XMLFileUnreadable)
    {
      // Handle case of unreadable file here.
    } 
-   else if (doc->getError(0)->getErrorId() == XMLError::FileOperationError)
+   else if (doc->getError(0)->getErrorId() == XMLError::XMLFileOperationError)
    {
      // Handle case of other file operation error here.
    }
