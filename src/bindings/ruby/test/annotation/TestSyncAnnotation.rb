@@ -817,7 +817,7 @@ class TestSyncAnnotation < Test::Unit::TestCase
   end
 
   def test_SyncAnnotation_stringChangesMetaid
-    @@c = LibSBML::Compartment.new(3,1)
+    c = LibSBML::Compartment.new(3,1)
     c.setMetaId("_000005")
     c.setId("A")
     addedAnn = "<annotation>\n" + 
@@ -864,7 +864,7 @@ class TestSyncAnnotation < Test::Unit::TestCase
     "                <vCard:Given>Nicolas</vCard:Given>\n" + 
     "              </vCard:N>\n" + 
     "              <vCard:EMAIL>lenov@ebi.ac.uk</vCard:EMAIL>\n" + 
-    "              <vCard:ORG>\n" + 
+    "              <vCard:ORG rdf:parseType=\"Resource\">\n" + 
     "                <vCard:Orgname>EMBL-EBI</vCard:Orgname>\n" + 
     "              </vCard:ORG>\n" + 
     "            </rdf:li>\n" + 
@@ -889,7 +889,7 @@ class TestSyncAnnotation < Test::Unit::TestCase
   end
 
   def test_SyncAnnotation_stringChangesMetaid_1
-    @@c = LibSBML::Model.new(2,3)
+    c = LibSBML::Model.new(2,3)
     c.setMetaId("_000005")
     c.setId("A")
     addedAnn = "<annotation>\n" + 
@@ -924,10 +924,10 @@ class TestSyncAnnotation < Test::Unit::TestCase
     "  </rdf:RDF>\n" + 
     "</annotation>"
     c.setAnnotation(addedAnn)
-    expected = "<model metaid=\"_000003\" id=\"A\">\n" + 
+    expected = "<model metaid=\"_000005\" id=\"A\">\n" + 
     "  <annotation>\n" + 
     "    <rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:dc=\"http://purl.org/dc/elements/1.1/\" xmlns:dcterms=\"http://purl.org/dc/terms/\" xmlns:vCard=\"http://www.w3.org/2001/vcard-rdf/3.0#\" xmlns:bqbiol=\"http://biomodels.net/biology-qualifiers/\" xmlns:bqmodel=\"http://biomodels.net/model-qualifiers/\">\n" + 
-    "      <rdf:Description rdf:about=\"#_000003\">\n" + 
+    "      <rdf:Description rdf:about=\"#_000005\">\n" + 
     "        <dc:creator rdf:parseType=\"Resource\">\n" + 
     "          <rdf:Bag>\n" + 
     "            <rdf:li rdf:parseType=\"Resource\">\n" + 
@@ -961,7 +961,7 @@ class TestSyncAnnotation < Test::Unit::TestCase
   end
 
   def test_SyncAnnotation_stringChangesMetaid_2
-    @@c = LibSBML::Compartment.new(2,3)
+    c = LibSBML::Compartment.new(2,3)
     c.setMetaId("_000005")
     c.setId("A")
     addedAnn = "<annotation>\n" + 
@@ -993,7 +993,7 @@ class TestSyncAnnotation < Test::Unit::TestCase
   end
 
   def test_SyncAnnotation_stringChangesMetaid_3
-    @@c = LibSBML::Model.new(3,1)
+    c = LibSBML::Model.new(3,1)
     c.setMetaId("_000005")
     c.setId("A")
     addedAnn = "<annotation>\n" + 
@@ -1060,12 +1060,12 @@ class TestSyncAnnotation < Test::Unit::TestCase
     "      </rdf:Description>\n" + 
     "    </rdf:RDF>\n" + 
     "  </annotation>\n" + 
-    "</compartment>"
+    "</model>"
     assert_equal true, equals(expected,c.toSBML())
   end
 
   def test_SyncAnnotation_stringHistoryWhenNotValid
-    @@c = LibSBML::Compartment.new(2,4)
+    c = LibSBML::Compartment.new(2,4)
     c.setMetaId("_000003")
     c.setId("A")
     addedAnn = "<annotation>\n" + 
@@ -1079,7 +1079,7 @@ class TestSyncAnnotation < Test::Unit::TestCase
     "              <vCard:Given>Nicolas</vCard:Given>\n" + 
     "            </vCard:N>\n" + 
     "            <vCard:EMAIL>lenov@ebi.ac.uk</vCard:EMAIL>\n" + 
-    "            <vCard:ORG>\n" + 
+    "            <vCard:ORG rdf:parseType=\"Resource\">\n" + 
     "              <vCard:Orgname>EMBL-EBI</vCard:Orgname>\n" + 
     "            </vCard:ORG>\n" + 
     "          </rdf:li>\n" + 
@@ -1119,17 +1119,17 @@ class TestSyncAnnotation < Test::Unit::TestCase
     "                <vCard:Given>Nicolas</vCard:Given>\n" + 
     "              </vCard:N>\n" + 
     "              <vCard:EMAIL>lenov@ebi.ac.uk</vCard:EMAIL>\n" + 
-    "              <vCard:ORG>\n" + 
+    "              <vCard:ORG rdf:parseType=\"Resource\">\n" + 
     "                <vCard:Orgname>EMBL-EBI</vCard:Orgname>\n" + 
     "              </vCard:ORG>\n" + 
     "            </rdf:li>\n" + 
     "          </rdf:Bag>\n" + 
     "        </dc:creator>\n" + 
     "        <dcterms:created rdf:parseType=\"Resource\">\n" + 
-    "          <dcterms:W3CDTF>2005-02-02T14:56:11</dcterms:W3CDTF>\n" + 
+    "          <dcterms:W3CDTF>2005-02-02T14:56:11Z</dcterms:W3CDTF>\n" + 
     "        </dcterms:created>\n" + 
     "        <dcterms:modified rdf:parseType=\"Resource\">\n" + 
-    "          <dcterms:W3CDTF>2006-05-30T10:46:02</dcterms:W3CDTF>\n" + 
+    "          <dcterms:W3CDTF>2006-05-30T10:46:02Z</dcterms:W3CDTF>\n" + 
     "        </dcterms:modified>\n" + 
     "      </rdf:Description>\n" + 
     "    </rdf:RDF>\n" + 
