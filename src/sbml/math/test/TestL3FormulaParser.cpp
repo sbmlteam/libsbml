@@ -2083,6 +2083,7 @@ create_suite_L3FormulaParser (void)
   tcase_add_test( tcase, test_SBML_parseL3Formula_rational4);
   tcase_add_test( tcase, test_SBML_parseL3Formula_rational5);
   tcase_add_test( tcase, test_SBML_parseL3Formula_rational6);
+  tcase_add_test( tcase, test_SBML_parseL3Formula_rational7);
   tcase_add_test( tcase, test_SBML_parseL3Formula_constants1);
   tcase_add_test( tcase, test_SBML_parseL3Formula_constants2);
   tcase_add_test( tcase, test_SBML_parseL3Formula_constants3);
