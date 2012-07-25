@@ -1123,60 +1123,60 @@ create_suite_WriteMathMLFromAST ()
 
   tcase_add_checked_fixture(tcase, WriteMathMLFromAST_setup, WriteMathMLFromAST_teardown);
 
-  //tcase_add_test( tcase, test_MathMLFromAST_cn_real_1             );
-  //tcase_add_test( tcase, test_MathMLFromAST_cn_real_2             );
-  //tcase_add_test( tcase, test_MathMLFromAST_cn_real_3             );
-  //tcase_add_test( tcase, test_MathMLFromAST_cn_real_locale        );
-  //tcase_add_test( tcase, test_MathMLFromAST_cn_e_notation_1       );
-  //tcase_add_test( tcase, test_MathMLFromAST_cn_e_notation_2       );
-  //tcase_add_test( tcase, test_MathMLFromAST_cn_e_notation_3       );
-  //tcase_add_test( tcase, test_MathMLFromAST_cn_e_notation_4       );
-  //tcase_add_test( tcase, test_MathMLFromAST_cn_e_notation_5       );
-  //tcase_add_test( tcase, test_MathMLFromAST_cn_e_notation_6       );
-  //tcase_add_test( tcase, test_MathMLFromAST_cn_e_notation_7       );
-  //tcase_add_test( tcase, test_MathMLFromAST_cn_integer            );
-  //tcase_add_test( tcase, test_MathMLFromAST_cn_rational           );
+  tcase_add_test( tcase, test_MathMLFromAST_cn_real_1             );
+  tcase_add_test( tcase, test_MathMLFromAST_cn_real_2             );
+  tcase_add_test( tcase, test_MathMLFromAST_cn_real_3             );
+  tcase_add_test( tcase, test_MathMLFromAST_cn_real_locale        );
+  tcase_add_test( tcase, test_MathMLFromAST_cn_e_notation_1       );
+  tcase_add_test( tcase, test_MathMLFromAST_cn_e_notation_2       );
+  tcase_add_test( tcase, test_MathMLFromAST_cn_e_notation_3       );
+  tcase_add_test( tcase, test_MathMLFromAST_cn_e_notation_4       );
+  tcase_add_test( tcase, test_MathMLFromAST_cn_e_notation_5       );
+  tcase_add_test( tcase, test_MathMLFromAST_cn_e_notation_6       );
+  tcase_add_test( tcase, test_MathMLFromAST_cn_e_notation_7       );
+  tcase_add_test( tcase, test_MathMLFromAST_cn_integer            );
+  tcase_add_test( tcase, test_MathMLFromAST_cn_rational           );
 
-  //tcase_add_test( tcase, test_MathMLFromAST_ci                    );
-  //tcase_add_test( tcase, test_MathMLFromAST_csymbol_delay         );
-  //tcase_add_test( tcase, test_MathMLFromAST_csymbol_time          );
-  //tcase_add_test( tcase, test_MathMLFromAST_constant_true         );
-  //tcase_add_test( tcase, test_MathMLFromAST_constant_false        );
-  //tcase_add_test( tcase, test_MathMLFromAST_constant_notanumber   );
-  //tcase_add_test( tcase, test_MathMLFromAST_constant_infinity     );
-  //tcase_add_test( tcase, test_MathMLFromAST_constant_infinity_neg );
-  //tcase_add_test( tcase, test_MathMLFromAST_constant_exponentiale );
+  tcase_add_test( tcase, test_MathMLFromAST_ci                    );
+  tcase_add_test( tcase, test_MathMLFromAST_csymbol_delay         );
+  tcase_add_test( tcase, test_MathMLFromAST_csymbol_time          );
+  tcase_add_test( tcase, test_MathMLFromAST_constant_true         );
+  tcase_add_test( tcase, test_MathMLFromAST_constant_false        );
+  tcase_add_test( tcase, test_MathMLFromAST_constant_notanumber   );
+  tcase_add_test( tcase, test_MathMLFromAST_constant_infinity     );
+  tcase_add_test( tcase, test_MathMLFromAST_constant_infinity_neg );
+  tcase_add_test( tcase, test_MathMLFromAST_constant_exponentiale );
   tcase_add_test( tcase, test_MathMLFromAST_plus_binary           );
   tcase_add_test( tcase, test_MathMLFromAST_plus_nary_1           );
   tcase_add_test( tcase, test_MathMLFromAST_plus_nary_2           );
   tcase_add_test( tcase, test_MathMLFromAST_plus_nary_3           );
   tcase_add_test( tcase, test_MathMLFromAST_plus_nary_4           );
-  //tcase_add_test( tcase, test_MathMLFromAST_minus                 );
-  //tcase_add_test( tcase, test_MathMLFromAST_minus_unary_1         );
-  //tcase_add_test( tcase, test_MathMLFromAST_minus_unary_2         );
-  //tcase_add_test( tcase, test_MathMLFromAST_function_1            );
-  //tcase_add_test( tcase, test_MathMLFromAST_function_2            );
-  //tcase_add_test( tcase, test_MathMLFromAST_sin                   );
-  //tcase_add_test( tcase, test_MathMLFromAST_log                   );
-  //tcase_add_test( tcase, test_MathMLFromAST_root                  );
-  //tcase_add_test( tcase, test_MathMLFromAST_lambda                );
-  //tcase_add_test( tcase, test_MathMLFromAST_lambda_no_bvars       );
-  //tcase_add_test( tcase, test_MathMLFromAST_piecewise             );
-  //tcase_add_test( tcase, test_MathMLFromAST_piecewise_otherwise   );
+  tcase_add_test( tcase, test_MathMLFromAST_minus                 );
+  tcase_add_test( tcase, test_MathMLFromAST_minus_unary_1         );
+  tcase_add_test( tcase, test_MathMLFromAST_minus_unary_2         );
+  tcase_add_test( tcase, test_MathMLFromAST_function_1            );
+  tcase_add_test( tcase, test_MathMLFromAST_function_2            );
+  tcase_add_test( tcase, test_MathMLFromAST_sin                   );
+  tcase_add_test( tcase, test_MathMLFromAST_log                   );
+  tcase_add_test( tcase, test_MathMLFromAST_root                  );
+  tcase_add_test( tcase, test_MathMLFromAST_lambda                );
+  tcase_add_test( tcase, test_MathMLFromAST_lambda_no_bvars       );
+  tcase_add_test( tcase, test_MathMLFromAST_piecewise             );
+  tcase_add_test( tcase, test_MathMLFromAST_piecewise_otherwise   );
 
-  //tcase_add_test( tcase, test_MathMLFromAST_semantics             );
-  //tcase_add_test( tcase, test_MathMLFromAST_semantics_url         );
-  //tcase_add_test( tcase, test_MathMLFromAST_semantics_ann         );
-  //tcase_add_test( tcase, test_MathMLFromAST_semantics_annxml      );
+  tcase_add_test( tcase, test_MathMLFromAST_semantics             );
+  tcase_add_test( tcase, test_MathMLFromAST_semantics_url         );
+  tcase_add_test( tcase, test_MathMLFromAST_semantics_ann         );
+  tcase_add_test( tcase, test_MathMLFromAST_semantics_annxml      );
 
-  ///* L3 additions */
-  //tcase_add_test( tcase, test_MathMLFromAST_cn_units           );
+  /* L3 additions */
+  tcase_add_test( tcase, test_MathMLFromAST_cn_units           );
 
-  //tcase_add_test( tcase, test_MathMLFromAST_csymbol_avogadro         );
-  //tcase_add_test( tcase, test_MathMLFromAST_ci_definitionURL         );
-  //tcase_add_test( tcase, test_MathMLFromAST_ci_id                    );
-  //tcase_add_test( tcase, test_MathMLFromAST_ci_class                 );
-  //tcase_add_test( tcase, test_MathMLFromAST_ci_style                 );
+  tcase_add_test( tcase, test_MathMLFromAST_csymbol_avogadro         );
+  tcase_add_test( tcase, test_MathMLFromAST_ci_definitionURL         );
+  tcase_add_test( tcase, test_MathMLFromAST_ci_id                    );
+  tcase_add_test( tcase, test_MathMLFromAST_ci_class                 );
+  tcase_add_test( tcase, test_MathMLFromAST_ci_style                 );
 
   suite_add_tcase(suite, tcase);
 
