@@ -15,7 +15,8 @@ file(GLOB CPP_FILES ${CMAKE_CURRENT_SOURCE_DIR}/*.cpp )
 
 set(TEST_FILES ${CPP_FILES} ${C_FILES})
 
-include_directories(BEFORE ${CMAKE_SOURCE_DIR}/src)
+include_directories(${CMAKE_SOURCE_DIR}/include/sbml)
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/..)
 include_directories(${LIBCHECK_INCLUDE_DIR})
 add_executable(test_sbml_xml ${TEST_FILES})
 target_link_libraries(test_sbml_xml ${LIBSBML_LIBRARY}-static ${LIBCHECK_LIBRARY})
