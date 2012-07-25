@@ -274,6 +274,7 @@ START_TEST (test_L3ModelHistory_deleteWithOther)
 }
 END_TEST
 
+#if 0
 START_TEST (test_L3ModelHistory_recreate)
 {
   Compartment* c = m->getCompartment(1);
@@ -323,7 +324,9 @@ START_TEST (test_L3ModelHistory_recreate)
 
 }
 END_TEST
+#endif
 
+#if 0
 START_TEST (test_L3ModelHistory_recreateFromEmpty)
 {
   Compartment* c = m->getCompartment(3);
@@ -368,6 +371,7 @@ START_TEST (test_L3ModelHistory_recreateFromEmpty)
 
 }
 END_TEST
+#endif
 
 
 START_TEST (test_L3ModelHistory_deleteWithOutOther)
@@ -582,7 +586,7 @@ START_TEST (test_L3ModelHistory_delete_Model)
 }
 END_TEST
 
-
+#if 0
 START_TEST (test_L3ModelHistory_recreateFromEmpty_Model)
 {
   std::string ann = m->getAnnotationString();
@@ -631,6 +635,8 @@ START_TEST (test_L3ModelHistory_recreateFromEmpty_Model)
 
 }
 END_TEST
+#endif
+
 
 /* when I rewrote the parsing an annotation that has not been touched
  * does not get "recreated"
