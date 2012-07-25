@@ -865,6 +865,7 @@ create_suite_XMLAttributes_C (void)
   tcase_add_test( tcase, test_XMLAttributes_readInto_int_C );
   tcase_add_test( tcase, test_XMLAttributes_readInto_uint_C );
   tcase_add_test( tcase, test_XMLAttributes_remove1);
+  tcase_add_test( tcase, test_XMLAttributes_clear1);
   tcase_add_test( tcase, test_XMLAttributes_accessWithNULL     );
   suite_add_tcase(suite, tcase);
 
