@@ -196,12 +196,13 @@ START_TEST (test_ReadSBML_Model_withoutEncoding)
   fail_unless( !strcmp(Model_getId(M), "testModel") );
   fail_unless (SBMLDocument_getNumErrors(D) == 0);
 
+  /*
   const char* s2 = 
     "<?xml version='1.0' encoding='UTF-8'?>\n"
     "<sbml level='2' version='1' xmlns='http://www.sbml.org/sbml/level2'>"
     "  <model id='testModel'></model>"
     "</sbml>";
-
+  */
 
   D = readSBMLFromString(s);
   M = SBMLDocument_getModel(D);
