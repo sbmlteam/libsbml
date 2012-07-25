@@ -2286,7 +2286,6 @@ int sbml_yylex(void)
       l3p->input.seekg(numbegin);
       string failnum = "";
       cc = l3p->input.get();
-      bool decimal = false;
       while (l3p->input.good() && (isdigit(cc) || cc=='.')) {
         failnum += cc;
         cc = l3p->input.get();
