@@ -66,7 +66,7 @@ START_TEST (test_SBasePluginCreator_create)
 	
 
 	// create a separate TestModelPlugin
-	TestExtension* ext = (TestExtension*)SBMLExtensionRegistry::getInstance().getExtension(uri);
+	// TestExtension* ext = (TestExtension*)SBMLExtensionRegistry::getInstance().getExtension(uri);
 	TestModelPlugin plugin(uri, prefix, &ns);
 
 	// assert that they are the same
