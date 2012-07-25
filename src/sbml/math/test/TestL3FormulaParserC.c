@@ -30,6 +30,11 @@
 #include <sbml/math/L3ParserSettings.h>
 #include <sbml/Model.h>
 #include <sbml/Reaction.h>
+#include <sbml/Species.h>
+#include <sbml/Parameter.h>
+#include <sbml/Compartment.h>
+#include <sbml/SpeciesReference.h>
+#include <sbml/FunctionDefinition.h>
 
 #include <check.h>
 
@@ -1874,6 +1879,7 @@ create_suite_L3FormulaParserC (void)
   tcase_add_test( tcase, test_SBML_C_parseL3Formula_rational4);
   tcase_add_test( tcase, test_SBML_C_parseL3Formula_rational5);
   tcase_add_test( tcase, test_SBML_C_parseL3Formula_rational6);
+  tcase_add_test( tcase, test_SBML_C_parseL3Formula_rational7);
   tcase_add_test( tcase, test_SBML_C_parseL3Formula_constants1);
   tcase_add_test( tcase, test_SBML_C_parseL3Formula_constants2);
   tcase_add_test( tcase, test_SBML_C_parseL3Formula_constants3);
