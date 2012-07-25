@@ -175,7 +175,7 @@ TestFile::getFilesIn ( const string& directory,
 
         // libxml bug for 2.6.16 on a Mac
 #ifdef BUGGY_APPLE_LIBXML
-      unsigned int num = file.getSequenceId();
+      // unsigned int num = file.getSequenceId();
 
       if (id == 1013) continue;
       if (id == 1014) continue;
