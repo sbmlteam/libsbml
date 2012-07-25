@@ -1139,7 +1139,7 @@ def processClassMethods(ostream, cclass):
   if language == 'python':
     written = {}
     for m in cclass.methods:
-      if written.has_key(m.name + m.args):
+      if m.name + m.args in written:
         continue
       if m.name.startswith('~'):
         continue
