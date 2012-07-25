@@ -15,7 +15,7 @@ endforeach()
 file(GLOB CPP_FILES ${CMAKE_CURRENT_SOURCE_DIR}/*.cpp )
 
 set(TEST_FILES ${CPP_FILES} ${C_FILES})
-include_directories(${LIBCHECK_INCLUDE_DIR} ${CMAKE_SOURCE_DIR}/include/sbml)
+include_directories(BEFORE ${CMAKE_SOURCE_DIR}/src)
 include_directories(${LIBCHECK_INCLUDE_DIR})
 add_executable(test_sbml_conversion ${TEST_FILES})
 target_link_libraries(test_sbml_conversion ${LIBSBML_LIBRARY}-static ${LIBCHECK_LIBRARY})
