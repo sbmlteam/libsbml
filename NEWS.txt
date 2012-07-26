@@ -12,7 +12,7 @@ STABLE RELEASE
   - libSBML now includes a binding to R (The R Project for Statistical
     Computing). The binding is generated using SWIG and thus can be 
     built by users. Alternatively the libSBML-5.6.0 release provides
-    R packages that can be installed into R dierectly.
+    R packages that can be installed directly into R.
 
   - At HARMONY the issue of providing layout for other L3 packages
     was discussed and it was decided that the layout package needed
@@ -32,7 +32,6 @@ STABLE RELEASE
     function returns a string representation of the SBOTerm in its 
     resolvable identifiers.org URL format;
     i.e. http://identifiers.org/biomodels.sbo/SBO:NNNNNNN
-    
 
 * Bug fixes
 
@@ -91,7 +90,7 @@ EXPERIMENTAL RELEASE
 
     - There was an issue with the encoding of image data for the spatial
       package. This has been solved by providing a function that will
-      uncompress the data and return it to the user is a usable form.
+      uncompress the data and return it to the user in a usable form.
 
   - Render
   
