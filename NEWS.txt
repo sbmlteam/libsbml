@@ -98,9 +98,14 @@ EXPERIMENTAL RELEASE
       at HARMONY extended to the "render" package.  Additional elements
       have been added to the code.
 
-  - Req
-
   - Comp
+
+    - Instantiated Model objects in Submodels now are set to have that
+      Submodel as their parent.  The SBMLDocument is still set to the
+      document of the original Model, so that its own Submodel references
+      can be properly tracked down.
+
+  - Req
 
 ====================================================================
 Version 5.5.0 (2012-05-11)
