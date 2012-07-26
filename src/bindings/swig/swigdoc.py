@@ -1151,7 +1151,7 @@ def processClassMethods(ostream, cclass):
         # a statement that there are multiple variants, we must check that
         # we're left with more than one non-internal method to document.
         count = 0
-        for argVariant in cclass.methodVariants[m.name].values():
+        for argVariant in list(cclass.methodVariants[m.name].values()):
           if re.search('@internal', argVariant.docstring) == None:
             count += 1
         if count <= 1:
@@ -1161,7 +1161,7 @@ def processClassMethods(ostream, cclass):
                  ' arguments\n they accept.  Each is described separately' + \
                  ' below.\n'
 
-        for argVariant in cclass.methodVariants[m.name].values():
+        for argVariant in list(cclass.methodVariants[m.name].values()):
           # Each entry in the methodVariants dictionary is itself a dictionary.
           # The dictionary entries are keyed by method arguments (as strings).
           # The dictionary values are the 'func' objects we use.
@@ -1200,7 +1200,7 @@ def formatMethodDocString (methodname, classname, docstring, isInternal, args=No
   elif language == 'csharp':
     pre  = '%csmethodmodifiers'
     # See the comment for the definition of 'overriders' for more info.
-    if overriders.has_key(classname) and methodname in overriders[classname]:
+    if classname in overriders and methodname in overriders[classname]:
       post = ' public new'
     else:
       post = ' public'
@@ -1315,7 +1315,7 @@ def main (args):
   """
 
   if len(args) != 6:
-    print(main.__doc__)
+    print((main.__doc__))
     sys.exit(1)
 
   global docincpath
