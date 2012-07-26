@@ -2,18 +2,37 @@
 
 
 ====================================================================
-Version 5.6.0 (Coming soon ...)
+Version 5.6.0 (2012-08-03)
 ====================================================================
 
 STABLE RELEASE
 
 * New features
 
-  - Support for Python 3.2.
+  - libSBML now includes a binding to R (The R Project for Statistical
+    Computing). The binding is generated using SWIG and thus can be 
+    built by users. Alternatively the libSBML-5.6.0 release provides
+    R packages that can be installed into R dierectly.
 
-  - R binding
-
-  - Layout additions
+  - At HARMONY the issue of providing layout for other L3 packages
+    was discussed and it was decided that the layout package needed
+    additional GeneralGlyph elements that could refer to as yet unknown
+    types of objects.  These additional elements have been included in
+    the layout code.
+    
+  - Whilst the libSBML GNUMake build files have technically supported
+    Python 3 for some time, there had until recently been no feedback
+    regarding the use of libSBML with Python 3.  Following recently
+    received requests the build system has been updated to facilitate
+    the different python 3 versions and the libSBML release includes
+    prebuilt installers for Python 3.2 on Windows. 
+        
+  - In order to facilitate the use of identifiers.org URLs an additional
+    function getSBOTermAsURL has been added to the SBase class.  This
+    function returns a string representation of the SBOTerm in its 
+    resolvable identifiers.org URL format;
+    i.e. http://identifiers.org/biomodels.sbo/SBO:NNNNNNN
+    
 
 * Bug fixes
 
@@ -31,10 +50,31 @@ STABLE RELEASE
     it was still possible to add them directly to the annotation.  Code
     now checks that an object to which any MIRIAM compliant annotation 
     is being added has a metaid. 
+    
+  - When returning a MIRIAM compliant annotation, all CVTerms were lost if
+    just one had an invalid qualifier.  This has been fixed.
+    
+  - The decompression code uses a macro OF that is not defined for all
+    versions of linux.  A definition has been added to avoid problems.
+    Thanks to Kai Wohlfahrt for reporting this.
 
 * Miscellaneous
 
 * Configuration/build system changes
+
+  - As SBML L3 packages and their code become available there is an 
+    increase number of possibilities in the matrix of what a particular
+    instance of libSBML has included. In order to facilitate code that
+    may rely on the presence of one or more packages the CMake
+    configuration process has been improved to include a set of defines
+    that identify the packages included in a particular build.  The
+    convertLayout.cpp example illustrates the use of these defines.
+    
+  - The Matlab bindings fail to build on OSX whenever an Xcode version 
+    is used that does not include the 10.6 SDK.  This has been fixed.
+    
+  - The CMake build system has been made more resilient to finding 
+    include files from previous libsbml installations.
 
 EXPERIMENTAL RELEASE
 
@@ -49,9 +89,15 @@ EXPERIMENTAL RELEASE
 
   - Spatial
 
-    - fixes ??
+    - There was an issue with the encoding of image data for the spatial
+      package. This has been solved by providing a function that will
+      uncompress the data and return it to the user is a usable form.
 
   - Render
+  
+    - The implications of producing diagrams for L3 packages discussed
+      at HARMONY extended to the "render" package.  Additional elements
+      have been added to the code.
 
   - Req
 
