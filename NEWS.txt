@@ -11,47 +11,57 @@ STABLE RELEASE
 
   - libSBML now includes a binding to R (The R Project for Statistical
     Computing). The binding is generated using SWIG and thus can be 
-    built by users. Alternatively the libSBML-5.6.0 release provides
+    built by users. Alternatively, the libSBML-5.6.0 release provides
     R packages that can be installed directly into R.
 
-  - At HARMONY the issue of providing layout for other L3 packages
-    was discussed and it was decided that the layout package needed
-    additional GeneralGlyph elements that could refer to as yet unknown
-    types of objects.  These additional elements have been included in
-    the layout code.
+  - During HARMONY 2012, people discussed the issue of providing
+    support for Level 3 Layout in other SBML Level 3 packages.  The
+    conclusion was that additional GeneralGlyph elements should be
+    added in order to support references to as-yet unknown types of
+    objects to be defined in Level 3 packages. These additional
+    elements have been included in the libSBML layout code.
     
-  - Whilst the libSBML GNUMake build files have technically supported
-    Python 3 for some time, there had until recently been no feedback
-    regarding the use of libSBML with Python 3.  Following recently
-    received requests the build system has been updated to facilitate
-    the different python 3 versions and the libSBML release includes
-    prebuilt installers for Python 3.2 on Windows. 
+  - Although libSBML GNU makefiles have technically supported Python 3
+    for some time, there had been no feedback regarding the use of
+    Python 3 until recently.  In response to the feedback, we have the
+    updated the build system to facilitate the use of different
+    versions of Python 3.  On Windows, the libSBML release also
+    includes prebuilt installers for Python 3.2.
+
+  - The libSBML 'configure' command now accepts the additional option
+    --with-python-interpreter, which allows you to specify the Python
+    interpreter that should be used.  This is useful when a system has
+    multiple versions of Python installed in the same directories, and
+    the version that should be used can be selected by explicitly
+    invoking the desired version.  The option takes a full path, as in
+    "--with-python-interpreter=/usr/bin/python2.7".
         
-  - In order to facilitate the use of identifiers.org URLs an additional
-    function getSBOTermAsURL has been added to the SBase class.  This
-    function returns a string representation of the SBOTerm in its 
-    resolvable identifiers.org URL format;
-    i.e. http://identifiers.org/biomodels.sbo/SBO:NNNNNNN
+  - In order to facilitate the use of identifiers.org URLs, we added
+    an additional function, getSBOTermAsURL, to the SBase class.  This
+    function returns a string representation of the SBOTerm in its
+    resolvable identifiers.org URL format; e.g., 
+    "http://identifiers.org/biomodels.sbo/SBO:NNNNNNN"
 
 * Bug fixes
 
-  - When using libSBML compiled with package code attributes from the sbml 
-    namespace were on occasion written out with the package prefix and in some
-    cases the attribute was never prefixed even if it should be.  This has 
-    been fixed.
+  - When using a copy of libSBML compiled with Level 3 package
+    support, attributes from the "sbml" namespace were not given a
+    namespace prefix when they should have been.  This has been fixed.
     
   - The L3Parser had some subtle bugs on some operating systems when 
     dealing with very long numbers or exponentials. These have been
     tracked down and fixed.
     
-  - Whilst code explicitly prevented History or CVTerms being added to 
-    the annotation of an object when the object had no metaid attribute set
-    it was still possible to add them directly to the annotation.  Code
-    now checks that an object to which any MIRIAM compliant annotation 
-    is being added has a metaid. 
+  - Although libSBML explicitly prevented History or CVTerm objects
+    from being added to the annotation of an object when that object
+    had no metaid attribute value, it was still possible to add
+    History and CVTerm directly to the annotation.  This could lead to
+    invalid MIRIAM annotations because they lacked a metaid attribute
+    value.  LibSBML now checks that an object to which any MIRIAM
+    compliant annotation is being added has a metaid.
     
-  - When returning a MIRIAM compliant annotation, all CVTerms were lost if
-    just one had an invalid qualifier.  This has been fixed.
+  - When returning a MIRIAM-compliant annotation, all CVTerms were
+    lost if just one had an invalid qualifier.  This has been fixed.
     
   - The decompression code uses a macro OF that is not defined for all
     versions of linux.  A definition has been added to avoid problems.
@@ -61,19 +71,22 @@ STABLE RELEASE
 
 * Configuration/build system changes
 
-  - As SBML L3 packages and their code become available there is an 
-    increase number of possibilities in the matrix of what a particular
-    instance of libSBML has included. In order to facilitate code that
-    may rely on the presence of one or more packages the CMake
-    configuration process has been improved to include a set of defines
-    that identify the packages included in a particular build.  The
-    convertLayout.cpp example illustrates the use of these defines.
+  - As SBML Level 3 packages and their code become available, there is
+    a increasing number of possibilities in the matrix of what a
+    particular instance of libSBML has included. In order to
+    facilitate code that may rely on the presence of one or more
+    packages, the CMake configuration process has been improved to
+    include a set of flags that identify the packages included in a
+    particular build.  The file convertLayout.cpp in the examples/c++
+    directory illustrates the use of these #define's.
     
-  - The Matlab bindings fail to build on OSX whenever an Xcode version 
-    is used that does not include the 10.6 SDK.  This has been fixed.
+  - The MATLAB bindings failed to build on Mac OS X whenever an Xcode
+    version was used that did not include the Mac OS 10.6 SDK.  This
+    has been fixed.
     
   - The CMake build system has been made more resilient to finding 
-    include files from previous libsbml installations.
+    include files from previous libSBML installations.
+
 
 EXPERIMENTAL RELEASE
 
@@ -83,27 +96,28 @@ EXPERIMENTAL RELEASE
 
   - Groups
     
-    - At HARMONY it was agreed that the 'group' element needed an additional
-      attribute 'kind'. This has been added.
+    - At HARMONY it was agreed that the 'group' element needed an
+      additional attribute 'kind'. This has been added.
 
   - Spatial
 
-    - There was an issue with the encoding of image data for the spatial
-      package. This has been solved by providing a function that will
-      uncompress the data and return it to the user in a usable form.
+    - There was an issue with the encoding of image data for the
+      spatial package. This has been solved by providing a function
+      that will uncompress the data and return it to the user in a
+      usable form.
 
   - Render
   
     - The implications of producing diagrams for L3 packages discussed
-      at HARMONY extended to the "render" package.  Additional elements
-      have been added to the code.
+      at HARMONY extended to the "render" package.  Additional
+      elements have been added to the code.
 
   - Comp
 
     - Instantiated Model objects in Submodels now are set to have that
       Submodel as their parent.  The SBMLDocument is still set to the
-      document of the original Model, so that its own Submodel references
-      can be properly tracked down.
+      document of the original Model, so that its own Submodel
+      references can be properly tracked down.
 
   - Req
 
