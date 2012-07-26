@@ -863,6 +863,7 @@ PYTHON_EXT
 PYTHON_LIBS
 PYTHON_LDFLAGS
 USE_PYTHON
+PYTHON_CONFIG
 PYTHON_CPPFLAGS
 PYTHON
 HAS_GCC_WNO_LONG_DOUBLE
@@ -952,6 +953,7 @@ enable_m32
 enable_m64
 enable_universal_binary
 with_python
+with_python_interpreter
 with_perl
 with_java
 with_java_bin_check
@@ -1631,6 +1633,8 @@ Optional Packages:
   --with-PACKAGE[=ARG]    use PACKAGE [ARG=yes]
   --without-PACKAGE       do not use PACKAGE (same as --with-PACKAGE=no)
   --with-python[=PREFIX]  generate Python interface library [default=no]
+  --with-python-interpreter[=PATH]
+                          set path to Python interpreter [default=autodetect]
   --with-perl[=PREFIX]    generate Perl interface library [default=no]
   --with-java[=PREFIX]    generate Java interface library [default=no]
   --without-jre-check     disable checking for 32 vs. 64-bit JRE
@@ -4618,14 +4622,34 @@ else
 fi
 
 
+
+# Check whether --with-python-interpreter was given.
+if test "${with_python_interpreter+set}" = set; then :
+  withval=$with_python_interpreter; PYTHON=$withval
+else
+  PYTHON=no
+fi
+
+
   if test $with_python != no; then
 
 
-    if test $with_python != yes;
-    then
-            with_python=`echo $with_python | sed -e 's,\(.*\)/$,\1,g'`
+    if test "$PYTHON" != no ; then
+      { $as_echo "$as_me:${as_lineno-$LINENO}: checking whether $PYTHON exists" >&5
+$as_echo_n "checking whether $PYTHON exists... " >&6; }
+      if test -f "$PYTHON" ; then
+        { $as_echo "$as_me:${as_lineno-$LINENO}: result: yes" >&5
+$as_echo "yes" >&6; }
+      else
+        { $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
+$as_echo "no" >&6; }
+        as_fn_error $? "$PYTHON does not exist." "$LINENO" 5
+      fi
+    else
+      if test $with_python != yes; then
+                        with_python=`echo $with_python | sed -e 's,\(.*\)/$,\1,g'`
 
-      # Extract the first word of "python", so it can be a program name with args.
+        # Extract the first word of "python", so it can be a program name with args.
 set dummy python; ac_word=$2
 { $as_echo "$as_me:${as_lineno-$LINENO}: checking for $ac_word" >&5
 $as_echo_n "checking for $ac_word... " >&6; }
@@ -4666,8 +4690,8 @@ $as_echo "no" >&6; }
 fi
 
 
-    else
-      # Extract the first word of "python", so it can be a program name with args.
+      else
+        # Extract the first word of "python", so it can be a program name with args.
 set dummy python; ac_word=$2
 { $as_echo "$as_me:${as_lineno-$LINENO}: checking for $ac_word" >&5
 $as_echo_n "checking for $ac_word... " >&6; }
@@ -4707,11 +4731,12 @@ $as_echo "no" >&6; }
 fi
 
 
+      fi
     fi
 
-    if test -z $PYTHON -o "$PYTHON" = "no" -o ! -f $PYTHON;
+    if test -z "$PYTHON" -o "$PYTHON" = "no" -o ! -f "$PYTHON";
     then
-      as_fn_error $? "*** python missing - please install first or check config.log ***" "$LINENO" 5
+      as_fn_error $? "*** cannot find python -- please install it or check config.log ***" "$LINENO" 5
     fi
 
 
@@ -4726,7 +4751,7 @@ $as_echo "$PYTHON_PREFIX" >&6; }
     PYTHON_VERSION=`"$PYTHON" -c "import sys; print(sys.version[:3])"`
 
 
-    PYTHON_NAME="python${PYTHON_VERSION}"
+    PYTHON_NAME="python$PYTHON_VERSION"
 
 
     { $as_echo "$as_me:${as_lineno-$LINENO}: checking for Python include path" >&5
@@ -4739,61 +4764,235 @@ $as_echo_n "checking for Python include path... " >&6; }
     	fi
     	PYTHON_CPPFLAGS=$python_path
     fi
+    case $host in
+    *darwin*)
+        ;;
+    *cygwin* | *mingw*)
+	PYTHON_CPPFLAGS="$PYTHON_CPPFLAGS -DUSE_DL_IMPORT"
+        ;;
+    *)
+        ;;
+    esac
     { $as_echo "$as_me:${as_lineno-$LINENO}: result: $PYTHON_CPPFLAGS" >&5
 $as_echo "$PYTHON_CPPFLAGS" >&6; }
 
 
 
-    case $host in
+    if test $with_python != yes; then
+      # Extract the first word of "${PYTHON_NAME}-config", so it can be a program name with args.
+set dummy ${PYTHON_NAME}-config; ac_word=$2
+{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for $ac_word" >&5
+$as_echo_n "checking for $ac_word... " >&6; }
+if ${ac_cv_path_PYTHON_CONFIG+:} false; then :
+  $as_echo_n "(cached) " >&6
+else
+  case $PYTHON_CONFIG in
+  [\\/]* | ?:[\\/]*)
+  ac_cv_path_PYTHON_CONFIG="$PYTHON_CONFIG" # Let the user override the test with a path.
+  ;;
+  *)
+  as_save_IFS=$IFS; IFS=$PATH_SEPARATOR
+for as_dir in $with_python/bin
+do
+  IFS=$as_save_IFS
+  test -z "$as_dir" && as_dir=.
+    for ac_exec_ext in '' $ac_executable_extensions; do
+  if { test -f "$as_dir/$ac_word$ac_exec_ext" && $as_test_x "$as_dir/$ac_word$ac_exec_ext"; }; then
+    ac_cv_path_PYTHON_CONFIG="$as_dir/$ac_word$ac_exec_ext"
+    $as_echo "$as_me:${as_lineno-$LINENO}: found $as_dir/$ac_word$ac_exec_ext" >&5
+    break 2
+  fi
+done
+  done
+IFS=$as_save_IFS
+
+  test -z "$ac_cv_path_PYTHON_CONFIG" && ac_cv_path_PYTHON_CONFIG="no"
+  ;;
+esac
+fi
+PYTHON_CONFIG=$ac_cv_path_PYTHON_CONFIG
+if test -n "$PYTHON_CONFIG"; then
+  { $as_echo "$as_me:${as_lineno-$LINENO}: result: $PYTHON_CONFIG" >&5
+$as_echo "$PYTHON_CONFIG" >&6; }
+else
+  { $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
+$as_echo "no" >&6; }
+fi
+
+
+    else
+      # Extract the first word of "${PYTHON_NAME}-config", so it can be a program name with args.
+set dummy ${PYTHON_NAME}-config; ac_word=$2
+{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for $ac_word" >&5
+$as_echo_n "checking for $ac_word... " >&6; }
+if ${ac_cv_path_PYTHON_CONFIG+:} false; then :
+  $as_echo_n "(cached) " >&6
+else
+  case $PYTHON_CONFIG in
+  [\\/]* | ?:[\\/]*)
+  ac_cv_path_PYTHON_CONFIG="$PYTHON_CONFIG" # Let the user override the test with a path.
+  ;;
+  *)
+  as_save_IFS=$IFS; IFS=$PATH_SEPARATOR
+for as_dir in $PATH
+do
+  IFS=$as_save_IFS
+  test -z "$as_dir" && as_dir=.
+    for ac_exec_ext in '' $ac_executable_extensions; do
+  if { test -f "$as_dir/$ac_word$ac_exec_ext" && $as_test_x "$as_dir/$ac_word$ac_exec_ext"; }; then
+    ac_cv_path_PYTHON_CONFIG="$as_dir/$ac_word$ac_exec_ext"
+    $as_echo "$as_me:${as_lineno-$LINENO}: found $as_dir/$ac_word$ac_exec_ext" >&5
+    break 2
+  fi
+done
+  done
+IFS=$as_save_IFS
+
+  ;;
+esac
+fi
+PYTHON_CONFIG=$ac_cv_path_PYTHON_CONFIG
+if test -n "$PYTHON_CONFIG"; then
+  { $as_echo "$as_me:${as_lineno-$LINENO}: result: $PYTHON_CONFIG" >&5
+$as_echo "$PYTHON_CONFIG" >&6; }
+else
+  { $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
+$as_echo "no" >&6; }
+fi
+
+
+    fi
+
+    if test -n "$PYTHON_CONFIG" ; then
+
+
+      { $as_echo "$as_me:${as_lineno-$LINENO}: checking $PYTHON_CONFIG --ldflags" >&5
+$as_echo_n "checking $PYTHON_CONFIG --ldflags... " >&6; }
+      PYTHON_LDFLAGS=`"$PYTHON_CONFIG" --ldflags`
+      { $as_echo "$as_me:${as_lineno-$LINENO}: result: done" >&5
+$as_echo "done" >&6; }
+
+      { $as_echo "$as_me:${as_lineno-$LINENO}: checking $PYTHON_CONFIG --libs" >&5
+$as_echo_n "checking $PYTHON_CONFIG --libs... " >&6; }
+      PYTHON_LIBS=`"$PYTHON_CONFIG" --libs`
+      { $as_echo "$as_me:${as_lineno-$LINENO}: result: done" >&5
+$as_echo "done" >&6; }
+
+
+      case $host in
+      *darwin*)
+
+          PYTHON_EXT="so"
+
+
+          PYTHON_CPPFLAGS=`echo $PYTHON_CPPFLAGS | sed -e 's/-Wstrict-prototypes//'`
+
+
+
+          tmp_v=`"$PYTHON" -c "import sys; print(sys.version[:1])"`
+
+
+          { $as_echo "$as_me:${as_lineno-$LINENO}: checking if we can trust $PYTHON_CONFIG --libs" >&5
+$as_echo_n "checking if we can trust $PYTHON_CONFIG --libs... " >&6; }
+          if test $tmp_v -ge 3; then
+            { $as_echo "$as_me:${as_lineno-$LINENO}: result: no, we're not using those values" >&5
+$as_echo "no, we're not using those values" >&6; }
+
+            tmp_e=`"$PYTHON" -c "from distutils import sysconfig; print(sysconfig.get_config_var('Py_ENABLE_SHARED'))"`
+            tmp_sl=`"$PYTHON" -c "from distutils import sysconfig; print(sysconfig.get_config_var('SYSLIBS'))"`
+
+            if test $tmp_e -eq 0; then
+              tmp_pl=`"$PYTHON" -c "from distutils import sysconfig; print('-L' + sysconfig.get_config_var('LIBPL'))"`
+              PYTHON_LDFLAGS="$tmp_pl $tmp_sl"
+            else
+              PYTHON_LDFLAGS="$tmp_sl"
+            fi
+
+            tmp_l=`"$PYTHON" -c "from distutils import sysconfig; print(sysconfig.get_config_var('LIBS'))"`
+            PYTHON_LIBS="$tmp_l -lpython$PYTHON_VERSION"
+          else
+            { $as_echo "$as_me:${as_lineno-$LINENO}: result: yes, it's probably okay" >&5
+$as_echo "yes, it's probably okay" >&6; }
+          fi
+
+
+          if test $with_python != yes; then
+            PYTHON_LDFLAGS="$PYTHON_LDFLAGS -L$with_python/lib"
+          fi
+
+          ;;
+      *cygwin* | *mingw*)
+          PYTHON_EXT="dll"
+          ;;
+      *)
+          PYTHON_EXT="so"
+          ;;
+      esac
+
+    else
+
+
+      { $as_echo "$as_me:${as_lineno-$LINENO}: WARNING: No $PYTHON_CONFIG found -- we'll have to guess at the settings" >&5
+$as_echo "$as_me: WARNING: No $PYTHON_CONFIG found -- we'll have to guess at the settings" >&2;}
+
+
+      case $host in
+      *darwin*)
+
+          if test `expr "${PYTHON_PREFIX}" ':' '/Library/Frameworks/.*'` -ne 0; then
+
+            PYTHON_LDFLAGS="-L${PYTHON_PREFIX}/lib/${PYTHON_NAME}/lib-dynload -F/Library/Frameworks -framework Python"
+
+          elif test `expr "${PYTHON_PREFIX}" ':' '/System/Library/Frameworks/.*'` -ne 0; then
+
+            PYTHON_LDFLAGS="-L${PYTHON_PREFIX}/lib/${PYTHON_NAME}/lib-dynload -F/System/Library/Frameworks -framework Python"
+
+          else
+            macosx_version=`sw_vers -productVersion | cut -d"." -f1,2`
+            if test ${macosx_version} '>' 10.2; then
+
+              PYTHON_LDFLAGS="-L${PYTHON_PREFIX}/lib/${PYTHON_NAME}/lib-dynload -undefined dynamic_lookup"
+
+            else
+
+              PYTHON_LDFLAGS="-L${PYTHON_PREFIX}/lib/${PYTHON_NAME}/lib-dynload -bundle_loader ${PYTHON}"
+
+            fi
+          fi
+
+                    PYTHON_EXT="so"
+          ;;
+      *cygwin* | *mingw*)
+          PYTHON_LDFLAGS="-L${PYTHON_PREFIX}/lib${LIBSUFFIX}/${PYTHON_NAME}/config"
+          PYTHON_LIBS="-l${PYTHON_NAME}"
+          PYTHON_EXT="dll"
+          ;;
+      *)
+          PYTHON_LDFLAGS="-L${PYTHON_PREFIX}/lib${LIBSUFFIX}/${PYTHON_NAME}/config"
+          PYTHON_LIBS="-l${PYTHON_NAME}"
+          PYTHON_EXT="so"
+          ;;
+      esac
+
+    fi
+
+                case $host in
     *darwin*)
-
-	if test `expr "${PYTHON_PREFIX}" ':' '/Library/Frameworks/.*'` -ne 0; then
-
-	  PYTHON_LDFLAGS="-L${PYTHON_PREFIX}/lib/${PYTHON_NAME}/lib-dynload -F/Library/Frameworks -framework Python"
-
-	elif test `expr "${PYTHON_PREFIX}" ':' '/System/Library/Frameworks/.*'` -ne 0; then
-
-	  PYTHON_LDFLAGS="-L${PYTHON_PREFIX}/lib/${PYTHON_NAME}/lib-dynload -F/System/Library/Frameworks -framework Python"
-
-	else
-	  macosx_version=`sw_vers -productVersion | cut -d"." -f1,2`
-          if test ${macosx_version} '>' 10.2; then
-
-	    PYTHON_LDFLAGS="-L${PYTHON_PREFIX}/lib/${PYTHON_NAME}/lib-dynload -undefined dynamic_lookup"
-
-	  else
-
-	    PYTHON_LDFLAGS="-L${PYTHON_PREFIX}/lib/${PYTHON_NAME}/lib-dynload -bundle_loader ${PYTHON}"
-
-	  fi
-	fi
 
   RUN_LDPATH="$RUN_LDPATH:${PYTHON_PREFIX}/lib/${PYTHON_NAME}/lib-dynload"
 
-
-        # MacOS X note: this MUST remain .so even though we use .dylib for libsbml.
-        PYTHON_EXT="so"
-	;;
+        ;;
     *cygwin* | *mingw*)
-	PYTHON_CPPFLAGS="-I${PYTHON_PREFIX}/include/${PYTHON_NAME} -DUSE_DL_IMPORT"
-	PYTHON_LDFLAGS="-L${PYTHON_PREFIX}/lib${LIBSUFFIX}/${PYTHON_NAME}/config"
-        PYTHON_LIBS="-l${PYTHON_NAME}"
 
   RUN_LDPATH="$RUN_LDPATH:${PYTHON_PREFIX}/lib${LIBSUFFIX}/${PYTHON_NAME}/config"
 
-        PYTHON_EXT="dll"
-	;;
-    *)
-	PYTHON_CPPFLAGS="-I${PYTHON_PREFIX}/include/${PYTHON_NAME}"
-        PYTHON_LDFLAGS="-L${PYTHON_PREFIX}/lib${LIBSUFFIX}/${PYTHON_NAME}/config"
-        PYTHON_LIBS="-l${PYTHON_NAME}"
+        ;;
+      *)
 
   RUN_LDPATH="$RUN_LDPATH:${PYTHON_PREFIX}/lib${LIBSUFFIX}/${PYTHON_NAME}/config"
 
-        PYTHON_EXT="so"
-	;;
+        ;;
     esac
-
 
 
     python_platform=`("$PYTHON" -c "import platform; print(platform.platform())") 2>/dev/null`
@@ -5060,7 +5259,6 @@ recompile or replace it it before proceeding further.
       ;;
 
     esac
-
 
 
     python_dir="src/bindings/python"
@@ -9305,7 +9503,7 @@ ia64-*-hpux*)
   ;;
 *-*-irix6*)
   # Find out which ABI we are using.
-  echo '#line 9308 "configure"' > conftest.$ac_ext
+  echo '#line 9506 "configure"' > conftest.$ac_ext
   if { { eval echo "\"\$as_me\":${as_lineno-$LINENO}: \"$ac_compile\""; } >&5
   (eval $ac_compile) 2>&5
   ac_status=$?
@@ -11523,11 +11721,11 @@ else
    -e 's:.*FLAGS}\{0,1\} :&$lt_compiler_flag :; t' \
    -e 's: [^ ]*conftest\.: $lt_compiler_flag&:; t' \
    -e 's:$: $lt_compiler_flag:'`
-   (eval echo "\"\$as_me:11526: $lt_compile\"" >&5)
+   (eval echo "\"\$as_me:11724: $lt_compile\"" >&5)
    (eval "$lt_compile" 2>conftest.err)
    ac_status=$?
    cat conftest.err >&5
-   echo "$as_me:11530: \$? = $ac_status" >&5
+   echo "$as_me:11728: \$? = $ac_status" >&5
    if (exit $ac_status) && test -s "$ac_outfile"; then
      # The compiler can only warn and ignore the option if not recognized
      # So say no if there are warnings other than the usual output.
@@ -11813,11 +12011,11 @@ else
    -e 's:.*FLAGS}\{0,1\} :&$lt_compiler_flag :; t' \
    -e 's: [^ ]*conftest\.: $lt_compiler_flag&:; t' \
    -e 's:$: $lt_compiler_flag:'`
-   (eval echo "\"\$as_me:11816: $lt_compile\"" >&5)
+   (eval echo "\"\$as_me:12014: $lt_compile\"" >&5)
    (eval "$lt_compile" 2>conftest.err)
    ac_status=$?
    cat conftest.err >&5
-   echo "$as_me:11820: \$? = $ac_status" >&5
+   echo "$as_me:12018: \$? = $ac_status" >&5
    if (exit $ac_status) && test -s "$ac_outfile"; then
      # The compiler can only warn and ignore the option if not recognized
      # So say no if there are warnings other than the usual output.
@@ -11917,11 +12115,11 @@ else
    -e 's:.*FLAGS}\{0,1\} :&$lt_compiler_flag :; t' \
    -e 's: [^ ]*conftest\.: $lt_compiler_flag&:; t' \
    -e 's:$: $lt_compiler_flag:'`
-   (eval echo "\"\$as_me:11920: $lt_compile\"" >&5)
+   (eval echo "\"\$as_me:12118: $lt_compile\"" >&5)
    (eval "$lt_compile" 2>out/conftest.err)
    ac_status=$?
    cat out/conftest.err >&5
-   echo "$as_me:11924: \$? = $ac_status" >&5
+   echo "$as_me:12122: \$? = $ac_status" >&5
    if (exit $ac_status) && test -s out/conftest2.$ac_objext
    then
      # The compiler can only warn and ignore the option if not recognized
@@ -13942,7 +14140,7 @@ else
   lt_dlunknown=0; lt_dlno_uscore=1; lt_dlneed_uscore=2
   lt_status=$lt_dlunknown
   cat > conftest.$ac_ext <<EOF
-#line 13945 "configure"
+#line 14143 "configure"
 #include "confdefs.h"
 
 #if HAVE_DLFCN_H
@@ -14042,7 +14240,7 @@ else
   lt_dlunknown=0; lt_dlno_uscore=1; lt_dlneed_uscore=2
   lt_status=$lt_dlunknown
   cat > conftest.$ac_ext <<EOF
-#line 14045 "configure"
+#line 14243 "configure"
 #include "confdefs.h"
 
 #if HAVE_DLFCN_H
@@ -16387,11 +16585,11 @@ else
    -e 's:.*FLAGS}\{0,1\} :&$lt_compiler_flag :; t' \
    -e 's: [^ ]*conftest\.: $lt_compiler_flag&:; t' \
    -e 's:$: $lt_compiler_flag:'`
-   (eval echo "\"\$as_me:16390: $lt_compile\"" >&5)
+   (eval echo "\"\$as_me:16588: $lt_compile\"" >&5)
    (eval "$lt_compile" 2>conftest.err)
    ac_status=$?
    cat conftest.err >&5
-   echo "$as_me:16394: \$? = $ac_status" >&5
+   echo "$as_me:16592: \$? = $ac_status" >&5
    if (exit $ac_status) && test -s "$ac_outfile"; then
      # The compiler can only warn and ignore the option if not recognized
      # So say no if there are warnings other than the usual output.
@@ -16491,11 +16689,11 @@ else
    -e 's:.*FLAGS}\{0,1\} :&$lt_compiler_flag :; t' \
    -e 's: [^ ]*conftest\.: $lt_compiler_flag&:; t' \
    -e 's:$: $lt_compiler_flag:'`
-   (eval echo "\"\$as_me:16494: $lt_compile\"" >&5)
+   (eval echo "\"\$as_me:16692: $lt_compile\"" >&5)
    (eval "$lt_compile" 2>out/conftest.err)
    ac_status=$?
    cat out/conftest.err >&5
-   echo "$as_me:16498: \$? = $ac_status" >&5
+   echo "$as_me:16696: \$? = $ac_status" >&5
    if (exit $ac_status) && test -s out/conftest2.$ac_objext
    then
      # The compiler can only warn and ignore the option if not recognized
@@ -18074,11 +18272,11 @@ else
    -e 's:.*FLAGS}\{0,1\} :&$lt_compiler_flag :; t' \
    -e 's: [^ ]*conftest\.: $lt_compiler_flag&:; t' \
    -e 's:$: $lt_compiler_flag:'`
-   (eval echo "\"\$as_me:18077: $lt_compile\"" >&5)
+   (eval echo "\"\$as_me:18275: $lt_compile\"" >&5)
    (eval "$lt_compile" 2>conftest.err)
    ac_status=$?
    cat conftest.err >&5
-   echo "$as_me:18081: \$? = $ac_status" >&5
+   echo "$as_me:18279: \$? = $ac_status" >&5
    if (exit $ac_status) && test -s "$ac_outfile"; then
      # The compiler can only warn and ignore the option if not recognized
      # So say no if there are warnings other than the usual output.
@@ -18178,11 +18376,11 @@ else
    -e 's:.*FLAGS}\{0,1\} :&$lt_compiler_flag :; t' \
    -e 's: [^ ]*conftest\.: $lt_compiler_flag&:; t' \
    -e 's:$: $lt_compiler_flag:'`
-   (eval echo "\"\$as_me:18181: $lt_compile\"" >&5)
+   (eval echo "\"\$as_me:18379: $lt_compile\"" >&5)
    (eval "$lt_compile" 2>out/conftest.err)
    ac_status=$?
    cat out/conftest.err >&5
-   echo "$as_me:18185: \$? = $ac_status" >&5
+   echo "$as_me:18383: \$? = $ac_status" >&5
    if (exit $ac_status) && test -s out/conftest2.$ac_objext
    then
      # The compiler can only warn and ignore the option if not recognized
@@ -20348,11 +20546,11 @@ else
    -e 's:.*FLAGS}\{0,1\} :&$lt_compiler_flag :; t' \
    -e 's: [^ ]*conftest\.: $lt_compiler_flag&:; t' \
    -e 's:$: $lt_compiler_flag:'`
-   (eval echo "\"\$as_me:20351: $lt_compile\"" >&5)
+   (eval echo "\"\$as_me:20549: $lt_compile\"" >&5)
    (eval "$lt_compile" 2>conftest.err)
    ac_status=$?
    cat conftest.err >&5
-   echo "$as_me:20355: \$? = $ac_status" >&5
+   echo "$as_me:20553: \$? = $ac_status" >&5
    if (exit $ac_status) && test -s "$ac_outfile"; then
      # The compiler can only warn and ignore the option if not recognized
      # So say no if there are warnings other than the usual output.
@@ -20638,11 +20836,11 @@ else
    -e 's:.*FLAGS}\{0,1\} :&$lt_compiler_flag :; t' \
    -e 's: [^ ]*conftest\.: $lt_compiler_flag&:; t' \
    -e 's:$: $lt_compiler_flag:'`
-   (eval echo "\"\$as_me:20641: $lt_compile\"" >&5)
+   (eval echo "\"\$as_me:20839: $lt_compile\"" >&5)
    (eval "$lt_compile" 2>conftest.err)
    ac_status=$?
    cat conftest.err >&5
-   echo "$as_me:20645: \$? = $ac_status" >&5
+   echo "$as_me:20843: \$? = $ac_status" >&5
    if (exit $ac_status) && test -s "$ac_outfile"; then
      # The compiler can only warn and ignore the option if not recognized
      # So say no if there are warnings other than the usual output.
@@ -20742,11 +20940,11 @@ else
    -e 's:.*FLAGS}\{0,1\} :&$lt_compiler_flag :; t' \
    -e 's: [^ ]*conftest\.: $lt_compiler_flag&:; t' \
    -e 's:$: $lt_compiler_flag:'`
-   (eval echo "\"\$as_me:20745: $lt_compile\"" >&5)
+   (eval echo "\"\$as_me:20943: $lt_compile\"" >&5)
    (eval "$lt_compile" 2>out/conftest.err)
    ac_status=$?
    cat out/conftest.err >&5
-   echo "$as_me:20749: \$? = $ac_status" >&5
+   echo "$as_me:20947: \$? = $ac_status" >&5
    if (exit $ac_status) && test -s out/conftest2.$ac_objext
    then
      # The compiler can only warn and ignore the option if not recognized

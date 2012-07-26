@@ -41,34 +41,50 @@ AC_DEFUN([CONFIG_PROG_PYTHON],
 	      [with_python=$withval],
 	      [with_python=no])
 
+  AC_ARG_WITH(python-interpreter,
+              AS_HELP_STRING([--with-python-interpreter@<:@=PATH@:>@],
+                             [set path to Python interpreter @<:@default=autodetect@:>@]),
+	      [PYTHON=$withval],
+	      [PYTHON=no])
+
   if test $with_python != no; then
 
     dnl Find a python executable.
 
-    if test $with_python != yes;
-    then
-      dnl Remove needless trailing slashes because it can confuse tests later.
-      with_python=`echo $with_python | sed -e 's,\(.*\)/$,\1,g'`
-
-      AC_PATH_PROG([PYTHON], [python], [no], [$with_python/bin])
-    else
-      AC_PATH_PROG([PYTHON], [python])
+    if test "$PYTHON" != no ; then
+      AC_MSG_CHECKING([whether $PYTHON exists])
+      if test -f "$PYTHON" ; then
+        AC_MSG_RESULT(yes)
+      else
+        AC_MSG_RESULT(no)
+        AC_MSG_ERROR([$PYTHON does not exist.])
+      fi
+    else    
+      if test $with_python != yes; then
+        dnl We're supposed to look for python in the given dir.
+        dnl First remove trailing slashes because it can confuse later tests.
+        with_python=`echo $with_python | sed -e 's,\(.*\)/$,\1,g'`
+  
+        AC_PATH_PROG([PYTHON], [python], [no], [$with_python/bin])
+      else
+        AC_PATH_PROG([PYTHON], [python])
+      fi
     fi
 
-    if test -z $PYTHON -o "$PYTHON" = "no" -o ! -f $PYTHON;
+    if test -z "$PYTHON" -o "$PYTHON" = "no" -o ! -f "$PYTHON";
     then
-      AC_MSG_ERROR([*** python missing - please install first or check config.log ***])
+      AC_MSG_ERROR([*** cannot find python -- please install it or check config.log ***])
     fi
 
     dnl check version if required
     m4_ifvaln([$1], [
-        AC_MSG_CHECKING($PYTHON version >= $1)
+        AC_MSG_CHECKING([the version of "$PYTHON"])
         if test `"$PYTHON" -c ["import sys; print(sys.version[:3]) >= \"$1\" and \"OK\" or \"OLD\""]` = "OK"
         then
           AC_MSG_RESULT(ok)
         else
           AC_MSG_RESULT(no)
-          AC_MSG_ERROR([*** python version $1 or later is required ***])
+          AC_MSG_ERROR([*** python version too low -- libSBML requires $1 or later ***])
         fi
     ])
 
@@ -80,9 +96,13 @@ AC_DEFUN([CONFIG_PROG_PYTHON],
     PYTHON_VERSION=`"$PYTHON" -c "import sys; print(sys.version[:3])"`
     changequote([, ])
 
-    PYTHON_NAME="python${PYTHON_VERSION}"
+    PYTHON_NAME="python$PYTHON_VERSION"
 
-    dnl Find the Python include path.
+    dnl
+    dnl Set PYTHON_CPPFLAGS. For this, don't rely on python-config --cflags.
+    dnl The Apple-supplied /usr/bin/python*-config is wrong for our builds,
+    dnl and the Macports version is sometimes wrong due to bugs.
+    dnl
 
     AC_MSG_CHECKING([for Python include path])
     if test -z "$PYTHON_CPPFLAGS"; then
@@ -93,77 +113,188 @@ AC_DEFUN([CONFIG_PROG_PYTHON],
     	fi
     	PYTHON_CPPFLAGS=$python_path
     fi
+    case $host in
+    *darwin*)
+        ;;
+    *cygwin* | *mingw*) 
+	PYTHON_CPPFLAGS="$PYTHON_CPPFLAGS -DUSE_DL_IMPORT"
+        ;;
+    *)
+        ;;
+    esac
     AC_MSG_RESULT([$PYTHON_CPPFLAGS])
     AC_SUBST([PYTHON_CPPFLAGS])
 
-    dnl Figure out the last bits for linking.
-    dnl This comes in part from SWIG 1.3.31's configure.ac file.
+    dnl
+    dnl Set LDFLAGS and get the list of libraries.
+    dnl Our preferred approach is to use python-config, so we try that first.
+    dnl
 
+    if test $with_python != yes; then
+      AC_PATH_PROG([PYTHON_CONFIG], [${PYTHON_NAME}-config], [no], [$with_python/bin])
+    else
+      AC_PATH_PROG([PYTHON_CONFIG], [${PYTHON_NAME}-config])
+    fi    
+
+    if test -n "$PYTHON_CONFIG" ; then
+
+      dnl
+      dnl We have a python-config.
+      dnl
+
+      AC_MSG_CHECKING([$PYTHON_CONFIG --ldflags])
+      PYTHON_LDFLAGS=`"$PYTHON_CONFIG" --ldflags`
+      AC_MSG_RESULT([done])
+
+      AC_MSG_CHECKING([$PYTHON_CONFIG --libs])
+      PYTHON_LIBS=`"$PYTHON_CONFIG" --libs`
+      AC_MSG_RESULT([done])
+
+      dnl We cannot always trust the results.  Do some fix-ups.
+
+      case $host in
+      *darwin*) 
+          dnl MacOS X note: this MUST remain .so, even though we use .dylib
+          dnl for libsbml.
+
+          PYTHON_EXT="so"
+
+          dnl Some versions of python-config put -Wstrict-prototypes in the
+          dnl cflags. Remove it, because it's not valid for C++ and leads to a
+          dnl warning that could confuse people.
+
+          PYTHON_CPPFLAGS=`echo $PYTHON_CPPFLAGS | sed -e 's/-Wstrict-prototypes//'`
+
+          dnl Some distributions are broken: the value reported by
+          dnl python-config --ldflags for the location of the library doesn't
+          dnl contain the library that is named in python-config --libs.
+          
+          changequote(<<, >>)
+          tmp_v=`"$PYTHON" -c "import sys; print(sys.version[:1])"`
+          changequote([, ])
+
+          AC_MSG_CHECKING([if we can trust $PYTHON_CONFIG --libs])
+          if test $tmp_v -ge 3; then
+            AC_MSG_RESULT([no, we're not using those values])
+
+            tmp_e=`"$PYTHON" -c "from distutils import sysconfig; print(sysconfig.get_config_var('Py_ENABLE_SHARED'))"`
+            tmp_sl=`"$PYTHON" -c "from distutils import sysconfig; print(sysconfig.get_config_var('SYSLIBS'))"`
+
+            if test $tmp_e -eq 0; then
+              tmp_pl=`"$PYTHON" -c "from distutils import sysconfig; print('-L' + sysconfig.get_config_var('LIBPL'))"`
+              PYTHON_LDFLAGS="$tmp_pl $tmp_sl"
+            else
+              PYTHON_LDFLAGS="$tmp_sl"
+            fi
+
+            tmp_l=`"$PYTHON" -c "from distutils import sysconfig; print(sysconfig.get_config_var('LIBS'))"`
+            PYTHON_LIBS="$tmp_l -lpython$PYTHON_VERSION"
+          else
+            AC_MSG_RESULT([yes, it's probably okay])
+          fi
+
+          dnl Some versions of macports python have dependencies on libraries 
+          dnl in the installation directory, but don't put that dir on ldflags.
+
+          if test $with_python != yes; then
+            PYTHON_LDFLAGS="$PYTHON_LDFLAGS -L$with_python/lib"
+          fi
+
+          ;;
+      *cygwin* | *mingw*) 
+          PYTHON_EXT="dll"
+          ;;
+      *)
+          PYTHON_EXT="so"
+          ;;
+      esac
+
+    else
+
+      dnl
+      dnl Well, foo.  Can't find python-config; have to do this the hard way.
+      dnl
+
+      AC_MSG_WARN([No $PYTHON_CONFIG found -- we'll have to guess at the settings])
+  
+      dnl This is partially from SWIG 1.3.31's configure.ac file.
+  
+      case $host in
+      *darwin*) 
+          dnl Got an ugly situation on MacOS X: need different args depending
+          dnl on whether the Python came from MacOS, Fink, or the Mac Python
+          dnl from www.python.org.  The following uses a set of heuristics.
+          dnl 1. If the python comes from /Library, assume it's Mac Python.
+          dnl    Use the -framework flag.
+          dnl 2. If it's from /System, assume it's the standard MacOS one.
+          dnl    Use the -framework flag.
+          dnl 3. If it's from anywhere else assume it's either the Fink
+          dnl    version or something else, and don't use -framework.
+  
+          if test `expr "${PYTHON_PREFIX}" ':' '/Library/Frameworks/.*'` -ne 0; then
+            dnl Assume Mac Python from www.python.org/download/mac
+  
+            PYTHON_LDFLAGS="-L${PYTHON_PREFIX}/lib/${PYTHON_NAME}/lib-dynload -F/Library/Frameworks -framework Python"
+  
+          elif test `expr "${PYTHON_PREFIX}" ':' '/System/Library/Frameworks/.*'` -ne 0; then
+            dnl MacOSX-installed version of Python (we hope).
+  
+            PYTHON_LDFLAGS="-L${PYTHON_PREFIX}/lib/${PYTHON_NAME}/lib-dynload -F/System/Library/Frameworks -framework Python"
+  
+          else
+            macosx_version=`sw_vers -productVersion | cut -d"." -f1,2` 
+            if test ${macosx_version} '>' 10.2; then
+              dnl According to configure.in of Python source code, -undefined
+              dnl dynamic_lookup should be used for 10.3 or later. Actually,
+              dnl the option is needed to avoid undefined symbols error when
+              dnl building a Python binding library with non-system-installed
+              dnl Python on 10.3 or later.  Also, according to the man page of
+              dnl ld, environment variable MACOSX_DEPLOYMENT_TARGET must be set
+              dnl to 10.3 or higher to use -undefined dynamic_lookup.
+              dnl Currently, the environment variables is set in
+              dnl src/binding/python/Makefile.in.
+    
+              PYTHON_LDFLAGS="-L${PYTHON_PREFIX}/lib/${PYTHON_NAME}/lib-dynload -undefined dynamic_lookup"
+  
+            else
+              dnl Fink-installed version of Python, or something else.
+  
+              PYTHON_LDFLAGS="-L${PYTHON_PREFIX}/lib/${PYTHON_NAME}/lib-dynload -bundle_loader ${PYTHON}"
+  
+            fi
+          fi
+  
+          dnl MacOS X note: this MUST remain .so even though we use .dylib for libsbml.
+          PYTHON_EXT="so"
+          ;;
+      *cygwin* | *mingw*) 
+          PYTHON_LDFLAGS="-L${PYTHON_PREFIX}/lib${LIBSUFFIX}/${PYTHON_NAME}/config"
+          PYTHON_LIBS="-l${PYTHON_NAME}"
+          PYTHON_EXT="dll"
+          ;;
+      *)
+          PYTHON_LDFLAGS="-L${PYTHON_PREFIX}/lib${LIBSUFFIX}/${PYTHON_NAME}/config"
+          PYTHON_LIBS="-l${PYTHON_NAME}"
+          PYTHON_EXT="so"
+          ;;
+      esac
+  
+    fi  
+  
+    dnl
+    dnl Add the library path to LDPATH too.
+    dnl
     case $host in
     *darwin*) 
-	dnl Got an ugly situation on MacOS X: need different args depending
-	dnl on whether the Python came from MacOS, Fink, or the Mac Python
-	dnl from www.python.org.  The following uses a set of heuristics.
-	dnl 1. If the python comes from /Library, assume it's Mac Python.
-	dnl    Use the -framework flag.
-	dnl 2. If it's from /System, assume it's the standard MacOS one.
-	dnl    Use the -framework flag.
-	dnl 3. If it's from anywhere else assume it's either the Fink
-	dnl    version or something else, and don't use -framework.
-
-	if test `expr "${PYTHON_PREFIX}" ':' '/Library/Frameworks/.*'` -ne 0; then
-	  dnl Assume Mac Python from www.python.org/download/mac
-
-	  PYTHON_LDFLAGS="-L${PYTHON_PREFIX}/lib/${PYTHON_NAME}/lib-dynload -F/Library/Frameworks -framework Python"
-
-	elif test `expr "${PYTHON_PREFIX}" ':' '/System/Library/Frameworks/.*'` -ne 0; then
-	  dnl MacOSX-installed version of Python (we hope).
-
-	  PYTHON_LDFLAGS="-L${PYTHON_PREFIX}/lib/${PYTHON_NAME}/lib-dynload -F/System/Library/Frameworks -framework Python"
-
-	else
-	  macosx_version=`sw_vers -productVersion | cut -d"." -f1,2` 
-          if test ${macosx_version} '>' 10.2; then
-            dnl According to configure.in of Python source code, -undefined
-            dnl dynamic_lookup should be used for 10.3 or later. Actually,
-            dnl the option is needed to avoid undefined symbols error when
-            dnl building a Python binding library with non-system-installed
-            dnl Python on 10.3 or later.  Also, according to the man page of
-            dnl ld, environment variable MACOSX_DEPLOYMENT_TARGET must be set
-            dnl to 10.3 or higher to use -undefined dynamic_lookup.
-            dnl Currently, the environment variables is set in
-            dnl src/binding/python/Makefile.in.
-  
-	    PYTHON_LDFLAGS="-L${PYTHON_PREFIX}/lib/${PYTHON_NAME}/lib-dynload -undefined dynamic_lookup"
-
-	  else
-	    dnl Fink-installed version of Python, or something else.
-
-	    PYTHON_LDFLAGS="-L${PYTHON_PREFIX}/lib/${PYTHON_NAME}/lib-dynload -bundle_loader ${PYTHON}"
-
-	  fi
-	fi
         CONFIG_ADD_LDPATH(${PYTHON_PREFIX}/lib/${PYTHON_NAME}/lib-dynload)
-
-        # MacOS X note: this MUST remain .so even though we use .dylib for libsbml.
-        PYTHON_EXT="so"
-	;;
+        ;;
     *cygwin* | *mingw*) 
-	PYTHON_CPPFLAGS="-I${PYTHON_PREFIX}/include/${PYTHON_NAME} -DUSE_DL_IMPORT"
-	PYTHON_LDFLAGS="-L${PYTHON_PREFIX}/lib${LIBSUFFIX}/${PYTHON_NAME}/config"
-        PYTHON_LIBS="-l${PYTHON_NAME}"
-	CONFIG_ADD_LDPATH(${PYTHON_PREFIX}/lib${LIBSUFFIX}/${PYTHON_NAME}/config)
-        PYTHON_EXT="dll"
-	;;
-    *)
-	PYTHON_CPPFLAGS="-I${PYTHON_PREFIX}/include/${PYTHON_NAME}"
-        PYTHON_LDFLAGS="-L${PYTHON_PREFIX}/lib${LIBSUFFIX}/${PYTHON_NAME}/config"
-        PYTHON_LIBS="-l${PYTHON_NAME}"
-	CONFIG_ADD_LDPATH(${PYTHON_PREFIX}/lib${LIBSUFFIX}/${PYTHON_NAME}/config)
-        PYTHON_EXT="so"
-	;;
+        CONFIG_ADD_LDPATH(${PYTHON_PREFIX}/lib${LIBSUFFIX}/${PYTHON_NAME}/config)
+        ;;
+      *)
+        CONFIG_ADD_LDPATH(${PYTHON_PREFIX}/lib${LIBSUFFIX}/${PYTHON_NAME}/config)
+        ;;
     esac
-
 
     dnl
     dnl Check for possible binary 32/64-bit incompatbilities.
@@ -223,7 +354,7 @@ libSBML libraries at run-time.  Please reconfigure libSBML WITHOUT the
 
         else
           AC_MSG_RESULT([no])
-  	  dnl Python reports being 32-bit, but we're on a 64-bit system.
+          dnl Python reports being 32-bit, but we're on a 64-bit system.
 
           AC_MSG_CHECKING([whether only 64-bit libSBML binaries are being made])
           if echo $CFLAGS $CXXFLAGS | egrep -q "arch x86_64"; then
@@ -427,8 +558,7 @@ recompile or replace it it before proceeding further.
       ;;
 
     esac
-
-
+  
     dnl
     dnl enable --with-swig option if SWIG-generated files of Python bindings
     dnl (libsbml_wrap.cpp and libsbml.py) need to be regenerated.
