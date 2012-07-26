@@ -260,4 +260,6 @@ GetDowncastSwigTypeForPackage (SBase* sb, const std::string &pkgName)
 /* Compatibility bug fix for swig 2.0.7 and Python 3. 
  * See http://patch-tracker.debian.org/patch/series/view/swig2.0/2.0.7-3/pyint_fromsize_t.diff
  */
+#if (PY_MAJOR_VERSION >= 3)
 #define PyInt_FromSize_t(x) PyLong_FromSize_t(x)
+#endif
