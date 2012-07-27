@@ -101,6 +101,18 @@ SBMLConverterRegistry::SBMLConverterRegistry()
 
 SBMLConverterRegistry::~SBMLConverterRegistry()
 {
+  unsigned int numConverters = mConverters.size();
+  for (unsigned int i = 0; i < numConverters; ++i)
+  {
+    SBMLConverter *current = const_cast<SBMLConverter *>(mConverters.back());
+    mConverters.pop_back();
+    if (current != NULL) 
+    {
+      delete current;
+      current = NULL;
+    }
+  }
+  mConverters.clear();
 }
 
 /** @endcond */

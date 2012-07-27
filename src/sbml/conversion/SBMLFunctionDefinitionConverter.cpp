@@ -46,7 +46,8 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 /** @cond doxygen-libsbml-internal */
 void SBMLFunctionDefinitionConverter::init()
 {
-  SBMLConverterRegistry::getInstance().addConverter(new SBMLFunctionDefinitionConverter());
+  SBMLFunctionDefinitionConverter converter;
+  SBMLConverterRegistry::getInstance().addConverter(&converter);
 }
 /** @endcond */
 

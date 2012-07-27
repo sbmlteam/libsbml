@@ -43,7 +43,8 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 /** @cond doxygen-libsbml-internal */
 void SBMLStripPackageConverter::init()
 {
-  SBMLConverterRegistry::getInstance().addConverter(new SBMLStripPackageConverter());
+  SBMLStripPackageConverter converter;
+  SBMLConverterRegistry::getInstance().addConverter(&converter);
 }
 /** @endcond */
 
