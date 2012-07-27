@@ -294,6 +294,23 @@ multiple flags together as in the following example:
   ./configure --with-java --with-python
 </pre></div>
 
+<p>Some of the language interfaces provide additional configuration options
+besides the basic <code>--with-<em><span
+class="placeholder">language</span></em></code> option. In particular,
+for Python and C#, there are options allowing you to specify the language
+interpreter that should be used, which is important for systems that have
+multiple versions installed.  For example, to indicate that you want to use
+the Apple-supplied version of Python 2.6 on a Mac&nbsp;OS&nbsp;X 10.7 system
+(which has versions 2.5, 2.6 and&nbsp;2.7 located in <code>/usr/bin</code>), you
+could use the following options:
+
+<div class="fragment"><pre class="fragment">
+  ./configure --with-python --with-python-interpreter=/usr/bin/python2.6
+</pre></div>
+
+<p>Please run <nobr><code>configure --help</code></nobr> to obtain a list of
+the possible options offered by <code>configure</code>.
+
 <p> The libSBML distribution ships with certain interface files provided,
 so that you do not need to have the software necessary to recreate them.
 However, if you obtained the libSBML distribution from the project SVN
