@@ -90,6 +90,7 @@ SBMLNamespaces::initSBMLNamespace()
   {
     mLevel = SBML_INT_MAX;
     mVersion = SBML_INT_MAX;
+    delete mNamespaces;
     mNamespaces = NULL;
   }
 }
