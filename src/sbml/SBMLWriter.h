@@ -117,7 +117,7 @@ public:
    * @verbatim
  <!-- Created by <program name> version <program version>
  on yyyy-MM-dd HH:mm with libSBML version <libsbml version>. -->
- @verbatim
+ @endverbatim
    *
    * If the program name and version are not set at some point before
    * calling the writeSBML() methods, no such comment is written out.
