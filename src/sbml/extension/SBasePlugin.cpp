@@ -320,26 +320,34 @@ SBasePlugin::getPackageVersion() const
 }
 
 
+/** @cond doxygen-libsbml-internal */
 void 
 SBasePlugin::replaceSIDWithFunction(const std::string& id, const ASTNode* function)
 {
 }
+/** @endcond */
 
 
+/** @cond doxygen-libsbml-internal */
 void 
 SBasePlugin::divideAssignmentsToSIdByFunction(const std::string& id, const ASTNode* function)
 {
 }
+/** @endcond */
 
+/** @cond doxygen-libsbml-internal */
 void 
 SBasePlugin::multiplyAssignmentsToSIdByFunction(const std::string& id, const ASTNode* function)
 {
 }
+/** @endcond */
 
+/** @cond doxygen-libsbml-internal */
 bool SBasePlugin::hasIdentifierBeginningWith(const std::string& prefix)
 {
   return false;
 }
+/** @endcond */
 
 /** @cond doxygen-libsbml-internal */
 //Override and provide your own renaming scheme for the rest of the model if you do anything here.

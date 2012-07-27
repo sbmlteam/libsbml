@@ -435,6 +435,7 @@ InitialAssignment::renameUnitSIdRefs(std::string oldid, std::string newid)
   }
 }
 
+/** @cond doxygen-libsbml-internal */
 void 
 InitialAssignment::replaceSIDWithFunction(const std::string& id, const ASTNode* function)
 {
@@ -448,7 +449,9 @@ InitialAssignment::replaceSIDWithFunction(const std::string& id, const ASTNode* 
     }
   }
 }
+/** @endcond */
 
+/** @cond doxygen-libsbml-internal */
 void 
 InitialAssignment::divideAssignmentsToSIdByFunction(const std::string& id, const ASTNode* function)
 {
@@ -459,7 +462,9 @@ InitialAssignment::divideAssignmentsToSIdByFunction(const std::string& id, const
     mMath->addChild(function->deepCopy());
   }
 }
+/** @endcond */
 
+/** @cond doxygen-libsbml-internal */
 void 
 InitialAssignment::multiplyAssignmentsToSIdByFunction(const std::string& id, const ASTNode* function)
 {
@@ -470,7 +475,9 @@ InitialAssignment::multiplyAssignmentsToSIdByFunction(const std::string& id, con
     mMath->addChild(function->deepCopy());
   }
 }
+/** @endcond */
 
+/** @cond doxygen-libsbml-internal */
 /*
  * Subclasses should override this method to write out their contained
  * SBML objects as XML elements.  Be sure to call your parents
