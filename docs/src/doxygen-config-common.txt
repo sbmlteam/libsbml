@@ -599,12 +599,6 @@ HTML_FOOTER            = doxygen-footer.html
 
 HTML_STYLESHEET        = doxygen-base-stylesheet.css
 
-# If the HTML_ALIGN_MEMBERS tag is set to YES, the members of classes, 
-# files or namespaces will be aligned in HTML using tables. If set to 
-# NO a bullet list will be used.
-
-HTML_ALIGN_MEMBERS     = YES
-
 # If the HTML_DYNAMIC_SECTIONS tag is set to YES then the generated HTML
 # documentation will contain sections that can be hidden and shown after
 # the page has loaded. For this to work a browser that supports JavaScript
@@ -1081,6 +1075,8 @@ GENERATE_LEGEND        = YES
 DOT_CLEANUP            = YES
 
 DOT_MULTI_TARGETS      = YES
+
+DOT_GRAPH_MAX_NODES    = 5000
 
 #---------------------------------------------------------------------------
 # Configuration:additions related to the search engine   
