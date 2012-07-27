@@ -51,6 +51,8 @@ AC_DEFUN([CONFIG_PROG_PYTHON],
 
     dnl Find a python executable.
 
+    python_dir=""
+
     if test "$PYTHON" != no ; then
       AC_MSG_CHECKING([whether $PYTHON exists])
       if test -f "$PYTHON" ; then
@@ -58,6 +60,25 @@ AC_DEFUN([CONFIG_PROG_PYTHON],
       else
         AC_MSG_RESULT(no)
         AC_MSG_ERROR([$PYTHON does not exist.])
+      fi
+      if test $with_python != yes; then
+        dnl User provided both --with-python and --with-python-interpreter
+        dnl We will use the directory given by --with-python preferentially
+        dnl for situations where we need a directory.  Note: because of the
+        dnl way configure options are usually designed, the directory given
+        dnl to --with-python should be the parent of the directory containing
+        dnl a "bin" subdirectory that in turn contains the python binary. In
+        dnl other words, people use things like --with-python=/usr/local
+        if test -d "$with_python" ; then
+          python_dir="$with_python/bin"
+        else
+          dnl Whatever they gave for --with-python is not a directory.
+          dnl We'll use the directory from --with-python-interpreter.
+          python_dir=`AS_DIRNAME(["$PYTHON"])`
+        fi
+      else
+        dnl No --with-python provided.
+        python_dir=`AS_DIRNAME(["$PYTHON"])`
       fi
     else    
       if test $with_python != yes; then
@@ -69,6 +90,7 @@ AC_DEFUN([CONFIG_PROG_PYTHON],
       else
         AC_PATH_PROG([PYTHON], [python])
       fi
+      python_dir=`AS_DIRNAME(["$PYTHON"])`
     fi
 
     if test -z "$PYTHON" -o "$PYTHON" = "no" -o ! -f "$PYTHON";
@@ -130,8 +152,8 @@ AC_DEFUN([CONFIG_PROG_PYTHON],
     dnl Our preferred approach is to use python-config, so we try that first.
     dnl
 
-    if test $with_python != yes; then
-      AC_PATH_PROG([PYTHON_CONFIG], [${PYTHON_NAME}-config], [no], [$with_python/bin])
+    if test -d "$python_dir" ; then
+      AC_PATH_PROG([PYTHON_CONFIG], [${PYTHON_NAME}-config], [no], [$python_dir])
     else
       AC_PATH_PROG([PYTHON_CONFIG], [${PYTHON_NAME}-config])
     fi    
