@@ -1077,7 +1077,7 @@ public:
  digit  ::= '0'..'9'
  idChar ::= letter | digit | '_'
  SId    ::= ( letter | '_' ) idChar*
- @verbatim
+ @endverbatim
    *
    * The equality of <code>SId</code> and <code>UnitSId</code> type values
    * in SBML is determined by an exact character sequence match; i.e.,
