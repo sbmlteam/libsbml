@@ -46,27 +46,27 @@
  * a species in a reaction; for example, it can be zero.  In the following
  * SBML fragment, the two reactions have the same effective stoichiometry
  * for all their species:
- * @code
- * <reaction id="x">
- *     <listOfReactants>
- *         <speciesReference species="a"/>
- *         <speciesReference species="a"/>
- *         <speciesReference species="b"/>
- *     </listOfReactants>
- *     <listOfProducts>
- *         <speciesReference species="c"/>
- *         <speciesReference species="b"/>
- *     </listProducts>
- * </reaction>
- * <reaction id="y">
- *     <listOfReactants>
- *         <speciesReference species="a" stoichiometry="2"/>
- *     </listOfReactants>
- *     <listOfProducts>
- *         <speciesReference species="c"/>
- *     </listProducts>
- * </reaction>
- * @endcode
+ * @verbatim
+ <reaction id="x">
+     <listOfReactants>
+         <speciesReference species="a"/>
+         <speciesReference species="a"/>
+         <speciesReference species="b"/>
+     </listOfReactants>
+     <listOfProducts>
+         <speciesReference species="c"/>
+         <speciesReference species="b"/>
+     </listProducts>
+ </reaction>
+ <reaction id="y">
+     <listOfReactants>
+         <speciesReference species="a" stoichiometry="2"/>
+     </listOfReactants>
+     <listOfProducts>
+         <speciesReference species="c"/>
+     </listProducts>
+ </reaction>
+ @endverbatim
  *
  * The precise structure of SpeciesReference differs between SBML
  * Level&nbsp;2 and Level&nbsp;3.  We discuss the two variants in separate
@@ -105,46 +105,46 @@
  * The following is a simple example of a species reference for species @c
  * X0, with stoichiometry @c 2, in a list of reactants within a reaction
  * having the identifier @c J1:
- * @code
- * <model>
- *     ...
- *     <listOfReactions>
- *         <reaction id="J1">
- *             <listOfReactants>
- *                 <speciesReference species="X0" stoichiometry="2">
- *             </listOfReactants>
- *             ...
- *         </reaction>
- *         ...
- *     </listOfReactions>
- *     ...
- * </model>
- * @endcode
+ * @verbatim
+ <model>
+     ...
+     <listOfReactions>
+         <reaction id="J1">
+             <listOfReactants>
+                 <speciesReference species="X0" stoichiometry="2">
+             </listOfReactants>
+             ...
+         </reaction>
+         ...
+     </listOfReactions>
+     ...
+ </model>
+ @endverbatim
  *
  * The following is a more complex example of a species reference for
  * species X0, with a stoichiometry formula consisting of the parameter
  * @c x:
- * @code
- * <model>
- *     ...
- *     <listOfReactions>
- *         <reaction id="J1">
- *             <listOfReactants>
- *                 <speciesReference species="X0">
- *                     <stoichiometryMath>
- *                         <math xmlns="http://www.w3.org/1998/Math/MathML">
- *                             <ci>x</ci>
- *                         </math>
- *                     </stoichiometryMath>
- *                 </speciesReference>
- *             </listOfReactants>
- *             ...
- *         </reaction>
- *         ...
- *     </listOfReactions>
- *     ...
- * </model>
- * @endcode
+ * @verbatim
+ <model>
+     ...
+     <listOfReactions>
+         <reaction id="J1">
+             <listOfReactants>
+                 <speciesReference species="X0">
+                     <stoichiometryMath>
+                         <math xmlns="http://www.w3.org/1998/Math/MathML">
+                             <ci>x</ci>
+                         </math>
+                     </stoichiometryMath>
+                 </speciesReference>
+             </listOfReactants>
+             ...
+         </reaction>
+         ...
+     </listOfReactions>
+     ...
+ </model>
+ @endverbatim
  *
  *
  * @section spr-l3 SpeciesReference in SBML Level 3

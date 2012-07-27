@@ -1069,14 +1069,14 @@ public:
    * single Unit.
    * 
    * For example, the following,
-   * @code
-   * <unit kind="metre" exponent="2"/>
-   * <unit kind="metre" exponent="1"/>
-   * @endcode
+   * @verbatim
+ <unit kind="metre" exponent="2"/>
+ <unit kind="metre" exponent="1"/>
+ @endverbatim
    * would be merged to become
-   * @code
-   * <unit kind="metre" exponent="3"/>
-   * @endcode
+   * @verbatim
+ <unit kind="metre" exponent="3"/>
+ @endverbatim
    *
    * @param unit1 the first Unit object; the result of the operation is
    * left as a new version of this unit, modified in-place.

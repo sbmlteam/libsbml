@@ -83,17 +83,17 @@
  * example illustrates a complete unit definition (when written in XML)
  * when they all the pieces are combined together.  This defines "mmls"
  * to be millimoles per litre per second.
- * @code
- * <listOfUnitDefinitions>
- *     <unitDefinition id="mmls">
- *         <listOfUnits>
- *             <unit kind="mole"   scale="-3"/>
- *             <unit kind="litre"  exponent="-1"/>
- *             <unit kind="second" exponent="-1"/>
- *         </listOfUnits>
- *     </unitDefinition>
- * </listOfUnitDefinitions>
- * @endcode
+ * @verbatim
+ <listOfUnitDefinitions>
+     <unitDefinition id="mmls">
+         <listOfUnits>
+             <unit kind="mole"   scale="-3"/>
+             <unit kind="litre"  exponent="-1"/>
+             <unit kind="second" exponent="-1"/>
+         </listOfUnits>
+     </unitDefinition>
+ </listOfUnitDefinitions>
+ @endverbatim
  *
  * @section unitdef-id Special considerations for Unit object identifiers
  *
@@ -107,7 +107,7 @@
  * litre, etc.).  In SBML Level&nbsp;3, this list consists of the
  * following:
  * 
- * @htmlinclude base-units2.html
+ * @htmlinclude base-units.html
  *
  * This list of predefined base units is nearly identical in SBML
  * Level&nbsp;2 Version&nbsp;4, the exception being that Level&nbsp;2 does
@@ -194,24 +194,24 @@
  *   substituting a call to this function wherever the original quantity
  *   appeared in the model.  For example, here is a possible definition for
  *   converting Fahrenheit to Celsius degrees:
- *   @code
- * <functionDefinition id="Fahrenheit_to_kelvin">
- *     <math xmlns="http://www.w3.org/1998/Math/MathML">
- *         <lambda>
- *             <bvar><ci> temp_in_fahrenheit </ci></bvar>
- *             <apply>
- *                 <divide/>
- *                 <apply>
- *                     <plus/>
- *                     <ci> temp_in_fahrenheit </ci>
- *                     <cn> 459.67 </cn>
- *                 </apply>
- *                 <cn> 1.8 </cn>
- *             </apply>
- *         </lambda>
- *     </math>
- * </functionDefinition>
- *   @endcode
+ *   @verbatim
+ <functionDefinition id="Fahrenheit_to_kelvin">
+     <math xmlns="http://www.w3.org/1998/Math/MathML">
+         <lambda>
+             <bvar><ci> temp_in_fahrenheit </ci></bvar>
+             <apply>
+                 <divide/>
+                 <apply>
+                     <plus/>
+                     <ci> temp_in_fahrenheit </ci>
+                     <cn> 459.67 </cn>
+                 </apply>
+                 <cn> 1.8 </cn>
+             </apply>
+         </lambda>
+     </math>
+ </functionDefinition>
+ @endverbatim
  *     
  * <li> An alternative approach not requiring the use of function definitions
  *   is to use an AssignmentRule for each variable in Fahrenheit units.
@@ -797,22 +797,22 @@ public:
    * occurs only once in the ListOfUnits.
    *
    * For example, the following definition,
-   * @code
-   * <unitDefinition>
-   *  <listOfUnits>
-   *    <unit kind="metre" exponent="1"/>
-   *    <unit kind="metre" exponent="2"/>
-   *  </listOfUnits>
-   * <unitDefinition>
-   * @endcode
+   * @verbatim
+ <unitDefinition>
+  <listOfUnits>
+    <unit kind="metre" exponent="1"/>
+    <unit kind="metre" exponent="2"/>
+  </listOfUnits>
+ <unitDefinition>
+ @endverbatim
    * will be simplified to 
-   * @code
-   * <unitDefinition>
-   *   <listOfUnits>
-   *     <unit kind="metre" exponent="3"/>
-   *   </listOfUnits>
-   * <unitDefinition>
-   * @endcode
+   * @verbatim
+ <unitDefinition>
+   <listOfUnits>
+     <unit kind="metre" exponent="3"/>
+   </listOfUnits>
+ <unitDefinition>
+ @endverbatim
    *
    * @param ud the UnitDefinition object to be simplified.
    *
@@ -954,14 +954,14 @@ public:
    * For example,
    * UnitDefinition::printUnits(@if java UnitDefinition u@endif)
    * applied to
-   * @code
-   * <unitDefinition>
-   *  <listOfUnits>
-   *    <unit kind="metre" exponent="1"/>
-   *    <unit kind="second" exponent="-2"/>
-   *  </listOfUnits>
-   * <unitDefinition>
-   * @endcode
+   * @verbatim
+ <unitDefinition>
+  <listOfUnits>
+    <unit kind="metre" exponent="1"/>
+    <unit kind="second" exponent="-2"/>
+  </listOfUnits>
+ <unitDefinition>
+ @endverbatim
    * will return the string <code>"metre (exponent = 1, multiplier = 1,
    * scale = 0) second (exponent = -2, multiplier = 1, scale = 0)"</code>
    * or, if the optional parameter @p compact is given the value @c true,

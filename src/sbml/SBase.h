@@ -1072,12 +1072,12 @@ public:
    * data type of "id" is always either <code>Sid</code> or
    * <code>UnitSId</code>, depending on the object in question.  Both
    * data types are defined as follows:
-   * @code
-   *   letter ::= 'a'..'z','A'..'Z'
-   *   digit  ::= '0'..'9'
-   *   idChar ::= letter | digit | '_'
-   *   SId    ::= ( letter | '_' ) idChar*
-   * @endcode
+   * @verbatim
+ letter ::= 'a'..'z','A'..'Z'
+ digit  ::= '0'..'9'
+ idChar ::= letter | digit | '_'
+ SId    ::= ( letter | '_' ) idChar*
+ @verbatim
    *
    * The equality of <code>SId</code> and <code>UnitSId</code> type values
    * in SBML is determined by an exact character sequence match; i.e.,

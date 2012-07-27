@@ -114,10 +114,10 @@ public:
    * SBMLWriter::setProgramVersion(@if java String version@endif)), the
    * following XML comment, intended for human consumption, will be written
    * at the beginning of the XML document:
-   * @code
+   * @verbatim
  <!-- Created by <program name> version <program version>
  on yyyy-MM-dd HH:mm with libSBML version <libsbml version>. -->
- @endcode
+ @verbatim
    *
    * If the program name and version are not set at some point before
    * calling the writeSBML() methods, no such comment is written out.
@@ -143,10 +143,10 @@ public:
    * SBMLWriter::setProgramName(@if java String name@endif)), the
    * following XML comment, intended for human consumption, will be written
    * at the beginning of the document:
-   * @code
+   * @verbatim
  <!-- Created by <program name> version <program version>
  on yyyy-MM-dd HH:mm with libSBML version <libsbml version>. -->
- @endcode
+ @endverbatim
    *
    * If the program version and name are not set at some point before
    * calling the writeSBML() methods, no such comment is written out.

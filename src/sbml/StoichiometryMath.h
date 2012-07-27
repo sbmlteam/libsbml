@@ -79,46 +79,46 @@
  * The following is a simple example of a species reference for species @c
  * "X0", with stoichiometry @c 2, in a list of reactants within a reaction
  * having the identifier @c "J1":
- * @code
- * <model>
- *     ...
- *     <listOfReactions>
- *         <reaction id="J1">
- *             <listOfReactants>
- *                 <speciesReference species="X0" stoichiometry="2">
- *             </listOfReactants>
- *             ...
- *         </reaction>
- *         ...
- *     </listOfReactions>
- *     ...
- * </model>
- * @endcode
+ * @verbatim
+ <model>
+     ...
+     <listOfReactions>
+         <reaction id="J1">
+             <listOfReactants>
+                 <speciesReference species="X0" stoichiometry="2">
+             </listOfReactants>
+             ...
+         </reaction>
+         ...
+     </listOfReactions>
+     ...
+ </model>
+ @endverbatim
  * 
  * The following is a more complex example of a species reference for
  * species @c "X0", with a stoichiometry formula consisting of
  * a rational number:
- * @code
- * <model>
- *     ...
- *     <listOfReactions>
- *         <reaction id="J1">
- *             <listOfReactants>
- *                 <speciesReference species="X0">
- *                     <stoichiometryMath>
- *                         <math xmlns="http://www.w3.org/1998/Math/MathML"> 
- *                             <cn type="rational"> 3 <sep/> 2 </cn>
- *                         </math>
- *                     </stoichiometryMath>
- *                 </speciesReference>
- *             </listOfReactants>
- *             ...
- *         </reaction>
- *         ...
- *     </listOfReactions>
- *     ...
- * </model>
- * @endcode
+ * @verbatim
+ <model>
+     ...
+     <listOfReactions>
+         <reaction id="J1">
+             <listOfReactants>
+                 <speciesReference species="X0">
+                     <stoichiometryMath>
+                         <math xmlns="http://www.w3.org/1998/Math/MathML"> 
+                             <cn type="rational"> 3 <sep/> 2 </cn>
+                         </math>
+                     </stoichiometryMath>
+                 </speciesReference>
+             </listOfReactants>
+             ...
+         </reaction>
+         ...
+     </listOfReactions>
+     ...
+ </model>
+ @endverbatim
  *
  * Additional discussions of stoichiometries and implications for species
  * and reactions are included in the documentation of SpeciesReference
