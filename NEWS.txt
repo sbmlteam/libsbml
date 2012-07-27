@@ -41,6 +41,16 @@ STABLE RELEASE
     function returns a string representation of the SBOTerm in its
     resolvable identifiers.org URL format; e.g., 
     "http://identifiers.org/biomodels.sbo/SBO:NNNNNNN"
+    
+  - The use of libSBML get and set functions in Python; a by-product
+    of the use of SWIG; is not particularly intuitive. LibSBML-5.6.0 
+    applies a patch that allows the use of indexing in the python
+    environment i.e. model->getSpecies(0)->getId() can be replaced
+    with model.species[0].id. This patch is limited to Python 2 versions
+    at present. It does not adversely effact existing functions for 
+    either Python 2 or Python 3.  Many thanks to Gordon Ball, 
+    Computational Medicine, Karolinska Institute for creating and
+    sharing this patch.
 
 * Bug fixes
 
