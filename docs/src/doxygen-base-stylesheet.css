@@ -176,6 +176,7 @@ dl.el {
 .fragment {
 }
 
+div.fragment pre,
 pre.fragment {
     font-family: "Courier New", Courier, monospace, fixed;
     font-size:  9pt;
@@ -1457,6 +1458,10 @@ table[border="1"] {
 body > table {
   margin-top: 2em;
 }
+
+body center table {
+  margin: 1em auto;
+}    
 
 table[summary=""] {
   margin-top: 0;
