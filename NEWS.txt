@@ -67,8 +67,6 @@ STABLE RELEASE
     versions of linux.  A definition has been added to avoid problems.
     Thanks to Kai Wohlfahrt for reporting this.
 
-* Miscellaneous
-
 * Configuration/build system changes
 
   - As SBML Level 3 packages and their code become available, there is
@@ -118,8 +116,6 @@ EXPERIMENTAL RELEASE
       Submodel as their parent.  The SBMLDocument is still set to the
       document of the original Model, so that its own Submodel
       references can be properly tracked down.
-
-  - Req
 
 ====================================================================
 Version 5.5.0 (2012-05-11)
