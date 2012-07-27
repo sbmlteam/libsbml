@@ -68,10 +68,6 @@ if (NOT EXISTS "${PYTHON_EXECUTABLE}")
 	message(FATAL_ERROR "The java language bindings require PYTHON_EXECUTABLE to be set to the python command.")
 endif()
 
-set (SWIG_PYTHON_SUFFIX "")
-if (PYTHON_VERSION_MAJOR AND ${PYTHON_VERSION_MAJOR} EQUAL "3")
-	set (SWIG_PYTHON_SUFFIX "3")
-endif()
 
 ####################################################################
 #
@@ -155,7 +151,7 @@ ADD_CUSTOM_COMMAND(
 	COMMAND "${CMAKE_COMMAND}"
 	ARGS    -E make_directory  ${CMAKE_CURRENT_BINARY_DIR}/java-files/org/sbml/libsbml
 	COMMAND "${PYTHON_EXECUTABLE}"
-	ARGS	"${CMAKE_CURRENT_SOURCE_DIR}/../swig/swigdoc.py${SWIG_PYTHON_SUFFIX}"
+	ARGS	"${CMAKE_CURRENT_SOURCE_DIR}/../swig/swigdoc.py"
 			java
 			-I"${CMAKE_SOURCE_DIR}/src"
 			-D"${CMAKE_SOURCE_DIR}/docs/src"

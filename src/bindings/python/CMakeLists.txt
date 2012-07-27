@@ -109,18 +109,10 @@ if (LIBSBML_REMOVE_WRAPPERS)
   endforeach()
 endif(LIBSBML_REMOVE_WRAPPERS)
 
-
-
-set (SWIG_PYTHON_SUFFIX "")
-if (PYTHON_VERSION_MAJOR AND ${PYTHON_VERSION_MAJOR} EQUAL "3")
-	set (SWIG_PYTHON_SUFFIX "3")
-endif()
-
-
 ADD_CUSTOM_COMMAND(	
     OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/libsbml_wrap.cpp
 	COMMAND "${PYTHON_EXECUTABLE}"
-	ARGS	"${CMAKE_CURRENT_SOURCE_DIR}/../swig/swigdoc.py${SWIG_PYTHON_SUFFIX}"
+	ARGS	"${CMAKE_CURRENT_SOURCE_DIR}/../swig/swigdoc.py"
 			python
 			-I"${CMAKE_CURRENT_SOURCE_DIR}/../.."
 			-D"${CMAKE_CURRENT_SOURCE_DIR}/../../../docs/src"
@@ -167,7 +159,7 @@ ADD_CUSTOM_COMMAND(
     MAIN_DEPENDENCY ${CMAKE_CURRENT_SOURCE_DIR}/libsbml.i
 	DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/CMakeLists.txt
 	        ${CMAKE_CURRENT_SOURCE_DIR}/doc-converter/rewrite_pydoc.py
-			${CMAKE_CURRENT_SOURCE_DIR}/../swig/swigdoc.py${SWIG_PYTHON_SUFFIX}
+			${CMAKE_CURRENT_SOURCE_DIR}/../swig/swigdoc.py
 	        ${SWIG_DEPENDENCIES}
     COMMENT "Swig Python source") 
 
