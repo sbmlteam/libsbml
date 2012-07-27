@@ -76,7 +76,11 @@ STABLE RELEASE
   - The decompression code uses a macro OF that is not defined for all
     versions of linux.  A definition has been added to avoid problems.
     Thanks to Kai Wohlfahrt for reporting this.
-
+    
+  - There was a potential memory leak issue in the registry for 
+    SBMLConverters.  Thanks to Akira Funahashi and his team for spotting
+    the problem and supplying a fix.
+ 
 * Configuration/build system changes
 
   - As SBML Level 3 packages and their code become available, there is
