@@ -78,6 +78,7 @@
   display:block;
   padding:0px;
   margin:0px;
+  -webkit-overflow-scrolling : touch; /* iOS 5+ */
 }
 
 #side-nav {
@@ -86,6 +87,7 @@
   display:block;
   position: absolute;
   left: 0px;
+  width: 280px;
 }
 
 .ui-resizable .ui-resizable-handle {
@@ -95,6 +97,8 @@
 .ui-resizable-e {
   background-color: #bbb;
   border-right: 1px dotted #666;
+  border-top: 1px solid white;
+  border-bottom: 1px solid #888;
   cursor:e-resize;
   height:100%;
   right: 0;
@@ -109,7 +113,7 @@
   display: none;
   font-size: 0.1px;
   position: absolute;
-  z-index: 2;
+  z-index: 1;
 }
 
 #nav-tree-contents {
@@ -119,6 +123,15 @@
 
 #nav-tree {
   background-color: #f0f0f0;
+  -webkit-overflow-scrolling : touch; /* iOS 5+ */
+}
+
+#nav-sync {
+  display: hidden;
+  position:absolute;
+  top:5px;
+  right:24px;
+  z-index:0;
 }
 
 @media print
@@ -128,7 +141,7 @@
 }
 
 #side-nav .item {
-    font-size: 11px;
+    font-size: 10px;
     line-height: 100%;
 }
 
