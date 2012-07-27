@@ -40,6 +40,14 @@
 
 LIBSBML_CPP_NAMESPACE_USE
 
+/*
+ * We create a lot of strings in this file, for testing, and we don't 
+ * do what this warning tries to help with, so we shut it up just
+ * for this file.
+ */
+#pragma GCC diagnostic ignored "-Wwrite-strings"
+
+
 static SBase *S;
 
 

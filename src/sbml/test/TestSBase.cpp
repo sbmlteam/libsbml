@@ -42,6 +42,14 @@
 LIBSBML_CPP_NAMESPACE_USE
 
 
+/*
+ * We create a lot of strings in this file, for testing, and we don't 
+ * do what this warning tries to help with, so we shut it up just
+ * for this file.
+ */
+#pragma GCC diagnostic ignored "-Wwrite-strings"
+
+
 BEGIN_C_DECLS
 
 static SBase *S;
@@ -2391,6 +2399,7 @@ create_suite_SBase (void)
   tcase_add_test(tcase, test_SBase_setMetaId     );
  // tcase_add_test(tcase, test_SBase_setNotes      );
   tcase_add_test(tcase, test_SBase_setAnnotation );
+  tcase_add_test(tcase, test_SBase_setNotes);
   tcase_add_test(tcase, test_SBase_setNotesString);
   tcase_add_test(tcase, test_SBase_setAnnotationString);
   tcase_add_test(tcase, test_SBase_unsetAnnotationWithCVTerms );
