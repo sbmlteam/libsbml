@@ -34,6 +34,9 @@
 %feature("autodoc", "1");
 %include "pydoc.i"
 
+%include "local-contrib.i"
+
+
 /**
  *  Wraps std::cout, std::cerr, std::clog, std::ostream, and std::ostringstream, 
  *

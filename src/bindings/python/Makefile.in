@@ -65,6 +65,7 @@ extra_sources = libsbml.i                            \
                 local-downcast-plugins.cpp.in        \
                 local-downcast-packages-layout.cpp   \
                 local-downcast.cpp.in                \
+                local-contrib.i                      \
                 pydoc-normal.i                       \
                 pydoc-doxygen.i
 
