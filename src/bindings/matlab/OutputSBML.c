@@ -320,20 +320,6 @@ else
 
 	SBase_setNotesString((SBase_t *)(sbmlModel), pacNotes); 
 	
-  /* get annotations  */
-  mxAnnotations = mxGetField(mxModel[0], 0, "annotation");
-  nBuflen = (mxGetM(mxAnnotations)*mxGetN(mxAnnotations)+1);
-  pacAnnotations = (char *)mxCalloc(nBuflen, sizeof(char));
-  
-  nStatus = mxGetString(mxAnnotations, pacAnnotations, (mwSize)(nBuflen));
-  
-  if (nStatus != 0)
-  {
-      mexErrMsgTxt("Cannot copy annotations");
-  }
-
-  SBase_setAnnotationString((SBase_t *) (sbmlModel), pacAnnotations); 
-
 	/* get name */
 	mxName = mxGetField(mxModel[0], 0, "name");
   nBuflen = (mxGetM(mxName)*mxGetN(mxName)+1);
@@ -533,6 +519,22 @@ else
 
 		Model_setConversionFactor(sbmlModel, pacConversionFactor);
 	}
+
+
+    /* get annotations  */
+  mxAnnotations = mxGetField(mxModel[0], 0, "annotation");
+  nBuflen = (mxGetM(mxAnnotations)*mxGetN(mxAnnotations)+1);
+  pacAnnotations = (char *)mxCalloc(nBuflen, sizeof(char));
+  
+  nStatus = mxGetString(mxAnnotations, pacAnnotations, (mwSize)(nBuflen));
+  
+  if (nStatus != 0)
+  {
+      mexErrMsgTxt("Cannot copy annotations");
+  }
+
+  SBase_setAnnotationString((SBase_t *) (sbmlModel), pacAnnotations); 
+
 
 /************************************************************************************************************
 	* output the resulting model to specified file
@@ -950,20 +952,6 @@ GetCompartment (mxArray * mxCompartments,
 		SBase_setNotesString((SBase_t *) (pCompartment), pacNotes); 
 
 
-		/* get annotations */
-		mxAnnotations = mxGetField(mxCompartments, i, "annotation");
-		nBuflen = (mxGetM(mxAnnotations)*mxGetN(mxAnnotations)+1);
-		pacAnnotations = (char *)mxCalloc(nBuflen, sizeof(char));
-		nStatus = mxGetString(mxAnnotations, pacAnnotations, (mwSize)(nBuflen));
-
-		if (nStatus != 0)
-		{
-			mexErrMsgTxt("Cannot copy annotations");
-		}
-
-		SBase_setAnnotationString((SBase_t *) (pCompartment), pacAnnotations); 
-
-
 		/* get name */
 		mxName = mxGetField(mxCompartments, i, "name");
 		nBuflen = (mxGetM(mxName)*mxGetN(mxName)+1);
@@ -1179,6 +1167,20 @@ GetCompartment (mxArray * mxCompartments,
 			SBase_setSBOTerm((SBase_t *) (pCompartment), nSBOTerm);
 		}
 
+		/* get annotations */
+		mxAnnotations = mxGetField(mxCompartments, i, "annotation");
+		nBuflen = (mxGetM(mxAnnotations)*mxGetN(mxAnnotations)+1);
+		pacAnnotations = (char *)mxCalloc(nBuflen, sizeof(char));
+		nStatus = mxGetString(mxAnnotations, pacAnnotations, (mwSize)(nBuflen));
+
+		if (nStatus != 0)
+		{
+			mexErrMsgTxt("Cannot copy annotations");
+		}
+
+		SBase_setAnnotationString((SBase_t *) (pCompartment), pacAnnotations); 
+
+
     /* free any memory allocated */
 	  mxFree(pacNotes);
 	  mxFree(pacAnnotations);
@@ -1264,20 +1266,6 @@ GetUnitDefinition ( mxArray * mxUnitDefinitions,
 		SBase_setNotesString((SBase_t *) (pUnitDefinition), pacNotes); 
 
 
-		/* get annotations */
-		mxAnnotations = mxGetField(mxUnitDefinitions, i, "annotation");
-		nBuflen = (mxGetM(mxAnnotations)*mxGetN(mxAnnotations)+1);
-		pacAnnotations = (char *)mxCalloc(nBuflen, sizeof(char));
-		nStatus = mxGetString(mxAnnotations, pacAnnotations, (mwSize)(nBuflen));
-
-		if (nStatus != 0)
-		{
-			mexErrMsgTxt("Cannot copy annotations");
-		}
-
- 		SBase_setAnnotationString((SBase_t *) (pUnitDefinition), pacAnnotations); 
-
-
 		/* get name */
 		mxName = mxGetField(mxUnitDefinitions, i, "name");
 		nBuflen = (mxGetM(mxName)*mxGetN(mxName)+1);
@@ -1336,6 +1324,20 @@ GetUnitDefinition ( mxArray * mxUnitDefinitions,
 			  SBase_setSBOTerm((SBase_t *) (pUnitDefinition), nSBOTerm);
       }
 		}
+
+		/* get annotations */
+		mxAnnotations = mxGetField(mxUnitDefinitions, i, "annotation");
+		nBuflen = (mxGetM(mxAnnotations)*mxGetN(mxAnnotations)+1);
+		pacAnnotations = (char *)mxCalloc(nBuflen, sizeof(char));
+		nStatus = mxGetString(mxAnnotations, pacAnnotations, (mwSize)(nBuflen));
+
+		if (nStatus != 0)
+		{
+			mexErrMsgTxt("Cannot copy annotations");
+		}
+
+ 		SBase_setAnnotationString((SBase_t *) (pUnitDefinition), pacAnnotations); 
+
 
     /* free any memory allocated */
 	  mxFree(pacNotes);
@@ -1411,20 +1413,6 @@ GetUnit ( mxArray * mxUnits,
 		}
 
 		SBase_setNotesString((SBase_t *) (pUnit), pacNotes); 
-
-
-		/* get annotations */
-		mxAnnotations = mxGetField(mxUnits, i, "annotation");
-		nBuflen = (mxGetM(mxAnnotations)*mxGetN(mxAnnotations)+1);
-		pacAnnotations = (char *)mxCalloc(nBuflen, sizeof(char));
-		nStatus = mxGetString(mxAnnotations, pacAnnotations, (mwSize)(nBuflen));
-
-		if (nStatus != 0)
-		{
-			mexErrMsgTxt("Cannot copy annotations");
-		}
-        
-		SBase_setAnnotationString((SBase_t *) (pUnit), pacAnnotations); 
 
 
 		/* get kind */
@@ -1536,7 +1524,21 @@ GetUnit ( mxArray * mxUnits,
     }
 
 
-    /* free any memory allocated */
+ 		/* get annotations */
+		mxAnnotations = mxGetField(mxUnits, i, "annotation");
+		nBuflen = (mxGetM(mxAnnotations)*mxGetN(mxAnnotations)+1);
+		pacAnnotations = (char *)mxCalloc(nBuflen, sizeof(char));
+		nStatus = mxGetString(mxAnnotations, pacAnnotations, (mwSize)(nBuflen));
+
+		if (nStatus != 0)
+		{
+			mexErrMsgTxt("Cannot copy annotations");
+		}
+        
+		SBase_setAnnotationString((SBase_t *) (pUnit), pacAnnotations); 
+
+
+   /* free any memory allocated */
 	  mxFree(pacNotes);
 	  mxFree(pacAnnotations);
 	  mxFree(pacKind);
@@ -1622,19 +1624,6 @@ GetUnit ( mxArray * mxUnits,
 
 		SBase_setNotesString((SBase_t *) (pSpecies), pacNotes);
 
-
-		/* get annotations */
-		mxAnnotations = mxGetField(mxSpecies, i, "annotation");
-		nBuflen = (mxGetM(mxAnnotations)*mxGetN(mxAnnotations)+1);
-		pacAnnotations = (char *)mxCalloc(nBuflen, sizeof(char));
-		nStatus = mxGetString(mxAnnotations, pacAnnotations, (mwSize)(nBuflen));
-
-		if (nStatus != 0)
-		{
-			mexErrMsgTxt("Cannot copy annotations");
-		}
-
-		SBase_setAnnotationString((SBase_t *) (pSpecies), pacAnnotations); 
 
 		/* get name */
 		mxName = mxGetField(mxSpecies, i, "name");
@@ -1920,7 +1909,20 @@ GetUnit ( mxArray * mxUnits,
 		}
 
 
-    /* free any memory allocated */
+ 		/* get annotations */
+		mxAnnotations = mxGetField(mxSpecies, i, "annotation");
+		nBuflen = (mxGetM(mxAnnotations)*mxGetN(mxAnnotations)+1);
+		pacAnnotations = (char *)mxCalloc(nBuflen, sizeof(char));
+		nStatus = mxGetString(mxAnnotations, pacAnnotations, (mwSize)(nBuflen));
+
+		if (nStatus != 0)
+		{
+			mexErrMsgTxt("Cannot copy annotations");
+		}
+
+		SBase_setAnnotationString((SBase_t *) (pSpecies), pacAnnotations); 
+
+   /* free any memory allocated */
 	  mxFree(pacNotes);
 	  mxFree(pacAnnotations);
 	  mxFree(pacName);
@@ -2016,20 +2018,6 @@ GetUnit ( mxArray * mxUnits,
 		}
 
 		SBase_setNotesString((SBase_t *) (pParameter), pacNotes); 
-
-
-		/* get annotations */
-		mxAnnotations = mxGetField(mxParameters, i, "annotation");
-		nBuflen = (mxGetM(mxAnnotations)*mxGetN(mxAnnotations)+1);
-		pacAnnotations = (char *)mxCalloc(nBuflen, sizeof(char));
-		nStatus = mxGetString(mxAnnotations, pacAnnotations, (mwSize)(nBuflen));
-
-		if (nStatus != 0)
-		{
-			mexErrMsgTxt("Cannot copy annotations");
-		}
-   
-		SBase_setAnnotationString((SBase_t *) (pParameter), pacAnnotations);
 
 
 		/* get name */
@@ -2161,6 +2149,22 @@ GetUnit ( mxArray * mxUnits,
 
 			  SBase_setSBOTerm((SBase_t *) (pParameter), nSBOTerm);
 		}
+
+
+		/* get annotations */
+		mxAnnotations = mxGetField(mxParameters, i, "annotation");
+		nBuflen = (mxGetM(mxAnnotations)*mxGetN(mxAnnotations)+1);
+		pacAnnotations = (char *)mxCalloc(nBuflen, sizeof(char));
+		nStatus = mxGetString(mxAnnotations, pacAnnotations, (mwSize)(nBuflen));
+
+		if (nStatus != 0)
+		{
+			mexErrMsgTxt("Cannot copy annotations");
+		}
+   
+		SBase_setAnnotationString((SBase_t *) (pParameter), pacAnnotations);
+
+
     /* free any memory allocated */
  	  mxFree(pacNotes);
  	  mxFree(pacAnnotations);
@@ -2257,7 +2261,7 @@ GetUnit ( mxArray * mxUnits,
 		}
 
 
-		/* get annotations */
+ 		/* get annotations */
 		mxAnnotations = mxGetField(mxRule, i, "annotation");
 		nBuflen = (mxGetM(mxAnnotations)*mxGetN(mxAnnotations)+1);
 		pacAnnotations = (char *)mxCalloc(nBuflen, sizeof(char));
@@ -2423,7 +2427,6 @@ GetUnit ( mxArray * mxUnits,
         pAssignRule = Model_createAssignmentRule(sbmlModel);
         Rule_setVariable(pAssignRule, pacVariable);			
         SBase_setNotesString((SBase_t *) (pAssignRule), pacNotes); 
-        SBase_setAnnotationString((SBase_t *) (pAssignRule), pacAnnotations); 
 
         Rule_setMath((Rule_t *)pAssignRule, ast);
         if (unSBMLLevel == 2)
@@ -2441,12 +2444,12 @@ GetUnit ( mxArray * mxUnits,
           SBase_setMetaId((SBase_t *) (pAssignRule), pacMetaid);     
           SBase_setSBOTerm((SBase_t *) (pAssignRule), nSBOTerm);
         }
+        SBase_setAnnotationString((SBase_t *) (pAssignRule), pacAnnotations); 
         break;
 
       case SBML_ALGEBRAIC_RULE:
         pAlgRule = Model_createAlgebraicRule(sbmlModel);
         SBase_setNotesString((SBase_t *) (pAlgRule), pacNotes); 
-        SBase_setAnnotationString((SBase_t *) (pAlgRule), pacAnnotations); 
 
         if (unSBMLLevel == 1)
         {
@@ -2468,6 +2471,7 @@ GetUnit ( mxArray * mxUnits,
           Rule_setMath((Rule_t *)pAlgRule, ast);
           SBase_setSBOTerm((SBase_t *) (pAlgRule), nSBOTerm);
         }
+        SBase_setAnnotationString((SBase_t *) (pAlgRule), pacAnnotations); 
 
         break;
 
@@ -2476,7 +2480,6 @@ GetUnit ( mxArray * mxUnits,
 
         Rule_setVariable(pRateRule, pacVariable);			
         SBase_setNotesString((SBase_t *) (pRateRule), pacNotes); 
-        SBase_setAnnotationString((SBase_t *) (pRateRule), pacAnnotations); 
 
         Rule_setMath((Rule_t *)pRateRule, ast);
 
@@ -2494,6 +2497,7 @@ GetUnit ( mxArray * mxUnits,
           SBase_setMetaId((SBase_t *) (pRateRule), pacMetaid);     
           SBase_setSBOTerm((SBase_t *) (pRateRule), nSBOTerm);
         }
+        SBase_setAnnotationString((SBase_t *) (pRateRule), pacAnnotations); 
 
         break;
 
@@ -2559,7 +2563,7 @@ GetUnit ( mxArray * mxUnits,
         break;
 		}
 
-    /* free any memory allocated */
+   /* free any memory allocated */
 	  mxFree(pacTypecode);
 	  mxFree(pacNotes);
 	  mxFree(pacAnnotations);
@@ -2648,19 +2652,6 @@ GetUnit ( mxArray * mxUnits,
 
 		SBase_setNotesString((SBase_t *) (pReaction), pacNotes); 
 
-
-		/* get annotations */
-		mxAnnotations = mxGetField(mxReaction, i, "annotation");
-		nBuflen = (mxGetM(mxAnnotations)*mxGetN(mxAnnotations)+1);
-		pacAnnotations = (char *)mxCalloc(nBuflen, sizeof(char));
-		nStatus = mxGetString(mxAnnotations, pacAnnotations, (mwSize)(nBuflen));
-
-		if (nStatus != 0)
-		{
-			mexErrMsgTxt("Cannot copy annotations");
-		}
-
-		SBase_setAnnotationString((SBase_t *) (pReaction), pacAnnotations);
 
 
 		/* get name */
@@ -2847,6 +2838,19 @@ GetUnit ( mxArray * mxUnits,
 
     }
 
+		/* get annotations */
+		mxAnnotations = mxGetField(mxReaction, i, "annotation");
+		nBuflen = (mxGetM(mxAnnotations)*mxGetN(mxAnnotations)+1);
+		pacAnnotations = (char *)mxCalloc(nBuflen, sizeof(char));
+		nStatus = mxGetString(mxAnnotations, pacAnnotations, (mwSize)(nBuflen));
+
+		if (nStatus != 0)
+		{
+			mexErrMsgTxt("Cannot copy annotations");
+		}
+
+		SBase_setAnnotationString((SBase_t *) (pReaction), pacAnnotations);
+
     /* free any memory allocated */
 	  mxFree(pacNotes);
 	  mxFree(pacAnnotations);
@@ -2950,20 +2954,6 @@ GetUnit ( mxArray * mxUnits,
 		}
 
 		SBase_setNotesString((SBase_t *) (pSpeciesReference), pacNotes); 
-
-
-		/* get annotations */
-		mxAnnotations = mxGetField(mxReactant, i, "annotation");
-		nBuflen = (mxGetM(mxAnnotations)*mxGetN(mxAnnotations)+1);
-		pacAnnotations = (char *)mxCalloc(nBuflen, sizeof(char));
-		nStatus = mxGetString(mxAnnotations, pacAnnotations, (mwSize)(nBuflen));
-
-		if (nStatus != 0)
-		{
-			mexErrMsgTxt("Cannot copy annotations");
-		}
-        
-		SBase_setAnnotationString((SBase_t *) (pSpeciesReference), pacAnnotations); 
 
 
 		/* get Species */
@@ -3172,6 +3162,20 @@ GetUnit ( mxArray * mxUnits,
 
 		}
 
+		/* get annotations */
+		mxAnnotations = mxGetField(mxReactant, i, "annotation");
+		nBuflen = (mxGetM(mxAnnotations)*mxGetN(mxAnnotations)+1);
+		pacAnnotations = (char *)mxCalloc(nBuflen, sizeof(char));
+		nStatus = mxGetString(mxAnnotations, pacAnnotations, (mwSize)(nBuflen));
+
+		if (nStatus != 0)
+		{
+			mexErrMsgTxt("Cannot copy annotations");
+		}
+        
+		SBase_setAnnotationString((SBase_t *) (pSpeciesReference), pacAnnotations); 
+
+
     /* free any memory allocated */
 	  mxFree(pacNotes);
 	  mxFree(pacAnnotations);
@@ -3263,20 +3267,6 @@ GetUnit ( mxArray * mxUnits,
 		}
 
 		SBase_setNotesString((SBase_t *) (pSpeciesReference), pacNotes); 
-
-
-		/* get annotations */
-		mxAnnotations = mxGetField(mxModifier, i, "annotation");
-		nBuflen = (mxGetM(mxAnnotations)*mxGetN(mxAnnotations)+1);
-		pacAnnotations = (char *)mxCalloc(nBuflen, sizeof(char));
-		nStatus = mxGetString(mxAnnotations, pacAnnotations, (mwSize)(nBuflen));
-
-		if (nStatus != 0)
-		{
-			mexErrMsgTxt("Cannot copy annotations");
-		}
-        
-		SBase_setAnnotationString((SBase_t *) (pSpeciesReference), pacAnnotations);
 
 
 		/* get Species */
@@ -3378,6 +3368,20 @@ GetUnit ( mxArray * mxUnits,
   	
     }	
 
+		/* get annotations */
+		mxAnnotations = mxGetField(mxModifier, i, "annotation");
+		nBuflen = (mxGetM(mxAnnotations)*mxGetN(mxAnnotations)+1);
+		pacAnnotations = (char *)mxCalloc(nBuflen, sizeof(char));
+		nStatus = mxGetString(mxAnnotations, pacAnnotations, (mwSize)(nBuflen));
+
+		if (nStatus != 0)
+		{
+			mexErrMsgTxt("Cannot copy annotations");
+		}
+        
+		SBase_setAnnotationString((SBase_t *) (pSpeciesReference), pacAnnotations);
+
+
     /* free any memory allocated */
 	  mxFree(pacNotes);
 	  mxFree(pacAnnotations);
@@ -3450,19 +3454,6 @@ GetUnit ( mxArray * mxUnits,
   SBase_setNotesString((SBase_t *) (pKineticLaw), pacNotes);
   
   
-  /* get annotations */
-  mxAnnotations = mxGetField(mxKineticLaw, 0, "annotation");
-  nBuflen = (mxGetM(mxAnnotations)*mxGetN(mxAnnotations)+1);
-  pacAnnotations = (char *)mxCalloc(nBuflen, sizeof(char));
-  nStatus = mxGetString(mxAnnotations, pacAnnotations, (mwSize)(nBuflen));
-  
-  if (nStatus != 0)
-  {
-      mexErrMsgTxt("Cannot copy annotations");
-  }
-         
-  SBase_setAnnotationString((SBase_t *) (pKineticLaw), pacAnnotations); 
-
   if (unSBMLLevel < 3)
   {
   /* get formula */
@@ -3671,6 +3662,19 @@ GetUnit ( mxArray * mxUnits,
    
   }
 
+  /* get annotations */
+  mxAnnotations = mxGetField(mxKineticLaw, 0, "annotation");
+  nBuflen = (mxGetM(mxAnnotations)*mxGetN(mxAnnotations)+1);
+  pacAnnotations = (char *)mxCalloc(nBuflen, sizeof(char));
+  nStatus = mxGetString(mxAnnotations, pacAnnotations, (mwSize)(nBuflen));
+  
+  if (nStatus != 0)
+  {
+      mexErrMsgTxt("Cannot copy annotations");
+  }
+         
+  SBase_setAnnotationString((SBase_t *) (pKineticLaw), pacAnnotations); 
+
   /* free any memory allocated */
 	mxFree(pacNotes);
 	mxFree(pacAnnotations);
@@ -3765,27 +3769,6 @@ GetUnit ( mxArray * mxUnits,
     else
     {
       SBase_setNotesString((SBase_t *) (pLocalParameter), pacNotes); 
-    }
-
-
-		/* get annotations */
-		mxAnnotations = mxGetField(mxParameters, i, "annotation");
-		nBuflen = (mxGetM(mxAnnotations)*mxGetN(mxAnnotations)+1);
-		pacAnnotations = (char *)mxCalloc(nBuflen, sizeof(char));
-		nStatus = mxGetString(mxAnnotations, pacAnnotations, (mwSize)(nBuflen));
-
-		if (nStatus != 0)
-		{
-			mexErrMsgTxt("Cannot copy annotations");
-		}
-   
-    if (unSBMLLevel < 3)
-    {
-      SBase_setAnnotationString((SBase_t *) (pParameter), pacAnnotations); 
-    }
-    else
-    {
-      SBase_setAnnotationString((SBase_t *) (pLocalParameter), pacAnnotations); 
     }
 
 
@@ -3940,6 +3923,27 @@ GetUnit ( mxArray * mxUnits,
 		}
 
 
+		/* get annotations */
+		mxAnnotations = mxGetField(mxParameters, i, "annotation");
+		nBuflen = (mxGetM(mxAnnotations)*mxGetN(mxAnnotations)+1);
+		pacAnnotations = (char *)mxCalloc(nBuflen, sizeof(char));
+		nStatus = mxGetString(mxAnnotations, pacAnnotations, (mwSize)(nBuflen));
+
+		if (nStatus != 0)
+		{
+			mexErrMsgTxt("Cannot copy annotations");
+		}
+   
+    if (unSBMLLevel < 3)
+    {
+      SBase_setAnnotationString((SBase_t *) (pParameter), pacAnnotations); 
+    }
+    else
+    {
+      SBase_setAnnotationString((SBase_t *) (pLocalParameter), pacAnnotations); 
+    }
+
+
     /* free any memory allocated */
 	  mxFree(pacNotes);
 	  mxFree(pacAnnotations);
@@ -4016,20 +4020,6 @@ GetFunctionDefinition ( mxArray * mxFunctionDefinitions,
 		}
 
 		SBase_setNotesString((SBase_t *) (pFuncDefinition), pacNotes); 
-
-
-		/* get annotations */
-		mxAnnotations = mxGetField(mxFunctionDefinitions, i, "annotation");
-		nBuflen = (mxGetM(mxAnnotations)*mxGetN(mxAnnotations)+1);
-		pacAnnotations = (char *)mxCalloc(nBuflen, sizeof(char));
-		nStatus = mxGetString(mxAnnotations, pacAnnotations, (mwSize)(nBuflen));
-
-		if (nStatus != 0)
-		{
-			mexErrMsgTxt("Cannot copy annotations");
-		}
-
-		SBase_setAnnotationString((SBase_t *) (pFuncDefinition), pacAnnotations); 
 
 
 		/* get name */
@@ -4121,6 +4111,20 @@ GetFunctionDefinition ( mxArray * mxFunctionDefinitions,
 			SBase_setSBOTerm((SBase_t *) (pFuncDefinition), nSBOTerm);
     }
 
+		/* get annotations */
+		mxAnnotations = mxGetField(mxFunctionDefinitions, i, "annotation");
+		nBuflen = (mxGetM(mxAnnotations)*mxGetN(mxAnnotations)+1);
+		pacAnnotations = (char *)mxCalloc(nBuflen, sizeof(char));
+		nStatus = mxGetString(mxAnnotations, pacAnnotations, (mwSize)(nBuflen));
+
+		if (nStatus != 0)
+		{
+			mexErrMsgTxt("Cannot copy annotations");
+		}
+
+		SBase_setAnnotationString((SBase_t *) (pFuncDefinition), pacAnnotations); 
+
+
     /* free any memory allocated */
 	  mxFree(pacNotes);
 	  mxFree(pacAnnotations);
@@ -4194,20 +4198,6 @@ GetEvent ( mxArray * mxEvents,
 		}
 
 		SBase_setNotesString((SBase_t *) (pEvent), pacNotes); 
-
-
-		/* get annotations */
-		mxAnnotations = mxGetField(mxEvents, i, "annotation");
-		nBuflen = (mxGetM(mxAnnotations)*mxGetN(mxAnnotations)+1);
-		pacAnnotations = (char *)mxCalloc(nBuflen, sizeof(char));
-		nStatus = mxGetString(mxAnnotations, pacAnnotations, (mwSize)(nBuflen));
-
-		if (nStatus != 0)
-		{
-			mexErrMsgTxt("Cannot copy annotations");
-		}
-
-		SBase_setAnnotationString((SBase_t *) (pEvent), pacAnnotations); 
 
 
 		/* get name */
@@ -4405,6 +4395,20 @@ GetEvent ( mxArray * mxEvents,
 		mxEventAssignments = mxGetField(mxEvents, i, "eventAssignment");
 		GetEventAssignment(mxEventAssignments, unSBMLLevel, unSBMLVersion, pEvent);
 
+		/* get annotations */
+		mxAnnotations = mxGetField(mxEvents, i, "annotation");
+		nBuflen = (mxGetM(mxAnnotations)*mxGetN(mxAnnotations)+1);
+		pacAnnotations = (char *)mxCalloc(nBuflen, sizeof(char));
+		nStatus = mxGetString(mxAnnotations, pacAnnotations, (mwSize)(nBuflen));
+
+		if (nStatus != 0)
+		{
+			mexErrMsgTxt("Cannot copy annotations");
+		}
+
+		SBase_setAnnotationString((SBase_t *) (pEvent), pacAnnotations); 
+
+
     /* free any memory allocated */
 	  mxFree(pacNotes);
 	  mxFree(pacAnnotations);
@@ -4477,20 +4481,6 @@ GetEventAssignment ( mxArray * mxEventAssignment,
 		}
 
 		SBase_setNotesString((SBase_t *) (pEventAssignment), pacNotes);
-
-
-		/* get annotations */
-		mxAnnotations = mxGetField(mxEventAssignment, i, "annotation");
-		nBuflen = (mxGetM(mxAnnotations)*mxGetN(mxAnnotations)+1);
-		pacAnnotations = (char *)mxCalloc(nBuflen, sizeof(char));
-		nStatus = mxGetString(mxAnnotations, pacAnnotations, (mwSize)(nBuflen));
-
-		if (nStatus != 0)
-		{
-			mexErrMsgTxt("Cannot copy annotations");
-		}
-        
-		SBase_setAnnotationString((SBase_t *) (pEventAssignment), pacAnnotations); 
 
 
 		/* get metaid */
@@ -4575,6 +4565,20 @@ GetEventAssignment ( mxArray * mxEventAssignment,
 			SBase_setSBOTerm((SBase_t *) (pEventAssignment), nSBOTerm);
     }
 
+		/* get annotations */
+		mxAnnotations = mxGetField(mxEventAssignment, i, "annotation");
+		nBuflen = (mxGetM(mxAnnotations)*mxGetN(mxAnnotations)+1);
+		pacAnnotations = (char *)mxCalloc(nBuflen, sizeof(char));
+		nStatus = mxGetString(mxAnnotations, pacAnnotations, (mwSize)(nBuflen));
+
+		if (nStatus != 0)
+		{
+			mexErrMsgTxt("Cannot copy annotations");
+		}
+        
+		SBase_setAnnotationString((SBase_t *) (pEventAssignment), pacAnnotations); 
+
+
     /* free any memory allocated */
 	  mxFree(pacNotes);
 	  mxFree(pacAnnotations);
@@ -4640,20 +4644,6 @@ GetCompartmentType ( mxArray * mxCompartmentType,
 		SBase_setNotesString((SBase_t *) (pCompartmentType), pacNotes);
 
 
-		/* get annotations */
-		mxAnnotations = mxGetField(mxCompartmentType, i, "annotation");
-		nBuflen = (mxGetM(mxAnnotations)*mxGetN(mxAnnotations)+1);
-		pacAnnotations = (char *)mxCalloc(nBuflen, sizeof(char));
-		nStatus = mxGetString(mxAnnotations, pacAnnotations, (mwSize)(nBuflen));
-
-		if (nStatus != 0)
-		{
-			mexErrMsgTxt("Cannot copy annotations");
-		}
-        
-		SBase_setAnnotationString((SBase_t *) (pCompartmentType), pacAnnotations); 
-
-
 		/* get name */
 		mxName = mxGetField(mxCompartmentType, i, "name");
 		nBuflen = (mxGetM(mxName)*mxGetN(mxName)+1);
@@ -4701,6 +4691,20 @@ GetCompartmentType ( mxArray * mxCompartmentType,
 
 			SBase_setSBOTerm((SBase_t *) (pCompartmentType), nSBOTerm);
     }
+
+		/* get annotations */
+		mxAnnotations = mxGetField(mxCompartmentType, i, "annotation");
+		nBuflen = (mxGetM(mxAnnotations)*mxGetN(mxAnnotations)+1);
+		pacAnnotations = (char *)mxCalloc(nBuflen, sizeof(char));
+		nStatus = mxGetString(mxAnnotations, pacAnnotations, (mwSize)(nBuflen));
+
+		if (nStatus != 0)
+		{
+			mexErrMsgTxt("Cannot copy annotations");
+		}
+        
+		SBase_setAnnotationString((SBase_t *) (pCompartmentType), pacAnnotations); 
+
 
     /* free any memory allocated */
 	  mxFree(pacNotes);
@@ -4767,20 +4771,6 @@ GetSpeciesType ( mxArray * mxSpeciesType,
 		SBase_setNotesString((SBase_t *) (pSpeciesType), pacNotes);
 
 
-		/* get annotations */
-		mxAnnotations = mxGetField(mxSpeciesType, i, "annotation");
-		nBuflen = (mxGetM(mxAnnotations)*mxGetN(mxAnnotations)+1);
-		pacAnnotations = (char *)mxCalloc(nBuflen, sizeof(char));
-		nStatus = mxGetString(mxAnnotations, pacAnnotations, (mwSize)(nBuflen));
-
-		if (nStatus != 0)
-		{
-			mexErrMsgTxt("Cannot copy annotations");
-		}
-        
-		SBase_setAnnotationString((SBase_t *) (pSpeciesType), pacAnnotations); 
-
-
 		/* get name */
 		mxName = mxGetField(mxSpeciesType, i, "name");
 		nBuflen = (mxGetM(mxName)*mxGetN(mxName)+1);
@@ -4828,6 +4818,20 @@ GetSpeciesType ( mxArray * mxSpeciesType,
 
 			SBase_setSBOTerm((SBase_t *) (pSpeciesType), nSBOTerm);
     }
+
+		/* get annotations */
+		mxAnnotations = mxGetField(mxSpeciesType, i, "annotation");
+		nBuflen = (mxGetM(mxAnnotations)*mxGetN(mxAnnotations)+1);
+		pacAnnotations = (char *)mxCalloc(nBuflen, sizeof(char));
+		nStatus = mxGetString(mxAnnotations, pacAnnotations, (mwSize)(nBuflen));
+
+		if (nStatus != 0)
+		{
+			mexErrMsgTxt("Cannot copy annotations");
+		}
+        
+		SBase_setAnnotationString((SBase_t *) (pSpeciesType), pacAnnotations); 
+
 
     /* free any memory allocated */
 	  mxFree(pacNotes);
@@ -4895,20 +4899,6 @@ GetInitialAssignment ( mxArray * mxInitialAssignment,
 		}
 
 		SBase_setNotesString((SBase_t *) (pInitialAssignment), pacNotes);
-
-
-		/* get annotations */
-		mxAnnotations = mxGetField(mxInitialAssignment, i, "annotation");
-		nBuflen = (mxGetM(mxAnnotations)*mxGetN(mxAnnotations)+1);
-		pacAnnotations = (char *)mxCalloc(nBuflen, sizeof(char));
-		nStatus = mxGetString(mxAnnotations, pacAnnotations, (mwSize)(nBuflen));
-
-		if (nStatus != 0)
-		{
-			mexErrMsgTxt("Cannot copy annotations");
-		}
-        
-		SBase_setAnnotationString((SBase_t *) (pInitialAssignment), pacAnnotations); 
 
 
 		/* get metaid */
@@ -4983,6 +4973,20 @@ GetInitialAssignment ( mxArray * mxInitialAssignment,
 
 		SBase_setSBOTerm((SBase_t *) (pInitialAssignment), nSBOTerm);
 
+		/* get annotations */
+		mxAnnotations = mxGetField(mxInitialAssignment, i, "annotation");
+		nBuflen = (mxGetM(mxAnnotations)*mxGetN(mxAnnotations)+1);
+		pacAnnotations = (char *)mxCalloc(nBuflen, sizeof(char));
+		nStatus = mxGetString(mxAnnotations, pacAnnotations, (mwSize)(nBuflen));
+
+		if (nStatus != 0)
+		{
+			mexErrMsgTxt("Cannot copy annotations");
+		}
+        
+		SBase_setAnnotationString((SBase_t *) (pInitialAssignment), pacAnnotations); 
+
+
     /* free any memory allocated */
 	  mxFree(pacNotes);
 	  mxFree(pacAnnotations);
@@ -5049,20 +5053,6 @@ GetConstraint ( mxArray * mxConstraint,
 		}
 
 		SBase_setNotesString((SBase_t *) (pConstraint), pacNotes);
-
-
-		/* get annotations */
-		mxAnnotations = mxGetField(mxConstraint, i, "annotation");
-		nBuflen = (mxGetM(mxAnnotations)*mxGetN(mxAnnotations)+1);
-		pacAnnotations = (char *)mxCalloc(nBuflen, sizeof(char));
-		nStatus = mxGetString(mxAnnotations, pacAnnotations, (mwSize)(nBuflen));
-
-		if (nStatus != 0)
-		{
-			mexErrMsgTxt("Cannot copy annotations");
-		}
-        
-		SBase_setAnnotationString((SBase_t *) (pConstraint), pacAnnotations); 
 
 
 		/* get metaid */
@@ -5137,6 +5127,20 @@ GetConstraint ( mxArray * mxConstraint,
 
 		SBase_setSBOTerm((SBase_t *) (pConstraint), nSBOTerm);
 
+		/* get annotations */
+		mxAnnotations = mxGetField(mxConstraint, i, "annotation");
+		nBuflen = (mxGetM(mxAnnotations)*mxGetN(mxAnnotations)+1);
+		pacAnnotations = (char *)mxCalloc(nBuflen, sizeof(char));
+		nStatus = mxGetString(mxAnnotations, pacAnnotations, (mwSize)(nBuflen));
+
+		if (nStatus != 0)
+		{
+			mexErrMsgTxt("Cannot copy annotations");
+		}
+        
+		SBase_setAnnotationString((SBase_t *) (pConstraint), pacAnnotations); 
+
+
     /* free any memory allocated */
 	  mxFree(pacNotes);
 	  mxFree(pacAnnotations);
@@ -5203,20 +5207,6 @@ GetStoichiometryMath ( mxArray * mxStoichiometryMath,
   SBase_setNotesString((SBase_t *) (pStoichiometryMath), pacNotes);
 
 
-  /* get annotations */
-  mxAnnotations = mxGetField(mxStoichiometryMath, 0, "annotation");
-  nBuflen = (mxGetM(mxAnnotations)*mxGetN(mxAnnotations)+1);
-  pacAnnotations = (char *)mxCalloc(nBuflen, sizeof(char));
-  nStatus = mxGetString(mxAnnotations, pacAnnotations, (mwSize)(nBuflen));
-
-  if (nStatus != 0)
-  {
-    mexErrMsgTxt("Cannot copy annotations");
-  }
-
-  SBase_setAnnotationString((SBase_t *) (pStoichiometryMath), pacAnnotations); 
-
-
 	/* get metaid */
 	mxMetaid = mxGetField(mxStoichiometryMath, 0, "metaid");
 	nBuflen = (mxGetM(mxMetaid)*mxGetN(mxMetaid)+1);
@@ -5275,8 +5265,23 @@ GetStoichiometryMath ( mxArray * mxStoichiometryMath,
 
   SBase_setSBOTerm((SBase_t *) (pStoichiometryMath), nSBOTerm);
 
-  SpeciesReference_setStoichiometryMath(sbmlSpeciesReference, pStoichiometryMath);
   
+  /* get annotations */
+  mxAnnotations = mxGetField(mxStoichiometryMath, 0, "annotation");
+  nBuflen = (mxGetM(mxAnnotations)*mxGetN(mxAnnotations)+1);
+  pacAnnotations = (char *)mxCalloc(nBuflen, sizeof(char));
+  nStatus = mxGetString(mxAnnotations, pacAnnotations, (mwSize)(nBuflen));
+
+  if (nStatus != 0)
+  {
+    mexErrMsgTxt("Cannot copy annotations");
+  }
+
+  SBase_setAnnotationString((SBase_t *) (pStoichiometryMath), pacAnnotations); 
+
+
+  SpeciesReference_setStoichiometryMath(sbmlSpeciesReference, pStoichiometryMath);
+
   /* free any memory allocated */
   mxFree(pacNotes);
   mxFree(pacAnnotations);
@@ -5340,20 +5345,6 @@ GetTrigger ( mxArray * mxTrigger,
   }
 
   SBase_setNotesString((SBase_t *) (pTrigger), pacNotes);
-
-
-  /* get annotations */
-  mxAnnotations = mxGetField(mxTrigger, 0, "annotation");
-  nBuflen = (mxGetM(mxAnnotations)*mxGetN(mxAnnotations)+1);
-  pacAnnotations = (char *)mxCalloc(nBuflen, sizeof(char));
-  nStatus = mxGetString(mxAnnotations, pacAnnotations, (mwSize)(nBuflen));
-
-  if (nStatus != 0)
-  {
-    mexErrMsgTxt("Cannot copy annotations");
-  }
-
-  SBase_setAnnotationString((SBase_t *) (pTrigger), pacAnnotations); 
 
 
 	/* get metaid */
@@ -5429,6 +5420,21 @@ GetTrigger ( mxArray * mxTrigger,
 
     Trigger_setInitialValue(pTrigger, nInitialValue);
   }
+  
+  /* get annotations */
+  mxAnnotations = mxGetField(mxTrigger, 0, "annotation");
+  nBuflen = (mxGetM(mxAnnotations)*mxGetN(mxAnnotations)+1);
+  pacAnnotations = (char *)mxCalloc(nBuflen, sizeof(char));
+  nStatus = mxGetString(mxAnnotations, pacAnnotations, (mwSize)(nBuflen));
+
+  if (nStatus != 0)
+  {
+    mexErrMsgTxt("Cannot copy annotations");
+  }
+
+  SBase_setAnnotationString((SBase_t *) (pTrigger), pacAnnotations); 
+
+
   Event_setTrigger(sbmlEvent, pTrigger);
   
   /* free any memory allocated */
@@ -5492,20 +5498,6 @@ GetDelay ( mxArray * mxDelay,
   SBase_setNotesString((SBase_t *) (pDelay), pacNotes);
 
 
-  /* get annotations */
-  mxAnnotations = mxGetField(mxDelay, 0, "annotation");
-  nBuflen = (mxGetM(mxAnnotations)*mxGetN(mxAnnotations)+1);
-  pacAnnotations = (char *)mxCalloc(nBuflen, sizeof(char));
-  nStatus = mxGetString(mxAnnotations, pacAnnotations, (mwSize)(nBuflen));
-
-  if (nStatus != 0)
-  {
-    mexErrMsgTxt("Cannot copy annotations");
-  }
-
-  SBase_setAnnotationString((SBase_t *) (pDelay), pacAnnotations); 
-
-
 	/* get metaid */
 	mxMetaid = mxGetField(mxDelay, 0, "metaid");
 	nBuflen = (mxGetM(mxMetaid)*mxGetN(mxMetaid)+1);
@@ -5566,6 +5558,20 @@ GetDelay ( mxArray * mxDelay,
   nSBOTerm = (int)mxGetScalar(mxSBOTerm);
 
   SBase_setSBOTerm((SBase_t *) (pDelay), nSBOTerm);
+
+  /* get annotations */
+  mxAnnotations = mxGetField(mxDelay, 0, "annotation");
+  nBuflen = (mxGetM(mxAnnotations)*mxGetN(mxAnnotations)+1);
+  pacAnnotations = (char *)mxCalloc(nBuflen, sizeof(char));
+  nStatus = mxGetString(mxAnnotations, pacAnnotations, (mwSize)(nBuflen));
+
+  if (nStatus != 0)
+  {
+    mexErrMsgTxt("Cannot copy annotations");
+  }
+
+  SBase_setAnnotationString((SBase_t *) (pDelay), pacAnnotations); 
+
 
   Event_setDelay(sbmlEvent, pDelay);
   
@@ -5630,20 +5636,6 @@ GetPriority ( mxArray * mxPriority,
   SBase_setNotesString((SBase_t *) (pPriority), pacNotes);
 
 
-  /* get annotations */
-  mxAnnotations = mxGetField(mxPriority, 0, "annotation");
-  nBuflen = (mxGetM(mxAnnotations)*mxGetN(mxAnnotations)+1);
-  pacAnnotations = (char *)mxCalloc(nBuflen, sizeof(char));
-  nStatus = mxGetString(mxAnnotations, pacAnnotations, (mwSize)(nBuflen));
-
-  if (nStatus != 0)
-  {
-    mexErrMsgTxt("Cannot copy annotations");
-  }
-
-  SBase_setAnnotationString((SBase_t *) (pPriority), pacAnnotations); 
-
-
 	/* get metaid */
 	mxMetaid = mxGetField(mxPriority, 0, "metaid");
 	nBuflen = (mxGetM(mxMetaid)*mxGetN(mxMetaid)+1);
@@ -5704,6 +5696,20 @@ GetPriority ( mxArray * mxPriority,
   nSBOTerm = (int)mxGetScalar(mxSBOTerm);
 
   SBase_setSBOTerm((SBase_t *) (pPriority), nSBOTerm);
+
+  /* get annotations */
+  mxAnnotations = mxGetField(mxPriority, 0, "annotation");
+  nBuflen = (mxGetM(mxAnnotations)*mxGetN(mxAnnotations)+1);
+  pacAnnotations = (char *)mxCalloc(nBuflen, sizeof(char));
+  nStatus = mxGetString(mxAnnotations, pacAnnotations, (mwSize)(nBuflen));
+
+  if (nStatus != 0)
+  {
+    mexErrMsgTxt("Cannot copy annotations");
+  }
+
+  SBase_setAnnotationString((SBase_t *) (pPriority), pacAnnotations); 
+
 
   Event_setPriority(sbmlEvent, pPriority);
   
