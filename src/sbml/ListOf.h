@@ -320,12 +320,12 @@ public:
   /**
    * Removes all items in this ListOf object.
    *
-   * If @p doDelete is @c true (default), all items in this ListOf object
-   * are deleted and cleared, and thus the caller doesn't have to delete
-   * those items.  Otherwise, all items are just cleared from this ListOf
-   * object and the caller is responsible for deleting all items.  (In that
-   * case, pointers to all items should be stored elsewhere before calling
-   * this function.)
+   * If parameter @p doDelete is @c true (default), all items in this ListOf
+   * object are deleted and cleared, and thus the caller doesn't have to
+   * delete those items.  Otherwise, all items are just cleared from this
+   * ListOf object and the caller is responsible for deleting all items.  (In
+   * that case, pointers to all items should be stored elsewhere before
+   * calling this function.)
    *
    * @param doDelete if @c true (default), all items are deleted and cleared.
    * Otherwise, all items are just cleared and not deleted.

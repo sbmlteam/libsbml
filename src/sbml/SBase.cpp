@@ -64,7 +64,7 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 
 /** @cond doxygen-libsbml-internal */
 
-/**
+/*
  * Used by the Destructor to delete each item in mPlugins.
  */
 struct DeletePluginEntity : public unary_function<SBasePlugin*, void>
@@ -73,7 +73,7 @@ struct DeletePluginEntity : public unary_function<SBasePlugin*, void>
 };
 
 
-/**
+/*
  * Used by the Copy Constructor to clone each item in mPlugins.
  */
 struct ClonePluginEntity : public unary_function<SBasePlugin*, SBasePlugin*>
@@ -4662,7 +4662,7 @@ SBase::storeUnknownExtAttribute(const std::string& element,
 }
 
 
-/**
+/*
  *
  */
 bool
@@ -4707,7 +4707,7 @@ SBase::storeUnknownExtElement(XMLInputStream &stream)
 /** @cond doxygen-libsbml-internal */
 
 
-/**
+/*
  * Returns the prefix of this element.
  */
 std::string 
@@ -4746,7 +4746,7 @@ SBase::getPrefix() const
 }
 
 
-/**
+/*
  * Returns the prefix of this element.
  */
 std::string 
@@ -4768,7 +4768,7 @@ SBase::getSBMLPrefix() const
   return getPrefix();
 }
 
-/**
+/*
  * Returns the root element of this element.
  *
  * @note The root element may not be an SBMLDocument element. For example,
@@ -4829,7 +4829,7 @@ SBase::writeAttributes (XMLOutputStream& stream) const
 }
 
 
-/**
+/*
  *
  * Subclasses should override this method to write their xmlns attriubutes
  * (if any) to the XMLOutputStream.  Be sure to call your parents implementation
@@ -5292,7 +5292,7 @@ SBase::checkOrderAndLogError (SBase* object, int expected)
 
 
 /** @cond doxygen-libsbml-internal */
-/**
+/*
   * Checks that an SBML ListOf element has been populated.  
   * If a listOf element has been declared with no elements, 
   * an error is logged.
@@ -5465,7 +5465,7 @@ SBase::checkDefaultNamespace(const XMLNamespaces* xmlns,
   }
 }
 
-/**
+/*
   * Checks the annotation does not declare an sbml namespace.
   * If the annotation declares an sbml namespace an error is logged.
   */
@@ -5796,7 +5796,7 @@ SBase::setSBaseFields (const XMLToken& element)
 }
 
 
-/**
+/*
  *
  * (Extension)
  *
@@ -5817,7 +5817,7 @@ SBase::setElementNamespace(const std::string &uri)
   return LIBSBML_OPERATION_SUCCESS;
 }
 
-/**
+/*
  * Gets the XML namespace to which this element belongs to.
  */
 const std::string& 

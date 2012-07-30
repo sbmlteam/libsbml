@@ -207,10 +207,10 @@ public:
 
   /**
    * Returns the first child element found that has the given @p id in the
-   * model-wide SId namespace, or @c NULL if no such object is found.
+   * model-wide @c SId namespace, or @c NULL if no such object is found.
    *
    * @param id string representing the "id" attribute value of the object
-   * to find
+   * to find.
    *
    * @return pointer to the first element found with the given identifier.
    */
@@ -218,11 +218,11 @@ public:
   
   
   /**
-   * Returns the first child element it can find with the given @p metaid,
-   * or @c NULL if no such object is found.
+   * Returns the first child element it can find with a specific "metaid"
+   * attribute value, or @c NULL if no such object is found.
    *
    * @param metaid string representing the "metaid" attribute value of the
-   * object to find
+   * object to find.
    *
    * @return pointer to the first element found with the given meta-identifier.
    */
@@ -239,13 +239,13 @@ public:
   
 
   /**
-   * Renames all the SIdRef attributes on this element, including any found
-   * in MathML content (if such exists).
+   * Renames all the @c SIdRef attributes on this element, including any
+   * found in MathML content (if such exists).
    *
    * This method works by looking at all attributes and (if appropriate)
-   * math formulas, comparing the identifiers to the value of @p oldid.  If
-   * any matches are found, the matching identifiers are replaced with @p
-   * newid.  The method does @em not descend into child elements.
+   * mathematical formulas, comparing the identifiers to the value of @p
+   * oldid.  If any matches are found, the matching identifiers are replaced
+   * with @p newid.  The method does @em not descend into child elements.
    *
    * @param oldid the old identifier
    * @param newid the new identifier
@@ -254,7 +254,7 @@ public:
 
 
   /**
-   * Renames all the MetaIdRef attributes on this element.
+   * Renames all the @c MetaIdRef attributes on this element.
    *
    * This method works by looking at all meta-attribute values, comparing
    * the identifiers to the value of @p oldid.  If any matches are found,
@@ -268,13 +268,13 @@ public:
 
 
   /**
-   * Renames all the UnitSIdRef attributes on this element.
+   * Renames all the @c UnitSIdRef attributes on this element.
    *
    * This method works by looking at all unit identifier attribute values
-   * (including, if appropriate, inside math formulas), comparing the unit
-   * identifiers to the value of @p oldid.  If any matches are found, the
-   * matching identifiers are replaced with @p newid.  The method does @em
-   * not descend into child elements.
+   * (including, if appropriate, inside mathematical formulas), comparing the
+   * unit identifiers to the value of @p oldid.  If any matches are found,
+   * the matching identifiers are replaced with @p newid.  The method does
+   * @em not descend into child elements.
    *
    * @param oldid the old identifier
    * @param newid the new identifier
@@ -319,7 +319,7 @@ public:
   /** @cond doxygen-libsbml-internal */
   /**
    * Returns the first child element found that has the given id in the
-   * model-wide SId namespace from all plugins associated with this
+   * model-wide SId namespace from all plug-ins associated with this
    * element, or @c NULL if no such object is found.
    *
    * @param id string representing the id of objects to find
@@ -333,7 +333,7 @@ public:
   /** @cond doxygen-libsbml-internal */
   /**
    * Returns the first child element it can find with the given metaid from
-   * all plugins associated with this element, or @c NULL if no such object
+   * all plug-ins associated with this element, or @c NULL if no such object
    * is found.
    *
    * @param metaid string representing the metaid of objects to find
@@ -367,13 +367,13 @@ public:
 
   /**
    * Returns a List of all child SBase objects contained in SBML package
-   * plugins.
+   * plug-ins.
    *
-   * This method walks down the list of all packages used by the model and
-   * returns all objects contained in them.
+   * This method walks down the list of all packages used by the enclosing
+   * Model and returns all objects contained in them.
    *
    * @return a pointer to a List of pointers to all children objects from
-   * plugins.
+   * plug-ins.
    */
   virtual List* getAllElementsFromPlugins();
   
@@ -396,7 +396,7 @@ public:
    * component for purposes such as referencing that component from
    * metadata placed within "annotation" subelements.
    *  
-   * @return the metaid of this SBML object.
+   * @return the meta-identifier of this SBML object.
    *
    * @see isSetMetaId()
    * @see setMetaId(const std::string& metaid)
@@ -422,7 +422,7 @@ public:
    * component for purposes such as referencing that component from
    * metadata placed within "annotation" subelements.
    *  
-   * @return the metaid of this SBML object, as a string.
+   * @return the meta-identifier of this SBML object, as a string.
    *
    * @see isSetMetaId()
    * @see setMetaId(const std::string& metaid)
@@ -1032,8 +1032,7 @@ public:
 
 
   /**
-   * Predicate returning @c true if this
-   * object's "metaid" attribute is set.
+   * Predicate returning @c true if this object's "metaid" attribute is set.
    *
    * The optional attribute named "metaid", present on every major SBML
    * component type, is for supporting metadata annotations using RDF
@@ -1553,8 +1552,8 @@ public:
 
 
   /**
-   * Removes the top-level element within the "annotation" 
-   * subelement of this SBML object with the given name and optional URI.
+   * Removes the top-level element within the "annotation" subelement of this
+   * SBML object with the given name and optional URI.
    *
    * SBML places a few restrictions on the organization of the content of
    * annotations; these are intended to help software tools read and write
@@ -2575,58 +2574,58 @@ s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></b
   // ------------------------------------------------------------------
 
   /**
-   * Returns a plugin object (extension interface) for an SBML Level&nbsp;3
+   * Returns a plug-in object (extension interface) for an SBML Level&nbsp;3
    * package extension with the given package name or URI.
    *
    * @param package the name or URI of the package
    *
-   * @return the plugin object (the libSBML extension interface) of
+   * @return the plug-in object (the libSBML extension interface) of
    * a package extension with the given package name or URI.
    */
   SBasePlugin* getPlugin(const std::string& package);
 
 
   /**
-   * Returns a plugin object (extension interface) for an SBML Level&nbsp;3
+   * Returns a plug-in object (extension interface) for an SBML Level&nbsp;3
    * package extension with the given package name or URI.
    *
    * @param package the name or URI of the package
    *
-   * @return the plugin object (the libSBML extension interface) of a
+   * @return the plug-in object (the libSBML extension interface) of a
    * package extension with the given package name or URI.
    */
   const SBasePlugin* getPlugin(const std::string& package) const;
 
 
   /**
-   * Returns the nth plugin object (extension interface) for an SBML Level&nbsp;3
+   * Returns the nth plug-in object (extension interface) for an SBML Level&nbsp;3
    * package extension.
    *
-   * @param n the index of the plugin to return
+   * @param n the index of the plug-in to return
    *
-   * @return the plugin object (the libSBML extension interface) of
+   * @return the plug-in object (the libSBML extension interface) of
    * a package extension with the given package name or URI.
    */
   SBasePlugin* getPlugin(unsigned int n);
 
 
   /**
-   * Returns the nth plugin object (extension interface) for an SBML Level&nbsp;3
+   * Returns the nth plug-in object (extension interface) for an SBML Level&nbsp;3
    * package extension.
    *
-   * @param n the index of the plugin to return
+   * @param n the index of the plug-in to return
    *
-   * @return the plugin object (the libSBML extension interface) of a
+   * @return the plug-in object (the libSBML extension interface) of a
    * package extension with the given package name or URI.
    */
   const SBasePlugin* getPlugin(unsigned int n) const;
 
 
   /**
-   * Returns the number of plugin objects (extenstion interfaces) for SBML
+   * Returns the number of plug-in objects (extenstion interfaces) for SBML
    * Level&nbsp;3 package extensions known.
    *
-   * @return the number of plugin objects (extension interfaces) of
+   * @return the number of plug-in objects (extension interfaces) of
    * package extensions known by this instance of libSBML.
    */
   unsigned int getNumPlugins() const;

@@ -1243,13 +1243,16 @@ public:
 
 
   /**
-   * Set/Unset default namespace (i.e. add xmlns="..." attribute) to
-   * each top level element defined in the given package extension.
-   * No prefix will be written when writing elements defined in the
-   * given package extension if "true" is given as second argument.
+   * Set/unset default namespace to each top-level element defined in the
+   * given package extension.
+   *
+   * This works by adding a <code>xmlns=&quot;...&quot;</code> attribute.  No
+   * prefix will be written when writing elements defined in the given
+   * package extension if @c true is given as second argument.
    *
    * @param package the name or URI of the package extension.
-   * @param flag bool value
+   * @param flag boolean value to indicate whether to write a namespace
+   * prefix.
    *
    * @return integer value indicating success/failure of the
    * function.  @if clike The value is drawn from the
@@ -1262,9 +1265,12 @@ public:
 
 
   /**
-   * Returns @c true if a default namespace (i.e. add xmlns="..." attribute) 
-   * is added to each top level element defined in the given package extension,
-   * otherwise returns @c false.
+   * Returns @c true if a default namespace is added to each top-level
+   * element defined in the given package extension, otherwise returns
+   * @c false.
+   *
+   * This basically checks if the attribute
+   * <code>xmlns=&quot;...&quot;</code> is present.
    *   
    * @param package the name or URI of the package extension.
    *
@@ -1274,13 +1280,14 @@ public:
 
   
   /**
-   * Sets the required attribute of the given package extension.
+   * Sets the <code>required</code> attribute value of the given package
+   * extension.
    *
-   * @note the name of package must not be given if the package is
-   *       not enabled.
+   * @note The name of package must not be given if the package is not
+   * enabled.
    *
    * @param package the name or URI of the package extension.
-   * @param flag bool value
+   * @param flag Boolean value indicating whether the package is required.
    *
    * @return integer value indicating success/failure of the
    * function.  @if clike The value is drawn from the
@@ -1293,53 +1300,58 @@ public:
 
 
   /**
-   * Returnes the required attribute of the given package extension.
+   * Returns the <code>required</code> attribute of the given package
+   * extension.
    *
-   * @note the name of package must not be given if the package is
-   *       not enabled.
+   * @note The name of package must not be given if the package is not
+   * enabled.
    *
    * @param package the name or URI of the package extension.
    *
-   * @return boolean flag indicating whether the package is flagged as
+   * @return Boolean flag indicating whether the package is flagged as
    * being required.
    */
   bool getPackageRequired(const std::string& package);
 
 
   /**
-   * Returnes @c true if the required attribute of the given package extension
+   * Returns @c true if the required attribute of the given package extension
    * is defined, otherwise returns @c false.
    *
-   * @note the name of package must not be given if the package is
-   *       not enabled.
+   * @note The name of package must not be given if the package is not
+   * enabled.
    *
    * @param package the name or URI of the package extension.
    *
-   * @return a boolean
+   * @return a Boolean
    */
   bool isSetPackageRequired(const std::string& package);
 
 
   /**
-   * Returnes @c true if the given package extension is one of ignored
-   * packages (i.e. the package is defined in this document but the package
-   * is not available), otherwise returns @c false.
+   * Returns @c true if the given package extension is one of an ignored
+   * packages, otherwise returns @c false.
+   *
+   * An ignored package is one that is defined to be used in this SBML
+   * document, but the package is not enabled in this copy of libSBML.
    *
    * @param pkgURI the URI of the package extension.
    *
-   * @return a boolean
+   * @return a Boolean, @c true if the package is being ignored and
+   * @c false otherwise.
    */
   bool isIgnoredPackage(const std::string& pkgURI);
   
   
   /**
-   * Sets the required attribute of the given package extension.
+   * Sets the value of the <code>required</code> attribute for the given
+   * package.
    *
-   * @note the name of package must not be given if the package is
-   *       not enabled.
+   * @note The name of package must not be given if the package is not
+   * enabled.
    *
    * @param package the name or URI of the package extension.
-   * @param flag bool value
+   * @param flag a Boolean value.
    *
    * @return integer value indicating success/failure of the
    * function.  @if clike The value is drawn from the
@@ -1355,15 +1367,16 @@ public:
 
 
   /**
-   * Returnes the required attribute of the given package extension.
+   * Returns the <code>required</code> attribute of the given package
+   * extension.
    *
-   * @note the name of package must not be given if the package is
-   *       not enabled.
+   * @note The name of package must not be given if the package is not
+   * enabled.
    *
    * @param package the name or URI of the package extension.
    *
-   * @return boolean flag indicating whether the package is flagged as
-   * being required.
+   * @return a Boolean value indicating whether the package is flagged as
+   * being required in this SBML document.
    *
    * @deprecated Replaced in libSBML 5.2.0 by
    * getPackageRequired(@if java String package flag@endif)
@@ -1372,15 +1385,15 @@ public:
 
 
   /**
-   * Returnes @c true if the required attribute of the given package extension
+   * Returns @c true if the required attribute of the given package extension
    * is defined, otherwise returns @c false.
    *
-   * @note the name of package must not be given if the package is
-   *       not enabled.
+   * @note The name of package must not be given if the package is not
+   * enabled.
    *
    * @param package the name or URI of the package extension.
    *
-   * @return a boolean
+   * @return a Boolean value.
    *
    * @deprecated Replaced in libSBML 5.2.0 by
    * isSetPackageRequired(@if java String package flag@endif)
@@ -1389,9 +1402,11 @@ public:
 
 
   /**
-   * Returnes @c true if the given package extension is one of ignored
-   * packages (i.e. the package is defined in this document but the package
-   * is not available), otherwise returns @c false.
+   * Returns @c true if the given package extension is one of ignored
+   * packages, otherwise returns @c false.
+   *
+   * An ignored package is one that is defined to be used in this SBML
+   * document, but the package is not enabled in this copy of libSBML.
    *
    * @param pkgURI the URI of the package extension.
    *
@@ -1401,7 +1416,7 @@ public:
    * isIgnoredPackage(@if java String pkgURI flag@endif)
    */
   bool isIgnoredPkg(const std::string& pkgURI);
-  
+
 
   /** @cond doxygen-libsbml-internal */
   /**

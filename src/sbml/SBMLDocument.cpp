@@ -708,7 +708,7 @@ SBMLDocument::checkConsistency ()
   return numErrors;
 }
 
-/**
+/*
  * Performs consistency checking and validation on this SBML document.
  *
  * If this method returns a nonzero value (meaning, one or more
@@ -997,7 +997,7 @@ SBMLDocument::createObject (XMLInputStream& stream)
 /** @endcond */
 
 
-/**
+/*
   * @return the Namespaces associated with this SBML object
   */
 XMLNamespaces* 
@@ -1194,7 +1194,7 @@ SBMLDocument::isSetPkgRequired(const std::string& package)
   return isSetPackageRequired(package);
 }
 
-/**
+/*
  * Returnes @c true if the given package extension is one of ignored
  * packages (i.e. the package is defined in this document but the package
  * is not available), otherwise returns @c false.
@@ -1216,7 +1216,7 @@ SBMLDocument::isIgnoredPkg(const std::string& pkgURI)
 
 /** @cond doxygen-libsbml-internal */
 
-/**
+/*
  * Subclasses should override this method to get the list of
  * expected attributes.
  * This function is invoked from corresponding readAttributes()
@@ -1603,7 +1603,7 @@ SBMLDocument::writeAttributes (XMLOutputStream& stream) const
 }
 
 
-/**
+/*
  *
  * Subclasses should override this method to write their xmlns attriubutes
  * (if any) to the XMLOutputStream.  Be sure to call your parents implementation
@@ -1688,7 +1688,7 @@ SBMLDocument::writeElements (XMLOutputStream& stream) const
 }
 
 
-/**
+/*
  * Enables/Disables the given package with this element and child
  * elements (if any).
  * (This is an internal implementation for enablePackage function)
