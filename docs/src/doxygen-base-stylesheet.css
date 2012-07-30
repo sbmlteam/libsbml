@@ -183,7 +183,7 @@ pre.fragment {
     font-weight: bold;
     border: 1px solid orange;
     background-color: #f0f0f0;
-    color: #222;
+    color: black;
     padding: 5px;
     padding-top: 6px;
     margin: 15px;
@@ -203,6 +203,7 @@ pre.fragment {
 div.line {
 	font-family: monospace, fixed;
         font-size: 13px;
+        font-weight: bold;
 	min-height: 13px;
 	line-height: 1.0;
 	text-wrap: unrestricted;
@@ -215,6 +216,7 @@ div.line {
 	padding-left: 53px;
 	padding-bottom: 0px;
 	margin: 0px;
+        margin-left: 2em;
 	-webkit-transition-property: background-color, box-shadow;
 	-webkit-transition-duration: 0.5s;
 	-moz-transition-property: background-color, box-shadow;
