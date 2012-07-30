@@ -4,10 +4,10 @@
 	    Sarah Keating, Akiya Jouraku, Frank Bergmann,
 		   Ben Bornstein and Michael Hucka
 	   with contributions from (in alphabetical order):
-     Bill Denney, Christoph Flamm, Akira Funahashi, Ralph Gauges,
-   Martin Ginkel, Alex Gutteridge, Stefan Hoops, Moriyoshi Koizumi,
-     Ben Kovitz, Rainer Machne, Nicolas Rodriguez, Lucian Smith,
-			   and many others.
+     Gordon Ball, Bill Denney, Christoph Flamm, Akira Funahashi,
+     Ralph Gauges, Martin Ginkel, Alex Gutteridge, Stefan Hoops,
+    Totte Karlsson, Moriyoshi Koizumi, Ben Kovitz, Rainer Machne,
+          Nicolas Rodriguez, Lucian Smith, and many others.
 
   Please see the file NEWS.txt for a log of recent changes in libSBML
 
