@@ -2479,6 +2479,7 @@ ASTNodeType_t L3Parser::getFunctionFor(string name) const
   if (caselessStrCmp(name, "exp"))      return AST_FUNCTION_EXP;
   if (caselessStrCmp(name, "factorial")) return AST_FUNCTION_FACTORIAL;
   if (caselessStrCmp(name, "floor"))    return AST_FUNCTION_FLOOR;
+  if (caselessStrCmp(name, "lambda"))   return AST_LAMBDA;
   if (caselessStrCmp(name, "log"))      return AST_FUNCTION_LOG;
   if (caselessStrCmp(name, "ln"))       return AST_FUNCTION_LN;
   if (caselessStrCmp(name, "log10"))    return AST_FUNCTION_LOG;
@@ -2747,6 +2748,7 @@ bool L3Parser::checkNumArguments(const ASTNode* function)
     return false;
 
   case AST_FUNCTION_PIECEWISE:
+  case AST_LAMBDA:
     if (children == 0) {
       error << "at least one argument, but none were found.";
       l3p->setError(error.str());

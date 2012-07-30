@@ -2046,6 +2046,116 @@ START_TEST (test_SBML_parseL3Formula_wrongnum2)
 END_TEST
 
 
+START_TEST (test_SBML_parseL3Formula_lambda1)
+{
+  ASTNode_t *r = SBML_parseL3Formula("lambda(3.3)");
+
+  fail_unless( ASTNode_getType       (r) == AST_LAMBDA, NULL );
+  fail_unless( ASTNode_getNumChildren(r) == 1  , NULL );
+
+  ASTNode_t *c = ASTNode_getLeftChild(r);
+
+  fail_unless( ASTNode_getType       (c) == AST_REAL, NULL );
+  fail_unless( ASTNode_getReal       (c) == 3.3, NULL );
+  fail_unless( ASTNode_getNumChildren(c) == 0, NULL );
+
+  ASTNode_free(r);
+}
+END_TEST
+
+
+START_TEST (test_SBML_parseL3Formula_lambda2)
+{
+  ASTNode_t *r = SBML_parseL3Formula("lambda(x,x^3)");
+  ASTNode_t *c;
+
+
+  fail_unless( ASTNode_getType(r) == AST_LAMBDA , NULL );
+  fail_unless( ASTNode_getNumChildren(r) == 2     , NULL );
+
+  c = ASTNode_getLeftChild(r);
+
+  fail_unless( ASTNode_getType       (c) == AST_NAME, NULL );
+  fail_unless( !strcmp(ASTNode_getName(c), "x") , NULL );
+  fail_unless( ASTNode_getNumChildren(c) == 0     , NULL );
+
+  c = ASTNode_getRightChild(r);
+
+  fail_unless( ASTNode_getType       (c) == AST_POWER, NULL );
+  fail_unless( ASTNode_getNumChildren(c) == 2     , NULL );
+
+  c = ASTNode_getLeftChild(c);
+
+  fail_unless( ASTNode_getType       (c) == AST_NAME, NULL );
+  fail_unless( !strcmp(ASTNode_getName(c), "x") , NULL );
+  fail_unless( ASTNode_getNumChildren(c) == 0     , NULL );
+
+  c = ASTNode_getRightChild(r->getRightChild());
+
+  fail_unless( ASTNode_getType       (c) == AST_INTEGER, NULL );
+  fail_unless( ASTNode_getInteger    (c) == 3, NULL );
+  fail_unless( ASTNode_getNumChildren(c) == 0, NULL );
+
+
+  ASTNode_free(r);
+}
+END_TEST
+
+
+START_TEST (test_SBML_parseL3Formula_lambda3)
+{
+  ASTNode_t *r = SBML_parseL3Formula("lambda(x, y, x+y)");
+  ASTNode_t *c;
+
+
+  fail_unless( ASTNode_getType(r) == AST_LAMBDA , NULL );
+  fail_unless( ASTNode_getNumChildren(r) == 3     , NULL );
+
+  c = ASTNode_getChild(r, 0);
+
+  fail_unless( ASTNode_getType       (c) == AST_NAME, NULL );
+  fail_unless( !strcmp(ASTNode_getName(c), "x") , NULL );
+  fail_unless( ASTNode_getNumChildren(c) == 0     , NULL );
+
+  c = ASTNode_getChild(r, 1);
+
+  fail_unless( ASTNode_getType       (c) == AST_NAME, NULL );
+  fail_unless( !strcmp(ASTNode_getName(c), "y") , NULL );
+  fail_unless( ASTNode_getNumChildren(c) == 0     , NULL );
+
+  c = ASTNode_getChild(r, 2);
+
+  fail_unless( ASTNode_getType       (c) == AST_PLUS, NULL );
+  fail_unless( ASTNode_getNumChildren(c) == 2     , NULL );
+
+  c = ASTNode_getLeftChild(c);
+
+  fail_unless( ASTNode_getType       (c) == AST_NAME, NULL );
+  fail_unless( !strcmp(ASTNode_getName(c), "x") , NULL );
+  fail_unless( ASTNode_getNumChildren(c) == 0     , NULL );
+
+  c = ASTNode_getRightChild(r->getChild(2));
+
+  fail_unless( ASTNode_getType       (c) == AST_NAME, NULL );
+  fail_unless( !strcmp(ASTNode_getName(c), "y") , NULL );
+  fail_unless( ASTNode_getNumChildren(c) == 0, NULL );
+
+
+  ASTNode_free(r);
+}
+END_TEST
+
+
+START_TEST (test_SBML_parseL3Formula_lambdaerr)
+{
+  ASTNode_t *r = SBML_parseL3Formula("lambda()");
+
+  fail_unless(r == NULL, NULL);
+  fail_unless( !strcmp(SBML_getLastParseL3Error(), "Error when parsing input 'lambda()' at position 8:  The function 'lambda' takes at least one argument, but none were found."), NULL);
+}
+END_TEST
+
+
 Suite *
 create_suite_L3FormulaParser (void) 
 { 
@@ -2136,6 +2246,10 @@ create_suite_L3FormulaParser (void)
   tcase_add_test( tcase, test_SBML_parseL3Formula_crazylongerg);
   tcase_add_test( tcase, test_SBML_parseL3Formula_wrongnum);
   tcase_add_test( tcase, test_SBML_parseL3Formula_wrongnum2);
+  tcase_add_test( tcase, test_SBML_parseL3Formula_lambda1);
+  tcase_add_test( tcase, test_SBML_parseL3Formula_lambda2);
+  tcase_add_test( tcase, test_SBML_parseL3Formula_lambda3);
+  tcase_add_test( tcase, test_SBML_parseL3Formula_lambdaerr);
   suite_add_tcase(suite, tcase);
 
   return suite;
