@@ -9,7 +9,7 @@ STABLE RELEASE
 
 * New features
 
-  - libSBML now includes a binding to R (The R Project for Statistical
+  - LibSBML now includes a binding to R (The R Project for Statistical
     Computing). The binding is generated using SWIG and thus can be 
     built by users. Alternatively, the libSBML-5.6.0 release provides
     R packages that can be installed directly into R.
@@ -48,8 +48,8 @@ STABLE RELEASE
     environment i.e. model->getSpecies(0)->getId() can be replaced
     with model.species[0].id. This patch is limited to Python 2 versions
     at present. It does not adversely effact existing functions for 
-    either Python 2 or Python 3.  Many thanks to Gordon Ball, 
-    Computational Medicine, Karolinska Institute for creating and
+    either Python 2 or Python 3.  Many thanks to Gordon Ball 
+    (Computational Medicine, Karolinska Institute) for creating and
     sharing this patch.
 
 * Bug fixes
@@ -104,23 +104,23 @@ EXPERIMENTAL RELEASE
 
 * New features
 
-  - The Qualitative Modelling package "qual" is now supported. 
+  - The Qualitative Modeling package "qual" is now supported. 
   
   - The R binding is available for all packages.
 
-  - Groups
+  - 'Groups' package:
     
     - At HARMONY it was agreed that the 'group' element needed an
       additional attribute 'kind'. This has been added.
 
-  - Spatial
+  - 'Spatial' package:
 
     - There was an issue with the encoding of image data for the
       spatial package. This has been solved by providing a function
       that will uncompress the data and return it to the user in a
       usable form.
 
-  - Comp
+  - 'Comp' package:
 
     - Instantiated Model objects in Submodels now are set to have that
       Submodel as their parent.  The SBMLDocument is still set to the
