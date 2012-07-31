@@ -166,3 +166,11 @@ class AutoProperty(type):
 }
 
 
+%extend SBasePlugin
+{
+    %pythoncode
+    {
+        __metaclass__ = AutoProperty
+    }
+}
+
