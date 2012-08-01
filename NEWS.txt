@@ -5,6 +5,15 @@
 Version 5.6.0 (2012-08-03)
 ====================================================================
 
+A note on the use of SWIG:
+ 
+All aspects of libSBML-5.6.0 requiring SWIG are known to work with
+SWIG version 2.0.4.  Issues with later versions have been found 
+with respect to some areas of a libSBML build.  These will be
+addressed in future releases but for libSBML-5.6.0 we recommend
+the use of SWIG 2.0.4.
+
+
 STABLE RELEASE
 
 * New features
@@ -82,6 +91,7 @@ STABLE RELEASE
     the problem and supplying a fix.
  
 * Configuration/build system changes
+
 
   - As SBML Level 3 packages and their code become available, there is
     a increasing number of possibilities in the matrix of what a
