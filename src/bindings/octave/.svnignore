@@ -11,6 +11,7 @@ TranslateSBML.m
 .deps
 Makefile
 TranslateSBML.mex
+OutputSBML.mex
 .libs
 isoctave.m
 mexopts-R2007.sh
