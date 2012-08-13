@@ -26372,25 +26372,33 @@ if test "$enable_layout" != "no" ; then
 fi
 
 if test -d dev; then
-  ac_config_files="$ac_config_files dev/misc-files/readmes-for-downloads/README.txt"
+  ac_config_files="$ac_config_files dev/misc-files/readmes-for-downloads-new-dir-struct/README.txt"
 
-  ac_config_files="$ac_config_files dev/misc-files/readmes-for-downloads/macos/README.txt"
+  ac_config_files="$ac_config_files dev/misc-files/readmes-for-downloads-new-dir-struct/experimental/README.txt"
 
-  ac_config_files="$ac_config_files dev/misc-files/readmes-for-downloads/windows/README.txt"
+  ac_config_files="$ac_config_files dev/misc-files/readmes-for-downloads-new-dir-struct/experimental/binaries/README.txt"
 
-  ac_config_files="$ac_config_files dev/misc-files/readmes-for-downloads/windows/64-bit/README.txt"
+  ac_config_files="$ac_config_files dev/misc-files/readmes-for-downloads-new-dir-struct/experimental/src/README.txt"
 
-  ac_config_files="$ac_config_files dev/misc-files/readmes-for-downloads/windows/64-bit/python/README.txt"
+  ac_config_files="$ac_config_files dev/misc-files/readmes-for-downloads-new-dir-struct/stable/README.txt"
 
-  ac_config_files="$ac_config_files dev/misc-files/readmes-for-downloads/windows/32-bit/README.txt"
+  ac_config_files="$ac_config_files dev/misc-files/readmes-for-downloads-new-dir-struct/stable/linux/32-bit/README.txt"
 
-  ac_config_files="$ac_config_files dev/misc-files/readmes-for-downloads/windows/32-bit/python/README.txt"
+  ac_config_files="$ac_config_files dev/misc-files/readmes-for-downloads-new-dir-struct/stable/linux/64-bit/README.txt"
 
-  ac_config_files="$ac_config_files dev/misc-files/readmes-for-downloads/linux/README.txt"
+  ac_config_files="$ac_config_files dev/misc-files/readmes-for-downloads-new-dir-struct/stable/linux/README.txt"
 
-  ac_config_files="$ac_config_files dev/misc-files/readmes-for-downloads/linux/64-bit/README.txt"
+  ac_config_files="$ac_config_files dev/misc-files/readmes-for-downloads-new-dir-struct/stable/macos/README.txt"
 
-  ac_config_files="$ac_config_files dev/misc-files/readmes-for-downloads/linux/32-bit/README.txt"
+  ac_config_files="$ac_config_files dev/misc-files/readmes-for-downloads-new-dir-struct/stable/windows/32-bit/README.txt"
+
+  ac_config_files="$ac_config_files dev/misc-files/readmes-for-downloads-new-dir-struct/stable/windows/32-bit/python/README.txt"
+
+  ac_config_files="$ac_config_files dev/misc-files/readmes-for-downloads-new-dir-struct/stable/windows/64-bit/README.txt"
+
+  ac_config_files="$ac_config_files dev/misc-files/readmes-for-downloads-new-dir-struct/stable/windows/64-bit/python/README.txt"
+
+  ac_config_files="$ac_config_files dev/misc-files/readmes-for-downloads-new-dir-struct/stable/windows/README.txt"
 
 fi
 
@@ -27244,16 +27252,20 @@ do
     "examples/java/Makefile") CONFIG_FILES="$CONFIG_FILES examples/java/Makefile" ;;
     "examples/csharp/Makefile") CONFIG_FILES="$CONFIG_FILES examples/csharp/Makefile" ;;
     "examples/layout/Makefile") CONFIG_FILES="$CONFIG_FILES examples/layout/Makefile" ;;
-    "dev/misc-files/readmes-for-downloads/README.txt") CONFIG_FILES="$CONFIG_FILES dev/misc-files/readmes-for-downloads/README.txt" ;;
-    "dev/misc-files/readmes-for-downloads/macos/README.txt") CONFIG_FILES="$CONFIG_FILES dev/misc-files/readmes-for-downloads/macos/README.txt" ;;
-    "dev/misc-files/readmes-for-downloads/windows/README.txt") CONFIG_FILES="$CONFIG_FILES dev/misc-files/readmes-for-downloads/windows/README.txt" ;;
-    "dev/misc-files/readmes-for-downloads/windows/64-bit/README.txt") CONFIG_FILES="$CONFIG_FILES dev/misc-files/readmes-for-downloads/windows/64-bit/README.txt" ;;
-    "dev/misc-files/readmes-for-downloads/windows/64-bit/python/README.txt") CONFIG_FILES="$CONFIG_FILES dev/misc-files/readmes-for-downloads/windows/64-bit/python/README.txt" ;;
-    "dev/misc-files/readmes-for-downloads/windows/32-bit/README.txt") CONFIG_FILES="$CONFIG_FILES dev/misc-files/readmes-for-downloads/windows/32-bit/README.txt" ;;
-    "dev/misc-files/readmes-for-downloads/windows/32-bit/python/README.txt") CONFIG_FILES="$CONFIG_FILES dev/misc-files/readmes-for-downloads/windows/32-bit/python/README.txt" ;;
-    "dev/misc-files/readmes-for-downloads/linux/README.txt") CONFIG_FILES="$CONFIG_FILES dev/misc-files/readmes-for-downloads/linux/README.txt" ;;
-    "dev/misc-files/readmes-for-downloads/linux/64-bit/README.txt") CONFIG_FILES="$CONFIG_FILES dev/misc-files/readmes-for-downloads/linux/64-bit/README.txt" ;;
-    "dev/misc-files/readmes-for-downloads/linux/32-bit/README.txt") CONFIG_FILES="$CONFIG_FILES dev/misc-files/readmes-for-downloads/linux/32-bit/README.txt" ;;
+    "dev/misc-files/readmes-for-downloads-new-dir-struct/README.txt") CONFIG_FILES="$CONFIG_FILES dev/misc-files/readmes-for-downloads-new-dir-struct/README.txt" ;;
+    "dev/misc-files/readmes-for-downloads-new-dir-struct/experimental/README.txt") CONFIG_FILES="$CONFIG_FILES dev/misc-files/readmes-for-downloads-new-dir-struct/experimental/README.txt" ;;
+    "dev/misc-files/readmes-for-downloads-new-dir-struct/experimental/binaries/README.txt") CONFIG_FILES="$CONFIG_FILES dev/misc-files/readmes-for-downloads-new-dir-struct/experimental/binaries/README.txt" ;;
+    "dev/misc-files/readmes-for-downloads-new-dir-struct/experimental/src/README.txt") CONFIG_FILES="$CONFIG_FILES dev/misc-files/readmes-for-downloads-new-dir-struct/experimental/src/README.txt" ;;
+    "dev/misc-files/readmes-for-downloads-new-dir-struct/stable/README.txt") CONFIG_FILES="$CONFIG_FILES dev/misc-files/readmes-for-downloads-new-dir-struct/stable/README.txt" ;;
+    "dev/misc-files/readmes-for-downloads-new-dir-struct/stable/linux/32-bit/README.txt") CONFIG_FILES="$CONFIG_FILES dev/misc-files/readmes-for-downloads-new-dir-struct/stable/linux/32-bit/README.txt" ;;
+    "dev/misc-files/readmes-for-downloads-new-dir-struct/stable/linux/64-bit/README.txt") CONFIG_FILES="$CONFIG_FILES dev/misc-files/readmes-for-downloads-new-dir-struct/stable/linux/64-bit/README.txt" ;;
+    "dev/misc-files/readmes-for-downloads-new-dir-struct/stable/linux/README.txt") CONFIG_FILES="$CONFIG_FILES dev/misc-files/readmes-for-downloads-new-dir-struct/stable/linux/README.txt" ;;
+    "dev/misc-files/readmes-for-downloads-new-dir-struct/stable/macos/README.txt") CONFIG_FILES="$CONFIG_FILES dev/misc-files/readmes-for-downloads-new-dir-struct/stable/macos/README.txt" ;;
+    "dev/misc-files/readmes-for-downloads-new-dir-struct/stable/windows/32-bit/README.txt") CONFIG_FILES="$CONFIG_FILES dev/misc-files/readmes-for-downloads-new-dir-struct/stable/windows/32-bit/README.txt" ;;
+    "dev/misc-files/readmes-for-downloads-new-dir-struct/stable/windows/32-bit/python/README.txt") CONFIG_FILES="$CONFIG_FILES dev/misc-files/readmes-for-downloads-new-dir-struct/stable/windows/32-bit/python/README.txt" ;;
+    "dev/misc-files/readmes-for-downloads-new-dir-struct/stable/windows/64-bit/README.txt") CONFIG_FILES="$CONFIG_FILES dev/misc-files/readmes-for-downloads-new-dir-struct/stable/windows/64-bit/README.txt" ;;
+    "dev/misc-files/readmes-for-downloads-new-dir-struct/stable/windows/64-bit/python/README.txt") CONFIG_FILES="$CONFIG_FILES dev/misc-files/readmes-for-downloads-new-dir-struct/stable/windows/64-bit/python/README.txt" ;;
+    "dev/misc-files/readmes-for-downloads-new-dir-struct/stable/windows/README.txt") CONFIG_FILES="$CONFIG_FILES dev/misc-files/readmes-for-downloads-new-dir-struct/stable/windows/README.txt" ;;
     "src/sbml/extension/RegisterExtensions.h") CONFIG_FILES="$CONFIG_FILES src/sbml/extension/RegisterExtensions.h" ;;
     "src/sbml/extension/RegisterExtensions.cxx") CONFIG_FILES="$CONFIG_FILES src/sbml/extension/RegisterExtensions.cxx" ;;
     "src/bindings/csharp/local-downcast-extension.i") CONFIG_FILES="$CONFIG_FILES src/bindings/csharp/local-downcast-extension.i" ;;

@@ -404,16 +404,20 @@ if test "$enable_layout" != "no" ; then
 fi
 
 if test -d dev; then
-  AC_CONFIG_FILES([dev/misc-files/readmes-for-downloads/README.txt])
-  AC_CONFIG_FILES([dev/misc-files/readmes-for-downloads/macos/README.txt])
-  AC_CONFIG_FILES([dev/misc-files/readmes-for-downloads/windows/README.txt])
-  AC_CONFIG_FILES([dev/misc-files/readmes-for-downloads/windows/64-bit/README.txt])
-  AC_CONFIG_FILES([dev/misc-files/readmes-for-downloads/windows/64-bit/python/README.txt])
-  AC_CONFIG_FILES([dev/misc-files/readmes-for-downloads/windows/32-bit/README.txt])
-  AC_CONFIG_FILES([dev/misc-files/readmes-for-downloads/windows/32-bit/python/README.txt])
-  AC_CONFIG_FILES([dev/misc-files/readmes-for-downloads/linux/README.txt])
-  AC_CONFIG_FILES([dev/misc-files/readmes-for-downloads/linux/64-bit/README.txt])
-  AC_CONFIG_FILES([dev/misc-files/readmes-for-downloads/linux/32-bit/README.txt])
+  AC_CONFIG_FILES([dev/misc-files/readmes-for-downloads-new-dir-struct/README.txt])
+  AC_CONFIG_FILES([dev/misc-files/readmes-for-downloads-new-dir-struct/experimental/README.txt])
+  AC_CONFIG_FILES([dev/misc-files/readmes-for-downloads-new-dir-struct/experimental/binaries/README.txt])
+  AC_CONFIG_FILES([dev/misc-files/readmes-for-downloads-new-dir-struct/experimental/src/README.txt])
+  AC_CONFIG_FILES([dev/misc-files/readmes-for-downloads-new-dir-struct/stable/README.txt])
+  AC_CONFIG_FILES([dev/misc-files/readmes-for-downloads-new-dir-struct/stable/linux/32-bit/README.txt])
+  AC_CONFIG_FILES([dev/misc-files/readmes-for-downloads-new-dir-struct/stable/linux/64-bit/README.txt])
+  AC_CONFIG_FILES([dev/misc-files/readmes-for-downloads-new-dir-struct/stable/linux/README.txt])
+  AC_CONFIG_FILES([dev/misc-files/readmes-for-downloads-new-dir-struct/stable/macos/README.txt])
+  AC_CONFIG_FILES([dev/misc-files/readmes-for-downloads-new-dir-struct/stable/windows/32-bit/README.txt])
+  AC_CONFIG_FILES([dev/misc-files/readmes-for-downloads-new-dir-struct/stable/windows/32-bit/python/README.txt])
+  AC_CONFIG_FILES([dev/misc-files/readmes-for-downloads-new-dir-struct/stable/windows/64-bit/README.txt])
+  AC_CONFIG_FILES([dev/misc-files/readmes-for-downloads-new-dir-struct/stable/windows/64-bit/python/README.txt])
+  AC_CONFIG_FILES([dev/misc-files/readmes-for-downloads-new-dir-struct/stable/windows/README.txt])
 fi
 
 dnl ---------------------------------------------------------------------------
