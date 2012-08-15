@@ -697,6 +697,47 @@ Layout::getAdditionalGraphicalObject (unsigned int index) const
   );
 }
 
+/**
+ * Returns the GeneralGlyph with the given index.
+ * If the index is invalid, NULL is returned.
+ */
+GeneralGlyph*
+Layout::getGeneralGlyph (unsigned int index)
+{
+  unsigned int count = 0;
+  for (unsigned int i = 0; i < this->mAdditionalGraphicalObjects.size(); ++i)
+  {
+    if (mAdditionalGraphicalObjects.get(i)->getTypeCode() == SBML_LAYOUT_GENERALGLYPH)
+    {
+      if (count == index)
+        return static_cast<GeneralGlyph*>(mAdditionalGraphicalObjects.get(i));
+      ++count;
+    }
+  }
+  return NULL;
+}
+
+/**
+ * Returns the GeneralGlyph with the given index.
+ * If the index is invalid, NULL is returned.
+ */
+const GeneralGlyph*
+Layout::getGeneralGlyph (unsigned int index) const
+{
+  unsigned int count = 0;
+  for (unsigned int i = 0; i < this->mAdditionalGraphicalObjects.size(); ++i)
+  {
+    if (mAdditionalGraphicalObjects.get(i)->getTypeCode() == SBML_LAYOUT_GENERALGLYPH)
+    {
+      if (count == index)
+        return static_cast<const GeneralGlyph*>(mAdditionalGraphicalObjects.get(i));
+      ++count;
+    }
+  }
+  return NULL;
+
+}
+
 
 const GraphicalObject*
 Layout::getObjectWithId (const ListOf* list,const std::string& id) const
@@ -986,8 +1027,28 @@ Layout::getTextGlyph (const std::string& id)
 
 
 /**
+ * Returns the GeneralGlyph that has the given id, or NULL
+ * if no general glyph has the id.
+ */
+const GeneralGlyph*
+Layout::getGeneralGlyph (const std::string& id) const
+{
+  return static_cast<const GeneralGlyph*>(this->getObjectWithId(&this->mAdditionalGraphicalObjects, id));
+}
+
+/**
+ * Returns the GeneralGlyph that has the given id, or NULL
+ * if no general glyph has the id.
+ */
+GeneralGlyph*
+Layout::getGeneralGlyph (const std::string& id)
+{
+  return static_cast<GeneralGlyph*>(this->getObjectWithId(&this->mAdditionalGraphicalObjects, id));
+}
+
+/**
  * Returns the additional graphicalo object that has the given id, or NULL
- * if no compartment glyph has the id.
+ * if no additional glyph has the id.
  */
 const GraphicalObject*
 Layout::getAdditionalGraphicalObject (const std::string& id) const
@@ -997,7 +1058,7 @@ Layout::getAdditionalGraphicalObject (const std::string& id) const
 
 /**
  * Returns the additional graphicalo object that has the given id, or NULL
- * if no compartment glyph has the id.
+ * if no additional glyph has the id.
  */
 GraphicalObject*
 Layout::getAdditionalGraphicalObject (const std::string& id) 
@@ -1055,6 +1116,15 @@ Layout::addAdditionalGraphicalObject (const GraphicalObject* glyph)
   this->mAdditionalGraphicalObjects.append(glyph);
 }
 
+/**
+ * Adds a new general glyph.
+ */
+void
+Layout::addGeneralGlyph (const GeneralGlyph* glyph)
+{
+  addAdditionalGraphicalObject(glyph);
+}
+
 
 /**
  * Returns the number of compartment glyphs for the layout.
@@ -1103,6 +1173,21 @@ unsigned int
 Layout::getNumAdditionalGraphicalObjects () const
 {
   return this->mAdditionalGraphicalObjects.size();
+}
+
+/**
+ * Returns the number of general glyphs for the layout.
+ */
+unsigned int
+Layout::getNumGeneralGlyphs() const
+{
+  unsigned int count = 0;
+  for (unsigned int i = 0; i < this->mAdditionalGraphicalObjects.size(); ++i)
+  {
+    if (mAdditionalGraphicalObjects.get(i)->getTypeCode() == SBML_LAYOUT_GENERALGLYPH)
+      ++count;
+  }
+  return count;
 }
 
 

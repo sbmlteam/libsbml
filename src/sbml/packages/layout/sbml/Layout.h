@@ -871,6 +871,18 @@ public:
    */ 
   GraphicalObject* getAdditionalGraphicalObject (unsigned int index) ;
 
+  /**
+   * Returns the general glyph with the given index.
+   * If the index is invalid, NULL is returned.
+   */
+  GeneralGlyph* getGeneralGlyph (unsigned int index);
+  
+  /**
+   * Returns the general glyph with the given index.
+   * If the index is invalid, NULL is returned.
+   */
+  const GeneralGlyph* getGeneralGlyph (unsigned int index) const;
+
 
   /**
    * Returns the compartment glyph that has the given id, or NULL if no
@@ -906,6 +918,13 @@ public:
    */
   
   const GraphicalObject* getAdditionalGraphicalObject (const std::string& id) const;
+
+  /**
+   * Returns the general glyph that has the given id, or NULL
+   * if no graphical object has the id.
+   */
+  
+  const GeneralGlyph* getGeneralGlyph (const std::string& id) const;
 
 
   /**
@@ -943,6 +962,11 @@ public:
   
   GraphicalObject* getAdditionalGraphicalObject (const std::string& id) ;
 
+  /**
+   * Returns the general glyph that has the given id, or NULL
+   * if no graphical object has the id.
+   */
+  GeneralGlyph* getGeneralGlyph (const std::string& id);
 
   /**
    * Adds a new compartment glyph.
@@ -974,6 +998,11 @@ public:
   
   void addAdditionalGraphicalObject (const GraphicalObject* glyph);
 
+  /**
+   * Adds a new general glyph.
+   */
+  void addGeneralGlyph (const GeneralGlyph* glyph);
+
 
   /**
    * Returns the number of compartment glyphs for the layout.
@@ -1002,9 +1031,13 @@ public:
   /**
    * Returns the number of additional graphical objects for the layout.
    */
-  
   unsigned int getNumAdditionalGraphicalObjects () const;
 
+  /**
+   * Returns the number of general glyphs for the layout.
+   */
+  unsigned int getNumGeneralGlyphs () const;
+  
 
   /**
    * Creates a CompartmentGlyph object, adds it to the end of the

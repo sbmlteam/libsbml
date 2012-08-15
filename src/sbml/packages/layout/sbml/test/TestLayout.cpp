@@ -49,6 +49,7 @@
 
 #include <sbml/packages/layout/sbml/Layout.h>
 #include <sbml/packages/layout/sbml/GraphicalObject.h>
+#include <sbml/packages/layout/sbml/GeneralGlyph.h>
 #include <sbml/packages/layout/sbml/CompartmentGlyph.h>
 #include <sbml/packages/layout/sbml/SpeciesGlyph.h>
 #include <sbml/packages/layout/sbml/ReactionGlyph.h>
@@ -196,6 +197,16 @@ START_TEST ( test_Layout_addAdditionalGraphicalObject )
 }
 END_TEST
 
+
+START_TEST ( test_Layout_addGeneralGlyph )
+{
+  GeneralGlyph* ago=new GeneralGlyph();
+  L->addGeneralGlyph(ago);
+  fail_unless ( L->getNumGeneralGlyphs() == 1 );
+  delete ago;
+}
+END_TEST
+
 START_TEST ( test_Layout_getNumCompartmentGlyphs )
 {
     std::string id1="TestCompartment_1";
@@ -219,6 +230,27 @@ START_TEST ( test_Layout_getNumCompartmentGlyphs )
     delete cg3;
     delete cg4;
     delete cg5;
+}
+END_TEST
+
+START_TEST ( test_Layout_getNumGeneralGlyphs )
+{
+  GeneralGlyph* cg1=new GeneralGlyph(LN);
+  GeneralGlyph* cg2=new GeneralGlyph(LN);
+  GeneralGlyph* cg3=new GeneralGlyph(LN);
+  GeneralGlyph* cg4=new GeneralGlyph(LN);
+  GeneralGlyph* cg5=new GeneralGlyph(LN);
+  L->addGeneralGlyph(cg1);
+  L->addGeneralGlyph(cg2);
+  L->addGeneralGlyph(cg3);
+  L->addGeneralGlyph(cg4);
+  L->addGeneralGlyph(cg5);
+  fail_unless( L->getNumGeneralGlyphs() == 5);
+  delete cg1;
+  delete cg2;
+  delete cg3;
+  delete cg4;
+  delete cg5;
 }
 END_TEST
 
@@ -367,6 +399,15 @@ START_TEST ( test_Layout_createTextGlyph )
 }
 END_TEST
 
+
+START_TEST ( test_Layout_createGeneralGlyph )
+{
+  L->createGeneralGlyph();
+  L->createGeneralGlyph();
+  L->createGeneralGlyph();
+  fail_unless ( L->getNumGeneralGlyphs() == 3 );
+}
+END_TEST
 
 START_TEST ( test_Layout_createAdditionalGraphicalObject )
 {
@@ -568,11 +609,13 @@ create_suite_Layout (void)
   tcase_add_test ( tcase , test_Layout_setDimensions                    );
   tcase_add_test ( tcase , test_Layout_addCompartmentGlyph              );
   tcase_add_test ( tcase , test_Layout_addSpeciesGlyph                  );
+  tcase_add_test ( tcase , test_Layout_addGeneralGlyph                  );
   tcase_add_test ( tcase , test_Layout_addReactionGlyph                 );
   tcase_add_test ( tcase , test_Layout_addTextGlyph                     );
   tcase_add_test ( tcase , test_Layout_addAdditionalGraphicalObject     );
   tcase_add_test ( tcase , test_Layout_createCompartmentGlyph           );
   tcase_add_test ( tcase , test_Layout_createSpeciesGlyph               );
+  tcase_add_test ( tcase , test_Layout_createGeneralGlyph               );
   tcase_add_test ( tcase , test_Layout_createReactionGlyph              );
   tcase_add_test ( tcase , test_Layout_createTextGlyph                  );
   tcase_add_test ( tcase , test_Layout_createAdditionalGraphicalObject  );
@@ -580,6 +623,7 @@ create_suite_Layout (void)
   tcase_add_test ( tcase , test_Layout_createLineSegment                );
   tcase_add_test ( tcase , test_Layout_createCubicBezier                );
   tcase_add_test ( tcase , test_Layout_getNumCompartmentGlyphs          );
+  tcase_add_test ( tcase , test_Layout_getNumGeneralGlyphs              );
   tcase_add_test ( tcase , test_Layout_getNumSpeciesGlyphs              );
   tcase_add_test ( tcase , test_Layout_getNumReactionGlyphs             );
   tcase_add_test ( tcase , test_Layout_getNumTextGlyphs                 );
