@@ -310,7 +310,16 @@ START_TEST ( test_GraphicalObject_metaidRef)
     fail_unless(go1->getMetaIdRef() == "meta1");
     fail_unless(go1->unsetMetaIdRef() == LIBSBML_OPERATION_SUCCESS);
     fail_unless(go1->isSetMetaIdRef() == false);
-
+  
+    fail_unless(go1->isSetId() == false);
+    fail_unless(go1->setId("id1") == LIBSBML_OPERATION_SUCCESS);
+    fail_unless(go1->isSetId() == true);
+    fail_unless(go1->getId() == "id1");
+    fail_unless(go1->setMetaIdRef("meta2") == LIBSBML_OPERATION_SUCCESS);
+    fail_unless(go1->isSetMetaIdRef() == true);
+    fail_unless(go1->getMetaIdRef() == "meta2");
+    fail_unless(go1->getId() == "id1");
+  
     delete go1;
 }
 END_TEST

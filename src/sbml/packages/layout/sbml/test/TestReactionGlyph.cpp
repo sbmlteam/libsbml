@@ -219,8 +219,8 @@ END_TEST
 
 START_TEST ( test_ReactionGlyph_createCubicBezier )
 {
-    CubicBezier *cubic1 = RG->createCubicBezier();
-    CubicBezier *cubic2 = RG->createCubicBezier();
+  RG->createCubicBezier();
+  RG->createCubicBezier();
     fail_unless(RG->isSetCurve());
 	Curve * curve = RG->getCurve();
 	fail_unless(curve != NULL);

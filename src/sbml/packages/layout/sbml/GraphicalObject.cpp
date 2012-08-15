@@ -559,7 +559,7 @@ void GraphicalObject::writeAttributes (XMLOutputStream& stream) const
   stream.writeAttribute("id", getPrefix(), mId);
 
   if (isSetMetaIdRef())
-    stream.writeAttribute("metaidRef", getPrefix(), mId);
+    stream.writeAttribute("metaidRef", getPrefix(), mMetaIdRef);
 
   //
   // (EXTENSION)

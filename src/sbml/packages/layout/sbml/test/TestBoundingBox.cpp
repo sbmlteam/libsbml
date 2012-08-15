@@ -316,6 +316,7 @@ create_suite_BoundingBox (void)
   tcase_add_test( tcase, test_BoundingBox_createWith                 );
   tcase_add_test( tcase, test_BoundingBox_createWith_NULL            );
   tcase_add_test( tcase, test_BoundingBox_createWithCoordinates_NULL );
+  tcase_add_test( tcase,   test_BoundingBox_createWithCoordinates    );
   tcase_add_test( tcase, test_BoundingBox_setId                      );
   tcase_add_test( tcase, test_BoundingBox_setId_NULL                 );
   tcase_add_test( tcase, test_BoundingBox_setPosition                );

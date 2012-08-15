@@ -243,7 +243,7 @@ END_TEST
 
 START_TEST (test_LayoutFormatter_CompartmentGlyph)
 {
-    char* s=
+    const char* s=
       "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
       "<compartmentGlyph id=\"compartmentGlyph_1\" compartment=\"compartment_1\">\n"
       "  <boundingBox>\n"
@@ -274,7 +274,7 @@ END_TEST
 
 START_TEST (test_LayoutFormatter_CompartmentGlyph_notes)
 {
-    char* s=
+   const char* s=
       "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
       "<compartmentGlyph id=\"compartmentGlyph_1\">\n"
       "  <notes>\n"
@@ -316,7 +316,7 @@ START_TEST (test_LayoutFormatter_CompartmentGlyph_annotation)
       "    <this-is-a-test/>\n"
       "  </annotation>";
 
-    char* s=
+    const char* s=
       "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
       "<compartmentGlyph id=\"compartmentGlyph_1\">\n"
       "  <annotation>\n"
@@ -352,7 +352,7 @@ END_TEST
 
 START_TEST (test_LayoutFormatter_CompartmentGlyph_skipOptional)
 {
-    char* s=
+    const char* s=
       "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
       "<compartmentGlyph id=\"compartmentGlyph_1\">\n"
       "  <boundingBox>\n"
@@ -381,7 +381,7 @@ END_TEST
 
 START_TEST (test_LayoutFormatter_SpeciesGlyph)
 {
-    char* s=
+    const char* s=
       "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
       "<speciesGlyph id=\"speciesGlyph_1\" species=\"species_1\">\n"
       "  <boundingBox>\n"
@@ -412,7 +412,7 @@ END_TEST
 
 START_TEST (test_LayoutFormatter_SpeciesGlyph_notes)
 {
-    char* s=
+    const char* s=
       "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
       "<speciesGlyph id=\"speciesGlyph_1\">\n"
       "  <notes>\n"
@@ -454,7 +454,7 @@ START_TEST (test_LayoutFormatter_SpeciesGlyph_annotation)
       "    <this-is-a-test/>\n"
       "  </annotation>";
 
-    char* s=
+    const char* s=
       "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
       "<speciesGlyph id=\"speciesGlyph_1\">\n"
       "  <annotation>\n"
@@ -490,7 +490,7 @@ END_TEST
 
 START_TEST (test_LayoutFormatter_SpeciesGlyph_skipOptional)
 {
-    char* s=
+    const char* s=
       "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
       "<speciesGlyph id=\"speciesGlyph_1\">\n"
       "  <boundingBox>\n"
@@ -519,7 +519,7 @@ END_TEST
 
 START_TEST (test_LayoutFormatter_ReactionGlyph_Curve)
 {
-    char* s=
+    const char* s=
       "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
       "<annotation xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">"
       "<reactionGlyph id=\"reactionGlyph_1\" reaction=\"reaction_1\">\n"
@@ -554,7 +554,7 @@ END_TEST
 
 START_TEST (test_LayoutFormatter_ReactionGlyph_BoundingBox)
 {
-    char* s=
+    const char* s=
       "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
       "<reactionGlyph id=\"reactionGlyph_1\" reaction=\"reaction_1\">\n"
       "  <boundingBox>\n"
@@ -585,7 +585,7 @@ END_TEST
 
 START_TEST (test_LayoutFormatter_ReactionGlyph_notes)
 {
-    char* s=
+    const char* s=
       "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
       "<reactionGlyph id=\"reactionGlyph_1\" reaction=\"reaction_1\">\n"
       "  <notes>\n"
@@ -628,7 +628,7 @@ START_TEST (test_LayoutFormatter_ReactionGlyph_annotation)
       "    <this-is-a-test/>\n"
       "  </annotation>";
 
-    char* s=
+    const char* s=
       "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
       "<reactionGlyph id=\"reactionGlyph_1\" reaction=\"reaction_1\">\n"
       "  <annotation>\n"
@@ -665,7 +665,7 @@ END_TEST
 
 START_TEST (test_LayoutFormatter_ReactionGlyph_skipOptional)
 {
-    char* s=
+    const char* s=
       "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
       "<reactionGlyph id=\"reactionGlyph_1\">\n"
       "  <boundingBox>\n"
@@ -694,7 +694,7 @@ END_TEST
 
 START_TEST (test_LayoutFormatter_SpeciesReferenceGlyph_Curve)
 {
-    char* s=
+    const char* s=
       "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
       "<annotation xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">"
       "<speciesReferenceGlyph id=\"speciesReferenceGlyph_1\" speciesReference=\"speciesReference_1\" speciesGlyph=\"speciesGlyph_1\" role=\"modifier\">\n"
@@ -732,7 +732,7 @@ END_TEST
 
 START_TEST (test_LayoutFormatter_SpeciesReferenceGlyph_BoundingBox)
 {
-    char* s=
+    const char* s=
       "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
       "<speciesReferenceGlyph id=\"speciesReferenceGlyph_1\" speciesReference=\"speciesReference_1\" speciesGlyph=\"speciesGlyph_1\" role=\"modifier\">\n"
       "  <boundingBox>\n"
@@ -765,7 +765,7 @@ END_TEST
 
 START_TEST (test_LayoutFormatter_SpeciesReferenceGlyph_notes)
 {
-    char* s=
+    const char* s=
       "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
       "<speciesReferenceGlyph id=\"speciesReferenceGlyph_1\" role=\"modifier\">\n"
       "  <notes>\n"
@@ -808,7 +808,7 @@ START_TEST (test_LayoutFormatter_SpeciesReferenceGlyph_annotation)
       "    <this-is-a-test/>\n"
       "  </annotation>";
 
-    char* s=
+    const char* s=
       "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
       "<speciesReferenceGlyph id=\"speciesReferenceGlyph_1\" role=\"modifier\">\n"
       "  <annotation>\n"
@@ -845,7 +845,7 @@ END_TEST
 
 START_TEST (test_LayoutFormatter_SpeciesReferenceGlyph_skipOptional)
 {
-    char* s=
+    const char* s=
       "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
       "<speciesReferenceGlyph id=\"speciesReferenceGlyph_1\">\n"
       "  <boundingBox>\n"
@@ -874,7 +874,7 @@ END_TEST
 
 START_TEST (test_LayoutFormatter_TextGlyph_text)
 {
-    char* s=
+    const char* s=
       "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
       "<textGlyph id=\"textGlyph_1\" graphicalObject=\"speciesGlyph_1\" text=\"test text\">\n"
       "  <boundingBox>\n"
@@ -905,7 +905,7 @@ END_TEST
 
 START_TEST (test_LayoutFormatter_TextGlyph_originOfText)
 {
-    char* s=
+    const char* s=
       "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
       "<textGlyph id=\"textGlyph_1\" graphicalObject=\"speciesGlyph_1\" originOfText=\"reactionGlyph_1\">\n"
       "  <boundingBox>\n"
@@ -937,7 +937,7 @@ END_TEST
 
 START_TEST (test_LayoutFormatter_TextGlyph_notes)
 {
-    char* s=
+    const char* s=
       "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
       "<textGlyph id=\"textGlyph_1\" graphicalObject=\"speciesGlyph_1\" originOfText=\"reactionGlyph_1\">\n"
       "  <notes>\n"
@@ -982,7 +982,7 @@ START_TEST (test_LayoutFormatter_TextGlyph_annotation)
       "    <this-is-a-test/>\n"
       "  </annotation>";
 
-    char* s=
+    const char* s=
       "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
       "<textGlyph id=\"textGlyph_1\" graphicalObject=\"speciesGlyph_1\" originOfText=\"reactionGlyph_1\">\n"
       "  <annotation>\n"
@@ -1021,7 +1021,7 @@ END_TEST
 
 START_TEST (test_LayoutFormatter_TextGlyph_skipOptional)
 {
-    char* s=
+    const char* s=
       "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
       "<textGlyph id=\"textGlyph_1\">\n"
       "  <boundingBox>\n"
@@ -1051,7 +1051,7 @@ END_TEST
 
 START_TEST (test_LayoutFormatter_GraphicalObject)
 {
-    char* s=
+    const char* s=
       "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
       "<graphicalObject id=\"graphicalObject_1\">\n"
       "  <boundingBox>\n"
@@ -1081,7 +1081,7 @@ END_TEST
 
 START_TEST (test_LayoutFormatter_GraphicalObject_notes)
 {
-    char* s=
+    const char* s=
       "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
       "<graphicalObject id=\"graphicalObject_1\">\n"
       "  <notes>\n"
@@ -1124,7 +1124,7 @@ START_TEST (test_LayoutFormatter_GraphicalObject_annotation)
       "    <this-is-a-test/>\n"
       "  </annotation>";
 
-    char* s=
+    const char* s=
       "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
       "<graphicalObject id=\"graphicalObject_1\">\n"
       "  <annotation>\n"
@@ -1161,7 +1161,7 @@ END_TEST
 
 START_TEST (test_LayoutFormatter_Curve)
 {
-    char* s=
+    const char* s=
       "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
       "<annotation xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">"
       "<curve>\n"
@@ -1192,7 +1192,7 @@ END_TEST
 
 START_TEST (test_LayoutFormatter_Curve_notes)
 {
-    char* s=
+    const char* s=
       "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
       "<annotation xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">"
       "<curve>\n"
@@ -1236,7 +1236,7 @@ START_TEST (test_LayoutFormatter_Curve_annotation)
       "    <this-is-a-test/>\n"
       "  </annotation>";
 
-    char* s=
+    const char* s=
       "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
       "<annotation xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">"
       "<curve>\n"
@@ -1273,7 +1273,7 @@ END_TEST
 
 START_TEST (test_LayoutFormatter_Curve_skipOptional)
 {
-    char* s=
+    const char* s=
       "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
       "<curve>\n"
       "</curve>\n"
@@ -1292,7 +1292,7 @@ END_TEST
 
 START_TEST (test_LayoutFormatter_LineSegment)
 {
-    char* s=
+    const char* s=
       "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
       "<annotation xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">"
       "<curveSegment xsi:type=\"LineSegment\">\n" 
@@ -1317,7 +1317,7 @@ END_TEST
 
 START_TEST (test_LayoutFormatter_LineSegment_notes)
 {
-    char* s=
+    const char* s=
       "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
       "<annotation xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">"
       "<curveSegment xsi:type=\"LineSegment\">\n" 
@@ -1355,7 +1355,7 @@ START_TEST (test_LayoutFormatter_LineSegment_annotation)
       "    <this-is-a-test/>\n"
       "  </annotation>";
 
-    char* s=
+    const char* s=
       "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
       "<annotation xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">"
       "<curveSegment xsi:type=\"LineSegment\">\n" 
@@ -1387,7 +1387,7 @@ END_TEST
 
 START_TEST (test_LayoutFormatter_CubicBezier)
 {
-    char* s=
+    const char* s=
       "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
       "<annotation xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">"
       "<curveSegment xsi:type=\"CubicBezier\">\n" 
@@ -1416,7 +1416,7 @@ END_TEST
 
 START_TEST (test_LayoutFormatter_CubicBezier_notes)
 {
-    char* s=
+    const char* s=
       "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
       "<annotation xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">"
       "<curveSegment xsi:type=\"CubicBezier\">\n" 
@@ -1458,7 +1458,7 @@ START_TEST (test_LayoutFormatter_CubicBezier_annotation)
       "    <this-is-a-test/>\n"
       "  </annotation>";
 
-    char* s=
+    const char* s=
       "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
       "<annotation xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">"
       "<curveSegment xsi:type=\"CubicBezier\">\n" 
@@ -1494,7 +1494,7 @@ END_TEST
 
 START_TEST (test_LayoutFormatter_Point)
 {
-    char* s=
+    const char* s=
       "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
       "<point x=\"200.5\" y=\"400.5\" z=\"455.2\"/>\n" 
     ;
@@ -1512,7 +1512,7 @@ END_TEST
 
 START_TEST (test_LayoutFormatter_Point_notes)
 {
-    char* s=
+    const char* s=
       "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
       "<point x=\"200.5\" y=\"400.5\" z=\"455.2\">\n" 
       "  <notes>\n"
@@ -1544,7 +1544,7 @@ START_TEST (test_LayoutFormatter_Point_annotation)
       "    <this-is-a-test/>\n"
       "  </annotation>";
 
-    char* s=
+    const char* s=
       "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
       "<point x=\"200.5\" y=\"400.5\" z=\"455.2\">\n" 
       "  <annotation>\n"
@@ -1570,7 +1570,7 @@ END_TEST
 
 START_TEST (test_LayoutFormatter_Point_skipOptional)
 {
-    char* s=
+    const char* s=
       "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
       "<point x=\"200.5\" y=\"400.5\"/>\n" 
     ;
@@ -1588,7 +1588,7 @@ END_TEST
 
 START_TEST (test_LayoutFormatter_Dimensions)
 {
-    char* s=
+    const char* s=
       "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
       "<dimensions width=\"200.5\" height=\"400.5\" depth=\"455.2\"/>\n" 
     ;
@@ -1606,7 +1606,7 @@ END_TEST
 
 START_TEST (test_LayoutFormatter_Dimensions_notes)
 {
-    char* s=
+    const char* s=
       "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
       "<dimensions width=\"200.5\" height=\"400.5\" depth=\"455.2\">\n" 
       "  <notes>\n"
@@ -1638,7 +1638,7 @@ START_TEST (test_LayoutFormatter_Dimensions_annotation)
       "    <this-is-a-test/>\n"
       "  </annotation>";
 
-    char* s=
+    const char* s=
       "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
       "<dimensions width=\"200.5\" height=\"400.5\" depth=\"455.2\">\n" 
       "  <annotation>\n"
@@ -1664,7 +1664,7 @@ END_TEST
 
 START_TEST (test_LayoutFormatter_Dimensions_skipOptional)
 {
-    char* s=
+    const char* s=
       "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
       "<dimensions width=\"200.5\" height=\"400.5\"/>\n" 
     ;
@@ -1683,7 +1683,7 @@ END_TEST
 
 START_TEST (test_LayoutFormatter_BoundingBox)
 {
-    char* s=
+    const char* s=
       "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
       "<boundingBox id=\"boundingBox_1\">\n"
       "  <position x=\"10.3\" y=\"20\"/>\n"
@@ -1707,7 +1707,7 @@ END_TEST
 
 START_TEST (test_LayoutFormatter_BoundingBox_notes)
 {
-    char* s=
+    const char* s=
       "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
       "<boundingBox>\n"
       "  <notes>\n"
@@ -1743,7 +1743,7 @@ START_TEST (test_LayoutFormatter_BoundingBox_annotation)
       "    <this-is-a-test/>\n"
       "  </annotation>";
 
-    char* s=
+    const char* s=
       "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
       "<boundingBox>\n"
       "  <annotation>\n"
@@ -1776,7 +1776,7 @@ END_TEST
 
 START_TEST (test_LayoutFormatter_BoundingBox_skipOptional)
 {
-    char* s=
+    const char* s=
       "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
       "<boundingBox>\n"
       "  <position x=\"10.3\" y=\"20\"/>\n"

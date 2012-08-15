@@ -66,7 +66,7 @@ LIBSBML_CPP_NAMESPACE_USE
 
 	BEGIN_C_DECLS
 
-	static char* NOTES;
+	static string NOTES;
 
 
 static void
@@ -270,7 +270,7 @@ END_TEST
 	fail_unless(dimensions->getDepth()==0.0);
 
 	fail_unless(l->isSetNotes());
-	XMLInputStream *stream2 = new XMLInputStream(NOTES,false);
+	XMLInputStream *stream2 = new XMLInputStream(NOTES.c_str(),false);
 	XMLNode notes=XMLNode(*stream2);
 	fail_unless(l->getNotes()->equals(notes));
 	delete pListOfLayouts;
@@ -376,7 +376,7 @@ END_TEST
 
 	START_TEST (test_LayoutCreation_CompartmentGlyph)
 {
-	char* content=
+		const char* content=
 		"<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
 		"<annotation>\n"
 		"<listOfLayouts xmlns=\"http://projects.eml.org/bcb/sbml/level2\">\n"
@@ -436,7 +436,7 @@ END_TEST
 
 	START_TEST (test_LayoutCreation_CompartmentGlyph_notes)
 {
-	char* content=
+		const char* content=
 		"<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
 		"<annotation>\n"
 		"<listOfLayouts xmlns=\"http://projects.eml.org/bcb/sbml/level2\">\n"
@@ -495,7 +495,7 @@ END_TEST
 	fail_unless(dimensions2->getDepth()==0.0); 
 
 	fail_unless(cg->isSetNotes());
-	XMLInputStream *stream2 = new XMLInputStream(NOTES,false);
+	XMLInputStream *stream2 = new XMLInputStream(NOTES.c_str(),false);
 	XMLNode notes=XMLNode(*stream2);
 	fail_unless(cg->getNotes()->equals(notes));
 
@@ -515,7 +515,7 @@ END_TEST
 		"        </this-is-a-test>\n"
 		"      </annotation>";
 
-	char* content=
+		const char* content=
 		"<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
 		"<annotation>\n"
 		"<listOfLayouts xmlns=\"http://projects.eml.org/bcb/sbml/level2\">\n"
@@ -586,7 +586,7 @@ END_TEST
 
 	START_TEST (test_LayoutCreation_CompartmentGlyph_skipOptional)
 {
-	char* content=
+		const char* content=
 		"<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
 		"<annotation>\n"
 		"<listOfLayouts xmlns=\"http://projects.eml.org/bcb/sbml/level2\">\n"
@@ -646,7 +646,7 @@ END_TEST
 
 	START_TEST (test_LayoutCreation_SpeciesGlyph)
 {
-	char* content=
+		const char* content=
 		"<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
 		"<annotation>\n"
 		"<listOfLayouts xmlns=\"http://projects.eml.org/bcb/sbml/level2\">\n"
@@ -706,7 +706,7 @@ END_TEST
 
 	START_TEST (test_LayoutCreation_SpeciesGlyph_notes)
 {
-	char* content=
+		const char* content=
 		"<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
 		"<annotation>\n"
 		"<listOfLayouts xmlns=\"http://projects.eml.org/bcb/sbml/level2\">\n"
@@ -765,7 +765,7 @@ END_TEST
 	fail_unless(dimensions2->getDepth()==0.0); 
 
 	fail_unless(sg->isSetNotes());
-	XMLInputStream *stream2 = new XMLInputStream(NOTES,false);
+	XMLInputStream *stream2 = new XMLInputStream(NOTES.c_str(),false);
 	XMLNode notes=XMLNode(*stream2);
 	fail_unless(sg->getNotes()->equals(notes));
 	delete pListOfLayouts;
@@ -785,7 +785,7 @@ END_TEST
 		"        </this-is-a-test>\n"
 		"      </annotation>";
 
-	char* content=
+		const char* content=
 		"<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
 		"<annotation>\n"
 		"<listOfLayouts xmlns=\"http://projects.eml.org/bcb/sbml/level2\">\n"
@@ -855,7 +855,7 @@ END_TEST
 
 	START_TEST (test_LayoutCreation_SpeciesGlyph_skipOptional)
 {
-	char* content=
+	const char* content=
 		"<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
 		"<annotation>\n"
 		"<listOfLayouts xmlns=\"http://projects.eml.org/bcb/sbml/level2\">\n"
@@ -916,7 +916,7 @@ END_TEST
 
 	START_TEST (test_LayoutCreation_ReactionGlyph_Curve)
 {
-	char* content=
+	const char* content=
 		"<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
 		"<annotation>\n"
 		"<listOfLayouts xmlns=\"http://projects.eml.org/bcb/sbml/level2\">\n"
@@ -984,7 +984,7 @@ END_TEST
 
 	START_TEST (test_LayoutCreation_ReactionGlyph_BoundingBox)
 {
-	char* content=
+	const char* content=
 		"<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
 		"<annotation>\n"
 		"<listOfLayouts xmlns=\"http://projects.eml.org/bcb/sbml/level2\">\n"
@@ -1044,7 +1044,7 @@ END_TEST
 
 	START_TEST (test_LayoutCreation_ReactionGlyph_notes)
 {
-	char* content=
+	const char* content=
 		"<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
 		"<annotation>\n"
 		"<listOfLayouts xmlns=\"http://projects.eml.org/bcb/sbml/level2\">\n"
@@ -1102,7 +1102,7 @@ END_TEST
 	fail_unless(dimensions2->getHeight()==400.5); 
 	fail_unless(dimensions2->getDepth()==0.0); 
 	fail_unless(rg->isSetNotes());
-	XMLInputStream *stream2 = new XMLInputStream(NOTES,false);
+	XMLInputStream *stream2 = new XMLInputStream(NOTES.c_str(),false);
 	XMLNode notes=XMLNode(*stream2);
 	fail_unless(rg->getNotes()->equals(notes));
 	delete pListOfLayouts;
@@ -1121,7 +1121,7 @@ END_TEST
 		"        </this-is-a-test>\n"
 		"      </annotation>";
 
-	char* content=
+	const char* content=
 		"<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
 		"<annotation>\n"
 		"<listOfLayouts xmlns=\"http://projects.eml.org/bcb/sbml/level2\">\n"
@@ -1191,7 +1191,7 @@ END_TEST
 
 	START_TEST (test_LayoutCreation_ReactionGlyph_skipOptional)
 {
-	char* content=
+	const char* content=
 		"<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
 		"<annotation>\n"
 		"<listOfLayouts xmlns=\"http://projects.eml.org/bcb/sbml/level2\">\n"
@@ -1251,7 +1251,7 @@ END_TEST
 
 	START_TEST (test_LayoutCreation_SpeciesReferenceGlyph_Curve)
 {
-	char* content=
+	const char* content=
 		"<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
 		"<annotation>\n"
 		"<listOfLayouts xmlns=\"http://projects.eml.org/bcb/sbml/level2\">\n"
@@ -1343,7 +1343,7 @@ END_TEST
 
 	START_TEST (test_LayoutCreation_SpeciesReferenceGlyph_BoundingBox)
 {
-	char* content=
+	const char* content=
 		"<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
 		"<annotation>\n"
 		"<listOfLayouts xmlns=\"http://projects.eml.org/bcb/sbml/level2\">\n"
@@ -1427,7 +1427,7 @@ END_TEST
 
 	START_TEST (test_LayoutCreation_SpeciesReferenceGlyph_notes)
 {
-	char* content=
+	const char* content=
 		"<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
 		"<annotation>\n"
 		"<listOfLayouts xmlns=\"http://projects.eml.org/bcb/sbml/level2\">\n"
@@ -1511,7 +1511,7 @@ END_TEST
 	fail_unless(dimensions2->getDepth()==0.0); 
 
 	fail_unless(srg->isSetNotes());
-	XMLInputStream *stream2 = new XMLInputStream(NOTES,false);
+	XMLInputStream *stream2 = new XMLInputStream(NOTES.c_str(),false);
 	XMLNode notes=XMLNode(*stream2);
 	fail_unless(srg->getNotes()->equals(notes));
 	delete pListOfLayouts;
@@ -1530,7 +1530,7 @@ END_TEST
 		"            </this-is-a-test>\n"
 		"          </annotation>";
 
-	char* content=
+	const char* content=
 		"<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
 		"<annotation>\n"
 		"<listOfLayouts xmlns=\"http://projects.eml.org/bcb/sbml/level2\">\n"
@@ -1625,7 +1625,7 @@ END_TEST
 
 	START_TEST (test_LayoutCreation_SpeciesReferenceGlyph_skipOptional)
 {
-	char* content=
+	const char* content=
 		"<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
 		"<annotation>\n"
 		"<listOfLayouts xmlns=\"http://projects.eml.org/bcb/sbml/level2\">\n"
@@ -1709,7 +1709,7 @@ END_TEST
 
 	START_TEST (test_LayoutCreation_TextGlyph_text)
 {
-	char* content=
+	const char* content=
 		"<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
 		"<annotation>\n"
 		"<listOfLayouts xmlns=\"http://projects.eml.org/bcb/sbml/level2\">\n"
@@ -1771,7 +1771,7 @@ END_TEST
 
 	START_TEST (test_LayoutCreation_TextGlyph_originOfText)
 {
-	char* content=
+	const char* content=
 		"<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
 		"<annotation>\n"
 		"<listOfLayouts xmlns=\"http://projects.eml.org/bcb/sbml/level2\">\n"
@@ -1833,7 +1833,7 @@ END_TEST
 
 	START_TEST (test_LayoutCreation_TextGlyph_notes)
 {
-	char* content=
+	const char* content=
 		"<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
 		"<annotation>\n"
 		"<listOfLayouts xmlns=\"http://projects.eml.org/bcb/sbml/level2\">\n"
@@ -1894,7 +1894,7 @@ END_TEST
 	fail_unless(dimensions2->getDepth()==0.0); 
 
 	fail_unless(tg->isSetNotes());
-	XMLInputStream *stream2 = new XMLInputStream(NOTES,false);
+	XMLInputStream *stream2 = new XMLInputStream(NOTES.c_str(),false);
 	XMLNode notes=XMLNode(*stream2);
 	fail_unless(tg->getNotes()->equals(notes));
 	delete pListOfLayouts;
@@ -1914,7 +1914,7 @@ END_TEST
 		"        </this-is-a-test>\n"
 		"      </annotation>";
 
-	char* content=
+	const char* content=
 		"<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
 		"<annotation>\n"
 		"<listOfLayouts xmlns=\"http://projects.eml.org/bcb/sbml/level2\">\n"
@@ -1987,7 +1987,7 @@ END_TEST
 
 	START_TEST (test_LayoutCreation_TextGlyph_skipOptional)
 {
-	char* content=
+	const char* content=
 		"<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
 		"<annotation>\n"
 		"<listOfLayouts xmlns=\"http://projects.eml.org/bcb/sbml/level2\">\n"
@@ -2050,7 +2050,7 @@ END_TEST
 
 	START_TEST (test_LayoutCreation_GraphicalObject)
 {
-	char* content=
+	const char* content=
 		"<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
 		"<annotation>\n"
 		"<listOfLayouts xmlns=\"http://projects.eml.org/bcb/sbml/level2\">\n"
@@ -2108,7 +2108,7 @@ END_TEST
 
 	START_TEST (test_LayoutCreation_GraphicalObject_notes)
 {
-	char* content=
+	const char* content=
 		"<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
 		"<annotation>\n"
 		"<listOfLayouts xmlns=\"http://projects.eml.org/bcb/sbml/level2\">\n"
@@ -2164,7 +2164,7 @@ END_TEST
 	fail_unless(dimensions2->getHeight()==400.5); 
 	fail_unless(dimensions2->getDepth()==0.0); 
 	fail_unless(go->isSetNotes());
-	XMLInputStream *stream2 = new XMLInputStream(NOTES,false);
+	XMLInputStream *stream2 = new XMLInputStream(NOTES.c_str(),false);
 	XMLNode notes=XMLNode(*stream2);
 	fail_unless(go->getNotes()->equals(notes));
 
@@ -2185,7 +2185,7 @@ END_TEST
 		"        </this-is-a-test>\n"
 		"      </annotation>";
 
-	char* content=
+	const char* content=
 		"<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
 		"<annotation>\n"
 		"<listOfLayouts xmlns=\"http://projects.eml.org/bcb/sbml/level2\">\n"
@@ -2255,7 +2255,7 @@ END_TEST
 
 	START_TEST (test_LayoutCreation_Curve)
 {
-	char* content=
+	const char* content=
 		"<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
 		"<annotation>\n"
 		"<listOfLayouts xmlns=\"http://projects.eml.org/bcb/sbml/level2\">\n"
@@ -2323,7 +2323,7 @@ END_TEST
 
 	START_TEST (test_LayoutCreation_Curve_notes)
 {
-	char* content=
+	const char* content=
 		"<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
 		"<annotation>\n"
 		"<listOfLayouts xmlns=\"http://projects.eml.org/bcb/sbml/level2\">\n"
@@ -2389,7 +2389,7 @@ END_TEST
 	fail_unless(end->getYOffset()==30.0);
 	fail_unless(end->getZOffset()==0.0);
 	fail_unless(curve->isSetNotes()==true);
-	XMLInputStream *stream2 = new XMLInputStream(NOTES,false);
+	XMLInputStream *stream2 = new XMLInputStream(NOTES.c_str(),false);
 	XMLNode notes=XMLNode(*stream2);
 	fail_unless(curve->getNotes()->equals(notes));
 
@@ -2410,7 +2410,7 @@ END_TEST
 		"          </this-is-a-test>\n"
 		"        </annotation>";
 
-	char* content=
+	const char* content=
 		"<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
 		"<annotation>\n"
 		"<listOfLayouts xmlns=\"http://projects.eml.org/bcb/sbml/level2\">\n"
@@ -2486,7 +2486,7 @@ END_TEST
 
 	START_TEST (test_LayoutCreation_Curve_skipOptional)
 {
-	char* content=
+	const char* content=
 		"<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
 		"<annotation>\n"
 		"<listOfLayouts xmlns=\"http://projects.eml.org/bcb/sbml/level2\">\n"
@@ -2535,7 +2535,7 @@ END_TEST
 
 	START_TEST (test_LayoutCreation_LineSegment)
 {
-	char* content=
+	const char* content=
 		"<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
 		"<annotation>\n"
 		"<listOfLayouts xmlns=\"http://projects.eml.org/bcb/sbml/level2\">\n"
@@ -2600,7 +2600,7 @@ END_TEST
 
 	START_TEST (test_LayoutCreation_LineSegment_notes)
 {
-	char* content=
+	const char* content=
 		"<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
 		"<annotation>\n"
 		"<listOfLayouts xmlns=\"http://projects.eml.org/bcb/sbml/level2\">\n"
@@ -2664,7 +2664,7 @@ END_TEST
 	fail_unless(end->getXOffset()==20.0);
 	fail_unless(end->getYOffset()==30.0);
 	fail_unless(ls->isSetNotes());
-	XMLInputStream *stream2 = new XMLInputStream(NOTES,false);
+	XMLInputStream *stream2 = new XMLInputStream(NOTES.c_str(),false);
 	XMLNode notes=XMLNode(*stream2);
 	fail_unless(ls->getNotes()->equals(notes));
 	delete pListOfLayouts;
@@ -2684,7 +2684,7 @@ END_TEST
 		"              </this-is-a-test>\n"
 		"            </annotation>";
 
-	char* content=
+	const char* content=
 		"<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
 		"<annotation>\n"
 		"<listOfLayouts xmlns=\"http://projects.eml.org/bcb/sbml/level2\">\n"
@@ -2760,7 +2760,7 @@ END_TEST
 
 	START_TEST (test_LayoutCreation_CubicBezier)
 {
-	char* content=
+	const char* content=
 		"<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
 		"<annotation>\n"
 		"<listOfLayouts xmlns=\"http://projects.eml.org/bcb/sbml/level2\">\n"
@@ -2842,7 +2842,7 @@ END_TEST
 
 	START_TEST (test_LayoutCreation_CubicBezier_notes)
 {
-	char* content=
+	const char* content=
 		"<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
 		"<annotation>\n"
 		"<listOfLayouts xmlns=\"http://projects.eml.org/bcb/sbml/level2\">\n"
@@ -2919,7 +2919,7 @@ END_TEST
 	fail_unless(base2->getYOffset()==17.0);
 	fail_unless(base2->getZOffset()==0.0);
 	fail_unless(cb->isSetNotes());
-	XMLInputStream *stream2 = new XMLInputStream(NOTES,false);
+	XMLInputStream *stream2 = new XMLInputStream(NOTES.c_str(),false);
 	XMLNode notes=XMLNode(*stream2);
 	fail_unless(cb->getNotes()->equals(notes)==true);
 
@@ -2940,7 +2940,7 @@ END_TEST
 		"              </this-is-a-test>\n"
 		"            </annotation>";
 
-	char* content=
+	const char* content=
 		"<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
 		"<annotation>\n"
 		"<listOfLayouts xmlns=\"http://projects.eml.org/bcb/sbml/level2\">\n"
@@ -3029,7 +3029,7 @@ END_TEST
 
 	START_TEST (test_LayoutCreation_Dimensions)
 {
-	char* content=
+	const char* content=
 		"<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
 		"<annotation>\n"
 		"<listOfLayouts xmlns=\"http://projects.eml.org/bcb/sbml/level2\">\n"
@@ -3067,7 +3067,7 @@ END_TEST
 
 	START_TEST (test_LayoutCreation_Dimensions_notes)
 {
-	char* content=
+	const char* content=
 		"<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
 		"<annotation>\n"
 		"<listOfLayouts xmlns=\"http://projects.eml.org/bcb/sbml/level2\">\n"
@@ -3104,7 +3104,7 @@ END_TEST
 	fail_unless(dimensions->getHeight()==400.5);
 	fail_unless(dimensions->getDepth()==455.2);
 	fail_unless(dimensions->isSetNotes());
-	XMLInputStream *stream2 = new XMLInputStream(NOTES,false);
+	XMLInputStream *stream2 = new XMLInputStream(NOTES.c_str(),false);
 	XMLNode notes=XMLNode(*stream2);
 	fail_unless(dimensions->getNotes()->equals(notes)==true);
 
@@ -3125,7 +3125,7 @@ END_TEST
 		"      </this-is-a-test>\n"
 		"    </annotation>";
 
-	char* content=
+	const char* content=
 		"<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
 		"<annotation>\n"
 		"<listOfLayouts xmlns=\"http://projects.eml.org/bcb/sbml/level2\">\n"
@@ -3176,7 +3176,7 @@ END_TEST
 
 	START_TEST (test_LayoutCreation_Dimensions_skipOptional)
 {
-	char* content=
+	const char* content=
 		"<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
 		"<annotation>\n"
 		"<listOfLayouts xmlns=\"http://projects.eml.org/bcb/sbml/level2\">\n"
@@ -3216,7 +3216,7 @@ END_TEST
 
 	START_TEST (test_LayoutCreation_BoundingBox)
 {
-	char* content=
+	const char* content=
 		"<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
 		"<annotation>\n"
 		"<listOfLayouts xmlns=\"http://projects.eml.org/bcb/sbml/level2\">\n"
@@ -3278,7 +3278,7 @@ END_TEST
 
 	START_TEST (test_LayoutCreation_BoundingBox_notes)
 {
-	char* content=
+	const char* content=
 		"<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
 		"<annotation>\n"
 		"<listOfLayouts xmlns=\"http://projects.eml.org/bcb/sbml/level2\">\n"
@@ -3336,7 +3336,7 @@ END_TEST
 	fail_unless(dimensions2->getHeight()==400.5); 
 	fail_unless(dimensions2->getDepth()==0.0); 
 	fail_unless(bb->isSetNotes());
-	XMLInputStream *stream2 = new XMLInputStream(NOTES,false);
+	XMLInputStream *stream2 = new XMLInputStream(NOTES.c_str(),false);
 	XMLNode notes=XMLNode(*stream2);
 	fail_unless(bb->getNotes()->equals(notes)==true);
 	delete pListOfLayouts;
@@ -3356,7 +3356,7 @@ END_TEST
 		"          </this-is-a-test>\n"
 		"        </annotation>";
 
-	char* content=
+	const char* content=
 		"<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
 		"<annotation>\n"
 		"<listOfLayouts xmlns=\"http://projects.eml.org/bcb/sbml/level2\">\n"
@@ -3427,7 +3427,7 @@ END_TEST
 
 	START_TEST (test_LayoutCreation_BoundingBox_skipOptional)
 {
-	char* content=
+	const char* content=
 		"<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
 		"<annotation>\n"
 		"<listOfLayouts xmlns=\"http://projects.eml.org/bcb/sbml/level2\">\n"
