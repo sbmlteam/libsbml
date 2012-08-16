@@ -135,7 +135,7 @@ END_TEST
 
 START_TEST (test_SpeciesReference_setSpecies)
 {
-  char *species = "X0";
+  const char *species = "X0";
 
 
   SpeciesReference_setSpecies(SR, species);
@@ -165,7 +165,7 @@ END_TEST
 
 START_TEST (test_SpeciesReference_setId)
 {
-  char *species = "X0";
+  const char *species = "X0";
 
 
   SpeciesReference_setId(SR, species);

@@ -72,7 +72,7 @@ EventTest1_teardown (void)
 
 START_TEST (test_Event_setId1)
 {
-  char *id = "1e1";
+  const char *id = "1e1";
   int i = Event_setId(E, id);
 
   fail_unless( i == LIBSBML_INVALID_ATTRIBUTE_VALUE );
@@ -83,7 +83,7 @@ END_TEST
 
 START_TEST (test_Event_setId2)
 {
-  char *id = "e1";
+  const char *id = "e1";
   int i = Event_setId(E, id);
 
   fail_unless( i == LIBSBML_OPERATION_SUCCESS );
@@ -110,7 +110,7 @@ END_TEST
 
 START_TEST (test_Event_setName1)
 {
-  char *name = "3Set_k2";
+  const char *name = "3Set_k2";
 
   int i = Event_setName(E, name);
 
@@ -122,7 +122,7 @@ END_TEST
 
 START_TEST (test_Event_setName2)
 {
-  char *name = "Set k2";
+  const char *name = "Set k2";
 
   int i = Event_setName(E, name);
 
@@ -221,7 +221,7 @@ END_TEST
 
 START_TEST (test_Event_setTimeUnits1)
 {
-  char *units = "second";
+  const char *units = "second";
 
   int i = Event_setTimeUnits(E, units);
 
@@ -233,7 +233,7 @@ END_TEST
 
 START_TEST (test_Event_setTimeUnits2)
 {
-  char *units = "second";
+  const char *units = "second";
   Event_t *e = Event_create(2, 1);
 
   int i = Event_setTimeUnits(e, units);
@@ -254,7 +254,7 @@ END_TEST
 
 START_TEST (test_Event_setTimeUnits3)
 {
-  char *units = "1second";
+  const char *units = "1second";
   Event_t *e = Event_create(2, 1);
 
   int i = Event_setTimeUnits(e, units);

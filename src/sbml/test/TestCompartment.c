@@ -157,7 +157,7 @@ END_TEST
 
 START_TEST (test_Compartment_setId)
 {
-  char *id = "mitochondria";
+  const char *id = "mitochondria";
 
 
   Compartment_setId(C, id);
@@ -187,7 +187,7 @@ END_TEST
 
 START_TEST (test_Compartment_setName)
 {
-  char *name = "My_Favorite_Factory";
+  const char *name = "My_Favorite_Factory";
 
 
   Compartment_setName(C, name);
@@ -217,7 +217,7 @@ END_TEST
 
 START_TEST (test_Compartment_setUnits)
 {
-  char *units = "volume";
+  const char *units = "volume";
 
 
   Compartment_setUnits(C, units);
@@ -247,7 +247,7 @@ END_TEST
 
 START_TEST (test_Compartment_setOutside)
 {
-  char *outside = "cell";
+  const char *outside = "cell";
 
 
   Compartment_setOutside(C, outside);

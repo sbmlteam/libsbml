@@ -111,7 +111,7 @@ END_TEST
 
 START_TEST (test_L3_Compartment_id)
 {
-  char *id = "mitochondria";
+  const char *id = "mitochondria";
 
 
   fail_unless( !Compartment_isSetId(C) );
@@ -131,7 +131,7 @@ END_TEST
 
 START_TEST (test_L3_Compartment_name)
 {
-  char *name = "My_Favorite_Factory";
+  const char *name = "My_Favorite_Factory";
 
 
   fail_unless( !Compartment_isSetName(C) );
@@ -160,7 +160,7 @@ END_TEST
 
 START_TEST (test_L3_Compartment_units)
 {
-  char *units = "volume";
+  const char *units = "volume";
 
 
   fail_unless( !Compartment_isSetUnits(C) );

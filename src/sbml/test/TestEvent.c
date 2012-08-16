@@ -127,7 +127,7 @@ END_TEST
 
 START_TEST (test_Event_setId)
 {
-  char *id = "e1";
+  const char *id = "e1";
 
 
   Event_setId(E, id);
@@ -157,7 +157,7 @@ END_TEST
 
 START_TEST (test_Event_setName)
 {
-  char *name = "Set_k2";
+  const char *name = "Set_k2";
 
 
   Event_setName(E, name);
@@ -252,7 +252,7 @@ END_TEST
 START_TEST (test_Event_setTimeUnits)
 {
   Event_t *E1 = Event_create(2, 1);
-  char *units = "second";
+  const char *units = "second";
 
 
   Event_setTimeUnits(E1, units);

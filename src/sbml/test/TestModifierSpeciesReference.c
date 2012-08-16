@@ -94,7 +94,7 @@ END_TEST
 START_TEST (test_ModifierSpeciesReference_setSpecies)
 {
   const char *s;
-  char *species = "s1";
+  const char *species = "s1";
 
 
 

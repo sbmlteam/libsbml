@@ -84,7 +84,7 @@ ModelTest1_teardown (void)
 
 START_TEST (test_Model_setId1)
 {
-  char *id = "1e1";
+  const char *id = "1e1";
   int i = Model_setId(M, id);
 
   fail_unless( i == LIBSBML_INVALID_ATTRIBUTE_VALUE );
@@ -95,7 +95,7 @@ END_TEST
 
 START_TEST (test_Model_setId2)
 {
-  char *id = "e1";
+  const char *id = "e1";
   int i = Model_setId(M, id);
 
   fail_unless( i == LIBSBML_OPERATION_SUCCESS );
@@ -112,7 +112,7 @@ END_TEST
 
 START_TEST (test_Model_setId3)
 {
-  char *id = "e1";
+  const char *id = "e1";
   int i = Model_setId(M, id);
 
   fail_unless( i == LIBSBML_OPERATION_SUCCESS );
@@ -129,7 +129,7 @@ END_TEST
 
 START_TEST (test_Model_setName1)
 {
-  char *name = "3Set_k2";
+  const char *name = "3Set_k2";
 
   int i = Model_setName(M, name);
 
@@ -141,7 +141,7 @@ END_TEST
 
 START_TEST (test_Model_setName2)
 {
-  char *name = "Set k2";
+  const char *name = "Set k2";
 
   int i = Model_setName(M, name);
 

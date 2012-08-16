@@ -111,7 +111,7 @@ END_TEST
 
 START_TEST (test_EventAssignment_setVariable)
 {
-  char *variable = "k2";
+  const char *variable = "k2";
 
 
   EventAssignment_setVariable(EA, variable);

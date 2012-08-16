@@ -104,7 +104,7 @@ END_TEST
 
 START_TEST (test_L3_Unit_kind)
 {
-  char *kind = "mole";
+  const char *kind = "mole";
 
 
   fail_unless( !Unit_isSetKind(U) );

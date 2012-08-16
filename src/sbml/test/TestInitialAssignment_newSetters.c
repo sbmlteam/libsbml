@@ -72,7 +72,7 @@ InitialAssignmentTest1_teardown (void)
 
 START_TEST (test_InitialAssignment_setSymbol1)
 {
-  char *id = "1e1";
+  const char *id = "1e1";
   int i = InitialAssignment_setSymbol(E, id);
 
   fail_unless( i == LIBSBML_INVALID_ATTRIBUTE_VALUE );
@@ -83,7 +83,7 @@ END_TEST
 
 START_TEST (test_InitialAssignment_setSymbol2)
 {
-  char *id = "e1";
+  const char *id = "e1";
   int i = InitialAssignment_setSymbol(E, id);
 
   fail_unless( i == LIBSBML_OPERATION_SUCCESS );

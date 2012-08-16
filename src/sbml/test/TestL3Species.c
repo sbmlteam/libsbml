@@ -120,7 +120,7 @@ END_TEST
 
 START_TEST (test_L3_Species_id)
 {
-  char *id = "mitochondria";
+  const char *id = "mitochondria";
 
 
   fail_unless( !Species_isSetId(S) );
@@ -140,7 +140,7 @@ END_TEST
 
 START_TEST (test_L3_Species_name)
 {
-  char *name = "My_Favorite_Factory";
+  const char *name = "My_Favorite_Factory";
 
 
   fail_unless( !Species_isSetName(S) );
@@ -169,7 +169,7 @@ END_TEST
 
 START_TEST (test_L3_Species_compartment)
 {
-  char *compartment = "cell";
+  const char *compartment = "cell";
 
 
   fail_unless( !Species_isSetCompartment(S) );
@@ -230,7 +230,7 @@ END_TEST
 
 START_TEST (test_L3_Species_substanceUnits)
 {
-  char *units = "volume";
+  const char *units = "volume";
 
 
   fail_unless( !Species_isSetSubstanceUnits(S) );
@@ -315,7 +315,7 @@ END_TEST
 
 START_TEST (test_L3_Species_conversionFactor)
 {
-  char *units = "volume";
+  const char *units = "volume";
 
 
   fail_unless( !Species_isSetConversionFactor(S) );

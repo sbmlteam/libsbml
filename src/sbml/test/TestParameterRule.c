@@ -125,7 +125,7 @@ END_TEST
 
 START_TEST (test_ParameterRule_setName)
 {
-  char *name = "cell";
+  const char *name = "cell";
   const char *c;
 
 
@@ -160,7 +160,7 @@ END_TEST
 
 START_TEST (test_ParameterRule_setUnits)
 {
-  char *units = "cell";
+  const char *units = "cell";
 
 
   Rule_setUnits(PR, units);

@@ -71,7 +71,7 @@ RuleTest1_teardown (void)
 
 START_TEST (test_Rule_setFormula1)
 {
-  char *formula = "k1*X0";
+  const char *formula = "k1*X0";
 
   int i = Rule_setFormula(R, formula);
 
@@ -94,7 +94,7 @@ END_TEST
 
 START_TEST (test_Rule_setFormula3)
 {
-  char *formula = "k1 X0";
+  const char *formula = "k1 X0";
 
   int i = Rule_setFormula(R, formula);
 

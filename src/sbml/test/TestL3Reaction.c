@@ -96,7 +96,7 @@ END_TEST
 
 START_TEST (test_L3_Reaction_id)
 {
-  char *id = "mitochondria";
+  const char *id = "mitochondria";
 
 
   fail_unless( !Reaction_isSetId(R) );
@@ -116,7 +116,7 @@ END_TEST
 
 START_TEST (test_L3_Reaction_name)
 {
-  char *name = "My_Favorite_Factory";
+  const char *name = "My_Favorite_Factory";
 
 
   fail_unless( !Reaction_isSetName(R) );
@@ -145,7 +145,7 @@ END_TEST
 
 START_TEST (test_L3_Reaction_compartment)
 {
-  char *compartment = "cell";
+  const char *compartment = "cell";
 
 
   fail_unless( !Reaction_isSetCompartment(R) );

@@ -119,7 +119,7 @@ END_TEST
 
 START_TEST (test_SpeciesConcentrationRule_setSpecies)
 {
-  char       *species = "s2";
+  const char       *species = "s2";
   const char *s;
 
 

@@ -102,7 +102,7 @@ END_TEST
 
 START_TEST (test_L3_Model_id)
 {
-  char *id = "mitochondria";
+  const char *id = "mitochondria";
 
 
   fail_unless( !Model_isSetId(M) );
@@ -131,7 +131,7 @@ END_TEST
 
 START_TEST (test_L3_Model_name)
 {
-  char *name = "My_Favorite_Factory";
+  const char *name = "My_Favorite_Factory";
 
 
   fail_unless( !Model_isSetName(M) );
@@ -160,7 +160,7 @@ END_TEST
 
 START_TEST (test_L3_Model_substanceUnits)
 {
-  char *units = "mole";
+  const char *units = "mole";
 
 
   fail_unless( !Model_isSetSubstanceUnits(M) );
@@ -189,7 +189,7 @@ END_TEST
 
 START_TEST (test_L3_Model_timeUnits)
 {
-  char *units = "mole";
+  const char *units = "mole";
 
 
   fail_unless( !Model_isSetTimeUnits(M) );
@@ -218,7 +218,7 @@ END_TEST
 
 START_TEST (test_L3_Model_volumeUnits)
 {
-  char *units = "mole";
+  const char *units = "mole";
 
 
   fail_unless( !Model_isSetVolumeUnits(M) );
@@ -247,7 +247,7 @@ END_TEST
 
 START_TEST (test_L3_Model_areaUnits)
 {
-  char *units = "mole";
+  const char *units = "mole";
 
 
   fail_unless( !Model_isSetAreaUnits(M) );
@@ -276,7 +276,7 @@ END_TEST
 
 START_TEST (test_L3_Model_lengthUnits)
 {
-  char *units = "mole";
+  const char *units = "mole";
 
 
   fail_unless( !Model_isSetLengthUnits(M) );
@@ -305,7 +305,7 @@ END_TEST
 
 START_TEST (test_L3_Model_extentUnits)
 {
-  char *units = "mole";
+  const char *units = "mole";
 
 
   fail_unless( !Model_isSetExtentUnits(M) );
@@ -334,7 +334,7 @@ END_TEST
 
 START_TEST (test_L3_Model_conversionFactor)
 {
-  char *units = "mole";
+  const char *units = "mole";
 
 
   fail_unless( !Model_isSetConversionFactor(M) );

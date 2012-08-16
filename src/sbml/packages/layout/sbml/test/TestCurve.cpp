@@ -60,45 +60,45 @@ static Curve_t * C;
 void
 CurveTest_setup (void)
 {
-    C = Curve_create();
-
-    if (C == NULL)
-    {
-        fail("Curve_create(); returned a NULL pointer.");
-    }
-
+  C = Curve_create();
+  
+  if (C == NULL)
+  {
+    fail("Curve_create(); returned a NULL pointer.");
+  }
+  
 }
 
-void 
+void
 CurveTest_teardown (void)
 {
-    Curve_free(C);
+  Curve_free(C);
 }
 
 START_TEST (test_Curve_create)
 {
-    fail_unless( SBase_getTypeCode   ((SBase_t*) C) == SBML_LAYOUT_CURVE );
-    fail_unless( SBase_getMetaId     ((SBase_t*) C) == NULL );
-//    fail_unless( SBase_getNotes      ((SBase_t*) C) == NULL );
-//    fail_unless( SBase_getAnnotation ((SBase_t*) C) == NULL );
-    
-    
-
+  fail_unless( SBase_getTypeCode   ((SBase_t*) C) == SBML_LAYOUT_CURVE );
+  fail_unless( SBase_getMetaId     ((SBase_t*) C) == NULL );
+  //    fail_unless( SBase_getNotes      ((SBase_t*) C) == NULL );
+  //    fail_unless( SBase_getAnnotation ((SBase_t*) C) == NULL );
+  
+  
+  
 }
 END_TEST
 
 START_TEST (test_Curve_createFrom)
 {
-    Curve_t* c=Curve_createFrom(C);
-    Curve_free(c);
+  Curve_t* c=Curve_createFrom(C);
+  Curve_free(c);
 }
 END_TEST
 
 START_TEST (test_Curve_createFrom_NULL)
 {
-    Curve_t* c=Curve_createFrom(NULL);
-    Curve_free(c);
-
+  Curve_t* c=Curve_createFrom(NULL);
+  Curve_free(c);
+  
 }
 END_TEST
 
@@ -109,85 +109,85 @@ END_TEST
 
 START_TEST (test_Curve_addCurveSegment_NULL)
 {
-    
+  
 }
 END_TEST
 
 START_TEST (test_Curve_getNumCurveSegments)
 {
-    
+  
 }
 END_TEST
 
 START_TEST (test_Curve_getCurveSegment)
 {
 	unsigned int num;
-    C->createLineSegment();
+  C->createLineSegment();
 	num = C->getNumCurveSegments();
-    LineSegment_t* ls=C->getCurveSegment(num-1);
-    fail_unless(ls != NULL);
+  LineSegment_t* ls=C->getCurveSegment(num-1);
+  fail_unless(ls != NULL);
 }
 END_TEST
 
 START_TEST (test_Curve_getListOfCurveSegments )
 {
-    Curve_createLineSegment(C);
-    ListOf* l=Curve_getListOfCurveSegments(C);
-    fail_unless(l != NULL);
-    fail_unless(ListOf_size(l) == 1);
+  Curve_createLineSegment(C);
+  ListOf* l=Curve_getListOfCurveSegments(C);
+  fail_unless(l != NULL);
+  fail_unless(ListOf_size(l) == 1);
 }
 END_TEST
 
 START_TEST (test_Curve_createLineSegment )
 {
-    unsigned int number=Curve_getNumCurveSegments(C);
-    LineSegment_t* ls=Curve_createLineSegment(C);
-    fail_unless(ls !=NULL);
-    fail_unless(Curve_getNumCurveSegments(C)==number+1);
+  unsigned int number=Curve_getNumCurveSegments(C);
+  LineSegment_t* ls=Curve_createLineSegment(C);
+  fail_unless(ls !=NULL);
+  fail_unless(Curve_getNumCurveSegments(C)==number+1);
 }
 END_TEST
 
 START_TEST (test_Curve_createCubicBezier )
 {
-    unsigned int number=Curve_getNumCurveSegments(C);
-    CubicBezier_t* cb=Curve_createCubicBezier(C);
-    fail_unless(cb !=NULL);
-    fail_unless(Curve_getNumCurveSegments(C)==number+1);
+  unsigned int number=Curve_getNumCurveSegments(C);
+  CubicBezier_t* cb=Curve_createCubicBezier(C);
+  fail_unless(cb !=NULL);
+  fail_unless(Curve_getNumCurveSegments(C)==number+1);
 }
 END_TEST
 
 START_TEST ( test_Curve_copyConstructor )
 {
-    Curve* c1=new Curve();
-    XMLNode* notes=new XMLNode();
-    c1->setNotes(notes);
-    XMLNode* annotation=new XMLNode();
-    c1->setAnnotation(annotation);
-    c1->createLineSegment();
-    c1->createLineSegment();
-    c1->createCubicBezier();
-    c1->createCubicBezier();
-    Curve* c2=new Curve(*c1);
-    delete c2;
-    delete c1;
+  Curve* c1=new Curve();
+  XMLNode* notes=new XMLNode();
+  c1->setNotes(notes);
+  XMLNode* annotation=new XMLNode();
+  c1->setAnnotation(annotation);
+  c1->createLineSegment();
+  c1->createLineSegment();
+  c1->createCubicBezier();
+  c1->createCubicBezier();
+  Curve* c2=new Curve(*c1);
+  delete c2;
+  delete c1;
 }
 END_TEST
 
 START_TEST ( test_Curve_assignmentOperator )
 {
-    Curve* c1=new Curve();
-    XMLNode* notes=new XMLNode();
-    c1->setNotes(notes);
-    XMLNode* annotation=new XMLNode();
-    c1->setAnnotation(annotation);
-    c1->createLineSegment();
-    c1->createLineSegment();
-    c1->createCubicBezier();
-    c1->createCubicBezier();
-    Curve* c2=new Curve();
-    (*c2)=(*c1);
-    delete c2;
-    delete c1;
+  Curve* c1=new Curve();
+  XMLNode* notes=new XMLNode();
+  c1->setNotes(notes);
+  XMLNode* annotation=new XMLNode();
+  c1->setAnnotation(annotation);
+  c1->createLineSegment();
+  c1->createLineSegment();
+  c1->createCubicBezier();
+  c1->createCubicBezier();
+  Curve* c2=new Curve();
+  (*c2)=(*c1);
+  delete c2;
+  delete c1;
 }
 END_TEST
 
@@ -196,12 +196,12 @@ create_suite_Curve (void)
 {
   Suite *suite = suite_create("Curve");
   TCase *tcase = tcase_create("Curve");
-
-
+  
+  
   tcase_add_checked_fixture( tcase,
-                             CurveTest_setup,
-                             CurveTest_teardown );
-
+                            CurveTest_setup,
+                            CurveTest_teardown );
+  
   tcase_add_test( tcase, test_Curve_create                           );
   tcase_add_test( tcase, test_Curve_createFrom                       );
   tcase_add_test( tcase, test_Curve_createFrom_NULL                  );
@@ -214,9 +214,9 @@ create_suite_Curve (void)
   tcase_add_test( tcase, test_Curve_createCubicBezier                );
   tcase_add_test( tcase, test_Curve_copyConstructor                  );
   tcase_add_test( tcase, test_Curve_assignmentOperator               );
-
+  
   suite_add_tcase(suite, tcase);
-
+  
   return suite;
 }
 

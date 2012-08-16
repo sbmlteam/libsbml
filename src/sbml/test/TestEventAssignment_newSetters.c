@@ -72,7 +72,7 @@ EventAssignmentTest1_teardown (void)
 
 START_TEST (test_EventAssignment_setVariable1)
 {
-  char *id = "1e1";
+  const char *id = "1e1";
   int i = EventAssignment_setVariable(E, id);
 
   fail_unless( i == LIBSBML_INVALID_ATTRIBUTE_VALUE );
@@ -83,7 +83,7 @@ END_TEST
 
 START_TEST (test_EventAssignment_setVariable2)
 {
-  char *id = "e1";
+  const char *id = "e1";
   int i = EventAssignment_setVariable(E, id);
 
   fail_unless( i == LIBSBML_OPERATION_SUCCESS );

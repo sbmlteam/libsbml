@@ -107,7 +107,7 @@ END_TEST
 
 START_TEST (test_L3_Parameter_id)
 {
-  char *id = "mitochondria";
+  const char *id = "mitochondria";
 
 
   fail_unless( !Parameter_isSetId(P) );
@@ -127,7 +127,7 @@ END_TEST
 
 START_TEST (test_L3_Parameter_name)
 {
-  char *name = "My_Favorite_Factory";
+  const char *name = "My_Favorite_Factory";
 
 
   fail_unless( !Parameter_isSetName(P) );
@@ -156,7 +156,7 @@ END_TEST
 
 START_TEST (test_L3_Parameter_units)
 {
-  char *units = "volume";
+  const char *units = "volume";
 
 
   fail_unless( !Parameter_isSetUnits(P) );

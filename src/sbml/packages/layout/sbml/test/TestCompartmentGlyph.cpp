@@ -62,83 +62,83 @@ static LayoutPkgNamespaces* LN;
 void
 CompartmentGlyphTest_setup (void)
 {
-    LN = new LayoutPkgNamespaces();
-    CG = new (std::nothrow) CompartmentGlyph(LN);
-
-    if (CG == NULL)
-    {
-        fail("new(std::nothrow) CompartmentGlyph() returned a NULL pointer.");
-    }
-
+  LN = new LayoutPkgNamespaces();
+  CG = new (std::nothrow) CompartmentGlyph(LN);
+  
+  if (CG == NULL)
+  {
+    fail("new(std::nothrow) CompartmentGlyph() returned a NULL pointer.");
+  }
+  
 }
 
-void 
+void
 CompartmentGlyphTest_teardown (void)
 {
-    delete CG;
-    delete LN;
+  delete CG;
+  delete LN;
 }
 
 START_TEST ( test_CompartmentGlyph_new )
 {
-   fail_unless( CG->getPackageName() == "layout");
-   fail_unless( CG->getTypeCode() == SBML_LAYOUT_COMPARTMENTGLYPH);
-    fail_unless( CG->getMetaId()      == "" );
-//    fail_unless( CG->getNotes()       == "" );
-//    fail_unless( CG->getAnnotation()  == "" );
-    fail_unless( CG->getId()          == "" );
-    fail_unless( !CG->isSetId());
-    fail_unless( !CG->isSetCompartmentId());
+  fail_unless( CG->getPackageName() == "layout");
+  fail_unless( CG->getTypeCode() == SBML_LAYOUT_COMPARTMENTGLYPH);
+  fail_unless( CG->getMetaId()      == "" );
+  //    fail_unless( CG->getNotes()       == "" );
+  //    fail_unless( CG->getAnnotation()  == "" );
+  fail_unless( CG->getId()          == "" );
+  fail_unless( !CG->isSetId());
+  fail_unless( !CG->isSetCompartmentId());
 }
 END_TEST
 
 START_TEST ( test_CompartmentGlyph_new_with_id_and_compartmentid)
 {
-    std::string id="TestCompartmentGlyph";
-    std::string compId="TestCompartment";
-    CompartmentGlyph* cg=new CompartmentGlyph(LN,id,compId);
-    fail_unless(cg->isSetCompartmentId());
-    fail_unless(cg->getCompartmentId()==compId);
-    delete cg;
+  std::string id="TestCompartmentGlyph";
+  std::string compId="TestCompartment";
+  CompartmentGlyph* cg=new CompartmentGlyph(LN,id,compId);
+  fail_unless(cg->isSetCompartmentId());
+  fail_unless(cg->getCompartmentId()==compId);
+  delete cg;
 }
 END_TEST
 
 START_TEST ( test_CompartmentGlyph_setCompartmentId )
 {
-    std::string compId="TestCompartmentGlyph";
-    CG->setCompartmentId(compId);
-    fail_unless(CG->isSetCompartmentId());
-    fail_unless(CG->getCompartmentId()==compId);
-    compId="";
-    CG->setCompartmentId(compId);
-    fail_unless(!CG->isSetCompartmentId());
+  std::string compId="TestCompartmentGlyph";
+  CG->setCompartmentId(compId);
+  fail_unless(CG->isSetCompartmentId());
+  fail_unless(CG->getCompartmentId()==compId);
+  compId="";
+  CG->setCompartmentId(compId);
+  fail_unless(!CG->isSetCompartmentId());
 }
 END_TEST
 
 START_TEST ( test_CompartmentGlyph_copyConstructor )
 {
-    CompartmentGlyph* cg1=new CompartmentGlyph();
-    XMLNode* notes=new XMLNode();
-    cg1->setNotes(notes);
-    XMLNode* annotation=new XMLNode();
-    cg1->setAnnotation(annotation);
-    CompartmentGlyph* cg2=new CompartmentGlyph(*cg1);
-    delete cg2;
-    delete cg1;
+  CompartmentGlyph* cg1=new CompartmentGlyph();
+  XMLNode* notes=new XMLNode();
+  cg1->setNotes(notes);
+  XMLNode* annotation=new XMLNode();
+  cg1->setAnnotation(annotation);
+  CompartmentGlyph* cg2=new CompartmentGlyph(*cg1);
+  delete cg2;
+  delete cg1;
 }
 END_TEST
 
 START_TEST ( test_CompartmentGlyph_assignmentOperator )
 {
-    CompartmentGlyph* cg1=new CompartmentGlyph();
-    XMLNode* notes=new XMLNode();
-    cg1->setNotes(notes);
-    XMLNode* annotation=new XMLNode();
-    cg1->setAnnotation(annotation);
-    CompartmentGlyph* cg2=new CompartmentGlyph();
-    (*cg2)=(*cg1);
-    delete cg2;
-    delete cg1;
+  CompartmentGlyph* cg1=new CompartmentGlyph();
+  XMLNode* notes=new XMLNode();
+  cg1->setNotes(notes);
+  XMLNode* annotation=new XMLNode();
+  cg1->setAnnotation(annotation);
+  CompartmentGlyph* cg2=new CompartmentGlyph();
+  (*cg2)=(*cg1);
+  delete cg2;
+  delete cg1;
 }
 END_TEST
 
@@ -147,12 +147,12 @@ create_suite_CompartmentGlyph (void)
 {
   Suite *suite = suite_create("CompartmentGlyph");
   TCase *tcase = tcase_create("CompartmentGlyph");
-
+  
   tcase_add_checked_fixture( tcase,
-                             CompartmentGlyphTest_setup,
-                             CompartmentGlyphTest_teardown );
-
-
+                            CompartmentGlyphTest_setup,
+                            CompartmentGlyphTest_teardown );
+  
+  
   tcase_add_test( tcase, test_CompartmentGlyph_new                           );
   tcase_add_test( tcase, test_CompartmentGlyph_new_with_id_and_compartmentid );
   tcase_add_test( tcase, test_CompartmentGlyph_setCompartmentId              );
@@ -160,7 +160,7 @@ create_suite_CompartmentGlyph (void)
   tcase_add_test( tcase, test_CompartmentGlyph_assignmentOperator         );
   
   suite_add_tcase(suite, tcase);
-
+  
   return suite;
 }
 

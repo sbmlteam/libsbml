@@ -105,7 +105,7 @@ END_TEST
 
 START_TEST (test_L3_LocalParameter_id)
 {
-  char *id = "mitochondria";
+  const char *id = "mitochondria";
 
 
   fail_unless( !LocalParameter_isSetId(P) );
@@ -125,7 +125,7 @@ END_TEST
 
 START_TEST (test_L3_LocalParameter_name)
 {
-  char *name = "My_Favorite_Factory";
+  const char *name = "My_Favorite_Factory";
 
 
   fail_unless( !LocalParameter_isSetName(P) );
@@ -154,7 +154,7 @@ END_TEST
 
 START_TEST (test_L3_LocalParameter_units)
 {
-  char *units = "volume";
+  const char *units = "volume";
 
 
   fail_unless( !LocalParameter_isSetUnits(P) );

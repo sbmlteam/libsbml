@@ -93,7 +93,7 @@ END_TEST
 
 START_TEST (test_L3_Event_id)
 {
-  char *id = "mitochondria";
+  const char *id = "mitochondria";
 
 
   fail_unless( !Event_isSetId(E) );
@@ -122,7 +122,7 @@ END_TEST
 
 START_TEST (test_L3_Event_name)
 {
-  char *name = "My_Favorite_Factory";
+  const char *name = "My_Favorite_Factory";
 
 
   fail_unless( !Event_isSetName(E) );

@@ -111,7 +111,7 @@ END_TEST
 
 START_TEST (test_CompartmentType_setId)
 {
-  char *id = "mitochondria";
+  const char *id = "mitochondria";
 
 
   CompartmentType_setId(CT, id);
@@ -141,7 +141,7 @@ END_TEST
 
 START_TEST (test_CompartmentType_setName)
 {
-  char *name = "My_Favorite_Factory";
+  const char *name = "My_Favorite_Factory";
 
 
   CompartmentType_setName(CT, name);

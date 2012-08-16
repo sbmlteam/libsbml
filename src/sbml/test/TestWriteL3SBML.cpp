@@ -745,7 +745,7 @@ START_TEST (test_WriteL3SBML_gzip)
                         "../../../examples/sample-models/from-spec/level-3/twodimensional.xml",
                         "../../../examples/sample-models/from-spec/level-3/units.xml"
                         };
-  char* gzfile = "test.xml.gz";
+  const char* gzfile = "test.xml.gz";
 
   for(unsigned int i=0; i < filenum; i++)
   {
@@ -794,7 +794,7 @@ START_TEST (test_WriteL3SBML_bzip2)
                         "../../../examples/sample-models/from-spec/level-3/units.xml"
                         };
 
-  char* bz2file = "test.xml.bz2";
+  const char* bz2file = "test.xml.bz2";
 
   for(unsigned int i=0; i < filenum; i++)
   {
@@ -842,7 +842,7 @@ START_TEST (test_WriteL3SBML_zip)
                         "../../../examples/sample-models/from-spec/level-3/units.xml"
                         };
 
-  char* zipfile = "test.xml.zip";
+  const char* zipfile = "test.xml.zip";
 
   for(unsigned int i=0; i < filenum; i++)
   {

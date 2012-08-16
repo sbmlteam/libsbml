@@ -105,7 +105,7 @@ END_TEST
 
 START_TEST (test_L3_SpeciesReference_id)
 {
-  char *id = "mitochondria";
+  const char *id = "mitochondria";
 
 
   fail_unless( !SpeciesReference_isSetId(SR) );
@@ -125,7 +125,7 @@ END_TEST
 
 START_TEST (test_L3_SpeciesReference_name)
 {
-  char *name = "My_Favorite_Factory";
+  const char *name = "My_Favorite_Factory";
 
 
   fail_unless( !SpeciesReference_isSetName(SR) );
@@ -154,7 +154,7 @@ END_TEST
 
 START_TEST (test_L3_SpeciesReference_species)
 {
-  char *species = "cell";
+  const char *species = "cell";
 
 
   fail_unless( !SpeciesReference_isSetSpecies(SR) );

@@ -69,7 +69,7 @@ FunctionDefinitionTest1_teardown (void)
 
 START_TEST (test_FunctionDefinition_setId1)
 {
-  char *id = "1e1";
+  const char *id = "1e1";
   int i = FunctionDefinition_setId(E, id);
 
   fail_unless( i == LIBSBML_INVALID_ATTRIBUTE_VALUE );
@@ -80,7 +80,7 @@ END_TEST
 
 START_TEST (test_FunctionDefinition_setId2)
 {
-  char *id = "e1";
+  const char *id = "e1";
   int i = FunctionDefinition_setId(E, id);
 
   fail_unless( i == LIBSBML_OPERATION_SUCCESS );
@@ -97,7 +97,7 @@ END_TEST
 
 START_TEST (test_FunctionDefinition_setName1)
 {
-  char *name = "3Set_k2";
+  const char *name = "3Set_k2";
 
   int i = FunctionDefinition_setName(E, name);
 
@@ -109,7 +109,7 @@ END_TEST
 
 START_TEST (test_FunctionDefinition_setName2)
 {
-  char *name = "Set k2";
+  const char *name = "Set k2";
 
   int i = FunctionDefinition_setName(E, name);
 

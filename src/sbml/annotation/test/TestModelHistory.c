@@ -114,7 +114,7 @@ END_TEST
 
 START_TEST (test_Date_getDateAsString)
 {
-  char * dd = "2005-02-02T14:56:11Z";
+  const char * dd = "2005-02-02T14:56:11Z";
 
   Date_t * date = Date_createFromString(dd);
 

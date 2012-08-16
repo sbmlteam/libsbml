@@ -137,7 +137,7 @@ END_TEST
 
 START_TEST (test_UnitDefinition_setId)
 {
-  char *id = "mmls";
+  const char *id = "mmls";
 
 
   UnitDefinition_setId(UD, id);
@@ -167,7 +167,7 @@ END_TEST
 
 START_TEST (test_UnitDefinition_setName)
 {
-  char *name = "mmol_per_liter_per_sec";
+  const char *name = "mmol_per_liter_per_sec";
 
 
   UnitDefinition_setName(UD, name);

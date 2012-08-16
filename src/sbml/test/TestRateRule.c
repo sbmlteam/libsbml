@@ -90,7 +90,7 @@ END_TEST
 
 START_TEST (test_RateRule_setVariable)
 {
-  char *variable = "x";
+  const char *variable = "x";
 
 
   Rule_setVariable(RR, variable);

@@ -127,7 +127,7 @@ END_TEST
 
 START_TEST (test_Model_setId)
 {
-  char *id = "Branch";
+  const char *id = "Branch";
 
 
   Model_setId(M, id);
@@ -162,7 +162,7 @@ END_TEST
 
 START_TEST (test_Model_setName)
 {
-  char *name = "My_Branch_Model";
+  const char *name = "My_Branch_Model";
 
 
   Model_setName(M, name);

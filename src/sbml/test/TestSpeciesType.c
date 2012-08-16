@@ -112,7 +112,7 @@ END_TEST
 
 START_TEST (test_SpeciesType_setId)
 {
-  char *id = "mitochondria";
+  const char *id = "mitochondria";
 
 
   SpeciesType_setId(CT, id);
@@ -142,7 +142,7 @@ END_TEST
 
 START_TEST (test_SpeciesType_setName)
 {
-  char *name = "My_Favorite_Factory";
+  const char *name = "My_Favorite_Factory";
 
 
   SpeciesType_setName(CT, name);

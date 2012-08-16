@@ -178,7 +178,7 @@ END_TEST
 
 START_TEST (test_FunctionDefinition_setId)
 {
-  char *id = "pow3";
+  const char *id = "pow3";
 
 
   FunctionDefinition_setId(FD, id);
@@ -208,7 +208,7 @@ END_TEST
 
 START_TEST (test_FunctionDefinition_setName)
 {
-  char *name = "Cube_Me";
+  const char *name = "Cube_Me";
 
 
   FunctionDefinition_setName(FD, name);

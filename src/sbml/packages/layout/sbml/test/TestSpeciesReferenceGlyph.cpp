@@ -66,249 +66,249 @@ static LayoutPkgNamespaces* LN;
 void
 SpeciesReferenceGlyphTest_setup (void)
 {
-    LN = new LayoutPkgNamespaces();
-    SRG = new (std::nothrow) SpeciesReferenceGlyph(LN);
-
-    if (SRG == NULL)
-    {
-        fail("new(std::nothrow) SpeciesReferenceGlyph() returned a NULL pointer.");
-    }
-
+  LN = new LayoutPkgNamespaces();
+  SRG = new (std::nothrow) SpeciesReferenceGlyph(LN);
+  
+  if (SRG == NULL)
+  {
+    fail("new(std::nothrow) SpeciesReferenceGlyph() returned a NULL pointer.");
+  }
+  
 }
 
-void 
+void
 SpeciesReferenceGlyphTest_teardown (void)
 {
-    delete SRG;
-    delete LN;
+  delete SRG;
+  delete LN;
 }
 
 START_TEST (test_SpeciesReferenceGlyph_new )
 {
-   fail_unless( SRG->getTypeCode()   == SBML_LAYOUT_SPECIESREFERENCEGLYPH );
-   fail_unless( SRG->getMetaId()     == "" );
-//   fail_unless( SRG->getNotes()      == "" );
-//   fail_unless( SRG->getAnnotation() == "" );
-
-   fail_unless( !SRG->isSetId() );
-   fail_unless( !SRG->isSetSpeciesReferenceId() );
-   fail_unless( !SRG->isSetSpeciesGlyphId() );
-   fail_unless( !SRG->isSetRole() );
-   fail_unless( SRG->getRole() == SPECIES_ROLE_UNDEFINED );
-   fail_unless( SRG->getCurve() != NULL);
-   fail_unless( !SRG->isSetCurve());
- }
+  fail_unless( SRG->getTypeCode()   == SBML_LAYOUT_SPECIESREFERENCEGLYPH );
+  fail_unless( SRG->getMetaId()     == "" );
+  //   fail_unless( SRG->getNotes()      == "" );
+  //   fail_unless( SRG->getAnnotation() == "" );
+  
+  fail_unless( !SRG->isSetId() );
+  fail_unless( !SRG->isSetSpeciesReferenceId() );
+  fail_unless( !SRG->isSetSpeciesGlyphId() );
+  fail_unless( !SRG->isSetRole() );
+  fail_unless( SRG->getRole() == SPECIES_ROLE_UNDEFINED );
+  fail_unless( SRG->getCurve() != NULL);
+  fail_unless( !SRG->isSetCurve());
+}
 END_TEST
 
 START_TEST (test_SpeciesReferenceGlyph_new_with_data)
 {
-    std::string sid="TestSpeciesReferenceGlyph";
-    std::string glyphId="TestSpeciesGlyph";
-    std::string referenceId="TestSpeciesReference";    
-    SpeciesReferenceGlyph* srg=new SpeciesReferenceGlyph( LN, sid,
-                                                          glyphId,
-                                                          referenceId,
-                                                          SPECIES_ROLE_SUBSTRATE
-                                                        );
-
-   fail_unless( srg->getTypeCode()   == SBML_LAYOUT_SPECIESREFERENCEGLYPH );
-   fail_unless( srg->getMetaId()     == "" );
-//   fail_unless( srg->getNotes()      == "" );
-//   fail_unless( srg->getAnnotation() == "" );
-
-   fail_unless( srg->isSetId() );
-   fail_unless( srg->getId() == sid);
-   fail_unless( srg->isSetSpeciesReferenceId() );
-   fail_unless( srg->getSpeciesReferenceId() == referenceId);
-   fail_unless( srg->isSetSpeciesGlyphId() );
-   fail_unless( srg->getSpeciesGlyphId() == glyphId);
-   fail_unless( srg->isSetRole());
-   fail_unless( srg->getRole() == SPECIES_ROLE_SUBSTRATE );
-   fail_unless( srg->getCurve() != NULL);
-   fail_unless( !srg->isSetCurve());
-
-   delete srg;
+  std::string sid="TestSpeciesReferenceGlyph";
+  std::string glyphId="TestSpeciesGlyph";
+  std::string referenceId="TestSpeciesReference";
+  SpeciesReferenceGlyph* srg=new SpeciesReferenceGlyph( LN, sid,
+                                                       glyphId,
+                                                       referenceId,
+                                                       SPECIES_ROLE_SUBSTRATE
+                                                       );
+  
+  fail_unless( srg->getTypeCode()   == SBML_LAYOUT_SPECIESREFERENCEGLYPH );
+  fail_unless( srg->getMetaId()     == "" );
+  //   fail_unless( srg->getNotes()      == "" );
+  //   fail_unless( srg->getAnnotation() == "" );
+  
+  fail_unless( srg->isSetId() );
+  fail_unless( srg->getId() == sid);
+  fail_unless( srg->isSetSpeciesReferenceId() );
+  fail_unless( srg->getSpeciesReferenceId() == referenceId);
+  fail_unless( srg->isSetSpeciesGlyphId() );
+  fail_unless( srg->getSpeciesGlyphId() == glyphId);
+  fail_unless( srg->isSetRole());
+  fail_unless( srg->getRole() == SPECIES_ROLE_SUBSTRATE );
+  fail_unless( srg->getCurve() != NULL);
+  fail_unless( !srg->isSetCurve());
+  
+  delete srg;
 }
 END_TEST
 
 START_TEST (test_SpeciesReferenceGlyph_setSpeciesGlyphId)
 {
-    std::string glyphId="TestSpeciesGlyph";
-    SRG->setSpeciesGlyphId(glyphId);
-    fail_unless(SRG->isSetSpeciesGlyphId());
-    fail_unless(SRG->getSpeciesGlyphId() == glyphId);
-    SRG->setSpeciesGlyphId("");
-    fail_unless(!SRG->isSetSpeciesGlyphId());
+  std::string glyphId="TestSpeciesGlyph";
+  SRG->setSpeciesGlyphId(glyphId);
+  fail_unless(SRG->isSetSpeciesGlyphId());
+  fail_unless(SRG->getSpeciesGlyphId() == glyphId);
+  SRG->setSpeciesGlyphId("");
+  fail_unless(!SRG->isSetSpeciesGlyphId());
 }
 END_TEST
 
 START_TEST (test_SpeciesReferenceGlyph_setSpeciesReferenceId)
 {
-    std::string referenceId="TestSpeciesReference";
-    SRG->setSpeciesReferenceId(referenceId);
-    fail_unless(SRG->isSetSpeciesReferenceId());
-    fail_unless(SRG->getSpeciesReferenceId() == referenceId);
-    SRG->setSpeciesReferenceId("");
-    fail_unless(!SRG->isSetSpeciesReferenceId());
+  std::string referenceId="TestSpeciesReference";
+  SRG->setSpeciesReferenceId(referenceId);
+  fail_unless(SRG->isSetSpeciesReferenceId());
+  fail_unless(SRG->getSpeciesReferenceId() == referenceId);
+  SRG->setSpeciesReferenceId("");
+  fail_unless(!SRG->isSetSpeciesReferenceId());
 }
 END_TEST
 
 START_TEST (test_SpeciesReferenceGlyph_setRole)
 {
-    SRG->setRole(SPECIES_ROLE_MODIFIER);
-    fail_unless(SRG->isSetRole());
-    fail_unless(SRG->getRole() == SPECIES_ROLE_MODIFIER);
+  SRG->setRole(SPECIES_ROLE_MODIFIER);
+  fail_unless(SRG->isSetRole());
+  fail_unless(SRG->getRole() == SPECIES_ROLE_MODIFIER);
 }
 END_TEST
 
 START_TEST (test_SpeciesReferenceGlyph_setRole_by_string)
 {
-    SRG->setRole("undefined");
-    fail_unless(SRG->getRole()==SPECIES_ROLE_UNDEFINED);
-    SRG->setRole("substrate");
-    fail_unless(SRG->getRole()==SPECIES_ROLE_SUBSTRATE);
-    SRG->setRole("product");
-    fail_unless(SRG->getRole()==SPECIES_ROLE_PRODUCT);
-    SRG->setRole("sidesubstrate");
-    fail_unless(SRG->getRole()==SPECIES_ROLE_SIDESUBSTRATE);
-    SRG->setRole("sideproduct");
-    fail_unless(SRG->getRole()==SPECIES_ROLE_SIDEPRODUCT);
-    SRG->setRole("modifier");
-    fail_unless(SRG->getRole()==SPECIES_ROLE_MODIFIER);
-    SRG->setRole("activator");
-    fail_unless(SRG->getRole()==SPECIES_ROLE_ACTIVATOR);
-    SRG->setRole("inhibitor");
-    fail_unless(SRG->getRole()==SPECIES_ROLE_INHIBITOR);
-    SRG->setRole("test");
-    fail_unless(SRG->getRole()==SPECIES_ROLE_UNDEFINED);
+  SRG->setRole("undefined");
+  fail_unless(SRG->getRole()==SPECIES_ROLE_UNDEFINED);
+  SRG->setRole("substrate");
+  fail_unless(SRG->getRole()==SPECIES_ROLE_SUBSTRATE);
+  SRG->setRole("product");
+  fail_unless(SRG->getRole()==SPECIES_ROLE_PRODUCT);
+  SRG->setRole("sidesubstrate");
+  fail_unless(SRG->getRole()==SPECIES_ROLE_SIDESUBSTRATE);
+  SRG->setRole("sideproduct");
+  fail_unless(SRG->getRole()==SPECIES_ROLE_SIDEPRODUCT);
+  SRG->setRole("modifier");
+  fail_unless(SRG->getRole()==SPECIES_ROLE_MODIFIER);
+  SRG->setRole("activator");
+  fail_unless(SRG->getRole()==SPECIES_ROLE_ACTIVATOR);
+  SRG->setRole("inhibitor");
+  fail_unless(SRG->getRole()==SPECIES_ROLE_INHIBITOR);
+  SRG->setRole("test");
+  fail_unless(SRG->getRole()==SPECIES_ROLE_UNDEFINED);
 }
 END_TEST
 
 START_TEST ( test_SpeciesReferenceGlyph_getRoleString )
 {
-    SRG->setRole(SPECIES_ROLE_UNDEFINED);
-    fail_unless(SRG->getRoleString() == "undefined");
-    SRG->setRole(SPECIES_ROLE_SUBSTRATE);
-    fail_unless(SRG->getRoleString() == "substrate");
-    SRG->setRole(SPECIES_ROLE_PRODUCT);
-    fail_unless(SRG->getRoleString() == "product");
-    SRG->setRole(SPECIES_ROLE_SIDESUBSTRATE);
-    fail_unless(SRG->getRoleString() == "sidesubstrate");
-    SRG->setRole(SPECIES_ROLE_SIDEPRODUCT);
-    fail_unless(SRG->getRoleString() == "sideproduct");
-    SRG->setRole(SPECIES_ROLE_MODIFIER);
-    fail_unless(SRG->getRoleString() == "modifier");
-    SRG->setRole(SPECIES_ROLE_ACTIVATOR);
-    fail_unless(SRG->getRoleString() == "activator");
-    SRG->setRole(SPECIES_ROLE_INHIBITOR);
-    fail_unless(SRG->getRoleString() == "inhibitor");
+  SRG->setRole(SPECIES_ROLE_UNDEFINED);
+  fail_unless(SRG->getRoleString() == "undefined");
+  SRG->setRole(SPECIES_ROLE_SUBSTRATE);
+  fail_unless(SRG->getRoleString() == "substrate");
+  SRG->setRole(SPECIES_ROLE_PRODUCT);
+  fail_unless(SRG->getRoleString() == "product");
+  SRG->setRole(SPECIES_ROLE_SIDESUBSTRATE);
+  fail_unless(SRG->getRoleString() == "sidesubstrate");
+  SRG->setRole(SPECIES_ROLE_SIDEPRODUCT);
+  fail_unless(SRG->getRoleString() == "sideproduct");
+  SRG->setRole(SPECIES_ROLE_MODIFIER);
+  fail_unless(SRG->getRoleString() == "modifier");
+  SRG->setRole(SPECIES_ROLE_ACTIVATOR);
+  fail_unless(SRG->getRoleString() == "activator");
+  SRG->setRole(SPECIES_ROLE_INHIBITOR);
+  fail_unless(SRG->getRoleString() == "inhibitor");
 }
 END_TEST
 
 START_TEST (test_SpeciesReferenceGlyph_setCurve)
 {
-    Curve* c=new Curve();
-    LineSegment* ls=new LineSegment();
-    c->addCurveSegment(ls);
-    delete ls;
-    ls=new LineSegment();
-    c->addCurveSegment(ls);
-    delete ls;
-    SRG->setCurve(c);
-    fail_unless(SRG->isSetCurve());
-    fail_unless(SRG->getCurve()->getNumCurveSegments() == 2); 
-    delete c;
+  Curve* c=new Curve();
+  LineSegment* ls=new LineSegment();
+  c->addCurveSegment(ls);
+  delete ls;
+  ls=new LineSegment();
+  c->addCurveSegment(ls);
+  delete ls;
+  SRG->setCurve(c);
+  fail_unless(SRG->isSetCurve());
+  fail_unless(SRG->getCurve()->getNumCurveSegments() == 2);
+  delete c;
 }
 END_TEST
 
 START_TEST (test_SpeciesReferenceGlyph_setCurve_NULL)
 {
-    SRG->setCurve(NULL);
-    fail_unless(!SRG->isSetCurve());
-    fail_unless(SRG->getCurve() != NULL);
+  SRG->setCurve(NULL);
+  fail_unless(!SRG->isSetCurve());
+  fail_unless(SRG->getCurve() != NULL);
 }
 END_TEST
 
 START_TEST (test_SpeciesReferenceGlyph_createLineSegment)
 {
-    LineSegment* ls=SRG->createLineSegment();
-    fail_unless(SRG->isSetCurve());
-    Point* p=ls->getStart();
-    fail_unless(p->getXOffset() == 0.0);
-    fail_unless(p->getYOffset() == 0.0);
-    fail_unless(p->getZOffset() == 0.0);
-    p=ls->getEnd();
-    fail_unless(p->getXOffset() == 0.0);
-    fail_unless(p->getYOffset() == 0.0);
-    fail_unless(p->getZOffset() == 0.0);
+  LineSegment* ls=SRG->createLineSegment();
+  fail_unless(SRG->isSetCurve());
+  Point* p=ls->getStart();
+  fail_unless(p->getXOffset() == 0.0);
+  fail_unless(p->getYOffset() == 0.0);
+  fail_unless(p->getZOffset() == 0.0);
+  p=ls->getEnd();
+  fail_unless(p->getXOffset() == 0.0);
+  fail_unless(p->getYOffset() == 0.0);
+  fail_unless(p->getZOffset() == 0.0);
 }
 END_TEST
 
 START_TEST (test_SpeciesReferenceGlyph_createCubicBezier)
 {
-    CubicBezier* cb=SRG->createCubicBezier();
-    fail_unless(SRG->isSetCurve());
-    Point* p=cb->getStart();
-    fail_unless(p->getXOffset() == 0.0);
-    fail_unless(p->getYOffset() == 0.0);
-    fail_unless(p->getZOffset() == 0.0);
-    p=cb->getBasePoint1();
-    fail_unless(p->getXOffset() == 0.0);
-    fail_unless(p->getYOffset() == 0.0);
-    fail_unless(p->getZOffset() == 0.0);
-    p=cb->getBasePoint2();
-    fail_unless(p->getXOffset() == 0.0);
-    fail_unless(p->getYOffset() == 0.0);
-    fail_unless(p->getZOffset() == 0.0);
-    p=cb->getEnd();
-    fail_unless(p->getXOffset() == 0.0);
-    fail_unless(p->getYOffset() == 0.0);
-    fail_unless(p->getZOffset() == 0.0);
+  CubicBezier* cb=SRG->createCubicBezier();
+  fail_unless(SRG->isSetCurve());
+  Point* p=cb->getStart();
+  fail_unless(p->getXOffset() == 0.0);
+  fail_unless(p->getYOffset() == 0.0);
+  fail_unless(p->getZOffset() == 0.0);
+  p=cb->getBasePoint1();
+  fail_unless(p->getXOffset() == 0.0);
+  fail_unless(p->getYOffset() == 0.0);
+  fail_unless(p->getZOffset() == 0.0);
+  p=cb->getBasePoint2();
+  fail_unless(p->getXOffset() == 0.0);
+  fail_unless(p->getYOffset() == 0.0);
+  fail_unless(p->getZOffset() == 0.0);
+  p=cb->getEnd();
+  fail_unless(p->getXOffset() == 0.0);
+  fail_unless(p->getYOffset() == 0.0);
+  fail_unless(p->getZOffset() == 0.0);
 }
 END_TEST
 
 START_TEST ( test_SpeciesReferenceGlyph_copyConstructor )
 {
-    SpeciesReferenceGlyph* srg1=new SpeciesReferenceGlyph();
-    XMLNode* notes=new XMLNode();
-    srg1->setNotes(notes);
-    XMLNode* annotation=new XMLNode();
-    srg1->setAnnotation(annotation);
-    srg1->getCurve()->createLineSegment();
-    srg1->getCurve()->createLineSegment();
-    srg1->getCurve()->createCubicBezier();
-    srg1->getCurve()->createLineSegment();
-    srg1->getCurve()->createLineSegment();
-    srg1->getCurve()->createCubicBezier();
-    srg1->getCurve()->createLineSegment();
-    srg1->getCurve()->createLineSegment();
-    srg1->getCurve()->createCubicBezier();
-    SpeciesReferenceGlyph* srg2=new SpeciesReferenceGlyph(*srg1);
-    delete srg2;
-    delete srg1;
+  SpeciesReferenceGlyph* srg1=new SpeciesReferenceGlyph();
+  XMLNode* notes=new XMLNode();
+  srg1->setNotes(notes);
+  XMLNode* annotation=new XMLNode();
+  srg1->setAnnotation(annotation);
+  srg1->getCurve()->createLineSegment();
+  srg1->getCurve()->createLineSegment();
+  srg1->getCurve()->createCubicBezier();
+  srg1->getCurve()->createLineSegment();
+  srg1->getCurve()->createLineSegment();
+  srg1->getCurve()->createCubicBezier();
+  srg1->getCurve()->createLineSegment();
+  srg1->getCurve()->createLineSegment();
+  srg1->getCurve()->createCubicBezier();
+  SpeciesReferenceGlyph* srg2=new SpeciesReferenceGlyph(*srg1);
+  delete srg2;
+  delete srg1;
 }
 END_TEST
 
 START_TEST ( test_SpeciesReferenceGlyph_assignmentOperator )
 {
-    SpeciesReferenceGlyph* srg1=new SpeciesReferenceGlyph();
-    XMLNode* notes=new XMLNode();
-    srg1->setNotes(notes);
-    XMLNode* annotation=new XMLNode();
-    srg1->setAnnotation(annotation);
-    srg1->getCurve()->createLineSegment();
-    srg1->getCurve()->createLineSegment();
-    srg1->getCurve()->createCubicBezier();
-    srg1->getCurve()->createLineSegment();
-    srg1->getCurve()->createLineSegment();
-    srg1->getCurve()->createCubicBezier();
-    srg1->getCurve()->createLineSegment();
-    srg1->getCurve()->createLineSegment();
-    srg1->getCurve()->createCubicBezier();
-     SpeciesReferenceGlyph* srg2=new SpeciesReferenceGlyph();
-    (*srg2)=(*srg1);
-    delete srg2;
-    delete srg1;
+  SpeciesReferenceGlyph* srg1=new SpeciesReferenceGlyph();
+  XMLNode* notes=new XMLNode();
+  srg1->setNotes(notes);
+  XMLNode* annotation=new XMLNode();
+  srg1->setAnnotation(annotation);
+  srg1->getCurve()->createLineSegment();
+  srg1->getCurve()->createLineSegment();
+  srg1->getCurve()->createCubicBezier();
+  srg1->getCurve()->createLineSegment();
+  srg1->getCurve()->createLineSegment();
+  srg1->getCurve()->createCubicBezier();
+  srg1->getCurve()->createLineSegment();
+  srg1->getCurve()->createLineSegment();
+  srg1->getCurve()->createCubicBezier();
+  SpeciesReferenceGlyph* srg2=new SpeciesReferenceGlyph();
+  (*srg2)=(*srg1);
+  delete srg2;
+  delete srg1;
 }
 END_TEST
 
@@ -319,11 +319,11 @@ create_suite_SpeciesReferenceGlyph (void)
 {
   Suite *suite = suite_create("SpeciesReferenceGlyph");
   TCase *tcase = tcase_create("SpeciesReferenceGlyph");
-
+  
   tcase_add_checked_fixture( tcase,
-                             SpeciesReferenceGlyphTest_setup,
-                             SpeciesReferenceGlyphTest_teardown );
-
+                            SpeciesReferenceGlyphTest_setup,
+                            SpeciesReferenceGlyphTest_teardown );
+  
   tcase_add_test( tcase, test_SpeciesReferenceGlyph_new                   );
   tcase_add_test( tcase, test_SpeciesReferenceGlyph_new_with_data         );
   tcase_add_test( tcase, test_SpeciesReferenceGlyph_setSpeciesGlyphId     );
@@ -339,7 +339,7 @@ create_suite_SpeciesReferenceGlyph (void)
   tcase_add_test( tcase, test_SpeciesReferenceGlyph_assignmentOperator    );
   
   suite_add_tcase(suite, tcase);
-
+  
   return suite;
 }
 

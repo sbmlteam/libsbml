@@ -121,7 +121,7 @@ END_TEST
 START_TEST (test_CompartmentVolumeRule_setCompartment)
 {
   const char *c;
-  char *compartment = "cell";
+  const char *compartment = "cell";
 
 
   Rule_setVariable(CVR, compartment);

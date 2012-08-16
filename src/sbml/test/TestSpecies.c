@@ -140,7 +140,7 @@ END_TEST
 
 START_TEST (test_Species_setId)
 {
-  char *id = "Glucose";
+  const char *id = "Glucose";
 
 
   Species_setId(S, id);
@@ -170,7 +170,7 @@ END_TEST
 
 START_TEST (test_Species_setName)
 {
-  char *name = "So_Sweet";
+  const char *name = "So_Sweet";
 
 
   Species_setName(S, name);
@@ -200,7 +200,7 @@ END_TEST
 
 START_TEST (test_Species_setCompartment)
 {
-  char *compartment = "cell";
+  const char *compartment = "cell";
 
 
   Species_setCompartment(S, compartment);
@@ -260,7 +260,7 @@ END_TEST
 
 START_TEST (test_Species_setSubstanceUnits)
 {
-  char *units = "item";
+  const char *units = "item";
 
 
   Species_setSubstanceUnits(S, units);
@@ -292,7 +292,7 @@ START_TEST (test_Species_setSpatialSizeUnits)
 {
   Species_t *s = 
     Species_create(2, 1);
-  char *units = "volume";
+  const char *units = "volume";
 
 
   Species_setSpatialSizeUnits(s, units);
@@ -324,7 +324,7 @@ END_TEST
 
 START_TEST (test_Species_setUnits)
 {
-  char *units = "mole";
+  const char *units = "mole";
 
 
   Species_setUnits(S, units);

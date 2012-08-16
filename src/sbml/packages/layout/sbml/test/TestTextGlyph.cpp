@@ -56,21 +56,21 @@ static LayoutPkgNamespaces* LN;
 void
 TextGlyphTest_setup (void)
 {
-    LN = new LayoutPkgNamespaces();
-    TG = new TextGlyph(LN);
-
-    if (TG == NULL)
-    {
-        fail("new(std::nothrow) TextGlyph() returned a NULL pointer.");
-    }
-
+  LN = new LayoutPkgNamespaces();
+  TG = new TextGlyph(LN);
+  
+  if (TG == NULL)
+  {
+    fail("new(std::nothrow) TextGlyph() returned a NULL pointer.");
+  }
+  
 }
 
-void 
+void
 TextGlyphTest_teardown (void)
 {
-    delete TG;
-    delete LN;
+  delete TG;
+  delete LN;
 }
 
 
@@ -78,88 +78,88 @@ CK_CPPSTART
 
 START_TEST ( test_TextGlyph_new )
 {
-    fail_unless( TG->getTypeCode()    == SBML_LAYOUT_TEXTGLYPH );
-    fail_unless( TG->getMetaId()      == "" );
-//    fail_unless( TG->getNotes()       == "" );
-//    fail_unless( TG->getAnnotation()  == "" );
-    fail_unless( TG->getId()          == "" );
-    fail_unless( !TG->isSetId());
-    fail_unless( !TG->isSetText());
-    fail_unless( !TG->isSetGraphicalObjectId());
-    fail_unless( !TG->isSetOriginOfTextId());
+  fail_unless( TG->getTypeCode()    == SBML_LAYOUT_TEXTGLYPH );
+  fail_unless( TG->getMetaId()      == "" );
+  //    fail_unless( TG->getNotes()       == "" );
+  //    fail_unless( TG->getAnnotation()  == "" );
+  fail_unless( TG->getId()          == "" );
+  fail_unless( !TG->isSetId());
+  fail_unless( !TG->isSetText());
+  fail_unless( !TG->isSetGraphicalObjectId());
+  fail_unless( !TG->isSetOriginOfTextId());
 }
 END_TEST
 
 START_TEST ( test_TextGlyph_new_with_text )
 {
-    std::string id="TestTextGlyphId";
-    std::string text="TestTextGlyph";
-    TextGlyph* tg=new TextGlyph(LN,id,text);
-    fail_unless( tg->getTypeCode()    == SBML_LAYOUT_TEXTGLYPH );
-    fail_unless( tg->getMetaId()      == "" );
-//    fail_unless( tg->getNotes()       == "" );
-//    fail_unless( tg->getAnnotation()  == "" );
-    fail_unless( tg->getId()          == id );
-    fail_unless( tg->isSetId());
-    fail_unless( tg->isSetText());
-    fail_unless( tg->getText()        == text );
-    fail_unless( !tg->isSetGraphicalObjectId());
-    fail_unless( !tg->isSetOriginOfTextId());
-    delete tg;
+  std::string id="TestTextGlyphId";
+  std::string text="TestTextGlyph";
+  TextGlyph* tg=new TextGlyph(LN,id,text);
+  fail_unless( tg->getTypeCode()    == SBML_LAYOUT_TEXTGLYPH );
+  fail_unless( tg->getMetaId()      == "" );
+  //    fail_unless( tg->getNotes()       == "" );
+  //    fail_unless( tg->getAnnotation()  == "" );
+  fail_unless( tg->getId()          == id );
+  fail_unless( tg->isSetId());
+  fail_unless( tg->isSetText());
+  fail_unless( tg->getText()        == text );
+  fail_unless( !tg->isSetGraphicalObjectId());
+  fail_unless( !tg->isSetOriginOfTextId());
+  delete tg;
 }
 END_TEST
 
 START_TEST ( test_TextGlyph_setText )
 {
-    std::string text="TestTextGlyph"; 
-    TG->setText(text);
-    fail_unless ( TG->isSetText());
-    fail_unless (TG->getText() == text );
+  std::string text="TestTextGlyph";
+  TG->setText(text);
+  fail_unless ( TG->isSetText());
+  fail_unless (TG->getText() == text );
 }
 END_TEST
 
 START_TEST ( test_TextGlyph_setGraphicalObjectId )
 {
-    std::string id="SomeSpeciesGlyphId"; 
-    TG->setGraphicalObjectId(id);
-    fail_unless ( TG->isSetGraphicalObjectId());
-    fail_unless ( TG->getGraphicalObjectId() == id );
+  std::string id="SomeSpeciesGlyphId";
+  TG->setGraphicalObjectId(id);
+  fail_unless ( TG->isSetGraphicalObjectId());
+  fail_unless ( TG->getGraphicalObjectId() == id );
 }
 END_TEST
 
 START_TEST ( test_TextGlyph_setOriginOfTextId )
 {
-    std::string id="SomeSpeciesGlyphId"; 
-    TG->setOriginOfTextId(id);
-    fail_unless ( TG->isSetOriginOfTextId());
-    fail_unless ( TG->getOriginOfTextId() == id );
+  std::string id="SomeSpeciesGlyphId";
+  TG->setOriginOfTextId(id);
+  fail_unless ( TG->isSetOriginOfTextId());
+  fail_unless ( TG->getOriginOfTextId() == id );
 }
 END_TEST
 
 START_TEST ( test_TextGlyph_copyConstructor )
 {
-    TextGlyph* tg1=new TextGlyph();
-    XMLNode* notes=new XMLNode();
-    tg1->setNotes(notes);
-    XMLNode* annotation=new XMLNode();
-    tg1->setAnnotation(annotation);
-    TextGlyph* tg2=new TextGlyph(*tg1);
-    delete tg2;
-    delete tg1;
+  TextGlyph* tg1=new TextGlyph();
+  XMLNode* notes=new XMLNode();
+  tg1->setNotes(notes);
+  XMLNode* annotation=new XMLNode();
+  tg1->setAnnotation(annotation);
+  TextGlyph* tg2=new TextGlyph(*tg1);
+  delete tg2;
+  delete tg1;
 }
 END_TEST
 
 START_TEST ( test_TextGlyph_assignmentOperator )
 {
-    TextGlyph* tg1=new TextGlyph();
-    XMLNode* notes=new XMLNode();
-    tg1->setNotes(notes);
-    XMLNode* annotation=new XMLNode();
-    tg1->setAnnotation(annotation);
-    TextGlyph* tg2=new TextGlyph();
-    (*tg2)=(*tg1);
-    delete tg2;
-    delete tg1;
+  TextGlyph* tg1=new TextGlyph();
+  XMLNode* notes=new XMLNode();
+  tg1->setNotes(notes);
+  XMLNode* annotation=new XMLNode();
+  tg1->setAnnotation(annotation);
+  TextGlyph* tg2=new TextGlyph();
+  (*tg2)=(*tg1);
+  delete tg2;
+  delete tg1;
 }
 END_TEST
 
@@ -168,12 +168,12 @@ create_suite_TextGlyph (void)
 {
   Suite *suite = suite_create("TextGlyph");
   TCase *tcase = tcase_create("TextGlyph");
-
+  
   tcase_add_checked_fixture( tcase,
-                             TextGlyphTest_setup,
-                             TextGlyphTest_teardown );
-
-
+                            TextGlyphTest_setup,
+                            TextGlyphTest_teardown );
+  
+  
   tcase_add_test(tcase , test_TextGlyph_new                  );
   tcase_add_test(tcase , test_TextGlyph_new_with_text        );
   tcase_add_test(tcase , test_TextGlyph_setText              );
@@ -183,7 +183,7 @@ create_suite_TextGlyph (void)
   tcase_add_test( tcase, test_TextGlyph_assignmentOperator   );
   
   suite_add_tcase(suite, tcase);
-
+  
   return suite;
 }
 

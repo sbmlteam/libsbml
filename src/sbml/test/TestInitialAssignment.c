@@ -108,7 +108,7 @@ END_TEST
 
 START_TEST (test_InitialAssignment_setSymbol)
 {
-  char *Symbol = "k2";
+  const char *Symbol = "k2";
 
 
   InitialAssignment_setSymbol(IA, Symbol);

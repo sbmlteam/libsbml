@@ -131,7 +131,7 @@ END_TEST
 
 START_TEST (test_Reaction_setId)
 {
-  char *id = "J1";
+  const char *id = "J1";
 
 
   Reaction_setId(R, id);
@@ -161,7 +161,7 @@ END_TEST
 
 START_TEST (test_Reaction_setName)
 {
-  char *name = "MapK_Cascade";
+  const char *name = "MapK_Cascade";
 
 
   Reaction_setName(R, name);

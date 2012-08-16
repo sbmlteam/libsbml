@@ -170,7 +170,7 @@ END_TEST
 
 START_TEST (test_KineticLaw_setFormula)
 {
-  char *formula = "k1*X0";
+  const char *formula = "k1*X0";
 
 
   KineticLaw_setFormula(kl, formula);
@@ -200,7 +200,7 @@ END_TEST
 
 START_TEST (test_KineticLaw_setBadFormula)
 {
-  char *formula = "k1 X0";
+ const char *formula = "k1 X0";
 
 
   KineticLaw_setFormula(kl, formula);
@@ -284,20 +284,21 @@ END_TEST
  */
 START_TEST (test_KineticLaw_setMathFromFormula)
 {
-  char *formula = "k3 / k2";
+  const char *initial_formula = "k3 / k2";
+  char* formula;
 
 
   fail_unless( !KineticLaw_isSetMath   (kl) );
   fail_unless( !KineticLaw_isSetFormula(kl) );
 
 
-  KineticLaw_setFormula(kl, formula);
+  KineticLaw_setFormula(kl, initial_formula);
   fail_unless( KineticLaw_isSetMath   (kl) );
   fail_unless( KineticLaw_isSetFormula(kl) );
 
   formula = SBML_formulaToString( KineticLaw_getMath(kl) );
 
-  fail_unless( !strcmp(formula, "k3 / k2") );
+  fail_unless( !strcmp(formula, initial_formula) );
 
   safe_free(formula);
 }

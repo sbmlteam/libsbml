@@ -121,7 +121,7 @@ END_TEST
 
 START_TEST (test_Parameter_setId)
 {
-  char *id = "Km1";
+  const char *id = "Km1";
 
 
   Parameter_setId(P, id);
@@ -151,7 +151,7 @@ END_TEST
 
 START_TEST (test_Parameter_setName)
 {
-  char *name = "Forward_Michaelis_Menten_Constant";
+  const char *name = "Forward_Michaelis_Menten_Constant";
 
 
   Parameter_setName(P, name);
@@ -181,7 +181,7 @@ END_TEST
 
 START_TEST (test_Parameter_setUnits)
 {
-  char *units = "second";
+  const char *units = "second";
 
 
   Parameter_setUnits(P, units);
