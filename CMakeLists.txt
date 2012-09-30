@@ -266,8 +266,7 @@ set(LIBSBML_XML_LIBRARY_LIBS)
 if(WITH_EXPAT)
     find_library(LIBEXPAT_LIBRARY
         NAMES libexpat.lib expat
-        PATHS /usr/lib /usr/local/lib
-              ${CMAKE_SOURCE_DIR}
+        PATHS /usr/lib /usr/local/lib              
               ${LIBSBML_DEPENDENCY_DIR}/lib
         DOC "The file name of the Expat library."
                 )
@@ -275,7 +274,6 @@ if(WITH_EXPAT)
     find_path(LIBEXPAT_INCLUDE_DIR
         NAMES expat.h
         PATHS /usr/include /usr/local/include
-              ${CMAKE_SOURCE_DIR}/include
               ${LIBSBML_DEPENDENCY_DIR}/include
         DOC "The directory containing the Expat include files."
               )
@@ -301,7 +299,6 @@ if(WITH_LIBXML)
     find_library(LIBXML_LIBRARY
         NAMES libxml2.lib xml2
         PATHS /usr/lib /usr/local/lib
-              ${CMAKE_SOURCE_DIR}
               ${LIBSBML_DEPENDENCY_DIR}/lib
         DOC "The file name of the libxml2 library."
                 )
@@ -311,7 +308,6 @@ if(WITH_LIBXML)
         PATHS /usr/include /usr/local/include
               /usr/include/libxml2
               /usr/local/include/libxml2
-              ${CMAKE_SOURCE_DIR}/include
               ${LIBSBML_DEPENDENCY_DIR}/include
         DOC "The directory containing the libxml2 include files."
               )
@@ -337,8 +333,7 @@ if(WITH_XERCES)
     add_definitions( -DUSE_XERCES )
     find_library(XERCES_LIBRARY
         NAMES xerces-c_3.lib xerces-c
-        PATHS /usr/lib /usr/local/lib
-              ${CMAKE_SOURCE_DIR}
+        PATHS /usr/lib /usr/local/lib              
               ${LIBSBML_DEPENDENCY_DIR}/lib
         DOC "The file name of the Xerces library."
                 )
@@ -348,7 +343,6 @@ if(WITH_XERCES)
         PATHS /usr/include /usr/local/include
               /usr/include/xercesc
               /usr/local/include/xercesc
-              ${CMAKE_SOURCE_DIR}/include
               ${LIBSBML_DEPENDENCY_DIR}/include
         DOC "The directory containing the Xerces include files."
               )
@@ -372,8 +366,7 @@ endif(WITH_XERCES)
 set(BZIP_INITIAL_VALUE)
 find_library(LIBBZ_LIBRARY
     NAMES bzip2.lib bz2 libbz2.lib
-    PATHS /usr/lib /usr/local/lib
-          ${CMAKE_SOURCE_DIR}
+    PATHS /usr/lib /usr/local/lib          
           ${LIBSBML_DEPENDENCY_DIR}/lib
     DOC "The file name of the bzip2 library."
 )
@@ -390,7 +383,6 @@ if(WITH_BZIP2)
     find_path(LIBBZ_INCLUDE_DIR
         NAMES bzlib.h bzip2/bzlib.h
         PATHS /usr/include /usr/local/include
-              ${CMAKE_SOURCE_DIR}/include
               ${LIBSBML_DEPENDENCY_DIR}/include
         DOC "The directory containing the bzip2 include files."
               )
@@ -431,8 +423,7 @@ set(EXTRA_LIBS "" CACHE STRING "List of additional libraries to link against." )
 set(ZLIB_INITIAL_VALUE)
 find_library(LIBZ_LIBRARY
     NAMES zdll.lib z zlib.lib
-    PATHS /usr/lib /usr/local/lib
-          ${CMAKE_SOURCE_DIR}
+    PATHS /usr/lib /usr/local/lib          
           ${LIBSBML_DEPENDENCY_DIR}/lib
     DOC "The file name of the zip compression library."
     )
@@ -449,7 +440,6 @@ if(WITH_ZLIB)
     find_path(LIBZ_INCLUDE_DIR
         NAMES zlib.h zlib/zlib.h
         PATHS /usr/include /usr/local/include
-              ${CMAKE_SOURCE_DIR}/include
               ${LIBSBML_DEPENDENCY_DIR}/include
         DOC "The directory containing the zlib include files."
               )
@@ -663,8 +653,7 @@ else(UNIX)
 		  # populate EXTRA_LIBS variable
           find_library(LIBICONV_LIBRARY
               NAMES libiconv.lib iconv.lib iconv
-              PATHS /usr/lib /usr/local/lib
-                    ${CMAKE_SOURCE_DIR}
+              PATHS /usr/lib /usr/local/lib                    
                     ${LIBSBML_DEPENDENCY_DIR}/lib
               DOC "The file name of the libiconv compression library."
               )
@@ -962,7 +951,6 @@ message(STATUS "
 #if(WITH_TEST_PROGRAM)
 #
 #include_directories(${CMAKE_CURRENT_SOURCE_DIR})
-#include_directories(${CMAKE_SOURCE_DIR}/include)
 #
 #add_executable(libsbml_test test.cpp)
 #target_link_libraries(libsbml_test ${LIBSBML_LIBRARY}-static)
