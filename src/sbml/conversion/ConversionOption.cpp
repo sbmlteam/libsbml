@@ -194,7 +194,12 @@ bool
 ConversionOption::getBoolValue() const
 {
   string value = mValue;
-  std::transform(value.begin(), value.end(), value.begin(), ::tolower);
+#ifdef __BORLANDC__
+   std::transform(value.begin(), value.end(), value.begin(),  (int(*)(int))
+std::tolower);
+#else
+   std::transform(value.begin(), value.end(), value.begin(), ::tolower);
+#endif
   if (value == "true") return true;
   if (value == "false") return false;
 
