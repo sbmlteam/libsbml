@@ -119,11 +119,19 @@ ifeq (,$(findstring clean,$(MAKECMDGOALS)))
   space        := $(empty) $(empty)
   mexext_regex := $(subst $(space),|,$(possible_mexext))
   ifeq ($(origin mexext), undefined)
-    mexext := $(shell $(MATLAB) $(matlab_args) -r "fprintf(2, '%s\n', mexext); quit" 2>&1 | grep -vi 'warning' | egrep '($(mexext_regex))' | tr -d '> ')
+	mexext := $(shell $(MATLAB) $(matlab_args) -r "fprintf(2, '%s\n', mexext); quit" 2>&1 | grep -vi 'warning' | egrep '($(mexext_regex))' | tr -d '> ')
   endif
 endif
 
 all: Makefile
+ifeq "$(mexext)" ""
+	@echo
+	@echo "Failed to determine the mex extension, that means that Matlab could not be started.";
+	@echo "This is possibly due to license issues (or a missing VPN connection.)";
+	@echo "Please start Matlab manually and run buildSBML.m (in src/bindings/matlab).";
+	@echo
+	@exit 1
+endif
 ifneq "$(MAKEFLAGS)" ""
 	$(MAKE) -$(MAKEFLAGS) mexext=$(mexext) TranslateSBML.$(mexext) OutputSBML.$(mexext)
 else
