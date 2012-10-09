@@ -633,13 +633,14 @@ ListOfSpeciesTypes::createObject (XMLInputStream& stream)
     }
     catch (SBMLConstructorException*)
     {
-      object = new SpeciesType(SBMLDocument::getDefaultLevel(),
-        SBMLDocument::getDefaultVersion());
+      // species type does not exist in L3, hence we fall back
+      object = new SpeciesType(2,
+        4);
     }
     catch ( ... )
     {
-      object = new SpeciesType(SBMLDocument::getDefaultLevel(),
-        SBMLDocument::getDefaultVersion());
+      // species type does not exist in L3, hence we fall back 
+      object = new SpeciesType(2,4);
     }
     
     if (object != NULL) mItems.push_back(object);

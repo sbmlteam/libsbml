@@ -635,13 +635,13 @@ ListOfCompartmentTypes::createObject (XMLInputStream& stream)
     }
     catch (SBMLConstructorException*)
     {
-      object = new CompartmentType(SBMLDocument::getDefaultLevel(),
-        SBMLDocument::getDefaultVersion());
+      // compartment type does not exist in L3
+      object = new CompartmentType(2,4);
     }
     catch ( ... )
     {
-      object = new CompartmentType(SBMLDocument::getDefaultLevel(),
-        SBMLDocument::getDefaultVersion());
+      // compartment type does not exist in l3
+      object = new CompartmentType(2,4);
     }
     
     if (object !=NULL) mItems.push_back(object);
