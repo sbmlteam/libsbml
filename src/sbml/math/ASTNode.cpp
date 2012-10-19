@@ -2215,10 +2215,15 @@ ASTNode::hasCorrectNumberArguments() const
     case AST_RELATIONAL_GT:
     case AST_RELATIONAL_LEQ:
     case AST_RELATIONAL_LT:
-    case AST_FUNCTION_PIECEWISE:
 
     if (numChildren < 2)
       correctNum = false;
+      break;
+
+    case AST_FUNCTION_PIECEWISE:
+
+      if (numChildren < 1)
+        correctNum = false;
       break;
 
     case AST_FUNCTION_ROOT:
