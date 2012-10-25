@@ -9,17 +9,17 @@ dnl <!-------------------------------------------------------------------------
 dnl This file is part of libSBML.  Please visit http://sbml.org for more
 dnl information about SBML, and the latest version of libSBML.
 dnl
-dnl Copyright (C) 2009-2012 jointly by the following organizations: 
+dnl Copyright (C) 2009-2012 jointly by the following organizations:
 dnl     1. California Institute of Technology, Pasadena, CA, USA
 dnl     2. EMBL European Bioinformatics Institute (EBML-EBI), Hinxton, UK
-dnl  
+dnl
 dnl Copyright (C) 2006-2008 by the California Institute of Technology,
-dnl     Pasadena, CA, USA 
-dnl  
-dnl Copyright (C) 2002-2005 jointly by the following organizations: 
+dnl     Pasadena, CA, USA
+dnl
+dnl Copyright (C) 2002-2005 jointly by the following organizations:
 dnl     1. California Institute of Technology, Pasadena, CA, USA
 dnl     2. Japan Science and Technology Agency, Japan
-dnl 
+dnl
 dnl This library is free software; you can redistribute it and/or modify it
 dnl under the terms of the GNU Lesser General Public License as published by
 dnl the Free Software Foundation.  A copy of the license agreement is provided
@@ -50,7 +50,7 @@ AC_DEFUN([CONFIG_PROG_JAVA],
   if test "$with_java" != "no"; then
 
     if test "$with_java" != "yes"; then
-      dnl Users seems to have supplied a prefix directory path.  See if we can 
+      dnl Users seems to have supplied a prefix directory path.  See if we can
       dnl find Java somewhere in the given tree.
 
       dnl 1st remove trailing slashes because it can confuse tests below.
@@ -72,10 +72,10 @@ AC_DEFUN([CONFIG_PROG_JAVA],
 
     if test -z "$JAVA" -o "$JAVA" = "no"; then
       AC_MSG_ERROR([Could not find a `java' executable.])
-    fi    
+    fi
     if test -z "$JAVAC" -o "$JAVAC" = "no"; then
       AC_MSG_ERROR([Could not find a `javac' executable.])
-    fi    
+    fi
 
     dnl Check version if required.
 
@@ -88,7 +88,7 @@ AC_DEFUN([CONFIG_PROG_JAVA],
       ry=`echo $1 | sed -e 's/\([0-9]*\)\.\([0-9]*\)\.\([0-9]*\).*/\2/'`
       rz=`echo $1 | sed -e 's/\([0-9]*\)\.\([0-9]*\)\.\([0-9]*\).*/\3/'`
 
-      version=`"$JAVA" -version 2>&1 | sed -e 's/\(.*\)$/\1/;q'`
+      version=`"$JAVA" -version 2>&1 | sed -e 's/openjdk/java/' | sed -e 's/-internal//'| sed -e 's/\(.*\)$/\1/;q'`
 
       jx=`echo $version | sed -e 's/java version \"\([0-9]*\)\.\([0-9]*\)\.\([0-9]*\).*/\1/'`
       jy=`echo $version | sed -e 's/java version \"\([0-9]*\)\.\([0-9]*\)\.\([0-9]*\).*/\2/'`
@@ -130,7 +130,7 @@ AC_DEFUN([CONFIG_PROG_JAVA],
         dnl    some point, which is the actual home under Ubuntu (and
         dnl    hopefully others) containing files we're looking for.
         dnl
-        dnl 2) $javaclink may end up being a relative path (e.g. 
+        dnl 2) $javaclink may end up being a relative path (e.g.
         dnl    "/usr/bin/java" -> "../java/bin/java" on Solaris).  So, the
         dnl    value of javaclink must be appended to $JAVAC to construct an
         dnl    absolute path.
@@ -141,16 +141,16 @@ AC_DEFUN([CONFIG_PROG_JAVA],
           /usr/lib/jvm/*)
             break
             ;;
-          *) 
+          *)
             javaclink=`readlink "$JAVAC"`
             ;;
         esac
 
         case "$javaclink" in
-          /*) 
+          /*)
             JAVAC="$javaclink"
             ;;
-          *) 
+          *)
             dnl 'X' avoids triggering unwanted echo options.
             JAVAC=`echo "X${JAVAC}" | sed -e 's/^X//' -e 's:[[^/]]*$::'`"$javaclink"
             ;;
@@ -164,7 +164,7 @@ AC_DEFUN([CONFIG_PROG_JAVA],
       *darwin*)
         framework="/System/Library/Frameworks/JavaVM.framework"
         case $JAVA_VER_MINOR in
-          6) 
+          7)
             if test -e "$framework/Versions/Current/Headers"; then
               headers="$framework/Versions/Current/Headers"
             elif test -e "$framework/Versions/CurrentJDK/Headers"; then
@@ -175,7 +175,18 @@ AC_DEFUN([CONFIG_PROG_JAVA],
               headers="$framework/Versions/1.6/Headers"
             fi
             ;;
-          5) 
+          6)
+            if test -e "$framework/Versions/Current/Headers"; then
+              headers="$framework/Versions/Current/Headers"
+            elif test -e "$framework/Versions/CurrentJDK/Headers"; then
+              headers="$framework/Versions/CurrentJDK/Headers"
+            elif test -e "$framework/Versions/1.6.0/Headers"; then
+              headers="$framework/Versions/1.6.0/Headers"
+            elif test -e "$framework/Versions/1.6/Headers"; then
+              headers="$framework/Versions/1.6/Headers"
+            fi
+            ;;
+          5)
             if test -e "$framework/Versions/CurrentJDK/Headers"; then
               headers="$framework/Versions/CurrentJDK/Headers"
             elif test -e "$framework/Versions/1.5.0/Headers"; then
@@ -189,7 +200,7 @@ AC_DEFUN([CONFIG_PROG_JAVA],
             dnl files are missing entirely, and there are dangling symlinks.
             dnl The following are ugly kludges to try to do the best we can.
             dnl One of the things this does deliberately is use the 1.4.1
-            dnl headers directory on the Mac even for Java 1.4.2 if the 
+            dnl headers directory on the Mac even for Java 1.4.2 if the
             dnl 1.4.2 headers directory can't be found.  Yuck.
             dnl 2004-07-07 <mhucka@caltech.edu>
             if test $JAVA_VER_SUBMINOR -eq 2; then
@@ -209,7 +220,7 @@ AC_DEFUN([CONFIG_PROG_JAVA],
         if test -e "$headers/jni.h"; then
           JAVA_CPPFLAGS="$JAVA_CPPFLAGS -I\"$headers\""
           parent=`dirname "$headers"`
-		  if test -e "$parent/Classes/classes.jar"; then  
+		  if test -e "$parent/Classes/classes.jar"; then
 			JAVADOC_JAR="$parent/Classes/classes.jar"
 		  else
 			JAVADOC_JAR="${parent}JDK/Classes/classes.jar"
@@ -219,7 +230,7 @@ AC_DEFUN([CONFIG_PROG_JAVA],
         fi
       ;;
 
-      *) 
+      *)
         parent=`dirname "$JAVAC"`
 
         if test -e "$parent/include/jni.h"; then
@@ -228,7 +239,7 @@ AC_DEFUN([CONFIG_PROG_JAVA],
         else
 
           dnl The ${parent} directory seems to be "bin" directory (e.g. "/usr/local/bin").
-          dnl So, the parent's parent directory is checked below. 
+          dnl So, the parent's parent directory is checked below.
 
           parent=`dirname "${parent}"`
 
@@ -261,15 +272,15 @@ AC_DEFUN([CONFIG_PROG_JAVA],
           linux*)   JAVA_CPPFLAGS="$JAVA_CPPFLAGS -I\"$parent/include/linux\"";;
           solaris*) JAVA_CPPFLAGS="$JAVA_CPPFLAGS -I\"$parent/include/solaris\"";;
         esac
-	    
-        JAVADOC_JAR="$parent/lib/tools.jar"    
+
+        JAVADOC_JAR="$parent/lib/tools.jar"
       ;;
     esac
 
     dnl On MacOS X, JNI libraries loaded by Java need to be created as bundles.
 
     case $host in
-    *darwin*) 
+    *darwin*)
 	JAVA_LDFLAGS="${JAVA_LDFLAGS} -bundle_loader \"${JAVA}\""
 	;;
     *)
@@ -280,7 +291,7 @@ AC_DEFUN([CONFIG_PROG_JAVA],
     dnl On MacOS X, the JNI library needs an oddball extension.
 
     case $host in
-    *darwin*) 
+    *darwin*)
 	JNIEXT="jnilib"
 	JNIBASENAME="libsbmlj"
 	;;
@@ -306,15 +317,15 @@ AC_DEFUN([CONFIG_PROG_JAVA],
 
     if test -z "$bin_check_nonfatal"; then
       case $host in
-      *darwin*) 
+      *darwin*)
         dnl MacOS 10.6 (Snow Leopard) makes 64-bit binaries by default.
         dnl MacOS 10.5 (Leopard) makes 32-bit binaries by default.
-  
+
         osx_major_ver=`uname -r | cut -f1 -d'.'`
-  
+
         if test ${osx_major_ver} -ge 10; then
           dnl We're on MacOS 10.6, which makes 64-bit bins unless told not to.
-  
+
           AC_MSG_CHECKING([whether this is a 64-bit version of Java])
 	  BUILD_JAVA_DATA_TEST
           if test "`(cd ${srcdir}/config; $JAVA printJavaDataModel)`" = "64"; then
@@ -361,11 +372,11 @@ architecture check.
             else
               AC_MSG_RESULT([no])
             fi
-  
+
           else
             AC_MSG_RESULT([no])
     	    dnl Java reports being 32-bit, but we're on a 64-bit system.
-  
+
             AC_MSG_CHECKING([whether only 64-bit libSBML binaries are being made])
             if echo $CFLAGS $CXXFLAGS | egrep -q "arch x86_64"; then
               dnl On MacOSX, we might be making fat binaries.  Check that.
@@ -470,7 +481,7 @@ this architecture check.
                   AC_MSG_ERROR([
 ***************************************************************************
 The Java run-time interpreter found at $JAVA
-is a 32-bit version, but you have explicitly requested only the creation 
+is a 32-bit version, but you have explicitly requested only the creation
 of a 64-bit libSBML.  The Java interpreter will be unable to load the
 resulting libSBML JNI libraries at run-time.  Please add "-arch i386" to
 the arguments to the --enable-universal-binary configure option (or
@@ -485,7 +496,7 @@ architecture check.
                   AC_MSG_ERROR([
 ***************************************************************************
 The Java run-time interpreter found at $JAVA
-is a 32-bit version, but you have explicitly requested only the creation 
+is a 32-bit version, but you have explicitly requested only the creation
 of a 64-bit libSBML.  The Java interpreter will be unable to load the
 resulting libSBML JNI libraries at run-time.  Please reconfigure WITHOUT
 the --enable-m64 option (or whatever means you used to indicate 32-bit
@@ -500,7 +511,7 @@ configure to bypass this architecture check.
             else
               AC_MSG_RESULT([no])
             fi
-          fi  
+          fi
         fi
       ;;
 
@@ -512,12 +523,12 @@ configure to bypass this architecture check.
 
         if test ${host_cpu} = "x86_64"; then
           dnl We're on a system that makes 64-bit binaries by default.
-  
+
           AC_MSG_CHECKING([whether JRE is a 64-bit version])
 	  BUILD_JAVA_DATA_TEST
           if test "`(cd ${srcdir}/config; $JAVA printJavaDataModel)`" = "64"; then
             AC_MSG_RESULT([yes])
-  
+
             dnl Did the user request a 32-bit libSBML?  Because that'd be bad.
             AC_MSG_CHECKING([whether only 32-bit libSBML binaries are being made])
             if echo $CFLAGS $CXXFLAGS | egrep -q "m32"; then
@@ -540,7 +551,7 @@ for configure to bypass this architecture check.
           else
             AC_MSG_RESULT([no])
   	    dnl Java reports being 32-bit, but we're on a 64-bit system.
-  
+
             AC_MSG_CHECKING([whether 32-bit libSBML binaries are being made])
             if echo $CFLAGS $CXXFLAGS | egrep -q "m32"; then
               AC_MSG_RESULT([yes, excellent])
@@ -566,9 +577,9 @@ the options for configure to bypass this architecture check.
     fi
 
     dnl
-    dnl enable --with-swig option if SWIG-generated files of Java bindings 
+    dnl enable --with-swig option if SWIG-generated files of Java bindings
     dnl (libsbml_wrap.cpp and java-files/**/*.java) need to be regenerated.
-    dnl 
+    dnl
 
     java_dir="src/bindings/java"
 
@@ -596,9 +607,9 @@ the options for configure to bypass this architecture check.
       fi
     fi
 
-    dnl 
+    dnl
     dnl Finally, set up our variables.
-    dnl 
+    dnl
 
     AC_DEFINE([USE_JAVA], 1, [Define to 1 to use Java])
     AC_SUBST(USE_JAVA, 1)
