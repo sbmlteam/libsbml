@@ -114,7 +114,6 @@ appropriately, then re-run 'configure'.
         dnl xml2-config in the path given by $with_libxml
         AC_PATH_PROG(XML2_CONFIG, xml2-config, no, [$with_libxml/bin])
       fi
-      xml_config_args="--prefix=$with_libxml"
       libxml_lib_path="$with_libxml/lib${LIBSUFFIX}"
     else 
       if test "$HOST_TYPE" = "darwin"; then
@@ -123,7 +122,6 @@ appropriately, then re-run 'configure'.
           dnl xml2-config in the path given by $with_libxml
           AC_PATH_PROG(XML2_CONFIG, xml2-config, no, [/usr/bin])
         fi
-        xml_config_args="--prefix=/usr"
         libxml_lib_path="/usr/lib${LIBSUFFIX}"
       else
         dnl User did not supply a path with the flag.
@@ -168,9 +166,9 @@ to the full path of xml2-config and retrying the 'configure' command.
     if test "$XML2_CONFIG" = "no" ; then
       no_xml=yes
     else
-      LIBXML_CPPFLAGS=`$XML2_CONFIG $xml_config_args --cflags`
-      LIBXML_LIBS=`$XML2_CONFIG $xml_config_args --libs`
-      ver=`$XML2_CONFIG $xml_config_args --version`
+      LIBXML_CPPFLAGS=`$XML2_CONFIG --cflags`
+      LIBXML_LIBS=`$XML2_CONFIG --libs`
+      ver=`$XML2_CONFIG --version`
       xml_config_major_version=`echo $ver | sed 's/\([[0-9]]*\).\([[0-9]]*\).\([[0-9]]*\)/\1/'`
       xml_config_minor_version=`echo $ver | sed 's/\([[0-9]]*\).\([[0-9]]*\).\([[0-9]]*\)/\2/'`
       xml_config_micro_version=`echo $ver | sed 's/\([[0-9]]*\).\([[0-9]]*\).\([[0-9]]*\)/\3/'`
