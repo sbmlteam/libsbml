@@ -239,7 +239,7 @@ endif()
 if(WITH_SWIG)
     find_program(SWIG_EXECUTABLE
         NAMES swig
-        PATHS 
+        PATHS
 		      c:/swigwin-2.0.7
 		      c:/swigwin-2.0.4
               c:/swigwin-2.0.2
@@ -266,7 +266,7 @@ set(LIBSBML_XML_LIBRARY_LIBS)
 if(WITH_EXPAT)
     find_library(LIBEXPAT_LIBRARY
         NAMES libexpat.lib expat
-        PATHS /usr/lib /usr/local/lib              
+        PATHS /usr/lib /usr/local/lib
               ${LIBSBML_DEPENDENCY_DIR}/lib
         DOC "The file name of the Expat library."
                 )
@@ -333,7 +333,7 @@ if(WITH_XERCES)
     add_definitions( -DUSE_XERCES )
     find_library(XERCES_LIBRARY
         NAMES xerces-c_3.lib xerces-c
-        PATHS /usr/lib /usr/local/lib              
+        PATHS /usr/lib /usr/local/lib
               ${LIBSBML_DEPENDENCY_DIR}/lib
         DOC "The file name of the Xerces library."
                 )
@@ -366,7 +366,7 @@ endif(WITH_XERCES)
 set(BZIP_INITIAL_VALUE)
 find_library(LIBBZ_LIBRARY
     NAMES bzip2.lib bz2 libbz2.lib
-    PATHS /usr/lib /usr/local/lib          
+    PATHS /usr/lib /usr/local/lib
           ${LIBSBML_DEPENDENCY_DIR}/lib
     DOC "The file name of the bzip2 library."
 )
@@ -423,7 +423,7 @@ set(EXTRA_LIBS "" CACHE STRING "List of additional libraries to link against." )
 set(ZLIB_INITIAL_VALUE)
 find_library(LIBZ_LIBRARY
     NAMES zdll.lib z zlib.lib
-    PATHS /usr/lib /usr/local/lib          
+    PATHS /usr/lib /usr/local/lib
           ${LIBSBML_DEPENDENCY_DIR}/lib
     DOC "The file name of the zip compression library."
     )
@@ -552,7 +552,7 @@ else()
 endif()
 
 # On some Linux  (64bit) systems (64bit) the libraries should be installed into lib64 rather
-# than lib. It will default to 'lib' but can be overwritten. 
+# than lib. It will default to 'lib' but can be overwritten.
 
 set(CMAKE_INSTALL_LIBDIR lib CACHE PATH "Full path to the library output directory")
 mark_as_advanced(CMAKE_INSTALL_LIBDIR)
@@ -560,10 +560,10 @@ mark_as_advanced(CMAKE_INSTALL_LIBDIR)
 ###############################################################################
 #
 # Set up remaining variables, add option for universal binaries
-# 
+#
 
 set(USING_INTEL)
-if (WIN32 AND CMAKE_C_COMPILER AND ${CMAKE_C_COMPILER} MATCHES ".*icl.*$") 
+if (WIN32 AND CMAKE_C_COMPILER AND ${CMAKE_C_COMPILER} MATCHES ".*icl.*$")
   message(STATUS "Detected Intel Compiler")
   set(USING_INTEL TRUE)
 endif ()
@@ -572,7 +572,7 @@ endif ()
 set(BUILD_DEFINITIONS)
 if(UNIX)
     if(APPLE)
-        # on osx starting with xcode 4.3 the system root is in 
+        # on osx starting with xcode 4.3 the system root is in
         # the app bundle, however cmake (up to 2.8.8) does not seem
         # to update the path, so lets try it here
         if (CMAKE_OSX_SYSROOT AND NOT EXISTS ${CMAKE_OSX_SYSROOT})
@@ -597,7 +597,7 @@ if(UNIX)
             if(CMAKE_OSX_ARCHITECTURES STREQUAL "")
                 STRING(REGEX REPLACE "^.*MacOSX([0-9]*\\.[0-9]*)\\.sdk$" "\\1"
                        OSX_SDK_VERSION "${CMAKE_OSX_SYSROOT}")
-                if(OSX_SDK_VERSION  VERSION_EQUAL "10.7" )
+                if(OSX_SDK_VERSION  VERSION_EQUAL "10.7" OR OSX_SDK_VERSION  VERSION_EQUAL "10.8")
                    # OSX Lion no longer supports ppc architecture
                    set(CMAKE_OSX_ARCHITECTURES "i386;x86_64" CACHE STRING
                       "A semicolon-separated list of build architectures to be used." FORCE)
@@ -653,7 +653,7 @@ else(UNIX)
 		  # populate EXTRA_LIBS variable
           find_library(LIBICONV_LIBRARY
               NAMES libiconv.lib iconv.lib iconv
-              PATHS /usr/lib /usr/local/lib                    
+              PATHS /usr/lib /usr/local/lib
                     ${LIBSBML_DEPENDENCY_DIR}/lib
               DOC "The file name of the libiconv compression library."
               )
