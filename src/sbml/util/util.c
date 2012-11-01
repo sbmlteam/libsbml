@@ -79,7 +79,7 @@ LIBSBML_EXTERN
 int
 util_isFinite (double d)
 {
-  return (int)!util_isNaN(d) && util_isNaN(d-d);
+  return !util_isNaN(d) && !util_isNaN(d-d);
 }
 
 /**
