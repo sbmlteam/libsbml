@@ -645,11 +645,25 @@ SBase::getNotes()
 }
 
 
+XMLNode*
+SBase::getNotes() const
+{
+  return mNotes;
+}
+
+
 /*
  * @return the notes of this SBML object by string.
  */
 std::string
 SBase::getNotesString() 
+{
+  return XMLNode::convertXMLNodeToString(mNotes);
+}
+
+
+std::string
+SBase::getNotesString() const
 {
   return XMLNode::convertXMLNodeToString(mNotes);
 }
@@ -664,6 +678,30 @@ SBase::getAnnotation ()
   syncAnnotation();
 
   return mAnnotation;
+}
+
+
+XMLNode* 
+SBase::getAnnotation () const
+{
+  return const_cast<SBase *>(this)->getAnnotation();
+}
+
+
+/*
+ * @return the annotation of this SBML object by string.
+ */
+std::string
+SBase::getAnnotationString ()
+{
+  return XMLNode::convertXMLNodeToString(getAnnotation());
+}
+
+
+std::string
+SBase::getAnnotationString () const
+{
+  return XMLNode::convertXMLNodeToString(getAnnotation());
 }
 
 
@@ -692,16 +730,6 @@ SBase::getURI() const
   return getElementNamespace();
 }
 /** @endcond */
-
-
-/*
- * @return the annotation of this SBML object by string.
- */
-std::string
-SBase::getAnnotationString ()
-{
-  return XMLNode::convertXMLNodeToString(getAnnotation());
-}
 
 
 /** @cond doxygen-libsbml-internal */

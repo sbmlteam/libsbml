@@ -584,6 +584,52 @@ public:
 
 
   /**
+   * Returns the content of the "notes" subelement of this object as
+   * a tree of XMLNode objects.
+   *
+   * The optional SBML element named "notes", present on every major SBML
+   * component type, is intended as a place for storing optional
+   * information intended to be seen by humans.  An example use of the
+   * "notes" element would be to contain formatted user comments about the
+   * model element in which the "notes" element is enclosed.  Every object
+   * derived directly or indirectly from type SBase can have a separate
+   * value for "notes", allowing users considerable freedom when adding
+   * comments to their models.
+   *
+   * The format of "notes" elements must be <a target="_blank"
+   * href="http://www.w3.org/TR/xhtml1/">XHTML&nbsp;1.0</a>.  To help
+   * verify the formatting of "notes" content, libSBML provides the static
+   * utility method SyntaxChecker::hasExpectedXHTMLSyntax(@if java XMLNode xhtml@endif); however,
+   * readers are urged to consult the appropriate <a target="_blank"
+   * href="http://sbml.org/Documents/Specifications">SBML specification
+   * document</a> for the Level and Version of their model for more
+   * in-depth explanations.  The SBML Level&nbsp;2 and &nbsp;3
+   * specifications have considerable detail about how "notes" element
+   * content must be structured.
+   *
+   * The "notes" element content returned by this method will be in XML
+   * form, but libSBML does not provide an object model specifically for
+   * the content of notes.  Callers will need to traverse the XML tree
+   * structure using the facilities available on XMLNode and related
+   * objects.  For an alternative method of accessing the notes, see
+   * getNotesString().
+   *
+   * @return the content of the "notes" subelement of this SBML object as a
+   * tree structure composed of XMLNode objects.
+   *
+   * @see getNotesString()
+   * @see isSetNotes()
+   * @see setNotes(const XMLNode* notes)
+   * @see setNotes(const std::string& notes)
+   * @see appendNotes(const XMLNode* notes)
+   * @see appendNotes(const std::string& notes)
+   * @see unsetNotes()
+   * @see SyntaxChecker::hasExpectedXHTMLSyntax(@if java XMLNode xhtml@endif)
+   */
+  XMLNode* getNotes() const;
+
+
+  /**
    * Returns the content of the "notes" subelement of this object as a
    * string.
    *
@@ -628,6 +674,50 @@ public:
 
 
   /**
+   * Returns the content of the "notes" subelement of this object as a
+   * string.
+   *
+   * The optional SBML element named "notes", present on every major SBML
+   * component type, is intended as a place for storing optional
+   * information intended to be seen by humans.  An example use of the
+   * "notes" element would be to contain formatted user comments about the
+   * model element in which the "notes" element is enclosed.  Every object
+   * derived directly or indirectly from type SBase can have a separate
+   * value for "notes", allowing users considerable freedom when adding
+   * comments to their models.
+   *
+   * The format of "notes" elements must be <a target="_blank"
+   * href="http://www.w3.org/TR/xhtml1/">XHTML&nbsp;1.0</a>.  To help
+   * verify the formatting of "notes" content, libSBML provides the static
+   * utility method SyntaxChecker::hasExpectedXHTMLSyntax(@if java XMLNode xhtml@endif); however,
+   * readers are urged to consult the appropriate <a target="_blank"
+   * href="http://sbml.org/Documents/Specifications">SBML specification
+   * document</a> for the Level and Version of their model for more
+   * in-depth explanations.  The SBML Level&nbsp;2 and &nbsp;3
+   * specifications have considerable detail about how "notes" element
+   * content must be structured.
+   *
+   * For an alternative method of accessing the notes, see getNotes(),
+   * which returns the content as an XMLNode tree structure.  Depending on
+   * an application's needs, one or the other method may be more
+   * convenient.
+   *
+   * @return the content of the "notes" subelement of this SBML object as a
+   * string.
+   *
+   * @see getNotes()
+   * @see isSetNotes()
+   * @see setNotes(const XMLNode* notes)
+   * @see setNotes(const std::string& notes)
+   * @see appendNotes(const XMLNode* notes)
+   * @see appendNotes(const std::string& notes)
+   * @see unsetNotes()
+   * @see SyntaxChecker::hasExpectedXHTMLSyntax(@if java XMLNode xhtml@endif)
+   */
+  std::string getNotesString () const;
+
+
+  /**
    * Returns the content of the "annotation" subelement of this object as
    * a tree of XMLNode objects.
    *
@@ -665,6 +755,43 @@ public:
 
 
   /**
+   * Returns the content of the "annotation" subelement of this object as
+   * a tree of XMLNode objects.
+   *
+   * Whereas the SBML "notes" subelement is a container for content to be
+   * shown directly to humans, the "annotation" element is a container for
+   * optional software-generated content @em not meant to be shown to
+   * humans.  Every object derived from SBase can have its own value for
+   * "annotation".  The element's content type is <a target="_blank"
+   * href="http://www.w3.org/TR/2004/REC-xml-20040204/#elemdecls">XML type
+   * "any"</a>, allowing essentially arbitrary well-formed XML data
+   * content.
+   *
+   * SBML places a few restrictions on the organization of the content of
+   * annotations; these are intended to help software tools read and write
+   * the data as well as help reduce conflicts between annotations added by
+   * different tools.  Please see the SBML specifications for more details.
+   *
+   * The annotations returned by this method will be in XML form.  LibSBML
+   * provides an object model and related interfaces for certain specific
+   * kinds of annotations, namely model history information and RDF
+   * content.  See the ModelHistory, CVTerm and RDFAnnotationParser classes
+   * for more information about the facilities available.
+   *
+   * @return the annotation of this SBML object as a tree of XMLNode objects.
+   *
+   * @see getAnnotationString()
+   * @see isSetAnnotation()
+   * @see setAnnotation(const XMLNode* annotation)
+   * @see setAnnotation(const std::string& annotation)
+   * @see appendAnnotation(const XMLNode* annotation)
+   * @see appendAnnotation(const std::string& annotation)
+   * @see unsetAnnotation()
+   */
+  XMLNode* getAnnotation () const;
+
+
+  /**
    * Returns the content of the "annotation" subelement of this object as a
    * character string.
    *
@@ -695,6 +822,39 @@ public:
    * @see unsetAnnotation()
    */
   std::string getAnnotationString ();
+
+
+  /**
+   * Returns the content of the "annotation" subelement of this object as a
+   * character string.
+   *
+   * Whereas the SBML "notes" subelement is a container for content to be
+   * shown directly to humans, the "annotation" element is a container for
+   * optional software-generated content @em not meant to be shown to
+   * humans.  Every object derived from SBase can have its own value for
+   * "annotation".  The element's content type is <a target="_blank"
+   * href="http://www.w3.org/TR/2004/REC-xml-20040204/#elemdecls">XML type
+   * "any"</a>, allowing essentially arbitrary well-formed XML data
+   * content.
+   *
+   * SBML places a few restrictions on the organization of the content of
+   * annotations; these are intended to help software tools read and write
+   * the data as well as help reduce conflicts between annotations added by
+   * different tools.  Please see the SBML specifications for more details.
+   *
+   * The annotations returned by this method will be in string form.
+   *
+   * @return the annotation of this SBML object as a character string.
+   *
+   * @see getAnnotation()
+   * @see isSetAnnotation()
+   * @see setAnnotation(const XMLNode* annotation)
+   * @see setAnnotation(const std::string& annotation)
+   * @see appendAnnotation(const XMLNode* annotation)
+   * @see appendAnnotation(const std::string& annotation)
+   * @see unsetAnnotation()
+   */
+  std::string getAnnotationString () const;
 
 
   /**
