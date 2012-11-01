@@ -44,14 +44,9 @@
 #include <sbml/units/UnitFormulaFormatter.h>
 
 #include <sbml/util/List.h>
+#include <sbml/util/util.h>
 
 #include "PowerUnitsCheck.h"
-
-
-#if defined(_MSC_VER) || defined(__BORLANDC__)
-#  include <float.h>
-#  define isnan(d)  _isnan(d)
-#endif
 
 
 /** @cond doxygen-ignored */
@@ -229,7 +224,7 @@ PowerUnitsCheck::checkUnitsFromPower (const Model& m,
         SBMLTransforms::mapComponentValues(&m);
         double value = SBMLTransforms::evaluateASTNode(child);
         SBMLTransforms::clearComponentValues();
-        if (!isnan(value))
+        if (!util_isNaN(value))
         {
           if (floor(value) != value)
             isExpression = 1;
@@ -316,7 +311,7 @@ PowerUnitsCheck::checkUnitsFromPower (const Model& m,
         double value = SBMLTransforms::evaluateASTNode(child, &m);
         SBMLTransforms::clearComponentValues();
         // but it may not be an integer
-        if (isnan(value))
+        if (util_isNaN(value))
           // we cant check
         {
           isExpression = 1;

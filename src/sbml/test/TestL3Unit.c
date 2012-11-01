@@ -42,16 +42,6 @@ LIBSBML_CPP_NAMESPACE_USE
 
 BEGIN_C_DECLS
 
-#if defined(WIN32) && !defined(CYGWIN)
-int isnan(double x);
-int isinf(double x);
-int finite(double x);
-#ifndef __DBL_EPSILON__ 
-#include <float.h>
-#define __DBL_EPSILON__ DBL_EPSILON
-#endif
-#endif
-
 
 static Unit_t *U;
 
@@ -83,8 +73,8 @@ START_TEST (test_L3_Unit_create)
   fail_unless( SBase_getAnnotation((SBase_t *) U) == NULL );
 
   fail_unless( Unit_getKind     (U) == UNIT_KIND_INVALID );
-  fail_unless( isnan(Unit_getExponentAsDouble (U)) );
-  fail_unless( isnan(Unit_getMultiplier (U)) );
+  fail_unless( util_isNaN(Unit_getExponentAsDouble (U)) );
+  fail_unless( util_isNaN(Unit_getMultiplier (U)) );
   fail_unless( Unit_getScale (U) == SBML_INT_MAX );
 
   fail_unless( !Unit_isSetKind     (U) );
@@ -122,7 +112,7 @@ START_TEST (test_L3_Unit_exponent)
   double exponent = 0.2;
 
   fail_unless( !Unit_isSetExponent(U));
-  fail_unless( isnan(Unit_getExponentAsDouble(U)));
+  fail_unless( util_isNaN(Unit_getExponentAsDouble(U)));
   
   Unit_setExponentAsDouble(U, exponent);
 
@@ -137,7 +127,7 @@ START_TEST (test_L3_Unit_multiplier)
   double multiplier = 0.2;
 
   fail_unless( !Unit_isSetMultiplier(U));
-  fail_unless( isnan(Unit_getMultiplier(U)));
+  fail_unless( util_isNaN(Unit_getMultiplier(U)));
   
   Unit_setMultiplier(U, multiplier);
 
@@ -186,9 +176,9 @@ START_TEST (test_L3_Unit_createWithNS )
 
 
   fail_unless( Unit_getKind     (u) == UNIT_KIND_INVALID );
-  fail_unless( isnan(Unit_getExponentAsDouble (u)) );
-  fail_unless( isnan(Unit_getMultiplier (u)) );
-//  fail_unless( isnan((double)(Unit_getScale (u))) );
+  fail_unless( util_isNaN(Unit_getExponentAsDouble (u)) );
+  fail_unless( util_isNaN(Unit_getMultiplier (u)) );
+//  fail_unless( util_isNaN((double)(Unit_getScale (u))) );
 
   fail_unless( !Unit_isSetKind     (u) );
   fail_unless( !Unit_isSetExponent (u) );

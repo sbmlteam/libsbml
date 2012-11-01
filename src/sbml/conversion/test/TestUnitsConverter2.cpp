@@ -44,25 +44,9 @@ LIBSBML_CPP_NAMESPACE_USE
 
 BEGIN_C_DECLS
 
-
-#if defined(WIN32) && !defined(CYGWIN)
-int isnan(double x);
-int isinf(double x);
-int finite(double x);
-#ifndef __DBL_EPSILON__ 
-#include <float.h>
-#define __DBL_EPSILON__ DBL_EPSILON
-#endif
-#endif
-
+#include <sbml/util/util.h>
 
 extern char *TestDataDirectory;
-
-static bool
-equalDouble (double a, double b)
-{
-  return (fabs(a-b) < sqrt(__DBL_EPSILON__));
-}
 
 START_TEST (test_convert_double_exponent)
 {
@@ -95,7 +79,7 @@ START_TEST (test_convert_double_exponent)
   fail_unless (units->convert() == LIBSBML_OPERATION_SUCCESS);
   double ans = 3 * (pow((0.001), 0.5));
   fail_unless (
-      equalDouble(d->getModel()->getParameter(0)->getValue(), ans) == true);
+      util_isEqual(d->getModel()->getParameter(0)->getValue(), ans) );
   fail_unless (d->getModel()->getParameter(0)->getUnits() == "unitSid_0");
 
   fail_unless (d->getModel()->getNumUnitDefinitions() == 1);
@@ -105,20 +89,20 @@ START_TEST (test_convert_double_exponent)
   fail_unless(ud->getNumUnits() == 4);
   fail_unless(ud->getUnit(0)->getKind() == UNIT_KIND_AMPERE);
   fail_unless(ud->getUnit(0)->getScale() == 0);
-  fail_unless(equalDouble(ud->getUnit(0)->getMultiplier(), 1.0) == true);
-  fail_unless(equalDouble(ud->getUnit(0)->getExponentAsDouble(), -1.0) == true);
+  fail_unless(util_isEqual(ud->getUnit(0)->getMultiplier(), 1.0) );
+  fail_unless(util_isEqual(ud->getUnit(0)->getExponentAsDouble(), -1.0) );
   fail_unless(ud->getUnit(1)->getKind() == UNIT_KIND_KILOGRAM);
   fail_unless(ud->getUnit(1)->getScale() == 0);
-  fail_unless(equalDouble(ud->getUnit(1)->getMultiplier(), 1.0) == true);
-  fail_unless(equalDouble(ud->getUnit(1)->getExponentAsDouble(), 0.5) == true);
+  fail_unless(util_isEqual(ud->getUnit(1)->getMultiplier(), 1.0) );
+  fail_unless(util_isEqual(ud->getUnit(1)->getExponentAsDouble(), 0.5) );
   fail_unless(ud->getUnit(2)->getKind() == UNIT_KIND_METRE);
   fail_unless(ud->getUnit(2)->getScale() == 0);
-  fail_unless(equalDouble(ud->getUnit(2)->getMultiplier(), 1.0) == true);
-  fail_unless(equalDouble(ud->getUnit(2)->getExponentAsDouble(), 2.5) == true);
+  fail_unless(util_isEqual(ud->getUnit(2)->getMultiplier(), 1.0) );
+  fail_unless(util_isEqual(ud->getUnit(2)->getExponentAsDouble(), 2.5) );
   fail_unless(ud->getUnit(3)->getKind() == UNIT_KIND_SECOND);
   fail_unless(ud->getUnit(3)->getScale() == 0);
-  fail_unless(equalDouble(ud->getUnit(3)->getMultiplier(), 1.0) == true);
-  fail_unless(equalDouble(ud->getUnit(3)->getExponentAsDouble(), -1.0) == true);
+  fail_unless(util_isEqual(ud->getUnit(3)->getMultiplier(), 1.0) );
+  fail_unless(util_isEqual(ud->getUnit(3)->getExponentAsDouble(), -1.0) );
 
   delete units;
   delete d;
@@ -157,7 +141,7 @@ START_TEST (test_convert_double_exponent1)
   fail_unless (units->convert() == LIBSBML_OPERATION_SUCCESS);
   double ans = 3 * (pow((0.001), 0.5)) * (pow(0.2, 1.5));
   fail_unless (
-      equalDouble(d->getModel()->getParameter(0)->getValue(), ans) == true);
+      util_isEqual(d->getModel()->getParameter(0)->getValue(), ans) );
   fail_unless (d->getModel()->getParameter(0)->getUnits() == "unitSid_0");
 
   fail_unless (d->getModel()->getNumUnitDefinitions() == 1);
@@ -167,20 +151,20 @@ START_TEST (test_convert_double_exponent1)
   fail_unless(ud->getNumUnits() == 4);
   fail_unless(ud->getUnit(0)->getKind() == UNIT_KIND_AMPERE);
   fail_unless(ud->getUnit(0)->getScale() == 0);
-  fail_unless(equalDouble(ud->getUnit(0)->getMultiplier(), 1.0) == true);
-  fail_unless(equalDouble(ud->getUnit(0)->getExponentAsDouble(), -3.0) == true);
+  fail_unless(util_isEqual(ud->getUnit(0)->getMultiplier(), 1.0) );
+  fail_unless(util_isEqual(ud->getUnit(0)->getExponentAsDouble(), -3.0) );
   fail_unless(ud->getUnit(1)->getKind() == UNIT_KIND_KILOGRAM);
   fail_unless(ud->getUnit(1)->getScale() == 0);
-  fail_unless(equalDouble(ud->getUnit(1)->getMultiplier(), 1.0) == true);
-  fail_unless(equalDouble(ud->getUnit(1)->getExponentAsDouble(), 1.5) == true);
+  fail_unless(util_isEqual(ud->getUnit(1)->getMultiplier(), 1.0) );
+  fail_unless(util_isEqual(ud->getUnit(1)->getExponentAsDouble(), 1.5) );
   fail_unless(ud->getUnit(2)->getKind() == UNIT_KIND_METRE);
   fail_unless(ud->getUnit(2)->getScale() == 0);
-  fail_unless(equalDouble(ud->getUnit(2)->getMultiplier(), 1.0) == true);
-  fail_unless(equalDouble(ud->getUnit(2)->getExponentAsDouble(), 4.5) == true);
+  fail_unless(util_isEqual(ud->getUnit(2)->getMultiplier(), 1.0) );
+  fail_unless(util_isEqual(ud->getUnit(2)->getExponentAsDouble(), 4.5) );
   fail_unless(ud->getUnit(3)->getKind() == UNIT_KIND_SECOND);
   fail_unless(ud->getUnit(3)->getScale() == 0);
-  fail_unless(equalDouble(ud->getUnit(3)->getMultiplier(), 1.0) == true);
-  fail_unless(equalDouble(ud->getUnit(3)->getExponentAsDouble(), -3.0) == true);
+  fail_unless(util_isEqual(ud->getUnit(3)->getMultiplier(), 1.0) );
+  fail_unless(util_isEqual(ud->getUnit(3)->getExponentAsDouble(), -3.0) );
 
   delete units;
   delete d;
@@ -207,7 +191,7 @@ START_TEST (test_convert_model_volume)
   fail_unless (units->convert() == LIBSBML_OPERATION_SUCCESS);
   fail_unless (d->getModel()->getNumUnitDefinitions() == 1);
   fail_unless (
-      equalDouble(d->getModel()->getCompartment(0)->getSize(), 0.001) == true);
+      util_isEqual(d->getModel()->getCompartment(0)->getSize(), 0.001) );
   fail_unless (d->getModel()->getCompartment(0)->getUnits().empty());
   fail_unless (d->getModel()->getVolumeUnits() == "unitSid_0");
 
@@ -256,10 +240,10 @@ START_TEST (test_convert_model_volume1)
   fail_unless (units->convert() == LIBSBML_OPERATION_SUCCESS);
   fail_unless (d->getModel()->getNumUnitDefinitions() == 1);
   fail_unless (
-      equalDouble(d->getModel()->getCompartment(0)->getSize(), 0.001) == true);
+      util_isEqual(d->getModel()->getCompartment(0)->getSize(), 0.001) );
   fail_unless (d->getModel()->getCompartment(0)->getUnits().empty());
   fail_unless (
-      equalDouble(d->getModel()->getCompartment(1)->getSize(), 1) == true);
+      util_isEqual(d->getModel()->getCompartment(1)->getSize(), 1) );
   fail_unless (d->getModel()->getCompartment(1)->getUnits() == "my_vol");
 
   fail_unless (d->getModel()->getVolumeUnits() == "my_vol");
@@ -303,10 +287,10 @@ START_TEST (test_convert_model_volume2)
   fail_unless (units->convert() == LIBSBML_OPERATION_SUCCESS);
   fail_unless (d->getModel()->getNumUnitDefinitions() == 1);
   fail_unless (
-      equalDouble(d->getModel()->getCompartment(0)->getSize(), 0.001) == true);
+      util_isEqual(d->getModel()->getCompartment(0)->getSize(), 0.001) );
   fail_unless (d->getModel()->getCompartment(0)->getUnits().empty());
   fail_unless (
-      equalDouble(d->getModel()->getCompartment(1)->getSize(), 0.001) == true);
+      util_isEqual(d->getModel()->getCompartment(1)->getSize(), 0.001) );
   fail_unless (d->getModel()->getCompartment(1)->getUnits() == "unitSid_0");
 
   fail_unless (d->getModel()->getVolumeUnits() == "unitSid_0");
@@ -345,7 +329,7 @@ START_TEST (test_convert_model_volume3)
   fail_unless (units->convert() == LIBSBML_OPERATION_SUCCESS);
   fail_unless (d->getModel()->getNumUnitDefinitions() == 1);
   fail_unless (
-      equalDouble(d->getModel()->getCompartment(0)->getSize(), 0.001) == true);
+      util_isEqual(d->getModel()->getCompartment(0)->getSize(), 0.001) );
   fail_unless (d->getModel()->getCompartment(0)->getUnits() == "unitSid_0");
 
   fail_unless (d->getModel()->getVolumeUnits() == "unitSid_0");
@@ -396,10 +380,10 @@ START_TEST (test_convert_model_volume4)
   fail_unless (units->convert() == LIBSBML_OPERATION_SUCCESS);
   fail_unless (d->getModel()->getNumUnitDefinitions() == 1);
   fail_unless (
-      equalDouble(d->getModel()->getCompartment(0)->getSize(), 0.001) == true);
+      util_isEqual(d->getModel()->getCompartment(0)->getSize(), 0.001) );
   fail_unless (d->getModel()->getCompartment(0)->getUnits().empty());
   fail_unless (
-      equalDouble(d->getModel()->getCompartment(1)->getSize(), 0.001) == true);
+      util_isEqual(d->getModel()->getCompartment(1)->getSize(), 0.001) );
   fail_unless (d->getModel()->getCompartment(1)->getUnits() == "unitSid_0");
 
   fail_unless (d->getModel()->getVolumeUnits() == "unitSid_0");
@@ -442,7 +426,7 @@ START_TEST (test_convert_model_area)
   fail_unless (units->convert() == LIBSBML_OPERATION_SUCCESS);
   fail_unless (d->getModel()->getNumUnitDefinitions() == 1);
   fail_unless (
-      equalDouble(d->getModel()->getCompartment(0)->getSize(), 1) == true);
+      util_isEqual(d->getModel()->getCompartment(0)->getSize(), 1) );
   fail_unless (d->getModel()->getCompartment(0)->getUnits().empty());
   fail_unless (d->getModel()->getAreaUnits() == "area");
 
@@ -497,10 +481,10 @@ START_TEST (test_convert_model_area1)
   fail_unless (units->convert() == LIBSBML_OPERATION_SUCCESS);
   fail_unless (d->getModel()->getNumUnitDefinitions() == 1);
   fail_unless (
-      equalDouble(d->getModel()->getCompartment(0)->getSize(), 1) == true);
+      util_isEqual(d->getModel()->getCompartment(0)->getSize(), 1) );
   fail_unless (d->getModel()->getCompartment(0)->getUnits().empty());
   fail_unless (
-      equalDouble(d->getModel()->getCompartment(1)->getSize(), 0.01) == true);
+      util_isEqual(d->getModel()->getCompartment(1)->getSize(), 0.01) );
   fail_unless (d->getModel()->getCompartment(1)->getUnits() == "area");
   fail_unless (d->getModel()->getAreaUnits() == "area");
 
@@ -555,10 +539,10 @@ START_TEST (test_convert_model_area2)
   fail_unless (units->convert() == LIBSBML_OPERATION_SUCCESS);
   fail_unless (d->getModel()->getNumUnitDefinitions() == 1);
   fail_unless (
-      equalDouble(d->getModel()->getCompartment(0)->getSize(), 0.01) == true);
+      util_isEqual(d->getModel()->getCompartment(0)->getSize(), 0.01) );
   fail_unless (d->getModel()->getCompartment(0)->getUnits().empty());
   fail_unless (
-      equalDouble(d->getModel()->getCompartment(1)->getSize(), 1) == true);
+      util_isEqual(d->getModel()->getCompartment(1)->getSize(), 1) );
   fail_unless (d->getModel()->getCompartment(1)->getUnits() == "area");
   fail_unless (d->getModel()->getAreaUnits() == "area");
 
@@ -613,10 +597,10 @@ START_TEST (test_convert_model_area3)
   fail_unless (units->convert() == LIBSBML_OPERATION_SUCCESS);
   fail_unless (d->getModel()->getNumUnitDefinitions() == 1);
   fail_unless (
-      equalDouble(d->getModel()->getCompartment(0)->getSize(), 0.01) == true);
+      util_isEqual(d->getModel()->getCompartment(0)->getSize(), 0.01) );
   fail_unless (d->getModel()->getCompartment(0)->getUnits() == "area");
   fail_unless (
-      equalDouble(d->getModel()->getCompartment(1)->getSize(), 1.0) == true);
+      util_isEqual(d->getModel()->getCompartment(1)->getSize(), 1.0) );
   fail_unless (d->getModel()->getCompartment(1)->getUnits().empty());
   fail_unless (d->getModel()->getAreaUnits() == "area");
 
@@ -654,7 +638,7 @@ START_TEST (test_convert_model_length)
   fail_unless (units->convert() == LIBSBML_OPERATION_SUCCESS);
   fail_unless (d->getModel()->getNumUnitDefinitions() == 0);
   fail_unless (
-      equalDouble(d->getModel()->getCompartment(0)->getSize(), 1) == true);
+      util_isEqual(d->getModel()->getCompartment(0)->getSize(), 1) );
   fail_unless (d->getModel()->getCompartment(0)->getUnits().empty());
   fail_unless (d->getModel()->getLengthUnits() == "metre");
 
@@ -694,10 +678,10 @@ START_TEST (test_convert_model_length1)
   fail_unless (units->convert() == LIBSBML_OPERATION_SUCCESS);
   fail_unless (d->getModel()->getNumUnitDefinitions() == 0);
   fail_unless (
-      equalDouble(d->getModel()->getCompartment(0)->getSize(), 1) == true);
+      util_isEqual(d->getModel()->getCompartment(0)->getSize(), 1) );
   fail_unless (d->getModel()->getCompartment(0)->getUnits().empty());
   fail_unless (
-      equalDouble(d->getModel()->getCompartment(1)->getSize(), 10) == true);
+      util_isEqual(d->getModel()->getCompartment(1)->getSize(), 10) );
   fail_unless (d->getModel()->getCompartment(1)->getUnits() == "metre");
   fail_unless (d->getModel()->getLengthUnits() == "metre");
 
@@ -737,10 +721,10 @@ START_TEST (test_convert_model_length2)
   fail_unless (units->convert() == LIBSBML_OPERATION_SUCCESS);
   fail_unless (d->getModel()->getNumUnitDefinitions() == 0);
   fail_unless (
-      equalDouble(d->getModel()->getCompartment(0)->getSize(), 10) == true);
+      util_isEqual(d->getModel()->getCompartment(0)->getSize(), 10) );
   fail_unless (d->getModel()->getCompartment(0)->getUnits().empty());
   fail_unless (
-      equalDouble(d->getModel()->getCompartment(1)->getSize(), 10) == true);
+      util_isEqual(d->getModel()->getCompartment(1)->getSize(), 10) );
   fail_unless (d->getModel()->getCompartment(1)->getUnits() == "metre");
   fail_unless (d->getModel()->getLengthUnits() == "metre");
 
@@ -781,7 +765,7 @@ START_TEST (test_convert_model_substance)
   fail_unless (units->convert() == LIBSBML_OPERATION_SUCCESS);
   fail_unless (d->getModel()->getNumUnitDefinitions() == 1);
   fail_unless (
-      equalDouble(d->getModel()->getSpecies(0)->getInitialAmount(), 1) == true);
+      util_isEqual(d->getModel()->getSpecies(0)->getInitialAmount(), 1) );
   fail_unless (d->getModel()->getSpecies(0)->getSubstanceUnits().empty());
   fail_unless (d->getModel()->getSubstanceUnits() == "kilogram");
 
@@ -822,7 +806,7 @@ START_TEST (test_convert_model_substance1)
   fail_unless (units->convert() == LIBSBML_OPERATION_SUCCESS);
   fail_unless (d->getModel()->getNumUnitDefinitions() == 1);
   fail_unless (
-      equalDouble(d->getModel()->getSpecies(0)->getInitialAmount(), 1) == true);
+      util_isEqual(d->getModel()->getSpecies(0)->getInitialAmount(), 1) );
   fail_unless (d->getModel()->getSpecies(0)->getSubstanceUnits() == "kilogram");
   fail_unless (d->getModel()->isSetSubstanceUnits() == false);
 
@@ -869,7 +853,7 @@ START_TEST (test_convert_model_substance2)
   fail_unless (units->convert() == LIBSBML_OPERATION_SUCCESS);
   fail_unless (d->getModel()->getNumUnitDefinitions() == 2);
   fail_unless (
-      equalDouble(d->getModel()->getSpecies(0)->getInitialAmount(), 0.000001) == true);
+      util_isEqual(d->getModel()->getSpecies(0)->getInitialAmount(), 0.000001) );
   fail_unless (d->getModel()->getSpecies(0)->getSubstanceUnits().empty());
   fail_unless (d->getModel()->getSubstanceUnits() == "unitSid_0");
 
@@ -924,7 +908,7 @@ START_TEST (test_convert_model_substance3)
   fail_unless (units->convert() == LIBSBML_OPERATION_SUCCESS);
   fail_unless (d->getModel()->getNumUnitDefinitions() == 2);
   fail_unless (
-      equalDouble(d->getModel()->getSpecies(0)->getInitialAmount(), 0.000001) == true);
+      util_isEqual(d->getModel()->getSpecies(0)->getInitialAmount(), 0.000001) );
   fail_unless (d->getModel()->getSpecies(0)->getSubstanceUnits()== "unitSid_0");
   fail_unless (d->getModel()->isSetSubstanceUnits() == false);
 
@@ -985,7 +969,7 @@ START_TEST (test_convert_model_substance4)
   fail_unless (units->convert() == LIBSBML_OPERATION_SUCCESS);
   fail_unless (d->getModel()->getNumUnitDefinitions() == 2);
   fail_unless (
-      equalDouble(d->getModel()->getSpecies(0)->getInitialAmount(), 0.000001) == true);
+      util_isEqual(d->getModel()->getSpecies(0)->getInitialAmount(), 0.000001) );
   fail_unless (d->getModel()->getSpecies(0)->getSubstanceUnits().empty());
   fail_unless (d->getModel()->getSubstanceUnits() == "my_subs_1");
 
@@ -1046,7 +1030,7 @@ START_TEST (test_convert_model_substance5)
   fail_unless (units->convert() == LIBSBML_OPERATION_SUCCESS);
   fail_unless (d->getModel()->getNumUnitDefinitions() == 2);
   fail_unless (
-      equalDouble(d->getModel()->getSpecies(0)->getInitialAmount(), 0.000001) == true);
+      util_isEqual(d->getModel()->getSpecies(0)->getInitialAmount(), 0.000001) );
   fail_unless (d->getModel()->getSpecies(0)->getSubstanceUnits() == "my_subs_1");
   fail_unless (d->getModel()->isSetSubstanceUnits() == false);
 
@@ -1153,8 +1137,8 @@ START_TEST (test_convert_global_time_extent)
   fail_unless(d->getModel()->getExtentUnits() == "kilogram");
 
   fail_unless (
-      equalDouble(d->getModel()->getParameter(0)->getValue(), 
-      pow(0.0166666666666666666666666666666666667, -1)) == true);
+      util_isEqual(d->getModel()->getParameter(0)->getValue(), 
+      pow(0.0166666666666666666666666666666666667, -1)) );
   fail_unless (d->getModel()->getParameter(0)->getUnits() == "unitSid_0");
 
   fail_unless (d->getModel()->getUnitDefinition(0)->getId() == "unitSid_0");
@@ -1292,7 +1276,7 @@ START_TEST (test_convertSpecies_noCompSize)
 
   fail_unless (units->convert() == LIBSBML_OPERATION_SUCCESS);
   fail_unless (
-      equalDouble(d->getModel()->getSpecies(0)->getInitialAmount(), 2.5) == true);
+      util_isEqual(d->getModel()->getSpecies(0)->getInitialAmount(), 2.5) );
   fail_unless (d->getModel()->getSpecies(0)->getSubstanceUnits() == "kilogram");
   
   delete units;
@@ -1396,7 +1380,7 @@ START_TEST (test_convertSpecies_noCompSize3)
 
   fail_unless (units->convert() == LIBSBML_OPERATION_SUCCESS);
   fail_unless (
-      equalDouble(d->getModel()->getSpecies(0)->getInitialAmount(), 2.5) == true);
+      util_isEqual(d->getModel()->getSpecies(0)->getInitialAmount(), 2.5) );
   fail_unless (d->getModel()->getSpecies(0)->getSubstanceUnits() == "kilogram");
   
   delete units;
@@ -1487,12 +1471,12 @@ START_TEST (test_convertParameter_noValue)
   fail_unless(ud->getNumUnits() == 2);
   fail_unless(ud->getUnit(0)->getKind() == UNIT_KIND_AMPERE);
   fail_unless(ud->getUnit(0)->getScale() == 0);
-  fail_unless(equalDouble(ud->getUnit(0)->getMultiplier(), 1.0) == true);
-  fail_unless(equalDouble(ud->getUnit(0)->getExponent(), 1.0) == true);
+  fail_unless(util_isEqual(ud->getUnit(0)->getMultiplier(), 1.0) );
+  fail_unless(util_isEqual(ud->getUnit(0)->getExponent(), 1.0) );
   fail_unless(ud->getUnit(1)->getKind() == UNIT_KIND_SECOND);
   fail_unless(ud->getUnit(1)->getScale() == 0);
-  fail_unless(equalDouble(ud->getUnit(1)->getMultiplier(), 1.0) == true);
-  fail_unless(equalDouble(ud->getUnit(1)->getExponent(), 1.0) == true);
+  fail_unless(util_isEqual(ud->getUnit(1)->getMultiplier(), 1.0) );
+  fail_unless(util_isEqual(ud->getUnit(1)->getExponent(), 1.0) );
 
   
   delete units;
@@ -1558,19 +1542,19 @@ START_TEST (test_convertUnitDefinition_noUnits)
   fail_unless (units->convert() == LIBSBML_OPERATION_SUCCESS);
  
   fail_unless (
-      equalDouble(d->getModel()->getCompartment(0)->getSize(), 2) == true);
+      util_isEqual(d->getModel()->getCompartment(0)->getSize(), 2) );
   fail_unless (d->getModel()->getCompartment(0)->getUnits() == "myComp");
   fail_unless (
-      equalDouble(d->getModel()->getSpecies(0)->getInitialAmount(), 2500) == true);
+      util_isEqual(d->getModel()->getSpecies(0)->getInitialAmount(), 2500) );
   fail_unless (d->getModel()->getSpecies(0)->getSubstanceUnits() == "mySpecies");
   fail_unless (
-      equalDouble(d->getModel()->getSpecies(1)->getInitialAmount(), 2500) == true);
+      util_isEqual(d->getModel()->getSpecies(1)->getInitialAmount(), 2500) );
   fail_unless (d->getModel()->getSpecies(1)->getSubstanceUnits() == "mySpecies");
   fail_unless (
-      equalDouble(d->getModel()->getSpecies(2)->getInitialConcentration(), 2500) == true);
+      util_isEqual(d->getModel()->getSpecies(2)->getInitialConcentration(), 2500) );
   fail_unless (d->getModel()->getSpecies(2)->getSubstanceUnits() == "mySpecies");
   fail_unless (
-      equalDouble(d->getModel()->getParameter(0)->getValue(), 2) == true);
+      util_isEqual(d->getModel()->getParameter(0)->getValue(), 2) );
   fail_unless (d->getModel()->getParameter(0)->getUnits() == "myParam");
 
 
@@ -1608,7 +1592,7 @@ START_TEST (test_convert_cn_units)
   fail_unless (units->convert() == LIBSBML_OPERATION_SUCCESS);
  
   fail_unless (
-      equalDouble(d->getModel()->getParameter(0)->getValue(), 0.002) == true);
+      util_isEqual(d->getModel()->getParameter(0)->getValue(), 0.002) );
   fail_unless (d->getModel()->getParameter(0)->getUnits() == "kilogram");
 
   const ASTNode *convertedAST = d->getModel()->getRule(0)->getMath();
@@ -1616,9 +1600,9 @@ START_TEST (test_convert_cn_units)
   ASTNode * child1 = convertedAST->getChild(0);
   ASTNode * child2 = convertedAST->getChild(1);
 
-  fail_unless( equalDouble(child1->getReal(), 0.002) == true);
+  fail_unless( util_isEqual(child1->getReal(), 0.002) );
   fail_unless( child1->getUnits() == "kilogram");
-  fail_unless( equalDouble(child2->getReal(), 1.5) == true);
+  fail_unless( util_isEqual(child2->getReal(), 1.5) );
   fail_unless( child2->getUnits() == "dimensionless");
 
   
@@ -1655,7 +1639,7 @@ START_TEST (test_convert_cn_units1)
   fail_unless (units->convert() == LIBSBML_OPERATION_SUCCESS);
  
   fail_unless (
-      equalDouble(d->getModel()->getParameter(0)->getValue(), 1.806642537e24) == true);
+      util_isEqual(d->getModel()->getParameter(0)->getValue(), 1.806642537e24) );
   fail_unless (d->getModel()->getParameter(0)->getUnits() == "dimensionless");
 
   const ASTNode *convertedAST = d->getModel()->getRule(0)->getMath();
@@ -1663,9 +1647,9 @@ START_TEST (test_convert_cn_units1)
   ASTNode * child1 = convertedAST->getChild(0);
   ASTNode * child2 = convertedAST->getChild(1);
 
-  fail_unless( equalDouble(child1->getReal(), 1.806642537e24) == true);
+  fail_unless( util_isEqual(child1->getReal(), 1.806642537e24) );
   fail_unless( child1->getUnits() == "dimensionless");
-  fail_unless( equalDouble(child2->getReal(), 1.5) == true);
+  fail_unless( util_isEqual(child2->getReal(), 1.5) );
   fail_unless( child2->getUnits() == "dimensionless");
 
   
@@ -1702,7 +1686,7 @@ START_TEST (test_convert_cn_units2)
   fail_unless (units->convert() == LIBSBML_OPERATION_SUCCESS);
  
   fail_unless (
-      equalDouble(d->getModel()->getParameter(0)->getValue(), 0.003) == true);
+      util_isEqual(d->getModel()->getParameter(0)->getValue(), 0.003) );
   fail_unless (d->getModel()->getParameter(0)->getUnits() == "unitSid_0");
 
   fail_unless (d->getModel()->getUnitDefinition(0)->getId() == "unitSid_0");
@@ -1718,9 +1702,9 @@ START_TEST (test_convert_cn_units2)
   ASTNode * child1 = convertedAST->getChild(0);
   ASTNode * child2 = convertedAST->getChild(1);
 
-  fail_unless( equalDouble(child1->getReal(), 0.003) == true);
+  fail_unless( util_isEqual(child1->getReal(), 0.003) );
   fail_unless( child1->getUnits() == "unitSid_0");
-  fail_unless( equalDouble(child2->getReal(), 1.5) == true);
+  fail_unless( util_isEqual(child2->getReal(), 1.5) );
   fail_unless( child2->getUnits() == "dimensionless");
 
   
@@ -1766,7 +1750,7 @@ START_TEST (test_convert_cn_units3)
   fail_unless (units->convert() == LIBSBML_OPERATION_SUCCESS);
  
   fail_unless (
-      equalDouble(d->getModel()->getParameter(0)->getValue(), 0.003) == true);
+      util_isEqual(d->getModel()->getParameter(0)->getValue(), 0.003) );
   fail_unless (d->getModel()->getParameter(0)->getUnits() == "unitSid_0");
 
   fail_unless (d->getModel()->getNumUnitDefinitions() == 2);
@@ -1797,9 +1781,9 @@ START_TEST (test_convert_cn_units3)
   ASTNode * child1 = convertedAST->getChild(0);
   ASTNode * child2 = convertedAST->getChild(1);
 
-  fail_unless( equalDouble(child1->getReal(), 0.003) == true);
+  fail_unless( util_isEqual(child1->getReal(), 0.003) );
   fail_unless( child1->getUnits() == "unitSid_1");
-  fail_unless( equalDouble(child2->getReal(), 1.5) == true);
+  fail_unless( util_isEqual(child2->getReal(), 1.5) );
   fail_unless( child2->getUnits() == "second");
 
   
@@ -1845,7 +1829,7 @@ START_TEST (test_convert_cn_units4)
   fail_unless (units->convert() == LIBSBML_OPERATION_SUCCESS);
  
   fail_unless (
-      equalDouble(d->getModel()->getParameter(0)->getValue(), 3) == true);
+      util_isEqual(d->getModel()->getParameter(0)->getValue(), 3) );
   fail_unless (d->getModel()->getParameter(0)->getUnits() == "metre_second");
 
   const ASTNode *convertedAST = d->getModel()->getRule(0)->getMath();
@@ -1853,9 +1837,9 @@ START_TEST (test_convert_cn_units4)
   ASTNode * child1 = convertedAST->getChild(0);
   ASTNode * child2 = convertedAST->getChild(1);
 
-  fail_unless( equalDouble(child1->getReal(), 3) == true);
+  fail_unless( util_isEqual(child1->getReal(), 3) );
   fail_unless( child1->getUnits() == "metre_second");
-  fail_unless( equalDouble(child2->getReal(), 1.5) == true);
+  fail_unless( util_isEqual(child2->getReal(), 1.5) );
   fail_unless( child2->getUnits() == "dimensionless");
 
   
@@ -1898,7 +1882,7 @@ START_TEST (test_convert_cn_units5)
   fail_unless (units->convert() == LIBSBML_OPERATION_SUCCESS);
  
   fail_unless (
-      equalDouble(d->getModel()->getParameter(0)->getValue(), 3) == true);
+      util_isEqual(d->getModel()->getParameter(0)->getValue(), 3) );
   fail_unless (d->getModel()->getParameter(0)->getUnits() == "dimensionless");
 
   fail_unless (d->getModel()->getNumUnitDefinitions() == 1);
@@ -1916,9 +1900,9 @@ START_TEST (test_convert_cn_units5)
   ASTNode * child1 = convertedAST->getChild(0);
   ASTNode * child2 = convertedAST->getChild(1);
 
-  fail_unless( equalDouble(child1->getReal(), 3) == true);
+  fail_unless( util_isEqual(child1->getReal(), 3) );
   fail_unless( child1->getUnits() == "unitSid_0");
-  fail_unless( equalDouble(child2->getReal(), 1.5) == true);
+  fail_unless( util_isEqual(child2->getReal(), 1.5) );
   fail_unless( child2->getUnits() == "second");
 
   
@@ -1968,7 +1952,7 @@ START_TEST (test_convert_cn_units6)
   fail_unless (units->convert() == LIBSBML_OPERATION_SUCCESS);
  
   fail_unless (
-      equalDouble(d->getModel()->getParameter(0)->getValue(), 3) == true);
+      util_isEqual(d->getModel()->getParameter(0)->getValue(), 3) );
   fail_unless (d->getModel()->getParameter(0)->getUnits() == "dimensionless");
 
   fail_unless (d->getModel()->getNumUnitDefinitions() == 1);
@@ -1986,9 +1970,9 @@ START_TEST (test_convert_cn_units6)
   ASTNode * child1 = convertedAST->getChild(0);
   ASTNode * child2 = convertedAST->getChild(1);
 
-  fail_unless( equalDouble(child1->getReal(), 3) == true);
+  fail_unless( util_isEqual(child1->getReal(), 3) );
   fail_unless( child1->getUnits() == "mine2");
-  fail_unless( equalDouble(child2->getReal(), 1.5) == true);
+  fail_unless( util_isEqual(child2->getReal(), 1.5) );
   fail_unless( child2->getUnits() == "second");
 
   

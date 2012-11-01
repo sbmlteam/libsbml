@@ -47,13 +47,6 @@ LIBSBML_CPP_NAMESPACE_USE
 BEGIN_C_DECLS
 
 
-#if defined(WIN32) && !defined(CYGWIN)
-#include <math.h>
-int isnan(double x) { return x != x; }
-int isinf(double x) { return !isnan(x) && isnan(x - x); }
-int finite(double x) { return !isinf(x) && !isnan(x); }
-#endif
-
 Suite *create_suite_ReadSBML                      (void);
 Suite *create_suite_WriteSBML                     (void);
 Suite *create_suite_WriteL3SBML                   (void);

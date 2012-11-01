@@ -29,12 +29,9 @@
 
 #include <sbml/units/UnitFormulaFormatter.h>
 #include <sbml/SBMLTransforms.h>
+#include <sbml/util/util.h>
 #include "../validator/constraints/IdList.h"
 
-#if defined(_MSC_VER) || defined(__BORLANDC__)
-#  include <float.h>
-#  define isnan(d)  _isnan(d)
-#endif
 
 
 LIBSBML_CPP_NAMESPACE_BEGIN
@@ -567,7 +564,7 @@ UnitFormulaFormatter::getUnitDefinitionFromPower(const ASTNode * node,
         SBMLTransforms::mapComponentValues(model);
         value = SBMLTransforms::evaluateASTNode(child);
         SBMLTransforms::clearComponentValues();
-        if (!isnan(value))
+        if (!util_isNaN(value))
         {
           if (floor(value) != value)
             mContainsUndeclaredUnits = true;
@@ -698,7 +695,7 @@ UnitFormulaFormatter::getUnitDefinitionFromRoot(const ASTNode * node,
           SBMLTransforms::mapComponentValues(model);
           double value = SBMLTransforms::evaluateASTNode(child);
           SBMLTransforms::clearComponentValues();
-          if (!isnan(value))
+          if (!util_isNaN(value))
           {
             double doubleExponent = 
                                 double(unit->getExponent())/value;

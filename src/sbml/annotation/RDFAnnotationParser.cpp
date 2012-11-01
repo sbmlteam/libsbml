@@ -63,7 +63,7 @@ static void
 logError (XMLInputStream* stream, const XMLToken& element, SBMLErrorCode_t code,
           const std::string& msg = "")
 {
-  if (&element == NULL || &stream == NULL) return;
+  if (&element == NULL || stream == NULL) return;
 
   SBMLNamespaces* ns = stream->getSBMLNamespaces();
   if (ns != NULL)

@@ -29,6 +29,12 @@
  * useful inside and outside of libSBML.
  */
 
+#ifdef _MSC_VER
+#pragma warning( push )                    // Save the current warning state.
+#pragma warning( disable : 4723 )          // C4723: potential divide by 0
+#endif
+
+
 #include <ctype.h>
 #include <locale.h>
 #include <sys/stat.h>
@@ -39,19 +45,62 @@
 #include <sbml/util/List.h>
 #include <sbml/util/util.h>
 
-#if defined(__arm__)
-#  define finite(d) isfinite(d)
+#include <math.h>
+#ifdef __cplusplus
+#include <cmath>
 #endif
 
 #if defined(_MSC_VER) || defined(__BORLANDC__)
 #  include <float.h>
-#  define finite(d) _finite(d)
-#  define isnan(d)  _isnan(d)
+#endif
+
+#ifndef __DBL_EPSILON__ 
+#define __DBL_EPSILON__ DBL_EPSILON
 #endif
 
 /** @cond doxygen-libsbml-internal */
 
 LIBSBML_CPP_NAMESPACE_BEGIN
+
+/**
+ * @return 1 if the number is NaN and 0 otherwise.
+ */
+LIBSBML_EXTERN
+int
+util_isNaN (double d)
+{
+  return d != d;
+}
+
+/**
+ * @return 1 if the number is finite and 0 otherwise.
+ */
+LIBSBML_EXTERN
+int
+util_isFinite (double d)
+{
+  return (int)!util_isNaN(d) && util_isNaN(d-d);
+}
+
+/**
+ * @return the machine epsilon
+ */
+LIBSBML_EXTERN 
+double util_epsilon()
+{
+  return __DBL_EPSILON__;
+}
+
+/**
+ * @return 1 if the number are equal up to the machine epsilon and 0 otherwise.
+ */
+LIBSBML_EXTERN
+int util_isEqual(double a, double b)
+{
+  return (fabs(a-b) < sqrt(util_epsilon())) ? 1 : 0;
+}
+
+
 
 /**
  * Identical to snprintf except printing always occurs according to the
@@ -510,7 +559,7 @@ int
 util_isInf (double d)
 {
 
-  if ( !(finite(d) || isnan(d)) )
+  if ( !(util_isFinite(d) || util_isNaN(d)) )
   {
     return (d < 0) ? -1 : 1;
   }
@@ -607,6 +656,15 @@ util_freeArray (void ** objects, int length)
   }
   free(objects);
 
+}
+
+#ifdef _MSC_VER
+#pragma warning( pop )  // restore warning
+#endif
+
+void test()
+{
+  double z= 0.0; double b= 0 / z;
 }
 
 

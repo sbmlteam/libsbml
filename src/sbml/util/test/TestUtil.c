@@ -27,11 +27,7 @@
 
 #if defined(WIN32) && !defined(CYGWIN)
 #include <errno.h>
-#include <math.h>
-int isnan(double x) { return x != x; }
-int isinf(double x) { return !isnan(x) && isnan(x - x); }
-int finite(double x) { return !isinf(x) && !isnan(x); }
-
+#define snprintf _snprintf
 #else
 #include <sys/errno.h>
 #endif 
@@ -263,7 +259,7 @@ START_TEST (test_util_NegInf)
   double d = util_NegInf();
 
 
-  if ( finite(d) || isnan(d) || d >= 0)
+  if ( util_isFinite(d) || util_isNaN(d) || d >= 0)
   {
     fail("util_NegInf() did not return -Inf.");
   }
@@ -276,7 +272,7 @@ START_TEST (test_util_PosInf)
   double d = util_PosInf();
 
 
-  if ( finite(d) || isnan(d) || d <= 0)
+  if ( util_isFinite(d) || util_isNaN(d) || d <= 0)
   {
     fail("util_PosInf() did not return +Inf.");
   }

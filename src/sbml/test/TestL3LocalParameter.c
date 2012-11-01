@@ -42,17 +42,6 @@ LIBSBML_CPP_NAMESPACE_USE
 
 BEGIN_C_DECLS
 
-#if defined(WIN32) && !defined(CYGWIN)
-int isnan(double x);
-int isinf(double x);
-int finite(double x);
-#ifndef __DBL_EPSILON__ 
-#include <float.h>
-#define __DBL_EPSILON__ DBL_EPSILON
-#endif
-#endif
-
-
 
 static LocalParameter_t *P;
 
@@ -86,7 +75,7 @@ START_TEST (test_L3_LocalParameter_create)
   fail_unless( LocalParameter_getId     (P) == NULL );
   fail_unless( LocalParameter_getName   (P) == NULL );
   fail_unless( LocalParameter_getUnits  (P) == NULL );
-  fail_unless( isnan(LocalParameter_getValue(P)));
+  fail_unless( util_isNaN(LocalParameter_getValue(P)));
 
   fail_unless( !LocalParameter_isSetId     (P) );
   fail_unless( !LocalParameter_isSetName   (P) );
@@ -184,7 +173,7 @@ END_TEST
 START_TEST (test_L3_LocalParameter_value)
 {
   fail_unless( !LocalParameter_isSetValue(P));
-  fail_unless( isnan(LocalParameter_getValue(P)));
+  fail_unless( util_isNaN(LocalParameter_getValue(P)));
 
   LocalParameter_setValue(P, 1.5);
 
@@ -194,7 +183,7 @@ START_TEST (test_L3_LocalParameter_value)
   LocalParameter_unsetValue(P);
 
   fail_unless( !LocalParameter_isSetValue(P));
-  fail_unless( isnan(LocalParameter_getValue(P)));
+  fail_unless( util_isNaN(LocalParameter_getValue(P)));
 }
 END_TEST
 
@@ -225,7 +214,7 @@ START_TEST (test_L3_LocalParameter_createWithNS )
   fail_unless( LocalParameter_getId     (p) == NULL );
   fail_unless( LocalParameter_getName   (p) == NULL );
   fail_unless( LocalParameter_getUnits  (p) == NULL );
-  fail_unless( isnan(LocalParameter_getValue(p)));
+  fail_unless( util_isNaN(LocalParameter_getValue(p)));
 
   fail_unless( !LocalParameter_isSetId     (p) );
   fail_unless( !LocalParameter_isSetName   (p) );

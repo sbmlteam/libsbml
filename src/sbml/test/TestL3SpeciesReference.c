@@ -40,18 +40,6 @@ LIBSBML_CPP_NAMESPACE_USE
 
 BEGIN_C_DECLS
 
-#if defined(WIN32) && !defined(CYGWIN)
-int isnan(double x);
-int isinf(double x);
-int finite(double x);
-#ifndef __DBL_EPSILON__ 
-#include <float.h>
-#define __DBL_EPSILON__ DBL_EPSILON
-#endif
-#endif
-
-
-
 static SpeciesReference_t *SR;
 
 
@@ -84,7 +72,7 @@ START_TEST (test_L3_SpeciesReference_create)
   fail_unless( SpeciesReference_getId     (SR) == NULL );
   fail_unless( SpeciesReference_getName   (SR) == NULL );
   fail_unless( SpeciesReference_getSpecies  (SR) == NULL );
-  fail_unless( isnan(SpeciesReference_getStoichiometry (SR)) );
+  fail_unless( util_isNaN(SpeciesReference_getStoichiometry (SR)) );
   fail_unless( SpeciesReference_getConstant(SR) == 0   );
 
   fail_unless( !SpeciesReference_isSetId     (SR) );
@@ -178,7 +166,7 @@ START_TEST (test_L3_SpeciesReference_stoichiometry)
   double stoichiometry = 0.2;
 
   fail_unless( !SpeciesReference_isSetStoichiometry(SR));
-  fail_unless( isnan(SpeciesReference_getStoichiometry(SR)));
+  fail_unless( util_isNaN(SpeciesReference_getStoichiometry(SR)));
   
   SpeciesReference_setStoichiometry(SR, stoichiometry);
 
@@ -188,7 +176,7 @@ START_TEST (test_L3_SpeciesReference_stoichiometry)
   SpeciesReference_unsetStoichiometry(SR);
 
   fail_unless( !SpeciesReference_isSetStoichiometry(SR) );
-  fail_unless( isnan(SpeciesReference_getStoichiometry(SR)));
+  fail_unless( util_isNaN(SpeciesReference_getStoichiometry(SR)));
 }
 END_TEST
 
@@ -237,7 +225,7 @@ START_TEST (test_L3_SpeciesReference_createWithNS )
   fail_unless( SpeciesReference_getId     (sr) == NULL );
   fail_unless( SpeciesReference_getName   (sr) == NULL );
   fail_unless( SpeciesReference_getSpecies  (sr) == NULL );
-  fail_unless( isnan(SpeciesReference_getStoichiometry (sr)) );
+  fail_unless( util_isNaN(SpeciesReference_getStoichiometry (sr)) );
   fail_unless( SpeciesReference_getConstant(sr) == 0   );
 
   fail_unless( !SpeciesReference_isSetId     (sr) );

@@ -41,18 +41,6 @@ LIBSBML_CPP_NAMESPACE_USE
 
 BEGIN_C_DECLS
 
-
-#if defined(WIN32) && !defined(CYGWIN)
-int isnan(double x);
-int isinf(double x);
-int finite(double x);
-#ifndef __DBL_EPSILON__ 
-#include <float.h>
-#define __DBL_EPSILON__ DBL_EPSILON
-#endif
-#endif
-
-
 extern char *TestDataDirectory;
 
 
@@ -145,9 +133,9 @@ START_TEST (test_read_l3v1_new)
   fail_unless(!u->isSetExponent());
   fail_unless(!u->isSetScale());
   fail_unless(!u->isSetMultiplier());
-  fail_unless(isnan(u->getExponentAsDouble()));
+  fail_unless(util_isNaN(u->getExponentAsDouble()));
   fail_unless( u->getScale() == SBML_INT_MAX );
-  fail_unless(isnan(u->getMultiplier()));
+  fail_unless(util_isNaN(u->getMultiplier()));
 
   
   ud = m->getUnitDefinition(1);
@@ -208,9 +196,9 @@ START_TEST (test_read_l3v1_new)
   fail_unless(!c->isSetSpatialDimensions());
   fail_unless(c->isSetConstant());
   fail_unless(c->getId() == "comp1");
-  fail_unless(isnan(c->getSize()));
-  fail_unless(isnan(c->getSpatialDimensionsAsDouble()));
-  //fail_unless(isnan(c->getSpatialDimensions()));
+  fail_unless(util_isNaN(c->getSize()));
+  fail_unless(util_isNaN(c->getSpatialDimensionsAsDouble()));
+  //fail_unless(util_isNaN(c->getSpatialDimensions()));
   fail_unless(c->getConstant() == false);
 
   c = m->getCompartment(2);
@@ -220,7 +208,7 @@ START_TEST (test_read_l3v1_new)
   fail_unless(!c->isSetConstant());
   fail_unless(c->getId() == "comp2");
   fail_unless(c->getSpatialDimensionsAsDouble() == 4.6);
-  //fail_unless(isnan(c->getSpatialDimensions()));
+  //fail_unless(util_isNaN(c->getSpatialDimensions()));
 //  fail_unless(c->getConstant() == false);
 
 
@@ -247,7 +235,7 @@ START_TEST (test_read_l3v1_new)
   fail_unless(s->isSetInitialAmount());
   fail_unless(s->getInitialAmount() == 0);
   fail_unless(!s->isSetInitialConcentration());
-  fail_unless(isnan(s->getInitialConcentration()));
+  fail_unless(util_isNaN(s->getInitialConcentration()));
 
   s = m->getSpecies(1);
 
@@ -264,9 +252,9 @@ START_TEST (test_read_l3v1_new)
   fail_unless(!s->isSetConstant());
 //  fail_unless(s->getConstant() == false);
   fail_unless(!s->isSetInitialAmount());
-  fail_unless(isnan(s->getInitialAmount()));
+  fail_unless(util_isNaN(s->getInitialAmount()));
   fail_unless(!s->isSetInitialConcentration());
-  fail_unless(isnan(s->getInitialConcentration()));
+  fail_unless(util_isNaN(s->getInitialConcentration()));
 
      //<listOfParameters>
      //   <parameter id="Keq" value="2.5" units="dimensionless" constant="true"/>
@@ -290,7 +278,7 @@ START_TEST (test_read_l3v1_new)
 
   fail_unless(p->getId() == "Keq1");
   fail_unless(!p->isSetValue());
-  fail_unless(isnan(p->getValue()));
+  fail_unless(util_isNaN(p->getValue()));
   fail_unless(!p->isSetUnits());
   fail_unless(p->getUnits() == "");
   fail_unless(p->isSetConstant());
@@ -300,7 +288,7 @@ START_TEST (test_read_l3v1_new)
 
   fail_unless(p->getId() == "Keq2");
   fail_unless(!p->isSetValue());
-  fail_unless(isnan(p->getValue()));
+  fail_unless(util_isNaN(p->getValue()));
   fail_unless(!p->isSetUnits());
   fail_unless(p->getUnits() == "");
   fail_unless(!p->isSetConstant());
@@ -331,7 +319,7 @@ START_TEST (test_read_l3v1_new)
   fail_unless(sr->isSetConstant());
   fail_unless(sr->getConstant() == false);
   fail_unless(!sr->isSetStoichiometry());
-  fail_unless(isnan(sr->getStoichiometry()));
+  fail_unless(util_isNaN(sr->getStoichiometry()));
 
 
   kl = r->getKineticLaw();
@@ -358,7 +346,7 @@ START_TEST (test_read_l3v1_new)
   fail_unless(!lp->isSetUnits());
   fail_unless(lp->getUnits() == "");
   fail_unless(!lp->isSetValue());
-  fail_unless(isnan(lp->getValue()));
+  fail_unless(util_isNaN(lp->getValue()));
 
 
   r = m->getReaction(1);

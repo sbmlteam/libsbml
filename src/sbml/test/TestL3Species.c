@@ -46,17 +46,6 @@ LIBSBML_CPP_NAMESPACE_USE
 
 BEGIN_C_DECLS
 
-#if defined(WIN32) && !defined(CYGWIN)
-int isnan(double x);
-int isinf(double x);
-int finite(double x);
-#ifndef __DBL_EPSILON__ 
-#include <float.h>
-#define __DBL_EPSILON__ DBL_EPSILON
-#endif
-#endif
-
-
 static Species_t *S;
 
 
@@ -89,8 +78,8 @@ START_TEST (test_L3_Species_create)
   fail_unless( Species_getId     (S) == NULL );
   fail_unless( Species_getName   (S) == NULL );
   fail_unless( Species_getCompartment  (S) == NULL );
-  fail_unless( isnan(Species_getInitialAmount (S)) );
-  fail_unless( isnan(Species_getInitialConcentration (S)) );
+  fail_unless( util_isNaN(Species_getInitialAmount (S)) );
+  fail_unless( util_isNaN(Species_getInitialConcentration (S)) );
   fail_unless( Species_getSubstanceUnits  (S) == NULL );
   fail_unless( Species_getHasOnlySubstanceUnits(S) == 0   );
   fail_unless( Species_getBoundaryCondition(S) == 0   );
@@ -193,7 +182,7 @@ START_TEST (test_L3_Species_initialAmount)
   double initialAmount = 0.2;
 
   fail_unless( !Species_isSetInitialAmount(S));
-  fail_unless( isnan(Species_getInitialAmount(S)));
+  fail_unless( util_isNaN(Species_getInitialAmount(S)));
   
   Species_setInitialAmount(S, initialAmount);
 
@@ -203,7 +192,7 @@ START_TEST (test_L3_Species_initialAmount)
   Species_unsetInitialAmount(S);
 
   fail_unless( !Species_isSetInitialAmount(S) );
-  fail_unless( isnan(Species_getInitialAmount(S)));
+  fail_unless( util_isNaN(Species_getInitialAmount(S)));
 }
 END_TEST
 
@@ -213,7 +202,7 @@ START_TEST (test_L3_Species_initialConcentration)
   double initialConcentration = 0.2;
 
   fail_unless( !Species_isSetInitialConcentration(S));
-  fail_unless( isnan(Species_getInitialConcentration(S)));
+  fail_unless( util_isNaN(Species_getInitialConcentration(S)));
   
   Species_setInitialConcentration(S, initialConcentration);
 
@@ -223,7 +212,7 @@ START_TEST (test_L3_Species_initialConcentration)
   Species_unsetInitialConcentration(S);
 
   fail_unless( !Species_isSetInitialConcentration(S) );
-  fail_unless( isnan(Species_getInitialConcentration(S)));
+  fail_unless( util_isNaN(Species_getInitialConcentration(S)));
 }
 END_TEST
 
@@ -368,8 +357,8 @@ START_TEST (test_L3_Species_createWithNS )
   fail_unless( Species_getId     (s) == NULL );
   fail_unless( Species_getName   (s) == NULL );
   fail_unless( Species_getCompartment  (s) == NULL );
-  fail_unless( isnan(Species_getInitialAmount (s)) );
-  fail_unless( isnan(Species_getInitialConcentration (s)) );
+  fail_unless( util_isNaN(Species_getInitialAmount (s)) );
+  fail_unless( util_isNaN(Species_getInitialConcentration (s)) );
   fail_unless( Species_getSubstanceUnits  (s) == NULL );
   fail_unless( Species_getHasOnlySubstanceUnits(s) == 0   );
   fail_unless( Species_getBoundaryCondition(s) == 0   );
@@ -479,8 +468,8 @@ START_TEST (test_L3_Species_initDefaults)
   fail_unless( Species_getId     (s) == NULL );
   fail_unless( Species_getName   (s) == NULL );
   fail_unless( Species_getCompartment  (s) == NULL );
-  fail_unless( isnan(Species_getInitialAmount (s)) );
-  fail_unless( isnan(Species_getInitialConcentration (s)) );
+  fail_unless( util_isNaN(Species_getInitialAmount (s)) );
+  fail_unless( util_isNaN(Species_getInitialConcentration (s)) );
   fail_unless( Species_getSubstanceUnits  (s) == NULL );
   fail_unless( Species_getHasOnlySubstanceUnits(s) == 0   );
   fail_unless( Species_getBoundaryCondition(s) == 0   );
@@ -503,8 +492,8 @@ START_TEST (test_L3_Species_initDefaults)
   fail_unless( Species_getId     (s) == NULL );
   fail_unless( Species_getName   (s) == NULL );
   fail_unless( Species_getCompartment  (s) == NULL );
-  fail_unless( isnan(Species_getInitialAmount (s)) );
-  fail_unless( isnan(Species_getInitialConcentration (s)) );
+  fail_unless( util_isNaN(Species_getInitialAmount (s)) );
+  fail_unless( util_isNaN(Species_getInitialConcentration (s)) );
   fail_unless( !strcmp(Species_getSubstanceUnits  (s),"mole" ));
   fail_unless( Species_getHasOnlySubstanceUnits(s) == 0   );
   fail_unless( Species_getBoundaryCondition(s) == 0   );

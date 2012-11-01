@@ -17,10 +17,6 @@
 #include "FormulaGraphvizFormatter.h"
 
 
-#ifdef _MSC_VER
-#  define isnan _isnan
-#endif
-
 static int noClusters = 0;
 
 FILE * fout;
@@ -454,7 +450,7 @@ FormulaGraphvizFormatter_formatReal (const ASTNode_t *node)
   int            sign;
   char           *s;
 
-  if (isnan(value))
+  if (util_isNaN(value))
   {
     s =  "NaN";
   }

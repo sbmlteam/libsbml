@@ -903,12 +903,9 @@ END_TEST
 
 START_TEST (test_SBML_C_parseL3Formula_constants10)
 {
-#ifdef _MSC_VER
-#  define isnan(d)  _isnan(d)
-#endif
   ASTNode_t *r = SBML_parseL3Formula("notanumber");
   fail_unless( ASTNode_getType(r)        == AST_REAL, NULL );
-  fail_unless( isnan(ASTNode_getReal(r)) ==  1, NULL );
+  fail_unless( util_isNaN(ASTNode_getReal(r)) ==  1, NULL );
   fail_unless( ASTNode_getNumChildren(r) ==  0, NULL );
   ASTNode_free(r);
 }
@@ -919,7 +916,7 @@ START_TEST (test_SBML_C_parseL3Formula_constants11)
 {
   ASTNode_t *r = SBML_parseL3Formula("nan");
   fail_unless( ASTNode_getType(r)        == AST_REAL, NULL );
-  fail_unless( isnan(ASTNode_getReal(r)) ==  1, NULL );
+  fail_unless( util_isNaN(ASTNode_getReal(r)) ==  1, NULL );
   fail_unless( ASTNode_getNumChildren(r) ==  0, NULL );
   ASTNode_free(r);
 }
@@ -930,7 +927,7 @@ START_TEST (test_SBML_C_parseL3Formula_constants12)
 {
   ASTNode_t *r = SBML_parseL3Formula("NaN");
   fail_unless( ASTNode_getType(r)        == AST_REAL, NULL );
-  fail_unless( isnan(ASTNode_getReal(r)) ==  1, NULL );
+  fail_unless( util_isNaN(ASTNode_getReal(r)) ==  1, NULL );
   fail_unless( ASTNode_getNumChildren(r) ==  0, NULL );
   ASTNode_free(r);
 }

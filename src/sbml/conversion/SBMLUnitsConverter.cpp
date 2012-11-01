@@ -506,7 +506,7 @@ SBMLUnitsConverter::convertUnits(SBase &sb, Model &m,
     siud = UnitDefinition::convertToSI(ud);
   }
 
-  double newValue;
+  double newValue= 0.0;
   if (hasValue == true)
     newValue = oldValue;
 
@@ -857,7 +857,7 @@ SBMLUnitsConverter::applyNewUnitDefinition(SBase &sb, Model &m,
 
   std::string newId;
   char number[4];
-  int i;
+  int i=0;
   bool changedId = false;
   newId = existsAlready(m, newUD);
   if (newId.empty())

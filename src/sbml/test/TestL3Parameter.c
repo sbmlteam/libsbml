@@ -42,17 +42,6 @@ LIBSBML_CPP_NAMESPACE_USE
 
 BEGIN_C_DECLS
 
-#if defined(WIN32) && !defined(CYGWIN)
-int isnan(double x);
-int isinf(double x);
-int finite(double x);
-#ifndef __DBL_EPSILON__ 
-#include <float.h>
-#define __DBL_EPSILON__ DBL_EPSILON
-#endif
-#endif
-
-
 
 static Parameter_t *P;
 
@@ -86,7 +75,7 @@ START_TEST (test_L3_Parameter_create)
   fail_unless( Parameter_getId     (P) == NULL );
   fail_unless( Parameter_getName   (P) == NULL );
   fail_unless( Parameter_getUnits  (P) == NULL );
-  fail_unless( isnan(Parameter_getValue(P)));
+  fail_unless( util_isNaN(Parameter_getValue(P)));
   fail_unless( Parameter_getConstant(P) == 1   );
 
   fail_unless( !Parameter_isSetId     (P) );
@@ -204,7 +193,7 @@ END_TEST
 START_TEST (test_L3_Parameter_value)
 {
   fail_unless( !Parameter_isSetValue(P));
-  fail_unless( isnan(Parameter_getValue(P)));
+  fail_unless( util_isNaN(Parameter_getValue(P)));
 
   Parameter_setValue(P, 1.5);
 
@@ -214,7 +203,7 @@ START_TEST (test_L3_Parameter_value)
   Parameter_unsetValue(P);
 
   fail_unless( !Parameter_isSetValue(P));
-  fail_unless( isnan(Parameter_getValue(P)));
+  fail_unless( util_isNaN(Parameter_getValue(P)));
 }
 END_TEST
 
@@ -245,7 +234,7 @@ START_TEST (test_L3_Parameter_createWithNS )
   fail_unless( Parameter_getId     (p) == NULL );
   fail_unless( Parameter_getName   (p) == NULL );
   fail_unless( Parameter_getUnits  (p) == NULL );
-  fail_unless( isnan(Parameter_getValue(p)));
+  fail_unless( util_isNaN(Parameter_getValue(p)));
   fail_unless( Parameter_getConstant(p) == 1   );
 
   fail_unless( !Parameter_isSetId     (p) );

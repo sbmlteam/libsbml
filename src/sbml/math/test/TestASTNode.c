@@ -38,12 +38,6 @@
 #include <limits.h>
 #include <check.h>
 
-#if defined(WIN32) && !defined(CYGWIN)
-#include <math.h>
-extern int isnan(double x); 
-extern int isinf(double x); 
-extern int finite(double x);
-#endif
 
 #if defined(__cplusplus)
 LIBSBML_CPP_NAMESPACE_USE
@@ -2244,14 +2238,14 @@ START_TEST (test_ASTNode_accessWithNULL)
   fail_unless( ASTNode_getInteger (NULL) == LONG_MAX);
   fail_unless( ASTNode_getLeftChild (NULL) == NULL);
   fail_unless( ASTNode_getListOfNodes (NULL, NULL) == NULL);
-  fail_unless( isnan(ASTNode_getMantissa (NULL)) );
+  fail_unless( util_isNaN(ASTNode_getMantissa (NULL)) );
   fail_unless( ASTNode_getName (NULL) == NULL);
   fail_unless( ASTNode_getNumChildren (NULL) == 0);
   fail_unless( ASTNode_getNumerator (NULL) == LONG_MAX);
   fail_unless( ASTNode_getNumSemanticsAnnotations (NULL) == 0);
   fail_unless( ASTNode_getParentSBMLObject (NULL) == NULL);
   fail_unless( ASTNode_getPrecedence (NULL) == 6);
-  fail_unless( isnan(ASTNode_getReal (NULL)));
+  fail_unless( util_isNaN(ASTNode_getReal (NULL)));
   fail_unless( ASTNode_getRightChild (NULL) == NULL);
   fail_unless( ASTNode_getSemanticsAnnotation (NULL, 0) == NULL);
   fail_unless( ASTNode_getType (NULL) == AST_UNKNOWN);

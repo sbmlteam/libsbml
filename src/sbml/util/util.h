@@ -33,10 +33,7 @@
 
 #include <sbml/common/extern.h>
 
-
 /** @cond doxygen-libsbml-internal */
-
-
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 BEGIN_C_DECLS
@@ -212,6 +209,20 @@ LIBSBML_EXTERN
 int
 util_isInf (double d);
 
+/*
+ * @return 1 if the number is NaN and 0 otherwise.
+ */
+LIBSBML_EXTERN
+int
+util_isNaN (double d);
+
+/*
+ * @return 1 if the number is finite and 0 otherwise.
+ */
+LIBSBML_EXTERN
+int
+util_isFinite (double d);
+
 
 /*
  * @return true (non-zero) if d is an IEEE-754 negative zero, false (zero)
@@ -232,6 +243,18 @@ util_free (void * element);
 LIBSBML_EXTERN
 void
 util_freeArray (void ** objects, int length);
+
+/*
+ * @return the machine epsilon
+ */
+LIBSBML_EXTERN 
+double util_epsilon();
+
+/*
+ * @return 1 if the number are equal up to the machine epsilon and 0 otherwise.
+ */
+LIBSBML_EXTERN
+int util_isEqual(double a, double b);
 
 /** @cond doxygen-libsbml-internal */
 

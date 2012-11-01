@@ -41,16 +41,6 @@ LIBSBML_CPP_NAMESPACE_USE
 
 BEGIN_C_DECLS
 
-#if defined(WIN32) && !defined(CYGWIN)
-int isnan(double x);
-int isinf(double x);
-int finite(double x);
-#ifndef __DBL_EPSILON__ 
-#include <float.h>
-#define __DBL_EPSILON__ DBL_EPSILON
-#endif
-#endif
-
 
 static Compartment_t *C;
 
@@ -86,8 +76,8 @@ START_TEST (test_L3_Compartment_create)
   fail_unless( Compartment_getUnits  (C) == NULL );
   fail_unless( Compartment_getOutside(C) == NULL );
 
-  fail_unless( isnan(Compartment_getSpatialDimensionsAsDouble(C))   );
-  fail_unless( isnan(Compartment_getVolume(C)));
+  fail_unless( util_isNaN(Compartment_getSpatialDimensionsAsDouble(C))   );
+  fail_unless( util_isNaN(Compartment_getVolume(C)));
   fail_unless( Compartment_getConstant(C) == 1   );
 
   fail_unless( !Compartment_isSetId     (C) );
@@ -192,7 +182,7 @@ START_TEST (test_L3_Compartment_size)
   double size = 0.2;
 
   fail_unless( !Compartment_isSetSize(C));
-  fail_unless( isnan(Compartment_getSize(C)));
+  fail_unless( util_isNaN(Compartment_getSize(C)));
   
   Compartment_setSize(C, size);
 
@@ -202,7 +192,7 @@ START_TEST (test_L3_Compartment_size)
   Compartment_unsetSize(C);
 
   fail_unless( !Compartment_isSetSize(C) );
-  fail_unless( isnan(Compartment_getSize(C)));
+  fail_unless( util_isNaN(Compartment_getSize(C)));
 }
 END_TEST
 
@@ -228,7 +218,7 @@ END_TEST
 START_TEST (test_L3_Compartment_spatialDimensions)
 {
   fail_unless( !Compartment_isSetSpatialDimensions(C));
-  fail_unless( isnan(Compartment_getSpatialDimensionsAsDouble(C)));
+  fail_unless( util_isNaN(Compartment_getSpatialDimensionsAsDouble(C)));
 
   Compartment_setSpatialDimensionsAsDouble(C, 1.5);
 
@@ -238,7 +228,7 @@ START_TEST (test_L3_Compartment_spatialDimensions)
   Compartment_unsetSpatialDimensions(C);
 
   fail_unless( !Compartment_isSetSpatialDimensions(C));
-  fail_unless( isnan(Compartment_getSpatialDimensionsAsDouble(C)));
+  fail_unless( util_isNaN(Compartment_getSpatialDimensionsAsDouble(C)));
 }
 END_TEST
 
@@ -271,8 +261,8 @@ START_TEST (test_L3_Compartment_createWithNS )
   fail_unless( Compartment_getUnits  (c) == NULL );
   fail_unless( Compartment_getOutside(c) == NULL );
 
-  fail_unless( isnan(Compartment_getSpatialDimensionsAsDouble(c))   );
-  fail_unless( isnan(Compartment_getVolume(c)));
+  fail_unless( util_isNaN(Compartment_getSpatialDimensionsAsDouble(c))   );
+  fail_unless( util_isNaN(Compartment_getVolume(c)));
   fail_unless( Compartment_getConstant(c) == 1   );
 
   fail_unless( !Compartment_isSetId     (c) );

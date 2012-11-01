@@ -28,12 +28,7 @@
 #include <sbml/common/common.h>
 #include <sbml/math/FormulaFormatter.h>
 
-#if defined(_MSC_VER) || defined(__BORLANDC__)
-#  include <float.h>
-#  define finite(d) _finite(d)
-#  define isnan(d)  _isnan(d)
-#endif
-
+#include <sbml/util/util.h>
 
 /** @cond doxygen-c-only */
 /**
@@ -346,7 +341,7 @@ FormulaFormatter_formatReal (StringBuffer_t *sb, const ASTNode_t *node)
   int    sign;
 
 
-  if (isnan(value))
+  if (util_isNaN(value))
   {
     StringBuffer_append(sb, "NaN");
   }

@@ -104,7 +104,7 @@ KineticLawUnitsCheck::check_ (const Model& m, const Model& object)
   unsigned int n, p;
   IdList matched;
   IdList unmatched;
-  const UnitDefinition *ud1, *ud2;
+  const UnitDefinition *ud1=NULL, *ud2=NULL;
 
   if (m.getLevel() < 3)
     return;

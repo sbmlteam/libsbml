@@ -47,8 +47,9 @@ LIBSBML_CPP_NAMESPACE_USE
  * do what this warning tries to help with, so we shut it up just
  * for this file.
  */
+#ifdef __GNUC__ 
 #pragma GCC diagnostic ignored "-Wwrite-strings"
-
+#endif
 
 BEGIN_C_DECLS
 
