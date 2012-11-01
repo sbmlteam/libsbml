@@ -274,13 +274,11 @@ START_TEST (test_SBMLConvert_convertToL1_Species_Concentration)
   
   fail_unless( SBMLDocument_setLevelAndVersion(d, 1, 2) == 1, NULL);
 
-  /**
-   * These tests will fail under Cygwin because of a minimal
-   * setlocale() implementation (see setlocale manpage).
-   */
-#ifndef CYGWIN
-  fail_unless( Species_getInitialAmount(Model_getSpecies(m, 0)) == 2.808, NULL );
-#endif
+  fail_unless( 
+    util_isEqual(
+    Species_getInitialAmount(Model_getSpecies(m, 0)),
+    2.808)
+    );
 
   Species_t * s1 = Model_getSpecies(m, 0);
   fail_unless (s1 != NULL);
