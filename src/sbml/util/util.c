@@ -662,11 +662,5 @@ util_freeArray (void ** objects, int length)
 #pragma warning( pop )  // restore warning
 #endif
 
-void test()
-{
-  double z= 0.0; double b= 0 / z;
-}
-
-
 LIBSBML_CPP_NAMESPACE_END
 
