@@ -102,13 +102,13 @@ START_TEST (test_c_locale_strtod)
     const char *de = "2,72";
 
     endptr = NULL;
-    fail_unless( strtod(de, &endptr) == 2.72 );
+    fail_unless( util_isEqual(strtod(de, &endptr), 2.72) );
     fail_unless( (endptr - de)       == 4    );
     fail_unless( errno != ERANGE             );
   }
 
   endptr = NULL;
-  fail_unless( c_locale_strtod(en, &endptr) == 2.72 );
+  fail_unless( util_isEqual(c_locale_strtod(en, &endptr),2.72) );
   fail_unless( (endptr - en)                == 4    );
   fail_unless( errno != ERANGE                      );
 
