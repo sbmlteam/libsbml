@@ -172,7 +172,7 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
       mexErrMsgTxt("Octave requires the filename to be specified\n"
                    "USAGE: OutputSBML(SBMLModel, filename)");
   }
-  if (nrhs > 3)
+  if (nrhs > 2)
   {
     inInstaller = 1;
   }
