@@ -6,17 +6,17 @@
 # This file is part of libSBML.  Please visit http://sbml.org for more
 # information about SBML, and the latest version of libSBML.
 #
-# Copyright (C) 2009-2012 jointly by the following organizations: 
+# Copyright (C) 2009-2012 jointly by the following organizations:
 #     1. California Institute of Technology, Pasadena, CA, USA
 #     2. EMBL European Bioinformatics Institute (EBML-EBI), Hinxton, UK
-#  
+#
 # Copyright (C) 2006-2008 by the California Institute of Technology,
-#     Pasadena, CA, USA 
-#  
-# Copyright (C) 2002-2005 jointly by the following organizations: 
+#     Pasadena, CA, USA
+#
+# Copyright (C) 2002-2005 jointly by the following organizations:
 #     1. California Institute of Technology, Pasadena, CA, USA
 #     2. Japan Science and Technology Agency, Japan
-# 
+#
 # This library is free software; you can redistribute it and/or modify it
 # under the terms of the GNU Lesser General Public License as published by
 # the Free Software Foundation.  A copy of the license agreement is provided
@@ -31,16 +31,18 @@ include(FindPythonInterp)
 
 include(${SWIG_USE_FILE})
 
-
+set(LIBSBML_CSHARP_BINDING_NATIVE_LIBRARY_NAME "libsbmlcs" CACHE STRING
+                       "The name of the native library file to generate. This can be changed to avoid conflicts with other applications using another version of the library.")
+mark_as_advanced(LIBSBML_CSHARP_BINDING_NATIVE_LIBRARY_NAME)
 
 ####################################################################
 #
 # determine local dependencies, so as to re-swig if one of them changed
-# 
+#
 
-file(GLOB SWIG_DEPENDENCIES 
-	${CMAKE_CURRENT_SOURCE_DIR}/*.cpp 
-	${CMAKE_CURRENT_SOURCE_DIR}/*.i 
+file(GLOB SWIG_DEPENDENCIES
+	${CMAKE_CURRENT_SOURCE_DIR}/*.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/*.i
 	${CMAKE_CURRENT_SOURCE_DIR}/../swig/*.i
 	${CMAKE_CURRENT_SOURCE_DIR}/../swig/*.h
 	)
@@ -48,7 +50,7 @@ file(GLOB SWIG_DEPENDENCIES
 ####################################################################
 #
 # create correct assembly information file
-# 
+#
 configure_file (
   "${CMAKE_CURRENT_SOURCE_DIR}/Properties/AssemblyInfo.cs.in"
   "${CMAKE_CURRENT_BINARY_DIR}/AssemblyInfo.cs"
@@ -56,7 +58,7 @@ configure_file (
 
 ####################################################################
 #
-# generate files that include all packages: 
+# generate files that include all packages:
 #
 # - local-downcast-extension.i
 file(GLOB DOWNCAST_EXTENSION RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} "${CMAKE_CURRENT_SOURCE_DIR}/local-downcast-extension-*.i")
@@ -87,8 +89,8 @@ file(APPEND "${CMAKE_CURRENT_SOURCE_DIR}/local-packages.i" "\n")
 # Remove SWIG wrappers if requested
 #
 if (LIBSBML_REMOVE_WRAPPERS)
-  foreach(file 
-    ${CMAKE_CURRENT_BINARY_DIR}/libsbml_wrap.cpp 
+  foreach(file
+    ${CMAKE_CURRENT_BINARY_DIR}/libsbml_wrap.cpp
     ${CMAKE_CURRENT_BINARY_DIR}/csdoc.i
   )
     if (EXISTS ${file})
@@ -116,9 +118,9 @@ endif()
 file(TO_NATIVE_PATH ${CMAKE_CURRENT_BINARY_DIR}/csharp-files LIBSBML_CS_FILES)
 
 MAKE_DIRECTORY(${CMAKE_CURRENT_BINARY_DIR}/csharp-files)
-ADD_CUSTOM_COMMAND(	
-    OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/libsbml_wrap.cpp 
-	       ${CMAKE_CURRENT_BINARY_DIR}/csharp-files/libsbml.cs 
+ADD_CUSTOM_COMMAND(
+    OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/libsbml_wrap.cpp
+	       ${CMAKE_CURRENT_BINARY_DIR}/csharp-files/libsbml.cs
 		   ${CMAKE_CURRENT_BINARY_DIR}/csdoc.i
     COMMAND "${CMAKE_COMMAND}"
     ARGS  -E remove_directory "${LIBSBML_CS_FILES}"
@@ -128,40 +130,41 @@ ADD_CUSTOM_COMMAND(
 			-I"${CMAKE_SOURCE_DIR}/src"
 			-D"${CMAKE_SOURCE_DIR}/docs/src"
 			"${CMAKE_CURRENT_SOURCE_DIR}/../swig/libsbml.i"
-			"${CMAKE_CURRENT_BINARY_DIR}/csdoc.i"	
+			"${CMAKE_CURRENT_BINARY_DIR}/csdoc.i"
     COMMAND "${CMAKE_COMMAND}"
     ARGS  -E make_directory "${LIBSBML_CS_FILES}"
     COMMAND "${SWIG_EXECUTABLE}"
     ARGS -I${CMAKE_CURRENT_SOURCE_DIR}/../swig/
-         -I${CMAKE_SOURCE_DIR}/src 
+         -I${CMAKE_SOURCE_DIR}/src
          -I${CMAKE_SOURCE_DIR}/include
          -I${CMAKE_CURRENT_SOURCE_DIR}
 	     -c++
 	     -csharp
 	     -namespace libsbmlcs
-	     -dllimport libsbmlcs ${SWIG_EXTRA_ARGS}
-	     ${SWIG_EXTRA_FLAGS}		 
+	     -dllimport ${LIBSBML_CSHARP_BINDING_NATIVE_LIBRARY_NAME}
+	     ${SWIG_EXTRA_ARGS}
+	     ${SWIG_EXTRA_FLAGS}
          -outdir ${LIBSBML_CS_FILES}
-	     -o ${CMAKE_CURRENT_BINARY_DIR}/libsbml_wrap.cpp 
+	     -o ${CMAKE_CURRENT_BINARY_DIR}/libsbml_wrap.cpp
 	     ${CMAKE_CURRENT_SOURCE_DIR}/../swig/libsbml.i
 
     MAIN_DEPENDENCY ${CMAKE_CURRENT_SOURCE_DIR}/../swig/libsbml.i
-	DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/CMakeLists.txt	    
-            ${SWIG_DEPENDENCIES}    
-    COMMENT "Swig C# source") 
+	DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/CMakeLists.txt
+            ${SWIG_DEPENDENCIES}
+    COMMENT "Swig C# source")
 
 add_custom_target(binding_csharp_swig ALL DEPENDS ${SWIG_DEPENDENCIES})
 
-# 
+#
 # Determine the csharp installation directory
 #
 set(CSHAPR_PACKAGE_INSTALL_DIR)
-if (UNIX OR CYGWIN) 
+if (UNIX OR CYGWIN)
   set(CSHAPR_PACKAGE_INSTALL_DIR ${CMAKE_INSTALL_LIBDIR}/mono/libsbmlcsP)
 else()
   set(CSHAPR_PACKAGE_INSTALL_DIR ${MISC_PREFIX}bindings/csharp)
 endif()
-	
+
 ####################################################################
 #
 # Build native library
@@ -170,59 +173,70 @@ endif()
 include_directories(${CMAKE_CURRENT_SOURCE_DIR})
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/../swig)
 include_directories(BEFORE ${CMAKE_SOURCE_DIR}/src)
-add_library(binding_csharp_native_lib SHARED ${CMAKE_CURRENT_BINARY_DIR}/libsbml_wrap.cpp) 
+add_library(binding_csharp_native_lib SHARED ${CMAKE_CURRENT_BINARY_DIR}/libsbml_wrap.cpp)
 add_dependencies(binding_csharp_native_lib binding_csharp_swig)
 if (UNIX)
-set_target_properties (binding_csharp_native_lib PROPERTIES OUTPUT_NAME "sbmlcs")
+# if name starts with 'lib' drop the prefix, otherwise we get 'liblibXXX'
+
+set(UNIX_NATIVE_NAME "${LIBSBML_CSHARP_BINDING_NATIVE_LIBRARY_NAME}")
+string(LENGTH "${LIBSBML_CSHARP_BINDING_NATIVE_LIBRARY_NAME}" length)
+if (${length} GREATER 3)
+	 string(SUBSTRING "${LIBSBML_CSHARP_BINDING_NATIVE_LIBRARY_NAME}" 0 3 result)
+	 if ("${result}" STREQUAL "lib")
+	 	   math(EXPR length_minus_three "${length} - 3")
+	 	   string(SUBSTRING "${LIBSBML_CSHARP_BINDING_NATIVE_LIBRARY_NAME}" 3 ${length_minus_three} UNIX_NATIVE_NAME)
+	 endif()
+endif()
+set_target_properties (binding_csharp_native_lib PROPERTIES OUTPUT_NAME "${UNIX_NATIVE_NAME}")
 else()
-set_target_properties (binding_csharp_native_lib PROPERTIES OUTPUT_NAME "libsbmlcs")
+set_target_properties (binding_csharp_native_lib PROPERTIES OUTPUT_NAME ${LIBSBML_CSHARP_BINDING_NATIVE_LIBRARY_NAME})
 endif()
 target_link_libraries(binding_csharp_native_lib ${LIBSBML_LIBRARY}-static)
-INSTALL(TARGETS binding_csharp_native_lib 
-        DESTINATION ${CSHAPR_PACKAGE_INSTALL_DIR}	
+INSTALL(TARGETS binding_csharp_native_lib
+        DESTINATION ${CSHAPR_PACKAGE_INSTALL_DIR}
   )
 
 ####################################################################
 #
 # build managed library
-# 
+#
 
-ADD_CUSTOM_COMMAND(	
-	OUTPUT 
-		${CMAKE_CURRENT_BINARY_DIR}/libsbmlcsP.dll 
-		${CMAKE_CURRENT_BINARY_DIR}/TestRunner.exe 
-		${CMAKE_CURRENT_BINARY_DIR}/libsbmlcsP.xml 
-	
+ADD_CUSTOM_COMMAND(
+	OUTPUT
+		${CMAKE_CURRENT_BINARY_DIR}/libsbmlcsP.dll
+		${CMAKE_CURRENT_BINARY_DIR}/TestRunner.exe
+		${CMAKE_CURRENT_BINARY_DIR}/libsbmlcsP.xml
+
 	COMMAND "${CMAKE_COMMAND}"
 	ARGS -DCSHARP_EXTRA_ARGS=\"${CSHARP_EXTRA_ARGS}\"
 		 -DCSHARP_COMPILER=\"${CSHARP_COMPILER}\"
 		 -DBIN_DIRECTORY=\"${CMAKE_CURRENT_BINARY_DIR}\"
-		 -DSRC_DIRECTORY=\"${CMAKE_CURRENT_SOURCE_DIR}\"		 
+		 -DSRC_DIRECTORY=\"${CMAKE_CURRENT_SOURCE_DIR}\"
 		 -P "${CMAKE_CURRENT_SOURCE_DIR}/compile-native-files.cmake"
-		 
+
 	MAIN_DEPENDENCY "${CMAKE_CURRENT_SOURCE_DIR}/../swig/libsbml.i"
 	DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/CMakeLists.txt
 			${CMAKE_CURRENT_SOURCE_DIR}/compile-native-files.cmake
 			${CMAKE_CURRENT_BINARY_DIR}/csharp-files/libsbml.cs
-	        ${CMAKE_CURRENT_BINARY_DIR}/libsbml_wrap.cpp 
+	        ${CMAKE_CURRENT_BINARY_DIR}/libsbml_wrap.cpp
 	WORKING_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}"
     COMMENT "Build csharp files"
-	) 
+	)
 
 add_custom_target(binding_csharp_managed_lib ALL DEPENDS libsbmlcsP.dll)
 add_dependencies(binding_csharp_managed_lib binding_csharp_swig)
 
-INSTALL(FILES ${CMAKE_CURRENT_BINARY_DIR}/libsbmlcsP.dll DESTINATION ${CSHAPR_PACKAGE_INSTALL_DIR}) 
+INSTALL(FILES ${CMAKE_CURRENT_BINARY_DIR}/libsbmlcsP.dll DESTINATION ${CSHAPR_PACKAGE_INSTALL_DIR})
 
 ####################################################################
 #
 # testing
-# 
+#
 
 if(WITH_CHECK)
 
 file(TO_NATIVE_PATH ${CMAKE_CURRENT_BINARY_DIR}/libsbmlcsP.dll LIBSBML_LIB)
-ADD_CUSTOM_COMMAND(	
+ADD_CUSTOM_COMMAND(
 	OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/TestRW.exe
     COMMAND "${CSHARP_COMPILER}"
     ARGS -r:${LIBSBML_LIB}
@@ -234,39 +248,39 @@ ADD_CUSTOM_COMMAND(
 	DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/libsbmlcsP.dll
 		${CMAKE_CURRENT_SOURCE_DIR}/TestRunner.cs
 		${CMAKE_CURRENT_SOURCE_DIR}/TestRW.cs
-    COMMENT "Build C# TestRuner") 
+    COMMENT "Build C# TestRuner")
 
-	
+
 add_custom_target(binding_csharp_test_runner ALL DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/TestRW.exe)
 add_dependencies(binding_csharp_test_runner binding_csharp_managed_lib )
 
 if(UNIX)
 	add_test(
-	  NAME test_csharp_bindings 
-	  COMMAND mono 
-	          ${CMAKE_CURRENT_BINARY_DIR}/TestRW.exe 
-			  ${CMAKE_SOURCE_DIR}/examples/sample-models/from-spec/level-2/ 
+	  NAME test_csharp_bindings
+	  COMMAND mono
+	          ${CMAKE_CURRENT_BINARY_DIR}/TestRW.exe
+			  ${CMAKE_SOURCE_DIR}/examples/sample-models/from-spec/level-2/
 			  -p $<TARGET_FILE_DIR:binding_csharp_native_lib>)
 
 	# to run the compiled tests
 	add_test(
-	  NAME test_csharp_bindings_full 
+	  NAME test_csharp_bindings_full
       COMMAND mono
-			${CMAKE_CURRENT_BINARY_DIR}/TestRunner.exe 
+			${CMAKE_CURRENT_BINARY_DIR}/TestRunner.exe
 			-d ${CMAKE_SOURCE_DIR}/src/sbml/test/test-data
 			-l ${CMAKE_CURRENT_BINARY_DIR}/libsbmlcsP.dll
 			-w ${CMAKE_CURRENT_SOURCE_DIR}
 			-p $<TARGET_FILE_DIR:binding_csharp_native_lib>)
-			
+
 	# # to run the tests by compiling each source file
 	# add_test(test_csharp_bindings_full  mono
-	# 		${CMAKE_CURRENT_BINARY_DIR}/TestRunner.exe  
-	# 		${CMAKE_CURRENT_SOURCE_DIR}/test 
+	# 		${CMAKE_CURRENT_BINARY_DIR}/TestRunner.exe
+	# 		${CMAKE_CURRENT_SOURCE_DIR}/test
 	# 		${CMAKE_SOURCE_DIR}/src/sbml/test/test-data
 	# 		${CMAKE_CURRENT_BINARY_DIR}/libsbmlcsP.dll
-	# ) 
+	# )
 
-	
+
 	if(APPLE)
 		set_tests_properties(test_csharp_bindings PROPERTIES ENVIRONMENT "DYLD_LIBRARY_PATH=$<TARGET_FILE_DIR:binding_csharp_native_lib>:${CMAKE_CURRENT_BINARY_DIR}:$ENV{DYLD_LIBRARY_PATH}")
 		set_tests_properties(test_csharp_bindings_full PROPERTIES ENVIRONMENT "DYLD_LIBRARY_PATH=$<TARGET_FILE_DIR:binding_csharp_native_lib>:${CMAKE_CURRENT_BINARY_DIR}:$ENV{DYLD_LIBRARY_PATH}")
@@ -279,27 +293,27 @@ else()
 	include(${CMAKE_SOURCE_DIR}/common.cmake)
 	copy_files( ${CMAKE_SOURCE_DIR}/dependencies/bin/ ${CMAKE_CURRENT_BINARY_DIR} *.dll )
 
-	add_test(NAME test_csharp_bindings 
+	add_test(NAME test_csharp_bindings
 		COMMAND ${CMAKE_CURRENT_BINARY_DIR}/TestRW.exe ${CMAKE_SOURCE_DIR}/examples/sample-models/from-spec/level-2/
 		-p $<TARGET_FILE_DIR:binding_csharp_native_lib>)
 
 	#  to run the compiled tests
-	add_test(NAME test_csharp_bindings_full 
-			COMMAND ${CMAKE_CURRENT_BINARY_DIR}/TestRunner.exe 
+	add_test(NAME test_csharp_bindings_full
+			COMMAND ${CMAKE_CURRENT_BINARY_DIR}/TestRunner.exe
 			-d ${CMAKE_SOURCE_DIR}/src/sbml/test/test-data
 			-l ${CMAKE_CURRENT_BINARY_DIR}/libsbmlcsP.dll
 			-w ${CMAKE_CURRENT_SOURCE_DIR}
 			-p $<TARGET_FILE_DIR:binding_csharp_native_lib>)
-	
+
 
 	# to run the tests by compiling each source file
-	# add_test(test_csharp_bindings_full 
-	# 		${CMAKE_CURRENT_BINARY_DIR}/TestRunner.exe  
-	# 		${CMAKE_CURRENT_SOURCE_DIR}/test 
+	# add_test(test_csharp_bindings_full
+	# 		${CMAKE_CURRENT_BINARY_DIR}/TestRunner.exe
+	# 		${CMAKE_CURRENT_SOURCE_DIR}/test
 	# 		${CMAKE_SOURCE_DIR}/src/sbml/test/test-data
 	# 		${CMAKE_CURRENT_BINARY_DIR}/libsbmlcsP.dll
-	# ) 
-	
+	# )
+
 endif()
 
 endif()
