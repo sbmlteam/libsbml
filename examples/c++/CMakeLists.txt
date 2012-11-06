@@ -34,10 +34,18 @@ foreach(example
 	unsetAnnotation
 	unsetNotes
 	validateSBML
-
+	
 )
 	add_executable(example_cpp_${example} ${example}.cpp util.c)
 	set_target_properties(example_cpp_${example} PROPERTIES  OUTPUT_NAME ${example})
 	target_link_libraries(example_cpp_${example} ${LIBSBML_LIBRARY}-static)
 
 endforeach()
+
+if (WITH_LIBXML)
+  include_directories(${LIBXML_INCLUDE_DIR})
+  add_executable(example_cpp_rngvalidator rngvalidator.cpp util.c)
+  set_target_properties(example_cpp_rngvalidator PROPERTIES  OUTPUT_NAME rngvalidator)
+  target_link_libraries(example_cpp_rngvalidator ${LIBSBML_LIBRARY}-static)
+  target_link_libraries(example_cpp_rngvalidator ${LIBXML_LIBRARY} ${EXTRA_LIBS})
+endif()
