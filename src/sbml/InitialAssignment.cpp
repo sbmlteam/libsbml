@@ -672,7 +672,8 @@ InitialAssignment::readL3Attributes (const XMLAttributes& attributes)
   bool assigned = attributes.readInto("symbol", mSymbol, getErrorLog(), false, getLine(), getColumn());
   if (!assigned)
   {
-    logError(AllowedAttributesOnInitialAssign, level, version);
+    logError(AllowedAttributesOnInitialAssign, level, version, 
+      "The required attribute 'symbol' is missing.");
   }
   if (assigned && mSymbol.size() == 0)
   {

@@ -1555,7 +1555,8 @@ Event::readL3Attributes (const XMLAttributes& attributes)
  
   if (!mIsSetUseValuesFromTriggerTime)
   {
-    logError(AllowedAttributesOnEvent, level, version);
+    logError(AllowedAttributesOnEvent, level, version, 
+      "The required attribute 'useValuesfromTriggerTime' is missing.");
   }
 
 }

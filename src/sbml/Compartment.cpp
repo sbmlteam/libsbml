@@ -1229,7 +1229,8 @@ Compartment::readL3Attributes (const XMLAttributes& attributes)
   bool assigned = attributes.readInto("id", mId, getErrorLog(), false, getLine(), getColumn());
   if (!assigned)
   {
-    logError(AllowedAttributesOnCompartment, level, version);
+    logError(AllowedAttributesOnCompartment, level, version, 
+      "The required attribute 'id' is missing.");
   }
   if (assigned && mId.size() == 0)
   {
@@ -1280,7 +1281,8 @@ Compartment::readL3Attributes (const XMLAttributes& attributes)
                                           getErrorLog(), false, getLine(), getColumn());
   if (!mIsSetConstant)
   {
-    logError(AllowedAttributesOnCompartment, level, version);
+    logError(AllowedAttributesOnCompartment, level, version, 
+      "The required attribute 'constant' is missing.");
   }
 }
 /** @endcond */

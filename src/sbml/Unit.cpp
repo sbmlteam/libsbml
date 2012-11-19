@@ -1841,7 +1841,8 @@ Unit::readL3Attributes (const XMLAttributes& attributes)
   }
   else
   {
-    logError(AllowedAttributesOnUnit, level, version);
+    logError(AllowedAttributesOnUnit, level, version, 
+             "The required attribute 'kind' is missing.");
   }
 
   //
@@ -1851,7 +1852,8 @@ Unit::readL3Attributes (const XMLAttributes& attributes)
                                         getErrorLog(), false, getLine(), getColumn());
   if (!mIsSetExponent)
   {
-    logError(AllowedAttributesOnUnit, level, version);
+    logError(AllowedAttributesOnUnit, level, version, 
+      "The required attribute 'exponent' is missing.");
   }
   else
   {
@@ -1864,7 +1866,8 @@ Unit::readL3Attributes (const XMLAttributes& attributes)
   mIsSetScale = attributes.readInto("scale", mScale, getErrorLog(), false, getLine(), getColumn());
   if (!mIsSetScale)
   {
-    logError(AllowedAttributesOnUnit, level, version);
+    logError(AllowedAttributesOnUnit, level, version, 
+      "The required attribute 'scale' is missing.");
   }
 
   //
@@ -1874,7 +1877,8 @@ Unit::readL3Attributes (const XMLAttributes& attributes)
                                           getErrorLog(), false, getLine(), getColumn());
   if (!mIsSetMultiplier)
   {
-    logError(AllowedAttributesOnUnit, level, version);
+    logError(AllowedAttributesOnUnit, level, version, 
+      "The required attribute 'multiplier' is missing.");
   }
 
 }

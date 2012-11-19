@@ -732,7 +732,8 @@ FunctionDefinition::readL3Attributes (const XMLAttributes& attributes)
   assigned = attributes.readInto("id", mId, getErrorLog(), false, getLine(), getColumn());
   if (!assigned)
   {
-    logError(AllowedAttributesOnFunc, level, version);
+    logError(AllowedAttributesOnFunc, level, version, 
+      "The required attribute 'id' is missing.");
   }
   if (assigned && mId.size() == 0)
   {

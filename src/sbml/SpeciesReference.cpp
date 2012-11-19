@@ -1010,7 +1010,8 @@ SpeciesReference::readL3Attributes (const XMLAttributes& attributes)
   mIsSetConstant = attributes.readInto("constant", mConstant, getErrorLog(), false, getLine(), getColumn());
   if (!mIsSetConstant && !isModifier())
   {
-    logError(AllowedAttributesOnSpeciesReference, level, version);
+    logError(AllowedAttributesOnSpeciesReference, level, version, 
+             "The required attribute 'constant' is missing.");
   }
 
 }

@@ -567,7 +567,8 @@ Trigger::readL3Attributes (const XMLAttributes& attributes)
 
   if (!mIsSetInitialValue)
   {
-    logError(AllowedAttributesOnTrigger, level, version);
+    logError(AllowedAttributesOnTrigger, level, version, 
+             "The required attribute 'initialValue' is missing.");
   }
 
   //
@@ -578,7 +579,8 @@ Trigger::readL3Attributes (const XMLAttributes& attributes)
 
   if (!mIsSetPersistent)
   {
-    logError(AllowedAttributesOnTrigger, level, version);
+    logError(AllowedAttributesOnTrigger, level, version, 
+             "The required attribute 'persistent' is missing.");
   }
 }
 /** @endcond */

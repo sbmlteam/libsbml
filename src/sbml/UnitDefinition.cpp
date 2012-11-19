@@ -1468,7 +1468,8 @@ UnitDefinition::readL3Attributes (const XMLAttributes& attributes)
   assigned = attributes.readInto("id", mId, getErrorLog(), false, getLine(), getColumn());
   if (!assigned)
   {
-    logError(AllowedAttributesOnUnitDefinition, level, version);
+    logError(AllowedAttributesOnUnitDefinition, level, version, 
+             "The required attribute 'id' is missing.");
   }
   if (assigned && mId.size() == 0)
   {

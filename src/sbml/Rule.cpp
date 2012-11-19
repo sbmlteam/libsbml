@@ -1169,10 +1169,10 @@ Rule::readL3Attributes (const XMLAttributes& attributes)
     {
       if (isAssignment())
         logError(AllowedAttributesOnAssignRule, level, 
-                                version);
+                                version, "The required attribute 'variable' is missing.");
       else
         logError(AllowedAttributesOnRateRule, level, 
-                                version);
+                                version, "The required attribute 'variable' is missing.");
 
     }
     if (assigned && mVariable.size() == 0)

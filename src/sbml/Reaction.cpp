@@ -1662,7 +1662,8 @@ Reaction::readL3Attributes (const XMLAttributes& attributes)
   bool assigned = attributes.readInto("id", mId, getErrorLog(), false, getLine(), getColumn());
   if (!assigned)
   {
-    logError(AllowedAttributesOnReaction, level, version);
+    logError(AllowedAttributesOnReaction, level, version, 
+      "The required attribute 'id' is missing.");
   }
   if (assigned && mId.size() == 0)
   {
@@ -1673,19 +1674,23 @@ Reaction::readL3Attributes (const XMLAttributes& attributes)
   //
   // reversible: boolean  { use="required"} (L3v1->)
   //
-  mIsSetReversible = attributes.readInto("reversible", mReversible, getErrorLog(), false, getLine(), getColumn());
+  mIsSetReversible = attributes.readInto("reversible", 
+                   mReversible, getErrorLog(), false, getLine(), getColumn());
   if (!mIsSetReversible)
   {
-    logError(AllowedAttributesOnReaction, level, version);
+    logError(AllowedAttributesOnReaction, level, version, 
+                "The required attribute 'reversible' is missing.");
   }
 
   //
   // fast: boolean  { use="required" }                  (L3v1 ->)
   //
-  mIsSetFast = attributes.readInto("fast", mFast, getErrorLog(), false, getLine(), getColumn());
+  mIsSetFast = attributes.readInto("fast", mFast, getErrorLog(), 
+                                              false, getLine(), getColumn());
   if (!mIsSetFast)
   {
-    logError(AllowedAttributesOnReaction, level, version);
+    logError(AllowedAttributesOnReaction, level, version, 
+      "The required attribute 'fast' is missing.");
   }
 
   //

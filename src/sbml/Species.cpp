@@ -1499,10 +1499,12 @@ Species::readL3Attributes (const XMLAttributes& attributes)
   //
   //   id: SId     { use="required" }  (L2v1->)
   //
-  bool assigned = attributes.readInto("id", mId, getErrorLog(), false, getLine(), getColumn());
+  bool assigned = attributes.readInto("id", mId, getErrorLog(), 
+                                      false, getLine(), getColumn());
   if (!assigned)
   {
-    logError(AllowedAttributesOnSpecies, level, version);
+    logError(AllowedAttributesOnSpecies, level, version, 
+             "The required attribute 'id' is missing.");
   }
   if (assigned && mId.size() == 0)
   {
@@ -1513,7 +1515,8 @@ Species::readL3Attributes (const XMLAttributes& attributes)
   //
   // compartment: SId    { use="required" }  (L2v1->)
   //
-  assigned = attributes.readInto("compartment", mCompartment, getErrorLog(), false, getLine(), getColumn());
+  assigned = attributes.readInto("compartment", mCompartment, getErrorLog(), 
+                                 false, getLine(), getColumn());
   if (!assigned)
   {
     logError(MissingSpeciesCompartment, level, version);
@@ -1546,7 +1549,8 @@ Species::readL3Attributes (const XMLAttributes& attributes)
                                mBoundaryCondition, getErrorLog(), false, getLine(), getColumn());
   if (!mIsSetBoundaryCondition)
   {
-    logError(AllowedAttributesOnSpecies, level, version);
+    logError(AllowedAttributesOnSpecies, level, version, 
+             "The required attribute 'boundaryCondition' is missing.");
   }
 
   //
@@ -1568,7 +1572,8 @@ Species::readL3Attributes (const XMLAttributes& attributes)
                           getErrorLog(), false, getLine(), getColumn());
   if (!mIsSetHasOnlySubstanceUnits)
   {
-    logError(AllowedAttributesOnSpecies, level, version);
+    logError(AllowedAttributesOnSpecies, level, version, 
+             "The required attribute 'hasOnlySubstanceUnits' is missing.");
   }
 
   //
@@ -1577,7 +1582,8 @@ Species::readL3Attributes (const XMLAttributes& attributes)
   mIsSetConstant = attributes.readInto("constant", mConstant, getErrorLog(), false, getLine(), getColumn());
   if (!mIsSetConstant)
   {
-    logError(AllowedAttributesOnSpecies, level, version);
+    logError(AllowedAttributesOnSpecies, level, version, 
+             "The required attribute 'constant' is missing.");
   }
 
   //

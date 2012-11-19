@@ -520,10 +520,10 @@ SimpleSpeciesReference::readL3Attributes (const XMLAttributes& attributes)
   {
     if (isModifier())
       logError(AllowedAttributesOnModifier, 
-                                                   level, version);
+                     level, version, "The required attribute 'species' is missing.");
     else
       logError(AllowedAttributesOnSpeciesReference, 
-                                                   level, version);
+                     level, version, "The required attribute 'species' is missing.");
   }
  
   //

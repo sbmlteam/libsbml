@@ -673,7 +673,8 @@ EventAssignment::readL3Attributes (const XMLAttributes& attributes)
   bool assigned = attributes.readInto("variable", mVariable, getErrorLog(), false, getLine(), getColumn());
   if (!assigned)
   {
-    logError(AllowedAttributesOnEventAssignment, level, version);
+    logError(AllowedAttributesOnEventAssignment, level, version, 
+      "The required attribute 'variable' is missing.");
   }
   if (assigned && mVariable.size() == 0)
   {

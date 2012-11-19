@@ -865,12 +865,13 @@ Parameter::readL3Attributes (const XMLAttributes& attributes)
   {
     if (this->getTypeCode() == SBML_PARAMETER)
     {
-      logError(AllowedAttributesOnParameter, level, version);
+      logError(AllowedAttributesOnParameter, level, version, 
+        "The required attribute 'id' is missing.");
     }
     else
     {
       logError(AllowedAttributesOnLocalParameter, 
-                              level, version);
+                       level, version, "The required attribute 'id' is missing.");
     }
   }
   if (assigned && mId.size() == 0)
@@ -908,7 +909,8 @@ Parameter::readL3Attributes (const XMLAttributes& attributes)
                                           getErrorLog(), false, getLine(), getColumn());
     if (!mIsSetConstant)
     {
-      logError(AllowedAttributesOnParameter, level, version);
+      logError(AllowedAttributesOnParameter, level, version, 
+        "The required attribute 'constant' is missing.");
     }
   }
 }
