@@ -3152,6 +3152,27 @@ SBase::matchesSBMLNamespaces(const SBase * sb)
 }
 
 bool
+SBase::matchesSBMLNamespaces(const SBase * sb) const
+{
+  bool match = matchesCoreSBMLNamespace(sb);
+
+  if (match == true)
+  {
+    SBMLNamespaces *sbmlns = getSBMLNamespaces();
+    SBMLNamespaces *sbmlns_rhs = sb->getSBMLNamespaces();
+
+    if (sbmlns->getNamespaces()->containIdenticalSetNS(
+      sbmlns_rhs->getNamespaces()) == false)
+    {
+      match = false;
+    }
+  }
+
+  return match;
+}
+
+
+bool
 SBase::matchesRequiredSBMLNamespacesForAddition(const SBase * sb)
 {
   // if core does not match forget it
@@ -3188,7 +3209,76 @@ SBase::matchesRequiredSBMLNamespacesForAddition(const SBase * sb)
 
 
 bool
+SBase::matchesRequiredSBMLNamespacesForAddition(const SBase * sb) const
+{
+  // if core does not match forget it
+  bool match = matchesCoreSBMLNamespace(sb);
+
+  if (match == true)
+  {
+    XMLNamespaces *xmlns = getSBMLNamespaces()->getNamespaces();
+    XMLNamespaces *xmlns_rhs = sb->getSBMLNamespaces()->getNamespaces();
+
+    // if child has a package it must match the parent
+    for (int i = 0; i < xmlns_rhs->getNumNamespaces(); i++)
+    {
+      // look to see if the beginning f the uri looks like a package uri
+      // and if there is a second 'version'
+      std::string uri = xmlns_rhs->getURI(i);
+      size_t version = uri.find("http://www.sbml.org/sbml/level3/version");
+      if (version != string::npos) 
+      {
+        version = uri.find("version", version+33);
+      }
+      if (version != string::npos)
+      {
+        if (xmlns->containsUri(uri) == false)
+        {
+          match = false;
+        }
+      }
+    }
+  }
+
+  return match;
+}
+
+
+bool
 SBase::matchesCoreSBMLNamespace(const SBase * sb)
+{
+  bool match = false;
+
+  SBMLNamespaces *sbmlns = getSBMLNamespaces();
+  SBMLNamespaces *sbmlns_rhs = sb->getSBMLNamespaces();
+
+  if (sbmlns->getLevel() != sbmlns_rhs->getLevel())
+    return match;
+
+  if (sbmlns->getVersion() != sbmlns_rhs->getVersion())
+    return match;
+
+  std::string coreNs = SBMLNamespaces::getSBMLNamespaceURI(
+                       sbmlns->getLevel(), sbmlns->getVersion());
+
+  if (sbmlns->getNamespaces()->containsUri(coreNs)
+    && sbmlns_rhs->getNamespaces()->containsUri(coreNs))
+  {
+    match = true;
+  }
+
+  //if (sbmlns->getNamespaces()->containIdenticalSetNS(sbmlns_rhs->getNamespaces()) 
+  //                                     == true)
+  //{
+  //  match = true;
+  //}
+
+  return match;
+}
+
+
+bool
+SBase::matchesCoreSBMLNamespace(const SBase * sb) const
 {
   bool match = false;
 
@@ -5741,6 +5831,35 @@ bool
 SBase::hasRequiredElements() const
 {
   return true;
+}
+
+int
+SBase::checkCompatibility(const SBase * object) const
+{
+  if (object == NULL)
+  {
+    return LIBSBML_OPERATION_FAILED;
+  }
+  else if (!(object->hasRequiredAttributes()) || !(object->hasRequiredElements()))
+  {
+    return LIBSBML_INVALID_OBJECT;
+  }
+  else if (getLevel() != object->getLevel())
+  {
+    return LIBSBML_LEVEL_MISMATCH;
+  }
+  else if (getVersion() != object->getVersion())
+  {
+    return LIBSBML_VERSION_MISMATCH;
+  }
+  else if (this->matchesRequiredSBMLNamespacesForAddition(object) == false)
+  {
+    return LIBSBML_NAMESPACES_MISMATCH;
+  }
+  else
+  {
+    return LIBSBML_OPERATION_SUCCESS;
+  }
 }
 
 void

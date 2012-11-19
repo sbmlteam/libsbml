@@ -1130,25 +1130,10 @@ Model::unsetConversionFactor ()
 int
 Model::addFunctionDefinition (const FunctionDefinition* fd)
 {
-  if (fd == NULL)
+  int returnValue = checkCompatibility(static_cast<const SBase *>(fd));
+  if (returnValue != LIBSBML_OPERATION_SUCCESS)
   {
-    return LIBSBML_OPERATION_FAILED;
-  }
-  else if (!(fd->hasRequiredAttributes()) || !(fd->hasRequiredElements()))
-  {
-    return LIBSBML_INVALID_OBJECT;
-  }
-  else if (getLevel() != fd->getLevel())
-  {
-    return LIBSBML_LEVEL_MISMATCH;
-  }
-  else if (getVersion() != fd->getVersion())
-  {
-    return LIBSBML_VERSION_MISMATCH;
-  }
-  else if (matchesRequiredSBMLNamespacesForAddition(static_cast<const SBase *>(fd)) == false)
-  {
-    return LIBSBML_NAMESPACES_MISMATCH;
+    return returnValue;
   }
   else if (getFunctionDefinition(fd->getId()) != NULL)
   {
@@ -1170,25 +1155,10 @@ Model::addFunctionDefinition (const FunctionDefinition* fd)
 int
 Model::addUnitDefinition (const UnitDefinition* ud)
 {
-  if (ud == NULL)
+  int returnValue = checkCompatibility(static_cast<const SBase *>(ud));
+  if (returnValue != LIBSBML_OPERATION_SUCCESS)
   {
-    return LIBSBML_OPERATION_FAILED;
-  }
-  else if (!(ud->hasRequiredAttributes()) || !(ud->hasRequiredElements()))
-  {
-    return LIBSBML_INVALID_OBJECT;
-  }
-  else if (getLevel() != ud->getLevel())
-  {
-    return LIBSBML_LEVEL_MISMATCH;
-  }
-  else if (getVersion() != ud->getVersion())
-  {
-    return LIBSBML_VERSION_MISMATCH;
-  }
-  else if (matchesRequiredSBMLNamespacesForAddition(static_cast<const SBase *>(ud)) == false)
-  {
-    return LIBSBML_NAMESPACES_MISMATCH;
+    return returnValue;
   }
   else if (getUnitDefinition(ud->getId()) != NULL)
   {
@@ -1210,25 +1180,10 @@ Model::addUnitDefinition (const UnitDefinition* ud)
 int
 Model::addCompartmentType (const CompartmentType* ct)
 {
-  if (ct == NULL)
+  int returnValue = checkCompatibility(static_cast<const SBase *>(ct));
+  if (returnValue != LIBSBML_OPERATION_SUCCESS)
   {
-    return LIBSBML_OPERATION_FAILED;
-  }
-  else if (!(ct->hasRequiredAttributes()) || !(ct->hasRequiredElements()))
-  {
-    return LIBSBML_INVALID_OBJECT;
-  }
-  else if (getLevel() != ct->getLevel())
-  {
-    return LIBSBML_LEVEL_MISMATCH;
-  }
-  else if (getVersion() != ct->getVersion())
-  {
-    return LIBSBML_VERSION_MISMATCH;
-  }
-  else if (matchesRequiredSBMLNamespacesForAddition(static_cast<const SBase *>(ct)) == false)
-  {
-    return LIBSBML_NAMESPACES_MISMATCH;
+    return returnValue;
   }
   else if (getCompartmentType(ct->getId()) != NULL)
   {
@@ -1250,25 +1205,10 @@ Model::addCompartmentType (const CompartmentType* ct)
 int
 Model::addSpeciesType (const SpeciesType* st)
 {
-  if (st == NULL)
+  int returnValue = checkCompatibility(static_cast<const SBase *>(st));
+  if (returnValue != LIBSBML_OPERATION_SUCCESS)
   {
-    return LIBSBML_OPERATION_FAILED;
-  }
-  else if (!(st->hasRequiredAttributes()) || !(st->hasRequiredElements()))
-  {
-    return LIBSBML_INVALID_OBJECT;
-  }
-  else if (getLevel() != st->getLevel())
-  {
-    return LIBSBML_LEVEL_MISMATCH;
-  }
-  else if (getVersion() != st->getVersion())
-  {
-    return LIBSBML_VERSION_MISMATCH;
-  }
-  else if (matchesRequiredSBMLNamespacesForAddition(static_cast<const SBase *>(st)) == false)
-  {
-    return LIBSBML_NAMESPACES_MISMATCH;
+    return returnValue;
   }
   else if (getSpeciesType(st->getId()) != NULL)
   {
@@ -1290,25 +1230,10 @@ Model::addSpeciesType (const SpeciesType* st)
 int
 Model::addCompartment (const Compartment* c)
 {
-  if (c == NULL)
+  int returnValue = checkCompatibility(static_cast<const SBase *>(c));
+  if (returnValue != LIBSBML_OPERATION_SUCCESS)
   {
-    return LIBSBML_OPERATION_FAILED;
-  }
-  else if (!(c->hasRequiredAttributes()) || !(c->hasRequiredElements()))
-  {
-    return LIBSBML_INVALID_OBJECT;
-  }
-  else if (getLevel() != c->getLevel())
-  {
-    return LIBSBML_LEVEL_MISMATCH;
-  }
-  else if (getVersion() != c->getVersion())
-  {
-    return LIBSBML_VERSION_MISMATCH;
-  }
-  else if (matchesRequiredSBMLNamespacesForAddition(static_cast<const SBase *>(c)) == false)
-  {
-    return LIBSBML_NAMESPACES_MISMATCH;
+    return returnValue;
   }
   else if (getCompartment(c->getId()) != NULL)
   {
@@ -1330,25 +1255,10 @@ Model::addCompartment (const Compartment* c)
 int
 Model::addSpecies (const Species* s)
 {
-  if (s == NULL)
+  int returnValue = checkCompatibility(static_cast<const SBase *>(s));
+  if (returnValue != LIBSBML_OPERATION_SUCCESS)
   {
-    return LIBSBML_OPERATION_FAILED;
-  }
-  else if (!(s->hasRequiredAttributes()) || !(s->hasRequiredElements()))
-  {
-    return LIBSBML_INVALID_OBJECT;
-  }
-  else if (getLevel() != s->getLevel())
-  {
-    return LIBSBML_LEVEL_MISMATCH;
-  }
-  else if (getVersion() != s->getVersion())
-  {
-    return LIBSBML_VERSION_MISMATCH;
-  }
-  else if (matchesRequiredSBMLNamespacesForAddition(static_cast<const SBase *>(s)) == false)
-  {
-    return LIBSBML_NAMESPACES_MISMATCH;
+    return returnValue;
   }
   else if (getSpecies(s->getId()) != NULL)
   {
@@ -1370,25 +1280,10 @@ Model::addSpecies (const Species* s)
 int
 Model::addParameter (const Parameter* p)
 {
-  if (p == NULL)
+  int returnValue = checkCompatibility(static_cast<const SBase *>(p));
+  if (returnValue != LIBSBML_OPERATION_SUCCESS)
   {
-    return LIBSBML_OPERATION_FAILED;
-  }
-  else if (!(p->hasRequiredAttributes()) || !(p->hasRequiredElements()))
-  {
-    return LIBSBML_INVALID_OBJECT;
-  }
-  else if (getLevel() != p->getLevel())
-  {
-    return LIBSBML_LEVEL_MISMATCH;
-  }
-  else if (getVersion() != p->getVersion())
-  {
-    return LIBSBML_VERSION_MISMATCH;
-  }
-  else if (matchesRequiredSBMLNamespacesForAddition(static_cast<const SBase *>(p)) == false)
-  {
-    return LIBSBML_NAMESPACES_MISMATCH;
+    return returnValue;
   }
   else if (getParameter(p->getId()) != NULL)
   {
@@ -1419,25 +1314,10 @@ Model::addParameter (const Parameter* p)
 int
 Model::addInitialAssignment (const InitialAssignment* ia)
 {
-  if (ia == NULL)
+  int returnValue = checkCompatibility(static_cast<const SBase *>(ia));
+  if (returnValue != LIBSBML_OPERATION_SUCCESS)
   {
-    return LIBSBML_OPERATION_FAILED;
-  }
-  else if (!(ia->hasRequiredAttributes()) || !(ia->hasRequiredElements()))
-  {
-    return LIBSBML_INVALID_OBJECT;
-  }
-  else if (getLevel() != ia->getLevel())
-  {
-    return LIBSBML_LEVEL_MISMATCH;
-  }
-  else if (getVersion() != ia->getVersion())
-  {
-    return LIBSBML_VERSION_MISMATCH;
-  }
-  else if (matchesRequiredSBMLNamespacesForAddition(static_cast<const SBase *>(ia)) == false)
-  {
-    return LIBSBML_NAMESPACES_MISMATCH;
+    return returnValue;
   }
   else if (getInitialAssignment(ia->getSymbol()) != NULL)
   {
@@ -1459,25 +1339,10 @@ Model::addInitialAssignment (const InitialAssignment* ia)
 int
 Model::addRule (const Rule* r)
 {
-  if (r == NULL)
+  int returnValue = checkCompatibility(static_cast<const SBase *>(r));
+  if (returnValue != LIBSBML_OPERATION_SUCCESS)
   {
-    return LIBSBML_OPERATION_FAILED;
-  }
-  else if (!(r->hasRequiredAttributes()) || !(r->hasRequiredElements()))
-  {
-    return LIBSBML_INVALID_OBJECT;
-  }
-  else if (getLevel() != r->getLevel())
-  {
-    return LIBSBML_LEVEL_MISMATCH;
-  }
-  else if (getVersion() != r->getVersion())
-  {
-    return LIBSBML_VERSION_MISMATCH;
-  }
-  else if (matchesRequiredSBMLNamespacesForAddition(static_cast<const SBase *>(r)) == false)
-  {
-    return LIBSBML_NAMESPACES_MISMATCH;
+    return returnValue;
   }
   else if (!r->isAlgebraic() 
          && getRule(r->getVariable()) != NULL)
@@ -1500,25 +1365,10 @@ Model::addRule (const Rule* r)
 int
 Model::addConstraint (const Constraint* c)
 {
-  if (c == NULL)
+  int returnValue = checkCompatibility(static_cast<const SBase *>(c));
+  if (returnValue != LIBSBML_OPERATION_SUCCESS)
   {
-    return LIBSBML_OPERATION_FAILED;
-  }
-  else if (!(c->hasRequiredAttributes()) || !(c->hasRequiredElements()))
-  {
-    return LIBSBML_INVALID_OBJECT;
-  }
-  else if (getLevel() != c->getLevel())
-  {
-    return LIBSBML_LEVEL_MISMATCH;
-  }
-  else if (getVersion() != c->getVersion())
-  {
-    return LIBSBML_VERSION_MISMATCH;
-  }
-  else if (matchesRequiredSBMLNamespacesForAddition(static_cast<const SBase *>(c)) == false)
-  {
-    return LIBSBML_NAMESPACES_MISMATCH;
+    return returnValue;
   }
   else
   {
@@ -1535,25 +1385,10 @@ Model::addConstraint (const Constraint* c)
 int
 Model::addReaction (const Reaction* r)
 {
-  if (r == NULL)
+  int returnValue = checkCompatibility(static_cast<const SBase *>(r));
+  if (returnValue != LIBSBML_OPERATION_SUCCESS)
   {
-    return LIBSBML_OPERATION_FAILED;
-  }
-  else if (!(r->hasRequiredAttributes()) || !(r->hasRequiredElements()))
-  {
-    return LIBSBML_INVALID_OBJECT;
-  }
-  else if (getLevel() != r->getLevel())
-  {
-    return LIBSBML_LEVEL_MISMATCH;
-  }
-  else if (getVersion() != r->getVersion())
-  {
-    return LIBSBML_VERSION_MISMATCH;
-  }
-  else if (matchesRequiredSBMLNamespacesForAddition(static_cast<const SBase *>(r)) == false)
-  {
-    return LIBSBML_NAMESPACES_MISMATCH;
+    return returnValue;
   }
   else if (getReaction(r->getId()) != NULL)
   {
@@ -1575,25 +1410,10 @@ Model::addReaction (const Reaction* r)
 int
 Model::addEvent (const Event* e)
 {
-  if (e == NULL)
+  int returnValue = checkCompatibility(static_cast<const SBase *>(e));
+  if (returnValue != LIBSBML_OPERATION_SUCCESS)
   {
-    return LIBSBML_OPERATION_FAILED;
-  }
-  else if (!(e->hasRequiredAttributes()) || !(e->hasRequiredElements()))
-  {
-    return LIBSBML_INVALID_OBJECT;
-  }
-  else if (getLevel() != e->getLevel())
-  {
-    return LIBSBML_LEVEL_MISMATCH;
-  }
-  else if (getVersion() != e->getVersion())
-  {
-    return LIBSBML_VERSION_MISMATCH;
-  }
-  else if (matchesRequiredSBMLNamespacesForAddition(static_cast<const SBase *>(e)) == false)
-  {
-    return LIBSBML_NAMESPACES_MISMATCH;
+    return returnValue;
   }
   else if (e->isSetId() && getEvent(e->getId()) != NULL)
   {

@@ -2986,6 +2986,13 @@ s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></b
 
 
   /** @cond doxygen-libsbml-internal */
+  /* function returns value if the object matches level/version/namespace
+   */
+  int checkCompatibility(const SBase * object) const ;
+  /** @endcond */
+
+
+  /** @cond doxygen-libsbml-internal */
   /* sets the SBMLnamespaces - internal use only*/
   int setSBMLNamespaces(SBMLNamespaces * sbmlns);
 
@@ -3039,6 +3046,18 @@ s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></b
 
 
   /**
+   * Returns @c true if this object's set of XML namespaces are the same
+   * as the given object's XML namespaces.
+   *
+   * @param sb an object to compare with respect to namespaces
+   *
+   * @return boolean, @c true if this object's collection of namespaces is
+   * the same as @p sb's, @c false otherwise.
+   */
+  bool matchesSBMLNamespaces(const SBase * sb) const;
+
+
+  /**
    * Returns @c true if this object's set of XML namespaces are a subset
    * of the given object's XML namespaces.
    *
@@ -3048,6 +3067,18 @@ s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></b
    * a subset of @p sb's, @c false otherwise.
    */
   bool matchesRequiredSBMLNamespacesForAddition(const SBase * sb);
+  
+  
+  /**
+   * Returns @c true if this object's set of XML namespaces are a subset
+   * of the given object's XML namespaces.
+   *
+   * @param sb an object to compare with respect to namespaces
+   *
+   * @return boolean, @c true if this object's collection of namespaces is
+   * a subset of @p sb's, @c false otherwise.
+   */
+  bool matchesRequiredSBMLNamespacesForAddition(const SBase * sb) const;
   
   
   /**
@@ -3094,6 +3125,7 @@ protected:
 
   bool matchesCoreSBMLNamespace(const SBase * sb);
 
+  bool matchesCoreSBMLNamespace(const SBase * sb) const;
   
   /**
    * Creates a new SBase object with the given SBML level, version.

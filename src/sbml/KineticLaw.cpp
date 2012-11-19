@@ -612,25 +612,10 @@ KineticLaw::addParameter (const Parameter* p)
 int
 KineticLaw::addLocalParameter (const LocalParameter* p)
 {
-  if (p == NULL)
+  int returnValue = checkCompatibility(static_cast<const SBase *>(p));
+  if (returnValue != LIBSBML_OPERATION_SUCCESS)
   {
-    return LIBSBML_OPERATION_FAILED;
-  }
-  else if (!(p->hasRequiredAttributes()) || !(p->hasRequiredElements()))
-  {
-    return LIBSBML_INVALID_OBJECT;
-  }
-  else if (getLevel() != p->getLevel())
-  {
-    return LIBSBML_LEVEL_MISMATCH;
-  }
-  else if (getVersion() != p->getVersion())
-  {
-    return LIBSBML_VERSION_MISMATCH;
-  }
-  else if (matchesRequiredSBMLNamespacesForAddition(static_cast<const SBase *>(p)) == false)
-  {
-    return LIBSBML_NAMESPACES_MISMATCH;
+    return returnValue;
   }
   else if (getLocalParameter(p->getId()) != NULL)
   {

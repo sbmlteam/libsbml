@@ -553,25 +553,10 @@ UnitDefinition::isVariantOfSubstancePerTime () const
 int
 UnitDefinition::addUnit (const Unit* u)
 {
-  if (u == NULL)
+  int returnValue = checkCompatibility(static_cast<const SBase *>(u));
+  if (returnValue != LIBSBML_OPERATION_SUCCESS)
   {
-    return LIBSBML_OPERATION_FAILED;
-  }
-  else if (!(u->hasRequiredAttributes()) || !(u->hasRequiredElements()))
-  {
-    return LIBSBML_INVALID_OBJECT;
-  }
-  else if (getLevel() != u->getLevel())
-  {
-    return LIBSBML_LEVEL_MISMATCH;
-  }
-  else if (getVersion() != u->getVersion())
-  {
-    return LIBSBML_VERSION_MISMATCH;
-  }
-  else if (matchesRequiredSBMLNamespacesForAddition(static_cast<const SBase *>(u)) == false)
-  {
-    return LIBSBML_NAMESPACES_MISMATCH;
+    return returnValue;
   }
   else
   {

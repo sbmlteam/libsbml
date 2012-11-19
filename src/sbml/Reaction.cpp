@@ -799,25 +799,10 @@ Reaction::unsetCompartment ()
 int
 Reaction::addReactant (const SpeciesReference* sr)
 {
-  if (sr == NULL)
+  int returnValue = checkCompatibility(static_cast<const SBase *>(sr));
+  if (returnValue != LIBSBML_OPERATION_SUCCESS)
   {
-    return LIBSBML_OPERATION_FAILED;
-  }
-  else if (!(sr->hasRequiredAttributes()) || !(sr->hasRequiredElements()))
-  {
-    return LIBSBML_INVALID_OBJECT;
-  }
-  else if (getLevel() != sr->getLevel())
-  {
-    return LIBSBML_LEVEL_MISMATCH;
-  }
-  else if (getVersion() != sr->getVersion())
-  {
-    return LIBSBML_VERSION_MISMATCH;
-  }
-  else if (matchesRequiredSBMLNamespacesForAddition(static_cast<const SBase *>(sr)) == false)
-  {
-    return LIBSBML_NAMESPACES_MISMATCH;
+    return returnValue;
   }
   else if (sr->isSetId() 
        && (getListOfReactants()->get(sr->getId())) != NULL)
@@ -840,25 +825,10 @@ Reaction::addReactant (const SpeciesReference* sr)
 int
 Reaction::addProduct (const SpeciesReference* sr)
 {
-  if (sr == NULL)
+  int returnValue = checkCompatibility(static_cast<const SBase *>(sr));
+  if (returnValue != LIBSBML_OPERATION_SUCCESS)
   {
-    return LIBSBML_OPERATION_FAILED;
-  }
-  else if (!(sr->hasRequiredAttributes()) || !(sr->hasRequiredElements()))
-  {
-    return LIBSBML_INVALID_OBJECT;
-  }
-  else if (getLevel() != sr->getLevel())
-  {
-    return LIBSBML_LEVEL_MISMATCH;
-  }
-  else if (getVersion() != sr->getVersion())
-  {
-    return LIBSBML_VERSION_MISMATCH;
-  }
-  else if (matchesRequiredSBMLNamespacesForAddition(static_cast<const SBase *>(sr)) == false)
-  {
-    return LIBSBML_NAMESPACES_MISMATCH;
+    return returnValue;
   }
   else if (sr->isSetId() 
        && (getListOfProducts()->get(sr->getId())) != NULL)
@@ -882,29 +852,10 @@ Reaction::addProduct (const SpeciesReference* sr)
 int
 Reaction::addModifier (const ModifierSpeciesReference* msr)
 {
-  if (msr == NULL)
+  int returnValue = checkCompatibility(static_cast<const SBase *>(msr));
+  if (returnValue != LIBSBML_OPERATION_SUCCESS)
   {
-    return LIBSBML_OPERATION_FAILED;
-  }
-  else if (!(msr->hasRequiredAttributes()) || !(msr->hasRequiredElements()))
-  {
-    return LIBSBML_INVALID_OBJECT;
-  }
-  else if (msr->getLevel() < 2)
-  {
-    return LIBSBML_UNEXPECTED_ATTRIBUTE;
-  }
-  else if (getLevel() != msr->getLevel())
-  {
-    return LIBSBML_LEVEL_MISMATCH;
-  }
-  else if (getVersion() != msr->getVersion())
-  {
-    return LIBSBML_VERSION_MISMATCH;
-  }
-  else if (matchesRequiredSBMLNamespacesForAddition(static_cast<const SBase *>(msr)) == false)
-  {
-    return LIBSBML_NAMESPACES_MISMATCH;
+    return returnValue;
   }
   else if (msr->isSetId() 
        && (getListOfModifiers()->get(msr->getId())) != NULL)

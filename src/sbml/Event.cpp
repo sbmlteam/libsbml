@@ -899,25 +899,10 @@ Event::unsetTimeUnits ()
 int
 Event::addEventAssignment (const EventAssignment* ea)
 {
-  if (ea == NULL)
+  int returnValue = checkCompatibility(static_cast<const SBase *>(ea));
+  if (returnValue != LIBSBML_OPERATION_SUCCESS)
   {
-    return LIBSBML_OPERATION_FAILED;
-  }
-  else if (!(ea->hasRequiredAttributes()) || !(ea->hasRequiredElements()))
-  {
-    return LIBSBML_INVALID_OBJECT;
-  }
-  else if (getLevel() != ea->getLevel())
-  {
-    return LIBSBML_LEVEL_MISMATCH;
-  }
-  else if (getVersion() != ea->getVersion())
-  {
-    return LIBSBML_VERSION_MISMATCH;
-  }
-  else if (matchesRequiredSBMLNamespacesForAddition(static_cast<const SBase *>(ea)) == false)
-  {
-    return LIBSBML_NAMESPACES_MISMATCH;
+    return returnValue;
   }
   else if (getEventAssignment(ea->getVariable()) != NULL)
   {
