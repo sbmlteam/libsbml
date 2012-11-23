@@ -376,8 +376,6 @@ unsigned int
 SBMLExtensionRegistry::getNumRegisteredPackages()
 {
   return (unsigned int) getRegisteredPackageNames()->getSize();
-  //SBMLExtensionRegistry instance = getInstance();
-  //return (unsigned int)instance.mSBMLExtensionMap.size();
 }
 
 
@@ -400,6 +398,70 @@ SBMLExtensionRegistry::disableUnusedPackages(SBMLDocument *doc)
       doc->disablePackage(plugin->getURI(), plugin->getPrefix());
   }
 }
+
+
+/**
+ * Disables the package with the given URI / name.
+ */
+void
+SBMLExtensionRegistry::disablePackage(const std::string& package)
+{
+  SBMLExtension *ext = const_cast<SBMLExtension*>(getInstance().getExtensionInternal(package));
+  if (ext != NULL)
+    ext->setEnabled(false);
+}
+
+/**
+ * Disables all packages with the given URI / name.
+ */
+void
+SBMLExtensionRegistry::disablePackages(const std::vector<std::string>& packages)
+{
+  std::vector<std::string>::const_iterator it = packages.begin();
+  while (it != packages.end())
+  {
+    disablePackage(*it);
+    ++it;
+  }  
+}
+
+/**
+ * Enables the package with the given URI / name.
+ */
+void
+SBMLExtensionRegistry::enablePackage(const std::string& package)
+{
+  SBMLExtension *ext = const_cast<SBMLExtension*>(getInstance().getExtensionInternal(package));
+  if (ext != NULL)
+    ext->setEnabled(true);  
+}
+
+/**
+ * @returns the status (enabled = <b>true</b>, disabled = <b>false</b> of the given package.
+ */
+bool
+SBMLExtensionRegistry::isPackageEnabled(const std::string& package)
+{
+  const SBMLExtension *ext = getInstance().getExtensionInternal(package);
+  if (ext != NULL)
+    return ext->isEnabled();
+  return false;
+}
+
+/**
+ * Enables all packages with the given URI / name.
+ */
+void
+SBMLExtensionRegistry::enablePackages(const std::vector<std::string>& packages)
+{
+  std::vector<std::string>::const_iterator it = packages.begin();
+  while (it != packages.end())
+  {
+    enablePackage(*it);
+    ++it;
+  }
+}
+
 
 
 /** @cond doxygen-c-only */

@@ -103,6 +103,28 @@ START_TEST (test_SBMLExtensionRegistry_addExtension)
 	instance.setEnabled( 
 		TestExtension::getXmlnsL3V1V1(), true );	
 
+  fail_unless( instance.isEnabled(
+               TestExtension::getXmlnsL3V1V1() ) == true );
+  
+  SBMLExtensionRegistry::disablePackage(TestExtension::getXmlnsL3V1V1());
+  
+  fail_unless( instance.isEnabled(
+                                  TestExtension::getXmlnsL3V1V1() ) == false );
+
+  SBMLExtensionRegistry::enablePackage(TestExtension::getXmlnsL3V1V1());
+
+  fail_unless( instance.isEnabled(
+                                  TestExtension::getXmlnsL3V1V1() ) == true );
+
+  std::vector<std::string> names; names.push_back(TestExtension::getXmlnsL3V1V1());
+  SBMLExtensionRegistry::disablePackages(names);
+  
+  fail_unless(   SBMLExtensionRegistry::isPackageEnabled(names[0]) == false );
+  SBMLExtensionRegistry::enablePackages(names);
+
+  fail_unless(   SBMLExtensionRegistry::isPackageEnabled(names[0]) == true );
+
+  
 }
 END_TEST
 

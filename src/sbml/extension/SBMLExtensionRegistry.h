@@ -120,6 +120,31 @@ public:
    */
   void disableUnusedPackages(SBMLDocument *doc);
 
+  /**
+   * Disables the package with the given URI / name.
+   */
+  static void disablePackage(const std::string& package);
+
+  /**
+   * Disables all packages with the given URI / name.
+   */
+  static void disablePackages(const std::vector<std::string>& packages);
+  
+  /**
+   * @returns the status (enabled = <b>true</b>, disabled = <b>false</b> of the given package.
+   */
+  static bool isPackageEnabled(const std::string& package);
+  
+  /**
+   * Enables the package with the given URI / name.
+   */
+  static void enablePackage(const std::string& package);
+  
+  /**
+   * Enables all packages with the given URI / name.
+   */
+  static void enablePackages(const std::vector<std::string>& packages);
+  
 private:
   /**
    * Returns an SBMLExtension object with the given package URI or package name (string).

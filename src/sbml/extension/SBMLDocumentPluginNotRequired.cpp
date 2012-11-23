@@ -1,6 +1,6 @@
 /**
  * @file    SBMLDocumentPluginNotRequired.cpp
- * @brief   Implementation of SBMLDocumentPluginNotRequired, the plugin class of 
+ * @brief   Implementation of SBMLDocumentPluginNotRequired, the plugin class of
  *          layout package for the Model element.
  * @author  Akiya Jouraku
  *
@@ -9,17 +9,17 @@
  * This file is part of libSBML.  Please visit http://sbml.org for more
  * information about SBML, and the latest version of libSBML.
  *
- * Copyright (C) 2009-2012 jointly by the following organizations: 
+ * Copyright (C) 2009-2012 jointly by the following organizations:
  *     1. California Institute of Technology, Pasadena, CA, USA
  *     2. EMBL European Bioinformatics Institute (EBML-EBI), Hinxton, UK
- *  
+ *
  * Copyright (C) 2006-2008 by the California Institute of Technology,
- *     Pasadena, CA, USA 
- *  
- * Copyright (C) 2002-2005 jointly by the following organizations: 
+ *     Pasadena, CA, USA
+ *
+ * Copyright (C) 2002-2005 jointly by the following organizations:
  *     1. California Institute of Technology, Pasadena, CA, USA
  *     2. Japan Science and Technology Agency, Japan
- * 
+ *
  * This library is free software; you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation.  A copy of the license agreement is provided
@@ -40,9 +40,9 @@ using namespace std;
 LIBSBML_CPP_NAMESPACE_BEGIN
 
 /*
- * 
+ *
  */
-SBMLDocumentPluginNotRequired::SBMLDocumentPluginNotRequired (const std::string &uri, 
+SBMLDocumentPluginNotRequired::SBMLDocumentPluginNotRequired (const std::string &uri,
                                                               const std::string &prefix,
                                                               SBMLNamespaces *sbmlns)
   : SBMLDocumentPlugin(uri,prefix,sbmlns)
@@ -61,13 +61,13 @@ SBMLDocumentPluginNotRequired::SBMLDocumentPluginNotRequired(const SBMLDocumentP
 }
 
 
-SBMLDocumentPluginNotRequired& 
+SBMLDocumentPluginNotRequired&
 SBMLDocumentPluginNotRequired::operator=(const SBMLDocumentPluginNotRequired& orig)
 {
   if(&orig!=this)
   {
     this->SBMLDocumentPlugin::operator =(orig);
-  }    
+  }
   return *this;
 }
 
@@ -79,24 +79,22 @@ SBMLDocumentPluginNotRequired::~SBMLDocumentPluginNotRequired () {}
 
 
 /** @cond doxygen-libsbml-internal */
-void 
+void
 SBMLDocumentPluginNotRequired::readAttributes (const XMLAttributes& attributes,
                                           const ExpectedAttributes& expectedAttributes)
 {
   if (&attributes == NULL || &expectedAttributes == NULL ) return;
-  
+
   //If we're reading from a file, the file might erroneously not have set the 'required' flag:
   mIsSetRequired = false;
 
   SBMLDocumentPlugin::readAttributes(attributes, expectedAttributes);
 
-  // Layout and render (and presumably more plugins) also have a vital use case for L2 models, we cannot
-  // preclude people from using them by adding the error below. 
-  if ( mSBMLExt->getLevel(mURI) > 2)
-  {    
+  if ( getLevel() > 2)
+  {
 
     //Alternatively, it might have set the 'required' flag to be 'false':
-    if (mIsSetRequired && mRequired==true) 
+    if (mIsSetRequired && mRequired==true)
     {
       getErrorLog()
         ->logError(PackageRequiredShouldBeFalse, getLevel(), getVersion());
@@ -107,10 +105,11 @@ SBMLDocumentPluginNotRequired::readAttributes (const XMLAttributes& attributes,
 
 
 #if(0)
-int 
+int
 SBMLDocumentPluginNotRequired::setRequired(bool required)
 {
-  if ( mSBMLExt->getLevel(mURI) < 3) {
+
+  if ( getLevel() < 3) {
     // required attribute is not defined for SBML Level 2 .
     return LIBSBML_UNEXPECTED_ATTRIBUTE;
   }
@@ -123,7 +122,7 @@ SBMLDocumentPluginNotRequired::setRequired(bool required)
   return LIBSBML_OPERATION_SUCCESS;
 }
 
-int 
+int
 SBMLDocumentPluginNotRequired::unsetRequired()
 {
   return LIBSBML_OPERATION_FAILED;
