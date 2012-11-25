@@ -1910,7 +1910,7 @@ s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></b
    * @see unsetNotes()
    * @see SyntaxChecker::hasExpectedXHTMLSyntax(@if java XMLNode xhtml@endif)
    */
-  int setNotes(const std::string& notes);
+  int setNotes(const std::string& notes, bool addXHTMLMarkup = false);
 
 
   /**
@@ -3806,6 +3806,11 @@ SBase_setNotes (SBase_t *sb, XMLNode_t *notes);
 LIBSBML_EXTERN
 int
 SBase_setNotesString (SBase_t *sb, char *notes);
+
+
+LIBSBML_EXTERN
+int
+SBase_setNotesStringAddMarkup (SBase_t *sb, char *notes);
 
 
 LIBSBML_EXTERN

@@ -1232,6 +1232,51 @@ class TestSBase < Test::Unit::TestCase
     assert ((  "This is a test note" == t2.getCharacters() ))
   end
 
+  def test_SBase_setNotesString_l3
+    c = LibSBML::Model.new(3,1)
+    notes =  "This is a test note";
+    c.setNotes(notes)
+    assert( c.isSetNotes() == false )
+  end
+
+  def test_SBase_setNotesString_l3_addMarkup
+    c = LibSBML::Model.new(3,1)
+    notes =  "This is a test note";
+    taggednotes = "<notes>\n" + 
+    "  <p xmlns=\"http://www.w3.org/1999/xhtml\">" + 
+    "This is a test note</p>\n" + 
+    "</notes>"
+    c.setNotes(notes, true)
+    assert( c.isSetNotes() == true )
+    if (( taggednotes != c.getNotesString() ))
+    end
+    t1 = c.getNotes()
+    assert( t1.getNumChildren() == 1 )
+    t2 = t1.getChild(0)
+    assert( t2.getNumChildren() == 1 )
+    t3 = t2.getChild(0)
+    assert ((  "This is a test note" == t3.getCharacters() ))
+    c.setNotes(c.getNotesString(), true)
+    t1 = c.getNotes()
+    assert( t1.getNumChildren() == 1 )
+    chars = c.getNotesString()
+    assert (( taggednotes == chars ))
+    c.setNotes("", true)
+    assert( c.isSetNotes() == false )
+    if (c.getNotesString() != nil)
+    end
+    c.setNotes(taggednotes, true)
+    assert( c.isSetNotes() == true )
+    if (( taggednotes != c.getNotesString() ))
+    end
+    t1 = c.getNotes()
+    assert( t1.getNumChildren() == 1 )
+    t2 = t1.getChild(0)
+    assert( t2.getNumChildren() == 1 )
+    t3 = t2.getChild(0)
+    assert ((  "This is a test note" == t3.getCharacters() ))
+  end
+
   def test_SBase_unsetAnnotationWithCVTerms
     annt = "<annotation>\n" + 
     "  <test:test xmlns:test=\"http://test.org/test\">this is a test node</test:test>\n" + 

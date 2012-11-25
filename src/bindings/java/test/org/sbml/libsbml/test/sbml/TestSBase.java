@@ -1383,6 +1383,53 @@ public class TestSBase {
     assertTrue(t2.getCharacters().equals( "This is a test note"));
   }
 
+  public void test_SBase_setNotesString_l3()
+  {
+    SBase c = new Model(3,1);
+    String notes =  "This is a test note";
+    String taggednotes = "<notes>\n" + "  <p xmlns=\"http://www.w3.org/1999/xhtml\">This is a test note</p>\n" + "</notes>";
+    c.setNotes(notes);
+    assertTrue( c.isSetNotes() == false );
+  }
+
+  public void test_SBase_setNotesString_l3_addMarkup()
+  {
+    SBase c = new Model(3,1);
+    String notes =  "This is a test note";
+    String taggednotes = "<notes>\n" + "  <p xmlns=\"http://www.w3.org/1999/xhtml\">This is a test note</p>\n" + "</notes>";
+    c.setNotes(notes, true);
+    assertTrue( c.isSetNotes() == true );
+    if (!c.getNotesString().equals(taggednotes));
+    {
+    }
+    XMLNode t1 = c.getNotes();
+    assertTrue( t1.getNumChildren() == 1 );
+    XMLNode t2 = t1.getChild(0);
+    assertTrue( t2.getNumChildren() == 1 );
+    XMLNode t3 = t2.getChild(0);
+    assertTrue(t3.getCharacters().equals( "This is a test note"));
+    c.setNotes(c.getNotesString());
+    t1 = c.getNotes();
+    assertTrue( t1.getNumChildren() == 1 );
+    String chars = c.getNotesString();
+    assertTrue(chars.equals(taggednotes));
+    c.setNotes("", true);
+    assertTrue( c.isSetNotes() == false );
+    if (c.getNotesString() != null);
+    {
+    }
+    c.setNotes(taggednotes, true);
+    assertTrue( c.isSetNotes() == true );
+    if (!c.getNotesString().equals(taggednotes));
+    {
+    }
+    t1 = c.getNotes();
+    assertTrue( t1.getNumChildren() == 1 );
+    t2 = t1.getChild(0);
+    assertTrue( t2.getNumChildren() == 1 );
+    t3 = t2.getChild(0);
+    assertTrue(t3.getCharacters().equals( "This is a test note"));
+  }
   public void test_SBase_unsetAnnotationWithCVTerms()
   {
     CVTerm cv;

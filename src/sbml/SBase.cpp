@@ -1622,7 +1622,7 @@ SBase::setNotes(const XMLNode* notes)
  * Sets the notes (by std::string) of this SBML object to a copy of notes.
  */
 int
-SBase::setNotes(const std::string& notes)
+SBase::setNotes(const std::string& notes, bool addXHTMLMarkup)
 {
   int success = LIBSBML_OPERATION_FAILED;
   if (&(notes) == NULL)
@@ -1650,7 +1650,46 @@ SBase::setNotes(const std::string& notes)
 
     if(notes_xmln != NULL)
     {
-      success = setNotes(notes_xmln);
+      if (addXHTMLMarkup == true)
+      {
+        // user has specified that they want the markup added
+        if (getLevel() > 2 
+          || (getLevel() == 2 && getVersion() > 1))
+        {
+          // just say the user passed a string that did not represent xhtml
+          // the xmlnode will not get set as it is invalid
+          if (notes_xmln->getNumChildren() == 0 
+            && notes_xmln->isStart() == false
+            && notes_xmln->isEnd() == false 
+            && notes_xmln->isText() == true)
+          {
+            //create a parent node of xhtml type p
+            XMLAttributes blank_att = XMLAttributes();
+            XMLTriple triple = XMLTriple("p", "http://www.w3.org/1999/xhtml", "");
+            XMLNamespaces xmlns = XMLNamespaces();
+            xmlns.add("http://www.w3.org/1999/xhtml", "");
+            XMLNode *xmlnode = new XMLNode(XMLToken(triple, blank_att, xmlns));
+
+            // create a text node from the text given
+            xmlnode->addChild(*notes_xmln);
+            success = setNotes(xmlnode);
+            delete xmlnode;
+          }
+          else
+          {
+            success = setNotes(notes_xmln);
+          }
+          
+        }
+        else
+        {
+          success = setNotes(notes_xmln);
+        }
+      }
+      else
+      {
+        success = setNotes(notes_xmln);
+      }
       delete notes_xmln;
     }
   }
@@ -6857,6 +6896,40 @@ SBase_setNotesString (SBase_t *sb, char *notes)
     else
     {
       return sb->setNotes(notes);
+    }
+  }
+  else
+    return LIBSBML_INVALID_OBJECT;
+}
+
+
+/**
+ * Sets the notes for the given SBML object.
+ *
+ * @param sb the given SBML object.
+ * @param notes the string (const char*) respresenting the notes.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_INVALID_OBJECT
+ * @li LIBSBML_OPERATION_FAILED
+ */
+LIBSBML_EXTERN
+int
+SBase_setNotesStringAddMarkup (SBase_t *sb, char *notes)
+{
+  if (sb != NULL)
+  {
+    if(notes == NULL)
+    {
+      return sb->unsetNotes();
+    }
+    else
+    {
+      return sb->setNotes(notes, true);
     }
   }
   else

@@ -1269,7 +1269,58 @@ namespace LibSBMLCSTest.sbml
 			assertTrue (("This is a test note" == t2.getCharacters ()));
 		}
 
-		public void test_SBase_unsetAnnotationWithCVTerms ()
+    public void test_SBase_setNotesString_l3()
+    {
+      SBase c = new Model(3, 1);
+      string notes = "This is a test note";
+      string taggednotes = "<notes>\n" + "  <p xmlns=\"http://www.w3.org/1999/xhtml\">This is a test note</p>\n" + "</notes>";
+      c.setNotes(notes);
+      assertTrue(c.isSetNotes() == false);
+    }
+
+    public void test_SBase_setNotesString_l3_addMarkup()
+    {
+      SBase c = new Model(3, 1);
+      string notes = "This is a test note";
+      string taggednotes = "<notes>\n" + "  <p xmlns=\"http://www.w3.org/1999/xhtml\">This is a test note</p>\n" + "</notes>";
+      c.setNotes(notes, true);
+      assertTrue(c.isSetNotes() == true);
+      if ((taggednotes != c.getNotesString()))
+        ;
+      {
+      }
+      XMLNode t1 = c.getNotes();
+      assertTrue(t1.getNumChildren() == 1);
+      XMLNode t2 = t1.getChild(0);
+      assertTrue(t2.getNumChildren() == 1);
+      XMLNode t3 = t2.getChild(0);
+      assertTrue(("This is a test note" == t3.getCharacters()));
+      c.setNotes(c.getNotesString(), true);
+      t1 = c.getNotes();
+      assertTrue(t1.getNumChildren() == 1);
+      string chars = c.getNotesString();
+      assertTrue((taggednotes == chars));
+      c.setNotes("", true);
+      assertTrue(c.isSetNotes() == false);
+      if (c.getNotesString() != null)
+        ;
+      {
+      }
+      c.setNotes(taggednotes, true);
+      assertTrue(c.isSetNotes() == true);
+      if ((taggednotes != c.getNotesString()))
+        ;
+      {
+      }
+      t1 = c.getNotes();
+      assertTrue(t1.getNumChildren() == 1);
+      t2 = t1.getChild(0);
+      assertTrue(t2.getNumChildren() == 1);
+      t3 = t2.getChild(0);
+      assertTrue(("This is a test note" == t3.getCharacters()));
+    }
+
+    public void test_SBase_unsetAnnotationWithCVTerms()
 		{
 			CVTerm cv;
 			string annt = "<annotation>\n" + "  <test:test xmlns:test=\"http://test.org/test\">this is a test node</test:test>\n" + "</annotation>";

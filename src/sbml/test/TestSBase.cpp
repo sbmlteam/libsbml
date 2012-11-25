@@ -398,7 +398,7 @@ END_TEST
 
 START_TEST (test_SBase_setNotesString)
 {
-  SBase_t *c = new(std::nothrow) Model(1, 2);
+  SBase_t *c = new(std::nothrow) Model(1,2);
   char * notes = "This is a test note";
   char * taggednotes = "<notes>This is a test note</notes>";
 
@@ -445,6 +445,66 @@ START_TEST (test_SBase_setNotesString)
 
   t2 = XMLNode_getChild(t1,0);
   fail_unless(!strcmp(XMLNode_getCharacters(t2), "This is a test note"));
+
+}
+END_TEST
+
+
+START_TEST (test_SBase_setNotesString_l3)
+{
+  SBase_t *c = new(std::nothrow) Model(3, 1);
+  char * notes = "This is a test note";
+  char * taggednotes = "<notes>\n  <p xmlns=\"http://www.w3.org/1999/xhtml\">This is a test note</p>\n</notes>";
+
+  // this should not set the notes since they are invalid xhtml
+  SBase_setNotesString(c, notes);
+
+  fail_unless(SBase_isSetNotes(c) == 0);
+
+}
+END_TEST
+
+
+START_TEST (test_SBase_setNotesString_l3_addMarkup)
+{
+  SBase_t *c = new(std::nothrow) Model(3, 1);
+  char * notes = "This is a test note";
+  char * taggednotes = "<notes>\n  <p xmlns=\"http://www.w3.org/1999/xhtml\">This is a test note</p>\n</notes>";
+
+  SBase_setNotesStringAddMarkup(c, notes);
+
+  fail_unless(SBase_isSetNotes(c) == 1);
+
+  if (strcmp(SBase_getNotesString(c), taggednotes))
+  {
+    fail("SBase_setNotesString(...) did not make a copy of node.");
+  }
+  XMLNode_t *t1 = SBase_getNotes(c);
+  fail_unless(XMLNode_getNumChildren(t1) == 1);
+
+  const XMLNode_t *t2 = XMLNode_getChild(t1,0);
+  fail_unless(XMLNode_getNumChildren(t2) == 1);
+
+  const XMLNode_t *t3 = XMLNode_getChild(t2,0);
+  fail_unless(!strcmp(XMLNode_getCharacters(t3), "This is a test note"));
+
+
+  SBase_setNotesStringAddMarkup(c, taggednotes);
+
+  fail_unless(SBase_isSetNotes(c) == 1);
+
+  if (strcmp(SBase_getNotesString(c), taggednotes))
+  {
+    fail("SBase_setNotesString(...) did not make a copy of node.");
+  }
+  t1 = SBase_getNotes(c);
+  fail_unless(XMLNode_getNumChildren(t1) == 1);
+
+  t2 = XMLNode_getChild(t1,0);
+  fail_unless(XMLNode_getNumChildren(t2) == 1);
+
+  t3 = XMLNode_getChild(t2,0);
+  fail_unless(!strcmp(XMLNode_getCharacters(t3), "This is a test note"));
 
 }
 END_TEST
@@ -2402,6 +2462,8 @@ create_suite_SBase (void)
   tcase_add_test(tcase, test_SBase_setAnnotation );
   tcase_add_test(tcase, test_SBase_setNotes);
   tcase_add_test(tcase, test_SBase_setNotesString);
+  tcase_add_test(tcase, test_SBase_setNotesString_l3);
+  tcase_add_test(tcase, test_SBase_setNotesString_l3_addMarkup);
   tcase_add_test(tcase, test_SBase_setAnnotationString);
   tcase_add_test(tcase, test_SBase_unsetAnnotationWithCVTerms );
   tcase_add_test(tcase, test_SBase_unsetAnnotationWithModelHistory );

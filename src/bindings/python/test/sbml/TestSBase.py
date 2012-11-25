@@ -1025,13 +1025,13 @@ class TestSBase(unittest.TestCase):
 
   def test_SBase_appendNotesString8(self):
     notes = wrapString("<body xmlns=\"http://www.w3.org/1999/xhtml\">\n" + "  <p>This is a test note </p>\n" + "</body>")
-    taggednewnotes = wrapString("<notes>\n" + 
+    taggednewnotes =  ("<notes>\n" + 
     "  <body xmlns=\"http://www.w3.org/1999/xhtml\">\n" + 
     "    <p>This is a test note </p>\n" + 
     "    <p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes </p>\n" + 
     "  </body>\n" + 
     "</notes>")
-    taggednewnotes2 = wrapString("<notes>\n" + 
+    taggednewnotes2 =  ("<notes>\n" + 
     "  <body xmlns=\"http://www.w3.org/1999/xhtml\">\n" + 
     "    <p>This is a test note </p>\n" + 
     "    <p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes 1</p>\n" + 
@@ -1240,6 +1240,51 @@ class TestSBase(unittest.TestCase):
     self.assert_( t1.getNumChildren() == 1 )
     t2 = t1.getChild(0)
     self.assert_((  "This is a test note" == t2.getCharacters() ))
+    pass  
+
+  def test_SBase_setNotesString_l3(self):
+    c = libsbml.Model(3,1)
+    notes =  "This is a test note";
+    c.setNotes(notes)
+    self.assert_( c.isSetNotes() == False )
+    pass  
+
+  def test_SBase_setNotesString_l3_addMarkup(self):
+    c = libsbml.Model(3,1)
+    notes =  "This is a test note";
+    taggednotes = wrapString("<notes>\n" + "  <p xmlns=\"http://www.w3.org/1999/xhtml\">This is a test note</p>\n" + 
+    "</notes>")
+    c.setNotes(notes, True)
+    self.assert_( c.isSetNotes() == True )
+    if (( taggednotes != c.getNotesString() )):
+      pass    
+    t1 = c.getNotes()
+    self.assert_( t1.getNumChildren() == 1 )
+    t2 = t1.getChild(0)
+    self.assert_( t2.getNumChildren() == 1 )
+    t3 = t2.getChild(0)
+    self.assert_((  "This is a test note" == t3.getCharacters() ))
+    c.setNotes(c.getNotesString(), True)
+    t1 = c.getNotes()
+    self.assert_( t1.getNumChildren() == 1 )
+    chars = c.getNotesString()
+    print chars
+    print taggednotes
+    self.assert_(( taggednotes == chars ))
+    c.setNotes("", True)
+    self.assert_( c.isSetNotes() == False )
+    if (c.getNotesString() != None):
+      pass    
+    c.setNotes(taggednotes, True)
+    self.assert_( c.isSetNotes() == True )
+    if (( taggednotes != c.getNotesString() )):
+      pass    
+    t1 = c.getNotes()
+    self.assert_( t1.getNumChildren() == 1 )
+    t2 = t1.getChild(0)
+    self.assert_( t2.getNumChildren() == 1 )
+    t3 = t2.getChild(0)
+    self.assert_((  "This is a test note" == t3.getCharacters() ))
     pass  
 
   def test_SBase_unsetAnnotationWithCVTerms(self):
