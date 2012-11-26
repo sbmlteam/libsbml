@@ -1268,8 +1268,6 @@ class TestSBase(unittest.TestCase):
     t1 = c.getNotes()
     self.assert_( t1.getNumChildren() == 1 )
     chars = c.getNotesString()
-    print chars
-    print taggednotes
     self.assert_(( taggednotes == chars ))
     c.setNotes("", True)
     self.assert_( c.isSetNotes() == False )
