@@ -1,12 +1,12 @@
 dnl Filename    : libxml.m4
 dnl Description : Autoconf macro to check for existence of libxml library
 dnl Created     : 2007-02-22
-dnl 
+dnl
 dnl ---------------------------------------------------------------------------
 dnl Portions of this file were taken from the file "libxml.m4" provided
 dnl with the libxml2 version 2.6.27 distribution.  Here are the headers
 dnl from that file:
-dnl 
+dnl
 dnl    Configure paths for LIBXML2
 dnl    Mike Hommey 2004-06-19
 dnl    use CPPFLAGS instead of CFLAGS
@@ -14,7 +14,7 @@ dnl    Toshio Kuratomi 2001-04-21
 dnl    Adapted from:
 dnl    Configure paths for GLIB
 dnl    Owen Taylor     97-11-3
-dnl 
+dnl
 dnl Modifications here (in the version used in libSBML) include changing
 dnl the configure flag to be "--with-libxml" to better distinguish the
 dnl library in the libSBML configure options, changing the name of the
@@ -28,26 +28,26 @@ dnl ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
 dnl Except where otherwise noted in the source code (e.g. the files hash.c,
 dnl list.c and the trio files, which are covered by a similar licence but
 dnl with different Copyright notices) all the files are:
-dnl 
+dnl
 dnl  Copyright (C) 1998-2003 Daniel Veillard.  All Rights Reserved.
-dnl 
+dnl
 dnl Permission is hereby granted, free of charge, to any person obtaining a copy
 dnl of this software and associated documentation files (the "Software"), to deal
 dnl in the Software without restriction, including without limitation the rights
 dnl to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
 dnl copies of the Software, and to permit persons to whom the Software is fur-
 dnl nished to do so, subject to the following conditions:
-dnl 
+dnl
 dnl The above copyright notice and this permission notice shall be included in
 dnl all copies or substantial portions of the Software.
-dnl 
+dnl
 dnl THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 dnl IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FIT-
 dnl NESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL THE
 dnl DANIEL VEILLARD BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
 dnl IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CON-
 dnl NECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-dnl 
+dnl
 dnl Except as contained in this notice, the name of Daniel Veillard shall not
 dnl be used in advertising or otherwise to promote the sale, use or other deal-
 dnl ings in this Software without prior written authorization from him.
@@ -62,7 +62,7 @@ dnl CONFIG_LIB_LIBXML([MIN-VERSION, [ACTION-IF-FOUND [, ACTION-IF-NOT-FOUND]]])
 dnl Tests for libxml2, and defines LIBXML_CPPFLAGS and LIBXML_LIBS.
 
 AC_DEFUN([CONFIG_LIB_LIBXML],
-[ 
+[
   AC_ARG_WITH([libxml],
     AS_HELP_STRING([--with-libxml@<:@=PREFIX@:>@],
                    [use the libxml2 XML library @<:@default=yes@:>@]),
@@ -115,7 +115,7 @@ appropriately, then re-run 'configure'.
         AC_PATH_PROG(XML2_CONFIG, xml2-config, no, [$with_libxml/bin])
       fi
       libxml_lib_path="$with_libxml/lib${LIBSUFFIX}"
-    else 
+    else
       if test "$HOST_TYPE" = "darwin"; then
         if test -z "$XML2_CONFIG" ; then
           dnl The XML2_CONFIG environment variable is not set.  Look for
@@ -129,7 +129,7 @@ appropriately, then re-run 'configure'.
           dnl User did not set XML2_CONFIG either.  Try their default path.
           AC_PATH_PROG(XML2_CONFIG, xml2-config, no)
         fi
-	  
+
         libxml_lib_path=`$XML2_CONFIG --prefix`
       fi
     fi
@@ -181,7 +181,7 @@ to the full path of xml2-config and retrying the 'configure' command.
 
       tmp_library_path=""
       case $host in
-      *darwin*) 
+      *darwin*)
         tmp_library_path="$DYLD_LIBRARY_PATH"
         DYLD_LIBRARY_PATH="$DYLD_LIBRARY_PATH;$libxml_lib_path"
         export DYLD_LIBRARY_PATH
@@ -191,7 +191,7 @@ to the full path of xml2-config and retrying the 'configure' command.
         LD_LIBRARY_PATH="$LD_LIBRARY_PATH;$libxml_lib_path"
         export LD_LIBRARY_PATH
         ;;
-      esac    
+      esac
 
       dnl Now check if the installed libxml is sufficiently new.
       dnl (Also sanity checks the results of xml2-config to some extent)
@@ -203,7 +203,7 @@ to the full path of xml2-config and retrying the 'configure' command.
 #include <string.h>
 #include <libxml/xmlversion.h>
 
-int 
+int
 main()
 {
   int xml_major_version, xml_minor_version, xml_micro_version;
@@ -226,7 +226,7 @@ main()
    tmp_version = (char *)strdup(LIBXML_DOTTED_VERSION);
    if (sscanf(tmp_version, "%d.%d.%d", &xml_major_version,
               &xml_minor_version, &xml_micro_version) != 3) {
-     printf("%s, bad version string from libxml includes\n", 
+     printf("%s, bad version string from libxml includes\n",
             "LIBXML_DOTTED_VERSION");
      exit(1);
    }
@@ -244,11 +244,11 @@ main()
              $xml_config_major_version, $xml_config_minor_version,
              $xml_config_micro_version);
       return 1;
-    } 
+    }
 
   /* Compare the headers to the library to make sure we match */
 
-  /* Less than ideal -- doesn't provide us with return value feedback, 
+  /* Less than ideal -- doesn't provide us with return value feedback,
    * only exits if there's a serious mismatch between header and library.
    */
     LIBXML_TEST_VERSION;
@@ -290,7 +290,7 @@ main()
 
     if test "x$no_xml" = x ; then
       AC_MSG_RESULT(yes (version $xml_config_major_version.$xml_config_minor_version.$xml_config_micro_version))
-      ifelse([$2], , :, [$2])     
+      ifelse([$2], , :, [$2])
     else
       if test "$XML2_CONFIG" = "no" ; then
         echo "*** The xml2-config script installed by LIBXML could not be found"
@@ -299,7 +299,7 @@ main()
         echo "*** full path to xml2-config."
       else
         if test -f conf.xmltest ; then
-          AC_MSG_ERROR(installed version of libxml2 is too old!)	
+          AC_MSG_ERROR(installed version of libxml2 is too old!)
         else
           echo "*** Could not run libxml test program, checking why..."
           CPPFLAGS="$CPPFLAGS $LIBXML_CPPFLAGS"
@@ -339,7 +339,7 @@ main()
     CPPFLAGS="$ac_save_CPPFLAGS"
     LIBS="$ac_save_LIBS"
     case $host in
-    *darwin*) 
+    *darwin*)
       DYLD_LIBRARY_PATH=$tmp_library_path
       export DYLD_LIBRARY_PATH
       ;;
@@ -347,7 +347,7 @@ main()
       LD_LIBRARY_PATH=$tmp_library_path
       export LD_LIBRARY_PATH
       ;;
-    esac    
+    esac
 
     AC_DEFINE([USE_LIBXML], 1, [Define to 1 to use the libxml2 XML library])
     AC_SUBST(USE_LIBXML, 1)
@@ -375,6 +375,13 @@ main()
          -a $xml_config_minor_version -eq 6\
          -a $xml_config_micro_version -eq 16; then
           AC_SUBST(BUGGY_APPLE_LIBXML,1)
+      elif test $xml_config_major_version -eq 2\
+         -a $xml_config_minor_version -eq 7\
+         -a $xml_config_micro_version -eq 8; then
+        dnl
+        dnl (Mountain Lion)
+        dnl
+        AC_SUBST(BUGGY_APPLE_LIBXML,1)
       else
         dnl
         dnl (Snow Leopard)
