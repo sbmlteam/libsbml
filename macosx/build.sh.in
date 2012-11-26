@@ -68,6 +68,7 @@ cp ../FUNDING.txt  ${DISKDIR}/docs
 cp ../LICENSE.html ${DISKDIR}/docs
 cp ../LICENSE.txt  ${DISKDIR}/docs
 cp ../NEWS.txt     ${DISKDIR}/docs
+cp ../OLD_NEWS.txt ${DISKDIR}/docs
 cp ../README.txt   ${DISKDIR}/docs
 cp ../VERSION.txt  ${DISKDIR}/docs
 

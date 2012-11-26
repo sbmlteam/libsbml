@@ -283,6 +283,7 @@ distfiles =                                                  \
         libsbml-matlab-mainpage.txt                          \
         libsbml-matlab-reading-files.txt                     \
         libsbml-news.txt                                     \
+        libsbml-old-news.txt                                     \
         libsbml-papers.html                                  \
         libsbml-papers.txt                                   \
         libsbml-octave-mainpage.txt                          \
@@ -630,6 +631,7 @@ java-manual $(java-manual): $(core-sources) SBMLDoclet.class
 	$(call merge_html,libsbml-uninstallation.html,$(java-manual)/libsbml-uninstallation.html,uninstallation)
 	$(call merge_html,../../LICENSE.html,$(java-manual)/libsbml-license.html,license)
 	$(call merge_html_verb,../../NEWS.txt,$(java-manual)/libsbml-news.html,news)
+	$(call merge_html_verb,../../OLD_NEWS.txt,$(java-manual)/libsbml-old-news.html,old-news)
 	${MAKE} insert-js
 
 insert-js : 

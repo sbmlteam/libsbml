@@ -263,7 +263,7 @@ rm -rf ${RPM_BUILD_ROOT}
 
 %files
 %defattr(-,root,root)
-%doc AUTHORS.txt README.txt COPYING.txt NEWS.txt
+%doc AUTHORS.txt README.txt COPYING.txt OLD_NEWS.txt NEWS.txt
 %{_libdir}/libsbml.la
 %{_libdir}/libsbml.so.4
 %{_libdir}/libsbml.so.%{version}

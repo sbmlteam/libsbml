@@ -1,0 +1,9 @@
+/** @page changes Summary of changes between libSBML releases
+@n
+
+<!-- OLD_NEWS.txt is located in ../../.  The include search path for
+     doxygen is set in doxygen-common-config.txt -->
+
+@verbinclude OLD_NEWS.txt
+
+*/

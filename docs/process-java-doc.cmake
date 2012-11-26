@@ -73,5 +73,6 @@ merge_html( "libsbml-uninstallation.html" "${java_manual}/libsbml-uninstallation
 merge_html( "../../LICENSE.html" "${java_manual}/libsbml-license.html" "license" )
 
 merge_html_verb( "../../NEWS.txt" "${java_manual}/libsbml-news.html" "news" )
+merge_html_verb( "../../OLD_NEWS.txt" "${java_manual}/libsbml-old-news.html" "old-news" )
 
 insert_javascript("${java_manual}/org/sbml/libsbml")

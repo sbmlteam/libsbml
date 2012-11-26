@@ -286,6 +286,7 @@ docs =         \
   LICENSE.txt  \
   LICENSE.html \
   NEWS.txt     \
+  OLD_NEWS.txt \
   README.txt   \
   VERSION.txt  \
   $(examples)
@@ -311,6 +312,7 @@ distfiles =                         \
   LICENSE.txt                       \
   LICENSE.html                      \
   Makefile.in                       \
+  OLD_NEWS.txt                      \
   NEWS.txt                          \
   README.txt                        \
   VERSION.txt                       \
