@@ -2,6 +2,85 @@
 
 
 ====================================================================
+Version 5.7.0 (Expected early 2013)
+====================================================================
+
+STABLE RELEASE
+
+* New features
+
+  - Convenience functions have been added to the 
+    SBMLExtensionRegistry class to facilitate enabling/disabling
+    packages using just the package name. For example: 
+    disablePackage(const std::string& package);
+    enablePackage(const std::string& package);
+
+  - Previously the setNotes function accepting a string as
+    argument expected the string to contain the appropriate
+    XHTML tags and would not set the value of the <notes> 
+    element to a string that did not meet this requirement.
+    The functionality of the setNotes(const std::string&) 
+    function has been extended to allow a user to add an
+    optional boolean argument addXHTMLMarkup. When the value
+    of this argument is 'true' the function will accept a 
+    string; wrap it with the XHTML <p> tag and set the
+    <notes> element to this.
+
+* Bug fixes
+
+  - The number of arguments expected by a piecewise function
+    was incorrectly assumed to be two. However, a piecewise
+    function can have a single argument. This has been corrected.
+
+  - Validation of SBML Level 3 was issuing a genral warning
+    about missing required attributes but failing to identify
+    which attribute had caused the error to be reported.
+    This has been corrected. Thanks to Nicolas Rodriguez 
+    for pointing this out.
+
+* Configuration/build system changes
+
+  - Building the MATLAB binding for libSBML can be problematic
+    due to the need to identify and use the MATLAB mex compiler.
+    When MATLAB is being accessed over a network this can 
+    result in misleading error messages.  The build system has 
+    been improved to halt compilation if the mex compiler is not
+    available and to give a clearer error message as to how to
+    proceed.
+
+  - The build system has been updated to facilitate use with the 
+    Mac OS X 10.8 operating system (Mountain Lion).
+
+* Miscellaneous
+
+  - It was reported that gcc 4.7 found the various definitions of 
+    isnan used within some parts of libSBML to be problematic. 
+    This problem has been addressed and there are now
+    functions util_isNaN and util_isFinite in the util file that 
+    are used throughout libsbml.  Thanks to Totte Karlsson for
+    reporting this.
+
+  - Where test files compare double values the comparisons have
+    been unified to use the util_isEqual(double, double) function
+    and thus avoid inaccurate results that can be machine dependent.
+
+  - This NEWS.txt file has reduced in size with NEWS dating from
+    prior to libSBML-5 now saved as an OLD_NEWS.txt file.
+
+
+EXPERIMENTAL RELEASE
+
+* New features
+
+* Bug fixes
+
+* Configuration/build system changes
+
+* Miscellaneous
+
+
+
+====================================================================
 Version 5.6.0 (2012-08-03)
 ====================================================================
 
