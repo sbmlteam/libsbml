@@ -116,7 +116,7 @@
  * as appropriate.  (Examples: @c AST_FUNCTION_LOG, @c AST_RELATIONAL_LEQ.)
  *
  * <li> If the node refers to a user-defined function, the node's type will
- * be @c AST_NAME (because it holds the name of the function).
+ * be @c AST_FUNCTION (because it holds the name of the function).
  *
  * <li> If the node is a lambda expression, its type will be @c AST_LAMBDA.
  * 
@@ -258,7 +258,7 @@ LIBSBML_CPP_NAMESPACE_BEGIN
  * ASTNodeType_t#AST_RELATIONAL_LEQ AST_RELATIONAL_LEQ@endlink.)
  *
  * <li> If the node refers to a user-defined function, the node's type will
- * be @link ASTNodeType_t#AST_NAME AST_NAME@endlink (because it holds the
+ * be @link ASTNodeType_t#AST_FUNCTION AST_FUNCTION@endlink (because it holds the
  * name of the function).
  *
  * <li> If the node is a lambda expression, its type will be @link
