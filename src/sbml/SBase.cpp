@@ -4735,12 +4735,12 @@ SBase::readAttributes (const XMLAttributes& attributes,
   //
   // (EXTENSION)
   //
-  readExtensionAttributes(attributes);
+  readExtensionAttributes(attributes, &expectedAttributes);
 }
 
 
 void
-SBase::readExtensionAttributes (const XMLAttributes& attributes)
+SBase::readExtensionAttributes (const XMLAttributes& attributes, const ExpectedAttributes* expectedAttributes)
 {
   const_cast<XMLAttributes&>(attributes).setErrorLog(getErrorLog());
 
@@ -4750,6 +4750,9 @@ SBase::readExtensionAttributes (const XMLAttributes& attributes)
    *
    * ----------------------------------------------------------
    */
+    const ExpectedAttributes* base = expectedAttributes  != NULL ? 
+expectedAttributes : new ExpectedAttributes();
+
 
   for (size_t i=0; i < mPlugins.size(); i++)
   {
@@ -4758,10 +4761,15 @@ SBase::readExtensionAttributes (const XMLAttributes& attributes)
               << mPlugins[i]->getURI()  << " "
               << getElementName() << std::endl;
 #endif
-    ExpectedAttributes ea;
+    
+    ExpectedAttributes ea(*base);
+    
     mPlugins[i]->addExpectedAttributes(ea);
     mPlugins[i]->readAttributes(attributes,ea);
   }
+
+  if (expectedAttributes  == NULL )
+    delete base;
 
   /////////////////////////////////////////////////////////////////////////
 

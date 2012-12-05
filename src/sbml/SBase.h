@@ -3470,7 +3470,8 @@ SBase.readExtensionAttributes(attributes);
 @endverbatim
    * @endif@~
    */
-  virtual void readExtensionAttributes (const XMLAttributes& attributes);
+  virtual void readExtensionAttributes (const XMLAttributes& attributes, 
+    const ExpectedAttributes* expectedAttributes = NULL);
 
 
   /**
