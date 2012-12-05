@@ -69,7 +69,7 @@ FunctionDefinitionVars::check_ (const Model& m, const FunctionDefinition& fd)
   if ( fd.getLevel() == 1         ) return;
   if ( !fd.isSetMath()            ) return;
   if ( fd.getBody()  == NULL      ) return;
-  if (  fd.getNumArguments() == 0 ) return;
+  //if (  fd.getNumArguments() == 0 ) return;
 
 
   List* variables = fd.getBody()->getListOfNodes( ASTNode_isName );
