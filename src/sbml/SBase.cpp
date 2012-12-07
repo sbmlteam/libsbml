@@ -182,18 +182,40 @@ int
 SBase::prependStringToAllIdentifiers(const std::string& prefix)
 {
   int ret;
-  if (isSetId()) {
-    ret = setId(prefix + getId());
-    if (ret != LIBSBML_OPERATION_SUCCESS) return ret;
-  }
-  if (isSetMetaId()) {
+
+  if (isSetMetaId()) 
+  {
     ret = setMetaId(prefix + getMetaId());
-    if (ret != LIBSBML_OPERATION_SUCCESS) return ret;
+    if (ret != LIBSBML_OPERATION_SUCCESS) 
+    {
+      return ret;
+    }
   }
-  for (unsigned int p=0; p<getNumPlugins(); p++) {
+
+  for (unsigned int p = 0; p < getNumPlugins(); p++) 
+  {
     ret = getPlugin(p)->prependStringToAllIdentifiers(prefix);
-    if (ret != LIBSBML_OPERATION_SUCCESS) return ret;
+    if (ret != LIBSBML_OPERATION_SUCCESS) 
+    {
+      return ret;
+    }
   }
+
+
+  // for historical reasons some things like Rules will
+  // return an id but not set one
+  // so if we are going to bail on this we should have done 
+  // anything else first
+
+  if (isSetId()) 
+  {
+    ret = setId(prefix + getId());
+    if (ret != LIBSBML_OPERATION_SUCCESS) 
+    {
+      return ret;
+    }
+  }
+
   return LIBSBML_OPERATION_SUCCESS;
 }
   /** @endcond */
@@ -206,7 +228,8 @@ SBase::getAllElementsFromPlugins()
   for (size_t i=0; i < mPlugins.size(); i++)
   {
     List* sublist = mPlugins[i]->getAllElements();
-    if (sublist != NULL) {
+    if (sublist != NULL && sublist->getSize() > 0) 
+    {
       ret->transferFrom(sublist);
       delete sublist;
     }
