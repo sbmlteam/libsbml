@@ -3454,19 +3454,19 @@ protected:
    * For example:
    * @if clike
 @verbatim
-SBase::readExtensionAttributes(attributes);
+SBase::readExtensionAttributes(attributes, expectedAttributes);
 @endverbatim
    * @endif@if java
 @verbatim
-SBase.readExtensionAttributes(attributes);
+SBase.readExtensionAttributes(attributes, expectedAttributes);
 @endverbatim
    * @endif@if java
 @verbatim
-SBase.readExtensionAttributes(attributes);
+SBase.readExtensionAttributes(attributes, expectedAttributes);
 @endverbatim
    * @endif@if python
 @verbatim
-SBase.readExtensionAttributes(attributes);
+SBase.readExtensionAttributes(attributes, expectedAttributes);
 @endverbatim
    * @endif@~
    */
