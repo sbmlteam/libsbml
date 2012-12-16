@@ -186,13 +186,17 @@ public:
    */
   virtual int unsetRequired();
 
+  /** @cond doxygen-libsbml-internal */
 
   
+  virtual bool isFlatteningImplemented() const;
 
+  /** @endcond */
 
 
 protected:
   /** @cond doxygen-libsbml-internal */
+
 
   /*-- data members --*/
 

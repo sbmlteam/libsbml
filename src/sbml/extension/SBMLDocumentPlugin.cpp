@@ -181,6 +181,14 @@ SBMLDocumentPlugin::writeAttributes (XMLOutputStream& stream) const
   }
 }
 
+bool
+SBMLDocumentPlugin::isFlatteningImplemented() const
+{
+  return false;
+}
+
+
+
 /** @endcond doxygen-libsbml-internal */
 
 
