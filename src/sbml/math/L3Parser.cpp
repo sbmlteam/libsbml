@@ -666,8 +666,8 @@ static const yytype_uint16 yyrline[] =
 {
        0,   298,   298,   299,   300,   301,   304,   305,   331,   332,
      333,   344,   355,   356,   357,   358,   359,   360,   393,   394,
-     395,   396,   397,   398,   399,   400,   401,   402,   413,   464,
-     465,   466,   467,   468,   482,   483
+     395,   396,   397,   398,   399,   400,   401,   402,   413,   469,
+     470,   471,   472,   473,   487,   488
 };
 #endif
 
@@ -1908,6 +1908,11 @@ yyreduce:
                      ASTNodeType_t type = l3p->getFunctionFor(name);
                      if (type != AST_UNKNOWN) (yyval.astnode)->setType(type);
                      if (type==AST_FUNCTION_ROOT && l3p->caselessStrCmp(name, "sqrt")) {
+                       //If the number of arguments is wrong, set an error now instead of waiting for later.
+                       if ((yyval.astnode)->getNumChildren() != 1) {
+                         l3p->setError("The function 'sqrt' takes exactly one argument.");
+                         YYABORT;
+                       }
                        //Add a '2' node before the existing child.
                        ASTNode* int2 = new ASTNode(AST_INTEGER);
                        int2->setValue(2);
@@ -1952,35 +1957,35 @@ yyreduce:
   case 29:
 
 /* Line 1464 of yacc.c  */
-#line 464 "L3Parser.ypp"
+#line 469 "L3Parser.ypp"
     {(yyval.astnode) = new ASTNode(); (yyval.astnode)->setValue((yyvsp[(1) - (1)].numdouble));;}
     break;
 
   case 30:
 
 /* Line 1464 of yacc.c  */
-#line 465 "L3Parser.ypp"
+#line 470 "L3Parser.ypp"
     {(yyval.astnode) = new ASTNode(); (yyval.astnode)->setValue((yyvsp[(1) - (1)].mantissa), l3p->exponent);;}
     break;
 
   case 31:
 
 /* Line 1464 of yacc.c  */
-#line 466 "L3Parser.ypp"
+#line 471 "L3Parser.ypp"
     {(yyval.astnode) = new ASTNode(); (yyval.astnode)->setValue((yyvsp[(1) - (1)].numlong));;}
     break;
 
   case 32:
 
 /* Line 1464 of yacc.c  */
-#line 467 "L3Parser.ypp"
+#line 472 "L3Parser.ypp"
     {(yyval.astnode) = new ASTNode(); (yyval.astnode)->setValue((yyvsp[(1) - (1)].rational), l3p->denominator);;}
     break;
 
   case 33:
 
 /* Line 1464 of yacc.c  */
-#line 468 "L3Parser.ypp"
+#line 473 "L3Parser.ypp"
     {
                   (yyval.astnode) = (yyvsp[(1) - (2)].astnode);
                   if ((yyval.astnode)->getUnits() != "") {
@@ -1998,21 +2003,21 @@ yyreduce:
   case 34:
 
 /* Line 1464 of yacc.c  */
-#line 482 "L3Parser.ypp"
+#line 487 "L3Parser.ypp"
     {(yyval.astnode) = new ASTNode(AST_FUNCTION); (yyval.astnode)->addChild((yyvsp[(1) - (1)].astnode));;}
     break;
 
   case 35:
 
 /* Line 1464 of yacc.c  */
-#line 483 "L3Parser.ypp"
+#line 488 "L3Parser.ypp"
     {(yyval.astnode) = (yyvsp[(1) - (3)].astnode);  (yyval.astnode)->addChild((yyvsp[(3) - (3)].astnode));;}
     break;
 
 
 
 /* Line 1464 of yacc.c  */
-#line 2016 "L3Parser.cpp"
+#line 2021 "L3Parser.cpp"
       default: break;
     }
   YY_SYMBOL_PRINT ("-> $$ =", yyr1[yyn], &yyval, &yyloc);
@@ -2224,7 +2229,7 @@ yyreturn:
 
 
 /* Line 1684 of yacc.c  */
-#line 486 "L3Parser.ypp"
+#line 491 "L3Parser.ypp"
 
 
 

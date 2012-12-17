@@ -275,13 +275,13 @@ LIBSBML_CPP_NAMESPACE_END
 
 %type <astnode> node nodelist number
 
-%left '&' '|' /* Boolean functions and, or */
+%left '&' '|'         /* Boolean functions and, or */
 %left '<' '>' '=' '!' /* Boolean comparison functions (gt, lt, eq, etc.) */
-%left NOT /* boolean negation--unary not */
+%left NOT             /* Boolean negation--unary not */
 %left '-' '+'
 %left '*' '/' '%'
-%right '^'    /* exponentiation        */
-%left NEG     /* negation--unary minus */
+%right '^'            /* exponentiation        */
+%left NEG             /* negation--unary minus */
 
 %token YYEOF 0 "end of string"
 %token  <numdouble> DOUBLE "number"
@@ -420,6 +420,11 @@ node:           number {$$ = $1;}
                      ASTNodeType_t type = l3p->getFunctionFor(name);
                      if (type != AST_UNKNOWN) $$->setType(type);
                      if (type==AST_FUNCTION_ROOT && l3p->caselessStrCmp(name, "sqrt")) {
+                       //If the number of arguments is wrong, set an error now instead of waiting for later.
+                       if ($$->getNumChildren() != 1) {
+                         l3p->setError("The function 'sqrt' takes exactly one argument.");
+                         YYABORT;
+                       }
                        //Add a '2' node before the existing child.
                        ASTNode* int2 = new ASTNode(AST_INTEGER);
                        int2->setValue(2);

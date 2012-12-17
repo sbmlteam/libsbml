@@ -2154,6 +2154,16 @@ START_TEST (test_SBML_parseL3Formula_lambdaerr)
 END_TEST
 
 
+START_TEST (test_SBML_parseL3Formula_sqrterr)
+{
+  ASTNode_t *r = SBML_parseL3Formula("sqrt(x,y)");
+
+  fail_unless(r == NULL, NULL);
+  fail_unless( !strcmp(SBML_getLastParseL3Error(), "Error when parsing input 'sqrt(x,y)' at position 9:  The function 'sqrt' takes exactly one argument."), NULL);
+}
+END_TEST
+
+
 Suite *
 create_suite_L3FormulaParser (void) 
 { 
@@ -2248,6 +2258,7 @@ create_suite_L3FormulaParser (void)
   tcase_add_test( tcase, test_SBML_parseL3Formula_lambda2);
   tcase_add_test( tcase, test_SBML_parseL3Formula_lambda3);
   tcase_add_test( tcase, test_SBML_parseL3Formula_lambdaerr);
+  tcase_add_test( tcase, test_SBML_parseL3Formula_sqrterr);
   suite_add_tcase(suite, tcase);
 
   return suite;
