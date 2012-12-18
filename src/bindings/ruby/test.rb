@@ -20,6 +20,7 @@ Dir.chdir(test_base + "/..")
 if RUBY_VERSION >= '1.9'
  testfiles = File.join(test_base + "/**", "Test*.rb")
  files = Dir::glob(testfiles)
+ begin
  Test::Unit.setup_argv {files
   if files.size == 1
     $0 = File.basename(files[0])
@@ -28,6 +29,10 @@ if RUBY_VERSION >= '1.9'
   end
   files
  }
+ rescue 
+   Test::Unit::AutoRunner.run(RUBY_VERSION >= '1.8.3' ,test_base + '/',['--pattern=/Test.*\.rb\Z/'])
+ end
+  
 else
  Test::Unit::AutoRunner.run(RUBY_VERSION >= '1.8.3' ,test_base + '/',['--pattern=/Test.*\.rb\Z/'])
 end
