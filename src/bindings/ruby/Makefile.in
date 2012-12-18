@@ -283,7 +283,7 @@ check: $(libraries) $(shell $(call check_layout))
 	@echo
 	@echo Running Tests in $(thisdir)
 	@echo -----------------------------------------------------------------
-	$(call libsbmlrun, $(RUBY) -I./ test.rb)
+	$(call libsbmlrun, $(RUBY) -I./ -I./ruby test.rb)
 	@echo -----------------------------------------------------------------
 	@echo
 

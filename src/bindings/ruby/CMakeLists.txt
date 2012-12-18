@@ -177,7 +177,7 @@ if(WITH_CHECK)
 	file(TO_NATIVE_PATH ${CMAKE_CURRENT_BINARY_DIR}/test.rb test_runner)
 
 	# run ruby tests
-	add_test(test_ruby_binding ${RUBY_EXECUTABLE} -I. -I${CMAKE_CURRENT_SOURCE_DIR} ${test_runner} 
+	add_test(test_ruby_binding ${RUBY_EXECUTABLE} -I. -I${CMAKE_CURRENT_SOURCE_DIR} -I${CMAKE_CURRENT_SOURCE_DIR}/ruby ${test_runner} 
 	       -b ${CMAKE_CURRENT_SOURCE_DIR}/test -p ${CTEST_CONFIGURATION_TYPE})
 
 	# specify that tests have passed if we find only dots	
