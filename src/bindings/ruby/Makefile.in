@@ -188,7 +188,7 @@ objfiles = libsbml_wrap.lo $(wildcard $(addsuffix /*.lo,$(otherdirs)))
 # Files for test system.
 
 test_dir      = test
-check_sources = test.rb $(wildcard $(test_dir)/**/Test*.rb)
+check_sources = test.rb $(wildcard $(test_dir)/**/Test*.rb) $(wildcard ruby/**/*.rb)
 
 # `distfiles' determines the files and directories included in a
 # distribution.  `distfiles_exclude' is used to filter out specific items,
