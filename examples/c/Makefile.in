@@ -75,7 +75,7 @@ programs   = convertSBML evaluateMath echoSBML printMath printSBML \
 			 addingEvidenceCodes_1 addingEvidenceCodes_2 addModelHistory \
 			 appendAnnotation createExampleSBML printAnnotation \
 			 printNotes printRegisteredPackages printSupported printUnits \
-			 unsetAnnotation unsetNotes
+			 unsetAnnotation unsetNotes stripPackage
 
 all: $(programs)
 
@@ -116,6 +116,9 @@ addingEvidenceCodes_2: addingEvidenceCodes_2.c util.c
 	$(CC) $(CFLAGS) $(CPPFLAGS) $(LDFLAGS) -o $@ $^ $(LIBS)
 
 addModelHistory: addModelHistory.c util.c
+	$(CC) $(CFLAGS) $(CPPFLAGS) $(LDFLAGS) -o $@ $^ $(LIBS)
+
+stripPackage: stripPackage.c util.c
 	$(CC) $(CFLAGS) $(CPPFLAGS) $(LDFLAGS) -o $@ $^ $(LIBS)
 
 appendAnnotation: appendAnnotation.c util.c

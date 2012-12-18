@@ -49,7 +49,7 @@ classes   = convertSBML.class printMath.class printSBML.class readSBML.class \
 			addCustomValidator.class addingEvidenceCodes_1.class \
 			addingEvidenceCodes_2.class callExternalValidator.class \
 			createExampleSBML.class printRegisteredPackages.class \
-			printsupported.class
+			printsupported.class stripPackage.class
             
 all: $(classes)
 

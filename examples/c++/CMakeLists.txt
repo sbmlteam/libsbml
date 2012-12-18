@@ -29,6 +29,7 @@ foreach(example
 	printSupported
 	printUnits
 	readSBML
+	stripPackage
 	translateMath
 	translateL3Math
 	unsetAnnotation

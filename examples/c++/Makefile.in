@@ -58,7 +58,7 @@ LIBS      += -lstdc++ -lm
 # assigned to the variables above.
 
 programs   = convertSBML echoSBML printSBML readSBML translateMath \
-	     validateSBML printMath printUnits createExampleSBML
+	     validateSBML printMath printUnits createExampleSBML stripPackage
 
 all: $(programs)
 
@@ -66,6 +66,9 @@ convertSBML: convertSBML.cpp util.c
 	$(CXX) $(CXXFLAGS) $(CPPFLAGS) $(LDFLAGS) -o $@ $^ $(LIBS)
 
 echoSBML: echoSBML.cpp
+	$(CXX) $(CXXFLAGS) $(CPPFLAGS) $(LDFLAGS) -o $@ $^ $(LIBS)
+
+stripPackage: stripPackage.cpp
 	$(CXX) $(CXXFLAGS) $(CPPFLAGS) $(LDFLAGS) -o $@ $^ $(LIBS)
 
 printSBML: printSBML.cpp util.c

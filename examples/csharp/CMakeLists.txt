@@ -26,6 +26,7 @@ foreach( example
 	printsupported
 	printUnits
 	readSBML
+	stripPackage
 	translateMath
 	unsetAnnotation
 	unsetNotes
