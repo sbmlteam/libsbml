@@ -54,5 +54,5 @@ if ($sbmldoc->convert($props) != $LibSBML::LIBSBML_OPERATION_SUCCESS)
   exit 3;
 }
 $writer->writeSBML($sbmldoc, $outfile);
-print("[OK] Echoed ", $infile, " to ", $outfile, "\n");
+print("[OK] striped package '", $package,"' from ", $infile, " to ", $outfile, "\n");
 
