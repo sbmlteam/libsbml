@@ -253,6 +253,20 @@ private:
 
 /** @endcond */
 
+unsigned int 
+SBMLErrorLog::getNumFailsWithSeverity(unsigned int severity) const
+{
+  int n = 0;
+
+#if defined(__SUNPRO_CC)
+  // Workaround for Sun cc which is missing:
+  count_if(mErrors.begin(), mErrors.end(), MatchSeverity(severity), n);
+#else
+  n = (int)count_if(mErrors.begin(), mErrors.end(), MatchSeverity(severity));
+#endif
+
+  return n;
+}
 
 /*
  * Returns number of errors that are logged with severity Error

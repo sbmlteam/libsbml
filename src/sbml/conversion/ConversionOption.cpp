@@ -265,9 +265,283 @@ ConversionOption::setIntValue(int value)
   setType(CNV_TYPE_INT);
 }
 
+
+/**
+ * Creates a new ConversionOption_t with the given key.
+ *
+ * @param key the key for this option
+ */
+LIBSBML_EXTERN
+ConversionOption_t*
+ConversionOption_create(const char* key)
+{
+  return new ConversionOption(key);
+}
+
+
+/** 
+ * Creates and returns a deep copy of the ConversionOption object.
+ * 
+ * @param co the conversion option to clone
+ *
+ * @return a (deep) copy of the ConversionOption object.
+ */
+LIBSBML_EXTERN
+ConversionOption_t*
+ConversionOption_clone(const ConversionOption_t* co)
+{
+  if (co == NULL) return NULL;
+  return co->clone();
+}
+
+/**
+ * Creates a new ConversionOption_t with given key and type.
+ *
+ * @param key the key for this option
+ * @param type the type of this option
+ */
+LIBSBML_EXTERN
+ConversionOption_t*
+ConversionOption_createWithKeyAndType(const char* key, ConversionOptionType_t type)
+{
+  return new ConversionOption(key, type);
+}
+
+/**
+ * Returns the key for the given option.
+ * 
+ * @param co the conversion option
+ *
+ * @return the key, as a string.
+ */
+LIBSBML_EXTERN
+const char*
+ConversionOption_getKey(const ConversionOption_t* co)
+{
+  if (co == NULL) return NULL;
+  return co->getKey().c_str();
+}
+
+/**
+ * Returns the description for the given option.
+ * 
+ * @param co the conversion option
+ *
+ * @return the description, as a string.
+ */
+
+LIBSBML_EXTERN
+const char*
+ConversionOption_getDescription(const ConversionOption_t* co)
+{
+  if (co == NULL) return NULL;
+  return co->getDescription().c_str();
+}
+
+/**
+ * Returns the value for the given option.
+ * 
+ * @param co the conversion option
+ *
+ * @return the value, as a string.
+ */
+LIBSBML_EXTERN
+const char*
+ConversionOption_getValue(const ConversionOption_t* co)
+{
+  if (co == NULL) return NULL;
+  return co->getValue().c_str();
+}
+
+/**
+ * Returns the value (as boolean) for the given option.
+ * 
+ * @param co the conversion option
+ *
+ * @return the value, as a boolean.
+ */
+LIBSBML_EXTERN
+int
+ConversionOption_getBoolValue(const ConversionOption_t* co)
+{
+  if (co == NULL) return 0;
+  return (int) co->getBoolValue();
+}
+
+/**
+ * Returns the value (as integer) for the given option.
+ * 
+ * @param co the conversion option
+ *
+ * @return the value, as a integer.
+ */LIBSBML_EXTERN
+int
+ConversionOption_getIntValue(const ConversionOption_t* co)
+{
+  if (co == NULL) return 0;
+  return (int) co->getIntValue();
+}
+
+/**
+ * Returns the value (as float) for the given option.
+ * 
+ * @param co the conversion option
+ *
+ * @return the value, as a float.
+ */
+LIBSBML_EXTERN
+float
+ConversionOption_getFloatValue(const ConversionOption_t* co)
+{
+  if (co == NULL) return std::numeric_limits<float>::quiet_NaN();
+  return co->getFloatValue();
+}
+
+/**
+ * Returns the value (as double) for the given option.
+ * 
+ * @param co the conversion option
+ *
+ * @return the value, as a double.
+ */
+LIBSBML_EXTERN
+double
+ConversionOption_getDoubleValue(const ConversionOption_t* co)
+{
+  if (co == NULL) return std::numeric_limits<double>::quiet_NaN();
+  return co->getDoubleValue();
+}
+
+/**
+ * Returns the type for the given option.
+ * 
+ * @param co the conversion option
+ *
+ * @return the type
+ */
+LIBSBML_EXTERN
+ConversionOptionType_t
+ConversionOption_getType(const ConversionOption_t* co)
+{
+  if (co == NULL) return CNV_TYPE_STRING;
+  return co->getType();
+}
+
+
+/**
+ * Sets the key for the option.
+ * 
+ * @param co the conversion option
+ * @param key a string representing the key to set.
+ */
+LIBSBML_EXTERN
+void
+ConversionOption_setKey(ConversionOption_t* co, const char* key)
+{
+  if (co == NULL) return;
+  co->setKey(key);
+}
+
+/**
+ * Sets the description for the option.
+ * 
+ * @param co the conversion option
+ * @param description a string representing the description to set.
+ */
+LIBSBML_EXTERN
+void
+ConversionOption_setDescription(ConversionOption_t* co, const char* description)
+{
+  if (co == NULL) return;
+  co->setDescription(description);
+    
+}
+
+/**
+ * Sets the value for the option.
+ * 
+ * @param co the conversion option
+ * @param value a string representing the value to set.
+ */
+LIBSBML_EXTERN
+void
+ConversionOption_setValue(ConversionOption_t* co, const char* value)
+{
+  if (co == NULL) return;
+  co->setValue(value);
+}
+
+/**
+ * Sets the value for the option.
+ * 
+ * @param co the conversion option
+ * @param value a bool representing the value to set.
+ */
+LIBSBML_EXTERN
+void
+ConversionOption_setBoolValue(ConversionOption_t* co, int value)
+{
+  if (co == NULL) return;
+  co->setBoolValue(value != 0);
+}
+
+/**
+ * Sets the value for the option.
+ * 
+ * @param co the conversion option
+ * @param value an integer representing the value to set.
+ */
+LIBSBML_EXTERN
+void
+ConversionOption_setIntValue(ConversionOption_t* co, int value)
+{
+  if (co == NULL) return;
+  co->setIntValue(value);
+}
+
+/**
+ * Sets the value for the option.
+ * 
+ * @param co the conversion option
+ * @param value a float representing the value to set.
+ */
+LIBSBML_EXTERN
+void
+ConversionOption_setFloatValue(ConversionOption_t* co, float value)
+{
+  if (co == NULL) return;
+  co->setFloatValue(value);
+}
+
+/**
+ * Sets the value for the option.
+ * 
+ * @param co the conversion option
+ * @param value a double representing the value to set.
+ */
+LIBSBML_EXTERN
+void
+ConversionOption_setDoubleValue(ConversionOption_t* co, double value)
+{
+  if (co == NULL) return;
+  co ->setDoubleValue(value);
+}
+
+/**
+ * Sets the type for the option.
+ * 
+ * @param co the conversion option
+ * @param type the type for this option.
+ */
+LIBSBML_EXTERN
+void
+ConversionOption_setType(ConversionOption_t* co, ConversionOptionType_t type)
+{
+  if (co == NULL) return;
+  co->setType(type);
+}
+
+
 LIBSBML_CPP_NAMESPACE_END
 
 #endif  /* __cplusplus */
-
-
-

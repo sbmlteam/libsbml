@@ -134,6 +134,34 @@ public:
    */
   unsigned int getNumFailsWithSeverity(unsigned int severity);
 
+   /**
+   * Returns the number of errors that have been logged with the given
+   * severity code.
+   *
+   * LibSBML associates severity levels with every SBMLError object to
+   * provide an indication of how serious the problem is.  Severities range
+   * from informational diagnostics to fatal (irrecoverable) errors.  Given
+   * an SBMLError object instance, a caller can interrogate it for its
+   * severity level using methods such as SBMLError::getSeverity(),
+   * SBMLError::isFatal(), and so on.  The present method encapsulates
+   * iteration and interrogation of all objects in an SBMLErrorLog, making
+   * it easy to check for the presence of error objects with specific
+   * severity levels.
+   *
+   * @if clike @param severity a value from
+   * #SBMLErrorSeverity_t @endif@if java @param severity a
+   * value from the set of <code>LIBSBML_SEV_</code> constants defined by
+   * the interface class <code><a
+   * href="libsbmlConstants.html">libsbmlConstants</a></code> @endif@if python @param severity a
+   * value from the set of <code>LIBSBML_SEV_</code> constants defined by
+   * the interface class @link libsbml libsbml@endlink. @endif@~
+   *
+   * @return a count of the number of errors with the given severity code.
+   *
+   * @see getNumErrors()
+   */
+  unsigned int getNumFailsWithSeverity(unsigned int severity) const;
+
 
   /** @cond doxygen-libsbml-internal */
 

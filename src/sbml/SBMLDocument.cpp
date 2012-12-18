@@ -865,6 +865,13 @@ SBMLDocument::getNumErrors () const
 }
 
 
+unsigned int 
+SBMLDocument::getNumErrors (unsigned int severity) const
+{
+  return getErrorLog()->getNumFailsWithSeverity(severity);
+}
+
+
 /*
  * Prints all errors encountered during the parse of this SBMLDocument to
  * the given stream.  If no errors have occurred, i.e.  getNumErrors() ==
@@ -1016,6 +1023,7 @@ SBMLDocument::getErrorLog ()
 {
   return &mErrorLog;
 }
+
 
 /*
  * @return the SBMLErrorLog used to log errors during while reading and
@@ -1716,7 +1724,7 @@ SBMLDocument::enablePackageInternal(const std::string& pkgURI, const std::string
 //      xmlns->remove(xmlns->getIndex(pkgURI));
 //    }
 
-    for (int i = 0; i < mRequiredAttrOfUnknownPkg.getLength(); i++)
+    for (unsigned int i = 0; i < mRequiredAttrOfUnknownPkg.getLength(); i++)
     {
       if (pkgURI == mRequiredAttrOfUnknownPkg.getURI(i)
         && pkgPrefix == mRequiredAttrOfUnknownPkg.getPrefix(i))
@@ -2485,6 +2493,27 @@ SBMLDocument_getNumErrors (const SBMLDocument_t *d)
   return (d != NULL) ? d->getNumErrors() : SBML_INT_MAX;
 }
 
+/**
+ * Returns the number of errors or warnings encountered during parsing,
+ * consistency checking, or attempted translation of this model.
+ *
+ * @param d the SBMLDocument_t structure
+ *
+ * @return the number of errors or warnings encountered
+ *
+ * @see SBMLDocument_setLevelAndVersion(), SBMLDocument_checkConsistency(),
+ * SBMLDocument_checkL1Compatibility(),
+ * SBMLDocument_checkL2v1Compatibility()
+ * SBMLDocument_checkL2v2Compatibility(), SBMLReader_readSBML(),
+ * SBMLReader_readSBMLFromString().
+ */
+LIBSBML_EXTERN
+unsigned int
+SBMLDocument_getNumErrorsWithSeverity (const SBMLDocument_t *d, unsigned int severity)
+{
+   return (d != NULL) ? d->getNumErrors(severity) : SBML_INT_MAX;
+}
+
 
 /**
  * Prints to the given output stream all the errors or warnings
@@ -2606,6 +2635,30 @@ int
 SBMLDocument_isSetPackageRequired (SBMLDocument_t *d, const char * package)
 {
   return (d != NULL) ? static_cast<int>(d->isSetPackageRequired(package)) : 0;
+}
+
+/**
+ * Converts this document using the converter that best matches
+ * the given conversion properties. 
+ * 
+ * @param d the SBMLDocument_t structure
+ * @param props the conversion properties to use
+ * 
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED  @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_CONV_CONVERSION_NOT_AVAILABLE LIBSBML_CONV_CONVERSION_NOT_AVAILABLE  @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT  @endlink
+ */
+LIBSBML_EXTERN
+int
+SBMLDocument_convert(SBMLDocument_t *d, const ConversionProperties_t* props)
+{
+  if (d == NULL || props == NULL) return LIBSBML_INVALID_OBJECT;
+  return d->convert(*props);
 }
 
 

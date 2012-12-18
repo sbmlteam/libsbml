@@ -382,6 +382,102 @@ LIBSBML_CPP_NAMESPACE_END
 LIBSBML_CPP_NAMESPACE_BEGIN
 BEGIN_C_DECLS
 
+LIBSBML_EXTERN
+ConversionProperties_t*
+ConversionProperties_create();
+
+LIBSBML_EXTERN
+ConversionProperties_t*
+ConversionProperties_clone(const ConversionProperties_t* cp);
+
+LIBSBML_EXTERN
+ConversionProperties_t*
+ConversionProperties_createWithSBMLNamespace(SBMLNamespaces_t* sbmlns);
+
+LIBSBML_EXTERN
+int
+ConversionProperties_getBoolValue(const ConversionProperties_t* cp, const char* key);
+
+LIBSBML_EXTERN
+int
+ConversionProperties_getIntValue(const ConversionProperties_t* cp, const char* key);
+
+LIBSBML_EXTERN
+char*
+ConversionProperties_getDescription(const ConversionProperties_t* cp, const char* key);
+
+LIBSBML_EXTERN
+double
+ConversionProperties_getDoubleValue(const ConversionProperties_t* cp, const char* key);
+
+LIBSBML_EXTERN
+float
+ConversionProperties_getFloatValue(const ConversionProperties_t* cp, const char* key);
+
+LIBSBML_EXTERN
+char*
+ConversionProperties_getValue(const ConversionProperties_t* cp, const char* key);
+
+LIBSBML_EXTERN
+const ConversionOption_t*
+ConversionProperties_getOption(const ConversionProperties_t* cp, const char* key);
+
+LIBSBML_EXTERN
+ConversionOptionType_t
+ConversionProperties_getType(const ConversionProperties_t* cp, const char* key);
+
+LIBSBML_EXTERN
+const SBMLNamespaces_t*
+ConversionProperties_getTargetNamespaces(const ConversionProperties_t* cp);
+
+
+LIBSBML_EXTERN
+int
+ConversionProperties_hasOption(const ConversionProperties_t* cp, const char* key);
+
+LIBSBML_EXTERN
+int
+ConversionProperties_hasTargetNamespaces(const ConversionProperties_t* cp);
+
+
+LIBSBML_EXTERN
+void
+ConversionProperties_setTargetNamespaces(ConversionProperties_t* cp, SBMLNamespaces_t* sbmlns);
+
+LIBSBML_EXTERN
+void
+ConversionProperties_setBoolValue(ConversionProperties_t* cp, const char* key, int value);
+
+LIBSBML_EXTERN
+void
+ConversionProperties_setIntValue(ConversionProperties_t* cp, const char* key, int value);
+
+LIBSBML_EXTERN
+void
+ConversionProperties_setDoubleValue(ConversionProperties_t* cp, const char* key, double value);
+
+LIBSBML_EXTERN
+void
+ConversionProperties_setFloatValue(ConversionProperties_t* cp, const char* key, float value);
+
+LIBSBML_EXTERN
+void
+ConversionProperties_setValue(ConversionProperties_t* cp, const char* key, const char* value);
+
+
+LIBSBML_EXTERN
+void
+ConversionProperties_addOption(ConversionProperties_t* cp, const ConversionOption_t* option);
+
+LIBSBML_EXTERN
+void
+ConversionProperties_addOptionWithKey(ConversionProperties_t* cp, const char* key);
+
+LIBSBML_EXTERN
+void
+ConversionProperties_removeOption(ConversionProperties_t* cp, const char* key);
+
+
 END_C_DECLS
 LIBSBML_CPP_NAMESPACE_END
 

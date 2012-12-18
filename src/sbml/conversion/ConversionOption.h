@@ -94,7 +94,7 @@
 
 
 #include <sbml/common/extern.h>
-
+#include <sbml/common/sbmlfwd.h>
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
@@ -390,6 +390,84 @@ LIBSBML_CPP_NAMESPACE_END
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 BEGIN_C_DECLS
+
+LIBSBML_EXTERN
+ConversionOption_t*
+ConversionOption_create(const char* key);
+
+LIBSBML_EXTERN
+ConversionOption_t*
+ConversionOption_clone(const ConversionOption_t* co);
+
+LIBSBML_EXTERN
+ConversionOption_t*
+ConversionOption_createWithKeyAndType(const char* key, ConversionOptionType_t type);
+
+LIBSBML_EXTERN
+const char*
+ConversionOption_getKey(const ConversionOption_t* co);
+
+LIBSBML_EXTERN
+const char*
+ConversionOption_getDescription(const ConversionOption_t* co);
+
+LIBSBML_EXTERN
+const char*
+ConversionOption_getValue(const ConversionOption_t* co);
+
+LIBSBML_EXTERN
+int
+ConversionOption_getBoolValue(const ConversionOption_t* co);
+
+LIBSBML_EXTERN
+int
+ConversionOption_getIntValue(const ConversionOption_t* co);
+
+LIBSBML_EXTERN
+float
+ConversionOption_getFloatValue(const ConversionOption_t* co);
+
+LIBSBML_EXTERN
+double
+ConversionOption_getDoubleValue(const ConversionOption_t* co);
+
+LIBSBML_EXTERN
+ConversionOptionType_t
+ConversionOption_getType(const ConversionOption_t* co);
+
+
+LIBSBML_EXTERN
+void
+ConversionOption_setKey(ConversionOption_t* co, const char* key);
+
+LIBSBML_EXTERN
+void
+ConversionOption_setDescription(ConversionOption_t* co, const char* description);
+
+LIBSBML_EXTERN
+void
+ConversionOption_setValue(ConversionOption_t* co, const char* value);
+
+LIBSBML_EXTERN
+void
+ConversionOption_setBoolValue(ConversionOption_t* co, int value);
+
+LIBSBML_EXTERN
+void
+ConversionOption_setIntValue(ConversionOption_t* co, int value);
+
+LIBSBML_EXTERN
+void
+ConversionOption_setFloatValue(ConversionOption_t* co, float value);
+
+LIBSBML_EXTERN
+void
+ConversionOption_setDoubleValue(ConversionOption_t* co, double value);
+
+LIBSBML_EXTERN
+void
+ConversionOption_setType(ConversionOption_t* co, ConversionOptionType_t type);
+
 
 END_C_DECLS
 LIBSBML_CPP_NAMESPACE_END

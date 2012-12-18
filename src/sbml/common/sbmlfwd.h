@@ -371,6 +371,15 @@ typedef CLASS_OR_STRUCT SBMLDocumentPlugin    SBMLDocumentPlugin_t;
 typedef CLASS_OR_STRUCT L3ParserSettings    L3ParserSettings_t;
 
 
+/**
+ * @var typedef class L3ParserSettings L3ParserSettings_t
+ */
+typedef CLASS_OR_STRUCT ConversionOption    ConversionOption_t;
+
+/**
+ * @var typedef class L3ParserSettings L3ParserSettings_t
+ */
+typedef CLASS_OR_STRUCT ConversionProperties    ConversionProperties_t;
 
 
 LIBSBML_CPP_NAMESPACE_END

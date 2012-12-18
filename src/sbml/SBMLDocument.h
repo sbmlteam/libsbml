@@ -1086,6 +1086,19 @@ public:
    */
   unsigned int getNumErrors () const;
 
+  /**
+   * Returns the number of errors or warnings encountered with the given 
+   * severity during parsing,
+   * consistency checking, or attempted translation of this model.
+   *
+   * @param severity the severity of the error sought. 
+   *
+   * @return the number of errors or warnings encountered
+   *
+   * @see SBMLDocument::getError(unsigned int n)
+   */
+  unsigned int getNumErrors (unsigned int severity) const;
+
 
   /**
    * Prints all the errors or warnings encountered trying to parse,
@@ -1724,6 +1737,9 @@ LIBSBML_EXTERN
 unsigned int
 SBMLDocument_getNumErrors (const SBMLDocument_t *d);
 
+LIBSBML_EXTERN
+unsigned int
+SBMLDocument_getNumErrorsWithSeverity (const SBMLDocument_t *d, unsigned int severity);
 
 LIBSBML_EXTERN
 void
@@ -1776,6 +1792,9 @@ LIBSBML_EXTERN
 int
 SBMLDocument_isSetPackageRequired (SBMLDocument_t *d, const char * package);
 
+LIBSBML_EXTERN
+int
+SBMLDocument_convert(SBMLDocument_t *d, const ConversionProperties_t* props);
 
 END_C_DECLS
 LIBSBML_CPP_NAMESPACE_END
