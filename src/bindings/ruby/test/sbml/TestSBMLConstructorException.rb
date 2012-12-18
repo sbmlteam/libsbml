@@ -54,7 +54,7 @@ class TestSBMLConstructorException < Test::Unit::TestCase
     rescue SBMLConstructorException
        msg = $!
     end
-    assert_equal msg.to_str,  @@ERR_MSG
+    assert_equal msg.to_s,  @@ERR_MSG
 
     msg = ""
     begin
@@ -62,7 +62,7 @@ class TestSBMLConstructorException < Test::Unit::TestCase
     rescue SBMLConstructorException 
        msg = $!
     end
-    assert_equal msg.to_str,  @@ERR_MSG
+    assert_equal msg.to_s,  @@ERR_MSG
 
     msg = ""
     begin
@@ -70,7 +70,7 @@ class TestSBMLConstructorException < Test::Unit::TestCase
     rescue SBMLConstructorException 
        msg = $!
     end
-    assert_equal msg.to_str, @@ERR_MSG
+    assert_equal msg.to_s, @@ERR_MSG
 
     msg = ""
     begin
@@ -78,7 +78,7 @@ class TestSBMLConstructorException < Test::Unit::TestCase
     rescue SBMLConstructorException 
        msg = $!
     end
-    assert_equal msg.to_str, @@ERR_MSG
+    assert_equal msg.to_s, @@ERR_MSG
 	
     msg = ""
     begin
@@ -86,7 +86,7 @@ class TestSBMLConstructorException < Test::Unit::TestCase
     rescue SBMLConstructorException
        msg = $!
     end
-    assert_equal msg.to_str,  @@ERR_MSG
+    assert_equal msg.to_s,  @@ERR_MSG
 
     msg = ""
     begin
@@ -94,7 +94,7 @@ class TestSBMLConstructorException < Test::Unit::TestCase
     rescue SBMLConstructorException
        msg = $!
     end
-    assert_equal msg.to_str,  @@ERR_MSG
+    assert_equal msg.to_s,  @@ERR_MSG
 
     msg = ""
     begin
@@ -102,7 +102,7 @@ class TestSBMLConstructorException < Test::Unit::TestCase
     rescue SBMLConstructorException
        msg = $!
     end
-    assert_equal msg.to_str, @@ERR_MSG
+    assert_equal msg.to_s, @@ERR_MSG
 
     msg = ""
     begin
@@ -110,7 +110,7 @@ class TestSBMLConstructorException < Test::Unit::TestCase
     rescue SBMLConstructorException 
        msg = $!
     end
-    assert_equal msg.to_str, @@ERR_MSG
+    assert_equal msg.to_s, @@ERR_MSG
   end
 
   def test_Compartment_constructor
@@ -142,7 +142,7 @@ class TestSBMLConstructorException < Test::Unit::TestCase
     rescue SBMLConstructorException 
       msg = $!
     end
-    assert_equal msg.to_str, @@ERR_MSG
+    assert_equal msg.to_s, @@ERR_MSG
 	
 	msg = ""
     
@@ -151,7 +151,7 @@ class TestSBMLConstructorException < Test::Unit::TestCase
     rescue SBMLConstructorException 
       msg = $!
     end
-    assert_equal msg.to_str, @@ERR_MSG
+    assert_equal msg.to_s, @@ERR_MSG
   end
 
   def test_Constraint_constructor
@@ -176,7 +176,7 @@ class TestSBMLConstructorException < Test::Unit::TestCase
     rescue SBMLConstructorException 
        msg = $!
     end
-    assert_equal msg.to_str, @@ERR_MSG
+    assert_equal msg.to_s, @@ERR_MSG
     
     msg = ""
     begin
@@ -184,7 +184,7 @@ class TestSBMLConstructorException < Test::Unit::TestCase
     rescue SBMLConstructorException 
        msg = $!
     end
-    assert_equal msg.to_str, @@ERR_MSG
+    assert_equal msg.to_s, @@ERR_MSG
 
     msg = ""
     begin
@@ -192,7 +192,7 @@ class TestSBMLConstructorException < Test::Unit::TestCase
     rescue SBMLConstructorException 
        msg = $!
     end
-    assert_equal msg.to_str, @@ERR_MSG
+    assert_equal msg.to_s, @@ERR_MSG
 
 	msg = ""
     begin
@@ -200,7 +200,7 @@ class TestSBMLConstructorException < Test::Unit::TestCase
     rescue SBMLConstructorException 
        msg = $!
     end
-    assert_equal msg.to_str, @@ERR_MSG
+    assert_equal msg.to_s, @@ERR_MSG
 	
     msg = ""
     begin
@@ -208,7 +208,7 @@ class TestSBMLConstructorException < Test::Unit::TestCase
     rescue SBMLConstructorException
        msg = $!
     end
-    assert_equal msg.to_str, @@ERR_MSG
+    assert_equal msg.to_s, @@ERR_MSG
 
     msg = ""
     begin
@@ -216,7 +216,7 @@ class TestSBMLConstructorException < Test::Unit::TestCase
     rescue SBMLConstructorException
        msg = $!
     end
-    assert_equal msg.to_str, @@ERR_MSG
+    assert_equal msg.to_s, @@ERR_MSG
 
     msg = ""
     begin
@@ -224,7 +224,7 @@ class TestSBMLConstructorException < Test::Unit::TestCase
     rescue SBMLConstructorException
        msg = $!
     end
-    assert_equal msg.to_str, @@ERR_MSG
+    assert_equal msg.to_s, @@ERR_MSG
 
     msg = ""
     begin
@@ -232,7 +232,7 @@ class TestSBMLConstructorException < Test::Unit::TestCase
     rescue SBMLConstructorException 
        msg = $!
     end
-    assert_equal msg.to_str, @@ERR_MSG
+    assert_equal msg.to_s, @@ERR_MSG
   end
 
   def test_InitialAssignment_constructor
@@ -257,7 +257,7 @@ class TestSBMLConstructorException < Test::Unit::TestCase
     rescue SBMLConstructorException 
        msg = $!
     end
-    assert_equal msg.to_str, @@ERR_MSG
+    assert_equal msg.to_s, @@ERR_MSG
     
     msg = ""
     begin
@@ -265,7 +265,7 @@ class TestSBMLConstructorException < Test::Unit::TestCase
     rescue SBMLConstructorException 
        msg = $!
     end
-    assert_equal msg.to_str, @@ERR_MSG
+    assert_equal msg.to_s, @@ERR_MSG
 
     msg = ""
     begin
@@ -273,7 +273,7 @@ class TestSBMLConstructorException < Test::Unit::TestCase
     rescue SBMLConstructorException 
        msg = $!
     end
-    assert_equal msg.to_str, @@ERR_MSG
+    assert_equal msg.to_s, @@ERR_MSG
 
     msg = ""
     begin
@@ -281,7 +281,7 @@ class TestSBMLConstructorException < Test::Unit::TestCase
     rescue SBMLConstructorException 
        msg = $!
     end
-    assert_equal msg.to_str, @@ERR_MSG
+    assert_equal msg.to_s, @@ERR_MSG
 	
     msg = ""
     begin
@@ -289,7 +289,7 @@ class TestSBMLConstructorException < Test::Unit::TestCase
     rescue SBMLConstructorException
        msg = $!
     end
-    assert_equal msg.to_str, @@ERR_MSG
+    assert_equal msg.to_s, @@ERR_MSG
 
     msg = ""
     begin
@@ -297,7 +297,7 @@ class TestSBMLConstructorException < Test::Unit::TestCase
     rescue SBMLConstructorException
        msg = $!
     end
-    assert_equal msg.to_str, @@ERR_MSG
+    assert_equal msg.to_s, @@ERR_MSG
 
     msg = ""
     begin
@@ -305,7 +305,7 @@ class TestSBMLConstructorException < Test::Unit::TestCase
     rescue SBMLConstructorException
        msg = $!
     end
-    assert_equal msg.to_str, @@ERR_MSG
+    assert_equal msg.to_s, @@ERR_MSG
 
     msg = ""
     begin
@@ -313,7 +313,7 @@ class TestSBMLConstructorException < Test::Unit::TestCase
     rescue SBMLConstructorException 
        msg = $!
     end
-    assert_equal msg.to_str, @@ERR_MSG
+    assert_equal msg.to_s, @@ERR_MSG
   end
 
   def test_Species_constructor
@@ -345,7 +345,7 @@ class TestSBMLConstructorException < Test::Unit::TestCase
     rescue SBMLConstructorException 
        msg = $!
     end
-    assert_equal msg.to_str, @@ERR_MSG
+    assert_equal msg.to_s, @@ERR_MSG
 	
 	msg = ""
     
@@ -354,7 +354,7 @@ class TestSBMLConstructorException < Test::Unit::TestCase
     rescue SBMLConstructorException 
        msg = $!
     end
-    assert_equal msg.to_str, @@ERR_MSG
+    assert_equal msg.to_s, @@ERR_MSG
 	
   end
 
@@ -379,7 +379,7 @@ class TestSBMLConstructorException < Test::Unit::TestCase
     rescue SBMLConstructorException 
        msg = $!
     end
-    assert_equal msg.to_str, @@ERR_MSG
+    assert_equal msg.to_s, @@ERR_MSG
     
     msg = ""
     begin
@@ -387,7 +387,7 @@ class TestSBMLConstructorException < Test::Unit::TestCase
     rescue SBMLConstructorException 
        msg = $!
     end
-    assert_equal msg.to_str, @@ERR_MSG
+    assert_equal msg.to_s, @@ERR_MSG
 
     msg = ""
     begin
@@ -395,7 +395,7 @@ class TestSBMLConstructorException < Test::Unit::TestCase
     rescue SBMLConstructorException 
        msg = $!
     end
-    assert_equal msg.to_str, @@ERR_MSG
+    assert_equal msg.to_s, @@ERR_MSG
 
 	msg = ""
     begin
@@ -403,14 +403,14 @@ class TestSBMLConstructorException < Test::Unit::TestCase
     rescue SBMLConstructorException 
        msg = $!
     end
-    assert_equal msg.to_str, @@ERR_MSG
+    assert_equal msg.to_s, @@ERR_MSG
 
     begin
       s = LibSBML::SpeciesType.new(@@SN11)
     rescue SBMLConstructorException
        msg = $!
     end
-    assert_equal msg.to_str, @@ERR_MSG
+    assert_equal msg.to_s, @@ERR_MSG
 
     msg = ""
     begin
@@ -418,7 +418,7 @@ class TestSBMLConstructorException < Test::Unit::TestCase
     rescue SBMLConstructorException
        msg = $!
     end
-    assert_equal msg.to_str, @@ERR_MSG
+    assert_equal msg.to_s, @@ERR_MSG
 
     msg = ""
     begin
@@ -426,7 +426,7 @@ class TestSBMLConstructorException < Test::Unit::TestCase
     rescue SBMLConstructorException
        msg = $!
     end
-    assert_equal msg.to_str, @@ERR_MSG
+    assert_equal msg.to_s, @@ERR_MSG
 
     msg = ""
     begin
@@ -434,7 +434,7 @@ class TestSBMLConstructorException < Test::Unit::TestCase
     rescue SBMLConstructorException 
        msg = $!
     end
-    assert_equal msg.to_str, @@ERR_MSG
+    assert_equal msg.to_s, @@ERR_MSG
   end
 
   def test_Delay_constructor
@@ -461,7 +461,7 @@ class TestSBMLConstructorException < Test::Unit::TestCase
     rescue SBMLConstructorException 
        msg = $!
     end
-    assert_equal msg.to_str, @@ERR_MSG
+    assert_equal msg.to_s, @@ERR_MSG
     
     msg = ""
     begin
@@ -469,7 +469,7 @@ class TestSBMLConstructorException < Test::Unit::TestCase
     rescue SBMLConstructorException 
        msg = $!
     end
-    assert_equal msg.to_str, @@ERR_MSG
+    assert_equal msg.to_s, @@ERR_MSG
 
     msg = ""
     begin
@@ -477,7 +477,7 @@ class TestSBMLConstructorException < Test::Unit::TestCase
     rescue SBMLConstructorException 
        msg = $!
     end
-    assert_equal msg.to_str, @@ERR_MSG
+    assert_equal msg.to_s, @@ERR_MSG
 
     msg = ""
     begin
@@ -485,7 +485,7 @@ class TestSBMLConstructorException < Test::Unit::TestCase
     rescue SBMLConstructorException
        msg = $!
     end
-    assert_equal msg.to_str, @@ERR_MSG
+    assert_equal msg.to_s, @@ERR_MSG
 
     msg = ""
     begin
@@ -493,14 +493,14 @@ class TestSBMLConstructorException < Test::Unit::TestCase
     rescue SBMLConstructorException
        msg = $!
     end
-    assert_equal msg.to_str, @@ERR_MSG
+    assert_equal msg.to_s, @@ERR_MSG
     
     begin
       s = LibSBML::Delay.new(@@SN99)
     rescue SBMLConstructorException 
        msg = $!
     end
-    assert_equal msg.to_str, @@ERR_MSG
+    assert_equal msg.to_s, @@ERR_MSG
   end
 
   def test_Trigger_constructor
@@ -527,7 +527,7 @@ class TestSBMLConstructorException < Test::Unit::TestCase
     rescue SBMLConstructorException 
        msg = $!
     end
-    assert_equal msg.to_str, @@ERR_MSG
+    assert_equal msg.to_s, @@ERR_MSG
     
     msg = ""
     begin
@@ -535,7 +535,7 @@ class TestSBMLConstructorException < Test::Unit::TestCase
     rescue SBMLConstructorException 
        msg = $!
     end
-    assert_equal msg.to_str, @@ERR_MSG
+    assert_equal msg.to_s, @@ERR_MSG
 
 	msg = ""
     begin
@@ -543,7 +543,7 @@ class TestSBMLConstructorException < Test::Unit::TestCase
     rescue SBMLConstructorException 
        msg = $!
     end
-    assert_equal msg.to_str, @@ERR_MSG
+    assert_equal msg.to_s, @@ERR_MSG
 
     msg = ""
     begin
@@ -551,7 +551,7 @@ class TestSBMLConstructorException < Test::Unit::TestCase
     rescue SBMLConstructorException
        msg = $!
     end
-    assert_equal msg.to_str, @@ERR_MSG
+    assert_equal msg.to_s, @@ERR_MSG
 
     msg = ""
     begin
@@ -559,14 +559,14 @@ class TestSBMLConstructorException < Test::Unit::TestCase
     rescue SBMLConstructorException
        msg = $!
     end
-    assert_equal msg.to_str, @@ERR_MSG
+    assert_equal msg.to_s, @@ERR_MSG
     
     begin
       s = LibSBML::Trigger.new(@@SN99)
     rescue SBMLConstructorException 
        msg = $!
     end
-    assert_equal msg.to_str, @@ERR_MSG
+    assert_equal msg.to_s, @@ERR_MSG
   end
 
   def test_Event_constructor
@@ -594,7 +594,7 @@ class TestSBMLConstructorException < Test::Unit::TestCase
     rescue SBMLConstructorException 
        msg = $!
     end
-    assert_equal msg.to_str, @@ERR_MSG
+    assert_equal msg.to_s, @@ERR_MSG
     
     msg = ""
     begin
@@ -602,7 +602,7 @@ class TestSBMLConstructorException < Test::Unit::TestCase
     rescue SBMLConstructorException 
        msg = $!
     end
-    assert_equal msg.to_str, @@ERR_MSG
+    assert_equal msg.to_s, @@ERR_MSG
 
     msg = ""
     begin
@@ -610,14 +610,14 @@ class TestSBMLConstructorException < Test::Unit::TestCase
     rescue SBMLConstructorException 
        msg = $!
     end
-    assert_equal msg.to_str, @@ERR_MSG
+    assert_equal msg.to_s, @@ERR_MSG
 
     begin
       s = LibSBML::Event.new(@SN11)
     rescue SBMLConstructorException
        msg = $!
     end
-    assert_equal msg.to_str, @@ERR_MSG
+    assert_equal msg.to_s, @@ERR_MSG
 
     msg = ""
     begin
@@ -625,14 +625,14 @@ class TestSBMLConstructorException < Test::Unit::TestCase
     rescue SBMLConstructorException
        msg = $!
     end
-    assert_equal msg.to_str, @@ERR_MSG
+    assert_equal msg.to_s, @@ERR_MSG
     
     begin
       s = LibSBML::Event.new(@@SN99)
     rescue SBMLConstructorException 
        msg = $!
     end
-    assert_equal msg.to_str, @@ERR_MSG
+    assert_equal msg.to_s, @@ERR_MSG
   end
 
   def test_EventAssignment_constructor
@@ -659,7 +659,7 @@ class TestSBMLConstructorException < Test::Unit::TestCase
     rescue SBMLConstructorException 
        msg = $!
     end
-    assert_equal msg.to_str, @@ERR_MSG
+    assert_equal msg.to_s, @@ERR_MSG
     
     msg = ""
     begin
@@ -667,7 +667,7 @@ class TestSBMLConstructorException < Test::Unit::TestCase
     rescue SBMLConstructorException 
        msg = $!
     end
-    assert_equal msg.to_str, @@ERR_MSG
+    assert_equal msg.to_s, @@ERR_MSG
 
     msg = ""
     begin
@@ -675,7 +675,7 @@ class TestSBMLConstructorException < Test::Unit::TestCase
     rescue SBMLConstructorException 
        msg = $!
     end
-    assert_equal msg.to_str, @@ERR_MSG
+    assert_equal msg.to_s, @@ERR_MSG
 
     msg = ""
     begin
@@ -683,7 +683,7 @@ class TestSBMLConstructorException < Test::Unit::TestCase
     rescue SBMLConstructorException
        msg = $!
     end
-    assert_equal msg.to_str, @@ERR_MSG
+    assert_equal msg.to_s, @@ERR_MSG
 
     msg = ""
     begin
@@ -691,14 +691,14 @@ class TestSBMLConstructorException < Test::Unit::TestCase
     rescue SBMLConstructorException
        msg = $!
     end
-    assert_equal msg.to_str, @@ERR_MSG
+    assert_equal msg.to_s, @@ERR_MSG
     
     begin
       s = LibSBML::EventAssignment.new(@@SN99)
     rescue SBMLConstructorException 
        msg = $!
     end
-    assert_equal msg.to_str, @@ERR_MSG
+    assert_equal msg.to_s, @@ERR_MSG
   end
 
   def test_ModifierSpeciesReference_constructor
@@ -725,7 +725,7 @@ class TestSBMLConstructorException < Test::Unit::TestCase
     rescue SBMLConstructorException 
        msg = $!
     end
-    assert_equal msg.to_str, @@ERR_MSG
+    assert_equal msg.to_s, @@ERR_MSG
     
     msg = ""
     begin
@@ -733,7 +733,7 @@ class TestSBMLConstructorException < Test::Unit::TestCase
     rescue SBMLConstructorException 
        msg = $!
     end
-    assert_equal msg.to_str, @@ERR_MSG
+    assert_equal msg.to_s, @@ERR_MSG
 
     msg = ""
     begin
@@ -741,7 +741,7 @@ class TestSBMLConstructorException < Test::Unit::TestCase
     rescue SBMLConstructorException 
        msg = $!
     end
-    assert_equal msg.to_str, @@ERR_MSG
+    assert_equal msg.to_s, @@ERR_MSG
 
     msg = ""
     begin
@@ -749,7 +749,7 @@ class TestSBMLConstructorException < Test::Unit::TestCase
     rescue SBMLConstructorException
        msg = $!
     end
-    assert_equal msg.to_str, @@ERR_MSG
+    assert_equal msg.to_s, @@ERR_MSG
 
     msg = ""
     begin
@@ -757,14 +757,14 @@ class TestSBMLConstructorException < Test::Unit::TestCase
     rescue SBMLConstructorException
        msg = $!
     end
-    assert_equal msg.to_str, @@ERR_MSG
+    assert_equal msg.to_s, @@ERR_MSG
     
     begin
       s = LibSBML::ModifierSpeciesReference.new(@@SN99)
     rescue SBMLConstructorException 
        msg = $!
     end
-    assert_equal msg.to_str, @@ERR_MSG
+    assert_equal msg.to_s, @@ERR_MSG
   end
 
   def test_StoichiometryMath_constructor
@@ -789,7 +789,7 @@ class TestSBMLConstructorException < Test::Unit::TestCase
     rescue SBMLConstructorException 
        msg = $!
     end
-    assert_equal msg.to_str, @@ERR_MSG
+    assert_equal msg.to_s, @@ERR_MSG
     
     msg = ""
     begin
@@ -797,7 +797,7 @@ class TestSBMLConstructorException < Test::Unit::TestCase
     rescue SBMLConstructorException 
        msg = $!
     end
-    assert_equal msg.to_str, @@ERR_MSG
+    assert_equal msg.to_s, @@ERR_MSG
 
     msg = ""
     begin
@@ -805,14 +805,14 @@ class TestSBMLConstructorException < Test::Unit::TestCase
     rescue SBMLConstructorException 
        msg = $!
     end
-    assert_equal msg.to_str, @@ERR_MSG
+    assert_equal msg.to_s, @@ERR_MSG
     msg = ""
     begin
       s = LibSBML::StoichiometryMath.new(@@SN11)
     rescue SBMLConstructorException
        msg = $!
     end
-    assert_equal msg.to_str, @@ERR_MSG
+    assert_equal msg.to_s, @@ERR_MSG
 
     msg = ""
     begin
@@ -820,7 +820,7 @@ class TestSBMLConstructorException < Test::Unit::TestCase
     rescue SBMLConstructorException
        msg = $!
     end
-    assert_equal msg.to_str, @@ERR_MSG
+    assert_equal msg.to_s, @@ERR_MSG
     
     msg = ""
     begin
@@ -828,7 +828,7 @@ class TestSBMLConstructorException < Test::Unit::TestCase
     rescue SBMLConstructorException 
        msg = $!
     end
-    assert_equal msg.to_str, @@ERR_MSG
+    assert_equal msg.to_s, @@ERR_MSG
   end
 
   def test_SpeciesReference_constructor
@@ -860,7 +860,7 @@ class TestSBMLConstructorException < Test::Unit::TestCase
     rescue SBMLConstructorException 
        msg = $!
     end
-    assert_equal msg.to_str, @@ERR_MSG
+    assert_equal msg.to_s, @@ERR_MSG
 
     msg = ""
     
@@ -869,7 +869,7 @@ class TestSBMLConstructorException < Test::Unit::TestCase
     rescue SBMLConstructorException 
        msg = $!
     end
-    assert_equal msg.to_str, @@ERR_MSG
+    assert_equal msg.to_s, @@ERR_MSG
   end
 
   def test_FunctionDefinition_constructor
@@ -896,7 +896,7 @@ class TestSBMLConstructorException < Test::Unit::TestCase
     rescue SBMLConstructorException 
        msg = $!
     end
-    assert_equal msg.to_str, @@ERR_MSG
+    assert_equal msg.to_s, @@ERR_MSG
     
     msg = ""
     begin
@@ -904,7 +904,7 @@ class TestSBMLConstructorException < Test::Unit::TestCase
     rescue SBMLConstructorException 
        msg = $!
     end
-    assert_equal msg.to_str, @@ERR_MSG
+    assert_equal msg.to_s, @@ERR_MSG
     
     msg = ""
     begin
@@ -912,7 +912,7 @@ class TestSBMLConstructorException < Test::Unit::TestCase
     rescue SBMLConstructorException 
        msg = $!
     end
-    assert_equal msg.to_str, @@ERR_MSG
+    assert_equal msg.to_s, @@ERR_MSG
 
     msg = ""
     begin
@@ -920,7 +920,7 @@ class TestSBMLConstructorException < Test::Unit::TestCase
     rescue SBMLConstructorException
        msg = $!
     end
-    assert_equal msg.to_str, @@ERR_MSG
+    assert_equal msg.to_s, @@ERR_MSG
 
     msg = ""
     begin
@@ -928,14 +928,14 @@ class TestSBMLConstructorException < Test::Unit::TestCase
     rescue SBMLConstructorException
        msg = $!
     end
-    assert_equal msg.to_str, @@ERR_MSG
+    assert_equal msg.to_s, @@ERR_MSG
     
     begin
       s = LibSBML::FunctionDefinition.new(@@SN99)
     rescue SBMLConstructorException 
        msg = $!
     end
-    assert_equal msg.to_str, @@ERR_MSG
+    assert_equal msg.to_s, @@ERR_MSG
   end
 
   def test_KineticLaw_constructor
@@ -967,7 +967,7 @@ class TestSBMLConstructorException < Test::Unit::TestCase
     rescue SBMLConstructorException 
        msg = $!
     end
-    assert_equal msg.to_str, @@ERR_MSG
+    assert_equal msg.to_s, @@ERR_MSG
     msg = ""
     
     begin
@@ -975,7 +975,7 @@ class TestSBMLConstructorException < Test::Unit::TestCase
     rescue SBMLConstructorException 
        msg = $!
     end
-    assert_equal msg.to_str, @@ERR_MSG
+    assert_equal msg.to_s, @@ERR_MSG
   end
 
   def test_Model_constructor
@@ -1007,7 +1007,7 @@ class TestSBMLConstructorException < Test::Unit::TestCase
     rescue SBMLConstructorException 
        msg = $!
     end
-    assert_equal msg.to_str, @@ERR_MSG
+    assert_equal msg.to_s, @@ERR_MSG
     msg = ""
     
     begin
@@ -1015,7 +1015,7 @@ class TestSBMLConstructorException < Test::Unit::TestCase
     rescue SBMLConstructorException 
        msg = $!
     end
-    assert_equal msg.to_str, @@ERR_MSG
+    assert_equal msg.to_s, @@ERR_MSG
   end
 
   def test_Parameter_constructor
@@ -1047,7 +1047,7 @@ class TestSBMLConstructorException < Test::Unit::TestCase
     rescue SBMLConstructorException 
        msg = $!
     end
-    assert_equal msg.to_str, @@ERR_MSG
+    assert_equal msg.to_s, @@ERR_MSG
 	    msg = ""
     
     begin
@@ -1055,7 +1055,7 @@ class TestSBMLConstructorException < Test::Unit::TestCase
     rescue SBMLConstructorException 
        msg = $!
     end
-    assert_equal msg.to_str, @@ERR_MSG
+    assert_equal msg.to_s, @@ERR_MSG
   end
 
   def test_Reaction_constructor
@@ -1087,7 +1087,7 @@ class TestSBMLConstructorException < Test::Unit::TestCase
     rescue SBMLConstructorException 
        msg = $!
     end
-    assert_equal msg.to_str, @@ERR_MSG
+    assert_equal msg.to_s, @@ERR_MSG
 	
 	msg = ""
     
@@ -1096,7 +1096,7 @@ class TestSBMLConstructorException < Test::Unit::TestCase
     rescue SBMLConstructorException 
        msg = $!
     end
-    assert_equal msg.to_str, @@ERR_MSG
+    assert_equal msg.to_s, @@ERR_MSG
 
   end
 
@@ -1129,7 +1129,7 @@ class TestSBMLConstructorException < Test::Unit::TestCase
     rescue SBMLConstructorException 
        msg = $!
     end
-    assert_equal msg.to_str, @@ERR_MSG
+    assert_equal msg.to_s, @@ERR_MSG
     msg = ""
     
     begin
@@ -1137,7 +1137,7 @@ class TestSBMLConstructorException < Test::Unit::TestCase
     rescue SBMLConstructorException 
        msg = $!
     end
-    assert_equal msg.to_str, @@ERR_MSG
+    assert_equal msg.to_s, @@ERR_MSG
   end
 
   def test_UnitDefinition_constructor
@@ -1169,7 +1169,7 @@ class TestSBMLConstructorException < Test::Unit::TestCase
     rescue SBMLConstructorException 
        msg = $!
     end
-    assert_equal msg.to_str, @@ERR_MSG
+    assert_equal msg.to_s, @@ERR_MSG
     msg = ""
     
     begin
@@ -1177,7 +1177,7 @@ class TestSBMLConstructorException < Test::Unit::TestCase
     rescue SBMLConstructorException 
        msg = $!
     end
-    assert_equal msg.to_str, @@ERR_MSG
+    assert_equal msg.to_s, @@ERR_MSG
   end
 
   def test_AssignmentRule_constructor
@@ -1209,7 +1209,7 @@ class TestSBMLConstructorException < Test::Unit::TestCase
     rescue SBMLConstructorException 
        msg = $!
     end
-    assert_equal msg.to_str, @@ERR_MSG
+    assert_equal msg.to_s, @@ERR_MSG
 	
     msg = ""
 
@@ -1218,7 +1218,7 @@ class TestSBMLConstructorException < Test::Unit::TestCase
     rescue SBMLConstructorException 
        msg = $!
     end
-    assert_equal msg.to_str, @@ERR_MSG
+    assert_equal msg.to_s, @@ERR_MSG
   end
 
   def test_AlgebraicRule_constructor
@@ -1250,7 +1250,7 @@ class TestSBMLConstructorException < Test::Unit::TestCase
     rescue SBMLConstructorException 
        msg = $!
     end
-    assert_equal msg.to_str, @@ERR_MSG
+    assert_equal msg.to_s, @@ERR_MSG
 	
 	msg = ""
 
@@ -1259,7 +1259,7 @@ class TestSBMLConstructorException < Test::Unit::TestCase
     rescue SBMLConstructorException 
        msg = $!
     end
-    assert_equal msg.to_str, @@ERR_MSG
+    assert_equal msg.to_s, @@ERR_MSG
   end
 
   def test_RateRule_constructor
@@ -1291,7 +1291,7 @@ class TestSBMLConstructorException < Test::Unit::TestCase
     rescue SBMLConstructorException 
        msg = $!
     end
-    assert_equal msg.to_str, @@ERR_MSG
+    assert_equal msg.to_s, @@ERR_MSG
 	
 	msg = ""
 
@@ -1300,7 +1300,7 @@ class TestSBMLConstructorException < Test::Unit::TestCase
     rescue SBMLConstructorException 
        msg = $!
     end
-    assert_equal msg.to_str, @@ERR_MSG
+    assert_equal msg.to_s, @@ERR_MSG
   end
 
   def test_Priority_constructor
@@ -1320,7 +1320,7 @@ class TestSBMLConstructorException < Test::Unit::TestCase
     rescue SBMLConstructorException 
        msg = $!
     end
-    assert_equal msg.to_str, @@ERR_MSG
+    assert_equal msg.to_s, @@ERR_MSG
 	
 	msg = ""
 
@@ -1329,7 +1329,7 @@ class TestSBMLConstructorException < Test::Unit::TestCase
     rescue SBMLConstructorException 
        msg = $!
     end
-    assert_equal msg.to_str, @@ERR_MSG
+    assert_equal msg.to_s, @@ERR_MSG
   end
   
   def test_LocalParameter_constructor
@@ -1349,7 +1349,7 @@ class TestSBMLConstructorException < Test::Unit::TestCase
     rescue SBMLConstructorException 
        msg = $!
     end
-    assert_equal msg.to_str, @@ERR_MSG
+    assert_equal msg.to_s, @@ERR_MSG
 	
 	msg = ""
 
@@ -1358,7 +1358,7 @@ class TestSBMLConstructorException < Test::Unit::TestCase
     rescue SBMLConstructorException 
        msg = $!
     end
-    assert_equal msg.to_str, @@ERR_MSG
+    assert_equal msg.to_s, @@ERR_MSG
   end
   
   def test_SBMLNamespaces_constructor
@@ -1401,7 +1401,7 @@ class TestSBMLConstructorException < Test::Unit::TestCase
     rescue SBMLConstructorException 
        msg = $!
     end
-    assert_equal msg.to_str, @@ERR_MSG
+    assert_equal msg.to_s, @@ERR_MSG
 	
 	msg = ""
 
@@ -1410,7 +1410,7 @@ class TestSBMLConstructorException < Test::Unit::TestCase
     rescue SBMLConstructorException 
        msg = $!
     end
-    assert_equal msg.to_str, @@ERR_MSG
+    assert_equal msg.to_s, @@ERR_MSG
   end
 end
 
