@@ -76,6 +76,7 @@ examples =                                                          \
   examples/c/printSupported.c                                       \
   examples/c/printUnits.c                                           \
   examples/c/readSBML.c                                             \
+  examples/c/stripPackage.c                                        \
   examples/c/translateMath.c                                        \
   examples/c/translateL3Math.c                                      \
   examples/c/util.c                                                 \
@@ -102,6 +103,7 @@ examples =                                                          \
   examples/c++/printSupported.cpp                                   \
   examples/c++/printUnits.cpp                                       \
   examples/c++/readSBML.cpp                                         \
+  examples/c++/stripPackage.cpp                                    \
   examples/c++/translateMath.cpp                                    \
   examples/c++/translateL3Math.cpp                                  \
   examples/c++/unsetAnnotation.cpp                                  \
@@ -128,6 +130,7 @@ examples =                                                          \
   examples/csharp/printsupported.cs                                 \
   examples/csharp/printUnits.cs                                     \
   examples/csharp/readSBML.cs                                       \
+  examples/csharp/stripPackage.cs                                  \
   examples/csharp/translateMath.cs                                  \
   examples/csharp/unsetAnnotation.cs                                \
   examples/csharp/unsetNotes.cs                                     \
@@ -153,6 +156,7 @@ examples =                                                          \
   examples/java/printsupported.java                                 \
   examples/java/printUnits.java                                     \
   examples/java/readSBML.java                                       \
+  examples/java/stripPackage.java                                  \
   examples/java/translateMath.java                                  \
   examples/java/unsetAnnotation.java                                \
   examples/java/unsetNotes.java                                     \
@@ -183,6 +187,7 @@ examples =                                                          \
   examples/perl/convertSBML.pl                                      \
   examples/perl/createExampleSBML.pl                                \
   examples/perl/echoSBML.pl                                         \
+  examples/perl/stripPackage.pl                                    \
   examples/perl/evaluateMath.pl                                     \
   examples/perl/extractReactionInfo.pl                              \
   examples/perl/extractReactions.pl                                 \
@@ -208,6 +213,7 @@ examples =                                                          \
   examples/python/convertSBML.py                                    \
   examples/python/createExampleSBML.py                              \
   examples/python/echoSBML.py                                       \
+  examples/python/stripPackage.py                                  \
   examples/python/printAnnotation.py                                \
   examples/python/printMath.py                                      \
   examples/python/printNotes.py                                     \
@@ -220,6 +226,28 @@ examples =                                                          \
   examples/python/unsetAnnotation.py                                \
   examples/python/unsetNotes.py                                     \
   examples/python/validateSBML.py                                   \
+  examples/r/addCVTerms.R                                           \
+  examples/r/addModelHistory.R                                      \
+  examples/r/addingEvidenceCodes_1.R                                \
+  examples/r/addingEvidenceCodes_2.R                                \
+  examples/r/appendAnnotation.R                                     \
+  examples/r/convertSBML.R                                          \
+  examples/r/createExampleSBML.R                                    \
+  examples/r/echoSBML.R                                             \
+  examples/r/evaluateMath.R                                         \
+  examples/r/printAnnotation.R                                      \
+  examples/r/printMath.R                                            \
+  examples/r/printNotes.R                                           \
+  examples/r/printRegisteredPackages.R                              \
+  examples/r/printSBML.R                                            \
+  examples/r/printSupported.R                                       \
+  examples/r/printUnits.R                                           \
+  examples/r/readSBML.R                                             \
+  examples/r/stripPackage.R                                        \
+  examples/r/translateMath.R                                        \
+  examples/r/unsetAnnotation.R                                      \
+  examples/r/unsetNotes.R                                           \
+  examples/r/validateSBML.R                                         \
   examples/ruby/addCustomValidator.rb                               \
   examples/ruby/addCVTerms.rb                                       \
   examples/ruby/addingEvidenceCodes_1.rb                            \
@@ -229,6 +257,7 @@ examples =                                                          \
   examples/ruby/callExternalValidator.rb                            \
   examples/ruby/convertSBML.rb                                      \
   examples/ruby/createExampleSBML.rb                                \
+  examples/ruby/stripPackage.rb                                    \
   examples/ruby/echoSBML.rb                                         \
   examples/ruby/printAnnotation.rb                                  \
   examples/ruby/printMath.rb                                        \
@@ -274,6 +303,27 @@ examples =                                                          \
   examples/sample-models/from-spec/level-3/twodimensional.xml       \
   examples/sample-models/from-spec/level-3/conversionfactor2.xml
 
+# The files listed in `r bindigns' have to be included the dist files, even
+# though they can't be created by gnumake.
+
+rbindings =                                           \
+  src/bindings/r/CMakeLists.txt                       \
+  src/bindings/r/DESCRIPTION.in                       \
+  src/bindings/r/NAMESPACE                            \
+  src/bindings/r/libsbml.i                            \
+  src/bindings/r/local-downcast-extension-layout.cpp  \
+  src/bindings/r/local-downcast-extension.cpp.in      \
+  src/bindings/r/local-downcast-namespaces-layout.cpp \
+  src/bindings/r/local-downcast-namespaces.cpp.in     \
+  src/bindings/r/local-downcast-packages-layout.cpp   \
+  src/bindings/r/local-downcast-plugins-layout.cpp    \
+  src/bindings/r/local-downcast-plugins.cpp.in        \
+  src/bindings/r/local-downcast.cpp.in                \
+  src/bindings/r/local-layout.i                       \
+  src/bindings/r/local-packages.i.in                  \
+  src/bindings/r/local.cpp                            \
+  src/bindings/r/local.i                              \
+  src/bindings/r/patch-swig-file.cmake
 
 # The files listed in `docs' are copied to the documentation directory
 # during a `make install'.
@@ -290,6 +340,7 @@ docs =         \
   README.txt   \
   VERSION.txt  \
   $(examples)
+
 
 # Variables `subdirs', `headers', `sources', `libraries', `extra_CPPFLAGS',
 # `extra_CXXFLAGS', `extra_LDFLAGS', `extra_clean', and `distfiles' are
@@ -356,7 +407,8 @@ distfiles =                         \
   CMakeLists.txt                    \
   common.cmake                      \
   layout-package.cmake              \
-  $(examples)
+  $(examples)                       \
+  $(rbindings)
 
 # The files listed in `extra_distclean' are items created by configure or
 # make, and that are removed by the default rules for `make distclean' in
