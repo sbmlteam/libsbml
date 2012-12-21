@@ -1724,7 +1724,7 @@ SBMLDocument::enablePackageInternal(const std::string& pkgURI, const std::string
 //      xmlns->remove(xmlns->getIndex(pkgURI));
 //    }
 
-    for (unsigned int i = 0; i < mRequiredAttrOfUnknownPkg.getLength(); i++)
+    for (int i = 0; i < mRequiredAttrOfUnknownPkg.getLength(); i++)
     {
       if (pkgURI == mRequiredAttrOfUnknownPkg.getURI(i)
         && pkgPrefix == mRequiredAttrOfUnknownPkg.getPrefix(i))
