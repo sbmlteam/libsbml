@@ -271,7 +271,7 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
     "In the SBML subset of MathML 2.0, the MathML attribute "
-    "'definitionURL' is only permitted on <csymbol>, <semantics> or <bvar>. "
+    "'definitionURL' is only permitted on <csymbol>, <semantics> or <ci> (Level 3 only). "
     "No other MathML elements may have a 'definitionURL' attribute. ",
     {"",
      "",
