@@ -97,7 +97,12 @@ public:
     prop.addOption("setLevelAndVersion", true);
     prop.addOption("ignorePackages", true);
 
-    _doc->convert(prop);
+    if (_doc->convert(prop) != LIBSBML_OPERATION_SUCCESS)
+    {
+      cout << "Conversion failed!" << endl;
+      _doc->printErrors();
+      exit(2);  
+    }
 
 
     plugin->setElementNamespace(layoutNsUri);
@@ -144,7 +149,12 @@ public:
     prop.addOption("setLevelAndVersion", true);
     prop.addOption("ignorePackages", true);
 
-    _doc->convert(prop);
+    if (_doc->convert(prop) != LIBSBML_OPERATION_SUCCESS)
+    {
+      cout << "Conversion failed!" << endl;
+      _doc->printErrors();
+      exit(2);  
+    }
 
     plugin->setElementNamespace(layoutNsUri);
 
@@ -642,7 +652,12 @@ public:
     prop.addOption("setLevelAndVersion", true);
     prop.addOption("ignorePackages", true);
 
-    _doc->convert(prop);
+    if (_doc->convert(prop) != LIBSBML_OPERATION_SUCCESS)
+    {
+      cout << "Conversion failed!" << endl;
+      _doc->printErrors();
+      exit(2);  
+    }
 
     SBMLDocumentPlugin *docPlugin = (SBMLDocumentPlugin*)_doc->getPlugin("layout");
     if (docPlugin != NULL)
@@ -687,7 +702,12 @@ public:
     prop.addOption("setLevelAndVersion", true);
     prop.addOption("ignorePackages", true);
 
-    _doc->convert(prop);
+    if (_doc->convert(prop) != LIBSBML_OPERATION_SUCCESS)
+    {
+      cout << "Conversion failed!" << endl;
+      _doc->printErrors();
+      exit(2);  
+    }
 
     //plugin->setElementNamespace(layoutNsUri);
 
@@ -759,8 +779,8 @@ int main(int argc,char** argv)
   // convert from L3 -> L2 or L2 -> L3
   converter.convertLayout();
 
-
-  char* sbml = writeSBMLToString(converter.getDocument());
+  // write document to string 
+  //char* sbml = writeSBMLToString(converter.getDocument());
 
   // write document
   writeSBML(converter.getDocument(),argv[2]);
