@@ -151,8 +151,9 @@ END_TEST
 
 START_TEST (test_Event_setTrigger1)
 {
-  const Trigger_t   *trigger 
+  Trigger_t   *trigger 
     = Trigger_create(2, 1);
+  Trigger_setMath(trigger, SBML_parseFormula("true"));
  
   int i = Event_setTrigger(E, trigger);
 
@@ -203,8 +204,10 @@ END_TEST
 
 START_TEST (test_Event_setDelay2)
 {
-  const Delay_t   *Delay = 
+  ASTNode_t         *math1   = SBML_parseFormula("0");
+  Delay_t   *Delay = 
     Delay_create(2, 1);
+  Delay_setMath(Delay, math1);
 
   int i = Event_setDelay(E, Delay);
 

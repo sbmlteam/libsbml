@@ -594,23 +594,22 @@ Event::setName (const std::string& name)
 int
 Event::setTrigger (const Trigger* trigger)
 {
-  if (mTrigger == trigger)
-  {
-    return LIBSBML_OPERATION_SUCCESS;
-  }
-  else if (trigger == NULL)
+  int returnValue = checkCompatibility(static_cast<const SBase *>(trigger));
+  
+  if (returnValue == LIBSBML_OPERATION_FAILED && trigger == NULL)
   {
     delete mTrigger;
     mTrigger = NULL;
     return LIBSBML_OPERATION_SUCCESS;
   }
-  else if (getLevel() != trigger->getLevel())
+  else if (returnValue != LIBSBML_OPERATION_SUCCESS)
   {
-    return LIBSBML_LEVEL_MISMATCH;
+    return returnValue;
   }
-  else if (getVersion() != trigger->getVersion())
+  
+  if (mTrigger == trigger)
   {
-    return LIBSBML_VERSION_MISMATCH;
+    return LIBSBML_OPERATION_SUCCESS;
   }
   else
   {
@@ -631,23 +630,22 @@ Event::setTrigger (const Trigger* trigger)
 int
 Event::setDelay (const Delay* delay)
 {
-  if (mDelay == delay) 
-  {
-    return LIBSBML_OPERATION_SUCCESS;
-  }
-  else if (delay == NULL)
+  int returnValue = checkCompatibility(static_cast<const SBase *>(delay));
+  
+  if (returnValue == LIBSBML_OPERATION_FAILED && delay == NULL)
   {
     delete mDelay;
     mDelay = NULL;
     return LIBSBML_OPERATION_SUCCESS;
   }
-  else if (getLevel() != delay->getLevel())
+  else if (returnValue != LIBSBML_OPERATION_SUCCESS)
   {
-    return LIBSBML_LEVEL_MISMATCH;
+    return returnValue;
   }
-  else if (getVersion() != delay->getVersion())
+  
+  if (mDelay == delay) 
   {
-    return LIBSBML_VERSION_MISMATCH;
+    return LIBSBML_OPERATION_SUCCESS;
   }
   else
   {
@@ -671,23 +669,23 @@ Event::setPriority (const Priority* priority)
   {
     return LIBSBML_UNEXPECTED_ATTRIBUTE;
   }
-  else if (mPriority == priority) 
-  {
-    return LIBSBML_OPERATION_SUCCESS;
-  }
-  else if (priority == NULL)
+
+  int returnValue = checkCompatibility(static_cast<const SBase *>(priority));
+  
+  if (returnValue == LIBSBML_OPERATION_FAILED && priority == NULL)
   {
     delete mPriority;
     mPriority = NULL;
     return LIBSBML_OPERATION_SUCCESS;
   }
-  else if (getLevel() != priority->getLevel())
+  else if (returnValue != LIBSBML_OPERATION_SUCCESS)
   {
-    return LIBSBML_LEVEL_MISMATCH;
+    return returnValue;
   }
-  else if (getVersion() != priority->getVersion())
+  
+  if (mPriority == priority) 
   {
-    return LIBSBML_VERSION_MISMATCH;
+    return LIBSBML_OPERATION_SUCCESS;
   }
   else
   {

@@ -123,6 +123,7 @@ START_TEST ( test_Event )
   fail_unless (!(e->hasRequiredElements()));
 
   Trigger *t = new Trigger(2, 4);
+  t->setMath(SBML_parseFormula("true"));
 
   e->setTrigger(t);
 

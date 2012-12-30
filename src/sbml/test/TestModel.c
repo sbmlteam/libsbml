@@ -807,6 +807,7 @@ START_TEST (test_Model_add_get_Event)
   Event_t *e1 = Event_create(2, 4);
   Event_t *e2 = Event_create(2, 4);
   Trigger_t *t = Trigger_create(2, 4);
+  Trigger_setMath(t, SBML_parseFormula("true"));
   Event_setTrigger(e1, t);
   Event_setTrigger(e2, t);
   Event_createEventAssignment(e1);
@@ -828,6 +829,7 @@ START_TEST (test_Model_add_get_Event_neg_arg)
   Event_t *e1 = Event_create(2, 4);
   Event_t *e2 = Event_create(2, 4);
   Trigger_t *t = Trigger_create(2, 4);
+  Trigger_setMath(t, SBML_parseFormula("true"));
   Event_setTrigger(e1, t);
   Event_setTrigger(e2, t);
   Event_createEventAssignment(e1);
@@ -1192,6 +1194,7 @@ START_TEST (test_Model_getEventById)
   Event_t *e1 = Event_create(2, 4);
   Event_t *e2 = Event_create(2, 4);
   Trigger_t *t = Trigger_create(2, 4);
+  Trigger_setMath(t, SBML_parseFormula("true"));
   Event_setTrigger(e1, t);
   Event_setTrigger(e2, t);
   Event_createEventAssignment(e1);

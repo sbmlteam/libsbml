@@ -612,23 +612,22 @@ Reaction::setName (const std::string& name)
 int
 Reaction::setKineticLaw (const KineticLaw* kl)
 {
-  if (mKineticLaw == kl)
-  {
-    return LIBSBML_OPERATION_SUCCESS;
-  }
-  else if (kl == NULL)
+  int returnValue = checkCompatibility(static_cast<const SBase *>(kl));
+  
+  if (returnValue == LIBSBML_OPERATION_FAILED && kl == NULL)
   {
     delete mKineticLaw;
     mKineticLaw = NULL;
     return LIBSBML_OPERATION_SUCCESS;
   }
-  else if (getLevel() != kl->getLevel())
+  else if (returnValue != LIBSBML_OPERATION_SUCCESS)
   {
-    return LIBSBML_LEVEL_MISMATCH;
+    return returnValue;
   }
-  else if (getVersion() != kl->getVersion())
+  
+  if (mKineticLaw == kl)
   {
-    return LIBSBML_VERSION_MISMATCH;
+    return LIBSBML_OPERATION_SUCCESS;
   }
   else
   {

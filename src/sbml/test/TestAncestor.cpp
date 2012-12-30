@@ -135,6 +135,7 @@ END_TEST
 START_TEST ( test_Delay_ancestor_add )
 {
   Delay *d = new Delay(2, 4);
+  d->setMath(SBML_parseFormula("1"));
   Event *e = new Event(2, 4);
 
   e->setDelay(d);
@@ -157,6 +158,7 @@ START_TEST ( test_Event_ancestor_add )
   Event *e = new Event(2, 4);
   Model *m = new Model(2, 4);
   Trigger *t = new Trigger(2, 4);
+  t->setMath(SBML_parseFormula("1"));
   e->setTrigger(t);
   e->createEventAssignment();
 
@@ -245,6 +247,7 @@ END_TEST
 START_TEST ( test_KineticLaw_ancestor_add )
 {
   KineticLaw* kl=new KineticLaw(2, 4);
+  kl->setMath(SBML_parseFormula("1"));
   
   Reaction * r = new Reaction(2, 4);
 
@@ -473,6 +476,7 @@ END_TEST
 START_TEST ( test_StoichiometryMath_ancestor_add )
 {
   StoichiometryMath *m = new StoichiometryMath(2, 4);
+  m->setMath(SBML_parseFormula("1"));
   SpeciesReference *sr = new SpeciesReference(2, 4);
 
   sr->setStoichiometryMath(m);
@@ -493,6 +497,7 @@ END_TEST
 START_TEST ( test_Trigger_ancestor_add )
 {
   Trigger *d = new Trigger(2, 4);
+  d->setMath(SBML_parseFormula("1"));
   Event *e = new Event(2, 4);
 
   e->setTrigger(d);

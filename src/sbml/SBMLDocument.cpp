@@ -588,31 +588,35 @@ SBMLDocument::updateSBMLNamespace(const std::string& package, unsigned int level
 int
 SBMLDocument::setModel (const Model* m)
 {
-  if (mModel == m)
-  {
-    return LIBSBML_OPERATION_SUCCESS;
-  }
-  else if (m == NULL)
+  int returnValue = checkCompatibility(static_cast<const SBase *>(m));
+  
+  if (returnValue == LIBSBML_OPERATION_FAILED && m == NULL)
   {
     delete mModel;
     mModel = NULL;
     return LIBSBML_OPERATION_SUCCESS;
   }
-  else if (getLevel() != m->getLevel())
+  else if (returnValue != LIBSBML_OPERATION_SUCCESS)
   {
-    return LIBSBML_LEVEL_MISMATCH;
+    return returnValue;
   }
-  else if (getVersion() != m->getVersion())
+  
+  if (mModel == m)
   {
-    return LIBSBML_VERSION_MISMATCH;
+    return LIBSBML_OPERATION_SUCCESS;
   }
   else
   {
     delete mModel;
     mModel = (m != NULL) ? new Model(*m) : NULL;
 
-    if (mModel != NULL) mModel->connectToParent(this);
-    if (getURI() != mModel->getURI()) {
+    if (mModel != NULL) 
+    {
+      mModel->connectToParent(this);
+    }
+
+    if (getURI() != mModel->getURI()) 
+    {
       mModel->setElementNamespace(getURI());
     }
     

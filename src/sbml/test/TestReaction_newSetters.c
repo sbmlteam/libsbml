@@ -197,6 +197,7 @@ START_TEST (test_Reaction_setKineticLaw1)
 {
   KineticLaw_t *kl = 
     KineticLaw_create(2, 1);
+  KineticLaw_setMath(kl, SBML_parseFormula("1"));
 
   int i = Reaction_setKineticLaw(R, kl);
 
@@ -212,6 +213,7 @@ START_TEST (test_Reaction_setKineticLaw2)
 {
   KineticLaw_t *kl = 
     KineticLaw_create(1, 1);
+  KineticLaw_setMath(kl, SBML_parseFormula("1"));
 
   int i = Reaction_setKineticLaw(R, kl);
 
@@ -227,6 +229,7 @@ START_TEST (test_Reaction_setKineticLaw3)
 {
   KineticLaw_t *kl = 
     KineticLaw_create(1, 2);
+  KineticLaw_setMath(kl, SBML_parseFormula("1"));
 
   int i = Reaction_setKineticLaw(R, kl);
 

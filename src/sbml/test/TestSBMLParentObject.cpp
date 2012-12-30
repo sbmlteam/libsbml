@@ -125,6 +125,7 @@ START_TEST ( test_Delay_parent_add )
 {
   Delay *d = new Delay(2, 4);
   Event *e = new Event(2, 4);
+  d->setMath(SBML_parseFormula("1"));
 
   e->setDelay(d);
 
@@ -141,6 +142,7 @@ START_TEST ( test_Event_parent_add )
 {
   Event *e = new Event(2, 4);
   Trigger *t = new Trigger(2, 4);
+  t->setMath(SBML_parseFormula("true"));
   e->setTrigger(t);
   e->createEventAssignment();
   Model *m = new Model(2, 4);
@@ -217,6 +219,7 @@ END_TEST
 START_TEST ( test_KineticLaw_parent_add )
 {
   KineticLaw* kl=new KineticLaw(2, 4);
+  kl->setMath(SBML_parseFormula("a"));
   
   Reaction * r = new Reaction(2, 4);
 
@@ -417,6 +420,7 @@ END_TEST
 START_TEST ( test_StoichiometryMath_parent_add )
 {
   StoichiometryMath *m = new StoichiometryMath(2, 4);
+  m->setMath(SBML_parseFormula("1"));
   SpeciesReference *sr = new SpeciesReference(2, 4);
 
   sr->setStoichiometryMath(m);
@@ -433,6 +437,7 @@ END_TEST
 START_TEST ( test_Trigger_parent_add )
 {
   Trigger *d = new Trigger(2, 4);
+  d->setMath(SBML_parseFormula("false"));
   Event *e = new Event(2, 4);
 
   e->setTrigger(d);
@@ -1185,6 +1190,185 @@ START_TEST ( test_UnitDefinition_parent_NULL )
 END_TEST
 
 
+START_TEST ( test_Compartment_parent_mismatch )
+{
+  Compartment *c = new Compartment(2, 3);
+  c->setId("c");
+  Model *m = new Model(2, 4);
+
+  int success = m->addCompartment(c);
+
+  fail_unless(success == LIBSBML_VERSION_MISMATCH);
+
+  delete c;
+  delete m;
+}
+END_TEST
+
+
+START_TEST ( test_CompartmentType_parent_mismatch )
+{
+  CompartmentType *ct = new CompartmentType(2, 4);
+  Model *m = new Model(3, 1);
+  ct->setId("ct");
+  
+  int success = m->addCompartmentType(ct);
+
+  fail_unless(success == LIBSBML_LEVEL_MISMATCH);
+
+  delete ct;
+  delete m;
+}
+END_TEST
+
+
+START_TEST ( test_Constraint_parent_mismatch )
+{
+  Constraint *ct = NULL;
+  Model *m = new Model(2, 4);
+
+  int success = m->addConstraint(ct);
+
+  fail_unless(success == LIBSBML_OPERATION_FAILED);
+
+  delete ct;
+  delete m;
+}
+END_TEST
+
+
+START_TEST ( test_Delay_parent_mismatch )
+{
+  Event *e = new Event(3, 1);
+  Delay *d = NULL;
+
+  int success = e->setDelay(d);
+
+  fail_unless(success == LIBSBML_OPERATION_SUCCESS);
+
+  delete e;
+  delete d;
+}
+END_TEST
+
+
+START_TEST ( test_Event_parent_mismatch )
+{
+  Event *e = new Event(3, 1);
+  Model *m = new Model(3, 1);
+
+  int success = m->addEvent(e);
+
+  fail_unless(success == LIBSBML_INVALID_OBJECT);
+
+  delete e;
+  delete m;
+}
+END_TEST
+
+
+START_TEST ( test_EventAssignment_parent_mismatch )
+{
+  SBMLNamespaces * sbmlns = new SBMLNamespaces(3, 1);
+  Event *e = new Event(sbmlns);
+  sbmlns->addPackageNamespace("comp", 1);
+  EventAssignment *ea = new EventAssignment(sbmlns);
+  ea->setVariable("c");
+  ea->setMath(SBML_parseFormula("K+L"));
+
+  int success = e->addEventAssignment(ea);
+
+  fail_unless(success == LIBSBML_NAMESPACES_MISMATCH);
+
+  delete e;
+  delete ea;
+}
+END_TEST
+
+
+START_TEST ( test_KineticLaw_parent_mismatch )
+{
+  KineticLaw* kl=new KineticLaw(2, 3);
+  kl->setMath(SBML_parseFormula("true"));
+  
+  Reaction * r = new Reaction(2, 4);
+
+  int success = r->setKineticLaw(kl);
+
+  fail_unless(success == LIBSBML_VERSION_MISMATCH);
+
+  delete r;
+}
+END_TEST
+
+
+START_TEST ( test_Model_parent_mismatch )
+{
+  SBMLNamespaces * sbmlns = new SBMLNamespaces(3, 1);
+  SBMLDocument *d = new SBMLDocument(sbmlns);
+  sbmlns->addPackageNamespace("comp", 1);
+  Model *m = new Model(sbmlns);
+
+  int success = d->setModel(m);
+
+  fail_unless(success == LIBSBML_NAMESPACES_MISMATCH);
+
+  delete d;
+}
+END_TEST
+
+
+START_TEST ( test_StoichiometryMath_parent_mismatch )
+{
+  StoichiometryMath *m = new StoichiometryMath(2, 4);
+  SpeciesReference *sr = new SpeciesReference(2, 4);
+
+  int success = sr->setStoichiometryMath(m);
+
+  fail_unless(success == LIBSBML_INVALID_OBJECT);
+
+  delete sr;
+  delete m;
+}
+END_TEST
+
+
+START_TEST ( test_Priority_parent_mismatch )
+{
+  Event *e = new Event(3, 1);
+  Priority *p= new Priority(3, 1);
+  p->setMath(SBML_parseFormula("K+L"));
+
+  int success = e->setPriority(p);
+
+  fail_unless(success == LIBSBML_OPERATION_SUCCESS);
+
+  success = e->setPriority(e->getPriority());
+
+  fail_unless(success == LIBSBML_OPERATION_SUCCESS);
+
+  delete e;
+  delete p;
+}
+END_TEST
+
+
+START_TEST ( test_Trigger_parent_mismatch )
+{
+  Event *e = new Event(3, 1);
+  Trigger *t= new Trigger(2, 4);
+  t->setMath(SBML_parseFormula("true"));
+
+  int success = e->setTrigger(t);
+
+  fail_unless(success == LIBSBML_LEVEL_MISMATCH);
+
+  delete e;
+  delete t;
+}
+END_TEST
+
+
 Suite *
 create_suite_ParentObject (void)
 {
@@ -1255,6 +1439,17 @@ create_suite_ParentObject (void)
   tcase_add_test( tcase, test_Species_parent_NULL );
   tcase_add_test( tcase, test_SpeciesType_parent_NULL );
   tcase_add_test( tcase, test_UnitDefinition_parent_NULL );
+  tcase_add_test( tcase, test_Compartment_parent_mismatch );
+  tcase_add_test( tcase, test_CompartmentType_parent_mismatch );
+  tcase_add_test( tcase, test_Constraint_parent_mismatch );
+  tcase_add_test( tcase, test_Delay_parent_mismatch );
+  tcase_add_test( tcase, test_Event_parent_mismatch );
+  tcase_add_test( tcase, test_EventAssignment_parent_mismatch );
+  tcase_add_test( tcase, test_KineticLaw_parent_mismatch );
+  tcase_add_test( tcase, test_Model_parent_mismatch );
+  tcase_add_test( tcase, test_StoichiometryMath_parent_mismatch );
+  tcase_add_test( tcase, test_Priority_parent_mismatch );
+  tcase_add_test( tcase, test_Trigger_parent_mismatch );
 
   suite_add_tcase(suite, tcase);
 

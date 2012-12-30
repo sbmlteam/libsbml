@@ -373,8 +373,8 @@ START_TEST (test_SpeciesReference_setStoichiometryMath4)
 
   int i = SpeciesReference_setStoichiometryMath(sr, sm);
 
-  fail_unless( i == LIBSBML_OPERATION_SUCCESS);
-  fail_unless( SpeciesReference_isSetStoichiometryMath(sr)   );
+  fail_unless( i == LIBSBML_INVALID_OBJECT);
+  fail_unless( SpeciesReference_isSetStoichiometryMath(sr) == 0   );
   fail_unless( SpeciesReference_getStoichiometry(sr) == 1 );
 
   i = SpeciesReference_unsetStoichiometryMath(sr);
@@ -416,6 +416,7 @@ START_TEST (test_SpeciesReference_setStoichiometryMath6)
 {
   StoichiometryMath_t * sm = 
     StoichiometryMath_create(2, 1);
+  StoichiometryMath_setMath(sm, SBML_parseFormula("1"));
 
   int i = SpeciesReference_setStoichiometryMath(sr, sm);
 

@@ -335,25 +335,25 @@ SpeciesReference::setStoichiometryMath (const StoichiometryMath* math)
   {
     return LIBSBML_UNEXPECTED_ATTRIBUTE;
   }
-  else if (mStoichiometryMath == math) 
+
+  int returnValue = checkCompatibility(static_cast<const SBase *>(math));
+  
+  if (returnValue == LIBSBML_OPERATION_FAILED && math == NULL)
+  {
+    return unsetStoichiometryMath();
+  }
+  else if (returnValue != LIBSBML_OPERATION_SUCCESS)
+  {
+    return returnValue;
+  }
+  
+  if (mStoichiometryMath == math) 
   {
     mIsSetStoichiometry = false;
     mExplicitlySetStoichiometry = false;
     mStoichiometry = 1.0;
     mDenominator = 1;
     return LIBSBML_OPERATION_SUCCESS;
-  }
-  else if (math == NULL)
-  {
-    return unsetStoichiometryMath();
-  }
-  else if (getLevel() != math->getLevel())
-  {
-    return LIBSBML_LEVEL_MISMATCH;
-  }
-  else if (getVersion() != math->getVersion())
-  {
-    return LIBSBML_VERSION_MISMATCH;
   }
   else
   {

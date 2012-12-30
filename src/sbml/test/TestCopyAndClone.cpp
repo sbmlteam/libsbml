@@ -1107,6 +1107,7 @@ START_TEST ( test_Reaction_copyConstructor )
     fail_unless(o1->getId() == "c");
 
     KineticLaw *kl = new KineticLaw(2, 4);
+    kl->setMath(SBML_parseFormula("1"));
     o1->setKineticLaw(kl);
     delete kl;
 
@@ -1134,6 +1135,7 @@ START_TEST ( test_Reaction_assignmentOperator )
     fail_unless(o1->getId() == "c");
     
     KineticLaw *kl = new KineticLaw(2, 4);
+    kl->setMath(SBML_parseFormula("1"));
     o1->setKineticLaw(kl);
     delete kl;
 
@@ -1163,6 +1165,8 @@ START_TEST ( test_Reaction_clone )
     fail_unless(o1->getId() == "c");
 
     KineticLaw *kl = new KineticLaw(2, 4);
+    kl->setMath(SBML_parseFormula("1"));
+
     o1->setKineticLaw(kl);
     delete kl;
 
@@ -1662,6 +1666,9 @@ START_TEST ( test_SBMLDocument_clone )
     o1->setLevelAndVersion(1, 1, false);
     Model *m = new Model(1, 1);
     m->setId("foo");
+    m->createCompartment();
+    m->createSpecies();
+    m->createReaction();
     o1->setModel(m);
 
     

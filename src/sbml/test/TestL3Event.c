@@ -225,6 +225,9 @@ START_TEST (test_L3_Event_hasRequiredElements )
   fail_unless ( !Event_hasRequiredElements(e));
 
   Trigger_t *t = Trigger_create(3, 1);
+  Trigger_setMath(t, SBML_parseFormula("true"));
+  Trigger_setInitialValue(t, 1);
+  Trigger_setPersistent(t, 1);
   Event_setTrigger(e, t);
 
   fail_unless ( Event_hasRequiredElements(e));
