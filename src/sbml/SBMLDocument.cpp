@@ -698,6 +698,12 @@ SBMLDocument::checkConsistency ()
 {
   unsigned int numErrors = mInternalValidator->checkConsistency(false);
 
+  for (unsigned int i = 0; i < getNumPlugins(); i++)
+  {
+    numErrors += static_cast<SBMLDocumentPlugin*>
+                            (getPlugin(i))->checkConsistency();
+  }
+
   list<SBMLValidator*>::iterator it;
   for (it = mValidators.begin(); it != mValidators.end(); it++)
   {
