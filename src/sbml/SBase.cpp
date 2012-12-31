@@ -4223,10 +4223,26 @@ SBase::logUnknownAttribute( const string& attribute,
 {
   ostringstream msg;
 
-  msg << "Attribute '" << attribute << "' is not part of the "
-      << "definition of an SBML Level " << level
-      << " Version " << version << " " << element << " element.";
-
+  if (getPackageName() != "core")
+  {
+    msg << "Attribute '" << attribute << "' is not part of the "
+        << "definition of an SBML Level " << level
+        << " Version " << version << " Package " 
+        << getPackageName() << " Version " << getPackageVersion() << " "
+        << element << " element.";
+    if (mSBML != NULL)
+    {
+      getErrorLog()->logError(NotSchemaConformant,
+  			    level, version, msg.str(), getLine(), getColumn());
+    }
+    return;
+  }
+  else
+  {
+    msg << "Attribute '" << attribute << "' is not part of the "
+        << "definition of an SBML Level " << level
+        << " Version " << version << " " << element << " element.";
+  }
   /* Akiya made this note - so it needs checking BUT if it can crash due to no
    * SBMLDocument object then it can crash whatever level - so I put the catch outside
    */
@@ -4573,17 +4589,40 @@ SBase::logUnknownElement( const string& element,
     }
   }
 
-  if (!logged)
+  if (logged == false && getPackageName() != "core")
   {
+    // put in a package message
+    // for now - want to log error from package but needs further work
+    ostringstream msg;
+
+    msg << "Element '" << element << "' is not part of the definition of '"
+        << this->getElementName() << "' in "
+        << "SBML Level " << level << " Version " << version
+        << " Package " << getPackageName() 
+        << " Version " << getPackageVersion() << ".";
+      
+    if (mSBML != NULL)
+    {
+      getErrorLog()->logError(UnrecognizedElement,
+			    level, version, msg.str(), getLine(), getColumn());
+    }
+  }
+
+  if (logged == false)
+  {
+
     ostringstream msg;
 
     msg << "Element '" << element << "' is not part of the definition of "
         << "SBML Level " << level << " Version " << version << ".";
       
     if (mSBML != NULL)
-    getErrorLog()->logError(UnrecognizedElement,
-			    level, version, msg.str(), getLine(), getColumn());
+    {
+      getErrorLog()->logError(UnrecognizedElement,
+			      level, version, msg.str(), getLine(), getColumn());
+    }
   }
+  
 }
 /** @endcond */
 
@@ -5496,6 +5535,14 @@ SBase::checkListOfPopulated(SBase* object)
   //
   if (object->getPackageName() != "core") 
   {
+    // for now log the empty list
+    if (static_cast <ListOf*> (object)->size() == 0)
+    {
+      ostringstream errMsg;
+      errMsg << object->getElementName() << " cannot be empty.";
+      
+      logError(NotSchemaConformant, getLevel(), getVersion(), errMsg.str());
+    }
     return;
   }
 
