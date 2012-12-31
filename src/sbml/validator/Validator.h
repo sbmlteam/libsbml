@@ -116,7 +116,7 @@ public:
    *
    * @param c the VConstraint ("validator constraint") object to add.
    */
-  void addConstraint (VConstraint* c);
+  virtual void addConstraint (VConstraint* c);
 
 
   /**
@@ -164,7 +164,7 @@ public:
    * @return the number of validation failures that occurred.  The objects
    * describing the actual failures can be retrieved using getFailures().
    */
-  unsigned int validate (const SBMLDocument& d);
+  virtual unsigned int validate (const SBMLDocument& d);
 
 
   /**
@@ -175,7 +175,7 @@ public:
    * @return the number of validation failures that occurred.  The objects
    * describing the actual failures can be retrieved using getFailures().
    */
-  unsigned int validate (const std::string& filename);
+  virtual unsigned int validate (const std::string& filename);
 
 
 protected:
