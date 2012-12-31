@@ -739,6 +739,24 @@ public:
   virtual SBMLNamespaces * getSBMLNamespaces() const;
   /** @endcond */
 
+  /** @cond doxygen-libsbml-internal */
+
+  // -----------------------------------------------
+  //
+  // virtual functions for elements
+  //
+  // ------------------------------------------------
+
+  /**
+   * Helper to log a common type of error for elements.
+   */
+  virtual void logUnknownElement(const std::string &element, 
+                                 const unsigned int sbmlLevel,
+ 			         const unsigned int sbmlVersion,
+			         const unsigned int pkgVersion );
+
+  /** @endcond */
+
 
 protected:
   /** @cond doxygen-libsbml-internal */
@@ -763,19 +781,19 @@ protected:
   SBMLErrorLog* getErrorLog ();
 
 
-  // -----------------------------------------------
-  //
-  // virtual functions for elements
-  //
-  // ------------------------------------------------
+  //// -----------------------------------------------
+  ////
+  //// virtual functions for elements
+  ////
+  //// ------------------------------------------------
 
-  /**
-   * Helper to log a common type of error for elements.
-   */
-  virtual void logUnknownElement(const std::string &element, 
-                                 const unsigned int sbmlLevel,
- 			         const unsigned int sbmlVersion,
-			         const unsigned int pkgVersion );
+  ///**
+  // * Helper to log a common type of error for elements.
+  // */
+  //virtual void logUnknownElement(const std::string &element, 
+  //                               const unsigned int sbmlLevel,
+ 	//		         const unsigned int sbmlVersion,
+		//	         const unsigned int pkgVersion );
 
   // -----------------------------------------------
   //
