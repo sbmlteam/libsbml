@@ -290,6 +290,89 @@ SBMLExtension::isInUse(SBMLDocument *doc) const
   return true;
 }
 
+packageErrorTableEntry 
+SBMLExtension::getErrorTable(unsigned int index) const
+{
+  return defaultErrorTable[0];
+}
+
+unsigned int 
+SBMLExtension::getErrorTableIndex(unsigned int errorId) const
+{
+  return 0;
+}
+
+unsigned int
+SBMLExtension::getErrorIdOffset() const
+{
+  return 0;
+}
+
+unsigned int 
+SBMLExtension::getSeverity(unsigned int index, unsigned int pkgVersion) const
+{
+  packageErrorTableEntry pkgErr = getErrorTable(index);
+  switch (pkgVersion)
+  {
+    case 1:
+    default:
+      return pkgErr.l3v1_severity;
+      break;
+  }
+}
+
+unsigned int 
+SBMLExtension::getCategory(unsigned int index) const
+{
+  packageErrorTableEntry pkgErr = getErrorTable(index);
+  return pkgErr.category;
+}
+
+std::string 
+SBMLExtension::getMessage(unsigned int index, 
+                          unsigned int pkgVersion, 
+                          const std::string& details) const
+{
+  packageErrorTableEntry pkgErr = getErrorTable(index);
+      
+  ostringstream newMsg;
+  std::string ref;
+  std::string message;
+
+  newMsg << pkgErr.message;
+
+  switch (pkgVersion)
+  {
+    case 1:
+    default:
+      ref = pkgErr.reference.ref_l3v1;
+      break;
+  }
+
+  if (!ref.empty())
+  {
+    newMsg << "\nReference: " << ref << endl;
+  }
+
+  if (!details.empty())
+  {
+    newMsg << " " << details;
+  }      
+  newMsg << endl;
+  message =  newMsg.str();
+
+  return message;
+}
+
+std::string 
+SBMLExtension::getShortMessage(unsigned int index) const
+{
+  packageErrorTableEntry pkgErr = getErrorTable(index);
+  return pkgErr.shortMessage;
+}
+
+
+
 /** @cond doxygen-c-only */
 
 /**

@@ -511,6 +511,37 @@ GroupsExtension::init()
 #include <sbml/extension/SBasePluginCreatorBase.h>
 #include <sbml/extension/SBaseExtensionPoint.h>
 
+  /** @cond doxygen-libsbml-internal */
+
+typedef struct {
+  const char * ref_l3v1;
+} packageReferenceEntry;
+
+
+typedef struct {
+  unsigned int code;
+  const char*  shortMessage;
+  unsigned int category;
+  unsigned int l3v1_severity;
+  const char*  message;
+  packageReferenceEntry reference;
+} packageErrorTableEntry;
+
+static const packageErrorTableEntry defaultErrorTable[] =
+{
+  // 10304
+  { 0, 
+    "",
+    0, 
+    LIBSBML_SEV_ERROR,
+    "",
+    { ""
+    }
+  }
+};
+
+  /** @endcond */
+
 #ifdef __cplusplus
 
 #include <vector>
@@ -891,6 +922,28 @@ public:
    *         byy the document. 
    */
   virtual bool isInUse(SBMLDocument *doc) const;
+
+  /** @cond doxygen-libsbml-internal */
+  /*
+   * functions for use with error logging
+   */
+  virtual unsigned int getErrorTableIndex(unsigned int errorId) const;
+
+  virtual packageErrorTableEntry getErrorTable(unsigned int index) const;
+
+  virtual unsigned int getErrorIdOffset() const;
+
+  unsigned int getSeverity(unsigned int index, unsigned int pkgVersion) const;
+
+  unsigned int getCategory(unsigned int index) const;
+
+  std::string getMessage(unsigned int index, unsigned int pkgVersion, 
+                         const std::string& details) const;
+
+  std::string getShortMessage(unsigned int index) const;
+
+
+  /** @endcond */
 
 protected:
   /** @cond doxygen-libsbml-internal */
