@@ -217,6 +217,21 @@ public:
   );
 
 
+  void logPackageError
+  (
+      const std::string& package    = "core"
+    , const unsigned int errorId    = 0
+    , const unsigned int pkgVersion = 1
+    , const unsigned int level      = SBML_DEFAULT_LEVEL
+    , const unsigned int version    = SBML_DEFAULT_VERSION
+    , const std::string& details    = ""
+    , const unsigned int line       = 0
+    , const unsigned int column     = 0
+    , const unsigned int severity   = LIBSBML_SEV_ERROR
+    , const unsigned int category   = LIBSBML_CAT_SBML
+  );
+
+
   /**
    * Adds the given SBMLError to the log.
    *

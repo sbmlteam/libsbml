@@ -1124,6 +1124,8 @@ public:
    , const unsigned int column   = 0
    , const unsigned int severity = LIBSBML_SEV_ERROR
    , const unsigned int category = LIBSBML_CAT_SBML
+   , const std::string& package  = "core"
+   , const unsigned int pkgVersion = 1
   );
 
 
@@ -1161,6 +1163,8 @@ protected:
 
   virtual std::string stringForSeverity(unsigned int code) const;
   virtual std::string stringForCategory(unsigned int code) const;
+
+  void adjustErrorId(unsigned int offset);
 
   /** @endcond **/
 };

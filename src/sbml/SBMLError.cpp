@@ -33,6 +33,7 @@
 #include <sbml/xml/XMLError.h>
 #include <sbml/SBMLError.h>
 #include <sbml/SBMLErrorTable.h>
+#include <sbml/extension/SBMLExtensionRegistry.h>
 
 
 /** @cond doxygen-ignored */
@@ -186,7 +187,9 @@ SBMLError::SBMLError (  const unsigned int errorId
                       , const unsigned int line
                       , const unsigned int column
                       , const unsigned int severity
-                      , const unsigned int category ) :
+                      , const unsigned int category 
+                      , const std::string& package
+                      , const unsigned int pkgVersion) :
     XMLError(errorId, details, line, column, severity, category)
 {
   // Check if the given id is one we have in our table of error codes.  If
@@ -345,10 +348,34 @@ SBMLError::SBMLError (  const unsigned int errorId
     return;
   }
 
+
+  if (package.empty() == false && package != "core")
+  {
+    // we are logging an error from a package
+    const SBMLExtension *sbext = 
+      SBMLExtensionRegistry::getInstance().getExtension(package);
+    if (sbext != NULL)
+    {
+      unsigned int index = sbext->getErrorTableIndex(mErrorId);
+      if (index > 0)
+      {
+        mSeverity = sbext->getSeverity(index, pkgVersion);
+        mCategory = sbext->getCategory(index);
+        mMessage = sbext->getMessage(index, pkgVersion, details);
+        mShortMessage = sbext->getShortMessage(index);
+        mPackage = package;
+        adjustErrorId(sbext->getErrorIdOffset());
+      }
+      mSeverityString = stringForSeverity(mSeverity);
+      mCategoryString = stringForCategory(mCategory);
+
+      return;
+    }
+  }
+
   // It's not an error code in the SBML layer, so assume the caller has
   // filled in all the relevant additional data.  (If they didn't, the
   // following merely assigns the defaults.)
-
   mMessage        = details;
   mSeverity       = severity;
   mCategory       = category;
@@ -362,7 +389,8 @@ SBMLError::SBMLError (  const unsigned int errorId
  */
 SBMLError::SBMLError(const SBMLError& orig) :
  XMLError(orig)
-{}
+{
+}
 
 
 /** @cond doxygen-libsbml-internal **/
@@ -387,12 +415,28 @@ SBMLError::clone() const
 void
 SBMLError::print(ostream& s) const
 {
-  s << "line " << getLine() << ": ("
-    << setfill('0') << setw(5) << getErrorId()
-    << " [" << getSeverityAsString() << "]) "
-    << getMessage() << endl;
+  if (getPackage().empty() == true || getPackage() == "core")
+  {
+    s << "line " << getLine() << ": ("
+      << setfill('0') << setw(5) << getErrorId()
+      << " [" << getSeverityAsString() << "]) "
+      << getMessage() << endl;
+  }
+  else
+  {
+    s << "line " << getLine() << ": (" << getPackage() << "-"
+      << setfill('0') << setw(5) << getErrorId()
+      << " [" << getSeverityAsString() << "]) "
+      << getMessage() << endl;
+  }
 }
 
 /** @endcond **/
+
+void
+SBMLError::adjustErrorId(unsigned int offset)
+{
+  mErrorId = mErrorId - offset;
+}
 LIBSBML_CPP_NAMESPACE_END
 
