@@ -191,6 +191,10 @@ public:
   
   virtual bool isFlatteningImplemented() const;
 
+
+  virtual unsigned int checkConsistency();
+
+
   /** @endcond */
 
 

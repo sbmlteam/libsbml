@@ -189,6 +189,12 @@ SBMLDocumentPlugin::isFlatteningImplemented() const
 
 
 
+unsigned int 
+SBMLDocumentPlugin::checkConsistency()
+{
+  return 0;
+}
+
 /** @endcond doxygen-libsbml-internal */
 
 
