@@ -1030,6 +1030,8 @@ public:
    */
   static const std::string getStandardMessage (const int code);
 
+  const std::string& getPackage() const;
+
 #ifndef SWIG
 
   /** @cond doxygen-libsbml-internal */
@@ -1072,6 +1074,8 @@ protected:
   std::string mCategoryString;
 
   bool mValidError;
+
+  std::string mPackage;
 
   virtual std::string stringForSeverity(unsigned int code) const;
   virtual std::string stringForCategory(unsigned int code) const;

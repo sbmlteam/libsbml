@@ -322,6 +322,7 @@ XMLError::XMLError (  const int errorId
   , mLine   ( line    )
   , mColumn ( column  )
   , mValidError ( true )
+  , mPackage ("")
 {
   // Check if the given id is one we have in our table of error codes.  If
   // it is, fill in the fields of the error object with the appropriate
@@ -432,6 +433,7 @@ XMLError::XMLError(const XMLError& orig)
     mColumn         = orig.mColumn;
     mSeverityString = orig.mSeverityString;
     mCategoryString = orig.mCategoryString;
+    mPackage        = orig.mPackage;
   }
 }
 
@@ -457,6 +459,7 @@ XMLError::operator=(const XMLError& rhs)
     mColumn         = rhs.mColumn;
     mSeverityString = rhs.mSeverityString;
     mCategoryString = rhs.mCategoryString;
+    mPackage        = rhs.mPackage;
   }
 
   return *this;
@@ -579,6 +582,13 @@ XMLError::getCategoryAsString() const
 {
   return mCategoryString;
 }
+
+const std::string& 
+XMLError::getPackage() const
+{
+  return mPackage;
+}
+
 
 
 /*
