@@ -5533,7 +5533,8 @@ SBase::checkListOfPopulated(SBase* object)
   //        This function may need to be extented for other elements 
   //        defined in each package extension.
   //
-  if (object->getPackageName() != "core") 
+  if (object->getPackageName() != "core" && 
+    object->getTypeCode() == SBML_LIST_OF) 
   {
     // for now log the empty list
     if (static_cast <ListOf*> (object)->size() == 0)
