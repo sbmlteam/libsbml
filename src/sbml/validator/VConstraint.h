@@ -50,7 +50,7 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 class Model;
 
 
-class VConstraint
+class LIBSBML_EXTERN VConstraint
 {
 public:
 
