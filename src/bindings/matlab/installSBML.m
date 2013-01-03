@@ -223,13 +223,21 @@ function [success, located] = checkForExecutables(matlab_octave, directory, verb
       t = which(transFile);
       o = which(outFile);
       found = 0;
+      t_found = 0;
       if (isempty(t) == 0 && strcmp(t, [directory, filesep, transFile]) == 0)
         found = 1;
+        t_found = 1;
       elseif (isempty(o) == 0 && strcmp(o, [directory, filesep, outFile]) == 0)
         found = 1;
       end;
-      if (found == 1)     
-        error('%s\n%s', 'Other libsbml executables found', ...
+      if (found == 1)  
+        if (t_found == 1)
+          pathDir = t;
+        else
+          pathDir = o;
+        end;
+        error('%s\n%s\n%s', 'Other libsbml executables found on the path at:', ... 
+          pathDir, ...
         'Please uninstall these before attempting to install again');
       end;
     end;
@@ -282,7 +290,7 @@ function [success, located] = checkForExecutables(matlab_octave, directory, verb
       % right dir 
       currentDir = pwd();
       cd(directory);
-      success = doesItRun(matlab_octave, verbose);
+      success = doesItRun(matlab_octave, verbose, currentDir);
       cd (currentDir);
     end;
     
@@ -296,15 +304,17 @@ end
 
 % test the installation
 % -------------------------------------------------------------------------
-function success = doesItRun(matlab_octave, verbose)
+function success = doesItRun(matlab_octave, verbose, dirForTest)
     
   success = 1;
   
   message{1} = 'Attempting to execute functions';
   myDisp(message, verbose);
     
+  testFile = fullfile(dirForTest, 'test.xml');
+  
   try
-    M = TranslateSBML('test.xml');
+    M = TranslateSBML(testFile);
     message{1} = 'TranslateSBML successful';
   catch ME
     success = 0;
