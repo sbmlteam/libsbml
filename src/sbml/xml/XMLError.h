@@ -1032,6 +1032,8 @@ public:
 
   const std::string& getPackage() const;
 
+  unsigned int getErrorIdOffset() const;
+
 #ifndef SWIG
 
   /** @cond doxygen-libsbml-internal */
@@ -1076,6 +1078,7 @@ protected:
   bool mValidError;
 
   std::string mPackage;
+  unsigned int mErrorIdOffset;
 
   virtual std::string stringForSeverity(unsigned int code) const;
   virtual std::string stringForCategory(unsigned int code) const;

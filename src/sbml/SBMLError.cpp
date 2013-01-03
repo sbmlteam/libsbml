@@ -364,7 +364,7 @@ SBMLError::SBMLError (  const unsigned int errorId
         mMessage = sbext->getMessage(index, pkgVersion, details);
         mShortMessage = sbext->getShortMessage(index);
         mPackage = package;
-        adjustErrorId(sbext->getErrorIdOffset());
+        mErrorIdOffset = sbext->getErrorIdOffset();
       }
       mSeverityString = stringForSeverity(mSeverity);
       mCategoryString = stringForCategory(mCategory);
@@ -425,7 +425,7 @@ SBMLError::print(ostream& s) const
   else
   {
     s << "line " << getLine() << ": (" << getPackage() << "-"
-      << setfill('0') << setw(5) << getErrorId()
+      << setfill('0') << setw(5) << (getErrorId() - getErrorIdOffset())
       << " [" << getSeverityAsString() << "]) "
       << getMessage() << endl;
   }
@@ -436,7 +436,9 @@ SBMLError::print(ostream& s) const
 void
 SBMLError::adjustErrorId(unsigned int offset)
 {
-  mErrorId = mErrorId - offset;
+  // actually dont do this since it means a user cannot 
+  // look for the specific error
+  //mErrorId = mErrorId - offset;
 }
 LIBSBML_CPP_NAMESPACE_END
 

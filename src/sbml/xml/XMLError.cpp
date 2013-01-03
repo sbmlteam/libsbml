@@ -323,6 +323,7 @@ XMLError::XMLError (  const int errorId
   , mColumn ( column  )
   , mValidError ( true )
   , mPackage ("")
+  , mErrorIdOffset (0)
 {
   // Check if the given id is one we have in our table of error codes.  If
   // it is, fill in the fields of the error object with the appropriate
@@ -434,6 +435,7 @@ XMLError::XMLError(const XMLError& orig)
     mSeverityString = orig.mSeverityString;
     mCategoryString = orig.mCategoryString;
     mPackage        = orig.mPackage;
+    mErrorIdOffset  = orig.mErrorIdOffset;
   }
 }
 
@@ -460,6 +462,7 @@ XMLError::operator=(const XMLError& rhs)
     mSeverityString = rhs.mSeverityString;
     mCategoryString = rhs.mCategoryString;
     mPackage        = rhs.mPackage;
+    mErrorIdOffset  = rhs.mErrorIdOffset;
   }
 
   return *this;
@@ -588,6 +591,13 @@ XMLError::getPackage() const
 {
   return mPackage;
 }
+
+unsigned int
+XMLError::getErrorIdOffset () const
+{
+  return mErrorIdOffset;
+}
+
 
 
 
