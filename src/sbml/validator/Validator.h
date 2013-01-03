@@ -75,7 +75,7 @@ struct ValidatorConstraints;
 class SBMLDocument;
 
 
-class Validator
+class LIBSBML_EXTERN Validator
 {
 public:
 
