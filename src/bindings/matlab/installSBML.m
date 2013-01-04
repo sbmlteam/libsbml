@@ -206,6 +206,9 @@ function [success, located] = checkForExecutables(matlab_octave, directory, verb
   
   transFile = strcat('TranslateSBML.', mexext());
   outFile = strcat('OutputSBML.', mexext());
+  
+  thisDirTFile = fullfile(pwd(), transFile);
+  thisDirOFile = fullfile(pwd(), outFile);
 
   success = 0;
   located = 0;
@@ -222,13 +225,19 @@ function [success, located] = checkForExecutables(matlab_octave, directory, verb
       % need to check that there are not other files on the path
       t = which(transFile);
       o = which(outFile);
+      
+      % exclude the current dir
+      currentT = strcmp(t, thisDirTFile);
+      currentO = strcmp(t, thisDirOFile);
       found = 0;
-      t_found = 0;
-      if (isempty(t) == 0 && strcmp(t, [directory, filesep, transFile]) == 0)
-        found = 1;
-        t_found = 1;
-      elseif (isempty(o) == 0 && strcmp(o, [directory, filesep, outFile]) == 0)
-        found = 1;
+      if (currentT == 1 && currentO == 1)
+        t_found = 0;
+        if (isempty(t) == 0 && strcmp(t, [directory, filesep, transFile]) == 0)
+          found = 1;
+          t_found = 1;
+        elseif (isempty(o) == 0 && strcmp(o, [directory, filesep, outFile]) == 0)
+          found = 1;
+        end;
       end;
       if (found == 1)  
         if (t_found == 1)
