@@ -2,10 +2,43 @@
 
 
 ====================================================================
-Version 5.7.0 (Expected early 2013)
+Version 5.7.0 (2013-01-14)
 ====================================================================
 
 STABLE RELEASE
+
+* Hierarchical Model Composition
+
+ 
+  - The first official version of the specification of Hierarchical
+    Model Composition is now available and thus the libSBML code for
+    'comp' is now included in the stable release of libSBML.
+    This means that all prebuilt binaries for the stable release will
+    include the 'comp' package code. The src archive containing libSBML
+    core code will continue to be available but there will be additional 
+    src archives available in the stable branch: one containing libSBML 
+    core plus all stable packages and additional archives of the individual
+    package code.
+    
+    NOTE: The GNUMake build system has not been implemented for
+          packages. Thus, to build from src, it is necessary to use
+          CMake.
+
+    
+    * Limitations of the 'comp' code
+    
+    - Documentation has not yet been integrated into the libsbml 
+      documentation.
+      
+    - Whilst the majority of validation rules have been implemented, 
+      some will report the schema error id rather than the specific comp
+      validation rule id.  The more involved rules involving circular
+      dependencies have not yet been implemented.
+      
+    - There is no C API for interacting directly with comp objects. However
+      the C API for reading and validation will apply to the 'comp' package
+      and flattening can be accessed via the converter C API to call the 
+      CompFlatteningConverter.
 
 * New features
 
@@ -25,6 +58,27 @@ STABLE RELEASE
     of this argument is 'true' the function will accept a 
     string; wrap it with the XHTML <p> tag and set the
     <notes> element to this.
+    
+  - 'comp' package
+   
+    - Access to the flattening routines has been restricted to 
+      the CompFlatteningConverter.  This allows options to be 
+      specified by the user regarding ignoring other packages 
+      and whether to produce a document with no comp namespace 
+      or a document with the comp namespace but the required 
+      attribute set to 'false'.
+      
+    - Validation has been implemented (see note above). This is called 
+      via the checkConsistency function within core libSBML; which now
+      accesses a checkConsistency function in the comp plugin.
+      There are two categories of validation: 
+      LIBSBML_CAT_GENERAL_CONSISTENCY and LIBSBML_CAT_IDENTIFIER_CONSISTENCY
+      which are enables or disable via the setConsistencyChecks()
+      function on the SBMLDocument (in libSBML core.)
+      
+    - The API for resolving external models has been updated to
+      use a registry of resolvers. This facilitates the addition of user
+      specific resolvers.
 
 * Bug fixes
 
@@ -32,11 +86,24 @@ STABLE RELEASE
     was incorrectly assumed to be two. However, a piecewise
     function can have a single argument. This has been corrected.
 
-  - Validation of SBML Level 3 was issuing a genral warning
+  - Validation of SBML Level 3 was issuing a general warning
     about missing required attributes but failing to identify
     which attribute had caused the error to be reported.
     This has been corrected. Thanks to Nicolas Rodriguez 
     for pointing this out.
+    
+  - Validation was failing to report the incorrect use of a function
+    call if the lambda function usesd expected no arguments. This
+    has been fixed.
+    
+  - The L3Parser was not dealing with the sqrt function correctly.
+    This has been sorted.
+    
+  - 'comp' package
+  
+    - SBOTerms were not being correctly dealt with when they 
+      occured on a Port element. This has been corrected. Thanks
+      to Chris Myers for reporting this.
 
 * Configuration/build system changes
 
@@ -50,6 +117,12 @@ STABLE RELEASE
 
   - The build system has been updated to facilitate use with the 
     Mac OS X 10.8 operating system (Mountain Lion).
+    
+  - 'comp' package
+  
+    - The GNUMake build system has not been implemented for
+      packages. Thus, to build from src, it is necessary to use
+      CMake.
 
 * Miscellaneous
 
@@ -72,13 +145,25 @@ EXPERIMENTAL RELEASE
 
 * New features
 
+  - 'Qual' package:
+    
+    - The package specification redefined whether some attributes
+      or elements were required; the code has been updated appropriately.
+  
+  - 'Fbc' package:
+    
+    - The package specification added some optional attributes
+      and deprecated the use of strict less than or greater than; 
+      the code has been updated appropriately.
+  
+
 * Bug fixes
 
-* Configuration/build system changes
-
-* Miscellaneous
-
-
+  - 'Render' package:
+    
+    - In some cases the code was failing to add expected attributes
+      to particular elements.  This has been corrected.
+  
 
 ====================================================================
 Version 5.6.0 (2012-08-03)
