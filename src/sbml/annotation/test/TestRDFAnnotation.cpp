@@ -84,6 +84,51 @@ equals (const char* expected, const char* actual)
 
   return false;
 }
+START_TEST (test_invalid_user_annotation)
+{
+
+  // does not get logged for l2v1
+  const char* invalidL2V1 = "<?xml version='1.0' encoding='UTF-8'?>\n"
+      "<sbml xmlns='http://www.sbml.org/sbml/level2'\n"
+      " level='2'\n"
+      " version='1'>\n"
+      "  <annotation>\n"
+      "    Created by The MathWorks, Inc. SimBiology tool, Version 4.0\n"
+      "  </annotation>\n"
+      "  <model id='trial_spatial' name='trial_spatial'>\n"
+      "    <listOfCompartments>\n"
+      "      <compartment id='cytosol' constant='true' size='1'/>\n"
+      "    </listOfCompartments>\n"
+      "  </model>\n"
+      "</sbml>\n";
+
+  SBMLDocument * doc = readSBMLFromString(invalidL2V1);
+  int numErrors = doc->getNumErrors();
+  fail_unless(numErrors == 0);
+  delete doc;
+
+  const char* invalidL2V2 = "<?xml version='1.0' encoding='UTF-8'?>\n"
+      "<sbml xmlns='http://www.sbml.org/sbml/level2/version2'\n"
+      " level='2'\n"
+      " version='2'>\n"
+      "  <annotation>\n"
+      "    Created by The MathWorks, Inc. SimBiology tool, Version 4.0\n"
+      "  </annotation>\n"
+      "  <model id='trial_spatial' name='trial_spatial'>\n"
+      "    <listOfCompartments>\n"
+      "      <compartment id='cytosol' constant='true' size='1'/>\n"
+      "    </listOfCompartments>\n"
+      "  </model>\n"
+      "</sbml>\n";
+
+  // but for l2v2 and above
+  doc = readSBMLFromString(invalidL2V2);
+  numErrors = doc->getNumErrors();
+  fail_unless(numErrors == 1);
+  fail_unless(doc->getErrorLog()->contains(AnnotationNotElement));
+  delete doc;
+}
+END_TEST
 
 
 
@@ -2006,6 +2051,7 @@ create_suite_RDFAnnotation (void)
                             RDFAnnotation_setup,
                             RDFAnnotation_teardown);
 
+  tcase_add_test(tcase, test_invalid_user_annotation );
   tcase_add_test(tcase, test_RDFAnnotation_getModelHistory );
   tcase_add_test(tcase, test_RDFAnnotation_parseModelHistory );
   tcase_add_test(tcase, test_RDFAnnotation_parseCVTerms );
