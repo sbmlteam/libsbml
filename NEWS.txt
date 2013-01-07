@@ -33,8 +33,8 @@ STABLE RELEASE
     - Whilst the majority of validation rules have been implemented, 
       some will report the schema error id rather than the specific comp
       validation rule id.  The more involved rules involving circular
-      dependencies have not yet been implemented.
-      
+      dependencies, in-depth referencing and validation of the models 
+      defined within the ModelDefinition element have not been implemented.      
     - There is no C API for interacting directly with comp objects. However
       the C API for reading and validation will apply to the 'comp' package
       and flattening can be accessed via the converter C API to call the 
