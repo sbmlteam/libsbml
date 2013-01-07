@@ -706,7 +706,7 @@ public:
    * read from a file or had its location set manually, that filename
    * or set location will be returned, otherwise, an empty string is returned.
    */
-  std::string getLocationURI();
+  std::string getLocationURI() const;
 
   /**
    * Controls the consistency checks that are performed when

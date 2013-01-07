@@ -665,7 +665,7 @@ SBMLDocument::setLocationURI (const std::string& uri)
 
 
 std::string 
-SBMLDocument::getLocationURI()
+SBMLDocument::getLocationURI() const
 {
   return mLocationURI;
 }
