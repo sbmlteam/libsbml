@@ -198,6 +198,7 @@ START_CONSTRAINT (91017, Model, x)
       u->setKind(ud->getUnit(i)->getKind());
       u->setScale(ud->getUnit(i)->getScale());
       u->setExponent(ud->getUnit(i)->getExponent());
+      u->setMultiplier(ud->getUnit(i)->getMultiplier());
       ud1->addUnit(u);
     }
   
