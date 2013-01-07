@@ -220,55 +220,50 @@ function [success, located] = checkForExecutables(matlab_octave, directory, verb
     else 
       located = 1;
     end;
-    if (located == 1)
-      % we have found the executables where the user says but 
-      % need to check that there are not other files on the path
-      t = which(transFile);
-      o = which(outFile);
-      
-      % exclude the current dir
-      currentT = strcmp(t, thisDirTFile);
-      currentO = strcmp(t, thisDirOFile);
-      found = 0;
-      if (currentT == 1 && currentO == 1)
-        t_found = 0;
-        if (isempty(t) == 0 && strcmp(t, [directory, filesep, transFile]) == 0)
-          found = 1;
-          t_found = 1;
-        elseif (isempty(o) == 0 && strcmp(o, [directory, filesep, outFile]) == 0)
-          found = 1;
-        end;
-      end;
-      if (found == 1)  
-        if (t_found == 1)
-          pathDir = t;
-        else
-          pathDir = o;
-        end;
-        error('%s\n%s\n%s', 'Other libsbml executables found on the path at:', ... 
-          pathDir, ...
-        'Please uninstall these before attempting to install again');
-      end;
+  else
+    % octave is much more picky about whether the files exist
+  	% it wants to find the libraries at the same time
+  	% exist throws an exception if it cannot find them
+    if (~(myExist(directory, transFile) != 0 ...
+        && myExist(directory, outFile) != 0))
+      located = 0;
+    else 
+      located = 1;
     end;
   end;
-%   else
-%     % octave is much more picky about whether the files exist
-% 	% it wants to find the libraries at the same time
-% 	% exist throws an exception if it cannot find them
-% %     if (~(myExist(transFile) ~= 0 && myExist(outFile) ~= 0))     
-% % 	    error(sprintf('%s\n%s', 'Executables not found', ...
-% % 		  'Run the buildSBML script to build the relevant files'));
-% % 	  % which does not work in octave in the same way
-% % 	  % elseif (~((strcmp(which(transFile), pwd)) && ...
-% % 	  %			(strcmp(which(outFile), pwd))))     
-% % 	  % they exist but are they the right ones    
-% % 	  %  error(sprintf('%s\n%s', 'Other executables from other installations found', ...
-% % 	  %	'Run the buildLibSBML script to build the relevant files for this installation'));
-% %     else
-% % 	    disp('Executables found');
-% % 	  end;
-%   end;
-%   
+
+  if (located == 1)
+    % we have found the executables where the user says but 
+    % need to check that there are not other files on the path
+    t = which(transFile);
+    o = which(outFile);
+      
+    % exclude the current dir
+    currentT = strcmp(t, thisDirTFile);
+    currentO = strcmp(t, thisDirOFile);
+    found = 0;
+    if (currentT == 1 && currentO == 1)
+      t_found = 0;
+      if (isempty(t) == 0 && strcmp(t, [directory, filesep, transFile]) == 0)
+        found = 1;
+        t_found = 1;
+      elseif (isempty(o) == 0 && strcmp(o, [directory, filesep, outFile]) == 0)
+        found = 1;
+      end;
+    end;
+    if (found == 1)  
+      if (t_found == 1)
+        pathDir = t;
+      else
+        pathDir = o;
+      end;
+      error('%s\n%s\n%s', 'Other libsbml executables found on the path at:', ... 
+        pathDir, ...
+      'Please uninstall these before attempting to install again');
+    end;
+  end;
+
+
   if (located == 1)
     message{3} = 'Executables found';
   else
@@ -322,12 +317,22 @@ function success = doesItRun(matlab_octave, verbose, dirForTest)
     
   testFile = fullfile(dirForTest, 'test.xml');
   
-  try
-    M = TranslateSBML(testFile);
-    message{1} = 'TranslateSBML successful';
-  catch ME
-    success = 0;
-    message{1} = sprintf('%s\n%s', 'TranslateSBML failed', ME.message);
+  if strcmpi(matlab_octave, 'matlab')
+    try
+      M = TranslateSBML(testFile);
+      message{1} = 'TranslateSBML successful';
+    catch ME
+      success = 0;
+      message{1} = sprintf('%s\n%s', 'TranslateSBML failed', ME.message);
+    end;
+  else
+    try
+      M = TranslateSBML(testFile);
+      message{1} = 'TranslateSBML successful';
+    catch
+      success = 0;
+      message{1} = 'TranslateSBML failed';
+    end;
   end;
 
   if strcmpi(matlab_octave, 'matlab')
@@ -341,16 +346,30 @@ function success = doesItRun(matlab_octave, verbose, dirForTest)
   end;
       
   if (success == 1)
-    try
-      if (verbose == 1)
-        OutputSBML(M, outFile);
-      else
-        OutputSBML(M, outFile, verbose, verbose);
+    if strcmpi(matlab_octave, 'matlab')
+      try
+        if (verbose == 1)
+          OutputSBML(M, outFile);
+        else
+          OutputSBML(M, outFile, verbose, verbose);
+        end;
+        message{2} = 'OutputSBML successful';
+      catch ME
+        success = 0;
+        message{2} = sprintf('%s\n%s', 'OutputSBML failed', ME.message);
       end;
-      message{2} = 'OutputSBML successful';
-    catch ME
-      success = 0;
-      message{2} = sprintf('%s\n%s', 'OutputSBML failed', ME.message);
+    else
+      try
+        if (verbose == 1)
+          OutputSBML(M, outFile);
+        else
+          OutputSBML(M, outFile, verbose, verbose);
+        end;
+        message{2} = 'OutputSBML successful';
+      catch
+        success = 0;
+        message{2} = 'OutputSBML failed';
+      end;
     end;
   end;
   
@@ -388,4 +407,18 @@ function added = removeDir(name, verbose)
   
   myDisp(message, verbose);
 end
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+function found = myExist(directory, filename)
+
+
+found = 0;
+dirnames = dir(directory);
+i = 1;
+while (found == 0 && i <= length(dirnames))
+  if (dirnames(i).isdir == 0)
+	  found = strcmp(dirnames(i).name, filename);
+	end;
+	i = i+1;
+end;
   
