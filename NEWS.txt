@@ -59,6 +59,10 @@ STABLE RELEASE
     string; wrap it with the XHTML <p> tag and set the
     <notes> element to this.
     
+  - A C API for use with the converters has been added. Examples
+    of using the converter API are available in all supported
+    languages.
+    
   - 'comp' package
    
     - Access to the flattening routines has been restricted to 
