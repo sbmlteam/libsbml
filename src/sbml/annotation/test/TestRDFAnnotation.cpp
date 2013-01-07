@@ -88,6 +88,7 @@ START_TEST (test_invalid_user_annotation)
 {
 
   // does not get logged for l2v1
+  // changed so it does log warning in l2v1
   const char* invalidL2V1 = "<?xml version='1.0' encoding='UTF-8'?>\n"
       "<sbml xmlns='http://www.sbml.org/sbml/level2'\n"
       " level='2'\n"
@@ -104,7 +105,7 @@ START_TEST (test_invalid_user_annotation)
 
   SBMLDocument * doc = readSBMLFromString(invalidL2V1);
   int numErrors = doc->getNumErrors();
-  fail_unless(numErrors == 0);
+  fail_unless(numErrors == 1);
   delete doc;
 
   const char* invalidL2V2 = "<?xml version='1.0' encoding='UTF-8'?>\n"
