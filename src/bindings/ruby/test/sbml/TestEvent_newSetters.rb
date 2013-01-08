@@ -122,7 +122,7 @@ class TestEvent_newSetters < Test::Unit::TestCase
 
   def test_Event_setDelay2
     delay = LibSBML::Delay.new(2,1)
-    Delay.setMath(LibSBML.parseFormula("1"))
+    delay.setMath(LibSBML.parseFormula("1"))
     i = @@e.setDelay(delay)
     assert( i == LibSBML::LIBSBML_VERSION_MISMATCH )
     assert_equal false, @@e.isSetDelay()
