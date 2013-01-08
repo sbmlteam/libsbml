@@ -670,6 +670,12 @@ SBMLDocument::getLocationURI() const
   return mLocationURI;
 }
 
+std::string 
+SBMLDocument::getLocationURI()
+{
+  return mLocationURI;
+}
+
 
 void 
 SBMLDocument::setConsistencyChecks(SBMLErrorCategory_t category,
