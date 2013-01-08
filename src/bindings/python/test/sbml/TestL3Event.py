@@ -107,6 +107,9 @@ class TestL3Event(unittest.TestCase):
     e = libsbml.Event(3,1)
     self.assertEqual( False, e.hasRequiredElements() )
     t = libsbml.Trigger(3,1)
+    t.setMath(libsbml.parseFormula("true"))
+    t.setInitialValue(True)
+    t.setPersistent(True)
     e.setTrigger(t)
     self.assertEqual( True, e.hasRequiredElements() )
     _dummyList = [ e ]; _dummyList[:] = []; del _dummyList

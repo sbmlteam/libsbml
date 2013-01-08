@@ -547,6 +547,7 @@ class TestCopyAndClone < Test::Unit::TestCase
     o1.setId("c")
     assert( o1.getId() ==  "c" )
     kl = LibSBML::KineticLaw.new(2,4)
+    kl.setMath(LibSBML.parseFormula("1"))
     o1.setKineticLaw(kl)
     kl = nil
     assert( o1.isSetKineticLaw() == true )
@@ -566,6 +567,7 @@ class TestCopyAndClone < Test::Unit::TestCase
     o1.setId("c")
     assert( o1.getId() ==  "c" )
     kl = LibSBML::KineticLaw.new(2,4)
+    kl.setMath(LibSBML.parseFormula("1"))
     o1.setKineticLaw(kl)
     kl = nil
     assert( o1.isSetKineticLaw() == true )
@@ -584,6 +586,7 @@ class TestCopyAndClone < Test::Unit::TestCase
     o1.setId("c")
     assert( o1.getId() ==  "c" )
     kl = LibSBML::KineticLaw.new(2,4)
+    kl.setMath(LibSBML.parseFormula("1"))
     o1.setKineticLaw(kl)
     kl = nil
     assert( o1.isSetKineticLaw() == true )
@@ -663,6 +666,9 @@ class TestCopyAndClone < Test::Unit::TestCase
     o1 = LibSBML::SBMLDocument.new()
     o1.setLevelAndVersion(1,1,false)
     m = LibSBML::Model.new(1,1)
+    m.createCompartment()
+    m.createSpecies()
+    m.createReaction()
     m.setId("foo")
     o1.setModel(m)
     assert( o1.getLevel() == 1 )

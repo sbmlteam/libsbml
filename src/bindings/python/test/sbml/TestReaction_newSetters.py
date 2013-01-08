@@ -221,6 +221,7 @@ class TestReaction_newSetters(unittest.TestCase):
 
   def test_Reaction_setKineticLaw1(self):
     kl = libsbml.KineticLaw(2,1)
+    kl.setMath(libsbml.parseFormula("1"))
     i = self.R.setKineticLaw(kl)
     self.assert_( i == libsbml.LIBSBML_LEVEL_MISMATCH )
     self.assertEqual( False, self.R.isSetKineticLaw() )
@@ -229,6 +230,7 @@ class TestReaction_newSetters(unittest.TestCase):
 
   def test_Reaction_setKineticLaw2(self):
     kl = libsbml.KineticLaw(1,1)
+    kl.setMath(libsbml.parseFormula("1"))
     i = self.R.setKineticLaw(kl)
     self.assert_( i == libsbml.LIBSBML_VERSION_MISMATCH )
     self.assertEqual( False, self.R.isSetKineticLaw() )
@@ -237,6 +239,7 @@ class TestReaction_newSetters(unittest.TestCase):
 
   def test_Reaction_setKineticLaw3(self):
     kl = libsbml.KineticLaw(1,2)
+    kl.setMath(libsbml.parseFormula("1"))
     i = self.R.setKineticLaw(kl)
     self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
     self.assertEqual( True, self.R.isSetKineticLaw() )

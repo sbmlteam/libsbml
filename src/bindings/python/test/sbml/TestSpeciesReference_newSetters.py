@@ -220,8 +220,8 @@ class TestSpeciesReference_newSetters(unittest.TestCase):
     math = None
     sm.setMath(math)
     i = self.sr.setStoichiometryMath(sm)
-    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
-    self.assertEqual( True, self.sr.isSetStoichiometryMath() )
+    self.assert_( i == libsbml.LIBSBML_INVALID_OBJECT )
+    self.assertEqual( False, self.sr.isSetStoichiometryMath() )
     self.assert_( self.sr.getStoichiometry() == 1 )
     i = self.sr.unsetStoichiometryMath()
     self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
@@ -249,6 +249,7 @@ class TestSpeciesReference_newSetters(unittest.TestCase):
 
   def test_SpeciesReference_setStoichiometryMath6(self):
     sm = libsbml.StoichiometryMath(2,1)
+    sm.setMath(libsbml.parseFormula("1 + 1"))
     i = self.sr.setStoichiometryMath(sm)
     self.assert_( i == libsbml.LIBSBML_VERSION_MISMATCH )
     self.assertEqual( False, self.sr.isSetStoichiometryMath() )

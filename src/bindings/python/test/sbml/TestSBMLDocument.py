@@ -159,6 +159,7 @@ class TestSBMLDocument(unittest.TestCase):
   def test_SBMLDocument_setModel2(self):
     d = libsbml.SBMLDocument(2,2)
     m1 = libsbml.Model(1,2)
+    m1.createCompartment()
     i = d.setModel(m1)
     self.assert_( i == libsbml.LIBSBML_LEVEL_MISMATCH )
     self.assert_( d.getModel() == None )

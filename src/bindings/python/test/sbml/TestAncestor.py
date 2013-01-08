@@ -156,6 +156,7 @@ class TestAncestor(unittest.TestCase):
 
   def test_Delay_ancestor_add(self):
     d = libsbml.Delay(2,4)
+    d.setMath(libsbml.parseFormula("1"))
     e = libsbml.Event(2,4)
     e.setDelay(d)
     d = None
@@ -245,6 +246,7 @@ class TestAncestor(unittest.TestCase):
     e = libsbml.Event(2,4)
     m = libsbml.Model(2,4)
     t = libsbml.Trigger(2,4)
+    t.setMath(libsbml.parseFormula("true"))
     e.setTrigger(t)
     e.createEventAssignment()
     m.addEvent(e)
@@ -389,6 +391,7 @@ class TestAncestor(unittest.TestCase):
 
   def test_KineticLaw_ancestor_add(self):
     kl = libsbml.KineticLaw(2,4)
+    kl.setMath(libsbml.parseFormula("1"))
     r = libsbml.Reaction(2,4)
     r.setKineticLaw(kl)
     obj = r.getKineticLaw()
@@ -736,6 +739,7 @@ class TestAncestor(unittest.TestCase):
 
   def test_StoichiometryMath_ancestor_add(self):
     m = libsbml.StoichiometryMath(2,4)
+    m.setMath(libsbml.parseFormula("1"))
     sr = libsbml.SpeciesReference(2,4)
     sr.setStoichiometryMath(m)
     m = None
@@ -760,6 +764,7 @@ class TestAncestor(unittest.TestCase):
 
   def test_Trigger_ancestor_add(self):
     d = libsbml.Trigger(2,4)
+    d.setMath(libsbml.parseFormula("true"))
     e = libsbml.Event(2,4)
     e.setTrigger(d)
     d = None

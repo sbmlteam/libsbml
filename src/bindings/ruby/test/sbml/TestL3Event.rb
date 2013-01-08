@@ -100,6 +100,9 @@ class TestL3Event < Test::Unit::TestCase
     e = LibSBML::Event.new(3,1)
     assert_equal false, e.hasRequiredElements()
     t = LibSBML::Trigger.new(3,1)
+    t.setMath(LibSBML.parseFormula("true"))
+    t.setInitialValue(True)
+    t.setPersistent(True)
     e.setTrigger(t)
     assert_equal true, e.hasRequiredElements()
     e = nil

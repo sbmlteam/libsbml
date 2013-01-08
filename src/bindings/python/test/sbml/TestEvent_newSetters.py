@@ -128,6 +128,7 @@ class TestEvent_newSetters(unittest.TestCase):
 
   def test_Event_setDelay2(self):
     Delay = libsbml.Delay(2,1)
+    Delay.setMath(libsbml.parseFormula("1"))
     i = self.E.setDelay(Delay)
     self.assert_( i == libsbml.LIBSBML_VERSION_MISMATCH )
     self.assertEqual( False, self.E.isSetDelay() )
@@ -225,6 +226,7 @@ class TestEvent_newSetters(unittest.TestCase):
 
   def test_Event_setTrigger1(self):
     trigger = libsbml.Trigger(2,1)
+    trigger.setMath(libsbml.parseFormula("true"))
     i = self.E.setTrigger(trigger)
     self.assert_( i == libsbml.LIBSBML_VERSION_MISMATCH )
     self.assertEqual( False, self.E.isSetTrigger() )

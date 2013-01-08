@@ -551,6 +551,7 @@ class TestCopyAndClone(unittest.TestCase):
     o1.setId("c")
     self.assert_( o1.getId() ==  "c" )
     kl = libsbml.KineticLaw(2,4)
+    kl.setMath(libsbml.parseFormula("1"))
     o1.setKineticLaw(kl)
     kl = None
     self.assert_( o1.isSetKineticLaw() == True )
@@ -570,6 +571,7 @@ class TestCopyAndClone(unittest.TestCase):
     o1.setId("c")
     self.assert_( o1.getId() ==  "c" )
     kl = libsbml.KineticLaw(2,4)
+    kl.setMath(libsbml.parseFormula("1"))
     o1.setKineticLaw(kl)
     kl = None
     self.assert_( o1.isSetKineticLaw() == True )
@@ -588,6 +590,7 @@ class TestCopyAndClone(unittest.TestCase):
     o1.setId("c")
     self.assert_( o1.getId() ==  "c" )
     kl = libsbml.KineticLaw(2,4)
+    kl.setMath(libsbml.parseFormula("1"))
     o1.setKineticLaw(kl)
     kl = None
     self.assert_( o1.isSetKineticLaw() == True )
@@ -667,6 +670,9 @@ class TestCopyAndClone(unittest.TestCase):
     o1 = libsbml.SBMLDocument()
     o1.setLevelAndVersion(1,1,False)
     m = libsbml.Model(1,1)
+    m.createCompartment()
+    m.createSpecies()
+    m.createReaction()
     m.setId("foo")
     o1.setModel(m)
     self.assert_( o1.getLevel() == 1 )

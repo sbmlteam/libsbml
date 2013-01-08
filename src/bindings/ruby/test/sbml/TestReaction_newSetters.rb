@@ -215,6 +215,7 @@ class TestReaction_newSetters < Test::Unit::TestCase
 
   def test_Reaction_setKineticLaw1
     kl = LibSBML::KineticLaw.new(2,1)
+    kl.setMath(LibSBML.parseFormula("1"))
     i = @@r.setKineticLaw(kl)
     assert( i == LibSBML::LIBSBML_LEVEL_MISMATCH )
     assert_equal false, @@r.isSetKineticLaw()
@@ -223,6 +224,7 @@ class TestReaction_newSetters < Test::Unit::TestCase
 
   def test_Reaction_setKineticLaw2
     kl = LibSBML::KineticLaw.new(1,1)
+    kl.setMath(LibSBML.parseFormula("1"))
     i = @@r.setKineticLaw(kl)
     assert( i == LibSBML::LIBSBML_VERSION_MISMATCH )
     assert_equal false, @@r.isSetKineticLaw()
@@ -231,6 +233,7 @@ class TestReaction_newSetters < Test::Unit::TestCase
 
   def test_Reaction_setKineticLaw3
     kl = LibSBML::KineticLaw.new(1,2)
+    kl.setMath(LibSBML.parseFormula("1"))
     i = @@r.setKineticLaw(kl)
     assert( i == LibSBML::LIBSBML_OPERATION_SUCCESS )
     assert_equal true, @@r.isSetKineticLaw()

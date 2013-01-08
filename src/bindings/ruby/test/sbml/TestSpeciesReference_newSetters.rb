@@ -214,8 +214,8 @@ class TestSpeciesReference_newSetters < Test::Unit::TestCase
     math = nil
     sm.setMath(math)
     i = @@sr.setStoichiometryMath(sm)
-    assert( i == LibSBML::LIBSBML_OPERATION_SUCCESS )
-    assert_equal true, @@sr.isSetStoichiometryMath()
+    assert( i == LibSBML::LIBSBML_INVALID_OBJECT )
+    assert_equal false, @@sr.isSetStoichiometryMath()
     assert( @@sr.getStoichiometry() == 1 )
     i = @@sr.unsetStoichiometryMath()
     assert( i == LibSBML::LIBSBML_OPERATION_SUCCESS )
@@ -243,6 +243,7 @@ class TestSpeciesReference_newSetters < Test::Unit::TestCase
 
   def test_SpeciesReference_setStoichiometryMath6
     sm = LibSBML::StoichiometryMath.new(2,1)
+    sm.setMath(LibSBML.parseFormula("1 + 1"))
     i = @@sr.setStoichiometryMath(sm)
     assert( i == LibSBML::LIBSBML_VERSION_MISMATCH )
     assert_equal false, @@sr.isSetStoichiometryMath()

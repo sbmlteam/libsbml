@@ -152,6 +152,7 @@ class TestAncestor < Test::Unit::TestCase
 
   def test_Delay_ancestor_add
     d = LibSBML::Delay.new(2,4)
+    d.setMath(LibSBML.parseFormula("1"))
     e = LibSBML::Event.new(2,4)
     e.setDelay(d)
     d = nil
@@ -241,6 +242,7 @@ class TestAncestor < Test::Unit::TestCase
     e = LibSBML::Event.new(2,4)
     m = LibSBML::Model.new(2,4)
     t = LibSBML::Trigger.new(2,4)
+    t.setMath(LibSBML.parseFormula("true"))
     e.setTrigger(t)
     e.createEventAssignment()
     m.addEvent(e)
@@ -385,6 +387,7 @@ class TestAncestor < Test::Unit::TestCase
 
   def test_KineticLaw_ancestor_add
     kl = LibSBML::KineticLaw.new(2,4)
+    kl.setMath(LibSBML.parseFormula("1"))
     r = LibSBML::Reaction.new(2,4)
     r.setKineticLaw(kl)
     obj = r.getKineticLaw()
@@ -732,6 +735,7 @@ class TestAncestor < Test::Unit::TestCase
 
   def test_StoichiometryMath_ancestor_add
     m = LibSBML::StoichiometryMath.new(2,4)
+    m.setMath(LibSBML.parseFormula("1"))
     sr = LibSBML::SpeciesReference.new(2,4)
     sr.setStoichiometryMath(m)
     m = nil
@@ -756,6 +760,7 @@ class TestAncestor < Test::Unit::TestCase
 
   def test_Trigger_ancestor_add
     d = LibSBML::Trigger.new(2,4)
+    d.setMath(LibSBML.parseFormula("true"))
     e = LibSBML::Event.new(2,4)
     e.setTrigger(d)
     d = nil

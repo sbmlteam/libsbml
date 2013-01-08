@@ -81,6 +81,7 @@ class TestRequiredElements < Test::Unit::TestCase
     e = LibSBML::Event.new(2,4)
     assert_equal false, (e.hasRequiredElements())
     t = LibSBML::Trigger.new(2,4)
+    t.setMath(LibSBML.parseFormula("true"))
     e.setTrigger(t)
     assert_equal false, (e.hasRequiredElements())
     e.createEventAssignment()

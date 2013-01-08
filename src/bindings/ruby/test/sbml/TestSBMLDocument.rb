@@ -154,6 +154,7 @@ class TestSBMLDocument < Test::Unit::TestCase
   def test_SBMLDocument_setModel2
     d = LibSBML::SBMLDocument.new(2,2)
     m1 = LibSBML::Model.new(1,2)
+    m1.createCompartment()
     i = d.setModel(m1)
     assert( i == LibSBML::LIBSBML_LEVEL_MISMATCH )
     assert( d.getModel() == nil )

@@ -85,6 +85,7 @@ class TestRequiredElements(unittest.TestCase):
     e = libsbml.Event(2,4)
     self.assertEqual( False, (e.hasRequiredElements()) )
     t = libsbml.Trigger(2,4)
+    t.setMath(libsbml.parseFormula("true"))
     e.setTrigger(t)
     self.assertEqual( False, (e.hasRequiredElements()) )
     e.createEventAssignment()
