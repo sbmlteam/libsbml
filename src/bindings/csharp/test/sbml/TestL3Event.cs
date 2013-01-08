@@ -207,6 +207,7 @@ namespace LibSBMLCSTest.sbml {
       Trigger t = new  Trigger(3,1);
       t.setInitialValue(true);
       t.setPersistent(true);
+      t.setMath(libsbml.parseFormula("true"));
       e.setTrigger(t);
       assertEquals( true, e.hasRequiredElements() );
       e = null;
