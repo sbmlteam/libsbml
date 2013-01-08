@@ -323,8 +323,8 @@ public class TestSpeciesReference_newSetters {
     ASTNode math = null;
     sm.setMath(math);
     int i = sr.setStoichiometryMath(sm);
-    assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS );
-    assertEquals( true, sr.isSetStoichiometryMath() );
+      assertTrue( i == libsbml.LIBSBML_INVALID_OBJECT );
+      assertEquals( false, sr.isSetStoichiometryMath() );
     assertTrue( sr.getStoichiometry() == 1 );
     i = sr.unsetStoichiometryMath();
     assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS );
@@ -354,6 +354,7 @@ public class TestSpeciesReference_newSetters {
   public void test_SpeciesReference_setStoichiometryMath6()
   {
     StoichiometryMath sm = new  StoichiometryMath(2,1);
+      sm.setMath(libsbml.parseFormula("1"));
     int i = sr.setStoichiometryMath(sm);
     assertTrue( i == libsbml.LIBSBML_VERSION_MISMATCH );
     assertEquals( false, sr.isSetStoichiometryMath() );

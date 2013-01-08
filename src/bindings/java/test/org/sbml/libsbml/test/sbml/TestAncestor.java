@@ -247,6 +247,7 @@ public class TestAncestor {
   {
     Delay d = new Delay(2,4);
     Event e = new Event(2,4);
+      d.setMath(libsbml.parseFormula("1"));
     e.setDelay(d);
     d = null;
     Delay obj = e.getDelay();
@@ -341,6 +342,7 @@ public class TestAncestor {
     Event e = new Event(2,4);
     Model m = new Model(2,4);
     Trigger t = new Trigger(2,4);
+      t.setMath(libsbml.parseFormula("true"));
     e.setTrigger(t);
     e.createEventAssignment();
     m.addEvent(e);
@@ -494,6 +496,7 @@ public class TestAncestor {
   public void test_KineticLaw_ancestor_add()
   {
     KineticLaw kl = new KineticLaw(2,4);
+      kl.setMath(libsbml.parseFormula("1"));
     Reaction r = new Reaction(2,4);
     r.setKineticLaw(kl);
     KineticLaw obj = r.getKineticLaw();
@@ -865,6 +868,7 @@ public class TestAncestor {
   public void test_StoichiometryMath_ancestor_add()
   {
     StoichiometryMath m = new StoichiometryMath(2,4);
+      m.setMath(libsbml.parseFormula("1"));
     SpeciesReference sr = new SpeciesReference(2,4);
     sr.setStoichiometryMath(m);
     m = null;
@@ -891,6 +895,7 @@ public class TestAncestor {
   public void test_Trigger_ancestor_add()
   {
     Trigger d = new Trigger(2,4);
+    d.setMath(libsbml.parseFormula("true"));
     Event e = new Event(2,4);
     e.setTrigger(d);
     d = null;

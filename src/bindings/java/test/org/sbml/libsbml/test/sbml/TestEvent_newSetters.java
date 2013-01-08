@@ -218,6 +218,7 @@ public class TestEvent_newSetters {
   public void test_Event_setDelay2()
   {
     Delay Delay = new  Delay(2,1);
+      Delay.setMath(libsbml.parseFormula("1"));
     int i = E.setDelay(Delay);
     assertTrue( i == libsbml.LIBSBML_VERSION_MISMATCH );
     assertEquals( false, E.isSetDelay() );
@@ -326,6 +327,7 @@ public class TestEvent_newSetters {
   public void test_Event_setTrigger1()
   {
     Trigger trigger = new  Trigger(2,1);
+      trigger.setMath(libsbml.parseFormula("true"));
     int i = E.setTrigger(trigger);
     assertTrue( i == libsbml.LIBSBML_VERSION_MISMATCH );
     assertEquals( false, E.isSetTrigger() );

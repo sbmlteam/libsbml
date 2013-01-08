@@ -195,6 +195,9 @@ public class TestL3Event {
     Event e = new  Event(3,1);
     assertEquals( false, e.hasRequiredElements() );
     Trigger t = new  Trigger(3,1);
+    t.setMath(libsbml.parseFormula("true"));
+    t.setInitialValue(false);
+    t.setPersistent(false);
     e.setTrigger(t);
     assertEquals( true, e.hasRequiredElements() );
     e = null;
