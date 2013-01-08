@@ -604,6 +604,8 @@ my $e = $m->createEvent();
 $e->setId('event_0');
 my $t = new LibSBML::Trigger($level,$version);
 $t->setMath(LibSBML::parseFormula("lambda(x,x^3)"));
+$t->setInitialValue(0);
+$t->setPersistent(0);
 $e->setTrigger($t);
 $e->createEventAssignment();
 ok($e->getTypeCode() == $LibSBML::SBML_EVENT);

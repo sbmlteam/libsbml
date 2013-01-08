@@ -25,6 +25,8 @@ my $e = new LibSBML::Event($level,$version);
 $e->setId($id);
 $trigger = new LibSBML::Trigger($level,$version);
 $trigger->setMath(LibSBML::parseFormula($t_formula));
+$trigger->setInitialValue(0);
+$trigger->setPersistent(0);
 $e->setTrigger($trigger);
 ok($e->getTypeCode() == $LibSBML::SBML_EVENT);
 ok($e->getMetaId(), '');
@@ -80,6 +82,8 @@ ok($e->getName(), '');
 # set/get trigger
 $trigger = new LibSBML::Trigger($level,$version);
 $trigger->setMath(LibSBML::parseFormula($t_formula));
+$trigger->setInitialValue(0);
+$trigger->setPersistent(0);
 $e->setTrigger($trigger);
 ok($e->isSetTrigger(), 1);
 ($t = LibSBML::formulaToString($e->getTrigger()->getMath())) =~ s/\s+//g;
