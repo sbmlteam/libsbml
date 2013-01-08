@@ -303,6 +303,7 @@ namespace LibSBMLCSTest.sbml {
       Model m = new  Model(2,2);
       Event e = new  Event(2,2);
       Trigger t = new  Trigger(2,2);
+      t.setMath(libsbml.parseFormula("true"));
       int i = m.addEvent(e);
       assertTrue( i == libsbml.LIBSBML_INVALID_OBJECT );
       e.setTrigger(t);
@@ -321,6 +322,7 @@ namespace LibSBMLCSTest.sbml {
       Model m = new  Model(2,2);
       Event e = new  Event(2,1);
       Trigger t = new  Trigger(2,1);
+      t.setMath(libsbml.parseFormula("true"));
       e.setTrigger(t);
       e.createEventAssignment();
       int i = m.addEvent(e);
@@ -345,6 +347,7 @@ namespace LibSBMLCSTest.sbml {
       Model m = new  Model(2,2);
       Event e = new  Event(2,2);
       Trigger t = new  Trigger(2,2);
+      t.setMath(libsbml.parseFormula("true"));
       e.setId( "e");
       e.setTrigger(t);
       e.createEventAssignment();

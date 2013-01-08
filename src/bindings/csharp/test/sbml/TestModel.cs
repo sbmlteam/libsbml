@@ -227,6 +227,7 @@ namespace LibSBMLCSTest.sbml {
       Event e1 = new  Event(2,4);
       Event e2 = new  Event(2,4);
       Trigger t = new  Trigger(2,4);
+      t.setMath(libsbml.parseFormula("true"));
       e1.setTrigger(t);
       e2.setTrigger(t);
       e1.createEventAssignment();
@@ -626,6 +627,7 @@ namespace LibSBMLCSTest.sbml {
       Event e1 = new  Event(2,4);
       Event e2 = new  Event(2,4);
       Trigger t = new  Trigger(2,4);
+      t.setMath(libsbml.parseFormula("true"));
       e1.setTrigger(t);
       e2.setTrigger(t);
       e1.createEventAssignment();

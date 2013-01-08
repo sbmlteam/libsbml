@@ -679,6 +679,7 @@ namespace LibSBMLCSTest.sbml {
       o1.setId("c");
       assertTrue( o1.getId() ==  "c" );
       KineticLaw kl = new KineticLaw(2,4);
+      kl.setMath(libsbml.parseFormula("1"));
       o1.setKineticLaw(kl);
       kl = null;
       assertTrue( o1.isSetKineticLaw() == true );
@@ -699,6 +700,7 @@ namespace LibSBMLCSTest.sbml {
       o1.setId("c");
       assertTrue( o1.getId() ==  "c" );
       KineticLaw kl = new KineticLaw(2,4);
+      kl.setMath(libsbml.parseFormula("1"));
       o1.setKineticLaw(kl);
       kl = null;
       assertTrue( o1.isSetKineticLaw() == true );
@@ -718,6 +720,7 @@ namespace LibSBMLCSTest.sbml {
       o1.setId("c");
       assertTrue( o1.getId() ==  "c" );
       KineticLaw kl = new KineticLaw(2,4);
+      kl.setMath(libsbml.parseFormula("1"));
       o1.setKineticLaw(kl);
       kl = null;
       assertTrue( o1.isSetKineticLaw() == true );
@@ -802,6 +805,9 @@ namespace LibSBMLCSTest.sbml {
       SBMLDocument o1 = new SBMLDocument();
       o1.setLevelAndVersion(1,1,false);
       Model m = new Model(1,1);
+      m.createCompartment();
+      m.createSpecies();
+      m.createReaction();
       m.setId("foo");
       o1.setModel(m);
       assertTrue( o1.getLevel() == 1 );

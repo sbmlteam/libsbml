@@ -330,6 +330,7 @@ namespace LibSBMLCSTest.sbml {
     public void test_Reaction_setKineticLaw1()
     {
       KineticLaw kl = new  KineticLaw(2,1);
+      kl.setMath(libsbml.parseFormula("1"));
       int i = R.setKineticLaw(kl);
       assertTrue( i == libsbml.LIBSBML_LEVEL_MISMATCH );
       assertEquals( false, R.isSetKineticLaw() );
@@ -339,6 +340,7 @@ namespace LibSBMLCSTest.sbml {
     public void test_Reaction_setKineticLaw2()
     {
       KineticLaw kl = new  KineticLaw(1,1);
+      kl.setMath(libsbml.parseFormula("1"));
       int i = R.setKineticLaw(kl);
       assertTrue( i == libsbml.LIBSBML_VERSION_MISMATCH );
       assertEquals( false, R.isSetKineticLaw() );
@@ -348,6 +350,7 @@ namespace LibSBMLCSTest.sbml {
     public void test_Reaction_setKineticLaw3()
     {
       KineticLaw kl = new  KineticLaw(1,2);
+      kl.setMath(libsbml.parseFormula("1"));
       int i = R.setKineticLaw(kl);
       assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS );
       assertEquals( true, R.isSetKineticLaw() );

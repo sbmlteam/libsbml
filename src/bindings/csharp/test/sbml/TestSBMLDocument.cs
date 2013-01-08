@@ -260,6 +260,7 @@ namespace LibSBMLCSTest.sbml {
     {
       SBMLDocument d = new  SBMLDocument(2,2);
       Model m1 = new  Model(1,2);
+      m1.createCompartment();
       int i = d.setModel(m1);
       assertTrue( i == libsbml.LIBSBML_LEVEL_MISMATCH );
       assertTrue( d.getModel() == null );

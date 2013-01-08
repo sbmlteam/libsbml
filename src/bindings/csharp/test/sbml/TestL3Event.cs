@@ -205,6 +205,8 @@ namespace LibSBMLCSTest.sbml {
       Event e = new  Event(3,1);
       assertEquals( false, e.hasRequiredElements() );
       Trigger t = new  Trigger(3,1);
+      t.setInitialValue(true);
+      t.setPersistent(true);
       e.setTrigger(t);
       assertEquals( true, e.hasRequiredElements() );
       e = null;

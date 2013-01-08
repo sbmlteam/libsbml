@@ -183,6 +183,7 @@ namespace LibSBMLCSTest.sbml {
       Event e = new Event(2,4);
       assertEquals( false, (e.hasRequiredElements()) );
       Trigger t = new Trigger(2,4);
+      t.setMath(libsbml.parseFormula("true"));
       e.setTrigger(t);
       assertEquals( false, (e.hasRequiredElements()) );
       e.createEventAssignment();

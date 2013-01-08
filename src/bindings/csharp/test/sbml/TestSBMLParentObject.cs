@@ -256,6 +256,7 @@ namespace LibSBMLCSTest.sbml {
     public void test_Delay_parent_add()
     {
       Delay d = new Delay(2,4);
+      d.setMath(libsbml.parseFormula("1"));
       Event e = new Event(2,4);
       e.setDelay(d);
       d = null;
@@ -337,6 +338,7 @@ namespace LibSBMLCSTest.sbml {
     {
       Event e = new Event(2,4);
       Trigger t = new Trigger(2,4);
+      t.setMath(libsbml.parseFormula("true"));
       e.setTrigger(t);
       e.createEventAssignment();
       Model m = new Model(2,4);
@@ -489,7 +491,8 @@ namespace LibSBMLCSTest.sbml {
     public void test_KineticLaw_parent_add()
     {
       KineticLaw kl = new KineticLaw(2,4);
-      Reaction r = new Reaction(2,4);
+      kl.setMath(libsbml.parseFormula("1"));
+      Reaction r = new Reaction(2, 4);
       r.setKineticLaw(kl);
       assertTrue( r == r.getKineticLaw().getParentSBMLObject() );
       r = null;
@@ -809,7 +812,8 @@ namespace LibSBMLCSTest.sbml {
     public void test_StoichiometryMath_parent_add()
     {
       StoichiometryMath m = new StoichiometryMath(2,4);
-      SpeciesReference sr = new SpeciesReference(2,4);
+      m.setMath(libsbml.parseFormula("1"));
+      SpeciesReference sr = new SpeciesReference(2, 4);
       sr.setStoichiometryMath(m);
       m = null;
       assertTrue( sr == sr.getStoichiometryMath().getParentSBMLObject() );
@@ -819,7 +823,8 @@ namespace LibSBMLCSTest.sbml {
     public void test_Trigger_parent_add()
     {
       Trigger d = new Trigger(2,4);
-      Event e = new Event(2,4);
+      d.setMath(libsbml.parseFormula("true"));
+      Event e = new Event(2, 4);
       e.setTrigger(d);
       d = null;
       assertTrue( e == e.getTrigger().getParentSBMLObject() );
