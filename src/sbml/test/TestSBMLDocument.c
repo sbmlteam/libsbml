@@ -214,7 +214,7 @@ START_TEST (test_SBMLDocument_setModel2)
   SBMLDocument_t *d  = SBMLDocument_createWithLevelAndVersion(2, 2);
   
   Model_t        *m1 = Model_create(1, 2);
-  m1->createCompartment();
+  Model_createCompartment(m1);
 
   int i = SBMLDocument_setModel(d, m1);
 
