@@ -66,19 +66,15 @@ AC_DEFUN([CONFIG_PROG_OCTAVE],
 
     AC_MSG_CHECKING(octave version)
 
-    changequote(<<, >>)
-    octave_version=`"$OCTAVE" --version 2>&1 | head -n 1 | sed 's/.* \([0-9]*\.[0-9]*\.[0-9]*\).*/\1/p; d'`
-    octave_major_ver=`expr $octave_version : '\([0-9]*\)\.[0-9]*\.[0-9]*'`
-    octave_minor_ver=`expr $octave_version : '[0-9]*\.\([0-9]*\)\.[0-9]*'`
-    octave_micro_ver=`expr $octave_version : '[0-9]*\.[0-9]*\.\([0-9]*\)' '|' 0`
-    changequote([, ])
+    octave_version=`"$OCTAVE" --version 2>&1 | head -n 1`
+    octave_major_ver=`echo $octave_version | sed 's/\([[0-9]]*\).\([[0-9]]*\).\([[0-9]]*\)/\1/'`
+    octave_minor_ver=`echo $octave_version | sed 's/\([[0-9]]*\).\([[0-9]]*\).\([[0-9]]*\)/\2/'`
+    octave_micro_ver=`echo $octave_version | sed 's/\([[0-9]]*\).\([[0-9]]*\).\([[0-9]]*\)/\3/'`
 
     AC_MSG_RESULT($octave_version)
 
-    OCTAVEVERNUM=`printf "%02d%02d%02d" $octave_major_ver $octave_minor_ver $octave_micro_ver`
-
     if test -n "$OCTAVE_REQUEST_VERSION"; then
-      AC_MSG_CHECKING(if octave version >= (found $OCTAVE_REQUEST_VERSION))
+      AC_MSG_CHECKING(if octave version >= $OCTAVE_REQUEST_VERSION (found $octave_version))
     
       changequote(<<, >>)
       octave_major_req=`expr $OCTAVE_REQUEST_VERSION : '\([0-9]*\)\.[0-9]*\.[0-9]*'`
