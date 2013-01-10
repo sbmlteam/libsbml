@@ -14,7 +14,8 @@ will find the following:
   experimental -- subdirectory for libSBML-@PACKAGE_VERSION@ with beta package code
 
 The "stable" directory contains the fully tested source, documentation
-and binary installers that reflect the current stable libSBML core.
+and binary installers that reflect the current stable libSBML core and any 
+accepted SBML L3 packages.
 
 The "experimental" directory contains source code for packages still in
 development, as well as binaries containing libSBML core

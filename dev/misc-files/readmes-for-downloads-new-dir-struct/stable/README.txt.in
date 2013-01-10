@@ -7,8 +7,21 @@ will find the following:
   Windows  -- folder of binary installers for Microsoft Windows systems
   Linux    -- folder of binary installers for Linux systems
 
-  libSBML-@PACKAGE_VERSION@-src.zip     \ source code (only), zip archive
-  libSBML-@PACKAGE_VERSION@-src.tar.gz  / source code (only), gzip'ed tar archive
+Code for core libSBML only:
+
+  libSBML-@PACKAGE_VERSION@-core-src.zip     \ source code (only), zip archive
+  libSBML-@PACKAGE_VERSION@-core-src.tar.gz  / source code (only), gzip'ed tar archive
+  
+Code for full stable release (core plus accepted packages):
+
+  libSBML-@PACKAGE_VERSION@-core-plus-packages-src.zip     \ source code (only), zip archive
+  libSBML-@PACKAGE_VERSION@-core-plus-packages-src.tar.gz  / source code (only), gzip'ed tar archive
+  
+Code for individual accepted packages:
+
+  libSBML-@PACKAGE_VERSION@-comp-src.zip     \ source code (only), zip archive
+
+Documentation:
 
   libSBML-@PACKAGE_VERSION@-docs.zip    \ formatted documentation (only) -- see
   libSBML-@PACKAGE_VERSION@-docs.tar.gz / important note below

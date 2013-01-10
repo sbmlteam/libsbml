@@ -7,11 +7,30 @@ these installers, or you may end up with mixed versions of different
 libSBML components on your system.
 
 This directory contains installers for precompiled versions of libSBML
-for Microsoft Windows systems.  Please navigate to either the 32-bit
-or 64-bit folders, to match the version of the operating system you
-are using.
+for Microsoft Windows systems.  All copies were built using the libxml2 
+XML parser library and contain code for libSBML core plus any accepted SBML L3
+packages.  The following language interfaces are also contained:
 
-For more information about libSBML, please visit the libSBML website at
+	* C# (Mono)
+	* Java
+	* MATLAB
+	* Octave (32 bit only)
+	* Perl
+	* Python
+	
+	* R (as a seperate installer)
+	
+Please navigate to either the 32-bit or 64-bit folders, to match the
+version of the operating system you are using.
+
+If you need to use a different XML parser library, it will be necessary 
+to build libSBML yourself from the source distribution using suitable configuration
+flags.  The procedure is described in the libSBML documentation.  The
+source and documentation are available from the top-level download
+directory, http://sourceforge.net/projects/sbml/files/libsbml/@PACKAGE_VERSION@
+
+For additional information about this version of libSBML, please see
+the documentation or visit the libSBML website at
 
   http://sbml.org/Software/libSBML
 

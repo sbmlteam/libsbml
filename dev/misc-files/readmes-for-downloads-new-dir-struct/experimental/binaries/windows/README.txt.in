@@ -1,14 +1,8 @@
                         l i b S B M L   @PACKAGE_VERSION@
-	  Installers for experimental code
+		Experimental installers for Microsoft Windows operating systems
 
 This directory contains binary versions of libSBML compiled with plug-ins
-supporting draft SBML Level 3 package specifications.
-
-Here you will find:
-
-  Mac OS X -- folder of binary installers for Mac OS X systems
-  Windows  -- folder of binary installers for Microsoft Windows systems
-  Linux    -- folder of binary installers for Linux systems
+supporting draft SBML Level 3 package specifications for Micosoft Windows systems.
 
 Please note: the code in these directories reflects the current state of
 development of SBML Level 3 packages and the libSBML plug-ins for the

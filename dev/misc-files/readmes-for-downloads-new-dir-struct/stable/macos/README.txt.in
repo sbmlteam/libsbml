@@ -2,29 +2,28 @@
 	      Installers for Mac OS X operating systems
 
 IMPORTANT: Please uninstall any existing copy of libSBML located in
-the same destination before you install libSBML using this installer,
-or you may end up with mixed versions of different libSBML components
-on your system.
+the same destination on your computer before you install libSBML using
+these installers, or you may end up with mixed versions of different
+libSBML components on your system.
 
 This directory contains installers for precompiled versions of libSBML
 for Mac OS X systems.  All were built with the Apple-supplied libxml2
-library, and contain the following libSBML language interfaces in
-addition to the C/C++ libSBML core:
+XML parser library and contain code for libSBML core plus any accepted SBML L3
+packages.  The following language interfaces are also contained:
 
-  * C# (Mono)
-  * Java
-  * Perl
-  * Python
-  * Ruby
-  * MATLAB
+    * C# (Mono)
+    * Java
+	* MATLAB
+    * Perl
+    * Python
+    * Ruby
 
-The Octave interface are currently not included in the
-MacOSX installer.  If you need the Octave interfaces, or
-need to use a different XML parser library, it will be necessary to
-build libSBML yourself from the source distribution using suitable
-configuration flags.  The procedure is described in the libSBML
-documentation.  The source and docs are available from the download
-directory http://sourceforge.net/projects/sbml/files/libsbml/@PACKAGE_VERSION@
+If you need the Octave language interface, or need to use a different 
+XML parser library, it will be necessary to build libSBML yourself 
+from the source distribution using suitable configuration flags.  
+The procedure is described in the libSBML documentation.  The source 
+and documentation are available from the top-level download directory, 
+http://sourceforge.net/projects/sbml/files/libsbml/@PACKAGE_VERSION@
 
 By default, the installer will put the contents in /usr/local, but
 this location can be changed from the installer interface.
@@ -39,8 +38,7 @@ terminal:
 in the "bin" directory of that alternate location.)
 
 For additional information about this version of libSBML, please see
-the files in the "docs" subdirectory of this installer or visit the
-libSBML website at
+the documentation or visit the libSBML website at
 
   http://sbml.org/Software/libSBML
 

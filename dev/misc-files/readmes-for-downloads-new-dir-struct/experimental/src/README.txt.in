@@ -1,11 +1,12 @@
                         l i b S B M L   @PACKAGE_VERSION@
+   Experimental source code
 
 This directory contains source code to libSBML plug-ins supporting draft
 SBML Level 3 package specifications.
 
 To integrate one of these packages into your copy of libSBML 5, simply
 extract the package archive into the existing libSBML source
-directory. Alternatively, download the libSBML-@PACKAGE-VERSION@-src
+directory. Alternatively, download the libSBML-@PACKAGE-VERSION@-source
 archive, which contains all the necessary code in the appropriate
 locations.  Then, re-run CMake, and enable the package you just added using
 the appropriate check-box in the list of options presented by CMake.  For
