@@ -1,16 +1,31 @@
-autom4te.cache
+# WARNING: This .svnignore file is not understood by SVN directly.
+# WARNING: It is meant to be used in conjunction with our script in 
+# WARNING: sbml/trunk/project/scripts/svn-update-from-svnignore.sh
+*.o
+.deps
+CTAGS
 Makefile
+Out-test1
+TAGS
+autom4te.cache
+compareFiles.m
 config.log
 config.status
-.deps
 include
-TAGS
-CTAGS
 libsbml.pc
-*.o
+test-data
+testBinding.m
+testIsSBMLModel.m
+testOutput.m
 testReadFlags.m
 testReadFromFile.m
 testReadFromFile1.m
+testReadFromFile10.m
+testReadFromFile11.m
+testReadFromFile12.m
+testReadFromFile13.m
+testReadFromFile14.m
+testReadFromFile15.m
 testReadFromFile2.m
 testReadFromFile3.m
 testReadFromFile4.m
@@ -19,10 +34,3 @@ testReadFromFile6.m
 testReadFromFile7.m
 testReadFromFile8.m
 testReadFromFile9.m
-testReadFromFile10.m
-testReadFromFile11.m
-testReadFromFile12.m
-testReadFromFile13.m
-testReadFromFile14.m
-test-data
-testBinding.m
