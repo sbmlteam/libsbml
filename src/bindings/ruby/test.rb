@@ -30,9 +30,18 @@ if RUBY_VERSION >= '1.9'
   files
  }
  rescue 
+   if RUBY_VERSION >= '1.8.3'
    Test::Unit::AutoRunner.run(RUBY_VERSION >= '1.8.3' ,test_base + '/',['--pattern=/Test.*\.rb\Z/'])
+   else
+     abort("LibSBML loaded without failure, however this RUBY is too old to run the testrunner. ")
+     
+   end
  end
   
 else
- Test::Unit::AutoRunner.run(RUBY_VERSION >= '1.8.3' ,test_base + '/',['--pattern=/Test.*\.rb\Z/'])
+ if RUBY_VERSION >= '1.8.3'
+  Test::Unit::AutoRunner.run(RUBY_VERSION >= '1.8.3' ,test_base + '/',['--pattern=/Test.*\.rb\Z/'])
+ else 
+  abort("LibSBML loaded without failure, however this RUBY is too old to run the testrunner. ")
+ end
 end
