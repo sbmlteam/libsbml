@@ -655,7 +655,7 @@ else(UNIX)
               NAMES libiconv.lib iconv.lib iconv
               PATHS /usr/lib /usr/local/lib
                     ${LIBSBML_DEPENDENCY_DIR}/lib
-              DOC "The file name of the libiconv compression library."
+              DOC "The file name of the libiconv library."
               )
 		  set(EXTRA_LIBS "WS2_32.lib;${LIBICONV_LIBRARY};${LIBZ_LIBRARY};" CACHE STRING "List of additional libraries to link against." FORCE)
 		  endif()
