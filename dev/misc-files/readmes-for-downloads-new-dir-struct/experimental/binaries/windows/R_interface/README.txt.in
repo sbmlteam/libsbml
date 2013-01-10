@@ -1,8 +1,7 @@
             l i b S B M L   @PACKAGE_VERSION@     R    B I N D I N G S 
 
 This directory contains the experimental R interface of libSBML @PACKAGE_VERSION@
-generated for R 2.15.1 on Micosoft Windows operating systems. 
-Install with: 
+generated for R 2.15.1 on Microsoft Windows operating systems. Install with:
 
 R CMD INSTALL <archivename>
 

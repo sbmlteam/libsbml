@@ -1,5 +1,5 @@
                         l i b S B M L   @PACKAGE_VERSION@
-	    Installers for 32-bit Linux operating systems
+             Installers for 32-bit Linux operating systems
 
 IMPORTANT: Please uninstall any existing copy of libSBML located in
 the same destination on your computer before you install libSBML using
@@ -18,15 +18,14 @@ packages.  The following language interfaces are also contained:
 	
 Here you will find the following files:
 
-  * libSBML-@PACKAGE_VERSION@-Linux-x86.rpm -- for RPM-based Linux distributions
-                                 (Fedora, Red Hat, CentOS)
+  * libSBML-@PACKAGE_VERSION@-Linux-x86.rpm
+       -- for RPM-based Linux distributions (Fedora, Red Hat, CentOS)
 
-  * libSBML-@PACKAGE_VERSION@-Linux-x86.deb -- for Debian-based Linux distributions
-                                 (Ubuntu & its variants, Debian)
+  * libSBML-@PACKAGE_VERSION@-Linux-x86.deb
+       -- for Debian-based Linux distributions (Ubuntu & variants, Debian)
 
-  * R interface
-
-    This folder contains installer for the R libSBML interface ONLY.
+  * R_interface
+       -- This folder contains installer for the R libSBML interface ONLY.
      
 By default, the installer will put the contents in /usr.
 
@@ -36,11 +35,11 @@ software, please visit the following URL:
   http://sbml.org/Software/libSBML/docs/cpp-api/libsbml-accessing.html
 
 If you need the MATLAB/Octave or python language interfaces, or need to use a
-different XML parser library, it will be necessary to build libSBML
-yourself from the source distribution using suitable configuration
-flags.  The procedure is described in the libSBML documentation.  The
-source and documentation are available from the top-level download
-directory, http://sourceforge.net/projects/sbml/files/libsbml/@PACKAGE_VERSION@
+different XML parser library, it will be necessary to build libSBML yourself
+from the source distribution using suitable configuration flags.  The
+procedure is described in the libSBML documentation.  The source and
+documentation are available from the top-level download directory,
+http://sourceforge.net/projects/sbml/files/libsbml/@PACKAGE_VERSION@
 
 For additional information about this version of libSBML, please see
 the documentation or visit the libSBML website at

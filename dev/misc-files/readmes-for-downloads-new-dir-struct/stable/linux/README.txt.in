@@ -1,5 +1,5 @@
                         l i b S B M L   @PACKAGE_VERSION@
-		Installers for Linux operating systems
+               Installers for Linux operating systems
 
 IMPORTANT: Please uninstall any existing copy of libSBML located in
 the same destination on your computer before you install libSBML using
@@ -16,17 +16,17 @@ packages.  The following language interfaces are also contained:
 	* Perl
 	* Ruby
 	
-	* R (as a seperate installer)
+	* R (as a separate installer)
 
 Please navigate to either the 32-bit or 64-bit folders, to match the
 version of the operating system you are using.
 
 If you need the MATLAB/Octave or python language interfaces, or need to use a
-different XML parser library, it will be necessary to build libSBML
-yourself from the source distribution using suitable configuration
-flags.  The procedure is described in the libSBML documentation.  The
-source and documentation are available from the top-level download
-directory, http://sourceforge.net/projects/sbml/files/libsbml/@PACKAGE_VERSION@
+different XML parser library, it will be necessary to build libSBML yourself
+from the source distribution using suitable configuration flags.  The
+procedure is described in the libSBML documentation.  The source and
+documentation are available from the top-level download directory,
+http://sourceforge.net/projects/sbml/files/libsbml/@PACKAGE_VERSION@
 
 For additional information about this version of libSBML, please see
 the documentation or visit the libSBML website at

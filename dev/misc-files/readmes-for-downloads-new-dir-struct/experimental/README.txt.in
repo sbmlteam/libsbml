@@ -8,7 +8,7 @@ containing SBML Level 3 package plug-ins.  Here you will find the following:
 
 Please note: the code in these directories reflects the current state of
 development of SBML Level 3 packages and the libSBML plug-ins for the
-packages. None of the SBML Level 3 package specifications have been
+packages. Many of the SBML Level 3 package specifications have not yet been
 finalized, and the package implementations are themselves in a state of
 development.  The binaries available may be untested and are supplied
 'as-is' for experimental development only.

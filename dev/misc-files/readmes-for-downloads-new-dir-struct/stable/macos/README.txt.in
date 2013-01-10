@@ -1,19 +1,19 @@
                         l i b S B M L   @PACKAGE_VERSION@
-	      Installers for Mac OS X operating systems
+               Installers for Mac OS X operating systems
 
 IMPORTANT: Please uninstall any existing copy of libSBML located in
 the same destination on your computer before you install libSBML using
 these installers, or you may end up with mixed versions of different
 libSBML components on your system.
 
-This directory contains installers for precompiled versions of libSBML
-for Mac OS X systems.  All were built with the Apple-supplied libxml2
-XML parser library and contain code for libSBML core plus any accepted SBML L3
-packages.  The following language interfaces are also contained:
+This directory contains installers for precompiled versions of libSBML for
+Mac OS X systems.  All were built with the Apple-supplied libxml2 XML parser
+library and contain code for libSBML core plus any accepted SBML L3 packages.
+The following language interfaces are also contained:
 
     * C# (Mono)
     * Java
-	* MATLAB
+    * MATLAB
     * Perl
     * Python
     * Ruby

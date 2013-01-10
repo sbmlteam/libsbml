@@ -19,8 +19,8 @@ accepted SBML L3 packages.
 
 The "experimental" directory contains source code for packages still in
 development, as well as binaries containing libSBML core
-together with all the packages included. It should be noted that these
-may be untested and undocumented, and are supplied as-is.
+together with all the packages included. Items in the "experimental"
+directory may be untested and undocumented, and are supplied as-is.
 
 For more information about libSBML, please visit the libSBML website at
                    http://sbml.org/Software/libSBML

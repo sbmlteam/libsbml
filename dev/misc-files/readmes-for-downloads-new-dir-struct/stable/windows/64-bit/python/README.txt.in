@@ -1,5 +1,5 @@
                         l i b S B M L   @PACKAGE_VERSION@
-   Python interface installer for 64-bit Windows operating systems
+    Python interface installer for 64-bit Windows operating systems
 
 IMPORTANT: Please uninstall any existing copy of libSBML located in
 the same destination on your computer before you install libSBML using
@@ -16,8 +16,8 @@ software, please visit the following URL:
 
   http://sbml.org/Software/libSBML/docs/python-api/libsbml-accessing.html
 
-Documentation for the libSBML Python API is available for downloading
-from https://sourceforge.net/projects/sbml/files/libsbml/@PACKAGE_VERSION@/ and it
+Documentation for the libSBML Python API is available for downloading from
+https://sourceforge.net/projects/sbml/files/libsbml/@PACKAGE_VERSION@/ and it
 is available for viewing online at
 
   http://sbml.org/Software/libSBML/docs/python-api
