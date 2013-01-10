@@ -66,7 +66,7 @@ AC_DEFUN([CONFIG_PROG_OCTAVE],
 
     AC_MSG_CHECKING(octave version)
 
-    octave_version=`"$OCTAVE" --version 2>&1 | head -n 1`
+    octave_version=`"$OCTAVE_CONFIG" --version 2>&1 | head -n 1`
     octave_major_ver=`echo $octave_version | sed 's/\([[0-9]]*\).\([[0-9]]*\).\([[0-9]]*\)/\1/'`
     octave_minor_ver=`echo $octave_version | sed 's/\([[0-9]]*\).\([[0-9]]*\).\([[0-9]]*\)/\2/'`
     octave_micro_ver=`echo $octave_version | sed 's/\([[0-9]]*\).\([[0-9]]*\).\([[0-9]]*\)/\3/'`
