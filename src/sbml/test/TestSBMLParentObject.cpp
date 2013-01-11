@@ -1271,7 +1271,8 @@ START_TEST ( test_EventAssignment_parent_mismatch )
 {
   SBMLNamespaces * sbmlns = new SBMLNamespaces(3, 1);
   Event *e = new Event(sbmlns);
-  sbmlns->addPackageNamespace("comp", 1);
+  //sbmlns->addPackageNamespace("comp", 1);
+  sbmlns->addNamespace("http://www.sbml.org/sbml/level3/version1/comp/version1", "comp");
   EventAssignment *ea = new EventAssignment(sbmlns);
   ea->setVariable("c");
   ea->setMath(SBML_parseFormula("K+L"));
@@ -1306,7 +1307,8 @@ START_TEST ( test_Model_parent_mismatch )
 {
   SBMLNamespaces * sbmlns = new SBMLNamespaces(3, 1);
   SBMLDocument *d = new SBMLDocument(sbmlns);
-  sbmlns->addPackageNamespace("comp", 1);
+  //sbmlns->addPackageNamespace("comp", 1);
+  sbmlns->addNamespace("http://www.sbml.org/sbml/level3/version1/comp/version1", "comp");
   Model *m = new Model(sbmlns);
 
   int success = d->setModel(m);
