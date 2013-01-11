@@ -512,7 +512,7 @@ GroupsExtension::init()
 #include <sbml/extension/SBaseExtensionPoint.h>
 
   /** @cond doxygen-libsbml-internal */
-
+#ifndef SWIG
 typedef struct {
   const char * ref_l3v1;
 } packageReferenceEntry;
@@ -539,7 +539,7 @@ static const packageErrorTableEntry defaultErrorTable[] =
     }
   }
 };
-
+#endif
   /** @endcond */
 
 #ifdef __cplusplus
