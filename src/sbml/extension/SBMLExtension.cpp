@@ -37,6 +37,19 @@
 using namespace std;
 LIBSBML_CPP_NAMESPACE_BEGIN
 
+static const packageErrorTableEntry defaultErrorTable[] =
+{
+  // 10304
+  { 0, 
+    "",
+    0, 
+    LIBSBML_SEV_ERROR,
+    "",
+    { ""
+    }
+  }
+};
+
 SBMLExtension::SBMLExtension ()
  : mIsEnabled(true)
 {

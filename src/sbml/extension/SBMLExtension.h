@@ -527,18 +527,6 @@ typedef struct {
   packageReferenceEntry reference;
 } packageErrorTableEntry;
 
-static const packageErrorTableEntry defaultErrorTable[] =
-{
-  // 10304
-  { 0, 
-    "",
-    0, 
-    LIBSBML_SEV_ERROR,
-    "",
-    { ""
-    }
-  }
-};
 #endif
   /** @endcond */
 
