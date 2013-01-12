@@ -224,8 +224,8 @@ function [success, located] = checkForExecutables(matlab_octave, directory, verb
     % octave is much more picky about whether the files exist
   	% it wants to find the libraries at the same time
   	% exist throws an exception if it cannot find them
-    if (~(myExist(directory, transFile) != 0 ...
-        && myExist(directory, outFile) != 0))
+    if (~(myExist(directory, transFile) ~= 0 ...
+        && myExist(directory, outFile) ~= 0))
       located = 0;
     else 
       located = 1;
@@ -422,3 +422,4 @@ while (found == 0 && i <= length(dirnames))
 	i = i+1;
 end;
   
+end
