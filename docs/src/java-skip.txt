@@ -11,3 +11,5 @@ org.sbml.libsbml.SBaseExtensionPoint
 org.sbml.libsbml.ISBMLExtensionNamespaces
 org.sbml.libsbml.SBMLExtension
 org.sbml.libsbml.SWIGTYPE_p_std__vectorT_SBMLError_t
+org.sbml.libsbml.SWIGTYPE_p_List
+org.sbml.libsbml.SWIGTYPE_p_std__vectorT_std__string_t
