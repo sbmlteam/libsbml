@@ -782,6 +782,27 @@ endif
 	  ! -type d ! -perm -444 -exec $(SHELL) $(INSTALL_SH) -c -m a+r {} {} \; \
 	|| chmod -R a+r $(DISTDIR)
 
+docs_tar_archive = $(archive_basename)-docs.tar.gz
+docs_zip_archive = $(archive_basename)-docs.zip
+
+docs_archive_contents =		    \
+	docs/*.txt		    \
+	docs/*.html		    \
+	docs/*.docx		    \
+	docs/*.pdf		    \
+	docs/.graphics		    \
+	docs/formatted/cpp-api	    \
+	docs/formatted/csharp-api   \
+	docs/formatted/java-api	    \
+	docs/formatted/matlab-api   \
+	docs/formatted/octave-api   \
+	docs/formatted/python-api
+
+dist-docs:
+	make docs
+	gnutar -czf $(docs_tar_archive) $(docs_archive_contents)
+	zip -Xyvr9 $(docs_zip_archive) $(docs_archive_contents)
+
 ## This target untars the dist file and tries a VPATH configuration.  Then
 ## it guarantees that the distribution is self-contained by making another
 ## tarfile.
