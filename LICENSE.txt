@@ -45,5 +45,5 @@ MA 02110-1301,  USA.
 LibSBML incorporates a third-party software library, MiniZip
 1.01e, copyright (C) 1998-2005 Gilles Vollant, released under
 terms compatible with the LGPL.  Please see the file
-src/compress/00README.txt for more information about MiniZip
+src/sbml/compress/00README.txt for more information about MiniZip
 1.01e and its license terms.
