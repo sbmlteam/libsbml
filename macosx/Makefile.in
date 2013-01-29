@@ -4,7 +4,7 @@
 ## Description : Makefile for libSBML macosx subdiretory
 ## Author(s)   : Akira Funahashi, Akiya Jouraku, Michael Hucka
 ## Organization: California Institute of Technology
-## 
+##
 ## <!--------------------------------------------------------------------------
 ## This file is part of libSBML.  Please visit http://sbml.org for more
 ## information about SBML, and the latest version of libSBML.
@@ -12,14 +12,14 @@
 ## Copyright (C) 2009-2013 jointly by the following organizations: 
 ##     1. California Institute of Technology, Pasadena, CA, USA
 ##     2. EMBL European Bioinformatics Institute (EBML-EBI), Hinxton, UK
-##  
+##
 ## Copyright (C) 2006-2008 by the California Institute of Technology,
-##     Pasadena, CA, USA 
-##  
-## Copyright (C) 2002-2005 jointly by the following organizations: 
+##     Pasadena, CA, USA
+##
+## Copyright (C) 2002-2005 jointly by the following organizations:
 ##     1. California Institute of Technology, Pasadena, CA, USA
 ##     2. Japan Science and Technology Agency, Japan
-## 
+##
 ## This library is free software; you can redistribute it and/or modify it
 ## under the terms of the GNU Lesser General Public License as published by
 ## the Free Software Foundation.  A copy of the license agreement is provided
@@ -53,7 +53,11 @@ ifeq "${OS}" "Darwin"
     ifeq "$(OSX_MINOR_VER)" "7"
 		MACOS=lion
     else
+    ifeq "$(OSX_MINOR_VER)" "8"
+		MACOS=mountainlion
+    else
 		MACOS=leopard
+    endif
     endif
 		endif
 	endif
@@ -61,7 +65,7 @@ ifeq "${OS}" "Darwin"
 endif
 
 # `srcdir' points to the current directory, but should be set by configure.
-# `subdir' must be set manually to the relative dir under srcdir.  Don't 
+# `subdir' must be set manually to the relative dir under srcdir.  Don't
 # set `subdir' to an absolute path, or some `make' actions will fail.
 
 srcdir  = @srcdir@
@@ -71,7 +75,7 @@ thisdir = macosx
 # `extra_CXXFLAGS', `extra_LDFLAGS' and `distfiles' are used by the default
 # rules in `makefile-common-actions.mk' included at the end.
 
-subdirs = 
+subdirs =
 
 distfiles = \
         Makefile.in                      \
@@ -82,11 +86,11 @@ distfiles = \
         resources/package-conclusion.rtf \
         resources/package-intro.txt.in   \
         resources/package-license.rtf    \
-		resources/package-readme.txt.in  \
-		resources/postflight             \
-		libsbml-package.pmdoc/01local.xml.in \
-		libsbml-package.pmdoc/01local-contents.xml.in \
-		libsbml-package.pmdoc/index.xml.in 
+	resources/package-readme.txt.in  \
+	resources/postflight             \
+	libsbml-package.pmdoc/01local.xml.in \
+	libsbml-package.pmdoc/01local-contents.xml.in \
+	libsbml-package.pmdoc/index.xml.in
 
 
 # -----------------------------------------------------------------------------
@@ -104,15 +108,15 @@ all:
 #
 # (NOTES)
 #
-# Executing "make create-dmg" will create 
+# Executing "make create-dmg" will create
 # libsbml-${VERSION}-${XML_PARSER}_macosx-installer.dmg
 # in the top directory of source tree.
 #
-# Install prefix, underlying XML parser (expat, libxml2, or xerces), language 
+# Install prefix, underlying XML parser (expat, libxml2, or xerces), language
 # bindings and etc. are determined by options passed to the configure script.
 #
 # For example, a created package will install libSBML (depends on expat) as
-# universal binaries (i386 and ppc) in /usr/local/ directory (default path) 
+# universal binaries (i386 and ppc) in /usr/local/ directory (default path)
 # with Java and Python bindings if the configure script is run as follows:
 #
 #  ./configure --with-expat --enable-universal-binary --with-java --with-python
@@ -137,7 +141,7 @@ remove_staging_dir = \
     || { find $(staging) -type d ! -perm -200 -exec chmod u+w {} ';' \
          && rm -fr $(staging); }; }
 
-create-dist: 
+create-dist:
 	$(remove_staging_dir)
 	-mkdir $(staging)
 	-mkdir -p $(staging)$(prefix)/bin
@@ -149,7 +153,7 @@ create-pkg: create-dist pmdoc-files
 	/Developer/usr/bin/packagemaker -v --id org.sbml.libsbml --doc libsbml-package.pmdoc --out  $(PKGNAME)
 
 create-dmg: create-pkg build.sh
-	./build.sh 
+	./build.sh
 
 build.sh: build.sh.in $(TOP_SRCDIR)/configure \
 	     $(TOP_SRCDIR)/config/makefile-common-vars.mk
@@ -194,7 +198,7 @@ install:
 
 install-docs: install-docs-recursive
 
-uninstall: uninstall-recursive 
+uninstall: uninstall-recursive
 
 installcheck: installcheck-recursive
 
