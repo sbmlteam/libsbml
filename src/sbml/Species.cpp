@@ -1772,7 +1772,7 @@ Species::writeAttributes (XMLOutputStream& stream) const
   // charge: integer  { use="optional" }  (L1v1, L1v2, L2v1)
   // charge: integer  { use="optional" }  deprecated (L2v2)
   //
-  if ( isSetCharge() )
+  if ( level < 3 && !(level == 2 && version > 2) && isSetCharge() )
   {
     stream.writeAttribute("charge", mCharge);
   }
