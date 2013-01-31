@@ -5700,7 +5700,7 @@ Model::populateListFormulaUnitsData()
                   u->setKind(getUnitDefinition(unitNo)->getUnit(pp)->getKind());
                   u->setMultiplier(getUnitDefinition(unitNo)->getUnit(pp)
                                                    ->getMultiplier());
-                  u->setScale(getUnitDefinition(j)->getUnit(pp)->getScale());
+                  u->setScale(getUnitDefinition(unitNo)->getUnit(pp)->getScale());
                   u->setExponent(-1 * (getUnitDefinition(unitNo)->getUnit(pp)
                                        ->getExponent()));
 
