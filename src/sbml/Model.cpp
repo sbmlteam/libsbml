@@ -5593,19 +5593,19 @@ Model::populateListFormulaUnitsData()
           }
           else
           {
-            for (j = 0; j < getNumUnitDefinitions(); j++)
+            for (unsigned int unitdef = 0; unitdef < getNumUnitDefinitions(); unitdef++)
             {
-              if (!strcmp(units.c_str(), getUnitDefinition(j)->getId().c_str()))
+              if (!strcmp(units.c_str(), getUnitDefinition(unitdef)->getId().c_str()))
               {           
                 for (unsigned int pp = 0; 
-                  pp < getUnitDefinition(j)->getNumUnits(); pp++)
+                  pp < getUnitDefinition(unitdef)->getNumUnits(); pp++)
                 {
                   u = new Unit(getSBMLNamespaces());
-                  u->setKind(getUnitDefinition(j)->getUnit(pp)->getKind());
-                  u->setMultiplier(getUnitDefinition(j)->getUnit(pp)
+                  u->setKind(getUnitDefinition(unitdef)->getUnit(pp)->getKind());
+                  u->setMultiplier(getUnitDefinition(unitdef)->getUnit(pp)
                                                    ->getMultiplier());
-                  u->setScale(getUnitDefinition(j)->getUnit(pp)->getScale());
-                  u->setExponent(-1 * (getUnitDefinition(j)->getUnit(pp)
+                  u->setScale(getUnitDefinition(unitdef)->getUnit(pp)->getScale());
+                  u->setExponent(-1 * (getUnitDefinition(unitdef)->getUnit(pp)
                                        ->getExponent()));
 
                   ud->addUnit(u);
