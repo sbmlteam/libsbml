@@ -5315,7 +5315,9 @@ Model::populateListFormulaUnitsData()
       {
         ud = new UnitDefinition(getSBMLNamespaces());
         for (j = 0; j < fud->getUnitDefinition()->getNumUnits(); j++)
+        {
           ud->addUnit(fud->getUnitDefinition()->getUnit(j));
+        }
         // unless time has been overridden
         if (getUnitDefinition("time") != NULL)
         {
@@ -5687,19 +5689,19 @@ Model::populateListFormulaUnitsData()
           }
           else
           {
-            for (j = 0; j < getNumUnitDefinitions(); j++)
+            for (unsigned int unitNo = 0; unitNo < getNumUnitDefinitions(); unitNo++)
             {
-              if (!strcmp(units.c_str(), getUnitDefinition(j)->getId().c_str()))
+              if (!strcmp(units.c_str(), getUnitDefinition(unitNo)->getId().c_str()))
               {           
                 for (unsigned int pp = 0; 
-                  pp < getUnitDefinition(j)->getNumUnits(); pp++)
+                  pp < getUnitDefinition(unitNo)->getNumUnits(); pp++)
                 {
                   u = new Unit(getSBMLNamespaces());
-                  u->setKind(getUnitDefinition(j)->getUnit(pp)->getKind());
-                  u->setMultiplier(getUnitDefinition(j)->getUnit(pp)
+                  u->setKind(getUnitDefinition(unitNo)->getUnit(pp)->getKind());
+                  u->setMultiplier(getUnitDefinition(unitNo)->getUnit(pp)
                                                    ->getMultiplier());
                   u->setScale(getUnitDefinition(j)->getUnit(pp)->getScale());
-                  u->setExponent(-1 * (getUnitDefinition(j)->getUnit(pp)
+                  u->setExponent(-1 * (getUnitDefinition(unitNo)->getUnit(pp)
                                        ->getExponent()));
 
                   ud->addUnit(u);
