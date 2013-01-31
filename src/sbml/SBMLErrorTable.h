@@ -9106,6 +9106,38 @@ static const sbmlErrorTableEntry errorTable[] =
   //   "L3V1 Section 4.2.6"}
   //},
 
+  //99994
+  {   
+    UnknownCoreAttribute,   
+    "",
+    LIBSBML_CAT_INTERNAL,   
+    LIBSBML_SEV_ERROR,   
+    LIBSBML_SEV_ERROR,   
+    LIBSBML_SEV_ERROR,   
+    LIBSBML_SEV_ERROR,   
+    LIBSBML_SEV_ERROR,   
+    LIBSBML_SEV_ERROR,
+    LIBSBML_SEV_ERROR,   
+    ""
+  },
+
+  //99996
+  {   
+    UnknownPackageAttribute,   
+    "",
+    LIBSBML_CAT_INTERNAL,   
+    LIBSBML_SEV_ERROR,   
+    LIBSBML_SEV_ERROR,   
+    LIBSBML_SEV_ERROR,   
+    LIBSBML_SEV_ERROR,   
+    LIBSBML_SEV_ERROR,   
+    LIBSBML_SEV_ERROR,
+    LIBSBML_SEV_ERROR,   
+    ""
+  },
+
+
+
   //99996
   {   
     PackageConversionNotSupported,   

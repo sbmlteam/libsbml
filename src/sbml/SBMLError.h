@@ -847,6 +847,8 @@ typedef enum
 , MultiplierNotValidAttribute           = 99924 /*!< Attribute 'multiplier' on Unit objects is not supported in SBML Level 1. */
 , OffsetNotValidAttribute               = 99925 /*!< Attribute 'offset' on Unit objects is only available in SBML Level 2 Version 1. */
 , L3SpatialDimensionsUnset              = 99926 /*!< No value given for 'spatialDimensions' attribute; assuming a value of 3. */
+, UnknownCoreAttribute                  = 99994 /*!< Encountered an unknow attribute in core ns */
+, UnknownPackageAttribute               = 99995 /*!< Encountered an unknow attribute in package ns  */
 , PackageConversionNotSupported         = 99996 /*!< Conversion of SBML Level 3 package constructs is not yet supported. */
 , InvalidTargetLevelVersion             = 99997 /*!< The requested SBML Level/Version combination is not known to exist. */
 , L3NotSupported                        = 99998 /*!< SBML Level 3 is not yet supported. */

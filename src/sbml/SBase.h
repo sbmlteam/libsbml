@@ -3240,7 +3240,8 @@ protected:
   void logUnknownAttribute( const std::string& attribute,
 			    const unsigned int level,
 			    const unsigned int version,
-			    const std::string& element );
+			    const std::string& element,
+          const std::string& prefix="");
 
 
   /**

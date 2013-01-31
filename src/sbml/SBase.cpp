@@ -4219,21 +4219,37 @@ void
 SBase::logUnknownAttribute( const string& attribute,
                             const unsigned int level,
                             const unsigned int version,
-                            const string& element )
+                            const string& element,
+                            const string& prefix)
 {
   ostringstream msg;
 
   if (getPackageName() != "core")
   {
-    msg << "Attribute '" << attribute << "' is not part of the "
-        << "definition of an SBML Level " << level
-        << " Version " << version << " Package " 
-        << getPackageName() << " Version " << getPackageVersion() << " "
-        << element << " element.";
-    if (mSBML != NULL)
+    if (prefix.empty() == false)
     {
-      getErrorLog()->logError(NotSchemaConformant,
-  			    level, version, msg.str(), getLine(), getColumn());
+      msg << "Attribute '" << attribute << "' is not part of the "
+          << "definition of an SBML Level " << level
+          << " Version " << version << " Package " 
+          << getPackageName() << " Version " << getPackageVersion() << " "
+          << element << " element.";
+      if (mSBML != NULL)
+      {
+        getErrorLog()->logError(UnknownPackageAttribute,
+  			      level, version, msg.str(), getLine(), getColumn());
+      }
+    }
+    else
+    {
+      msg << "Attribute '" << attribute << "' is not part of the "
+          << "definition of an SBML Level " << level
+          << " Version " << version << " "
+          << element << " element.";
+      if (mSBML != NULL)
+      {
+        getErrorLog()->logError(UnknownCoreAttribute,
+  			      level, version, msg.str(), getLine(), getColumn());
+      }
     }
     return;
   }
@@ -4756,7 +4772,7 @@ SBase::readAttributes (const XMLAttributes& attributes,
     }
     else if (!expectedAttributes.hasAttribute(name))
     {
-      logUnknownAttribute(name, level, version, getElementName());
+      logUnknownAttribute(name, level, version, getElementName(), prefix);
     }
   }
 
@@ -5539,10 +5555,23 @@ SBase::checkListOfPopulated(SBase* object)
     // for now log the empty list
     if (static_cast <ListOf*> (object)->size() == 0)
     {
-      ostringstream errMsg;
-      errMsg << object->getElementName() << " cannot be empty.";
-      
-      logError(NotSchemaConformant, getLevel(), getVersion(), errMsg.str());
+      /* hack to stop an empty listOfFunctionTerms that has
+       * a defaultTerm object being logged as empty 
+       */
+      if (object->getPackageName() == "qual" &&
+        object->getElementName() == "listOfFunctionTerms")
+      {
+        // do nothing
+        // will need to check for defaultTerm but will
+        // have to pass that to the qual extension
+      }
+      else
+      {
+        ostringstream errMsg;
+        errMsg << object->getElementName() << " cannot be empty.";
+        
+        logError(NotSchemaConformant, getLevel(), getVersion(), errMsg.str());
+      }
     }
     return;
   }
