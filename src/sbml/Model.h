@@ -3013,7 +3013,6 @@ public:
    */
   void populateListFormulaUnitsData();
 
-
   /**
    * Predicate returning @c true if 
    * the list of FormulaUnitsData is populated.
@@ -3649,7 +3648,18 @@ protected:
   friend class OverdeterminedValidator;
   friend class SBOConsistencyValidator;
   friend class UnitConsistencyValidator;
+  /** @endcond */
 
+  private:
+  /** @cond doxygen-libsbml-internal */
+  /**
+   * Internal function used in populateListFormulaUnitsData
+   */
+  void checkUnitDefinition(UnitDefinition* ud, FormulaUnitsData *fud);
+  /**
+   * Internal function used in populateListFormulaUnitsData
+   */
+  void checkSpeciesReference(SpeciesReference* sr, UnitFormulaFormatter* unitFormatter, FormulaUnitsData* fud, UnitDefinition* ud);
   /** @endcond */
 };
 

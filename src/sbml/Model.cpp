@@ -4342,6 +4342,213 @@ Model::getElementPosition () const
 /** @endcond */
 
 
+void Model::checkUnitDefinition(UnitDefinition* ud, FormulaUnitsData *fud)
+{
+  if (ud != NULL)
+  {
+    /* in L3 this will be different */
+    if (getLevel() < 3)
+    {
+      ud = new UnitDefinition(getSBMLNamespaces());
+      for (unsigned int j = 0; j < fud->getUnitDefinition()->getNumUnits(); j++)
+        ud->addUnit(fud->getUnitDefinition()->getUnit(j));
+      // unless time has been overridden
+      if (getUnitDefinition("time") != NULL)
+      {
+        for (unsigned int ii = 0; ii < getUnitDefinition("time")->getNumUnits(); ii++)
+        {
+          // need to prevent level/version mismatches
+          // ud will have default level and veersion
+          Unit* uFromModel = getUnitDefinition("time")->getUnit(ii);
+          if (uFromModel  != NULL)
+          {
+            Unit* u = new Unit(uFromModel->getSBMLNamespaces());
+            u->setKind(uFromModel->getKind());
+            u->setExponent(-1 * uFromModel->getExponent());
+            u->setScale(uFromModel->getScale());
+            u->setMultiplier(uFromModel->getMultiplier());
+            ud->addUnit(u);
+            delete u;
+          }
+        }
+      }
+      else
+      {
+        Unit* u = new Unit(getSBMLNamespaces());
+        u->setKind(UNIT_KIND_SECOND);
+        u->initDefaults();
+        u->setExponent(-1);
+        ud->addUnit(u);
+        delete u;
+      }
+      UnitDefinition::simplify(ud);
+    }
+    else
+    {
+      /* in L3 there are only defined time units IF the model
+      * has the timeUnits attribute set
+      */
+      if (!isSetTimeUnits())
+      {
+        ud = new UnitDefinition(getSBMLNamespaces());
+      }
+      else
+      {
+        std::string units = getTimeUnits();
+        UnitDefinition *tempUD = new UnitDefinition(getSBMLNamespaces());
+
+        /* either unit name or unitDefinition id */
+        if (UnitKind_isValidUnitKindString(units.c_str(), 
+          getLevel(), getVersion()))
+        {
+          Unit* u = new Unit(getSBMLNamespaces());
+          u->setKind(UnitKind_forName(units.c_str()));
+          u->initDefaults();
+          u->setExponent(-1);
+
+          tempUD->addUnit(u);
+          delete u;
+        }
+        else
+        {
+          for (unsigned int j = 0; j < getNumUnitDefinitions(); j++)
+          {
+            if (!strcmp(units.c_str(), getUnitDefinition(j)->getId().c_str()))
+            {           
+              for (unsigned int pp = 0; 
+                pp < getUnitDefinition(j)->getNumUnits(); pp++)
+              {
+                Unit* u = new Unit(getSBMLNamespaces());
+                u->setKind(getUnitDefinition(j)->getUnit(pp)->getKind());
+                u->setMultiplier(getUnitDefinition(j)->getUnit(pp)
+                  ->getMultiplier());
+                u->setScale(getUnitDefinition(j)->getUnit(pp)->getScale());
+                u->setExponent(-1 * (getUnitDefinition(j)->getUnit(pp)
+                  ->getExponent()));
+
+                tempUD->addUnit(u);
+
+                delete u;
+              }
+            }
+          }
+        }
+
+
+        ud = new UnitDefinition(getSBMLNamespaces());
+
+        for (unsigned int j = 0; j < fud->getUnitDefinition()->getNumUnits(); j++)
+        {
+          ud->addUnit(fud->getUnitDefinition()->getUnit(j));
+        }
+
+        for (unsigned int j = 0; j < tempUD->getNumUnits(); j++)
+        {
+          ud->addUnit(tempUD->getUnit(j));
+        }
+
+        UnitDefinition::simplify(ud);
+        delete tempUD;
+      }
+
+    }
+    fud->setPerTimeUnitDefinition(ud);
+  }
+}
+
+void Model::checkSpeciesReference(SpeciesReference* sr, UnitFormulaFormatter* unitFormatter, FormulaUnitsData* fud, UnitDefinition* ud)
+{
+  if (sr->isSetStoichiometryMath())
+  {
+    fud = createFormulaUnitsData();
+    fud->setUnitReferenceId(sr->getSpecies());
+    sr->getStoichiometryMath()->setInternalId(sr->getSpecies());
+    fud->setComponentTypecode(SBML_STOICHIOMETRY_MATH);
+    unitFormatter->resetFlags();
+    ud = unitFormatter->getUnitDefinition
+      (sr->getStoichiometryMath()->getMath());
+    fud->setUnitDefinition(ud);
+    fud->setContainsParametersWithUndeclaredUnits
+      (unitFormatter->getContainsUndeclaredUnits());
+    fud->setCanIgnoreUndeclaredUnits
+      (unitFormatter->canIgnoreUndeclaredUnits());
+  }
+  if (sr->getLevel() > 2 && sr->isSetId())
+  {
+    fud = createFormulaUnitsData();
+    fud->setUnitReferenceId(sr->getId());
+    fud->setComponentTypecode(SBML_SPECIES_REFERENCE);
+    /* units will be dimensionless */
+    ud = new UnitDefinition(getSBMLNamespaces());
+    Unit* u = new Unit(getSBMLNamespaces());
+    u->setKind(UNIT_KIND_DIMENSIONLESS);
+    u->initDefaults();
+
+    ud->addUnit(u);
+    delete u;
+
+    fud->setUnitDefinition(ud);
+    fud->setContainsParametersWithUndeclaredUnits(false);
+    fud->setCanIgnoreUndeclaredUnits(true);
+
+
+    /* in L3 there are only defined time units IF the model
+    * has the timeUnits attribute set
+    */
+    if (!isSetTimeUnits())
+    {
+      ud = new UnitDefinition(getSBMLNamespaces());
+      fud->setContainsParametersWithUndeclaredUnits(true);
+      fud->setCanIgnoreUndeclaredUnits(false);
+    }
+    else
+    {
+      std::string units = getTimeUnits();
+      ud = new UnitDefinition(getSBMLNamespaces());
+
+      /* either unit name or unitDefinition id */
+      if (UnitKind_isValidUnitKindString(units.c_str(), getLevel(), 
+        getVersion()))
+      {
+        Unit* u = new Unit(getSBMLNamespaces());
+        u->setKind(UnitKind_forName(units.c_str()));
+        u->initDefaults();
+        u->setExponent(-1);
+
+        ud->addUnit(u);
+        delete u;
+      }
+      else
+      {
+        for (unsigned int unitdef = 0; unitdef < getNumUnitDefinitions(); unitdef++)
+        {
+          if (!strcmp(units.c_str(), getUnitDefinition(unitdef)->getId().c_str()))
+          {           
+            for (unsigned int pp = 0; 
+              pp < getUnitDefinition(unitdef)->getNumUnits(); pp++)
+            {
+              Unit* u = new Unit(getSBMLNamespaces());
+              u->setKind(getUnitDefinition(unitdef)->getUnit(pp)->getKind());
+              u->setMultiplier(getUnitDefinition(unitdef)->getUnit(pp)
+                ->getMultiplier());
+              u->setScale(getUnitDefinition(unitdef)->getUnit(pp)->getScale());
+              u->setExponent(-1 * (getUnitDefinition(unitdef)->getUnit(pp)
+                ->getExponent()));
+
+              ud->addUnit(u);
+
+              delete u;
+            }
+          }
+        }
+      }
+    }
+
+
+    fud->setPerTimeUnitDefinition(ud);
+  }
+}
+
 /** @cond doxygen-libsbml-internal */
 /**
   * Populates the ListFormulaDataUnits with the units of each 
@@ -4360,27 +4567,14 @@ Model::populateListFormulaUnitsData()
     mFormulaUnitsData = NULL;
   }
 
-  unsigned int n, j;
   char newId[12];
   std::string eaId;
   std::string newID;
   unsigned int countAlg = 0, countEvents = 0;
   
-  Compartment * c;
-  Species * s;
-  Parameter * p;
-  Rule * r;
-  InitialAssignment * ia;
-  Event * e;
-  EventAssignment * ea;
-  Reaction * react;
-  SpeciesReference * sr;
-
   UnitFormulaFormatter *unitFormatter = new UnitFormulaFormatter(this);
   FormulaUnitsData *fud;
   UnitDefinition *ud = new UnitDefinition(getSBMLNamespaces());
-  Unit *u;
-  Unit *uFromModel;
 
 /* need to put in default units or global units assigned */
   fud = createFormulaUnitsData();
@@ -4391,14 +4585,14 @@ Model::populateListFormulaUnitsData()
     // unless substance has been overridden
     if (getUnitDefinition("substance") != NULL)
     {
-      for (n = 0; n < getUnitDefinition("substance")->getNumUnits(); n++)
+      for (unsigned int n = 0; n < getUnitDefinition("substance")->getNumUnits(); n++)
       {
         // need to prevent level/version mismatches
         // ud will have default level and veersion
-        uFromModel = getUnitDefinition("substance")->getUnit(n);
+        Unit* uFromModel = getUnitDefinition("substance")->getUnit(n);
         if (uFromModel  != NULL)
         {
-          u = new Unit(uFromModel->getSBMLNamespaces());
+          Unit* u = new Unit(uFromModel->getSBMLNamespaces());
           u->setKind(uFromModel->getKind());
           u->setExponent(uFromModel->getExponent());
           u->setScale(uFromModel->getScale());
@@ -4410,7 +4604,7 @@ Model::populateListFormulaUnitsData()
     }
     else
     {
-      u = new Unit(getSBMLNamespaces());
+      Unit* u = new Unit(getSBMLNamespaces());
       u->setKind(UNIT_KIND_MOLE);
       u->initDefaults();
       ud->addUnit(u);
@@ -4425,7 +4619,7 @@ Model::populateListFormulaUnitsData()
     if (UnitKind_isValidUnitKindString(substanceUnits.c_str(), 
                                        getLevel(), getVersion()))
     {
-      u = new Unit(getSBMLNamespaces());
+      Unit* u = new Unit(getSBMLNamespaces());
       u->setKind(UnitKind_forName(substanceUnits.c_str()));
       u->initDefaults();
       ud->addUnit(u);
@@ -4433,14 +4627,14 @@ Model::populateListFormulaUnitsData()
     }
     else if (getUnitDefinition(substanceUnits) != NULL)
     {
-      for (n = 0; n < getUnitDefinition(substanceUnits)->getNumUnits(); n++)
+      for (unsigned int n = 0; n < getUnitDefinition(substanceUnits)->getNumUnits(); n++)
       {
         // need to prevent level/version mismatches
         // ud will have default level and veersion
-        uFromModel = getUnitDefinition(substanceUnits)->getUnit(n);
+        Unit* uFromModel = getUnitDefinition(substanceUnits)->getUnit(n);
         if (uFromModel  != NULL)
         {
-          u = new Unit(uFromModel->getSBMLNamespaces());
+          Unit* u = new Unit(uFromModel->getSBMLNamespaces());
           u->setKind(uFromModel->getKind());
           u->setExponent(uFromModel->getExponent());
           u->setScale(uFromModel->getScale());
@@ -4468,14 +4662,14 @@ Model::populateListFormulaUnitsData()
     // unless volume has been overridden
     if (getUnitDefinition("volume") != NULL)
     {
-      for (n = 0; n < getUnitDefinition("volume")->getNumUnits(); n++)
+      for (unsigned int n = 0; n < getUnitDefinition("volume")->getNumUnits(); n++)
       {
         // need to prevent level/version mismatches
         // ud will have default level and veersion
-        uFromModel = getUnitDefinition("volume")->getUnit(n);
+        Unit* uFromModel = getUnitDefinition("volume")->getUnit(n);
         if (uFromModel  != NULL)
         {
-          u = new Unit(uFromModel->getSBMLNamespaces());
+          Unit* u = new Unit(uFromModel->getSBMLNamespaces());
           u->setKind(uFromModel->getKind());
           u->setExponent(uFromModel->getExponent());
           u->setScale(uFromModel->getScale());
@@ -4487,7 +4681,7 @@ Model::populateListFormulaUnitsData()
     }
     else
     {
-      u = new Unit(getSBMLNamespaces());
+      Unit* u = new Unit(getSBMLNamespaces());
       u->setKind(UNIT_KIND_LITRE);
       u->initDefaults();
       ud->addUnit(u);
@@ -4502,7 +4696,7 @@ Model::populateListFormulaUnitsData()
     if (UnitKind_isValidUnitKindString(volumeUnits.c_str(), 
                                        getLevel(), getVersion()))
     {
-      u = new Unit(getSBMLNamespaces());
+      Unit* u = new Unit(getSBMLNamespaces());
       u->setKind(UnitKind_forName(volumeUnits.c_str()));
       u->initDefaults();
       ud->addUnit(u);
@@ -4510,14 +4704,14 @@ Model::populateListFormulaUnitsData()
     }
     else if (getUnitDefinition(volumeUnits) != NULL)
     {
-      for (n = 0; n < getUnitDefinition(volumeUnits)->getNumUnits(); n++)
+      for (unsigned int n = 0; n < getUnitDefinition(volumeUnits)->getNumUnits(); n++)
       {
         // need to prevent level/version mismatches
         // ud will have default level and veersion
-        uFromModel = getUnitDefinition(volumeUnits)->getUnit(n);
+        Unit* uFromModel = getUnitDefinition(volumeUnits)->getUnit(n);
         if (uFromModel  != NULL)
         {
-          u = new Unit(uFromModel->getSBMLNamespaces());
+          Unit* u = new Unit(uFromModel->getSBMLNamespaces());
           u->setKind(uFromModel->getKind());
           u->setExponent(uFromModel->getExponent());
           u->setScale(uFromModel->getScale());
@@ -4546,14 +4740,14 @@ Model::populateListFormulaUnitsData()
     // unless area has been overridden
     if (getUnitDefinition("area") != NULL)
     {
-      for (n = 0; n < getUnitDefinition("area")->getNumUnits(); n++)
+      for (unsigned int n = 0; n < getUnitDefinition("area")->getNumUnits(); n++)
       {
         // need to prevent level/version mismatches
         // ud will have default level and veersion
-        uFromModel = getUnitDefinition("area")->getUnit(n);
+        Unit* uFromModel = getUnitDefinition("area")->getUnit(n);
         if (uFromModel  != NULL)
         {
-          u = new Unit(uFromModel->getSBMLNamespaces());
+          Unit* u = new Unit(uFromModel->getSBMLNamespaces());
           u->setKind(uFromModel->getKind());
           u->setExponent(uFromModel->getExponent());
           u->setScale(uFromModel->getScale());
@@ -4565,7 +4759,7 @@ Model::populateListFormulaUnitsData()
     }
     else
     {
-      u = new Unit(getSBMLNamespaces());
+      Unit* u = new Unit(getSBMLNamespaces());
       u->setKind(UNIT_KIND_METRE);
       u->initDefaults();
       u->setExponent(2);
@@ -4581,7 +4775,7 @@ Model::populateListFormulaUnitsData()
     if (UnitKind_isValidUnitKindString(areaUnits.c_str(), 
                                        getLevel(), getVersion()))
     {
-      u = new Unit(getSBMLNamespaces());
+      Unit* u = new Unit(getSBMLNamespaces());
       u->setKind(UnitKind_forName(areaUnits.c_str()));
       u->initDefaults();
       ud->addUnit(u);
@@ -4589,14 +4783,14 @@ Model::populateListFormulaUnitsData()
     }
     else if (getUnitDefinition(areaUnits) != NULL)
     {
-      for (n = 0; n < getUnitDefinition(areaUnits)->getNumUnits(); n++)
+      for (unsigned int n = 0; n < getUnitDefinition(areaUnits)->getNumUnits(); n++)
       {
         // need to prevent level/version mismatches
         // ud will have default level and veersion
-        uFromModel = getUnitDefinition(areaUnits)->getUnit(n);
+        Unit* uFromModel = getUnitDefinition(areaUnits)->getUnit(n);
         if (uFromModel  != NULL)
         {
-          u = new Unit(uFromModel->getSBMLNamespaces());
+          Unit* u = new Unit(uFromModel->getSBMLNamespaces());
           u->setKind(uFromModel->getKind());
           u->setExponent(uFromModel->getExponent());
           u->setScale(uFromModel->getScale());
@@ -4625,14 +4819,14 @@ Model::populateListFormulaUnitsData()
     // unless length has been overridden
     if (getUnitDefinition("length") != NULL)
     {
-      for (n = 0; n < getUnitDefinition("length")->getNumUnits(); n++)
+      for (unsigned int n = 0; n < getUnitDefinition("length")->getNumUnits(); n++)
       {
         // need to prevent level/version mismatches
         // ud will have default level and veersion
-        uFromModel = getUnitDefinition("length")->getUnit(n);
+        Unit* uFromModel = getUnitDefinition("length")->getUnit(n);
         if (uFromModel  != NULL)
         {
-          u = new Unit(uFromModel->getSBMLNamespaces());
+          Unit* u = new Unit(uFromModel->getSBMLNamespaces());
           u->setKind(uFromModel->getKind());
           u->setExponent(uFromModel->getExponent());
           u->setScale(uFromModel->getScale());
@@ -4644,7 +4838,7 @@ Model::populateListFormulaUnitsData()
     }
     else
     {
-      u = new Unit(getSBMLNamespaces());
+      Unit* u = new Unit(getSBMLNamespaces());
       u->setKind(UNIT_KIND_METRE);
       u->initDefaults();
       ud->addUnit(u);
@@ -4659,7 +4853,7 @@ Model::populateListFormulaUnitsData()
     if (UnitKind_isValidUnitKindString(lengthUnits.c_str(), 
                                        getLevel(), getVersion()))
     {
-      u = new Unit(getSBMLNamespaces());
+      Unit* u = new Unit(getSBMLNamespaces());
       u->setKind(UnitKind_forName(lengthUnits.c_str()));
       u->initDefaults();
       ud->addUnit(u);
@@ -4667,14 +4861,14 @@ Model::populateListFormulaUnitsData()
     }
     else if (getUnitDefinition(lengthUnits) != NULL)
     {
-      for (n = 0; n < getUnitDefinition(lengthUnits)->getNumUnits(); n++)
+      for (unsigned int n = 0; n < getUnitDefinition(lengthUnits)->getNumUnits(); n++)
       {
         // need to prevent level/version mismatches
         // ud will have default level and veersion
-        uFromModel = getUnitDefinition(lengthUnits)->getUnit(n);
+        Unit* uFromModel = getUnitDefinition(lengthUnits)->getUnit(n);
         if (uFromModel  != NULL)
         {
-          u = new Unit(uFromModel->getSBMLNamespaces());
+          Unit* u = new Unit(uFromModel->getSBMLNamespaces());
           u->setKind(uFromModel->getKind());
           u->setExponent(uFromModel->getExponent());
           u->setScale(uFromModel->getScale());
@@ -4703,14 +4897,14 @@ Model::populateListFormulaUnitsData()
     // unless time has been overridden
     if (getUnitDefinition("time") != NULL)
     {
-      for (n = 0; n < getUnitDefinition("time")->getNumUnits(); n++)
+      for (unsigned int n = 0; n < getUnitDefinition("time")->getNumUnits(); n++)
       {
         // need to prevent level/version mismatches
         // ud will have default level and veersion
-        uFromModel = getUnitDefinition("time")->getUnit(n);
+        Unit* uFromModel = getUnitDefinition("time")->getUnit(n);
         if (uFromModel  != NULL)
         {
-          u = new Unit(uFromModel->getSBMLNamespaces());
+          Unit* u = new Unit(uFromModel->getSBMLNamespaces());
           u->setKind(uFromModel->getKind());
           u->setExponent(uFromModel->getExponent());
           u->setScale(uFromModel->getScale());
@@ -4722,7 +4916,7 @@ Model::populateListFormulaUnitsData()
     }
     else
     {
-      u = new Unit(getSBMLNamespaces());
+      Unit* u = new Unit(getSBMLNamespaces());
       u->setKind(UNIT_KIND_SECOND);
       u->initDefaults();
       ud->addUnit(u);
@@ -4737,7 +4931,7 @@ Model::populateListFormulaUnitsData()
     if (UnitKind_isValidUnitKindString(timeUnits.c_str(), 
                                        getLevel(), getVersion()))
     {
-      u = new Unit(getSBMLNamespaces());
+      Unit* u = new Unit(getSBMLNamespaces());
       u->setKind(UnitKind_forName(timeUnits.c_str()));
       u->initDefaults();
       ud->addUnit(u);
@@ -4745,14 +4939,14 @@ Model::populateListFormulaUnitsData()
     }
     else if (getUnitDefinition(timeUnits) != NULL)
     {
-      for (n = 0; n < getUnitDefinition(timeUnits)->getNumUnits(); n++)
+      for (unsigned int n = 0; n < getUnitDefinition(timeUnits)->getNumUnits(); n++)
       {
         // need to prevent level/version mismatches
         // ud will have default level and veersion
-        uFromModel = getUnitDefinition(timeUnits)->getUnit(n);
+        Unit* uFromModel = getUnitDefinition(timeUnits)->getUnit(n);
         if (uFromModel  != NULL)
         {
-          u = new Unit(uFromModel->getSBMLNamespaces());
+          Unit* u = new Unit(uFromModel->getSBMLNamespaces());
           u->setKind(uFromModel->getKind());
           u->setExponent(uFromModel->getExponent());
           u->setScale(uFromModel->getScale());
@@ -4783,14 +4977,14 @@ Model::populateListFormulaUnitsData()
     //// unless extent has been overridden
     //if (getUnitDefinition("extent") != NULL)
     //{
-    //  for (n = 0; n < getUnitDefinition("extent")->getNumUnits(); n++)
+    //  for (unsigned int n = 0; n < getUnitDefinition("extent")->getNumUnits(); n++)
     //  {
     //    // need to prevent level/version mismatches
     //    // ud will have default level and veersion
-    //    uFromModel = getUnitDefinition("extent")->getUnit(n);
+    //    Unit* uFromModel = getUnitDefinition("extent")->getUnit(n);
     //    if (uFromModel  != NULL)
     //    {
-    //      u = new Unit(uFromModel->getSBMLNamespaces());
+    //      Unit* u = new Unit(uFromModel->getSBMLNamespaces());
     //      u->setKind(uFromModel->getKind());
     //      u->setExponent(uFromModel->getExponent());
     //      u->setScale(uFromModel->getScale());
@@ -4802,7 +4996,7 @@ Model::populateListFormulaUnitsData()
     //}
     //else
     //{
-    //  u = new Unit(getSBMLNamespaces());
+    //  Unit* u = new Unit(getSBMLNamespaces());
     //  u->setKind(UNIT_KIND_LITRE);
     //  u->initDefaults();
     //  ud->addUnit(u);
@@ -4817,7 +5011,7 @@ Model::populateListFormulaUnitsData()
     if (UnitKind_isValidUnitKindString(extentUnits.c_str(), 
                                        getLevel(), getVersion()))
     {
-      u = new Unit(getSBMLNamespaces());
+      Unit* u = new Unit(getSBMLNamespaces());
       u->setKind(UnitKind_forName(extentUnits.c_str()));
       u->initDefaults();
       ud->addUnit(u);
@@ -4825,14 +5019,14 @@ Model::populateListFormulaUnitsData()
     }
     else if (getUnitDefinition(extentUnits) != NULL)
     {
-      for (n = 0; n < getUnitDefinition(extentUnits)->getNumUnits(); n++)
+      for (unsigned int n = 0; n < getUnitDefinition(extentUnits)->getNumUnits(); n++)
       {
         // need to prevent level/version mismatches
         // ud will have default level and veersion
-        uFromModel = getUnitDefinition(extentUnits)->getUnit(n);
+        Unit* uFromModel = getUnitDefinition(extentUnits)->getUnit(n);
         if (uFromModel  != NULL)
         {
-          u = new Unit(uFromModel->getSBMLNamespaces());
+          Unit* u = new Unit(uFromModel->getSBMLNamespaces());
           u->setKind(uFromModel->getKind());
           u->setExponent(uFromModel->getExponent());
           u->setScale(uFromModel->getScale());
@@ -4863,14 +5057,14 @@ Model::populateListFormulaUnitsData()
     // unless substance has been overridden
     if (getUnitDefinition("substance") != NULL)
     {
-      for (n = 0; n < getUnitDefinition("substance")->getNumUnits(); n++)
+      for (unsigned int n = 0; n < getUnitDefinition("substance")->getNumUnits(); n++)
       {
         // need to prevent level/version mismatches
         // ud will have default level and veersion
-        uFromModel = getUnitDefinition("substance")->getUnit(n);
+        Unit* uFromModel = getUnitDefinition("substance")->getUnit(n);
         if (uFromModel  != NULL)
         {
-          u = new Unit(uFromModel->getSBMLNamespaces());
+          Unit* u = new Unit(uFromModel->getSBMLNamespaces());
           u->setKind(uFromModel->getKind());
           u->setExponent(uFromModel->getExponent());
           u->setScale(uFromModel->getScale());
@@ -4882,7 +5076,7 @@ Model::populateListFormulaUnitsData()
     }
     else
     {
-      u = new Unit(getSBMLNamespaces());
+      Unit* u = new Unit(getSBMLNamespaces());
       u->setKind(UNIT_KIND_MOLE);
       u->initDefaults();
       ud->addUnit(u);
@@ -4891,12 +5085,12 @@ Model::populateListFormulaUnitsData()
 
     if (getUnitDefinition("time") != NULL)
     {
-      for (n = 0; n < getUnitDefinition("time")->getNumUnits(); n++)
+      for (unsigned int n = 0; n < getUnitDefinition("time")->getNumUnits(); n++)
       {
-        uFromModel = getUnitDefinition("time")->getUnit(n);
+        Unit* uFromModel = getUnitDefinition("time")->getUnit(n);
         if (uFromModel  != NULL)
         {
-          u = new Unit(uFromModel->getSBMLNamespaces());
+          Unit* u = new Unit(uFromModel->getSBMLNamespaces());
           u->setKind(uFromModel->getKind());
           u->setExponent(uFromModel->getExponent());
           u->setScale(uFromModel->getScale());
@@ -4909,7 +5103,7 @@ Model::populateListFormulaUnitsData()
     }
     else
     {
-      u = new Unit(getSBMLNamespaces());
+      Unit* u = new Unit(getSBMLNamespaces());
       u->setKind(UNIT_KIND_SECOND);
       u->initDefaults();
       u->setExponent(-1);
@@ -4926,7 +5120,7 @@ Model::populateListFormulaUnitsData()
     if (UnitKind_isValidUnitKindString(extentUnits.c_str(), 
                                        getLevel(), getVersion()))
     {
-      u = new Unit(getSBMLNamespaces());
+      Unit* u = new Unit(getSBMLNamespaces());
       u->setKind(UnitKind_forName(extentUnits.c_str()));
       u->initDefaults();
       ud->addUnit(u);
@@ -4934,14 +5128,14 @@ Model::populateListFormulaUnitsData()
     }
     else if (getUnitDefinition(extentUnits) != NULL)
     {
-      for (n = 0; n < getUnitDefinition(extentUnits)->getNumUnits(); n++)
+      for (unsigned int n = 0; n < getUnitDefinition(extentUnits)->getNumUnits(); n++)
       {
         // need to prevent level/version mismatches
         // ud will have default level and veersion
-        uFromModel = getUnitDefinition(extentUnits)->getUnit(n);
+        Unit* uFromModel = getUnitDefinition(extentUnits)->getUnit(n);
         if (uFromModel  != NULL)
         {
-          u = new Unit(uFromModel->getSBMLNamespaces());
+          Unit* u = new Unit(uFromModel->getSBMLNamespaces());
           u->setKind(uFromModel->getKind());
           u->setExponent(uFromModel->getExponent());
           u->setScale(uFromModel->getScale());
@@ -4961,7 +5155,7 @@ Model::populateListFormulaUnitsData()
     if (UnitKind_isValidUnitKindString(timeUnits.c_str(), 
                                        getLevel(), getVersion()))
     {
-      u = new Unit(getSBMLNamespaces());
+      Unit* u = new Unit(getSBMLNamespaces());
       u->setKind(UnitKind_forName(timeUnits.c_str()));
       u->initDefaults();
       u->setExponent(-1);
@@ -4970,14 +5164,14 @@ Model::populateListFormulaUnitsData()
     }
     else if (getUnitDefinition(timeUnits) != NULL)
     {
-      for (n = 0; n < getUnitDefinition(timeUnits)->getNumUnits(); n++)
+      for (unsigned int n = 0; n < getUnitDefinition(timeUnits)->getNumUnits(); n++)
       {
         // need to prevent level/version mismatches
         // ud will have default level and veersion
-        uFromModel = getUnitDefinition(timeUnits)->getUnit(n);
+        Unit* uFromModel = getUnitDefinition(timeUnits)->getUnit(n);
         if (uFromModel  != NULL)
         {
-          u = new Unit(uFromModel->getSBMLNamespaces());
+          Unit* u = new Unit(uFromModel->getSBMLNamespaces());
           u->setKind(uFromModel->getKind());
           u->setExponent(uFromModel->getExponent() * -1);
           u->setScale(uFromModel->getScale());
@@ -4998,135 +5192,24 @@ Model::populateListFormulaUnitsData()
   /* get unit data from each compartment 
    * this is necessary for validation
    */
-  for (n = 0; n < getNumCompartments(); n++)
+  for (unsigned int n = 0; n < getNumCompartments(); n++)
   {
-    c = getCompartment(n);
+    Compartment* c = getCompartment(n);
     fud = createFormulaUnitsData();
     fud->setUnitReferenceId(c->getId());
     fud->setComponentTypecode(SBML_COMPARTMENT);
     ud = unitFormatter->getUnitDefinitionFromCompartment(c);
     fud->setUnitDefinition(ud);
+    checkUnitDefinition(ud, fud);
 
-    if (ud != NULL)
-    {
-      /* in L3 this will be different */
-      if (getLevel() < 3)
-      {
-        ud = new UnitDefinition(getSBMLNamespaces());
-        for (j = 0; j < fud->getUnitDefinition()->getNumUnits(); j++)
-          ud->addUnit(fud->getUnitDefinition()->getUnit(j));
-        // unless time has been overridden
-        if (getUnitDefinition("time") != NULL)
-        {
-          for (unsigned int ii = 0; ii < getUnitDefinition("time")->getNumUnits(); ii++)
-          {
-            // need to prevent level/version mismatches
-            // ud will have default level and veersion
-            uFromModel = getUnitDefinition("time")->getUnit(ii);
-            if (uFromModel  != NULL)
-            {
-              u = new Unit(uFromModel->getSBMLNamespaces());
-              u->setKind(uFromModel->getKind());
-              u->setExponent(-1 * uFromModel->getExponent());
-              u->setScale(uFromModel->getScale());
-              u->setMultiplier(uFromModel->getMultiplier());
-              ud->addUnit(u);
-              delete u;
-            }
-          }
-        }
-        else
-        {
-          u = new Unit(getSBMLNamespaces());
-          u->setKind(UNIT_KIND_SECOND);
-          u->initDefaults();
-          u->setExponent(-1);
-          ud->addUnit(u);
-          delete u;
-        }
-        UnitDefinition::simplify(ud);
-        //u = new Unit(getSBMLNamespaces());
-        //u->setKind(UNIT_KIND_SECOND);
-        //u->initDefaults();
-        //u->setExponent(-1);
-        //ud->addUnit(u);
-        //delete u;
-      }
-      else
-      {
-        /* in L3 there are only defined time units IF the model
-         * has the timeUnits attribute set
-         */
-        if (!isSetTimeUnits())
-        {
-          ud = new UnitDefinition(getSBMLNamespaces());
-        }
-        else
-        {
-          std::string units = getTimeUnits();
-          UnitDefinition *tempUD = new UnitDefinition(getSBMLNamespaces());
-
-          /* either unit name or unitDefinition id */
-          if (UnitKind_isValidUnitKindString(units.c_str(), 
-                                             getLevel(), getVersion()))
-          {
-            u = new Unit(getSBMLNamespaces());
-            u->setKind(UnitKind_forName(units.c_str()));
-            u->initDefaults();
-            u->setExponent(-1);
-
-            tempUD->addUnit(u);
-            delete u;
-          }
-          else
-          {
-            for (j = 0; j < getNumUnitDefinitions(); j++)
-            {
-              if (!strcmp(units.c_str(), getUnitDefinition(j)->getId().c_str()))
-              {           
-                for (unsigned int pp = 0; 
-                  pp < getUnitDefinition(j)->getNumUnits(); pp++)
-                {
-                  u = new Unit(getSBMLNamespaces());
-                  u->setKind(getUnitDefinition(j)->getUnit(pp)->getKind());
-                  u->setMultiplier(getUnitDefinition(j)->getUnit(pp)
-                                                   ->getMultiplier());
-                  u->setScale(getUnitDefinition(j)->getUnit(pp)->getScale());
-                  u->setExponent(-1 * (getUnitDefinition(j)->getUnit(pp)
-                                       ->getExponent()));
-
-                  tempUD->addUnit(u);
-
-                  delete u;
-                }
-              }
-            }
-          }
-
-
-          ud = new UnitDefinition(getSBMLNamespaces());
-          
-          for (j = 0; j < fud->getUnitDefinition()->getNumUnits(); j++)
-            ud->addUnit(fud->getUnitDefinition()->getUnit(j));
-            
-          for (j = 0; j < tempUD->getNumUnits(); j++)
-            ud->addUnit(tempUD->getUnit(j));
-            
-          UnitDefinition::simplify(ud);
-          delete tempUD;
-        }
-
-      }
-      fud->setPerTimeUnitDefinition(ud);
-    }
   }
 
   /* get unit data from each species 
    * this is necessary for validation
    */
-  for (n=0; n < getNumSpecies(); n++)
+  for (unsigned int n=0; n < getNumSpecies(); n++)
   {
-    s = getSpecies(n);
+    Species* s = getSpecies(n);
     fud = createFormulaUnitsData();
     fud->setUnitReferenceId(s->getId());
     fud->setComponentTypecode(SBML_SPECIES);
@@ -5134,122 +5217,16 @@ Model::populateListFormulaUnitsData()
      * this will blow up although it is caught by another rule
      */
     if (getCompartment(s->getCompartment()) == NULL)
-      ud = NULL;
-    else
-      ud = unitFormatter->getUnitDefinitionFromSpecies(s);
-    fud->setUnitDefinition(ud);
-    
-    if (ud != NULL)
     {
-      if (getLevel() < 3)
-      {
-        ud = new UnitDefinition(getSBMLNamespaces());
-        for (j = 0; j < fud->getUnitDefinition()->getNumUnits(); j++)
-          ud->addUnit(fud->getUnitDefinition()->getUnit(j));
-        // unless time has been overridden
-        if (getUnitDefinition("time") != NULL)
-        {
-          for (unsigned int ii = 0; ii < getUnitDefinition("time")->getNumUnits(); ii++)
-          {
-            // need to prevent level/version mismatches
-            // ud will have default level and veersion
-            uFromModel = getUnitDefinition("time")->getUnit(ii);
-            if (uFromModel  != NULL)
-            {
-              u = new Unit(uFromModel->getSBMLNamespaces());
-              u->setKind(uFromModel->getKind());
-              u->setExponent(-1 * uFromModel->getExponent());
-              u->setScale(uFromModel->getScale());
-              u->setMultiplier(uFromModel->getMultiplier());
-              ud->addUnit(u);
-              delete u;
-            }
-          }
-        }
-        else
-        {
-          u = new Unit(getSBMLNamespaces());
-          u->setKind(UNIT_KIND_SECOND);
-          u->initDefaults();
-          u->setExponent(-1);
-          ud->addUnit(u);
-          delete u;
-        }
-        UnitDefinition::simplify(ud);
-        //u = new Unit(getSBMLNamespaces());
-        //u->setKind(UNIT_KIND_SECOND);
-        //u->initDefaults();
-        //u->setExponent(-1);
-        //ud->addUnit(u);
-        //delete u;
-      }
-      else
-      {
-        /* in L3 there are only defined time units IF the model
-         * has the timeUnits attribute set
-         */
-        if (!isSetTimeUnits())
-        {
-          ud = new UnitDefinition(getSBMLNamespaces());
-        }
-        else
-        {
-          std::string units = getTimeUnits();
-          UnitDefinition *tempUD = new UnitDefinition(getSBMLNamespaces());
-
-          /* either unit name or unitDefinition id */
-          if (UnitKind_isValidUnitKindString(units.c_str(), getLevel(),
-                                                            getVersion()))
-          {
-            u = new Unit(getSBMLNamespaces());
-            u->setKind(UnitKind_forName(units.c_str()));
-            u->initDefaults();
-            u->setExponent(-1);
-
-            tempUD->addUnit(u);
-            delete u;
-          }
-          else
-          {
-            for (j = 0; j < getNumUnitDefinitions(); j++)
-            {
-              if (!strcmp(units.c_str(), getUnitDefinition(j)->getId().c_str()))
-              {           
-                for (unsigned int pp = 0; 
-                  pp < getUnitDefinition(j)->getNumUnits(); pp++)
-                {
-                  u = new Unit(getSBMLNamespaces());
-                  u->setKind(getUnitDefinition(j)->getUnit(pp)->getKind());
-                  u->setMultiplier(getUnitDefinition(j)->getUnit(pp)
-                                                   ->getMultiplier());
-                  u->setScale(getUnitDefinition(j)->getUnit(pp)->getScale());
-                  u->setExponent(-1 * (getUnitDefinition(j)->getUnit(pp)
-                                       ->getExponent()));
-
-                  tempUD->addUnit(u);
-
-                  delete u;
-                }
-              }
-            }
-          }
-
-
-          ud = new UnitDefinition(getSBMLNamespaces());
-          
-          for (j = 0; j < fud->getUnitDefinition()->getNumUnits(); j++)
-            ud->addUnit(fud->getUnitDefinition()->getUnit(j));
-            
-          for (j = 0; j < tempUD->getNumUnits(); j++)
-            ud->addUnit(tempUD->getUnit(j));
-            
-          UnitDefinition::simplify(ud);
-          delete tempUD;
-        }
-
-      }
-      fud->setPerTimeUnitDefinition(ud);
+      ud = NULL;
     }
+    else
+    {
+      ud = unitFormatter->getUnitDefinitionFromSpecies(s);
+    }
+
+    fud->setUnitDefinition(ud);
+    checkUnitDefinition(ud, fud);
   }
 
   
@@ -5258,9 +5235,9 @@ Model::populateListFormulaUnitsData()
    */
   if (getLevel() > 2)
   {
-    for (n=0; n < getNumSpecies(); n++)
+    for (unsigned int n=0; n < getNumSpecies(); n++)
     {
-      s = getSpecies(n);
+      Species* s = getSpecies(n);
       fud = createFormulaUnitsData();
       fud->setUnitReferenceId(s->getId()+"subs");
       fud->setComponentTypecode(SBML_SPECIES);
@@ -5275,9 +5252,9 @@ Model::populateListFormulaUnitsData()
                                   (unitFormatter->canIgnoreUndeclaredUnits());
       }
     }
-    for (n=0; n < getNumSpecies(); n++)
+    for (unsigned int n=0; n < getNumSpecies(); n++)
     {
-      s = getSpecies(n);
+      Species* s = getSpecies(n);
       fud = createFormulaUnitsData();
       fud->setUnitReferenceId(s->getId()+"extent");
       fud->setComponentTypecode(SBML_SPECIES);
@@ -5295,9 +5272,9 @@ Model::populateListFormulaUnitsData()
 
   }
   /* get unit data from each parameter    */
-  for (n=0; n < getNumParameters(); n++)
+  for (unsigned int n=0; n < getNumParameters(); n++)
   {
-    p = getParameter(n);
+    Parameter* p = getParameter(n);
     fud = createFormulaUnitsData();
     fud->setUnitReferenceId(p->getId());
     fud->setComponentTypecode(SBML_PARAMETER);
@@ -5309,125 +5286,14 @@ Model::populateListFormulaUnitsData()
     fud->setCanIgnoreUndeclaredUnits
                                   (unitFormatter->canIgnoreUndeclaredUnits());
 
-    if (ud != NULL)
-    {
-      if (getLevel() < 3)
-      {
-        ud = new UnitDefinition(getSBMLNamespaces());
-        for (j = 0; j < fud->getUnitDefinition()->getNumUnits(); j++)
-        {
-          ud->addUnit(fud->getUnitDefinition()->getUnit(j));
-        }
-        // unless time has been overridden
-        if (getUnitDefinition("time") != NULL)
-        {
-          for (unsigned int ii = 0; ii < getUnitDefinition("time")->getNumUnits(); ii++)
-          {
-            // need to prevent level/version mismatches
-            // ud will have default level and veersion
-            uFromModel = getUnitDefinition("time")->getUnit(ii);
-            if (uFromModel  != NULL)
-            {
-              u = new Unit(uFromModel->getSBMLNamespaces());
-              u->setKind(uFromModel->getKind());
-              u->setExponent(-1 * uFromModel->getExponent());
-              u->setScale(uFromModel->getScale());
-              u->setMultiplier(uFromModel->getMultiplier());
-              ud->addUnit(u);
-              delete u;
-            }
-          }
-        }
-        else
-        {
-          u = new Unit(getSBMLNamespaces());
-          u->setKind(UNIT_KIND_SECOND);
-          u->initDefaults();
-          u->setExponent(-1);
-          ud->addUnit(u);
-          delete u;
-        }
-        //u = new Unit(getSBMLNamespaces());
-        //u->setKind(UNIT_KIND_SECOND);
-        //u->initDefaults();
-        //u->setExponent(-1);
-        //ud->addUnit(u);
-        UnitDefinition::simplify(ud);
-      }
-      else
-      {
-        /* in L3 there are only defined time units IF the model
-         * has the timeUnits attribute set
-         */
-        if (!isSetTimeUnits())
-        {
-          ud = new UnitDefinition(getSBMLNamespaces());
-        }
-        else
-        {
-          std::string units = getTimeUnits();
-          UnitDefinition *tempUD = new UnitDefinition(getSBMLNamespaces());
-
-          /* either unit name or unitDefinition id */
-          if (UnitKind_isValidUnitKindString(units.c_str(), getLevel(), 
-                                                            getVersion()))
-          {
-            u = new Unit(getSBMLNamespaces());
-            u->setKind(UnitKind_forName(units.c_str()));
-            u->initDefaults();
-            u->setExponent(-1);
-
-            tempUD->addUnit(u);
-            delete u;
-          }
-          else
-          {
-            for (j = 0; j < getNumUnitDefinitions(); j++)
-            {
-              if (!strcmp(units.c_str(), getUnitDefinition(j)->getId().c_str()))
-              {           
-                for (unsigned int pp = 0; 
-                  pp < getUnitDefinition(j)->getNumUnits(); pp++)
-                {
-                  u = new Unit(getSBMLNamespaces());
-                  u->setKind(getUnitDefinition(j)->getUnit(pp)->getKind());
-                  u->setMultiplier(getUnitDefinition(j)->getUnit(pp)
-                                                   ->getMultiplier());
-                  u->setScale(getUnitDefinition(j)->getUnit(pp)->getScale());
-                  u->setExponent(-1 * (getUnitDefinition(j)->getUnit(pp)
-                                       ->getExponent()));
-
-                  tempUD->addUnit(u);
-
-                  delete u;
-                }
-              }
-            }
-          }
-
-
-          ud = new UnitDefinition(getSBMLNamespaces());
-          
-          for (j = 0; j < fud->getUnitDefinition()->getNumUnits(); j++)
-            ud->addUnit(fud->getUnitDefinition()->getUnit(j));
-            
-          for (j = 0; j < tempUD->getNumUnits(); j++)
-            ud->addUnit(tempUD->getUnit(j));
-            
-          UnitDefinition::simplify(ud);
-          delete tempUD;
-        }
-
-      }
-      fud->setPerTimeUnitDefinition(ud);
-   }
+    checkUnitDefinition(ud, fud);
   }
 
    /* get units returned by the formula given for each initial assignment
    */
-  for (n=0; n < getNumInitialAssignments(); n++)
+  for (unsigned int n=0; n < getNumInitialAssignments(); n++)
   {
-    ia = getInitialAssignment(n);
+    InitialAssignment* ia = getInitialAssignment(n);
     fud = createFormulaUnitsData();
     fud->setUnitReferenceId(ia->getSymbol());
     fud->setComponentTypecode(SBML_INITIAL_ASSIGNMENT);
@@ -5449,9 +5315,9 @@ Model::populateListFormulaUnitsData()
   }
  /* get units returned by the formula given for each rule
    */
-  for (n=0; n < getNumRules(); n++)
+  for (unsigned int n=0; n < getNumRules(); n++)
   {
-    r = getRule(n);
+    Rule* r = getRule(n);
     fud = createFormulaUnitsData();
     if (r->getTypeCode() == SBML_ALGEBRAIC_RULE)
     {
@@ -5489,9 +5355,9 @@ Model::populateListFormulaUnitsData()
    * math may occur in reactions in kineticLaw or as stoichiometryMath 
    * on reactants or products
    */
-  for (n=0; n < getNumReactions(); n++)
+  for (unsigned int n=0; n < getNumReactions(); n++)
   {
-    react = getReaction(n);
+    Reaction* react = getReaction(n);
 
     /* get units returned by kineticLaw formula */
     if (react->isSetKineticLaw())
@@ -5527,195 +5393,16 @@ Model::populateListFormulaUnitsData()
     }
 
     /* get units returned by any stoichiometryMath set */
-    for (j = 0; j < react->getNumReactants(); j++)
+    for (unsigned int j = 0; j < react->getNumReactants(); j++)
     {
-      sr = react->getReactant(j);
-
-      if (sr->isSetStoichiometryMath())
-      {
-        fud = createFormulaUnitsData();
-        fud->setUnitReferenceId(sr->getSpecies());
-        sr->getStoichiometryMath()->setInternalId(sr->getSpecies());
-        fud->setComponentTypecode(SBML_STOICHIOMETRY_MATH);
-        unitFormatter->resetFlags();
-        ud = unitFormatter->getUnitDefinition
-                                      (sr->getStoichiometryMath()->getMath());
-        fud->setUnitDefinition(ud);
-        fud->setContainsParametersWithUndeclaredUnits
-                                (unitFormatter->getContainsUndeclaredUnits());
-        fud->setCanIgnoreUndeclaredUnits
-                                  (unitFormatter->canIgnoreUndeclaredUnits());
-      }
-
-      /* for l3 the id may represent the stoichiometry */
-      if (sr->getLevel() > 2 && sr->isSetId())
-      {
-        fud = createFormulaUnitsData();
-        fud->setUnitReferenceId(sr->getId());
-        fud->setComponentTypecode(SBML_SPECIES_REFERENCE);
-        /* units will be dimensionless */
-        ud = new UnitDefinition(getSBMLNamespaces());
-        u = new Unit(getSBMLNamespaces());
-        u->setKind(UNIT_KIND_DIMENSIONLESS);
-        u->initDefaults();
-
-        ud->addUnit(u);
-        delete u;
-
-        fud->setUnitDefinition(ud);
-        fud->setContainsParametersWithUndeclaredUnits(false);
-        fud->setCanIgnoreUndeclaredUnits(true);
-
-
-        /* in L3 there are only defined time units IF the model
-         * has the timeUnits attribute set
-         */
-        if (!isSetTimeUnits())
-        {
-          ud = new UnitDefinition(getSBMLNamespaces());
-          fud->setContainsParametersWithUndeclaredUnits(true);
-          fud->setCanIgnoreUndeclaredUnits(false);
-        }
-        else
-        {
-          std::string units = getTimeUnits();
-          ud = new UnitDefinition(getSBMLNamespaces());
-
-          /* either unit name or unitDefinition id */
-          if (UnitKind_isValidUnitKindString(units.c_str(), getLevel(), 
-                                                            getVersion()))
-          {
-            u = new Unit(getSBMLNamespaces());
-            u->setKind(UnitKind_forName(units.c_str()));
-            u->initDefaults();
-            u->setExponent(-1);
-
-            ud->addUnit(u);
-            delete u;
-          }
-          else
-          {
-            for (unsigned int unitdef = 0; unitdef < getNumUnitDefinitions(); unitdef++)
-            {
-              if (!strcmp(units.c_str(), getUnitDefinition(unitdef)->getId().c_str()))
-              {           
-                for (unsigned int pp = 0; 
-                  pp < getUnitDefinition(unitdef)->getNumUnits(); pp++)
-                {
-                  u = new Unit(getSBMLNamespaces());
-                  u->setKind(getUnitDefinition(unitdef)->getUnit(pp)->getKind());
-                  u->setMultiplier(getUnitDefinition(unitdef)->getUnit(pp)
-                                                   ->getMultiplier());
-                  u->setScale(getUnitDefinition(unitdef)->getUnit(pp)->getScale());
-                  u->setExponent(-1 * (getUnitDefinition(unitdef)->getUnit(pp)
-                                       ->getExponent()));
-
-                  ud->addUnit(u);
-
-                  delete u;
-                }
-              }
-            }
-          }
-        }
-
-        
-        fud->setPerTimeUnitDefinition(ud);
-      }
+      SpeciesReference* sr = react->getReactant(j);
+      checkSpeciesReference(sr, unitFormatter, fud, ud);
     }
 
-    for (j = 0; j < react->getNumProducts(); j++)
+    for (unsigned int j = 0; j < react->getNumProducts(); j++)
     {
-      sr = react->getProduct(j);
-
-      if (sr->isSetStoichiometryMath())
-      {
-        fud = createFormulaUnitsData();
-        sr->getStoichiometryMath()->setInternalId(sr->getSpecies());
-        fud->setComponentTypecode(SBML_STOICHIOMETRY_MATH);
-        unitFormatter->resetFlags();
-        ud = unitFormatter->getUnitDefinition
-                                      (sr->getStoichiometryMath()->getMath());
-        fud->setUnitDefinition(ud);
-        fud->setContainsParametersWithUndeclaredUnits
-                                (unitFormatter->getContainsUndeclaredUnits());
-        fud->setCanIgnoreUndeclaredUnits
-                                  (unitFormatter->canIgnoreUndeclaredUnits());
-      }
-
-      /* for l3 the id may represent the stoichiometry */
-      if (sr->getLevel() > 2 && sr->isSetId())
-      {
-        fud = createFormulaUnitsData();
-        fud->setUnitReferenceId(sr->getId());
-        fud->setComponentTypecode(SBML_SPECIES_REFERENCE);
-        /* units will be dimensionless */
-        ud = new UnitDefinition(getSBMLNamespaces());
-        u = new Unit(getSBMLNamespaces());
-        u->setKind(UNIT_KIND_DIMENSIONLESS);
-        u->initDefaults();
-
-        ud->addUnit(u);
-        delete u;
-
-        fud->setUnitDefinition(ud);
-        fud->setContainsParametersWithUndeclaredUnits(false);
-        fud->setCanIgnoreUndeclaredUnits(true);
-        /* in L3 there are only defined time units IF the model
-         * has the timeUnits attribute set
-         */
-        if (!isSetTimeUnits())
-        {
-          ud = new UnitDefinition(getSBMLNamespaces());
-          fud->setContainsParametersWithUndeclaredUnits(true);
-          fud->setCanIgnoreUndeclaredUnits(false);
-        }
-        else
-        {
-          std::string units = getTimeUnits();
-          ud = new UnitDefinition(getSBMLNamespaces());
-
-          /* either unit name or unitDefinition id */
-          if (UnitKind_isValidUnitKindString(units.c_str(), getLevel(), 
-                                                            getVersion()))
-          {
-            u = new Unit(getSBMLNamespaces());
-            u->setKind(UnitKind_forName(units.c_str()));
-            u->initDefaults();
-            u->setExponent(-1);
-
-            ud->addUnit(u);
-            delete u;
-          }
-          else
-          {
-            for (unsigned int unitNo = 0; unitNo < getNumUnitDefinitions(); unitNo++)
-            {
-              if (!strcmp(units.c_str(), getUnitDefinition(unitNo)->getId().c_str()))
-              {           
-                for (unsigned int pp = 0; 
-                  pp < getUnitDefinition(unitNo)->getNumUnits(); pp++)
-                {
-                  u = new Unit(getSBMLNamespaces());
-                  u->setKind(getUnitDefinition(unitNo)->getUnit(pp)->getKind());
-                  u->setMultiplier(getUnitDefinition(unitNo)->getUnit(pp)
-                                                   ->getMultiplier());
-                  u->setScale(getUnitDefinition(unitNo)->getUnit(pp)->getScale());
-                  u->setExponent(-1 * (getUnitDefinition(unitNo)->getUnit(pp)
-                                       ->getExponent()));
-
-                  ud->addUnit(u);
-
-                  delete u;
-                }
-              }
-            }
-          }
-        }
-
-        
-        fud->setPerTimeUnitDefinition(ud);
-      }
+      SpeciesReference* sr = react->getProduct(j);
+      checkSpeciesReference(sr, unitFormatter, fud, ud);
     }
   }
 
@@ -5723,9 +5410,9 @@ Model::populateListFormulaUnitsData()
    * math may occur in events as the trigger, the delay or 
    * in the eventAssignment
    */
-  for (n=0; n < getNumEvents(); n++)
+  for (unsigned int n=0; n < getNumEvents(); n++)
   {
-    e = getEvent(n);
+    Event* e = getEvent(n);
 
     if (e->isSetId())
     {
@@ -5798,9 +5485,9 @@ Model::populateListFormulaUnitsData()
     }
 
     /* get units returned by any event assignments */
-    for (j = 0; j < e->getNumEventAssignments(); j++)
+    for (unsigned int j = 0; j < e->getNumEventAssignments(); j++)
     {
-      ea = e->getEventAssignment(j);
+      EventAssignment* ea = e->getEventAssignment(j);
 
       eaId = ea->getVariable() + newID;
       if (ea->isSetMath())    
