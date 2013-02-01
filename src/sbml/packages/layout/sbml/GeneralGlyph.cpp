@@ -876,9 +876,10 @@ void GeneralGlyph::writeAttributes (XMLOutputStream& stream) const
   }
 
   //
-  // (EXTENSION)
+  // (EXTENSION) will be written by GraphicalObject!
   //
-  SBase::writeExtensionAttributes(stream);
+  //SBase::writeExtensionAttributes(stream);
+
 }
 
 
