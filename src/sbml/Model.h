@@ -399,6 +399,7 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 
 class SBMLVisitor;
 class FormulaUnitsData;
+class UnitFormulaFormatter;
 
 LIBSBML_CPP_NAMESPACE_END
 
