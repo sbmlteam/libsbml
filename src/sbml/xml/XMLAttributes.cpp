@@ -682,6 +682,10 @@ XMLAttributes::readInto (  int          index
           value    = result;
           assigned = true;
         }
+        else
+        {
+          missing = false;
+        }
       }
     }
   }
