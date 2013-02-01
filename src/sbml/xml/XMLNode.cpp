@@ -424,7 +424,7 @@ XMLNode::getIndex (const std::string& name) const
  * @return boolean indicating whether this XMLNode represents the same XML tree as another.
  */
 bool 
-XMLNode::equals(const XMLNode& other) const
+XMLNode::equals(const XMLNode& other, bool ignoreURI /*=false*/) const
 {
   if (&other == NULL) return false;
 
@@ -432,7 +432,7 @@ XMLNode::equals(const XMLNode& other) const
 	// check if the nodes have the same name,
 	equal=(getName()==other.getName());
 	// the same namespace uri, 
-	equal=(equal && (getURI()==other.getURI()));
+  equal=(equal && (ignoreURI ||  getURI()==other.getURI()));
 	
 	XMLAttributes attr1=getAttributes(); 
 	XMLAttributes attr2=other.getAttributes();
@@ -445,7 +445,8 @@ XMLNode::equals(const XMLNode& other) const
 		attrName=attr1.getName(i);
 		equal=(attr2.getIndex(attrName)!=-1);
 		// also check the namspace
-		equal=(equal && (attr1.getURI(i)==attr2.getURI(i)));
+		equal=(equal && (attr1.getURI(i)==attr2.getURI(i) || 
+      (attr1.getPrefix(i)=="" && getURI() == attr2.getURI(i))));
 		++i;
 	}
 	
@@ -455,7 +456,7 @@ XMLNode::equals(const XMLNode& other) const
 	equal=(equal && (iMax==(int)other.getNumChildren()));
 	while(equal && i<iMax)
 	{
-		equal=getChild(i).equals(other.getChild(i));
+    equal=getChild(i).equals(other.getChild(i), ignoreURI);
 		++i;
 	}
 	return equal; 

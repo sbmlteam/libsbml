@@ -432,7 +432,7 @@ public:
 	 *
 	 * @return boolean indicating whether this XMLNode represents the same XML tree as another.
 	 */
-	bool equals(const XMLNode& other) const;
+	bool equals(const XMLNode& other, bool ignoreURI=false) const;
 	
 
   /**
