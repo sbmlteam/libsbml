@@ -563,6 +563,14 @@ void CubicBezier::writeAttributes (XMLOutputStream& stream) const
   SBase::writeExtensionAttributes(stream);
 }
 
+void 
+CubicBezier::writeXMLNS (XMLOutputStream& stream) const
+{
+  XMLNamespaces xmlns;
+  xmlns.add(LayoutExtension::getXmlnsXSI(), "xsi");
+  stream << xmlns;
+}
+
 
 /**
  * Returns the package type code for this object.
@@ -638,26 +646,8 @@ CubicBezier::enablePackageInternal(const std::string& pkgURI,
  * Creates an XMLNode object from this.
  */
 XMLNode CubicBezier::toXML() const
-{
-  XMLNamespaces xmlns = XMLNamespaces();
-  XMLTriple triple = XMLTriple("curveSegment", "", "");
-  XMLAttributes att = XMLAttributes();
-  // add the SBase Ids
-  addSBaseAttributes(*this,att);
-  att.add("type","CubicBezier","http://www.w3.org/2001/XMLSchema-instance","xsi");  XMLToken token = XMLToken(triple, att, xmlns); 
-  XMLNode node(token);
-  // add the notes and annotations
-  if(this->mNotes) node.addChild(*this->mNotes);
-  if(this->mAnnotation) node.addChild(*this->mAnnotation);
-  // add start point
-  node.addChild(this->mStartPoint.toXML("start"));
-  // add end point
-  node.addChild(this->mEndPoint.toXML("end"));
-  // add start point
-  node.addChild(this->mBasePoint1.toXML("basePoint1"));
-  // add end point
-  node.addChild(this->mBasePoint2.toXML("basePoint2"));
-  return node;
+{ 
+  return getXmlNodeForSBase(this);
 }
 
 

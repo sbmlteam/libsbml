@@ -224,11 +224,14 @@ BoundingBox::BoundingBox (LayoutPkgNamespaces* layoutns, const std::string id,
   //
   setElementNamespace(layoutns->getURI());
 
-  mPosition.setElementName("position");
   if(p)
   {
       this->mPosition=*p;   
   }
+
+  mPosition.setElementName("position");
+
+
   if(d)
   {
       this->mDimensions=*d;   
@@ -684,25 +687,7 @@ BoundingBox::accept (SBMLVisitor& v) const
  */
 XMLNode BoundingBox::toXML() const
 {
-  XMLNamespaces xmlns = XMLNamespaces();
-  XMLTriple triple = XMLTriple("boundingBox", "", "");
-  XMLAttributes att = XMLAttributes();
-  // add the SBase Ids
-  addSBaseAttributes(*this,att);
-  if(this->isSetId())
-  {
-    att.add("id",this->mId);
-  }
-  XMLToken token = XMLToken(triple, att, xmlns); 
-  XMLNode node(token);
-  // add the notes and annotations
-  if(this->mNotes) node.addChild(*this->mNotes);
-  if(this->mAnnotation) node.addChild(*this->mAnnotation);
-  // add position
-  node.addChild(this->mPosition.toXML("position"));
-  // add dimensions
-  node.addChild(this->mDimensions.toXML());
-  return node;
+  return getXmlNodeForSBase(this);
 }
 
 

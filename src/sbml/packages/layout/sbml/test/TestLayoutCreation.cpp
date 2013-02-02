@@ -272,7 +272,7 @@ START_TEST (test_LayoutCreation_Layout_notes)
 	fail_unless(l->isSetNotes());
 	XMLInputStream *stream2 = new XMLInputStream(NOTES.c_str(),false);
 	XMLNode notes=XMLNode(*stream2);
-	fail_unless(l->getNotes()->equals(notes));
+	fail_unless(l->getNotes()->equals(notes, true));
 	delete pListOfLayouts;
 	delete stream2;
 	delete stream;
@@ -325,7 +325,7 @@ START_TEST (test_LayoutCreation_Layout_annotation)
 	fail_unless(l->isSetAnnotation());
 	XMLInputStream stream2(a,false);
 	XMLNode aNode=XMLNode(stream2);
-	fail_unless(l->getAnnotation()->equals(aNode));
+	fail_unless(l->getAnnotation()->equals(aNode, true));
   
 	delete pListOfLayouts;
 	delete stream;
@@ -497,7 +497,7 @@ START_TEST (test_LayoutCreation_CompartmentGlyph_notes)
 	fail_unless(cg->isSetNotes());
 	XMLInputStream *stream2 = new XMLInputStream(NOTES.c_str(),false);
 	XMLNode notes=XMLNode(*stream2);
-	fail_unless(cg->getNotes()->equals(notes));
+	fail_unless(cg->getNotes()->equals(notes, true));
   
 	delete pListOfLayouts;
 	delete stream2;
@@ -576,7 +576,7 @@ START_TEST (test_LayoutCreation_CompartmentGlyph_annotation)
 	fail_unless(cg->isSetAnnotation());
 	XMLInputStream *stream2 = new XMLInputStream(a,false);
 	XMLNode aNode=XMLNode(*stream2);
-	fail_unless(cg->getAnnotation()->equals(aNode));
+	fail_unless(cg->getAnnotation()->equals(aNode, true));
 	delete pListOfLayouts;
 	delete stream2;
 	delete stream;
@@ -767,7 +767,7 @@ START_TEST (test_LayoutCreation_SpeciesGlyph_notes)
 	fail_unless(sg->isSetNotes());
 	XMLInputStream *stream2 = new XMLInputStream(NOTES.c_str(),false);
 	XMLNode notes=XMLNode(*stream2);
-	fail_unless(sg->getNotes()->equals(notes));
+	fail_unless(sg->getNotes()->equals(notes, true));
 	delete pListOfLayouts;
 	delete stream2;
 	delete stream;
@@ -846,7 +846,7 @@ START_TEST (test_LayoutCreation_SpeciesGlyph_annotation)
 	fail_unless(sg->isSetAnnotation());
 	XMLInputStream *stream2 = new XMLInputStream(a,false);
 	XMLNode aNode=XMLNode(*stream2);
-	fail_unless(sg->getAnnotation()->equals(aNode));
+	fail_unless(sg->getAnnotation()->equals(aNode, true));
 	delete pListOfLayouts;
 	delete stream2;
 	delete stream;
@@ -1104,7 +1104,7 @@ START_TEST (test_LayoutCreation_ReactionGlyph_notes)
 	fail_unless(rg->isSetNotes());
 	XMLInputStream *stream2 = new XMLInputStream(NOTES.c_str(),false);
 	XMLNode notes=XMLNode(*stream2);
-	fail_unless(rg->getNotes()->equals(notes));
+	fail_unless(rg->getNotes()->equals(notes, true));
 	delete pListOfLayouts;
 	delete stream2;
 	delete stream;
@@ -1182,7 +1182,7 @@ START_TEST (test_LayoutCreation_ReactionGlyph_annotation)
 	fail_unless(rg->isSetAnnotation());
 	XMLInputStream *stream2 = new XMLInputStream(a,false);
 	XMLNode aNode=XMLNode(*stream2);
-	fail_unless(rg->getAnnotation()->equals(aNode));
+	fail_unless(rg->getAnnotation()->equals(aNode, true));
 	delete pListOfLayouts;
 	delete stream2;
 	delete stream;
@@ -1513,7 +1513,7 @@ START_TEST (test_LayoutCreation_SpeciesReferenceGlyph_notes)
 	fail_unless(srg->isSetNotes());
 	XMLInputStream *stream2 = new XMLInputStream(NOTES.c_str(),false);
 	XMLNode notes=XMLNode(*stream2);
-	fail_unless(srg->getNotes()->equals(notes));
+	fail_unless(srg->getNotes()->equals(notes, true));
 	delete pListOfLayouts;
 	delete stream2;
 	delete stream;
@@ -1616,7 +1616,7 @@ START_TEST (test_LayoutCreation_SpeciesReferenceGlyph_annotation)
 	fail_unless(srg->isSetAnnotation());
 	XMLInputStream *stream2 = new XMLInputStream(a,false);
 	XMLNode aNode=XMLNode(*stream2);
-	fail_unless(srg->getAnnotation()->equals(aNode));
+	fail_unless(srg->getAnnotation()->equals(aNode, true));
 	delete pListOfLayouts;
 	delete stream2;
 	delete stream;
@@ -1896,7 +1896,7 @@ START_TEST (test_LayoutCreation_TextGlyph_notes)
 	fail_unless(tg->isSetNotes());
 	XMLInputStream *stream2 = new XMLInputStream(NOTES.c_str(),false);
 	XMLNode notes=XMLNode(*stream2);
-	fail_unless(tg->getNotes()->equals(notes));
+	fail_unless(tg->getNotes()->equals(notes, true));
 	delete pListOfLayouts;
 	delete stream2;
 	delete stream;
@@ -1977,7 +1977,7 @@ START_TEST (test_LayoutCreation_TextGlyph_annotation)
 	fail_unless(tg->isSetAnnotation());
 	XMLInputStream *stream2 = new XMLInputStream(a,false);
 	XMLNode aNode=XMLNode(*stream2);
-	fail_unless(tg->getAnnotation()->equals(aNode));
+	fail_unless(tg->getAnnotation()->equals(aNode, true));
 	delete pListOfLayouts;
 	delete stream2;
 	delete stream;
@@ -2166,7 +2166,7 @@ START_TEST (test_LayoutCreation_GraphicalObject_notes)
 	fail_unless(go->isSetNotes());
 	XMLInputStream *stream2 = new XMLInputStream(NOTES.c_str(),false);
 	XMLNode notes=XMLNode(*stream2);
-	fail_unless(go->getNotes()->equals(notes));
+	fail_unless(go->getNotes()->equals(notes, true));
   
 	delete pListOfLayouts;
 	delete stream2;
@@ -2245,7 +2245,7 @@ START_TEST (test_LayoutCreation_GraphicalObject_annotation)
 	fail_unless(go->isSetAnnotation());
 	XMLInputStream *stream2 = new XMLInputStream(a,false);
 	XMLNode aNode=XMLNode(*stream2);
-	fail_unless(go->getAnnotation()->equals(aNode));
+	fail_unless(go->getAnnotation()->equals(aNode, true));
 	delete pListOfLayouts;
 	delete stream2;
 	delete stream;
@@ -2391,7 +2391,7 @@ START_TEST (test_LayoutCreation_Curve_notes)
 	fail_unless(curve->isSetNotes()==true);
 	XMLInputStream *stream2 = new XMLInputStream(NOTES.c_str(),false);
 	XMLNode notes=XMLNode(*stream2);
-	fail_unless(curve->getNotes()->equals(notes));
+	fail_unless(curve->getNotes()->equals(notes, true));
   
 	delete pListOfLayouts;
 	delete stream;
@@ -2477,7 +2477,7 @@ START_TEST (test_LayoutCreation_Curve_annotation)
 	fail_unless(curve->isSetAnnotation());
 	XMLInputStream *stream2 = new XMLInputStream(a,false);
 	XMLNode aNode=XMLNode(*stream2);
-	fail_unless(curve->getAnnotation()->equals(aNode));
+	fail_unless(curve->getAnnotation()->equals(aNode, true));
 	delete pListOfLayouts;
 	delete stream2;
 	delete stream;
@@ -2666,7 +2666,7 @@ START_TEST (test_LayoutCreation_LineSegment_notes)
 	fail_unless(ls->isSetNotes());
 	XMLInputStream *stream2 = new XMLInputStream(NOTES.c_str(),false);
 	XMLNode notes=XMLNode(*stream2);
-	fail_unless(ls->getNotes()->equals(notes));
+	fail_unless(ls->getNotes()->equals(notes, true));
 	delete pListOfLayouts;
 	delete stream2;
 	delete stream;
@@ -2751,7 +2751,7 @@ START_TEST (test_LayoutCreation_LineSegment_annotation)
 	fail_unless(ls->isSetAnnotation());
 	XMLInputStream *stream2 = new XMLInputStream(a,false);
 	XMLNode aNode=XMLNode(*stream2);
-	fail_unless(ls->getAnnotation()->equals(aNode));
+	fail_unless(ls->getAnnotation()->equals(aNode, true));
 	delete pListOfLayouts;
 	delete stream2;
 	delete stream;
@@ -2921,7 +2921,7 @@ START_TEST (test_LayoutCreation_CubicBezier_notes)
 	fail_unless(cb->isSetNotes());
 	XMLInputStream *stream2 = new XMLInputStream(NOTES.c_str(),false);
 	XMLNode notes=XMLNode(*stream2);
-	fail_unless(cb->getNotes()->equals(notes)==true);
+	fail_unless(cb->getNotes()->equals(notes, true)==true);
   
 	delete pListOfLayouts;
 	delete stream2;
@@ -3020,7 +3020,7 @@ START_TEST (test_LayoutCreation_CubicBezier_annotation)
 	fail_unless(cb->isSetAnnotation());
 	XMLInputStream *stream2= new XMLInputStream(a,false);
 	XMLNode aNode=XMLNode(*stream2);
-	fail_unless(cb->getAnnotation()->equals(aNode)==true);
+	fail_unless(cb->getAnnotation()->equals(aNode, true)==true);
 	delete pListOfLayouts;
 	delete stream2;
 	delete stream;
@@ -3106,7 +3106,7 @@ START_TEST (test_LayoutCreation_Dimensions_notes)
 	fail_unless(dimensions->isSetNotes());
 	XMLInputStream *stream2 = new XMLInputStream(NOTES.c_str(),false);
 	XMLNode notes=XMLNode(*stream2);
-	fail_unless(dimensions->getNotes()->equals(notes)==true);
+	fail_unless(dimensions->getNotes()->equals(notes, true)==true);
   
 	delete pListOfLayouts;
 	delete stream2;
@@ -3165,7 +3165,7 @@ START_TEST (test_LayoutCreation_Dimensions_annotation)
 	fail_unless(dimensions->isSetAnnotation());
 	XMLInputStream *stream2 = new XMLInputStream(a,false);
 	XMLNode aNode=XMLNode(*stream2);
-	fail_unless(dimensions->getAnnotation()->equals(aNode)==true);
+	fail_unless(dimensions->getAnnotation()->equals(aNode, true)==true);
 	delete pListOfLayouts;
 	delete stream2;
 	delete stream;
@@ -3338,7 +3338,7 @@ START_TEST (test_LayoutCreation_BoundingBox_notes)
 	fail_unless(bb->isSetNotes());
 	XMLInputStream *stream2 = new XMLInputStream(NOTES.c_str(),false);
 	XMLNode notes=XMLNode(*stream2);
-	fail_unless(bb->getNotes()->equals(notes)==true);
+	fail_unless(bb->getNotes()->equals(notes, true)==true);
 	delete pListOfLayouts;
 	delete stream2;
 	delete stream;
@@ -3417,7 +3417,7 @@ START_TEST (test_LayoutCreation_BoundingBox_annotation)
 	fail_unless(bb->isSetAnnotation());
 	XMLInputStream *stream2 = new XMLInputStream(a,false);
 	XMLNode aNode=XMLNode(*stream2);
-	fail_unless(bb->getAnnotation()->equals(aNode)==true);
+	fail_unless(bb->getAnnotation()->equals(aNode, true)==true);
 	delete pListOfLayouts;
 	delete stream2;
 	delete stream;

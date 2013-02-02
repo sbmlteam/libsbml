@@ -154,7 +154,7 @@ START_TEST (test_LayoutFormatter_Layout)
   GraphicalObject* go=l.createAdditionalGraphicalObject();
   go->setId("graphicalObject_1");
   
-  fail_unless( node.equals(l.toXML()) );
+  fail_unless( node.equals(l.toXML(), true) );
 }
 END_TEST
 
@@ -180,7 +180,7 @@ START_TEST (test_LayoutFormatter_Layout_notes)
   XMLNode notes(stream2);
   l.appendNotes(&notes);
   
-  fail_unless( node.equals(l.toXML()) );
+  fail_unless( node.equals(l.toXML(), true) );
   
 }
 END_TEST
@@ -214,7 +214,7 @@ START_TEST (test_LayoutFormatter_Layout_annotation)
   l.appendAnnotation(annotation);
   
   
-  fail_unless( node.equals(l.toXML()) );
+  fail_unless( node.equals(l.toXML(), true) );
   
 }
 END_TEST
@@ -235,7 +235,7 @@ START_TEST (test_LayoutFormatter_Layout_skipOptional)
   Dimensions dim=Dimensions(LNLV2,200.0,400.0);
   Layout l(LNLV2,"layout_1",&dim);
   
-  fail_unless( node.equals(l.toXML()) );
+  fail_unless( node.equals(l.toXML(), true) );
   
 }
 END_TEST
@@ -266,7 +266,7 @@ START_TEST (test_LayoutFormatter_CompartmentGlyph)
   BoundingBox box=BoundingBox(LNLV2,"",&pos,&dim);
   cg.setBoundingBox(&box);
   
-  fail_unless( node.equals(cg.toXML()) );
+  fail_unless( node.equals(cg.toXML(), true) );
   
   
 }
@@ -303,7 +303,7 @@ START_TEST (test_LayoutFormatter_CompartmentGlyph_notes)
   BoundingBox box=BoundingBox(LNLV2,"",&pos,&dim);
   cg.setBoundingBox(&box);
   
-  fail_unless( node.equals(cg.toXML()) );
+  fail_unless( node.equals(cg.toXML(), true) );
   
 }
 END_TEST
@@ -345,7 +345,7 @@ START_TEST (test_LayoutFormatter_CompartmentGlyph_annotation)
   BoundingBox box=BoundingBox(LNLV2,"",&pos,&dim);
   cg.setBoundingBox(&box);
   
-  fail_unless( node.equals(cg.toXML()) );
+  fail_unless( node.equals(cg.toXML(), true) );
   
 }
 END_TEST
@@ -374,7 +374,7 @@ START_TEST (test_LayoutFormatter_CompartmentGlyph_skipOptional)
   BoundingBox box=BoundingBox(LNLV2,"",&pos,&dim);
   cg.setBoundingBox(&box);
   
-  fail_unless( node.equals(cg.toXML()) );
+  fail_unless( node.equals(cg.toXML(), true) );
   
 }
 END_TEST
@@ -404,7 +404,7 @@ START_TEST (test_LayoutFormatter_SpeciesGlyph)
   BoundingBox box=BoundingBox(LNLV2,"",&pos,&dim);
   sg.setBoundingBox(&box);
   
-  fail_unless( node.equals(sg.toXML()) );
+  fail_unless( node.equals(sg.toXML(), true) );
   
   
 }
@@ -441,7 +441,7 @@ START_TEST (test_LayoutFormatter_SpeciesGlyph_notes)
   BoundingBox box=BoundingBox(LNLV2,"",&pos,&dim);
   sg.setBoundingBox(&box);
   
-  fail_unless( node.equals(sg.toXML()) );
+  fail_unless( node.equals(sg.toXML(), true) );
   
 }
 END_TEST
@@ -483,7 +483,7 @@ START_TEST (test_LayoutFormatter_SpeciesGlyph_annotation)
   BoundingBox box=BoundingBox(LNLV2,"",&pos,&dim);
   sg.setBoundingBox(&box);
   
-  fail_unless( node.equals(sg.toXML()) );
+  fail_unless( node.equals(sg.toXML(), true) );
   
 }
 END_TEST
@@ -512,7 +512,7 @@ START_TEST (test_LayoutFormatter_SpeciesGlyph_skipOptional)
   BoundingBox box=BoundingBox(LNLV2,"",&pos,&dim);
   sg.setBoundingBox(&box);
   
-  fail_unless( node.equals(sg.toXML()) );
+  fail_unless( node.equals(sg.toXML(), true) );
   
 }
 END_TEST
@@ -547,7 +547,7 @@ START_TEST (test_LayoutFormatter_ReactionGlyph_Curve)
   ls->setStart(10.0,10.0);
   ls->setEnd(20.0,10.0);
   
-  fail_unless( node.getChild(0).equals(rg.toXML()) );
+  fail_unless( node.getChild(0).equals(rg.toXML(), true) );
   
 }
 END_TEST
@@ -578,7 +578,7 @@ START_TEST (test_LayoutFormatter_ReactionGlyph_BoundingBox)
   rg.setBoundingBox(&box);
   
   
-  fail_unless( node.equals(rg.toXML()) );
+  fail_unless( node.equals(rg.toXML(), true) );
   
 }
 END_TEST
@@ -615,7 +615,7 @@ START_TEST (test_LayoutFormatter_ReactionGlyph_notes)
   BoundingBox box=BoundingBox(LNLV2,"",&pos,&dim);
   rg.setBoundingBox(&box);
   
-  fail_unless( node.equals(rg.toXML()) );
+  fail_unless( node.equals(rg.toXML(), true) );
   
 }
 END_TEST
@@ -658,7 +658,7 @@ START_TEST (test_LayoutFormatter_ReactionGlyph_annotation)
   BoundingBox box=BoundingBox(LNLV2,"",&pos,&dim);
   rg.setBoundingBox(&box);
   
-  fail_unless( node.equals(rg.toXML()) );
+  fail_unless( node.equals(rg.toXML(), true) );
   
 }
 END_TEST
@@ -687,7 +687,7 @@ START_TEST (test_LayoutFormatter_ReactionGlyph_skipOptional)
   BoundingBox box=BoundingBox(LNLV2,"",&pos,&dim);
   rg.setBoundingBox(&box);
   
-  fail_unless( node.equals(rg.toXML()) );
+  fail_unless( node.equals(rg.toXML(), true) );
   
 }
 END_TEST
@@ -724,7 +724,7 @@ START_TEST (test_LayoutFormatter_SpeciesReferenceGlyph_Curve)
   ls->setStart(10.0,10.0);
   ls->setEnd(20.0,10.0);
   
-  fail_unless( node.getChild(0).equals(srg.toXML()) );
+  fail_unless( node.getChild(0).equals(srg.toXML(), true) );
   
   
 }
@@ -758,7 +758,7 @@ START_TEST (test_LayoutFormatter_SpeciesReferenceGlyph_BoundingBox)
   srg.setBoundingBox(&box);
   
   
-  fail_unless( node.equals(srg.toXML()) );
+  fail_unless( node.equals(srg.toXML(), true) );
   
 }
 END_TEST
@@ -795,7 +795,7 @@ START_TEST (test_LayoutFormatter_SpeciesReferenceGlyph_notes)
   BoundingBox box=BoundingBox(LNLV2,"",&pos,&dim);
   srg.setBoundingBox(&box);
   
-  fail_unless( node.equals(srg.toXML()) );
+  fail_unless( node.equals(srg.toXML(), true) );
   
 }
 END_TEST
@@ -838,7 +838,7 @@ START_TEST (test_LayoutFormatter_SpeciesReferenceGlyph_annotation)
   BoundingBox box=BoundingBox(LNLV2,"",&pos,&dim);
   srg.setBoundingBox(&box);
   
-  fail_unless( node.equals(srg.toXML()) );
+  fail_unless( node.equals(srg.toXML(), true) );
   
 }
 END_TEST
@@ -867,7 +867,7 @@ START_TEST (test_LayoutFormatter_SpeciesReferenceGlyph_skipOptional)
   BoundingBox box=BoundingBox(LNLV2,"",&pos,&dim);
   srg.setBoundingBox(&box);
   
-  fail_unless( node.equals(srg.toXML()) );
+  fail_unless( node.equals(srg.toXML(), true) );
   
 }
 END_TEST
@@ -898,7 +898,7 @@ START_TEST (test_LayoutFormatter_TextGlyph_text)
   BoundingBox box=BoundingBox(LNLV2,"",&pos,&dim);
   tg.setBoundingBox(&box);
   
-  fail_unless( node.equals(tg.toXML()) );
+  fail_unless( node.equals(tg.toXML(), true) );
   
 }
 END_TEST
@@ -930,7 +930,7 @@ START_TEST (test_LayoutFormatter_TextGlyph_originOfText)
   tg.setBoundingBox(&box);
   
   
-  fail_unless( node.equals(tg.toXML()) );
+  fail_unless( node.equals(tg.toXML(), true) );
   
 }
 END_TEST
@@ -969,7 +969,7 @@ START_TEST (test_LayoutFormatter_TextGlyph_notes)
   tg.setBoundingBox(&box);
   
   
-  fail_unless( node.equals(tg.toXML()) );
+  fail_unless( node.equals(tg.toXML(), true) );
   
 }
 END_TEST
@@ -1014,7 +1014,7 @@ START_TEST (test_LayoutFormatter_TextGlyph_annotation)
   tg.setBoundingBox(&box);
   
   
-  fail_unless( node.equals(tg.toXML()) );
+  fail_unless( node.equals(tg.toXML(), true) );
   
 }
 END_TEST
@@ -1044,7 +1044,7 @@ START_TEST (test_LayoutFormatter_TextGlyph_skipOptional)
   tg.setBoundingBox(&box);
   
   
-  fail_unless( node.equals(tg.toXML()) );
+  fail_unless( node.equals(tg.toXML(), true) );
   
 }
 END_TEST
@@ -1074,7 +1074,7 @@ START_TEST (test_LayoutFormatter_GraphicalObject)
   go.setBoundingBox(&box);
   
   
-  fail_unless( node.equals(go.toXML()) );
+  fail_unless( node.equals(go.toXML(), true) );
   
 }
 END_TEST
@@ -1111,7 +1111,7 @@ START_TEST (test_LayoutFormatter_GraphicalObject_notes)
   go.setBoundingBox(&box);
   
   
-  fail_unless( node.equals(go.toXML()) );
+  fail_unless( node.equals(go.toXML(), true) );
   
 }
 END_TEST
@@ -1153,7 +1153,7 @@ START_TEST (test_LayoutFormatter_GraphicalObject_annotation)
   BoundingBox box=BoundingBox(LNLV2,"",&pos,&dim);
   go.setBoundingBox(&box);
   
-  fail_unless( node.equals(go.toXML()) );
+  fail_unless( node.equals(go.toXML(), true) );
   
   
 }
@@ -1185,7 +1185,7 @@ START_TEST (test_LayoutFormatter_Curve)
   ls->setEnd(20.0,10.0);
   
   
-  fail_unless( node.getChild(0).equals(c.toXML()) );
+  fail_unless( node.getChild(0).equals(c.toXML(), true) );
   
 }
 END_TEST
@@ -1223,7 +1223,7 @@ START_TEST (test_LayoutFormatter_Curve_notes)
   ls->setEnd(20.0,10.0);
   
   
-  fail_unless( node.getChild(0).equals(c.toXML()) );
+  fail_unless( node.getChild(0).equals(c.toXML(), true) );
   
 }
 END_TEST
@@ -1266,7 +1266,7 @@ START_TEST (test_LayoutFormatter_Curve_annotation)
   ls->setStart(10.0,10.0);
   ls->setEnd(20.0,10.0);
   
-  fail_unless( node.getChild(0).equals(c.toXML()) );
+  fail_unless( node.getChild(0).equals(c.toXML(), true) );
   
 }
 END_TEST
@@ -1285,7 +1285,7 @@ START_TEST (test_LayoutFormatter_Curve_skipOptional)
   
   Curve c=Curve(LNLV2);
   
-  fail_unless( node.equals(c.toXML()) );
+  fail_unless( node.equals(c.toXML(), true) );
   
 }
 END_TEST
@@ -1310,7 +1310,7 @@ START_TEST (test_LayoutFormatter_LineSegment)
   ls.setStart(10.0,10.0);
   ls.setEnd(20.0,10.0);
   
-  fail_unless( node.getChild(0).equals(ls.toXML()) );
+  fail_unless( node.getChild(0).equals(ls.toXML(), true) );
   
 }
 END_TEST
@@ -1342,7 +1342,7 @@ START_TEST (test_LayoutFormatter_LineSegment_notes)
   ls.appendNotes(&notes);
   
   
-  fail_unless( node.getChild(0).equals(ls.toXML()) );
+  fail_unless( node.getChild(0).equals(ls.toXML(), true) );
   
 }
 END_TEST
@@ -1380,7 +1380,7 @@ START_TEST (test_LayoutFormatter_LineSegment_annotation)
   ls.appendAnnotation(annotation);
   
   
-  fail_unless( node.getChild(0).equals(ls.toXML()) );
+  fail_unless( node.getChild(0).equals(ls.toXML(), true) );
   
 }
 END_TEST
@@ -1409,7 +1409,7 @@ START_TEST (test_LayoutFormatter_CubicBezier)
   cb.setBasePoint1(15.0,5.0);
   cb.setBasePoint2(15.0,15.0);
   
-  fail_unless( node.getChild(0).equals(cb.toXML()) );
+  fail_unless( node.getChild(0).equals(cb.toXML(), true) );
   
 }
 END_TEST
@@ -1445,7 +1445,7 @@ START_TEST (test_LayoutFormatter_CubicBezier_notes)
   cb.appendNotes(&notes);
   
   
-  fail_unless( node.getChild(0).equals(cb.toXML()) );
+  fail_unless( node.getChild(0).equals(cb.toXML(), true) );
   
 }
 END_TEST
@@ -1487,7 +1487,7 @@ START_TEST (test_LayoutFormatter_CubicBezier_annotation)
   cb.appendAnnotation(annotation);
   
   
-  fail_unless( node.getChild(0).equals(cb.toXML()) );
+  fail_unless( node.getChild(0).equals(cb.toXML(), true) );
   
 }
 END_TEST
@@ -1505,7 +1505,7 @@ START_TEST (test_LayoutFormatter_Point)
   
   Point p=Point(LNLV2,200.5,400.5,455.2);
   
-  fail_unless( node.equals(p.toXML("point")) );
+  fail_unless( node.equals(p.toXML("point"), true) );
   
 }
 END_TEST
@@ -1531,7 +1531,7 @@ START_TEST (test_LayoutFormatter_Point_notes)
   p.appendNotes(&notes);
   
   
-  fail_unless( node.equals(p.toXML("point")) );
+  fail_unless( node.equals(p.toXML("point"), true) );
   
 }
 END_TEST
@@ -1563,7 +1563,7 @@ START_TEST (test_LayoutFormatter_Point_annotation)
   p.appendAnnotation(annotation);
   
   
-  fail_unless( node.equals(p.toXML("point")) );
+  fail_unless( node.equals(p.toXML("point"), true) );
   
 }
 END_TEST
@@ -1581,7 +1581,7 @@ START_TEST (test_LayoutFormatter_Point_skipOptional)
   
   Point p=Point(LNLV2,200.5,400.5);
   
-  fail_unless( node.equals(p.toXML("point")) );
+  fail_unless( node.equals(p.toXML("point"), true) );
   
 }
 END_TEST
@@ -1599,7 +1599,7 @@ START_TEST (test_LayoutFormatter_Dimensions)
   
   Dimensions dim=Dimensions(LNLV2,200.5,400.5,455.2);
   
-  fail_unless( node.equals(dim.toXML()) );
+  fail_unless( node.equals(dim.toXML(), true) );
   
 }
 END_TEST
@@ -1625,7 +1625,7 @@ START_TEST (test_LayoutFormatter_Dimensions_notes)
   dim.appendNotes(&notes);
   
   
-  fail_unless( node.equals(dim.toXML()) );
+  fail_unless( node.equals(dim.toXML(), true) );
   
 }
 END_TEST
@@ -1657,7 +1657,7 @@ START_TEST (test_LayoutFormatter_Dimensions_annotation)
   dim.appendAnnotation(annotation);
   
   
-  fail_unless( node.equals(dim.toXML()) );
+  fail_unless( node.equals(dim.toXML(), true) );
   
 }
 END_TEST
@@ -1675,7 +1675,7 @@ START_TEST (test_LayoutFormatter_Dimensions_skipOptional)
   
   Dimensions dim=Dimensions(LNLV2,200.5,400.5);
   
-  fail_unless( node.equals(dim.toXML()) );
+  fail_unless( node.equals(dim.toXML(), true) );
   
 }
 END_TEST
@@ -1699,7 +1699,7 @@ START_TEST (test_LayoutFormatter_BoundingBox)
   Point pos=Point(LNLV2,10.3,20.0);
   BoundingBox box=BoundingBox(LNLV2,"boundingBox_1",&pos,&dim);
   
-  fail_unless( node.equals(box.toXML()) );
+  fail_unless( node.equals(box.toXML(), true) );
   
   
 }
@@ -1730,7 +1730,7 @@ START_TEST (test_LayoutFormatter_BoundingBox_notes)
   box.appendNotes(&notes);
   
   
-  fail_unless( node.equals(box.toXML()) );
+  fail_unless( node.equals(box.toXML(), true) );
   
 }
 END_TEST
@@ -1768,7 +1768,7 @@ START_TEST (test_LayoutFormatter_BoundingBox_annotation)
   
   
   
-  fail_unless( node.equals(box.toXML()) );
+  fail_unless( node.equals(box.toXML(), true) );
   
   
 }
@@ -1792,7 +1792,7 @@ START_TEST (test_LayoutFormatter_BoundingBox_skipOptional)
   Point pos=Point(LNLV2,10.3,20.0);
   BoundingBox box=BoundingBox(LNLV2,"",&pos,&dim);
   
-  fail_unless( node.equals(box.toXML()) );
+  fail_unless( node.equals(box.toXML(), true) );
   
   
 }
@@ -1812,7 +1812,7 @@ START_TEST (test_LayoutFormatter_locale)
   XMLInputStream stream(s,false);
   XMLNode node(stream);
   
-  fail_unless( node.equals(d.toXML()) );
+  fail_unless( node.equals(d.toXML(), true) );
   
   setlocale(LC_NUMERIC, "C");
 }

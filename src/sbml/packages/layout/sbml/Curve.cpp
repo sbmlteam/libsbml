@@ -455,6 +455,7 @@ Curve::writeElements (XMLOutputStream& stream) const
 {
   SBase::writeElements(stream);
 
+  if (mCurveSegments.size() > 0)
   mCurveSegments.write(stream);
 
   //
@@ -490,33 +491,7 @@ void Curve::writeAttributes (XMLOutputStream& stream) const
  */
 XMLNode Curve::toXML() const
 {
-  XMLNamespaces xmlns = XMLNamespaces();
-  XMLTriple triple = XMLTriple("curve", "", "");
-  XMLAttributes att = XMLAttributes();
-  // add the SBase Ids
-  addSBaseAttributes(*this,att);
-  XMLToken token = XMLToken(triple, att, xmlns); 
-  XMLNode node(token);
-  // add the notes and annotations
-  bool end=true;
-  if(this->mNotes)
-  {
-      node.addChild(*this->mNotes);
-      end=false;
-  }
-  if(this->mAnnotation)
-  {
-      node.addChild(*this->mAnnotation);
-      end=false;
-  }
-  // add the list of line segments
-  if(this->mCurveSegments.size()>0)
-  {
-      node.addChild(this->mCurveSegments.toXML());
-      end=false;
-  }
-  if(end==true) node.setEnd();
-  return node;
+  return getXmlNodeForSBase(this);
 }
 
 
@@ -635,36 +610,7 @@ ListOfLineSegments::createObject (XMLInputStream& stream)
  */
 XMLNode ListOfLineSegments::toXML() const
 {
-  XMLNamespaces xmlns = XMLNamespaces();
-  XMLTriple triple = XMLTriple("listOfCurveSegments", "http://projects.eml.org/bcb/sbml/level2", "");
-  XMLAttributes att = XMLAttributes();
-  XMLToken token = XMLToken(triple, att, xmlns); 
-  XMLNode node(token);
-  // add the notes and annotations
-  bool end=true;
-  if(this->mNotes)
-  {
-      node.addChild(*this->mNotes);
-      end=false;
-  }
-  if(this->mAnnotation)
-  {
-      node.addChild(*this->mAnnotation);
-      end=false;
-  }
-  unsigned int i,iMax=this->size();
-  const LineSegment* object=NULL;
-  for(i=0;i<iMax;++i)
-  {
-    object=dynamic_cast<const LineSegment*>(this->get(i));
-    assert(object);
-    node.addChild(object->toXML());
-  }
-  if(end==true && iMax==0)
-  {
-    node.setEnd();
-  }
-  return node;
+  return getXmlNodeForSBase(this);
 }
 
 

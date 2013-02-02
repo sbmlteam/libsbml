@@ -500,27 +500,21 @@ LineSegment::accept (SBMLVisitor& v) const
   return false;
 }
 
+
+void 
+LineSegment::writeXMLNS (XMLOutputStream& stream) const
+{
+  XMLNamespaces xmlns;
+  xmlns.add(LayoutExtension::getXmlnsXSI(), "xsi");
+  stream << xmlns;
+}
+
 /**
  * Creates an XMLNode object from this.
  */
 XMLNode LineSegment::toXML() const
 {
-  XMLNamespaces xmlns = XMLNamespaces();
-  XMLTriple triple = XMLTriple("curveSegment", "", "");
-  XMLAttributes att = XMLAttributes();
-  // add the SBase Ids
-  addSBaseAttributes(*this,att);
-  att.add("type","LineSegment","http://www.w3.org/2001/XMLSchema-instance","xsi");
-  XMLToken token = XMLToken(triple, att, xmlns); 
-  XMLNode node(token);
-  // add the notes and annotations
-  if(this->mNotes) node.addChild(*this->mNotes);
-  if(this->mAnnotation) node.addChild(*this->mAnnotation);
-  // add start point
-  node.addChild(this->mStartPoint.toXML("start"));
-  // add end point
-  node.addChild(this->mEndPoint.toXML("end"));
-  return node;
+  return getXmlNodeForSBase(this);
 }
 
 

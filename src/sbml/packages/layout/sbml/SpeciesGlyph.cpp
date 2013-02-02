@@ -384,21 +384,7 @@ SpeciesGlyph::getTypeCode () const
  */
 XMLNode SpeciesGlyph::toXML() const
 {
-  XMLNamespaces xmlns = XMLNamespaces();
-  XMLTriple triple = XMLTriple("speciesGlyph", "", "");
-  XMLAttributes att = XMLAttributes();
-  // add the SBase Ids
-  addSBaseAttributes(*this,att);
-  addGraphicalObjectAttributes(*this,att);
-  if(this->isSetSpeciesId()) att.add("species",this->mSpecies);
-  XMLToken token = XMLToken(triple, att, xmlns); 
-  XMLNode node(token);
-  // add the notes and annotations
-  if(this->mNotes) node.addChild(*this->mNotes);
-  if(this->mAnnotation) node.addChild(*this->mAnnotation);
-  // write the bounding box
-  node.addChild(this->mBoundingBox.toXML());
-  return node;
+ return getXmlNodeForSBase(this);
 }
 
 

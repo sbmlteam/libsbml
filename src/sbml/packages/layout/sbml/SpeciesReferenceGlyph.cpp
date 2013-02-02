@@ -634,31 +634,7 @@ SpeciesReferenceGlyph::getTypeCode () const
  */
 XMLNode SpeciesReferenceGlyph::toXML() const
 {
-  XMLNamespaces xmlns = XMLNamespaces();
-  XMLTriple triple = XMLTriple("speciesReferenceGlyph", "", "");
-  XMLAttributes att = XMLAttributes();
-  // add the SBase Ids
-  addSBaseAttributes(*this,att);
-  addGraphicalObjectAttributes(*this,att);
-  if(this->isSetSpeciesReferenceId()) att.add("speciesReference",this->mSpeciesReference);
-  if(this->isSetSpeciesGlyphId()) att.add("speciesGlyph",this->mSpeciesGlyph);
-  if(this->isSetRole()) att.add("role",this->getRoleString());
-  XMLToken token = XMLToken(triple, att, xmlns); 
-  XMLNode node(token);
-  // add the notes and annotations
-  if(this->mNotes) node.addChild(*this->mNotes);
-  if(this->mAnnotation) node.addChild(*this->mAnnotation);
-  if(this->mCurve.getNumCurveSegments()==0)
-  {
-    // write the bounding box
-    node.addChild(this->mBoundingBox.toXML());
-  }
-  else
-  {
-    // add the curve
-    node.addChild(this->mCurve.toXML());
-  }
-  return node;
+  return getXmlNodeForSBase(this);
 }
 
 

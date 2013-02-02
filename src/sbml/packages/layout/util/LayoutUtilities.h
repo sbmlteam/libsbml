@@ -49,10 +49,12 @@
 
 #include <sbml/SBase.h>
 #include <sbml/common/extern.h>
+#include <sbml/xml/XMLNode.h>
 #include <sbml/packages/layout/sbml/GraphicalObject.h>
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
+LIBSBML_EXTERN XMLNode getXmlNodeForSBase(const SBase* object);
 LIBSBML_EXTERN void addSBaseAttributes(const SBase& object,XMLAttributes& att);
 
 LIBSBML_EXTERN void addGraphicalObjectAttributes(const GraphicalObject& object,XMLAttributes& att);

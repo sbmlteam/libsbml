@@ -51,6 +51,7 @@
 #include <sbml/packages/layout/util/LayoutUtilities.h>
 #include <sbml/SBMLErrorLog.h>
 #include <sbml/SBMLVisitor.h>
+#include <sbml/ExpectedAttributes.h>
 #include <sbml/xml/XMLNode.h>
 #include <sbml/xml/XMLToken.h>
 #include <sbml/xml/XMLAttributes.h>
@@ -59,6 +60,11 @@
 
 #include <sbml/packages/layout/extension/LayoutExtension.h>
 #include <sbml/packages/layout/common/LayoutExtensionTypes.h>
+
+
+#if LIBSBML_HAS_PACKAGE_RENDER
+#include <sbml/packages/render/extension/RenderGraphicalObjectPlugin.h>
+#endif
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
@@ -232,12 +238,13 @@ GraphicalObject::GraphicalObject (LayoutPkgNamespaces* layoutns, const std::stri
 GraphicalObject::GraphicalObject(const XMLNode& node, unsigned int l2version)
  : SBase(2,l2version)  
 {
-    //
+  //
   // (TODO) check the xmlns of layout extension
   //
+
   setSBMLNamespacesAndOwn(new LayoutPkgNamespaces(2,l2version));  
 
-  loadPlugins(mSBMLNamespaces);
+  loadPlugins(getSBMLNamespaces());
 
     const XMLAttributes& attributes=node.getAttributes();
     const XMLNode* child;
@@ -268,6 +275,17 @@ GraphicalObject::GraphicalObject(const XMLNode& node, unsigned int l2version)
         }
         ++n;
     }    
+
+#if LIBSBML_HAS_PACKAGE_RENDER
+
+    // explicitly read render plugin for now until we sorted this whole reading from 
+	// XMLNode business
+    RenderGraphicalObjectPlugin *rplugin = static_cast<RenderGraphicalObjectPlugin *>(getPlugin("render"));
+    ExpectedAttributes expected;
+    expected.add("objectRole");
+    rplugin->readAttributes(node.getAttributes(), expected);
+
+#endif
 
 
   connectToChild();
@@ -567,6 +585,20 @@ void GraphicalObject::writeAttributes (XMLOutputStream& stream) const
   SBase::writeExtensionAttributes(stream);
 }
 
+void 
+GraphicalObject::writeXMLNS (XMLOutputStream& stream) const
+{
+#if LIBSBML_HAS_PACKAGE_RENDER
+  const RenderGraphicalObjectPlugin* plugin = static_cast<const RenderGraphicalObjectPlugin*>(getPlugin("render"));
+  if (getLevel() < 3 &&  plugin != NULL && plugin->isSetObjectRole())
+  {
+    XMLNamespaces xmlns;
+    xmlns.add(plugin->getURI(), plugin->getPrefix());
+    stream << xmlns;
+  }
+#endif
+}
+
 
 /**
  * Returns the package type code  for this object.
@@ -597,25 +629,7 @@ GraphicalObject::accept (SBMLVisitor& v) const
  */
 XMLNode GraphicalObject::toXML() const
 {
-  XMLNamespaces xmlns = XMLNamespaces();
-  XMLTriple triple = XMLTriple("graphicalObject", "", "");
-  XMLAttributes att = XMLAttributes();
-  // add the SBase Ids
-  addSBaseAttributes(*this,att);
-  addGraphicalObjectAttributes(*this,att);
-  XMLToken token = XMLToken(triple, att, xmlns); 
-  XMLNode node(token);
-  // add the notes and annotations
-  if(this->mNotes) node.addChild(*this->mNotes);
-  GraphicalObject *self = const_cast<GraphicalObject*>(this);
-  XMLNode *annot = self->getAnnotation();
-  if(annot)
-  {    
-    node.addChild(*annot);    
-  }
-  // write the bounding box
-  node.addChild(this->mBoundingBox.toXML());
-  return node;
+ return getXmlNodeForSBase(this);
 }
 
 
@@ -855,36 +869,7 @@ ListOfGraphicalObjects::isValidTypeForList(SBase * item)
  */
 XMLNode ListOfGraphicalObjects::toXML() const
 {
-  XMLNamespaces xmlns = XMLNamespaces();
-  XMLTriple triple = XMLTriple(getElementName(), "http://projects.eml.org/bcb/sbml/level2", "");
-  XMLAttributes att = XMLAttributes();
-  XMLToken token = XMLToken(triple, att, xmlns); 
-  XMLNode node(token);
-  // add the notes and annotations
-  bool end=true;
-  if(this->mNotes)
-  {
-      node.addChild(*this->mNotes);
-      end=false;
-  }
-  if(this->mAnnotation)
-  {
-      node.addChild(*this->mAnnotation);
-      end=false;
-  }
-  unsigned int i,iMax=this->size();
-  const GraphicalObject* object=NULL;
-  for(i=0;i<iMax;++i)
-  {
-    object=dynamic_cast<const GraphicalObject*>(this->get(i));
-    assert(object);
-    node.addChild(object->toXML());
-  }
-  if(end==true && iMax==0)
-  {
-    node.setEnd();
-  }
-  return node;
+  return getXmlNodeForSBase(this);  
 }
 
 

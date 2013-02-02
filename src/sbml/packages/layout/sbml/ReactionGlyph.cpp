@@ -703,34 +703,7 @@ ReactionGlyph::getTypeCode () const
  */
 XMLNode ReactionGlyph::toXML() const
 {
-  XMLNamespaces xmlns = XMLNamespaces();
-  XMLTriple triple = XMLTriple("reactionGlyph", "", "");
-  XMLAttributes att = XMLAttributes();
-  // add the SBase Ids
-  addSBaseAttributes(*this,att);
-  addGraphicalObjectAttributes(*this,att);
-  if(this->isSetReactionId()) att.add("reaction",this->mReaction);
-  XMLToken token = XMLToken(triple, att, xmlns); 
-  XMLNode node(token);
-  // add the notes and annotations
-  if(this->mNotes) node.addChild(*this->mNotes);
-  if(this->mAnnotation) node.addChild(*this->mAnnotation);
-  if(this->mCurve.getNumCurveSegments()==0)
-  {
-    // write the bounding box
-    node.addChild(this->mBoundingBox.toXML());
-  }
-  else
-  {
-    // add the curve
-    node.addChild(this->mCurve.toXML());
-  }
-  // add the list of species reference glyphs
-  if(this->mSpeciesReferenceGlyphs.size()>0)
-  {
-    node.addChild(this->mSpeciesReferenceGlyphs.toXML());
-  }
-  return node;
+  return getXmlNodeForSBase(this);
 }
 
 
@@ -881,36 +854,7 @@ ListOfSpeciesReferenceGlyphs::createObject (XMLInputStream& stream)
  */
 XMLNode ListOfSpeciesReferenceGlyphs::toXML() const
 {
-  XMLNamespaces xmlns = XMLNamespaces();
-  XMLTriple triple = XMLTriple("listOfSpeciesReferenceGlyphs", "http://projects.eml.org/bcb/sbml/level2", "");
-  XMLAttributes att = XMLAttributes();
-  XMLToken token = XMLToken(triple, att, xmlns); 
-  XMLNode node(token);
-  // add the notes and annotations
-  bool end=true;
-  if(this->mNotes)
-  {
-      node.addChild(*this->mNotes);
-      end=false;
-  }
-  if(this->mAnnotation)
-  {
-      node.addChild(*this->mAnnotation);
-      end=false;
-  }
-  unsigned int i,iMax=this->size();
-  const SpeciesReferenceGlyph* object=NULL;
-  for(i=0;i<iMax;++i)
-  {
-    object=dynamic_cast<const SpeciesReferenceGlyph*>(this->get(i));
-    assert(object);
-    node.addChild(object->toXML());
-  }
-  if(end==true && iMax==0)
-  {
-    node.setEnd();
-  }
-  return node;
+  return getXmlNodeForSBase(this);
 }
 
 

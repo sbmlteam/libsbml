@@ -898,39 +898,7 @@ GeneralGlyph::getTypeCode () const
  */
 XMLNode GeneralGlyph::toXML() const
 {
-  XMLNamespaces xmlns = XMLNamespaces();
-  XMLTriple triple = XMLTriple("generalGlyph", "", "");
-  XMLAttributes att = XMLAttributes();
-  // add the SBase Ids
-  addSBaseAttributes(*this,att);
-  addGraphicalObjectAttributes(*this,att);
-  if(this->isSetReferenceId()) att.add("reference",this->mReference);
-  XMLToken token = XMLToken(triple, att, xmlns); 
-  XMLNode node(token);
-  // add the notes and annotations
-  if(this->mNotes) node.addChild(*this->mNotes);
-  if(this->mAnnotation) node.addChild(*this->mAnnotation);
-  if(this->mCurve.getNumCurveSegments()==0)
-  {
-    // write the bounding box
-    node.addChild(this->mBoundingBox.toXML());
-  }
-  else
-  {
-    // add the curve
-    node.addChild(this->mCurve.toXML());
-  }
-  // add the list of reference glyphs
-  if(this->mReferenceGlyphs.size()>0)
-  {
-    node.addChild(this->mReferenceGlyphs.toXML());
-  }
-  // add the list of reference glyphs
-  if(this->mSubGlyphs.size()>0)
-  {
-    node.addChild(this->mSubGlyphs.toXML());
-  }
-  return node;
+   return getXmlNodeForSBase(this);
 }
 
 
@@ -1080,36 +1048,7 @@ ListOfReferenceGlyphs::createObject (XMLInputStream& stream)
  */
 XMLNode ListOfReferenceGlyphs::toXML() const
 {
-  XMLNamespaces xmlns = XMLNamespaces();
-  XMLTriple triple = XMLTriple("listOfReferenceGlyphs", "http://projects.eml.org/bcb/sbml/level2", "");
-  XMLAttributes att = XMLAttributes();
-  XMLToken token = XMLToken(triple, att, xmlns); 
-  XMLNode node(token);
-  // add the notes and annotations
-  bool end=true;
-  if(this->mNotes)
-  {
-      node.addChild(*this->mNotes);
-      end=false;
-  }
-  if(this->mAnnotation)
-  {
-      node.addChild(*this->mAnnotation);
-      end=false;
-  }
-  unsigned int i,iMax=this->size();
-  const ReferenceGlyph* object=NULL;
-  for(i=0;i<iMax;++i)
-  {
-    object=dynamic_cast<const ReferenceGlyph*>(this->get(i));
-    assert(object);
-    node.addChild(object->toXML());
-  }
-  if(end==true && iMax==0)
-  {
-    node.setEnd();
-  }
-  return node;
+  return getXmlNodeForSBase(this);
 }
 
 

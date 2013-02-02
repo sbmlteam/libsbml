@@ -575,40 +575,7 @@ void Point::writeAttributes (XMLOutputStream& stream) const
  */
 XMLNode Point::toXML(const std::string& name) const
 {
-  XMLNamespaces xmlns = XMLNamespaces();
-  XMLTriple triple = XMLTriple(name, "", "");
-  XMLAttributes att = XMLAttributes();
-  // add the SBase Ids
-  addSBaseAttributes(*this,att);
-  std::ostringstream os;
-  os << this->mXOffset;
-  att.add("x",os.str());
-  os.str("");
-  os << this->mYOffset;
-  att.add("y",os.str());
-  if(this->mZOffset!=0.0)
-  {
-    os.str("");
-    os << this->mZOffset;
-    att.add("z",os.str());
-  }
-  XMLToken token = XMLToken(triple, att, xmlns); 
-  XMLNode node(token);
-  // add the notes and annotations
-  bool end=true;
-  if(this->mNotes)
-  {
-      node.addChild(*this->mNotes);
-      end=false;
-  }
-  if(this->mAnnotation)
-  {
-      node.addChild(*this->mAnnotation);
-      end=false;
-  }
-
-  if(end==true) node.setEnd();
-  return node;
+  return getXmlNodeForSBase(this);
 }
 
 

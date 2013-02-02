@@ -67,7 +67,17 @@ addGraphicalObjectAttributes(const GraphicalObject& object,XMLAttributes& att)
     att.add("id",object.getId());
 }
 
+LIBSBML_EXTERN XMLNode getXmlNodeForSBase(const SBase* object)
+{
+  char* rawsbml = const_cast<SBase*>(object)->toSBML();
 
+  XMLNode* tmp = XMLNode::convertStringToXMLNode(rawsbml, object->getSBMLNamespaces()->getNamespaces());
+  if (tmp == NULL) return XMLNode();
+  XMLNode result(*tmp);
+  delete tmp;
+  free(rawsbml);
+  return result;
+}
 
 // copies the attributes from source to target
 // this is sued in the assignment operators and copy constructors

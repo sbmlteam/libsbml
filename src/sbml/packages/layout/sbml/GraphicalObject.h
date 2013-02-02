@@ -387,7 +387,13 @@ protected:
    */
   virtual void writeAttributes (XMLOutputStream& stream) const;
 
-
+  /**
+   *
+   * Subclasses should override this method to write their xmlns attriubutes
+   * (if any) to the XMLOutputStream. 
+   *
+   */
+  virtual void writeXMLNS (XMLOutputStream& stream) const;
 };
 
 
