@@ -445,8 +445,10 @@ XMLNode::equals(const XMLNode& other, bool ignoreURI /*=false*/) const
 		attrName=attr1.getName(i);
 		equal=(attr2.getIndex(attrName)!=-1);
 		// also check the namspace
-		equal=(equal && (attr1.getURI(i)==attr2.getURI(i) || 
-      (attr1.getPrefix(i)=="" && getURI() == attr2.getURI(i))));
+		equal=(equal && (attr1.getURI(i)==attr2.getURI(i) 
+      || (attr1.getPrefix(i) == "" && getURI() == attr2.getURI(i))
+      || (attr2.getPrefix(i) == "" && other.getURI() == attr1.getURI(i))
+      ));
 		++i;
 	}
 	
