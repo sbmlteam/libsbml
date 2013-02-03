@@ -167,14 +167,13 @@ ReactionGlyph::ReactionGlyph (LayoutPkgNamespaces* layoutns, const std::string& 
  * Creates a new ReactionGlyph from the given XMLNode
  */
 ReactionGlyph::ReactionGlyph(const XMLNode& node, unsigned int l2version)
-  : GraphicalObject(2,l2version)
+  : GraphicalObject(node,l2version)
    ,mReaction      ("")
    ,mSpeciesReferenceGlyphs(2,l2version)
    ,mCurve(2,l2version)
 {
     const XMLAttributes& attributes=node.getAttributes();
     const XMLNode* child;
-    //ExpectedAttributes ea(getElementName());
     ExpectedAttributes ea;
     addExpectedAttributes(ea);
     this->readAttributes(attributes,ea);
@@ -183,19 +182,7 @@ ReactionGlyph::ReactionGlyph(const XMLNode& node, unsigned int l2version)
     {
         child=&node.getChild(n);
         const std::string& childName=child->getName();
-        if(childName=="boundingBox")
-        {
-            this->mBoundingBox=BoundingBox(*child);
-        }
-        else if(childName=="annotation")
-        {
-            this->mAnnotation=new XMLNode(*child);
-        }
-        else if(childName=="notes")
-        {
-            this->mNotes=new XMLNode(*child);
-        }
-        else if(childName=="curve")
+        if(childName=="curve")
         {
             // since the copy constructor of ListOf does not make deep copies
             // of the objects, we have to add the individual curveSegments to the 

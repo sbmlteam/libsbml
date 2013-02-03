@@ -183,16 +183,15 @@ GeneralGlyph::GeneralGlyph (LayoutPkgNamespaces* layoutns, const std::string& id
  * Creates a new GeneralGlyph from the given XMLNode
  */
 GeneralGlyph::GeneralGlyph(const XMLNode& node, unsigned int l2version)
-  : GraphicalObject(2,l2version)
+  : GraphicalObject(node,l2version)
    ,mReference      ("")
    ,mReferenceGlyphs(2,l2version)
    ,mSubGlyphs(2,l2version)
    ,mCurve(2,l2version)
 {
-  mSubGlyphs.setElementName("listOfSubGlyphs");
+    mSubGlyphs.setElementName("listOfSubGlyphs");
     const XMLAttributes& attributes=node.getAttributes();
     const XMLNode* child;
-    //ExpectedAttributes ea(getElementName());
     ExpectedAttributes ea;
     addExpectedAttributes(ea);
     this->readAttributes(attributes,ea);
@@ -201,19 +200,7 @@ GeneralGlyph::GeneralGlyph(const XMLNode& node, unsigned int l2version)
     {
         child=&node.getChild(n);
         const std::string& childName=child->getName();
-        if(childName=="boundingBox")
-        {
-            this->mBoundingBox=BoundingBox(*child);
-        }
-        else if(childName=="annotation")
-        {
-            this->mAnnotation=new XMLNode(*child);
-        }
-        else if(childName=="notes")
-        {
-            this->mNotes=new XMLNode(*child);
-        }
-        else if(childName=="curve")
+        if(childName=="curve")
         {
             // since the copy constructor of ListOf does not make deep copies
             // of the objects, we have to add the individual curveSegments to the 

@@ -69,12 +69,24 @@ addGraphicalObjectAttributes(const GraphicalObject& object,XMLAttributes& att)
 
 LIBSBML_EXTERN XMLNode getXmlNodeForSBase(const SBase* object)
 {
-  char* rawsbml = const_cast<SBase*>(object)->toSBML();
+  char* rawsbml = const_cast<SBase*>(object)->toSBML();  
+  SBMLNamespaces *sbmlns = object->getSBMLNamespaces();
+  XMLNamespaces* xmlns = sbmlns->getNamespaces()->clone();
+  // in rare cases the above returns a package element with default namespace, however the 
+  // XMLNamespaces would then assign the actual default namespace, which is in most cases
+  // the SBML namespace. In that case we adjust the default namespace here
+  ISBMLExtensionNamespaces *extns = dynamic_cast<ISBMLExtensionNamespaces*>(sbmlns);
+  if (extns != NULL)
+  {
+    xmlns->remove("");
+    xmlns->add(xmlns->getURI(extns->getPackageName()), "");    
+  }
 
-  XMLNode* tmp = XMLNode::convertStringToXMLNode(rawsbml, object->getSBMLNamespaces()->getNamespaces());
+  XMLNode* tmp = XMLNode::convertStringToXMLNode(rawsbml, xmlns);
   if (tmp == NULL) return XMLNode();
   XMLNode result(*tmp);
   delete tmp;
+  delete xmlns;
   free(rawsbml);
   return result;
 }

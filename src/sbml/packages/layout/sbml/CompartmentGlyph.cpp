@@ -148,34 +148,9 @@ CompartmentGlyph::CompartmentGlyph(const XMLNode& node, unsigned int l2version)
    ,mCompartment("")
 {
     const XMLAttributes& attributes=node.getAttributes();
-    const XMLNode* child;
-    //ExpectedAttributes ea(getElementName());
     ExpectedAttributes ea;
     addExpectedAttributes(ea);
-    this->readAttributes(attributes,ea);
-    unsigned int n=0,nMax = node.getNumChildren();
-    while(n<nMax)
-    {
-        child=&node.getChild(n);
-        const std::string& childName=child->getName();
-        if(childName=="boundingBox")
-        {
-            this->mBoundingBox=BoundingBox(*child);
-        }
-        else if(childName=="annotation")
-        {
-            this->mAnnotation=new XMLNode(*child);
-        }
-        else if(childName=="notes")
-        {
-            this->mNotes=new XMLNode(*child);
-        }
-        else
-        {
-            //throw;
-        }
-        ++n;
-    }    
+    this->readAttributes(attributes,ea);    
 }
 
 /**

@@ -158,46 +158,22 @@ TextGlyph::TextGlyph (LayoutPkgNamespaces* layoutns, const std::string& id, cons
  * Creates a new TextGlyph from the given XMLNode
  */
 TextGlyph::TextGlyph(const XMLNode& node, unsigned int l2version)
- : GraphicalObject(2, l2version)
+ : GraphicalObject(node, l2version)
   ,mText("")
   ,mGraphicalObject("")
   ,mOriginOfText("")
 {
     const XMLAttributes& attributes=node.getAttributes();
-    const XMLNode* child;
-    //ExpectedAttributes ea(getElementName());
     ExpectedAttributes ea;
     addExpectedAttributes(ea);
     this->readAttributes(attributes,ea);
-    unsigned int n=0,nMax = node.getNumChildren();
-    while(n<nMax)
-    {
-        child=&node.getChild(n);
-        const std::string& childName=child->getName();
-        if(childName=="boundingBox")
-        {
-            this->mBoundingBox=BoundingBox(*child);
-        }
-        else if(childName=="annotation")
-        {
-            this->mAnnotation=new XMLNode(*child);
-        }
-        else if(childName=="notes")
-        {
-            this->mNotes=new XMLNode(*child);
-        }
-        else
-        {
-            //throw;
-        }
-        ++n;
-    }    
 }
 
 /**
  * Copy constructor.
  */
-TextGlyph::TextGlyph(const TextGlyph& source):GraphicalObject(source)
+TextGlyph::TextGlyph(const TextGlyph& source)
+  : GraphicalObject(source)
 {
     this->mText=source.getText();
     this->mOriginOfText=source.getOriginOfTextId();

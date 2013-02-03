@@ -147,7 +147,7 @@ ReferenceGlyph::ReferenceGlyph
  * Creates a new ReferenceGlyph from the given XMLNode
  */
 ReferenceGlyph::ReferenceGlyph(const XMLNode& node, unsigned int l2version)
- :  GraphicalObject  (2, l2version)
+ :  GraphicalObject  (node, l2version)
    ,mReference("")
    ,mGlyph    ("")
    ,mRole     ("")
@@ -155,7 +155,6 @@ ReferenceGlyph::ReferenceGlyph(const XMLNode& node, unsigned int l2version)
 {
     const XMLAttributes& attributes=node.getAttributes();
     const XMLNode* child;
-    //ExpectedAttributes ea(getElementName());
     ExpectedAttributes ea;
     addExpectedAttributes(ea);
     this->readAttributes(attributes,ea);
@@ -164,19 +163,7 @@ ReferenceGlyph::ReferenceGlyph(const XMLNode& node, unsigned int l2version)
     {
         child=&node.getChild(n);
         const std::string& childName=child->getName();
-        if(childName=="boundingBox")
-        {
-            this->mBoundingBox=BoundingBox(*child);
-        }
-        else if(childName=="annotation")
-        {
-            this->mAnnotation=new XMLNode(*child);
-        }
-        else if(childName=="notes")
-        {
-            this->mNotes=new XMLNode(*child);
-        }
-        else if(childName=="curve")
+        if(childName=="curve")
         {
             // since the copy constructor of ListOf does not make deep copies
             // of the objects, we have to add the individual curveSegments to the 
@@ -199,11 +186,7 @@ ReferenceGlyph::ReferenceGlyph(const XMLNode& node, unsigned int l2version)
               }
             }
             delete pTmpCurve;
-        }
-        else
-        {
-            //throw;
-        }
+        }        
         ++n;
     }    
 
