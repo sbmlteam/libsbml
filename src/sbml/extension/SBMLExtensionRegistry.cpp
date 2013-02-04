@@ -324,6 +324,10 @@ SBMLExtensionRegistry::addL2Namespaces(XMLNamespaces *xmlns) const
 void 
 SBMLExtensionRegistry::enableL2NamespaceForDocument(SBMLDocument* doc)  const
 {
+  // only ought to do this for non-L3 documents
+  if (doc->getLevel() == 3)
+    return;
+
   SBMLExtensionMap::const_iterator it = mSBMLExtensionMap.begin();
   while (it != mSBMLExtensionMap.end())
   {

@@ -3016,7 +3016,7 @@ SBase::enablePackage(const std::string& pkgURI, const std::string& prefix, bool 
   /* if we happen to be using layout in L2 we cannot do the version
    * check since the uri has no way of telling which sbml version is being used.
    */
-  if (sbmlext->getName() == "layout") 
+  if (sbmlext->getName() == "layout" || sbmlext->getName() == "render" ) 
   {
     if (sbmlext->getLevel(pkgURI)   != getLevel() )
     {
