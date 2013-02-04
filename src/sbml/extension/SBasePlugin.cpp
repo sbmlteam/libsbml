@@ -529,7 +529,7 @@ SBasePlugin::addExpectedAttributes(ExpectedAttributes& attributes)
  */
 void
 SBasePlugin::readAttributes (const XMLAttributes& attributes,
-                                     const ExpectedAttributes& expectedAttributes)
+                             const ExpectedAttributes& expectedAttributes)
 {
   if (&attributes == NULL || &expectedAttributes == NULL ) return;
 
@@ -664,10 +664,10 @@ SBasePlugin::logUnknownElement(const std::string &element,
  */
 void 
 SBasePlugin::logUnknownAttribute(const std::string &attribute,
-                                         const unsigned int sbmlLevel,
- 			                 const unsigned int sbmlVersion,
-			                 const unsigned int pkgVersion,
-					 const std::string& element)
+                                 const unsigned int sbmlLevel,
+                                 const unsigned int sbmlVersion,
+                                 const unsigned int pkgVersion,
+                                 const std::string& element)
 {
   if (&attribute == NULL || &element == NULL) return;
   
