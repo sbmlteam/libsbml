@@ -126,9 +126,9 @@ endif
 all: Makefile
 ifeq "$(mexext)" ""
 	@echo
-	@echo "Failed to determine the mex extension, that means that Matlab could not be started.";
-	@echo "This is possibly due to license issues (or a missing VPN connection.)";
-	@echo "Please start Matlab manually and run buildSBML.m (in src/bindings/matlab).";
+	@echo "Failed to determine the mex extension. This can happen if MATLAB cannot be";
+	@echo "started. (This can be caused by license issues or a missing VPN connection.)";
+	@echo "Please start MATLAB manually and run buildSBML.m (in src/bindings/matlab).";
 	@echo
 	@exit 1
 endif
