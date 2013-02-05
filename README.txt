@@ -81,11 +81,107 @@ ready-to-install precompiled binaries for many systems.
   http://sourceforge.net/projects/sbml/files/libsbml/
 
 
-2.1 Linux, MacOS X, FreeBSD, and Solaris
-----------------------------------------
+2.1.1 Precompiled binaries for Windows
+--------------------------------------
 
-At the Unix command prompt, untar the distribution, cd into it (e.g.,
-libsbml-5.0.0/), and first type:
+Download and run the self-extracting windows installer for libSBML.
+There are debug (libsbmld) and release (libsbml) versions of libSBML,
+with .dll and .lib files for both versions in the 'win32/bin'
+subdirectory of the libSBML distribution.  Header files are located in
+the subdirectory 'win32/include/sbml'.
+
+Users of Visual C++ should make their Visual C++ projects link with
+the files libsbml.lib or libsbmld.lib and generate code for the
+Multithreaded DLL or Debug Multithreaded DLL version of the VC++
+runtime, respectively.
+
+
+2.2 CMake
+---------
+
+CMake (www.cmake.org) is the new build system for libsbml, can be
+used on all platforms.  Using CMake is the only way to compile
+libsbml with packages from source (libsbml without packages can
+still be built from source with the old GNU makefiles system, below).
+
+To build using CMake, the first step is to create a new build
+directory.  Typically, this is created as a new subdirectory of
+the libsbml source tree, as libsbml/build/
+
+The simplest step from there is to run the CMake GUI, 'cmake-gui'.
+If run from the command line, the easiest method is to cd to the new
+'build' directory, then run 'cmake-gui' with the root directory of
+the libsbml source as an argument, or '..':
+
+cd libsbml/
+mkdir build
+cd build/
+cmake-gui ..
+
+This will let it automatically find the source code and know where
+to put the binaries.  If you run cmake-gui in some other way, you'll
+need to tell it the location of the source code (libsbml/) and where
+to build the binaries (libsbml/build/) by hand.
+
+From there, push the 'Configure' button.  This will take you to a
+new window where you are asked what to use to build libsbml.  On
+Unix, selecting 'Unix Makefiles' is probably a good option; on Windows,
+Visual Studios or Cygwin/MSys will work; just be sure to use the same
+system as the software for which you plan to use libsbml.
+
+Selecting 'Finish' will take you back to the original window, and
+configuration will start.  It is likely that one or more systems will
+not be found, or will need to be reset.  In particular, you may need
+to tell CMake where the installations of various dependency libraries
+is.  If they are all installed in the same place, you need only
+fill in the 'LIBSBML_DEPENDENCY_DIR' option; if they are installed in
+different places, you will need to fill out the various *_INCLUDE_DIR
+and *_LIBRARY options by hand (CMake will search in obvious places first
+to try to find them itself).
+
+Each time you give CMake more information, click the 'Configure'
+button, and it will use that information to continue configuring
+your build.  Each time it adds a new option it had not showed you before,
+it will highlight that option in red.  If it lacks the information it
+needs to complete configuration, it will give you the 'Error in
+configuration process, project files may be invalid' error.
+
+The options you are most likely to need to change are shown by default,
+and include which xml parsing library to use (one of WITH_LIBXML,
+WITH_EXPAT, or WITH_XERCES must be checked), what language bindings to
+create (such as java (WITH_JAVA) or matlab (WITH_MATLAB)), and what
+packages to include (such as the hierarchical model composition package
+(ENABLE_COMP) or layout (ENABLE_LAYOUT)).  Other options can be found
+by selecting the 'Advanced' checkbox at the top of the window.
+
+Once 'Configure' makes it through with no errors, you can then click on
+the 'Generate' button, which will create the necessary files for whatever
+system you selected.  A Makefile will be generated for unix makefiles; a
+'libsbml.sln' file for Visual Studio.  From there, use those files as they
+were intended to be used, and compile libsbml!
+
+It is not necessary to use the cmake gui to create your build system.
+Once you know what options you want to set, it is possible to set them
+all with command line options to 'cmake'.  In all cases, the format is
+
+cmake -DOPTION=setting
+
+in other words, '-D', the option you want to set, an equal sign, and the
+value to which you want to set it.  For example, if the various dependency
+libraries could be found automatically, and you wished to build libsbml
+with java bindings and the layout package, you would change to your
+newly-created 'build' directory, and type:
+
+cmake -DENABLE_LAYOUT=ON -DWITH_JAVA=ON
+
+
+2.3 GNU makefiles (Linux, MacOS X, FreeBSD, and Solaris)
+-------------------------------------------------------
+
+For builds of libsbml that do not include any packages (with the exception
+of layout), the old GNU make system is available.  At the Unix command
+prompt, untar the distribution, cd into it (e.g.,libsbml-5.8.0/), and
+first type:
 
   ./configure
 
@@ -154,21 +250,6 @@ cd into the top directory of the libSBML source tree and run the following
 command:
 
   make uninstall
-
-
-2.2 Windows
------------
-
-Download and run the self-extracting windows installer for libSBML.
-There are debug (libsbmld) and release (libsbml) versions of libSBML,
-with .dll and .lib files for both versions in the 'win32/bin'
-subdirectory of the libSBML distribution.  Header files are located in
-the subdirectory 'win32/include/sbml'.
-
-Users of Visual C++ should make their Visual C++ projects link with
-the files libsbml.lib or libsbmld.lib and generate code for the
-Multithreaded DLL or Debug Multithreaded DLL version of the VC++
-runtime, respectively.
 
 
 3. INTRODUCTION
