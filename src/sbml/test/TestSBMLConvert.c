@@ -764,11 +764,11 @@ START_TEST (test_SBMLConvert_convertFromL3_priority1)
   (void) p;
 
   fail_unless(SBMLDocument_setLevelAndVersionNonStrict(d, 1, 1) == 0);
-  fail_unless(SBMLDocument_setLevelAndVersionNonStrict(d, 1, 2) == 0);
-  fail_unless(SBMLDocument_setLevelAndVersionNonStrict(d, 2, 1) == 0);
-  fail_unless(SBMLDocument_setLevelAndVersionNonStrict(d, 2, 2) == 0);
-  fail_unless(SBMLDocument_setLevelAndVersionNonStrict(d, 2, 3) == 0);
-  fail_unless(SBMLDocument_setLevelAndVersionNonStrict(d, 2, 4) == 0);
+  fail_unless(SBMLDocument_setLevelAndVersionNonStrict(d, 1, 2) == 1);
+  fail_unless(SBMLDocument_setLevelAndVersionNonStrict(d, 2, 1) == 1);
+  fail_unless(SBMLDocument_setLevelAndVersionNonStrict(d, 2, 2) == 1);
+  fail_unless(SBMLDocument_setLevelAndVersionNonStrict(d, 2, 3) == 1);
+  fail_unless(SBMLDocument_setLevelAndVersionNonStrict(d, 2, 4) == 1);
 
   SBMLDocument_free(d);
 }
@@ -785,11 +785,11 @@ START_TEST (test_SBMLConvert_convertFromL3_persistent)
   Trigger_setPersistent(t, 0);
 
   fail_unless(SBMLDocument_setLevelAndVersionNonStrict(d, 1, 1) == 0);
-  fail_unless(SBMLDocument_setLevelAndVersionNonStrict(d, 1, 2) == 0);
-  fail_unless(SBMLDocument_setLevelAndVersionNonStrict(d, 2, 1) == 0);
-  fail_unless(SBMLDocument_setLevelAndVersionNonStrict(d, 2, 2) == 0);
-  fail_unless(SBMLDocument_setLevelAndVersionNonStrict(d, 2, 3) == 0);
-  fail_unless(SBMLDocument_setLevelAndVersionNonStrict(d, 2, 4) == 0);
+  fail_unless(SBMLDocument_setLevelAndVersionNonStrict(d, 1, 2) == 1);
+  fail_unless(SBMLDocument_setLevelAndVersionNonStrict(d, 2, 1) == 1);
+  fail_unless(SBMLDocument_setLevelAndVersionNonStrict(d, 2, 2) == 1);
+  fail_unless(SBMLDocument_setLevelAndVersionNonStrict(d, 2, 3) == 1);
+  fail_unless(SBMLDocument_setLevelAndVersionNonStrict(d, 2, 4) == 1);
   fail_unless(SBMLDocument_setLevelAndVersionNonStrict(d, 3, 1) == 1);
 
   SBMLDocument_free(d);
@@ -807,11 +807,11 @@ START_TEST (test_SBMLConvert_convertFromL3_initialValue)
   Trigger_setInitialValue(t, 0);
 
   fail_unless(SBMLDocument_setLevelAndVersionNonStrict(d, 1, 1) == 0);
-  fail_unless(SBMLDocument_setLevelAndVersionNonStrict(d, 1, 2) == 0);
-  fail_unless(SBMLDocument_setLevelAndVersionNonStrict(d, 2, 1) == 0);
-  fail_unless(SBMLDocument_setLevelAndVersionNonStrict(d, 2, 2) == 0);
-  fail_unless(SBMLDocument_setLevelAndVersionNonStrict(d, 2, 3) == 0);
-  fail_unless(SBMLDocument_setLevelAndVersionNonStrict(d, 2, 4) == 0);
+  fail_unless(SBMLDocument_setLevelAndVersionNonStrict(d, 1, 2) == 1);
+  fail_unless(SBMLDocument_setLevelAndVersionNonStrict(d, 2, 1) == 1);
+  fail_unless(SBMLDocument_setLevelAndVersionNonStrict(d, 2, 2) == 1);
+  fail_unless(SBMLDocument_setLevelAndVersionNonStrict(d, 2, 3) == 1);
+  fail_unless(SBMLDocument_setLevelAndVersionNonStrict(d, 2, 4) == 1);
   fail_unless(SBMLDocument_setLevelAndVersionNonStrict(d, 3, 1) == 1);
 
   SBMLDocument_free(d);
@@ -840,7 +840,7 @@ START_TEST (test_SBMLConvert_convertFromL3_stoichMath1)
   
 
   fail_unless(SBMLDocument_setLevelAndVersionNonStrict(d, 1, 1) == 0);
-  fail_unless(SBMLDocument_setLevelAndVersionNonStrict(d, 1, 2) == 0);
+  fail_unless(SBMLDocument_setLevelAndVersionNonStrict(d, 1, 2) == 1);
   fail_unless(SBMLDocument_setLevelAndVersionNonStrict(d, 2, 1) == 1);
 
   m = SBMLDocument_getModel(d);
