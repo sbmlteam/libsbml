@@ -63,6 +63,23 @@ logs in the source code repository at
 2. QUICK START
 ======================================================================
 
+Detailed instructions for building, installing and using libSBML
+are available as part of the documentation; which is available
+both online and as a separate download.
+
+http://sbml.org/Software/libSBML/docs/cpp-api/libsbml-installation.html
+
+Here we highlight the basic information.
+
+2.1 Precompiled binaries
+-------------------------
+
+Check the download site for libSBML on SourceForge.net for possible 
+installation packages for your operating system. We supply 
+ready-to-install precompiled binaries for many systems.
+
+  http://sourceforge.net/projects/sbml/files/libsbml/
+
 
 2.1 Linux, MacOS X, FreeBSD, and Solaris
 ----------------------------------------
