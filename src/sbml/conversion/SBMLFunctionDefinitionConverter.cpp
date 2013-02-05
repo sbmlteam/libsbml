@@ -39,6 +39,7 @@
 
 #include <algorithm>
 #include <string>
+#include <iterator>
 
 using namespace std;
 LIBSBML_CPP_NAMESPACE_BEGIN
