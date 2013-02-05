@@ -840,7 +840,10 @@ START_TEST (test_SBMLConvert_convertFromL3_stoichMath1)
   
 
   fail_unless(SBMLDocument_setLevelAndVersionNonStrict(d, 1, 1) == 0);
-  fail_unless(SBMLDocument_setLevelAndVersionNonStrict(d, 1, 2) == 1);
+
+  SBMLDocument_t *d2 = SBMLDocument_clone(d);
+  fail_unless(SBMLDocument_setLevelAndVersionNonStrict(d2, 1, 2) == 1);
+  SBMLDocument_free(d2);
   fail_unless(SBMLDocument_setLevelAndVersionNonStrict(d, 2, 1) == 1);
 
   m = SBMLDocument_getModel(d);
