@@ -46,16 +46,23 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 SBMLTransforms::IdValueMap SBMLTransforms::mValues;
 
 void
-SBMLTransforms::replaceFD(ASTNode * node, const ListOfFunctionDefinitions *lofd)
+SBMLTransforms::replaceFD(ASTNode * node, const ListOfFunctionDefinitions *lofd, const IdList* idsToExclude /*= NULL*/)
 {
+  if (lofd == NULL) 
+    return;
+
   bool replaced = false;
 
   /* write a list of fd ids */
   IdList ids;
   unsigned int i;
+  unsigned int skipped = 0;
   for (i = 0; i < lofd->size(); i++)
   {
-    ids.append(lofd->get(i)->getId());
+    const std::string& id = lofd->get(i)->getId();
+    if (idsToExclude == NULL || !idsToExclude->contains(id))
+    ids.append(id);
+    else ++skipped;
   }
   
   /* if any of these ids exist in the ASTnode replace */
@@ -65,34 +72,36 @@ SBMLTransforms::replaceFD(ASTNode * node, const ListOfFunctionDefinitions *lofd)
   {
     for (i = 0; i < lofd->size(); i++)
     {
-      replaceFD(node, lofd->get(i));
+      replaceFD(node, lofd->get(i), idsToExclude);
     }
 
     replaced = !(checkFunctionNodeForIds(node, ids));
     count++;
   } 
-  while (!replaced && count < 2*lofd->size());
+  while (!replaced && count < 2*(lofd->size() - skipped));
 }
 
 void
-SBMLTransforms::replaceFD(ASTNode * node, const FunctionDefinition *fd)
+SBMLTransforms::replaceFD(ASTNode * node, const FunctionDefinition *fd, const IdList* idsToExclude /*= NULL*/)
 {
   if ((node == NULL) || (fd == NULL))
     return;
   
-  if (node->isFunction() && node->getName() == fd->getId())
+  if (node->isFunction() 
+      && node->getName() == fd->getId()
+      && (idsToExclude == NULL || !idsToExclude->contains(fd->getId())))
   {
    replaceBvars(node, fd);
    for (unsigned int j = 0; j < node->getNumChildren(); j++)
    {
-     replaceFD(node->getChild(j), fd);
+     replaceFD(node->getChild(j), fd, idsToExclude);
    }
   }
   else
   {
     for (unsigned int i = 0; i < node->getNumChildren(); i++)
     {
-      replaceFD(node->getChild(i), fd);
+      replaceFD(node->getChild(i), fd, idsToExclude);
     }
   }
 }

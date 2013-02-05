@@ -31,6 +31,7 @@
 #include <sbml/SBMLTypes.h>
 
 #include <sbml/SBMLTransforms.h>
+#include <sbml/conversion/ConversionProperties.h>
 
 #include <check.h>
 
@@ -556,6 +557,98 @@ START_TEST (test_SBMLTransforms_replaceIA)
 }
 END_TEST
 
+START_TEST (test_SBMLTransforms_expandFD)
+{
+  std::string filename(TestDataDirectory);
+  filename += "multiple-functions.xml";
+
+
+  // test 1: skip expansion of 'f'
+  SBMLDocument *doc = readSBMLFromFile(filename.c_str());
+
+  ConversionProperties props; 
+  props.addOption("expandFunctionDefinitions", true);
+  props.addOption("skipIds", "f");
+
+  fail_unless(doc->convert(props) == false);
+  fail_unless(doc->getModel()->getNumFunctionDefinitions() == 1);
+  fail_unless(doc->getModel()->getFunctionDefinition("f") != NULL);
+  
+  delete doc;
+
+  // test 2: expand all
+  doc = readSBMLFromFile(filename.c_str());
+
+  props = ConversionProperties(); 
+  props.addOption("expandFunctionDefinitions", true);
+
+  fail_unless(doc->convert(props) == false);
+  fail_unless(doc->getModel()->getNumFunctionDefinitions() == 0);
+  
+  delete doc;
+
+  // test 3: don't expand f and g
+  doc = readSBMLFromFile(filename.c_str());
+
+  props = ConversionProperties(); 
+  props.addOption("expandFunctionDefinitions", true);
+  props.addOption("skipIds", "f,g");
+
+  fail_unless(doc->convert(props) == false);
+  fail_unless(doc->getModel()->getNumFunctionDefinitions() == 2);
+  
+  delete doc;
+
+  // test 4: even though comma separated is advertized, make sure that ';' works
+  doc = readSBMLFromFile(filename.c_str());
+
+  props = ConversionProperties(); 
+  props.addOption("expandFunctionDefinitions", true);
+  props.addOption("skipIds", "f;g");
+
+  fail_unless(doc->convert(props) == false);
+  fail_unless(doc->getModel()->getNumFunctionDefinitions() == 2);
+  
+  delete doc;
+
+  // test 5: or space
+  doc = readSBMLFromFile(filename.c_str());
+
+  props = ConversionProperties(); 
+  props.addOption("expandFunctionDefinitions", true);
+  props.addOption("skipIds", "f g");
+
+  fail_unless(doc->convert(props) == false);
+  fail_unless(doc->getModel()->getNumFunctionDefinitions() == 2);
+  
+  delete doc;
+
+  // test 6: or tab
+  doc = readSBMLFromFile(filename.c_str());
+
+  props = ConversionProperties(); 
+  props.addOption("expandFunctionDefinitions", true);
+  props.addOption("skipIds", "f\tg");
+
+  fail_unless(doc->convert(props) == false);
+  fail_unless(doc->getModel()->getNumFunctionDefinitions() == 2);
+  
+  delete doc;
+
+  // test 7: or a combination
+  doc = readSBMLFromFile(filename.c_str());
+
+  props = ConversionProperties(); 
+  props.addOption("expandFunctionDefinitions", true);
+  props.addOption("skipIds", "f; g");
+
+  fail_unless(doc->convert(props) == false);
+  fail_unless(doc->getModel()->getNumFunctionDefinitions() == 2);
+  
+  delete doc;
+
+}
+END_TEST
 
 START_TEST (test_SBMLTransforms_replaceIA_species)
 {
@@ -604,6 +697,7 @@ create_suite_SBMLTransforms (void)
   TCase *tcase = tcase_create("SBMLTransforms");
 
 
+  tcase_add_test(tcase, test_SBMLTransforms_expandFD);
   tcase_add_test(tcase, test_SBMLTransforms_replaceFD);
   tcase_add_test(tcase, test_SBMLTransforms_evaluateAST);
   tcase_add_test(tcase, test_SBMLTransforms_replaceIA);

@@ -73,25 +73,47 @@ ConversionProperties::ConversionProperties(const ConversionProperties& orig)
 ConversionProperties& 
 ConversionProperties::operator=(const ConversionProperties& rhs)
 {
-    if (&rhs == NULL)
+  if (&rhs == NULL)
   {
     throw SBMLConstructorException("Null argument to assignment operator");
   }
-  else
+  if (&rhs == this)
   {
+    return *this;
+  }
+    // clear 
+
+    if (mTargetNamespaces != NULL)
+    {
+      delete mTargetNamespaces;
+      mTargetNamespaces = NULL;
+    }
+    
+    map<string, ConversionOption*>::iterator it1;
+    for (it1 = mOptions.begin(); it1 != mOptions.end(); ++it1)
+    {
+      if (it1->second != NULL) 
+      { 
+        delete it1->second;
+        it1->second=NULL;
+      }
+    }
+    mOptions.clear();
+
+    // assign
+
     if (rhs.mTargetNamespaces != NULL)
       mTargetNamespaces = rhs.mTargetNamespaces->clone();
     else 
       mTargetNamespaces = NULL;
 
     map<string, ConversionOption*>::const_iterator it;
-    for (it = rhs.mOptions.begin(); it != rhs.mOptions.end(); it++)
+    for (it = rhs.mOptions.begin(); it != rhs.mOptions.end(); ++it)
     {
       mOptions.insert(pair<string, ConversionOption*>
         ( it->second->getKey(), it->second->clone()));
     }
 
-  }
     return *this;
 }
 

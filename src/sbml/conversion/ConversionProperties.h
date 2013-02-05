@@ -85,7 +85,6 @@ public:
    */
   ConversionProperties(const ConversionProperties& orig);
 
-  
   /**
    * Assignment operator for conversion properties.
    *

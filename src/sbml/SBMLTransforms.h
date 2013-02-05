@@ -90,8 +90,10 @@ public:
    * @param math ASTNode representing the math to be transformed
    *
    * @param fd the FunctionDefinition to be expanded
+   *
+   * @param idsToExclude an optional list of function definition ids to exclude.
    */
-  static void replaceFD(ASTNode * math, const FunctionDefinition * fd);
+  static void replaceFD(ASTNode * math, const FunctionDefinition * fd, const IdList* idsToExclude = NULL);
 
 
   /**
@@ -108,8 +110,10 @@ public:
    * @param math ASTNode representing the math to be transformed
    *
    * @param lofd the ListOfFunctionDefinitions to be expanded
+   * 
+   * @param idsToExclude an optional list of function definition ids to exclude.
    */
-  static void replaceFD(ASTNode * math, const ListOfFunctionDefinitions * lofd);
+  static void replaceFD(ASTNode * math, const ListOfFunctionDefinitions * lofd, const IdList* idsToExclude = NULL);
   
 
   static bool expandInitialAssignments(Model * m);

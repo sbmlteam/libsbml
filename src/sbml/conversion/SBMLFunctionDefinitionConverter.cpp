@@ -31,6 +31,7 @@
 #include <sbml/conversion/SBMLFunctionDefinitionConverter.h>
 #include <sbml/conversion/SBMLConverterRegistry.h>
 #include <sbml/conversion/SBMLConverterRegister.h>
+#include <sbml/validator/constraints/IdList.h>
 #include <sbml/SBMLDocument.h>
 #include <sbml/Model.h>
 
@@ -75,6 +76,8 @@ SBMLFunctionDefinitionConverter::getDefaultProperties() const
   static ConversionProperties prop;
   prop.addOption("expandFunctionDefinitions", true,
                  "Expand all function definitions in the model");
+  prop.addOption("skipIds", "",
+                 "Comma separated list of ids to skip during expansion");
   return prop;
 }
 
@@ -85,6 +88,27 @@ SBMLFunctionDefinitionConverter::matchesProperties(const ConversionProperties &p
     return false;
   return true;
 }
+
+
+struct tokens: std::ctype<char> 
+{
+    tokens(): std::ctype<char>(get_table()) {}
+
+    static std::ctype_base::mask const* get_table()
+    {
+        typedef std::ctype<char> cctype;
+        static const cctype::mask *const_rc= cctype::classic_table();
+
+        static cctype::mask rc[cctype::table_size];
+        std::memcpy(rc, const_rc, cctype::table_size * sizeof(cctype::mask));
+
+        rc[','] = std::ctype_base::space; 
+        rc[';'] = std::ctype_base::space; 
+        rc['\t'] = std::ctype_base::space; 
+        rc[' '] = std::ctype_base::space; 
+        return &rc[0];
+    }
+};
 
 int 
 SBMLFunctionDefinitionConverter::convert()
@@ -121,13 +145,30 @@ SBMLFunctionDefinitionConverter::convert()
     return LIBSBML_CONV_INVALID_SRC_DOCUMENT;
   }
 
+  // parse possible lists of ids to skip
+  IdList idsToSkip;
+
+  if (mProps != NULL && mProps->hasOption("skipIds"))
+  {
+  std::stringstream ss(mProps->getOption("skipIds")->getValue());
+  ss.imbue(std::locale(std::locale(), new tokens()));
+  std::istream_iterator<std::string> begin(ss);
+  std::istream_iterator<std::string> end;
+  std::vector<std::string> skipVector(begin, end);
+  std::vector<std::string>::iterator it;
+
+
+  for (it = skipVector.begin(); it != skipVector.end(); ++it)
+    idsToSkip.append(*it);
+  }
+
   // for any math in document replace each function def
   for (i = 0; i < mModel->getNumRules(); i++)
   {
     if (mModel->getRule(i)->isSetMath())
     {
       SBMLTransforms::replaceFD(const_cast <ASTNode *>(mModel->getRule(i)
-        ->getMath()), mModel->getListOfFunctionDefinitions());
+        ->getMath()), mModel->getListOfFunctionDefinitions(), &idsToSkip);
     }
   }
   for (i = 0; i < mModel->getNumInitialAssignments(); i++)
@@ -136,7 +177,7 @@ SBMLFunctionDefinitionConverter::convert()
     {
       SBMLTransforms::replaceFD(const_cast <ASTNode *>(mModel
         ->getInitialAssignment(i)->getMath()), 
-        mModel->getListOfFunctionDefinitions());
+        mModel->getListOfFunctionDefinitions(), &idsToSkip);
     }
   }
   for (i = 0; i < mModel->getNumConstraints(); i++)
@@ -145,7 +186,7 @@ SBMLFunctionDefinitionConverter::convert()
     {
       SBMLTransforms::replaceFD(const_cast <ASTNode *>(mModel
         ->getConstraint(i)->getMath()), 
-        mModel->getListOfFunctionDefinitions());
+        mModel->getListOfFunctionDefinitions(), &idsToSkip);
     }
   }
   for (i = 0; i < mModel->getNumReactions(); i++)
@@ -156,7 +197,7 @@ SBMLFunctionDefinitionConverter::convert()
       {
         SBMLTransforms::replaceFD(const_cast <ASTNode *> (mModel
           ->getReaction(i)->getKineticLaw()->getMath()), 
-          mModel->getListOfFunctionDefinitions());
+          mModel->getListOfFunctionDefinitions(), &idsToSkip);
       }
     }
     for (j = 0; j < mModel->getReaction(i)->getNumReactants(); j++)
@@ -168,7 +209,7 @@ SBMLFunctionDefinitionConverter::convert()
         {
           SBMLTransforms::replaceFD(const_cast <ASTNode *> (mModel
             ->getReaction(i)->getReactant(j)->getStoichiometryMath()->getMath()), 
-            mModel->getListOfFunctionDefinitions());
+            mModel->getListOfFunctionDefinitions(), &idsToSkip);
         }
       }
     }
@@ -177,11 +218,11 @@ SBMLFunctionDefinitionConverter::convert()
       if (mModel->getReaction(i)->getProduct(j)->isSetStoichiometryMath())
       {
         if (mModel->getReaction(i)->getProduct(j)->getStoichiometryMath()
-          ->isSetMath())
+          ->isSetMath(), &idsToSkip)
         {
           SBMLTransforms::replaceFD(const_cast <ASTNode *> (mModel
             ->getReaction(i)->getProduct(j)->getStoichiometryMath()->getMath()), 
-            mModel->getListOfFunctionDefinitions());
+            mModel->getListOfFunctionDefinitions(), &idsToSkip);
         }
       }
     }
@@ -194,7 +235,7 @@ SBMLFunctionDefinitionConverter::convert()
       {
         SBMLTransforms::replaceFD(const_cast <ASTNode *> (mModel
           ->getEvent(i)->getTrigger()->getMath()),
-          mModel->getListOfFunctionDefinitions());
+          mModel->getListOfFunctionDefinitions(), &idsToSkip);
       }
     }
     if (mModel->getEvent(i)->isSetDelay())
@@ -203,7 +244,7 @@ SBMLFunctionDefinitionConverter::convert()
       {
         SBMLTransforms::replaceFD(const_cast <ASTNode *> (mModel
           ->getEvent(i)->getDelay()->getMath()),
-          mModel->getListOfFunctionDefinitions());
+          mModel->getListOfFunctionDefinitions(), &idsToSkip);
       }
     }
     if (mModel->getEvent(i)->isSetPriority())
@@ -212,7 +253,7 @@ SBMLFunctionDefinitionConverter::convert()
       {
         SBMLTransforms::replaceFD(const_cast <ASTNode *> (mModel
           ->getEvent(i)->getPriority()->getMath()),
-          mModel->getListOfFunctionDefinitions());
+          mModel->getListOfFunctionDefinitions(), &idsToSkip);
       }
     }
 
@@ -222,7 +263,7 @@ SBMLFunctionDefinitionConverter::convert()
       {
         SBMLTransforms::replaceFD(const_cast <ASTNode *> (mModel
           ->getEvent(i)->getEventAssignment(j)->getMath()),
-          mModel->getListOfFunctionDefinitions());
+          mModel->getListOfFunctionDefinitions(), &idsToSkip);
       }
     }
   }
@@ -231,9 +272,20 @@ SBMLFunctionDefinitionConverter::convert()
   mDocument->setApplicableValidators(origValidators);
 
   unsigned int size = mModel->getNumFunctionDefinitions();
-  while (size--) mModel->getListOfFunctionDefinitions()->remove(size);
+  unsigned int skipped = 0;
+  while (size--) 
+  {
+    const std::string& id = mModel->getListOfFunctionDefinitions()->get(size)->getId();
+    if (idsToSkip.contains(id))
+    {
+      ++skipped;
+      continue;
+    }
 
-  success = (mModel->getNumFunctionDefinitions() == 0);
+    mModel->getListOfFunctionDefinitions()->remove(size);
+  }
+
+  success = (mModel->getNumFunctionDefinitions() == skipped);
 
   if (success) return LIBSBML_OPERATION_SUCCESS;
   return LIBSBML_OPERATION_FAILED;
