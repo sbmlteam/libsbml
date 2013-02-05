@@ -210,11 +210,11 @@ namespace LibSBMLCSTest.sbml {
       Trigger t = e.createTrigger();
       t.setInitialValue(false);
       assertTrue( d.setLevelAndVersion(1,1,false) == false );
-      assertTrue( d.setLevelAndVersion(1,2,false) == false );
-      assertTrue( d.setLevelAndVersion(2,1,false) == false );
-      assertTrue( d.setLevelAndVersion(2,2,false) == false );
-      assertTrue( d.setLevelAndVersion(2,3,false) == false );
-      assertTrue( d.setLevelAndVersion(2,4,false) == false );
+      assertTrue( d.setLevelAndVersion(1,2,false) == true );
+      assertTrue( d.setLevelAndVersion(2,1,false) == true );
+      assertTrue( d.setLevelAndVersion(2,2,false) == true );
+      assertTrue( d.setLevelAndVersion(2,3,false) == true );
+      assertTrue( d.setLevelAndVersion(2,4,false) == true );
       assertTrue( d.setLevelAndVersion(3,1,false) == true );
     }
 
@@ -242,11 +242,11 @@ namespace LibSBMLCSTest.sbml {
       Trigger t = e.createTrigger();
       t.setPersistent(false);
       assertTrue( d.setLevelAndVersion(1,1,false) == false );
-      assertTrue( d.setLevelAndVersion(1,2,false) == false );
-      assertTrue( d.setLevelAndVersion(2,1,false) == false );
-      assertTrue( d.setLevelAndVersion(2,2,false) == false );
-      assertTrue( d.setLevelAndVersion(2,3,false) == false );
-      assertTrue( d.setLevelAndVersion(2,4,false) == false );
+      assertTrue( d.setLevelAndVersion(1,2,false) == true );
+      assertTrue( d.setLevelAndVersion(2,1,false) == true );
+      assertTrue( d.setLevelAndVersion(2,2,false) == true );
+      assertTrue( d.setLevelAndVersion(2,3,false) == true );
+      assertTrue( d.setLevelAndVersion(2,4,false) == true );
       assertTrue( d.setLevelAndVersion(3,1,false) == true );
     }
 
@@ -257,11 +257,11 @@ namespace LibSBMLCSTest.sbml {
       Event e = m.createEvent();
       Priority p = e.createPriority();
       assertTrue( d.setLevelAndVersion(1,1,false) == false );
-      assertTrue( d.setLevelAndVersion(1,2,false) == false );
-      assertTrue(d.setLevelAndVersion(2, 1, false) == false);
-      assertTrue(d.setLevelAndVersion(2, 2, false) == false);
-      assertTrue(d.setLevelAndVersion(2, 3, false) == false);
-      assertTrue(d.setLevelAndVersion(2, 4, false) == false);
+      assertTrue( d.setLevelAndVersion(1,2,false) == true );
+      assertTrue(d.setLevelAndVersion(2, 1, false) == true );
+      assertTrue(d.setLevelAndVersion(2, 2, false) == true );
+      assertTrue(d.setLevelAndVersion(2, 3, false) == true );
+      assertTrue(d.setLevelAndVersion(2, 4, false) == true );
       assertTrue( d.setLevelAndVersion(3,1,false) == true );
     }
 
