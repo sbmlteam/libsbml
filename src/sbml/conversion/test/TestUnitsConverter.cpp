@@ -2247,6 +2247,32 @@ START_TEST (test_convert_henry_litre_8)
 }
 END_TEST
 
+START_TEST( test_convert_extend_to_l2 )
+{
+  string fileName = string(TestDataDirectory) + "/extend_l3.xml";
+  SBMLDocument *doc = readSBMLFromFile(fileName.c_str());
+  
+  // strict conversion ought to fail
+  fail_unless(doc->setLevelAndVersion(2, 4, true) == false);
+  fail_unless(doc->getErrorLog()->contains(ExtentUnitsNotSubstance));
+  
+
+  doc->getErrorLog()->clearLog();
+  // non-strict conversion ought to succeed
+  fail_unless(doc->setLevelAndVersion(2, 4, false) == true);
+  // however it ought to leave a trace in the error log as to what
+  // was wrong
+  fail_unless(doc->getErrorLog()->contains(ExtentUnitsNotSubstance));
+
+  // when unit validation is disabled, that one ought to also pass
+  doc->getErrorLog()->clearLog();
+  doc->setConversionValidators(AllChecksON & UnitsCheckOFF);
+  fail_unless(doc->setLevelAndVersion(2, 4, true) == true);
+  fail_unless(doc->getNumErrors(LIBSBML_SEV_ERROR) == 0);
+
+  
+}
+END_TEST
 
 Suite *
 create_suite_TestUnitsConverter (void)
@@ -2305,6 +2331,7 @@ create_suite_TestUnitsConverter (void)
   tcase_add_test(tcase, test_convert_henry_litre_6);
   tcase_add_test(tcase, test_convert_henry_litre_7);
   tcase_add_test(tcase, test_convert_henry_litre_8);
+  tcase_add_test(tcase, test_convert_extend_to_l2);
 
   suite_add_tcase(suite, tcase);
 

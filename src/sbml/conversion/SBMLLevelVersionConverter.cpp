@@ -918,6 +918,16 @@ SBMLLevelVersionConverter::performConversion(bool strict, bool strictUnits,
 bool
 SBMLLevelVersionConverter::conversion_errors(unsigned int errors, bool strictUnits)
 {
+  // if people have declared that they want to convert, even should 
+  // conversion errors occur, then return false, so the conversion will 
+  // proceed. In that case we leave the error log in tact, so people are
+  // notified about potential issues. 
+  if (!getValidityFlag())
+  {
+    return false;
+  }
+
+
   /* if we are converting back from L3 and do not care about units
    * then we will allow a conversion where the spatialDimensions
    * has not been set
@@ -933,6 +943,8 @@ SBMLLevelVersionConverter::conversion_errors(unsigned int errors, bool strictUni
       }
     }
     mDocument->getErrorLog()->remove(GlobalUnitsNotDeclared);
+    // also allow extend units that are not in substance (or use undefined substance)
+    mDocument->getErrorLog()->remove(ExtentUnitsNotSubstance);
   }
   /** 
    * changed this code in line with the rest of the validation 
