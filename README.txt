@@ -81,28 +81,13 @@ ready-to-install precompiled binaries for many systems.
   http://sourceforge.net/projects/sbml/files/libsbml/
 
 
-2.1.1 Precompiled binaries for Windows
---------------------------------------
-
-Download and run the self-extracting windows installer for libSBML.
-There are debug (libsbmld) and release (libsbml) versions of libSBML,
-with .dll and .lib files for both versions in the 'win32/bin'
-subdirectory of the libSBML distribution.  Header files are located in
-the subdirectory 'win32/include/sbml'.
-
-Users of Visual C++ should make their Visual C++ projects link with
-the files libsbml.lib or libsbmld.lib and generate code for the
-Multithreaded DLL or Debug Multithreaded DLL version of the VC++
-runtime, respectively.
-
-
 2.2 CMake
 ---------
 
-CMake (www.cmake.org) is the new build system for libsbml, can be
+CMake (www.cmake.org) is the new build system for libsbml and can be
 used on all platforms.  Using CMake is the only way to compile
 libsbml with packages from source (libsbml without packages can
-still be built from source with the old GNU makefiles system, below).
+still be built from source with the old GNU makefiles system, see below).
 
 To build using CMake, the first step is to create a new build
 directory.  Typically, this is created as a new subdirectory of
@@ -121,7 +106,7 @@ cmake-gui ..
 This will let it automatically find the source code and know where
 to put the binaries.  If you run cmake-gui in some other way, you'll
 need to tell it the location of the source code (libsbml/) and where
-to build the binaries (libsbml/build/) by hand.
+to build the binaries (libsbml/build/).
 
 From there, push the 'Configure' button.  This will take you to a
 new window where you are asked what to use to build libsbml.  On
@@ -132,8 +117,8 @@ system as the software for which you plan to use libsbml.
 Selecting 'Finish' will take you back to the original window, and
 configuration will start.  It is likely that one or more systems will
 not be found, or will need to be reset.  In particular, you may need
-to tell CMake where the installations of various dependency libraries
-is.  If they are all installed in the same place, you need only
+to give CMake the location of various dependency libraries.  If they 
+are all installed in the same place, you need only
 fill in the 'LIBSBML_DEPENDENCY_DIR' option; if they are installed in
 different places, you will need to fill out the various *_INCLUDE_DIR
 and *_LIBRARY options by hand (CMake will search in obvious places first
@@ -196,11 +181,6 @@ and for Xerces, use
 
   ./configure --with-xerces
 
-IMPORTANT: If you are using the Xerces XML library, beware there is a
-bug in Xerces 2.6.0 that cannot be worked around at this time and
-causes errors in software using it.  Xerces versions 2.2 -
-2.5, and 2.7.0 and above, are known to work properly.
-
 By default, libSBML only builds the C and C++ API library.  If you
 want to configure libSBML to build the Java, C#, Python, Perl, MATLAB, 
 Ruby and/or Octave API libraries as well, add the flags --with-java,
@@ -262,7 +242,7 @@ of SBML, up to Level 3 Version 1 Core.
 
 The library is written in ISO standard C and C++ and currently
 provides an API for the languages C, C++, C#, Java, MATLAB, Octave,
-Perl, Python, and Ruby.  LibSBML is known to run on Linux, Windows,
+Perl, Python, R and Ruby.  LibSBML is known to run on Linux, Windows,
 MacOS X, FreeBSD and Solaris, but is portable and support for other
 platforms should be straightforward to implement.
 
@@ -328,9 +308,9 @@ Feature Highlights:
   (SAX2) and loads SBML data into C++ structures that mirror the SBML
   specification.
       
-* Interfaces for C, C++, C#, Java, MATLAB, Octave, Python, Perl, and
+* Interfaces for C, C++, C#, Java, MATLAB, Octave, Python, Perl, R and
   Ruby.  The C and C++ interfaces are implemented natively; the C#,
-  Java, Perl, Python, and Ruby interfaces are implemented using SWIG,
+  Java, Perl, Python, R and Ruby interfaces are implemented using SWIG,
   the Simplified Wrapper Interface Generator; and the rest are
   implemented using custom hand-written interface code.
 
