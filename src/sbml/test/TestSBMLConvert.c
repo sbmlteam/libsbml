@@ -756,7 +756,7 @@ END_TEST
 
 START_TEST (test_SBMLConvert_convertFromL3_priority1)
 {
-  SBMLDocument_t *d = SBMLDocument_createWithLevelAndVersion(3, 1);
+  SBMLDocument_t *d = SBMLDocument_createWithLevelAndVersion(3, 1), *d2= NULL;
   Model_t        *m = SBMLDocument_createModel(d);
 
   Event_t * e = Model_createEvent(m);
@@ -764,10 +764,21 @@ START_TEST (test_SBMLConvert_convertFromL3_priority1)
   (void) p;
 
   fail_unless(SBMLDocument_setLevelAndVersionNonStrict(d, 1, 1) == 0);
-  fail_unless(SBMLDocument_setLevelAndVersionNonStrict(d, 1, 2) == 1);
-  fail_unless(SBMLDocument_setLevelAndVersionNonStrict(d, 2, 1) == 1);
-  fail_unless(SBMLDocument_setLevelAndVersionNonStrict(d, 2, 2) == 1);
-  fail_unless(SBMLDocument_setLevelAndVersionNonStrict(d, 2, 3) == 1);
+  d2 = SBMLDocument_clone(d);
+  fail_unless(SBMLDocument_setLevelAndVersionNonStrict(d2, 1, 2) == 1);
+  SBMLDocument_free(d2);
+  d2 = SBMLDocument_clone(d);
+  fail_unless(SBMLDocument_setLevelAndVersionNonStrict(d2, 2, 1) == 1);
+  SBMLDocument_free(d2);
+  d2 = SBMLDocument_clone(d);
+  fail_unless(SBMLDocument_setLevelAndVersionNonStrict(d2, 2, 2) == 1);
+  SBMLDocument_free(d2);
+  d2 = SBMLDocument_clone(d);
+  fail_unless(SBMLDocument_setLevelAndVersionNonStrict(d2, 2, 3) == 1);
+  SBMLDocument_free(d2);
+  d2 = SBMLDocument_clone(d);
+  fail_unless(SBMLDocument_setLevelAndVersionNonStrict(d2, 2, 4) == 1);
+  SBMLDocument_free(d2);
   fail_unless(SBMLDocument_setLevelAndVersionNonStrict(d, 2, 4) == 1);
 
   SBMLDocument_free(d);
@@ -777,7 +788,7 @@ END_TEST
 
 START_TEST (test_SBMLConvert_convertFromL3_persistent)
 {
-  SBMLDocument_t *d = SBMLDocument_createWithLevelAndVersion(3, 1);
+  SBMLDocument_t *d = SBMLDocument_createWithLevelAndVersion(3, 1), *d2 = NULL;
   Model_t        *m = SBMLDocument_createModel(d);
 
   Event_t * e = Model_createEvent(m);
@@ -785,11 +796,21 @@ START_TEST (test_SBMLConvert_convertFromL3_persistent)
   Trigger_setPersistent(t, 0);
 
   fail_unless(SBMLDocument_setLevelAndVersionNonStrict(d, 1, 1) == 0);
-  fail_unless(SBMLDocument_setLevelAndVersionNonStrict(d, 1, 2) == 1);
-  fail_unless(SBMLDocument_setLevelAndVersionNonStrict(d, 2, 1) == 1);
-  fail_unless(SBMLDocument_setLevelAndVersionNonStrict(d, 2, 2) == 1);
-  fail_unless(SBMLDocument_setLevelAndVersionNonStrict(d, 2, 3) == 1);
-  fail_unless(SBMLDocument_setLevelAndVersionNonStrict(d, 2, 4) == 1);
+  d2 = SBMLDocument_clone(d);
+  fail_unless(SBMLDocument_setLevelAndVersionNonStrict(d2, 1, 2) == 1);
+  SBMLDocument_free(d2);
+  d2 = SBMLDocument_clone(d);
+  fail_unless(SBMLDocument_setLevelAndVersionNonStrict(d2, 2, 1) == 1);
+  SBMLDocument_free(d2);
+  d2 = SBMLDocument_clone(d);
+  fail_unless(SBMLDocument_setLevelAndVersionNonStrict(d2, 2, 2) == 1);
+  SBMLDocument_free(d2);
+  d2 = SBMLDocument_clone(d);
+  fail_unless(SBMLDocument_setLevelAndVersionNonStrict(d2, 2, 3) == 1);
+  SBMLDocument_free(d2);
+  d2 = SBMLDocument_clone(d);
+  fail_unless(SBMLDocument_setLevelAndVersionNonStrict(d2, 2, 4) == 1);
+  SBMLDocument_free(d2);
   fail_unless(SBMLDocument_setLevelAndVersionNonStrict(d, 3, 1) == 1);
 
   SBMLDocument_free(d);
@@ -799,7 +820,7 @@ END_TEST
 
 START_TEST (test_SBMLConvert_convertFromL3_initialValue)
 {
-  SBMLDocument_t *d = SBMLDocument_createWithLevelAndVersion(3, 1);
+  SBMLDocument_t *d = SBMLDocument_createWithLevelAndVersion(3, 1), *d2=NULL;
   Model_t        *m = SBMLDocument_createModel(d);
 
   Event_t * e = Model_createEvent(m);
@@ -807,11 +828,21 @@ START_TEST (test_SBMLConvert_convertFromL3_initialValue)
   Trigger_setInitialValue(t, 0);
 
   fail_unless(SBMLDocument_setLevelAndVersionNonStrict(d, 1, 1) == 0);
-  fail_unless(SBMLDocument_setLevelAndVersionNonStrict(d, 1, 2) == 1);
-  fail_unless(SBMLDocument_setLevelAndVersionNonStrict(d, 2, 1) == 1);
-  fail_unless(SBMLDocument_setLevelAndVersionNonStrict(d, 2, 2) == 1);
-  fail_unless(SBMLDocument_setLevelAndVersionNonStrict(d, 2, 3) == 1);
-  fail_unless(SBMLDocument_setLevelAndVersionNonStrict(d, 2, 4) == 1);
+  d2 = SBMLDocument_clone(d);
+  fail_unless(SBMLDocument_setLevelAndVersionNonStrict(d2, 1, 2) == 1);
+  SBMLDocument_free(d2);
+  d2 = SBMLDocument_clone(d);
+  fail_unless(SBMLDocument_setLevelAndVersionNonStrict(d2, 2, 1) == 1);
+  SBMLDocument_free(d2);
+  d2 = SBMLDocument_clone(d);
+  fail_unless(SBMLDocument_setLevelAndVersionNonStrict(d2, 2, 2) == 1);
+  SBMLDocument_free(d2);
+  d2 = SBMLDocument_clone(d);
+  fail_unless(SBMLDocument_setLevelAndVersionNonStrict(d2, 2, 3) == 1);
+  SBMLDocument_free(d2);
+  d2 = SBMLDocument_clone(d);
+  fail_unless(SBMLDocument_setLevelAndVersionNonStrict(d2, 2, 4) == 1);
+  SBMLDocument_free(d2);
   fail_unless(SBMLDocument_setLevelAndVersionNonStrict(d, 3, 1) == 1);
 
   SBMLDocument_free(d);
