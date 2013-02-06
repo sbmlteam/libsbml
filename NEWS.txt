@@ -2,6 +2,69 @@
 
 
 ====================================================================
+Version 5.8.0 (2013-02-21)
+====================================================================
+
+STABLE RELEASE
+
+* New features
+
+    
+  - 'comp' package
+  
+    - The C API for comp is now available with an example of
+      creating a model using this API.
+
+  - 'layout' package
+  
+* Bug fixes
+
+  - Code was still writing out the deprecated and in some cases
+    removed attribute 'charge' on a <species>. This is no longer
+    the case.
+    
+  - Some files caused the level and version converter to enter
+    an endless loop. This has been fixed.  Thanks to the guys at
+    Persistent Systems Ltd. for reporting this.
+    
+  - Reading an attribute with a value of type 'double' was failing 
+    to report when a different type was encountered for the value.
+    This has now been sorted and will be correctly logged as an 
+    error by the readSBML functions.
+
+    
+  - 'comp' package-specific bug fixes:
+
+  - 'layout' package-specific bug fixes:
+  
+
+* Configuration/build system changes
+
+  - 'comp' package-specific build system changes:
+  
+* Miscellaneous
+
+
+
+EXPERIMENTAL RELEASE
+
+* Bug fixes
+
+  - 'qual' package-specific bug fixes:
+
+    - As validation of packages is started to be introduced the 
+      situation whereby a ListOfFunctionTerms can contain no 
+      FunctionTerm elements but only a DefaultTerm caused issue
+      with the code that reports an empty ListOf object. This
+      has been fixed.
+  
+  - 'render' package-specific bug fixes:
+  
+    - Conversion between L3 and L2 annotation was not working as
+      expected. This has been fixed.
+
+
+====================================================================
 Version 5.7.0 (2013-01-14)
 ====================================================================
 
