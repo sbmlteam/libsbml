@@ -1,4 +1,4 @@
-/** @page libsbml-hacking Hacking libSBML
+/** @page libsbml-other Hacking libSBML
 
 - @subpage libsbml-coding for developers and contributors
 - @subpage libsbml-extending
