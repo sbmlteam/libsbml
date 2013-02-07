@@ -1,4 +1,4 @@
-/** @mainpage About libSBML and its use
+/** @mainpage About libSBML and this manual
 
 @htmlinclude libsbml-authors.html
 
@@ -8,30 +8,18 @@ libSBML, an open-source (LGPL) library for writing and manipulating the
 Systems Biology Markup Language (SBML).
 @htmlinclude libsbml-blurb.html
 
-@htmlinclude force-serif-font-on.html
-@section main-general General information
+To get started with libSBML, you may find the following sections of
+this manual helpful:
+
+- @subpage libsbml-communications
 - @subpage libsbml-installation
 - @subpage libsbml-accessing
-- @subpage libsbml-features
-- @subpage libsbml-communications
+- @subpage libsbml-programming
 
-@section main-programming Programming with libSBML
-- @subpage libsbml-reading-files
-- @subpage libsbml-math
-- @subpage libsbml-example
-- @subpage libsbml-issues
+Once you are familiar with the basics, the navigation bar, table of contents
+and search facilities of this manual can help you locate specific
+documentation about the libSBML API.
 
-@section main-extensions Extending libSBML to support SBML packages
-- @subpage libsbml-extension-support-classes
-- @subpage libsbml-howto-implement-extension
-
-@section main-other Other topics
-- @subpage libsbml-uninstallation
-- @subpage libsbml-coding for developers and contributors
-- @subpage license
-- @subpage changes
-
-@htmlinclude force-serif-font-off.html
 @htmlinclude libsbml-papers.html
 
 @htmlinclude FUNDING.txt
