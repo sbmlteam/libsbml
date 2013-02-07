@@ -1,4 +1,4 @@
-/** @page libsbml-features LibSBML features
+/** @page libsbml-features LibSBML features at a glance
 
 @htmlinclude libsbml-features.html
 
