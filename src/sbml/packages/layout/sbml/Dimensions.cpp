@@ -382,7 +382,7 @@ void Dimensions::initDefaults ()
 }
 
 /**
- * Subclasses should override this method to return XML element name of
+ * Returns the XML element name of
  * this SBML object.
  */
 const std::string& Dimensions::getElementName () const 

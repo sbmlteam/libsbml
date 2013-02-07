@@ -1357,7 +1357,7 @@ Layout::createCubicBezier ()
 }    
 
 /**
- * Subclasses should override this method to return XML element name of
+ * Returns the XML element name of
  * this SBML object.
  */
 const std::string&
@@ -1693,7 +1693,7 @@ ListOfLayouts::getItemTypeCode () const
 
 
 /**
- * Subclasses should override this method to return XML element name of
+ * Returns the XML element name of
  * this SBML object.
  */
 const std::string&
@@ -1874,7 +1874,7 @@ ListOfCompartmentGlyphs::getItemTypeCode () const
 
 
 /**
- * Subclasses should override this method to return XML element name of
+ * Returns the XML element name of
  * this SBML object.
  */
 const std::string&
@@ -2027,7 +2027,7 @@ ListOfSpeciesGlyphs::getItemTypeCode () const
 
 
 /**
- * Subclasses should override this method to return XML element name of
+ * Returns the XML element name of
  * this SBML object.
  */
 const std::string&
@@ -2114,7 +2114,7 @@ ListOfReactionGlyphs::getItemTypeCode () const
 
 
 /**
- * Subclasses should override this method to return XML element name of
+ * Returns the XML element name of
  * this SBML object.
  */
 const std::string&
@@ -2264,7 +2264,7 @@ ListOfTextGlyphs::getItemTypeCode () const
 
 
 /**
- * Subclasses should override this method to return XML element name of
+ * Returns the XML element name of
  * this SBML object.
  */
 const std::string&

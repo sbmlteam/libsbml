@@ -450,7 +450,7 @@ CubicBezier::setBasePoint2 (double x, double y, double z)
 
 
 /**
- * Subclasses should override this method to return XML element name of
+ * Returns the XML element name of
  * this SBML object.
  */
 const std::string& CubicBezier::getElementName () const 

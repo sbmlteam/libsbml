@@ -722,7 +722,7 @@ GeneralGlyph::getIndexForSubGlyph(const std::string& id) const
 
 
 /**
- * Subclasses should override this method to return XML element name of
+ * Returns the XML element name of
  * this SBML object.
  */
 const std::string& GeneralGlyph::getElementName () const 
@@ -935,7 +935,7 @@ ListOfReferenceGlyphs::getItemTypeCode () const
 
 
 /**
- * Subclasses should override this method to return XML element name of
+ * Returns the XML element name of
  * this SBML object.
  */
 const std::string&

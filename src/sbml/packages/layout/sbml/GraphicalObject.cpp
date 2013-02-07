@@ -463,7 +463,7 @@ GraphicalObject::initDefaults ()
 }
 
 /**
- * Subclasses should override this method to return XML element name of
+ * Returns the XML element name of
  * this SBML object.
  */
 const std::string& GraphicalObject::getElementName () const 
@@ -719,7 +719,7 @@ ListOfGraphicalObjects::getItemTypeCode () const
 
 
 /**
- * Subclasses should override this method to return XML element name of
+ * Returns the XML element name of
  * this SBML object.
  */
 const std::string&

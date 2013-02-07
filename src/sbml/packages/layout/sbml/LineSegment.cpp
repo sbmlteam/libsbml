@@ -365,7 +365,7 @@ LineSegment::setEnd (double x, double y, double z)
 
 
 /**
- * Subclasses should override this method to return XML element name of
+ * Returns the XML element name of
  * this SBML object.
  */
 const std::string& LineSegment::getElementName () const 
@@ -408,12 +408,6 @@ LineSegment::createObject (XMLInputStream& stream)
   return object;
 }
 
-/**
- * Subclasses should override this method to get the list of
- * expected attributes.
- * This function is invoked from corresponding readAttributes()
- * function.
- */
 void
 LineSegment::addExpectedAttributes(ExpectedAttributes& attributes)
 {
@@ -422,12 +416,6 @@ LineSegment::addExpectedAttributes(ExpectedAttributes& attributes)
 }
 
 
-/**
- * Subclasses should override this method to read values from the given
- * XMLAttributes set into their specific fields.  Be sure to call your
- * parents implementation of this method as well.
- */
-
 void LineSegment::readAttributes (const XMLAttributes& attributes,
                                   const ExpectedAttributes& expectedAttributes)
 {
@@ -435,11 +423,6 @@ void LineSegment::readAttributes (const XMLAttributes& attributes,
 
 }
 
-/**
- * Subclasses should override this method to write out their contained
- * SBML objects as XML elements.  Be sure to call your parents
- * implementation of this method as well.
- */
 void
 LineSegment::writeElements (XMLOutputStream& stream) const
 {

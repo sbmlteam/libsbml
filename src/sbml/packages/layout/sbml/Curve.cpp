@@ -352,7 +352,7 @@ CubicBezier* Curve::createCubicBezier ()
 
 
 /**
- * Subclasses should override this method to return XML element name of
+ * Returns the XML element name of
  * this SBML object.
  */
 const std::string& Curve::getElementName () const 
@@ -555,7 +555,7 @@ ListOfLineSegments::getItemTypeCode () const
 
 
 /**
- * Subclasses should override this method to return XML element name of
+ * Returns the XML element name of
  * this SBML object.
  */
 const std::string&

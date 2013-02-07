@@ -557,7 +557,7 @@ void BoundingBox::writeElements (XMLOutputStream& stream) const
 }
 
 /**
- * Subclasses should override this method to return XML element name of
+ * Returns the XML element name of
  * this SBML object.
  */
 const std::string& BoundingBox::getElementName () const 

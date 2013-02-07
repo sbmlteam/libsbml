@@ -84,9 +84,6 @@ public:
 
 #ifndef SWIG
 
-  /** @cond doxygen-libsbml-internal */
-
-
   // ---------------------------------------------------------
   //
   // overridden virtual functions for reading/writing/checking
@@ -94,13 +91,15 @@ public:
   //
   // ---------------------------------------------------------
 
+  /** @cond doxygen-libsbml-internal */
   /**
    * Parses Layout Extension of SBML Level 2
    */
   virtual bool readOtherXML (SBase* parentObject, XMLInputStream& stream);
+  /** @endcond */
+
 
   /** @cond doxygen-libsbml-internal */
-
   /**
    * This function is a bit tricky.
    * This function is used only for setting annotation element of layout
@@ -109,8 +108,8 @@ public:
    * Thus, no attribute is written by this function.
    */
   virtual void writeAttributes (XMLOutputStream& stream) const;
-
   /** @endcond */
+
 #endif //SWIG
 };
 

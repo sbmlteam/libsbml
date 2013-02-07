@@ -94,7 +94,6 @@ public:
   // --------------------------------------------------------
 
   /** @cond doxygen-libsbml-internal */
-
   /**
    * Subclasses must override this method to create, store, and then
    * return an SBML object corresponding to the next XMLToken in the
@@ -104,21 +103,27 @@ public:
    * XMLInputStream or NULL if the token was not recognized.
    */
   virtual SBase* createObject (XMLInputStream& stream);
+  /** @endcond */
 
 
+  /** @cond doxygen-libsbml-internal */
   /**
    * Parses Layout Extension of SBML Level 2
    */
   virtual bool readOtherXML (SBase* parentObject, XMLInputStream& stream);
+  /** @endcond */
 
 
+  /** @cond doxygen-libsbml-internal */
   /**
    * Subclasses must override this method to write out their contained
    * SBML objects as XML elements if they have their specific elements.
    */
   virtual void writeElements (XMLOutputStream& stream) const;
+  /** @endcond */
 
 
+  /** @cond doxygen-libsbml-internal */
   /**
    * This function is a bit tricky.
    * This function is used only for setting annotation element of layout
@@ -127,14 +132,15 @@ public:
    * Thus, no attribute is written by this function.
    */
   virtual void writeAttributes (XMLOutputStream& stream) const;
+  /** @endcond */
 
 
+  /** @cond doxygen-libsbml-internal */
   /* function returns true if component has all the required
    * elements
    * needs to be overloaded for each component
    */
   virtual bool hasRequiredElements() const ;
-
   /** @endcond */
 
 #endif
@@ -276,8 +282,10 @@ public:
    * @see enablePackageInternal
    */
   virtual void setSBMLDocument (SBMLDocument* d);
+  /** @endcond */
 
 
+  /** @cond doxygen-libsbml-internal */
   /**
    * Sets the parent SBML object of this plugin object to
    * this object and child elements (if any).
@@ -295,8 +303,10 @@ public:
    * @see enablePackageInternal
    */
   virtual void connectToParent (SBase *sbase);
+  /** @endcond */
 
 
+  /** @cond doxygen-libsbml-internal */
   /**
    * Enables/Disables the given package with child elements in this plugin
    * object (if any).

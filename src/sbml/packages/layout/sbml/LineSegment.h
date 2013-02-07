@@ -186,6 +186,7 @@ public:
   
   void initDefaults ();
 
+  /** @cond doxygen-libsbml-internal */
   /**
    * Subclasses should override this method to write out their contained
    * SBML objects as XML elements.  Be sure to call your parents
@@ -197,9 +198,10 @@ public:
    *   ...
    */
   virtual void writeElements (XMLOutputStream& stream) const;
+  /** @endcond */
 
   /**
-   * Subclasses should override this method to return XML element name of
+   * Returns the XML element name of
    * this SBML object.
    */
   virtual const std::string& getElementName () const ;
@@ -262,8 +264,10 @@ public:
    * @param d the SBMLDocument object to use
    */
   virtual void setSBMLDocument (SBMLDocument* d);
+  /** @endcond */
 
 
+  /** @cond doxygen-libsbml-internal */
   /**
    * Sets this SBML object to child SBML objects (if any).
    * (Creates a child-parent relationship by the parent)
@@ -277,8 +281,10 @@ public:
    * @see enablePackageInternal
    */
   virtual void connectToChild ();
+  /** @endcond */
 
 
+  /** @cond doxygen-libsbml-internal */
   /**
    * Enables/Disables the given package with this element and child
    * elements (if any).

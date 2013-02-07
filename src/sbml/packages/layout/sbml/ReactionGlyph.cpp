@@ -532,7 +532,7 @@ ReactionGlyph::getIndexForSpeciesReferenceGlyph(const std::string& id) const
 
 
 /**
- * Subclasses should override this method to return XML element name of
+ * Returns the XML element name of
  * this SBML object.
  */
 const std::string& ReactionGlyph::getElementName () const 
@@ -740,7 +740,7 @@ ListOfSpeciesReferenceGlyphs::getItemTypeCode () const
 
 
 /**
- * Subclasses should override this method to return XML element name of
+ * Returns the XML element name of
  * this SBML object.
  */
 const std::string&
