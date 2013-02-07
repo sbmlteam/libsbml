@@ -65,7 +65,7 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 
 class LIBSBML_EXTERN Point : public SBase
 {
-protected:
+private:
   std::string mId;
   double mXOffset;
   double mYOffset;

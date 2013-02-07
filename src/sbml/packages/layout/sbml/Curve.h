@@ -149,11 +149,13 @@ class LIBSBML_EXTERN ListOfLineSegments : public ListOf
     
 protected:
 
+  /** @cond doxygen-libsbml-internal */
   /**
    * @return the SBML object corresponding to next XMLToken in the
    * XMLInputStream or NULL if the token was not recognized.
    */
   virtual SBase* createObject (XMLInputStream& stream);
+  /** @endcond */
   
   
   virtual bool isValidTypeForList(SBase * item);
@@ -161,7 +163,7 @@ protected:
   
 class LIBSBML_EXTERN Curve : public SBase
 {
-protected:
+private:
 
   ListOfLineSegments mCurveSegments;
 

@@ -66,7 +66,7 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 
 class LIBSBML_EXTERN Dimensions : public SBase
 {
-protected:
+private:
   std::string mId;
   double mW;
   double mH;

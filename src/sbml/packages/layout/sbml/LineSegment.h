@@ -71,10 +71,10 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 class LIBSBML_EXTERN LineSegment : public SBase
 {
 protected:
-
+  /** @cond doxygen-libsbml-internal */
   Point mStartPoint;
   Point mEndPoint;
-
+  /** @endcond */
 
 public:
 

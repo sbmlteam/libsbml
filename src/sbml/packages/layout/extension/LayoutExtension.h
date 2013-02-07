@@ -29,7 +29,6 @@
 #ifndef LayoutExtension_h
 #define LayoutExtension_h
 
-#include <sbml/SBMLTypeCodes.h>
 #include <sbml/extension/SBMLExtension.h>
 #include <sbml/extension/SBMLExtensionNamespaces.h>
 #include <sbml/extension/SBMLExtensionRegister.h>

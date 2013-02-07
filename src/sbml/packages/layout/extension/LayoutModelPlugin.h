@@ -38,7 +38,6 @@
 
 #ifdef __cplusplus
 
-#include <sbml/SBMLTypeCodes.h>
 #include <sbml/SBMLErrorLog.h>
 #include <sbml/Model.h>
 #include <sbml/xml/XMLInputStream.h>

@@ -206,11 +206,13 @@ public:
     
 protected:
 
+  /** @cond doxygen-libsbml-internal */
   /**
    * @return the SBML object corresponding to next XMLToken in the
    * XMLInputStream or NULL if the token was not recognized.
    */
   virtual SBase* createObject (XMLInputStream& stream);
+  /** @endcond */
 };
 
 class LIBSBML_EXTERN ListOfSpeciesGlyphs : public ListOf
@@ -342,11 +344,13 @@ public:
     
 protected:
 
+  /** @cond doxygen-libsbml-internal */
   /**
    * @return the SBML object corresponding to next XMLToken in the
    * XMLInputStream or NULL if the token was not recognized.
    */
   virtual SBase* createObject (XMLInputStream& stream);
+  /** @endcond */
 };
 
 class LIBSBML_EXTERN ListOfReactionGlyphs : public ListOf
@@ -478,11 +482,13 @@ public:
     
 protected:
 
+  /** @cond doxygen-libsbml-internal */
   /**
    * @return the SBML object corresponding to next XMLToken in the
    * XMLInputStream or NULL if the token was not recognized.
    */
   virtual SBase* createObject (XMLInputStream& stream);
+  /** @endcond */
 };
 
 class LIBSBML_EXTERN ListOfTextGlyphs : public ListOf
@@ -614,16 +620,18 @@ public:
     
 protected:
 
+  /** @cond doxygen-libsbml-internal */
   /**
    * @return the SBML object corresponding to next XMLToken in the
    * XMLInputStream or NULL if the token was not recognized.
    */
   virtual SBase* createObject (XMLInputStream& stream);
+  /** @endcond */
 };
 
 class LIBSBML_EXTERN Layout : public SBase
 {
-protected:
+private:
 
   std::string mId;
 
@@ -634,17 +642,21 @@ protected:
   ListOfTextGlyphs mTextGlyphs;
   ListOfGraphicalObjects mAdditionalGraphicalObjects;
 
-  
+protected:
+  /** @cond doxygen-libsbml-internal */
   GraphicalObject*
   removeObjectWithId (ListOf* list, const std::string& id);
-
+  /** @endcond */
   
+  /** @cond doxygen-libsbml-internal */
   const GraphicalObject*
   getObjectWithId (const ListOf* list, const std::string& id) const;
-
+  /** @endcond */
+  
+  /** @cond doxygen-libsbml-internal */
   GraphicalObject*
   getObjectWithId (ListOf* list, const std::string& id) ;
-
+  /** @endcond */
 
 public:
 
@@ -1504,6 +1516,7 @@ public:
     
 protected:
 
+  /** @cond doxygen-libsbml-internal */
   /**
    * @return the SBML object corresponding to next XMLToken in the
    * XMLInputStream or NULL if the token was not recognized.
@@ -1511,6 +1524,7 @@ protected:
   virtual SBase* createObject (XMLInputStream& stream);
 
   virtual void writeXMLNS (XMLOutputStream& stream) const;
+  /** @endcond */
 };
 
 

@@ -68,7 +68,7 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 
 class LIBSBML_EXTERN TextGlyph : public GraphicalObject
 {
-protected:
+private:
 
   std::string mText;
   std::string mGraphicalObject;

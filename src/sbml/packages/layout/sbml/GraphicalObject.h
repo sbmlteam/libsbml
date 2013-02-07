@@ -70,7 +70,7 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 
 class LIBSBML_EXTERN GraphicalObject : public SBase
 {
-protected:
+private:
 
   std::string mId;
   std::string mMetaIdRef;
@@ -549,6 +549,7 @@ public:
     
 protected:
 
+  /** @cond doxygen-libsbml-internal */
   /**
    * @return the SBML object corresponding to next XMLToken in the
    * XMLInputStream or NULL if the token was not recognized.
@@ -556,8 +557,9 @@ protected:
   virtual SBase* createObject (XMLInputStream& stream);
   
   virtual bool isValidTypeForList(SBase * item);
+  /** @endcond */
 
-  
+private:
   std::string mElementName;
 
 };

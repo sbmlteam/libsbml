@@ -70,7 +70,7 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 
 class LIBSBML_EXTERN BoundingBox : public SBase
 {
-protected:
+private:
 
   std::string mId;
 

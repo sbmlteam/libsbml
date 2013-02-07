@@ -197,18 +197,20 @@ public:
     
 protected:
 
+  /** @cond doxygen-libsbml-internal */
   /**
    * @return the SBML object corresponding to next XMLToken in the
    * XMLInputStream or NULL if the token was not recognized.
    */
   virtual SBase* createObject (XMLInputStream& stream);
+  /** @endcond */
 };
 
 
 
 class LIBSBML_EXTERN GeneralGlyph : public GraphicalObject
 {
-protected:
+private:
 
   std::string mReference;
   ListOfReferenceGlyphs mReferenceGlyphs;

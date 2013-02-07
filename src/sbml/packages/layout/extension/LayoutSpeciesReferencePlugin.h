@@ -33,7 +33,6 @@
 
 
 #include <sbml/common/sbmlfwd.h>
-#include <sbml/SBMLTypeCodes.h>
 #include <sbml/SBMLErrorLog.h>
 #include <sbml/SpeciesReference.h>
 #include <sbml/xml/XMLInputStream.h>

@@ -1,3 +1,4 @@
+
 /**
  * Filename    : CompartmentGlyph.h
  * Description : SBML Layout CompartmentGlyph C++ Header
@@ -66,7 +67,7 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 
 class LIBSBML_EXTERN CompartmentGlyph : public GraphicalObject
 {
-protected:
+private:
 
   std::string mCompartment;
         

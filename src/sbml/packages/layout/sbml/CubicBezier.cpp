@@ -470,10 +470,7 @@ CubicBezier::clone () const
 }
 
 
-/**
- * @return the SBML object corresponding to next XMLToken in the
- * XMLInputStream or NULL if the token was not recognized.
- */
+/** @cond doxygen-libsbml-internal */
 SBase*
 CubicBezier::createObject (XMLInputStream& stream)
 {
@@ -496,37 +493,25 @@ CubicBezier::createObject (XMLInputStream& stream)
  
   return object;
 }
+/** @endcond */
 
-/**
- * Subclasses should override this method to get the list of
- * expected attributes.
- * This function is invoked from corresponding readAttributes()
- * function.
- */
+/** @cond doxygen-libsbml-internal */
 void
 CubicBezier::addExpectedAttributes(ExpectedAttributes& attributes)
 {
   LineSegment::addExpectedAttributes(attributes);
 }
+/** @endcond */
 
-
-/**
- * Subclasses should override this method to read values from the given
- * XMLAttributes set into their specific fields.  Be sure to call your
- * parents implementation of this method as well.
- */
-
+/** @cond doxygen-libsbml-internal */
 void CubicBezier::readAttributes (const XMLAttributes& attributes,
                                   const ExpectedAttributes& expectedAttributes)
 {
   LineSegment::readAttributes(attributes,expectedAttributes);
 }
+/** @endcond */
 
-/**
- * Subclasses should override this method to write out their contained
- * SBML objects as XML elements.  Be sure to call your parents
- * implementation of this method as well.
- */
+/** @cond doxygen-libsbml-internal */
 void
 CubicBezier::writeElements (XMLOutputStream& stream) const
 {
@@ -534,24 +519,11 @@ CubicBezier::writeElements (XMLOutputStream& stream) const
   mBasePoint1.write(stream);
   mBasePoint2.write(stream);
 
-  //
-  // (EXTENSION)
-  //
   SBase::writeExtensionElements(stream);
 }
+/** @endcond */
 
-
-
-/**
- * Subclasses should override this method to write their XML attributes
- * to the XMLOutputStream.  Be sure to call your parents implementation
- * of this method as well.  For example:
- *
- *   SBase::writeAttributes(stream);
- *   stream.writeAttribute( "id"  , mId   );
- *   stream.writeAttribute( "name", mName );
- *   ...
- */
+/** @cond doxygen-libsbml-internal */
 void CubicBezier::writeAttributes (XMLOutputStream& stream) const
 {
   SBase::writeAttributes(stream);
@@ -562,7 +534,9 @@ void CubicBezier::writeAttributes (XMLOutputStream& stream) const
   //
   SBase::writeExtensionAttributes(stream);
 }
+/** @endcond */
 
+/** @cond doxygen-libsbml-internal */
 void 
 CubicBezier::writeXMLNS (XMLOutputStream& stream) const
 {
@@ -570,6 +544,7 @@ CubicBezier::writeXMLNS (XMLOutputStream& stream) const
   xmlns.add(LayoutExtension::getXmlnsXSI(), "xsi");
   stream << xmlns;
 }
+/** @endcond */
 
 
 /**

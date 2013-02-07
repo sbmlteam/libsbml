@@ -69,7 +69,7 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 
 class LIBSBML_EXTERN SpeciesReferenceGlyph : public GraphicalObject
 {
-protected:
+private:
 
   std::string mSpeciesReference;
   std::string mSpeciesGlyph;
