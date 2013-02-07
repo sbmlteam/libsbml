@@ -1,4 +1,4 @@
-/** @page libsbml-communications Bug reports, mailing lists, and related topics
+/** @page libsbml-communications Questions, bug reports, etc.
 
 @htmlinclude libsbml-communications.html
 
