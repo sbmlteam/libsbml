@@ -1,4 +1,4 @@
-/** @page changes Summary of changes between libSBML releases
+/** @page libsbml-news Change history for version 5.0.0 and later
 @n
 
 <!-- NEWS.txt is located in ../../.  The include search path for
