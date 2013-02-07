@@ -1,5 +1,0 @@
-/** @page libsbml-uninstallation Uninstalling libSBML
-
-@htmlinclude libsbml-uninstallation.html
-
-*/
