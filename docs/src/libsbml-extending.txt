@@ -1,0 +1,6 @@
+/** @page libsbml-extending Extending libSBML to support SBML packages
+
+- @subpage libsbml-extension-support-classes
+- @subpage libsbml-howto-implement-extension
+
+*/
