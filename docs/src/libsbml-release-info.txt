@@ -1,0 +1,7 @@
+/** @page libsbml-release-info LibSBML release information
+
+- @subpage changes
+- @subpage libsbml-issues
+- @subpage libsbml-license
+
+*/
