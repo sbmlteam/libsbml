@@ -1,4 +1,4 @@
-/** @page libsbml-example Tutorial: Creating a complete model, from start to finish
+/** @page libsbml-example Tutorial: creating a complete model
 
 This section presents a complete example program in C++ demonstrating
 how to create a complete SBML Level&nbsp;2 model programmatically and
