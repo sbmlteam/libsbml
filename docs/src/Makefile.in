@@ -250,6 +250,7 @@ distfiles =                                                  \
         libsbml-authors.html                                 \
         libsbml-blurb.html                                   \
         libsbml-blurb.txt                                    \
+        libsbml-changes.txt                                  \
         libsbml-coding.txt                                   \
         libsbml-communications.html                          \
         libsbml-communications.txt                           \
@@ -260,6 +261,7 @@ distfiles =                                                  \
         libsbml-csharp-reading-files.txt                     \
 	libsbml-doxygen.html                                 \
         libsbml-example.txt                                  \
+	libsbml-extending.txt                                \
         libsbml-extension-support-classes.txt                \
         libsbml-features.html                                \
         libsbml-features.txt                                 \
@@ -283,17 +285,18 @@ distfiles =                                                  \
         libsbml-matlab-mainpage.txt                          \
         libsbml-matlab-reading-files.txt                     \
         libsbml-news.txt                                     \
-        libsbml-old-news.txt                                     \
         libsbml-papers.html                                  \
         libsbml-papers.txt                                   \
         libsbml-octave-mainpage.txt                          \
         libsbml-octave-reading-files.txt                     \
+        libsbml-old-news.txt                                 \
+        libsbml-other.txt                                    \
+        libsbml-programming.txt                              \
         libsbml-python-mainpage.txt                          \
         libsbml-python-math.txt                              \
         libsbml-python-reading-files.txt                     \
         libsbml-reading-files.txt                            \
-        libsbml-uninstallation.html                          \
-        libsbml-uninstallation.txt                           \
+        libsbml-release-info.txt                             \
         plain-font-off.html                                  \
         plain-font-on.html                                   \
         python-substitutions/ASTNodeList.py                  \
@@ -628,7 +631,6 @@ java-manual $(java-manual): $(core-sources) SBMLDoclet.class
 	$(call merge_html,libsbml-java-math.html,$(java-manual)/libsbml-java-math.html,facilities for manipulating mathematical expressions)
 	$(call merge_html,libsbml-issues.html,$(java-manual)/libsbml-issues.html,known issues and pitfalls)
 	$(call merge_html,libsbml-java-misc.html,$(java-manual)/libsbml-java-misc.html,Miscellaneous Java-specific information)
-	$(call merge_html,libsbml-uninstallation.html,$(java-manual)/libsbml-uninstallation.html,uninstallation)
 	$(call merge_html,../../LICENSE.html,$(java-manual)/libsbml-license.html,license)
 	$(call merge_html_verb,../../NEWS.txt,$(java-manual)/libsbml-news.html,news)
 	$(call merge_html_verb,../../OLD_NEWS.txt,$(java-manual)/libsbml-old-news.html,old-news)
