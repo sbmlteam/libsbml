@@ -338,13 +338,17 @@ public:
   /** @endcond */
    
 protected:
+  /** @cond doxygen-libsbml-internal */
   /**
    * @return the SBML object corresponding to next XMLToken in the
    * XMLInputStream or NULL if the token was not recognized.
    */
   virtual SBase*
   createObject (XMLInputStream& stream);
+  /** @endcond */
 
+
+  /** @cond doxygen-libsbml-internal */
   /**
    * Subclasses should override this method to get the list of
    * expected attributes.
@@ -352,8 +356,10 @@ protected:
    * function.
    */
   virtual void addExpectedAttributes(ExpectedAttributes& attributes);
+  /** @endcond */
 
 
+  /** @cond doxygen-libsbml-internal */
   /**
    * Subclasses should override this method to read values from the given
    * XMLAttributes set into their specific fields.  Be sure to call your
@@ -361,7 +367,10 @@ protected:
    */
   virtual void readAttributes (const XMLAttributes& attributes, 
                                const ExpectedAttributes& expectedAttributes);
+  /** @endcond */
 
+
+  /** @cond doxygen-libsbml-internal */
   /**
    * Subclasses should override this method to write their XML attributes
    * to the XMLOutputStream.  Be sure to call your parents implementation
@@ -373,7 +382,10 @@ protected:
    *   ...
    */
   virtual void writeAttributes (XMLOutputStream& stream) const;
+  /** @endcond */
 
+
+  /** @cond doxygen-libsbml-internal */
   /**
    *
    * Subclasses should override this method to write their xmlns attriubutes
@@ -381,6 +393,7 @@ protected:
    *
    */
   virtual void writeXMLNS (XMLOutputStream& stream) const;
+  /** @endcond */
 };
 
 LIBSBML_CPP_NAMESPACE_END
