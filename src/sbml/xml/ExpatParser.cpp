@@ -134,7 +134,7 @@ ExpatParser::reportError (const XMLErrorCode_t code,
     // the measure of last resort.
 
     cerr << XMLError::getStandardMessage(code)
-	 << " at line and column numbers " << line << ":" << column << ":\n"
+	 << "  Error found at line and column numbers " << line << ":" << column << ":\n"
 	 << extraMsg << endl;
   }
 }
