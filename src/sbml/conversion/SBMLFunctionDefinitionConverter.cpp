@@ -103,10 +103,10 @@ struct tokens: std::ctype<char>
         static cctype::mask rc[cctype::table_size];
         std::memcpy(rc, const_rc, cctype::table_size * sizeof(cctype::mask));
 
-        rc[','] = std::ctype_base::space; 
-        rc[';'] = std::ctype_base::space; 
-        rc['\t'] = std::ctype_base::space; 
-        rc[' '] = std::ctype_base::space; 
+        rc[(int)','] = std::ctype_base::space; 
+        rc[(int)';'] = std::ctype_base::space; 
+        rc[(int)'\t'] = std::ctype_base::space; 
+        rc[(int)' '] = std::ctype_base::space; 
         return &rc[0];
     }
 };
