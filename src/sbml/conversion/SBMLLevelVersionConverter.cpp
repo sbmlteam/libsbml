@@ -31,6 +31,7 @@
 #include <sbml/extension/SBMLExtensionRegistry.h>
 #include <sbml/SBMLWriter.h>
 #include <sbml/SBMLReader.h>
+#include <sbml/SBMLDocument.h>
 #include <sbml/Model.h>
 
 #ifdef __cplusplus
@@ -202,7 +203,6 @@ SBMLLevelVersionConverter::convert()
     return LIBSBML_OPERATION_SUCCESS;
   }
 
-
   /* since this function will write to the error log we should
    * clear anything in the log first
    */
@@ -250,7 +250,7 @@ SBMLLevelVersionConverter::convert()
    */
   /* see whether the unit validator is on */
   //bool strictSBO   = ((convValidators & 0x04) == 0x04);
-  bool strictUnits = strict && ((convValidators & 0x10) == 0x10);
+  bool strictUnits = strict && ((convValidators & UnitsCheckON) == UnitsCheckON);
   
   if (strict == true)
   {
@@ -280,8 +280,6 @@ SBMLLevelVersionConverter::convert()
 
     mDocument->getErrorLog()->clearLog();
   }
-
-
 
   unsigned int i;
   bool duplicateAnn = false;
@@ -390,7 +388,7 @@ SBMLLevelVersionConverter::performConversion(bool strict, bool strictUnits,
   Model * currentModel = mDocument->getModel();
 
   unsigned int i = 0;
-
+  
   if (currentLevel == 1)
   {
     switch (targetLevel)
@@ -464,6 +462,7 @@ SBMLLevelVersionConverter::performConversion(bool strict, bool strictUnits,
       }
       if (doConversion == true)
       {
+         
         currentModel->removeParameterRuleUnits(strict);
         currentModel->convertParametersToLocals(targetLevel, targetVersion);
         mDocument->updateSBMLNamespace("core", targetLevel, targetVersion);
@@ -493,7 +492,7 @@ SBMLLevelVersionConverter::performConversion(bool strict, bool strictUnits,
           /* if existing model is L2V4 need to mDocument->check that
           * units are strict
           */
-          if (currentVersion == 4 && !hasStrictUnits())
+          if (currentVersion == 4 && strictUnits == true && !hasStrictUnits())
           {
             if (strict == false)
             {
@@ -537,7 +536,7 @@ SBMLLevelVersionConverter::performConversion(bool strict, bool strictUnits,
           /* if existing model is L2V4 need to mDocument->check that
           * units are strict
           */
-          if (currentVersion == 4 && !hasStrictUnits())
+          if (currentVersion == 4 && strictUnits == true && !hasStrictUnits())
           {
             if (strict == false)
             {
@@ -565,7 +564,7 @@ SBMLLevelVersionConverter::performConversion(bool strict, bool strictUnits,
           /* if existing model is L2V4 need to mDocument->check that
           * units are strict
           */
-          if (currentVersion == 4 && !hasStrictUnits())
+          if (currentVersion == 4 && strictUnits == true && !hasStrictUnits())
           {
             if (strict == false)
             {
@@ -612,7 +611,7 @@ SBMLLevelVersionConverter::performConversion(bool strict, bool strictUnits,
           /* if existing model is L2V4 need to mDocument->check that
           * units are strict
           */
-          if (currentVersion == 4 && !hasStrictUnits())
+          if (currentVersion == 4 && strictUnits == true && !hasStrictUnits())
           {
             if (strict == false)
             {
@@ -741,7 +740,7 @@ SBMLLevelVersionConverter::performConversion(bool strict, bool strictUnits,
         if (!conversion_errors(mDocument->checkL1Compatibility(), strictUnits))
         {
           doConversion = true;
-          if (!hasStrictUnits())
+          if (strictUnits == true && !hasStrictUnits())
           {
             if (strict == false)
             {
@@ -778,7 +777,7 @@ SBMLLevelVersionConverter::performConversion(bool strict, bool strictUnits,
         if (!conversion_errors(mDocument->checkL2v1Compatibility(), strictUnits))
         {
           doConversion = true;
-           if (!hasStrictUnits())
+           if (strictUnits == true && !hasStrictUnits())
           {
             if (strict == false)
             {
@@ -799,7 +798,7 @@ SBMLLevelVersionConverter::performConversion(bool strict, bool strictUnits,
         if (!conversion_errors(mDocument->checkL2v2Compatibility(), strictUnits))
         {
           doConversion = true;
-          if (!hasStrictUnits())
+          if (strictUnits == true && !hasStrictUnits())
           {
             if (strict == false)
             {
@@ -835,7 +834,7 @@ SBMLLevelVersionConverter::performConversion(bool strict, bool strictUnits,
         if (!conversion_errors(mDocument->checkL2v3Compatibility(), strictUnits))
         {
           doConversion = true;
-          if (!hasStrictUnits())
+          if (strictUnits == true && !hasStrictUnits())
           {
             if (strict == false)
             {
@@ -880,7 +879,9 @@ SBMLLevelVersionConverter::performConversion(bool strict, bool strictUnits,
       if (doConversion == true)
       {
         if (targetVersion == 1)
+        {
           mDocument->expandInitialAssignments();
+        }
         mDocument->updateSBMLNamespace("core", targetLevel, targetVersion);
         currentModel->convertL3ToL2(strict);
         conversion = true;
@@ -917,7 +918,7 @@ SBMLLevelVersionConverter::performConversion(bool strict, bool strictUnits,
  */
 bool
 SBMLLevelVersionConverter::conversion_errors(unsigned int errors, bool strictUnits)
-{
+{  
   // if people have declared that they want to convert, even should 
   // conversion errors occur, then return false, so the conversion will 
   // proceed. In that case we leave the error log in tact, so people are
@@ -984,14 +985,14 @@ SBMLLevelVersionConverter::hasStrictUnits()
   */
   if (errors > 0)
   {
-    std::list<SBMLError> fails = unit_validator.getFailures();
-    std::list<SBMLError>::iterator iter;
+    const std::list<SBMLError>& fails = unit_validator.getFailures();
+    std::list<SBMLError>::const_iterator iter;
 
-    for (iter = fails.begin(); iter != fails.end(); iter++)
+    for (iter = fails.begin(); iter != fails.end(); ++iter)
     {
       if ( iter->getErrorId() > UpperUnitBound)
       {
-        errors--;
+        --errors;
       }
     }
   }
@@ -1019,18 +1020,18 @@ SBMLLevelVersionConverter::hasStrictSBO()
   */
   if (errors > 0)
   {
-    std::list<SBMLError> fails = sbo_validator.getFailures();
-    std::list<SBMLError>::iterator iter;
+    const std::list<SBMLError>& fails = sbo_validator.getFailures();
+    std::list<SBMLError>::const_iterator iter;
 
-    for (iter = fails.begin(); iter != fails.end(); iter++)
+    for (iter = fails.begin(); iter != fails.end(); ++iter)
     {
       if ( iter->getErrorId() > InvalidDelaySBOTerm)
       {
-        errors--;
+        --errors;
       }
     }
   }
-    
+
   return (errors == 0);
 
 }
