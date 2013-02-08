@@ -65,12 +65,14 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 
 class LIBSBML_EXTERN Point : public SBase
 {
-private:
+protected:
+  /** @cond doxygen-libsbml-internal */
   std::string mId;
   double mXOffset;
   double mYOffset;
   double mZOffset;
   std::string mElementName;
+  /** @endcond */
 
 public:
 

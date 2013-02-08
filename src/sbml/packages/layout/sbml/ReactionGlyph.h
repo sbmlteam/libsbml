@@ -210,11 +210,12 @@ protected:
 
 class LIBSBML_EXTERN ReactionGlyph : public GraphicalObject
 {
-private:
-
+protected:
+  /** @cond doxygen-libsbml-internal */
   std::string mReaction;
   ListOfSpeciesReferenceGlyphs mSpeciesReferenceGlyphs;
   Curve mCurve;
+  /** @endcond */
         
 
 public:

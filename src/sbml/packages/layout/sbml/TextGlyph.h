@@ -68,11 +68,12 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 
 class LIBSBML_EXTERN TextGlyph : public GraphicalObject
 {
-private:
-
+protected:
+  /** @cond doxygen-libsbml-internal */
   std::string mText;
   std::string mGraphicalObject;
   std::string mOriginOfText;
+  /** @endcond */
 
 
 public:

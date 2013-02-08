@@ -70,12 +70,12 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 
 class LIBSBML_EXTERN GraphicalObject : public SBase
 {
-private:
-
+protected:
+  /** @cond doxygen-libsbml-internal */
   std::string mId;
   std::string mMetaIdRef;
-
   BoundingBox mBoundingBox;
+  /** @endcond */
         
 
 public:

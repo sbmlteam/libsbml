@@ -68,12 +68,13 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 
 class LIBSBML_EXTERN ReferenceGlyph : public GraphicalObject
 {
-private:
-
+protected:
+  /** @cond doxygen-libsbml-internal */
   std::string mReference;
   std::string mGlyph;
   std::string mRole;
   Curve mCurve;
+  /** @endcond */
   
 public:
 

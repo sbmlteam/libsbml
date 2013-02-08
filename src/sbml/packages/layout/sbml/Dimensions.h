@@ -66,11 +66,13 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 
 class LIBSBML_EXTERN Dimensions : public SBase
 {
-private:
+protected:
+  /** @cond doxygen-libsbml-internal */
   std::string mId;
   double mW;
   double mH;
   double mD;
+  /** @endcond */
 
 
 public:

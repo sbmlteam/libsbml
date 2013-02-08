@@ -631,16 +631,16 @@ protected:
 
 class LIBSBML_EXTERN Layout : public SBase
 {
-private:
-
+protected:
+  /** @cond doxygen-libsbml-internal */
   std::string mId;
-
   Dimensions mDimensions;
   ListOfCompartmentGlyphs mCompartmentGlyphs;
   ListOfSpeciesGlyphs mSpeciesGlyphs;
   ListOfReactionGlyphs mReactionGlyphs;
   ListOfTextGlyphs mTextGlyphs;
   ListOfGraphicalObjects mAdditionalGraphicalObjects;
+  /** @endcond */
 
 protected:
   /** @cond doxygen-libsbml-internal */

@@ -70,12 +70,12 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 
 class LIBSBML_EXTERN BoundingBox : public SBase
 {
-private:
-
+protected:
+  /** @cond doxygen-libsbml-internal */
   std::string mId;
-
   Point mPosition;
   Dimensions mDimensions;
+  /** @endcond */
 
 
 public:

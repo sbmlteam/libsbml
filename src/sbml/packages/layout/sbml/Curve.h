@@ -163,9 +163,10 @@ protected:
   
 class LIBSBML_EXTERN Curve : public SBase
 {
-private:
-
+protected:
+  /** @cond doxygen-libsbml-internal */
   ListOfLineSegments mCurveSegments;
+  /** @endcond */
 
 
 public:

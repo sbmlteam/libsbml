@@ -69,9 +69,10 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 
 class LIBSBML_EXTERN SpeciesGlyph : public GraphicalObject
 {
-private:
-
+protected:
+  /** @cond doxygen-libsbml-internal */
   std::string mSpecies;        
+  /** @endcond */
 
 
 public:

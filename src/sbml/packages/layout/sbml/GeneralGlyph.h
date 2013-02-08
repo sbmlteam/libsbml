@@ -210,12 +210,13 @@ protected:
 
 class LIBSBML_EXTERN GeneralGlyph : public GraphicalObject
 {
-private:
-
+protected:
+  /** @cond doxygen-libsbml-internal */
   std::string mReference;
   ListOfReferenceGlyphs mReferenceGlyphs;
   ListOfGraphicalObjects mSubGlyphs;
   Curve mCurve;
+  /** @endcond */
         
 
 public:

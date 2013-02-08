@@ -67,9 +67,10 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 
 class LIBSBML_EXTERN CompartmentGlyph : public GraphicalObject
 {
-private:
-
+protected:
+  /** @cond doxygen-libsbml-internal */
   std::string mCompartment;
+  /** @endcond */
         
   friend class LayoutHandler;
 

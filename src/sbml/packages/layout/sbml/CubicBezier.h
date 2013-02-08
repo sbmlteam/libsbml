@@ -69,10 +69,11 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 
 class LIBSBML_EXTERN CubicBezier : public LineSegment
 {
-private:
-
+protected:
+  /** @cond doxygen-libsbml-internal */
   Point mBasePoint1;
   Point mBasePoint2;
+  /** @endcond */
 
 
 public:
