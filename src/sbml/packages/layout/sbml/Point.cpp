@@ -475,10 +475,7 @@ Point::clone () const
 }
 
 
-/**
- * @return the SBML object corresponding to next XMLToken in the
- * XMLInputStream or NULL if the token was not recognized.
- */
+/** @cond doxygen-libsbml-internal */
 SBase*
 Point::createObject (XMLInputStream& stream)
 {
@@ -488,13 +485,9 @@ Point::createObject (XMLInputStream& stream)
   
   return object;
 }
+/** @endcond */
 
-/**
- * Subclasses should override this method to get the list of
- * expected attributes.
- * This function is invoked from corresponding readAttributes()
- * function.
- */
+/** @cond doxygen-libsbml-internal */
 void
 Point::addExpectedAttributes(ExpectedAttributes& attributes)
 {
@@ -505,14 +498,9 @@ Point::addExpectedAttributes(ExpectedAttributes& attributes)
   attributes.add("y");
   attributes.add("z");
 }
+/** @endcond */
 
-
-/**
- * Subclasses should override this method to read values from the given
- * XMLAttributes set into their specific fields.  Be sure to call your
- * parents implementation of this method as well.
- */
-
+/** @cond doxygen-libsbml-internal */
 void Point::readAttributes (const XMLAttributes& attributes,
                             const ExpectedAttributes& expectedAttributes)
 {
@@ -535,17 +523,9 @@ void Point::readAttributes (const XMLAttributes& attributes,
       this->mZOffset=0.0;
   }
 }
+/** @endcond */
 
-/**
- * Subclasses should override this method to write their XML attributes
- * to the XMLOutputStream.  Be sure to call your parents implementation
- * of this method as well.  For example:
- *
- *   SBase::writeAttributes(stream);
- *   stream.writeAttribute( "id"  , mId   );
- *   stream.writeAttribute( "name", mName );
- *   ...
- */
+/** @cond doxygen-libsbml-internal */
 void Point::writeAttributes (XMLOutputStream& stream) const
 {
   SBase::writeAttributes(stream);
@@ -569,10 +549,8 @@ void Point::writeAttributes (XMLOutputStream& stream) const
   //
   SBase::writeExtensionAttributes(stream);
 }
+/** @endcond */
 
-/**
- * Creates an XMLNode object from this.
- */
 XMLNode Point::toXML(const std::string& name) const
 {
   return getXmlNodeForSBase(this);

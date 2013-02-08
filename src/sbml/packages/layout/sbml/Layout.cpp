@@ -1368,10 +1368,7 @@ Layout::getElementName () const
 }
 
 
-/**
- * @return the SBML object corresponding to next XMLToken in the
- * XMLInputStream or NULL if the token was not recognized.
- */
+/** @cond doxygen-libsbml-internal */
 SBase*
 Layout::createObject (XMLInputStream& stream)
 {
@@ -1391,13 +1388,9 @@ Layout::createObject (XMLInputStream& stream)
 
   return object;
 }
+/** @endcond */
 
-/**
- * Subclasses should override this method to get the list of
- * expected attributes.
- * This function is invoked from corresponding readAttributes()
- * function.
- */
+/** @cond doxygen-libsbml-internal */
 void
 Layout::addExpectedAttributes(ExpectedAttributes& attributes)
 {
@@ -1405,13 +1398,9 @@ Layout::addExpectedAttributes(ExpectedAttributes& attributes)
 
   attributes.add("id");
 }
+/** @endcond */
 
-
-/**
- * Subclasses should override this method to read values from the given
- * XMLAttributes set into their specific fields.  Be sure to call your
- * parents implementation of this method as well.
- */
+/** @cond doxygen-libsbml-internal */
 void
 Layout::readAttributes (const XMLAttributes& attributes,
                         const ExpectedAttributes& expectedAttributes)
@@ -1428,13 +1417,9 @@ Layout::readAttributes (const XMLAttributes& attributes,
   }
   if (!SyntaxChecker::isValidInternalSId(mId)) logError(InvalidIdSyntax);
 }
+/** @endcond */
 
-
-/**
- * Subclasses should override this method to write their XML attributes
- * to the XMLOutputStream.  Be sure to call your parents implementation
- * of this method as well.
- */
+/** @cond doxygen-libsbml-internal */
 void
 Layout::writeAttributes (XMLOutputStream& stream) const
 {
@@ -1447,13 +1432,9 @@ Layout::writeAttributes (XMLOutputStream& stream) const
   //
   SBase::writeExtensionAttributes(stream);
 }
+/** @endcond */
 
-
-/**
- * Subclasses should override this method to write out their contained
- * SBML objects as XML elements.  Be sure to call your parents
- * implementation of this method as well.
- */
+/** @cond doxygen-libsbml-internal */
 void
 Layout::writeElements (XMLOutputStream& stream) const
 {
@@ -1480,20 +1461,15 @@ Layout::writeElements (XMLOutputStream& stream) const
   //
   SBase::writeExtensionElements(stream);
 }
+/** @endcond */
 
 
-/**
- * Creates an XMLNode object from this.
- */
 XMLNode Layout::toXML() const
 {
   return getXmlNodeForSBase(this);
 }
 
 
-/**
- * Returns the package type code for this object.
- */
 int
 Layout::getTypeCode () const
 {
@@ -1508,9 +1484,6 @@ Layout::clone() const
 }
 
 
-/**
- * Accepts the given SBMLVisitor.
- */
 bool
 Layout::accept (SBMLVisitor& v) const
 {
@@ -1713,10 +1686,8 @@ ListOfLayouts::resetElementNamespace(const std::string& uri)
   sbmlns->addNamespace(LayoutExtension::getXmlnsL3V1V1(), "layout");
 
 }
-/**
- * @return the SBML object corresponding to next XMLToken in the
- * XMLInputStream or NULL if the token was not recognized.
- */
+
+/** @cond doxygen-libsbml-internal */
 SBase*
 ListOfLayouts::createObject (XMLInputStream& stream)
 {
@@ -1734,8 +1705,9 @@ ListOfLayouts::createObject (XMLInputStream& stream)
 
   return object;
 }
+/** @endcond */
 
-
+/** @cond doxygen-libsbml-internal */
 void 
 ListOfLayouts::writeXMLNS (XMLOutputStream& stream) const
 {
@@ -1755,6 +1727,7 @@ ListOfLayouts::writeXMLNS (XMLOutputStream& stream) const
   
   stream << xmlns;
 }
+/** @endcond */
 
 
 /**
@@ -1885,10 +1858,7 @@ ListOfCompartmentGlyphs::getElementName () const
 }
 
 
-/**
- * @return the SBML object corresponding to next XMLToken in the
- * XMLInputStream or NULL if the token was not recognized.
- */
+/** @cond doxygen-libsbml-internal */
 SBase*
 ListOfCompartmentGlyphs::createObject (XMLInputStream& stream)
 {
@@ -1906,6 +1876,7 @@ ListOfCompartmentGlyphs::createObject (XMLInputStream& stream)
 
   return object;
 }
+/** @endcond */
 
 
 
@@ -2038,10 +2009,7 @@ ListOfSpeciesGlyphs::getElementName () const
 }
 
 
-/**
- * @return the SBML object corresponding to next XMLToken in the
- * XMLInputStream or NULL if the token was not recognized.
- */
+/** @cond doxygen-libsbml-internal */
 SBase*
 ListOfSpeciesGlyphs::createObject (XMLInputStream& stream)
 {
@@ -2059,6 +2027,7 @@ ListOfSpeciesGlyphs::createObject (XMLInputStream& stream)
 
   return object;
 }
+/** @endcond */
 
 /**
  * Creates an XMLNode object from this.
@@ -2188,10 +2157,7 @@ ListOfReactionGlyphs::remove (const std::string& sid)
 }
 
 
-/**
- * @return the SBML object corresponding to next XMLToken in the
- * XMLInputStream or NULL if the token was not recognized.
- */
+/** @cond doxygen-libsbml-internal */
 SBase*
 ListOfReactionGlyphs::createObject (XMLInputStream& stream)
 {
@@ -2209,6 +2175,7 @@ ListOfReactionGlyphs::createObject (XMLInputStream& stream)
 
   return object;
 }
+/** @endcond */
 
 /**
  * Creates an XMLNode object from this.
@@ -2338,10 +2305,7 @@ ListOfTextGlyphs::remove (const std::string& sid)
 }
 
 
-/**
- * @return the SBML object corresponding to next XMLToken in the
- * XMLInputStream or NULL if the token was not recognized.
- */
+/** @cond doxygen-libsbml-internal */
 SBase*
 ListOfTextGlyphs::createObject (XMLInputStream& stream)
 {
@@ -2359,6 +2323,7 @@ ListOfTextGlyphs::createObject (XMLInputStream& stream)
 
   return object;
 }
+/** @endcond */
 
 /**
  * Creates an XMLNode object from this.

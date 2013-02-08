@@ -94,9 +94,7 @@ LayoutModelPlugin::clone () const
 }
 
 
-/*
- *
- */
+/** @cond doxygen-libsbml-internal */
 SBase*
 LayoutModelPlugin::createObject(XMLInputStream& stream)
 {
@@ -127,11 +125,9 @@ LayoutModelPlugin::createObject(XMLInputStream& stream)
 
   return object;
 }
+/** @endcond */
 
-
-/*
- * This function is used only for Layout Extension in SBML Level 2.
- */
+/** @cond doxygen-libsbml-internal */
 bool 
 LayoutModelPlugin::readOtherXML (SBase* parentObject, XMLInputStream& stream)
 {
@@ -222,8 +218,9 @@ LayoutModelPlugin::readOtherXML (SBase* parentObject, XMLInputStream& stream)
 
   return readAnnotationFromStream;
 }
+/** @endcond */
 
-
+/** @cond doxygen-libsbml-internal */
 void 
 LayoutModelPlugin::writeAttributes (XMLOutputStream& stream) const
 {
@@ -249,11 +246,9 @@ LayoutModelPlugin::writeAttributes (XMLOutputStream& stream) const
     delete annt;
   }
 }
+/** @endcond */
 
-
-/*
- *
- */
+/** @cond doxygen-libsbml-internal */
 void
 LayoutModelPlugin::writeElements (XMLOutputStream& stream) const
 {
@@ -268,6 +263,7 @@ LayoutModelPlugin::writeElements (XMLOutputStream& stream) const
   }    
   // do nothing.  
 }
+/** @endcond */
 
 
 /* default for components that have no required elements */

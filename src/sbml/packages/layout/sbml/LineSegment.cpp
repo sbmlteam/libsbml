@@ -384,10 +384,7 @@ LineSegment::clone () const
 }
 
 
-/**
- * @return the SBML object corresponding to next XMLToken in the
- * XMLInputStream or NULL if the token was not recognized.
- */
+/** @cond doxygen-libsbml-internal */
 SBase*
 LineSegment::createObject (XMLInputStream& stream)
 {
@@ -407,15 +404,18 @@ LineSegment::createObject (XMLInputStream& stream)
  
   return object;
 }
+/** @endcond */
 
+/** @cond doxygen-libsbml-internal */
 void
 LineSegment::addExpectedAttributes(ExpectedAttributes& attributes)
 {
   SBase::addExpectedAttributes(attributes);
   attributes.add("xsi:type");
 }
+/** @endcond */
 
-
+/** @cond doxygen-libsbml-internal */
 void LineSegment::readAttributes (const XMLAttributes& attributes,
                                   const ExpectedAttributes& expectedAttributes)
 {
@@ -435,19 +435,9 @@ LineSegment::writeElements (XMLOutputStream& stream) const
   //
   SBase::writeExtensionElements(stream);
 }
+/** @endcond */
 
-
-
-/**
- * Subclasses should override this method to write their XML attributes
- * to the XMLOutputStream.  Be sure to call your parents implementation
- * of this method as well.  For example:
- *
- *   SBase::writeAttributes(stream);
- *   stream.writeAttribute( "id"  , mId   );
- *   stream.writeAttribute( "name", mName );
- *   ...
- */
+/** @cond doxygen-libsbml-internal */
 void LineSegment::writeAttributes (XMLOutputStream& stream) const
 {
   SBase::writeAttributes(stream);
@@ -458,6 +448,7 @@ void LineSegment::writeAttributes (XMLOutputStream& stream) const
   //
   SBase::writeExtensionAttributes(stream);
 }
+/** @endcond */
 
 
 /**

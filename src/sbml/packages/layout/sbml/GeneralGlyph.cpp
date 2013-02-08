@@ -741,10 +741,7 @@ GeneralGlyph::clone () const
 }
 
 
-/**
- * @return the SBML object corresponding to next XMLToken in the
- * XMLInputStream or NULL if the token was not recognized.
- */
+/** @endcond */
 SBase*
 GeneralGlyph::createObject (XMLInputStream& stream)
 {
@@ -771,13 +768,9 @@ GeneralGlyph::createObject (XMLInputStream& stream)
   
   return object;
 }
+/** @endcond */
 
-/**
- * Subclasses should override this method to get the list of
- * expected attributes.
- * This function is invoked from corresponding readAttributes()
- * function.
- */
+/** @cond doxygen-libsbml-internal */
 void
 GeneralGlyph::addExpectedAttributes(ExpectedAttributes& attributes)
 {
@@ -785,14 +778,9 @@ GeneralGlyph::addExpectedAttributes(ExpectedAttributes& attributes)
 
   attributes.add("reference");
 }
+/** @endcond */
 
-
-/**
- * Subclasses should override this method to read values from the given
- * XMLAttributes set into their specific fields.  Be sure to call your
- * parents implementation of this method as well.
- */
-
+/** @cond doxygen-libsbml-internal */
 void GeneralGlyph::readAttributes (const XMLAttributes& attributes,
                                     const ExpectedAttributes& expectedAttributes)
 {
@@ -808,12 +796,9 @@ void GeneralGlyph::readAttributes (const XMLAttributes& attributes,
   }
   if (!SyntaxChecker::isValidInternalSId(mReference)) logError(InvalidIdSyntax);
 }
+/** @endcond */
 
-/**
- * Subclasses should override this method to write out their contained
- * SBML objects as XML elements.  Be sure to call your parents
- * implementation of this method as well.
- */
+/** @cond doxygen-libsbml-internal */
 void
 GeneralGlyph::writeElements (XMLOutputStream& stream) const
 {
@@ -841,19 +826,9 @@ GeneralGlyph::writeElements (XMLOutputStream& stream) const
   //
   SBase::writeExtensionElements(stream);
 }
+/** @endcond */
 
-
-
-/**
- * Subclasses should override this method to write their XML attributes
- * to the XMLOutputStream.  Be sure to call your parents implementation
- * of this method as well.  For example:
- *
- *   SBase::writeAttributes(stream);
- *   stream.writeAttribute( "id"  , mId   );
- *   stream.writeAttribute( "name", mName );
- *   ...
- */
+/** @cond doxygen-libsbml-internal */
 void GeneralGlyph::writeAttributes (XMLOutputStream& stream) const
 {
   GraphicalObject::writeAttributes(stream);
@@ -868,6 +843,7 @@ void GeneralGlyph::writeAttributes (XMLOutputStream& stream) const
   //SBase::writeExtensionAttributes(stream);
 
 }
+/** @endcond */
 
 
 /**
@@ -1009,10 +985,7 @@ ListOfReferenceGlyphs::remove (const std::string& sid)
 }
 
 
-/**
- * @return the SBML object corresponding to next XMLToken in the
- * XMLInputStream or NULL if the token was not recognized.
- */
+/** @cond doxygen-libsbml-internal */
 SBase*
 ListOfReferenceGlyphs::createObject (XMLInputStream& stream)
 {
@@ -1029,6 +1002,7 @@ ListOfReferenceGlyphs::createObject (XMLInputStream& stream)
 
   return object;
 }
+/** @endcond */
 
 /**
  * Creates an XMLNode object from this.

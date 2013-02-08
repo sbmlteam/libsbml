@@ -401,10 +401,7 @@ Dimensions::clone () const
 }
 
 
-/**
- * @return the SBML object corresponding to next XMLToken in the
- * XMLInputStream or NULL if the token was not recognized.
- */
+/** @cond doxygen-libsbml-internal */
 SBase*
 Dimensions::createObject (XMLInputStream& stream)
 {
@@ -414,13 +411,9 @@ Dimensions::createObject (XMLInputStream& stream)
   
   return object;
 }
+/** @endcond */
 
-/**
- * Subclasses should override this method to get the list of
- * expected attributes.
- * This function is invoked from corresponding readAttributes()
- * function.
- */
+/** @cond doxygen-libsbml-internal */
 void
 Dimensions::addExpectedAttributes(ExpectedAttributes& attributes)
 {
@@ -431,14 +424,9 @@ Dimensions::addExpectedAttributes(ExpectedAttributes& attributes)
   attributes.add("height");
   attributes.add("depth");
 }
+/** @endcond */
 
-
-/**
- * Subclasses should override this method to read values from the given
- * XMLAttributes set into their specific fields.  Be sure to call your
- * parents implementation of this method as well.
- */
-
+/** @cond doxygen-libsbml-internal */
 void Dimensions::readAttributes (const XMLAttributes& attributes,
                                  const ExpectedAttributes& expectedAttributes)
 {
@@ -465,12 +453,9 @@ void Dimensions::readAttributes (const XMLAttributes& attributes,
       this->mD=0.0;
   }
 }
+/** @endcond */
 
-/**
- * Subclasses should override this method to write out their contained
- * SBML objects as XML elements.  Be sure to call your parents
- * implementation of this method as well.
- */
+/** @cond doxygen-libsbml-internal */
 void
 Dimensions::writeElements (XMLOutputStream& stream) const
 {
@@ -481,19 +466,9 @@ Dimensions::writeElements (XMLOutputStream& stream) const
   //
   SBase::writeExtensionElements(stream);
 }
+/** @endcond */
 
-
-
-/**
- * Subclasses should override this method to write their XML attributes
- * to the XMLOutputStream.  Be sure to call your parents implementation
- * of this method as well.  For example:
- *
- *   SBase::writeAttributes(stream);
- *   stream.writeAttribute( "id"  , mId   );
- *   stream.writeAttribute( "name", mName );
- *   ...
- */
+/** @cond doxygen-libsbml-internal */
 void Dimensions::writeAttributes (XMLOutputStream& stream) const
 {
   SBase::writeAttributes(stream);
@@ -517,6 +492,7 @@ void Dimensions::writeAttributes (XMLOutputStream& stream) const
   //
   SBase::writeExtensionAttributes(stream);
 }
+/** @endcond */
 
 
 /**

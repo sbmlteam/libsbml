@@ -551,10 +551,7 @@ ReactionGlyph::clone () const
 }
 
 
-/**
- * @return the SBML object corresponding to next XMLToken in the
- * XMLInputStream or NULL if the token was not recognized.
- */
+/** @cond doxygen-libsbml-internal */
 SBase*
 ReactionGlyph::createObject (XMLInputStream& stream)
 {
@@ -577,13 +574,9 @@ ReactionGlyph::createObject (XMLInputStream& stream)
   
   return object;
 }
+/** @endcond */
 
-/**
- * Subclasses should override this method to get the list of
- * expected attributes.
- * This function is invoked from corresponding readAttributes()
- * function.
- */
+/** @cond doxygen-libsbml-internal */
 void
 ReactionGlyph::addExpectedAttributes(ExpectedAttributes& attributes)
 {
@@ -591,14 +584,9 @@ ReactionGlyph::addExpectedAttributes(ExpectedAttributes& attributes)
 
   attributes.add("reaction");
 }
+/** @endcond */
 
-
-/**
- * Subclasses should override this method to read values from the given
- * XMLAttributes set into their specific fields.  Be sure to call your
- * parents implementation of this method as well.
- */
-
+/** @cond doxygen-libsbml-internal */
 void ReactionGlyph::readAttributes (const XMLAttributes& attributes,
                                     const ExpectedAttributes& expectedAttributes)
 {
@@ -614,12 +602,9 @@ void ReactionGlyph::readAttributes (const XMLAttributes& attributes,
   }
   if (!SyntaxChecker::isValidInternalSId(mReaction)) logError(InvalidIdSyntax);
 }
+/** @endcond */
 
-/**
- * Subclasses should override this method to write out their contained
- * SBML objects as XML elements.  Be sure to call your parents
- * implementation of this method as well.
- */
+/** @cond doxygen-libsbml-internal */
 void
 ReactionGlyph::writeElements (XMLOutputStream& stream) const
 {
@@ -646,19 +631,9 @@ ReactionGlyph::writeElements (XMLOutputStream& stream) const
   //
   SBase::writeExtensionElements(stream);
 }
+/** @endcond */
 
-
-
-/**
- * Subclasses should override this method to write their XML attributes
- * to the XMLOutputStream.  Be sure to call your parents implementation
- * of this method as well.  For example:
- *
- *   SBase::writeAttributes(stream);
- *   stream.writeAttribute( "id"  , mId   );
- *   stream.writeAttribute( "name", mName );
- *   ...
- */
+/** @cond doxygen-libsbml-internal */
 void ReactionGlyph::writeAttributes (XMLOutputStream& stream) const
 {
   GraphicalObject::writeAttributes(stream);
@@ -673,6 +648,7 @@ void ReactionGlyph::writeAttributes (XMLOutputStream& stream) const
   //SBase::writeExtensionAttributes(stream);
 
 }
+/** @endcond */
 
 
 /**
@@ -814,10 +790,7 @@ ListOfSpeciesReferenceGlyphs::remove (const std::string& sid)
 }
 
 
-/**
- * @return the SBML object corresponding to next XMLToken in the
- * XMLInputStream or NULL if the token was not recognized.
- */
+/** @cond doxygen-libsbml-internal */
 SBase*
 ListOfSpeciesReferenceGlyphs::createObject (XMLInputStream& stream)
 {
@@ -835,18 +808,18 @@ ListOfSpeciesReferenceGlyphs::createObject (XMLInputStream& stream)
 
   return object;
 }
+/** @endcond */
 
-/**
- * Creates an XMLNode object from this.
- */
+/** @cond doxygen-libsbml-internal */
 XMLNode ListOfSpeciesReferenceGlyphs::toXML() const
 {
   return getXmlNodeForSBase(this);
 }
+/** @endcond */
 
 
 
-/**
+/*
  * Accepts the given SBMLVisitor.
  
 bool

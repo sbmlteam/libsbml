@@ -463,10 +463,7 @@ SpeciesReferenceGlyph::clone () const
 }
 
 
-/**
- * @return the SBML object corresponding to next XMLToken in the
- * XMLInputStream or NULL if the token was not recognized.
- */
+/** @cond doxygen-libsbml-internal */
 SBase*
 SpeciesReferenceGlyph::createObject (XMLInputStream& stream)
 {
@@ -485,13 +482,9 @@ SpeciesReferenceGlyph::createObject (XMLInputStream& stream)
   
   return object;
 }
+/** @endcond */
 
-/**
- * Subclasses should override this method to get the list of
- * expected attributes.
- * This function is invoked from corresponding readAttributes()
- * function.
- */
+/** @cond doxygen-libsbml-internal */
 void
 SpeciesReferenceGlyph::addExpectedAttributes(ExpectedAttributes& attributes)
 {
@@ -501,14 +494,9 @@ SpeciesReferenceGlyph::addExpectedAttributes(ExpectedAttributes& attributes)
   attributes.add("speciesGlyph");
   attributes.add("role");
 }
+/** @endcond */
 
-
-/**
- * Subclasses should override this method to read values from the given
- * XMLAttributes set into their specific fields.  Be sure to call your
- * parents implementation of this method as well.
- */
-
+/** @cond doxygen-libsbml-internal */
 void SpeciesReferenceGlyph::readAttributes (const XMLAttributes& attributes,
                                             const ExpectedAttributes& expectedAttributes)
 {
@@ -542,12 +530,9 @@ void SpeciesReferenceGlyph::readAttributes (const XMLAttributes& attributes,
   }
   
 }
+/** @endcond */
 
-/**
- * Subclasses should override this method to write out their contained
- * SBML objects as XML elements.  Be sure to call your parents
- * implementation of this method as well.
- */
+/** @cond doxygen-libsbml-internal */
 void
 SpeciesReferenceGlyph::writeElements (XMLOutputStream& stream) const
 {
@@ -566,19 +551,9 @@ SpeciesReferenceGlyph::writeElements (XMLOutputStream& stream) const
   //
   SBase::writeExtensionElements(stream);
 }
+/** @endcond */
 
-
-
-/**
- * Subclasses should override this method to write their XML attributes
- * to the XMLOutputStream.  Be sure to call your parents implementation
- * of this method as well.  For example:
- *
- *   SBase::writeAttributes(stream);
- *   stream.writeAttribute( "id"  , mId   );
- *   stream.writeAttribute( "name", mName );
- *   ...
- */
+/** @cond doxygen-libsbml-internal */
 void SpeciesReferenceGlyph::writeAttributes (XMLOutputStream& stream) const
 {
   GraphicalObject::writeAttributes(stream);
@@ -601,27 +576,22 @@ void SpeciesReferenceGlyph::writeAttributes (XMLOutputStream& stream) const
   //SBase::writeExtensionAttributes(stream);
 
 }
+/** @endcond */
 
 
-/**
- * Returns the package type code for this object.
- */
 int
 SpeciesReferenceGlyph::getTypeCode () const
 {
   return SBML_LAYOUT_SPECIESREFERENCEGLYPH;
 }
 
-/**
- * Creates an XMLNode object from this.
- */
 XMLNode SpeciesReferenceGlyph::toXML() const
 {
   return getXmlNodeForSBase(this);
 }
 
 
-/**
+/*
  * Accepts the given SBMLVisitor.
 
 bool

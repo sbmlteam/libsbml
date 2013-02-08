@@ -269,10 +269,7 @@ CompartmentGlyph::clone () const
 }
 
 
-/**
- * @return the SBML object corresponding to next XMLToken in the
- * XMLInputStream or NULL if the token was not recognized.
- */
+/** @cond doxygen-libsbml-internal */
 SBase*
 CompartmentGlyph::createObject (XMLInputStream& stream)
 {
@@ -283,13 +280,9 @@ CompartmentGlyph::createObject (XMLInputStream& stream)
   
   return object;
 }
+/** @endcond */
 
-/**
- * Subclasses should override this method to get the list of
- * expected attributes.
- * This function is invoked from corresponding readAttributes()
- * function.
- */
+/** @cond doxygen-libsbml-internal */
 void
 CompartmentGlyph::addExpectedAttributes(ExpectedAttributes& attributes)
 {
@@ -297,14 +290,9 @@ CompartmentGlyph::addExpectedAttributes(ExpectedAttributes& attributes)
 
   attributes.add("compartment");
 }
+/** @endcond */
 
-
-/**
- * Subclasses should override this method to read values from the given
- * XMLAttributes set into their specific fields.  Be sure to call your
- * parents implementation of this method as well.
- */
-
+/** @cond doxygen-libsbml-internal */
 void CompartmentGlyph::readAttributes (const XMLAttributes& attributes,
                                        const ExpectedAttributes& expectedAttributes)
 {
@@ -320,17 +308,9 @@ void CompartmentGlyph::readAttributes (const XMLAttributes& attributes,
     }
   if (!SyntaxChecker::isValidInternalSId(mCompartment)) logError(InvalidIdSyntax);
 }
+/** @endcond */
 
-/**
- * Subclasses should override this method to write their XML attributes
- * to the XMLOutputStream.  Be sure to call your parents implementation
- * of this method as well.  For example:
- *
- *   SBase::writeAttributes(stream);
- *   stream.writeAttribute( "id"  , mId   );
- *   stream.writeAttribute( "name", mName );
- *   ...
- */
+/** @cond doxygen-libsbml-internal */
 void CompartmentGlyph::writeAttributes (XMLOutputStream& stream) const
 {
   GraphicalObject::writeAttributes(stream);
@@ -345,6 +325,7 @@ void CompartmentGlyph::writeAttributes (XMLOutputStream& stream) const
   //SBase::writeExtensionAttributes(stream);
 
 }
+/** @endcond */
 
 /**
  * Returns the package type code for this object.

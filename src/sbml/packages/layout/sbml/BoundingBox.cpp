@@ -576,10 +576,7 @@ BoundingBox::clone () const
 }
 
 
-/**
- * @return the SBML object corresponding to next XMLToken in the
- * XMLInputStream or NULL if the token was not recognized.
- */
+/** @cond doxygen-libsbml-internal */
 SBase*
 BoundingBox::createObject (XMLInputStream& stream)
 {
@@ -598,13 +595,9 @@ BoundingBox::createObject (XMLInputStream& stream)
 
   return object;
 }
+/** @endcond */
 
-/**
- * Subclasses should override this method to get the list of
- * expected attributes.
- * This function is invoked from corresponding readAttributes()
- * function.
- */
+/** @cond doxygen-libsbml-internal */
 void
 BoundingBox::addExpectedAttributes(ExpectedAttributes& attributes)
 {
@@ -612,14 +605,9 @@ BoundingBox::addExpectedAttributes(ExpectedAttributes& attributes)
 
   attributes.add("id");
 }
+/** @endcond */
 
-
-/**
- * Subclasses should override this method to read values from the given
- * XMLAttributes set into their specific fields.  Be sure to call your
- * parents implementation of this method as well.
- */
-
+/** @cond doxygen-libsbml-internal */
 void BoundingBox::readAttributes (const XMLAttributes& attributes,
                                   const ExpectedAttributes& expectedAttributes)
 {
@@ -635,17 +623,9 @@ void BoundingBox::readAttributes (const XMLAttributes& attributes,
   }
   if (!SyntaxChecker::isValidInternalSId(mId)) logError(InvalidIdSyntax);
 }
+/** @endcond */
 
-/**
- * Subclasses should override this method to write their XML attributes
- * to the XMLOutputStream.  Be sure to call your parents implementation
- * of this method as well.  For example:
- *
- *   SBase::writeAttributes(stream);
- *   stream.writeAttribute( "id"  , mId   );
- *   stream.writeAttribute( "name", mName );
- *   ...
- */
+/** @cond doxygen-libsbml-internal */
 void BoundingBox::writeAttributes (XMLOutputStream& stream) const
 {
   SBase::writeAttributes(stream);
@@ -656,6 +636,7 @@ void BoundingBox::writeAttributes (XMLOutputStream& stream) const
   //
   SBase::writeExtensionAttributes(stream);
 }
+/** @endcond */
 
 
 /**
