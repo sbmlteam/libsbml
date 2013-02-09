@@ -56,7 +56,7 @@ using namespace std;
  *
  * Where:
  *
- *   ccccc  is the four digit constraint id the file is designed to test
+ *   ccccc  is the five digit constraint id the file is designed to test
  *
  *   pass   indicates the file must pass validation without error
  *
