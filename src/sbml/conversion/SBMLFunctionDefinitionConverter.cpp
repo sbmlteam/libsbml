@@ -90,26 +90,47 @@ SBMLFunctionDefinitionConverter::matchesProperties(const ConversionProperties &p
   return true;
 }
 
-
-struct tokens: std::ctype<char> 
+/*
+ * split the given string on comma, space, tab and semicolon
+ * and add the entries to the given idList
+ */ 
+IdList parseIds(const std::string& skipList, IdList& idsToSkip)
 {
-    tokens(): std::ctype<char>(get_table()) {}
 
-    static std::ctype_base::mask const* get_table()
+  if (&skipList == NULL || skipList.size() == 0) 
+    return idsToSkip;
+
+  size_t length = skipList.size();
+  size_t index = 0;   
+  char current;
+  stringstream currentId;
+  while (index < length)
+  {
+    current = skipList[index];
+    if (current == ',' || current == ' ' || current == '\t' || current == ';')
     {
-        typedef std::ctype<char> cctype;
-        static const cctype::mask *const_rc= cctype::classic_table();
+      const string& id = currentId.str();
+      
+      if (!id.empty())
+        idsToSkip.append(id);
 
-        static cctype::mask rc[cctype::table_size];
-        std::memcpy(rc, const_rc, cctype::table_size * sizeof(cctype::mask));
-
-        rc[(int)','] = std::ctype_base::space; 
-        rc[(int)';'] = std::ctype_base::space; 
-        rc[(int)'\t'] = std::ctype_base::space; 
-        rc[(int)' '] = std::ctype_base::space; 
-        return &rc[0];
+      // reset stream
+      currentId.str("");
+      currentId.clear();      
+    } 
+    else
+    {
+      currentId << current;
     }
-};
+    ++index;
+  }
+
+  const string& id = currentId.str();
+  if (!id.empty())
+   idsToSkip.append(id);
+
+  return idsToSkip;
+}
 
 int 
 SBMLFunctionDefinitionConverter::convert()
@@ -151,16 +172,7 @@ SBMLFunctionDefinitionConverter::convert()
 
   if (mProps != NULL && mProps->hasOption("skipIds"))
   {
-  std::stringstream ss(mProps->getOption("skipIds")->getValue());
-  ss.imbue(std::locale(std::locale(), new tokens()));
-  std::istream_iterator<std::string> begin(ss);
-  std::istream_iterator<std::string> end;
-  std::vector<std::string> skipVector(begin, end);
-  std::vector<std::string>::iterator it;
-
-
-  for (it = skipVector.begin(); it != skipVector.end(); ++it)
-    idsToSkip.append(*it);
+    parseIds(mProps->getOption("skipIds")->getValue(), idsToSkip);
   }
 
   // for any math in document replace each function def
