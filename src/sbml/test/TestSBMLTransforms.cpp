@@ -570,7 +570,8 @@ START_TEST (test_SBMLTransforms_expandFD)
   props.addOption("expandFunctionDefinitions", true);
   props.addOption("skipIds", "f");
 
-  fail_unless(doc->convert(props) == false);
+  fail_unless(doc->convert(props) == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(doc->getModel() != NULL);
   fail_unless(doc->getModel()->getNumFunctionDefinitions() == 1);
   fail_unless(doc->getModel()->getFunctionDefinition("f") != NULL);
   
@@ -582,7 +583,8 @@ START_TEST (test_SBMLTransforms_expandFD)
   props = ConversionProperties(); 
   props.addOption("expandFunctionDefinitions", true);
 
-  fail_unless(doc->convert(props) == false);
+  fail_unless(doc->convert(props) == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(doc->getModel() != NULL);
   fail_unless(doc->getModel()->getNumFunctionDefinitions() == 0);
   
   delete doc;
@@ -594,7 +596,8 @@ START_TEST (test_SBMLTransforms_expandFD)
   props.addOption("expandFunctionDefinitions", true);
   props.addOption("skipIds", "f,g");
 
-  fail_unless(doc->convert(props) == false);
+  fail_unless(doc->convert(props) == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(doc->getModel() != NULL);
   fail_unless(doc->getModel()->getNumFunctionDefinitions() == 2);
   
   delete doc;
@@ -606,7 +609,8 @@ START_TEST (test_SBMLTransforms_expandFD)
   props.addOption("expandFunctionDefinitions", true);
   props.addOption("skipIds", "f;g");
 
-  fail_unless(doc->convert(props) == false);
+  fail_unless(doc->convert(props) == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(doc->getModel() != NULL);
   fail_unless(doc->getModel()->getNumFunctionDefinitions() == 2);
   
   delete doc;
@@ -618,7 +622,8 @@ START_TEST (test_SBMLTransforms_expandFD)
   props.addOption("expandFunctionDefinitions", true);
   props.addOption("skipIds", "f g");
 
-  fail_unless(doc->convert(props) == false);
+  fail_unless(doc->convert(props) == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(doc->getModel() != NULL);
   fail_unless(doc->getModel()->getNumFunctionDefinitions() == 2);
   
   delete doc;
@@ -630,7 +635,8 @@ START_TEST (test_SBMLTransforms_expandFD)
   props.addOption("expandFunctionDefinitions", true);
   props.addOption("skipIds", "f\tg");
 
-  fail_unless(doc->convert(props) == false);
+  fail_unless(doc->convert(props) == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(doc->getModel() != NULL);
   fail_unless(doc->getModel()->getNumFunctionDefinitions() == 2);
   
   delete doc;
@@ -642,7 +648,8 @@ START_TEST (test_SBMLTransforms_expandFD)
   props.addOption("expandFunctionDefinitions", true);
   props.addOption("skipIds", "f; g");
 
-  fail_unless(doc->convert(props) == false);
+  fail_unless(doc->convert(props) == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(doc->getModel() != NULL);
   fail_unless(doc->getModel()->getNumFunctionDefinitions() == 2);
   
   delete doc;
