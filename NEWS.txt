@@ -2,21 +2,55 @@
 
 
 ====================================================================
-Version 5.8.0 (2013-02-21)
+Version 5.8.0 (2013-02-28)
 ====================================================================
 
 STABLE RELEASE
 
+* Flux Balance Constraints
+
+  - The first official version of the specification of Flux Balance
+    Constraints is now available and thus the libSBML code for
+    'fbc' is now included in the stable release of libSBML.  This
+    means that all prebuilt binaries for the stable release will
+    include the 'fbc' package code. The src archive containing
+    libSBML core code will continue to be available but there will be
+    additional src archives available in the stable branch: one
+    containing libSBML core plus all stable packages and additional
+    archives of the individual package code.
+    
+    NOTE: The libSBML GNU make-based build system has not been updated
+          for packages. Thus, to build from src, it is necessary to
+          use the CMake build system.
+
 * New features
 
+  - The converter that expands functionDefinitions has been extended
+    with an additional option that allows the user to specify 
+    particular functionDefinitions that should not be expanded.
     
+  - The converter that converts between core levels and versions of
+    SBML allows the user to specify a 'strict' flag that determines
+    whether an invalid model can be converted or produced.  The code
+    was applying the use of 'strict = false' to assume syntactic validity
+    and would therefore still fail to convert a model if semantic
+    validity was not preserved.  This interpretation has been changed
+    and setting 'strict' to 'false' will now always convert a model whilst
+    logging errors relating to how the semantics may have been altered.
+   
   - 'comp' package
   
     - The C API for comp is now available with an example of
       creating a model using this API.
-
-  - 'layout' package
-  
+      
+    - The majority of validation rules have now been implemented
+      and will be reported.  Validation has also been expanded to
+      apply valaidation from core and other packages (where 
+      appropriate) to any ModelDefinitions contained within
+      a comp model.
+      
+    - Documentation of the 'comp' code is now available.
+ 
 * Bug fixes
 
   - Code was still writing out the deprecated and in some cases
@@ -31,19 +65,32 @@ STABLE RELEASE
     to report when a different type was encountered for the value.
     This has now been sorted and will be correctly logged as an 
     error by the readSBML functions.
-
     
-  - 'comp' package-specific bug fixes:
+  - The level and version converter was in some cases running unit
+    validation even if the user had specified that they did not 
+    require strict units.  This was in fact to allow an error to be 
+    logged; however the large computational overhead of running
+    unit validation is unecessary to merely log an error.  Thus, 
+    if the user has declared that they do not require unit validity
+    the checks will no long be applied.
+    
 
   - 'layout' package-specific bug fixes:
   
+    - The extension namespaces were not being correctly set. This
+      has been fixed.
 
 * Configuration/build system changes
 
-  - 'comp' package-specific build system changes:
+  - 'fbc' package-specific build system changes:
   
+    + The GNUMake build system has not been implemented for
+      packages. Thus, to build from src, it is necessary to use CMake.
+
 * Miscellaneous
 
+  - The documentation structure has been slightly overhauled to
+    provide clearer access to relevant information.
 
 
 EXPERIMENTAL RELEASE
@@ -52,7 +99,7 @@ EXPERIMENTAL RELEASE
 
   - 'qual' package-specific bug fixes:
 
-    - As validation of packages is started to be introduced the 
+    - As validation of packages is starting to be introduced the 
       situation whereby a ListOfFunctionTerms can contain no 
       FunctionTerm elements but only a DefaultTerm caused issue
       with the code that reports an empty ListOf object. This
@@ -62,7 +109,10 @@ EXPERIMENTAL RELEASE
   
     - Conversion between L3 and L2 annotation was not working as
       expected. This has been fixed.
-
+      
+    - The interaction between layout GraphicalObjects and the 
+      render 'objectRole' attribute was removing the attribute
+      on occasion. This has been fixed and more fully tested.
 
 ====================================================================
 Version 5.7.0 (2013-01-14)
