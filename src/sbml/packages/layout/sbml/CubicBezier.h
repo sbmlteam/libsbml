@@ -1,5 +1,9 @@
 /**
- * Filename    : CubicBezier.h
+ * @file    CubicBezier.h
+ * @brief   Definition of CubicBezier for SBML Layout.
+ * @author  Ralph Gauges
+ * 
+ * <!--------------------------------------------------------------------------
  * Description : SBML Layout CubicBezier C++ Header
  * Organization: European Media Laboratories Research gGmbH
  * Created     : 2004-07-15
@@ -408,14 +412,14 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 BEGIN_C_DECLS
 
 
-/**
+/*
  * Creates a CubicBezier and returns the pointer.
  */
 LIBSBML_EXTERN
 CubicBezier_t *
 CubicBezier_create ();
 
-/**
+/*
  * Creates a CubicBezier with the given points and returns the pointer.
  */
 LIBSBML_EXTERN
@@ -425,7 +429,7 @@ CubicBezier_createWithCoordinates (double x1, double y1, double z1,
                                    double x3, double y3, double z3,
                                    double x4, double y4, double z4);
 
-/**
+/*
  * Creates a CubicBezier with the given coordinates and returns the pointer.
  */
 LIBSBML_EXTERN
@@ -434,7 +438,7 @@ CubicBezier_createWithPoints (const Point_t *start, const Point_t *base1,
                               const Point_t *base2, const Point_t *end);
 
 
-/**
+/*
  * Creates a CubicBezier object from a template.
  */
 LIBSBML_EXTERN
@@ -442,56 +446,56 @@ CubicBezier_t *
 CubicBezier_createFrom (const CubicBezier_t *temp);
 
 
-/**
+/*
  * Frees the memory for the cubic bezier.
  */
 LIBSBML_EXTERN
 void
 CubicBezier_free (CubicBezier_t *ls);
 
-/**
+/*
  * Initializes start point with a copy of the given point.
  */
 LIBSBML_EXTERN
 void
 CubicBezier_setStart (CubicBezier_t *cb, const Point_t *point);
 
-/**
+/*
  * Initializes end point with a copy of the given point.
  */
 LIBSBML_EXTERN
 void
 CubicBezier_setEnd (CubicBezier_t *cb, const Point_t *point);
 
-/**
+/*
  * Initializes the first base point with a copy of the given point.
  */
 LIBSBML_EXTERN
 void
 CubicBezier_setBasePoint1 (CubicBezier_t *cb, const Point_t *point);
 
-/**
+/*
  * Initializes second base point with a copy of the given point.
  */
 LIBSBML_EXTERN
 void
 CubicBezier_setBasePoint2 (CubicBezier_t *cb, const Point_t *point);
 
-/**
+/*
  * Returns the starting point of the curve.
  */ 
 LIBSBML_EXTERN
 Point_t *
 CubicBezier_getStart (CubicBezier_t *cb);
 
-/**
+/*
  * Returns the endpoint of the curve.
  */ 
 LIBSBML_EXTERN
 Point_t *
 CubicBezier_getEnd (CubicBezier_t *cb);
 
-/**
+/*
  * Returns the first base point of the curve (the one closer to the
  * starting point).
  */ 
@@ -500,7 +504,7 @@ Point_t *
 CubicBezier_getBasePoint1 (CubicBezier_t *cb);
 
 
-/**
+/*
  * Returns the second base point of the curve (the one closer to the end
  * point).
  */ 
@@ -508,14 +512,14 @@ LIBSBML_EXTERN
 Point_t *
 CubicBezier_getBasePoint2 (CubicBezier_t *cb);
 
-/**
+/*
  * Calls initDefaults from LineSegment.
  */ 
 LIBSBML_EXTERN
 void
 CubicBezier_initDefaults (CubicBezier_t *cb);
 
-/**
+/*
  * @return a (deep) copy of this Model.
  */
 LIBSBML_EXTERN

@@ -1,5 +1,9 @@
 /**
- * Filename    : LineSegment.cpp
+ * @file    LineSegment.cpp
+ * @brief   Implementation of LineSegment for SBML Layout.
+ * @author  Ralph Gauges
+ * 
+ * <!--------------------------------------------------------------------------
  * Description : SBML Layout LineSegment source
  * Organization: European Media Laboratories Research gGmbH
  * Created     : 2004-07-15
@@ -61,7 +65,7 @@
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
-/**
+/*
  * Creates a line segment with the given SBML level, version, and package version
  * and both points set to (0.0,0.0,0.0)
  */ 
@@ -78,7 +82,7 @@ LineSegment::LineSegment (unsigned int level, unsigned int version, unsigned int
 }
 
 
-/**
+/*
  * Creates a new line segment with the given LayoutPkgNamespaces
  */ 
 LineSegment::LineSegment (LayoutPkgNamespaces* layoutns)
@@ -103,7 +107,7 @@ LineSegment::LineSegment (LayoutPkgNamespaces* layoutns)
 }
 
 
-/**
+/*
  * Creates a new line segment with the given 2D coordinates.
  */ 
 LineSegment::LineSegment (LayoutPkgNamespaces* layoutns, double x1, double y1, double x2, double y2) 
@@ -128,7 +132,7 @@ LineSegment::LineSegment (LayoutPkgNamespaces* layoutns, double x1, double y1, d
 }
 
 
-/**
+/*
  * Creates a new line segment with the given 3D coordinates.
  */ 
 LineSegment::LineSegment (LayoutPkgNamespaces* layoutns, double x1, double y1, double z1,
@@ -153,7 +157,7 @@ LineSegment::LineSegment (LayoutPkgNamespaces* layoutns, double x1, double y1, d
   loadPlugins(layoutns);
 }
 
-/**
+/*
  * Copy constructor.
  */
 LineSegment::LineSegment(const LineSegment& orig):SBase(orig)
@@ -165,7 +169,7 @@ LineSegment::LineSegment(const LineSegment& orig):SBase(orig)
 }
 
 
-/**
+/*
  * Assignment operator.
  */
 LineSegment& LineSegment::operator=(const LineSegment& orig)
@@ -182,7 +186,7 @@ LineSegment& LineSegment::operator=(const LineSegment& orig)
 }
 
 
-/**
+/*
  * Creates a new line segment with the two given points.
  */ 
 LineSegment::LineSegment (LayoutPkgNamespaces* layoutns, const Point* start, const Point* end) 
@@ -211,7 +215,7 @@ LineSegment::LineSegment (LayoutPkgNamespaces* layoutns, const Point* start, con
   loadPlugins(layoutns);
 }
 
-/**
+/*
  * Creates a new LineSegment from the given XMLNode
  */
 LineSegment::LineSegment(const XMLNode& node, unsigned int l2version)
@@ -258,7 +262,7 @@ LineSegment::LineSegment(const XMLNode& node, unsigned int l2version)
 }
 
 
-/**
+/*
  * Destructor.
  */ 
 LineSegment::~LineSegment ()
@@ -266,7 +270,7 @@ LineSegment::~LineSegment ()
 }
 
 
-/**
+/*
  * Does nothing since no defaults are defined for LineSegment.
  */ 
 void LineSegment::initDefaults ()
@@ -274,7 +278,7 @@ void LineSegment::initDefaults ()
 }
 
 
-/**
+/*
  * Returns the start point of the line.
  */ 
 const Point*
@@ -284,7 +288,7 @@ LineSegment::getStart () const
 }
 
 
-/**
+/*
  * Returns the start point of the line.
  */ 
 Point*
@@ -294,7 +298,7 @@ LineSegment::getStart()
 }
 
 
-/**
+/*
  * Initializes the start point with a copy of the given Point object.
  */
 void
@@ -309,7 +313,7 @@ LineSegment::setStart (const Point* start)
 }
 
 
-/**
+/*
  * Initializes the start point with the given coordinates.
  */
 void
@@ -319,7 +323,7 @@ LineSegment::setStart (double x, double y, double z)
 }
 
 
-/**
+/*
  * Returns the end point of the line.
  */ 
 const Point*
@@ -329,7 +333,7 @@ LineSegment::getEnd () const
 }
 
 
-/**
+/*
  * Returns the end point of the line.
  */ 
 Point*
@@ -339,7 +343,7 @@ LineSegment::getEnd ()
 }
 
 
-/**
+/*
  * Initializes the end point with a copy of the given Point object.
  */
 void
@@ -354,7 +358,7 @@ LineSegment::setEnd (const Point* end)
 }
 
 
-/**
+/*
  * Initializes the end point with the given coordinates.
  */
 void
@@ -364,7 +368,7 @@ LineSegment::setEnd (double x, double y, double z)
 }
 
 
-/**
+/*
  * Returns the XML element name of
  * this SBML object.
  */
@@ -374,7 +378,7 @@ const std::string& LineSegment::getElementName () const
   return name;
 }
 
-/**
+/*
  * @return a (deep) copy of this Model.
  */
 LineSegment* 
@@ -451,7 +455,7 @@ void LineSegment::writeAttributes (XMLOutputStream& stream) const
 /** @endcond */
 
 
-/**
+/*
  * Returns the package type code for this object.
  */
 int
@@ -460,7 +464,7 @@ LineSegment::getTypeCode () const
   return SBML_LAYOUT_LINESEGMENT;
 }
 
-/**
+/*
  * Accepts the given SBMLVisitor.
  */
 bool
@@ -483,7 +487,7 @@ LineSegment::writeXMLNS (XMLOutputStream& stream) const
   stream << xmlns;
 }
 
-/**
+/*
  * Creates an XMLNode object from this.
  */
 XMLNode LineSegment::toXML() const
@@ -517,7 +521,7 @@ LineSegment::connectToChild()
 }
 
 
-/**
+/*
  * Enables/Disables the given package with this element and child
  * elements (if any).
  * (This is an internal implementation for enablePakcage function)

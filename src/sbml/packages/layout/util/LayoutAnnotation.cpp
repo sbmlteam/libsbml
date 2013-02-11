@@ -55,7 +55,7 @@ using namespace std;
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
-/**
+/*
  * takes an annotation that has been read into the model
  * identifies the listOfLayouts element and creates a List of 
  * Layouts from the annotation
@@ -119,7 +119,7 @@ parseLayoutAnnotation(XMLNode * annotation, ListOfLayouts& layouts)
 }
 
   
-/**
+/*
  * Takes an XMLNode and tries to find the layout annotation node and deletes it if it was found.
  */
 LIBSBML_EXTERN
@@ -149,7 +149,7 @@ XMLNode* deleteLayoutAnnotation(XMLNode* pAnnotation)
   return pAnnotation;
 }
 
-/**
+/*
  * Creates an XMLNode that represents the layouts of the model from the given Model object.
  */
 LIBSBML_EXTERN
@@ -174,7 +174,7 @@ XMLNode* parseLayouts(const Model* pModel)
   
   
 
-/**
+/*
  * takes an annotation that has been read into the species reference
  * identifies the id elements and set the id of the species reference
  */
@@ -213,7 +213,7 @@ parseSpeciesReferenceAnnotation(XMLNode * annotation, SimpleSpeciesReference& sr
 }
 
   
-/**
+/*
  * Takes an XMLNode and tries to find the layoutId annotation node and deletes it if it was found.
  */
 LIBSBML_EXTERN
@@ -243,7 +243,7 @@ XMLNode* deleteLayoutIdAnnotation(XMLNode* pAnnotation)
   return pAnnotation;
 }
 
-/**
+/*
  * Creates an XMLNode that represents the layoutId annotation of the species reference from the given SpeciesReference object.
  *
  * (TODO) 

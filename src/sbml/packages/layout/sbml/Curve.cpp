@@ -1,5 +1,9 @@
 /**
- * Filename    : Curve.cpp
+ * @file    Curve.cpp
+ * @brief   Implementation of Curve for SBML Layout.
+ * @author  Ralph Gauges
+ * 
+ * <!--------------------------------------------------------------------------
  * Description : SBML Layout Curve source
  * Organization: European Media Laboratories Research gGmbH
  * Created     : 2004-07-15
@@ -66,7 +70,7 @@
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
-/**
+/*
  * Creates a curve with the given SBML level, version and package version and 
  * an empty list of segments.
  */ 
@@ -79,7 +83,7 @@ Curve::Curve (unsigned int level, unsigned int version, unsigned int pkgVersion)
 }
 
 
-/**
+/*
  * Creates a curve with the given LayoutPkgNamespaces and an empty list of segments.
  */ 
 Curve::Curve (LayoutPkgNamespaces *layoutns)
@@ -100,7 +104,7 @@ Curve::Curve (LayoutPkgNamespaces *layoutns)
 }
 
 
-/**
+/*
  * Creates a new ReactionGlyph from the given XMLNode
  */
 Curve::Curve(const XMLNode& node, unsigned int l2version)
@@ -185,7 +189,7 @@ Curve::Curve(const XMLNode& node, unsigned int l2version)
 
 
 
-/**
+/*
  * Destructor.
  */ 
 Curve::~Curve ()
@@ -193,7 +197,7 @@ Curve::~Curve ()
 }
 
 
-/**
+/*
  * Does nothing since no defaults are defined for Curve.
  */ 
 void Curve::initDefaults ()
@@ -201,7 +205,7 @@ void Curve::initDefaults ()
 }
 
 
-/**
+/*
  * Ctor.
  */
 ListOfLineSegments::ListOfLineSegments(unsigned int level, unsigned int version, unsigned int pkgVersion)
@@ -211,7 +215,7 @@ ListOfLineSegments::ListOfLineSegments(unsigned int level, unsigned int version,
 };
 
 
-/**
+/*
  * Ctor.
  */
 ListOfLineSegments::ListOfLineSegments(LayoutPkgNamespaces* layoutns)
@@ -257,7 +261,7 @@ ListOfLineSegments::isValidTypeForList(SBase * item)
 }
 
 
-/**
+/*
  * Returns a reference to the ListOf object that holds all the curve
  * segments.
  */
@@ -268,7 +272,7 @@ Curve::getListOfCurveSegments () const
 }
 
 
-/**
+/*
  * Returns a reference to the ListOf object that holds all the curve
  * segments.
  */
@@ -280,7 +284,7 @@ Curve::getListOfCurveSegments ()
 
 
 
-/**
+/*
  * Returns a pointer to the curve segment with the given index.  If the
  * index is invalid, NULL is returned.
  */  
@@ -291,7 +295,7 @@ Curve::getCurveSegment (unsigned int index) const
 }
 
 
-/**
+/*
  * Returns a pointer to the curve segment with the given index.  If the
  * index is invalid, NULL is returned.
  */  
@@ -302,7 +306,7 @@ Curve::getCurveSegment (unsigned int index)
 }
 
 
-/**
+/*
  * Adds a new CurveSegment to the end of the list.
  */ 
 void
@@ -312,7 +316,7 @@ Curve::addCurveSegment (const LineSegment* segment)
 }
 
 
-/**
+/*
  * Returns the number of curve segments.
  */ 
 unsigned int
@@ -322,7 +326,7 @@ Curve::getNumCurveSegments () const
 }
 
 
-/**
+/*
  * Creates a new LineSegment and adds it to the end of the list.  A
  * reference to the new LineSegment object is returned.
  */
@@ -337,7 +341,7 @@ Curve::createLineSegment ()
 }
 
 
-/**
+/*
  * Creates a new CubicBezier and adds it to the end of the list.  A
  * reference to the new CubicBezier object is returned.
  */
@@ -351,7 +355,7 @@ CubicBezier* Curve::createCubicBezier ()
 }
 
 
-/**
+/*
  * Returns the XML element name of
  * this SBML object.
  */
@@ -361,7 +365,7 @@ const std::string& Curve::getElementName () const
   return name;
 }
 
-/**
+/*
  * @return a (deep) copy of this Model.
  */
 Curve* 
@@ -371,7 +375,7 @@ Curve::clone () const
 }
 
 
-/**
+/*
  * Copy constructor.
  */
 Curve::Curve(const Curve& source):SBase(source)
@@ -382,7 +386,7 @@ Curve::Curve(const Curve& source):SBase(source)
     connectToChild();
 }
 
-/**
+/*
  * Assignment operator.
  */
 Curve& Curve::operator=(const Curve& source)
@@ -491,7 +495,7 @@ Curve::connectToChild()
 }
 
 
-/**
+/*
  * Enables/Disables the given package with this element and child
  * elements (if any).
  * (This is an internal implementation for enablePakcage function)
@@ -506,7 +510,7 @@ Curve::enablePackageInternal(const std::string& pkgURI,
 }
 
 
-/**
+/*
  * @return a (deep) copy of this ListOfUnitDefinitions.
  */
 ListOfLineSegments*
@@ -516,7 +520,7 @@ ListOfLineSegments::clone () const
 }
 
 
-/**
+/*
  * @return the typecode (int) of SBML objects contained in this ListOf or
  * SBML_UNKNOWN (default).
  */
@@ -527,7 +531,7 @@ ListOfLineSegments::getItemTypeCode () const
 }
 
 
-/**
+/*
  * Returns the XML element name of
  * this SBML object.
  */
@@ -576,7 +580,7 @@ ListOfLineSegments::createObject (XMLInputStream& stream)
 }
 /** @endcond */
 
-/**
+/*
  * Creates an XMLNode object from this.
  */
 XMLNode ListOfLineSegments::toXML() const
@@ -585,7 +589,7 @@ XMLNode ListOfLineSegments::toXML() const
 }
 
 
-/**
+/*
  * Returns the package type code  for this object.
  */
 int
@@ -595,7 +599,7 @@ Curve::getTypeCode () const
 }
 
 
-/**
+/*
  * Accepts the given SBMLVisitor.
  */
 bool

@@ -1,5 +1,9 @@
 /**
- * Filename    : TextGlyph.cpp
+ * @file    TextGlyph.cpp
+ * @brief   Implementation of TextGlyph for SBML Layout.
+ * @author  Ralph Gauges
+ * 
+ * <!--------------------------------------------------------------------------
  * Description : SBML Layout TextGlyph source
  * Organization: European Media Laboratories Research gGmbH
  * Created     : 2004-07-15
@@ -60,7 +64,7 @@
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
-/**
+/*
  * Creates a new TextGlyph the ids of the associated GraphicalObject and
  * the originOfText are set to the empty string. The actual text is set to
  * the empty string as well.
@@ -81,7 +85,7 @@ TextGlyph::TextGlyph (unsigned int level, unsigned int version, unsigned int pkg
 }
 
 
-/**
+/*
  * Creates a new SpeciesGlyph with the given LayoutPkgNamespaces 
  * and the id of the associated species set to the empty string.
  */        
@@ -106,7 +110,7 @@ TextGlyph::TextGlyph (LayoutPkgNamespaces* layoutns)
 }
 
 
-/**
+/*
  * Creates a new TextGlpyh. The id is given as the first argument.
  */ 
 TextGlyph::TextGlyph (LayoutPkgNamespaces* layoutns, const std::string& id)
@@ -129,7 +133,7 @@ TextGlyph::TextGlyph (LayoutPkgNamespaces* layoutns, const std::string& id)
   loadPlugins(layoutns);
 }
 
-/**
+/*
  * Creates a new TextGlpyh. The id is given as the first argument, the text
  * to be displayed as the second.  All other attirbutes are set to the
  * empty string.
@@ -154,7 +158,7 @@ TextGlyph::TextGlyph (LayoutPkgNamespaces* layoutns, const std::string& id, cons
   loadPlugins(layoutns);
 }
 
-/**
+/*
  * Creates a new TextGlyph from the given XMLNode
  */
 TextGlyph::TextGlyph(const XMLNode& node, unsigned int l2version)
@@ -169,7 +173,7 @@ TextGlyph::TextGlyph(const XMLNode& node, unsigned int l2version)
     this->readAttributes(attributes,ea);
 }
 
-/**
+/*
  * Copy constructor.
  */
 TextGlyph::TextGlyph(const TextGlyph& source)
@@ -180,7 +184,7 @@ TextGlyph::TextGlyph(const TextGlyph& source)
     this->mGraphicalObject=source.getGraphicalObjectId();    
 }
 
-/**
+/*
  * Assignment operator.
  */
 TextGlyph& TextGlyph::operator=(const TextGlyph& source)
@@ -196,7 +200,7 @@ TextGlyph& TextGlyph::operator=(const TextGlyph& source)
   return *this;
 }
 
-/**
+/*
  * Destructor.
  */ 
 TextGlyph::~TextGlyph()
@@ -204,7 +208,7 @@ TextGlyph::~TextGlyph()
 } 
 
 
-/**
+/*
  * Returns the text to be displayed by the text glyph.
  */ 
 const std::string&
@@ -214,7 +218,7 @@ TextGlyph::getText() const
 }
 
 
-/**
+/*
  * Sets the text to be displayed by the text glyph.
  */ 
 void
@@ -224,7 +228,7 @@ TextGlyph::setText (const std::string& text)
 } 
 
 
-/**
+/*
  * Returns the id of the associated graphical object.
  */ 
 const std::string&
@@ -234,7 +238,7 @@ TextGlyph::getGraphicalObjectId () const
 }
 
 
-/**
+/*
  * Sets the id of the associated graphical object.
  */ 
 int
@@ -244,7 +248,7 @@ TextGlyph::setGraphicalObjectId (const std::string& id)
 }
 
 
-/**
+/*
  * Returns the id of the origin of text.
  */ 
 const std::string&
@@ -254,7 +258,7 @@ TextGlyph::getOriginOfTextId () const
 }
 
 
-/**
+/*
  * Sets the id of the origin of text.
  */ 
 int
@@ -264,7 +268,7 @@ TextGlyph::setOriginOfTextId (const std::string& orig)
 }
 
 
-/**
+/*
  * Returns true if the text is not the empty string.
  */ 
 bool
@@ -274,7 +278,7 @@ TextGlyph::isSetText () const
 }
 
 
-/**
+/*
  * Returns true if the id of the origin of text is not the empty string.
  */ 
 bool
@@ -284,7 +288,7 @@ TextGlyph::isSetOriginOfTextId () const
 }
 
 
-/**
+/*
  * Returns true if the id of the associated graphical object is not the
  * empty string.
  */ 
@@ -295,7 +299,7 @@ TextGlyph::isSetGraphicalObjectId () const
 }
 
 
-/**
+/*
  * Calls initDefaults from GraphicalObject.
  */ 
 void
@@ -304,7 +308,7 @@ TextGlyph::initDefaults()
   GraphicalObject::initDefaults();
 }
 
-/**
+/*
  * Returns the XML element name of
  * this SBML object.
  */
@@ -314,7 +318,7 @@ const std::string& TextGlyph::getElementName () const
   return name;
 }
 
-/**
+/*
  * @return a (deep) copy of this Model.
  */
 TextGlyph* 
@@ -412,7 +416,7 @@ void TextGlyph::writeAttributes (XMLOutputStream& stream) const
 /** @endcond */
 
 
-/**
+/*
  * Returns the package type code for this object.
  */
 int
@@ -421,7 +425,7 @@ TextGlyph::getTypeCode () const
   return SBML_LAYOUT_TEXTGLYPH;
 }
 
-/**
+/*
  * Creates an XMLNode object from this.
  */
 XMLNode TextGlyph::toXML() const

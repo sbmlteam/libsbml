@@ -1,5 +1,9 @@
 /**
- * Filename    : Dimensions.h
+ * @file    Dimensions.h
+ * @brief   Definition of Dimensions for SBML Layout.
+ * @author  Ralph Gauges
+ * 
+ * <!--------------------------------------------------------------------------
  * Description : SBML Layout Dimensions C++ Header
  * Organization: European Media Laboratories Research gGmbH
  * Created     : 2004-07-15
@@ -342,105 +346,105 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 BEGIN_C_DECLS
 
 
-/**
+/*
  * Creates a new Dimensions object with all sizes set to 0.0.
  */ 
 LIBSBML_EXTERN
 Dimensions_t *
 Dimensions_create ();
 
-/**
+/*
  * Creates a new Dimensions object with the given sizes.
  */ 
 LIBSBML_EXTERN
 Dimensions_t *
 Dimensions_createWithSize (double w, double h, double d);
 
-/**
+/*
  * Frees memory taken up by the Dimensions object.
  */ 
 LIBSBML_EXTERN
 void
 Dimensions_free (Dimensions_t *d);
 
-/**
+/*
  * Sets the depth to 0.0
  */ 
 LIBSBML_EXTERN
 void
 Dimensions_initDefaults (Dimensions_t *d);
 
-/**
+/*
  * Sets all sizes of the Dimensions object to the given values.
  */ 
 LIBSBML_EXTERN
 void
 Dimensions_setBounds (Dimensions_t *dim, double w, double h, double d);
 
-/**
+/*
  * Sets the width to the given value.
  */ 
 LIBSBML_EXTERN
 void
 Dimensions_setWidth (Dimensions_t *p, double w);
 
-/**
+/*
  * Sets the height to the given value.
  */ 
 LIBSBML_EXTERN
 void
 Dimensions_setHeight (Dimensions_t *p, double h);
 
-/**
+/*
  * Sets the depth to the given value.
  */ 
 LIBSBML_EXTERN
 void
 Dimensions_setDepth (Dimensions_t *dim, double d);
 
-/**
+/*
  * Returns the height.
  */
 LIBSBML_EXTERN
 double
 Dimensions_height (const Dimensions_t *p);
 
-/**
+/*
  * Returns the width.
  */
 LIBSBML_EXTERN
 double
 Dimensions_width (const Dimensions_t *p);
 
-/**
+/*
  * Returns the depth.
  */ 
 LIBSBML_EXTERN
 double
 Dimensions_depth (const Dimensions_t *p);
 
-/**
+/*
  * Returns the height.
  */
 LIBSBML_EXTERN
 double
 Dimensions_getHeight (const Dimensions_t *p);
 
-/**
+/*
  * Returns the width.
  */
 LIBSBML_EXTERN
 double
 Dimensions_getWidth (const Dimensions_t *p);
 
-/**
+/*
  * Returns the depth.
  */ 
 LIBSBML_EXTERN
 double
 Dimensions_getDepth (const Dimensions_t *p);
 
-/**
+/*
  * @return a (deep) copy of this Model.
  */
 LIBSBML_EXTERN

@@ -1,5 +1,9 @@
 /**
- * Filename    : SpeciesReferenceGlyph.cpp
+ * @file    SpeciesReferenceGlyph.cpp
+ * @brief   Implementation of SpeciesReferenceGlyph for SBML Layout.
+ * @author  Ralph Gauges
+ * 
+ * <!--------------------------------------------------------------------------
  * Description : SBML Layout SpeciesReferenceGlyph source
  * Organization: European Media Laboratories Research gGmbH
  * Created     : 2004-07-15
@@ -74,7 +78,7 @@ const std::string SpeciesReferenceGlyph::SPECIES_REFERENCE_ROLE_STRING[]={
 
 
 
-/**
+/*
  * Creates a new SpeciesReferenceGlyph.  The id if the associated species
  * reference and the id of the associated species glyph are set to the
  * empty string.  The role is set to SPECIES_ROLE_UNDEFINED.
@@ -119,7 +123,7 @@ SpeciesReferenceGlyph::SpeciesReferenceGlyph(LayoutPkgNamespaces* layoutns)
   loadPlugins(layoutns);
 }
 
-/**
+/*
  * Creates a new SpeciesReferenceGlyph.  The id is given as the first
  * argument, the id of the associated species reference is given as the
  * second argument.  The third argument is the id of the associated species
@@ -155,7 +159,7 @@ SpeciesReferenceGlyph::SpeciesReferenceGlyph
   loadPlugins(layoutns);
 }
 
-/**
+/*
  * Creates a new SpeciesReferenceGlyph from the given XMLNode
  */
 SpeciesReferenceGlyph::SpeciesReferenceGlyph(const XMLNode& node, unsigned int l2version)
@@ -205,7 +209,7 @@ SpeciesReferenceGlyph::SpeciesReferenceGlyph(const XMLNode& node, unsigned int l
   connectToChild();
 }
 
-/**
+/*
  * Copy constructor.
  */
 SpeciesReferenceGlyph::SpeciesReferenceGlyph(const SpeciesReferenceGlyph& source) :
@@ -219,7 +223,7 @@ SpeciesReferenceGlyph::SpeciesReferenceGlyph(const SpeciesReferenceGlyph& source
     connectToChild();
 }
 
-/**
+/*
  * Assignment operator.
  */
 SpeciesReferenceGlyph& SpeciesReferenceGlyph::operator=(const SpeciesReferenceGlyph& source)
@@ -238,7 +242,7 @@ SpeciesReferenceGlyph& SpeciesReferenceGlyph::operator=(const SpeciesReferenceGl
   return *this;
 }
 
-/**
+/*
  * Destructor.
  */ 
 SpeciesReferenceGlyph::~SpeciesReferenceGlyph ()
@@ -246,7 +250,7 @@ SpeciesReferenceGlyph::~SpeciesReferenceGlyph ()
 }
 
 
-/**
+/*
  * Returns the id of the associated SpeciesGlyph.
  */ 
 const std::string&
@@ -256,7 +260,7 @@ SpeciesReferenceGlyph::getSpeciesGlyphId () const
 }
 
 
-/**
+/*
  * Sets the id of the associated species glyph.
  */ 
 void
@@ -266,7 +270,7 @@ SpeciesReferenceGlyph::setSpeciesGlyphId (const std::string& speciesGlyphId)
 }
 
 
-/**
+/*
  * Returns the id of the associated species reference.
  */ 
 const std::string&
@@ -276,7 +280,7 @@ SpeciesReferenceGlyph::getSpeciesReferenceId () const
 }
 
 
-/**
+/*
  * Sets the id of the associated species reference.
  */ 
 void
@@ -286,7 +290,7 @@ SpeciesReferenceGlyph::setSpeciesReferenceId (const std::string& id)
 }
 
 
-/**
+/*
  * Returns the role.
  */ 
 SpeciesReferenceRole_t
@@ -295,14 +299,14 @@ SpeciesReferenceGlyph::getRole() const
   return this->mRole;
 }
 
-/**
+/*
  * Returns a string representation for the role
  */
 const std::string& SpeciesReferenceGlyph::getRoleString() const{
     return SpeciesReferenceGlyph::SPECIES_REFERENCE_ROLE_STRING[this->mRole];
 }
 
-/**
+/*
  * Sets the role based on a string.
  * The String can be one of
  * SUBSTRATE
@@ -327,7 +331,7 @@ SpeciesReferenceGlyph::setRole (const std::string& role)
 }
 
 
-/**
+/*
  * Sets the role.
  */ 
 void
@@ -337,7 +341,7 @@ SpeciesReferenceGlyph::setRole (SpeciesReferenceRole_t role)
 }
 
 
-/**
+/*
  * Returns the curve object for the species reference glyph
  */ 
 Curve* SpeciesReferenceGlyph::getCurve() 
@@ -345,7 +349,7 @@ Curve* SpeciesReferenceGlyph::getCurve()
   return &this->mCurve;
 }
 
-/**
+/*
  * Returns the curve object for the species reference glyph
  */ 
 const Curve* SpeciesReferenceGlyph::getCurve() const
@@ -354,7 +358,7 @@ const Curve* SpeciesReferenceGlyph::getCurve() const
 }
 
 
-/**
+/*
  * Sets the curve object for the species reference glyph.
  */ 
 void
@@ -366,7 +370,7 @@ SpeciesReferenceGlyph::setCurve (const Curve* curve)
 }
 
 
-/**
+/*
  * Returns true if the curve consists of one or more segments.
  */ 
 bool
@@ -376,7 +380,7 @@ SpeciesReferenceGlyph::isSetCurve () const
 }
 
 
-/**
+/*
  * Returns true if the id of the associated species glpyh is not the empty
  * string.
  */ 
@@ -387,7 +391,7 @@ SpeciesReferenceGlyph::isSetSpeciesGlyphId () const
 }
 
 
-/**
+/*
  * Returns true if the id of the associated species reference is not the
  * empty string.
  */ 
@@ -398,7 +402,7 @@ SpeciesReferenceGlyph::isSetSpeciesReferenceId () const
 }
 
 
-/**
+/*
  * Returns true of role is different from SPECIES_ROLE_UNDEFINED.
  */ 
 bool SpeciesReferenceGlyph::isSetRole () const
@@ -407,7 +411,7 @@ bool SpeciesReferenceGlyph::isSetRole () const
 }
 
 
-/**
+/*
  * Calls initDefaults on GraphicalObject and sets role to
  * SPECIES_ROLE_UNDEFINED.
  */ 
@@ -419,7 +423,7 @@ SpeciesReferenceGlyph::initDefaults ()
 }
 
 
-/**
+/*
  * Creates a new LineSegment object, adds it to the end of the list of
  * curve segment objects of the curve and returns a reference to the newly
  * created object.
@@ -431,7 +435,7 @@ SpeciesReferenceGlyph::createLineSegment ()
 }
 
 
-/**
+/*
  * Creates a new CubicBezier object, adds it to the end of the list of
  * curve segment objects of the curve and returns a reference to the newly
  * created object.
@@ -443,7 +447,7 @@ SpeciesReferenceGlyph::createCubicBezier ()
 }
 
 
-/**
+/*
  * Returns the XML element name of
  * this SBML object.
  */
@@ -453,7 +457,7 @@ const std::string& SpeciesReferenceGlyph::getElementName () const
   return name;
 }
 
-/**
+/*
  * @return a (deep) copy of this Model.
  */
 SpeciesReferenceGlyph* 
@@ -635,7 +639,7 @@ SpeciesReferenceGlyph::connectToChild()
 }
 
 
-/**
+/*
  * Enables/Disables the given package with this element and child
  * elements (if any).
  * (This is an internal implementation for enablePakcage function)
@@ -893,7 +897,7 @@ SpeciesReferenceGlyph_createCubicBezier (SpeciesReferenceGlyph_t *srg)
 
 
 /**
- * @return a (deep) copy of this Model.
+ * @return a (deep) copy of this SpeciesReferenceGlyph.
  */
 LIBSBML_EXTERN
 SpeciesReferenceGlyph_t *

@@ -1,5 +1,9 @@
 /**
- * Filename    : SpeciesReferenceRole.h
+ * @file    SpeciesReferenceRole.h
+ * @brief   Definition of SpeciesReferenceRole for SBML Layout.
+ * @author  Ralph Gauges
+ * 
+ * <!--------------------------------------------------------------------------
  * Description : SBML Layout SpeciesReferenceRole C Header
  * Organization: European Media Laboratories Research gGmbH
  * Created     : 2004-07-15

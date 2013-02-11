@@ -1,5 +1,9 @@
 /**
- * Filename    : LineSegment.h
+ * @file    LineSegment.h
+ * @brief   Definition of LineSegment for SBML Layout.
+ * @author  Ralph Gauges
+ * 
+ * <!--------------------------------------------------------------------------
  * Description : SBML Layout LineSegment C++ Header
  * Organization: European Media Laboratories Research gGmbH
  * Created     : 2004-07-15
@@ -368,7 +372,7 @@ BEGIN_C_DECLS
 
 
 
-/**
+/*
  * Creates a LineSegment and returns the pointer.
  */
 LIBSBML_EXTERN
@@ -376,21 +380,21 @@ LineSegment_t *
 LineSegment_create (void);
 
 
-/**
+/*
  * Creates a LineSegment from a template.
  */
 LIBSBML_EXTERN
 LineSegment_t *
 LineSegment_createFrom (const LineSegment_t *temp);
 
-/**
+/*
  * Creates a LineSegment with the given points and returns the pointer.
  */
 LIBSBML_EXTERN
 LineSegment_t *
 LineSegment_createWithPoints (const Point_t *start, const Point_t *end);
 
-/**
+/*
  * Creates a LineSegment with the given coordinates and returns the
  * pointer.
  */
@@ -399,7 +403,7 @@ LineSegment_t *
 LineSegment_createWithCoordinates (double x1, double y1, double z1,
                                    double x2, double y2, double z2);
 
-/**
+/*
  * Frees the memory for the line segment.
  */
 LIBSBML_EXTERN
@@ -407,14 +411,14 @@ void
 LineSegment_free (LineSegment_t *ls);
 
 
-/**
+/*
  * Initializes the start point with a copy of the given Point object.
  */
 LIBSBML_EXTERN
 void 
 LineSegment_setStart (LineSegment_t *ls, const Point_t *start);
 
-/**
+/*
  * Initializes the end point with a copy of the given Point object.
  */
 LIBSBML_EXTERN
@@ -422,28 +426,28 @@ void
 LineSegment_setEnd (LineSegment_t *ls, const Point_t *end);
 
 
-/**
+/*
  * Returns the start point of the line.
  */ 
 LIBSBML_EXTERN
 Point_t *
 LineSegment_getStart (LineSegment_t *ls);
 
-/**
+/*
  * Returns the end point of the line.
  */ 
 LIBSBML_EXTERN
 Point_t *
 LineSegment_getEnd (LineSegment_t *ls);
 
-/**
+/*
  * Does noting since no defaults are defined for LineSegment.
  */ 
 LIBSBML_EXTERN
 void
 LineSegment_initDefaults (LineSegment_t *ls);
 
-/**
+/*
  * @return a (deep) copy of this Model.
  */
 LIBSBML_EXTERN

@@ -1,5 +1,9 @@
 /**
- * Filename    : SpeciesReferenceGlyph.h
+ * @file    SpeciesReferenceGlyph.h
+ * @brief   Definition of SpeciesReferenceGlyph for SBML Layout.
+ * @author  Ralph Gauges
+ * 
+ * <!--------------------------------------------------------------------------
  * Description : SBML Layout SpeciesReferenceGlyph C++ Header
  * Organization: European Media Laboratories Research gGmbH
  * Created     : 2004-07-15
@@ -432,21 +436,21 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 BEGIN_C_DECLS
 
 
-/**
+/*
  * Creates a new SpeciesReferenceGlyph object and returns a pointer to it.
  */
 LIBSBML_EXTERN
 SpeciesReferenceGlyph_t *
 SpeciesReferenceGlyph_create (void);
 
-/**
+/*
  * Creates a new SpeciesReferenceGlyph from a template.
  */
 LIBSBML_EXTERN
 SpeciesReferenceGlyph_t *
 SpeciesReferenceGlyph_createFrom (const SpeciesReferenceGlyph_t *temp);
 
-/**
+/*
  * Creates a new SpeciesReferenceGlyph object with the given id and returns
  * a pointer to it.
  */
@@ -458,7 +462,7 @@ SpeciesReferenceGlyph_createWith ( const char *sid,
                                    SpeciesReferenceRole_t role );
 
 
-/**
+/*
  * Frees the memory for the SpeciesReferenceGlyph
  */
 LIBSBML_EXTERN
@@ -466,7 +470,7 @@ void
 SpeciesReferenceGlyph_free (SpeciesReferenceGlyph_t *srg);
 
 
-/**
+/*
  * Sets the reference species for the species glyph.
  */
 LIBSBML_EXTERN
@@ -474,14 +478,14 @@ void
 SpeciesReferenceGlyph_setSpeciesReferenceId (SpeciesReferenceGlyph_t *srg,
                                              const char *id);
 
-/**
+/*
  * Gets the reference species id for the given species glyph.
  */
 LIBSBML_EXTERN
 const char *
 SpeciesReferenceGlyph_getSpeciesReferenceId(const SpeciesReferenceGlyph_t *);
 
-/**
+/*
  * Returns 0 if the reference species reference has not been set for this
  * glyph and 1 otherwise.
  */
@@ -489,7 +493,7 @@ LIBSBML_EXTERN
 int
 SpeciesReferenceGlyph_isSetSpeciesReferenceId(const SpeciesReferenceGlyph_t *);
 
-/**
+/*
  * Sets the species glyph reference for the species glyph.
  */
 LIBSBML_EXTERN
@@ -497,14 +501,14 @@ void
 SpeciesReferenceGlyph_setSpeciesGlyphId (SpeciesReferenceGlyph_t *srg,
                                          const char *id);
 
-/**
+/*
  * Gets the reference speciess id for the given species glyph.
  */
 LIBSBML_EXTERN
 const char *
 SpeciesReferenceGlyph_getSpeciesGlyphId (const SpeciesReferenceGlyph_t *srg);
 
-/**
+/*
  * Returns 0 if the reference species reference has not been set for this
  * glyph and 1 otherwise.
  */
@@ -513,28 +517,28 @@ int
 SpeciesReferenceGlyph_isSetSpeciesGlyphId (const SpeciesReferenceGlyph_t *srg);
 
 
-/**
+/*
  * Sets the curve for the species reference glyph.
  */
 LIBSBML_EXTERN
 void
 SpeciesReferenceGlyph_setCurve (SpeciesReferenceGlyph_t *srg, Curve_t *c);
 
-/**
+/*
  * Gets the Curve for the given species reference glyph.
  */
 LIBSBML_EXTERN
 Curve_t *
 SpeciesReferenceGlyph_getCurve (SpeciesReferenceGlyph_t *srg);
 
-/**
+/*
  * Returns true if the Curve has one or more LineSegment.
  */
 LIBSBML_EXTERN
 int
 SpeciesReferenceGlyph_isSetCurve(SpeciesReferenceGlyph_t* srg);
 
-/**
+/*
  * Sets the role of the species reference glyph based on the string.  The
  * string can be one of UNDEFINED, SUBSTRATE, PRODUCT, SIDESUBSTRATE,
  * SIDEPRODUCT, MODIFIER, INHIBITOR or ACTIVATOR.  If it is none of those,
@@ -544,13 +548,14 @@ LIBSBML_EXTERN
 void
 SpeciesReferenceGlyph_setRole (SpeciesReferenceGlyph_t *srg, const char *r);
 
-/**
+/*
  * Returns the role of the species reference.
  */ 
 LIBSBML_EXTERN
 SpeciesReferenceRole_t
 SpeciesReferenceGlyph_getRole (const SpeciesReferenceGlyph_t *srg);
-/**
+
+/*
  * Returns a string representation of the role of the species reference.
  */ 
 LIBSBML_EXTERN
@@ -558,14 +563,14 @@ const char*
 SpeciesReferenceGlyph_getRoleString(const SpeciesReferenceGlyph_t* srg);
 
 
-/**
+/*
  * Returns true if the role is not SPECIES_ROLE_UNDEFINED.
  */ 
 LIBSBML_EXTERN
 int
 SpeciesReferenceGlyph_isSetRole(const SpeciesReferenceGlyph_t *srg);
 
-/**
+/*
  * Calls initDefaults on GraphicalObject and sets role to
  * SPECIES_ROLE_UNDEFINED.
  */ 
@@ -573,7 +578,7 @@ LIBSBML_EXTERN
 void
 SpeciesReferenceGlyph_initDefaults (SpeciesReferenceGlyph_t *srg);
 
-/**
+/*
  * Creates a new LineSegment object, adds it to the end of the list of
  * curve segment objects of the curve and returns a reference to the newly
  * created object.
@@ -582,7 +587,7 @@ LIBSBML_EXTERN
 LineSegment_t *
 SpeciesReferenceGlyph_createLineSegment (SpeciesReferenceGlyph_t *srg);
 
-/**
+/*
  * Creates a new CubicBezier object, adds it to the end of the list of
  * curve segment objects of the curve and returns a reference to the newly
  * created object.
@@ -591,7 +596,7 @@ LIBSBML_EXTERN
 CubicBezier_t *
 SpeciesReferenceGlyph_createCubicBezier (SpeciesReferenceGlyph_t *srg);
 
-/**
+/*
  * @return a (deep) copy of this Model.
  */
 LIBSBML_EXTERN

@@ -1,5 +1,9 @@
 /**
- * Filename    : LayoutUtilities.cpp
+ * @file    LayoutUtilities.cpp
+ * @brief   Implementation of some methods used by many of the layout files.
+ * @author  Ralph Gauges
+ * 
+ * <!--------------------------------------------------------------------------
  * Description : Implementation of some methods used by many of the layout files.
  * Organization: European Media Laboratories Research gGmbH
  * Created     : 2007-02-14
@@ -91,8 +95,10 @@ LIBSBML_EXTERN XMLNode getXmlNodeForSBase(const SBase* object)
   return result;
 }
 
-// copies the attributes from source to target
-// this is sued in the assignment operators and copy constructors
+/**
+ * Copies the attributes from source to target.
+ * this is used in the assignment operators and copy constructors
+ */
 LIBSBML_EXTERN
 void 
 copySBaseAttributes(const SBase& source,SBase& target)

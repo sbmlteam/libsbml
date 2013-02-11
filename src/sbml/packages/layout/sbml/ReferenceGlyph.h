@@ -1,5 +1,9 @@
 /**
- * Filename    : ReferenceGlyph.h
+ * @file    ReferenceGlyph.h
+ * @brief   Definition of ReferenceGlyph for SBML Layout.
+ * @author  Ralph Gauges
+ * 
+ * <!--------------------------------------------------------------------------
  * Description : SBML Layout ReferenceGlyph C++ Header
  * Organization: European Media Laboratories Research gGmbH
  * Created     : 2004-07-15
@@ -403,21 +407,21 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 BEGIN_C_DECLS
 
 
-/**
+/*
  * Creates a new ReferenceGlyph object and returns a pointer to it.
  */
 LIBSBML_EXTERN
 ReferenceGlyph_t *
 ReferenceGlyph_create (void);
 
-/**
+/*
  * Creates a new ReferenceGlyph from a template.
  */
 LIBSBML_EXTERN
 ReferenceGlyph_t *
 ReferenceGlyph_createFrom (const ReferenceGlyph_t *temp);
 
-/**
+/*
  * Creates a new ReferenceGlyph object with the given id and returns
  * a pointer to it.
  */
@@ -429,7 +433,7 @@ ReferenceGlyph_createWith ( const char *sid,
                                    const char* role );
 
 
-/**
+/*
  * Frees the memory for the ReferenceGlyph
  */
 LIBSBML_EXTERN
@@ -437,7 +441,7 @@ void
 ReferenceGlyph_free (ReferenceGlyph_t *srg);
 
 
-/**
+/*
  * Sets the reference for the glyph.
  */
 LIBSBML_EXTERN
@@ -445,14 +449,14 @@ void
 ReferenceGlyph_setReferenceId (ReferenceGlyph_t *srg,
                                              const char *id);
 
-/**
+/*
  * Gets the reference id for the given  glyph.
  */
 LIBSBML_EXTERN
 const char *
 ReferenceGlyph_getReferenceId(const ReferenceGlyph_t *);
 
-/**
+/*
  * Returns 0 if the reference reference has not been set for this
  * glyph and 1 otherwise.
  */
@@ -460,7 +464,7 @@ LIBSBML_EXTERN
 int
 ReferenceGlyph_isSetReferenceId(const ReferenceGlyph_t *);
 
-/**
+/*
  * Sets the glyph reference for the glyph.
  */
 LIBSBML_EXTERN
@@ -468,14 +472,14 @@ void
 ReferenceGlyph_setGlyphId (ReferenceGlyph_t *srg,
                                          const char *id);
 
-/**
+/*
  * Gets the reference id for the given glyph.
  */
 LIBSBML_EXTERN
 const char *
 ReferenceGlyph_getGlyphId (const ReferenceGlyph_t *srg);
 
-/**
+/*
  * Returns 0 if the reference has not been set for this
  * glyph and 1 otherwise.
  */
@@ -484,35 +488,35 @@ int
 ReferenceGlyph_isSetGlyphId (const ReferenceGlyph_t *srg);
 
 
-/**
+/*
  * Sets the curve for the reference glyph.
  */
 LIBSBML_EXTERN
 void
 ReferenceGlyph_setCurve (ReferenceGlyph_t *srg, Curve_t *c);
 
-/**
+/*
  * Gets the Curve for the given reference glyph.
  */
 LIBSBML_EXTERN
 Curve_t *
 ReferenceGlyph_getCurve (ReferenceGlyph_t *srg);
 
-/**
+/*
  * Returns true if the Curve has one or more LineSegment.
  */
 LIBSBML_EXTERN
 int
 ReferenceGlyph_isSetCurve(ReferenceGlyph_t* srg);
 
-/**
+/*
  * Sets the role of the reference glyph based on the string. 
  */
 LIBSBML_EXTERN
 void
 ReferenceGlyph_setRole (ReferenceGlyph_t *srg, const char *r);
 
-/**
+/*
  * Returns the role of the reference.
  */ 
 
@@ -521,21 +525,21 @@ const char*
 ReferenceGlyph_getRole(const ReferenceGlyph_t* srg);
 
 
-/**
+/*
  * Returns true if the role is not empty.
  */ 
 LIBSBML_EXTERN
 int
 ReferenceGlyph_isSetRole(const ReferenceGlyph_t *srg);
 
-/**
+/*
  * Calls initDefaults on GraphicalObject 
  */ 
 LIBSBML_EXTERN
 void
 ReferenceGlyph_initDefaults (ReferenceGlyph_t *srg);
 
-/**
+/*
  * Creates a new LineSegment object, adds it to the end of the list of
  * curve segment objects of the curve and returns a reference to the newly
  * created object.
@@ -544,7 +548,7 @@ LIBSBML_EXTERN
 LineSegment_t *
 ReferenceGlyph_createLineSegment (ReferenceGlyph_t *srg);
 
-/**
+/*
  * Creates a new CubicBezier object, adds it to the end of the list of
  * curve segment objects of the curve and returns a reference to the newly
  * created object.
@@ -553,7 +557,7 @@ LIBSBML_EXTERN
 CubicBezier_t *
 ReferenceGlyph_createCubicBezier (ReferenceGlyph_t *srg);
 
-/**
+/*
  * @return a (deep) copy of this Model.
  */
 LIBSBML_EXTERN

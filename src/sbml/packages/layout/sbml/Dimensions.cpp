@@ -1,5 +1,9 @@
 /**
- * Filename    : Dimensions.cpp
+ * @file    Dimensions.cpp
+ * @brief   Implementation of Dimensions for SBML Layout.
+ * @author  Ralph Gauges
+ * 
+ * <!--------------------------------------------------------------------------
  * Description : SBML Layout Dimensions source
  * Organization: European Media Laboratories Research gGmbH
  * Created     : 2004-07-15
@@ -64,7 +68,7 @@
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
-/**
+/*
  * Creates a new Dimensions object with all sizes set to 0.0.
  */ 
 Dimensions::Dimensions (unsigned int level, unsigned int version, unsigned int pkgVersion) 
@@ -77,7 +81,7 @@ Dimensions::Dimensions (unsigned int level, unsigned int version, unsigned int p
 }
 
 
-/**
+/*
  * Ctor.
  */
 Dimensions::Dimensions(LayoutPkgNamespaces* layoutns)
@@ -98,7 +102,7 @@ Dimensions::Dimensions(LayoutPkgNamespaces* layoutns)
 }
 
 
-/**
+/*
  * Creates a new Dimensions object with the given sizes.
  */ 
 Dimensions::Dimensions (LayoutPkgNamespaces* layoutns, double width, double height, double depth)
@@ -181,7 +185,7 @@ Dimensions& Dimensions::operator=(const Dimensions& orig)
   return *this;
 }
 
-/**
+/*
  * Creates a new Dimensions object from the given XMLNode
  */
 Dimensions::Dimensions(const XMLNode& node, unsigned int l2version)
@@ -220,7 +224,7 @@ Dimensions::Dimensions(const XMLNode& node, unsigned int l2version)
 }
 
 
-/**
+/*
  * Frees memory taken up by the Dimensions object.
  */ 
 Dimensions::~Dimensions ()
@@ -228,7 +232,7 @@ Dimensions::~Dimensions ()
 }
 
 
-/**
+/*
   * Returns the value of the "id" attribute of this Dimensions.
   */
 const std::string& Dimensions::getId () const
@@ -237,7 +241,7 @@ const std::string& Dimensions::getId () const
 }
 
 
-/**
+/*
   * Predicate returning @c true or @c false depending on whether this
   * Dimensions's "id" attribute has been set.
   */
@@ -246,7 +250,7 @@ bool Dimensions::isSetId () const
   return (mId.empty() == false);
 }
 
-/**
+/*
   * Sets the value of the "id" attribute of this Dimensions.
   */
 int Dimensions::setId (const std::string& id)
@@ -255,7 +259,7 @@ int Dimensions::setId (const std::string& id)
 }
 
 
-/**
+/*
   * Unsets the value of the "id" attribute of this Dimensions.
   */
 int Dimensions::unsetId ()
@@ -272,7 +276,7 @@ int Dimensions::unsetId ()
 }
 
 
-/**
+/*
  * Returns the width.
  */
 double
@@ -282,7 +286,7 @@ Dimensions::width() const
 }
 
 
-/**
+/*
  * Returns the height.
  */
 double
@@ -292,7 +296,7 @@ Dimensions::height() const
 }
 
 
-/**
+/*
  * Returns the depth.
  */
 double
@@ -302,7 +306,7 @@ Dimensions::depth () const
 }
 
 
-/**
+/*
  * Returns the width.
  */
 double
@@ -312,7 +316,7 @@ Dimensions::getWidth() const
 }
 
 
-/**
+/*
  * Returns the height.
  */
 double
@@ -322,7 +326,7 @@ Dimensions::getHeight() const
 }
 
 
-/**
+/*
  * Returns the depth.
  */
 double
@@ -332,7 +336,7 @@ Dimensions::getDepth () const
 }
 
 
-/**
+/*
  * Sets the width to the given value.
  */ 
 void
@@ -342,7 +346,7 @@ Dimensions::setWidth (double width)
 }
 
 
-/**
+/*
  * Sets the height to the given value.
  */ 
 void
@@ -352,7 +356,7 @@ Dimensions::setHeight (double height)
 }
 
 
-/**
+/*
  * Sets the depth to the given value.
  */ 
 void Dimensions::setDepth (double depth)
@@ -361,7 +365,7 @@ void Dimensions::setDepth (double depth)
 }
 
 
-/**
+/*
  * Sets all sizes of the Dimensions object to the given values.
  */ 
 void
@@ -373,7 +377,7 @@ Dimensions::setBounds (double w, double h, double d)
 }
 
 
-/**
+/*
  * Sets the depth to 0.0
  */ 
 void Dimensions::initDefaults ()
@@ -381,7 +385,7 @@ void Dimensions::initDefaults ()
   this->setDepth(0.0);
 }
 
-/**
+/*
  * Returns the XML element name of
  * this SBML object.
  */
@@ -391,7 +395,7 @@ const std::string& Dimensions::getElementName () const
   return name;
 }
 
-/**
+/*
  * @return a (deep) copy of this Dimensions object.
  */
 Dimensions* 
@@ -495,7 +499,7 @@ void Dimensions::writeAttributes (XMLOutputStream& stream) const
 /** @endcond */
 
 
-/**
+/*
  * Returns the package type code for this object.
  */
 int
@@ -505,7 +509,7 @@ Dimensions::getTypeCode () const
 }
 
 
-/**
+/*
  * Accepts the given SBMLVisitor.
  *
  * @return the result of calling <code>v.visit()</code>, which indicates
@@ -518,7 +522,7 @@ bool Dimensions::accept (SBMLVisitor& v) const
     return false;
 }
 
-/**
+/*
  * Creates an XMLNode object from this.
  */
 XMLNode Dimensions::toXML() const

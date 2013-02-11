@@ -1,5 +1,9 @@
 /**
- * Filename    : ReactionGlyph.h
+ * @file    ReactionGlyph.h
+ * @brief   Definition of ReactionGlyph for SBML Layout.
+ * @author  Ralph Gauges
+ * 
+ * <!--------------------------------------------------------------------------
  * Description : SBML Layout ReactionGlyph C++ Header
  * Organization: European Media Laboratories Research gGmbH
  * Created     : 2004-07-15
@@ -591,7 +595,7 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 BEGIN_C_DECLS
 
 
-/**
+/*
  * Creates a new ReactionGlyph and returns the pointer to it.
  */
 LIBSBML_EXTERN
@@ -599,14 +603,14 @@ ReactionGlyph_t *
 ReactionGlyph_create (void);
 
 
-/**
+/*
  * Creates a new ReactionGlyph object from a template.
  */
 LIBSBML_EXTERN
 ReactionGlyph_t *
 ReactionGlyph_createFrom (const ReactionGlyph_t *temp);
 
-/**
+/*
  * Frees the memory taken up by the attributes.
  */
 LIBSBML_EXTERN
@@ -614,42 +618,42 @@ void
 ReactionGlyph_clear (ReactionGlyph_t *rg);
 
 
-/**
+/*
  * Creates a new ReactionGlyph with the given id
  */
 LIBSBML_EXTERN
 ReactionGlyph_t *
 ReactionGlyph_createWith (const char *sid);
 
-/**
+/*
  * Creates a new ReactionGlyph referencing the give reaction.
  */
 LIBSBML_EXTERN
 ReactionGlyph_t *
 ReactionGlyph_createWithReactionId (const char *id,const char *reactionId);
 
-/**
+/*
  * Frees the memory taken by the given reaction glyph.
  */
 LIBSBML_EXTERN
 void
 ReactionGlyph_free (ReactionGlyph_t *rg);
 
-/**
+/*
  * Sets the reference reaction for the reaction glyph.
  */
 LIBSBML_EXTERN
 void
 ReactionGlyph_setReactionId (ReactionGlyph_t *rg,const char *id);
 
-/**
+/*
  * Gets the reference reactions id for the given reaction glyph.
  */
 LIBSBML_EXTERN
 const char *
 ReactionGlyph_getReactionId (const ReactionGlyph_t *rg);
 
-/**
+/*
  * Returns 0 if the reference reaction has not been set for this glyph and
  * 1 otherwise.
  */
@@ -657,7 +661,7 @@ LIBSBML_EXTERN
 int
 ReactionGlyph_isSetReactionId (const ReactionGlyph_t *rg);
 
-/**
+/*
  * Add a SpeciesReferenceGlyph object to the list of
  * SpeciesReferenceGlyphs.
  */
@@ -666,14 +670,14 @@ void
 ReactionGlyph_addSpeciesReferenceGlyph (ReactionGlyph_t         *rg,
                                         SpeciesReferenceGlyph_t *srg);
 
-/**
+/*
  * Returns the number of SpeciesReferenceGlyphs for the ReactionGlyph.
  */
 LIBSBML_EXTERN
 unsigned int
 ReactionGlyph_getNumSpeciesReferenceGlyphs (const ReactionGlyph_t *rg);
 
-/**
+/*
  * Returns the pointer to the SpeciesReferenceGlyphs for the given index.
  */
 LIBSBML_EXTERN
@@ -682,14 +686,14 @@ ReactionGlyph_getSpeciesReferenceGlyph (ReactionGlyph_t *rg,
                                         unsigned int index);
 
 
-/**
+/*
  * Returns the list object that holds all species reference glyphs.
  */ 
 LIBSBML_EXTERN
 ListOf_t *
 ReactionGlyph_getListOfSpeciesReferenceGlyphs (ReactionGlyph_t *rg);
 
-/**
+/*
  * Removes the species reference glyph with the given index.  If the index
  * is invalid, nothing is removed.
  */ 
@@ -698,35 +702,35 @@ SpeciesReferenceGlyph_t *
 ReactionGlyph_removeSpeciesReferenceGlyph (ReactionGlyph_t *rg,
                                            unsigned int index);
 
-/**
+/*
  * Calls initDefaults from GraphicalObject.
  */ 
 LIBSBML_EXTERN
 void
 ReactionGlyph_initDefaults (ReactionGlyph_t *rg);
 
-/**
+/*
  * Sets the curve for the reaction glyph.
  */
 LIBSBML_EXTERN
 void
 ReactionGlyph_setCurve (ReactionGlyph_t *rg, Curve_t *c);
 
-/**
+/*
  * Gets the Curve for the given reaction glyph.
  */
 LIBSBML_EXTERN
 Curve_t *
 ReactionGlyph_getCurve (ReactionGlyph_t *rg);
 
-/**
+/*
  * Returns true if the Curve has one or more LineSegment.
  */
 LIBSBML_EXTERN
 int
 ReactionGlyph_isSetCurve (ReactionGlyph_t *rg);
 
-/**
+/*
  * Creates a new SpeciesReferenceGlyph_t object, adds it to the end of the
  * list of species reference objects and returns a pointer to the newly
  * created object.
@@ -735,7 +739,7 @@ LIBSBML_EXTERN
 SpeciesReferenceGlyph_t *
 ReactionGlyph_createSpeciesReferenceGlyph (ReactionGlyph_t *rg);
 
-/**
+/*
  * Creates a new SpeciesReferenceGlyph_t object, adds it to the end of the
  * list of species reference objects and returns a pointer to the newly
  * created object.
@@ -744,7 +748,7 @@ LIBSBML_EXTERN
 SpeciesReferenceGlyph_t *
 ReactionGlyph_createSpeciesReferenceGlyph (ReactionGlyph_t *rg);
 
-/**
+/*
  * Creates a new LineSegment object, adds it to the end of the list of
  * curve segments objects and returns a pointer to the newly created
  * object.
@@ -753,7 +757,7 @@ LIBSBML_EXTERN
 LineSegment_t *
 ReactionGlyph_createLineSegment (ReactionGlyph_t *rg);
 
-/**
+/*
  * Creates a new CubicBezier object, adds it to the end of the list of
  * curve segments objects and returns a pointer to the newly created
  * object.
@@ -762,7 +766,7 @@ LIBSBML_EXTERN
 CubicBezier_t *
 ReactionGlyph_createCubicBezier (ReactionGlyph_t *rg);
 
-/**
+/*
  * Remove the species reference glyph with the given index.
  * A pointer to the object is returned. If no object has been removed, NULL
  * is returned.
@@ -771,7 +775,7 @@ LIBSBML_EXTERN
 SpeciesReferenceGlyph_t*
 ReactionGlyph_removeSpeciesReferenceGlyph(ReactionGlyph_t* rg,unsigned int index);
 
-/**
+/*
  * Remove the species reference glyph with the given id.
  * A pointer to the object is returned. If no object has been removed, NULL
  * is returned.
@@ -780,7 +784,7 @@ LIBSBML_EXTERN
 SpeciesReferenceGlyph_t*
 ReactionGlyph_removeSpeciesReferenceGlyphWithId(ReactionGlyph_t* rg,const char* id);
 
-/**
+/*
  * Returns the index of the species reference glyph with the given id.
  * If the reaction glyph does not contain a species reference glyph with this
  * id, UINT_MAX from limits.h is returned.
@@ -789,7 +793,7 @@ LIBSBML_EXTERN
 unsigned int
 ReactionGlyph_getIndexForSpeciesReferenceGlyph(ReactionGlyph_t* rg,const char* id);
 
-/**
+/*
  * @return a (deep) copy of this Model.
  */
 LIBSBML_EXTERN

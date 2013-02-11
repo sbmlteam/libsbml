@@ -1,5 +1,9 @@
 /**
- * Filename    : Curve.h
+ * @file    Curve.h
+ * @brief   Definition of Curve for SBML Layout.
+ * @author  Ralph Gauges
+ * 
+ * <!--------------------------------------------------------------------------
  * Description : SBML Layout Curve C++ Header
  * Organization: European Media Laboratories Research gGmbH
  * Created     : 2004-07-15
@@ -438,21 +442,21 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 BEGIN_C_DECLS
 
 
-/**
+/*
  * Creates a new curve and returns the pointer to it.
  */
 LIBSBML_EXTERN
 Curve_t *
 Curve_create ();
 
-/**
+/*
  * Creates a new Curve object from a template.
  */
 LIBSBML_EXTERN
 Curve_t *
 Curve_createFrom (const Curve_t *c);
 
-/**
+/*
  * Frees the memory taken by the Curve.
  */
 LIBSBML_EXTERN
@@ -460,35 +464,35 @@ void
 Curve_free (Curve_t *c);
 
 
-/**
+/*
  * Adds a LineSegment.
  */
 LIBSBML_EXTERN
 void
 Curve_addCurveSegment (Curve_t *c, LineSegment_t *ls);
 
-/**
+/*
  * Returns the number of line segments.
  */
 LIBSBML_EXTERN
 unsigned int
 Curve_getNumCurveSegments (const Curve_t *c);
 
-/**
+/*
  * Returns the line segment with the given index.
  */
 LIBSBML_EXTERN
 LineSegment_t *
 Curve_getCurveSegment (const Curve_t *c, unsigned int index);
 
-/**
+/*
  * Returns the ListOf object that holds all the curve segments.
  */ 
 LIBSBML_EXTERN
 ListOf_t *
 Curve_getListOfCurveSegments (Curve_t *curve);
 
-/**
+/*
  * Removes the curve segment with the given index.  If the index is
  * invalid, nothing is done.
  */ 
@@ -496,14 +500,14 @@ LIBSBML_EXTERN
 LineSegment_t *
 Curve_removeCurveSegment (Curve_t *c, unsigned int index);
 
-/**
+/*
  * Does nothing since no defaults are defined for Curve.
  */ 
 LIBSBML_EXTERN
 void
 Curve_initDefaults (Curve_t *c);
 
-/**
+/*
  * Creates a new LineSegment and adds it to the end of the list.  A pointer
  * to the new LineSegment object is returned.
  */
@@ -511,7 +515,7 @@ LIBSBML_EXTERN
 LineSegment_t *
 Curve_createLineSegment (Curve_t *c);
 
-/**
+/*
  * Creates a new CubicBezier and adds it to the end of the list.  A pointer
  * to the new CubicBezier object is returned.
  */
@@ -519,7 +523,7 @@ LIBSBML_EXTERN
 CubicBezier_t *
 Curve_createCubicBezier (Curve_t *c);
 
-/**
+/*
  * @return a (deep) copy of this Model.
  */
 LIBSBML_EXTERN

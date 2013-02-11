@@ -1,5 +1,9 @@
 /**
- * Filename    : BoundingBox.h
+ * @file    BoundingBox.h
+ * @brief   Definition of BoundingBox for SBML Layout.
+ * @author  Ralph Gauges
+ * 
+ * <!--------------------------------------------------------------------------
  * Description : SBML Layout BoundingBox C++ Header
  * Organization: European Media Laboratories Research gGmbH
  * Created     : 2004-07-15
@@ -422,8 +426,7 @@ protected:
    * @return the SBML object corresponding to next XMLToken in the
    * XMLInputStream or NULL if the token was not recognized.
    */
-  virtual SBase*
-  createObject (XMLInputStream& stream);
+  virtual SBase* createObject (XMLInputStream& stream);
   /** @endcond */
 
 
@@ -475,7 +478,7 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 BEGIN_C_DECLS
 
 
-/**
+/*
  * Function that creates a BoundingBox_t object with position set to
  * (0.0,0.0,0.0) and dimensions set to (0.0,0.0,0.0). The id is set to the
  * empty string.
@@ -484,7 +487,7 @@ LIBSBML_EXTERN
 BoundingBox_t *
 BoundingBox_create (void);
 
-/**
+/*
  * ZFunction that creates a BoundingBox_t object with position set to
  * (0.0,0.0,0.0) and dimensions set to (0.0,0.0,0.0).  The id is set to the
  * given string.
@@ -493,7 +496,7 @@ LIBSBML_EXTERN
 BoundingBox_t *
 BoundingBox_createWith (const char *id);
 
-/**
+/*
  * Function that creates a BoundingBox_t object with the coordinates and
  * sizes given as arguments. The id is set to the empty string.
  */ 
@@ -502,49 +505,49 @@ BoundingBox_t *
 BoundingBox_createWithCoordinates (const char *id, double x, double y, double z,
                                    double width, double height, double depth);
 
-/**
+/*
  * Frees all memory taken by the given BoundingBox_t object.
  */ 
 LIBSBML_EXTERN
 void
 BoundingBox_free (BoundingBox_t *bb);
 
-/**
+/*
  * Does nothing since no defaults are defined for BoundingBox.
   */
 LIBSBML_EXTERN
 void
 BoundingBox_initDefaults (BoundingBox_t *bb);
 
-/**
+/*
  * Returns the position as a Point_t object.
  */ 
 LIBSBML_EXTERN
 Point_t *
 BoundingBox_getPosition (BoundingBox_t *bb);
 
-/**
+/*
  * Returns the dimensions as a Dimensions_t object.
  */ 
 LIBSBML_EXTERN
 Dimensions_t *
 BoundingBox_getDimensions (BoundingBox_t *bb);
 
-/**
+/*
  * Sets the position to a copy of the Point_t object given as argument.
   */
 LIBSBML_EXTERN
 void
 BoundingBox_setPosition (BoundingBox_t *bb, const Point_t *p);
 
-/**
+/*
  * Sets the dimensions to a copy of the Dimensions_t object given.
  */ 
 LIBSBML_EXTERN
 void
 BoundingBox_setDimensions (BoundingBox_t *bb, const Dimensions_t *d);
 
-/**
+/*
  * Sets the x offset of the bounding box.
  */
 LIBSBML_EXTERN
@@ -552,7 +555,7 @@ void
 BoundingBox_setX(BoundingBox_t* bb,double x);
 
 
-/**
+/*
  * Sets the y offset of the bounding box.
  */
 LIBSBML_EXTERN
@@ -560,7 +563,7 @@ void
 BoundingBox_setY(BoundingBox_t* bb,double y);
 
 
-/**
+/*
  * Sets the z offset of the bounding box.
  */
 LIBSBML_EXTERN
@@ -568,7 +571,7 @@ void
 BoundingBox_setZ(BoundingBox_t* bb,double z);
 
 
-/**
+/*
  * Sets the width of the bounding box.
  */
 LIBSBML_EXTERN
@@ -576,7 +579,7 @@ void
 BoundingBox_setWidth(BoundingBox_t* bb,double width);
 
 
-/**
+/*
  * Sets the height of the bounding box.
  */
 LIBSBML_EXTERN
@@ -584,14 +587,14 @@ void
 BoundingBox_setHeight(BoundingBox_t* bb,double height);
 
 
-/**
+/*
  * Sets the depth of the bounding box.
  */
 LIBSBML_EXTERN
 void
 BoundingBox_setDepth(BoundingBox_t* bb,double depth);
 
-/**
+/*
  * Returns the x offset of the bounding box.
  */
 LIBSBML_EXTERN
@@ -599,7 +602,7 @@ double
 BoundingBox_x(BoundingBox_t* bb);
 
 
-/**
+/*
  * Returns the y offset of the bounding box.
  */
 LIBSBML_EXTERN
@@ -607,7 +610,7 @@ double
 BoundingBox_y(BoundingBox_t* bb);
 
 
-/**
+/*
  * Returns the z offset of the bounding box.
  */
 LIBSBML_EXTERN
@@ -615,28 +618,28 @@ double
 BoundingBox_z(BoundingBox_t* bb);
 
 
-/**
+/*
  * Returns the width of the bounding box.
  */
 LIBSBML_EXTERN
 double
 BoundingBox_width(BoundingBox_t* bb);
 
-/**
+/*
  * Returns the height of the bounding box.
  */
 LIBSBML_EXTERN
 double
 BoundingBox_height(BoundingBox_t* bb);
 
-/**
+/*
  * Returns the depth of the bounding box.
  */
 LIBSBML_EXTERN
 double
 BoundingBox_depth(BoundingBox_t* bb);
 
-/**
+/*
  * @return a (deep) copy of this Model.
  */
 LIBSBML_EXTERN

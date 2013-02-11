@@ -1,5 +1,9 @@
 /**
- * Filename    : SpeciesGlyph.cpp
+ * @file    SpeciesGlyph.cpp
+ * @brief   Implementation of SpeciesGlyph for SBML Layout.
+ * @author  Ralph Gauges
+ * 
+ * <!--------------------------------------------------------------------------
  * Description : SBML Layout SpeciesGlyph source
  * Organization: European Media Laboratories Research gGmbH
  * Created     : 2004-07-15
@@ -59,7 +63,7 @@
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
-/**
+/*
  * Creates a new SpeciesGlyph with the given SBML level, version, and package version
  * and the id of the associated species set to the empty string.
  */        
@@ -77,7 +81,7 @@ SpeciesGlyph::SpeciesGlyph (unsigned int level, unsigned int version, unsigned i
 }
 
 
-/**
+/*
  * Creates a new SpeciesGlyph with the given LayoutPkgNamespaces 
  * and the id of the associated species set to the empty string.
  */        
@@ -100,7 +104,7 @@ SpeciesGlyph::SpeciesGlyph (LayoutPkgNamespaces* layoutns)
 }
 
 
-/**
+/*
  * Creates a new SpeciesGlyph with the given id.
  */ 
 SpeciesGlyph::SpeciesGlyph (LayoutPkgNamespaces* layoutns, const std::string& sid)
@@ -121,7 +125,7 @@ SpeciesGlyph::SpeciesGlyph (LayoutPkgNamespaces* layoutns, const std::string& si
   loadPlugins(layoutns);
 }
 
-/**
+/*
  * Creates a new SpeciesGlyph with the given id and the id of the
  * associated species object set to the second argument.
  */ 
@@ -144,7 +148,7 @@ SpeciesGlyph::SpeciesGlyph (LayoutPkgNamespaces* layoutns, const std::string& si
   loadPlugins(layoutns);
 }
 
-/**
+/*
  * Creates a new SpeciesGlyph from the given XMLNode
  */
 SpeciesGlyph::SpeciesGlyph(const XMLNode& node, unsigned int l2version)
@@ -157,7 +161,7 @@ SpeciesGlyph::SpeciesGlyph(const XMLNode& node, unsigned int l2version)
     this->readAttributes(attributes,ea);
 }
 
-/**
+/*
  * Copy constructor.
  */
 SpeciesGlyph::SpeciesGlyph(const SpeciesGlyph& source):GraphicalObject(source)
@@ -165,7 +169,7 @@ SpeciesGlyph::SpeciesGlyph(const SpeciesGlyph& source):GraphicalObject(source)
     this->mSpecies=source.getSpeciesId();
 }
 
-/**
+/*
  * Assignment operator.
  */
 SpeciesGlyph& SpeciesGlyph::operator=(const SpeciesGlyph& source)
@@ -180,7 +184,7 @@ SpeciesGlyph& SpeciesGlyph::operator=(const SpeciesGlyph& source)
 }
 
 
-/**
+/*
  * Destructor.
  */ 
 SpeciesGlyph::~SpeciesGlyph ()
@@ -188,7 +192,7 @@ SpeciesGlyph::~SpeciesGlyph ()
 } 
 
 
-/**
+/*
  * Returns the id of the associated species object.
  */ 
 const std::string&
@@ -198,7 +202,7 @@ SpeciesGlyph::getSpeciesId () const
 }
 
 
-/**
+/*
  * Sets the id of the associated species object.
  */ 
 void
@@ -208,7 +212,7 @@ SpeciesGlyph::setSpeciesId (const std::string& id)
 } 
 
 
-/**
+/*
  * Returns true if the id of the associated species object is not the empty
  * string.
  */ 
@@ -219,7 +223,7 @@ SpeciesGlyph::isSetSpeciesId () const
 }
 
 
-/**
+/*
  * Calls initDefaults from GraphicalObject.
  */ 
 void SpeciesGlyph::initDefaults ()
@@ -227,7 +231,7 @@ void SpeciesGlyph::initDefaults ()
   GraphicalObject::initDefaults();
 }
 
-/**
+/*
  * Returns the XML element name of
  * this SBML object.
  */
@@ -237,7 +241,7 @@ const std::string& SpeciesGlyph::getElementName () const
   return name;
 }
 
-/**
+/*
  * @return a (deep) copy of this Model.
  */
 SpeciesGlyph* 
@@ -317,7 +321,7 @@ void SpeciesGlyph::writeAttributes (XMLOutputStream& stream) const
 /** @endcond */
 
 
-/**
+/*
  * Returns the package type code for this object.
  */
 int
@@ -326,7 +330,7 @@ SpeciesGlyph::getTypeCode () const
   return SBML_LAYOUT_SPECIESGLYPH;
 }
 
-/**
+/*
  * Creates an XMLNode object from this.
  */
 XMLNode SpeciesGlyph::toXML() const

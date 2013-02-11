@@ -1,5 +1,9 @@
 /**
- * Filename    : GeneralGlyph.h
+ * @file    GeneralGlyph.h
+ * @brief   Definition of GeneralGlyph for SBML Layout.
+ * @author  Ralph Gauges
+ * 
+ * <!--------------------------------------------------------------------------
  * Description : SBML Layout GeneralGlyph C++ Header
  * Organization: European Media Laboratories Research gGmbH
  * Created     : 2004-07-15
@@ -657,7 +661,7 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 BEGIN_C_DECLS
 
 
-/**
+/*
  * Creates a new GeneralGlyph and returns the pointer to it.
  */
 LIBSBML_EXTERN
@@ -665,49 +669,49 @@ GeneralGlyph_t *
 GeneralGlyph_create (void);
 
 
-/**
+/*
  * Creates a new GeneralGlyph object from a template.
  */
 LIBSBML_EXTERN
 GeneralGlyph_t *
 GeneralGlyph_createFrom (const GeneralGlyph_t *temp);
 
-/**
+/*
  * Creates a new GeneralGlyph with the given id
  */
 LIBSBML_EXTERN
 GeneralGlyph_t *
 GeneralGlyph_createWith (const char *sid);
 
-/**
+/*
  * Creates a new GeneralGlyph referencing the given element.
  */
 LIBSBML_EXTERN
 GeneralGlyph_t *
 GeneralGlyph_createWithReferenceId (const char *id,const char *referenceId);
 
-/**
+/*
  * Frees the memory taken by the given glyph.
  */
 LIBSBML_EXTERN
 void
 GeneralGlyph_free (GeneralGlyph_t *rg);
 
-/**
+/*
  * Sets the reference for the glyph.
  */
 LIBSBML_EXTERN
 void
 GeneralGlyph_setReferenceId (GeneralGlyph_t *rg,const char *id);
 
-/**
+/*
  * Gets the reference id for the given glyph.
  */
 LIBSBML_EXTERN
 const char *
 GeneralGlyph_getReferenceId (const GeneralGlyph_t *rg);
 
-/**
+/*
  * Returns 0 if the reference element has not been set for this glyph and
  * 1 otherwise.
  */
@@ -715,7 +719,7 @@ LIBSBML_EXTERN
 int
 GeneralGlyph_isSetReferenceId (const GeneralGlyph_t *rg);
 
-/**
+/*
  * Add a ReferenceGlyph object to the list of
  * ReferenceGlyphs.
  */
@@ -724,14 +728,14 @@ void
 GeneralGlyph_addReferenceGlyph (GeneralGlyph_t         *rg,
                                         ReferenceGlyph_t *srg);
 
-/**
+/*
  * Returns the number of ReferenceGlyphs for the GeneralGlyph.
  */
 LIBSBML_EXTERN
 unsigned int
 GeneralGlyph_getNumReferenceGlyphs (const GeneralGlyph_t *rg);
 
-/**
+/*
  * Returns the pointer to the ReferenceGlyphs for the given index.
  */
 LIBSBML_EXTERN
@@ -740,14 +744,14 @@ GeneralGlyph_getReferenceGlyph (GeneralGlyph_t *rg,
                                         unsigned int index);
 
 
-/**
+/*
  * Returns the list object that holds all reference glyphs.
  */ 
 LIBSBML_EXTERN
 ListOf_t *
 GeneralGlyph_getListOfReferenceGlyphs (GeneralGlyph_t *rg);
 
-/**
+/*
  * Removes the reference glyph with the given index.  If the index
  * is invalid, nothing is removed.
  */ 
@@ -756,35 +760,35 @@ ReferenceGlyph_t *
 GeneralGlyph_removeReferenceGlyph (GeneralGlyph_t *rg,
                                            unsigned int index);
 
-/**
+/*
  * Calls initDefaults from GraphicalObject.
  */ 
 LIBSBML_EXTERN
 void
 GeneralGlyph_initDefaults (GeneralGlyph_t *rg);
 
-/**
+/*
  * Sets the curve for the reaction glyph.
  */
 LIBSBML_EXTERN
 void
 GeneralGlyph_setCurve (GeneralGlyph_t *rg, Curve_t *c);
 
-/**
+/*
  * Gets the Curve for the given reaction glyph.
  */
 LIBSBML_EXTERN
 Curve_t *
 GeneralGlyph_getCurve (GeneralGlyph_t *rg);
 
-/**
+/*
  * Returns true if the Curve has one or more LineSegment.
  */
 LIBSBML_EXTERN
 int
 GeneralGlyph_isSetCurve (GeneralGlyph_t *rg);
 
-/**
+/*
  * Creates a new ReferenceGlyph_t object, adds it to the end of the
  * list of reference objects and returns a pointer to the newly
  * created object.
@@ -793,7 +797,7 @@ LIBSBML_EXTERN
 ReferenceGlyph_t *
 GeneralGlyph_createReferenceGlyph (GeneralGlyph_t *rg);
 
-/**
+/*
  * Creates a new ReferenceGlyph_t object, adds it to the end of the
  * list of reference objects and returns a pointer to the newly
  * created object.
@@ -802,7 +806,7 @@ LIBSBML_EXTERN
 ReferenceGlyph_t *
 GeneralGlyph_createReferenceGlyph (GeneralGlyph_t *rg);
 
-/**
+/*
  * Creates a new LineSegment object, adds it to the end of the list of
  * curve segments objects and returns a pointer to the newly created
  * object.
@@ -811,7 +815,7 @@ LIBSBML_EXTERN
 LineSegment_t *
 GeneralGlyph_createLineSegment (GeneralGlyph_t *rg);
 
-/**
+/*
  * Creates a new CubicBezier object, adds it to the end of the list of
  * curve segments objects and returns a pointer to the newly created
  * object.
@@ -820,7 +824,7 @@ LIBSBML_EXTERN
 CubicBezier_t *
 GeneralGlyph_createCubicBezier (GeneralGlyph_t *rg);
 
-/**
+/*
  * Remove the reference glyph with the given index.
  * A pointer to the object is returned. If no object has been removed, NULL
  * is returned.
@@ -829,7 +833,7 @@ LIBSBML_EXTERN
 ReferenceGlyph_t*
 GeneralGlyph_removeReferenceGlyph(GeneralGlyph_t* rg,unsigned int index);
 
-/**
+/*
  * Remove the reference glyph with the given id.
  * A pointer to the object is returned. If no object has been removed, NULL
  * is returned.
@@ -838,7 +842,7 @@ LIBSBML_EXTERN
 ReferenceGlyph_t*
 GeneralGlyph_removeReferenceGlyphWithId(GeneralGlyph_t* rg,const char* id);
 
-/**
+/*
  * Returns the index of the reference glyph with the given id.
  * If the reaction glyph does not contain a reference glyph with this
  * id, UINT_MAX from limits.h is returned.
@@ -847,7 +851,7 @@ LIBSBML_EXTERN
 unsigned int
 GeneralGlyph_getIndexForReferenceGlyph(GeneralGlyph_t* rg,const char* id);
 
-/**
+/*
  * @return a (deep) copy of this Model.
  */
 LIBSBML_EXTERN

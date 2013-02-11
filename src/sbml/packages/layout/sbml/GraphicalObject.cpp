@@ -1,5 +1,9 @@
 /**
- * Filename    : GraphicalObject.cpp
+ * @file    GraphicalObject.cpp
+ * @brief   Implementation of GraphicalObject for SBML Layout.
+ * @author  Ralph Gauges
+ * 
+ * <!--------------------------------------------------------------------------
  * Description : SBML Layout GraphicalObject source
  * Organization: European Media Laboratories Research gGmbH
  * Created     : 2004-07-15
@@ -68,7 +72,7 @@
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
-/**
+/*
  * Creates a new GraphicalObject.
  */
 GraphicalObject::GraphicalObject(unsigned int level, unsigned int version, unsigned int pkgVersion) 
@@ -81,7 +85,7 @@ GraphicalObject::GraphicalObject(unsigned int level, unsigned int version, unsig
 }
 
 
-/**
+/*
  * Creates a new GraphicalObject with the given id.
  */
 GraphicalObject::GraphicalObject (LayoutPkgNamespaces* layoutns)
@@ -104,7 +108,7 @@ GraphicalObject::GraphicalObject (LayoutPkgNamespaces* layoutns)
 }
 
 
-/**
+/*
  * Creates a new GraphicalObject with the given id.
  */
 GraphicalObject::GraphicalObject (LayoutPkgNamespaces* layoutns, const std::string& id)
@@ -127,7 +131,7 @@ GraphicalObject::GraphicalObject (LayoutPkgNamespaces* layoutns, const std::stri
 }
 
 
-/**
+/*
  * Creates a new GraphicalObject with the given id and 2D coordinates for
  * the bounding box.
  */
@@ -152,7 +156,7 @@ GraphicalObject::GraphicalObject (LayoutPkgNamespaces* layoutns, const std::stri
 }
 
 
-/**
+/*
  * Creates a new GraphicalObject with the given id and 3D coordinates for
  * the bounding box.
  */
@@ -178,7 +182,7 @@ GraphicalObject::GraphicalObject (LayoutPkgNamespaces* layoutns, const std::stri
 }
 
 
-/**
+/*
  * Creates a new GraphicalObject with the given id and 3D coordinates for
  * the bounding box.
  */
@@ -204,7 +208,7 @@ GraphicalObject::GraphicalObject (LayoutPkgNamespaces* layoutns, const std::stri
 }
 
 
-/**
+/*
  * Creates a new GraphicalObject with the given id and 3D coordinates for
  * the bounding box.
  */
@@ -232,7 +236,7 @@ GraphicalObject::GraphicalObject (LayoutPkgNamespaces* layoutns, const std::stri
   loadPlugins(layoutns);
 }
 
-/**
+/*
  * Creates a new GraphicalObject from the given XMLNode
  */
 GraphicalObject::GraphicalObject(const XMLNode& node, unsigned int l2version)
@@ -292,7 +296,7 @@ GraphicalObject::GraphicalObject(const XMLNode& node, unsigned int l2version)
 }
 
 
-/**
+/*
  * Copy constructor.
  */
 GraphicalObject::GraphicalObject(const GraphicalObject& source):SBase(source)
@@ -304,7 +308,7 @@ GraphicalObject::GraphicalObject(const GraphicalObject& source):SBase(source)
     connectToChild();
 }
 
-/**
+/*
  * Assignment operator.
  */
 GraphicalObject& GraphicalObject::operator=(const GraphicalObject& source)
@@ -322,7 +326,7 @@ GraphicalObject& GraphicalObject::operator=(const GraphicalObject& source)
   return *this;
 }
 
-/**
+/*
  * Destructor.
  */ 
 GraphicalObject::~GraphicalObject ()
@@ -330,7 +334,7 @@ GraphicalObject::~GraphicalObject ()
 }
 
 
-/**
+/*
   * Returns the value of the "id" attribute of this GraphicalObject.
   */
 const std::string& GraphicalObject::getId () const
@@ -339,7 +343,7 @@ const std::string& GraphicalObject::getId () const
 }
 
 
-/**
+/*
   * Predicate returning @c true or @c false depending on whether this
   * GraphicalObject's "id" attribute has been set.
   */
@@ -348,7 +352,7 @@ bool GraphicalObject::isSetId () const
   return (mId.empty() == false);
 }
 
-/**
+/*
   * Sets the value of the "id" attribute of this GraphicalObject.
   */
 int GraphicalObject::setId (const std::string& id)
@@ -359,7 +363,7 @@ int GraphicalObject::setId (const std::string& id)
 }
 
 
-/**
+/*
   * Unsets the value of the "id" attribute of this GraphicalObject.
   */
 int GraphicalObject::unsetId ()
@@ -376,7 +380,7 @@ int GraphicalObject::unsetId ()
 }
 
 
-/**
+/*
   * Returns the value of the "metaidRef" attribute of this GraphicalObject.
   */
 const std::string& GraphicalObject::getMetaIdRef () const
@@ -385,7 +389,7 @@ const std::string& GraphicalObject::getMetaIdRef () const
 }
 
 
-/**
+/*
   * Predicate returning @c true or @c false depending on whether this
   * GraphicalObject's "metaidRef" attribute has been set.
   */
@@ -394,7 +398,7 @@ bool GraphicalObject::isSetMetaIdRef () const
   return (mMetaIdRef.empty() == false);
 }
 
-/**
+/*
   * Sets the value of the "metaidRef" attribute of this GraphicalObject.
   */
 int GraphicalObject::setMetaIdRef (const std::string& metaid)
@@ -405,7 +409,7 @@ int GraphicalObject::setMetaIdRef (const std::string& metaid)
 }
 
 
-/**
+/*
   * Unsets the value of the "metaidRef" attribute of this GraphicalObject.
   */
 int GraphicalObject::unsetMetaIdRef ()
@@ -422,7 +426,7 @@ int GraphicalObject::unsetMetaIdRef ()
 }
 
 
-/**
+/*
  * Sets the boundingbox for the GraphicalObject.
  */ 
 void
@@ -434,7 +438,7 @@ GraphicalObject::setBoundingBox (const BoundingBox* bb)
 }
 
 
-/**
+/*
  * Returns the bounding box for the GraphicalObject.
  */ 
 const BoundingBox*
@@ -444,7 +448,7 @@ GraphicalObject::getBoundingBox () const
 } 
 
 
-/**
+/*
  * Returns the bounding box for the GraphicalObject.
  */ 
 BoundingBox*
@@ -454,7 +458,7 @@ GraphicalObject::getBoundingBox ()
 }
 
 
-/**
+/*
  * Does nothing. No defaults are defined for GraphicalObject.
  */ 
 void
@@ -462,7 +466,7 @@ GraphicalObject::initDefaults ()
 {
 }
 
-/**
+/*
  * Returns the XML element name of
  * this SBML object.
  */
@@ -472,7 +476,7 @@ const std::string& GraphicalObject::getElementName () const
   return name;
 }
 
-/**
+/*
  * @return a (deep) copy of this Model.
  */
 GraphicalObject* 
@@ -578,7 +582,7 @@ GraphicalObject::writeXMLNS (XMLOutputStream& stream) const
 /** @endcond */
 
 
-/**
+/*
  * Returns the package type code  for this object.
  */
 int
@@ -588,7 +592,7 @@ GraphicalObject::getTypeCode () const
 }
 
 
-/**
+/*
  * Accepts the given SBMLVisitor.
  */
 bool
@@ -602,7 +606,7 @@ GraphicalObject::accept (SBMLVisitor& v) const
   return false;
 }
 
-/**
+/*
  * Creates an XMLNode object from this.
  */
 XMLNode GraphicalObject::toXML() const
@@ -634,7 +638,7 @@ GraphicalObject::connectToChild()
 }
 
 
-/**
+/*
  * Enables/Disables the given package with this element and child
  * elements (if any).
  * (This is an internal implementation for enablePakcage function)
@@ -650,7 +654,7 @@ GraphicalObject::enablePackageInternal(const std::string& pkgURI,
 
 
 
-/**
+/*
  * Ctor.
  */
 ListOfGraphicalObjects::ListOfGraphicalObjects(LayoutPkgNamespaces* layoutns)
@@ -664,7 +668,7 @@ ListOfGraphicalObjects::ListOfGraphicalObjects(LayoutPkgNamespaces* layoutns)
 }
 
 
-/**
+/*
  * Ctor.
  */
 ListOfGraphicalObjects::ListOfGraphicalObjects(unsigned int level, unsigned int version, unsigned int pkgVersion)
@@ -675,7 +679,7 @@ ListOfGraphicalObjects::ListOfGraphicalObjects(unsigned int level, unsigned int 
 };
 
 
-/**
+/*
  * @return a (deep) copy of this ListOfUnitDefinitions.
  */
 ListOfGraphicalObjects*
@@ -685,7 +689,7 @@ ListOfGraphicalObjects::clone () const
 }
 
 
-/**
+/*
  * @return the typecode (int) of SBML objects contained in this ListOf or
  * SBML_UNKNOWN (default).
  */
@@ -696,7 +700,7 @@ ListOfGraphicalObjects::getItemTypeCode () const
 }
 
 
-/**
+/*
  * Returns the XML element name of
  * this SBML object.
  */

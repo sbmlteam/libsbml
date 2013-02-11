@@ -1,6 +1,9 @@
-
 /**
- * Filename    : CompartmentGlyph.h
+ * @file    CompartmentGlyph.h
+ * @brief   Definition of CompartmentGlyph for SBML Layout.
+ * @author  Ralph Gauges
+ * 
+ * <!--------------------------------------------------------------------------
  * Description : SBML Layout CompartmentGlyph C++ Header
  * Organization: European Media Laboratories Research gGmbH
  * Created     : 2004-07-15
@@ -278,7 +281,7 @@ protected:
 BEGIN_C_DECLS
 
 
-/**
+/*
  * Creates a new CompartmentGlyph and returns the pointer to it.
  */
 LIBSBML_EXTERN
@@ -286,28 +289,28 @@ CompartmentGlyph_t *
 CompartmentGlyph_create ();
 
 
-/**
+/*
  * Creates a new CompartmentGlyph from a template.
  */
 LIBSBML_EXTERN
 CompartmentGlyph_t *
 CompartmentGlyph_createFrom (const CompartmentGlyph_t *cg);
 
-/**
+/*
  * Creates a new CompartmentGlyph with the given id
  */
 LIBSBML_EXTERN
 CompartmentGlyph_t *
 CompartmentGlyph_createWith (const char *sid);
 
-/**
+/*
  * Creates a new CompartmentGlyph with the given id
  */
 LIBSBML_EXTERN
 CompartmentGlyph_t *
 CompartmentGlyph_createWithCompartmentId (const char *sid, const char *compId);
 
-/**
+/*
  * Frees the memory taken by the given compartment glyph.
  */
 LIBSBML_EXTERN
@@ -315,21 +318,21 @@ void
 CompartmentGlyph_free (CompartmentGlyph_t *cg);
 
 
-/**
+/*
  * Sets the reference compartment for the compartment glyph.
  */
 LIBSBML_EXTERN
 void
 CompartmentGlyph_setCompartmentId (CompartmentGlyph_t *cg, const char *id);
 
-/**
+/*
  * Gets the reference compartments id for the given compartment glyph.
  */
 LIBSBML_EXTERN
 const char *
 CompartmentGlyph_getCompartmentId (const CompartmentGlyph_t *cg);
 
-/**
+/*
  * Returns 0 if the reference compartment has not been set for this glyph
  * and 1 otherwise.
  */
@@ -338,14 +341,14 @@ int
 CompartmentGlyph_isSetCompartmentId (const CompartmentGlyph_t *cg);
 
 
-/**
+/*
  * Calls initDefaults from GraphicalObject.
  */ 
 LIBSBML_EXTERN
 void
 CompartmentGlyph_initDefaults (CompartmentGlyph_t *cg);
 
-/**
+/*
  * @return a (deep) copy of this Model.
  */
 LIBSBML_EXTERN

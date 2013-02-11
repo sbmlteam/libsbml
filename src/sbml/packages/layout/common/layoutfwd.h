@@ -1,5 +1,9 @@
 /**
- * Filename    : layoutfwd.h
+ * @file    layoutfwd.h
+ * @brief   C Structure declarations for SBML Layout.
+ * @author  Ralph Gauges
+ * 
+ * <!--------------------------------------------------------------------------
  * Description : SBML Layout C structure declarations
  * Organization: European Media Laboratories Research gGmbH
  * Created     : 2005-04-15

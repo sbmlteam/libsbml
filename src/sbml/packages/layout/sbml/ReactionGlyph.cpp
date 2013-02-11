@@ -1,5 +1,9 @@
 /**
- * Filename    : ReactionGlyph.cpp
+ * @file    ReactionGlyph.cpp
+ * @brief   Implementation of ReactionGlyph for SBML Layout.
+ * @author  Ralph Gauges
+ * 
+ * <!--------------------------------------------------------------------------
  * Description : SBML Layout ReactionGlyph source
  * Organization: European Media Laboratories Research gGmbH
  * Created     : 2004-07-15
@@ -63,7 +67,7 @@
 LIBSBML_CPP_NAMESPACE_BEGIN
 
 
-/**
+/*
  * Creates a new ReactionGlyph.  The list of species reference glyph is
  * empty and the id of the associated reaction is set to the empty string.
  */
@@ -83,7 +87,7 @@ ReactionGlyph::ReactionGlyph(unsigned int level, unsigned int version, unsigned 
 }
 
 
-/**
+/*
  * Creates a new ReactionGlyph with the given LayoutPkgNamespaces
  */
 ReactionGlyph::ReactionGlyph(LayoutPkgNamespaces* layoutns)
@@ -110,7 +114,7 @@ ReactionGlyph::ReactionGlyph(LayoutPkgNamespaces* layoutns)
 }
 
 
-/**
+/*
  * Creates a ReactionGlyph with the given id.
  */
 ReactionGlyph::ReactionGlyph (LayoutPkgNamespaces* layoutns, const std::string& id)
@@ -136,7 +140,7 @@ ReactionGlyph::ReactionGlyph (LayoutPkgNamespaces* layoutns, const std::string& 
 }
 
 
-/**
+/*
  * Creates a ReactionGlyph with the given id and set the id of the
  * associated reaction to the second argument.
  */
@@ -163,7 +167,7 @@ ReactionGlyph::ReactionGlyph (LayoutPkgNamespaces* layoutns, const std::string& 
   loadPlugins(layoutns);
 }
 
-/**
+/*
  * Creates a new ReactionGlyph from the given XMLNode
  */
 ReactionGlyph::ReactionGlyph(const XMLNode& node, unsigned int l2version)
@@ -243,7 +247,7 @@ ReactionGlyph::ReactionGlyph(const XMLNode& node, unsigned int l2version)
   connectToChild();
 }
 
-/**
+/*
  * Copy constructor.
  */
 ReactionGlyph::ReactionGlyph(const ReactionGlyph& source):GraphicalObject(source)
@@ -255,7 +259,7 @@ ReactionGlyph::ReactionGlyph(const ReactionGlyph& source):GraphicalObject(source
     connectToChild();
 }
 
-/**
+/*
  * Assignment operator.
  */
 ReactionGlyph& ReactionGlyph::operator=(const ReactionGlyph& source)
@@ -274,7 +278,7 @@ ReactionGlyph& ReactionGlyph::operator=(const ReactionGlyph& source)
 
 
 
-/**
+/*
  * Destructor.
  */ 
 ReactionGlyph::~ReactionGlyph ()
@@ -282,7 +286,7 @@ ReactionGlyph::~ReactionGlyph ()
 } 
 
 
-/**
+/*
  * Returns the id of the associated reaction.
  */  
 const std::string&
@@ -292,7 +296,7 @@ ReactionGlyph::getReactionId () const
 }
 
 
-/**
+/*
  * Sets the id of the associated reaction.
  */ 
 int
@@ -310,7 +314,7 @@ ReactionGlyph::setReactionId (const std::string& id)
 }
 
 
-/**
+/*
  * Returns true if the id of the associated reaction is not the empty
  * string.
  */ 
@@ -321,7 +325,7 @@ ReactionGlyph::isSetReactionId() const
 }
 
 
-/**
+/*
  * Returns the ListOf object that hold the species reference glyphs.
  */  
 const ListOfSpeciesReferenceGlyphs*
@@ -331,7 +335,7 @@ ReactionGlyph::getListOfSpeciesReferenceGlyphs () const
 }
 
 
-/**
+/*
  * Returns the ListOf object that hold the species reference glyphs.
  */  
 ListOfSpeciesReferenceGlyphs*
@@ -340,7 +344,7 @@ ReactionGlyph::getListOfSpeciesReferenceGlyphs ()
   return &this->mSpeciesReferenceGlyphs;
 }
 
-/**
+/*
  * Returns the species reference glyph with the given index.  If the index
  * is invalid, NULL is returned.
  */ 
@@ -354,7 +358,7 @@ ReactionGlyph::getSpeciesReferenceGlyph (unsigned int index)
 }
 
 
-/**
+/*
  * Returns the species reference glyph with the given index.  If the index
  * is invalid, NULL is returned.
  */ 
@@ -368,7 +372,7 @@ ReactionGlyph::getSpeciesReferenceGlyph (unsigned int index) const
 }
 
 
-/**
+/*
  * Adds a new species reference glyph to the list.
  */
 void
@@ -378,7 +382,7 @@ ReactionGlyph::addSpeciesReferenceGlyph (const SpeciesReferenceGlyph* glyph)
 }
 
 
-/**
+/*
  * Returns the number of species reference glyph objects.
  */ 
 unsigned int
@@ -388,7 +392,7 @@ ReactionGlyph::getNumSpeciesReferenceGlyphs () const
 }
 
 
-/**
+/*
  * Calls initDefaults from GraphicalObject.
  */ 
 void ReactionGlyph::initDefaults ()
@@ -397,7 +401,7 @@ void ReactionGlyph::initDefaults ()
 }
 
 
-/**
+/*
  * Returns the curve object for the reaction glyph
  */ 
 const Curve*
@@ -406,7 +410,7 @@ ReactionGlyph::getCurve () const
   return &this->mCurve;
 }
 
-/**
+/*
  * Returns the curve object for the reaction glyph
  */ 
 Curve*
@@ -416,7 +420,7 @@ ReactionGlyph::getCurve ()
 }
 
 
-/**
+/*
  * Sets the curve object for the reaction glyph.
  */ 
 void ReactionGlyph::setCurve (const Curve* curve)
@@ -427,7 +431,7 @@ void ReactionGlyph::setCurve (const Curve* curve)
 }
 
 
-/**
+/*
  * Returns true if the curve consists of one or more segments.
  */ 
 bool ReactionGlyph::isSetCurve () const
@@ -436,7 +440,7 @@ bool ReactionGlyph::isSetCurve () const
 }
 
 
-/**
+/*
  * Creates a new SpeciesReferenceGlyph object, adds it to the end of the
  * list of species reference objects and returns a reference to the newly
  * created object.
@@ -452,7 +456,7 @@ ReactionGlyph::createSpeciesReferenceGlyph ()
 }
 
 
-/**
+/*
  * Creates a new LineSegment object, adds it to the end of the list of
  * curve segment objects of the curve and returns a reference to the newly
  * created object.
@@ -464,7 +468,7 @@ ReactionGlyph::createLineSegment ()
 }
 
  
-/**
+/*
  * Creates a new CubicBezier object, adds it to the end of the list of
  * curve segment objects of the curve and returns a reference to the newly
  * created object.
@@ -475,7 +479,7 @@ ReactionGlyph::createCubicBezier ()
   return this->mCurve.createCubicBezier();
 }
 
-/**
+/*
  * Remove the species reference glyph with the given index.
  * A pointer to the object is returned. If no object has been removed, NULL
  * is returned.
@@ -491,7 +495,7 @@ ReactionGlyph::removeSpeciesReferenceGlyph(unsigned int index)
     return srg;
 }
 
-/**
+/*
  * Remove the species reference glyph with the given id.
  * A pointer to the object is returned. If no object has been removed, NULL
  * is returned.
@@ -508,7 +512,7 @@ ReactionGlyph::removeSpeciesReferenceGlyph(const std::string& id)
     return srg;
 }
 
-/**
+/*
  * Returns the index of the species reference glyph with the given id.
  * If the reaction glyph does not contain a species reference glyph with this
  * id, numreic_limits<int>::max() is returned.
@@ -531,7 +535,7 @@ ReactionGlyph::getIndexForSpeciesReferenceGlyph(const std::string& id) const
 }
 
 
-/**
+/*
  * Returns the XML element name of
  * this SBML object.
  */
@@ -541,7 +545,7 @@ const std::string& ReactionGlyph::getElementName () const
   return name;
 }
 
-/**
+/*
  * @return a (deep) copy of this Model.
  */
 ReactionGlyph* 
@@ -651,7 +655,7 @@ void ReactionGlyph::writeAttributes (XMLOutputStream& stream) const
 /** @endcond */
 
 
-/**
+/*
  * Returns the package type code for this object.
  */
 int
@@ -661,7 +665,7 @@ ReactionGlyph::getTypeCode () const
 }
 
 
-/**
+/*
  * Creates an XMLNode object from this.
  */
 XMLNode ReactionGlyph::toXML() const
@@ -671,7 +675,7 @@ XMLNode ReactionGlyph::toXML() const
 
 
 
-/**
+/*
  * Ctor.
  */
 ListOfSpeciesReferenceGlyphs::ListOfSpeciesReferenceGlyphs(unsigned int level, unsigned int version, unsigned int pkgVersion)
@@ -681,7 +685,7 @@ ListOfSpeciesReferenceGlyphs::ListOfSpeciesReferenceGlyphs(unsigned int level, u
 };
 
 
-/**
+/*
  * Ctor.
  */
 ListOfSpeciesReferenceGlyphs::ListOfSpeciesReferenceGlyphs(LayoutPkgNamespaces* layoutns)
@@ -694,7 +698,7 @@ ListOfSpeciesReferenceGlyphs::ListOfSpeciesReferenceGlyphs(LayoutPkgNamespaces* 
 }
 
 
-/**
+/*
  * @return a (deep) copy of this ListOfUnitDefinitions.
  */
 ListOfSpeciesReferenceGlyphs*
@@ -704,7 +708,7 @@ ListOfSpeciesReferenceGlyphs::clone () const
 }
 
 
-/**
+/*
  * @return the typecode (int) of SBML objects contained in this ListOf or
  * SBML_UNKNOWN (default).
  */
@@ -715,7 +719,7 @@ ListOfSpeciesReferenceGlyphs::getItemTypeCode () const
 }
 
 
-/**
+/*
  * Returns the XML element name of
  * this SBML object.
  */
@@ -864,7 +868,7 @@ ReactionGlyph::connectToChild()
   mCurve.connectToParent(this);
 }
 
-/**
+/*
  * Enables/Disables the given package with this element and child
  * elements (if any).
  * (This is an internal implementation for enablePakcage function)

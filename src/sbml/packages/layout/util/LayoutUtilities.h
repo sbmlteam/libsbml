@@ -1,5 +1,9 @@
 /**
- * Filename    : LayoutUtilities.h
+ * @file    LayoutUtilities.h
+ * @brief   Definition of LayoutUtilities for SBML Layout.
+ * @author  Ralph Gauges
+ * 
+ * <!--------------------------------------------------------------------------
  * Description : Header for some methods used by many of the layout files.
  * Organization: European Media Laboratories Research gGmbH
  * Created     : 2007-02-14

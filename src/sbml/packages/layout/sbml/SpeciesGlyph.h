@@ -1,5 +1,9 @@
 /**
- * Filename    : SpeciesGlyph.h
+ * @file    SpeciesGlyph.h
+ * @brief   Definition of SpeciesGlyph for SBML Layout.
+ * @author  Ralph Gauges
+ * 
+ * <!--------------------------------------------------------------------------
  * Description : SBML Layout SpeciesGlyph C++ Header
  * Organization: European Media Laboratories Research gGmbH
  * Created     : 2004-07-15
@@ -277,14 +281,14 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 BEGIN_C_DECLS
 
 
-/**
+/*
  * Creates a new SpeciesGlyph and returns the pointer to it.
  */
 LIBSBML_EXTERN
 SpeciesGlyph_t *
 SpeciesGlyph_create (void);
 
-/**
+/*
  * Create a new SpeciesGlyph object from a template.
  */
 LIBSBML_EXTERN
@@ -293,42 +297,42 @@ SpeciesGlyph_createFrom (const SpeciesGlyph_t *temp);
 
 
 
-/**
+/*
  * Creates a new SpeciesGlyph with the given id
  */
 LIBSBML_EXTERN
 SpeciesGlyph_t *
 SpeciesGlyph_createWith (const char *id);
 
-/**
+/*
  * Creates a new SpeciesGlyph referencing with the give species id.
  */
 LIBSBML_EXTERN
 SpeciesGlyph_t *
 SpeciesGlyph_createWithSpeciesId (const char *id, const char *speciesId);
 
-/**
+/*
  * Frees the memory taken by the given compartment glyph.
  */
 LIBSBML_EXTERN
 void
 SpeciesGlyph_free (SpeciesGlyph_t *sg);
 
-/**
+/*
  * Sets the associated species id. 
  */
 LIBSBML_EXTERN
 void
 SpeciesGlyph_setSpeciesId (SpeciesGlyph_t *sg, const char *id);
 
-/**
+/*
  * Gets the the id of the associated species.
  */
 LIBSBML_EXTERN
 const char *
 SpeciesGlyph_getSpeciesId (const SpeciesGlyph_t *sg);
 
-/**
+/*
  * Returns 0 if the  id of the associated species is the empty string.
  * otherwise.
  */
@@ -336,14 +340,14 @@ LIBSBML_EXTERN
 int
 SpeciesGlyph_isSetSpeciesId (const SpeciesGlyph_t *sg);
 
-/**
+/*
  * Calls initDefaults from GraphicalObject.
  */ 
 LIBSBML_EXTERN
 void
 SpeciesGlyph_initDefaults (SpeciesGlyph_t *sg);
 
-/**
+/*
  * @return a (deep) copy of this Model.
  */
 LIBSBML_EXTERN

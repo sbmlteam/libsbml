@@ -1,5 +1,9 @@
 /**
- * Filename    : ReferenceGlyph.cpp
+ * @file    ReferenceGlyph.cpp
+ * @brief   Implementation of ReferenceGlyph for SBML Layout.
+ * @author  Ralph Gauges
+ * 
+ * <!--------------------------------------------------------------------------
  * Description : SBML Layout ReferenceGlyph source
  * Organization: European Media Laboratories Research gGmbH
  * Created     : 2004-07-15
@@ -62,7 +66,7 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 
 
 
-/**
+/*
  * Creates a new ReferenceGlyph.  The id if the associated 
  * reference and the id of the associated glyph are set to the
  * empty string.  The role is set to empty.
@@ -107,7 +111,7 @@ ReferenceGlyph::ReferenceGlyph(LayoutPkgNamespaces* layoutns)
   loadPlugins(layoutns);
 }
 
-/**
+/*
  * Creates a new ReferenceGlyph.  The id is given as the first
  * argument, the id of the associated reference is given as the
  * second argument.  The third argument is the id of the associated
@@ -143,7 +147,7 @@ ReferenceGlyph::ReferenceGlyph
   loadPlugins(layoutns);
 }
 
-/**
+/*
  * Creates a new ReferenceGlyph from the given XMLNode
  */
 ReferenceGlyph::ReferenceGlyph(const XMLNode& node, unsigned int l2version)
@@ -193,7 +197,7 @@ ReferenceGlyph::ReferenceGlyph(const XMLNode& node, unsigned int l2version)
   connectToChild();
 }
 
-/**
+/*
  * Copy constructor.
  */
 ReferenceGlyph::ReferenceGlyph(const ReferenceGlyph& source) :
@@ -207,7 +211,7 @@ ReferenceGlyph::ReferenceGlyph(const ReferenceGlyph& source) :
     connectToChild();
 }
 
-/**
+/*
  * Assignment operator.
  */
 ReferenceGlyph& ReferenceGlyph::operator=(const ReferenceGlyph& source)
@@ -226,7 +230,7 @@ ReferenceGlyph& ReferenceGlyph::operator=(const ReferenceGlyph& source)
   return *this;
 }
 
-/**
+/*
  * Destructor.
  */ 
 ReferenceGlyph::~ReferenceGlyph ()
@@ -234,7 +238,7 @@ ReferenceGlyph::~ReferenceGlyph ()
 }
 
 
-/**
+/*
  * Returns the id of the associated glyph.
  */ 
 const std::string&
@@ -244,7 +248,7 @@ ReferenceGlyph::getGlyphId () const
 }
 
 
-/**
+/*
  * Sets the id of the associated glyph.
  */ 
 void
@@ -254,7 +258,7 @@ ReferenceGlyph::setGlyphId (const std::string& glyphId)
 }
 
 
-/**
+/*
  * Returns the id of the associated reference.
  */ 
 const std::string&
@@ -264,7 +268,7 @@ ReferenceGlyph::getReferenceId () const
 }
 
 
-/**
+/*
  * Sets the id of the associated reference.
  */ 
 void
@@ -275,14 +279,14 @@ ReferenceGlyph::setReferenceId (const std::string& id)
 
 
 
-/**
+/*
  * Returns a string representation for the role
  */
 const std::string& ReferenceGlyph::getRole() const{
     return this->mRole;
 }
 
-/**
+/*
  * Sets the role based on a string.
  */ 
 void
@@ -293,7 +297,7 @@ ReferenceGlyph::setRole (const std::string& role)
 
 
 
-/**
+/*
  * Returns the curve object for the reference glyph
  */ 
 Curve* ReferenceGlyph::getCurve() 
@@ -301,7 +305,7 @@ Curve* ReferenceGlyph::getCurve()
   return &this->mCurve;
 }
 
-/**
+/*
  * Returns the curve object for the reference glyph
  */ 
 const Curve* ReferenceGlyph::getCurve() const
@@ -310,7 +314,7 @@ const Curve* ReferenceGlyph::getCurve() const
 }
 
 
-/**
+/*
  * Sets the curve object for the reference glyph.
  */ 
 void
@@ -322,7 +326,7 @@ ReferenceGlyph::setCurve (const Curve* curve)
 }
 
 
-/**
+/*
  * Returns true if the curve consists of one or more segments.
  */ 
 bool
@@ -332,7 +336,7 @@ ReferenceGlyph::isSetCurve () const
 }
 
 
-/**
+/*
  * Returns true if the id of the associated glpyh is not the empty
  * string.
  */ 
@@ -343,7 +347,7 @@ ReferenceGlyph::isSetGlyphId () const
 }
 
 
-/**
+/*
  * Returns true if the id of the associated reference is not the
  * empty string.
  */ 
@@ -354,7 +358,7 @@ ReferenceGlyph::isSetReferenceId () const
 }
 
 
-/**
+/*
  * Returns true of role is different from the empty string.
  */ 
 bool ReferenceGlyph::isSetRole () const
@@ -363,7 +367,7 @@ bool ReferenceGlyph::isSetRole () const
 }
 
 
-/**
+/*
  * Calls initDefaults on GraphicalObject 
  */ 
 void
@@ -373,7 +377,7 @@ ReferenceGlyph::initDefaults ()
 }
 
 
-/**
+/*
  * Creates a new LineSegment object, adds it to the end of the list of
  * curve segment objects of the curve and returns a reference to the newly
  * created object.
@@ -385,7 +389,7 @@ ReferenceGlyph::createLineSegment ()
 }
 
 
-/**
+/*
  * Creates a new CubicBezier object, adds it to the end of the list of
  * curve segment objects of the curve and returns a reference to the newly
  * created object.
@@ -397,7 +401,7 @@ ReferenceGlyph::createCubicBezier ()
 }
 
 
-/**
+/*
  * Returns the XML element name of
  * this SBML object.
  */
@@ -407,7 +411,7 @@ const std::string& ReferenceGlyph::getElementName () const
   return name;
 }
 
-/**
+/*
  * @return a (deep) copy of this Model.
  */
 ReferenceGlyph* 
@@ -530,7 +534,7 @@ void ReferenceGlyph::writeAttributes (XMLOutputStream& stream) const
 /** @endcond */
 
 
-/**
+/*
  * Returns the package type code for this object.
  */
 int
@@ -539,7 +543,7 @@ ReferenceGlyph::getTypeCode () const
   return SBML_LAYOUT_REFERENCEGLYPH;
 }
 
-/**
+/*
  * Creates an XMLNode object from this.
  */
 XMLNode ReferenceGlyph::toXML() const
@@ -548,7 +552,7 @@ XMLNode ReferenceGlyph::toXML() const
 }
 
 
-/**
+/*
  * Accepts the given SBMLVisitor.
 
 bool
@@ -592,7 +596,7 @@ ReferenceGlyph::connectToChild()
 }
 
 
-/**
+/*
  * Enables/Disables the given package with this element and child
  * elements (if any).
  * (This is an internal implementation for enablePakcage function)

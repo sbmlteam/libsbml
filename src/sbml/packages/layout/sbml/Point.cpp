@@ -1,5 +1,9 @@
 /**
- * Filename    : Point.cpp
+ * @file    Point.cpp
+ * @brief   Implementation of Point for SBML Layout.
+ * @author  Ralph Gauges
+ * 
+ * <!--------------------------------------------------------------------------
  * Description : SBML Layout Point source
  * Organization: European Media Laboratories Research gGmbH
  * Created     : 2004-07-15
@@ -63,7 +67,7 @@
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
-/**
+/*
  * Creates a new point with x,y and z set  to 0.0.
  */ 
 Point::Point(unsigned int level, unsigned int version, unsigned int pkgVersion) 
@@ -78,7 +82,7 @@ Point::Point(unsigned int level, unsigned int version, unsigned int pkgVersion)
 
 
 
-/**
+/*
  * Constructor
  */ 
 Point::Point(LayoutPkgNamespaces* layoutns)
@@ -100,7 +104,7 @@ Point::Point(LayoutPkgNamespaces* layoutns)
 }
 
 
-/**
+/*
  * Copy constructor.
  */
 Point::Point(const Point& orig):SBase(orig)
@@ -175,7 +179,7 @@ Point& Point::operator=(const Point& orig)
 }
 
 
-/**
+/*
  * Creates a new point with the given ccordinates.
  */ 
 Point::Point(LayoutPkgNamespaces* layoutns, double x, double y, double z)
@@ -197,7 +201,7 @@ Point::Point(LayoutPkgNamespaces* layoutns, double x, double y, double z)
 }
 
 
-/**
+/*
  * Sets the Z offset to 0.0.
  */
 void Point::initDefaults ()
@@ -205,7 +209,7 @@ void Point::initDefaults ()
   this->setZOffset(0.0);
 }
 
-/**
+/*
  * Creates a new Point from the given XMLNode
  */
 Point::Point(const XMLNode& node, unsigned int l2version) 
@@ -245,7 +249,7 @@ Point::Point(const XMLNode& node, unsigned int l2version)
 }
 
 
-/**
+/*
  * Destructor.
  */ 
 Point::~Point()
@@ -253,7 +257,7 @@ Point::~Point()
 }
 
 
-/**
+/*
   * Returns the value of the "id" attribute of this Point.
   */
 const std::string& Point::getId () const
@@ -262,7 +266,7 @@ const std::string& Point::getId () const
 }
 
 
-/**
+/*
   * Predicate returning @c true or @c false depending on whether this
   * Point's "id" attribute has been set.
   */
@@ -271,7 +275,7 @@ bool Point::isSetId () const
   return (mId.empty() == false);
 }
 
-/**
+/*
   * Sets the value of the "id" attribute of this Point.
   */
 int Point::setId (const std::string& id)
@@ -280,7 +284,7 @@ int Point::setId (const std::string& id)
 }
 
 
-/**
+/*
   * Unsets the value of the "id" attribute of this Point.
   */
 int Point::unsetId ()
@@ -297,7 +301,7 @@ int Point::unsetId ()
 }
 
 
-/**
+/*
  * Sets the coordinates to the given values.
  */ 
 void
@@ -309,7 +313,7 @@ Point::setOffsets (double x, double y, double z)
 }
 
 
-/**
+/*
  * Sets the x offset.
  */ 
 void
@@ -319,7 +323,7 @@ Point::setXOffset (double x)
 }
 
 
-/**
+/*
  * Sets the y offset.
  */ 
 void
@@ -329,7 +333,7 @@ Point::setYOffset (double y)
 }
 
 
-/**
+/*
  * Sets the z offset.
  */ 
 void
@@ -339,7 +343,7 @@ Point::setZOffset (double z)
 }
 
 
-/**
+/*
  * Sets the x offset.
  */ 
 void
@@ -349,7 +353,7 @@ Point::setX (double x)
 }
 
 
-/**
+/*
  * Sets the y offset.
  */ 
 void
@@ -359,7 +363,7 @@ Point::setY (double y)
 }
 
 
-/**
+/*
  * Sets the z offset.
  */ 
 void
@@ -369,7 +373,7 @@ Point::setZ (double z)
 }
 
 
-/**
+/*
  * Returns the x offset.
  */ 
 double
@@ -379,7 +383,7 @@ Point::getXOffset () const
 }
 
 
-/**
+/*
  * Returns the y offset.
  */ 
 double
@@ -389,7 +393,7 @@ Point::getYOffset () const
 }
 
 
-/**
+/*
  * Returns the z offset.
  */ 
 double
@@ -398,7 +402,7 @@ Point::getZOffset () const
   return this->z();
 }
 
-/**
+/*
  * Returns the x offset.
  */ 
 double
@@ -408,7 +412,7 @@ Point::x () const
 }
 
 
-/**
+/*
  * Returns the y offset.
  */ 
 double
@@ -418,7 +422,7 @@ Point::y () const
 }
 
 
-/**
+/*
  * Returns the z offset.
  */ 
 double
@@ -428,7 +432,7 @@ Point::z () const
 }
 
 
-/**
+/*
  * Subclasses should override this method to write out their contained
  * SBML objects as XML elements.  Be sure to call your parents
  * implementation of this method as well.  For example:
@@ -448,7 +452,7 @@ void Point::writeElements (XMLOutputStream& stream) const
   SBase::writeExtensionElements(stream);
 }
 
-/**
+/*
  * Sets the element name to be returned by getElementName.
  */
 void Point::setElementName(const std::string& name)
@@ -456,7 +460,7 @@ void Point::setElementName(const std::string& name)
     this->mElementName=name;
 }
  
-/**
+/*
  * Returns the XML element name of
  * this SBML object.
  */
@@ -465,7 +469,7 @@ const std::string& Point::getElementName () const
   return this->mElementName;
 }
 
-/**
+/*
  * @return a (deep) copy of this Model.
  */
 Point* 
@@ -557,7 +561,7 @@ XMLNode Point::toXML(const std::string& name) const
 }
 
 
-/**
+/*
  * Returns the package type code for this object.
  */
 int
@@ -567,7 +571,7 @@ Point::getTypeCode () const
 }
 
 
-/**
+/*
  * Accepts the given SBMLVisitor.
  *
  * @return the result of calling <code>v.visit()</code>, which indicates

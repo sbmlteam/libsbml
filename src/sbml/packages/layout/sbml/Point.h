@@ -1,5 +1,9 @@
 /**
- * Filename    : Point.h
+ * @file    Point.h
+ * @brief   Definition of Point for SBML Layout.
+ * @author  Ralph Gauges
+ * 
+ * <!--------------------------------------------------------------------------
  * Description : SBML Layout Point C++ Header
  * Organization: European Media Laboratories Research gGmbH
  * Created     : 2004-07-15
@@ -370,77 +374,77 @@ BEGIN_C_DECLS
 
 
 
-/**
+/*
  * Creates a new point with the coordinates (0.0,0.0,0.0).
  */ 
 LIBSBML_EXTERN
 Point_t *
 Point_create (void);
 
-/**
+/*
  * Creates a new Point with the given coordinates.
  */ 
 LIBSBML_EXTERN
 Point_t *
 Point_createWithCoordinates (double x, double y, double z);
 
-/**
+/*
  * Frees all memory for the Point.
  */ 
 LIBSBML_EXTERN
 void
 Point_free (Point_t *p);
 
-/**
+/*
  * Sets the Z offset to 0.0
  */ 
 LIBSBML_EXTERN
 void
 Point_initDefaults (Point_t *p);
 
-/**
+/*
  * Sets the coordinates to the given values.
  */ 
 LIBSBML_EXTERN
 void
 Point_setOffsets (Point_t *p, double x, double y, double z);
 
-/**
+/*
  * Sets the x offset.
  */ 
 LIBSBML_EXTERN
 void
 Point_setX (Point_t *p, double x);
 
-/**
+/*
  * Sets the y offset.
  */ 
 LIBSBML_EXTERN
 void
 Point_setY (Point_t *p, double y);
 
-/**
+/*
  * Sets the z offset.
  */ 
 LIBSBML_EXTERN
 void
 Point_setZ (Point_t *p, double z);
 
-/**
+/*
  * Gets the x offset.
  */ 
 LIBSBML_EXTERN
 double
 Point_x (const Point_t *p);
 
-/**
+/*
  * Gets the y offset.
  */ 
 LIBSBML_EXTERN
 double
 Point_y (const Point_t *p);
 
-/**
+/*
  * Gets the z offset.
  */ 
 LIBSBML_EXTERN
@@ -448,49 +452,49 @@ double
 Point_z (const Point_t *p);
 
 
-/**
+/*
  * Sets the x offset.
  */ 
 LIBSBML_EXTERN
 void
 Point_setXOffset (Point_t *p, double x);
 
-/**
+/*
  * Sets the y offset.
  */ 
 LIBSBML_EXTERN
 void
 Point_setYOffset (Point_t *p, double y);
 
-/**
+/*
  * Sets the z offset.
  */ 
 LIBSBML_EXTERN
 void
 Point_setZOffset (Point_t *p, double z);
 
-/**
+/*
  * Gets the x offset.
  */ 
 LIBSBML_EXTERN
 double
 Point_getXOffset (const Point_t *p);
 
-/**
+/*
  * Gets the y offset.
  */ 
 LIBSBML_EXTERN
 double
 Point_getYOffset (const Point_t *p);
 
-/**
+/*
  * Gets the z offset.
  */ 
 LIBSBML_EXTERN
 double
 Point_getZOffset (const Point_t *p);
 
-/**
+/*
  * @return a (deep) copy of this Model.
  */
 LIBSBML_EXTERN

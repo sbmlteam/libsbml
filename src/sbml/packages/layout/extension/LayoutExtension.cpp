@@ -429,7 +429,7 @@ LayoutExtension::init()
 
 
 
-/**
+/*
 * Removes the L2 Namespace from a document. 
 *
 * This method should be overridden by all extensions that want to serialize
@@ -446,7 +446,7 @@ void LayoutExtension::removeL2Namespaces(XMLNamespaces* xmlns)  const
     }
 }
 
-/**
+/*
  * adds the L2 Namespace 
  *
  * This method should be overridden by all extensions that want to serialize
@@ -459,7 +459,7 @@ void LayoutExtension::addL2Namespaces(XMLNamespaces* xmlns)  const
 }
 
 
-/**
+/*
 * Adds the L2 Namespace to the document and enables the extension.
 *
 * If the extension supports serialization to SBML L2 Annotations, this 

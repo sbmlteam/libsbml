@@ -1,5 +1,9 @@
 /**
- * Filename    : GraphicalObject.h
+ * @file    GraphicalObject.h
+ * @brief   Definition of GraphicalObject for SBML Layout.
+ * @author  Ralph Gauges
+ * 
+ * <!--------------------------------------------------------------------------
  * Description : SBML Layout GraphicalObject C++ Header
  * Organization: European Media Laboratories Research gGmbH
  * Created     : 2004-07-15
@@ -578,7 +582,7 @@ BEGIN_C_DECLS
 
 
 
-/**
+/*
  * Creates a new GraphicalObject.
  */
 LIBSBML_EXTERN
@@ -586,14 +590,14 @@ GraphicalObject_t *
 GraphicalObject_create (void);
 
 
-/**
+/*
  * Creates a GraphicalObject from a template.
  */
 LIBSBML_EXTERN
 GraphicalObject_t *
 GraphicalObject_createFrom (const GraphicalObject_t *temp);
 
-/**
+/*
  * Frees all memory taken up by the GraphicalObject.
  */ 
 LIBSBML_EXTERN
@@ -601,28 +605,28 @@ void
 GraphicalObject_free (GraphicalObject_t *go);
 
 
-/**
+/*
  * Sets the boundingbox for the GraphicalObject.
  */ 
 LIBSBML_EXTERN
 void
 GraphicalObject_setBoundingBox (GraphicalObject_t *go, const BoundingBox_t *bb);
 
-/**
+/*
  * Returns the bounding box for the GraphicalObject.
  */ 
 LIBSBML_EXTERN
 BoundingBox_t *
 GraphicalObject_getBoundingBox (GraphicalObject_t *go);
 
-/**
+/*
  * Does nothing. No defaults are defined for GraphicalObject.
  */ 
 LIBSBML_EXTERN
 void
 GraphicalObject_initDefaults (GraphicalObject_t *go);
 
-/**
+/*
  * @return a (deep) copy of this Model.
  */
 LIBSBML_EXTERN

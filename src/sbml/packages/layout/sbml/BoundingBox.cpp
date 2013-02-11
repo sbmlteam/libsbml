@@ -1,5 +1,9 @@
 /**
- * Filename    : BoundingBox.cpp
+ * @file    BoundingBox.cpp
+ * @brief   Implementation of BoundingBox for SBML Layout.
+ * @author  Ralph Gauges
+ * 
+ * <!--------------------------------------------------------------------------
  * Description : SBML Layout BoundingBox source
  * Organization: European Media Laboratories Research gGmbH
  * Created     : 2004-07-15
@@ -62,7 +66,7 @@
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
-/**
+/*
  * Default Constructor set position and dimensions to (0.0,0.0,0.0) and the
  * id to an empty string.
  */ 
@@ -98,7 +102,7 @@ BoundingBox::BoundingBox(LayoutPkgNamespaces* layoutns)
 }
 
 
-/**
+/*
  * Copy constructor.
  */
 BoundingBox::BoundingBox(const BoundingBox& orig):SBase(orig)
@@ -111,7 +115,7 @@ BoundingBox::BoundingBox(const BoundingBox& orig):SBase(orig)
 }
 
 
-/**
+/*
  * Assignment operator
  */
 BoundingBox& BoundingBox::operator=(const BoundingBox& orig)
@@ -131,7 +135,7 @@ BoundingBox& BoundingBox::operator=(const BoundingBox& orig)
 }
 
 
-/**
+/*
  * Constructor set position and dimensions to (0.0,0.0,0.0) and the id to a
  * copy of the given string.
  */ 
@@ -154,7 +158,7 @@ BoundingBox::BoundingBox (LayoutPkgNamespaces* layoutns, const std::string id)
 }
 
 
-/**
+/*
  * Constructor which sets the id, the coordinates and the dimensions to the
  * given 2D values.
  */ 
@@ -180,7 +184,7 @@ BoundingBox::BoundingBox (LayoutPkgNamespaces* layoutns, const std::string id,
 }
 
 
-/**
+/*
  * Constructor which sets the id, the coordinates and the dimensions to the
  * given 3D values.
  */ 
@@ -207,7 +211,7 @@ BoundingBox::BoundingBox (LayoutPkgNamespaces* layoutns, const std::string id,
 }
 
         
-/**
+/*
  * Constructor which sets the id, the coordinates and the dimensions to the
  * given 3D values.
  */ 
@@ -244,7 +248,7 @@ BoundingBox::BoundingBox (LayoutPkgNamespaces* layoutns, const std::string id,
   loadPlugins(layoutns);
 }
 
-/**
+/*
  * Creates a new BoundingBox from the given XMLNode
  */
 BoundingBox::BoundingBox(const XMLNode& node, unsigned int l2version)
@@ -294,7 +298,7 @@ BoundingBox::BoundingBox(const XMLNode& node, unsigned int l2version)
 }
 
 
-/**
+/*
  * Destructor which does nothing.
  */ 
 BoundingBox::~BoundingBox ()
@@ -302,7 +306,7 @@ BoundingBox::~BoundingBox ()
 }
 
 
-/**
+/*
  * Does nothing since no defaults are defined for a BundingBox.
  */ 
 void BoundingBox::initDefaults ()
@@ -310,7 +314,7 @@ void BoundingBox::initDefaults ()
 }
 
 
-/**
+/*
   * Returns the value of the "id" attribute of this BoundingBox.
   */
 const std::string& BoundingBox::getId () const
@@ -319,7 +323,7 @@ const std::string& BoundingBox::getId () const
 }
 
 
-/**
+/*
   * Predicate returning @c true or @c false depending on whether this
   * BoundingBox's "id" attribute has been set.
   */
@@ -328,7 +332,7 @@ bool BoundingBox::isSetId () const
   return (mId.empty() == false);
 }
 
-/**
+/*
   * Sets the value of the "id" attribute of this BoundingBox.
   */
 int BoundingBox::setId (const std::string& id)
@@ -337,7 +341,7 @@ int BoundingBox::setId (const std::string& id)
 }
 
 
-/**
+/*
   * Unsets the value of the "id" attribute of this BoundingBox.
   */
 int BoundingBox::unsetId ()
@@ -354,7 +358,7 @@ int BoundingBox::unsetId ()
 }
 
 
-/**
+/*
  * Returns the position of the BoundingBox as const referece to a Point
  * object.
  */ 
@@ -365,7 +369,7 @@ BoundingBox::getPosition () const
 }
 
 
-/**
+/*
  * Returns the dimensions of the BoundingBox as const referece to a
  * Dimensions object.
  */ 
@@ -376,7 +380,7 @@ BoundingBox::getDimensions () const
 }
 
 
-/**
+/*
  * Returns the position of the BoundingBox as referece to a Point object.
  */ 
 Point*
@@ -386,7 +390,7 @@ BoundingBox::getPosition ()
 }
 
 
-/**
+/*
  * Returns the dimensions of the BoundingBox as referece to a Dimensions
  * object.
  */ 
@@ -397,7 +401,7 @@ BoundingBox::getDimensions ()
 }
 
 
-/**
+/*
  * Sets the position to a copy of the Point object given.
  */ 
 void BoundingBox::setPosition (const Point* p)
@@ -409,7 +413,7 @@ void BoundingBox::setPosition (const Point* p)
 }
 
 
-/**
+/*
  * Sets the dimensions to a copy of the Dimensions object given.
  */ 
 void
@@ -421,7 +425,7 @@ BoundingBox::setDimensions (const Dimensions* d)
 }
 
 
-/**
+/*
  * Sets the x offset of the BoundingBox.
  */
 void
@@ -431,7 +435,7 @@ BoundingBox::setX(double x)
 }
 
 
-/**
+/*
  * Sets the y offset of the BoundingBox.
  */
 void
@@ -441,7 +445,7 @@ BoundingBox::setY(double y)
 }
 
 
-/**
+/*
  * Sets the z offset of the BoundingBox.
  */
 void
@@ -451,7 +455,7 @@ BoundingBox::setZ(double z)
 }
 
 
-/**
+/*
  * Sets the width of the BoundingBox.
  */
 void
@@ -461,7 +465,7 @@ BoundingBox::setWidth(double width)
 }
 
 
-/**
+/*
  * Sets the height of the BoundingBox.
  */
 void
@@ -471,7 +475,7 @@ BoundingBox::setHeight(double height)
 }
 
 
-/**
+/*
  * Sets the depth of the BoundingBox.
  */
 void
@@ -480,7 +484,7 @@ BoundingBox::setDepth(double depth)
   this->mDimensions.setDepth(depth);
 }
 
-/**
+/*
  * Returns the x offset of the bounding box.
  */
 double
@@ -489,7 +493,7 @@ BoundingBox::x() const
   return this->mPosition.x();
 }
 
-/**
+/*
  * Returns the y offset of the bounding box.
  */
 double
@@ -498,7 +502,7 @@ BoundingBox::y() const
   return this->mPosition.y();
 }
 
-/**
+/*
  * Returns the z offset of the bounding box.
  */
 double
@@ -507,7 +511,7 @@ BoundingBox::z() const
   return this->mPosition.z();
 }
 
-/**
+/*
  * Returns the width of the bounding box.
  */
 double
@@ -516,7 +520,7 @@ BoundingBox::width() const
   return this->mDimensions.width();
 }
 
-/**
+/*
  * Returns the height of the bounding box.
  */
 double
@@ -525,7 +529,7 @@ BoundingBox::height() const
   return this->mDimensions.height();
 }
 
-/**
+/*
  * Returns the depth of the bounding box.
  */
 double
@@ -534,7 +538,7 @@ BoundingBox::depth() const
   return this->mDimensions.depth();
 }
 
-/**
+/*
  * Subclasses should override this method to write out their contained
  * SBML objects as XML elements.  Be sure to call your parents
  * implementation of this method as well.  For example:
@@ -556,7 +560,7 @@ void BoundingBox::writeElements (XMLOutputStream& stream) const
   SBase::writeExtensionElements(stream);
 }
 
-/**
+/*
  * Returns the XML element name of
  * this SBML object.
  */
@@ -566,7 +570,7 @@ const std::string& BoundingBox::getElementName () const
   return name;
 }
 
-/**
+/*
  * @return a (deep) copy of this Model.
  */
 BoundingBox* 
@@ -639,7 +643,7 @@ void BoundingBox::writeAttributes (XMLOutputStream& stream) const
 /** @endcond */
 
 
-/**
+/*
  * Returns the package type code  for this object.
  */
 int
@@ -649,7 +653,7 @@ BoundingBox::getTypeCode () const
 }
 
 
-/**
+/*
  * Accepts the given SBMLVisitor.
  */
 bool
@@ -663,7 +667,7 @@ BoundingBox::accept (SBMLVisitor& v) const
   return false;
 }
 
-/**
+/*
  * Creates an XMLNode object from this.
  */
 XMLNode BoundingBox::toXML() const
@@ -696,7 +700,7 @@ BoundingBox::connectToChild()
   mDimensions.connectToParent(this);
 }
 
-/**
+/*
  * Enables/Disables the given package with this element and child
  * elements (if any).
  * (This is an internal implementation for enablePakcage function)

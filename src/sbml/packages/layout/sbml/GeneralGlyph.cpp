@@ -1,5 +1,9 @@
 /**
- * Filename    : GeneralGlyph.cpp
+ * @file    GeneralGlyph.cpp
+ * @brief   Implementation of GeneralGlyph for SBML Layout.
+ * @author  Ralph Gauges
+ * 
+ * <!--------------------------------------------------------------------------
  * Description : SBML Layout GeneralGlyph source
  * Organization: European Media Laboratories Research gGmbH
  * Created     : 2004-07-15
@@ -68,7 +72,7 @@
 LIBSBML_CPP_NAMESPACE_BEGIN
 
 
-/**
+/*
  * Creates a new GeneralGlyph.  The list of reference and sub glyph is
  * empty and the id of the associated element is set to the empty string.
  */
@@ -91,7 +95,7 @@ GeneralGlyph::GeneralGlyph(unsigned int level, unsigned int version, unsigned in
 }
 
 
-/**
+/*
  * Creates a new GeneralGlyph with the given LayoutPkgNamespaces
  */
 GeneralGlyph::GeneralGlyph(LayoutPkgNamespaces* layoutns)
@@ -120,7 +124,7 @@ GeneralGlyph::GeneralGlyph(LayoutPkgNamespaces* layoutns)
 }
 
 
-/**
+/*
  * Creates a GeneralGlyph with the given id.
  */
 GeneralGlyph::GeneralGlyph (LayoutPkgNamespaces* layoutns, const std::string& id)
@@ -149,7 +153,7 @@ GeneralGlyph::GeneralGlyph (LayoutPkgNamespaces* layoutns, const std::string& id
 }
 
 
-/**
+/*
  * Creates a GeneralGlyph with the given id and set the id of the
  * associated reaction to the second argument.
  */
@@ -179,7 +183,7 @@ GeneralGlyph::GeneralGlyph (LayoutPkgNamespaces* layoutns, const std::string& id
   loadPlugins(layoutns);
 }
 
-/**
+/*
  * Creates a new GeneralGlyph from the given XMLNode
  */
 GeneralGlyph::GeneralGlyph(const XMLNode& node, unsigned int l2version)
@@ -309,7 +313,7 @@ GeneralGlyph::GeneralGlyph(const XMLNode& node, unsigned int l2version)
   connectToChild();
 }
 
-/**
+/*
  * Copy constructor.
  */
 GeneralGlyph::GeneralGlyph(const GeneralGlyph& source):GraphicalObject(source)
@@ -322,7 +326,7 @@ GeneralGlyph::GeneralGlyph(const GeneralGlyph& source):GraphicalObject(source)
     connectToChild();
 }
 
-/**
+/*
  * Assignment operator.
  */
 GeneralGlyph& GeneralGlyph::operator=(const GeneralGlyph& source)
@@ -342,7 +346,7 @@ GeneralGlyph& GeneralGlyph::operator=(const GeneralGlyph& source)
 
 
 
-/**
+/*
  * Destructor.
  */ 
 GeneralGlyph::~GeneralGlyph ()
@@ -350,7 +354,7 @@ GeneralGlyph::~GeneralGlyph ()
 } 
 
 
-/**
+/*
  * Returns the id of the associated reaction.
  */  
 const std::string&
@@ -360,7 +364,7 @@ GeneralGlyph::getReferenceId () const
 }
 
 
-/**
+/*
  * Sets the id of the associated reaction.
  */ 
 int
@@ -378,7 +382,7 @@ GeneralGlyph::setReferenceId (const std::string& id)
 }
 
 
-/**
+/*
  * Returns true if the id of the associated reaction is not the empty
  * string.
  */ 
@@ -389,7 +393,7 @@ GeneralGlyph::isSetReferenceId() const
 }
 
 
-/**
+/*
  * Returns the ListOf object that hold the reference glyphs.
  */  
 const ListOfReferenceGlyphs*
@@ -399,7 +403,7 @@ GeneralGlyph::getListOfReferenceGlyphs () const
 }
 
 
-/**
+/*
  * Returns the ListOf object that hold the reference glyphs.
  */  
 ListOfReferenceGlyphs*
@@ -408,7 +412,7 @@ GeneralGlyph::getListOfReferenceGlyphs ()
   return &this->mReferenceGlyphs;
 }
 
-/**
+/*
  * Returns the ListOf object that hold the subglyphs.
  */  
 const ListOfGraphicalObjects*
@@ -418,7 +422,7 @@ GeneralGlyph::getListOfSubGlyphs () const
 }
 
 
-/**
+/*
  * Returns the ListOf object that hold the subglyphs.
  */  
 ListOfGraphicalObjects*
@@ -428,7 +432,7 @@ GeneralGlyph::getListOfSubGlyphs ()
 }
 
 
-/**
+/*
  * Returns the reference glyph with the given index.  If the index
  * is invalid, NULL is returned.
  */ 
@@ -442,7 +446,7 @@ GeneralGlyph::getReferenceGlyph (unsigned int index)
 }
 
 
-/**
+/*
  * Returns the reference glyph with the given index.  If the index
  * is invalid, NULL is returned.
  */ 
@@ -455,7 +459,7 @@ GeneralGlyph::getReferenceGlyph (unsigned int index) const
   );
 }
 
-/**
+/*
  * Returns the reference glyph with the given index.  If the index
  * is invalid, NULL is returned.
  */ 
@@ -469,7 +473,7 @@ GeneralGlyph::getSubGlyph (unsigned int index)
 }
 
 
-/**
+/*
  * Returns the reference glyph with the given index.  If the index
  * is invalid, NULL is returned.
  */ 
@@ -482,7 +486,7 @@ GeneralGlyph::getSubGlyph (unsigned int index) const
   );
 }
 
-/**
+/*
  * Adds a new reference glyph to the list.
  */
 void
@@ -491,7 +495,7 @@ GeneralGlyph::addReferenceGlyph (const ReferenceGlyph* glyph)
   this->mReferenceGlyphs.append(glyph);
 }
 
-/**
+/*
  * Adds a new subglyph to the list.
  */
 void
@@ -501,7 +505,7 @@ void
 }
 
 
-/**
+/*
  * Returns the number of reference glyph objects.
  */ 
 unsigned int
@@ -511,7 +515,7 @@ GeneralGlyph::getNumReferenceGlyphs () const
 }
 
 
-/**
+/*
  * Returns the number of subglyph objects.
  */ 
 unsigned int
@@ -520,7 +524,7 @@ GeneralGlyph::getNumSubGlyphs () const
   return this->mSubGlyphs.size();
 }
 
-/**
+/*
  * Calls initDefaults from GraphicalObject.
  */ 
 void GeneralGlyph::initDefaults ()
@@ -529,7 +533,7 @@ void GeneralGlyph::initDefaults ()
 }
 
 
-/**
+/*
  * Returns the curve object for the glyph
  */ 
 const Curve*
@@ -538,7 +542,7 @@ GeneralGlyph::getCurve () const
   return &this->mCurve;
 }
 
-/**
+/*
  * Returns the curve object for the glyph
  */ 
 Curve*
@@ -548,7 +552,7 @@ GeneralGlyph::getCurve ()
 }
 
 
-/**
+/*
  * Sets the curve object for the reaction glyph.
  */ 
 void GeneralGlyph::setCurve (const Curve* curve)
@@ -559,7 +563,7 @@ void GeneralGlyph::setCurve (const Curve* curve)
 }
 
 
-/**
+/*
  * Returns true if the curve consists of one or more segments.
  */ 
 bool GeneralGlyph::isSetCurve () const
@@ -568,7 +572,7 @@ bool GeneralGlyph::isSetCurve () const
 }
 
 
-/**
+/*
  * Creates a new ReferenceGlyph object, adds it to the end of the
  * list of reference objects and returns a reference to the newly
  * created object.
@@ -584,7 +588,7 @@ GeneralGlyph::createReferenceGlyph ()
 }
 
 
-/**
+/*
  * Creates a new LineSegment object, adds it to the end of the list of
  * curve segment objects of the curve and returns a reference to the newly
  * created object.
@@ -596,7 +600,7 @@ GeneralGlyph::createLineSegment ()
 }
 
  
-/**
+/*
  * Creates a new CubicBezier object, adds it to the end of the list of
  * curve segment objects of the curve and returns a reference to the newly
  * created object.
@@ -607,7 +611,7 @@ GeneralGlyph::createCubicBezier ()
   return this->mCurve.createCubicBezier();
 }
 
-/**
+/*
  * Remove the reference glyph with the given index.
  * A pointer to the object is returned. If no object has been removed, NULL
  * is returned.
@@ -623,7 +627,7 @@ GeneralGlyph::removeReferenceGlyph(unsigned int index)
     return srg;
 }
 
-/**
+/*
  * Remove the reference glyph with the given id.
  * A pointer to the object is returned. If no object has been removed, NULL
  * is returned.
@@ -641,7 +645,7 @@ GeneralGlyph::removeReferenceGlyph(const std::string& id)
 }
 
 
-/**
+/*
  * Remove the subglyph with the given index.
  * A pointer to the object is returned. If no object has been removed, NULL
  * is returned.
@@ -657,7 +661,7 @@ GeneralGlyph::removeSubGlyph(unsigned int index)
     return srg;
 }
 
-/**
+/*
  * Remove the subglyph with the given id.
  * A pointer to the object is returned. If no object has been removed, NULL
  * is returned.
@@ -674,7 +678,7 @@ GeneralGlyph::removeSubGlyph(const std::string& id)
     return srg;
 }
 
-/**
+/*
  * Returns the index of the reference glyph with the given id.
  * If the reaction glyph does not contain a reference glyph with this
  * id, numreic_limits<int>::max() is returned.
@@ -698,7 +702,7 @@ GeneralGlyph::getIndexForReferenceGlyph(const std::string& id) const
 
 
 
-/**
+/*
  * Returns the index of the subglyph with the given id.
  * If the reaction glyph does not contain a subglyph with this
  * id, numreic_limits<int>::max() is returned.
@@ -721,7 +725,7 @@ GeneralGlyph::getIndexForSubGlyph(const std::string& id) const
 }
 
 
-/**
+/*
  * Returns the XML element name of
  * this SBML object.
  */
@@ -731,7 +735,7 @@ const std::string& GeneralGlyph::getElementName () const
   return name;
 }
 
-/**
+/*
  * @return a (deep) copy of this Model.
  */
 GeneralGlyph* 
@@ -846,7 +850,7 @@ void GeneralGlyph::writeAttributes (XMLOutputStream& stream) const
 /** @endcond */
 
 
-/**
+/*
  * Returns the package type code for this object.
  */
 int
@@ -856,7 +860,7 @@ GeneralGlyph::getTypeCode () const
 }
 
 
-/**
+/*
  * Creates an XMLNode object from this.
  */
 XMLNode GeneralGlyph::toXML() const
@@ -866,7 +870,7 @@ XMLNode GeneralGlyph::toXML() const
 
 
 
-/**
+/*
  * Ctor.
  */
 ListOfReferenceGlyphs::ListOfReferenceGlyphs(unsigned int level, unsigned int version, unsigned int pkgVersion)
@@ -876,7 +880,7 @@ ListOfReferenceGlyphs::ListOfReferenceGlyphs(unsigned int level, unsigned int ve
 };
 
 
-/**
+/*
  * Ctor.
  */
 ListOfReferenceGlyphs::ListOfReferenceGlyphs(LayoutPkgNamespaces* layoutns)
@@ -889,7 +893,7 @@ ListOfReferenceGlyphs::ListOfReferenceGlyphs(LayoutPkgNamespaces* layoutns)
 }
 
 
-/**
+/*
  * @return a (deep) copy of this ListOfUnitDefinitions.
  */
 ListOfReferenceGlyphs*
@@ -899,7 +903,7 @@ ListOfReferenceGlyphs::clone () const
 }
 
 
-/**
+/*
  * @return the typecode (int) of SBML objects contained in this ListOf or
  * SBML_UNKNOWN (default).
  */
@@ -910,7 +914,7 @@ ListOfReferenceGlyphs::getItemTypeCode () const
 }
 
 
-/**
+/*
  * Returns the XML element name of
  * this SBML object.
  */
@@ -1004,7 +1008,7 @@ ListOfReferenceGlyphs::createObject (XMLInputStream& stream)
 }
 /** @endcond */
 
-/**
+/*
  * Creates an XMLNode object from this.
  */
 XMLNode ListOfReferenceGlyphs::toXML() const
@@ -1014,7 +1018,7 @@ XMLNode ListOfReferenceGlyphs::toXML() const
 
 
 
-/**
+/*
  * Accepts the given SBMLVisitor.
  
 bool
@@ -1060,7 +1064,7 @@ GeneralGlyph::connectToChild()
   mCurve.connectToParent(this);
 }
 
-/**
+/*
  * Enables/Disables the given package with this element and child
  * elements (if any).
  * (This is an internal implementation for enablePakcage function)

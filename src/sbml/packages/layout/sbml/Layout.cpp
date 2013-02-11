@@ -1,5 +1,9 @@
 /**
- * Filename    : Layout.cpp
+ * @file    Layout.cpp
+ * @brief   Implementation of Layout for SBML Layout.
+ * @author  Ralph Gauges
+ * 
+ * <!--------------------------------------------------------------------------
  * Description : SBML Layout Layout source
  * Organization: European Media Laboratories Research gGmbH
  * Created     : 2004-07-15
@@ -68,7 +72,7 @@
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
-/**
+/*
  * Creates a new Layout with the given level, version, and package version.
  */
 Layout::Layout (unsigned int level, unsigned int version, unsigned int pkgVersion) 
@@ -89,7 +93,7 @@ Layout::Layout (unsigned int level, unsigned int version, unsigned int pkgVersio
 }
 
 
-/**
+/*
  * Creates a new Layout with the given namespaces, id, and dimensions.
  */
 Layout::Layout (LayoutPkgNamespaces* layoutns, const std::string& id, const Dimensions* dimensions)
@@ -122,7 +126,7 @@ Layout::Layout (LayoutPkgNamespaces* layoutns, const std::string& id, const Dime
 }
 
 
-/**
+/*
  * Ctor.
  */
 Layout::Layout(LayoutPkgNamespaces* layoutns)
@@ -151,7 +155,7 @@ Layout::Layout(LayoutPkgNamespaces* layoutns)
 
 
 
-/**
+/*
  * Creates a new Layout from the given XMLNode
  */
 Layout::Layout(const XMLNode& node, unsigned int l2version)
@@ -354,7 +358,7 @@ Layout::Layout(const XMLNode& node, unsigned int l2version)
 
 }
 
-/**
+/*
  * Copy constructor.
  */
 Layout::Layout(const Layout& source):SBase(source)
@@ -371,7 +375,7 @@ Layout::Layout(const Layout& source):SBase(source)
     connectToChild();
 }
 
-/**
+/*
  * Assignment operator.
  */
 Layout& Layout::operator=(const Layout& source)
@@ -395,7 +399,7 @@ Layout& Layout::operator=(const Layout& source)
 }
 
 
-/**
+/*
  * Destructor.
  */ 
 Layout::~Layout ()
@@ -403,7 +407,7 @@ Layout::~Layout ()
 }
 
 
-/**
+/*
  * Does nothing since no defaults are defined for Layout.
  */ 
 void
@@ -412,7 +416,7 @@ Layout::initDefaults ()
 }
 
 
-/**
+/*
   * Returns the value of the "id" attribute of this Layout.
   */
 const std::string& Layout::getId () const
@@ -421,7 +425,7 @@ const std::string& Layout::getId () const
 }
 
 
-/**
+/*
   * Predicate returning @c true or @c false depending on whether this
   * Layout's "id" attribute has been set.
   */
@@ -430,7 +434,7 @@ bool Layout::isSetId () const
   return (mId.empty() == false);
 }
 
-/**
+/*
   * Sets the value of the "id" attribute of this Layout.
   */
 int Layout::setId (const std::string& id)
@@ -439,7 +443,7 @@ int Layout::setId (const std::string& id)
 }
 
 
-/**
+/*
   * Unsets the value of the "id" attribute of this Layout.
   */
 int Layout::unsetId ()
@@ -455,7 +459,7 @@ int Layout::unsetId ()
   }
 }
 
-/**
+/*
  * Returns the dimensions of the layout.
  */ 
 const Dimensions*
@@ -465,7 +469,7 @@ Layout::getDimensions() const
 }
 
 
-/**
+/*
  * Returns the dimensions of the layout.
  */ 
 Dimensions*
@@ -475,7 +479,7 @@ Layout::getDimensions()
 }
 
 
-/**
+/*
  * Sets the dimensions of the layout.
  */ 
 void
@@ -487,7 +491,7 @@ Layout::setDimensions (const Dimensions* dimensions)
 }
 
 
-/**
+/*
  * Returns the ListOf object that holds all compartment glyphs.
  */ 
 const ListOfCompartmentGlyphs*
@@ -497,7 +501,7 @@ Layout::getListOfCompartmentGlyphs () const
 }
 
 
-/**
+/*
  * Returns the ListOf object that holds all species glyphs.
  */ 
 const ListOfSpeciesGlyphs*
@@ -507,7 +511,7 @@ Layout::getListOfSpeciesGlyphs () const
 }
 
 
-/**
+/*
  * Returns the ListOf object that holds all reaction glyphs.
  */ 
 const ListOfReactionGlyphs*
@@ -517,7 +521,7 @@ Layout::getListOfReactionGlyphs () const
 }
 
 
-/**
+/*
  * Returns the ListOf object that holds all text glyphs.
  */ 
 const ListOfTextGlyphs*
@@ -527,7 +531,7 @@ Layout::getListOfTextGlyphs () const
 }
 
 
-/**
+/*
  * Returns the ListOf object that holds all additonal graphical objects.
  */ 
 const ListOfGraphicalObjects*
@@ -537,7 +541,7 @@ Layout::getListOfAdditionalGraphicalObjects () const
 }
 
 
-/**
+/*
  * Returns the ListOf object that holds all compartment glyphs.
  */ 
 ListOfCompartmentGlyphs*
@@ -547,7 +551,7 @@ Layout::getListOfCompartmentGlyphs ()
 }
 
 
-/**
+/*
  * Returns the ListOf object that holds all species glyphs.
  */ 
 ListOfSpeciesGlyphs*
@@ -557,7 +561,7 @@ Layout::getListOfSpeciesGlyphs ()
 }
 
 
-/**
+/*
  * Returns the ListOf object that holds all reaction glyphs.
  */ 
 ListOfReactionGlyphs*
@@ -567,7 +571,7 @@ Layout::getListOfReactionGlyphs ()
 }
 
 
-/**
+/*
  * Returns the ListOf object that holds all text glyphs.
  */ 
 ListOfTextGlyphs*
@@ -577,7 +581,7 @@ Layout::getListOfTextGlyphs ()
 }
 
 
-/**
+/*
  * Returns the ListOf object that holds all additional graphical objects.
  */ 
 ListOfGraphicalObjects*
@@ -587,7 +591,7 @@ Layout::getListOfAdditionalGraphicalObjects ()
 }
 
 
-/**
+/*
  * Returns the compartment glyph with the given index.  If the index is
  * invalid, NULL is returned.
  */ 
@@ -597,7 +601,7 @@ Layout::getCompartmentGlyph (unsigned int index)
   return static_cast<CompartmentGlyph*>( this->mCompartmentGlyphs.get(index) );
 }
 
-/**
+/*
  * Returns the compartment glyph with the given index.  If the index is
  * invalid, NULL is returned.
  */ 
@@ -608,7 +612,7 @@ Layout::getCompartmentGlyph (unsigned int index) const
 }
 
 
-/**
+/*
  * Returns the species glyph with the given index.  If the index is
  * invalid, NULL is returned.
  */ 
@@ -618,7 +622,7 @@ Layout::getSpeciesGlyph (unsigned int index)
   return static_cast<SpeciesGlyph*>( this->mSpeciesGlyphs.get(index) );
 }
 
-/**
+/*
  * Returns the species glyph with the given index.  If the index is
  * invalid, NULL is returned.
  */ 
@@ -629,7 +633,7 @@ Layout::getSpeciesGlyph (unsigned int index) const
 }
 
 
-/**
+/*
  * Returns the reaction glyph with the given index.  If the index is
  * invalid, NULL is returned.
  */ 
@@ -639,7 +643,7 @@ Layout::getReactionGlyph (unsigned int index)
   return static_cast<ReactionGlyph*>( this->mReactionGlyphs.get(index) );
 }
 
-/**
+/*
  * Returns the reaction glyph with the given index.  If the index is
  * invalid, NULL is returned.
  */ 
@@ -650,7 +654,7 @@ Layout::getReactionGlyph (unsigned int index) const
 }
 
 
-/**
+/*
  * Returns the text glyph with the given index.  If the index is invalid,
  * NULL is returned.
  */ 
@@ -660,7 +664,7 @@ Layout::getTextGlyph (unsigned int index)
   return static_cast<TextGlyph*>( this->mTextGlyphs.get(index) );
 }
 
-/**
+/*
  * Returns the text glyph with the given index.  If the index is invalid,
  * NULL is returned.
  */ 
@@ -671,7 +675,7 @@ Layout::getTextGlyph (unsigned int index) const
 }
 
 
-/**
+/*
  * Returns the additional graphical object with the given index.
  * If the index is invalid, NULL is returned.
  */ 
@@ -684,7 +688,7 @@ Layout::getAdditionalGraphicalObject (unsigned int index)
   );
 }
 
-/**
+/*
  * Returns the additional graphical object with the given index.
  * If the index is invalid, NULL is returned.
  */ 
@@ -697,7 +701,7 @@ Layout::getAdditionalGraphicalObject (unsigned int index) const
   );
 }
 
-/**
+/*
  * Returns the GeneralGlyph with the given index.
  * If the index is invalid, NULL is returned.
  */
@@ -717,7 +721,7 @@ Layout::getGeneralGlyph (unsigned int index)
   return NULL;
 }
 
-/**
+/*
  * Returns the GeneralGlyph with the given index.
  * If the index is invalid, NULL is returned.
  */
@@ -788,7 +792,7 @@ Layout::removeObjectWithId (ListOf* list,const std::string& id)
   return object;
 }
 
-/**
+/*
  * Removes the compartment glyph with the given index from the layout.
  * A pointer to the compartment glyph that was removed is returned.
  * If no compartment glyph has been removed, NULL is returned.
@@ -803,7 +807,7 @@ CompartmentGlyph* Layout::removeCompartmentGlyph(unsigned int index)
     return glyph;
 }
 
-/**
+/*
  * Removes the species glyph with the given index from the layout.
  * A pointer to the species glyph that was removed is returned.
  * If no species glyph has been removed, NULL is returned.
@@ -818,7 +822,7 @@ SpeciesGlyph* Layout::removeSpeciesGlyph(unsigned int index)
     return glyph;
 }
 
-/**
+/*
  * Removes the reaction glyph with the given index from the layout.
  * A pointer to the reaction glyph that was removed is returned.
  * If no reaction glyph has been removed, NULL is returned.
@@ -833,7 +837,7 @@ ReactionGlyph* Layout::removeReactionGlyph(unsigned int index)
     return glyph;
 }
 
-/**
+/*
  * Removes the text glyph with the given index from the layout.
  * A pointer to the text glyph that was removed is returned.
  * If no text glyph has been removed, NULL is returned.
@@ -848,7 +852,7 @@ TextGlyph* Layout::removeTextGlyph(unsigned int index)
     return glyph;
 }
 
-/**
+/*
  * Removes the graphical object with the given index from the layout.
  * A pointer to the graphical object that was removed is returned.
  * If no graphical object has been removed, NULL is returned.
@@ -863,7 +867,7 @@ GraphicalObject* Layout::removeAdditionalGraphicalObject(unsigned int index)
     return go;
 }
 
-/**
+/*
  * Remove the compartment glyph with the given id.
  * A pointer to the removed compartment glyph is returned.
  * If no compartment glyph has been removed, NULL is returned.
@@ -874,7 +878,7 @@ Layout::removeCompartmentGlyph(const std::string id)
     return dynamic_cast<CompartmentGlyph*>(this->removeObjectWithId(this->getListOfCompartmentGlyphs(),id));
 }
 
-/**
+/*
  * Remove the species glyph with the given id.
  * A pointer to the removed species glyph is returned.
  * If no species glyph has been removed, NULL is returned.
@@ -885,7 +889,7 @@ Layout::removeSpeciesGlyph(const std::string id)
     return dynamic_cast<SpeciesGlyph*>(this->removeObjectWithId(this->getListOfSpeciesGlyphs(),id));
 }
 
-/**
+/*
  * Remove the species reference glyph with the given id.
  * A pointer to the removed species glyph is returned.
  * If no species glyph has been removed, NULL is returned.
@@ -908,7 +912,7 @@ Layout::removeSpeciesReferenceGlyph(const std::string id)
     return srg;
 }
 
-/**
+/*
  * Remove the reaction glyph with the given id.
  * A pointer to the removed reaction glyph is returned.
  * If no reaction glyph has been removed, NULL is returned.
@@ -919,7 +923,7 @@ Layout::removeReactionGlyph(const std::string id)
     return dynamic_cast<ReactionGlyph*>(this->removeObjectWithId(this->getListOfReactionGlyphs(),id));
 }
 
-/**
+/*
  * Remove the text glyph with the given id.
  * A pointer to the removed text glyph is returned.
  * If no text glyph has been removed, NULL is returned.
@@ -930,7 +934,7 @@ Layout::removeTextGlyph(const std::string id)
     return dynamic_cast<TextGlyph*>(this->removeObjectWithId(this->getListOfTextGlyphs(),id));
 }
 
-/**
+/*
  * Remove the graphical object with the given id.
  * A pointer to the removed graphical object is returned.
  * If no graphical object has been removed, NULL is returned.
@@ -941,7 +945,7 @@ Layout::removeAdditionalGraphicalObject(const std::string id)
     return this->removeObjectWithId(this->getListOfAdditionalGraphicalObjects(),id);
 }
 
-/**
+/*
  * Returns the compartment glyph that has the given id, or NULL if no
  * compartment glyph has the id.
  */
@@ -951,7 +955,7 @@ Layout::getCompartmentGlyph (const std::string& id)
   return (CompartmentGlyph*) this->getObjectWithId(&this->mCompartmentGlyphs, id);
 }
 
-/**
+/*
  * Returns the compartment glyph that has the given id, or NULL if no
  * compartment glyph has the id.
  */
@@ -962,7 +966,7 @@ Layout::getCompartmentGlyph (const std::string& id) const
 }
 
 
-/**
+/*
  * Returns the species glyph that has the given id, or NULL if no
  * species glyph has the id.
  */
@@ -972,7 +976,7 @@ Layout::getSpeciesGlyph (const std::string& id) const
   return (const SpeciesGlyph*) this->getObjectWithId(&this->mSpeciesGlyphs, id);
 }
 
-/**
+/*
  * Returns the species glyph that has the given id, or NULL if no
  * species glyph has the id.
  */
@@ -983,7 +987,7 @@ Layout::getSpeciesGlyph (const std::string& id)
 }
 
 
-/**
+/*
  * Returns the reaction glyph that has the given id, or NULL if no
  * reaction glyph has the id.
  */
@@ -993,7 +997,7 @@ Layout::getReactionGlyph (const std::string& id) const
   return (const ReactionGlyph*) this->getObjectWithId(&this->mReactionGlyphs, id);
 }
 
-/**
+/*
  * Returns the reaction glyph that has the given id, or NULL if no
  * reaction glyph has the id.
  */
@@ -1004,7 +1008,7 @@ Layout::getReactionGlyph (const std::string& id)
 }
 
 
-/**
+/*
  * Returns the text glyph that has the given id, or NULL if no compartment
  * glyph has the id.
  */
@@ -1015,7 +1019,7 @@ Layout::getTextGlyph (const std::string& id) const
 }
 
 
-/**
+/*
  * Returns the text glyph that has the given id, or NULL if no compartment
  * glyph has the id.
  */
@@ -1026,7 +1030,7 @@ Layout::getTextGlyph (const std::string& id)
 }
 
 
-/**
+/*
  * Returns the GeneralGlyph that has the given id, or NULL
  * if no general glyph has the id.
  */
@@ -1036,7 +1040,7 @@ Layout::getGeneralGlyph (const std::string& id) const
   return static_cast<const GeneralGlyph*>(this->getObjectWithId(&this->mAdditionalGraphicalObjects, id));
 }
 
-/**
+/*
  * Returns the GeneralGlyph that has the given id, or NULL
  * if no general glyph has the id.
  */
@@ -1046,7 +1050,7 @@ Layout::getGeneralGlyph (const std::string& id)
   return static_cast<GeneralGlyph*>(this->getObjectWithId(&this->mAdditionalGraphicalObjects, id));
 }
 
-/**
+/*
  * Returns the additional graphicalo object that has the given id, or NULL
  * if no additional glyph has the id.
  */
@@ -1056,7 +1060,7 @@ Layout::getAdditionalGraphicalObject (const std::string& id) const
   return this->getObjectWithId(&this->mAdditionalGraphicalObjects, id);
 }
 
-/**
+/*
  * Returns the additional graphicalo object that has the given id, or NULL
  * if no additional glyph has the id.
  */
@@ -1067,7 +1071,7 @@ Layout::getAdditionalGraphicalObject (const std::string& id)
 }
 
 
-/**
+/*
  * Adds a new compartment glyph.
  */
 void
@@ -1077,7 +1081,7 @@ Layout::addCompartmentGlyph (const CompartmentGlyph* glyph)
 }
 
 
-/**
+/*
  * Adds a new species glyph.
  */
 void
@@ -1087,7 +1091,7 @@ Layout::addSpeciesGlyph (const SpeciesGlyph* glyph)
 }
 
 
-/**
+/*
  * Adds a new reaction glyph.
  */
 void
@@ -1097,7 +1101,7 @@ Layout::addReactionGlyph (const ReactionGlyph* glyph)
 }
 
 
-/**
+/*
  * Adds a new text glyph.
  */
 void
@@ -1107,7 +1111,7 @@ Layout::addTextGlyph (const TextGlyph* glyph)
 }
 
 
-/**
+/*
  * Adds a new additional graphical object glyph.
  */
 void
@@ -1116,7 +1120,7 @@ Layout::addAdditionalGraphicalObject (const GraphicalObject* glyph)
   this->mAdditionalGraphicalObjects.append(glyph);
 }
 
-/**
+/*
  * Adds a new general glyph.
  */
 void
@@ -1126,7 +1130,7 @@ Layout::addGeneralGlyph (const GeneralGlyph* glyph)
 }
 
 
-/**
+/*
  * Returns the number of compartment glyphs for the layout.
  */
 unsigned int
@@ -1136,7 +1140,7 @@ Layout::getNumCompartmentGlyphs () const
 }
 
 
-/**
+/*
  * Returns the number of species glyphs for the layout.
  */
 unsigned int
@@ -1146,7 +1150,7 @@ Layout::getNumSpeciesGlyphs () const
 }
 
 
-/**
+/*
  * Returns the number of reaction glyphs for the layout.
  */
 unsigned int
@@ -1156,7 +1160,7 @@ Layout::getNumReactionGlyphs () const
 }
 
 
-/**
+/*
  * Returns the number of text glyphs for the layout.
  */
 unsigned int
@@ -1166,7 +1170,7 @@ Layout::getNumTextGlyphs () const
 }
 
 
-/**
+/*
  * Returns the number of additional graphical objects for the layout.
  */
 unsigned int
@@ -1175,7 +1179,7 @@ Layout::getNumAdditionalGraphicalObjects () const
   return this->mAdditionalGraphicalObjects.size();
 }
 
-/**
+/*
  * Returns the number of general glyphs for the layout.
  */
 unsigned int
@@ -1191,7 +1195,7 @@ Layout::getNumGeneralGlyphs() const
 }
 
 
-/**
+/*
  * Creates a CompartmentGlyph object, adds it to the end of the compartment
  * glyph objects list and returns a reference to the newly created object.
  */
@@ -1206,7 +1210,7 @@ Layout::createCompartmentGlyph ()
 }
 
 
-/**
+/*
  * Creates a SpeciesGlyph object, adds it to the end of the species glyph
  * objects list and returns a reference to the newly created object.
  */
@@ -1221,7 +1225,7 @@ Layout::createSpeciesGlyph ()
 }
 
 
-/**
+/*
  * Creates a ReactionGlyph object, adds it to the end of the reaction glyph
  * objects list and returns a reference to the newly created object.
  */
@@ -1235,7 +1239,7 @@ Layout::createReactionGlyph ()
   return p;
 }
 
-/**
+/*
  * Creates a GeneralGlyph object, adds it to the end of the additional 
  * objects list and returns a reference to the newly created object.
  */
@@ -1250,7 +1254,7 @@ Layout::createGeneralGlyph ()
 }
 
 
-/**
+/*
  * Creates a TextGlyph object, adds it to the end of the text glyph objects
  * list and returns a reference to the newly created object.
  */
@@ -1265,7 +1269,7 @@ Layout::createTextGlyph ()
 }
 
 
-/**
+/*
  * Creates a GraphicalObject object, adds it to the end of the additional
  * graphical objects list and returns a reference to the newly created
  * object.
@@ -1281,7 +1285,7 @@ Layout::createAdditionalGraphicalObject ()
 }
 
 
-/**
+/*
  * Creates a new SpeciesReferenceGlyph for the last ReactionGlyph and adds
  * it to its list of SpeciesReferenceGlyph objects.  A pointer to the newly
  * created object is returned.
@@ -1297,7 +1301,7 @@ Layout::createSpeciesReferenceGlyph ()
 }
 
 
-/**
+/*
  * Creates a new LineSegment for the Curve object of the last ReactionGlyph
  * or the last SpeciesReferenceGlyph in the last ReactionGlyph and adds it
  * to its list of SpeciesReferenceGlyph objects.  A pointer to the newly
@@ -1327,7 +1331,7 @@ Layout::createLineSegment()
 }        
 
 
-/**
+/*
  * Creates a new CubicBezier for the Curve object of the last ReactionGlyph
  * or the last SpeciesReferenceGlyph in the last ReactionGlyph and adds it
  * to its list of SpeciesReferenceGlyph objects.  A pointer to the newly
@@ -1356,7 +1360,7 @@ Layout::createCubicBezier ()
   return cb;
 }    
 
-/**
+/*
  * Returns the XML element name of
  * this SBML object.
  */
@@ -1533,7 +1537,7 @@ Layout::connectToChild()
 }
 
 
-/**
+/*
  * Enables/Disables the given package with this element and child
  * elements (if any).
  * (This is an internal implementation for enablePakcage function)
@@ -1553,7 +1557,7 @@ Layout::enablePackageInternal(const std::string& pkgURI,
 }
 
 
-/**
+/*
  * Ctor.
  */
 ListOfLayouts::ListOfLayouts(LayoutPkgNamespaces* layoutns)
@@ -1569,7 +1573,7 @@ ListOfLayouts::ListOfLayouts(LayoutPkgNamespaces* layoutns)
 }
 
 
-/**
+/*
  * Ctor.
  */
 ListOfLayouts::ListOfLayouts(unsigned int level, unsigned int version, unsigned int pkgVersion)
@@ -1581,7 +1585,7 @@ ListOfLayouts::ListOfLayouts(unsigned int level, unsigned int version, unsigned 
 };
 
 
-/**
+/*
  * @return a (deep) copy of this ListOfUnitDefinitions.
  */
 ListOfLayouts*
@@ -1654,7 +1658,7 @@ ListOfLayouts::remove (const std::string& sid)
 }
 
 
-/**
+/*
  * @return the typecode (int) of SBML objects contained in this ListOf or
  * SBML_UNKNOWN (default).
  */
@@ -1665,7 +1669,7 @@ ListOfLayouts::getItemTypeCode () const
 }
 
 
-/**
+/*
  * Returns the XML element name of
  * this SBML object.
  */
@@ -1730,7 +1734,7 @@ ListOfLayouts::writeXMLNS (XMLOutputStream& stream) const
 /** @endcond */
 
 
-/**
+/*
  * Creates an XMLNode object from this.
  */
 XMLNode ListOfLayouts::toXML() const
@@ -1739,7 +1743,7 @@ XMLNode ListOfLayouts::toXML() const
 }
 
 
-/**
+/*
  * Ctor.
  */
 ListOfCompartmentGlyphs::ListOfCompartmentGlyphs(LayoutPkgNamespaces* layoutns)
@@ -1752,7 +1756,7 @@ ListOfCompartmentGlyphs::ListOfCompartmentGlyphs(LayoutPkgNamespaces* layoutns)
 }
 
 
-/**
+/*
  * Ctor.
  */
 ListOfCompartmentGlyphs::ListOfCompartmentGlyphs(unsigned int level, unsigned int version, unsigned int pkgVersion)
@@ -1762,7 +1766,7 @@ ListOfCompartmentGlyphs::ListOfCompartmentGlyphs(unsigned int level, unsigned in
 };
 
 
-/**
+/*
  * @return a (deep) copy of this ListOfUnitDefinitions.
  */
 ListOfCompartmentGlyphs*
@@ -1835,7 +1839,7 @@ ListOfCompartmentGlyphs::remove (const std::string& sid)
 }
 
 
-/**
+/*
  * @return the typecode (int) of SBML objects contained in this ListOf or
  * SBML_UNKNOWN (default).
  */
@@ -1846,7 +1850,7 @@ ListOfCompartmentGlyphs::getItemTypeCode () const
 }
 
 
-/**
+/*
  * Returns the XML element name of
  * this SBML object.
  */
@@ -1881,7 +1885,7 @@ ListOfCompartmentGlyphs::createObject (XMLInputStream& stream)
 
 
 
-/**
+/*
  * Creates an XMLNode object from this.
  */
 XMLNode ListOfCompartmentGlyphs::toXML() const
@@ -1890,7 +1894,7 @@ XMLNode ListOfCompartmentGlyphs::toXML() const
 }
 
 
-/**
+/*
  * Ctor.
  */
 ListOfSpeciesGlyphs::ListOfSpeciesGlyphs(LayoutPkgNamespaces* layoutns)
@@ -1903,7 +1907,7 @@ ListOfSpeciesGlyphs::ListOfSpeciesGlyphs(LayoutPkgNamespaces* layoutns)
 }
 
 
-/**
+/*
  * Ctor.
  */
 ListOfSpeciesGlyphs::ListOfSpeciesGlyphs(unsigned int level, unsigned int version, unsigned int pkgVersion)
@@ -1913,7 +1917,7 @@ ListOfSpeciesGlyphs::ListOfSpeciesGlyphs(unsigned int level, unsigned int versio
 };
 
 
-/**
+/*
  * @return a (deep) copy of this ListOfUnitDefinitions.
  */
 ListOfSpeciesGlyphs*
@@ -1986,7 +1990,7 @@ ListOfSpeciesGlyphs::remove (const std::string& sid)
 }
 
 
-/**
+/*
  * @return the typecode (int) of SBML objects contained in this ListOf or
  * SBML_UNKNOWN (default).
  */
@@ -1997,7 +2001,7 @@ ListOfSpeciesGlyphs::getItemTypeCode () const
 }
 
 
-/**
+/*
  * Returns the XML element name of
  * this SBML object.
  */
@@ -2029,7 +2033,7 @@ ListOfSpeciesGlyphs::createObject (XMLInputStream& stream)
 }
 /** @endcond */
 
-/**
+/*
  * Creates an XMLNode object from this.
  */
 XMLNode ListOfSpeciesGlyphs::toXML() const
@@ -2038,7 +2042,7 @@ XMLNode ListOfSpeciesGlyphs::toXML() const
 }
 
 
-/**
+/*
  * Ctor.
  */
 ListOfReactionGlyphs::ListOfReactionGlyphs(LayoutPkgNamespaces* layoutns)
@@ -2051,7 +2055,7 @@ ListOfReactionGlyphs::ListOfReactionGlyphs(LayoutPkgNamespaces* layoutns)
 }
 
 
-/**
+/*
  * Ctor.
  */
 ListOfReactionGlyphs::ListOfReactionGlyphs(unsigned int level, unsigned int version, unsigned int pkgVersion)
@@ -2061,7 +2065,7 @@ ListOfReactionGlyphs::ListOfReactionGlyphs(unsigned int level, unsigned int vers
 };
 
 
-/**
+/*
  * @return a (deep) copy of this ListOfUnitDefinitions.
  */
 ListOfReactionGlyphs*
@@ -2071,7 +2075,7 @@ ListOfReactionGlyphs::clone () const
 }
 
 
-/**
+/*
  * @return the typecode (int) of SBML objects contained in this ListOf or
  * SBML_UNKNOWN (default).
  */
@@ -2082,7 +2086,7 @@ ListOfReactionGlyphs::getItemTypeCode () const
 }
 
 
-/**
+/*
  * Returns the XML element name of
  * this SBML object.
  */
@@ -2177,7 +2181,7 @@ ListOfReactionGlyphs::createObject (XMLInputStream& stream)
 }
 /** @endcond */
 
-/**
+/*
  * Creates an XMLNode object from this.
  */
 XMLNode ListOfReactionGlyphs::toXML() const
@@ -2186,7 +2190,7 @@ XMLNode ListOfReactionGlyphs::toXML() const
 }
 
 
-/**
+/*
  * Ctor.
  */
 ListOfTextGlyphs::ListOfTextGlyphs(LayoutPkgNamespaces* layoutns)
@@ -2199,7 +2203,7 @@ ListOfTextGlyphs::ListOfTextGlyphs(LayoutPkgNamespaces* layoutns)
 }
 
 
-/**
+/*
  * Ctor.
  */
 ListOfTextGlyphs::ListOfTextGlyphs(unsigned int level, unsigned int version, unsigned int pkgVersion)
@@ -2209,7 +2213,7 @@ ListOfTextGlyphs::ListOfTextGlyphs(unsigned int level, unsigned int version, uns
 };
 
 
-/**
+/*
  * @return a (deep) copy of this ListOfUnitDefinitions.
  */
 ListOfTextGlyphs*
@@ -2219,7 +2223,7 @@ ListOfTextGlyphs::clone () const
 }
 
 
-/**
+/*
  * @return the typecode (int) of SBML objects contained in this ListOf or
  * SBML_UNKNOWN (default).
  */
@@ -2230,7 +2234,7 @@ ListOfTextGlyphs::getItemTypeCode () const
 }
 
 
-/**
+/*
  * Returns the XML element name of
  * this SBML object.
  */
@@ -2325,23 +2329,13 @@ ListOfTextGlyphs::createObject (XMLInputStream& stream)
 }
 /** @endcond */
 
-/**
+/*
  * Creates an XMLNode object from this.
  */
 XMLNode ListOfTextGlyphs::toXML() const
 {
   return getXmlNodeForSBase(this);
 }
-
-
-
-
-
-
-
-
-
-
 
 
 

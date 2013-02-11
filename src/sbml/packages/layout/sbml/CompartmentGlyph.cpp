@@ -1,5 +1,9 @@
 /**
- * Filename    : CompartmentGlyph.cpp
+ * @file    CompartmentGlyph.cpp
+ * @brief   Implementation of CompartmentGlyph for SBML Layout.
+ * @author  Ralph Gauges
+ * 
+ * <!--------------------------------------------------------------------------
  * Description : SBML Layout CompartmentGlyph source
  * Organization: European Media Laboratories Research gGmbH
  * Created     : 2004-07-15
@@ -61,7 +65,7 @@
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
-/**
+/*
  * Default Constructor which creates a new CompartmentGlyph.  Id and
  * associated compartment id are unset.
  */
@@ -97,7 +101,7 @@ CompartmentGlyph::CompartmentGlyph(LayoutPkgNamespaces* layoutns)
 }
 
 
-/**
+/*
  * Constructor which creates a new CompartmentGlyph with the given id.
  */
 CompartmentGlyph::CompartmentGlyph (LayoutPkgNamespaces* layoutns, const std::string& id)
@@ -118,7 +122,7 @@ CompartmentGlyph::CompartmentGlyph (LayoutPkgNamespaces* layoutns, const std::st
   loadPlugins(layoutns);
 }
 
-/**
+/*
  * Constructor which creates a new CompartmentGlyph.  Id and associated
  * compartment id are set to copies of the values given as arguments.
  */
@@ -140,7 +144,7 @@ CompartmentGlyph::CompartmentGlyph (LayoutPkgNamespaces* layoutns, const std::st
   loadPlugins(layoutns);
 }
 
-/**
+/*
  * Creates a new CompartmentGlyph from the given XMLNode
  */
 CompartmentGlyph::CompartmentGlyph(const XMLNode& node, unsigned int l2version)
@@ -153,7 +157,7 @@ CompartmentGlyph::CompartmentGlyph(const XMLNode& node, unsigned int l2version)
     this->readAttributes(attributes,ea);    
 }
 
-/**
+/*
  * Copy constructor.
  */
 CompartmentGlyph::CompartmentGlyph(const CompartmentGlyph& source):GraphicalObject(source)
@@ -161,7 +165,7 @@ CompartmentGlyph::CompartmentGlyph(const CompartmentGlyph& source):GraphicalObje
     this->mCompartment=source.getCompartmentId();
 }
 
-/**
+/*
  * Assignment operator.
  */
 CompartmentGlyph& CompartmentGlyph::operator=(const CompartmentGlyph& source)
@@ -175,7 +179,7 @@ CompartmentGlyph& CompartmentGlyph::operator=(const CompartmentGlyph& source)
   return *this;
 }
 
-/**
+/*
  * Destructor.
  */        
 CompartmentGlyph::~CompartmentGlyph ()
@@ -183,7 +187,7 @@ CompartmentGlyph::~CompartmentGlyph ()
 } 
 
 
-/**
+/*
  * Returns the id of the associated compartment.
  */        
 const std::string&
@@ -193,7 +197,7 @@ CompartmentGlyph::getCompartmentId () const
 }
 
 
-/**
+/*
  * Sets the id of the associated compartment.
  */ 
 int
@@ -211,7 +215,7 @@ CompartmentGlyph::setCompartmentId (const std::string& id)
 }
 
 
-/**
+/*
  * Returns true if the id of the associated compartment is not the empty
  * string.
  */  
@@ -222,7 +226,7 @@ CompartmentGlyph::isSetCompartmentId () const
 }
 
 
-/**
+/*
  * Calls initDefaults from GraphicalObject.
  */ 
 void CompartmentGlyph::initDefaults ()
@@ -230,7 +234,7 @@ void CompartmentGlyph::initDefaults ()
   GraphicalObject::initDefaults();
 }
 
-/**
+/*
  * Subclasses should override this method to write out their contained
  * SBML objects as XML elements.  Be sure to call your parents
  * implementation of this method as well.  For example:
@@ -249,7 +253,7 @@ void CompartmentGlyph::writeElements (XMLOutputStream& stream) const
   SBase::writeExtensionElements(stream);
 }
 
-/**
+/*
  * Returns the XML element name of
  * this SBML object.
  */
@@ -259,7 +263,7 @@ const std::string& CompartmentGlyph::getElementName () const
   return name;
 }
 
-/**
+/*
  * @return a (deep) copy of this Model.
  */
 CompartmentGlyph* 
@@ -327,7 +331,7 @@ void CompartmentGlyph::writeAttributes (XMLOutputStream& stream) const
 }
 /** @endcond */
 
-/**
+/*
  * Returns the package type code for this object.
  */
 int
@@ -337,7 +341,7 @@ CompartmentGlyph::getTypeCode () const
 }
 
 
-/**
+/*
  * Creates an XMLNode object from this.
  */
 XMLNode CompartmentGlyph::toXML() const
