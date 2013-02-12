@@ -3,10 +3,15 @@
   <navindex>
     <tab type="mainpage" visible="yes" title=""/>
     <tab type="pages" visible="yes" title=""/>
-    <tab type="modules" visible="yes" title=""/>
-    <tab type="namespaces" visible="yes" title="">
-      <tab type="namespaces" visible="yes" title=""/>
-      <tab type="namespacemembers" visible="yes" title=""/>
+    <tab type="modules" visible="no" title=""/>
+    <tab type="user" url="@ref Core" title="Core libSBML"/>
+    <tab type="usergroup" title="Level 3 Extensions">
+      <tab type="user" url="@ref Comp" title="Hierarchical Model Composition"/>
+      <tab type="user" url="@ref FBC" title="Flux Balance Constraints"/>
+    </tab>
+    <tab type="namespaces" visible="no" title="">
+      <tab type="namespaces" visible="no" title=""/>
+      <tab type="namespacemembers" visible="no" title=""/>
     </tab>
     <tab type="classes" visible="yes" title="">
       <tab type="classes" visible="yes" title=""/>
