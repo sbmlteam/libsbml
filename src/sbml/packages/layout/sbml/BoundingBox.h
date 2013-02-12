@@ -640,7 +640,7 @@ double
 BoundingBox_depth(BoundingBox_t* bb);
 
 /*
- * @return a (deep) copy of this Model.
+ * @return a (deep) copy of this BoundingBox.
  */
 LIBSBML_EXTERN
 BoundingBox_t *

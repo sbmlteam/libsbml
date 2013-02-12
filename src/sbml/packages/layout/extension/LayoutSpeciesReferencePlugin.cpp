@@ -81,7 +81,7 @@ LayoutSpeciesReferencePlugin::operator=(const LayoutSpeciesReferencePlugin& orig
 /*
  * Creates and returns a deep copy of this LayoutSpeciesReferencePlugin object.
  * 
- * @return a (deep) copy of this SBase object
+ * @return a (deep) copy of this LayoutSpeciesReferencePlugin object
  */
 LayoutSpeciesReferencePlugin* 
 LayoutSpeciesReferencePlugin::clone () const

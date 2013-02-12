@@ -448,7 +448,7 @@ void
 LineSegment_initDefaults (LineSegment_t *ls);
 
 /*
- * @return a (deep) copy of this Model.
+ * @return a (deep) copy of this LineSegment.
  */
 LIBSBML_EXTERN
 LineSegment_t *

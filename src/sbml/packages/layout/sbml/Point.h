@@ -495,7 +495,7 @@ double
 Point_getZOffset (const Point_t *p);
 
 /*
- * @return a (deep) copy of this Model.
+ * @return a (deep) copy of this Point.
  */
 LIBSBML_EXTERN
 Point_t *

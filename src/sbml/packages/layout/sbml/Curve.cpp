@@ -366,7 +366,7 @@ const std::string& Curve::getElementName () const
 }
 
 /*
- * @return a (deep) copy of this Model.
+ * @return a (deep) copy of this Curve.
  */
 Curve* 
 Curve::clone () const
@@ -511,7 +511,7 @@ Curve::enablePackageInternal(const std::string& pkgURI,
 
 
 /*
- * @return a (deep) copy of this ListOfUnitDefinitions.
+ * @return a (deep) copy of this ListOfLineSegments.
  */
 ListOfLineSegments*
 ListOfLineSegments::clone () const
@@ -731,7 +731,7 @@ Curve_createCubicBezier (Curve_t *c)
 }
 
 /**
- * @return a (deep) copy of this Model.
+ * @return a (deep) copy of this Curve.
  */
 LIBSBML_EXTERN
 Curve_t *

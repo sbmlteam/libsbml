@@ -465,7 +465,7 @@ const std::string& CubicBezier::getElementName () const
 
 
 /*
- * @return a (deep) copy of this Model.
+ * @return a (deep) copy of this CubicBezier.
  */
 CubicBezier* 
 CubicBezier::clone () const
@@ -804,7 +804,7 @@ CubicBezier_initDefaults (CubicBezier_t *cb)
 }
 
 /**
- * @return a (deep) copy of this Model.
+ * @return a (deep) copy of this CubicBezier.
  */
 LIBSBML_EXTERN
 CubicBezier_t *

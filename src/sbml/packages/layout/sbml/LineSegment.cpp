@@ -379,7 +379,7 @@ const std::string& LineSegment::getElementName () const
 }
 
 /*
- * @return a (deep) copy of this Model.
+ * @return a (deep) copy of this LineSegment.
  */
 LineSegment* 
 LineSegment::clone () const
@@ -652,7 +652,7 @@ LineSegment_initDefaults (LineSegment_t *ls)
 }
 
 /**
- * @return a (deep) copy of this Model.
+ * @return a (deep) copy of this LineSegment.
  */
 LIBSBML_EXTERN
 LineSegment_t *

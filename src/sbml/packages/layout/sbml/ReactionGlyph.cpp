@@ -546,7 +546,7 @@ const std::string& ReactionGlyph::getElementName () const
 }
 
 /*
- * @return a (deep) copy of this Model.
+ * @return a (deep) copy of this ReactionGlyph.
  */
 ReactionGlyph* 
 ReactionGlyph::clone () const
@@ -699,7 +699,7 @@ ListOfSpeciesReferenceGlyphs::ListOfSpeciesReferenceGlyphs(LayoutPkgNamespaces* 
 
 
 /*
- * @return a (deep) copy of this ListOfUnitDefinitions.
+ * @return a (deep) copy of this ListOfSpeciesReferenceGlyphs.
  */
 ListOfSpeciesReferenceGlyphs*
 ListOfSpeciesReferenceGlyphs::clone () const
@@ -1143,7 +1143,7 @@ ReactionGlyph_getIndexForSpeciesReferenceGlyph(ReactionGlyph_t* rg,const char* i
 }
 
 /**
- * @return a (deep) copy of this Model.
+ * @return a (deep) copy of this ReactionGlyph.
  */
 LIBSBML_EXTERN
 ReactionGlyph_t *

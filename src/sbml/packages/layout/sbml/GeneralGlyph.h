@@ -852,7 +852,7 @@ unsigned int
 GeneralGlyph_getIndexForReferenceGlyph(GeneralGlyph_t* rg,const char* id);
 
 /*
- * @return a (deep) copy of this Model.
+ * @return a (deep) copy of this GeneralGlyph.
  */
 LIBSBML_EXTERN
 GeneralGlyph_t *

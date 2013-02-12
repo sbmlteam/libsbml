@@ -470,7 +470,7 @@ const std::string& Point::getElementName () const
 }
 
 /*
- * @return a (deep) copy of this Model.
+ * @return a (deep) copy of this Point.
  */
 Point* 
 Point::clone () const
@@ -775,7 +775,7 @@ Point_z (const Point_t *p)
 }
 
 /**
- * @return a (deep) copy of this Model.
+ * @return a (deep) copy of this Point.
  */
 LIBSBML_EXTERN
 Point_t *

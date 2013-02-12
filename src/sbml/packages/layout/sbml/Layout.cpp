@@ -1586,7 +1586,7 @@ ListOfLayouts::ListOfLayouts(unsigned int level, unsigned int version, unsigned 
 
 
 /*
- * @return a (deep) copy of this ListOfUnitDefinitions.
+ * @return a (deep) copy of this ListOfLayouts.
  */
 ListOfLayouts*
 ListOfLayouts::clone () const
@@ -1767,7 +1767,7 @@ ListOfCompartmentGlyphs::ListOfCompartmentGlyphs(unsigned int level, unsigned in
 
 
 /*
- * @return a (deep) copy of this ListOfUnitDefinitions.
+ * @return a (deep) copy of this ListOfCompartmentGlyphs.
  */
 ListOfCompartmentGlyphs*
 ListOfCompartmentGlyphs::clone () const
@@ -1918,7 +1918,7 @@ ListOfSpeciesGlyphs::ListOfSpeciesGlyphs(unsigned int level, unsigned int versio
 
 
 /*
- * @return a (deep) copy of this ListOfUnitDefinitions.
+ * @return a (deep) copy of this ListOfSpeciesGlyphs.
  */
 ListOfSpeciesGlyphs*
 ListOfSpeciesGlyphs::clone () const
@@ -2066,7 +2066,7 @@ ListOfReactionGlyphs::ListOfReactionGlyphs(unsigned int level, unsigned int vers
 
 
 /*
- * @return a (deep) copy of this ListOfUnitDefinitions.
+ * @return a (deep) copy of this ListOfReactionGlyphs.
  */
 ListOfReactionGlyphs*
 ListOfReactionGlyphs::clone () const
@@ -2214,7 +2214,7 @@ ListOfTextGlyphs::ListOfTextGlyphs(unsigned int level, unsigned int version, uns
 
 
 /*
- * @return a (deep) copy of this ListOfUnitDefinitions.
+ * @return a (deep) copy of this ListOfTextGlyphs.
  */
 ListOfTextGlyphs*
 ListOfTextGlyphs::clone () const
@@ -2883,7 +2883,7 @@ Layout_removeAdditionalGraphicalObjectWithId(Layout_t* l, const char* id)
 }
 
 /**
- * @return a (deep) copy of this Model.
+ * @return a (deep) copy of this Layout.
  */
 LIBSBML_EXTERN
 Layout_t *

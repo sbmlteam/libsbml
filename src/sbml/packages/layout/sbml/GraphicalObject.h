@@ -627,7 +627,7 @@ void
 GraphicalObject_initDefaults (GraphicalObject_t *go);
 
 /*
- * @return a (deep) copy of this Model.
+ * @return a (deep) copy of this GraphicalObject.
  */
 LIBSBML_EXTERN
 GraphicalObject_t *

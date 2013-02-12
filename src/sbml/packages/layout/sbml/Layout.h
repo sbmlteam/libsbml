@@ -1901,15 +1901,7 @@ GraphicalObject_t *
 Layout_createAdditionalGraphicalObject (Layout_t *);
 
 /*
- * @return a (deep) copy of this Model.
- */
-LIBSBML_EXTERN
-Layout_t *
-Layout_clone (const Layout_t *m);
-
-
-/*
- * @return a (deep) copy of this Model.
+ * @return a (deep) copy of this Layout.
  */
 LIBSBML_EXTERN
 Layout_t *

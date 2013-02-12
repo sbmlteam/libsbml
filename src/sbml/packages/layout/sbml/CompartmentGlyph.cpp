@@ -264,7 +264,7 @@ const std::string& CompartmentGlyph::getElementName () const
 }
 
 /*
- * @return a (deep) copy of this Model.
+ * @return a (deep) copy of this CompartmentGlyph.
  */
 CompartmentGlyph* 
 CompartmentGlyph::clone () const
@@ -452,7 +452,7 @@ CompartmentGlyph_initDefaults (CompartmentGlyph_t *cg)
 }
 
 /**
- * @return a (deep) copy of this Model.
+ * @return a (deep) copy of this CompartmentGlyph.
  */
 LIBSBML_EXTERN
 CompartmentGlyph_t *

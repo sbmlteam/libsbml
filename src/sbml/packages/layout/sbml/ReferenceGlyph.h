@@ -558,7 +558,7 @@ CubicBezier_t *
 ReferenceGlyph_createCubicBezier (ReferenceGlyph_t *srg);
 
 /*
- * @return a (deep) copy of this Model.
+ * @return a (deep) copy of this ReferenceGlyph.
  */
 LIBSBML_EXTERN
 ReferenceGlyph_t *

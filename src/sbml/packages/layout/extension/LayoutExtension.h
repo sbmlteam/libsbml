@@ -118,7 +118,7 @@ public:
   /**
    * Creates and returns a deep copy of this LayoutExtension object.
    * 
-   * @return a (deep) copy of this SBase object
+   * @return a (deep) copy of this LayoutExtension object
    */
   virtual LayoutExtension* clone () const;
 

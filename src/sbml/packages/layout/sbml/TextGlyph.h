@@ -443,7 +443,7 @@ void
 TextGlyph_initDefaults (TextGlyph_t *tg);
 
 /*
- * @return a (deep) copy of this Model.
+ * @return a (deep) copy of this TextGlyph.
  */
 LIBSBML_EXTERN
 TextGlyph_t *

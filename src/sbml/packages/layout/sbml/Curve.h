@@ -524,7 +524,7 @@ CubicBezier_t *
 Curve_createCubicBezier (Curve_t *c);
 
 /*
- * @return a (deep) copy of this Model.
+ * @return a (deep) copy of this Curve.
  */
 LIBSBML_EXTERN
 Curve_t *

@@ -183,7 +183,7 @@ public:
   virtual const std::string& getElementName () const ;
 
   /**
-   * @return a (deep) copy of this Model.
+   * @return a (deep) copy of this CompartmentGlyph.
    */
   virtual CompartmentGlyph* clone () const;
 
@@ -349,7 +349,7 @@ void
 CompartmentGlyph_initDefaults (CompartmentGlyph_t *cg);
 
 /*
- * @return a (deep) copy of this Model.
+ * @return a (deep) copy of this CompartmentGlyph.
  */
 LIBSBML_EXTERN
 CompartmentGlyph_t *

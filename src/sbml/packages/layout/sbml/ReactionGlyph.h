@@ -794,7 +794,7 @@ unsigned int
 ReactionGlyph_getIndexForSpeciesReferenceGlyph(ReactionGlyph_t* rg,const char* id);
 
 /*
- * @return a (deep) copy of this Model.
+ * @return a (deep) copy of this ReactionGlyph.
  */
 LIBSBML_EXTERN
 ReactionGlyph_t *

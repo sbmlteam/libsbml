@@ -685,7 +685,7 @@ Dimensions_getDepth (const Dimensions_t *d)
 
 
 /**
- * @return a (deep) copy of this Model.
+ * @return a (deep) copy of this Dimensions.
  */
 LIBSBML_EXTERN
 Dimensions_t *

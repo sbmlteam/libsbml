@@ -79,7 +79,7 @@ public:
   /**
    * Creates and returns a deep copy of this LayoutModelPlugin object.
    * 
-   * @return a (deep) copy of this SBase object
+   * @return a (deep) copy of this LayoutModelPlugin object
    */
   virtual LayoutModelPlugin* clone () const;
 

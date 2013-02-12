@@ -319,7 +319,7 @@ const std::string& TextGlyph::getElementName () const
 }
 
 /*
- * @return a (deep) copy of this Model.
+ * @return a (deep) copy of this TextGlyph.
  */
 TextGlyph* 
 TextGlyph::clone () const
@@ -611,7 +611,7 @@ TextGlyph_initDefaults (TextGlyph_t *tg)
 }
 
 /**
- * @return a (deep) copy of this Model.
+ * @return a (deep) copy of this TextGlyph.
  */
 LIBSBML_EXTERN
 TextGlyph_t *

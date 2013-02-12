@@ -597,7 +597,7 @@ CubicBezier_t *
 SpeciesReferenceGlyph_createCubicBezier (SpeciesReferenceGlyph_t *srg);
 
 /*
- * @return a (deep) copy of this Model.
+ * @return a (deep) copy of this SpeciesReferenceGlyph.
  */
 LIBSBML_EXTERN
 SpeciesReferenceGlyph_t *

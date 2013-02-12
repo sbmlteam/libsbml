@@ -736,7 +736,7 @@ const std::string& GeneralGlyph::getElementName () const
 }
 
 /*
- * @return a (deep) copy of this Model.
+ * @return a (deep) copy of this GeneralGlyph.
  */
 GeneralGlyph* 
 GeneralGlyph::clone () const
@@ -894,7 +894,7 @@ ListOfReferenceGlyphs::ListOfReferenceGlyphs(LayoutPkgNamespaces* layoutns)
 
 
 /*
- * @return a (deep) copy of this ListOfUnitDefinitions.
+ * @return a (deep) copy of this ListOfReferenceGlyphs.
  */
 ListOfReferenceGlyphs*
 ListOfReferenceGlyphs::clone () const
@@ -1340,7 +1340,7 @@ GeneralGlyph_getIndexForReferenceGlyph(GeneralGlyph_t* rg,const char* id)
 }
 
 /**
- * @return a (deep) copy of this Model.
+ * @return a (deep) copy of this GeneralGlyph.
  */
 LIBSBML_EXTERN
 GeneralGlyph_t *

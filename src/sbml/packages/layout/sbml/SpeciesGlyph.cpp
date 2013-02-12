@@ -242,7 +242,7 @@ const std::string& SpeciesGlyph::getElementName () const
 }
 
 /*
- * @return a (deep) copy of this Model.
+ * @return a (deep) copy of this SpeciesGlyph.
  */
 SpeciesGlyph* 
 SpeciesGlyph::clone () const
@@ -446,7 +446,7 @@ SpeciesGlyph_initDefaults (SpeciesGlyph_t *sg)
 
 
 /**
- * @return a (deep) copy of this Model.
+ * @return a (deep) copy of this SpeciesGlyph.
  */
 LIBSBML_EXTERN
 SpeciesGlyph_t *

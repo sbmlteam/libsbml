@@ -477,7 +477,7 @@ const std::string& GraphicalObject::getElementName () const
 }
 
 /*
- * @return a (deep) copy of this Model.
+ * @return a (deep) copy of this GraphicalObject.
  */
 GraphicalObject* 
 GraphicalObject::clone () const
@@ -680,7 +680,7 @@ ListOfGraphicalObjects::ListOfGraphicalObjects(unsigned int level, unsigned int 
 
 
 /*
- * @return a (deep) copy of this ListOfUnitDefinitions.
+ * @return a (deep) copy of this ListOfGraphicalObjects.
  */
 ListOfGraphicalObjects*
 ListOfGraphicalObjects::clone () const
@@ -919,7 +919,7 @@ GraphicalObject_initDefaults (GraphicalObject_t *go)
 
 
 /**
- * @return a (deep) copy of this Model.
+ * @return a (deep) copy of this GraphicalObject.
  */
 LIBSBML_EXTERN
 GraphicalObject_t *
