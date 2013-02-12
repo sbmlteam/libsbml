@@ -288,6 +288,7 @@ div.contents {
     margin-top: 10px;
     margin-left: 12px;
     margin-right: 8px;
+    padding-left: 5px;
 }
 
 td.indexkey {
@@ -914,6 +915,7 @@ div.header
     background-color: #F9FAFC;
     margin:  0px;
     border-bottom: 1px solid #C4CFE5;
+    padding-left: 5px;
 }
 
 div.headertitle
@@ -1333,6 +1335,17 @@ span.comment {
     vertical-align: -5%;
 }
 
+@media only screen and (-webkit-min-device-pixel-ratio: 2),
+only screen and (min-device-pixel-ratio: 2) {
+    #projectname {
+        background-image: url(official-sbml-supported-70.png);
+        background-position: left center;
+        background-repeat: no-repeat;
+        background-size: 80px 35px;
+        padding-left: 90px;
+    }
+}
+
 #projectnumber:before {
     content: "Developer's guide for libSBML version ";
 }
@@ -1635,4 +1648,31 @@ td.s-na {
     -webkit-column-count: 3;
     -webkit-column-gap: 1.5em;
     column-gap: 1.5em;
+}
+
+/* Hide the "Related Pages" tab because for us, it's an empty page. */
+
+ul.tablist li:nth-child(2) {
+    display: none;
+}
+
+/* Marker for packages, used by common-text/pkg-marker-comp.html etc. */
+
+.pkg-marker {
+    border: 1px solid darkorange;
+    padding: 1px 3px 1px 2px;
+    border-radius-bottomleft: 5px;
+    border-radius-bottomright: 5px;
+    border-radius-topleft: 5px;
+    border-radius-topright: 5px;
+    -moz-border-radius-bottomleft: 5px;
+    -moz-border-radius-bottomright: 5px;
+    -moz-border-radius-topleft: 5px;
+    -moz-border-radius-topright: 5px;
+    -webkit-border-bottom-left-radius: 5px;
+    -webkit-border-bottom-right-radius: 5px;
+    -webkit-border-top-left-radius: 5px;
+    -webkit-border-top-right-radius: 5px;
+    font-size: 90%;
+    font-style: italic;
 }
