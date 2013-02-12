@@ -3,14 +3,14 @@
     background: -webkit-gradient(linear, left top, left bottom, from(whiteSmoke), to(#CCC));
     width: 100%;
     z-index: 101;
-    font-size: 13px;
+    font-size: 12px;
 }
 
 .tabs2 {
-    font-size: 10px;
+    font-size: 11px;
 }
 .tabs3 {
-    font-size: 9px;
+    font-size: 10px;
 }
 
 .tablist {
@@ -82,9 +82,12 @@ li a[href="inherits.html"],
 li a[href="namespaces.html"],
 li a[href="namespacemembers.html"],
 li a[href="namespacemembers_vars.html"],
+li a[href="usergroup0.html"],
+li a[href="usergroup1.html"],
+li a[href="group___core.html"],
 li a[href="functions.html"]
 {
-  width: 110px;
+  width: 115px;
 }
 
 #navrow1 {
