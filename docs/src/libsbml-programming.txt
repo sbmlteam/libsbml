@@ -8,5 +8,6 @@ use the navigation bar or the table of contents to visit the relevant pages.
 - @subpage libsbml-reading-files
 - @subpage libsbml-math
 - @subpage libsbml-example
+- @subpage libsbml-core-versus-packages
 
 */
