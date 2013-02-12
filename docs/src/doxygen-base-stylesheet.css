@@ -644,6 +644,14 @@ dl.reflist dd {
     margin: 5px;
 }
 
+div.directory {
+    margin-left: 0;
+}
+
+table.directory {
+    margin: 0;
+}
+
 .directory h3 {
     margin: 0px;
     margin-top: 1em;
