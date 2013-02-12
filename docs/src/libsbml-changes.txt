@@ -1,4 +1,4 @@
-/** @page changes Summary of changes between releases
+/** @page changes Changes between releases
 
 - @subpage libsbml-news
 - @subpage libsbml-old-news
