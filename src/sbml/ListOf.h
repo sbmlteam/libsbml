@@ -95,6 +95,15 @@ struct IdEq : public std::unary_function<SBase*, bool>
   bool operator() (SBase* sb) 
        { return static_cast <CNAME*> (sb)->getId() == id; }
 };
+template<class CNAME>
+struct QSEq : public std::unary_function<SBase*, bool>
+{
+  const std::string& id;
+
+  QSEq (const std::string& id) : id(id) { }
+  bool operator() (SBase* sb) 
+       { return static_cast <CNAME*> (sb)->getQualitativeSpecies() == id; }
+};
 #endif /* SWIG */
 /** @endcond */
 
