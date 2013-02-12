@@ -26,7 +26,8 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class UnitDefinition
- * @brief LibSBML implementation of SBML's %UnitDefinition construct.
+ * @ingroup Core
+ * @brief Implementation of SBML's %UnitDefinition construct.
  *
  * Units of measurement may be supplied in a number of contexts in an SBML
  * model.  The SBML unit definition facility uses two classes of objects,
@@ -231,7 +232,8 @@
  */ 
 /**
  * @class ListOfUnitDefinitions
- * @brief LibSBML implementation of SBML's %ListOfUnitDefinitions construct.
+ * @ingroup Core
+ * @brief Implementation of SBML's %ListOfUnitDefinitions construct.
  * 
  * The various ListOf___ classes in SBML are merely containers used for
  * organizing the main components of an SBML model.  All are derived from

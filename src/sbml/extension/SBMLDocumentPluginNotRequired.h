@@ -38,6 +38,9 @@
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
+/**
+ * @ingroup Core
+ */
 class LIBSBML_EXTERN SBMLDocumentPluginNotRequired : public SBMLDocumentPlugin
 {
 public:

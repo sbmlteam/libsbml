@@ -52,6 +52,9 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 //        and use the class as the plugin object for the SBMLDocument element. 
 //
 
+/**
+ * @ingroup Core
+ */
 class LIBSBML_EXTERN SBMLDocumentPlugin : public SBasePlugin
 {
 public:

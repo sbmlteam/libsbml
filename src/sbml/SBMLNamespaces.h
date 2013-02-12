@@ -26,6 +26,7 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class SBMLNamespaces
+ * @ingroup Core
  * @brief Class to store SBML level, version and namespace information.
  *
  * @htmlinclude not-sbml-warning.html

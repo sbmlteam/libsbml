@@ -30,6 +30,7 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class FormulaUnitsData
+ * @ingroup Core
  * @brief Object for recording the units associated with objects
  * and math expressions.
  * 

@@ -38,6 +38,10 @@
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
+
+/**
+ * @ingroup Core
+ */
 template<class SBMLExtensionType>
 class LIBSBML_EXTERN SBMLExtensionRegister
 {

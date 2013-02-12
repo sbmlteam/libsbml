@@ -26,7 +26,8 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class Event
- * @brief LibSBML implementation of SBML's %Event construct.
+ * @ingroup Core
+ * @brief Implementation of SBML's %Event construct.
  * 
  * An SBML Event object defines when the event can occur, the variables
  * that are affected by it, how the variables are affected, and the event's
@@ -206,7 +207,8 @@
  */ 
 /**
  * @class ListOfEvents
- * @brief LibSBML implementation of SBML's %ListOfEvents construct.
+ * @ingroup Core
+ * @brief Implementation of SBML's %ListOfEvents construct.
  * 
  * The various ListOf___ classes in SBML are merely containers used for
  * organizing the main components of an SBML model.  All are derived from

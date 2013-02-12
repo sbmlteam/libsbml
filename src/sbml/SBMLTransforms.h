@@ -28,6 +28,7 @@
  * ---------------------------------------------------------------------- -->
  *
  * @class SBMLTransforms
+ * @ingroup Core
  * @brief Methods for transform elements of SBML
  *
  */

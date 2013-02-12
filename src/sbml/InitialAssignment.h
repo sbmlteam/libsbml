@@ -26,7 +26,8 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class InitialAssignment
- * @brief  LibSBML implementation of %SBML's %InitialAssignment construct.
+ * @ingroup Core
+ * @brief  Implementation of %SBML's %InitialAssignment construct.
  *
  * SBML Level 2 Versions 2&ndash;4 and SBML Level&nbsp;3 provide two ways of assigning initial
  * values to entities in a model.  The simplest and most basic is to set
@@ -167,7 +168,8 @@
  * <!---------------------------------------------------------------------- -->
  *
  * @class ListOfInitialAssignments
- * @brief LibSBML implementation of SBML's %ListOfInitialAssignments construct.
+ * @ingroup Core
+ * @brief Implementation of SBML's %ListOfInitialAssignments construct.
  * 
  * The various ListOf___ classes in %SBML are merely containers used for
  * organizing the main components of an %SBML model.  All are derived from

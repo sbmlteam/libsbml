@@ -26,7 +26,8 @@
  * ------------------------------------------------------------------------ -->
  * 
  * @class CompartmentType.
- * @brief LibSBML implementation of SBML's Level&nbsp;2's %CompartmentType construct.
+ * @ingroup Core
+ * @brief Implementation of SBML's Level&nbsp;2's %CompartmentType construct.
  *
  * SBML Level&nbsp;2 Versions&nbsp;2&ndash;4 provide the <em>compartment
  * type</em> as a grouping construct that can be used to establish a
@@ -67,7 +68,8 @@
  * 
  * 
  * @class ListOfCompartmentTypes.
- * @brief LibSBML implementation of SBML's %ListOfCompartmentTypes construct.
+ * @ingroup Core
+ * @brief Implementation of SBML's %ListOfCompartmentTypes construct.
  * 
  * The various ListOf___ classes in SBML are merely containers used for
  * organizing the main components of an SBML model.  All are derived from

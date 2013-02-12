@@ -26,6 +26,7 @@
  * ---------------------------------------------------------------------- -->
  *
  * @class SBO
+ * @ingroup Core
  * @brief Methods for interacting with Systems Biology Ontology terms.
  *
  * @htmlinclude not-sbml-warning.html

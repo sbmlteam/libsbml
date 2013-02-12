@@ -26,6 +26,7 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class CVTerm.
+ * @ingroup Core
  * @brief Representation of MIRIAM-compliant controlled vocabulary annotation.
  *
  * @htmlinclude not-sbml-warning.html

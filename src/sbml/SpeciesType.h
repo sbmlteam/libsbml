@@ -26,7 +26,8 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class SpeciesType
- * @brief LibSBML implementation of SBML Level&nbsp;2's %SpeciesType construct.
+ * @ingroup Core
+ * @brief Implementation of SBML Level&nbsp;2's %SpeciesType construct.
  *
  * The term @em species @em type refers to reacting entities independent of
  * location.  These include simple ions (e.g., protons, calcium), simple
@@ -66,7 +67,8 @@
  * <!---------------------------------------------------------------------- -->
  *
  * @class ListOfSpeciesTypes.
- * @brief LibSBML implementation of SBML's %ListOfSpeciesTypes construct.
+ * @ingroup Core
+ * @brief Implementation of SBML's %ListOfSpeciesTypes construct.
  * 
  * The various ListOf___ classes in SBML are merely containers used for
  * organizing the main components of an SBML model.  All are derived from

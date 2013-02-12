@@ -26,7 +26,8 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class EventAssignment
- * @brief LibSBML implementation of %SBML's %EventAssignment construct for %Event.
+ * @ingroup Core
+ * @brief Implementation of %SBML's %EventAssignment construct for %Event.
  *
  * Event contains an optional element called "listOfEventAssignments", of
  * class ListOfEventAssignments.  In every instance of an event definition
@@ -166,7 +167,8 @@
  *
  *
  * @class ListOfEventAssignments 
- * @brief LibSBML implementation of SBML's %ListOfEventAssignments construct.
+ * @ingroup Core
+ * @brief Implementation of SBML's %ListOfEventAssignments construct.
  *
  * The various ListOf___ classes in %SBML are merely containers used for
  * organizing the main components of an %SBML model.  All are derived from

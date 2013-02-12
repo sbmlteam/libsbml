@@ -26,6 +26,7 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class SBMLExtension
+ * @ingroup Core
  * @brief The core component of SBML's package extension.
  *
  * SBMLExtension class (abstract class) is a core component of package extension

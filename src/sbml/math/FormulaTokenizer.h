@@ -26,6 +26,7 @@
  * ---------------------------------------------------------------------- -->
  * 
  * @class FormulaTokenizer
+ * @ingroup Core
  * @brief Tokenizes a mathematical formula string in SBML Level 1 syntax.
  *
  * @htmlinclude not-sbml-warning.html
@@ -69,6 +70,7 @@ BEGIN_C_DECLS
 
 /**
  * @struct FormulaTokenizer_t
+ * @ingroup Core
  * Structure used to track the state of tokenizing a string.
  *
  * SBML Level 1 uses a simple text-string representation of mathematical
@@ -129,6 +131,7 @@ typedef enum
 
 /**
  * @struct Token_t
+ * @ingroup Core
  * Structure used to store a token returned by
  * FormulaTokenizer_nextToken().
  * 

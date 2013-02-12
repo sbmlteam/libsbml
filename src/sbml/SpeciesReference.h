@@ -27,7 +27,8 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class SpeciesReference
- * @brief LibSBML implementation of %SBML's %SpeciesReference construct.
+ * @ingroup Core
+ * @brief Implementation of %SBML's %SpeciesReference construct.
  *
  * The Reaction structure provides a way to express which species act as
  * reactants and which species act as products in a reaction.  In a given
@@ -230,7 +231,8 @@
  * <!---------------------------------------------------------------------- -->
  *
  * @class ListOfSpeciesReferences
- * @brief LibSBML implementation of SBML's %ListOfSpeciesReferences construct.
+ * @ingroup Core
+ * @brief Implementation of SBML's %ListOfSpeciesReferences construct.
  *
  * The ListOfSpeciesReferences class is used to store lists of reactants
  * and products in a Reaction object.

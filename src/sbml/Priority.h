@@ -26,7 +26,8 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class Priority
- * @brief LibSBML implementation of %SBML Level 3's %Priority construct
+ * @ingroup Core
+ * @brief Implementation of %SBML Level 3's %Priority construct
  * for Event.
  *
  * The Priority object class (which was introduced in SBML Level&nbsp;3

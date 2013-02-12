@@ -26,6 +26,7 @@
  * ---------------------------------------------------------------------- -->
  *
  * @class XMLNode
+ * @ingroup Core
  * @brief Representation of a node in an XML document tree.
  * 
  * Beginning with version 3.0.0, libSBML implements an XML abstraction

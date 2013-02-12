@@ -27,6 +27,7 @@
  * also available online as http://sbml.org/software/libsbml/license.html
  * ---------------------------------------------------------------------- -->
  * @class UnitFormulaFormatter
+ * @ingroup Core
  * @brief Object for deriving the units associated with objects
  * and math expressions.
  * 

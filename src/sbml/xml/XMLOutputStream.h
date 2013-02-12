@@ -26,6 +26,7 @@
  * ---------------------------------------------------------------------- -->
  *
  * @class XMLOutputStream
+ * @ingroup Core
  *
  * @if notclike @internal @endif@~
  */

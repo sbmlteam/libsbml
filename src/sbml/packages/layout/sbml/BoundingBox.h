@@ -48,9 +48,8 @@
  *
  *     Akiya Jouraku <jouraku@bio.keio.ac.jp>
  *     Modified this file for package extension in libSBML5
- *
+ * ------------------------------------------------------------------------ -->
  */
-
 
 #ifndef BoundingBox_H__
 #define BoundingBox_H__
@@ -72,6 +71,11 @@
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
+
+/**
+ * @ingroup Layout
+ * @brief Representation of a bounding box.
+ */
 class LIBSBML_EXTERN BoundingBox : public SBase
 {
 protected:

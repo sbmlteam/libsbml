@@ -27,7 +27,8 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class Rule
- * @brief LibSBML implementation of %SBML's %Rule construct.
+ * @ingroup Core
+ * @brief Implementation of %SBML's %Rule construct.
  *
  * In SBML, @em rules provide additional ways to define the values of
  * variables in a model, their relationships, and the dynamical behaviors
@@ -69,7 +70,8 @@
  */ 
 /**
  * @class ListOfRules
- * @brief LibSBML implementation of SBML's %ListOfRules construct.
+ * @ingroup Core
+ * @brief Implementation of SBML's %ListOfRules construct.
  * 
  * The various ListOf___ classes in %SBML are merely containers used for
  * organizing the main components of an %SBML model.  All are derived from

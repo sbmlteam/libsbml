@@ -28,6 +28,7 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class SBMLConverterRegister
+ * @ingroup Core
  * @brief Template class for SBML converters to register with the registry.
  *
  * @htmlinclude libsbml-facility-only-warning.html

@@ -26,6 +26,7 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class SBMLInternalValidator
+ * @ingroup Core
  * @brief Implementation of basic SBML consistency checks and other validations.
  *
  * @htmlinclude not-sbml-warning.html

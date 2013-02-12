@@ -122,6 +122,7 @@ class FormulaUnitsData;
 #ifndef SWIG //Hide the entire class from SWIG
 /**
  * @class L3Parser
+ * @ingroup Core
  * @brief Class providing functionality for the bison-generated parser.
  *
  * The L3Parser class is an internal class designed to hold the guts of the bison parser, plus

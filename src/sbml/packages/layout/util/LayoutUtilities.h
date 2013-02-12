@@ -45,8 +45,8 @@
  *     mailto:ralph.gauges@eml-r.villa-bosch.de
  *
  * Contributor(s):
+ * ------------------------------------------------------------------------ -->
  */
-
 
 #ifndef LAYOUTUTILITIES_H_
 #define LAYOUTUTILITIES_H_

@@ -26,6 +26,7 @@
  * ------------------------------------------------------------------------ -->
  * 
  * @class SBMLValidator
+ * @ingroup Core
  * @brief Base class for SBML validators
  *
  * @htmlinclude not-sbml-warning.html

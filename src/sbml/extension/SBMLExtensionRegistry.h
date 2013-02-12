@@ -40,6 +40,9 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 #include <list>
 #include <map>
 
+/**
+ * @ingroup Core
+ */
 class LIBSBML_EXTERN SBMLExtensionRegistry
 {
 public:

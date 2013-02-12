@@ -26,6 +26,7 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class SBMLInitialAssignmentConverter
+ * @ingroup Core
  * @brief SBML converter for replacing initial assignments.
  *
  * @htmlinclude libsbml-facility-only-warning.html

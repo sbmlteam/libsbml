@@ -26,7 +26,8 @@
  * ------------------------------------------------------------------------ -->
  * 
  * @class Species
- * @brief LibSBML implementation of SBML's %Species construct.
+ * @ingroup Core
+ * @brief Implementation of SBML's %Species construct.
  *
  * A @em species in SBML refers to a pool of entities that (a) are
  * considered indistinguishable from each other for the purposes of the
@@ -333,7 +334,8 @@
  */ 
 /**
  * @class ListOfSpecies.
- * @brief LibSBML implementation of SBML Level&nbsp;2's %ListOfSpecies construct.
+ * @ingroup Core
+ * @brief Implementation of SBML Level&nbsp;2's %ListOfSpecies construct.
  * 
  * The various ListOf___ classes in SBML are merely containers used for
  * organizing the main components of an SBML model.  All are derived from

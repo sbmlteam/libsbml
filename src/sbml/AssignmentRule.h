@@ -27,7 +27,8 @@
  * ------------------------------------------------------------------------ -->
  * 
  * @class AssignmentRule
- * @brief LibSBML implementation of %SBML's %AssignmentRule construct.
+ * @ingroup Core
+ * @brief Implementation of %SBML's %AssignmentRule construct.
  *
  * The rule type AssignmentRule is derived from the parent class Rule.  It
  * is used to express equations that set the values of variables.  The

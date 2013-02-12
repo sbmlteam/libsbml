@@ -26,7 +26,8 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class Constraint
- * @brief LibSBML implementation of SBML's %Constraint construct.
+ * @ingroup Core
+ * @brief Implementation of SBML's %Constraint construct.
  *
  * The Constraint object class was introduced in SBML Level&nbsp;2
  * Version&nbsp;2 as a mechanism for stating the assumptions under which a
@@ -103,7 +104,8 @@
  * <!---------------------------------------------------------------------- -->
  *
  * @class ListOfConstraints
- * @brief LibSBML implementation of SBML's %ListOfConstraints construct.
+ * @ingroup Core
+ * @brief Implementation of SBML's %ListOfConstraints construct.
  * 
  * The various ListOf___ classes in SBML are merely containers used for
  * organizing the main components of an SBML model.  All are derived from

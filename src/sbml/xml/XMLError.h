@@ -28,6 +28,7 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class XMLError
+ * @ingroup Core
  * @brief Representation of errors, warnings and other diagnostics
  *
  * @htmlinclude not-sbml-warning.html

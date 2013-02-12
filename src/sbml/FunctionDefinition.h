@@ -26,7 +26,9 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class FunctionDefinition
- * @brief LibSBML implementation of %SBML's %FunctionDefinition construct.
+ * @ingroup Core
+ * @ingroup Core
+ * @brief Implementation of %SBML's %FunctionDefinition construct.
  *
  * The FunctionDefinition structure associates an identifier with a
  * function definition.  This identifier can then be used as the function
@@ -94,7 +96,9 @@
  * <!---------------------------------------------------------------------- -->
  *
  * @class ListOfFunctionDefinitions
- * @brief LibSBML implementation of SBML's %ListOfFunctionDefinitions construct.
+ * @ingroup Core
+ * @ingroup Core
+ * @brief Implementation of SBML's %ListOfFunctionDefinitions construct.
  * 
  * The various ListOf___ classes in %SBML are merely containers used for
  * organizing the main components of an %SBML model.  All are derived from

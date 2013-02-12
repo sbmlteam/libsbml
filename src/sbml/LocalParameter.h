@@ -26,7 +26,8 @@
  * ------------------------------------------------------------------------ -->
  * 
  * @class LocalParameter.
- * @brief LibSBML implementation of SBML Level&nbsp;3's %LocalParameter construct.
+ * @ingroup Core
+ * @brief Implementation of SBML Level&nbsp;3's %LocalParameter construct.
  *
  * LocalParameter has been introduced in SBML Level&nbsp;3 to serve as the
  * object class for parameter definitions that are intended to be local to
@@ -93,7 +94,8 @@
  */ 
 /**
  * @class ListOfLocalParameters.
- * @brief LibSBML implementation of SBML Level&nbsp;3's %ListOfLocalParameters construct.
+ * @ingroup Core
+ * @brief Implementation of SBML Level&nbsp;3's %ListOfLocalParameters construct.
  * 
  * The various ListOf___ classes in SBML are merely containers used for
  * organizing the main components of an SBML model.  All are derived from

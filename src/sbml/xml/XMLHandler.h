@@ -26,6 +26,7 @@
  * ---------------------------------------------------------------------- -->
  *
  * @class XMLHandler
+ * @ingroup Core
  * @brief Class providing a unified interface to different XML parsers.
  *
  * @if notclike @internal @endif@~

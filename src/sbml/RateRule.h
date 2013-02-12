@@ -27,7 +27,8 @@
  * ------------------------------------------------------------------------ -->
  * 
  * @class RateRule
- * @brief LibSBML implementation of %SBML's %RateRule construct.
+ * @ingroup Core
+ * @brief Implementation of %SBML's %RateRule construct.
  *
  * The rule type RateRule is derived from the parent class Rule.  It is
  * used to express equations that determine the rates of change of

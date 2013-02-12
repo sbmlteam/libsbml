@@ -40,6 +40,9 @@
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
+/**
+ * @ingroup Core
+ */
 template<class SBasePluginType, class SBMLExtensionType>
 class LIBSBML_EXTERN SBasePluginCreator : public SBasePluginCreatorBase
 {

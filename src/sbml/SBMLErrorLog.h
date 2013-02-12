@@ -28,6 +28,7 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class SBMLErrorLog
+ * @ingroup Core
  * @brief Log of errors and other events encountered during SBML processing.
  *
  * @htmlinclude not-sbml-warning.html
