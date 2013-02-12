@@ -342,36 +342,36 @@ INPUT =                                 \
   libsbml-extension-support-classes.txt \
   libsbml-features.txt                  \
   libsbml-group-core-intro.txt          \
-  libsbml-group-comp-intro.txt          \
-  libsbml-group-fbc-intro.txt           \
-  libsbml-howto-implement-extension.txt \
-  libsbml-installation.txt              \
-  libsbml-issues.txt                    \
-  libsbml-license.txt                   \
-  libsbml-mainpage.txt                  \
-  libsbml-math.txt                      \
-  libsbml-news.txt                      \
-  libsbml-news.txt                      \
-  libsbml-old-news.txt                  \
-  libsbml-other.txt                     \
-  libsbml-papers.txt                    \
-  libsbml-release-info.txt              \
-  libsbml-programming.txt               \
-  libsbml-reading-files.txt             \
-  ../../src/sbml/annotation             \
-  ../../src/sbml/common                 \
-  ../../src/sbml/conversion             \
-  ../../src/sbml/extension              \
-  ../../src/sbml/math                   \
-  ../../src/sbml/util                   \
-  ../../src/sbml/validator              \
-  ../../src/sbml                        \
-  ../../src/sbml/xml \
-  ../../../libsbml-packages/comp/src/sbml/packages/comp/sbml \
-  ../../../libsbml-packages/comp/src/sbml/packages/comp/extension \
-  ../../../libsbml-packages/comp/src/sbml/packages/comp/util \ 
-  ../../../libsbml-packages/comp/src/sbml/packages/comp/validator \
-  ../../../libsbml-packages/comp/src/sbml/packages/comp/common
+  libsbml-group-comp-intro.txt           \
+  libsbml-group-fbc-intro.txt            \
+  libsbml-howto-implement-extension.txt  \
+  libsbml-installation.txt               \
+  libsbml-issues.txt                     \
+  libsbml-license.txt                    \
+  libsbml-mainpage.txt                   \
+  libsbml-math.txt                       \
+  libsbml-news.txt                       \
+  libsbml-news.txt                       \
+  libsbml-old-news.txt                   \
+  libsbml-other.txt                      \
+  libsbml-papers.txt                     \
+  libsbml-release-info.txt               \
+  libsbml-programming.txt                \
+  libsbml-reading-files.txt              \
+  ../../src/sbml/annotation              \
+  ../../src/sbml/common                  \
+  ../../src/sbml/conversion              \
+  ../../src/sbml/extension               \
+  ../../src/sbml/math                    \
+  ../../src/sbml/util                    \
+  ../../src/sbml/validator               \
+  ../../src/sbml                         \
+  ../../src/sbml/xml                     \
+  ../../src/sbml/packages/comp/sbml      \
+  ../../src/sbml/packages/comp/extension \
+  ../../src/sbml/packages/comp/util      \ 
+  ../../src/sbml/packages/comp/validator \
+  ../../src/sbml/packages/comp/common
 
 
 # The EXCLUDE tag can be used to specify files and/or directories that should 
