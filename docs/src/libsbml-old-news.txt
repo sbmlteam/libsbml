@@ -1,4 +1,4 @@
-/** @page libsbml-old-news Change history prior to version 5.0.0
+/** @page libsbml-old-news Change history prior to v. 5
 @n
 
 <!-- OLD_NEWS.txt is located in ../../.  The include search path for
