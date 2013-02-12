@@ -154,10 +154,25 @@ END_TEST
 
 
 
-//START_TEST (test_conversion_properties_read)
-//{
-//}
-//END_TEST
+START_TEST (test_conversion_properties_assign)
+{
+  ConversionProperties props;
+
+  props.addOption("key", "test", "test option");
+  fail_unless(props.getValue("key") == "test");
+  fail_unless(props.getType("key") == CNV_TYPE_STRING);
+  fail_unless(props.getDescription("key") == "test option");
+
+  ConversionProperties props2 = props;
+  fail_unless(props2.getValue("key") == "test");
+  fail_unless(props2.getType("key") == CNV_TYPE_STRING);
+  fail_unless(props2.getDescription("key") == "test option");
+
+  props2 = ConversionProperties();
+  fail_unless(props2.hasOption("key") == false);
+
+}
+END_TEST
 
 
 Suite *
@@ -170,6 +185,7 @@ create_suite_TestConversionProperties (void)
   tcase_add_test(tcase, test_conversion_properties_write);
   tcase_add_test(tcase, test_conversion_properties_exceptions);
   tcase_add_test(tcase, test_conversion_properties_clone);
+  tcase_add_test(tcase, test_conversion_properties_assign);
 
   suite_add_tcase(suite, tcase);
 
