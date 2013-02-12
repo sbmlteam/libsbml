@@ -335,11 +335,15 @@ INPUT =                                 \
   libsbml-blurb.txt                     \
   libsbml-changes.txt                   \
   libsbml-coding.txt                    \
+  libsbml-core-versus-packages.txt      \
   libsbml-communications.txt            \
   libsbml-example.txt                   \
   libsbml-extending.txt                 \
   libsbml-extension-support-classes.txt \
   libsbml-features.txt                  \
+  libsbml-group-core-intro.txt          \
+  libsbml-group-comp-intro.txt          \
+  libsbml-group-fbc-intro.txt           \
   libsbml-howto-implement-extension.txt \
   libsbml-installation.txt              \
   libsbml-issues.txt                    \
@@ -362,7 +366,13 @@ INPUT =                                 \
   ../../src/sbml/util                   \
   ../../src/sbml/validator              \
   ../../src/sbml                        \
-  ../../src/sbml/xml
+  ../../src/sbml/xml \
+  ../../../libsbml-packages/comp/src/sbml/packages/comp/sbml \
+  ../../../libsbml-packages/comp/src/sbml/packages/comp/extension \
+  ../../../libsbml-packages/comp/src/sbml/packages/comp/util \ 
+  ../../../libsbml-packages/comp/src/sbml/packages/comp/validator \
+  ../../../libsbml-packages/comp/src/sbml/packages/comp/common
+
 
 # The EXCLUDE tag can be used to specify files and/or directories that should 
 # excluded from the INPUT source files. This way you can easily exclude a 
@@ -439,6 +449,8 @@ EXCLUDE =                                                                       
   ../../src/sbml/xml/XercesTranscode.cpp                                                     \
   ../../src/sbml/xml/XercesTranscode.h                                                       \
   ../../src/bindings/csharp/csharp-files/libsbmlPINVOKE.cs                                   \
+  ../../src/bindings/csharp/csharp-files/SWIGTYPE_p_packageErrorTableEntry.cs                \
+  ../../src/bindings/csharp/csharp-files/SWIGTYPE_p_List.cs                                  \
   ../../src/bindings/csharp/csharp-files/SWIGTYPE_p_std__ostream.cs                          \
   ../../src/bindings/csharp/csharp-files/SWIGTYPE_p_std__vectorT_SBMLNamespaces_const_p_t.cs \
   ../../src/bindings/csharp/csharp-files/SBMLTransforms.cs
