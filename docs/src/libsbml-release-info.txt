@@ -1,5 +1,8 @@
 /** @page libsbml-release-info LibSBML release information
 
+<p> This section provides information about libSBML releases, including
+change histories, known issues, and licensing.
+
 - @subpage changes
 - @subpage libsbml-issues
 - @subpage libsbml-license
