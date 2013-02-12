@@ -95,6 +95,17 @@ STABLE RELEASE
 
 EXPERIMENTAL RELEASE
 
+* New features
+
+  - 'qual' package-specific:
+    
+    - New functions getInputBySpecies(std::string) and 
+      getOutputBySpecies(std::string) have been added to the
+      Tranisition class. These will return the first Input/Output
+      in the relevant list that matches the qualitativeSpecies
+      attribute value supplied as argument.
+
+
 * Bug fixes
 
   - 'qual' package-specific bug fixes:
