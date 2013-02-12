@@ -11,14 +11,18 @@ Systems Biology Markup Language (SBML).
 To get started with libSBML, you may find the following sections of
 this manual helpful:
 
-- @subpage libsbml-communications
 - @subpage libsbml-installation
 - @subpage libsbml-accessing
 - @subpage libsbml-programming
+- @subpage libsbml-communications
 
-Once you are familiar with the basics, the navigation bar, table of contents
-and search facilities of this manual can help you locate specific
-documentation about the libSBML API.
+You can use the navigation bar, table of contents and search facilities of
+this manual to locate specific documentation about the libSBML API.  In
+addition, if you are interested in developing enhancements or extensions to
+libSBML, the following section may be helpful:
+
+- @subpage libsbml-release-info
+- @subpage libsbml-other
 
 @htmlinclude libsbml-papers.html
 
