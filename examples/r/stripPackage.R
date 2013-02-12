@@ -17,7 +17,7 @@ args <- commandArgs(trailingOnly = TRUE)
 
 if (length(args) != 3)
 {
-  stop("Usage: echoSBML input-filename package-to-strip output-filename\n");
+  stop("Usage: stripPackage input-filename package-to-strip output-filename\n");
 }
 
 doc = readSBML(args[1]);
