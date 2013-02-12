@@ -1329,10 +1329,12 @@ span.comment {
   color: #777;
 }
 
-#projectname:before {
-    content: url(official-sbml-supported-32.jpg);
-    margin: 5px 15px 0px 5px;
-    vertical-align: -5%;
+#projectname {
+    background-image: url(official-sbml-supported-32.jpg);
+    background-position: left center;
+    background-repeat: no-repeat;
+    background-size: 80px 35px;
+    padding-left: 90px;
 }
 
 @media only screen and (-webkit-min-device-pixel-ratio: 2),
