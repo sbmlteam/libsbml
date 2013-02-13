@@ -1669,8 +1669,10 @@ ul.tablist li:nth-child(2) {
 /* Marker for packages, used by common-text/pkg-marker-comp.html etc. */
 
 .pkg-marker {
+/*
     border: 1px solid rgb(203, 222, 173);
     background-color: rgb(245, 255, 225);
+*/
     padding: 1px 3px 1px 2px;
     border-radius-bottomleft: 5px;
     border-radius-bottomright: 5px;
@@ -1686,4 +1688,39 @@ ul.tablist li:nth-child(2) {
     -webkit-border-top-right-radius: 5px;
     font-size: 90%;
     font-style: italic;
+}
+
+.color-1 {
+    border: 1px solid rgb(190, 200, 231);
+    background-color: rgba(190, 200, 231, 0.25);
+}
+
+.color-2 {
+    border: 1px solid rgb(203, 222, 173);
+    background-color: rgba(203, 222, 173, 0.25);
+}
+
+.color-3 {
+    border: 1px solid rgb(233, 176, 149);
+    background-color: rgba(233, 176, 149, 0.25);
+}
+
+.color-4 {
+    border: 1px solid rgb(150, 220, 216);
+    background-color: rgba(150, 220, 216, 0.25);
+}
+
+.color-5 {
+    border: 1px solid rgb(223, 189, 107);
+    background-color: rgba(223, 189, 107, 0.25);
+}
+
+.color-6 {
+    border: 1px solid rgb(230, 181, 199);
+    background-color: rgba(230, 181, 199, 0.25);
+}
+
+.color-7 {
+    border: 1px solid rgb(155, 221, 177);
+    background-color: rgba(155, 221, 177, 0.25);
 }
