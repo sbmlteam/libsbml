@@ -1342,7 +1342,7 @@ span.comment {
     background-position: left center;
     background-repeat: no-repeat;
     background-size: 80px 35px;
-    padding-left: 90px;
+    padding-left: 95px;
 }
 
 @media only screen and (-webkit-min-device-pixel-ratio: 2),
@@ -1352,7 +1352,7 @@ only screen and (min-device-pixel-ratio: 2) {
         background-position: left center;
         background-repeat: no-repeat;
         background-size: 80px 35px;
-        padding-left: 90px;
+        padding-left: 95px;
     }
 }
 
@@ -1673,7 +1673,7 @@ ul.tablist li:nth-child(2) {
     border: 1px solid rgb(203, 222, 173);
     background-color: rgb(245, 255, 225);
 */
-    padding: 1px 3px 1px 2px;
+    padding: 0px 3px 1px 2px;
     border-radius-bottomleft: 5px;
     border-radius-bottomright: 5px;
     border-radius-topleft: 5px;
