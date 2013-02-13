@@ -303,24 +303,31 @@ SBMLExtension::isInUse(SBMLDocument *doc) const
   return true;
 }
 
+/** @cond doxygen-libsbml-internal */
 packageErrorTableEntry 
 SBMLExtension::getErrorTable(unsigned int index) const
 {
   return defaultErrorTable[0];
 }
+/** @endcond */
 
+/** @cond doxygen-libsbml-internal */
 unsigned int 
 SBMLExtension::getErrorTableIndex(unsigned int errorId) const
 {
   return 0;
 }
+/** @endcond */
 
+/** @cond doxygen-libsbml-internal */
 unsigned int
 SBMLExtension::getErrorIdOffset() const
 {
   return 0;
 }
+/** @endcond */
 
+/** @cond doxygen-libsbml-internal */
 unsigned int 
 SBMLExtension::getSeverity(unsigned int index, unsigned int pkgVersion) const
 {
@@ -333,14 +340,18 @@ SBMLExtension::getSeverity(unsigned int index, unsigned int pkgVersion) const
       break;
   }
 }
+/** @endcond */
 
+/** @cond doxygen-libsbml-internal */
 unsigned int 
 SBMLExtension::getCategory(unsigned int index) const
 {
   packageErrorTableEntry pkgErr = getErrorTable(index);
   return pkgErr.category;
 }
+/** @endcond */
 
+/** @cond doxygen-libsbml-internal */
 std::string 
 SBMLExtension::getMessage(unsigned int index, 
                           unsigned int pkgVersion, 
@@ -376,14 +387,16 @@ SBMLExtension::getMessage(unsigned int index,
 
   return message;
 }
+/** @endcond */
 
+/** @cond doxygen-libsbml-internal */
 std::string 
 SBMLExtension::getShortMessage(unsigned int index) const
 {
   packageErrorTableEntry pkgErr = getErrorTable(index);
   return pkgErr.shortMessage;
 }
-
+/** @endcond */
 
 
 /** @cond doxygen-c-only */

@@ -4342,6 +4342,7 @@ Model::getElementPosition () const
 /** @endcond */
 
 
+/** @cond doxygen-libsbml-internal */
 void Model::checkUnitDefinition(UnitDefinition* ud, FormulaUnitsData *fud)
 {
   if (ud != NULL)
@@ -4455,8 +4456,12 @@ void Model::checkUnitDefinition(UnitDefinition* ud, FormulaUnitsData *fud)
     fud->setPerTimeUnitDefinition(ud);
   }
 }
+/** @endcond */
 
-void Model::checkSpeciesReference(SpeciesReference* sr, UnitFormulaFormatter* unitFormatter, FormulaUnitsData* fud, UnitDefinition* ud)
+/** @cond doxygen-libsbml-internal */
+void Model::checkSpeciesReference(SpeciesReference* sr,
+                                  UnitFormulaFormatter* unitFormatter,
+                                  FormulaUnitsData* fud, UnitDefinition* ud)
 {
   if (sr->isSetStoichiometryMath())
   {
@@ -4548,6 +4553,7 @@ void Model::checkSpeciesReference(SpeciesReference* sr, UnitFormulaFormatter* un
     fud->setPerTimeUnitDefinition(ud);
   }
 }
+/** @endcond */
 
 /** @cond doxygen-libsbml-internal */
 /**

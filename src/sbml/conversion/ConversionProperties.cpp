@@ -355,7 +355,7 @@ ConversionProperties_create()
  * creates a new conversion properties structure
  * with a specific SBML target namespace.
  * 
- * @param targetNS the target namespace to convert to
+ * @param sbmlns the target namespace to convert to
  */
 LIBSBML_EXTERN
 ConversionProperties_t*
@@ -563,7 +563,7 @@ ConversionProperties_hasTargetNamespaces(const ConversionProperties_t* cp)
  * Sets the target namespace.
  * 
  * @param cp the conversion properties
- * @param targetNS the target namespace to use.
+ * @param sbmlns the target namespace to use.
  */
 LIBSBML_EXTERN
 void

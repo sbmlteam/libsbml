@@ -1897,6 +1897,11 @@ s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></b
    * @param notes an XML string that is to be used as the content of the
    * "notes" subelement of this object
    *
+   * @param addXHTMLMarkup a boolean indicating whether to wrap the contents
+   * of the @p notes argument with XHTML paragraph (<code>&lt;p&gt;</code>)
+   * tags.  This is appropriate when the string in @p notes does not already
+   * containg the appropriate XHTML markup.
+   *
    * @return integer value indicating success/failure of the
    * function.  The possible values returned by this function are:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink

@@ -520,7 +520,8 @@ public:
 
 
   /**
-   * Returns the first child element found that has the given id in the model-wide SId namespace, or NULL if no such object is found.
+   * Returns the first child element found that has the given id in the
+   * model-wide SId namespace, or NULL if no such object is found.
    *
    * @param id string representing the id of objects to find.
    *
@@ -530,7 +531,8 @@ public:
   
   
   /**
-   * Returns the first child element it can find with the given metaid, or NULL if no such object is found.
+   * Returns the first child element it can find with the given metaid, or
+   * NULL if no such object is found.
    *
    * @param metaid string representing the metaid of objects to find
    *
@@ -540,7 +542,8 @@ public:
   
   
   /**
-   * Returns a List of all child SBase* objects, including those nested to an arbitrary depth
+   * Returns a List of all child SBase* objects, including those nested to an
+   * arbitrary depth
    *
    * @return a List* of pointers to all children objects.
    */
@@ -2686,7 +2689,9 @@ public:
 
 
   /**
-   * Finds this Model's parent SBMLDocument and calls setModel(NULL) on it, indirectly deleting itself.  Overridden from the SBase function since the parent is not a ListOf.
+   * Finds this Model's parent SBMLDocument and calls setModel(NULL) on it,
+   * indirectly deleting itself.  Overridden from the SBase function since
+   * the parent is not a ListOf.
    *
    * @return integer value indicating success/failure of the
    * function.  @if clike The value is drawn from the
@@ -2954,7 +2959,8 @@ public:
    * libsbmlcs.libsbml@endlink.  The names of the type codes all begin with
    * the characters @c SBML_. @endif@~
    *
-   * @return the SBML type code for this object, or @link SBMLTypeCode_t#SBML_UNKNOWN SBML_UNKNOWN@endlink (default).
+   * @return the SBML type code for this object, or
+   * @link SBMLTypeCode_t#SBML_UNKNOWN SBML_UNKNOWN@endlink (default).
    *
    * @see getElementName()
    */
@@ -3014,6 +3020,7 @@ public:
    * of the list and comparing the appropriate data.
    */
   void populateListFormulaUnitsData();
+
 
   /**
    * Predicate returning @c true if 
@@ -3524,18 +3531,21 @@ public:
 
 
   /**
-   * Takes the contents of the passed-in Model, makes copies of everything, and appends those copies to the appropriate places in this Model.  Also calls 'appendFrom' on all plugin objects.
+   * Takes the contents of the passed-in Model, makes copies of everything,
+   * and appends those copies to the appropriate places in this Model.  Also
+   * calls 'appendFrom' on all plugin objects.
    *
    * @param model the Model to merge with this one.
    *
    */
   virtual int appendFrom(const Model* model);
 
+
   /** @cond doxygen-libsbml-internal */
   /**
-   * Enables/Disables the given package with this element and child
-   * elements (if any).
-   * (This is an internal implementation for enablePackage function)
+   * Enables/Disables the given package with this element and child elements
+   * (if any).  (This is an internal implementation for enablePackage
+   * function)
    *
    * @note Subclasses of the SBML Core package in which one or more child
    * elements are defined must override this function.
@@ -3629,7 +3639,7 @@ protected:
   ListOfReactions            mReactions;
   ListOfEvents               mEvents;
 
-  List *      mFormulaUnitsData;
+  List *                     mFormulaUnitsData;
 
 
   /* the validator classes need to be friends to access the 
@@ -3650,19 +3660,27 @@ protected:
   friend class OverdeterminedValidator;
   friend class SBOConsistencyValidator;
   friend class UnitConsistencyValidator;
+
   /** @endcond */
 
   private:
+
   /** @cond doxygen-libsbml-internal */
+
   /**
    * Internal function used in populateListFormulaUnitsData
    */
   void checkUnitDefinition(UnitDefinition* ud, FormulaUnitsData *fud);
+
   /**
    * Internal function used in populateListFormulaUnitsData
    */
-  void checkSpeciesReference(SpeciesReference* sr, UnitFormulaFormatter* unitFormatter, FormulaUnitsData* fud, UnitDefinition* ud);
+  void checkSpeciesReference(SpeciesReference* sr,
+                             UnitFormulaFormatter* unitFormatter,
+                             FormulaUnitsData* fud, UnitDefinition* ud);
+
   /** @endcond */
+
 };
 
 LIBSBML_CPP_NAMESPACE_END

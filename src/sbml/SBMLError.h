@@ -1115,6 +1115,10 @@ public:
    * @param category an integer indicating the category to which the error
    * belongs.
    *
+   * @param package the SBML Level package involved.
+   *
+   * @param pkgVersion the version of the @p package.
+   *
    * @if notcpp @htmlinclude warn-default-args-in-docs.html @endif@~
    */
   SBMLError

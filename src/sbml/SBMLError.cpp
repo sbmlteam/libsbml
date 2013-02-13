@@ -430,9 +430,10 @@ SBMLError::print(ostream& s) const
       << getMessage() << endl;
   }
 }
-
 /** @endcond **/
 
+
+/** @cond doxygen-libsbml-internal */
 void
 SBMLError::adjustErrorId(unsigned int offset)
 {
@@ -440,5 +441,8 @@ SBMLError::adjustErrorId(unsigned int offset)
   // look for the specific error
   //mErrorId = mErrorId - offset;
 }
+/** @endcond */
+
+
 LIBSBML_CPP_NAMESPACE_END
 
