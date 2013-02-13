@@ -3625,7 +3625,7 @@ SBMLCodesUpperBound = _libsbml.SBMLCodesUpperBound
 
 LIBSBML_CAT_SBML = _libsbml.LIBSBML_CAT_SBML
     ## Category code for SBMLError diagnostics.
-     *
+    ##
     ## This code has the following meaning: General SBML error not falling
     ## into another category below.
 
