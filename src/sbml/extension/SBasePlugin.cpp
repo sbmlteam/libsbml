@@ -185,7 +185,7 @@ SBasePlugin::connectToParent (SBase* sbase)
 
 
 
-/**
+/*
  *
  * (Extension)
  *
@@ -472,7 +472,7 @@ SBasePlugin::syncAnnotation(SBase* parentObject, XMLNode *annotation)
 
 }
 
-/** 
+/* 
  * Parse L2 annotation if supported
  *
  */
