@@ -49,7 +49,7 @@ STABLE RELEASE
       appropriate) to any ModelDefinitions contained within
       a comp model.
       
-    - Documentation of the 'comp' code is now available.
+    - Documentation of the 'comp' C++ API is now available.
  
 * Bug fixes
 
