@@ -25,40 +25,44 @@ STABLE RELEASE
 
 * New features
 
-  - The converter that expands functionDefinitions has been extended
-    with an additional option that allows the user to specify 
-    particular functionDefinitions that should not be expanded.
+  - The converter that expands SBML FunctionDefinition constructs has
+    been extended with an additional option that allows the user to
+    specify particular <functionDefinition> objects that should not be
+    expanded.
     
-  - The converter that converts between core levels and versions of
-    SBML allows the user to specify a 'strict' flag that determines
-    whether an invalid model can be converted or produced.  The code
-    was applying the use of 'strict = false' to assume syntactic validity
-    and would therefore still fail to convert a model if semantic
-    validity was not preserved.  This interpretation has been changed
-    and setting 'strict' to 'false' will now always convert a model whilst
-    logging errors relating to how the semantics may have been altered.
+  - We have changed the behavior of the converter that converts
+    between core Levels and Versions of SBML.  This converter has a
+    boolean option, 'strict', that determines whether an invalid model
+    can be converted or produced.  The code originally assumed that
+    'strict = false' refers to syntactic validity only, and so even
+    when the flag was set to false, the converter could fail to
+    convert a model if semantic validity was not preserved.  This
+    interpretation has been changed because people felt it was not
+    useful; now, setting 'strict' to 'false' will always convert a
+    model, and if there are errors related to altered semantics, the
+    errors will be logged in the usual error log.
    
-  - 'comp' package
+  - 'comp' package updates:
   
     - The C API for comp is now available with an example of
       creating a model using this API.
       
-    - The majority of validation rules have now been implemented
-      and will be reported.  Validation has also been expanded to
-      apply valaidation from core and other packages (where 
-      appropriate) to any ModelDefinitions contained within
-      a comp model.
+    - The majority of 'comp' package validation rules have now been
+      implemented and will be reported.  Validation has also been
+      expanded to apply valaidation from core and other packages
+      (where appropriate) to any ModelDefinitions contained within a
+      comp model.
       
-    - Documentation of the 'comp' C++ API is now available.
+    - Documentation for the 'comp' C++ API is now available.
  
 * Bug fixes
 
-  - Code was still writing out the deprecated and in some cases
-    removed attribute 'charge' on a <species>. This is no longer
-    the case.
+  - LibSBML was still writing out the deprecated, and in some cases
+    removed, attribute 'charge' on a <species>. This is no longer the
+    case.
     
-  - Some files caused the level and version converter to enter
-    an endless loop. This has been fixed.  Thanks to the guys at
+  - Some files caused the SBML Level and Version converter to enter an
+    endless loop. This has been fixed.  Thanks to the good folks at
     Persistent Systems Ltd. for reporting this.
     
   - Reading an attribute with a value of type 'double' was failing 
@@ -66,14 +70,14 @@ STABLE RELEASE
     This has now been sorted and will be correctly logged as an 
     error by the readSBML functions.
     
-  - The level and version converter was in some cases running unit
-    validation even if the user had specified that they did not 
-    require strict units.  This was in fact to allow an error to be 
-    logged; however the large computational overhead of running
-    unit validation is unecessary to merely log an error.  Thus, 
-    if the user has declared that they do not require unit validity
-    the checks will no long be applied.
-    
+  - The Level and Version converter was in some cases running unit
+    validation even if the user had specified that they did not
+    require strict unit validation.  This was in fact done by libSBML
+    to allow an error to be logged; however, it has become clear that
+    the large computational overhead of running unit validation is
+    unecessary to merely log an error.  Thus, if the user has declared
+    that they do not require unit validity, the checks will no longer
+    be applied.
 
   - 'layout' package-specific bug fixes:
   
@@ -89,22 +93,21 @@ STABLE RELEASE
 
 * Miscellaneous
 
-  - The documentation structure has been slightly overhauled to
-    provide clearer access to relevant information.
+  - The structure of the API documentation has been slightly
+    overhauled to provide clearer access to relevant information.
 
 
 EXPERIMENTAL RELEASE
 
 * New features
 
-  - 'qual' package-specific:
+  - 'qual' package-specific new features:
     
     - New functions getInputBySpecies(std::string) and 
       getOutputBySpecies(std::string) have been added to the
       Tranisition class. These will return the first Input/Output
       in the relevant list that matches the qualitativeSpecies
       attribute value supplied as argument.
-
 
 * Bug fixes
 
@@ -124,6 +127,7 @@ EXPERIMENTAL RELEASE
     - The interaction between layout GraphicalObjects and the 
       render 'objectRole' attribute was removing the attribute
       on occasion. This has been fixed and more fully tested.
+
 
 ====================================================================
 Version 5.7.0 (2013-01-14)
