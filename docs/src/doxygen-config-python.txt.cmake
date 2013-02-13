@@ -23,7 +23,7 @@ PROJECT_NAME           = "@PACKAGE_NAME@ Python API"
 # This could be handy for archiving the generated documentation or 
 # if some version control system is used.
 
-PROJECT_NUMBER         = "@PACKAGE_NAME@ @PACKAGE_VERSION@ Python API"
+PROJECT_NUMBER         = "@PACKAGE_VERSION@"
 
 # The HTML_OUTPUT tag is used to specify where the HTML docs will be put. 
 # If a relative path is entered the value of OUTPUT_DIRECTORY will be 
@@ -59,7 +59,19 @@ PREDEFINED             = __cplusplus  \
 # The ENABLED_SECTIONS tag can be used to enable conditional 
 # documentation sections, marked by \if sectionname ... \endif.
 
-ENABLED_SECTIONS       = notcpp doxygen-python-only python
+# In libSBML, we use the following section names for the languages:
+#
+#   java:     only Java
+#   python:   only Python
+#   perl:     only Perl
+#   cpp:      only C++
+#   csharp:   only C#
+#   conly:    only C
+#   clike:    C, C++
+#   notcpp:   not C++
+#   notclike: not C or C++
+
+ENABLED_SECTIONS       = python notclike notcpp doxygen-python-only
 
 # Because of how we construct the Python documentation, we don't want
 # the first sentence to be assumed to be the brief description.
@@ -72,18 +84,22 @@ BRIEF_MEMBER_DESC      = NO
 INPUT = \
   libsbml-accessing.txt            \
   libsbml-blurb.txt                \
-  libsbml-coding.txt               \
+  libsbml-changes.txt              \
   libsbml-communications.txt       \
   libsbml-features.txt             \
   libsbml-installation.txt         \
   libsbml-issues.txt               \
   libsbml-license.txt              \
   libsbml-news.txt                 \
+  libsbml-old-news.txt             \
+  libsbml-release-info.txt         \
+  libsbml-programming-python.txt   \
   libsbml-python-mainpage.txt      \
   libsbml-python-math.txt          \
   libsbml-python-reading-files.txt \
-  libsbml-uninstallation.txt       \
-  ../../src/bindings/python/libsbml.py
+  libsbml.py
+
+LAYOUT_FILE = doxygen-layout-notcpp.xml
 
 # The INPUT_FILTER tag can be used to specify a program that doxygen should 
 # invoke to filter for each input file. Doxygen will invoke the filter program 
@@ -97,12 +113,46 @@ INPUT_FILTER           = pythondocfilter.py
 # Because of the way the proxies are done, @param never works properly.
 # So don't bother telling us.
 
-WARN_IF_DOC_ERROR      = NO
+WARN_IF_DOC_ERROR      = YES
 
 # According to the Doxygen 1.5.4 docs, you're supposed to set this for Python.
 
 OPTIMIZE_OUTPUT_JAVA    = YES
 
-# Ignore some symbols from the output
+# Ignore some symbols from the output.  We use this to hide some classes that we
+# don't expose outside of the core.
+#
+# 2011-12-15 <mhucka@caltech.edu> Note: because of the way Python code
+# works, the only symbols handed to the matcher are the class names and the
+# function names, SEPARATELY.  You can't use a path pattern like
+# SBasePlugin::connectToParent; it will simply never match.  I traced
+# Doxygen's code in a debugger, and found that what the code handling
+# EXCLUDE_SYMBOLS sees is "SBasePlugin" at one point and "connectToParent"
+# at another point -- not connected at all.  Therefore, this drastically
+# limits what we can do with EXCLUDE_SYMBOLS to hide things.  You don't
+# want to put methods in this list unless you're absolutely sure that
+# the methods should be removed no matter what class they may appear on.
+# So, right now, we use this mainly to hide classes that don't get
+# hidden by other means, and methods that should be universally hidden
+# (or have completely unique names, so there's no chance of accidentally
+# hiding more than intended).
 
-EXCLUDE_SYMBOLS         = *_swigregister __cmp__
+EXCLUDE_SYMBOLS =                      \
+  ISBMLExtensionNamespaces             \
+  SBMLExtension                        \
+  SBMLFunctionDefinitionConverter_init \
+  SBMLInitialAssignmentConverter_init  \
+  SBMLLevelVersionConverter_init       \
+  SBMLRuleConverter_init               \
+  SBMLStripPackageConverter_init       \
+  SBMLTransforms                       \
+  SBMLUnitsConverter_init              \
+  SBaseExtensionPoint                  \
+  SwigPyIterator                       \
+  XMLInputStream                       \
+  XMLOutputStream                      \
+  swig_import_helper                   \
+  weakref_proxy                        \
+  _newclass                            \
+  accept                               \
+  string

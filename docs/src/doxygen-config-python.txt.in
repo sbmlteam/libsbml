@@ -84,18 +84,22 @@ BRIEF_MEMBER_DESC      = NO
 INPUT = \
   libsbml-accessing.txt            \
   libsbml-blurb.txt                \
-  libsbml-coding.txt               \
+  libsbml-changes.txt              \
   libsbml-communications.txt       \
   libsbml-features.txt             \
   libsbml-installation.txt         \
   libsbml-issues.txt               \
   libsbml-license.txt              \
   libsbml-news.txt                 \
+  libsbml-old-news.txt             \
+  libsbml-release-info.txt         \
+  libsbml-programming-python.txt   \
   libsbml-python-mainpage.txt      \
   libsbml-python-math.txt          \
   libsbml-python-reading-files.txt \
-  libsbml-uninstallation.txt       \
   libsbml.py
+
+LAYOUT_FILE = doxygen-layout-notcpp.xml
 
 # The INPUT_FILTER tag can be used to specify a program that doxygen should 
 # invoke to filter for each input file. Doxygen will invoke the filter program 
@@ -152,4 +156,3 @@ EXCLUDE_SYMBOLS =                      \
   _newclass                            \
   accept                               \
   string
-
