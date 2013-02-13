@@ -1669,7 +1669,8 @@ ul.tablist li:nth-child(2) {
 /* Marker for packages, used by common-text/pkg-marker-comp.html etc. */
 
 .pkg-marker {
-    border: 1px solid darkorange;
+    border: 1px solid rgb(203, 222, 173);
+    background-color: rgb(245, 255, 225);
     padding: 1px 3px 1px 2px;
     border-radius-bottomleft: 5px;
     border-radius-bottomright: 5px;
