@@ -102,7 +102,7 @@ CompartmentGlyph::CompartmentGlyph(LayoutPkgNamespaces* layoutns)
 
 
 /*
- * Constructor which creates a new CompartmentGlyph with the given id.
+ * Constructor which creates a new CompartmentGlyph with the given @p id.
  */
 CompartmentGlyph::CompartmentGlyph (LayoutPkgNamespaces* layoutns, const std::string& id)
   : GraphicalObject(layoutns)
@@ -373,7 +373,7 @@ CompartmentGlyph_createFrom (const CompartmentGlyph_t *temp)
 
 
 /**
- * Creates a new CompartmentGlyph with the given id
+ * Creates a new CompartmentGlyph with the given @p id
  */
 LIBSBML_EXTERN
 CompartmentGlyph_t *
@@ -385,7 +385,7 @@ CompartmentGlyph_createWith (const char *id)
 
 
 /**
- * Creates a new CompartmentGlyph with the given id
+ * Creates a new CompartmentGlyph with the given @p id
  */
 LIBSBML_EXTERN
 CompartmentGlyph_t *

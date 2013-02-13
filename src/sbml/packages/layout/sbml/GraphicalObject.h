@@ -99,7 +99,7 @@ public:
   GraphicalObject (LayoutPkgNamespaces* layoutns);
 
   /**
-   * Creates a new GraphicalObject with the given id.
+   * Creates a new GraphicalObject with the given @p id.
    *
    * (FOR BACKWARD COMPATIBILITY)
    *
@@ -108,7 +108,7 @@ public:
   GraphicalObject (LayoutPkgNamespaces* layoutns, const std::string& id);
 
   /**
-   * Creates a new GraphicalObject with the given id and 2D coordinates for
+   * Creates a new GraphicalObject with the given @p id and 2D coordinates for
    * the bounding box.
    *
    * (FOR BACKWARD COMPATIBILITY)
@@ -119,7 +119,7 @@ public:
                    double x, double y, double w, double h);
 
   /**
-   * Creates a new GraphicalObject with the given id and 3D coordinates for
+   * Creates a new GraphicalObject with the given @p id and 3D coordinates for
    * the bounding box.
    *
    * (FOR BACKWARD COMPATIBILITY)
@@ -131,7 +131,7 @@ public:
                    double w, double h, double d);
 
   /**
-   * Creates a new GraphicalObject with the given id and 3D coordinates for
+   * Creates a new GraphicalObject with the given @p id and 3D coordinates for
    * the bounding box.
    *
    * (FOR BACKWARD COMPATIBILITY)
@@ -141,7 +141,7 @@ public:
   GraphicalObject (LayoutPkgNamespaces* layoutns, const std::string& id, const Point* p, const Dimensions* d);
 
   /**
-   * Creates a new GraphicalObject with the given id and 3D coordinates for
+   * Creates a new GraphicalObject with the given @p id and 3D coordinates for
    * the bounding box.
    *
    * (FOR BACKWARD COMPATIBILITY)
@@ -492,7 +492,7 @@ public:
    * of the GraphicalObject to get.
    * 
    * @return GraphicalObject in this ListOfGraphicalObjects
-   * with the given id or NULL if no such
+   * with the given @p id or @c NULL if no such
    * GraphicalObject exists.
    *
    * @see get(unsigned int n)
@@ -509,7 +509,7 @@ public:
    * of the GraphicalObject to get.
    * 
    * @return GraphicalObject in this ListOfGraphicalObjects
-   * with the given id or NULL if no such
+   * with the given @p id or @c NULL if no such
    * GraphicalObject exists.
    *
    * @see get(unsigned int n)

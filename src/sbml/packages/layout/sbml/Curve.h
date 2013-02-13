@@ -233,13 +233,13 @@ public:
 
   /**
    * Returns a pointer to the curve segment with the given index.
-   * If the index is invalid, NULL is returned.
+   * If the index is invalid, @c NULL is returned.
    */  
   const LineSegment* getCurveSegment (unsigned int index) const;
 
   /**
    * Returns a pointer to the curve segment with the given index.
-   * If the index is invalid, NULL is returned.
+   * If the index is invalid, @c NULL is returned.
    */  
   LineSegment* getCurveSegment (unsigned int index);
 

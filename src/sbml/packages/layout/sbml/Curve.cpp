@@ -286,7 +286,7 @@ Curve::getListOfCurveSegments ()
 
 /*
  * Returns a pointer to the curve segment with the given index.  If the
- * index is invalid, NULL is returned.
+ * index is invalid, @c NULL is returned.
  */  
 const LineSegment*
 Curve::getCurveSegment (unsigned int index) const
@@ -297,7 +297,7 @@ Curve::getCurveSegment (unsigned int index) const
 
 /*
  * Returns a pointer to the curve segment with the given index.  If the
- * index is invalid, NULL is returned.
+ * index is invalid, @c NULL is returned.
  */  
 LineSegment*
 Curve::getCurveSegment (unsigned int index)

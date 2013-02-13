@@ -97,7 +97,7 @@ public:
 
 
   /**
-   * Creates a new SpeciesGlyph with the given id. 
+   * Creates a new SpeciesGlyph with the given @p id. 
    *
    * (FOR BACKWARD COMPATIBILITY)
    *
@@ -105,7 +105,7 @@ public:
   SpeciesGlyph (LayoutPkgNamespaces* layoutns, const std::string& id);
 
   /**
-   * Creates a new SpeciesGlyph with the given id and the id of the
+   * Creates a new SpeciesGlyph with the given @p id and the id of the
    * associated species object set to the second argument.
    *
    * (FOR BACKWARD COMPATIBILITY)
@@ -298,7 +298,7 @@ SpeciesGlyph_createFrom (const SpeciesGlyph_t *temp);
 
 
 /*
- * Creates a new SpeciesGlyph with the given id
+ * Creates a new SpeciesGlyph with the given @p id
  */
 LIBSBML_EXTERN
 SpeciesGlyph_t *

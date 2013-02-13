@@ -140,7 +140,7 @@ public:
    * of the ReferenceGlyph to get.
    * 
    * @return ReferenceGlyph in this ListOfReferenceGlyphs
-   * with the given id or NULL if no such
+   * with the given @p id or @c NULL if no such
    * ReferenceGlyph exists.
    *
    * @see get(unsigned int n)
@@ -157,7 +157,7 @@ public:
    * of the ReferenceGlyph to get.
    * 
    * @return ReferenceGlyph in this ListOfReferenceGlyphs
-   * with the given id or NULL if no such
+   * with the given @p id or @c NULL if no such
    * ReferenceGlyph exists.
    *
    * @see get(unsigned int n)
@@ -332,28 +332,28 @@ public:
        
   /**
    * Returns the reference glyph with the given index.
-   * If the index is invalid, NULL is returned.
+   * If the index is invalid, @c NULL is returned.
    */ 
    
   const ReferenceGlyph* getReferenceGlyph (unsigned int index) const;
 
   /**
    * Returns the reference glyph with the given index.
-   * If the index is invalid, NULL is returned.
+   * If the index is invalid, @c NULL is returned.
    */ 
    
   ReferenceGlyph* getReferenceGlyph (unsigned int index) ;
 
   /**
    * Returns the sub glyph with the given index.
-   * If the index is invalid, NULL is returned.
+   * If the index is invalid, @c NULL is returned.
    */ 
    
   const GraphicalObject* getSubGlyph (unsigned int index) const;
 
   /**
    * Returns the sub glyph with the given index.
-   * If the index is invalid, NULL is returned.
+   * If the index is invalid, @c NULL is returned.
    */ 
    
   GraphicalObject* getSubGlyph (unsigned int index) ;
@@ -453,7 +453,7 @@ public:
   removeSubGlyph(unsigned int index);
 
   /**
-   * Remove the reference glyph with the given id.
+   * Remove the reference glyph with the given @p id.
    * A pointer to the object is returned. If no object has been removed, NULL
    * is returned.
    */
@@ -462,7 +462,7 @@ public:
   removeReferenceGlyph(const std::string& id);
 
   /**
-   * Remove the subglyph with the given id.
+   * Remove the subglyph with the given @p id.
    * A pointer to the object is returned. If no object has been removed, NULL
    * is returned.
    */
@@ -471,7 +471,7 @@ public:
   removeSubGlyph(const std::string& id);
 
   /**
-   * Returns the index of the reference glyph with the given id.
+   * Returns the index of the reference glyph with the given @p id.
    * If the glyph does not contain a reference glyph with this
    * id, numeric_limits<unsigned int>::max() is returned.
    */
@@ -480,7 +480,7 @@ public:
   getIndexForReferenceGlyph(const std::string& id) const;
 
   /**
-   * Returns the index of the subglyph with the given id.
+   * Returns the index of the subglyph with the given @p id.
    * If the glyph does not contain a subglyph with this
    * id, numeric_limits<unsigned int>::max() is returned.
    */
@@ -677,7 +677,7 @@ GeneralGlyph_t *
 GeneralGlyph_createFrom (const GeneralGlyph_t *temp);
 
 /*
- * Creates a new GeneralGlyph with the given id
+ * Creates a new GeneralGlyph with the given @p id
  */
 LIBSBML_EXTERN
 GeneralGlyph_t *
@@ -834,7 +834,7 @@ ReferenceGlyph_t*
 GeneralGlyph_removeReferenceGlyph(GeneralGlyph_t* rg,unsigned int index);
 
 /*
- * Remove the reference glyph with the given id.
+ * Remove the reference glyph with the given @p id.
  * A pointer to the object is returned. If no object has been removed, NULL
  * is returned.
  */
@@ -843,7 +843,7 @@ ReferenceGlyph_t*
 GeneralGlyph_removeReferenceGlyphWithId(GeneralGlyph_t* rg,const char* id);
 
 /*
- * Returns the index of the reference glyph with the given id.
+ * Returns the index of the reference glyph with the given @p id.
  * If the reaction glyph does not contain a reference glyph with this
  * id, UINT_MAX from limits.h is returned.
  */

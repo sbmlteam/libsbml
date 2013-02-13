@@ -593,7 +593,7 @@ Layout::getListOfAdditionalGraphicalObjects ()
 
 /*
  * Returns the compartment glyph with the given index.  If the index is
- * invalid, NULL is returned.
+ * invalid, @c NULL is returned.
  */ 
 CompartmentGlyph*
 Layout::getCompartmentGlyph (unsigned int index) 
@@ -603,7 +603,7 @@ Layout::getCompartmentGlyph (unsigned int index)
 
 /*
  * Returns the compartment glyph with the given index.  If the index is
- * invalid, NULL is returned.
+ * invalid, @c NULL is returned.
  */ 
 const CompartmentGlyph*
 Layout::getCompartmentGlyph (unsigned int index) const
@@ -614,7 +614,7 @@ Layout::getCompartmentGlyph (unsigned int index) const
 
 /*
  * Returns the species glyph with the given index.  If the index is
- * invalid, NULL is returned.
+ * invalid, @c NULL is returned.
  */ 
 SpeciesGlyph*
 Layout::getSpeciesGlyph (unsigned int index) 
@@ -624,7 +624,7 @@ Layout::getSpeciesGlyph (unsigned int index)
 
 /*
  * Returns the species glyph with the given index.  If the index is
- * invalid, NULL is returned.
+ * invalid, @c NULL is returned.
  */ 
 const SpeciesGlyph*
 Layout::getSpeciesGlyph (unsigned int index) const
@@ -635,7 +635,7 @@ Layout::getSpeciesGlyph (unsigned int index) const
 
 /*
  * Returns the reaction glyph with the given index.  If the index is
- * invalid, NULL is returned.
+ * invalid, @c NULL is returned.
  */ 
 ReactionGlyph*
 Layout::getReactionGlyph (unsigned int index) 
@@ -645,7 +645,7 @@ Layout::getReactionGlyph (unsigned int index)
 
 /*
  * Returns the reaction glyph with the given index.  If the index is
- * invalid, NULL is returned.
+ * invalid, @c NULL is returned.
  */ 
 const ReactionGlyph*
 Layout::getReactionGlyph (unsigned int index) const
@@ -656,7 +656,7 @@ Layout::getReactionGlyph (unsigned int index) const
 
 /*
  * Returns the text glyph with the given index.  If the index is invalid,
- * NULL is returned.
+ * @c NULL is returned.
  */ 
 TextGlyph*
 Layout::getTextGlyph (unsigned int index) 
@@ -666,7 +666,7 @@ Layout::getTextGlyph (unsigned int index)
 
 /*
  * Returns the text glyph with the given index.  If the index is invalid,
- * NULL is returned.
+ * @c NULL is returned.
  */ 
 const TextGlyph*
 Layout::getTextGlyph (unsigned int index) const
@@ -677,7 +677,7 @@ Layout::getTextGlyph (unsigned int index) const
 
 /*
  * Returns the additional graphical object with the given index.
- * If the index is invalid, NULL is returned.
+ * If the index is invalid, @c NULL is returned.
  */ 
 GraphicalObject*
 Layout::getAdditionalGraphicalObject (unsigned int index) 
@@ -690,7 +690,7 @@ Layout::getAdditionalGraphicalObject (unsigned int index)
 
 /*
  * Returns the additional graphical object with the given index.
- * If the index is invalid, NULL is returned.
+ * If the index is invalid, @c NULL is returned.
  */ 
 const GraphicalObject*
 Layout::getAdditionalGraphicalObject (unsigned int index) const
@@ -703,7 +703,7 @@ Layout::getAdditionalGraphicalObject (unsigned int index) const
 
 /*
  * Returns the GeneralGlyph with the given index.
- * If the index is invalid, NULL is returned.
+ * If the index is invalid, @c NULL is returned.
  */
 GeneralGlyph*
 Layout::getGeneralGlyph (unsigned int index)
@@ -723,7 +723,7 @@ Layout::getGeneralGlyph (unsigned int index)
 
 /*
  * Returns the GeneralGlyph with the given index.
- * If the index is invalid, NULL is returned.
+ * If the index is invalid, @c NULL is returned.
  */
 const GeneralGlyph*
 Layout::getGeneralGlyph (unsigned int index) const
@@ -795,7 +795,7 @@ Layout::removeObjectWithId (ListOf* list,const std::string& id)
 /*
  * Removes the compartment glyph with the given index from the layout.
  * A pointer to the compartment glyph that was removed is returned.
- * If no compartment glyph has been removed, NULL is returned.
+ * If no compartment glyph has been removed, @c NULL is returned.
  */
 CompartmentGlyph* Layout::removeCompartmentGlyph(unsigned int index)
 {
@@ -810,7 +810,7 @@ CompartmentGlyph* Layout::removeCompartmentGlyph(unsigned int index)
 /*
  * Removes the species glyph with the given index from the layout.
  * A pointer to the species glyph that was removed is returned.
- * If no species glyph has been removed, NULL is returned.
+ * If no species glyph has been removed, @c NULL is returned.
  */
 SpeciesGlyph* Layout::removeSpeciesGlyph(unsigned int index)
 {
@@ -825,7 +825,7 @@ SpeciesGlyph* Layout::removeSpeciesGlyph(unsigned int index)
 /*
  * Removes the reaction glyph with the given index from the layout.
  * A pointer to the reaction glyph that was removed is returned.
- * If no reaction glyph has been removed, NULL is returned.
+ * If no reaction glyph has been removed, @c NULL is returned.
  */
 ReactionGlyph* Layout::removeReactionGlyph(unsigned int index)
 {
@@ -840,7 +840,7 @@ ReactionGlyph* Layout::removeReactionGlyph(unsigned int index)
 /*
  * Removes the text glyph with the given index from the layout.
  * A pointer to the text glyph that was removed is returned.
- * If no text glyph has been removed, NULL is returned.
+ * If no text glyph has been removed, @c NULL is returned.
  */
 TextGlyph* Layout::removeTextGlyph(unsigned int index)
 {
@@ -855,7 +855,7 @@ TextGlyph* Layout::removeTextGlyph(unsigned int index)
 /*
  * Removes the graphical object with the given index from the layout.
  * A pointer to the graphical object that was removed is returned.
- * If no graphical object has been removed, NULL is returned.
+ * If no graphical object has been removed, @c NULL is returned.
  */
 GraphicalObject* Layout::removeAdditionalGraphicalObject(unsigned int index)
 {
@@ -868,9 +868,9 @@ GraphicalObject* Layout::removeAdditionalGraphicalObject(unsigned int index)
 }
 
 /*
- * Remove the compartment glyph with the given id.
+ * Remove the compartment glyph with the given @p id.
  * A pointer to the removed compartment glyph is returned.
- * If no compartment glyph has been removed, NULL is returned.
+ * If no compartment glyph has been removed, @c NULL is returned.
  */
 CompartmentGlyph*
 Layout::removeCompartmentGlyph(const std::string id)
@@ -879,9 +879,9 @@ Layout::removeCompartmentGlyph(const std::string id)
 }
 
 /*
- * Remove the species glyph with the given id.
+ * Remove the species glyph with the given @p id.
  * A pointer to the removed species glyph is returned.
- * If no species glyph has been removed, NULL is returned.
+ * If no species glyph has been removed, @c NULL is returned.
  */
 SpeciesGlyph*
 Layout::removeSpeciesGlyph(const std::string id)
@@ -890,9 +890,9 @@ Layout::removeSpeciesGlyph(const std::string id)
 }
 
 /*
- * Remove the species reference glyph with the given id.
+ * Remove the species reference glyph with the given @p id.
  * A pointer to the removed species glyph is returned.
- * If no species glyph has been removed, NULL is returned.
+ * If no species glyph has been removed, @c NULL is returned.
  */
 SpeciesReferenceGlyph*
 Layout::removeSpeciesReferenceGlyph(const std::string id)
@@ -913,9 +913,9 @@ Layout::removeSpeciesReferenceGlyph(const std::string id)
 }
 
 /*
- * Remove the reaction glyph with the given id.
+ * Remove the reaction glyph with the given @p id.
  * A pointer to the removed reaction glyph is returned.
- * If no reaction glyph has been removed, NULL is returned.
+ * If no reaction glyph has been removed, @c NULL is returned.
  */
 ReactionGlyph*
 Layout::removeReactionGlyph(const std::string id)
@@ -924,9 +924,9 @@ Layout::removeReactionGlyph(const std::string id)
 }
 
 /*
- * Remove the text glyph with the given id.
+ * Remove the text glyph with the given @p id.
  * A pointer to the removed text glyph is returned.
- * If no text glyph has been removed, NULL is returned.
+ * If no text glyph has been removed, @c NULL is returned.
  */
 TextGlyph*
 Layout::removeTextGlyph(const std::string id)
@@ -935,9 +935,9 @@ Layout::removeTextGlyph(const std::string id)
 }
 
 /*
- * Remove the graphical object with the given id.
+ * Remove the graphical object with the given @p id.
  * A pointer to the removed graphical object is returned.
- * If no graphical object has been removed, NULL is returned.
+ * If no graphical object has been removed, @c NULL is returned.
  */
 GraphicalObject*
 Layout::removeAdditionalGraphicalObject(const std::string id)
@@ -946,7 +946,7 @@ Layout::removeAdditionalGraphicalObject(const std::string id)
 }
 
 /*
- * Returns the compartment glyph that has the given id, or NULL if no
+ * Returns the compartment glyph that has the given @p id, or @c NULL if no
  * compartment glyph has the id.
  */
 CompartmentGlyph*
@@ -956,7 +956,7 @@ Layout::getCompartmentGlyph (const std::string& id)
 }
 
 /*
- * Returns the compartment glyph that has the given id, or NULL if no
+ * Returns the compartment glyph that has the given @p id, or @c NULL if no
  * compartment glyph has the id.
  */
 const CompartmentGlyph*
@@ -967,7 +967,7 @@ Layout::getCompartmentGlyph (const std::string& id) const
 
 
 /*
- * Returns the species glyph that has the given id, or NULL if no
+ * Returns the species glyph that has the given @p id, or @c NULL if no
  * species glyph has the id.
  */
 const SpeciesGlyph*
@@ -977,7 +977,7 @@ Layout::getSpeciesGlyph (const std::string& id) const
 }
 
 /*
- * Returns the species glyph that has the given id, or NULL if no
+ * Returns the species glyph that has the given @p id, or @c NULL if no
  * species glyph has the id.
  */
 SpeciesGlyph*
@@ -988,7 +988,7 @@ Layout::getSpeciesGlyph (const std::string& id)
 
 
 /*
- * Returns the reaction glyph that has the given id, or NULL if no
+ * Returns the reaction glyph that has the given @p id, or @c NULL if no
  * reaction glyph has the id.
  */
 const ReactionGlyph*
@@ -998,7 +998,7 @@ Layout::getReactionGlyph (const std::string& id) const
 }
 
 /*
- * Returns the reaction glyph that has the given id, or NULL if no
+ * Returns the reaction glyph that has the given @p id, or @c NULL if no
  * reaction glyph has the id.
  */
 ReactionGlyph*
@@ -1009,7 +1009,7 @@ Layout::getReactionGlyph (const std::string& id)
 
 
 /*
- * Returns the text glyph that has the given id, or NULL if no compartment
+ * Returns the text glyph that has the given @p id, or @c NULL if no compartment
  * glyph has the id.
  */
 const TextGlyph*
@@ -1020,7 +1020,7 @@ Layout::getTextGlyph (const std::string& id) const
 
 
 /*
- * Returns the text glyph that has the given id, or NULL if no compartment
+ * Returns the text glyph that has the given @p id, or @c NULL if no compartment
  * glyph has the id.
  */
 TextGlyph*
@@ -1031,7 +1031,7 @@ Layout::getTextGlyph (const std::string& id)
 
 
 /*
- * Returns the GeneralGlyph that has the given id, or NULL
+ * Returns the GeneralGlyph that has the given @p id, or @c NULL
  * if no general glyph has the id.
  */
 const GeneralGlyph*
@@ -1041,7 +1041,7 @@ Layout::getGeneralGlyph (const std::string& id) const
 }
 
 /*
- * Returns the GeneralGlyph that has the given id, or NULL
+ * Returns the GeneralGlyph that has the given @p id, or @c NULL
  * if no general glyph has the id.
  */
 GeneralGlyph*
@@ -1051,7 +1051,7 @@ Layout::getGeneralGlyph (const std::string& id)
 }
 
 /*
- * Returns the additional graphicalo object that has the given id, or NULL
+ * Returns the additional graphicalo object that has the given @p id, or @c NULL
  * if no additional glyph has the id.
  */
 const GraphicalObject*
@@ -1061,7 +1061,7 @@ Layout::getAdditionalGraphicalObject (const std::string& id) const
 }
 
 /*
- * Returns the additional graphicalo object that has the given id, or NULL
+ * Returns the additional graphicalo object that has the given @p id, or @c NULL
  * if no additional glyph has the id.
  */
 GraphicalObject*
@@ -2353,7 +2353,7 @@ Layout_create (void)
 
 
 /**
- * Creates a new Layout with the given id and returns a pointer to it.
+ * Creates a new Layout with the given @p id and returns a pointer to it.
  */
 LIBSBML_EXTERN
 Layout_t *
@@ -2811,7 +2811,7 @@ Layout_removeAdditionalGraphicalObject(Layout_t* l, unsigned int index)
 }
 
 /**
- * Remove the compartment glyph with the given id.
+ * Remove the compartment glyph with the given @p id.
  * A pointer to the removed object is returned. If no object was removed, NULL
  * is returned.
  */
@@ -2823,7 +2823,7 @@ Layout_removeCompartmentGlyphWithId(Layout_t* l, const char* id)
 }
 
 /**
- * Remove the species glyph with the given id.
+ * Remove the species glyph with the given @p id.
  * A pointer to the removed object is returned. If no object was removed, NULL
  * is returned.
  */
@@ -2835,7 +2835,7 @@ Layout_removeSpeciesGlyphWithId(Layout_t* l, const char* id)
 }
 
 /**
- * Remove the reaction glyph with the given id.
+ * Remove the reaction glyph with the given @p id.
  * A pointer to the removed object is returned. If no object was removed, NULL
  * is returned.
  */
@@ -2847,7 +2847,7 @@ Layout_removeReactionGlyphWithId(Layout_t* l, const char* id)
 }
 
 /**
- * Remove the text glyph with the given id.
+ * Remove the text glyph with the given @p id.
  * A pointer to the removed object is returned. If no object was removed, NULL
  * is returned.
  */
@@ -2859,7 +2859,7 @@ Layout_removeTextGlyphWithId(Layout_t* l, const char* id)
 }
 
 /**
- * Remove the species reference glyph with the given id.
+ * Remove the species reference glyph with the given @p id.
  * A pointer to the removed object is returned. If no object was removed, NULL
  * is returned.
  */
@@ -2871,7 +2871,7 @@ Layout_removeSpeciesReferenceGlyphWithId(Layout_t* l, const char* id)
 }
 
 /**
- * Remove the graphical object with the given id.
+ * Remove the graphical object with the given @p id.
  * A pointer to the removed object is returned. If no object was removed, NULL
  * is returned.
  */

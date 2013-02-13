@@ -115,7 +115,7 @@ ReactionGlyph::ReactionGlyph(LayoutPkgNamespaces* layoutns)
 
 
 /*
- * Creates a ReactionGlyph with the given id.
+ * Creates a ReactionGlyph with the given @p id.
  */
 ReactionGlyph::ReactionGlyph (LayoutPkgNamespaces* layoutns, const std::string& id)
   : GraphicalObject(layoutns, id)
@@ -141,7 +141,7 @@ ReactionGlyph::ReactionGlyph (LayoutPkgNamespaces* layoutns, const std::string& 
 
 
 /*
- * Creates a ReactionGlyph with the given id and set the id of the
+ * Creates a ReactionGlyph with the given @p id and set the id of the
  * associated reaction to the second argument.
  */
 ReactionGlyph::ReactionGlyph (LayoutPkgNamespaces* layoutns, const std::string& id,
@@ -346,7 +346,7 @@ ReactionGlyph::getListOfSpeciesReferenceGlyphs ()
 
 /*
  * Returns the species reference glyph with the given index.  If the index
- * is invalid, NULL is returned.
+ * is invalid, @c NULL is returned.
  */ 
 SpeciesReferenceGlyph*
 ReactionGlyph::getSpeciesReferenceGlyph (unsigned int index) 
@@ -360,7 +360,7 @@ ReactionGlyph::getSpeciesReferenceGlyph (unsigned int index)
 
 /*
  * Returns the species reference glyph with the given index.  If the index
- * is invalid, NULL is returned.
+ * is invalid, @c NULL is returned.
  */ 
 const SpeciesReferenceGlyph*
 ReactionGlyph::getSpeciesReferenceGlyph (unsigned int index) const
@@ -496,7 +496,7 @@ ReactionGlyph::removeSpeciesReferenceGlyph(unsigned int index)
 }
 
 /*
- * Remove the species reference glyph with the given id.
+ * Remove the species reference glyph with the given @p id.
  * A pointer to the object is returned. If no object has been removed, NULL
  * is returned.
  */
@@ -513,7 +513,7 @@ ReactionGlyph::removeSpeciesReferenceGlyph(const std::string& id)
 }
 
 /*
- * Returns the index of the species reference glyph with the given id.
+ * Returns the index of the species reference glyph with the given @p id.
  * If the reaction glyph does not contain a species reference glyph with this
  * id, numreic_limits<int>::max() is returned.
  */
@@ -897,7 +897,7 @@ ReactionGlyph_create (void)
 
 
 /**
- * Creates a new ReactionGlyph with the given id
+ * Creates a new ReactionGlyph with the given @p id
  */
 LIBSBML_EXTERN
 ReactionGlyph_t *
@@ -1119,7 +1119,7 @@ ReactionGlyph_removeSpeciesReferenceGlyph(ReactionGlyph_t* rg,unsigned int index
 }
 
 /**
- * Remove the species reference glyph with the given id.
+ * Remove the species reference glyph with the given @p id.
  * A pointer to the object is returned. If no object has been removed, NULL
  * is returned.
  */
@@ -1131,7 +1131,7 @@ ReactionGlyph_removeSpeciesReferenceGlyphWithId(ReactionGlyph_t* rg,const char* 
 }
 
 /**
- * Returns the index of the species reference glyph with the given id.
+ * Returns the index of the species reference glyph with the given @p id.
  * If the reaction glyph does not contain a species reference glyph with this
  * id, UINT_MAX from limits.h is returned.
  */

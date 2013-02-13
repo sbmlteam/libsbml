@@ -637,7 +637,7 @@ ReferenceGlyph_createFrom (const ReferenceGlyph_t *temp)
 
 
 /**
- * Creates a new ReferenceGlyph object with the given id and returns
+ * Creates a new ReferenceGlyph object with the given @p id and returns
  * a pointer to it.
  */
 LIBSBML_EXTERN

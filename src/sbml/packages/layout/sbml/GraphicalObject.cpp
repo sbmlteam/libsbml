@@ -86,7 +86,7 @@ GraphicalObject::GraphicalObject(unsigned int level, unsigned int version, unsig
 
 
 /*
- * Creates a new GraphicalObject with the given id.
+ * Creates a new GraphicalObject with the given @p id.
  */
 GraphicalObject::GraphicalObject (LayoutPkgNamespaces* layoutns)
  : SBase(layoutns)
@@ -109,7 +109,7 @@ GraphicalObject::GraphicalObject (LayoutPkgNamespaces* layoutns)
 
 
 /*
- * Creates a new GraphicalObject with the given id.
+ * Creates a new GraphicalObject with the given @p id.
  */
 GraphicalObject::GraphicalObject (LayoutPkgNamespaces* layoutns, const std::string& id)
  : SBase(layoutns)
@@ -132,7 +132,7 @@ GraphicalObject::GraphicalObject (LayoutPkgNamespaces* layoutns, const std::stri
 
 
 /*
- * Creates a new GraphicalObject with the given id and 2D coordinates for
+ * Creates a new GraphicalObject with the given @p id and 2D coordinates for
  * the bounding box.
  */
 GraphicalObject::GraphicalObject (LayoutPkgNamespaces* layoutns, const std::string& id,
@@ -157,7 +157,7 @@ GraphicalObject::GraphicalObject (LayoutPkgNamespaces* layoutns, const std::stri
 
 
 /*
- * Creates a new GraphicalObject with the given id and 3D coordinates for
+ * Creates a new GraphicalObject with the given @p id and 3D coordinates for
  * the bounding box.
  */
 GraphicalObject::GraphicalObject (LayoutPkgNamespaces* layoutns, const std::string& id,
@@ -183,7 +183,7 @@ GraphicalObject::GraphicalObject (LayoutPkgNamespaces* layoutns, const std::stri
 
 
 /*
- * Creates a new GraphicalObject with the given id and 3D coordinates for
+ * Creates a new GraphicalObject with the given @p id and 3D coordinates for
  * the bounding box.
  */
 GraphicalObject::GraphicalObject (LayoutPkgNamespaces* layoutns, const std::string& id,
@@ -209,7 +209,7 @@ GraphicalObject::GraphicalObject (LayoutPkgNamespaces* layoutns, const std::stri
 
 
 /*
- * Creates a new GraphicalObject with the given id and 3D coordinates for
+ * Creates a new GraphicalObject with the given @p id and 3D coordinates for
  * the bounding box.
  */
 GraphicalObject::GraphicalObject (LayoutPkgNamespaces* layoutns, const std::string& id, const BoundingBox* bb)

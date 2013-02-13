@@ -169,7 +169,7 @@ public:
 
   /**
    * Returns the layout object that belongs to the given index. If the
-   * index is invalid, NULL is returned.
+   * index is invalid, @c NULL is returned.
    *
    * @param index the index of list of layout objects.
    *
@@ -181,7 +181,7 @@ public:
 
   /**
    * Returns the layout object that belongs to the given index. If the
-   * index is invalid, NULL is returned.
+   * index is invalid, @c NULL is returned.
    *
    * @param index the index of list of layout objects.
    *
@@ -192,25 +192,25 @@ public:
 
 
   /**
-   * Returns the layout object with the given id attribute. If the
-   * id is invalid, NULL is returned.
+   * Returns the layout object with the given @p id attribute. If the
+   * id is invalid, @c NULL is returned.
    *
    * @param sid the id attribute of the layout object.
    *
-   * @return the Layout object with the given id attribute. NULL
-   * is returned if the given id is invalid. 
+   * @return the Layout object with the given @p id attribute. NULL
+   * is returned if the given @p id is invalid. 
    */
   Layout* getLayout (const std::string& sid);
 
 
   /**
-   * Returns the layout object with the given id attribute. If the
-   * id is invalid, NULL is returned.
+   * Returns the layout object with the given @p id attribute. If the
+   * id is invalid, @c NULL is returned.
    *
    * @param sid the id attribute of the layout object.
    *
-   * @return the Layout object with the given id attribute. NULL
-   * is returned if the given id is invalid. 
+   * @return the Layout object with the given @p id attribute. NULL
+   * is returned if the given @p id is invalid. 
    */
   const Layout* getLayout (const std::string& sid) const;
 
@@ -247,7 +247,7 @@ public:
    * @param n the index of the Layout object to remove
    *
    * @return the Layout object removed.  As mentioned above, the caller owns the
-   * returned object. NULL is returned if the given index is out of range.
+   * returned object. @c NULL is returned if the given index is out of range.
    */
   Layout* removeLayout (unsigned int n);
 

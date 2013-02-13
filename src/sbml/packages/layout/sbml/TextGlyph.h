@@ -341,7 +341,7 @@ TextGlyph_t *
 TextGlyph_createFrom (const TextGlyph_t *temp);
 
 /*
- * Creates a new TextGlyph with the given id
+ * Creates a new TextGlyph with the given @p id
  */
 LIBSBML_EXTERN
 TextGlyph_t *

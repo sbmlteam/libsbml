@@ -311,7 +311,7 @@ LayoutModelPlugin::getListOfLayouts ()
 
 /*
  * Returns the layout object that belongs to the given index. If the index
- * is invalid, NULL is returned.
+ * is invalid, @c NULL is returned.
  */
 const Layout*
 LayoutModelPlugin::getLayout (unsigned int index) const
@@ -322,7 +322,7 @@ LayoutModelPlugin::getLayout (unsigned int index) const
 
 /*
  * Returns the layout object that belongs to the given index. If the index
- * is invalid, NULL is returned.
+ * is invalid, @c NULL is returned.
  */
 Layout*
 LayoutModelPlugin::getLayout (unsigned int index)
@@ -332,8 +332,8 @@ LayoutModelPlugin::getLayout (unsigned int index)
 
 
 /*
- * Returns the layout object with the given id attribute. If the
- * id is invalid, NULL is returned.
+ * Returns the layout object with the given @p id attribute. If the
+ * id is invalid, @c NULL is returned.
  */
 const Layout*
 LayoutModelPlugin::getLayout (const std::string& sid) const
@@ -343,8 +343,8 @@ LayoutModelPlugin::getLayout (const std::string& sid) const
 
 
 /*
- * Returns the layout object with the given id attribute. If the
- * id is invalid, NULL is returned.
+ * Returns the layout object with the given @p id attribute. If the
+ * id is invalid, @c NULL is returned.
  */
 Layout*
 LayoutModelPlugin::getLayout (const std::string& sid)

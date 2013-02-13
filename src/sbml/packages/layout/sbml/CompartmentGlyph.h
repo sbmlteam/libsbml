@@ -101,7 +101,7 @@ public:
 
         
   /**
-   * Constructor which creates a new CompartmentGlyph with the given id.
+   * Constructor which creates a new CompartmentGlyph with the given @p id.
    *
    * (FOR BACKWARD COMPATIBILITY)
    *
@@ -302,14 +302,14 @@ CompartmentGlyph_t *
 CompartmentGlyph_createFrom (const CompartmentGlyph_t *cg);
 
 /*
- * Creates a new CompartmentGlyph with the given id
+ * Creates a new CompartmentGlyph with the given @p id
  */
 LIBSBML_EXTERN
 CompartmentGlyph_t *
 CompartmentGlyph_createWith (const char *sid);
 
 /*
- * Creates a new CompartmentGlyph with the given id
+ * Creates a new CompartmentGlyph with the given @p id
  */
 LIBSBML_EXTERN
 CompartmentGlyph_t *
