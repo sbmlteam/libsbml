@@ -9,20 +9,17 @@ Systems Biology Markup Language (SBML).
 @htmlinclude libsbml-blurb.html
 
 @htmlinclude force-serif-font-on.html
-@section main-general General information
+<h2>General information</h2>
 - @subpage libsbml-installation
 - @subpage libsbml-accessing
 - @subpage libsbml-features
-- @subpage libsbml-communications
 
-@section main-programming Programming with libSBML
+<h2>Programming with libSBML</h2>
 - @subpage libsbml-octave-reading-files
-- @subpage libsbml-issues
 
-@section main-other Other topics
-- @subpage libsbml-uninstallation
-- @subpage license
-- @subpage changes
+<h2>Other topics</h2>
+- @subpage libsbml-release-info
+- @subpage libsbml-communications
 
 @htmlinclude force-serif-font-off.html
 @htmlinclude libsbml-papers.html
