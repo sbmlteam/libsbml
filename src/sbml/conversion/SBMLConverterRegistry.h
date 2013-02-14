@@ -154,12 +154,12 @@ protected:
    * protected constructor, use the getInstance() method to access the registry.
    */ 
   SBMLConverterRegistry();
-
+  /** @endcond */
 
 
 protected: 
+  /** @cond doxygen-libsbml-internal */
   std::vector<const SBMLConverter*>  mConverters;
-   
   /** @endcond */
 };
 
