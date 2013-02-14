@@ -832,6 +832,10 @@ def sanitizeForHTML (docstring):
 
   docstring = re.sub('(\s)%(\w)', r'\1\2', docstring)
 
+  # Currently, we don't handle @ingroup.
+
+  docstring = re.sub('@ingroup \w+', '', docstring)
+
   return docstring
 
 
