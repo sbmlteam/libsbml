@@ -128,7 +128,6 @@ TAB_SIZE               = 4
 # will result in a user-defined paragraph with heading "Side Effects:". 
 # You can put \n's in the value part of an alias to insert newlines.
 
-ALIASES               += docnote="@par Documentation note:\n "
 ALIASES		      += startred="<em style='color: #b32222'>"
 ALIASES		      += stopred="</em>"
 
@@ -257,7 +256,7 @@ GENERATE_BUGLIST       = YES
 # disable (NO) the deprecated list. This list is created by putting 
 # \deprecated commands in the documentation.
 
-GENERATE_DEPRECATEDLIST= YES
+GENERATE_DEPRECATEDLIST= NO
 
 # The ENABLED_SECTIONS tag can be used to enable conditional 
 # documentation sections, marked by \if sectionname ... \endif.
@@ -331,97 +330,131 @@ WARN_LOGFILE           =
 # directories like "/usr/src/myproject". Separate the files or directories 
 # with spaces.
 
-INPUT =                            \
-  libsbml-accessing.txt            \
-  libsbml-coding.txt               \
-  libsbml-blurb.txt                \
-  libsbml-communications.txt       \
-  libsbml-example.txt              \
-  libsbml-features.txt             \
-  libsbml-installation.txt         \
-  libsbml-issues.txt               \
-  libsbml-license.txt              \
-  libsbml-mainpage.txt             \
-  libsbml-math.txt                 \
-  libsbml-news.txt                 \
-  libsbml-papers.txt               \
-  libsbml-reading-files.txt        \
-  libsbml-uninstallation.txt       \
+INPUT =                                 \
+  libsbml-accessing.txt                 \
+  libsbml-blurb.txt                     \
+  libsbml-changes.txt                   \
+  libsbml-coding.txt                    \
+  libsbml-core-versus-packages.txt      \
+  libsbml-communications.txt            \
+  libsbml-example.txt                   \
+  libsbml-extending.txt                 \
   libsbml-extension-support-classes.txt \
-  libsbml-howto-implement-extension.txt \
-  ../../src/common                 \
-  ../../src/annotation             \
-  ../../src/math                   \
-  ../../src/sbml                   \
-  ../../src/util                   \
-  ../../src/validator              \
-  ../../src/xml                    \
-  ../../src/extension
+  libsbml-features.txt                  \
+  libsbml-group-core-intro.txt          \
+  libsbml-group-comp-intro.txt           \
+  libsbml-group-fbc-intro.txt            \
+  libsbml-howto-implement-extension.txt  \
+  libsbml-installation.txt               \
+  libsbml-issues.txt                     \
+  libsbml-license.txt                    \
+  libsbml-mainpage.txt                   \
+  libsbml-math.txt                       \
+  libsbml-news.txt                       \
+  libsbml-news.txt                       \
+  libsbml-old-news.txt                   \
+  libsbml-other.txt                      \
+  libsbml-papers.txt                     \
+  libsbml-release-info.txt               \
+  libsbml-programming.txt                \
+  libsbml-reading-files.txt              \
+  ../../src/sbml/annotation              \
+  ../../src/sbml/common                  \
+  ../../src/sbml/conversion              \
+  ../../src/sbml/extension               \
+  ../../src/sbml/math                    \
+  ../../src/sbml/util                    \
+  ../../src/sbml/validator               \
+  ../../src/sbml                         \
+  ../../src/sbml/xml                     \
+  ../../src/sbml/packages/comp/sbml      \
+  ../../src/sbml/packages/comp/extension \
+  ../../src/sbml/packages/comp/util      \ 
+  ../../src/sbml/packages/comp/validator \
+  ../../src/sbml/packages/comp/common
 
 # The EXCLUDE tag can be used to specify files and/or directories that should 
 # excluded from the INPUT source files. This way you can easily exclude a 
 # subdirectory from a directory tree whose root is specified with the INPUT tag.
 
-EXCLUDE =                            \
-  force-serif-font-on.html           \
-  force-serif-font-off.html          \
-  ../../src/sbml/SBMLTransforms.h    \
-  ../../src/sbml/SBMLTransforms.cpp  \
-  ../../src/math/FormulaTokenizer.c  \
-  ../../src/math/FormulaTokenizer.h  \
-  ../../src/util/memory.c            \
-  ../../src/util/memory.h            \
-  ../../src/util/Stack.c             \
-  ../../src/util/Stack.h             \
-  ../../src/util/StringBuffer.c      \
-  ../../src/util/StringBuffer.h      \
-  ../../src/xml/XercesHandler.h      \
-  ../../src/xml/XercesHandler.cpp    \
-  ../../src/xml/ExpatHandler.h       \
-  ../../src/xml/ExpatHandler.cpp     \
-  ../../src/xml/LibXMLHandler.h      \
-  ../../src/xml/LibXMLHandler.cpp    \
-  ../../src/xml/XercesAttributes.h   \
-  ../../src/xml/XercesAttributes.cpp \
-  ../../src/xml/ExpatAttributes.h    \
-  ../../src/xml/ExpatAttributes.cpp  \
-  ../../src/xml/LibXMLAttributes.h   \
-  ../../src/xml/LibXMLAttributes.cpp \
-  ../../src/xml/XercesNamespaces.h   \
-  ../../src/xml/XercesNamespaces.cpp \
-  ../../src/xml/ExpatNamespaces.h    \
-  ../../src/xml/ExpatNamespaces.cpp  \
-  ../../src/xml/LibXMLNamespaces.h   \
-  ../../src/xml/LibXMLNamespaces.cpp \
-  ../../src/xml/XercesParser.h       \
-  ../../src/xml/XercesParser.cpp     \
-  ../../src/xml/ExpatParser.h        \
-  ../../src/xml/ExpatParser.cpp      \
-  ../../src/xml/LibXMLParser.h       \
-  ../../src/xml/LibXMLParser.cpp     \
-  ../../src/xml/XercesTranscode.h    \
-  ../../src/xml/XercesTranscode.cpp  \
-  ../../src/xml/LibXMLTranscode.h    \
-  ../../src/xml/LibXMLTranscode.cpp  \
-  ../../src/xml/XMLInputStream.cpp   \
-  ../../src/xml/XMLInputStream.h     \
-  ../../src/xml/XMLOutputStream.cpp  \
-  ../../src/xml/XMLOutputStream.h    \
-  ../../src/xml/XMLBuffer.cpp        \
-  ../../src/xml/XMLBuffer.h          \
-  ../../src/xml/XMLHandler.cpp       \
-  ../../src/xml/XMLHandler.h         \
-  ../../src/xml/XMLFileBuffer.cpp    \
-  ../../src/xml/XMLFileBuffer.h      \
-  ../../src/xml/XMLMemoryBuffer.cpp  \
-  ../../src/xml/XMLMemoryBuffer.h    \
-  ../../src/xml/XMLParser.cpp        \
-  ../../src/xml/XMLParser.h          \
-  ../../src/xml/XMLTokenizer.cpp     \
-  ../../src/xml/XMLTokenizer.h       \
-  ../../src/extension/SBMLExtensionRegister.h \
-  ../../src/extension/SBasePluginCreatorBase.h \
-  ../../src/extension/SBasePluginCreator.h 
+# LibSBML note: Some of the files listed below are only meaningful for
+# specific language bindings; however, since it doesn't make a difference
+# to doxygen to list them in EXCLUDE even when the particular language
+# binding is *not* being processed, it's better to have them all here.
+# Otherwise, we end up having to duplicate most of the EXCLUDE list in
+# different configuration files, and that's a maintenance risk.  (There is
+# apparently no way to simply add more items to an existing EXCLUDE list,
+# so the only thing you can do for language variants is to have mostly the
+# same list with a few additions -- not a good approach.)
+
+EXCLUDE =                                                                                    \
+  force-serif-font-off.html                                                                  \
+  force-serif-font-on.html                                                                   \
+  plain-font-off.html                                                                        \
+  plain-font-on.html                                                                         \
+  ../../src/sbml/extension/ISBMLExtensionNamespaces.cpp                                      \
+  ../../src/sbml/extension/ISBMLExtensionNamespaces.h                                        \
+  ../../src/sbml/sbml/SBMLTransforms.cpp                                                     \
+  ../../src/sbml/sbml/SBMLTransforms.h                                                       \
+  ../../src/sbml/util/Stack.c                                                                \
+  ../../src/sbml/util/Stack.h                                                                \
+  ../../src/sbml/util/StringBuffer.c                                                         \
+  ../../src/sbml/util/StringBuffer.h                                                         \
+  ../../src/sbml/util/memory.c                                                               \
+  ../../src/sbml/util/memory.h                                                               \
+  ../../src/sbml/xml/ExpatAttributes.cpp                                                     \
+  ../../src/sbml/xml/ExpatAttributes.h                                                       \
+  ../../src/sbml/xml/ExpatHandler.cpp                                                        \
+  ../../src/sbml/xml/ExpatHandler.h                                                          \
+  ../../src/sbml/xml/ExpatNamespaces.cpp                                                     \
+  ../../src/sbml/xml/ExpatNamespaces.h                                                       \
+  ../../src/sbml/xml/ExpatParser.cpp                                                         \
+  ../../src/sbml/xml/ExpatParser.h                                                           \
+  ../../src/sbml/xml/LibXMLAttributes.cpp                                                    \
+  ../../src/sbml/xml/LibXMLAttributes.h                                                      \
+  ../../src/sbml/xml/LibXMLHandler.cpp                                                       \
+  ../../src/sbml/xml/LibXMLHandler.h                                                         \
+  ../../src/sbml/xml/LibXMLNamespaces.cpp                                                    \
+  ../../src/sbml/xml/LibXMLNamespaces.h                                                      \
+  ../../src/sbml/xml/LibXMLParser.cpp                                                        \
+  ../../src/sbml/xml/LibXMLParser.h                                                          \
+  ../../src/sbml/xml/LibXMLTranscode.cpp                                                     \
+  ../../src/sbml/xml/LibXMLTranscode.h                                                       \
+  ../../src/sbml/xml/XMLBuffer.cpp                                                           \
+  ../../src/sbml/xml/XMLBuffer.h                                                             \
+  ../../src/sbml/xml/XMLFileBuffer.cpp                                                       \
+  ../../src/sbml/xml/XMLFileBuffer.h                                                         \
+  ../../src/sbml/xml/XMLHandler.cpp                                                          \
+  ../../src/sbml/xml/XMLHandler.h                                                            \
+  ../../src/sbml/xml/XMLInputStream.cpp                                                      \
+  ../../src/sbml/xml/XMLInputStream.h                                                        \
+  ../../src/sbml/xml/XMLMemoryBuffer.cpp                                                     \
+  ../../src/sbml/xml/XMLMemoryBuffer.h                                                       \
+  ../../src/sbml/xml/XMLOutputStream.cpp                                                     \
+  ../../src/sbml/xml/XMLOutputStream.h                                                       \
+  ../../src/sbml/xml/XMLParser.cpp                                                           \
+  ../../src/sbml/xml/XMLParser.h                                                             \
+  ../../src/sbml/xml/XMLTokenizer.cpp                                                        \
+  ../../src/sbml/xml/XMLTokenizer.h                                                          \
+  ../../src/sbml/xml/XercesAttributes.cpp                                                    \
+  ../../src/sbml/xml/XercesAttributes.h                                                      \
+  ../../src/sbml/xml/XercesHandler.cpp                                                       \
+  ../../src/sbml/xml/XercesHandler.cpp                                                       \
+  ../../src/sbml/xml/XercesHandler.h                                                         \
+  ../../src/sbml/xml/XercesNamespaces.cpp                                                    \
+  ../../src/sbml/xml/XercesNamespaces.h                                                      \
+  ../../src/sbml/xml/XercesParser.cpp                                                        \
+  ../../src/sbml/xml/XercesParser.h                                                          \
+  ../../src/sbml/xml/XercesTranscode.cpp                                                     \
+  ../../src/sbml/xml/XercesTranscode.h                                                       \
+  ../../src/bindings/csharp/csharp-files/libsbmlPINVOKE.cs                                   \
+  ../../src/bindings/csharp/csharp-files/SWIGTYPE_p_packageErrorTableEntry.cs                \
+  ../../src/bindings/csharp/csharp-files/SWIGTYPE_p_List.cs                                  \
+  ../../src/bindings/csharp/csharp-files/SWIGTYPE_p_std__ostream.cs                          \
+  ../../src/bindings/csharp/csharp-files/SWIGTYPE_p_std__vectorT_SBMLNamespaces_const_p_t.cs \
+  ../../src/bindings/csharp/csharp-files/SBMLTransforms.cs
+
+LAYOUT_FILE = doxygen-layout-cpp.xml
 
 # The RECURSIVE tag can be used to turn specify whether or not subdirectories 
 # should be searched for input files as well. Possible values are YES and NO. 
@@ -497,7 +530,7 @@ FILTER_SOURCE_FILES    = NO
 # If the SOURCE_BROWSER tag is set to YES then a list of source files will 
 # be generated. Documented entities will be cross-referenced with these sources.
 
-SOURCE_BROWSER         = YES
+SOURCE_BROWSER         = NO
 
 # Setting the INLINE_SOURCES tag to YES will include the body 
 # of functions and classes directly in the documentation.
@@ -526,7 +559,7 @@ REFERENCES_RELATION    = NO
 # will generate a verbatim copy of the header file for each class for 
 # which an include is specified. Set to NO to disable this.
 
-VERBATIM_HEADERS       = YES
+VERBATIM_HEADERS       = NO
 
 #---------------------------------------------------------------------------
 # configuration options related to the alphabetical class index
@@ -583,13 +616,7 @@ HTML_FOOTER            = doxygen-footer.html
 # fine-tune the look of the HTML output. If the tag is left blank doxygen 
 # will generate a default style sheet
 
-HTML_STYLESHEET        = doxygen-base.css
-
-# If the HTML_ALIGN_MEMBERS tag is set to YES, the members of classes, 
-# files or namespaces will be aligned in HTML using tables. If set to 
-# NO a bullet list will be used.
-
-HTML_ALIGN_MEMBERS     = YES
+HTML_STYLESHEET        = doxygen-base-stylesheet.css
 
 # If the HTML_DYNAMIC_SECTIONS tag is set to YES then the generated HTML
 # documentation will contain sections that can be hidden and shown after
@@ -638,7 +665,7 @@ BINARY_TOC             = NO
 # The TOC_EXPAND flag can be set to YES to add extra items for group members 
 # to the contents of the HTML help documentation and to the tree view.
 
-TOC_EXPAND             = NO
+TOC_EXPAND             = YES
 
 # The DISABLE_INDEX tag can be used to turn on/off the condensed index at 
 # top of each HTML page. The value NO (the default) enables the index and 
@@ -664,7 +691,7 @@ GENERATE_TREEVIEW      = YES
 # used to set the initial width (in pixels) of the frame in which the tree 
 # is shown.
 
-TREEVIEW_WIDTH         = 225
+TREEVIEW_WIDTH         = 270
 
 #---------------------------------------------------------------------------
 # configuration options related to the LaTeX output
@@ -822,7 +849,7 @@ MAN_LINKS              = NO
 # feature is still experimental and incomplete at the 
 # moment.
 
-GENERATE_XML           = NO
+GENERATE_XML           = YES
 
 # The XML_OUTPUT tag is used to specify where the XML pages will be put. 
 # If a relative path is entered the value of OUTPUT_DIRECTORY will be 
@@ -841,6 +868,13 @@ XML_SCHEMA             =
 # syntax of the XML files.
 
 XML_DTD                = 
+
+# If the XML_PROGRAMLISTING tag is set to YES Doxygen will 
+# dump the program listings (including syntax highlighting 
+# and cross-referencing information) to the XML output. Note that 
+# enabling this will significantly increase the size of the XML output.
+
+XML_PROGRAMLISTING     = YES
 
 #---------------------------------------------------------------------------
 # configuration options for the AutoGen Definitions output
@@ -886,7 +920,7 @@ SEARCH_INCLUDES        = YES
 # contain include files that are not input files but should be processed by 
 # the preprocessor.
 
-INCLUDE_PATH           = ../../src/validator/constraints
+INCLUDE_PATH           = ../../src/sbml/validator/constraints
 
 # You can use the INCLUDE_FILE_PATTERNS tag to specify one or more wildcard 
 # patterns (like *.h and *.hpp) to filter out the header-files in the 
@@ -976,7 +1010,7 @@ HIDE_UNDOC_RELATIONS   = YES
 # toolkit from AT&T and Lucent Bell Labs. The other options in this section 
 # have no effect if this option is set to NO (the default)
 
-HAVE_DOT               = @HAVE_DOT@
+HAVE_DOT               = YES
 
 # If the CLASS_GRAPH and HAVE_DOT tags are set to YES then doxygen 
 # will generate a graph for each documented class showing the direct and 
@@ -1034,12 +1068,19 @@ GRAPHICAL_HIERARCHY    = YES
 # generated by dot. Possible values are png, jpg, or gif
 # If left blank png will be used.
 
-DOT_IMAGE_FORMAT       = gif
+DOT_IMAGE_FORMAT       = svg
+
+# Enabling HAVE_DOT along with INTERACTIVE_SVG while setting DOT_IMAGE_FORMAT
+# to svg, will make doxygen produce SVG images that will allow the user to
+# zoom and pan (this only happens when the size of the images exceeds a
+# certain size).
+
+INTERACTIVE_SVG        = YES
 
 # The tag DOT_PATH can be used to specify the path where the dot tool can be 
 # found. If left blank, it is assumed the dot tool can be found on the path.
 
-DOT_PATH               = @DOT_PATH@
+DOT_PATH               = 
 
 # The DOTFILE_DIRS tag can be used to specify one or more directories that 
 # contain dot files that are included in the documentation (see the 
@@ -1061,8 +1102,10 @@ DOT_CLEANUP            = YES
 
 DOT_MULTI_TARGETS      = YES
 
+DOT_GRAPH_MAX_NODES    = 5000
+
 #---------------------------------------------------------------------------
-# Configuration::addtions related to the search engine   
+# Configuration:additions related to the search engine   
 #---------------------------------------------------------------------------
 
 # The SEARCHENGINE tag specifies whether or not a search engine should be 
@@ -1070,3 +1113,12 @@ DOT_MULTI_TARGETS      = YES
 
 SEARCHENGINE           = YES
 SERVER_BASED_SEARCH    = NO
+
+#---------------------------------------------------------------------------
+# Configuration: handling of Doxygen version-specific features
+#---------------------------------------------------------------------------
+
+# The following file does not exist in the distribution.  It's created
+# automatically by the Makefile at run-time.
+
+@INCLUDE = doxygen-version-specific.txt

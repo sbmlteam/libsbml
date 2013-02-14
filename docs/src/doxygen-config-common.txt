@@ -3,7 +3,7 @@
 # Description       : Common elements of doxygen configuration
 # Original author(s): Michael Hucka <mhucka@caltech.edu>
 # Organization      : California Institute of Technology
-# 
+# -----------------------------------------------------------------------------
 #
 # Originally based on the sample config file from Doxygen 1.3.4.
 #
@@ -455,6 +455,8 @@ EXCLUDE =                                                                       
   ../../src/bindings/csharp/csharp-files/SWIGTYPE_p_std__vectorT_SBMLNamespaces_const_p_t.cs \
   ../../src/bindings/csharp/csharp-files/SBMLTransforms.cs
 
+LAYOUT_FILE = doxygen-layout-cpp.xml
+
 # The RECURSIVE tag can be used to turn specify whether or not subdirectories 
 # should be searched for input files as well. Possible values are YES and NO. 
 # If left blank NO is used.
@@ -664,7 +666,7 @@ BINARY_TOC             = NO
 # The TOC_EXPAND flag can be set to YES to add extra items for group members 
 # to the contents of the HTML help documentation and to the tree view.
 
-TOC_EXPAND             = NO
+TOC_EXPAND             = YES
 
 # The DISABLE_INDEX tag can be used to turn on/off the condensed index at 
 # top of each HTML page. The value NO (the default) enables the index and 
@@ -690,7 +692,7 @@ GENERATE_TREEVIEW      = YES
 # used to set the initial width (in pixels) of the frame in which the tree 
 # is shown.
 
-TREEVIEW_WIDTH         = 225
+TREEVIEW_WIDTH         = 270
 
 #---------------------------------------------------------------------------
 # configuration options related to the LaTeX output
