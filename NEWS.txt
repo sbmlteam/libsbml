@@ -54,7 +54,7 @@ STABLE RELEASE
       comp model.
       
     - Documentation for the 'comp' C++ API is now available.
- 
+
 * Bug fixes
 
   - LibSBML was still writing out the deprecated, and in some cases
@@ -83,6 +83,11 @@ STABLE RELEASE
   
     - The extension namespaces were not being correctly set. This
       has been fixed.
+
+  - 'comp' package-specific bug fixes:
+  
+    - The function 'renameSIdRefs' now functions properly for
+      SBaseRef-derived classes.
 
 * Configuration/build system changes
 
