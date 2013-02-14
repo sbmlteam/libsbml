@@ -205,7 +205,8 @@ distfiles = Makefile.in      \
 # `extra_clean' and `extra_distclean' determine the files and directories
 # removed during "make clean" and "make distclean".
 
-extra_clean = build $(wildcard test.xml.*) \
+extra_clean = build $(wildcard test.xml.*)
+extra_distclean = \
 	local-downcast-extension.i local-downcast-extension.cpp \
 	local-downcast-namespaces.i local-downcast-namespaces.cpp \
 	local-packages.i local-downcast-plugins.cpp local-downcast.cpp
