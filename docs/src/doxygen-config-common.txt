@@ -367,11 +367,16 @@ INPUT =                                 \
   ../../src/sbml/validator               \
   ../../src/sbml                         \
   ../../src/sbml/xml                     \
-  ../../src/sbml/packages/comp/sbml      \
+  ../../src/sbml/packages/comp/common    \
   ../../src/sbml/packages/comp/extension \
+  ../../src/sbml/packages/comp/sbml      \
   ../../src/sbml/packages/comp/util      \ 
   ../../src/sbml/packages/comp/validator \
-  ../../src/sbml/packages/comp/common
+  ../../src/sbml/packages/fbc/common     \
+  ../../src/sbml/packages/fbc/extension  \
+  ../../src/sbml/packages/fbc/sbml       \
+  ../../src/sbml/packages/fbc/util       \ 
+  ../../src/sbml/packages/fbc/validator 
 
 
 # The EXCLUDE tag can be used to specify files and/or directories that should 
