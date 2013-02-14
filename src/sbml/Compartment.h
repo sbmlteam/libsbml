@@ -1436,7 +1436,7 @@ public:
    * of the Compartment to get.
    * 
    * @return Compartment in this ListOfCompartments
-   * with the given @p id or @c NULL if no such
+   * with the given @p sid or @c NULL if no such
    * Compartment exists.
    *
    * @see get(unsigned int n)

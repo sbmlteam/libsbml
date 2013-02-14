@@ -451,7 +451,7 @@ SpeciesReferenceGlyph_t *
 SpeciesReferenceGlyph_createFrom (const SpeciesReferenceGlyph_t *temp);
 
 /*
- * Creates a new SpeciesReferenceGlyph object with the given @p id and returns
+ * Creates a new SpeciesReferenceGlyph object with the given @p sid and returns
  * a pointer to it.
  */
 LIBSBML_EXTERN

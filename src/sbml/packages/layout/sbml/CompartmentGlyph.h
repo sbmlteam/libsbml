@@ -302,14 +302,14 @@ CompartmentGlyph_t *
 CompartmentGlyph_createFrom (const CompartmentGlyph_t *cg);
 
 /*
- * Creates a new CompartmentGlyph with the given @p id
+ * Creates a new CompartmentGlyph with the given @p sid
  */
 LIBSBML_EXTERN
 CompartmentGlyph_t *
 CompartmentGlyph_createWith (const char *sid);
 
 /*
- * Creates a new CompartmentGlyph with the given @p id
+ * Creates a new CompartmentGlyph with the given @p sid
  */
 LIBSBML_EXTERN
 CompartmentGlyph_t *

@@ -140,7 +140,7 @@ public:
    * of the ReferenceGlyph to get.
    * 
    * @return ReferenceGlyph in this ListOfReferenceGlyphs
-   * with the given @p id or @c NULL if no such
+   * with the given @p sid or @c NULL if no such
    * ReferenceGlyph exists.
    *
    * @see get(unsigned int n)
@@ -157,7 +157,7 @@ public:
    * of the ReferenceGlyph to get.
    * 
    * @return ReferenceGlyph in this ListOfReferenceGlyphs
-   * with the given @p id or @c NULL if no such
+   * with the given @p sid or @c NULL if no such
    * ReferenceGlyph exists.
    *
    * @see get(unsigned int n)
@@ -677,7 +677,7 @@ GeneralGlyph_t *
 GeneralGlyph_createFrom (const GeneralGlyph_t *temp);
 
 /*
- * Creates a new GeneralGlyph with the given @p id
+ * Creates a new GeneralGlyph with the given @p sid
  */
 LIBSBML_EXTERN
 GeneralGlyph_t *

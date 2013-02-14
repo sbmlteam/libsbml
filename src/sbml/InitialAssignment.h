@@ -869,7 +869,7 @@ public:
    * of the InitialAssignment to get.
    * 
    * @return InitialAssignment in this ListOfInitialAssignments
-   * with the given @p id or @c NULL if no such
+   * with the given @p sid or @c NULL if no such
    * InitialAssignment exists.
    *
    * @see get(unsigned int n)
@@ -886,7 +886,7 @@ public:
    * of the InitialAssignment to get.
    * 
    * @return InitialAssignment in this ListOfInitialAssignments
-   * with the given @p id or @c NULL if no such
+   * with the given @p sid or @c NULL if no such
    * InitialAssignment exists.
    *
    * @see get(unsigned int n)

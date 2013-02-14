@@ -192,25 +192,25 @@ public:
 
 
   /**
-   * Returns the layout object with the given @p id attribute. If the
+   * Returns the layout object with the given @p sid attribute. If the
    * id is invalid, @c NULL is returned.
    *
    * @param sid the id attribute of the layout object.
    *
-   * @return the Layout object with the given @p id attribute. NULL
-   * is returned if the given @p id is invalid. 
+   * @return the Layout object with the given @p sid attribute. NULL
+   * is returned if the given @p sid is invalid. 
    */
   Layout* getLayout (const std::string& sid);
 
 
   /**
-   * Returns the layout object with the given @p id attribute. If the
+   * Returns the layout object with the given @p sid attribute. If the
    * id is invalid, @c NULL is returned.
    *
    * @param sid the id attribute of the layout object.
    *
-   * @return the Layout object with the given @p id attribute. NULL
-   * is returned if the given @p id is invalid. 
+   * @return the Layout object with the given @p sid attribute. NULL
+   * is returned if the given @p sid is invalid. 
    */
   const Layout* getLayout (const std::string& sid) const;
 

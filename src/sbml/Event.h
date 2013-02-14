@@ -1408,7 +1408,7 @@ public:
    * of the Event to get.
    * 
    * @return Event in this ListOfEvents
-   * with the given @p id or @c NULL if no such
+   * with the given @p sid or @c NULL if no such
    * Event exists.
    *
    * @see get(unsigned int n)
@@ -1425,7 +1425,7 @@ public:
    * of the Event to get.
    * 
    * @return Event in this ListOfEvents
-   * with the given @p id or @c NULL if no such
+   * with the given @p sid or @c NULL if no such
    * Event exists.
    *
    * @see get(unsigned int n)

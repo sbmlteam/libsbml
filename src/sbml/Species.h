@@ -1689,7 +1689,7 @@ public:
    * of the Species to get.
    * 
    * @return Species in this ListOfSpecies
-   * with the given @p id or @c NULL if no such
+   * with the given @p sid or @c NULL if no such
    * Species exists.
    *
    * @see get(unsigned int n)
@@ -1706,7 +1706,7 @@ public:
    * of the Species to get.
    * 
    * @return Species in this ListOfSpecies
-   * with the given @p id or @c NULL if no such
+   * with the given @p sid or @c NULL if no such
    * Species exists.
    *
    * @see get(unsigned int n)

@@ -1536,7 +1536,7 @@ public:
    * of the Reaction to get.
    * 
    * @return Reaction in this ListOfReactions
-   * with the given @p id or @c NULL if no such
+   * with the given @p sid or @c NULL if no such
    * Reaction exists.
    *
    * @see get(unsigned int n)
@@ -1553,7 +1553,7 @@ public:
    * of the Reaction to get.
    * 
    * @return Reaction in this ListOfReactions
-   * with the given @p id or @c NULL if no such
+   * with the given @p sid or @c NULL if no such
    * Reaction exists.
    *
    * @see get(unsigned int n)

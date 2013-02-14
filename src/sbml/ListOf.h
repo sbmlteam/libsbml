@@ -292,7 +292,7 @@ public:
    *
    * @param sid a string representing the the identifier of the item to get.
    * 
-   * @return item in this ListOf items with the given @p id or @c NULL if no such
+   * @return item in this ListOf items with the given @p sid or @c NULL if no such
    * item exists.
    *
    * @see get(unsigned int n)
@@ -308,7 +308,7 @@ public:
    *
    * @param sid a string representing the the identifier of the item to get.
    * 
-   * @return item in this ListOf items with the given @p id or @c NULL if no such
+   * @return item in this ListOf items with the given @p sid or @c NULL if no such
    * item exists.
    *
    * @see get(unsigned int n)
@@ -632,7 +632,7 @@ ListOf_get (ListOf_t *lo, unsigned int n);
 
 #if (0)
 /**
- * @return item in this ListOf items with the given @p id or @c NULL if no such
+ * @return item in this ListOf items with the given @p sid or @c NULL if no such
  * item exists.
  */
 LIBSBML_EXTERN
@@ -658,7 +658,7 @@ ListOf_remove (ListOf_t *lo, unsigned int n);
 
 #if (0)
 /**
- * Removes item in this ListOf items with the given @p id or @c NULL if no such
+ * Removes item in this ListOf items with the given @p sid or @c NULL if no such
  * item exists.  The caller owns the returned item and is repsonsible for
  * deleting it.
  */

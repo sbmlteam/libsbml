@@ -1108,7 +1108,7 @@ public:
    * of the Rule to get.
    * 
    * @return Rule in this ListOfRules
-   * with the given @p id or @c NULL if no such
+   * with the given @p sid or @c NULL if no such
    * Rule exists.
    *
    * @see get(unsigned int n)

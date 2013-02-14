@@ -492,7 +492,7 @@ public:
    * of the GraphicalObject to get.
    * 
    * @return GraphicalObject in this ListOfGraphicalObjects
-   * with the given @p id or @c NULL if no such
+   * with the given @p sid or @c NULL if no such
    * GraphicalObject exists.
    *
    * @see get(unsigned int n)
@@ -509,7 +509,7 @@ public:
    * of the GraphicalObject to get.
    * 
    * @return GraphicalObject in this ListOfGraphicalObjects
-   * with the given @p id or @c NULL if no such
+   * with the given @p sid or @c NULL if no such
    * GraphicalObject exists.
    *
    * @see get(unsigned int n)

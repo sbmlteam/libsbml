@@ -140,7 +140,7 @@ public:
    * of the SpeciesReferenceGlyph to get.
    * 
    * @return SpeciesReferenceGlyph in this ListOfSpeciesReferenceGlyphs
-   * with the given @p id or @c NULL if no such
+   * with the given @p sid or @c NULL if no such
    * SpeciesReferenceGlyph exists.
    *
    * @see get(unsigned int n)
@@ -157,7 +157,7 @@ public:
    * of the SpeciesReferenceGlyph to get.
    * 
    * @return SpeciesReferenceGlyph in this ListOfSpeciesReferenceGlyphs
-   * with the given @p id or @c NULL if no such
+   * with the given @p sid or @c NULL if no such
    * SpeciesReferenceGlyph exists.
    *
    * @see get(unsigned int n)
@@ -619,7 +619,7 @@ ReactionGlyph_clear (ReactionGlyph_t *rg);
 
 
 /*
- * Creates a new ReactionGlyph with the given @p id
+ * Creates a new ReactionGlyph with the given @p sid
  */
 LIBSBML_EXTERN
 ReactionGlyph_t *

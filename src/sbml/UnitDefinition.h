@@ -1243,7 +1243,7 @@ public:
    * of the UnitDefinition to get.
    * 
    * @return UnitDefinition in this ListOfUnitDefinitions
-   * with the given @p id or @c NULL if no such
+   * with the given @p sid or @c NULL if no such
    * UnitDefinition exists.
    *
    * @see get(unsigned int n)
@@ -1260,7 +1260,7 @@ public:
    * of the UnitDefinition to get.
    * 
    * @return UnitDefinition in this ListOfUnitDefinitions
-   * with the given @p id or @c NULL if no such
+   * with the given @p sid or @c NULL if no such
    * UnitDefinition exists.
    *
    * @see get(unsigned int n)

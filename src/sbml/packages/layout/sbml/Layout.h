@@ -154,7 +154,7 @@ public:
    * of the CompartmentGlyph to get.
    * 
    * @return CompartmentGlyph in this ListOfCompartmentGlyphs
-   * with the given @p id or @c NULL if no such
+   * with the given @p sid or @c NULL if no such
    * CompartmentGlyph exists.
    *
    * @see get(unsigned int n)
@@ -171,7 +171,7 @@ public:
    * of the CompartmentGlyph to get.
    * 
    * @return CompartmentGlyph in this ListOfCompartmentGlyphs
-   * with the given @p id or @c NULL if no such
+   * with the given @p sid or @c NULL if no such
    * CompartmentGlyph exists.
    *
    * @see get(unsigned int n)
@@ -287,7 +287,7 @@ public:
    * of the SpeciesGlyph to get.
    * 
    * @return SpeciesGlyph in this ListOfSpeciesGlyphs
-   * with the given @p id or @c NULL if no such
+   * with the given @p sid or @c NULL if no such
    * SpeciesGlyph exists.
    *
    * @see get(unsigned int n)
@@ -304,7 +304,7 @@ public:
    * of the SpeciesGlyph to get.
    * 
    * @return SpeciesGlyph in this ListOfSpeciesGlyphs
-   * with the given @p id or @c NULL if no such
+   * with the given @p sid or @c NULL if no such
    * SpeciesGlyph exists.
    *
    * @see get(unsigned int n)
@@ -425,7 +425,7 @@ public:
    * of the ReactionGlyph to get.
    * 
    * @return ReactionGlyph in this ListOfReactionGlyphs
-   * with the given @p id or @c NULL if no such
+   * with the given @p sid or @c NULL if no such
    * ReactionGlyph exists.
    *
    * @see get(unsigned int n)
@@ -442,7 +442,7 @@ public:
    * of the ReactionGlyph to get.
    * 
    * @return ReactionGlyph in this ListOfReactionGlyphs
-   * with the given @p id or @c NULL if no such
+   * with the given @p sid or @c NULL if no such
    * ReactionGlyph exists.
    *
    * @see get(unsigned int n)
@@ -563,7 +563,7 @@ public:
    * of the TextGlyph to get.
    * 
    * @return TextGlyph in this ListOfTextGlyphs
-   * with the given @p id or @c NULL if no such
+   * with the given @p sid or @c NULL if no such
    * TextGlyph exists.
    *
    * @see get(unsigned int n)
@@ -580,7 +580,7 @@ public:
    * of the TextGlyph to get.
    * 
    * @return TextGlyph in this ListOfTextGlyphs
-   * with the given @p id or @c NULL if no such
+   * with the given @p sid or @c NULL if no such
    * TextGlyph exists.
    *
    * @see get(unsigned int n)
@@ -1473,7 +1473,7 @@ public:
    * of the Layout to get.
    * 
    * @return Layout in this ListOfLayouts
-   * with the given @p id or @c NULL if no such
+   * with the given @p sid or @c NULL if no such
    * Layout exists.
    *
    * @see get(unsigned int n)

@@ -864,7 +864,7 @@ public:
    * of the EventAssignment to get.
    * 
    * @return EventAssignment in this ListOfEventAssignments
-   * with the given @p id or @c NULL if no such
+   * with the given @p sid or @c NULL if no such
    * EventAssignment exists.
    *
    * @see get(unsigned int n)
@@ -881,7 +881,7 @@ public:
    * of the EventAssignment to get.
    * 
    * @return EventAssignment in this ListOfEventAssignments
-   * with the given @p id or @c NULL if no such
+   * with the given @p sid or @c NULL if no such
    * EventAssignment exists.
    *
    * @see get(unsigned int n)
