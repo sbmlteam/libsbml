@@ -47,7 +47,7 @@ class FunctionDefinitionVars: public TConstraint<FunctionDefinition>
 public:
 
   /**
-   * Creates a new Constraint with the given id.
+   * Creates a new Constraint with the given @p id.
    */
   FunctionDefinitionVars (unsigned int id, Validator& v);
 

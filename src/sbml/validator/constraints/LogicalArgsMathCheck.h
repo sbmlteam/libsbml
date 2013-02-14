@@ -52,7 +52,7 @@ class LogicalArgsMathCheck: public MathMLBase
 public:
 
   /**
-   * Creates a new Constraint with the given id.
+   * Creates a new Constraint with the given @p id.
    */
   LogicalArgsMathCheck (unsigned int id, Validator& v);
 

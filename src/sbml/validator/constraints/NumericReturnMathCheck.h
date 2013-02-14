@@ -52,7 +52,7 @@ class NumericReturnMathCheck: public MathMLBase
 public:
 
   /**
-   * Creates a new Constraint with the given id.
+   * Creates a new Constraint with the given @p id.
    */
   NumericReturnMathCheck (unsigned int id, Validator& v);
 

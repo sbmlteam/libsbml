@@ -52,7 +52,7 @@ class ArgumentsUnitsCheck: public UnitsBase
 public:
 
   /**
-   * Creates a new Constraint with the given id.
+   * Creates a new Constraint with the given @p id.
    */
   ArgumentsUnitsCheck (unsigned int id, Validator& v);
 

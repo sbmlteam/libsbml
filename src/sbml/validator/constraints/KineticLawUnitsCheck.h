@@ -51,7 +51,7 @@ class KineticLawUnitsCheck: public TConstraint<Model>
 public:
 
   /**
-   * Creates a new Constraint with the given id.
+   * Creates a new Constraint with the given @p id.
    */
   KineticLawUnitsCheck (unsigned int id, Validator& v);
 
@@ -101,7 +101,7 @@ protected:
   const char* getTypename (const SBase& object);
 
   /**
-   * Logs a message that the given id (and its corresponding object) have
+   * Logs a message that the given @p id (and its corresponding object) have
    * failed to satisfy this constraint.
    */
   void logKLConflict (const ASTNode& node, const SBase& object);

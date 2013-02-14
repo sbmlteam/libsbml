@@ -51,7 +51,7 @@ class MathMLBase: public TConstraint<Model>
 public:
 
   /**
-   * Creates a new Constraint with the given id.
+   * Creates a new Constraint with the given @p id.
    */
   MathMLBase (unsigned int id, Validator& v);
 

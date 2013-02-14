@@ -48,7 +48,7 @@ class StoichiometryMathVars: public TConstraint<Reaction>
 public:
 
   /**
-   * Creates a new Constraint with the given id.
+   * Creates a new Constraint with the given @p id.
    */
   StoichiometryMathVars (unsigned int id, Validator& v);
 

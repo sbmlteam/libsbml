@@ -52,7 +52,7 @@ class FunctionApplyMathCheck: public MathMLBase
 public:
 
   /**
-   * Creates a new Constraint with the given id.
+   * Creates a new Constraint with the given @p id.
    */
   FunctionApplyMathCheck (unsigned int id, Validator& v);
 

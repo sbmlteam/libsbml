@@ -45,7 +45,7 @@ using namespace std;
 LIBSBML_CPP_NAMESPACE_BEGIN
 
 /**
- * Creates a new Constraint with the given id.
+ * Creates a new Constraint with the given @p id.
  */
 StoichiometryMathVars::StoichiometryMathVars (unsigned int id, Validator& v) :
   TConstraint<Reaction>(id, v)

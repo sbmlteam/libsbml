@@ -231,7 +231,7 @@ IdBase::getTypename (const SBase& object)
 
 
 /**
- * Logs a message that the given id (and its corresponding object) have
+ * Logs a message that the given @p id (and its corresponding object) have
  * failed to satisfy this constraint.
  */
 void

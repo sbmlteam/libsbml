@@ -58,7 +58,7 @@ static const char* PREAMBLE =
 
 
 /**
- * Creates a new Constraint with the given id.
+ * Creates a new Constraint with the given @p id.
  */
 EqualityArgsMathCheck::EqualityArgsMathCheck (unsigned int id, Validator& v) : MathMLBase(id, v)
 {
@@ -153,7 +153,7 @@ EqualityArgsMathCheck::checkArgs (const Model& m,
  * @return the error message to use when logging constraint violations.
  * This method is called by logFailure.
  *
- * Returns a message that the given id and its corresponding object are
+ * Returns a message that the given @p id and its corresponding object are
  * in  conflict with an object previously defined.
  */
 const string

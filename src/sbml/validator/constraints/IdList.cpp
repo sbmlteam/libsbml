@@ -49,7 +49,7 @@ IdList::contains (const std::string id) const
 
 
 /**
- * Removes all ids in this IdList before the given id.
+ * Removes all ids in this IdList before the given @p id.
  */
 void
 IdList::removeIdsBefore (const std::string id)

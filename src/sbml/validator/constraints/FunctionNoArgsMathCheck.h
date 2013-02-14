@@ -52,7 +52,7 @@ class FunctionNoArgsMathCheck: public MathMLBase
 public:
 
   /**
-   * Creates a new Constraint with the given id.
+   * Creates a new Constraint with the given @p id.
    */
   FunctionNoArgsMathCheck (unsigned int id, Validator& v);
 

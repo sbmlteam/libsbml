@@ -106,7 +106,7 @@ UniqueMetaId::getTypename (const SBase& object)
 
 
 /**
- * Logs a message that the given id (and its corresponding object) have
+ * Logs a message that the given @p id (and its corresponding object) have
  * failed to satisfy this constraint.
  */
 void
@@ -149,7 +149,7 @@ UniqueMetaId::doCheckMetaId (const SBase& object)
  * @return the error message to use when logging constraint violations.
  * This method is called by logFailure.
  *
- * Returns a message that the given id and its corresponding object are
+ * Returns a message that the given @p id and its corresponding object are
  * in  conflict with an object previously defined.
  */
 const string

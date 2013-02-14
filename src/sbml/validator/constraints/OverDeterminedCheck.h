@@ -59,7 +59,7 @@ class OverDeterminedCheck: public TConstraint<Model>
 public:
 
   /**
-   * Creates a new Constraint with the given id.
+   * Creates a new Constraint with the given @p id.
    */
   OverDeterminedCheck (unsigned int id, Validator& v);
 

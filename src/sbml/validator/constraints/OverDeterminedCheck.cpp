@@ -46,7 +46,7 @@ using namespace std;
 LIBSBML_CPP_NAMESPACE_BEGIN
 
 /**
- * Creates a new Constraint with the given id.
+ * Creates a new Constraint with the given @p id.
  */
 OverDeterminedCheck::OverDeterminedCheck ( unsigned int id,
                                                      Validator& v ) :
@@ -309,7 +309,7 @@ OverDeterminedCheck::createGraph(const Model& m)
    * and constant field set to false and which is referenced by the reactant 
    * or product lists of a Reaction structure containing a KineticLaw structure. 
    * The edge connects the vertex representing the species 
-   *    to the vertex representing the species’ equation
+   *    to the vertex representing the species' equation
    */
 
   speciesAdded.clear();

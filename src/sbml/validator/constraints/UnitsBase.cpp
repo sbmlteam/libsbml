@@ -53,7 +53,7 @@ using namespace std;
 LIBSBML_CPP_NAMESPACE_BEGIN
 
 /**
- * Creates a new Constraint with the given id.
+ * Creates a new Constraint with the given @p id.
  */
 UnitsBase::UnitsBase (unsigned int id, Validator& v) :
   TConstraint<Model>(id, v)
@@ -260,7 +260,7 @@ UnitsBase::getTypename (const SBase& object)
 
 
 /**
- * Logs a message that the given id (and its corresponding object) have
+ * Logs a message that the given @p id (and its corresponding object) have
  * failed to satisfy this constraint.
  */
 void

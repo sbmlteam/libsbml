@@ -52,7 +52,7 @@ class PieceBooleanMathCheck: public MathMLBase
 public:
 
   /**
-   * Creates a new Constraint with the given id.
+   * Creates a new Constraint with the given @p id.
    */
   PieceBooleanMathCheck (unsigned int id, Validator& v);
 
