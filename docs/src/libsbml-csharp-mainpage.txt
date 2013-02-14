@@ -10,26 +10,22 @@ manipulating the Systems Biology Markup Language (SBML).
 
 @htmlinclude libsbml-conversion-warnings.html
 
-@htmlinclude plain-font-on.html
-@section main-general General information
+To get started with libSBML, you may find the following sections of
+this manual helpful:
+
 - @subpage libsbml-installation
 - @subpage libsbml-accessing
-- @subpage libsbml-features
+- @subpage libsbml-programming-csharp
 - @subpage libsbml-communications
+- @subpage libsbml-release-info
 
-@section main-programming Programming with libSBML
-- @subpage libsbml-csharp-reading-files
-- @subpage libsbml-csharp-math
-- @subpage libsbml-issues
+You can use the navigation bar, table of contents and search facilities of
+this manual to locate specific documentation about the libSBML API.
 
-@section main-other Other topics
-- @subpage libsbml-uninstallation
-- @subpage libsbml-coding for developers and contributors
-- @subpage license
-- @subpage changes
-@htmlinclude plain-font-off.html
 @htmlinclude libsbml-papers.html
 
 @htmlinclude FUNDING.txt
+
+@htmlinclude libsbml-doxygen.html
 
 */
