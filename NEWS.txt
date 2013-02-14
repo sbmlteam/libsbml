@@ -42,6 +42,8 @@ STABLE RELEASE
     model, and if there are errors related to altered semantics, the
     errors will be logged in the usual error log.
    
+  - Documentation for the 'comp' and 'fbc' C++ API is now available.
+
   - 'comp' package updates:
   
     - The C API for comp is now available with an example of
@@ -49,12 +51,10 @@ STABLE RELEASE
       
     - The majority of 'comp' package validation rules have now been
       implemented and will be reported.  Validation has also been
-      expanded to apply valaidation from core and other packages
+      expanded to apply validation from core and other packages
       (where appropriate) to any ModelDefinitions contained within a
       comp model.
       
-    - Documentation for the 'comp' C++ API is now available.
-
 * Bug fixes
 
   - LibSBML was still writing out the deprecated, and in some cases
