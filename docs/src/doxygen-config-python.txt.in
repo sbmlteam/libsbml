@@ -92,11 +92,11 @@ INPUT = \
   libsbml-license.txt              \
   libsbml-news.txt                 \
   libsbml-old-news.txt             \
-  libsbml-release-info.txt         \
   libsbml-programming-python.txt   \
   libsbml-python-mainpage.txt      \
   libsbml-python-math.txt          \
   libsbml-python-reading-files.txt \
+  libsbml-release-info.txt         \
   libsbml.py
 
 LAYOUT_FILE = doxygen-layout-notcpp.xml
