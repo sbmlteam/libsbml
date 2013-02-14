@@ -156,7 +156,7 @@ util_trim (const char *s);
  * Removes leading and trailing whitespace from the string s.
  *
  * @return a pointer to the first non-whitespace character of the string s
- * (which may be the terminating NULL), or NULL if s is NULL.  The first
+ * (which may be the terminating NULL), or @c NULL if s is @c NULL.  The first
  * trailing whitespace character will be replaced with NULL.
  *
  * Whitespace is determined by isspace().
