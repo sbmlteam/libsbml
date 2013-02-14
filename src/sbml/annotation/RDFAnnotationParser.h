@@ -351,7 +351,7 @@ success = sbmlObject.setAnnotation(annot)           # Set object's annotation to
    * MIRIAM-compliant model history and CV term information in RDF format.
    *
    * @note If the object does not have a history element stored then
-   * NULL is returned even if CVTerms are present.
+   * @c NULL is returned even if CVTerms are present.
    *
    * @if notclike @note Because this is a @em static method, the non-C++
    * language interfaces for libSBML will contain two variants.  One will
