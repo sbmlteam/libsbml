@@ -63,6 +63,7 @@ public:
   typedef std::map<std::string, const SBMLExtension*>              SBMLExtensionMap;
   typedef std::pair<std::string, const SBMLExtension*>             SBMLExtensionPair;
   typedef SBMLExtensionMap::iterator                               SBMLExtensionMapIter;
+  /** @endcond */
 #endif //SWIG
 
   /**

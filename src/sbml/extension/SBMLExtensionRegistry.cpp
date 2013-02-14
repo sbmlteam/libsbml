@@ -517,7 +517,7 @@ SBMLExtensionRegistry_getExtension(const char* package)
  * @param uri the URI of the target package extension.
  *
  * @return the SBasePluginCreator_t with the combination of the given 
- * SBMLTypeCode_t and the given URI of package extension, or NULL for 
+ * SBMLTypeCode_t and the given URI of package extension, or @c NULL for 
  * invalid extensionPoint or uri.
  */
 LIBSBML_EXTERN

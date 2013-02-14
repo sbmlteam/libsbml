@@ -472,7 +472,7 @@ SBMLExtension_addSBasePluginCreator(SBMLExtension_t* ext,
  * SBasePluginCreatorBase object bound.
  *
  * @return an SBasePluginCreatorBase_t structure of this package extension 
- * bound to the given extension point, or NULL for invalid extension of 
+ * bound to the given extension point, or @c NULL for invalid extension of 
  * extension point.
  */
 LIBSBML_EXTERN
@@ -493,7 +493,7 @@ SBMLExtension_getSBasePluginCreator(SBMLExtension_t* ext,
  * this package extension.
  *
  * @return an SBasePluginCreatorBase structure of this package extension 
- * with the given index, or NULL for an invalid extension structure.
+ * with the given index, or @c NULL for an invalid extension structure.
  */
 LIBSBML_EXTERN
 SBasePluginCreatorBase_t *
@@ -666,7 +666,7 @@ SBMLExtension_getPackageVersion(SBMLExtension_t* ext, const char* uri)
  * @param ext the SBMLExtension structure
  * @param typeCode the typeCode supported by the package
  * 
- * @return the string representing the given typecode, or NULL in case an 
+ * @return the string representing the given typecode, or @c NULL in case an 
  * invalid extension was provided. 
  */
 LIBSBML_EXTERN

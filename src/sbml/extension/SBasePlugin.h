@@ -305,28 +305,28 @@ public:
 
 
   /**
-   * Returns the first child element found that has the given id in the model-wide SId namespace, or NULL if no such object is found.
+   * Returns the first child element found that has the given @p id in the model-wide SId namespace, or @c NULL if no such object is found.
    *
    * @param id string representing the id of objects to find
    *
-   * @return pointer to the first element found with the given id.
+   * @return pointer to the first element found with the given @p id.
    */
   virtual SBase* getElementBySId(std::string id);
   
   
   /**
-   * Returns the first child element it can find with the given metaid, or NULL if no such object is found.
+   * Returns the first child element it can find with the given @p metaid, or @c NULL if no such object is found.
    *
    * @param metaid string representing the metaid of objects to find
    *
-   * @return pointer to the first element found with the given metaid.
+   * @return pointer to the first element found with the given @p metaid.
    */
   virtual SBase* getElementByMetaId(std::string metaid);
   
   /**
-   * Returns a List of all child SBase* objects, including those nested to an arbitrary depth
+   * Returns a List of all child SBase objects, including those nested to an arbitrary depth
    *
-   * @return a List* of pointers to all children objects.
+   * @return a List of pointers to all children objects.
    */
   virtual List* getAllElements();
   
@@ -340,7 +340,6 @@ public:
 #ifndef SWIG
 
   /** @cond doxygen-libsbml-internal */
-
   /**
    * Takes the contents of the passed-in Model, makes copies of everything, and appends those copies to the appropriate places in this Model.  Only called from Model::appendFrom, and is intended to be extended for packages that add new things to the Model object.
    *
@@ -348,7 +347,10 @@ public:
    *
    */
   virtual int appendFrom(const Model* model);
+  /** @endcond */
 
+
+  /** @cond doxygen-libsbml-internal */
   /**
    * Subclasses must override this method to create, store, and then
    * return an SBML object corresponding to the next XMLToken in the
@@ -358,8 +360,10 @@ public:
    * XMLInputStream or NULL if the token was not recognized.
    */
   virtual SBase* createObject (XMLInputStream& stream);
+  /** @endcond */
 
 
+  /** @cond doxygen-libsbml-internal */
   /**
    * Subclasses should override this method to read (and store) XHTML,
    * MathML, etc. directly from the XMLInputStream if the target elements
@@ -369,8 +373,10 @@ public:
    * @return true if the subclass read from the stream, false otherwise.
    */
   virtual bool readOtherXML (SBase* parentObject, XMLInputStream& stream);
+  /** @endcond */
 
-  
+
+  /** @cond doxygen-libsbml-internal */
   /**
    * Synchronizes the annotation of this SBML object.
    *
@@ -380,21 +386,28 @@ public:
    * and writeElements methods.
    */
   virtual void syncAnnotation(SBase* parentObject, XMLNode *annotation);
+  /** @endcond */
 
 
+  /** @cond doxygen-libsbml-internal */
   /** 
    * Parse L2 annotation if supported
    *
    */
   virtual void parseAnnotation(SBase *parentObject, XMLNode *annotation);
+  /** @endcond */
 
+
+  /** @cond doxygen-libsbml-internal */
   /**
    * Subclasses must override this method to write out their contained
    * SBML objects as XML elements if they have their specific elements.
    */
   virtual void writeElements (XMLOutputStream& stream) const;
+  /** @endcond */
 
 
+  /** @cond doxygen-libsbml-internal */
   /** 
    * Checks if this plugin object has all the required elements.
    *
@@ -417,7 +430,6 @@ public:
 
 
   /** @cond doxygen-libsbml-internal */
-
   /**
    * Subclasses should override this method to get the list of
    * expected attributes if they have their specific attributes.
@@ -425,23 +437,29 @@ public:
    * function.
    */
   virtual void addExpectedAttributes(ExpectedAttributes& attributes);
+  /** @endcond */
 
 
+  /** @cond doxygen-libsbml-internal */
   /**
    * Subclasses must override this method to read values from the given
    * XMLAttributes if they have their specific attributes.
    */
   virtual void readAttributes (const XMLAttributes& attributes,
                                const ExpectedAttributes& expectedAttributes);
+  /** @endcond */
 
 
+  /** @cond doxygen-libsbml-internal */
   /**
    * Subclasses must override this method to write their XML attributes
    * to the XMLOutputStream if they have their specific attributes.
    */
   virtual void writeAttributes (XMLOutputStream& stream) const;
+  /** @endcond */
 
 
+  /** @cond doxygen-libsbml-internal */
   /* 
    * Checks if this plugin object has all the required attributes .
    *
@@ -452,8 +470,10 @@ public:
    * otherwise false will be returned.
    */
   virtual bool hasRequiredAttributes() const ;
+  /** @endcond */
 
 
+  /** @cond doxygen-libsbml-internal */
   /**
    * Subclasses should override this method to write required xmlns attributes
    * to the XMLOutputStream (if any). 
@@ -463,14 +483,10 @@ public:
    * element.
    */
   virtual void writeXMLNS (XMLOutputStream& stream) const;
-
-
   /** @endcond */
 
 #endif // SWIG
 
-
-  /** @cond doxygen-libsbml-internal */
 
   // ---------------------------------------------------------
   //
@@ -479,6 +495,7 @@ public:
   //
   // ---------------------------------------------------------
 
+  /** @cond doxygen-libsbml-internal */
   /**
    * Sets the parent SBMLDocument of this plugin object.
    *
@@ -491,8 +508,10 @@ public:
    * @see enablePackageInternal
    */
   virtual void setSBMLDocument (SBMLDocument* d);
+  /** @endcond */
 
 
+  /** @cond doxygen-libsbml-internal */
   /**
    * Sets the parent SBML object of this plugin object to
    * this object and child elements (if any).
@@ -510,8 +529,10 @@ public:
    * @see enablePackageInternal
    */
   virtual void connectToParent (SBase *sbase);
+  /** @endcond */
 
 
+  /** @cond doxygen-libsbml-internal */
   /**
    * Enables/Disables the given package with child elements in this plugin 
    * object (if any).
@@ -527,11 +548,11 @@ public:
    */
   virtual void enablePackageInternal(const std::string& pkgURI,
                                      const std::string& pkgPrefix, bool flag);
+  /** @endcond */
 
 
+  /** @cond doxygen-libsbml-internal */
   virtual bool stripPackage(const std::string& pkgPrefix, bool flag);
-
-
   /** @endcond */
 
   // ----------------------------------------------------------
@@ -740,14 +761,13 @@ public:
   virtual SBMLNamespaces * getSBMLNamespaces() const;
   /** @endcond */
 
-  /** @cond doxygen-libsbml-internal */
-
   // -----------------------------------------------
   //
   // virtual functions for elements
   //
   // ------------------------------------------------
 
+  /** @cond doxygen-libsbml-internal */
   /**
    * Helper to log a common type of error for elements.
    */
@@ -793,8 +813,8 @@ protected:
   // */
   //virtual void logUnknownElement(const std::string &element, 
   //                               const unsigned int sbmlLevel,
- 	//		         const unsigned int sbmlVersion,
-		//	         const unsigned int pkgVersion );
+  //                               const unsigned int sbmlVersion,
+  //                               const unsigned int pkgVersion );
 
   // -----------------------------------------------
   //
@@ -807,8 +827,8 @@ protected:
    */
   virtual void logUnknownAttribute(const std::string &attribute, 
                                    const unsigned int sbmlLevel,
- 			           const unsigned int sbmlVersion,
-			           const unsigned int pkgVersion,
+                                   const unsigned int sbmlVersion,
+                                   const unsigned int pkgVersion,
                                    const std::string& element);
 
 

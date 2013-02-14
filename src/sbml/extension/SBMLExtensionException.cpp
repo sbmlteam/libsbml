@@ -39,7 +39,7 @@ SBMLExtensionException::SBMLExtensionException(const std::string& errmsg) throw(
 SBMLExtensionException::~SBMLExtensionException() throw()
 {}
 
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 LIBSBML_CPP_NAMESPACE_END
 

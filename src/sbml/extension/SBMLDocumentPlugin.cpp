@@ -195,7 +195,7 @@ SBMLDocumentPlugin::checkConsistency()
   return 0;
 }
 
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /**

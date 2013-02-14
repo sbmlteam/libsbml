@@ -113,15 +113,19 @@ public:
    * function.
    */
   virtual void addExpectedAttributes(ExpectedAttributes& attributes);
+  /** @endcond */
 
 
+  /** @cond doxygen-libsbml-internal */
   /**
    * Reads the attributes of corresponding package in SBMLDocument element.
    */
   virtual void readAttributes (const XMLAttributes& attributes,
                                const ExpectedAttributes& expectedAttributes);
+  /** @endcond */
 
 
+  /** @cond doxygen-libsbml-internal */
   /**
    * Writes the attributes of corresponding package in SBMLDocument element.
    */

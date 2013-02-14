@@ -168,7 +168,7 @@ SBasePluginCreatorBase::isSupported(const std::string& uri) const
  * @param xmlns the package extension namespaces
  *
  * @return an SBasePlugin_t structure with the given uri and the prefix
- * of the target package extension, or NULL in case an invalid creator, uri 
+ * of the target package extension, or @c NULL in case an invalid creator, uri 
  * or prefix was given.
  */
 LIBSBML_EXTERN
@@ -251,7 +251,7 @@ SBasePluginCreator_getTargetSBMLTypeCode(SBasePluginCreatorBase_t* creator)
  * 
  * @param creator the SBasePluginCreatorBase_t structure
  * 
- * @return the target package name of the creator object, or NULL if 
+ * @return the target package name of the creator object, or @c NULL if 
  * creator is invalid.
  */
 LIBSBML_EXTERN
@@ -267,7 +267,7 @@ SBasePluginCreator_getTargetPackageName(SBasePluginCreatorBase_t* creator)
  * 
  * @param creator the SBasePluginCreatorBase_t structure
  * 
- * @return the SBaseExtensionPoint of the creator object, or NULL if 
+ * @return the SBaseExtensionPoint of the creator object, or @c NULL if 
  * creator is invalid.
  */
 LIBSBML_EXTERN
