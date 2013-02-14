@@ -1503,14 +1503,18 @@ td.NavBarCell3 {
 }
 
 td.NavBarCell1Rev {
-  margin-bottom: 0;
+  margin-bottom: 1px;
+  padding-bottom: 1px;
   border: 1px solid gray;
-  font-size: 18px;
   line-height: 120%;
 }
 
 font.NavBarFont1Rev { 
   background-color: white;
+}
+
+font.NavBarFont1Rev b { 
+    text-decoration: none;
 }
 
 td[align="right"] {
@@ -1690,37 +1694,45 @@ ul.tablist li:nth-child(2) {
     font-style: italic;
 }
 
+.pkg-marker > a {
+    color: #333 !important;
+    min-width: 40px;
+    width: 40px;
+    display: inline-block;
+    text-align: center;
+}
+
 .color-1 {
     border: 1px solid rgb(190, 200, 231);
-    background-color: rgba(190, 200, 231, 0.25);
+    background-color: rgba(190, 200, 231, 0.35);
 }
 
 .color-2 {
     border: 1px solid rgb(203, 222, 173);
-    background-color: rgba(203, 222, 173, 0.25);
+    background-color: rgba(203, 222, 173, 0.35);
 }
 
 .color-3 {
     border: 1px solid rgb(233, 176, 149);
-    background-color: rgba(233, 176, 149, 0.25);
+    background-color: rgba(233, 176, 149, 0.35);
 }
 
 .color-4 {
     border: 1px solid rgb(150, 220, 216);
-    background-color: rgba(150, 220, 216, 0.25);
+    background-color: rgba(150, 220, 216, 0.35);
 }
 
 .color-5 {
     border: 1px solid rgb(223, 189, 107);
-    background-color: rgba(223, 189, 107, 0.25);
+    background-color: rgba(223, 189, 107, 0.35);
 }
 
 .color-6 {
     border: 1px solid rgb(230, 181, 199);
-    background-color: rgba(230, 181, 199, 0.25);
+    background-color: rgba(230, 181, 199, 0.35);
 }
 
 .color-7 {
     border: 1px solid rgb(155, 221, 177);
-    background-color: rgba(155, 221, 177, 0.25);
+    background-color: rgba(155, 221, 177, 0.35);
 }
