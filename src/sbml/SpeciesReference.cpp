@@ -2314,7 +2314,7 @@ SpeciesReference_hasRequiredAttributes(SpeciesReference_t *sr)
 
 
 /**
- * @return item in this ListOfSpeciesReference with the given id or @c NULL if no such
+ * @return item in this ListOfSpeciesReference with the given @p id or @c NULL if no such
  * item exists.
  */
 LIBSBML_EXTERN
@@ -2330,7 +2330,7 @@ ListOfSpeciesReferences_getById (ListOf_t *lo, const char *sid)
 
 
 /**
- * Removes item in this ListOf items with the given id or @c NULL if no such
+ * Removes item in this ListOf items with the given @p id or @c NULL if no such
  * item exists.  The caller owns the returned item and is responsible for
  * deleting it.
  */

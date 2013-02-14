@@ -319,29 +319,29 @@ public:
 
 
    /**
-   * Returns the first child element found that has the given id in the model-wide SId namespace, or NULL if no such object is found.
+   * Returns the first child element found that has the given @p id in the model-wide SId namespace, or @c NULL if no such object is found.
    *
    * @param id string representing the id of objects to find.
    *
-   * @return pointer to the first element found with the given id.
+   * @return pointer to the first element found with the given @p id.
    */
   virtual SBase* getElementBySId(std::string id);
   
   
   /**
-   * Returns the first child element it can find with the given metaid, or NULL if no such object is found.
+   * Returns the first child element it can find with the given @p metaid, or @c NULL if no such object is found.
    *
    * @param metaid string representing the metaid of objects to find
    *
-   * @return pointer to the first element found with the given metaid.
+   * @return pointer to the first element found with the given @p metaid.
    */
   virtual SBase* getElementByMetaId(std::string metaid);
   
   
   /**
-   * Returns a List of all child SBase* objects, including those nested to an arbitrary depth
+   * Returns a List of all child SBase objects, including those nested to an arbitrary depth
    *
-   * @return a List* of pointers to all children objects.
+   * @return a List of pointers to all children objects.
    */
   virtual List* getAllElements();
   
@@ -1536,7 +1536,7 @@ public:
    * of the Reaction to get.
    * 
    * @return Reaction in this ListOfReactions
-   * with the given id or @c NULL if no such
+   * with the given @p id or @c NULL if no such
    * Reaction exists.
    *
    * @see get(unsigned int n)
@@ -1553,7 +1553,7 @@ public:
    * of the Reaction to get.
    * 
    * @return Reaction in this ListOfReactions
-   * with the given id or @c NULL if no such
+   * with the given @p id or @c NULL if no such
    * Reaction exists.
    *
    * @see get(unsigned int n)
@@ -1580,7 +1580,7 @@ public:
    *
    * The caller owns the returned item and is responsible for deleting it.
    * If none of the items in this list have the identifier @p sid, then
-   * @c NULL is returned.
+   * NULL is returned.
    *
    * @param sid the identifier of the item to remove
    *

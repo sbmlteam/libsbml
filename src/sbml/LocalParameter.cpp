@@ -979,7 +979,7 @@ LocalParameter_hasRequiredAttributes(LocalParameter_t *p)
  *
  * @note This function returns the units of the LocalParameter_t expressed 
  * as a UnitDefinition_t. The units may be those explicitly declared. 
- * In the case where no units have been declared, NULL is returned.
+ * In the case where no units have been declared, @c NULL is returned.
  */
 LIBSBML_EXTERN
 UnitDefinition_t * 
@@ -990,7 +990,7 @@ LocalParameter_getDerivedUnitDefinition(LocalParameter_t *p)
 
 
 /**
- * @return item in this ListOfLocalParameter with the given id or @c NULL if no such
+ * @return item in this ListOfLocalParameter with the given @p id or @c NULL if no such
  * item exists.
  */
 LIBSBML_EXTERN
@@ -1006,7 +1006,7 @@ ListOfLocalParameters_getById (ListOf_t *lo, const char *sid)
 
 
 /**
- * Removes item in this ListOf items with the given id or @c NULL if no such
+ * Removes item in this ListOf items with the given @p id or @c NULL if no such
  * item exists.  The caller owns the returned item and is responsible for
  * deleting it.
  */

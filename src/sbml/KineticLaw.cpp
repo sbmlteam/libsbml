@@ -804,7 +804,7 @@ KineticLaw::getLocalParameter (unsigned int n)
 
 
 /*
- * @return the Parameter in this kineticLaw with the given id or @c NULL if
+ * @return the Parameter in this kineticLaw with the given @p id or @c NULL if
  * no such Parameter exists.
  */
 const Parameter*
@@ -818,7 +818,7 @@ KineticLaw::getParameter (const std::string& sid) const
 
 
 /*
- * @return the Parameter in this kineticLaw with the given id or @c NULL if
+ * @return the Parameter in this kineticLaw with the given @p id or @c NULL if
  * no such Parameter exists.
  */
 Parameter*
@@ -832,7 +832,7 @@ KineticLaw::getParameter (const std::string& sid)
 
 
 /*
- * @return the LocalParameter in this kineticLaw with the given id or @c NULL if
+ * @return the LocalParameter in this kineticLaw with the given @p id or @c NULL if
  * no such LocalParameter exists.
  */
 const LocalParameter*
@@ -843,7 +843,7 @@ KineticLaw::getLocalParameter (const std::string& sid) const
 
 
 /*
- * @return the LocalParameter in this kineticLaw with the given id or @c NULL if
+ * @return the LocalParameter in this kineticLaw with the given @p id or @c NULL if
  * no such LocalParameter exists.
  */
 LocalParameter*
@@ -2248,7 +2248,7 @@ KineticLaw_getLocalParameter (KineticLaw_t *kl, unsigned int n)
  *
  * @param sid the identifier of the Parameter_t structure sought
  * 
- * @return the Parameter_t structure with the given id, or @c NULL if no such
+ * @return the Parameter_t structure with the given @p id, or @c NULL if no such
  * Parameter_t exists in the given KineticLaw_t structure.
  */
 LIBSBML_EXTERN
@@ -2267,7 +2267,7 @@ KineticLaw_getParameterById (KineticLaw_t *kl, const char *sid)
  *
  * @param sid the identifier of the LocalParameter_t structure sought
  * 
- * @return the LocalParameter_t structure with the given id, or @c NULL if no such
+ * @return the LocalParameter_t structure with the given @p id, or @c NULL if no such
  * LocalParameter_t exists in the given KineticLaw_t structure.
  */
 LIBSBML_EXTERN

@@ -192,7 +192,7 @@ SBMLError::SBMLError (  const unsigned int errorId
                       , const unsigned int pkgVersion) :
     XMLError(errorId, details, line, column, severity, category)
 {
-  // Check if the given id is one we have in our table of error codes.  If
+  // Check if the given @p id is one we have in our table of error codes.  If
   // it is, fill in the fields of the error object with the appropriate
   // content.  If it's not in the table, take the content as-is.
 

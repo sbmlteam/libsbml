@@ -373,15 +373,12 @@ public:
   virtual const std::string& getElementName () const;
 
   /** @cond doxygen-libsbml-internal */
-
-
   /**
    * Subclasses should override this method to write out their contained
    * SBML objects as XML elements.  Be sure to call your parents
    * implementation of this method as well.
    */
   virtual void writeElements (XMLOutputStream& stream) const;
-
   /** @endcond */
 
 
@@ -606,7 +603,7 @@ public:
    * of the CompartmentType to get.
    * 
    * @return CompartmentType in this ListOfCompartmentTypes
-   * with the given id or @c NULL if no such
+   * with the given @p id or @c NULL if no such
    * CompartmentType exists.
    *
    * @see get(unsigned int n)
@@ -623,7 +620,7 @@ public:
    * of the CompartmentType to get.
    * 
    * @return CompartmentType in this ListOfCompartmentTypes
-   * with the given id or @c NULL if no such
+   * with the given @p id or @c NULL if no such
    * CompartmentType exists.
    *
    * @see get(unsigned int n)

@@ -1222,7 +1222,7 @@ EventAssignment_containsUndeclaredUnits(EventAssignment_t *ea)
 
 
 /**
- * @return item in this ListOfEventAssignment with the given id or @c NULL if no such
+ * @return item in this ListOfEventAssignment with the given @p id or @c NULL if no such
  * item exists.
  */
 LIBSBML_EXTERN
@@ -1238,7 +1238,7 @@ ListOfEventAssignments_getById (ListOf_t *lo, const char *sid)
 
 
 /**
- * Removes item in this ListOf items with the given id or @c NULL if no such
+ * Removes item in this ListOf items with the given @p id or @c NULL if no such
  * item exists.  The caller owns the returned item and is responsible for
  * deleting it.
  */

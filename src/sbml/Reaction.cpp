@@ -2916,7 +2916,7 @@ Reaction_removeModifierBySpecies (Reaction_t *r, const char *species)
 
 
 /**
- * @return item in this ListOfReaction with the given id or @c NULL if no such
+ * @return item in this ListOfReaction with the given @p id or @c NULL if no such
  * item exists.
  */
 LIBSBML_EXTERN
@@ -2932,7 +2932,7 @@ ListOfReactions_getById (ListOf_t *lo, const char *sid)
 
 
 /**
- * Removes item in this ListOf items with the given id or @c NULL if no such
+ * Removes item in this ListOf items with the given @p id or @c NULL if no such
  * item exists.  The caller owns the returned item and is responsible for
  * deleting it.
  */

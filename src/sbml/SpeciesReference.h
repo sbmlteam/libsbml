@@ -1171,7 +1171,7 @@ public:
    * of the SpeciesReference to get.
    * 
    * @return SpeciesReference in this ListOfSpeciesReferences
-   * with the given id or @c NULL if no such
+   * with the given @p id or @c NULL if no such
    * SpeciesReference exists.
    *
    * @see get(unsigned int n)
@@ -1188,7 +1188,7 @@ public:
    * of the SpeciesReference to get.
    * 
    * @return SpeciesReference in this ListOfSpeciesReferences
-   * with the given id or @c NULL if no such
+   * with the given @p id or @c NULL if no such
    * SpeciesReference exists.
    *
    * @see get(unsigned int n)

@@ -869,7 +869,7 @@ public:
    * of the InitialAssignment to get.
    * 
    * @return InitialAssignment in this ListOfInitialAssignments
-   * with the given id or @c NULL if no such
+   * with the given @p id or @c NULL if no such
    * InitialAssignment exists.
    *
    * @see get(unsigned int n)
@@ -886,7 +886,7 @@ public:
    * of the InitialAssignment to get.
    * 
    * @return InitialAssignment in this ListOfInitialAssignments
-   * with the given id or @c NULL if no such
+   * with the given @p id or @c NULL if no such
    * InitialAssignment exists.
    *
    * @see get(unsigned int n)
@@ -924,11 +924,11 @@ public:
 
 
   /**
-   * Returns the first child element found that has the given id in the model-wide SId namespace, or NULL if no such object is found.  Note that InitialAssignments do not actually have IDs, though the libsbml interface pretends that they do:  no initial assignment is returned by this function.
+   * Returns the first child element found that has the given @p id in the model-wide SId namespace, or @c NULL if no such object is found.  Note that InitialAssignments do not actually have IDs, though the libsbml interface pretends that they do:  no initial assignment is returned by this function.
    *
    * @param id string representing the id of objects to find
    *
-   * @return pointer to the first element found with the given id.
+   * @return pointer to the first element found with the given @p id.
    */
   virtual SBase* getElementBySId(std::string id);
   

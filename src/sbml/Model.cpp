@@ -1488,7 +1488,7 @@ Model::createUnitDefinition ()
  * Unit is added to the last UnitDefinition created.
  *
  * If a UnitDefinitions does not exist for this model, a new Unit is not
- * created and NULL is returned.
+ * created and @c NULL is returned.
  */
 Unit*
 Model::createUnit ()
@@ -1801,7 +1801,7 @@ Model::createReaction ()
  * of the last Reaction created.
  *
  * If a Reaction does not exist for this model, a new SpeciesReference is
- * not created and NULL is returned.
+ * not created and @c NULL is returned.
  */
 SpeciesReference*
 Model::createReactant ()
@@ -1817,7 +1817,7 @@ Model::createReactant ()
  * of the last Reaction created.
  *
  * If a Reaction does not exist for this model, a new SpeciesReference is
- * not created and NULL is returned.
+ * not created and @c NULL is returned.
  */
 SpeciesReference*
 Model::createProduct ()
@@ -1833,7 +1833,7 @@ Model::createProduct ()
  * the modifiers of the last Reaction created.
  *
  * If a Reaction does not exist for this model, a new
- * ModifierSpeciesReference is not created and NULL is returned.
+ * ModifierSpeciesReference is not created and @c NULL is returned.
  */
 ModifierSpeciesReference*
 Model::createModifier ()
@@ -1865,7 +1865,7 @@ Model::createKineticLaw ()
  * last Reaction created.
  *
  * If a Reaction does not exist for this model, or a KineticLaw for the
- * Reaction, a new Parameter is not created and NULL is returned.
+ * Reaction, a new Parameter is not created and @c NULL is returned.
  */
 Parameter*
 Model::createKineticLawParameter ()
@@ -1888,7 +1888,7 @@ Model::createKineticLawParameter ()
  * last Reaction created.
  *
  * If a Reaction does not exist for this model, or a KineticLaw for the
- * Reaction, a new Parameter is not created and NULL is returned.
+ * Reaction, a new Parameter is not created and @c NULL is returned.
  */
 LocalParameter*
 Model::createKineticLawLocalParameter ()
@@ -1937,7 +1937,7 @@ Model::createEvent ()
  * it.  The EventAssignment is added to the the last Event created.
  *
  * If an Event does not exist for this model, a new EventAssignment is not
- * created and NULL is returned.
+ * created and @c NULL is returned.
  */
 EventAssignment*
 Model::createEventAssignment ()
@@ -1952,7 +1952,7 @@ Model::createEventAssignment ()
  * it.  The Trigger is added to the the last Event created.
  *
  * If an Event does not exist for this model, a new Trigger is not
- * created and NULL is returned.
+ * created and @c NULL is returned.
  */
 Trigger*
 Model::createTrigger ()
@@ -1967,7 +1967,7 @@ Model::createTrigger ()
  * it.  The Delay is added to the the last Event created.
  *
  * If an Event does not exist for this model, a new Delay is not
- * created and NULL is returned.
+ * created and @c NULL is returned.
  */
 Delay*
 Model::createDelay ()
@@ -2476,7 +2476,7 @@ Model::getFunctionDefinition (unsigned int n)
 
 
 /*
- * @return the FunctionDefinition in this Model with the given id or @c NULL
+ * @return the FunctionDefinition in this Model with the given @p id or @c NULL
  * if no such FunctionDefinition exists.
  */
 const FunctionDefinition*
@@ -2487,7 +2487,7 @@ Model::getFunctionDefinition (const std::string& sid) const
 
 
 /*
- * @return the FunctionDefinition in this Model with the given id or @c NULL
+ * @return the FunctionDefinition in this Model with the given @p id or @c NULL
  * if no such FunctionDefinition exists.
  */
 FunctionDefinition*
@@ -2518,7 +2518,7 @@ Model::getUnitDefinition (unsigned int n)
 
 
 /*
- * @return the UnitDefinition in this Model with the given id or @c NULL if no
+ * @return the UnitDefinition in this Model with the given @p id or @c NULL if no
  * such UnitDefinition exists.
  */
 const UnitDefinition*
@@ -2529,7 +2529,7 @@ Model::getUnitDefinition (const std::string& sid) const
 
 
 /*
- * @return the UnitDefinition in this Model with the given id or @c NULL if no
+ * @return the UnitDefinition in this Model with the given @p id or @c NULL if no
  * such UnitDefinition exists.
  */
 UnitDefinition*
@@ -2560,7 +2560,7 @@ Model::getCompartmentType (unsigned int n)
 
 
 /*
- * @return the CompartmentType in this Model with the given id or @c NULL if
+ * @return the CompartmentType in this Model with the given @p id or @c NULL if
  * no such CompartmentType exists.
  */
 const CompartmentType*
@@ -2571,7 +2571,7 @@ Model::getCompartmentType (const std::string& sid) const
 
 
 /*
- * @return the CompartmentType in this Model with the given id or @c NULL if
+ * @return the CompartmentType in this Model with the given @p id or @c NULL if
  * no such CompartmentType exists.
  */
 CompartmentType*
@@ -2602,7 +2602,7 @@ Model::getSpeciesType (unsigned int n)
 
 
 /*
- * @return the SpeciesType in this Model with the given id or @c NULL if
+ * @return the SpeciesType in this Model with the given @p id or @c NULL if
  * no such SpeciesType exists.
  */
 const SpeciesType*
@@ -2613,7 +2613,7 @@ Model::getSpeciesType (const std::string& sid) const
 
 
 /*
- * @return the SpeciesType in this Model with the given id or @c NULL if
+ * @return the SpeciesType in this Model with the given @p id or @c NULL if
  * no such SpeciesType exists.
  */
 SpeciesType*
@@ -2644,7 +2644,7 @@ Model::getCompartment (unsigned int n)
 
 
 /*
- * @return the Compartment in this Model with the given id or @c NULL if no
+ * @return the Compartment in this Model with the given @p id or @c NULL if no
  * such Compartment exists.
  */
 const Compartment*
@@ -2655,7 +2655,7 @@ Model::getCompartment (const std::string& sid) const
 
 
 /*
- * @return the Compartment in this Model with the given id or @c NULL if no
+ * @return the Compartment in this Model with the given @p id or @c NULL if no
  * such Compartment exists.
  */
 Compartment*
@@ -2686,7 +2686,7 @@ Model::getSpecies (unsigned int n)
 
 
 /*
- * @return the Species in this Model with the given id or @c NULL if no such
+ * @return the Species in this Model with the given @p id or @c NULL if no such
  * Species exists.
  */
 const Species*
@@ -2697,7 +2697,7 @@ Model::getSpecies (const std::string& sid) const
 
 
 /*
- * @return the Species in this Model with the given id or @c NULL if no such
+ * @return the Species in this Model with the given @p id or @c NULL if no such
  * Species exists.
  */
 Species*
@@ -2728,7 +2728,7 @@ Model::getParameter (unsigned int n)
 
 
 /*
- * @return the Parameter in this Model with the given id or @c NULL if no such
+ * @return the Parameter in this Model with the given @p id or @c NULL if no such
  * Parameter exists.
  */
 const Parameter*
@@ -2739,7 +2739,7 @@ Model::getParameter (const std::string& sid) const
 
 
 /*
- * @return the Parameter in this Model with the given id or @c NULL if no such
+ * @return the Parameter in this Model with the given @p id or @c NULL if no such
  * Parameter exists.
  */
 Parameter*
@@ -2877,7 +2877,7 @@ Model::getReaction (unsigned int n)
 
 
 /*
- * @return the Reaction in this Model with the given id or @c NULL if no such
+ * @return the Reaction in this Model with the given @p id or @c NULL if no such
  * Reaction exists.
  */
 const Reaction*
@@ -2888,7 +2888,7 @@ Model::getReaction (const std::string& sid) const
 
 
 /*
- * @return the Reaction in this Model with the given id or @c NULL if no such
+ * @return the Reaction in this Model with the given @p id or @c NULL if no such
  * Reaction exists.
  */
 Reaction*
@@ -2955,7 +2955,7 @@ Model::getEvent (unsigned int n)
 
 
 /*
- * @return the Event in this Model with the given id or @c NULL if no such
+ * @return the Event in this Model with the given @p id or @c NULL if no such
  * Event exists.
  */
 const Event*
@@ -2966,7 +2966,7 @@ Model::getEvent (const std::string& sid) const
 
 
 /*
- * @return the Event in this Model with the given id or @c NULL if no such
+ * @return the Event in this Model with the given @p id or @c NULL if no such
  * Event exists.
  */
 Event*
@@ -5581,7 +5581,7 @@ Model::getFormulaUnitsData (unsigned int n)
 
 /** @cond doxygen-libsbml-internal */
 /*
- * @return the FormulaUnitsData in this Model with the given id 
+ * @return the FormulaUnitsData in this Model with the given @p id 
  * or @c NULL if no such
  * FormulaUnitsData exists.
  */
@@ -5596,7 +5596,7 @@ Model::getFormulaUnitsData (const std::string& sid,
 
 /** @cond doxygen-libsbml-internal */
 /*
- * @return the FormulaUnitsData in this Model with the given id  and typecode 
+ * @return the FormulaUnitsData in this Model with the given @p id  and typecode 
  * or @c NULL if no such FormulaUnitsData exists.
  */
 FormulaUnitsData*
@@ -6972,7 +6972,7 @@ Model_createUnitDefinition (Model_t *m)
  *
  * The mechanism by which the UnitDefinition_t structure was created is not
  * significant.  If a UnitDefinition_t does not exist in this model, a new
- * Unit_t structure is @em not created and NULL is returned instead.
+ * Unit_t structure is @em not created and @c NULL is returned instead.
  *
  * @param m the Model_t structure
  *
@@ -7170,7 +7170,7 @@ Model_createReaction (Model_t *m)
  * added to @p m is not significant.  It could have been created in a
  * variety of ways, for example using Model_createReaction().  If a
  * Reaction_t structure does not exist, a new SpeciesReference_t structure
- * is @em not created and NULL is returned instead.
+ * is @em not created and @c NULL is returned instead.
  *
  * @param m the Model_t structure
  * 
@@ -7193,7 +7193,7 @@ Model_createReactant (Model_t *m)
  * added to @p m is not significant.  It could have been created in a
  * variety of ways, for example using Model_createReaction().  If a
  * Reaction_t structure does not exist, a new SpeciesReference_t structure
- * is @em not created and NULL is returned instead.
+ * is @em not created and @c NULL is returned instead.
  *
  * @param m the Model_t structure
  * 
@@ -7216,7 +7216,7 @@ Model_createProduct (Model_t *m)
  * added to @p m is not significant.  It could have been created in a
  * variety of ways, for example using Model_createReaction().  If a
  * Reaction_t structure does not exist, a new ModifierSpeciesReference_t
- * structure is @em not created and NULL is returned instead.
+ * structure is @em not created and @c NULL is returned instead.
  *
  * @param m the Model_t structure
  * 
@@ -7240,7 +7240,7 @@ Model_createModifier (Model_t *m)
  * variety of ways, for example using Model_createReaction().  If a
  * Reaction_t structure does not exist for the model, or a Reaction_t
  * structure exists but already contains a KineticLaw_t structure, a new
- * KineticLaw_t is @em not created and NULL is returned instead.
+ * KineticLaw_t is @em not created and @c NULL is returned instead.
  *
  * @param m the Model_t structure
  * 

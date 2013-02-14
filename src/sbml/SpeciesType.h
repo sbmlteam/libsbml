@@ -604,7 +604,7 @@ public:
    * of the SpeciesType to get.
    * 
    * @return SpeciesType in this ListOfSpeciesTypes
-   * with the given id or @c NULL if no such
+   * with the given @p id or @c NULL if no such
    * SpeciesType exists.
    *
    * @see get(unsigned int n)
@@ -621,7 +621,7 @@ public:
    * of the SpeciesType to get.
    * 
    * @return SpeciesType in this ListOfSpeciesTypes
-   * with the given id or @c NULL if no such
+   * with the given @p id or @c NULL if no such
    * SpeciesType exists.
    *
    * @see get(unsigned int n)

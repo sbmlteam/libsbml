@@ -873,7 +873,7 @@ SBMLNamespaces_addNamespaces(SBMLNamespaces_t *sbmlns,
  * LibSBML. 
  *
  * @param length an integer holding the length of the array
- * @return an array of SBML namespaces, or NULL if length is NULL. The array 
+ * @return an array of SBML namespaces, or @c NULL if length is @c NULL. The array 
  *         has to be freed by the caller.
  */
 LIBSBML_EXTERN

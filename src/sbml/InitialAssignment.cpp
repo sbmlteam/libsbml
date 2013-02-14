@@ -1217,7 +1217,7 @@ InitialAssignment_containsUndeclaredUnits(InitialAssignment_t *ia)
 
 
 /**
- * @return item in this ListOfInitialAssignment with the given id or @c NULL if no such
+ * @return item in this ListOfInitialAssignment with the given @p id or @c NULL if no such
  * item exists.
  */
 LIBSBML_EXTERN
@@ -1233,7 +1233,7 @@ ListOfInitialAssignments_getById (ListOf_t *lo, const char *sid)
 
 
 /**
- * Removes item in this ListOf items with the given id or @c NULL if no such
+ * Removes item in this ListOf items with the given @p id or @c NULL if no such
  * item exists.  The caller owns the returned item and is responsible for
  * deleting it.
  */

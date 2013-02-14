@@ -761,7 +761,7 @@ public:
    * of the FunctionDefinition to get.
    * 
    * @return FunctionDefinition in this ListOfFunctionDefinitions
-   * with the given id or @c NULL if no such
+   * with the given @p id or @c NULL if no such
    * FunctionDefinition exists.
    *
    * @see get(unsigned int n)
@@ -778,7 +778,7 @@ public:
    * of the FunctionDefinition to get.
    * 
    * @return FunctionDefinition in this ListOfFunctionDefinitions
-   * with the given id or @c NULL if no such
+   * with the given @p id or @c NULL if no such
    * FunctionDefinition exists.
    *
    * @see get(unsigned int n)

@@ -319,13 +319,13 @@ public:
 
   /** @cond doxygen-libsbml-internal */
   /**
-   * Returns the first child element found that has the given id in the
+   * Returns the first child element found that has the given @p id in the
    * model-wide SId namespace from all plug-ins associated with this
    * element, or @c NULL if no such object is found.
    *
    * @param id string representing the id of objects to find
    *
-   * @return pointer to the first element found with the given id.
+   * @return pointer to the first element found with the given @p id.
    */
   virtual SBase* getElementFromPluginsBySId(std::string id);
   /** @endcond */
@@ -333,13 +333,13 @@ public:
   
   /** @cond doxygen-libsbml-internal */
   /**
-   * Returns the first child element it can find with the given metaid from
+   * Returns the first child element it can find with the given @p metaid from
    * all plug-ins associated with this element, or @c NULL if no such object
    * is found.
    *
    * @param metaid string representing the metaid of objects to find
    *
-   * @return pointer to the first element found with the given metaid.
+   * @return pointer to the first element found with the given @p metaid.
    */
   virtual SBase* getElementFromPluginsByMetaId(std::string metaid);
   /** @endcond */

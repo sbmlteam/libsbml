@@ -260,28 +260,28 @@ public:
 
 
   /**
-   * Returns the first child element found that has the given id in the model-wide SId namespace, or NULL if no such object is found.
+   * Returns the first child element found that has the given @p id in the model-wide SId namespace, or @c NULL if no such object is found.
    *
    * @param id string representing the id of objects to find
    *
-   * @return pointer to the first element found with the given id.
+   * @return pointer to the first element found with the given @p id.
    */
   virtual SBase* getElementBySId(std::string id);
   
   
   /**
-   * Returns the first child element it can find with the given metaid, or NULL if no such object is found.
+   * Returns the first child element it can find with the given @p metaid, or @c NULL if no such object is found.
    *
    * @param metaid string representing the metaid of objects to find
    *
-   * @return pointer to the first element found with the given metaid.
+   * @return pointer to the first element found with the given @p metaid.
    */
   virtual SBase* getElementByMetaId(std::string metaid);
   
   /**
-   * Returns a List of all child SBase* objects, including those nested to an arbitrary depth
+   * Returns a List of all child SBase objects, including those nested to an arbitrary depth
    *
-   * @return a List* of pointers to all children objects.
+   * @return a List of pointers to all children objects.
    */
   virtual List* getAllElements();
   
@@ -292,7 +292,7 @@ public:
    *
    * @param sid a string representing the the identifier of the item to get.
    * 
-   * @return item in this ListOf items with the given id or @c NULL if no such
+   * @return item in this ListOf items with the given @p id or @c NULL if no such
    * item exists.
    *
    * @see get(unsigned int n)
@@ -308,7 +308,7 @@ public:
    *
    * @param sid a string representing the the identifier of the item to get.
    * 
-   * @return item in this ListOf items with the given id or @c NULL if no such
+   * @return item in this ListOf items with the given @p id or @c NULL if no such
    * item exists.
    *
    * @see get(unsigned int n)
@@ -493,8 +493,10 @@ public:
    * implementation of this method as well.
    */
   virtual void writeElements (XMLOutputStream& stream) const;
+  /** @endcond */
 
 
+  /** @cond doxygen-libsbml-internal */
   /**
    * Enables/Disables the given package with this element and child
    * elements (if any).
@@ -630,7 +632,7 @@ ListOf_get (ListOf_t *lo, unsigned int n);
 
 #if (0)
 /**
- * @return item in this ListOf items with the given id or @c NULL if no such
+ * @return item in this ListOf items with the given @p id or @c NULL if no such
  * item exists.
  */
 LIBSBML_EXTERN
@@ -656,7 +658,7 @@ ListOf_remove (ListOf_t *lo, unsigned int n);
 
 #if (0)
 /**
- * Removes item in this ListOf items with the given id or @c NULL if no such
+ * Removes item in this ListOf items with the given @p id or @c NULL if no such
  * item exists.  The caller owns the returned item and is repsonsible for
  * deleting it.
  */

@@ -316,7 +316,7 @@ ListOf::getAllElements()
 
 
 /*
- * @return item in this ListOf items with the given id or @c NULL if no such
+ * @return item in this ListOf items with the given @p id or @c NULL if no such
  * item exists.
  */
 //const SBase*
@@ -330,7 +330,7 @@ ListOf::getAllElements()
 
 
 /*
- * @return item in this ListOf items with the given id or @c NULL if no such
+ * @return item in this ListOf items with the given @p id or @c NULL if no such
  * item exists.
  */
 //SBase*
@@ -386,7 +386,7 @@ ListOf::remove (unsigned int n)
 
 
 /*
- * Removes item in this ListOf items with the given id or @c NULL if no such
+ * Removes item in this ListOf items with the given @p id or @c NULL if no such
  * item exists.  The caller owns the returned item and is repsonsible for
  * deleting it.
  */
@@ -727,7 +727,7 @@ ListOf_get (ListOf_t *lo, unsigned int n)
 
 
 /*
- * @return item in this ListOf items with the given id or @c NULL if no such
+ * @return item in this ListOf items with the given @p id or @c NULL if no such
  * item exists.
  */
 //LIBSBML_EXTERN
@@ -770,7 +770,7 @@ ListOf_remove (ListOf_t *lo, unsigned int n)
 
 
 /*
- * Removes item in this ListOf items with the given id or @c NULL if no such
+ * Removes item in this ListOf items with the given @p id or @c NULL if no such
  * item exists.  The caller owns the returned item and is repsonsible for
  * deleting it.
  */

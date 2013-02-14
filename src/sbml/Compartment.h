@@ -1185,14 +1185,12 @@ public:
 
 
   /** @cond doxygen-libsbml-internal */
-
   /**
    * Subclasses should override this method to write out their contained
    * SBML objects as XML elements.  Be sure to call your parents
    * implementation of this method as well.
    */
   virtual void writeElements (XMLOutputStream& stream) const;
-
   /** @endcond */
 
 
@@ -1438,7 +1436,7 @@ public:
    * of the Compartment to get.
    * 
    * @return Compartment in this ListOfCompartments
-   * with the given id or @c NULL if no such
+   * with the given @p id or @c NULL if no such
    * Compartment exists.
    *
    * @see get(unsigned int n)
@@ -1455,7 +1453,7 @@ public:
    * of the Compartment to get.
    * 
    * @return Compartment in this ListOfCompartments
-   * with the given id or @c NULL if no such
+   * with the given @p sid or @c NULL if no such
    * Compartment exists.
    *
    * @see get(unsigned int n)
