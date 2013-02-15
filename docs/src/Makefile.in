@@ -7,17 +7,17 @@
 ## This file is part of libSBML.  Please visit http://sbml.org for more
 ## information about SBML, and the latest version of libSBML.
 ##
-## Copyright (C) 2009-2013 jointly by the following organizations: 
+## Copyright (C) 2009-2013 jointly by the following organizations:
 ##     1. California Institute of Technology, Pasadena, CA, USA
 ##     2. EMBL European Bioinformatics Institute (EBML-EBI), Hinxton, UK
-##  
+##
 ## Copyright (C) 2006-2008 by the California Institute of Technology,
-##     Pasadena, CA, USA 
-##  
-## Copyright (C) 2002-2005 jointly by the following organizations: 
+##     Pasadena, CA, USA
+##
+## Copyright (C) 2002-2005 jointly by the following organizations:
 ##     1. California Institute of Technology, Pasadena, CA, USA
 ##     2. Japan Science and Technology Agency, Japan
-## 
+##
 ## This library is free software; you can redistribute it and/or modify it
 ## under the terms of the GNU Lesser General Public License as published by
 ## the Free Software Foundation.  A copy of the license agreement is provided
@@ -37,7 +37,7 @@
 include @top_srcdir@/config/makefile-common-vars.mk
 
 # `srcdir' points to the current directory, but should be set by configure.
-# `subdir' must be set manually to the relative dir under srcdir.  Don't 
+# `subdir' must be set manually to the relative dir under srcdir.  Don't
 # set `subdir' to an absolute path, or some `make' actions will fail.
 
 srcdir  = @srcdir@
@@ -68,7 +68,7 @@ octave-manual = $(formatted)/octave-api
 ifneq "$(USE_DOXYGEN)" ""
   docs = $(cpp-manual)  # $(c-manual) Skip C because it's so out of date.
 else
-  docs = 
+  docs =
 endif
 
 ifdef USE_JAVA
@@ -178,6 +178,7 @@ distfiles =							\
         doxygen-config-cpp.txt.cmake				\
         doxygen-config-cpp.txt.in				\
         doxygen-config-csharp.txt.in				\
+        doxygen-config-csharp.txt.cmake			\
         doxygen-config-matlab.txt.in				\
         doxygen-config-octave.txt.in				\
         doxygen-config-perl.txt.cmake				\
@@ -489,7 +490,7 @@ python-manual $(python-manual): doxygen-config-python.txt $(python-sources)
 	mkdir -p $(python-manual)
 	./pythondocpreprocessor.py $(python-sources) libsbml.py $(wildcard $(python-subst-dir)/*.py)
 	$(call preprocess_doxygen)
-	$(DOXYGEN) doxygen-config-python.txt 2>&1 | egrep -v $(python-ignorable-warnings) 
+	$(DOXYGEN) doxygen-config-python.txt 2>&1 | egrep -v $(python-ignorable-warnings)
 	$(call postprocess_doxygen,$(python-manual))
 endif
 
@@ -563,7 +564,7 @@ endif
 # by-product.  Our swigdoc.py program has the task of inserting back into
 # the .java files the documentation comments that are currently left out by
 # swig itself.
-# 
+#
 
 ifdef USE_JAVA
 
@@ -603,7 +604,7 @@ java-ignorable-warnings = "warning - @param argument|Custom tags that could"
 #
 #   1. copy the Java sources produced by our SWIG + swigdoc.py to a local dir
 #   2. overwrite certain files in this local dir with static, documented copies
-#   3. then run javadoc on this local dir instead of the real Java sources 
+#   3. then run javadoc on this local dir instead of the real Java sources
 #
 # Yes, heinous, and it will bite us in the ass some day when we forget to
 # update the static copies.  But believe me, I spent hours trying to find
@@ -634,7 +635,7 @@ java-manual $(java-manual): $(core-sources) SBMLDoclet.class
 	    -tag note:a:"Note:" \
 	    -tag warning:a:"Warning:" \
 	    -sourcepath $(java-local-dir) org.sbml.libsbml \
-        2>&1 | egrep -v $(java-ignorable-warnings) 
+        2>&1 | egrep -v $(java-ignorable-warnings)
 	cp -f doxygen-base-stylesheet.css $(java-manual)
 	cp -f $(logo-files) $(java-manual)
 	cp -f $(logo-files) $(java-manual)/$(java-class-path)/
@@ -657,7 +658,7 @@ java-manual $(java-manual): $(core-sources) SBMLDoclet.class
 	$(call merge_html_verb,../../OLD_NEWS.txt,$(java-manual)/libsbml-old-news.html,old-news)
 	${MAKE} insert-js
 
-insert-js : 
+insert-js :
 	$(call insert_javascript,$(java-manual)/$(java-class-path))
 
 endif
@@ -735,7 +736,7 @@ include @top_srcdir@/config/makefile-common-actions.mk
 #preformatted_files     = java.txt python.txt
 #generated_manual_files = libsbml-manual libsbml-manual.pdf
 #generated_apiref_files = libsbml-api-ref.pdf
-#all_generated_files    = $(generated_manual_files) $(generated_apiref_files) 
+#all_generated_files    = $(generated_manual_files) $(generated_apiref_files)
 #all_doc_files          = $(all_generated_files) $(preformatted_files)
 
 #docs                   = $(foreach d,$(all_doc_files),$(formatted)/$d)
@@ -790,7 +791,7 @@ include @top_srcdir@/config/makefile-common-actions.mk
 #epsfiles        = $(wildcard graphics/*.eps)
 #pdffiles        = $(epsfiles:.eps=.pdf)
 
-#latex-env := TEXINPUTS=".:tex//:../tex//:${TEXINPUTS}::" 
+#latex-env := TEXINPUTS=".:tex//:../tex//:${TEXINPUTS}::"
 
 ## Check that these files are up-to-date w.r.t. libsbml's version number.
 ## This helps catch the situation where a person does a CVS update and
