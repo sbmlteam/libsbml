@@ -108,7 +108,7 @@ LAYOUT_FILE = doxygen-layout-notcpp.xml
 # input file. Doxygen will then use the output that the filter program writes 
 # to standard output.
 
-INPUT_FILTER           = pythondocfilter.py
+INPUT_FILTER           = "${PYTHON_EXECUTABLE} pythondocfilter.py"
 
 # Because of the way the proxies are done, @param never works properly.
 # So don't bother telling us.

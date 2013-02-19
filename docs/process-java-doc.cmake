@@ -69,7 +69,7 @@ merge_html( "libsbml-communications.html" "${java_manual}/libsbml-communications
 merge_html( "libsbml-java-reading.html" "${java_manual}/libsbml-java-reading.html" "basic facilities for reading and writing SBML content" )
 merge_html( "libsbml-java-math.html" "${java_manual}/libsbml-java-math.html" "facilities for manipulating mathematical expressions" )
 merge_html( "libsbml-issues.html" "${java_manual}/libsbml-issues.html" "known issues and pitfalls" )
-merge_html( "libsbml-uninstallation.html" "${java_manual}/libsbml-uninstallation.html" "uninstallation" )
+#merge_html( "libsbml-uninstallation.html" "${java_manual}/libsbml-uninstallation.html" "uninstallation" )
 merge_html( "../../LICENSE.html" "${java_manual}/libsbml-license.html" "license" )
 
 merge_html_verb( "../../NEWS.txt" "${java_manual}/libsbml-news.html" "news" )

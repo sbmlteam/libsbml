@@ -202,6 +202,8 @@ option(WITH_CPP_NAMESPACE "Use a C++ namespace for libSBML."   OFF)
 
 # Generate documentation.
 option(WITH_DOXYGEN  "Generate documentation for libSBML using Doxygen."  OFF )
+# marks as advanced, so as to hide documentation generation
+mark_as_advanced(WITH_DOXYGEN)
 
 # Re-generate the swig bindings? This really should be on by default
 # otherwise one might have the wrong wrapper code without support for
