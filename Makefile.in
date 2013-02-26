@@ -103,7 +103,8 @@ examples =                                                          \
   examples/c++/printSupported.cpp                                   \
   examples/c++/printUnits.cpp                                       \
   examples/c++/readSBML.cpp                                         \
-  examples/c++/stripPackage.cpp                                    \
+  examples/c++/rngvalidator.cpp                                     \
+  examples/c++/stripPackage.cpp                                     \
   examples/c++/translateMath.cpp                                    \
   examples/c++/translateL3Math.cpp                                  \
   examples/c++/unsetAnnotation.cpp                                  \
@@ -179,6 +180,7 @@ examples =                                                          \
   examples/layout/example3-L3.cpp                                   \
   examples/layout/layout2svg.xsl                                    \
   examples/perl/addCVTerms.pl                                       \
+  examples/perl/addCustomValidator.pl                               \
   examples/perl/addingEvidenceCodes_1.pl                            \
   examples/perl/addingEvidenceCodes_2.pl                            \
   examples/perl/addModelHistory.pl                                  \
@@ -187,7 +189,7 @@ examples =                                                          \
   examples/perl/convertSBML.pl                                      \
   examples/perl/createExampleSBML.pl                                \
   examples/perl/echoSBML.pl                                         \
-  examples/perl/stripPackage.pl                                    \
+  examples/perl/stripPackage.pl                                     \
   examples/perl/evaluateMath.pl                                     \
   examples/perl/extractReactionInfo.pl                              \
   examples/perl/extractReactions.pl                                 \
