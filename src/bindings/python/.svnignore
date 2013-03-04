@@ -20,6 +20,7 @@ pydoc-doxygen.i
 libsbml.py
 libsbml.pyc
 libsbml_wrap.cpp
+libsbml_wrap.h
 test.xml.zip
 test.xml.bz
 test.xml.bz2
