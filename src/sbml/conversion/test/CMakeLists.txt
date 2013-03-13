@@ -13,8 +13,9 @@ foreach(c_file ${C_FILES})
 endforeach()
 
 file(GLOB CPP_FILES ${CMAKE_CURRENT_SOURCE_DIR}/*.cpp )
+file(GLOB H_FILES ${CMAKE_CURRENT_SOURCE_DIR}/*.h )
 
-set(TEST_FILES ${CPP_FILES} ${C_FILES})
+set(TEST_FILES ${CPP_FILES} ${C_FILES} ${H_FILES})
 include_directories(BEFORE ${CMAKE_SOURCE_DIR}/src)
 include_directories(${LIBCHECK_INCLUDE_DIR})
 add_executable(test_sbml_conversion ${TEST_FILES})
