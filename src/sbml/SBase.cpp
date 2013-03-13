@@ -4137,7 +4137,7 @@ SBase::readNotes (XMLInputStream& stream)
       {
         logError(NotSchemaConformant, getLevel(), getVersion(),
                 "Only one <notes> element is permitted inside a "
-	        "particualr containing element.");
+	            "particular containing element.");
       }
       else
       {
@@ -4148,8 +4148,8 @@ SBase::readNotes (XMLInputStream& stream)
     {
       logError(NotSchemaConformant, getLevel(), getVersion(),
                "Incorrect ordering of <annotation> and <notes> elements -- "
-	       "<notes> must come before <annotation> due to the way that "
-	       "the XML Schema for SBML is defined.");
+               "<notes> must come before <annotation> due to the way that "
+               "the XML Schema for SBML is defined.");
     }
 
     delete mNotes;
