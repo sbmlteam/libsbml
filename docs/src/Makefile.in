@@ -178,7 +178,7 @@ distfiles =							\
         doxygen-config-cpp.txt.cmake				\
         doxygen-config-cpp.txt.in				\
         doxygen-config-csharp.txt.in				\
-        doxygen-config-csharp.txt.cmake			\
+        doxygen-config-csharp.txt.cmake                         \
         doxygen-config-matlab.txt.in				\
         doxygen-config-octave.txt.in				\
         doxygen-config-perl.txt.cmake				\
