@@ -444,6 +444,12 @@ INSTALL(TARGETS ${LIBSBML_LIBRARY}
 endif()
 
 add_library (${LIBSBML_LIBRARY}-static STATIC ${LIBSBML_SOURCES} )
+
+if (WIN32 AND NOT CYGWIN)
+	# don't decorate static library 
+	set_target_properties(${LIBSBML_LIBRARY}-static PROPERTIES COMPILE_DEFINITIONS "LIBLAX_STATIC=1;LIBSBML_STATIC=1")
+endif(WIN32 AND NOT CYGWIN)
+
 target_link_libraries(${LIBSBML_LIBRARY}-static ${LIBSBML_LIBS} ${EXTRA_LIBS})
 
 INSTALL(TARGETS ${LIBSBML_LIBRARY}-static
