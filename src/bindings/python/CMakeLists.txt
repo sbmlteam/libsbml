@@ -174,6 +174,9 @@ include_directories(${CMAKE_CURRENT_SOURCE_DIR})
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/../swig)
 include_directories(${CMAKE_SOURCE_DIR}/include)
 include_directories(${PYTHON_INCLUDE_DIRS})
+if (EXTRA_INCLUDE_DIRS) 
+ include_directories(${EXTRA_INCLUDE_DIRS})
+endif(EXTRA_INCLUDE_DIRS)
 
 if (MSVC)
   # the build fails when compiled with packages as the object file is too 

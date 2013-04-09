@@ -258,6 +258,9 @@ else()
 	endif()
 	
 	include_directories(${MATLAB_INCLUDE_DIR})
+	if (EXTRA_INCLUDE_DIRS) 
+	  include_directories(${EXTRA_INCLUDE_DIRS})
+	endif(EXTRA_INCLUDE_DIRS)
 	
 	foreach(matlab_source_file "TranslateSBML" "OutputSBML")
 	

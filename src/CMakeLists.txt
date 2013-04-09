@@ -193,6 +193,9 @@ install(FILES ${files} DESTINATION include/sbml)
 #
 include_directories(BEFORE ${CMAKE_SOURCE_DIR}/src/sbml)
 include_directories(BEFORE ${CMAKE_SOURCE_DIR}/src)
+if (EXTRA_INCLUDE_DIRS) 
+ include_directories(${EXTRA_INCLUDE_DIRS})
+endif(EXTRA_INCLUDE_DIRS)
 
 
 ###############################################################################

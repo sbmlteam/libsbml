@@ -6,6 +6,10 @@
 
 file(GLOB TEST_FILES_UTIL ${CMAKE_CURRENT_SOURCE_DIR}/*.c)
 include_directories(${LIBCHECK_INCLUDE_DIR})
+if (EXTRA_INCLUDE_DIRS) 
+ include_directories(${EXTRA_INCLUDE_DIRS})
+endif(EXTRA_INCLUDE_DIRS)
+
 add_executable(test_sbml_util ${TEST_FILES_UTIL})
 
 if (NOT EXISTS ${CMAKE_CURRENT_BINARY_DIR}/TestUtil.c)

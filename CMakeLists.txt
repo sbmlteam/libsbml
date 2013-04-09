@@ -414,7 +414,8 @@ endif(WITH_BZIP2)
 # list of additional files to link against.
 #
 
-set(EXTRA_LIBS "" CACHE STRING "List of additional libraries to link against." )
+set(EXTRA_LIBS "" CACHE STRING "Semicolon separatred list of additional libraries to link against." )
+set(EXTRA_INCLUDE_DIRS "" CACHE STRING "Semicolon separated list of additional include directories." )
 
 
 ###############################################################################
