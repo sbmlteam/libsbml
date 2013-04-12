@@ -31,7 +31,7 @@
 #include <sbml/conversion/SBMLFunctionDefinitionConverter.h>
 #include <sbml/conversion/SBMLConverterRegistry.h>
 #include <sbml/conversion/SBMLConverterRegister.h>
-#include <sbml/validator/constraints/IdList.h>
+#include <sbml/util/IdList.h>
 #include <sbml/SBMLDocument.h>
 #include <sbml/Model.h>
 

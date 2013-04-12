@@ -51,6 +51,7 @@ thisdir   = src/sbml/util
 # others are used by the default rules in `makefile-common-actions.mk'.
 
 headers   = \
+  IdList.h \
 	List.h \
 	memory.h \
 	Stack.h \
@@ -60,6 +61,7 @@ headers   = \
 header_inst_prefix = util
 
 sources   = \
+  IdList.cpp \
 	List.cpp \
 	memory.c \
 	Stack.c \

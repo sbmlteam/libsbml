@@ -39,7 +39,7 @@
 
 #include <sbml/validator/VConstraint.h>
 #include <sbml/util/memory.h>
-#include "IdList.h"
+#include <sbml/util/IdList.h>
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 

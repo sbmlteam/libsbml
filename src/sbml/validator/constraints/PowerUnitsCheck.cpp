@@ -39,7 +39,7 @@
 #include <sbml/Rule.h>
 #include <sbml/SBMLTransforms.h>
 #include <sbml/math/FormulaFormatter.h>
-#include "IdList.h"
+#include <sbml/util/IdList.h>
 
 #include <sbml/units/UnitFormulaFormatter.h>
 

@@ -40,7 +40,7 @@
 #include <sbml/AssignmentRule.h>
 #include <sbml/RateRule.h>
 
-#include <sbml/validator/constraints/IdList.h>
+#include <sbml/util/IdList.h>
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 /** @cond doxygen-libsbml-internal **/

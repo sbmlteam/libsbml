@@ -32,7 +32,7 @@
 #include <cstring>
 #include <math.h>
 
-#include "validator/constraints/IdList.h"
+#include <sbml/util/IdList.h>
 
 /** @cond doxygen-ignored */
 

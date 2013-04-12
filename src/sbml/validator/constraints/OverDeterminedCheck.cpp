@@ -31,7 +31,7 @@
 #include <sbml/Compartment.h>
 #include <sbml/util/List.h>
 
-#include "IdList.h"
+#include <sbml/util/IdList.h>
 #include "OverDeterminedCheck.h"
 
 #include <iostream>

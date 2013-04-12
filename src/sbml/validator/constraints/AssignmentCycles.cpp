@@ -37,7 +37,7 @@
 #include <sbml/util/memory.h>
 
 #include "AssignmentCycles.h"
-#include "IdList.h"
+#include <sbml/util/IdList.h>
 
 /** @cond doxygen-ignored */
 

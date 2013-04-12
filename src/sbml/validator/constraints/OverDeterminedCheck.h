@@ -44,7 +44,7 @@
 #include <map>
 
 #include <sbml/validator/VConstraint.h>
-#include "IdList.h"
+#include <sbml/util/IdList.h>
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 

@@ -46,7 +46,7 @@
 #include <sbml/ListOf.h>
 #include <sbml/SBase.h>
 
-#include <sbml/validator/constraints/IdList.h>
+#include <sbml/util/IdList.h>
 #include <sbml/extension/SBasePlugin.h>
 #include <sbml/extension/ISBMLExtensionNamespaces.h>
 #include <sbml/extension/SBMLExtensionRegistry.h>

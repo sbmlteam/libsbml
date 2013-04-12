@@ -30,7 +30,7 @@
 #include <sbml/Model.h>
 #include <sbml/Compartment.h>
 
-#include "IdList.h"
+#include <sbml/util/IdList.h>
 #include "CompartmentOutsideCycles.h"
 
 /** @cond doxygen-ignored */

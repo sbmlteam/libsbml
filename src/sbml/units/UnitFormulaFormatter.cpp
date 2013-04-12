@@ -30,7 +30,7 @@
 #include <sbml/units/UnitFormulaFormatter.h>
 #include <sbml/SBMLTransforms.h>
 #include <sbml/util/util.h>
-#include "../validator/constraints/IdList.h"
+#include <sbml/util/IdList.h>
 
 
 

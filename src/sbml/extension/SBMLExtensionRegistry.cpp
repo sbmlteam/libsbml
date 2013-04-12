@@ -40,7 +40,7 @@
 
 #ifdef __cplusplus
 
-#include <sbml/validator/constraints/IdList.h>
+#include <sbml/util/IdList.h>
 
 using namespace std;
 

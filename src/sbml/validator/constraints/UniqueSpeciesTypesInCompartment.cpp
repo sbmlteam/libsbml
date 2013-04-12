@@ -35,7 +35,7 @@
 #include <sbml/Species.h>
 
 #include "UniqueSpeciesTypesInCompartment.h"
-#include "IdList.h"
+#include <sbml/util/IdList.h>
 
 /** @cond doxygen-ignored */
 

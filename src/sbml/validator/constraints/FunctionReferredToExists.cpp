@@ -33,7 +33,7 @@
 #include <sbml/EventAssignment.h>
 
 #include "FunctionReferredToExists.h"
-#include "IdList.h"
+#include <sbml/util/IdList.h>
 
 /** @cond doxygen-ignored */
 

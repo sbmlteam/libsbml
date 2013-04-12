@@ -79,7 +79,6 @@ sources =                                     \
   FunctionReferredToExists.cpp                \
   IdBase.cpp                                  \
   IdentifierConsistencyConstraints.cpp        \
-  IdList.cpp                                  \
   InternalConsistencyConstraints.cpp          \
   KineticLawVars.cpp                          \
   KineticLawUnitsCheck.cpp                    \
@@ -126,7 +125,6 @@ header_inst_prefix = validator/constraints
 
 headers =               \
   IdBase.h              \
-  IdList.h              \
   MathMLBase.h          \
   OverDeterminedCheck.h \
   UniqueIdBase.h        \
