@@ -5715,19 +5715,27 @@ SBase::checkDefaultNamespace(const XMLNamespaces* xmlns,
   // checks if the given default namespace (if any) is a valid
   // SBML namespace
   //
-  if (xmlns != NULL && xmlns->getLength() > 0)
-  {
-    const std::string defaultURI = xmlns->getURI(prefix);
-    if (!defaultURI.empty() && mURI != defaultURI)
-    {
-      static ostringstream errMsg;
-      errMsg.str("");
-      errMsg << "xmlns=\"" << defaultURI << "\" in <" << elementName
-             << "> element is an invalid namespace." << endl;
-      
-      logError(NotSchemaConformant, getLevel(), getVersion(), errMsg.str());
-    }
-  }
+  if (xmlns == NULL || xmlns->getLength() == 0)
+    return;
+  
+  const std::string defaultURI = xmlns->getURI(prefix);
+  if (defaultURI.empty() || mURI == defaultURI)
+    return;
+
+  // if this element (SBase derived) has notes or annotation elements, 
+  // it is ok for them to be in the SBML namespace!
+  if ( SBMLNamespaces::isSBMLNamespace(defaultURI) 
+       && !SBMLNamespaces::isSBMLNamespace(mURI)
+       && (elementName == "notes" || elementName == "annotation"))
+    return;
+  
+  static ostringstream errMsg;
+  errMsg.str("");
+  errMsg << "xmlns=\"" << defaultURI << "\" in <" << elementName
+         << "> element is an invalid namespace." << endl;
+  
+  logError(NotSchemaConformant, getLevel(), getVersion(), errMsg.str());
+  
 }
 
 /*
