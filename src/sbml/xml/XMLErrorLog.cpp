@@ -46,7 +46,9 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 /*
  * Creates a new empty XMLErrorLog.
  */
-XMLErrorLog::XMLErrorLog ():mParser(NULL)
+XMLErrorLog::XMLErrorLog ()
+  : mParser(NULL)
+  , mOverriddenSeverity(LIBSBML_OVERRIDE_DISABLED)
 {
 }
 /** @endcond */
@@ -80,7 +82,7 @@ XMLErrorLog::~XMLErrorLog ()
 void
 XMLErrorLog::add (const XMLError& error)
 {
-  if (&error == NULL) return;
+  if (&error == NULL || mOverriddenSeverity == LIBSBML_OVERRIDE_DONT_LOG) return;
 
   XMLError* cerror;
 
@@ -93,6 +95,12 @@ XMLErrorLog::add (const XMLError& error)
     // Currently do nothing.
     // An error status would be returned in the 4.x.
     return;
+  }
+
+  if (mOverriddenSeverity == LIBSBML_OVERRIDE_WARNING && 
+    cerror->getSeverity() > LIBSBML_SEV_WARNING)
+  {
+    cerror->mSeverity = LIBSBML_SEV_WARNING;
   }
 
   mErrors.push_back(cerror);
@@ -141,6 +149,48 @@ XMLErrorLog::add (const std::list<XMLError>& errors)
 }
 /** @endcond */
 
+
+/**
+ * Returns a boolean indicating whether or not the severity is overriden   
+ */
+bool 
+XMLErrorLog::isSeverityOverridden() const
+{
+  return mOverriddenSeverity != LIBSBML_OVERRIDE_DISABLED;
+}
+
+/**
+ * usets an existing override 
+ */ 
+void 
+XMLErrorLog::unsetSeverityOverride()
+{
+  setSeverityOverride(LIBSBML_OVERRIDE_DISABLED);
+}
+
+/**
+ * Returns the current override
+ */
+XMLErrorSeverityOverride_t 
+XMLErrorLog::getSeverityOverride() const
+{
+  return mOverriddenSeverity;
+}
+
+/**
+ * Set the severity override. 
+ * 
+ * If set to LIBSBML_OVERRIDE_DISABLED (default) all errors will be 
+ * logged as specified in the error. Set to LIBSBML_OVERRIDE_DONT_LOG
+ * no error will be logged. When set to LIBSBML_OVERRIDE_WARNING, then
+ * all errors will be logged as warnings. 
+ *
+ */
+void 
+XMLErrorLog::setSeverityOverride(XMLErrorSeverityOverride_t severity)
+{
+  mOverriddenSeverity = severity;
+}
 
 /*
  * @return the nth XMLError in this log.
@@ -310,6 +360,39 @@ XMLErrorLog_clearLog (XMLErrorLog_t *log)
 {
   if (log == NULL) return;
   log->clearLog();
+}
+
+
+
+LIBLAX_EXTERN
+int
+XMLErrorLog_isSeverityOverridden (XMLErrorLog_t *log)
+{
+  if (log  == NULL) return static_cast<int>(false);
+  return static_cast<int>(log->isSeverityOverridden());
+}
+
+LIBLAX_EXTERN
+void
+XMLErrorLog_unsetSeverityOverride (XMLErrorLog_t *log)
+{
+  if (log != NULL) log->unsetSeverityOverride();
+}
+
+LIBLAX_EXTERN
+XMLErrorSeverityOverride_t
+XMLErrorLog_getSeverityOverride (XMLErrorLog_t *log)
+{
+  if (log == NULL) return LIBSBML_OVERRIDE_DISABLED;
+  return log->getSeverityOverride();
+}
+
+LIBLAX_EXTERN
+void
+XMLErrorLog_setSeverityOverride (XMLErrorLog_t *log, XMLErrorSeverityOverride_t overridden)
+{
+  if (log == NULL) return;
+  log->setSeverityOverride(overridden);
 }
 
 LIBSBML_CPP_NAMESPACE_END

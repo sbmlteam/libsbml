@@ -113,6 +113,46 @@ START_TEST (test_XMLErrorLog_toString)
 }
 END_TEST
 
+START_TEST(test_XMLErrorLog_override)
+{
+  XMLErrorLog_t* log = XMLErrorLog_create();
+  
+  fail_unless(XMLErrorLog_isSeverityOverridden(log) == 0);
+  fail_unless(XMLErrorLog_getSeverityOverride(log) == LIBSBML_OVERRIDE_DISABLED);
+  
+  /* test that errors are not logged when set */
+  XMLErrorLog_setSeverityOverride(log, LIBSBML_OVERRIDE_DONT_LOG);  
+  fail_unless(XMLErrorLog_isSeverityOverridden(log) == 1);
+  fail_unless(XMLErrorLog_getSeverityOverride(log) == LIBSBML_OVERRIDE_DONT_LOG);
+
+  XMLError_t* error = XMLError_create();
+  XMLErrorLog_add( log, error );
+  fail_unless(XMLErrorLog_getNumErrors(log) == 0);
+
+  /* test that errors are logged as warnings */
+  XMLErrorLog_setSeverityOverride(log, LIBSBML_OVERRIDE_WARNING);
+  fail_unless(XMLErrorLog_isSeverityOverridden(log) == 1);
+  fail_unless(XMLErrorLog_getSeverityOverride(log) == LIBSBML_OVERRIDE_WARNING);
+
+  XMLErrorLog_add( log, error );
+  fail_unless(XMLErrorLog_getNumErrors(log) == 1);
+  fail_unless(XMLError_getSeverity(XMLErrorLog_getError(log, 0)) == LIBSBML_SEV_WARNING);
+
+  /* test that errors are logged normaly otherwise */
+
+  XMLErrorLog_clearLog(log);
+  XMLErrorLog_setSeverityOverride(log, LIBSBML_OVERRIDE_DISABLED);
+  fail_unless(XMLErrorLog_isSeverityOverridden(log) == 0);
+  fail_unless(XMLErrorLog_getSeverityOverride(log) == LIBSBML_OVERRIDE_DISABLED);
+
+  XMLErrorLog_add( log, error );
+  fail_unless(XMLErrorLog_getNumErrors(log) == 1);
+  fail_unless(XMLError_getSeverity(XMLErrorLog_getError(log, 0)) == LIBSBML_SEV_FATAL);
+
+  XMLErrorLog_free(log);
+}
+END_TEST
+
 Suite *
 create_suite_XMLErrorLog (void)
 {
@@ -123,6 +163,7 @@ create_suite_XMLErrorLog (void)
   tcase_add_test( tcase, test_XMLErrorLog_add      );
   tcase_add_test( tcase, test_XMLErrorLog_clear    );
   tcase_add_test( tcase, test_XMLErrorLog_toString );
+  tcase_add_test( tcase, test_XMLErrorLog_override );
   tcase_add_test( tcase, test_XMLErrorLog_accessWithNULL   );
   
   suite_add_tcase(suite, tcase);

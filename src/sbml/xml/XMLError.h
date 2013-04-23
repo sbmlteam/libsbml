@@ -520,7 +520,21 @@ typedef enum
 } XMLErrorSeverity_t;
 
 
+/**
+ * Severity override codes for errors logged
+ *
+ * The XMLErrorLog can be configured to not log errors by specifying 
+ * one of these enum values below. 
+ *
+ */
+typedef enum 
+{
+    LIBSBML_OVERRIDE_DISABLED = 0 /*!< All errors will be issued as 
+                                       specified in the error log. */
+  , LIBSBML_OVERRIDE_DONT_LOG     /*!< All error logging is disabled. */
+  , LIBSBML_OVERRIDE_WARNING      /*!< All errors will be logged as warnings */
 
+} XMLErrorSeverityOverride_t;
 
 END_C_DECLS
 
@@ -1083,6 +1097,8 @@ protected:
 
   virtual std::string stringForSeverity(unsigned int code) const;
   virtual std::string stringForCategory(unsigned int code) const;
+
+  friend class XMLErrorLog;
 
   /** @endcond */
 };

@@ -205,11 +205,38 @@ public:
    */
   void printErrors (std::ostream& stream = std::cerr) const;
 
+  /**
+   * Returns a boolean indicating whether or not the severity is overriden   
+   */
+  bool isSeverityOverridden() const;
+
+  /**
+   * usets an existing override 
+   */ 
+  void unsetSeverityOverride();
+
+  /**
+   * Returns the current override
+   */
+  XMLErrorSeverityOverride_t getSeverityOverride() const;
+
+  /**
+   * Set the severity override. 
+   * 
+   * If set to LIBSBML_OVERRIDE_DISABLED (default) all errors will be 
+   * logged as specified in the error. Set to LIBSBML_OVERRIDE_DONT_LOG
+   * no error will be logged. When set to LIBSBML_OVERRIDE_WARNING, then
+   * all errors will be logged as warnings. 
+   *
+   */
+  void setSeverityOverride(XMLErrorSeverityOverride_t severity);
+
 protected:
   /** @cond doxygen-libsbml-internal */
 
   std::vector<XMLError*> mErrors;
   const XMLParser*       mParser;
+  XMLErrorSeverityOverride_t    mOverriddenSeverity;
 
   /** @endcond */
 };
@@ -261,6 +288,22 @@ XMLErrorLog_clearLog (XMLErrorLog_t *log);
 LIBLAX_EXTERN
 char*
 XMLErrorLog_toString (XMLErrorLog_t *log);
+
+LIBLAX_EXTERN
+int
+XMLErrorLog_isSeverityOverridden (XMLErrorLog_t *log);
+
+LIBLAX_EXTERN
+void
+XMLErrorLog_unsetSeverityOverride (XMLErrorLog_t *log);
+
+LIBLAX_EXTERN
+XMLErrorSeverityOverride_t
+XMLErrorLog_getSeverityOverride (XMLErrorLog_t *log);
+
+LIBLAX_EXTERN
+void
+XMLErrorLog_setSeverityOverride (XMLErrorLog_t *log, XMLErrorSeverityOverride_t overridden);
 
 
 END_C_DECLS
