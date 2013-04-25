@@ -2437,8 +2437,7 @@ START_TEST(test_LayoutWriting_multipleTimes)
   Layout* layout = lPlugin->createLayout();
   layout->setId("layout1");
   
-  // we should not have an annotation to begin with ...
-  fail_unless(model->getAnnotation() == NULL);
+  // whenever getannotation is called, the layout will be synchronized
   string model1 = writeSBMLToString(&doc);
   
   // writing should create that annotation ...

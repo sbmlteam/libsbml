@@ -131,92 +131,10 @@ LayoutModelPlugin::createObject(XMLInputStream& stream)
 bool 
 LayoutModelPlugin::readOtherXML (SBase* parentObject, XMLInputStream& stream)
 {
-  bool readAnnotationFromStream = false;
-  const string& name = stream.peek().getName();
+  // L2 layout parsed by the annotation API 
+  // @see parseAnnotation / syncAnnotation
+  return false; 
 
-  if (!(name.empty()) && name != "annotation")
-   {
-     return readAnnotationFromStream;
-   }
-
-  //
-  // This function is used only for SBML Level 2.
-  //
-  if ( getURI() != LayoutExtension::getXmlnsL2() ) return false;
-
-  XMLNode *pAnnotation = parentObject->getAnnotation();
-
-  if (!pAnnotation)
-  {
-    //
-    // (NOTES)
-    //
-    // annotation element has not been parsed by the parent element
-    // (Model) of this plugin object, thus annotation element is
-    // parsed via the given XMLInputStream object in this block. 
-    //
-  
-    const string& name = stream.peek().getName();
-
-    if (name == "annotation")
-    {
-      pAnnotation = new XMLNode(stream); 
-
-      parseLayoutAnnotation(pAnnotation, mLayouts);
-
-      if (mLayouts.size() > 0)
-      {
-        //
-        // Removes the annotation for layout extension from the annotation
-        // of parent element (pAnnotation) and then set the new annotation 
-        // (newAnnotation) to the parent element.
-        //
-        XMLNode *newAnnotation = deleteLayoutAnnotation(pAnnotation);
-        parentObject->setAnnotation(newAnnotation);
-        delete newAnnotation;
-      }
-      else
-      {
-        //
-        // No layout annotation is included in the read annotation 
-        // (pAnnotation) and thus just set the annotation to the parent
-        // element.
-        //
-        parentObject->setAnnotation(pAnnotation);
-      }
-
-      delete pAnnotation;
-
-      readAnnotationFromStream = true;
-    }
-    
-  }
-  else if (mLayouts.size() == 0)
-  {
-    //
-    // (NOTES)
-    //
-    // annotation element has been parsed by the parent element
-    // (Model) of this plugin object, thus the annotation element 
-    // set to the above pAnnotation variable is parsed in this block.
-    //
-    parseLayoutAnnotation(pAnnotation, mLayouts);
-
-    if (mLayouts.size() > 0)
-    {
-      //
-      // Removes the annotation for layout extension from the annotation
-      // of parent element (pAnnotation) and then set the new annotation 
-      // (newAnnotation) to the parent element.
-      //
-      XMLNode *newAnnotation = deleteLayoutAnnotation(pAnnotation);
-      parentObject->setAnnotation(newAnnotation);
-    }
-
-    readAnnotationFromStream = true;
-  }
-
-  return readAnnotationFromStream;
 }
 /** @endcond */
 
@@ -229,22 +147,13 @@ LayoutModelPlugin::writeAttributes (XMLOutputStream& stream) const
   //
   if ( getURI() != LayoutExtension::getXmlnsL2() ) return;
 
-  Model *parent = static_cast<Model*>(const_cast<SBase*>(getParentSBMLObject()));
-  if (parent == NULL) return;
+  SBase *parent = const_cast<SBase*>(getParentSBMLObject());
+  if (parent == NULL) 
+    return;
 
-
-  XMLNode *parentAnnotation = parent->getAnnotation();
-  if (parentAnnotation != NULL && parentAnnotation->getNumChildren() > 0)
-  {
-    deleteLayoutAnnotation(parentAnnotation);
-  }
-
-  XMLNode *annt = parseLayouts(parent);
-  if (annt && annt->getNumChildren() > 0)
-  {
-    parent->appendAnnotation(annt);
-    delete annt;
-  }
+  // when called this will serialize the annotation
+  parent->getAnnotation();
+  
 }
 /** @endcond */
 
@@ -280,6 +189,79 @@ LayoutModelPlugin::hasRequiredElements() const
   return allPresent;
 }
 
+
+/* 
+ * Parse L2 annotation if supported
+ *
+ */
+void 
+LayoutModelPlugin::parseAnnotation(SBase *parentObject, XMLNode *pAnnotation)
+{
+  mLayouts.setSBMLDocument(mSBML);  
+  // don't read if we have an invalid node or already a layout|
+  if (pAnnotation == NULL || mLayouts.size() > 0)
+    return;
+
+  // annotation element has been parsed by the parent element
+  // (Model) of this plugin object, thus the annotation element 
+  // set to the above pAnnotation variable is parsed in this block.
+  
+  XMLNode& listOfLayouts = pAnnotation->getChild("listOfLayouts");
+  if (listOfLayouts.getNumChildren() == 0)
+    return;
+ 
+  // read the xml node, overriding that all errors are flagged as 
+  // warnings
+  mLayouts.read(listOfLayouts, LIBSBML_OVERRIDE_WARNING);
+  // remove listOfLayouts annotation  
+  parentObject->removeTopLevelAnnotationElement("listOfLayouts", "", false);
+ 
+
+}
+
+
+/** @cond doxygen-libsbml-internal */
+/*
+ * Synchronizes the annotation of this SBML object.
+ */
+void
+LayoutModelPlugin::syncAnnotation (SBase *parentObject, XMLNode *pAnnotation)
+{
+  if(pAnnotation && pAnnotation->getNumChildren() > 0)
+  {
+      parentObject->removeTopLevelAnnotationElement("listOfLayouts", "", false);
+  }
+
+  // only do this for L1 and L2 documents
+  if(getLevel() >= 3) 
+    return;
+
+  
+  if (mLayouts.size() == 0)
+    return;
+  
+  XMLNode * listOfLayouts = mLayouts.toXMLNode();
+  if (listOfLayouts == NULL)
+    return;
+
+  
+  if (pAnnotation == NULL)
+  {
+    // cannot happen, as syncAnnotation is called with a valid Annotation
+    // (possibly empty)
+    return;
+  }
+  else
+  {
+    if (pAnnotation->isEnd())
+    {
+        pAnnotation->unsetEnd();
+    }
+    pAnnotation->addChild(*listOfLayouts);
+    delete listOfLayouts;
+  }   
+}
+/** @endcond */
 
 
 /*

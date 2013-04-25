@@ -1462,7 +1462,7 @@ SBase::appendAnnotation (const std::string& annotation)
 
 int
 SBase::removeTopLevelAnnotationElement(const std::string elementName, 
-    const std::string elementURI)
+    const std::string elementURI, bool removeEmpty)
 {
   
   int success = LIBSBML_OPERATION_FAILED;
@@ -1493,7 +1493,7 @@ SBase::removeTopLevelAnnotationElement(const std::string elementName,
     
     // remove the annotation at the index corresponding to the name
     mAnnotation->removeChild(index);
-    if (mAnnotation->getNumChildren() == 0)
+    if (removeEmpty && mAnnotation->getNumChildren() == 0)
     {
       delete mAnnotation;
       mAnnotation = NULL;
@@ -4101,6 +4101,10 @@ SBase::readAnnotation (XMLInputStream& stream)
 //    new_annotation = RDFAnnotationParser::deleteRDFAnnotation(mAnnotation);
 //    delete mAnnotation;
 //    mAnnotation = new_annotation;
+      for (size_t i=0; i < mPlugins.size(); i++)
+      {
+        mPlugins[i]->parseAnnotation(this, mAnnotation);
+      }
     return true;
   }
 
@@ -5737,6 +5741,54 @@ SBase::checkDefaultNamespace(const XMLNamespaces* xmlns,
   logError(NotSchemaConformant, getLevel(), getVersion(), errMsg.str());
   
 }
+  
+void 
+SBase::read(XMLNode& node, XMLErrorSeverityOverride_t flag /*= LIBSBML_OVERRIDE_DISABLED*/)
+{
+  if (&node == NULL) return;
+  
+  XMLErrorLog* log = getErrorLog();
+
+  // set override for error messages
+  XMLErrorSeverityOverride_t old; 
+  if (log != NULL )
+  {
+    old = log->getSeverityOverride();
+    log->setSeverityOverride(flag);
+  }
+
+  string& content = XMLNode::convertXMLNodeToString(&node);
+  XMLInputStream stream(content.c_str(), false);
+  
+  // do the parsing using SBase::read
+  read(stream);
+  
+  // restore logging
+  if (log != NULL )
+  {
+    log->setSeverityOverride(old);
+  }
+
+}
+
+XMLNode* 
+SBase::toXMLNode()
+{
+  char* rawsbml = toSBML();  
+  SBMLNamespaces *sbmlns = getSBMLNamespaces();
+  XMLNamespaces* xmlns = sbmlns->getNamespaces()->clone();
+  // in rare cases the above returns a package element with default namespace, however the 
+  // XMLNamespaces would then assign the actual default namespace, which is in most cases
+  // the SBML namespace. In that case we adjust the default namespace here
+  ISBMLExtensionNamespaces *extns = dynamic_cast<ISBMLExtensionNamespaces*>(sbmlns);
+  if (extns != NULL)
+  {
+    xmlns->remove("");
+    xmlns->add(xmlns->getURI(extns->getPackageName()), "");    
+  }
+  return XMLNode::convertStringToXMLNode(rawsbml, xmlns);
+}
+
 
 /*
   * Checks the annotation does not declare an sbml namespace.

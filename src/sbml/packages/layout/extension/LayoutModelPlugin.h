@@ -142,6 +142,29 @@ public:
   virtual bool hasRequiredElements() const ;
   /** @endcond */
 
+
+  /** @cond doxygen-libsbml-internal */
+  /** 
+   * Parse L2 annotation if supported
+   *
+   */
+  virtual void parseAnnotation(SBase *parentObject, XMLNode *annotation);
+  /** @endcond */
+
+  /** @cond doxygen-libsbml-internal */
+  /**
+   * Synchronizes the annotation of this SBML object.
+   *
+   * Annotation element (XMLNode* mAnnotation) is synchronized with the
+   * current CVTerm objects (List* mCVTerm), ModelHistory object 
+   * (ModelHistory* mHistory) and ListOfLayouts object (ListOfLayouts mLayouts).
+   * Currently, this method is called in getAnnotation, isSetAnnotation,
+   * and writeElements methods.
+   */
+  virtual void syncAnnotation(SBase* parentObject, XMLNode *annotation);
+  /** @endcond */
+
+
 #endif
 
   /** ------------------------------------------------------------------

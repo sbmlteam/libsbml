@@ -138,6 +138,7 @@
 #include <sbml/SBMLConstructorException.h>
 #include <sbml/ExpectedAttributes.h>
 #include <sbml/xml/XMLNode.h>
+#include <sbml/xml/XMLError.h>
 
 #ifdef __cplusplus
 
@@ -1728,6 +1729,9 @@ public:
    * annotation element that is to be removed
    * @param elementURI an optional string that is used to check both the name
    * and URI of the top level element to be removed
+   * @param removeEmpty if after removing of the element, the annotation is 
+   * empty, and the removeEmpty argument is true, the annotation node will be 
+   * deleted (default). 
    *
    * @return integer value indicating success/failure of the
    * function.  The possible values returned by this function are:
@@ -1740,7 +1744,7 @@ public:
    * @see replaceTopLevelAnnotationElement(const std::string&)
    */
   int removeTopLevelAnnotationElement(const std::string elementName, 
-    const std::string elementURI = "");
+    const std::string elementURI = "", bool removeEmpty = true);
 
 
   /**
@@ -2732,6 +2736,31 @@ s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></b
    */
   char* toSBML ();
 
+  /** 
+   * Returns this element as XMLNode
+   * 
+   * @return this element as XMLNode
+   * 
+   * @warning This operation is expensive, as the element has to be 
+   *          fully serialized to string and then parsed into the 
+   *          XMLNode structure. 
+   */
+   XMLNode* toXMLNode();
+
+  /** 
+   * Reads (initializes) this SBML object by reading from the given XMLNode.
+   * 
+   * @param node The XMLNode to read from
+   *
+   * @param flag An optional flag, that allows to influence how errors are 
+   *             logged during read
+   *
+   * @warning This method is expensive, as the given node has to be serialized to 
+   *          string first. 
+   */
+   void read(XMLNode& node, XMLErrorSeverityOverride_t flag = LIBSBML_OVERRIDE_DISABLED);
+
+
 
   // ------------------------------------------------------------------
   //
@@ -3114,6 +3143,34 @@ s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></b
    */  
   void *getUserData() const;
 
+  
+  /**
+   * Gets the URI to which this element belongs to.
+   * For example, all elements that belong to SBML Level 3 Version 1 Core
+   * must would have the URI "http://www.sbml.org/sbml/level3/version1/core"; 
+   * all elements that belong to Layout Extension Version 1 for SBML Level 3
+   * Version 1 Core must would have the URI
+   * "http://www.sbml.org/sbml/level3/version1/layout/version1/"
+   *
+   * Unlike getElementNamespace, this function first returns the URI for this 
+   * element by looking into the SBMLNamespaces object of the document with 
+   * the its package name. if not found it will return the result of 
+   * getElementNamespace
+   *
+   * @return the URI this elements  
+   *
+   * @see getPackageName
+   * @see getElementNamespace
+   * @see getSBMLNamespaces
+   * @see getSBMLDocument
+   */
+  std::string getURI() const;
+
+  /**
+   * Return the prefix of this element.
+   */
+  std::string getPrefix() const;
+
 
 protected:
 
@@ -3431,27 +3488,6 @@ protected:
    */
   const std::string& getElementNamespace() const;
 
-  /**
-   * Gets the URI to which this element belongs to.
-   * For example, all elements that belong to SBML Level 3 Version 1 Core
-   * must would have the URI "http://www.sbml.org/sbml/level3/version1/core"; 
-   * all elements that belong to Layout Extension Version 1 for SBML Level 3
-   * Version 1 Core must would have the URI
-   * "http://www.sbml.org/sbml/level3/version1/layout/version1/"
-   *
-   * Unlike getElementNamespace, this function first returns the URI for this 
-   * element by looking into the SBMLNamespaces object of the document with 
-   * the its package name. if not found it will return the result of 
-   * getElementNamespace
-   *
-   * @return the URI this elements  
-   *
-   * @see getPackageName
-   * @see getElementNamespace
-   * @see getSBMLNamespaces
-   * @see getSBMLDocument
-   */
-  std::string getURI() const;
 
   /**
    * Read attributes of package extensions from the given XMLAttributes 
@@ -3534,11 +3570,6 @@ SBase.readExtensionAttributes(attributes, expectedAttributes);
    */
   bool storeUnknownExtElement(XMLInputStream &stream);
 
-
-  /**
-   * Return the prefix of this element.
-   */
-  std::string getPrefix() const;
 
   /**
    * Return the SBML prefix of this element. This will be the same as getPrefix()

@@ -3675,6 +3675,12 @@ Model::readOtherXML (XMLInputStream& stream)
 //    new_annotation = RDFAnnotationParser::deleteRDFAnnotation(mAnnotation);
 //    delete mAnnotation;
 //    mAnnotation = new_annotation;
+
+    // need to call set annotation
+    for (size_t i=0; i < mPlugins.size(); i++)
+    {
+      mPlugins[i]->parseAnnotation(this, mAnnotation);
+    }
 	
     read = true;
   }
