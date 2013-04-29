@@ -2,6 +2,78 @@
 
 
 ====================================================================
+Version 5.9.0 (Expected June 2013)
+====================================================================
+
+STABLE RELEASE
+
+* New features
+
+  - The class IdList which allows users to create and manipulate 
+    lists of 'id' strings has been made publically available. 
+	Previously this class has been used internally by validation
+	and conversion code.  It is now available in the sbml/util
+	directory.
+	
+  - The SBase functions getURI() and getPrefix() that return 
+    information relating to the namespace of the object have been
+	made public. Formerly these functions were protected.
+	
+  - The function removeTopLevelAnnotationElement(const std::string 
+    elementName, const std::string elementURI = "") allows users to
+	remove a single top level element from the annotation node. If,
+	having removed the specified annotation, the overall annotation 
+    node had no child elements the entire node was being deleted.
+    There is now an additional optional argument to this function,
+    bool removeEmpty, that allows the user to specify that they do not
+    wish the annotation to be deleted. 	
+
+  - There are two new function on the SBase class that allow an
+    element to be read from and written to an XMLNode.  The XMLNode
+    is the underlying class used by the XML parsing layer of libSBML.
+    The function XMLNode* SBase::toXMLNode() returns a pointer to an
+    XMLNode that represents the SBase object; which will facilitate
+	the ability to look up attributes of an object by name. The 
+	function void SBase::read(XMLNode& node, XMLErrorSeverityOverride_t)
+	invokes the read functionality on a given XMLNode. This facilitates
+	reading blocks of annotation that may represent SBML in some way.
+	It should be noted that these functions are computational 
+	expensive in that they serialise to a string. This drawback will
+	be addressed in future libSBML architecture but cannot be overcome
+	with the current libSBML-5 implementation.
+	
+  - 'layout' package-specific updates:
+  
+	- The code reading and writing layout as an annotation has been
+      adapted to use the new read/write to/from XMLNode functions.
+      This greatly reduces the complexity and repetition of code
+      previously needed to perform these functions.	  
+  
+* Bug fixes
+
+  - An annotation on a package element is permitted to use the 
+    SBML namespace.  However, this situation was logging an error.
+	This has been corrected.
+
+  - '' package-specific bug fixes:
+
+* Configuration/build system changes
+
+  - '' package-specific build system changes:
+  
+* Miscellaneous
+
+EXPERIMENTAL RELEASE
+
+* New features
+
+  - '' package-specific new features:
+  
+* Bug fixes
+
+  - '' package-specific bug fixes:
+
+====================================================================
 Version 5.8.0 (2013-02-28)
 ====================================================================
 
