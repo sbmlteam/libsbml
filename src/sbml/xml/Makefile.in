@@ -54,6 +54,7 @@ common_headers =              \
   XMLFileBuffer.h             \
   XMLHandler.h                \
   XMLInputStream.h            \
+  XMLLogOverride.h            \
   XMLMemoryBuffer.h           \
   XMLNamespaces.h             \
   XMLNode.h                   \
@@ -72,6 +73,7 @@ common_sources =              \
   XMLFileBuffer.cpp           \
   XMLHandler.cpp              \
   XMLInputStream.cpp          \
+  XMLLogOverride.cpp          \
   XMLMemoryBuffer.cpp         \
   XMLNamespaces.cpp           \
   XMLNode.cpp                 \
