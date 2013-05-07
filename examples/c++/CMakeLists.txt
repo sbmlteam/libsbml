@@ -25,6 +25,7 @@ foreach(example
 	convertSBML
 	createExampleSBML
 	echoSBML
+	inlineFunctionDefintions
 	printAnnotation
 	printMath
 	printNotes
