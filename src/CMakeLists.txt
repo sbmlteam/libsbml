@@ -304,11 +304,13 @@ set(LIBSBML_SOURCES ${LIBSBML_SOURCES} ${COMPRESS_SOURCES})
 
 set(XML_SOURCES)
 set(XML_SOURCES ${XML_SOURCES}
+
   sbml/xml/XMLAttributes.cpp
   sbml/xml/XMLBuffer.cpp
   sbml/xml/XMLConstructorException.cpp
   sbml/xml/XMLError.cpp
   sbml/xml/XMLErrorLog.cpp
+  sbml/xml/XMLLogOverride.cpp
   sbml/xml/XMLFileBuffer.cpp
   sbml/xml/XMLHandler.cpp
   sbml/xml/XMLInputStream.cpp
@@ -325,6 +327,7 @@ set(XML_SOURCES ${XML_SOURCES}
   sbml/xml/XMLConstructorException.h
   sbml/xml/XMLError.h
   sbml/xml/XMLErrorLog.h
+  sbml/xml/XMLLogOverride.h
   sbml/xml/XMLFileBuffer.h
   sbml/xml/XMLHandler.h
   sbml/xml/XMLInputStream.h
