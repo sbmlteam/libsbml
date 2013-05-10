@@ -45,7 +45,7 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 class LIBSBML_EXTERN XMLLogOverride
 {
 public: 
-	XMLLogOverride(XMLErrorLog* log, XMLErrorSeverityOverride_t override);
+	XMLLogOverride(XMLErrorLog* log, XMLErrorSeverityOverride_t new_override);
 	virtual ~XMLLogOverride();
 	
 protected: 

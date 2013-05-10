@@ -33,12 +33,12 @@
  
  LIBSBML_CPP_NAMESPACE_BEGIN
 
- XMLLogOverride::XMLLogOverride(XMLErrorLog* log, XMLErrorSeverityOverride_t override) 
+ XMLLogOverride::XMLLogOverride(XMLErrorLog* log, XMLErrorSeverityOverride_t new_override) 
  : mLog(log)
  {
 	if (log == NULL) return;
 	mOldStatus = log->getSeverityOverride();
-	log->setSeverityOverride(override);
+	log->setSeverityOverride(new_override);
  }
  
  XMLLogOverride::~XMLLogOverride()
