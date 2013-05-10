@@ -703,7 +703,13 @@ SBMLDocument::setConsistencyChecksForConversion(SBMLErrorCategory_t category,
 unsigned int
 SBMLDocument::checkConsistency ()
 {
-  XMLLogOverride(getErrorLog(), LIBSBML_OVERRIDE_DISABLED);
+  //  XMLLogOverride(getErrorLog(), LIBSBML_OVERRIDE_DISABLED);
+  // keep a copy of the override status
+  // and then override any change
+  XMLErrorSeverityOverride_t overrideStatus = 
+                                  getErrorLog()->getSeverityOverride();
+  getErrorLog()->setSeverityOverride(LIBSBML_OVERRIDE_DISABLED);
+
   unsigned int numErrors = mInternalValidator->checkConsistency(false);
 
   for (unsigned int i = 0; i < getNumPlugins(); i++)
@@ -722,6 +728,9 @@ SBMLDocument::checkConsistency ()
       numErrors += newErrors;
     }
   }
+
+  // restore value of override
+  getErrorLog()->setSeverityOverride(overrideStatus);
 
   return numErrors;
 }
@@ -745,7 +754,13 @@ SBMLDocument::checkConsistency ()
  */
 unsigned int SBMLDocument::validateSBML ()
 {
-  XMLLogOverride(getErrorLog(), LIBSBML_OVERRIDE_DISABLED);
+  //  XMLLogOverride(getErrorLog(), LIBSBML_OVERRIDE_DISABLED);
+  // keep a copy of the override status
+  // and then override any change
+  XMLErrorSeverityOverride_t overrideStatus = 
+                                  getErrorLog()->getSeverityOverride();
+  getErrorLog()->setSeverityOverride(LIBSBML_OVERRIDE_DISABLED);
+
   unsigned int numErrors = mInternalValidator->checkConsistency(true);
 
   list<SBMLValidator*>::iterator it;
@@ -758,6 +773,8 @@ unsigned int SBMLDocument::validateSBML ()
       numErrors += newErrors;
     }
   }
+  // restore value of override
+  getErrorLog()->setSeverityOverride(overrideStatus);
 
   return numErrors;
 }
@@ -775,8 +792,19 @@ unsigned int SBMLDocument::validateSBML ()
 unsigned int
 SBMLDocument::checkInternalConsistency()
 {
-  XMLLogOverride(getErrorLog(), LIBSBML_OVERRIDE_DISABLED);
-  return mInternalValidator->checkInternalConsistency();
+  //  XMLLogOverride(getErrorLog(), LIBSBML_OVERRIDE_DISABLED);
+  // keep a copy of the override status
+  // and then override any change
+  XMLErrorSeverityOverride_t overrideStatus = 
+                                  getErrorLog()->getSeverityOverride();
+  getErrorLog()->setSeverityOverride(LIBSBML_OVERRIDE_DISABLED);
+
+  unsigned int numErrors = mInternalValidator->checkInternalConsistency();
+
+  // restore value of override
+  getErrorLog()->setSeverityOverride(overrideStatus);
+
+  return numErrors;
 }
 
 /*
