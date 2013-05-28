@@ -76,7 +76,7 @@ examples =                                                          \
   examples/c/printSupported.c                                       \
   examples/c/printUnits.c                                           \
   examples/c/readSBML.c                                             \
-  examples/c/stripPackage.c                                        \
+  examples/c/stripPackage.c                                         \
   examples/c/translateMath.c                                        \
   examples/c/translateL3Math.c                                      \
   examples/c/util.c                                                 \
@@ -87,6 +87,7 @@ examples =                                                          \
   examples/c++/Makefile.in                                          \
   examples/c++/addCVTerms.cpp                                       \
   examples/c++/addCustomValidator.cpp                               \
+  examples/c++/renameSId.cpp                                        \
   examples/c++/addModelHistory.cpp                                  \
   examples/c++/addingEvidenceCodes_1.cpp                            \
   examples/c++/addingEvidenceCodes_2.cpp                            \
@@ -132,7 +133,7 @@ examples =                                                          \
   examples/csharp/printsupported.cs                                 \
   examples/csharp/printUnits.cs                                     \
   examples/csharp/readSBML.cs                                       \
-  examples/csharp/stripPackage.cs                                  \
+  examples/csharp/stripPackage.cs                                   \
   examples/csharp/translateMath.cs                                  \
   examples/csharp/unsetAnnotation.cs                                \
   examples/csharp/unsetNotes.cs                                     \

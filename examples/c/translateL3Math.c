@@ -35,7 +35,6 @@ main (int argc, char* argv[])
   L3ParserSettings_t* settings;
   int           reading = 1;
   SBMLDocument_t*   doc = NULL;
-  StringBuffer_t* sb = StringBuffer_create(1024);
 
 
   printf( "\n" );

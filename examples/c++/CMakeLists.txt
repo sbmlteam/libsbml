@@ -34,6 +34,7 @@ foreach(example
 	printSupported
 	printUnits
 	readSBML
+	renameSId
 	stripPackage
 	translateMath
 	translateL3Math

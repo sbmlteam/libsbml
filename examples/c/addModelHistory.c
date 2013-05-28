@@ -17,7 +17,7 @@
 
 void printStatus(const char* message, int status)
 {
-	printf(message);
+	printf("%s", message);
 	switch(status)
 	{
 	case LIBSBML_OPERATION_SUCCESS:
