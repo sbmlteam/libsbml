@@ -366,6 +366,7 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
   nBuflen = (mxGetM(mxOctave[0])*mxGetN(mxOctave[0])+1);
   pacTempString1 = (char *) mxCalloc(nBuflen, sizeof(char));
   nStatus = mxGetString(mxOctave[0], pacTempString1, (mwSize)(nBuflen));
+  mxDestroyArray(mxOctave[0]);
 
   if (nStatus != 0)
   {
@@ -512,9 +513,13 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
         mxPrompt[0]= mxCreateString(pacPromptValid);
         mxPrompt[1]= mxCreateString("s");
         mexCallMATLAB(1, mxReply, 2, mxPrompt, "input");
+        mxDestroyArray(mxPrompt[0]);
+        mxDestroyArray(mxPrompt[1]);
+
         nBufferLen = (mxGetM(mxReply[0])*mxGetN(mxReply[0])+1);
         pacReply = (char *) mxCalloc(nBufferLen, sizeof(char));
         mxGetString(mxReply[0], pacReply, (mwSize)(nBufferLen));
+        mxDestroyArray(mxReply[0]);
   
         if (strcmp_insensitive(pacReply, "y") == 0)
         {
@@ -537,7 +542,8 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
   {
     pacReply = (char *)mxCalloc(3,sizeof(char));
     pacReply = "n";
-    mxPrompt[0] = mxCreateString("Fatal errors were encountered; read was abandoned");
+    /*mxPrompt[0] = mxCreateString("Fatal errors were encountered; read was abandoned");
+    */
     if (outputErrors == 1)
     {
       totalerrors = SBMLDocument_getNumErrors(sbmlDocument);
@@ -566,9 +572,13 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
         mxPrompt[0]= mxCreateString(pacPromptValidAnyway);
         mxPrompt[1]= mxCreateString("s");
         mexCallMATLAB(1, mxReply, 2, mxPrompt, "input");
+        mxDestroyArray(mxPrompt[0]);
+        mxDestroyArray(mxPrompt[1]);
+
         nBufferLen = (mxGetM(mxReply[0])*mxGetN(mxReply[0])+1);
         pacReply = (char *) mxCalloc(nBufferLen, sizeof(char));
         mxGetString(mxReply[0], pacReply, (mwSize)(nBufferLen));
+        mxDestroyArray(mxReply[0]);
   
         if (strcmp_insensitive(pacReply, "y") == 0)
         {
@@ -632,6 +642,7 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
           mxErrors[0] = mxCreateString(pacErrors1);
 
           mexCallMATLAB(0, NULL, 1, mxErrors, "disp");
+          mxDestroyArray(mxErrors[0]);
           mexCallMATLAB(1, mxWarn, 2, mxPrompt, "input");
 
           nBufferLen = (mxGetM(mxWarn[0])*mxGetN(mxWarn[0])+1);
@@ -642,6 +653,11 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
           {
             listFlag = 1;
           }
+
+          mxDestroyArray(mxPrompt[0]);
+          mxDestroyArray(mxPrompt[1]);
+          mxDestroyArray(mxWarn[0]);
+
         }
       }
 
@@ -718,6 +734,7 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
           nBufferLen = (mxGetM(mxReply[0])*mxGetN(mxReply[0])+1);
           pacReply = (char *) mxCalloc(nBufferLen, sizeof(char));
           mxGetString(mxReply[0], pacReply, (mwSize)(nBufferLen));
+          mxDestroyArray(mxReply[0]);
         }
         else
         {
@@ -725,6 +742,8 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
           pacReply = "y";
         }
       }
+
+      mxDestroyArray(mxPrompt1[0]);
     }
     else
     {
@@ -990,6 +1009,8 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
     /* we havent read in a Model */
     mxNone[0] = mxCreateString(pacNone);
     mexCallMATLAB(0, NULL, 1, mxNone, "disp");
+    mxDestroyArray(mxNone[0]);
+
     plhs[0] = mxCreateStructArray(0, 0, 0, NULL);
   }
 
@@ -3706,6 +3727,8 @@ GetStoichiometryMath ( SpeciesReference_t      *pSpeciesReference,
         mexErrMsgTxt("Cannot copy formula");
     }
 
+    mxDestroyArray(mxInput[0]);
+    mxDestroyArray(mxOutput[0]);
     /* END OF HACK */
   }
   /**
@@ -3983,6 +4006,8 @@ GetKineticLaw ( Reaction_t   *pReaction,
           mexErrMsgTxt("Cannot copy formula");
       }
 
+      mxDestroyArray(mxInput[0]);
+      mxDestroyArray(mxOutput[0]);
       /* END OF HACK */
     }
     else
@@ -4005,6 +4030,8 @@ GetKineticLaw ( Reaction_t   *pReaction,
           mexErrMsgTxt("Cannot copy formula");
       }
 
+      mxDestroyArray(mxInput[0]);
+      mxDestroyArray(mxOutput[0]);
       /* END OF HACK */
     }
  }
@@ -4716,6 +4743,8 @@ GetRule ( Model_t      *pModel,
       mexErrMsgTxt("Cannot copy formula");
   }
 
+  mxDestroyArray(mxInput[0]);
+  mxDestroyArray(mxOutput[0]);
   /* END OF HACK */    
  
   /* values for different types of rules */
@@ -5145,6 +5174,8 @@ GetFunctionDefinition ( Model_t      *pModel,
         mexErrMsgTxt("Cannot copy formula");
     }
     
+    mxDestroyArray(mxInput[0]);
+    mxDestroyArray(mxOutput[0]);
   /* END OF HACK */
     /**
      * check for NULL strings - Matlab doesnt like creating
@@ -5407,6 +5438,8 @@ GetEvent (Model_t      *pModel,
           mexErrMsgTxt("Cannot copy formula");
       }
 
+      mxDestroyArray(mxInput[0]);
+      mxDestroyArray(mxOutput[0]);
       /* END OF HACK */
 
 
@@ -5432,6 +5465,8 @@ GetEvent (Model_t      *pModel,
           mexErrMsgTxt("Cannot copy formula");
       }
 
+      mxDestroyArray(mxInput[0]);
+      mxDestroyArray(mxOutput[0]);
       /* END OF HACK */
       }
     }
@@ -5673,6 +5708,8 @@ GetEventAssignment ( Event_t      *pEvent,
       mexErrMsgTxt("Cannot copy formula");
   }
 
+  mxDestroyArray(mxInput[0]);
+  mxDestroyArray(mxOutput[0]);
   /* END OF HACK */
 
     /**
@@ -5851,6 +5888,8 @@ GetTrigger ( Event_t      *pEvent,
         mexErrMsgTxt("Cannot copy formula");
     }
 
+    mxDestroyArray(mxInput[0]);
+    mxDestroyArray(mxOutput[0]);
     /* END OF HACK */
   }
 
@@ -6014,6 +6053,8 @@ GetDelay ( Event_t      *pEvent,
           mexErrMsgTxt("Cannot copy formula");
       }
 
+      mxDestroyArray(mxInput[0]);
+      mxDestroyArray(mxOutput[0]);
       /* END OF HACK */
     }
     /**
@@ -6155,6 +6196,8 @@ GetPriority ( Event_t      *pEvent,
         mexErrMsgTxt("Cannot copy formula");
     }
 
+    mxDestroyArray(mxInput[0]);
+    mxDestroyArray(mxOutput[0]);
     /* END OF HACK */
   }
   /**
@@ -6778,6 +6821,8 @@ GetInitialAssignment (Model_t      *pModel,
       mexErrMsgTxt("Cannot copy formula");
   }
 
+  mxDestroyArray(mxInput[0]);
+  mxDestroyArray(mxOutput[0]);
   /* END OF HACK */
 
 
@@ -6961,6 +7006,8 @@ GetConstraint (Model_t      *pModel,
   {
       mexErrMsgTxt("Cannot copy formula");
   }
+  mxDestroyArray(mxInput[0]);
+  mxDestroyArray(mxOutput[0]);
 
   /* END OF HACK */
 
