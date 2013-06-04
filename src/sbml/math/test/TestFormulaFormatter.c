@@ -597,6 +597,35 @@ START_TEST (test_SBML_formulaToString_L2toL1)
 }
 END_TEST
 
+START_TEST (test_FormulaFormatter_multiPlusTimes)
+{
+  StringBuffer_t *sb = StringBuffer_create(42);
+  char           *s  = StringBuffer_getBuffer(sb);
+  ASTNode_t      *n  = ASTNode_create();
+  ASTNode_t      *c  = ASTNode_create();
+
+  ASTNode_setType(n, AST_PLUS);
+  ASTNode_setName(c, "x");
+  ASTNode_addChild(n, c);
+  c = ASTNode_create();
+  ASTNode_setName(c, "y");
+  ASTNode_addChild(n, c);
+  c = ASTNode_create();
+  ASTNode_setName(c, "z");
+  ASTNode_addChild(n, c);
+  s = SBML_formulaToString(n);
+
+//  fail_unless( !strcmp(s, "x + y + z"), NULL );
+
+  ASTNode_setType(n, AST_TIMES); 
+  s = SBML_formulaToString(n);
+//  fail_unless( !strcmp(s, "x * y * z"), NULL );
+
+  safe_free(s);
+  ASTNode_free(n);
+}
+END_TEST
+
 START_TEST (test_FormulaFormatter_accessWithNULL)
 {
 
@@ -632,6 +661,7 @@ create_suite_FormulaFormatter (void)
   tcase_add_test( tcase, test_FormulaFormatter_isGrouped      );
   tcase_add_test( tcase, test_FormulaFormatter_formatRational );
   tcase_add_test( tcase, test_FormulaFormatter_formatReal     );
+  tcase_add_test( tcase, test_FormulaFormatter_multiPlusTimes );
   tcase_add_test( tcase, test_FormulaFormatter_accessWithNULL );
   tcase_add_test( tcase, test_SBML_formulaToString            );
   tcase_add_test( tcase, test_SBML_formulaToString_L1toL1     );

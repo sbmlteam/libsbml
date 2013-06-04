@@ -1287,7 +1287,7 @@ END_TEST
 
 START_TEST (test_SBML_parseL3Formula_precedence)
 {
-  ASTNode_t *root = SBML_parseL3Formula("a && b == !c - d * e^-f ");
+  ASTNode_t *root = SBML_parseL3Formula("a && b == !(c - d * e^-f) ");
   ASTNode_t *left;
   ASTNode_t *right;
 
@@ -2164,6 +2164,73 @@ START_TEST (test_SBML_parseL3Formula_sqrterr)
 END_TEST
 
 
+START_TEST (test_SBML_parseL3Formula_precedence1)
+{
+  ASTNode_t *r = SBML_parseL3Formula("-2^4");
+  ASTNode_t *c;
+
+
+
+  fail_unless( ASTNode_getType       (r) == AST_MINUS, NULL );
+  fail_unless( ASTNode_getCharacter  (r) == '-', NULL );
+  fail_unless( ASTNode_getNumChildren(r) == 1  , NULL );
+
+  c = ASTNode_getLeftChild(r);
+
+  fail_unless( ASTNode_getType       (c) == AST_POWER, NULL );
+  fail_unless( ASTNode_getCharacter  (c) == '^', NULL );
+  fail_unless( ASTNode_getNumChildren(c) == 2, NULL );
+
+  c = ASTNode_getLeftChild(c);
+
+  fail_unless( ASTNode_getType       (c) == AST_INTEGER, NULL );
+  fail_unless( ASTNode_getInteger    (c) == 2, NULL );
+  fail_unless( ASTNode_getNumChildren(c) == 0, NULL );
+
+  c = ASTNode_getRightChild( ASTNode_getLeftChild(r) );
+
+  fail_unless( ASTNode_getType       (c) == AST_INTEGER, NULL );
+  fail_unless( ASTNode_getInteger    (c) == 4, NULL );
+  fail_unless( ASTNode_getNumChildren(c) == 0, NULL );
+
+  ASTNode_free(r);
+}
+END_TEST
+
+
+START_TEST (test_SBML_parseL3Formula_precedence2)
+{
+  ASTNode_t *r = SBML_parseL3Formula("!a+b");
+  ASTNode_t *c;
+
+
+
+  fail_unless( ASTNode_getType       (r) == AST_PLUS, NULL );
+  fail_unless( ASTNode_getCharacter  (r) == '+', NULL );
+  fail_unless( ASTNode_getNumChildren(r) == 2  , NULL );
+
+  c = ASTNode_getLeftChild(r);
+
+  fail_unless( ASTNode_getType       (c) == AST_LOGICAL_NOT, NULL );
+  fail_unless( ASTNode_getNumChildren(c) == 1, NULL );
+
+  c = ASTNode_getLeftChild(c);
+
+  fail_unless( ASTNode_getType       (c) == AST_NAME, NULL );
+  fail_unless( !strcmp(ASTNode_getName(c), "a"), NULL );
+  fail_unless( ASTNode_getNumChildren(c) == 0, NULL );
+
+  c = ASTNode_getRightChild(r);
+
+  fail_unless( ASTNode_getType       (c) == AST_NAME, NULL );
+  fail_unless( !strcmp(ASTNode_getName(c), "b"), NULL );
+  fail_unless( ASTNode_getNumChildren(c) == 0, NULL );
+
+  ASTNode_free(r);
+}
+END_TEST
+
+
 Suite *
 create_suite_L3FormulaParser (void) 
 { 
@@ -2259,6 +2326,8 @@ create_suite_L3FormulaParser (void)
   tcase_add_test( tcase, test_SBML_parseL3Formula_lambda3);
   tcase_add_test( tcase, test_SBML_parseL3Formula_lambdaerr);
   tcase_add_test( tcase, test_SBML_parseL3Formula_sqrterr);
+  tcase_add_test( tcase, test_SBML_parseL3Formula_precedence1);
+  tcase_add_test( tcase, test_SBML_parseL3Formula_precedence2);
   suite_add_tcase(suite, tcase);
 
   return suite;

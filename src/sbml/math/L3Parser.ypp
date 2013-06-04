@@ -278,11 +278,10 @@ LIBSBML_CPP_NAMESPACE_END
 
 %left '&' '|'         /* Boolean functions and, or */
 %left '<' '>' '=' '!' /* Boolean comparison functions (gt, lt, eq, etc.) */
-%left NOT             /* Boolean negation--unary not */
 %left '-' '+'
 %left '*' '/' '%'
+%left NOT NEG         /* Boolean negation (unary not) and regular negation (unary minus) */
 %right '^'            /* exponentiation        */
-%left NEG             /* negation--unary minus */
 
 %token YYEOF 0 "end of string"
 %token  <numdouble> DOUBLE "number"

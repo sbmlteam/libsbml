@@ -666,6 +666,33 @@ START_TEST (test_FormulaParser_accessWithNULL)
 }
 END_TEST
 
+START_TEST (test_SBML_parse_sqrt)
+{
+  ASTNode_t *r = SBML_parseFormula("sqrt(1, bar)");
+  ASTNode_t *c;
+
+
+  fail_unless( ASTNode_getType(r) == AST_FUNCTION , NULL );
+  fail_unless( !strcmp(ASTNode_getName(r), "sqrt") , NULL );
+  fail_unless( ASTNode_getNumChildren(r) == 2     , NULL );
+
+  c = ASTNode_getLeftChild(r);
+
+  fail_unless( ASTNode_getType       (c) == AST_INTEGER, NULL );
+  fail_unless( ASTNode_getInteger    (c) == 1, NULL );
+  fail_unless( ASTNode_getNumChildren(c) == 0, NULL );
+
+  c = ASTNode_getRightChild(r);
+
+  fail_unless( ASTNode_getType(c) == AST_NAME     , NULL );
+  fail_unless( !strcmp(ASTNode_getName(c), "bar") , NULL );
+  fail_unless( ASTNode_getNumChildren(c) == 0     , NULL );
+
+  ASTNode_free(r);
+}
+END_TEST
+
+
 Suite *
 create_suite_FormulaParser (void) 
 { 
@@ -697,7 +724,7 @@ create_suite_FormulaParser (void)
   tcase_add_test( tcase, test_SBML_parseFormula_18      );
   tcase_add_test( tcase, test_SBML_parseFormula_negInf  );
   tcase_add_test( tcase, test_SBML_parseFormula_negZero );
-  
+  tcase_add_test( tcase, test_SBML_parse_sqrt           );
   suite_add_tcase(suite, tcase);
 
   return suite;

@@ -1292,7 +1292,7 @@ END_TEST
 
 START_TEST (test_SBML_C_parseL3Formula_precedence)
 {
-  ASTNode_t *root = SBML_parseL3Formula("a && b == !c - d * e^-f ");
+  ASTNode_t *root = SBML_parseL3Formula("a && b == !(c - d * e^-f) ");
   ASTNode_t *left;
   ASTNode_t *right;
 
