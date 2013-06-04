@@ -7,14 +7,13 @@
      <th>Precedence</th>
      <th align="left">Associates</th>
  </tr>
-<tr><td><em>name</em></td><td>symbol reference</td><td>operand</td><td align="center">10</td><td>n/a</td></tr>
-<tr><td><code>(</code><em>expression</em><code>)</code></td><td>expression grouping</td><td>operand</td><td align="center">10</td><td>n/a</td></tr>
-<tr><td><code>f(</code><em>...</em><code>)</code></td><td>function call</td><td>prefix</td><td align="center">9</td><td>left</td></tr>
-<tr><td><code>-</code></td><td>negation</td><td>unary</td><td align="center">8</td><td>right</td></tr>
+<tr><td><em>name</em></td><td>symbol reference</td><td>operand</td><td align="center">8</td><td>n/a</td></tr>
+<tr><td><code>(</code><em>expression</em><code>)</code></td><td>expression grouping</td><td>operand</td><td align="center">8</td><td>n/a</td></tr>
+<tr><td><code>f(</code><em>...</em><code>)</code></td><td>function call</td><td>prefix</td><td align="center">8</td><td>left</td></tr>
 <tr><td><code>^</code></td><td>power</td><td>binary</td><td align="center">7</td><td>left</td></tr>
-<tr><td><code>*, /, %</code></td><td>multiplication, division, and modulo</td><td>binary</td><td align="center">6</td><td>left</td></tr>
-<tr><td><code>+, -</code></td><td>addition and subtraction</td><td>binary</td><td align="center">5</td><td>left</td></tr>
-<tr><td><code>!</code></td><td>boolean 'not'</td><td>unary</td><td align="center">4</td><td>right</td></tr>
+<tr><td><code>-, !</code></td><td>negation and boolean 'not'</td><td>unary</td><td align="center">6</td><td>right</td></tr>
+<tr><td><code>*, /, %</code></td><td>multiplication, division, and modulo</td><td>binary</td><td align="center">5</td><td>left</td></tr>
+<tr><td><code>+, -</code></td><td>addition and subtraction</td><td>binary</td><td align="center">4</td><td>left</td></tr>
 <tr><td><code>==, &lt;, &gt;, &lt=, &gt=, !=</code></td><td>boolean equality, inequality, and comparison</td><td>binary</td><td align="center">3</td><td>left</td></tr>
 <tr><td><code>&&, ||</code></td><td>boolean 'and' and 'or'</td><td>binary</td><td align="center">2</td><td>left</td></tr>
 <tr><td><code>,</code></td><td>argument delimiter</td><td>binary</td><td align="center">1</td><td>left</td></tr>
