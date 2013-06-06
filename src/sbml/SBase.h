@@ -163,9 +163,8 @@ class XMLOutputStream;
 class XMLToken;
 
 class SBasePlugin;
-
-
-
+class IdentifierTransformer;
+class ElementFilter;
 
 class LIBSBML_EXTERN SBase
 {
@@ -237,7 +236,7 @@ public:
    *
    * @return a pointer to a List of pointers to all children objects.
    */
-  virtual List* getAllElements();
+  virtual List* getAllElements(ElementFilter* filter=NULL);
   
 
   /**
@@ -366,6 +365,11 @@ public:
   virtual int prependStringToAllIdentifiers(const std::string& prefix);
   /** @endcond */
   
+  /** @cond doxygen-libsbml-internal */
+  virtual int transformIdentifiers(IdentifierTransformer* idTransformer);
+  /** @endcond */
+  
+
 
   /**
    * Returns a List of all child SBase objects contained in SBML package
@@ -377,7 +381,7 @@ public:
    * @return a pointer to a List of pointers to all children objects from
    * plug-ins.
    */
-  virtual List* getAllElementsFromPlugins();
+  virtual List* getAllElementsFromPlugins(ElementFilter* filter=NULL);
   
   
   /**

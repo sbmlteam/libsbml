@@ -385,19 +385,15 @@ SBMLDocument::getElementByMetaId(std::string metaid)
 }
 
 List*
-SBMLDocument::getAllElements()
+SBMLDocument::getAllElements(ElementFilter *filter)
 {
   List* ret = new List();
   List* sublist = NULL;
-  if (mModel != NULL) {
-    ret->add(mModel);
-    sublist = mModel->getAllElements();
-    ret->transferFrom(sublist);
-    delete sublist;
-  }
-  sublist = getAllElementsFromPlugins();
-  ret->transferFrom(sublist);
-  delete sublist;
+  
+  ADD_FILTERED_POINTER(ret, sublist, mModel, filter);  
+  
+  ADD_FILTERED_FROM_PLUGIN(ret, sublist, filter);
+
   return ret;
 }
 

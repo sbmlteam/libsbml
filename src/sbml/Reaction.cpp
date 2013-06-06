@@ -322,38 +322,19 @@ Reaction::getElementByMetaId(std::string metaid)
 
 
 List*
-Reaction::getAllElements()
+Reaction::getAllElements(ElementFilter *filter)
 {
   List* ret = new List();
   List* sublist = NULL;
-  if (mKineticLaw != NULL) {
-    ret->add(mKineticLaw);
-    sublist = mKineticLaw->getAllElements();
-    ret->transferFrom(sublist);
-    delete sublist;
-  }
-  if (mReactants.size() > 0) {
-    ret->add(&mReactants);
-    sublist = mReactants.getAllElements();
-    ret->transferFrom(sublist);
-    delete sublist;
-  }
-  if (mProducts.size() > 0) {
-    ret->add(&mProducts);
-    sublist = mProducts.getAllElements();
-    ret->transferFrom(sublist);
-    delete sublist;
-  }
-  if (mModifiers.size() > 0) {
-    ret->add(&mModifiers);
-    sublist = mModifiers.getAllElements();
-    ret->transferFrom(sublist);
-    delete sublist;
-  }
 
-  sublist = getAllElementsFromPlugins();
-  ret->transferFrom(sublist);
-  delete sublist;
+  ADD_FILTERED_POINTER(ret, sublist, mKineticLaw, filter);  
+  
+  ADD_FILTERED_LIST(ret, sublist, mReactants, filter);  
+  ADD_FILTERED_LIST(ret, sublist, mProducts, filter);  
+  ADD_FILTERED_LIST(ret, sublist, mModifiers, filter);  
+
+  ADD_FILTERED_FROM_PLUGIN(ret, sublist, filter);
+
   return ret;
 }
 

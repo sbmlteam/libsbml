@@ -47,6 +47,7 @@
 #include <sbml/SBase.h>
 
 #include <sbml/util/IdList.h>
+#include <sbml/util/IdentifierTransformer.h>
 #include <sbml/extension/SBasePlugin.h>
 #include <sbml/extension/ISBMLExtensionNamespaces.h>
 #include <sbml/extension/SBMLExtensionRegistry.h>
@@ -103,9 +104,9 @@ SBase::getElementByMetaId(std::string metaid)
 }
 
 List*
-SBase::getAllElements()
+SBase::getAllElements(ElementFilter *filter)
 {
-  return getAllElementsFromPlugins();
+  return getAllElementsFromPlugins(filter);
 }
 
 void
@@ -221,13 +222,41 @@ SBase::prependStringToAllIdentifiers(const std::string& prefix)
   /** @endcond */
 
 
+int 
+SBase::transformIdentifiers(IdentifierTransformer* idTransformer)
+{
+  int ret = LIBSBML_OPERATION_SUCCESS;
+
+  // call plugins
+  for (unsigned int p = 0; p < getNumPlugins(); ++p)
+  {
+    ret = getPlugin(p)->transformIdentifiers(idTransformer);
+    if (ret != LIBSBML_OPERATION_SUCCESS)
+    {
+      return ret;
+    }
+  }
+
+  // call transformer
+  if (idTransformer != NULL)
+  {
+    ret = idTransformer->transform(this);
+    if (ret != LIBSBML_OPERATION_SUCCESS)
+    {
+      return ret;
+    }
+  }
+
+  return ret;
+}
+
 List*
-SBase::getAllElementsFromPlugins()
+SBase::getAllElementsFromPlugins(ElementFilter *filter)
 {
   List* ret = new List();
   for (size_t i=0; i < mPlugins.size(); i++)
   {
-    List* sublist = mPlugins[i]->getAllElements();
+    List* sublist = mPlugins[i]->getAllElements(filter);
     if (sublist != NULL && sublist->getSize() > 0)
     {
       ret->transferFrom(sublist);

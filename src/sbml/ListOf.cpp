@@ -32,6 +32,7 @@
 #include <sbml/ListOf.h>
 #include <sbml/SBO.h>
 #include <sbml/common/common.h>
+#include <sbml/util/ElementFilter.h>
 
 /** @cond doxygen-ignored */
 
@@ -287,20 +288,21 @@ ListOf::getElementByMetaId(std::string metaid)
 
 
 List*
-ListOf::getAllElements()
+ListOf::getAllElements(ElementFilter *filter)
 {
   List* ret = new List();
   List* sublist = NULL;
   for (unsigned int i = 0; i < size(); i++) {
     SBase* obj = get(i);
-    ret->add(obj);
-    sublist = obj->getAllElements();
+    if (filter == NULL || filter->filter(obj))
+      ret->add(obj);
+    sublist = obj->getAllElements(filter);
     ret->transferFrom(sublist);
     delete sublist;
   }
-  sublist = getAllElementsFromPlugins();
-  ret->transferFrom(sublist);
-  delete sublist;
+
+  ADD_FILTERED_FROM_PLUGIN(ret, sublist, filter);
+
   return ret;
 }
 /**

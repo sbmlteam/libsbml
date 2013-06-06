@@ -401,6 +401,7 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 class SBMLVisitor;
 class FormulaUnitsData;
 class UnitFormulaFormatter;
+class ElementFilter;
 
 LIBSBML_CPP_NAMESPACE_END
 
@@ -547,7 +548,7 @@ public:
    *
    * @return a List* of pointers to all children objects.
    */
-  virtual List* getAllElements();
+  virtual List* getAllElements(ElementFilter* filter=NULL);
   
   
   /**
@@ -2702,6 +2703,9 @@ public:
    */
   virtual int removeFromParentAndDelete();
 
+  virtual int renameAllIds(IdentifierTransformer* idTransformer, ElementFilter* filter=NULL);
+  
+  virtual void renameIDs(List* elements, IdentifierTransformer* idTransformer);
 
   /**
    * Renames all the SIdRef attributes on this element, including any found in MathML

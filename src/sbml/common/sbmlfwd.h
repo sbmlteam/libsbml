@@ -372,14 +372,24 @@ typedef CLASS_OR_STRUCT L3ParserSettings    L3ParserSettings_t;
 
 
 /**
- * @var typedef class L3ParserSettings L3ParserSettings_t
+ * @var typedef class ConversionOption ConversionOption_t
  */
 typedef CLASS_OR_STRUCT ConversionOption    ConversionOption_t;
 
 /**
- * @var typedef class L3ParserSettings L3ParserSettings_t
+ * @var typedef class ConversionProperties ConversionProperties_t
  */
 typedef CLASS_OR_STRUCT ConversionProperties    ConversionProperties_t;
+
+/**
+ * @var typedef class ConversionProperties ConversionProperties_t
+ */
+typedef CLASS_OR_STRUCT IdentifierTransformer    IdentifierTransformer_t;
+
+/**
+ * @var typedef class ElementTransformer ElementTransformer_t
+ */
+typedef CLASS_OR_STRUCT ElementTransformer    ElementTransformer_t;
 
 
 LIBSBML_CPP_NAMESPACE_END

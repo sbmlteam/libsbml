@@ -30,6 +30,7 @@
 
 #include <sbml/extension/SBasePlugin.h>
 #include <sbml/extension/SBMLExtensionRegistry.h>
+#include <sbml/util/ElementFilter.h>
 
 #ifdef __cplusplus
 
@@ -156,7 +157,7 @@ SBasePlugin::getElementByMetaId(std::string metaid)
 }
 
 List*
-SBasePlugin::getAllElements()
+SBasePlugin::getAllElements(ElementFilter *filter)
 {
   return NULL;
 }
@@ -358,6 +359,13 @@ SBasePlugin::prependStringToAllIdentifiers(const std::string& prefix)
 }
   /** @endcond */
   
+
+int 
+SBasePlugin::transformIdentifiers(IdentifierTransformer* idTransformer)
+{
+   return LIBSBML_OPERATION_SUCCESS;
+}
+
 /*
  * Returns the namespace URI of this element.
  */

@@ -283,7 +283,7 @@ public:
    *
    * @return a List of pointers to all children objects.
    */
-  virtual List* getAllElements();
+  virtual List* getAllElements(ElementFilter* filter=NULL);
   
   
 #if 0

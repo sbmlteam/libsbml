@@ -302,38 +302,19 @@ Event::getElementByMetaId(std::string metaid)
 }
 
 List*
-Event::getAllElements()
+Event::getAllElements(ElementFilter *filter)
 {
   List* ret = new List();
   List* sublist = NULL;
-  if (mTrigger != NULL) {
-    ret->add(mTrigger);
-    sublist = mTrigger->getAllElements();
-    ret->transferFrom(sublist);
-    delete sublist;
-  }
-  if (mDelay != NULL) {
-    ret->add(mDelay);
-    sublist = mDelay->getAllElements();
-    ret->transferFrom(sublist);
-    delete sublist;
-  }
-  if (mPriority != NULL) {
-    ret->add(mPriority);
-    sublist = mPriority->getAllElements();
-    ret->transferFrom(sublist);
-    delete sublist;
-  }
-  if (mEventAssignments.size() > 0) {
-    ret->add(&mEventAssignments);
-    sublist = mEventAssignments.getAllElements();
-    ret->transferFrom(sublist);
-    delete sublist;
-  }
 
-  sublist = getAllElementsFromPlugins();
-  ret->transferFrom(sublist);
-  delete sublist;
+  ADD_FILTERED_POINTER(ret, sublist, mTrigger, filter);
+  ADD_FILTERED_POINTER(ret, sublist, mDelay, filter);
+  ADD_FILTERED_POINTER(ret, sublist, mPriority, filter);
+  
+  ADD_FILTERED_LIST(ret, sublist, mEventAssignments, filter);
+
+  ADD_FILTERED_FROM_PLUGIN(ret, sublist, filter);
+
   return ret;
 }
 

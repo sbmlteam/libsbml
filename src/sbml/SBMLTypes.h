@@ -89,6 +89,9 @@
 #include <sbml/annotation/ModelCreator.h>
 #include <sbml/annotation/Date.h>
 
+#include <sbml/util/IdentifierTransformer.h>
+#include <sbml/util/ElementFilter.h>
+
 /* also include the extension types so they don't have to be added */
 /*
 #include <sbml/extension/SBasePlugin.h>

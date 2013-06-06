@@ -48,6 +48,7 @@
 #include <sbml/AssignmentRule.h>
 #include <sbml/RateRule.h>
 
+#include <sbml/util/IdentifierTransformer.h>
 
 #include <sbml/extension/SBMLExtensionRegistry.h>
 #include <sbml/extension/SBasePlugin.h>
@@ -380,87 +381,112 @@ Model::getElementByMetaId(std::string metaid)
 
 
 List*
-Model::getAllElements()
+Model::getAllElements(ElementFilter *filter)
 {
   List* ret = new List();
   List* sublist = NULL;
-  if (mFunctionDefinitions.size() > 0) {
-    ret->add(&mFunctionDefinitions);
-    sublist = mFunctionDefinitions.getAllElements();
-    ret->transferFrom(sublist);
-    delete sublist;
-  }
-  if (mUnitDefinitions.size() > 0) {
-    ret->add(&mUnitDefinitions);
-    sublist = mUnitDefinitions.getAllElements();
-    ret->transferFrom(sublist);
-    delete sublist;
-  }
-  if (mCompartmentTypes.size() > 0) {
-    ret->add(&mCompartmentTypes);
-    sublist = mCompartmentTypes.getAllElements();
-    ret->transferFrom(sublist);
-    delete sublist;
-  }
-  if (mSpeciesTypes.size() > 0) {
-    ret->add(&mSpeciesTypes);
-    sublist = mSpeciesTypes.getAllElements();
-    ret->transferFrom(sublist);
-    delete sublist;
-  }
-  if (mCompartments.size() > 0) {
-    ret->add(&mCompartments);
-    sublist = mCompartments.getAllElements();
-    ret->transferFrom(sublist);
-    delete sublist;
-  }
-  if (mSpecies.size() > 0) {
-    ret->add(&mSpecies);
-    sublist = mSpecies.getAllElements();
-    ret->transferFrom(sublist);
-    delete sublist;
-  }
-  if (mParameters.size() > 0) {
-    ret->add(&mParameters);
-    sublist = mParameters.getAllElements();
-    ret->transferFrom(sublist);
-    delete sublist;
-  }
-  if (mInitialAssignments.size() > 0) {
-    ret->add(&mInitialAssignments);
-    sublist = mInitialAssignments.getAllElements();
-    ret->transferFrom(sublist);
-    delete sublist;
-  }
-  if (mRules.size() > 0) {
-    ret->add(&mRules);
-    sublist = mRules.getAllElements();
-    ret->transferFrom(sublist);
-    delete sublist;
-  }
-  if (mConstraints.size() > 0) {
-    ret->add(&mConstraints);
-    sublist = mConstraints.getAllElements();
-    ret->transferFrom(sublist);
-    delete sublist;
-  }
-  if (mReactions.size() > 0) {
-    ret->add(&mReactions);
-    sublist = mReactions.getAllElements();
-    ret->transferFrom(sublist);
-    delete sublist;
-  }
-  if (mEvents.size() > 0) {
-    ret->add(&mEvents);
-    sublist = mEvents.getAllElements();
-    ret->transferFrom(sublist);
-    delete sublist;
+
+  ADD_FILTERED_LIST(ret, sublist, mFunctionDefinitions, filter);  
+  ADD_FILTERED_LIST(ret, sublist, mUnitDefinitions, filter);  
+  ADD_FILTERED_LIST(ret, sublist, mCompartmentTypes, filter);  
+  ADD_FILTERED_LIST(ret, sublist, mSpeciesTypes, filter);  
+  ADD_FILTERED_LIST(ret, sublist, mCompartments, filter);  
+  ADD_FILTERED_LIST(ret, sublist, mSpecies, filter);  
+  ADD_FILTERED_LIST(ret, sublist, mParameters, filter);  
+  ADD_FILTERED_LIST(ret, sublist, mInitialAssignments, filter);  
+  ADD_FILTERED_LIST(ret, sublist, mRules, filter);  
+  ADD_FILTERED_LIST(ret, sublist, mConstraints, filter);  
+  ADD_FILTERED_LIST(ret, sublist, mReactions, filter);  
+  ADD_FILTERED_LIST(ret, sublist, mEvents, filter);  
+
+  ADD_FILTERED_FROM_PLUGIN(ret, sublist, filter);
+
+  return ret;
+}
+
+
+int 
+Model::renameAllIds(IdentifierTransformer* idTransformer, ElementFilter* filter)
+{
+  if (idTransformer == NULL) 
+	return LIBSBML_OPERATION_SUCCESS;
+  
+  //get all elements
+  List* allElements = getAllElements(filter);
+  
+  //Rename the SIds, UnitSIds, and MetaIDs
+  renameIDs(allElements, idTransformer);
+  return LIBSBML_OPERATION_SUCCESS;
+}
+  
+void 
+Model::renameIDs(List* elements, IdentifierTransformer* idTransformer)
+{
+  if (elements == NULL || elements->getSize() == 0 || idTransformer == NULL)
+    return;
+
+  vector<pair<string, string> > renamedSIds;
+  vector<pair<string, string> > renamedUnitSIds;
+  vector<pair<string, string> > renamedMetaIds;
+  vector<pair<string, string> >::iterator it;
+
+  for (unsigned long el=0; el < elements->getSize(); ++el) 
+  {
+    SBase* element = static_cast<SBase*>(elements->get(el));
+    string id = element->getId();
+    string metaid = element->getMetaId();
+    element->transformIdentifiers(idTransformer);
+
+    if (element->getTypeCode() == SBML_LOCAL_PARAMETER) 
+	{
+      element->setId(id); //Change it back.  This would perhaps be better served by overriding 'prependStringToAllIdentifiers' but hey.
+    }
+    string newid = element->getId();
+    string newmetaid = element->getMetaId();
+    if (id != newid) 
+	{
+      int type = element->getTypeCode();
+      if (type==SBML_UNIT_DEFINITION) 
+	  {
+        renamedUnitSIds.push_back(make_pair(id, newid));
+      }
+      //else if (type==SBML_COMP_PORT) 
+	  //{
+      //  //Do nothing--these can only be referenced from outside the Model, so they need to be handled specially.
+      //  // (In the default case, we throw them away).
+      //}
+      else 
+	  {
+        //This is a little dangerous, but hey!  What's a little danger between friends!
+        //(What we are assuming is that any attribute you can get with 'getId' is of the type 'SId')
+        renamedSIds.push_back(make_pair(id, newid));
+      }
+    }
+    if (metaid != newmetaid) 
+	{
+      renamedMetaIds.push_back(make_pair(metaid, newmetaid));
+    }
   }
 
-  sublist = getAllElementsFromPlugins();
-  ret->transferFrom(sublist);
-  delete sublist;
-  return ret;
+  for (unsigned long el = 0; el< elements->getSize(); ++el) 
+  {
+    SBase* element = static_cast<SBase*>(elements->get(el));
+	
+    for (it = renamedSIds.begin(); it != renamedSIds.end(); ++it) 
+	{
+      element->renameSIdRefs((*it).first, (*it).second);
+    }
+	
+    for (it = renamedUnitSIds.begin(); it != renamedUnitSIds.end(); ++it) 
+	{
+      element->renameUnitSIdRefs((*it).first, (*it).second);
+    }
+	
+    for (it = renamedMetaIds.begin(); it != renamedMetaIds.end(); ++it) 
+	{
+      element->renameMetaIdRefs((*it).first, (*it).second);
+    }
+  }
 }
 
 /*

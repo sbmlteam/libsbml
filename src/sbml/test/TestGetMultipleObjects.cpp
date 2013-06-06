@@ -394,7 +394,7 @@ START_TEST (test_GetMultipleObjects_allElements)
 
   d = reader.readSBML(filename);
 
- if (d == NULL)
+ if (d->getModel() == NULL)
   {
     fail("readSBML(\"multiple-ids.xml\") returned a NULL pointer.");
   }
@@ -406,6 +406,43 @@ START_TEST (test_GetMultipleObjects_allElements)
 }
 END_TEST
 
+
+class TestFilter : public ElementFilter
+{
+public: 
+   virtual bool filter(const SBase* element)
+   {
+     // filter for const parameters (of which there is only one in the model)
+     // that one has id 'conv' which is what is tested for
+     const Parameter* p = dynamic_cast<const Parameter*>(element);
+     return p != NULL && p->isSetConstant() && p->getConstant() == true;
+   }
+};
+
+START_TEST (test_GetMultipleObjects_withFilter)
+{
+  SBMLReader        reader;
+  SBMLDocument*     d;
+
+  std::string filename(TestDataDirectory);
+  filename += "multiple-ids.xml";
+
+
+  d = reader.readSBML(filename);
+
+ if (d->getModel() == NULL)
+  {
+    fail("readSBML(\"multiple-ids.xml\") returned a NULL pointer.");
+  }
+
+ TestFilter test;
+ List* list = d->getAllElements(&test);
+ fail_unless(list->getSize() == 1);
+ fail_unless(static_cast<SBase*>(list->get(0))->getId() == "conv");
+
+  delete d;
+}
+END_TEST
 
 Suite *
 create_suite_GetMultipleObjects (void)
@@ -420,6 +457,7 @@ create_suite_GetMultipleObjects (void)
   tcase_add_test(tcase, test_GetMultipleObjects_noUnits);
   tcase_add_test(tcase, test_GetMultipleObjects_noAssignments);
   tcase_add_test(tcase, test_GetMultipleObjects_allElements);
+  tcase_add_test(tcase, test_GetMultipleObjects_withFilter);
 
 
   suite_add_tcase(suite, tcase);

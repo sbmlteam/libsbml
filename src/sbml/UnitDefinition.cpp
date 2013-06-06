@@ -181,20 +181,15 @@ UnitDefinition::getElementByMetaId(std::string metaid)
 
 
 List*
-UnitDefinition::getAllElements()
+UnitDefinition::getAllElements(ElementFilter *filter)
 {
   List* ret = new List();
   List* sublist = NULL;
-  if (mUnits.size() > 0) {
-    ret->add(&mUnits);
-    sublist = mUnits.getAllElements();
-    ret->transferFrom(sublist);
-    delete sublist;
-  }
 
-  sublist = getAllElementsFromPlugins();
-  ret->transferFrom(sublist);
-  delete sublist;
+  ADD_FILTERED_LIST(ret, sublist, mUnits, filter);  
+
+  ADD_FILTERED_FROM_PLUGIN(ret, sublist, filter);
+
   return ret;
 }
 
