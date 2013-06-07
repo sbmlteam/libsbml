@@ -49,6 +49,7 @@
 #include <sbml/RateRule.h>
 
 #include <sbml/util/IdentifierTransformer.h>
+#include <sbml/util/ElementFilter.h>
 
 #include <sbml/extension/SBMLExtensionRegistry.h>
 #include <sbml/extension/SBasePlugin.h>

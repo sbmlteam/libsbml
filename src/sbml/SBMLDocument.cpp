@@ -54,6 +54,7 @@
 #include <sbml/conversion/ConversionProperties.h>
 #include <sbml/conversion/SBMLConverterRegistry.h>
 
+#include <sbml/util/ElementFilter.h>
 
 /** @cond doxygen-ignored */
 

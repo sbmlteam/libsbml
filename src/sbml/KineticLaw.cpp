@@ -43,6 +43,8 @@
 #include <sbml/Parameter.h>
 #include <sbml/KineticLaw.h>
 
+#include <sbml/util/ElementFilter.h>
+
 /** @cond doxygen-ignored */
 
 using namespace std;

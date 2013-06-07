@@ -41,6 +41,8 @@
 #include <sbml/UnitDefinition.h>
 #include <sbml/extension/SBaseExtensionPoint.h>
 
+#include <sbml/util/ElementFilter.h>
+
 /** @cond doxygen-ignored */
 
 using namespace std;

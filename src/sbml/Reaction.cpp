@@ -41,6 +41,8 @@
 #include <sbml/Model.h>
 #include <sbml/Reaction.h>
 
+#include <sbml/util/ElementFilter.h>
+
 /** @cond doxygen-ignored */
 
 using namespace std;

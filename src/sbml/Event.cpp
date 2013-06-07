@@ -42,6 +42,8 @@
 #include <sbml/EventAssignment.h>
 #include <sbml/Event.h>
 
+#include <sbml/util/ElementFilter.h>
+
 /** @cond doxygen-ignored */
 
 using namespace std;
