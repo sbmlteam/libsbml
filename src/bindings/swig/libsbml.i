@@ -442,6 +442,18 @@ LIBSBML_CPP_NAMESPACE_USE
 %ignore SBase::getAllElements;
 %ignore SBase::setUserData;
 %ignore SBase::getUserData;
+%ignore Model::renameIDs(List* elements, IdentifierTransformer* idTransformer);
+
+%extend Model 
+{
+   void renameIDs(ListWrapper<SBase>* elements, IdentifierTransformer *idTransformer)
+   {
+		if (!elements) return;
+
+		List *list = elements->getList();
+		$self->renameIDs(list, idTransformer);
+   }
+}
 
 %extend SBasePlugin
 {
@@ -451,9 +463,9 @@ LIBSBML_CPP_NAMESPACE_USE
          *
          * @return SBaseList
          */
-	ListWrapper<SBase>* getListOfAllElements()
+	ListWrapper<SBase>* getListOfAllElements(ElementFilter* filter=NULL)
 	{
-		List* list = $self->getAllElements();
+		List* list = $self->getAllElements(filter);
 		return new ListWrapper<SBase>(list);
 	}
 }
@@ -466,9 +478,9 @@ LIBSBML_CPP_NAMESPACE_USE
          *
          * @return SBaseList
          */
-	ListWrapper<SBase>* getListOfAllElements()
+	ListWrapper<SBase>* getListOfAllElements(ElementFilter* filter=NULL)
 	{
-		List* list = $self->getAllElements();
+		List* list = $self->getAllElements(filter);
 		return new ListWrapper<SBase>(list);
 	}
 
@@ -482,9 +494,9 @@ LIBSBML_CPP_NAMESPACE_USE
          * @return a pointer to a List of pointers to all children objects from
          * plugins.
 	 */
-	ListWrapper<SBase>* getListOfAllElementsFromPlugins()
+	ListWrapper<SBase>* getListOfAllElementsFromPlugins(ElementFilter* filter=NULL)
 	{
-		List* list = $self->getAllElementsFromPlugins();
+		List* list = $self->getAllElementsFromPlugins(filter);
 		return new ListWrapper<SBase>(list);
 	}
 }
