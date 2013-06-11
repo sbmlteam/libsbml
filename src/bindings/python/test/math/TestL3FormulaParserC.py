@@ -1056,7 +1056,7 @@ class TestL3FormulaParserC(unittest.TestCase):
     pass  
 
   def test_SBML_C_parseL3Formula_precedence(self):
-    root = libsbml.parseL3Formula("a && b == !c - d * e^-f ")
+    root = libsbml.parseL3Formula("a && b == !(c - d * e^-f) ")
     self.assert_( root.getType() == libsbml.AST_LOGICAL_AND )
     self.assert_((  "and" == root.getName() ))
     self.assert_( root.getNumChildren() == 2 )

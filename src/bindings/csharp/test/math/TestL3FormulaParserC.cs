@@ -1194,7 +1194,7 @@ namespace LibSBMLCSTest.math {
 
     public void test_SBML_C_parseL3Formula_precedence()
     {
-      ASTNode root = libsbml.parseL3Formula("a && b == !c - d * e^-f ");
+      ASTNode root = libsbml.parseL3Formula("a && b == !(c - d * e^-f) ");
       ASTNode left;
       ASTNode right;
       assertTrue( root.getType() == libsbml.AST_LOGICAL_AND );
