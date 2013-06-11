@@ -507,6 +507,7 @@ LIBSBML_CPP_NAMESPACE_USE
  */
 
 %ignore RDFAnnotationParser::parseRDFAnnotation(const XMLNode * annotation, List * CVTerms);
+%ignore RDFAnnotationParser::parseRDFAnnotation(const XMLNode * annotation, List * CVTerms, const char* metaId = NULL, XMLInputStream* stream = NULL);
 
 %extend RDFAnnotationParser
 {
@@ -516,6 +517,14 @@ LIBSBML_CPP_NAMESPACE_USE
 
     List *list = CVTerms->getList();
     RDFAnnotationParser::parseRDFAnnotation(annotation,list);
+  }
+  
+  static void parseRDFAnnotation(const XMLNode *annotation, ListWrapper<CVTerm> *CVTerms, const char* metaId = NULL, XMLInputStream* stream = NULL)
+  {
+    if (!CVTerms) return;
+
+    List *list = CVTerms->getList();
+    RDFAnnotationParser::parseRDFAnnotation(annotation,list, metaId, stream);
   }
 }
 
