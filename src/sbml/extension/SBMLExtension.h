@@ -918,8 +918,9 @@ public:
    */
   virtual unsigned int getErrorTableIndex(unsigned int errorId) const;
 
+#ifndef SWIG
   virtual packageErrorTableEntry getErrorTable(unsigned int index) const;
-
+#endif
   virtual unsigned int getErrorIdOffset() const;
 
   unsigned int getSeverity(unsigned int index, unsigned int pkgVersion) const;

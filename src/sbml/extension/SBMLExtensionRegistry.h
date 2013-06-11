@@ -129,10 +129,12 @@ public:
    */
   static void disablePackage(const std::string& package);
 
+  #ifndef SWIG
   /**
    * Disables all packages with the given URI / name.
    */
   static void disablePackages(const std::vector<std::string>& packages);
+  #endif
   
   /**
    * @returns the status (enabled = <b>true</b>, disabled = <b>false</b> of the given package.
@@ -144,10 +146,12 @@ public:
    */
   static void enablePackage(const std::string& package);
   
+  #ifndef SWIG
   /**
    * Enables all packages with the given URI / name.
    */
   static void enablePackages(const std::vector<std::string>& packages);
+  #endif
   
 private:
   /**
