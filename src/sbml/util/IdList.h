@@ -67,6 +67,7 @@ public:
    */
   unsigned int size () const { return (unsigned int)mIds.size(); }
 
+#ifndef SWIG
   /**
    * @return an iterator to the beginning of this IdList.
    */
@@ -82,7 +83,7 @@ public:
   {
     return mIds.end();
   }
-
+#endif
 
   void clear() { mIds.clear(); }
 
