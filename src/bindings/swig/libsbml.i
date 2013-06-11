@@ -28,6 +28,8 @@
 %module(directors="1") libsbml
 %feature("director") SBMLValidator;  
 %feature("director") SBMLConverter;  
+%feature("director") ElementFilter;  
+%feature("director") IdentifierTransformer;  
 
 #pragma SWIG nowarn=473,401,844
 
@@ -527,6 +529,10 @@ LIBSBML_CPP_NAMESPACE_USE
 
 %include sbml/common/libsbml-version.h
 %include sbml/common/operationReturnValues.h
+
+%include <sbml/util/IdList.h>
+%include <sbml/util/IdentifierTransformer.h>
+%include <sbml/util/ElementFilter.h>
 
 %include sbml/SBMLReader.h
 %include sbml/SBMLWriter.h

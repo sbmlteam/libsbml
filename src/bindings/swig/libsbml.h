@@ -28,6 +28,10 @@
 #include <sbml/common/libsbml-version.h>
 #include <sbml/common/operationReturnValues.h>
 
+#include <sbml/util/IdList.h>
+#include <sbml/util/IdentifierTransformer.h>
+#include <sbml/util/ElementFilter.h>
+
 #include <sbml/SBMLReader.h>
 #include <sbml/SBMLWriter.h>
 #include <sbml/UnitKind.h>
