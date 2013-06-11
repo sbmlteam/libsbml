@@ -88,8 +88,10 @@ public:
   virtual ~ElementFilter();
   virtual bool filter(const SBase* element);
   
+  #ifndef SWIG
   void* getUserData();
   void setUserData(void* userData);
+  #endif
   
 private:
   void* mUserData;

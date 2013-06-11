@@ -48,8 +48,11 @@ public:
   int transform(const SBase* element);
   virtual int transform(SBase* element);
   
+  #ifndef SWIG
   void* getUserData();
   void setUserData(void* userData);
+  #endif
+
   
 private:
   void* mUserData;
