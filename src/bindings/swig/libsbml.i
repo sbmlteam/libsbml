@@ -30,6 +30,7 @@
 %feature("director") SBMLConverter;  
 %feature("director") ElementFilter;  
 %feature("director") IdentifierTransformer;  
+%ignore IdentifierTransformer::transform(const SBase* element);
 
 #pragma SWIG nowarn=473,401,844
 

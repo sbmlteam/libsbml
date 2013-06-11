@@ -139,6 +139,7 @@ examples =                                                          \
   examples/csharp/unsetAnnotation.cs                                \
   examples/csharp/unsetNotes.cs                                     \
   examples/csharp/validateSBML.cs                                   \
+  examples/csharp/SetIdFromNames.cs                                   \
   examples/java/Makefile.in                                         \
   examples/java/README.txt                                          \
   examples/java/addCustomValidator.java                             \
