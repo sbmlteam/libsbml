@@ -30,6 +30,7 @@
 #include <sbml/SBMLReader.h>
 #include <sbml/SBMLTypes.h>
 
+#include <sbml/util/ElementFilter.h>
 
 #include <check.h>
 
