@@ -961,6 +961,18 @@ public:
 
 
   /**
+   * Get the precedence of this node in the infix math syntax of SBML
+   * Level&nbsp;3.  For more information about the infix syntax, see the
+   * discussion about <a href="#math-convert">text string formulas</a> at
+   * the top of the documentation for ASTNode.
+   * 
+   * @return an integer indicating the precedence of this ASTNode
+   */
+  LIBSBML_EXTERN
+  int getL3Precedence () const;
+
+
+  /**
    * Get the type of this ASTNode.  The value returned is one of the
    * enumeration values such as @link ASTNodeType_t#AST_LAMBDA
    * AST_LAMBDA@endlink, @link ASTNodeType_t#AST_PLUS AST_PLUS@endlink,
@@ -1282,6 +1294,32 @@ public:
    */
   LIBSBML_EXTERN
   bool isUPlus () const;
+
+
+  /**
+   * Predicate returning @c true (non-zero) if this node is a unary not
+   * operator, @c false (zero) otherwise.  A node is defined as a unary
+   * minus node if it is of type @link ASTNodeType_t#AST_LOGICAL_NOT
+   * LOGICAL_NOT@endlink and has exactly one child.
+   *
+   * @return @c true if this ASTNode is a unary not, @c false otherwise.
+   */
+  LIBSBML_EXTERN
+  bool isUNot () const;
+
+
+  /**
+   * Predicate returning @c true (non-zero) if this node is a piecewise
+   * function that mimics the 'modulo' operation, @c false (zero)
+   * otherwise.  A node is defined as modulo if it is of type 
+   * @link ASTNodeType_t#AST_PIECEWISE AST_PIECEWISE@endlink and has 
+   * exactly three children of the form:
+   * piecewise(x - y * ceil(x / y), xor(x < 0, y < 0), x - y * floor(x / y))
+   *
+   * @return @c true if this ASTNode is modulo, @c false otherwise.
+   */
+  LIBSBML_EXTERN
+  bool isModulo () const;
 
 
   /**
@@ -2152,6 +2190,13 @@ int
 ASTNode_getPrecedence (const ASTNode_t *node);
 
 /**
+ * @return the precedence of this ASTNode within the L3 infix parser
+ */
+LIBSBML_EXTERN
+int
+ASTNode_getL3Precedence (const ASTNode_t *node);
+
+/**
  * @return the type of this ASTNode.
  */
 LIBSBML_EXTERN
@@ -2396,6 +2441,26 @@ ASTNode_isUMinus (const ASTNode_t *node);
 LIBSBML_EXTERN
 int
 ASTNode_isUPlus (const ASTNode_t *node);
+
+LIBSBML_EXTERN
+int
+ASTNode_isUTimes(const ASTNode_t *node);
+
+LIBSBML_EXTERN
+int
+ASTNode_isUNot (const ASTNode_t *node);
+
+LIBSBML_EXTERN
+int
+ASTNode_isPlus0(const ASTNode_t *node);
+
+LIBSBML_EXTERN
+int
+ASTNode_isTimes0(const ASTNode_t *node);
+
+LIBSBML_EXTERN
+int
+ASTNode_isModulo (const ASTNode_t *node);
 
 
 /**

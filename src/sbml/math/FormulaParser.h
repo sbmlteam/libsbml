@@ -106,7 +106,7 @@ BEGIN_C_DECLS
  * 
  * @param formula the text-string formula expression to be parsed
  *
- * @return the root node of the AST, or NULL if an error occurred in
+ * @return the root node of the AST, or @c NULL if an error occurred in
  * parsing the formula
  *
  * @if clike @see SBML_formulaToString()

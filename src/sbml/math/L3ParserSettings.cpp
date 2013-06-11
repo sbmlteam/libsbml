@@ -173,7 +173,7 @@ L3ParserSettings_setModel (L3ParserSettings_t * settings, const Model_t * model)
  */
 LIBSBML_EXTERN
 const Model_t *
-L3ParserSettings_getModel (L3ParserSettings_t * settings)
+L3ParserSettings_getModel (const L3ParserSettings_t * settings)
 {
   if (settings == NULL)
     return NULL;
@@ -234,11 +234,12 @@ L3ParserSettings_setParseLog (L3ParserSettings_t * settings, ParseLogType_t type
  * @param settings the L3ParserSettings_t structure on which to set the Model.
  *
  * @return ParseLogType_t log parsing option to associate with this 
- * L3ParserSettings_t object.
+ * L3ParserSettings_t object.  Returns L3P_PARSE_LOG_AS_LOG10 (0) if @param settings
+ * is NULL.
  */
 LIBSBML_EXTERN
 ParseLogType_t
-L3ParserSettings_getParseLog (L3ParserSettings_t * settings)
+L3ParserSettings_getParseLog (const L3ParserSettings_t * settings)
 {
   if (settings == NULL)
     return L3P_PARSE_LOG_AS_LOG10;
@@ -277,11 +278,12 @@ L3ParserSettings_setParseCollapseMinus (L3ParserSettings_t * settings, int flag)
  * @param settings the L3ParserSettings_t structure from which to get the option.
  *
  * @return an integer indicating whether unary minus should be collapsed 
- * (non-zero) or not (zero).
+ * (non-zero) or not (zero).  Returns zero (0) if @param settings
+ * is NULL.
  */
 LIBSBML_EXTERN
 int
-L3ParserSettings_getParseCollapseMinus (L3ParserSettings_t * settings)
+L3ParserSettings_getParseCollapseMinus (const L3ParserSettings_t * settings)
 {
   if (settings == NULL)
     return 0;
@@ -314,14 +316,15 @@ L3ParserSettings_setParseUnits (L3ParserSettings_t * settings, int flag)
  * @param settings the L3ParserSettings_t structure from which to get the option.
  *
  * @return an integer indicating whether numbers should be considered as 
- * a having units (non-zero) or not (zero).
+ * a having units (non-zero) or not (zero).  Returns non-zero (1) if @param settings
+ * is NULL.
  */
 LIBSBML_EXTERN
 int
-L3ParserSettings_getParseUnits (L3ParserSettings_t * settings)
+L3ParserSettings_getParseUnits (const L3ParserSettings_t * settings)
 {
   if (settings == NULL)
-    return 0;
+    return 1;
 
   return (static_cast<int>(settings->getParseUnits()));
 }
@@ -351,14 +354,15 @@ L3ParserSettings_setParseAvogadroCsymbol (L3ParserSettings_t * settings, int fla
  * @param settings the L3ParserSettings_t structure from which to get the option.
  *
  * @return an integer indicating whether avogadro should be considered as 
- * a csymbol (non-zero) or not (zero).
+ * a csymbol (non-zero) or not (zero).  Returns non-zero (1) if @param settings
+ * is NULL.
  */
 LIBSBML_EXTERN
 int
-L3ParserSettings_getParseAvogadroCsymbol (L3ParserSettings_t * settings)
+L3ParserSettings_getParseAvogadroCsymbol (const L3ParserSettings_t * settings)
 {
   if (settings == NULL)
-    return 0;
+    return 1;
 
   return (static_cast<int>(settings->getParseAvogadroCsymbol()));
 }

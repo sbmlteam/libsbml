@@ -55,6 +55,7 @@ headers =            \
   FormulaFormatter.h \
   FormulaParser.h    \
   FormulaTokenizer.h \
+  L3FormulaFormatter.h \
   L3Parser.h         \
   L3ParserSettings.h \
   MathML.h
@@ -66,6 +67,7 @@ sources =            \
   FormulaFormatter.c \
   FormulaParser.c    \
   FormulaTokenizer.c \
+  L3FormulaFormatter.c \
   L3Parser.cpp   \
   L3ParserSettings.cpp \
   MathML.cpp

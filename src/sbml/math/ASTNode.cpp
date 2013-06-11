@@ -1212,6 +1212,74 @@ ASTNode::getPrecedence () const
 
 
 /*
+ * @return the precedence of this ASTNode as defined in the L3 parser documentation.
+ */
+LIBSBML_EXTERN
+int
+ASTNode::getL3Precedence () const
+{
+  int precedence;
+
+  if ( isUMinus() )
+  {
+    precedence = 6;
+  }
+  else if ( isUNot() )
+  {
+    precedence = 6;
+  }
+  else if ( isModulo() )
+  {
+    precedence = 5;
+  }
+  else
+  {
+    switch (mType)
+    {
+      case AST_POWER:
+      case AST_FUNCTION_POWER:
+        precedence = 7;
+        break;
+
+      case AST_LOGICAL_NOT:
+        precedence = 6;
+        break;
+
+      case AST_DIVIDE:
+      case AST_TIMES:
+        precedence = 5;
+        break;
+
+      case AST_PLUS:
+      case AST_MINUS:
+        precedence = 4;
+        break;
+
+      case AST_RELATIONAL_EQ:
+      case AST_RELATIONAL_GEQ:
+      case AST_RELATIONAL_GT:
+      case AST_RELATIONAL_LEQ:
+      case AST_RELATIONAL_LT:
+      case AST_RELATIONAL_NEQ:
+        precedence = 3;
+        break;
+
+      case AST_LOGICAL_AND:
+      case AST_LOGICAL_OR:
+        precedence = 2;
+        break;
+
+      default:
+        precedence = 8;
+        break;
+    }
+  }
+
+  return precedence;
+}
+
+
+/*
  * @return the type of this ASTNode.
  */
 LIBSBML_EXTERN
@@ -1630,6 +1698,104 @@ ASTNode::isUPlus () const
   return uplus;
 }
 
+LIBSBML_EXTERN
+bool
+ASTNode::isUNot () const
+{
+  bool unot = false;
+
+
+  if (mType == AST_LOGICAL_NOT)
+  {
+    if (getNumChildren() == 1)
+    {
+      unot = true;
+    }
+  }
+
+  return unot;
+}
+
+bool equals(const ASTNode* a, const ASTNode* b)
+{
+  char* ach = SBML_formulaToString(a);
+  char* bch = SBML_formulaToString(b);
+  string astr(ach);
+  string bstr(bch);
+  delete ach;
+  delete bch;
+  return (astr == bstr);
+}
+
+LIBSBML_EXTERN
+bool
+ASTNode::isModulo () const
+{
+  //In l3v2 there may be an actual 'modulo' ASTNode, but for now,
+  // it's all mimiced by the piecewise function:
+  // piecewise(x - y * ceil(x / y), xor(x < 0, y < 0), x - y * floor(x / y))
+
+  if (mType != AST_FUNCTION_PIECEWISE) return false;
+  if (getNumChildren() != 3) return false;
+
+  //x - y * ceil(x/y)
+  const ASTNode* child = getChild(0);
+  if (child->getType() != AST_MINUS) return false;
+  if (child->getNumChildren() != 2) return false;
+  const ASTNode* x  = child->getChild(0);
+
+  const ASTNode* c2 = child->getChild(1);
+  if (c2->getType() != AST_TIMES) return false;
+  if (c2->getNumChildren() != 2) return false;
+  const ASTNode* y = c2->getChild(0);
+  c2 = c2->getChild(1);
+  if (c2->getType() != AST_FUNCTION_CEILING) return false;
+  if (c2->getNumChildren() != 1) return false;
+  c2 = c2->getChild(0);
+  if (c2->getType() != AST_DIVIDE) return false;
+  if (c2->getNumChildren() != 2) return false;
+  if (!equals(x, c2->getChild(0))) return false;
+  if (!equals(y, c2->getChild(1))) return false;
+
+  //xor(x<0, y<0)
+  child = getChild(1);
+  if (child->getType() != AST_LOGICAL_XOR) return false;
+  if (child->getNumChildren() != 2) return false;
+  c2 = child->getChild(0);
+  if (c2->getType() != AST_RELATIONAL_LT) return false;
+  if (c2->getNumChildren() != 2) return false;
+  if (!equals(x, c2->getChild(0))) return false;
+  if (c2->getChild(1)->getType() != AST_INTEGER) return false;
+  if (c2->getChild(1)->getInteger() != 0) return false;
+  c2 = child->getChild(1);
+  if (c2->getType() != AST_RELATIONAL_LT) return false;
+  if (c2->getNumChildren() != 2) return false;
+  if (!equals(y, c2->getChild(0))) return false;
+  if (c2->getChild(1)->getType() != AST_INTEGER) return false;
+  if (c2->getChild(1)->getInteger() != 0) return false;
+
+  //x - y * floor(x/y)
+  child = getChild(2);
+  if (child->getType() != AST_MINUS) return false;
+  if (child->getNumChildren() != 2) return false;
+  if (!equals(x, child->getChild(0))) return false;
+
+  c2 = child->getChild(1);
+  if (c2->getType() != AST_TIMES) return false;
+  if (c2->getNumChildren() != 2) return false;
+  if (!equals(y, c2->getChild(0))) return false;
+  c2 = c2->getChild(1);
+  if (c2->getType() != AST_FUNCTION_FLOOR) return false;
+  if (c2->getNumChildren() != 1) return false;
+  c2 = c2->getChild(0);
+  if (c2->getType() != AST_DIVIDE) return false;
+  if (c2->getNumChildren() != 2) return false;
+  if (!equals(x, c2->getChild(0))) return false;
+  if (!equals(y, c2->getChild(1))) return false;
+
+  return true;
+}
+
 /*
  * @return true if this ASTNode is of type AST_UNKNOWN, false otherwise.
  */
@@ -1984,7 +2150,7 @@ ASTNode::replaceIDWithFunction(const std::string& id, const ASTNode* function)
     }
   }
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /** @cond doxygen-libsbml-internal */
@@ -2001,7 +2167,7 @@ void ASTNode::multiplyTimeBy(const ASTNode* function)
     addChild(time);
   }
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 LIBSBML_EXTERN
 int
@@ -2151,9 +2317,10 @@ ASTNode::hasCorrectNumberArguments() const
   case AST_CONSTANT_PI:
   case AST_CONSTANT_TRUE:
 
-    if (numChildren != 0)
+    if (numChildren != 0) {
       correctNum = false;
-      break;
+    }
+    break;
 
   case AST_FUNCTION_ABS:
   case AST_FUNCTION_ARCCOS:
@@ -2187,63 +2354,63 @@ ASTNode::hasCorrectNumberArguments() const
   case AST_FUNCTION_TANH:
   case AST_LOGICAL_NOT:
 
-    if (numChildren != 1)
+    if (numChildren != 1) {
       correctNum = false;
-      break;
+    }
+    break;
 
-    case AST_DIVIDE:
-    case AST_POWER:
-    case AST_RELATIONAL_NEQ:
-    case AST_FUNCTION_DELAY:
-    case AST_FUNCTION_POWER:
-    case AST_FUNCTION_LOG:       // a log ASTNode has a child for base
+  case AST_DIVIDE:
+  case AST_POWER:
+  case AST_RELATIONAL_NEQ:
+  case AST_FUNCTION_DELAY:
+  case AST_FUNCTION_POWER:
+  case AST_FUNCTION_LOG:       // a log ASTNode has a child for base
 
-    if (numChildren != 2)
+    if (numChildren != 2) {
       correctNum = false;
-      break;
+    }
+    break;
 
-    case AST_TIMES:
-    case AST_PLUS:
-    case AST_LOGICAL_AND:
-    case AST_LOGICAL_OR:
-    case AST_LOGICAL_XOR:
-      correctNum = true;
-      break;
+  case AST_TIMES:
+  case AST_PLUS:
+  case AST_LOGICAL_AND:
+  case AST_LOGICAL_OR:
+  case AST_LOGICAL_XOR:
+    correctNum = true;
+    break;
 
-    case AST_RELATIONAL_EQ:
-    case AST_RELATIONAL_GEQ:
-    case AST_RELATIONAL_GT:
-    case AST_RELATIONAL_LEQ:
-    case AST_RELATIONAL_LT:
+  case AST_RELATIONAL_EQ:
+  case AST_RELATIONAL_GEQ:
+  case AST_RELATIONAL_GT:
+  case AST_RELATIONAL_LEQ:
+  case AST_RELATIONAL_LT:
 
-    if (numChildren < 2)
+    if (numChildren < 2) {
       correctNum = false;
-      break;
+    }
+    break;
 
-    case AST_FUNCTION_PIECEWISE:
+  case AST_FUNCTION_ROOT:
+  case AST_MINUS:
 
-      if (numChildren < 1)
-        correctNum = false;
-      break;
-
-    case AST_FUNCTION_ROOT:
-    case AST_MINUS:
-      
-    if (numChildren < 1 || numChildren > 2)
+    if (numChildren < 1 || numChildren > 2) {
       correctNum = false;
-      break;
+    }
+    break;
 
-    case AST_LAMBDA:
-      
-    if (numChildren < 1)
+  case AST_FUNCTION_PIECEWISE:
+  case AST_LAMBDA:
+
+    if (numChildren < 1) {
       correctNum = false;
-      break;
-     
-    case AST_FUNCTION:
-      break;
+    }
+    break;
 
-    default:
-      break;
+  case AST_FUNCTION:
+    break;
+
+  default:
+    break;
 
   }
 
@@ -2811,6 +2978,19 @@ ASTNode_getPrecedence (const ASTNode_t *node)
 
 
 /**
+ * @return the precedence of this ASTNode (as defined in the SBML L1
+ * specification).
+ */
+LIBSBML_EXTERN
+int
+ASTNode_getL3Precedence (const ASTNode_t *node)
+{
+  if (node == NULL) return 8; // default precedence
+  return static_cast<const ASTNode*>(node)->getL3Precedence();
+}
+
+
+/**
  * @return the type of this ASTNode.
  */
 LIBSBML_EXTERN
@@ -3198,6 +3378,51 @@ ASTNode_isUPlus (const ASTNode_t *node)
 {
   if (node == NULL) return (int) false;
   return (int) static_cast<const ASTNode*>(node)->isUPlus();
+}
+
+LIBSBML_EXTERN
+int
+ASTNode_isUTimes(const ASTNode_t *node)
+{
+  return ASTNode_getType(node) == AST_TIMES && ASTNode_getNumChildren(node) == 1;
+}
+
+/**
+ * @return true (non-zero) if this ASTNode is a unary not, false (0)
+ * otherwise.
+ */
+LIBSBML_EXTERN
+int
+ASTNode_isUNot (const ASTNode_t *node)
+{
+  if (node == NULL) return (int) false;
+  return (int) static_cast<const ASTNode*>(node)->isUNot();
+}
+
+LIBSBML_EXTERN
+int
+ASTNode_isPlus0(const ASTNode_t *node)
+{
+  return ASTNode_getType(node) == AST_PLUS && ASTNode_getNumChildren(node) == 0;
+}
+
+LIBSBML_EXTERN
+int
+ASTNode_isTimes0(const ASTNode_t *node)
+{
+  return ASTNode_getType(node) == AST_TIMES && ASTNode_getNumChildren(node) == 0;
+}
+
+/**
+ * @return true (non-zero) if this ASTNode is the piecewise
+ * version of the 'modulo' operation, false (0) otherwise.
+ */
+LIBSBML_EXTERN
+int
+ASTNode_isModulo (const ASTNode_t *node)
+{
+  if (node == NULL) return (int) false;
+  return (int) static_cast<const ASTNode*>(node)->isModulo();
 }
 
 
@@ -3766,7 +3991,7 @@ ASTNode_getNumSemanticsAnnotations(ASTNode_t* node)
  * @param node the ASTNode_t structure to query.
  * @param n unsigned int the index of the annotation to be retrieved.
  * 
- * @return the nth annotation of this ASTNode, or NULL if this node has no nth
+ * @return the nth annotation of this ASTNode, or @c NULL if this node has no nth
  * annotation (<code>n &gt; ASTNode_getNumSemanticsAnnotations() - 1</code>).
  */
 LIBSBML_EXTERN

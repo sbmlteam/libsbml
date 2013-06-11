@@ -565,7 +565,7 @@ L3ParserSettings_setModel (L3ParserSettings_t * settings, const Model_t * model)
 
 LIBSBML_EXTERN
 const Model_t *
-L3ParserSettings_getModel (L3ParserSettings_t * settings);
+L3ParserSettings_getModel (const L3ParserSettings_t * settings);
 
 
 LIBSBML_EXTERN
@@ -580,7 +580,7 @@ L3ParserSettings_setParseLog (L3ParserSettings_t * settings, ParseLogType_t type
 
 LIBSBML_EXTERN
 ParseLogType_t
-L3ParserSettings_getParseLog (L3ParserSettings_t * settings);
+L3ParserSettings_getParseLog (const L3ParserSettings_t * settings);
 
 
 LIBSBML_EXTERN
@@ -590,7 +590,7 @@ L3ParserSettings_setParseCollapseMinus (L3ParserSettings_t * settings, int flag)
 
 LIBSBML_EXTERN
 int
-L3ParserSettings_getParseCollapseMinus (L3ParserSettings_t * settings);
+L3ParserSettings_getParseCollapseMinus (const L3ParserSettings_t * settings);
 
 
 LIBSBML_EXTERN
@@ -600,7 +600,7 @@ L3ParserSettings_setParseUnits (L3ParserSettings_t * settings, int flag);
 
 LIBSBML_EXTERN
 int
-L3ParserSettings_getParseUnits (L3ParserSettings_t * settings);
+L3ParserSettings_getParseUnits (const L3ParserSettings_t * settings);
 
 
 LIBSBML_EXTERN
@@ -610,7 +610,7 @@ L3ParserSettings_setParseAvogadroCsymbol (L3ParserSettings_t * settings, int fla
 
 LIBSBML_EXTERN
 int
-L3ParserSettings_getParseAvogadroCsymbol (L3ParserSettings_t * settings);
+L3ParserSettings_getParseAvogadroCsymbol (const L3ParserSettings_t * settings);
 
 
 END_C_DECLS

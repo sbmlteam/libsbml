@@ -626,6 +626,251 @@ START_TEST (test_FormulaFormatter_multiPlusTimes)
 }
 END_TEST
 
+START_TEST (test_FormulaFormatter_multiEq)
+{
+  StringBuffer_t *sb = StringBuffer_create(42);
+  char           *s  = StringBuffer_getBuffer(sb);
+  ASTNode_t      *n  = ASTNode_create();
+  ASTNode_t      *c  = ASTNode_create();
+
+  ASTNode_setType(n, AST_RELATIONAL_EQ);
+  s = SBML_formulaToString(n);
+  fail_unless( !strcmp(s, "eq()"), NULL );
+
+  ASTNode_setName(c, "x");
+  ASTNode_addChild(n, c);
+  s = SBML_formulaToString(n);
+  fail_unless( !strcmp(s, "eq(x)"), NULL );
+  safe_free(s);
+
+  c = ASTNode_create();
+  ASTNode_setName(c, "y");
+  ASTNode_addChild(n, c);
+  s = SBML_formulaToString(n);
+  fail_unless( !strcmp(s, "eq(x, y)"), NULL );
+  safe_free(s);
+
+  c = ASTNode_create();
+  ASTNode_setName(c, "z");
+  ASTNode_addChild(n, c);
+  s = SBML_formulaToString(n);
+  fail_unless( !strcmp(s, "eq(x, y, z)"), NULL );
+  safe_free(s);
+
+  ASTNode_free(n);
+}
+END_TEST
+
+START_TEST (test_FormulaFormatter_multiNEq)
+{
+  StringBuffer_t *sb = StringBuffer_create(42);
+  char           *s  = StringBuffer_getBuffer(sb);
+  ASTNode_t      *n  = ASTNode_create();
+  ASTNode_t      *c  = ASTNode_create();
+
+  ASTNode_setType(n, AST_RELATIONAL_NEQ);
+  s = SBML_formulaToString(n);
+  fail_unless( !strcmp(s, "neq()"), NULL );
+
+  ASTNode_setName(c, "x");
+  ASTNode_addChild(n, c);
+  s = SBML_formulaToString(n);
+  fail_unless( !strcmp(s, "neq(x)"), NULL );
+  safe_free(s);
+
+  c = ASTNode_create();
+  ASTNode_setName(c, "y");
+  ASTNode_addChild(n, c);
+  s = SBML_formulaToString(n);
+  fail_unless( !strcmp(s, "neq(x, y)"), NULL );
+  safe_free(s);
+
+  c = ASTNode_create();
+  ASTNode_setName(c, "z");
+  ASTNode_addChild(n, c);
+  s = SBML_formulaToString(n);
+  fail_unless( !strcmp(s, "neq(x, y, z)"), NULL );
+  safe_free(s);
+
+  ASTNode_free(n);
+}
+END_TEST
+
+START_TEST (test_FormulaFormatter_multiGT)
+{
+  StringBuffer_t *sb = StringBuffer_create(42);
+  char           *s  = StringBuffer_getBuffer(sb);
+  ASTNode_t      *n  = ASTNode_create();
+  ASTNode_t      *c  = ASTNode_create();
+
+  ASTNode_setType(n, AST_RELATIONAL_GT);
+  s = SBML_formulaToString(n);
+  fail_unless( !strcmp(s, "gt()"), NULL );
+
+  ASTNode_setName(c, "x");
+  ASTNode_addChild(n, c);
+  s = SBML_formulaToString(n);
+  fail_unless( !strcmp(s, "gt(x)"), NULL );
+  safe_free(s);
+
+  c = ASTNode_create();
+  ASTNode_setName(c, "y");
+  ASTNode_addChild(n, c);
+  s = SBML_formulaToString(n);
+  fail_unless( !strcmp(s, "gt(x, y)"), NULL );
+  safe_free(s);
+
+  c = ASTNode_create();
+  ASTNode_setName(c, "z");
+  ASTNode_addChild(n, c);
+  s = SBML_formulaToString(n);
+  fail_unless( !strcmp(s, "gt(x, y, z)"), NULL );
+  safe_free(s);
+
+  ASTNode_free(n);
+}
+END_TEST
+
+START_TEST (test_FormulaFormatter_multiPlus)
+{
+  StringBuffer_t *sb = StringBuffer_create(42);
+  char           *s  = StringBuffer_getBuffer(sb);
+  ASTNode_t      *n  = ASTNode_create();
+  ASTNode_t      *c  = ASTNode_create();
+
+  ASTNode_setType(n, AST_PLUS);
+  s = SBML_formulaToString(n);
+  fail_unless( !strcmp(s, "0"), NULL );
+
+  ASTNode_setName(c, "x");
+  ASTNode_addChild(n, c);
+  s = SBML_formulaToString(n);
+  fail_unless( !strcmp(s, "x"), NULL );
+  safe_free(s);
+
+  c = ASTNode_create();
+  ASTNode_setName(c, "y");
+  ASTNode_addChild(n, c);
+  s = SBML_formulaToString(n);
+  fail_unless( !strcmp(s, "x + y"), NULL );
+  safe_free(s);
+
+  c = ASTNode_create();
+  ASTNode_setName(c, "z");
+  ASTNode_addChild(n, c);
+  s = SBML_formulaToString(n);
+  fail_unless( !strcmp(s, "x + y + z"), NULL );
+  safe_free(s);
+
+  ASTNode_free(n);
+}
+END_TEST
+
+START_TEST (test_FormulaFormatter_multiDivide)
+{
+  StringBuffer_t *sb = StringBuffer_create(42);
+  char           *s  = StringBuffer_getBuffer(sb);
+  ASTNode_t      *n  = ASTNode_create();
+  ASTNode_t      *c  = ASTNode_create();
+
+  ASTNode_setType(n, AST_DIVIDE);
+  s = SBML_formulaToString(n);
+  fail_unless( !strcmp(s, " / "), NULL );
+
+  ASTNode_setName(c, "x");
+  ASTNode_addChild(n, c);
+  s = SBML_formulaToString(n);
+  fail_unless( !strcmp(s, " / (x)"), NULL );
+  safe_free(s);
+
+  c = ASTNode_create();
+  ASTNode_setName(c, "y");
+  ASTNode_addChild(n, c);
+  s = SBML_formulaToString(n);
+  fail_unless( !strcmp(s, "x / y"), NULL );
+  safe_free(s);
+
+  c = ASTNode_create();
+  ASTNode_setName(c, "z");
+  ASTNode_addChild(n, c);
+  s = SBML_formulaToString(n);
+  fail_unless( !strcmp(s, "x / y / z"), NULL );
+  safe_free(s);
+
+  ASTNode_free(n);
+}
+END_TEST
+
+START_TEST (test_FormulaFormatter_multiAnd)
+{
+  StringBuffer_t *sb = StringBuffer_create(42);
+  char           *s  = StringBuffer_getBuffer(sb);
+  ASTNode_t      *n  = ASTNode_create();
+  ASTNode_t      *c  = ASTNode_create();
+
+  ASTNode_setType(n, AST_LOGICAL_AND);
+  s = SBML_formulaToString(n);
+  fail_unless( !strcmp(s, "and()"), NULL );
+
+  ASTNode_setName(c, "x");
+  ASTNode_addChild(n, c);
+  s = SBML_formulaToString(n);
+  fail_unless( !strcmp(s, "and(x)"), NULL );
+  safe_free(s);
+
+  c = ASTNode_create();
+  ASTNode_setName(c, "y");
+  ASTNode_addChild(n, c);
+  s = SBML_formulaToString(n);
+  fail_unless( !strcmp(s, "and(x, y)"), NULL );
+  safe_free(s);
+
+  c = ASTNode_create();
+  ASTNode_setName(c, "z");
+  ASTNode_addChild(n, c);
+  s = SBML_formulaToString(n);
+  fail_unless( !strcmp(s, "and(x, y, z)"), NULL );
+  safe_free(s);
+
+  ASTNode_free(n);
+}
+END_TEST
+
+START_TEST (test_FormulaFormatter_multiOr)
+{
+  StringBuffer_t *sb = StringBuffer_create(42);
+  char           *s  = StringBuffer_getBuffer(sb);
+  ASTNode_t      *n  = ASTNode_create();
+  ASTNode_t      *c  = ASTNode_create();
+
+  ASTNode_setType(n, AST_LOGICAL_OR);
+  s = SBML_formulaToString(n);
+  fail_unless( !strcmp(s, "or()"), NULL );
+
+  ASTNode_setName(c, "x");
+  ASTNode_addChild(n, c);
+  s = SBML_formulaToString(n);
+  fail_unless( !strcmp(s, "or(x)"), NULL );
+  safe_free(s);
+
+  c = ASTNode_create();
+  ASTNode_setName(c, "y");
+  ASTNode_addChild(n, c);
+  s = SBML_formulaToString(n);
+  fail_unless( !strcmp(s, "or(x, y)"), NULL );
+  safe_free(s);
+
+  c = ASTNode_create();
+  ASTNode_setName(c, "z");
+  ASTNode_addChild(n, c);
+  s = SBML_formulaToString(n);
+  fail_unless( !strcmp(s, "or(x, y, z)"), NULL );
+  safe_free(s);
+
+  ASTNode_free(n);
+}
+END_TEST
+
 START_TEST (test_FormulaFormatter_accessWithNULL)
 {
 
@@ -666,6 +911,13 @@ create_suite_FormulaFormatter (void)
   tcase_add_test( tcase, test_SBML_formulaToString            );
   tcase_add_test( tcase, test_SBML_formulaToString_L1toL1     );
   tcase_add_test( tcase, test_SBML_formulaToString_L2toL1     );
+  tcase_add_test( tcase, test_FormulaFormatter_multiEq        );
+  tcase_add_test( tcase, test_FormulaFormatter_multiNEq       );
+  tcase_add_test( tcase, test_FormulaFormatter_multiGT        );
+  tcase_add_test( tcase, test_FormulaFormatter_multiPlus      );
+  tcase_add_test( tcase, test_FormulaFormatter_multiDivide    );
+  tcase_add_test( tcase, test_FormulaFormatter_multiAnd       );
+  tcase_add_test( tcase, test_FormulaFormatter_multiOr        );
 
   suite_add_tcase(suite, tcase);
 

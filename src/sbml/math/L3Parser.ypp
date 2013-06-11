@@ -396,8 +396,28 @@ node:           number {$$ = $1;}
         |       node '!' '=' node {$$ = new ASTNode(AST_RELATIONAL_NEQ); $$->addChild($1); $$->addChild($4);}
         |       node '<' '>' node {$$ = new ASTNode(AST_RELATIONAL_NEQ); $$->addChild($1); $$->addChild($4);}
         |       node '>' '<' node {$$ = new ASTNode(AST_RELATIONAL_NEQ); $$->addChild($1); $$->addChild($4);}
-        |       node '&' '&' node {$$ = new ASTNode(AST_LOGICAL_AND); $$->addChild($1); $$->addChild($4);}
-        |       node '|' '|' node {$$ = new ASTNode(AST_LOGICAL_OR); $$->addChild($1); $$->addChild($4);}
+        |       node '&' '&' node {
+                  if ($1->getType()==AST_LOGICAL_AND) {
+                    $$ = $1;
+                    $$->addChild($4);
+                  }
+                  else {
+                    $$ = new ASTNode(AST_LOGICAL_AND);
+                    $$->addChild($1);
+                    $$->addChild($4);
+                  }
+                }
+        |       node '|' '|' node {
+                  if ($1->getType()==AST_LOGICAL_OR) {
+                    $$ = $1;
+                    $$->addChild($4);
+                  }
+                  else {
+                    $$ = new ASTNode(AST_LOGICAL_OR);
+                    $$->addChild($1);
+                    $$->addChild($4);
+                  }
+                }
         |       '!' node %prec NOT {$$ = new ASTNode(AST_LOGICAL_NOT); $$->addChild($2);}
         |       SYMBOL '(' ')' {
                    $$ = new ASTNode(AST_FUNCTION);

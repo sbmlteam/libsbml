@@ -1680,7 +1680,7 @@ writeMathML (const ASTNode* node, XMLOutputStream& stream, SBMLNamespaces *sbmln
  * @param xml the MathML to be converted, stored in a character string.
  *
  * @return an ASTnode (the root of the AST representing the mathematical
- * formula in the given XML string), otherwise NULL is returned if the 
+ * formula in the given XML string), otherwise @c NULL is returned if the 
  * given string is NULL or invalid.
  */
 LIBSBML_EXTERN

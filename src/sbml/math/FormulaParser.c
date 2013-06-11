@@ -367,7 +367,7 @@ static const StateActionPair_t Action[] =
  * 
  * @param formula the text-string formula expression to be parsed
  *
- * @return the root node of the AST, or NULL if an error occurred in
+ * @return the root node of the AST, or @c NULL if an error occurred in
  * parsing the formula
  *
  * @see SBML_formulaToString()
