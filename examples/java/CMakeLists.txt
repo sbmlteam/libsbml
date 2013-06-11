@@ -27,6 +27,7 @@ foreach(file
 		printUnits
 		readSBML
 		stripPackage
+		setIdFromNames
 		translateMath
 		unsetAnnotation
 		unsetNotes

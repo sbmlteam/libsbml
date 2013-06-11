@@ -139,7 +139,7 @@ examples =                                                          \
   examples/csharp/unsetAnnotation.cs                                \
   examples/csharp/unsetNotes.cs                                     \
   examples/csharp/validateSBML.cs                                   \
-  examples/csharp/SetIdFromNames.cs                                   \
+  examples/csharp/SetIdFromNames.cs                                 \
   examples/java/Makefile.in                                         \
   examples/java/README.txt                                          \
   examples/java/addCustomValidator.java                             \
@@ -161,7 +161,8 @@ examples =                                                          \
   examples/java/printsupported.java                                 \
   examples/java/printUnits.java                                     \
   examples/java/readSBML.java                                       \
-  examples/java/stripPackage.java                                  \
+  examples/java/stripPackage.java                                   \
+  examples/java/setIdFromNames.java                                 \
   examples/java/translateMath.java                                  \
   examples/java/unsetAnnotation.java                                \
   examples/java/unsetNotes.java                                     \
