@@ -352,6 +352,17 @@ START_TEST (test_SBML_formulaToL3String)
     "pi",
     "true",
     "false",
+    "(x > y) + (p == q)",
+    "gt(x, y, z) + eq(p, d, q)",
+    "gt(x) + eq(p)",
+    "gt() + eq()",
+    "(x || y) > (p && q)",
+    "or(x) > and(p)",
+    "or() > and()",
+    "(x * y)^2",
+    "(x * y * z)^2",
+    "times(x)^2",
+    "times()^2",
     ""
   };
 
