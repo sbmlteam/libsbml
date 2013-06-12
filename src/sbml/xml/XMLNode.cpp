@@ -92,7 +92,7 @@ XMLNode::XMLNode (const XMLToken& token) : XMLToken(token)
 XMLNode::XMLNode (  const XMLTriple&     triple
                   , const XMLAttributes& attributes
                   , const XMLNamespaces& namespaces
-		  , const unsigned int   line
+                  , const unsigned int   line
                   , const unsigned int   column) 
                   : XMLToken(triple, attributes, namespaces, line, column)
 {
@@ -356,9 +356,9 @@ XMLNode::getChild (unsigned int n) const
 XMLNode&
 XMLNode::getChild (const std::string&  name)
 {
-	return const_cast<XMLNode&>( 
-								static_cast<const XMLNode&>(*this).getChild(name)
-								);
+  return const_cast<XMLNode&>( 
+                static_cast<const XMLNode&>(*this).getChild(name)
+                );
 }
 /**
  * Returns the first child of this XMLNode with the corresponding name.
@@ -373,22 +373,22 @@ XMLNode::getChild (const std::string&  name)
 const XMLNode& 
 XMLNode::getChild (const std::string&  name) const
 {
-	static const XMLNode outOfRange;
-	int index = getIndex(name);
-	if (index != -1)
-	{
-		return getChild((unsigned int)index);
-	}
-	else 
-	{
-		// An empty XMLNode object, which is neither start node, 
-		// end node, nor text node, returned if the given index 
-		// is out of range. 
-		// Currently, this object is allocated as a static object
-		// to avoid a memory leak.
-		// This may be fixed in the futrure release.		
-		return outOfRange;
-	}
+  static const XMLNode outOfRange;
+  int index = getIndex(name);
+  if (index != -1)
+  {
+    return getChild((unsigned int)index);
+  }
+  else 
+  {
+    // An empty XMLNode object, which is neither start node, 
+    // end node, nor text node, returned if the given index 
+    // is out of range. 
+    // Currently, this object is allocated as a static object
+    // to avoid a memory leak.
+    // This may be fixed in the futrure release.
+    return outOfRange;
+  }
 
 }
 
@@ -405,13 +405,13 @@ int
 XMLNode::getIndex (const std::string& name) const
 {
   if (&name == NULL) return -1;
-	
+
   for (unsigned int index = 0; index < getNumChildren(); ++index)
-	{
-		if (getChild(index).getName() == name) return index;
-	}
-	
-	return -1;
+  {
+    if (getChild(index).getName() == name) return index;
+  }
+  
+  return -1;
 }
 
 /**
@@ -428,40 +428,40 @@ XMLNode::equals(const XMLNode& other, bool ignoreURI /*=false*/) const
 {
   if (&other == NULL) return false;
 
-	bool equal=true;
-	// check if the nodes have the same name,
-	equal=(getName()==other.getName());
-	// the same namespace uri, 
+  bool equal=true;
+  // check if the nodes have the same name,
+  equal=(getName()==other.getName());
+  // the same namespace uri, 
   equal=(equal && (ignoreURI ||  getURI()==other.getURI()));
-	
-	XMLAttributes attr1=getAttributes(); 
-	XMLAttributes attr2=other.getAttributes();
-	int i=0,iMax=attr1.getLength();
-	//the same attributes and the same number of children
-	equal=(iMax==attr2.getLength());
-	std::string attrName;
-	while(equal && i<iMax)
-	{
-		attrName=attr1.getName(i);
-		equal=(attr2.getIndex(attrName)!=-1);
-		// also check the namspace
-		equal=(equal && (attr1.getURI(i)==attr2.getURI(i) 
+
+  XMLAttributes attr1=getAttributes(); 
+  XMLAttributes attr2=other.getAttributes();
+  int i=0,iMax=attr1.getLength();
+  //the same attributes and the same number of children
+  equal=(iMax==attr2.getLength());
+  std::string attrName;
+  while(equal && i<iMax)
+  {
+    attrName=attr1.getName(i);
+    equal=(attr2.getIndex(attrName)!=-1);
+    // also check the namspace
+    equal=(equal && (attr1.getURI(i)==attr2.getURI(i) 
       || (attr1.getPrefix(i) == "" && getURI() == attr2.getURI(i))
       || (attr2.getPrefix(i) == "" && other.getURI() == attr1.getURI(i))
       ));
-		++i;
-	}
-	
-	// recursively check all children
-	i=0;
-	iMax=getNumChildren();
-	equal=(equal && (iMax==(int)other.getNumChildren()));
-	while(equal && i<iMax)
-	{
+    ++i;
+  }
+
+  // recursively check all children
+  i=0;
+  iMax=getNumChildren();
+  equal=(equal && (iMax==(int)other.getNumChildren()));
+  while(equal && i<iMax)
+  {
     equal=getChild(i).equals(other.getChild(i), ignoreURI);
-		++i;
-	}
-	return equal; 
+    ++i;
+  }
+  return equal; 
 }
 
 
@@ -476,7 +476,7 @@ XMLNode::equals(const XMLNode& other, bool ignoreURI /*=false*/) const
 bool 
 XMLNode::hasChild (const std::string& name) const
 {
-	return getIndex(name) != -1;
+  return getIndex(name) != -1;
 }
 
 /*
@@ -691,8 +691,8 @@ XMLNode_createFromToken (const XMLToken_t *token)
 LIBLAX_EXTERN
 XMLNode_t *
 XMLNode_createStartElementNS (const XMLTriple_t     *triple,
-			      const XMLAttributes_t *attr,
-			      const XMLNamespaces_t *ns)
+                              const XMLAttributes_t *attr,
+                              const XMLNamespaces_t *ns)
 {
   if (triple == NULL || attr == NULL || ns == NULL) return NULL;
   return new(nothrow) XMLNode(*triple, *attr, *ns);
@@ -711,7 +711,7 @@ XMLNode_createStartElementNS (const XMLTriple_t     *triple,
 LIBLAX_EXTERN
 XMLNode_t *
 XMLNode_createStartElement  (const XMLTriple_t *triple,
-			     const XMLAttributes_t *attr)
+                             const XMLAttributes_t *attr)
 {
   if (triple == NULL || attr == NULL) return NULL;
   return new(nothrow) XMLNode(*triple, *attr);
@@ -1021,7 +1021,7 @@ XMLNode_t *
 XMLNode_getChildForNameNC (XMLNode_t *node, const char*  name)
 {
   if (node == NULL) return NULL;
-	return &(node->getChild(name));
+  return &(node->getChild(name));
 }
 
 /**
@@ -1040,7 +1040,7 @@ const XMLNode_t *
 XMLNode_getChildForName (const XMLNode_t *node, const char*  name)
 {
   if (node == NULL) return NULL;
-	return &(node->getChild(name));
+  return &(node->getChild(name));
 }
 
 /**
@@ -1057,7 +1057,7 @@ int
 XMLNode_getIndex (const XMLNode_t *node, const char*  name)
 {
   if (node == NULL) return -1;
-	return (node->getIndex(name));
+  return (node->getIndex(name));
 }
 
 /**
@@ -1073,7 +1073,7 @@ int
 XMLNode_hasChild (const XMLNode_t *node, const char*  name)
 {
   if (node == NULL) return (int)false;
-	return static_cast<int>( node->hasChild(name) );
+  return static_cast<int>( node->hasChild(name) );
 }
 
 /**
@@ -1092,7 +1092,7 @@ XMLNode_equals(const XMLNode_t *node, const XMLNode_t* other)
 {
   if (node == NULL && other == NULL) return (int)true;
   if (node == NULL || other == NULL) return (int)false;
-	return static_cast<int>( node->equals(*other) );
+  return static_cast<int>( node->equals(*other) );
 }
 
 /**
@@ -1210,9 +1210,9 @@ XMLNode_addAttr ( XMLNode_t *node,  const char* name, const char* value )
 LIBLAX_EXTERN
 int 
 XMLNode_addAttrWithNS ( XMLNode_t *node,  const char* name
-	                , const char* value
-    	                , const char* namespaceURI
-	                , const char* prefix      )
+                        , const char* value
+                        , const char* namespaceURI
+                        , const char* prefix      )
 {
   if (node == NULL) return LIBSBML_INVALID_OBJECT;
   return node->addAttr(name, value, namespaceURI, prefix);
