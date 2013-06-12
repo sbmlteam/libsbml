@@ -615,11 +615,11 @@ START_TEST (test_FormulaFormatter_multiPlusTimes)
   ASTNode_addChild(n, c);
   s = SBML_formulaToString(n);
 
-//  fail_unless( !strcmp(s, "x + y + z"), NULL );
+  fail_unless( !strcmp(s, "x + y + z"), NULL );
 
   ASTNode_setType(n, AST_TIMES); 
   s = SBML_formulaToString(n);
-//  fail_unless( !strcmp(s, "x * y * z"), NULL );
+  fail_unless( !strcmp(s, "x * y * z"), NULL );
 
   safe_free(s);
   ASTNode_free(n);
