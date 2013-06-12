@@ -394,19 +394,19 @@ FormulaFormatter_visit ( const ASTNode_t *parent,
   {
     FormulaFormatter_visitFunction(parent, node, sb);
   }
-  else if (ASTNode_isUMinus(node))
+  else if (ASTNode_hasTypeAndNumChildren(node, AST_MINUS, 1))
   {
     FormulaFormatter_visitUMinus(parent, node, sb);
   }
-  else if (ASTNode_isUPlus(node) || ASTNode_isUTimes(node))
+  else if (ASTNode_hasTypeAndNumChildren(node, AST_PLUS, 1) || ASTNode_hasTypeAndNumChildren(node, AST_TIMES, 1))
   {
     FormulaFormatter_visit(node, ASTNode_getChild(node, 0), sb);
   }
-  else if (ASTNode_isPlus0(node))
+  else if (ASTNode_hasTypeAndNumChildren(node, AST_PLUS, 0))
   {
     StringBuffer_appendInt(sb, 0);
   }
-  else if (ASTNode_isTimes0(node))
+  else if (ASTNode_hasTypeAndNumChildren(node, AST_TIMES, 0))
   {
     StringBuffer_appendInt(sb, 1);
   }

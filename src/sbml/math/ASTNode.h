@@ -964,7 +964,13 @@ public:
    * Get the precedence of this node in the infix math syntax of SBML
    * Level&nbsp;3.  For more information about the infix syntax, see the
    * discussion about <a href="#math-convert">text string formulas</a> at
-   * the top of the documentation for ASTNode.
+   * the top of the documentation for ASTNode.  Note that the number of
+   * arguments a node has can change its precedence:  there's obviously 
+   * the difference between unary minus and subtraction, but there is also
+   * a difference between unary plus ('plus(x)') and addition ('x + y + z').
+   * Similarly, relational nodes have one precedence if they have exactly
+   * two children ('x == y') and a different one with any other number
+   * of children ('equals()', 'equals(x)', 'equals(x, y, z)').
    * 
    * @return an integer indicating the precedence of this ASTNode
    */
@@ -1297,20 +1303,22 @@ public:
 
 
   /**
-   * Predicate returning @c true (non-zero) if this node is a unary not
-   * operator, @c false (zero) otherwise.  A node is defined as a unary
-   * minus node if it is of type @link ASTNodeType_t#AST_LOGICAL_NOT
-   * LOGICAL_NOT@endlink and has exactly one child.
-   *
-   * @return @c true if this ASTNode is a unary not, @c false otherwise.
-   */
+  * Predicate returning @c true if this node is of type @param type,
+  * and has the number of children @param numchildren.  Designed
+  * for use in cases where it is useful to discover if the node is
+  * a unary not or unary minus, or a times node with no children, etc.
+  *
+  * @return @c true if this ASTNode is has the specified type and number
+  *         of children, @c false otherwise.
+  */
   LIBSBML_EXTERN
-  bool isUNot () const;
+  int hasTypeAndNumChildren(ASTNodeType_t type, unsigned int numchildren) const;
 
 
   /**
-   * Predicate returning @c true (non-zero) if this node is a piecewise
-   * function that mimics the 'modulo' operation, @c false (zero)
+   * Predicate returning @c true if this node matches the piecewise
+   * function created by the L3 Parser to mimic the functionality of
+   * the 'modulo' operator, i.e. "x%y".  Returns @c false
    * otherwise.  A node is defined as modulo if it is of type 
    * @link ASTNodeType_t#AST_PIECEWISE AST_PIECEWISE@endlink and has 
    * exactly three children of the form:
@@ -1319,10 +1327,10 @@ public:
    * @return @c true if this ASTNode is modulo, @c false otherwise.
    */
   LIBSBML_EXTERN
-  bool isModulo () const;
+  bool isTranslatedModulo () const;
 
 
-  /**
+  /*
    * Predicate returning @c true (non-zero) if this node has an unknown type.
    * 
    * "Unknown" nodes have the type @link ASTNodeType_t#AST_UNKNOWN
@@ -2442,27 +2450,34 @@ LIBSBML_EXTERN
 int
 ASTNode_isUPlus (const ASTNode_t *node);
 
+/**
+* Predicate returning @c true (non-zero) if this node is of type @param type,
+* and has the number of children @param numchildren.  Designed
+* for use in cases where it is useful to discover if the node is
+* a unary not or unary minus, or a times node with no children, etc.
+*
+* @return @c true (non-zero) if this ASTNode is has the specified type and number
+*         of children, @c false (zero) otherwise.
+*/
 LIBSBML_EXTERN
 int
-ASTNode_isUTimes(const ASTNode_t *node);
+ASTNode_hasTypeAndNumChildren(const ASTNode_t *node, ASTNodeType_t type, unsigned int numchildren);
 
+
+/**
+* Predicate returning @c true (non-zero) if this node matches the piecewise
+* function created by the L3 Parser to mimic the functionality of
+* the 'modulo' operator, i.e. "x%y".  Returns @c false (zero)
+* otherwise.  A node is defined as modulo if it is of type 
+* @link ASTNodeType_t#AST_PIECEWISE AST_PIECEWISE@endlink and has 
+* exactly three children of the form:
+* piecewise(x - y * ceil(x / y), xor(x < 0, y < 0), x - y * floor(x / y))
+*
+* @return @c true if this ASTNode is modulo, @c false otherwise.
+*/
 LIBSBML_EXTERN
 int
-ASTNode_isUNot (const ASTNode_t *node);
-
-LIBSBML_EXTERN
-int
-ASTNode_isPlus0(const ASTNode_t *node);
-
-LIBSBML_EXTERN
-int
-ASTNode_isTimes0(const ASTNode_t *node);
-
-LIBSBML_EXTERN
-int
-ASTNode_isModulo (const ASTNode_t *node);
-
-
+ASTNode_isTranslatedModulo (const ASTNode_t *node);
 /**
  * @return true (non-zero) if this ASTNode is of type @c AST_UNKNOWN, false
  * (0) otherwise.

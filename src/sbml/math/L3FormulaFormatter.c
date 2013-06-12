@@ -138,7 +138,10 @@ LIBSBML_EXTERN
 char *
 SBML_formulaToL3String (const ASTNode_t *tree)
 {
-  return SBML_formulaToL3StringWithSettings(tree, NULL);
+  L3ParserSettings_t* l3ps = L3ParserSettings_create();
+  char* ret = SBML_formulaToL3StringWithSettings(tree, l3ps);
+  L3ParserSettings_free(l3ps);
+  return ret;
 }
 
 
@@ -229,7 +232,7 @@ L3FormulaFormatter_isGrouped (const ASTNode_t *parent, const ASTNode_t *child, c
 
   if (parent != NULL)
   {
-    parentmodulo = ASTNode_isModulo(parent);
+    parentmodulo = ASTNode_isTranslatedModulo(parent);
     if (parentmodulo || !L3FormulaFormatter_isFunction(parent, settings))
     {
       group = 1;
@@ -492,7 +495,7 @@ L3FormulaFormatter_formatLogicalRelational (StringBuffer_t *sb, const ASTNode_t 
   case AST_LOGICAL_XOR:
   default:
     //Should never be called for these cases; unary not is
-    // handled by checking 'isUNot' earlier; xor always
+    // handled by checking unary not earlier; xor always
     // claims that it's a function, and is caught with 'isFunction'
     assert(0); 
     StringBuffer_append(sb, "!!");
@@ -522,7 +525,7 @@ L3FormulaFormatter_visit ( const ASTNode_t *parent,
   {
     L3FormulaFormatter_visitSqrt(parent, node, sb, settings);
   }
-  else if (ASTNode_isModulo(node))
+  else if (ASTNode_isTranslatedModulo(node))
   {
     L3FormulaFormatter_visitModulo(parent, node, sb, settings);
   }
@@ -534,7 +537,7 @@ L3FormulaFormatter_visit ( const ASTNode_t *parent,
   {
     L3FormulaFormatter_visitUMinus(parent, node, sb, settings);
   }
-  else if (ASTNode_isUNot(node))
+  else if (ASTNode_hasTypeAndNumChildren(node, AST_LOGICAL_NOT, 1))
   {
     L3FormulaFormatter_visitUNot(parent, node, sb, settings);
   }

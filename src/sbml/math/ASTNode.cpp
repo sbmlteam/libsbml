@@ -1220,15 +1220,12 @@ ASTNode::getL3Precedence () const
 {
   int precedence;
 
-  if ( isUMinus() )
+  if ( !hasCorrectNumberArguments() )
   {
-    precedence = 6;
+    //If the number of arguments is wrong, it'll be treated like a function call.
+    precedence = 8;
   }
-  else if ( isUNot() )
-  {
-    precedence = 6;
-  }
-  else if ( isModulo() )
+  else if ( isTranslatedModulo() )
   {
     precedence = 5;
   }
@@ -1238,21 +1235,41 @@ ASTNode::getL3Precedence () const
     {
       case AST_POWER:
       case AST_FUNCTION_POWER:
+        //Anything other than two children is caught above, since that's the only correct number of arguments.
         precedence = 7;
         break;
 
       case AST_LOGICAL_NOT:
+        //Anything other than unary not is caught above, since that's the wrong number of arguments.
         precedence = 6;
         break;
 
       case AST_DIVIDE:
       case AST_TIMES:
-        precedence = 5;
+        if (getNumChildren() < 2) {
+          //Written in functional form.
+          precedence = 8;
+        }
+        else {
+          precedence = 5;
+        }
         break;
 
-      case AST_PLUS:
       case AST_MINUS:
-        precedence = 4;
+        if (getNumChildren() == 1) {
+          //Unary minus
+          precedence = 6;
+          break;
+        }
+        //Fallthrough to:
+      case AST_PLUS:
+        if (getNumChildren() < 2) {
+          //Written in functional form (unary minus caught above)
+          precedence = 8;
+        }
+        else {
+          precedence = 4;
+        }
         break;
 
       case AST_RELATIONAL_EQ:
@@ -1261,12 +1278,24 @@ ASTNode::getL3Precedence () const
       case AST_RELATIONAL_LEQ:
       case AST_RELATIONAL_LT:
       case AST_RELATIONAL_NEQ:
-        precedence = 3;
+        //The relational symbols (==, >=, etc.) are only used when there are two children.
+        if (getNumChildren() == 2) {
+          precedence = 3;
+        }
+        else {
+          precedence = 8;
+        }
         break;
 
       case AST_LOGICAL_AND:
       case AST_LOGICAL_OR:
-        precedence = 2;
+        //The logical symbols && and || are only used when there are two or more children.
+        if (getNumChildren() < 2) {
+          precedence = 8;
+        }
+        else {
+          precedence = 2;
+        }
         break;
 
       default:
@@ -1699,24 +1728,13 @@ ASTNode::isUPlus () const
 }
 
 LIBSBML_EXTERN
-bool
-ASTNode::isUNot () const
+int
+ASTNode::hasTypeAndNumChildren(ASTNodeType_t type, unsigned int numchildren) const
 {
-  bool unot = false;
-
-
-  if (mType == AST_LOGICAL_NOT)
-  {
-    if (getNumChildren() == 1)
-    {
-      unot = true;
-    }
-  }
-
-  return unot;
+  return (mType == type && getNumChildren() == numchildren);
 }
 
-/* function used by the isModulo function to compare 
+/* function used by the isTranslatedModulo function to compare 
  * children of the piecewise that can be used to construct
  * the modulo function
  */
@@ -1733,10 +1751,10 @@ bool equals(const ASTNode* a, const ASTNode* b)
 
 LIBSBML_EXTERN
 bool
-ASTNode::isModulo () const
+ASTNode::isTranslatedModulo () const
 {
   //In l3v2 there may be an actual 'modulo' ASTNode, but for now,
-  // it's all mimiced by the piecewise function:
+  // it's all mimicked by the piecewise function:
   // piecewise(x - y * ceil(x / y), xor(x < 0, y < 0), x - y * floor(x / y))
 
   if (mType != AST_FUNCTION_PIECEWISE) return false;
@@ -3357,12 +3375,20 @@ ASTNode_isSqrt (const ASTNode_t *node)
  * otherwise.
  *
  * For numbers, unary minus nodes can be "collapsed" by negating the
- * number.  In fact, SBML_parseFormula() does this during its parse.
- * However, unary minus nodes for symbols (AST_NAMES) cannot be
- * "collapsed", so this predicate function is necessary.
+ * number.  In fact, @if clike SBML_parseFormula()@endif@if csharp SBML_parseFormula()@endif@if python libsbml.parseFormula()@endif@if java <code><a href="libsbml.html#parseFormula(java.lang.String)">libsbml.parseFormula(String formula)</a></code>@endif@~
+ * does this during its parse, and 
+ * @if clike SBML_parseL3Formula()@endif@if csharp SBML_parseL3Formula()@endif@if python libsbml.parseL3Formula()@endif@if java <code><a href="libsbml.html#parseL3Formula(java.lang.String)">libsbml.parseL3Formula(String formula)</a></code>@endif@~
+ * has a configuration option that allows this behavior to be turned
+ * on or off.  However, unary minus nodes for symbols (@c AST_NAMES) 
+ * cannot be "collapsed", so this predicate function is necessary.
  *
- * A node is defined as a unary minus node if it is of type AST_MINUS and
- * has exactly one child.
+ * A node is defined as a unary minus node if it is of type @c AST_MINUS
+ * and has exactly one child.
+ *
+ * @if clike @see SBML_parseL3Formula()@endif@~
+ * @if csharp @see SBML_parseL3Formula()@endif@~
+ * @if python @see libsbml.parseL3Formula()@endif@~
+ * @if java @see <code><a href="libsbml.html#parseL3Formula(String formula)">libsbml.parseL3Formula(String formula)</a></code>@endif@~
  */
 LIBSBML_EXTERN
 int
@@ -3384,38 +3410,18 @@ ASTNode_isUPlus (const ASTNode_t *node)
   return (int) static_cast<const ASTNode*>(node)->isUPlus();
 }
 
-LIBSBML_EXTERN
-int
-ASTNode_isUTimes(const ASTNode_t *node)
-{
-  return ASTNode_getType(node) == AST_TIMES && ASTNode_getNumChildren(node) == 1;
-}
-
 /**
- * @return true (non-zero) if this ASTNode is a unary not, false (0)
- * otherwise.
+ * @return true (non-zero) if this ASTNode has the given type and 
+ * number of children, false (0) otherwise.
  */
 LIBSBML_EXTERN
 int
-ASTNode_isUNot (const ASTNode_t *node)
+ASTNode_hasTypeAndNumChildren(const ASTNode_t *node, ASTNodeType_t type, unsigned int numchildren)
 {
-  if (node == NULL) return (int) false;
-  return (int) static_cast<const ASTNode*>(node)->isUNot();
+  if (node==NULL) return (int) false;
+  return node->hasTypeAndNumChildren(type, numchildren);
 }
 
-LIBSBML_EXTERN
-int
-ASTNode_isPlus0(const ASTNode_t *node)
-{
-  return ASTNode_getType(node) == AST_PLUS && ASTNode_getNumChildren(node) == 0;
-}
-
-LIBSBML_EXTERN
-int
-ASTNode_isTimes0(const ASTNode_t *node)
-{
-  return ASTNode_getType(node) == AST_TIMES && ASTNode_getNumChildren(node) == 0;
-}
 
 /**
  * @return true (non-zero) if this ASTNode is the piecewise
@@ -3423,10 +3429,10 @@ ASTNode_isTimes0(const ASTNode_t *node)
  */
 LIBSBML_EXTERN
 int
-ASTNode_isModulo (const ASTNode_t *node)
+ASTNode_isTranslatedModulo (const ASTNode_t *node)
 {
   if (node == NULL) return (int) false;
-  return (int) static_cast<const ASTNode*>(node)->isModulo();
+  return (int) static_cast<const ASTNode*>(node)->isTranslatedModulo();
 }
 
 

@@ -316,7 +316,7 @@ L3ParserSettings_setParseUnits (L3ParserSettings_t * settings, int flag)
  * @param settings the L3ParserSettings_t structure from which to get the option.
  *
  * @return an integer indicating whether numbers should be considered as 
- * a having units (non-zero) or not (zero).  Returns non-zero (1) if @param settings
+ * a having units (non-zero) or not (zero).  Returns zero (0) if @param settings
  * is NULL.
  */
 LIBSBML_EXTERN
@@ -324,7 +324,7 @@ int
 L3ParserSettings_getParseUnits (const L3ParserSettings_t * settings)
 {
   if (settings == NULL)
-    return 1;
+    return 0;
 
   return (static_cast<int>(settings->getParseUnits()));
 }
@@ -354,7 +354,7 @@ L3ParserSettings_setParseAvogadroCsymbol (L3ParserSettings_t * settings, int fla
  * @param settings the L3ParserSettings_t structure from which to get the option.
  *
  * @return an integer indicating whether avogadro should be considered as 
- * a csymbol (non-zero) or not (zero).  Returns non-zero (1) if @param settings
+ * a csymbol (non-zero) or not (zero).  Returns zero (0) if @param settings
  * is NULL.
  */
 LIBSBML_EXTERN
@@ -362,7 +362,7 @@ int
 L3ParserSettings_getParseAvogadroCsymbol (const L3ParserSettings_t * settings)
 {
   if (settings == NULL)
-    return 1;
+    return 0;
 
   return (static_cast<int>(settings->getParseAvogadroCsymbol()));
 }
