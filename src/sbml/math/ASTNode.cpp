@@ -1716,6 +1716,10 @@ ASTNode::isUNot () const
   return unot;
 }
 
+/* function used by the isModulo function to compare 
+ * children of the piecewise that can be used to construct
+ * the modulo function
+ */
 bool equals(const ASTNode* a, const ASTNode* b)
 {
   char* ach = SBML_formulaToString(a);
