@@ -29,7 +29,7 @@
 #include <sbml/math/L3FormulaFormatter.h>
 #include <sbml/math/L3ParserSettings.h>
 #include <sbml/math/ASTNode.h>
-#include <cassert>
+#include <assert.h>
 
 #include <sbml/util/util.h>
 
