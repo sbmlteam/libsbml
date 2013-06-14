@@ -1330,7 +1330,7 @@ public:
   bool isTranslatedModulo () const;
 
 
-  /*
+  /**
    * Predicate returning @c true (non-zero) if this node has an unknown type.
    * 
    * "Unknown" nodes have the type @link ASTNodeType_t#AST_UNKNOWN
