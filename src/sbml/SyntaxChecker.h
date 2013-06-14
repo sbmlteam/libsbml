@@ -148,6 +148,7 @@ public:
    */  
   static bool isValidXMLID(std::string id);
 
+  static bool isValidXMLanyURI(std::string uri);
 
   /**
    * Returns @c true or @c false depending on whether the argument string

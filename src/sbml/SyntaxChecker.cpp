@@ -240,6 +240,112 @@ SyntaxChecker::isValidXMLID(std::string id)
 }
 
 
+
+
+bool 
+SyntaxChecker::isValidXMLanyURI(std::string uri)
+{
+  string::iterator it = uri.begin();
+ 
+  // keep a record of the first character 
+  unsigned char c = *it;
+  
+  bool okay = true;
+  
+  // find the first occurrence of :
+  size_t colonPos = uri.find(':');
+
+  // find first occurence of /
+  size_t slashPos = uri.find('/');
+
+  // find first occurence of #
+  size_t hashPos = uri.find('#');
+
+  // find next occurence of #
+  size_t hashPos1 = uri.find('#', hashPos+1);
+
+  // find first occurence of ?
+  size_t questPos = uri.find('?');
+
+  // find first occurence of '['
+  size_t openPos = uri.find('[');
+
+  // find first occurence of ']'
+  size_t closePos = uri.find(']');
+
+
+  // quite hard to quantify the rules for the anyURI as many of them
+  // relate to resolving rather than syntax
+
+  // the following do apply:
+  //1. If the uri starts with abc: before any slashes then it 
+  //   must start with a letter
+  //2.  there can never be more than one # fragment
+  //3. the [ and ] are not allowed in the path part - only in fragment or query
+  //   so cannot occur before a # or a ?
+
+  // so Rule 1
+  if (colonPos < slashPos)
+  {
+    okay = isalpha(c); 
+  }
+
+  // Rule 2
+  if (okay == true && hashPos1 != string::npos)
+  {
+    okay = false;
+  }
+
+  // Rule 3
+  if (okay == true && (openPos != string::npos || closePos != string::npos))
+  {
+    if (hashPos != string::npos)
+    {
+      if (questPos != string::npos)
+      {
+        if (questPos < hashPos)
+        {
+          if (openPos < questPos || closePos < questPos)
+          {
+            okay = false;
+          }
+        }
+        else
+        {
+          if (openPos < hashPos || closePos < hashPos)
+          {
+            okay = false;
+          }
+        }
+      }
+      else
+      {
+        if (openPos < hashPos || closePos < hashPos)
+        {
+          okay = false;
+        }
+      }
+    }
+    else
+    {
+      if (questPos != string::npos)
+      {
+        if (openPos < questPos || closePos < questPos)
+        {
+          okay = false;
+        }
+      }
+      else
+      {
+        // found [ or ] before any # or ?
+        okay = false;
+      }
+    }
+  }
+
+  return  okay;
+}
+
 bool
 SyntaxChecker::isValidUnitSId(std::string units)
 {
