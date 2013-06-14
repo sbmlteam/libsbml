@@ -207,6 +207,189 @@ SBML_formulaToL3StringWithSettings (const ASTNode_t *tree, const L3ParserSetting
  * The rest of this file is internal code.
  */
 
+/* function used by the isTranslatedModulo function to compare 
+ * children of the piecewise that can be used to construct
+ * the modulo function
+ */
+int equals(const ASTNode_t* a, const ASTNode_t* b)
+{
+  char* ach = SBML_formulaToL3String(a);
+  char* bch = SBML_formulaToL3String(b);
+  int ret = !strcmp (ach, bch);
+  free(ach);
+  free(bch);
+  return ret;
+}
+
+/* Used by getL3Precedence and other functions below.
+ */
+int isTranslatedModulo (const ASTNode_t* node)
+{
+  const ASTNode_t* child;
+  const ASTNode_t* c2;
+  const ASTNode_t* x;
+  const ASTNode_t* y;
+  //In l3v2 there may be an actual 'modulo' ASTNode, but for now,
+  // it's all mimicked by the piecewise function:
+  // piecewise(x - y * ceil(x / y), xor(x < 0, y < 0), x - y * floor(x / y))
+
+  if (ASTNode_getType(node) != AST_FUNCTION_PIECEWISE) return 0;
+  if (ASTNode_getNumChildren(node) != 3) return 0;
+
+  //x - y * ceil(x/y)
+  child = ASTNode_getChild(node, 0);
+  if (ASTNode_getType(child) != AST_MINUS) return 0;
+  if (ASTNode_getNumChildren(child) != 2) return 0;
+  x  = ASTNode_getChild(child, 0);
+
+  c2 = ASTNode_getChild(child, 1);
+  if (ASTNode_getType(c2) != AST_TIMES) return 0;
+  if (ASTNode_getNumChildren(c2) != 2) return 0;
+  y = ASTNode_getChild(c2, 0);
+  c2 = ASTNode_getChild(c2, 1);
+  if (ASTNode_getType(c2) != AST_FUNCTION_CEILING) return 0;
+  if (ASTNode_getNumChildren(c2) != 1) return 0;
+  c2 = ASTNode_getChild(c2, 0);
+  if (ASTNode_getType(c2) != AST_DIVIDE) return 0;
+  if (ASTNode_getNumChildren(c2) != 2) return 0;
+  if (!equals(x, ASTNode_getChild(c2, 0))) return 0;
+  if (!equals(y, ASTNode_getChild(c2, 1))) return 0;
+
+  //xor(x<0, y<0)
+  child = ASTNode_getChild(node, 1);
+  if (ASTNode_getType(child) != AST_LOGICAL_XOR) return 0;
+  if (ASTNode_getNumChildren(child) != 2) return 0;
+  c2 = ASTNode_getChild(child, 0);
+  if (ASTNode_getType(c2) != AST_RELATIONAL_LT) return 0;
+  if (ASTNode_getNumChildren(c2) != 2) return 0;
+  if (!equals(x, ASTNode_getChild(c2, 0))) return 0;
+  if (ASTNode_getType(ASTNode_getChild(c2, 1)) != AST_INTEGER) return 0;
+  if (ASTNode_getInteger(ASTNode_getChild(c2, 1)) != 0) return 0;
+  c2 = ASTNode_getChild(child, 1);
+  if (ASTNode_getType(c2) != AST_RELATIONAL_LT) return 0;
+  if (ASTNode_getNumChildren(c2) != 2) return 0;
+  if (!equals(y, ASTNode_getChild(c2, 0))) return 0;
+  if (ASTNode_getType(ASTNode_getChild(c2, 1)) != AST_INTEGER) return 0;
+  if (ASTNode_getInteger(ASTNode_getChild(c2, 1)) != 0) return 0;
+
+  //x - y * floor(x/y)
+  child = ASTNode_getChild(node, 2);
+  if (ASTNode_getType(child) != AST_MINUS) return 0;
+  if (ASTNode_getNumChildren(child) != 2) return 0;
+  if (!equals(x, ASTNode_getChild(child, 0))) return 0;
+
+  c2 = ASTNode_getChild(child, 1);
+  if (ASTNode_getType(c2) != AST_TIMES) return 0;
+  if (ASTNode_getNumChildren(c2) != 2) return 0;
+  if (!equals(y, ASTNode_getChild(c2, 0))) return 0;
+  c2 = ASTNode_getChild(c2, 1);
+  if (ASTNode_getType(c2) != AST_FUNCTION_FLOOR) return 0;
+  if (ASTNode_getNumChildren(c2) != 1) return 0;
+  c2 = ASTNode_getChild(c2, 0);
+  if (ASTNode_getType(c2) != AST_DIVIDE) return 0;
+  if (ASTNode_getNumChildren(c2) != 2) return 0;
+  if (!equals(x, ASTNode_getChild(c2, 0))) return 0;
+  if (!equals(y, ASTNode_getChild(c2, 1))) return 0;
+
+  return 1;
+}
+
+
+/*
+ * @return the precedence of this ASTNode as defined in the L3 parser documentation.
+ */
+int getL3Precedence(const ASTNode_t* node)
+{
+  int precedence;
+  unsigned int numchildren = ASTNode_getNumChildren(node);
+
+  if ( !ASTNode_hasCorrectNumberArguments(node) )
+  {
+    //If the number of arguments is wrong, it'll be treated like a function call.
+    precedence = 8;
+  }
+  else if ( isTranslatedModulo(node) )
+  {
+    precedence = 5;
+  }
+  else
+  {
+    switch (ASTNode_getType(node))
+    {
+      case AST_POWER:
+      case AST_FUNCTION_POWER:
+        //Anything other than two children is caught above, since that's the only correct number of arguments.
+        precedence = 7;
+        break;
+
+      case AST_LOGICAL_NOT:
+        //Anything other than unary not is caught above, since that's the wrong number of arguments.
+        precedence = 6;
+        break;
+
+      case AST_DIVIDE:
+      case AST_TIMES:
+        if (numchildren < 2) {
+          //Written in functional form.
+          precedence = 8;
+        }
+        else {
+          precedence = 5;
+        }
+        break;
+
+      case AST_MINUS:
+        if (numchildren == 1) {
+          //Unary minus
+          precedence = 6;
+          break;
+        }
+        //Fallthrough to:
+      case AST_PLUS:
+        if (numchildren < 2) {
+          //Written in functional form (unary minus caught above)
+          precedence = 8;
+        }
+        else {
+          precedence = 4;
+        }
+        break;
+
+      case AST_RELATIONAL_EQ:
+      case AST_RELATIONAL_GEQ:
+      case AST_RELATIONAL_GT:
+      case AST_RELATIONAL_LEQ:
+      case AST_RELATIONAL_LT:
+      case AST_RELATIONAL_NEQ:
+        //The relational symbols (==, >=, etc.) are only used when there are two children.
+        if (numchildren == 2) {
+          precedence = 3;
+        }
+        else {
+          precedence = 8;
+        }
+        break;
+
+      case AST_LOGICAL_AND:
+      case AST_LOGICAL_OR:
+        //The logical symbols && and || are only used when there are two or more children.
+        if (numchildren < 2) {
+          precedence = 8;
+        }
+        else {
+          precedence = 2;
+        }
+        break;
+
+      default:
+        precedence = 8;
+        break;
+    }
+  }
+
+  return precedence;
+}
+
 
 /**
  * @return true (non-zero) if the given child ASTNode should be grouped
@@ -232,12 +415,12 @@ L3FormulaFormatter_isGrouped (const ASTNode_t *parent, const ASTNode_t *child, c
 
   if (parent != NULL)
   {
-    parentmodulo = ASTNode_isTranslatedModulo(parent);
+    parentmodulo = isTranslatedModulo(parent);
     if (parentmodulo || !L3FormulaFormatter_isFunction(parent, settings))
     {
       group = 1;
-      pp = ASTNode_getL3Precedence(parent);
-      cp = ASTNode_getL3Precedence(child);
+      pp = getL3Precedence(parent);
+      cp = getL3Precedence(child);
 
       if (pp < cp)
       {
@@ -525,7 +708,7 @@ L3FormulaFormatter_visit ( const ASTNode_t *parent,
   {
     L3FormulaFormatter_visitSqrt(parent, node, sb, settings);
   }
-  else if (ASTNode_isTranslatedModulo(node))
+  else if (isTranslatedModulo(node))
   {
     L3FormulaFormatter_visitModulo(parent, node, sb, settings);
   }

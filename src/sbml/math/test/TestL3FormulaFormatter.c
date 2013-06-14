@@ -30,6 +30,8 @@
 #include <sbml/math/L3FormulaFormatter.h>
 #include <sbml/math/L3Parser.h>
 #include <sbml/math/L3ParserSettings.h>
+//extern int isTranslatedModulo (const ASTNode_t* node);
+//extern int getL3Precedence(const ASTNode_t* node);
 
 #include <check.h>
 
@@ -965,6 +967,896 @@ START_TEST (test_L3FormulaFormatter_accessWithNULL)
 END_TEST
 
 
+//START_TEST (test_getL3Precedence_noargs)
+//{
+//  ASTNode_t *n = ASTNode_create();
+//
+//  ASTNode_setType(n, AST_PLUS);
+//  fail_unless(getL3Precedence(n) == 8);
+//
+//  ASTNode_setType(n, AST_MINUS);
+//  fail_unless(getL3Precedence(n) == 8);
+//
+//  ASTNode_setType(n, AST_TIMES);
+//  fail_unless(getL3Precedence(n) == 8);
+//
+//  ASTNode_setType(n, AST_DIVIDE);
+//  fail_unless(getL3Precedence(n) == 8);
+//
+//  ASTNode_setType(n, AST_POWER);
+//  fail_unless(getL3Precedence(n) == 8);
+//
+//
+//  ASTNode_setType(n, AST_INTEGER);
+//  fail_unless(getL3Precedence(n) == 8);
+//
+//  ASTNode_setType(n, AST_REAL);
+//  fail_unless(getL3Precedence(n) == 8);
+//
+//  ASTNode_setType(n, AST_REAL_E);
+//  fail_unless(getL3Precedence(n) == 8);
+//
+//  ASTNode_setType(n, AST_RATIONAL);
+//  fail_unless(getL3Precedence(n) == 8);
+//
+//
+//  ASTNode_setType(n, AST_NAME);
+//  fail_unless(getL3Precedence(n) == 8);
+//
+//  ASTNode_setType(n, AST_NAME_AVOGADRO);
+//  fail_unless(getL3Precedence(n) == 8);
+//
+//  ASTNode_setType(n, AST_NAME_TIME);
+//  fail_unless(getL3Precedence(n) == 8);
+//
+//
+//  ASTNode_setType(n, AST_CONSTANT_E);
+//  fail_unless(getL3Precedence(n) == 8);
+//
+//  ASTNode_setType(n, AST_CONSTANT_FALSE);
+//  fail_unless(getL3Precedence(n) == 8);
+//
+//  ASTNode_setType(n, AST_CONSTANT_PI);
+//  fail_unless(getL3Precedence(n) == 8);
+//
+//  ASTNode_setType(n, AST_CONSTANT_TRUE);
+//  fail_unless( getL3Precedence(n) == 8);
+//
+//
+//  ASTNode_setType(n, AST_LAMBDA);
+//  fail_unless(getL3Precedence(n) == 8);
+//
+//
+//  ASTNode_setType(n, AST_FUNCTION);
+//  fail_unless(getL3Precedence(n) == 8);
+//
+//  ASTNode_setType(n, AST_FUNCTION_ABS);
+//  fail_unless(getL3Precedence(n) == 8);
+//
+//  ASTNode_setType(n, AST_FUNCTION_ARCCOS);
+//  fail_unless(getL3Precedence(n) == 8);
+//
+//  ASTNode_setType(n, AST_FUNCTION_ARCCOSH);
+//  fail_unless(getL3Precedence(n) == 8);
+//
+//  ASTNode_setType(n, AST_FUNCTION_ARCCOT);
+//  fail_unless(getL3Precedence(n) == 8);
+//
+//  ASTNode_setType(n, AST_FUNCTION_ARCCOTH);
+//  fail_unless(getL3Precedence(n) == 8);
+//
+//  ASTNode_setType(n, AST_FUNCTION_ARCCSC);
+//  fail_unless(getL3Precedence(n) == 8);
+//
+//  ASTNode_setType(n, AST_FUNCTION_ARCCSCH);
+//  fail_unless(getL3Precedence(n) == 8);
+//
+//  ASTNode_setType(n, AST_FUNCTION_ARCSEC);
+//  fail_unless(getL3Precedence(n) == 8);
+//
+//  ASTNode_setType(n, AST_FUNCTION_ARCSECH);
+//  fail_unless(getL3Precedence(n) == 8);
+//
+//  ASTNode_setType(n, AST_FUNCTION_ARCSIN);
+//  fail_unless(getL3Precedence(n) == 8);
+//
+//  ASTNode_setType(n, AST_FUNCTION_ARCSINH);
+//  fail_unless(getL3Precedence(n) == 8);
+//
+//  ASTNode_setType(n, AST_FUNCTION_ARCTAN);
+//  fail_unless(getL3Precedence(n) == 8);
+//
+//  ASTNode_setType(n, AST_FUNCTION_ARCTANH);
+//  fail_unless(getL3Precedence(n) == 8);
+//
+//  ASTNode_setType(n, AST_FUNCTION_CEILING);
+//  fail_unless(getL3Precedence(n) == 8);
+//
+//  ASTNode_setType(n, AST_FUNCTION_COS);
+//  fail_unless(getL3Precedence(n) == 8);
+//
+//  ASTNode_setType(n, AST_FUNCTION_COSH);
+//  fail_unless(getL3Precedence(n) == 8);
+//
+//  ASTNode_setType(n, AST_FUNCTION_COT);
+//  fail_unless(getL3Precedence(n) == 8);
+//
+//  ASTNode_setType(n, AST_FUNCTION_COTH);
+//  fail_unless(getL3Precedence(n) == 8);
+//
+//  ASTNode_setType(n, AST_FUNCTION_CSC);
+//  fail_unless(getL3Precedence(n) == 8);
+//
+//  ASTNode_setType(n, AST_FUNCTION_CSCH);
+//  fail_unless(getL3Precedence(n) == 8);
+//
+//  ASTNode_setType(n, AST_FUNCTION_DELAY);
+//  fail_unless(getL3Precedence(n) == 8);
+//
+//  ASTNode_setType(n, AST_FUNCTION_EXP);
+//  fail_unless(getL3Precedence(n) == 8);
+//
+//  ASTNode_setType(n, AST_FUNCTION_FACTORIAL);
+//  fail_unless(getL3Precedence(n) == 8);
+//
+//  ASTNode_setType(n, AST_FUNCTION_FLOOR);
+//  fail_unless(getL3Precedence(n) == 8);
+//
+//  ASTNode_setType(n, AST_FUNCTION_LN);
+//  fail_unless(getL3Precedence(n) == 8);
+//
+//  ASTNode_setType(n, AST_FUNCTION_LOG);
+//  fail_unless(getL3Precedence(n) == 8);
+//
+//  ASTNode_setType(n, AST_FUNCTION_PIECEWISE);
+//  fail_unless(getL3Precedence(n) == 8);
+//
+//  ASTNode_setType(n, AST_FUNCTION_POWER);
+//  fail_unless(getL3Precedence(n) == 8);
+//
+//  ASTNode_setType(n, AST_FUNCTION_ROOT);
+//  fail_unless(getL3Precedence(n) == 8);
+//
+//  ASTNode_setType(n, AST_FUNCTION_SEC);
+//  fail_unless(getL3Precedence(n) == 8);
+//
+//  ASTNode_setType(n, AST_FUNCTION_SECH);
+//  fail_unless(getL3Precedence(n) == 8);
+//
+//  ASTNode_setType(n, AST_FUNCTION_SIN);
+//  fail_unless(getL3Precedence(n) == 8);
+//
+//  ASTNode_setType(n, AST_FUNCTION_SINH);
+//  fail_unless(getL3Precedence(n) == 8);
+//
+//  ASTNode_setType(n, AST_FUNCTION_TAN);
+//  fail_unless(getL3Precedence(n) == 8);
+//
+//  ASTNode_setType(n, AST_FUNCTION_TANH);
+//  fail_unless(getL3Precedence(n) == 8);
+//
+//
+//  ASTNode_setType(n, AST_LOGICAL_AND);
+//  fail_unless(getL3Precedence(n) == 8);
+//
+//  ASTNode_setType(n, AST_LOGICAL_NOT);
+//  fail_unless(getL3Precedence(n) == 8);
+//
+//  ASTNode_setType(n, AST_LOGICAL_OR);
+//  fail_unless(getL3Precedence(n) == 8);
+//
+//  ASTNode_setType(n, AST_LOGICAL_XOR);
+//  fail_unless(getL3Precedence(n) == 8);
+//
+//
+//  ASTNode_setType(n, AST_RELATIONAL_EQ);
+//  fail_unless(getL3Precedence(n) == 8);
+//
+//  ASTNode_setType(n, AST_RELATIONAL_GEQ);
+//  fail_unless(getL3Precedence(n) == 8);
+//
+//  ASTNode_setType(n, AST_RELATIONAL_GT);
+//  fail_unless(getL3Precedence(n) == 8);
+//
+//  ASTNode_setType(n, AST_RELATIONAL_LEQ);
+//  fail_unless(getL3Precedence(n) == 8);
+//
+//  ASTNode_setType(n, AST_RELATIONAL_LT);
+//  fail_unless(getL3Precedence(n) == 8);
+//
+//  ASTNode_setType(n, AST_RELATIONAL_NEQ);
+//  fail_unless(getL3Precedence(n) == 8);
+//
+//
+//  ASTNode_setType(n, AST_UNKNOWN);
+//  fail_unless(getL3Precedence(n) == 8);
+//  ASTNode_free(n);
+//}
+//END_TEST
+//
+//START_TEST (test_getL3Precedence_onearg)
+//{
+//  ASTNode_t *n = ASTNode_create();
+//  ASTNode_t *c = ASTNode_create();
+//  ASTNode_setName(c, "x");
+//  ASTNode_addChild(n, c);
+//
+//  ASTNode_setType(n, AST_PLUS);
+//  fail_unless(getL3Precedence(n) == 8);
+//
+//  ASTNode_setType(n, AST_MINUS);
+//  fail_unless(getL3Precedence(n) == 6); //Different!
+//
+//  ASTNode_setType(n, AST_TIMES);
+//  fail_unless(getL3Precedence(n) == 8);
+//
+//  ASTNode_setType(n, AST_DIVIDE);
+//  fail_unless(getL3Precedence(n) == 8);
+//
+//  ASTNode_setType(n, AST_POWER);
+//  fail_unless(getL3Precedence(n) == 8);
+//
+//
+//  ASTNode_setType(n, AST_INTEGER);
+//  fail_unless(getL3Precedence(n) == 8);
+//
+//  ASTNode_setType(n, AST_REAL);
+//  fail_unless(getL3Precedence(n) == 8);
+//
+//  ASTNode_setType(n, AST_REAL_E);
+//  fail_unless(getL3Precedence(n) == 8);
+//
+//  ASTNode_setType(n, AST_RATIONAL);
+//  fail_unless(getL3Precedence(n) == 8);
+//
+//
+//  ASTNode_setType(n, AST_NAME);
+//  fail_unless(getL3Precedence(n) == 8);
+//
+//  ASTNode_setType(n, AST_NAME_AVOGADRO);
+//  fail_unless(getL3Precedence(n) == 8);
+//
+//  ASTNode_setType(n, AST_NAME_TIME);
+//  fail_unless(getL3Precedence(n) == 8);
+//
+//
+//  ASTNode_setType(n, AST_CONSTANT_E);
+//  fail_unless(getL3Precedence(n) == 8);
+//
+//  ASTNode_setType(n, AST_CONSTANT_FALSE);
+//  fail_unless(getL3Precedence(n) == 8);
+//
+//  ASTNode_setType(n, AST_CONSTANT_PI);
+//  fail_unless(getL3Precedence(n) == 8);
+//
+//  ASTNode_setType(n, AST_CONSTANT_TRUE);
+//  fail_unless( getL3Precedence(n) == 8);
+//
+//
+//  ASTNode_setType(n, AST_LAMBDA);
+//  fail_unless(getL3Precedence(n) == 8);
+//
+//
+//  ASTNode_setType(n, AST_FUNCTION);
+//  fail_unless(getL3Precedence(n) == 8);
+//
+//  ASTNode_setType(n, AST_FUNCTION_ABS);
+//  fail_unless(getL3Precedence(n) == 8);
+//
+//  ASTNode_setType(n, AST_FUNCTION_ARCCOS);
+//  fail_unless(getL3Precedence(n) == 8);
+//
+//  ASTNode_setType(n, AST_FUNCTION_ARCCOSH);
+//  fail_unless(getL3Precedence(n) == 8);
+//
+//  ASTNode_setType(n, AST_FUNCTION_ARCCOT);
+//  fail_unless(getL3Precedence(n) == 8);
+//
+//  ASTNode_setType(n, AST_FUNCTION_ARCCOTH);
+//  fail_unless(getL3Precedence(n) == 8);
+//
+//  ASTNode_setType(n, AST_FUNCTION_ARCCSC);
+//  fail_unless(getL3Precedence(n) == 8);
+//
+//  ASTNode_setType(n, AST_FUNCTION_ARCCSCH);
+//  fail_unless(getL3Precedence(n) == 8);
+//
+//  ASTNode_setType(n, AST_FUNCTION_ARCSEC);
+//  fail_unless(getL3Precedence(n) == 8);
+//
+//  ASTNode_setType(n, AST_FUNCTION_ARCSECH);
+//  fail_unless(getL3Precedence(n) == 8);
+//
+//  ASTNode_setType(n, AST_FUNCTION_ARCSIN);
+//  fail_unless(getL3Precedence(n) == 8);
+//
+//  ASTNode_setType(n, AST_FUNCTION_ARCSINH);
+//  fail_unless(getL3Precedence(n) == 8);
+//
+//  ASTNode_setType(n, AST_FUNCTION_ARCTAN);
+//  fail_unless(getL3Precedence(n) == 8);
+//
+//  ASTNode_setType(n, AST_FUNCTION_ARCTANH);
+//  fail_unless(getL3Precedence(n) == 8);
+//
+//  ASTNode_setType(n, AST_FUNCTION_CEILING);
+//  fail_unless(getL3Precedence(n) == 8);
+//
+//  ASTNode_setType(n, AST_FUNCTION_COS);
+//  fail_unless(getL3Precedence(n) == 8);
+//
+//  ASTNode_setType(n, AST_FUNCTION_COSH);
+//  fail_unless(getL3Precedence(n) == 8);
+//
+//  ASTNode_setType(n, AST_FUNCTION_COT);
+//  fail_unless(getL3Precedence(n) == 8);
+//
+//  ASTNode_setType(n, AST_FUNCTION_COTH);
+//  fail_unless(getL3Precedence(n) == 8);
+//
+//  ASTNode_setType(n, AST_FUNCTION_CSC);
+//  fail_unless(getL3Precedence(n) == 8);
+//
+//  ASTNode_setType(n, AST_FUNCTION_CSCH);
+//  fail_unless(getL3Precedence(n) == 8);
+//
+//  ASTNode_setType(n, AST_FUNCTION_DELAY);
+//  fail_unless(getL3Precedence(n) == 8);
+//
+//  ASTNode_setType(n, AST_FUNCTION_EXP);
+//  fail_unless(getL3Precedence(n) == 8);
+//
+//  ASTNode_setType(n, AST_FUNCTION_FACTORIAL);
+//  fail_unless(getL3Precedence(n) == 8);
+//
+//  ASTNode_setType(n, AST_FUNCTION_FLOOR);
+//  fail_unless(getL3Precedence(n) == 8);
+//
+//  ASTNode_setType(n, AST_FUNCTION_LN);
+//  fail_unless(getL3Precedence(n) == 8);
+//
+//  ASTNode_setType(n, AST_FUNCTION_LOG);
+//  fail_unless(getL3Precedence(n) == 8);
+//
+//  ASTNode_setType(n, AST_FUNCTION_PIECEWISE);
+//  fail_unless(getL3Precedence(n) == 8);
+//
+//  ASTNode_setType(n, AST_FUNCTION_POWER);
+//  fail_unless(getL3Precedence(n) == 8);
+//
+//  ASTNode_setType(n, AST_FUNCTION_ROOT);
+//  fail_unless(getL3Precedence(n) == 8);
+//
+//  ASTNode_setType(n, AST_FUNCTION_SEC);
+//  fail_unless(getL3Precedence(n) == 8);
+//
+//  ASTNode_setType(n, AST_FUNCTION_SECH);
+//  fail_unless(getL3Precedence(n) == 8);
+//
+//  ASTNode_setType(n, AST_FUNCTION_SIN);
+//  fail_unless(getL3Precedence(n) == 8);
+//
+//  ASTNode_setType(n, AST_FUNCTION_SINH);
+//  fail_unless(getL3Precedence(n) == 8);
+//
+//  ASTNode_setType(n, AST_FUNCTION_TAN);
+//  fail_unless(getL3Precedence(n) == 8);
+//
+//  ASTNode_setType(n, AST_FUNCTION_TANH);
+//  fail_unless(getL3Precedence(n) == 8);
+//
+//
+//  ASTNode_setType(n, AST_LOGICAL_AND);
+//  fail_unless(getL3Precedence(n) == 8);
+//
+//  ASTNode_setType(n, AST_LOGICAL_NOT);
+//  fail_unless(getL3Precedence(n) == 6); //Different!
+//
+//  ASTNode_setType(n, AST_LOGICAL_OR);
+//  fail_unless(getL3Precedence(n) == 8);
+//
+//  ASTNode_setType(n, AST_LOGICAL_XOR);
+//  fail_unless(getL3Precedence(n) == 8);
+//
+//
+//  ASTNode_setType(n, AST_RELATIONAL_EQ);
+//  fail_unless(getL3Precedence(n) == 8);
+//
+//  ASTNode_setType(n, AST_RELATIONAL_GEQ);
+//  fail_unless(getL3Precedence(n) == 8);
+//
+//  ASTNode_setType(n, AST_RELATIONAL_GT);
+//  fail_unless(getL3Precedence(n) == 8);
+//
+//  ASTNode_setType(n, AST_RELATIONAL_LEQ);
+//  fail_unless(getL3Precedence(n) == 8);
+//
+//  ASTNode_setType(n, AST_RELATIONAL_LT);
+//  fail_unless(getL3Precedence(n) == 8);
+//
+//  ASTNode_setType(n, AST_RELATIONAL_NEQ);
+//  fail_unless(getL3Precedence(n) == 8);
+//
+//
+//  ASTNode_setType(n, AST_UNKNOWN);
+//  fail_unless(getL3Precedence(n) == 8);
+//  ASTNode_free(n);
+//}
+//END_TEST
+//
+//START_TEST (test_getL3Precedence_twoargs)
+//{
+//  ASTNode_t *n = ASTNode_create();
+//  ASTNode_t *c = ASTNode_create();
+//  ASTNode_setName(c, "x");
+//  ASTNode_addChild(n, c);
+//  c = ASTNode_create();
+//  ASTNode_setName(c, "y");
+//  ASTNode_addChild(n, c);
+//
+//  ASTNode_setType(n, AST_PLUS);
+//  fail_unless(getL3Precedence(n) == 4); //Different!
+//
+//  ASTNode_setType(n, AST_MINUS);
+//  fail_unless(getL3Precedence(n) == 4); //Different!
+//
+//  ASTNode_setType(n, AST_TIMES);
+//  fail_unless(getL3Precedence(n) == 5); //Different!
+//
+//  ASTNode_setType(n, AST_DIVIDE);
+//  fail_unless(getL3Precedence(n) == 5); //Different!
+//
+//  ASTNode_setType(n, AST_POWER);
+//  fail_unless(getL3Precedence(n) == 7); //Different!
+//
+//
+//  ASTNode_setType(n, AST_INTEGER);
+//  fail_unless(getL3Precedence(n) == 8);
+//
+//  ASTNode_setType(n, AST_REAL);
+//  fail_unless(getL3Precedence(n) == 8);
+//
+//  ASTNode_setType(n, AST_REAL_E);
+//  fail_unless(getL3Precedence(n) == 8);
+//
+//  ASTNode_setType(n, AST_RATIONAL);
+//  fail_unless(getL3Precedence(n) == 8);
+//
+//
+//  ASTNode_setType(n, AST_NAME);
+//  fail_unless(getL3Precedence(n) == 8);
+//
+//  ASTNode_setType(n, AST_NAME_AVOGADRO);
+//  fail_unless(getL3Precedence(n) == 8);
+//
+//  ASTNode_setType(n, AST_NAME_TIME);
+//  fail_unless(getL3Precedence(n) == 8);
+//
+//
+//  ASTNode_setType(n, AST_CONSTANT_E);
+//  fail_unless(getL3Precedence(n) == 8);
+//
+//  ASTNode_setType(n, AST_CONSTANT_FALSE);
+//  fail_unless(getL3Precedence(n) == 8);
+//
+//  ASTNode_setType(n, AST_CONSTANT_PI);
+//  fail_unless(getL3Precedence(n) == 8);
+//
+//  ASTNode_setType(n, AST_CONSTANT_TRUE);
+//  fail_unless( getL3Precedence(n) == 8);
+//
+//
+//  ASTNode_setType(n, AST_LAMBDA);
+//  fail_unless(getL3Precedence(n) == 8);
+//
+//
+//  ASTNode_setType(n, AST_FUNCTION);
+//  fail_unless(getL3Precedence(n) == 8);
+//
+//  ASTNode_setType(n, AST_FUNCTION_ABS);
+//  fail_unless(getL3Precedence(n) == 8);
+//
+//  ASTNode_setType(n, AST_FUNCTION_ARCCOS);
+//  fail_unless(getL3Precedence(n) == 8);
+//
+//  ASTNode_setType(n, AST_FUNCTION_ARCCOSH);
+//  fail_unless(getL3Precedence(n) == 8);
+//
+//  ASTNode_setType(n, AST_FUNCTION_ARCCOT);
+//  fail_unless(getL3Precedence(n) == 8);
+//
+//  ASTNode_setType(n, AST_FUNCTION_ARCCOTH);
+//  fail_unless(getL3Precedence(n) == 8);
+//
+//  ASTNode_setType(n, AST_FUNCTION_ARCCSC);
+//  fail_unless(getL3Precedence(n) == 8);
+//
+//  ASTNode_setType(n, AST_FUNCTION_ARCCSCH);
+//  fail_unless(getL3Precedence(n) == 8);
+//
+//  ASTNode_setType(n, AST_FUNCTION_ARCSEC);
+//  fail_unless(getL3Precedence(n) == 8);
+//
+//  ASTNode_setType(n, AST_FUNCTION_ARCSECH);
+//  fail_unless(getL3Precedence(n) == 8);
+//
+//  ASTNode_setType(n, AST_FUNCTION_ARCSIN);
+//  fail_unless(getL3Precedence(n) == 8);
+//
+//  ASTNode_setType(n, AST_FUNCTION_ARCSINH);
+//  fail_unless(getL3Precedence(n) == 8);
+//
+//  ASTNode_setType(n, AST_FUNCTION_ARCTAN);
+//  fail_unless(getL3Precedence(n) == 8);
+//
+//  ASTNode_setType(n, AST_FUNCTION_ARCTANH);
+//  fail_unless(getL3Precedence(n) == 8);
+//
+//  ASTNode_setType(n, AST_FUNCTION_CEILING);
+//  fail_unless(getL3Precedence(n) == 8);
+//
+//  ASTNode_setType(n, AST_FUNCTION_COS);
+//  fail_unless(getL3Precedence(n) == 8);
+//
+//  ASTNode_setType(n, AST_FUNCTION_COSH);
+//  fail_unless(getL3Precedence(n) == 8);
+//
+//  ASTNode_setType(n, AST_FUNCTION_COT);
+//  fail_unless(getL3Precedence(n) == 8);
+//
+//  ASTNode_setType(n, AST_FUNCTION_COTH);
+//  fail_unless(getL3Precedence(n) == 8);
+//
+//  ASTNode_setType(n, AST_FUNCTION_CSC);
+//  fail_unless(getL3Precedence(n) == 8);
+//
+//  ASTNode_setType(n, AST_FUNCTION_CSCH);
+//  fail_unless(getL3Precedence(n) == 8);
+//
+//  ASTNode_setType(n, AST_FUNCTION_DELAY);
+//  fail_unless(getL3Precedence(n) == 8);
+//
+//  ASTNode_setType(n, AST_FUNCTION_EXP);
+//  fail_unless(getL3Precedence(n) == 8);
+//
+//  ASTNode_setType(n, AST_FUNCTION_FACTORIAL);
+//  fail_unless(getL3Precedence(n) == 8);
+//
+//  ASTNode_setType(n, AST_FUNCTION_FLOOR);
+//  fail_unless(getL3Precedence(n) == 8);
+//
+//  ASTNode_setType(n, AST_FUNCTION_LN);
+//  fail_unless(getL3Precedence(n) == 8);
+//
+//  ASTNode_setType(n, AST_FUNCTION_LOG);
+//  fail_unless(getL3Precedence(n) == 8);
+//
+//  ASTNode_setType(n, AST_FUNCTION_PIECEWISE);
+//  fail_unless(getL3Precedence(n) == 8);
+//
+//  ASTNode_setType(n, AST_FUNCTION_POWER);
+//  fail_unless(getL3Precedence(n) == 7); //Different!
+//
+//  ASTNode_setType(n, AST_FUNCTION_ROOT);
+//  fail_unless(getL3Precedence(n) == 8);
+//
+//  ASTNode_setType(n, AST_FUNCTION_SEC);
+//  fail_unless(getL3Precedence(n) == 8);
+//
+//  ASTNode_setType(n, AST_FUNCTION_SECH);
+//  fail_unless(getL3Precedence(n) == 8);
+//
+//  ASTNode_setType(n, AST_FUNCTION_SIN);
+//  fail_unless(getL3Precedence(n) == 8);
+//
+//  ASTNode_setType(n, AST_FUNCTION_SINH);
+//  fail_unless(getL3Precedence(n) == 8);
+//
+//  ASTNode_setType(n, AST_FUNCTION_TAN);
+//  fail_unless(getL3Precedence(n) == 8);
+//
+//  ASTNode_setType(n, AST_FUNCTION_TANH);
+//  fail_unless(getL3Precedence(n) == 8);
+//
+//
+//  ASTNode_setType(n, AST_LOGICAL_AND);
+//  fail_unless(getL3Precedence(n) == 2); //Different!
+//
+//  ASTNode_setType(n, AST_LOGICAL_NOT);
+//  fail_unless(getL3Precedence(n) == 8); //Different!
+//
+//  ASTNode_setType(n, AST_LOGICAL_OR);
+//  fail_unless(getL3Precedence(n) == 2); //Different!
+//
+//  ASTNode_setType(n, AST_LOGICAL_XOR);
+//  fail_unless(getL3Precedence(n) == 8);
+//
+//
+//  ASTNode_setType(n, AST_RELATIONAL_EQ);
+//  fail_unless(getL3Precedence(n) == 3); //Different!
+//
+//  ASTNode_setType(n, AST_RELATIONAL_GEQ);
+//  fail_unless(getL3Precedence(n) == 3); //Different!
+//
+//  ASTNode_setType(n, AST_RELATIONAL_GT);
+//  fail_unless(getL3Precedence(n) == 3); //Different!
+//
+//  ASTNode_setType(n, AST_RELATIONAL_LEQ);
+//  fail_unless(getL3Precedence(n) == 3); //Different!
+//
+//  ASTNode_setType(n, AST_RELATIONAL_LT);
+//  fail_unless(getL3Precedence(n) == 3); //Different!
+//
+//  ASTNode_setType(n, AST_RELATIONAL_NEQ);
+//  fail_unless(getL3Precedence(n) == 3); //Different!
+//
+//
+//  ASTNode_setType(n, AST_UNKNOWN);
+//  fail_unless(getL3Precedence(n) == 8);
+//  ASTNode_free(n);
+//}
+//END_TEST
+//
+//START_TEST (test_getL3Precedence_threeargs)
+//{
+//  ASTNode_t *n = ASTNode_create();
+//  ASTNode_t *c = ASTNode_create();
+//  ASTNode_setName(c, "x");
+//  ASTNode_addChild(n, c);
+//  c = ASTNode_create();
+//  ASTNode_setName(c, "y");
+//  ASTNode_addChild(n, c);
+//  c = ASTNode_create();
+//  ASTNode_setName(c, "z");
+//  ASTNode_addChild(n, c);
+//
+//  ASTNode_setType(n, AST_PLUS);
+//  fail_unless(getL3Precedence(n) == 4); //Different!
+//
+//  ASTNode_setType(n, AST_MINUS);
+//  fail_unless(getL3Precedence(n) == 8); //Different!
+//
+//  ASTNode_setType(n, AST_TIMES);
+//  fail_unless(getL3Precedence(n) == 5); //Different!
+//
+//  ASTNode_setType(n, AST_DIVIDE);
+//  fail_unless(getL3Precedence(n) == 8); //Different!
+//
+//  ASTNode_setType(n, AST_POWER);
+//  fail_unless(getL3Precedence(n) == 8); //Different!
+//
+//
+//  ASTNode_setType(n, AST_INTEGER);
+//  fail_unless(getL3Precedence(n) == 8);
+//
+//  ASTNode_setType(n, AST_REAL);
+//  fail_unless(getL3Precedence(n) == 8);
+//
+//  ASTNode_setType(n, AST_REAL_E);
+//  fail_unless(getL3Precedence(n) == 8);
+//
+//  ASTNode_setType(n, AST_RATIONAL);
+//  fail_unless(getL3Precedence(n) == 8);
+//
+//
+//  ASTNode_setType(n, AST_NAME);
+//  fail_unless(getL3Precedence(n) == 8);
+//
+//  ASTNode_setType(n, AST_NAME_AVOGADRO);
+//  fail_unless(getL3Precedence(n) == 8);
+//
+//  ASTNode_setType(n, AST_NAME_TIME);
+//  fail_unless(getL3Precedence(n) == 8);
+//
+//
+//  ASTNode_setType(n, AST_CONSTANT_E);
+//  fail_unless(getL3Precedence(n) == 8);
+//
+//  ASTNode_setType(n, AST_CONSTANT_FALSE);
+//  fail_unless(getL3Precedence(n) == 8);
+//
+//  ASTNode_setType(n, AST_CONSTANT_PI);
+//  fail_unless(getL3Precedence(n) == 8);
+//
+//  ASTNode_setType(n, AST_CONSTANT_TRUE);
+//  fail_unless( getL3Precedence(n) == 8);
+//
+//
+//  ASTNode_setType(n, AST_LAMBDA);
+//  fail_unless(getL3Precedence(n) == 8);
+//
+//
+//  ASTNode_setType(n, AST_FUNCTION);
+//  fail_unless(getL3Precedence(n) == 8);
+//
+//  ASTNode_setType(n, AST_FUNCTION_ABS);
+//  fail_unless(getL3Precedence(n) == 8);
+//
+//  ASTNode_setType(n, AST_FUNCTION_ARCCOS);
+//  fail_unless(getL3Precedence(n) == 8);
+//
+//  ASTNode_setType(n, AST_FUNCTION_ARCCOSH);
+//  fail_unless(getL3Precedence(n) == 8);
+//
+//  ASTNode_setType(n, AST_FUNCTION_ARCCOT);
+//  fail_unless(getL3Precedence(n) == 8);
+//
+//  ASTNode_setType(n, AST_FUNCTION_ARCCOTH);
+//  fail_unless(getL3Precedence(n) == 8);
+//
+//  ASTNode_setType(n, AST_FUNCTION_ARCCSC);
+//  fail_unless(getL3Precedence(n) == 8);
+//
+//  ASTNode_setType(n, AST_FUNCTION_ARCCSCH);
+//  fail_unless(getL3Precedence(n) == 8);
+//
+//  ASTNode_setType(n, AST_FUNCTION_ARCSEC);
+//  fail_unless(getL3Precedence(n) == 8);
+//
+//  ASTNode_setType(n, AST_FUNCTION_ARCSECH);
+//  fail_unless(getL3Precedence(n) == 8);
+//
+//  ASTNode_setType(n, AST_FUNCTION_ARCSIN);
+//  fail_unless(getL3Precedence(n) == 8);
+//
+//  ASTNode_setType(n, AST_FUNCTION_ARCSINH);
+//  fail_unless(getL3Precedence(n) == 8);
+//
+//  ASTNode_setType(n, AST_FUNCTION_ARCTAN);
+//  fail_unless(getL3Precedence(n) == 8);
+//
+//  ASTNode_setType(n, AST_FUNCTION_ARCTANH);
+//  fail_unless(getL3Precedence(n) == 8);
+//
+//  ASTNode_setType(n, AST_FUNCTION_CEILING);
+//  fail_unless(getL3Precedence(n) == 8);
+//
+//  ASTNode_setType(n, AST_FUNCTION_COS);
+//  fail_unless(getL3Precedence(n) == 8);
+//
+//  ASTNode_setType(n, AST_FUNCTION_COSH);
+//  fail_unless(getL3Precedence(n) == 8);
+//
+//  ASTNode_setType(n, AST_FUNCTION_COT);
+//  fail_unless(getL3Precedence(n) == 8);
+//
+//  ASTNode_setType(n, AST_FUNCTION_COTH);
+//  fail_unless(getL3Precedence(n) == 8);
+//
+//  ASTNode_setType(n, AST_FUNCTION_CSC);
+//  fail_unless(getL3Precedence(n) == 8);
+//
+//  ASTNode_setType(n, AST_FUNCTION_CSCH);
+//  fail_unless(getL3Precedence(n) == 8);
+//
+//  ASTNode_setType(n, AST_FUNCTION_DELAY);
+//  fail_unless(getL3Precedence(n) == 8);
+//
+//  ASTNode_setType(n, AST_FUNCTION_EXP);
+//  fail_unless(getL3Precedence(n) == 8);
+//
+//  ASTNode_setType(n, AST_FUNCTION_FACTORIAL);
+//  fail_unless(getL3Precedence(n) == 8);
+//
+//  ASTNode_setType(n, AST_FUNCTION_FLOOR);
+//  fail_unless(getL3Precedence(n) == 8);
+//
+//  ASTNode_setType(n, AST_FUNCTION_LN);
+//  fail_unless(getL3Precedence(n) == 8);
+//
+//  ASTNode_setType(n, AST_FUNCTION_LOG);
+//  fail_unless(getL3Precedence(n) == 8);
+//
+//  ASTNode_setType(n, AST_FUNCTION_PIECEWISE);
+//  fail_unless(getL3Precedence(n) == 8);
+//
+//  ASTNode_setType(n, AST_FUNCTION_POWER);
+//  fail_unless(getL3Precedence(n) == 8); //Different!
+//
+//  ASTNode_setType(n, AST_FUNCTION_ROOT);
+//  fail_unless(getL3Precedence(n) == 8);
+//
+//  ASTNode_setType(n, AST_FUNCTION_SEC);
+//  fail_unless(getL3Precedence(n) == 8);
+//
+//  ASTNode_setType(n, AST_FUNCTION_SECH);
+//  fail_unless(getL3Precedence(n) == 8);
+//
+//  ASTNode_setType(n, AST_FUNCTION_SIN);
+//  fail_unless(getL3Precedence(n) == 8);
+//
+//  ASTNode_setType(n, AST_FUNCTION_SINH);
+//  fail_unless(getL3Precedence(n) == 8);
+//
+//  ASTNode_setType(n, AST_FUNCTION_TAN);
+//  fail_unless(getL3Precedence(n) == 8);
+//
+//  ASTNode_setType(n, AST_FUNCTION_TANH);
+//  fail_unless(getL3Precedence(n) == 8);
+//
+//
+//  ASTNode_setType(n, AST_LOGICAL_AND);
+//  fail_unless(getL3Precedence(n) == 2); //Different!
+//
+//  ASTNode_setType(n, AST_LOGICAL_NOT);
+//  fail_unless(getL3Precedence(n) == 8); //Different!
+//
+//  ASTNode_setType(n, AST_LOGICAL_OR);
+//  fail_unless(getL3Precedence(n) == 2); //Different!
+//
+//  ASTNode_setType(n, AST_LOGICAL_XOR);
+//  fail_unless(getL3Precedence(n) == 8);
+//
+//
+//  ASTNode_setType(n, AST_RELATIONAL_EQ);
+//  fail_unless(getL3Precedence(n) == 8); //Different!
+//
+//  ASTNode_setType(n, AST_RELATIONAL_GEQ);
+//  fail_unless(getL3Precedence(n) == 8); //Different!
+//
+//  ASTNode_setType(n, AST_RELATIONAL_GT);
+//  fail_unless(getL3Precedence(n) == 8); //Different!
+//
+//  ASTNode_setType(n, AST_RELATIONAL_LEQ);
+//  fail_unless(getL3Precedence(n) == 8); //Different!
+//
+//  ASTNode_setType(n, AST_RELATIONAL_LT);
+//  fail_unless(getL3Precedence(n) == 8); //Different!
+//
+//  ASTNode_setType(n, AST_RELATIONAL_NEQ);
+//  fail_unless(getL3Precedence(n) == 8); //Different!
+//
+//
+//  ASTNode_setType(n, AST_UNKNOWN);
+//  fail_unless(getL3Precedence(n) == 8);
+//  ASTNode_free(n);
+//}
+//END_TEST
+//
+//START_TEST (test_getL3Precedence_mod)
+//{
+//  ASTNode_t *n = SBML_parseL3Formula("(x%1) % sin(j+(3%4))");
+//  fail_unless( getL3Precedence(n) == 5);
+//  ASTNode_free(n);
+//
+//}
+//END_TEST
+//
+//
+//START_TEST (test_isTranslatedModulo)
+//{
+//  ASTNode_t *n = ASTNode_create();
+//  ASTNode_t *c = ASTNode_create();
+//
+//  ASTNode_setType(n, AST_FUNCTION_PIECEWISE);
+//  fail_unless(!isTranslatedModulo(n));
+//
+//  ASTNode_setName(c, "x");
+//  ASTNode_addChild(n, c);
+//  c = ASTNode_create();
+//  ASTNode_setName(c, "y");
+//  ASTNode_addChild(n, c);
+//  c = ASTNode_create();
+//  ASTNode_setName(c, "z");
+//  ASTNode_addChild(n, c);
+//  fail_unless(!isTranslatedModulo(n));
+//  ASTNode_free(n);
+//
+//  n = SBML_parseL3Formula("(x-1) % sin(j+(3/4))");
+//  fail_unless( isTranslatedModulo(n));
+//  ASTNode_free(n);
+//
+//  n = SBML_parseL3Formula("(x%1) % sin(j+(3%4))");
+//  fail_unless( isTranslatedModulo(n));
+//  ASTNode_free(n);
+//
+//  n = SBML_parseL3Formula("(x-1) % sin(j+(3/4)) % y^-2");
+//  fail_unless( isTranslatedModulo(n));
+//  ASTNode_free(n);
+//}
+//END_TEST
+
+
 Suite *
 create_suite_L3FormulaFormatter (void) 
 { 
@@ -988,6 +1880,12 @@ create_suite_L3FormulaFormatter (void)
   tcase_add_test( tcase, test_L3FormulaFormatter_multiDivide    );
   tcase_add_test( tcase, test_L3FormulaFormatter_multiAnd       );
   tcase_add_test( tcase, test_L3FormulaFormatter_multiOr        );
+  //tcase_add_test( tcase, test_getL3Precedence_noargs  );
+  //tcase_add_test( tcase, test_getL3Precedence_onearg  );
+  //tcase_add_test( tcase, test_getL3Precedence_twoargs );
+  //tcase_add_test( tcase, test_getL3Precedence_threeargs);
+  //tcase_add_test( tcase, test_getL3Precedence_mod     );
+  //tcase_add_test( tcase, test_isTranslatedModulo      );
 
   suite_add_tcase(suite, tcase);
 

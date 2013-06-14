@@ -961,24 +961,6 @@ public:
 
 
   /**
-   * Get the precedence of this node in the infix math syntax of SBML
-   * Level&nbsp;3.  For more information about the infix syntax, see the
-   * discussion about <a href="#math-convert">text string formulas</a> at
-   * the top of the documentation for ASTNode.  Note that the number of
-   * arguments a node has can change its precedence:  there's obviously 
-   * the difference between unary minus and subtraction, but there is also
-   * a difference between unary plus ('plus(x)') and addition ('x + y + z').
-   * Similarly, relational nodes have one precedence if they have exactly
-   * two children ('x == y') and a different one with any other number
-   * of children ('equals()', 'equals(x)', 'equals(x, y, z)').
-   * 
-   * @return an integer indicating the precedence of this ASTNode
-   */
-  LIBSBML_EXTERN
-  int getL3Precedence () const;
-
-
-  /**
    * Get the type of this ASTNode.  The value returned is one of the
    * enumeration values such as @link ASTNodeType_t#AST_LAMBDA
    * AST_LAMBDA@endlink, @link ASTNodeType_t#AST_PLUS AST_PLUS@endlink,
@@ -1313,21 +1295,6 @@ public:
   */
   LIBSBML_EXTERN
   int hasTypeAndNumChildren(ASTNodeType_t type, unsigned int numchildren) const;
-
-
-  /**
-   * Predicate returning @c true if this node matches the piecewise
-   * function created by the L3 Parser to mimic the functionality of
-   * the 'modulo' operator, i.e. "x%y".  Returns @c false
-   * otherwise.  A node is defined as modulo if it is of type 
-   * @link ASTNodeType_t#AST_PIECEWISE AST_PIECEWISE@endlink and has 
-   * exactly three children of the form:
-   * piecewise(x - y * ceil(x / y), xor(x < 0, y < 0), x - y * floor(x / y))
-   *
-   * @return @c true if this ASTNode is modulo, @c false otherwise.
-   */
-  LIBSBML_EXTERN
-  bool isTranslatedModulo () const;
 
 
   /**
@@ -2198,13 +2165,6 @@ int
 ASTNode_getPrecedence (const ASTNode_t *node);
 
 /**
- * @return the precedence of this ASTNode within the L3 infix parser
- */
-LIBSBML_EXTERN
-int
-ASTNode_getL3Precedence (const ASTNode_t *node);
-
-/**
  * @return the type of this ASTNode.
  */
 LIBSBML_EXTERN
@@ -2464,20 +2424,6 @@ int
 ASTNode_hasTypeAndNumChildren(const ASTNode_t *node, ASTNodeType_t type, unsigned int numchildren);
 
 
-/**
-* Predicate returning @c true (non-zero) if this node matches the piecewise
-* function created by the L3 Parser to mimic the functionality of
-* the 'modulo' operator, i.e. "x%y".  Returns @c false (zero)
-* otherwise.  A node is defined as modulo if it is of type 
-* @link ASTNodeType_t#AST_PIECEWISE AST_PIECEWISE@endlink and has 
-* exactly three children of the form:
-* piecewise(x - y * ceil(x / y), xor(x < 0, y < 0), x - y * floor(x / y))
-*
-* @return @c true if this ASTNode is modulo, @c false otherwise.
-*/
-LIBSBML_EXTERN
-int
-ASTNode_isTranslatedModulo (const ASTNode_t *node);
 /**
  * @return true (non-zero) if this ASTNode is of type @c AST_UNKNOWN, false
  * (0) otherwise.

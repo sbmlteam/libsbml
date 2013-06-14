@@ -1212,103 +1212,6 @@ ASTNode::getPrecedence () const
 
 
 /*
- * @return the precedence of this ASTNode as defined in the L3 parser documentation.
- */
-LIBSBML_EXTERN
-int
-ASTNode::getL3Precedence () const
-{
-  int precedence;
-
-  if ( !hasCorrectNumberArguments() )
-  {
-    //If the number of arguments is wrong, it'll be treated like a function call.
-    precedence = 8;
-  }
-  else if ( isTranslatedModulo() )
-  {
-    precedence = 5;
-  }
-  else
-  {
-    switch (mType)
-    {
-      case AST_POWER:
-      case AST_FUNCTION_POWER:
-        //Anything other than two children is caught above, since that's the only correct number of arguments.
-        precedence = 7;
-        break;
-
-      case AST_LOGICAL_NOT:
-        //Anything other than unary not is caught above, since that's the wrong number of arguments.
-        precedence = 6;
-        break;
-
-      case AST_DIVIDE:
-      case AST_TIMES:
-        if (getNumChildren() < 2) {
-          //Written in functional form.
-          precedence = 8;
-        }
-        else {
-          precedence = 5;
-        }
-        break;
-
-      case AST_MINUS:
-        if (getNumChildren() == 1) {
-          //Unary minus
-          precedence = 6;
-          break;
-        }
-        //Fallthrough to:
-      case AST_PLUS:
-        if (getNumChildren() < 2) {
-          //Written in functional form (unary minus caught above)
-          precedence = 8;
-        }
-        else {
-          precedence = 4;
-        }
-        break;
-
-      case AST_RELATIONAL_EQ:
-      case AST_RELATIONAL_GEQ:
-      case AST_RELATIONAL_GT:
-      case AST_RELATIONAL_LEQ:
-      case AST_RELATIONAL_LT:
-      case AST_RELATIONAL_NEQ:
-        //The relational symbols (==, >=, etc.) are only used when there are two children.
-        if (getNumChildren() == 2) {
-          precedence = 3;
-        }
-        else {
-          precedence = 8;
-        }
-        break;
-
-      case AST_LOGICAL_AND:
-      case AST_LOGICAL_OR:
-        //The logical symbols && and || are only used when there are two or more children.
-        if (getNumChildren() < 2) {
-          precedence = 8;
-        }
-        else {
-          precedence = 2;
-        }
-        break;
-
-      default:
-        precedence = 8;
-        break;
-    }
-  }
-
-  return precedence;
-}
-
-
-/*
  * @return the type of this ASTNode.
  */
 LIBSBML_EXTERN
@@ -1732,90 +1635,6 @@ int
 ASTNode::hasTypeAndNumChildren(ASTNodeType_t type, unsigned int numchildren) const
 {
   return (mType == type && getNumChildren() == numchildren);
-}
-
-/* function used by the isTranslatedModulo function to compare 
- * children of the piecewise that can be used to construct
- * the modulo function
- */
-bool equals(const ASTNode* a, const ASTNode* b)
-{
-  char* ach = SBML_formulaToString(a);
-  char* bch = SBML_formulaToString(b);
-  string astr(ach);
-  string bstr(bch);
-  delete ach;
-  delete bch;
-  return (astr == bstr);
-}
-
-LIBSBML_EXTERN
-bool
-ASTNode::isTranslatedModulo () const
-{
-  //In l3v2 there may be an actual 'modulo' ASTNode, but for now,
-  // it's all mimicked by the piecewise function:
-  // piecewise(x - y * ceil(x / y), xor(x < 0, y < 0), x - y * floor(x / y))
-
-  if (mType != AST_FUNCTION_PIECEWISE) return false;
-  if (getNumChildren() != 3) return false;
-
-  //x - y * ceil(x/y)
-  const ASTNode* child = getChild(0);
-  if (child->getType() != AST_MINUS) return false;
-  if (child->getNumChildren() != 2) return false;
-  const ASTNode* x  = child->getChild(0);
-
-  const ASTNode* c2 = child->getChild(1);
-  if (c2->getType() != AST_TIMES) return false;
-  if (c2->getNumChildren() != 2) return false;
-  const ASTNode* y = c2->getChild(0);
-  c2 = c2->getChild(1);
-  if (c2->getType() != AST_FUNCTION_CEILING) return false;
-  if (c2->getNumChildren() != 1) return false;
-  c2 = c2->getChild(0);
-  if (c2->getType() != AST_DIVIDE) return false;
-  if (c2->getNumChildren() != 2) return false;
-  if (!equals(x, c2->getChild(0))) return false;
-  if (!equals(y, c2->getChild(1))) return false;
-
-  //xor(x<0, y<0)
-  child = getChild(1);
-  if (child->getType() != AST_LOGICAL_XOR) return false;
-  if (child->getNumChildren() != 2) return false;
-  c2 = child->getChild(0);
-  if (c2->getType() != AST_RELATIONAL_LT) return false;
-  if (c2->getNumChildren() != 2) return false;
-  if (!equals(x, c2->getChild(0))) return false;
-  if (c2->getChild(1)->getType() != AST_INTEGER) return false;
-  if (c2->getChild(1)->getInteger() != 0) return false;
-  c2 = child->getChild(1);
-  if (c2->getType() != AST_RELATIONAL_LT) return false;
-  if (c2->getNumChildren() != 2) return false;
-  if (!equals(y, c2->getChild(0))) return false;
-  if (c2->getChild(1)->getType() != AST_INTEGER) return false;
-  if (c2->getChild(1)->getInteger() != 0) return false;
-
-  //x - y * floor(x/y)
-  child = getChild(2);
-  if (child->getType() != AST_MINUS) return false;
-  if (child->getNumChildren() != 2) return false;
-  if (!equals(x, child->getChild(0))) return false;
-
-  c2 = child->getChild(1);
-  if (c2->getType() != AST_TIMES) return false;
-  if (c2->getNumChildren() != 2) return false;
-  if (!equals(y, c2->getChild(0))) return false;
-  c2 = c2->getChild(1);
-  if (c2->getType() != AST_FUNCTION_FLOOR) return false;
-  if (c2->getNumChildren() != 1) return false;
-  c2 = c2->getChild(0);
-  if (c2->getType() != AST_DIVIDE) return false;
-  if (c2->getNumChildren() != 2) return false;
-  if (!equals(x, c2->getChild(0))) return false;
-  if (!equals(y, c2->getChild(1))) return false;
-
-  return true;
 }
 
 /*
@@ -3000,19 +2819,6 @@ ASTNode_getPrecedence (const ASTNode_t *node)
 
 
 /**
- * @return the precedence of this ASTNode (as defined in the SBML L1
- * specification).
- */
-LIBSBML_EXTERN
-int
-ASTNode_getL3Precedence (const ASTNode_t *node)
-{
-  if (node == NULL) return 8; // default precedence
-  return static_cast<const ASTNode*>(node)->getL3Precedence();
-}
-
-
-/**
  * @return the type of this ASTNode.
  */
 LIBSBML_EXTERN
@@ -3421,21 +3227,6 @@ ASTNode_hasTypeAndNumChildren(const ASTNode_t *node, ASTNodeType_t type, unsigne
   if (node==NULL) return (int) false;
   return node->hasTypeAndNumChildren(type, numchildren);
 }
-
-
-/**
- * @return true (non-zero) if this ASTNode is the piecewise
- * version of the 'modulo' operation, false (0) otherwise.
- */
-LIBSBML_EXTERN
-int
-ASTNode_isTranslatedModulo (const ASTNode_t *node)
-{
-  if (node == NULL) return (int) false;
-  return (int) static_cast<const ASTNode*>(node)->isTranslatedModulo();
-}
-
-
 
 
 /**
