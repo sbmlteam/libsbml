@@ -2,27 +2,44 @@
 
 
 ====================================================================
-Version 5.9.0 (Expected June 2013)
+Version 5.9.0 ()
 ====================================================================
 
 STABLE RELEASE
 
 * New features
 
+  - There are two new function SBML_formulaToL3String(ASTNode_t*) and
+    SBML_formulaToL3StringWithSettings(ASTNode_t* L3ParrserSettings_t*)
+    that provide reciprocal AST to infix functionality based on 
+    the previously released L3Parser code. 
+
+  - Following the results of the user survey the L3Parser has
+    changed the precedence of the '^' operator to be greater than
+    a unary '-' operator and the precedence of the '!' operator
+    to be higher than algebraic operators. The precedence of '&&'
+    remains the same as the precedence of '||'.
+
+  - It is now possible to override the severity of errors logged
+    or to disable error logging completely. Any override is
+    applied to the errorLog until such time as teh status is reset.
+    This facilitates the use of functions, that may on occasion log
+    errors, in a situiation were error logging is not required.
+
   - The class IdList which allows users to create and manipulate 
     lists of 'id' strings has been made publically available. 
-	Previously this class has been used internally by validation
-	and conversion code.  It is now available in the sbml/util
-	directory.
+    Previously this class has been used internally by validation 
+    and conversion code.  It is now available in the sbml/util
+    directory.
 	
   - The SBase functions getURI() and getPrefix() that return 
     information relating to the namespace of the object have been
-	made public. Formerly these functions were protected.
+    made public. Formerly these functions were protected.
 	
   - The function removeTopLevelAnnotationElement(const std::string 
     elementName, const std::string elementURI = "") allows users to
-	remove a single top level element from the annotation node. If,
-	having removed the specified annotation, the overall annotation 
+    remove a single top level element from the annotation node. If,
+    having removed the specified annotation, the overall annotation 
     node had no child elements the entire node was being deleted.
     There is now an additional optional argument to this function,
     bool removeEmpty, that allows the user to specify that they do not
@@ -33,18 +50,18 @@ STABLE RELEASE
     is the underlying class used by the XML parsing layer of libSBML.
     The function XMLNode* SBase::toXMLNode() returns a pointer to an
     XMLNode that represents the SBase object; which will facilitate
-	the ability to look up attributes of an object by name. The 
-	function void SBase::read(XMLNode& node, XMLErrorSeverityOverride_t)
-	invokes the read functionality on a given XMLNode. This facilitates
-	reading blocks of annotation that may represent SBML in some way.
-	It should be noted that these functions are computational 
-	expensive in that they serialise to a string. This drawback will
-	be addressed in future libSBML architecture but cannot be overcome
-	with the current libSBML-5 implementation.
+    the ability to look up attributes of an object by name. The 
+    function void SBase::read(XMLNode& node, XMLErrorSeverityOverride_t)
+    invokes the read functionality on a given XMLNode. This facilitates
+    reading blocks of annotation that may represent SBML in some way.
+    It should be noted that these functions are computational 
+    expensive in that they serialise to a string. This drawback will
+    be addressed in future libSBML architecture but cannot be overcome
+    with the current libSBML-5 implementation.
 	
   - 'layout' package-specific updates:
   
-	- The code reading and writing layout as an annotation has been
+	  - The code reading and writing layout as an annotation has been
       adapted to use the new read/write to/from XMLNode functions.
       This greatly reduces the complexity and repetition of code
       previously needed to perform these functions.	  
@@ -53,7 +70,11 @@ STABLE RELEASE
 
   - An annotation on a package element is permitted to use the 
     SBML namespace.  However, this situation was logging an error.
-	This has been corrected.
+    This has been corrected.
+    
+  - A memory leak in the TranslateSBML function has been plugged.
+    Thanks to Neil swainston for reporting teh issue and testing
+    the fix.
 
   - '' package-specific bug fixes:
 
