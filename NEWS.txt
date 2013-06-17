@@ -17,8 +17,9 @@ STABLE RELEASE
   - Following the results of the user survey the L3Parser has
     changed the precedence of the '^' operator to be greater than
     a unary '-' operator and the precedence of the '!' operator
-    to be higher than algebraic operators. The precedence of '&&'
-    remains the same as the precedence of '||'.
+    to be higher than algebraic operators (and equal to the unary '-'
+    operator). The precedence of '&&' remains the same as the
+    precedence of '||'.
 
   - It is now possible to override the severity of errors logged
     or to disable error logging completely. Any override is
