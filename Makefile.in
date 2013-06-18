@@ -229,6 +229,7 @@ examples =                                                          \
   examples/python/printsupported.py                                 \
   examples/python/printUnits.py                                     \
   examples/python/readSBML.py                                       \
+  examples/python/setIdFromNames.py                                 \
   examples/python/translateMath.py                                  \
   examples/python/unsetAnnotation.py                                \
   examples/python/unsetNotes.py                                     \
