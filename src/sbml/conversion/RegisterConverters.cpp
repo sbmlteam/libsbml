@@ -37,6 +37,7 @@
 #include <sbml/conversion/SBMLStripPackageConverter.h>
 #include <sbml/conversion/SBMLUnitsConverter.h>
 #include <sbml/conversion/SBMLRuleConverter.h>
+#include <sbml/conversion/SBMLIdConverter.h>
 
 
 LIBSBML_CPP_NAMESPACE_BEGIN
@@ -45,6 +46,7 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 // list it needs to be registered manually. 
   
 static SBMLConverterRegister<SBMLRuleConverter> registerRuleConverter;
+static SBMLConverterRegister<SBMLIdConverter> registerIdConverter;
 static SBMLConverterRegister<SBMLFunctionDefinitionConverter> registerFDConverter;
 static SBMLConverterRegister<SBMLInitialAssignmentConverter> registerIAConverter;
 static SBMLConverterRegister<SBMLLevelVersionConverter> registerLVConverter;

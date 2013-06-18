@@ -28,13 +28,53 @@
  * ---------------------------------------------------------------------- -->*/
 
 #include <algorithm>
+#include <sstream>
 #include <sbml/util/IdList.h>
 
 
-using std::string;
-using std::vector;
+using namespace std;
 
 LIBSBML_CPP_NAMESPACE_BEGIN
+
+IdList::IdList()
+{
+}
+
+IdList::IdList(const std::string& commaSeparated)
+{
+  if (&commaSeparated == NULL || commaSeparated.size() == 0) 
+    return;
+
+  size_t length = commaSeparated.size();
+  size_t index = 0;   
+  char current;
+  stringstream currentId;
+  while (index < length)
+  {
+    current = commaSeparated[index];
+    if (current == ',' || current == ' ' || current == '\t' || current == ';')
+    {
+      const string& id = currentId.str();
+      
+      if (!id.empty())
+        append(id);
+
+      // reset stream
+      currentId.str("");
+      currentId.clear();      
+    } 
+    else
+    {
+      currentId << current;
+    }
+    ++index;
+  }
+
+  const string& id = currentId.str();
+  if (!id.empty())
+   append(id);
+}
+
 
 /**
  * @return true if id is already in this IdList, false otherwise.

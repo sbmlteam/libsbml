@@ -47,6 +47,10 @@ public:
   typedef std::vector<std::string>::iterator       iterator;
   typedef std::vector<std::string>::const_iterator const_iterator;
 
+  IdList();
+  IdList(const std::string& commaSeparated);
+  
+  
   /**
    * Appends id to the list of ids.
    */

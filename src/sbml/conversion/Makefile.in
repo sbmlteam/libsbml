@@ -60,6 +60,7 @@ common_headers = \
   SBMLInitialAssignmentConverter.h \
   SBMLLevelVersionConverter.h \
   SBMLStripPackageConverter.h \
+  SBMLIdConverter.h \
   SBMLRuleConverter.h \
   SBMLUnitsConverter.h
 
@@ -73,6 +74,7 @@ common_sources = \
   SBMLInitialAssignmentConverter.cpp \
   SBMLLevelVersionConverter.cpp \
   SBMLStripPackageConverter.cpp \
+  SBMLIdConverter.cpp \
   SBMLRuleConverter.cpp \
   SBMLUnitsConverter.cpp
 

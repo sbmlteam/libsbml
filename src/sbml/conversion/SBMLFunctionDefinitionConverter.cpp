@@ -90,48 +90,6 @@ SBMLFunctionDefinitionConverter::matchesProperties(const ConversionProperties &p
   return true;
 }
 
-/*
- * split the given string on comma, space, tab and semicolon
- * and add the entries to the given idList
- */ 
-IdList parseIds(const std::string& skipList, IdList& idsToSkip)
-{
-
-  if (&skipList == NULL || skipList.size() == 0) 
-    return idsToSkip;
-
-  size_t length = skipList.size();
-  size_t index = 0;   
-  char current;
-  stringstream currentId;
-  while (index < length)
-  {
-    current = skipList[index];
-    if (current == ',' || current == ' ' || current == '\t' || current == ';')
-    {
-      const string& id = currentId.str();
-      
-      if (!id.empty())
-        idsToSkip.append(id);
-
-      // reset stream
-      currentId.str("");
-      currentId.clear();      
-    } 
-    else
-    {
-      currentId << current;
-    }
-    ++index;
-  }
-
-  const string& id = currentId.str();
-  if (!id.empty())
-   idsToSkip.append(id);
-
-  return idsToSkip;
-}
-
 int 
 SBMLFunctionDefinitionConverter::convert()
 {
@@ -172,7 +130,7 @@ SBMLFunctionDefinitionConverter::convert()
 
   if (mProps != NULL && mProps->hasOption("skipIds"))
   {
-    parseIds(mProps->getOption("skipIds")->getValue(), idsToSkip);
+    idsToSkip = IdList(mProps->getOption("skipIds")->getValue());    
   }
 
   // for any math in document replace each function def
