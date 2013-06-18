@@ -5786,7 +5786,8 @@ SBase::read(XMLNode& node, XMLErrorSeverityOverride_t flag /*= LIBSBML_OVERRIDE_
     log->setSeverityOverride(flag);
   }
 
-  const string& content = XMLNode::convertXMLNodeToString(&node);
+  const string content = "<?xml version='1.0' encoding='UTF-8'?>" 
+    + XMLNode::convertXMLNodeToString(&node);
   XMLInputStream stream(content.c_str(), false);
 
   // do the parsing using SBase::read
