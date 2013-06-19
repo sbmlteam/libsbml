@@ -283,12 +283,13 @@ GraphicalObject::GraphicalObject(const XMLNode& node, unsigned int l2version)
 #if LIBSBML_HAS_PACKAGE_RENDER
 
     // explicitly read render plugin for now until we sorted this whole reading from 
-	// XMLNode business
+    // XMLNode business
     RenderGraphicalObjectPlugin *rplugin = static_cast<RenderGraphicalObjectPlugin *>(getPlugin("render"));
-    ExpectedAttributes expected;
-    expected.add("objectRole");
-    rplugin->readAttributes(node.getAttributes(), expected);
-
+    if (rplugin != NULL) {
+      ExpectedAttributes expected;
+      expected.add("objectRole");
+      rplugin->readAttributes(node.getAttributes(), expected);
+    }
 #endif
 
 
