@@ -58,8 +58,7 @@ public class NotesFilter : ElementFilter
 
 		// create the filter we want to use
 		var filter = new NotesFilter();
-        // get a list of all elements, as we will need to know all identifiers
-        // so that we don't create duplicates. 
+        //  get a list of all elements with notes 
         start = DateTime.Now.Ticks;
 		Console.WriteLine("    searching ......:");
         SBaseList allElements = document.getListOfAllElements(filter);

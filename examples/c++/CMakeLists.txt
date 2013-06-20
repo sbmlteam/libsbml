@@ -26,6 +26,7 @@ foreach(example
 	createExampleSBML
 	echoSBML
 	inlineFunctionDefintions
+	getAllElementsWithNotes
 	printAnnotation
 	printMath
 	printNotes
