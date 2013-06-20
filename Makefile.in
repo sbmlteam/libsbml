@@ -140,6 +140,7 @@ examples =                                                          \
   examples/csharp/unsetNotes.cs                                     \
   examples/csharp/validateSBML.cs                                   \
   examples/csharp/SetIdFromNames.cs                                 \
+  examples/csharp/GetAllElementsWithNotes.cs                        \
   examples/java/Makefile.in                                         \
   examples/java/README.txt                                          \
   examples/java/addCustomValidator.java                             \
@@ -153,6 +154,7 @@ examples =                                                          \
   examples/java/createExampleSBML.java                              \
   examples/java/echoSBML.java                                       \
   examples/java/evaluateMath.java                                   \
+  examples/java/getAllElementsWithNotes.java                        \
   examples/java/printAnnotation.java                                \
   examples/java/printMath.java                                      \
   examples/java/printNotes.java                                     \
@@ -219,8 +221,9 @@ examples =                                                          \
   examples/python/callExternalValidator.py                          \
   examples/python/convertSBML.py                                    \
   examples/python/createExampleSBML.py                              \
+  examples/python/getAllElementsWithNotes.py                        \
   examples/python/echoSBML.py                                       \
-  examples/python/stripPackage.py                                  \
+  examples/python/stripPackage.py                                   \
   examples/python/printAnnotation.py                                \
   examples/python/printMath.py                                      \
   examples/python/printNotes.py                                     \

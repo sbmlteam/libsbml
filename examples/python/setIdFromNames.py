@@ -1,8 +1,8 @@
 ﻿#!/usr/bin/env python
 ##
 ## @file    setIdFromNames.py
-## @brief   Utility program, renaming all SIds that also ha
-##          names specified. The new id will be derived fro
+## @brief   Utility program, renaming all SIds that also has
+##          names specified. The new id will be derived from
 ##          the name, with all invalid characters removed. 
 ##
 ## @author  Frank T. Bergmann

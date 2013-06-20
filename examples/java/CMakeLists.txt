@@ -18,6 +18,7 @@ foreach(file
 		createExampleSBML
 		echoSBML
 		evaluateMath
+		getAllElementsWithNotes
 		printAnnotation
 		printMath
 		printNotes

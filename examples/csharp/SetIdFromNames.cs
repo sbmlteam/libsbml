@@ -44,7 +44,7 @@ public class SetIdFromNames : IdentifierTransformer
 
         Console.WriteLine();
         Console.WriteLine("            filename: {0}", filename);
-        Console.WriteLine("      read time (ms): {0}", stop - start);
+        Console.WriteLine("      read time (ms): {0}", TimeSpan.FromTicks(stop - start).TotalMilliseconds);
 
         // stop in case of serious errors
         long errors = document.getNumErrors(libsbml.LIBSBML_SEV_ERROR);
@@ -70,13 +70,13 @@ public class SetIdFromNames : IdentifierTransformer
         start = DateTime.Now.Ticks;
         document.getModel().renameIDs(allElements, trans);
         stop = DateTime.Now.Ticks;
-        Console.WriteLine("    rename time (ms): {0}", stop - start);
+        Console.WriteLine("    rename time (ms): {0}", TimeSpan.FromTicks(stop - start).TotalMilliseconds);
 
         // write to file
         start = DateTime.Now.Ticks;
         libsbml.writeSBMLToFile(document, output);
         stop = DateTime.Now.Ticks;
-        Console.WriteLine("     write time (ms): {0}", stop - start);
+        Console.WriteLine("     write time (ms): {0}", TimeSpan.FromTicks(stop - start).TotalMilliseconds);
         Console.WriteLine();
 
         // if we got here all went well ... 

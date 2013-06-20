@@ -1,3 +1,17 @@
+/**
+ * @file    setIdFromNames.java
+ * @brief   Utility program, renaming all SIds that also has
+ *          names specified. The new id will be derived from
+ *          the name, with all invalid characters removed. 
+ *
+ * @author  Frank T. Bergmann
+ * 
+ * 
+ * This file is part of libSBML.  Please visit http:#sbml.org for more
+ * information about SBML, and the latest version of libSBML.
+ * 
+ */ 
+
 import java.util.Vector;
 import org.sbml.libsbml.IdentifierTransformer;
 import org.sbml.libsbml.SBMLDocument;
