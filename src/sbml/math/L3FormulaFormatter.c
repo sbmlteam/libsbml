@@ -303,7 +303,7 @@ int getL3Precedence(const ASTNode_t* node)
   int precedence;
   unsigned int numchildren = ASTNode_getNumChildren(node);
 
-  if ( !ASTNode_hasCorrectNumberArguments(node) )
+  if ( !ASTNode_hasCorrectNumberArguments((ASTNode_t*)node) )
   {
     //If the number of arguments is wrong, it'll be treated like a function call.
     precedence = 8;
