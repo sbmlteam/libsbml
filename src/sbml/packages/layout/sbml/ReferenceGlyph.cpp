@@ -62,9 +62,34 @@
 #include <sbml/xml/XMLInputStream.h>
 #include <sbml/xml/XMLOutputStream.h>
 
+#include <sbml/util/ElementFilter.h>
+
 LIBSBML_CPP_NAMESPACE_BEGIN
 
+List*
+ReferenceGlyph::getAllElements(ElementFilter *filter)
+{
+  List* ret = GraphicalObject::getAllElements(filter);
+  List* sublist = NULL;
 
+  ADD_FILTERED_ELEMENT(ret, sublist, mCurve, filter);  
+
+  return ret;
+}
+
+void
+ReferenceGlyph::renameSIdRefs(std::string oldid, std::string newid)
+{
+  GraphicalObject::renameSIdRefs(oldid, newid);
+  if (isSetReferenceId() && mReference == oldid) 
+  {
+    mReference = newid;
+  }
+  if (isSetGlyphId() && mGlyph == oldid)
+  {
+    mGlyph = newid;
+  }
+}
 
 /*
  * Creates a new ReferenceGlyph.  The id if the associated 

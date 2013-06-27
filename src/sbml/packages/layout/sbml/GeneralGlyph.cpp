@@ -63,6 +63,8 @@
 #include <sbml/packages/layout/util/LayoutUtilities.h>
 #include <sbml/packages/layout/extension/LayoutExtension.h>
 
+#include <sbml/util/ElementFilter.h>
+
 #include <sbml/xml/XMLNode.h>
 #include <sbml/xml/XMLToken.h>
 #include <sbml/xml/XMLAttributes.h>
@@ -71,6 +73,28 @@
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
+List*
+GeneralGlyph::getAllElements(ElementFilter *filter)
+{
+  List* ret = GraphicalObject::getAllElements(filter);
+  List* sublist = NULL;
+
+  ADD_FILTERED_LIST(ret, sublist, mReferenceGlyphs, filter);  
+  ADD_FILTERED_LIST(ret, sublist, mSubGlyphs, filter);  
+  ADD_FILTERED_ELEMENT(ret, sublist, mCurve, filter);  
+
+  return ret;
+}
+
+void
+GeneralGlyph::renameSIdRefs(std::string oldid, std::string newid)
+{
+  GraphicalObject::renameSIdRefs(oldid, newid);
+  if (isSetReferenceId() && mReference == oldid) 
+  {
+    setReferenceId(newid);
+  }
+}
 
 /*
  * Creates a new GeneralGlyph.  The list of reference and sub glyph is

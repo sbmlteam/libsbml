@@ -160,7 +160,22 @@ public:
    */  
   
   bool isSetCompartmentId () const;
-        
+     
+
+  /**
+   * Renames all the @c SIdRef attributes on this element, including any
+   * found in MathML content (if such exists).
+   *
+   * This method works by looking at all attributes and (if appropriate)
+   * mathematical formulas, comparing the identifiers to the value of @p
+   * oldid.  If any matches are found, the matching identifiers are replaced
+   * with @p newid.  The method does @em not descend into child elements.
+   *
+   * @param oldid the old identifier
+   * @param newid the new identifier
+   */
+  virtual void renameSIdRefs(std::string oldid, std::string newid);
+
   /**
    * Calls initDefaults from GraphicalObject.
    */ 

@@ -61,9 +61,23 @@
 #include <sbml/xml/XMLInputStream.h>
 #include <sbml/xml/XMLOutputStream.h>
 
+#include <sbml/util/ElementFilter.h>
+
 #include <sbml/packages/layout/extension/LayoutExtension.h>
 
 LIBSBML_CPP_NAMESPACE_BEGIN
+
+List*
+CubicBezier::getAllElements(ElementFilter *filter)
+{
+  List* ret = LineSegment::getAllElements(filter);
+  List* sublist = NULL;
+
+  ADD_FILTERED_ELEMENT(ret, sublist, mBasePoint1, filter);  
+  ADD_FILTERED_ELEMENT(ret, sublist, mBasePoint2, filter);  
+
+  return ret;
+}
 
 /*
  * Creates a CubicBezier and returns the pointer.

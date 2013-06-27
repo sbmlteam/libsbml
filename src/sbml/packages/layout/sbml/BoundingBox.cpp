@@ -62,9 +62,26 @@
 #include <sbml/xml/XMLInputStream.h>
 #include <sbml/xml/XMLOutputStream.h>
 
+#include <sbml/util/ElementFilter.h>
+
 #include <sbml/packages/layout/extension/LayoutExtension.h>
 
 LIBSBML_CPP_NAMESPACE_BEGIN
+
+
+List*
+BoundingBox::getAllElements(ElementFilter *filter)
+{
+  List* ret = new List();
+  List* sublist = NULL;
+
+  ADD_FILTERED_ELEMENT(ret, sublist, mPosition, filter);  
+  ADD_FILTERED_ELEMENT(ret, sublist, mDimensions, filter);  
+
+  ADD_FILTERED_FROM_PLUGIN(ret, sublist, filter);
+
+  return ret;
+}
 
 /*
  * Default Constructor set position and dimensions to (0.0,0.0,0.0) and the

@@ -63,6 +63,16 @@
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
+void
+SpeciesGlyph::renameSIdRefs(std::string oldid, std::string newid)
+{
+  GraphicalObject::renameSIdRefs(oldid, newid);
+  if (isSetSpeciesId() && mSpecies == oldid) 
+  {
+    mSpecies = newid;
+  }
+}
+
 /*
  * Creates a new SpeciesGlyph with the given SBML level, version, and package version
  * and the id of the associated species set to the empty string.

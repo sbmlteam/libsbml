@@ -217,6 +217,15 @@ public:
   
   void initDefaults ();
 
+
+  /**
+   * Returns a List of all child SBase objects, including those nested to an
+   * arbitrary depth
+   *
+   * @return a List* of pointers to all children objects.
+   */
+  virtual List* getAllElements(ElementFilter* filter=NULL);
+
   /**
    * Returns a reference to the ListOf object that holds all the curve
    * segments.

@@ -65,12 +65,36 @@
 #include <sbml/packages/layout/extension/LayoutExtension.h>
 #include <sbml/packages/layout/common/LayoutExtensionTypes.h>
 
+#include <sbml/util/ElementFilter.h>
 
 #if LIBSBML_HAS_PACKAGE_RENDER
 #include <sbml/packages/render/extension/RenderGraphicalObjectPlugin.h>
 #endif
 
 LIBSBML_CPP_NAMESPACE_BEGIN
+
+List*
+GraphicalObject::getAllElements(ElementFilter *filter)
+{
+  List* ret = new List();
+  List* sublist = NULL;
+
+  ADD_FILTERED_ELEMENT(ret, sublist, mBoundingBox, filter);  
+
+  ADD_FILTERED_FROM_PLUGIN(ret, sublist, filter);
+
+  return ret;
+}
+
+void
+GraphicalObject::renameMetaIdRefs(std::string oldid, std::string newid)
+{
+  SBase::renameMetaIdRefs(oldid, newid);
+  if (isSetMetaIdRef() && mMetaIdRef == oldid) 
+  {
+    mMetaIdRef = newid;
+  }
+}
 
 /*
  * Creates a new GraphicalObject.

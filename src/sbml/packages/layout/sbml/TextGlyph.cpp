@@ -64,6 +64,20 @@
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
+void
+TextGlyph::renameSIdRefs(std::string oldid, std::string newid)
+{
+  GraphicalObject::renameSIdRefs(oldid, newid);
+  if (isSetGraphicalObjectId() && mGraphicalObject == oldid) 
+  {
+    mGraphicalObject = newid;
+  }
+  if (isSetOriginOfTextId() && mOriginOfText == oldid)
+  {
+    mOriginOfText = newid;
+  }
+}
+
 /*
  * Creates a new TextGlyph the ids of the associated GraphicalObject and
  * the originOfText are set to the empty string. The actual text is set to

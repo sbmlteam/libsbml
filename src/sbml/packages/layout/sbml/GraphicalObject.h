@@ -182,6 +182,29 @@ public:
   
   void initDefaults ();
 
+
+  /**
+   * Returns a List of all child SBase objects, including those nested to an
+   * arbitrary depth
+   *
+   * @return a List* of pointers to all children objects.
+   */
+  virtual List* getAllElements(ElementFilter* filter=NULL);
+
+
+  /**
+   * Renames all the @c MetaIdRef attributes on this element.
+   *
+   * This method works by looking at all meta-attribute values, comparing
+   * the identifiers to the value of @p oldid.  If any matches are found,
+   * the matching identifiers are replaced with @p newid.  The method does
+   * @em not descend into child elements.
+   *
+   * @param oldid the old identifier
+   * @param newid the new identifier
+   */
+  virtual void renameMetaIdRefs(std::string oldid, std::string newid);
+
   /**
    * Returns the value of the "id" attribute of this GraphicalObject.
    */

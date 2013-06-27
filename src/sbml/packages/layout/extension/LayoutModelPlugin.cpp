@@ -31,6 +31,8 @@
 #include <sbml/packages/layout/extension/LayoutModelPlugin.h>
 #include <sbml/packages/layout/util/LayoutAnnotation.h>
 
+#include <sbml/util/ElementFilter.h>
+
 #include <iostream>
 using namespace std;
 
@@ -38,6 +40,19 @@ using namespace std;
 #ifdef __cplusplus
 
 LIBSBML_CPP_NAMESPACE_BEGIN
+
+List*
+LayoutModelPlugin::getAllElements(ElementFilter *filter)
+{
+  List* ret = new List();
+  List* sublist = NULL;
+
+  ADD_FILTERED_LIST(ret, sublist, mLayouts, filter);  
+
+  return ret;
+}
+
+
 
 /*
  * 

@@ -208,7 +208,16 @@ public:
    */ 
   
   const Dimensions* getDimensions () const;
-        
+     
+  /**
+   * Returns a List of all child SBase objects, including those nested to an
+   * arbitrary depth
+   *
+   * @return a List* of pointers to all children objects.
+   */
+  virtual List* getAllElements(ElementFilter* filter=NULL);
+
+
   /**
    * Returns the position of the BoundingBox as referece to a Point object.
    */ 

@@ -65,6 +65,16 @@
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
+void
+CompartmentGlyph::renameSIdRefs(std::string oldid, std::string newid)
+{
+  GraphicalObject::renameSIdRefs(oldid, newid);
+  if (isSetCompartmentId() && mCompartment == oldid) 
+  {
+    setCompartmentId(newid);
+  }
+}
+
 /*
  * Default Constructor which creates a new CompartmentGlyph.  Id and
  * associated compartment id are unset.

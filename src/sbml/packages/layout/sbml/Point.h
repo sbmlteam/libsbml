@@ -207,7 +207,6 @@ public:
   
   void initDefaults ();
 
-
   /**
    * Returns the value of the "id" attribute of this Point.
    */

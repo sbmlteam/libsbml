@@ -62,6 +62,8 @@
 #include <sbml/xml/XMLInputStream.h>
 #include <sbml/xml/XMLOutputStream.h>
 
+#include <sbml/util/ElementFilter.h>
+
 LIBSBML_CPP_NAMESPACE_BEGIN
 
 const std::string SpeciesReferenceGlyph::SPECIES_REFERENCE_ROLE_STRING[]={
@@ -76,7 +78,30 @@ const std::string SpeciesReferenceGlyph::SPECIES_REFERENCE_ROLE_STRING[]={
    ,""
 };
 
+List*
+SpeciesReferenceGlyph::getAllElements(ElementFilter *filter)
+{
+  List* ret = GraphicalObject::getAllElements(filter);
+  List* sublist = NULL;
 
+  ADD_FILTERED_ELEMENT(ret, sublist, mCurve, filter);  
+
+  return ret;
+}
+
+void
+SpeciesReferenceGlyph::renameSIdRefs(std::string oldid, std::string newid)
+{
+  GraphicalObject::renameSIdRefs(oldid, newid);
+  if (isSetSpeciesReferenceId() && mSpeciesReference == oldid) 
+  {
+    mSpeciesReference = newid;
+  }
+  if (isSetSpeciesGlyphId() && mSpeciesGlyph == oldid)
+  {
+    mSpeciesGlyph = newid;
+  }
+}
 
 /*
  * Creates a new SpeciesReferenceGlyph.  The id if the associated species

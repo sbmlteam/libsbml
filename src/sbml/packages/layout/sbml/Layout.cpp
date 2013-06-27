@@ -68,6 +68,7 @@
 #include <sbml/xml/XMLInputStream.h>
 #include <sbml/xml/XMLOutputStream.h>
 
+#include <sbml/util/ElementFilter.h>
 #include <sbml/packages/layout/extension/LayoutExtension.h>
 
 LIBSBML_CPP_NAMESPACE_BEGIN
@@ -674,6 +675,24 @@ Layout::getTextGlyph (unsigned int index) const
   return static_cast<const TextGlyph*>( this->mTextGlyphs.get(index) );
 }
 
+
+List*
+Layout::getAllElements(ElementFilter *filter)
+{
+  List* ret = new List();
+  List* sublist = NULL;
+
+  ADD_FILTERED_ELEMENT(ret, sublist, mDimensions, filter);  
+  ADD_FILTERED_LIST(ret, sublist, mCompartmentGlyphs, filter);  
+  ADD_FILTERED_LIST(ret, sublist, mSpeciesGlyphs, filter);  
+  ADD_FILTERED_LIST(ret, sublist, mReactionGlyphs, filter);  
+  ADD_FILTERED_LIST(ret, sublist, mTextGlyphs, filter);  
+  ADD_FILTERED_LIST(ret, sublist, mAdditionalGraphicalObjects, filter);  
+
+  ADD_FILTERED_FROM_PLUGIN(ret, sublist, filter);
+
+  return ret;
+}
 
 /*
  * Returns the additional graphical object with the given index.

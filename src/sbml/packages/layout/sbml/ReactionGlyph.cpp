@@ -64,7 +64,32 @@
 #include <sbml/xml/XMLInputStream.h>
 #include <sbml/xml/XMLOutputStream.h>
 
+#include <sbml/util/ElementFilter.h>
+
+
 LIBSBML_CPP_NAMESPACE_BEGIN
+
+
+List*
+ReactionGlyph::getAllElements(ElementFilter *filter)
+{
+  List* ret = GraphicalObject::getAllElements(filter);
+  List* sublist = NULL;
+
+  ADD_FILTERED_LIST(ret, sublist, mSpeciesReferenceGlyphs, filter);  
+  ADD_FILTERED_ELEMENT(ret, sublist, mCurve, filter);  
+
+  return ret;
+}
+
+void
+ReactionGlyph::renameSIdRefs(std::string oldid, std::string newid)
+{
+  GraphicalObject::renameSIdRefs(oldid, newid);
+  if (isSetReactionId() && mReaction == oldid) {
+    mReaction = newid;
+  }
+}
 
 
 /*

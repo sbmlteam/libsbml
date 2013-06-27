@@ -61,9 +61,26 @@
 #include <sbml/xml/XMLInputStream.h>
 #include <sbml/xml/XMLOutputStream.h>
 
+#include <sbml/util/ElementFilter.h>
+
 #include <sbml/packages/layout/extension/LayoutExtension.h>
 
 LIBSBML_CPP_NAMESPACE_BEGIN
+
+List*
+LineSegment::getAllElements(ElementFilter *filter)
+{
+  List* ret = new List();
+  List* sublist = NULL;
+
+  ADD_FILTERED_ELEMENT(ret, sublist, mStartPoint, filter);  
+  ADD_FILTERED_ELEMENT(ret, sublist, mEndPoint, filter);  
+
+  ADD_FILTERED_FROM_PLUGIN(ret, sublist, filter);
+
+  return ret;
+}
+
 
 /*
  * Creates a line segment with the given SBML level, version, and package version

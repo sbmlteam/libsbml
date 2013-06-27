@@ -164,7 +164,13 @@ public:
    */
   virtual CubicBezier& operator=(const CubicBezier& orig);
 
-
+  /**
+   * Returns a List of all child SBase objects, including those nested to an
+   * arbitrary depth
+   *
+   * @return a List* of pointers to all children objects.
+   */
+  virtual List* getAllElements(ElementFilter* filter=NULL);
 
   /**
    * Returns the first base point of the curve (the one closer to the
