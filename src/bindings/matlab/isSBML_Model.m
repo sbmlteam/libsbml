@@ -55,6 +55,24 @@ else
   error('too many arguments to isSBML_Model');
 end;
      
+if (isfield(SBMLStructure, 'fbc_version') && isFbcEnabled() == 1)
+  if isfield(SBMLStructure, 'SBML_level') && isfield(SBMLStructure, 'SBML_version')
+    [valid, message] = isSBML_FBC_Model(SBMLStructure, SBMLStructure.SBML_level, ...
+      SBMLStructure.SBML_version, SBMLStructure.fbc_version, extensions_allowed);
+  else
+    [valid, message] = isValidSBML_Model(SBMLStructure, extensions_allowed, 0);
+  end;
+else
+  [valid, message] = isValidSBML_Model(SBMLStructure, extensions_allowed, 0);
+end;  
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+function [valid, message] = isValidSBML_Model(SBMLStructure, ...
+                                        extensions_allowed, in_fbc)
+
+
+%check the input arguments are appropriate
 
 if (length(SBMLStructure) > 1)
   valid = 0;
@@ -155,7 +173,7 @@ if (valid == 1)
 end;
 
 % species
-if (valid == 1)
+if (valid == 1 && in_fbc == 0)
   index = 1;
   while (valid == 1 && index <= length(SBMLStructure.species))
     [valid, message] = isSBML_Struct('SBML_SPECIES', ...
@@ -257,6 +275,8 @@ end;
 if (valid == 0)
 	message = sprintf('Invalid Model structure\n%s\n', message);
 end;
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 function [valid, message] = isSBML_Struct(typecode, SBMLStructure, level, version, extensions_allowed)
@@ -600,7 +620,343 @@ end;
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+function [valid, message] = isSBML_FBCStruct(typecode, SBMLStructure, level, ...
+  version, pkgVersion, extensions_allowed)
+
+
+
+
+if (length(SBMLStructure) > 1)
+  valid = 0;
+  message = 'cannot deal with arrays of structures';
+  return;
+end;
+
+isValidLevelVersionCombination(level, version);
+
+message = '';
+
+% check that argument is a structure
+valid = isstruct(SBMLStructure);
+
+% check the typecode
+if (valid == 1 && ~isempty(SBMLStructure))
+  if isfield(SBMLStructure, 'typecode')
+    if (strcmp(typecode, SBMLStructure.typecode) ~= 1)
+      valid = 0;
+      message = 'typecode mismatch';
+      return;
+    end;
+  else
+    valid = 0;
+    message = 'missing typecode field';
+    return;
+  end;
+end;
+
+% if the level and version fields exist they must match
+if (valid == 1 && isfield(SBMLStructure, 'level') && ~isempty(SBMLStructure))
+	if ~isequal(level, SBMLStructure.level)
+		valid = 0;
+		message = 'level mismatch';
+	end;
+end;
+if (valid == 1 && isfield(SBMLStructure, 'version') && ~isempty(SBMLStructure))
+	if ~isequal(version, SBMLStructure.version)
+		valid = 0;
+		message = 'version mismatch';
+	end;
+end;
+
+if (valid == 1 && isfield(SBMLStructure, 'fbc_version') && ~isempty(SBMLStructure))
+	if ~isequal(pkgVersion, SBMLStructure.fbc_version)
+		valid = 0;
+		message = 'fbc version mismatch';
+	end;
+end;
+
+
+% check that structure contains all the necessary fields
+[SBMLfieldnames, numFields] = getFieldnames(typecode, level, version, pkgVersion);
+
+if (numFields ==0)
+	valid = 0;
+	message = 'invalid level/version';
+end;
+
+index = 1;
+while (valid == 1 && index <= numFields)
+	valid = isfield(SBMLStructure, char(SBMLfieldnames(index)));
+	if (valid == 0);
+		message = sprintf('%s field missing', char(SBMLfieldnames(index)));
+	end;
+	index = index + 1;
+end;
+
+if (extensions_allowed == 0)
+  % check that the structure contains ONLY the expected fields
+  if (valid == 1)
+    if (numFields ~= length(fieldnames(SBMLStructure)))
+      valid = 0;
+      message = sprintf('Unexpected field detected');
+    end;
+  end;
+end;
+
+% some structures have child structures
+switch (typecode)
+  case 'SBML_FBC_OBJECTIVE'
+    % eventAssignments
+    if (valid == 1)
+      index = 1;
+      while (valid == 1 && index <= length(SBMLStructure.fbc_fluxObjective))
+        [valid, message] = isSBML_FBCStruct('SBML_FBC_FLUXOBJECTIVE', ...
+                                      SBMLStructure.fbc_fluxObjective(index), ...
+                                      level, version, pkgVersion, extensions_allowed);
+        index = index + 1;
+      end;
+    end;
+end;
+
+% report failure
+if (valid == 0)
+	message = sprintf('Invalid %s\n%s\n', typecode, message);
+end;
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+function [valid, message] = isSBML_FBC_Model(SBMLStructure, level, version, ...
+             pkgVersion, extensions_allowed)
+% [valid, message] = isSBML_FBC_Model(SBMLFBCModel, level, version, pkgVersion)
+
+
+if (length(SBMLStructure) > 1)
+	message = 'cannot deal with arrays of structures';
+  valid = 0;
+  return;
+end;
+
+isValidLevelVersionCombination(level, version);
+
+message = '';
+
+% check that argument is a structure
+valid = isstruct(SBMLStructure);
+
+% check the typecode
+typecode = 'SBML_MODEL';
+if (valid == 1 && ~isempty(SBMLStructure))
+  if isfield(SBMLStructure, 'typecode')
+    if (strcmp(typecode, SBMLStructure.typecode) ~= 1)
+      valid = 0;
+      message = 'typecode mismatch';
+      return;
+    end;
+  else
+    valid = 0;
+    message = 'typecode field missing';
+    return;
+  end;
+end;
+
+% if the level and version fields exist they must match
+if (valid == 1 && isfield(SBMLStructure, 'SBML_level') && ~isempty(SBMLStructure))
+	if ~isequal(level, SBMLStructure.SBML_level)
+		valid = 0;
+		message = 'level mismatch';
+	end;
+end;
+if (valid == 1 && isfield(SBMLStructure, 'SBML_version') && ~isempty(SBMLStructure))
+	if ~isequal(version, SBMLStructure.SBML_version)
+		valid = 0;
+		message = 'version mismatch';
+	end;
+end;
+if (valid == 1 && isfield(SBMLStructure, 'fbc_version') && ~isempty(SBMLStructure))
+	if ~isequal(pkgVersion, SBMLStructure.fbc_version)
+		valid = 0;
+		message = 'FBC version mismatch';
+	end;
+end;
+
+if (valid == 1)
+  % do not worry about extra fields at this point
+  % we know we are in an fbc model
+  [valid, message] = isValidSBML_Model(SBMLStructure, extensions_allowed, 1);
+end;
+
+% check that structure contains all the fbc fields
+if (valid == 1)
+  [SBMLfieldnames, numFields] = getFieldnames('SBML_FBC_MODEL', level, ...
+                                                version, pkgVersion);
+
+  if (numFields ==0)
+    valid = 0;
+    message = 'invalid level/version';
+  end;
+
+  index = 1;
+  while (valid == 1 && index <= numFields)
+    valid = isfield(SBMLStructure, char(SBMLfieldnames(index)));
+    if (valid == 0);
+      message = sprintf('%s field missing', char(SBMLfieldnames(index)));
+    end;
+    index = index + 1;
+  end;
+
+  %check that any nested structures are appropriate
+
+
+  % fluxBound
+  if (valid == 1)
+    index = 1;
+    while (valid == 1 && index <= length(SBMLStructure.fbc_fluxBound))
+      [valid, message] = isSBML_FBCStruct('SBML_FBC_FLUXBOUND', ...
+                                    SBMLStructure.fbc_fluxBound(index), ...
+                                    level, version, pkgVersion, extensions_allowed);
+      index = index + 1;
+    end;
+  end;
+
+  % objective
+  if (valid == 1)
+    index = 1;
+    while (valid == 1 && index <= length(SBMLStructure.fbc_objective))
+      [valid, message] = isSBML_FBCStruct('SBML_FBC_OBJECTIVE', ...
+                                    SBMLStructure.fbc_objective(index), ...
+                                    level, version, pkgVersion, extensions_allowed);
+      index = index + 1;
+    end;
+  end;
+  
+  %species
+  if (valid == 1)
+    index = 1;
+    while (valid == 1 && index <= length(SBMLStructure.species))
+      [valid, message] = isSBML_FBC_Species('SBML_FBC_SPECIES', ...
+                                    SBMLStructure.species(index), ...
+                                    level, version, pkgVersion, extensions_allowed);
+      index = index + 1;
+    end;
+  end;
+  
+
+end;
+
+% report failure
+if (valid == 0)
+	message = sprintf('Invalid FBC Model\n%s\n', message);
+end;
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+function [valid, message] = isSBML_FBC_Species(typecode, SBMLStructure, ...
+                                    level, version, pkgVersion, extensions_allowed)
+
+if (length(SBMLStructure) > 1)
+	message = 'cannot deal with arrays of structures';
+  valid = 0;
+  return;
+end;
+
+isValidLevelVersionCombination(level, version);
+
+message = '';
+
+% check that argument is a structure
+valid = isstruct(SBMLStructure);
+
+% check the typecode
+typecode = 'SBML_SPECIES';
+if (valid == 1 && ~isempty(SBMLStructure))
+  if isfield(SBMLStructure, 'typecode')
+    if (strcmp(typecode, SBMLStructure.typecode) ~= 1)
+      valid = 0;
+      message = 'typecode mismatch';
+      return;
+    end;
+  else
+    valid = 0;
+    message = 'typecode field missing';
+    return;
+  end;
+end;
+
+% if the level and version fields exist they must match
+if (valid == 1 && isfield(SBMLStructure, 'level') && ~isempty(SBMLStructure))
+	if ~isequal(level, SBMLStructure.level)
+		valid = 0;
+		message = 'level mismatch';
+	end;
+end;
+if (valid == 1 && isfield(SBMLStructure, 'version') && ~isempty(SBMLStructure))
+	if ~isequal(version, SBMLStructure.version)
+		valid = 0;
+		message = 'version mismatch';
+	end;
+end;
+if (valid == 1 && isfield(SBMLStructure, 'fbc_version') && ~isempty(SBMLStructure))
+	if ~isequal(pkgVersion, SBMLStructure.fbc_version)
+		valid = 0;
+		message = 'FBC version mismatch';
+	end;
+end;
+
+if (valid == 1)
+  [valid, message] = isSBML_Struct('SBML_SPECIES', SBMLStructure, level, ...
+                                             version, 1);
+end;
+
+% check that structure contains all the fbc fields
+if (valid == 1)
+  [SBMLfieldnames, numFields] = getFieldnames('SBML_FBC_SPECIES', level, ...
+                                                version);
+
+  if (numFields ==0)
+    valid = 0;
+    message = 'invalid level/version';
+  end;
+
+  index = 1;
+  while (valid == 1 && index <= numFields)
+    valid = isfield(SBMLStructure, char(SBMLfieldnames(index)));
+    if (valid == 0);
+      message = sprintf('%s field missing', char(SBMLfieldnames(index)));
+    end;
+    index = index + 1;
+  end;
+
+  if (extensions_allowed == 0)
+    % check that the structure contains ONLY the expected fields
+    if (valid == 1)
+      if (numFields ~= length(fieldnames(SBMLStructure))-19)
+        valid = 0;
+        message = sprintf('Unexpected field detected');
+      end;
+    end;
+  end;
+
+
+end;
+
+% report failure
+if (valid == 0)
+	message = sprintf('Invalid FBC Species\n%s\n', message);
+end;
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 function valid = isValidLevelVersionCombination(level, version)
+
+
+
+
+
+
+
+
+
 
 valid = 1;
 
@@ -1393,16 +1749,20 @@ end;
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-function [SBMLfieldnames, nNumberFields] = getFieldnames(typecode, ...
-                                                         level, version)
+function [SBMLfieldnames, nNumberFields] = getFieldnames(varargin)
 
+if (nargin < 3)
+  error('getFieldnames requires 3 arguments');
+end;
 
-
-
-
-
-
-
+typecode = varargin{1};
+level = varargin{2};
+version = varargin{3};
+if nargin == 4
+  pkgVersion = varargin{4};
+else
+  pkgVersion = 1;
+end;
 
 done = 1;
 
@@ -1465,10 +1825,28 @@ switch (typecode)
   case {'SBML_UNIT_DEFINITION', 'UnitDefinition', 'unitDefinition'}
     [SBMLfieldnames, nNumberFields] = getUnitDefinitionFieldnames(level, version);
   otherwise
-    error('%s\n%s', ...
-      'getFieldnames(typecode, level, version', ...
-      'typecode not recognised');    
+    done = 0;  
 end;
+
+if done == 0
+  switch (typecode)
+    case {'SBML_FBC_FLUXBOUND', 'FluxBound', 'fluxBound'}
+     [SBMLfieldnames, nNumberFields] = getFluxBoundFieldnames(level, version, pkgVersion);
+    case {'SBML_FBC_FLUXOBJECTIVE', 'FluxObjective', 'fluxObjective'}
+     [SBMLfieldnames, nNumberFields] = getFluxObjectiveFieldnames(level, version, pkgVersion);
+    case {'SBML_FBC_OBJECTIVE', 'Objective', 'objective'}
+     [SBMLfieldnames, nNumberFields] = getObjectiveFieldnames(level, version, pkgVersion);
+    case {'SBML_FBC_MODEL', 'FBCModel'}
+     [SBMLfieldnames, nNumberFields] = getFBCModelFieldnames(level, version, pkgVersion);
+    case {'SBML_FBC_SPECIES', 'FBCSpecies'}
+     [SBMLfieldnames, nNumberFields] = getFBCSpeciesFieldnames(level, version, pkgVersion);
+    otherwise
+      error('%s\n%s', ...
+        'getFieldnames(typecode, level, version', ...
+        'typecode not recognised');    
+  end;
+end;
+ 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -3155,3 +3533,172 @@ end;
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+function [SBMLfieldnames, nNumberFields] = getFBCModelFieldnames(level, ...
+                                                         version, pkgVersion)
+if (~isValidLevelVersionCombination(level, version))
+  error ('invalid level/version combination');
+end;
+
+% need a check on package version
+
+if (level == 1)
+	SBMLfieldnames = [];
+	nNumberFields = 0;
+elseif (level == 2)
+	SBMLfieldnames = [];
+	nNumberFields = 0;
+elseif (level == 3)
+	if (version == 1)
+    if (pkgVersion == 1)
+      SBMLfieldnames = { 'fbc_version', ...
+                         'fbc_fluxBound', ...
+                         'fbc_objective', ...
+                         'fbc_activeObjective', ...
+                       };
+      nNumberFields = 4;
+    end;
+	end;
+end;
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+function [SBMLfieldnames, nNumberFields] = getFBCSpeciesFieldnames(level, ...
+                                                         version, pkgVersion)
+
+if (~isValidLevelVersionCombination(level, version))
+  error ('invalid level/version combination');
+end;
+
+% need a check on package version
+
+if (level == 1)
+	SBMLfieldnames = [];
+	nNumberFields = 0;
+elseif (level == 2)
+	SBMLfieldnames = [];
+	nNumberFields = 0;
+elseif (level == 3)
+	if (version == 1)
+    if (pkgVersion == 1)
+      SBMLfieldnames = { 'fbc_charge', ...
+                         'isSetfbc_charge', ...
+                         'fbc_chemicalFormula', ...
+                         'fbc_version', ...
+                       };
+      nNumberFields = 4;
+    end;
+	end;
+end;
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+function [SBMLfieldnames, nNumberFields] = getFluxBoundFieldnames(level, ...
+                                                         version, pkgVersion)
+
+if (~isValidLevelVersionCombination(level, version))
+  error ('invalid level/version combination');
+end;
+
+% need a check on package version
+
+if (level == 1)
+	SBMLfieldnames = [];
+	nNumberFields = 0;
+elseif (level == 2)
+	SBMLfieldnames = [];
+	nNumberFields = 0;
+elseif (level == 3)
+	if (version == 1)
+    if (pkgVersion == 1)
+      SBMLfieldnames = { 'typecode', ...
+                         'metaid', ...
+                         'notes', ...
+                         'annotation', ...
+                         'sboTerm', ...
+                         'fbc_id', ...
+                         'fbc_reaction', ...
+                         'fbc_operation', ...
+                         'fbc_value', ...
+                         'isSetfbc_value', ...
+                         'level', ...
+                         'version', ...
+                         'fbc_version', ...
+                       };
+      nNumberFields = 13;
+    end;
+	end;
+end;
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+function [SBMLfieldnames, nNumberFields] = getFluxObjectiveFieldnames(level, ...
+                                                         version, pkgVersion)
+
+if (~isValidLevelVersionCombination(level, version))
+  error ('invalid level/version combination');
+end;
+
+% need a check on package version
+
+if (level == 1)
+	SBMLfieldnames = [];
+	nNumberFields = 0;
+elseif (level == 2)
+	SBMLfieldnames = [];
+	nNumberFields = 0;
+elseif (level == 3)
+	if (version == 1)
+    if (pkgVersion == 1)
+      SBMLfieldnames = { 'typecode', ...
+                         'metaid', ...
+                         'notes', ...
+                         'annotation', ...
+                         'sboTerm', ...
+                         'fbc_reaction', ...
+                         'fbc_coefficient', ...
+                         'isSetfbc_coefficient', ...
+                         'level', ...
+                         'version', ...
+                         'fbc_version', ...
+                       };
+      nNumberFields = 11;
+    end;
+	end;
+end;
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+function [SBMLfieldnames, nNumberFields] = getObjectiveFieldnames(level, ...
+                                                         version, pkgVersion)
+
+if (~isValidLevelVersionCombination(level, version))
+  error ('invalid level/version combination');
+end;
+
+% need a check on package version
+
+if (level == 1)
+	SBMLfieldnames = [];
+	nNumberFields = 0;
+elseif (level == 2)
+	SBMLfieldnames = [];
+	nNumberFields = 0;
+elseif (level == 3)
+	if (version == 1)
+    if (pkgVersion == 1)
+      SBMLfieldnames = { 'typecode', ...
+                         'metaid', ...
+                         'notes', ...
+                         'annotation', ...
+                         'sboTerm', ...
+                         'fbc_id', ...
+                         'fbc_type', ...
+                         'fbc_fluxObjective', ...
+                         'level', ...
+                         'version', ...
+                         'fbc_version', ...
+                       };
+      nNumberFields = 11;
+    end;
+	end;
+end;

@@ -533,7 +533,112 @@ function y = testIsSBMLModel(silent)
       disp('l3v1core priority extra exclusive failed');
       disp(message);
   end;
+
+ cd ..;
+ FbcEnabled = isFbcEnabled();
+ cd test;
+ 
+ if (FbcEnabled == 1)
+   test = test + 12;
+  m = TranslateSBML('test-data/fbc.xml');
+
+  [pass, message] = isSBML_Model(m);
+  if (pass == 0)
+      fail = fail + 1;
+      disp('fbc Model failed');
+      disp(message);
+  end;
+  [pass, message] = isSBML_Model(m, 0);
+  if (pass == 0)
+      fail = fail + 1;
+      disp('fbc Model exclusive failed:');
+      disp(message);
+  end;
+
+  m = TranslateSBML('test-data/fbc.xml');
+  m.compartment(1).extra = 'extra';
+
+  [pass, message] = isSBML_Model(m);
+  if (pass == 0)
+      fail = fail + 1;
+      disp('fbc core extra failed');
+      disp(message);
+  end;
+  [pass, message] = isSBML_Model(m, 0);
+  if (pass == 1)
+      fail = fail + 1;
+      disp('fbc core extra exclusive failed:');
+      disp(message);
+  end;
+
+  m = TranslateSBML('test-data/fbc.xml');
+  m.fbc_fluxBound(1).extra = 'extra';
+
+  [pass, message] = isSBML_Model(m);
+  if (pass == 0)
+      fail = fail + 1;
+      disp('fbc fluxbound extra failed');
+      disp(message);
+  end;
+  [pass, message] = isSBML_Model(m, 0);
+  if (pass == 1)
+      fail = fail + 1;
+      disp('fbc fluxbound extra exclusive failed:');
+      disp(message);
+  end;
   
+  m = TranslateSBML('test-data/fbc.xml');
+  m.fbc_objective(1).extra = 'extra';
+
+  [pass, message] = isSBML_Model(m);
+  if (pass == 0)
+      fail = fail + 1;
+      disp('fbc objective extra failed');
+      disp(message);
+  end;
+  [pass, message] = isSBML_Model(m, 0);
+  if (pass == 1)
+      fail = fail + 1;
+      disp('fbc objective extra exclusive failed:');
+      disp(message);
+  end;
+
+  m = TranslateSBML('test-data/fbc.xml');
+  m.fbc_objective(1).fbc_fluxObjective(1).extra = 'extra';
+
+  [pass, message] = isSBML_Model(m);
+  if (pass == 0)
+      fail = fail + 1;
+      disp('fbc fluxObjective extra failed');
+      disp(message);
+  end;
+  [pass, message] = isSBML_Model(m, 0);
+  if (pass == 1)
+      fail = fail + 1;
+      disp('fbc fluxObjective extra exclusive failed:');
+      disp(message);
+  end;
+
+  m = TranslateSBML('test-data/fbc.xml');
+  m.species(1).extra = 'extra';
+
+  [pass, message] = isSBML_Model(m);
+  if (pass == 0)
+      fail = fail + 1;
+      disp('fbc species extra failed');
+      disp(message);
+  end;
+  [pass, message] = isSBML_Model(m, 0);
+  if (pass == 1)
+      fail = fail + 1;
+      disp('fbc species extra exclusive failed:');
+      disp(message);
+  end;
+
+
+
+ end;
+
   
   if (silent == 0)
     disp('Testing isSBMLModel:');

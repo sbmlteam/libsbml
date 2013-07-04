@@ -1,4 +1,4 @@
-function fail = testOutput(outdir, in_installer)
+function fail = testOutput(outdir, in_installer, fbcEnabled)
 
 %  Filename    :   TestOutput.m
 %  Description :
@@ -49,12 +49,14 @@ for i=1:length(files)
     % donothing
   elseif (strcmp(files(i).name, 'fatal.xml'))
     %do nothing
+  elseif (fbcEnabled == 0 && strcmp(files(i).name, 'fbc.xml'))
+    % do nothing
   else
     model = [];
     model = TranslateSBML(['test-data', filesep, files(i).name]);
     if (~isempty(model))
       if (in_installer == 1)
-        OutputSBML(model, [outdir, filesep, files(i).name], 0, in_installer);
+        OutputSBML(model, [outdir, filesep, files(i).name], in_installer);
       else
         OutputSBML(model, [outdir, filesep, files(i).name]);
       end;
@@ -136,6 +138,7 @@ expected_files = { ...
 'csymbolTime.xml', ...
 'errors.xml', ...
 'fatal.xml', ...
+'fbc.xml', ...
 'funcDefsWithInitialAssignments.xml', ...
 'functionDefinition.xml', ...
 'initialAssignments.xml', ...

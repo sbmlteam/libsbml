@@ -1,5 +1,11 @@
 % OutputSBML(model, filename(optional)) outputs an xml file
 %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% NOTE: This version enables support for SBML L3 FBC package.
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
 % The function OutputSBML is the converse of TranslateSBML: 
 % it writes an MATLAB_SBML structure to an XML file. It accepts two arguments:
 %

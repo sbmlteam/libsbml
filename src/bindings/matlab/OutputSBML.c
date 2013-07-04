@@ -36,9 +36,25 @@
 #include <sbml/xml/XMLNode.h>
 #include <sbml/math/ASTNode.h>
 
+/*#define USE_FBC 1 */
+#ifdef USE_FBC
+
+#include <sbml/packages/fbc/extension/FbcModelPlugin.h>
+#include <sbml/packages/fbc/extension/FbcSpeciesPlugin.h>
+#include <sbml/packages/fbc/extension/FbcExtension.h>
+
+#include <sbml/packages/fbc/sbml/FluxBound.h>
+#include <sbml/packages/fbc/sbml/FluxObjective.h>
+#include <sbml/packages/fbc/sbml/Objective.h>
+
+#endif
+
+
 static char * timeSymbol = "";
 static char * delaySymbol = "";
 static char * avoSymbol = "";
+
+int fbcPresent;
 
 /* function declarations */
 void LookForCSymbolTime(ASTNode_t *);
@@ -82,6 +98,13 @@ void GetStoichiometryMath			( mxArray *, unsigned int, unsigned int, SpeciesRefe
 
 void GetParameterFromKineticLaw ( mxArray *, unsigned int, unsigned int, KineticLaw_t * );
 
+#ifdef USE_FBC
+
+void  GetFluxBound         ( mxArray *, unsigned int, unsigned int, unsigned int, Model_t * );
+void  GetObjective         ( mxArray *, unsigned int, unsigned int, unsigned int, Model_t * );
+void  GetFluxObjective         ( mxArray *, unsigned int, unsigned int, unsigned int, Objective_t * );
+
+#endif
 
 mxArray * mxModel[2];
 
@@ -116,25 +139,29 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
 	
 	SBMLDocument_t *sbmlDocument;
   SBMLNamespaces_t *ns;
+  XMLNamespaces_t *xmlns;
 	Model_t *sbmlModel;
 
 
-	mxArray * mxLevel, * mxVersion, * mxNotes, * mxAnnotations;
+	mxArray * mxLevel, * mxVersion, * mxNotes, * mxAnnotations, * mxFBCVersion;
   mxArray * mxName, * mxId, *mxNamespaces, *mxMetaid, *mxTimeSymbol;
   mxArray * mxSubstanceUnits, * mxTimeUnits, *mxLengthUnits, *mxAreaUnits;
   mxArray * mxVolumeUnits, * mxExtentUnits, *mxConversionFactor;
-  mxArray * mxDelaySymbol, *mxAvoSymbol;
-	unsigned int nLevel, nVersion;
+  mxArray * mxDelaySymbol, *mxAvoSymbol, *mxActiveObjective;
+	unsigned int nLevel, nVersion, nFBCVersion;
 	char * pacNotes, * pacAnnotations;
   char * pacName, * pacId, *pacMetaid;
   char * pacSubstanceUnits, * pacTimeUnits, *pacLengthUnits, *pacAreaUnits;
-  char * pacVolumeUnits, * pacExtentUnits, *pacConversionFactor;
+  char * pacVolumeUnits, * pacExtentUnits, *pacConversionFactor, *pacActiveObjective;
   int nSBOTerm;
 	
+  SBasePlugin_t * plugin;
+
 	mxArray * mxParameters, * mxCompartments, * mxFunctionDefinitions;
   mxArray * mxUnitDefinitions, *mxSBOTerm;
 	mxArray * mxSpecies, * mxRules, * mxReactions, * mxEvents, * mxConstraints;
 	mxArray * mxSpeciesTypes, * mxCompartmentTypes, * mxInitialAssignments;
+  mxArray * mxFluxBounds, *mxObjectives, *mxFluxObjectives;
   unsigned int usingOctave = 0;
   mxArray * mxOctave[1];
   int inInstaller = 0;
@@ -142,6 +169,7 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
   timeSymbol = "";
   delaySymbol = "";
   avoSymbol = "";
+  fbcPresent = 0;
 
   /* determine whether we are in octave or matlab */
 
@@ -172,7 +200,7 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
       mexErrMsgTxt("Octave requires the filename to be specified\n"
                    "USAGE: OutputSBML(SBMLModel, filename)");
   }
-  if (nrhs > 2)
+  if (nrhs > 3)
   {
     inInstaller = 1;
   }
@@ -303,7 +331,37 @@ else
 	mxNamespaces = mxGetField(mxModel[0], 0, "namespaces");
   GetNamespaces(mxNamespaces, ns);
 
+  /* look for fbc */
+
+  if (XMLNamespaces_hasPrefix(SBMLNamespaces_getNamespaces(ns), "fbc") == 1)
+  {
+    fbcPresent = 1;
+  }
+  
+  /* the fbc namespace may not be set 
+   * but thet fbc package may still be used
+   */
+  if (fbcPresent == 0)
+  {
+    nStatus = mxGetFieldNumber(mxModel[0], "fbc_version");
+    if (nStatus > 0)
+    {
+      fbcPresent = 1;
+      xmlns = XMLNamespaces_create();
+      XMLNamespaces_add(xmlns, 
+        "http://www.sbml.org/sbml/level3/version1/fbc/version1", "fbc");
+      SBMLNamespaces_addNamespaces(ns, xmlns);
+    }
+  }
+
   sbmlDocument = SBMLDocument_createWithSBMLNamespaces(ns);
+  if (fbcPresent == 1)
+  {
+    SBMLDocument_setPkgRequired(sbmlDocument, "fbc", 0);
+	  mxFBCVersion = mxGetField(mxModel[0], 0, "fbc_version");
+	  nFBCVersion = (unsigned int) mxGetScalar(mxFBCVersion);
+  }
+
 	/* create a model within the document */
   sbmlModel = SBMLDocument_createModel(sbmlDocument);
 
@@ -535,6 +593,31 @@ else
 
   SBase_setAnnotationString((SBase_t *) (sbmlModel), pacAnnotations); 
 
+    if (fbcPresent == 1)
+    {
+#ifdef USE_FBC
+      mxFluxBounds = mxGetField(mxModel[0], 0, "fbc_fluxBound");
+      GetFluxBound(mxFluxBounds, nLevel, nVersion, nFBCVersion, sbmlModel);
+      
+      mxObjectives = mxGetField(mxModel[0], 0, "fbc_objective");
+      GetObjective(mxObjectives, nLevel, nVersion, nFBCVersion, sbmlModel);
+      
+      /* get conversionFactor */
+      mxActiveObjective = mxGetField(mxModel[0], 0, "fbc_activeObjective");
+		  nBuflen = (mxGetM(mxActiveObjective)*mxGetN(mxActiveObjective)+1);
+		  pacActiveObjective = (char *)mxCalloc(nBuflen, sizeof(char));
+		  nStatus = mxGetString(mxActiveObjective, pacActiveObjective, (mwSize)(nBuflen));
+      
+		  if (nStatus != 0)
+		  {
+			  mexErrMsgTxt("Cannot copy ActiveObjective");
+		  }
+      
+      FbcModelPlugin_setActiveObjectiveId(SBase_getPlugin((SBase_t *)(sbmlModel), "fbc"),
+        pacActiveObjective);
+#endif
+    }
+	
 
 /************************************************************************************************************
 	* output the resulting model to specified file
@@ -1594,14 +1677,17 @@ GetUnit ( mxArray * mxUnits,
 	unsigned int unIsSetCharge;
 	char * pacMetaid;
   char * pacConversionFactor;
+  char * pacChemicalFormula = NULL;
 
-  mxArray *mxMetaid, *mxConversionFactor;
+  mxArray *mxMetaid, *mxConversionFactor, *mxChemicalFormula;
 	mxArray * mxNotes, * mxAnnotations, * mxName, * mxId, * mxCompartment;
   mxArray * mxInitialAmount, * mxUnits, * mxSpeciesType;
 	mxArray * mxInitialConcentration, * mxSpatialSizeUnits, * mxHasOnlySubstance;
   mxArray * mxBoundaryCondition, * mxCharge, * mxSBOTerm, * mxSubstanceUnits;
 	mxArray * mxConstant, * mxIsSetInitialAmt, * mxIsSetInitialConc, * mxIsSetCharge;
   
+  SBasePlugin_t *plugin;
+
 	Species_t *pSpecies;
 
 	int i;
@@ -1922,7 +2008,42 @@ GetUnit ( mxArray * mxUnits,
 
 		SBase_setAnnotationString((SBase_t *) (pSpecies), pacAnnotations); 
 
-   /* free any memory allocated */
+      if (fbcPresent == 1)
+      {
+#ifdef USE_FBC
+        plugin = SBase_getPlugin((SBase_t *)(pSpecies), "fbc");
+
+       /* get isSetCharge */
+        mxIsSetCharge = mxGetField(mxSpecies, i, "isSetfbc_charge");
+        unIsSetCharge = (unsigned int)mxGetScalar(mxIsSetCharge);
+
+
+        if (unIsSetCharge == 1) 
+        { /* get charge */
+          mxCharge = mxGetField(mxSpecies, i, "fbc_charge");
+          nCharge = (int)mxGetScalar(mxCharge);
+
+          FbcSpeciesPlugin_setCharge(plugin, nCharge);
+        }
+
+        /* getChemicalFormula */
+        mxChemicalFormula = mxGetField(mxSpecies, i, "fbc_chemicalFormula");
+		    nBuflen = (mxGetM(mxChemicalFormula)*mxGetN(mxChemicalFormula)+1);
+		    pacChemicalFormula = (char *)mxCalloc(nBuflen, sizeof(char));
+		    nStatus = mxGetString(mxChemicalFormula, pacChemicalFormula, (mwSize)(nBuflen));
+        
+		    if (nStatus != 0)
+		    {
+			    mexErrMsgTxt("Cannot copy ChemicalFormula");
+		    }
+
+		    FbcSpeciesPlugin_setChemicalFormula(plugin, pacChemicalFormula);
+#endif
+      }
+    
+
+
+    /* free any memory allocated */
 	  mxFree(pacNotes);
 	  mxFree(pacAnnotations);
 	  mxFree(pacName);
@@ -1953,8 +2074,11 @@ GetUnit ( mxArray * mxUnits,
   	  mxFree(pacId);
   	  mxFree(pacSubstanceUnits);
       mxFree(pacConversionFactor);
+      if (fbcPresent)
+        mxFree(pacChemicalFormula);
     }
-	}
+    }
+	
 
 }
 /**
@@ -5719,3 +5843,443 @@ GetPriority ( mxArray * mxPriority,
   mxFree(pacMath);
   mxFree(pacMetaid);
 }
+
+#ifdef USE_FBC
+
+/**
+ * NAME:    GetFluxBound
+ *
+ * PARAMETERS:  mxArray of FluxBound structures
+ *              unSBMLLevel
+ *              unSBMLVersion - included for possible expansion needs
+ *				      Pointer to the model
+ *
+ * RETURNS:    void
+ *
+ * FUNCTION:  gets data from the FluxBound mxArray structure
+ *        and adds each FluxBound to the model
+ */
+void
+GetFluxBound ( mxArray * mxFluxBound,
+               unsigned int unSBMLLevel,
+               unsigned int unSBMLVersion, 
+               unsigned int unFBCVersion, 
+			         Model_t * sbmlModel )
+{
+	size_t nNoFluxBounds = mxGetNumberOfElements(mxFluxBound);
+  
+	int nStatus;
+	size_t nBuflen;
+
+	/* values */
+	char * pacNotes;
+	char * pacAnnotations;
+  int nSBOTerm;
+	char * pacMetaid;
+	char * pacId;
+  char * pacReaction;
+  char * pacOperation;
+  double dValue;
+  unsigned int unIsSetValue;
+
+	mxArray * mxNotes, * mxAnnotations, * mxMetaid, *mxSBOTerm;
+	mxArray * mxId, * mxReaction, * mxOperation, * mxValue, *mxIsSetValue;
+  mxArray *mxInput[1];
+  mxArray *mxOutput[1];
+
+	FluxBound_t *pFluxBound;
+	int i;
+
+  SBasePlugin_t *plugin = SBase_getPlugin((SBase_t *)(sbmlModel), "fbc");
+
+	for (i = 0; i < nNoFluxBounds; i++) 
+	{
+		pFluxBound = FluxBound_create(unSBMLLevel, unSBMLVersion,
+                                                     unFBCVersion);
+
+		/* get notes */
+		mxNotes = mxGetField(mxFluxBound, i, "notes");
+		nBuflen = (mxGetM(mxNotes)*mxGetN(mxNotes)+1);
+		pacNotes = (char *)mxCalloc(nBuflen, sizeof(char));
+		nStatus = mxGetString(mxNotes, pacNotes, (mwSize)(nBuflen));
+
+		if (nStatus != 0)
+		{
+			mexErrMsgTxt("Cannot copy notes");
+		}
+
+		SBase_setNotesString((SBase_t *) (pFluxBound), pacNotes);
+
+
+		/* get metaid */
+		mxMetaid = mxGetField(mxFluxBound, i, "metaid");
+		nBuflen = (mxGetM(mxMetaid)*mxGetN(mxMetaid)+1);
+		pacMetaid = (char *)mxCalloc(nBuflen, sizeof(char));
+		nStatus = mxGetString(mxMetaid, pacMetaid, (mwSize)(nBuflen));
+    
+		if (nStatus != 0)
+		{
+			mexErrMsgTxt("Cannot copy metaid");
+		}
+
+		SBase_setMetaId((SBase_t *) (pFluxBound), pacMetaid);
+
+
+ 		/* get annotations */
+		mxAnnotations = mxGetField(mxFluxBound, i, "annotation");
+		nBuflen = (mxGetM(mxAnnotations)*mxGetN(mxAnnotations)+1);
+		pacAnnotations = (char *)mxCalloc(nBuflen, sizeof(char));
+		nStatus = mxGetString(mxAnnotations, pacAnnotations, (mwSize)(nBuflen));
+
+		if (nStatus != 0)
+		{
+			mexErrMsgTxt("Cannot copy annotations");
+		}
+        
+		SBase_setAnnotationString((SBase_t *) (pFluxBound), pacAnnotations); 
+
+
+ 	/* get sboTerm */
+		mxSBOTerm = mxGetField(mxFluxBound, i, "sboTerm");
+		nSBOTerm = (int)mxGetScalar(mxSBOTerm);
+
+		SBase_setSBOTerm((SBase_t *) (pFluxBound), nSBOTerm);
+
+		/* get id */
+		mxId = mxGetField(mxFluxBound, i, "fbc_id");
+		nBuflen = (mxGetM(mxId)*mxGetN(mxId)+1);
+		pacId = (char *)mxCalloc(nBuflen, sizeof(char));
+		nStatus = mxGetString(mxId, pacId, (mwSize)(nBuflen));
+
+		if (nStatus != 0)
+		{
+			mexErrMsgTxt("Cannot copy Id");
+		}
+
+		FluxBound_setId(pFluxBound, pacId);
+
+		/* get Reaction */
+		mxReaction = mxGetField(mxFluxBound, i, "fbc_reaction");
+		nBuflen = (mxGetM(mxReaction)*mxGetN(mxReaction)+1);
+		pacReaction = (char *)mxCalloc(nBuflen, sizeof(char));
+		nStatus = mxGetString(mxReaction, pacReaction, (mwSize)(nBuflen));
+
+		if (nStatus != 0)
+		{
+			mexErrMsgTxt("Cannot copy Reaction");
+		}
+
+		FluxBound_setReaction(pFluxBound, pacReaction);
+
+		/* get Operation */
+		mxOperation = mxGetField(mxFluxBound, i, "fbc_operation");
+		nBuflen = (mxGetM(mxOperation)*mxGetN(mxOperation)+1);
+		pacOperation = (char *)mxCalloc(nBuflen, sizeof(char));
+		nStatus = mxGetString(mxOperation, pacOperation, (mwSize)(nBuflen));
+
+		if (nStatus != 0)
+		{
+			mexErrMsgTxt("Cannot copy Operation");
+		}
+
+		FluxBound_setOperation(pFluxBound, pacOperation);
+
+    /* get value */
+		mxIsSetValue = mxGetField(mxFluxBound, i, "isSetfbc_value");
+		unIsSetValue = (unsigned int)(mxGetScalar(mxIsSetValue));
+
+    if (unIsSetValue == 1)
+    {
+ 		  mxValue = mxGetField(mxFluxBound, i, "fbc_value");
+		  dValue = mxGetScalar(mxValue);
+
+		  FluxBound_setValue(pFluxBound, dValue);
+    }
+
+
+    /* free any memory allocated */
+	  mxFree(pacNotes);
+	  mxFree(pacAnnotations);
+    mxFree(pacMetaid);
+    mxFree(pacId);
+    mxFree(pacReaction);
+    mxFree(pacOperation);
+
+    /* add this flux bound to the model */
+    FbcModelPlugin_addFluxBound(plugin, pFluxBound);
+	}
+}
+
+/**
+ * NAME:    GetObjective
+ *
+ * PARAMETERS:  mxArray of Objective structures
+ *              unSBMLLevel
+ *              unSBMLVersion - included for possible expansion needs
+ *				      Pointer to the model
+ *
+ * RETURNS:    void
+ *
+ * FUNCTION:  gets data from the Objective mxArray structure
+ *        and adds each Objective to the model
+ */
+void
+GetObjective ( mxArray * mxObjective,
+               unsigned int unSBMLLevel,
+               unsigned int unSBMLVersion, 
+               unsigned int unFBCVersion, 
+			         Model_t * sbmlModel )
+{
+	size_t nNoObjectives = mxGetNumberOfElements(mxObjective);
+  
+	int nStatus;
+	size_t nBuflen;
+
+	/* values */
+	char * pacNotes;
+	char * pacAnnotations;
+  int nSBOTerm;
+	char * pacMetaid;
+	char * pacId;
+  char * pacType;
+
+	mxArray * mxNotes, * mxAnnotations, * mxMetaid, *mxSBOTerm;
+	mxArray * mxId, * mxType, * mxFluxObjectives;
+  mxArray *mxInput[1];
+  mxArray *mxOutput[1];
+
+	Objective_t *pObjective;
+	int i;
+
+  SBasePlugin_t *plugin = SBase_getPlugin((SBase_t *)(sbmlModel), "fbc");
+
+	for (i = 0; i < nNoObjectives; i++) 
+	{
+		pObjective = Objective_create(unSBMLLevel, unSBMLVersion,
+                                                     unFBCVersion);
+
+		/* get notes */
+		mxNotes = mxGetField(mxObjective, i, "notes");
+		nBuflen = (mxGetM(mxNotes)*mxGetN(mxNotes)+1);
+		pacNotes = (char *)mxCalloc(nBuflen, sizeof(char));
+		nStatus = mxGetString(mxNotes, pacNotes, (mwSize)(nBuflen));
+
+		if (nStatus != 0)
+		{
+			mexErrMsgTxt("Cannot copy notes");
+		}
+
+		SBase_setNotesString((SBase_t *) (pObjective), pacNotes);
+
+
+		/* get metaid */
+		mxMetaid = mxGetField(mxObjective, i, "metaid");
+		nBuflen = (mxGetM(mxMetaid)*mxGetN(mxMetaid)+1);
+		pacMetaid = (char *)mxCalloc(nBuflen, sizeof(char));
+		nStatus = mxGetString(mxMetaid, pacMetaid, (mwSize)(nBuflen));
+    
+		if (nStatus != 0)
+		{
+			mexErrMsgTxt("Cannot copy metaid");
+		}
+
+		SBase_setMetaId((SBase_t *) (pObjective), pacMetaid);
+
+
+		/* get annotations */
+		mxAnnotations = mxGetField(mxObjective, i, "annotation");
+		nBuflen = (mxGetM(mxAnnotations)*mxGetN(mxAnnotations)+1);
+		pacAnnotations = (char *)mxCalloc(nBuflen, sizeof(char));
+		nStatus = mxGetString(mxAnnotations, pacAnnotations, (mwSize)(nBuflen));
+
+		if (nStatus != 0)
+		{
+			mexErrMsgTxt("Cannot copy annotations");
+		}
+        
+		SBase_setAnnotationString((SBase_t *) (pObjective), pacAnnotations); 
+
+
+  	/* get sboTerm */
+		mxSBOTerm = mxGetField(mxObjective, i, "sboTerm");
+		nSBOTerm = (int)mxGetScalar(mxSBOTerm);
+
+		SBase_setSBOTerm((SBase_t *) (pObjective), nSBOTerm);
+
+		/* get id */
+		mxId = mxGetField(mxObjective, i, "fbc_id");
+		nBuflen = (mxGetM(mxId)*mxGetN(mxId)+1);
+		pacId = (char *)mxCalloc(nBuflen, sizeof(char));
+		nStatus = mxGetString(mxId, pacId, (mwSize)(nBuflen));
+
+		if (nStatus != 0)
+		{
+			mexErrMsgTxt("Cannot copy Id");
+		}
+
+		Objective_setId(pObjective, pacId);
+
+		/* get Type */
+		mxType = mxGetField(mxObjective, i, "fbc_type");
+		nBuflen = (mxGetM(mxType)*mxGetN(mxType)+1);
+		pacType = (char *)mxCalloc(nBuflen, sizeof(char));
+		nStatus = mxGetString(mxType, pacType, (mwSize)(nBuflen));
+
+		if (nStatus != 0)
+		{
+			mexErrMsgTxt("Cannot copy Type");
+		}
+
+		Objective_setType(pObjective, pacType);
+
+
+    /* get list of fluxobjectives */
+		mxFluxObjectives = mxGetField(mxObjective, i, "fbc_fluxObjective");
+		GetFluxObjective(mxFluxObjectives, unSBMLLevel, unSBMLVersion, 
+      unFBCVersion, pObjective);
+
+    /* free any memory allocated */
+	  mxFree(pacNotes);
+	  mxFree(pacAnnotations);
+    mxFree(pacMetaid);
+    mxFree(pacId);
+    mxFree(pacType);
+
+    /* add this flux bound to the model */
+    FbcModelPlugin_addObjective(plugin, pObjective);
+	}
+}
+
+/**
+ * NAME:    GetFluxObjective
+ *
+ * PARAMETERS:  mxArray of FluxObjective structures
+ *              unSBMLLevel
+ *              unSBMLVersion - included for possible expansion needs
+ *				      Pointer to the model
+ *
+ * RETURNS:    void
+ *
+ * FUNCTION:  gets data from the FluxObjective mxArray structure
+ *        and adds each FluxObjective to the model
+ */
+void
+GetFluxObjective ( mxArray * mxFluxObjective,
+               unsigned int unSBMLLevel,
+               unsigned int unSBMLVersion, 
+               unsigned int unFBCVersion, 
+			         Objective_t * pObjective )
+{
+	size_t nNoFluxObjectives = mxGetNumberOfElements(mxFluxObjective);
+  
+	int nStatus;
+	size_t nBuflen;
+
+	/* values */
+	char * pacNotes;
+	char * pacAnnotations;
+  int nSBOTerm;
+	char * pacMetaid;
+	char * pacReaction;
+  double dCoefficient;
+  unsigned int unIsSetCoefficient = 0;
+
+	mxArray * mxNotes, * mxAnnotations, * mxMetaid, *mxSBOTerm;
+	mxArray * mxReaction, * mxCoefficient, *mxIsSetCoefficient;
+  mxArray *mxInput[1];
+  mxArray *mxOutput[1];
+
+	FluxObjective_t *pFluxObjective;
+	int i;
+
+	for (i = 0; i < nNoFluxObjectives; i++) 
+	{
+		pFluxObjective = FluxObjective_create(unSBMLLevel, unSBMLVersion,
+                                                     unFBCVersion);
+
+		/* get notes */
+		mxNotes = mxGetField(mxFluxObjective, i, "notes");
+		nBuflen = (mxGetM(mxNotes)*mxGetN(mxNotes)+1);
+		pacNotes = (char *)mxCalloc(nBuflen, sizeof(char));
+		nStatus = mxGetString(mxNotes, pacNotes, (mwSize)(nBuflen));
+
+		if (nStatus != 0)
+		{
+			mexErrMsgTxt("Cannot copy notes");
+		}
+
+		SBase_setNotesString((SBase_t *) (pFluxObjective), pacNotes);
+
+
+		/* get metaid */
+		mxMetaid = mxGetField(mxFluxObjective, i, "metaid");
+		nBuflen = (mxGetM(mxMetaid)*mxGetN(mxMetaid)+1);
+		pacMetaid = (char *)mxCalloc(nBuflen, sizeof(char));
+		nStatus = mxGetString(mxMetaid, pacMetaid, (mwSize)(nBuflen));
+    
+		if (nStatus != 0)
+		{
+			mexErrMsgTxt("Cannot copy metaid");
+		}
+
+		SBase_setMetaId((SBase_t *) (pFluxObjective), pacMetaid);
+
+
+		/* get annotations */
+		mxAnnotations = mxGetField(mxFluxObjective, i, "annotation");
+		nBuflen = (mxGetM(mxAnnotations)*mxGetN(mxAnnotations)+1);
+		pacAnnotations = (char *)mxCalloc(nBuflen, sizeof(char));
+		nStatus = mxGetString(mxAnnotations, pacAnnotations, (mwSize)(nBuflen));
+
+		if (nStatus != 0)
+		{
+			mexErrMsgTxt("Cannot copy annotations");
+		}
+        
+		SBase_setAnnotationString((SBase_t *) (pFluxObjective), pacAnnotations); 
+
+
+  	/* get sboTerm */
+		mxSBOTerm = mxGetField(mxFluxObjective, i, "sboTerm");
+		nSBOTerm = (int)mxGetScalar(mxSBOTerm);
+
+		SBase_setSBOTerm((SBase_t *) (pFluxObjective), nSBOTerm);
+
+		/* get Reaction */
+		mxReaction = mxGetField(mxFluxObjective, i, "fbc_reaction");
+		nBuflen = (mxGetM(mxReaction)*mxGetN(mxReaction)+1);
+		pacReaction = (char *)mxCalloc(nBuflen, sizeof(char));
+		nStatus = mxGetString(mxReaction, pacReaction, (mwSize)(nBuflen));
+
+		if (nStatus != 0)
+		{
+			mexErrMsgTxt("Cannot copy Reaction");
+		}
+
+		FluxObjective_setReaction(pFluxObjective, pacReaction);
+
+		/* get coefficient */
+		mxIsSetCoefficient = mxGetField(mxFluxObjective, i, "isSetfbc_coefficient");
+		unIsSetCoefficient = (unsigned int)(mxGetScalar(mxIsSetCoefficient));
+
+    if (unIsSetCoefficient == 1)
+    {
+		  mxCoefficient = mxGetField(mxFluxObjective, i, "fbc_coefficient");
+		  dCoefficient = mxGetScalar(mxCoefficient);
+
+		  FluxObjective_setCoefficient(pFluxObjective, dCoefficient);
+    }
+
+
+
+    /* free any memory allocated */
+	  mxFree(pacNotes);
+	  mxFree(pacAnnotations);
+    mxFree(pacMetaid);
+    mxFree(pacReaction);
+
+    /* add this flux bound to the model */
+    Objective_addFluxObjective(pObjective, pFluxObjective);
+	}
+}
+#endif

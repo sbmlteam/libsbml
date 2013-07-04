@@ -1,6 +1,12 @@
 % TranslateSBML('filename' (optional), validateFlag (optional), verboseFlag (optional))
 % reads an SBML document and converts it to a MATLAB_SBML structure.
 %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% NOTE: This version enables support for SBML L3 FBC package.
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
 % It accepts three optional arguments:
 %
 %   * filename: This is the name of the file to be imported. 
