@@ -7,7 +7,7 @@ SET THIS_DIR=%~dp0
 SET PACKAGE_NAME=comp
 set VERSION=libSBML-5.8.0-%PACKAGE_NAME%-src
 SET DIST_DIR=%~dp0\%VERSION%
-SET PACKAGE_DIR=%~dp0\..\..\%PACKAGE_NAME%
+SET PACKAGE_DIR=%~dp0\..\..\..\
 
 SET ZIP=%THIS_DIR%\bin\zip --out "..\%VERSION%.zip" -9 -r 
 
@@ -99,39 +99,53 @@ mkdir src\bindings\ruby
 mkdir src\bindings\r
 mkdir src\bindings\swig
 
-copy /y %PACKAGE_DIR%\src\bindings\csharp\*.i    src\bindings\csharp
-copy /y %PACKAGE_DIR%\src\bindings\java\*.i      src\bindings\java
-copy /y %PACKAGE_DIR%\src\bindings\perl\*.cpp    src\bindings\perl
-copy /y %PACKAGE_DIR%\src\bindings\perl\*.i      src\bindings\perl
-copy /y %PACKAGE_DIR%\src\bindings\python\*.cpp  src\bindings\python
-copy /y %PACKAGE_DIR%\src\bindings\python\*.i    src\bindings\python
-copy /y %PACKAGE_DIR%\src\bindings\r\*.cpp       src\bindings\r
-copy /y %PACKAGE_DIR%\src\bindings\r\*.i         src\bindings\r
-copy /y %PACKAGE_DIR%\src\bindings\ruby\*.cpp    src\bindings\ruby
-copy /y %PACKAGE_DIR%\src\bindings\ruby\*.i      src\bindings\ruby
-copy /y %PACKAGE_DIR%\src\bindings\swig\*.i      src\bindings\swig
-copy /y %PACKAGE_DIR%\src\bindings\swig\*.h      src\bindings\swig
+copy /y %PACKAGE_DIR%\src\bindings\csharp\*-%PACKAGE_NAME%.i    src\bindings\csharp
+copy /y %PACKAGE_DIR%\src\bindings\java\*-%PACKAGE_NAME%.i      src\bindings\java
+copy /y %PACKAGE_DIR%\src\bindings\perl\*-%PACKAGE_NAME%.cpp    src\bindings\perl
+copy /y %PACKAGE_DIR%\src\bindings\perl\*-%PACKAGE_NAME%.i      src\bindings\perl
+copy /y %PACKAGE_DIR%\src\bindings\python\*-%PACKAGE_NAME%.cpp  src\bindings\python
+copy /y %PACKAGE_DIR%\src\bindings\python\*-%PACKAGE_NAME%.i    src\bindings\python
+copy /y %PACKAGE_DIR%\src\bindings\r\*-%PACKAGE_NAME%.cpp       src\bindings\r
+copy /y %PACKAGE_DIR%\src\bindings\r\*-%PACKAGE_NAME%.i         src\bindings\r
+copy /y %PACKAGE_DIR%\src\bindings\ruby\*-%PACKAGE_NAME%.cpp    src\bindings\ruby
+copy /y %PACKAGE_DIR%\src\bindings\ruby\*-%PACKAGE_NAME%.i      src\bindings\ruby
+copy /y %PACKAGE_DIR%\src\bindings\swig\%PACKAGE_NAME%-*.i      src\bindings\swig
+copy /y %PACKAGE_DIR%\src\bindings\swig\%PACKAGE_NAME%-*.h      src\bindings\swig
 
 
 mkdir examples
-mkdir examples\comp
+mkdir examples\c
+mkdir examples\c\%PACKAGE_NAME%
+mkdir examples\cpp
+mkdir examples\cpp\%PACKAGE_NAME%
+mkdir examples\java
+mkdir examples\java\%PACKAGE_NAME%
+mkdir examples\python
+mkdir examples\python\%PACKAGE_NAME%
+mkdir examples\perl
+mkdir examples\perl\%PACKAGE_NAME%
+mkdir examples\r
+mkdir examples\r\%PACKAGE_NAME%
+mkdir examples\ruby
+mkdir examples\ruby\%PACKAGE_NAME%
 
-copy /y %PACKAGE_DIR%\examples\c\*.c             examples\%PACKAGE_NAME%
-copy /y %PACKAGE_DIR%\examples\csharp\*.cs       examples\%PACKAGE_NAME%
-copy /y %PACKAGE_DIR%\examples\java\*.java       examples\%PACKAGE_NAME%
-copy /y %PACKAGE_DIR%\examples\python\*.py       examples\%PACKAGE_NAME%
-copy /y %PACKAGE_DIR%\examples\ruby\*.rb         examples\%PACKAGE_NAME%
-copy /y %PACKAGE_DIR%\examples\perl\*.pl         examples\%PACKAGE_NAME%
-copy /y %PACKAGE_DIR%\examples\r\*.R             examples\%PACKAGE_NAME%
+copy /y %PACKAGE_DIR%\examples\c\%PACKAGE_NAME%\*.c             examples\c\%PACKAGE_NAME%\
+copy /y %PACKAGE_DIR%\examples\csharp\%PACKAGE_NAME%\*.cs       examples\csharp\%PACKAGE_NAME%\
+copy /y %PACKAGE_DIR%\examples\java\%PACKAGE_NAME%\*.java       examples\java\%PACKAGE_NAME%\
+copy /y %PACKAGE_DIR%\examples\python\%PACKAGE_NAME%\*.py       examples\python\%PACKAGE_NAME%\
+copy /y %PACKAGE_DIR%\examples\ruby\%PACKAGE_NAME%\*.rb         examples\ruby\%PACKAGE_NAME%\
+copy /y %PACKAGE_DIR%\examples\perl\%PACKAGE_NAME%\*.pl         examples\perl\%PACKAGE_NAME%\
+copy /y %PACKAGE_DIR%\examples\r\%PACKAGE_NAME%\*.R             examples\r\%PACKAGE_NAME%\
 
-copy /y "%PACKAGE_DIR%\examples\c++\flattenModel.cpp"              examples\%PACKAGE_NAME%
-copy /y "%PACKAGE_DIR%\examples\c++\SBMLHttpResolverExample.cpp"   examples\%PACKAGE_NAME%
-copy /y "%PACKAGE_DIR%\examples\c++\spec_example1.cpp"             examples\%PACKAGE_NAME%
-copy /y "%PACKAGE_DIR%\examples\c++\spec_example2.cpp"             examples\%PACKAGE_NAME%
-copy /y "%PACKAGE_DIR%\examples\c++\spec_example3.cpp"             examples\%PACKAGE_NAME%
-copy /y "%PACKAGE_DIR%\examples\c++\spec_example4.cpp"             examples\%PACKAGE_NAME%
+copy /y "%PACKAGE_DIR%\examples\c++\%PACKAGE_NAME%\flattenModel.cpp"              examples\cpp\%PACKAGE_NAME%\
+copy /y "%PACKAGE_DIR%\examples\c++\%PACKAGE_NAME%\SBMLHttpResolverExample.cpp"   examples\cpp\%PACKAGE_NAME%\
+copy /y "%PACKAGE_DIR%\examples\c++\%PACKAGE_NAME%\spec_example1.cpp"             examples\cpp\%PACKAGE_NAME%\
+copy /y "%PACKAGE_DIR%\examples\c++\%PACKAGE_NAME%\spec_example2.cpp"             examples\cpp\%PACKAGE_NAME%\
+copy /y "%PACKAGE_DIR%\examples\c++\%PACKAGE_NAME%\spec_example3.cpp"             examples\cpp\%PACKAGE_NAME%\
+copy /y "%PACKAGE_DIR%\examples\c++\%PACKAGE_NAME%\spec_example4.cpp"             examples\cpp\%PACKAGE_NAME%\
 
-
+cd examples
+rename cpp "c++"
 
 
 :COPY_COMPLETE
