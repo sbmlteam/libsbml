@@ -99,7 +99,7 @@ START_TEST (test_transfer_moddef)
   string origmodstr = writeSBMLToString(doc);
   fail_unless(origmodstr.find("layout:") != string::npos);
   CompSBMLDocumentPlugin* compdoc = static_cast<CompSBMLDocumentPlugin*>(doc->getPlugin("comp"));
-  compdoc->setRequired(false);
+  compdoc->setRequired(true);
   ModelDefinition* transfer = compdoc->getModelDefinition("QuorumTrigger");
   SBMLNamespaces sbmlns(3,1,"comp",1);
   LayoutPkgNamespaces layoutns(3, 1, 1, "layout");
@@ -107,7 +107,7 @@ START_TEST (test_transfer_moddef)
   SBMLDocument transferdoc(&sbmlns);
   transferdoc.createModel();
   compdoc = static_cast<CompSBMLDocumentPlugin*>(transferdoc.getPlugin("comp"));
-  compdoc->setRequired(false);
+  compdoc->setRequired(true);
   compdoc->addModelDefinition(transfer);
   SBMLDocumentPlugin* layoutdoc = static_cast<SBMLDocumentPlugin*>(transferdoc.getPlugin("layout"));
   layoutdoc->setRequired(false);
@@ -137,7 +137,7 @@ START_TEST (test_transfer_moddef2mod)
   SBMLDocumentPlugin* layoutdoc = static_cast<SBMLDocumentPlugin*>(transferdoc.getPlugin("layout"));
   layoutdoc->setRequired(false);
   compdoc = static_cast<CompSBMLDocumentPlugin*>(transferdoc.getPlugin("comp"));
-  compdoc->setRequired(false);
+  compdoc->setRequired(true);
   Model* newmod = transferdoc.getModel();
   fail_unless(newmod != NULL);
   string newmodstr = writeSBMLToString(&transferdoc);
