@@ -245,8 +245,8 @@ public:
       break;
 
     default:
-      line   = theLineNumber;
-      column = theColumnNumber;
+      line   = static_cast<XMLSSize_t>(theLineNumber);
+      column = static_cast<XMLSSize_t>(theColumnNumber);
 
     }
   };
@@ -654,7 +654,7 @@ XercesParser::parseNext ()
     // XMLException doesn't have a lastXercesError or getColumnNumber().
 
     char* msg = XMLString::transcode(e.getMessage());
-    reportError(XMLUnknownError, msg, e.getSrcLine(), 1);
+    reportError(XMLUnknownError, msg, static_cast<const unsigned int>(e.getSrcLine()), 1);
     result = false;
   }
   catch (...)
