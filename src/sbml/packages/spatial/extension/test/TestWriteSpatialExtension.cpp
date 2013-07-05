@@ -350,16 +350,16 @@ START_TEST (test_SpatialExtension_create_and_write_L3V1V1)
   Domain* domain = geometry->createDomain();
   fail_unless(domain->setSpatialId("domain1") == LIBSBML_OPERATION_SUCCESS);
   fail_unless(domain->setDomainType("dtype1") == LIBSBML_OPERATION_SUCCESS);
-  fail_unless(domain->setImplicit(false) == LIBSBML_OPERATION_SUCCESS);
-  fail_unless(domain->setShapeId("circle") == LIBSBML_OPERATION_SUCCESS);
+  //fail_unless(domain->setImplicit(false) == LIBSBML_OPERATION_SUCCESS);
+  //fail_unless(domain->setShapeId("circle") == LIBSBML_OPERATION_SUCCESS);
   InteriorPoint* internalPt1 = domain->createInteriorPoint();
   fail_unless(internalPt1->setCoord1(1.0) == LIBSBML_OPERATION_SUCCESS);
 
   domain = geometry->createDomain();
   fail_unless(domain->setSpatialId("domain2") == LIBSBML_OPERATION_SUCCESS);
   fail_unless(domain->setDomainType("dtype1") == LIBSBML_OPERATION_SUCCESS);
-  fail_unless(domain->setImplicit(false) == LIBSBML_OPERATION_SUCCESS);
-  fail_unless(domain->setShapeId("square") == LIBSBML_OPERATION_SUCCESS);
+  //fail_unless(domain->setImplicit(false) == LIBSBML_OPERATION_SUCCESS);
+  //fail_unless(domain->setShapeId("square") == LIBSBML_OPERATION_SUCCESS);
   InteriorPoint* internalPt2 = domain->createInteriorPoint();
   fail_unless(internalPt2->setCoord1(5.0) == LIBSBML_OPERATION_SUCCESS);
 
@@ -740,8 +740,8 @@ END_TEST
   Domain* domain1 = new Domain(&sbmlns);
   fail_unless(domain1->setSpatialId("domain1") == LIBSBML_OPERATION_SUCCESS);
   fail_unless(domain1->setDomainType("dtype1") == LIBSBML_OPERATION_SUCCESS);
-  fail_unless(domain1->setImplicit(false) == LIBSBML_OPERATION_SUCCESS);
-  fail_unless(domain1->setShapeId("circle") == LIBSBML_OPERATION_SUCCESS);
+  //fail_unless(domain1->setImplicit(false) == LIBSBML_OPERATION_SUCCESS);
+  //fail_unless(domain1->setShapeId("circle") == LIBSBML_OPERATION_SUCCESS);
   InteriorPoint* interiorPt1 = new InteriorPoint(&sbmlns);
   fail_unless(interiorPt1->setCoord1(1.0) == LIBSBML_OPERATION_SUCCESS);
   fail_unless(domain1->addInteriorPoint(interiorPt1) == LIBSBML_OPERATION_SUCCESS);
@@ -750,8 +750,8 @@ END_TEST
   Domain* domain2 = new Domain(&sbmlns);
   fail_unless(domain2->setSpatialId("domain2") == LIBSBML_OPERATION_SUCCESS);
   fail_unless(domain2->setDomainType("dtype1") == LIBSBML_OPERATION_SUCCESS);
-  fail_unless(domain2->setImplicit(false) == LIBSBML_OPERATION_SUCCESS);
-  fail_unless(domain2->setShapeId("square") == LIBSBML_OPERATION_SUCCESS);
+  //fail_unless(domain2->setImplicit(false) == LIBSBML_OPERATION_SUCCESS);
+  //fail_unless(domain2->setShapeId("square") == LIBSBML_OPERATION_SUCCESS);
   InteriorPoint* internalPt2 = new InteriorPoint(&sbmlns);
   fail_unless(internalPt2->setCoord1(5.0) == LIBSBML_OPERATION_SUCCESS);
   fail_unless(domain2->addInteriorPoint(internalPt2) == LIBSBML_OPERATION_SUCCESS);
@@ -1097,16 +1097,16 @@ END_TEST
   Domain* domain = geometry->createDomain();
   fail_unless(domain->setSpatialId("domain1") == LIBSBML_OPERATION_SUCCESS);
   fail_unless(domain->setDomainType("dtype1") == LIBSBML_OPERATION_SUCCESS);
-  fail_unless(domain->setImplicit(false) == LIBSBML_OPERATION_SUCCESS);
-  fail_unless(domain->setShapeId("circle") == LIBSBML_OPERATION_SUCCESS);
+  //fail_unless(domain->setImplicit(false) == LIBSBML_OPERATION_SUCCESS);
+  //fail_unless(domain->setShapeId("circle") == LIBSBML_OPERATION_SUCCESS);
   InteriorPoint* internalPt1 = domain->createInteriorPoint();
   fail_unless(internalPt1->setCoord1(1.0) == LIBSBML_OPERATION_SUCCESS);
 
   domain = geometry->createDomain();
   fail_unless(domain->setSpatialId("domain2") == LIBSBML_OPERATION_SUCCESS);
   fail_unless(domain->setDomainType("dtype1") == LIBSBML_OPERATION_SUCCESS);
-  fail_unless(domain->setImplicit(false) == LIBSBML_OPERATION_SUCCESS);
-  fail_unless(domain->setShapeId("square") == LIBSBML_OPERATION_SUCCESS);
+  //fail_unless(domain->setImplicit(false) == LIBSBML_OPERATION_SUCCESS);
+  //fail_unless(domain->setShapeId("square") == LIBSBML_OPERATION_SUCCESS);
   InteriorPoint* internalPt2 = domain->createInteriorPoint();
   fail_unless(internalPt2->setCoord1(5.0) == LIBSBML_OPERATION_SUCCESS);
 
@@ -1591,16 +1591,16 @@ END_TEST
   Domain* domain = geometry->createDomain();
   fail_unless(domain->setSpatialId("domain1") == LIBSBML_OPERATION_SUCCESS);
   fail_unless(domain->setDomainType("dtype1") == LIBSBML_OPERATION_SUCCESS);
-  fail_unless(domain->setImplicit(false) == LIBSBML_OPERATION_SUCCESS);
-  fail_unless(domain->setShapeId("circle") == LIBSBML_OPERATION_SUCCESS);
+  //fail_unless(domain->setImplicit(false) == LIBSBML_OPERATION_SUCCESS);
+  //fail_unless(domain->setShapeId("circle") == LIBSBML_OPERATION_SUCCESS);
   InteriorPoint* internalPt1 = domain->createInteriorPoint();
   fail_unless(internalPt1->setCoord1(1.0) == LIBSBML_OPERATION_SUCCESS);
 
   domain = geometry->createDomain();
   fail_unless(domain->setSpatialId("domain2") == LIBSBML_OPERATION_SUCCESS);
   fail_unless(domain->setDomainType("dtype1") == LIBSBML_OPERATION_SUCCESS);
-  fail_unless(domain->setImplicit(false) == LIBSBML_OPERATION_SUCCESS);
-  fail_unless(domain->setShapeId("square") == LIBSBML_OPERATION_SUCCESS);
+  //fail_unless(domain->setImplicit(false) == LIBSBML_OPERATION_SUCCESS);
+  //fail_unless(domain->setShapeId("square") == LIBSBML_OPERATION_SUCCESS);
   InteriorPoint* internalPt2 = domain->createInteriorPoint();
   fail_unless(internalPt2->setCoord1(5.0) == LIBSBML_OPERATION_SUCCESS);
 

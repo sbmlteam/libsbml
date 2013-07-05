@@ -308,8 +308,8 @@ START_TEST (test_SpatialExtension_read_L3V1V1)
   Domain* domain = geometry->getDomain(0);
   fail_unless(domain->getSpatialId()   == "domain1");
   fail_unless(domain->getDomainType() == "dtype1");
-  fail_unless(domain->getImplicit()    == false);
-  fail_unless(domain->getShapeId()     == "circle");
+  //fail_unless(domain->getImplicit()    == false);
+  //fail_unless(domain->getShapeId()     == "circle");
   fail_unless(domain->getPackageName() == "spatial");
 
   // interiorPoints in Domain
@@ -324,8 +324,8 @@ START_TEST (test_SpatialExtension_read_L3V1V1)
   domain = geometry->getDomain(1);
   fail_unless(domain->getSpatialId()   == "domain2");
   fail_unless(domain->getDomainType() == "dtype1");
-  fail_unless(domain->getImplicit()    == false);
-  fail_unless(domain->getShapeId()     == "square");
+  //fail_unless(domain->getImplicit()    == false);
+  //fail_unless(domain->getShapeId()     == "square");
   fail_unless(domain->getPackageName() == "spatial");
 
   // Domain : interiorPoints
@@ -676,8 +676,8 @@ END_TEST
   Domain* domain = geometry->getDomain(0);
   fail_unless(domain->getSpatialId()   == "domain1");
   fail_unless(domain->getDomainType() == "dtype1");
-  fail_unless(domain->getImplicit()    == false);
-  fail_unless(domain->getShapeId()     == "circle");
+  //fail_unless(domain->getImplicit()    == false);
+  //fail_unless(domain->getShapeId()     == "circle");
   fail_unless(domain->getPackageName() == "spatial");
 
   // interiorPoints in Domain
@@ -692,8 +692,8 @@ END_TEST
   domain = geometry->getDomain(1);
   fail_unless(domain->getSpatialId()   == "domain2");
   fail_unless(domain->getDomainType() == "dtype1");
-  fail_unless(domain->getImplicit()    == false);
-  fail_unless(domain->getShapeId()     == "square");
+  //fail_unless(domain->getImplicit()    == false);
+  //fail_unless(domain->getShapeId()     == "square");
   fail_unless(domain->getPackageName() == "spatial");
 
   // Domain : interiorPoints
