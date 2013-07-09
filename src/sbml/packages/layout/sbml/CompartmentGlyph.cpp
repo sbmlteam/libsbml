@@ -51,6 +51,7 @@
  *
  */
 
+#include <limits>
 
 #include <sbml/packages/layout/sbml/CompartmentGlyph.h>
 #include <sbml/packages/layout/util/LayoutUtilities.h>
@@ -62,6 +63,8 @@
 #include <sbml/xml/XMLOutputStream.h>
 
 #include <sbml/packages/layout/extension/LayoutExtension.h>
+
+using namespace std;
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
@@ -81,7 +84,9 @@ CompartmentGlyph::renameSIdRefs(std::string oldid, std::string newid)
  */
 CompartmentGlyph::CompartmentGlyph (unsigned int level, unsigned int version, unsigned int pkgVersion)
   : GraphicalObject(level,version,pkgVersion)
-   ,mCompartment("")
+  , mCompartment("")
+  , mOrder(numeric_limits<double>::quiet_NaN())
+  , mIsSetOrder(false)
 {
   //
   // (NOTE) Developers don't have to invoke setSBMLNamespacesAndOwn function as follows (commentted line)
@@ -93,8 +98,10 @@ CompartmentGlyph::CompartmentGlyph (unsigned int level, unsigned int version, un
 }
 
 CompartmentGlyph::CompartmentGlyph(LayoutPkgNamespaces* layoutns)
- : GraphicalObject(layoutns)
-  ,mCompartment("")
+  : GraphicalObject(layoutns)
+  , mCompartment("")
+  , mOrder(numeric_limits<double>::quiet_NaN())
+  , mIsSetOrder(false)
 {
   //
   // (NOTE) Developers don't have to invoke setElementNamespace function as follows (commentted line)
@@ -116,7 +123,10 @@ CompartmentGlyph::CompartmentGlyph(LayoutPkgNamespaces* layoutns)
  */
 CompartmentGlyph::CompartmentGlyph (LayoutPkgNamespaces* layoutns, const std::string& id)
   : GraphicalObject(layoutns)
-  ,mCompartment("")
+  , mCompartment("")
+  , mOrder(numeric_limits<double>::quiet_NaN())
+  , mIsSetOrder(false)
+
 {
   //
   // (NOTE) Developers don't have to invoke setElementNamespace function as follows (commentted line)
@@ -139,6 +149,9 @@ CompartmentGlyph::CompartmentGlyph (LayoutPkgNamespaces* layoutns, const std::st
 CompartmentGlyph::CompartmentGlyph (LayoutPkgNamespaces* layoutns, const std::string& id, const std::string& compId)
   : GraphicalObject(layoutns)
   , mCompartment(compId)
+  , mOrder(numeric_limits<double>::quiet_NaN())
+  , mIsSetOrder(false)
+
 {
   //
   // (NOTE) Developers don't have to invoke setElementNamespace function as follows (commentted line)
@@ -159,7 +172,10 @@ CompartmentGlyph::CompartmentGlyph (LayoutPkgNamespaces* layoutns, const std::st
  */
 CompartmentGlyph::CompartmentGlyph(const XMLNode& node, unsigned int l2version)
   : GraphicalObject(node,l2version)
-   ,mCompartment("")
+  , mCompartment("")
+  , mOrder(numeric_limits<double>::quiet_NaN())
+  , mIsSetOrder(false)
+
 {
     const XMLAttributes& attributes=node.getAttributes();
     ExpectedAttributes ea;
@@ -170,9 +186,12 @@ CompartmentGlyph::CompartmentGlyph(const XMLNode& node, unsigned int l2version)
 /*
  * Copy constructor.
  */
-CompartmentGlyph::CompartmentGlyph(const CompartmentGlyph& source):GraphicalObject(source)
+CompartmentGlyph::CompartmentGlyph(const CompartmentGlyph& source)
+  : GraphicalObject(source)
 {
     this->mCompartment=source.getCompartmentId();
+    this->mOrder=source.mOrder;
+    this->mIsSetOrder=source.mIsSetOrder;
 }
 
 /*
@@ -184,6 +203,8 @@ CompartmentGlyph& CompartmentGlyph::operator=(const CompartmentGlyph& source)
   {
     GraphicalObject::operator=(source);
     this->mCompartment=source.getCompartmentId();    
+    this->mOrder=source.mOrder;    
+    this->mIsSetOrder=source.mIsSetOrder;    
   }
   
   return *this;
@@ -235,6 +256,46 @@ CompartmentGlyph::isSetCompartmentId () const
   return ! this->mCompartment.empty();
 }
 
+
+/*
+ * Returns the compartment order.
+ */          
+double 
+CompartmentGlyph::getOrder () const
+{
+  return mOrder;
+}
+      
+/*
+ * Sets the compartment order
+ */   
+int 
+CompartmentGlyph::setOrder (double order)
+{
+  mOrder = order;
+  mIsSetOrder = true;
+  return LIBSBML_OPERATION_SUCCESS;
+}
+
+/*
+ * Sets the compartment order
+ */   
+int 
+CompartmentGlyph::unsetOrder ()
+{
+  mIsSetOrder = false;
+  mOrder = numeric_limits<double>::quiet_NaN();
+  return LIBSBML_OPERATION_SUCCESS;
+}
+
+/*
+ * Returns true if the compartment order has been set
+ */    
+bool 
+CompartmentGlyph::isSetOrder () const
+{
+  return mIsSetOrder;
+}
 
 /*
  * Calls initDefaults from GraphicalObject.
@@ -303,6 +364,7 @@ CompartmentGlyph::addExpectedAttributes(ExpectedAttributes& attributes)
   GraphicalObject::addExpectedAttributes(attributes);
 
   attributes.add("compartment");
+  attributes.add("order");
 }
 /** @endcond */
 
@@ -321,6 +383,9 @@ void CompartmentGlyph::readAttributes (const XMLAttributes& attributes,
       logEmptyString(mCompartment, sbmlLevel, sbmlVersion, "<compartmentGlyph>");
     }
   if (!SyntaxChecker::isValidInternalSId(mCompartment)) logError(InvalidIdSyntax);
+  
+  mIsSetOrder = attributes.readInto("order", mOrder, getErrorLog(), false, getLine(), getColumn());  
+  
 }
 /** @endcond */
 
@@ -333,6 +398,12 @@ void CompartmentGlyph::writeAttributes (XMLOutputStream& stream) const
     stream.writeAttribute("compartment", getPrefix(), mCompartment);
   }
 
+  if(this->isSetOrder())
+  {
+    stream.writeAttribute("order", getPrefix(), mOrder);
+  }
+
+  
   //
   // (EXTENSION) will be written by GraphicalObject!
   //
@@ -416,6 +487,49 @@ CompartmentGlyph_free (CompartmentGlyph_t *cg)
   delete cg;
 }
 
+/**
+ * Returns the compartment order.
+ */          
+LIBSBML_EXTERN
+double
+CompartmentGlyph_getOrder (const CompartmentGlyph_t *cg)
+{
+ if (cg == NULL) return numeric_limits<double>::quiet_NaN();
+ return static_cast<const CompartmentGlyph*>(cg)->getOrder();
+}
+      
+/**
+ * Sets the compartment order
+ */   
+LIBSBML_EXTERN
+int
+CompartmentGlyph_setOrder (CompartmentGlyph_t *cg, double order)
+{
+  if (cg == NULL) return LIBSBML_INVALID_OBJECT;
+  return static_cast<CompartmentGlyph*>(cg)->setOrder(order);
+}
+
+/**
+ * Sets the compartment order
+ */   
+LIBSBML_EXTERN
+int
+CompartmentGlyph_unsetOrder (CompartmentGlyph_t *cg)
+{
+  if (cg == NULL) return LIBSBML_INVALID_OBJECT;
+  return static_cast<CompartmentGlyph*>(cg)->unsetOrder();
+}
+
+/**
+ * Returns true if the compartment order has been set
+ */    
+LIBSBML_EXTERN
+int
+CompartmentGlyph_isSetOrder (const CompartmentGlyph_t *cg)
+{
+  if (cg == NULL) return 0;
+  return static_cast<const CompartmentGlyph*>(cg)->isSetOrder();
+}
 
 /**
  * Sets the reference compartment for the compartment glyph.

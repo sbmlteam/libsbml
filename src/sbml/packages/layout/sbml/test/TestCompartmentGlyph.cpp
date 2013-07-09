@@ -115,6 +115,17 @@ START_TEST ( test_CompartmentGlyph_setCompartmentId )
 }
 END_TEST
 
+START_TEST ( test_CompartmentGlyph_setOrder )
+{
+  double order=1.21;  
+  fail_unless(CG->setOrder(order) == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(CG->isSetOrder());
+  fail_unless(CG->getOrder()==order);
+  fail_unless(CG->unsetOrder() == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(!CG->isSetOrder());
+}
+END_TEST
+
 START_TEST ( test_CompartmentGlyph_copyConstructor )
 {
   CompartmentGlyph* cg1=new CompartmentGlyph();
@@ -156,8 +167,9 @@ create_suite_CompartmentGlyph (void)
   tcase_add_test( tcase, test_CompartmentGlyph_new                           );
   tcase_add_test( tcase, test_CompartmentGlyph_new_with_id_and_compartmentid );
   tcase_add_test( tcase, test_CompartmentGlyph_setCompartmentId              );
-  tcase_add_test( tcase, test_CompartmentGlyph_copyConstructor            );
-  tcase_add_test( tcase, test_CompartmentGlyph_assignmentOperator         );
+  tcase_add_test( tcase, test_CompartmentGlyph_setOrder                      );
+  tcase_add_test( tcase, test_CompartmentGlyph_copyConstructor               );
+  tcase_add_test( tcase, test_CompartmentGlyph_assignmentOperator            );
   
   suite_add_tcase(suite, tcase);
   
