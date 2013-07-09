@@ -39,6 +39,7 @@
 
 #include "ExtModelReferenceCycles.h"
 #include "SubmodelReferenceCycles.h"
+#include "UniquePortReferences.h"
 
 #endif
 
@@ -2348,6 +2349,7 @@ END_CONSTRAINT
 //20803 - caught at read
 
 //TODO:20804 - to do
+EXTERN_CONSTRAINT( CompPortReferencesUnique, UniquePortReferences)
 
 //*************************************
 

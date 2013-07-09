@@ -15,7 +15,7 @@
       <comp:port comp:id="C_port"  comp:idRef="param1"/>
     </comp:listOfPorts>
     <comp:listOfPorts>
-      <comp:port comp:id="C_port"  comp:idRef="param1"/>
+      <comp:port comp:id="C_port"  comp:idRef="submod1"/>
     </comp:listOfPorts>
   </model>
   <comp:listOfModelDefinitions>
