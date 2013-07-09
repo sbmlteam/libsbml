@@ -15,7 +15,7 @@
         <comp:listOfReplacedElements>
           <comp:replacedElement comp:idRef="moddef3_sub2" comp:submodelRef="sub3">
             <comp:sBaseRef comp:idRef="moddef2_sub1">
-              <comp:sBaseRef comp:idRef="S1"/>
+              <comp:sBaseRef comp:metaIdRef="_CC"/>
             </comp:sBaseRef>
           </comp:replacedElement>
         </comp:listOfReplacedElements>
@@ -39,8 +39,18 @@
   </model>
   <comp:listOfModelDefinitions>
     <comp:modelDefinition id="moddef1">
+      <comp:listOfPorts>
+        <comp:port comp:idRef="C1" comp:id="moddef1_C_port"/>
+      </comp:listOfPorts>
+      <listOfUnitDefinitions>
+        <unitDefinition id="perSecond">
+          <listOfUnits>
+            <unit kind="second" exponent="-1" scale="0" multiplier="1"/>
+          </listOfUnits>
+        </unitDefinition>
+      </listOfUnitDefinitions>
       <listOfCompartments>
-        <compartment id="C1" spatialDimensions="3" size="1" constant="false"/>
+        <compartment id="C1" spatialDimensions="3" size="1" constant="false" metaid="_CC"/>
       </listOfCompartments>
       <listOfSpecies>
         <species id="S1" compartment="C1" initialConcentration="2.5" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>

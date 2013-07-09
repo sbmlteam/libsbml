@@ -15,7 +15,7 @@
         <comp:listOfReplacedElements>
           <comp:replacedElement comp:idRef="moddef3_sub2" comp:submodelRef="sub3">
             <comp:sBaseRef comp:idRef="moddef2_sub1">
-              <comp:sBaseRef comp:idRef="S1"/>
+              <comp:sBaseRef comp:unitRef="perSecond"/>
             </comp:sBaseRef>
           </comp:replacedElement>
         </comp:listOfReplacedElements>
@@ -39,6 +39,13 @@
   </model>
   <comp:listOfModelDefinitions>
     <comp:modelDefinition id="moddef1">
+      <listOfUnitDefinitions>
+        <unitDefinition id="perSecond">
+          <listOfUnits>
+            <unit kind="second" exponent="-1" scale="0" multiplier="1"/>
+          </listOfUnits>
+        </unitDefinition>
+      </listOfUnitDefinitions>
       <listOfCompartments>
         <compartment id="C1" spatialDimensions="3" size="1" constant="false"/>
       </listOfCompartments>

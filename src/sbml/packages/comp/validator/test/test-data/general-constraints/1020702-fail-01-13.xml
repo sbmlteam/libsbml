@@ -13,8 +13,8 @@
     <listOfSpecies>
       <species id="S1" compartment="C" initialAmount="5" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false">
         <comp:listOfReplacedElements>
-          <comp:replacedElement comp:idRef="sub2" comp:submodelRef="sub3">
-            <comp:sBaseRef comp:idRef="sub1">
+          <comp:replacedElement comp:idRef="moddef3_sub2" comp:submodelRef="sub3">
+            <comp:sBaseRef comp:idRef="moddef2_sub1">
               <comp:sBaseRef comp:idRef="S2"/>
             </comp:sBaseRef>
           </comp:replacedElement>
@@ -51,10 +51,10 @@
         <compartment id="C2" spatialDimensions="3" size="1" constant="false"/>
       </listOfCompartments>
       <listOfSpecies>
-        <species id="S1" compartment="C2" initialAmount="9" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+        <species id="S2" compartment="C2" initialAmount="9" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
       </listOfSpecies>
       <comp:listOfSubmodels>
-        <comp:submodel comp:id="sub1" comp:modelRef="moddef1"/>
+        <comp:submodel comp:id="moddef2_sub1" comp:modelRef="moddef1"/>
       </comp:listOfSubmodels>
     </comp:modelDefinition>
     <comp:modelDefinition id="moddef3">
@@ -62,11 +62,11 @@
         <compartment id="C3" spatialDimensions="3" size="1" constant="false"/>
       </listOfCompartments>
       <listOfSpecies>
-        <species id="S1" compartment="C3" initialAmount="11" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+        <species id="S3" compartment="C3" initialAmount="11" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
       </listOfSpecies>
       <comp:listOfSubmodels>
-        <comp:submodel comp:id="sub1" comp:modelRef="moddef1"/>
-        <comp:submodel comp:id="sub2" comp:modelRef="moddef2"/>
+        <comp:submodel comp:id="moddef3_sub1" comp:modelRef="moddef1"/>
+        <comp:submodel comp:id="moddef3_sub2" comp:modelRef="moddef2"/>
       </comp:listOfSubmodels>
     </comp:modelDefinition>
   </comp:listOfModelDefinitions>
