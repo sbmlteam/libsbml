@@ -10,7 +10,7 @@
         </comp:listOfReplacedElements>
         <comp:listOfReplacedElements>
           <comp:replacedElement comp:idRef="sub1" comp:submodelRef="sub2">
-            <comp:sBaseRef comp:idRef="C"/>
+            <comp:sBaseRef comp:idRef="S1"/>
           </comp:replacedElement>
         </comp:listOfReplacedElements>
       </compartment>

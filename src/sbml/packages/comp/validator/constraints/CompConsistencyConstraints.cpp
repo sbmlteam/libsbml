@@ -40,6 +40,7 @@
 #include "ExtModelReferenceCycles.h"
 #include "SubmodelReferenceCycles.h"
 #include "UniquePortReferences.h"
+#include "UniqueReplacedReferences.h"
 
 #endif
 
@@ -2348,7 +2349,7 @@ END_CONSTRAINT
 
 //20803 - caught at read
 
-//TODO:20804 - to do
+//20804
 EXTERN_CONSTRAINT( CompPortReferencesUnique, UniquePortReferences)
 
 //*************************************
@@ -2918,7 +2919,8 @@ END_CONSTRAINT
 //21008 - repeat of 10309
 //21009 - repeat of 10310
 
-//TODO: 21010 - to do
+//21010
+EXTERN_CONSTRAINT( CompReplacedElementSameReference, UniqueReplacedReferences)
 
 //*************************************
 
