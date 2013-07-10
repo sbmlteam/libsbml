@@ -148,8 +148,42 @@ public:
    */  
   static bool isValidXMLID(std::string id);
 
+  
+  /**
+   * Returns @c true or @c false depending on whether the argument string
+   * conforms to the XML data type <code>anyURI</code>.
+   *
+   * Type anyURI is defined by XML Schema 1.0. It is a character string 
+   * data type whose values are interpretable as URIs (Universal Resource 
+   * Identifiers) as described by the W3C document RFC 3986.  LibSBML
+   * does not provide an explicit XML <code>anyURI</code> data type; it uses
+   * ordinary character strings, which is easier for applications to
+   * support.  LibSBML does, however, test for anyURI validity at
+   * various times, such as when reading in models from files and data
+   * streams.
+   *
+   * This method provides programs with the ability to test explicitly that
+   * the strings they create conform to the XML anyURI syntax.
+   *
+   * @param id string to be checked for conformance to the syntax of
+   * <a target="_blank" 
+   * href="http://www.w3.org/TR/xmlschema-2/#anyURI">anyURI</a>.
+   *
+   * @return @c true if the string is a syntactically-valid value for the
+   * XML type <a target="_blank"
+   * href="http://www.w3.org/TR/xmlschema-2/#anyURI">anyURI</a>, 
+   * @c false otherwise.
+   *
+   * @if notclike @note Because this is a @em static method, the
+   * non-C++ language interfaces for libSBML will contain two variants.  One
+   * will be a static method on the class (i.e., SyntaxChecker), and the
+   * other will be a standalone top-level function with the name
+   * SyntaxChecker_isValidXMLanyURI(). They are functionally
+   * identical. @endif@~
+   */  
   static bool isValidXMLanyURI(std::string uri);
 
+ 
   /**
    * Returns @c true or @c false depending on whether the argument string
    * conforms to the syntax of SBML unit identifiers.
