@@ -802,6 +802,21 @@ Submodel::connectToChild()
 int 
 Submodel::instantiate()
 {
+  if (getAncestorOfType(SBML_MODEL) != NULL)
+  {
+    if (getModelRef() == getAncestorOfType(SBML_MODEL)->getId())
+    {
+      return LIBSBML_INVALID_OBJECT;
+    }
+  }
+  else if (getAncestorOfType(SBML_COMP_MODELDEFINITION) != NULL)
+  {
+    if (getModelRef() == getAncestorOfType(SBML_COMP_MODELDEFINITION)->getId())
+    {
+      return LIBSBML_INVALID_OBJECT;
+    }
+  }
+
   if (mInstantiatedModel != NULL) 
   {
     delete mInstantiatedModel;
