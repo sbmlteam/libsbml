@@ -111,10 +111,6 @@
         <species id="D1" compartment="comp" initialConcentration="10" hasOnlySubstanceUnits="false" 
           boundaryCondition="false" constant="false"/>
       </listOfSpecies>
-      <comp:listOfSubmodels>
-        <comp:submodel comp:id="sub2" comp:modelRef="simple2">
-        </comp:submodel>
-      </comp:listOfSubmodels>
-    </comp:modelDefinition>
+     </comp:modelDefinition>
   </comp:listOfModelDefinitions>  
 </sbml>

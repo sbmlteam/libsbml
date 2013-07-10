@@ -93,7 +93,7 @@ TestValidator::test (const TestFile& file)
   bool error = false;
 
   unsigned int id       = file.getConstraintId();
-
+  //cout << file.getFilename() << endl;
   /* change numbers for specific units tests that report same number */
   if (id == 99502 || id == 99503 || id == 99504)
     id = 10501;

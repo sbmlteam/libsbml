@@ -29,11 +29,11 @@
     <comp:listOfPorts>
       <comp:port comp:id="C_port"  comp:unitRef="param1"/>
     </comp:listOfPorts>
-    <comp:listOfSubmodels>
+ <!--   <comp:listOfSubmodels>
       <comp:submodel comp:id="B" comp:modelRef="simple">
       </comp:submodel>
     </comp:listOfSubmodels>
-  </model>
+-->  </model>
   <comp:listOfModelDefinitions>
     <comp:modelDefinition id="simple">
 	   <listOfUnitDefinitions>

@@ -22,7 +22,7 @@
           <comp:replacedElement comp:idRef="S1" comp:submodelRef="sub2">
            </comp:replacedElement>
         </comp:listOfReplacedElements>
-        <comp:replacedBy comp:portRef="C" comp:submodelRef="sub2">
+        <comp:replacedBy comp:portRef="C" comp:submodelRef="sub1">
         </comp:replacedBy>
       </species>
     </listOfSpecies>

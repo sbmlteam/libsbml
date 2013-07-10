@@ -16,7 +16,7 @@
     </comp:listOfSubmodels>
     <comp:listOfPorts>
       <comp:port comp:idRef="C" comp:id="C_port"/>
-      <comp:port comp:idRef="sub3" comp:id="C2_port">
+      <comp:port comp:idRef="sub1" comp:id="C2_port">
             <comp:sBaseRef comp:idRef="C"/>
       </comp:port>
     </comp:listOfPorts>
