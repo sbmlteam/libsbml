@@ -190,7 +190,7 @@ SBMLDocumentPlugin::isFlatteningImplemented() const
 
 
 unsigned int 
-SBMLDocumentPlugin::checkConsistency()
+SBMLDocumentPlugin::checkConsistency(bool overrideFlattening)
 {
   return 0;
 }

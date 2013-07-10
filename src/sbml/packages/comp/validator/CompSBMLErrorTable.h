@@ -1169,7 +1169,19 @@ static const packageErrorTableEntry compErrorTable[] =
     "definition in this model was itself unresolvable.",
     { ""
     }
+  },
+
+  // 1090104
+  { CompModelFlatteningFailed,
+    "Model failed to flatten.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY, 
+    LIBSBML_SEV_ERROR,
+    "Errors arose during the attempt to flatten the model. These "
+    "are reported where possible.",
+    { ""
+    }
   }
+
 
 };
 

@@ -126,6 +126,8 @@ private:
 
   bool getIgnorePackages() const;
 
+  bool getPerformValidation() const;
+
   bool canBeFlattened() const;
 
 };

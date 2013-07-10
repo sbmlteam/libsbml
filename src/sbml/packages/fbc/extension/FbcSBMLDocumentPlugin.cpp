@@ -125,7 +125,7 @@ FbcSBMLDocumentPlugin::isFlatteningImplemented() const
 
 
 unsigned int 
-FbcSBMLDocumentPlugin::checkConsistency()
+FbcSBMLDocumentPlugin::checkConsistency(bool overrideFlattening)
 {
   unsigned int nerrors = 0;
   unsigned int total_errors = 0;

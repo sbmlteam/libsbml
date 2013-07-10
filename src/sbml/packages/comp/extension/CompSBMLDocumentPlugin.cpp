@@ -31,6 +31,7 @@
 #include <sbml/packages/comp/validator/CompValidator.h>
 #include <sbml/packages/comp/validator/CompSBMLError.h>
 #include <sbml/packages/comp/util/SBMLResolverRegistry.h>
+#include <sbml/conversion/SBMLConverterRegistry.h>
 #include <sbml/packages/comp/util/SBMLUri.h>
 
 #include <sbml/util/ElementFilter.h>
@@ -48,6 +49,7 @@ CompSBMLDocumentPlugin::CompSBMLDocumentPlugin (const string &uri, const string 
   , mListOfExternalModelDefinitions(compns)
   , mURIToDocumentMap()
   , mCheckingDummyDoc (false)
+  , mFlattenAndCheck (true)
 {
   connectToChild();
 }
@@ -59,6 +61,7 @@ CompSBMLDocumentPlugin::CompSBMLDocumentPlugin(const CompSBMLDocumentPlugin& ori
   , mListOfExternalModelDefinitions(orig.mListOfExternalModelDefinitions)
   , mURIToDocumentMap() //The documents are owning pointers, so don't copy them.
   , mCheckingDummyDoc (orig.mCheckingDummyDoc)
+  , mFlattenAndCheck (orig.mFlattenAndCheck)
 {
   connectToChild();
 }
@@ -74,6 +77,8 @@ CompSBMLDocumentPlugin::operator=(const CompSBMLDocumentPlugin& orig)
     mListOfExternalModelDefinitions = orig.mListOfExternalModelDefinitions;
     mURIToDocumentMap.clear(); //Don't copy the pointers to this object, as they are owning pointers
 
+    mCheckingDummyDoc = orig.mCheckingDummyDoc;
+    mFlattenAndCheck = orig.mFlattenAndCheck;
     connectToChild();
   }    
   return *this;
@@ -685,7 +690,7 @@ CompSBMLDocumentPlugin::isFlatteningImplemented() const
 
 
 unsigned int 
-CompSBMLDocumentPlugin::checkConsistency()
+CompSBMLDocumentPlugin::checkConsistency(bool overrideFlattening)
 {
   unsigned int nerrors = 0;
   unsigned int total_errors = 0;
@@ -698,7 +703,7 @@ CompSBMLDocumentPlugin::checkConsistency()
     return total_errors;
   }
 
-  /* check the status of the required attribute on main document
+  /* 
    * note number of errors before we do anything here 
    * so we get the right number after
    * total_errors here means teh total number logged by this function
@@ -758,6 +763,7 @@ CompSBMLDocumentPlugin::checkConsistency()
     for (unsigned int i = 0; i < numMD; i++)
     {
       mCheckingDummyDoc = true;
+      mFlattenAndCheck = false;
       SBMLDocument * dummyDoc = doc->clone();
       const Model * dummyModel = doc->getModel();
       
@@ -790,9 +796,56 @@ CompSBMLDocumentPlugin::checkConsistency()
       }
 
       delete dummyDoc;
+      mFlattenAndCheck = true;
     }
 
 
+  }
+
+
+
+  if (mFlattenAndCheck == true && overrideFlattening == false)
+  {
+    SBMLDocument * dummyDoc = doc->clone();
+    ConversionProperties* props = new ConversionProperties();
+    
+    props->addOption("flatten comp");
+    props->addOption("perform validation", false);
+
+    SBMLConverter* converter = 
+               SBMLConverterRegistry::getInstance().getConverterFor(*props);
+    
+
+    converter->setDocument(dummyDoc);
+    
+    int result = converter->convert();
+
+    if (result == LIBSBML_OPERATION_SUCCESS)
+    {
+      nerrors = dummyDoc->checkConsistency();
+      total_errors += nerrors;
+      if (nerrors > 0) 
+      {
+        for (unsigned int n = 0; n < nerrors; n++)
+        {
+          log->add( *(dummyDoc->getErrorLog()->getError(n)) );
+        }
+      }
+    }
+    else
+    {
+      nerrors = dummyDoc->getNumErrors();
+      total_errors += nerrors;
+      if (nerrors > 0) 
+      {
+        for (unsigned int n = 0; n < nerrors; n++)
+        {
+          log->add( *(dummyDoc->getErrorLog()->getError(n)) );
+        }
+      }
+    }
+      
+    delete dummyDoc;
   }
   return total_errors;  
 }

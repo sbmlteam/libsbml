@@ -31,6 +31,7 @@
 #include <sbml/packages/comp/util/CompFlatteningConverter.h>
 #include <sbml/packages/comp/util/SBMLFileResolver.h>
 #include <sbml/packages/comp/util/SBMLResolverRegistry.h>
+#include <sbml/packages/comp/validator/CompSBMLError.h>
 #include <sbml/conversion/SBMLConverterRegistry.h>
 #include <sbml/conversion/SBMLConverterRegister.h>
 
@@ -93,6 +94,8 @@ CompFlatteningConverter::getDefaultProperties() const
     "the model definitions should be listed");
   prop.addOption("ignorePackages", true, 
     "any packages that cannot be flattened should be ignored");
+  prop.addOption("perform validation", true, 
+    "do not perform validation before trying to flatten");
   return prop;
 }
 
@@ -159,21 +162,23 @@ CompFlatteningConverter::convert()
    * if there are bad or missing refernces between elements
    */
 
-  mDocument->getErrorLog()->clearLog();
-  unsigned char origValidators = mDocument->getApplicableValidators();
-  mDocument->setApplicableValidators(AllChecksON);
-  
-  unsigned int errors = plugin->checkConsistency();
-  errors = mDocument->getErrorLog()
-                      ->getNumFailsWithSeverity(LIBSBML_SEV_ERROR);
-  
-  mDocument->setApplicableValidators(origValidators);
-
-  if (errors > 0)
+  if (getPerformValidation() == true)
   {
-    return LIBSBML_CONV_INVALID_SRC_DOCUMENT;
-  }
+    mDocument->getErrorLog()->clearLog();
+    unsigned char origValidators = mDocument->getApplicableValidators();
+    mDocument->setApplicableValidators(AllChecksON);
+    
+    unsigned int errors = plugin->checkConsistency(true);
+    errors = mDocument->getErrorLog()
+                        ->getNumFailsWithSeverity(LIBSBML_SEV_ERROR);
+    
+    mDocument->setApplicableValidators(origValidators);
 
+    if (errors > 0)
+    {
+      return LIBSBML_CONV_INVALID_SRC_DOCUMENT;
+    }
+  }
   CompModelPlugin *modelPlugin = (CompModelPlugin*)(mModel->getPlugin("comp"));
 
   Model* flatmodel = modelPlugin->flattenModel();
@@ -186,6 +191,8 @@ CompFlatteningConverter::convert()
 
   if (flatmodel == NULL) 
   {
+    mDocument->getErrorLog()->logPackageError("comp", CompModelFlatteningFailed,
+      mDocument->getLevel(), mDocument->getVersion(), 1);
     return LIBSBML_OPERATION_FAILED;
   }
 
@@ -288,6 +295,23 @@ CompFlatteningConverter::getIgnorePackages() const
   }
 }
 
+
+bool
+CompFlatteningConverter::getPerformValidation() const
+{
+  if (getProperties() == NULL)
+  {
+    return false;
+  }
+  else if (getProperties()->hasOption("perform validation") == false)
+  {
+    return true;
+  }
+  else
+  {
+    return getProperties()->getBoolValue("perform validation");
+  }
+}
 
 bool
 CompFlatteningConverter::canBeFlattened() const

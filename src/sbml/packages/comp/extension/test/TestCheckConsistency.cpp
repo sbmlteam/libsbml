@@ -75,6 +75,39 @@ START_TEST (test_comp_fail_20212)
 }
 END_TEST
 
+START_TEST (test_comp_fail_90104)
+{
+  string filename(TestDataDirectory);
+  string cfile = filename + "invalid.xml";  
+  SBMLDocument* doc = readSBMLFromFile(cfile.c_str());
+  doc->checkConsistency();
+  unsigned int nerrors = doc->getNumErrors();
+
+  fail_unless (nerrors == 1);
+  fail_unless (doc->getError(0)->getErrorId() == 1090104);
+
+  delete doc;
+}
+END_TEST
+
+START_TEST (test_comp_fail_whenflat)
+{
+  string filename(TestDataDirectory);
+  string cfile = filename + "valid.xml";  
+  SBMLDocument* doc = readSBMLFromFile(cfile.c_str());
+  doc->checkConsistency();
+  unsigned int nerrors = doc->getNumErrors();
+
+  fail_unless (nerrors == 4);
+  fail_unless (doc->getError(0)->getErrorId() == 21111);
+  fail_unless (doc->getError(1)->getErrorId() == 21111);
+  fail_unless (doc->getError(2)->getErrorId() == 21111);
+  fail_unless (doc->getError(3)->getErrorId() == 21111);
+
+  delete doc;
+}
+END_TEST
+
 Suite *
 create_suite_TestCheckConsistency(void)
 { 
@@ -83,6 +116,8 @@ create_suite_TestCheckConsistency(void)
 
   tcase_add_test(tcase, test_comp_pass_all);
   tcase_add_test(tcase, test_comp_fail_20212);
+  tcase_add_test(tcase, test_comp_fail_90104);
+  tcase_add_test(tcase, test_comp_fail_whenflat);
 
   suite_add_tcase(suite, tcase);
 
