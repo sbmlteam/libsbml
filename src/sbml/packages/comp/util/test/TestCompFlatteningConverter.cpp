@@ -1554,6 +1554,34 @@ START_TEST(test_comp_validator_44781839)
 }
 END_TEST
 
+START_TEST(test_comp_flatten_invalid)
+{
+  ConversionProperties* props = new ConversionProperties();
+  
+  props->addOption("flatten comp");
+
+  SBMLConverter* converter = 
+    SBMLConverterRegistry::getInstance().getConverterFor(*props);
+  
+  // load document
+  string dir(TestDataDirectory);
+  string fileName = dir + "1020616-fail-01-01.xml";  
+  SBMLDocument* doc = readSBMLFromFile(fileName.c_str());
+
+  // fail if there is no model (readSBMLFromFile always returns a valid document)
+  fail_unless(doc->getNumErrors() == 0);
+  fail_unless(doc->getModel() != NULL);
+
+  converter->setDocument(doc);
+  int result = converter->convert();
+
+  fail_unless( result == LIBSBML_CONV_INVALID_SRC_DOCUMENT);
+
+  delete doc;
+  delete converter;
+}
+END_TEST
+
 Suite *
 create_suite_TestFlatteningConverter (void)
 { 
@@ -1648,6 +1676,10 @@ create_suite_TestFlatteningConverter (void)
   tcase_add_test(tcase, test_comp_flatten_converter_packages3);
   tcase_add_test(tcase, test_comp_flatten_converter_packages4);
   tcase_add_test(tcase, test_comp_validator_44781839);
+ 
+  
+  tcase_add_test(tcase, test_comp_flatten_invalid);
+
   suite_add_tcase(suite, tcase);
 
   return suite;

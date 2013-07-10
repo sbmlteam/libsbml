@@ -155,6 +155,25 @@ CompFlatteningConverter::convert()
     }
   }  
 
+  /* run the comp validation rules as flattening will fail
+   * if there are bad or missing refernces between elements
+   */
+
+  mDocument->getErrorLog()->clearLog();
+  unsigned char origValidators = mDocument->getApplicableValidators();
+  mDocument->setApplicableValidators(AllChecksON);
+  
+  unsigned int errors = plugin->checkConsistency();
+  errors = mDocument->getErrorLog()
+                      ->getNumFailsWithSeverity(LIBSBML_SEV_ERROR);
+  
+  mDocument->setApplicableValidators(origValidators);
+
+  if (errors > 0)
+  {
+    return LIBSBML_CONV_INVALID_SRC_DOCUMENT;
+  }
+
   CompModelPlugin *modelPlugin = (CompModelPlugin*)(mModel->getPlugin("comp"));
 
   Model* flatmodel = modelPlugin->flattenModel();
