@@ -135,28 +135,57 @@ public:
       std::string modelId = sub->getModelRef();
 
       const SBMLDocument * doc = d.getSBMLDocument();
-      if (doc != NULL)
+      bool found = false;
+      while (doc != NULL && found == false)
       {
         CompSBMLDocumentPlugin * docPlug = 
           (CompSBMLDocumentPlugin*)(doc->getPlugin("comp"));
+      
         if (docPlug != NULL)
         {
+
           referencedModel = docPlug->getModelDefinition(modelId);
           if (referencedModel == NULL)
           {
             // may be an external model
             ExternalModelDefinition * emd = 
-                               docPlug->getExternalModelDefinition(modelId);
+                              docPlug->getExternalModelDefinition(modelId);
             pre (emd != NULL);
 
             string locationURI = doc->getLocationURI();
             string uri = emd->getSource();
 
             const SBMLResolverRegistry& registry = 
-                                  SBMLResolverRegistry::getInstance();
-            SBMLDocument *newDoc = registry.resolve(uri, locationURI);
-            if (newDoc != NULL) referencedModel = newDoc->getModel();
+                                 SBMLResolverRegistry::getInstance();
+            doc = registry.resolve(uri, locationURI);
+            if (doc != NULL)
+            {
+              if (emd->isSetModelRef() == false)
+              {
+                referencedModel = doc->getModel();
+                found = true;
+              }
+              else if (doc->getModel() != NULL &&
+                doc->getModel()->isSetId() == true &&
+                emd->getModelRef() == doc->getModel()->getId())
+              {
+                referencedModel = doc->getModel();
+                found = true;
+              }
+              else
+              {
+                modelId = emd->getModelRef();
+              }
+            }
           }
+          else
+          {
+            found = true;
+          }
+        }
+        else
+        {
+          found = true;
         }
       }
     }
@@ -177,7 +206,8 @@ public:
 
       const SBMLDocument * doc = repE.getSBMLDocument();
 
-      if (doc != NULL)
+      bool found = false;
+      while (doc != NULL && found == false)
       {
         CompSBMLDocumentPlugin * docPlug = 
           (CompSBMLDocumentPlugin*)(doc->getPlugin("comp"));
@@ -198,9 +228,35 @@ public:
 
             const SBMLResolverRegistry& registry = 
                                  SBMLResolverRegistry::getInstance();
-            SBMLDocument *newDoc = registry.resolve(uri, locationURI);
-            if (newDoc != NULL) referencedModel = newDoc->getModel();
+            doc = registry.resolve(uri, locationURI);
+            if (doc != NULL)
+            {
+              if (emd->isSetModelRef() == false)
+              {
+                referencedModel = doc->getModel();
+                found = true;
+              }
+              else if (doc->getModel() != NULL &&
+                doc->getModel()->isSetId() == true &&
+                emd->getModelRef() == doc->getModel()->getId())
+              {
+                referencedModel = doc->getModel();
+                found = true;
+              }
+              else
+              {
+                modelId = emd->getModelRef();
+              }
+            }
           }
+          else
+          {
+            found = true;
+          }
+        }
+        else
+        {
+          found = true;
         }
       }
     }
@@ -221,7 +277,8 @@ public:
 
       const SBMLDocument * doc = repBy.getSBMLDocument();
 
-      if (doc != NULL)
+      bool found = false;
+      while (doc != NULL && found == false)
       {
         CompSBMLDocumentPlugin * docPlug = 
           (CompSBMLDocumentPlugin*)(doc->getPlugin("comp"));
@@ -242,9 +299,35 @@ public:
 
             const SBMLResolverRegistry& registry = 
                                  SBMLResolverRegistry::getInstance();
-            SBMLDocument *newDoc = registry.resolve(uri, locationURI);
-            if (newDoc != NULL) referencedModel = newDoc->getModel();
+            doc = registry.resolve(uri, locationURI);
+            if (doc != NULL)
+            {
+              if (emd->isSetModelRef() == false)
+              {
+                referencedModel = doc->getModel();
+                found = true;
+              }
+              else if (doc->getModel() != NULL &&
+                doc->getModel()->isSetId() == true &&
+                emd->getModelRef() == doc->getModel()->getId())
+              {
+                referencedModel = doc->getModel();
+                found = true;
+              }
+              else
+              {
+                modelId = emd->getModelRef();
+              }
+            }
           }
+          else
+          {
+            found = true;
+          }
+        }
+        else
+        {
+          found = true;
         }
       }
     }
@@ -385,6 +468,8 @@ public:
       
       if (parentRefModel != NULL)
       {
+        doc = parentRefModel->getSBMLDocument();
+        docPlug = (CompSBMLDocumentPlugin*)(doc->getPlugin("comp"));
         CompModelPlugin *plug1 = 
                         (CompModelPlugin*)(parentRefModel->getPlugin("comp"));
         
@@ -916,16 +1001,20 @@ START_CONSTRAINT (CompPortRefMustReferencePort, Deletion, d)
 
   if (plug1->getPort(d.getPortRef()) == NULL)
   {
-    // it is possible that the referenced model needs to actually instantiate
-    // its submodels to find the reference
-    // we are not going to do that here so if there are submodels
-    // give it the benefit of the doubt and do not report the id as missing
-    const CompModelPlugin * plug = static_cast<const CompModelPlugin*>
-                                       (referencedModel->getPlugin("comp"));
-    if (plug == NULL || plug->getNumSubmodels() == 0)
-    {
-      fail = true;
-    }
+    /* take out for now since I was right teh first time
+     * the reference should be there without need to instantiate
+     */
+    //// it is possible that the referenced model needs to actually instantiate
+    //// its submodels to find the reference
+    //// we are not going to do that here so if there are submodels
+    //// give it the benefit of the doubt and do not report the id as missing
+    //const CompModelPlugin * plug = static_cast<const CompModelPlugin*>
+    //                                   (referencedModel->getPlugin("comp"));
+    //if (plug == NULL || plug->getNumSubmodels() == 0)
+    //{
+    //  fail = true;
+    //}
+    fail = true;
   }
 
   inv(fail == false);
@@ -960,16 +1049,20 @@ START_CONSTRAINT (CompPortRefMustReferencePort, ReplacedElement, repE)
 
   if (plug1->getPort(repE.getPortRef()) == NULL)
   {
-    // it is possible that the referenced model needs to actually instantiate
-    // its submodels to find the reference
-    // we are not going to do that here so if there are submodels
-    // give it the benefit of the doubt and do not report the id as missing
-    const CompModelPlugin * plug = static_cast<const CompModelPlugin*>
-                                       (referencedModel->getPlugin("comp"));
-    if (plug == NULL || plug->getNumSubmodels() == 0)
-    {
-      fail = true;
-    }
+    /* take out for now since I was right teh first time
+     * the reference should be there without need to instantiate
+     */
+    //// it is possible that the referenced model needs to actually instantiate
+    //// its submodels to find the reference
+    //// we are not going to do that here so if there are submodels
+    //// give it the benefit of the doubt and do not report the id as missing
+    //const CompModelPlugin * plug = static_cast<const CompModelPlugin*>
+    //                                   (referencedModel->getPlugin("comp"));
+    //if (plug == NULL || plug->getNumSubmodels() == 0)
+    //{
+    //  fail = true;
+    //}
+    fail = true;
   }
 
   inv(fail == false);
@@ -1004,16 +1097,20 @@ START_CONSTRAINT (CompPortRefMustReferencePort, ReplacedBy, repBy)
 
   if (plug1->getPort(repBy.getPortRef()) == NULL)
   {
-    // it is possible that the referenced model needs to actually instantiate
-    // its submodels to find the reference
-    // we are not going to do that here so if there are submodels
-    // give it the benefit of the doubt and do not report the id as missing
-    const CompModelPlugin * plug = static_cast<const CompModelPlugin*>
-                                       (referencedModel->getPlugin("comp"));
-    if (plug == NULL || plug->getNumSubmodels() == 0)
-    {
-      fail = true;
-    }
+    /* take out for now since I was right teh first time
+     * the reference should be there without need to instantiate
+     */
+    //// it is possible that the referenced model needs to actually instantiate
+    //// its submodels to find the reference
+    //// we are not going to do that here so if there are submodels
+    //// give it the benefit of the doubt and do not report the id as missing
+    //const CompModelPlugin * plug = static_cast<const CompModelPlugin*>
+    //                                   (referencedModel->getPlugin("comp"));
+    //if (plug == NULL || plug->getNumSubmodels() == 0)
+    //{
+    //  fail = true;
+    //}
+    fail = true;
   }
 
   inv(fail == false);
@@ -1084,16 +1181,20 @@ START_CONSTRAINT (CompPortRefMustReferencePort, SBaseRef, sbRef)
 
   if (plug1->getPort(sbRef.getPortRef()) == NULL)
   {
-    // it is possible that the referenced model needs to actually instantiate
-    // its submodels to find the reference
-    // we are not going to do that here so if there are submodels
-    // give it the benefit of the doubt and do not report the id as missing
-    const CompModelPlugin * plug = static_cast<const CompModelPlugin*>
-                                       (referencedModel->getPlugin("comp"));
-    if (plug == NULL || plug->getNumSubmodels() == 0)
-    {
-      fail = true;
-    }
+    /* take out for now since I was right teh first time
+     * the reference should be there without need to instantiate
+     */
+    //// it is possible that the referenced model needs to actually instantiate
+    //// its submodels to find the reference
+    //// we are not going to do that here so if there are submodels
+    //// give it the benefit of the doubt and do not report the id as missing
+    //const CompModelPlugin * plug = static_cast<const CompModelPlugin*>
+    //                                   (referencedModel->getPlugin("comp"));
+    //if (plug == NULL || plug->getNumSubmodels() == 0)
+    //{
+    //  fail = true;
+    //}
+    fail = true;
   }
 
   inv(fail == false);
@@ -1133,16 +1234,20 @@ START_CONSTRAINT (CompIdRefMustReferenceObject, Port, p)
 
   if (mIds.contains(p.getIdRef()) == false)
   {
-    // it is possible that the referenced model needs to actually instantiate
-    // its submodels to find the reference
-    // we are not going to do that here so if there are submodels
-    // give it the benefit of the doubt and do not report the id as missing
-    const CompModelPlugin * plug = static_cast<const CompModelPlugin*>
-                                       (mod->getPlugin("comp"));
-    if (plug == NULL || plug->getNumSubmodels() == 0)
-    {
-      fail = true;
-    }
+    /* take out for now since I was right teh first time
+     * the reference should be there without need to instantiate
+     */
+    //// it is possible that the referenced model needs to actually instantiate
+    //// its submodels to find the reference
+    //// we are not going to do that here so if there are submodels
+    //// give it the benefit of the doubt and do not report the id as missing
+    //const CompModelPlugin * plug = static_cast<const CompModelPlugin*>
+    //                                   (referencedModel->getPlugin("comp"));
+    //if (plug == NULL || plug->getNumSubmodels() == 0)
+    //{
+    //  fail = true;
+    //}
+    fail = true;
   }
 
   inv(fail == false);
@@ -1190,16 +1295,20 @@ START_CONSTRAINT (CompIdRefMustReferenceObject, Deletion, d)
 
   if (mIds.contains(d.getIdRef()) == false)
   {
-    // it is possible that the referenced model needs to actually instantiate
-    // its submodels to find the reference
-    // we are not going to do that here so if there are submodels
-    // give it the benefit of the doubt and do not report the id as missing
-    const CompModelPlugin * plug = static_cast<const CompModelPlugin*>
-                                       (referencedModel->getPlugin("comp"));
-    if (plug == NULL || plug->getNumSubmodels() == 0)
-    {
-      fail = true;
-    }
+    /* take out for now since I was right teh first time
+     * the reference should be there without need to instantiate
+     */
+    //// it is possible that the referenced model needs to actually instantiate
+    //// its submodels to find the reference
+    //// we are not going to do that here so if there are submodels
+    //// give it the benefit of the doubt and do not report the id as missing
+    //const CompModelPlugin * plug = static_cast<const CompModelPlugin*>
+    //                                   (referencedModel->getPlugin("comp"));
+    //if (plug == NULL || plug->getNumSubmodels() == 0)
+    //{
+    //  fail = true;
+    //}
+    fail = true;
   }
 
   inv(fail == false);
@@ -1245,16 +1354,20 @@ START_CONSTRAINT (CompIdRefMustReferenceObject, ReplacedElement, repE)
 
   if (mIds.contains(repE.getIdRef()) == false)
   {
-    // it is possible that the referenced model needs to actually instantiate
-    // its submodels to find the reference
-    // we are not going to do that here so if there are submodels
-    // give it the benefit of the doubt and do not report the id as missing
-    const CompModelPlugin * plug = static_cast<const CompModelPlugin*>
-                                       (referencedModel->getPlugin("comp"));
-    if (plug == NULL || plug->getNumSubmodels() == 0)
-    {
-      fail = true;
-    }
+    /* take out for now since I was right teh first time
+     * the reference should be there without need to instantiate
+     */
+    //// it is possible that the referenced model needs to actually instantiate
+    //// its submodels to find the reference
+    //// we are not going to do that here so if there are submodels
+    //// give it the benefit of the doubt and do not report the id as missing
+    //const CompModelPlugin * plug = static_cast<const CompModelPlugin*>
+    //                                   (referencedModel->getPlugin("comp"));
+    //if (plug == NULL || plug->getNumSubmodels() == 0)
+    //{
+    //  fail = true;
+    //}
+    fail = true;
   }
 
   inv(fail == false);
@@ -1300,16 +1413,20 @@ START_CONSTRAINT (CompIdRefMustReferenceObject, ReplacedBy, repBy)
 
   if (mIds.contains(repBy.getIdRef()) == false)
   {
-    // it is possible that the referenced model needs to actually instantiate
-    // its submodels to find the reference
-    // we are not going to do that here so if there are submodels
-    // give it the benefit of the doubt and do not report the id as missing
-    const CompModelPlugin * plug = static_cast<const CompModelPlugin*>
-                                       (referencedModel->getPlugin("comp"));
-    if (plug == NULL || plug->getNumSubmodels() == 0)
-    {
-      fail = true;
-    }
+    /* take out for now since I was right teh first time
+     * the reference should be there without need to instantiate
+     */
+    //// it is possible that the referenced model needs to actually instantiate
+    //// its submodels to find the reference
+    //// we are not going to do that here so if there are submodels
+    //// give it the benefit of the doubt and do not report the id as missing
+    //const CompModelPlugin * plug = static_cast<const CompModelPlugin*>
+    //                                   (referencedModel->getPlugin("comp"));
+    //if (plug == NULL || plug->getNumSubmodels() == 0)
+    //{
+    //  fail = true;
+    //}
+    fail = true;
   }
 
   inv(fail == false);
@@ -1391,16 +1508,20 @@ START_CONSTRAINT (CompIdRefMustReferenceObject, SBaseRef, sbRef)
 
   if (mIds.contains(sbRef.getIdRef()) == false)
   {
-    // it is possible that the referenced model needs to actually instantiate
-    // its submodels to find the reference
-    // we are not going to do that here so if there are submodels
-    // give it the benefit of the doubt and do not report the id as missing
-    const CompModelPlugin * plug = static_cast<const CompModelPlugin*>
-                                       (referencedModel->getPlugin("comp"));
-    if (plug == NULL || plug->getNumSubmodels() == 0)
-    {
-      fail = true;
-    }
+    /* take out for now since I was right teh first time
+     * the reference should be there without need to instantiate
+     */
+    //// it is possible that the referenced model needs to actually instantiate
+    //// its submodels to find the reference
+    //// we are not going to do that here so if there are submodels
+    //// give it the benefit of the doubt and do not report the id as missing
+    //const CompModelPlugin * plug = static_cast<const CompModelPlugin*>
+    //                                   (referencedModel->getPlugin("comp"));
+    //if (plug == NULL || plug->getNumSubmodels() == 0)
+    //{
+    //  fail = true;
+    //}
+    fail = true;
   }
 
   inv(fail == false);
@@ -1422,16 +1543,20 @@ START_CONSTRAINT (CompUnitRefMustReferenceUnitDef, Port, p)
 
   if (m.getUnitDefinition(p.getUnitRef()) == NULL)
   {
-    // it is possible that the referenced model needs to actually instantiate
-    // its submodels to find the reference
-    // we are not going to do that here so if there are submodels
-    // give it the benefit of the doubt and do not report the id as missing
-    const CompModelPlugin * plug = static_cast<const CompModelPlugin*>
-                                       (m.getPlugin("comp"));
-    if (plug == NULL || plug->getNumSubmodels() == 0)
-    {
-      fail = true;
-    }
+    /* take out for now since I was right teh first time
+     * the reference should be there without need to instantiate
+     */
+    //// it is possible that the referenced model needs to actually instantiate
+    //// its submodels to find the reference
+    //// we are not going to do that here so if there are submodels
+    //// give it the benefit of the doubt and do not report the id as missing
+    //const CompModelPlugin * plug = static_cast<const CompModelPlugin*>
+    //                                   (referencedModel->getPlugin("comp"));
+    //if (plug == NULL || plug->getNumSubmodels() == 0)
+    //{
+    //  fail = true;
+    //}
+    fail = true;
   }
 
   inv(fail == false);
@@ -1464,16 +1589,20 @@ START_CONSTRAINT (CompUnitRefMustReferenceUnitDef, Deletion, d)
 
   if (referencedModel->getUnitDefinition(d.getUnitRef()) == NULL)
   {
-    // it is possible that the referenced model needs to actually instantiate
-    // its submodels to find the reference
-    // we are not going to do that here so if there are submodels
-    // give it the benefit of the doubt and do not report the id as missing
-    const CompModelPlugin * plug = static_cast<const CompModelPlugin*>
-                                       (referencedModel->getPlugin("comp"));
-    if (plug == NULL || plug->getNumSubmodels() == 0)
-    {
-      fail = true;
-    }
+    /* take out for now since I was right teh first time
+     * the reference should be there without need to instantiate
+     */
+    //// it is possible that the referenced model needs to actually instantiate
+    //// its submodels to find the reference
+    //// we are not going to do that here so if there are submodels
+    //// give it the benefit of the doubt and do not report the id as missing
+    //const CompModelPlugin * plug = static_cast<const CompModelPlugin*>
+    //                                   (referencedModel->getPlugin("comp"));
+    //if (plug == NULL || plug->getNumSubmodels() == 0)
+    //{
+    //  fail = true;
+    //}
+    fail = true;
   }
 
   inv(fail == false);
@@ -1504,16 +1633,20 @@ START_CONSTRAINT (CompUnitRefMustReferenceUnitDef, ReplacedElement, repE)
 
   if (referencedModel->getUnitDefinition(repE.getUnitRef()) == NULL)
   {
-    // it is possible that the referenced model needs to actually instantiate
-    // its submodels to find the reference
-    // we are not going to do that here so if there are submodels
-    // give it the benefit of the doubt and do not report the id as missing
-    const CompModelPlugin * plug = static_cast<const CompModelPlugin*>
-                                       (referencedModel->getPlugin("comp"));
-    if (plug == NULL || plug->getNumSubmodels() == 0)
-    {
-      fail = true;
-    }
+    /* take out for now since I was right teh first time
+     * the reference should be there without need to instantiate
+     */
+    //// it is possible that the referenced model needs to actually instantiate
+    //// its submodels to find the reference
+    //// we are not going to do that here so if there are submodels
+    //// give it the benefit of the doubt and do not report the id as missing
+    //const CompModelPlugin * plug = static_cast<const CompModelPlugin*>
+    //                                   (referencedModel->getPlugin("comp"));
+    //if (plug == NULL || plug->getNumSubmodels() == 0)
+    //{
+    //  fail = true;
+    //}
+    fail = true;
   }
 
   inv(fail == false);
@@ -1544,16 +1677,20 @@ START_CONSTRAINT (CompUnitRefMustReferenceUnitDef, ReplacedBy, repBy)
 
   if (referencedModel->getUnitDefinition(repBy.getUnitRef()) == NULL)
   {
-    // it is possible that the referenced model needs to actually instantiate
-    // its submodels to find the reference
-    // we are not going to do that here so if there are submodels
-    // give it the benefit of the doubt and do not report the id as missing
-    const CompModelPlugin * plug = static_cast<const CompModelPlugin*>
-                                       (referencedModel->getPlugin("comp"));
-    if (plug == NULL || plug->getNumSubmodels() == 0)
-    {
-      fail = true;
-    }
+    /* take out for now since I was right teh first time
+     * the reference should be there without need to instantiate
+     */
+    //// it is possible that the referenced model needs to actually instantiate
+    //// its submodels to find the reference
+    //// we are not going to do that here so if there are submodels
+    //// give it the benefit of the doubt and do not report the id as missing
+    //const CompModelPlugin * plug = static_cast<const CompModelPlugin*>
+    //                                   (referencedModel->getPlugin("comp"));
+    //if (plug == NULL || plug->getNumSubmodels() == 0)
+    //{
+    //  fail = true;
+    //}
+    fail = true;
   }
 
   inv(fail == false);
@@ -1620,16 +1757,20 @@ START_CONSTRAINT (CompUnitRefMustReferenceUnitDef, SBaseRef, sbRef)
 
   if (referencedModel->getUnitDefinition(sbRef.getUnitRef()) == NULL)
   {
-    // it is possible that the referenced model needs to actually instantiate
-    // its submodels to find the reference
-    // we are not going to do that here so if there are submodels
-    // give it the benefit of the doubt and do not report the id as missing
-    const CompModelPlugin * plug = static_cast<const CompModelPlugin*>
-                                       (referencedModel->getPlugin("comp"));
-    if (plug == NULL || plug->getNumSubmodels() == 0)
-    {
-      fail = true;
-    }
+    /* take out for now since I was right teh first time
+     * the reference should be there without need to instantiate
+     */
+    //// it is possible that the referenced model needs to actually instantiate
+    //// its submodels to find the reference
+    //// we are not going to do that here so if there are submodels
+    //// give it the benefit of the doubt and do not report the id as missing
+    //const CompModelPlugin * plug = static_cast<const CompModelPlugin*>
+    //                                   (referencedModel->getPlugin("comp"));
+    //if (plug == NULL || plug->getNumSubmodels() == 0)
+    //{
+    //  fail = true;
+    //}
+    fail = true;
   }
 
 
@@ -1671,16 +1812,20 @@ START_CONSTRAINT (CompMetaIdRefMustReferenceObject, Port, p)
 
   if (mIds.contains(p.getMetaIdRef()) == false)
   {
-    // it is possible that the referenced model needs to actually instantiate
-    // its submodels to find the reference
-    // we are not going to do that here so if there are submodels
-    // give it the benefit of the doubt and do not report the id as missing
-    const CompModelPlugin * plug = static_cast<const CompModelPlugin*>
-                                       (mod->getPlugin("comp"));
-    if (plug == NULL || plug->getNumSubmodels() == 0)
-    {
-      fail = true;
-    }
+    /* take out for now since I was right teh first time
+     * the reference should be there without need to instantiate
+     */
+    //// it is possible that the referenced model needs to actually instantiate
+    //// its submodels to find the reference
+    //// we are not going to do that here so if there are submodels
+    //// give it the benefit of the doubt and do not report the id as missing
+    //const CompModelPlugin * plug = static_cast<const CompModelPlugin*>
+    //                                   (referencedModel->getPlugin("comp"));
+    //if (plug == NULL || plug->getNumSubmodels() == 0)
+    //{
+    //  fail = true;
+    //}
+    fail = true;
   }
 
   inv(fail == false);
@@ -1728,16 +1873,20 @@ START_CONSTRAINT (CompMetaIdRefMustReferenceObject, Deletion, d)
 
   if (mIds.contains(d.getMetaIdRef()) == false)
   {
-    // it is possible that the referenced model needs to actually instantiate
-    // its submodels to find the reference
-    // we are not going to do that here so if there are submodels
-    // give it the benefit of the doubt and do not report the id as missing
-    const CompModelPlugin * plug = static_cast<const CompModelPlugin*>
-                                       (referencedModel->getPlugin("comp"));
-    if (plug == NULL || plug->getNumSubmodels() == 0)
-    {
-      fail = true;
-    }
+    /* take out for now since I was right teh first time
+     * the reference should be there without need to instantiate
+     */
+    //// it is possible that the referenced model needs to actually instantiate
+    //// its submodels to find the reference
+    //// we are not going to do that here so if there are submodels
+    //// give it the benefit of the doubt and do not report the id as missing
+    //const CompModelPlugin * plug = static_cast<const CompModelPlugin*>
+    //                                   (referencedModel->getPlugin("comp"));
+    //if (plug == NULL || plug->getNumSubmodels() == 0)
+    //{
+    //  fail = true;
+    //}
+    fail = true;
   }
 
   inv(fail == false);
@@ -1783,16 +1932,20 @@ START_CONSTRAINT (CompMetaIdRefMustReferenceObject, ReplacedElement, repE)
 
   if (mIds.contains(repE.getMetaIdRef()) == false)
   {
-    // it is possible that the referenced model needs to actually instantiate
-    // its submodels to find the reference
-    // we are not going to do that here so if there are submodels
-    // give it the benefit of the doubt and do not report the id as missing
-    const CompModelPlugin * plug = static_cast<const CompModelPlugin*>
-                                       (referencedModel->getPlugin("comp"));
-    if (plug == NULL || plug->getNumSubmodels() == 0)
-    {
-      fail = true;
-    }
+    /* take out for now since I was right teh first time
+     * the reference should be there without need to instantiate
+     */
+    //// it is possible that the referenced model needs to actually instantiate
+    //// its submodels to find the reference
+    //// we are not going to do that here so if there are submodels
+    //// give it the benefit of the doubt and do not report the id as missing
+    //const CompModelPlugin * plug = static_cast<const CompModelPlugin*>
+    //                                   (referencedModel->getPlugin("comp"));
+    //if (plug == NULL || plug->getNumSubmodels() == 0)
+    //{
+    //  fail = true;
+    //}
+    fail = true;
   }
 
   inv(fail == false);
@@ -1838,16 +1991,20 @@ START_CONSTRAINT (CompMetaIdRefMustReferenceObject, ReplacedBy, repBy)
 
   if (mIds.contains(repBy.getMetaIdRef()) == false)
   {
-    // it is possible that the referenced model needs to actually instantiate
-    // its submodels to find the reference
-    // we are not going to do that here so if there are submodels
-    // give it the benefit of the doubt and do not report the id as missing
-    const CompModelPlugin * plug = static_cast<const CompModelPlugin*>
-                                       (referencedModel->getPlugin("comp"));
-    if (plug == NULL || plug->getNumSubmodels() == 0)
-    {
-      fail = true;
-    }
+    /* take out for now since I was right teh first time
+     * the reference should be there without need to instantiate
+     */
+    //// it is possible that the referenced model needs to actually instantiate
+    //// its submodels to find the reference
+    //// we are not going to do that here so if there are submodels
+    //// give it the benefit of the doubt and do not report the id as missing
+    //const CompModelPlugin * plug = static_cast<const CompModelPlugin*>
+    //                                   (referencedModel->getPlugin("comp"));
+    //if (plug == NULL || plug->getNumSubmodels() == 0)
+    //{
+    //  fail = true;
+    //}
+    fail = true;
   }
 
   inv(fail == false);
@@ -1929,16 +2086,20 @@ START_CONSTRAINT (CompMetaIdRefMustReferenceObject, SBaseRef, sbRef)
 
   if (mIds.contains(sbRef.getMetaIdRef()) == false)
   {
-    // it is possible that the referenced model needs to actually instantiate
-    // its submodels to find the reference
-    // we are not going to do that here so if there are submodels
-    // give it the benefit of the doubt and do not report the id as missing
-    const CompModelPlugin * plug = static_cast<const CompModelPlugin*>
-                                       (referencedModel->getPlugin("comp"));
-    if (plug == NULL || plug->getNumSubmodels() == 0)
-    {
-      fail = true;
-    }
+    /* take out for now since I was right teh first time
+     * the reference should be there without need to instantiate
+     */
+    //// it is possible that the referenced model needs to actually instantiate
+    //// its submodels to find the reference
+    //// we are not going to do that here so if there are submodels
+    //// give it the benefit of the doubt and do not report the id as missing
+    //const CompModelPlugin * plug = static_cast<const CompModelPlugin*>
+    //                                   (referencedModel->getPlugin("comp"));
+    //if (plug == NULL || plug->getNumSubmodels() == 0)
+    //{
+    //  fail = true;
+    //}
+    fail = true;
   }
 
   inv(fail == false);

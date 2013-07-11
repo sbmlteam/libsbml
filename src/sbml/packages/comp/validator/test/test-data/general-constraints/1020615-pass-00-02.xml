@@ -13,6 +13,6 @@
     </comp:listOfSubmodels>
   </model>
   <comp:listOfExternalModelDefinitions>
-    <comp:externalModelDefinition comp:id="Mod1" comp:source="enzyme_model.xml" comp:modelRef="enzyme"/>
+    <comp:externalModelDefinition comp:id="Mod1" comp:source="enzyme_model.xml"/>
   </comp:listOfExternalModelDefinitions>
 </sbml>
