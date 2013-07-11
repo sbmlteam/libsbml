@@ -4,6 +4,13 @@
 #
 # 
 
+if (ENABLE_COMP)
+  add_subdirectory(comp)
+endif(ENABLE_COMP)
+
+if (ENABLE_FBC)
+  add_subdirectory(fbc)
+endif(ENABLE_FBC)
 
 include_directories(${CMAKE_CURRENT_SOURCE_DIR})
 include_directories(BEFORE ${CMAKE_SOURCE_DIR}/src)

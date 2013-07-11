@@ -4,6 +4,9 @@
 #
 # 
 
+if (ENABLE_COMP)
+  add_subdirectory(comp)
+endif(ENABLE_COMP)
 
 include_directories(${CMAKE_CURRENT_SOURCE_DIR})
 include_directories(BEFORE ${CMAKE_SOURCE_DIR}/src)
