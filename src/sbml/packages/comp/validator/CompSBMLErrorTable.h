@@ -1180,6 +1180,18 @@ static const packageErrorTableEntry compErrorTable[] =
     "are reported where possible.",
     { ""
     }
+  },
+
+  // 1090105
+  { CompFlatModelNotValid,
+    "Flat model not valid.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY, 
+    LIBSBML_SEV_ERROR,
+    "The interpretation the HierarchicalModel Composition constructs to "
+    "produce a kind of “flattened” version of the model devoid of the comp "
+    "package constructs must produce a valid SBML Level 3 model.",
+    { "L3V1 Comp V1 Appendix A1"
+    }
   }
 
 

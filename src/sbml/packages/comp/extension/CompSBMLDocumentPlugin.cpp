@@ -823,6 +823,15 @@ CompSBMLDocumentPlugin::checkConsistency(bool overrideFlattening)
     if (result == LIBSBML_OPERATION_SUCCESS)
     {
       nerrors = dummyDoc->checkConsistency();
+      if (dummyDoc->getErrorLog()->
+                              getNumFailsWithSeverity(LIBSBML_SEV_ERROR) > 0)
+      {
+        std::string message = "Errors that follow relate to the flattened ";
+        message += "document produced using the CompFlatteningConverter.";
+        log->logPackageError("comp", CompFlatModelNotValid, getLevel(),
+          getVersion(), getPackageVersion(), message);
+      }
+
       total_errors += nerrors;
       if (nerrors > 0) 
       {

@@ -156,6 +156,7 @@ typedef enum
 , CompNoModelInReference                = 1090102
 , CompExtModDefBad                      = 1090103
 , CompModelFlatteningFailed             = 1090104
+, CompFlatModelNotValid                 = 1090105
 
 } CompSBMLErrorCode_t;
 
