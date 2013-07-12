@@ -9,6 +9,38 @@ STABLE RELEASE
 
 * New features
 
+  - The SyntaxChecker class has a new function isValidXMLanyURI(std::string)
+    that checks whether the string has the valid syntax for an 
+	XML anyURI datatype http://www.w3.org/TR/xmlschema-2/#anyURI.
+
+  - There is a new base class ElementFilter that can be passed as an
+    optional argument to the getAllElements function.  When implemented
+	this allows the elements to be filtered in whatever fashion
+	before being added to the List returned by the getAllElements()
+	function. The example getAllElementsWithNotes illustrates
+	this functionality.
+
+  - There is new functionality to facilitate replacing the id
+    attribute and all references to that id within a model. There 
+	is a new base class IdentifierTransformer that when passed
+	to the function renameAllIds on the Model object will perform
+	the transformation specified by the IdentifierTransformer class
+	on all id attributes within the model. Users should derive their 
+	own IdentifierTransformer class to perform the transformation
+	they require.  The example setIdFromName illustrates this
+	functionality.
+	
+  - The class IdList which allows users to create and manipulate 
+    lists of 'id' strings has been made publically available. 
+    Previously this class has been used internally by validation 
+    and conversion code.  It is now available in the sbml/util
+    directory.
+	
+  - There is a new converter, the SBMLIdConverter, that will allow
+    a user to replace several ids within a model. The converter requires
+    a comma seperated list of existing ids and another of the replacement
+    ids and will perform the necessary replacements.	
+
   - There are two new function SBML_formulaToL3String(ASTNode_t*) and
     SBML_formulaToL3StringWithSettings(ASTNode_t* L3ParrserSettings_t*)
     that provide reciprocal AST to infix functionality based on 
@@ -27,12 +59,6 @@ STABLE RELEASE
     This facilitates the use of functions, that may on occasion log
     errors, in a situiation were error logging is not required.
 
-  - The class IdList which allows users to create and manipulate 
-    lists of 'id' strings has been made publically available. 
-    Previously this class has been used internally by validation 
-    and conversion code.  It is now available in the sbml/util
-    directory.
-	
   - The SBase functions getURI() and getPrefix() that return 
     information relating to the namespace of the object have been
     made public. Formerly these functions were protected.
@@ -66,7 +92,14 @@ STABLE RELEASE
       adapted to use the new read/write to/from XMLNode functions.
       This greatly reduces the complexity and repetition of code
       previously needed to perform these functions.	  
+
+  - 'comp' package-specific updates:
   
+      - All the validation rules have been fully implemented.
+	  If there are no errors the validation process will proceed
+	  to produce a flattened version of the model and perform
+	  and report validation errors relating to the flattened model.
+	  
 * Bug fixes
 
   - An annotation on a package element is permitted to use the 
@@ -74,7 +107,7 @@ STABLE RELEASE
     This has been corrected.
     
   - A memory leak in the TranslateSBML function has been plugged.
-    Thanks to Neil swainston for reporting teh issue and testing
+    Thanks to Neil Swainston for reporting the issue and testing
     the fix.
 
   - '' package-specific bug fixes:
