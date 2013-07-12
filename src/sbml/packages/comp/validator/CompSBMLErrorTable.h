@@ -1199,7 +1199,7 @@ static const packageErrorTableEntry compErrorTable[] =
     "Line numbers unreliable.",
     LIBSBML_CAT_GENERAL_CONSISTENCY, 
     LIBSBML_SEV_WARNING,
-    "Due to the need to instantiate models, modelDefintions, submodels etc. "
+    "Due to the need to instantiate models, modelDefinitions, submodels etc. "
     "for the purposes of validation it is problematic to reliably report "
     "line numbers when performing validation on models using the "
     "Hierarchical Model Composition package." ,
