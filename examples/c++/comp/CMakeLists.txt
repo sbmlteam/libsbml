@@ -16,7 +16,6 @@ endif(EXTRA_INCLUDE_DIRS)
 foreach(example 
 
 	flattenModel
-	SBMLHttpResolverExample
 	spec_example1
 	spec_example2
 	spec_example3
@@ -39,3 +38,31 @@ foreach(example
 	endif(WITH_BZIP2)
 
 endforeach()
+
+
+# build web resolver example
+# for which we need libcurl
+
+find_library(LIBCURL_LIBRARY
+       NAMES libcurl.lib curl
+       PATHS /usr/lib /usr/local/lib
+             ${LIBSBML_DEPENDENCY_DIR}/lib
+       DOC "The file name of the curl library."
+               )
+find_path(LIBCURL_INCLUDE_DIR
+   NAMES curl/curl.h
+   PATHS /usr/include /usr/local/include
+         ${LIBSBML_DEPENDENCY_DIR}/include
+   DOC "The directory containing the curl include files."
+         )
+
+include_directories(${CMAKE_CURRENT_SOURCE_DIR})
+include_directories(${LIBCURL_INCLUDE_DIR})
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/src)
+add_definitions(-DCURL_STATICLIB)
+add_executable(example_comp_cpp_SBMLHttpResolverExample SBMLHttpResolverExample.cpp ../util.c)
+set_target_properties(example_comp_cpp_SBMLHttpResolverExample PROPERTIES  OUTPUT_NAME SBMLHttpResolverExample)
+target_link_libraries(example_comp_cpp_SBMLHttpResolverExample ${LIBSBML_LIBRARY}-static ${LIBCURL_LIBRARY})
+if (WITH_LIBXML)
+	target_link_libraries(example_comp_cpp_SBMLHttpResolverExample ${LIBXML_LIBRARY} ${EXTRA_LIBS})
+endif()
