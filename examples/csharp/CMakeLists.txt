@@ -4,15 +4,6 @@
 #
 # 
 
-if (ENABLE_COMP)
-  add_subdirectory(comp)
-endif(ENABLE_COMP)
-
-if (ENABLE_FBC)
-  add_subdirectory(fbc)
-endif(ENABLE_FBC)
-
-
 foreach( example
 	
 	addCustomValidator

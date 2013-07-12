@@ -14,10 +14,10 @@ if(WITH_JAVA)
   add_subdirectory(java)
 endif(WITH_JAVA)
 
-if (ENABLE_LAYOUT)
-  add_subdirectory(layout)
-endif(ENABLE_LAYOUT)
-
+file(GLOB PACKAGE_EXAMPLES "*package.cmake")
+foreach(package ${PACKAGE_EXAMPLES})
+    include(${package})
+endforeach()
 
 endif(WITH_EXAMPLES)
 
