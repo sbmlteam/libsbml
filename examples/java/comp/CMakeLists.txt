@@ -11,7 +11,7 @@ foreach(file
 		)
 	
 	file(TO_NATIVE_PATH ${CMAKE_CURRENT_BINARY_DIR} CURRENT_BIN)
-	file(TO_NATIVE_PATH ${CMAKE_CURRENT_BINARY_DIR}/../../src/bindings/java/libsbmlj.jar CURRENT_JAR )
+	file(TO_NATIVE_PATH ${CMAKE_CURRENT_BINARY_DIR}/../../../src/bindings/java/libsbmlj.jar CURRENT_JAR )
 	file(TO_NATIVE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/${file}.java CURRENT_FILE)
 		
 	add_custom_command(	
