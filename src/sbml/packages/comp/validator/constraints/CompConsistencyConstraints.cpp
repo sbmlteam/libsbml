@@ -581,7 +581,7 @@ public:
 private:
 
   const Model* referencedModel;
-  vector<pair<std::string, std::string>> mReferences;
+  vector< pair< std::string, std::string > >  mReferences;
 };
 
 //*************************************
