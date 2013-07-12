@@ -27,7 +27,7 @@
  */
 
 
-#include <sbml/packages/distrib/sbml/Input.h>
+#include <sbml/packages/distrib/sbml/DistribInput.h>
 
 
 using namespace std;

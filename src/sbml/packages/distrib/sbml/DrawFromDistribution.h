@@ -46,7 +46,7 @@
 #include <sbml/ListOf.h>
 #include <sbml/packages/distrib/extension/DistribExtension.h>
 
-#include <sbml/packages/distrib/sbml/Input.h>
+#include <sbml/packages/distrib/sbml/DistribInput.h>
 #include <sbml/packages/distrib/sbml/PredefinedPDF.h>
 #include <sbml/packages/distrib/sbml/ExplicitPMF.h>
 #include <sbml/packages/distrib/sbml/ExplicitPDF.h>
