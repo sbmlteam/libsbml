@@ -486,11 +486,12 @@ if(WITH_CSHARP)
     find_program(CSHARP_COMPILER
         NAMES gmcs csc
         PATHS 
-			${windir}/Microsoft.NET/Framework/v3.5/ 
-			${windir}/Microsoft.NET/Framework/v3.0/ 
-			${windir}/Microsoft.NET/Framework/v2.0.50727/ 
-			/usr/bin 
-			/usr/local/bin
+            ${windir}/Microsoft.NET/Framework/v4.0.30319/ 
+            ${windir}/Microsoft.NET/Framework/v3.5/ 
+            ${windir}/Microsoft.NET/Framework/v3.0/ 
+            ${windir}/Microsoft.NET/Framework/v2.0.50727/ 
+            /usr/bin 
+            /usr/local/bin
         DOC "The file name of the C# compiler."
         )
     if(UNIX)
@@ -924,10 +925,10 @@ if(EXISTS ${CMAKE_BINARY_DIR}/CMakeCache.txt)
 
             math(EXPR length_minus_two "${length} - 2")
             if(${length_minus_two} GREATER 3)
-	        math(EXPR length_minus_one "${length} - 1")
+                math(EXPR length_minus_one "${length} - 1")
                 string(SUBSTRING "${line}" ${length_minus_one} 1 last_char)
-		if("x${last_char}" STREQUAL "x.")
-	            math(EXPR length_minus_three "${length} - 3")
+                if("x${last_char}" STREQUAL "x.")
+                    math(EXPR length_minus_three "${length} - 3")
                     string(SUBSTRING "${line}" 2 ${length_minus_three} last_line)
                 else()
                     string(SUBSTRING "${line}" 2 ${length_minus_two} last_line)
