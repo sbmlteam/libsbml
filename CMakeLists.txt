@@ -233,9 +233,10 @@ endif()
 #
 # If WITH_SWIG is selected, we need to find swig
 #
-
+set(LIBSBML_USE_CPP_NAMESPACE OFF)
 if(WITH_CPP_NAMESPACE)
     add_definitions(-DLIBSBML_USE_CPP_NAMESPACE)
+    set(LIBSBML_USE_CPP_NAMESPACE ON)	
 endif()
 
 if(WITH_SWIG)
@@ -300,7 +301,7 @@ endif(WITH_EXPAT)
 #
 # Locate Libxml2 if needed
 #
-
+set(USE_LIBXML OFF)
 if(WITH_LIBXML)
     find_library(LIBXML_LIBRARY
         NAMES libxml2.lib xml2
@@ -319,6 +320,7 @@ if(WITH_LIBXML)
               )
 
     add_definitions( -DUSE_LIBXML )
+	set(USE_LIBXML ON)
 
     set(LIBSBML_XML_LIBRARY "libxml2")
     set(LIBSBML_XML_LIBRARY_INCLUDE ${LIBXML_INCLUDE_DIR})
@@ -384,6 +386,7 @@ else()
 endif()
 
 option(WITH_BZIP2    "Enable the use of bzip2 compression."  ${BZIP_INITIAL_VALUE})
+set(USE_BZ2 OFF)
 if(WITH_BZIP2)
 
     find_path(LIBBZ_INCLUDE_DIR
@@ -393,6 +396,7 @@ if(WITH_BZIP2)
         DOC "The directory containing the bzip2 include files."
               )
 
+    set(USE_BZ2 ON)
     add_definitions( -DUSE_BZ2 )
 
     # make sure that we have a valid bzip2 library
@@ -442,6 +446,7 @@ else()
 endif()
 option(WITH_ZLIB     "Enable the use of zip compression."    ${ZLIB_INITIAL_VALUE} )
 
+set(USE_ZLIB OFF)
 if(WITH_ZLIB)
 
     find_path(LIBZ_INCLUDE_DIR
@@ -450,7 +455,7 @@ if(WITH_ZLIB)
               ${LIBSBML_DEPENDENCY_DIR}/include
         DOC "The directory containing the zlib include files."
               )
-
+    set(USE_ZLIB ON)
     add_definitions( -DUSE_ZLIB )
 
     # make sure that we have a valid zip library
@@ -477,9 +482,15 @@ endif(WITH_ZLIB)
 #
 
 if(WITH_CSHARP)
+    FILE(TO_CMAKE_PATH "$ENV{WINDIR}" windir)	
     find_program(CSHARP_COMPILER
         NAMES gmcs csc
-        PATHS C:/Windows/Microsoft.NET/Framework/v2.0.50727/ /usr/bin /usr/local/bin
+        PATHS 
+			${windir}/Microsoft.NET/Framework/v3.5/ 
+			${windir}/Microsoft.NET/Framework/v3.0/ 
+			${windir}/Microsoft.NET/Framework/v2.0.50727/ 
+			/usr/bin 
+			/usr/local/bin
         DOC "The file name of the C# compiler."
         )
     if(UNIX)
