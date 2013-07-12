@@ -1187,10 +1187,23 @@ static const packageErrorTableEntry compErrorTable[] =
     "Flat model not valid.",
     LIBSBML_CAT_GENERAL_CONSISTENCY, 
     LIBSBML_SEV_ERROR,
-    "The interpretation the HierarchicalModel Composition constructs to "
-    "produce a kind of “flattened” version of the model devoid of the comp "
+    "The interpretation the Hierarchical Model Composition constructs to "
+    "produce a kind of 'flattened' version of the model devoid of the comp "
     "package constructs must produce a valid SBML Level 3 model.",
     { "L3V1 Comp V1 Appendix A1"
+    }
+  },
+
+    // 1090106
+  { CompLineNumbersUnreliable,
+    "Line numbers unreliable.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY, 
+    LIBSBML_SEV_WARNING,
+    "Due to the need to instantiate models, modelDefintions, submodels etc. "
+    "for the purposes of validation it is problematic to reliably report "
+    "line numbers when performing validation on models using the "
+    "Hierarchical Model Composition package." ,
+    { ""
     }
   }
 

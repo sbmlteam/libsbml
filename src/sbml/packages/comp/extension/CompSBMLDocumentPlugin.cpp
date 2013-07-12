@@ -714,6 +714,10 @@ CompSBMLDocumentPlugin::checkConsistency(bool overrideFlattening)
   SBMLErrorLog *log = doc->getErrorLog();
   total_errors = log->getNumErrors() - errorsB4;
 
+  /* log a message to say not to trust line numbers */
+  log->logPackageError("comp", CompLineNumbersUnreliable, 
+                        getLevel(), getVersion(), getPackageVersion());
+
   unsigned char applicableValidators = doc->getApplicableValidators();
 
   /* determine which validators to run */
