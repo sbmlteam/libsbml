@@ -17,7 +17,7 @@ foreach( example
 
 	ADD_CUSTOM_COMMAND(	
 		OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/${example}.exe
-		COMMAND "${CSHARP_COMPILER}"
+		COMMAND "${CSHARP_EXAMPLE_COMPILER}"
 		ARGS -r:${CMAKE_CURRENT_BINARY_DIR}/../../../src/bindings/csharp/libsbmlcsP.dll
 			-target:exe
 			-out:${example}.exe
