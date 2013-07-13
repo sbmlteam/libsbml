@@ -486,13 +486,22 @@ if(WITH_CSHARP)
     find_program(CSHARP_COMPILER
         NAMES gmcs csc
         PATHS 
+            ${windir}/Microsoft.NET/Framework/v2.0.50727/ 
+            ${windir}/Microsoft.NET/Framework/v3.0/ 
+            /usr/bin 
+            /usr/local/bin
+        DOC "The file name of the C# compiler for the libsbmlcs assembly."
+        )
+    find_program(CSHARP_EXAMPLE_COMPILER
+        NAMES gmcs csc
+        PATHS 
             ${windir}/Microsoft.NET/Framework/v4.0.30319/ 
             ${windir}/Microsoft.NET/Framework/v3.5/ 
             ${windir}/Microsoft.NET/Framework/v3.0/ 
             ${windir}/Microsoft.NET/Framework/v2.0.50727/ 
             /usr/bin 
             /usr/local/bin
-        DOC "The file name of the C# compiler."
+        DOC "The file name of the C# compiler to be used for the examples."
         )
     if(UNIX)
     else()
