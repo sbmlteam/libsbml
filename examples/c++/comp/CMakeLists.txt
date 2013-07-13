@@ -44,27 +44,29 @@ endforeach()
 # for which we need libcurl
 
 find_library(LIBCURL_LIBRARY
-       NAMES libcurl.lib curl
-       PATHS /usr/lib /usr/local/lib
-             ${LIBSBML_DEPENDENCY_DIR}/lib
-       DOC "The file name of the curl library."
-               )
+  NAMES libcurl.lib curl
+  PATHS /usr/lib /usr/local/lib
+        ${LIBSBML_DEPENDENCY_DIR}/lib
+  DOC "The file name of the curl library."
+)
 find_path(LIBCURL_INCLUDE_DIR
-   NAMES curl/curl.h
-   PATHS /usr/include /usr/local/include
-         ${LIBSBML_DEPENDENCY_DIR}/include
-   DOC "The directory containing the curl include files."
-         )
+  NAMES curl/curl.h
+  PATHS /usr/include /usr/local/include
+        ${LIBSBML_DEPENDENCY_DIR}/include
+  DOC "The directory containing the curl include files."
+)
 
-if (NOT ${LIBCURL_LIBRARY} STREQUAL "LIBCURL_LIBRARY-NOTFOUND")
-   include_directories(${CMAKE_CURRENT_SOURCE_DIR})
-   include_directories(${LIBCURL_INCLUDE_DIR})
-   include_directories(${CMAKE_CURRENT_SOURCE_DIR}/src)
-   add_definitions(-DCURL_STATICLIB)
-   add_executable(example_comp_cpp_SBMLHttpResolverExample SBMLHttpResolverExample.cpp ../util.c)
-   set_target_properties(example_comp_cpp_SBMLHttpResolverExample PROPERTIES  OUTPUT_NAME SBMLHttpResolverExample)
-   target_link_libraries(example_comp_cpp_SBMLHttpResolverExample ${LIBSBML_LIBRARY}-static ${LIBCURL_LIBRARY})
-   if (WITH_LIBXML)
-   	target_link_libraries(example_comp_cpp_SBMLHttpResolverExample ${LIBXML_LIBRARY} ${EXTRA_LIBS})
-   endif()
-endif (${LIBCURL_LIBRARY} STREQUAL "LIBCURL_LIBRARY-NOTFOUND")
+if (NOT ${LIBCURL_LIBRARY} OR NOT ${LIBCURL_INCLUDE_DIR})
+  include_directories(${CMAKE_CURRENT_SOURCE_DIR})
+  include_directories(${LIBCURL_INCLUDE_DIR})
+  include_directories(${CMAKE_CURRENT_SOURCE_DIR}/src)
+  add_definitions(-DCURL_STATICLIB)
+  add_executable(example_comp_cpp_SBMLHttpResolverExample SBMLHttpResolverExample.cpp ../util.c)
+  set_target_properties(example_comp_cpp_SBMLHttpResolverExample PROPERTIES  OUTPUT_NAME SBMLHttpResolverExample)
+  target_link_libraries(example_comp_cpp_SBMLHttpResolverExample ${LIBSBML_LIBRARY}-static ${LIBCURL_LIBRARY})
+  if (WITH_LIBXML)
+  	target_link_libraries(example_comp_cpp_SBMLHttpResolverExample ${LIBXML_LIBRARY} ${EXTRA_LIBS})
+  endif()
+else()
+  message(WARNING "comp example: The SBML HTTP Resolver example cannot be built as libcurl was not found.")
+endif (NOT ${LIBCURL_LIBRARY} OR NOT ${LIBCURL_INCLUDE_DIR})
