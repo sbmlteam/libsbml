@@ -28,6 +28,7 @@
  * ---------------------------------------------------------------------- -->*/
 
 #include <sbml/Model.h>
+#include <sbml/util/ElementFilter.h>
 #include "UniqueReplacedReferences.h"
 
 
