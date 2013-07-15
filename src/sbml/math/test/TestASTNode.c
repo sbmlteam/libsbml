@@ -37,6 +37,7 @@
 #include <sbml/xml/XMLNode.h>
 
 #include <limits.h>
+#include <math.h>
 #include <check.h>
 
 
@@ -1182,7 +1183,7 @@ START_TEST (test_ASTNode_getReal)
   ASTNode_setType(n, AST_REAL_E);
   ASTNode_setRealWithExponent(n, 12.3, 3);
 
-  double val = abs(ASTNode_getReal(n) - 12300.0);
+  double val = fabs(ASTNode_getReal(n) - 12300.0);
   fail_unless(val < DBL_EPSILON);
 
   /** 1/2 **/
