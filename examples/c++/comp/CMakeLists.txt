@@ -56,7 +56,7 @@ find_path(LIBCURL_INCLUDE_DIR
   DOC "The directory containing the curl include files."
 )
 
-if (NOT ${LIBCURL_LIBRARY} OR NOT ${LIBCURL_INCLUDE_DIR})
+if (${LIBCURL_LIBRARY} AND ${LIBCURL_INCLUDE_DIR})
   include_directories(${CMAKE_CURRENT_SOURCE_DIR})
   include_directories(${LIBCURL_INCLUDE_DIR})
   include_directories(${CMAKE_CURRENT_SOURCE_DIR}/src)
@@ -69,4 +69,4 @@ if (NOT ${LIBCURL_LIBRARY} OR NOT ${LIBCURL_INCLUDE_DIR})
   endif()
 else()
   message(WARNING "comp example: The SBML HTTP Resolver example cannot be built as libcurl was not found.")
-endif (NOT ${LIBCURL_LIBRARY} OR NOT ${LIBCURL_INCLUDE_DIR})
+endif (${LIBCURL_LIBRARY} AND ${LIBCURL_INCLUDE_DIR})
