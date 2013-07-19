@@ -35,6 +35,9 @@
 
 #include <sbml/packages/distrib/extension/DistribExtension.h>
 #include <sbml/packages/distrib/extension/DistribFunctionDefinitionPlugin.h>
+#include <sbml/packages/distrib/extension/DistribSBasePlugin.h>
+#include <sbml/packages/distrib/extension/DistribSBMLDocumentPlugin.h>
+#include <sbml/packages/distrib/validator/DistribSBMLErrorTable.h>
 
 
 #ifdef __cplusplus
@@ -120,9 +123,7 @@ const char * SBML_DISTRIB_TYPECODE_STRINGS[] =
 {
 	  "DrawFromDistribution"
 	, "DistribInput"
-	, "PredefinedPDF"
-	, "ExplicitPMF"
-	, "ExplicitPDF"
+	, "Uncertainty"
 };
 
 
@@ -287,7 +288,7 @@ const char*
 DistribExtension::getStringFromTypeCode(int typeCode) const
 {
 	int min = SBML_DISTRIB_DRAW_FROM_DISTRIBUTION;
-	int max = SBML_DISTRIB_EXPLICT_PDF;
+	int max = SBML_DISTRIB_UNCERTAINTY;
 
 	if ( typeCode < min || typeCode > max)
 	{
@@ -336,9 +337,11 @@ DistribExtension::init()
 
 	SBaseExtensionPoint sbmldocExtPoint("core", SBML_DOCUMENT);
 	SBaseExtensionPoint functiondefinitionExtPoint("core", SBML_FUNCTION_DEFINITION);
+	SBaseExtensionPoint sbaseExtPoint("all", SBML_GENERIC_SBASE);
 
-	SBasePluginCreator<SBMLDocumentPlugin, DistribExtension> sbmldocPluginCreator(sbmldocExtPoint, packageURIs);
+	SBasePluginCreator<DistribSBMLDocumentPlugin, DistribExtension> sbmldocPluginCreator(sbmldocExtPoint, packageURIs);
 	SBasePluginCreator<DistribFunctionDefinitionPlugin, DistribExtension> functiondefinitionPluginCreator(functiondefinitionExtPoint, packageURIs);
+	SBasePluginCreator<DistribSBasePlugin, DistribExtension> sbasePluginCreator(sbaseExtPoint, packageURIs);
 
 	//----------------------------------------------------------------
 	//
@@ -348,6 +351,7 @@ DistribExtension::init()
 
 	distribExtension.addSBasePluginCreator(&sbmldocPluginCreator);
 	distribExtension.addSBasePluginCreator(&functiondefinitionPluginCreator);
+	distribExtension.addSBasePluginCreator(&sbasePluginCreator);
 
 	//----------------------------------------------------------------
 	//
@@ -362,6 +366,61 @@ DistribExtension::init()
 		std::cerr << "[Error] DistribExtension::init() failed." << std::endl;
 	}
 }
+
+
+	/** @cond doxygen-libsbml-internal */
+
+/*
+ * Return error table entry. 
+ */
+packageErrorTableEntry
+DistribExtension::getErrorTable(unsigned int index) const
+{
+	return distribErrorTable[index];
+}
+
+	/** @endcond doxygen-libsbml-internal */
+
+
+	/** @cond doxygen-libsbml-internal */
+
+/*
+ * Return error table index for this id. 
+ */
+unsigned int
+DistribExtension::getErrorTableIndex(unsigned int errorId) const
+{
+	unsigned int tableSize = sizeof(distribErrorTable)/sizeof(distribErrorTable[0]);
+	unsigned int index = 0;
+
+	for(unsigned int i = 0; i < tableSize; i++)
+	{
+		if (errorId == distribErrorTable[i].code)
+		{
+			index = i;
+			break;
+		}
+
+	}
+
+	return index;
+}
+
+	/** @endcond doxygen-libsbml-internal */
+
+
+	/** @cond doxygen-libsbml-internal */
+
+/*
+ * Return error offset. 
+ */
+unsigned int
+DistribExtension::getErrorIdOffset() const
+{
+	return 5000000;
+}
+
+	/** @endcond doxygen-libsbml-internal */
 
 
 

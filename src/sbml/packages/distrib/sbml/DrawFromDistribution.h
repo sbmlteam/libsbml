@@ -47,9 +47,7 @@
 #include <sbml/packages/distrib/extension/DistribExtension.h>
 
 #include <sbml/packages/distrib/sbml/DistribInput.h>
-#include <sbml/packages/distrib/sbml/PredefinedPDF.h>
-#include <sbml/packages/distrib/sbml/ExplicitPMF.h>
-#include <sbml/packages/distrib/sbml/ExplicitPDF.h>
+//#include <sbml/packages/distrib/sbml/Distribution.h>
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
@@ -60,9 +58,7 @@ class LIBSBML_EXTERN DrawFromDistribution : public SBase
 protected:
 
 	ListOfDistribInputs   mDistribInputs;
-	PredefinedPDF *mPredefinedPDF;
-	ExplicitPMF   *mExplicitPMF;
-	ExplicitPDF   *mExplicitPDF;
+	XMLNode* mDistribution;
 
 
 public:
@@ -120,22 +116,53 @@ public:
 	virtual ~DrawFromDistribution();
 
 
-  const PredefinedPDF* getPredefinedPDF() const;
-  const ExplicitPMF* getExplicitPMF() const;
-  const ExplicitPDF* getExplicitPDF() const;
+ 	/**
+	 * Returns the "Distribution" element of this DrawFromDistribution.
+	 *
+	 * @return the "Distribution" element of this DrawFromDistribution.
+	 */
+	virtual const XMLNode* getDistribution() const;
 
-  bool isSetPredefinedPDF() const;
-  bool isSetExplicitPMF() const;
-  bool isSetExplicitPDF() const;
 
-  int setPredefinedPDF(PredefinedPDF* predefinedPDF);
-  int setExplicitPMF(ExplicitPMF* explicitPMF);
-  int setExplicitPDF(ExplicitPDF* explicitPDF);
+	/**
+	 * Predicate returning @c true or @c false depending on whether this
+	 * DrawFromDistribution's "Distribution" element has been set.
+	 *
+	 * @return @c true if this DrawFromDistribution's "Distribution" element has been set,
+	 * otherwise @c false is returned.
+	 */
+	virtual bool isSetDistribution() const;
 
-  int unsetPredefinedPDF();
-  int unsetExplicitPMF();
-  int unsetExplicitPDF();
-  /**
+
+	/**
+	 * Sets the "Distribution" element of this DrawFromDistribution.
+	 *
+	 * @param Distribution; Distribution* to be set.
+	 *
+	 * @return integer value indicating success/failure of the
+	 * function.  @if clike The value is drawn from the
+	 * enumeration #OperationReturnValues_t. @endif The possible values
+	 * returned by this function are:
+	 * @li LIBSBML_OPERATION_SUCCESS
+	 * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+	 */
+	virtual int setDistribution(XMLNode* Distribution);
+
+
+	/**
+	 * Unsets the "Distribution" element of this DrawFromDistribution.
+	 *
+	 * @return integer value indicating success/failure of the
+	 * function.  @if clike The value is drawn from the
+	 * enumeration #OperationReturnValues_t. @endif The possible values
+	 * returned by this function are:
+	 * @li LIBSBML_OPERATION_SUCCESS
+	 * @li LIBSBML_OPERATION_FAILED
+	 */
+	virtual int unsetDistribution();
+
+
+	/**
 	 * Returns the  "ListOfDistribInputs" in this DrawFromDistribution object.
 	 *
 	 * @return the "ListOfDistribInputs" attribute of this DrawFromDistribution.
@@ -214,7 +241,7 @@ public:
 	/**
 	 * Adds a copy the given "DistribInput" to this DrawFromDistribution.
 	 *
-	 * @param i; the DistribInput object to add
+	 * @param di; the DistribInput object to add
 	 *
 	 * @return integer value indicating success/failure of the
 	 * function.  @if clike The value is drawn from the
@@ -223,7 +250,7 @@ public:
 	 * @li LIBSBML_OPERATION_SUCCESS
 	 * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
 	 */
-	int addDistribInput(const DistribInput* i);
+	int addDistribInput(const DistribInput* di);
 
 
 	/**
@@ -240,7 +267,7 @@ public:
 	 *
 	 * @return a new DistribInput object instance
 	 *
-	 * @see addDistribInput(const DistribInput* i)
+	 * @see addDistribInput(const DistribInput* di)
 	 */
 	DistribInput* createDistribInput();
 
@@ -321,6 +348,7 @@ public:
 	 * for this DrawFromDistribution object have been set.
 	 *
 	 * @note The required attributes for a DrawFromDistribution object are:
+	 * @li "Distribution"
 	 *
 	 * @return a boolean value indicating whether all the required
 	 * attributes for this object have been defined.
@@ -333,6 +361,7 @@ public:
 	 * for this DrawFromDistribution object have been set.
 	 *
 	 * @note The required elements for a DrawFromDistribution object are:
+	 * @li "Distribution"
 	 *
 	 * @return a boolean value indicating whether all the required
 	 * elements for this object have been defined.
@@ -408,6 +437,8 @@ protected:
 	virtual SBase* createObject(XMLInputStream& stream);
 
 
+  virtual bool readOtherXML(XMLInputStream &stream);
+
 	/** @endcond doxygen-libsbml-internal */
 
 
@@ -477,7 +508,7 @@ DrawFromDistribution_clone(DrawFromDistribution_t * dfd);
 
 LIBSBML_EXTERN
 int
-DrawFromDistribution_addDistribInput(DrawFromDistribution_t * dfd, DistribInput_t * i);
+DrawFromDistribution_addDistribInput(DrawFromDistribution_t * dfd, DistribInput_t * di);
 
 
 LIBSBML_EXTERN

@@ -28,6 +28,7 @@
 
 
 #include <sbml/packages/distrib/sbml/DistribInput.h>
+#include <sbml/packages/distrib/validator/DistribSBMLError.h>
 
 
 using namespace std;
@@ -41,7 +42,10 @@ LIBSBML_CPP_NAMESPACE_BEGIN
  */
 DistribInput::DistribInput (unsigned int level, unsigned int version, unsigned int pkgVersion)
 	: SBase(level, version)
-
+	 ,mId ("")
+	 ,mName ("")
+	 ,mIndex (SBML_INT_MAX)
+	 ,mIsSetIndex (false)
 {
 	// set an SBMLNamespaces derived object of this package
 	setSBMLNamespacesAndOwn(new DistribPkgNamespaces(level, version, pkgVersion));
@@ -56,7 +60,10 @@ DistribInput::DistribInput (unsigned int level, unsigned int version, unsigned i
  */
 DistribInput::DistribInput (DistribPkgNamespaces* distribns)
 	: SBase(distribns)
-
+	 ,mId ("")
+	 ,mName ("")
+	 ,mIndex (SBML_INT_MAX)
+	 ,mIsSetIndex (false)
 {
 	// set the element namespace of this object
 	setElementNamespace(distribns->getURI());
@@ -81,6 +88,10 @@ DistribInput::DistribInput (const DistribInput& orig)
 	}
 	else
 	{
+		mId  = orig.mId;
+		mName  = orig.mName;
+		mIndex  = orig.mIndex;
+		mIsSetIndex  = orig.mIsSetIndex;
 
 		// connect to child objects
 		connectToChild();
@@ -101,6 +112,10 @@ DistribInput::operator=(const DistribInput& rhs)
 	else if (&rhs != this)
 	{
 		SBase::operator=(rhs);
+		mId  = rhs.mId;
+		mName  = rhs.mName;
+		mIndex  = rhs.mIndex;
+		mIsSetIndex  = rhs.mIsSetIndex;
 
 		// connect to child objects
 		connectToChild();
@@ -128,12 +143,170 @@ DistribInput::~DistribInput ()
 
 
 /*
+ * Returns the value of the "id" attribute of this DistribInput.
+ */
+const std::string&
+DistribInput::getId() const
+{
+	return mId;
+}
+
+
+/*
+ * Returns the value of the "name" attribute of this DistribInput.
+ */
+const std::string&
+DistribInput::getName() const
+{
+	return mName;
+}
+
+
+/*
+ * Returns the value of the "index" attribute of this DistribInput.
+ */
+const unsigned int
+DistribInput::getIndex() const
+{
+	return mIndex;
+}
+
+
+/*
+ * Returns true/false if id is set.
+ */
+bool
+DistribInput::isSetId() const
+{
+	return (mId.empty() == false);
+}
+
+
+/*
+ * Returns true/false if name is set.
+ */
+bool
+DistribInput::isSetName() const
+{
+	return (mName.empty() == false);
+}
+
+
+/*
+ * Returns true/false if index is set.
+ */
+bool
+DistribInput::isSetIndex() const
+{
+	return mIsSetIndex;
+}
+
+
+/*
+ * Sets id and returns value indicating success.
+ */
+int
+DistribInput::setId(const std::string& id)
+{
+	return SyntaxChecker::checkAndSetSId(id, mId);
+}
+
+
+/*
+ * Sets name and returns value indicating success.
+ */
+int
+DistribInput::setName(const std::string& name)
+{
+	if (&(name) == NULL)
+	{
+		return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+	}
+	else
+	{
+		mName = name;
+		return LIBSBML_OPERATION_SUCCESS;
+	}
+}
+
+
+/*
+ * Sets index and returns value indicating success.
+ */
+int
+DistribInput::setIndex(unsigned int index)
+{
+	mIndex = index;
+	mIsSetIndex = true;
+	return LIBSBML_OPERATION_SUCCESS;
+}
+
+
+/*
+ * Unsets id and returns value indicating success.
+ */
+int
+DistribInput::unsetId()
+{
+	mId.erase();
+
+	if (mId.empty() == true)
+	{
+		return LIBSBML_OPERATION_SUCCESS;
+	}
+	else
+	{
+		return LIBSBML_OPERATION_FAILED;
+	}
+}
+
+
+/*
+ * Unsets name and returns value indicating success.
+ */
+int
+DistribInput::unsetName()
+{
+	mName.erase();
+
+	if (mName.empty() == true)
+	{
+		return LIBSBML_OPERATION_SUCCESS;
+	}
+	else
+	{
+		return LIBSBML_OPERATION_FAILED;
+	}
+}
+
+
+/*
+ * Unsets index and returns value indicating success.
+ */
+int
+DistribInput::unsetIndex()
+{
+	mIndex = SBML_INT_MAX;
+	mIsSetIndex = false;
+
+	if (isSetIndex() == false)
+	{
+		return LIBSBML_OPERATION_SUCCESS;
+	}
+	else
+	{
+		return LIBSBML_OPERATION_FAILED;
+	}
+}
+
+
+/*
  * Returns the XML element name of this object
  */
 const std::string&
 DistribInput::getElementName () const
 {
-	static const string name = "input";
+	static const string name = "distribInput";
 	return name;
 }
 
@@ -155,6 +328,12 @@ bool
 DistribInput::hasRequiredAttributes () const
 {
 	bool allPresent = true;
+
+	if (isSetId() == false)
+		allPresent = false;
+
+	if (isSetIndex() == false)
+		allPresent = false;
 
 	return allPresent;
 }
@@ -181,6 +360,7 @@ void
 DistribInput::writeElements (XMLOutputStream& stream) const
 {
 	SBase::writeElements(stream);
+
 	SBase::writeExtensionElements(stream);
 }
 
@@ -196,8 +376,13 @@ DistribInput::writeElements (XMLOutputStream& stream) const
 bool
 DistribInput::accept (SBMLVisitor& v) const
 {
-	return false;
+	v.visit(*this);
 
+/* VISIT CHILDREN */
+
+	v.leave(*this);
+
+	return true;
 }
 
 
@@ -260,6 +445,8 @@ DistribInput::createObject(XMLInputStream& stream)
 	const string& name = stream.peek().getName();
 	SBase* object = NULL;
 
+	DISTRIB_CREATE_NS(distribns, getSBMLNamespaces());
+
 
 	return object;
 }
@@ -278,6 +465,9 @@ DistribInput::addExpectedAttributes(ExpectedAttributes& attributes)
 {
 	SBase::addExpectedAttributes(attributes);
 
+	attributes.add("id");
+	attributes.add("name");
+	attributes.add("index");
 }
 
 
@@ -293,9 +483,131 @@ void
 DistribInput::readAttributes (const XMLAttributes& attributes,
                              const ExpectedAttributes& expectedAttributes)
 {
+	const unsigned int sbmlLevel   = getLevel  ();
+	const unsigned int sbmlVersion = getVersion();
+
+	unsigned int numErrs;
+
+	/* look to see whether an unknown attribute error was logged
+	 * during the read of the listOfDistribInputs - which will have
+	 * happened immediately prior to this read
+	*/
+
+	if (getErrorLog() != NULL &&
+	    static_cast<ListOfDistribInputs*>(getParentSBMLObject())->size() < 2)
+	{
+		numErrs = getErrorLog()->getNumErrors();
+		for (int n = numErrs-1; n >= 0; n--)
+		{
+			if (getErrorLog()->getError(n)->getErrorId() == UnknownPackageAttribute)
+			{
+				const std::string details =
+				      getErrorLog()->getError(n)->getMessage();
+				getErrorLog()->remove(UnknownPackageAttribute);
+				getErrorLog()->logPackageError("distrib", DistribUnknownError,
+				          getPackageVersion(), sbmlLevel, sbmlVersion, details);
+			}
+			else if (getErrorLog()->getError(n)->getErrorId() == UnknownCoreAttribute)
+			{
+				const std::string details =
+				           getErrorLog()->getError(n)->getMessage();
+				getErrorLog()->remove(UnknownCoreAttribute);
+				getErrorLog()->logPackageError("distrib", DistribUnknownError,
+				          getPackageVersion(), sbmlLevel, sbmlVersion, details);
+			}
+		}
+	}
+
 	SBase::readAttributes(attributes, expectedAttributes);
 
+	// look to see whether an unknown attribute error was logged
+	if (getErrorLog() != NULL)
+	{
+		numErrs = getErrorLog()->getNumErrors();
+		for (int n = numErrs-1; n >= 0; n--)
+		{
+			if (getErrorLog()->getError(n)->getErrorId() == UnknownPackageAttribute)
+			{
+				const std::string details =
+				                  getErrorLog()->getError(n)->getMessage();
+				getErrorLog()->remove(UnknownPackageAttribute);
+				getErrorLog()->logPackageError("distrib", DistribUnknownError,
+				               getPackageVersion(), sbmlLevel, sbmlVersion, details);
+			}
+			else if (getErrorLog()->getError(n)->getErrorId() == UnknownCoreAttribute)
+			{
+				const std::string details =
+				                  getErrorLog()->getError(n)->getMessage();
+				getErrorLog()->remove(UnknownCoreAttribute);
+				getErrorLog()->logPackageError("distrib", DistribUnknownError,
+				               getPackageVersion(), sbmlLevel, sbmlVersion, details);
+			}
+		}
+	}
+
 	bool assigned = false;
+
+	//
+	// id string   ( use = "required" )
+	//
+	assigned = attributes.readInto("id", mId);
+
+	if (assigned == true)
+	{
+		// check string is not empty
+
+		if (mId.empty() == true)
+		{
+			logEmptyString(mId, getLevel(), getVersion(), "<DistribInput>");
+		}
+	}
+	else
+	{
+		std::string message = "Distrib attribute 'id' is missing.";
+		getErrorLog()->logPackageError("distrib", DistribUnknownError,
+		               getPackageVersion(), sbmlLevel, sbmlVersion, message);
+	}
+
+	//
+	// name string   ( use = "optional" )
+	//
+	assigned = attributes.readInto("name", mName);
+
+	if (assigned == true)
+	{
+		// check string is not empty
+
+		if (mName.empty() == true)
+		{
+			logEmptyString(mName, getLevel(), getVersion(), "<DistribInput>");
+		}
+	}
+
+	//
+	// index unsigned int   ( use = "required" )
+	//
+	numErrs = getErrorLog()->getNumErrors();
+	mIsSetIndex = attributes.readInto("index", mIndex);
+
+	if (mIsSetIndex == false)
+	{
+		if (getErrorLog() != NULL)
+		{
+			if (getErrorLog()->getNumErrors() == numErrs + 1 &&
+			        getErrorLog()->contains(XMLAttributeTypeMismatch))
+			{
+				getErrorLog()->remove(XMLAttributeTypeMismatch);
+				getErrorLog()->logPackageError("distrib", DistribUnknownError,
+				             getPackageVersion(), sbmlLevel, sbmlVersion);
+			}
+			else
+			{
+				std::string message = "Distrib attribute 'index' is missing.";
+				getErrorLog()->logPackageError("distrib", DistribUnknownError,
+				               getPackageVersion(), sbmlLevel, sbmlVersion, message);
+			}
+		}
+	}
 
 }
 
@@ -313,6 +625,15 @@ DistribInput::writeAttributes (XMLOutputStream& stream) const
 {
 	SBase::writeAttributes(stream);
 
+	if (isSetId() == true)
+		stream.writeAttribute("id", getPrefix(), mId);
+
+	if (isSetName() == true)
+		stream.writeAttribute("name", getPrefix(), mName);
+
+	if (isSetIndex() == true)
+		stream.writeAttribute("index", getPrefix(), mIndex);
+
 	SBase::writeExtensionAttributes(stream);
 
 }
@@ -325,8 +646,8 @@ DistribInput::writeAttributes (XMLOutputStream& stream) const
  * Constructor 
  */
 ListOfDistribInputs::ListOfDistribInputs(unsigned int level, 
-	             unsigned int version, 
-	             unsigned int pkgVersion)
+	                    unsigned int version, 
+	                    unsigned int pkgVersion)
  : ListOf(level, version)
 {
 	setSBMLNamespacesAndOwn(new DistribPkgNamespaces(level, version, pkgVersion)); 
@@ -470,7 +791,7 @@ ListOfDistribInputs::createObject(XMLInputStream& stream)
 	const std::string& name   = stream.peek().getName();
 	SBase* object = NULL;
 
-	if (name == "input")
+	if (name == "distribInput")
 	{
 		DISTRIB_CREATE_NS(distribns, getSBMLNamespaces());
 		object = new DistribInput(distribns);
@@ -517,7 +838,7 @@ ListOfDistribInputs::writeXMLNS(XMLOutputStream& stream) const
 LIBSBML_EXTERN
 DistribInput_t *
 DistribInput_create(unsigned int level, unsigned int version,
-             unsigned int pkgVersion)
+                    unsigned int pkgVersion)
 {
 	return new DistribInput(level, version, pkgVersion);
 }
@@ -528,10 +849,10 @@ DistribInput_create(unsigned int level, unsigned int version,
  */
 LIBSBML_EXTERN
 void
-DistribInput_free(DistribInput_t * i)
+DistribInput_free(DistribInput_t * di)
 {
-	if (i != NULL)
-		delete i;
+	if (di != NULL)
+		delete di;
 }
 
 
@@ -540,11 +861,11 @@ DistribInput_free(DistribInput_t * i)
  */
 LIBSBML_EXTERN
 DistribInput_t *
-DistribInput_clone(DistribInput_t * i)
+DistribInput_clone(DistribInput_t * di)
 {
-	if (i != NULL)
+	if (di != NULL)
 	{
-		return static_cast<DistribInput_t*>(i->clone());
+		return static_cast<DistribInput_t*>(di->clone());
 	}
 	else
 	{
@@ -557,10 +878,148 @@ DistribInput_clone(DistribInput_t * i)
  * write comments
  */
 LIBSBML_EXTERN
-int
-DistribInput_hasRequiredAttributes(DistribInput_t * i)
+char *
+DistribInput_getId(DistribInput_t * di)
 {
-	return (i != NULL) ? static_cast<int>(i->hasRequiredAttributes()) : 0;
+	if (di == NULL)
+		return NULL;
+
+	return di->getId().empty() ? NULL : safe_strdup(di->getId().c_str());
+}
+
+
+/**
+ * write comments
+ */
+LIBSBML_EXTERN
+char *
+DistribInput_getName(DistribInput_t * di)
+{
+	if (di == NULL)
+		return NULL;
+
+	return di->getName().empty() ? NULL : safe_strdup(di->getName().c_str());
+}
+
+
+/**
+ * write comments
+ */
+LIBSBML_EXTERN
+unsigned int
+DistribInput_getIndex(DistribInput_t * di)
+{
+	return (di != NULL) ? di->getIndex() : SBML_INT_MAX;
+}
+
+
+/**
+ * write comments
+ */
+LIBSBML_EXTERN
+int
+DistribInput_isSetId(DistribInput_t * di)
+{
+	return (di != NULL) ? static_cast<int>(di->isSetId()) : 0;
+}
+
+
+/**
+ * write comments
+ */
+LIBSBML_EXTERN
+int
+DistribInput_isSetName(DistribInput_t * di)
+{
+	return (di != NULL) ? static_cast<int>(di->isSetName()) : 0;
+}
+
+
+/**
+ * write comments
+ */
+LIBSBML_EXTERN
+int
+DistribInput_isSetIndex(DistribInput_t * di)
+{
+	return (di != NULL) ? static_cast<int>(di->isSetIndex()) : 0;
+}
+
+
+/**
+ * write comments
+ */
+LIBSBML_EXTERN
+int
+DistribInput_setId(DistribInput_t * di, const char * id)
+{
+	return (di != NULL) ? di->setId(id) : LIBSBML_INVALID_OBJECT;
+}
+
+
+/**
+ * write comments
+ */
+LIBSBML_EXTERN
+int
+DistribInput_setName(DistribInput_t * di, const char * name)
+{
+	return (di != NULL) ? di->setName(name) : LIBSBML_INVALID_OBJECT;
+}
+
+
+/**
+ * write comments
+ */
+LIBSBML_EXTERN
+int
+DistribInput_setIndex(DistribInput_t * di, unsigned int index)
+{
+	return (di != NULL) ? di->setIndex(index) : LIBSBML_INVALID_OBJECT;
+}
+
+
+/**
+ * write comments
+ */
+LIBSBML_EXTERN
+int
+DistribInput_unsetId(DistribInput_t * di)
+{
+	return (di != NULL) ? di->unsetId() : LIBSBML_INVALID_OBJECT;
+}
+
+
+/**
+ * write comments
+ */
+LIBSBML_EXTERN
+int
+DistribInput_unsetName(DistribInput_t * di)
+{
+	return (di != NULL) ? di->unsetName() : LIBSBML_INVALID_OBJECT;
+}
+
+
+/**
+ * write comments
+ */
+LIBSBML_EXTERN
+int
+DistribInput_unsetIndex(DistribInput_t * di)
+{
+	return (di != NULL) ? di->unsetIndex() : LIBSBML_INVALID_OBJECT;
+}
+
+
+/**
+ * write comments
+ */
+LIBSBML_EXTERN
+int
+DistribInput_hasRequiredAttributes(DistribInput_t * di)
+{
+	return (di != NULL) ? static_cast<int>(di->hasRequiredAttributes()) : 0;
 }
 
 

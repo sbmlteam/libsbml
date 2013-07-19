@@ -236,6 +236,49 @@ public:
 	/** @endcond doxygen-libsbml-internal */
 
 
+	/** @cond doxygen-libsbml-internal */
+
+	/**
+	 * Return the entry in the error table at this index. 
+	 *
+	 * @param index an unsigned intgere representing the index of the error in the DistribSBMLErrorTable
+	 *
+	 * @return packageErrorTableEntry object in the DistribSBMLErrorTable corresponding to the index given.
+	 */
+	virtual packageErrorTableEntry getErrorTable(unsigned int index) const;
+
+
+	/** @endcond doxygen-libsbml-internal */
+
+
+	/** @cond doxygen-libsbml-internal */
+
+	/**
+	 * Return the index in the error table with the given errorId. 
+	 *
+	 * @param errorId an unsigned intgere representing the errorId of the error in the DistribSBMLErrorTable
+	 *
+	 * @return unsigned integer representing the index in the DistribSBMLErrorTable corresponding to the errorId given.
+	 */
+	virtual unsigned int getErrorTableIndex(unsigned int errorId) const;
+
+
+	/** @endcond doxygen-libsbml-internal */
+
+
+	/** @cond doxygen-libsbml-internal */
+
+	/**
+	 * Return the offset for the errorId range for the distrib L3 package. 
+	 *
+	 * @return unsigned intege representing the  offset for errors DistribSBMLErrorTable.
+	 */
+	virtual unsigned int getErrorIdOffset() const;
+
+
+	/** @endcond doxygen-libsbml-internal */
+
+
 };
 
 
@@ -260,9 +303,7 @@ typedef enum
 {
 	  SBML_DISTRIB_DRAW_FROM_DISTRIBUTION  = 1300
 	, SBML_DISTRIB_INPUT             = 1301
-	, SBML_DISTRIB_PREDEFINED_PDF    = 1302
-	, SBML_DISTRIB_EXPLICT_PMF       = 1303
-	, SBML_DISTRIB_EXPLICT_PDF       = 1304
+	, SBML_DISTRIB_UNCERTAINTY       = 1302
 } SBMLDistribTypeCode_t;
 
 

@@ -55,6 +55,10 @@ class LIBSBML_EXTERN DistribInput : public SBase
 
 protected:
 
+	std::string   mId;
+	std::string   mName;
+	unsigned int  mIndex;
+	bool          mIsSetIndex;
 
 
 public:
@@ -69,8 +73,8 @@ public:
 	 * @param pkgVersion an unsigned int, the SBML Distrib Version to assign to this DistribInput
 	 */
 	DistribInput(unsigned int level      = DistribExtension::getDefaultLevel(),
-	      unsigned int version    = DistribExtension::getDefaultVersion(),
-	      unsigned int pkgVersion = DistribExtension::getDefaultPackageVersion());
+	             unsigned int version    = DistribExtension::getDefaultVersion(),
+	             unsigned int pkgVersion = DistribExtension::getDefaultPackageVersion());
 
 
 	/**
@@ -113,10 +117,148 @@ public:
 
 
  	/**
-	 * Returns the XML element name of this object, which for DistribInput, is
-	 * always @c "input".
+	 * Returns the value of the "id" attribute of this DistribInput.
 	 *
-	 * @return the name of this element, i.e. @c "input".
+	 * @return the value of the "id" attribute of this DistribInput as a string.
+	 */
+	virtual const std::string& getId() const;
+
+
+	/**
+	 * Predicate returning @c true or @c false depending on whether this
+	 * DistribInput's "id" attribute has been set.
+	 *
+	 * @return @c true if this DistribInput's "id" attribute has been set,
+	 * otherwise @c false is returned.
+	 */
+	virtual bool isSetId() const;
+
+
+	/**
+	 * Sets the value of the "id" attribute of this DistribInput.
+	 *
+	 * @param id; const std::string& value of the "id" attribute to be set
+	 *
+	 * @return integer value indicating success/failure of the
+	 * function.  @if clike The value is drawn from the
+	 * enumeration #OperationReturnValues_t. @endif The possible values
+	 * returned by this function are:
+	 * @li LIBSBML_OPERATION_SUCCESS
+	 * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+	 */
+	virtual int setId(const std::string& id);
+
+
+	/**
+	 * Unsets the value of the "id" attribute of this DistribInput.
+	 *
+	 * @return integer value indicating success/failure of the
+	 * function.  @if clike The value is drawn from the
+	 * enumeration #OperationReturnValues_t. @endif The possible values
+	 * returned by this function are:
+	 * @li LIBSBML_OPERATION_SUCCESS
+	 * @li LIBSBML_OPERATION_FAILED
+	 */
+	virtual int unsetId();
+
+
+	/**
+	 * Returns the value of the "name" attribute of this DistribInput.
+	 *
+	 * @return the value of the "name" attribute of this DistribInput as a string.
+	 */
+	virtual const std::string& getName() const;
+
+
+	/**
+	 * Predicate returning @c true or @c false depending on whether this
+	 * DistribInput's "name" attribute has been set.
+	 *
+	 * @return @c true if this DistribInput's "name" attribute has been set,
+	 * otherwise @c false is returned.
+	 */
+	virtual bool isSetName() const;
+
+
+	/**
+	 * Sets the value of the "name" attribute of this DistribInput.
+	 *
+	 * @param name; const std::string& value of the "name" attribute to be set
+	 *
+	 * @return integer value indicating success/failure of the
+	 * function.  @if clike The value is drawn from the
+	 * enumeration #OperationReturnValues_t. @endif The possible values
+	 * returned by this function are:
+	 * @li LIBSBML_OPERATION_SUCCESS
+	 * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+	 */
+	virtual int setName(const std::string& name);
+
+
+	/**
+	 * Unsets the value of the "name" attribute of this DistribInput.
+	 *
+	 * @return integer value indicating success/failure of the
+	 * function.  @if clike The value is drawn from the
+	 * enumeration #OperationReturnValues_t. @endif The possible values
+	 * returned by this function are:
+	 * @li LIBSBML_OPERATION_SUCCESS
+	 * @li LIBSBML_OPERATION_FAILED
+	 */
+	virtual int unsetName();
+
+
+	/**
+	 * Returns the value of the "index" attribute of this DistribInput.
+	 *
+	 * @return the value of the "index" attribute of this DistribInput as a unsigned integer.
+	 */
+	virtual const unsigned int getIndex() const;
+
+
+	/**
+	 * Predicate returning @c true or @c false depending on whether this
+	 * DistribInput's "index" attribute has been set.
+	 *
+	 * @return @c true if this DistribInput's "index" attribute has been set,
+	 * otherwise @c false is returned.
+	 */
+	virtual bool isSetIndex() const;
+
+
+	/**
+	 * Sets the value of the "index" attribute of this DistribInput.
+	 *
+	 * @param index; unsigned int value of the "index" attribute to be set
+	 *
+	 * @return integer value indicating success/failure of the
+	 * function.  @if clike The value is drawn from the
+	 * enumeration #OperationReturnValues_t. @endif The possible values
+	 * returned by this function are:
+	 * @li LIBSBML_OPERATION_SUCCESS
+	 * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+	 */
+	virtual int setIndex(unsigned int index);
+
+
+	/**
+	 * Unsets the value of the "index" attribute of this DistribInput.
+	 *
+	 * @return integer value indicating success/failure of the
+	 * function.  @if clike The value is drawn from the
+	 * enumeration #OperationReturnValues_t. @endif The possible values
+	 * returned by this function are:
+	 * @li LIBSBML_OPERATION_SUCCESS
+	 * @li LIBSBML_OPERATION_FAILED
+	 */
+	virtual int unsetIndex();
+
+
+	/**
+	 * Returns the XML element name of this object, which for DistribInput, is
+	 * always @c "distribInput".
+	 *
+	 * @return the name of this element, i.e. @c "distribInput".
 	 */
 	virtual const std::string& getElementName () const;
 
@@ -159,6 +301,8 @@ public:
 	 * for this DistribInput object have been set.
 	 *
 	 * @note The required attributes for a DistribInput object are:
+	 * @li "id"
+	 * @li "index"
 	 *
 	 * @return a boolean value indicating whether all the required
 	 * attributes for this object have been defined.
@@ -301,8 +445,8 @@ public:
 	 * @param pkgVersion an unsigned int, the SBML Distrib Version to assign to this ListOfDistribInputs
 	 */
 	ListOfDistribInputs(unsigned int level      = DistribExtension::getDefaultLevel(),
-	             unsigned int version    = DistribExtension::getDefaultVersion(),
-	             unsigned int pkgVersion = DistribExtension::getDefaultPackageVersion());
+	                    unsigned int version    = DistribExtension::getDefaultVersion(),
+	                    unsigned int pkgVersion = DistribExtension::getDefaultPackageVersion());
 
 
 	/**
@@ -525,27 +669,87 @@ BEGIN_C_DECLS
 LIBSBML_EXTERN
 DistribInput_t *
 DistribInput_create(unsigned int level, unsigned int version,
-             unsigned int pkgVersion);
+                    unsigned int pkgVersion);
 
 
 LIBSBML_EXTERN
 void
-DistribInput_free(DistribInput_t * i);
+DistribInput_free(DistribInput_t * di);
 
 
 LIBSBML_EXTERN
 DistribInput_t *
-DistribInput_clone(DistribInput_t * i);
+DistribInput_clone(DistribInput_t * di);
+
+
+LIBSBML_EXTERN
+char *
+DistribInput_getId(DistribInput_t * di);
+
+
+LIBSBML_EXTERN
+char *
+DistribInput_getName(DistribInput_t * di);
+
+
+LIBSBML_EXTERN
+unsigned int
+DistribInput_getIndex(DistribInput_t * di);
 
 
 LIBSBML_EXTERN
 int
-DistribInput_hasRequiredAttributes(DistribInput_t * i);
+DistribInput_isSetId(DistribInput_t * di);
 
 
 LIBSBML_EXTERN
 int
-DistribInput_hasRequiredElements(DistribInput_t * i);
+DistribInput_isSetName(DistribInput_t * di);
+
+
+LIBSBML_EXTERN
+int
+DistribInput_isSetIndex(DistribInput_t * di);
+
+
+LIBSBML_EXTERN
+int
+DistribInput_setId(DistribInput_t * di, const char * id);
+
+
+LIBSBML_EXTERN
+int
+DistribInput_setName(DistribInput_t * di, const char * name);
+
+
+LIBSBML_EXTERN
+int
+DistribInput_setIndex(DistribInput_t * di, unsigned int index);
+
+
+LIBSBML_EXTERN
+int
+DistribInput_unsetId(DistribInput_t * di);
+
+
+LIBSBML_EXTERN
+int
+DistribInput_unsetName(DistribInput_t * di);
+
+
+LIBSBML_EXTERN
+int
+DistribInput_unsetIndex(DistribInput_t * di);
+
+
+LIBSBML_EXTERN
+int
+DistribInput_hasRequiredAttributes(DistribInput_t * di);
+
+
+LIBSBML_EXTERN
+int
+DistribInput_hasRequiredElements(DistribInput_t * di);
 
 
 LIBSBML_EXTERN

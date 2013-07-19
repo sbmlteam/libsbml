@@ -28,6 +28,7 @@
 
 
 #include <sbml/packages/distrib/sbml/DrawFromDistribution.h>
+#include <sbml/packages/distrib/validator/DistribSBMLError.h>
 
 
 using namespace std;
@@ -42,10 +43,7 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 DrawFromDistribution::DrawFromDistribution (unsigned int level, unsigned int version, unsigned int pkgVersion)
 	: SBase(level, version)
 	 ,mDistribInputs (level, version, pkgVersion)
-	 ,mPredefinedPDF (NULL)
-	 ,mExplicitPMF (NULL)
-	 ,mExplicitPDF (NULL)
-
+	 ,mDistribution (NULL)
 {
 	// set an SBMLNamespaces derived object of this package
 	setSBMLNamespacesAndOwn(new DistribPkgNamespaces(level, version, pkgVersion));
@@ -61,10 +59,7 @@ DrawFromDistribution::DrawFromDistribution (unsigned int level, unsigned int ver
 DrawFromDistribution::DrawFromDistribution (DistribPkgNamespaces* distribns)
 	: SBase(distribns)
 	 ,mDistribInputs (distribns)
-	 ,mPredefinedPDF (NULL)
-	 ,mExplicitPMF (NULL)
-	 ,mExplicitPDF (NULL)
-
+	 ,mDistribution (NULL)
 {
 	// set the element namespace of this object
 	setElementNamespace(distribns->getURI());
@@ -90,9 +85,14 @@ DrawFromDistribution::DrawFromDistribution (const DrawFromDistribution& orig)
 	else
 	{
 		mDistribInputs  = orig.mDistribInputs;
-		mPredefinedPDF  = orig.mPredefinedPDF;
-		mExplicitPMF  = orig.mExplicitPMF;
-		mExplicitPDF  = orig.mExplicitPDF;
+		if (orig.mDistribution != NULL)
+		{
+			mDistribution = orig.mDistribution->clone();
+		}
+		else
+		{
+			mDistribution = NULL;
+		}
 
 		// connect to child objects
 		connectToChild();
@@ -114,9 +114,14 @@ DrawFromDistribution::operator=(const DrawFromDistribution& rhs)
 	{
 		SBase::operator=(rhs);
 		mDistribInputs  = rhs.mDistribInputs;
-		mPredefinedPDF  = rhs.mPredefinedPDF;
-		mExplicitPMF  = rhs.mExplicitPMF;
-		mExplicitPDF  = rhs.mExplicitPDF;
+		if (rhs.mDistribution != NULL)
+		{
+			mDistribution = rhs.mDistribution->clone();
+		}
+		else
+		{
+			mDistribution = NULL;
+		}
 
 		// connect to child objects
 		connectToChild();
@@ -144,187 +149,63 @@ DrawFromDistribution::~DrawFromDistribution ()
 
 
 /*
- * Returns the value of the "predefinedPDF" attribute of this DrawFromDistribution.
+ * Returns the value of the "Distribution" attribute of this DrawFromDistribution.
  */
-const PredefinedPDF*
-DrawFromDistribution::getPredefinedPDF() const
+const XMLNode*
+DrawFromDistribution::getDistribution() const
 {
-	return mPredefinedPDF;
+	return mDistribution;
 }
 
 
 /*
- * Returns the value of the "explicitPMF" attribute of this DrawFromDistribution.
- */
-const ExplicitPMF*
-DrawFromDistribution::getExplicitPMF() const
-{
-	return mExplicitPMF;
-}
-
-
-/*
- * Returns the value of the "explicitPDF" attribute of this DrawFromDistribution.
- */
-const ExplicitPDF*
-DrawFromDistribution::getExplicitPDF() const
-{
-	return mExplicitPDF;
-}
-
-
-/*
- * Returns true/false if predefinedPDF is set.
+ * Returns true/false if Distribution is set.
  */
 bool
-DrawFromDistribution::isSetPredefinedPDF() const
+DrawFromDistribution::isSetDistribution() const
 {
-	return (mPredefinedPDF != NULL);
+	return (mDistribution != NULL);
 }
 
 
 /*
- * Returns true/false if explicitPMF is set.
- */
-bool
-DrawFromDistribution::isSetExplicitPMF() const
-{
-	return (mExplicitPMF != NULL);
-}
-
-
-/*
- * Returns true/false if explicitPDF is set.
- */
-bool
-DrawFromDistribution::isSetExplicitPDF() const
-{
-	return (mExplicitPDF != NULL);
-}
-
-
-/*
- * Sets predefinedPDF and returns value indicating success.
+ * Sets Distribution and returns value indicating success.
  */
 int
-DrawFromDistribution::setPredefinedPDF(PredefinedPDF* predefinedPDF)
+DrawFromDistribution::setDistribution(XMLNode* Distribution)
 {
-	if (mPredefinedPDF == predefinedPDF)
+	if (mDistribution == Distribution)
 	{
 		return LIBSBML_OPERATION_SUCCESS;
 	}
-	else if (predefinedPDF == NULL)
+	else if (Distribution == NULL)
 	{
-		delete mPredefinedPDF;
-		mPredefinedPDF = NULL;
+		delete mDistribution;
+		mDistribution = NULL;
 		return LIBSBML_OPERATION_SUCCESS;
 	}
 	else
 	{
-		delete mPredefinedPDF;
-		mPredefinedPDF = (predefinedPDF != NULL) ?
-			static_cast<PredefinedPDF*>(predefinedPDF->clone()) : NULL;
-		if (mPredefinedPDF != NULL)
-		{
-			mPredefinedPDF->connectToParent(this);
-		}
+		delete mDistribution;
+		mDistribution = (Distribution != NULL) ?
+			static_cast<XMLNode*>(Distribution->clone()) : NULL;
+		//if (mDistribution != NULL)
+		//{
+		//	mDistribution->connectToParent(this);
+		//}
 		return LIBSBML_OPERATION_SUCCESS;
 	}
 }
 
 
 /*
- * Sets explicitPMF and returns value indicating success.
+ * Unsets Distribution and returns value indicating success.
  */
 int
-DrawFromDistribution::setExplicitPMF(ExplicitPMF* explicitPMF)
+DrawFromDistribution::unsetDistribution()
 {
-	if (mExplicitPMF == explicitPMF)
-	{
-		return LIBSBML_OPERATION_SUCCESS;
-	}
-	else if (explicitPMF == NULL)
-	{
-		delete mExplicitPMF;
-		mExplicitPMF = NULL;
-		return LIBSBML_OPERATION_SUCCESS;
-	}
-	else
-	{
-		delete mExplicitPMF;
-		mExplicitPMF = (explicitPMF != NULL) ?
-			static_cast<ExplicitPMF*>(explicitPMF->clone()) : NULL;
-		if (mExplicitPMF != NULL)
-		{
-			mExplicitPMF->connectToParent(this);
-		}
-		return LIBSBML_OPERATION_SUCCESS;
-	}
-}
-
-
-/*
- * Sets explicitPDF and returns value indicating success.
- */
-int
-DrawFromDistribution::setExplicitPDF(ExplicitPDF* explicitPDF)
-{
-	if (mExplicitPDF == explicitPDF)
-	{
-		return LIBSBML_OPERATION_SUCCESS;
-	}
-	else if (explicitPDF == NULL)
-	{
-		delete mExplicitPDF;
-		mExplicitPDF = NULL;
-		return LIBSBML_OPERATION_SUCCESS;
-	}
-	else
-	{
-		delete mExplicitPDF;
-		mExplicitPDF = (explicitPDF != NULL) ?
-			static_cast<ExplicitPDF*>(explicitPDF->clone()) : NULL;
-		if (mExplicitPDF != NULL)
-		{
-			mExplicitPDF->connectToParent(this);
-		}
-		return LIBSBML_OPERATION_SUCCESS;
-	}
-}
-
-
-/*
- * Unsets predefinedPDF and returns value indicating success.
- */
-int
-DrawFromDistribution::unsetPredefinedPDF()
-{
-	delete mPredefinedPDF;
-	mPredefinedPDF = NULL;
-	return LIBSBML_OPERATION_SUCCESS;
-}
-
-
-/*
- * Unsets explicitPMF and returns value indicating success.
- */
-int
-DrawFromDistribution::unsetExplicitPMF()
-{
-	delete mExplicitPMF;
-	mExplicitPMF = NULL;
-	return LIBSBML_OPERATION_SUCCESS;
-}
-
-
-/*
- * Unsets explicitPDF and returns value indicating success.
- */
-int
-DrawFromDistribution::unsetExplicitPDF()
-{
-	delete mExplicitPDF;
-	mExplicitPDF = NULL;
+	delete mDistribution;
+	mDistribution = NULL;
 	return LIBSBML_OPERATION_SUCCESS;
 }
 
@@ -413,31 +294,31 @@ DrawFromDistribution::getDistribInput(const std::string& sid) const
  * Adds a copy the given "DistribInput" to this DrawFromDistribution.
  */
 int
-DrawFromDistribution::addDistribInput(const DistribInput* i)
+DrawFromDistribution::addDistribInput(const DistribInput* di)
 {
-	if (i == NULL)
+	if (di == NULL)
 	{
 		return LIBSBML_OPERATION_FAILED;
 	}
-	else if (i->hasRequiredAttributes() == false)
+	else if (di->hasRequiredAttributes() == false)
 	{
 		return LIBSBML_INVALID_OBJECT;
 	}
-	else if (getLevel() != i->getLevel())
+	else if (getLevel() != di->getLevel())
 	{
 		return LIBSBML_LEVEL_MISMATCH;
 	}
-	else if (getVersion() != i->getVersion())
+	else if (getVersion() != di->getVersion())
 	{
 		return LIBSBML_VERSION_MISMATCH;
 	}
-	else if (matchesRequiredSBMLNamespacesForAddition(static_cast<const SBase *>(i)) == false)
+	else if (matchesRequiredSBMLNamespacesForAddition(static_cast<const SBase *>(di)) == false)
 	{
 		return LIBSBML_NAMESPACES_MISMATCH;
 	}
 	else
 	{
-		mDistribInputs.append(i);
+		mDistribInputs.append(di);
 
 		return LIBSBML_OPERATION_SUCCESS;
 	}
@@ -460,12 +341,12 @@ DrawFromDistribution::getNumDistribInputs() const
 DistribInput*
 DrawFromDistribution::createDistribInput()
 {
-	DistribInput* i = NULL;
+	DistribInput* di = NULL;
 
 	try
 	{
 		DISTRIB_CREATE_NS(distribns, getSBMLNamespaces());
-		i = new DistribInput(distribns);
+		di = new DistribInput(distribns);
 	}
 	catch (...)
 	{
@@ -476,12 +357,12 @@ DrawFromDistribution::createDistribInput()
 		 */
 	}
 
-	if(i != NULL)
+	if(di != NULL)
 	{
-		mDistribInputs.appendAndOwn(i);
+		mDistribInputs.appendAndOwn(di);
 	}
 
-	return i;
+	return di;
 }
 
 
@@ -526,6 +407,9 @@ DrawFromDistribution::hasRequiredElements () const
 {
 	bool allPresent = true;
 
+	if (isSetDistribution() == false)
+		allPresent = false;
+
 	return allPresent;
 }
 
@@ -539,22 +423,15 @@ void
 DrawFromDistribution::writeElements (XMLOutputStream& stream) const
 {
 	SBase::writeElements(stream);
+
 	if (getNumDistribInputs() > 0)
 	{
 		mDistribInputs.write(stream);
 	}
 
-	if (isSetPredefinedPDF() == true)
+	if (isSetDistribution() == true)
 	{
-		;
-	}
-	if (isSetExplicitPMF() == true)
-	{
-		;
-	}
-	if (isSetExplicitPDF() == true)
-	{
-		;
+    mDistribution->write(stream);
 	}
 	SBase::writeExtensionElements(stream);
 }
@@ -571,8 +448,13 @@ DrawFromDistribution::writeElements (XMLOutputStream& stream) const
 bool
 DrawFromDistribution::accept (SBMLVisitor& v) const
 {
-	return false;
+	v.visit(*this);
 
+/* VISIT CHILDREN */
+
+	v.leave(*this);
+
+	return true;
 }
 
 
@@ -637,36 +519,37 @@ DrawFromDistribution::createObject(XMLInputStream& stream)
 {
 	const string& name = stream.peek().getName();
 	SBase* object = NULL;
-  
-  DISTRIB_CREATE_NS(distribns, getSBMLNamespaces());
+
+	DISTRIB_CREATE_NS(distribns, getSBMLNamespaces());
 
 	if (name == "listOfDistribInputs")
 	{
 		object = &mDistribInputs;
 	}
-	else if (name == "predefinedPDF")
-	{
-    mPredefinedPDF = new PredefinedPDF(distribns);
-
-    object      = mPredefinedPDF;
-	}
-	else if (name == "explicitPMF")
-	{
-    mExplicitPMF = new ExplicitPMF(distribns);
-
-    object      = mExplicitPMF;
-	}
-	else if (name == "explicitPDF")
-	{
-    mExplicitPDF = new ExplicitPDF(distribns);
-
-    object      = mExplicitPDF;
-	}
+	//else if (name == "Distribution")
+	//{
+	//	mDistribution = new Distribution(distribns);
+	//	object = mDistribution;
+	//}
 
 	return object;
 }
 
+bool
+DrawFromDistribution::readOtherXML(XMLInputStream& stream)
+{
+  const string& name = stream.peek().getName();
 
+  if (name == "Distribution")
+  {
+    delete mDistribution;
+    mDistribution = new XMLNode(stream);
+
+    return true;
+  }
+
+  return false;
+}
 	/** @endcond doxygen-libsbml-internal */
 
 
@@ -695,7 +578,37 @@ void
 DrawFromDistribution::readAttributes (const XMLAttributes& attributes,
                              const ExpectedAttributes& expectedAttributes)
 {
+	const unsigned int sbmlLevel   = getLevel  ();
+	const unsigned int sbmlVersion = getVersion();
+
+	unsigned int numErrs;
+
 	SBase::readAttributes(attributes, expectedAttributes);
+
+	// look to see whether an unknown attribute error was logged
+	if (getErrorLog() != NULL)
+	{
+		numErrs = getErrorLog()->getNumErrors();
+		for (int n = numErrs-1; n >= 0; n--)
+		{
+			if (getErrorLog()->getError(n)->getErrorId() == UnknownPackageAttribute)
+			{
+				const std::string details =
+				                  getErrorLog()->getError(n)->getMessage();
+				getErrorLog()->remove(UnknownPackageAttribute);
+				getErrorLog()->logPackageError("distrib", DistribUnknownError,
+				               getPackageVersion(), sbmlLevel, sbmlVersion, details);
+			}
+			else if (getErrorLog()->getError(n)->getErrorId() == UnknownCoreAttribute)
+			{
+				const std::string details =
+				                  getErrorLog()->getError(n)->getMessage();
+				getErrorLog()->remove(UnknownCoreAttribute);
+				getErrorLog()->logPackageError("distrib", DistribUnknownError,
+				               getPackageVersion(), sbmlLevel, sbmlVersion, details);
+			}
+		}
+	}
 
 	bool assigned = false;
 
