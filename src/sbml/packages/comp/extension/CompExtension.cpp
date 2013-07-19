@@ -287,38 +287,41 @@ CompExtension::init()
 
   SBaseExtensionPoint sbmldocExtPoint("core",SBML_DOCUMENT);
   SBaseExtensionPoint modelExtPoint("core",SBML_MODEL);
-  SBaseExtensionPoint compExtPoint("core",SBML_COMPARTMENT);
-  SBaseExtensionPoint constraintExtPoint("core",SBML_CONSTRAINT);
-  SBaseExtensionPoint eventExtPoint("core",SBML_EVENT);
-  SBaseExtensionPoint eventAssgnExtPoint("core",SBML_EVENT_ASSIGNMENT);
-  SBaseExtensionPoint funcDefnExtPoint("core",SBML_FUNCTION_DEFINITION);
-  SBaseExtensionPoint initAssgnExtPoint("core",SBML_INITIAL_ASSIGNMENT);
-  SBaseExtensionPoint kLawExtPoint("core",SBML_KINETIC_LAW);
-  SBaseExtensionPoint listOfExtPoint("core",SBML_LIST_OF);
-  SBaseExtensionPoint paramExtPoint("core",SBML_PARAMETER);
-  SBaseExtensionPoint reactionExtPoint("core",SBML_REACTION);
-  SBaseExtensionPoint ruleExtPoint("core",SBML_RULE);
-  SBaseExtensionPoint speciesExtPoint("core",SBML_SPECIES);
-  SBaseExtensionPoint spRefExtPoint("core",SBML_SPECIES_REFERENCE);
-  SBaseExtensionPoint modSpRefExtPoint("core",SBML_MODIFIER_SPECIES_REFERENCE);
-  SBaseExtensionPoint unitDefnExtPoint("core",SBML_UNIT_DEFINITION);
-  SBaseExtensionPoint unitExtPoint("core",SBML_UNIT);
-  SBaseExtensionPoint algebraicRuleExtPoint("core",SBML_ALGEBRAIC_RULE);
-  SBaseExtensionPoint assgnRuleExtPoint("core",SBML_ASSIGNMENT_RULE);
-  SBaseExtensionPoint rateRuleExtPoint("core",SBML_RATE_RULE);
-  SBaseExtensionPoint triggerExtPoint("core",SBML_TRIGGER);
-  SBaseExtensionPoint delayExtPoint("core",SBML_DELAY);
-  SBaseExtensionPoint priorityExtPoint("core",SBML_PRIORITY);
-  SBaseExtensionPoint stoichMathExtPoint("core",SBML_STOICHIOMETRY_MATH);//LS DEBUG switch to priority
-  SBaseExtensionPoint localParamExtPoint("core",SBML_LOCAL_PARAMETER);
-  SBaseExtensionPoint modelDefintionExtPoint("comp", SBML_COMP_MODELDEFINITION);
-  SBaseExtensionPoint deletionExtPoint("comp", SBML_COMP_DELETION);
-  SBaseExtensionPoint externalModelDefintionExtPoint("comp", SBML_COMP_EXTERNALMODELDEFINITION);
-  SBaseExtensionPoint portExtPoint("comp", SBML_COMP_PORT);
-  SBaseExtensionPoint replacedElementExtPoint("comp", SBML_COMP_REPLACEDELEMENT);
-  SBaseExtensionPoint replacedByExtPoint("comp", SBML_COMP_REPLACEDBY);
-  SBaseExtensionPoint sBaseRefExtPoint("comp", SBML_COMP_SBASEREF);
-  SBaseExtensionPoint submodelExtPoint("comp", SBML_COMP_SUBMODEL);
+  
+  //SBaseExtensionPoint compExtPoint("core",SBML_COMPARTMENT);
+  //SBaseExtensionPoint constraintExtPoint("core",SBML_CONSTRAINT);
+  //SBaseExtensionPoint eventExtPoint("core",SBML_EVENT);
+  //SBaseExtensionPoint eventAssgnExtPoint("core",SBML_EVENT_ASSIGNMENT);
+  //SBaseExtensionPoint funcDefnExtPoint("core",SBML_FUNCTION_DEFINITION);
+  //SBaseExtensionPoint initAssgnExtPoint("core",SBML_INITIAL_ASSIGNMENT);
+  //SBaseExtensionPoint kLawExtPoint("core",SBML_KINETIC_LAW);
+  //SBaseExtensionPoint listOfExtPoint("core",SBML_LIST_OF);
+  //SBaseExtensionPoint paramExtPoint("core",SBML_PARAMETER);
+  //SBaseExtensionPoint reactionExtPoint("core",SBML_REACTION);
+  //SBaseExtensionPoint ruleExtPoint("core",SBML_RULE);
+  //SBaseExtensionPoint speciesExtPoint("core",SBML_SPECIES);
+  //SBaseExtensionPoint spRefExtPoint("core",SBML_SPECIES_REFERENCE);
+  //SBaseExtensionPoint modSpRefExtPoint("core",SBML_MODIFIER_SPECIES_REFERENCE);
+  //SBaseExtensionPoint unitDefnExtPoint("core",SBML_UNIT_DEFINITION);
+  //SBaseExtensionPoint unitExtPoint("core",SBML_UNIT);
+  //SBaseExtensionPoint algebraicRuleExtPoint("core",SBML_ALGEBRAIC_RULE);
+  //SBaseExtensionPoint assgnRuleExtPoint("core",SBML_ASSIGNMENT_RULE);
+  //SBaseExtensionPoint rateRuleExtPoint("core",SBML_RATE_RULE);
+  //SBaseExtensionPoint triggerExtPoint("core",SBML_TRIGGER);
+  //SBaseExtensionPoint delayExtPoint("core",SBML_DELAY);
+  //SBaseExtensionPoint priorityExtPoint("core",SBML_PRIORITY);
+  //SBaseExtensionPoint stoichMathExtPoint("core",SBML_STOICHIOMETRY_MATH);//LS DEBUG switch to priority
+  //SBaseExtensionPoint localParamExtPoint("core",SBML_LOCAL_PARAMETER);
+  //SBaseExtensionPoint modelDefintionExtPoint("comp", SBML_COMP_MODELDEFINITION);
+  //SBaseExtensionPoint deletionExtPoint("comp", SBML_COMP_DELETION);
+  //SBaseExtensionPoint externalModelDefintionExtPoint("comp", SBML_COMP_EXTERNALMODELDEFINITION);
+  //SBaseExtensionPoint portExtPoint("comp", SBML_COMP_PORT);
+  //SBaseExtensionPoint replacedElementExtPoint("comp", SBML_COMP_REPLACEDELEMENT);
+  //SBaseExtensionPoint replacedByExtPoint("comp", SBML_COMP_REPLACEDBY);
+  //SBaseExtensionPoint sBaseRefExtPoint("comp", SBML_COMP_SBASEREF);
+  //SBaseExtensionPoint submodelExtPoint("comp", SBML_COMP_SUBMODEL);
+  
+  SBaseExtensionPoint sbaseExtPoint("all", SBML_GENERIC_SBASE);
 
 
   //CompSBMLDocumentPlugin only extends SBMLDocument:
@@ -326,76 +329,81 @@ CompExtension::init()
 
   //CompSBasePlugin extends absolutely everything created with SBase:
   SBasePluginCreator<CompModelPlugin, CompExtension> modelPluginCreator(modelExtPoint,packageURIs);
-  SBasePluginCreator<CompSBasePlugin, CompExtension> compPluginCreator(compExtPoint,packageURIs);
-  SBasePluginCreator<CompSBasePlugin, CompExtension> constraintPluginCreator(constraintExtPoint,packageURIs);
-  SBasePluginCreator<CompSBasePlugin, CompExtension> eventPluginCreator(eventExtPoint,packageURIs);
-  SBasePluginCreator<CompSBasePlugin, CompExtension> eventAssgnPluginCreator(eventAssgnExtPoint,packageURIs);
-  SBasePluginCreator<CompSBasePlugin, CompExtension> funcDefnPluginCreator(funcDefnExtPoint,packageURIs);
-  SBasePluginCreator<CompSBasePlugin, CompExtension> initAssgnPluginCreator(initAssgnExtPoint,packageURIs);
-  SBasePluginCreator<CompSBasePlugin, CompExtension> kLawPluginCreator(kLawExtPoint,packageURIs);
-  SBasePluginCreator<CompSBasePlugin, CompExtension> listOfPluginCreator(listOfExtPoint,packageURIs);
-  SBasePluginCreator<CompSBasePlugin, CompExtension> paramPluginCreator(paramExtPoint,packageURIs);
-  SBasePluginCreator<CompSBasePlugin, CompExtension> reactionPluginCreator(reactionExtPoint,packageURIs);
-  SBasePluginCreator<CompSBasePlugin, CompExtension> rulePluginCreator(ruleExtPoint,packageURIs);
-  SBasePluginCreator<CompSBasePlugin, CompExtension> speciesPluginCreator(speciesExtPoint,packageURIs);
-  SBasePluginCreator<CompSBasePlugin, CompExtension> spRefPluginCreator(spRefExtPoint,packageURIs);
-  SBasePluginCreator<CompSBasePlugin, CompExtension> modeSpRefPluginCreator(modSpRefExtPoint,packageURIs);
-  SBasePluginCreator<CompSBasePlugin, CompExtension> unitDefnPluginCreator(unitDefnExtPoint,packageURIs);
-  SBasePluginCreator<CompSBasePlugin, CompExtension> unitPluginCreator(unitExtPoint,packageURIs);
-  SBasePluginCreator<CompSBasePlugin, CompExtension> algebraicRulePluginCreator(algebraicRuleExtPoint,packageURIs);
-  SBasePluginCreator<CompSBasePlugin, CompExtension> assignRulePluginCreator(assgnRuleExtPoint,packageURIs);
-  SBasePluginCreator<CompSBasePlugin, CompExtension> rateRulePluginCreator(rateRuleExtPoint,packageURIs);
-  SBasePluginCreator<CompSBasePlugin, CompExtension> triggerPluginCreator(triggerExtPoint,packageURIs);
-  SBasePluginCreator<CompSBasePlugin, CompExtension> delayPluginCreator(delayExtPoint,packageURIs);
-  SBasePluginCreator<CompSBasePlugin, CompExtension> priorityPluginCreator(priorityExtPoint,packageURIs);
-  SBasePluginCreator<CompSBasePlugin, CompExtension> stoichMathPluginCreator(stoichMathExtPoint,packageURIs);
-  SBasePluginCreator<CompSBasePlugin, CompExtension> localParamPluginCreator(localParamExtPoint,packageURIs);
-  SBasePluginCreator<CompModelPlugin, CompExtension> modelDefinitonPluginCreator(modelDefintionExtPoint,packageURIs);
-  SBasePluginCreator<CompSBasePlugin, CompExtension> deletionPluginCreator(deletionExtPoint,packageURIs);
-  SBasePluginCreator<CompSBasePlugin, CompExtension> externalModelDefintionPluginCreator(externalModelDefintionExtPoint,packageURIs);
-  SBasePluginCreator<CompSBasePlugin, CompExtension> portPluginCreator(portExtPoint,packageURIs);
-  SBasePluginCreator<CompSBasePlugin, CompExtension> replacedByPluginCreator(replacedByExtPoint,packageURIs);
-  SBasePluginCreator<CompSBasePlugin, CompExtension> replacedElementPluginCreator(replacedElementExtPoint,packageURIs);
-  SBasePluginCreator<CompSBasePlugin, CompExtension> sBaseRefPluginCreator(sBaseRefExtPoint,packageURIs);
-  SBasePluginCreator<CompSBasePlugin, CompExtension> submodelPluginCreator(submodelExtPoint,packageURIs);
+  
+  //SBasePluginCreator<CompSBasePlugin, CompExtension> compPluginCreator(compExtPoint,packageURIs);
+  //SBasePluginCreator<CompSBasePlugin, CompExtension> constraintPluginCreator(constraintExtPoint,packageURIs);
+  //SBasePluginCreator<CompSBasePlugin, CompExtension> eventPluginCreator(eventExtPoint,packageURIs);
+  //SBasePluginCreator<CompSBasePlugin, CompExtension> eventAssgnPluginCreator(eventAssgnExtPoint,packageURIs);
+  //SBasePluginCreator<CompSBasePlugin, CompExtension> funcDefnPluginCreator(funcDefnExtPoint,packageURIs);
+  //SBasePluginCreator<CompSBasePlugin, CompExtension> initAssgnPluginCreator(initAssgnExtPoint,packageURIs);
+  //SBasePluginCreator<CompSBasePlugin, CompExtension> kLawPluginCreator(kLawExtPoint,packageURIs);
+  //SBasePluginCreator<CompSBasePlugin, CompExtension> listOfPluginCreator(listOfExtPoint,packageURIs);
+  //SBasePluginCreator<CompSBasePlugin, CompExtension> paramPluginCreator(paramExtPoint,packageURIs);
+  //SBasePluginCreator<CompSBasePlugin, CompExtension> reactionPluginCreator(reactionExtPoint,packageURIs);
+  //SBasePluginCreator<CompSBasePlugin, CompExtension> rulePluginCreator(ruleExtPoint,packageURIs);
+  //SBasePluginCreator<CompSBasePlugin, CompExtension> speciesPluginCreator(speciesExtPoint,packageURIs);
+  //SBasePluginCreator<CompSBasePlugin, CompExtension> spRefPluginCreator(spRefExtPoint,packageURIs);
+  //SBasePluginCreator<CompSBasePlugin, CompExtension> modeSpRefPluginCreator(modSpRefExtPoint,packageURIs);
+  //SBasePluginCreator<CompSBasePlugin, CompExtension> unitDefnPluginCreator(unitDefnExtPoint,packageURIs);
+  //SBasePluginCreator<CompSBasePlugin, CompExtension> unitPluginCreator(unitExtPoint,packageURIs);
+  //SBasePluginCreator<CompSBasePlugin, CompExtension> algebraicRulePluginCreator(algebraicRuleExtPoint,packageURIs);
+  //SBasePluginCreator<CompSBasePlugin, CompExtension> assignRulePluginCreator(assgnRuleExtPoint,packageURIs);
+  //SBasePluginCreator<CompSBasePlugin, CompExtension> rateRulePluginCreator(rateRuleExtPoint,packageURIs);
+  //SBasePluginCreator<CompSBasePlugin, CompExtension> triggerPluginCreator(triggerExtPoint,packageURIs);
+  //SBasePluginCreator<CompSBasePlugin, CompExtension> delayPluginCreator(delayExtPoint,packageURIs);
+  //SBasePluginCreator<CompSBasePlugin, CompExtension> priorityPluginCreator(priorityExtPoint,packageURIs);
+  //SBasePluginCreator<CompSBasePlugin, CompExtension> stoichMathPluginCreator(stoichMathExtPoint,packageURIs);
+  //SBasePluginCreator<CompSBasePlugin, CompExtension> localParamPluginCreator(localParamExtPoint,packageURIs);
+  //SBasePluginCreator<CompModelPlugin, CompExtension> modelDefinitonPluginCreator(modelDefintionExtPoint,packageURIs);
+  //SBasePluginCreator<CompSBasePlugin, CompExtension> deletionPluginCreator(deletionExtPoint,packageURIs);
+  //SBasePluginCreator<CompSBasePlugin, CompExtension> externalModelDefintionPluginCreator(externalModelDefintionExtPoint,packageURIs);
+  //SBasePluginCreator<CompSBasePlugin, CompExtension> portPluginCreator(portExtPoint,packageURIs);
+  //SBasePluginCreator<CompSBasePlugin, CompExtension> replacedByPluginCreator(replacedByExtPoint,packageURIs);
+  //SBasePluginCreator<CompSBasePlugin, CompExtension> replacedElementPluginCreator(replacedElementExtPoint,packageURIs);
+  //SBasePluginCreator<CompSBasePlugin, CompExtension> sBaseRefPluginCreator(sBaseRefExtPoint,packageURIs);
+  //SBasePluginCreator<CompSBasePlugin, CompExtension> submodelPluginCreator(submodelExtPoint,packageURIs);
+
+  SBasePluginCreator<CompSBasePlugin, CompExtension> sbasePluginCreator(sbaseExtPoint,packageURIs);
 
   // 4. Adds the above SBasePluginCreatorBase derived objects to the SBMLExtension derived object.
 
   compExtension.addSBasePluginCreator(&sbmldocPluginCreator);
   compExtension.addSBasePluginCreator(&modelPluginCreator);
-  compExtension.addSBasePluginCreator(&compPluginCreator);
-  compExtension.addSBasePluginCreator(&constraintPluginCreator);
-  compExtension.addSBasePluginCreator(&eventPluginCreator);
-  compExtension.addSBasePluginCreator(&eventAssgnPluginCreator);
-  compExtension.addSBasePluginCreator(&funcDefnPluginCreator);
-  compExtension.addSBasePluginCreator(&initAssgnPluginCreator);
-  compExtension.addSBasePluginCreator(&kLawPluginCreator);
-  compExtension.addSBasePluginCreator(&listOfPluginCreator);
-  compExtension.addSBasePluginCreator(&paramPluginCreator);
-  compExtension.addSBasePluginCreator(&reactionPluginCreator);
-  compExtension.addSBasePluginCreator(&rulePluginCreator);
-  compExtension.addSBasePluginCreator(&speciesPluginCreator);
-  compExtension.addSBasePluginCreator(&spRefPluginCreator);
-  compExtension.addSBasePluginCreator(&modeSpRefPluginCreator);
-  compExtension.addSBasePluginCreator(&unitDefnPluginCreator);
-  compExtension.addSBasePluginCreator(&unitPluginCreator);
-  compExtension.addSBasePluginCreator(&algebraicRulePluginCreator);
-  compExtension.addSBasePluginCreator(&assignRulePluginCreator);
-  compExtension.addSBasePluginCreator(&rateRulePluginCreator);
-  compExtension.addSBasePluginCreator(&triggerPluginCreator);
-  compExtension.addSBasePluginCreator(&delayPluginCreator);
-  compExtension.addSBasePluginCreator(&priorityPluginCreator);
-  compExtension.addSBasePluginCreator(&stoichMathPluginCreator);
-  compExtension.addSBasePluginCreator(&localParamPluginCreator);
-  compExtension.addSBasePluginCreator(&modelDefinitonPluginCreator);
-  compExtension.addSBasePluginCreator(&deletionPluginCreator);
-  compExtension.addSBasePluginCreator(&externalModelDefintionPluginCreator);
-  compExtension.addSBasePluginCreator(&portPluginCreator);
-  compExtension.addSBasePluginCreator(&replacedByPluginCreator);
-  compExtension.addSBasePluginCreator(&replacedElementPluginCreator);
-  compExtension.addSBasePluginCreator(&sBaseRefPluginCreator);
-  compExtension.addSBasePluginCreator(&submodelPluginCreator);
+  
+  //compExtension.addSBasePluginCreator(&compPluginCreator);
+  //compExtension.addSBasePluginCreator(&constraintPluginCreator);
+  //compExtension.addSBasePluginCreator(&eventPluginCreator);
+  //compExtension.addSBasePluginCreator(&eventAssgnPluginCreator);
+  //compExtension.addSBasePluginCreator(&funcDefnPluginCreator);
+  //compExtension.addSBasePluginCreator(&initAssgnPluginCreator);
+  //compExtension.addSBasePluginCreator(&kLawPluginCreator);
+  //compExtension.addSBasePluginCreator(&listOfPluginCreator);
+  //compExtension.addSBasePluginCreator(&paramPluginCreator);
+  //compExtension.addSBasePluginCreator(&reactionPluginCreator);
+  //compExtension.addSBasePluginCreator(&rulePluginCreator);
+  //compExtension.addSBasePluginCreator(&speciesPluginCreator);
+  //compExtension.addSBasePluginCreator(&spRefPluginCreator);
+  //compExtension.addSBasePluginCreator(&modeSpRefPluginCreator);
+  //compExtension.addSBasePluginCreator(&unitDefnPluginCreator);
+  //compExtension.addSBasePluginCreator(&unitPluginCreator);
+  //compExtension.addSBasePluginCreator(&algebraicRulePluginCreator);
+  //compExtension.addSBasePluginCreator(&assignRulePluginCreator);
+  //compExtension.addSBasePluginCreator(&rateRulePluginCreator);
+  //compExtension.addSBasePluginCreator(&triggerPluginCreator);
+  //compExtension.addSBasePluginCreator(&delayPluginCreator);
+  //compExtension.addSBasePluginCreator(&priorityPluginCreator);
+  //compExtension.addSBasePluginCreator(&stoichMathPluginCreator);
+  //compExtension.addSBasePluginCreator(&localParamPluginCreator);
+  //compExtension.addSBasePluginCreator(&modelDefinitonPluginCreator);
+  //compExtension.addSBasePluginCreator(&deletionPluginCreator);
+  //compExtension.addSBasePluginCreator(&externalModelDefintionPluginCreator);
+  //compExtension.addSBasePluginCreator(&portPluginCreator);
+  //compExtension.addSBasePluginCreator(&replacedByPluginCreator);
+  //compExtension.addSBasePluginCreator(&replacedElementPluginCreator);
+  //compExtension.addSBasePluginCreator(&sBaseRefPluginCreator);
+  //compExtension.addSBasePluginCreator(&submodelPluginCreator);
 
+  compExtension.addSBasePluginCreator(&sbasePluginCreator);
 
   // 5. Registers the SBMLExtension derived object to SBMLExtensionRegistry
 

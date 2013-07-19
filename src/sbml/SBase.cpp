@@ -568,6 +568,7 @@ SBase::loadPlugins(SBMLNamespaces *sbmlns)
   {
     int numxmlns= xmlns->getLength();
     SBaseExtensionPoint extPoint(getPackageName(), getTypeCode());
+    SBaseExtensionPoint genericPoint("all", SBML_GENERIC_SBASE);
 
     for (int i=0; i < numxmlns; i++)
     {
@@ -584,6 +585,12 @@ SBase::loadPlugins(SBMLNamespaces *sbmlns)
 #endif
         const std::string &prefix = xmlns->getPrefix(i);
         const SBasePluginCreatorBase* sbPluginCreator = sbmlext->getSBasePluginCreator(extPoint);
+
+        if (sbPluginCreator == NULL)
+        {
+          sbPluginCreator = sbmlext->getSBasePluginCreator(genericPoint);
+        }
+
         if (sbPluginCreator)
         {
           // (debug)

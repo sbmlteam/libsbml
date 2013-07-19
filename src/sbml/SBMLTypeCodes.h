@@ -124,6 +124,7 @@ typedef enum
     , SBML_STOICHIOMETRY_MATH         = 29
     , SBML_LOCAL_PARAMETER            = 30
     , SBML_PRIORITY                   = 31
+    , SBML_GENERIC_SBASE              = 32
 } SBMLTypeCode_t;
 
 
