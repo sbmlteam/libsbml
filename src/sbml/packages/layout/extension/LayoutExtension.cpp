@@ -29,12 +29,14 @@
 #include <sbml/extension/SBMLExtensionRegister.h>
 #include <sbml/extension/SBMLExtensionRegistry.h>
 #include <sbml/extension/SBasePluginCreator.h>
-#include <sbml/extension/SBMLDocumentPluginNotRequired.h>
-#include <sbml/SBMLDocument.h>
+#include <sbml/extension/SBMLDocumentPlugin.h>
+
 
 #include <sbml/packages/layout/extension/LayoutExtension.h>
 #include <sbml/packages/layout/extension/LayoutModelPlugin.h>
 #include <sbml/packages/layout/extension/LayoutSpeciesReferencePlugin.h>
+#include <sbml/packages/layout/extension/LayoutSBMLDocumentPlugin.h>
+#include <sbml/packages/layout/validator/LayoutSBMLErrorTable.h>
 
 
 #ifdef __cplusplus
@@ -397,7 +399,7 @@ LayoutExtension::init()
   SBaseExtensionPoint sprExtPoint("core",SBML_SPECIES_REFERENCE);
   SBaseExtensionPoint msprExtPoint("core",SBML_MODIFIER_SPECIES_REFERENCE);
 
-  SBasePluginCreator<SBMLDocumentPluginNotRequired,LayoutExtension> sbmldocPluginCreator(sbmldocExtPoint,packageURIs);
+	SBasePluginCreator<LayoutSBMLDocumentPlugin, LayoutExtension> sbmldocPluginCreator(sbmldocExtPoint, packageURIs);
   SBasePluginCreator<LayoutModelPlugin,  LayoutExtension>           modelPluginCreator(modelExtPoint,packageURIs);
   SBasePluginCreator<LayoutSpeciesReferencePlugin, LayoutExtension> sprPluginCreator(sprExtPoint,L2packageURI);
   SBasePluginCreator<LayoutSpeciesReferencePlugin, LayoutExtension> msprPluginCreator(msprExtPoint,L2packageURI);
@@ -483,6 +485,59 @@ LayoutExtension::isInUse(SBMLDocument *doc) const
 
   return (plugin->getNumLayouts() > 0);
 }
+
+/*
+ * Return error table entry. 
+ */
+packageErrorTableEntry
+LayoutExtension::getErrorTable(unsigned int index) const
+{
+	return layoutErrorTable[index];
+}
+
+	/** @endcond doxygen-libsbml-internal */
+
+
+	/** @cond doxygen-libsbml-internal */
+
+/*
+ * Return error table index for this id. 
+ */
+unsigned int
+LayoutExtension::getErrorTableIndex(unsigned int errorId) const
+{
+	unsigned int tableSize = sizeof(layoutErrorTable)/sizeof(layoutErrorTable[0]);
+	unsigned int index = 0;
+
+	for(unsigned int i = 0; i < tableSize; i++)
+	{
+		if (errorId == layoutErrorTable[i].code)
+		{
+			index = i;
+			break;
+		}
+
+	}
+
+	return index;
+}
+
+	/** @endcond doxygen-libsbml-internal */
+
+
+	/** @cond doxygen-libsbml-internal */
+
+/*
+ * Return error offset. 
+ */
+unsigned int
+LayoutExtension::getErrorIdOffset() const
+{
+	return 6000000;
+}
+
+	/** @endcond doxygen-libsbml-internal */
+
 
 
 #endif  /* __cplusplus */

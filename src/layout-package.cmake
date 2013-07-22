@@ -36,7 +36,7 @@ add_definitions( -DUSE_LAYOUT )
 #build up sources
 set(LAYOUT_SOURCES)
 # go through all directtories: common, extension, sbml and util
-foreach(dir common extension sbml util)
+foreach(dir common extension sbml util validator validator/constraints)
 
 	
 	# file sources
@@ -66,6 +66,7 @@ SET(LIBSBML_SOURCES ${LIBSBML_SOURCES} ${LAYOUT_SOURCES})
 if(WITH_CHECK)
 
 	add_subdirectory(sbml/packages/layout/sbml/test)
+	add_subdirectory(sbml/packages/layout/validator/test)
 
 endif()
 

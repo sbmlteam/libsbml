@@ -33,6 +33,8 @@
 
 #include <sbml/util/ElementFilter.h>
 
+#include <sbml/packages/layout/validator/LayoutSBMLError.h>
+
 #include <iostream>
 using namespace std;
 
@@ -125,6 +127,12 @@ LayoutModelPlugin::createObject(XMLInputStream& stream)
   {
     if ( name == "listOfLayouts" ) 
     {
+      if (mLayouts.size() != 0)
+      {
+        getErrorLog()->logPackageError("layout", LayoutOnlyOneEachListOf, 
+          getPackageVersion(), getLevel(), getVersion());
+      }
+
       //cout << "[DEBUG] LayoutModelPlugin::createObject create listOfLayouts" << endl;
       object = &mLayouts;
     
@@ -480,6 +488,28 @@ LayoutModelPlugin::enablePackageInternal(const std::string& pkgURI,
 {
   mLayouts.enablePackageInternal(pkgURI,pkgPrefix,flag);
 }
+
+
+/*
+ * Accept the SBMLVisitor.
+ */
+bool
+LayoutModelPlugin::accept(SBMLVisitor& v) const
+{
+	const Model * model = static_cast<const Model * >(this->getParentSBMLObject());
+
+	v.visit(*model);
+	v.leave(*model);
+
+	for(unsigned int i = 0; i < getNumLayouts(); i++)
+	{
+		getLayout(i)->accept(v);
+	}
+
+	return true;
+}
+
+
 
 
 LIBSBML_CPP_NAMESPACE_END
