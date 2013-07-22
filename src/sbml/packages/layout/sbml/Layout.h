@@ -638,6 +638,7 @@ class LIBSBML_EXTERN Layout : public SBase
 protected:
   /** @cond doxygen-libsbml-internal */
   std::string mId;
+  std::string mName;
   Dimensions mDimensions;
   ListOfCompartmentGlyphs mCompartmentGlyphs;
   ListOfSpeciesGlyphs mSpeciesGlyphs;
@@ -745,6 +746,31 @@ public:
    * Unsets the value of the "id" attribute of this Layout.
    */
   virtual int unsetId ();
+
+
+  /**
+   * Returns the value of the "name" attribute of this Layout.
+   */
+  virtual const std::string& getName () const;
+
+
+  /**
+   * Predicate returning @c true or @c false depending on whether this
+   * Layout's "name" attribute has been set.
+   */
+  virtual bool isSetName () const;
+
+  
+  /**
+   * Sets the value of the "name" attribute of this Layout.
+   */
+  virtual int setName (const std::string& name);
+
+
+  /**
+   * Unsets the value of the "name" attribute of this Layout.
+   */
+  virtual int unsetName ();
 
 
   /**

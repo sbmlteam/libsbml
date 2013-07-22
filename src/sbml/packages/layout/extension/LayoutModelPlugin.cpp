@@ -129,7 +129,7 @@ LayoutModelPlugin::createObject(XMLInputStream& stream)
     {
       if (mLayouts.size() != 0)
       {
-        getErrorLog()->logPackageError("layout", LayoutOnlyOneEachListOf, 
+        getErrorLog()->logPackageError("layout", LayoutOnlyOneLOLayouts, 
           getPackageVersion(), getLevel(), getVersion());
       }
 

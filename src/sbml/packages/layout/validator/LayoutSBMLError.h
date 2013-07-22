@@ -46,10 +46,28 @@ typedef enum
   , LayoutAttributeRequiredMissing          = 6020101
   , LayoutAttributeRequiredMustBeBoolean    = 6020102
   , LayoutRequiredFalse                     = 6020103
-  , LayoutOnlyOneEachListOf                 = 6020201
-  , LayoutNoEmptyListOfs                    = 6020202
+  , LayoutOnlyOneLOLayouts                  = 6020201
+  , LayoutLOLayoutsNotEmpty                 = 6020202
   , LayoutLOLayoutsAllowedElements          = 6020203
   , LayoutLOLayoutsAllowedAttributes        = 6020204
+
+  , LayoutLayoutAllowedElements             = 6020301
+  , LayoutLayoutAllowedCoreAttributes       = 6020302
+  , LayoutOnlyOneEachListOf                 = 6020303
+  , LayoutNoEmptyListOfs                    = 6020304
+  , LayoutLayoutAllowedAttributes           = 6020305
+  , LayoutLayoutNameMustBeString            = 6020306
+  , LayoutLOCompGlyphAllowedAttributes      = 6020307
+  , LayoutLOCompGlyphAllowedElements        = 6020308
+  , LayoutLOSpeciesGlyphAllowedAttributes   = 6020309
+  , LayoutLOSpeciesGlyphAllowedElements     = 6020310
+  , LayoutLORnGlyphAllowedAttributes        = 6020311
+  , LayoutLORnGlyphAllowedElements          = 6020312
+  , LayoutLOAddGOAllowedAttribut            = 6020313
+  , LayoutLOAddGOAllowedElements            = 6020314
+  , LayoutLayoutMustHaveDimensions          = 6020315
+  , LayoutLOTextGlyphAllowedAttributes      = 6020316
+  , LayoutLOTextGlyphAllowedElements        = 6020317
 
 
 }  LayoutSBMLErrorCode_t;

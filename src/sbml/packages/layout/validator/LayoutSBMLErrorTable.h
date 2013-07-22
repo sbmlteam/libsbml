@@ -131,7 +131,7 @@ static const packageErrorTableEntry layoutErrorTable[] =
   },
 
   // 6020201
-  { LayoutOnlyOneEachListOf, 
+  { LayoutOnlyOneLOLayouts, 
     "Only one listOfLayouts on <model>",
     LIBSBML_CAT_GENERAL_CONSISTENCY, 
     LIBSBML_SEV_ERROR,
@@ -143,7 +143,7 @@ static const packageErrorTableEntry layoutErrorTable[] =
   },
 
   // 6020202
-  { LayoutNoEmptyListOfs, 
+  { LayoutLOLayoutsNotEmpty, 
     "ListOf elements cannot be empty",
     LIBSBML_CAT_GENERAL_CONSISTENCY, 
     LIBSBML_SEV_ERROR,
@@ -176,10 +176,217 @@ static const packageErrorTableEntry layoutErrorTable[] =
     "namespace are permitted on a <listOfLayouts> object. ",
     { "L3V1 Layout V1 Section 3.5"
     }
+  },
+
+  // 6020301
+  { LayoutLayoutAllowedElements, 
+    "Allowed elements on Layout",
+    LIBSBML_CAT_GENERAL_CONSISTENCY, 
+    LIBSBML_SEV_ERROR,
+    "A <layout> object may have the optional SBML Level 3 Core "
+    "subobjects for notes and annotations. No other elements from "
+    "the SBML Level 3 Core namespace are permitted on a <layout>.",
+    { "L3V1 Core Section 3.2"
+    }
+  },
+
+  // 6020302
+  { LayoutLayoutAllowedCoreAttributes, 
+    "Allowed core attributes on Layout",
+    LIBSBML_CAT_GENERAL_CONSISTENCY, 
+    LIBSBML_SEV_ERROR,
+    "A <layout> object may have the optional SBML Level~3 Core "
+    "attributes 'metaid' and 'sboTerm'. No other attributes from "
+    "the SBML Level 3 Core namespace are permitted on a <layout> object. ",
+    { "L3V1 Core Section 3.2"
+    }
+  },
+
+  // 6020303
+  { LayoutOnlyOneEachListOf, 
+    "Only one each listOf on <layout>",
+    LIBSBML_CAT_GENERAL_CONSISTENCY, 
+    LIBSBML_SEV_ERROR,
+    "There may be at most one instance of each of the following kinds "
+    "of objects within a <layout> object: <dimensions>, "
+    "<listOfCompartmentGlyphs>, <listOfSpeciesGlyphs>, <listOfReactionGlyphs>, "
+    "<listOfTextGlyphs>, <listOfAdditionalGraphicalObjects>.",
+    { "L3V1 Layout V1 Section 3.6"
+    }
+  },
+
+  // 6020304
+  { LayoutNoEmptyListOfs, 
+    "ListOf elements cannot be empty",
+    LIBSBML_CAT_GENERAL_CONSISTENCY, 
+    LIBSBML_SEV_ERROR,
+    "The various ListOf subobjects within a <layout> object are "
+    "optional, but if present, these container object must not be "
+    "empty.  Specifically, if any of the following classes of objects "
+    "are present on the <layout>, it must not be empty: "
+    "<listOfCompartmentGlyphs>, <listOfSpeciesGlyphs>, <listOfReactionGlyphs>, "
+    "<listOfTextGlyphs>, <listOfAdditionalGraphicalObjects>.",
+    { "L3V1 Layout V1 Section 3.6"
+    }
+  },
+
+  // 6020305
+  { LayoutLayoutAllowedAttributes, 
+    "<layout> must have 'id' and may have 'name'",
+    LIBSBML_CAT_GENERAL_CONSISTENCY, 
+    LIBSBML_SEV_ERROR,
+    "A <layout> object must have the required attribute 'id' and may "
+    "have the optional attribute 'name'. No other attributes from the "
+    "SBML Level~3 Layout namespace are permitted on a <layout> object.",
+    { "L3V1 Layout V1 Section 3.6"
+    }
+  },
+  
+  // 6020306
+  { LayoutLayoutNameMustBeString, 
+    "'name' must be string",
+    LIBSBML_CAT_GENERAL_CONSISTENCY, 
+    LIBSBML_SEV_ERROR,
+    "The attribute 'name' of a <layout> must be of the data type 'string'.",
+    { "L3V1 Layout V1 Section 3.6"
+    }
+  },
+  
+  // 6020307
+  { LayoutLOCompGlyphAllowedAttributes, 
+    "Attributes allowed on <listOfCompartmentGlyphs>.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY, 
+    LIBSBML_SEV_ERROR,
+    "A <listOfCompartmentGlyphs> object may have the optional 'metaid' "
+    "and 'sboTerm' defined by SBML Level~3 Core.  No other attributes "
+    "from the SBML Level~3 Core namespace or the Layout namespace are "
+    "permitted on a <listOfCompartmentGlyphs> object. ",
+    { "L3V1 Layout V1 Section 3.6"
+    }
+  },
+  
+  // 6020308
+  { LayoutLOCompGlyphAllowedElements, 
+    "Elements allowed on <listOfCompartmentGlyphs>.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY, 
+    LIBSBML_SEV_ERROR,
+    "Apart from the general notes and annotation subobjects permitted "
+    "on all SBML objects, a <listOfCompartmentGlyphs> container object "
+    "may only contain <compartmentGlyph> objects. ",
+    { "L3V1 Layout V1 Section 3.6"
+    }
+  },
+  
+  // 6020309
+  { LayoutLOSpeciesGlyphAllowedAttributes, 
+    "Attributes allowed on <listOfSpeciesGlyphs>.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY, 
+    LIBSBML_SEV_ERROR,
+    "A <listOfSpeciesGlyphs> object may have the optional 'metaid' "
+    "and 'sboTerm' defined by SBML Level~3 Core.  No other attributes "
+    "from the SBML Level~3 Core namespace or the Layout namespace are "
+    "permitted on a <listOfSpeciesGlyphs> object. ",
+    { "L3V1 Layout V1 Section 3.6"
+    }
+  },
+  
+  // 6020310
+  { LayoutLOSpeciesGlyphAllowedElements, 
+    "Elements allowed on <listOfSpeciesGlyphs>.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY, 
+    LIBSBML_SEV_ERROR,
+    "Apart from the general notes and annotation subobjects permitted "
+    "on all SBML objects, a <listOfSpeciesGlyphs> container object "
+    "may only contain <compartmentGlyph> objects. ",
+    { "L3V1 Layout V1 Section 3.6"
+    }
+  },
+  
+  // 6020311
+  { LayoutLORnGlyphAllowedAttributes, 
+    "Attributes allowed on <listOfReactionGlyphs>.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY, 
+    LIBSBML_SEV_ERROR,
+    "A <listOfReactionGlyphs> object may have the optional 'metaid' "
+    "and 'sboTerm' defined by SBML Level~3 Core.  No other attributes "
+    "from the SBML Level~3 Core namespace or the Layout namespace are "
+    "permitted on a <listOfReactionGlyphs> object. ",
+    { "L3V1 Layout V1 Section 3.6"
+    }
+  },
+  
+  // 6020312
+  { LayoutLORnGlyphAllowedElements, 
+    "Elements allowed on <listOfReactionGlyphs>.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY, 
+    LIBSBML_SEV_ERROR,
+    "Apart from the general notes and annotation subobjects permitted "
+    "on all SBML objects, a <listOfReactionGlyphs> container object "
+    "may only contain <compartmentGlyph> objects. ",
+    { "L3V1 Layout V1 Section 3.6"
+    }
+  },
+  
+  // 6020313
+  { LayoutLOAddGOAllowedAttribut, 
+    "Attributes allowed on <listOfAdditionalGraphicalObjectGlyphs>.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY, 
+    LIBSBML_SEV_ERROR,
+    "A <listOfAdditionalGraphicalObjectGlyphs> object may have the optional 'metaid' "
+    "and 'sboTerm' defined by SBML Level~3 Core.  No other attributes "
+    "from the SBML Level~3 Core namespace or the Layout namespace are "
+    "permitted on a <listOfAdditionalGraphicalObjectGlyphs> object. ",
+    { "L3V1 Layout V1 Section 3.6"
+    }
+  },
+  
+  // 6020314
+  { LayoutLOAddGOAllowedElements, 
+    "Elements allowed on <listOfAdditionalGraphicalObjectGlyphs>.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY, 
+    LIBSBML_SEV_ERROR,
+    "Apart from the general notes and annotation subobjects permitted "
+    "on all SBML objects, a <listOfAdditionalGraphicalObjectGlyphs> container object "
+    "may only contain <compartmentGlyph> objects. ",
+    { "L3V1 Layout V1 Section 3.6"
+    }
+  },
+  
+  // 6020315
+  { LayoutLayoutMustHaveDimensions, 
+    "Layout must have <dimensions>.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY, 
+    LIBSBML_SEV_ERROR,
+    "A <layout> object must contain exactly one <dimensions> object.",
+    { "L3V1 Layout V1 Section 3.6"
+    }
+  },
+ 
+  // 6020316
+  { LayoutLOTextGlyphAllowedAttributes, 
+    "Attributes allowed on <listOfTextGlyphs>.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY, 
+    LIBSBML_SEV_ERROR,
+    "A <listOfTextGlyphs> object may have the optional 'metaid' "
+    "and 'sboTerm' defined by SBML Level~3 Core.  No other attributes "
+    "from the SBML Level~3 Core namespace or the Layout namespace are "
+    "permitted on a <listOfTextGlyphs> object. ",
+    { "L3V1 Layout V1 Section 3.6"
+    }
+  },
+  
+  // 6020317
+  { LayoutLOTextGlyphAllowedElements, 
+    "Elements allowed on <listOfTextGlyphs>.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY, 
+    LIBSBML_SEV_ERROR,
+    "Apart from the general notes and annotation subobjects permitted "
+    "on all SBML objects, a <listOfTextGlyphs> container object "
+    "may only contain <compartmentGlyph> objects. ",
+    { "L3V1 Layout V1 Section 3.6"
+    }
   }
-
-
-
+  
 
 };
 
