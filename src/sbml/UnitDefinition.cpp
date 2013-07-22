@@ -1281,7 +1281,7 @@ UnitDefinition::printUnits(const UnitDefinition * ud, bool compact)
       for (unsigned int p = 0; p < ud->getNumUnits(); p++)
       {
 	      UnitKind_t kind = ud->getUnit(p)->getKind();
-	      double exp = ud->getUnit(p)->getExponent();
+	      double exp = ud->getUnit(p)->getExponentAsDouble();
         int scale = ud->getUnit(p)->getScale();
         double mult = ud->getUnit(p)->getMultiplier();
         mult = mult * pow(10.0, scale);
