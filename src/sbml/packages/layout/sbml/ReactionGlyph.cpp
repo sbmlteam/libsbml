@@ -57,6 +57,8 @@
 #include <sbml/packages/layout/sbml/SpeciesReferenceGlyph.h>
 #include <sbml/packages/layout/util/LayoutUtilities.h>
 #include <sbml/packages/layout/extension/LayoutExtension.h>
+#include <sbml/packages/layout/sbml/Layout.h>
+#include <sbml/packages/layout/validator/LayoutSBMLError.h>
 
 #include <sbml/xml/XMLNode.h>
 #include <sbml/xml/XMLToken.h>
@@ -619,17 +621,96 @@ ReactionGlyph::addExpectedAttributes(ExpectedAttributes& attributes)
 void ReactionGlyph::readAttributes (const XMLAttributes& attributes,
                                     const ExpectedAttributes& expectedAttributes)
 {
-  GraphicalObject::readAttributes(attributes,expectedAttributes);
+	const unsigned int sbmlLevel   = getLevel  ();
+	const unsigned int sbmlVersion = getVersion();
 
-  const unsigned int sbmlLevel   = getLevel  ();
-  const unsigned int sbmlVersion = getVersion();
+	unsigned int numErrs;
 
-  bool assigned = attributes.readInto("reaction", mReaction, getErrorLog(), false, getLine(), getColumn());
-  if (assigned && mReaction.empty())
-  {
-    logEmptyString(mReaction, sbmlLevel, sbmlVersion, "<" + getElementName() + ">");
-  }
-  if (!SyntaxChecker::isValidInternalSId(mReaction)) logError(InvalidIdSyntax);
+	/* look to see whether an unknown attribute error was logged
+	 * during the read of the listOfReactionGlyphs - which will have
+	 * happened immediately prior to this read
+	*/
+
+	if (getErrorLog() != NULL &&
+	    static_cast<ListOfReactionGlyphs*>(getParentSBMLObject())->size() < 2)
+	{
+		numErrs = getErrorLog()->getNumErrors();
+		for (int n = numErrs-1; n >= 0; n--)
+		{
+			if (getErrorLog()->getError(n)->getErrorId() == UnknownPackageAttribute)
+			{
+				const std::string details =
+				      getErrorLog()->getError(n)->getMessage();
+				getErrorLog()->remove(UnknownPackageAttribute);
+				getErrorLog()->logPackageError("layout", LayoutLORnGlyphAllowedAttributes,
+				          getPackageVersion(), sbmlLevel, sbmlVersion, details);
+			}
+			else if (getErrorLog()->getError(n)->getErrorId() == UnknownCoreAttribute)
+			{
+				const std::string details =
+				           getErrorLog()->getError(n)->getMessage();
+				getErrorLog()->remove(UnknownCoreAttribute);
+				getErrorLog()->logPackageError("layout", LayoutLORnGlyphAllowedAttributes,
+				          getPackageVersion(), sbmlLevel, sbmlVersion, details);
+			}
+		}
+	}
+
+	GraphicalObject::readAttributes(attributes, expectedAttributes);
+
+	// look to see whether an unknown attribute error was logged
+	if (getErrorLog() != NULL)
+	{
+		numErrs = getErrorLog()->getNumErrors();
+		for (int n = numErrs-1; n >= 0; n--)
+		{
+			if (getErrorLog()->getError(n)->getErrorId() == UnknownPackageAttribute)
+			{
+				const std::string details =
+				                  getErrorLog()->getError(n)->getMessage();
+				getErrorLog()->remove(UnknownPackageAttribute);
+				getErrorLog()->logPackageError("layout", LayoutRGAllowedAttributes,
+				               getPackageVersion(), sbmlLevel, sbmlVersion, details);
+			}
+			else if (getErrorLog()->getError(n)->getErrorId() == UnknownCoreAttribute)
+			{
+				const std::string details =
+				                  getErrorLog()->getError(n)->getMessage();
+				getErrorLog()->remove(UnknownCoreAttribute);
+				getErrorLog()->logPackageError("layout", LayoutRGAllowedCoreAttributes,
+				               getPackageVersion(), sbmlLevel, sbmlVersion, details);
+			}
+		}
+	}
+
+	bool assigned = false;
+
+	//
+	// reaction SIdRef   ( use = "required" )
+	//
+	assigned = attributes.readInto("reaction", mReaction);
+
+	if (assigned == true)
+	{
+		// check string is not empty and correct syntax
+
+		if (mReaction.empty() == true)
+		{
+			logEmptyString(mReaction, getLevel(), getVersion(), "<ReactionGlyph>");
+		}
+		else if (SyntaxChecker::isValidSBMLSId(mReaction) == false)
+		{
+			getErrorLog()->logPackageError("layout", LayoutRGReactionSyntax,
+				             getPackageVersion(), sbmlLevel, sbmlVersion);
+		}
+	}
+	else
+	{
+		std::string message = "Layout attribute 'reaction' is missing.";
+		getErrorLog()->logPackageError("layout", LayoutRGAllowedAttributes,
+		               getPackageVersion(), sbmlLevel, sbmlVersion, message);
+	}
+
 }
 /** @endcond */
 

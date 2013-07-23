@@ -1498,7 +1498,7 @@ Layout::createObject (XMLInputStream& stream)
   {
     //if (&(mDimensions) != NULL)
     //{
-    //  getErrorLog()->logPackageError("layout", LayoutOnlyOneEachListOf, 
+    //  getErrorLog()->logPackageError("layout", LayoutLayoutMustHaveDimensions, 
     //    getPackageVersion(), getLevel(), getVersion());
     //}
       

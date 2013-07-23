@@ -53,6 +53,7 @@
 
 
 #include <sbml/packages/layout/sbml/SpeciesGlyph.h>
+#include <sbml/packages/layout/sbml/Layout.h>
 #include <sbml/packages/layout/util/LayoutUtilities.h>
 #include <sbml/packages/layout/extension/LayoutExtension.h>
 #include <sbml/xml/XMLNode.h>
@@ -61,6 +62,7 @@
 #include <sbml/xml/XMLInputStream.h>
 #include <sbml/xml/XMLOutputStream.h>
 
+#include <sbml/packages/layout/validator/LayoutSBMLError.h>
 LIBSBML_CPP_NAMESPACE_BEGIN
 
 void
@@ -287,17 +289,90 @@ SpeciesGlyph::addExpectedAttributes(ExpectedAttributes& attributes)
 void SpeciesGlyph::readAttributes (const XMLAttributes& attributes,
                                    const ExpectedAttributes& expectedAttributes)
 {
-  GraphicalObject::readAttributes(attributes,expectedAttributes);
+	const unsigned int sbmlLevel   = getLevel  ();
+	const unsigned int sbmlVersion = getVersion();
 
-  const unsigned int sbmlLevel   = getLevel  ();
-  const unsigned int sbmlVersion = getVersion();
+	unsigned int numErrs;
 
-  bool assigned = attributes.readInto("species", mSpecies, getErrorLog(), false, getLine(), getColumn());
-  if (assigned && mSpecies.empty())
-  {
-    logEmptyString(mSpecies, sbmlLevel, sbmlVersion, "<" + getElementName() + ">");
-  }
-  if (!SyntaxChecker::isValidInternalSId(mSpecies)) logError(InvalidIdSyntax);
+	/* look to see whether an unknown attribute error was logged
+	 * during the read of the listOfSpeciesGlyphs - which will have
+	 * happened immediately prior to this read
+	*/
+
+	if (getErrorLog() != NULL &&
+	    static_cast<ListOfSpeciesGlyphs*>(getParentSBMLObject())->size() < 2)
+	{
+		numErrs = getErrorLog()->getNumErrors();
+		for (int n = numErrs-1; n >= 0; n--)
+		{
+			if (getErrorLog()->getError(n)->getErrorId() == UnknownPackageAttribute)
+			{
+				const std::string details =
+				      getErrorLog()->getError(n)->getMessage();
+				getErrorLog()->remove(UnknownPackageAttribute);
+				getErrorLog()->logPackageError("layout", LayoutLOSpeciesGlyphAllowedAttributes,
+				          getPackageVersion(), sbmlLevel, sbmlVersion, details);
+			}
+			else if (getErrorLog()->getError(n)->getErrorId() == UnknownCoreAttribute)
+			{
+				const std::string details =
+				           getErrorLog()->getError(n)->getMessage();
+				getErrorLog()->remove(UnknownCoreAttribute);
+				getErrorLog()->logPackageError("layout", LayoutLOSpeciesGlyphAllowedAttributes,
+				          getPackageVersion(), sbmlLevel, sbmlVersion, details);
+			}
+		}
+	}
+
+	GraphicalObject::readAttributes(attributes, expectedAttributes);
+
+	// look to see whether an unknown attribute error was logged
+	if (getErrorLog() != NULL)
+	{
+		numErrs = getErrorLog()->getNumErrors();
+		for (int n = numErrs-1; n >= 0; n--)
+		{
+			if (getErrorLog()->getError(n)->getErrorId() == UnknownPackageAttribute)
+			{
+				const std::string details =
+				                  getErrorLog()->getError(n)->getMessage();
+				getErrorLog()->remove(UnknownPackageAttribute);
+				getErrorLog()->logPackageError("layout", LayoutSGAllowedAttributes,
+				               getPackageVersion(), sbmlLevel, sbmlVersion, details);
+			}
+			else if (getErrorLog()->getError(n)->getErrorId() == UnknownCoreAttribute)
+			{
+				const std::string details =
+				                  getErrorLog()->getError(n)->getMessage();
+				getErrorLog()->remove(UnknownCoreAttribute);
+				getErrorLog()->logPackageError("layout", LayoutSGAllowedCoreAttributes,
+				               getPackageVersion(), sbmlLevel, sbmlVersion, details);
+			}
+		}
+	}
+
+	bool assigned = false;
+
+	//
+	// species SIdRef   ( use = "optional" )
+	//
+	assigned = attributes.readInto("species", mSpecies);
+
+	if (assigned == true)
+	{
+		// check string is not empty and correct syntax
+
+		if (mSpecies.empty() == true)
+		{
+			logEmptyString(mSpecies, getLevel(), getVersion(), "<SpeciesGlyph>");
+		}
+		else if (SyntaxChecker::isValidSBMLSId(mSpecies) == false)
+		{
+			getErrorLog()->logPackageError("layout", LayoutSGSpeciesSyntax,
+				             getPackageVersion(), sbmlLevel, sbmlVersion);
+		}
+	}
+
 }
 /** @endcond */
 

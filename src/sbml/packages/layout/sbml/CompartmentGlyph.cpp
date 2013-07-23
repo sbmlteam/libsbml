@@ -54,6 +54,7 @@
 #include <limits>
 
 #include <sbml/packages/layout/sbml/CompartmentGlyph.h>
+#include <sbml/packages/layout/sbml/Layout.h>
 #include <sbml/packages/layout/util/LayoutUtilities.h>
 
 #include <sbml/xml/XMLNode.h>
@@ -63,6 +64,7 @@
 #include <sbml/xml/XMLOutputStream.h>
 
 #include <sbml/packages/layout/extension/LayoutExtension.h>
+#include <sbml/packages/layout/validator/LayoutSBMLError.h>
 
 using namespace std;
 
@@ -372,19 +374,112 @@ CompartmentGlyph::addExpectedAttributes(ExpectedAttributes& attributes)
 void CompartmentGlyph::readAttributes (const XMLAttributes& attributes,
                                        const ExpectedAttributes& expectedAttributes)
 {
-  GraphicalObject::readAttributes(attributes,expectedAttributes);
+	const unsigned int sbmlLevel   = getLevel  ();
+	const unsigned int sbmlVersion = getVersion();
 
-  const unsigned int sbmlLevel   = getLevel  ();
-  const unsigned int sbmlVersion = getVersion();
+	unsigned int numErrs;
 
-  bool assigned = attributes.readInto("compartment", mCompartment, getErrorLog(), false, getLine(), getColumn());
-  if (assigned && mCompartment.empty())
-    {
-      logEmptyString(mCompartment, sbmlLevel, sbmlVersion, "<compartmentGlyph>");
-    }
-  if (!SyntaxChecker::isValidInternalSId(mCompartment)) logError(InvalidIdSyntax);
-  
-  mIsSetOrder = attributes.readInto("order", mOrder, getErrorLog(), false, getLine(), getColumn());  
+	/* look to see whether an unknown attribute error was logged
+	 * during the read of the listOfCompartmentGlyphs - which will have
+	 * happened immediately prior to this read
+	*/
+
+	if (getErrorLog() != NULL &&
+	    static_cast<ListOfCompartmentGlyphs*>(getParentSBMLObject())->size() < 2)
+	{
+		numErrs = getErrorLog()->getNumErrors();
+		for (int n = numErrs-1; n >= 0; n--)
+		{
+			if (getErrorLog()->getError(n)->getErrorId() == UnknownPackageAttribute)
+			{
+				const std::string details =
+				      getErrorLog()->getError(n)->getMessage();
+				getErrorLog()->remove(UnknownPackageAttribute);
+				getErrorLog()->logPackageError("layout", 
+                                  LayoutLOCompGlyphAllowedAttributes,
+				          getPackageVersion(), sbmlLevel, sbmlVersion, details);
+			}
+			else if (getErrorLog()->getError(n)->getErrorId() == UnknownCoreAttribute)
+			{
+				const std::string details =
+				           getErrorLog()->getError(n)->getMessage();
+				getErrorLog()->remove(UnknownCoreAttribute);
+				getErrorLog()->logPackageError("layout", 
+                                  LayoutLOCompGlyphAllowedAttributes,
+				          getPackageVersion(), sbmlLevel, sbmlVersion, details);
+			}
+		}
+	}
+
+	GraphicalObject::readAttributes(attributes, expectedAttributes);
+
+	// look to see whether an unknown attribute error was logged
+	if (getErrorLog() != NULL)
+	{
+		numErrs = getErrorLog()->getNumErrors();
+		for (int n = numErrs-1; n >= 0; n--)
+		{
+			if (getErrorLog()->getError(n)->getErrorId() == UnknownPackageAttribute)
+			{
+				const std::string details =
+				                  getErrorLog()->getError(n)->getMessage();
+				getErrorLog()->remove(UnknownPackageAttribute);
+				getErrorLog()->logPackageError("layout", LayoutCGAllowedAttributes,
+				               getPackageVersion(), sbmlLevel, sbmlVersion, details);
+			}
+			else if (getErrorLog()->getError(n)->getErrorId() == UnknownCoreAttribute)
+			{
+				const std::string details =
+				                  getErrorLog()->getError(n)->getMessage();
+				getErrorLog()->remove(UnknownCoreAttribute);
+				getErrorLog()->logPackageError("layout", LayoutCGAllowedCoreAttributes,
+				               getPackageVersion(), sbmlLevel, sbmlVersion, details);
+			}
+		}
+	}
+
+	bool assigned = false;
+
+	//
+	// compartment SIdRef   ( use = "optional" )
+	//
+	assigned = attributes.readInto("compartment", mCompartment);
+
+	if (assigned == true)
+	{
+		// check string is not empty and correct syntax
+
+		if (mCompartment.empty() == true)
+		{
+			logEmptyString(mCompartment, getLevel(), getVersion(), "<CompartmentGlyph>");
+		}
+		else if (SyntaxChecker::isValidSBMLSId(mCompartment) == false)
+		{
+			getErrorLog()->logPackageError("layout", LayoutCGCompartmentSyntax,
+				             getPackageVersion(), sbmlLevel, sbmlVersion);
+		}
+	}
+
+	//
+	// order double   ( use = "optional" )
+	//
+	numErrs = getErrorLog()->getNumErrors();
+	mIsSetOrder = attributes.readInto("order", mOrder);
+
+	if (mIsSetOrder == false)
+	{
+		if (getErrorLog() != NULL)
+		{
+			if (getErrorLog()->getNumErrors() == numErrs + 1 &&
+			        getErrorLog()->contains(XMLAttributeTypeMismatch))
+			{
+				getErrorLog()->remove(XMLAttributeTypeMismatch);
+				getErrorLog()->logPackageError("layout", LayoutCGOrderMustBeDouble,
+				             getPackageVersion(), sbmlLevel, sbmlVersion);
+			}
+		}
+	}
+
   
 }
 /** @endcond */

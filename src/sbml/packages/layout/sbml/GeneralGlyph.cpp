@@ -62,7 +62,8 @@
 #include <sbml/packages/layout/sbml/GraphicalObject.h>
 #include <sbml/packages/layout/util/LayoutUtilities.h>
 #include <sbml/packages/layout/extension/LayoutExtension.h>
-
+#include <sbml/packages/layout/sbml/Layout.h>
+#include <sbml/packages/layout/validator/LayoutSBMLError.h>
 #include <sbml/util/ElementFilter.h>
 
 #include <sbml/xml/XMLNode.h>
@@ -812,17 +813,91 @@ GeneralGlyph::addExpectedAttributes(ExpectedAttributes& attributes)
 void GeneralGlyph::readAttributes (const XMLAttributes& attributes,
                                     const ExpectedAttributes& expectedAttributes)
 {
-  GraphicalObject::readAttributes(attributes,expectedAttributes);
+	const unsigned int sbmlLevel   = getLevel  ();
+	const unsigned int sbmlVersion = getVersion();
 
-  const unsigned int sbmlLevel   = getLevel  ();
-  const unsigned int sbmlVersion = getVersion();
+	unsigned int numErrs;
 
-  bool assigned = attributes.readInto("reference", mReference, getErrorLog(), false, getLine(), getColumn());
-  if (assigned && mReference.empty())
-  {
-    logEmptyString(mReference, sbmlLevel, sbmlVersion, "<" + getElementName() + ">");
-  }
-  if (!SyntaxChecker::isValidInternalSId(mReference)) logError(InvalidIdSyntax);
+	/* look to see whether an unknown attribute error was logged
+	 * during the read of the listOfAdditionalGraphicalObjects - which will have
+	 * happened immediately prior to this read
+	*/
+
+	if (getErrorLog() != NULL &&
+	    static_cast<ListOfGraphicalObjects*>(getParentSBMLObject())->size() < 2)
+	{
+		numErrs = getErrorLog()->getNumErrors();
+		for (int n = numErrs-1; n >= 0; n--)
+		{
+			if (getErrorLog()->getError(n)->getErrorId() == UnknownPackageAttribute)
+			{
+				const std::string details =
+				      getErrorLog()->getError(n)->getMessage();
+				getErrorLog()->remove(UnknownPackageAttribute);
+				getErrorLog()->logPackageError("layout", LayoutLOAddGOAllowedAttribut,
+				          getPackageVersion(), sbmlLevel, sbmlVersion, details);
+			}
+			else if (getErrorLog()->getError(n)->getErrorId() == UnknownCoreAttribute)
+			{
+				const std::string details =
+				           getErrorLog()->getError(n)->getMessage();
+				getErrorLog()->remove(UnknownCoreAttribute);
+				getErrorLog()->logPackageError("layout", LayoutLOAddGOAllowedAttribut,
+				          getPackageVersion(), sbmlLevel, sbmlVersion, details);
+			}
+		}
+	}
+
+	GraphicalObject::readAttributes(attributes, expectedAttributes);
+
+	// look to see whether an unknown attribute error was logged
+	if (getErrorLog() != NULL)
+	{
+		numErrs = getErrorLog()->getNumErrors();
+		for (int n = numErrs-1; n >= 0; n--)
+		{
+			if (getErrorLog()->getError(n)->getErrorId() == UnknownPackageAttribute)
+			{
+				const std::string details =
+				                  getErrorLog()->getError(n)->getMessage();
+				getErrorLog()->remove(UnknownPackageAttribute);
+				getErrorLog()->logPackageError("layout", LayoutGGAllowedAttributes,
+				               getPackageVersion(), sbmlLevel, sbmlVersion, details);
+			}
+			else if (getErrorLog()->getError(n)->getErrorId() == UnknownCoreAttribute)
+			{
+				const std::string details =
+				                  getErrorLog()->getError(n)->getMessage();
+				getErrorLog()->remove(UnknownCoreAttribute);
+				getErrorLog()->logPackageError("layout", LayoutGGAllowedCoreAttributes,
+				               getPackageVersion(), sbmlLevel, sbmlVersion, details);
+			}
+		}
+	}
+
+	bool assigned = false;
+
+	//
+	// reference SIdRef   ( use = "optional" )
+	//
+	assigned = attributes.readInto("reference", mReference);
+
+	if (assigned == true)
+	{
+		// check string is not empty and correct syntax
+
+		if (mReference.empty() == true)
+		{
+			logEmptyString(mReference, getLevel(), getVersion(), "<GeneralGlyph>");
+		}
+		else if (SyntaxChecker::isValidSBMLSId(mReference) == false)
+		{
+			getErrorLog()->logPackageError("layout", LayoutGGReferenceSyntax,
+				             getPackageVersion(), sbmlLevel, sbmlVersion);
+		}
+	}
+
+
 }
 /** @endcond */
 

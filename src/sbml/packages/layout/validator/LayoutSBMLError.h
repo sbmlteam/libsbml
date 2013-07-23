@@ -50,7 +50,6 @@ typedef enum
   , LayoutLOLayoutsNotEmpty                 = 6020202
   , LayoutLOLayoutsAllowedElements          = 6020203
   , LayoutLOLayoutsAllowedAttributes        = 6020204
-
   , LayoutLayoutAllowedElements             = 6020301
   , LayoutLayoutAllowedCoreAttributes       = 6020302
   , LayoutOnlyOneEachListOf                 = 6020303
@@ -59,6 +58,7 @@ typedef enum
   , LayoutLayoutNameMustBeString            = 6020306
   , LayoutLOCompGlyphAllowedAttributes      = 6020307
   , LayoutLOCompGlyphAllowedElements        = 6020308
+
   , LayoutLOSpeciesGlyphAllowedAttributes   = 6020309
   , LayoutLOSpeciesGlyphAllowedElements     = 6020310
   , LayoutLORnGlyphAllowedAttributes        = 6020311
@@ -69,7 +69,52 @@ typedef enum
   , LayoutLOTextGlyphAllowedAttributes      = 6020316
   , LayoutLOTextGlyphAllowedElements        = 6020317
 
+  , LayoutGOAllowedCoreElements             = 6020401
+  , LayoutGOAllowedCoreAttributes           = 6020402
+  , LayoutGOAllowedElements                 = 6020403
+  , LayoutGOAllowedAttributes               = 6020404
+  , LayoutGOMetaIdRefMustBeIDREF            = 6020405
+  , LayoutGOMetaIdRefMustReferenceObject    = 6020406
+  , LayoutGOMustContainBoundingBox          = 6020407
 
+  , LayoutCGAllowedCoreElements             = 6020501
+  , LayoutCGAllowedCoreAttributes           = 6020502
+  , LayoutCGAllowedElements                 = 6020503
+  , LayoutCGAllowedAttributes               = 6020504
+
+  , LayoutCGCompartmentSyntax               = 6020507
+
+  , LayoutCGOrderMustBeDouble               = 6020510
+
+  , LayoutSGAllowedCoreElements             = 6020601
+  , LayoutSGAllowedCoreAttributes           = 6020602
+  , LayoutSGAllowedElements                 = 6020603
+  , LayoutSGAllowedAttributes               = 6020604
+
+  , LayoutSGSpeciesSyntax                   = 6020607
+
+  , LayoutRGAllowedCoreElements             = 6020701
+  , LayoutRGAllowedCoreAttributes           = 6020702
+  , LayoutRGAllowedElements                 = 6020703
+  , LayoutRGAllowedAttributes               = 6020704
+
+  , LayoutRGReactionSyntax                  = 6020707
+
+  , LayoutGGAllowedCoreElements             = 6020801
+  , LayoutGGAllowedCoreAttributes           = 6020802
+  , LayoutGGAllowedElements                 = 6020803
+  , LayoutGGAllowedAttributes               = 6020804
+
+  , LayoutGGReferenceSyntax                 = 6020807
+
+  , LayoutTGAllowedCoreElements             = 6020901
+  , LayoutTGAllowedCoreAttributes           = 6020902
+  , LayoutTGAllowedElements                 = 6020903
+  , LayoutTGAllowedAttributes               = 6020904
+
+  , LayoutTGOriginOfTextSyntax              = 6020907
+
+  , LayoutTGGraphicalObjectSyntax           = 6020910
 }  LayoutSBMLErrorCode_t;
 
 END_C_DECLS
