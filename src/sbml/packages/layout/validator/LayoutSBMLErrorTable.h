@@ -77,21 +77,32 @@ static const packageErrorTableEntry layoutErrorTable[] =
 
     // 6010301
   { LayoutDuplicateComponentId, 
-  "Duplicate 'id' attribute value",
+    "Duplicate 'id' attribute value",
     LIBSBML_CAT_IDENTIFIER_CONSISTENCY, 
     LIBSBML_SEV_ERROR,
     "(Extends validation rule #10301 in the SBML Level 3 Version 1 Core "
-	"specification.) Within a <model> object"
-	"the values of the attributes id and layout:id on every instance of the "
-	"following classes of objects must be unique across the set of all id "
-	"and layout:id attribute values of all such objects in a model: the "
-	"model itself, plus all contained <functionDefinition>, <compartment>,"
-	"<species>, <reaction>, <speciesReference>, <modifierSpeciesReference>, "
-  "<event>, and <parameter> objects, plus the <boundingBox>, "
-  "<compartmentGlyph>, <generalGlyph>, <graphicalObject>, <layout>, "
-  "<speciesGlyph>, <speciesReferenceGlyph>, <reactionGlyph>, "
-  "<referenceGlyph> and <textGlyph> "
-	"objects defined by the Layout package.", 
+	  "specification.) Within a <model> object"
+	  "the values of the attributes id and layout:id on every instance of the "
+	  "following classes of objects must be unique across the set of all id "
+	  "and layout:id attribute values of all such objects in a model: the "
+	  "model itself, plus all contained <functionDefinition>, <compartment>,"
+	  "<species>, <reaction>, <speciesReference>, <modifierSpeciesReference>, "
+    "<event>, and <parameter> objects, plus the <boundingBox>, "
+    "<compartmentGlyph>, <generalGlyph>, <graphicalObject>, <layout>, "
+    "<speciesGlyph>, <speciesReferenceGlyph>, <reactionGlyph>, "
+    "<referenceGlyph> and <textGlyph> "
+	  "objects defined by the Layout package.", 
+    { "L3V1 Layout V1 Section 3.3"
+    }
+  },
+
+    // 6010302
+  { LayoutSIdSyntax, 
+    "'id' attribute incorrect syntax",
+    LIBSBML_CAT_IDENTIFIER_CONSISTENCY, 
+    LIBSBML_SEV_ERROR,
+    "The value of the 'layout:id' attribute must conform to the SBML "
+    "data type SId", 
     { "L3V1 Layout V1 Section 3.3"
     }
   },
@@ -208,8 +219,8 @@ static const packageErrorTableEntry layoutErrorTable[] =
     LIBSBML_CAT_GENERAL_CONSISTENCY, 
     LIBSBML_SEV_ERROR,
     "There may be at most one instance of each of the following kinds "
-    "of objects within a <layout> object: <dimensions>, "
-    "<listOfCompartmentGlyphs>, <listOfSpeciesGlyphs>, <listOfReactionGlyphs>, "
+    "of objects within a <layout> object: <listOfCompartmentGlyphs>, "
+    "<listOfSpeciesGlyphs>, <listOfReactionGlyphs>, "
     "<listOfTextGlyphs>, <listOfAdditionalGraphicalObjects>.",
     { "L3V1 Layout V1 Section 3.6"
     }
@@ -224,8 +235,8 @@ static const packageErrorTableEntry layoutErrorTable[] =
     "optional, but if present, these container object must not be "
     "empty.  Specifically, if any of the following classes of objects "
     "are present on the <layout>, it must not be empty: "
-    "<listOfCompartmentGlyphs>, <listOfSpeciesGlyphs>, <listOfReactionGlyphs>, "
-    "<listOfTextGlyphs>, <listOfAdditionalGraphicalObjects>.",
+    "<listOfCompartmentGlyphs>, <listOfSpeciesGlyphs>, <listOfReactionGlyphs>,"
+    " <listOfTextGlyphs>, <listOfAdditionalGraphicalObjects>.",
     { "L3V1 Layout V1 Section 3.6"
     }
   },
@@ -235,8 +246,8 @@ static const packageErrorTableEntry layoutErrorTable[] =
     "<layout> must have 'id' and may have 'name'",
     LIBSBML_CAT_GENERAL_CONSISTENCY, 
     LIBSBML_SEV_ERROR,
-    "A <layout> object must have the required attribute 'id' and may "
-    "have the optional attribute 'name'. No other attributes from the "
+    "A <layout> object must have the required attribute 'layout:id' and may "
+    "have the optional attribute 'layout:name'. No other attributes from the "
     "SBML Level~3 Layout namespace are permitted on a <layout> object.",
     { "L3V1 Layout V1 Section 3.6"
     }
@@ -247,7 +258,8 @@ static const packageErrorTableEntry layoutErrorTable[] =
     "'name' must be string",
     LIBSBML_CAT_GENERAL_CONSISTENCY, 
     LIBSBML_SEV_ERROR,
-    "The attribute 'name' of a <layout> must be of the data type 'string'.",
+    "The attribute 'layout:name' of a <layout> must be of the data "
+    "type 'string'.",
     { "L3V1 Layout V1 Section 3.6"
     }
   },
@@ -257,7 +269,8 @@ static const packageErrorTableEntry layoutErrorTable[] =
     "Attributes allowed on <listOfCompartmentGlyphs>.",
     LIBSBML_CAT_GENERAL_CONSISTENCY, 
     LIBSBML_SEV_ERROR,
-    "A <listOfCompartmentGlyphs> object may have the optional 'metaid' "
+    "A <listOfCompartmentGlyphs> object may have the optional "
+    "attributes 'metaid' "
     "and 'sboTerm' defined by SBML Level~3 Core.  No other attributes "
     "from the SBML Level~3 Core namespace or the Layout namespace are "
     "permitted on a <listOfCompartmentGlyphs> object. ",
@@ -282,7 +295,8 @@ static const packageErrorTableEntry layoutErrorTable[] =
     "Attributes allowed on <listOfSpeciesGlyphs>.",
     LIBSBML_CAT_GENERAL_CONSISTENCY, 
     LIBSBML_SEV_ERROR,
-    "A <listOfSpeciesGlyphs> object may have the optional 'metaid' "
+    "A <listOfSpeciesGlyphs> object may have the optional "
+    "attributes 'metaid' "
     "and 'sboTerm' defined by SBML Level~3 Core.  No other attributes "
     "from the SBML Level~3 Core namespace or the Layout namespace are "
     "permitted on a <listOfSpeciesGlyphs> object. ",
@@ -307,7 +321,8 @@ static const packageErrorTableEntry layoutErrorTable[] =
     "Attributes allowed on <listOfReactionGlyphs>.",
     LIBSBML_CAT_GENERAL_CONSISTENCY, 
     LIBSBML_SEV_ERROR,
-    "A <listOfReactionGlyphs> object may have the optional 'metaid' "
+    "A <listOfReactionGlyphs> object may have the optional "
+    "attributes 'metaid' "
     "and 'sboTerm' defined by SBML Level~3 Core.  No other attributes "
     "from the SBML Level~3 Core namespace or the Layout namespace are "
     "permitted on a <listOfReactionGlyphs> object. ",
@@ -332,7 +347,8 @@ static const packageErrorTableEntry layoutErrorTable[] =
     "Attributes allowed on <listOfAdditionalGraphicalObjectGlyphs>.",
     LIBSBML_CAT_GENERAL_CONSISTENCY, 
     LIBSBML_SEV_ERROR,
-    "A <listOfAdditionalGraphicalObjectGlyphs> object may have the optional 'metaid' "
+    "A <listOfAdditionalGraphicalObjectGlyphs> object may have the "
+    "optional attributes 'metaid' "
     "and 'sboTerm' defined by SBML Level~3 Core.  No other attributes "
     "from the SBML Level~3 Core namespace or the Layout namespace are "
     "permitted on a <listOfAdditionalGraphicalObjectGlyphs> object. ",
@@ -367,7 +383,8 @@ static const packageErrorTableEntry layoutErrorTable[] =
     "Attributes allowed on <listOfTextGlyphs>.",
     LIBSBML_CAT_GENERAL_CONSISTENCY, 
     LIBSBML_SEV_ERROR,
-    "A <listOfTextGlyphs> object may have the optional 'metaid' "
+    "A <listOfTextGlyphs> object may have the optional "
+    "attributes 'metaid' "
     "and 'sboTerm' defined by SBML Level~3 Core.  No other attributes "
     "from the SBML Level~3 Core namespace or the Layout namespace are "
     "permitted on a <listOfTextGlyphs> object. ",
@@ -385,8 +402,207 @@ static const packageErrorTableEntry layoutErrorTable[] =
     "may only contain <compartmentGlyph> objects. ",
     { "L3V1 Layout V1 Section 3.6"
     }
-  }
+  },
   
+  // 6020401
+  { LayoutGOAllowedCoreElements, 
+    "Core elements allowed on <graphicalObject>.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY, 
+    LIBSBML_SEV_ERROR,
+    "A <graphicalObject> object may have the optional SBML Level 3 Core "
+    "subobjects for notes and annotations. No other elements from the SBML "
+    "Level 3 Core namespace are permitted on a <graphicalObject>. ",
+    { "L3V1 Core Section 3.2"
+    }
+  },
+  
+  // 6020402
+  { LayoutGOAllowedCoreAttributes, 
+    "Core attributes allowed on <graphicalObject>.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY, 
+    LIBSBML_SEV_ERROR,
+    "A <graphicalObject> object may have the optional SBML Level 3 Core "
+    "attributes 'metaid' and 'sboTerm'. No other attributes from the SBML "
+    "Level 3 Core namespace are permitted on a <graphicalObject>. ",
+    { "L3V1 Core Section 3.2"
+    }
+  },
+  
+  // 6020403
+  { LayoutGOAllowedElements, 
+    "Layout elements allowed on <graphicalObject>.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY, 
+    LIBSBML_SEV_ERROR,
+    "There may be at most one instance of a <boundingBox> object on a "
+    "<graphicalObject>.  No other elements from the Layout namespace "
+    "are permitted on a <graphicalObject>. ",
+    { "L3V1 Layout V1 Section 3.7"
+    }
+  },
+  
+  // 6020404
+  { LayoutGOAllowedAttributes, 
+    "Layout attributes allowed on <graphicalObject>.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY, 
+    LIBSBML_SEV_ERROR,
+    "A <graphicalObject> object must have the required attribute "
+    "'layout:id and may have the optional attribute 'layout:metaidRef'.  "
+    "No other attributes from the Layout namespace "
+    "are permitted on a <graphicalObject>. ",
+    { "L3V1 Layout V1 Section 3.7"
+    }
+  },
+
+  // 6020405
+  { LayoutGOMetaIdRefMustBeIDREF, 
+    "Layout 'metIdRef' must be IDREF.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY, 
+    LIBSBML_SEV_ERROR,
+    "The attribute 'layout:metaidRef' of a <graphicalObject> "
+    "must be of the data type 'IDREF'.",
+    { "L3V1 Layout V1 Section 3.7"
+    }
+  },
+
+  // 6020406
+  { LayoutGOMetaIdRefMustReferenceObject, 
+    "Layout 'metIdRef' must reference existing object.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY, 
+    LIBSBML_SEV_ERROR,
+    "The value of a 'layout:metaidRef' attribute of a <graphicalObject> "
+    "must be of the 'metaid' of an existing element in the <model>.",
+    { "L3V1 Layout V1 Section 3.7"
+    }
+  },
+
+  // 6020407
+  { LayoutGOMustContainBoundingBox, 
+    "A <graphicalObject> must contain a <boundingBox>.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY, 
+    LIBSBML_SEV_ERROR,
+    "A <graphicalObject> must contain exactly one <boundingBox> object.",
+    { "L3V1 Layout V1 Section 3.7"
+    }
+  },
+
+  
+  // 6020501
+  { LayoutCGAllowedCoreElements, 
+    "Core elements allowed on <compartmentGlyph>.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY, 
+    LIBSBML_SEV_ERROR,
+    "A <compartmentGlyph> object may have the optional SBML Level 3 Core "
+    "subobjects for notes and annotations. No other elements from the SBML "
+    "Level 3 Core namespace are permitted on a <compartmentGlyph>. ",
+    { "L3V1 Core Section 3.2"
+    }
+  },
+  
+  // 6020502
+  { LayoutCGAllowedCoreAttributes, 
+    "Core attributes allowed on <compartmentGlyph>.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY, 
+    LIBSBML_SEV_ERROR,
+    "A <compartmentGlyph> object may have the optional SBML Level 3 Core "
+    "attributes 'metaid' and 'sboTerm'. No other attributes from the SBML "
+    "Level 3 Core namespace are permitted on a <compartmentGlyph>. ",
+    { "L3V1 Core Section 3.2"
+    }
+  },
+  
+  // 6020503
+  { LayoutCGAllowedElements, 
+    "Layout elements allowed on <compartmentGlyph>.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY, 
+    LIBSBML_SEV_ERROR,
+    "There may be at most one instance of a <boundingBox> object on a "
+    "<compartmentGlyph>.  No other elements from the Layout namespace "
+    "are permitted on a <compartmentGlyph>. ",
+    { "L3V1 Layout V1 Section 3.8"
+    }
+  },
+  
+  // 6020504
+  { LayoutCGAllowedAttributes, 
+    "Layout attributes allowed on <compartmentGlyph>.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY, 
+    LIBSBML_SEV_ERROR,
+    "A <compartmentGlyph> object must have the required attribute "
+    "'layout:id and may have the optional attribute 'layout:metaidRef'.  "
+    "No other attributes from the Layout namespace "
+    "are permitted on a <compartmentGlyph>. ",
+    { "L3V1 Layout V1 Section 3.8"
+    }
+  },
+
+  // 6020505
+  { LayoutCGMetaIdRefMustBeIDREF, 
+    "Layout 'metIdRef' must be IDREF.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY, 
+    LIBSBML_SEV_ERROR,
+    "The attribute 'layout:metaidRef' of a <compartmentGlyph> "
+    "must be of the data type 'IDREF'.",
+    { "L3V1 Layout V1 Section 3.7"
+    }
+  },
+
+  // 6020506
+  { LayoutCGMetaIdRefMustReferenceObject, 
+    "Layout 'metIdRef' must reference existing object.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY, 
+    LIBSBML_SEV_ERROR,
+    "The value of a 'layout:metaidRef' attribute of a <compartmentGlyph> "
+    "must be of the 'metaid' of an existing element in the <model>.",
+    { "L3V1 Layout V1 Section 3.7"
+    }
+  },
+
+  // 6020507
+  { LayoutCGCompartmentSyntax, 
+    "CompartmentGlyph 'compartment' must have SIdRef syntax.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY, 
+    LIBSBML_SEV_ERROR,
+    "The attribute 'layout:compartment' of a <compartmentGlyph> "
+    "must be the data type 'SIdRef'.",
+    { "L3V1 Layout V1 Section 3.8"
+    }
+  },
+
+  // 6020508
+  { LayoutCGCompartmentMustRefComp, 
+    "CompartmentGlyph compartment must reference existing compartment.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY, 
+    LIBSBML_SEV_ERROR,
+    "The value of the 'layout:compartment' attribute of a <compartmentGlyph> "
+    "must be of the 'id' of an existing <compartment> in the <model>.",
+    { "L3V1 Layout V1 Section 3.8"
+    }
+  },
+
+  // 6020509
+  { LayoutCGNoDuplicateReferences, 
+    "CompartmentGlyph cannot reference two objects.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY, 
+    LIBSBML_SEV_ERROR,
+    "If both attributes 'layout:compartment' and 'layout:metaidRef' "
+    "are specified on a <compartmentGlyph> they have to reference "
+    "the same <compartment> in the <model>.",
+    { "L3V1 Layout V1 Section 3.8"
+    }
+  },
+
+  // 6020510
+  { LayoutCGOrderMustBeDouble, 
+    "CompartmentGlyph order must be double.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY, 
+    LIBSBML_SEV_ERROR,
+    "The attribute 'layout:order' of a <compartmentGlyph> "
+    "must be the data type 'double'.",
+    { "L3V1 Layout V1 Section 3.8"
+    }
+  }
+
+
 
 };
 

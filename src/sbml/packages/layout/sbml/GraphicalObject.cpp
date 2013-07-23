@@ -64,6 +64,7 @@
 
 #include <sbml/packages/layout/extension/LayoutExtension.h>
 #include <sbml/packages/layout/common/LayoutExtensionTypes.h>
+#include <sbml/packages/layout/validator/LayoutSBMLError.h>
 
 #include <sbml/util/ElementFilter.h>
 
@@ -548,14 +549,103 @@ void GraphicalObject::readAttributes (const XMLAttributes& attributes,
   const unsigned int sbmlLevel   = getLevel  ();
   const unsigned int sbmlVersion = getVersion();
 
-  bool assigned = attributes.readInto("id", mId, getErrorLog(), true, getLine(), getColumn());
-  if (assigned && mId.size() == 0)
+  // id reqd
+  bool assigned = attributes.readInto("id", mId);
+
+  if (assigned)
   {
-    logEmptyString(mId, sbmlLevel, sbmlVersion, "<" + getElementName() + ">");
+    // "id" attribute is set to this fbc element
+
+    if (mId.empty())
+    {
+      //
+      // Logs an error if the "id" attribute is empty.
+      //
+      logEmptyString(mId, sbmlLevel, sbmlVersion, "<layout>");
+    }
+    else if (!SyntaxChecker::isValidSBMLSId(mId)) 
+    {
+      //
+      // Logs an error if the "id" attribute doesn't
+      // conform to the SBML type SId.
+      //
+      getErrorLog()->logPackageError("layout", LayoutSIdSyntax, 
+        getPackageVersion(), sbmlLevel, sbmlVersion);
+    }
   }
-  if (!SyntaxChecker::isValidInternalSId(mId)) logError(InvalidIdSyntax);
-  attributes.readInto("metaidRef", mMetaIdRef, getErrorLog(), false, getLine(), getColumn());
-  if (!SyntaxChecker::isValidInternalSId(mMetaIdRef)) logError(InvalidIdSyntax);
+  else
+  {
+    int tc = this->getTypeCode();
+
+    switch (tc)
+    {
+    case SBML_LAYOUT_COMPARTMENTGLYPH:
+      getErrorLog()->logPackageError("layout", LayoutCGAllowedAttributes, 
+        getPackageVersion(), sbmlLevel, sbmlVersion);
+      break;
+    case SBML_LAYOUT_REACTIONGLYPH:
+      getErrorLog()->logPackageError("layout", LayoutRGAllowedAttributes, 
+        getPackageVersion(), sbmlLevel, sbmlVersion);
+      break;
+    case SBML_LAYOUT_SPECIESGLYPH:
+      getErrorLog()->logPackageError("layout", LayoutSGAllowedAttributes, 
+        getPackageVersion(), sbmlLevel, sbmlVersion);
+      break;
+    case SBML_LAYOUT_SPECIESREFERENCEGLYPH:
+    case SBML_LAYOUT_TEXTGLYPH:
+      getErrorLog()->logPackageError("layout", LayoutTGAllowedAttributes, 
+        getPackageVersion(), sbmlLevel, sbmlVersion);
+      break;
+    case SBML_LAYOUT_REFERENCEGLYPH:
+    case SBML_LAYOUT_GENERALGLYPH:
+      getErrorLog()->logPackageError("layout", LayoutGGAllowedAttributes, 
+        getPackageVersion(), sbmlLevel, sbmlVersion);
+      break;
+    default:
+      getErrorLog()->logPackageError("layout", LayoutGOAllowedAttributes, 
+        getPackageVersion(), sbmlLevel, sbmlVersion);
+      break;
+    }
+  }
+  
+  assigned = attributes.readInto("metaidRef", mMetaIdRef);
+  if (assigned == true)
+  {
+    if (!SyntaxChecker::isValidInternalSId(mMetaIdRef)) 
+    {
+      int tc = this->getTypeCode();
+
+      switch (tc)
+      {
+      case SBML_LAYOUT_COMPARTMENTGLYPH:
+        getErrorLog()->logPackageError("layout", LayoutCGMetaIdRefMustBeIDREF, 
+          getPackageVersion(), sbmlLevel, sbmlVersion);
+        break;
+      case SBML_LAYOUT_REACTIONGLYPH:
+        getErrorLog()->logPackageError("layout", LayoutGOMetaIdRefMustBeIDREF, 
+          getPackageVersion(), sbmlLevel, sbmlVersion);
+        break;
+      case SBML_LAYOUT_SPECIESGLYPH:
+        getErrorLog()->logPackageError("layout", LayoutGOMetaIdRefMustBeIDREF, 
+          getPackageVersion(), sbmlLevel, sbmlVersion);
+        break;
+      case SBML_LAYOUT_SPECIESREFERENCEGLYPH:
+      case SBML_LAYOUT_TEXTGLYPH:
+        getErrorLog()->logPackageError("layout", LayoutGOMetaIdRefMustBeIDREF, 
+          getPackageVersion(), sbmlLevel, sbmlVersion);
+        break;
+      case SBML_LAYOUT_REFERENCEGLYPH:
+      case SBML_LAYOUT_GENERALGLYPH:
+        getErrorLog()->logPackageError("layout", LayoutGOMetaIdRefMustBeIDREF, 
+          getPackageVersion(), sbmlLevel, sbmlVersion);
+        break;
+      default:
+        getErrorLog()->logPackageError("layout", LayoutGOMetaIdRefMustBeIDREF, 
+          getPackageVersion(), sbmlLevel, sbmlVersion);
+        break;
+      }
+    }
+  }
 }
 /** @endcond */
 

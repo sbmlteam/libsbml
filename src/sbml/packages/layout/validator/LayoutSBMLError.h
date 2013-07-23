@@ -43,6 +43,7 @@ typedef enum
   , LayoutNSUndeclared                      = 6010101 
   , LayoutElementNotInNs                    = 6010102
   , LayoutDuplicateComponentId              = 6010301
+  , LayoutSIdSyntax                         = 6010302
   , LayoutAttributeRequiredMissing          = 6020101
   , LayoutAttributeRequiredMustBeBoolean    = 6020102
   , LayoutRequiredFalse                     = 6020103
@@ -58,7 +59,6 @@ typedef enum
   , LayoutLayoutNameMustBeString            = 6020306
   , LayoutLOCompGlyphAllowedAttributes      = 6020307
   , LayoutLOCompGlyphAllowedElements        = 6020308
-
   , LayoutLOSpeciesGlyphAllowedAttributes   = 6020309
   , LayoutLOSpeciesGlyphAllowedElements     = 6020310
   , LayoutLORnGlyphAllowedAttributes        = 6020311
@@ -68,7 +68,6 @@ typedef enum
   , LayoutLayoutMustHaveDimensions          = 6020315
   , LayoutLOTextGlyphAllowedAttributes      = 6020316
   , LayoutLOTextGlyphAllowedElements        = 6020317
-
   , LayoutGOAllowedCoreElements             = 6020401
   , LayoutGOAllowedCoreAttributes           = 6020402
   , LayoutGOAllowedElements                 = 6020403
@@ -81,9 +80,11 @@ typedef enum
   , LayoutCGAllowedCoreAttributes           = 6020502
   , LayoutCGAllowedElements                 = 6020503
   , LayoutCGAllowedAttributes               = 6020504
-
+  , LayoutCGMetaIdRefMustBeIDREF            = 6020505
+  , LayoutCGMetaIdRefMustReferenceObject    = 6020506
   , LayoutCGCompartmentSyntax               = 6020507
-
+  , LayoutCGCompartmentMustRefComp          = 6020508
+  , LayoutCGNoDuplicateReferences          = 6020509
   , LayoutCGOrderMustBeDouble               = 6020510
 
   , LayoutSGAllowedCoreElements             = 6020601
