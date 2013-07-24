@@ -21,11 +21,11 @@
     <layout:listOfLayouts 
 	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
 	   xmlns:layout="http://www.sbml.org/sbml/level3/version1/layout/version1">
-      <layout:layout layout:id="example" layout:name="layoutname" layout:compartment="compartment">
+      <layout:layout layout:id="example">
         <layout:dimensions layout:width="239.037328720093" layout:height="76.5"/>
         
 		<layout:listOfSpeciesGlyphs>
-          <layout:speciesGlyph layout:id="sGlyph_0" layout:species="Node0" >
+          <layout:speciesGlyph layout:id="sGlyph_0" layout:species="Node0" metaid="_sG0">
             <layout:boundingBox>
               <layout:position layout:x="16" layout:y="18"/>
               <layout:dimensions layout:width="62" layout:height="40"/>
@@ -40,12 +40,20 @@
         </layout:listOfSpeciesGlyphs>
         
 		<layout:listOfAdditionalGraphicalObjects>
-          <layout:generalGlyph layout:id="rGlyph_0" layout:reference="sGlyph_0">
+          <layout:generalGlyph layout:id="rGlyph_0" layout:reference="6sGlyph_0">
 		    <!-- unused bounding box -->
             <layout:boundingBox>
               <layout:position layout:x="0" layout:y="0"/>
               <layout:dimensions layout:width="0" layout:height="0"/>
             </layout:boundingBox>
+            <layout:listOfSubGlyphs>
+              <layout:compartmentGlyph layout:id="cg3">
+                <layout:boundingBox>
+                  <layout:position layout:x="0" layout:y="0"/>
+                  <layout:dimensions layout:width="0" layout:height="0"/>
+                </layout:boundingBox>
+              </layout:compartmentGlyph>
+            </layout:listOfSubGlyphs>
             <layout:listOfReferenceGlyphs>
 			  <!-- reference glyph representing the inhibited species -->
               <layout:referenceGlyph 

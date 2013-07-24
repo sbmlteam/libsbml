@@ -780,14 +780,32 @@ GeneralGlyph::createObject (XMLInputStream& stream)
 
   if (name == "listOfReferenceGlyphs")
   {
+    if (mReferenceGlyphs.size() != 0)
+    {
+      getErrorLog()->logPackageError("layout", LayoutGGAllowedElements, 
+        getPackageVersion(), getLevel(), getVersion());
+    }
+
     object = &mReferenceGlyphs;
   }
   else if (name == "listOfSubGlyphs")
   {
+    if (mSubGlyphs.size() != 0)
+    {
+      getErrorLog()->logPackageError("layout", LayoutGGAllowedElements, 
+        getPackageVersion(), getLevel(), getVersion());
+    }
+
     object = &mSubGlyphs;
   }
   else if(name=="curve")
   {
+    //if (mCurve != NULL)
+    //{
+    //  getErrorLog()->logPackageError("layout", LayoutGGAllowedElements, 
+    //    getPackageVersion(), getLevel(), getVersion());
+    //}
+
     object = &mCurve;
   }
   else

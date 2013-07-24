@@ -106,6 +106,7 @@ typedef enum
   , LayoutLOSpeciesRefGlyphAllowedElements  = 6020710
   , LayoutLOSpeciesRefGlyphAllowedAttribs   = 6020711
 
+
   , LayoutGGAllowedCoreElements             = 6020801
   , LayoutGGAllowedCoreAttributes           = 6020802
   , LayoutGGAllowedElements                 = 6020803

@@ -384,6 +384,13 @@ void CompartmentGlyph::readAttributes (const XMLAttributes& attributes,
 	 * happened immediately prior to this read
 	*/
 
+  bool loSubGlyphs = false;
+  if (getParentSBMLObject() != NULL
+    && getParentSBMLObject()->getElementName() == "listOfSubGlyphs")
+  {
+    loSubGlyphs = true;
+  }
+
 	if (getErrorLog() != NULL &&
 	    static_cast<ListOfCompartmentGlyphs*>(getParentSBMLObject())->size() < 2)
 	{
@@ -395,18 +402,36 @@ void CompartmentGlyph::readAttributes (const XMLAttributes& attributes,
 				const std::string details =
 				      getErrorLog()->getError(n)->getMessage();
 				getErrorLog()->remove(UnknownPackageAttribute);
-				getErrorLog()->logPackageError("layout", 
-                                  LayoutLOCompGlyphAllowedAttributes,
-				          getPackageVersion(), sbmlLevel, sbmlVersion, details);
+        if (loSubGlyphs == true)
+        {
+				  getErrorLog()->logPackageError("layout", 
+                                    LayoutLOSubGlyphAllowedAttribs,
+				            getPackageVersion(), sbmlLevel, sbmlVersion, details);
+        }
+        else
+        {
+				  getErrorLog()->logPackageError("layout", 
+                                    LayoutLOCompGlyphAllowedAttributes,
+				            getPackageVersion(), sbmlLevel, sbmlVersion, details);
+        }
 			}
 			else if (getErrorLog()->getError(n)->getErrorId() == UnknownCoreAttribute)
 			{
 				const std::string details =
 				           getErrorLog()->getError(n)->getMessage();
 				getErrorLog()->remove(UnknownCoreAttribute);
-				getErrorLog()->logPackageError("layout", 
-                                  LayoutLOCompGlyphAllowedAttributes,
-				          getPackageVersion(), sbmlLevel, sbmlVersion, details);
+        if (loSubGlyphs == true)
+        {
+				  getErrorLog()->logPackageError("layout", 
+                                    LayoutLOSubGlyphAllowedAttribs,
+				            getPackageVersion(), sbmlLevel, sbmlVersion, details);
+        }
+        else
+        {
+				  getErrorLog()->logPackageError("layout", 
+                                    LayoutLOCompGlyphAllowedAttributes,
+				            getPackageVersion(), sbmlLevel, sbmlVersion, details);
+        }
 			}
 		}
 	}

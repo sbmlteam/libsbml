@@ -21,7 +21,7 @@
     <layout:listOfLayouts 
 	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
 	   xmlns:layout="http://www.sbml.org/sbml/level3/version1/layout/version1">
-      <layout:layout layout:id="example" layout:name="layoutname" layout:compartment="compartment">
+      <layout:layout layout:id="example">
         <layout:dimensions layout:width="239.037328720093" layout:height="76.5"/>
         
 		<layout:listOfSpeciesGlyphs>
@@ -65,6 +65,27 @@
                   </layout:listOfCurveSegments>
                 </layout:curve>
 				
+              </layout:referenceGlyph>              
+            </layout:listOfReferenceGlyphs>
+            <layout:listOfReferenceGlyphs>
+              <!-- reference glyph representing the inhibited species -->
+              <layout:referenceGlyph 
+                layout:id="SpeciesReference_J0_0" 
+                layout:reference="Node1" 
+                layout:glyph="sGlyph_1" 
+                layout:role="inhibitor">
+                
+                <layout:curve>
+                  <layout:listOfCurveSegments>
+                    <layout:curveSegment 
+                      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+                      xsi:type="LineSegment">
+                      <layout:start layout:x="86" layout:y="38"/>
+                      <layout:end layout:x="153" layout:y="38"/>
+                    </layout:curveSegment>
+                  </layout:listOfCurveSegments>
+                </layout:curve>
+                
               </layout:referenceGlyph>              
             </layout:listOfReferenceGlyphs>
           </layout:generalGlyph>

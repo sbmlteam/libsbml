@@ -40,7 +40,7 @@
         </layout:listOfSpeciesGlyphs>
         
 		<layout:listOfAdditionalGraphicalObjects>
-          <layout:generalGlyph layout:id="rGlyph_0" reference="sGlyph_0">
+          <layout:generalGlyph layout:id="rGlyph_0" layout:reference="sGlyph_0">
 		    <!-- unused bounding box -->
             <layout:boundingBox>
               <layout:position layout:x="0" layout:y="0"/>
