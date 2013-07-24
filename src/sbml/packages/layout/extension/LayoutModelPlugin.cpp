@@ -501,7 +501,7 @@ LayoutModelPlugin::accept(SBMLVisitor& v) const
 	v.visit(*model);
 	v.leave(*model);
 
-	for(unsigned int i = 0; i < getNumLayouts(); i++)
+	for(int i = 0; i < getNumLayouts(); i++)
 	{
 		getLayout(i)->accept(v);
 	}
