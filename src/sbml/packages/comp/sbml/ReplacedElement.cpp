@@ -321,37 +321,62 @@ ReplacedElement::renameSIdRefs(std::string oldid, std::string newid)
 
 int ReplacedElement::performReplacement()
 {
+  SBMLDocument* doc = getSBMLDocument();
   if (isSetDeletion()) {
     //Deletions don't need to be replaced.
     return LIBSBML_OPERATION_SUCCESS;
   }
   //Find the various objects and plugin objects we need for this to work.
   SBase* lore = getParentSBMLObject();
-  if (lore == NULL) return LIBSBML_INVALID_OBJECT;
-  if (lore->getTypeCode() != SBML_LIST_OF) return LIBSBML_INVALID_OBJECT;
+  if (lore == NULL) {
+    if (doc) {
+      string error = "No parent <listOfReplacedElements> could be found for the given <replacement> element.";
+      doc->getErrorLog()->logPackageError("comp", CompFlatModelNotValid, 1, 3, 1, error);
+    }
+    return LIBSBML_INVALID_OBJECT;
+  }
+  if (lore->getTypeCode() != SBML_LIST_OF) {
+    if (doc) {
+      string error = "No parent <listOfReplacedElements> could be found for the given <replacement> element.";
+      doc->getErrorLog()->logPackageError("comp", CompFlatModelNotValid, 1, 3, 1, error);
+    }
+    return LIBSBML_INVALID_OBJECT;
+  }
   SBase* parent = lore->getParentSBMLObject();
-  if (parent==NULL) return LIBSBML_INVALID_OBJECT;
+  if (parent==NULL) {
+    if (doc) {
+      string error = "No parent could be found for the <listOfReplacedElements> object.";
+      doc->getErrorLog()->logPackageError("comp", CompFlatModelNotValid, 1, 3, 1, error);
+    }
+    return LIBSBML_INVALID_OBJECT;
+  }
   SBase* ref = getReferencedElement();
-  if (ref==NULL) return LIBSBML_INVALID_OBJECT;
-  CompSBasePlugin* refplug = static_cast<CompSBasePlugin*>(ref->getPlugin(getPrefix()));
-  if (refplug==NULL) return LIBSBML_INVALID_OBJECT;
+  if (ref==NULL) {
+    //getReferencedElement sets its own error messages.
+    return LIBSBML_INVALID_OBJECT;
+  }
 
   //Update the IDs.
   int ret = updateIDs(ref, parent);
-  if (ret != LIBSBML_OPERATION_SUCCESS) return ret;
+  if (ret != LIBSBML_OPERATION_SUCCESS) {
+    return ret;
+  }
 
   //Perform any conversions on references in the submodel.
   ASTNode* blank = NULL;
   ret = performConversions(parent, blank);
   if (ret != LIBSBML_OPERATION_SUCCESS) return ret;
 
-  //Now recurse down the 'replace*' tree, renaming IDs and deleting things as we go.
-  for (unsigned int re=0; re<refplug->getNumReplacedElements(); re++) {
-    refplug->getReplacedElement(re)->replaceWithAndMaybeDelete(parent, true, blank);
-  }
-  if (refplug->isSetReplacedBy()) {
-    //Even if the subelement used to be replaced by something further down, it is now being replaced by the parent.  It just can't catch a break, it seems.
-    refplug->getReplacedBy()->replaceWithAndMaybeDelete(parent, true, blank);
+  CompSBasePlugin* refplug = static_cast<CompSBasePlugin*>(ref->getPlugin(getPrefix()));
+  if (refplug != NULL) {
+    //Now recurse down the 'replace*' tree, renaming IDs and deleting things as we go.
+    for (unsigned int re=0; re<refplug->getNumReplacedElements(); re++) {
+      refplug->getReplacedElement(re)->replaceWithAndMaybeDelete(parent, true, blank);
+    }
+    if (refplug->isSetReplacedBy()) {
+      //Even if the subelement used to be replaced by something further down, it is now being replaced by the parent.  It just can't catch a break, it seems.
+      refplug->getReplacedBy()->replaceWithAndMaybeDelete(parent, true, blank);
+    }
   }
 
   //And finally, delete the referenced object.

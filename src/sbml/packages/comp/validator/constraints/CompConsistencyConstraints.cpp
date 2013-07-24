@@ -2548,6 +2548,186 @@ END_CONSTRAINT
 //20710 - caught at read
 //20711 - caught at read
 
+//20712
+START_CONSTRAINT (CompSBaseRefMustReferenceObject, SBaseRef, sbRef)
+{
+  bool idRef = sbRef.isSetIdRef();
+  bool unitRef = sbRef.isSetUnitRef();
+  bool metaidRef = sbRef.isSetMetaIdRef();
+  bool portRef  = sbRef.isSetPortRef();
+
+  msg = "<sBaseRef> in ";
+  const Model* mod = static_cast<const Model*>
+                                    (sbRef.getAncestorOfType(SBML_MODEL, "core"));
+  if (mod == NULL) {
+    mod = static_cast<const Model*>
+                     (sbRef.getAncestorOfType(SBML_COMP_MODELDEFINITION, "comp"));
+  }
+  if (mod == NULL || !mod->isSetId()) {
+    msg += "the main model in the document";
+  }
+  else {
+    msg += "the model '";
+    msg += mod->getId();
+    msg += "'";
+  }
+  msg += " does not refer to another object.";
+
+  bool fail = true;
+
+  if (idRef == true)
+  {
+    fail = false;
+  }
+  else if (unitRef == true)
+  {
+    fail = false;
+  }
+  else if (metaidRef == true)
+  {
+    fail = false;
+  }
+  else if (portRef == true)
+  {
+    fail = false;
+  }
+
+  inv(fail == false);
+
+
+}
+END_CONSTRAINT
+
+
+//20713
+START_CONSTRAINT (CompSBaseRefMustReferenceOnlyOneObject, SBaseRef, sbRef)
+{
+
+  bool idRef = sbRef.isSetIdRef();
+  bool unitRef = sbRef.isSetUnitRef();
+  bool metaidRef = sbRef.isSetMetaIdRef();
+  bool portRef = sbRef.isSetPortRef();
+
+  bool fail = false;
+
+  msg = "<sBaseRef> in ";
+  const Model* mod = static_cast<const Model*>
+                                    (sbRef.getAncestorOfType(SBML_MODEL, "core"));
+  if (mod == NULL) {
+    mod = static_cast<const Model*>
+                     (sbRef.getAncestorOfType(SBML_COMP_MODELDEFINITION, "comp"));
+  }
+  if (mod == NULL || !mod->isSetId()) {
+    msg += "the main model in the document";
+  }
+  else {
+    msg += "the model '";
+    msg += mod->getId();
+    msg += "'";
+  }
+  msg += " refers to ";
+
+  if (idRef == true)
+  {
+    msg += "object with id '";
+    msg += sbRef.getIdRef();
+    msg += "'";
+    if (unitRef == true)
+    {
+      fail = true;
+      msg += "and also unit with id '";
+      msg += sbRef.getUnitRef();
+      msg += "'";
+
+      if ( metaidRef == true)
+      {
+        msg += "and also object with metaid '";
+        msg += sbRef.getMetaIdRef();
+        msg += "'";
+      }
+
+      if (portRef == true)
+      {
+        msg += "and also port with id '";
+        msg += sbRef.getPortRef();
+        msg += "'";
+      }
+      msg += ".";
+    }
+    else if (metaidRef == true)
+    {
+      fail = true;
+      msg += "and also object with metaid '";
+      msg += sbRef.getMetaIdRef();
+      msg += "'";
+ 
+      if (portRef == true)
+      {
+        msg += "and also port with id '";
+        msg += sbRef.getPortRef();
+        msg += "'";
+      }
+      msg += ".";
+    }
+    else if (portRef == true)
+    {
+      fail = true;
+      msg += "and also object with metaid '";
+      msg += sbRef.getMetaIdRef();
+      msg += "'.";
+    }
+  }
+  else if (unitRef == true)
+  {
+    msg += "unit with id '";
+    msg += sbRef.getUnitRef();
+    msg += "' and also ";
+    
+    if (metaidRef == true)
+    {
+      fail = true;
+      msg += "and also object with metaid '";
+      msg += sbRef.getMetaIdRef();
+      msg += "'";
+ 
+      if (portRef == true)
+      {
+        msg += "and also port with id '";
+        msg += sbRef.getPortRef();
+        msg += "'";
+      }
+      msg += ".";
+    }
+    else if (portRef == true)
+    {
+      fail = true;
+      msg += "and also object with metaid '";
+      msg += sbRef.getMetaIdRef();
+      msg += "'.";
+    }
+  }
+  else if (metaidRef == true)
+  {
+    msg += "object with metaid '";
+    msg += sbRef.getMetaIdRef();
+    msg += "'";
+
+    if (portRef == true)
+    {
+      fail = true;
+      msg += "and also port with id '";
+      msg += sbRef.getPortRef();
+      msg += "'";
+    }
+    msg += ".";
+  }
+
+  inv(fail == false);
+
+}
+END_CONSTRAINT
+
+
 //*************************************
 
 //Port constraints

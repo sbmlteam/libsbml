@@ -300,14 +300,29 @@ Port::getTypeCode () const
 int 
 Port::saveReferencedElement()
 {
+  SBMLDocument* doc = getSBMLDocument();
   Model* model = CompBase::getParentModel(this);
-  if (model==NULL) return LIBSBML_OPERATION_FAILED;
+  if (model==NULL) {
+    if (doc) {
+      string error = "No model could be found for the given <port> element";
+      if (isSetId()) {
+        error += " '" + getId() + "'.";
+      }
+      doc->getErrorLog()->logPackageError("comp", CompFlatModelNotValid, 1, 3, 1, error);
+    }
+    return LIBSBML_OPERATION_FAILED;
+  }
+  //No other error messages need to be set--'getReferencedElement*' will set them.
   mReferencedElement = getReferencedElementFrom(model);
-  if (mReferencedElement==NULL) return LIBSBML_OPERATION_FAILED;
+  if (mReferencedElement==NULL) {
+    return LIBSBML_OPERATION_FAILED;
+  }
   if (mReferencedElement->getTypeCode()==SBML_COMP_PORT) {
     mReferencedElement = static_cast<Port*>(mReferencedElement)->getReferencedElement();
   }
-  if (mReferencedElement==NULL) return LIBSBML_OPERATION_FAILED;
+  if (mReferencedElement==NULL) {
+    return LIBSBML_OPERATION_FAILED;
+  }
   return LIBSBML_OPERATION_SUCCESS;
 }
 

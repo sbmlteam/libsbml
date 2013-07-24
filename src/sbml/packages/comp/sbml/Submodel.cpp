@@ -802,19 +802,33 @@ Submodel::connectToChild()
 int 
 Submodel::instantiate()
 {
-  if (getAncestorOfType(SBML_MODEL) != NULL)
+  SBMLDocument* doc = getSBMLDocument();
+  if (doc==NULL) 
   {
-    if (getModelRef() == getAncestorOfType(SBML_MODEL)->getId())
-    {
-      return LIBSBML_INVALID_OBJECT;
-    }
+    return LIBSBML_OPERATION_FAILED;
   }
-  else if (getAncestorOfType(SBML_COMP_MODELDEFINITION) != NULL)
+
+  CompSBMLDocumentPlugin* docplugin = 
+    static_cast<CompSBMLDocumentPlugin*>(doc->getPlugin(getPrefix()));
+  if (docplugin==NULL)
   {
-    if (getModelRef() == getAncestorOfType(SBML_COMP_MODELDEFINITION)->getId())
+    return LIBSBML_OPERATION_FAILED;
+  }
+
+  const SBase* parent  = getParentSBMLObject();
+  while (parent != NULL && parent->getTypeCode() != SBML_DOCUMENT) {
+    if (parent->getTypeCode() == SBML_MODEL ||
+      parent->getTypeCode() == SBML_COMP_MODELDEFINITION ||
+      parent->getTypeCode() == SBML_COMP_EXTERNALMODELDEFINITION)
     {
-      return LIBSBML_INVALID_OBJECT;
+      if (getModelRef() == parent->getId() && docplugin->getExternalModelDefinition(getModelRef()) == NULL)
+      {
+        string error = "The submodel '" + getId() + "' references the model '" + getModelRef() + "', which is already an ancestor of the submodel.";
+        doc->getErrorLog()->logPackageError("comp", CompSubmodelCannotReferenceSelf, 1, 3, 1, error);
+        return LIBSBML_INVALID_OBJECT;
+      }
     }
+    parent = parent->getParentSBMLObject();
   }
 
   if (mInstantiatedModel != NULL) 
@@ -823,32 +837,25 @@ Submodel::instantiate()
     mInstantiatedModel = NULL;
   }
 
-  if (!hasRequiredAttributes()) 
+  if (!hasRequiredAttributes()) {
+    string error = "The submodel '" + getId() + "' does not have ";
+    if (!isSetId()) {
+      error += " an 'id' attribute.";
+    }
+    else if (!isSetModelRef()) {
+      error += " a 'modelRef' attribute.";
+    }
+    doc->getErrorLog()->logPackageError("comp", CompSubmodelAllowedAttributes, 1, 3, 1, error);
     return LIBSBML_INVALID_OBJECT;
-
-  SBMLDocument* sdoc = getSBMLDocument();
-  
-  if (sdoc==NULL) 
-  {
-    return LIBSBML_OPERATION_FAILED;
-  }
-  
-  CompSBMLDocumentPlugin* sdocplugin = 
-    static_cast<CompSBMLDocumentPlugin*>(sdoc->getPlugin(getPrefix()));
-  
-  if (sdocplugin==NULL) 
-  {
-#if 0
-    assert(false); //How did our own document not have the comp namespace?
-#endif
-    return LIBSBML_OPERATION_FAILED;
   }
 
-  SBase* origmodel = sdocplugin->getModel(getModelRef());
+  SBase* origmodel = docplugin->getModel(getModelRef());
   
-  if (origmodel==NULL) 
+  if (origmodel==NULL) {
+    string error = "Unable to instantiate submodel '" + getId() + "' because the referenced model ('" + getModelRef() +"') does not exist.";
+    doc->getErrorLog()->logPackageError("comp", CompSubmodelMustReferenceModel, 1, 3, 1, error);
     return LIBSBML_INVALID_OBJECT;
-  
+  }
   ExternalModelDefinition* extmod;
   SBMLDocument* origdoc = NULL;
   
@@ -863,6 +870,7 @@ Submodel::instantiate()
     extmod = static_cast<ExternalModelDefinition*>(origmodel);
     if (extmod==NULL) 
     {
+      //No error message:  it should be impossible, if origmodel has the type code 'external model definition', for it to not be castable to an external model definition.
       mInstantiatedModel = NULL;
       return LIBSBML_OPERATION_FAILED;
     }
@@ -870,6 +878,8 @@ Submodel::instantiate()
     mInstantiatedModel = extmod->getReferencedModel();
     if (mInstantiatedModel == NULL) 
     {
+      string error = "Unable to instantiate submodel '" + getId() + "' because the external model definition it referenced (model ('" + getModelRef() +"') does not exist.";
+      doc->getErrorLog()->logPackageError("comp", CompSubmodelMustReferenceModel, 1, 3, 1, error);
       return LIBSBML_OPERATION_FAILED;
     }
 
@@ -877,16 +887,16 @@ Submodel::instantiate()
     mInstantiatedModel = mInstantiatedModel->clone();
     break;
   default:
-#if 0
-    assert(false); 
-    //Should always be one of the above 
-    // (unless someone extends one of the above?  Hmm.)
-#endif
+    //Should always be one of the above, unless someone extends one of the above and doesn't tell us.
+    string error = "Unable to parse the model '" + origmodel->getId() + "', as it was not of the type 'model' 'modelDefinition', or 'externalModelDefinition'.  The most likely cause of this situation is if some other package extended one of those three types, but the submodel code was not updated.";
+    doc->getErrorLog()->logPackageError("comp", CompUnresolvedReference, 1, 3, 1, error);
     return LIBSBML_OPERATION_FAILED;
   }
   
   if (mInstantiatedModel==NULL) 
   {
+    string error = "Unable to create a valid copy of model '" + getModelRef() + "'.";
+    doc->getErrorLog()->logPackageError("comp", CompModelFlatteningFailed, 1, 3, 1, error);
     return LIBSBML_OPERATION_FAILED;
   }
 
@@ -910,8 +920,10 @@ Submodel::instantiate()
   {
     Submodel* instsub = instmodplug->getSubmodel(sub);
     int ret = instsub->instantiate();
-    if (ret != LIBSBML_OPERATION_SUCCESS) 
+    if (ret != LIBSBML_OPERATION_SUCCESS) {
+      //'instantiate' already sets its own error messages.
       return ret;
+    }
   }
 
   return LIBSBML_OPERATION_SUCCESS;
@@ -1005,15 +1017,17 @@ Submodel::getAllInstantiatedElements()
 int Submodel::convertTimeAndExtent()
 {
   int ret=LIBSBML_OPERATION_SUCCESS;
-  string tcf = getTimeConversionFactor();
+  string tcf = "";
   ASTNode* tcf_ast = NULL;
-  if (!tcf.empty()) {
+  if (isSetTimeConversionFactor()) {
+    tcf = getTimeConversionFactor();
     tcf_ast = new ASTNode(AST_NAME);
     tcf_ast->setName(tcf.c_str());
   }
-  string xcf = getExtentConversionFactor();
+  string xcf = "";
   ASTNode* xcf_ast = NULL;
-  if (!xcf.empty()) {
+  if (isSetExtentConversionFactor()) {
+    xcf = getExtentConversionFactor();
     xcf_ast = new ASTNode(AST_NAME);
     xcf_ast->setName(xcf.c_str());
   }
@@ -1042,7 +1056,10 @@ int Submodel::convertTimeAndExtentWith(const ASTNode* tcf, const ASTNode* xcf, c
 {
   if (tcf==NULL && xcf==NULL) return LIBSBML_OPERATION_SUCCESS;
   Model* model = getInstantiation();
-  if (model==NULL) return LIBSBML_OPERATION_FAILED;
+  if (model==NULL) {
+    //getInstantiation sets its own error messages.
+    return LIBSBML_OPERATION_FAILED;
+  }
   ASTNode* tcftimes = NULL;
   ASTNode* tcfdiv = NULL;
   if (tcf != NULL) {

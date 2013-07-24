@@ -142,21 +142,72 @@ Replacing::hasRequiredAttributes() const
 int 
 Replacing::saveReferencedElement()
 {
-  if (!isSetSubmodelRef()) return LIBSBML_INVALID_OBJECT;
+  SBMLDocument* doc = getSBMLDocument();
+  if (!isSetSubmodelRef()) {
+    if (doc) {
+      string error = "The given <" + getElementName() + "> element";
+      if (isSetId()) {
+        error += " '" + getId() + "'";
+      }
+      error += " has no 'submodelRef' attribute.";
+      doc->getErrorLog()->logPackageError("comp", CompFlatModelNotValid, 1, 3, 1, error);
+    }
+    return LIBSBML_INVALID_OBJECT;
+  }
   Model* model = getParentModel(this);
-  if (model==NULL) return LIBSBML_OPERATION_FAILED;
+  if (model==NULL) {
+    if (doc) {
+      string error = "No parent model could be found for the given <" + getElementName() + "> element";
+      if (isSetId()) {
+        error += " '" + getId() + "'.";
+      }
+      doc->getErrorLog()->logPackageError("comp", CompFlatModelNotValid, 1, 3, 1, error);
+    }
+    return LIBSBML_OPERATION_FAILED;
+  }
   CompModelPlugin* cmp = static_cast<CompModelPlugin*>(model->getPlugin(getPrefix()));
-  if (cmp==NULL) return LIBSBML_OPERATION_FAILED;
+  if (cmp==NULL) {
+    if (doc) {
+      string error = "No 'comp' plugin for the parent model could be found for the given <" + getElementName() + "> element";
+      if (isSetId()) {
+        error += " '" + getId() + "'.";
+      }
+      doc->getErrorLog()->logPackageError("comp", CompFlatModelNotValid, 1, 3, 1, error);
+    }
+    return LIBSBML_OPERATION_FAILED;
+  }
   Submodel* submod = cmp->getSubmodel(getSubmodelRef());
-  if (submod==NULL) return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+  if (submod==NULL) {
+    if (doc) {
+      string error = "For the given <" + getElementName() + "> element";
+      if (isSetId()) {
+        error += " '" + getId() + "'";
+      }
+      error += ", the submodelRef '" + getSubmodelRef() + "' could not be found.";
+      int errnumber = CompReplacedElementSubModelRef;
+      if (getTypeCode() == SBML_COMP_REPLACEDBY) {
+        errnumber = CompReplacedBySubModelRef;
+      }
+      doc->getErrorLog()->logPackageError("comp", errnumber, 1, 3, 1, error);
+    }
+    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+  }
   Model* inst = submod->getInstantiation();
-  if (inst==NULL) return LIBSBML_OPERATION_FAILED;
+  if (inst==NULL) {
+    //getInstantiation sets it own error messages.
+    return LIBSBML_OPERATION_FAILED;
+  }
   mReferencedElement = getReferencedElementFrom(inst);
-  if (mReferencedElement==NULL) return LIBSBML_OPERATION_FAILED;
+  //getReferencedElement* set their own error messages:
+  if (mReferencedElement==NULL) {
+    return LIBSBML_OPERATION_FAILED;
+  }
   if (mReferencedElement->getTypeCode()==SBML_COMP_PORT) {
     mReferencedElement = static_cast<Port*>(mReferencedElement)->getReferencedElement();
   }
-  if (mReferencedElement==NULL) return LIBSBML_OPERATION_FAILED;
+  if (mReferencedElement==NULL) {
+    return LIBSBML_OPERATION_FAILED;
+  }
   return LIBSBML_OPERATION_SUCCESS;
 }
 
@@ -280,6 +331,7 @@ Replacing::connectToChild()
 int 
 Replacing::replaceWithAndMaybeDelete(SBase* replacement, bool deleteme, ASTNode* conversionFactor)
 {
+  //All of the following function calls that could result in errors set their own error messages.
   SBase* replaced = getReferencedElement();
   if (replaced==NULL) return LIBSBML_INVALID_OBJECT;
 
@@ -294,7 +346,8 @@ Replacing::replaceWithAndMaybeDelete(SBase* replacement, bool deleteme, ASTNode*
   //Finally, recurse down if there are things the replaced element itself replaced (or used to be replaced by)
   CompSBasePlugin* replacedplug = static_cast<CompSBasePlugin*>(replaced->getPlugin(getPrefix()));
   if (replacedplug==NULL) {
-    assert(false); //Not sure when this situation would come up, so I would like to see an example.
+    //assert(false); //Not sure when this situation would come up, so I would like to see an example.
+    //(sadly, I cannot set an assert in production code.)
     return LIBSBML_OPERATION_SUCCESS; //I guess?  LS DEBUG
   }
   for (unsigned int re=0; re<replacedplug->getNumReplacedElements(); re++) {
@@ -320,13 +373,32 @@ int
 Replacing::updateIDs(SBase* oldnames, SBase* newnames)
 {
   int ret = LIBSBML_OPERATION_SUCCESS;
-  if (oldnames->isSetId() && !newnames->isSetId()) return LIBSBML_INVALID_OBJECT;
-  if (oldnames->isSetMetaId() && !newnames->isSetMetaId()) return LIBSBML_INVALID_OBJECT;
+  SBMLDocument* doc = getSBMLDocument();
+  if (oldnames->isSetId() && !newnames->isSetId()) {
+    if (doc) {
+      string error = "The '" + oldnames->getId() + "' element's replacement element does not have an ID set.";
+      doc->getErrorLog()->logPackageError("comp", CompMustReplaceIDs, 1, 3, 1, error);
+    }
+    return LIBSBML_INVALID_OBJECT;
+  }
+  if (oldnames->isSetMetaId() && !newnames->isSetMetaId()) {
+    if (doc) {
+      string error = "The replacement of the element with metaid '" + oldnames->getMetaId() + "' does not have a metaid.";
+      doc->getErrorLog()->logPackageError("comp", CompMustReplaceMetaIDs, 1, 3, 1, error);
+    }
+    return LIBSBML_INVALID_OBJECT;
+  }
   //LS DEBUG Somehow we need to check identifiers from other packages here (like spatial id's).  How, exactly, is anyone's guess.
   Model* replacedmod = const_cast<Model*>(CompBase::getParentModel(oldnames));
   KineticLaw* replacedkl;
   ASTNode newkl;
-  if (replacedmod==NULL) return LIBSBML_INVALID_OBJECT;
+  if (replacedmod==NULL) {
+    if (doc) {
+      string error = "The replacement of '" + oldnames->getId() + "' does not have a valid model.";
+      doc->getErrorLog()->logPackageError("comp", CompModelFlatteningFailed, 1, 3, 1, error);
+    }
+    return LIBSBML_INVALID_OBJECT;
+  }
   List* allElements = replacedmod->getAllElements();
   string oldid = oldnames->getId();
   string newid = newnames->getId();
@@ -373,17 +445,44 @@ Replacing::updateIDs(SBase* oldnames, SBase* newnames)
 
 int Replacing::performConversions(SBase* replacement, ASTNode*& conversionFactor)
 {
+  SBMLDocument* doc = getSBMLDocument();
   int ret = convertConversionFactor(conversionFactor);
-  if (ret != LIBSBML_OPERATION_SUCCESS) return ret;
-  if (conversionFactor==NULL) return ret;
-  if (replacement==NULL) return LIBSBML_OPERATION_FAILED;
+  if (ret != LIBSBML_OPERATION_SUCCESS) {
+    //convertConversionFactor sets its own error messages.
+    return ret;
+  }
+  if (conversionFactor==NULL) {
+    return ret;
+  }
+  if (replacement==NULL) {
+    if (doc) {
+      string error = "Internal error:  cannot perform a conversion of NULL.";
+      doc->getErrorLog()->logPackageError("comp", CompFlatModelNotValid, 1, 3, 1, error);
+    }
+    return LIBSBML_OPERATION_FAILED;
+  }
 
   SBase* replaced = getReferencedElement();
-  if (replaced==NULL) return LIBSBML_INVALID_OBJECT;
+  if (replaced==NULL) {
+    //getReferencedElement sets its own error messages.
+    return LIBSBML_INVALID_OBJECT;
+  }
   Model* replacedmod = const_cast<Model*>(CompBase::getParentModel(replaced));
-  if (replacedmod==NULL) return LIBSBML_INVALID_OBJECT;
+  if (replacedmod==NULL) {
+    if (doc) {
+      string error = "No model parent could be found for replacement";
+      if (replacement->isSetId()) {
+        error += replacement->getId() + ".";
+      }
+      doc->getErrorLog()->logPackageError("comp", CompFlatModelNotValid, 1, 3, 1, error);
+    }
+    return LIBSBML_INVALID_OBJECT;
+  }
 
-  if (!replacement->isSetId()) return LIBSBML_INVALID_OBJECT;
+  if (!replacement->isSetId()) {
+    //If the replacement has no ID, it won't need to be converted anywhere.  Only theoretically possible for non-core SBase elements.
+    return LIBSBML_OPERATION_SUCCESS;
+  }
   string id = replacement->getId();
   ASTNode replacementAST(AST_NAME);
   replacementAST.setName(id.c_str());
@@ -402,6 +501,7 @@ int Replacing::performConversions(SBase* replacement, ASTNode*& conversionFactor
 int Replacing::convertConversionFactor(ASTNode*& conversionFactor)
 {
   int ret = LIBSBML_OPERATION_SUCCESS;
+  SBMLDocument* doc = getSBMLDocument();
   ASTNode* newCF = NULL;
   if (mConversionFactor=="") {
     newCF = conversionFactor;
@@ -424,7 +524,10 @@ int Replacing::convertConversionFactor(ASTNode*& conversionFactor)
       newCF = conversionFactor;
     }
     else {
-      assert(false);
+      if (doc) {
+        string error = "Internal error:  unknown conversion factor form.";
+        doc->getErrorLog()->logPackageError("comp", CompFlatModelNotValid, 1, 3, 1, error);
+      }
       return LIBSBML_OPERATION_FAILED;
     }
   }

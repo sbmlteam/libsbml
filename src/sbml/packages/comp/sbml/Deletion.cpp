@@ -260,19 +260,56 @@ Deletion::getTypeCode () const
 int 
 Deletion::saveReferencedElement()
 {
+  SBMLDocument* doc = getSBMLDocument();
   SBase* listodels = getParentSBMLObject();
-  if (listodels==NULL) return LIBSBML_OPERATION_FAILED;
+  if (listodels==NULL) {
+    if (doc) {
+      string error = "The deletion ";
+      if (isSetId()) {
+        error += "'" + getId() + "'";
+      }
+      error += "has no parent list of deletions--the element it may reference cannot be found.";
+      doc->getErrorLog()->logPackageError("comp", CompModelFlatteningFailed, 1, 3, 1, error);
+    }
+    return LIBSBML_OPERATION_FAILED;
+  }
   SBase* submodsb = listodels->getParentSBMLObject();
-  if (submodsb==NULL) return LIBSBML_OPERATION_FAILED;
+  if (submodsb==NULL) {
+    if (doc) {
+      string error = "The deletion ";
+      if (isSetId()) {
+        error += "'" + getId() + "'";
+      }
+      error += "has no parent submodel--the element it may reference cannot be found.";
+      doc->getErrorLog()->logPackageError("comp", CompModelFlatteningFailed, 1, 3, 1, error);
+    }
+    return LIBSBML_OPERATION_FAILED;
+  }
   Submodel* submod = static_cast<Submodel*>(submodsb);
-  if (submod==NULL) return LIBSBML_OPERATION_FAILED;
+  if (submod==NULL) {
+    if (doc) {
+      string error = "The deletion ";
+      if (isSetId()) {
+        error += "'" + getId() + "'";
+      }
+      error += "has no parent submodel--the element it may reference cannot be found.";
+      doc->getErrorLog()->logPackageError("comp", CompModelFlatteningFailed, 1, 3, 1, error);
+    }
+    return LIBSBML_OPERATION_FAILED;
+  }
   Model* referencedmod = submod->getInstantiation();
   mReferencedElement = getReferencedElementFrom(referencedmod);
-  if (mReferencedElement==NULL) return LIBSBML_OPERATION_FAILED;
+  if (mReferencedElement==NULL) {
+    //getReferencedElementFrom will provide its own error messages.
+    return LIBSBML_OPERATION_FAILED;
+  }
   if (mReferencedElement->getTypeCode()==SBML_COMP_PORT) {
     mReferencedElement = static_cast<Port*>(mReferencedElement)->getReferencedElement();
   }
-  if (mReferencedElement==NULL) return LIBSBML_OPERATION_FAILED;
+  if (mReferencedElement==NULL) {
+    //getReferencedElementFrom will provide its own error messages.
+    return LIBSBML_OPERATION_FAILED;
+  }
   return LIBSBML_OPERATION_SUCCESS;
 }
 

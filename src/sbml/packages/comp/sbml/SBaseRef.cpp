@@ -732,40 +732,101 @@ SBaseRef::connectToChild()
 SBase* 
 SBaseRef::getReferencedElementFrom(Model* model)
 {
+  SBMLDocument* doc = getSBMLDocument();
   if (!hasRequiredAttributes()) {
+    if (doc) {
+      string error = "Unable to find referenced element from SBase reference ";
+      if (isSetId()) {
+        error += "'" + getId() + "' ";
+      }
+      error += " as it does not have the required attributes.";
+      doc->getErrorLog()->logPackageError("comp", CompSBaseRefMustReferenceOnlyOneObject, 1, 3, 1, error);
+    }
     return NULL;
   }
   SBase* referent = NULL;
   if (isSetPortRef()) {
     CompModelPlugin* mplugin = static_cast<CompModelPlugin*>(model->getPlugin(getPrefix()));
     Port* port = mplugin->getPort(getPortRef());
-    if (port==NULL) return NULL;
+    if (port==NULL) {
+      if (doc) {
+        string error = "Unable to find referenced element from SBase reference ";
+        if (isSetId()) {
+          error += "'" + getId() + "' ";
+        }
+        error += " as the port it references ('" + getPortRef() +"') could not be found.";
+        doc->getErrorLog()->logPackageError("comp", CompModelFlatteningFailed, 1, 3, 1, error);
+      }
+      return NULL;
+    }
     referent = port->getReferencedElementFrom(model);
   }
   else if (isSetIdRef()) {
     referent = model->getElementBySId(getIdRef());
+    if (referent == NULL && doc) {
+      string error = "No such SId in the model:  '" + getIdRef() + "'.";
+      doc->getErrorLog()->logPackageError("comp", CompIdRefMustReferenceObject, 1, 3, 1, error);
+    }
   }
   else if (isSetUnitRef()) {
     referent = model->getUnitDefinition(getUnitRef());
+    if (referent == NULL && doc) {
+      string error = "No such Unit in the model:  '" + getUnitRef() + "'.";
+      doc->getErrorLog()->logPackageError("comp", CompUnitRefMustReferenceUnitDef, 1, 3, 1, error);
+    }
   }
   else if (isSetMetaIdRef()) {
     referent = model->getElementByMetaId(getMetaIdRef());
+    if (referent == NULL && doc) {
+      string error = "No such metaid in the model:  '" + getMetaIdRef() + "'.";
+      doc->getErrorLog()->logPackageError("comp", CompMetaIdRefMustReferenceObject, 1, 3, 1, error);
+    }
   }
   else {
     //This is actually possible if the subclass overrides getNumReferents() (which some do).  In that case, we just return NULL and let the overriding function find the referent instead.
     return NULL;
   }
-  if (referent == NULL) return NULL;
+  if (referent == NULL) {
+    //No need to set an error message--one was already set above.
+    return NULL;
+  }
   if (isSetSBaseRef()) {
     //We're drilling into the submodels here, so our referent must be a submodel.
     if (referent->getTypeCode() != SBML_COMP_SUBMODEL) {
-      //Set something in the error log?
+      if (doc) {
+        string error = "The element ";
+        if (referent->isSetId()) {
+          error += "'" + referent->getId() + "'";
+        }
+        else if (referent->isSetMetaId()) {
+          error += "with the metaid '" + referent->getMetaId() + "'";
+        }
+        error += " is not a submodel, and therefore has no subobjects for the child <sBaseRef> to refer to.";
+        doc->getErrorLog()->logPackageError("comp", CompParentOfSBRefChildMustBeSubmodel, 1, 3, 1, error);
+      }
       return NULL;
     }
     Submodel* subm = static_cast<Submodel*>(referent);
-    if (subm==NULL) return NULL;
+    if (subm==NULL) {
+      if (doc) {
+        string error = "The element ";
+        if (referent->isSetId()) {
+          error += "'" + referent->getId() + "'";
+        }
+        else if (referent->isSetMetaId()) {
+          error += "with the metaid '" + referent->getMetaId() + "'";
+        }
+        error += " claims to be a Submodel, but could not be programmatically turned into one.";
+        doc->getErrorLog()->logPackageError("comp", CompParentOfSBRefChildMustBeSubmodel, 1, 3, 1, error);
+      }
+      return NULL;
+    }
     Model* inst = subm->getInstantiation();
-    if (inst==NULL) return NULL;
+    if (inst==NULL) {
+      //No need to set an additional error, as 'getInstantiation' will set one itself.
+      return NULL;
+    }
+    //Recursive, so will set its own error messages:
     referent = getSBaseRef()->getReferencedElementFrom(inst);
   }
   return referent;
@@ -774,15 +835,32 @@ SBaseRef::getReferencedElementFrom(Model* model)
 int SBaseRef::saveReferencedElement()
 {
   //The only thing that knows what Model we should point to is the parent of this object.  Since it will also be of the class SBaseRef, just call this recursively.
+  SBMLDocument* doc = getSBMLDocument();
   SBase* parent = getParentSBMLObject();
-  if (parent==NULL) return LIBSBML_OPERATION_FAILED;
+  if (parent==NULL) {
+    if (doc) {
+      string error = "No parent could be found for the given <sBaseRef> element.";
+      doc->getErrorLog()->logPackageError("comp", CompFlatModelNotValid, 1, 3, 1, error);
+    }
+    return LIBSBML_OPERATION_FAILED;
+  }
   SBaseRef* parentref = static_cast<SBaseRef*>(parent);
-  if (parentref==NULL) return LIBSBML_OPERATION_FAILED;
+  if (parentref==NULL) {
+    if (doc) {
+      string error = "The parent of the given <sBaseRef> element was not the correct type.";
+      doc->getErrorLog()->logPackageError("comp", CompFlatModelNotValid, 1, 3, 1, error);
+    }
+    return LIBSBML_OPERATION_FAILED;
+  }
   if (parentref->saveReferencedElement() != LIBSBML_OPERATION_SUCCESS) {
+    //saveReferencedelement will set its own error messages.
     return LIBSBML_OPERATION_FAILED;
   }
   mReferencedElement = parentref->getReferencedElement();
-  if (mReferencedElement==NULL) return LIBSBML_OPERATION_FAILED;
+  if (mReferencedElement==NULL) {
+    //getReferencedElement will set its own error messages.
+    return LIBSBML_OPERATION_FAILED;
+  }
   return LIBSBML_OPERATION_SUCCESS;
 }
 
@@ -802,7 +880,9 @@ void SBaseRef::clearReferencedElement()
 int SBaseRef::performDeletion()
 {
   SBase* todelete = getReferencedElement();
-  if (todelete==NULL) return LIBSBML_INVALID_OBJECT;
+  if (todelete==NULL) {
+    return LIBSBML_INVALID_OBJECT;
+  }
   CompSBasePlugin* todplug = static_cast<CompSBasePlugin*>(todelete->getPlugin(getPrefix()));
   if (todplug != NULL) {
     for (unsigned long re=0; re<todplug->getNumReplacedElements(); re++) {

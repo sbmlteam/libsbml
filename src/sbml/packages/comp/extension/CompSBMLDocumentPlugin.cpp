@@ -553,8 +553,8 @@ const SBase* CompSBMLDocumentPlugin::getModel(const string& sid) const
  */
 SBase* CompSBMLDocumentPlugin::getModel(const string& sid)
 {
-  SBMLDocument* sdoc = getSBMLDocument();
-  if (sdoc==NULL) return NULL;
+  SBMLDocument* doc = getSBMLDocument();
+  if (doc==NULL) return NULL;
   SBase* ret = getSBMLDocument()->getModel();
   if (ret != NULL && ret->getId() == sid) return ret;
   ret = getModelDefinition(sid);

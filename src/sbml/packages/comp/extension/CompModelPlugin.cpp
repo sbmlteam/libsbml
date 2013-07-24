@@ -472,13 +472,19 @@ Model* CompModelPlugin::flattenModel() const
   //First make a copy of our parent (the model to be flattened):
   const Model* parent = static_cast<const Model*>(getParentSBMLObject());
   
-  if (parent==NULL) 
+  if (parent==NULL) {
     return NULL;
-  Model* flat = parent->clone();
+  }
+  //doc needs to be non-const so that the error messages can be updated.  Otherwise, nothing changes.
+  SBMLDocument* doc = const_cast<SBMLDocument*>(getSBMLDocument());
+  if (doc==NULL) {
+    return NULL;
+  }
 
   //Set the original document so that it can find the model definitions 
   //and external model definitions while we flatten.
-  flat->setSBMLDocument(const_cast<SBMLDocument*>(this->getSBMLDocument()));
+  Model* flat = parent->clone();
+  flat->setSBMLDocument(doc);
   CompModelPlugin* flatplug = 
     static_cast<CompModelPlugin*>(flat->getPlugin(getPrefix()));
 
@@ -487,8 +493,11 @@ Model* CompModelPlugin::flattenModel() const
   vector<const Model*> submods;
   int success = flatplug->instantiateSubmodels();
 
-  if (success != LIBSBML_OPERATION_SUCCESS) 
+  if (success != LIBSBML_OPERATION_SUCCESS) {
+    //instantiateSubmodels sets its own error messages.
+    delete flat;
     return NULL;
+  }
 
   //Now start the aggregation process.  
   //This goes from the bottom up, calling 'appendFrom' iteratively 
@@ -496,15 +505,28 @@ Model* CompModelPlugin::flattenModel() const
   for (unsigned int sm=0; sm<flatplug->getNumSubmodels(); sm++) 
   {
     Model* submodel = flatplug->getSubmodel(sm)->getInstantiation();
+    if (submodel==NULL) {
+      //getInstantiation should be calling a cached value by now, but if not, it will set its own error messages.
+      delete flat;
+      return NULL;
+    }
     CompModelPlugin* submodplug = 
       static_cast<CompModelPlugin*>(submodel->getPlugin(getPrefix()));
-    
-    //Strip the ports from the submodel, as we no longer need them.
-    while (submodplug->getNumPorts() > 0) 
-    {
-      submodplug->removePort(0);
+
+    if (submodplug != NULL) {
+      //Strip the ports from the submodel, as we no longer need them.
+      while (submodplug->getNumPorts() > 0) 
+      {
+        submodplug->removePort(0);
+      }
     }
-    flat->appendFrom(submodel);
+    success = flat->appendFrom(submodel);
+    if (success != LIBSBML_OPERATION_SUCCESS) {
+      string error = "The submodel '" + submodel->getId() + "' could not be used to create the flattened model:  appending the elements of the submodel to the elements of the parent model failed.";
+      doc->getErrorLog()->logPackageError("comp", CompFlatModelNotValid, 1, 3, 1, error);
+      delete flat;
+      return NULL;
+    }
   }
 
   // Now we clear the saved referenced elements in the local Port objects, 
@@ -642,46 +664,49 @@ CompModelPlugin::instantiateSubmodels()
     Submodel* submodel = mListOfSubmodels.get(sub);
     // Instead of 'instantiate', since we might have already 
     // been instantiated ourselves from above.
-    Model* submodinst = submodel->getInstantiation(); 
+    const Model* submodinst = submodel->getInstantiation(); 
     
-    if (submodinst == NULL ) 
+    if (submodinst == NULL ) {
+      //'getInstantiation' already sets any errors that might have occurred.
       return LIBSBML_OPERATION_FAILED;
+    }
   }
 
   // Next, recursively find all the targets of SBaseRef elements 
   // and save them, since we're about to rename everything and 
   // we won't be able to find things by name any more.
   ret = saveAllReferencedElements(); 
-
-  if (ret != LIBSBML_OPERATION_SUCCESS) 
+  if (ret != LIBSBML_OPERATION_SUCCESS) {
+    //saveAllReferencedElements sets any errors.
     return ret;
+  }
 
   // Perform deletions (top-down):  
   // need to do this before renaming in case we delete a local parameter.
   ret = performDeletions();
-  
-  if (ret != LIBSBML_OPERATION_SUCCESS) 
+  if (ret != LIBSBML_OPERATION_SUCCESS) {
     return ret;
+  }
 
   //Next, we rename *all* the elements so everything is unique.
   ret = renameAllIDsAndPrepend("");
-  
-  if (ret != LIBSBML_OPERATION_SUCCESS) 
+  if (ret != LIBSBML_OPERATION_SUCCESS) {
     return ret;
+  }
 
   //Perform replacements and conversions (top-down)
-  ret = performReplacementsAndConversions();
-  
-  if (ret != LIBSBML_OPERATION_SUCCESS) 
-    return ret;
-
-  return LIBSBML_OPERATION_SUCCESS;
+  return performReplacementsAndConversions();
 }
 
 int CompModelPlugin::saveAllReferencedElements()
 {
+  SBMLDocument* doc = getSBMLDocument();
   Model* model = static_cast<Model*>(getParentSBMLObject());
   if (model==NULL) {
+    if (doc) {
+      string error = "No Model parent of the 'comp' model plugin.";
+      doc->getErrorLog()->logPackageError("comp", CompModelFlatteningFailed, 1, 3, 1, error);
+    }
     return LIBSBML_OPERATION_FAILED;
   }
   int ret = LIBSBML_OPERATION_SUCCESS;
@@ -726,40 +751,73 @@ int CompModelPlugin::saveAllReferencedElements()
 int 
 CompModelPlugin::renameAllIDsAndPrepend(const std::string& prefix)
 {
+  SBMLDocument* doc = getSBMLDocument();
   Model* model = static_cast<Model*>(getParentSBMLObject());
-  if (model==NULL) return LIBSBML_INVALID_OBJECT;
+  if (model==NULL) {
+    if (doc) {
+      string error = "No parent model could be found for the given 'comp' model plugin element.";
+      doc->getErrorLog()->logPackageError("comp", CompFlatModelNotValid, 1, 3, 1, error);
+    }
+    return LIBSBML_INVALID_OBJECT;
+  }
 
   //First rename the elements in all instantiated submodels.
   vector<string> submodids;
 
   for (unsigned int sm=0; sm<getNumSubmodels(); sm++) {
     Submodel* subm=getSubmodel(sm);
-    if (subm==NULL) return LIBSBML_OPERATION_FAILED;
-    if (!subm->isSetId()) return LIBSBML_INVALID_OBJECT;
+    if (subm==NULL) {
+      if (doc) {
+        stringstream error;
+        error << "No valid submodel number " << sm << "for model " << model->getId();
+        doc->getErrorLog()->logPackageError("comp", CompFlatModelNotValid, 1, 3, 1, error.str());
+      }
+      return LIBSBML_OPERATION_FAILED;
+    }
+    if (!subm->isSetId()) {
+      if (doc) {
+        stringstream error;
+        error << "Submodel number " << sm << "for model " << model->getId() << " is invalid: it has no 'id' attribute set.";
+        doc->getErrorLog()->logPackageError("comp", CompSubmodelAllowedAttributes, 1, 3, 1, error.str());
+      }
+      return LIBSBML_INVALID_OBJECT;
+    }
     submodids.push_back(subm->getId());
   }
 
   //Check to see if any of the various submodel ids are used as a prefix 
   List* allElements = model->getAllElements();
-  //bool done = (getNumSubmodels() > 0);
   findUniqueSubmodPrefixes(submodids, allElements);
 
   //Now that we've found valid prefixes for all our submodels, call this function recursively on them.
   for (unsigned int sm=0; sm<getNumSubmodels(); sm++) {
     Submodel* subm=getSubmodel(sm); //already checked this above.
     Model* inst = subm->getInstantiation();
+    if (inst==NULL) {
+      //'getInstantiation' will set its own error messages.
+      return LIBSBML_OPERATION_FAILED;
+    }
     CompModelPlugin* instp = static_cast<CompModelPlugin*>(inst->getPlugin(getPrefix()));
-    if (instp==NULL) return LIBSBML_OPERATION_FAILED;
+    if (instp==NULL) {
+      if (doc) {
+        //Shouldn't happen:  'getInstantiation' turns on the comp plugin.
+        string error = "No valid 'comp' plugin for the model instantiated from submodel " + subm->getId();
+        doc->getErrorLog()->logPackageError("comp", CompFlatModelNotValid, 1, 3, 1, error);
+      }
+      return LIBSBML_OPERATION_FAILED;
+    }
     int ret = instp->renameAllIDsAndPrepend(prefix + submodids[sm]);
-    if (ret != LIBSBML_OPERATION_SUCCESS) return ret;
+    if (ret != LIBSBML_OPERATION_SUCCESS) {
+      //'renameAllIds..' will set its own error messages.
+      return ret;
+    }
   }
 
   //Finally, actually rename the elements in *this* model with the prefix.
   if (prefix.empty()) return LIBSBML_OPERATION_SUCCESS; //Nothing to add
 
-  //Rename the SIds, UnitSIds, and MetaIDs
+  //Rename the SIds, UnitSIds, and MetaIDs, and references to them.
   renameIDs(allElements, prefix);
-  //Rename the SIdRefs, the UnitSIdRefs, and the MetaIdRefs (IDREFs)
   return LIBSBML_OPERATION_SUCCESS;
 }
 
@@ -868,14 +926,14 @@ void CompModelPlugin::renameIDs(List* allElements, const string& prefix)
   vector<pair<string, string> > renamedSIds;
   vector<pair<string, string> > renamedUnitSIds;
   vector<pair<string, string> > renamedMetaIds;
-  PrefixTransformer trans(prefix);
+  //PrefixTransformer trans(prefix);
   for (unsigned long el=0; el < allElements->getSize(); ++el) 
   {
     SBase* element = static_cast<SBase*>(allElements->get(el));
     string id = element->getId();
     string metaid = element->getMetaId();
-    element->transformIdentifiers(&trans);
-    //element->prependStringToAllIdentifiers(prefix);
+    //element->transformIdentifiers(&trans);
+    element->prependStringToAllIdentifiers(prefix);
     if (element->getTypeCode() == SBML_LOCAL_PARAMETER) {
       element->setId(id); //Change it back.  This would perhaps be better served by overriding 'prependStringToAllIdentifiers' but hey.
     }
@@ -922,10 +980,15 @@ void CompModelPlugin::renameIDs(List* allElements, const string& prefix)
 int CompModelPlugin::performDeletions()
 {
   int ret = LIBSBML_OPERATION_SUCCESS;
+  SBMLDocument* doc = getSBMLDocument();
   Model* model = static_cast<Model*>(getParentSBMLObject());
-  if (model==NULL) return LIBSBML_OPERATION_FAILED;
-  //TODO: unused variable, is thid needed? 
-  //List* allElements = model->getAllElements();
+  if (model==NULL) {
+    if (doc) {
+      string error = "No parent model could be found for the given 'comp' model plugin element.";
+      doc->getErrorLog()->logPackageError("comp", CompFlatModelNotValid, 1, 3, 1, error);
+    }
+    return LIBSBML_OPERATION_FAILED;
+  }
 
   //Since deletions only exist in submodels, loop through the submodels.
   for (unsigned int sub=0; sub<getNumSubmodels(); sub++) {
@@ -934,13 +997,25 @@ int CompModelPlugin::performDeletions()
     for (unsigned int d=0; d<submodel->getNumDeletions(); d++) {
       Deletion* deletion = submodel->getDeletion(d);
       ret = deletion->performDeletion();
-      if (ret!=LIBSBML_OPERATION_SUCCESS) return ret;
+      if (ret!=LIBSBML_OPERATION_SUCCESS) {
+        return ret;
+      }
     }
     //Next perform any deletions in that instantiated submodel (some of which may have just been deleted)
     Model* mod = submodel->getInstantiation();
-    if (mod==NULL) return LIBSBML_OPERATION_FAILED;
+    if (mod==NULL) {
+      //getInstantiation sets its own error messages.
+      return LIBSBML_OPERATION_FAILED;
+    }
     CompModelPlugin* modplug = static_cast<CompModelPlugin*>(mod->getPlugin(getPrefix()));
-    if (modplug==NULL) return LIBSBML_OPERATION_FAILED;
+    if (modplug==NULL) {
+      if (doc) {
+        //Shouldn't happen:  'getInstantiation' turns on the comp plugin.
+        string error = "No valid 'comp' plugin for the model instantiated from submodel " + submodel->getId();
+        doc->getErrorLog()->logPackageError("comp", CompFlatModelNotValid, 1, 3, 1, error);
+      }
+      return LIBSBML_OPERATION_FAILED;
+    }
     modplug->performDeletions();
   }
   return ret;
@@ -949,8 +1024,15 @@ int CompModelPlugin::performDeletions()
 int CompModelPlugin::performReplacementsAndConversions()
 {
   int ret = LIBSBML_OPERATION_SUCCESS;
+  SBMLDocument* doc = getSBMLDocument();
   Model* model = static_cast<Model*>(getParentSBMLObject());
-  if (model==NULL) return LIBSBML_OPERATION_FAILED;
+  if (model==NULL) {
+    if (doc) {
+      string error = "No parent model could be found for the given 'comp' model plugin element.";
+      doc->getErrorLog()->logPackageError("comp", CompFlatModelNotValid, 1, 3, 1, error);
+    }
+    return LIBSBML_OPERATION_FAILED;
+  }
   List* allElements = model->getAllElements();
   vector<ReplacedElement*> res;
   vector<ReplacedBy*> rbs;

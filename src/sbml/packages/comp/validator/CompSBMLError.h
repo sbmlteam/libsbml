@@ -129,6 +129,8 @@ typedef enum
 , CompInvalidMetaIdRefSyntax            = 1020709
 , CompOneSBaseRefOnly                   = 1020710
 , CompDeprecatedSBaseRefSpelling        = 1020711
+, CompSBaseRefMustReferenceObject       = 1020712
+, CompSBaseRefMustReferenceOnlyOneObject= 1020713
 
 , CompPortMustReferenceObject           = 1020801
 , CompPortMustReferenceOnlyOneObject    = 1020802
@@ -151,6 +153,12 @@ typedef enum
 , CompReplacedByMustRefOnlyOne          = 1021102
 , CompReplacedByAllowedAttributes       = 1021103
 , CompReplacedBySubModelRef             = 1021104
+
+, CompMustReplaceSameClass              = 1021201
+, CompMustReplaceIDs                    = 1021202
+, CompMustReplaceMetaIDs                = 1021203
+, CompMustReplacePackageIDs             = 1021204
+, CompReplacedUnitsShouldMatch          = 1021205
 
 , CompUnresolvedReference               = 1090101
 , CompNoModelInReference                = 1090102

@@ -430,32 +430,34 @@ CompBase::hasValidLevelVersionNamespaceCombination()
 
 int CompBase::removeFromParentAndPorts(SBase* todelete)
 {
+  //First remove from ports:
   Model* parent = static_cast<Model*>(todelete->getAncestorOfType(SBML_COMP_MODELDEFINITION, "comp"));
-    if (parent==NULL) {
-      parent = static_cast<Model*>(todelete->getAncestorOfType(SBML_MODEL));
+  if (parent==NULL) {
+    parent = static_cast<Model*>(todelete->getAncestorOfType(SBML_MODEL));
+  }
+  while (parent != NULL) {
+    CompModelPlugin* cmp = static_cast<CompModelPlugin*>(parent->getPlugin("comp"));
+    if (cmp==NULL) {
+      parent = NULL;
+      continue;
     }
-    while (parent != NULL) {
-      CompModelPlugin* cmp = static_cast<CompModelPlugin*>(parent->getPlugin("comp"));
-      if (cmp==NULL) {
-        parent = NULL;
-        continue;
+    for (unsigned long p=0; p<cmp->getNumPorts();) {
+      Port* port = cmp->getPort(p);
+      if (port->getReferencedElement() == todelete) {
+        port->removeFromParentAndDelete();
       }
-      for (unsigned long p=0; p<cmp->getNumPorts();) {
-        Port* port = cmp->getPort(p);
-        if (port->getReferencedElement() == todelete) {
-          port->removeFromParentAndDelete();
-        }
-        else {
-          p++;
-        }
+      else {
+        p++;
       }
-      Model* tempparent = static_cast<Model*>(parent->getAncestorOfType(SBML_COMP_MODELDEFINITION, "comp"));
-      if (tempparent==NULL) {
-        parent = static_cast<Model*>(parent->getAncestorOfType(SBML_MODEL));
-      }
-      else parent = tempparent;
     }
-    return todelete->removeFromParentAndDelete();
+    Model* tempparent = static_cast<Model*>(parent->getAncestorOfType(SBML_COMP_MODELDEFINITION, "comp"));
+    if (tempparent==NULL) {
+      parent = static_cast<Model*>(parent->getAncestorOfType(SBML_MODEL));
+    }
+    else parent = tempparent;
+  }
+  //And secondly, remove from parent
+  return todelete->removeFromParentAndDelete();
 }
 
 LIBSBML_CPP_NAMESPACE_END

@@ -29,6 +29,7 @@
 #include <sbml/packages/comp/sbml/ReplacedBy.h>
 #include <sbml/packages/comp/extension/CompExtension.h>
 #include <sbml/packages/comp/extension/CompSBasePlugin.h>
+#include <sbml/packages/comp/validator/CompSBMLError.h>
 
 using namespace std;
 
@@ -100,15 +101,23 @@ ReplacedBy::removeFromParentAndDelete()
 
 int ReplacedBy::performReplacement()
 {
+  SBMLDocument* doc = getSBMLDocument();
   //Find the various objects and plugin objects we need for this to work.
   SBase* parent = getParentSBMLObject();
-  if (parent==NULL) return LIBSBML_INVALID_OBJECT;
+  if (parent==NULL) {
+    if (doc) {
+      string error = "No parent object for this <replacedBy> could be found.";
+      doc->getErrorLog()->logPackageError("comp", CompFlatModelNotValid, 1, 3, 1, error);
+    }
+    return LIBSBML_INVALID_OBJECT;
+  }
   SBase* ref = getReferencedElement();
-  if (ref==NULL) return LIBSBML_INVALID_OBJECT;
-  CompSBasePlugin* refplug = static_cast<CompSBasePlugin*>(ref->getPlugin(getPrefix()));
-  if (refplug==NULL) return LIBSBML_INVALID_OBJECT;
+  if (ref==NULL) {
+    //getReferencedElement sets its own error messages.
+    return LIBSBML_INVALID_OBJECT;
+  }
 
-  //Update the IDs.
+  //Update the IDs. (Will set its own error messages.)
   int ret = updateIDs(ref, parent);
   
   //ReplacedBy elements do get the name of the top-level element, assuming it has one:
@@ -120,17 +129,6 @@ int ReplacedBy::performReplacement()
   }
   if (ret != LIBSBML_OPERATION_SUCCESS) return ret;
 
-  /*
-  //Now recurse down the 'replace*' tree, renaming IDs and deleting things as we go.
-  for (unsigned int re=0; re<refplug->getNumReplacedElements(); re++) {
-    refplug->getReplacedElement(re)->replaceWithAndMaybeDelete(parent, true, NULL);
-  }
-  if (refplug->isSetReplacedBy()) {
-    //If the subelement is replaced by something further down, we perform that replacement, now that it has its new ID.
-    int ret = refplug->getReplacedBy()->performReplacement();
-    if (ret != LIBSBML_OPERATION_SUCCESS) return ret;
-  }
-  */
   //And finally, delete the parent object.
   return CompBase::removeFromParentAndPorts(parent);
 }
