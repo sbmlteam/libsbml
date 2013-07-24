@@ -447,23 +447,27 @@ void CompartmentGlyph::readAttributes (const XMLAttributes& attributes,
 
 	if (assigned == true)
 	{
-		// check string is not empty and correct syntax
+    if (getErrorLog() != NULL)
+    {
+		  // check string is not empty and correct syntax
 
-		if (mCompartment.empty() == true)
-		{
-			logEmptyString(mCompartment, getLevel(), getVersion(), "<CompartmentGlyph>");
-		}
-		else if (SyntaxChecker::isValidSBMLSId(mCompartment) == false)
-		{
-			getErrorLog()->logPackageError("layout", LayoutCGCompartmentSyntax,
-				             getPackageVersion(), sbmlLevel, sbmlVersion);
-		}
+		  if (mCompartment.empty() == true)
+		  {
+			  logEmptyString(mCompartment, getLevel(), getVersion(), 
+                                     "<CompartmentGlyph>");
+		  }
+		  else if (SyntaxChecker::isValidSBMLSId(mCompartment) == false)
+		  {
+			  getErrorLog()->logPackageError("layout", LayoutCGCompartmentSyntax,
+				               getPackageVersion(), sbmlLevel, sbmlVersion);
+		  }
+    }
 	}
 
 	//
 	// order double   ( use = "optional" )
 	//
-	numErrs = getErrorLog()->getNumErrors();
+	if (getErrorLog() != NULL) numErrs = getErrorLog()->getNumErrors();
 	mIsSetOrder = attributes.readInto("order", mOrder);
 
 	if (mIsSetOrder == false)

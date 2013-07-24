@@ -53,6 +53,7 @@
 
 
 #include <sbml/packages/layout/sbml/SpeciesReferenceGlyph.h>
+#include <sbml/packages/layout/sbml/Layout.h>
 #include <sbml/packages/layout/util/LayoutUtilities.h>
 #include <sbml/packages/layout/extension/LayoutExtension.h>
 
@@ -61,6 +62,7 @@
 #include <sbml/xml/XMLAttributes.h>
 #include <sbml/xml/XMLInputStream.h>
 #include <sbml/xml/XMLOutputStream.h>
+#include <sbml/packages/layout/validator/LayoutSBMLError.h>
 
 #include <sbml/util/ElementFilter.h>
 
@@ -529,34 +531,145 @@ SpeciesReferenceGlyph::addExpectedAttributes(ExpectedAttributes& attributes)
 void SpeciesReferenceGlyph::readAttributes (const XMLAttributes& attributes,
                                             const ExpectedAttributes& expectedAttributes)
 {
-  GraphicalObject::readAttributes(attributes,expectedAttributes);
+	const unsigned int sbmlLevel   = getLevel  ();
+	const unsigned int sbmlVersion = getVersion();
 
-  const unsigned int sbmlLevel   = getLevel  ();
-  const unsigned int sbmlVersion = getVersion();
+	unsigned int numErrs;
 
-  bool assigned = attributes.readInto("speciesReference", mSpeciesReference, getErrorLog(), false, getLine(), getColumn());
-  if (assigned && mSpeciesReference.empty())
+	/* look to see whether an unknown attribute error was logged
+	 * during the read of the listOfSpeciesReferenceGlyphs - which will have
+	 * happened immediately prior to this read
+	*/
+
+	if (getErrorLog() != NULL &&
+	    static_cast<ListOfSpeciesReferenceGlyphs*>
+                           (getParentSBMLObject())->size() < 2)
+	{
+		numErrs = getErrorLog()->getNumErrors();
+		for (int n = numErrs-1; n >= 0; n--)
+		{
+			if (getErrorLog()->getError(n)->getErrorId() == UnknownPackageAttribute)
+			{
+				const std::string details =
+				      getErrorLog()->getError(n)->getMessage();
+				getErrorLog()->remove(UnknownPackageAttribute);
+				getErrorLog()->logPackageError("layout", 
+                             LayoutLOSpeciesRefGlyphAllowedAttribs,
+				          getPackageVersion(), sbmlLevel, sbmlVersion, details);
+			}
+			else if (getErrorLog()->getError(n)->getErrorId() == UnknownCoreAttribute)
+			{
+				const std::string details =
+				           getErrorLog()->getError(n)->getMessage();
+				getErrorLog()->remove(UnknownCoreAttribute);
+				getErrorLog()->logPackageError("layout", 
+                           LayoutLOSpeciesRefGlyphAllowedAttribs,
+				          getPackageVersion(), sbmlLevel, sbmlVersion, details);
+			}
+		}
+	}
+
+	GraphicalObject::readAttributes(attributes, expectedAttributes);
+
+	// look to see whether an unknown attribute error was logged
+	if (getErrorLog() != NULL)
+	{
+		numErrs = getErrorLog()->getNumErrors();
+		for (int n = numErrs-1; n >= 0; n--)
+		{
+			if (getErrorLog()->getError(n)->getErrorId() == UnknownPackageAttribute)
+			{
+				const std::string details =
+				                  getErrorLog()->getError(n)->getMessage();
+				getErrorLog()->remove(UnknownPackageAttribute);
+				getErrorLog()->logPackageError("layout", LayoutUnknownError,
+				               getPackageVersion(), sbmlLevel, sbmlVersion, details);
+			}
+			else if (getErrorLog()->getError(n)->getErrorId() == UnknownCoreAttribute)
+			{
+				const std::string details =
+				                  getErrorLog()->getError(n)->getMessage();
+				getErrorLog()->remove(UnknownCoreAttribute);
+				getErrorLog()->logPackageError("layout", LayoutUnknownError,
+				               getPackageVersion(), sbmlLevel, sbmlVersion, details);
+			}
+		}
+	}
+
+	bool assigned = false;
+
+	//
+	// speciesGlyph SIdRef   ( use = "required" )
+	//
+	assigned = attributes.readInto("speciesGlyph", mSpeciesGlyph);
+
+  if (getErrorLog() != NULL)
   {
-    logEmptyString(mSpeciesReference, sbmlLevel, sbmlVersion, "<" + getElementName() + ">");
-  }
-  if (!SyntaxChecker::isValidInternalSId(mSpeciesReference)) logError(InvalidIdSyntax);
+	  if (assigned == true)
+	  {
+		  // check string is not empty and correct syntax
 
-  assigned = attributes.readInto("speciesGlyph", mSpeciesGlyph, getErrorLog(), false, getLine(), getColumn());
-  if (assigned && mSpeciesGlyph.empty())
-  {
-    logEmptyString(mSpeciesGlyph, sbmlLevel, sbmlVersion, "<" + getElementName() + ">");
+		  if (mSpeciesGlyph.empty() == true)
+		  {
+			  logEmptyString(mSpeciesGlyph, getLevel(), getVersion(), 
+                                     "<SpeciesReferenceGlyph>");
+		  }
+		  else if (SyntaxChecker::isValidSBMLSId(mSpeciesGlyph) == false)
+		  {
+			  logError(InvalidIdSyntax);
+		  }
+	  }
+	  else
+	  {
+		  std::string message = "Layout attribute 'speciesGlyph' is missing.";
+		  getErrorLog()->logPackageError("layout", LayoutUnknownError,
+		                 getPackageVersion(), sbmlLevel, sbmlVersion, message);
+	  }
   }
-  if (!SyntaxChecker::isValidInternalSId(mSpeciesGlyph)) logError(InvalidIdSyntax);  
-  
+
+	//
+	// speciesReference SIdRef   ( use = "optional" )
+	//
+	assigned = attributes.readInto("speciesReference", mSpeciesReference);
+
+	if (assigned == true && getErrorLog() != NULL)
+	{
+		// check string is not empty and correct syntax
+
+		if (mSpeciesReference.empty() == true)
+		{
+			logEmptyString(mSpeciesReference, getLevel(), getVersion(), "<SpeciesReferenceGlyph>");
+		}
+		else if (SyntaxChecker::isValidSBMLSId(mSpeciesReference) == false)
+		{
+			logError(InvalidIdSyntax);
+		}
+	}
+
+	//
+	// roleType string   ( use = "optional" )
+	//
   std::string role;
-  if(attributes.readInto("role", role, getErrorLog(), false, getLine(), getColumn()))
-  {
-    this->setRole(role);
-  }
+	assigned = attributes.readInto("role", role);
+
+	if (assigned == true)
+	{
+		// check string is not empty
+
+		if (role.empty() == true && getErrorLog() != NULL)
+		{
+			logEmptyString(role, getLevel(), getVersion(), "<SpeciesReferenceGlyph>");
+		}
+    else
+    {
+      this->setRole(role);
+    }
+	}
   else
   {
     this->setRole(SPECIES_ROLE_UNDEFINED);
   }
+
   
 }
 /** @endcond */

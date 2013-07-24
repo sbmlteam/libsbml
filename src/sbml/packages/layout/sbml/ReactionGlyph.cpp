@@ -592,10 +592,22 @@ ReactionGlyph::createObject (XMLInputStream& stream)
 
   if (name == "listOfSpeciesReferenceGlyphs")
   {
+    if (mSpeciesReferenceGlyphs.size() != 0)
+    {
+      getErrorLog()->logPackageError("layout", LayoutRGAllowedElements, 
+        getPackageVersion(), getLevel(), getVersion());
+    }
+
     object = &mSpeciesReferenceGlyphs;
   }
   else if(name=="curve")
   {
+    //if (mCurve != NULL)
+    //{
+    //  getErrorLog()->logPackageError("layout", LayoutRGAllowedElements, 
+    //    getPackageVersion(), getLevel(), getVersion());
+    //}
+
     object = &mCurve;
   }
   else
@@ -686,11 +698,11 @@ void ReactionGlyph::readAttributes (const XMLAttributes& attributes,
 	bool assigned = false;
 
 	//
-	// reaction SIdRef   ( use = "required" )
+	// reaction SIdRef   ( use = "optional" )
 	//
 	assigned = attributes.readInto("reaction", mReaction);
 
-	if (assigned == true)
+	if (assigned == true && getErrorLog() != NULL)
 	{
 		// check string is not empty and correct syntax
 
@@ -703,12 +715,6 @@ void ReactionGlyph::readAttributes (const XMLAttributes& attributes,
 			getErrorLog()->logPackageError("layout", LayoutRGReactionSyntax,
 				             getPackageVersion(), sbmlLevel, sbmlVersion);
 		}
-	}
-	else
-	{
-		std::string message = "Layout attribute 'reaction' is missing.";
-		getErrorLog()->logPackageError("layout", LayoutRGAllowedAttributes,
-		               getPackageVersion(), sbmlLevel, sbmlVersion, message);
 	}
 
 }

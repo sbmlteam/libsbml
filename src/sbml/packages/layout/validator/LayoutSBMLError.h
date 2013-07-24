@@ -75,7 +75,6 @@ typedef enum
   , LayoutGOMetaIdRefMustBeIDREF            = 6020405
   , LayoutGOMetaIdRefMustReferenceObject    = 6020406
   , LayoutGOMustContainBoundingBox          = 6020407
-
   , LayoutCGAllowedCoreElements             = 6020501
   , LayoutCGAllowedCoreAttributes           = 6020502
   , LayoutCGAllowedElements                 = 6020503
@@ -84,38 +83,56 @@ typedef enum
   , LayoutCGMetaIdRefMustReferenceObject    = 6020506
   , LayoutCGCompartmentSyntax               = 6020507
   , LayoutCGCompartmentMustRefComp          = 6020508
-  , LayoutCGNoDuplicateReferences          = 6020509
+  , LayoutCGNoDuplicateReferences           = 6020509
   , LayoutCGOrderMustBeDouble               = 6020510
-
   , LayoutSGAllowedCoreElements             = 6020601
   , LayoutSGAllowedCoreAttributes           = 6020602
   , LayoutSGAllowedElements                 = 6020603
   , LayoutSGAllowedAttributes               = 6020604
-
+  , LayoutSGMetaIdRefMustBeIDREF            = 6020605
+  , LayoutSGMetaIdRefMustReferenceObject    = 6020606
   , LayoutSGSpeciesSyntax                   = 6020607
-
+  , LayoutSGSpeciesMustRefSpecies           = 6020608
+  , LayoutSGNoDuplicateReferences           = 6020609
   , LayoutRGAllowedCoreElements             = 6020701
   , LayoutRGAllowedCoreAttributes           = 6020702
   , LayoutRGAllowedElements                 = 6020703
   , LayoutRGAllowedAttributes               = 6020704
-
+  , LayoutRGMetaIdRefMustBeIDREF            = 6020705
+  , LayoutRGMetaIdRefMustReferenceObject    = 6020706
   , LayoutRGReactionSyntax                  = 6020707
+  , LayoutRGReactionMustRefReaction         = 6020708
+  , LayoutRGNoDuplicateReferences           = 6020709
+  , LayoutLOSpeciesRefGlyphAllowedElements  = 6020710
+  , LayoutLOSpeciesRefGlyphAllowedAttribs   = 6020711
 
   , LayoutGGAllowedCoreElements             = 6020801
   , LayoutGGAllowedCoreAttributes           = 6020802
   , LayoutGGAllowedElements                 = 6020803
   , LayoutGGAllowedAttributes               = 6020804
-
+  , LayoutGGMetaIdRefMustBeIDREF            = 6020805
+  , LayoutGGMetaIdRefMustReferenceObject    = 6020806
   , LayoutGGReferenceSyntax                 = 6020807
+  , LayoutGGReferenceMustRefObject          = 6020808
+  , LayoutGGNoDuplicateReferences           = 6020809
+  , LayoutLOReferenceGlyphAllowedElements   = 6020810
+  , LayoutLOReferenceGlyphAllowedAttribs    = 6020811
+  , LayoutLOSubGlyphAllowedElements         = 6020812
+  , LayoutLOSubGlyphAllowedAttribs          = 6020813
 
   , LayoutTGAllowedCoreElements             = 6020901
   , LayoutTGAllowedCoreAttributes           = 6020902
   , LayoutTGAllowedElements                 = 6020903
   , LayoutTGAllowedAttributes               = 6020904
-
+  , LayoutTGMetaIdRefMustBeIDREF            = 6020905
+  , LayoutTGMetaIdRefMustReferenceObject    = 6020906
   , LayoutTGOriginOfTextSyntax              = 6020907
-
+  , LayoutTGOriginOfTextMustRefObject       = 6020908
+  , LayoutTGNoDuplicateReferences           = 6020909
   , LayoutTGGraphicalObjectSyntax           = 6020910
+  , LayoutTGGraphicalObjectMustRefObject    = 6020911
+  , LayoutTGTextMustBeString                = 6020912
+
 }  LayoutSBMLErrorCode_t;
 
 END_C_DECLS

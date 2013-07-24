@@ -310,7 +310,8 @@ void SpeciesGlyph::readAttributes (const XMLAttributes& attributes,
 				const std::string details =
 				      getErrorLog()->getError(n)->getMessage();
 				getErrorLog()->remove(UnknownPackageAttribute);
-				getErrorLog()->logPackageError("layout", LayoutLOSpeciesGlyphAllowedAttributes,
+				getErrorLog()->logPackageError("layout", 
+                                     LayoutLOSpeciesGlyphAllowedAttributes,
 				          getPackageVersion(), sbmlLevel, sbmlVersion, details);
 			}
 			else if (getErrorLog()->getError(n)->getErrorId() == UnknownCoreAttribute)
@@ -318,7 +319,8 @@ void SpeciesGlyph::readAttributes (const XMLAttributes& attributes,
 				const std::string details =
 				           getErrorLog()->getError(n)->getMessage();
 				getErrorLog()->remove(UnknownCoreAttribute);
-				getErrorLog()->logPackageError("layout", LayoutLOSpeciesGlyphAllowedAttributes,
+				getErrorLog()->logPackageError("layout", 
+                                    LayoutLOSpeciesGlyphAllowedAttributes,
 				          getPackageVersion(), sbmlLevel, sbmlVersion, details);
 			}
 		}
@@ -358,7 +360,7 @@ void SpeciesGlyph::readAttributes (const XMLAttributes& attributes,
 	//
 	assigned = attributes.readInto("species", mSpecies);
 
-	if (assigned == true)
+	if (assigned == true && getErrorLog() != NULL)
 	{
 		// check string is not empty and correct syntax
 

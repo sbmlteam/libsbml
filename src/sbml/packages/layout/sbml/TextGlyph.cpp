@@ -443,7 +443,7 @@ void TextGlyph::readAttributes (const XMLAttributes& attributes,
 	//
 	assigned = attributes.readInto("graphicalObject", mGraphicalObject);
 
-	if (assigned == true)
+	if (assigned == true && getErrorLog() != NULL)
 	{
 		// check string is not empty and correct syntax
 
@@ -463,7 +463,7 @@ void TextGlyph::readAttributes (const XMLAttributes& attributes,
 	//
 	assigned = attributes.readInto("text", mText);
 
-	if (assigned == true)
+	if (assigned == true && getErrorLog() != NULL)
 	{
 		// check string is not empty
 
@@ -478,7 +478,7 @@ void TextGlyph::readAttributes (const XMLAttributes& attributes,
 	//
 	assigned = attributes.readInto("originOfText", mOriginOfText);
 
-	if (assigned == true)
+	if (assigned == true && getErrorLog() != NULL)
 	{
 		// check string is not empty and correct syntax
 

@@ -552,64 +552,67 @@ void GraphicalObject::readAttributes (const XMLAttributes& attributes,
   // id reqd
   bool assigned = attributes.readInto("id", mId);
 
-  if (assigned)
+  if (getErrorLog() != NULL)
   {
-    // "id" attribute is set to this fbc element
-
-    if (mId.empty())
-    {
-      //
-      // Logs an error if the "id" attribute is empty.
-      //
-      logEmptyString(mId, sbmlLevel, sbmlVersion, "<layout>");
-    }
-    else if (!SyntaxChecker::isValidSBMLSId(mId)) 
-    {
-      //
-      // Logs an error if the "id" attribute doesn't
-      // conform to the SBML type SId.
-      //
-      getErrorLog()->logPackageError("layout", LayoutSIdSyntax, 
-        getPackageVersion(), sbmlLevel, sbmlVersion);
-    }
-  }
-  else
-  {
-    int tc = this->getTypeCode();
-
-    switch (tc)
-    {
-    case SBML_LAYOUT_COMPARTMENTGLYPH:
-      getErrorLog()->logPackageError("layout", LayoutCGAllowedAttributes, 
-        getPackageVersion(), sbmlLevel, sbmlVersion);
-      break;
-    case SBML_LAYOUT_REACTIONGLYPH:
-      getErrorLog()->logPackageError("layout", LayoutRGAllowedAttributes, 
-        getPackageVersion(), sbmlLevel, sbmlVersion);
-      break;
-    case SBML_LAYOUT_SPECIESGLYPH:
-      getErrorLog()->logPackageError("layout", LayoutSGAllowedAttributes, 
-        getPackageVersion(), sbmlLevel, sbmlVersion);
-      break;
-    case SBML_LAYOUT_SPECIESREFERENCEGLYPH:
-    case SBML_LAYOUT_TEXTGLYPH:
-      getErrorLog()->logPackageError("layout", LayoutTGAllowedAttributes, 
-        getPackageVersion(), sbmlLevel, sbmlVersion);
-      break;
-    case SBML_LAYOUT_REFERENCEGLYPH:
-    case SBML_LAYOUT_GENERALGLYPH:
-      getErrorLog()->logPackageError("layout", LayoutGGAllowedAttributes, 
-        getPackageVersion(), sbmlLevel, sbmlVersion);
-      break;
-    default:
-      getErrorLog()->logPackageError("layout", LayoutGOAllowedAttributes, 
-        getPackageVersion(), sbmlLevel, sbmlVersion);
-      break;
-    }
-  }
   
+    if (assigned == true)
+    {
+      // "id" attribute is set to this fbc element
+
+      if (mId.empty())
+      {
+        //
+        // Logs an error if the "id" attribute is empty.
+        //
+        logEmptyString(mId, sbmlLevel, sbmlVersion, "<layout>");
+      }
+      else if (!SyntaxChecker::isValidSBMLSId(mId)) 
+      {
+        //
+        // Logs an error if the "id" attribute doesn't
+        // conform to the SBML type SId.
+        //
+        getErrorLog()->logPackageError("layout", LayoutSIdSyntax, 
+          getPackageVersion(), sbmlLevel, sbmlVersion);
+      }
+    }
+    else
+    {
+      int tc = this->getTypeCode();
+
+      switch (tc)
+      {
+      case SBML_LAYOUT_COMPARTMENTGLYPH:
+        getErrorLog()->logPackageError("layout", LayoutCGAllowedAttributes, 
+          getPackageVersion(), sbmlLevel, sbmlVersion);
+        break;
+      case SBML_LAYOUT_REACTIONGLYPH:
+        getErrorLog()->logPackageError("layout", LayoutRGAllowedAttributes, 
+          getPackageVersion(), sbmlLevel, sbmlVersion);
+        break;
+      case SBML_LAYOUT_SPECIESGLYPH:
+        getErrorLog()->logPackageError("layout", LayoutSGAllowedAttributes, 
+          getPackageVersion(), sbmlLevel, sbmlVersion);
+        break;
+      case SBML_LAYOUT_SPECIESREFERENCEGLYPH:
+      case SBML_LAYOUT_TEXTGLYPH:
+        getErrorLog()->logPackageError("layout", LayoutTGAllowedAttributes, 
+          getPackageVersion(), sbmlLevel, sbmlVersion);
+        break;
+      case SBML_LAYOUT_REFERENCEGLYPH:
+      case SBML_LAYOUT_GENERALGLYPH:
+        getErrorLog()->logPackageError("layout", LayoutGGAllowedAttributes, 
+          getPackageVersion(), sbmlLevel, sbmlVersion);
+        break;
+      default:
+        getErrorLog()->logPackageError("layout", LayoutGOAllowedAttributes, 
+          getPackageVersion(), sbmlLevel, sbmlVersion);
+        break;
+      }
+    }
+  }
   assigned = attributes.readInto("metaidRef", mMetaIdRef);
-  if (assigned == true)
+  if (assigned == true && getErrorLog() != NULL)
   {
     if (!SyntaxChecker::isValidInternalSId(mMetaIdRef)) 
     {
@@ -622,21 +625,21 @@ void GraphicalObject::readAttributes (const XMLAttributes& attributes,
           getPackageVersion(), sbmlLevel, sbmlVersion);
         break;
       case SBML_LAYOUT_REACTIONGLYPH:
-        getErrorLog()->logPackageError("layout", LayoutGOMetaIdRefMustBeIDREF, 
+        getErrorLog()->logPackageError("layout", LayoutRGMetaIdRefMustBeIDREF, 
           getPackageVersion(), sbmlLevel, sbmlVersion);
         break;
       case SBML_LAYOUT_SPECIESGLYPH:
-        getErrorLog()->logPackageError("layout", LayoutGOMetaIdRefMustBeIDREF, 
+        getErrorLog()->logPackageError("layout", LayoutSGMetaIdRefMustBeIDREF, 
           getPackageVersion(), sbmlLevel, sbmlVersion);
         break;
       case SBML_LAYOUT_SPECIESREFERENCEGLYPH:
       case SBML_LAYOUT_TEXTGLYPH:
-        getErrorLog()->logPackageError("layout", LayoutGOMetaIdRefMustBeIDREF, 
+        getErrorLog()->logPackageError("layout", LayoutTGMetaIdRefMustBeIDREF, 
           getPackageVersion(), sbmlLevel, sbmlVersion);
         break;
       case SBML_LAYOUT_REFERENCEGLYPH:
       case SBML_LAYOUT_GENERALGLYPH:
-        getErrorLog()->logPackageError("layout", LayoutGOMetaIdRefMustBeIDREF, 
+        getErrorLog()->logPackageError("layout", LayoutGGMetaIdRefMustBeIDREF, 
           getPackageVersion(), sbmlLevel, sbmlVersion);
         break;
       default:
