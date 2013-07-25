@@ -706,7 +706,7 @@ CompSBMLDocumentPlugin::checkConsistency(bool overrideFlattening)
   /* 
    * note number of errors before we do anything here 
    * so we get the right number after
-   * total_errors here means teh total number logged by this function
+   * total_errors here means the total number logged by this function
    */
 
   unsigned int errorsB4 = doc->getErrorLog()->getNumErrors();
@@ -714,9 +714,11 @@ CompSBMLDocumentPlugin::checkConsistency(bool overrideFlattening)
   SBMLErrorLog *log = doc->getErrorLog();
   total_errors = log->getNumErrors() - errorsB4;
 
-  /* log a message to say not to trust line numbers */
-  log->logPackageError("comp", CompLineNumbersUnreliable, 
-                        getLevel(), getVersion(), getPackageVersion());
+  /* log a message to say not to trust line numbers 
+   * but only do this if we are actually logging errors
+   * use boolean to ensure we only log it once
+   */
+  bool lineNumMessageLogged = false;
 
   unsigned char applicableValidators = doc->getApplicableValidators();
 
@@ -734,7 +736,20 @@ CompSBMLDocumentPlugin::checkConsistency(bool overrideFlattening)
     total_errors += nerrors;
     if (nerrors > 0) 
     {
+      /* log a message to say not to trust line numbers 
+       * but only do this if we are actually logging errors
+       * and only do it once
+       */
+      if (lineNumMessageLogged == false)
+      {
+        log->logPackageError("comp", CompLineNumbersUnreliable, 
+                              getLevel(), getVersion(), getPackageVersion());
+        total_errors++;
+        lineNumMessageLogged = true;
+      }
+
       log->add(id_validator.getFailures() );
+      
       /* only want to bail if errors not warnings */
       if (log->getNumFailsWithSeverity(LIBSBML_SEV_ERROR) > 0)
       {
@@ -750,7 +765,20 @@ CompSBMLDocumentPlugin::checkConsistency(bool overrideFlattening)
     total_errors += nerrors;
     if (nerrors > 0) 
     {
+      /* log a message to say not to trust line numbers 
+       * but only do this if we are actually logging errors
+       * and only do it once
+       */
+      if (lineNumMessageLogged == false)
+      {
+        log->logPackageError("comp", CompLineNumbersUnreliable, 
+                              getLevel(), getVersion(), getPackageVersion());
+        total_errors++;
+        lineNumMessageLogged = true;
+      }
+
       log->add( validator.getFailures() );
+
       /* only want to bail if errors not warnings */
       if (log->getNumFailsWithSeverity(LIBSBML_SEV_ERROR) > 0)
       {
@@ -786,6 +814,18 @@ CompSBMLDocumentPlugin::checkConsistency(bool overrideFlattening)
       total_errors += nerrors;
       if (nerrors > 0) 
       {
+        /* log a message to say not to trust line numbers 
+         * but only do this if we are actually logging errors
+         * and only do it once
+         */
+        if (lineNumMessageLogged == false)
+        {
+          log->logPackageError("comp", CompLineNumbersUnreliable, 
+                                getLevel(), getVersion(), getPackageVersion());
+          total_errors++;
+          lineNumMessageLogged = true;
+        }
+
         for (unsigned int n = 0; n < nerrors; n++)
         {
           log->add( *(dummyDoc->getErrorLog()->getError(n)) );
@@ -830,6 +870,18 @@ CompSBMLDocumentPlugin::checkConsistency(bool overrideFlattening)
       if (dummyDoc->getErrorLog()->
                               getNumFailsWithSeverity(LIBSBML_SEV_ERROR) > 0)
       {
+        /* log a message to say not to trust line numbers 
+         * but only do this if we are actually logging errors
+         * and only do it once
+         */
+        if (lineNumMessageLogged == false)
+        {
+          log->logPackageError("comp", CompLineNumbersUnreliable, 
+                                getLevel(), getVersion(), getPackageVersion());
+          total_errors++;
+          lineNumMessageLogged = true;
+        }
+
         std::string message = "Errors that follow relate to the flattened ";
         message += "document produced using the CompFlatteningConverter.";
         log->logPackageError("comp", CompFlatModelNotValid, getLevel(),
@@ -839,6 +891,18 @@ CompSBMLDocumentPlugin::checkConsistency(bool overrideFlattening)
       total_errors += nerrors;
       if (nerrors > 0) 
       {
+         /* log a message to say not to trust line numbers 
+         * but only do this if we are actually logging errors
+         * and only do it once
+         */
+        if (lineNumMessageLogged == false)
+        {
+          log->logPackageError("comp", CompLineNumbersUnreliable, 
+                                getLevel(), getVersion(), getPackageVersion());
+          total_errors++;
+          lineNumMessageLogged = true;
+        }
+
         for (unsigned int n = 0; n < nerrors; n++)
         {
           log->add( *(dummyDoc->getErrorLog()->getError(n)) );
@@ -851,6 +915,18 @@ CompSBMLDocumentPlugin::checkConsistency(bool overrideFlattening)
       total_errors += nerrors;
       if (nerrors > 0) 
       {
+        /* log a message to say not to trust line numbers 
+         * but only do this if we are actually logging errors
+         * and only do it once
+         */
+        if (lineNumMessageLogged == false)
+        {
+          log->logPackageError("comp", CompLineNumbersUnreliable, 
+                                getLevel(), getVersion(), getPackageVersion());
+          total_errors++;
+          lineNumMessageLogged = true;
+        }
+
         for (unsigned int n = 0; n < nerrors; n++)
         {
           log->add( *(dummyDoc->getErrorLog()->getError(n)) );
