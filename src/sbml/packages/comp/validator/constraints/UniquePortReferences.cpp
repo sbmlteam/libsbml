@@ -94,14 +94,30 @@ int ObjectsSame(SBase * obj1, SBase* obj2)
 void 
 UniquePortReferences::checkReferencedElement(Port& p)
 {
-  if (mReferencedElements->find(p.getReferencedElement(), 
+  unsigned int numErrsB4 = p.getSBMLDocument()->getNumErrors();
+  
+  SBase* refElem = p.getReferencedElement();
+  
+  // if there is an issue with references the getReferencedElement
+  // code may log errors
+  // we dont want them - since we will log any  errors here
+  // so remove them
+  unsigned int numErrsAfter = p.getSBMLDocument()->getNumErrors();
+  for (unsigned int i = numErrsAfter; i > numErrsB4; i--)
+  {
+    p.getSBMLDocument()->getErrorLog()->remove(
+      p.getSBMLDocument()->getError(i-1)->getErrorId());
+  }
+  
+  if (mReferencedElements->find(refElem, 
                            (ListItemComparator) (ObjectsSame)) != NULL)
   {
     logReferenceExists (p);
   }
   else
   {
-    mReferencedElements->add(p.getReferencedElement());
+
+    mReferencedElements->add(refElem);
   }
 }
 

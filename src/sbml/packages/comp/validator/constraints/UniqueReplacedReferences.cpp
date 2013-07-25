@@ -136,7 +136,22 @@ int ObjectsSame1(SBase * obj1, SBase* obj2)
 void 
 UniqueReplacedReferences::checkReferencedElement(ReplacedElement& repE)
 {
-  if (mReferencedElements->find(repE.getReferencedElement(), 
+  unsigned int numErrsB4 = repE.getSBMLDocument()->getNumErrors();
+  
+  SBase* refElem = repE.getReferencedElement();
+  
+  // if there is an issue with references the getReferencedElement
+  // code may log errors
+  // we dont want them - since we will log any  errors here
+  // so remove them
+  unsigned int numErrsAfter = repE.getSBMLDocument()->getNumErrors();
+  for (unsigned int i = numErrsAfter; i > numErrsB4; i--)
+  {
+    repE.getSBMLDocument()->getErrorLog()->remove(
+      repE.getSBMLDocument()->getError(i-1)->getErrorId());
+  }
+  
+  if (mReferencedElements->find(refElem, 
                            (ListItemComparator) (ObjectsSame1)) != NULL)
   {
     if (repE.getReferencedElement()->getTypeCode() != SBML_COMP_DELETION)
@@ -147,7 +162,7 @@ UniqueReplacedReferences::checkReferencedElement(ReplacedElement& repE)
   else
   {
 
-    mReferencedElements->add(repE.getReferencedElement());
+    mReferencedElements->add(refElem);
   }
 }
 
