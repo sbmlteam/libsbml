@@ -35,7 +35,8 @@
 #include <sbml/packages/comp/util/SBMLUri.h>
 #include <sbml/SBMLTypes.h>
 #include <sbml/packages/comp/common/CompExtensionTypes.h>
-#include <sbml/util/ElementFilter.h>
+#include <sbml/util/MetaIdFilter.h>
+#include <sbml/util/IdFilter.h>
 
 #include "ExtModelReferenceCycles.h"
 #include "SubmodelReferenceCycles.h"
@@ -51,64 +52,6 @@
 using namespace std;
 
 /** @endcond */
-
-/** 
- * This class implements an element filter, that can be used to find elements
- * with an id set
- */ 
-class IdFilter : public ElementFilter
-{
-public:
-	IdFilter() : ElementFilter()
-	{
-	}
-
-	virtual bool filter(const SBase* element)
-	{
-		// return in case we don't have a valid element with an id
-        if (element == NULL || element->isSetId() == false)
-        {
-            return false;
-        }
-
-        // otherwise we have an id set and want to keep the element
-        // unless it is a rule or intialAssignment/eventAssignment
-        int tc = element->getTypeCode();
-        if (tc == SBML_ASSIGNMENT_RULE || tc == SBML_RATE_RULE
-          || tc == SBML_INITIAL_ASSIGNMENT || tc == SBML_EVENT_ASSIGNMENT)
-        {
-          return false;
-        }
-
-
-        return true;			
-	}
-
-};
-
-/** 
- * This class implements an element filter, that can be used to find elements
- * with an metaid set
- */ 
-class MetaIdFilter : public ElementFilter
-{
-public:
-	MetaIdFilter() : ElementFilter()
-	{
-	}
-
-	virtual bool filter(const SBase* element)
-	{
-		// return in case we don't have a valid element with an id
-        if (element == NULL || element->isSetMetaId() == false)
-        {
-            return false;
-        }
-
-        return true;			
-	}
-
-};
 
 class ReferencedModel
 {
