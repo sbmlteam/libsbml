@@ -27,28 +27,30 @@
  * and also available online as http://sbml.org/software/libsbml/license.html
  * ---------------------------------------------------------------------- -->*/
 
-#ifndef MetaIdFilter_h
-#define MetaIdFilter_h
-
-
-#ifdef __cplusplus
-
-#include <sbml/util/ElementFilter.h>
+#include <sbml/util/MetaIdFilter.h>
+#include <sbml/SBase.h>
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
-class LIBSBML_EXTERN MetaIdFilter : public ElementFilter
+MetaIdFilter::MetaIdFilter() : ElementFilter()
 {
-public:
-	MetaIdFilter();
+}
 
-	virtual bool filter(const SBase* element);
 
-};
+bool 
+MetaIdFilter::filter(const SBase* element)
+{
+	// return in case we don't have a valid element with an id
+  if (element == NULL || element->isSetMetaId() == false)
+  {
+      return false;
+  }
+
+  return true;			
+}
+
 
 LIBSBML_CPP_NAMESPACE_END
 
-#endif  /* __cplusplus */
-#endif  /* MetaIdFilter_h */
 
 /** @endcond */

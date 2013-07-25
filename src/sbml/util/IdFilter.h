@@ -37,32 +37,12 @@
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
-class IdFilter : public ElementFilter
+class LIBSBML_EXTERN IdFilter : public ElementFilter
 {
 public:
-	IdFilter() : ElementFilter()
-	{
-	}
+	IdFilter();
 
-	virtual bool filter(const SBase* element)
-	{
-		// return in case we don't have a valid element with an id
-    if (element == NULL || element->isSetId() == false)
-    {
-        return false;
-    }
-
-    // otherwise we have an id set and want to keep the element
-    // unless it is a rule or intialAssignment/eventAssignment
-    int tc = element->getTypeCode();
-    if (tc == SBML_ASSIGNMENT_RULE || tc == SBML_RATE_RULE
-      || tc == SBML_INITIAL_ASSIGNMENT || tc == SBML_EVENT_ASSIGNMENT)
-    {
-      return false;
-    }
-
-    return true;			
-	}
+	virtual bool filter(const SBase* element);
 
 };
 

@@ -1,8 +1,8 @@
 /**
  * @cond doxygen-libsbml-internal
  *
- * @file    MetaIdFilterFilter.h
- * @brief   Filter to return only elements with a metaid set
+ * @file    IdFilterFilter.cpp
+ * @brief   Filter to return only elements with an id set
  * @author  Sarah Keating
  * 
  * <!--------------------------------------------------------------------------
@@ -27,28 +27,38 @@
  * and also available online as http://sbml.org/software/libsbml/license.html
  * ---------------------------------------------------------------------- -->*/
 
-#ifndef MetaIdFilter_h
-#define MetaIdFilter_h
-
-
-#ifdef __cplusplus
-
-#include <sbml/util/ElementFilter.h>
+#include <sbml/util/IdFilter.h>
+#include <sbml/SBase.h>
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
-class LIBSBML_EXTERN MetaIdFilter : public ElementFilter
+IdFilter::IdFilter() : ElementFilter()
 {
-public:
-	MetaIdFilter();
+}
 
-	virtual bool filter(const SBase* element);
 
-};
+bool 
+IdFilter::filter(const SBase* element)
+{
+	// return in case we don't have a valid element with an id
+  if (element == NULL || element->isSetId() == false)
+  {
+      return false;
+  }
+
+  // otherwise we have an id set and want to keep the element
+  // unless it is a rule or intialAssignment/eventAssignment
+  int tc = element->getTypeCode();
+  if (tc == SBML_ASSIGNMENT_RULE || tc == SBML_RATE_RULE
+    || tc == SBML_INITIAL_ASSIGNMENT || tc == SBML_EVENT_ASSIGNMENT)
+  {
+    return false;
+  }
+
+  return true;			
+}
+
 
 LIBSBML_CPP_NAMESPACE_END
-
-#endif  /* __cplusplus */
-#endif  /* MetaIdFilter_h */
 
 /** @endcond */
