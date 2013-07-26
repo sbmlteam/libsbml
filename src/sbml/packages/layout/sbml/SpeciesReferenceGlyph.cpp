@@ -582,7 +582,7 @@ void SpeciesReferenceGlyph::readAttributes (const XMLAttributes& attributes,
 				const std::string details =
 				                  getErrorLog()->getError(n)->getMessage();
 				getErrorLog()->remove(UnknownPackageAttribute);
-				getErrorLog()->logPackageError("layout", LayoutUnknownError,
+				getErrorLog()->logPackageError("layout", LayoutSRGAllowedAttributes,
 				               getPackageVersion(), sbmlLevel, sbmlVersion, details);
 			}
 			else if (getErrorLog()->getError(n)->getErrorId() == UnknownCoreAttribute)
@@ -590,7 +590,7 @@ void SpeciesReferenceGlyph::readAttributes (const XMLAttributes& attributes,
 				const std::string details =
 				                  getErrorLog()->getError(n)->getMessage();
 				getErrorLog()->remove(UnknownCoreAttribute);
-				getErrorLog()->logPackageError("layout", LayoutUnknownError,
+				getErrorLog()->logPackageError("layout", LayoutSRGAllowedCoreAttributes,
 				               getPackageVersion(), sbmlLevel, sbmlVersion, details);
 			}
 		}
@@ -616,13 +616,14 @@ void SpeciesReferenceGlyph::readAttributes (const XMLAttributes& attributes,
 		  }
 		  else if (SyntaxChecker::isValidSBMLSId(mSpeciesGlyph) == false)
 		  {
-			  logError(InvalidIdSyntax);
+        getErrorLog()->logPackageError("layout", LayoutSRGSpeciesGlyphSyntax, 
+            getPackageVersion(), sbmlLevel, sbmlVersion);
 		  }
 	  }
 	  else
 	  {
 		  std::string message = "Layout attribute 'speciesGlyph' is missing.";
-		  getErrorLog()->logPackageError("layout", LayoutUnknownError,
+		  getErrorLog()->logPackageError("layout", LayoutSRGAllowedAttributes,
 		                 getPackageVersion(), sbmlLevel, sbmlVersion, message);
 	  }
   }
@@ -638,11 +639,14 @@ void SpeciesReferenceGlyph::readAttributes (const XMLAttributes& attributes,
 
 		if (mSpeciesReference.empty() == true)
 		{
-			logEmptyString(mSpeciesReference, getLevel(), getVersion(), "<SpeciesReferenceGlyph>");
+			logEmptyString(mSpeciesReference, getLevel(), getVersion(), 
+                                        "<SpeciesReferenceGlyph>");
 		}
 		else if (SyntaxChecker::isValidSBMLSId(mSpeciesReference) == false)
 		{
-			logError(InvalidIdSyntax);
+
+      getErrorLog()->logPackageError("layout", LayoutSRGSpeciesReferenceSyntax, 
+          getPackageVersion(), sbmlLevel, sbmlVersion);
 		}
 	}
 
@@ -663,11 +667,22 @@ void SpeciesReferenceGlyph::readAttributes (const XMLAttributes& attributes,
     else
     {
       this->setRole(role);
+
+      if (this->getRole() == SPECIES_ROLE_UNDEFINED && getErrorLog() != NULL)
+      {
+        getErrorLog()->logPackageError("layout", LayoutSRGRoleSyntax, 
+            getPackageVersion(), sbmlLevel, sbmlVersion);
+      }
     }
 	}
   else
   {
     this->setRole(SPECIES_ROLE_UNDEFINED);
+		if (getErrorLog() != NULL)
+		{
+      getErrorLog()->logPackageError("layout", LayoutSRGRoleSyntax, 
+          getPackageVersion(), sbmlLevel, sbmlVersion);
+		}
   }
 
   

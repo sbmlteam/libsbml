@@ -595,11 +595,17 @@ void GraphicalObject::readAttributes (const XMLAttributes& attributes,
           getPackageVersion(), sbmlLevel, sbmlVersion);
         break;
       case SBML_LAYOUT_SPECIESREFERENCEGLYPH:
+        getErrorLog()->logPackageError("layout", LayoutSRGAllowedAttributes, 
+          getPackageVersion(), sbmlLevel, sbmlVersion);
+        break;
       case SBML_LAYOUT_TEXTGLYPH:
         getErrorLog()->logPackageError("layout", LayoutTGAllowedAttributes, 
           getPackageVersion(), sbmlLevel, sbmlVersion);
         break;
       case SBML_LAYOUT_REFERENCEGLYPH:
+        getErrorLog()->logPackageError("layout", LayoutREFGAllowedAttributes, 
+          getPackageVersion(), sbmlLevel, sbmlVersion);
+        break;
       case SBML_LAYOUT_GENERALGLYPH:
         getErrorLog()->logPackageError("layout", LayoutGGAllowedAttributes, 
           getPackageVersion(), sbmlLevel, sbmlVersion);
@@ -633,11 +639,17 @@ void GraphicalObject::readAttributes (const XMLAttributes& attributes,
           getPackageVersion(), sbmlLevel, sbmlVersion);
         break;
       case SBML_LAYOUT_SPECIESREFERENCEGLYPH:
+        getErrorLog()->logPackageError("layout", LayoutSRGMetaIdRefMustBeIDREF, 
+          getPackageVersion(), sbmlLevel, sbmlVersion);
+        break;
       case SBML_LAYOUT_TEXTGLYPH:
         getErrorLog()->logPackageError("layout", LayoutTGMetaIdRefMustBeIDREF, 
           getPackageVersion(), sbmlLevel, sbmlVersion);
         break;
       case SBML_LAYOUT_REFERENCEGLYPH:
+        getErrorLog()->logPackageError("layout", LayoutREFGMetaIdRefMustBeIDREF, 
+          getPackageVersion(), sbmlLevel, sbmlVersion);
+        break;
       case SBML_LAYOUT_GENERALGLYPH:
         getErrorLog()->logPackageError("layout", LayoutGGMetaIdRefMustBeIDREF, 
           getPackageVersion(), sbmlLevel, sbmlVersion);

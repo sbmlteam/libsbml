@@ -446,7 +446,7 @@ static const packageErrorTableEntry layoutErrorTable[] =
     LIBSBML_CAT_GENERAL_CONSISTENCY, 
     LIBSBML_SEV_ERROR,
     "A <graphicalObject> object must have the required attribute "
-    "'layout:id and may have the optional attribute 'layout:metaidRef'.  "
+    "'layout:id' and may have the optional attribute 'layout:metaidRef'.  "
     "No other attributes from the Layout namespace "
     "are permitted on a <graphicalObject>. ",
     { "L3V1 Layout V1 Section 3.7"
@@ -528,7 +528,7 @@ static const packageErrorTableEntry layoutErrorTable[] =
     LIBSBML_CAT_GENERAL_CONSISTENCY, 
     LIBSBML_SEV_ERROR,
     "A <compartmentGlyph> object must have the required attribute "
-    "'layout:id and may have the optional attributes 'layout:metaidRef' "
+    "'layout:id' and may have the optional attributes 'layout:metaidRef' "
     "or 'layout:compartment'.  "
     "No other attributes from the Layout namespace "
     "are permitted on a <compartmentGlyph>. ",
@@ -645,7 +645,7 @@ static const packageErrorTableEntry layoutErrorTable[] =
     LIBSBML_CAT_GENERAL_CONSISTENCY, 
     LIBSBML_SEV_ERROR,
     "A <speciesGlyph> object must have the required attribute "
-    "'layout:id and may have the optional attributes 'layout:metaidRef' "
+    "'layout:id' and may have the optional attributes 'layout:metaidRef' "
     "or 'layout:species'.  "
     "No other attributes from the Layout namespace "
     "are permitted on a <speciesGlyph>. ",
@@ -752,7 +752,7 @@ static const packageErrorTableEntry layoutErrorTable[] =
     LIBSBML_CAT_GENERAL_CONSISTENCY, 
     LIBSBML_SEV_ERROR,
     "A <reactionGlyph> object must have the required attribute "
-    "'layout:id and may have the optional attributes 'layout:metaidRef' "
+    "'layout:id' and may have the optional attributes 'layout:metaidRef' "
     "or 'layout:reaction'.  "
     "No other attributes from the Layout namespace "
     "are permitted on a <reactionGlyph>. ",
@@ -886,7 +886,7 @@ static const packageErrorTableEntry layoutErrorTable[] =
     LIBSBML_CAT_GENERAL_CONSISTENCY, 
     LIBSBML_SEV_ERROR,
     "A <generalGlyph> object must have the required attribute "
-    "'layout:id and may have the optional attributes 'layout:metaidRef' "
+    "'layout:id' and may have the optional attributes 'layout:metaidRef' "
     "or 'layout:reference'.  "
     "No other attributes from the Layout namespace "
     "are permitted on a <generalGlyph>. ",
@@ -1032,7 +1032,7 @@ static const packageErrorTableEntry layoutErrorTable[] =
     "Layout elements allowed on <textGlyph>.",
     LIBSBML_CAT_GENERAL_CONSISTENCY, 
     LIBSBML_SEV_ERROR,
-    "A ><textGlyph> must contain exactly one <boundingBox> object. "
+    "A <textGlyph> must contain exactly one <boundingBox> object. "
     "No other elements from "
     "the Layout namespace are permitted on a <textGlyph>. ",
     { "L3V1 Layout V1 Section 3.12"
@@ -1045,7 +1045,7 @@ static const packageErrorTableEntry layoutErrorTable[] =
     LIBSBML_CAT_GENERAL_CONSISTENCY, 
     LIBSBML_SEV_ERROR,
     "A <textGlyph> object must have the required attribute "
-    "'layout:id and may have the optional attributes 'layout:metaidRef', "
+    "'layout:id' and may have the optional attributes 'layout:metaidRef', "
     "'layout:graphicalObject', 'layout:text' and 'layout:originOfText'.  "
     "No other attributes from the Layout namespace "
     "are permitted on a <textGlyph>. ",
@@ -1142,6 +1142,307 @@ static const packageErrorTableEntry layoutErrorTable[] =
     { "L3V1 Layout V1 Section 3.12"
     }
   },
+
+  // 6021001
+  { LayoutSRGAllowedCoreElements, 
+    "Core elements allowed on <speciesReferenceGlyph>.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY, 
+    LIBSBML_SEV_ERROR,
+    "A <speciesReferenceGlyph> object may have the optional SBML Level 3 Core "
+    "subobjects for notes and annotations. No other elements from the SBML "
+    "Level 3 Core namespace are permitted on a <speciesReferenceGlyph>. ",
+    { "L3V1 Core Section 3.2"
+    }
+  },
+  
+  // 6021002
+  { LayoutSRGAllowedCoreAttributes, 
+    "Core attributes allowed on <speciesReferenceGlyph>.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY, 
+    LIBSBML_SEV_ERROR,
+    "A <speciesReferenceGlyph> object may have the optional SBML Level 3 Core "
+    "attributes 'metaid' and 'sboTerm'. No other attributes from the SBML "
+    "Level 3 Core namespace are permitted on a <speciesReferenceGlyph>. ",
+    { "L3V1 Core Section 3.2"
+    }
+  },
+  
+  // 6021003
+  { LayoutSRGAllowedElements, 
+    "Layout elements allowed on <speciesReferenceGlyph>.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY, 
+    LIBSBML_SEV_ERROR,
+    "A <speciesReferenceGlyph> may have at most one instance of a "
+    "<boundingBox> and <curve> object. "
+    "No other elements from "
+    "the Layout namespace are permitted on a <speciesReferenceGlyph>. ",
+    { "L3V1 Layout V1 Section 3.10.1"
+    }
+  },
+  
+  // 6021004
+  { LayoutSRGAllowedAttributes, 
+    "Layout attributes allowed on <speciesReferenceGlyph>.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY, 
+    LIBSBML_SEV_ERROR,
+    "A <speciesReferenceGlyph> object must have the required attribute "
+    "'layout:id' and may have the optional attributes 'layout:metaidRef', "
+    "'layout:speciesReference' and 'layout:role'.  "
+    "No other attributes from the Layout namespace "
+    "are permitted on a <speciesReferenceGlyph>. ",
+    { "L3V1 Layout V1 Section 3.10.1"
+    }
+  },
+
+  // 6021005
+  { LayoutSRGMetaIdRefMustBeIDREF, 
+    "Layout 'metIdRef' must be IDREF.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY, 
+    LIBSBML_SEV_ERROR,
+    "The attribute 'layout:metaidRef' of a <speciesReferenceGlyph> "
+    "must be of the data type 'IDREF'.",
+    { "L3V1 Layout V1 Section 3.7"
+    }
+  },
+
+  // 6021006
+  { LayoutSRGMetaIdRefMustReferenceObject, 
+    "Layout 'metIdRef' must reference existing object.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY, 
+    LIBSBML_SEV_ERROR,
+    "The value of a 'layout:metaidRef' attribute of a <speciesReferenceGlyph> "
+    "must be of the 'metaid' of an existing element in the <model>.",
+    { "L3V1 Layout V1 Section 3.7"
+    }
+  },
+
+  // 6021007
+  { LayoutSRGSpeciesReferenceSyntax, 
+    "SpeciesReferenceGlyph 'speciesReference' must have SIdRef syntax.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY, 
+    LIBSBML_SEV_ERROR,
+    "The attribute 'layout:speciesReference' of a <speciesReferenceGlyph> "
+    "must be the data type 'SIdRef'.",
+    { "L3V1 Layout V1 Section 3.10.1"
+    }
+  },
+
+  // 6021008
+  { LayoutSRGSpeciesRefMustRefObject, 
+    "SpeciesReferenceGlyph 'speciesReference' must reference existing element.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY, 
+    LIBSBML_SEV_ERROR,
+    "The value of the 'layout:speciesReference' attribute of a "
+    "<speciesReferenceGlyph> "
+    "must be of the 'id' of an existing <speciesReference> in the <model>.",
+    { "L3V1 Layout V1 Section 3.10.1"
+    }
+  },
+
+  // 6021009
+  { LayoutSRGNoDuplicateReferences, 
+    "SpeciesReferenceGlyph cannot reference two objects.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY, 
+    LIBSBML_SEV_ERROR,
+    "If both attributes 'layout:speciesReference' and 'layout:metaidRef' "
+    "are specified on a <speciesReferenceGlyph> they have to reference "
+    "the same <speciesReference> in the <model>.",
+    { "L3V1 Layout V1 Section 3.12"
+    }
+  },
+
+  // 6021010
+  { LayoutSRGSpeciesGlyphSyntax, 
+    "SpeciesReferenceGlyph 'speciesGlyph' must have SIdRef syntax.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY, 
+    LIBSBML_SEV_ERROR,
+    "The attribute 'layout:speciesGlyph' of a <speciesReferenceGlyph> "
+    "must be the data type 'SIdRef'.",
+    { "L3V1 Layout V1 Section 3.10.1"
+    }
+  },
+
+  // 6021011
+  { LayoutSRGSpeciesGlyphMustRefObject, 
+    "SpeciesReferenceGlyph 'speciesGlyph' must reference existing element.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY, 
+    LIBSBML_SEV_ERROR,
+    "The value of the 'layout:speciesGlyph' attribute of a "
+    "<speciesReferenceGlyph> "
+    "must be of the 'id' of an existing <speciesGlyph> "
+    "element in the <layout>.",
+    { "L3V1 Layout V1 Section 3.10.1"
+    }
+  },
+
+  // 6021012
+  { LayoutSRGRoleSyntax, 
+    "SpeciesReferenceGlyph 'role' must be string.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY, 
+    LIBSBML_SEV_ERROR,
+    "The attribute 'layout:role' of a <speciesReferenceGlyph> "
+    "must be the data type 'SpeciesReferenceRole'.",
+    { "L3V1 Layout V1 Section 3.10.1"
+    }
+  },
+
+  // 6021013
+  { LayoutSRGRoleMustBeSRGRoleValue, 
+    "SpeciesReferenceGlyph 'role' must be from enumeration.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY, 
+    LIBSBML_SEV_ERROR,
+    "The value of a 'layout:role' of a <speciesReferenceGlyph> "
+    "must be one of: substrate, product, sidesubstrate, sideproduct, "
+    "modifier, activator, inhibitor or undefined.",
+    { "L3V1 Layout V1 Section 3.10.1"
+    }
+  },
+
+  // 6021101
+  { LayoutREFGAllowedCoreElements, 
+    "Core elements allowed on <referenceGlyph>.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY, 
+    LIBSBML_SEV_ERROR,
+    "A <referenceGlyph> object may have the optional SBML Level 3 Core "
+    "subobjects for notes and annotations. No other elements from the SBML "
+    "Level 3 Core namespace are permitted on a <referenceGlyph>. ",
+    { "L3V1 Core Section 3.2"
+    }
+  },
+  
+  // 6021102
+  { LayoutREFGAllowedCoreAttributes, 
+    "Core attributes allowed on <referenceGlyph>.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY, 
+    LIBSBML_SEV_ERROR,
+    "A <referenceGlyph> object may have the optional SBML Level 3 Core "
+    "attributes 'metaid' and 'sboTerm'. No other attributes from the SBML "
+    "Level 3 Core namespace are permitted on a <referenceGlyph>. ",
+    { "L3V1 Core Section 3.2"
+    }
+  },
+  
+  // 6021103
+  { LayoutREFGAllowedElements, 
+    "Layout elements allowed on <referenceGlyph>.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY, 
+    LIBSBML_SEV_ERROR,
+    "There may be at most one instance of a <boundingBox> and "
+    "<curve> object on a <referenceGlyph>. "
+    "No other elements from "
+    "the Layout namespace are permitted on a <referenceGlyph>. ",
+    { "L3V1 Layout V1 Section 3.11.1"
+    }
+  },
+  
+  // 6021104
+  { LayoutREFGAllowedAttributes, 
+    "Layout attributes allowed on <referenceGlyph>.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY, 
+    LIBSBML_SEV_ERROR,
+    "A <referenceGlyph> object must have the required attributes "
+    "'layout:id' and 'layout:glyph' and may have the optional attributes "
+    "'layout:metaidRef', "
+    "'layout:reference' and 'layout:role'.  "
+    "No other attributes from the Layout namespace "
+    "are permitted on a <referenceGlyph>. ",
+    { "L3V1 Layout V1 Section 3.11.1"
+    }
+  },
+
+  // 6021105
+  { LayoutREFGMetaIdRefMustBeIDREF, 
+    "Layout 'metIdRef' must be IDREF.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY, 
+    LIBSBML_SEV_ERROR,
+    "The attribute 'layout:metaidRef' of a <referenceGlyph> "
+    "must be of the data type 'IDREF'.",
+    { "L3V1 Layout V1 Section 3.7"
+    }
+  },
+
+  // 6021106
+  { LayoutREFGMetaIdRefMustReferenceObject, 
+    "Layout 'metIdRef' must reference existing object.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY, 
+    LIBSBML_SEV_ERROR,
+    "The value of a 'layout:metaidRef' attribute of a <referenceGlyph> "
+    "must be of the 'metaid' of an existing element in the <model>.",
+    { "L3V1 Layout V1 Section 3.7"
+    }
+  },
+
+  // 6021107
+  { LayoutREFGReferenceSyntax, 
+    "ReferenceGlyph 'reference' must have SIdRef syntax.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY, 
+    LIBSBML_SEV_ERROR,
+    "The attribute 'layout:reference' of a <referenceGlyph> "
+    "must be the data type 'SIdRef'.",
+    { "L3V1 Layout V1 Section 3.11.1"
+    }
+  },
+
+  // 6021108
+  { LayoutREFGReferenceMustRefObject, 
+    "ReferenceGlyph 'reference' must reference existing element.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY, 
+    LIBSBML_SEV_ERROR,
+    "The value of the 'layout:reference' attribute of a "
+    "<referenceGlyph> "
+    "must be of the 'id' of an existing element in the <model>.",
+    { "L3V1 Layout V1 Section 3.11.1"
+    }
+  },
+
+  // 6021109
+  { LayoutREFGNoDuplicateReferences, 
+    "ReferenceGlyph cannot reference two objects.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY, 
+    LIBSBML_SEV_ERROR,
+    "If both attributes 'layout:reference' and 'layout:metaidRef' "
+    "are specified on a <referenceGlyph> they have to reference "
+    "the same element in the <model>.",
+    { "L3V1 Layout V1 Section 3.12"
+    }
+  },
+
+  // 6021110
+  { LayoutREFGGlyphSyntax, 
+    "ReferenceGlyph 'glyph' must have SIdRef syntax.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY, 
+    LIBSBML_SEV_ERROR,
+    "The attribute 'layout:glyph' of a <referenceGlyph> "
+    "must be the data type 'SIdRef'.",
+    { "L3V1 Layout V1 Section 3.11.1"
+    }
+  },
+
+  // 6021111
+  { LayoutREFGGlyphMustRefObject, 
+    "ReferenceGlyph 'glyph' must reference existing element.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY, 
+    LIBSBML_SEV_ERROR,
+    "The value of the 'layout:glyph' attribute of a "
+    "<referenceGlyph> "
+    "must be of the 'id' of an existing <graphicalObject> (or derived) "
+    "element in the <layout>.",
+    { "L3V1 Layout V1 Section 3.11.1"
+    }
+  },
+
+  // 6021112
+  { LayoutREFGRoleSyntax, 
+    "ReferenceGlyph 'role' must be string.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY, 
+    LIBSBML_SEV_ERROR,
+    "The attribute 'layout:role' of a <referenceGlyph> "
+    "must be the data type 'string'.",
+    { "L3V1 Layout V1 Section 3.11.1"
+    }
+  },
+
+
 
 
 

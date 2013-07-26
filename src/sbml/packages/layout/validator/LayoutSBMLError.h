@@ -105,8 +105,6 @@ typedef enum
   , LayoutRGNoDuplicateReferences           = 6020709
   , LayoutLOSpeciesRefGlyphAllowedElements  = 6020710
   , LayoutLOSpeciesRefGlyphAllowedAttribs   = 6020711
-
-
   , LayoutGGAllowedCoreElements             = 6020801
   , LayoutGGAllowedCoreAttributes           = 6020802
   , LayoutGGAllowedElements                 = 6020803
@@ -120,7 +118,6 @@ typedef enum
   , LayoutLOReferenceGlyphAllowedAttribs    = 6020811
   , LayoutLOSubGlyphAllowedElements         = 6020812
   , LayoutLOSubGlyphAllowedAttribs          = 6020813
-
   , LayoutTGAllowedCoreElements             = 6020901
   , LayoutTGAllowedCoreAttributes           = 6020902
   , LayoutTGAllowedElements                 = 6020903
@@ -133,6 +130,34 @@ typedef enum
   , LayoutTGGraphicalObjectSyntax           = 6020910
   , LayoutTGGraphicalObjectMustRefObject    = 6020911
   , LayoutTGTextMustBeString                = 6020912
+
+  , LayoutSRGAllowedCoreElements            = 6021001
+  , LayoutSRGAllowedCoreAttributes          = 6021002
+  , LayoutSRGAllowedElements                = 6021003
+  , LayoutSRGAllowedAttributes              = 6021004
+  , LayoutSRGMetaIdRefMustBeIDREF           = 6021005
+  , LayoutSRGMetaIdRefMustReferenceObject   = 6021006
+  , LayoutSRGSpeciesReferenceSyntax         = 6021007
+  , LayoutSRGSpeciesRefMustRefObject        = 6021008
+  , LayoutSRGNoDuplicateReferences          = 6021009
+  , LayoutSRGSpeciesGlyphSyntax             = 6021010
+  , LayoutSRGSpeciesGlyphMustRefObject      = 6021011
+  , LayoutSRGRoleSyntax                     = 6021012
+  , LayoutSRGRoleMustBeSRGRoleValue         = 6021013
+
+  , LayoutREFGAllowedCoreElements           = 6021101
+  , LayoutREFGAllowedCoreAttributes         = 6021102
+  , LayoutREFGAllowedElements               = 6021103
+  , LayoutREFGAllowedAttributes             = 6021104
+  , LayoutREFGMetaIdRefMustBeIDREF          = 6021105
+  , LayoutREFGMetaIdRefMustReferenceObject  = 6021106
+  , LayoutREFGReferenceSyntax               = 6021107
+  , LayoutREFGReferenceMustRefObject        = 6021108
+  , LayoutREFGNoDuplicateReferences         = 6021109
+  , LayoutREFGGlyphSyntax                   = 6021110
+  , LayoutREFGGlyphMustRefObject            = 6021111
+  , LayoutREFGRoleSyntax                    = 6021112
+
 
 }  LayoutSBMLErrorCode_t;
 

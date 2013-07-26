@@ -535,7 +535,7 @@ void ReferenceGlyph::readAttributes (const XMLAttributes& attributes,
 				const std::string details =
 				                  getErrorLog()->getError(n)->getMessage();
 				getErrorLog()->remove(UnknownPackageAttribute);
-				getErrorLog()->logPackageError("layout", LayoutUnknownError,
+				getErrorLog()->logPackageError("layout", LayoutREFGAllowedAttributes,
 				               getPackageVersion(), sbmlLevel, sbmlVersion, details);
 			}
 			else if (getErrorLog()->getError(n)->getErrorId() == UnknownCoreAttribute)
@@ -543,7 +543,8 @@ void ReferenceGlyph::readAttributes (const XMLAttributes& attributes,
 				const std::string details =
 				                  getErrorLog()->getError(n)->getMessage();
 				getErrorLog()->remove(UnknownCoreAttribute);
-				getErrorLog()->logPackageError("layout", LayoutUnknownError,
+				getErrorLog()->logPackageError("layout", 
+                       LayoutREFGAllowedCoreAttributes,
 				               getPackageVersion(), sbmlLevel, sbmlVersion, details);
 			}
 		}
@@ -568,13 +569,14 @@ void ReferenceGlyph::readAttributes (const XMLAttributes& attributes,
 		  }
 		  else if (SyntaxChecker::isValidSBMLSId(mGlyph) == false)
 		  {
-			  logError(InvalidIdSyntax);
+		    getErrorLog()->logPackageError("layout", LayoutREFGGlyphSyntax,
+		                   getPackageVersion(), sbmlLevel, sbmlVersion);
 		  }
 	  }
 	  else
 	  {
 		  std::string message = "Layout attribute 'glyph' is missing.";
-		  getErrorLog()->logPackageError("layout", LayoutUnknownError,
+		  getErrorLog()->logPackageError("layout", LayoutREFGAllowedAttributes,
 		                 getPackageVersion(), sbmlLevel, sbmlVersion, message);
 	  }
   }
@@ -594,7 +596,8 @@ void ReferenceGlyph::readAttributes (const XMLAttributes& attributes,
 		}
 		else if (SyntaxChecker::isValidSBMLSId(mReference) == false)
 		{
-			logError(InvalidIdSyntax);
+		  getErrorLog()->logPackageError("layout", LayoutREFGReferenceSyntax,
+		                 getPackageVersion(), sbmlLevel, sbmlVersion);
 		}
 	}
 
