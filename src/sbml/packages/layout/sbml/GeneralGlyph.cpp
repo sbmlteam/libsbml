@@ -923,29 +923,15 @@ void GeneralGlyph::readAttributes (const XMLAttributes& attributes,
 void
 GeneralGlyph::writeElements (XMLOutputStream& stream) const
 {
+  GraphicalObject::writeElements(stream);
   if(this->isSetCurve())
   {
-    SBase::writeElements(stream);
     mCurve.write(stream);
-    //
-    // BoundingBox is to be ignored if a curve element defined.
-    //
   }
-  else
-  {
-    //
-    // SBase::writeElements(stream) is invoked in the function below.
-    //
-    GraphicalObject::writeElements(stream);
-  }
-
+ 
   if ( getNumReferenceGlyphs() > 0 ) mReferenceGlyphs.write(stream);
   if ( getNumSubGlyphs() > 0 ) mSubGlyphs.write(stream);
-
-  //
-  // (EXTENSION)
-  //
-  SBase::writeExtensionElements(stream);
+ 
 }
 /** @endcond */
 
