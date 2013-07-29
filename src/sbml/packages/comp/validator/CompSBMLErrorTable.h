@@ -1276,6 +1276,53 @@ static const packageErrorTableEntry compErrorTable[] =
     "Hierarchical Model Composition package." ,
     { ""
     }
+  },
+
+    // 1090107
+  { CompFlatteningNotRecognisedNotReqd,
+    "Flattening not implemented for unrequired package.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY, 
+    LIBSBML_SEV_WARNING,
+    "The CompFlatteningConverter has encountered an unrequired package for "
+    "which libSBML does not recognize the information.",
+    { ""
+    }
+  },
+
+    // 1090108
+  { CompFlatteningNotRecognisedReqd,
+    "Flattening not implemented for required package.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY, 
+    LIBSBML_SEV_WARNING,
+    "The CompFlatteningConverter has encountered a required package for "
+    "which libSBML does not recognize the information.",
+    { ""
+    }
+  },
+
+    // 1090109
+  { CompFlatteningNotImplementedNotReqd,
+    "Flattening not implemented for unrequired package.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY, 
+    LIBSBML_SEV_WARNING,
+    "The CompFlatteningConverter has encountered an unrequired package for "
+    "which "
+    "the necessary routines to allow flattening have not yet been implemented. "
+    "" ,
+    { ""
+    }
+  },
+
+    // 1090110
+  { CompFlatteningNotImplementedReqd,
+    "Flattening not implemented for required package.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY, 
+    LIBSBML_SEV_WARNING,
+    "The CompFlatteningConverter has encountered a required package for which "
+    "the necessary routines to allow flattening have not yet been implemented. "
+    "" ,
+    { ""
+    }
   }
 
 

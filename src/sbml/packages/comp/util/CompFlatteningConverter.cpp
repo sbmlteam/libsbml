@@ -164,7 +164,7 @@ CompFlatteningConverter::convert()
 
   if (getPerformValidation() == true)
   {
-    mDocument->getErrorLog()->clearLog();
+//    mDocument->getErrorLog()->clearLog();
     unsigned char origValidators = mDocument->getApplicableValidators();
     mDocument->setApplicableValidators(AllChecksON);
     
@@ -192,7 +192,8 @@ CompFlatteningConverter::convert()
   if (flatmodel == NULL) 
   {
     mDocument->getErrorLog()->logPackageError("comp", CompModelFlatteningFailed,
-      mDocument->getLevel(), mDocument->getVersion(), 1);
+      mDocument->getPlugin("comp")->getPackageVersion(), mDocument->getLevel(),
+      mDocument->getVersion());
     return LIBSBML_OPERATION_FAILED;
   }
 
@@ -330,20 +331,19 @@ CompFlatteningConverter::canBeFlattened() const
   util_free(doc);
   unsigned int errors = d->getNumErrors();
 
-  for (unsigned int i = 0; i < errors; i++)
-  {
-    mDocument->getErrorLog()->add(*(d->getError(i)));
-  }
-  delete d;
+  //for (unsigned int i = 0; i < errors; i++)
+  //{
+  //  mDocument->getErrorLog()->add(*(d->getError(i)));
+  //}
 
-  if (mDocument->getErrorLog()->contains(RequiredPackagePresent))
+  if (d->getErrorLog()->contains(RequiredPackagePresent))
   {
     canFlatten = false;
     required = true;
     unrecognised = true;
   }
   
-  if (mDocument->getErrorLog()->contains(UnrequiredPackagePresent))
+  if (d->getErrorLog()->contains(UnrequiredPackagePresent))
   {
     unrecognised = true;
   }
@@ -372,21 +372,93 @@ CompFlatteningConverter::canBeFlattened() const
   }
   
 
-  // clear the error log so we can add messages about flattening or not
+  // add messages about flattening or not
+  for (unsigned int i = 0; i < d->getErrorLog()->getNumErrors(); i++)
+  {
+    if (d->getError(i)->getErrorId() == RequiredPackagePresent 
+      || d->getError(i)->getErrorId() == UnrequiredPackagePresent)
+    {
+      mDocument->getErrorLog()->add(*(d->getError(i)));
+    }
+  }
+  delete d;
+
   if (canFlatten == false)
   {
     if (unrecognised == true)
     {
       if (required == true)
       {
-        //mDocument->getErrorLog()->logError(CompFlatteningNotRecognisedReqd, 3, 1);
-      // log error: unrecognised required package
+        XMLNamespaces *ns = mDocument->getSBMLNamespaces()->getNamespaces();
+        for (int i = 0; i < ns->getLength(); i++)
+        {
+          if (mDocument->isIgnoredPackage(ns->getURI(i)) == true)
+          {
+            std::string message;
+            std::string nameOfPackage = ns->getPrefix(i);
+            if (getIgnorePackages() == true)
+            {
+              message = "The require package ";
+              message += nameOfPackage;
+              message += " cannot be flattened and the CompFlatteningConverter ";
+              message += "has the 'ignore packages' option set to 'true'. ";
+              message += "Thus flattening will not be attempted.";
+            }
+            else
+            {
+              message = "The package ";
+              message += nameOfPackage;
+              message += " cannot be flattened and the CompFlatteningConverter ";
+              message += "has the 'ignore packages' option set to 'false'. ";
+              message += "Thus information from the ";
+              message += nameOfPackage;
+              message += " package will not appear in the flattened model.";
+            }
+            mDocument->getErrorLog()->logPackageError("comp", 
+              CompFlatteningNotRecognisedReqd, 
+              mDocument->getPlugin("comp")->getPackageVersion(), 
+              mDocument->getLevel(), mDocument->getVersion(), message);
+          }
+        }
       }
     }
     else
     {
       // log error: required package but falttening not implemented
-      //mDocument->getErrorLog()->logError(CompFlatteningNotImplementedReqd, 3, 1);
+      for (unsigned int i = 0; i < mDocument->getNumPlugins(); i++)
+      {
+        if (static_cast<SBMLDocumentPlugin*>(mDocument->getPlugin(i))
+                                                   ->getRequired() == true
+          && static_cast<SBMLDocumentPlugin*>(mDocument->getPlugin(i))
+                                       ->isFlatteningImplemented() == false)
+        {
+          std::string nameOfPackage = 
+                      mDocument->getPlugin(i)->getPackageName();
+          std::string message;
+          if (getIgnorePackages() == true)
+          {
+            message = "The package ";
+            message += nameOfPackage;
+            message += " cannot be flattened and the CompFlatteningConverter ";
+            message += "has the 'ignore packages' option set to 'true'. ";
+            message += "Thus flattening will not be attempted.";
+          }
+          else
+          {
+            message = "The package ";
+            message += nameOfPackage;
+            message += " cannot be flattened and the CompFlatteningConverter ";
+            message += "has the 'ignore packages' option set to 'false'. Thus ";
+            message += "flattening will be attempted but information from the ";
+            message += nameOfPackage;
+            message += " in the flattened model may not be accurate.";
+          }
+          mDocument->getErrorLog()->logPackageError("comp", 
+            CompFlatteningNotImplementedNotReqd, 
+            mDocument->getPlugin("comp")->getPackageVersion(), 
+            mDocument->getLevel(), mDocument->getVersion(), message);
+        }
+      }
     }
     if (getIgnorePackages() == false)
     {
@@ -397,43 +469,82 @@ CompFlatteningConverter::canBeFlattened() const
   {
     if (unrecognised == true)
     {
-      // log error: unrecognised unrequired INFO lost
-      //mDocument->getErrorLog()->logError(CompFlatteningNotRecognisedNotReqd, 3, 1);
-
-      if (getIgnorePackages() == true)
+      XMLNamespaces *ns = mDocument->getSBMLNamespaces()->getNamespaces();
+      for (int i = 0; i < ns->getLength(); i++)
       {
-        XMLNamespaces *ns = mDocument->getSBMLNamespaces()->getNamespaces();
-        for (int i = 0; i < ns->getLength(); i++)
+        if (mDocument->isIgnoredPackage(ns->getURI(i)) == true)
         {
-          if (mDocument->isIgnoredPackage(ns->getURI(i)) == true)
+          std::string message;
+          std::string nameOfPackage = ns->getPrefix(i);
+          if (getIgnorePackages() == true)
           {
+            message = "The package ";
+            message += nameOfPackage;
+            message += " cannot be flattened and the CompFlatteningConverter ";
+            message += "has the 'ignore packages' option set to 'true'. ";
+            message += "Thus all information from the ";
+            message += nameOfPackage;
+            message += " package will be removed from the flattened model.";
             mDocument->enablePackageInternal(ns->getURI(i), 
                                              ns->getPrefix(i), false);
           }
+          else
+          {
+            message = "The package ";
+            message += nameOfPackage;
+            message += " cannot be flattened and the CompFlatteningConverter ";
+            message += "has the 'ignore packages' option set to 'false'. ";
+            message += "Thus information from the ";
+            message += nameOfPackage;
+            message += " will not appear in the flattened model.";
+          }
+          mDocument->getErrorLog()->logPackageError("comp", 
+            CompFlatteningNotRecognisedNotReqd, 
+            mDocument->getPlugin("comp")->getPackageVersion(), 
+            mDocument->getLevel(), mDocument->getVersion(), message);
         }
       }
     }
     if (notImplemented == true)
     {
-      // log error: unrequire not implemented: INFO lost
-      //mDocument->getErrorLog()->logError(CompFlatteningNotImplementedNotReqd, 3, 1);
-
-      // disable any non required unimplemented package
-      if (getIgnorePackages() == true)
+      for (unsigned int i = 0; i < mDocument->getNumPlugins(); i++)
       {
-        for (unsigned int i = 0; i < mDocument->getNumPlugins(); i++)
+        if (static_cast<SBMLDocumentPlugin*>(mDocument->getPlugin(i))
+                                                   ->getRequired() == false
+          && static_cast<SBMLDocumentPlugin*>(mDocument->getPlugin(i))
+                                       ->isFlatteningImplemented() == false)
         {
-          if (static_cast<SBMLDocumentPlugin*>(mDocument->getPlugin(i))
-                                            ->isFlatteningImplemented() == false)
+          std::string nameOfPackage = 
+                      mDocument->getPlugin(i)->getPackageName();
+          std::string message;
+          if (getIgnorePackages() == true)
           {
-            if (static_cast<SBMLDocumentPlugin*>(mDocument->getPlugin(i))
-                                              ->getRequired() == false)
-            {
-              std::string pkgURI = mDocument->getPlugin(i)->getURI();
-              std::string prefix = mDocument->getPlugin(i)->getPrefix();
-              mDocument->disablePackage(pkgURI, prefix);
-            }
+            message = "The package ";
+            message += nameOfPackage;
+            message += " cannot be flattened and the CompFlatteningConverter ";
+            message += "has the 'ignore packages' option set to 'true'. ";
+            message += "Thus all information from the ";
+            message += nameOfPackage;
+            message += " package will be removed from the flattened model.";
+
+            std::string pkgURI = mDocument->getPlugin(i)->getURI();
+            std::string prefix = mDocument->getPlugin(i)->getPrefix();
+            mDocument->disablePackage(pkgURI, prefix);
           }
+          else
+          {
+            message = "The package ";
+            message += nameOfPackage;
+            message += " cannot be flattened and the CompFlatteningConverter ";
+            message += "has the 'ignore packages' option set to 'false'. ";
+            message += "Thus information from the ";
+            message += nameOfPackage;
+            message += " in the flattened model may not be accurate.";
+          }
+          mDocument->getErrorLog()->logPackageError("comp", 
+            CompFlatteningNotImplementedNotReqd, 
+            mDocument->getPlugin("comp")->getPackageVersion(), 
+            mDocument->getLevel(), mDocument->getVersion(), message);
         }
       }
     }

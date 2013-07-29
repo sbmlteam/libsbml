@@ -1286,6 +1286,7 @@ START_TEST (test_comp_flatten_converter_packages1)
   ConversionProperties* props = new ConversionProperties();
   
   props->addOption("flatten comp");
+  props->addOption("perform validation", false);
 
   SBMLConverter* converter = SBMLConverterRegistry::getInstance().getConverterFor(*props);
   
@@ -1314,9 +1315,16 @@ START_TEST (test_comp_flatten_converter_packages1)
   if (SBMLExtensionRegistry::isPackageEnabled("layout") == true)
   {
     ffile = filename + "aggregate_layout_flat_layout_removed.xml";
+    fail_unless(result == LIBSBML_OPERATION_SUCCESS);
+    fail_unless(doc->getNumErrors() == 1);
+    fail_unless(doc->getErrorLog()->getError(0)->getErrorId() == 1090109);
   }
   else
   {
+    fail_unless(result == LIBSBML_OPERATION_SUCCESS);
+    fail_unless(doc->getNumErrors() == 2);
+    fail_unless(doc->getErrorLog()->getError(0)->getErrorId() == 99108);
+    fail_unless(doc->getErrorLog()->getError(1)->getErrorId() == 1090108);
     ffile = filename + "aggregate_layout_flat_layout_removed.xml";
   }
 
@@ -1339,6 +1347,7 @@ START_TEST (test_comp_flatten_converter_packages2)
   
   props->addOption("flatten comp");
   props->addOption("ignorePackages", true);
+  props->addOption("perform validation", false);
 
   SBMLConverter* converter = SBMLConverterRegistry::getInstance().getConverterFor(*props);
   
@@ -1369,11 +1378,16 @@ START_TEST (test_comp_flatten_converter_packages2)
   {
     // fbc is not required so should just get removed
     fail_unless(result == LIBSBML_OPERATION_SUCCESS);
+    fail_unless(doc->getNumErrors() == 1);
+    fail_unless(doc->getErrorLog()->getError(0)->getErrorId() == 1090109);
     ffile = filename + "aggregate_fbc_flat_fbc_removed.xml";
   }
   else
   {
     fail_unless(result == LIBSBML_OPERATION_SUCCESS);
+    fail_unless(doc->getNumErrors() == 2);
+    fail_unless(doc->getErrorLog()->getError(0)->getErrorId() == 99108);
+    fail_unless(doc->getErrorLog()->getError(1)->getErrorId() == 1090108);
     ffile = filename + "aggregate_fbc_flat_fbc_removed.xml";
   }
 
@@ -1396,6 +1410,7 @@ START_TEST (test_comp_flatten_converter_packages3)
   
   props->addOption("flatten comp");
   props->addOption("ignorePackages", true);
+  props->addOption("perform validation", false);
 
   SBMLConverter* converter = SBMLConverterRegistry::getInstance().getConverterFor(*props);
   
@@ -1426,11 +1441,16 @@ START_TEST (test_comp_flatten_converter_packages3)
   {
     // fbc is not required so should just get removed
     fail_unless(result == LIBSBML_OPERATION_SUCCESS);
+    fail_unless(doc->getNumErrors() == 1);
+    fail_unless(doc->getErrorLog()->getError(0)->getErrorId() == 1090109);
     ffile = filename + "aggregate_fbc_flat_fbc_removed.xml";
   }
   else
   {
     fail_unless(result == LIBSBML_OPERATION_SUCCESS);
+    fail_unless(doc->getNumErrors() == 2);
+    fail_unless(doc->getErrorLog()->getError(0)->getErrorId() == 99108);
+    fail_unless(doc->getErrorLog()->getError(1)->getErrorId() == 1090108);
     ffile = filename + "aggregate_fbc_flat_fbc_removed.xml";
   }
 
@@ -1453,6 +1473,7 @@ START_TEST (test_comp_flatten_converter_packages4)
   
   props->addOption("flatten comp");
   props->addOption("ignorePackages", false);
+  props->addOption("perform validation", false);
 
   SBMLConverter* converter = SBMLConverterRegistry::getInstance().getConverterFor(*props);
   
@@ -1481,11 +1502,16 @@ START_TEST (test_comp_flatten_converter_packages4)
   if (SBMLExtensionRegistry::isPackageEnabled("fbc") == true)
   {
     fail_unless(result == LIBSBML_OPERATION_SUCCESS);
+    fail_unless(doc->getNumErrors() == 1);
+    fail_unless(doc->getErrorLog()->getError(0)->getErrorId() == 1090109);
     ffile = filename + "aggregate_fbc_flat_fbc_not_removed.xml";
   }
   else
   {
     fail_unless(result == LIBSBML_OPERATION_SUCCESS);
+    fail_unless(doc->getNumErrors() == 2);
+    fail_unless(doc->getErrorLog()->getError(0)->getErrorId() == 99108);
+    fail_unless(doc->getErrorLog()->getError(1)->getErrorId() == 1090108);
     ffile = filename + "aggregate_fbc_flat_fbc_not_enabled.xml";
   }
 
