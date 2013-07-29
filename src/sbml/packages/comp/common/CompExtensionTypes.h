@@ -43,4 +43,5 @@
 #include <sbml/packages/comp/sbml/ReplacedBy.h>
 #include <sbml/packages/comp/sbml/SBaseRef.h>
 #include <sbml/packages/comp/sbml/Submodel.h>
+#include <sbml/packages/comp/validator/CompSBMLError.h>
 #endif  /* CompExtensionTypes_h */

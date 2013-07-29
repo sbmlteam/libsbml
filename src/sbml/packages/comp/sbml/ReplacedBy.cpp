@@ -106,8 +106,8 @@ int ReplacedBy::performReplacement()
   SBase* parent = getParentSBMLObject();
   if (parent==NULL) {
     if (doc) {
-      string error = "No parent object for this <replacedBy> could be found.";
-      doc->getErrorLog()->logPackageError("comp", CompFlatModelNotValid, 1, 3, 1, error);
+      string error = "Unable to perform replacement in ReplacedBy::performReplacement: no parent object for this <replacedBy> could be found.";
+      doc->getErrorLog()->logPackageError("comp", CompModelFlatteningFailed, getPackageVersion(), getLevel(), getVersion(), error);
     }
     return LIBSBML_INVALID_OBJECT;
   }
@@ -131,6 +131,39 @@ int ReplacedBy::performReplacement()
 
   //And finally, delete the parent object.
   return CompBase::removeFromParentAndPorts(parent);
+}
+
+int 
+ReplacedBy::updateIDs(SBase* oldnames, SBase* newnames)
+{
+  //The trick here is that 'oldnames' is actually replacing 'newnames' so we need to get the error messages correct.
+  int ret = LIBSBML_OPERATION_SUCCESS;
+  SBMLDocument* doc = getSBMLDocument();
+  if (!oldnames->isSetId() && newnames->isSetId()) {
+    if (doc) {
+      string error = "Unable to transform IDs in ReplacedBy::updateIDs during replacement:  the '" + newnames->getId() + "' element's replacement does not have an ID set.";
+      doc->getErrorLog()->logPackageError("comp", CompMustReplaceIDs, getPackageVersion(), getLevel(), getVersion(), error);
+    }
+    return LIBSBML_INVALID_OBJECT;
+  }
+  if (!oldnames->isSetMetaId() && newnames->isSetMetaId()) {
+    if (doc) {
+      string error = "Unable to transform IDs in ReplacedBy::updateIDs during replacement:  the replacement of the element with metaid '" + newnames->getMetaId() + "' does not have a metaid.";
+      doc->getErrorLog()->logPackageError("comp", CompMustReplaceMetaIDs, getPackageVersion(), getLevel(), getVersion(), error);
+    }
+    return LIBSBML_INVALID_OBJECT;
+  }
+  //LS DEBUG Somehow we need to check identifiers from other packages here (like spatial id's).  How, exactly, is anyone's guess.
+
+  //Now update the IDs of 'newnames', if something wasn't set.  (This avoids errors in Replacing::updateIDs)
+  if (oldnames->isSetId() && !newnames->isSetId()) {
+    newnames->setId(oldnames->getId());
+  }
+  if (oldnames->isSetMetaId() && !newnames->isSetMetaId()) {
+    newnames->setMetaId(oldnames->getMetaId());
+  }
+  //LS DEBUG We also need to update the other package IDs.
+  return Replacing::updateIDs(oldnames, newnames);
 }
 
 

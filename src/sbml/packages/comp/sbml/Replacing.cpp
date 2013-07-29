@@ -145,50 +145,50 @@ Replacing::saveReferencedElement()
   SBMLDocument* doc = getSBMLDocument();
   if (!isSetSubmodelRef()) {
     if (doc) {
-      string error = "The given <" + getElementName() + "> element";
+      string error = "Unable to find referenced element in Replacing::saveReferencedElement: the given <" + getElementName() + "> element";
       if (isSetId()) {
         error += " '" + getId() + "'";
       }
       error += " has no 'submodelRef' attribute.";
-      doc->getErrorLog()->logPackageError("comp", CompFlatModelNotValid, 1, 3, 1, error);
+      doc->getErrorLog()->logPackageError("comp", CompReplacedElementAllowedAttributes, getPackageVersion(), getLevel(), getVersion(), error);
     }
     return LIBSBML_INVALID_OBJECT;
   }
   Model* model = getParentModel(this);
   if (model==NULL) {
     if (doc) {
-      string error = "No parent model could be found for the given <" + getElementName() + "> element";
+      string error = "Unable to find referenced element in Replacing::saveReferencedElement: no parent model could be found for the given <" + getElementName() + "> element";
       if (isSetId()) {
         error += " '" + getId() + "'.";
       }
-      doc->getErrorLog()->logPackageError("comp", CompFlatModelNotValid, 1, 3, 1, error);
+      doc->getErrorLog()->logPackageError("comp", CompModelFlatteningFailed, getPackageVersion(), getLevel(), getVersion(), error);
     }
     return LIBSBML_OPERATION_FAILED;
   }
   CompModelPlugin* cmp = static_cast<CompModelPlugin*>(model->getPlugin(getPrefix()));
   if (cmp==NULL) {
     if (doc) {
-      string error = "No 'comp' plugin for the parent model could be found for the given <" + getElementName() + "> element";
+      string error = "Unable to find referenced element in Replacing::saveReferencedElement: no 'comp' plugin for the parent model could be found for the given <" + getElementName() + "> element";
       if (isSetId()) {
         error += " '" + getId() + "'.";
       }
-      doc->getErrorLog()->logPackageError("comp", CompFlatModelNotValid, 1, 3, 1, error);
+      doc->getErrorLog()->logPackageError("comp", CompModelFlatteningFailed, getPackageVersion(), getLevel(), getVersion(), error);
     }
     return LIBSBML_OPERATION_FAILED;
   }
   Submodel* submod = cmp->getSubmodel(getSubmodelRef());
   if (submod==NULL) {
     if (doc) {
-      string error = "For the given <" + getElementName() + "> element";
+      string error = "Unable to find referenced element for the given <" + getElementName() + "> element";
       if (isSetId()) {
         error += " '" + getId() + "'";
       }
-      error += ", the submodelRef '" + getSubmodelRef() + "' could not be found.";
+      error += " in Replacing::saveReferencedElement: the submodelRef '" + getSubmodelRef() + "' could not be found in the model.";
       int errnumber = CompReplacedElementSubModelRef;
       if (getTypeCode() == SBML_COMP_REPLACEDBY) {
         errnumber = CompReplacedBySubModelRef;
       }
-      doc->getErrorLog()->logPackageError("comp", errnumber, 1, 3, 1, error);
+      doc->getErrorLog()->logPackageError("comp", errnumber, getPackageVersion(), getLevel(), getVersion(), error);
     }
     return LIBSBML_INVALID_ATTRIBUTE_VALUE;
   }
@@ -376,15 +376,15 @@ Replacing::updateIDs(SBase* oldnames, SBase* newnames)
   SBMLDocument* doc = getSBMLDocument();
   if (oldnames->isSetId() && !newnames->isSetId()) {
     if (doc) {
-      string error = "The '" + oldnames->getId() + "' element's replacement element does not have an ID set.";
-      doc->getErrorLog()->logPackageError("comp", CompMustReplaceIDs, 1, 3, 1, error);
+      string error = "Unable to transform IDs in Replacing::updateIDs during replacement:  the '" + oldnames->getId() + "' element's replacement does not have an ID set.";
+      doc->getErrorLog()->logPackageError("comp", CompMustReplaceIDs, getPackageVersion(), getLevel(), getVersion(), error);
     }
     return LIBSBML_INVALID_OBJECT;
   }
   if (oldnames->isSetMetaId() && !newnames->isSetMetaId()) {
     if (doc) {
-      string error = "The replacement of the element with metaid '" + oldnames->getMetaId() + "' does not have a metaid.";
-      doc->getErrorLog()->logPackageError("comp", CompMustReplaceMetaIDs, 1, 3, 1, error);
+      string error = "Unable to transform IDs in Replacing::updateIDs during replacement:  the replacement of the element with metaid '" + oldnames->getMetaId() + "' does not have a metaid.";
+      doc->getErrorLog()->logPackageError("comp", CompMustReplaceMetaIDs, getPackageVersion(), getLevel(), getVersion(), error);
     }
     return LIBSBML_INVALID_OBJECT;
   }
@@ -394,8 +394,8 @@ Replacing::updateIDs(SBase* oldnames, SBase* newnames)
   ASTNode newkl;
   if (replacedmod==NULL) {
     if (doc) {
-      string error = "The replacement of '" + oldnames->getId() + "' does not have a valid model.";
-      doc->getErrorLog()->logPackageError("comp", CompModelFlatteningFailed, 1, 3, 1, error);
+      string error = "Unable to transform IDs in Replacing::updateIDs during replacement:  the replacement of '" + oldnames->getId() + "' does not have a valid model.";
+      doc->getErrorLog()->logPackageError("comp", CompModelFlatteningFailed, getPackageVersion(), getLevel(), getVersion(), error);
     }
     return LIBSBML_INVALID_OBJECT;
   }
@@ -456,8 +456,8 @@ int Replacing::performConversions(SBase* replacement, ASTNode*& conversionFactor
   }
   if (replacement==NULL) {
     if (doc) {
-      string error = "Internal error:  cannot perform a conversion of NULL.";
-      doc->getErrorLog()->logPackageError("comp", CompFlatModelNotValid, 1, 3, 1, error);
+      string error = "Internal error in Replacing::performConversions:  cannot perform a conversion of NULL.";
+      doc->getErrorLog()->logPackageError("comp", CompModelFlatteningFailed, getPackageVersion(), getLevel(), getVersion(), error);
     }
     return LIBSBML_OPERATION_FAILED;
   }
@@ -470,11 +470,11 @@ int Replacing::performConversions(SBase* replacement, ASTNode*& conversionFactor
   Model* replacedmod = const_cast<Model*>(CompBase::getParentModel(replaced));
   if (replacedmod==NULL) {
     if (doc) {
-      string error = "No model parent could be found for replacement";
+      string error = "Unable to perform conversion of replacement in Replacing::performConversions:  No model parent could be found for replacement";
       if (replacement->isSetId()) {
         error += replacement->getId() + ".";
       }
-      doc->getErrorLog()->logPackageError("comp", CompFlatModelNotValid, 1, 3, 1, error);
+      doc->getErrorLog()->logPackageError("comp", CompModelFlatteningFailed, getPackageVersion(), getLevel(), getVersion(), error);
     }
     return LIBSBML_INVALID_OBJECT;
   }
@@ -501,7 +501,6 @@ int Replacing::performConversions(SBase* replacement, ASTNode*& conversionFactor
 int Replacing::convertConversionFactor(ASTNode*& conversionFactor)
 {
   int ret = LIBSBML_OPERATION_SUCCESS;
-  SBMLDocument* doc = getSBMLDocument();
   ASTNode* newCF = NULL;
   if (mConversionFactor=="") {
     newCF = conversionFactor;
@@ -524,9 +523,10 @@ int Replacing::convertConversionFactor(ASTNode*& conversionFactor)
       newCF = conversionFactor;
     }
     else {
+      SBMLDocument* doc = getSBMLDocument();
       if (doc) {
-        string error = "Internal error:  unknown conversion factor form.";
-        doc->getErrorLog()->logPackageError("comp", CompFlatModelNotValid, 1, 3, 1, error);
+        string error = "Internal error in Replacing::convertConversionFactor:  unknown conversion factor form.";
+        doc->getErrorLog()->logPackageError("comp", CompModelFlatteningFailed, getPackageVersion(), getLevel(), getVersion(), error);
       }
       return LIBSBML_OPERATION_FAILED;
     }

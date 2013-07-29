@@ -155,6 +155,14 @@ void TestFlattenedPair(string file1, string file2)
 
   fail_unless(doc->getErrorLog()->getNumFailsWithSeverity(LIBSBML_SEV_ERROR) == 0);
   //For use debugging the above statement:
+
+  converter->setDocument(doc);
+  int result = converter->convert();
+
+  // fail if conversion was not valid
+  fail_unless(result == LIBSBML_OPERATION_SUCCESS);
+
+  //For use in debugging the above statement.
   /*
   SBMLErrorLog* errors = doc->getErrorLog();
   if (errors->getNumFailsWithSeverity(LIBSBML_SEV_ERROR) != 0) {
@@ -167,12 +175,6 @@ void TestFlattenedPair(string file1, string file2)
     }
   }
   */
-
-  converter->setDocument(doc);
-  int result = converter->convert();
-
-  // fail if conversion was not valid
-  fail_unless(result == LIBSBML_OPERATION_SUCCESS);
 
   string newModel = writeSBMLToString(doc);
   //writeSBMLToFile(doc, "test1_flat.xml");
@@ -271,7 +273,6 @@ END_TEST
 START_TEST (test_comp_flatten_double_ext1)
 { 
   SBMLNamespaces sbmlns(3,1,"comp",1);
-  CompPkgNamespaces csbmlns(3,1,1,"comp");
 
   // create the document
   SBMLDocument *doc = new SBMLDocument(&sbmlns);
@@ -337,7 +338,6 @@ END_TEST
 START_TEST (test_comp_flatten_double_ext2)
 { 
   SBMLNamespaces sbmlns(3,1,"comp",1);
-  CompPkgNamespaces csbmlns(3,1,1,"comp");
 
   // create the document
   SBMLDocument *doc = new SBMLDocument(&sbmlns);
@@ -427,7 +427,6 @@ END_TEST
 START_TEST (test_comp_flatten_dropports)
 { 
   SBMLNamespaces sbmlns(3,1,"comp",1);
-  CompPkgNamespaces csbmlns(3,1,1,"comp");
 
   // create the document
   SBMLDocument *doc = new SBMLDocument(&sbmlns);
@@ -1580,34 +1579,6 @@ START_TEST(test_comp_validator_44781839)
 }
 END_TEST
 
-START_TEST(test_comp_flatten_invalid)
-{
-  ConversionProperties* props = new ConversionProperties();
-  
-  props->addOption("flatten comp");
-
-  SBMLConverter* converter = 
-    SBMLConverterRegistry::getInstance().getConverterFor(*props);
-  
-  // load document
-  string dir(TestDataDirectory);
-  string fileName = dir + "1020616-fail-01-01.xml";  
-  SBMLDocument* doc = readSBMLFromFile(fileName.c_str());
-
-  // fail if there is no model (readSBMLFromFile always returns a valid document)
-  fail_unless(doc->getNumErrors() == 0);
-  fail_unless(doc->getModel() != NULL);
-
-  converter->setDocument(doc);
-  int result = converter->convert();
-
-  fail_unless( result == LIBSBML_CONV_INVALID_SRC_DOCUMENT);
-
-  delete doc;
-  delete converter;
-}
-END_TEST
-
 Suite *
 create_suite_TestFlatteningConverter (void)
 { 
@@ -1703,9 +1674,6 @@ create_suite_TestFlatteningConverter (void)
   tcase_add_test(tcase, test_comp_flatten_converter_packages4);
   tcase_add_test(tcase, test_comp_validator_44781839);
  
-  
-  tcase_add_test(tcase, test_comp_flatten_invalid);
-
   suite_add_tcase(suite, tcase);
 
   return suite;

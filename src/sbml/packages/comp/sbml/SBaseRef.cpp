@@ -735,12 +735,26 @@ SBaseRef::getReferencedElementFrom(Model* model)
   SBMLDocument* doc = getSBMLDocument();
   if (!hasRequiredAttributes()) {
     if (doc) {
-      string error = "Unable to find referenced element from SBase reference ";
+      string error = "In SBaseRef::getReferencedElementFrom, unable to find referenced element from <" + getElementName() + "> ";
       if (isSetId()) {
-        error += "'" + getId() + "' ";
+        error += "with ID '" + getId() + "' ";
       }
-      error += " as it does not have the required attributes.";
-      doc->getErrorLog()->logPackageError("comp", CompSBaseRefMustReferenceOnlyOneObject, 1, 3, 1, error);
+      error += "as it does not have the required attributes.";
+      int en = CompSBaseRefMustReferenceObject;
+      switch(getTypeCode()) {
+      case SBML_COMP_REPLACEDBY:
+        en = CompReplacedByAllowedAttributes;
+        break;
+      case SBML_COMP_REPLACEDELEMENT:
+        en = CompReplacedElementAllowedAttributes;
+        break;
+      case SBML_COMP_PORT:
+        en = CompPortAllowedAttributes;
+        break;
+      case SBML_COMP_DELETION:
+        en = CompDeletionAllowedAttributes;
+      }
+      doc->getErrorLog()->logPackageError("comp", en, getPackageVersion(), getLevel(), getVersion(), error);
     }
     return NULL;
   }
@@ -750,12 +764,12 @@ SBaseRef::getReferencedElementFrom(Model* model)
     Port* port = mplugin->getPort(getPortRef());
     if (port==NULL) {
       if (doc) {
-        string error = "Unable to find referenced element from SBase reference ";
+        string error = "In SBaseRef::getReferencedElementFrom, unable to find referenced element from SBase reference ";
         if (isSetId()) {
           error += "'" + getId() + "' ";
         }
-        error += " as the port it references ('" + getPortRef() +"') could not be found.";
-        doc->getErrorLog()->logPackageError("comp", CompModelFlatteningFailed, 1, 3, 1, error);
+        error += "as the port it references ('" + getPortRef() +"') could not be found.";
+        doc->getErrorLog()->logPackageError("comp", CompPortRefMustReferencePort, getPackageVersion(), getLevel(), getVersion(), error);
       }
       return NULL;
     }
@@ -764,22 +778,22 @@ SBaseRef::getReferencedElementFrom(Model* model)
   else if (isSetIdRef()) {
     referent = model->getElementBySId(getIdRef());
     if (referent == NULL && doc) {
-      string error = "No such SId in the model:  '" + getIdRef() + "'.";
-      doc->getErrorLog()->logPackageError("comp", CompIdRefMustReferenceObject, 1, 3, 1, error);
+      string error = "In SBaseRef::getReferencedElementFrom, unable to find referenced element: no such SId in the model: '" + getIdRef() + "'.";
+      doc->getErrorLog()->logPackageError("comp", CompIdRefMustReferenceObject, getPackageVersion(), getLevel(), getVersion(), error);
     }
   }
   else if (isSetUnitRef()) {
     referent = model->getUnitDefinition(getUnitRef());
     if (referent == NULL && doc) {
-      string error = "No such Unit in the model:  '" + getUnitRef() + "'.";
-      doc->getErrorLog()->logPackageError("comp", CompUnitRefMustReferenceUnitDef, 1, 3, 1, error);
+      string error = "In SBaseRef::getReferencedElementFrom, unable to find referenced element: no such Unit in the model: '" + getUnitRef() + "'.";
+      doc->getErrorLog()->logPackageError("comp", CompUnitRefMustReferenceUnitDef, getPackageVersion(), getLevel(), getVersion(), error);
     }
   }
   else if (isSetMetaIdRef()) {
     referent = model->getElementByMetaId(getMetaIdRef());
     if (referent == NULL && doc) {
-      string error = "No such metaid in the model:  '" + getMetaIdRef() + "'.";
-      doc->getErrorLog()->logPackageError("comp", CompMetaIdRefMustReferenceObject, 1, 3, 1, error);
+      string error = "In SBaseRef::getReferencedElementFrom, unable to find referenced element: no such metaid in the model: '" + getMetaIdRef() + "'.";
+      doc->getErrorLog()->logPackageError("comp", CompMetaIdRefMustReferenceObject, getPackageVersion(), getLevel(), getVersion(), error);
     }
   }
   else {
@@ -794,7 +808,7 @@ SBaseRef::getReferencedElementFrom(Model* model)
     //We're drilling into the submodels here, so our referent must be a submodel.
     if (referent->getTypeCode() != SBML_COMP_SUBMODEL) {
       if (doc) {
-        string error = "The element ";
+        string error = "In SBaseRef::getReferencedElementFrom, unable to find referenced element: the element ";
         if (referent->isSetId()) {
           error += "'" + referent->getId() + "'";
         }
@@ -802,22 +816,23 @@ SBaseRef::getReferencedElementFrom(Model* model)
           error += "with the metaid '" + referent->getMetaId() + "'";
         }
         error += " is not a submodel, and therefore has no subobjects for the child <sBaseRef> to refer to.";
-        doc->getErrorLog()->logPackageError("comp", CompParentOfSBRefChildMustBeSubmodel, 1, 3, 1, error);
+        doc->getErrorLog()->logPackageError("comp", CompParentOfSBRefChildMustBeSubmodel, getPackageVersion(), getLevel(), getVersion(), error);
       }
       return NULL;
     }
     Submodel* subm = static_cast<Submodel*>(referent);
     if (subm==NULL) {
+      //Note:  should be impossible.
       if (doc) {
-        string error = "The element ";
+        string error = "In SBaseRef::getReferencedElementFrom, unable to find referenced element: the element ";
         if (referent->isSetId()) {
-          error += "'" + referent->getId() + "'";
+          error += "'" + referent->getId() + "' ";
         }
         else if (referent->isSetMetaId()) {
-          error += "with the metaid '" + referent->getMetaId() + "'";
+          error += "with the metaid '" + referent->getMetaId() + "' ";
         }
-        error += " claims to be a Submodel, but could not be programmatically turned into one.";
-        doc->getErrorLog()->logPackageError("comp", CompParentOfSBRefChildMustBeSubmodel, 1, 3, 1, error);
+        error += "claims to be a Submodel, but could not be programmatically turned into one.";
+        doc->getErrorLog()->logPackageError("comp", CompParentOfSBRefChildMustBeSubmodel, getPackageVersion(), getLevel(), getVersion(), error);
       }
       return NULL;
     }
@@ -839,21 +854,25 @@ int SBaseRef::saveReferencedElement()
   SBase* parent = getParentSBMLObject();
   if (parent==NULL) {
     if (doc) {
-      string error = "No parent could be found for the given <sBaseRef> element.";
-      doc->getErrorLog()->logPackageError("comp", CompFlatModelNotValid, 1, 3, 1, error);
+      string error = "In SBaseRef::saveReferencedElement, unable to find referenced element: no parent could be found for the given <sBaseRef> element.";
+      doc->getErrorLog()->logPackageError("comp", CompModelFlatteningFailed, getPackageVersion(), getLevel(), getVersion(), error);
     }
     return LIBSBML_OPERATION_FAILED;
   }
   SBaseRef* parentref = static_cast<SBaseRef*>(parent);
-  if (parentref==NULL) {
+  if (parentref==NULL || (parent->getTypeCode() != SBML_COMP_SBASEREF &&
+                          parent->getTypeCode() != SBML_COMP_PORT &&
+                          parent->getTypeCode() != SBML_COMP_DELETION &&
+                          parent->getTypeCode() != SBML_COMP_REPLACEDBY &&
+                          parent->getTypeCode() != SBML_COMP_REPLACEDELEMENT)) {
     if (doc) {
-      string error = "The parent of the given <sBaseRef> element was not the correct type.";
-      doc->getErrorLog()->logPackageError("comp", CompFlatModelNotValid, 1, 3, 1, error);
+      string error = "In SBaseRef::saveReferencedElement, unable to find referenced element: the parent of the given <sBaseRef> element was not the correct type.";
+      doc->getErrorLog()->logPackageError("comp", CompModelFlatteningFailed, getPackageVersion(), getLevel(), getVersion(), error);
     }
     return LIBSBML_OPERATION_FAILED;
   }
   if (parentref->saveReferencedElement() != LIBSBML_OPERATION_SUCCESS) {
-    //saveReferencedelement will set its own error messages.
+    //saveReferencedElement will set its own error messages.
     return LIBSBML_OPERATION_FAILED;
   }
   mReferencedElement = parentref->getReferencedElement();

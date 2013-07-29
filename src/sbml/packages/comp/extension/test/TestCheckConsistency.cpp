@@ -68,10 +68,8 @@ START_TEST (test_comp_fail_20212)
   doc->checkConsistency();
   unsigned int nerrors = doc->getNumErrors();
 
-  fail_unless (nerrors == 3);
+  fail_unless (nerrors == 1);
   fail_unless (doc->getError(0)->getErrorId() == 1020212);
-  fail_unless (doc->getError(1)->getErrorId() == 1090106);
-  fail_unless (doc->getError(2)->getErrorId() == 1090105);
 
   delete doc;
 }

@@ -674,8 +674,8 @@ START_CONSTRAINT (CompUnresolvedReference, ExternalModelDefinition, emd)
   msg += emd.getId() ;
   msg += "' refers to a source '";
   msg += emd.getSource();
-  msg += "' that cannot be accessed from here. Further checks relating to.";
-  msg += "' this document cannot be performed.";
+  msg += "' that cannot be accessed from here. Further checks relating to";
+  msg += " this document cannot be performed.";
 
   if (resolved == NULL) 
   {

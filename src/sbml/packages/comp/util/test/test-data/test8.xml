@@ -19,7 +19,7 @@
     <comp:modelDefinition id="Mod1">
       <listOfParameters>
         <parameter id="subparam1" value="5.01" constant="false"/>
-        <parameter id="subparam2" value="6" constant="true"/>
+        <parameter id="subparam2" metaid="subparam2_meta" value="6" constant="true"/>
       </listOfParameters>
       <listOfInitialAssignments>
         <initialAssignment symbol="subparam1">

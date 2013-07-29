@@ -109,9 +109,13 @@ ExtModelReferenceCycles::addAllReferences(const SBMLDocument* doc,
 
   string locationURI = doc->getLocationURI();
 
+  if (locationURI.empty()) {
+    return;
+  }
+
   if (location.empty() == true)
   {
-    location = locationURI.substr(5, string::npos);
+    location = locationURI.substr(locationURI.find(':')+1, string::npos);
   }
   
   if (mDocumentsHandled.contains(location) == false)

@@ -153,6 +153,28 @@ public:
 
 
   /** @cond doxygen-libsbml-internal */
+  /**
+   * Searches the model that @p oldnames came from for references to any of its ids,
+   * and replaces them with references to @p newnames.  
+   *
+   * @param oldnames the object being replaced, and whose parent Model contains
+   * the references that need to be updated.
+   *
+   * @param newnames the object that should now be referenced instead, to which 
+   * any references to @p oldnames should now point.
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+   * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT @endlink
+   */
+  virtual int updateIDs(SBase* oldnames, SBase* newnames);
+  /** @endcond */
+
+
+  /** @cond doxygen-libsbml-internal */
 
   /**
    * Accepts the given SBMLVisitor.

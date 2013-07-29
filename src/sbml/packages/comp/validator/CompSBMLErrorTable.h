@@ -398,7 +398,7 @@ static const packageErrorTableEntry compErrorTable[] =
     "Allowed <externalModelDefinitions> core attributes",
     LIBSBML_CAT_GENERAL_CONSISTENCY, 
     LIBSBML_SEV_ERROR,
-    "An <externalModelDefinition>  object may have the optional "
+    "An <externalModelDefinition> object may have the optional "
     "SBML Level 3 Core attributes 'metaid' and 'sboTerm'.  No "
     "other attributes from the SBML Level 3 Core namespace are permitted on "
     "an <externalModelDefinition> object.",
@@ -1226,7 +1226,7 @@ static const packageErrorTableEntry compErrorTable[] =
     "No model in referenced document.",
     LIBSBML_CAT_GENERAL_CONSISTENCY, 
     LIBSBML_SEV_ERROR,
-    "The external model referenced in this model did not contain any models.",
+    "The external document referenced in this model did not contain any models.",
     { ""
     }
   },
@@ -1247,8 +1247,7 @@ static const packageErrorTableEntry compErrorTable[] =
     "Model failed to flatten.",
     LIBSBML_CAT_GENERAL_CONSISTENCY, 
     LIBSBML_SEV_ERROR,
-    "Errors arose during the attempt to flatten the model. These "
-    "are reported where possible.",
+    "Errors arose during the attempt to flatten the model.",
     { ""
     }
   },

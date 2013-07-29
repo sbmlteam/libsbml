@@ -181,6 +181,14 @@ CompFlatteningConverter::convert()
   }
   CompModelPlugin *modelPlugin = (CompModelPlugin*)(mModel->getPlugin("comp"));
 
+  if (modelPlugin==NULL) {
+    return LIBSBML_OPERATION_FAILED;
+  }
+
+  mDocument->getErrorLog()->logPackageError("comp", CompModelFlatteningFailed,
+    modelPlugin->getPackageVersion(), mDocument->getLevel(), mDocument->getVersion(),
+    "The subsequent errors are from this attempt.");
+
   Model* flatmodel = modelPlugin->flattenModel();
   
   if (basePathResolverIndex != -1)
@@ -191,11 +199,11 @@ CompFlatteningConverter::convert()
 
   if (flatmodel == NULL) 
   {
-    mDocument->getErrorLog()->logPackageError("comp", CompModelFlatteningFailed,
-      mDocument->getPlugin("comp")->getPackageVersion(), mDocument->getLevel(),
-      mDocument->getVersion());
+    //'flattenModel' sets its own error messages.
     return LIBSBML_OPERATION_FAILED;
   }
+  //Otherwise, remove the 'subsequent errors' error message.
+  mDocument->getErrorLog()->remove(CompModelFlatteningFailed);
 
   // now reconstruct the document taking user options into account
 

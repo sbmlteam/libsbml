@@ -522,8 +522,8 @@ Model* CompModelPlugin::flattenModel() const
     }
     success = flat->appendFrom(submodel);
     if (success != LIBSBML_OPERATION_SUCCESS) {
-      string error = "The submodel '" + submodel->getId() + "' could not be used to create the flattened model:  appending the elements of the submodel to the elements of the parent model failed.";
-      doc->getErrorLog()->logPackageError("comp", CompFlatModelNotValid, 1, 3, 1, error);
+      string error = "Unable to flatten model in CompModelPlugin::flattenModel: appending elements from the submodel '" + submodel->getId() + "' to the elements of the parent model failed.";
+      doc->getErrorLog()->logPackageError("comp", CompModelFlatteningFailed, getPackageVersion(), getLevel(), getVersion(), error);
       delete flat;
       return NULL;
     }
@@ -704,8 +704,8 @@ int CompModelPlugin::saveAllReferencedElements()
   Model* model = static_cast<Model*>(getParentSBMLObject());
   if (model==NULL) {
     if (doc) {
-      string error = "No Model parent of the 'comp' model plugin.";
-      doc->getErrorLog()->logPackageError("comp", CompModelFlatteningFailed, 1, 3, 1, error);
+      string error = "Unable to discover any referenced elements in CompModelPlugin::saveAllReferencedElements: no Model parent of the 'comp' model plugin.";
+      doc->getErrorLog()->logPackageError("comp", CompModelFlatteningFailed, getPackageVersion(), getLevel(), getVersion(), error);
     }
     return LIBSBML_OPERATION_FAILED;
   }
@@ -755,8 +755,8 @@ CompModelPlugin::renameAllIDsAndPrepend(const std::string& prefix)
   Model* model = static_cast<Model*>(getParentSBMLObject());
   if (model==NULL) {
     if (doc) {
-      string error = "No parent model could be found for the given 'comp' model plugin element.";
-      doc->getErrorLog()->logPackageError("comp", CompFlatModelNotValid, 1, 3, 1, error);
+      string error = "Unable to rename elements in CompModelPlugin::renameAllIDsAndPrepend: no parent model could be found for the given 'comp' model plugin element.";
+      doc->getErrorLog()->logPackageError("comp", CompModelFlatteningFailed, getPackageVersion(), getLevel(), getVersion(), error);
     }
     return LIBSBML_INVALID_OBJECT;
   }
@@ -769,15 +769,15 @@ CompModelPlugin::renameAllIDsAndPrepend(const std::string& prefix)
     if (subm==NULL) {
       if (doc) {
         stringstream error;
-        error << "No valid submodel number " << sm << "for model " << model->getId();
-        doc->getErrorLog()->logPackageError("comp", CompFlatModelNotValid, 1, 3, 1, error.str());
+        error << "Unable to rename elements in CompModelPlugin::renameAllIDsAndPrepend: no valid submodel number " << sm << "for model " << model->getId();
+        doc->getErrorLog()->logPackageError("comp", CompModelFlatteningFailed, 1, 3, 1, error.str());
       }
       return LIBSBML_OPERATION_FAILED;
     }
     if (!subm->isSetId()) {
       if (doc) {
         stringstream error;
-        error << "Submodel number " << sm << "for model " << model->getId() << " is invalid: it has no 'id' attribute set.";
+        error << "Unable to rename elements in CompModelPlugin::renameAllIDsAndPrepend: submodel number " << sm << "for model " << model->getId() << " is invalid: it has no 'id' attribute set.";
         doc->getErrorLog()->logPackageError("comp", CompSubmodelAllowedAttributes, 1, 3, 1, error.str());
       }
       return LIBSBML_INVALID_OBJECT;
@@ -801,8 +801,8 @@ CompModelPlugin::renameAllIDsAndPrepend(const std::string& prefix)
     if (instp==NULL) {
       if (doc) {
         //Shouldn't happen:  'getInstantiation' turns on the comp plugin.
-        string error = "No valid 'comp' plugin for the model instantiated from submodel " + subm->getId();
-        doc->getErrorLog()->logPackageError("comp", CompFlatModelNotValid, 1, 3, 1, error);
+        string error = "Unable to rename elements in CompModelPlugin::renameAllIDsAndPrepend: no valid 'comp' plugin for the model instantiated from submodel " + subm->getId();
+        doc->getErrorLog()->logPackageError("comp", CompModelFlatteningFailed, getPackageVersion(), getLevel(), getVersion(), error);
       }
       return LIBSBML_OPERATION_FAILED;
     }
@@ -984,8 +984,8 @@ int CompModelPlugin::performDeletions()
   Model* model = static_cast<Model*>(getParentSBMLObject());
   if (model==NULL) {
     if (doc) {
-      string error = "No parent model could be found for the given 'comp' model plugin element.";
-      doc->getErrorLog()->logPackageError("comp", CompFlatModelNotValid, 1, 3, 1, error);
+      string error = "Unable to attempt to perform deletions in CompModelPlugin::performDeletions: no parent model could be found for the given 'comp' model plugin element.";
+      doc->getErrorLog()->logPackageError("comp", CompModelFlatteningFailed, getPackageVersion(), getLevel(), getVersion(), error);
     }
     return LIBSBML_OPERATION_FAILED;
   }
@@ -1011,8 +1011,8 @@ int CompModelPlugin::performDeletions()
     if (modplug==NULL) {
       if (doc) {
         //Shouldn't happen:  'getInstantiation' turns on the comp plugin.
-        string error = "No valid 'comp' plugin for the model instantiated from submodel " + submodel->getId();
-        doc->getErrorLog()->logPackageError("comp", CompFlatModelNotValid, 1, 3, 1, error);
+        string error = "Unable to rename elements in CompModelPlugin::performDeletions: no valid 'comp' plugin for the model instantiated from submodel " + submodel->getId();
+        doc->getErrorLog()->logPackageError("comp", CompModelFlatteningFailed, getPackageVersion(), getLevel(), getVersion(), error);
       }
       return LIBSBML_OPERATION_FAILED;
     }
@@ -1028,8 +1028,8 @@ int CompModelPlugin::performReplacementsAndConversions()
   Model* model = static_cast<Model*>(getParentSBMLObject());
   if (model==NULL) {
     if (doc) {
-      string error = "No parent model could be found for the given 'comp' model plugin element.";
-      doc->getErrorLog()->logPackageError("comp", CompFlatModelNotValid, 1, 3, 1, error);
+      string error = "Unable to perform replacements in CompModelPlugin::performDeletions: no parent model could be found for the given 'comp' model plugin element.";
+      doc->getErrorLog()->logPackageError("comp", CompModelFlatteningFailed, getPackageVersion(), getLevel(), getVersion(), error);
     }
     return LIBSBML_OPERATION_FAILED;
   }

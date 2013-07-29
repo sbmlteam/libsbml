@@ -816,15 +816,19 @@ Submodel::instantiate()
   }
 
   const SBase* parent  = getParentSBMLObject();
+  string parentmodelname = "";
   while (parent != NULL && parent->getTypeCode() != SBML_DOCUMENT) {
     if (parent->getTypeCode() == SBML_MODEL ||
       parent->getTypeCode() == SBML_COMP_MODELDEFINITION ||
       parent->getTypeCode() == SBML_COMP_EXTERNALMODELDEFINITION)
     {
+      if (parentmodelname == "") {
+        parentmodelname = parent->getId();
+      }
       if (getModelRef() == parent->getId() && docplugin->getExternalModelDefinition(getModelRef()) == NULL)
       {
-        string error = "The submodel '" + getId() + "' references the model '" + getModelRef() + "', which is already an ancestor of the submodel.";
-        doc->getErrorLog()->logPackageError("comp", CompSubmodelCannotReferenceSelf, 1, 3, 1, error);
+        string error = "Instantiation error in Submodel::instantiate:  the submodel '" + getId() + "' in model '" + parentmodelname + "' references the model '" + getModelRef() + "', which is already an ancestor of the submodel.";
+        doc->getErrorLog()->logPackageError("comp", CompSubmodelCannotReferenceSelf, getPackageVersion(), getLevel(), getVersion(), error);
         return LIBSBML_INVALID_OBJECT;
       }
     }
@@ -838,22 +842,22 @@ Submodel::instantiate()
   }
 
   if (!hasRequiredAttributes()) {
-    string error = "The submodel '" + getId() + "' does not have ";
+    string error = "Instantiation error in Submodel::instantiate:  ";
     if (!isSetId()) {
-      error += " an 'id' attribute.";
+      error += "A submodel in model '" + getParentModel(this)->getId() + "' does not have an 'id' attribute.";
     }
     else if (!isSetModelRef()) {
-      error += " a 'modelRef' attribute.";
+      error += "The submodel '" + getId() + "' does not have a 'modelRef' attribute.";
     }
-    doc->getErrorLog()->logPackageError("comp", CompSubmodelAllowedAttributes, 1, 3, 1, error);
+    doc->getErrorLog()->logPackageError("comp", CompSubmodelAllowedAttributes, getPackageVersion(), getLevel(), getVersion(), error);
     return LIBSBML_INVALID_OBJECT;
   }
 
   SBase* origmodel = docplugin->getModel(getModelRef());
   
   if (origmodel==NULL) {
-    string error = "Unable to instantiate submodel '" + getId() + "' because the referenced model ('" + getModelRef() +"') does not exist.";
-    doc->getErrorLog()->logPackageError("comp", CompSubmodelMustReferenceModel, 1, 3, 1, error);
+    string error = "In Submodel::instantiate, unable to instantiate submodel '" + getId() + "' because the referenced model ('" + getModelRef() +"') does not exist.";
+    doc->getErrorLog()->logPackageError("comp", CompSubmodelMustReferenceModel, getPackageVersion(), getLevel(), getVersion(), error);
     return LIBSBML_INVALID_OBJECT;
   }
   ExternalModelDefinition* extmod;
@@ -878,8 +882,8 @@ Submodel::instantiate()
     mInstantiatedModel = extmod->getReferencedModel();
     if (mInstantiatedModel == NULL) 
     {
-      string error = "Unable to instantiate submodel '" + getId() + "' because the external model definition it referenced (model ('" + getModelRef() +"') does not exist.";
-      doc->getErrorLog()->logPackageError("comp", CompSubmodelMustReferenceModel, 1, 3, 1, error);
+      string error = "In Submodel::instantiate, unable to instantiate submodel '" + getId() + "' because the external model definition it referenced (model '" + getModelRef() +"') could not be resolved.";
+      doc->getErrorLog()->logPackageError("comp", CompSubmodelMustReferenceModel, getPackageVersion(), getLevel(), getVersion(), error);
       return LIBSBML_OPERATION_FAILED;
     }
 
@@ -888,15 +892,15 @@ Submodel::instantiate()
     break;
   default:
     //Should always be one of the above, unless someone extends one of the above and doesn't tell us.
-    string error = "Unable to parse the model '" + origmodel->getId() + "', as it was not of the type 'model' 'modelDefinition', or 'externalModelDefinition'.  The most likely cause of this situation is if some other package extended one of those three types, but the submodel code was not updated.";
-    doc->getErrorLog()->logPackageError("comp", CompUnresolvedReference, 1, 3, 1, error);
+    string error = "Instantiation error in Submodel::instantiate:  unable to parse the model '" + origmodel->getId() + "', as it was not of the type 'model' 'modelDefinition', or 'externalModelDefinition'.  The most likely cause of this situation is if some other package extended one of those three types, but the submodel code was not updated.";
+    doc->getErrorLog()->logPackageError("comp", CompUnresolvedReference, getPackageVersion(), getLevel(), getVersion(), error);
     return LIBSBML_OPERATION_FAILED;
   }
   
   if (mInstantiatedModel==NULL) 
   {
-    string error = "Unable to create a valid copy of model '" + getModelRef() + "'.";
-    doc->getErrorLog()->logPackageError("comp", CompModelFlatteningFailed, 1, 3, 1, error);
+    string error = "Instantiation error in Submodel::instantiate:  unable to create a valid copy of model '" + getModelRef() + "'.";
+    doc->getErrorLog()->logPackageError("comp", CompModelFlatteningFailed, getPackageVersion(), getLevel(), getVersion(), error);
     return LIBSBML_OPERATION_FAILED;
   }
 

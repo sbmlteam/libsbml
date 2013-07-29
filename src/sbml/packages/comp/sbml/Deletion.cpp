@@ -262,38 +262,28 @@ Deletion::saveReferencedElement()
 {
   SBMLDocument* doc = getSBMLDocument();
   SBase* listodels = getParentSBMLObject();
-  if (listodels==NULL) {
+  ListOf* listodelslist = static_cast<ListOf*>(listodels);
+  if (listodels==NULL || listodels->getTypeCode() != SBML_LIST_OF || listodelslist->getItemTypeCode() != SBML_COMP_DELETION ) {
     if (doc) {
-      string error = "The deletion ";
+      string error = "Unable to find referenced element in Deletion::saveReferencedElement: the deletion ";
       if (isSetId()) {
-        error += "'" + getId() + "'";
+        error += "'" + getId() + "' ";
       }
-      error += "has no parent list of deletions--the element it may reference cannot be found.";
-      doc->getErrorLog()->logPackageError("comp", CompModelFlatteningFailed, 1, 3, 1, error);
+      error += "has no parent list of deletions.";
+      doc->getErrorLog()->logPackageError("comp", CompModelFlatteningFailed, getPackageVersion(), getLevel(), getVersion(), error);
     }
     return LIBSBML_OPERATION_FAILED;
   }
   SBase* submodsb = listodels->getParentSBMLObject();
-  if (submodsb==NULL) {
-    if (doc) {
-      string error = "The deletion ";
-      if (isSetId()) {
-        error += "'" + getId() + "'";
-      }
-      error += "has no parent submodel--the element it may reference cannot be found.";
-      doc->getErrorLog()->logPackageError("comp", CompModelFlatteningFailed, 1, 3, 1, error);
-    }
-    return LIBSBML_OPERATION_FAILED;
-  }
   Submodel* submod = static_cast<Submodel*>(submodsb);
-  if (submod==NULL) {
+  if (submodsb==NULL || submod->getTypeCode() != SBML_COMP_SUBMODEL) {
     if (doc) {
-      string error = "The deletion ";
+      string error = "Unable to find referenced element in Deletion::saveReferencedElement: the deletion ";
       if (isSetId()) {
-        error += "'" + getId() + "'";
+        error += "'" + getId() + "' ";
       }
-      error += "has no parent submodel--the element it may reference cannot be found.";
-      doc->getErrorLog()->logPackageError("comp", CompModelFlatteningFailed, 1, 3, 1, error);
+      error += "has no parent submodel.";
+      doc->getErrorLog()->logPackageError("comp", CompModelFlatteningFailed, getPackageVersion(), getLevel(), getVersion(), error);
     }
     return LIBSBML_OPERATION_FAILED;
   }

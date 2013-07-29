@@ -304,11 +304,11 @@ Port::saveReferencedElement()
   Model* model = CompBase::getParentModel(this);
   if (model==NULL) {
     if (doc) {
-      string error = "No model could be found for the given <port> element";
+      string error = "Unable to discover referenced element: no model could be found for the given <port> element";
       if (isSetId()) {
         error += " '" + getId() + "'.";
       }
-      doc->getErrorLog()->logPackageError("comp", CompFlatModelNotValid, 1, 3, 1, error);
+      doc->getErrorLog()->logPackageError("comp", CompModelFlatteningFailed, getPackageVersion(), getLevel(), getVersion(), error);
     }
     return LIBSBML_OPERATION_FAILED;
   }

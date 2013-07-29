@@ -439,7 +439,7 @@ ExternalModelDefinition::readAttributes (const XMLAttributes& attributes,
         const std::string details = 
           getErrorLog()->getError(n)->getMessage();
         getErrorLog()->remove(UnknownPackageAttribute);
-        getErrorLog()->logPackageError("fbc", CompExtModDefAllowedAttributes,
+        getErrorLog()->logPackageError("comp", CompExtModDefAllowedAttributes,
           getPackageVersion(), sbmlLevel, sbmlVersion, details);
       } 
       else if (getErrorLog()->getError(n)->getErrorId() == UnknownCoreAttribute)
@@ -447,7 +447,7 @@ ExternalModelDefinition::readAttributes (const XMLAttributes& attributes,
         const std::string details = 
           getErrorLog()->getError(n)->getMessage();
         getErrorLog()->remove(UnknownCoreAttribute);
-        getErrorLog()->logPackageError("fbc", CompExtModDefAllowedCoreAttributes,
+        getErrorLog()->logPackageError("comp", CompExtModDefAllowedCoreAttributes,
           getPackageVersion(), sbmlLevel, sbmlVersion, details);
       } 
     }
@@ -594,8 +594,8 @@ ExternalModelDefinition::getReferencedModel()
   if (csdp == NULL) 
   {
     if (origdoc) {
-      string error = "Unable to resolve the external model definition '" + getId() + "': no 'comp' plugin found.";
-      origdoc->getErrorLog()->logPackageError("comp", CompExtModDefBad, 1, 3, 1, error);
+      string error = "In ExternalModelDefinition::getReferencedModel, unable to resolve the external model definition '" + getId() + "': no 'comp' plugin found.";
+      origdoc->getErrorLog()->logPackageError("comp", CompUnresolvedReference, getPackageVersion(), getLevel(), getVersion(), error);
     }
     return NULL;
   }
@@ -603,10 +603,10 @@ ExternalModelDefinition::getReferencedModel()
   if (!isSetSource()) 
   {
     if (origdoc) {
-      string error = "Unable to resolve the external model definition '" + getId() + "': the 'source' attribute was not set.";
-      origdoc->getErrorLog()->logPackageError("comp", CompExtModDefAllowedAttributes, 1, 3, 1, error);
-      return NULL;
+      string error = "In ExternalModelDefinition::getReferencedModel, unable to resolve the external model definition '" + getId() + "': the 'source' attribute was not set.";
+      origdoc->getErrorLog()->logPackageError("comp", CompExtModDefAllowedAttributes, getPackageVersion(), getLevel(), getVersion(), error);
     }
+    return NULL;
   }
 
   SBMLDocument* doc = csdp->getSBMLDocumentFromURI(getSource());
@@ -616,10 +616,10 @@ ExternalModelDefinition::getReferencedModel()
     // other operations are informed, and for example flattening will fail
     // with error
     if (origdoc) {
-      string error = "Unable to resolve the external model definition '" + getId() + "': could not the resolve 'source' attribute '" + getSource() + "' as a valid SBML Document.";
-      origdoc->getErrorLog()->logPackageError("comp", CompUnresolvedReference, 1, 3, 1, error);
-      return NULL;
+      string error = "In ExternalModelDefinition::getReferencedModel, unable to resolve the external model definition '" + getId() + "': could not the resolve 'source' attribute '" + getSource() + "' as a valid SBML Document.";
+      origdoc->getErrorLog()->logPackageError("comp", CompUnresolvedReference, getPackageVersion(), getLevel(), getVersion(), error);
     }
+    return NULL;
   }
 
   if (!(doc->getLevel() == 3  && doc->getVersion() == 1))
@@ -627,31 +627,31 @@ ExternalModelDefinition::getReferencedModel()
     // comp v1 ONLY allows L3v1 models. All other levels and versions are not supported. 
     // 
     if (origdoc) {
-      string error = "Unable to resolve the external model definition '" + getId() + "': the SBML document found at source '" + getSource() + "' was not SBML Level 3 Version 1.";
-      origdoc->getErrorLog()->logPackageError("comp", CompReferenceMustBeL3, 1, 3, 1, error);
-      return NULL;
+      string error = "In ExternalModelDefinition::getReferencedModel, unable to resolve the external model definition '" + getId() + "': the SBML document found at source '" + getSource() + "' was not SBML Level 3 Version 1.";
+      origdoc->getErrorLog()->logPackageError("comp", CompReferenceMustBeL3, getPackageVersion(), getLevel(), getVersion(), error);
     }
+    return NULL;
   }
 
   Model* model = doc->getModel();
   if (isSetModelRef()) 
   {
     csdp = static_cast<CompSBMLDocumentPlugin*>(doc->getPlugin(getPrefix()));
-    if (csdp == NULL) 
+    if (csdp == NULL || (csdp->getNumExternalModelDefinitions()==0 && csdp->getNumModelDefinitions()==0)) 
     {
       if (model==NULL) {
         if (origdoc) {
-          string error = "Unable to resolve the external model definition '" + getId() + "': the SBML document found at source '" + getSource() + "' had no resolvable models at all.";
-          origdoc->getErrorLog()->logPackageError("comp", CompModReferenceMustIdOfModel, 1, 3, 1, error);
-          return NULL;
+          string error = "In ExternalModelDefinition::getReferencedModel, unable to resolve the external model definition '" + getId() + "': the SBML document found at source '" + getSource() + "' had no resolvable models at all.";
+          origdoc->getErrorLog()->logPackageError("comp", CompNoModelInReference, getPackageVersion(), getLevel(), getVersion(), error);
         }
+        return NULL;
       }
       else if (model->getId() != getModelRef()) {
         if (origdoc) {
-          string error = "Unable to resolve the external model definition '" + getId() + "': the SBML document found at source '" + getSource() + "' had no 'comp' extension objects, and the single model's ID did not match the modelRef '" + getModelRef() + "'.";
-          origdoc->getErrorLog()->logPackageError("comp", CompModReferenceMustIdOfModel, 1, 3, 1, error);
-          return NULL;
+          string error = "In ExternalModelDefinition::getReferencedModel, unable to resolve the external model definition '" + getId() + "': the SBML document found at source '" + getSource() + "' had no 'comp' model definitions, and the single model's ID ('" + model->getId() + "') did not match the modelRef '" + getModelRef() + "'.";
+          origdoc->getErrorLog()->logPackageError("comp", CompModReferenceMustIdOfModel, getPackageVersion(), getLevel(), getVersion(), error);
         }
+        return NULL;
       }
       //else we can return the main 'model' object of the document.
     }
@@ -661,10 +661,10 @@ ExternalModelDefinition::getReferencedModel()
       if (referencedmod == NULL) 
       {
         if (origdoc) {
-          string error = "Unable to resolve the external model definition '" + getId() + "': the SBML document found at source '" + getSource() + "' did not have any model with the id '" + getModelRef() + "'.";
-          origdoc->getErrorLog()->logPackageError("comp", CompModReferenceMustIdOfModel, 1, 3, 1, error);
-          return NULL;
+          string error = "In ExternalModelDefinition::getReferencedModel, unable to resolve the external model definition '" + getId() + "': the SBML document found at source '" + getSource() + "' did not have any model with the id '" + getModelRef() + "'.";
+          origdoc->getErrorLog()->logPackageError("comp", CompModReferenceMustIdOfModel, getPackageVersion(), getLevel(), getVersion(), error);
         }
+        return NULL;
       }
 
       ExternalModelDefinition* subextmod;
@@ -680,10 +680,10 @@ ExternalModelDefinition::getReferencedModel()
         model = subextmod->getReferencedModel();
         if (model==NULL) {
           if (origdoc) {
-            string error = "Unable to resolve the external model definition '" + getId() + "': the external model definition it referenced ('" + getModelRef() + "') could not be resolved.";
-            origdoc->getErrorLog()->logPackageError("comp", CompUnresolvedReference, 1, 3, 1, error);
-            return NULL;
+            string error = "In ExternalModelDefinition::getReferencedModel, unable to resolve the external model definition '" + getId() + "': the external model definition it referenced ('" + getModelRef() + "', from the document at '" + getSource() + "') could not be resolved.";
+            origdoc->getErrorLog()->logPackageError("comp", CompUnresolvedReference, getPackageVersion(), getLevel(), getVersion(), error);
           }
+          return NULL;
         }
         return model;
 
@@ -699,10 +699,10 @@ ExternalModelDefinition::getReferencedModel()
           // assert(false); 
 
           if (origdoc) {
-            string error = "Unable to resolve the external model definition '" + getId() + "': the model object discovered at in the SBML document found at source '" + getSource() + "' was not of the type 'model' 'modelDefinition', or 'externalModelDefinition'.  The most likely cause of this situation is if some other package extended one of those three types, but the external model definition code was not updated.";
-            origdoc->getErrorLog()->logPackageError("comp", CompUnresolvedReference, 1, 3, 1, error);
-            return NULL;
+            string error = "In ExternalModelDefinition::getReferencedModel, unable to resolve the external model definition '" + getId() + "': the model object discovered at in the SBML document found at source '" + getSource() + "' was not of the type 'model' 'modelDefinition', or 'externalModelDefinition'.  The most likely cause of this situation is if some other package extended one of those three types, but the external model definition code was not updated.";
+            origdoc->getErrorLog()->logPackageError("comp", CompUnresolvedReference, getPackageVersion(), getLevel(), getVersion(), error);
           }
+          return NULL;
         }
       }
     }
@@ -710,8 +710,8 @@ ExternalModelDefinition::getReferencedModel()
   if (model==NULL) 
   {
     if (origdoc) {
-      string error = "Unable to resolve the external model definition '" + getId() + "': the SBML document found at source '" + getSource() + "' did not have a model child of the SBML Document, and no 'modelRef' attribute was set to discover any other model in that document.";
-      origdoc->getErrorLog()->logPackageError("comp", CompNoModelInReference, 1, 3, 1, error);
+      string error = "In ExternalModelDefinition::getReferencedModel, unable to resolve the external model definition '" + getId() + "': the SBML document found at source '" + getSource() + "' did not have a model child of the SBML Document, and no 'modelRef' attribute was set to discover any other model in that document.";
+      origdoc->getErrorLog()->logPackageError("comp", CompNoModelInReference, getPackageVersion(), getLevel(), getVersion(), error);
     }
   }
 
