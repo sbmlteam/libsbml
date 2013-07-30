@@ -58,7 +58,8 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 
 void CompFlatteningConverter::init()
 {
-  SBMLConverterRegistry::getInstance().addConverter(new CompFlatteningConverter());
+  SBMLConverterRegistry::getInstance().addConverter
+                                      (new CompFlatteningConverter());
 }
 /** @endcond */
 
@@ -69,7 +70,8 @@ CompFlatteningConverter::CompFlatteningConverter() : SBMLConverter()
 }
 
 
-CompFlatteningConverter::CompFlatteningConverter(const CompFlatteningConverter& orig) :
+CompFlatteningConverter::CompFlatteningConverter
+                         (const CompFlatteningConverter& orig) :
 SBMLConverter(orig)
 {
 }
@@ -101,7 +103,8 @@ CompFlatteningConverter::getDefaultProperties() const
 
 
 bool 
-  CompFlatteningConverter::matchesProperties(const ConversionProperties &props) const
+CompFlatteningConverter::matchesProperties
+                        (const ConversionProperties &props) const
 {
   if (&props == NULL || !props.hasOption("flatten comp"))
     return false;
@@ -153,7 +156,8 @@ CompFlatteningConverter::convert()
       // temporarily add a new resolver with the new basePath
       SBMLFileResolver basePathResolver;
       basePathResolver.addAdditionalDir(basePath);
-      basePathResolverIndex = SBMLResolverRegistry::getInstance().getNumResolvers();
+      basePathResolverIndex = 
+                   SBMLResolverRegistry::getInstance().getNumResolvers();
       SBMLResolverRegistry::getInstance().addResolver(&basePathResolver);    
     }
   }  
@@ -181,12 +185,14 @@ CompFlatteningConverter::convert()
   }
   CompModelPlugin *modelPlugin = (CompModelPlugin*)(mModel->getPlugin("comp"));
 
-  if (modelPlugin==NULL) {
+  if (modelPlugin==NULL) 
+  {
     return LIBSBML_OPERATION_FAILED;
   }
 
   mDocument->getErrorLog()->logPackageError("comp", CompModelFlatteningFailed,
-    modelPlugin->getPackageVersion(), mDocument->getLevel(), mDocument->getVersion(),
+    modelPlugin->getPackageVersion(), mDocument->getLevel(), 
+    mDocument->getVersion(),
     "The subsequent errors are from this attempt.");
 
   Model* flatmodel = modelPlugin->flattenModel();
@@ -202,6 +208,7 @@ CompFlatteningConverter::convert()
     //'flattenModel' sets its own error messages.
     return LIBSBML_OPERATION_FAILED;
   }
+  
   //Otherwise, remove the 'subsequent errors' error message.
   mDocument->getErrorLog()->remove(CompModelFlatteningFailed);
 
@@ -408,7 +415,8 @@ CompFlatteningConverter::canBeFlattened() const
             {
               message = "The require package ";
               message += nameOfPackage;
-              message += " cannot be flattened and the CompFlatteningConverter ";
+              message += " cannot be flattened and ";
+              message += "the CompFlatteningConverter ";
               message += "has the 'ignore packages' option set to 'true'. ";
               message += "Thus flattening will not be attempted.";
             }
@@ -416,7 +424,8 @@ CompFlatteningConverter::canBeFlattened() const
             {
               message = "The package ";
               message += nameOfPackage;
-              message += " cannot be flattened and the CompFlatteningConverter ";
+              message += " cannot be flattened and ";
+              message += "the CompFlatteningConverter ";
               message += "has the 'ignore packages' option set to 'false'. ";
               message += "Thus information from the ";
               message += nameOfPackage;

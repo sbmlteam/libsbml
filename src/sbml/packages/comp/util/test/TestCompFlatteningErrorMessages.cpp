@@ -60,7 +60,8 @@ START_TEST(test_comp_flatten_invalid)
   string fileName = dir + "1020616-fail-01-01.xml";  
   SBMLDocument* doc = readSBMLFromFile(fileName.c_str());
 
-  // fail if there is no model (readSBMLFromFile always returns a valid document)
+  // fail if there is no model 
+  //(readSBMLFromFile always returns a valid document)
   fail_unless(doc->getNumErrors() == 0);
   fail_unless(doc->getModel() != NULL);
 
@@ -89,12 +90,14 @@ START_TEST(test_comp_flatten_invalid2)
 
   // create the document
   SBMLDocument *document = new SBMLDocument(&sbmlns);
-  CompSBMLDocumentPlugin* compdoc = static_cast<CompSBMLDocumentPlugin*>(document->getPlugin("comp"));
+  CompSBMLDocumentPlugin* compdoc = 
+           static_cast<CompSBMLDocumentPlugin*>(document->getPlugin("comp"));
   compdoc->setRequired(true);
 
   // create the Model
   Model* model=document->createModel();
-  CompModelPlugin* mplugin = static_cast<CompModelPlugin*>(model->getPlugin("comp"));
+  CompModelPlugin* mplugin = 
+           static_cast<CompModelPlugin*>(model->getPlugin("comp"));
   
   // create a Submodel
   Submodel* submod1 = mplugin->createSubmodel();
@@ -134,12 +137,14 @@ START_TEST(test_comp_flatten_invalid3)
 
   // create the document
   SBMLDocument *document = new SBMLDocument(&sbmlns);
-  CompSBMLDocumentPlugin* compdoc = static_cast<CompSBMLDocumentPlugin*>(document->getPlugin("comp"));
+  CompSBMLDocumentPlugin* compdoc = 
+         static_cast<CompSBMLDocumentPlugin*>(document->getPlugin("comp"));
   compdoc->setRequired(true);
 
   // create the Model
   Model* model=document->createModel();
-  CompModelPlugin* mplugin = static_cast<CompModelPlugin*>(model->getPlugin("comp"));
+  CompModelPlugin* mplugin = 
+                   static_cast<CompModelPlugin*>(model->getPlugin("comp"));
   
   // create a Submodel
   Submodel* submod1 = mplugin->createSubmodel();
@@ -181,12 +186,14 @@ START_TEST(test_comp_flatten_invalid4)
 
   // create the document
   SBMLDocument *document = new SBMLDocument(&sbmlns);
-  CompSBMLDocumentPlugin* compdoc = static_cast<CompSBMLDocumentPlugin*>(document->getPlugin("comp"));
+  CompSBMLDocumentPlugin* compdoc = 
+            static_cast<CompSBMLDocumentPlugin*>(document->getPlugin("comp"));
   compdoc->setRequired(true);
 
   // create the Model
   Model* model=document->createModel();
-  CompModelPlugin* mplugin = static_cast<CompModelPlugin*>(model->getPlugin("comp"));
+  CompModelPlugin* mplugin = 
+            static_cast<CompModelPlugin*>(model->getPlugin("comp"));
   
   // create a Submodel
   Submodel* submod1 = mplugin->createSubmodel();
@@ -216,8 +223,10 @@ END_TEST
 
 START_TEST(test_comp_flatten_invalid5)
 {
-  //In this version the validation *is* performed before running.  This tests the fix I made to 
-  // ExternalModelReferenceCycles so it doesn't expect a 5-character URI prefix.
+  //In this version the validation *is* performed before running.  
+  // This tests the fix I made to 
+  // ExternalModelReferenceCycles 
+  // so it doesn't expect a 5-character URI prefix.
   ConversionProperties* props = new ConversionProperties();
   props->addOption("flatten comp");
   props->addOption("leavePorts", false);
@@ -231,12 +240,14 @@ START_TEST(test_comp_flatten_invalid5)
 
   // create the document
   SBMLDocument *document = new SBMLDocument(&sbmlns);
-  CompSBMLDocumentPlugin* compdoc = static_cast<CompSBMLDocumentPlugin*>(document->getPlugin("comp"));
+  CompSBMLDocumentPlugin* compdoc = 
+         static_cast<CompSBMLDocumentPlugin*>(document->getPlugin("comp"));
   compdoc->setRequired(true);
 
   // create the Model
   Model* model=document->createModel();
-  CompModelPlugin* mplugin = static_cast<CompModelPlugin*>(model->getPlugin("comp"));
+  CompModelPlugin* mplugin = 
+                   static_cast<CompModelPlugin*>(model->getPlugin("comp"));
   
   // create a Submodel
   Submodel* submod1 = mplugin->createSubmodel();
@@ -267,8 +278,10 @@ END_TEST
 
 START_TEST(test_comp_flatten_invalid6)
 {
-  //In this version the validation *is* performed before running.  This tests the fix I made to 
-  // ExternalModelReferenceCycles so it doesn't expect any locationURI to be set at all.
+  //In this version the validation *is* performed before running.  
+  // This tests the fix I made to 
+  // ExternalModelReferenceCycles so it doesn't expect any 
+  // locationURI to be set at all.
   ConversionProperties* props = new ConversionProperties();
   props->addOption("flatten comp");
   props->addOption("leavePorts", false);
@@ -282,12 +295,14 @@ START_TEST(test_comp_flatten_invalid6)
 
   // create the document
   SBMLDocument *document = new SBMLDocument(&sbmlns);
-  CompSBMLDocumentPlugin* compdoc = static_cast<CompSBMLDocumentPlugin*>(document->getPlugin("comp"));
+  CompSBMLDocumentPlugin* compdoc = 
+    static_cast<CompSBMLDocumentPlugin*>(document->getPlugin("comp"));
   compdoc->setRequired(true);
 
   // create the Model
   Model* model=document->createModel();
-  CompModelPlugin* mplugin = static_cast<CompModelPlugin*>(model->getPlugin("comp"));
+  CompModelPlugin* mplugin = 
+                   static_cast<CompModelPlugin*>(model->getPlugin("comp"));
   
   // create a Submodel
   Submodel* submod1 = mplugin->createSubmodel();
@@ -330,13 +345,15 @@ START_TEST(test_comp_flatten_invalid7)
 
   // create the document
   SBMLDocument *document = new SBMLDocument(&sbmlns);
-  CompSBMLDocumentPlugin* compdoc = static_cast<CompSBMLDocumentPlugin*>(document->getPlugin("comp"));
+  CompSBMLDocumentPlugin* compdoc = 
+           static_cast<CompSBMLDocumentPlugin*>(document->getPlugin("comp"));
   compdoc->setRequired(true);
 
   // create the Model
   Model* model=document->createModel();
   model->setId("Mod1");
-  CompModelPlugin* mplugin = static_cast<CompModelPlugin*>(model->getPlugin("comp"));
+  CompModelPlugin* mplugin = 
+                   static_cast<CompModelPlugin*>(model->getPlugin("comp"));
   
   // create a Submodel
   Submodel* submod1 = mplugin->createSubmodel();
@@ -374,13 +391,15 @@ START_TEST(test_comp_flatten_invalid8)
 
   // create the document
   SBMLDocument *document = new SBMLDocument(&sbmlns);
-  CompSBMLDocumentPlugin* compdoc = static_cast<CompSBMLDocumentPlugin*>(document->getPlugin("comp"));
+  CompSBMLDocumentPlugin* compdoc = 
+         static_cast<CompSBMLDocumentPlugin*>(document->getPlugin("comp"));
   compdoc->setRequired(true);
 
   // create the Model
   Model* model=document->createModel();
   model->setId("mainmod");
-  CompModelPlugin* mplugin = static_cast<CompModelPlugin*>(model->getPlugin("comp"));
+  CompModelPlugin* mplugin = 
+                   static_cast<CompModelPlugin*>(model->getPlugin("comp"));
   
   // create a Submodel
   Submodel* submod1 = mplugin->createSubmodel();
@@ -428,13 +447,15 @@ START_TEST(test_comp_flatten_invalid9)
 
   // create the document
   SBMLDocument *document = new SBMLDocument(&sbmlns);
-  CompSBMLDocumentPlugin* compdoc = static_cast<CompSBMLDocumentPlugin*>(document->getPlugin("comp"));
+  CompSBMLDocumentPlugin* compdoc = 
+        static_cast<CompSBMLDocumentPlugin*>(document->getPlugin("comp"));
   compdoc->setRequired(true);
 
   // create the Model
   Model* model=document->createModel();
   model->setId("mainmod");
-  CompModelPlugin* mplugin = static_cast<CompModelPlugin*>(model->getPlugin("comp"));
+  CompModelPlugin* mplugin = 
+                   static_cast<CompModelPlugin*>(model->getPlugin("comp"));
   
   // create a Submodel with no ID.
   Submodel* submod1 = mplugin->createSubmodel();
@@ -476,13 +497,15 @@ START_TEST(test_comp_flatten_invalid10)
 
   // create the document
   SBMLDocument *document = new SBMLDocument(&sbmlns);
-  CompSBMLDocumentPlugin* compdoc = static_cast<CompSBMLDocumentPlugin*>(document->getPlugin("comp"));
+  CompSBMLDocumentPlugin* compdoc = 
+         static_cast<CompSBMLDocumentPlugin*>(document->getPlugin("comp"));
   compdoc->setRequired(true);
 
   // create the Model
   Model* model=document->createModel();
   model->setId("mainmod");
-  CompModelPlugin* mplugin = static_cast<CompModelPlugin*>(model->getPlugin("comp"));
+  CompModelPlugin* mplugin = 
+                   static_cast<CompModelPlugin*>(model->getPlugin("comp"));
   
   // create a Submodel with no modelRef.
   Submodel* submod1 = mplugin->createSubmodel();
@@ -519,13 +542,15 @@ START_TEST(test_comp_flatten_invalid11)
 
   // create the document
   SBMLDocument *document = new SBMLDocument(&sbmlns);
-  CompSBMLDocumentPlugin* compdoc = static_cast<CompSBMLDocumentPlugin*>(document->getPlugin("comp"));
+  CompSBMLDocumentPlugin* compdoc = 
+    static_cast<CompSBMLDocumentPlugin*>(document->getPlugin("comp"));
   compdoc->setRequired(true);
 
   // create the Model
   Model* model=document->createModel();
   model->setId("mainmod");
-  CompModelPlugin* mplugin = static_cast<CompModelPlugin*>(model->getPlugin("comp"));
+  CompModelPlugin* mplugin = 
+                   static_cast<CompModelPlugin*>(model->getPlugin("comp"));
   
   // create a Submodel with incorrect modelRef.
   Submodel* submod1 = mplugin->createSubmodel();
@@ -563,13 +588,15 @@ START_TEST(test_comp_flatten_invalid12)
 
   // create the document
   SBMLDocument *document = new SBMLDocument(&sbmlns);
-  CompSBMLDocumentPlugin* compdoc = static_cast<CompSBMLDocumentPlugin*>(document->getPlugin("comp"));
+  CompSBMLDocumentPlugin* compdoc = 
+         static_cast<CompSBMLDocumentPlugin*>(document->getPlugin("comp"));
   compdoc->setRequired(true);
 
   // create the Model
   Model* model=document->createModel();
   model->setId("mainmod");
-  CompModelPlugin* mplugin = static_cast<CompModelPlugin*>(model->getPlugin("comp"));
+  CompModelPlugin* mplugin = 
+                   static_cast<CompModelPlugin*>(model->getPlugin("comp"));
   
   // create a Submodel
   Submodel* submod1 = mplugin->createSubmodel();
@@ -601,7 +628,8 @@ END_TEST
 
 START_TEST(test_comp_flatten_invalid13)
 {
-  //Test external model definition that points to a directory (a real thing, but something libsbml can't open)
+  //Test external model definition that points to a directory 
+  // (a real thing, but something libsbml can't open)
   ConversionProperties* props = new ConversionProperties();
   props->addOption("flatten comp");
   props->addOption("leavePorts", false);
@@ -615,13 +643,15 @@ START_TEST(test_comp_flatten_invalid13)
 
   // create the document
   SBMLDocument *document = new SBMLDocument(&sbmlns);
-  CompSBMLDocumentPlugin* compdoc = static_cast<CompSBMLDocumentPlugin*>(document->getPlugin("comp"));
+  CompSBMLDocumentPlugin* compdoc = 
+          static_cast<CompSBMLDocumentPlugin*>(document->getPlugin("comp"));
   compdoc->setRequired(true);
 
   // create the Model
   Model* model=document->createModel();
   model->setId("mainmod");
-  CompModelPlugin* mplugin = static_cast<CompModelPlugin*>(model->getPlugin("comp"));
+  CompModelPlugin* mplugin = 
+                   static_cast<CompModelPlugin*>(model->getPlugin("comp"));
   
   // create a Submodel
   Submodel* submod1 = mplugin->createSubmodel();
@@ -666,13 +696,15 @@ START_TEST(test_comp_flatten_invalid14)
 
   // create the document
   SBMLDocument *document = new SBMLDocument(&sbmlns);
-  CompSBMLDocumentPlugin* compdoc = static_cast<CompSBMLDocumentPlugin*>(document->getPlugin("comp"));
+  CompSBMLDocumentPlugin* compdoc = 
+         static_cast<CompSBMLDocumentPlugin*>(document->getPlugin("comp"));
   compdoc->setRequired(true);
 
   // create the Model
   Model* model=document->createModel();
   model->setId("mainmod");
-  CompModelPlugin* mplugin = static_cast<CompModelPlugin*>(model->getPlugin("comp"));
+  CompModelPlugin* mplugin = 
+                   static_cast<CompModelPlugin*>(model->getPlugin("comp"));
   
   // create a Submodel
   Submodel* submod1 = mplugin->createSubmodel();
@@ -718,13 +750,15 @@ START_TEST(test_comp_flatten_invalid15)
 
   // create the document
   SBMLDocument *document = new SBMLDocument(&sbmlns);
-  CompSBMLDocumentPlugin* compdoc = static_cast<CompSBMLDocumentPlugin*>(document->getPlugin("comp"));
+  CompSBMLDocumentPlugin* compdoc = 
+           static_cast<CompSBMLDocumentPlugin*>(document->getPlugin("comp"));
   compdoc->setRequired(true);
 
   // create the Model
   Model* model=document->createModel();
   model->setId("mainmod");
-  CompModelPlugin* mplugin = static_cast<CompModelPlugin*>(model->getPlugin("comp"));
+  CompModelPlugin* mplugin = 
+                   static_cast<CompModelPlugin*>(model->getPlugin("comp"));
   
   // create a Submodel
   Submodel* submod1 = mplugin->createSubmodel();
@@ -756,7 +790,8 @@ END_TEST
 
 START_TEST(test_comp_flatten_invalid16)
 {
-  //Test external model definition with a modelRef that points to an empty L3 model
+  //Test external model definition with a modelRef
+  // that points to an empty L3 model
   ConversionProperties* props = new ConversionProperties();
   props->addOption("flatten comp");
   props->addOption("leavePorts", false);
@@ -770,13 +805,15 @@ START_TEST(test_comp_flatten_invalid16)
 
   // create the document
   SBMLDocument *document = new SBMLDocument(&sbmlns);
-  CompSBMLDocumentPlugin* compdoc = static_cast<CompSBMLDocumentPlugin*>(document->getPlugin("comp"));
+  CompSBMLDocumentPlugin* compdoc = 
+           static_cast<CompSBMLDocumentPlugin*>(document->getPlugin("comp"));
   compdoc->setRequired(true);
 
   // create the Model
   Model* model=document->createModel();
   model->setId("mainmod");
-  CompModelPlugin* mplugin = static_cast<CompModelPlugin*>(model->getPlugin("comp"));
+  CompModelPlugin* mplugin = 
+                   static_cast<CompModelPlugin*>(model->getPlugin("comp"));
   
   // create a Submodel
   Submodel* submod1 = mplugin->createSubmodel();
@@ -809,7 +846,8 @@ END_TEST
 
 START_TEST(test_comp_flatten_invalid17)
 {
-  //Test external model definition with a modelRef that points to an empty L3 model
+  //Test external model definition with a modelRef
+  //that points to an empty L3 model
   ConversionProperties* props = new ConversionProperties();
   props->addOption("flatten comp");
   props->addOption("leavePorts", false);
@@ -823,13 +861,15 @@ START_TEST(test_comp_flatten_invalid17)
 
   // create the document
   SBMLDocument *document = new SBMLDocument(&sbmlns);
-  CompSBMLDocumentPlugin* compdoc = static_cast<CompSBMLDocumentPlugin*>(document->getPlugin("comp"));
+  CompSBMLDocumentPlugin* compdoc = 
+         static_cast<CompSBMLDocumentPlugin*>(document->getPlugin("comp"));
   compdoc->setRequired(true);
 
   // create the Model
   Model* model=document->createModel();
   model->setId("mainmod");
-  CompModelPlugin* mplugin = static_cast<CompModelPlugin*>(model->getPlugin("comp"));
+  CompModelPlugin* mplugin = 
+                   static_cast<CompModelPlugin*>(model->getPlugin("comp"));
   
   // create a Submodel
   Submodel* submod1 = mplugin->createSubmodel();
@@ -862,7 +902,8 @@ END_TEST
 
 START_TEST(test_comp_flatten_invalid18)
 {
-  //Test external model definition with a modelRef doesn't appear in the referenced L3 document.
+  //Test external model definition with a modelRef doesn't 
+  //appear in the referenced L3 document.
   ConversionProperties* props = new ConversionProperties();
   props->addOption("flatten comp");
   props->addOption("leavePorts", false);
@@ -876,13 +917,15 @@ START_TEST(test_comp_flatten_invalid18)
 
   // create the document
   SBMLDocument *document = new SBMLDocument(&sbmlns);
-  CompSBMLDocumentPlugin* compdoc = static_cast<CompSBMLDocumentPlugin*>(document->getPlugin("comp"));
+  CompSBMLDocumentPlugin* compdoc = 
+         static_cast<CompSBMLDocumentPlugin*>(document->getPlugin("comp"));
   compdoc->setRequired(true);
 
   // create the Model
   Model* model=document->createModel();
   model->setId("mainmod");
-  CompModelPlugin* mplugin = static_cast<CompModelPlugin*>(model->getPlugin("comp"));
+  CompModelPlugin* mplugin = 
+                   static_cast<CompModelPlugin*>(model->getPlugin("comp"));
   
   // create a Submodel
   Submodel* submod1 = mplugin->createSubmodel();
@@ -915,7 +958,8 @@ END_TEST
 
 START_TEST(test_comp_flatten_invalid19)
 {
-  //Test external model definition with a modelRef doesn't appear in the referenced L3 document.
+  //Test external model definition with a modelRef doesn't 
+  //appear in the referenced L3 document.
   ConversionProperties* props = new ConversionProperties();
   props->addOption("flatten comp");
   props->addOption("leavePorts", false);
@@ -929,13 +973,15 @@ START_TEST(test_comp_flatten_invalid19)
 
   // create the document
   SBMLDocument *document = new SBMLDocument(&sbmlns);
-  CompSBMLDocumentPlugin* compdoc = static_cast<CompSBMLDocumentPlugin*>(document->getPlugin("comp"));
+  CompSBMLDocumentPlugin* compdoc = 
+         static_cast<CompSBMLDocumentPlugin*>(document->getPlugin("comp"));
   compdoc->setRequired(true);
 
   // create the Model
   Model* model=document->createModel();
   model->setId("mainmod");
-  CompModelPlugin* mplugin = static_cast<CompModelPlugin*>(model->getPlugin("comp"));
+  CompModelPlugin* mplugin = 
+                   static_cast<CompModelPlugin*>(model->getPlugin("comp"));
   
   // create a Submodel
   Submodel* submod1 = mplugin->createSubmodel();
@@ -968,7 +1014,8 @@ END_TEST
 
 START_TEST(test_comp_flatten_invalid20)
 {
-  //Test external model definition with a modelRef doesn't appear in the referenced L3 document.
+  //Test external model definition with a modelRef doesn't 
+  //appear in the referenced L3 document.
   ConversionProperties* props = new ConversionProperties();
   props->addOption("flatten comp");
   props->addOption("leavePorts", false);
@@ -982,13 +1029,15 @@ START_TEST(test_comp_flatten_invalid20)
 
   // create the document
   SBMLDocument *document = new SBMLDocument(&sbmlns);
-  CompSBMLDocumentPlugin* compdoc = static_cast<CompSBMLDocumentPlugin*>(document->getPlugin("comp"));
+  CompSBMLDocumentPlugin* compdoc = 
+         static_cast<CompSBMLDocumentPlugin*>(document->getPlugin("comp"));
   compdoc->setRequired(true);
 
   // create the Model
   Model* model=document->createModel();
   model->setId("mainmod");
-  CompModelPlugin* mplugin = static_cast<CompModelPlugin*>(model->getPlugin("comp"));
+  CompModelPlugin* mplugin = 
+                  static_cast<CompModelPlugin*>(model->getPlugin("comp"));
   
   // create a Submodel
   Submodel* submod1 = mplugin->createSubmodel();
@@ -1035,13 +1084,15 @@ START_TEST(test_comp_flatten_invalid21)
 
   // create the document
   SBMLDocument *document = new SBMLDocument(&sbmlns);
-  CompSBMLDocumentPlugin* compdoc = static_cast<CompSBMLDocumentPlugin*>(document->getPlugin("comp"));
+  CompSBMLDocumentPlugin* compdoc = 
+           static_cast<CompSBMLDocumentPlugin*>(document->getPlugin("comp"));
   compdoc->setRequired(true);
 
   // create the Model
   Model* model=document->createModel();
   model->setId("mainmod");
-  CompModelPlugin* mplugin = static_cast<CompModelPlugin*>(model->getPlugin("comp"));
+  CompModelPlugin* mplugin = 
+                   static_cast<CompModelPlugin*>(model->getPlugin("comp"));
   
   // create a Submodel
   Submodel* submod1 = mplugin->createSubmodel();
@@ -1086,13 +1137,16 @@ START_TEST(test_comp_flatten_invalid22)
 
   // create the document
   SBMLDocument *document = new SBMLDocument(&sbmlns);
-  CompSBMLDocumentPlugin* compdoc = static_cast<CompSBMLDocumentPlugin*>(document->getPlugin("comp"));
+  CompSBMLDocumentPlugin* compdoc = 
+           static_cast<CompSBMLDocumentPlugin*>(document->getPlugin("comp"));
   compdoc->setRequired(true);
 
   // create the Model
   Model* model=document->createModel();
   model->setId("mainmod");
-  CompModelPlugin* mplugin = static_cast<CompModelPlugin*>(model->getPlugin("comp"));
+  CompModelPlugin* mplugin = 
+                   static_cast<CompModelPlugin*>(model->getPlugin("comp"));
+  
   
   // create a Submodel
   Submodel* submod1 = mplugin->createSubmodel();
@@ -1110,7 +1164,8 @@ START_TEST(test_comp_flatten_invalid22)
   //Now try to turn off comp in the main document
   document->disablePackage(submod1->getURI(), "comp");
 
-  //Now call 'getReferencedModel' directly, since that's the only way to trigger this particular error message.
+  //Now call 'getReferencedModel' directly, 
+  // since that's the only way to trigger this particular error message.
   Model* mod = emd->getReferencedModel();
   fail_unless(mod == NULL);
 
@@ -1139,13 +1194,16 @@ START_TEST(test_comp_flatten_invalid23)
 
   // create the document
   SBMLDocument *document = new SBMLDocument(&sbmlns);
-  CompSBMLDocumentPlugin* compdoc = static_cast<CompSBMLDocumentPlugin*>(document->getPlugin("comp"));
+  CompSBMLDocumentPlugin* compdoc = 
+           static_cast<CompSBMLDocumentPlugin*>(document->getPlugin("comp"));
   compdoc->setRequired(true);
 
   // create the Model
   Model* model=document->createModel();
   model->setId("mainmod");
-  CompModelPlugin* mplugin = static_cast<CompModelPlugin*>(model->getPlugin("comp"));
+  CompModelPlugin* mplugin = 
+                   static_cast<CompModelPlugin*>(model->getPlugin("comp"));
+  
 
   // create a Parameter in it.
   Parameter* param = model->createParameter();
@@ -1153,7 +1211,8 @@ START_TEST(test_comp_flatten_invalid23)
   param->setConstant(true);
 
   //Give it a replaced element
-  CompSBasePlugin* pcomp = static_cast<CompSBasePlugin*>(param->getPlugin("comp"));
+  CompSBasePlugin* pcomp = 
+                   static_cast<CompSBasePlugin*>(param->getPlugin("comp"));
   ReplacedElement* re = pcomp->createReplacedElement();
   
   // create a Submodel
@@ -1195,13 +1254,16 @@ START_TEST(test_comp_flatten_invalid24)
 
   // create the document
   SBMLDocument *document = new SBMLDocument(&sbmlns);
-  CompSBMLDocumentPlugin* compdoc = static_cast<CompSBMLDocumentPlugin*>(document->getPlugin("comp"));
+  CompSBMLDocumentPlugin* compdoc = 
+           static_cast<CompSBMLDocumentPlugin*>(document->getPlugin("comp"));
   compdoc->setRequired(true);
 
   // create the Model
   Model* model=document->createModel();
   model->setId("mainmod");
-  CompModelPlugin* mplugin = static_cast<CompModelPlugin*>(model->getPlugin("comp"));
+  CompModelPlugin* mplugin = 
+                   static_cast<CompModelPlugin*>(model->getPlugin("comp"));
+  
 
   // create a Parameter in it.
   Parameter* param = model->createParameter();
@@ -1209,7 +1271,8 @@ START_TEST(test_comp_flatten_invalid24)
   param->setConstant(true);
 
   //Give it a replaced element
-  CompSBasePlugin* pcomp = static_cast<CompSBasePlugin*>(param->getPlugin("comp"));
+  CompSBasePlugin* pcomp = 
+                 static_cast<CompSBasePlugin*>(param->getPlugin("comp"));
   ReplacedElement* re = pcomp->createReplacedElement();
   re->setSubmodelRef("submod1");
   
@@ -1252,21 +1315,24 @@ START_TEST(test_comp_flatten_invalid25)
 
   // create the document
   SBMLDocument *document = new SBMLDocument(&sbmlns);
-  CompSBMLDocumentPlugin* compdoc = static_cast<CompSBMLDocumentPlugin*>(document->getPlugin("comp"));
+  CompSBMLDocumentPlugin* compdoc = 
+           static_cast<CompSBMLDocumentPlugin*>(document->getPlugin("comp"));
   compdoc->setRequired(true);
 
   // create the Model
   Model* model=document->createModel();
   model->setId("mainmod");
-  CompModelPlugin* mplugin = static_cast<CompModelPlugin*>(model->getPlugin("comp"));
-
+  CompModelPlugin* mplugin = 
+                   static_cast<CompModelPlugin*>(model->getPlugin("comp"));
+  
   // create a Parameter in it.
   Parameter* param = model->createParameter();
   param->setId("p1");
   param->setConstant(true);
 
   //Give it a replaced element
-  CompSBasePlugin* pcomp = static_cast<CompSBasePlugin*>(param->getPlugin("comp"));
+  CompSBasePlugin* pcomp = 
+                    static_cast<CompSBasePlugin*>(param->getPlugin("comp"));
   ReplacedElement* re = pcomp->createReplacedElement();
   re->setSubmodelRef("submod1");
   re->setIdRef("sp1");
@@ -1310,21 +1376,24 @@ START_TEST(test_comp_flatten_invalid26)
 
   // create the document
   SBMLDocument *document = new SBMLDocument(&sbmlns);
-  CompSBMLDocumentPlugin* compdoc = static_cast<CompSBMLDocumentPlugin*>(document->getPlugin("comp"));
+  CompSBMLDocumentPlugin* compdoc = 
+           static_cast<CompSBMLDocumentPlugin*>(document->getPlugin("comp"));
   compdoc->setRequired(true);
 
   // create the Model
   Model* model=document->createModel();
   model->setId("mainmod");
-  CompModelPlugin* mplugin = static_cast<CompModelPlugin*>(model->getPlugin("comp"));
-
+  CompModelPlugin* mplugin = 
+                   static_cast<CompModelPlugin*>(model->getPlugin("comp"));
+  
   // create a Parameter in it.
   Parameter* param = model->createParameter();
   param->setId("p1");
   param->setConstant(true);
 
   //Give it a replaced element
-  CompSBasePlugin* pcomp = static_cast<CompSBasePlugin*>(param->getPlugin("comp"));
+  CompSBasePlugin* pcomp = 
+                   static_cast<CompSBasePlugin*>(param->getPlugin("comp"));
   ReplacedElement* re = pcomp->createReplacedElement();
   re->setSubmodelRef("submod1");
   re->setMetaIdRef("sp1");
@@ -1368,21 +1437,24 @@ START_TEST(test_comp_flatten_invalid27)
 
   // create the document
   SBMLDocument *document = new SBMLDocument(&sbmlns);
-  CompSBMLDocumentPlugin* compdoc = static_cast<CompSBMLDocumentPlugin*>(document->getPlugin("comp"));
+  CompSBMLDocumentPlugin* compdoc = 
+           static_cast<CompSBMLDocumentPlugin*>(document->getPlugin("comp"));
   compdoc->setRequired(true);
 
   // create the Model
   Model* model=document->createModel();
   model->setId("mainmod");
-  CompModelPlugin* mplugin = static_cast<CompModelPlugin*>(model->getPlugin("comp"));
-
+  CompModelPlugin* mplugin = 
+                   static_cast<CompModelPlugin*>(model->getPlugin("comp"));
+  
   // create a Parameter in it.
   Parameter* param = model->createParameter();
   param->setId("p1");
   param->setConstant(true);
 
   //Give it a replaced element
-  CompSBasePlugin* pcomp = static_cast<CompSBasePlugin*>(param->getPlugin("comp"));
+  CompSBasePlugin* pcomp = 
+                   static_cast<CompSBasePlugin*>(param->getPlugin("comp"));
   ReplacedElement* re = pcomp->createReplacedElement();
   re->setSubmodelRef("submod1");
   re->setPortRef("sp1");
@@ -1426,21 +1498,24 @@ START_TEST(test_comp_flatten_invalid28)
 
   // create the document
   SBMLDocument *document = new SBMLDocument(&sbmlns);
-  CompSBMLDocumentPlugin* compdoc = static_cast<CompSBMLDocumentPlugin*>(document->getPlugin("comp"));
+  CompSBMLDocumentPlugin* compdoc = 
+           static_cast<CompSBMLDocumentPlugin*>(document->getPlugin("comp"));
   compdoc->setRequired(true);
 
   // create the Model
   Model* model=document->createModel();
   model->setId("mainmod");
-  CompModelPlugin* mplugin = static_cast<CompModelPlugin*>(model->getPlugin("comp"));
-
+  CompModelPlugin* mplugin = 
+                   static_cast<CompModelPlugin*>(model->getPlugin("comp"));
+  
   // create a Parameter in it.
   Parameter* param = model->createParameter();
   param->setId("p1");
   param->setConstant(true);
 
   //Give it a replaced element
-  CompSBasePlugin* pcomp = static_cast<CompSBasePlugin*>(param->getPlugin("comp"));
+  CompSBasePlugin* pcomp = 
+                   static_cast<CompSBasePlugin*>(param->getPlugin("comp"));
   ReplacedElement* re = pcomp->createReplacedElement();
   re->setSubmodelRef("submod1");
   re->setUnitRef("sp1");
@@ -1484,21 +1559,24 @@ START_TEST(test_comp_flatten_invalid29)
 
   // create the document
   SBMLDocument *document = new SBMLDocument(&sbmlns);
-  CompSBMLDocumentPlugin* compdoc = static_cast<CompSBMLDocumentPlugin*>(document->getPlugin("comp"));
+  CompSBMLDocumentPlugin* compdoc = 
+           static_cast<CompSBMLDocumentPlugin*>(document->getPlugin("comp"));
   compdoc->setRequired(true);
 
   // create the Model
   Model* model=document->createModel();
   model->setId("mainmod");
-  CompModelPlugin* mplugin = static_cast<CompModelPlugin*>(model->getPlugin("comp"));
-
+  CompModelPlugin* mplugin = 
+                   static_cast<CompModelPlugin*>(model->getPlugin("comp"));
+  
   // create a Parameter in it.
   Parameter* param = model->createParameter();
   param->setId("p1");
   param->setConstant(true);
 
   //Give it a replaced element
-  CompSBasePlugin* pcomp = static_cast<CompSBasePlugin*>(param->getPlugin("comp"));
+  CompSBasePlugin* pcomp = 
+                   static_cast<CompSBasePlugin*>(param->getPlugin("comp"));
   ReplacedElement* re = pcomp->createReplacedElement();
   re->setSubmodelRef("submod1");
   re->setDeletion("sp1");
@@ -1542,21 +1620,24 @@ START_TEST(test_comp_flatten_invalid30)
 
   // create the document
   SBMLDocument *document = new SBMLDocument(&sbmlns);
-  CompSBMLDocumentPlugin* compdoc = static_cast<CompSBMLDocumentPlugin*>(document->getPlugin("comp"));
+  CompSBMLDocumentPlugin* compdoc = 
+           static_cast<CompSBMLDocumentPlugin*>(document->getPlugin("comp"));
   compdoc->setRequired(true);
 
   // create the Model
   Model* model=document->createModel();
   model->setId("mainmod");
-  CompModelPlugin* mplugin = static_cast<CompModelPlugin*>(model->getPlugin("comp"));
-
+  CompModelPlugin* mplugin = 
+                   static_cast<CompModelPlugin*>(model->getPlugin("comp"));
+  
   // create a Parameter in it.
   Parameter* param = model->createParameter();
   param->setId("p1");
   param->setConstant(true);
 
   //Give it a replaced element
-  CompSBasePlugin* pcomp = static_cast<CompSBasePlugin*>(param->getPlugin("comp"));
+  CompSBasePlugin* pcomp = 
+                   static_cast<CompSBasePlugin*>(param->getPlugin("comp"));
   ReplacedBy* rb = pcomp->createReplacedBy();
   rb->setSubmodelRef("submod1");
   
@@ -1599,14 +1680,16 @@ START_TEST(test_comp_flatten_invalid31)
 
   // create the document
   SBMLDocument *document = new SBMLDocument(&sbmlns);
-  CompSBMLDocumentPlugin* compdoc = static_cast<CompSBMLDocumentPlugin*>(document->getPlugin("comp"));
+  CompSBMLDocumentPlugin* compdoc = 
+           static_cast<CompSBMLDocumentPlugin*>(document->getPlugin("comp"));
   compdoc->setRequired(true);
 
   // create the Model
   Model* model=document->createModel();
   model->setId("mainmod");
-  CompModelPlugin* mplugin = static_cast<CompModelPlugin*>(model->getPlugin("comp"));
-
+  CompModelPlugin* mplugin = 
+                   static_cast<CompModelPlugin*>(model->getPlugin("comp"));
+  
   // create a port
   Port* port = mplugin->createPort();
 
@@ -1640,14 +1723,16 @@ START_TEST(test_comp_flatten_invalid32)
 
   // create the document
   SBMLDocument *document = new SBMLDocument(&sbmlns);
-  CompSBMLDocumentPlugin* compdoc = static_cast<CompSBMLDocumentPlugin*>(document->getPlugin("comp"));
+  CompSBMLDocumentPlugin* compdoc = 
+           static_cast<CompSBMLDocumentPlugin*>(document->getPlugin("comp"));
   compdoc->setRequired(true);
 
   // create the Model
   Model* model=document->createModel();
   model->setId("mainmod");
-  CompModelPlugin* mplugin = static_cast<CompModelPlugin*>(model->getPlugin("comp"));
-
+  CompModelPlugin* mplugin = 
+                   static_cast<CompModelPlugin*>(model->getPlugin("comp"));
+  
   // create a Submodel
   Submodel* submod1 = mplugin->createSubmodel();
   submod1->setId("submod1");
@@ -1690,21 +1775,24 @@ START_TEST(test_comp_flatten_invalid33)
 
   // create the document
   SBMLDocument *document = new SBMLDocument(&sbmlns);
-  CompSBMLDocumentPlugin* compdoc = static_cast<CompSBMLDocumentPlugin*>(document->getPlugin("comp"));
+  CompSBMLDocumentPlugin* compdoc = 
+           static_cast<CompSBMLDocumentPlugin*>(document->getPlugin("comp"));
   compdoc->setRequired(true);
 
   // create the Model
   Model* model=document->createModel();
   model->setId("mainmod");
-  CompModelPlugin* mplugin = static_cast<CompModelPlugin*>(model->getPlugin("comp"));
-
+  CompModelPlugin* mplugin = 
+                   static_cast<CompModelPlugin*>(model->getPlugin("comp"));
+  
   // create a Parameter in it.
   Parameter* param = model->createParameter();
   param->setId("p1");
   param->setConstant(true);
 
   //Give it a replaced element that points to a submodel...
-  CompSBasePlugin* pcomp = static_cast<CompSBasePlugin*>(param->getPlugin("comp"));
+  CompSBasePlugin* pcomp = 
+                   static_cast<CompSBasePlugin*>(param->getPlugin("comp"));
   ReplacedElement* re = pcomp->createReplacedElement();
   re->setSubmodelRef("submod1");
   re->setIdRef("submod2");
@@ -1759,21 +1847,24 @@ START_TEST(test_comp_flatten_invalid34)
 
   // create the document
   SBMLDocument *document = new SBMLDocument(&sbmlns);
-  CompSBMLDocumentPlugin* compdoc = static_cast<CompSBMLDocumentPlugin*>(document->getPlugin("comp"));
+  CompSBMLDocumentPlugin* compdoc = 
+           static_cast<CompSBMLDocumentPlugin*>(document->getPlugin("comp"));
   compdoc->setRequired(true);
 
   // create the Model
   Model* model=document->createModel();
   model->setId("mainmod");
-  CompModelPlugin* mplugin = static_cast<CompModelPlugin*>(model->getPlugin("comp"));
-
+  CompModelPlugin* mplugin = 
+                   static_cast<CompModelPlugin*>(model->getPlugin("comp"));
+  
   // create a Parameter in it.
   Parameter* param = model->createParameter();
   param->setId("p1");
   param->setConstant(true);
 
   //Give it a replaced element that points to a parameter...
-  CompSBasePlugin* pcomp = static_cast<CompSBasePlugin*>(param->getPlugin("comp"));
+  CompSBasePlugin* pcomp = 
+                   static_cast<CompSBasePlugin*>(param->getPlugin("comp"));
   ReplacedElement* re = pcomp->createReplacedElement();
   re->setSubmodelRef("submod1");
   re->setIdRef("p2");
@@ -1828,7 +1919,8 @@ START_TEST(test_comp_flatten_invalid36)
   SBMLNamespaces sbmlns(3,1,"comp",1);
   SBMLDocument document(&sbmlns);
   Parameter param(&sbmlns);
-  CompSBasePlugin* pcomp = static_cast<CompSBasePlugin*>(param.getPlugin("comp"));
+  CompSBasePlugin* pcomp = 
+                   static_cast<CompSBasePlugin*>(param.getPlugin("comp"));
   ReplacedElement* re = pcomp->createReplacedElement();
   re->setSBMLDocument(&document);
   re->setSubmodelRef("sub1");
@@ -1857,21 +1949,24 @@ START_TEST(test_comp_flatten_invalid37)
 
   // create the document
   SBMLDocument *document = new SBMLDocument(&sbmlns);
-  CompSBMLDocumentPlugin* compdoc = static_cast<CompSBMLDocumentPlugin*>(document->getPlugin("comp"));
+  CompSBMLDocumentPlugin* compdoc = 
+           static_cast<CompSBMLDocumentPlugin*>(document->getPlugin("comp"));
   compdoc->setRequired(true);
 
   // create the Model
   Model* model=document->createModel();
   model->setId("mainmod");
-  CompModelPlugin* mplugin = static_cast<CompModelPlugin*>(model->getPlugin("comp"));
-
+  CompModelPlugin* mplugin = 
+                   static_cast<CompModelPlugin*>(model->getPlugin("comp"));
+  
   // create a Parameter in it.
   Parameter* param = model->createParameter();
   param->setId("p1");
   param->setConstant(true);
 
   //Give it a replaced element
-  CompSBasePlugin* pcomp = static_cast<CompSBasePlugin*>(param->getPlugin("comp"));
+  CompSBasePlugin* pcomp = 
+                   static_cast<CompSBasePlugin*>(param->getPlugin("comp"));
   ReplacedElement* re = pcomp->createReplacedElement();
   re->setSubmodelRef("submod1");
 
@@ -1905,21 +2000,24 @@ START_TEST(test_comp_flatten_invalid38)
 
   // create the document
   SBMLDocument *document = new SBMLDocument(&sbmlns);
-  CompSBMLDocumentPlugin* compdoc = static_cast<CompSBMLDocumentPlugin*>(document->getPlugin("comp"));
+  CompSBMLDocumentPlugin* compdoc = 
+           static_cast<CompSBMLDocumentPlugin*>(document->getPlugin("comp"));
   compdoc->setRequired(true);
 
   // create the Model
   Model* model=document->createModel();
   model->setId("mainmod");
-  CompModelPlugin* mplugin = static_cast<CompModelPlugin*>(model->getPlugin("comp"));
-
+  CompModelPlugin* mplugin = 
+                   static_cast<CompModelPlugin*>(model->getPlugin("comp"));
+  
   // create a Parameter in it.
   Parameter* param = model->createParameter();
   param->setId("p1");
   param->setConstant(true);
 
   //Give it a replaced by element
-  CompSBasePlugin* pcomp = static_cast<CompSBasePlugin*>(param->getPlugin("comp"));
+  CompSBasePlugin* pcomp = 
+                   static_cast<CompSBasePlugin*>(param->getPlugin("comp"));
   ReplacedBy* re = pcomp->createReplacedBy();
   re->setSubmodelRef("submod1");
 
@@ -1953,20 +2051,23 @@ START_TEST(test_comp_flatten_invalid39)
 
   // create the document
   SBMLDocument *document = new SBMLDocument(&sbmlns);
-  CompSBMLDocumentPlugin* compdoc = static_cast<CompSBMLDocumentPlugin*>(document->getPlugin("comp"));
+  CompSBMLDocumentPlugin* compdoc = 
+           static_cast<CompSBMLDocumentPlugin*>(document->getPlugin("comp"));
   compdoc->setRequired(true);
 
   // create the Model
   Model* model=document->createModel();
   model->setId("mainmod");
-  CompModelPlugin* mplugin = static_cast<CompModelPlugin*>(model->getPlugin("comp"));
-
+  CompModelPlugin* mplugin = 
+                   static_cast<CompModelPlugin*>(model->getPlugin("comp"));
+  
   // create a Parameter in it.
   Parameter* param = model->createParameter();
   param->setConstant(true);
 
   //Give it a replaced element
-  CompSBasePlugin* pcomp = static_cast<CompSBasePlugin*>(param->getPlugin("comp"));
+  CompSBasePlugin* pcomp = 
+                   static_cast<CompSBasePlugin*>(param->getPlugin("comp"));
   ReplacedElement* re = pcomp->createReplacedElement();
   re->setSubmodelRef("submod1");
   re->setIdRef("p2");
@@ -2013,21 +2114,24 @@ START_TEST(test_comp_flatten_invalid40)
 
   // create the document
   SBMLDocument *document = new SBMLDocument(&sbmlns);
-  CompSBMLDocumentPlugin* compdoc = static_cast<CompSBMLDocumentPlugin*>(document->getPlugin("comp"));
+  CompSBMLDocumentPlugin* compdoc = 
+           static_cast<CompSBMLDocumentPlugin*>(document->getPlugin("comp"));
   compdoc->setRequired(true);
 
   // create the Model
   Model* model=document->createModel();
   model->setId("mainmod");
-  CompModelPlugin* mplugin = static_cast<CompModelPlugin*>(model->getPlugin("comp"));
-
+  CompModelPlugin* mplugin = 
+                   static_cast<CompModelPlugin*>(model->getPlugin("comp"));
+  
   // create a Parameter in it.
   Parameter* param = model->createParameter();
   param->setConstant(true);
   param->setId("p1");
 
   //Give it a replaced element
-  CompSBasePlugin* pcomp = static_cast<CompSBasePlugin*>(param->getPlugin("comp"));
+  CompSBasePlugin* pcomp = 
+                   static_cast<CompSBasePlugin*>(param->getPlugin("comp"));
   ReplacedElement* re = pcomp->createReplacedElement();
   re->setSubmodelRef("submod1");
   re->setIdRef("p2");
@@ -2075,21 +2179,24 @@ START_TEST(test_comp_flatten_invalid41)
 
   // create the document
   SBMLDocument *document = new SBMLDocument(&sbmlns);
-  CompSBMLDocumentPlugin* compdoc = static_cast<CompSBMLDocumentPlugin*>(document->getPlugin("comp"));
+  CompSBMLDocumentPlugin* compdoc = 
+           static_cast<CompSBMLDocumentPlugin*>(document->getPlugin("comp"));
   compdoc->setRequired(true);
 
   // create the Model
   Model* model=document->createModel();
   model->setId("mainmod");
-  CompModelPlugin* mplugin = static_cast<CompModelPlugin*>(model->getPlugin("comp"));
-
+  CompModelPlugin* mplugin = 
+                   static_cast<CompModelPlugin*>(model->getPlugin("comp"));
+  
   // create a Parameter in it.
   Parameter* param = model->createParameter();
   param->setConstant(true);
   param->setId("p1");
 
   //Give it a replaced element
-  CompSBasePlugin* pcomp = static_cast<CompSBasePlugin*>(param->getPlugin("comp"));
+  CompSBasePlugin* pcomp = 
+                   static_cast<CompSBasePlugin*>(param->getPlugin("comp"));
   ReplacedBy* re = pcomp->createReplacedBy();
   re->setSubmodelRef("submod1");
   re->setMetaIdRef("p2");
@@ -2136,14 +2243,16 @@ START_TEST(test_comp_flatten_invalid42)
 
   // create the document
   SBMLDocument *document = new SBMLDocument(&sbmlns);
-  CompSBMLDocumentPlugin* compdoc = static_cast<CompSBMLDocumentPlugin*>(document->getPlugin("comp"));
+  CompSBMLDocumentPlugin* compdoc = 
+           static_cast<CompSBMLDocumentPlugin*>(document->getPlugin("comp"));
   compdoc->setRequired(true);
 
   // create the Model
   Model* model=document->createModel();
   model->setId("mainmod");
-  CompModelPlugin* mplugin = static_cast<CompModelPlugin*>(model->getPlugin("comp"));
-
+  CompModelPlugin* mplugin = 
+                   static_cast<CompModelPlugin*>(model->getPlugin("comp"));
+  
   // create a Parameter in it.
   Parameter* param = model->createParameter();
   param->setConstant(true);
@@ -2151,7 +2260,8 @@ START_TEST(test_comp_flatten_invalid42)
   param->setMetaId("p1_meta");
 
   //Give it a replaced element
-  CompSBasePlugin* pcomp = static_cast<CompSBasePlugin*>(param->getPlugin("comp"));
+  CompSBasePlugin* pcomp = 
+                   static_cast<CompSBasePlugin*>(param->getPlugin("comp"));
   ReplacedBy* re = pcomp->createReplacedBy();
   re->setSubmodelRef("submod1");
   re->setIdRef("p2");
@@ -2273,7 +2383,8 @@ START_TEST(test_comp_flatten_invalid48)
   SBMLDocument document(&sbmlns);
   Model* mod = document.createModel();
   Parameter* param = mod->createParameter();
-  CompSBasePlugin* paramcomp = static_cast<CompSBasePlugin*>(param->getPlugin("comp"));
+  CompSBasePlugin* paramcomp = 
+                  static_cast<CompSBasePlugin*>(param->getPlugin("comp"));
   ReplacedElement* re = paramcomp->createReplacedElement();
   re->setSubmodelRef("submod1");
   re->setDeletion("del1");
