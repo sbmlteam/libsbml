@@ -1442,12 +1442,377 @@ static const packageErrorTableEntry layoutErrorTable[] =
     }
   },
 
+  // 6021201
+  { LayoutPointAllowedCoreElements, 
+    "Core elements allowed on <point>.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY, 
+    LIBSBML_SEV_ERROR,
+    "A <point> object may have the optional SBML Level 3 Core "
+    "subobjects for notes and annotations. No other elements from the SBML "
+    "Level 3 Core namespace are permitted on a <point>. ",
+    { "L3V1 Core Section 3.2"
+    }
+  },
+  
+  // 6021202
+  { LayoutPointAllowedCoreAttributes, 
+    "Core attributes allowed on <point>.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY, 
+    LIBSBML_SEV_ERROR,
+    "A <point> object may have the optional SBML Level 3 Core "
+    "attributes 'metaid' and 'sboTerm'. No other attributes from the SBML "
+    "Level 3 Core namespace are permitted on a <point>. ",
+    { "L3V1 Core Section 3.2"
+    }
+  },
+  
+  // 6021203
+  { LayoutPointAllowedAttributes, 
+    "Layout attributes allowed on <point>.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY, 
+    LIBSBML_SEV_ERROR,
+    "A <point> object must have the required attributes 'layout:x' and "
+    "'layout:y' and may have the optional attributes 'layout:id', "
+    "and 'layout:z'.  "
+    "No other attributes from the Layout namespace "
+    "are permitted on a <point>. ",
+    { "L3V1 Layout V1 Section 3.4.1"
+    }
+  },
 
+  // 6021204
+  { LayoutPointAttributesMustBeDouble, 
+    "Layout 'x', 'y' and 'z' must be double.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY, 
+    LIBSBML_SEV_ERROR,
+    "The attributes 'layout:x', 'layout:y' and 'layout:z' of a <point> "
+    "element must be of the data type 'double'.",
+    { "L3V1 Layout V1 Section 3.4.1"
+    }
+  },
 
+  // 6021301
+  { LayoutBBoxAllowedCoreElements, 
+    "Core elements allowed on <boundingBox>.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY, 
+    LIBSBML_SEV_ERROR,
+    "A <boundingBox> object may have the optional SBML Level 3 Core "
+    "subobjects for notes and annotations. No other elements from the SBML "
+    "Level 3 Core namespace are permitted on a <boundingBox>. ",
+    { "L3V1 Core Section 3.2"
+    }
+  },
+  
+  // 6021302
+  { LayoutBBoxAllowedCoreAttributes, 
+    "Core attributes allowed on <boundingBox>.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY, 
+    LIBSBML_SEV_ERROR,
+    "A <boundingBox> object may have the optional SBML Level 3 Core "
+    "attributes 'metaid' and 'sboTerm'. No other attributes from the SBML "
+    "Level 3 Core namespace are permitted on a <boundingBox>. ",
+    { "L3V1 Core Section 3.2"
+    }
+  },
+  
+  // 6021303
+  { LayoutBBoxAllowedElements, 
+    "Layout elements allowed on <boundingBox>.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY, 
+    LIBSBML_SEV_ERROR,
+    "There must be exactly one instance of a <point> and a <dimensions> "
+    "object on a <boundingBox>. "
+    "No other elements from "
+    "the Layout namespace are permitted on a <boundingBox>. ",
+    { "L3V1 Layout V1 Section 3.4.3"
+    }
+  },
+  
+  // 6021304
+  { LayoutBBoxAllowedAttributes, 
+    "Layout attributes allowed on <boundingBox>.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY, 
+    LIBSBML_SEV_ERROR,
+    "A <boundingBox> object may have the optional attributes 'layout:id'. "
+    "No other attributes from the Layout namespace "
+    "are permitted on a <boundingBox>. ",
+    { "L3V1 Layout V1 Section 3.4.3"
+    }
+  },
 
+  // 6021305
+  { LayoutBBoxConsistent3DDefinition, 
+    "Layout consistent dimensions on a <boundingBox>",
+    LIBSBML_CAT_GENERAL_CONSISTENCY, 
+    LIBSBML_SEV_ERROR,
+    "If the 'layout:z' attribute on a <point> element of a <boundingBox> "
+    "is not specified, the attribute 'layout:depth' must not be specified.",
+    { "L3V1 Layout V1 Section 3.7"
+    }
+  },
 
+  // 6021401
+  { LayoutCurveAllowedCoreElements, 
+    "Core elements allowed on <curve>.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY, 
+    LIBSBML_SEV_ERROR,
+    "A <curve> object may have the optional SBML Level 3 Core "
+    "subobjects for notes and annotations. No other elements from the SBML "
+    "Level 3 Core namespace are permitted on a <curve>. ",
+    { "L3V1 Core Section 3.2"
+    }
+  },
+  
+  // 6021402
+  { LayoutCurveAllowedCoreAttributes, 
+    "Core attributes allowed on <curve>.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY, 
+    LIBSBML_SEV_ERROR,
+    "A <curve> object may have the optional SBML Level 3 Core "
+    "attributes 'metaid' and 'sboTerm'. No other attributes from the SBML "
+    "Level 3 Core namespace are permitted on a <curve>. ",
+    { "L3V1 Core Section 3.2"
+    }
+  },
+  
+  // 6021403
+  { LayoutCurveAllowedElements, 
+    "Layout elements allowed on <curve>.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY, 
+    LIBSBML_SEV_ERROR,
+    "There must be exactly one instance of a <listOfCurveSegments> "
+    "object on a <curve>. "
+    "No other elements from "
+    "the Layout namespace are permitted on a <curve>. ",
+    { "L3V1 Layout V1 Section 3.4.4"
+    }
+  },
+  
+  // 6021404
+  { LayoutLOCurveSegsAllowedAttributes, 
+    "Allowed attributes on ListOfCurveSegments",
+    LIBSBML_CAT_GENERAL_CONSISTENCY, 
+    LIBSBML_SEV_ERROR,
+    "A <listOfCurveSegments> object may have the optional "
+    "attributes 'metaid' "
+    "and 'sboTerm' defined by SBML Level~3 Core. No other attributes from "
+    "the SBML Level 3 Core namespace or the Layout "
+    "namespace are permitted on a <listOfCurveSegments> object. ",
+    { "L3V1 Layout V1 Section 3.4.4"
+    }
+  },
 
+  // 6021405
+  { LayoutLOCurveSegsAllowedElements, 
+    "Allowed elements on ListOfCurveSegments",
+    LIBSBML_CAT_GENERAL_CONSISTENCY, 
+    LIBSBML_SEV_ERROR,
+    "Apart from the general notes and annotation subobjects permitted on "
+    "all SBML objects, a <listOfCurveSegments> container object "
+    "may only contain <referenceGlyph> objects.",
+    { "L3V1 Layout V1 Section 3.4.4"
+    }
+  },
 
+  // 6021406
+  { LayoutLOCurveSegsNotEmpty, 
+    "No empty ListOfCurveSegments",
+    LIBSBML_CAT_GENERAL_CONSISTENCY, 
+    LIBSBML_SEV_ERROR,
+    "A <listOfCurveSegments> container object may not be empty.",
+    { "L3V1 Layout V1 Section 3.4.4"
+    }
+  },
+
+  // 6021501
+  { LayoutLSegAllowedCoreElements, 
+    "Core elements allowed on <lineSegment>.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY, 
+    LIBSBML_SEV_ERROR,
+    "A <lineSegment> object may have the optional SBML Level 3 Core "
+    "subobjects for notes and annotations. No other elements from the SBML "
+    "Level 3 Core namespace are permitted on a <lineSegment>. ",
+    { "L3V1 Core Section 3.2"
+    }
+  },
+  
+  // 6021502
+  { LayoutLSegAllowedCoreAttributes, 
+    "Core attributes allowed on <lineSegment>.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY, 
+    LIBSBML_SEV_ERROR,
+    "A <lineSegment> object may have the optional SBML Level 3 Core "
+    "attributes 'metaid' and 'sboTerm'. No other attributes from the SBML "
+    "Level 3 Core namespace are permitted on a <lineSegment>. ",
+    { "L3V1 Core Section 3.2"
+    }
+  },
+  
+  // 6021503
+  { LayoutLSegAllowedElements, 
+    "Layout elements allowed on <lineSegment>.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY, 
+    LIBSBML_SEV_ERROR,
+    "A <lineSegment> must specify two <point> elements 'start' "
+    "and 'end'. "
+    "No other elements from "
+    "the Layout namespace are permitted on a <lineSegment>. ",
+    { "L3V1 Layout V1 Section 3.4.5"
+    }
+  },
+  
+  // 6021504
+  { LayoutLSegAllowedAttributes, 
+    "Layout attributes allowed on <lineSegment>.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY, 
+    LIBSBML_SEV_ERROR,
+    "A <lineSegment> object must have the required attribute 'xsi:type'. "
+    "No other attributes from the Layout namespace "
+    "are permitted on a <lineSegment>. ",
+    { "L3V1 Layout V1 Section 3.4.5"
+    }
+  },
+
+  // 6021505
+  { LayoutLSegTypeSyntax, 
+    "Layout LineSegment xsi:type must be string",
+    LIBSBML_CAT_GENERAL_CONSISTENCY, 
+    LIBSBML_SEV_ERROR,
+    "The attribute 'xsi:type' on a <lineSegment> must be of data type "
+    "'string'.",
+    { "L3V1 Layout V1 Section 3.4.5"
+    }
+  },
+
+  // 6021506
+  { LayoutLSegTypeMustBeLineSegment, 
+    "Layout LineSegment xsi:type must be 'LineSegment'",
+    LIBSBML_CAT_GENERAL_CONSISTENCY, 
+    LIBSBML_SEV_ERROR,
+    "The attribute 'xsi:type' on a <lineSegment> must be 'LineSegment'.",
+    { "L3V1 Layout V1 Section 3.4.5"
+    }
+  },
+
+  // 6021601
+  { LayoutCBezAllowedCoreElements, 
+    "Core elements allowed on <cubicBezier>.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY, 
+    LIBSBML_SEV_ERROR,
+    "A <cubicBezier> object may have the optional SBML Level 3 Core "
+    "subobjects for notes and annotations. No other elements from the SBML "
+    "Level 3 Core namespace are permitted on a <cubicBezier>. ",
+    { "L3V1 Core Section 3.2"
+    }
+  },
+  
+  // 6021602
+  { LayoutCBezAllowedCoreAttributes, 
+    "Core attributes allowed on <cubicBezier>.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY, 
+    LIBSBML_SEV_ERROR,
+    "A <cubicBezier> object may have the optional SBML Level 3 Core "
+    "attributes 'metaid' and 'sboTerm'. No other attributes from the SBML "
+    "Level 3 Core namespace are permitted on a <cubicBezier>. ",
+    { "L3V1 Core Section 3.2"
+    }
+  },
+  
+  // 6021603
+  { LayoutCBezAllowedElements, 
+    "Layout elements allowed on <cubicBezier>.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY, 
+    LIBSBML_SEV_ERROR,
+    "A <cubicBezier> must specify four <point> elements 'start' "
+    "'basePoint1', 'basePoint2' and 'end'. "
+    "No other elements from "
+    "the Layout namespace are permitted on a <cubicBezier>. ",
+    { "L3V1 Layout V1 Section 3.4.6"
+    }
+  },
+  
+  // 6021604
+  { LayoutCBezAllowedAttributes, 
+    "Layout attributes allowed on <cubicBezier>.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY, 
+    LIBSBML_SEV_ERROR,
+    "A <cubicBezier> object must have the required attribute 'xsi:type'. "
+    "No other attributes from the Layout namespace "
+    "are permitted on a <cubicBezier>. ",
+    { "L3V1 Layout V1 Section 3.4.6"
+    }
+  },
+
+  // 6021605
+  { LayoutCBezTypeSyntax, 
+    "Layout CubicBezier xsi:type must be string",
+    LIBSBML_CAT_GENERAL_CONSISTENCY, 
+    LIBSBML_SEV_ERROR,
+    "The attribute 'xsi:type' on a <cubicBezier> must be of data type "
+    "'string'.",
+    { "L3V1 Layout V1 Section 3.4.6"
+    }
+  },
+
+  // 6021606
+  { LayoutCBezTypeMustBeCubicBezier, 
+    "Layout CubicBezier xsi:type must be 'CubicBezier'",
+    LIBSBML_CAT_GENERAL_CONSISTENCY, 
+    LIBSBML_SEV_ERROR,
+    "The attribute 'xsi:type' on a <cubicBezier> must be 'CubicBezier'.",
+    { "L3V1 Layout V1 Section 3.4.6"
+    }
+  },
+
+  // 6021701
+  { LayoutDimsAllowedCoreElements, 
+    "Core elements allowed on <dimensions>.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY, 
+    LIBSBML_SEV_ERROR,
+    "A <dimensions> object may have the optional SBML Level 3 Core "
+    "subobjects for notes and annotations. No other elements from the SBML "
+    "Level 3 Core namespace are permitted on a <dimensions>. ",
+    { "L3V1 Core Section 3.2"
+    }
+  },
+  
+  // 6021702
+  { LayoutDimsAllowedCoreAttributes, 
+    "Core attributes allowed on <dimensions>.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY, 
+    LIBSBML_SEV_ERROR,
+    "A <dimensions> object may have the optional SBML Level 3 Core "
+    "attributes 'metaid' and 'sboTerm'. No other attributes from the SBML "
+    "Level 3 Core namespace are permitted on a <dimensions>. ",
+    { "L3V1 Core Section 3.2"
+    }
+  },
+  
+  // 6021703
+  { LayoutDimsAllowedAttributes, 
+    "Layout attributes allowed on <dimensions>.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY, 
+    LIBSBML_SEV_ERROR,
+    "A <dimensions> object must have the required attributes 'layout:width' "
+    "and 'layout:height' and may have the optional attributes 'layout:id', "
+    "and 'layout:depth'.  "
+    "No other attributes from the Layout namespace "
+    "are permitted on a <dimensions>. ",
+    { "L3V1 Layout V1 Section 3.4.2"
+    }
+  },
+
+  // 6021704
+  { LayoutDimsAttributesMustBeDouble, 
+    "Layout 'width', 'height' and 'depth' must be double.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY, 
+    LIBSBML_SEV_ERROR,
+    "The attributes 'layout:width', 'layout:height' and 'layout:depth' "
+    "of a <dimensions> "
+    "element must be of the data type 'double'.",
+    { "L3V1 Layout V1 Section 3.4.2"
+    }
+  }
 };
 
 

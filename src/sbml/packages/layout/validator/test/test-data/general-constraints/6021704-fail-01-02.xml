@@ -47,8 +47,9 @@
         <layout:listOfCompartmentGlyphs>
           <layout:compartmentGlyph layout:id="CompartmentGlyph_1" layout:compartment="Yeast">
             <layout:boundingBox layout:id="bb1">
-              <layout:position layout:x="5" layout:y="5"/>
-              <layout:dimensions layout:width="390" layout:height="220"/>
+              <layout:position layout:x="5" layout:y="5" layout:z="0"/>
+              <layout:dimensions layout:width="180" layout:height="true" layout:id="dim" layout:depth="0"/>
+              
             </layout:boundingBox>
           </layout:compartmentGlyph>
         </layout:listOfCompartmentGlyphs>

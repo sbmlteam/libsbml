@@ -130,7 +130,6 @@ typedef enum
   , LayoutTGGraphicalObjectSyntax           = 6020910
   , LayoutTGGraphicalObjectMustRefObject    = 6020911
   , LayoutTGTextMustBeString                = 6020912
-
   , LayoutSRGAllowedCoreElements            = 6021001
   , LayoutSRGAllowedCoreAttributes          = 6021002
   , LayoutSRGAllowedElements                = 6021003
@@ -144,7 +143,6 @@ typedef enum
   , LayoutSRGSpeciesGlyphMustRefObject      = 6021011
   , LayoutSRGRoleSyntax                     = 6021012
   , LayoutSRGRoleMustBeSRGRoleValue         = 6021013
-
   , LayoutREFGAllowedCoreElements           = 6021101
   , LayoutREFGAllowedCoreAttributes         = 6021102
   , LayoutREFGAllowedElements               = 6021103
@@ -158,6 +156,42 @@ typedef enum
   , LayoutREFGGlyphMustRefObject            = 6021111
   , LayoutREFGRoleSyntax                    = 6021112
 
+  , LayoutPointAllowedCoreElements          = 6021201
+  , LayoutPointAllowedCoreAttributes        = 6021202
+  , LayoutPointAllowedAttributes            = 6021203
+  , LayoutPointAttributesMustBeDouble       = 6021204
+
+  , LayoutBBoxAllowedCoreElements           = 6021301
+  , LayoutBBoxAllowedCoreAttributes         = 6021302
+  , LayoutBBoxAllowedElements               = 6021303
+  , LayoutBBoxAllowedAttributes             = 6021304
+  , LayoutBBoxConsistent3DDefinition        = 6021305
+
+  , LayoutCurveAllowedCoreElements          = 6021401
+  , LayoutCurveAllowedCoreAttributes        = 6021402
+  , LayoutCurveAllowedElements              = 6021403
+  , LayoutLOCurveSegsAllowedAttributes      = 6021404
+  , LayoutLOCurveSegsAllowedElements        = 6021405
+  , LayoutLOCurveSegsNotEmpty               = 6021406
+
+  , LayoutLSegAllowedCoreElements           = 6021501
+  , LayoutLSegAllowedCoreAttributes         = 6021502
+  , LayoutLSegAllowedElements               = 6021503
+  , LayoutLSegAllowedAttributes             = 6021504
+  , LayoutLSegTypeSyntax                    = 6021505
+  , LayoutLSegTypeMustBeLineSegment         = 6021506
+
+  , LayoutCBezAllowedCoreElements           = 6021601
+  , LayoutCBezAllowedCoreAttributes         = 6021602
+  , LayoutCBezAllowedElements               = 6021603
+  , LayoutCBezAllowedAttributes             = 6021604
+  , LayoutCBezTypeSyntax                    = 6021605
+  , LayoutCBezTypeMustBeCubicBezier         = 6021606
+
+  , LayoutDimsAllowedCoreElements           = 6021701
+  , LayoutDimsAllowedCoreAttributes         = 6021702
+  , LayoutDimsAllowedAttributes             = 6021703
+  , LayoutDimsAttributesMustBeDouble        = 6021704
 
 }  LayoutSBMLErrorCode_t;
 
