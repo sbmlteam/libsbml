@@ -69,6 +69,7 @@
 #include <sbml/util/ElementFilter.h>
 
 #include <sbml/packages/layout/extension/LayoutExtension.h>
+#include <sbml/packages/layout/validator/LayoutSBMLError.h>
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
@@ -432,6 +433,12 @@ Curve::createObject (XMLInputStream& stream)
 
   if (name == "listOfCurveSegments")
   {
+    if (mCurveSegments.size() != 0)
+    {
+      getErrorLog()->logPackageError("layout", LayoutCurveAllowedElements, 
+        getPackageVersion(), getLevel(), getVersion());
+    }
+
     object = &mCurveSegments;
   }
  
@@ -451,7 +458,38 @@ Curve::addExpectedAttributes(ExpectedAttributes& attributes)
 void Curve::readAttributes (const XMLAttributes& attributes,
                             const ExpectedAttributes& expectedAttributes)
 {
-  SBase::readAttributes(attributes,expectedAttributes);
+	const unsigned int sbmlLevel   = getLevel  ();
+	const unsigned int sbmlVersion = getVersion();
+
+	unsigned int numErrs;
+
+	SBase::readAttributes(attributes, expectedAttributes);
+
+	// look to see whether an unknown attribute error was logged
+	if (getErrorLog() != NULL)
+	{
+		numErrs = getErrorLog()->getNumErrors();
+		for (int n = numErrs-1; n >= 0; n--)
+		{
+			if (getErrorLog()->getError(n)->getErrorId() == UnknownPackageAttribute)
+			{
+				const std::string details =
+				                  getErrorLog()->getError(n)->getMessage();
+				getErrorLog()->remove(UnknownPackageAttribute);
+				getErrorLog()->logPackageError("layout", LayoutCurveAllowedAttributes,
+				               getPackageVersion(), sbmlLevel, sbmlVersion, details);
+			}
+			else if (getErrorLog()->getError(n)->getErrorId() == UnknownCoreAttribute)
+			{
+				const std::string details =
+				                  getErrorLog()->getError(n)->getMessage();
+				getErrorLog()->remove(UnknownCoreAttribute);
+				getErrorLog()->logPackageError("layout", 
+                       LayoutCurveAllowedCoreAttributes,
+				               getPackageVersion(), sbmlLevel, sbmlVersion, details);
+			}
+		}
+	}
 }
 /** @endcond */
 
@@ -575,11 +613,18 @@ ListOfLineSegments::createObject (XMLInputStream& stream)
 
     if (!stream.peek().getAttributes().readInto(triple, type))
     {
-      //std::cout << "[DEBUG] ListOfLineSegments::createObject () : Failed to read xsi:type" << std::endl;
+      //std::cout << "[DEBUG] ListOfLineSegments::createObject () : 
+      //              Failed to read xsi:type" << std::endl;
+			getErrorLog()->logPackageError("layout", 
+                     LayoutLSegAllowedAttributes,
+			               getPackageVersion(), getLevel(), getVersion());
+
       return object;
     }
 
-    //std::cout << "[DEBUG] ListOfLineSegments::createObject () : type " << type << std::endl;
+    //std::cout << "[DEBUG] ListOfLineSegments::createObject () : type " 
+    //          << type << std::endl;
+    
     LAYOUT_CREATE_NS(layoutns,this->getSBMLNamespaces());
     if(type=="LineSegment")
     {
@@ -588,6 +633,12 @@ ListOfLineSegments::createObject (XMLInputStream& stream)
     else if(type=="CubicBezier")
     {
       object = new CubicBezier(layoutns);
+    }
+    else
+    {
+			getErrorLog()->logPackageError("layout", 
+                     LayoutLSegTypeMustBeLineSegment,
+			               getPackageVersion(), getLevel(), getVersion());
     }
   }
   

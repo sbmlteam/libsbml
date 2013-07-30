@@ -1589,6 +1589,17 @@ static const packageErrorTableEntry layoutErrorTable[] =
   },
   
   // 6021404
+  { LayoutCurveAllowedAttributes, 
+    "Layout attributes allowed on <curve>.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY, 
+    LIBSBML_SEV_ERROR,
+    "No attributes from the Layout namespace "
+    "are permitted on a <curve>. ",
+    { "L3V1 Layout V1 Section 3.4.4"
+    }
+  },
+
+  // 6021405
   { LayoutLOCurveSegsAllowedAttributes, 
     "Allowed attributes on ListOfCurveSegments",
     LIBSBML_CAT_GENERAL_CONSISTENCY, 
@@ -1602,7 +1613,7 @@ static const packageErrorTableEntry layoutErrorTable[] =
     }
   },
 
-  // 6021405
+  // 6021406
   { LayoutLOCurveSegsAllowedElements, 
     "Allowed elements on ListOfCurveSegments",
     LIBSBML_CAT_GENERAL_CONSISTENCY, 
@@ -1614,7 +1625,7 @@ static const packageErrorTableEntry layoutErrorTable[] =
     }
   },
 
-  // 6021406
+  // 6021407
   { LayoutLOCurveSegsNotEmpty, 
     "No empty ListOfCurveSegments",
     LIBSBML_CAT_GENERAL_CONSISTENCY, 

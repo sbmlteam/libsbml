@@ -170,9 +170,10 @@ typedef enum
   , LayoutCurveAllowedCoreElements          = 6021401
   , LayoutCurveAllowedCoreAttributes        = 6021402
   , LayoutCurveAllowedElements              = 6021403
-  , LayoutLOCurveSegsAllowedAttributes      = 6021404
-  , LayoutLOCurveSegsAllowedElements        = 6021405
-  , LayoutLOCurveSegsNotEmpty               = 6021406
+  , LayoutCurveAllowedAttributes            = 6021404
+  , LayoutLOCurveSegsAllowedAttributes      = 6021405
+  , LayoutLOCurveSegsAllowedElements        = 6021406
+  , LayoutLOCurveSegsNotEmpty               = 6021407
 
   , LayoutLSegAllowedCoreElements           = 6021501
   , LayoutLSegAllowedCoreAttributes         = 6021502
