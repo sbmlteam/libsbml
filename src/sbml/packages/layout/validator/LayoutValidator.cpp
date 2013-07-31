@@ -540,6 +540,15 @@ LayoutValidator::validate (const SBMLDocument& d)
 
   if (m != NULL)
   {
+    const LayoutSBMLDocumentPlugin* docPlug = 
+      static_cast <const LayoutSBMLDocumentPlugin *> (d.getPlugin("layout"));
+
+    if (docPlug->hasMetaidListBeenPopulated() == false)
+    {
+      const_cast<LayoutSBMLDocumentPlugin *>(docPlug)->populateMetaidList();
+    }
+
+
     LayoutValidatingVisitor vv(*this, *m);
 
     const LayoutModelPlugin* plugin = 

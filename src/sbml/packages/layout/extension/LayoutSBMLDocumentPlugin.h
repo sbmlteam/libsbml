@@ -39,6 +39,7 @@
 
 #include <sbml/extension/SBMLDocumentPlugin.h>
 #include <sbml/packages/layout/extension/LayoutExtension.h>
+#include <sbml/util/IdList.h>
 
 
 LIBSBML_CPP_NAMESPACE_BEGIN
@@ -121,7 +122,7 @@ public:
 	/**
 	 * Check consistency function.
 	 */
-	virtual unsigned int checkConsistency();
+	virtual unsigned int checkConsistency(bool overrideFlattening);
 
 
 	/** @endcond doxygen-libsbml-internal */
@@ -133,15 +134,24 @@ public:
 	 * Accepts the SBMLVisitor.
 	 */
 
+  IdList getMetaidList() const;
 
- 	/** @endcond doxygen-libsbml-internal */
+  bool hasMetaidListBeenPopulated() const;
+
+  void populateMetaidList();
+
+  /** @endcond doxygen-libsbml-internal */
 
 
 protected:
 
 	/** @cond doxygen-libsbml-internal */
 
-	/** @endcond doxygen-libsbml-internal */
+  IdList mMetaIdList;
+  bool mMetaIdListPopulated;
+	
+  
+  /** @endcond doxygen-libsbml-internal */
 
 
 };

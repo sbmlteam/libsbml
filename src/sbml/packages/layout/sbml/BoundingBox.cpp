@@ -720,12 +720,14 @@ BoundingBox::getTypeCode () const
 bool
 BoundingBox::accept (SBMLVisitor& v) const
 {
-  /*
-  bool result=v.visit(*this);
+  v.visit(*this);
+
   mPosition.accept(v);
   mDimensions.accept(v);
-  v.leave(*this);*/
-  return false;
+  
+  v.leave(*this);
+  
+  return true;
 }
 
 /*

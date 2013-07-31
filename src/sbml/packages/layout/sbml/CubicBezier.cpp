@@ -577,19 +577,22 @@ CubicBezier::getTypeCode () const
 
 /*
  * Accepts the given SBMLVisitor.
-
+ */
 bool
 CubicBezier::accept (SBMLVisitor& v) const
 {
-  bool result=v.visit(*this);
+  v.visit(*this);
+  
   this->mStartPoint.accept(v);
   this->mBasePoint1.accept(v);
   this->mBasePoint2.accept(v);
   this->mEndPoint.accept(v);
+  
   v.leave(*this);
-  return result;
+  
+  return true;
 }
-*/
+
 
 
 /*

@@ -32,6 +32,7 @@
 
 #include <sbml/packages/layout/extension/LayoutExtension.h>
 #include <sbml/packages/layout/extension/LayoutModelPlugin.h>
+#include <sbml/packages/layout/extension/LayoutSBMLDocumentPlugin.h>
 
 #include <sbml/packages/layout/sbml/BoundingBox.h>
 #include <sbml/packages/layout/sbml/CompartmentGlyph.h>

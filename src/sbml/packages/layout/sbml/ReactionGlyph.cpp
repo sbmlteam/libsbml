@@ -937,24 +937,29 @@ XMLNode ListOfSpeciesReferenceGlyphs::toXML() const
 
 /*
  * Accepts the given SBMLVisitor.
- 
+ */
 bool
 ReactionGlyph::accept (SBMLVisitor& v) const
 {
-  bool result=v.visit(*this);
+  v.visit(*this);
+
   if(this->mCurve.getNumCurveSegments()>0)
   {
     this->mCurve.accept(v);
   }
-  else
+
+  if (getBoundingBoxExplicitlySet() == true)
   {
     this->mBoundingBox.accept(v);
   }
-  this->mSpeciesReferenceGlyphs.accept(this);
+
+  this->mSpeciesReferenceGlyphs.accept(v);
+  
   v.leave(*this);
-  return result;
+  
+  return true;
 }
-*/
+
 
 
 /*

@@ -54,6 +54,7 @@
 
 #include <sbml/packages/layout/sbml/ReferenceGlyph.h>
 #include <sbml/packages/layout/sbml/GeneralGlyph.h>
+#include <sbml/packages/layout/sbml/GraphicalObject.h>
 #include <sbml/packages/layout/util/LayoutUtilities.h>
 #include <sbml/packages/layout/extension/LayoutExtension.h>
 
@@ -689,23 +690,27 @@ XMLNode ReferenceGlyph::toXML() const
 
 /*
  * Accepts the given SBMLVisitor.
-
+ */
 bool
 ReferenceGlyph::accept (SBMLVisitor& v) const
 {
-  bool result=v.visit(*this);
+  v.visit(*this);
+  
   if(this->mCurve.getNumCurveSegments()>0)
   {
     this->mCurve.accept(v);
   }
-  else
+  
+  if (getBoundingBoxExplicitlySet() == true)
   {
     this->mBoundingBox.accept(v);
   }
+
   v.leave(*this);
-  return result;
+  
+  return true;
 }
-*/
+
 
 
 /*

@@ -693,8 +693,7 @@ Point::getTypeCode () const
  */
 bool Point::accept (SBMLVisitor& v) const
 {
-    //v.visit(*this);
-    return false;
+    return v.visit(*this);
 }
 
 

@@ -1123,24 +1123,29 @@ XMLNode ListOfReferenceGlyphs::toXML() const
 
 /*
  * Accepts the given SBMLVisitor.
- 
+ */
 bool
 GeneralGlyph::accept (SBMLVisitor& v) const
 {
-  bool result=v.visit(*this);
+  v.visit(*this);
+  
   if(this->mCurve.getNumCurveSegments()>0)
   {
     this->mCurve.accept(v);
   }
-  else
+  
+  if (getBoundingBoxExplicitlySet() == true)
   {
     this->mBoundingBox.accept(v);
   }
-  this->mReferenceGlyphs.accept(this);
+  
+  this->mReferenceGlyphs.accept(v);
+  
   v.leave(*this);
-  return result;
+  
+  return true;
 }
-*/
+
 
 
 /*

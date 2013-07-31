@@ -628,8 +628,7 @@ Dimensions::getTypeCode () const
  */
 bool Dimensions::accept (SBMLVisitor& v) const
 {
-    //return v.visit(*this);
-    return false;
+    return v.visit(*this);
 }
 
 /*

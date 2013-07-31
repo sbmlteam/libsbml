@@ -673,11 +673,13 @@ Curve::getTypeCode () const
 bool
 Curve::accept (SBMLVisitor& v) const
 {
-    
-  /*bool result=v.visit(*this);
+  v.visit(*this);
+  
   mCurveSegments.accept(v);
-  v.leave(*this);*/
-  return false;
+  
+  v.leave(*this);
+  
+  return true;
 }
 
 

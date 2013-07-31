@@ -79,6 +79,7 @@ protected:
   std::string mId;
   std::string mMetaIdRef;
   BoundingBox mBoundingBox;
+  bool mBoundingBoxExplicitlySet;
   /** @endcond */
         
 
@@ -271,6 +272,8 @@ public:
   
   const BoundingBox* getBoundingBox() const;
 
+
+  bool getBoundingBoxExplicitlySet() const;
   /** @cond doxygen-libsbml-internal */
   /**
    * Subclasses should override this method to write out their contained

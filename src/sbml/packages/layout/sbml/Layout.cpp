@@ -87,6 +87,7 @@ Layout::Layout (unsigned int level, unsigned int version, unsigned int pkgVersio
    ,mReactionGlyphs(level,version,pkgVersion)
    ,mTextGlyphs(level,version,pkgVersion)
    ,mAdditionalGraphicalObjects(level,version,pkgVersion)
+   ,mDimensionsExplicitlySet( false )
 {
   // set an SBMLNamespaces derived object (LayoutPkgNamespaces) of this package.
   setSBMLNamespacesAndOwn(new LayoutPkgNamespaces(level,version,pkgVersion));  
@@ -109,6 +110,7 @@ Layout::Layout (LayoutPkgNamespaces* layoutns, const std::string& id, const Dime
    ,mReactionGlyphs(layoutns)
    ,mTextGlyphs(layoutns)
    ,mAdditionalGraphicalObjects(layoutns)
+   ,mDimensionsExplicitlySet (false)
 {
   //
   // set the element namespace of this object
@@ -118,6 +120,7 @@ Layout::Layout (LayoutPkgNamespaces* layoutns, const std::string& id, const Dime
   if(dimensions)
   {
     this->mDimensions=*dimensions;
+    mDimensionsExplicitlySet = true;
   }
 
   // connect child elements to this element.
@@ -143,6 +146,7 @@ Layout::Layout(LayoutPkgNamespaces* layoutns)
   ,mReactionGlyphs(layoutns)
   ,mTextGlyphs(layoutns)
   ,mAdditionalGraphicalObjects(layoutns)
+  ,mDimensionsExplicitlySet (false )
 {
   //
   // set the element namespace of this object
@@ -173,6 +177,7 @@ Layout::Layout(const XMLNode& node, unsigned int l2version)
   ,mReactionGlyphs(2,l2version)
   ,mTextGlyphs(2,l2version)
   ,mAdditionalGraphicalObjects(2,l2version)
+  ,mDimensionsExplicitlySet (false)
 {
 
   LayoutPkgNamespaces *layoutNS = new LayoutPkgNamespaces(2,l2version);
@@ -197,6 +202,7 @@ Layout::Layout(const XMLNode& node, unsigned int l2version)
         if(childName=="dimensions")
         {
             this->mDimensions=Dimensions(*child);
+            mDimensionsExplicitlySet = true;
         }
         else if(childName=="annotation")
         {
@@ -377,6 +383,7 @@ Layout::Layout(const Layout& source):SBase(source)
     this->mReactionGlyphs=*source.getListOfReactionGlyphs();
     this->mTextGlyphs=*source.getListOfTextGlyphs();
     this->mAdditionalGraphicalObjects=*source.getListOfAdditionalGraphicalObjects();
+    this->mDimensionsExplicitlySet=source.getDimensionsExplicitlySet();
 
     // connect child elements to this element.
     connectToChild();
@@ -398,6 +405,7 @@ Layout& Layout::operator=(const Layout& source)
     this->mReactionGlyphs=*source.getListOfReactionGlyphs();
     this->mTextGlyphs=*source.getListOfTextGlyphs();
     this->mAdditionalGraphicalObjects=*source.getListOfAdditionalGraphicalObjects();
+    this->mDimensionsExplicitlySet=source.mDimensionsExplicitlySet;
 
     // connect child elements to this element.
     connectToChild();
@@ -533,7 +541,15 @@ Layout::setDimensions (const Dimensions* dimensions)
 {
   if(dimensions==NULL) return;  
   this->mDimensions = *dimensions;
+  this->mDimensionsExplicitlySet = true;
   this->mDimensions.connectToParent(this);
+}
+
+
+bool
+Layout::getDimensionsExplicitlySet() const
+{
+  return mDimensionsExplicitlySet;
 }
 
 
@@ -1496,13 +1512,14 @@ Layout::createObject (XMLInputStream& stream)
   }
   else if ( name == "dimensions"               ) 
   {
-    //if (&(mDimensions) != NULL)
-    //{
-    //  getErrorLog()->logPackageError("layout", LayoutLayoutMustHaveDimensions, 
-    //    getPackageVersion(), getLevel(), getVersion());
-    //}
+    if (getDimensionsExplicitlySet() == true)
+    {
+      getErrorLog()->logPackageError("layout", LayoutLayoutMustHaveDimensions, 
+        getPackageVersion(), getLevel(), getVersion());
+    }
       
     object = &mDimensions;
+    mDimensionsExplicitlySet = true;
   }
 
   return object;
@@ -1546,7 +1563,8 @@ Layout::readAttributes (const XMLAttributes& attributes,
 				const std::string details =
 				      getErrorLog()->getError(n)->getMessage();
 				getErrorLog()->remove(UnknownPackageAttribute);
-				getErrorLog()->logPackageError("layout", LayoutUnknownError,
+				getErrorLog()->logPackageError("layout", 
+                       LayoutLOLayoutsAllowedAttributes,
 				          getPackageVersion(), sbmlLevel, sbmlVersion, details);
 			}
 			else if (getErrorLog()->getError(n)->getErrorId() == UnknownCoreAttribute)
@@ -1554,7 +1572,8 @@ Layout::readAttributes (const XMLAttributes& attributes,
 				const std::string details =
 				           getErrorLog()->getError(n)->getMessage();
 				getErrorLog()->remove(UnknownCoreAttribute);
-				getErrorLog()->logPackageError("layout", LayoutLOLayoutsAllowedAttributes,
+				getErrorLog()->logPackageError("layout", 
+                  LayoutLOLayoutsAllowedAttributes,
 				          getPackageVersion(), sbmlLevel, sbmlVersion, details);
 			}
 		}
@@ -1691,16 +1710,19 @@ Layout::clone() const
 bool
 Layout::accept (SBMLVisitor& v) const
 {
-  /*  
-  bool result=v.visit(*this);
+    
+  v.visit(*this);
+  
   this->mDimensions.accept(v);
   this->mCompartmentGlyphs.accept(v);
   this->mSpeciesGlyphs.accept(v);
   this->mReactionGlyphs.accept(v);
   this->mTextGlyphs.accept(v);
   this->mAdditionalGraphicalObjects.accept(v);
-  v.leave(*this);*/
-  return false;
+  
+  v.leave(*this);
+  
+  return true;
 }
 
 

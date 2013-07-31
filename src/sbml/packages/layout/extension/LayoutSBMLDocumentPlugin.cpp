@@ -30,6 +30,8 @@
 #include <sbml/packages/layout/validator/LayoutIdentifierConsistencyValidator.h>
 #include <sbml/packages/layout/validator/LayoutSBMLError.h>
 
+#include <sbml/util/MetaIdFilter.h>
+
 
 #ifdef __cplusplus
 
@@ -44,12 +46,14 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 LayoutSBMLDocumentPlugin::LayoutSBMLDocumentPlugin (const string &uri, 
                               const string &prefix, LayoutPkgNamespaces *layoutns)
   : SBMLDocumentPlugin(uri,prefix, layoutns)
+  , mMetaIdListPopulated ( false )
 {
 }
 
 
 LayoutSBMLDocumentPlugin::LayoutSBMLDocumentPlugin(const LayoutSBMLDocumentPlugin& orig)
   : SBMLDocumentPlugin(orig)
+  , mMetaIdListPopulated ( false )
 {
 }
 
@@ -60,6 +64,7 @@ LayoutSBMLDocumentPlugin::operator=(const LayoutSBMLDocumentPlugin& orig)
   if(&orig!=this)
   {
     SBMLDocumentPlugin::operator =(orig);
+    mMetaIdListPopulated = orig.mMetaIdListPopulated;
   }    
   return *this;
 }
@@ -132,12 +137,19 @@ LayoutSBMLDocumentPlugin::isFlatteningImplemented() const
 
 
 unsigned int 
-LayoutSBMLDocumentPlugin::checkConsistency()
+LayoutSBMLDocumentPlugin::checkConsistency(bool overrideFlattening)
 {
   unsigned int nerrors = 0;
   unsigned int total_errors = 0;
 
   SBMLDocument* doc = static_cast<SBMLDocument *>(this->getParentSBMLObject());
+
+  /* populate the listofMetaids in the model*/
+  if (hasMetaidListBeenPopulated() == false)
+  {
+    populateMetaidList();
+  }
+
   SBMLErrorLog *log = doc->getErrorLog();
 
   unsigned char applicableValidators = doc->getApplicableValidators();
@@ -187,6 +199,39 @@ LayoutSBMLDocumentPlugin::checkConsistency()
   /* ADD OTHERS HERE */
 
   return total_errors;  
+}
+
+IdList
+LayoutSBMLDocumentPlugin::getMetaidList() const
+{
+  //if (hasMetaidListBeenPopulated() == false)
+  //{
+  //  this->populateMetaidList();
+  //}
+  return mMetaIdList;
+}
+
+bool
+LayoutSBMLDocumentPlugin::hasMetaidListBeenPopulated() const
+{
+  return mMetaIdListPopulated;
+}
+
+void
+LayoutSBMLDocumentPlugin::populateMetaidList()
+{
+  SBMLDocument* doc = static_cast<SBMLDocument *>(this->getParentSBMLObject());
+
+  MetaIdFilter filter;
+
+  List* allElements = doc->getModel()->getAllElements(&filter);
+  
+  for (unsigned int i = 0; i < allElements->getSize(); i++)
+  {
+    mMetaIdList.append(static_cast<SBase*>(allElements->get(i))->getMetaId());
+  }
+
+  mMetaIdListPopulated = true;
 }
 
 LIBSBML_CPP_NAMESPACE_END

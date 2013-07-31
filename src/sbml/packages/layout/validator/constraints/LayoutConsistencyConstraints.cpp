@@ -33,6 +33,8 @@
 #include <sbml/validator/VConstraint.h>
 
 #include <sbml/packages/layout/validator/LayoutSBMLError.h>
+#include <sbml/packages/layout/common/LayoutExtensionTypes.h>
+#include <sbml/packages/layout/extension/LayoutSBMLDocumentPlugin.h>
 
 #endif  /* AddingConstrainstToValidator */
 
@@ -44,7 +46,198 @@ using namespace std;
 
 /** @endcond */
 
-/** PUT CONSTRAINTS HERE */
+//20315
+START_CONSTRAINT (LayoutLayoutMustHaveDimensions, Layout, l)
+{
+  bool fail = false;
+
+  if (l.getDimensionsExplicitlySet() == false)
+  {
+    fail = true;
+  }
+
+  inv(fail == false);
+}
+END_CONSTRAINT
+
+//20406
+START_CONSTRAINT (LayoutGOMetaIdRefMustReferenceObject, GraphicalObject, go)
+{
+  pre(go.isSetMetaIdRef() == true);
+
+  bool fail = false;
+
+  const LayoutSBMLDocumentPlugin * plug = 
+                            static_cast<const LayoutSBMLDocumentPlugin*>
+                            (go.getSBMLDocument()->getPlugin("layout"));
+
+  if (plug->getMetaidList().contains(go.getMetaIdRef()) == false)
+  {
+    fail = true;
+  }
+
+  inv(fail == false);
+}
+END_CONSTRAINT
+
+
+//20407
+START_CONSTRAINT (LayoutGOMustContainBoundingBox, GraphicalObject, go)
+{
+  bool fail = false;
+
+  if (go.getBoundingBoxExplicitlySet() == false)
+  {
+    fail = true;
+  }
+
+  inv(fail == false);
+}
+END_CONSTRAINT
+
+//20506
+START_CONSTRAINT (LayoutCGMetaIdRefMustReferenceObject, CompartmentGlyph, glyph)
+{
+  pre(glyph.isSetMetaIdRef() == true);
+
+  bool fail = false;
+
+  const LayoutSBMLDocumentPlugin * plug = 
+                            static_cast<const LayoutSBMLDocumentPlugin*>
+                            (glyph.getSBMLDocument()->getPlugin("layout"));
+
+  if (plug->getMetaidList().contains(glyph.getMetaIdRef()) == false)
+  {
+    fail = true;
+  }
+
+  inv(fail == false);
+}
+END_CONSTRAINT
+
+//20606
+START_CONSTRAINT (LayoutSGMetaIdRefMustReferenceObject, SpeciesGlyph, glyph)
+{
+  pre(glyph.isSetMetaIdRef() == true);
+
+  bool fail = false;
+
+  const LayoutSBMLDocumentPlugin * plug = 
+                            static_cast<const LayoutSBMLDocumentPlugin*>
+                            (glyph.getSBMLDocument()->getPlugin("layout"));
+
+  if (plug->getMetaidList().contains(glyph.getMetaIdRef()) == false)
+  {
+    fail = true;
+  }
+
+  inv(fail == false);
+}
+END_CONSTRAINT
+
+//20706
+START_CONSTRAINT (LayoutRGMetaIdRefMustReferenceObject, ReactionGlyph, glyph)
+{
+  pre(glyph.isSetMetaIdRef() == true);
+
+  bool fail = false;
+
+  const LayoutSBMLDocumentPlugin * plug = 
+                            static_cast<const LayoutSBMLDocumentPlugin*>
+                            (glyph.getSBMLDocument()->getPlugin("layout"));
+
+  if (plug->getMetaidList().contains(glyph.getMetaIdRef()) == false)
+  {
+    fail = true;
+  }
+
+  inv(fail == false);
+}
+END_CONSTRAINT
+
+//20806
+START_CONSTRAINT (LayoutGGMetaIdRefMustReferenceObject, GeneralGlyph, glyph)
+{
+  pre(glyph.isSetMetaIdRef() == true);
+
+  bool fail = false;
+
+  const LayoutSBMLDocumentPlugin * plug = 
+                            static_cast<const LayoutSBMLDocumentPlugin*>
+                            (glyph.getSBMLDocument()->getPlugin("layout"));
+
+  if (plug->getMetaidList().contains(glyph.getMetaIdRef()) == false)
+  {
+    fail = true;
+  }
+
+  inv(fail == false);
+}
+END_CONSTRAINT
+
+//20906
+START_CONSTRAINT (LayoutTGMetaIdRefMustReferenceObject, TextGlyph, glyph)
+{
+  pre(glyph.isSetMetaIdRef() == true);
+
+  bool fail = false;
+
+  const LayoutSBMLDocumentPlugin * plug = 
+                            static_cast<const LayoutSBMLDocumentPlugin*>
+                            (glyph.getSBMLDocument()->getPlugin("layout"));
+
+  if (plug->getMetaidList().contains(glyph.getMetaIdRef()) == false)
+  {
+    fail = true;
+  }
+
+  inv(fail == false);
+}
+END_CONSTRAINT
+
+//20106
+START_CONSTRAINT (LayoutSRGMetaIdRefMustReferenceObject, 
+                                        SpeciesReferenceGlyph, glyph)
+{
+  pre(glyph.isSetMetaIdRef() == true);
+
+  bool fail = false;
+
+  const LayoutSBMLDocumentPlugin * plug = 
+                            static_cast<const LayoutSBMLDocumentPlugin*>
+                            (glyph.getSBMLDocument()->getPlugin("layout"));
+
+  if (plug->getMetaidList().contains(glyph.getMetaIdRef()) == false)
+  {
+    fail = true;
+  }
+
+  inv(fail == false);
+}
+END_CONSTRAINT
+
+
+//20116
+START_CONSTRAINT (LayoutREFGMetaIdRefMustReferenceObject, ReferenceGlyph, glyph)
+{
+  pre(glyph.isSetMetaIdRef() == true);
+
+  bool fail = false;
+
+  const LayoutSBMLDocumentPlugin * plug = 
+                            static_cast<const LayoutSBMLDocumentPlugin*>
+                            (glyph.getSBMLDocument()->getPlugin("layout"));
+
+  if (plug->getMetaidList().contains(glyph.getMetaIdRef()) == false)
+  {
+    fail = true;
+  }
+
+  inv(fail == false);
+}
+END_CONSTRAINT
+
+
 
 	/** @endcond doxygen-libsbml-internal */
 

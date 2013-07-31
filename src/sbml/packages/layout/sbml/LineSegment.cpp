@@ -591,12 +591,14 @@ LineSegment::getTypeCode () const
 bool
 LineSegment::accept (SBMLVisitor& v) const
 {
-   /*
-  bool result=v.visit(*this);
+  v.visit(*this);
+  
   this->mStartPoint.accept(v);
   this->mEndPoint.accept(v);
-  v.leave(*this);*/
-  return false;
+  
+  v.leave(*this);
+
+  return true;
 }
 
 

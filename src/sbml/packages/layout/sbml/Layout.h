@@ -645,6 +645,7 @@ protected:
   ListOfReactionGlyphs mReactionGlyphs;
   ListOfTextGlyphs mTextGlyphs;
   ListOfGraphicalObjects mAdditionalGraphicalObjects;
+  bool mDimensionsExplicitlySet;
   /** @endcond */
 
 protected:
@@ -791,6 +792,10 @@ public:
     
   void setDimensions (const Dimensions* dimensions);
 
+  /**
+   * Predicate returning true if the dimensions has been set
+   */
+  bool getDimensionsExplicitlySet() const;
 
   /**
    * Returns the ListOf object that holds all compartment glyphs.
