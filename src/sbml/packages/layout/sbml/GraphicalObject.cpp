@@ -542,8 +542,43 @@ GraphicalObject::createObject (XMLInputStream& stream)
   {
     if (getBoundingBoxExplicitlySet() == true)
     {
-      getErrorLog()->logPackageError("layout", LayoutGOMustContainBoundingBox, 
-        getPackageVersion(), getLevel(), getVersion());
+      int tc = this->getTypeCode();
+
+      switch (tc)
+      {
+      case SBML_LAYOUT_COMPARTMENTGLYPH:
+        getErrorLog()->logPackageError("layout", LayoutCGAllowedElements, 
+          getPackageVersion(), getLevel(), getVersion());
+        break;
+      case SBML_LAYOUT_REACTIONGLYPH:
+        getErrorLog()->logPackageError("layout", LayoutRGAllowedElements, 
+          getPackageVersion(), getLevel(), getVersion());
+        break;
+      case SBML_LAYOUT_SPECIESGLYPH:
+        getErrorLog()->logPackageError("layout", LayoutSGAllowedElements, 
+          getPackageVersion(), getLevel(), getVersion());
+        break;
+      case SBML_LAYOUT_SPECIESREFERENCEGLYPH:
+        getErrorLog()->logPackageError("layout", LayoutSRGAllowedElements, 
+          getPackageVersion(), getLevel(), getVersion());
+        break;
+      case SBML_LAYOUT_TEXTGLYPH:
+        getErrorLog()->logPackageError("layout", LayoutTGAllowedElements, 
+          getPackageVersion(), getLevel(), getVersion());
+        break;
+      case SBML_LAYOUT_REFERENCEGLYPH:
+        getErrorLog()->logPackageError("layout", LayoutREFGAllowedElements, 
+          getPackageVersion(), getLevel(), getVersion());
+        break;
+      case SBML_LAYOUT_GENERALGLYPH:
+        getErrorLog()->logPackageError("layout", LayoutGGAllowedElements, 
+          getPackageVersion(), getLevel(), getVersion());
+        break;
+      default:
+        getErrorLog()->logPackageError("layout", LayoutGOMustContainBoundingBox, 
+          getPackageVersion(), getLevel(), getVersion());
+        break;
+      }
     }
 
     object = &mBoundingBox;

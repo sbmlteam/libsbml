@@ -53,7 +53,7 @@
           </layout:compartmentGlyph>
         </layout:listOfCompartmentGlyphs>
         <layout:listOfSpeciesGlyphs>
-          <layout:speciesGlyph layout:id="SpeciesGlyph_Glucose"  layout:species="Glucose" layout:metaidRef="6__Glucose">
+          <layout:speciesGlyph layout:id="SpeciesGlyph_Glucose"  layout:metaidRef="6__Glucose">
             <layout:boundingBox layout:id="bb2">
               <layout:position layout:x="105" layout:y="20"/>
               <layout:dimensions layout:width="130" layout:height="20"/>

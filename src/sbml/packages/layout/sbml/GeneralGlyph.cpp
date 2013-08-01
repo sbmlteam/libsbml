@@ -107,6 +107,7 @@ GeneralGlyph::GeneralGlyph(unsigned int level, unsigned int version, unsigned in
   ,mReferenceGlyphs(level,version,pkgVersion)
   ,mSubGlyphs(level,version,pkgVersion)
   ,mCurve(level,version,pkgVersion)
+  ,mCurveExplicitlySet (false)
 {
   mSubGlyphs.setElementName("listOfSubGlyphs");
 
@@ -129,6 +130,7 @@ GeneralGlyph::GeneralGlyph(LayoutPkgNamespaces* layoutns)
   ,mReferenceGlyphs(layoutns)
   ,mSubGlyphs(layoutns)
   ,mCurve(layoutns)
+  , mCurveExplicitlySet ( false )
 {
   mSubGlyphs.setElementName("listOfSubGlyphs");
   //
@@ -158,6 +160,7 @@ GeneralGlyph::GeneralGlyph (LayoutPkgNamespaces* layoutns, const std::string& id
    ,mReferenceGlyphs(layoutns)
    ,mSubGlyphs(layoutns)
    ,mCurve(layoutns)
+   ,mCurveExplicitlySet (false)
 {
   mSubGlyphs.setElementName("listOfSubGlyphs");
 
@@ -189,6 +192,7 @@ GeneralGlyph::GeneralGlyph (LayoutPkgNamespaces* layoutns, const std::string& id
    ,mReferenceGlyphs(layoutns)
    ,mSubGlyphs(layoutns)
    ,mCurve(layoutns)
+   , mCurveExplicitlySet (false)
 {
   mSubGlyphs.setElementName("listOfSubGlyphs");
 
@@ -217,6 +221,7 @@ GeneralGlyph::GeneralGlyph(const XMLNode& node, unsigned int l2version)
    ,mReferenceGlyphs(2,l2version)
    ,mSubGlyphs(2,l2version)
    ,mCurve(2,l2version)
+   ,mCurveExplicitlySet (false)
 {
     mSubGlyphs.setElementName("listOfSubGlyphs");
     const XMLAttributes& attributes=node.getAttributes();
@@ -252,6 +257,7 @@ GeneralGlyph::GeneralGlyph(const XMLNode& node, unsigned int l2version)
               }
             }
             delete pTmpCurve;
+            mCurveExplicitlySet = true;
         }
         else if(childName=="listOfReferenceGlyphs")
         {
@@ -347,6 +353,7 @@ GeneralGlyph::GeneralGlyph(const GeneralGlyph& source):GraphicalObject(source)
     this->mCurve=*source.getCurve();
     this->mReferenceGlyphs=*source.getListOfReferenceGlyphs();
     this->mSubGlyphs=*source.getListOfSubGlyphs();
+    this->mCurveExplicitlySet = source.mCurveExplicitlySet;
 
     connectToChild();
 }
@@ -363,6 +370,7 @@ GeneralGlyph& GeneralGlyph::operator=(const GeneralGlyph& source)
     this->mCurve=*source.getCurve();
     this->mReferenceGlyphs=*source.getListOfReferenceGlyphs();
     this->mSubGlyphs=*source.getListOfSubGlyphs();
+    this->mCurveExplicitlySet = source.mCurveExplicitlySet;
     connectToChild();
   }
   
@@ -585,6 +593,7 @@ void GeneralGlyph::setCurve (const Curve* curve)
   if(!curve) return;
   this->mCurve = *curve;
   this->mCurve.connectToParent(this);
+  mCurveExplicitlySet = true;
 }
 
 
@@ -594,6 +603,13 @@ void GeneralGlyph::setCurve (const Curve* curve)
 bool GeneralGlyph::isSetCurve () const
 {
   return this->mCurve.getNumCurveSegments() > 0;
+}
+
+
+bool
+GeneralGlyph::getCurveExplicitlySet() const
+{
+  return mCurveExplicitlySet;
 }
 
 
@@ -800,13 +816,14 @@ GeneralGlyph::createObject (XMLInputStream& stream)
   }
   else if(name=="curve")
   {
-    //if (mCurve != NULL)
-    //{
-    //  getErrorLog()->logPackageError("layout", LayoutGGAllowedElements, 
-    //    getPackageVersion(), getLevel(), getVersion());
-    //}
+    if (getCurveExplicitlySet() == true)
+    {
+      getErrorLog()->logPackageError("layout", LayoutGGAllowedElements, 
+        getPackageVersion(), getLevel(), getVersion());
+    }
 
     object = &mCurve;
+    mCurveExplicitlySet = true;
   }
   else
   {

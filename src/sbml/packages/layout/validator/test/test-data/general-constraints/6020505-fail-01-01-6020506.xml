@@ -45,7 +45,7 @@
       <layout:layout layout:id="Layout_1">
         <layout:dimensions layout:width="400" layout:height="230"/>
         <layout:listOfCompartmentGlyphs>
-          <layout:compartmentGlyph layout:id="CompartmentGlyph_1" layout:compartment="Yeast" layout:metaidRef="6__Yeast" layout:order="3.2">
+          <layout:compartmentGlyph layout:id="CompartmentGlyph_1" layout:metaidRef="6__Yeast" layout:order="3.2">
             <layout:boundingBox layout:id="bb1">
               <layout:position layout:x="5" layout:y="5"/>
               <layout:dimensions layout:width="390" layout:height="220"/>

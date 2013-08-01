@@ -220,6 +220,7 @@ protected:
   ListOfReferenceGlyphs mReferenceGlyphs;
   ListOfGraphicalObjects mSubGlyphs;
   Curve mCurve;
+  bool mCurveExplicitlySet;
   /** @endcond */
         
 
@@ -434,6 +435,8 @@ public:
   
   bool isSetCurve () const;
 
+
+  bool getCurveExplicitlySet() const;
   /**
    * Creates a new ReferenceGlyph object, adds it to the end of the
    * list of reference objects and returns a reference to the newly

@@ -219,6 +219,7 @@ protected:
   std::string mReaction;
   ListOfSpeciesReferenceGlyphs mSpeciesReferenceGlyphs;
   Curve mCurve;
+  bool mCurveExplicitlySet;
   /** @endcond */
         
 
@@ -394,6 +395,8 @@ public:
   
   bool isSetCurve () const;
 
+
+  bool getCurveExplicitlySet() const;
   /**
    * Creates a new SpeciesReferenceGlyph object, adds it to the end of the
    * list of species reference objects and returns a reference to the newly

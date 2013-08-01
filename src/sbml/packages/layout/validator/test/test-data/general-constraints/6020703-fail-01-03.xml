@@ -9,7 +9,7 @@
     </listOfCompartments>
     <listOfSpecies>
       <species id="Glucose" compartment="Yeast" substanceUnits="substance" 
-			hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" metaid="__Glucose"/>
+			hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
       <species id="G6P" name="Glucose-6-phosphate" compartment="Yeast" 
 			substanceUnits="substance" hasOnlySubstanceUnits="false" 
 			boundaryCondition="false" constant="false"/>
@@ -53,7 +53,7 @@
           </layout:compartmentGlyph>
         </layout:listOfCompartmentGlyphs>
         <layout:listOfSpeciesGlyphs>
-          <layout:speciesGlyph layout:id="SpeciesGlyph_Glucose"  layout:metaidRef="__Glucose1">
+          <layout:speciesGlyph layout:id="SpeciesGlyph_Glucose"  layout:species="Glucose">
             <layout:boundingBox layout:id="bb2">
               <layout:position layout:x="105" layout:y="20"/>
               <layout:dimensions layout:width="130" layout:height="20"/>
@@ -85,27 +85,18 @@
           </layout:speciesGlyph>
         </layout:listOfSpeciesGlyphs>
         <layout:listOfReactionGlyphs>
-          <layout:reactionGlyph layout:id="glyph_Hexokinase" layout:reaction="Hexokinase">
-            <layout:curve>
-              <layout:listOfCurveSegments>
-                <layout:curveSegment 
-					xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-					xsi:type="LineSegment">
-                  <layout:start layout:x="170" layout:y="100"/>
-                  <layout:end layout:x="170" layout:y="130"/>
-                </layout:curveSegment>
-              </layout:listOfCurveSegments>
-            </layout:curve>
+          <layout:reactionGlyph metaid="_g1" sboTerm="SBO:0000001" layout:id="glyph_Hexokinase" layout:reaction="Hexokinase">
+                        
             <layout:listOfSpeciesReferenceGlyphs>
               <layout:speciesReferenceGlyph layout:id="SpeciesReferenceGlyph_Glucose" 
-				layout:speciesReference="SpeciesReference_Glucose" 
-				layout:speciesGlyph="SpeciesGlyph_Glucose" 
-				layout:role="substrate">
+                layout:speciesReference="SpeciesReference_Glucose" 
+                layout:speciesGlyph="SpeciesGlyph_Glucose" 
+                layout:role="substrate">
                 <layout:curve>
                   <layout:listOfCurveSegments>
                     <layout:curveSegment 
-						xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-						xsi:type="LineSegment">
+                      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+                      xsi:type="LineSegment">
                       <layout:start layout:x="170" layout:y="100"/>
                       <layout:end layout:x="170" layout:y="50"/>
                     </layout:curveSegment>
@@ -113,14 +104,14 @@
                 </layout:curve>
               </layout:speciesReferenceGlyph>
               <layout:speciesReferenceGlyph layout:id="SpeciesReferenceGlyph_ATP" 
-				layout:speciesReference="SpeciesReference_ATP" 
-				layout:speciesGlyph="SpeciesGlyph_ATP" 
-				layout:role="sidesubstrate">
+                layout:speciesReference="SpeciesReference_ATP" 
+                layout:speciesGlyph="SpeciesGlyph_ATP" 
+                layout:role="sidesubstrate">
                 <layout:curve>
                   <layout:listOfCurveSegments>
                     <layout:curveSegment 
-						xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-						xsi:type="CubicBezier">
+                      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+                      xsi:type="CubicBezier">
                       <layout:start layout:x="170" layout:y="100"/>
                       <layout:end layout:x="260" layout:y="80"/>
                       <layout:basePoint1 layout:x="170" layout:y="80"/>
@@ -130,14 +121,14 @@
                 </layout:curve>
               </layout:speciesReferenceGlyph>
               <layout:speciesReferenceGlyph layout:id="SpeciesReferenceGlyph_G6P_1" 
-				layout:speciesReference="SpeciesReference_G6P" 
-				layout:speciesGlyph="SpeciesGlyph_G6P" 
-				layout:role="product">
+                layout:speciesReference="SpeciesReference_G6P" 
+                layout:speciesGlyph="SpeciesGlyph_G6P" 
+                layout:role="product">
                 <layout:curve>
                   <layout:listOfCurveSegments>
                     <layout:curveSegment 
-						xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-						xsi:type="LineSegment">
+                      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+                      xsi:type="LineSegment">
                       <layout:start layout:x="170" layout:y="130"/>
                       <layout:end layout:x="170" layout:y="180"/>
                     </layout:curveSegment>
@@ -145,14 +136,14 @@
                 </layout:curve>
               </layout:speciesReferenceGlyph>
               <layout:speciesReferenceGlyph layout:id="SpeciesReferenceGlyph_ADP" 
-				layout:speciesReference="SpeciesReference_ADP" 
-				layout:speciesGlyph="glyph_ADP" 
-				layout:role="sideproduct">
+                layout:speciesReference="SpeciesReference_ADP" 
+                layout:speciesGlyph="glyph_ADP" 
+                layout:role="sideproduct">
                 <layout:curve>
                   <layout:listOfCurveSegments>
                     <layout:curveSegment 
-						xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-						xsi:type="CubicBezier">
+                      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+                      xsi:type="CubicBezier">
                       <layout:start layout:x="170" layout:y="130"/>
                       <layout:end layout:x="260" layout:y="150"/>
                       <layout:basePoint1 layout:x="170" layout:y="150"/>
@@ -162,14 +153,14 @@
                 </layout:curve>
               </layout:speciesReferenceGlyph>
               <layout:speciesReferenceGlyph layout:id="SpeciesReferenceGlyph_G6P_2" 
-				layout:speciesReference="ModifierSpeciesReference_G6P" 
-				layout:speciesGlyph="SpeciesGlyph_G6P" 
-				layout:role="inhibitor">
+                layout:speciesReference="ModifierSpeciesReference_G6P" 
+                layout:speciesGlyph="SpeciesGlyph_G6P" 
+                layout:role="inhibitor">
                 <layout:curve>
                   <layout:listOfCurveSegments>
                     <layout:curveSegment 
-						xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-						xsi:type="CubicBezier">
+                      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+                      xsi:type="CubicBezier">
                       <layout:start layout:x="45" layout:y="200"/>
                       <layout:end layout:x="165" layout:y="120"/>
                       <layout:basePoint1 layout:x="0" layout:y="200"/>
@@ -179,14 +170,14 @@
                 </layout:curve>
               </layout:speciesReferenceGlyph>
               <layout:speciesReferenceGlyph layout:id="SpeciesReferenceGlyph_PI" 
-				layout:speciesReference="ModifierSpeciesReference_Pi" 
-				layout:speciesGlyph="SpeciesGlyph_Pi" 
-				layout:role="activator">
+                layout:speciesReference="ModifierSpeciesReference_Pi" 
+                layout:speciesGlyph="SpeciesGlyph_Pi" 
+                layout:role="activator">
                 <layout:curve>
                   <layout:listOfCurveSegments>
                     <layout:curveSegment 
-						xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-						xsi:type="CubicBezier">
+                      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+                      xsi:type="CubicBezier">
                       <layout:start layout:x="115" layout:y="110"/>
                       <layout:end layout:x="165" layout:y="110"/>
                       <layout:basePoint1 layout:x="140" layout:y="110"/>
@@ -195,7 +186,7 @@
                   </layout:listOfCurveSegments>
                 </layout:curve>
               </layout:speciesReferenceGlyph>
-            </layout:listOfSpeciesReferenceGlyphs>
+            </layout:listOfSpeciesReferenceGlyphs>           
           </layout:reactionGlyph>
         </layout:listOfReactionGlyphs>
         <layout:listOfTextGlyphs>

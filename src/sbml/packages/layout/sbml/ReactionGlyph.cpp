@@ -103,6 +103,7 @@ ReactionGlyph::ReactionGlyph(unsigned int level, unsigned int version, unsigned 
   ,mReaction("")
   ,mSpeciesReferenceGlyphs(level,version,pkgVersion)
   ,mCurve(level,version,pkgVersion)
+  ,mCurveExplicitlySet (false)
 {
   connectToChild();
   //
@@ -122,6 +123,7 @@ ReactionGlyph::ReactionGlyph(LayoutPkgNamespaces* layoutns)
   ,mReaction("")
   ,mSpeciesReferenceGlyphs(layoutns)
   ,mCurve(layoutns)
+  , mCurveExplicitlySet ( false )
 {
   //
   // (NOTE) Developers don't have to invoke setElementNamespace function as follows (commentted line)
@@ -149,6 +151,7 @@ ReactionGlyph::ReactionGlyph (LayoutPkgNamespaces* layoutns, const std::string& 
    ,mReaction("")
    ,mSpeciesReferenceGlyphs(layoutns)
    ,mCurve(layoutns)
+   ,mCurveExplicitlySet (false)
 {
   //
   // (NOTE) Developers don't have to invoke setElementNamespace function as follows (commentted line)
@@ -177,6 +180,7 @@ ReactionGlyph::ReactionGlyph (LayoutPkgNamespaces* layoutns, const std::string& 
    ,mReaction      ( reactionId  )
    ,mSpeciesReferenceGlyphs(layoutns)
    ,mCurve(layoutns)
+   , mCurveExplicitlySet (false)
 {
   //
   // (NOTE) Developers don't have to invoke setElementNamespace function as follows (commentted line)
@@ -202,6 +206,7 @@ ReactionGlyph::ReactionGlyph(const XMLNode& node, unsigned int l2version)
    ,mReaction      ("")
    ,mSpeciesReferenceGlyphs(2,l2version)
    ,mCurve(2,l2version)
+   ,mCurveExplicitlySet (false)
 {
     const XMLAttributes& attributes=node.getAttributes();
     const XMLNode* child;
@@ -236,6 +241,7 @@ ReactionGlyph::ReactionGlyph(const XMLNode& node, unsigned int l2version)
               }
             }
             delete pTmpCurve;
+            mCurveExplicitlySet = true;
         }
         else if(childName=="listOfSpeciesReferenceGlyphs")
         {
@@ -282,6 +288,7 @@ ReactionGlyph::ReactionGlyph(const ReactionGlyph& source):GraphicalObject(source
     this->mReaction=source.getReactionId();
     this->mCurve=*source.getCurve();
     this->mSpeciesReferenceGlyphs=*source.getListOfSpeciesReferenceGlyphs();
+    this->mCurveExplicitlySet = source.mCurveExplicitlySet;
 
     connectToChild();
 }
@@ -297,6 +304,7 @@ ReactionGlyph& ReactionGlyph::operator=(const ReactionGlyph& source)
     this->mReaction=source.getReactionId();
     this->mCurve=*source.getCurve();
     this->mSpeciesReferenceGlyphs=*source.getListOfSpeciesReferenceGlyphs();
+    this->mCurveExplicitlySet = source.mCurveExplicitlySet;
     connectToChild();
   }
   
@@ -455,6 +463,7 @@ void ReactionGlyph::setCurve (const Curve* curve)
   if(!curve) return;
   this->mCurve = *curve;
   this->mCurve.connectToParent(this);
+  mCurveExplicitlySet = true;
 }
 
 
@@ -464,6 +473,13 @@ void ReactionGlyph::setCurve (const Curve* curve)
 bool ReactionGlyph::isSetCurve () const
 {
   return this->mCurve.getNumCurveSegments() > 0;
+}
+
+
+bool
+ReactionGlyph::getCurveExplicitlySet() const
+{
+  return mCurveExplicitlySet;
 }
 
 
@@ -602,13 +618,14 @@ ReactionGlyph::createObject (XMLInputStream& stream)
   }
   else if(name=="curve")
   {
-    //if (mCurve != NULL)
-    //{
-    //  getErrorLog()->logPackageError("layout", LayoutRGAllowedElements, 
-    //    getPackageVersion(), getLevel(), getVersion());
-    //}
+    if (getCurveExplicitlySet() == true)
+    {
+      getErrorLog()->logPackageError("layout", LayoutRGAllowedElements, 
+        getPackageVersion(), getLevel(), getVersion());
+    }
 
     object = &mCurve;
+    mCurveExplicitlySet = true;
   }
   else
   {

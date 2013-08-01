@@ -115,6 +115,43 @@ START_CONSTRAINT (LayoutCGMetaIdRefMustReferenceObject, CompartmentGlyph, glyph)
 }
 END_CONSTRAINT
 
+//20508
+START_CONSTRAINT (LayoutCGCompartmentMustRefComp, CompartmentGlyph, glyph)
+{
+  pre(glyph.isSetCompartmentId() == true);
+
+  bool fail = false;
+
+  if (m.getCompartment(glyph.getCompartmentId()) == NULL)
+  {
+    fail = true;
+  }
+
+  inv(fail == false);
+}
+END_CONSTRAINT
+
+//20509
+START_CONSTRAINT (LayoutCGNoDuplicateReferences, CompartmentGlyph, glyph)
+{
+  pre(glyph.isSetCompartmentId() == true);
+  pre(glyph.isSetMetaIdRef() == true);
+
+  bool fail = false;
+
+  const Compartment * c = m.getCompartment(glyph.getCompartmentId());
+
+  pre (c->isSetMetaId() == true);
+
+  if (c->getMetaId() != glyph.getMetaIdRef())
+  {
+    fail = true;
+  }
+
+  inv(fail == false);
+}
+END_CONSTRAINT
+
 //20606
 START_CONSTRAINT (LayoutSGMetaIdRefMustReferenceObject, SpeciesGlyph, glyph)
 {
@@ -135,6 +172,58 @@ START_CONSTRAINT (LayoutSGMetaIdRefMustReferenceObject, SpeciesGlyph, glyph)
 }
 END_CONSTRAINT
 
+//20608
+START_CONSTRAINT (LayoutSGSpeciesMustRefSpecies, SpeciesGlyph, glyph)
+{
+  pre(glyph.isSetSpeciesId() == true);
+
+  bool fail = false;
+
+  if (m.getSpecies(glyph.getSpeciesId()) == NULL)
+  {
+    fail = true;
+  }
+
+  inv(fail == false);
+}
+END_CONSTRAINT
+
+//20609
+START_CONSTRAINT (LayoutSGNoDuplicateReferences, SpeciesGlyph, glyph)
+{
+  pre(glyph.isSetSpeciesId() == true);
+  pre(glyph.isSetMetaIdRef() == true);
+
+  bool fail = false;
+
+  const Species * obj = m.getSpecies(glyph.getSpeciesId());
+
+  pre (obj->isSetMetaId() == true);
+
+  if (obj->getMetaId() != glyph.getMetaIdRef())
+  {
+    fail = true;
+  }
+
+  inv(fail == false);
+}
+END_CONSTRAINT
+
+//20703
+START_CONSTRAINT (LayoutRGAllowedElements, ReactionGlyph, glyph)
+{
+  bool fail = false;
+
+  if (glyph.getCurveExplicitlySet() == false
+    && glyph.getBoundingBoxExplicitlySet() == false)
+  {
+    fail = true;
+  }
+
+  inv(fail == false);
+}
+END_CONSTRAINT
+
 //20706
 START_CONSTRAINT (LayoutRGMetaIdRefMustReferenceObject, ReactionGlyph, glyph)
 {
@@ -147,6 +236,58 @@ START_CONSTRAINT (LayoutRGMetaIdRefMustReferenceObject, ReactionGlyph, glyph)
                             (glyph.getSBMLDocument()->getPlugin("layout"));
 
   if (plug->getMetaidList().contains(glyph.getMetaIdRef()) == false)
+  {
+    fail = true;
+  }
+
+  inv(fail == false);
+}
+END_CONSTRAINT
+
+//20708
+START_CONSTRAINT (LayoutRGReactionMustRefReaction, ReactionGlyph, glyph)
+{
+  pre(glyph.isSetReactionId() == true);
+
+  bool fail = false;
+
+  if (m.getReaction(glyph.getReactionId()) == NULL)
+  {
+    fail = true;
+  }
+
+  inv(fail == false);
+}
+END_CONSTRAINT
+
+//20709
+START_CONSTRAINT (LayoutRGNoDuplicateReferences, ReactionGlyph, glyph)
+{
+  pre(glyph.isSetReactionId() == true);
+  pre(glyph.isSetMetaIdRef() == true);
+
+  bool fail = false;
+
+  const Reaction * obj = m.getReaction(glyph.getReactionId());
+
+  pre (obj->isSetMetaId() == true);
+
+  if (obj->getMetaId() != glyph.getMetaIdRef())
+  {
+    fail = true;
+  }
+
+  inv(fail == false);
+}
+END_CONSTRAINT
+
+//20803
+START_CONSTRAINT (LayoutGGAllowedElements, GeneralGlyph, glyph)
+{
+  bool fail = false;
+
+  if (glyph.getCurveExplicitlySet() == false
+    && glyph.getBoundingBoxExplicitlySet() == false)
   {
     fail = true;
   }

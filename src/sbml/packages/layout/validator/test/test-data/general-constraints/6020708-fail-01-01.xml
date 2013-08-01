@@ -9,7 +9,7 @@
     </listOfCompartments>
     <listOfSpecies>
       <species id="Glucose" compartment="Yeast" substanceUnits="substance" 
-			hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" metaid="__Glucose"/>
+			hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
       <species id="G6P" name="Glucose-6-phosphate" compartment="Yeast" 
 			substanceUnits="substance" hasOnlySubstanceUnits="false" 
 			boundaryCondition="false" constant="false"/>
@@ -21,7 +21,7 @@
 			hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
     </listOfSpecies>
     <listOfReactions>
-      <reaction id="Hexokinase" reversible="false" fast="false">
+      <reaction id="Hexokinase" reversible="false" fast="false" metaid="_Hex">
         <listOfReactants>
           <speciesReference id="SpeciesReference_Glucose" species="Glucose" 
 			stoichiometry="1" constant="true"/>
@@ -53,7 +53,7 @@
           </layout:compartmentGlyph>
         </layout:listOfCompartmentGlyphs>
         <layout:listOfSpeciesGlyphs>
-          <layout:speciesGlyph layout:id="SpeciesGlyph_Glucose"  layout:metaidRef="__Glucose1">
+          <layout:speciesGlyph layout:id="SpeciesGlyph_Glucose"  layout:species="Glucose">
             <layout:boundingBox layout:id="bb2">
               <layout:position layout:x="105" layout:y="20"/>
               <layout:dimensions layout:width="130" layout:height="20"/>
@@ -85,7 +85,7 @@
           </layout:speciesGlyph>
         </layout:listOfSpeciesGlyphs>
         <layout:listOfReactionGlyphs>
-          <layout:reactionGlyph layout:id="glyph_Hexokinase" layout:reaction="Hexokinase">
+          <layout:reactionGlyph layout:id="ATP" layout:reaction="Hexokinase1">
             <layout:curve>
               <layout:listOfCurveSegments>
                 <layout:curveSegment 

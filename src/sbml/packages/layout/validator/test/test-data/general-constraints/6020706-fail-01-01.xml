@@ -85,7 +85,7 @@
           </layout:speciesGlyph>
         </layout:listOfSpeciesGlyphs>
         <layout:listOfReactionGlyphs>
-          <layout:reactionGlyph layout:id="glyph_Hexokinase" layout:reaction="Hexokinase" layout:metaidRef="_Hex1">
+          <layout:reactionGlyph layout:id="glyph_Hexokinase"  layout:metaidRef="_Hex1">
             <layout:curve>
               <layout:listOfCurveSegments>
                 <layout:curveSegment 
