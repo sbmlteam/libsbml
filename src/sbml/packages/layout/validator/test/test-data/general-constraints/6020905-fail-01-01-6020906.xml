@@ -65,7 +65,7 @@
         
         <layout:listOfTextGlyphs>
           <layout:textGlyph layout:id="TextGlyph_Glucose" 
-			layout:originOfText="Glucose" 
+
 			layout:graphicalObject="SpeciesGlyph_Glucose"
             layout:metaidRef="1_SG1" layout:text="SBO:0000001">
             <layout:boundingBox layout:id="bbA">

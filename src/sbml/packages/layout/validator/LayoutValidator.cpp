@@ -543,9 +543,9 @@ LayoutValidator::validate (const SBMLDocument& d)
     const LayoutSBMLDocumentPlugin* docPlug = 
       static_cast <const LayoutSBMLDocumentPlugin *> (d.getPlugin("layout"));
 
-    if (docPlug->hasMetaidListBeenPopulated() == false)
+    if (docPlug->haveValidationListsBeenPopulated() == false)
     {
-      const_cast<LayoutSBMLDocumentPlugin *>(docPlug)->populateMetaidList();
+      const_cast<LayoutSBMLDocumentPlugin *>(docPlug)->populateValidationLists();
     }
 
 

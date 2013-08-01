@@ -31,6 +31,7 @@
 #include <sbml/packages/layout/validator/LayoutSBMLError.h>
 
 #include <sbml/util/MetaIdFilter.h>
+#include <sbml/util/IdFilter.h>
 
 
 #ifdef __cplusplus
@@ -46,14 +47,14 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 LayoutSBMLDocumentPlugin::LayoutSBMLDocumentPlugin (const string &uri, 
                               const string &prefix, LayoutPkgNamespaces *layoutns)
   : SBMLDocumentPlugin(uri,prefix, layoutns)
-  , mMetaIdListPopulated ( false )
+  , mValidationListsPopulated ( false )
 {
 }
 
 
 LayoutSBMLDocumentPlugin::LayoutSBMLDocumentPlugin(const LayoutSBMLDocumentPlugin& orig)
   : SBMLDocumentPlugin(orig)
-  , mMetaIdListPopulated ( false )
+  , mValidationListsPopulated ( false )
 {
 }
 
@@ -64,7 +65,7 @@ LayoutSBMLDocumentPlugin::operator=(const LayoutSBMLDocumentPlugin& orig)
   if(&orig!=this)
   {
     SBMLDocumentPlugin::operator =(orig);
-    mMetaIdListPopulated = orig.mMetaIdListPopulated;
+    mValidationListsPopulated = orig.mValidationListsPopulated;
   }    
   return *this;
 }
@@ -145,9 +146,9 @@ LayoutSBMLDocumentPlugin::checkConsistency(bool overrideFlattening)
   SBMLDocument* doc = static_cast<SBMLDocument *>(this->getParentSBMLObject());
 
   /* populate the listofMetaids in the model*/
-  if (hasMetaidListBeenPopulated() == false)
+  if (haveValidationListsBeenPopulated() == false)
   {
-    populateMetaidList();
+    populateValidationLists();
   }
 
   SBMLErrorLog *log = doc->getErrorLog();
@@ -204,34 +205,56 @@ LayoutSBMLDocumentPlugin::checkConsistency(bool overrideFlattening)
 IdList
 LayoutSBMLDocumentPlugin::getMetaidList() const
 {
-  //if (hasMetaidListBeenPopulated() == false)
-  //{
-  //  this->populateMetaidList();
-  //}
   return mMetaIdList;
 }
 
-bool
-LayoutSBMLDocumentPlugin::hasMetaidListBeenPopulated() const
+IdList
+LayoutSBMLDocumentPlugin::getIdList() const
 {
-  return mMetaIdListPopulated;
+  return mIdList;
+}
+
+List *
+LayoutSBMLDocumentPlugin::getListElementsWithId() const
+{
+  return mElementsWithId;
+}
+
+bool
+LayoutSBMLDocumentPlugin::haveValidationListsBeenPopulated() const
+{
+  return mValidationListsPopulated;
 }
 
 void
-LayoutSBMLDocumentPlugin::populateMetaidList()
+LayoutSBMLDocumentPlugin::populateValidationLists()
 {
+  mElementsWithId = new List();
+  mMetaIdList.clear();
+  mIdList.clear();
+
   SBMLDocument* doc = static_cast<SBMLDocument *>(this->getParentSBMLObject());
 
-  MetaIdFilter filter;
+  MetaIdFilter metaidFilter;
 
-  List* allElements = doc->getModel()->getAllElements(&filter);
+  List* allElementsWithMetaid = doc->getModel()->getAllElements(&metaidFilter);
   
-  for (unsigned int i = 0; i < allElements->getSize(); i++)
+  for (unsigned int i = 0; i < allElementsWithMetaid->getSize(); i++)
   {
-    mMetaIdList.append(static_cast<SBase*>(allElements->get(i))->getMetaId());
+    mMetaIdList.append(static_cast<SBase*>
+                      (allElementsWithMetaid->get(i))->getMetaId());
   }
 
-  mMetaIdListPopulated = true;
+  IdFilter idFilter;
+
+  mElementsWithId = doc->getModel()->getAllElements(&idFilter);
+  
+  for (unsigned int i = 0; i < mElementsWithId->getSize(); i++)
+  {
+    mIdList.append(static_cast<SBase*>(mElementsWithId->get(i))->getId());
+  }
+
+  mValidationListsPopulated = true;
 }
 
 LIBSBML_CPP_NAMESPACE_END

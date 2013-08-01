@@ -46,7 +46,7 @@
         <layout:dimensions layout:width="400" layout:height="230"/>
         
         <layout:listOfSpeciesGlyphs>
-          <layout:speciesGlyph layout:id="SpeciesGlyph_Glucose"  layout:species="Glucose" metaid="_SG1">
+          <layout:speciesGlyph layout:id="SpeciesGlyph_Glucose"  layout:species="Glucose">
             <layout:boundingBox layout:id="bb2">
               <layout:position layout:x="105" layout:y="20"/>
               <layout:dimensions layout:width="130" layout:height="20"/>
@@ -66,8 +66,12 @@
         <layout:listOfTextGlyphs>
           <layout:textGlyph layout:id="TextGlyph_Glucose" 
 			layout:originOfText="Glucose" 
-			layout:graphicalObject="1SpeciesGlyph_Glucose"
-            layout:metaidRef="_SG1" layout:text="SBO:0000001">
+			layout:graphicalObject="SpeciesGlyph_Glucose"
+            metaid="mid" sboTerm="SBO:0000001">
+            <layout:boundingBox layout:id="bbA">
+              <layout:position layout:x="115" layout:y="20"/>
+              <layout:dimensions layout:width="110" layout:height="20"/>
+            </layout:boundingBox>
             <layout:boundingBox layout:id="bbA">
               <layout:position layout:x="115" layout:y="20"/>
               <layout:dimensions layout:width="110" layout:height="20"/>

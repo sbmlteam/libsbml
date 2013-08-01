@@ -136,9 +136,13 @@ public:
 
   IdList getMetaidList() const;
 
-  bool hasMetaidListBeenPopulated() const;
+  bool haveValidationListsBeenPopulated() const;
 
-  void populateMetaidList();
+  void populateValidationLists();
+
+  IdList getIdList() const;
+
+  List * getListElementsWithId() const;
 
   /** @endcond doxygen-libsbml-internal */
 
@@ -148,7 +152,12 @@ protected:
 	/** @cond doxygen-libsbml-internal */
 
   IdList mMetaIdList;
-  bool mMetaIdListPopulated;
+  
+  IdList mIdList;
+
+  List* mElementsWithId;
+
+  bool mValidationListsPopulated;
 	
   
   /** @endcond doxygen-libsbml-internal */
