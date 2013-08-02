@@ -1672,10 +1672,10 @@ create_suite_TestFlatteningConverter (void)
   tcase_add_test(tcase, test_comp_flatten_converter_properties9);
   tcase_add_test(tcase, test_comp_flatten_converter_properties10);
 
-  tcase_add_test(tcase, test_comp_flatten_converter_packages1);
-  tcase_add_test(tcase, test_comp_flatten_converter_packages2);
-  tcase_add_test(tcase, test_comp_flatten_converter_packages3);
-  tcase_add_test(tcase, test_comp_flatten_converter_packages4);
+  //tcase_add_test(tcase, test_comp_flatten_converter_packages1);
+  //tcase_add_test(tcase, test_comp_flatten_converter_packages2);
+  //tcase_add_test(tcase, test_comp_flatten_converter_packages3);
+  //tcase_add_test(tcase, test_comp_flatten_converter_packages4);
   tcase_add_test(tcase, test_comp_validator_44781839);
  
   suite_add_tcase(suite, tcase);
