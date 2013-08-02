@@ -78,6 +78,7 @@ protected:
   std::string mGlyph;
   std::string mRole;
   Curve mCurve;
+  bool mCurveExplicitlySet;
   /** @endcond */
   
 public:
@@ -215,6 +216,8 @@ public:
   
     bool isSetCurve () const;
 
+
+  bool getCurveExplicitlySet() const;
   /**
    * Returns true if the id of the associated glpyh is not the
    * empty string.

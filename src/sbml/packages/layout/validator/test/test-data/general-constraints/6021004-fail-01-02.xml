@@ -24,7 +24,7 @@
       <reaction id="Hexokinase" reversible="false" fast="false">
         <listOfReactants>
           <speciesReference id="SpeciesReference_Glucose" species="Glucose" 
-			stoichiometry="1" constant="true"/>
+            stoichiometry="1" constant="true"  metaid="__SG1"/>
           <speciesReference id="SpeciesReference_ATP" species="ATP" 
 			stoichiometry="1" constant="true"/>
         </listOfReactants>
@@ -53,7 +53,7 @@
           </layout:compartmentGlyph>
         </layout:listOfCompartmentGlyphs>
         <layout:listOfSpeciesGlyphs>
-          <layout:speciesGlyph layout:id="SpeciesGlyph_Glucose"  layout:species="Glucose" metaid="__SG1">
+          <layout:speciesGlyph layout:id="SpeciesGlyph_Glucose"  layout:species="Glucose">
             <layout:boundingBox layout:id="bb2">
               <layout:position layout:x="105" layout:y="20"/>
               <layout:dimensions layout:width="130" layout:height="20"/>

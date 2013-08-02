@@ -16,8 +16,7 @@
 	    hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
       <species  sboTerm="SBO:0000395" id="Node1" 
 	    compartment="compartment" initialConcentration="0" 
-	    hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"
-	    metaid="_sG1"/>
+	    hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
     </listOfSpecies>
 	
     <layout:listOfLayouts 
@@ -33,7 +32,7 @@
               <layout:dimensions layout:width="62" layout:height="40"/>
             </layout:boundingBox>
           </layout:speciesGlyph>
-          <layout:speciesGlyph layout:id="sGlyph_1" layout:species="Node1">
+          <layout:speciesGlyph layout:id="sGlyph_1" layout:species="Node1" >
             <layout:boundingBox>
               <layout:position layout:x="161" layout:y="18"/>
               <layout:dimensions layout:width="62" layout:height="40"/>
@@ -60,11 +59,11 @@
 			  <!-- reference glyph representing the inhibited species -->
               <layout:referenceGlyph 
 			      layout:id="SpeciesReference_J0_0" 
-
+				  layout:reference="Node1" 
 				  layout:glyph="sGlyph_1" 
 				  layout:role="inhibitor"
-                layout:metaidRef="_sG2">
-				  
+                metaid="_ff" sboTerm="SBO:0000001">
+
                 <layout:curve>
                   <layout:listOfCurveSegments>
                     <layout:curveSegment 
@@ -75,7 +74,9 @@
                     </layout:curveSegment>
                   </layout:listOfCurveSegments>
                 </layout:curve>
-				
+                <layout:curve>
+                 </layout:curve>
+                
               </layout:referenceGlyph>              
             </layout:listOfReferenceGlyphs>
           </layout:generalGlyph>

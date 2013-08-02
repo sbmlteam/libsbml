@@ -53,7 +53,7 @@
           </layout:compartmentGlyph>
         </layout:listOfCompartmentGlyphs>
         <layout:listOfSpeciesGlyphs>
-          <layout:speciesGlyph layout:id="SpeciesGlyph_Glucose"  layout:species="Glucose" metaid="__SG1">
+          <layout:speciesGlyph layout:id="SpeciesGlyph_Glucose"  layout:species="Glucose">
             <layout:boundingBox layout:id="bb2">
               <layout:position layout:x="105" layout:y="20"/>
               <layout:dimensions layout:width="130" layout:height="20"/>
@@ -100,7 +100,7 @@
               <layout:speciesReferenceGlyph layout:id="SpeciesReferenceGlyph_Glucose" 
 				layout:speciesReference="SpeciesReference_Glucose" 
 				layout:speciesGlyph="SpeciesGlyph_Glucose" 
-				layout:role="normalsubstrate">
+				layout:role="substrate" metaid="ggggg" sboTerm="SBO:0000001">
                 <layout:curve>
                   <layout:listOfCurveSegments>
                     <layout:curveSegment 
@@ -110,6 +110,9 @@
                       <layout:end layout:x="170" layout:y="50"/>
                     </layout:curveSegment>
                   </layout:listOfCurveSegments>
+                </layout:curve>
+                <layout:curve>
+
                 </layout:curve>
               </layout:speciesReferenceGlyph>
               <layout:speciesReferenceGlyph layout:id="SpeciesReferenceGlyph_ATP" 

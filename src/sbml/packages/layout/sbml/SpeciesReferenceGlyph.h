@@ -79,6 +79,7 @@ protected:
   std::string mSpeciesGlyph;
   SpeciesReferenceRole_t mRole;
   Curve mCurve;
+  bool mCurveExplicitlySet;
   /** @endcond */
 
 private:
@@ -244,6 +245,8 @@ public:
   
     bool isSetCurve () const;
 
+
+  bool getCurveExplicitlySet() const;
   /**
    * Returns true if the id of the associated species glpyh is not the
    * empty string.

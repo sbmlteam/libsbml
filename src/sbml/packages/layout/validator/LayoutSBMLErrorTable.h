@@ -1277,18 +1277,7 @@ static const packageErrorTableEntry layoutErrorTable[] =
 
   // 6021012
   { LayoutSRGRoleSyntax, 
-    "SpeciesReferenceGlyph 'role' must be string.",
-    LIBSBML_CAT_GENERAL_CONSISTENCY, 
-    LIBSBML_SEV_ERROR,
-    "The attribute 'layout:role' of a <speciesReferenceGlyph> "
-    "must be the data type 'SpeciesReferenceRole'.",
-    { "L3V1 Layout V1 Section 3.10.1"
-    }
-  },
-
-  // 6021013
-  { LayoutSRGRoleMustBeSRGRoleValue, 
-    "SpeciesReferenceGlyph 'role' must be from enumeration.",
+    "SpeciesReferenceGlyph 'role' must be string from enumeration.",
     LIBSBML_CAT_GENERAL_CONSISTENCY, 
     LIBSBML_SEV_ERROR,
     "The value of a 'layout:role' of a <speciesReferenceGlyph> "

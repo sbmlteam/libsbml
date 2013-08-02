@@ -99,9 +99,8 @@
             <layout:listOfSpeciesReferenceGlyphs>
               <layout:speciesReferenceGlyph layout:id="SpeciesReferenceGlyph_Glucose" 
 				layout:speciesReference="SpeciesReference_Glucose" 
-				layout:speciesGlyph="1SpeciesGlyph_Glucose" 
-				layout:role="substrate"
-                layout:metaidRef="__SG1">
+				layout:speciesGlyph="SpeciesGlyph_Glucose" 
+				layout:role="normalsubstrate">
                 <layout:curve>
                   <layout:listOfCurveSegments>
                     <layout:curveSegment 

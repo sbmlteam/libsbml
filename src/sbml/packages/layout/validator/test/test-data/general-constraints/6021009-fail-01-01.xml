@@ -59,7 +59,7 @@
               <layout:dimensions layout:width="130" layout:height="20"/>
             </layout:boundingBox>
           </layout:speciesGlyph>
-          <layout:speciesGlyph layout:id="SpeciesGlyph_G6P" layout:species="G6P">
+          <layout:speciesGlyph layout:id="SpeciesGlyph_G6P" layout:species="G6P" metaid="_G6P">
             <layout:boundingBox layout:id="bb5">
               <layout:position layout:x="50" layout:y="190"/>
               <layout:dimensions layout:width="270" layout:height="20"/>
@@ -100,7 +100,8 @@
               <layout:speciesReferenceGlyph layout:id="SpeciesReferenceGlyph_Glucose" 
 				layout:speciesReference="SpeciesReference_Glucose" 
 				layout:speciesGlyph="SpeciesGlyph_Glucose" 
-				layout:role="normalsubstrate">
+				layout:role="substrate"
+				layout:metaidRef="_G6P">
                 <layout:curve>
                   <layout:listOfCurveSegments>
                     <layout:curveSegment 

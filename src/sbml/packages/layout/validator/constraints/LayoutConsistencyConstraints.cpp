@@ -578,6 +578,21 @@ START_CONSTRAINT (LayoutTGGraphicalObjectMustRefObject, TextGlyph, glyph)
 }
 END_CONSTRAINT
 
+//21003
+START_CONSTRAINT (LayoutSRGAllowedElements, SpeciesReferenceGlyph, glyph)
+{
+  bool fail = false;
+
+  if (glyph.getCurveExplicitlySet() == false
+    && glyph.getBoundingBoxExplicitlySet() == false)
+  {
+    fail = true;
+  }
+
+  inv(fail == false);
+}
+END_CONSTRAINT
+
 //21006
 START_CONSTRAINT (LayoutSRGMetaIdRefMustReferenceObject, 
                                         SpeciesReferenceGlyph, glyph)
@@ -599,8 +614,114 @@ START_CONSTRAINT (LayoutSRGMetaIdRefMustReferenceObject,
 }
 END_CONSTRAINT
 
+//21008
+START_CONSTRAINT (LayoutSRGSpeciesRefMustRefObject, 
+                                             SpeciesReferenceGlyph, glyph)
+{
+  pre(glyph.isSetSpeciesReferenceId() == true);
 
-//20116
+  bool fail = false;
+
+  if (m.getSpeciesReference(glyph.getSpeciesReferenceId()) == NULL
+    && m.getModifierSpeciesReference(glyph.getSpeciesReferenceId()) == NULL)
+  {
+    fail = true;
+  }
+
+  inv(fail == false);
+}
+END_CONSTRAINT
+
+//21009
+START_CONSTRAINT (LayoutSRGNoDuplicateReferences, SpeciesReferenceGlyph, glyph)
+{
+  pre(glyph.isSetSpeciesReferenceId() == true);
+  pre(glyph.isSetMetaIdRef() == true);
+
+  std::string sref = glyph.getSpeciesReferenceId();
+
+  bool fail = false;
+
+  const LayoutSBMLDocumentPlugin * plug = 
+                            static_cast<const LayoutSBMLDocumentPlugin*>
+                            (glyph.getSBMLDocument()->getPlugin("layout"));
+
+  List * elements = plug->getListElementsWithId();
+  unsigned int i = 0;
+  SBase * obj;
+  while (i < elements->getSize())
+  {
+    obj = (SBase*)(elements->get(i));
+    if (obj->getId() == sref)
+    {
+      break;
+    }
+    i++;
+  }
+
+  // bail if we have not found a match
+  pre ( i < elements->getSize());
+
+  if (obj->isSetMetaId() == false || obj->getMetaId() != glyph.getMetaIdRef())
+  {
+    fail = true;
+  }
+
+  inv(fail == false);
+}
+END_CONSTRAINT
+
+//20911
+START_CONSTRAINT (LayoutSRGSpeciesGlyphMustRefObject, 
+                                  SpeciesReferenceGlyph, glyph)
+{
+  pre(glyph.isSetSpeciesGlyphId() == true);
+
+  std::string sGlyph = glyph.getSpeciesGlyphId();
+  bool fail = false;
+
+  const Layout* layout = static_cast<const Layout *>
+                        (glyph.getAncestorOfType(SBML_LAYOUT_LAYOUT, "layout"));
+
+
+  unsigned int i = 0;
+  bool match = false;
+  
+  while(match == false && i < layout->getNumSpeciesGlyphs())
+  {
+    if (layout->getSpeciesGlyph(i)->getId() == sGlyph)
+    {
+      match = true;
+    }
+
+    i++;
+  }
+
+  if (match == false)
+  {
+    fail = true;
+  }
+
+  inv(fail == false);
+}
+END_CONSTRAINT
+
+//21103
+START_CONSTRAINT (LayoutREFGAllowedElements, ReferenceGlyph, glyph)
+{
+  bool fail = false;
+
+  if (glyph.getCurveExplicitlySet() == false
+    && glyph.getBoundingBoxExplicitlySet() == false)
+  {
+    fail = true;
+  }
+
+  inv(fail == false);
+}
+END_CONSTRAINT
+
+//21106
 START_CONSTRAINT (LayoutREFGMetaIdRefMustReferenceObject, ReferenceGlyph, glyph)
 {
   pre(glyph.isSetMetaIdRef() == true);
@@ -612,6 +733,103 @@ START_CONSTRAINT (LayoutREFGMetaIdRefMustReferenceObject, ReferenceGlyph, glyph)
                             (glyph.getSBMLDocument()->getPlugin("layout"));
 
   if (plug->getMetaidList().contains(glyph.getMetaIdRef()) == false)
+  {
+    fail = true;
+  }
+
+  inv(fail == false);
+}
+END_CONSTRAINT
+
+//21108
+START_CONSTRAINT (LayoutREFGReferenceMustRefObject, ReferenceGlyph, glyph)
+{
+  pre(glyph.isSetReferenceId() == true);
+
+  bool fail = false;
+
+  const LayoutSBMLDocumentPlugin * plug = 
+                            static_cast<const LayoutSBMLDocumentPlugin*>
+                            (glyph.getSBMLDocument()->getPlugin("layout"));
+
+  if (plug->getIdList().contains(glyph.getReferenceId()) == false)
+  {
+    fail = true;
+  }
+
+  inv(fail == false);
+}
+END_CONSTRAINT
+
+//21109
+START_CONSTRAINT (LayoutREFGNoDuplicateReferences, ReferenceGlyph, glyph)
+{
+  pre(glyph.isSetReferenceId() == true);
+  pre(glyph.isSetMetaIdRef() == true);
+
+  std::string origin = glyph.getReferenceId();
+
+  bool fail = false;
+
+  const LayoutSBMLDocumentPlugin * plug = 
+                            static_cast<const LayoutSBMLDocumentPlugin*>
+                            (glyph.getSBMLDocument()->getPlugin("layout"));
+
+  List * elements = plug->getListElementsWithId();
+  unsigned int i = 0;
+  SBase * obj;
+  while (i < elements->getSize())
+  {
+    obj = (SBase*)(elements->get(i));
+    if (obj->getId() == origin)
+    {
+      break;
+    }
+    i++;
+  }
+
+  // bail if we have not found a match
+  pre ( i < elements->getSize());
+
+  if (obj->isSetMetaId() == false || obj->getMetaId() != glyph.getMetaIdRef())
+  {
+    fail = true;
+  }
+
+  inv(fail == false);
+}
+END_CONSTRAINT
+
+//21111
+START_CONSTRAINT (LayoutREFGGlyphMustRefObject, ReferenceGlyph, glyph)
+{
+  pre(glyph.isSetGlyphId() == true);
+
+  std::string goRef = glyph.getGlyphId();
+  bool fail = false;
+
+  const Layout* layout = static_cast<const Layout *>
+                        (glyph.getAncestorOfType(SBML_LAYOUT_LAYOUT, "layout"));
+
+
+  GraphicalObjectFilter filter;
+
+  List * allGO = const_cast<Layout *>(layout)->getAllElements(&filter);
+
+  unsigned int i = 0;
+  bool match = false;
+  
+  while(match == false && i < allGO->getSize())
+  {
+    if (static_cast<SBase*>(allGO->get(i))->getId() == goRef)
+    {
+      match = true;
+    }
+
+    i++;
+  }
+
+  if (match == false)
   {
     fail = true;
   }

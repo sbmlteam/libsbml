@@ -60,7 +60,7 @@
 			  <!-- reference glyph representing the inhibited species -->
               <layout:referenceGlyph 
 			      layout:id="SpeciesReference_J0_0" 
-				  layout:reference="Node1" 
+
 				  layout:glyph="sGlyph_1" 
 				  layout:role="inhibitor"
                 layout:metaidRef="1_sG1">

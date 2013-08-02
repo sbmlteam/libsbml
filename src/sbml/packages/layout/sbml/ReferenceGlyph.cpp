@@ -105,6 +105,7 @@ ReferenceGlyph::ReferenceGlyph (unsigned int level, unsigned int version, unsign
    ,mGlyph("")
    ,mRole  ( "" )
    ,mCurve(level,version,pkgVersion)
+  ,mCurveExplicitlySet (false)
 {
   connectToChild();
   //
@@ -123,6 +124,7 @@ ReferenceGlyph::ReferenceGlyph(LayoutPkgNamespaces* layoutns)
    ,mGlyph    ("")
    ,mRole     ("")
    ,mCurve(layoutns)
+  , mCurveExplicitlySet ( false )
 {
   connectToChild();
   //
@@ -158,6 +160,7 @@ ReferenceGlyph::ReferenceGlyph
   , mGlyph           ( glyphId     )
   , mRole            ( role               )
   ,mCurve            ( layoutns)
+   ,mCurveExplicitlySet (false)
 {
   connectToChild();
 
@@ -184,6 +187,7 @@ ReferenceGlyph::ReferenceGlyph(const XMLNode& node, unsigned int l2version)
    ,mGlyph    ("")
    ,mRole     ("")
   , mCurve           (2, l2version)
+   ,mCurveExplicitlySet (false)
 {
     const XMLAttributes& attributes=node.getAttributes();
     const XMLNode* child;
@@ -218,6 +222,7 @@ ReferenceGlyph::ReferenceGlyph(const XMLNode& node, unsigned int l2version)
               }
             }
             delete pTmpCurve;
+            mCurveExplicitlySet = true;
         }        
         ++n;
     }    
@@ -235,6 +240,7 @@ ReferenceGlyph::ReferenceGlyph(const ReferenceGlyph& source) :
     this->mGlyph=source.mGlyph;
     this->mRole=source.mRole;
     this->mCurve=*source.getCurve();
+    this->mCurveExplicitlySet = source.mCurveExplicitlySet;
 
     connectToChild();
 }
@@ -252,6 +258,7 @@ ReferenceGlyph& ReferenceGlyph::operator=(const ReferenceGlyph& source)
     this->mRole=source.mRole;
     this->mCurve=*source.getCurve();
 
+    this->mCurveExplicitlySet = source.mCurveExplicitlySet;
     connectToChild();
   }
   
@@ -351,6 +358,7 @@ ReferenceGlyph::setCurve (const Curve* curve)
   if(!curve) return;
   this->mCurve = *curve;
   this->mCurve.connectToParent(this);
+  mCurveExplicitlySet = true;
 }
 
 
@@ -363,6 +371,11 @@ ReferenceGlyph::isSetCurve () const
   return this->mCurve.getNumCurveSegments() > 0;
 }
 
+bool
+ReferenceGlyph::getCurveExplicitlySet() const
+{
+  return mCurveExplicitlySet;
+}
 
 /*
  * Returns true if the id of the associated glpyh is not the empty
@@ -459,7 +472,14 @@ ReferenceGlyph::createObject (XMLInputStream& stream)
 
   if (name == "curve")
   {
+    if (getCurveExplicitlySet() == true)
+    {
+      getErrorLog()->logPackageError("layout", LayoutREFGAllowedElements, 
+        getPackageVersion(), getLevel(), getVersion());
+    }
+
     object = &mCurve;
+    mCurveExplicitlySet = true;
   }
   else
   {

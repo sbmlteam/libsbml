@@ -116,6 +116,7 @@ SpeciesReferenceGlyph::SpeciesReferenceGlyph (unsigned int level, unsigned int v
    ,mSpeciesGlyph("")
    ,mRole  ( SPECIES_ROLE_UNDEFINED )
    ,mCurve(level,version,pkgVersion)
+  ,mCurveExplicitlySet (false)
 {
   connectToChild();
   //
@@ -134,6 +135,7 @@ SpeciesReferenceGlyph::SpeciesReferenceGlyph(LayoutPkgNamespaces* layoutns)
    ,mSpeciesGlyph("")
    ,mRole  ( SPECIES_ROLE_UNDEFINED )
    ,mCurve(layoutns)
+  , mCurveExplicitlySet ( false )
 {
   connectToChild();
   //
@@ -169,6 +171,7 @@ SpeciesReferenceGlyph::SpeciesReferenceGlyph
   , mSpeciesGlyph    ( speciesGlyphId     )
   , mRole            ( role               )
   ,mCurve            (layoutns)
+   ,mCurveExplicitlySet (false)
 {
   connectToChild();
 
@@ -195,6 +198,7 @@ SpeciesReferenceGlyph::SpeciesReferenceGlyph(const XMLNode& node, unsigned int l
   , mSpeciesGlyph    ("")
   , mRole            (SPECIES_ROLE_UNDEFINED)
   , mCurve           (2, l2version)
+   ,mCurveExplicitlySet (false)
 {
     const XMLAttributes& attributes=node.getAttributes();
     const XMLNode* child;
@@ -229,6 +233,7 @@ SpeciesReferenceGlyph::SpeciesReferenceGlyph(const XMLNode& node, unsigned int l
               }
             }
             delete pTmpCurve;
+            mCurveExplicitlySet = true;
         }
         ++n;
     }    
@@ -246,6 +251,7 @@ SpeciesReferenceGlyph::SpeciesReferenceGlyph(const SpeciesReferenceGlyph& source
     this->mSpeciesGlyph=source.getSpeciesGlyphId();
     this->mRole=source.getRole();
     this->mCurve=*source.getCurve();
+    this->mCurveExplicitlySet = source.mCurveExplicitlySet;
 
     connectToChild();
 }
@@ -263,6 +269,7 @@ SpeciesReferenceGlyph& SpeciesReferenceGlyph::operator=(const SpeciesReferenceGl
     this->mRole=source.getRole();
     this->mCurve=*source.getCurve();
 
+    this->mCurveExplicitlySet = source.mCurveExplicitlySet;
     connectToChild();
   }
   
@@ -394,6 +401,7 @@ SpeciesReferenceGlyph::setCurve (const Curve* curve)
   if(!curve) return;
   this->mCurve = *curve;
   this->mCurve.connectToParent(this);
+  mCurveExplicitlySet = true;
 }
 
 
@@ -404,6 +412,12 @@ bool
 SpeciesReferenceGlyph::isSetCurve () const
 {
   return this->mCurve.getNumCurveSegments() > 0;
+}
+
+bool
+SpeciesReferenceGlyph::getCurveExplicitlySet() const
+{
+  return mCurveExplicitlySet;
 }
 
 
@@ -504,7 +518,14 @@ SpeciesReferenceGlyph::createObject (XMLInputStream& stream)
 
   if (name == "curve")
   {
+    if (getCurveExplicitlySet() == true)
+    {
+      getErrorLog()->logPackageError("layout", LayoutSRGAllowedElements, 
+        getPackageVersion(), getLevel(), getVersion());
+    }
+
     object = &mCurve;
+    mCurveExplicitlySet = true;
   }
   else
   {

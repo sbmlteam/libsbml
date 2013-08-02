@@ -98,9 +98,9 @@
             </layout:curve>
             <layout:listOfSpeciesReferenceGlyphs>
               <layout:speciesReferenceGlyph layout:id="SpeciesReferenceGlyph_Glucose" 
-				layout:speciesReference="SpeciesReference_Glucose" 
+				layout:speciesReference="SpeciesReference_Glucose1" 
 				layout:speciesGlyph="SpeciesGlyph_Glucose" 
-				layout:role="normalsubstrate">
+				layout:role="substrate">
                 <layout:curve>
                   <layout:listOfCurveSegments>
                     <layout:curveSegment 

@@ -142,7 +142,6 @@ typedef enum
   , LayoutSRGSpeciesGlyphSyntax             = 6021010
   , LayoutSRGSpeciesGlyphMustRefObject      = 6021011
   , LayoutSRGRoleSyntax                     = 6021012
-  , LayoutSRGRoleMustBeSRGRoleValue         = 6021013
   , LayoutREFGAllowedCoreElements           = 6021101
   , LayoutREFGAllowedCoreAttributes         = 6021102
   , LayoutREFGAllowedElements               = 6021103
