@@ -50,7 +50,7 @@ START_TEST (test_comp_get_flattening_converter)
 {
   ConversionProperties* props = new ConversionProperties();
   props->addOption("flatten comp");
-  props->addOption("perform validation", false);
+  props->addOption("perform validation", true);
   
   SBMLConverter* converter = SBMLConverterRegistry::getInstance().getConverterFor(*props);
   
@@ -85,7 +85,7 @@ START_TEST (test_comp_flatten_aggregate)
   
   props->addOption("flatten comp");
   props->addOption("basePath", filename);
-  props->addOption("perform validation", false);
+  props->addOption("perform validation", true);
 
   SBMLConverter* converter = SBMLConverterRegistry::getInstance().getConverterFor(*props);
   
@@ -143,7 +143,7 @@ void TestFlattenedPair(string file1, string file2)
   
   props->addOption("flatten comp");
   props->addOption("basePath", filename);
-  props->addOption("perform validation", false);
+  props->addOption("perform validation", true);
 
   SBMLConverter* converter = SBMLConverterRegistry::getInstance().getConverterFor(*props);
   
@@ -222,7 +222,7 @@ START_TEST (test_comp_flatten_qtpop)
   
   props->addOption("flatten comp");
   props->addOption("basePath", filename);
-  props->addOption("perform validation", false);
+  props->addOption("perform validation", true);
 
   SBMLConverter* converter = SBMLConverterRegistry::getInstance().getConverterFor(*props);
   
@@ -1289,7 +1289,7 @@ START_TEST (test_comp_flatten_converter_packages1)
   ConversionProperties* props = new ConversionProperties();
   
   props->addOption("flatten comp");
-  props->addOption("perform validation", false);
+  props->addOption("perform validation", true);
 
   SBMLConverter* converter = SBMLConverterRegistry::getInstance().getConverterFor(*props);
   
@@ -1350,7 +1350,7 @@ START_TEST (test_comp_flatten_converter_packages2)
   
   props->addOption("flatten comp");
   props->addOption("ignorePackages", true);
-  props->addOption("perform validation", false);
+  props->addOption("perform validation", true);
 
   SBMLConverter* converter = SBMLConverterRegistry::getInstance().getConverterFor(*props);
   
@@ -1413,7 +1413,7 @@ START_TEST (test_comp_flatten_converter_packages3)
   
   props->addOption("flatten comp");
   props->addOption("ignorePackages", true);
-  props->addOption("perform validation", false);
+  props->addOption("perform validation", true);
 
   SBMLConverter* converter = SBMLConverterRegistry::getInstance().getConverterFor(*props);
   
@@ -1476,7 +1476,7 @@ START_TEST (test_comp_flatten_converter_packages4)
   
   props->addOption("flatten comp");
   props->addOption("ignorePackages", false);
-  props->addOption("perform validation", false);
+  props->addOption("perform validation", true);
 
   SBMLConverter* converter = SBMLConverterRegistry::getInstance().getConverterFor(*props);
   
