@@ -2541,6 +2541,28 @@ public:
 
 
   /**
+   * Get a ModifierSpeciesReference object based on its identifier.
+   * 
+   * @return the ModifierSpeciesReference in this Model with the 
+   * identifier @p sid or @c NULL
+   * if no such ModifierSpeciesReference exists.
+   */
+  ModifierSpeciesReference* getModifierSpeciesReference 
+                                       (const std::string& sid);
+
+
+  /**
+   * Get a ModifierSpeciesReference object based on its identifier.
+   * 
+   * @return the ModifierSpeciesReference in this Model with the 
+   * identifier @p sid or @c NULL
+   * if no such ModifierSpeciesReference exists.
+   */
+  const ModifierSpeciesReference* getModifierSpeciesReference 
+                                             (const std::string& sid) const;
+
+
+  /**
    * Get the nth Event object in this Model.
    * 
    * @return the nth Event of this Model.

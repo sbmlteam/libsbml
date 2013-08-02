@@ -2961,6 +2961,34 @@ Model::getSpeciesReference (const std::string& sid) const
 }
 
 
+const ModifierSpeciesReference* 
+Model::getModifierSpeciesReference (const std::string& sid) const
+{
+  const ModifierSpeciesReference* sr = NULL;
+  for (unsigned int i = 0; i < getNumReactions(); i++)
+  {
+    sr = getReaction(i)->getModifier(sid);
+    if (sr != NULL) break;
+  }
+
+  return sr;
+}
+
+
+ModifierSpeciesReference* 
+Model::getModifierSpeciesReference (const std::string& sid)
+{
+  ModifierSpeciesReference* sr = NULL;
+  for (unsigned int i = 0; i < getNumReactions(); i++)
+  {
+    sr = getReaction(i)->getModifier(sid);
+    if (sr != NULL) break;
+  }
+
+  return sr;
+}
+
+
 /*
  * @return the nth Event of this Model.
  */
