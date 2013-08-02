@@ -32,4 +32,4 @@ add_executable(test_comp_sbase ${TEST_FILES})
 target_link_libraries(test_comp_sbase ${TEST_LIBSBML_LIBS})
 add_test(test_comp_sbase_run ${CMAKE_CURRENT_BINARY_DIR}/test_comp_sbase )
 set_tests_properties(test_comp_sbase_run PROPERTIES ENVIRONMENT 
-	"srcdir=${CMAKE_CURRENT_SOURCE_DIR}/../../util/test/")
+	"srcdir=${CMAKE_CURRENT_SOURCE_DIR}")

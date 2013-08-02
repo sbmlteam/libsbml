@@ -33,7 +33,7 @@ include_directories(BEFORE ${CMAKE_SOURCE_DIR}/src)
 include_directories(${LIBCHECK_INCLUDE_DIR})
 add_executable(test_comp_extensions ${TEST_FILES})
 target_link_libraries(test_comp_extensions ${TEST_LIBSBML_LIBS})
-add_test(test_comp_extensions_run ${CMAKE_CURRENT_BINARY_DIR}/test_comp_extensions )
+add_test(test_comp_extensions_run ${CMAKE_CURRENT_BINARY_DIR}/test_comp_extensions) 
 set_tests_properties(test_comp_extensions_run PROPERTIES ENVIRONMENT 
-	"srcdir=${CMAKE_CURRENT_SOURCE_DIR}/../../util/test/")
+	"srcdir=${CMAKE_CURRENT_SOURCE_DIR}")
 

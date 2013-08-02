@@ -192,7 +192,7 @@ END_TEST
 START_TEST (test_comp_model_flattening_with_ports)
 {
   string filename(TestDataDirectory);
-  string cfile = filename + "test14.xml";  
+  string cfile = filename + "test14_A.xml";  
   SBMLDocument* doc = readSBMLFromFile(cfile.c_str());
   Model* model = doc->getModel();
   fail_unless(model != NULL);
@@ -226,7 +226,7 @@ START_TEST (test_comp_model_flattening_with_ports)
 
   string newModel = writeSBMLToString(doc);
 
-  string ffile = filename + "test14_flat_ports.xml";
+  string ffile = filename + "test14_A_flat_ports.xml";
   SBMLDocument* fdoc = readSBMLFromFile(ffile.c_str());
   string flatModel = writeSBMLToString(fdoc);
   fail_unless(flatModel == newModel);
@@ -241,7 +241,7 @@ START_TEST (test_comp_flatten_exchange4)
   //string filename("C:\\Development\\libsbml\\src\\sbml\\packages\\comp\\util\\test\\test-data\\");
   
   // load document
-  string cfile = filename + "exchangetest2.xml";  
+  string cfile = filename + "exchangetest2_A.xml";  
   SBMLDocument* doc = readSBMLFromFile(cfile.c_str());
 
   Model* model = doc->getModel();
@@ -294,7 +294,7 @@ START_TEST (test_comp_flatten_exchange5)
   //string filename("C:\\Development\\libsbml\\src\\sbml\\packages\\comp\\util\\test\\test-data\\");
   
   // load document
-  string cfile = filename + "CompTest.xml";  
+  string cfile = filename + "CompTest_A.xml";  
   SBMLDocument* doc = readSBMLFromFile(cfile.c_str());
 
   Model* model = doc->getModel();
