@@ -5,7 +5,7 @@
     <listOfParameters>
       <parameter id="z" constant="false">
         <comp:listOfReplacedElements>
-          <comp:replacedElement comp:idRef="y" comp:submodelRef="A"/>
+          <comp:replacedElement comp:portRef="y" comp:submodelRef="A"/>
         </comp:listOfReplacedElements>
       </parameter>
       <parameter id="i" value="2" constant="true"/>
@@ -71,7 +71,7 @@
       <listOfParameters>
         <parameter id="y" constant="false">
           <comp:listOfReplacedElements>
-            <comp:replacedElement comp:idRef="x" comp:submodelRef="A"/>
+            <comp:replacedElement comp:portRef="x" comp:submodelRef="A"/>
           </comp:listOfReplacedElements>
         </parameter>
       </listOfParameters>

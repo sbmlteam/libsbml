@@ -131,6 +131,7 @@ typedef enum
 , CompDeprecatedSBaseRefSpelling        = 1020711
 , CompSBaseRefMustReferenceObject       = 1020712
 , CompSBaseRefMustReferenceOnlyOneObject= 1020713
+, CompNoMultipleReferences              = 1020714
 
 , CompPortMustReferenceObject           = 1020801
 , CompPortMustReferenceOnlyOneObject    = 1020802

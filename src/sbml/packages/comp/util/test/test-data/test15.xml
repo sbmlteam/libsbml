@@ -3,7 +3,9 @@
   <model>
     <listOfParameters>
       <parameter id="p2" value="2" constant="false">
-        <comp:replacedBy comp:idRef="p4" comp:submodelRef="sub2"/>
+        <comp:replacedBy comp:idRef="sub1" comp:submodelRef="sub2">
+          <comp:sBaseRef comp:idRef="p8"/>
+        </comp:replacedBy>
       </parameter>
     </listOfParameters>
     <comp:listOfSubmodels>

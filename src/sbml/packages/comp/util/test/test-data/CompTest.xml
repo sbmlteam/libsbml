@@ -124,45 +124,6 @@
         </comp:listOfDeletions>
       </comp:submodel>
     </comp:listOfSubmodels>
-    <comp:listOfPorts>
-      <comp:port comp:idRef="Cell" comp:id="compartment__Cell"/>
-      <comp:port comp:idRef="C1" comp:id="compartment__Cell__C1">
-        <comp:sBaseRef comp:portRef="compartment__Cell"/>
-      </comp:port>
-      <comp:port comp:idRef="C1" comp:id="reaction__R1__C1">
-        <comp:sBaseRef comp:portRef="reaction__R1"/>
-      </comp:port>
-      <comp:port comp:idRef="C1" comp:id="reaction__R3__C1">
-        <comp:sBaseRef comp:portRef="reaction__R3"/>
-      </comp:port>
-      <comp:port comp:idRef="C1" comp:id="event__event0__C1">
-        <comp:sBaseRef comp:portRef="event__event0"/>
-      </comp:port>
-      <comp:port comp:idRef="C1" comp:id="event__event1__C1">
-        <comp:sBaseRef comp:portRef="event__event1"/>
-      </comp:port>
-      <comp:port comp:idRef="C1" comp:id="localParameter__R3___kf__C1">
-        <comp:sBaseRef comp:portRef="localParameter__R3___kf"/>
-      </comp:port>
-      <comp:port comp:idRef="C1" comp:id="localParameter__R1___kf__C1">
-        <comp:sBaseRef comp:portRef="localParameter__R1___kf"/>
-      </comp:port>
-      <comp:port comp:idRef="C1" comp:id="constraint__constraint0__C1">
-        <comp:sBaseRef comp:portRef="constraint__constraint0"/>
-      </comp:port>
-      <comp:port comp:idRef="C1" comp:id="unitDefinition__perSecond__C1">
-        <comp:sBaseRef comp:portRef="unitDefinition__perSecond"/>
-      </comp:port>
-      <comp:port comp:idRef="C1" comp:id="functionDefinition__f__C1">
-        <comp:sBaseRef comp:portRef="functionDefinition__f"/>
-      </comp:port>
-      <comp:port comp:idRef="C1" comp:id="input__S1__C1">
-        <comp:sBaseRef comp:portRef="input__S1"/>
-      </comp:port>
-      <comp:port comp:idRef="C1" comp:id="output__S2__C1">
-        <comp:sBaseRef comp:portRef="output__S2"/>
-      </comp:port>
-    </comp:listOfPorts>
   </model>
   <comp:listOfModelDefinitions>
     <comp:modelDefinition metaid="CompModel__iBioSim1" id="CompModel" name="CompModel">

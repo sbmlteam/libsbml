@@ -21,6 +21,7 @@
 #include <ostream>
 #include <iostream>
 #include <vector>
+#include <set>
 
 #include <sbml/common/libsbml-version.h>
 #include <sbml/packages/comp/common/compfwd.h>
@@ -698,7 +699,7 @@ CompModelPlugin::instantiateSubmodels()
   return performReplacementsAndConversions();
 }
 
-int CompModelPlugin::saveAllReferencedElements()
+int CompModelPlugin::saveAllReferencedElements(set<SBase*> uniqueRefs, set<SBase*> replacedBys)
 {
   SBMLDocument* doc = getSBMLDocument();
   Model* model = static_cast<Model*>(getParentSBMLObject());
@@ -712,6 +713,7 @@ int CompModelPlugin::saveAllReferencedElements()
   int ret = LIBSBML_OPERATION_SUCCESS;
 
   //Get a list of everything, pull out anything that's a deletion, replacement, or port, and save what they're pointing to.
+  //At the same time, make sure that no two things point to the same thing.
   List* allElements = model->getAllElements();
   for (unsigned int el=0; el<allElements->getSize(); el++) {
     SBase* element = static_cast<SBase*>(allElements->get(el));
@@ -726,6 +728,57 @@ int CompModelPlugin::saveAllReferencedElements()
           if (ret != LIBSBML_OPERATION_SUCCESS) {
             return ret;
           }
+          SBase* direct = reference->getDirectReference();
+          bool adddirect = true;
+          if (type == SBML_COMP_REPLACEDBY) {
+            SBase* rbParent = reference->getParentSBMLObject();
+            if (uniqueRefs.insert(rbParent).second == false) {
+              if (doc) {
+                string error = "Error discovered in CompModelPlugin::saveAllReferencedElements: a <" + direct->getElementName() + "> ";
+                if (direct->isSetId()) {
+                  error += "with the id '" + direct->getId() + "'";
+                  if (direct->isSetMetaId()) {
+                    error += ", and the metaid '" + direct->getMetaId() + "'";
+                  }
+                }
+                else if (direct->isSetMetaId()) {
+                  error += "with the metaId '" + direct->getMetaId() + "'";
+                }
+                error += " has a <replacedBy> child and is also pointed to by a <port>, <deletion>, <replacedElement>, or one or more <replacedBy> objects.";
+                doc->getErrorLog()->logPackageError("comp", CompNoMultipleReferences, getPackageVersion(), getLevel(), getVersion(), error);
+              }
+              return LIBSBML_OPERATION_FAILED;
+            }
+            adddirect = replacedBys.insert(direct).second;
+          }
+          if (adddirect) {
+            if (!(type==SBML_COMP_REPLACEDELEMENT && reference->getReferencedElement()->getTypeCode() == SBML_COMP_DELETION)) {
+              if (uniqueRefs.insert(direct).second == false) {
+                if (doc) {
+                  string error = "Error discovered in CompModelPlugin::saveAllReferencedElements: ";
+                  if (replacedBys.find(direct) != replacedBys.end()) {
+                    error += "one or more <replacedBy> elements, plus a <deletion>, <replacedElement>, or <port> element";
+                  }
+                  else {
+                    error += "multiple <deletion>, <replacedElement>, and/or <port> elements";
+                  }
+                  error += " point directly to the <" + direct->getElementName() + "> ";
+                  if (direct->isSetId()) {
+                    error += "with the id '" + direct->getId() + "'";
+                    if (direct->isSetMetaId()) {
+                      error += ", and the metaid '" + direct->getMetaId() + "'";
+                    }
+                    error += ".";
+                  }
+                  else if (direct->isSetMetaId()) {
+                    error += "with the metaId '" + direct->getMetaId() + "'.";
+                  }
+                  doc->getErrorLog()->logPackageError("comp", CompNoMultipleReferences, getPackageVersion(), getLevel(), getVersion(), error);
+                }
+                return LIBSBML_OPERATION_FAILED;
+              }
+            }
+          }
     }
   }
 
@@ -739,7 +792,7 @@ int CompModelPlugin::saveAllReferencedElements()
     if (subplug==NULL) {
       return LIBSBML_OPERATION_FAILED;
     }
-    ret = subplug->saveAllReferencedElements();
+    ret = subplug->saveAllReferencedElements(uniqueRefs, replacedBys);
     if (ret != LIBSBML_OPERATION_SUCCESS) {
       return ret;
     }
@@ -1050,18 +1103,12 @@ int CompModelPlugin::performReplacementsAndConversions()
     }
   }
     
-  //Replacements one way:
+  //ReplacedElement replacements
   for (size_t re=0; re<res.size(); re++) {
     ret = res[re]->performReplacement();
     if (ret != LIBSBML_OPERATION_SUCCESS) {
       return ret;
     }
-  }
-
-  //And replacements the other way
-  for (size_t rb=0; rb<rbs.size(); rb++) {
-    ret = rbs[rb]->performReplacement();
-    if (ret != LIBSBML_OPERATION_SUCCESS) return ret;
   }
 
   //Now do the same thing for anything left over in the submodels
@@ -1077,6 +1124,13 @@ int CompModelPlugin::performReplacementsAndConversions()
     ret = modplug->performReplacementsAndConversions();
     if (ret != LIBSBML_OPERATION_SUCCESS) return ret;
   }
+
+  //Perform ReplacedBy replacements *after* the submodels are done, so that the topmost-level names take precedence.
+  for (size_t rb=0; rb<rbs.size(); rb++) {
+    ret = rbs[rb]->performReplacement();
+    if (ret != LIBSBML_OPERATION_SUCCESS) return ret;
+  }
+
   return ret;
 }
 

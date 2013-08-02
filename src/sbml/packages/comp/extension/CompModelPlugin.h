@@ -58,6 +58,7 @@
 
 #include <iostream>
 #include <string>
+#include <set>
 
 #include <sbml/packages/comp/extension/CompExtension.h>
 #include <sbml/packages/comp/extension/CompSBasePlugin.h>
@@ -520,7 +521,7 @@ public:
    * Find all SBaseRef-derived objects in this Model and in instantiated
    * Submodels and find and save pointers to the elements they point to.
    */
-  virtual int saveAllReferencedElements();
+  virtual int saveAllReferencedElements(std::set<SBase*> uniqueRefs = std::set<SBase*>(), std::set<SBase*> replacedBys = std::set<SBase*>());
 
   /*
    * Renames all ids of all elements in the instantiated submodel (SIds,

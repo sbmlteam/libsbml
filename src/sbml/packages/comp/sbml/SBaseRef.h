@@ -114,6 +114,7 @@ protected:
   std::string   mUnitRef;
   SBaseRef*     mSBaseRef;
   SBase*        mReferencedElement;
+  SBase*        mDirectReference;
   /** @endcond */
 
 public:
@@ -691,6 +692,16 @@ protected:
   virtual void writeAttributes (XMLOutputStream& stream) const;
   /** @endcond */
 
+  /** @cond doxygen-libsbml-internal */
+  /**
+   * Get the *direct* referenced object, which might be a Port.
+   */
+  virtual SBase* getDirectReference();
+  /** @endcond */
+
+  /** @cond doxygen-libsbml-internal */
+  friend class CompModelPlugin; //for getDirectReference
+  /** @endcond */
 };
 
 

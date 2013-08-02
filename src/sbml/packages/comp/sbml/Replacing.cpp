@@ -198,6 +198,9 @@ Replacing::saveReferencedElement()
     return LIBSBML_OPERATION_FAILED;
   }
   mReferencedElement = getReferencedElementFrom(inst);
+  if (mDirectReference==NULL) {
+    mDirectReference = mReferencedElement;
+  }
   //getReferencedElement* set their own error messages:
   if (mReferencedElement==NULL) {
     return LIBSBML_OPERATION_FAILED;

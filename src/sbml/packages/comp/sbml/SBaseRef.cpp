@@ -46,6 +46,7 @@ SBaseRef::SBaseRef (unsigned int level, unsigned int version, unsigned int pkgVe
   , mUnitRef("")
   , mSBaseRef(NULL)
   , mReferencedElement(NULL)
+  , mDirectReference(NULL)
 {
 }
 
@@ -58,6 +59,7 @@ SBaseRef::SBaseRef(CompPkgNamespaces* compns)
   , mUnitRef("")
   , mSBaseRef(NULL)
   , mReferencedElement(NULL)
+  , mDirectReference(NULL)
 {
   loadPlugins(compns);
 }
@@ -77,6 +79,7 @@ SBaseRef::SBaseRef(const SBaseRef& source)
     mSBaseRef=NULL;
   }
   mReferencedElement = NULL;
+  mDirectReference = NULL;
 }
 
 SBaseRef& SBaseRef::operator=(const SBaseRef& source)
@@ -96,6 +99,7 @@ SBaseRef& SBaseRef::operator=(const SBaseRef& source)
     }
   }
   mReferencedElement = NULL;
+  mDirectReference = NULL;
 
   return *this;
 }
@@ -773,6 +777,7 @@ SBaseRef::getReferencedElementFrom(Model* model)
       }
       return NULL;
     }
+    mDirectReference = port;
     referent = port->getReferencedElementFrom(model);
   }
   else if (isSetIdRef()) {
@@ -843,6 +848,7 @@ SBaseRef::getReferencedElementFrom(Model* model)
     }
     //Recursive, so will set its own error messages:
     referent = getSBaseRef()->getReferencedElementFrom(inst);
+    mDirectReference = getSBaseRef()->getDirectReference();
   }
   return referent;
 }
@@ -876,6 +882,7 @@ int SBaseRef::saveReferencedElement()
     return LIBSBML_OPERATION_FAILED;
   }
   mReferencedElement = parentref->getReferencedElement();
+  mDirectReference = parentref->getDirectReference();
   if (mReferencedElement==NULL) {
     //getReferencedElement will set its own error messages.
     return LIBSBML_OPERATION_FAILED;
@@ -938,6 +945,10 @@ int SBaseRef::removeFromParentAndDelete()
   }
 }
 
+SBase* SBaseRef::getDirectReference()
+{
+  return mDirectReference;
+}
 
 /**
  * 

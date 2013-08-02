@@ -121,6 +121,7 @@ protected:
   std::string   mExtentConversionFactor;
   ListOfDeletions  mListOfDeletions;
   Model*        mInstantiatedModel;
+  std::string   mInstantiationOriginalURI;
   /** @endcond */
 
 public:

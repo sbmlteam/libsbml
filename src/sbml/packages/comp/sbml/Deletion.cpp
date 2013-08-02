@@ -289,6 +289,9 @@ Deletion::saveReferencedElement()
   }
   Model* referencedmod = submod->getInstantiation();
   mReferencedElement = getReferencedElementFrom(referencedmod);
+  if (mDirectReference==NULL) {
+    mDirectReference = mReferencedElement;
+  }
   if (mReferencedElement==NULL) {
     //getReferencedElementFrom will provide its own error messages.
     return LIBSBML_OPERATION_FAILED;

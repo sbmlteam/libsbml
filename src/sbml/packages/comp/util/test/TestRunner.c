@@ -94,8 +94,8 @@ main (void)
   setTestDataDirectory();
 
   SRunner *runner = srunner_create( create_suite_TestURIResolvers() );
-  srunner_add_suite( runner, create_suite_TestFlatteningConverter() );
   srunner_add_suite( runner, create_suite_TestFlatteningErrorMessages() );
+  srunner_add_suite( runner, create_suite_TestFlatteningConverter() );
   srunner_add_suite( runner, create_suite_TestExternalModelResolving() );
 
   /* srunner_set_fork_status(runner, CK_NOFORK); */

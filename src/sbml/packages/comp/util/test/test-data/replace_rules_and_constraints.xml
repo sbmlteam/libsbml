@@ -64,7 +64,7 @@
     <comp:listOfSubmodels>
       <comp:submodel metaid="iBioSim27" comp:id="C1" comp:modelRef="CompModel">
         <comp:listOfDeletions>
-          <comp:deletion comp:unitRef="perSecond"/>
+          <comp:deletion comp:portRef="unit_perSecond"/>
           <comp:deletion comp:portRef="event__event0"/>
           <comp:deletion comp:portRef="event__event1"/>
         </comp:listOfDeletions>
@@ -80,9 +80,6 @@
       </comp:port>
       <comp:port sboTerm="SBO:0000601" comp:idRef="C1" comp:id="R1_kf0__C1">
         <comp:sBaseRef comp:portRef="R1_kf0"/>
-      </comp:port>
-      <comp:port sboTerm="SBO:0000601" comp:idRef="C1" comp:id="unit_perSecond__C1">
-        <comp:sBaseRef comp:portRef="unit_perSecond"/>
       </comp:port>
       <comp:port sboTerm="SBO:0000601" comp:idRef="C1" comp:id="S2__C1">
         <comp:sBaseRef comp:portRef="S2"/>

@@ -91,10 +91,7 @@
         </reaction>
       </listOfReactions>
       <comp:listOfPorts>
-        <comp:port comp:idRef="comp" comp:id="comp_port"/>
-        <comp:port comp:idRef="S" comp:id="S_port"/>
         <comp:port comp:idRef="E" comp:id="E_port"/>
-        <comp:port comp:idRef="D" comp:id="D_port"/>
         <comp:port comp:idRef="ES" comp:id="ES_port"/>
         <comp:port comp:idRef="J0" comp:id="J0_port"/>
         <comp:port comp:idRef="J1" comp:id="J1_port"/>

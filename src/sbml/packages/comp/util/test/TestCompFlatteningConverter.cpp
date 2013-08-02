@@ -50,6 +50,7 @@ START_TEST (test_comp_get_flattening_converter)
 {
   ConversionProperties* props = new ConversionProperties();
   props->addOption("flatten comp");
+  props->addOption("perform validation", false);
   
   SBMLConverter* converter = SBMLConverterRegistry::getInstance().getConverterFor(*props);
   
@@ -84,6 +85,7 @@ START_TEST (test_comp_flatten_aggregate)
   
   props->addOption("flatten comp");
   props->addOption("basePath", filename);
+  props->addOption("perform validation", false);
 
   SBMLConverter* converter = SBMLConverterRegistry::getInstance().getConverterFor(*props);
   
@@ -141,6 +143,7 @@ void TestFlattenedPair(string file1, string file2)
   
   props->addOption("flatten comp");
   props->addOption("basePath", filename);
+  props->addOption("perform validation", false);
 
   SBMLConverter* converter = SBMLConverterRegistry::getInstance().getConverterFor(*props);
   
@@ -219,6 +222,7 @@ START_TEST (test_comp_flatten_qtpop)
   
   props->addOption("flatten comp");
   props->addOption("basePath", filename);
+  props->addOption("perform validation", false);
 
   SBMLConverter* converter = SBMLConverterRegistry::getInstance().getConverterFor(*props);
   

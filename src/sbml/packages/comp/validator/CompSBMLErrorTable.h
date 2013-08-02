@@ -836,7 +836,8 @@ static const packageErrorTableEntry compErrorTable[] =
     LIBSBML_CAT_GENERAL_CONSISTENCY, 
     LIBSBML_SEV_ERROR,
     "If an <sBaseRef> object contains an <sBaseRef> child, the parent "
-    "<sBaseRef> must point to a <submodel> object. ",
+    "<sBaseRef> must point to a <submodel> object, or a "
+    "<port> that itself points to a <submodel> object. ",
     { "L3V1 Comp V1 Section 3.7.2"
     }
   },
@@ -924,6 +925,16 @@ static const packageErrorTableEntry compErrorTable[] =
     LIBSBML_CAT_GENERAL_CONSISTENCY, 
     LIBSBML_SEV_ERROR,
     "An <sBaseRef> object can only point to one other object; that is, a given <sBaseRef> object can only have a value for one of the attributes 'comp:portRef', 'comp:idRef', 'comp:unitRef', or 'comp:metaIdRef'.",
+    { "L3V1 Comp V1 Section 3.7.1"
+    }
+  },
+
+  // 1020714
+  { CompNoMultipleReferences, 
+    "Objects may not be referenced by mutiple SBaseRef constructs.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY, 
+    LIBSBML_SEV_ERROR,
+    "Any one SBML object may only be referenced by a single <port>, single <deletion>, single <replacedElement>, one or more <replacedBy> objects, or have a <replacedBy> child, discounting any <replacedElement> that uses the 'deletion' attribute.",
     { "L3V1 Comp V1 Section 3.7.1"
     }
   },

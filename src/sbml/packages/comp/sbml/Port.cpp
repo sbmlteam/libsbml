@@ -314,6 +314,9 @@ Port::saveReferencedElement()
   }
   //No other error messages need to be set--'getReferencedElement*' will set them.
   mReferencedElement = getReferencedElementFrom(model);
+  if (mDirectReference == NULL) {
+    mDirectReference = mReferencedElement;
+  }
   if (mReferencedElement==NULL) {
     return LIBSBML_OPERATION_FAILED;
   }

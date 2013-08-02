@@ -125,29 +125,6 @@
     <comp:listOfSubmodels>
       <comp:submodel metaid="iBioSim2" comp:id="A" comp:modelRef="submod" comp:timeConversionFactor="extentconv" comp:extentConversionFactor="timeconv"/>
     </comp:listOfSubmodels>
-    <comp:listOfPorts>
-      <comp:port comp:idRef="A" comp:id="q__A">
-        <comp:sBaseRef comp:portRef="q"/>
-      </comp:port>
-      <comp:port comp:idRef="A" comp:id="r__A">
-        <comp:sBaseRef comp:portRef="r"/>
-      </comp:port>
-      <comp:port comp:idRef="A" comp:id="x__A">
-        <comp:sBaseRef comp:portRef="x"/>
-      </comp:port>
-      <comp:port comp:idRef="A" comp:id="parameter__unused__A">
-        <comp:sBaseRef comp:portRef="parameter__unused"/>
-      </comp:port>
-      <comp:port comp:idRef="A" comp:id="parameter__unused2__A">
-        <comp:sBaseRef comp:portRef="parameter__unused2"/>
-      </comp:port>
-      <comp:port comp:idRef="A" comp:id="rateRule__submod_unused_raterule__A">
-        <comp:sBaseRef comp:portRef="rateRule__submod_unused_raterule"/>
-      </comp:port>
-      <comp:port comp:idRef="A" comp:id="assignmentRule__submod_unused2_assignmentrule__A">
-        <comp:sBaseRef comp:portRef="assignmentRule__submod_unused2_assignmentrule"/>
-      </comp:port>
-    </comp:listOfPorts>
     
   </model>
   <comp:listOfModelDefinitions>

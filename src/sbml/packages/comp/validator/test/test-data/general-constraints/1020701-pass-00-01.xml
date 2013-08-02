@@ -5,7 +5,7 @@
     <listOfCompartments>
       <compartment id="comp" spatialDimensions="3" size="1" constant="true">
         <comp:listOfReplacedElements>
-          <comp:replacedElement comp:portRef="S_port" comp:submodelRef="B"/>
+          <comp:replacedElement comp:portRef="comp_port" comp:submodelRef="B"/>
         </comp:listOfReplacedElements>
       </compartment>
     </listOfCompartments>
