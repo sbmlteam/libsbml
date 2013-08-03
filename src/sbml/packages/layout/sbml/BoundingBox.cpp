@@ -92,6 +92,8 @@ BoundingBox::BoundingBox(unsigned int level, unsigned int version, unsigned int 
  : SBase(level,version)
   ,mPosition(level,version,pkgVersion)
   ,mDimensions(level,version,pkgVersion)
+  ,mPositionExplicitlySet (false)
+  ,mDimensionsExplicitlySet (false)
 {
   mPosition.setElementName("position");
   setSBMLNamespacesAndOwn(new LayoutPkgNamespaces(level,version,pkgVersion));  
@@ -103,6 +105,8 @@ BoundingBox::BoundingBox(LayoutPkgNamespaces* layoutns)
  : SBase(layoutns)
   ,mPosition(layoutns)
   ,mDimensions(layoutns)
+  ,mPositionExplicitlySet (false)
+  ,mDimensionsExplicitlySet (false)
 {
   //
   // set the element namespace of this object
@@ -128,6 +132,8 @@ BoundingBox::BoundingBox(const BoundingBox& orig):SBase(orig)
   this->mId = orig.mId;
   this->mPosition=orig.mPosition;
   this->mDimensions=orig.mDimensions;
+  this->mPositionExplicitlySet = orig.mPositionExplicitlySet;
+  this->mDimensionsExplicitlySet = orig.mDimensionsExplicitlySet;
 
   connectToChild();
 }
@@ -145,6 +151,8 @@ BoundingBox& BoundingBox::operator=(const BoundingBox& orig)
     this->mId = orig.mId;
     this->mPosition=orig.mPosition;
     this->mDimensions=orig.mDimensions;
+    this->mPositionExplicitlySet = orig.mPositionExplicitlySet;
+    this->mDimensionsExplicitlySet = orig.mDimensionsExplicitlySet;
 
     connectToChild();
   }
@@ -163,6 +171,8 @@ BoundingBox::BoundingBox (LayoutPkgNamespaces* layoutns, const std::string id)
  ,mId (id)
  ,mPosition(layoutns)
  ,mDimensions(layoutns)
+  ,mPositionExplicitlySet (false)
+  ,mDimensionsExplicitlySet (false)
 {
   //
   // set the element namespace of this object
@@ -186,6 +196,8 @@ BoundingBox::BoundingBox (LayoutPkgNamespaces* layoutns, const std::string id,
   , mId (id)
   , mPosition  (layoutns, x, y, 0.0)
   , mDimensions(layoutns, width, height, 0.0)
+  ,mPositionExplicitlySet (true)
+  ,mDimensionsExplicitlySet (true)
 {
   //
   // set the element namespace of this object
@@ -213,6 +225,8 @@ BoundingBox::BoundingBox (LayoutPkgNamespaces* layoutns, const std::string id,
   , mId (id)
   , mPosition  (layoutns, x, y, z)
   , mDimensions(layoutns, width, height, depth)
+  ,mPositionExplicitlySet (true)
+  ,mDimensionsExplicitlySet (true)
 {
   //
   // set the element namespace of this object
@@ -240,6 +254,8 @@ BoundingBox::BoundingBox (LayoutPkgNamespaces* layoutns, const std::string id,
   , mId (id)
   , mPosition(layoutns)
   , mDimensions(layoutns)
+  ,mPositionExplicitlySet (true)
+  ,mDimensionsExplicitlySet (true)
 {
   //
   // set the element namespace of this object
@@ -274,6 +290,8 @@ BoundingBox::BoundingBox(const XMLNode& node, unsigned int l2version)
   , mId("")
   , mPosition(2,l2version)
   , mDimensions(2,l2version)
+  ,mPositionExplicitlySet (false)
+  ,mDimensionsExplicitlySet (false)
 {
     mPosition.setElementName("position");
 
@@ -292,10 +310,12 @@ BoundingBox::BoundingBox(const XMLNode& node, unsigned int l2version)
         if(childName=="position")
         {
             this->mPosition=Point(*child);
+            this->mPositionExplicitlySet = true;
         }
         else if(childName=="dimensions")
         {
             this->mDimensions=Dimensions(*child);
+            this->mDimensionsExplicitlySet = true;
         }
         else if(childName=="annotation")
         {
@@ -428,6 +448,7 @@ void BoundingBox::setPosition (const Point* p)
     this->mPosition = Point(*p);
 	this->mPosition.setElementName("position");
     this->mPosition.connectToParent(this);
+    this->mPositionExplicitlySet = true;
 }
 
 
@@ -440,6 +461,19 @@ BoundingBox::setDimensions (const Dimensions* d)
   if(!d) return;
   this->mDimensions = Dimensions(*d);
   this->mDimensions.connectToParent(this);
+  this->mDimensionsExplicitlySet = true;
+}
+
+bool
+BoundingBox::getPositionExplicitlySet() const
+{
+  return mPositionExplicitlySet;
+}
+
+bool
+BoundingBox::getDimensionsExplicitlySet() const
+{
+  return mDimensionsExplicitlySet;
 }
 
 
@@ -607,12 +641,24 @@ BoundingBox::createObject (XMLInputStream& stream)
 
   if (name == "dimensions")
   {
+    if (getDimensionsExplicitlySet() == true)
+    {
+      getErrorLog()->logPackageError("layout", LayoutBBoxAllowedElements, 
+          getPackageVersion(), getLevel(), getVersion());
+    }
     object = &mDimensions;
+    mDimensionsExplicitlySet = true;
   }
 
   else if ( name == "position"    )
   {
+    if (getPositionExplicitlySet() == true)
+    {
+      getErrorLog()->logPackageError("layout", LayoutBBoxAllowedElements, 
+          getPackageVersion(), getLevel(), getVersion());
+    }
       object = &mPosition;
+      mPositionExplicitlySet = true;
   }
 
   return object;

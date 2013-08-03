@@ -616,7 +616,7 @@ ListOfLineSegments::createObject (XMLInputStream& stream)
       //std::cout << "[DEBUG] ListOfLineSegments::createObject () : 
       //              Failed to read xsi:type" << std::endl;
 			getErrorLog()->logPackageError("layout", 
-                     LayoutLSegAllowedAttributes,
+                     LayoutXsiTypeAllowedLocations,
 			               getPackageVersion(), getLevel(), getVersion());
 
       return object;
@@ -636,8 +636,7 @@ ListOfLineSegments::createObject (XMLInputStream& stream)
     }
     else
     {
-			getErrorLog()->logPackageError("layout", 
-                     LayoutLSegTypeMustBeLineSegment,
+			getErrorLog()->logPackageError("layout", LayoutXsiTypeSyntax,
 			               getPackageVersion(), getLevel(), getVersion());
     }
   }

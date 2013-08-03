@@ -76,6 +76,7 @@ Point::Point(unsigned int level, unsigned int version, unsigned int pkgVersion)
   , mXOffset(0.0)
   , mYOffset(0.0)
   , mZOffset(0.0)
+  , mZOffsetExplicitlySet (false)
   , mElementName("point")
 {
   setSBMLNamespacesAndOwn(new LayoutPkgNamespaces(level,version,pkgVersion));  
@@ -91,6 +92,7 @@ Point::Point(LayoutPkgNamespaces* layoutns)
   , mXOffset(0.0)
   , mYOffset(0.0)
   , mZOffset(0.0)
+  , mZOffsetExplicitlySet (false)
   , mElementName("point")
 {
   //
@@ -115,6 +117,7 @@ Point::Point(const Point& orig):SBase(orig)
     this->mZOffset=orig.mZOffset;
     this->mElementName=orig.mElementName;
 
+    this->mZOffsetExplicitlySet=orig.mZOffsetExplicitlySet;
     // attributes of SBase
     //this->mId=orig.mId;
     //this->mName=orig.mName;
@@ -146,6 +149,7 @@ Point& Point::operator=(const Point& orig)
     this->mZOffset=orig.mZOffset;
     this->mElementName=orig.mElementName;
 
+    this->mZOffsetExplicitlySet=orig.mZOffsetExplicitlySet;
     this->mMetaId=orig.mMetaId;
     delete this->mNotes;
     this->mNotes=NULL;
@@ -188,6 +192,7 @@ Point::Point(LayoutPkgNamespaces* layoutns, double x, double y, double z)
   , mXOffset(x)
   , mYOffset(y)
   , mZOffset(z)
+  , mZOffsetExplicitlySet (true)
   , mElementName("point")  
 {
   //
@@ -218,6 +223,7 @@ Point::Point(const XMLNode& node, unsigned int l2version)
   , mXOffset(0.0)
   , mYOffset(0.0)
   , mZOffset(0.0)
+  , mZOffsetExplicitlySet (false)
   , mElementName(node.getName())
 {
     const XMLAttributes& attributes=node.getAttributes();
@@ -371,6 +377,7 @@ void
 Point::setZ (double z)
 {
   this->mZOffset = z;
+  this->mZOffsetExplicitlySet = true;
 }
 
 
@@ -432,6 +439,12 @@ Point::z () const
   return this->mZOffset;
 }
 
+
+bool
+Point::getZOffsetExplicitlySet() const
+{
+  return mZOffsetExplicitlySet;
+}
 
 /*
  * Subclasses should override this method to write out their contained
@@ -622,9 +635,9 @@ void Point::readAttributes (const XMLAttributes& attributes,
 	// z double   ( use = "optional" )
 	//
   numErrs = getErrorLog() != NULL ? getErrorLog()->getNumErrors() : 0;
-	assigned = attributes.readInto("z", mZOffset);
+	mZOffsetExplicitlySet = attributes.readInto("z", mZOffset);
 
-	if (assigned == false)
+	if (mZOffsetExplicitlySet == false)
 	{
     mZOffset = 0.0;
 		if (getErrorLog() != NULL)

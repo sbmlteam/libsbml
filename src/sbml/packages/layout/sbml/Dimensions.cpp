@@ -77,6 +77,7 @@ Dimensions::Dimensions (unsigned int level, unsigned int version, unsigned int p
   , mW(0.0)
   , mH(0.0)
   , mD(0.0)
+  , mDExplicitlySet (false)
 {
   setSBMLNamespacesAndOwn(new LayoutPkgNamespaces(level,version,pkgVersion));  
 }
@@ -90,6 +91,7 @@ Dimensions::Dimensions(LayoutPkgNamespaces* layoutns)
   , mW(0.0)
   , mH(0.0)
   , mD(0.0)  
+  , mDExplicitlySet (false)
 {
   //
   // set the element namespace of this object
@@ -111,6 +113,7 @@ Dimensions::Dimensions (LayoutPkgNamespaces* layoutns, double width, double heig
   , mW(width)
   , mH(height)
   , mD(depth)
+  , mDExplicitlySet (true)
 {
   //
   // set the element namespace of this object
@@ -130,6 +133,7 @@ Dimensions::Dimensions(const Dimensions& orig)
     this->mH=orig.mH;
     this->mW=orig.mW;
     this->mD=orig.mD;
+    this->mDExplicitlySet=orig.mDExplicitlySet;
     // attributes of SBase
 //    this->mId=orig.mId;
 //    this->mName=orig.mName;
@@ -159,6 +163,7 @@ Dimensions& Dimensions::operator=(const Dimensions& orig)
     this->mH=orig.mH;
     this->mW=orig.mW;
     this->mD=orig.mD;
+    this->mDExplicitlySet=orig.mDExplicitlySet;
     this->mMetaId=orig.mMetaId;
     delete this->mNotes;
     this->mNotes=NULL;
@@ -194,6 +199,7 @@ Dimensions::Dimensions(const XMLNode& node, unsigned int l2version)
  , mW(0.0)
  , mH(0.0)
  , mD(0.0)
+ , mDExplicitlySet (false)
 {
     const XMLAttributes& attributes=node.getAttributes();
     const XMLNode* child;
@@ -363,6 +369,8 @@ Dimensions::setHeight (double height)
 void Dimensions::setDepth (double depth)
 {
   this->mD = depth;
+  this->mDExplicitlySet = true;
+
 }
 
 
@@ -377,6 +385,11 @@ Dimensions::setBounds (double w, double h, double d)
   this->setDepth (d);
 }
 
+bool 
+Dimensions::getDExplicitlySet() const
+{ 
+  return mDExplicitlySet;
+}
 
 /*
  * Sets the depth to 0.0
@@ -548,9 +561,9 @@ void Dimensions::readAttributes (const XMLAttributes& attributes,
 	// depth double   ( use = "optional" )
 	//
   numErrs = getErrorLog() != NULL ? getErrorLog()->getNumErrors() : 0;
-	assigned = attributes.readInto("depth", mD);
+	mDExplicitlySet = attributes.readInto("depth", mD);
 
-	if (assigned == false)
+	if (mDExplicitlySet == false)
 	{
     mD = 0.0;
 		if (getErrorLog() != NULL)

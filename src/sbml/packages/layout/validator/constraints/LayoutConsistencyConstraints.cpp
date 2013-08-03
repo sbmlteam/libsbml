@@ -292,6 +292,11 @@ START_CONSTRAINT (LayoutRGAllowedElements, ReactionGlyph, glyph)
     fail = true;
   }
 
+  if (glyph.getNumSpeciesReferenceGlyphs() == 0)
+  {
+    fail = true;
+  }
+
   inv(fail == false);
 }
 END_CONSTRAINT
@@ -838,6 +843,55 @@ START_CONSTRAINT (LayoutREFGGlyphMustRefObject, ReferenceGlyph, glyph)
 }
 END_CONSTRAINT
 
+//21303
+START_CONSTRAINT (LayoutBBoxAllowedElements, BoundingBox, bb)
+{
+  bool fail = false;
+
+  if (bb.getPositionExplicitlySet() == false
+    || bb.getDimensionsExplicitlySet() == false)
+  {
+    fail = true;
+  }
+
+  inv(fail == false);
+}
+END_CONSTRAINT
+
+//21305
+START_CONSTRAINT (LayoutBBoxConsistent3DDefinition, BoundingBox, bb)
+{
+  pre (bb.getPositionExplicitlySet() == true);
+  pre (bb.getDimensionsExplicitlySet() == true);
+
+  bool fail = false;
+
+  if (bb.getPosition()->getZOffsetExplicitlySet() == false)
+  {
+    if (bb.getDimensions()->getDExplicitlySet() == true)
+    {
+      fail = true;
+    }
+  }
+
+  inv(fail == false);
+}
+END_CONSTRAINT
+
+
+//21403
+START_CONSTRAINT (LayoutCurveAllowedElements, Curve, curve)
+{
+  bool fail = false;
+
+  if (curve.getNumCurveSegments() == 0)
+  {
+    fail = true;
+  }
+
+  inv(fail == false);
+}
+END_CONSTRAINT
 
 
 	/** @endcond doxygen-libsbml-internal */

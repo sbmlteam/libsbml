@@ -76,6 +76,7 @@ protected:
   double mW;
   double mH;
   double mD;
+  bool mDExplicitlySet;
   /** @endcond */
 
 
@@ -185,6 +186,7 @@ public:
   
   void setBounds (double w, double h, double d = 0.0);
 
+  bool getDExplicitlySet() const;
   /**
    * Sets the depth to 0.0
    */ 

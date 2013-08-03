@@ -75,6 +75,7 @@ protected:
   double mXOffset;
   double mYOffset;
   double mZOffset;
+  bool mZOffsetExplicitlySet;
   std::string mElementName;
   /** @endcond */
 
@@ -200,7 +201,8 @@ public:
    */ 
   
   void setOffsets (double x, double y, double z = 0.0);
-        
+   
+  bool getZOffsetExplicitlySet() const;
   /**
    * Sets the Z offset to 0.0.
    */ 

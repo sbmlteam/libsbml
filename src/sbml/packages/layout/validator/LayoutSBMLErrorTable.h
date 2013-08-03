@@ -107,6 +107,30 @@ static const packageErrorTableEntry layoutErrorTable[] =
     }
   },
 
+    // 6010401
+  { LayoutXsiTypeAllowedLocations, 
+    "'xsi:type' allowed locations",
+    LIBSBML_CAT_IDENTIFIER_CONSISTENCY, 
+    LIBSBML_SEV_ERROR,
+    "The attribute 'xsi:type' must be present on all <lineSegment> and "
+    "<cubicBezier> objects. It is not permitted on any other elements "
+    "from the SBML Level 3 Layout namespace.", 
+    { "L3V1 Layout V1 Section 3.3"
+    }
+  },
+
+    // 6010402
+  { LayoutXsiTypeSyntax, 
+    "'xsi:type' attribute incorrect syntax",
+    LIBSBML_CAT_IDENTIFIER_CONSISTENCY, 
+    LIBSBML_SEV_ERROR,
+    "The value of the 'xsi:type' attribute must be either 'LineSegment' or "
+    "'CubicBezier' appropriate to the object where it is located. No other "
+    "values are permitted.",
+    { "L3V1 Layout V1 Section 3.3"
+    }
+  },
+
   // 6020101
   { LayoutAttributeRequiredMissing, 
     "Required layout:required attribute on <sbml>",
@@ -740,7 +764,8 @@ static const packageErrorTableEntry layoutErrorTable[] =
     LIBSBML_SEV_ERROR,
     "There may be at most one instance of each of the following kinds "
     "of objects within a <reactionGlyph> object: <boundingBox>, "
-    "<curve>, <listOfSpeciesReferenceGlyphs>. No other elements from "
+    "and <curve> and there must be one instance of the "
+    "<listOfSpeciesReferenceGlyphs>. No other elements from "
     "the Layout namespace are permitted on a <reactionGlyph>. ",
     { "L3V1 Layout V1 Section 3.10"
     }
@@ -838,6 +863,16 @@ static const packageErrorTableEntry layoutErrorTable[] =
     "and 'sboTerm' defined by SBML Level~3 Core. No other attributes from "
     "the SBML Level 3 Core namespace or the Layout "
     "namespace are permitted on a <listOfSpeciesReferenceGlyphs> object. ",
+    { "L3V1 Layout V1 Section 3.10"
+    }
+  },
+
+  // 6020712
+  { LayoutLOSpeciesRefGlyphNotEmpty, 
+    "ListOfSpeciesReferenceGlyphs not empty",
+    LIBSBML_CAT_GENERAL_CONSISTENCY, 
+    LIBSBML_SEV_ERROR,
+    "A <listOfSpeciesReferenceGlyphs> container object must not be empty. ",
     { "L3V1 Layout V1 Section 3.10"
     }
   },
@@ -1280,8 +1315,9 @@ static const packageErrorTableEntry layoutErrorTable[] =
     "SpeciesReferenceGlyph 'role' must be string from enumeration.",
     LIBSBML_CAT_GENERAL_CONSISTENCY, 
     LIBSBML_SEV_ERROR,
-    "The value of a 'layout:role' of a <speciesReferenceGlyph> "
-    "must be one of: substrate, product, sidesubstrate, sideproduct, "
+    "The attribute 'layout:role' of a <speciesReferenceGlyph> "
+    "must be of data type 'SpeciesReferenceRole', i.e. it must have one "
+    "of the following values: substrate, product, sidesubstrate, sideproduct, "
     "modifier, activator, inhibitor or undefined.",
     { "L3V1 Layout V1 Section 3.10.1"
     }
@@ -1666,30 +1702,8 @@ static const packageErrorTableEntry layoutErrorTable[] =
     "Layout attributes allowed on <lineSegment>.",
     LIBSBML_CAT_GENERAL_CONSISTENCY, 
     LIBSBML_SEV_ERROR,
-    "A <lineSegment> object must have the required attribute 'xsi:type'. "
-    "No other attributes from the Layout namespace "
+    "No attributes from the Layout namespace "
     "are permitted on a <lineSegment>. ",
-    { "L3V1 Layout V1 Section 3.4.5"
-    }
-  },
-
-  // 6021505
-  { LayoutLSegTypeSyntax, 
-    "Layout LineSegment xsi:type must be string",
-    LIBSBML_CAT_GENERAL_CONSISTENCY, 
-    LIBSBML_SEV_ERROR,
-    "The attribute 'xsi:type' on a <lineSegment> must be of data type "
-    "'string'.",
-    { "L3V1 Layout V1 Section 3.4.5"
-    }
-  },
-
-  // 6021506
-  { LayoutLSegTypeMustBeLineSegment, 
-    "Layout LineSegment xsi:type must be 'LineSegment'",
-    LIBSBML_CAT_GENERAL_CONSISTENCY, 
-    LIBSBML_SEV_ERROR,
-    "The attribute 'xsi:type' on a <lineSegment> must be 'LineSegment'.",
     { "L3V1 Layout V1 Section 3.4.5"
     }
   },
@@ -1736,30 +1750,8 @@ static const packageErrorTableEntry layoutErrorTable[] =
     "Layout attributes allowed on <cubicBezier>.",
     LIBSBML_CAT_GENERAL_CONSISTENCY, 
     LIBSBML_SEV_ERROR,
-    "A <cubicBezier> object must have the required attribute 'xsi:type'. "
-    "No other attributes from the Layout namespace "
+    "No attributes from the Layout namespace "
     "are permitted on a <cubicBezier>. ",
-    { "L3V1 Layout V1 Section 3.4.6"
-    }
-  },
-
-  // 6021605
-  { LayoutCBezTypeSyntax, 
-    "Layout CubicBezier xsi:type must be string",
-    LIBSBML_CAT_GENERAL_CONSISTENCY, 
-    LIBSBML_SEV_ERROR,
-    "The attribute 'xsi:type' on a <cubicBezier> must be of data type "
-    "'string'.",
-    { "L3V1 Layout V1 Section 3.4.6"
-    }
-  },
-
-  // 6021606
-  { LayoutCBezTypeMustBeCubicBezier, 
-    "Layout CubicBezier xsi:type must be 'CubicBezier'",
-    LIBSBML_CAT_GENERAL_CONSISTENCY, 
-    LIBSBML_SEV_ERROR,
-    "The attribute 'xsi:type' on a <cubicBezier> must be 'CubicBezier'.",
     { "L3V1 Layout V1 Section 3.4.6"
     }
   },

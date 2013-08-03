@@ -604,15 +604,57 @@ GraphicalObject::addExpectedAttributes(ExpectedAttributes& attributes)
 void GraphicalObject::readAttributes (const XMLAttributes& attributes,
                                       const ExpectedAttributes& expectedAttributes)
 {
-  SBase::readAttributes(attributes,expectedAttributes);
-
   const unsigned int sbmlLevel   = getLevel  ();
   const unsigned int sbmlVersion = getVersion();
+
+  unsigned int numErrs;
+
+	/* look to see whether an unknown attribute error was logged
+	 * during the read of the listOfTextGlyphs - which will have
+	 * happened immediately prior to this read
+	*/
+
+  bool loSubGlyphs = false;
+  if (getParentSBMLObject() != NULL
+    && getParentSBMLObject()->getElementName() == "listOfSubGlyphs")
+  {
+    loSubGlyphs = true;
+  }
+
+	if (getErrorLog() != NULL && loSubGlyphs == true &&
+	    static_cast<ListOfGraphicalObjects*>(getParentSBMLObject())->size() < 2)
+	{
+		numErrs = getErrorLog()->getNumErrors();
+		for (int n = numErrs-1; n >= 0; n--)
+		{
+			if (getErrorLog()->getError(n)->getErrorId() == UnknownPackageAttribute)
+			{
+				const std::string details =
+				      getErrorLog()->getError(n)->getMessage();
+				getErrorLog()->remove(UnknownPackageAttribute);
+			  getErrorLog()->logPackageError("layout", 
+                                  LayoutLOSubGlyphAllowedAttribs,
+			            getPackageVersion(), sbmlLevel, sbmlVersion, details);
+			}
+			else if (getErrorLog()->getError(n)->getErrorId() == UnknownCoreAttribute)
+			{
+				const std::string details =
+				           getErrorLog()->getError(n)->getMessage();
+				getErrorLog()->remove(UnknownCoreAttribute);
+			  getErrorLog()->logPackageError("layout", 
+                                  LayoutLOSubGlyphAllowedAttribs,
+			            getPackageVersion(), sbmlLevel, sbmlVersion, details);
+			}
+		}
+	}
+
+  SBase::readAttributes(attributes,expectedAttributes);
+
 
 	// look to see whether an unknown attribute error was logged
 	if (getErrorLog() != NULL)
 	{
-		unsigned int numErrs = getErrorLog()->getNumErrors();
+		numErrs = getErrorLog()->getNumErrors();
 		for (int n = numErrs-1; n >= 0; n--)
 		{
 			if (getErrorLog()->getError(n)->getErrorId() == UnknownPackageAttribute)
@@ -894,8 +936,11 @@ GraphicalObject::accept (SBMLVisitor& v) const
 {   
   v.visit(*this);
   
-  this->mBoundingBox.accept(v);
-  
+  if (getBoundingBoxExplicitlySet() == true)
+  {
+    this->mBoundingBox.accept(v);
+  }
+
   v.leave(*this);
   
   return true;
@@ -1117,6 +1162,18 @@ ListOfGraphicalObjects::createObject (XMLInputStream& stream)
   {
     LAYOUT_CREATE_NS(layoutns,this->getSBMLNamespaces());
     object = new ReactionGlyph(layoutns);
+    appendAndOwn(object);
+  }
+  else if (name == "speciesReferenceGlyph")
+  {
+    LAYOUT_CREATE_NS(layoutns,this->getSBMLNamespaces());
+    object = new SpeciesReferenceGlyph(layoutns);
+    appendAndOwn(object);
+  }
+  else if (name == "referenceGlyph")
+  {
+    LAYOUT_CREATE_NS(layoutns,this->getSBMLNamespaces());
+    object = new ReferenceGlyph(layoutns);
     appendAndOwn(object);
   }
 

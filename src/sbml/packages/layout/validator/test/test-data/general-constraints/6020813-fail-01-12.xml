@@ -25,7 +25,7 @@
         <layout:dimensions layout:width="239.037328720093" layout:height="76.5"/>
         
 		<layout:listOfSpeciesGlyphs>
-          <layout:speciesGlyph layout:id="sGlyph_0" layout:species="Node0" >
+          <layout:speciesGlyph layout:id="sGlyph_0" layout:species="Node0" metaid="_sG0">
             <layout:boundingBox>
               <layout:position layout:x="16" layout:y="18"/>
               <layout:dimensions layout:width="62" layout:height="40"/>
@@ -40,33 +40,43 @@
         </layout:listOfSpeciesGlyphs>
         
 		<layout:listOfAdditionalGraphicalObjects>
-          <layout:generalGlyph layout:id="rGlyph_0" layout:reference="sGlyph_0">
+          <layout:generalGlyph layout:id="rGlyph_0">
 		    <!-- unused bounding box -->
             <layout:boundingBox>
-              <layout:position layout:x="0" layout:y="0"/>
-              <layout:dimensions layout:width="0" layout:height="0"/>
+              <layout:position layout:x="161" layout:y="18"/>
+              <layout:dimensions layout:width="62" layout:height="40"/>
             </layout:boundingBox>
-            <layout:boundingBox>
-            </layout:boundingBox>           
+            <layout:listOfSubGlyphs  metaid="__loRG" sboTerm="SBO:0000001" layout:comp="s">
+               
+              
+              
+              <layout:textGlyph layout:id="tG1">
+                <layout:boundingBox>
+                  <layout:position layout:x="0" layout:y="0"></layout:position>
+                  <layout:dimensions layout:width="1" layout:height="1"></layout:dimensions>
+                </layout:boundingBox>
+              </layout:textGlyph>
+              
+               
+            </layout:listOfSubGlyphs>
             <layout:listOfReferenceGlyphs>
-              <!-- reference glyph representing the inhibited species -->
-              <layout:referenceGlyph 
-                layout:id="SpeciesReference_J0_0" 
-                layout:reference="Node1" 
-                layout:glyph="sGlyph_1" 
-                layout:role="inhibitor">
-                
+               <layout:referenceGlyph 
+			      layout:id="SpeciesReference_J0_0" 
+				  layout:reference="Node1" 
+				  layout:glyph="sGlyph_1" 
+				  layout:role="inhibitor">
+				  
                 <layout:curve>
                   <layout:listOfCurveSegments>
                     <layout:curveSegment 
-                      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-                      xsi:type="LineSegment">
+					  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+					  xsi:type="LineSegment">
                       <layout:start layout:x="86" layout:y="38"/>
                       <layout:end layout:x="153" layout:y="38"/>
                     </layout:curveSegment>
                   </layout:listOfCurveSegments>
                 </layout:curve>
-                
+				
               </layout:referenceGlyph>              
             </layout:listOfReferenceGlyphs>
           </layout:generalGlyph>

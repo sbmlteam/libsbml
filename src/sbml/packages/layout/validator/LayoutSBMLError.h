@@ -44,6 +44,8 @@ typedef enum
   , LayoutElementNotInNs                    = 6010102
   , LayoutDuplicateComponentId              = 6010301
   , LayoutSIdSyntax                         = 6010302
+  , LayoutXsiTypeAllowedLocations           = 6010401
+  , LayoutXsiTypeSyntax                     = 6010402
   , LayoutAttributeRequiredMissing          = 6020101
   , LayoutAttributeRequiredMustBeBoolean    = 6020102
   , LayoutRequiredFalse                     = 6020103
@@ -105,6 +107,7 @@ typedef enum
   , LayoutRGNoDuplicateReferences           = 6020709
   , LayoutLOSpeciesRefGlyphAllowedElements  = 6020710
   , LayoutLOSpeciesRefGlyphAllowedAttribs   = 6020711
+  , LayoutLOSpeciesRefGlyphNotEmpty         = 6020712
   , LayoutGGAllowedCoreElements             = 6020801
   , LayoutGGAllowedCoreAttributes           = 6020802
   , LayoutGGAllowedElements                 = 6020803
@@ -178,15 +181,11 @@ typedef enum
   , LayoutLSegAllowedCoreAttributes         = 6021502
   , LayoutLSegAllowedElements               = 6021503
   , LayoutLSegAllowedAttributes             = 6021504
-  , LayoutLSegTypeSyntax                    = 6021505
-  , LayoutLSegTypeMustBeLineSegment         = 6021506
 
   , LayoutCBezAllowedCoreElements           = 6021601
   , LayoutCBezAllowedCoreAttributes         = 6021602
   , LayoutCBezAllowedElements               = 6021603
   , LayoutCBezAllowedAttributes             = 6021604
-  , LayoutCBezTypeSyntax                    = 6021605
-  , LayoutCBezTypeMustBeCubicBezier         = 6021606
 
   , LayoutDimsAllowedCoreElements           = 6021701
   , LayoutDimsAllowedCoreAttributes         = 6021702

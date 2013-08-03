@@ -83,6 +83,8 @@ protected:
   std::string mId;
   Point mPosition;
   Dimensions mDimensions;
+  bool mPositionExplicitlySet;
+  bool mDimensionsExplicitlySet;
   /** @endcond */
 
 
@@ -242,7 +244,18 @@ public:
    */ 
   
   void setDimensions (const Dimensions* d);  
-        
+    
+
+  /**
+   * Return true or false based on whether Dimensions have been set 
+   */
+  bool getDimensionsExplicitlySet() const;
+
+  /**
+   * Return true or false based on whether Dimensions have been set 
+   */
+  bool getPositionExplicitlySet() const;
+
   /**
    * Does nothing yet since there are no defaults fo a BoundingBox. 
    */ 

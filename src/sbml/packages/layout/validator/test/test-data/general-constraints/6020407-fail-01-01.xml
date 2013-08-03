@@ -33,8 +33,6 @@
 		      <layout:dimensions layout:width="390" layout:height="220"/>
 		    </layout:boundingBox>	
 		  	<layout:boundingBox layout:id="bb1">
-		  		<layout:position layout:x="5" layout:y="5"/>
-		  		<layout:dimensions layout:width="390" layout:height="220"/>
 		  	</layout:boundingBox>	
 		  </layout:graphicalObject>
           
