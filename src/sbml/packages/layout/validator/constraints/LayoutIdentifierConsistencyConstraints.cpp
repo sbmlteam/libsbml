@@ -34,6 +34,8 @@
 
 #include <sbml/packages/layout/validator/LayoutSBMLError.h>
 
+#include "UniqueIdsLayout.h"
+
 #endif  /* AddingConstrainstToValidator */
 
 #include <sbml/validator/ConstraintMacros.h>
@@ -44,7 +46,11 @@ using namespace std;
 
 /** @endcond */
 
-/** PUT CONSTRAINTS HERE */
+// 10301
+EXTERN_CONSTRAINT(LayoutDuplicateComponentId, UniqueIdsLayout);
+
+// 10302 - caught at read
+
 
 	/** @endcond doxygen-libsbml-internal */
 

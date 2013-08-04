@@ -893,6 +893,39 @@ START_CONSTRAINT (LayoutCurveAllowedElements, Curve, curve)
 }
 END_CONSTRAINT
 
+//21503
+START_CONSTRAINT (LayoutLSegAllowedElements, LineSegment, line)
+{
+  bool fail = false;
+
+  if (line.getStartExplicitlySet() == false
+    || line.getEndExplicitlySet() == false)
+  {
+    fail = true;
+  }
+
+  inv(fail == false);
+}
+END_CONSTRAINT
+
+
+//21603
+START_CONSTRAINT (LayoutCBezAllowedElements, CubicBezier, line)
+{
+  bool fail = false;
+
+  if (line.getStartExplicitlySet() == false
+    || line.getEndExplicitlySet() == false
+    || line.getBasePt1ExplicitlySet() == false
+    || line.getBasePt2ExplicitlySet() == false)
+  {
+    fail = true;
+  }
+
+  inv(fail == false);
+}
+END_CONSTRAINT
+
 
 	/** @endcond doxygen-libsbml-internal */
 

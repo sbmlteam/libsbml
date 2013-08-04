@@ -78,6 +78,8 @@ protected:
   /** @cond doxygen-libsbml-internal */
   Point mStartPoint;
   Point mEndPoint;
+  bool mStartExplicitlySet;
+  bool mEndExplicitlySet;
   /** @endcond */
 
 public:
@@ -192,6 +194,14 @@ public:
    */
   
   void setEnd (double x, double y, double z = 0.0);
+
+  /** @cond doxygen-libsbml-internal */
+
+  bool getStartExplicitlySet() const;
+
+  bool getEndExplicitlySet() const;
+
+  /** @endcond */
 
   /**
    * Does noting since no defaults are defined for LineSegment.

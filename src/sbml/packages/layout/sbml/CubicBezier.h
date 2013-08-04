@@ -77,6 +77,8 @@ protected:
   /** @cond doxygen-libsbml-internal */
   Point mBasePoint1;
   Point mBasePoint2;
+  bool mBasePt1ExplicitlySet;
+  bool mBasePt2ExplicitlySet;
   /** @endcond */
 
 
@@ -223,6 +225,14 @@ public:
    */
   
   void setBasePoint2 (double x, double y, double z = 0.0);
+
+  /** @cond doxygen-libsbml-internal */
+
+  bool getBasePt1ExplicitlySet() const;
+
+  bool getBasePt2ExplicitlySet() const;
+
+  /** @endcond */
 
   /**
    * Calls initDefaults from LineSegment.

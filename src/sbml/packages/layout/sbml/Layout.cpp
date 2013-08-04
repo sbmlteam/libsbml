@@ -1613,25 +1613,29 @@ Layout::readAttributes (const XMLAttributes& attributes,
 	//
 	assigned = attributes.readInto("id", mId);
 
- 	if (assigned == true)
-	{
-		// check string is not empty and correct syntax
+  if (getErrorLog() != NULL)
+  {
+ 	  if (assigned == true)
+	  {
+		  // check string is not empty and correct syntax
 
-		if (mId.empty() == true)
-		{
-			logEmptyString(mId, getLevel(), getVersion(), "<Layout>");
-		}
-		else if (SyntaxChecker::isValidSBMLSId(mId) == false)
-		{
-			logError(InvalidIdSyntax);
-		}
-	}
-	else
-	{
-		std::string message = "Layout attribute 'id' is missing.";
-		getErrorLog()->logPackageError("layout", LayoutLayoutAllowedAttributes,
-		               getPackageVersion(), sbmlLevel, sbmlVersion, message);
-	}
+		  if (mId.empty() == true)
+		  {
+			  logEmptyString(mId, getLevel(), getVersion(), "<Layout>");
+		  }
+		  else if (SyntaxChecker::isValidSBMLSId(mId) == false)
+		  {
+		    getErrorLog()->logPackageError("layout", LayoutSIdSyntax,
+		                   getPackageVersion(), sbmlLevel, sbmlVersion);
+		  }
+	  }
+	  else
+	  {
+		  std::string message = "Layout attribute 'id' is missing.";
+		  getErrorLog()->logPackageError("layout", LayoutLayoutAllowedAttributes,
+		                 getPackageVersion(), sbmlLevel, sbmlVersion, message);
+	  }
+  }
 
   attributes.readInto("name", mName);
 }

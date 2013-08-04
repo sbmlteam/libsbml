@@ -311,6 +311,11 @@ class LayoutValidatingVisitor: public SBMLVisitor
 public:
 
   LayoutValidatingVisitor (LayoutValidator& v, const Model& m) : v(v), m(m) { }
+  virtual void visit (const Model &x)
+  {
+    v.mLayoutConstraints->mModel.applyTo(m, x);
+  }
+
 	bool visit (const BoundingBox &x)
 	{
 		v.mLayoutConstraints->mBoundingBox.applyTo(m, x);
@@ -543,7 +548,8 @@ LayoutValidator::validate (const SBMLDocument& d)
     const LayoutSBMLDocumentPlugin* docPlug = 
       static_cast <const LayoutSBMLDocumentPlugin *> (d.getPlugin("layout"));
 
-    if (docPlug->haveValidationListsBeenPopulated() == false)
+    if (docPlug != NULL
+      && docPlug->haveValidationListsBeenPopulated() == false)
     {
       const_cast<LayoutSBMLDocumentPlugin *>(docPlug)->populateValidationLists();
     }

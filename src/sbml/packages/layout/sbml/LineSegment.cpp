@@ -92,6 +92,8 @@ LineSegment::LineSegment (unsigned int level, unsigned int version, unsigned int
  :  SBase (level,version)
   , mStartPoint(level,version,pkgVersion)
   , mEndPoint  (level,version,pkgVersion)
+  , mStartExplicitlySet (false)
+  , mEndExplicitlySet (false)
 {
   this->mStartPoint.setElementName("start");
   this->mEndPoint.setElementName("end");
@@ -108,6 +110,8 @@ LineSegment::LineSegment (LayoutPkgNamespaces* layoutns)
  : SBase (layoutns)
  , mStartPoint(layoutns)
  , mEndPoint (layoutns)
+  , mStartExplicitlySet (false)
+  , mEndExplicitlySet (false)
 {
   //
   // set the element namespace of this object
@@ -133,6 +137,8 @@ LineSegment::LineSegment (LayoutPkgNamespaces* layoutns, double x1, double y1, d
  : SBase (layoutns)
  , mStartPoint(layoutns, x1, y1, 0.0 )
  , mEndPoint (layoutns, x2, y2, 0.0 )
+  , mStartExplicitlySet (true)
+  , mEndExplicitlySet (true)
 {
   //
   // set the element namespace of this object
@@ -159,6 +165,8 @@ LineSegment::LineSegment (LayoutPkgNamespaces* layoutns, double x1, double y1, d
  : SBase(layoutns)
   , mStartPoint(layoutns, x1, y1, z1)
   , mEndPoint  (layoutns, x2, y2, z2)
+  , mStartExplicitlySet (true)
+  , mEndExplicitlySet (true)
 {
   //
   // set the element namespace of this object
@@ -183,6 +191,8 @@ LineSegment::LineSegment(const LineSegment& orig):SBase(orig)
 {
   this->mStartPoint=orig.mStartPoint;
   this->mEndPoint=orig.mEndPoint;
+  this->mStartExplicitlySet=orig.mStartExplicitlySet;
+  this->mEndExplicitlySet=orig.mEndExplicitlySet;
 
   connectToChild();
 }
@@ -198,6 +208,8 @@ LineSegment& LineSegment::operator=(const LineSegment& orig)
     this->SBase::operator=(orig);
     this->mStartPoint=orig.mStartPoint;
     this->mEndPoint=orig.mEndPoint;
+    this->mStartExplicitlySet=orig.mStartExplicitlySet;
+    this->mEndExplicitlySet=orig.mEndExplicitlySet;
     connectToChild();
   }
   
@@ -212,6 +224,8 @@ LineSegment::LineSegment (LayoutPkgNamespaces* layoutns, const Point* start, con
  : SBase (layoutns)
  , mStartPoint(layoutns)
  , mEndPoint  (layoutns)
+  , mStartExplicitlySet (true)
+  , mEndExplicitlySet (true)
 {
   //
   // set the element namespace of this object
@@ -241,6 +255,8 @@ LineSegment::LineSegment(const XMLNode& node, unsigned int l2version)
  : SBase (2, l2version)
  , mStartPoint(2, l2version)
  , mEndPoint  (2, l2version)
+  , mStartExplicitlySet (false)
+  , mEndExplicitlySet (false)
 {
     const XMLAttributes& attributes=node.getAttributes();
     const XMLNode* child;
@@ -256,10 +272,12 @@ LineSegment::LineSegment(const XMLNode& node, unsigned int l2version)
         if(childName=="start")
         {
             this->mStartPoint=Point(*child);
+            this->mStartExplicitlySet = true;
         }
         else if(childName=="end")
         {
             this->mEndPoint=Point(*child);
+            this->mEndExplicitlySet = true;
         }
         else if(childName=="annotation")
         {
@@ -328,6 +346,7 @@ LineSegment::setStart (const Point* start)
     this->mStartPoint=*start;
     this->mStartPoint.setElementName("start");
     this->mStartPoint.connectToParent(this);
+    this->mStartExplicitlySet = true;
   }
 }
 
@@ -339,6 +358,7 @@ void
 LineSegment::setStart (double x, double y, double z)
 {
   this->mStartPoint.setOffsets(x, y, z);
+  this->mStartExplicitlySet = true;
 }
 
 
@@ -373,6 +393,7 @@ LineSegment::setEnd (const Point* end)
     this->mEndPoint = *end;
     this->mEndPoint.setElementName("end");
     this->mEndPoint.connectToParent(this);
+    this->mEndExplicitlySet = true;
   }
 }
 
@@ -384,6 +405,22 @@ void
 LineSegment::setEnd (double x, double y, double z)
 {
   this->mEndPoint.setOffsets(x, y, z);
+  this->mEndExplicitlySet = true;
+}
+
+
+bool
+LineSegment::getStartExplicitlySet() const
+{
+  return mStartExplicitlySet;
+}
+
+
+
+bool
+LineSegment::getEndExplicitlySet() const
+{
+  return mEndExplicitlySet;
 }
 
 
@@ -417,11 +454,25 @@ LineSegment::createObject (XMLInputStream& stream)
 
   if (name == "start")
   {
+    if (getStartExplicitlySet() == true)
+    {
+      getErrorLog()->logPackageError("layout", LayoutLSegAllowedElements, 
+          getPackageVersion(), getLevel(), getVersion());
+    }
+
     object = &mStartPoint;
+    mStartExplicitlySet = true;
   }
   else if(name == "end")
   {
+    if (getEndExplicitlySet() == true)
+    {
+      getErrorLog()->logPackageError("layout", LayoutLSegAllowedElements, 
+          getPackageVersion(), getLevel(), getVersion());
+    }
+
     object = &mEndPoint;
+    mEndExplicitlySet = true;
   }
 
  

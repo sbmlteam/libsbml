@@ -64,6 +64,7 @@
 #include <sbml/util/ElementFilter.h>
 
 #include <sbml/packages/layout/extension/LayoutExtension.h>
+#include <sbml/packages/layout/validator/LayoutSBMLError.h>
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
@@ -86,6 +87,8 @@ CubicBezier::CubicBezier(unsigned int level, unsigned int version, unsigned int 
  : LineSegment(level,version,pkgVersion)
   ,mBasePoint1(level,version,pkgVersion)
   ,mBasePoint2(level,version,pkgVersion)
+  , mBasePt1ExplicitlySet (false)
+  , mBasePt2ExplicitlySet (false)
 {
   this->mStartPoint.setElementName("start");
   this->mEndPoint.setElementName("end");
@@ -104,6 +107,8 @@ CubicBezier::CubicBezier(LayoutPkgNamespaces* layoutns)
  : LineSegment(layoutns)
   ,mBasePoint1(layoutns)
   ,mBasePoint2(layoutns)
+  , mBasePt1ExplicitlySet (false)
+  , mBasePt2ExplicitlySet (false)
 {
   this->mStartPoint.setElementName("start");
   this->mEndPoint.setElementName("end");
@@ -135,6 +140,8 @@ CubicBezier::CubicBezier (LayoutPkgNamespaces* layoutns, double x1, double y1, d
   : LineSegment(layoutns, x1, y1, 0.0, x2, y2, 0.0 )
   ,mBasePoint1(layoutns)
   ,mBasePoint2(layoutns)
+  , mBasePt1ExplicitlySet (true)
+  , mBasePt2ExplicitlySet (true)
 {
   this->straighten();
   this->mBasePoint1.setElementName("basePoint1");
@@ -166,6 +173,8 @@ CubicBezier::CubicBezier (LayoutPkgNamespaces* layoutns, double x1, double y1, d
  : LineSegment(layoutns, x1, y1, z1, x2, y2, z2 )
   ,mBasePoint1(layoutns)
   ,mBasePoint2(layoutns)
+  , mBasePt1ExplicitlySet (true)
+  , mBasePt2ExplicitlySet (true)
 {
   this->straighten();
   this->mBasePoint1.setElementName("basePoint1");
@@ -194,6 +203,8 @@ CubicBezier::CubicBezier(const CubicBezier& orig):LineSegment(orig)
 {
   this->mBasePoint1=orig.mBasePoint1;
   this->mBasePoint2=orig.mBasePoint2;
+  this->mBasePt1ExplicitlySet=orig.mBasePt1ExplicitlySet;
+  this->mBasePt2ExplicitlySet=orig.mBasePt2ExplicitlySet;
 
   connectToChild();
 }
@@ -209,7 +220,8 @@ CubicBezier& CubicBezier::operator=(const CubicBezier& orig)
     LineSegment::operator=(orig);
     this->mBasePoint1=orig.mBasePoint1;
     this->mBasePoint2=orig.mBasePoint2;
-
+    this->mBasePt1ExplicitlySet=orig.mBasePt1ExplicitlySet;
+    this->mBasePt2ExplicitlySet=orig.mBasePt2ExplicitlySet;
     connectToChild();
   }
 
@@ -240,6 +252,8 @@ CubicBezier::CubicBezier (LayoutPkgNamespaces* layoutns, const Point* start, con
  : LineSegment(layoutns, start, end)
   ,mBasePoint1(layoutns)
   ,mBasePoint2(layoutns)
+  , mBasePt1ExplicitlySet (false)
+  , mBasePt2ExplicitlySet (false)
 {
   this->straighten();
   this->mBasePoint1.setElementName("basePoint1");
@@ -270,6 +284,8 @@ CubicBezier::CubicBezier (LayoutPkgNamespaces* layoutns, const Point* start, con
  : LineSegment(layoutns, start ,end )
   ,mBasePoint1(layoutns)
   ,mBasePoint2(layoutns)
+  , mBasePt1ExplicitlySet (true)
+  , mBasePt2ExplicitlySet (true)
 {
     if(base1 && base2 && start && end)
     {
@@ -307,6 +323,8 @@ CubicBezier::CubicBezier(const XMLNode& node, unsigned int l2version)
  : LineSegment(2, l2version)
   ,mBasePoint1(2, l2version)
   ,mBasePoint2(2, l2version)
+  , mBasePt1ExplicitlySet (false)
+  , mBasePt2ExplicitlySet (false)
 {
     const XMLAttributes& attributes=node.getAttributes();
     const XMLNode* child;
@@ -322,18 +340,22 @@ CubicBezier::CubicBezier(const XMLNode& node, unsigned int l2version)
         if(childName=="start")
         {
             this->mStartPoint=Point(*child);
+            this->mStartExplicitlySet = true;
         }
         else if(childName=="end")
         {
             this->mEndPoint=Point(*child);
+            this->mEndExplicitlySet = true;
         }
         else if(childName=="basePoint1")
         {
             this->mBasePoint1=Point(*child);
+            this->mBasePt1ExplicitlySet = true;
         }
         else if(childName=="basePoint2")
         {
             this->mBasePoint2=Point(*child);
+            this->mBasePt2ExplicitlySet = true;
         }
         else if(childName=="annotation")
         {
@@ -405,6 +427,7 @@ CubicBezier::setBasePoint1 (const Point* p)
     this->mBasePoint1 = *p;
     this->mBasePoint1.setElementName("basePoint1");
     this->mBasePoint1.connectToParent(this);
+    this->mBasePt1ExplicitlySet = true;
   }
 }
 
@@ -417,6 +440,7 @@ CubicBezier::setBasePoint1 (double x, double y, double z)
 {
   this->mBasePoint1.setOffsets(x, y ,z);
   this->mBasePoint1.connectToParent(this);
+  this->mBasePt1ExplicitlySet = true;
 }
 
 
@@ -452,6 +476,7 @@ void CubicBezier::setBasePoint2 (const Point* p)
     this->mBasePoint2 = *p;
     this->mBasePoint2.setElementName("basePoint2");
     this->mBasePoint2.connectToParent(this);
+    this->mBasePt2ExplicitlySet = true;
   }
 }
 
@@ -464,6 +489,22 @@ CubicBezier::setBasePoint2 (double x, double y, double z)
 {
   this->mBasePoint2.setOffsets(x, y, z);
   this->mBasePoint2.connectToParent(this);
+  this->mBasePt2ExplicitlySet = true;
+}
+
+
+bool
+CubicBezier::getBasePt1ExplicitlySet() const
+{
+  return mBasePt1ExplicitlySet;
+}
+
+
+
+bool
+CubicBezier::getBasePt2ExplicitlySet() const
+{
+  return mBasePt2ExplicitlySet;
 }
 
 
@@ -498,11 +539,25 @@ CubicBezier::createObject (XMLInputStream& stream)
 
   if (name == "basePoint1")
   {
+    if (getBasePt1ExplicitlySet() == true)
+    {
+      getErrorLog()->logPackageError("layout", LayoutCBezAllowedElements, 
+          getPackageVersion(), getLevel(), getVersion());
+    }
+
     object = &mBasePoint1;
+    mBasePt1ExplicitlySet = true;
   }
   else if(name == "basePoint2")
   {
+    if (getBasePt2ExplicitlySet() == true)
+    {
+      getErrorLog()->logPackageError("layout", LayoutCBezAllowedElements, 
+          getPackageVersion(), getLevel(), getVersion());
+    }
+
     object = &mBasePoint2;
+    mBasePt2ExplicitlySet = true;
   }
   else
   {
