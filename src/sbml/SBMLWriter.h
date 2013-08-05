@@ -33,9 +33,9 @@
  *
  * The SBMLWriter class is the converse of SBMLReader, and provides the
  * main interface for serializing SBML models into XML and writing the
- * result to files and text strings.  The methods for writing SBML all take
- * an SBMLDocument object and a destination.  They return a boolean or
- * integer value to indicate success or failure.
+ * result to an output stream or to files and text strings.  The methods 
+ * for writing SBML all take an SBMLDocument object and a destination.  
+ * They return a boolean or integer value to indicate success or failure.
  *
  * @section compression Support for writing compressed files
  *
