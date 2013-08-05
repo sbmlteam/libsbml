@@ -107,7 +107,7 @@ int ReplacedBy::performReplacement()
   if (parent==NULL) {
     if (doc) {
       string error = "Unable to perform replacement in ReplacedBy::performReplacement: no parent object for this <replacedBy> could be found.";
-      doc->getErrorLog()->logPackageError("comp", CompModelFlatteningFailed, getPackageVersion(), getLevel(), getVersion(), error);
+      doc->getErrorLog()->logPackageError("comp", CompModelFlatteningFailed, getPackageVersion(), getLevel(), getVersion(), error, getLine(), getColumn());
     }
     return LIBSBML_INVALID_OBJECT;
   }
@@ -142,14 +142,14 @@ ReplacedBy::updateIDs(SBase* oldnames, SBase* newnames)
   if (!oldnames->isSetId() && newnames->isSetId()) {
     if (doc) {
       string error = "Unable to transform IDs in ReplacedBy::updateIDs during replacement:  the '" + newnames->getId() + "' element's replacement does not have an ID set.";
-      doc->getErrorLog()->logPackageError("comp", CompMustReplaceIDs, getPackageVersion(), getLevel(), getVersion(), error);
+      doc->getErrorLog()->logPackageError("comp", CompMustReplaceIDs, getPackageVersion(), getLevel(), getVersion(), error, getLine(), getColumn());
     }
     return LIBSBML_INVALID_OBJECT;
   }
   if (!oldnames->isSetMetaId() && newnames->isSetMetaId()) {
     if (doc) {
       string error = "Unable to transform IDs in ReplacedBy::updateIDs during replacement:  the replacement of the element with metaid '" + newnames->getMetaId() + "' does not have a metaid.";
-      doc->getErrorLog()->logPackageError("comp", CompMustReplaceMetaIDs, getPackageVersion(), getLevel(), getVersion(), error);
+      doc->getErrorLog()->logPackageError("comp", CompMustReplaceMetaIDs, getPackageVersion(), getLevel(), getVersion(), error, getLine(), getColumn());
     }
     return LIBSBML_INVALID_OBJECT;
   }

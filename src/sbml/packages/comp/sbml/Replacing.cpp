@@ -150,7 +150,7 @@ Replacing::saveReferencedElement()
         error += " '" + getId() + "'";
       }
       error += " has no 'submodelRef' attribute.";
-      doc->getErrorLog()->logPackageError("comp", CompReplacedElementAllowedAttributes, getPackageVersion(), getLevel(), getVersion(), error);
+      doc->getErrorLog()->logPackageError("comp", CompReplacedElementAllowedAttributes, getPackageVersion(), getLevel(), getVersion(), error, getLine(), getColumn());
     }
     return LIBSBML_INVALID_OBJECT;
   }
@@ -161,7 +161,7 @@ Replacing::saveReferencedElement()
       if (isSetId()) {
         error += " '" + getId() + "'.";
       }
-      doc->getErrorLog()->logPackageError("comp", CompModelFlatteningFailed, getPackageVersion(), getLevel(), getVersion(), error);
+      doc->getErrorLog()->logPackageError("comp", CompModelFlatteningFailed, getPackageVersion(), getLevel(), getVersion(), error, getLine(), getColumn());
     }
     return LIBSBML_OPERATION_FAILED;
   }
@@ -172,7 +172,7 @@ Replacing::saveReferencedElement()
       if (isSetId()) {
         error += " '" + getId() + "'.";
       }
-      doc->getErrorLog()->logPackageError("comp", CompModelFlatteningFailed, getPackageVersion(), getLevel(), getVersion(), error);
+      doc->getErrorLog()->logPackageError("comp", CompModelFlatteningFailed, getPackageVersion(), getLevel(), getVersion(), error, getLine(), getColumn());
     }
     return LIBSBML_OPERATION_FAILED;
   }
@@ -188,7 +188,7 @@ Replacing::saveReferencedElement()
       if (getTypeCode() == SBML_COMP_REPLACEDBY) {
         errnumber = CompReplacedBySubModelRef;
       }
-      doc->getErrorLog()->logPackageError("comp", errnumber, getPackageVersion(), getLevel(), getVersion(), error);
+      doc->getErrorLog()->logPackageError("comp", errnumber, getPackageVersion(), getLevel(), getVersion(), error, getLine(), getColumn());
     }
     return LIBSBML_INVALID_ATTRIBUTE_VALUE;
   }
@@ -380,14 +380,14 @@ Replacing::updateIDs(SBase* oldnames, SBase* newnames)
   if (oldnames->isSetId() && !newnames->isSetId()) {
     if (doc) {
       string error = "Unable to transform IDs in Replacing::updateIDs during replacement:  the '" + oldnames->getId() + "' element's replacement does not have an ID set.";
-      doc->getErrorLog()->logPackageError("comp", CompMustReplaceIDs, getPackageVersion(), getLevel(), getVersion(), error);
+      doc->getErrorLog()->logPackageError("comp", CompMustReplaceIDs, getPackageVersion(), getLevel(), getVersion(), error, getLine(), getColumn());
     }
     return LIBSBML_INVALID_OBJECT;
   }
   if (oldnames->isSetMetaId() && !newnames->isSetMetaId()) {
     if (doc) {
       string error = "Unable to transform IDs in Replacing::updateIDs during replacement:  the replacement of the element with metaid '" + oldnames->getMetaId() + "' does not have a metaid.";
-      doc->getErrorLog()->logPackageError("comp", CompMustReplaceMetaIDs, getPackageVersion(), getLevel(), getVersion(), error);
+      doc->getErrorLog()->logPackageError("comp", CompMustReplaceMetaIDs, getPackageVersion(), getLevel(), getVersion(), error, getLine(), getColumn());
     }
     return LIBSBML_INVALID_OBJECT;
   }
@@ -398,7 +398,7 @@ Replacing::updateIDs(SBase* oldnames, SBase* newnames)
   if (replacedmod==NULL) {
     if (doc) {
       string error = "Unable to transform IDs in Replacing::updateIDs during replacement:  the replacement of '" + oldnames->getId() + "' does not have a valid model.";
-      doc->getErrorLog()->logPackageError("comp", CompModelFlatteningFailed, getPackageVersion(), getLevel(), getVersion(), error);
+      doc->getErrorLog()->logPackageError("comp", CompModelFlatteningFailed, getPackageVersion(), getLevel(), getVersion(), error, getLine(), getColumn());
     }
     return LIBSBML_INVALID_OBJECT;
   }
@@ -460,7 +460,7 @@ int Replacing::performConversions(SBase* replacement, ASTNode*& conversionFactor
   if (replacement==NULL) {
     if (doc) {
       string error = "Internal error in Replacing::performConversions:  cannot perform a conversion of NULL.";
-      doc->getErrorLog()->logPackageError("comp", CompModelFlatteningFailed, getPackageVersion(), getLevel(), getVersion(), error);
+      doc->getErrorLog()->logPackageError("comp", CompModelFlatteningFailed, getPackageVersion(), getLevel(), getVersion(), error, getLine(), getColumn());
     }
     return LIBSBML_OPERATION_FAILED;
   }
@@ -477,7 +477,7 @@ int Replacing::performConversions(SBase* replacement, ASTNode*& conversionFactor
       if (replacement->isSetId()) {
         error += replacement->getId() + ".";
       }
-      doc->getErrorLog()->logPackageError("comp", CompModelFlatteningFailed, getPackageVersion(), getLevel(), getVersion(), error);
+      doc->getErrorLog()->logPackageError("comp", CompModelFlatteningFailed, getPackageVersion(), getLevel(), getVersion(), error, getLine(), getColumn());
     }
     return LIBSBML_INVALID_OBJECT;
   }
@@ -529,7 +529,7 @@ int Replacing::convertConversionFactor(ASTNode*& conversionFactor)
       SBMLDocument* doc = getSBMLDocument();
       if (doc) {
         string error = "Internal error in Replacing::convertConversionFactor:  unknown conversion factor form.";
-        doc->getErrorLog()->logPackageError("comp", CompModelFlatteningFailed, getPackageVersion(), getLevel(), getVersion(), error);
+        doc->getErrorLog()->logPackageError("comp", CompModelFlatteningFailed, getPackageVersion(), getLevel(), getVersion(), error, getLine(), getColumn());
       }
       return LIBSBML_OPERATION_FAILED;
     }

@@ -332,14 +332,14 @@ int ReplacedElement::performReplacement()
   if (lore == NULL) {
     if (doc) {
       string error = "Cannot carry out replacement in ReplacedElement::performReplacement: no parent <listOfReplacedElements> could be found for the given replacement element.";
-      doc->getErrorLog()->logPackageError("comp", CompModelFlatteningFailed, getPackageVersion(), getLevel(), getVersion(), error);
+      doc->getErrorLog()->logPackageError("comp", CompModelFlatteningFailed, getPackageVersion(), getLevel(), getVersion(), error, getLine(), getColumn());
     }
     return LIBSBML_INVALID_OBJECT;
   }
   if (lore->getTypeCode() != SBML_LIST_OF || lorelist->getItemTypeCode() != SBML_COMP_REPLACEDELEMENT) {
     if (doc) {
       string error = "Cannot carry out replacement in ReplacedElement::performReplacement: no parent <listOfReplacedElements> could be found for the given replacement element.";
-      doc->getErrorLog()->logPackageError("comp", CompModelFlatteningFailed, getPackageVersion(), getLevel(), getVersion(), error);
+      doc->getErrorLog()->logPackageError("comp", CompModelFlatteningFailed, getPackageVersion(), getLevel(), getVersion(), error, getLine(), getColumn());
     }
     return LIBSBML_INVALID_OBJECT;
   }
@@ -347,7 +347,7 @@ int ReplacedElement::performReplacement()
   if (parent==NULL) {
     if (doc) {
       string error = "Cannot carry out replacement in ReplacedElement::performReplacement: no parent could be found for the parent <listOfReplacedElements> object.";
-      doc->getErrorLog()->logPackageError("comp", CompModelFlatteningFailed, getPackageVersion(), getLevel(), getVersion(), error);
+      doc->getErrorLog()->logPackageError("comp", CompModelFlatteningFailed, getPackageVersion(), getLevel(), getVersion(), error, getLine(), getColumn());
     }
     return LIBSBML_INVALID_OBJECT;
   }
@@ -398,7 +398,7 @@ ReplacedElement::getReferencedElementFrom(Model* model)
   if (model==NULL) {
     if (doc) {
       string error = "In ReplacedElement::getReferencedElementFrom, unable to find referenced deletion '" + getDeletion() + "' for <replacedElement>: no parent model could be found.";
-      doc->getErrorLog()->logPackageError("comp", CompModelFlatteningFailed, getPackageVersion(), getLevel(), getVersion(), error);
+      doc->getErrorLog()->logPackageError("comp", CompModelFlatteningFailed, getPackageVersion(), getLevel(), getVersion(), error, getLine(), getColumn());
     }
     return NULL;
   }
@@ -406,7 +406,7 @@ ReplacedElement::getReferencedElementFrom(Model* model)
   if (mplugin==NULL) {
     if (doc) {
       string error = "In ReplacedElement::getReferencedElementFrom, unable to find referenced deletion '" + getDeletion() + "' for <replacedElement>: no 'comp' plugin for the parent model could be found.";
-      doc->getErrorLog()->logPackageError("comp", CompModelFlatteningFailed, getPackageVersion(), getLevel(), getVersion(), error);
+      doc->getErrorLog()->logPackageError("comp", CompModelFlatteningFailed, getPackageVersion(), getLevel(), getVersion(), error, getLine(), getColumn());
     }
     return NULL;
   }
@@ -414,14 +414,14 @@ ReplacedElement::getReferencedElementFrom(Model* model)
   if (submod==NULL) {
     if (doc) {
       string error = "In ReplacedElement::getReferencedElementFrom, unable to find referenced deletion '" + getDeletion() + "' for <replacedElement>: no such submodel '" + getSubmodelRef() + "'.";
-      doc->getErrorLog()->logPackageError("comp", CompReplacedElementSubModelRef, getPackageVersion(), getLevel(), getVersion(), error);
+      doc->getErrorLog()->logPackageError("comp", CompReplacedElementSubModelRef, getPackageVersion(), getLevel(), getVersion(), error, getLine(), getColumn());
     }
     return NULL;
   }
   SBase* ret = submod->getDeletion(getDeletion());
   if (ret==NULL && doc) {
     string error = "In ReplacedElement::getReferencedElementFrom, unable to find referenced deletion '" + getDeletion() + "' for <replacedElement>: no deletion with that ID exists in the model.";
-    doc->getErrorLog()->logPackageError("comp", CompDeletionMustReferenceObject, getPackageVersion(), getLevel(), getVersion(), error);
+    doc->getErrorLog()->logPackageError("comp", CompDeletionMustReferenceObject, getPackageVersion(), getLevel(), getVersion(), error, getLine(), getColumn());
   }
   return ret;
 }

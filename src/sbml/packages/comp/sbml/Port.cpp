@@ -308,7 +308,7 @@ Port::saveReferencedElement()
       if (isSetId()) {
         error += " '" + getId() + "'.";
       }
-      doc->getErrorLog()->logPackageError("comp", CompModelFlatteningFailed, getPackageVersion(), getLevel(), getVersion(), error);
+      doc->getErrorLog()->logPackageError("comp", CompModelFlatteningFailed, getPackageVersion(), getLevel(), getVersion(), error, getLine(), getColumn());
     }
     return LIBSBML_OPERATION_FAILED;
   }

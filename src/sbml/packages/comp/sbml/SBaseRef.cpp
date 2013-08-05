@@ -758,7 +758,7 @@ SBaseRef::getReferencedElementFrom(Model* model)
       case SBML_COMP_DELETION:
         en = CompDeletionAllowedAttributes;
       }
-      doc->getErrorLog()->logPackageError("comp", en, getPackageVersion(), getLevel(), getVersion(), error);
+      doc->getErrorLog()->logPackageError("comp", en, getPackageVersion(), getLevel(), getVersion(), error, getLine(), getColumn());
     }
     return NULL;
   }
@@ -773,7 +773,7 @@ SBaseRef::getReferencedElementFrom(Model* model)
           error += "'" + getId() + "' ";
         }
         error += "as the port it references ('" + getPortRef() +"') could not be found.";
-        doc->getErrorLog()->logPackageError("comp", CompPortRefMustReferencePort, getPackageVersion(), getLevel(), getVersion(), error);
+        doc->getErrorLog()->logPackageError("comp", CompPortRefMustReferencePort, getPackageVersion(), getLevel(), getVersion(), error, getLine(), getColumn());
       }
       return NULL;
     }
@@ -784,21 +784,21 @@ SBaseRef::getReferencedElementFrom(Model* model)
     referent = model->getElementBySId(getIdRef());
     if (referent == NULL && doc) {
       string error = "In SBaseRef::getReferencedElementFrom, unable to find referenced element: no such SId in the model: '" + getIdRef() + "'.";
-      doc->getErrorLog()->logPackageError("comp", CompIdRefMustReferenceObject, getPackageVersion(), getLevel(), getVersion(), error);
+      doc->getErrorLog()->logPackageError("comp", CompIdRefMustReferenceObject, getPackageVersion(), getLevel(), getVersion(), error, getLine(), getColumn());
     }
   }
   else if (isSetUnitRef()) {
     referent = model->getUnitDefinition(getUnitRef());
     if (referent == NULL && doc) {
       string error = "In SBaseRef::getReferencedElementFrom, unable to find referenced element: no such Unit in the model: '" + getUnitRef() + "'.";
-      doc->getErrorLog()->logPackageError("comp", CompUnitRefMustReferenceUnitDef, getPackageVersion(), getLevel(), getVersion(), error);
+      doc->getErrorLog()->logPackageError("comp", CompUnitRefMustReferenceUnitDef, getPackageVersion(), getLevel(), getVersion(), error, getLine(), getColumn());
     }
   }
   else if (isSetMetaIdRef()) {
     referent = model->getElementByMetaId(getMetaIdRef());
     if (referent == NULL && doc) {
       string error = "In SBaseRef::getReferencedElementFrom, unable to find referenced element: no such metaid in the model: '" + getMetaIdRef() + "'.";
-      doc->getErrorLog()->logPackageError("comp", CompMetaIdRefMustReferenceObject, getPackageVersion(), getLevel(), getVersion(), error);
+      doc->getErrorLog()->logPackageError("comp", CompMetaIdRefMustReferenceObject, getPackageVersion(), getLevel(), getVersion(), error, getLine(), getColumn());
     }
   }
   else {
@@ -821,7 +821,7 @@ SBaseRef::getReferencedElementFrom(Model* model)
           error += "with the metaid '" + referent->getMetaId() + "'";
         }
         error += " is not a submodel, and therefore has no subobjects for the child <sBaseRef> to refer to.";
-        doc->getErrorLog()->logPackageError("comp", CompParentOfSBRefChildMustBeSubmodel, getPackageVersion(), getLevel(), getVersion(), error);
+        doc->getErrorLog()->logPackageError("comp", CompParentOfSBRefChildMustBeSubmodel, getPackageVersion(), getLevel(), getVersion(), error, getLine(), getColumn());
       }
       return NULL;
     }
@@ -837,7 +837,7 @@ SBaseRef::getReferencedElementFrom(Model* model)
           error += "with the metaid '" + referent->getMetaId() + "' ";
         }
         error += "claims to be a Submodel, but could not be programmatically turned into one.";
-        doc->getErrorLog()->logPackageError("comp", CompParentOfSBRefChildMustBeSubmodel, getPackageVersion(), getLevel(), getVersion(), error);
+        doc->getErrorLog()->logPackageError("comp", CompParentOfSBRefChildMustBeSubmodel, getPackageVersion(), getLevel(), getVersion(), error, getLine(), getColumn());
       }
       return NULL;
     }
@@ -861,7 +861,7 @@ int SBaseRef::saveReferencedElement()
   if (parent==NULL) {
     if (doc) {
       string error = "In SBaseRef::saveReferencedElement, unable to find referenced element: no parent could be found for the given <sBaseRef> element.";
-      doc->getErrorLog()->logPackageError("comp", CompModelFlatteningFailed, getPackageVersion(), getLevel(), getVersion(), error);
+      doc->getErrorLog()->logPackageError("comp", CompModelFlatteningFailed, getPackageVersion(), getLevel(), getVersion(), error, getLine(), getColumn());
     }
     return LIBSBML_OPERATION_FAILED;
   }
@@ -873,7 +873,7 @@ int SBaseRef::saveReferencedElement()
                           parent->getTypeCode() != SBML_COMP_REPLACEDELEMENT)) {
     if (doc) {
       string error = "In SBaseRef::saveReferencedElement, unable to find referenced element: the parent of the given <sBaseRef> element was not the correct type.";
-      doc->getErrorLog()->logPackageError("comp", CompModelFlatteningFailed, getPackageVersion(), getLevel(), getVersion(), error);
+      doc->getErrorLog()->logPackageError("comp", CompModelFlatteningFailed, getPackageVersion(), getLevel(), getVersion(), error, getLine(), getColumn());
     }
     return LIBSBML_OPERATION_FAILED;
   }
