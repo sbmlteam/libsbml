@@ -55,7 +55,20 @@ class LIBSBML_EXTERN VConstraint
 {
 public:
 
+  /**
+   * Creates a new VConstraint with the given @p id and Validator @p v.
+   *
+   * The severity of the constraint is set to 2 by default.
+   *
+   * @param id an integer, the id of the new VConstraint
+   * @param v a Validator for the new VContraint
+   */
   VConstraint (unsigned int id, Validator& v);
+
+
+  /**
+   * Destructor for the VConstraint object.
+   */
   virtual ~VConstraint ();
 
 
