@@ -192,25 +192,11 @@ END_TEST
 START_TEST (test_comp_model_flattening_with_ports)
 {
   string filename(TestDataDirectory);
-  string cfile = filename + "test14_A.xml";  
+  string cfile = filename + "test14.xml";  
   SBMLDocument* doc = readSBMLFromFile(cfile.c_str());
   Model* model = doc->getModel();
   fail_unless(model != NULL);
 
-
-  // SK - since I made the flattenModel package protected
-  // this will no longer work
-  // ===========
-  //CompModelPlugin* cmp = static_cast<CompModelPlugin*>(model->getPlugin("comp"));
-  //Model* flatmod = cmp->flattenModel();
-  //fail_unless(flatmod != NULL);
-  //SBMLNamespaces sbmlns(3,1,"comp",1);
-  //SBMLDocument doc2(&sbmlns);
-  //doc2.setPackageRequired("comp", true);
-  //doc2.setModel(flatmod);
-  //string newModel = writeSBMLToString(&doc2);
-  //===========
-  // replace with
 
   ConversionProperties* props = new ConversionProperties();
   
@@ -226,7 +212,7 @@ START_TEST (test_comp_model_flattening_with_ports)
 
   string newModel = writeSBMLToString(doc);
 
-  string ffile = filename + "test14_A_flat_ports.xml";
+  string ffile = filename + "test14_flat_ports.xml";
   SBMLDocument* fdoc = readSBMLFromFile(ffile.c_str());
   string flatModel = writeSBMLToString(fdoc);
   fail_unless(flatModel == newModel);
@@ -241,29 +227,13 @@ START_TEST (test_comp_flatten_exchange4)
   //string filename("C:\\Development\\libsbml\\src\\sbml\\packages\\comp\\util\\test\\test-data\\");
   
   // load document
-  string cfile = filename + "exchangetest2_A.xml";  
+  string cfile = filename + "exchangetest2.xml";  
   SBMLDocument* doc = readSBMLFromFile(cfile.c_str());
 
   Model* model = doc->getModel();
   // fail if there is no model (readSBMLFromFile always returns a valid document)
   fail_unless(model != NULL);
   
-  // SK - since I made the flattenModel package protected
-  // this will no longer work
-  // ===========
-  //CompModelPlugin* cmp = static_cast<CompModelPlugin*>(model->getPlugin("comp"));
-
-  //Model* flatmod = cmp->flattenModel();
-  //fail_unless(flatmod != NULL);
-  //CompPkgNamespaces csbmlns(3,1,1,"comp");
-  //SBMLDocument flatdoc(&csbmlns);
-  //flatdoc.setPackageRequired("comp", true);
-  //flatdoc.setModel(flatmod);
-
-  //string newModel = writeSBMLToString(&flatdoc);
-  //===========
-  // replace with
-
   ConversionProperties* props = new ConversionProperties();
   
   props->addOption("flatten comp");
@@ -294,29 +264,12 @@ START_TEST (test_comp_flatten_exchange5)
   //string filename("C:\\Development\\libsbml\\src\\sbml\\packages\\comp\\util\\test\\test-data\\");
   
   // load document
-  string cfile = filename + "CompTest_A.xml";  
+  string cfile = filename + "CompTest.xml";  
   SBMLDocument* doc = readSBMLFromFile(cfile.c_str());
 
   Model* model = doc->getModel();
   // fail if there is no model (readSBMLFromFile always returns a valid document)
   fail_unless(model != NULL);
-
-  // SK - since I made the flattenModel package protected
-  // this will no longer work
-  // ===========
-  //CompModelPlugin* cmp = static_cast<CompModelPlugin*>(model->getPlugin("comp"));
-
-  //Model* flatmod = cmp->flattenModel();
-  //fail_unless(flatmod != NULL);
-  //CompPkgNamespaces csbmlns(3,1,1,"comp");
-  //SBMLDocument flatdoc(&csbmlns);
-  //flatdoc.setPackageRequired("comp", true);
-  //flatdoc.setModel(flatmod);
-  //writeSBMLToFile(&flatdoc, "CompTest_flat_ports.xml");
-
-  //string newModel = writeSBMLToString(&flatdoc);
-  //===========
-  // replace with
 
   ConversionProperties* props = new ConversionProperties();
   

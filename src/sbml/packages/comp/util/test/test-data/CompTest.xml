@@ -124,6 +124,14 @@
         </comp:listOfDeletions>
       </comp:submodel>
     </comp:listOfSubmodels>
+    <comp:listOfPorts>
+      <comp:port comp:idRef="C1" comp:id="reaction__R1__C1">
+        <comp:sBaseRef comp:portRef="reaction__R1"/>
+      </comp:port>
+      <comp:port comp:idRef="C1" comp:id="reaction__R3__C1">
+        <comp:sBaseRef comp:portRef="reaction__R3"/>
+      </comp:port>
+    </comp:listOfPorts>
   </model>
   <comp:listOfModelDefinitions>
     <comp:modelDefinition metaid="CompModel__iBioSim1" id="CompModel" name="CompModel">
