@@ -102,6 +102,11 @@ STABLE RELEASE
 	  
 * Bug fixes
 
+  - The UnitDefinition::printUnits function had a mismatch between
+    integer and double values for the exponent; causing incorrect
+	values to be used on occasion. This has been fixed. Thanks
+	to Pratham Shah for reporting this.
+	
   - An annotation on a package element is permitted to use the 
     SBML namespace.  However, this situation was logging an error.
     This has been corrected.
