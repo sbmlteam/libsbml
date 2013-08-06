@@ -132,7 +132,8 @@
       <comp:port comp:idRef="A" comp:id="assignmentRule__submod_unused2_assignmentrule__A">
         <comp:sBaseRef comp:portRef="assignmentRule__submod_unused2_assignmentrule"/>
       </comp:port>
-    </comp:listOfPorts>    
+    </comp:listOfPorts>
+    
   </model>
   <comp:listOfModelDefinitions>
     <comp:modelDefinition metaid="submod__iBioSim1" id="submod" name="submod">
