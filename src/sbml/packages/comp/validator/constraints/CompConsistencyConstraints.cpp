@@ -1954,7 +1954,7 @@ START_CONSTRAINT (CompMetaIdRefMustReferenceObject, ReplacedBy, repBy)
 }
 END_CONSTRAINT
 
-// 20705 - sBaseRef
+// 20704 - sBaseRef
 START_CONSTRAINT (CompMetaIdRefMustReferenceObject, SBaseRef, sbRef)
 {
   pre(sbRef.isSetMetaIdRef());
@@ -2140,13 +2140,21 @@ START_CONSTRAINT (CompParentOfSBRefChildMustBeSubmodel, Deletion, del)
                          (del.getAncestorOfType(SBML_COMP_SUBMODEL, "comp"));
   pre (sub != NULL);
 
-  if (del.isSetIdRef() == true || del.isSetMetaIdRef() == true)
+  if (del.isSetIdRef() == true 
+    || del.isSetMetaIdRef() == true
+    || del.isSetPortRef() == true)
   {
     if (del.isSetIdRef() == true)
     {
       msg = "The 'idRef' of a <deletion>";
       msg += " is set to '";
       msg += del.getIdRef();
+    }
+    else if (del.isSetPortRef() == true)
+    {
+      msg = "The 'portRef' of a <deletion>";
+      msg += " is set to '";
+      msg += del.getPortRef();
     }
     else
     {
@@ -2176,6 +2184,36 @@ START_CONSTRAINT (CompParentOfSBRefChildMustBeSubmodel, Deletion, del)
         fail = true;
       }
     }
+    else if (del.isSetPortRef() == true)
+    {
+      bool found = false;
+      Port* port = plug1->getPort(del.getPortRef());
+      if (port->isSetIdRef() == true)
+      {
+        if (plug1->getSubmodel(port->getIdRef()) != NULL)
+        {
+          found = true;
+        }
+      }
+      else if (port->isSetMetaIdRef() == true)
+      {
+        unsigned int i = 0;
+        while (found == false &&  i < plug1->getNumSubmodels())
+        {
+          if (port->getMetaIdRef() == plug1->getSubmodel(i)->getMetaId())
+          {
+            found = true;
+          }
+
+          i++;
+        }
+      }
+
+      if (found == false)
+      {
+        fail = true;
+      }
+    }
     else
     {
       // must be a metaidref
@@ -2201,18 +2239,9 @@ START_CONSTRAINT (CompParentOfSBRefChildMustBeSubmodel, Deletion, del)
   {
     fail = true;
 
-    if (del.isSetPortRef() == true)
-    {
-      msg = "The 'portRef' of a <deletion>";
-      msg += " is set to '";
-      msg += del.getPortRef();
-    }
-    else
-    {
-      msg = "The 'unitRef' of a <deletion>";
-      msg += " is set to '";
-      msg += del.getUnitRef();
-    }
+    msg = "The 'unitRef' of a <deletion>";
+    msg += " is set to '";
+    msg += del.getUnitRef();
     msg += "' which is not a submodel within the <model> referenced by ";
     msg += "submodel '";
     msg += sub->getId();
@@ -2230,7 +2259,9 @@ START_CONSTRAINT (CompParentOfSBRefChildMustBeSubmodel, ReplacedElement, repE)
 
   bool fail = false;
 
-  if (repE.isSetIdRef() == true || repE.isSetMetaIdRef() == true)
+  if (repE.isSetIdRef() == true 
+    || repE.isSetMetaIdRef() == true
+    || repE.isSetPortRef() == true)
   {
     if (repE.isSetIdRef() == true)
     {
@@ -2238,11 +2269,17 @@ START_CONSTRAINT (CompParentOfSBRefChildMustBeSubmodel, ReplacedElement, repE)
       msg += " is set to '";
       msg += repE.getIdRef();
     }
-    else
+    else if (repE.isSetMetaIdRef() == true)
     {
       msg = "The 'metaIdRef' of a <replacedElement>";
       msg += " is set to '";
       msg += repE.getMetaIdRef();
+    }
+    else
+    {
+      msg = "The 'portRef' of a <replacedElement>";
+      msg += " is set to '";
+      msg += repE.getPortRef();
     }
     msg += "' which is not a submodel within the <model> referenced by ";
     msg += "submodel '";
@@ -2262,6 +2299,36 @@ START_CONSTRAINT (CompParentOfSBRefChildMustBeSubmodel, ReplacedElement, repE)
     if (repE.isSetIdRef() == true)
     {
       if (plug1->getSubmodel(repE.getIdRef()) == NULL)
+      {
+        fail = true;
+      }
+    }
+    else if (repE.isSetPortRef() == true)
+    {
+      bool found = false;
+      Port* port = plug1->getPort(repE.getPortRef());
+      if (port->isSetIdRef() == true)
+      {
+        if (plug1->getSubmodel(port->getIdRef()) != NULL)
+        {
+          found = true;
+        }
+      }
+      else if (port->isSetMetaIdRef() == true)
+      {
+        unsigned int i = 0;
+        while (found == false &&  i < plug1->getNumSubmodels())
+        {
+          if (port->getMetaIdRef() == plug1->getSubmodel(i)->getMetaId())
+          {
+            found = true;
+          }
+
+          i++;
+        }
+      }
+
+      if (found == false)
       {
         fail = true;
       }
@@ -2291,18 +2358,9 @@ START_CONSTRAINT (CompParentOfSBRefChildMustBeSubmodel, ReplacedElement, repE)
   {
     fail = true;
 
-    if (repE.isSetPortRef() == true)
-    {
-      msg = "The 'portRef' of a <replacedElement>";
-      msg += " is set to '";
-      msg += repE.getPortRef();
-    }
-    else
-    {
-      msg = "The 'unitRef' of a <replacedElement>";
-      msg += " is set to '";
-      msg += repE.getUnitRef();
-    }
+    msg = "The 'unitRef' of a <replacedElement>";
+    msg += " is set to '";
+    msg += repE.getUnitRef();
     msg += "' which is not a submodel within the <model> referenced by ";
     msg += "submodel '";
     msg += repE.getSubmodelRef();
@@ -2320,7 +2378,9 @@ START_CONSTRAINT (CompParentOfSBRefChildMustBeSubmodel, ReplacedBy, repE)
 
   bool fail = false;
 
-  if (repE.isSetIdRef() == true || repE.isSetMetaIdRef() == true)
+  if (repE.isSetIdRef() == true 
+    || repE.isSetMetaIdRef() == true
+    || repE.isSetPortRef() == true)
   {
     if (repE.isSetIdRef() == true)
     {
@@ -2328,11 +2388,17 @@ START_CONSTRAINT (CompParentOfSBRefChildMustBeSubmodel, ReplacedBy, repE)
       msg += " is set to '";
       msg += repE.getIdRef();
     }
-    else
+    else if (repE.isSetMetaIdRef() == true)
     {
       msg = "The 'metaIdRef' of a <replacedBy>";
       msg += " is set to '";
       msg += repE.getMetaIdRef();
+    }
+    else
+    {
+      msg = "The 'portRef' of a <replacedBy>";
+      msg += " is set to '";
+      msg += repE.getPortRef();
     }
     msg += "' which is not a submodel within the <model> referenced by ";
     msg += "submodel '";
@@ -2352,6 +2418,36 @@ START_CONSTRAINT (CompParentOfSBRefChildMustBeSubmodel, ReplacedBy, repE)
     if (repE.isSetIdRef() == true)
     {
       if (plug1->getSubmodel(repE.getIdRef()) == NULL)
+      {
+        fail = true;
+      }
+    }
+    else if (repE.isSetPortRef() == true)
+    {
+      bool found = false;
+      Port* port = plug1->getPort(repE.getPortRef());
+      if (port->isSetIdRef() == true)
+      {
+        if (plug1->getSubmodel(port->getIdRef()) != NULL)
+        {
+          found = true;
+        }
+      }
+      else if (port->isSetMetaIdRef() == true)
+      {
+        unsigned int i = 0;
+        while (found == false &&  i < plug1->getNumSubmodels())
+        {
+          if (port->getMetaIdRef() == plug1->getSubmodel(i)->getMetaId())
+          {
+            found = true;
+          }
+
+          i++;
+        }
+      }
+
+      if (found == false)
       {
         fail = true;
       }
@@ -2381,18 +2477,9 @@ START_CONSTRAINT (CompParentOfSBRefChildMustBeSubmodel, ReplacedBy, repE)
   {
     fail = true;
 
-    if (repE.isSetPortRef() == true)
-    {
-      msg = "The 'portRef' of a <replacedBy>";
-      msg += " is set to '";
-      msg += repE.getPortRef();
-    }
-    else
-    {
-      msg = "The 'unitRef' of a <replacedBy>";
-      msg += " is set to '";
-      msg += repE.getUnitRef();
-    }
+    msg = "The 'unitRef' of a <replacedBy>";
+    msg += " is set to '";
+    msg += repE.getUnitRef();
     msg += "' which is not a submodel within the <model> referenced by ";
     msg += "submodel '";
     msg += repE.getSubmodelRef();
@@ -2410,13 +2497,21 @@ START_CONSTRAINT (CompParentOfSBRefChildMustBeSubmodel, SBaseRef, sbRef)
 
   bool fail = false;
 
-  if (sbRef.isSetIdRef() == true || sbRef.isSetMetaIdRef() == true)
+  if (sbRef.isSetIdRef() == true 
+    || sbRef.isSetMetaIdRef() == true
+    || sbRef.isSetPortRef() == true)
   {
     if (sbRef.isSetIdRef() == true)
     {
       msg = "The 'idRef' of a <sBaseRef>";
       msg += " is set to '";
       msg += sbRef.getIdRef();
+    }
+    else if (sbRef.isSetPortRef() == true)
+    {
+      msg = "The 'portRef' of a <sBaseRef>";
+      msg += " is set to '";
+      msg += sbRef.getPortRef();
     }
     else
     {
@@ -2441,6 +2536,36 @@ START_CONSTRAINT (CompParentOfSBRefChildMustBeSubmodel, SBaseRef, sbRef)
     if (sbRef.isSetIdRef() == true)
     {
       if (plug->getSubmodel(sbRef.getIdRef()) == NULL)
+      {
+        fail = true;
+      }
+    }
+    else if (sbRef.isSetPortRef() == true)
+    {
+      bool found = false;
+      Port* port = plug->getPort(sbRef.getPortRef());
+      if (port->isSetIdRef() == true)
+      {
+        if (plug->getSubmodel(port->getIdRef()) != NULL)
+        {
+          found = true;
+        }
+      }
+      else if (port->isSetMetaIdRef() == true)
+      {
+        unsigned int i = 0;
+        while (found == false &&  i < plug->getNumSubmodels())
+        {
+          if (port->getMetaIdRef() == plug->getSubmodel(i)->getMetaId())
+          {
+            found = true;
+          }
+
+          i++;
+        }
+      }
+
+      if (found == false)
       {
         fail = true;
       }
