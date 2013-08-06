@@ -9,11 +9,11 @@
   <comp:listOfModelDefinitions>
     <comp:modelDefinition id="enzyme" name="enzyme">
       <listOfCompartments>
-        <compartment id="Compartment_1" constant="true"/>
+        <compartment id="Compartment_1" constant="true" size="1" units="litre"/>
       </listOfCompartments>
       <listOfSpecies>
-        <species id="Species_1" compartment="Compartment_1" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
-        <species id="Species_2" compartment="Compartment_1" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+        <species id="Species_1" compartment="Compartment_1" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" substanceUnits="mole" initialAmount="0"/>
+        <species id="Species_2" compartment="Compartment_1" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" substanceUnits="mole" initialAmount="0"/>
       </listOfSpecies>
       <listOfReactions>
         <reaction id="Reaction_1" reversible="false" fast="false">
@@ -95,7 +95,7 @@
                 </layout:speciesReferenceGlyph>
               </layout:listOfSpeciesReferenceGlyphs>
             </layout:reactionGlyph>
-            <layout:reactionGlyph layout:id="ReactionGlyph_1" layout:reaction="Reaction_2">
+            <layout:reactionGlyph layout:id="ReactionGlyph_2" layout:reaction="Reaction_2">
               <layout:curve>
                 <layout:listOfCurveSegments>
                   <layout:curveSegment xsi:type="LineSegment">

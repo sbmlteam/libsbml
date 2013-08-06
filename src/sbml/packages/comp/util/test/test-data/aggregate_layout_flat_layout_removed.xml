@@ -2,14 +2,14 @@
 <sbml xmlns="http://www.sbml.org/sbml/level3/version1/core" level="3" version="1">
   <model id="aggregate">
     <listOfCompartments>
-      <compartment id="submod1__Compartment_1" constant="true"/>
-      <compartment id="submod2__Compartment_1" constant="true"/>
+      <compartment id="submod1__Compartment_1" size="1" units="litre" constant="true"/>
+      <compartment id="submod2__Compartment_1" size="1" units="litre" constant="true"/>
     </listOfCompartments>
     <listOfSpecies>
-      <species id="submod1__Species_1" compartment="submod1__Compartment_1" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
-      <species id="submod1__Species_2" compartment="submod1__Compartment_1" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
-      <species id="submod2__Species_1" compartment="submod2__Compartment_1" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
-      <species id="submod2__Species_2" compartment="submod2__Compartment_1" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="submod1__Species_1" compartment="submod1__Compartment_1" initialAmount="0" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="submod1__Species_2" compartment="submod1__Compartment_1" initialAmount="0" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="submod2__Species_1" compartment="submod2__Compartment_1" initialAmount="0" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="submod2__Species_2" compartment="submod2__Compartment_1" initialAmount="0" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
     </listOfSpecies>
     <listOfReactions>
       <reaction id="submod1__Reaction_1" reversible="false" fast="false">

@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <sbml xmlns="http://www.sbml.org/sbml/level3/version1/core" xmlns:comp="http://www.sbml.org/sbml/level3/version1/comp/version1" xmlns:fbc="http://www.sbml.org/sbml/level3/version1/fbc/version1" level="3" version="1" comp:required="true" fbc:required="false">
-  <model id="aggregate">
+  <model id="aggregate" timeUnits="second" extentUnits="mole">
     <listOfCompartments>
-      <compartment id="c" spatialDimensions="3" size="1" constant="true"/>
+      <compartment id="c" spatialDimensions="3" size="1" constant="true" units="litre"/>
     </listOfCompartments>
     <listOfSpecies>
-      <species id="S" compartment="c" initialAmount="1" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="2" fbc:chemicalFormula="S20"/>
-      <species id="S1" compartment="c" initialAmount="1" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="2" fbc:chemicalFormula="S20"/>
-      <species id="S2" compartment="c" initialAmount="1" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
-      <species id="S3" compartment="c" initialAmount="1" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="2" fbc:chemicalFormula="S20"/>
-      <species id="S4" compartment="c" initialAmount="1" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="2" fbc:chemicalFormula="S20"/>
+      <species id="S" compartment="c" initialAmount="1" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false" substanceUnits="mole" fbc:charge="2" fbc:chemicalFormula="S20"/>
+      <species id="S1" compartment="c" initialAmount="1" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false" substanceUnits="mole"  fbc:charge="2" fbc:chemicalFormula="S20"/>
+      <species id="S2" compartment="c" initialAmount="1" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false" substanceUnits="mole" />
+      <species id="S3" compartment="c" initialAmount="1" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"  substanceUnits="mole" fbc:charge="2" fbc:chemicalFormula="S20"/>
+      <species id="S4" compartment="c" initialAmount="1" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"  substanceUnits="mole" fbc:charge="2" fbc:chemicalFormula="S20"/>
     </listOfSpecies>
     <listOfReactions>
       <reaction id="R1" reversible="false" fast="false">
@@ -22,13 +22,13 @@
         <kineticLaw>
           <math xmlns="http://www.w3.org/1998/Math/MathML">
             <apply>
-              <times/>
-              <ci> k </ci>
+              <divide/>
               <ci> S1 </ci>
+              <ci> k </ci>
             </apply>
           </math>
           <listOfLocalParameters>
-            <localParameter id="k" value="0.1"/>
+            <localParameter id="k" value="0.1" units="second"/>
           </listOfLocalParameters>
         </kineticLaw>
       </reaction>
@@ -42,13 +42,13 @@
         <kineticLaw>
           <math xmlns="http://www.w3.org/1998/Math/MathML">
             <apply>
-              <times/>
-              <ci> k </ci>
+              <divide/>
               <ci> S2 </ci>
+              <ci> k </ci>
             </apply>
           </math>
           <listOfLocalParameters>
-            <localParameter id="k" value="0.1"/>
+            <localParameter id="k" value="0.1" units="second"/>
           </listOfLocalParameters>
         </kineticLaw>
       </reaction>
@@ -70,16 +70,16 @@
     </fbc:listOfObjectives>
   </model>
   <comp:listOfModelDefinitions>
-    <comp:modelDefinition id="enzyme" name="enzyme">
+    <comp:modelDefinition id="enzyme" name="enzyme" timeUnits="second" extentUnits="mole">
       <listOfCompartments>
-        <compartment id="c" spatialDimensions="3" size="1" constant="true"/>
+        <compartment id="c" spatialDimensions="3" size="1" constant="true" units="litre"/>
       </listOfCompartments>
       <listOfSpecies>
-        <species id="S" compartment="c" initialAmount="1" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="2" fbc:chemicalFormula="S20"/>
-        <species id="S1" compartment="c" initialAmount="1" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="2" fbc:chemicalFormula="S20"/>
-        <species id="S2" compartment="c" initialAmount="1" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
-        <species id="S3" compartment="c" initialAmount="1" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="2" fbc:chemicalFormula="S20"/>
-        <species id="S4" compartment="c" initialAmount="1" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="2" fbc:chemicalFormula="S20"/>
+        <species id="S" compartment="c" initialAmount="1" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"  substanceUnits="mole" fbc:charge="2" fbc:chemicalFormula="S20"/>
+        <species id="S1" compartment="c" initialAmount="1" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false" substanceUnits="mole" fbc:charge="2" fbc:chemicalFormula="S20"/>
+        <species id="S2" compartment="c" initialAmount="1" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false" substanceUnits="mole"/>
+        <species id="S3" compartment="c" initialAmount="1" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false" substanceUnits="mole" fbc:charge="2" fbc:chemicalFormula="S20"/>
+        <species id="S4" compartment="c" initialAmount="1" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false" substanceUnits="mole" fbc:charge="2" fbc:chemicalFormula="S20"/>
       </listOfSpecies>
       <listOfReactions>
         <reaction id="R1" reversible="false" fast="false">
@@ -92,13 +92,13 @@
           <kineticLaw>
             <math xmlns="http://www.w3.org/1998/Math/MathML">
               <apply>
-                <times/>
-                <ci> k </ci>
+                <divide/>
                 <ci> S1 </ci>
+                <ci> k </ci>
               </apply>
             </math>
             <listOfLocalParameters>
-              <localParameter id="k" value="0.1"/>
+              <localParameter id="k" value="0.1" units="second"/>
             </listOfLocalParameters>
           </kineticLaw>
         </reaction>
@@ -112,13 +112,13 @@
           <kineticLaw>
             <math xmlns="http://www.w3.org/1998/Math/MathML">
               <apply>
-                <times/>
-                <ci> k </ci>
+                <divide/>
                 <ci> S2 </ci>
+                <ci> k </ci>
               </apply>
             </math>
             <listOfLocalParameters>
-              <localParameter id="k" value="0.1"/>
+              <localParameter id="k" value="0.1" units="second"/>
             </listOfLocalParameters>
           </kineticLaw>
         </reaction>

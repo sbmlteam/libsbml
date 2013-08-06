@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <sbml xmlns="http://www.sbml.org/sbml/level3/version1/core" xmlns:fbc="http://www.sbml.org/sbml/level3/version1/fbc/version1" level="3" version="1" fbc:required="false">
-  <model id="aggregate">
+  <model id="aggregate" timeUnits="second" extentUnits="mole">
     <listOfCompartments>
-      <compartment id="c" spatialDimensions="3" size="1" constant="true"/>
-      <compartment id="submod1__c" spatialDimensions="3" size="1" constant="true"/>
+      <compartment id="c" spatialDimensions="3" size="1" units="litre" constant="true"/>
+      <compartment id="submod1__c" spatialDimensions="3" size="1" units="litre" constant="true"/>
     </listOfCompartments>
     <listOfSpecies>
-      <species id="S" compartment="c" initialAmount="1" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
-      <species id="S1" compartment="c" initialAmount="1" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
-      <species id="S2" compartment="c" initialAmount="1" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
-      <species id="S3" compartment="c" initialAmount="1" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
-      <species id="S4" compartment="c" initialAmount="1" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
-      <species id="submod1__S" compartment="submod1__c" initialAmount="1" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
-      <species id="submod1__S1" compartment="submod1__c" initialAmount="1" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
-      <species id="submod1__S2" compartment="submod1__c" initialAmount="1" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
-      <species id="submod1__S3" compartment="submod1__c" initialAmount="1" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
-      <species id="submod1__S4" compartment="submod1__c" initialAmount="1" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="S" compartment="c" initialAmount="1" substanceUnits="mole" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
+      <species id="S1" compartment="c" initialAmount="1" substanceUnits="mole" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
+      <species id="S2" compartment="c" initialAmount="1" substanceUnits="mole" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
+      <species id="S3" compartment="c" initialAmount="1" substanceUnits="mole" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
+      <species id="S4" compartment="c" initialAmount="1" substanceUnits="mole" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
+      <species id="submod1__S" compartment="submod1__c" initialAmount="1" substanceUnits="mole" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
+      <species id="submod1__S1" compartment="submod1__c" initialAmount="1" substanceUnits="mole" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
+      <species id="submod1__S2" compartment="submod1__c" initialAmount="1" substanceUnits="mole" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
+      <species id="submod1__S3" compartment="submod1__c" initialAmount="1" substanceUnits="mole" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
+      <species id="submod1__S4" compartment="submod1__c" initialAmount="1" substanceUnits="mole" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
     </listOfSpecies>
     <listOfReactions>
       <reaction id="R1" reversible="false" fast="false">
@@ -28,13 +28,13 @@
         <kineticLaw>
           <math xmlns="http://www.w3.org/1998/Math/MathML">
             <apply>
-              <times/>
-              <ci> k </ci>
+              <divide/>
               <ci> S1 </ci>
+              <ci> k </ci>
             </apply>
           </math>
           <listOfLocalParameters>
-            <localParameter id="k" value="0.1"/>
+            <localParameter id="k" value="0.1" units="second"/>
           </listOfLocalParameters>
         </kineticLaw>
       </reaction>
@@ -48,13 +48,13 @@
         <kineticLaw>
           <math xmlns="http://www.w3.org/1998/Math/MathML">
             <apply>
-              <times/>
-              <ci> k </ci>
+              <divide/>
               <ci> S2 </ci>
+              <ci> k </ci>
             </apply>
           </math>
           <listOfLocalParameters>
-            <localParameter id="k" value="0.1"/>
+            <localParameter id="k" value="0.1" units="second"/>
           </listOfLocalParameters>
         </kineticLaw>
       </reaction>
@@ -68,13 +68,13 @@
         <kineticLaw>
           <math xmlns="http://www.w3.org/1998/Math/MathML">
             <apply>
-              <times/>
-              <ci> k </ci>
+              <divide/>
               <ci> submod1__S1 </ci>
+              <ci> k </ci>
             </apply>
           </math>
           <listOfLocalParameters>
-            <localParameter id="k" value="0.1"/>
+            <localParameter id="k" value="0.1" units="second"/>
           </listOfLocalParameters>
         </kineticLaw>
       </reaction>
@@ -88,13 +88,13 @@
         <kineticLaw>
           <math xmlns="http://www.w3.org/1998/Math/MathML">
             <apply>
-              <times/>
-              <ci> k </ci>
+              <divide/>
               <ci> submod1__S2 </ci>
+              <ci> k </ci>
             </apply>
           </math>
           <listOfLocalParameters>
-            <localParameter id="k" value="0.1"/>
+            <localParameter id="k" value="0.1" units="second"/>
           </listOfLocalParameters>
         </kineticLaw>
       </reaction>
