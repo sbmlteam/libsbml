@@ -743,7 +743,7 @@ CompSBMLDocumentPlugin::checkConsistency(bool overrideFlattening)
       if (lineNumMessageLogged == false)
       {
         log->logPackageError("comp", CompLineNumbersUnreliable, 
-                              getLevel(), getVersion(), getPackageVersion());
+          getPackageVersion(), getLevel(), getVersion());
         total_errors++;
         lineNumMessageLogged = true;
       }
@@ -772,7 +772,7 @@ CompSBMLDocumentPlugin::checkConsistency(bool overrideFlattening)
       if (lineNumMessageLogged == false)
       {
         log->logPackageError("comp", CompLineNumbersUnreliable, 
-                              getLevel(), getVersion(), getPackageVersion());
+          getPackageVersion(), getLevel(), getVersion());
         total_errors++;
         lineNumMessageLogged = true;
       }
@@ -821,7 +821,7 @@ CompSBMLDocumentPlugin::checkConsistency(bool overrideFlattening)
         if (lineNumMessageLogged == false)
         {
           log->logPackageError("comp", CompLineNumbersUnreliable, 
-                                getLevel(), getVersion(), getPackageVersion());
+            getPackageVersion(), getLevel(), getVersion());
           total_errors++;
           lineNumMessageLogged = true;
         }
@@ -877,15 +877,15 @@ CompSBMLDocumentPlugin::checkConsistency(bool overrideFlattening)
         if (lineNumMessageLogged == false)
         {
           log->logPackageError("comp", CompLineNumbersUnreliable, 
-                                getLevel(), getVersion(), getPackageVersion());
+            getPackageVersion(), getLevel(), getVersion());
           total_errors++;
           lineNumMessageLogged = true;
         }
 
         std::string message = "Errors that follow relate to the flattened ";
         message += "document produced using the CompFlatteningConverter.";
-        log->logPackageError("comp", CompFlatModelNotValid, getLevel(),
-          getVersion(), getPackageVersion(), message);
+        log->logPackageError("comp", CompFlatModelNotValid, 
+          getPackageVersion(), getLevel(), getVersion(), message);
       }
 
       total_errors += nerrors;
@@ -898,7 +898,7 @@ CompSBMLDocumentPlugin::checkConsistency(bool overrideFlattening)
         if (lineNumMessageLogged == false)
         {
           log->logPackageError("comp", CompLineNumbersUnreliable, 
-                                getLevel(), getVersion(), getPackageVersion());
+            getPackageVersion(), getLevel(), getVersion());
           total_errors++;
           lineNumMessageLogged = true;
         }
@@ -922,7 +922,7 @@ CompSBMLDocumentPlugin::checkConsistency(bool overrideFlattening)
         if (lineNumMessageLogged == false)
         {
           log->logPackageError("comp", CompLineNumbersUnreliable, 
-                                getLevel(), getVersion(), getPackageVersion());
+            getPackageVersion(), getLevel(), getVersion());
           total_errors++;
           lineNumMessageLogged = true;
         }

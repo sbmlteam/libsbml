@@ -934,7 +934,7 @@ static const packageErrorTableEntry compErrorTable[] =
     "Objects may not be referenced by mutiple SBaseRef constructs.",
     LIBSBML_CAT_GENERAL_CONSISTENCY, 
     LIBSBML_SEV_ERROR,
-    "Any one SBML object may only be referenced by a single <port>, single <deletion>, single <replacedElement>, one or more <replacedBy> objects, or have a <replacedBy> child, discounting any <replacedElement> that uses the 'deletion' attribute.",
+    "Any one SBML object may only be referenced in one of the following ways:  referenced by a single <port> object; referenced by a single <deletion> object; referenced by a single <replacedElement>; be the parent of a single <replacedBy> child; be referenced by one or more <replacedBy> objects; or be referenced by one or more <replacedElement> objects all using the 'deletion' attribute.  Essentially, once an object has been referenced in one of these ways it cannot be referenced again.",
     { "L3V1 Comp V1 Section 3.7.1"
     }
   },

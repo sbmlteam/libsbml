@@ -2805,6 +2805,217 @@ START_TEST(test_comp_flatten_invalid61)
 }
 END_TEST
 
+START_TEST(test_comp_flatten_invalid62)
+{
+  //Test replaced element without correct attributes.
+  ConversionProperties* props = new ConversionProperties();
+  props->addOption("flatten comp");
+  props->addOption("leavePorts", false);
+  props->addOption("perform validation", false);
+  SBMLConverter* converter = 
+    SBMLConverterRegistry::getInstance().getConverterFor(*props);
+  
+  SBMLNamespaces sbmlns(3,1,"comp",1);
+  int rv;
+
+  // create the document
+  SBMLDocument *document = new SBMLDocument(&sbmlns);
+  CompSBMLDocumentPlugin* compdoc = 
+           static_cast<CompSBMLDocumentPlugin*>(document->getPlugin("comp"));
+  compdoc->setRequired(true);
+
+  // create the Model
+  Model* model=document->createModel();
+  model->setId("mainmod");
+  CompModelPlugin* mplugin = 
+                   static_cast<CompModelPlugin*>(model->getPlugin("comp"));
+  
+  // create a Submodel with a deletion
+  Submodel* submod1 = mplugin->createSubmodel();
+  submod1->setId("submod1");
+  submod1->setModelRef("Mod1");
+  Deletion* del = submod1->createDeletion();
+  del->setId("del1");
+  del->setIdRef("sp1");
+
+  //Create a parameter that points to the deletion
+  Parameter* param = model->createParameter();
+  param->setId("p1");
+  param->setConstant(true);
+  CompSBasePlugin* cparam = static_cast<CompSBasePlugin*>(param->getPlugin("comp"));
+  ReplacedElement* re = cparam->createReplacedElement();
+  re->setDeletion("del1");
+  re->setSubmodelRef("submod1");
+
+  //And a port that also points to the deletion
+  Port* port = mplugin->createPort();
+  port->setId("port1");
+  port->setIdRef("del1");
+
+  // Create a model definition
+  ModelDefinition* md = compdoc->createModelDefinition();
+  md->setId("Mod1");
+
+  param = md->createParameter();
+  param->setId("sp1");
+  param->setConstant(true);
+
+  //Now try to flatten it
+  converter->setDocument(document);
+  rv = converter->convert();
+  fail_unless(rv==LIBSBML_OPERATION_FAILED);
+  SBMLErrorLog* errors = document->getErrorLog();
+
+  fail_unless(errors->getNumErrors() == 2);
+  fail_unless(errors->contains(CompModelFlatteningFailed) == true);
+  fail_unless(errors->contains(CompNoMultipleReferences) == true);
+  
+  delete document;
+  delete converter;
+}
+END_TEST
+
+START_TEST(test_comp_flatten_invalid63)
+{
+  //Test invalid flattened models.
+  ConversionProperties* props = new ConversionProperties();
+  props->addOption("flatten comp");
+  props->addOption("leavePorts", false);
+  props->addOption("perform validation", true);
+  SBMLConverter* converter = 
+    SBMLConverterRegistry::getInstance().getConverterFor(*props);
+  
+  SBMLNamespaces sbmlns(3,1,"comp",1);
+  int rv;
+
+  // create the document
+  SBMLDocument *document = new SBMLDocument(&sbmlns);
+  CompSBMLDocumentPlugin* compdoc = 
+           static_cast<CompSBMLDocumentPlugin*>(document->getPlugin("comp"));
+  compdoc->setRequired(true);
+
+  // create the Model
+  Model* model=document->createModel();
+  model->setId("mainmod");
+  CompModelPlugin* mplugin = 
+                   static_cast<CompModelPlugin*>(model->getPlugin("comp"));
+  
+  // create a Submodel with a deletion
+  Submodel* submod1 = mplugin->createSubmodel();
+  submod1->setId("submod1");
+  submod1->setModelRef("Mod1");
+  Deletion* del = submod1->createDeletion();
+  del->setId("del1");
+  del->setIdRef("compartment");
+
+  // Create a model definition
+  ModelDefinition* md = compdoc->createModelDefinition();
+  md->setId("Mod1");
+
+  Species* species = md->createSpecies();
+  species->setId("S1");
+  species->setConstant(true);
+  species->setCompartment("compartment");
+
+  Compartment* comp = md->createCompartment();
+  comp->setId("compartment");
+  comp->setConstant(true);
+
+  //Now try to flatten it
+  converter->setDocument(document);
+  rv = converter->convert();
+  fail_unless(rv==LIBSBML_CONV_INVALID_SRC_DOCUMENT);
+  SBMLErrorLog* errors = document->getErrorLog();
+
+  fail_unless(errors->getNumErrors() == 4);
+  fail_unless(errors->contains(CompLineNumbersUnreliable) == true);
+  fail_unless(errors->contains(CompFlatModelNotValid) == true);
+  fail_unless(errors->contains(NeedCompartmentIfHaveSpecies) == true);
+  fail_unless(errors->contains(InvalidSpeciesCompartmentRef) == true);
+  
+  delete document;
+  delete converter;
+}
+END_TEST
+
+START_TEST(test_comp_flatten_invalid64)
+{
+  //Test invalid flattened models.
+  ConversionProperties* props = new ConversionProperties();
+  
+  props->addOption("flatten comp");
+  props->addOption("perform validation", true);
+
+  SBMLConverter* converter = 
+    SBMLConverterRegistry::getInstance().getConverterFor(*props);
+  
+  // load document
+  string dir(TestDataDirectory);
+  string fileName = dir + "flatten_fail1.xml";  
+  SBMLDocument* doc = readSBMLFromFile(fileName.c_str());
+
+  // fail if there is no model 
+  //(readSBMLFromFile always returns a valid document)
+  fail_unless(doc->getNumErrors() == 0);
+  fail_unless(doc->getModel() != NULL);
+
+  converter->setDocument(doc);
+  int result = converter->convert();
+
+  fail_unless( result == LIBSBML_CONV_INVALID_SRC_DOCUMENT);
+
+  SBMLErrorLog* errors = doc->getErrorLog();
+
+  fail_unless(errors->getNumErrors() == 3);
+  fail_unless(errors->contains(CompLineNumbersUnreliable) == true);
+  fail_unless(errors->contains(CompFlatModelNotValid) == true);
+  fail_unless(errors->contains(ApplyCiMustBeModelComponent) == true);
+
+  delete doc;
+  delete converter;
+}
+END_TEST
+
+START_TEST(test_comp_flatten_invalid65)
+{
+  //Test invalid flattened models.
+  ConversionProperties* props = new ConversionProperties();
+  
+  props->addOption("flatten comp");
+  props->addOption("perform validation", true);
+
+  SBMLConverter* converter = 
+    SBMLConverterRegistry::getInstance().getConverterFor(*props);
+  
+  // load document
+  string dir(TestDataDirectory);
+  string fileName = dir + "flatten_fail2.xml";  
+  SBMLDocument* doc = readSBMLFromFile(fileName.c_str());
+
+  // fail if there is no model 
+  //(readSBMLFromFile always returns a valid document)
+  fail_unless(doc->getNumErrors() == 0);
+  fail_unless(doc->getModel() != NULL);
+
+  converter->setDocument(doc);
+  int result = converter->convert();
+
+  fail_unless( result == LIBSBML_CONV_INVALID_SRC_DOCUMENT);
+
+  SBMLErrorLog* errors = doc->getErrorLog();
+
+  fail_unless(errors->getNumErrors() == 3);
+  fail_unless(errors->contains(CompLineNumbersUnreliable) == true);
+  fail_unless(errors->contains(CompFlatModelNotValid) == true);
+  fail_unless(errors->contains(InvalidSpeciesReference) == true);
+
+  delete doc;
+  delete converter;
+}
+END_TEST
+
+  //LS DEBUG:  still need tests for groups of deletion
+
 Suite *
 create_suite_TestFlatteningErrorMessages (void)
 { 
@@ -2872,6 +3083,10 @@ create_suite_TestFlatteningErrorMessages (void)
   tcase_add_test(tcase, test_comp_flatten_invalid59);
   tcase_add_test(tcase, test_comp_flatten_invalid60);
   tcase_add_test(tcase, test_comp_flatten_invalid61);
+  tcase_add_test(tcase, test_comp_flatten_invalid62);
+  tcase_add_test(tcase, test_comp_flatten_invalid63);
+  tcase_add_test(tcase, test_comp_flatten_invalid64);
+  tcase_add_test(tcase, test_comp_flatten_invalid65);
 
   suite_add_tcase(suite, tcase);
 

@@ -714,7 +714,12 @@ int CompModelPlugin::saveAllReferencedElements(set<SBase*> uniqueRefs, set<SBase
 
   //Get a list of everything, pull out anything that's a deletion, replacement, or port, and save what they're pointing to.
   //At the same time, make sure that no two things point to the same thing.
+  set<SBase*> RE_deletions = std::set<SBase*>(); //Deletions only point to things in the same model.
   List* allElements = model->getAllElements();
+  string modname = "the main model in the document";
+  if (model->isSetId()) {
+    modname = "the model '" + model->getId() + "'";
+  }
   for (unsigned int el=0; el<allElements->getSize(); el++) {
     SBase* element = static_cast<SBase*>(allElements->get(el));
     int type = element->getTypeCode();
@@ -724,6 +729,7 @@ int CompModelPlugin::saveAllReferencedElements(set<SBase*> uniqueRefs, set<SBase
         type==SBML_COMP_PORT) {
           //Don't worry about SBML_COMP_SBASEREF because they're all children of one of the above types.
           SBaseRef* reference = static_cast<SBaseRef*>(element);
+          ReplacedElement* re = static_cast<ReplacedElement*>(element);
           ret = reference->saveReferencedElement();
           if (ret != LIBSBML_OPERATION_SUCCESS) {
             return ret;
@@ -734,7 +740,7 @@ int CompModelPlugin::saveAllReferencedElements(set<SBase*> uniqueRefs, set<SBase
             SBase* rbParent = reference->getParentSBMLObject();
             if (uniqueRefs.insert(rbParent).second == false) {
               if (doc) {
-                string error = "Error discovered in CompModelPlugin::saveAllReferencedElements: a <" + direct->getElementName() + "> ";
+                string error = "Error discovered in CompModelPlugin::saveAllReferencedElements when checking " + modname + ": a <" + direct->getElementName() + "> ";
                 if (direct->isSetId()) {
                   error += "with the id '" + direct->getId() + "'";
                   if (direct->isSetMetaId()) {
@@ -751,32 +757,36 @@ int CompModelPlugin::saveAllReferencedElements(set<SBase*> uniqueRefs, set<SBase
             }
             adddirect = replacedBys.insert(direct).second;
           }
+          if (type==SBML_COMP_REPLACEDELEMENT && re->isSetDeletion()) {
+            adddirect = RE_deletions.insert(direct).second;
+          }
           if (adddirect) {
-            if (!(type==SBML_COMP_REPLACEDELEMENT && reference->getReferencedElement()->getTypeCode() == SBML_COMP_DELETION)) {
-              if (uniqueRefs.insert(direct).second == false) {
-                if (doc) {
-                  string error = "Error discovered in CompModelPlugin::saveAllReferencedElements: ";
-                  if (replacedBys.find(direct) != replacedBys.end()) {
-                    error += "one or more <replacedBy> elements, plus a <deletion>, <replacedElement>, or <port> element";
-                  }
-                  else {
-                    error += "multiple <deletion>, <replacedElement>, and/or <port> elements";
-                  }
-                  error += " point directly to the <" + direct->getElementName() + "> ";
-                  if (direct->isSetId()) {
-                    error += "with the id '" + direct->getId() + "'";
-                    if (direct->isSetMetaId()) {
-                      error += ", and the metaid '" + direct->getMetaId() + "'";
-                    }
-                    error += ".";
-                  }
-                  else if (direct->isSetMetaId()) {
-                    error += "with the metaId '" + direct->getMetaId() + "'.";
-                  }
-                  doc->getErrorLog()->logPackageError("comp", CompNoMultipleReferences, getPackageVersion(), getLevel(), getVersion(), error);
+            if (uniqueRefs.insert(direct).second == false) {
+              if (doc) {
+                string error = "Error discovered in CompModelPlugin::saveAllReferencedElements when checking " + modname + ": ";
+                if (replacedBys.find(direct) != replacedBys.end()) {
+                  error += "one or more <replacedBy> elements, plus a <deletion>, <replacedElement>, or <port> element";
                 }
-                return LIBSBML_OPERATION_FAILED;
+                else if (RE_deletions.find(direct) != RE_deletions.end()) {
+                  error += "one or more <replacedElement> elements using a 'deletion' attribute, plus a <deletion>, <replacedElement>, or <port> element";
+                }
+                else {
+                  error += "multiple <deletion>, <replacedElement>, and/or <port> elements";
+                }
+                error += " point directly to the <" + direct->getElementName() + "> ";
+                if (direct->isSetId()) {
+                  error += "with the id '" + direct->getId() + "'";
+                  if (direct->isSetMetaId()) {
+                    error += ", and the metaid '" + direct->getMetaId() + "'";
+                  }
+                  error += ".";
+                }
+                else if (direct->isSetMetaId()) {
+                  error += "with the metaId '" + direct->getMetaId() + "'.";
+                }
+                doc->getErrorLog()->logPackageError("comp", CompNoMultipleReferences, getPackageVersion(), getLevel(), getVersion(), error);
               }
+              return LIBSBML_OPERATION_FAILED;
             }
           }
     }
@@ -823,7 +833,8 @@ CompModelPlugin::renameAllIDsAndPrepend(const std::string& prefix)
       if (doc) {
         stringstream error;
         error << "Unable to rename elements in CompModelPlugin::renameAllIDsAndPrepend: no valid submodel number " << sm << "for model " << model->getId();
-        doc->getErrorLog()->logPackageError("comp", CompModelFlatteningFailed, 1, 3, 1, error.str());
+        doc->getErrorLog()->logPackageError("comp", CompModelFlatteningFailed,
+          getPackageVersion(), getLevel(), getVersion(), error.str());
       }
       return LIBSBML_OPERATION_FAILED;
     }
@@ -831,7 +842,8 @@ CompModelPlugin::renameAllIDsAndPrepend(const std::string& prefix)
       if (doc) {
         stringstream error;
         error << "Unable to rename elements in CompModelPlugin::renameAllIDsAndPrepend: submodel number " << sm << "for model " << model->getId() << " is invalid: it has no 'id' attribute set.";
-        doc->getErrorLog()->logPackageError("comp", CompSubmodelAllowedAttributes, 1, 3, 1, error.str());
+        doc->getErrorLog()->logPackageError("comp", CompSubmodelAllowedAttributes,
+          getPackageVersion(), getLevel(), getVersion(), error.str());
       }
       return LIBSBML_INVALID_OBJECT;
     }

@@ -168,7 +168,6 @@ CompFlatteningConverter::convert()
 
   if (getPerformValidation() == true)
   {
-//    mDocument->getErrorLog()->clearLog();
     unsigned char origValidators = mDocument->getApplicableValidators();
     mDocument->setApplicableValidators(AllChecksON);
     
@@ -209,8 +208,55 @@ CompFlatteningConverter::convert()
     return LIBSBML_OPERATION_FAILED;
   }
   
-  //Otherwise, remove the 'subsequent errors' error message.
-  mDocument->getErrorLog()->remove(CompModelFlatteningFailed);
+  //Otherwise, transfer only errors 1090107->1090110 to a 'dummy' document.
+  SBMLErrorLog* log = mDocument->getErrorLog();
+  SBMLDocument dummy(mDocument->getSBMLNamespaces());
+  for (unsigned int en=0; en<log->getNumErrors(); en++) {
+    unsigned int errid = mDocument->getError(en)->getErrorId();
+    if (errid == CompFlatteningNotRecognisedNotReqd ||
+        errid == CompFlatteningNotRecognisedReqd ||
+        errid == CompFlatteningNotImplementedNotReqd ||
+        errid == CompFlatteningNotImplementedReqd) {
+          dummy.getErrorLog()->add(*(mDocument->getError(en)));
+    }
+  }
+  log->clearLog();
+
+  //Now check to see if the flat model is valid
+  // run regular validation on the flattened document if requested.
+  if (getPerformValidation() == true)
+  {
+    result = dummy.setModel(flatmodel);
+    //LS DEBUG:  check 'result'?
+    dummy.disablePackage(modelPlugin->getURI(), "comp");
+    dummy.checkConsistency();
+    unsigned int errors = dummy.getErrorLog()->getNumFailsWithSeverity(LIBSBML_SEV_ERROR);
+    if (errors > 0)
+    {
+      //Transfer the errors to mDocument and don't reset the model.
+      log->logPackageError("comp", CompLineNumbersUnreliable, 
+        modelPlugin->getPackageVersion(), modelPlugin->getLevel(), modelPlugin->getVersion());
+      std::string message = "Errors that follow relate to the flattened ";
+      message += "document produced using the CompFlatteningConverter.";
+      log->logPackageError("comp", CompFlatModelNotValid,
+        modelPlugin->getPackageVersion(), modelPlugin->getLevel(), modelPlugin->getVersion(), message);
+    }
+    unsigned int nerrors = dummy.getErrorLog()->getNumErrors();
+    for (unsigned int n = 0; n < nerrors; n++)
+    {
+      const SBMLError* error = dummy.getError(n);
+      if (error->getSeverity() >= LIBSBML_SEV_ERROR) {
+        log->add( *(error) );
+      }
+      if (error->getErrorId() >= CompFlatteningNotRecognisedNotReqd &&
+        error->getErrorId() <= CompFlatteningNotImplementedReqd) {
+          log->add( *(error) );
+      }
+    }
+    if (errors > 0) {
+      return LIBSBML_CONV_INVALID_SRC_DOCUMENT;
+    }
+  }
 
   // now reconstruct the document taking user options into account
 
@@ -255,7 +301,18 @@ CompFlatteningConverter::convert()
     }
   }
 
-  return result;
+  if (result != LIBSBML_OPERATION_SUCCESS) {
+    return result;
+  }
+
+  //The error log may contain random warnings about the original document that probably
+  // will no longer apply, so clear it and re-run validation.
+  if (getPerformValidation() == true)
+  {
+    mDocument->checkConsistency();
+  }
+
+  return LIBSBML_OPERATION_SUCCESS;
 }
 
 
