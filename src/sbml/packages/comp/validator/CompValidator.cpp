@@ -487,16 +487,22 @@ CompValidator::validate (const SBMLDocument& d)
     CompValidatingVisitor vv(*this, *m);
 
     // validate via the plugins for the package
-    const CompSBMLDocumentPlugin* csdp = static_cast <const CompSBMLDocumentPlugin *>(d.getPlugin("comp"));
-    if (csdp == NULL) {
-      return (unsigned int)mFailures.size();
+    const CompSBMLDocumentPlugin* csdp = 
+      static_cast <const CompSBMLDocumentPlugin *>(d.getPlugin("comp"));
+    
+    if (csdp != NULL) 
+    {
+      csdp->accept(vv);
     }
-    csdp->accept(vv);
-    CompModelPlugin* cmp = static_cast <CompModelPlugin *>(m->getPlugin("comp"));
-    if (cmp==NULL) {
-      return (unsigned int)mFailures.size();
+
+    CompModelPlugin* cmp = 
+      static_cast <CompModelPlugin *>(m->getPlugin("comp"));
+    
+    if (cmp != NULL) 
+    {
+      cmp->accept(vv);
     }
-    cmp->accept(vv);
+    
 
     unsigned int i = 0;
     unsigned int j;
