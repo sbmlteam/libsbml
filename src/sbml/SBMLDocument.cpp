@@ -698,7 +698,7 @@ SBMLDocument::setConsistencyChecksForConversion(SBMLErrorCategory_t category,
  * @return the number of failed checks (errors) encountered.
  */
 unsigned int
-SBMLDocument::checkConsistency ()
+SBMLDocument::checkConsistency (bool overrideCompFlattening)
 {
   //  XMLLogOverride(getErrorLog(), LIBSBML_OVERRIDE_DISABLED);
   // keep a copy of the override status
@@ -712,7 +712,7 @@ SBMLDocument::checkConsistency ()
   for (unsigned int i = 0; i < getNumPlugins(); i++)
   {
     numErrors += static_cast<SBMLDocumentPlugin*>
-                            (getPlugin(i))->checkConsistency();
+                      (getPlugin(i))->checkConsistency(overrideCompFlattening);
   }
 
   list<SBMLValidator*>::iterator it;

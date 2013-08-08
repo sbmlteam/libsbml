@@ -3014,6 +3014,42 @@ START_TEST(test_comp_flatten_invalid65)
 }
 END_TEST
 
+START_TEST(test_comp_flatten_invalid_core)
+{
+  //Test invalid flattened models.
+  ConversionProperties* props = new ConversionProperties();
+  
+  props->addOption("flatten comp");
+  props->addOption("perform validation", true);
+
+  SBMLConverter* converter = 
+    SBMLConverterRegistry::getInstance().getConverterFor(*props);
+  
+  // load document
+  string dir(TestDataDirectory);
+  string fileName = dir + "invalid_core_fail1.xml";  
+  SBMLDocument* doc = readSBMLFromFile(fileName.c_str());
+
+  // fail if there is no model 
+  //(readSBMLFromFile always returns a valid document)
+  fail_unless(doc->getNumErrors() == 0);
+  fail_unless(doc->getModel() != NULL);
+
+  converter->setDocument(doc);
+  int result = converter->convert();
+
+  fail_unless( result == LIBSBML_CONV_INVALID_SRC_DOCUMENT);
+
+  SBMLErrorLog* errors = doc->getErrorLog();
+
+  fail_unless(errors->getNumFailsWithSeverity(LIBSBML_SEV_ERROR) == 1);
+  fail_unless(errors->contains(AssignmentToConstantEntity) == true);
+
+  delete doc;
+  delete converter;
+}
+END_TEST
+
   //LS DEBUG:  still need tests for groups of deletion
 
 Suite *
@@ -3088,6 +3124,7 @@ create_suite_TestFlatteningErrorMessages (void)
   tcase_add_test(tcase, test_comp_flatten_invalid64);
   tcase_add_test(tcase, test_comp_flatten_invalid65);
 
+  tcase_add_test(tcase, test_comp_flatten_invalid_core);
   suite_add_tcase(suite, tcase);
 
   return suite;

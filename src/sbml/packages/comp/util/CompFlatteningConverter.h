@@ -120,6 +120,8 @@ public:
 
 private:
 
+  int reconstructDocument(Model* flatmodel, SBMLDocument &dummyDoc);
+
   bool getLeavePorts() const;
 
   bool getLeaveDefinitions() const;
