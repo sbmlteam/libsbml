@@ -231,6 +231,10 @@ public:
    */
   void setSeverityOverride(XMLErrorSeverityOverride_t severity);
 
+  void changeErrorSeverity(XMLErrorSeverity_t originalSeverity,
+                                 XMLErrorSeverity_t targetSeverity,
+                                 std::string package = "all");
+
 protected:
   /** @cond doxygen-libsbml-internal */
 

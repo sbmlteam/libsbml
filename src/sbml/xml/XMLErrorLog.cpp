@@ -259,6 +259,27 @@ XMLErrorLog::printErrors (std::ostream& stream /*= std::cerr*/) const
     stream << *(*iter);
 }
 
+
+void 
+XMLErrorLog::changeErrorSeverity(XMLErrorSeverity_t originalSeverity,
+                                 XMLErrorSeverity_t targetSeverity,
+                                 std::string package)
+{
+  vector<XMLError*>::const_iterator iter;
+
+  for (iter = mErrors.begin(); iter != mErrors.end(); ++iter) 
+  {
+    if ((*iter)->getSeverity() == originalSeverity)
+    {
+      if (package == "all" || (*iter)->getPackage() == package)
+      {
+        (*iter)->mSeverity = targetSeverity;
+        (*iter)->mSeverityString = (*iter)->stringForSeverity(targetSeverity);
+      }
+    }
+  }
+}
+
 /** @cond doxygen-c-only */
 
 /**
