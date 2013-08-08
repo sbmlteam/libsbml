@@ -384,18 +384,113 @@ START_TEST (test_SBMLConvert_convertToL3_defaultUnits)
   ud = Model_getUnitDefinition(m, 1);
 
   fail_unless (ud != NULL);
-  fail_unless (!strcmp(UnitDefinition_getId( ud), "time"));
+  fail_unless (!strcmp(UnitDefinition_getId( ud), "area"));
   fail_unless(UnitDefinition_getNumUnits(ud) == 1);
   
   u = UnitDefinition_getUnit(ud, 0);
 
-  fail_unless(Unit_getKind(u) == UNIT_KIND_SECOND);
+  fail_unless(Unit_getKind(u) == UNIT_KIND_METRE);
+  fail_unless(Unit_getExponent(u) == 2);
+  fail_unless(Unit_getMultiplier(u) == 1);
+  fail_unless(Unit_getScale(u) == 0);
+
+  fail_unless(Model_isSetSubstanceUnits(m) == 1);
+  fail_unless(Model_isSetTimeUnits(m) == 1);
+  fail_unless(Model_isSetVolumeUnits(m) == 1);
+  fail_unless(Model_isSetAreaUnits(m) == 1);
+  fail_unless(Model_isSetLengthUnits(m) == 1);
+  fail_unless(Model_isSetExtentUnits(m) == 1);
+
+  fail_unless(!strcmp(Model_getSubstanceUnits(m), "mole"));
+  fail_unless(!strcmp(Model_getTimeUnits(m), "second"));
+  fail_unless(!strcmp(Model_getVolumeUnits(m), "volume"));
+  fail_unless(!strcmp(Model_getAreaUnits(m), "area"));
+  fail_unless(!strcmp(Model_getLengthUnits(m), "metre"));
+  fail_unless(!strcmp(Model_getExtentUnits(m), "mole"));
+
+  SBMLDocument_free(d);
+}
+END_TEST
+
+
+START_TEST (test_SBMLConvert_convertToL3_defaultUnits1)
+{
+  SBMLDocument_t *d = SBMLDocument_createWithLevelAndVersion(1, 2);
+  Model_t        *m = SBMLDocument_createModel(d);
+
+  const char   *sid = "C";
+  Compartment_t  *c = Model_createCompartment(m);
+
+  Compartment_setId   ( c, sid );
+
+  UnitDefinition_t  *ud = Model_createUnitDefinition(m);
+
+  UnitDefinition_setId   ( ud, "substance" );
+  Unit_t * u = UnitDefinition_createUnit(ud);
+  Unit_setKind(u, UNIT_KIND_MOLE);
+
+  fail_unless(Model_getNumUnitDefinitions(m) == 1);
+  fail_unless(Compartment_isSetUnits(c) == 0);
+  
+  fail_unless( SBMLDocument_setLevelAndVersion(d, 3, 1) == 1, NULL);
+
+  fail_unless(Model_getNumUnitDefinitions(m) == 3);
+  
+  ud = Model_getUnitDefinition(m, 0);
+
+  fail_unless (ud != NULL);
+  fail_unless (!strcmp(UnitDefinition_getId( ud), "substance"));
+  fail_unless(UnitDefinition_getNumUnits(ud) == 1);
+
+  u = UnitDefinition_getUnit(ud, 0);
+
+  fail_unless(Unit_getKind(u) == UNIT_KIND_MOLE);
   fail_unless(Unit_getExponent(u) == 1);
   fail_unless(Unit_getMultiplier(u) == 1);
   fail_unless(Unit_getScale(u) == 0);
 
-  fail_unless(!strcmp(Model_getTimeUnits(m), "time"));
+  ud = Model_getUnitDefinition(m, 1);
 
+  fail_unless (ud != NULL);
+  fail_unless (!strcmp(UnitDefinition_getId( ud), "volume"));
+  fail_unless(UnitDefinition_getNumUnits(ud) == 1);
+  
+  u = UnitDefinition_getUnit(ud, 0);
+
+  fail_unless(Unit_getKind(u) == UNIT_KIND_LITRE);
+  fail_unless(Unit_getExponent(u) == 1);
+  fail_unless(Unit_getMultiplier(u) == 1);
+  fail_unless(Unit_getScale(u) == 0);
+
+  ud = Model_getUnitDefinition(m, 2);
+
+  fail_unless (ud != NULL);
+  fail_unless (!strcmp(UnitDefinition_getId( ud), "area"));
+  fail_unless(UnitDefinition_getNumUnits(ud) == 1);
+  
+  u = UnitDefinition_getUnit(ud, 0);
+
+  fail_unless(Unit_getKind(u) == UNIT_KIND_METRE);
+  fail_unless(Unit_getExponent(u) == 2);
+  fail_unless(Unit_getMultiplier(u) == 1);
+  fail_unless(Unit_getScale(u) == 0);
+
+  fail_unless(Compartment_isSetUnits(c) == 1);
+  fail_unless(!strcmp(Compartment_getUnits(c), "volume"));
+
+  fail_unless(Model_isSetSubstanceUnits(m) == 1);
+  fail_unless(Model_isSetTimeUnits(m) == 1);
+  fail_unless(Model_isSetVolumeUnits(m) == 1);
+  fail_unless(Model_isSetAreaUnits(m) == 1);
+  fail_unless(Model_isSetLengthUnits(m) == 1);
+  fail_unless(Model_isSetExtentUnits(m) == 1);
+
+  fail_unless(!strcmp(Model_getSubstanceUnits(m), "substance"));
+  fail_unless(!strcmp(Model_getTimeUnits(m), "second"));
+  fail_unless(!strcmp(Model_getVolumeUnits(m), "volume"));
+  fail_unless(!strcmp(Model_getAreaUnits(m), "area"));
+  fail_unless(!strcmp(Model_getLengthUnits(m), "metre"));
+  fail_unless(!strcmp(Model_getExtentUnits(m), "substance"));
   SBMLDocument_free(d);
 }
 END_TEST
@@ -1234,6 +1329,7 @@ create_suite_SBMLConvert (void)
   tcase_add_test( tcase, test_SBMLConvert_convertToL2v4_DuplicateAnnotations_doc );
   tcase_add_test( tcase, test_SBMLConvert_convertToL2v4_DuplicateAnnotations_model );
   tcase_add_test( tcase, test_SBMLConvert_convertToL3_defaultUnits );
+  tcase_add_test( tcase, test_SBMLConvert_convertToL3_defaultUnits1 );
   tcase_add_test( tcase, test_SBMLConvert_convertToL3_localParameters );
   tcase_add_test( tcase, test_SBMLConvert_convertToL3_stoichiometryMath );
   tcase_add_test( tcase, test_SBMLConvert_convertToL3_compartment );

@@ -408,32 +408,57 @@ Model::addDefinitionsForDefaultUnits()
       unitsUsed.append(getParameter(n)->getUnits());
   }
 
-  if (getUnitDefinition("volume") == NULL 
-    && (unitsUsed.contains("volume") || implicitVolume))
+  if (getUnitDefinition("volume") == NULL)
   {
-    UnitDefinition * ud = createUnitDefinition();
-    ud->setId("volume");
-    Unit * u = ud->createUnit();
-    u->setKind(UnitKind_forName("litre"));
-    u->setScale(0);
-    u->setExponent(1.0);
-    u->setMultiplier(1.0);
+    if (unitsUsed.contains("volume") || implicitVolume)
+    {
+      UnitDefinition * ud = createUnitDefinition();
+      ud->setId("volume");
+      Unit * u = ud->createUnit();
+      u->setKind(UnitKind_forName("litre"));
+      u->setScale(0);
+      u->setExponent(1.0);
+      u->setMultiplier(1.0);
+      setVolumeUnits("volume");
+    }
+    else
+    {
+      setVolumeUnits("litre");
+    }
+  }
+  else
+  {
+    setVolumeUnits("volume");
   }
 
-  if (getUnitDefinition("substance") == NULL 
-    && (unitsUsed.contains("substance") || implicitSubstance))
+
+  if (getUnitDefinition("substance") == NULL)
   {
-    UnitDefinition * ud = createUnitDefinition();
-    ud->setId("substance");
-    Unit * u = ud->createUnit();
-    u->setKind(UnitKind_forName("mole"));
-    u->setScale(0);
-    u->setExponent(1.0);
-    u->setMultiplier(1.0);
+    if (unitsUsed.contains("substance") || implicitSubstance)
+    {
+      UnitDefinition * ud = createUnitDefinition();
+      ud->setId("substance");
+      Unit * u = ud->createUnit();
+      u->setKind(UnitKind_forName("mole"));
+      u->setScale(0);
+      u->setExponent(1.0);
+      u->setMultiplier(1.0);
+      setSubstanceUnits("substance");
+      setExtentUnits("substance");
+    }
+    else
+    {
+      setSubstanceUnits("mole");
+      setExtentUnits("mole");
+    }
+  }
+  else
+  {
+    setSubstanceUnits("substance");
+    setExtentUnits("substance");
   }
 
-  if (getUnitDefinition("area") == NULL
-    && (unitsUsed.contains("area") || implicitArea))
+  if (getUnitDefinition("area") == NULL)
   {
     UnitDefinition * ud = createUnitDefinition();
     ud->setId("area");
@@ -442,31 +467,39 @@ Model::addDefinitionsForDefaultUnits()
     u->setScale(0);
     u->setExponent(2.0);
     u->setMultiplier(1.0);
+    setAreaUnits("area");
+  }
+  else
+  {
+    setAreaUnits("area");
   }
 
-  if (getUnitDefinition("length") == NULL
-    && (unitsUsed.contains("length") || implicitLength))
+  if (getUnitDefinition("length") == NULL)
   {
-    UnitDefinition * ud = createUnitDefinition();
-    ud->setId("length");
-    Unit * u = ud->createUnit();
-    u->setKind(UnitKind_forName("metre"));
-    u->setScale(0);
-    u->setExponent(1.0);
-    u->setMultiplier(1.0);
+    if (unitsUsed.contains("length") || implicitLength)
+    {
+      UnitDefinition * ud = createUnitDefinition();
+      ud->setId("length");
+      Unit * u = ud->createUnit();
+      u->setKind(UnitKind_forName("metre"));
+      u->setScale(0);
+      u->setExponent(1.0);
+      u->setMultiplier(1.0);
+      setLengthUnits("length");
+    }
+    else
+    {
+      setLengthUnits("metre");
+    }
+  }
+  else
+  {
+    setLengthUnits("length");
   }
 
   if (getUnitDefinition("time") == NULL)
   {
-    UnitDefinition * ud = createUnitDefinition();
-    ud->setId("time");
-    Unit * u = ud->createUnit();
-    u->setKind(UnitKind_forName("second"));
-    u->setScale(0);
-    u->setExponent(1.0);
-    u->setMultiplier(1.0);
-
-    setTimeUnits("time");
+    setTimeUnits("second");
   }
   else
   {
