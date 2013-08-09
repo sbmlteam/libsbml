@@ -532,6 +532,10 @@ table.memberdecls {
     margin-left: 6px;
 }
 
+.memSeparator {
+    display: none;
+}
+
 .memproto, dl.reflist dt {
     border-top: 1px solid #b5b5b5;
     border-left: 1px solid #b5b5b5;
@@ -584,6 +588,12 @@ dl.reflist dt {
 dl.reflist dd {
     margin: 0px 0px 10px 0px;
     padding: 5px;
+}
+
+/* The next one is to tighten vertical spacing in Java parameter lists in method descriptions */
+dl dd dl dd p {
+    padding: 2px;
+    margin: 0px;
 }
 
 .paramkey {
