@@ -459,18 +459,8 @@ table.memberdecls {
 .memTemplItemLeft, .memTemplItemRight, .memTemplParams {
     background-color: #fafafa;
     border: none;
-    margin: 4px;
-    padding: 1px 0 0 8px;
-}
-
-.mdescLeft, .mdescRight {
-    padding: 0px 8px 8px 8px;
-    color: #555;
-    font-style: italic;
-}
-
-.mdescRight code {
-    color: #555;
+    margin: 0px;
+    padding: 0px 0 0 5px;
 }
 
 .memItemLeft, .memItemRight, .memTemplParams {
@@ -486,6 +476,17 @@ table.memberdecls {
 
 .memItemRight {
     width: 100%;
+    padding-bottom: 4px;
+}
+
+.mdescLeft, .mdescRight {
+    padding: 0px 8px 8px 5px;
+    color: #555;
+    font-style: italic;
+}
+
+.mdescRight code {
+    color: #555;
 }
 
 .memTemplParams {
