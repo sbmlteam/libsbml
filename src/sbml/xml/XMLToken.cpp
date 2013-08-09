@@ -27,14 +27,14 @@
 
 #include <sstream>
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 #include <sbml/xml/XMLOutputStream.h>
 #include <sbml/util/util.h>
 #include <sbml/xml/XMLConstructorException.h>
 /** @endcond */
 #include <sbml/xml/XMLToken.h>
 
-/** @cond doxygen-ignored */
+/** @cond doxygenIgnored */
 
 using namespace std;
 
@@ -1221,7 +1221,7 @@ XMLToken::setEOF ()
 }
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 /*
  * Writes this XMLToken to stream.
  */
@@ -1271,7 +1271,7 @@ XMLToken::toString ()
 }
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 /*
  * Inserts this XMLToken into stream.
  */
@@ -1285,7 +1285,7 @@ operator<< (XMLOutputStream& stream, const XMLToken& token)
 /** @endcond */
 
 
-/** @cond doxygen-c-only */
+/** @cond doxygenCOnly */
 
 
 /**

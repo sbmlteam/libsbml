@@ -296,13 +296,13 @@ public:
    * Increases the indentation level for this XMLOutputStream.
    */
   void upIndent ();
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
 
   bool getStringStream()   { return mStringStream;  }
   /** @endcond */
 
 protected:
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
 
   /**
    * Unitialized XMLOutputStreams may only be created by subclasses.
@@ -400,7 +400,7 @@ protected:
 };
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 
 class LIBLAX_EXTERN XMLOutputStringStream : public XMLOutputStream
 {

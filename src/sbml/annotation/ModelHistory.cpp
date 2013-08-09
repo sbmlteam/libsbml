@@ -34,7 +34,7 @@
 #include <sbml/SBase.h>
 #include <cstdio>
 
-/** @cond doxygen-ignored */
+/** @cond doxygenIgnored */
 
 using namespace std;
 
@@ -407,7 +407,7 @@ ModelHistory::hasRequiredAttributes()
 }
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 bool
 ModelHistory::hasBeenModified()
 {
@@ -439,7 +439,7 @@ ModelHistory::hasBeenModified()
 /** @endcond */
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 void
 ModelHistory::resetModifiedFlags()
 {

@@ -468,7 +468,7 @@ XMLNode Association::toXML() const
 }
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 SBase*
 Association::createObject (XMLInputStream& stream)
 {
@@ -476,7 +476,7 @@ Association::createObject (XMLInputStream& stream)
 }
 /** @endcond */
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 void
 Association::addExpectedAttributes(ExpectedAttributes& attributes)
 {
@@ -486,7 +486,7 @@ Association::addExpectedAttributes(ExpectedAttributes& attributes)
 }
 /** @endcond */
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 void
 Association::readAttributes (const XMLAttributes& attributes,
                         const ExpectedAttributes& expectedAttributes)
@@ -506,7 +506,7 @@ Association::readAttributes (const XMLAttributes& attributes,
 }
 /** @endcond */
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 void
 Association::writeAttributes (XMLOutputStream& stream) const
 {
@@ -521,7 +521,7 @@ Association::writeAttributes (XMLOutputStream& stream) const
 }
 /** @endcond */
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 void
 Association::writeElements (XMLOutputStream& stream) const
 {

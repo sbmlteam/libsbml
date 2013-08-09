@@ -33,11 +33,11 @@
 #ifdef __cplusplus
 
 
-	/** @cond doxygen-libsbml-internal */
+	/** @cond doxygenLibsbmlInternal */
 
 #include <list>
 #include <string>
-	/** @endcond doxygen-libsbml-internal */
+	/** @endcond doxygenLibsbmlInternal */
 
 
 #include <sbml/SBMLError.h>
@@ -117,7 +117,7 @@ public:
 
 
 protected:
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
 
   LayoutValidatorConstraints* mLayoutConstraints;
 

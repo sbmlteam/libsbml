@@ -116,7 +116,7 @@ bool operator<(const SBaseExtensionPoint& lhs, const SBaseExtensionPoint& rhs)
 }
 
 
-/** @cond doxygen-c-only */
+/** @cond doxygenCOnly */
 
 /**
  * Creates a new SBaseExtensionPoint_t structure with the given arguments

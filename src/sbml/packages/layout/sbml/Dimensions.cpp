@@ -419,7 +419,7 @@ Dimensions::clone () const
 }
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 SBase*
 Dimensions::createObject (XMLInputStream& stream)
 {
@@ -431,7 +431,7 @@ Dimensions::createObject (XMLInputStream& stream)
 }
 /** @endcond */
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 void
 Dimensions::addExpectedAttributes(ExpectedAttributes& attributes)
 {
@@ -444,7 +444,7 @@ Dimensions::addExpectedAttributes(ExpectedAttributes& attributes)
 }
 /** @endcond */
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 void Dimensions::readAttributes (const XMLAttributes& attributes,
                                  const ExpectedAttributes& expectedAttributes)
 {
@@ -582,7 +582,7 @@ void Dimensions::readAttributes (const XMLAttributes& attributes,
 }
 /** @endcond */
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 void
 Dimensions::writeElements (XMLOutputStream& stream) const
 {
@@ -595,7 +595,7 @@ Dimensions::writeElements (XMLOutputStream& stream) const
 }
 /** @endcond */
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 void Dimensions::writeAttributes (XMLOutputStream& stream) const
 {
   SBase::writeAttributes(stream);

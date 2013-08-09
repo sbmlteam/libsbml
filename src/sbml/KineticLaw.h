@@ -932,7 +932,7 @@ public:
   LocalParameter* removeLocalParameter (const std::string& sid);
 
 
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
   /**
    * Sets the parent SBMLDocument of this SBML object.
    *
@@ -1010,7 +1010,7 @@ public:
   virtual const std::string& getElementName () const;
 
 
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
   /**
    * @return the ordinal position of the element with respect to its
    * siblings or -1 (default) to indicate the position is not significant.
@@ -1019,7 +1019,7 @@ public:
   /** @endcond */
 
 
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
   /**
    * Subclasses should override this method to write out their contained
    * SBML objects as XML elements.  Be sure to call your parents
@@ -1082,7 +1082,7 @@ public:
   virtual void renameUnitSIdRefs(std::string oldid, std::string newid);
 
 
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
   /*
    * Function to set/get an identifier for unit checking.
    */
@@ -1090,7 +1090,7 @@ public:
   void setInternalId(std::string id) { mInternalId = id; };
   /** @endcond */
 
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
   /**
    * Replace all nodes with the name 'id' from the child 'math' object with the provided function. 
    *
@@ -1098,14 +1098,14 @@ public:
   virtual void replaceSIDWithFunction(const std::string& id, const ASTNode* function);
   /** @endcond */
 
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
   /**
    * If this reaction id matches the provided 'id' string, replace the 'math' object with the function (existing/function). 
    */
   virtual void divideAssignmentsToSIdByFunction(const std::string& id, const ASTNode* function);
   /** @endcond */
 
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
   /**
    * If this assignment assigns a value to the 'id' element, replace the 'math' object with the function (existing*function). 
    */
@@ -1115,7 +1115,7 @@ public:
 
 
 protected:
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
 
   /**
    * @return the SBML object corresponding to next XMLToken in the

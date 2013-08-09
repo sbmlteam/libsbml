@@ -43,7 +43,7 @@ using namespace std;
 LIBSBML_CPP_NAMESPACE_BEGIN
 
   
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 void SBMLUnitsConverter::init()
 {
   SBMLUnitsConverter converter;
@@ -124,7 +124,7 @@ SBMLUnitsConverter::matchesProperties(const ConversionProperties &props) const
 }
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 bool
 SBMLUnitsConverter::getRemoveUnusedUnitsFlag()
 {
@@ -336,7 +336,7 @@ SBMLUnitsConverter::convert()
     return LIBSBML_OPERATION_FAILED;
 }
   
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 bool
 SBMLUnitsConverter::convertUnits(SBase &sb, Model &m)
 {
@@ -347,7 +347,7 @@ SBMLUnitsConverter::convertUnits(SBase &sb, Model &m)
 /** @endcond */
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 bool
 SBMLUnitsConverter::convertUnits(SBase &sb, Model &m, 
                                  std::string &modelUnitAttribute,
@@ -778,7 +778,7 @@ SBMLUnitsConverter::convertUnits(SBase &sb, Model &m,
 /** @endcond */
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 int
 SBMLUnitsConverter::applyNewUnitDefinition(SBase &sb, Model &m, 
                                            UnitDefinition* newUD,
@@ -1149,7 +1149,7 @@ SBMLUnitsConverter::applyNewUnitDefinition(SBase &sb, Model &m,
 }
 /** @endcond */
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 /* if a global unit has been set but not used by a compartment
  * species or parameter it will not have been converted.
  * Thus we check whether the value of the attribute has changed
@@ -1241,7 +1241,7 @@ SBMLUnitsConverter::convertGlobalUnits(Model &m)
 }
 /** @endcond */
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 bool
 SBMLUnitsConverter::convertCnUnits(Model& m)
 {
@@ -1373,7 +1373,7 @@ SBMLUnitsConverter::convertCnUnits(Model& m)
 }
 /** @endcond */
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 bool
 SBMLUnitsConverter::convertAST(ASTNode *ast, Model & m)
 {
@@ -1400,7 +1400,7 @@ SBMLUnitsConverter::convertAST(ASTNode *ast, Model & m)
 }
 /** @endcond */
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 std::string 
 SBMLUnitsConverter::existsAlready(Model& m, UnitDefinition *newUD)
 {
@@ -1418,7 +1418,7 @@ SBMLUnitsConverter::existsAlready(Model& m, UnitDefinition *newUD)
 /** @endcond */
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 void
 SBMLUnitsConverter::removeUnusedUnitDefinitions(Model& m)
 {
@@ -1435,7 +1435,7 @@ SBMLUnitsConverter::removeUnusedUnitDefinitions(Model& m)
 }
 /** @endcond */
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 bool
 SBMLUnitsConverter::isUsed(Model& m, std::string unitSId)
 {
@@ -1529,7 +1529,7 @@ SBMLUnitsConverter::isUsed(Model& m, std::string unitSId)
 }
 /** @endcond */
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 /*
  * Predicate returning true if the errors encountered are not ignorable.
  */
@@ -1616,7 +1616,7 @@ SBMLUnitsConverter::unacceptable_errors(unsigned int errors)
 }
 /** @endcond */
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 bool
 SBMLUnitsConverter::hasCnUnits(Model& m)
 {
@@ -1702,7 +1702,7 @@ SBMLUnitsConverter::hasCnUnits(Model& m)
 }
 /** @endcond */
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 bool
 SBMLUnitsConverter::matchesCnUnits(Model& m, std::string& units)
 {
@@ -1788,7 +1788,7 @@ SBMLUnitsConverter::matchesCnUnits(Model& m, std::string& units)
 }
 /** @endcond */
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 bool
 SBMLUnitsConverter::mathHasCnUnits(const ASTNode * ast)
 {
@@ -1807,7 +1807,7 @@ SBMLUnitsConverter::mathHasCnUnits(const ASTNode * ast)
 }
 /** @endcond */
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 bool
 SBMLUnitsConverter::mathMatchesCnUnits(const ASTNode * ast, std::string & units)
 {
@@ -1828,7 +1828,7 @@ SBMLUnitsConverter::mathMatchesCnUnits(const ASTNode * ast, std::string & units)
 /** @endcond */
 
 
-/** @cond doxygen-c-only */
+/** @cond doxygenCOnly */
 
 
 /** @endcond */

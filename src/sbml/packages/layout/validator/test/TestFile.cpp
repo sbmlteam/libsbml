@@ -38,7 +38,7 @@
 #include <iostream>
 #include "TestFile.h"
 
-/** @cond doxygen-ignored */
+/** @cond doxygenIgnored */
 
 using namespace std;
 

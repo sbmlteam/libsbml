@@ -1,5 +1,5 @@
 /**
- * @cond doxygen-libsbml-internal
+ * @cond doxygenLibsbmlInternal
  *
  * @file    SpeciesReactionOrRule.cpp
  * @brief   Ensures unique variables assigned by rules and events
@@ -37,7 +37,7 @@
 #include "SpeciesReactionOrRule.h"
 #include <sbml/util/IdList.h>
 
-/** @cond doxygen-ignored */
+/** @cond doxygenIgnored */
 
 using namespace std;
 

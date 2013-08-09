@@ -27,7 +27,7 @@
 
 #include <sbml/validator/VConstraint.h>
 
-/** @cond doxygen-ignored */
+/** @cond doxygenIgnored */
 
 using namespace std;
 
@@ -69,7 +69,7 @@ VConstraint::getSeverity () const
 }
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 /*
  * Logs a constraint failure to the validator for the given SBML object.
  */
@@ -81,7 +81,7 @@ VConstraint::logFailure (const SBase& object)
 /** @endcond */
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 /*
  * Logs a constraint failure to the validator for the given SBML object.
  * The parameter message is used instead of the constraint's member

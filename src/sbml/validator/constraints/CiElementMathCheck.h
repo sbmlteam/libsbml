@@ -1,5 +1,5 @@
 /**
- * @cond doxygen-libsbml-internal
+ * @cond doxygenLibsbmlInternal
  *
  * @file    CiElementMathCheck.h
  * @brief   checks <ci> element is the id of a component

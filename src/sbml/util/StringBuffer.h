@@ -1,5 +1,5 @@
 /**
- * @cond doxygen-libsbml-internal
+ * @cond doxygenLibsbmlInternal
  *
  * @file        StringBuffer.h
  * @brief       A growable buffer for creating character strings.

@@ -91,7 +91,7 @@ SBMLResolverRegistry::getResolverByIndex(int index) const
 }
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 
 SBMLResolverRegistry::SBMLResolverRegistry()
 {

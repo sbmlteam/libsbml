@@ -305,7 +305,7 @@ public:
                                      SBMLNamespaces * sbmlns = NULL); 
 
 
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
 
   /**
    * Returns true @c true or @c false depending on whether the argument
@@ -323,7 +323,7 @@ public:
   /** @endcond */
 
 
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
 
   /*
    * return true has the xhtml ns correctly declared
@@ -333,7 +333,7 @@ public:
   /** @endcond */
 
 
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
 
   /*
    * return true if the html tag contains both a title
@@ -345,7 +345,7 @@ public:
 
 
 protected:  
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
   /**
    * Checks if a character is part of the Unicode Letter set.
    * @return true if the character is a part of the set, false otherwise.

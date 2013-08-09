@@ -68,7 +68,7 @@
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 class XMLOutputStream;
 /** @endcond */
 
@@ -379,7 +379,7 @@ public:
 
 #ifndef SWIG
 
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
 
   /**
    * Writes this XMLNamespaces list to stream.
@@ -407,14 +407,14 @@ public:
 
 #endif  /* !SWIG */
 
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
 
   friend class SBase;
 
   /** @endcond */
 
 protected:
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
 
   /**
    * Removes the default XML namespace.

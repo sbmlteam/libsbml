@@ -1,5 +1,5 @@
 /**
- * @cond doxygen-libsbml-internal
+ * @cond doxygenLibsbmlInternal
  *
  * @file    ExponentUnitsCheck.cpp
  * @brief   Ensures math units are consistent.
@@ -43,7 +43,7 @@
 
 #include "ExponentUnitsCheck.h"
 
-/** @cond doxygen-ignored */
+/** @cond doxygenIgnored */
 
 using namespace std;
 

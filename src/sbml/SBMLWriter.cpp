@@ -40,7 +40,7 @@
 #include <sbml/compress/CompressCommon.h>
 #include <sbml/compress/OutputCompressor.h>
 
-/** @cond doxygen-ignored */
+/** @cond doxygenIgnored */
 
 using namespace std;
 
@@ -259,7 +259,7 @@ SBMLWriter::writeSBML (const SBMLDocument* d, std::ostream& stream)
 }
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 /*
  * Writes the given SBML document to an in-memory string and returns a
  * pointer to it.  The string is owned by the caller and should be freed

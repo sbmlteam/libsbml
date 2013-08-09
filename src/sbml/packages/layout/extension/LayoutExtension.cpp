@@ -495,10 +495,10 @@ LayoutExtension::getErrorTable(unsigned int index) const
 	return layoutErrorTable[index];
 }
 
-	/** @endcond doxygen-libsbml-internal */
+	/** @endcond doxygenLibsbmlInternal */
 
 
-	/** @cond doxygen-libsbml-internal */
+	/** @cond doxygenLibsbmlInternal */
 
 /*
  * Return error table index for this id. 
@@ -522,10 +522,10 @@ LayoutExtension::getErrorTableIndex(unsigned int errorId) const
 	return index;
 }
 
-	/** @endcond doxygen-libsbml-internal */
+	/** @endcond doxygenLibsbmlInternal */
 
 
-	/** @cond doxygen-libsbml-internal */
+	/** @cond doxygenLibsbmlInternal */
 
 /*
  * Return error offset. 
@@ -536,7 +536,7 @@ LayoutExtension::getErrorIdOffset() const
 	return 6000000;
 }
 
-	/** @endcond doxygen-libsbml-internal */
+	/** @endcond doxygenLibsbmlInternal */
 
 
 

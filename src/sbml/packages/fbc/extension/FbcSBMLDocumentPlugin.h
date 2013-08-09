@@ -90,7 +90,7 @@ public:
 
 #ifndef SWIG
 
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
   /**
    * Reads the attributes of corresponding package in SBMLDocument element.
    */
@@ -107,7 +107,7 @@ public:
   virtual unsigned int checkConsistency(bool overrideFlattening = false); 
 
 
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
 
   virtual bool accept(SBMLVisitor& v) const;
 

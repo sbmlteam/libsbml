@@ -152,7 +152,7 @@ public:
   virtual int performReplacement();
 
 
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
   /**
    * Searches the model that @p oldnames came from for references to any of its ids,
    * and replaces them with references to @p newnames.  
@@ -174,7 +174,7 @@ public:
   /** @endcond */
 
 
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
 
   /**
    * Accepts the given SBMLVisitor.

@@ -1,5 +1,5 @@
 /**
- * @cond doxygen-libsbml-internal
+ * @cond doxygenLibsbmlInternal
  *
  * @file    UniqueModelIds.cpp
  * @brief   Ensures the appropriate ids within a Model are unique
@@ -30,7 +30,7 @@
 #include <sbml/Model.h>
 #include "UniqueModelIds.h"
 
-/** @cond doxygen-ignored */
+/** @cond doxygenIgnored */
 
 using namespace std;
 

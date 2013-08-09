@@ -50,7 +50,7 @@ class LIBSBML_EXTERN FbcToCobraConverter : public SBMLConverter
 {
 public:
 
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
   
   /* register with the ConversionRegistry */
   static void init();  

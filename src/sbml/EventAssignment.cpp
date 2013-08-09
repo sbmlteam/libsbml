@@ -43,7 +43,7 @@
 
 #include <signal.h>
 
-/** @cond doxygen-ignored */
+/** @cond doxygenIgnored */
 
 using namespace std;
 
@@ -353,7 +353,7 @@ EventAssignment::containsUndeclaredUnits() const
 }
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 /*
  * @return the string of variable attribute of this object.
  * 
@@ -440,7 +440,7 @@ EventAssignment::renameUnitSIdRefs(std::string oldid, std::string newid)
   }
 }
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 void 
 EventAssignment::replaceSIDWithFunction(const std::string& id, const ASTNode* function)
 {
@@ -456,7 +456,7 @@ EventAssignment::replaceSIDWithFunction(const std::string& id, const ASTNode* fu
 }
 /** @endcond */
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 void 
 EventAssignment::divideAssignmentsToSIdByFunction(const std::string& id, const ASTNode* function)
 {
@@ -469,7 +469,7 @@ EventAssignment::divideAssignmentsToSIdByFunction(const std::string& id, const A
 }
 /** @endcond */
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 void 
 EventAssignment::multiplyAssignmentsToSIdByFunction(const std::string& id, const ASTNode* function)
 {
@@ -482,7 +482,7 @@ EventAssignment::multiplyAssignmentsToSIdByFunction(const std::string& id, const
 }
 /** @endcond */
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 /*
  * Subclasses should override this method to write out their contained
  * SBML objects as XML elements.  Be sure to call your parents
@@ -503,7 +503,7 @@ EventAssignment::writeElements (XMLOutputStream& stream) const
 /** @endcond */
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 /*
  * Subclasses should override this method to read (and store) XHTML,
  * MathML, etc. directly from the XMLInputStream.
@@ -566,7 +566,7 @@ EventAssignment::readOtherXML (XMLInputStream& stream)
 /** @endcond */
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 /**
  * Subclasses should override this method to get the list of
  * expected attributes.
@@ -623,7 +623,7 @@ EventAssignment::readAttributes (const XMLAttributes& attributes,
 /** @endcond */
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 /*
  * Subclasses should override this method to read values from the given
  * XMLAttributes set into their specific fields.  Be sure to call your
@@ -655,7 +655,7 @@ EventAssignment::readL2Attributes (const XMLAttributes& attributes)
 /** @endcond */
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 /*
  * Subclasses should override this method to read values from the given
  * XMLAttributes set into their specific fields.  Be sure to call your
@@ -685,7 +685,7 @@ EventAssignment::readL3Attributes (const XMLAttributes& attributes)
 /** @endcond */
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 /*
  * Subclasses should override this method to write their XML attributes
  * to the XMLOutputStream.  Be sure to call your parents implementation
@@ -880,7 +880,7 @@ ListOfEventAssignments::getElementBySId(std::string id)
   return getElementFromPluginsBySId(id);
 }
   
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 /*
  * @return the ordinal position of the element with respect to its
  * siblings or -1 (default) to indicate the position is not significant.
@@ -893,7 +893,7 @@ ListOfEventAssignments::getElementPosition () const
 /** @endcond */
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 /*
  * @return the SBML object corresponding to next XMLToken in the
  * XMLInputStream or @c NULL if the token was not recognized.
@@ -931,7 +931,7 @@ ListOfEventAssignments::createObject (XMLInputStream& stream)
 
 
 
-/** @cond doxygen-c-only */
+/** @cond doxygenCOnly */
 
 
 /**

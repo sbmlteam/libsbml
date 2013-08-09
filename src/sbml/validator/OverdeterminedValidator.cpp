@@ -1,5 +1,5 @@
 /**
- * @cond doxygen-libsbml-internal
+ * @cond doxygenLibsbmlInternal
  *
  * @file    OverdeterminedValidator.cpp
  * @brief   Checks an SBML model for consistency of equations

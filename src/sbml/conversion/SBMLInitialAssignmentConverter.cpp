@@ -42,7 +42,7 @@ using namespace std;
 LIBSBML_CPP_NAMESPACE_BEGIN
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 void SBMLInitialAssignmentConverter::init()
 {
   SBMLInitialAssignmentConverter converter;
@@ -128,7 +128,7 @@ SBMLInitialAssignmentConverter::convert()
   
 }
 
-/** @cond doxygen-c-only */
+/** @cond doxygenCOnly */
 
 
 /** @endcond */

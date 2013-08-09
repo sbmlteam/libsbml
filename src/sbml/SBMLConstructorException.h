@@ -59,7 +59,7 @@ class LIBSBML_EXTERN SBMLConstructorException : public std::invalid_argument
 {
 public:
 
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
 
   /* constructor */
   SBMLConstructorException (std::string errmsg = "");

@@ -324,7 +324,7 @@ public:
 
 
 protected:
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
   std::vector<SBMLError>  mFailures;
   SBMLDocument *   mDocument;
   friend class SBMLDocument;
@@ -332,7 +332,7 @@ protected:
 
 
 private:
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
 
 
   /** @endcond */

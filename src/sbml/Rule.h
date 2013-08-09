@@ -756,7 +756,7 @@ public:
   virtual const std::string& getElementName () const;
 
 
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
   /**
    * Subclasses should override this method to write out their contained
    * SBML objects as XML elements.  Be sure to call your parents
@@ -826,7 +826,7 @@ public:
 
 
 
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
 
   /* function to set/get an identifier for unit checking */
   std::string getInternalId() const { return mInternalId; };
@@ -847,7 +847,7 @@ public:
   virtual const std::string& getId() const;
 
 
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
   /**
    * Replace all nodes with the name 'id' from the child 'math' object with the provided function. 
    *
@@ -856,14 +856,14 @@ public:
   /** @endcond */
 
 
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
   /**
    * If this rule assigns a value or a change to the 'id' element, replace the 'math' object with the function (existing/function). 
    */
   virtual void divideAssignmentsToSIdByFunction(const std::string& id, const ASTNode* function);
   /** @endcond */
 
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
   /**
    * If this assignment assigns a value to the 'id' element, replace the 'math' object with the function (existing*function). 
    */
@@ -872,7 +872,7 @@ public:
 
 
 protected:
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
 
   /**
    * Only subclasses may create Rules.
@@ -1155,7 +1155,7 @@ public:
   virtual Rule* remove (const std::string& sid);
 
 
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
 
   /**
    * Get the ordinal position of this element in the containing object
@@ -1173,7 +1173,7 @@ public:
 
 
 protected:
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
 
   /**
    * @return the SBML object corresponding to next XMLToken in the

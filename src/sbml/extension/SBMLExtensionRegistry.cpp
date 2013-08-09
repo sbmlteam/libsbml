@@ -157,7 +157,7 @@ SBMLExtensionRegistry::getExtensionInternal(const std::string& uri)
 }
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 /*
  * Get the list of SBasePluginCreators with the given SBMLTypeCode_t element
  */
@@ -184,7 +184,7 @@ SBMLExtensionRegistry::getSBasePluginCreators(const SBaseExtensionPoint& extPoin
 /** @endcond */
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 /*
  * Get the list of SBasePluginCreators with the given URI (string)
  */
@@ -227,7 +227,7 @@ SBMLExtensionRegistry::getSBasePluginCreators(const std::string& uri)
 /** @endcond */
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 /*
  * Get an SBasePluginCreator with the given extension point and URI pair
  */
@@ -468,7 +468,7 @@ SBMLExtensionRegistry::enablePackages(const std::vector<std::string>& packages)
 
 
 
-/** @cond doxygen-c-only */
+/** @cond doxygenCOnly */
 
 
 /**

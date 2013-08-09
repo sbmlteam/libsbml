@@ -40,7 +40,7 @@
 #include <sbml/KineticLaw.h>
 #include <sbml/LocalParameter.h>
 
-/** @cond doxygen-ignored */
+/** @cond doxygenIgnored */
 
 using namespace std;
 
@@ -264,7 +264,7 @@ LocalParameter::hasRequiredAttributes() const
 }
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 /**
  * Subclasses should override this method to get the list of
  * expected attributes.
@@ -294,7 +294,7 @@ LocalParameter::readAttributes (const XMLAttributes& attributes,
 /** @endcond */
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 /*
  * Subclasses should override this method to write their XML attributes
  * to the XMLOutputStream.  Be sure to call your parents implementation
@@ -462,7 +462,7 @@ ListOfLocalParameters::remove (const std::string& sid)
 }
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 /*
  * @return the ordinal position of the element with respect to its siblings
  * or -1 (default) to indicate the position is not significant.
@@ -475,7 +475,7 @@ ListOfLocalParameters::getElementPosition () const
 /** @endcond */
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 /*
  * @return the SBML object corresponding to next XMLToken in the
  * XMLInputStream or @c NULL if the token was not recognized.
@@ -514,7 +514,7 @@ ListOfLocalParameters::createObject (XMLInputStream& stream)
 /** @endcond */
 
 
-/** @cond doxygen-c-only */
+/** @cond doxygenCOnly */
 
 
 /**

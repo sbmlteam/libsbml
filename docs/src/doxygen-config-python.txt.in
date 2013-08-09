@@ -71,7 +71,7 @@ PREDEFINED             = __cplusplus  \
 #   notcpp:   not C++
 #   notclike: not C or C++
 
-ENABLED_SECTIONS       = python notclike notcpp doxygen-python-only
+ENABLED_SECTIONS       = python notclike notcpp doxygenPythonOnly
 
 # Because of how we construct the Python documentation, we don't want
 # the first sentence to be assumed to be the brief description.

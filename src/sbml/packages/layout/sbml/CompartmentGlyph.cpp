@@ -346,7 +346,7 @@ CompartmentGlyph::clone () const
 }
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 SBase*
 CompartmentGlyph::createObject (XMLInputStream& stream)
 {
@@ -359,7 +359,7 @@ CompartmentGlyph::createObject (XMLInputStream& stream)
 }
 /** @endcond */
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 void
 CompartmentGlyph::addExpectedAttributes(ExpectedAttributes& attributes)
 {
@@ -370,7 +370,7 @@ CompartmentGlyph::addExpectedAttributes(ExpectedAttributes& attributes)
 }
 /** @endcond */
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 void CompartmentGlyph::readAttributes (const XMLAttributes& attributes,
                                        const ExpectedAttributes& expectedAttributes)
 {
@@ -513,7 +513,7 @@ void CompartmentGlyph::readAttributes (const XMLAttributes& attributes,
 }
 /** @endcond */
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 void CompartmentGlyph::writeAttributes (XMLOutputStream& stream) const
 {
   GraphicalObject::writeAttributes(stream);

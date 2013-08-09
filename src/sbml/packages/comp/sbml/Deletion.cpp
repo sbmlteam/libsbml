@@ -158,7 +158,7 @@ Deletion::getElementName () const
 }
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 void
 Deletion::addExpectedAttributes(ExpectedAttributes& attributes)
 {
@@ -168,7 +168,7 @@ Deletion::addExpectedAttributes(ExpectedAttributes& attributes)
 }
 /** @endcond */
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 void
 Deletion::readAttributes (const XMLAttributes& attributes,
                           const ExpectedAttributes& expectedAttributes)
@@ -234,7 +234,7 @@ Deletion::readAttributes (const XMLAttributes& attributes,
 }
 /** @endcond */
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 void
 Deletion::writeAttributes (XMLOutputStream& stream) const
 {
@@ -306,7 +306,7 @@ Deletion::saveReferencedElement()
   return LIBSBML_OPERATION_SUCCESS;
 }
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 
 bool
 Deletion::accept (SBMLVisitor& v) const

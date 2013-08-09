@@ -261,7 +261,7 @@ CompExtension::getStringFromTypeCode(int typeCode) const
 }
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 /*
  * Initialization function of comp extension module which is automatically invoked 
  * by SBMLExtensionRegister class before main() function invoked.
@@ -423,7 +423,7 @@ CompExtension::init()
 /** @endcond */
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 packageErrorTableEntry
 CompExtension::getErrorTable(unsigned int index) const
 {
@@ -431,7 +431,7 @@ CompExtension::getErrorTable(unsigned int index) const
 }
 /** @endcond */
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 unsigned int 
 CompExtension::getErrorTableIndex(unsigned int errorId) const
 {
@@ -452,7 +452,7 @@ CompExtension::getErrorTableIndex(unsigned int errorId) const
 /** @endcond */
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 unsigned int
 CompExtension::getErrorIdOffset() const
 {

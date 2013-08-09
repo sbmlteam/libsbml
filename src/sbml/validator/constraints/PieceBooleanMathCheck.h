@@ -1,5 +1,5 @@
 /**
- * @cond doxygen-libsbml-internal
+ * @cond doxygenLibsbmlInternal
  *
  * @file    PieceBooleanMathCheck.h
  * @brief   Ensures piecewise piece element returns boolean.

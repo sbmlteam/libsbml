@@ -31,7 +31,7 @@
 using namespace std;
 LIBSBML_CPP_NAMESPACE_BEGIN
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 
 /*
  * Creates a XMLBuffer based on the given sequence of bytes in buffer.

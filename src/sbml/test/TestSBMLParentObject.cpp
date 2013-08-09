@@ -59,7 +59,7 @@
 
 #include <check.h>
 
-/** @cond doxygen-ignored */
+/** @cond doxygenIgnored */
 
 using namespace std;
 LIBSBML_CPP_NAMESPACE_USE

@@ -1,5 +1,5 @@
 /**
- * @cond doxygen-libsbml-internal
+ * @cond doxygenLibsbmlInternal
  *
  * @file    IdBase.cpp
  * @brief   Base class for Id constraints
@@ -33,7 +33,7 @@
 #include <sbml/AlgebraicRule.h>
 #include <sbml/ModifierSpeciesReference.h>
 
-/** @cond doxygen-ignored */
+/** @cond doxygenIgnored */
 
 using namespace std;
 

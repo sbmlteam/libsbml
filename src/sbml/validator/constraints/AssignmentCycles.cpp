@@ -1,5 +1,5 @@
 /**
- * @cond doxygen-libsbml-internal
+ * @cond doxygenLibsbmlInternal
  *
  * @file    AssignmentCycles.cpp
  * @brief   Ensures unique variables assigned by rules and events
@@ -39,7 +39,7 @@
 #include "AssignmentCycles.h"
 #include <sbml/util/IdList.h>
 
-/** @cond doxygen-ignored */
+/** @cond doxygenIgnored */
 
 using namespace std;
 

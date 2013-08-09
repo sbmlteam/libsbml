@@ -1,5 +1,5 @@
 /** 
- *@cond doxygen-libsbml-internal 
+ *@cond doxygenLibsbmlInternal 
  **
  *
  * @file    FormulaUnitsData.cpp
@@ -33,7 +33,7 @@
 #include <sbml/SBMLDocument.h>
 #include <sbml/units/FormulaUnitsData.h>
 
-/** @cond doxygen-ignored */
+/** @cond doxygenIgnored */
 
 using namespace std;
 

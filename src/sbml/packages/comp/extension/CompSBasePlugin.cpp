@@ -97,7 +97,7 @@ CompSBasePlugin::clone () const
   return new CompSBasePlugin(*this);  
 }
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 SBase*
 CompSBasePlugin::createObject(XMLInputStream& stream)
 {
@@ -156,7 +156,7 @@ CompSBasePlugin::createObject(XMLInputStream& stream)
 }
 /** @endcond */
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 void
 CompSBasePlugin::writeElements (XMLOutputStream& stream) const
 {
@@ -219,7 +219,7 @@ CompSBasePlugin::getAllElements(ElementFilter *filter)
 }
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 void
 CompSBasePlugin::addExpectedAttributes(ExpectedAttributes& attributes)
 {
@@ -227,7 +227,7 @@ CompSBasePlugin::addExpectedAttributes(ExpectedAttributes& attributes)
 }
 /** @endcond */
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 void 
 CompSBasePlugin::readAttributes (const XMLAttributes& attributes,
                                  const ExpectedAttributes& expectedAttributes)
@@ -236,7 +236,7 @@ CompSBasePlugin::readAttributes (const XMLAttributes& attributes,
 }
 /** @endcond */
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 void 
 CompSBasePlugin::writeAttributes (XMLOutputStream& stream) const
 {
@@ -460,7 +460,7 @@ CompSBasePlugin::logInvalidId(const std::string& attribute,
   }
 }
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 void 
 CompSBasePlugin::setSBMLDocument (SBMLDocument* d)
 {
@@ -476,7 +476,7 @@ CompSBasePlugin::setSBMLDocument (SBMLDocument* d)
 /** @endcond */
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 void
 CompSBasePlugin::connectToChild()
 {
@@ -486,7 +486,7 @@ CompSBasePlugin::connectToChild()
 /** @endcond */
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 void
 CompSBasePlugin::connectToParent(SBase* sbase)
 {
@@ -502,7 +502,7 @@ CompSBasePlugin::connectToParent(SBase* sbase)
 
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 void
 CompSBasePlugin::enablePackageInternal(const std::string& pkgURI,
                                        const std::string& pkgPrefix, bool flag)
@@ -527,7 +527,7 @@ CompSBasePlugin::createListOfReplacedElements()
   }
 }
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 
 bool 
 CompSBasePlugin::accept(SBMLVisitor& v) const

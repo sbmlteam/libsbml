@@ -34,7 +34,7 @@
 #include <sbml/xml/LibXMLTranscode.h>
 #include <sbml/xml/LibXMLHandler.h>
 
-/** @cond doxygen-ignored */
+/** @cond doxygenIgnored */
 
 using namespace std;
 
@@ -42,7 +42,7 @@ using namespace std;
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 
 /**
  * The functions below are internal to this file.  They simply redirect to

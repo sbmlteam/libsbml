@@ -494,7 +494,7 @@ Objective::getElementName () const
 }
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 SBase*
 Objective::createObject (XMLInputStream& stream)
 {
@@ -518,7 +518,7 @@ Objective::createObject (XMLInputStream& stream)
 }
 /** @endcond */
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 void
 Objective::addExpectedAttributes(ExpectedAttributes& attributes)
 {
@@ -530,7 +530,7 @@ Objective::addExpectedAttributes(ExpectedAttributes& attributes)
 }
 /** @endcond */
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 void
 Objective::readAttributes (const XMLAttributes& attributes,
                         const ExpectedAttributes& expectedAttributes)
@@ -664,7 +664,7 @@ Objective::readAttributes (const XMLAttributes& attributes,
 }
 /** @endcond */
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 void
 Objective::writeAttributes (XMLOutputStream& stream) const
 {
@@ -686,7 +686,7 @@ Objective::writeAttributes (XMLOutputStream& stream) const
 }
 /** @endcond */
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 void
 Objective::writeElements (XMLOutputStream& stream) const
 {
@@ -739,7 +739,7 @@ Objective::accept (SBMLVisitor& v) const
 }
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 /*
  * Sets the parent SBMLDocument of this SBML object.
  */
@@ -753,7 +753,7 @@ Objective::setSBMLDocument (SBMLDocument* d)
 /** @endcond */
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 /*
  * Sets this SBML object to child SBML objects (if any).
  * (Creates a child-parent relationship by the parent)
@@ -766,7 +766,7 @@ Objective::connectToChild()
 /** @endcond */
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 /*
  * Enables/Disables the given package with this element and child
  * elements (if any).
@@ -783,7 +783,7 @@ Objective::enablePackageInternal(const std::string& pkgURI,
 /** @endcond */
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 /* default for components that have no required elements */
 bool
 Objective::hasRequiredElements() const
@@ -801,7 +801,7 @@ Objective::hasRequiredElements() const
 /** @endcond */
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 bool 
 Objective::getIsSetListOfFluxObjectives() const
 {
@@ -810,7 +810,7 @@ Objective::getIsSetListOfFluxObjectives() const
 /** @endcond */
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 /*
  * Ctor.
  */
@@ -826,7 +826,7 @@ ListOfObjectives::ListOfObjectives(FbcPkgNamespaces* fbcns)
 /** @endcond */
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 /*
  * Ctor.
  */
@@ -935,7 +935,7 @@ ListOfObjectives::getElementName () const
 }
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 SBase*
 ListOfObjectives::createObject (XMLInputStream& stream)
 {
@@ -969,7 +969,7 @@ ListOfObjectives::createObject (XMLInputStream& stream)
 }
 /** @endcond */
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 void
 ListOfObjectives::addExpectedAttributes(ExpectedAttributes& attributes)
 {
@@ -984,7 +984,7 @@ ListOfObjectives::addExpectedAttributes(ExpectedAttributes& attributes)
 }
 /** @endcond */
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 void 
 ListOfObjectives::readAttributes (const XMLAttributes& attributes,
                                   const ExpectedAttributes& expectedAttributes)
@@ -1010,7 +1010,7 @@ ListOfObjectives::readAttributes (const XMLAttributes& attributes,
 }
 /** @endcond */
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 void 
 ListOfObjectives::writeAttributes (XMLOutputStream& stream) const
 {
@@ -1060,7 +1060,7 @@ ListOfObjectives::unsetActiveObjective()
 }
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 
 bool 
 ListOfObjectives::accept(SBMLVisitor& v) const

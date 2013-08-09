@@ -1,5 +1,5 @@
 /** 
- *@cond doxygen-libsbml-internal 
+ *@cond doxygenLibsbmlInternal 
  **
  * @file    UnitFormulaFormatter.cpp
  * @brief   Formats an AST formula tree as a unit definition
@@ -288,7 +288,7 @@ UnitFormulaFormatter::getUnitDefinition(const ASTNode * node,
 }
 
 
-/* @cond doxygen-libsbml-internal */
+/* @cond doxygenLibsbmlInternal */
 /** 
   * returns the unitDefinition for the ASTNode from a function
   */
@@ -354,7 +354,7 @@ UnitFormulaFormatter::getUnitDefinitionFromFunction(const ASTNode * node,
 /* @endcond */
 
 
-/* @cond doxygen-libsbml-internal */
+/* @cond doxygenLibsbmlInternal */
 /** 
   * returns the unitDefinition for the ASTNode from a times function
   */
@@ -409,7 +409,7 @@ UnitFormulaFormatter::getUnitDefinitionFromTimes(const ASTNode * node,
 /* @endcond */
 
 
-/* @cond doxygen-libsbml-internal */
+/* @cond doxygenLibsbmlInternal */
 /** 
   * returns the unitDefinition for the ASTNode from a divide function
   */
@@ -442,7 +442,7 @@ UnitFormulaFormatter::getUnitDefinitionFromDivide(const ASTNode * node,
 /* @endcond */
 
 
-/* @cond doxygen-libsbml-internal */
+/* @cond doxygenLibsbmlInternal */
 /** 
   * returns the unitDefinition for the ASTNode from a power function
   */
@@ -597,7 +597,7 @@ UnitFormulaFormatter::getUnitDefinitionFromPower(const ASTNode * node,
 /* @endcond */
 
 
-/* @cond doxygen-libsbml-internal */
+/* @cond doxygenLibsbmlInternal */
 /** 
   * returns the unitDefinition for the ASTNode from 
   * a piecewise function
@@ -632,7 +632,7 @@ UnitFormulaFormatter::getUnitDefinitionFromPiecewise(const ASTNode * node,
 /* @endcond */
 
 
-/* @cond doxygen-libsbml-internal */
+/* @cond doxygenLibsbmlInternal */
 /** 
   * returns the unitDefinition for the ASTNode from a root function
   */
@@ -730,7 +730,7 @@ UnitFormulaFormatter::getUnitDefinitionFromRoot(const ASTNode * node,
 /* @endcond */
 
 
-/* @cond doxygen-libsbml-internal */
+/* @cond doxygenLibsbmlInternal */
 /** 
   * returns the unitDefinition for the ASTNode from 
   * a delay function
@@ -748,7 +748,7 @@ UnitFormulaFormatter::getUnitDefinitionFromDelay(const ASTNode * node,
 /* @endcond */
 
 
-/* @cond doxygen-libsbml-internal */
+/* @cond doxygenLibsbmlInternal */
 /** 
   * returns the unitDefinition for the ASTNode from 
   * a function returning dimensionless value
@@ -774,7 +774,7 @@ UnitFormulaFormatter::getUnitDefinitionFromDimensionlessReturnFunction(
 /* @endcond */
 
 
-/* @cond doxygen-libsbml-internal */
+/* @cond doxygenLibsbmlInternal */
 /** 
   * returns the unitDefinition for the ASTNode from 
   * a function returning value with same units as argument(s)
@@ -854,7 +854,7 @@ UnitFormulaFormatter::getUnitDefinitionFromArgUnitsReturnFunction
 /* @endcond */
 
 
-/* @cond doxygen-libsbml-internal */
+/* @cond doxygenLibsbmlInternal */
 /** 
   * returns the unitDefinition for the ASTNode from anything else
   */

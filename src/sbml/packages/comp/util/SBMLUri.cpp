@@ -251,7 +251,7 @@ SBMLUri::getQuery() const
   return mQuery;
 }
 
-/** @cond doxygen-c-only */
+/** @cond doxygenCOnly */
 
 
 /** @endcond */

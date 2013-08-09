@@ -39,7 +39,7 @@
 
 #include <sbml/xml/XMLExtern.h>
 #include <sbml/xml/XMLAttributes.h>
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 #include <sbml/xml/XMLNamespaces.h>
 #include <sbml/xml/XMLOutputStream.h>
 /** @endcond */
@@ -53,7 +53,7 @@
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 class XMLOutputStream;
 /** @endcond */
 
@@ -927,7 +927,7 @@ public:
   int unsetEnd ();
 
 
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
   /**
    * Writes this XMLToken to stream.
    *
@@ -946,7 +946,7 @@ public:
 
 #ifndef SWIG
 
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
 
   /**
    * Inserts this XMLToken into stream.
@@ -967,7 +967,7 @@ public:
 
 
 protected:
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
 
   XMLTriple     mTriple;
   XMLAttributes mAttributes;

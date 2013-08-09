@@ -1,5 +1,5 @@
 /**
- * @cond doxygen-libsbml-internal
+ * @cond doxygenLibsbmlInternal
  *
  * @file    NumericArgsMathCheck.h
  * @brief   Ensures arguments to numeric operators/functions are consistent.

@@ -1,5 +1,5 @@
 /**
- * @cond doxygen-libsbml-internal
+ * @cond doxygenLibsbmlInternal
  *
  * @file    L1CompatibilityConstraints.cpp
  * @brief   L1 compatibility for conversion from L2
@@ -39,7 +39,7 @@
 
 #include <sbml/validator/ConstraintMacros.h>
 
-/** @cond doxygen-ignored */
+/** @cond doxygenIgnored */
 
 using namespace std;
 

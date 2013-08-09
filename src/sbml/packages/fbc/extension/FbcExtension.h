@@ -195,7 +195,7 @@ public:
   virtual const char* getStringFromTypeCode(int typeCode) const;
 
 
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
   /**
    * Initializes layout extension by creating an object of this class with 
    * required SBasePlugin derived objects and registering the object 
@@ -210,15 +210,15 @@ public:
   static void init();
   /** @endcond */
 
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
   virtual packageErrorTableEntry getErrorTable(unsigned int index) const;
   /** @endcond */
 
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
   virtual unsigned int getErrorTableIndex(unsigned int errorId) const;
   /** @endcond */
 
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
   virtual unsigned int getErrorIdOffset() const;
   /** @endcond */
 

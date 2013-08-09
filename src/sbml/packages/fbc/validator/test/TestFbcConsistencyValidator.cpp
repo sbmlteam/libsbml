@@ -38,7 +38,7 @@
 #include <sbml/packages/fbc/validator/FbcConsistencyValidator.h>
 #include <sbml/packages/fbc/validator/FbcIdentifierConsistencyValidator.h>
 
-/** @cond doxygen-ignored */
+/** @cond doxygenIgnored */
 
 using namespace std;
 LIBSBML_CPP_NAMESPACE_USE

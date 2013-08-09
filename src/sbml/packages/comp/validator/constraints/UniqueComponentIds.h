@@ -1,5 +1,5 @@
 /**
- * @cond doxygen-libsbml-internal
+ * @cond doxygenLibsbmlInternal
  *
  * @file    UniqueComponentIds.h
  * @brief   Ensures the appropriate ids within a Model are unique

@@ -95,7 +95,7 @@ typedef CLASS_OR_STRUCT Submodel                     Submodel_t;
 typedef CLASS_OR_STRUCT CompSBMLDocumentPlugin       CompSBMLDocumentPlugin_t;
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 /**
  * @var typedef class ModelPlugin ModelPlugin_t
  * @copydoc ModelPlugin

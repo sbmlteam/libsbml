@@ -1,5 +1,5 @@
 /**
- * @cond doxygen-libsbml-internal
+ * @cond doxygenLibsbmlInternal
  *
  * @file    ModelingPracticeConstraints.cpp
  * @brief   ModelingPractice check constraints.  
@@ -34,7 +34,7 @@
 #include <sbml/validator/ConstraintMacros.h>
 
 #include "LocalParameterShadowsIdInModel.h"
-/** @cond doxygen-ignored */
+/** @cond doxygenIgnored */
 
 using namespace std;
 

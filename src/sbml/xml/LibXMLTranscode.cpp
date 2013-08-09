@@ -27,7 +27,7 @@
 
 #include <sbml/xml/LibXMLTranscode.h>
 
-/** @cond doxygen-ignored */
+/** @cond doxygenIgnored */
 
 using namespace std;
 
@@ -35,7 +35,7 @@ using namespace std;
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 
 static const string NCRAmp = "&#38;"; 
 

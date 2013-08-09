@@ -715,7 +715,7 @@ public:
   Unit* removeUnit (unsigned int n);
 
 
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
 
   /**
    * Sets the parent SBMLDocument of this SBML object.
@@ -921,7 +921,7 @@ public:
   static bool areEquivalent(const UnitDefinition *ud1 , const UnitDefinition * ud2);
 
 
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
 
   static bool areIdenticalSIUnits(const UnitDefinition * ud1, 
     const UnitDefinition * ud2);
@@ -988,7 +988,7 @@ public:
                                 bool compact = false);
 
 
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
   /**
    * Subclasses should override this method to write out their contained
    * SBML objects as XML elements.  Be sure to call your parents
@@ -1027,7 +1027,7 @@ public:
 
 
 protected:
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
 
   /**
    * @return the SBML object corresponding to next XMLToken in the
@@ -1307,7 +1307,7 @@ public:
   virtual UnitDefinition* remove (const std::string& sid);
 
 
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
 
   /**
    * Get the ordinal position of this element in the containing object
@@ -1328,7 +1328,7 @@ public:
 
 
 protected:
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
 
   /**
    * @return the SBML object corresponding to next XMLToken in the

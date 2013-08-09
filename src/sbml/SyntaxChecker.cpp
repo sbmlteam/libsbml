@@ -28,7 +28,7 @@
 #include <sbml/SyntaxChecker.h>
 #include <cstring>
 
-/** @cond doxygen-ignored */
+/** @cond doxygenIgnored */
 
 using namespace std;
 
@@ -440,7 +440,7 @@ SyntaxChecker::hasExpectedXHTMLSyntax(const XMLNode * xhtml,
 }
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 bool
 SyntaxChecker::isValidInternalUnitSId(std::string units)
 {
@@ -1314,7 +1314,7 @@ case 3:
 /** @endcond */
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 /**
   * Checks if a character is part of the Unicode Digit set.
   * @return true if the character is a part of the set, false otherwise.
@@ -1456,7 +1456,7 @@ SyntaxChecker::isUnicodeDigit(std::string::iterator it, unsigned int numBytes)
 /** @endcond */
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 /**
   * Checks if a character is part of the Unicode CombiningChar set.
   * @return true if the character is a part of the set, false otherwise.
@@ -1944,7 +1944,7 @@ SyntaxChecker::isCombiningChar(std::string::iterator it, unsigned int numBytes)
 /** @endcond */
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 /**
   * Checks if a character is part of the Unicode Extender set.
   * @return true if the character is a part of the set, false otherwise.
@@ -2047,7 +2047,7 @@ SyntaxChecker::isExtender(std::string::iterator it, unsigned int numBytes)
 }
 /** @endcond */
 
-/** @cond doxygen-c-only */
+/** @cond doxygenCOnly */
 
 /**
  * Predicate indicating whether the

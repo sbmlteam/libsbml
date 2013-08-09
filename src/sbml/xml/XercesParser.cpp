@@ -49,7 +49,7 @@
 #include <sbml/common/common.h>
 
 
-/** @cond doxygen-ignored */
+/** @cond doxygenIgnored */
 
 using namespace std;
 using namespace xercesc;
@@ -59,7 +59,7 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 /** @endcond */
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 
 /*
  * Table mapping Xerces error codes to ours.  The error code numbers are not

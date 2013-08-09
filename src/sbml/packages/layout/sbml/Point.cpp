@@ -493,7 +493,7 @@ Point::clone () const
 }
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 SBase*
 Point::createObject (XMLInputStream& stream)
 {
@@ -505,7 +505,7 @@ Point::createObject (XMLInputStream& stream)
 }
 /** @endcond */
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 void
 Point::addExpectedAttributes(ExpectedAttributes& attributes)
 {
@@ -518,7 +518,7 @@ Point::addExpectedAttributes(ExpectedAttributes& attributes)
 }
 /** @endcond */
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 void Point::readAttributes (const XMLAttributes& attributes,
                             const ExpectedAttributes& expectedAttributes)
 {
@@ -655,7 +655,7 @@ void Point::readAttributes (const XMLAttributes& attributes,
 }
 /** @endcond */
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 void Point::writeAttributes (XMLOutputStream& stream) const
 {
   SBase::writeAttributes(stream);

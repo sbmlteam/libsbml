@@ -52,7 +52,7 @@ class LIBSBML_EXTERN SBMLIdConverter : public SBMLConverter
 {
 public:
 
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
   
   /* register with the ConversionRegistry */
   static void init();  

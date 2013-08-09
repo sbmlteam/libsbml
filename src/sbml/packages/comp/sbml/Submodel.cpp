@@ -521,7 +521,7 @@ Submodel::getElementName () const
 }
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 void
 Submodel::addExpectedAttributes(ExpectedAttributes& attributes)
 {
@@ -535,7 +535,7 @@ Submodel::addExpectedAttributes(ExpectedAttributes& attributes)
 }
 /** @endcond */
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 void
 Submodel::readAttributes (const XMLAttributes& attributes,
                           const ExpectedAttributes& expectedAttributes)
@@ -660,7 +660,7 @@ Submodel::readAttributes (const XMLAttributes& attributes,
 }
 /** @endcond */
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 void
 Submodel::writeAttributes (XMLOutputStream& stream) const
 {
@@ -688,7 +688,7 @@ Submodel::writeAttributes (XMLOutputStream& stream) const
 }
 /** @endcond */
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 void
 Submodel::writeElements (XMLOutputStream& stream) const
 {
@@ -702,7 +702,7 @@ Submodel::writeElements (XMLOutputStream& stream) const
 }
 /** @endcond */
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 SBase*
 Submodel::createObject(XMLInputStream& stream)
 {
@@ -751,7 +751,7 @@ Submodel::getTypeCode () const
   return SBML_COMP_SUBMODEL;
 }
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 
 bool
 Submodel::accept (SBMLVisitor& v) const
@@ -771,7 +771,7 @@ Submodel::accept (SBMLVisitor& v) const
 /** @endcond */
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 /*
  * Sets the parent SBMLDocument of this SBML object.
  */
@@ -787,7 +787,7 @@ Submodel::setSBMLDocument (SBMLDocument* d)
 /** @endcond */
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 /*
  * Sets this SBML object to child SBML objects (if any).
  * (Creates a child-parent relationship by the parent)

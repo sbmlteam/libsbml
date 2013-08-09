@@ -147,13 +147,13 @@ public:
 
 
 protected:
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
   std::vector<std::string> mAdditionalDirs;
   /** @endcond */
 
 
 private:
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
   static bool fileExists(const std::string& fileName);
   /** @endcond */
 

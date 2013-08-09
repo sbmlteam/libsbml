@@ -1,5 +1,5 @@
 /**
- * @cond doxygen-libsbml-internal
+ * @cond doxygenLibsbmlInternal
  *
  * @file    FunctionReferredToExists.cpp
  * @brief   Ensures unique variables assigned by rules and events
@@ -35,7 +35,7 @@
 #include "FunctionReferredToExists.h"
 #include <sbml/util/IdList.h>
 
-/** @cond doxygen-ignored */
+/** @cond doxygenIgnored */
 
 using namespace std;
 

@@ -43,7 +43,7 @@
 #include <sbml/annotation/CVTerm.h>
 
 
-/** @cond doxygen-ignored */
+/** @cond doxygenIgnored */
 
 using namespace std;
 
@@ -396,7 +396,7 @@ CVTerm::removeResource(std::string resource)
   return result;
 }
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 bool 
 CVTerm::hasRequiredAttributes()
 {
@@ -453,7 +453,7 @@ CVTerm::resetModifiedFlags()
 
 
 
-/** @cond doxygen-c-only */
+/** @cond doxygenCOnly */
 
 
 /**

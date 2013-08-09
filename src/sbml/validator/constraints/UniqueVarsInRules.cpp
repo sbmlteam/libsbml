@@ -1,5 +1,5 @@
 /**
- * @cond doxygen-libsbml-internal
+ * @cond doxygenLibsbmlInternal
  *
  * @file    UniqueVarsInRules.cpp
  * @brief   Ensures variables for all Rules are unique
@@ -32,7 +32,7 @@
 
 #include "UniqueVarsInRules.h"
 
-/** @cond doxygen-ignored */
+/** @cond doxygenIgnored */
 
 using namespace std;
 

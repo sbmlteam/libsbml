@@ -1,5 +1,5 @@
 /**
- * @cond doxygen-libsbml-internal
+ * @cond doxygenLibsbmlInternal
  *
  * @file    CompartmentOutsideCycles.h
  * @brief   Ensures no cycles exist via a Compartment's 'outside' attribute.

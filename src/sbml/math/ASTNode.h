@@ -1607,7 +1607,7 @@ public:
   virtual void renameUnitSIdRefs(const std::string& oldid, const std::string& newid);
 
 
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
   /**
    * Replace any nodes of type AST_NAME with the name 'id' from the child 'math' object with the provided ASTNode. 
    *
@@ -1617,7 +1617,7 @@ public:
   /** @endcond */
 
 
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
   /**
    * Replaces any 'AST_NAME_TIME' nodes with a node that multiplies time by the given function.
    *
@@ -1675,7 +1675,7 @@ public:
   int unsetStyle ();
 
 
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
 
   /**
    * Sets the flag indicating that this ASTNode has semantics attached.
@@ -1753,7 +1753,7 @@ public:
   void replaceArgument(const std::string bvar, ASTNode * arg);
 
 
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
 
   /**
    * Sets the parent SBML object.
@@ -1850,7 +1850,7 @@ public:
   LIBSBML_EXTERN
   bool hasCorrectNumberArguments() const;
 
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
     
   bool isBvar() const { return mIsBvar; };
   void setBvar() { mIsBvar = true; };
@@ -1858,7 +1858,7 @@ public:
   /** @endcond */
 
 protected:
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
 
   /**
    * Internal helper function for canonicalize().
@@ -2617,7 +2617,7 @@ LIBSBML_EXTERN
 int
 ASTNode_isWellFormedASTNode(ASTNode_t* node);
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 LIBSBML_EXTERN
 int
 ASTNode_true(const ASTNode_t *node);

@@ -38,7 +38,7 @@
 #include <sbml/common/common.h>
 #include <sbml/common/libsbml-version.h>
 
-/** @cond doxygen-ignored */
+/** @cond doxygenIgnored */
 
 using namespace std;
 
@@ -730,7 +730,7 @@ XMLOutputStream::upIndent ()
 }
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 /*
  * Outputs indentation whitespace.
  */
@@ -746,7 +746,7 @@ XMLOutputStream::writeIndent (bool isEnd)
 /** @endcond */
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 /*
  * Outputs the given characters to the underlying stream.
  */
@@ -767,7 +767,7 @@ XMLOutputStream::writeChars (const std::string& chars)
 /** @endcond */
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 /*
  * Outputs name.
  */
@@ -785,7 +785,7 @@ XMLOutputStream::writeName (const std::string& name, const std::string &prefix)
 /** @endcond */
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 /*
  * Outputs prefix:name.
  */
@@ -803,7 +803,7 @@ XMLOutputStream::writeName (const XMLTriple& triple)
 /** @endcond */
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 /*
  * Outputs value in quotes.
  */
@@ -828,7 +828,7 @@ XMLOutputStream::writeValue (const char* value)
 /** @endcond */
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 /*
  * Outputs "true" or "false" in quotes.
  */
@@ -840,7 +840,7 @@ XMLOutputStream::writeValue (const bool& value)
 /** @endcond */
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 /*
  * Outputs the double value in quotes, or "INF", "-INF", or "NaN".
  */
@@ -872,7 +872,7 @@ XMLOutputStream::writeValue (const double& value)
 /** @endcond */
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 /*
  * Outputs the long value in quotes.
  */
@@ -884,7 +884,7 @@ XMLOutputStream::writeValue (const long& value)
 /** @endcond */
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 /*
  * Outputs the int value in quotes.
  */
@@ -896,7 +896,7 @@ XMLOutputStream::writeValue (const int& value)
 /** @endcond */
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 /*
  * Outputs the int value in quotes.
  */
@@ -1041,7 +1041,7 @@ XMLOutputStream::operator<< (const char& c)
 }
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 
 XMLOutputStringStream::XMLOutputStringStream (  std::ostringstream& stream
                    , const std::string&  encoding
@@ -1068,7 +1068,7 @@ XMLOutputFileStream::XMLOutputFileStream (  std::ofstream& stream
 
 /** @endcond */
 
-/** @cond doxygen-c-only */
+/** @cond doxygenCOnly */
 /**
  * Creates a new XMLOutputStream_t that wraps std output stream.
  **/

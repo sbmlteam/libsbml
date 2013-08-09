@@ -20,12 +20,12 @@
 #include <sbml/packages/fbc/validator/FbcSBMLError.h>
 #include <string>
 
-/** @cond doxygen-ignored */
+/** @cond doxygenIgnored */
 
 using namespace std;
 LIBSBML_CPP_NAMESPACE_USE
 
-/** @endcond doxygen-ignored */
+/** @endcond doxygenIgnored */
 
 
 CK_CPPSTART

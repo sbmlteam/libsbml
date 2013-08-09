@@ -107,7 +107,7 @@ SBMLResolver::resolveUri(const std::string &uri, const std::string& baseUri/*=""
   return NULL;
 }
 
-/** @cond doxygen-c-only */
+/** @cond doxygenCOnly */
 
 
 /** @endcond */

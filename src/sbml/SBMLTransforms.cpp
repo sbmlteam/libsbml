@@ -34,7 +34,7 @@
 
 #include <sbml/util/IdList.h>
 
-/** @cond doxygen-ignored */
+/** @cond doxygenIgnored */
 
 using namespace std;
 
@@ -42,7 +42,7 @@ using namespace std;
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 SBMLTransforms::IdValueMap SBMLTransforms::mValues;
 
 void
@@ -1109,7 +1109,7 @@ SBMLTransforms::expandInitialAssignment(Species * s,
 
 /** @endcond */
 
-/** @cond doxygen-c-only */
+/** @cond doxygenCOnly */
 
 
 LIBSBML_CPP_NAMESPACE_END

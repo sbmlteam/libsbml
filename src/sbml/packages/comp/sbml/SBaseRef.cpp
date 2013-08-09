@@ -546,7 +546,7 @@ SBaseRef::getElementName () const
   return name;
 }
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 void
 SBaseRef::addExpectedAttributes(ExpectedAttributes& attributes)
 {
@@ -558,7 +558,7 @@ SBaseRef::addExpectedAttributes(ExpectedAttributes& attributes)
 }
 /** @endcond */
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 void
 SBaseRef::readAttributes (const XMLAttributes& attributes,
                           const ExpectedAttributes& expectedAttributes)
@@ -603,7 +603,7 @@ SBaseRef::readAttributes (const XMLAttributes& attributes,
 }
 /** @endcond */
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 SBase* 
 SBaseRef::createObject (XMLInputStream& stream)
 {
@@ -646,7 +646,7 @@ SBaseRef::createObject (XMLInputStream& stream)
 }
 /** @endcond */
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 void
 SBaseRef::writeAttributes (XMLOutputStream& stream) const
 {
@@ -667,7 +667,7 @@ SBaseRef::writeAttributes (XMLOutputStream& stream) const
 }
 /** @endcond */
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 void
 SBaseRef::writeElements (XMLOutputStream& stream) const
 {
@@ -702,7 +702,7 @@ SBaseRef::accept (SBMLVisitor& v) const
 }
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 /*
  * Sets the parent SBMLDocument of this SBML object.
  */
@@ -717,7 +717,7 @@ SBaseRef::setSBMLDocument (SBMLDocument* d)
 /** @endcond */
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 /*
  * Sets this SBML object to child SBML objects (if any).
  * (Creates a child-parent relationship by the parent)

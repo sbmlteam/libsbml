@@ -500,7 +500,7 @@ public:
   virtual const std::string& getElementName () const;
 
 
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
   /**
    * Subclasses should override this method to write out their contained
    * SBML objects as XML elements.  Be sure to call your parents
@@ -544,7 +544,7 @@ public:
 
 
 protected:
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
 
   /**
    * Subclasses should override this method to read (and store) XHTML,
@@ -813,7 +813,7 @@ public:
   virtual FunctionDefinition* remove (const std::string& sid);
 
 
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
 
   /**
    * Get the ordinal position of this element in the containing object
@@ -834,7 +834,7 @@ public:
 
 
 protected:
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
 
   /**
    * @return the SBML object corresponding to next XMLToken in the

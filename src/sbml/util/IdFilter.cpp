@@ -1,5 +1,5 @@
 /**
- * @cond doxygen-libsbml-internal
+ * @cond doxygenLibsbmlInternal
  *
  * @file    IdFilterFilter.cpp
  * @brief   Filter to return only elements with an id set

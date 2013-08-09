@@ -344,7 +344,7 @@ TextGlyph::clone () const
 }
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 SBase*
 TextGlyph::createObject (XMLInputStream& stream)
 {
@@ -356,7 +356,7 @@ TextGlyph::createObject (XMLInputStream& stream)
 }
 /** @endcond */
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 void
 TextGlyph::addExpectedAttributes(ExpectedAttributes& attributes)
 {
@@ -368,7 +368,7 @@ TextGlyph::addExpectedAttributes(ExpectedAttributes& attributes)
 }
 /** @endcond */
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 void TextGlyph::readAttributes (const XMLAttributes& attributes,
                                 const ExpectedAttributes& expectedAttributes)
 {
@@ -521,7 +521,7 @@ void TextGlyph::readAttributes (const XMLAttributes& attributes,
 }
 /** @endcond */
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 void TextGlyph::writeElements (XMLOutputStream& stream) const
 {
   GraphicalObject::writeElements(stream);
@@ -533,7 +533,7 @@ void TextGlyph::writeElements (XMLOutputStream& stream) const
 }
 /** @endcond */
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 void TextGlyph::writeAttributes (XMLOutputStream& stream) const
 {
   GraphicalObject::writeAttributes(stream);

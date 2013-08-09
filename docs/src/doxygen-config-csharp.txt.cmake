@@ -89,4 +89,4 @@ INPUT_FILTER           = ./csdocfilter.py
 
 RECURSIVE              = NO
 
-ENABLED_SECTIONS       = csharp notclike doxygen-csharp-only
+ENABLED_SECTIONS       = csharp notclike doxygenCsharpOnly

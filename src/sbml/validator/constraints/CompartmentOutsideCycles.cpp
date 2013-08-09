@@ -1,5 +1,5 @@
 /**
- * @cond doxygen-libsbml-internal
+ * @cond doxygenLibsbmlInternal
  *
  * @file    CompartmentOutsideCycles.cpp
  * @brief   Ensures no cycles exist via a Compartment's 'outside' attribute.
@@ -33,7 +33,7 @@
 #include <sbml/util/IdList.h>
 #include "CompartmentOutsideCycles.h"
 
-/** @cond doxygen-ignored */
+/** @cond doxygenIgnored */
 
 using namespace std;
 

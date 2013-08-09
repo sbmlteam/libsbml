@@ -33,7 +33,7 @@
 #include <sbml/common/common.h>
 #include <iostream>
 
-/** @cond doxygen-ignored */
+/** @cond doxygenIgnored */
 
 using namespace std;
 
@@ -42,7 +42,7 @@ using namespace std;
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 void 
 SBMLNamespaces::initSBMLNamespace()
 {
@@ -396,7 +396,7 @@ SBMLNamespaces::addPackageNamespace(const std::string &pkgName, unsigned int pkg
 }
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 /*
  * (For Extension)
  *
@@ -413,7 +413,7 @@ SBMLNamespaces::addPkgNamespace(const std::string &pkgName, unsigned int pkgVers
 }
 /** @endcond */
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 /*
  * Add the XML namespaces of package extensions in the given
  * XMLNamespace object to the set of namespaces within this
@@ -447,7 +447,7 @@ SBMLNamespaces::addPackageNamespaces (const XMLNamespaces *xmlns)
 }
 /** @endcond */
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 int
 SBMLNamespaces::addPkgNamespaces (const XMLNamespaces *xmlns)
 {
@@ -514,7 +514,7 @@ SBMLNamespaces::removePackageNamespace(unsigned int level, unsigned version, con
   }
 }
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 int
 SBMLNamespaces::removePkgNamespace(unsigned int level, unsigned version, const std::string &pkgName,
                                    unsigned int pkgVersion)
@@ -718,7 +718,7 @@ SBMLNamespaces::isValidCombination()
 }
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 void 
 SBMLNamespaces::setLevel(unsigned int level)
 {
@@ -750,7 +750,7 @@ SBMLNamespaces::setNamespaces(XMLNamespaces * xmlns)
 }
 /** @endcond */
 
-/** @cond doxygen-c-only */
+/** @cond doxygenCOnly */
 
 /**
  * Creates a new SBMLNamespaces_t structure corresponding to the given SBML

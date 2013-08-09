@@ -423,7 +423,7 @@ Curve& Curve::operator=(const Curve& source)
 
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 SBase*
 Curve::createObject (XMLInputStream& stream)
 {
@@ -446,7 +446,7 @@ Curve::createObject (XMLInputStream& stream)
 }
 /** @endcond */
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 void
 Curve::addExpectedAttributes(ExpectedAttributes& attributes)
 {
@@ -454,7 +454,7 @@ Curve::addExpectedAttributes(ExpectedAttributes& attributes)
 }
 /** @endcond */
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 void Curve::readAttributes (const XMLAttributes& attributes,
                             const ExpectedAttributes& expectedAttributes)
 {
@@ -493,7 +493,7 @@ void Curve::readAttributes (const XMLAttributes& attributes,
 }
 /** @endcond */
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 void
 Curve::writeElements (XMLOutputStream& stream) const
 {
@@ -509,7 +509,7 @@ Curve::writeElements (XMLOutputStream& stream) const
 }
 /** @endcond */
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 void Curve::writeAttributes (XMLOutputStream& stream) const
 {
   SBase::writeAttributes(stream);
@@ -598,7 +598,7 @@ ListOfLineSegments::getElementName () const
 }
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 SBase*
 ListOfLineSegments::createObject (XMLInputStream& stream)
 {

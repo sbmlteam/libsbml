@@ -1,5 +1,5 @@
 /**
- * @cond doxygen-cpp-only
+ * @cond doxygenCppOnly
  * 
  * @file    SBMLConverterRegister.h
  * @brief   Definition of SBMLConverterRegister, a template to register converters.

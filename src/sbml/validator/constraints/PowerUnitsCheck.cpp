@@ -1,5 +1,5 @@
 /**
- * @cond doxygen-libsbml-internal
+ * @cond doxygenLibsbmlInternal
  *
  * @file    PowerUnitsCheck.cpp
  * @brief   Ensures math units are consistent.
@@ -49,7 +49,7 @@
 #include "PowerUnitsCheck.h"
 
 
-/** @cond doxygen-ignored */
+/** @cond doxygenIgnored */
 
 using namespace std;
 

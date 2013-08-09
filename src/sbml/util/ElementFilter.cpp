@@ -1,5 +1,5 @@
 /**
- * @cond doxygen-libsbml-internal
+ * @cond doxygenLibsbmlInternal
  *
  * @file    ElementFilter.cpp
  * @brief   Implementation of the base class of all element filters

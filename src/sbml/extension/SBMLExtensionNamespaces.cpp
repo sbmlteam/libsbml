@@ -42,7 +42,7 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 BEGIN_C_DECLS
 
 
-/** @cond doxygen-c-only */
+/** @cond doxygenCOnly */
 
 /**
  * Creates a deep copy of the given SBMLExtensionNamespaces_t structure

@@ -92,7 +92,7 @@ public:
   //
   // --------------------------------------------------------
 
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
   /**
    * Subclasses must override this method to create, store, and then
    * return an SBML object corresponding to the next XMLToken in the
@@ -105,7 +105,7 @@ public:
   /** @endcond */
 
 
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
   /**
    * Parses Layout Extension of SBML Level 2
    */
@@ -113,7 +113,7 @@ public:
   /** @endcond */
 
 
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
   /**
    * Subclasses must override this method to write out their contained
    * SBML objects as XML elements if they have their specific elements.
@@ -122,7 +122,7 @@ public:
   /** @endcond */
 
 
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
   /**
    * This function is a bit tricky.
    * This function is used only for setting annotation element of layout
@@ -134,7 +134,7 @@ public:
   /** @endcond */
 
 
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
   /* function returns true if component has all the required
    * elements
    * needs to be overloaded for each component
@@ -143,7 +143,7 @@ public:
   /** @endcond */
 
 
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
   /** 
    * Parse L2 annotation if supported
    *
@@ -151,7 +151,7 @@ public:
   virtual void parseAnnotation(SBase *parentObject, XMLNode *annotation);
   /** @endcond */
 
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
   /**
    * Synchronizes the annotation of this SBML object.
    *
@@ -302,7 +302,7 @@ public:
   // ---------------------------------------------------------
 
 
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
   /**
    * Sets the parent SBMLDocument of this plugin object.
    *
@@ -318,7 +318,7 @@ public:
   /** @endcond */
 
 
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
   /**
    * Sets the parent SBML object of this plugin object to
    * this object and child elements (if any).
@@ -339,7 +339,7 @@ public:
   /** @endcond */
 
 
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
   /**
    * Enables/Disables the given package with child elements in this plugin
    * object (if any).
@@ -358,15 +358,15 @@ public:
 
 
 
-	/** @cond doxygen-libsbml-internal */
+	/** @cond doxygenLibsbmlInternal */
 
 	virtual bool accept (SBMLVisitor& v) const;
 
-	/** @endcond doxygen-libsbml-internal */
+	/** @endcond doxygenLibsbmlInternal */
 
 
 protected:
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
 
   /*-- data members --*/
 

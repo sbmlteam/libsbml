@@ -532,7 +532,7 @@ XMLCONSTRUCTOR_EXCEPTION(XMLTripple)
 import sys
 import os.path
 
-# @cond doxygen-libsbml-internal
+# @cond doxygenLibsbmlInternal
 
 def conditional_abspath (filename):
   """conditional_abspath (filename) -> filename

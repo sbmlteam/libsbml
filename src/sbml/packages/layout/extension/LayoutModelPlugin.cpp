@@ -111,7 +111,7 @@ LayoutModelPlugin::clone () const
 }
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 SBase*
 LayoutModelPlugin::createObject(XMLInputStream& stream)
 {
@@ -150,7 +150,7 @@ LayoutModelPlugin::createObject(XMLInputStream& stream)
 }
 /** @endcond */
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 bool 
 LayoutModelPlugin::readOtherXML (SBase* parentObject, XMLInputStream& stream)
 {
@@ -161,7 +161,7 @@ LayoutModelPlugin::readOtherXML (SBase* parentObject, XMLInputStream& stream)
 }
 /** @endcond */
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 void 
 LayoutModelPlugin::writeAttributes (XMLOutputStream& stream) const
 {
@@ -180,7 +180,7 @@ LayoutModelPlugin::writeAttributes (XMLOutputStream& stream) const
 }
 /** @endcond */
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 void
 LayoutModelPlugin::writeElements (XMLOutputStream& stream) const
 {
@@ -243,7 +243,7 @@ LayoutModelPlugin::parseAnnotation(SBase *parentObject, XMLNode *pAnnotation)
 }
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 /*
  * Synchronizes the annotation of this SBML object.
  */

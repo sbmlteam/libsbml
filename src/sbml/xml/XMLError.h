@@ -1051,7 +1051,7 @@ public:
 
 #ifndef SWIG
 
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
 
   /**
    * clone function
@@ -1074,7 +1074,7 @@ public:
 #endif
 
 protected:
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
 
   unsigned int mErrorId;
 
@@ -1106,7 +1106,7 @@ protected:
 
 #ifndef SWIG
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 
 /**
  * Outputs the given XMLError (or the derived class (e.g. SBMLError) ) to stream 

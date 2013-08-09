@@ -390,7 +390,7 @@ public:
   int unsetOrganisation();
 
 
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
   XMLNode * getAdditionalRDF();
   /** @endcond */
 
@@ -407,7 +407,7 @@ public:
   bool hasRequiredAttributes();
   
 
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
   
   bool hasBeenModified();
 
@@ -417,7 +417,7 @@ public:
   /** @endcond */
 
 protected:
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
 
 
   std::string mFamilyName;

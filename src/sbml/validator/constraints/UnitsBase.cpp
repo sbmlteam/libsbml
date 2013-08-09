@@ -1,5 +1,5 @@
 /**
- * @cond doxygen-libsbml-internal
+ * @cond doxygenLibsbmlInternal
  *
  * @file    UnitsBase.cpp
  * @brief   Ensures math units are consistent.
@@ -44,7 +44,7 @@
 #include "UnitsBase.h"
 #include "MathMLBase.h"
 
-/** @cond doxygen-ignored */
+/** @cond doxygenIgnored */
 
 using namespace std;
 

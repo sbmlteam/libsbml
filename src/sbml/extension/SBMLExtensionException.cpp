@@ -30,7 +30,7 @@
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 
 SBMLExtensionException::SBMLExtensionException(const std::string& errmsg) throw()
 : std::invalid_argument(errmsg)

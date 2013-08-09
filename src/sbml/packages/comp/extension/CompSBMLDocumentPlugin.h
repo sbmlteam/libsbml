@@ -81,7 +81,7 @@ class LIBSBML_EXTERN CompSBMLDocumentPlugin : public SBMLDocumentPlugin
 {
 protected:
 
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
   ListOfModelDefinitions  mListOfModelDefinitions;
   ListOfExternalModelDefinitions  mListOfExternalModelDefinitions;
   std::map<std::string, SBMLDocument*> mURIToDocumentMap;
@@ -160,7 +160,7 @@ public:
   virtual List* getAllElements(ElementFilter* filter=NULL);
   
   
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
   /**
    * @return the SBML object corresponding to next XMLToken in the
    * XMLInputStream or @c NULL if the token was not recognized.
@@ -169,7 +169,7 @@ public:
   /** @endcond */
 
 
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
   /**
    * Subclasses must override this method to write out their contained
    * SBML objects as XML elements if they have their specific elements.
@@ -179,7 +179,7 @@ public:
 
 #ifndef SWIG
 
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
   /**
    * Subclasses should override this method to get the list of
    * expected attributes.
@@ -190,7 +190,7 @@ public:
   /** @endcond */
 
 
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
   /**
    * Reads the attributes of corresponding package in SBMLDocument element.
    */
@@ -207,7 +207,7 @@ public:
   virtual unsigned int checkConsistency(bool overrideFlattening = false); 
 
 
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
 
   virtual bool accept(SBMLVisitor& v) const;
 
@@ -535,7 +535,7 @@ public:
   //
   // ---------------------------------------------------------
 
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
   /**
    * Sets the parent SBMLDocument of this plugin object.
    *
@@ -551,7 +551,7 @@ public:
   /** @endcond */
 
 
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
   /**
    * Sets the *parent* of this SBML object to child SBML objects (if any).
    * (Creates a child-parent relationship by the parent)
@@ -563,7 +563,7 @@ public:
   /** @endcond */
 
 
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
   /**
    * Sets the parent SBML object of this SBML object.
    * (Creates a child-parent relationship by the child)
@@ -577,7 +577,7 @@ public:
   void connectToParent (SBase* parent);
   /** @endcond */
 
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
   /**
    * Enables/Disables the given package with child elements in this plugin
    * object (if any).
@@ -631,7 +631,7 @@ private:
   
   /** variables and functions for consistency checking **/
 
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
   bool mCheckingDummyDoc;
   bool mFlattenAndCheck;
   /** @endcond */

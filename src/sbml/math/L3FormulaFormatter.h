@@ -144,7 +144,7 @@ char *
 SBML_formulaToL3StringWithSettings (const ASTNode_t *tree, const L3ParserSettings_t *settings);
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 
 #ifndef SWIG
 

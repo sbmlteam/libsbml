@@ -45,7 +45,7 @@
 #include <sbml/Model.h>
 #include <sbml/AssignmentRule.h>
 
-/** @cond doxygen-ignored */
+/** @cond doxygenIgnored */
 
 using namespace std;
 

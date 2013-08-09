@@ -28,7 +28,7 @@
 #include <sbml/xml/XMLHandler.h>
 #include <sbml/xml/XMLToken.h>
 
-/** @cond doxygen-ignored */
+/** @cond doxygenIgnored */
 
 using namespace std;
 
@@ -36,7 +36,7 @@ using namespace std;
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 
 /*
  * Creates a new XMLHandler.

@@ -1,5 +1,5 @@
 /**
- * @cond doxygen-libsbml-internal
+ * @cond doxygenLibsbmlInternal
  *
  * @file    UniqueVarsInEventAssignments.h
  * @brief   Ensures variables within a set of EventAssignments are unique

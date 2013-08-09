@@ -78,7 +78,7 @@ SBMLDocumentPluginNotRequired::operator=(const SBMLDocumentPluginNotRequired& or
 SBMLDocumentPluginNotRequired::~SBMLDocumentPluginNotRequired () {}
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 void
 SBMLDocumentPluginNotRequired::readAttributes (const XMLAttributes& attributes,
                                           const ExpectedAttributes& expectedAttributes)

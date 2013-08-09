@@ -43,7 +43,7 @@ using namespace std;
 LIBSBML_CPP_NAMESPACE_BEGIN
 
   
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 void SBMLLevelVersionConverter::init()
 {
   SBMLLevelVersionConverter converter;
@@ -372,7 +372,7 @@ SBMLLevelVersionConverter::convert()
 }
  
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 bool
 SBMLLevelVersionConverter::performConversion(bool strict, bool strictUnits, 
                                         bool duplicateAnn)
@@ -912,7 +912,7 @@ SBMLLevelVersionConverter::performConversion(bool strict, bool strictUnits,
 /** @endcond */
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 /*
  * Predicate returning true if the errors encountered are not ignorable.
  */
@@ -968,7 +968,7 @@ SBMLLevelVersionConverter::conversion_errors(unsigned int errors, bool strictUni
 }
 /** @endcond */
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 bool
 SBMLLevelVersionConverter::hasStrictUnits()
 {
@@ -1001,7 +1001,7 @@ SBMLLevelVersionConverter::hasStrictUnits()
 }
 /** @endcond */
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 bool
 SBMLLevelVersionConverter::hasStrictSBO()
 {
@@ -1039,7 +1039,7 @@ SBMLLevelVersionConverter::hasStrictSBO()
 
 
 
-/** @cond doxygen-c-only */
+/** @cond doxygenCOnly */
 
 
 /** @endcond */

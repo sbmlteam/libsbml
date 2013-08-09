@@ -262,7 +262,7 @@ class CHeader:
       # Track things that we flag as internal, so that we can
       # remove them from the documentation.
 
-      if (stripped.find('@cond doxygen-libsbml-internal') >= 0): isInternal = True
+      if (stripped.find('@cond doxygenLibsbmlInternal') >= 0): isInternal = True
       if (stripped.find('@endcond') >= 0):                       isInternal = False
 
       # Watch for class description, usually at top of file.

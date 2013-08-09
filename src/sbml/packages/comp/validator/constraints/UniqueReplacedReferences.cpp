@@ -1,5 +1,5 @@
 /**
- * @cond doxygen-libsbml-internal
+ * @cond doxygenLibsbmlInternal
  *
  * @file    UniqueReplacedReferences.cpp
  * @brief   Ensures the appropriate ids within a Model are unique
@@ -32,7 +32,7 @@
 #include "UniqueReplacedReferences.h"
 
 
-/** @cond doxygen-ignored */
+/** @cond doxygenIgnored */
 
 using namespace std;
 

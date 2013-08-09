@@ -38,7 +38,7 @@
 #include <sbml/packages/comp/validator/CompIdentifierConsistencyValidator.h>
 #include <sbml/packages/comp/validator/CompConsistencyValidator.h>
 
-/** @cond doxygen-ignored */
+/** @cond doxygenIgnored */
 
 using namespace std;
 LIBSBML_CPP_NAMESPACE_USE

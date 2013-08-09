@@ -462,7 +462,7 @@ ReferenceGlyph::clone () const
 }
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 SBase*
 ReferenceGlyph::createObject (XMLInputStream& stream)
 {
@@ -490,7 +490,7 @@ ReferenceGlyph::createObject (XMLInputStream& stream)
 }
 /** @endcond */
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 void
 ReferenceGlyph::addExpectedAttributes(ExpectedAttributes& attributes)
 {
@@ -502,7 +502,7 @@ ReferenceGlyph::addExpectedAttributes(ExpectedAttributes& attributes)
 }
 /** @endcond */
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 void ReferenceGlyph::readAttributes (const XMLAttributes& attributes,
                                 const ExpectedAttributes& expectedAttributes)
 {
@@ -668,7 +668,7 @@ void ReferenceGlyph::readAttributes (const XMLAttributes& attributes,
 }
 /** @endcond */
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 void
 ReferenceGlyph::writeElements (XMLOutputStream& stream) const
 {
@@ -689,7 +689,7 @@ ReferenceGlyph::writeElements (XMLOutputStream& stream) const
 }
 /** @endcond */
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 void ReferenceGlyph::writeAttributes (XMLOutputStream& stream) const
 {
   GraphicalObject::writeAttributes(stream);

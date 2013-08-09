@@ -130,7 +130,7 @@ ListOfExternalModelDefinitions::getElementName () const
 }
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 SBase*
 ListOfExternalModelDefinitions::createObject (XMLInputStream& stream)
 {
@@ -149,7 +149,7 @@ ListOfExternalModelDefinitions::createObject (XMLInputStream& stream)
 }
 /** @endcond */
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 void 
 ListOfExternalModelDefinitions::writeXMLNS (XMLOutputStream& stream) const
 {
@@ -169,7 +169,7 @@ ListOfExternalModelDefinitions::writeXMLNS (XMLOutputStream& stream) const
 }
 /** @endcond */
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 
 bool
 ListOfExternalModelDefinitions::accept(SBMLVisitor& v) const

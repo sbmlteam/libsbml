@@ -1,5 +1,5 @@
 /**
- * @cond doxygen-libsbml-internal
+ * @cond doxygenLibsbmlInternal
  *
  * @file    FluxBoundsConsistent.cpp
  * @brief   Checks for fluxBounds consistency
@@ -33,7 +33,7 @@
 
 #include "FluxBoundsConsistent.h"
 
-/** @cond doxygen-ignored */
+/** @cond doxygenIgnored */
 
 using namespace std;
 

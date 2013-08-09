@@ -1,5 +1,5 @@
 /**
- * @cond doxygen-libsbml-internal
+ * @cond doxygenLibsbmlInternal
  *
  * @file    ISBMLExtensionNamespaces.h
  * @brief   implementation ISBMLExtensionNamespaces interface to the SBMLExtensionNamespaces class

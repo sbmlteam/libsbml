@@ -39,7 +39,7 @@ using namespace std;
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 SBasePluginCreatorBase::SBasePluginCreatorBase (const SBaseExtensionPoint& extPoint,
                                                 const std::vector<std::string>& packageURIs)
  : mSupportedPackageURI(packageURIs)
@@ -59,7 +59,7 @@ SBasePluginCreatorBase::SBasePluginCreatorBase (const SBaseExtensionPoint& extPo
 /** @endcond */
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 /**
  * Destructor
  */
@@ -69,7 +69,7 @@ SBasePluginCreatorBase::~SBasePluginCreatorBase()
 /** @endcond */
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 /**
  * Copy Constructor
  */
@@ -81,7 +81,7 @@ SBasePluginCreatorBase::SBasePluginCreatorBase (const SBasePluginCreatorBase& or
 /** @endcond */
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 int
 SBasePluginCreatorBase::getTargetSBMLTypeCode() const
 {
@@ -90,7 +90,7 @@ SBasePluginCreatorBase::getTargetSBMLTypeCode() const
 /** @endcond */
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 /**
  * Get an SBMLTypeCode tied with this creator object.
  */
@@ -102,7 +102,7 @@ SBasePluginCreatorBase::getTargetPackageName() const
 /** @endcond */
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 /**
  * Get an SBaseExtensionPoint tied with this creator object.
  */
@@ -115,7 +115,7 @@ SBasePluginCreatorBase::getTargetExtensionPoint() const
 
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 
 /**
  *
@@ -128,7 +128,7 @@ SBasePluginCreatorBase::getNumOfSupportedPackageURI() const
 /** @endcond */
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 /**
  *
  */
@@ -141,7 +141,7 @@ SBasePluginCreatorBase::getSupportedPackageURI(unsigned int i) const
 /** @endcond */
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 /**
  *
  */
@@ -156,7 +156,7 @@ SBasePluginCreatorBase::isSupported(const std::string& uri) const
 }
 /** @endcond */
 
-/** @cond doxygen-c-only */
+/** @cond doxygenCOnly */
 
 /**
  * Creates an SBasePlugin_t structure with the given uri and the prefix

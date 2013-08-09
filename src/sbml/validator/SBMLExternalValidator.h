@@ -1,5 +1,5 @@
 /**
- * @cond doxygen-libsbml-internal
+ * @cond doxygenLibsbmlInternal
  * 
  * @file    SBMLExternalValidator.h
  * @brief   Definition of SBMLExternalValidator, a validator calling external programs
@@ -48,7 +48,7 @@ class LIBSBML_EXTERN SBMLExternalValidator : public SBMLValidator
 {
 public:
 
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
   
 
   /** @endcond */
@@ -172,7 +172,7 @@ protected:
 
 
 private:
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
 
   /** @endcond */
 

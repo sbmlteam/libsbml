@@ -131,7 +131,7 @@ ListOfSubmodels::getElementName () const
 }
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 SBase*
 ListOfSubmodels::createObject (XMLInputStream& stream)
 {
@@ -150,7 +150,7 @@ ListOfSubmodels::createObject (XMLInputStream& stream)
 }
 /** @endcond */
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 void 
 ListOfSubmodels::writeXMLNS (XMLOutputStream& stream) const
 {

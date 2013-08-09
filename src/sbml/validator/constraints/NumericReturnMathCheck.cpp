@@ -1,5 +1,5 @@
 /**
- * @cond doxygen-libsbml-internal
+ * @cond doxygenLibsbmlInternal
  *
  * @file    NumericReturnMathCheck.cpp
  * @brief   Ensures math returns a numeric result.
@@ -44,7 +44,7 @@
 
 #include "NumericReturnMathCheck.h"
 
-/** @cond doxygen-ignored */
+/** @cond doxygenIgnored */
 
 using namespace std;
 

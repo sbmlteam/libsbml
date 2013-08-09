@@ -474,7 +474,7 @@ public:
 
 
 protected:
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
 
   unsigned char mApplicableValidators;
   unsigned char mApplicableValidatorsForConversion;
@@ -483,7 +483,7 @@ protected:
 
 
 private:
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
 
   /** @endcond */
 

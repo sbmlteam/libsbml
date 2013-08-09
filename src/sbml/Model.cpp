@@ -54,7 +54,7 @@
 #include <sbml/extension/SBMLExtensionRegistry.h>
 #include <sbml/extension/SBasePlugin.h>
 
-/** @cond doxygen-ignored */
+/** @cond doxygenIgnored */
 
 using namespace std;
 
@@ -2151,7 +2151,7 @@ Model::appendAnnotation (const std::string& annotation)
 }
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 /*
  * Synchronizes the annotation of this SBML object.
  */
@@ -3179,7 +3179,7 @@ int Model::removeFromParentAndDelete()
 }
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 /*
  * @return true if the given ASTNode is a boolean.  Often times, this
  * question can be answered with the ASTNode's own isBoolean() method,
@@ -3229,7 +3229,7 @@ Model::isBoolean (const ASTNode* node) const
 }
 /** @endcond */
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 
 /*
  * Sets the parent SBMLDocument of this SBML object.
@@ -3664,7 +3664,7 @@ Model::renameUnitSIdRefs(std::string oldid, std::string newid)
   if (mExtentUnits == oldid)    mExtentUnits = newid;
 }
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 /*
  * Subclasses should override this method to read (and store) XHTML,
  * MathML, etc. directly from the XMLInputStream.
@@ -3753,7 +3753,7 @@ Model::readOtherXML (XMLInputStream& stream)
 /** @endcond */
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 /*
  * @return the SBML object corresponding to next XMLToken in the
  * XMLInputStream or @c NULL if the token was not recognized.
@@ -3991,7 +3991,7 @@ Model::createObject (XMLInputStream& stream)
 /** @endcond */
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 /**
  * Subclasses should override this method to get the list of
  * expected attributes.
@@ -4064,7 +4064,7 @@ Model::readAttributes (const XMLAttributes& attributes,
 /** @endcond */
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 /*
  * Subclasses should override this method to read values from the given
  * XMLAttributes set into their specific fields.  Be sure to call your
@@ -4091,7 +4091,7 @@ Model::readL1Attributes (const XMLAttributes& attributes)
 /** @endcond */
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 /*
  * Subclasses should override this method to read values from the given
  * XMLAttributes set into their specific fields.  Be sure to call your
@@ -4129,7 +4129,7 @@ Model::readL2Attributes (const XMLAttributes& attributes)
 /** @endcond */
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 /*
  * Subclasses should override this method to read values from the given
  * XMLAttributes set into their specific fields.  Be sure to call your
@@ -4243,7 +4243,7 @@ Model::readL3Attributes (const XMLAttributes& attributes)
 /** @endcond */
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 /*
  * Subclasses should override this method to write their XML attributes
  * to the XMLOutputStream.  Be sure to call your parents implementation
@@ -4329,7 +4329,7 @@ Model::writeAttributes (XMLOutputStream& stream) const
 /** @endcond */
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 /*
  * Subclasses should override this method to write out their contained
  * SBML objects as XML elements.  Be sure to call your parents
@@ -4390,7 +4390,7 @@ Model::writeElements (XMLOutputStream& stream) const
 /** @endcond */
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 /*
  * @return the ordinal position of the element with respect to its siblings
  * or -1 (default) to indicate the position is not significant.
@@ -4403,7 +4403,7 @@ Model::getElementPosition () const
 /** @endcond */
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 void Model::checkUnitDefinition(UnitDefinition* ud, FormulaUnitsData *fud)
 {
   if (ud != NULL)
@@ -4519,7 +4519,7 @@ void Model::checkUnitDefinition(UnitDefinition* ud, FormulaUnitsData *fud)
 }
 /** @endcond */
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 void Model::checkSpeciesReference(SpeciesReference* sr,
                                   UnitFormulaFormatter* unitFormatter,
                                   FormulaUnitsData* fud, UnitDefinition* ud)
@@ -4616,7 +4616,7 @@ void Model::checkSpeciesReference(SpeciesReference* sr,
 }
 /** @endcond */
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 /**
   * Populates the ListFormulaDataUnits with the units of each 
   * set of math encountered in the model
@@ -5577,7 +5577,7 @@ Model::populateListFormulaUnitsData()
 /** @endcond */
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 /*
  * Adds a copy of the given FormulaUnitsData to this Model.
  */
@@ -5597,7 +5597,7 @@ Model::addFormulaUnitsData (const FormulaUnitsData* fud)
 /** @endcond */
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 /**
   * Creates a new FormulaUnitsData inside this Model and returns it.
   */
@@ -5616,7 +5616,7 @@ Model::createFormulaUnitsData ()
 /** @endcond */
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 /*
  * @return the nth FormulaUnitsData of this Model.
  */
@@ -5628,7 +5628,7 @@ Model::getFormulaUnitsData (unsigned int n) const
 /** @endcond */
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 /*
  * @return the nth FormulaUnitsData of this Model.
  */
@@ -5640,7 +5640,7 @@ Model::getFormulaUnitsData (unsigned int n)
 /** @endcond */
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 /*
  * @return the FormulaUnitsData in this Model with the given @p id 
  * or @c NULL if no such
@@ -5655,7 +5655,7 @@ Model::getFormulaUnitsData (const std::string& sid,
 /** @endcond */
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 /*
  * @return the FormulaUnitsData in this Model with the given @p id  and typecode 
  * or @c NULL if no such FormulaUnitsData exists.
@@ -5681,7 +5681,7 @@ Model::getFormulaUnitsData (const std::string& sid, int typecode)
 /** @endcond */
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 /*
  * @return the number of FormulaUnitsDatas in this Model.
  */
@@ -5693,7 +5693,7 @@ Model::getNumFormulaUnitsData () const
 /** @endcond */
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 /**
   * Get the list of FormulaUnitsData object in this Model.
   * 
@@ -5707,7 +5707,7 @@ Model::getListFormulaUnitsData ()
 /** @endcond */
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 /**
   * Get the list of FormulaUnitsData object in this Model.
   * 
@@ -5721,7 +5721,7 @@ Model::getListFormulaUnitsData () const
 /** @endcond */
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 /*
  * returns true if the list has been populated, false otherwise
  */
@@ -5737,7 +5737,7 @@ Model::isPopulatedListFormulaUnitsData()
 
 
 
-/** @cond doxygen-c-only */
+/** @cond doxygenCOnly */
 
 
 /**

@@ -83,7 +83,7 @@ CompModelPlugin::clone () const
 }
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 SBase*
 CompModelPlugin::createObject(XMLInputStream& stream)
 {
@@ -142,7 +142,7 @@ CompModelPlugin::createObject(XMLInputStream& stream)
 }
 /** @endcond */
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 void
 CompModelPlugin::writeElements (XMLOutputStream& stream) const
 {
@@ -417,7 +417,7 @@ CompModelPlugin::createPort ()
 }
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 /*
  * Sets the parent SBMLDocument of this SBML object.
  */
@@ -432,7 +432,7 @@ CompModelPlugin::setSBMLDocument (SBMLDocument* d)
 /** @endcond */
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 void
 CompModelPlugin::connectToChild()
 {
@@ -442,7 +442,7 @@ CompModelPlugin::connectToChild()
 /** @endcond */
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 void
 CompModelPlugin::connectToParent (SBase* sbase)
 {
@@ -453,7 +453,7 @@ CompModelPlugin::connectToParent (SBase* sbase)
 /** @endcond */
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 /*
  * Enables/Disables the given package with child elements in this plugin
  * object (if any).
@@ -574,7 +574,7 @@ Model* CompModelPlugin::flattenModel() const
   return flat;
 }
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 void CompModelPlugin::resetPorts()
 {
   for (unsigned int p=0; p<getNumPorts(); p++) {
@@ -887,7 +887,7 @@ CompModelPlugin::renameAllIDsAndPrepend(const std::string& prefix)
 }
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 void CompModelPlugin::findUniqueSubmodPrefixes(vector<string>& submodids, List* allElements)
 {
   vector<int> suffixes(submodids.size(), 0);
@@ -984,7 +984,7 @@ public:
   }
 };
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 void CompModelPlugin::renameIDs(List* allElements, const string& prefix)
 {
   if (prefix=="") return; //Nothing to prepend.
@@ -1146,7 +1146,7 @@ int CompModelPlugin::performReplacementsAndConversions()
   return ret;
 }
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 
 bool 
 CompModelPlugin::accept(SBMLVisitor& v) const

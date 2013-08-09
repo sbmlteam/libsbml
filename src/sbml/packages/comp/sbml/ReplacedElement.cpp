@@ -213,7 +213,7 @@ ReplacedElement::getNumReferents() const
   return retval;
 }
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 void
 ReplacedElement::addExpectedAttributes(ExpectedAttributes& attributes)
 {
@@ -222,7 +222,7 @@ ReplacedElement::addExpectedAttributes(ExpectedAttributes& attributes)
 }
 /** @endcond */
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 void
 ReplacedElement::readAttributes (const XMLAttributes& attributes,
                                  const ExpectedAttributes& expectedAttributes)
@@ -277,7 +277,7 @@ ReplacedElement::readAttributes (const XMLAttributes& attributes,
 }
 /** @endcond */
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 void
 ReplacedElement::writeAttributes (XMLOutputStream& stream) const
 {
@@ -294,7 +294,7 @@ ReplacedElement::writeAttributes (XMLOutputStream& stream) const
 }
 /** @endcond */
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 void
 ReplacedElement::writeElements (XMLOutputStream& stream) const
 {
@@ -426,7 +426,7 @@ ReplacedElement::getReferencedElementFrom(Model* model)
   return ret;
 }
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 
 bool
 ReplacedElement::accept (SBMLVisitor& v) const

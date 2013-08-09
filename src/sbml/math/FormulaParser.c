@@ -31,7 +31,7 @@
 #include <sbml/math/FormulaParser.h>
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 
 
 /**
@@ -293,7 +293,7 @@ static const StateActionPair_t Action[] =
 /** @endcond */
 
 
-/** @cond doxygen-c-only */
+/** @cond doxygenCOnly */
 /**
  * Parses the given SBML formula and returns a representation of it as an
  * Abstract Syntax Tree (AST).
@@ -458,7 +458,7 @@ SBML_parseFormula (const char *formula)
 /** @endcond */
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 
 /**
  * @return the action for the current state and token.

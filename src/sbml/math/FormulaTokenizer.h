@@ -264,7 +264,7 @@ Token_t *
 FormulaTokenizer_nextToken (FormulaTokenizer_t *ft);
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 
 /**
  * Creates a new Token and returns a point to it.

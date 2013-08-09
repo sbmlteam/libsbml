@@ -1,5 +1,5 @@
 /**
- * @cond doxygen-libsbml-internal
+ * @cond doxygenLibsbmlInternal
  *
  * @file    EqualityArgsMathCheck.h
  * @brief   Ensures arguments to eq and neq are consistent.

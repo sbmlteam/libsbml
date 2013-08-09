@@ -35,7 +35,7 @@
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
-/** @cond doxygen-c-only */
+/** @cond doxygenCOnly */
 
 
 LIBSBML_EXTERN 

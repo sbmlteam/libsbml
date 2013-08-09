@@ -1,5 +1,5 @@
 /**
- * @cond doxygen-libsbml-internal
+ * @cond doxygenLibsbmlInternal
  *
  * @file    EqualityArgsMathCheck.cpp
  * @brief   Ensures arguments to eq and neq are consistent.
@@ -43,7 +43,7 @@
 
 #include "EqualityArgsMathCheck.h"
 
-/** @cond doxygen-ignored */
+/** @cond doxygenIgnored */
 
 using namespace std;
 

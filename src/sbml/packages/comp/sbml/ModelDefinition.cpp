@@ -136,7 +136,7 @@ ModelDefinition::removeFromParentAndDelete()
 }
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 
 bool
 ModelDefinition::accept (SBMLVisitor& v) const
@@ -147,7 +147,7 @@ ModelDefinition::accept (SBMLVisitor& v) const
 
 /** @endcond */
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 void 
 ModelDefinition::addExpectedAttributes(ExpectedAttributes& attributes)
 {
@@ -155,7 +155,7 @@ ModelDefinition::addExpectedAttributes(ExpectedAttributes& attributes)
 }
 /** @endcond */
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 void 
 ModelDefinition::readAttributes (const XMLAttributes& attributes, 
                                const ExpectedAttributes& expectedAttributes)

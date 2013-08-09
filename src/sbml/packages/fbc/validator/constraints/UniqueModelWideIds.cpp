@@ -1,5 +1,5 @@
 /**
- * @cond doxygen-libsbml-internal
+ * @cond doxygenLibsbmlInternal
  *
  * @file    UniqueModelWideIds.cpp
  * @brief   Base class for Id constraints
@@ -30,7 +30,7 @@
 #include "UniqueModelWideIds.h"
 #include <sbml/packages/fbc/extension/FbcModelPlugin.h>
 
-/** @cond doxygen-ignored */
+/** @cond doxygenIgnored */
 
 using namespace std;
 

@@ -35,7 +35,7 @@
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
-	/** @cond doxygen-libsbml-internal */
+	/** @cond doxygenLibsbmlInternal */
 
 static const packageErrorTableEntry layoutErrorTable[] = 
 {
@@ -1810,7 +1810,7 @@ static const packageErrorTableEntry layoutErrorTable[] =
 
 LIBSBML_CPP_NAMESPACE_END
 
-	/** @endcond doxygen-libsbml-internal */
+	/** @endcond doxygenLibsbmlInternal */
 
 
 #endif  /*  LayoutSBMLErrorTable_h__  */

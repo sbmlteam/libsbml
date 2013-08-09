@@ -1,5 +1,5 @@
 /**
- * @cond doxygen-libsbml-internal
+ * @cond doxygenLibsbmlInternal
  *
  * @file    LambdaMathCheck.cpp
  * @brief   Ensures a lambda function is not used outside a functionDefinition.
@@ -44,7 +44,7 @@
 
 #include "LambdaMathCheck.h"
 
-/** @cond doxygen-ignored */
+/** @cond doxygenIgnored */
 
 using namespace std;
 

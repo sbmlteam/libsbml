@@ -36,7 +36,7 @@
 #include <sbml/xml/XercesTranscode.h>
 #include <sbml/xml/XercesHandler.h>
 
-/** @cond doxygen-ignored */
+/** @cond doxygenIgnored */
 
 using namespace std;
 using namespace xercesc;
@@ -45,7 +45,7 @@ using namespace xercesc;
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 
 /**
  * @return the prefix portion of the XML qualified name, or an empty

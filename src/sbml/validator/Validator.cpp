@@ -43,7 +43,7 @@
 #include <sbml/SBMLDocument.h>
 #include <sbml/SBMLReader.h>
 
-/** @cond doxygen-ignored */
+/** @cond doxygenIgnored */
 
 using namespace std;
 

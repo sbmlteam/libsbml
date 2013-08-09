@@ -1,5 +1,5 @@
 /**
- * @cond doxygen-libsbml-internal
+ * @cond doxygenLibsbmlInternal
  *
  * @file    FunctionApplyMathCheck.h
  * @brief   Ensures <ci> after apply refers to function definition.

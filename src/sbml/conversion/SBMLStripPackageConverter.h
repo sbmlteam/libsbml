@@ -60,7 +60,7 @@ class LIBSBML_EXTERN SBMLStripPackageConverter : public SBMLConverter
 {
 public:
 
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
   
   /* register with the ConversionRegistry */
   static void init();  
@@ -172,7 +172,7 @@ public:
 
 
 private:
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
 
   std::string getPackageToStrip();
 

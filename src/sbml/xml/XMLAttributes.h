@@ -77,7 +77,7 @@
 LIBSBML_CPP_NAMESPACE_BEGIN
 
 class XMLErrorLog;
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 class XMLOutputStream;
 /** @endcond */
 
@@ -170,7 +170,7 @@ public:
    int add ( const XMLTriple& triple, const std::string& value);
 
 
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
 
   /**
    * Adds an name/value pair to this XMLAttributes set.  
@@ -900,7 +900,7 @@ public:
                  , const unsigned int column   = 0) const;
 
 
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
 
   /**
    * Writes this XMLAttributes set to stream.
@@ -912,7 +912,7 @@ public:
   /** @endcond */
 
 
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
   /**
    * (Optional) Sets the log used when logging attributeTypeError() and
    * attributeRequired() errors.
@@ -930,7 +930,7 @@ public:
 
 #ifndef SWIG
 
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
   /**
    * Inserts this XMLAttributes set into stream.
    *
@@ -949,7 +949,7 @@ public:
 
 
 protected:
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
 
   /**
    * Used by attributeTypeError().

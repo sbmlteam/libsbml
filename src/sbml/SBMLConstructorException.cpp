@@ -38,7 +38,7 @@
 LIBSBML_CPP_NAMESPACE_BEGIN
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 
 SBMLConstructorException::SBMLConstructorException(std::string errmsg) :
       std::invalid_argument("Level/version/namespaces combination is invalid")

@@ -1,5 +1,5 @@
 /**
- * @cond doxygen-libsbml-internal
+ * @cond doxygenLibsbmlInternal
  *
  * @file    MathMLBase.cpp
  * @brief   Base class for MathML Constraints.
@@ -31,7 +31,7 @@
 
 #include "MathMLBase.h"
 
-/** @cond doxygen-ignored */
+/** @cond doxygenIgnored */
 
 using namespace std;
 

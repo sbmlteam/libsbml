@@ -73,7 +73,7 @@ class LIBSBML_EXTERN CompModelPlugin : public CompSBasePlugin
 {
 protected:
 
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
   ListOfSubmodels  mListOfSubmodels;
   ListOfPorts      mListOfPorts;
   std::string      mDivider;
@@ -114,7 +114,7 @@ public:
   virtual CompModelPlugin* clone () const;
 
 
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
   /**
    * @return the SBML object corresponding to next XMLToken in the
    * XMLInputStream or NULL if the token was not recognized.
@@ -123,7 +123,7 @@ public:
   /** @endcond */
 
 
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
   virtual void writeElements (XMLOutputStream& stream) const;
   /** @endcond */
 
@@ -408,7 +408,7 @@ public:
   std::string getDivider();
 
 
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
   /**
    * Sets the parent SBMLDocument of this plugin object.
    *
@@ -424,7 +424,7 @@ public:
   /** @endcond */
 
 
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
   /**
    * Sets the *parent* of this SBML object to child SBML objects (if any).
    * (Creates a child-parent relationship by the parent)
@@ -436,7 +436,7 @@ public:
   /** @endcond */
 
 
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
   /**
    * Sets the parent SBML object of this SBML object.
    * (Creates a child-parent relationship by the child)
@@ -450,7 +450,7 @@ public:
   void connectToParent (SBase* parent);
   /** @endcond */
 
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
   /**
    * Enables/Disables the given package with child elements in this plugin
    * object (if any).
@@ -468,7 +468,7 @@ public:
   /** @endcond */
 
 
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
 
   virtual bool accept(SBMLVisitor& v) const;
 
@@ -549,7 +549,7 @@ public:
    */
   virtual int performReplacementsAndConversions();
 
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
   virtual void findUniqueSubmodPrefixes(std::vector<std::string>& submodids, List* allElements);
   virtual void renameIDs(List* allElements, const std::string& prefix);
   virtual void resetPorts();

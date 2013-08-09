@@ -1,5 +1,5 @@
 /**
- * @cond doxygen-libsbml-internal
+ * @cond doxygenLibsbmlInternal
  *
  * @file    UniqueIdsInKineticLaw.cpp
  * @brief   Ensures the ids for all Parameters in a KineticLaw are unique
@@ -34,7 +34,7 @@
 
 #include "UniqueIdsInKineticLaw.h"
 
-/** @cond doxygen-ignored */
+/** @cond doxygenIgnored */
 
 using namespace std;
 

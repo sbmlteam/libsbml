@@ -210,7 +210,7 @@ static ParentMap mParent;
 class LIBSBML_EXTERN SBO
 {
 public:
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
 
   /**
    * Reads (and checks) sboTerm from the given XMLAttributes set.
@@ -676,7 +676,7 @@ public:
 
 
 protected:  
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
 
  /**
    * Returns @c true if the given term identifier comes from the stated branch of %SBO.

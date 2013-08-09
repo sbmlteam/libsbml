@@ -38,7 +38,7 @@
 #include <sbml/xml/XMLNode.h>
 #include <sbml/Model.h>
 
-/** @cond doxygen-ignored */
+/** @cond doxygenIgnored */
 
 using namespace std;
 
@@ -467,7 +467,7 @@ ASTNode::canonicalize ()
   return found;
 }
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 /*
  * Internal helper function for canonicalize().
  */
@@ -495,7 +495,7 @@ ASTNode::canonicalizeConstant ()
 /** @endcond */
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 /*
  * Internal helper function for canonicalize().
  */
@@ -545,7 +545,7 @@ ASTNode::canonicalizeFunction ()
 /** @endcond */
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 /*
  * Internal helper function for canonicalize().
  */
@@ -641,7 +641,7 @@ ASTNode::canonicalizeFunctionL1 ()
 /** @endcond */
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 /*
  * Internal helper function for canonicalize().
  */
@@ -669,7 +669,7 @@ ASTNode::canonicalizeLogical ()
 /** @endcond */
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 /*
  * Internal helper function for canonicalize().
  */
@@ -1975,7 +1975,7 @@ ASTNode::renameUnitSIdRefs(const std::string& oldid, const std::string& newid)
 }
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 LIBSBML_EXTERN
 void 
 ASTNode::replaceIDWithFunction(const std::string& id, const ASTNode* function)
@@ -1994,7 +1994,7 @@ ASTNode::replaceIDWithFunction(const std::string& id, const ASTNode* function)
 /** @endcond */
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 LIBSBML_EXTERN
 void ASTNode::multiplyTimeBy(const ASTNode* function)
 {
@@ -2079,7 +2079,7 @@ ASTNode::unsetUnits ()
 }
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 /**
   * Sets the flag indicating that this ASTNode has semantics attached
   */
@@ -2092,7 +2092,7 @@ ASTNode::setSemanticsFlag()
 /** @endcond */
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 /**
   * Unsets the flag indicating that this ASTNode has semantics attached
   */
@@ -2113,7 +2113,7 @@ ASTNode::unsetSemanticsFlag()
 /** @endcond */
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 /**
   * gets the flag indicating that this ASTNode has semantics attached
   */
@@ -2125,7 +2125,7 @@ ASTNode::getSemanticsFlag() const
 /** @endcond */
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 /**
   * sets the definitionURL attributes
   */
@@ -2380,7 +2380,7 @@ ASTNode::reduceToBinary()
 }
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 LIBSBML_EXTERN
 void 
 ASTNode::setParentSBMLObject(SBase * sb)
@@ -3888,7 +3888,7 @@ ASTNode_isWellFormedASTNode(ASTNode_t* node)
   return static_cast <int> (node->isWellFormedASTNode());
 }
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 /*
  * Internal utility function used in some language binding code.
  */

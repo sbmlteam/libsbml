@@ -45,7 +45,7 @@
 #include <sbml/Model.h>
 #include <sbml/AlgebraicRule.h>
 
-/** @cond doxygen-ignored */
+/** @cond doxygenIgnored */
 
 using namespace std;
 
@@ -118,7 +118,7 @@ AlgebraicRule::hasRequiredAttributes() const
 
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 
 /*
  * sets the mInternalIdOnly flag

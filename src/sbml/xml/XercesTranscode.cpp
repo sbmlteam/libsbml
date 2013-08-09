@@ -30,7 +30,7 @@
 #include <xercesc/util/TransService.hpp>
 #include <xercesc/util/XMLString.hpp>
 
-/** @cond doxygen-ignored */
+/** @cond doxygenIgnored */
 
 using namespace std;
 using namespace xercesc;
@@ -40,7 +40,7 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 /** @endcond */
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 
 /**
  * convert the given internal XMLCh* string to the UTF-8 char* string.

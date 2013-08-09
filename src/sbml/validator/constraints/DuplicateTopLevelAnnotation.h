@@ -1,5 +1,5 @@
 /**
- * @cond doxygen-libsbml-internal
+ * @cond doxygenLibsbmlInternal
  *
  * @file    DuplicateTopLevelAnnotation.h
  * @brief   Checks for duplicate top level annotations

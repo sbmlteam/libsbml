@@ -1,5 +1,5 @@
 /**
- * @cond doxygen-libsbml-internal
+ * @cond doxygenLibsbmlInternal
  *
  * @file    ModelingPracticeValidator.cpp
  * @brief   Performs checks on an SBML model for good practice

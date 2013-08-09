@@ -33,7 +33,7 @@
 
 #include <sbml/common/extern.h>
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 BEGIN_C_DECLS
@@ -256,7 +256,7 @@ double util_epsilon();
 LIBSBML_EXTERN
 int util_isEqual(double a, double b);
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 
 /*
  * Function prototypes to supress gcc compiler warnings about implicit

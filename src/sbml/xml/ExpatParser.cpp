@@ -40,7 +40,7 @@
 
 #include <sbml/compress/CompressCommon.h>
 
-/** @cond doxygen-ignored */
+/** @cond doxygenIgnored */
 
 using namespace std;
 
@@ -49,7 +49,7 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 /** @endcond */
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 
 static const int BUFFER_SIZE = 8192;
 

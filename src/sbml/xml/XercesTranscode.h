@@ -44,7 +44,7 @@ typedef XMLSize_t    XercesSize_t;
 typedef XMLFileLoc   XercesFileLoc;
 #endif
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 
 /**
  * Transcodes a Xerces-C++ XMLCh* string to the UTF8 string.  This

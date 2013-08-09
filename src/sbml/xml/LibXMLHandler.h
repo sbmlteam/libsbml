@@ -37,7 +37,7 @@ class LibXMLAttributes;
 class LibXMLNamespaces;
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 
 class LibXMLHandler
 {

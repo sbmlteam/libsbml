@@ -1,5 +1,5 @@
 /**
- * @cond doxygen-libsbml-internal
+ * @cond doxygenLibsbmlInternal
  *
  * @file    PiecewiseValueMathCheck.cpp
  * @brief   Ensures types returned by branches of a piecewise are consistent.
@@ -43,7 +43,7 @@
 
 #include "PiecewiseValueMathCheck.h"
 
-/** @cond doxygen-ignored */
+/** @cond doxygenIgnored */
 
 using namespace std;
 

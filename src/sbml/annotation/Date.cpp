@@ -32,7 +32,7 @@
 #include <sbml/SBase.h>
 #include <cstdio>
 
-/** @cond doxygen-ignored */
+/** @cond doxygenIgnored */
 
 using namespace std;
 
@@ -427,7 +427,7 @@ Date::setDateAsString (const std::string& date)
 
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 /*
  * returns the date in numbers as a W3CDTF string
  */
@@ -496,7 +496,7 @@ Date::parseDateNumbersToString()
 /** @endcond */
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 void
 Date::parseDateStringToNumbers()
 {

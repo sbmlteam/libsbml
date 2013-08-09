@@ -376,7 +376,7 @@ ExternalModelDefinition::getElementName () const
 }
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 void
 ExternalModelDefinition::addExpectedAttributes(ExpectedAttributes& attributes)
 {
@@ -389,7 +389,7 @@ ExternalModelDefinition::addExpectedAttributes(ExpectedAttributes& attributes)
 }
 /** @endcond */
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 void
 ExternalModelDefinition::readAttributes (const XMLAttributes& attributes,
                           const ExpectedAttributes& expectedAttributes)
@@ -525,7 +525,7 @@ ExternalModelDefinition::readAttributes (const XMLAttributes& attributes,
 }
 /** @endcond */
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 void
 ExternalModelDefinition::writeAttributes (XMLOutputStream& stream) const
 {
@@ -551,7 +551,7 @@ ExternalModelDefinition::writeAttributes (XMLOutputStream& stream) const
 }
 /** @endcond */
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 void
 ExternalModelDefinition::writeElements (XMLOutputStream& stream) const
 {
@@ -568,7 +568,7 @@ ExternalModelDefinition::getTypeCode () const
   return SBML_COMP_EXTERNALMODELDEFINITION;
 }
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 
 bool
 ExternalModelDefinition::accept (SBMLVisitor& v) const

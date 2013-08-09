@@ -160,7 +160,7 @@ public:
 
 
 protected:
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
 
   /**
    * Creates a new XMLParser.  The parser will notify the given XMLHandler

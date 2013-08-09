@@ -266,7 +266,7 @@ public:
 
 
 protected:
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
 
   SBMLDocument *   mDocument;
   ConversionProperties *mProps;
@@ -276,7 +276,7 @@ protected:
 
 
 private:
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
 
 
   /** @endcond */

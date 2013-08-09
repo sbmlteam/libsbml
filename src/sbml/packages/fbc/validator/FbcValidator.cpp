@@ -37,7 +37,7 @@
 #include <sbml/packages/fbc/common/FbcExtensionTypes.h>
 #include <sbml/SBMLReader.h>
 
-/** @cond doxygen-ignored */
+/** @cond doxygenIgnored */
 
 using namespace std;
 

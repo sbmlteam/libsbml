@@ -1,5 +1,5 @@
 /**
- * @cond doxygen-libsbml-internal
+ * @cond doxygenLibsbmlInternal
  *
  * @file    LogicalArgsMathCheck.cpp
  * @brief   Ensures arguments to logical operators are consistent.
@@ -43,7 +43,7 @@
 
 #include "LogicalArgsMathCheck.h"
 
-/** @cond doxygen-ignored */
+/** @cond doxygenIgnored */
 
 using namespace std;
 

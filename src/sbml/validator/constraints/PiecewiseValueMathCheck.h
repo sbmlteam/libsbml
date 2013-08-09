@@ -1,5 +1,5 @@
 /**
- * @cond doxygen-libsbml-internal
+ * @cond doxygenLibsbmlInternal
  *
  * @file    PiecewiseValueMathCheck.h
  * @brief   Ensures types returned by branches of a piecewise are consistent.

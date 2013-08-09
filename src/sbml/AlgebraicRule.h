@@ -206,7 +206,7 @@ public:
   virtual bool accept (SBMLVisitor& v) const;
 
 
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
 
   /**
    * sets the mInternalIdOnly flag
@@ -234,7 +234,7 @@ public:
 
 
 protected:
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
 
   bool mInternalIdOnly;
 

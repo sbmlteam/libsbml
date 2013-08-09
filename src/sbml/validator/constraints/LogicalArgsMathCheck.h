@@ -1,5 +1,5 @@
 /**
- * @cond doxygen-libsbml-internal
+ * @cond doxygenLibsbmlInternal
  *
  * @file    LogicalArgsMathCheck.h
  * @brief   Ensures arguments to logical operators are consistent.

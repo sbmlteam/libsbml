@@ -202,7 +202,7 @@ public:
   bool writeSBML (const SBMLDocument* d, std::ostream& stream);
 
 
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
 
   /**
    * Writes the given SBML document to an in-memory string and returns a
@@ -309,7 +309,7 @@ public:
 
 
  protected:
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
 
   std::string mProgramName;
   std::string mProgramVersion;

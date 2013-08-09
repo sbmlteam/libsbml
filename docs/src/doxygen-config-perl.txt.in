@@ -99,7 +99,7 @@ PREDEFINED             = __cplusplus  \
 #   notcpp:   not C++
 #   notclike: not C or C++
 
-ENABLED_SECTIONS       = perl notclike doxygen-perl-only 
+ENABLED_SECTIONS       = perl notclike doxygenPerlOnly 
 
 BRIEF_MEMBER_DESC      = YES
 

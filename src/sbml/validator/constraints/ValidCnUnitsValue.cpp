@@ -1,5 +1,5 @@
 /**
- * @cond doxygen-libsbml-internal
+ * @cond doxygenLibsbmlInternal
  *
  * @file    ValidCnUnitsValue.cpp
  * @brief   Ensures units values are valid.
@@ -43,7 +43,7 @@
 
 #include "ValidCnUnitsValue.h"
 
-/** @cond doxygen-ignored */
+/** @cond doxygenIgnored */
 
 using namespace std;
 

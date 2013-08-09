@@ -101,7 +101,7 @@ RECURSIVE              = NO
 #   notcpp:   not C++
 #   notclike: not C or C++
 
-ENABLED_SECTIONS       = csharp notclike notcpp doxygen-csharp-only
+ENABLED_SECTIONS       = csharp notclike notcpp doxygenCsharpOnly
 
 # Ignore some symbols from the output
 #

@@ -45,7 +45,7 @@
 #include <sbml/Model.h>
 #include <sbml/RateRule.h>
 
-/** @cond doxygen-ignored */
+/** @cond doxygenIgnored */
 
 using namespace std;
 

@@ -1,5 +1,5 @@
 /**
- * @cond doxygen-libsbml-internal
+ * @cond doxygenLibsbmlInternal
  *
  * @file    UniqueIdsForUnitDefinitions.h
  * @brief   Ensures the ids for all UnitDefinitions in a Model are unique

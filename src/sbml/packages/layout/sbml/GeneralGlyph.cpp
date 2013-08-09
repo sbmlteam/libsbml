@@ -834,7 +834,7 @@ GeneralGlyph::createObject (XMLInputStream& stream)
 }
 /** @endcond */
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 void
 GeneralGlyph::addExpectedAttributes(ExpectedAttributes& attributes)
 {
@@ -844,7 +844,7 @@ GeneralGlyph::addExpectedAttributes(ExpectedAttributes& attributes)
 }
 /** @endcond */
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 void GeneralGlyph::readAttributes (const XMLAttributes& attributes,
                                     const ExpectedAttributes& expectedAttributes)
 {
@@ -963,7 +963,7 @@ void GeneralGlyph::readAttributes (const XMLAttributes& attributes,
 }
 /** @endcond */
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 void
 GeneralGlyph::writeElements (XMLOutputStream& stream) const
 {
@@ -979,7 +979,7 @@ GeneralGlyph::writeElements (XMLOutputStream& stream) const
 }
 /** @endcond */
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 void GeneralGlyph::writeAttributes (XMLOutputStream& stream) const
 {
   GraphicalObject::writeAttributes(stream);
@@ -1136,7 +1136,7 @@ ListOfReferenceGlyphs::remove (const std::string& sid)
 }
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 SBase*
 ListOfReferenceGlyphs::createObject (XMLInputStream& stream)
 {

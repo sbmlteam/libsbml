@@ -240,7 +240,7 @@ public:
   void transferFrom(List* list);
 
 protected:
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
 
   unsigned int size;
   ListNode*    head;

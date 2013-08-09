@@ -1066,7 +1066,7 @@ public:
   EventAssignment* removeEventAssignment (const std::string& variable);
 
 
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
   /**
    * Sets the parent SBMLDocument of this SBML object.
    *
@@ -1143,7 +1143,7 @@ public:
   virtual const std::string& getElementName () const;
 
 
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
   /**
    * Subclasses should override this method to write out their contained
    * SBML objects as XML elements.  Be sure to call your parents
@@ -1153,7 +1153,7 @@ public:
   /** @endcond */
 
 
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
   /**
    * sets the mInternalIdOnly flag
    */
@@ -1184,7 +1184,7 @@ public:
 
 
 protected:
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
 
   /**
    * @return the SBML object corresponding to next XMLToken in the
@@ -1462,7 +1462,7 @@ public:
   virtual Event* remove (const std::string& sid);
 
 
- /** @cond doxygen-libsbml-internal */
+ /** @cond doxygenLibsbmlInternal */
 
   /**
    * Get the ordinal position of this element in the containing object
@@ -1483,7 +1483,7 @@ public:
 
 
 protected:
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
 
   /**
    * @return the SBML object corresponding to next XMLToken in the

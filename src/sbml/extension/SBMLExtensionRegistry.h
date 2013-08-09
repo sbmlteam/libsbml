@@ -48,7 +48,7 @@ class LIBSBML_EXTERN SBMLExtensionRegistry
 public:
 
 #ifndef SWIG
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
 
   //
   // typedef for SBasePluginCreatorBase
@@ -289,7 +289,7 @@ private:
   
   static bool registered;
 
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
  
   SBMLExtensionMap  mSBMLExtensionMap;
   SBasePluginMap    mSBasePluginMap;

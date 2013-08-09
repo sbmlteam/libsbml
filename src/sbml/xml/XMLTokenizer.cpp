@@ -30,7 +30,7 @@
 #include <sbml/xml/XMLToken.h>
 #include <sbml/xml/XMLTokenizer.h>
 
-/** @cond doxygen-ignored */
+/** @cond doxygenIgnored */
 
 using namespace std;
 
@@ -38,7 +38,7 @@ using namespace std;
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 
 /*
  * Creates a new XMLTokenizer.

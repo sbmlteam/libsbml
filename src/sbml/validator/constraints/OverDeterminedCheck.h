@@ -1,5 +1,5 @@
 /**
- * @cond doxygen-libsbml-internal
+ * @cond doxygenLibsbmlInternal
  *
  * @file    OverDeterminedCheck.h
  * @brief   Checks for over determined models.

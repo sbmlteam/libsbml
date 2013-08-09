@@ -1,5 +1,5 @@
 /**
- * @cond doxygen-libsbml-internal
+ * @cond doxygenLibsbmlInternal
  *
  * @file    UniqueVarsInInitialAssignmentsAndRules.h
  * @brief   Ensures unique variables assigned by rules and events

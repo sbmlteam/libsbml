@@ -339,7 +339,7 @@ public:
 
 #ifndef SWIG
 
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
   /**
    * Takes the contents of the passed-in Model, makes copies of everything, and appends those copies to the appropriate places in this Model.  Only called from Model::appendFrom, and is intended to be extended for packages that add new things to the Model object.
    *
@@ -350,7 +350,7 @@ public:
   /** @endcond */
 
 
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
   /**
    * Subclasses must override this method to create, store, and then
    * return an SBML object corresponding to the next XMLToken in the
@@ -363,7 +363,7 @@ public:
   /** @endcond */
 
 
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
   /**
    * Subclasses should override this method to read (and store) XHTML,
    * MathML, etc. directly from the XMLInputStream if the target elements
@@ -376,7 +376,7 @@ public:
   /** @endcond */
 
 
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
   /**
    * Synchronizes the annotation of this SBML object.
    *
@@ -389,7 +389,7 @@ public:
   /** @endcond */
 
 
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
   /** 
    * Parse L2 annotation if supported
    *
@@ -398,7 +398,7 @@ public:
   /** @endcond */
 
 
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
   /**
    * Subclasses must override this method to write out their contained
    * SBML objects as XML elements if they have their specific elements.
@@ -407,7 +407,7 @@ public:
   /** @endcond */
 
 
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
   /** 
    * Checks if this plugin object has all the required elements.
    *
@@ -429,7 +429,7 @@ public:
   // ----------------------------------------------------------
 
 
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
   /**
    * Subclasses should override this method to get the list of
    * expected attributes if they have their specific attributes.
@@ -440,7 +440,7 @@ public:
   /** @endcond */
 
 
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
   /**
    * Subclasses must override this method to read values from the given
    * XMLAttributes if they have their specific attributes.
@@ -450,7 +450,7 @@ public:
   /** @endcond */
 
 
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
   /**
    * Subclasses must override this method to write their XML attributes
    * to the XMLOutputStream if they have their specific attributes.
@@ -459,7 +459,7 @@ public:
   /** @endcond */
 
 
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
   /* 
    * Checks if this plugin object has all the required attributes .
    *
@@ -473,7 +473,7 @@ public:
   /** @endcond */
 
 
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
   /**
    * Subclasses should override this method to write required xmlns attributes
    * to the XMLOutputStream (if any). 
@@ -495,7 +495,7 @@ public:
   //
   // ---------------------------------------------------------
 
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
   /**
    * Sets the parent SBMLDocument of this plugin object.
    *
@@ -511,7 +511,7 @@ public:
   /** @endcond */
 
 
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
   /**
    * Sets the parent SBML object of this plugin object to
    * this object and child elements (if any).
@@ -532,7 +532,7 @@ public:
   /** @endcond */
 
 
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
   /**
    * Enables/Disables the given package with child elements in this plugin 
    * object (if any).
@@ -551,7 +551,7 @@ public:
   /** @endcond */
 
 
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
   virtual bool stripPackage(const std::string& pkgPrefix, bool flag);
   /** @endcond */
 
@@ -662,7 +662,7 @@ public:
   unsigned int getPackageVersion() const;
 
 
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
   /**
    * If this object has a child 'math' object (or anything with ASTNodes in general), replace all nodes with the name 'id' with the provided function. 
    *
@@ -672,7 +672,7 @@ public:
   /** @endcond */
 
 
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
   /**
    * If the function of this object is to assign a value has a child 'math' object (or anything with ASTNodes in general), replace  the 'math' object with the function (existing/function).  
    *
@@ -681,32 +681,32 @@ public:
   virtual void divideAssignmentsToSIdByFunction(const std::string& id, const ASTNode* function);
   /** @endcond */
 
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
   /**
    * If this assignment assigns a value to the 'id' element, replace the 'math' object with the function (existing*function). 
    */
   virtual void multiplyAssignmentsToSIdByFunction(const std::string& id, const ASTNode* function);
   /** @endcond */
 
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
   /**
    * Check to see if the given prefix is used by any of the IDs defined by extension elements.  A package that defines its own 'id' attribute for a core element would check that attribute here.
    */
   virtual bool hasIdentifierBeginningWith(const std::string& prefix);
   /** @endcond */
 
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
   /**
    * Add the given string to all identifiers in the object.  If the string is added to anything other than an id or a metaid, this code is responsible for tracking down and renaming all *idRefs in the package extention that identifier comes from.
    */
   virtual int prependStringToAllIdentifiers(const std::string& prefix);
   /** @endcond */
 
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
   virtual int transformIdentifiers(IdentifierTransformer* sidTransformer);
   /** @endcond */
   
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
   /**
    * Returns the line number on which this object first appears in the XML
    * representation of the SBML document.
@@ -733,7 +733,7 @@ public:
   unsigned int getLine() const;
   /** @endcond */
 
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
   /**
    * Returns the column number on which this object first appears in the XML
    * representation of the SBML document.
@@ -760,7 +760,7 @@ public:
   unsigned int getColumn() const;
   /** @endcond */
 
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
   /* gets the SBMLnamespaces - internal use only*/
   virtual SBMLNamespaces * getSBMLNamespaces() const;
   /** @endcond */
@@ -771,7 +771,7 @@ public:
   //
   // ------------------------------------------------
 
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
   /**
    * Helper to log a common type of error for elements.
    */
@@ -784,7 +784,7 @@ public:
 
 
 protected:
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
   /**
    * Constructor. Creates an SBasePlugin object with the URI and 
    * prefix of an package extension.

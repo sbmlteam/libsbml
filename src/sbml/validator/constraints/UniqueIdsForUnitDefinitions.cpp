@@ -1,5 +1,5 @@
 /**
- * @cond doxygen-libsbml-internal
+ * @cond doxygenLibsbmlInternal
  *
  * @file    UniqueIdsForUnitDefinitions.cpp
  * @brief   Ensures the ids for all UnitDefinitions in a Model are unique
@@ -32,7 +32,7 @@
 
 #include "UniqueIdsForUnitDefinitions.h"
 
-/** @cond doxygen-ignored */
+/** @cond doxygenIgnored */
 
 using namespace std;
 

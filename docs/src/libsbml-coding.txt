@@ -113,14 +113,14 @@ such away as to keep things to 79 characters.
 not advertised to users of the library.  To make Doxygen ignore blocks of
 code, wrap the code with the comment
 @verbatim
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 @endverbatim
 at the beginning and 
 @verbatim
-/** @endcond doxygen-libsbml-internal */
+/** @endcond doxygenLibsbmlInternal */
 @endverbatim
 at the end of the block.  (Explanation: this sets up a conditional that
-will only be "seen" by Doxygen if the symbol "doxygen-libsbml-internal" is
+will only be "seen" by Doxygen if the symbol "doxygenLibsbmlInternal" is
 defined.  Since it's never defined in the Doxygen configuration, it will
 the block will be ignored.)
 

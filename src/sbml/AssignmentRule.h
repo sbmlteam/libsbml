@@ -276,7 +276,7 @@ public:
 
 
 protected:
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
 
   /* the validator classes need to be friends to access the 
    * protected constructor that takes no arguments

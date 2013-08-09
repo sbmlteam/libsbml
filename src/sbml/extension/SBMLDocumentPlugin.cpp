@@ -103,7 +103,7 @@ SBMLDocumentPlugin::clone () const
 // ------------------------------------------------
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 
 /**
  * Subclasses should override this method to get the list of

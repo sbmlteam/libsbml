@@ -143,7 +143,7 @@ ASTNode_t *
 SBML_parseFormula (const char *formula);
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 
 #ifndef SWIG
 

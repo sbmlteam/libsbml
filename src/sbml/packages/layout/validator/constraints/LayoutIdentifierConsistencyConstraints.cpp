@@ -1,4 +1,4 @@
-	/** @cond doxygen-libsbml-internal */
+	/** @cond doxygenLibsbmlInternal */
 
 /**
  * @file:   LayoutIdentifierConsistencyConstraints.cpp
@@ -40,7 +40,7 @@
 
 #include <sbml/validator/ConstraintMacros.h>
 
-/** @cond doxygen-ignored */
+/** @cond doxygenIgnored */
 
 using namespace std;
 
@@ -52,6 +52,6 @@ EXTERN_CONSTRAINT(LayoutDuplicateComponentId, UniqueIdsLayout);
 // 10302 - caught at read
 
 
-	/** @endcond doxygen-libsbml-internal */
+	/** @endcond doxygenLibsbmlInternal */
 
 

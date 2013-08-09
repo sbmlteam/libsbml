@@ -28,7 +28,7 @@
 #include <sbml/xml/XercesTranscode.h>
 #include <sbml/xml/XercesAttributes.h>
 
-/** @cond doxygen-ignored */
+/** @cond doxygenIgnored */
 
 using namespace std;
 using namespace xercesc;
@@ -38,7 +38,7 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 /** @endcond */
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 
 /**
  * Creates a new XMLAttributes set that wraps the given "raw" Xerces-C++

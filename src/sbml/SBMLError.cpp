@@ -36,7 +36,7 @@
 #include <sbml/extension/SBMLExtensionRegistry.h>
 
 
-/** @cond doxygen-ignored */
+/** @cond doxygenIgnored */
 
 using namespace std;
 
@@ -44,7 +44,7 @@ using namespace std;
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
-/** @cond doxygen-libsbml-internal **/
+/** @cond doxygenLibsbmlInternal **/
 /** 
  * Helper function for SBMLError().  Takes an index, SBML level and version,
  * and returns the appropriate field for the severity code out of the
@@ -393,7 +393,7 @@ SBMLError::SBMLError(const SBMLError& orig) :
 }
 
 
-/** @cond doxygen-libsbml-internal **/
+/** @cond doxygenLibsbmlInternal **/
 /*
  * clone function
  */
@@ -405,7 +405,7 @@ SBMLError::clone() const
 /** @endcond **/
 
 
-/** @cond doxygen-libsbml-internal **/
+/** @cond doxygenLibsbmlInternal **/
 /*
  * Outputs this SBMLError to stream in the following format (and followed by
  * a newline):
@@ -433,7 +433,7 @@ SBMLError::print(ostream& s) const
 /** @endcond **/
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 void
 SBMLError::adjustErrorId(unsigned int offset)
 {

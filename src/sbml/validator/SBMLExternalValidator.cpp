@@ -1,5 +1,5 @@
 /**
- * @cond doxygen-libsbml-internal
+ * @cond doxygenLibsbmlInternal
  *
  * @file    SBMLExternalValidator.cpp
  * @brief   Implementation of SBMLExternalValidator, a validator calling external programs
@@ -351,7 +351,7 @@ SBMLExternalValidator::getArgument(unsigned int n) const
 
 
 
-/** @cond doxygen-c-only */
+/** @cond doxygenCOnly */
 
 
 

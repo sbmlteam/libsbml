@@ -40,7 +40,7 @@ using namespace std;
 LIBSBML_CPP_NAMESPACE_BEGIN
 
   
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 void SBMLStripPackageConverter::init()
 {
   SBMLStripPackageConverter converter;
@@ -173,7 +173,7 @@ SBMLStripPackageConverter::convert()
 }
   
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 std::string 
 SBMLStripPackageConverter::getPackageToStrip()
 {
@@ -189,7 +189,7 @@ SBMLStripPackageConverter::getPackageToStrip()
 /** @endcond */
 
 
-/** @cond doxygen-c-only */
+/** @cond doxygenCOnly */
 
 
 /** @endcond */

@@ -130,7 +130,7 @@ ListOfModelDefinitions::getElementName () const
 }
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 SBase*
 ListOfModelDefinitions::createObject (XMLInputStream& stream)
 {
@@ -149,7 +149,7 @@ ListOfModelDefinitions::createObject (XMLInputStream& stream)
 }
 /** @endcond */
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 void 
 ListOfModelDefinitions::writeXMLNS (XMLOutputStream& stream) const
 {

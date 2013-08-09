@@ -34,7 +34,7 @@
 #include <sbml/xml/XMLAttributes.h>
 #include <sbml/xml/XMLConstructorException.h>
 
-/** @cond doxygen-ignored */
+/** @cond doxygenIgnored */
 
 using namespace std;
 
@@ -42,7 +42,7 @@ using namespace std;
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
-/** @cond doxygen-libsbml-internal **/
+/** @cond doxygenLibsbmlInternal **/
 
 static const xmlErrorTableEntry errorTable[] =
 {
@@ -477,7 +477,7 @@ XMLError::~XMLError ()
 }
 
 
-/** @cond doxygen-libsbml-internal **/
+/** @cond doxygenLibsbmlInternal **/
 /*
  * Clone function.
  */
@@ -740,7 +740,7 @@ XMLError::getStandardMessage (const int code)
 }
 
 
-/** @cond doxygen-libsbml-internal **/
+/** @cond doxygenLibsbmlInternal **/
 /*
  * @return the severity as a string for the given @n code.
  */
@@ -754,7 +754,7 @@ std::string XMLError::stringForSeverity(unsigned int code) const
 /** @endcond **/
 
 
-/** @cond doxygen-libsbml-internal **/
+/** @cond doxygenLibsbmlInternal **/
 /*
  * @return the category as a string for the given @n code.
  */
@@ -768,7 +768,7 @@ std::string XMLError::stringForCategory(unsigned int code) const
 /** @endcond **/
 
 
-/** @cond doxygen-libsbml-internal **/
+/** @cond doxygenLibsbmlInternal **/
 /*
  * Prints this XMLError to stream @p s in the following format (and followed
  * by a newline):
@@ -809,7 +809,7 @@ ostream& operator<< (ostream& s, const XMLError& error)
 }
 
 
-/** @cond doxygen-c-only */
+/** @cond doxygenCOnly */
 
 
 /**

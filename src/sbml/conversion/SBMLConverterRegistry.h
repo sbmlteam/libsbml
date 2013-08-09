@@ -148,7 +148,7 @@ public:
   virtual ~SBMLConverterRegistry();
 
 protected:
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
 
   /** 
    * protected constructor, use the getInstance() method to access the registry.
@@ -158,7 +158,7 @@ protected:
 
 
 protected: 
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
   std::vector<const SBMLConverter*>  mConverters;
   /** @endcond */
 };

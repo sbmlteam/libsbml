@@ -27,7 +27,7 @@
 
 #include <sbml/xml/ExpatAttributes.h>
 
-/** @cond doxygen-ignored */
+/** @cond doxygenIgnored */
 
 using namespace std;
 
@@ -36,7 +36,7 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 /** @endcond */
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 
 /**
  * Creates a new XMLAttributes set from the given "raw" Expat attributes.

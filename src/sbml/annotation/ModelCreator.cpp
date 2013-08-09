@@ -32,7 +32,7 @@
 #include <sbml/SBase.h>
 #include <cstdio>
 
-/** @cond doxygen-ignored */
+/** @cond doxygenIgnored */
 
 using namespace std;
 
@@ -377,7 +377,7 @@ ModelCreator::unsetOrganisation()
   return unsetOrganization();
 }
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 XMLNode *
 ModelCreator::getAdditionalRDF()
 {
@@ -404,7 +404,7 @@ ModelCreator::hasRequiredAttributes()
 }
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 bool
 ModelCreator::hasBeenModified()
 {
@@ -413,7 +413,7 @@ ModelCreator::hasBeenModified()
 /** @endcond */
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 void
 ModelCreator::resetModifiedFlags()
 {

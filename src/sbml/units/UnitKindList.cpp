@@ -1,5 +1,5 @@
 /**
- * @cond doxygen-libsbml-internal
+ * @cond doxygenLibsbmlInternal
  *
  * @file    UnitKindList.cpp
  * @brief   Maintains a list of UnitKinds. 

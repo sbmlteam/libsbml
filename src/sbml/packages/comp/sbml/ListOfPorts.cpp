@@ -131,7 +131,7 @@ ListOfPorts::getElementName () const
 }
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 SBase*
 ListOfPorts::createObject (XMLInputStream& stream)
 {
@@ -150,7 +150,7 @@ ListOfPorts::createObject (XMLInputStream& stream)
 }
 /** @endcond */
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 void 
 ListOfPorts::writeXMLNS (XMLOutputStream& stream) const
 {

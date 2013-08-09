@@ -1,5 +1,5 @@
 /**
- * @cond doxygen-libsbml-internal
+ * @cond doxygenLibsbmlInternal
  *
  * @file    ExponentUnitsCheck.h
  * @brief   Ensures units consistent with math

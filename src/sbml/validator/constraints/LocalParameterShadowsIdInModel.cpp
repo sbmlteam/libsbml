@@ -1,5 +1,5 @@
 /**
- * @cond doxygen-libsbml-internal
+ * @cond doxygenLibsbmlInternal
  *
  * @file    LocalParameterShadowsIdInModel.cpp
  * @brief   Checks whether local parameters are shadowing another id
@@ -35,7 +35,7 @@
 #include "LocalParameterShadowsIdInModel.h"
 #include <sbml/util/IdList.h>
 
-/** @cond doxygen-ignored */
+/** @cond doxygenIgnored */
 
 using namespace std;
 

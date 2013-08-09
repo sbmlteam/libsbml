@@ -39,7 +39,7 @@
 #include <sbml/math/ASTNode.h>
 #include <sbml/math/MathML.h>
 
-/** @cond doxygen-ignored */
+/** @cond doxygenIgnored */
 
 using namespace std;
 
@@ -47,7 +47,7 @@ using namespace std;
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 
 //static const int SBML_INT_MAX = 2147483647;
 //static const int SBML_INT_MIN = -2147483647 - 1;

@@ -1452,7 +1452,7 @@ Layout::getElementName () const
 }
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 SBase*
 Layout::createObject (XMLInputStream& stream)
 {
@@ -1526,7 +1526,7 @@ Layout::createObject (XMLInputStream& stream)
 }
 /** @endcond */
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 void
 Layout::addExpectedAttributes(ExpectedAttributes& attributes)
 {
@@ -1537,7 +1537,7 @@ Layout::addExpectedAttributes(ExpectedAttributes& attributes)
 }
 /** @endcond */
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 void
 Layout::readAttributes (const XMLAttributes& attributes,
                         const ExpectedAttributes& expectedAttributes)
@@ -1641,7 +1641,7 @@ Layout::readAttributes (const XMLAttributes& attributes,
 }
 /** @endcond */
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 void
 Layout::writeAttributes (XMLOutputStream& stream) const
 {
@@ -1661,7 +1661,7 @@ Layout::writeAttributes (XMLOutputStream& stream) const
 }
 /** @endcond */
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 void
 Layout::writeElements (XMLOutputStream& stream) const
 {
@@ -1917,7 +1917,7 @@ ListOfLayouts::resetElementNamespace(const std::string& uri)
 
 }
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 SBase*
 ListOfLayouts::createObject (XMLInputStream& stream)
 {
@@ -1937,7 +1937,7 @@ ListOfLayouts::createObject (XMLInputStream& stream)
 }
 /** @endcond */
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 void 
 ListOfLayouts::writeXMLNS (XMLOutputStream& stream) const
 {
@@ -2088,7 +2088,7 @@ ListOfCompartmentGlyphs::getElementName () const
 }
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 SBase*
 ListOfCompartmentGlyphs::createObject (XMLInputStream& stream)
 {
@@ -2239,7 +2239,7 @@ ListOfSpeciesGlyphs::getElementName () const
 }
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 SBase*
 ListOfSpeciesGlyphs::createObject (XMLInputStream& stream)
 {
@@ -2387,7 +2387,7 @@ ListOfReactionGlyphs::remove (const std::string& sid)
 }
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 SBase*
 ListOfReactionGlyphs::createObject (XMLInputStream& stream)
 {
@@ -2535,7 +2535,7 @@ ListOfTextGlyphs::remove (const std::string& sid)
 }
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 SBase*
 ListOfTextGlyphs::createObject (XMLInputStream& stream)
 {

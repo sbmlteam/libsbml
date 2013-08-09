@@ -1,5 +1,5 @@
 /**
- * @cond doxygen-libsbml-internal
+ * @cond doxygenLibsbmlInternal
  *
  * @file    UniqueIdsInKineticLaw.h
  * @brief   Ensures the ids for all Parameters in a KineticLaw are unique

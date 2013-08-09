@@ -1,5 +1,5 @@
 /**
- * @cond doxygen-libsbml-internal
+ * @cond doxygenLibsbmlInternal
  *
  * @file    CiElementMathCheck.cpp
  * @brief   checks <ci> element is the id of a component
@@ -44,7 +44,7 @@
 
 #include "CiElementMathCheck.h"
 
-/** @cond doxygen-ignored */
+/** @cond doxygenIgnored */
 
 using namespace std;
 

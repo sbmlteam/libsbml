@@ -1,5 +1,5 @@
 /**
- * @cond doxygen-libsbml-internal
+ * @cond doxygenLibsbmlInternal
  *
  * @file    IdentifierTransformer.cpp
  * @brief   Implementation of the base class of all Identifier Transformers

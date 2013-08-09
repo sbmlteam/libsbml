@@ -40,7 +40,7 @@ OPTIMIZE_OUTPUT_FOR_C  = YES
 # The ENABLED_SECTIONS tag can be used to enable conditional 
 # documentation sections, marked by \if sectionname ... \endif.
 
-ENABLED_SECTIONS       = doxygen-c-only doxygen-clike-only notcpp
+ENABLED_SECTIONS       = doxygenCOnly doxygenCLikeOnly notcpp
 
 # When TYPEDEF_HIDES_STRUCT is enabled, a typedef of a struct, union, or enum
 # is documented as struct, union, or enum with the name of the typedef. So

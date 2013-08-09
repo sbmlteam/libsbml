@@ -35,7 +35,7 @@
 #include <sbml/compress/CompressCommon.h>
 #include <sbml/compress/InputDecompressor.h>
 
-/** @cond doxygen-ignored */
+/** @cond doxygenIgnored */
 
 using namespace std;
 
@@ -43,7 +43,7 @@ using namespace std;
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 
 /*
  * Creates a XMLBuffer based on the given file.  The file will be opened

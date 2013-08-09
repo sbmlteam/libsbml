@@ -224,7 +224,7 @@ Replacing::renameSIdRefs(std::string oldid, std::string newid)
   SBaseRef::renameSIdRefs(oldid, newid);
 }
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 void
 Replacing::addExpectedAttributes(ExpectedAttributes& attributes)
 {
@@ -234,7 +234,7 @@ Replacing::addExpectedAttributes(ExpectedAttributes& attributes)
 }
 /** @endcond */
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 void
 Replacing::readAttributes (const XMLAttributes& attributes,
                                  const ExpectedAttributes& expectedAttributes)
@@ -271,7 +271,7 @@ Replacing::readAttributes (const XMLAttributes& attributes,
 }
 /** @endcond */
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 void
 Replacing::writeAttributes (XMLOutputStream& stream) const
 {
@@ -284,7 +284,7 @@ Replacing::writeAttributes (XMLOutputStream& stream) const
 }
 /** @endcond */
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 void
 Replacing::writeElements (XMLOutputStream& stream) const
 {
@@ -305,7 +305,7 @@ Replacing::accept (SBMLVisitor& v) const
 }
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 /*
  * Sets the parent SBMLDocument of this SBML object.
  */
@@ -317,7 +317,7 @@ Replacing::setSBMLDocument (SBMLDocument* d)
 /** @endcond */
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 /*
  * Sets this SBML object to child SBML objects (if any).
  * (Creates a child-parent relationship by the parent)
@@ -330,7 +330,7 @@ Replacing::connectToChild()
 /** @endcond */
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 int 
 Replacing::replaceWithAndMaybeDelete(SBase* replacement, bool deleteme, ASTNode* conversionFactor)
 {

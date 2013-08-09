@@ -237,7 +237,7 @@ FbcSpeciesPlugin::unsetChemicalFormula()
   return LIBSBML_OPERATION_SUCCESS;
 }
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 /*
 * Sets the parent SBMLDocument of this SBML object.
 *
@@ -251,7 +251,7 @@ void
 /** @endcond */
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 void
 FbcSpeciesPlugin::addExpectedAttributes(ExpectedAttributes& attributes)
 {
@@ -266,7 +266,7 @@ FbcSpeciesPlugin::addExpectedAttributes(ExpectedAttributes& attributes)
 }
 /** @endcond */
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 void 
 FbcSpeciesPlugin::readAttributes (const XMLAttributes& attributes,
                                              const ExpectedAttributes& expectedAttributes)
@@ -316,7 +316,7 @@ FbcSpeciesPlugin::readAttributes (const XMLAttributes& attributes,
 }
 /** @endcond */
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 void 
 FbcSpeciesPlugin::writeAttributes (XMLOutputStream& stream) const
 {
@@ -342,7 +342,7 @@ FbcSpeciesPlugin::writeAttributes (XMLOutputStream& stream) const
 
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 /*
 * Sets the parent SBML object of this plugin object to
 * this object and child elements (if any).
@@ -357,7 +357,7 @@ void
 /** @endcond */
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 /*
 * Enables/Disables the given package with child elements in this plugin
 * object (if any).

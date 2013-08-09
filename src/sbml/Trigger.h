@@ -359,7 +359,7 @@ public:
   int setPersistent (bool persistent);
 
 #if (0)
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
 
   /**
    * Sets the parent SBMLDocument of this SBML object.
@@ -432,7 +432,7 @@ public:
   virtual void renameUnitSIdRefs(std::string oldid, std::string newid);
 
 
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
   /**
    * Replace all nodes with the name 'id' from the child 'math' object with the provided function. 
    *
@@ -441,7 +441,7 @@ public:
   /** @endcond */
 
 
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
   /**
    * Returns the position of this element.
    * 
@@ -452,7 +452,7 @@ public:
   /** @endcond */
 
 
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
   /**
    * Subclasses should override this method to write out their contained
    * SBML objects as XML elements.  Be sure to call your parents
@@ -504,7 +504,7 @@ public:
 
 
 protected:
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
 
   /**
    * Subclasses should override this method to read (and store) XHTML,

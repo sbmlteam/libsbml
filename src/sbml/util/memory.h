@@ -1,5 +1,5 @@
 /**
- * @cond doxygen-libsbml-internal
+ * @cond doxygenLibsbmlInternal
  *
  * @file    memory.h
  * @brief   Safe (c|m)alloc(), free() and trace functions

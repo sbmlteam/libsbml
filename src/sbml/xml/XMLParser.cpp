@@ -43,7 +43,7 @@
 #include <sbml/xml/XMLErrorLog.h>
 #include <sbml/xml/XMLParser.h>
 
-/** @cond doxygen-ignored */
+/** @cond doxygenIgnored */
 
 using namespace std;
 

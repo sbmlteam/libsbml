@@ -199,7 +199,7 @@ public:
   virtual SBMLNamespaces* getSBMLExtensionNamespaces(const std::string &uri) const;
 
 
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
   /**
    * Initializes layout extension by creating an object of this class with 
    * required SBasePlugin derived objects and registering the object 
@@ -254,7 +254,7 @@ public:
    */
   virtual bool isInUse(SBMLDocument *doc) const;
 
-	/** @cond doxygen-libsbml-internal */
+	/** @cond doxygenLibsbmlInternal */
 
 	/**
 	 * Return the entry in the error table at this index. 
@@ -266,10 +266,10 @@ public:
 	virtual packageErrorTableEntry getErrorTable(unsigned int index) const;
 
 
-	/** @endcond doxygen-libsbml-internal */
+	/** @endcond doxygenLibsbmlInternal */
 
 
-	/** @cond doxygen-libsbml-internal */
+	/** @cond doxygenLibsbmlInternal */
 
 	/**
 	 * Return the index in the error table with the given errorId. 
@@ -281,10 +281,10 @@ public:
 	virtual unsigned int getErrorTableIndex(unsigned int errorId) const;
 
 
-	/** @endcond doxygen-libsbml-internal */
+	/** @endcond doxygenLibsbmlInternal */
 
 
-	/** @cond doxygen-libsbml-internal */
+	/** @cond doxygenLibsbmlInternal */
 
 	/**
 	 * Return the offset for the errorId range for the layout L3 package. 
@@ -294,7 +294,7 @@ public:
 	virtual unsigned int getErrorIdOffset() const;
 
 
-	/** @endcond doxygen-libsbml-internal */
+	/** @endcond doxygenLibsbmlInternal */
 
 };
 

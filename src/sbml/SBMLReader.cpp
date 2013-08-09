@@ -39,7 +39,7 @@
 #include <sbml/compress/CompressCommon.h>
 #include <sbml/compress/InputDecompressor.h>
 
-/** @cond doxygen-ignored */
+/** @cond doxygenIgnored */
 
 using namespace std;
 
@@ -174,7 +174,7 @@ SBMLReader::hasBzip2()
 }
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 static bool
 isCriticalError(const unsigned int errorId)
 {
@@ -207,7 +207,7 @@ isCriticalError(const unsigned int errorId)
 /** @endcond */
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 /*
  * Used by readSBML() and readSBMLFromString().
  */
@@ -319,7 +319,7 @@ SBMLReader::readInternal (const char* content, bool isFile)
 /** @endcond */
 
 
-/** @cond doxygen-c-only */
+/** @cond doxygenCOnly */
 
 
 /**

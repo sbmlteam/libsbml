@@ -738,7 +738,7 @@ public:
   virtual const std::string& getElementName () const;
 
 
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
   /**
    * Subclasses should override this method to write out their contained
    * SBML objects as XML elements.  Be sure to call your parents
@@ -770,7 +770,7 @@ public:
 
 
 protected:
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
 
 
   /**
@@ -1044,7 +1044,7 @@ public:
   virtual Parameter* remove (const std::string& sid);
 
 
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
 
   /**
    * Gets the ordinal position of this element in the containing object
@@ -1065,7 +1065,7 @@ public:
 
 
 protected:
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
 
   /**
    * Create a ListOfParameters object corresponding to the next token in

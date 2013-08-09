@@ -198,7 +198,7 @@ bool directoryExists( const char* path )
 }
 #endif
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 bool
 SBMLFileResolver::fileExists(const std::string& fileName)
 {
@@ -236,7 +236,7 @@ SBMLFileResolver::addAdditionalDir(const std::string& dir)
   mAdditionalDirs.push_back(dir);
 }
 
-/** @cond doxygen-c-only */
+/** @cond doxygenCOnly */
 
 
 /** @endcond */

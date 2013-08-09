@@ -65,7 +65,7 @@ class LIBSBML_EXTERN XMLConstructorException : public std::invalid_argument
 {
 public:
 
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
 
   /* constructor */
   XMLConstructorException (std::string 

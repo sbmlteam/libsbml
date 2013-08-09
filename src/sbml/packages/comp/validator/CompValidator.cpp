@@ -36,7 +36,7 @@
 #include <sbml/packages/comp/validator/CompValidator.h>
 #include <sbml/packages/comp/common/CompExtensionTypes.h>
 #include <sbml/SBMLTypes.h>
-/** @cond doxygen-ignored */
+/** @cond doxygenIgnored */
 
 using namespace std;
 

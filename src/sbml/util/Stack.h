@@ -1,5 +1,5 @@
 /**
- * @cond doxygen-libsbml-internal
+ * @cond doxygenLibsbmlInternal
  *
  * @file    Stack.h
  * @brief   Generic (void *) Stack for C structs on the heap

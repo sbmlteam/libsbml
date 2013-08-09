@@ -2741,7 +2741,7 @@ public:
   virtual void renameUnitSIdRefs(std::string oldid, std::string newid);
 
 
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
 
   /**
    * Predicate returning @c true if the
@@ -2759,7 +2759,7 @@ public:
   /** @endcond */
 
 
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
 
 
  /**************************************************************
@@ -3002,7 +3002,7 @@ public:
   virtual const std::string& getElementName () const;
 
 
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
 
   /**
    * @return the ordinal position of the element with respect to its
@@ -3058,7 +3058,7 @@ public:
   bool isPopulatedListFormulaUnitsData();
 
 
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
 
   /**
    * Adds a copy of the given FormulaUnitsData object to this Model.
@@ -3567,7 +3567,7 @@ public:
   virtual int appendFrom(const Model* model);
 
 
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
   /**
    * Enables/Disables the given package with this element and child elements
    * (if any).  (This is an internal implementation for enablePackage
@@ -3581,7 +3581,7 @@ public:
 
 
 protected:
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
 
   /**
    * Subclasses should override this method to read (and store) XHTML,
@@ -3691,7 +3691,7 @@ protected:
 
   private:
 
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
 
   /**
    * Internal function used in populateListFormulaUnitsData

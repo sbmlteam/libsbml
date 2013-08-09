@@ -61,7 +61,7 @@
 #ifdef __cplusplus
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 
 #include <list>
 #include <string>
@@ -146,7 +146,7 @@ public:
 
 
 protected:
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
 
 
   CompValidatorConstraints* mCompConstraints;

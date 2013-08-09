@@ -1,5 +1,5 @@
 /**
- * @cond doxygen-libsbml-internal
+ * @cond doxygenLibsbmlInternal
  *
  * @file    FunctionDefinitionVars.cpp
  * @brief   Ensures FunctionDefinitions contain no undefined variables.
@@ -34,7 +34,7 @@
 
 #include "FunctionDefinitionVars.h"
 
-/** @cond doxygen-ignored */
+/** @cond doxygenIgnored */
 
 using namespace std;
 

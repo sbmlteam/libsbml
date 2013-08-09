@@ -63,7 +63,7 @@
 #line 52 "L3Parser.ypp"
 
 
- /** @cond doxygen-libsbml-internal */
+ /** @cond doxygenLibsbmlInternal */
 
 
 /* Line 349 of yacc.c  */
@@ -2798,7 +2798,7 @@ L3ParserSettings L3Parser::getDefaultL3ParserSettings()
 LIBSBML_CPP_NAMESPACE_BEGIN
 BEGIN_C_DECLS
 
-/** @cond doxygen-c-only */
+/** @cond doxygenCOnly */
 /**
  * Parses the given mathematical formula and returns a representation of it
  * as an Abstract Syntax Tree (AST).

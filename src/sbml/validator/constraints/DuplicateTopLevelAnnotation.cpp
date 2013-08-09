@@ -1,5 +1,5 @@
 /**
- * @cond doxygen-libsbml-internal
+ * @cond doxygenLibsbmlInternal
  *
  * @file    DuplicateTopLevelAnnotation.cpp
  * @brief   Checks for duplicate top level annotations
@@ -35,7 +35,7 @@
 
 #include "DuplicateTopLevelAnnotation.h"
 
-/** @cond doxygen-ignored */
+/** @cond doxygenIgnored */
 
 using namespace std;
 

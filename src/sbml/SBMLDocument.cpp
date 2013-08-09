@@ -56,7 +56,7 @@
 
 #include <sbml/util/ElementFilter.h>
 
-/** @cond doxygen-ignored */
+/** @cond doxygenIgnored */
 
 using namespace std;
 
@@ -195,7 +195,7 @@ SBMLDocument::SBMLDocument (SBMLNamespaces* sbmlns) :
   //
 }
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 
 
   unsigned int SBMLDocument::getNumValidators() const
@@ -399,7 +399,7 @@ SBMLDocument::getAllElements(ElementFilter *filter)
 }
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 unsigned char
 SBMLDocument::getApplicableValidators() const
 {
@@ -408,7 +408,7 @@ SBMLDocument::getApplicableValidators() const
 /** @endcond */
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 unsigned char
 SBMLDocument::getConversionValidators() const
 {
@@ -417,7 +417,7 @@ SBMLDocument::getConversionValidators() const
 /** @endcond */
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 void
 SBMLDocument::setApplicableValidators(unsigned char appl)
 {
@@ -426,7 +426,7 @@ SBMLDocument::setApplicableValidators(unsigned char appl)
 /** @endcond */
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 void
 SBMLDocument::setConversionValidators(unsigned char appl)
 {
@@ -494,7 +494,7 @@ SBMLDocument::setLevelAndVersion (unsigned int level, unsigned int version,
 }
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 void 
 SBMLDocument::updateSBMLNamespace(const std::string& package, unsigned int level, 
                             unsigned int version)
@@ -931,7 +931,7 @@ SBMLDocument::printErrors (std::ostream& stream) const
   getErrorLog()->printErrors(stream);
 }
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 
 /*
  * Sets the parent SBMLDocument of this SBML object.
@@ -998,7 +998,7 @@ SBMLDocument::getElementName () const
 }
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 /*
  * @return the ordinal position of the element with respect to its siblings
  * or -1 (default) to indicate the position is not significant.
@@ -1011,7 +1011,7 @@ SBMLDocument::getElementPosition () const
 /** @endcond */
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 /*
  * @return the SBML object corresponding to next XMLToken in the
  * XMLInputStream or @c NULL if the token was not recognized.
@@ -1267,7 +1267,7 @@ SBMLDocument::isIgnoredPkg(const std::string& pkgURI)
   return isIgnoredPackage(pkgURI);
 }
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 
 /*
  * Subclasses should override this method to get the list of
@@ -1585,7 +1585,7 @@ SBMLDocument::readAttributes (const XMLAttributes& attributes,
 /** @endcond */
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 /*
  * Subclasses should override this method to write their XML attributes
  * to the XMLOutputStream.  Be sure to call your parents implementation
@@ -1722,7 +1722,7 @@ SBMLDocument::writeXMLNS (XMLOutputStream& stream) const
 /** @endcond */
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 /*
  * Subclasses should override this method to write out their contained
  * SBML objects as XML elements.  Be sure to call your parents
@@ -1788,7 +1788,7 @@ SBMLDocument::enablePackageInternal(const std::string& pkgURI, const std::string
 
 
 
-/** @cond doxygen-c-only */
+/** @cond doxygenCOnly */
 
 
 

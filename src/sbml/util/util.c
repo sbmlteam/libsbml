@@ -58,7 +58,7 @@
 #define __DBL_EPSILON__ DBL_EPSILON
 #endif
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 

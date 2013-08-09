@@ -103,7 +103,7 @@ CompSBMLDocumentPlugin::~CompSBMLDocumentPlugin ()
 }
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 SBase*
 CompSBMLDocumentPlugin::createObject(XMLInputStream& stream)
 {
@@ -170,7 +170,7 @@ CompSBMLDocumentPlugin::createObject(XMLInputStream& stream)
 }
 /** @endcond */
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 void
 CompSBMLDocumentPlugin::writeElements (XMLOutputStream& stream) const
 {
@@ -225,7 +225,7 @@ CompSBMLDocumentPlugin::getAllElements(ElementFilter *filter)
 }
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 void
 CompSBMLDocumentPlugin::addExpectedAttributes(ExpectedAttributes& attributes)
 {
@@ -239,7 +239,7 @@ CompSBMLDocumentPlugin::addExpectedAttributes(ExpectedAttributes& attributes)
 }
 /** @endcond */
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 void 
 CompSBMLDocumentPlugin::readAttributes (const XMLAttributes& attributes,
                                         const ExpectedAttributes& expectedAttributes)
@@ -584,7 +584,7 @@ CompSBMLDocumentPlugin::setRequired(bool required)
 }
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 void 
 CompSBMLDocumentPlugin::setSBMLDocument (SBMLDocument* d)
 {
@@ -596,7 +596,7 @@ CompSBMLDocumentPlugin::setSBMLDocument (SBMLDocument* d)
 /** @endcond */
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 void
 CompSBMLDocumentPlugin::connectToChild()
 {
@@ -605,7 +605,7 @@ CompSBMLDocumentPlugin::connectToChild()
 /** @endcond */
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 void
 CompSBMLDocumentPlugin::connectToParent (SBase* sbase)
 {
@@ -616,7 +616,7 @@ CompSBMLDocumentPlugin::connectToParent (SBase* sbase)
 /** @endcond */
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 /*
  * Enables/Disables the given package with child elements in this plugin
  * object (if any).
@@ -939,7 +939,7 @@ CompSBMLDocumentPlugin::checkConsistency(bool overrideFlattening)
   return total_errors;  
 }
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 
 bool 
 CompSBMLDocumentPlugin::accept(SBMLVisitor& v) const

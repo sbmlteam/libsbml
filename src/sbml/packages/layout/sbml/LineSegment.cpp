@@ -444,7 +444,7 @@ LineSegment::clone () const
 }
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 SBase*
 LineSegment::createObject (XMLInputStream& stream)
 {
@@ -480,7 +480,7 @@ LineSegment::createObject (XMLInputStream& stream)
 }
 /** @endcond */
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 void
 LineSegment::addExpectedAttributes(ExpectedAttributes& attributes)
 {
@@ -489,7 +489,7 @@ LineSegment::addExpectedAttributes(ExpectedAttributes& attributes)
 }
 /** @endcond */
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 void LineSegment::readAttributes (const XMLAttributes& attributes,
                                   const ExpectedAttributes& expectedAttributes)
 {
@@ -613,7 +613,7 @@ LineSegment::writeElements (XMLOutputStream& stream) const
 }
 /** @endcond */
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 void LineSegment::writeAttributes (XMLOutputStream& stream) const
 {
   SBase::writeAttributes(stream);

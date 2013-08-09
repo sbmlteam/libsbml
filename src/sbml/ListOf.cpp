@@ -34,7 +34,7 @@
 #include <sbml/common/common.h>
 #include <sbml/util/ElementFilter.h>
 
-/** @cond doxygen-ignored */
+/** @cond doxygenIgnored */
 
 using namespace std;
 
@@ -420,7 +420,7 @@ ListOf::size () const
 }
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 /*
  * Enables/Disables the given package with this element and child
  * elements (if any).
@@ -464,7 +464,7 @@ struct SetParentSBMLObject : public unary_function<SBase*, void>
   void operator() (SBase* sbase) { sbase->connectToParent(sb); }
 };
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 
 /*
  * Sets the parent SBMLDocument of this SBML object.
@@ -536,7 +536,7 @@ struct Write : public unary_function<SBase*, void>
 };
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 /*
  * Subclasses should override this method to write out their contained
  * SBML objects as XML elements.  Be sure to call your parents
@@ -555,7 +555,7 @@ ListOf::writeElements (XMLOutputStream& stream) const
 }
 /** @endcond */
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 /**
  * Subclasses should override this method to get the list of
  * expected attributes.
@@ -606,7 +606,7 @@ ListOf::writeAttributes (XMLOutputStream& stream) const
 
 
 
-/** @cond doxygen-c-only */
+/** @cond doxygenCOnly */
 
 
 /**

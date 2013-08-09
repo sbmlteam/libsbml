@@ -1,5 +1,5 @@
 /**
- * @cond doxygen-libsbml-internal
+ * @cond doxygenLibsbmlInternal
  *
  * @file    UniqueIdBase.cpp
  * @brief   Base class for unique id constraints
@@ -31,7 +31,7 @@
 
 #include "UniqueIdBase.h"
 
-/** @cond doxygen-ignored */
+/** @cond doxygenIgnored */
 
 using namespace std;
 

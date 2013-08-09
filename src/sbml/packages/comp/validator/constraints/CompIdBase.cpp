@@ -1,5 +1,5 @@
 /**
- * @cond doxygen-libsbml-internal
+ * @cond doxygenLibsbmlInternal
  *
  * @file    CompIdBase.cpp
  * @brief   Base class for Id constraints
@@ -34,7 +34,7 @@
 #include <sbml/AssignmentRule.h>
 #include <sbml/RateRule.h>
 
-/** @cond doxygen-ignored */
+/** @cond doxygenIgnored */
 
 using namespace std;
 

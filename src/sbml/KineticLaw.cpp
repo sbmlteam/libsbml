@@ -45,7 +45,7 @@
 
 #include <sbml/util/ElementFilter.h>
 
-/** @cond doxygen-ignored */
+/** @cond doxygenIgnored */
 
 using namespace std;
 
@@ -1003,7 +1003,7 @@ KineticLaw::removeLocalParameter (const std::string& sid)
 }
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 
 /*
  * Sets the parent SBMLDocument of this SBML object.
@@ -1147,7 +1147,7 @@ KineticLaw::renameUnitSIdRefs(std::string oldid, std::string newid)
   if (mSubstanceUnits == oldid) mSubstanceUnits = newid;
 }
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 void 
 KineticLaw::replaceSIDWithFunction(const std::string& id, const ASTNode* function)
 {
@@ -1163,7 +1163,7 @@ KineticLaw::replaceSIDWithFunction(const std::string& id, const ASTNode* functio
 }
 /** @endcond */
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 void 
 KineticLaw::divideAssignmentsToSIdByFunction(const std::string& id, const ASTNode* function)
 {
@@ -1178,7 +1178,7 @@ KineticLaw::divideAssignmentsToSIdByFunction(const std::string& id, const ASTNod
 }
 /** @endcond */
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 void 
 KineticLaw::multiplyAssignmentsToSIdByFunction(const std::string& id, const ASTNode* function)
 {
@@ -1194,7 +1194,7 @@ KineticLaw::multiplyAssignmentsToSIdByFunction(const std::string& id, const ASTN
 /** @endcond */
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 /*
  * @return the ordinal position of the element with respect to its siblings
  * or -1 (default) to indicate the position is not significant.
@@ -1207,7 +1207,7 @@ KineticLaw::getElementPosition () const
 /** @endcond */
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 /*
  * Subclasses should override this method to write out their contained
  * SBML objects as XML elements.  Be sure to call your parents
@@ -1231,7 +1231,7 @@ KineticLaw::writeElements (XMLOutputStream& stream) const
 /** @endcond */
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 /*
  * @return the SBML object corresponding to next XMLToken in the
  * XMLInputStream or @c NULL if the token was not recognized.
@@ -1267,7 +1267,7 @@ KineticLaw::createObject (XMLInputStream& stream)
 /** @endcond */
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 /*
  * Subclasses should override this method to read (and store) XHTML,
  * MathML, etc. directly from the XMLInputStream.
@@ -1339,7 +1339,7 @@ KineticLaw::readOtherXML (XMLInputStream& stream)
 /** @endcond */
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 /**
  * Subclasses should override this method to get the list of
  * expected attributes.
@@ -1408,7 +1408,7 @@ KineticLaw::readAttributes (const XMLAttributes& attributes,
 /** @endcond */
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 /*
  * Subclasses should override this method to read values from the given
  * XMLAttributes set into their specific fields.  Be sure to call your
@@ -1436,7 +1436,7 @@ KineticLaw::readL1Attributes (const XMLAttributes& attributes)
 /** @endcond */
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 /*
  * Subclasses should override this method to read values from the given
  * XMLAttributes set into their specific fields.  Be sure to call your
@@ -1471,7 +1471,7 @@ KineticLaw::readL2Attributes (const XMLAttributes& attributes)
 /** @endcond */
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 /*
  * Subclasses should override this method to read values from the given
  * XMLAttributes set into their specific fields.  Be sure to call your
@@ -1484,7 +1484,7 @@ KineticLaw::readL3Attributes (const XMLAttributes& attributes)
 /** @endcond */
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 /*
  * Subclasses should override this method to write their XML attributes
  * to the XMLOutputStream.  Be sure to call your parents implementation
@@ -1556,7 +1556,7 @@ KineticLaw::writeAttributes (XMLOutputStream& stream) const
 /** @endcond */
 
 
-/** @cond doxygen-c-only */
+/** @cond doxygenCOnly */
 
 
 /**

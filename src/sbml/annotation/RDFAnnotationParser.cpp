@@ -43,7 +43,7 @@
 #include <sbml/annotation/Date.h>
 #include <sbml/annotation/RDFAnnotation.h>
 
-/** @cond doxygen-ignored */
+/** @cond doxygenIgnored */
 
 using namespace std;
 
@@ -162,7 +162,7 @@ RDFAnnotationParser::parseRDFAnnotation(
   }
 }
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 
 
 /*
@@ -308,7 +308,7 @@ RDFAnnotationParser::parseRDFAnnotation(
 
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 
 
 /*
@@ -448,7 +448,7 @@ RDFAnnotationParser::createRDFDescription(const SBase *object)
 }
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 
 XMLNode * 
 RDFAnnotationParser::createRDFDescription(const std::string & metaid)
@@ -516,7 +516,7 @@ RDFAnnotationParser::parseCVTerms(const SBase * object)
 }
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 
 XMLNode * 
 RDFAnnotationParser::createRDFDescriptionWithCVTerms(const SBase * object)
@@ -708,7 +708,7 @@ RDFAnnotationParser::parseOnlyModelHistory(const SBase *object)
   return ann;
 }
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 
 XMLNode * 
 RDFAnnotationParser::createRDFDescriptionWithHistory(const SBase * object)
@@ -1203,7 +1203,7 @@ RDFAnnotationParser::deleteRDFCVTermAnnotation(const XMLNode * annotation)
 }
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 
   
 bool 
@@ -1368,7 +1368,7 @@ RDFAnnotationParser::hasHistoryRDFAnnotation(const XMLNode *annotation)
 
   /** @endcond */
 
-/** @cond doxygen-c-only */
+/** @cond doxygenCOnly */
 
 /**
   * Parses an annotation (given as an XMLNode_t tree) into a list of

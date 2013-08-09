@@ -1,5 +1,5 @@
 /**
- * @cond doxygen-libsbml-internal
+ * @cond doxygenLibsbmlInternal
  *
  * @file    UniqueReplacedReferences.h
  * @brief   Ensures the appropriate ids within a Model are unique

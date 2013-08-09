@@ -598,7 +598,7 @@ ReactionGlyph::clone () const
 }
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 SBase*
 ReactionGlyph::createObject (XMLInputStream& stream)
 {
@@ -636,7 +636,7 @@ ReactionGlyph::createObject (XMLInputStream& stream)
 }
 /** @endcond */
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 void
 ReactionGlyph::addExpectedAttributes(ExpectedAttributes& attributes)
 {
@@ -646,7 +646,7 @@ ReactionGlyph::addExpectedAttributes(ExpectedAttributes& attributes)
 }
 /** @endcond */
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 void ReactionGlyph::readAttributes (const XMLAttributes& attributes,
                                     const ExpectedAttributes& expectedAttributes)
 {
@@ -764,7 +764,7 @@ void ReactionGlyph::readAttributes (const XMLAttributes& attributes,
 }
 /** @endcond */
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 void
 ReactionGlyph::writeElements (XMLOutputStream& stream) const
 {
@@ -793,7 +793,7 @@ ReactionGlyph::writeElements (XMLOutputStream& stream) const
 }
 /** @endcond */
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 void ReactionGlyph::writeAttributes (XMLOutputStream& stream) const
 {
   GraphicalObject::writeAttributes(stream);
@@ -950,7 +950,7 @@ ListOfSpeciesReferenceGlyphs::remove (const std::string& sid)
 }
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 SBase*
 ListOfSpeciesReferenceGlyphs::createObject (XMLInputStream& stream)
 {
@@ -970,7 +970,7 @@ ListOfSpeciesReferenceGlyphs::createObject (XMLInputStream& stream)
 }
 /** @endcond */
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 XMLNode ListOfSpeciesReferenceGlyphs::toXML() const
 {
   return getXmlNodeForSBase(this);

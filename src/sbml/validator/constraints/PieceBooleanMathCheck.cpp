@@ -1,5 +1,5 @@
 /**
- * @cond doxygen-libsbml-internal
+ * @cond doxygenLibsbmlInternal
  *
  * @file    PieceBooleanMathCheck.cpp
  * @brief   Ensures piecewise piece element returns boolean.
@@ -43,7 +43,7 @@
 
 #include "PieceBooleanMathCheck.h"
 
-/** @cond doxygen-ignored */
+/** @cond doxygenIgnored */
 
 using namespace std;
 

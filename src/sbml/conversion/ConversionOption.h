@@ -373,7 +373,7 @@ public:
 
 
 protected: 
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
 
   std::string mKey;
   std::string mValue;

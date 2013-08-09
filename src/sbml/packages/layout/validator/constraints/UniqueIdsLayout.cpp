@@ -1,5 +1,5 @@
 /**
- * @cond doxygen-libsbml-internal
+ * @cond doxygenLibsbmlInternal
  *
  * @file    UniqueIdsLayout.cpp
  * @brief   Base class for Id constraints
@@ -32,7 +32,7 @@
 #include <sbml/packages/layout/extension/LayoutExtension.h>
 #include <sbml/packages/layout/sbml/GeneralGlyph.h>
 
-/** @cond doxygen-ignored */
+/** @cond doxygenIgnored */
 
 using namespace std;
 

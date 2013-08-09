@@ -167,7 +167,7 @@ ReplacedBy::updateIDs(SBase* oldnames, SBase* newnames)
 }
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 
 bool
 ReplacedBy::accept (SBMLVisitor& v) const

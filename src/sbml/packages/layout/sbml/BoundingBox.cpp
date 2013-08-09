@@ -632,7 +632,7 @@ BoundingBox::clone () const
 }
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 SBase*
 BoundingBox::createObject (XMLInputStream& stream)
 {
@@ -665,7 +665,7 @@ BoundingBox::createObject (XMLInputStream& stream)
 }
 /** @endcond */
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 void
 BoundingBox::addExpectedAttributes(ExpectedAttributes& attributes)
 {
@@ -675,7 +675,7 @@ BoundingBox::addExpectedAttributes(ExpectedAttributes& attributes)
 }
 /** @endcond */
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 void BoundingBox::readAttributes (const XMLAttributes& attributes,
                                   const ExpectedAttributes& expectedAttributes)
 {
@@ -736,7 +736,7 @@ void BoundingBox::readAttributes (const XMLAttributes& attributes,
 }
 /** @endcond */
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 void BoundingBox::writeAttributes (XMLOutputStream& stream) const
 {
   SBase::writeAttributes(stream);

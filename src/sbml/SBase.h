@@ -283,7 +283,7 @@ public:
   virtual void renameUnitSIdRefs(std::string oldid, std::string newid);
 
 
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
   /**
    * If this object has a child 'math' object (or anything with ASTNodes in
    * general), replace all nodes with the name 'id' with the provided
@@ -296,7 +296,7 @@ public:
   /** @endcond */
 
 
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
   /**
    * If the function of this object is to assign a value has a child 'math'
    * object (or anything with ASTNodes in general), replace the 'math'
@@ -309,7 +309,7 @@ public:
   /** @endcond */
 
 
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
   /**
    * If this assignment assigns a value to the 'id' element, replace the 'math' object with the function (existing*function). 
    */
@@ -317,7 +317,7 @@ public:
   /** @endcond */
 
 
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
   /**
    * Returns the first child element found that has the given @p id in the
    * model-wide SId namespace from all plug-ins associated with this
@@ -331,7 +331,7 @@ public:
   /** @endcond */
   
   
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
   /**
    * Returns the first child element it can find with the given @p metaid from
    * all plug-ins associated with this element, or @c NULL if no such object
@@ -345,7 +345,7 @@ public:
   /** @endcond */
 
   
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
   /**
    * Check to see if the given prefix is used by any of the IDs defined by
    * extension elements *excluding* 'id' and 'metaid' attributes (as, for
@@ -355,7 +355,7 @@ public:
   /** @endcond */
 
 
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
   /**
    * Add the given string to all identifiers in the object.  If the string
    * is added to anything other than an id or a metaid, this code is
@@ -365,7 +365,7 @@ public:
   virtual int prependStringToAllIdentifiers(const std::string& prefix);
   /** @endcond */
   
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
   virtual int transformIdentifiers(IdentifierTransformer* idTransformer);
   /** @endcond */
   
@@ -436,7 +436,7 @@ public:
   std::string& getMetaId ();
 
 
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
   /*
    * NOTE: THIS IS FOR BACKWARD COMPATABILITY REASONS
    *
@@ -483,7 +483,7 @@ public:
   /** @endcond */
 
 
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
   /*
    * NOTE: THIS IS FOR BACKWARD COMPATABILITY REASONS
    *
@@ -1224,7 +1224,7 @@ public:
   bool isSetMetaId () const;
 
 
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
   /*
    * NOTE: THIS IS FOR BACKWARD COMPATABILITY REASONS
    * Predicate returning @c true if this
@@ -1272,7 +1272,7 @@ public:
   /** @endcond */
 
 
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
   /*
    * NOTE: THIS IS FOR BACKWARD COMPATABILITY REASONS
    * Predicate returning @c true if this
@@ -1456,7 +1456,7 @@ public:
   bool isSetModelHistory();
 
 
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
   /*
    * NOTE: THIS IS FOR BACKWARD COMPATABILITY REASONS
    *
@@ -1477,7 +1477,7 @@ public:
   /** @endcond */
 
 
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
   /*
    * NOTE: THIS IS FOR BACKWARD COMPATABILITY REASONS
    * Sets the value of the "name" attribute of this SBML object to a copy
@@ -2038,7 +2038,7 @@ s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></b
   int setModelHistory(ModelHistory * history);
 
 
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
   /**
    * Sets the parent SBMLDocument of this SBML object.
    *
@@ -2053,7 +2053,7 @@ s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></b
   /** @endcond */
 
 
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
   /**
    * Sets the parent SBML object of this SBML object.
    * (Creates a child-parent relationship by the child)
@@ -2878,7 +2878,7 @@ s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></b
   int disablePackage(const std::string& pkgURI, const std::string& pkgPrefix);
   
 
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
   /**
    * Enables/Disables the given package with this element and child
    * elements (if any).
@@ -2962,7 +2962,7 @@ s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></b
   bool isPkgEnabled(const std::string& pkgName) const;
 
 
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
   /**
    * Writes out contained SBML objects of package extensions (if any)
    * as XML elements.
@@ -2974,7 +2974,7 @@ s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></b
   // ------------------------------------------------------------------
   
 
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
   /**
    * Reads (initializes) this SBML object by reading from XMLInputStream.
    */
@@ -2982,7 +2982,7 @@ s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></b
   /** @endcond */
 
 
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
   /**
    * Writes (serializes) this SBML object by writing it to XMLOutputStream.
    */
@@ -2990,7 +2990,7 @@ s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></b
   /** @endcond */
 
 
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
   /**
    * Subclasses should override this method to write out their contained
    * SBML objects as XML elements.  Be sure to call your parents
@@ -3006,7 +3006,7 @@ s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></b
   /** @endcond */
 
 
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
   /* function returns true if component has all the required
    * attributes
    * needs to be overloaded for each component
@@ -3015,7 +3015,7 @@ s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></b
   /** @endcond */
 
 
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
   /* function returns true if component has all the required
    * elements
    * needs to be overloaded for each component
@@ -3024,14 +3024,14 @@ s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></b
   /** @endcond */
 
 
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
   /* function returns value if the object matches level/version/namespace
    */
   int checkCompatibility(const SBase * object) const ;
   /** @endcond */
 
 
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
   /* sets the SBMLnamespaces - internal use only*/
   int setSBMLNamespaces(SBMLNamespaces * sbmlns);
 
@@ -3040,13 +3040,13 @@ s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></b
   /** @endcond */
 
 
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
   /* gets the SBMLnamespaces - internal use only*/
   virtual SBMLNamespaces * getSBMLNamespaces() const;
   /** @endcond */
 
 
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
   /* removes duplicate top level annotations*/
   void removeDuplicateAnnotations();
   const std::string checkMathMLNamespace(const XMLToken elem);
@@ -3188,7 +3188,7 @@ protected:
   virtual void setElementText(const std::string &text);
 
 
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
 
   bool matchesCoreSBMLNamespace(const SBase * sb);
 
@@ -3681,7 +3681,7 @@ SBase.readExtensionAttributes(attributes, expectedAttributes);
   /** @endcond */
 
 private:
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
 
   /**
    * Stores the location (line and column) and any XML namespaces (for

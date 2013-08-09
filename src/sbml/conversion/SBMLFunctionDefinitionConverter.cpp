@@ -45,7 +45,7 @@ using namespace std;
 LIBSBML_CPP_NAMESPACE_BEGIN
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 void SBMLFunctionDefinitionConverter::init()
 {
   SBMLFunctionDefinitionConverter converter;
@@ -263,7 +263,7 @@ SBMLFunctionDefinitionConverter::convert()
   
 }
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 /*
  * Predicate returning true if the errors encountered are not ignorable.
  */
@@ -297,7 +297,7 @@ SBMLFunctionDefinitionConverter::expandFD_errors(unsigned int errors)
 /** @endcond */
 
 
-/** @cond doxygen-c-only */
+/** @cond doxygenCOnly */
 
 
 /** @endcond */

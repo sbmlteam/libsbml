@@ -37,7 +37,7 @@
 #include <sbml/xml/XMLError.h>
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 

@@ -1,5 +1,5 @@
 /**
- * @cond doxygen-libsbml-internal
+ * @cond doxygenLibsbmlInternal
  *
  * @file    ArgumentsUnitsCheckWarnings.cpp
  * @brief   Ensures math units are consistent.
@@ -48,7 +48,7 @@ static const char* PREAMBLE =
     "match the units expected for the arguments of that function. "
     "(References: L2V2 Section 3.5.) ";
 
-/** @cond doxygen-ignored */
+/** @cond doxygenIgnored */
 
 using namespace std;
 

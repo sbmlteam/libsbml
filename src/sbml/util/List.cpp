@@ -353,7 +353,7 @@ List::transferFrom(List* list)
   list->size = 0;
 }
 
-/** @cond doxygen-c-only */
+/** @cond doxygenCOnly */
 
 
 /**

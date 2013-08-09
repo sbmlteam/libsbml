@@ -30,7 +30,7 @@
 #include <sbml/xml/XMLAttributes.h>
 #include <sbml/xml/XMLConstructorException.h>
 
-/** @cond doxygen-ignored */
+/** @cond doxygenIgnored */
 
 using namespace std;
 
@@ -233,7 +233,7 @@ bool operator!=(const XMLTriple& lhs, const XMLTriple& rhs)
   return !(lhs == rhs);
 }
 
-/** @cond doxygen-c-only */
+/** @cond doxygenCOnly */
 
 
 /**

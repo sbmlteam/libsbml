@@ -295,7 +295,7 @@ public:
 
 
 protected:
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
 
   virtual bool hasRequiredAttributes() const ;
 

@@ -1,5 +1,5 @@
 /**
- * @cond doxygen-libsbml-internal
+ * @cond doxygenLibsbmlInternal
  *
  * @file    L2v1CompatibilityValidator.cpp
  * @brief   Checks whether an SBML model can be converted from L2 to L1

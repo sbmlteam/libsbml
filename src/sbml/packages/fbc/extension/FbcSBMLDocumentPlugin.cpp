@@ -76,7 +76,7 @@ FbcSBMLDocumentPlugin::~FbcSBMLDocumentPlugin ()
 }
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 void 
 FbcSBMLDocumentPlugin::readAttributes (const XMLAttributes& attributes,
                             const ExpectedAttributes& expectedAttributes)
@@ -172,7 +172,7 @@ FbcSBMLDocumentPlugin::checkConsistency(bool overrideFlattening)
   return total_errors;  
 }
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 
 bool 
 FbcSBMLDocumentPlugin::accept(SBMLVisitor& v) const

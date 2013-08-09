@@ -1,4 +1,4 @@
-	/** @cond doxygen-libsbml-internal */
+	/** @cond doxygenLibsbmlInternal */
 
 /**
  * @file:   LayoutConsistencyConstraints.cpp
@@ -41,7 +41,7 @@
 
 #include <sbml/validator/ConstraintMacros.h>
 
-/** @cond doxygen-ignored */
+/** @cond doxygenIgnored */
 
 using namespace std;
 
@@ -927,6 +927,6 @@ START_CONSTRAINT (LayoutCBezAllowedElements, CubicBezier, line)
 END_CONSTRAINT
 
 
-	/** @endcond doxygen-libsbml-internal */
+	/** @endcond doxygenLibsbmlInternal */
 
 

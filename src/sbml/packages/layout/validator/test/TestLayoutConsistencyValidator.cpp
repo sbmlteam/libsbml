@@ -38,7 +38,7 @@
 #include <sbml/packages/layout/validator/LayoutIdentifierConsistencyValidator.h>
 #include <sbml/packages/layout/validator/LayoutConsistencyValidator.h>
 
-/** @cond doxygen-ignored */
+/** @cond doxygenIgnored */
 
 using namespace std;
 LIBSBML_CPP_NAMESPACE_USE

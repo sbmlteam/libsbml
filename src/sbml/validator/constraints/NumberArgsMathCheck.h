@@ -1,5 +1,5 @@
 /**
- * @cond doxygen-libsbml-internal
+ * @cond doxygenLibsbmlInternal
  *
  * @file    NumberArgsMathCheck.h
  * @brief   Ensures number of arguments to functions are appropriate.

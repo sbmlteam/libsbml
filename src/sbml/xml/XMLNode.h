@@ -153,7 +153,7 @@ else:
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 class XMLInputStream;
 class XMLOutputStream;
 /** @endcond */
@@ -240,7 +240,7 @@ public:
            , const unsigned int  column = 0 );
 
 
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
   /**
    * Creates a new XMLNode by reading XMLTokens from stream.  
    *
@@ -454,7 +454,7 @@ public:
   unsigned int getNumChildren () const;
 
 
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
   /**
    * Writes this XMLNode and its children to stream.
    *
@@ -514,7 +514,7 @@ public:
 
 #ifndef SWIG
 
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
   /**
    * Inserts this XMLNode and its children into stream.
    *
@@ -533,7 +533,7 @@ public:
 
 
 protected:
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
 
   std::vector<XMLNode> mChildren;
 

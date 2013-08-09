@@ -38,7 +38,7 @@
 
 #include <sbml/SBO.h>
 
-/** @cond doxygen-ignored */
+/** @cond doxygenIgnored */
 
 using namespace std;
 
@@ -46,7 +46,7 @@ using namespace std;
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 /*
  * @return true if sboTerm is in the correct format (a zero-padded, seven
  * digit string preceded by SBO:), false otherwise.
@@ -73,7 +73,7 @@ SBO::checkTerm (const std::string& sboTerm)
 /** @endcond */
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 /*
  * @return true if sboTerm is in the range [0 -- 9999999], false
  * otherwise.
@@ -85,7 +85,7 @@ SBO::checkTerm (int sboTerm)
 }
 /** @endcond */
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 
 /*
  * Reads (and checks) sboTerm from the given XMLAttributes set.
@@ -126,7 +126,7 @@ SBO::writeTerm (XMLOutputStream& stream, int sboTerm, const std::string& prefix)
 /** @endcond */
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 /*
  * @return the given string sboTerm as an integer.  If the sboTerm is not
  * in the correct format (a zero-padded, seven digit string), -1 is
@@ -185,7 +185,7 @@ struct GetSecond : public unary_function<const pair<const int, int>, int>
 };
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 /**
   * functions for checking the SBO term is from correct part of SBO
   * returns true if the term is-a parent, false otherwise
@@ -655,7 +655,7 @@ SBO::isObselete  (unsigned int sboTerm)
 }
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 /**
   * functions for checking the SBO term is from correct part of SBO
   * populates the parent-child map

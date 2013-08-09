@@ -1,5 +1,5 @@
 /**
- * @cond doxygen-libsbml-internal
+ * @cond doxygenLibsbmlInternal
  *
  * @file    LambdaMathCheck.h
  * @brief   Ensures a lambda function is not used outside a functionDefinition.

@@ -34,7 +34,7 @@
 
 #include <sbml/xml/XMLErrorLog.h>
 
-/** @cond doxygen-ignored */
+/** @cond doxygenIgnored */
 
 using namespace std;
 
@@ -42,7 +42,7 @@ using namespace std;
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 /*
  * Creates a new empty XMLErrorLog.
  */
@@ -54,7 +54,7 @@ XMLErrorLog::XMLErrorLog ()
 /** @endcond */
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 
 /**
  * Used by the Destructor to delete each item in mErrors.
@@ -75,7 +75,7 @@ XMLErrorLog::~XMLErrorLog ()
 /** @endcond */
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 /*
  * Logs the given XMLError.
  */
@@ -134,7 +134,7 @@ XMLErrorLog::add (const XMLError& error)
 /** @endcond */
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 /*
  * Logs (copies) the XMLErrors in the given XMLError list to this
  * XMLErrorLog.
@@ -222,7 +222,7 @@ XMLErrorLog::clearLog()
   mErrors.clear();
 }
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 /*
  * Sets the XMLParser for this XMLErrorLog.
  *
@@ -280,7 +280,7 @@ XMLErrorLog::changeErrorSeverity(XMLErrorSeverity_t originalSeverity,
   }
 }
 
-/** @cond doxygen-c-only */
+/** @cond doxygenCOnly */
 
 /**
  * Writes all errors contained in this log to a string and returns it. 

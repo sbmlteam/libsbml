@@ -418,7 +418,7 @@ GeneAssociation::getElementName () const
 }
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 SBase*
 GeneAssociation::createObject (XMLInputStream& stream)
 {
@@ -447,7 +447,7 @@ GeneAssociation::createObject (XMLInputStream& stream)
 }
 /** @endcond */
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 void
 GeneAssociation::addExpectedAttributes(ExpectedAttributes& attributes)
 {
@@ -458,7 +458,7 @@ GeneAssociation::addExpectedAttributes(ExpectedAttributes& attributes)
 }
 /** @endcond */
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 void
 GeneAssociation::readAttributes (const XMLAttributes& attributes,
                         const ExpectedAttributes& expectedAttributes)
@@ -484,7 +484,7 @@ GeneAssociation::readAttributes (const XMLAttributes& attributes,
 }
 /** @endcond */
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 void
 GeneAssociation::writeAttributes (XMLOutputStream& stream) const
 {
@@ -500,7 +500,7 @@ GeneAssociation::writeAttributes (XMLOutputStream& stream) const
 }
 /** @endcond */
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 void
 GeneAssociation::writeElements (XMLOutputStream& stream) const
 {
@@ -666,7 +666,7 @@ ListOfGeneAssociations::getElementName () const
 }
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 SBase*
 ListOfGeneAssociations::createObject (XMLInputStream& stream)
 {

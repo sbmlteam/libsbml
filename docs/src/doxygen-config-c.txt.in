@@ -52,7 +52,7 @@ OPTIMIZE_OUTPUT_FOR_C  = YES
 #   notcpp:   not C++
 #   notclike: not C or C++
 
-ENABLED_SECTIONS       = clike conly doxygen-c-only doxygen-clike-only
+ENABLED_SECTIONS       = clike conly doxygenCOnly doxygenCLikeOnly
 
 # When TYPEDEF_HIDES_STRUCT is enabled, a typedef of a struct, union, or enum
 # is documented as struct, union, or enum with the name of the typedef. So

@@ -530,7 +530,7 @@ GraphicalObject::clone () const
 }
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 SBase*
 GraphicalObject::createObject (XMLInputStream& stream)
 {
@@ -589,7 +589,7 @@ GraphicalObject::createObject (XMLInputStream& stream)
 }
 /** @endcond */
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 void
 GraphicalObject::addExpectedAttributes(ExpectedAttributes& attributes)
 {
@@ -600,7 +600,7 @@ GraphicalObject::addExpectedAttributes(ExpectedAttributes& attributes)
 }
 /** @endcond */
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 void GraphicalObject::readAttributes (const XMLAttributes& attributes,
                                       const ExpectedAttributes& expectedAttributes)
 {
@@ -870,7 +870,7 @@ void GraphicalObject::readAttributes (const XMLAttributes& attributes,
 }
 /** @endcond */
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 void
 GraphicalObject::writeElements (XMLOutputStream& stream) const
 {
@@ -885,7 +885,7 @@ GraphicalObject::writeElements (XMLOutputStream& stream) const
 }
 /** @endcond */
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 void GraphicalObject::writeAttributes (XMLOutputStream& stream) const
 {
   SBase::writeAttributes(stream);
@@ -901,7 +901,7 @@ void GraphicalObject::writeAttributes (XMLOutputStream& stream) const
 }
 /** @endcond */
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 void 
 GraphicalObject::writeXMLNS (XMLOutputStream& stream) const
 {
@@ -1120,7 +1120,7 @@ ListOfGraphicalObjects::remove (const std::string& sid)
 }
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 SBase*
 ListOfGraphicalObjects::createObject (XMLInputStream& stream)
 {

@@ -30,11 +30,11 @@
 #include <sbml/packages/layout/common/LayoutExtensionTypes.h>
 #include <sbml/packages/layout/validator/LayoutValidator.h>
 
-	/** @cond doxygen-libsbml-internal */
+	/** @cond doxygenLibsbmlInternal */
 
 using namespace std;
 
-	/** @endcond doxygen-libsbml-internal */
+	/** @endcond doxygenLibsbmlInternal */
 
 
 LIBSBML_CPP_NAMESPACE_BEGIN

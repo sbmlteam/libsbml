@@ -1,5 +1,5 @@
 /**
- * @cond doxygen-libsbml-internal
+ * @cond doxygenLibsbmlInternal
  *
  * @file    KineticLawVars.cpp
  * @brief   Ensures FunctionDefinitions contain no undefined variables.
@@ -36,7 +36,7 @@
 
 #include "KineticLawVars.h"
 
-/** @cond doxygen-ignored */
+/** @cond doxygenIgnored */
 
 using namespace std;
 

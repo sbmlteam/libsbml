@@ -263,7 +263,7 @@ SpeciesGlyph::clone () const
 }
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 SBase*
 SpeciesGlyph::createObject (XMLInputStream& stream)
 {
@@ -275,7 +275,7 @@ SpeciesGlyph::createObject (XMLInputStream& stream)
 }
 /** @endcond */
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 void
 SpeciesGlyph::addExpectedAttributes(ExpectedAttributes& attributes)
 {
@@ -285,7 +285,7 @@ SpeciesGlyph::addExpectedAttributes(ExpectedAttributes& attributes)
 }
 /** @endcond */
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 void SpeciesGlyph::readAttributes (const XMLAttributes& attributes,
                                    const ExpectedAttributes& expectedAttributes)
 {
@@ -403,7 +403,7 @@ void SpeciesGlyph::readAttributes (const XMLAttributes& attributes,
 }
 /** @endcond */
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 void SpeciesGlyph::writeElements (XMLOutputStream& stream) const
 {
   GraphicalObject::writeElements(stream);
@@ -415,7 +415,7 @@ void SpeciesGlyph::writeElements (XMLOutputStream& stream) const
 }
 /** @endcond */
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 void SpeciesGlyph::writeAttributes (XMLOutputStream& stream) const
 {
   GraphicalObject::writeAttributes(stream);

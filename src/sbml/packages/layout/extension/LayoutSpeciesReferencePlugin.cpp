@@ -90,7 +90,7 @@ LayoutSpeciesReferencePlugin::clone () const
 }
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 bool 
 LayoutSpeciesReferencePlugin::readOtherXML (SBase* parentObject, XMLInputStream& stream)
 {
@@ -171,7 +171,7 @@ LayoutSpeciesReferencePlugin::readOtherXML (SBase* parentObject, XMLInputStream&
 }
 /** @endcond */
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 void 
 LayoutSpeciesReferencePlugin::writeAttributes (XMLOutputStream& stream) const
 {

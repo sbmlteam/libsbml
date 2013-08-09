@@ -1,5 +1,5 @@
 /**
- * @cond doxygen-libsbml-internal
+ * @cond doxygenLibsbmlInternal
  *
  * @file    ElementFilter.h
  * @brief   Base class of all element filters as used by getAllElements

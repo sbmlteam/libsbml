@@ -1,5 +1,5 @@
 /**
- * @cond doxygen-libsbml-internal
+ * @cond doxygenLibsbmlInternal
  *
  * @file    NumericArgsMathCheck.cpp
  * @brief   Ensures arguments to numeric operators/functions are consistent.
@@ -43,7 +43,7 @@
 
 #include "NumericArgsMathCheck.h"
 
-/** @cond doxygen-ignored */
+/** @cond doxygenIgnored */
 
 using namespace std;
 

@@ -122,7 +122,7 @@ protected:
    */
   SBasePluginCreatorBase (const SBasePluginCreatorBase&);
 
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
 
   SupportedPackageURIList  mSupportedPackageURI;
   SBaseExtensionPoint       mTargetExtensionPoint;
@@ -131,7 +131,7 @@ protected:
 
 
 private:
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
   
   SBasePluginCreatorBase& operator=(const SBasePluginCreatorBase&);
 

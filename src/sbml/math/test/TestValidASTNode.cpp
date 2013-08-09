@@ -39,7 +39,7 @@
 #include <sbml/xml/XMLToken.h>
 #include <sbml/xml/XMLNode.h>
 
-/** @cond doxygen-ignored */
+/** @cond doxygenIgnored */
 
 using namespace std;
 LIBSBML_CPP_NAMESPACE_USE

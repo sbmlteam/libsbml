@@ -1,5 +1,5 @@
 /**
- * @cond doxygen-libsbml-internal
+ * @cond doxygenLibsbmlInternal
  *
  * @file    OverDeterminedCheck.cpp
  * @brief   Checks for over determined models.
@@ -37,7 +37,7 @@
 #include <iostream>
 #include <cstring>
 
-/** @cond doxygen-ignored */
+/** @cond doxygenIgnored */
 
 using namespace std;
 

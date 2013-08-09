@@ -1,5 +1,5 @@
 /**
- * @cond doxygen-libsbml-internal
+ * @cond doxygenLibsbmlInternal
  *
  * @file    FunctionApplyMathCheck.cpp
  * @brief   Ensures <ci> after apply refers to function definition.
@@ -43,7 +43,7 @@
 
 #include "FunctionApplyMathCheck.h"
 
-/** @cond doxygen-ignored */
+/** @cond doxygenIgnored */
 
 using namespace std;
 

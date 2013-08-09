@@ -1,5 +1,5 @@
 /**
- * @cond doxygen-libsbml-internal
+ * @cond doxygenLibsbmlInternal
  *
  * @file    LocalParameterShadowsIdInModel.h
  * @brief   Checks whether local parameters are shadowing another id

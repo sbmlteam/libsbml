@@ -18,12 +18,12 @@
 #include <sbml/packages/fbc/common/FbcExtensionTypes.h>
 #include <string>
 
-/** @cond doxygen-ignored */
+/** @cond doxygenIgnored */
 
 using namespace std;
 LIBSBML_CPP_NAMESPACE_USE
 
-  /** @endcond doxygen-ignored */
+  /** @endcond doxygenIgnored */
 
 
   CK_CPPSTART

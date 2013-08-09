@@ -139,7 +139,7 @@ ListOfDeletions::getElementName () const
 }
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 SBase*
 ListOfDeletions::createObject (XMLInputStream& stream)
 {
@@ -158,7 +158,7 @@ ListOfDeletions::createObject (XMLInputStream& stream)
 }
 /** @endcond */
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 void 
 ListOfDeletions::writeXMLNS (XMLOutputStream& stream) const
 {

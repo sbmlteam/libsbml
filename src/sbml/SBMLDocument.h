@@ -277,7 +277,7 @@ class XMLError;
 class SBMLValidator;
 class SBMLInternalValidator;
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 /* Internal constants for setting/unsetting particular consistency checks. */
 
 #define IdCheckON         0x01
@@ -648,7 +648,7 @@ public:
                            bool strict = true);
 
 
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
   /**
    * @param package
    * @param level
@@ -1138,7 +1138,7 @@ public:
   void printErrors (std::ostream& stream = std::cerr) const;
 
 
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
   /**
    * No-op; it is provided for consistency with the method available on
    * other libSBML object classes but has no effect on SBMLDocument.
@@ -1440,7 +1440,7 @@ public:
   bool isIgnoredPkg(const std::string& pkgURI);
 
 
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
   /**
    * @return the ordinal position of the element with respect to its
    * siblings or -1 (default) to indicate the position is not significant.
@@ -1449,7 +1449,7 @@ public:
   /** @endcond */
 
 
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
   /**
    * Subclasses should override this method to write out their contained
    * SBML objects as XML elements.  Be sure to call your parents
@@ -1509,7 +1509,7 @@ public:
 
 
 protected:
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
 
   //typedef std::map<std::string, bool>  PkgRequiredMap;
   //typedef PkgRequiredMap::iterator     PkgRequiredMapIter;

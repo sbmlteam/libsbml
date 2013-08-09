@@ -1,5 +1,5 @@
 /**
- * @cond doxygen-libsbml-internal
+ * @cond doxygenLibsbmlInternal
  *
  * @file    StoichiometryMathVars.cpp
  * @brief   Ensures FunctionDefinitions contain no undefined variables.
@@ -36,7 +36,7 @@
 
 #include "StoichiometryMathVars.h"
 
-/** @cond doxygen-ignored */
+/** @cond doxygenIgnored */
 
 using namespace std;
 

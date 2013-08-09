@@ -164,7 +164,7 @@ public:
   unsigned int getNumFailsWithSeverity(unsigned int severity) const;
 
 
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
 
   /**
    * Creates a new, empty SBMLErrorLog.
@@ -241,7 +241,7 @@ public:
   void add (const SBMLError& error);
 
 
-  /** @cond doxygen-cpp-only */
+  /** @cond doxygenCppOnly */
 
   /**
    * Adds (copies) the SBMLErrors in the given SBMLError list to this

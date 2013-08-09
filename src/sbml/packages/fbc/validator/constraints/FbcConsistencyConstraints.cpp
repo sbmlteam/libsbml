@@ -1,5 +1,5 @@
 /**
- * @cond doxygen-libsbml-internal
+ * @cond doxygenLibsbmlInternal
  *
  * @file    IdentifierConsistencyConstraints.cpp
  * @brief   IdentifierConsistency check constraints.  See SBML Wiki
@@ -40,7 +40,7 @@
 
 #include <sbml/validator/ConstraintMacros.h>
 
-/** @cond doxygen-ignored */
+/** @cond doxygenIgnored */
 
 using namespace std;
 // 20101 - caught at read

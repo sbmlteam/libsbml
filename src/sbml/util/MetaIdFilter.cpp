@@ -1,5 +1,5 @@
 /**
- * @cond doxygen-libsbml-internal
+ * @cond doxygenLibsbmlInternal
  *
  * @file    MetaIdFilterFilter.h
  * @brief   Filter to return only elements with a metaid set

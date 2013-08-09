@@ -191,7 +191,7 @@ public:
   bool isEmpty () const;
 
 private:
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
 
   std::string  mName;
   std::string  mURI;

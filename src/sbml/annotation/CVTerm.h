@@ -756,7 +756,7 @@ public:
    */ 
   bool hasRequiredAttributes();
 
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
   
   bool hasBeenModified();
 
@@ -767,7 +767,7 @@ public:
 
 
 protected:
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
 
   XMLAttributes * mResources;
 

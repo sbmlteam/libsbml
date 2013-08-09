@@ -1,5 +1,5 @@
 /**
- * @cond doxygen-libsbml-internal
+ * @cond doxygenLibsbmlInternal
  *
  * @file    InternalConsistencyValidator.cpp
  * @brief   Checks the validity of internal respresentation of SBML model

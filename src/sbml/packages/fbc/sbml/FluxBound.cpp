@@ -414,7 +414,7 @@ FluxBound::getElementName () const
 }
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 SBase*
 FluxBound::createObject (XMLInputStream& stream)
 {
@@ -422,7 +422,7 @@ FluxBound::createObject (XMLInputStream& stream)
 }
 /** @endcond */
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 void
 FluxBound::addExpectedAttributes(ExpectedAttributes& attributes)
 {
@@ -436,7 +436,7 @@ FluxBound::addExpectedAttributes(ExpectedAttributes& attributes)
 }
 /** @endcond */
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 void
 FluxBound::readAttributes (const XMLAttributes& attributes,
                         const ExpectedAttributes& expectedAttributes)
@@ -610,7 +610,7 @@ FluxBound::readAttributes (const XMLAttributes& attributes,
 }
 /** @endcond */
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 void
 FluxBound::writeAttributes (XMLOutputStream& stream) const
 {
@@ -635,7 +635,7 @@ FluxBound::writeAttributes (XMLOutputStream& stream) const
 }
 /** @endcond */
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 void
 FluxBound::writeElements (XMLOutputStream& stream) const
 {
@@ -680,7 +680,7 @@ FluxBound::accept (SBMLVisitor& v) const
 }
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 /*
  * Sets the parent SBMLDocument of this SBML object.
  */
@@ -692,7 +692,7 @@ FluxBound::setSBMLDocument (SBMLDocument* d)
 /** @endcond */
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 /*
  * Sets this SBML object to child SBML objects (if any).
  * (Creates a child-parent relationship by the parent)
@@ -705,7 +705,7 @@ FluxBound::connectToChild()
 /** @endcond */
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 /*
  * Enables/Disables the given package with this element and child
  * elements (if any).
@@ -721,7 +721,7 @@ FluxBound::enablePackageInternal(const std::string& pkgURI,
 /** @endcond */
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 /* default for components that have no required elements */
 bool
 FluxBound::hasRequiredElements() const
@@ -853,7 +853,7 @@ ListOfFluxBounds::getElementName () const
 }
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 SBase*
 ListOfFluxBounds::createObject (XMLInputStream& stream)
 {
@@ -887,7 +887,7 @@ ListOfFluxBounds::createObject (XMLInputStream& stream)
 }
 /** @endcond */
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 void 
 ListOfFluxBounds::writeXMLNS (XMLOutputStream& stream) const
 {

@@ -144,7 +144,7 @@ CompBase::getParentModel(SBase* child)
   return NULL;
 }
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 void
 CompBase::readAttributes (const XMLAttributes& attributes,
                           const ExpectedAttributes& expectedAttributes)
@@ -176,7 +176,7 @@ CompBase::readAttributes (const XMLAttributes& attributes,
 }
 /** @endcond */
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 void
 CompBase::writeAttributes (XMLOutputStream& stream) const
 {
@@ -188,7 +188,7 @@ CompBase::writeAttributes (XMLOutputStream& stream) const
 }
 /** @endcond */
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 /*
  * Helper to log a common type of error.
  */
@@ -213,7 +213,7 @@ CompBase::logUnknownElement(const std::string &element)
 /** @endcond */
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 /*
  * Helper to log a common type of error.
  */
@@ -248,7 +248,7 @@ CompBase::logUnknownAttribute(const std::string &attribute,
 /** @endcond */
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 /*
  * Helper to log a common type of error.
  */
@@ -274,7 +274,7 @@ CompBase::logEmptyString(const std::string &attribute,
 /** @endcond */
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 void 
 CompBase::logInvalidId(const std::string& attribute,
                        const std::string& wrongattribute,
@@ -373,7 +373,7 @@ CompBase::logInvalidId(const std::string& attribute,
 }
 /** @endcond */
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 void 
 CompBase::logMissingAttribute(const std::string& attribute,
                               const std::string& element)
@@ -413,7 +413,7 @@ CompBase::logMissingAttribute(const std::string& attribute,
 /** @endcond */
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 bool 
 CompBase::hasValidLevelVersionNamespaceCombination()
 {  

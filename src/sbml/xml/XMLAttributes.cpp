@@ -34,12 +34,12 @@
 #include <sbml/xml/XMLErrorLog.h>
 #include <sbml/xml/XMLConstructorException.h>
 #include <sbml/xml/XMLAttributes.h>
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 #include <sbml/xml/XMLOutputStream.h>
 #include <sbml/util/util.h>
 /** @endcond */
 
-/** @cond doxygen-ignored */
+/** @cond doxygenIgnored */
 
 using namespace std;
 
@@ -180,7 +180,7 @@ XMLAttributes::add ( const XMLTriple& triple, const std::string& value)
 }
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 /*
  * Adds an attribute with the given name/value pair to this XMLAttributes set.  
  * This is really the add function but an attribute with same name wont 
@@ -500,7 +500,7 @@ XMLAttributes::isEmpty () const
 }
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 /*
  * Reads the value for the attribute with the index into value.  If attribute 
  * was not found or value could not be interpreted as a boolean, value is not 
@@ -612,7 +612,7 @@ XMLAttributes::readInto (  const XMLTriple& triple
 }
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 /*
  * Reads the value for the attribute with the given index into value.  
  * If name was not found or value could be interpreted as a double, value 
@@ -758,7 +758,7 @@ XMLAttributes::readInto (  const std::string&   name
 }
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 /*
  * Reads the value for the attribute with the given index into value.  
  * If the attribute was not found or value could be interpreted as a long, 
@@ -875,7 +875,7 @@ XMLAttributes::readInto (  const std::string& name
 }
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 /*
  * Reads the value for the attribute with the given index into value.  
  * If the attribute was not found or value could be interpreted as an integer, 
@@ -965,7 +965,7 @@ XMLAttributes::readInto (  const std::string&  name
 }
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 /*
  * Reads the value for the attribute with the given index into value.  
  * If the attribute was not found or value could be interpreted as an 
@@ -1058,7 +1058,7 @@ XMLAttributes::readInto (  const std::string&  name
 }
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 /*
  * Reads the value for the attribute with the given index into value.  
  * If the attribute was not found, value is not modified.
@@ -1142,7 +1142,7 @@ XMLAttributes::readInto (  const std::string& name
 }
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 /*
  * Writes this XMLAttributes set to stream.
  */
@@ -1164,7 +1164,7 @@ XMLAttributes::write (XMLOutputStream& stream) const
 /** @endcond */
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 
 /*
  * Logs an attribute format error.
@@ -1243,7 +1243,7 @@ XMLAttributes::attributeRequiredError (const std::string&  name
 /** @endcond */
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 /*
  * Sets the XMLErrorLog this parser will use to log errors.
  */
@@ -1269,7 +1269,7 @@ XMLAttributes::setErrorLog (XMLErrorLog* log)
 /** @endcond */
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 /*
  * Inserts this XMLAttributes set into stream.
  */
@@ -1283,7 +1283,7 @@ operator<< (XMLOutputStream& stream, const XMLAttributes& attributes)
 /** @endcond */
 
 
-/** @cond doxygen-c-only */
+/** @cond doxygenCOnly */
 
 
 /**

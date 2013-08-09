@@ -1,5 +1,5 @@
 /**
- * @cond doxygen-libsbml-internal
+ * @cond doxygenLibsbmlInternal
  *
  * @file    FunctionNoArgsMathCheck.cpp
  * @brief   Ensures correct number of arguments to a function definition.
@@ -43,7 +43,7 @@
 
 #include "FunctionNoArgsMathCheck.h"
 
-/** @cond doxygen-ignored */
+/** @cond doxygenIgnored */
 
 using namespace std;
 

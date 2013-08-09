@@ -44,7 +44,7 @@
 #include <sbml/ModifierSpeciesReference.h>
 #include <sbml/extension/SBasePlugin.h>
 
-/** @cond doxygen-ignored */
+/** @cond doxygenIgnored */
 
 using namespace std;
 

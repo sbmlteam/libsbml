@@ -33,7 +33,7 @@
 
 #include <sbml/util/util.h>
 
-/** @cond doxygen-c-only */
+/** @cond doxygenCOnly */
 /**
  * Converts an AST to a string representation of a formula using a syntax
  * basically derived from SBML Level&nbsp;1, but expanded.
@@ -203,7 +203,7 @@ SBML_formulaToL3StringWithSettings (const ASTNode_t *tree, const L3ParserSetting
 
 
 /**
- * @cond doxygen-libsbml-internal
+ * @cond doxygenLibsbmlInternal
  * The rest of this file is internal code.
  */
 

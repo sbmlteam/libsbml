@@ -179,7 +179,7 @@ Port::getElementName () const
 }
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 void
 Port::addExpectedAttributes(ExpectedAttributes& attributes)
 {
@@ -189,7 +189,7 @@ Port::addExpectedAttributes(ExpectedAttributes& attributes)
 }
 /** @endcond */
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 void
 Port::readAttributes (const XMLAttributes& attributes,
                       const ExpectedAttributes& expectedAttributes)
@@ -265,7 +265,7 @@ Port::readAttributes (const XMLAttributes& attributes,
 }
 /** @endcond */
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 void
 Port::writeAttributes (XMLOutputStream& stream) const
 {
@@ -280,7 +280,7 @@ Port::writeAttributes (XMLOutputStream& stream) const
 }
 /** @endcond */
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 void
 Port::writeElements (XMLOutputStream& stream) const
 {
@@ -353,7 +353,7 @@ Port::renameMetaIdRefs(std::string oldid, std::string newid)
 }
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 
 bool
 Port::accept (SBMLVisitor& v) const

@@ -1,5 +1,5 @@
 /**
- * @cond doxygen-libsbml-internal
+ * @cond doxygenLibsbmlInternal
  *
  * @file    LocalParameterMathCheck.cpp
  * @brief   checks <ci> element of local parameter not used elsewhere
@@ -44,7 +44,7 @@
 
 #include "LocalParameterMathCheck.h"
 
-/** @cond doxygen-ignored */
+/** @cond doxygenIgnored */
 
 using namespace std;
 

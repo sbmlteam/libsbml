@@ -1,5 +1,5 @@
 /**
- * @cond doxygen-libsbml-internal
+ * @cond doxygenLibsbmlInternal
  *
  * @file    NumericReturnMathCheck.h
  * @brief   Ensures math returns a numeric result.

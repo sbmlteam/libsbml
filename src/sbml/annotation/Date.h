@@ -644,7 +644,7 @@ public:
   bool representsValidDate();
 
 
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
   
   bool hasBeenModified();
 
@@ -654,7 +654,7 @@ public:
   /** @endcond */
 
 protected:
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
 
   /**
    * Sets the value of the individual numbers from the date 

@@ -138,7 +138,7 @@ char *
 SBML_formulaToString (const ASTNode_t *tree);
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 
 #ifndef SWIG
 

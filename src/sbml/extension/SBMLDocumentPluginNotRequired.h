@@ -71,7 +71,7 @@ public:
 
 #ifndef SWIG
 
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
 
   /**
    * Reads the attributes of corresponding package in SBMLDocument element.

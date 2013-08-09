@@ -93,7 +93,7 @@ SBMLConverterRegistry::getConverterByIndex(int index) const
 }
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 
 SBMLConverterRegistry::SBMLConverterRegistry()
 {

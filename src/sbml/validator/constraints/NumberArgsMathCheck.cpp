@@ -1,5 +1,5 @@
 /**
- * @cond doxygen-libsbml-internal
+ * @cond doxygenLibsbmlInternal
  *
  * @file    NumberArgsMathCheck.cpp
  * @brief   Ensures number of arguments to functions are appropriate.
@@ -43,7 +43,7 @@
 
 #include "NumberArgsMathCheck.h"
 
-/** @cond doxygen-ignored */
+/** @cond doxygenIgnored */
 
 using namespace std;
 

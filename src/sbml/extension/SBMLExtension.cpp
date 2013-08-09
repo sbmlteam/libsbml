@@ -97,7 +97,7 @@ SBMLExtension::operator=(const SBMLExtension& orig)
 }
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 /*
  *
  */
@@ -153,7 +153,7 @@ SBMLExtension::addSBasePluginCreator(const SBasePluginCreatorBase* sbaseExt)
 /** @endcond */
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 SBasePluginCreatorBase*
 SBMLExtension::getSBasePluginCreator(const SBaseExtensionPoint& extPoint)
 {
@@ -178,7 +178,7 @@ SBMLExtension::getSBasePluginCreator(const SBaseExtensionPoint& extPoint)
 /** @endcond */
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 const SBasePluginCreatorBase*
 SBMLExtension::getSBasePluginCreator(const SBaseExtensionPoint& extPoint) const
 {
@@ -187,7 +187,7 @@ SBMLExtension::getSBasePluginCreator(const SBaseExtensionPoint& extPoint) const
 /** @endcond */
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 SBasePluginCreatorBase*
 SBMLExtension::getSBasePluginCreator(unsigned int n)
 {
@@ -196,7 +196,7 @@ SBMLExtension::getSBasePluginCreator(unsigned int n)
 /** @endcond */
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 const SBasePluginCreatorBase*
 SBMLExtension::getSBasePluginCreator(unsigned int n) const
 {
@@ -303,7 +303,7 @@ SBMLExtension::isInUse(SBMLDocument *doc) const
   return true;
 }
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 packageErrorTableEntry 
 SBMLExtension::getErrorTable(unsigned int index) const
 {
@@ -311,7 +311,7 @@ SBMLExtension::getErrorTable(unsigned int index) const
 }
 /** @endcond */
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 unsigned int 
 SBMLExtension::getErrorTableIndex(unsigned int errorId) const
 {
@@ -319,7 +319,7 @@ SBMLExtension::getErrorTableIndex(unsigned int errorId) const
 }
 /** @endcond */
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 unsigned int
 SBMLExtension::getErrorIdOffset() const
 {
@@ -327,7 +327,7 @@ SBMLExtension::getErrorIdOffset() const
 }
 /** @endcond */
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 unsigned int 
 SBMLExtension::getSeverity(unsigned int index, unsigned int pkgVersion) const
 {
@@ -342,7 +342,7 @@ SBMLExtension::getSeverity(unsigned int index, unsigned int pkgVersion) const
 }
 /** @endcond */
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 unsigned int 
 SBMLExtension::getCategory(unsigned int index) const
 {
@@ -351,7 +351,7 @@ SBMLExtension::getCategory(unsigned int index) const
 }
 /** @endcond */
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 std::string 
 SBMLExtension::getMessage(unsigned int index, 
                           unsigned int pkgVersion, 
@@ -389,7 +389,7 @@ SBMLExtension::getMessage(unsigned int index,
 }
 /** @endcond */
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 std::string 
 SBMLExtension::getShortMessage(unsigned int index) const
 {
@@ -399,7 +399,7 @@ SBMLExtension::getShortMessage(unsigned int index) const
 /** @endcond */
 
 
-/** @cond doxygen-c-only */
+/** @cond doxygenCOnly */
 
 /**
  * Creates a deep copy of the given SBMLExtension_t structure

@@ -90,7 +90,7 @@ public:
   //
   // ---------------------------------------------------------
 
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
   /**
    * Parses Layout Extension of SBML Level 2
    */
@@ -98,7 +98,7 @@ public:
   /** @endcond */
 
 
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
   /**
    * This function is a bit tricky.
    * This function is used only for setting annotation element of layout

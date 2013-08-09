@@ -1,5 +1,5 @@
 /**
- * @cond doxygen-libsbml-internal
+ * @cond doxygenLibsbmlInternal
  *
  * @file    UniqueVarsInEventAssignments.cpp
  * @brief   Ensures variables within a set of EventAssignments are unique
@@ -33,7 +33,7 @@
 
 #include "UniqueVarsInEventAssignments.h"
 
-/** @cond doxygen-ignored */
+/** @cond doxygenIgnored */
 
 using namespace std;
 

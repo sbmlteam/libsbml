@@ -529,7 +529,7 @@ CubicBezier::clone () const
 }
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 SBase*
 CubicBezier::createObject (XMLInputStream& stream)
 {
@@ -568,7 +568,7 @@ CubicBezier::createObject (XMLInputStream& stream)
 }
 /** @endcond */
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 void
 CubicBezier::addExpectedAttributes(ExpectedAttributes& attributes)
 {
@@ -576,7 +576,7 @@ CubicBezier::addExpectedAttributes(ExpectedAttributes& attributes)
 }
 /** @endcond */
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 void CubicBezier::readAttributes (const XMLAttributes& attributes,
                                   const ExpectedAttributes& expectedAttributes)
 {
@@ -584,7 +584,7 @@ void CubicBezier::readAttributes (const XMLAttributes& attributes,
 }
 /** @endcond */
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 void
 CubicBezier::writeElements (XMLOutputStream& stream) const
 {
@@ -596,7 +596,7 @@ CubicBezier::writeElements (XMLOutputStream& stream) const
 }
 /** @endcond */
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 void CubicBezier::writeAttributes (XMLOutputStream& stream) const
 {
   SBase::writeAttributes(stream);
@@ -609,7 +609,7 @@ void CubicBezier::writeAttributes (XMLOutputStream& stream) const
 }
 /** @endcond */
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 void 
 CubicBezier::writeXMLNS (XMLOutputStream& stream) const
 {

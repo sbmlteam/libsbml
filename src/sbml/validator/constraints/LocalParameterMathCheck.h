@@ -1,5 +1,5 @@
 /**
- * @cond doxygen-libsbml-internal
+ * @cond doxygenLibsbmlInternal
  *
  * @file    LocalParameterMathCheck.h
  * @brief   checks <ci> element of local parameter not used elsewhere 

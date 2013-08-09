@@ -974,7 +974,7 @@ typedef enum
  */
 typedef enum
 {
-  /** @cond doxygen-libsbml-internal **/
+  /** @cond doxygenLibsbmlInternal **/
 
   /* The following are used internally in SBMLErrorTable, but publicly,
    * we only report one of the 4 XMLError_Severity values.  Translation
@@ -1144,7 +1144,7 @@ public:
 
 #ifndef SWIG
 
-  /** @cond doxygen-libsbml-internal **/
+  /** @cond doxygenLibsbmlInternal **/
 
   /**
    * clone function
@@ -1166,7 +1166,7 @@ public:
 #endif  /* !SWIG */
 
 protected:
-  /** @cond doxygen-libsbml-internal **/
+  /** @cond doxygenLibsbmlInternal **/
 
   virtual std::string stringForSeverity(unsigned int code) const;
   virtual std::string stringForCategory(unsigned int code) const;

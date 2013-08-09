@@ -512,7 +512,7 @@ GroupsExtension::init()
 #include <sbml/extension/SBasePluginCreatorBase.h>
 #include <sbml/extension/SBaseExtensionPoint.h>
 
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
 #ifndef SWIG
 typedef struct {
   const char * ref_l3v1;
@@ -561,7 +561,7 @@ class LIBSBML_EXTERN SBMLExtension
 {
 public:
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
   typedef std::vector<std::string>           SupportedPackageURIList;
   typedef std::vector<std::string>::iterator SupportedPackageURIListIter;
 /** @endcond */
@@ -912,7 +912,7 @@ public:
    */
   virtual bool isInUse(SBMLDocument *doc) const;
 
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
   /*
    * functions for use with error logging
    */
@@ -936,7 +936,7 @@ public:
   /** @endcond */
 
 protected:
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
 
   bool                                 mIsEnabled;
   SupportedPackageURIList              mSupportedPackageURI;
@@ -946,7 +946,7 @@ protected:
 
 
 private:
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
 
   friend class SBMLExtensionRegistry;
 

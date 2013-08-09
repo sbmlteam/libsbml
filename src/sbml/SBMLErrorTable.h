@@ -35,7 +35,7 @@
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 typedef struct {
   const char * ref_l1;
   const char * ref_l2v1;

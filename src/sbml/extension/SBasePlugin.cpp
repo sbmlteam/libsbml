@@ -40,7 +40,7 @@
 LIBSBML_CPP_NAMESPACE_BEGIN
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 /*
  * Constructor
  */
@@ -57,7 +57,7 @@ SBasePlugin::SBasePlugin (const std::string &uri, const std::string &prefix,
 /** @endcond */
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 /*
 * Copy constructor. Creates a copy of this SBasePlugin object.
 */
@@ -108,7 +108,7 @@ SBasePlugin::operator=(const SBasePlugin& orig)
 }
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 /*
  * Sets the given SBMLDocument as a parent document.
  */
@@ -162,7 +162,7 @@ SBasePlugin::getAllElements(ElementFilter *filter)
   return NULL;
 }
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 /*
  * Sets the parent SBML object of this plugin object to
  * this object and child elements (if any).
@@ -227,7 +227,7 @@ SBasePlugin::getParentSBMLObject () const
 }
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 /*
  * Enables/Disables the given package with child elements in this plugin
  * object (if any).
@@ -273,7 +273,7 @@ SBasePlugin::getVersion() const
 }
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 unsigned int 
 SBasePlugin::getLine() const
 {
@@ -283,7 +283,7 @@ SBasePlugin::getLine() const
 /** @endcond */
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 unsigned int 
 SBasePlugin::getColumn() const
 {
@@ -293,7 +293,7 @@ SBasePlugin::getColumn() const
 /** @endcond */
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 SBMLNamespaces *
 SBasePlugin::getSBMLNamespaces() const
 {
@@ -321,7 +321,7 @@ SBasePlugin::getPackageVersion() const
 }
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 void 
 SBasePlugin::replaceSIDWithFunction(const std::string& id, const ASTNode* function)
 {
@@ -329,28 +329,28 @@ SBasePlugin::replaceSIDWithFunction(const std::string& id, const ASTNode* functi
 /** @endcond */
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 void 
 SBasePlugin::divideAssignmentsToSIdByFunction(const std::string& id, const ASTNode* function)
 {
 }
 /** @endcond */
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 void 
 SBasePlugin::multiplyAssignmentsToSIdByFunction(const std::string& id, const ASTNode* function)
 {
 }
 /** @endcond */
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 bool SBasePlugin::hasIdentifierBeginningWith(const std::string& prefix)
 {
   return false;
 }
 /** @endcond */
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 //Override and provide your own renaming scheme for the rest of the model if you do anything here.
 int 
 SBasePlugin::prependStringToAllIdentifiers(const std::string& prefix)
@@ -422,7 +422,7 @@ SBasePlugin::getPackageName() const
   return mSBMLExt->getName();
 }
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 /*
  * Intended to be overridden by package extensions of the Model object.
  */
@@ -434,7 +434,7 @@ SBasePlugin::appendFrom(const Model* model)
 /** @endcond */
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 /*
  * Subclasses should override this method to create, store, and then
  * return an SBML object corresponding to the next XMLToken in the
@@ -451,7 +451,7 @@ SBasePlugin::createObject(XMLInputStream& stream)
 /** @endcond */
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 /*
  * Subclasses should override this method to read (and store) XHTML,
  * MathML, etc. directly from the XMLInputStream.
@@ -465,7 +465,7 @@ SBasePlugin::readOtherXML (SBase* parentObject, XMLInputStream& stream)
 }
 /** @endcond */
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 /**
  * Synchronizes the annotation of this SBML object.
  *
@@ -492,7 +492,7 @@ SBasePlugin::parseAnnotation(SBase *parentObject, XMLNode *annotation)
 
 /** @endcond */
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 /* default for components that have no required elements */
 bool
 SBasePlugin::hasRequiredElements() const
@@ -502,7 +502,7 @@ SBasePlugin::hasRequiredElements() const
 /** @endcond */
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 /*
  * Subclasses should override this method to write out their contained
  * SBML objects as XML elements.  
@@ -515,7 +515,7 @@ SBasePlugin::writeElements (XMLOutputStream& stream) const
 /** @endcond */
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 /*
  * Subclasses should override this method to get the list of
  * expected attributes.
@@ -530,7 +530,7 @@ SBasePlugin::addExpectedAttributes(ExpectedAttributes& attributes)
 /** @endcond */
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 /*
  * Subclasses should override this method to read values from the given
  * XMLAttributes set into their specific fields.
@@ -582,7 +582,7 @@ SBasePlugin::readAttributes (const XMLAttributes& attributes,
 /** @endcond */
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 /*
  * Subclasses should override this method to write their XML attributes
  * to the XMLOutputStream. 
@@ -595,7 +595,7 @@ SBasePlugin::writeAttributes (XMLOutputStream& stream) const
 /** @endcond */
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 /* default for components that have no required attributes */
 bool
 SBasePlugin::hasRequiredAttributes() const
@@ -605,7 +605,7 @@ SBasePlugin::hasRequiredAttributes() const
 /** @endcond */
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 /*
  * Subclasses should override this method to write required xmlns attributes
  * to the XMLOutputStream. 
@@ -621,7 +621,7 @@ SBasePlugin::writeXMLNS (XMLOutputStream& stream) const
 /** @endcond */
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 /*
  * @return the SBMLErrorLog used to log errors during while reading and
  * validating SBML.
@@ -634,7 +634,7 @@ SBasePlugin::getErrorLog ()
 /** @endcond */
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 /*
  * Helper to log a common type of error.
  */
@@ -666,7 +666,7 @@ SBasePlugin::logUnknownElement(const std::string &element,
 /** @endcond */
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 /*
  * Helper to log a common type of error.
  */
@@ -700,7 +700,7 @@ SBasePlugin::logUnknownAttribute(const std::string &attribute,
 /** @endcond */
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 /*
  * Helper to log a common type of error.
  */
@@ -733,7 +733,7 @@ SBasePlugin::logEmptyString(const std::string &attribute,
 /** @endcond */
 
 
-/** @cond doxygen-c-only */
+/** @cond doxygenCOnly */
 
 /**
  * Returns the XML namespace (URI) of the package extension

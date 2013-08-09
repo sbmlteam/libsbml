@@ -287,7 +287,7 @@ FbcExtension::getStringFromTypeCode(int typeCode) const
   return SBML_FBC_TYPECODE_STRINGS[typeCode - min];
 }
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 /*
  *
  * Initialization function of the fbc extension module which is automatically invoked 
@@ -376,7 +376,7 @@ FbcExtension::init()
 /** @endcond */
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 packageErrorTableEntry
 FbcExtension::getErrorTable(unsigned int index) const
 {
@@ -384,7 +384,7 @@ FbcExtension::getErrorTable(unsigned int index) const
 }
 /** @endcond */
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 unsigned int 
 FbcExtension::getErrorTableIndex(unsigned int errorId) const
 {
@@ -405,7 +405,7 @@ FbcExtension::getErrorTableIndex(unsigned int errorId) const
 /** @endcond */
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 unsigned int
 FbcExtension::getErrorIdOffset() const
 {

@@ -1,5 +1,5 @@
 /** 
- *@cond doxygen-libsbml-internal 
+ *@cond doxygenLibsbmlInternal 
  **
  * @file    UnitFormulaFormatter.h
  * @brief   Formats an AST formula tree as a unit definition
@@ -236,7 +236,7 @@ public:
    */
   void resetFlags();
  
-  /* @cond doxygen-libsbml-internal */
+  /* @cond doxygenLibsbmlInternal */
   /** 
    * returns the unitDefinition for the ASTNode from a function
    */

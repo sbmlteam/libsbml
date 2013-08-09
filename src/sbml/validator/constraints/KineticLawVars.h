@@ -1,5 +1,5 @@
 /**
- * @cond doxygen-libsbml-internal
+ * @cond doxygenLibsbmlInternal
  *
  * @file    KineticLawVars.h
  * @brief   Ensures FunctionDefinitions contain no undefined variables.

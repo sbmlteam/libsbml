@@ -1,5 +1,5 @@
 /**
- * @cond doxygen-libsbml-internal
+ * @cond doxygenLibsbmlInternal
  *
  * @file    IdList.cpp
  * @brief   Maintains a list of SIds.  Useful for finding cycles.

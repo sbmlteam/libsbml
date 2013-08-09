@@ -519,7 +519,7 @@ else
                          unsigned int pkgVersion);
 
 
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
   /**
    * Add an XML namespace (a pair of URI and prefix) of a package extension
    * to the set of namespaces within this SBMLNamespaces object.
@@ -619,7 +619,7 @@ else
   bool isValidCombination();
 
 
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
   void setLevel(unsigned int level);
 
 
@@ -639,7 +639,7 @@ else
    virtual const std::string& getPackageName () const;	
 	
 protected:  
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
 
   void initSBMLNamespace();
 

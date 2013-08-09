@@ -30,7 +30,7 @@
 #include <cstddef>
 #include <new>
 
-/** @cond doxygen-ignored */
+/** @cond doxygenIgnored */
 
 using namespace std;
 

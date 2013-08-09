@@ -25,7 +25,7 @@
  * also available online as http://sbml.org/software/libsbml/license.html
  * ---------------------------------------------------------------------- -->*/
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 #include <sbml/xml/XMLOutputStream.h>
 #include <sbml/util/util.h>
 /** @endcond */
@@ -38,7 +38,7 @@
 #include <sbml/util/List.h>
 
 
-/** @cond doxygen-ignored */
+/** @cond doxygenIgnored */
 
 using namespace std;
 
@@ -374,7 +374,7 @@ bool XMLNamespaces::hasNS(const std::string& uri, const std::string& prefix) con
 }
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 /*
  * Removes the default XML namespace.
  */
@@ -427,7 +427,7 @@ XMLNamespaces::containIdenticalSetNS(XMLNamespaces* rhs)
 
 #ifndef SWIG
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 /*
  * Writes the XML namespace declarations to stream.
  */
@@ -450,7 +450,7 @@ XMLNamespaces::write (XMLOutputStream& stream) const
 /** @endcond */
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 /*
  * Inserts this XML namespace declarations into stream.
  */
@@ -466,7 +466,7 @@ operator<< (XMLOutputStream& stream, const XMLNamespaces& namespaces)
 #endif  /* !SWIG */
 
 
-/** @cond doxygen-c-only */
+/** @cond doxygenCOnly */
 
 /**
  * Creates a new empty XMLNamespaces_t structure.

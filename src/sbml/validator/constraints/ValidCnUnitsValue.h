@@ -1,5 +1,5 @@
 /**
- * @cond doxygen-libsbml-internal
+ * @cond doxygenLibsbmlInternal
  *
  * @file    ValidCnUnitsValue.h
  * @brief   Ensures units values are valid.

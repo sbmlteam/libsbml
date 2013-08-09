@@ -44,7 +44,7 @@
 #include <sbml/SpeciesReference.h>
 #include <sbml/extension/SBasePlugin.h>
 
-/** @cond doxygen-ignored */
+/** @cond doxygenIgnored */
 
 using namespace std;
 
@@ -62,7 +62,7 @@ SimpleSpeciesReference::SimpleSpeciesReference (unsigned int level,
 }
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 SimpleSpeciesReference::SimpleSpeciesReference (SBMLNamespaces *sbmlns) :
    SBase   (sbmlns  )
  , mId     ( "" )
@@ -381,7 +381,7 @@ SimpleSpeciesReference::renameSIdRefs(std::string oldid, std::string newid)
   }
 }
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 bool 
 SimpleSpeciesReference::hasRequiredAttributes() const
 {
@@ -545,7 +545,7 @@ SimpleSpeciesReference::readL3Attributes (const XMLAttributes& attributes)
 /** @endcond */
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 /*
  * Subclasses should override this method to write their XML attributes
  * to the XMLOutputStream.  Be sure to call your parents implementation

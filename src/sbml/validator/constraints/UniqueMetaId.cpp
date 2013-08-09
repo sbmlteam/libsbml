@@ -1,5 +1,5 @@
 /**
- * @cond doxygen-libsbml-internal
+ * @cond doxygenLibsbmlInternal
  *
  * @file    UniqueMetaId.cpp
  * @brief   Base class for Id constraints
@@ -31,7 +31,7 @@
 #include <sbml/SBMLDocument.h>
 #include <sbml/ModifierSpeciesReference.h>
 
-/** @cond doxygen-ignored */
+/** @cond doxygenIgnored */
 
 using namespace std;
 

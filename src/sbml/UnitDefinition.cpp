@@ -43,7 +43,7 @@
 
 #include <sbml/util/ElementFilter.h>
 
-/** @cond doxygen-ignored */
+/** @cond doxygenIgnored */
 
 using namespace std;
 
@@ -653,7 +653,7 @@ UnitDefinition::removeUnit (unsigned int n)
 }
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 
 /*
  * Sets the parent SBMLDocument of this SBML object.
@@ -839,7 +839,7 @@ UnitDefinition::simplify(UnitDefinition * ud)
   }
 }
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 int compareKinds(const void * u1, const void * u2)
 {
   return (*(int*)u1 - *(int*)u2);
@@ -1111,7 +1111,7 @@ UnitDefinition::areEquivalent(const UnitDefinition * ud1, const UnitDefinition *
   return equivalent;
 }
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 
 bool 
 UnitDefinition::areIdenticalSIUnits(const UnitDefinition * ud1, 
@@ -1301,7 +1301,7 @@ UnitDefinition::printUnits(const UnitDefinition * ud, bool compact)
   return unitDef;
 }
 
-/* @cond doxygen-libsbml-internal */
+/* @cond doxygenLibsbmlInternal */
 /*
  * @return the SBML object corresponding to next XMLToken in the
  * XMLInputStream or @c NULL if the token was not recognized.
@@ -1335,7 +1335,7 @@ UnitDefinition::createObject (XMLInputStream& stream)
 /** @endcond */
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 /*
  * Subclasses should override this method to get the list of
  * expected attributes.
@@ -1388,7 +1388,7 @@ UnitDefinition::readAttributes (const XMLAttributes& attributes,
 /** @endcond */
 
  
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 /*
  * Subclasses should override this method to read values from the given
  * XMLAttributes set into their specific fields.  Be sure to call your
@@ -1415,7 +1415,7 @@ UnitDefinition::readL1Attributes (const XMLAttributes& attributes)
 /** @endcond */
 
  
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 /*
  * Subclasses should override this method to read values from the given
  * XMLAttributes set into their specific fields.  Be sure to call your
@@ -1446,7 +1446,7 @@ UnitDefinition::readL2Attributes (const XMLAttributes& attributes)
 /** @endcond */
 
  
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 /*
  * Subclasses should override this method to read values from the given
  * XMLAttributes set into their specific fields.  Be sure to call your
@@ -1482,7 +1482,7 @@ UnitDefinition::readL3Attributes (const XMLAttributes& attributes)
 /** @endcond */
 
  
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 /*
  * Subclasses should override this method to write their XML attributes
  * to the XMLOutputStream.  Be sure to call your parents implementation
@@ -1520,7 +1520,7 @@ UnitDefinition::writeAttributes (XMLOutputStream& stream) const
 /** @endcond */
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 /*
  * Subclasses should override this method to write out their contained
  * SBML objects as XML elements.  Be sure to call your parents
@@ -1692,7 +1692,7 @@ ListOfUnitDefinitions::remove (const std::string& sid)
 }
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 /*
  * @return the ordinal position of the element with respect to its siblings
  * or -1 (default) to indicate the position is not significant.
@@ -1705,7 +1705,7 @@ ListOfUnitDefinitions::getElementPosition () const
 /** @endcond */
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 /*
  * @return the SBML object corresponding to next XMLToken in the
  * XMLInputStream or @c NULL if the token was not recognized.
@@ -1742,7 +1742,7 @@ ListOfUnitDefinitions::createObject (XMLInputStream& stream)
 /** @endcond */
 
 
-/** @cond doxygen-c-only */
+/** @cond doxygenCOnly */
 
 
 /**

@@ -1,5 +1,5 @@
 /**
- * @cond doxygen-libsbml-internal
+ * @cond doxygenLibsbmlInternal
  *
  * @file    AssignmentRuleOrdering.cpp
  * @brief   Checks rule ordering for l2v1 and l1
@@ -39,7 +39,7 @@
 #include "AssignmentRuleOrdering.h"
 #include <sbml/util/IdList.h>
 
-/** @cond doxygen-ignored */
+/** @cond doxygenIgnored */
 
 using namespace std;
 

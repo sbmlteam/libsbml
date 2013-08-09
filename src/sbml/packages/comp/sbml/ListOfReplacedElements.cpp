@@ -93,7 +93,7 @@ ListOfReplacedElements::getElementName () const
 }
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 SBase*
 ListOfReplacedElements::createObject (XMLInputStream& stream)
 {
@@ -113,7 +113,7 @@ ListOfReplacedElements::createObject (XMLInputStream& stream)
 }
 /** @endcond */
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 void 
 ListOfReplacedElements::writeXMLNS (XMLOutputStream& stream) const
 {

@@ -313,7 +313,7 @@ FluxObjective::getElementName () const
 }
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 SBase*
 FluxObjective::createObject (XMLInputStream& stream)
 {
@@ -321,7 +321,7 @@ FluxObjective::createObject (XMLInputStream& stream)
 }
 /** @endcond */
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 void
 FluxObjective::addExpectedAttributes(ExpectedAttributes& attributes)
 {
@@ -334,7 +334,7 @@ FluxObjective::addExpectedAttributes(ExpectedAttributes& attributes)
 }
 /** @endcond */
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 void
 FluxObjective::readAttributes (const XMLAttributes& attributes,
                         const ExpectedAttributes& expectedAttributes)
@@ -478,7 +478,7 @@ FluxObjective::readAttributes (const XMLAttributes& attributes,
 }
 /** @endcond */
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 void
 FluxObjective::writeAttributes (XMLOutputStream& stream) const
 {
@@ -500,7 +500,7 @@ FluxObjective::writeAttributes (XMLOutputStream& stream) const
 }
 /** @endcond */
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 void
 FluxObjective::writeElements (XMLOutputStream& stream) const
 {
@@ -662,7 +662,7 @@ ListOfFluxObjectives::getElementName () const
 }
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 SBase*
 ListOfFluxObjectives::createObject (XMLInputStream& stream)
 {

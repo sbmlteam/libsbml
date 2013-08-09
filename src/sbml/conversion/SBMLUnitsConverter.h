@@ -76,7 +76,7 @@ class LIBSBML_EXTERN SBMLUnitsConverter : public SBMLConverter
 {
 public:
 
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
   
   /* register with the ConversionRegistry */
   static void init();  
@@ -188,7 +188,7 @@ public:
 
 
 private:
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
 
   bool convertUnits(SBase& sb, Model& m);
 

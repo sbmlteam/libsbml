@@ -82,7 +82,7 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 class SBMLVisitor;
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 /**
  * Used by ListOf::get() to lookup an SBase based by its id.
  */
@@ -385,7 +385,7 @@ public:
    */
   unsigned int size () const;
 
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
 
   /**
    * Sets the parent SBMLDocument of this SBML object.
@@ -486,7 +486,7 @@ public:
   virtual const std::string& getElementName () const;
 
 
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
   /**
    * Subclasses should override this method to write out their contained
    * SBML objects as XML elements.  Be sure to call your parents
@@ -496,7 +496,7 @@ public:
   /** @endcond */
 
 
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
   /**
    * Enables/Disables the given package with this element and child
    * elements (if any).
@@ -509,7 +509,7 @@ public:
   /** @endcond */
 
 protected:
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
 
   typedef std::vector<SBase*>           ListItem;
   typedef std::vector<SBase*>::iterator ListItemIter;

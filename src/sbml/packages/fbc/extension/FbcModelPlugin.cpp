@@ -94,7 +94,7 @@ FbcModelPlugin*
 }
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 SBase*
   FbcModelPlugin::createObject(XMLInputStream& stream)
 {
@@ -153,7 +153,7 @@ SBase*
 }
 /** @endcond */
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 void
   FbcModelPlugin::writeElements (XMLOutputStream& stream) const
 {
@@ -271,7 +271,7 @@ XMLNode* deleteFbcAnnotation(XMLNode* pAnnotation)
 }
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 void
 FbcModelPlugin::writeAttributes (XMLOutputStream& stream) const
 {
@@ -313,7 +313,7 @@ FbcModelPlugin::writeAttributes (XMLOutputStream& stream) const
 }
 /** @endcond */
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 bool
 FbcModelPlugin::readOtherXML (SBase* parentObject, XMLInputStream& stream)
 {
@@ -413,7 +413,7 @@ FbcModelPlugin::readOtherXML (SBase* parentObject, XMLInputStream& stream)
 }
 /** @endcond */
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 /* default for components that have no required elements */
 bool
   FbcModelPlugin::hasRequiredElements() const
@@ -1193,7 +1193,7 @@ int
 }
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 /*
  * Sets the parent SBMLDocument of this SBML object.
  *
@@ -1211,7 +1211,7 @@ void
 /** @endcond */
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 /*
 * Sets the parent SBML object of this plugin object to
 * this object and child elements (if any).
@@ -1229,7 +1229,7 @@ void
 /** @endcond */
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 /*
 * Enables/Disables the given package with child elements in this plugin
 * object (if any).
@@ -1245,7 +1245,7 @@ void
 /** @endcond */
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 
 
 bool 

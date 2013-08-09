@@ -1,5 +1,5 @@
 /** 
- *@cond doxygen-libsbml-internal 
+ *@cond doxygenLibsbmlInternal 
  **
  *
  * @file    FormulaUnitsData.h
@@ -378,7 +378,7 @@ public:
   void setSpeciesSubstanceUnitDefinition(UnitDefinition * ud);
 
 protected:
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
 
     std::string mUnitReferenceId;
 
