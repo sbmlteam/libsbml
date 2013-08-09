@@ -55,9 +55,15 @@ STABLE RELEASE
 
   - It is now possible to override the severity of errors logged
     or to disable error logging completely. Any override is
-    applied to the errorLog until such time as teh status is reset.
+    applied to the errorLog until such time as the status is reset.
     This facilitates the use of functions, that may on occasion log
     errors, in a situiation were error logging is not required.
+	
+  - There is a new function XMLErrorLog::changeErrorSeverity
+    (XMLErrorSeverity_t , XMLErrorSeverity_t, std::string package)
+	that will chang the severity of errors within in the errorLog
+	based on the package name supplied.
+
 
   - The SBase functions getURI() and getPrefix() that return 
     information relating to the namespace of the object have been
@@ -100,7 +106,18 @@ STABLE RELEASE
 	  to produce a flattened version of the model and perform
 	  and report validation errors relating to the flattened model.
 	  
+	  - There is an additional option for the CompFlatteningConverter
+	  to allow the users to request that the document is validated
+	  before, during and after flattening. This provides the user with
+	  detailed information regarding why a document has failed to
+	  flatten as well as detailing any warnings related to the document
+      returned on success.	  
+	  
 * Bug fixes
+
+  - Conversion between SBML Levels was not correctly handling the 
+    units attributes that appear on the Model object in an Level 3
+	model. This has been fixed. Thanks to Pratham Shah for the report.
 
   - The UnitDefinition::printUnits function had a mismatch between
     integer and double values for the exponent; causing incorrect
