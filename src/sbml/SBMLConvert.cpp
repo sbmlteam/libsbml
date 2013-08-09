@@ -28,6 +28,7 @@
 #include <sbml/util/List.h>
 #include <sbml/math/ASTNode.h>
 
+#include <sbml/SBase.h>
 #include <sbml/Model.h>
 #include <sbml/KineticLaw.h>
 #include <sbml/Compartment.h>
@@ -41,6 +42,7 @@
 #include <sbml/RateRule.h>
 
 #include <sbml/util/IdList.h>
+#include <sbml/util/ElementFilter.h>
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 /** @cond doxygenLibsbmlInternal **/
@@ -61,6 +63,54 @@ void useStoichMath(Model & m, SpeciesReference &sr, bool isRule);
 void dealWithL1Stoichiometry(Model & m, bool l2 = true);
 
 void dealWithAssigningL1Stoichiometry(Model & m, bool l2 = true);
+
+class UnitRefsFilter : public ElementFilter
+{
+public:
+  UnitRefsFilter (): ElementFilter ()
+  {
+  };
+
+
+	virtual bool filter(const SBase* element)
+  {
+	  // return in case we don't have a valid element
+    if (element == NULL)
+    {
+        return false;
+    }
+
+
+    // otherwise we want to keep the element
+    // if it has units
+    int tc = element->getTypeCode();
+    bool keep = false;
+    switch (tc)
+    {
+      case SBML_COMPARTMENT: 
+      case SBML_PARAMETER: 
+      case SBML_LOCAL_PARAMETER:
+      case SBML_CONSTRAINT:          
+      case SBML_EVENT_ASSIGNMENT:    
+      case SBML_FUNCTION_DEFINITION:
+      case SBML_INITIAL_ASSIGNMENT:
+      case SBML_KINETIC_LAW:
+      case SBML_RULE:
+      case SBML_TRIGGER:
+      case SBML_DELAY:
+      case SBML_STOICHIOMETRY_MATH:
+      case SBML_PRIORITY:
+      case SBML_SPECIES:
+        keep = true;
+        break;
+    default:
+      break;
+    }
+
+    return keep;			
+  };
+
+};
 
 /*
  * Converts the model to a from SBML L1 to L2.  Most of the necessary
@@ -1128,10 +1178,37 @@ Model::dealWithEvents(bool strict)
 void
 Model::dealWithModelUnits()
 {
+  UnitRefsFilter filter;
+  List * elements = getAllElements(&filter);
+  unsigned int n = 0;
+  unsigned int num = elements->getSize();
+  
   if (isSetVolumeUnits())
   {
     std::string volume = getVolumeUnits();
-    UnitDefinition * ud = removeUnitDefinition(volume);
+    // if in an L3 model a user used volume as an id of a UnitDefinition
+    // but they declared the volume units of teh model to be something 
+    // else then the UD with id volume is nothing to do with the 
+    // L2 interpretation of volume
+    // so replace that UD and all references to it 
+    if (volume != "volume")
+    {
+      UnitDefinition * existingUD = removeUnitDefinition("volume");
+      if (existingUD != NULL)
+      {
+        std::string newSubsName = "volumeFromOriginal";
+        existingUD->setId(newSubsName);
+        SBase* obj;
+        for (n = 0; n < num; n++)
+        {
+          obj = (SBase*)(elements->get(n));
+          obj->renameUnitSIdRefs("volume", newSubsName);
+        }
+        addUnitDefinition(existingUD);
+      }
+    }
+    UnitDefinition * ud = getUnitDefinition(volume) != NULL ? 
+                          getUnitDefinition(volume)->clone() : NULL;
     if (ud != NULL)
     {
       ud->setId("volume");
@@ -1150,7 +1227,29 @@ Model::dealWithModelUnits()
   if (isSetAreaUnits())
   {
     std::string area = getAreaUnits();
-    UnitDefinition * ud = removeUnitDefinition(area);
+    // if in an L3 model a user used area as an id of a UnitDefinition
+    // but they declared the area units of teh model to be something 
+    // else then the UD with id area is nothing to do with the 
+    // L2 interpretation of area
+    // so replace that UD and all references to it 
+    if (area != "area")
+    {
+      UnitDefinition * existingUD = removeUnitDefinition("area");
+      if (existingUD != NULL)
+      {
+        std::string newSubsName = "areaFromOriginal";
+        existingUD->setId(newSubsName);
+        SBase* obj;
+        for (n = 0; n < num; n++)
+        {
+          obj = (SBase*)(elements->get(n));
+          obj->renameUnitSIdRefs("area", newSubsName);
+        }
+        addUnitDefinition(existingUD);
+      }
+    }
+    UnitDefinition * ud = getUnitDefinition(area) != NULL ? 
+                          getUnitDefinition(area)->clone() : NULL;
     if (ud != NULL)
     {
       ud->setId("area");
@@ -1169,7 +1268,29 @@ Model::dealWithModelUnits()
   if (isSetLengthUnits())
   {
     std::string length = getLengthUnits();
-    UnitDefinition * ud = removeUnitDefinition(length);
+    // if in an L3 model a user used length as an id of a UnitDefinition
+    // but they declared the length units of teh model to be something 
+    // else then the UD with id length is nothing to do with the 
+    // L2 interpretation of length
+    // so replace that UD and all references to it 
+    if (length != "length")
+    {
+      UnitDefinition * existingUD = removeUnitDefinition("length");
+      if (existingUD != NULL)
+      {
+        std::string newSubsName = "lengthFromOriginal";
+        existingUD->setId(newSubsName);
+        SBase* obj;
+        for (n = 0; n < num; n++)
+        {
+          obj = (SBase*)(elements->get(n));
+          obj->renameUnitSIdRefs("length", newSubsName);
+        }
+        addUnitDefinition(existingUD);
+      }
+    }
+    UnitDefinition * ud = getUnitDefinition(length) != NULL ? 
+                          getUnitDefinition(length)->clone() : NULL;
     if (ud != NULL)
     {
       ud->setId("length");
@@ -1188,7 +1309,29 @@ Model::dealWithModelUnits()
   if (isSetSubstanceUnits())
   {
     std::string substance = getSubstanceUnits();
-    UnitDefinition * ud = removeUnitDefinition(substance);
+    // if in an L3 model a user used substance as an id of a UnitDefinition
+    // but they declared the substance units of teh model to be something 
+    // else then the UD with id substance is nothing to do with the 
+    // L2 interpretation of substance
+    // so replace that UD and all references to it 
+    if (substance != "substance")
+    {
+      UnitDefinition * existingUD = removeUnitDefinition("substance");
+      if (existingUD != NULL)
+      {
+        std::string newSubsName = "substanceFromOriginal";
+        existingUD->setId(newSubsName);
+        SBase* obj;
+        for (n = 0; n < num; n++)
+        {
+          obj = (SBase*)(elements->get(n));
+          obj->renameUnitSIdRefs("substance", newSubsName);
+        }
+        addUnitDefinition(existingUD);
+      }
+    }
+    UnitDefinition * ud = getUnitDefinition(substance) != NULL ? 
+                          getUnitDefinition(substance)->clone() : NULL;
     if (ud != NULL)
     {
       ud->setId("substance");
@@ -1207,7 +1350,29 @@ Model::dealWithModelUnits()
   if (isSetTimeUnits())
   {
     std::string time = getTimeUnits();
-    UnitDefinition * ud = removeUnitDefinition(time);
+    // if in an L3 model a user used time as an id of a UnitDefinition
+    // but they declared the time units of teh model to be something 
+    // else then the UD with id time is nothing to do with the 
+    // L2 interpretation of time
+    // so replace that UD and all references to it 
+    if (time != "time")
+    {
+      UnitDefinition * existingUD = removeUnitDefinition("time");
+      if (existingUD != NULL)
+      {
+        std::string newSubsName = "timeFromOriginal";
+        existingUD->setId(newSubsName);
+        SBase* obj;
+        for (n = 0; n < num; n++)
+        {
+          obj = (SBase*)(elements->get(n));
+          obj->renameUnitSIdRefs("time", newSubsName);
+        }
+        addUnitDefinition(existingUD);
+      }
+    }
+    UnitDefinition * ud = getUnitDefinition(time) != NULL ? 
+                          getUnitDefinition(time)->clone() : NULL;
     if (ud != NULL)
     {
       ud->setId("time");
