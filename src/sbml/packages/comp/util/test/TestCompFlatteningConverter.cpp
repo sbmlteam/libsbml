@@ -1349,6 +1349,7 @@ START_TEST (test_comp_flatten_converter_packages2)
   ConversionProperties* props = new ConversionProperties();
   
   props->addOption("flatten comp");
+  props->addOption("ignorePackages", true);
   props->addOption("perform validation", true);
 
   SBMLConverter* converter = SBMLConverterRegistry::getInstance().getConverterFor(*props);

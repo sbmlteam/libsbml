@@ -3243,12 +3243,6 @@ create_suite_TestFlatteningErrorMessages (void)
   TCase *tcase = tcase_create("SBMLCompFlatteningErrorMessages");
   Suite *suite = suite_create("SBMLCompFlatteningErrorMessages");
   
-  tcase_add_test(tcase, test_comp_flatten_invalid66);
-  tcase_add_test(tcase, test_comp_flatten_invalid67);
-  tcase_add_test(tcase, test_comp_flatten_invalid68);
-  tcase_add_test(tcase, test_comp_flatten_invalid69);
-  tcase_add_test(tcase, test_comp_flatten_invalid70);
-  
   tcase_add_test(tcase, test_comp_flatten_invalid);
   tcase_add_test(tcase, test_comp_flatten_invalid2);
   tcase_add_test(tcase, test_comp_flatten_invalid3);
@@ -3314,6 +3308,11 @@ create_suite_TestFlatteningErrorMessages (void)
   tcase_add_test(tcase, test_comp_flatten_invalid63);
   tcase_add_test(tcase, test_comp_flatten_invalid64);
   tcase_add_test(tcase, test_comp_flatten_invalid65);
+  tcase_add_test(tcase, test_comp_flatten_invalid66);
+  tcase_add_test(tcase, test_comp_flatten_invalid67);
+  tcase_add_test(tcase, test_comp_flatten_invalid68);
+  tcase_add_test(tcase, test_comp_flatten_invalid69);
+  tcase_add_test(tcase, test_comp_flatten_invalid70);
 
   tcase_add_test(tcase, test_comp_flatten_invalid_core);
   suite_add_tcase(suite, tcase);
