@@ -3050,6 +3050,191 @@ START_TEST(test_comp_flatten_invalid_core)
 }
 END_TEST
 
+START_TEST(test_comp_flatten_invalid66)
+{
+  ConversionProperties* props = new ConversionProperties();
+  
+  props->addOption("flatten comp");
+  props->addOption("perform validation", false);
+
+  SBMLConverter* converter = 
+    SBMLConverterRegistry::getInstance().getConverterFor(*props);
+  
+  // load document
+  string dir(TestDataDirectory);
+  string fileName = dir + "self-ref.xml";  
+  SBMLDocument* doc = readSBMLFromFile(fileName.c_str());
+
+  // fail if there is no model 
+  //(readSBMLFromFile always returns a valid document)
+  fail_unless(doc->getNumErrors() == 0);
+  fail_unless(doc->getModel() != NULL);
+
+  converter->setDocument(doc);
+  int result = converter->convert();
+
+  fail_unless( result == LIBSBML_OPERATION_FAILED);
+
+  SBMLErrorLog* errors = doc->getErrorLog();
+
+  fail_unless(errors->getNumErrors() == 3);
+  fail_unless(errors->contains(CompModelFlatteningFailed) == true);
+  fail_unless(errors->contains(CompCircularExternalModelReference) == true);
+  fail_unless(errors->contains(CompSubmodelMustReferenceModel) == true);
+  
+  delete doc;
+  delete converter;
+}
+END_TEST
+
+START_TEST(test_comp_flatten_invalid67)
+{
+  ConversionProperties* props = new ConversionProperties();
+  
+  props->addOption("flatten comp");
+  props->addOption("perform validation", false);
+
+  SBMLConverter* converter = 
+    SBMLConverterRegistry::getInstance().getConverterFor(*props);
+  
+  // load document
+  string dir(TestDataDirectory);
+  string fileName = dir + "self-ref2.xml";  
+  SBMLDocument* doc = readSBMLFromFile(fileName.c_str());
+
+  // fail if there is no model 
+  //(readSBMLFromFile always returns a valid document)
+  fail_unless(doc->getNumErrors() == 0);
+  fail_unless(doc->getModel() != NULL);
+
+  converter->setDocument(doc);
+  int result = converter->convert();
+
+  fail_unless( result == LIBSBML_OPERATION_FAILED);
+
+  SBMLErrorLog* errors = doc->getErrorLog();
+
+  fail_unless(errors->getNumErrors() == 3);
+  fail_unless(errors->contains(CompModelFlatteningFailed) == true);
+  fail_unless(errors->contains(CompCircularExternalModelReference) == true);
+  fail_unless(errors->contains(CompSubmodelMustReferenceModel) == true);
+
+  delete doc;
+  delete converter;
+}
+END_TEST
+
+START_TEST(test_comp_flatten_invalid68)
+{
+  ConversionProperties* props = new ConversionProperties();
+  
+  props->addOption("flatten comp");
+  props->addOption("perform validation", false);
+
+  SBMLConverter* converter = 
+    SBMLConverterRegistry::getInstance().getConverterFor(*props);
+  
+  // load document
+  string dir(TestDataDirectory);
+  string fileName = dir + "self-ref3.xml";  
+  SBMLDocument* doc = readSBMLFromFile(fileName.c_str());
+
+  // fail if there is no model 
+  //(readSBMLFromFile always returns a valid document)
+  fail_unless(doc->getNumErrors() == 0);
+  fail_unless(doc->getModel() != NULL);
+
+  converter->setDocument(doc);
+  int result = converter->convert();
+
+  fail_unless( result == LIBSBML_OPERATION_FAILED);
+
+  SBMLErrorLog* errors = doc->getErrorLog();
+
+  fail_unless(errors->getNumErrors() == 3);
+  fail_unless(errors->contains(CompModelFlatteningFailed) == true);
+  fail_unless(errors->contains(CompCircularExternalModelReference) == true);
+  fail_unless(errors->contains(CompSubmodelMustReferenceModel) == true);
+
+  delete doc;
+  delete converter;
+}
+END_TEST
+
+START_TEST(test_comp_flatten_invalid69)
+{
+  ConversionProperties* props = new ConversionProperties();
+  
+  props->addOption("flatten comp");
+  props->addOption("perform validation", false);
+
+  SBMLConverter* converter = 
+    SBMLConverterRegistry::getInstance().getConverterFor(*props);
+  
+  // load document
+  string dir(TestDataDirectory);
+  string fileName = dir + "self-ref4.xml";  
+  SBMLDocument* doc = readSBMLFromFile(fileName.c_str());
+
+  // fail if there is no model 
+  //(readSBMLFromFile always returns a valid document)
+  fail_unless(doc->getNumErrors() == 0);
+  fail_unless(doc->getModel() != NULL);
+
+  converter->setDocument(doc);
+  int result = converter->convert();
+
+  fail_unless( result == LIBSBML_OPERATION_FAILED);
+
+  SBMLErrorLog* errors = doc->getErrorLog();
+
+  fail_unless(errors->getNumErrors() == 3);
+  fail_unless(errors->contains(CompModelFlatteningFailed) == true);
+  fail_unless(errors->contains(CompCircularExternalModelReference) == true);
+  fail_unless(errors->contains(CompSubmodelMustReferenceModel) == true);
+
+  delete doc;
+  delete converter;
+}
+END_TEST
+
+START_TEST(test_comp_flatten_invalid70)
+{
+  ConversionProperties* props = new ConversionProperties();
+  
+  props->addOption("flatten comp");
+  props->addOption("perform validation", false);
+
+  SBMLConverter* converter = 
+    SBMLConverterRegistry::getInstance().getConverterFor(*props);
+  
+  // load document
+  string dir(TestDataDirectory);
+  string fileName = dir + "self-ref5.xml";  
+  SBMLDocument* doc = readSBMLFromFile(fileName.c_str());
+
+  // fail if there is no model 
+  //(readSBMLFromFile always returns a valid document)
+  fail_unless(doc->getNumErrors() == 0);
+  fail_unless(doc->getModel() != NULL);
+
+  converter->setDocument(doc);
+  int result = converter->convert();
+
+  fail_unless( result == LIBSBML_OPERATION_FAILED);
+
+  SBMLErrorLog* errors = doc->getErrorLog();
+
+  fail_unless(errors->getNumErrors() == 3);
+  fail_unless(errors->contains(CompModelFlatteningFailed) == true);
+  fail_unless(errors->contains(CompCircularExternalModelReference) == true);
+  fail_unless(errors->contains(CompSubmodelMustReferenceModel) == true);
+
+  delete doc;
+  delete converter;
+}
+END_TEST
+
   //LS DEBUG:  still need tests for groups of deletion
 
 Suite *
@@ -3057,6 +3242,12 @@ create_suite_TestFlatteningErrorMessages (void)
 { 
   TCase *tcase = tcase_create("SBMLCompFlatteningErrorMessages");
   Suite *suite = suite_create("SBMLCompFlatteningErrorMessages");
+  
+  tcase_add_test(tcase, test_comp_flatten_invalid66);
+  tcase_add_test(tcase, test_comp_flatten_invalid67);
+  tcase_add_test(tcase, test_comp_flatten_invalid68);
+  tcase_add_test(tcase, test_comp_flatten_invalid69);
+  tcase_add_test(tcase, test_comp_flatten_invalid70);
   
   tcase_add_test(tcase, test_comp_flatten_invalid);
   tcase_add_test(tcase, test_comp_flatten_invalid2);

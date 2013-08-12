@@ -898,7 +898,7 @@ Submodel::instantiate()
       return LIBSBML_OPERATION_FAILED;
     }
 
-    mInstantiatedModel = extmod->getReferencedModel();
+    mInstantiatedModel = extmod->getReferencedModel(rootdoc);
     if (mInstantiatedModel == NULL) 
     {
       string error = "In Submodel::instantiate, unable to instantiate submodel '" + getId() + "' because the external model definition it referenced (model '" + getModelRef() +"') could not be resolved.";

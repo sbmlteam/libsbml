@@ -95,6 +95,7 @@
 #ifdef __cplusplus
 
 #include <string>
+#include <set>
 
 #include <sbml/SBase.h>
 #include <sbml/packages/comp/extension/CompExtension.h>
@@ -488,7 +489,7 @@ public:
    * Model belongs.  If this ExternalModelDefinition is not part of any
    * SBMLDocument, NULL will be returned.
    */
-  virtual Model* getReferencedModel();
+  virtual Model* getReferencedModel(SBMLDocument* errordoc = NULL, std::set<std::pair<std::string, std::string> > parents = std::set<std::pair<std::string, std::string> >());
 
 
 protected:
