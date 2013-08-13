@@ -120,7 +120,7 @@ ExtModelReferenceCycles::addAllReferences(const SBMLDocument* doc,
   
   if (mDocumentsHandled.contains(location) == false)
   {
-    addModelReferences(location + "_" + m->getId(), docPlug, modelPlug);
+    addModelReferences(location, docPlug, modelPlug);
     mDocumentsHandled.append(location);
 
 
@@ -138,22 +138,17 @@ ExtModelReferenceCycles::addAllReferences(const SBMLDocument* doc,
 }
  
 void 
-ExtModelReferenceCycles::addModelReferences(const std::string &id, 
+ExtModelReferenceCycles::addModelReferences(const std::string &location, 
                           const CompSBMLDocumentPlugin* docPlug,
                           const CompModelPlugin* modelPlug)
 {
-  // loop thru submodels and see if they refernce the externalMDs
-  // if so add the  dependency between this model to that extMD
-  for (unsigned int i = 0; i < modelPlug->getNumSubmodels(); i++)
+  for (unsigned int i = 0; i < docPlug->getNumExternalModelDefinitions(); i++)
   {
-    std::string modelRef = modelPlug->getSubmodel(i)->getModelRef();
     const ExternalModelDefinition * ext = 
-                           docPlug->getExternalModelDefinition(modelRef);
-    if (ext != NULL)
-    {
-      std::string name = ext->getSource() + "_" + ext->getModelRef();
-      mIdMap.insert(pair<const std::string, std::string>(id, name));
-    }
+                           docPlug->getExternalModelDefinition(i);
+    std::string refDoc = ext->getSource() + "_" + ext->getModelRef();
+    std::string thisDoc = location + "_" + ext->getId();
+    mIdMap.insert(pair<const std::string, std::string>(thisDoc, refDoc));
   }
 }
 
@@ -238,10 +233,11 @@ ExtModelReferenceCycles::determineCycles(const Model& m)
     range = mIdMap.equal_range(id);
     for (it = range.first; it != range.second; it++)
     {
-      if (((*it).second != id)
-        && (variables.contains((*it).second))
-        && !alreadyExistsInMap(logged, pair<const std::string, std::string>(id, (*it).second))
-        && !alreadyExistsInMap(logged, pair<const std::string, std::string>((*it).second, id)))
+      if (((*it).second == id)
+        && !alreadyExistsInMap(logged, 
+                    pair<const std::string, std::string>(id, (*it).second))
+        && !alreadyExistsInMap(logged, 
+                    pair<const std::string, std::string>((*it).second, id)))
       {
         logCycle(m, id, (*it).second);
         logged.insert(pair<const std::string, std::string>(id, (*it).second));
@@ -267,11 +263,12 @@ ExtModelReferenceCycles::logCycle (const Model& m, std::string id,
   std::string file2 = id1.substr(0, under2);
   std::string model2 = id1.substr(under2+5, string::npos);
   
-  msg = "Model with id '";
+  msg = "ExternalModelDefinition with id '";
   msg += model1;
   msg += "' in file '";
   msg += file1;
-  msg += "' creates a circular reference with the model with id '"; 
+  msg += "' creates a circular reference with the externalModelDefinition ";
+  msg += "with id '"; 
   msg += model2;
   msg += "' in file '";
   msg += file2;

@@ -65,10 +65,17 @@ protected:
 
   void addAllReferences (const Model* m);
 
+  void addAllExternalReferences(const SBMLDocument* doc, 
+                                          std::string location);
+
   /* create pairs of ids that depend on each other */
   void addModelReferences(const std::string &id, 
                           const CompModelPlugin* modelPlug); 
   
+  void addExtModelReferences(const std::string &id, 
+                          const CompSBMLDocumentPlugin* docPlug,
+                          const CompModelPlugin* modelPlug);
+
   void determineAllDependencies();
 
 
@@ -90,6 +97,9 @@ protected:
   
   
   IdMap mIdMap;
+
+  IdList mDocumentsHandled;
+
 };
 
 LIBSBML_CPP_NAMESPACE_END

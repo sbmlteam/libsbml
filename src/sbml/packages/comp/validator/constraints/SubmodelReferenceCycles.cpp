@@ -71,6 +71,10 @@ SubmodelReferenceCycles::check_ (const Model& m, const Model& object)
 {
   mIdMap.clear();
 
+  mDocumentsHandled.clear();
+
+  addAllExternalReferences(m.getSBMLDocument(), "");
+
   addAllReferences(&m);
 
   determineAllDependencies();
@@ -123,6 +127,84 @@ SubmodelReferenceCycles::addModelReferences(const std::string &id,
   {
     std::string modelRef = modelPlug->getSubmodel(i)->getModelRef();
     mIdMap.insert(pair<const std::string, std::string>(id, modelRef));
+  }
+}
+
+
+void
+SubmodelReferenceCycles::addAllExternalReferences(const SBMLDocument* doc, 
+                                          std::string location)
+{
+  if (doc == NULL) return;
+
+  const Model * m = doc->getModel();
+
+  if (m == NULL)
+  {
+    return;
+  }
+
+  const CompSBMLDocumentPlugin* docPlug = (CompSBMLDocumentPlugin*)
+                                  (doc->getPlugin("comp"));
+  const CompModelPlugin* modelPlug = (CompModelPlugin*)(m->getPlugin("comp"));
+
+  if (modelPlug == NULL || docPlug == NULL)
+  {
+    return;
+  }
+
+  if (docPlug->getNumExternalModelDefinitions() == 0)
+  {
+    return;
+  }
+
+  string locationURI = doc->getLocationURI();
+
+  if (locationURI.empty()) {
+    return;
+  }
+
+  if (location.empty() == true)
+  {
+    location = locationURI.substr(locationURI.find(':')+1, string::npos);
+  }
+  
+  if (mDocumentsHandled.contains(location) == false)
+  {
+    addExtModelReferences(location + "_" + m->getId(), docPlug, modelPlug);
+    mDocumentsHandled.append(location);
+
+
+    const SBMLResolverRegistry& registry = SBMLResolverRegistry::getInstance();
+
+    for (unsigned int i = 0; i < docPlug->getNumExternalModelDefinitions(); i++)
+    {
+      string uri = docPlug->getExternalModelDefinition(i)->getSource();
+
+      SBMLDocument* newDoc = registry.resolve(uri, locationURI);
+
+      addAllExternalReferences(newDoc, uri);
+    }
+  }
+}
+ 
+void 
+SubmodelReferenceCycles::addExtModelReferences(const std::string &id, 
+                          const CompSBMLDocumentPlugin* docPlug,
+                          const CompModelPlugin* modelPlug)
+{
+  // loop thru submodels and see if they refernce the externalMDs
+  // if so add the  dependency between this model to that extMD
+  for (unsigned int i = 0; i < modelPlug->getNumSubmodels(); i++)
+  {
+    std::string modelRef = modelPlug->getSubmodel(i)->getModelRef();
+    const ExternalModelDefinition * ext = 
+                           docPlug->getExternalModelDefinition(modelRef);
+    if (ext != NULL)
+    {
+      std::string name = ext->getSource() + "_" + ext->getModelRef();
+      mIdMap.insert(pair<const std::string, std::string>(id, name));
+    }
   }
 }
 

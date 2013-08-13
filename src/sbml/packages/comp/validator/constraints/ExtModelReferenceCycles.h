@@ -66,7 +66,7 @@ protected:
   void addAllReferences (const SBMLDocument* doc, std::string location);
 
   /* create pairs of ids that depend on each other */
-  void addModelReferences(const std::string &id, 
+  void addModelReferences(const std::string &location, 
                           const CompSBMLDocumentPlugin* docPlug,
                           const CompModelPlugin* modelPlug); 
   
