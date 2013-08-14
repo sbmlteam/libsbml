@@ -31,6 +31,8 @@
 #include <sbml/extension/SBasePlugin.h>
 #include <sbml/extension/SBMLExtensionRegistry.h>
 #include <sbml/util/ElementFilter.h>
+#include <sbml/util/IdFilter.h>
+#include <sbml/util/MetaIdFilter.h>
 
 #ifdef __cplusplus
 
@@ -145,6 +147,16 @@ SBase*
 SBasePlugin::getElementBySId(std::string id)
 {
   if (id.empty()) return NULL;
+  IdFilter filter;
+  List* allElementsWithIds = this->getAllElements(&filter);
+  for (unsigned int i = 0; i < allElementsWithIds->getSize(); i++)
+  {
+    SBase* obj = (SBase*)(allElementsWithIds->get(i));
+    if (obj->getId() == id)
+    {
+      return obj;
+     }
+  }
   return NULL;
 }
 
@@ -153,6 +165,16 @@ SBase*
 SBasePlugin::getElementByMetaId(std::string metaid)
 {
   if (metaid.empty()) return NULL;
+  MetaIdFilter filter;
+  List* allElementsWithIds = this->getAllElements(&filter);
+  for (unsigned int i = 0; i < allElementsWithIds->getSize(); i++)
+  {
+    SBase* obj = (SBase*)(allElementsWithIds->get(i));
+    if (obj->getMetaId() == metaid)
+    {
+      return obj;
+     }
+  }
   return NULL;
 }
 
