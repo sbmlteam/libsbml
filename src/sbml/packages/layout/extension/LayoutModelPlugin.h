@@ -301,6 +301,11 @@ public:
   //
   // ---------------------------------------------------------
 
+  /** @cond doxygenLibsbmlInternal */
+
+  int appendFrom(const Model* model);
+
+  /** @endcond */
 
   /** @cond doxygenLibsbmlInternal */
   /**

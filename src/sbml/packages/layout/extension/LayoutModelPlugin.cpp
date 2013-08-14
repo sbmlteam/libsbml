@@ -55,6 +55,38 @@ LayoutModelPlugin::getAllElements(ElementFilter *filter)
 }
 
 
+int 
+LayoutModelPlugin::appendFrom(const Model* model)
+{
+  int ret = LIBSBML_OPERATION_SUCCESS;
+
+  if (model==NULL)
+  {
+    return LIBSBML_INVALID_OBJECT;
+  }
+
+  const LayoutModelPlugin* modplug = 
+    static_cast<const LayoutModelPlugin*>(model->getPlugin(getPrefix()));
+  
+  if (modplug==NULL)
+  {
+    return LIBSBML_INVALID_OBJECT;
+  }
+
+  Model* parent = static_cast<Model*>(getParentSBMLObject());
+
+  if (parent==NULL) 
+  {
+    return LIBSBML_INVALID_OBJECT;
+  }
+  
+  ret = mLayouts.appendFrom(modplug->getListOfLayouts());
+  
+  return ret;
+}
+
+
+
 
 /*
  * 
