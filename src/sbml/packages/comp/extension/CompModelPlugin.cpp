@@ -732,7 +732,28 @@ int CompModelPlugin::saveAllReferencedElements(set<SBase*> uniqueRefs, set<SBase
           ReplacedElement* re = static_cast<ReplacedElement*>(element);
           ret = reference->saveReferencedElement();
           if (ret != LIBSBML_OPERATION_SUCCESS) {
-            return ret;
+            if (type != SBML_COMP_REPLACEDBY && doc) {
+              SBMLErrorLog* errlog = doc->getErrorLog();
+              SBMLError* lasterr = const_cast<SBMLError*>(doc->getErrorLog()->getError(doc->getNumErrors()-1));
+              if ( (errlog->contains(UnrequiredPackagePresent) || 
+                    errlog->contains(RequiredPackagePresent)) && 
+                   (lasterr->getErrorId() == CompIdRefMustReferenceObject ||
+                    lasterr->getErrorId() == CompMetaIdRefMustReferenceObject)
+                 ) {
+                   //Change the error into a warning
+                   string fullmsg = lasterr->getMessage() + "  However, this may be because of the unrecognized package present in this document:  ignoring this element and flattening anyway.";
+                   errlog->remove(lasterr->getErrorId());
+                   errlog->logPackageError("comp", CompFlatteningWarning, getPackageVersion(), getLevel(), getVersion(), fullmsg, element->getLine(), element->getColumn(), LIBSBML_SEV_WARNING);
+                   element->removeFromParentAndDelete();
+                   continue;
+              }
+              else {
+                return ret;
+              }
+            }
+            else {
+              return ret;
+            }
           }
           SBase* direct = reference->getDirectReference();
           bool adddirect = true;

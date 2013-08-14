@@ -1344,9 +1344,19 @@ static const packageErrorTableEntry compErrorTable[] =
     "" ,
     { ""
     }
+  },
+
+  // 1090111
+  { CompFlatteningWarning,
+    "Flattening reference may come from package.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY, 
+    LIBSBML_SEV_WARNING,
+    "The CompFlatteningConverter has encountered an unknown reference which may "
+    "be due to the presence of an unknown package."
+    "" ,
+    { ""
+    }
   }
-
-
 };
 
 LIBSBML_CPP_NAMESPACE_END

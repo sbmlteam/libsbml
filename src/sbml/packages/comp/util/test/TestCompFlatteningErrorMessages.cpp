@@ -3235,7 +3235,282 @@ START_TEST(test_comp_flatten_invalid70)
 }
 END_TEST
 
-  //LS DEBUG:  still need tests for groups of deletion
+START_TEST(test_comp_flatten_invalid71)
+{
+  ConversionProperties* props = new ConversionProperties();
+  props->addOption("flatten comp");
+  props->addOption("leavePorts", false);
+  props->addOption("perform validation", false);
+  SBMLConverter* converter = 
+    SBMLConverterRegistry::getInstance().getConverterFor(*props);
+  
+  SBMLNamespaces sbmlns(3,1,"comp",1);
+  int rv;
+
+  // create the document
+  SBMLDocument *document = new SBMLDocument(&sbmlns);
+  CompSBMLDocumentPlugin* compdoc = 
+           static_cast<CompSBMLDocumentPlugin*>(document->getPlugin("comp"));
+  compdoc->setRequired(true);
+
+  // create the Model
+  Model* model=document->createModel();
+  model->setId("mainmod");
+  CompModelPlugin* mplugin = 
+                   static_cast<CompModelPlugin*>(model->getPlugin("comp"));
+  
+  // create a Parameter in it.
+  Parameter* param = model->createParameter();
+  param->setId("p1");
+  param->setConstant(true);
+
+  //Give it a replaced element
+  CompSBasePlugin* pcomp = 
+                   static_cast<CompSBasePlugin*>(param->getPlugin("comp"));
+  ReplacedElement* re = pcomp->createReplacedElement();
+  re->setSubmodelRef("submod1");
+  re->setDeletion("del1");
+  
+  // create another Parameter in it.
+  param = model->createParameter();
+  param->setId("p2");
+  param->setConstant(true);
+
+  //Give it a replaced element
+  pcomp = static_cast<CompSBasePlugin*>(param->getPlugin("comp"));
+  re = pcomp->createReplacedElement();
+  re->setSubmodelRef("submod1");
+  re->setDeletion("del1");
+  
+  // create a Port for the deletion (this is the problem)
+  Port* port = mplugin->createPort();
+  port->setId("port1");
+  port->setIdRef("del1");
+  
+  // create a Submodel
+  Submodel* submod1 = mplugin->createSubmodel();
+  submod1->setId("submod1");
+  submod1->setModelRef("Mod1");
+
+  // give it a deletion
+  Deletion* del = submod1->createDeletion();
+  del->setIdRef("deleteme");
+  del->setId("del1");
+
+  // Create a model definition with a parameter to be deleted
+  ModelDefinition* md = compdoc->createModelDefinition();
+  md->setId("Mod1");
+  param = md->createParameter();
+  param->setId("deleteme");
+  param->setConstant(true);
+
+  //Now try to flatten it
+  converter->setDocument(document);
+  rv = converter->convert();
+  fail_unless(rv==LIBSBML_OPERATION_FAILED);
+  SBMLErrorLog* errors = document->getErrorLog();
+
+  fail_unless(errors->getNumErrors() == 2);
+  fail_unless(errors->contains(CompModelFlatteningFailed) == true);
+  fail_unless(errors->contains(CompNoMultipleReferences) == true);
+  
+  delete document;
+  delete converter;
+}
+END_TEST
+
+START_TEST(test_comp_flatten_invalid72)
+{
+  ConversionProperties* props = new ConversionProperties();
+  props->addOption("flatten comp");
+  props->addOption("leavePorts", false);
+  props->addOption("perform validation", false);
+  SBMLConverter* converter = 
+    SBMLConverterRegistry::getInstance().getConverterFor(*props);
+  
+  SBMLNamespaces sbmlns(3,1,"comp",1);
+  int rv;
+
+  // create the document
+  SBMLDocument *document = new SBMLDocument(&sbmlns);
+  CompSBMLDocumentPlugin* compdoc = 
+           static_cast<CompSBMLDocumentPlugin*>(document->getPlugin("comp"));
+  compdoc->setRequired(true);
+
+  // create the Model
+  Model* model=document->createModel();
+  model->setId("mainmod");
+  CompModelPlugin* mplugin = 
+                   static_cast<CompModelPlugin*>(model->getPlugin("comp"));
+  
+  // create a Parameter in it.
+  Parameter* param = model->createParameter();
+  param->setId("p1");
+  param->setConstant(true);
+
+  //Give it a replaced element
+  CompSBasePlugin* pcomp = 
+                   static_cast<CompSBasePlugin*>(param->getPlugin("comp"));
+  ReplacedElement* re = pcomp->createReplacedElement();
+  re->setSubmodelRef("submod1");
+  re->setIdRef("del1");
+  
+  // create a Submodel
+  Submodel* submod1 = mplugin->createSubmodel();
+  submod1->setId("submod1");
+  submod1->setModelRef("moddef1");
+
+  // create a Model Definition
+  ModelDefinition* md=compdoc->createModelDefinition();
+  md->setId("moddef1");
+  mplugin = static_cast<CompModelPlugin*>(md->getPlugin("comp"));
+  
+  // create a Parameter in it.
+  param = md->createParameter();
+  param->setId("p1");
+  param->setConstant(true);
+
+  //Give it a replaced element
+  pcomp = static_cast<CompSBasePlugin*>(param->getPlugin("comp"));
+  re = pcomp->createReplacedElement();
+  re->setSubmodelRef("submod1");
+  re->setDeletion("del1");
+  
+  // create another Parameter in it.
+  param = md->createParameter();
+  param->setId("p2");
+  param->setConstant(true);
+
+  //Give it a replaced element
+  pcomp = static_cast<CompSBasePlugin*>(param->getPlugin("comp"));
+  re = pcomp->createReplacedElement();
+  re->setSubmodelRef("submod1");
+  re->setDeletion("del1");
+  
+  // create a Submodel
+  submod1 = mplugin->createSubmodel();
+  submod1->setId("submod1");
+  submod1->setModelRef("moddef2");
+
+  // give it a deletion
+  Deletion* del = submod1->createDeletion();
+  del->setIdRef("deleteme");
+  del->setId("del1");
+
+  // Create a model definition with a parameter to be deleted
+  md = compdoc->createModelDefinition();
+  md->setId("moddef2");
+  param = md->createParameter();
+  param->setId("deleteme");
+  param->setConstant(true);
+
+  //Now try to flatten it
+  converter->setDocument(document);
+  rv = converter->convert();
+  fail_unless(rv==LIBSBML_OPERATION_FAILED);
+  SBMLErrorLog* errors = document->getErrorLog();
+
+  fail_unless(errors->getNumErrors() == 2);
+  fail_unless(errors->contains(CompModelFlatteningFailed) == true);
+  fail_unless(errors->contains(CompNoMultipleReferences) == true);
+  
+  delete document;
+  delete converter;
+}
+END_TEST
+
+START_TEST(test_comp_flatten_invalid73)
+{
+  ConversionProperties* props = new ConversionProperties();
+  props->addOption("flatten comp");
+  props->addOption("leavePorts", false);
+  props->addOption("perform validation", false);
+  SBMLConverter* converter = 
+    SBMLConverterRegistry::getInstance().getConverterFor(*props);
+  
+  SBMLNamespaces sbmlns(3,1,"comp",1);
+  int rv;
+
+  // create the document
+  SBMLDocument *document = new SBMLDocument(&sbmlns);
+  CompSBMLDocumentPlugin* compdoc = 
+           static_cast<CompSBMLDocumentPlugin*>(document->getPlugin("comp"));
+  compdoc->setRequired(true);
+
+  // create the Model
+  Model* model=document->createModel();
+  model->setId("mainmod");
+  CompModelPlugin* mplugin = 
+                   static_cast<CompModelPlugin*>(model->getPlugin("comp"));
+  
+  // create a Submodel
+  Submodel* submod1 = mplugin->createSubmodel();
+  submod1->setId("submod1");
+  submod1->setModelRef("moddef1");
+
+  //Delete the deletion (OK, but can't also reference it, below)
+  Deletion* del = submod1->createDeletion();
+  del->setIdRef("del1");
+
+  // create a Model Definition
+  ModelDefinition* md=compdoc->createModelDefinition();
+  md->setId("moddef1");
+  mplugin = static_cast<CompModelPlugin*>(md->getPlugin("comp"));
+  
+  // create a Parameter in it.
+  Parameter* param = md->createParameter();
+  param->setId("p1");
+  param->setConstant(true);
+
+  //Give it a replaced element
+  CompSBasePlugin* pcomp = static_cast<CompSBasePlugin*>(param->getPlugin("comp"));
+  ReplacedElement* re = pcomp->createReplacedElement();
+  re->setSubmodelRef("submod1");
+  re->setDeletion("del1");
+  
+  // create another Parameter in it.
+  param = md->createParameter();
+  param->setId("p2");
+  param->setConstant(true);
+
+  //Give it a replaced element
+  pcomp = static_cast<CompSBasePlugin*>(param->getPlugin("comp"));
+  re = pcomp->createReplacedElement();
+  re->setSubmodelRef("submod1");
+  re->setDeletion("del1");
+  
+  // create a Submodel
+  submod1 = mplugin->createSubmodel();
+  submod1->setId("submod1");
+  submod1->setModelRef("moddef2");
+
+  // give it a deletion
+  del = submod1->createDeletion();
+  del->setIdRef("deleteme");
+  del->setId("del1");
+
+  // Create a model definition with a parameter to be deleted
+  md = compdoc->createModelDefinition();
+  md->setId("moddef2");
+  param = md->createParameter();
+  param->setId("deleteme");
+  param->setConstant(true);
+
+  //Now try to flatten it
+  converter->setDocument(document);
+  rv = converter->convert();
+  fail_unless(rv==LIBSBML_OPERATION_FAILED);
+  SBMLErrorLog* errors = document->getErrorLog();
+
+  fail_unless(errors->getNumErrors() == 2);
+  fail_unless(errors->contains(CompModelFlatteningFailed) == true);
+  fail_unless(errors->contains(CompNoMultipleReferences) == true);
+  
+  delete document;
+  delete converter;
+}
+END_TEST
+
 
 Suite *
 create_suite_TestFlatteningErrorMessages (void)
@@ -3313,6 +3588,9 @@ create_suite_TestFlatteningErrorMessages (void)
   tcase_add_test(tcase, test_comp_flatten_invalid68);
   tcase_add_test(tcase, test_comp_flatten_invalid69);
   tcase_add_test(tcase, test_comp_flatten_invalid70);
+  tcase_add_test(tcase, test_comp_flatten_invalid71);
+  tcase_add_test(tcase, test_comp_flatten_invalid72);
+  tcase_add_test(tcase, test_comp_flatten_invalid73);
 
   tcase_add_test(tcase, test_comp_flatten_invalid_core);
   suite_add_tcase(suite, tcase);

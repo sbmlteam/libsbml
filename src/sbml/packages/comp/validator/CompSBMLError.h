@@ -168,10 +168,11 @@ typedef enum
 , CompFlatModelNotValid                 = 1090105
 , CompLineNumbersUnreliable             = 1090106
 
-, CompFlatteningNotRecognisedNotReqd    = 1090108
 , CompFlatteningNotRecognisedReqd       = 1090107
+, CompFlatteningNotRecognisedNotReqd    = 1090108
 , CompFlatteningNotImplementedNotReqd   = 1090109
 , CompFlatteningNotImplementedReqd      = 1090110
+, CompFlatteningWarning                 = 1090111
 
 } CompSBMLErrorCode_t;
 
