@@ -991,7 +991,7 @@ SBMLTransforms::expandInitialAssignments(Model * m)
                   }
                 }
               }
-              for (k = 0; k < r->getNumProducts(); k++)
+              for (k = 0; k < r->getNumReactants(); k++)
               {
                 if (r->getReactant(k)->getId() == id)
                 {
