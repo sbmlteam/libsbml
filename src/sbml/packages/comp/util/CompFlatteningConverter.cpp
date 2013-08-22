@@ -298,8 +298,8 @@ CompFlatteningConverter::convert()
 
   // now reconstruct the document to be returned 
   // taking user options into account
-
-  result = reconstructDocument(flatmodel, SBMLDocument());
+  SBMLDocument tempDoc;
+  result = reconstructDocument(flatmodel, tempDoc);
 
   if (result != LIBSBML_OPERATION_SUCCESS) 
   {
