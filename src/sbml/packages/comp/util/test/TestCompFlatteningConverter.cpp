@@ -180,7 +180,7 @@ void TestFlattenedPair(string file1, string file2)
   */
 
   string newModel = writeSBMLToString(doc);
-  //writeSBMLToFile(doc, "test1_flat.xml");
+  //writeSBMLToFile(doc, "test_flat.xml");
   string ffile = filename + file2;
   SBMLDocument* fdoc = readSBMLFromFile(ffile.c_str());
   string flatModel = writeSBMLToString(fdoc);
@@ -845,6 +845,66 @@ START_TEST (test_comp_flatten_test50)
 }
 END_TEST
   
+START_TEST (test_comp_flatten_test51)
+{ 
+  TestFlattenedPair("test51.xml", "test51_flat.xml");
+}
+END_TEST
+  
+START_TEST (test_comp_flatten_test52)
+{ 
+  TestFlattenedPair("test52.xml", "test52_flat.xml");
+}
+END_TEST
+  
+START_TEST (test_comp_flatten_test53)
+{ 
+  TestFlattenedPair("test53.xml", "test53_flat.xml");
+}
+END_TEST
+  
+START_TEST (test_comp_flatten_test54)
+{ 
+  TestFlattenedPair("test54.xml", "test54_flat.xml");
+}
+END_TEST
+  
+START_TEST (test_comp_flatten_test55)
+{ 
+  TestFlattenedPair("test55.xml", "test55_flat.xml");
+}
+END_TEST
+  
+START_TEST (test_comp_flatten_test56)
+{ 
+  TestFlattenedPair("test56.xml", "test56_flat.xml");
+}
+END_TEST
+  
+START_TEST (test_comp_flatten_test57)
+{ 
+  TestFlattenedPair("test57.xml", "test57_flat.xml");
+}
+END_TEST
+  
+START_TEST (test_comp_flatten_test58)
+{ 
+  TestFlattenedPair("test58.xml", "test58_flat.xml");
+}
+END_TEST
+
+START_TEST (test_comp_flatten_test59)
+{ 
+  TestFlattenedPair("test59.xml", "test59_flat.xml");
+}
+END_TEST
+
+START_TEST (test_comp_flatten_test60)
+{ 
+  TestFlattenedPair("test60.xml", "test60_flat.xml");
+}
+END_TEST
+
 
 START_TEST (test_comp_flatten_id_collisions)
 { 
@@ -1660,6 +1720,16 @@ create_suite_TestFlatteningConverter (void)
   tcase_add_test(tcase, test_comp_flatten_test48);
   tcase_add_test(tcase, test_comp_flatten_test49);
   tcase_add_test(tcase, test_comp_flatten_test50);
+  tcase_add_test(tcase, test_comp_flatten_test51);
+  tcase_add_test(tcase, test_comp_flatten_test52);
+  tcase_add_test(tcase, test_comp_flatten_test53);
+  tcase_add_test(tcase, test_comp_flatten_test54);
+  tcase_add_test(tcase, test_comp_flatten_test55);
+  tcase_add_test(tcase, test_comp_flatten_test56);
+  tcase_add_test(tcase, test_comp_flatten_test57);
+  tcase_add_test(tcase, test_comp_flatten_test58);
+  tcase_add_test(tcase, test_comp_flatten_test59);
+  tcase_add_test(tcase, test_comp_flatten_test60);
 
   tcase_add_test(tcase, test_comp_flatten_id_collisions);
   tcase_add_test(tcase, test_comp_flatten_id_collisions2);

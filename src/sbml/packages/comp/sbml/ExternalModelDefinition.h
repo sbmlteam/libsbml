@@ -489,7 +489,7 @@ public:
    * Model belongs.  If this ExternalModelDefinition is not part of any
    * SBMLDocument, NULL will be returned.
    */
-  virtual Model* getReferencedModel(SBMLDocument* errordoc = NULL, std::set<std::pair<std::string, std::string> > parents = std::set<std::pair<std::string, std::string> >());
+  virtual Model* getReferencedModel();
 
 
 protected:
@@ -529,6 +529,10 @@ protected:
   virtual void writeAttributes (XMLOutputStream& stream) const;
   /** @endcond */
 
+  /** @cond doxygenLibsbmlInternal */
+  virtual Model* getReferencedModel(SBMLDocument* errordoc, std::set<std::pair<std::string, std::string> > parents);
+  /** @endcond */
+  friend class Submodel;
 };
 
 

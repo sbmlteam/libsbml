@@ -874,6 +874,7 @@ Submodel::instantiate()
   SBMLDocument* origdoc = NULL;
   string newmodel = parentURI + "::" + getModelRef();
   
+  set<pair<string, string> > parents;
   switch(origmodel->getTypeCode()) 
   {
   case SBML_MODEL:
@@ -897,8 +898,7 @@ Submodel::instantiate()
       mInstantiationOriginalURI = "";
       return LIBSBML_OPERATION_FAILED;
     }
-
-    mInstantiatedModel = extmod->getReferencedModel(rootdoc);
+    mInstantiatedModel = extmod->getReferencedModel(rootdoc, parents);
     if (mInstantiatedModel == NULL) 
     {
       string error = "In Submodel::instantiate, unable to instantiate submodel '" + getId() + "' because the external model definition it referenced (model '" + getModelRef() +"') could not be resolved.";
@@ -966,18 +966,6 @@ Submodel::instantiate()
     }
   }
 
-  return LIBSBML_OPERATION_SUCCESS;
-}
-
-int Submodel::performDeletions()
-{
-  if (mInstantiatedModel == NULL) return LIBSBML_INVALID_OBJECT;
-  for (unsigned int i = 0; i < getNumDeletions(); i++)
-  {
-    SBase* todelete = getDeletion(i)->getReferencedElementFrom(mInstantiatedModel);
-    if (todelete == NULL) continue;
-    CompBase::removeFromParentAndPorts(todelete);
-  }
   return LIBSBML_OPERATION_SUCCESS;
 }
 

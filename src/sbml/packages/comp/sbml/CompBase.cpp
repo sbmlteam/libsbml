@@ -30,6 +30,8 @@
 #include <sstream>
 #include <iostream>
 
+using namespace std;
+
 LIBSBML_CPP_NAMESPACE_BEGIN
 
 CompBase::CompBase (unsigned int level, unsigned int version, unsigned int pkgVersion) 
@@ -428,7 +430,7 @@ CompBase::hasValidLevelVersionNamespaceCombination()
 /** @endcond */
 
 
-int CompBase::removeFromParentAndPorts(SBase* todelete)
+int CompBase::removeFromParentAndPorts(SBase* todelete, set<SBase*>* removed)
 {
   //First remove from ports:
   Model* parent = static_cast<Model*>(todelete->getAncestorOfType(SBML_COMP_MODELDEFINITION, "comp"));
@@ -444,6 +446,9 @@ int CompBase::removeFromParentAndPorts(SBase* todelete)
     for (unsigned long p=0; p<cmp->getNumPorts();) {
       Port* port = cmp->getPort(p);
       if (port->getReferencedElement() == todelete) {
+        if (removed) {
+          removed->insert(port);
+        }
         port->removeFromParentAndDelete();
       }
       else {
@@ -457,6 +462,9 @@ int CompBase::removeFromParentAndPorts(SBase* todelete)
     else parent = tempparent;
   }
   //And secondly, remove from parent
+  if (removed) {
+    removed->insert(todelete);
+  }
   return todelete->removeFromParentAndDelete();
 }
 

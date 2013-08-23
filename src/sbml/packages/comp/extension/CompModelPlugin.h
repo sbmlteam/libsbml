@@ -521,7 +521,7 @@ public:
    * Find all SBaseRef-derived objects in this Model and in instantiated
    * Submodels and find and save pointers to the elements they point to.
    */
-  virtual int saveAllReferencedElements(std::set<SBase*> uniqueRefs = std::set<SBase*>(), std::set<SBase*> replacedBys = std::set<SBase*>());
+  virtual int saveAllReferencedElements();
 
   /*
    * Renames all ids of all elements in the instantiated submodel (SIds,
@@ -537,7 +537,7 @@ public:
    * plus any elements those deleted elements may have replaced or been
    * replaced by.
    */
-  virtual int performDeletions();
+  virtual int performDeletions(std::set<SBase*>* removed);
 
   /*
    * Removes all elements from instantiated submodels slated to be replaced,
@@ -547,13 +547,20 @@ public:
    * identifiers, and points all old references to the replacement object's
    * old identifiers to the new identifiers.
    */
-  virtual int performReplacementsAndConversions();
+  virtual int performReplacementsAndConversions(std::set<SBase*>* removed, std::set<SBase*>* toremove);
 
   /** @cond doxygenLibsbmlInternal */
   virtual void findUniqueSubmodPrefixes(std::vector<std::string>& submodids, List* allElements);
   virtual void renameIDs(List* allElements, const std::string& prefix);
   virtual void resetPorts();
   /** @endcond */
+
+
+  /** @cond doxygenLibsbmlInternal */
+  protected:
+  virtual int saveAllReferencedElements(std::set<SBase*> uniqueRefs, std::set<SBase*> replacedBys);
+  /** @endcond */
+
 
 };
 

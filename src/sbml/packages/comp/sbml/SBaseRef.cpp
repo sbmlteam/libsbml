@@ -903,22 +903,35 @@ void SBaseRef::clearReferencedElement()
   mReferencedElement = NULL;
 }
 
-int SBaseRef::performDeletion()
+int SBaseRef::performDeletion(set<SBase*>* removed)
 {
   SBase* todelete = getReferencedElement();
   if (todelete==NULL) {
     return LIBSBML_INVALID_OBJECT;
   }
+  if (removed) {
+    if (removed->insert(todelete).second == false) {
+      //Already deleted or replaced.
+      return LIBSBML_OPERATION_SUCCESS;
+    }
+  }
   CompSBasePlugin* todplug = static_cast<CompSBasePlugin*>(todelete->getPlugin(getPrefix()));
   if (todplug != NULL) {
     for (unsigned long re=0; re<todplug->getNumReplacedElements(); re++) {
-      todplug->getReplacedElement(re)->performDeletion();
+      todplug->getReplacedElement(re)->performDeletion(removed);
     }
     if (todplug->isSetReplacedBy()) {
-      todplug->getReplacedBy()->performDeletion();
+      todplug->getReplacedBy()->performDeletion(removed);
     }
   }
-  return CompBase::removeFromParentAndPorts(todelete);
+  if (removed) {
+    List* children = todelete->getAllElements();
+    for (unsigned int el=0; el<children->getSize(); el++) {
+      SBase* element = static_cast<SBase*>(children->get(el));
+      removed->insert(element);
+    }
+  }
+  return CompBase::removeFromParentAndPorts(todelete, removed);
 }
 
 int SBaseRef::removeFromParentAndDelete()

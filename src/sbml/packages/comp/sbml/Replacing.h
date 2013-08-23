@@ -189,7 +189,7 @@ public:
    * all old references to the remaining element (different for
    * ReplacedElements and ReplacedBy elements.
    */
-  virtual int performReplacement() = 0;
+  virtual int performReplacement(std::set<SBase*>* removed, std::set<SBase*>* toremove) = 0;
 
 
   /** @cond doxygenLibsbmlInternal */

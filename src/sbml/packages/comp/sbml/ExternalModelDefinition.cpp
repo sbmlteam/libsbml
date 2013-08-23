@@ -586,6 +586,15 @@ ExternalModelDefinition::accept (SBMLVisitor& v) const
  * @return the resolved model or NULL.
  */
 Model*
+ExternalModelDefinition::getReferencedModel()
+{
+  set<pair<string, string> > parents;
+  return getReferencedModel(NULL, parents);
+}
+
+/* Internal getReferencedModel call sets the errordoc and parents
+ */
+Model*
 ExternalModelDefinition::getReferencedModel(SBMLDocument* errordoc, set<pair<string, string> > parents)
 {
   SBMLDocument* origdoc = getSBMLDocument();

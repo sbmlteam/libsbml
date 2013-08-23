@@ -1231,6 +1231,16 @@ static const packageErrorTableEntry compErrorTable[] =
     }
   },
 
+  // 1021206
+  { CompNoReplacingDeletedItems, 
+    "The children of deleted items may not be replaced.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY, 
+    LIBSBML_SEV_ERROR,
+    "If an element is deleted with a <deletion>, its children may not be the targets of any <replacedBy> or <replacedElement>.",
+    { "L3V1 Comp V1 Section 3.6.5"
+    }
+  },
+
 
   // 1090101
   { CompUnresolvedReference, 

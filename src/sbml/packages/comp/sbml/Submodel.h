@@ -729,20 +729,6 @@ public:
 
 
   /**
-   * Delete elements in the instantiated submodel, based on any Deletions
-   * from this Submodel's listOfDeletions.
-   *
-   * @return an integer value indicating success/failure of the operation.
-   * Possible return values from this function are:
-   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
-   * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT @endlink
-   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
-   * In this case, 'invalid object' means that this Submodel itself is invalid, and no Model can be instantiated from it.
-   */
-  virtual int performDeletions();
-
-
-  /**
    * Delete the element in question from the stored instantiated Model, and
    * replace all references to it with references to the replacement object.
    * @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT @endlink

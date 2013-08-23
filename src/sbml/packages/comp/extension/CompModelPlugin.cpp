@@ -684,7 +684,8 @@ CompModelPlugin::instantiateSubmodels()
 
   // Perform deletions (top-down):  
   // need to do this before renaming in case we delete a local parameter.
-  ret = performDeletions();
+  set<SBase*> removed;
+  ret = performDeletions(&removed);
   if (ret != LIBSBML_OPERATION_SUCCESS) {
     return ret;
   }
@@ -696,7 +697,31 @@ CompModelPlugin::instantiateSubmodels()
   }
 
   //Perform replacements and conversions (top-down)
-  return performReplacementsAndConversions();
+  set<SBase*> toremove;
+  ret = performReplacementsAndConversions(&removed, &toremove);
+  if (ret != LIBSBML_OPERATION_SUCCESS) {
+    return ret;
+  }
+  while (toremove.size() > 0) {
+    SBase* removeme = *(toremove.begin());
+    if (removed.insert(removeme).second) {
+      //Need to remove it.
+      List* children = removeme->getAllElements();
+      for (unsigned int el=0; el<children->getSize(); el++) {
+        SBase* element = static_cast<SBase*>(children->get(el));
+        removed.insert(element);
+      }
+      CompBase::removeFromParentAndPorts(removeme, &removed);
+    }
+    toremove.erase(toremove.begin());
+  }
+  return LIBSBML_OPERATION_SUCCESS;
+}
+
+int CompModelPlugin::saveAllReferencedElements()
+{
+  set<SBase*> norefs;
+  return saveAllReferencedElements(norefs, norefs);
 }
 
 int CompModelPlugin::saveAllReferencedElements(set<SBase*> uniqueRefs, set<SBase*> replacedBys)
@@ -714,7 +739,7 @@ int CompModelPlugin::saveAllReferencedElements(set<SBase*> uniqueRefs, set<SBase
 
   //Get a list of everything, pull out anything that's a deletion, replacement, or port, and save what they're pointing to.
   //At the same time, make sure that no two things point to the same thing.
-  set<SBase*> RE_deletions = std::set<SBase*>(); //Deletions only point to things in the same model.
+  set<SBase*> RE_deletions = set<SBase*>(); //Deletions only point to things in the same model.
   List* allElements = model->getAllElements();
   string modname = "the main model in the document";
   if (model->isSetId()) {
@@ -761,15 +786,15 @@ int CompModelPlugin::saveAllReferencedElements(set<SBase*> uniqueRefs, set<SBase
             SBase* rbParent = reference->getParentSBMLObject();
             if (uniqueRefs.insert(rbParent).second == false) {
               if (doc) {
-                string error = "Error discovered in CompModelPlugin::saveAllReferencedElements when checking " + modname + ": a <" + direct->getElementName() + "> ";
+                string error = "Error discovered in CompModelPlugin::saveAllReferencedElements when checking " + modname + ": a <" + rbParent->getElementName() + "> ";
                 if (direct->isSetId()) {
-                  error += "with the id '" + direct->getId() + "'";
-                  if (direct->isSetMetaId()) {
-                    error += ", and the metaid '" + direct->getMetaId() + "'";
+                  error += "with the id '" + rbParent->getId() + "'";
+                  if (rbParent->isSetMetaId()) {
+                    error += ", and the metaid '" + rbParent->getMetaId() + "'";
                   }
                 }
-                else if (direct->isSetMetaId()) {
-                  error += "with the metaId '" + direct->getMetaId() + "'";
+                else if (rbParent->isSetMetaId()) {
+                  error += "with the metaId '" + rbParent->getMetaId() + "'";
                 }
                 error += " has a <replacedBy> child and is also pointed to by a <port>, <deletion>, <replacedElement>, or one or more <replacedBy> objects.";
                 doc->getErrorLog()->logPackageError("comp", CompNoMultipleReferences, getPackageVersion(), getLevel(), getVersion(), error);
@@ -1063,7 +1088,7 @@ void CompModelPlugin::renameIDs(List* allElements, const string& prefix)
 }
 /** @endcond */
 
-int CompModelPlugin::performDeletions()
+int CompModelPlugin::performDeletions(set<SBase*>* removed)
 {
   int ret = LIBSBML_OPERATION_SUCCESS;
   SBMLDocument* doc = getSBMLDocument();
@@ -1082,7 +1107,7 @@ int CompModelPlugin::performDeletions()
     //First perform any deletions
     for (unsigned int d=0; d<submodel->getNumDeletions(); d++) {
       Deletion* deletion = submodel->getDeletion(d);
-      ret = deletion->performDeletion();
+      ret = deletion->performDeletion(removed);
       if (ret!=LIBSBML_OPERATION_SUCCESS) {
         return ret;
       }
@@ -1102,12 +1127,12 @@ int CompModelPlugin::performDeletions()
       }
       return LIBSBML_OPERATION_FAILED;
     }
-    modplug->performDeletions();
+    modplug->performDeletions(removed);
   }
   return ret;
 }
 
-int CompModelPlugin::performReplacementsAndConversions()
+int CompModelPlugin::performReplacementsAndConversions(set<SBase*>* removed, set<SBase*>* toremove)
 {
   int ret = LIBSBML_OPERATION_SUCCESS;
   SBMLDocument* doc = getSBMLDocument();
@@ -1135,10 +1160,10 @@ int CompModelPlugin::performReplacementsAndConversions()
       rbs.push_back(reference);
     }
   }
-    
+
   //ReplacedElement replacements
   for (size_t re=0; re<res.size(); re++) {
-    ret = res[re]->performReplacement();
+    ret = res[re]->performReplacement(removed, toremove);
     if (ret != LIBSBML_OPERATION_SUCCESS) {
       return ret;
     }
@@ -1154,13 +1179,13 @@ int CompModelPlugin::performReplacementsAndConversions()
     //'left behind' converions (not LaHaye-style)
     ret = submodel->convertTimeAndExtent();
     if (ret != LIBSBML_OPERATION_SUCCESS) return ret;
-    ret = modplug->performReplacementsAndConversions();
+    ret = modplug->performReplacementsAndConversions(removed, toremove);
     if (ret != LIBSBML_OPERATION_SUCCESS) return ret;
   }
 
   //Perform ReplacedBy replacements *after* the submodels are done, so that the topmost-level names take precedence.
   for (size_t rb=0; rb<rbs.size(); rb++) {
-    ret = rbs[rb]->performReplacement();
+    ret = rbs[rb]->performReplacement(removed, toremove);
     if (ret != LIBSBML_OPERATION_SUCCESS) return ret;
   }
 

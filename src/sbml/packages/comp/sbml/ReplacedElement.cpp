@@ -319,7 +319,7 @@ ReplacedElement::renameSIdRefs(std::string oldid, std::string newid)
 }
 
 
-int ReplacedElement::performReplacement()
+int ReplacedElement::performReplacement(set<SBase*>* removed, set<SBase*>* toremove)
 {
   SBMLDocument* doc = getSBMLDocument();
   if (isSetDeletion()) {
@@ -357,6 +357,18 @@ int ReplacedElement::performReplacement()
     return LIBSBML_INVALID_OBJECT;
   }
 
+  if (removed && removed->find(ref)!=removed->end()) {
+    //Already deleted: can't get the deleted element's ID to 
+    if (doc) {
+      string error = "Cannot carry out replacement in ReplacedElement::performReplacement: a <" + parent->getElementName() + ">";
+      if (parent->isSetId()) {
+        error += " with the ID '" + parent->getId() + "'";
+      }
+      error += " has a child <replacedElement> that points to something that has already been deleted, probably because its parent was deleted.";
+      doc->getErrorLog()->logPackageError("comp", CompNoReplacingDeletedItems, getPackageVersion(), getLevel(), getVersion(), error, getLine(), getColumn());
+    }
+    return LIBSBML_INVALID_OBJECT;
+  }
   //Update the IDs.
   int ret = updateIDs(ref, parent);
   if (ret != LIBSBML_OPERATION_SUCCESS) {
@@ -373,15 +385,23 @@ int ReplacedElement::performReplacement()
     //Now recurse down the 'replace*' tree, renaming IDs and deleting things as we go.
     for (unsigned int re=0; re<refplug->getNumReplacedElements(); re++) {
       refplug->getReplacedElement(re)->replaceWithAndMaybeDelete(parent, true, blank);
+      if (toremove) {
+        toremove->insert(refplug->getReplacedElement(re)->getReferencedElement());
+      }
     }
     if (refplug->isSetReplacedBy()) {
       //Even if the subelement used to be replaced by something further down, it is now being replaced by the parent.  It just can't catch a break, it seems.
       refplug->getReplacedBy()->replaceWithAndMaybeDelete(parent, true, blank);
+      if (toremove) {
+        toremove->insert(refplug->getReplacedBy()->getReferencedElement());
+      }
     }
   }
 
-  //And finally, delete the referenced object.
-  return CompBase::removeFromParentAndPorts(ref);
+  if (toremove) {
+    toremove->insert(ref);
+  }
+  return LIBSBML_OPERATION_SUCCESS;
 }
 
 SBase* 

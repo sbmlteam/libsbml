@@ -365,7 +365,7 @@ Replacing::replaceWithAndMaybeDelete(SBase* replacement, bool deleteme, ASTNode*
   //And now delete the replaced thing.
   if (deleteme) {
     //We have to iterate upwards and see if any ports referenced this deletion.  If so, delete those ports.
-    return CompBase::removeFromParentAndPorts(replaced);
+//    return CompBase::removeFromParentAndPorts(replaced, toreplace);
   }
   return LIBSBML_OPERATION_SUCCESS;
 }

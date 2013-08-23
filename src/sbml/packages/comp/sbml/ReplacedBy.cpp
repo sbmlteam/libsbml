@@ -99,7 +99,7 @@ ReplacedBy::removeFromParentAndDelete()
 }
 
 
-int ReplacedBy::performReplacement()
+int ReplacedBy::performReplacement(set<SBase*>* removed, set<SBase*>* toremove)
 {
   SBMLDocument* doc = getSBMLDocument();
   //Find the various objects and plugin objects we need for this to work.
@@ -129,8 +129,11 @@ int ReplacedBy::performReplacement()
   }
   if (ret != LIBSBML_OPERATION_SUCCESS) return ret;
 
-  //And finally, delete the parent object.
-  return CompBase::removeFromParentAndPorts(parent);
+  //And finally, get ready to delete the parent object.
+  if (toremove) {
+    toremove->insert(parent);
+  }
+  return LIBSBML_OPERATION_SUCCESS;
 }
 
 int 

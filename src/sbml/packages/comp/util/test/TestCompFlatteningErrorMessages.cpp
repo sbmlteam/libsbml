@@ -2299,7 +2299,7 @@ START_TEST(test_comp_flatten_invalid43)
   SBMLDocument document(&sbmlns);
   ReplacedBy rb(3, 1, 1);
   rb.setSBMLDocument(&document);
-  rb.performReplacement();
+  rb.performReplacement(NULL, NULL);
 
   SBMLErrorLog* errors = document.getErrorLog();
 
@@ -2315,7 +2315,7 @@ START_TEST(test_comp_flatten_invalid44)
   ReplacedElement re(3, 1, 1);
   re.setSBMLDocument(&document);
   re.setSubmodelRef("submod1");
-  re.performReplacement();
+  re.performReplacement(NULL, NULL);
 
   SBMLErrorLog* errors = document.getErrorLog();
 
@@ -2333,7 +2333,7 @@ START_TEST(test_comp_flatten_invalid45)
   lore.appendAndOwn(re);
   re->setSBMLDocument(&document);
   re->setSubmodelRef("submod1");
-  re->performReplacement();
+  re->performReplacement(NULL, NULL);
 
   SBMLErrorLog* errors = document.getErrorLog();
 
@@ -2351,7 +2351,7 @@ START_TEST(test_comp_flatten_invalid46)
   lore.appendAndOwn(re);
   re->setSBMLDocument(&document);
   re->setSubmodelRef("submod1");
-  re->performReplacement();
+  re->performReplacement(NULL, NULL);
 
   SBMLErrorLog* errors = document.getErrorLog();
 
@@ -3512,6 +3512,114 @@ START_TEST(test_comp_flatten_invalid73)
 END_TEST
 
 
+START_TEST(test_comp_flatten_invalid74)
+{
+  ConversionProperties* props = new ConversionProperties();
+  
+  props->addOption("flatten comp");
+  props->addOption("perform validation", false);
+
+  SBMLConverter* converter = 
+    SBMLConverterRegistry::getInstance().getConverterFor(*props);
+  
+  // load document
+  string dir(TestDataDirectory);
+  string fileName = dir + "multi_replaced_by.xml";  
+  SBMLDocument* doc = readSBMLFromFile(fileName.c_str());
+
+  // fail if there is no model 
+  //(readSBMLFromFile always returns a valid document)
+  fail_unless(doc->getNumErrors() == 0);
+  fail_unless(doc->getModel() != NULL);
+
+  converter->setDocument(doc);
+  int result = converter->convert();
+  fail_unless(result==LIBSBML_OPERATION_FAILED);
+  SBMLErrorLog* errors = doc->getErrorLog();
+
+  fail_unless(errors->getNumErrors() == 2);
+  fail_unless(errors->contains(CompModelFlatteningFailed) == true);
+  fail_unless(errors->contains(CompNoMultipleReferences) == true);
+  
+  delete doc;
+  delete converter;
+}
+END_TEST
+
+START_TEST(test_comp_flatten_invalid75)
+{
+  ConversionProperties* props = new ConversionProperties();
+  
+  props->addOption("flatten comp");
+  props->addOption("perform validation", true);
+
+  SBMLConverter* converter = 
+    SBMLConverterRegistry::getInstance().getConverterFor(*props);
+  
+  // load document
+  string dir(TestDataDirectory);
+  string fileName = dir + "del_only_specref.xml";  
+  SBMLDocument* doc = readSBMLFromFile(fileName.c_str());
+
+  // fail if there is no model 
+  //(readSBMLFromFile always returns a valid document)
+  fail_unless(doc->getNumErrors() == 0);
+  fail_unless(doc->getModel() != NULL);
+
+  converter->setDocument(doc);
+  int result = converter->convert();
+
+  fail_unless( result == LIBSBML_CONV_INVALID_SRC_DOCUMENT);
+
+  SBMLErrorLog* errors = doc->getErrorLog();
+
+  fail_unless(errors->getNumErrors() == 3);
+  fail_unless(errors->contains(CompLineNumbersUnreliable) == true);
+  fail_unless(errors->contains(CompFlatModelNotValid) == true);
+  fail_unless(errors->contains(NoReactantsOrProducts) == true);
+
+  delete doc;
+  delete converter;
+}
+END_TEST
+
+START_TEST(test_comp_flatten_invalid76)
+{
+  ConversionProperties* props = new ConversionProperties();
+  
+  props->addOption("flatten comp");
+  props->addOption("perform validation", false);
+
+  SBMLConverter* converter = 
+    SBMLConverterRegistry::getInstance().getConverterFor(*props);
+  
+  // load document
+  string dir(TestDataDirectory);
+  string fileName = dir + "replace_implied_deletion.xml";  
+  SBMLDocument* doc = readSBMLFromFile(fileName.c_str());
+
+  // fail if there is no model 
+  //(readSBMLFromFile always returns a valid document)
+  fail_unless(doc->getNumErrors() == 0);
+  fail_unless(doc->getModel() != NULL);
+
+  converter->setDocument(doc);
+  int result = converter->convert();
+
+  fail_unless( result == LIBSBML_OPERATION_FAILED);
+
+  SBMLErrorLog* errors = doc->getErrorLog();
+
+  fail_unless(errors->getNumErrors() == 2);
+  fail_unless(errors->contains(CompModelFlatteningFailed) == true);
+  fail_unless(errors->contains(CompNoReplacingDeletedItems) == true);
+
+  delete doc;
+  delete converter;
+}
+END_TEST
+
+
 Suite *
 create_suite_TestFlatteningErrorMessages (void)
 { 
@@ -3591,6 +3699,9 @@ create_suite_TestFlatteningErrorMessages (void)
   tcase_add_test(tcase, test_comp_flatten_invalid71);
   tcase_add_test(tcase, test_comp_flatten_invalid72);
   tcase_add_test(tcase, test_comp_flatten_invalid73);
+  tcase_add_test(tcase, test_comp_flatten_invalid74);
+  tcase_add_test(tcase, test_comp_flatten_invalid75);
+  tcase_add_test(tcase, test_comp_flatten_invalid76);
 
   tcase_add_test(tcase, test_comp_flatten_invalid_core);
   suite_add_tcase(suite, tcase);

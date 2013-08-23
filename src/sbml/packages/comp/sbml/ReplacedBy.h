@@ -149,7 +149,7 @@ public:
    * Removes the redundant element from instantiated submodels, and points
    * all old references to the remaining element.
    */
-  virtual int performReplacement();
+  virtual int performReplacement(std::set<SBase*>* removed, std::set<SBase*>* toremove);
 
 
   /** @cond doxygenLibsbmlInternal */

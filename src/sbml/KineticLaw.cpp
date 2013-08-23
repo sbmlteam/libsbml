@@ -1118,6 +1118,7 @@ KineticLaw::hasRequiredElements() const
 
 int KineticLaw::removeFromParentAndDelete()
 {
+  if (mHasBeenDeleted) return LIBSBML_OPERATION_SUCCESS;
   SBase* parent = getParentSBMLObject();
   if (parent==NULL) return LIBSBML_OPERATION_FAILED;
   Reaction* parentReaction = static_cast<Reaction*>(parent);

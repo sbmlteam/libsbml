@@ -30,6 +30,7 @@
 #ifndef CompBase_h
 #define CompBase_h
 
+#include <set>
 
 #include <sbml/common/sbmlfwd.h>
 #include <sbml/extension/SBMLExtension.h>
@@ -234,7 +235,7 @@ protected:
    * it happens, we need to not actually crash.  This function finds and 
    * deletes all such invalid ports before deleting the object.
    */
-  static int removeFromParentAndPorts(SBase* todelete);
+  static int removeFromParentAndPorts(SBase* todelete, std::set<SBase*>* removed);
   /** @endcond */
 
 private:

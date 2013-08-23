@@ -160,6 +160,7 @@ typedef enum
 , CompMustReplaceMetaIDs                = 1021203
 , CompMustReplacePackageIDs             = 1021204
 , CompReplacedUnitsShouldMatch          = 1021205
+, CompNoReplacingDeletedItems           = 1021206
 
 , CompUnresolvedReference               = 1090101
 , CompNoModelInReference                = 1090102

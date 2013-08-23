@@ -96,6 +96,7 @@
 #ifdef __cplusplus
 
 #include <string>
+#include <set>
 
 #include <sbml/SBase.h>
 #include <sbml/packages/comp/extension/CompExtension.h>
@@ -630,7 +631,7 @@ public:
    * plus any other elements that element points to through ReplacedElement
    * or ReplacedBy children
    */
-  virtual int performDeletion();
+  virtual int performDeletion(std::set<SBase*>* removed);
 
 
   /**
