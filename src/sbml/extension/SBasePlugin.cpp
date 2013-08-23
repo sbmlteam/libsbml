@@ -149,6 +149,7 @@ SBasePlugin::getElementBySId(std::string id)
   if (id.empty()) return NULL;
   IdFilter filter;
   List* allElementsWithIds = this->getAllElements(&filter);
+  if (allElementsWithIds == NULL) return NULL;
   for (unsigned int i = 0; i < allElementsWithIds->getSize(); i++)
   {
     SBase* obj = (SBase*)(allElementsWithIds->get(i));
@@ -167,6 +168,7 @@ SBasePlugin::getElementByMetaId(std::string metaid)
   if (metaid.empty()) return NULL;
   MetaIdFilter filter;
   List* allElementsWithIds = this->getAllElements(&filter);
+  if (allElementsWithIds == NULL) return NULL;
   for (unsigned int i = 0; i < allElementsWithIds->getSize(); i++)
   {
     SBase* obj = (SBase*)(allElementsWithIds->get(i));
@@ -181,7 +183,7 @@ SBasePlugin::getElementByMetaId(std::string metaid)
 List*
 SBasePlugin::getAllElements(ElementFilter *filter)
 {
-  return NULL;
+  return new List();
 }
 
 /** @cond doxygenLibsbmlInternal */
