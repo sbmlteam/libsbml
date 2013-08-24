@@ -65,6 +65,7 @@ void CompFlatteningConverter::init()
 
 
 CompFlatteningConverter::CompFlatteningConverter() : SBMLConverter()
+  , mDisabledPackages()
 {
 
 }
@@ -73,6 +74,7 @@ CompFlatteningConverter::CompFlatteningConverter() : SBMLConverter()
 CompFlatteningConverter::CompFlatteningConverter
                          (const CompFlatteningConverter& orig) :
 SBMLConverter(orig)
+  , mDisabledPackages(orig.mDisabledPackages)
 {
 }
 
@@ -141,6 +143,7 @@ CompFlatteningConverter::convert()
 
   if (canFlatten == false)
   {
+    restoreNamespaces();
     return LIBSBML_OPERATION_FAILED;
   }
 
@@ -179,6 +182,7 @@ CompFlatteningConverter::convert()
 
     if (errors > 0)
     {
+      restoreNamespaces();
       return LIBSBML_CONV_INVALID_SRC_DOCUMENT;
     }
   }
@@ -186,6 +190,7 @@ CompFlatteningConverter::convert()
 
   if (modelPlugin==NULL) 
   {
+    restoreNamespaces();
     return LIBSBML_OPERATION_FAILED;
   }
 
@@ -205,6 +210,7 @@ CompFlatteningConverter::convert()
   if (flatmodel == NULL) 
   {
     //'flattenModel' sets its own error messages.
+    restoreNamespaces();
     return LIBSBML_OPERATION_FAILED;
   }
 
@@ -240,6 +246,7 @@ CompFlatteningConverter::convert()
     result = reconstructDocument(flatmodel, *(dummy) );
     if (result != LIBSBML_OPERATION_SUCCESS)
     {
+      restoreNamespaces();
       return result;
     }
 
@@ -280,6 +287,7 @@ CompFlatteningConverter::convert()
         }
       }
       delete dummy;
+      restoreNamespaces();
       return LIBSBML_CONV_INVALID_SRC_DOCUMENT;
     }
     else
@@ -303,6 +311,7 @@ CompFlatteningConverter::convert()
 
   if (result != LIBSBML_OPERATION_SUCCESS) 
   {
+    restoreNamespaces();
     return result;
   }
 
@@ -473,7 +482,7 @@ CompFlatteningConverter::getPerformValidation() const
 }
 
 bool
-CompFlatteningConverter::canBeFlattened() const
+CompFlatteningConverter::canBeFlattened()
 {
   bool canFlatten = true;
 
@@ -547,7 +556,8 @@ CompFlatteningConverter::canBeFlattened() const
     {
       unsigned int warningnumber = CompFlatteningNotRecognisedNotReqd;
       std::string message = "The ";
-      if (mDocument->getPackageRequired(ns->getURI(i))) {
+      bool required = mDocument->getPackageRequired(ns->getURI(i));
+      if (required) {
         message += "required ";
         warningnumber = CompFlatteningNotRecognisedReqd;
       }
@@ -556,8 +566,11 @@ CompFlatteningConverter::canBeFlattened() const
       if (getIgnorePackages())
       {
         //LS DEBUG:  This will change the original document even if flattening fails for some other reason (BUG)
-        mDocument->enablePackageInternal(ns->getURI(i), 
-          ns->getPrefix(i), false);
+        string nsURI = ns->getURI(i);
+        string nsPrefix = ns->getPrefix(i);
+        mDocument->enablePackageInternal(nsURI, nsPrefix, false);
+        mDisabledPackages.insert(make_pair(nsURI, nsPrefix));
+        mPackageRequired.insert(make_pair(nsURI, required));
       }
       mDocument->getErrorLog()->logPackageError("comp", 
         warningnumber, 
@@ -572,8 +585,9 @@ CompFlatteningConverter::canBeFlattened() const
     {
       unsigned int warningnumber = CompFlatteningNotImplementedNotReqd;
       std::string message = "The ";
-      if (static_cast<SBMLDocumentPlugin*>(mDocument->getPlugin(i))
-        ->getRequired()) 
+      bool required = static_cast<SBMLDocumentPlugin*>(mDocument->getPlugin(i))
+        ->getRequired();
+      if (required)
       {
         message += "required ";
         warningnumber = CompFlatteningNotImplementedReqd;
@@ -586,6 +600,8 @@ CompFlatteningConverter::canBeFlattened() const
         std::string pkgURI = mDocument->getPlugin(i)->getURI();
         std::string prefix = mDocument->getPlugin(i)->getPrefix();
         mDocument->disablePackage(pkgURI, prefix);
+        mDisabledPackages.insert(make_pair(pkgURI, prefix));
+        mPackageRequired.insert(make_pair(pkgURI, required));
       }
 
       mDocument->getErrorLog()->logPackageError("comp", 
@@ -596,6 +612,21 @@ CompFlatteningConverter::canBeFlattened() const
   }
 
   return canFlatten;
+}
+
+void CompFlatteningConverter::restoreNamespaces()
+{
+  for (set<pair<string, string> >::iterator pkg = mDisabledPackages.begin();
+       pkg != mDisabledPackages.end(); pkg++)
+  {
+    mDocument->enablePackageInternal((*pkg).first, (*pkg).second, true);
+  }
+  for (set<pair<string, bool> >::iterator pkg = mPackageRequired.begin();
+       pkg != mPackageRequired.end(); pkg++)
+  {
+    //Note:  the following does not work for unrecognized packages. LS DEBUG
+    mDocument->setPackageRequired((*pkg).first, (*pkg).second);
+  }
 }
 
 /** @cond doxygenCOnly */

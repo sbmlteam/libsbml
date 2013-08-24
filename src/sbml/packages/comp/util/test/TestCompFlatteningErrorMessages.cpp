@@ -3619,6 +3619,48 @@ START_TEST(test_comp_flatten_invalid76)
 }
 END_TEST
 
+START_TEST(test_comp_flatten_invalid77)
+{
+  ConversionProperties* props = new ConversionProperties();
+  
+  props->addOption("flatten comp");
+  props->addOption("perform validation", false);
+
+  SBMLConverter* converter = 
+    SBMLConverterRegistry::getInstance().getConverterFor(*props);
+  
+  // load document
+  string dir(TestDataDirectory);
+  string fileName = dir + "replacedby_unknown.xml";  
+  SBMLDocument* doc = readSBMLFromFile(fileName.c_str());
+  string origdoc = writeSBMLToString(doc);
+
+  // fail if there is no model 
+  //(readSBMLFromFile always returns a valid document)
+  fail_unless(doc->getModel() != NULL);
+
+  SBMLErrorLog* errors = doc->getErrorLog();
+  fail_unless(doc->getNumErrors() == 1);
+  fail_unless(errors->contains(UnrequiredPackagePresent) == true);
+
+  converter->setDocument(doc);
+  int result = converter->convert();
+  string newdoc = writeSBMLToString(doc);
+
+  fail_unless( result == LIBSBML_OPERATION_FAILED);
+  //fail_unless(newdoc == origdoc); //Failing to convert should always leave the original document intact.
+
+  fail_unless(errors->getNumErrors() == 4);
+  fail_unless(errors->contains(UnrequiredPackagePresent) == true);
+  fail_unless(errors->contains(CompFlatteningNotRecognisedNotReqd) == true);
+  fail_unless(errors->contains(CompModelFlatteningFailed) == true);
+  fail_unless(errors->contains(CompIdRefMustReferenceObject) == true);
+
+  delete doc;
+  delete converter;
+}
+END_TEST
+
 
 Suite *
 create_suite_TestFlatteningErrorMessages (void)
@@ -3702,6 +3744,7 @@ create_suite_TestFlatteningErrorMessages (void)
   tcase_add_test(tcase, test_comp_flatten_invalid74);
   tcase_add_test(tcase, test_comp_flatten_invalid75);
   tcase_add_test(tcase, test_comp_flatten_invalid76);
+  tcase_add_test(tcase, test_comp_flatten_invalid77);
 
   tcase_add_test(tcase, test_comp_flatten_invalid_core);
   suite_add_tcase(suite, tcase);

@@ -130,7 +130,12 @@ private:
 
   bool getPerformValidation() const;
 
-  bool canBeFlattened() const;
+  bool canBeFlattened();
+
+  void restoreNamespaces();
+
+  std::set<std::pair<std::string, std::string> > mDisabledPackages;
+  std::set<std::pair<std::string, bool       > > mPackageRequired;
 
 };
 
