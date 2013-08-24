@@ -226,7 +226,7 @@ protected:
   bool hasValidLevelVersionNamespaceCombination();
   /** @endcond */
 
-
+public:
   /** @cond doxygenLibsbmlInternal */
   /**
    * Remove the given SBase object, and any Ports that point to it.
