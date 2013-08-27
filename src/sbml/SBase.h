@@ -2997,7 +2997,7 @@ s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></b
    * implementation of this method as well.  For example:@if clike
    * <pre>
    *   SBase::writeElements();
-   *   mReactans.write(stream);
+   *   mReactants.write(stream);
    *   mProducts.write(stream);
    *   ...
    * </pre>@endif@~
