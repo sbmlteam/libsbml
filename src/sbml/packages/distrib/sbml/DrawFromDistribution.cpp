@@ -414,7 +414,7 @@ DrawFromDistribution::hasRequiredElements () const
 }
 
 
-	/** @cond doxygen-libsbml-internal */
+	/** @cond doxygenLibsbmlInternal */
 
 /*
  * write contained elements
@@ -437,10 +437,10 @@ DrawFromDistribution::writeElements (XMLOutputStream& stream) const
 }
 
 
-	/** @endcond doxygen-libsbml-internal */
+	/** @endcond doxygenLibsbmlInternal */
 
 
-	/** @cond doxygen-libsbml-internal */
+	/** @cond doxygenLibsbmlInternal */
 
 /*
  * Accepts the given SBMLVisitor.
@@ -458,10 +458,10 @@ DrawFromDistribution::accept (SBMLVisitor& v) const
 }
 
 
-	/** @endcond doxygen-libsbml-internal */
+	/** @endcond doxygenLibsbmlInternal */
 
 
-	/** @cond doxygen-libsbml-internal */
+	/** @cond doxygenLibsbmlInternal */
 
 /*
  * Sets the parent SBMLDocument.
@@ -474,10 +474,10 @@ DrawFromDistribution::setSBMLDocument (SBMLDocument* d)
 }
 
 
-	/** @endcond doxygen-libsbml-internal */
+	/** @endcond doxygenLibsbmlInternal */
 
 
-	/** @cond doxygen-libsbml-internal */
+	/** @cond doxygenLibsbmlInternal */
 
 /*
 	 * Connects to child elements.
@@ -489,10 +489,10 @@ DrawFromDistribution::connectToChild()
 }
 
 
-	/** @endcond doxygen-libsbml-internal */
+	/** @endcond doxygenLibsbmlInternal */
 
 
-	/** @cond doxygen-libsbml-internal */
+	/** @cond doxygenLibsbmlInternal */
 
 /*
  * Enables/Disables the given package with this element.
@@ -506,10 +506,10 @@ DrawFromDistribution::enablePackageInternal(const std::string& pkgURI,
 }
 
 
-	/** @endcond doxygen-libsbml-internal */
+	/** @endcond doxygenLibsbmlInternal */
 
 
-	/** @cond doxygen-libsbml-internal */
+	/** @cond doxygenLibsbmlInternal */
 
 /*
  * creates object.
@@ -550,10 +550,10 @@ DrawFromDistribution::readOtherXML(XMLInputStream& stream)
 
   return false;
 }
-	/** @endcond doxygen-libsbml-internal */
+	/** @endcond doxygenLibsbmlInternal */
 
 
-	/** @cond doxygen-libsbml-internal */
+	/** @cond doxygenLibsbmlInternal */
 
 /*
  * Get the list of expected attributes for this element.
@@ -566,10 +566,10 @@ DrawFromDistribution::addExpectedAttributes(ExpectedAttributes& attributes)
 }
 
 
-	/** @endcond doxygen-libsbml-internal */
+	/** @endcond doxygenLibsbmlInternal */
 
 
-	/** @cond doxygen-libsbml-internal */
+	/** @cond doxygenLibsbmlInternal */
 
 /*
  * Read values from the given XMLAttributes set into their specific fields.
@@ -615,10 +615,10 @@ DrawFromDistribution::readAttributes (const XMLAttributes& attributes,
 }
 
 
-	/** @endcond doxygen-libsbml-internal */
+	/** @endcond doxygenLibsbmlInternal */
 
 
-	/** @cond doxygen-libsbml-internal */
+	/** @cond doxygenLibsbmlInternal */
 
 /*
  * Write values of XMLAttributes to the output stream.
@@ -633,7 +633,7 @@ DrawFromDistribution::writeAttributes (XMLOutputStream& stream) const
 }
 
 
-	/** @endcond doxygen-libsbml-internal */
+	/** @endcond doxygenLibsbmlInternal */
 
 
 /**

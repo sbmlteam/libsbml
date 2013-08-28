@@ -35,7 +35,7 @@
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
-	/** @cond doxygen-libsbml-internal */
+	/** @cond doxygenLibsbmlInternal */
 
 static const packageErrorTableEntry distribErrorTable[] = 
 {
@@ -54,7 +54,7 @@ static const packageErrorTableEntry distribErrorTable[] =
 
 LIBSBML_CPP_NAMESPACE_END
 
-	/** @endcond doxygen-libsbml-internal */
+	/** @endcond doxygenLibsbmlInternal */
 
 
 #endif  /*  DistribSBMLErrorTable_h__  */

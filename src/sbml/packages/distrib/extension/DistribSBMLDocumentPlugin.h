@@ -88,7 +88,7 @@ public:
 
  #ifndef SWIG
 
-	/** @cond doxygen-libsbml-internal */
+	/** @cond doxygenLibsbmlInternal */
 
 	/**
 	 * Reads the attributes of corresponding package in SBMLDocument element
@@ -97,12 +97,12 @@ public:
 	                             const ExpectedAttributes& expectedAttributes);
 
 
-	/** @endcond doxygen-libsbml-internal */
+	/** @endcond doxygenLibsbmlInternal */
 
 
 #endif // SWIG
 
-	/** @cond doxygen-libsbml-internal */
+	/** @cond doxygenLibsbmlInternal */
 
 	/**
 	 * Returns boolean based on whether flattening of a comp model has been implemented.
@@ -113,10 +113,10 @@ public:
 	virtual bool isFlatteningImplemented() const;
 
 
-	/** @endcond doxygen-libsbml-internal */
+	/** @endcond doxygenLibsbmlInternal */
 
 
-	/** @cond doxygen-libsbml-internal */
+	/** @cond doxygenLibsbmlInternal */
 
 	/**
 	 * Check consistency function.
@@ -124,10 +124,10 @@ public:
 	virtual unsigned int checkConsistency();
 
 
-	/** @endcond doxygen-libsbml-internal */
+	/** @endcond doxygenLibsbmlInternal */
 
 
-	/** @cond doxygen-libsbml-internal */
+	/** @cond doxygenLibsbmlInternal */
 
 	/**
 	 * Accepts the SBMLVisitor.
@@ -135,14 +135,14 @@ public:
 	virtual bool accept(SBMLVisitor& v) const;
 
 
- 	/** @endcond doxygen-libsbml-internal */
+ 	/** @endcond doxygenLibsbmlInternal */
 
 
 protected:
 
-	/** @cond doxygen-libsbml-internal */
+	/** @cond doxygenLibsbmlInternal */
 
-	/** @endcond doxygen-libsbml-internal */
+	/** @endcond doxygenLibsbmlInternal */
 
 
 };

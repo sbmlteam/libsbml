@@ -92,7 +92,7 @@ public:
 	//
 	//---------------------------------------------------------------
 
-	/** @cond doxygen-libsbml-internal */
+	/** @cond doxygenLibsbmlInternal */
 
 	/**
 	 * Subclasses must override this method to create, store, and then
@@ -105,10 +105,10 @@ public:
 	virtual SBase* createObject (XMLInputStream& stream);
 
 
-	/** @endcond doxygen-libsbml-internal */
+	/** @endcond doxygenLibsbmlInternal */
 
 
-	/** @cond doxygen-libsbml-internal */
+	/** @cond doxygenLibsbmlInternal */
 
 	/**
 	 * Subclasses must override this method to write out their contained
@@ -117,7 +117,7 @@ public:
 	virtual void writeElements (XMLOutputStream& stream) const;
 
 
-	/** @endcond doxygen-libsbml-internal */
+	/** @endcond doxygenLibsbmlInternal */
 
 
 	/**
@@ -181,7 +181,7 @@ public:
 	Uncertainty* createUncertainty ();
 
 
-	/** @cond doxygen-libsbml-internal */
+	/** @cond doxygenLibsbmlInternal */
 
 	/**
 	 * Sets the parent SBMLDocument.
@@ -189,40 +189,40 @@ public:
 	virtual void setSBMLDocument (SBMLDocument* d);
 
 
-	/** @endcond doxygen-libsbml-internal */
+	/** @endcond doxygenLibsbmlInternal */
 
 
-	/** @cond doxygen-libsbml-internal */
+	/** @cond doxygenLibsbmlInternal */
 
 	virtual void connectToParent (SBase* sbase);
 
 
-	/** @endcond doxygen-libsbml-internal */
+	/** @endcond doxygenLibsbmlInternal */
 
 
-	/** @cond doxygen-libsbml-internal */
+	/** @cond doxygenLibsbmlInternal */
 
 	virtual void enablePackageInternal(const std::string& pkgURI,
 	                                   const std::string& pkgPrefix, bool flag);
 
 
-	/** @endcond doxygen-libsbml-internal */
+	/** @endcond doxygenLibsbmlInternal */
 
 
-	/** @cond doxygen-libsbml-internal */
+	/** @cond doxygenLibsbmlInternal */
 
 	virtual bool accept (SBMLVisitor& v) const;
 
-	/** @endcond doxygen-libsbml-internal */
+	/** @endcond doxygenLibsbmlInternal */
 
 
 protected:
 
-	/** @cond doxygen-libsbml-internal */
+	/** @cond doxygenLibsbmlInternal */
 
 	Uncertainty* mUncertainty;
 
-	/** @endcond doxygen-libsbml-internal */
+	/** @endcond doxygenLibsbmlInternal */
 
 
 };

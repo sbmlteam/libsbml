@@ -368,7 +368,7 @@ Uncertainty::hasRequiredElements () const
 }
 
 
-	/** @cond doxygen-libsbml-internal */
+	/** @cond doxygenLibsbmlInternal */
 
 /*
  * write contained elements
@@ -386,10 +386,10 @@ Uncertainty::writeElements (XMLOutputStream& stream) const
 }
 
 
-	/** @endcond doxygen-libsbml-internal */
+	/** @endcond doxygenLibsbmlInternal */
 
 
-	/** @cond doxygen-libsbml-internal */
+	/** @cond doxygenLibsbmlInternal */
 
 /*
  * Accepts the given SBMLVisitor.
@@ -407,10 +407,10 @@ Uncertainty::accept (SBMLVisitor& v) const
 }
 
 
-	/** @endcond doxygen-libsbml-internal */
+	/** @endcond doxygenLibsbmlInternal */
 
 
-	/** @cond doxygen-libsbml-internal */
+	/** @cond doxygenLibsbmlInternal */
 
 /*
  * Sets the parent SBMLDocument.
@@ -422,10 +422,10 @@ Uncertainty::setSBMLDocument (SBMLDocument* d)
 }
 
 
-	/** @endcond doxygen-libsbml-internal */
+	/** @endcond doxygenLibsbmlInternal */
 
 
-	/** @cond doxygen-libsbml-internal */
+	/** @cond doxygenLibsbmlInternal */
 
 /*
 	 * Connects to child elements.
@@ -436,10 +436,10 @@ Uncertainty::connectToChild()
 }
 
 
-	/** @endcond doxygen-libsbml-internal */
+	/** @endcond doxygenLibsbmlInternal */
 
 
-	/** @cond doxygen-libsbml-internal */
+	/** @cond doxygenLibsbmlInternal */
 
 /*
  * Enables/Disables the given package with this element.
@@ -452,10 +452,10 @@ Uncertainty::enablePackageInternal(const std::string& pkgURI,
 }
 
 
-	/** @endcond doxygen-libsbml-internal */
+	/** @endcond doxygenLibsbmlInternal */
 
 
-	/** @cond doxygen-libsbml-internal */
+	/** @cond doxygenLibsbmlInternal */
 
 /*
  * creates object.
@@ -493,10 +493,10 @@ Uncertainty::readOtherXML(XMLInputStream& stream)
 
   return false;
 }
-	/** @endcond doxygen-libsbml-internal */
+	/** @endcond doxygenLibsbmlInternal */
 
 
-	/** @cond doxygen-libsbml-internal */
+	/** @cond doxygenLibsbmlInternal */
 
 /*
  * Get the list of expected attributes for this element.
@@ -511,10 +511,10 @@ Uncertainty::addExpectedAttributes(ExpectedAttributes& attributes)
 }
 
 
-	/** @endcond doxygen-libsbml-internal */
+	/** @endcond doxygenLibsbmlInternal */
 
 
-	/** @cond doxygen-libsbml-internal */
+	/** @cond doxygenLibsbmlInternal */
 
 /*
  * Read values from the given XMLAttributes set into their specific fields.
@@ -590,10 +590,10 @@ Uncertainty::readAttributes (const XMLAttributes& attributes,
 }
 
 
-	/** @endcond doxygen-libsbml-internal */
+	/** @endcond doxygenLibsbmlInternal */
 
 
-	/** @cond doxygen-libsbml-internal */
+	/** @cond doxygenLibsbmlInternal */
 
 /*
  * Write values of XMLAttributes to the output stream.
@@ -614,7 +614,7 @@ Uncertainty::writeAttributes (XMLOutputStream& stream) const
 }
 
 
-	/** @endcond doxygen-libsbml-internal */
+	/** @endcond doxygenLibsbmlInternal */
 
 
 /**

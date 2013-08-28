@@ -33,11 +33,11 @@
 
 #ifdef __cplusplus
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 
 using namespace std;
 
-/** @endcond doxygen-libsbml-internal */
+/** @endcond doxygenLibsbmlInternal */
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
@@ -82,7 +82,7 @@ DistribSBMLDocumentPlugin::~DistribSBMLDocumentPlugin ()
 }
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 
 void 
 DistribSBMLDocumentPlugin::readAttributes (const XMLAttributes& attributes,
@@ -121,7 +121,7 @@ DistribSBMLDocumentPlugin::readAttributes (const XMLAttributes& attributes,
   }
 }
 
-/** @endcond doxygen-libsbml-internal*/
+/** @endcond doxygenLibsbmlInternal*/
 
 
 bool

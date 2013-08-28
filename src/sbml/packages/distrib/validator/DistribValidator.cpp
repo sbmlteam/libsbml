@@ -30,11 +30,11 @@
 #include <sbml/packages/distrib/common/DistribExtensionTypes.h>
 #include <sbml/packages/distrib/validator/DistribValidator.h>
 
-	/** @cond doxygen-libsbml-internal */
+	/** @cond doxygenLibsbmlInternal */
 
 using namespace std;
 
-	/** @endcond doxygen-libsbml-internal */
+	/** @endcond doxygenLibsbmlInternal */
 
 
 LIBSBML_CPP_NAMESPACE_BEGIN

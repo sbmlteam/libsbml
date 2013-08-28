@@ -217,7 +217,7 @@ public:
 	virtual const char* getStringFromTypeCode(int typeCode) const;
 
 
-	/** @cond doxygen-libsbml-internal */
+	/** @cond doxygenLibsbmlInternal */
 
 	/**
 	 * Initializes distrib extension by creating an object of this class with 
@@ -233,10 +233,10 @@ public:
 	static void init();
 
 
-	/** @endcond doxygen-libsbml-internal */
+	/** @endcond doxygenLibsbmlInternal */
 
 
-	/** @cond doxygen-libsbml-internal */
+	/** @cond doxygenLibsbmlInternal */
 
 	/**
 	 * Return the entry in the error table at this index. 
@@ -248,10 +248,10 @@ public:
 	virtual packageErrorTableEntry getErrorTable(unsigned int index) const;
 
 
-	/** @endcond doxygen-libsbml-internal */
+	/** @endcond doxygenLibsbmlInternal */
 
 
-	/** @cond doxygen-libsbml-internal */
+	/** @cond doxygenLibsbmlInternal */
 
 	/**
 	 * Return the index in the error table with the given errorId. 
@@ -263,10 +263,10 @@ public:
 	virtual unsigned int getErrorTableIndex(unsigned int errorId) const;
 
 
-	/** @endcond doxygen-libsbml-internal */
+	/** @endcond doxygenLibsbmlInternal */
 
 
-	/** @cond doxygen-libsbml-internal */
+	/** @cond doxygenLibsbmlInternal */
 
 	/**
 	 * Return the offset for the errorId range for the distrib L3 package. 
@@ -276,7 +276,7 @@ public:
 	virtual unsigned int getErrorIdOffset() const;
 
 
-	/** @endcond doxygen-libsbml-internal */
+	/** @endcond doxygenLibsbmlInternal */
 
 
 };

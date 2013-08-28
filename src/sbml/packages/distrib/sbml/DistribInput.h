@@ -322,7 +322,7 @@ public:
 	virtual bool hasRequiredElements() const;
 
 
-	/** @cond doxygen-libsbml-internal */
+	/** @cond doxygenLibsbmlInternal */
 
 	/**
 	 * Subclasses should override this method to write out their contained
@@ -332,10 +332,10 @@ public:
 	virtual void writeElements (XMLOutputStream& stream) const;
 
 
-	/** @endcond doxygen-libsbml-internal */
+	/** @endcond doxygenLibsbmlInternal */
 
 
-	/** @cond doxygen-libsbml-internal */
+	/** @cond doxygenLibsbmlInternal */
 
 	/**
 	 * Accepts the given SBMLVisitor.
@@ -343,10 +343,10 @@ public:
 	virtual bool accept (SBMLVisitor& v) const;
 
 
-	/** @endcond doxygen-libsbml-internal */
+	/** @endcond doxygenLibsbmlInternal */
 
 
-	/** @cond doxygen-libsbml-internal */
+	/** @cond doxygenLibsbmlInternal */
 
 	/**
 	 * Sets the parent SBMLDocument.
@@ -354,10 +354,10 @@ public:
 	virtual void setSBMLDocument (SBMLDocument* d);
 
 
-	/** @endcond doxygen-libsbml-internal */
+	/** @endcond doxygenLibsbmlInternal */
 
 
-	/** @cond doxygen-libsbml-internal */
+	/** @cond doxygenLibsbmlInternal */
 
 	/**
 	 * Connects to child elements.
@@ -365,10 +365,10 @@ public:
 	virtual void connectToChild ();
 
 
-	/** @endcond doxygen-libsbml-internal */
+	/** @endcond doxygenLibsbmlInternal */
 
 
-	/** @cond doxygen-libsbml-internal */
+	/** @cond doxygenLibsbmlInternal */
 
 	/**
 	 * Enables/Disables the given package with this element.
@@ -377,12 +377,12 @@ public:
 	             const std::string& pkgPrefix, bool flag);
 
 
-	/** @endcond doxygen-libsbml-internal */
+	/** @endcond doxygenLibsbmlInternal */
 
 
 protected:
 
-	/** @cond doxygen-libsbml-internal */
+	/** @cond doxygenLibsbmlInternal */
 
 	/**
 	 * return the SBML object corresponding to next XMLToken.
@@ -390,10 +390,10 @@ protected:
 	virtual SBase* createObject(XMLInputStream& stream);
 
 
-	/** @endcond doxygen-libsbml-internal */
+	/** @endcond doxygenLibsbmlInternal */
 
 
-	/** @cond doxygen-libsbml-internal */
+	/** @cond doxygenLibsbmlInternal */
 
 	/**
 	 * Get the list of expected attributes for this element.
@@ -401,10 +401,10 @@ protected:
 	virtual void addExpectedAttributes(ExpectedAttributes& attributes);
 
 
-	/** @endcond doxygen-libsbml-internal */
+	/** @endcond doxygenLibsbmlInternal */
 
 
-	/** @cond doxygen-libsbml-internal */
+	/** @cond doxygenLibsbmlInternal */
 
 	/**
 	 * Read values from the given XMLAttributes set into their specific fields.
@@ -413,10 +413,10 @@ protected:
 	                             const ExpectedAttributes& expectedAttributes);
 
 
-	/** @endcond doxygen-libsbml-internal */
+	/** @endcond doxygenLibsbmlInternal */
 
 
-	/** @cond doxygen-libsbml-internal */
+	/** @cond doxygenLibsbmlInternal */
 
 	/**
 	 * Write values of XMLAttributes to the output stream.
@@ -424,7 +424,7 @@ protected:
 	virtual void writeAttributes (XMLOutputStream& stream) const;
 
 
-	/** @endcond doxygen-libsbml-internal */
+	/** @endcond doxygenLibsbmlInternal */
 
 
 
@@ -630,7 +630,7 @@ public:
 
 protected:
 
-	/** @cond doxygen-libsbml-internal */
+	/** @cond doxygenLibsbmlInternal */
 
 	/**
 	 * Creates a new DistribInput in this ListOfDistribInputs
@@ -638,10 +638,10 @@ protected:
 	virtual SBase* createObject(XMLInputStream& stream);
 
 
-	/** @endcond doxygen-libsbml-internal */
+	/** @endcond doxygenLibsbmlInternal */
 
 
-	/** @cond doxygen-libsbml-internal */
+	/** @cond doxygenLibsbmlInternal */
 
 	/**
 	 * Write the namespace for the Distrib package.
@@ -649,7 +649,7 @@ protected:
 	virtual void writeXMLNS(XMLOutputStream& stream) const;
 
 
-	/** @endcond doxygen-libsbml-internal */
+	/** @endcond doxygenLibsbmlInternal */
 
 
 

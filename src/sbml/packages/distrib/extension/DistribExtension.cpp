@@ -368,7 +368,7 @@ DistribExtension::init()
 }
 
 
-	/** @cond doxygen-libsbml-internal */
+	/** @cond doxygenLibsbmlInternal */
 
 /*
  * Return error table entry. 
@@ -379,10 +379,10 @@ DistribExtension::getErrorTable(unsigned int index) const
 	return distribErrorTable[index];
 }
 
-	/** @endcond doxygen-libsbml-internal */
+	/** @endcond doxygenLibsbmlInternal */
 
 
-	/** @cond doxygen-libsbml-internal */
+	/** @cond doxygenLibsbmlInternal */
 
 /*
  * Return error table index for this id. 
@@ -406,10 +406,10 @@ DistribExtension::getErrorTableIndex(unsigned int errorId) const
 	return index;
 }
 
-	/** @endcond doxygen-libsbml-internal */
+	/** @endcond doxygenLibsbmlInternal */
 
 
-	/** @cond doxygen-libsbml-internal */
+	/** @cond doxygenLibsbmlInternal */
 
 /*
  * Return error offset. 
@@ -420,7 +420,7 @@ DistribExtension::getErrorIdOffset() const
 	return 5000000;
 }
 
-	/** @endcond doxygen-libsbml-internal */
+	/** @endcond doxygenLibsbmlInternal */
 
 
 
