@@ -274,7 +274,7 @@ public:
   int getTypeCode () const;
 
 
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
   /**
    * Subclasses should override this method to write out their contained
    * SBML objects as XML elements.  Be sure to call your parents
@@ -287,7 +287,7 @@ public:
    */
   virtual void writeElements (XMLOutputStream& stream) const;
 
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
   /**
    * Sets the parent SBMLDocument of this SBML object.
    *
@@ -321,7 +321,7 @@ public:
    */
   virtual void enablePackageInternal(const std::string& pkgURI,
                                      const std::string& pkgPrefix, bool flag);
-  /** @endcond doxygen-libsbml-internal */
+  /** @endcond doxygenLibsbmlInternal */
 
 
   /**
@@ -332,7 +332,7 @@ public:
    * sibling object (if available).
    */
   virtual bool accept (SBMLVisitor& v) const;
-  /** @endcond doxygen-libsbml-internal */
+  /** @endcond doxygenLibsbmlInternal */
     
 protected:
   /**
@@ -393,7 +393,7 @@ protected:
   friend class ModelingPracticeValidator;
   friend class OverdeterminedValidator;
 
- /** @endcond doxygen-libsbml-internal */
+ /** @endcond doxygenLibsbmlInternal */
 
 
 };
@@ -533,7 +533,7 @@ protected:
   virtual SBase* createObject (XMLInputStream& stream);
 };
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 /**
  * Used by ListOfDomains::get() to lookup an SBase based by its 
  * spatialId
@@ -549,7 +549,7 @@ struct IdEq<Domain> : public std::unary_function<SBase*, bool>
        { return static_cast <Domain*> (sb)->getSpatialId() == id; }
 };
 #endif
-/** @endcond doxygen-libsbml-internal */
+/** @endcond doxygenLibsbmlInternal */
 
 LIBSBML_CPP_NAMESPACE_END
 

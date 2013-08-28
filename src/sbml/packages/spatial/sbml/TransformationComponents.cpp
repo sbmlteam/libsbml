@@ -307,12 +307,12 @@ void TransformationComponents::writeTransformationComponents (TransformationComp
 
 }
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 void TransformationComponents::setParentSBMLObject(SBase * sb)
 {
   mParentSBMLObject = sb;
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond doxygenLibsbmlInternal */
 
 
 SBase * TransformationComponents::getParentSBMLObject() const

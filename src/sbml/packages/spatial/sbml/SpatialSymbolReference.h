@@ -198,7 +198,7 @@ public:
    * sibling object (if available).
    */
   virtual bool accept (SBMLVisitor& v) const;
-  /** @endcond doxygen-libsbml-internal */
+  /** @endcond doxygenLibsbmlInternal */
     
 protected:
   /**
@@ -260,12 +260,12 @@ protected:
   friend class ModelingPracticeValidator;
   friend class OverdeterminedValidator;
 
- /** @endcond doxygen-libsbml-internal */
+ /** @endcond doxygenLibsbmlInternal */
 
 };
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 /**
  * Used by ListOfSpatialSymbolReferences::get() to lookup an SBase based on its 
  * spatialId
@@ -281,7 +281,7 @@ struct IdEq<SpatialSymbolReference> : public std::unary_function<SBase*, bool>
        { return static_cast <SpatialSymbolReference*> (sb)->getSpatialId() == id; }
 };
 #endif
-/** @endcond doxygen-libsbml-internal */
+/** @endcond doxygenLibsbmlInternal */
 
 LIBSBML_CPP_NAMESPACE_END
 

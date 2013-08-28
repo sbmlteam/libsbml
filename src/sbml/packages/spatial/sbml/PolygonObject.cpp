@@ -307,12 +307,12 @@ void PolygonObject::writePolygonObject (PolygonObject* PolygonObject, XMLOutputS
 
 }
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 void PolygonObject::setParentSBMLObject(SBase * sb)
 {
   mParentSBMLObject = sb;
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond doxygenLibsbmlInternal */
 
 
 SBase * PolygonObject::getParentSBMLObject() const

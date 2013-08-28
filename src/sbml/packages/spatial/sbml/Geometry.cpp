@@ -952,7 +952,7 @@ Geometry::getElementName () const
 
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 /*
  * @return the ordinal position of the element with respect to its siblings
  * or -1 (default) to indicate the position is not significant.
@@ -962,7 +962,7 @@ Geometry::getElementPosition () const
 {
   return 3;
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond doxygenLibsbmlInternal */
 
 
 /*
@@ -1231,7 +1231,7 @@ Geometry::enablePackageInternal(const std::string& pkgURI,
 
 
 
-/** @cond doxygen-c-only */
+/** @cond doxygenCOnly */
 
 /**
  * Creates and returns a deep copy of a given Geometry_t structure.

@@ -226,14 +226,14 @@ public:
   static ImageData* readImageData (XMLInputStream& stream);
 
 
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
   /**
    * Write imageData to XMLOutputStream
    *
    */
  static void writeImageData (ImageData* imageData, XMLOutputStream& stream);
 
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
 
   /**
    * Sets the parent SBML object.
@@ -242,7 +242,7 @@ public:
    */
   void setParentSBMLObject(SBase * sb);
 
-  /** @endcond doxygen-libsbml-internal */
+  /** @endcond doxygenLibsbmlInternal */
 
   /**
    * Returns the parent SBML object.

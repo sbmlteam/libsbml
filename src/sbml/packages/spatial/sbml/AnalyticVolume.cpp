@@ -473,7 +473,7 @@ AnalyticVolume::readAttributes (const XMLAttributes& attributes,
 
 }
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 /*
  * Subclasses should override this method to read (and store) XHTML,
  * MathML, etc. directly from the XMLInputStream.

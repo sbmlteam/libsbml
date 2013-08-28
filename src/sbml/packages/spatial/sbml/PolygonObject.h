@@ -166,14 +166,14 @@ public:
   static PolygonObject* readPolygonObject (XMLInputStream& stream);
 
 
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
   /**
    * Write PolygonObject to XMLOutputStream
    *
    */
  static void writePolygonObject (PolygonObject* PolygonObject, XMLOutputStream& stream);
 
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
 #endif
   /**
    * Sets the parent SBML object.
@@ -182,7 +182,7 @@ public:
    */
   void setParentSBMLObject(SBase * sb);
 
-  /** @endcond doxygen-libsbml-internal */
+  /** @endcond doxygenLibsbmlInternal */
 
   /**
    * Returns the parent SBML object.

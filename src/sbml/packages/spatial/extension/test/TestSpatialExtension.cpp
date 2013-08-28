@@ -17,12 +17,12 @@
 #include <sbml/SBMLTypeCodes.h>
 #include <string>
 
-/** @cond doxygen-ignored */
+/** @cond doxygenIgnored */
 
 using namespace std;
 LIBSBML_CPP_NAMESPACE_USE
 
-  /** @endcond doxygen-ignored */
+  /** @endcond doxygenIgnored */
 
 
   CK_CPPSTART

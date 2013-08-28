@@ -20,12 +20,12 @@
 #include <sbml/packages/spatial/extension/SpatialExtension.h>
 #include <string>
 
-/** @cond doxygen-ignored */
+/** @cond doxygenIgnored */
 
 using namespace std;
 LIBSBML_CPP_NAMESPACE_USE
 
-  /** @endcond doxygen-ignored */
+  /** @endcond doxygenIgnored */
 
 #define COMPARE_DOCUMENT_STRING(string1,string2)\
 {\

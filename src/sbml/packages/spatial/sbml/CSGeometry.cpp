@@ -402,7 +402,7 @@ CSGeometry::enablePackageInternal(const std::string& pkgURI,
 
 
 
-/** @cond doxygen-c-only */
+/** @cond doxygenCOnly */
 
 /**
  * Creates and returns a deep copy of a given CSGeometry_t structure.

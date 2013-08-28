@@ -166,14 +166,14 @@ public:
   static TransformationComponents* readTransformationComponents (XMLInputStream& stream);
 
 
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
   /**
    * Write TransformationComponents to XMLOutputStream
    *
    */
  static void writeTransformationComponents (TransformationComponents* TransformationComponents, XMLOutputStream& stream);
 
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
 #endif
 
   /**
@@ -183,7 +183,7 @@ public:
    */
   void setParentSBMLObject(SBase * sb);
 
-  /** @endcond doxygen-libsbml-internal */
+  /** @endcond doxygenLibsbmlInternal */
 
   /**
    * Returns the parent SBML object.

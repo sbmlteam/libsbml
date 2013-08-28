@@ -454,13 +454,13 @@ void ImageData::writeImageData (ImageData* imageData, XMLOutputStream& stream)
 
 }
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 void ImageData::setParentSBMLObject(SBase * sb)
 {
   mParentSBMLObject = sb;
   connectToParent(sb);
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond doxygenLibsbmlInternal */
 
 
 SBase * ImageData::getParentSBMLObject() const

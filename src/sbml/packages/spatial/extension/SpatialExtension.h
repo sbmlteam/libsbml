@@ -195,7 +195,7 @@ public:
   virtual const char* getStringFromTypeCode(int typeCode) const;
 
 
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
   /**
    * Initializes spatial extension by creating an object of this class with 
    * required SBasePlugin derived objects and registering the object 
@@ -210,7 +210,7 @@ public:
 
   static void init();
 
-  /** @endcond doxygen-libsbml-internal */
+  /** @endcond doxygenLibsbmlInternal */
 
 };
 
