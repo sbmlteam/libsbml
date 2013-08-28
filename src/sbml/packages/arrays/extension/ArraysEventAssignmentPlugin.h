@@ -92,7 +92,7 @@ public:
 	//
 	//---------------------------------------------------------------
 
-	/** @cond doxygen-libsbml-internal */
+	/** @cond doxygenLibsbmlInternal */
 
 	/**
 	 * Subclasses must override this method to create, store, and then
@@ -105,10 +105,10 @@ public:
 	virtual SBase* createObject (XMLInputStream& stream);
 
 
-	/** @endcond doxygen-libsbml-internal */
+	/** @endcond doxygenLibsbmlInternal */
 
 
-	/** @cond doxygen-libsbml-internal */
+	/** @cond doxygenLibsbmlInternal */
 
 	/**
 	 * Subclasses must override this method to write out their contained
@@ -117,7 +117,7 @@ public:
 	virtual void writeElements (XMLOutputStream& stream) const;
 
 
-	/** @endcond doxygen-libsbml-internal */
+	/** @endcond doxygenLibsbmlInternal */
 
 
 	/**
@@ -255,7 +255,7 @@ public:
 	unsigned int getNumIndexs () const;
 
 
-	/** @cond doxygen-libsbml-internal */
+	/** @cond doxygenLibsbmlInternal */
 
 	/**
 	 * Sets the parent SBMLDocument.
@@ -263,7 +263,7 @@ public:
 	virtual void setSBMLDocument (SBMLDocument* d);
 
 
-	/** @endcond doxygen-libsbml-internal */
+	/** @endcond doxygenLibsbmlInternal */
 
 
 	virtual void connectToParent (SBase* sbase);
@@ -275,11 +275,11 @@ public:
 
 protected:
 
-	/** @cond doxygen-libsbml-internal */
+	/** @cond doxygenLibsbmlInternal */
 
 	ListOfIndices mIndexs;
 
-	/** @endcond doxygen-libsbml-internal */
+	/** @endcond doxygenLibsbmlInternal */
 
 
 };

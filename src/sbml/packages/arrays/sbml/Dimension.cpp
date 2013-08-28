@@ -333,7 +333,7 @@ Dimension::hasRequiredAttributes () const
 }
 
 
-	/** @cond doxygen-libsbml-internal */
+	/** @cond doxygenLibsbmlInternal */
 
 /*
  * write contained elements
@@ -346,10 +346,10 @@ Dimension::writeElements (XMLOutputStream& stream) const
 }
 
 
-	/** @endcond doxygen-libsbml-internal */
+	/** @endcond doxygenLibsbmlInternal */
 
 
-	/** @cond doxygen-libsbml-internal */
+	/** @cond doxygenLibsbmlInternal */
 
 /*
  * Accepts the given SBMLVisitor.
@@ -362,10 +362,10 @@ Dimension::accept (SBMLVisitor& v) const
 }
 
 
-	/** @endcond doxygen-libsbml-internal */
+	/** @endcond doxygenLibsbmlInternal */
 
 
-	/** @cond doxygen-libsbml-internal */
+	/** @cond doxygenLibsbmlInternal */
 
 /*
  * Sets the parent SBMLDocument.
@@ -377,10 +377,10 @@ Dimension::setSBMLDocument (SBMLDocument* d)
 }
 
 
-	/** @endcond doxygen-libsbml-internal */
+	/** @endcond doxygenLibsbmlInternal */
 
 
-	/** @cond doxygen-libsbml-internal */
+	/** @cond doxygenLibsbmlInternal */
 
 /*
  * Enables/Disables the given package with this element.
@@ -393,10 +393,10 @@ Dimension::enablePackageInternal(const std::string& pkgURI,
 }
 
 
-	/** @endcond doxygen-libsbml-internal */
+	/** @endcond doxygenLibsbmlInternal */
 
 
-	/** @cond doxygen-libsbml-internal */
+	/** @cond doxygenLibsbmlInternal */
 
 /*
  * Get the list of expected attributes for this element.
@@ -412,10 +412,10 @@ Dimension::addExpectedAttributes(ExpectedAttributes& attributes)
 }
 
 
-	/** @endcond doxygen-libsbml-internal */
+	/** @endcond doxygenLibsbmlInternal */
 
 
-	/** @cond doxygen-libsbml-internal */
+	/** @cond doxygenLibsbmlInternal */
 
 /*
  * Read values from the given XMLAttributes set into their specific fields.
@@ -484,10 +484,10 @@ Dimension::readAttributes (const XMLAttributes& attributes,
 }
 
 
-	/** @endcond doxygen-libsbml-internal */
+	/** @endcond doxygenLibsbmlInternal */
 
 
-	/** @cond doxygen-libsbml-internal */
+	/** @cond doxygenLibsbmlInternal */
 
 /*
  * Write values of XMLAttributes to the output stream.
@@ -511,7 +511,7 @@ Dimension::writeAttributes (XMLOutputStream& stream) const
 }
 
 
-	/** @endcond doxygen-libsbml-internal */
+	/** @endcond doxygenLibsbmlInternal */
 
 
 /*
@@ -652,7 +652,7 @@ ListOfDimensions::getItemTypeCode () const
 }
 
 
-	/** @cond doxygen-libsbml-internal */
+	/** @cond doxygenLibsbmlInternal */
 
 /*
  * Creates a new Dimension in this ListOfDimensions
@@ -674,10 +674,10 @@ ListOfDimensions::createObject(XMLInputStream& stream)
 }
 
 
-	/** @endcond doxygen-libsbml-internal */
+	/** @endcond doxygenLibsbmlInternal */
 
 
-	/** @cond doxygen-libsbml-internal */
+	/** @cond doxygenLibsbmlInternal */
 
 /*
  * Write the namespace for the Arrays package.
@@ -701,7 +701,7 @@ ListOfDimensions::writeXMLNS(XMLOutputStream& stream) const
 }
 
 
-	/** @endcond doxygen-libsbml-internal */
+	/** @endcond doxygenLibsbmlInternal */
 
 
 /**

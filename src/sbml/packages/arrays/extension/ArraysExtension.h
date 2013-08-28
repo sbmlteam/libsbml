@@ -217,7 +217,7 @@ public:
 	virtual const char* getStringFromTypeCode(int typeCode) const;
 
 
-	/** @cond doxygen-libsbml-internal */
+	/** @cond doxygenLibsbmlInternal */
 
 	/**
 	 * Initializes arrays extension by creating an object of this class with 
@@ -233,7 +233,7 @@ public:
 	static void init();
 
 
-	/** @endcond doxygen-libsbml-internal */
+	/** @endcond doxygenLibsbmlInternal */
 
 
 };
