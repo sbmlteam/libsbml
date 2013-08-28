@@ -92,7 +92,7 @@ RequiredElementsSBasePlugin::clone () const
 // ------------------------------------------------
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 
 /**
  * Subclasses should override this method to get the list of
@@ -156,7 +156,7 @@ RequiredElementsSBasePlugin::writeAttributes (XMLOutputStream& stream) const
   }
 }
 
-/** @endcond doxygen-libsbml-internal */
+/** @endcond doxygenLibsbmlInternal */
 
 /*
  *
