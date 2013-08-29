@@ -196,6 +196,7 @@ distfiles =							\
         force-serif-font-off.html				\
         force-serif-font-on.html				\
         graphics/astnode-illustration.jpg			\
+	graphics/biology-qualifiers.png                         \
         graphics/built-in-units.jpg				\
         graphics/cmake-configure-macos.png			\
         graphics/cmake-configure-windows.png			\
@@ -213,6 +214,7 @@ distfiles =							\
         graphics/listof-illustration.txt			\
         graphics/math-formula-precedence.jpg			\
         graphics/math-string-functions.jpg			\
+	graphics/model-qualifiers.png                           \
         graphics/official-sbml-supported-32.jpg			\
         graphics/official-sbml-supported-40.jpg			\
         graphics/official-sbml-supported-70.png			\
@@ -317,6 +319,8 @@ distfiles =							\
         libsbml-python-reading-files.txt			\
         libsbml-reading-files.txt				\
         libsbml-release-info.txt				\
+	papers/miriam-2005.pdf                                  \
+	papers/miriam-resources-2007.pdf                        \
         plain-font-off.html					\
         plain-font-on.html					\
         python-substitutions/ASTNodeList.py			\
@@ -461,6 +465,7 @@ define postprocess_doxygen
   cp graphics/*.png $(1)
   cp common-text/simple-ast.svg $(1)
   cp sbml.js $(1)
+  cp papers/*.pdf $(1)
   cp -rf doxygen-tabs.css $(1)/tabs.css
   cp -rf doxygen-navtree.css $(1)/navtree.css
 endef
