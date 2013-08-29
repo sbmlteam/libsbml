@@ -1,6 +1,7 @@
 /**
  * @file    printRegisteredPackages.cpp
- * @brief   Prints the registerd packages for this libSBML
+ * @brief   Prints the SBML Level 3 packages registered/installed
+ *          in this copy of libSBML.
  * @author  Frank Bergmann
  *
  * This file is part of libSBML.  Please visit http://sbml.org for more
