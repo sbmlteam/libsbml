@@ -273,6 +273,7 @@ distfiles =							\
         libsbml-csharp-reading-files.txt			\
 	libsbml-doxygen.html					\
         libsbml-example.txt					\
+        libsbml-examples.txt					\
         libsbml-extension-support-classes.txt			\
         libsbml-features.html					\
         libsbml-features.txt					\
