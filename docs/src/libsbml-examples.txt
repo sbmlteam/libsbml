@@ -1,0 +1,207 @@
+/** @page libsbml-examples Additional complete example programs
+
+LibSBML comes with a selection of complete example programs in the
+top-level file directory named <code>examples</code>; code listings of
+these programs is included in the section titled <a
+href="examples.html">Examples</a> in this documentation.
+
+@section simple-programs Simple programs
+
+@li @ref echoSBML.cpp "echoSBML.cpp":
+Echos (and in the process, pretty prints) an SBML model.
+
+@li @ref readSBML.cpp "readSBML.cpp":
+A simple command-line program that reads an SBML file and prints
+some statistics about it.
+
+@li @ref printSBML.cpp "printSBML.cpp":
+Prints information about the top-level model in the given SBML file.
+
+@li @ref printRegisteredPackages.cpp "printRegisteredPackages.cpp":
+Prints the SBML Level 3 packages registered/installed in this copy of libSBML.
+
+@li @ref printSupported.cpp "printSupported.cpp":
+Prints the supported SBML Levels and Versions for this copy of libSBML.
+
+
+@section advanced-programs More advanced programs
+
+@li @ref addCVTerms.cpp "addCVTerms.cpp":
+Adds controlled vocabulary terms to a species in a model.
+
+@li @ref addCustomValidator.cpp "addCustomValidator.cpp":
+Example of creating a custom validator to be called during validation.
+
+@li @ref addModelHistory.cpp "addModelHistory.cpp":
+Adds a model history to a model.
+
+@li @ref addingEvidenceCodes_1.cpp "addingEvidenceCodes_1.cpp":
+Adds controlled vocabulary terms to a reaction in a model.
+
+@li @ref addingEvidenceCodes_2.cpp "addingEvidenceCodes_2.cpp":
+Adds evidence codes to a species in a model.
+
+@li @ref appendAnnotation.cpp "appendAnnotation.cpp":
+Adds annotation strings to a model and a species.
+
+@li @ref callExternalValidator.cpp "callExternalValidator.cpp":
+Example that shows how to call an external program for validation.
+
+@li @ref convertSBML.cpp "convertSBML.cpp":
+Example demonstrating how to convert SBML documents between SBML Levels.
+
+@li @ref createExampleSBML.cpp "createExampleSBML.cpp":
+Lengthy example of creating SBML models presented in the SBML specification.
+
+@li @ref getAllElementsWithNotes.cpp "getAllElementsWithNotes.cpp":
+Demonstrates how to use the element filter class to search the model
+for elements with specific attributes .
+
+@li @ref inlineFunctionDefintions.cpp "inlineFunctionDefintions.cpp":
+Loads an SBML File and inlines all the function definitions found in
+the model.
+
+@li @ref printAnnotation.cpp "printAnnotation.cpp":
+Prints the annotation strings for each element in a given model.
+
+@li @ref printMath.cpp "printMath.cpp":
+Prints the rule, reaction, and event formulas in a given SBML document.
+
+@li @ref printNotes.cpp "printNotes.cpp":
+Prints the notes strings for each element in a given model.
+
+@li @ref printUnits.cpp "printUnits.cpp":
+A command-line program that prints information about the units 
+of measurement used in a given SBML file.
+
+@li @ref renameSId.cpp "renameSId.cpp":
+Program that renames a specific SId and updates all references to it 
+in a given model.
+
+@li @ref rngvalidator.cpp "rngvalidator.cpp":
+Example of creating a RELAX NG (RNG) validator to be called during validation.
+
+@li @ref setIdFromNames.cpp "setIdFromNames.cpp":
+Program that renames all SIds that also have names specified. The new
+identifiers will be derived from the name, with all invalid characters removed.
+
+@li @ref stripPackage.cpp "stripPackage.cpp":
+Strips the given SBML Level 3 package from the given SBML file.
+
+@li @ref translateL3Math.cpp "translateL3Math.cpp":
+Translates infix formulas into MathML and vice-versa, using the SBML
+Level&nbsp;3 parser instead of the old Level&nbsp;1 parser. 
+
+@li @ref translateMath.cpp "translateMath.cpp":
+Translates infix formulas into MathML and vice-versa.
+
+@li @ref unsetAnnotation.cpp "unsetAnnotation.cpp":
+Unsets the annotation for each element in the given SBML file.
+
+@li @ref unsetNotes.cpp "unsetNotes.cpp":
+Unsets the notes for each element in the given SBML file.
+
+@li @ref validateSBML.cpp "validateSBML.cpp":
+Validates one or more SBML files.
+
+
+@example addCVTerms.cpp
+Adds controlled vocabulary terms to a species in a model.
+
+@example addCustomValidator.cpp
+Example of creating a custom validator to be called during validation.
+
+@example addModelHistory.cpp
+Adds a model history to a model.
+
+@example addingEvidenceCodes_1.cpp
+Adds controlled vocabulary terms to a reaction in a model.
+
+@example addingEvidenceCodes_2.cpp
+Adds evidence codes to a species in a model.
+
+@example appendAnnotation.cpp
+Adds annotation strings to a model and a species.
+
+@example callExternalValidator.cpp
+Example that shows how to call an external program for validation.
+
+@example convertSBML.cpp
+Example demonstrating how to convert SBML documents between SBML Levels.
+
+@example createExampleSBML.cpp
+Lengthy example of creating SBML models presented in the SBML specification.
+
+@example echoSBML.cpp
+Echos (and in the process, pretty prints) an SBML model.
+
+@example getAllElementsWithNotes.cpp
+Demonstrates how to use the element filter class to search the model
+for elements with specific attributes .
+
+@example inlineFunctionDefintions.cpp
+Loads an SBML File and inlines all the function definitions found in
+the model.
+
+@example printAnnotation.cpp
+Prints the annotation strings for each element in a given model.
+
+@example printMath.cpp
+Prints the rule, reaction, and event formulas in a given SBML document.
+
+@example printNotes.cpp
+Prints the notes strings for each element in a given model.
+
+@example printRegisteredPackages.cpp
+Prints the SBML Level 3 packages registered/installed in this copy of libSBML.
+
+@example printSBML.cpp
+Prints information about the top-level model in the given SBML file.
+
+@example printSupported.cpp
+Prints the supported SBML Levels and Versions for this copy of libSBML.
+
+@example printUnits.cpp
+A command-line program that prints information about the units 
+of measurement used in a given SBML file.
+
+@example readSBML.cpp
+A simple command-line program that reads an SBML file and prints
+some statistics about it.
+
+@example renameSId.cpp
+Program that renames a specific SId and updates all references to it 
+in a given model.
+
+@example rngvalidator.cpp
+Example of creating a RELAX NG (RNG) validator to be called during validation.
+
+@example setIdFromNames.cpp
+Program that renames all SIds that also have names specified. The new
+identifiers will be derived from the name, with all invalid characters removed.
+
+@example stripPackage.cpp
+Strips the given SBML Level 3 package from the given SBML file.
+
+@example translateL3Math.cpp
+Translates infix formulas into MathML and vice-versa, using the SBML
+Level&nbsp;3 parser instead of the old Level&nbsp;1 parser. 
+
+@example translateMath.cpp
+Translates infix formulas into MathML and vice-versa.
+
+@example unsetAnnotation.cpp
+Unsets the annotation for each element in the given SBML file.
+
+@example unsetNotes.cpp
+Unsets the notes for each element in the given SBML file.
+
+@example validateSBML.cpp
+Validates one or more SBML files.
+
+
+*/
+<!-- The following is for [X]Emacs users.  Please leave in place. -->
+<!-- Local Variables: -->
+<!-- fill-column: 70 -->
+<!-- End: -->
