@@ -173,10 +173,42 @@ dl.el {
     margin-left: -1cm;
 }
 
-.fragment {
+.contents div.fragment {
+    border: 1px solid orange;
+    background-color: #f0f0f0;
+    padding: 5px;
+    padding-top: 6px;
+    margin: 15px;
+    overflow: auto;
+    word-wrap: break-word;
+    line-height: 125%;
+    -webkit-border-top-left-radius: 8px;
+    -webkit-border-top-right-radius: 8px;
+    -moz-border-radius-topleft: 8px;
+    -moz-border-radius-topright: 8px;
+    -moz-border-radius-bottomleft: 8px;
+    -moz-border-radius-bottomright: 8px;
+    -webkit-border-bottom-left-radius: 8px;
+    -webkit-border-bottom-right-radius: 8px;
 }
 
-div.fragment pre,
+.contents div.textblock div.fragment {
+    border: none;
+    background-color: white;
+    padding: 0;
+    padding-top: 0;
+    margin: 0;
+    line-height: 100%;
+    -webkit-border-top-left-radius: none;
+    -webkit-border-top-right-radius: none;
+    -moz-border-radius-topleft: none;
+    -moz-border-radius-topright: none;
+    -moz-border-radius-bottomleft: none;
+    -moz-border-radius-bottomright: none;
+    -webkit-border-bottom-left-radius: none;
+    -webkit-border-bottom-right-radius: none;
+}
+
 pre.fragment {
     font-family: "Courier New", Courier, monospace, fixed;
     font-size:  9pt;
@@ -186,7 +218,7 @@ pre.fragment {
     color: black;
     padding: 5px;
     padding-top: 6px;
-    margin: 15px;
+    margin: 5px 15px 5px 15px;
     overflow: auto;
     word-wrap: break-word;
     line-height: 125%;

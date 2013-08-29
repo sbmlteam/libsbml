@@ -85,9 +85,11 @@ li a[href="namespacemembers_vars.html"],
 li a[href="usergroup0.html"],
 li a[href="usergroup1.html"],
 li a[href="group___core.html"],
+li a[href="examples.html"],
 li a[href="functions.html"]
 {
-  width: 115px;
+    width: 100px;
+    letter-spacing: -1px;
 }
 
 #navrow1 {
