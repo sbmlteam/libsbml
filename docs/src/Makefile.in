@@ -169,6 +169,12 @@ distfiles =							\
         common-text/unitkind-table.txt				\
         common-text/warn-default-args-in-docs.html		\
         common-text/xmlid-syntax.html				\
+        common-text/what-are-plugins.html			\
+        common-text/what-is-metaid.html				\
+        common-text/what-is-metaidref.html			\
+        common-text/what-is-sidref.html				\
+        common-text/what-is-unitsidref.html			\
+        common-text/what-is-user-data.html			\
         csdocfilter.py						\
         doxygen-base-stylesheet.css				\
         doxygen-config-c.txt.cmake				\

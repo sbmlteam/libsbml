@@ -1,0 +1,16 @@
+The optional attribute named "metaid", present on every major SBML component
+type, is for supporting metadata annotations using RDF (<a
+ href="http://www.w3.org/RDF/">Resource Description Format</a>).  The
+attribute value has the data type <a
+ href="http://www.w3.org/TR/REC-xml/#id">XML <code>ID</code></a>, the XML
+identifier type, which means each "metaid" value must be globally unique
+within an SBML file.  The latter point is important, because the uniqueness
+criterion applies across <em>any</em> attribute with type <code>ID</code>
+anywhere in the file, not just the "metaid" attribute used by
+SBML&mdash;something to be aware of if your application-specific XML content
+inside the "annotation" subelement happens to use the XML <code>ID</code>
+type.  Although SBML only uses <a href="http://www.w3.org/TR/REC-xml/#id">XML
+<code>ID</code></a> for the "metaid" attribute, callers should be careful if
+they use XML <code>ID</code>'s in XML portions of a model that are not
+defined by SBML, such as in the application-specific content of the
+"annotation" subelement.

@@ -1,0 +1,13 @@
+SBML Level&nbsp;3 consists of a <em>Core</em> definition that can be extended
+via optional SBML Level&nbsp;3 <em>packages</em>.  A given model may indicate
+that it uses one or more SBML packages, and likewise, a software tool may be
+able to support one or more packages.  LibSBML does not come preconfigured
+with all possible packages included and enabled, in part because not all
+package specifications have been finalized.  To support the ability for
+software systems to enable support for the Level&nbsp;3 packages they choose,
+libSBML features a <em>plug-in</em> mechanism.  Each SBML Level&nbsp;3
+package is implemented in a separate code plug-in that can be enabled by the
+application to support working with that SBML package.  A given SBML model
+may thus contain not only objects defined by SBML Level&nbsp;3 Core, but also
+objects created by libSBML plug-ins supporting additional Level&nbsp;3
+packages.
