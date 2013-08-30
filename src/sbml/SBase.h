@@ -222,6 +222,8 @@ public:
    * Returns the first child element it can find with a specific "metaid"
    * attribute value, or @c NULL if no such object is found.
    *
+   * @htmlinclude what-is-metaid.html
+   *
    * @param metaid string representing the "metaid" attribute value of the
    * object to find.
    *
@@ -243,6 +245,8 @@ public:
    * Renames all the @c SIdRef attributes on this element, including any
    * found in MathML content (if such exists).
    *
+   * @htmlinclude what-is-sidref.html 
+   *
    * This method works by looking at all attributes and (if appropriate)
    * mathematical formulas, comparing the identifiers to the value of @p
    * oldid.  If any matches are found, the matching identifiers are replaced
@@ -255,12 +259,14 @@ public:
 
 
   /**
-   * Renames all the @c MetaIdRef attributes on this element.
+   * Renames all the meta-identifier attributes on this element.
    *
-   * This method works by looking at all meta-attribute values, comparing
-   * the identifiers to the value of @p oldid.  If any matches are found,
-   * the matching identifiers are replaced with @p newid.  The method does
-   * @em not descend into child elements.
+   * @htmlinclude what-is-metaidref.html 
+   *
+   * This method works by looking at all meta-identifier attribute values,
+   * comparing the identifiers to the value of @p oldid.  If any matches are
+   * found, the matching identifiers are replaced with @p newid.  The method
+   * does @em not descend into child elements.
    *
    * @param oldid the old identifier
    * @param newid the new identifier
@@ -270,6 +276,8 @@ public:
 
   /**
    * Renames all the @c UnitSIdRef attributes on this element.
+   *
+   * @htmlinclude what-is-unitsidref.html 
    *
    * This method works by looking at all unit identifier attribute values
    * (including, if appropriate, inside mathematical formulas), comparing the
@@ -375,8 +383,10 @@ public:
    * Returns a List of all child SBase objects contained in SBML package
    * plug-ins.
    *
-   * This method walks down the list of all packages used by the enclosing
-   * Model and returns all objects contained in them.
+   * @htmlinclude what-are-plugins.html
+   *
+   * This method walks down the list of all SBML Level&nbsp;3 packages used
+   * by this object and returns all child objects defined by those packages.
    *
    * @return a pointer to a List of pointers to all children objects from
    * plug-ins.
@@ -386,21 +396,8 @@ public:
   
   /**
    * Returns the value of the "metaid" attribute of this object.
-   * 
-   * The optional attribute named "metaid", present on every major SBML
-   * component type, is for supporting metadata annotations using RDF
-   * (Resource Description Format). The attribute value has the data type
-   * <a href="http://www.w3.org/TR/REC-xml/#id">XML ID</a>, the XML
-   * identifier type, which means each "metaid" value must be globally
-   * unique within an SBML file.  (Importantly, this uniqueness criterion
-   * applies across any attribute with type <a
-   * href="http://www.w3.org/TR/REC-xml/#id">XML ID</a>, not just the
-   * "metaid" attribute used by SBML&mdash;something to be aware of if your
-   * application-specific XML content inside the "annotation" subelement
-   * happens to use <a href="http://www.w3.org/TR/REC-xml/#id">XML ID</a>.)
-   * The "metaid" value serves to identify a model
-   * component for purposes such as referencing that component from
-   * metadata placed within "annotation" subelements.
+   *
+   * @htmlinclude what-is-metaid.html
    *  
    * @return the meta-identifier of this SBML object.
    *
@@ -412,21 +409,8 @@ public:
 
   /**
    * Returns the value of the "metaid" attribute of this object.
-   * 
-   * The optional attribute named "metaid", present on every major SBML
-   * component type, is for supporting metadata annotations using RDF
-   * (Resource Description Format).  The attribute value has the data type
-   * <a href="http://www.w3.org/TR/REC-xml/#id">XML ID</a>, the XML
-   * identifier type, which means each "metaid" value must be globally
-   * unique within an SBML file.  (Importantly, this uniqueness criterion
-   * applies across any attribute with type <a
-   * href="http://www.w3.org/TR/REC-xml/#id">XML ID</a>, not just the
-   * "metaid" attribute used by SBML&mdash;something to be aware of if your
-   * application-specific XML content inside the "annotation" subelement
-   * happens to use <a href="http://www.w3.org/TR/REC-xml/#id">XML ID</a>.)
-   * The "metaid" value serves to identify a model
-   * component for purposes such as referencing that component from
-   * metadata placed within "annotation" subelements.
+   *
+   * @htmlinclude what-is-metaid.html
    *  
    * @return the meta-identifier of this SBML object, as a string.
    *
@@ -580,7 +564,7 @@ public:
    * @see getNotesString()
    * @see isSetNotes()
    * @see setNotes(const XMLNode* notes)
-   * @see setNotes(const std::string& notes)
+   * @see setNotes(const std::string& notes, bool addXHTMLMarkup)
    * @see appendNotes(const XMLNode* notes)
    * @see appendNotes(const std::string& notes)
    * @see unsetNotes()
@@ -626,7 +610,7 @@ public:
    * @see getNotesString()
    * @see isSetNotes()
    * @see setNotes(const XMLNode* notes)
-   * @see setNotes(const std::string& notes)
+   * @see setNotes(const std::string& notes, bool addXHTMLMarkup)
    * @see appendNotes(const XMLNode* notes)
    * @see appendNotes(const std::string& notes)
    * @see unsetNotes()
@@ -670,7 +654,7 @@ public:
    * @see getNotes()
    * @see isSetNotes()
    * @see setNotes(const XMLNode* notes)
-   * @see setNotes(const std::string& notes)
+   * @see setNotes(const std::string& notes, bool addXHTMLMarkup)
    * @see appendNotes(const XMLNode* notes)
    * @see appendNotes(const std::string& notes)
    * @see unsetNotes()
@@ -714,7 +698,7 @@ public:
    * @see getNotes()
    * @see isSetNotes()
    * @see setNotes(const XMLNode* notes)
-   * @see setNotes(const std::string& notes)
+   * @see setNotes(const std::string& notes, bool addXHTMLMarkup)
    * @see appendNotes(const XMLNode* notes)
    * @see appendNotes(const std::string& notes)
    * @see unsetNotes()
@@ -1200,20 +1184,7 @@ public:
   /**
    * Predicate returning @c true if this object's "metaid" attribute is set.
    *
-   * The optional attribute named "metaid", present on every major SBML
-   * component type, is for supporting metadata annotations using RDF
-   * (Resource Description Format). The attribute value has the data type
-   * <a href="http://www.w3.org/TR/REC-xml/#id">XML ID</a>, the XML
-   * identifier type, which means each "metaid" value must be globally
-   * unique within an SBML file.  (Importantly, this uniqueness criterion
-   * applies across any attribute with type <a
-   * href="http://www.w3.org/TR/REC-xml/#id">XML ID</a>, not just the
-   * "metaid" attribute used by SBML&mdash;something to be aware of if your
-   * application-specific XML content inside the "annotation" subelement
-   * happens to use <a href="http://www.w3.org/TR/REC-xml/#id">XML ID</a>.)
-   * The "metaid" value serves to identify a model component for purposes
-   * such as referencing that component from metadata placed within
-   * "annotation" subelements.
+   * @htmlinclude what-is-metaid.html 
    *
    * @return @c true if the "metaid" attribute of this SBML object is
    * set, @c false otherwise.
@@ -1362,7 +1333,7 @@ public:
    * @see getNotes()
    * @see getNotesString()
    * @see setNotes(const XMLNode* notes)
-   * @see setNotes(const std::string& notes)
+   * @see setNotes(const std::string& notes, bool addXHTMLMarkup)
    * @see appendNotes(const XMLNode* notes)
    * @see appendNotes(const std::string& notes)
    * @see unsetNotes()
@@ -1414,18 +1385,11 @@ public:
 
 
   /**
-   * Sets the value of the "metaid" attribute of this object.
+   * Sets the value of the meta-identifier attribute of this object.
    *
-   * The string @p metaid is copied.  The value of @p metaid must be an
-   * identifier conforming to the syntax defined by the XML 1.0 data type
-   * <a href="http://www.w3.org/TR/REC-xml/#id">ID</a>.  Among other
-   * things, this type requires that a value is unique among all the values
-   * of type XML ID in an SBMLDocument.  Although SBML only uses <a
-   * href="http://www.w3.org/TR/REC-xml/#id">XML ID</a> for the "metaid"
-   * attribute, callers should be careful if they use
-   * <a href="http://www.w3.org/TR/REC-xml/#id">XML ID</a>'s in XML
-   * portions of a model that are not defined by SBML, such as in the
-   * application-specific content of the "annotation" subelement.
+   * @htmlinclude what-is-metaid.html 
+   *
+   * The string @p metaid is copied.  
    *
    * @param metaid the identifier string to use as the value of the
    * "metaid" attribute
@@ -1845,7 +1809,7 @@ public:
    *
    * @see getNotesString()
    * @see isSetNotes()
-   * @see setNotes(const std::string& notes)
+   * @see setNotes(const std::string& notes, bool addXHTMLMarkup)
    * @see appendNotes(const XMLNode* notes)
    * @see appendNotes(const std::string& notes)
    * @see unsetNotes()
@@ -1964,7 +1928,7 @@ s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></b
    * @see getNotesString()
    * @see isSetNotes()
    * @see setNotes(const XMLNode* notes)
-   * @see setNotes(const std::string& notes)
+   * @see setNotes(const std::string& notes, bool addXHTMLMarkup)
    * @see appendNotes(const std::string& notes)
    * @see unsetNotes()
    * @see SyntaxChecker::hasExpectedXHTMLSyntax(@if java XMLNode xhtml@endif)
@@ -2009,7 +1973,7 @@ s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></b
    * @see getNotesString()
    * @see isSetNotes()
    * @see setNotes(const XMLNode* notes)
-   * @see setNotes(const std::string& notes)
+   * @see setNotes(const std::string& notes, bool addXHTMLMarkup)
    * @see appendNotes(const XMLNode* notes)
    * @see unsetNotes()
    * @see SyntaxChecker::hasExpectedXHTMLSyntax(@if java XMLNode xhtml@endif)
@@ -2172,20 +2136,7 @@ s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></b
   /**
    * Unsets the value of the "metaid" attribute of this SBML object.
    *
-   * The optional attribute named "metaid", present on every major SBML
-   * component type, is for supporting metadata annotations using RDF
-   * (Resource Description Format). The attribute value has the data type
-   * <a href="http://www.w3.org/TR/REC-xml/#id">XML ID</a>, the XML
-   * identifier type, which means each "metaid" value must be globally
-   * unique within an SBML file.  (Importantly, this uniqueness criterion
-   * applies across any attribute with type <a
-   * href="http://www.w3.org/TR/REC-xml/#id">XML ID</a>, not just the
-   * "metaid" attribute used by SBML&mdash;something to be aware of if your
-   * application-specific XML content inside the "annotation" subelement
-   * happens to use <a href="http://www.w3.org/TR/REC-xml/#id">XML ID</a>.)
-   * The "metaid" value serves to identify a model component for purposes
-   * such as referencing that component from metadata placed within
-   * "annotation" subelements.
+   * @htmlinclude what-is-metaid.html 
    *  
    * @return integer value indicating success/failure of the
    * function.  The possible values returned by this function are:
@@ -2202,22 +2153,7 @@ s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></b
    * Most (but not all) objects in SBML include two common attributes: "id"
    * and "name".  The identifier given by an object's "id" attribute value
    * is used to identify the object within the SBML model definition.
-   * Other objects can refer to the component using this identifier.  The
-   * data type of "id" is always either <code>Sid</code> or
-   * <code>UnitSId</code>, depending on the object in question.  Both
-   * data types are defined as follows:
-   * <pre style="margin-left: 2em; border: none; font-weight: bold; color: black">
-   *   letter ::= 'a'..'z','A'..'Z'
-   *   digit  ::= '0'..'9'
-   *   idChar ::= letter | digit | '_'
-   *   SId    ::= ( letter | '_' ) idChar*
-   * </pre>
-   *
-   * The equality of <code>SId</code> and <code>UnitSId</code> type values
-   * in SBML is determined by an exact character sequence match; i.e.,
-   * comparisons of these identifiers must be performed in a case-sensitive
-   * manner.  This applies to all uses of <code>SId</code> and
-   * <code>UnitSId</code>.
+   * Other objects can refer to the component using this identifier.
    *
    * @return integer value indicating success/failure of the
    * function.  The possible values returned by this function are:
@@ -2301,7 +2237,7 @@ s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></b
    * @see getNotesString()
    * @see isSetNotes()
    * @see setNotes(const XMLNode* notes)
-   * @see setNotes(const std::string& notes)
+   * @see setNotes(const std::string& notes, bool addXHTMLMarkup)
    * @see appendNotes(const XMLNode* notes)
    * @see appendNotes(const std::string& notes)
    * @see SyntaxChecker::hasExpectedXHTMLSyntax(@if java XMLNode xhtml@endif)
@@ -2738,29 +2674,34 @@ s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></b
    * @warning This is primarily provided for testing and debugging
    * purposes.  It may be removed in a future version of libSBML.
    */
-  char* toSBML ();
+  char* toSBML();
 
-  /** 
-   * Returns this element as XMLNode
+
+  /**
+   * Returns this element as an XMLNode.
    * 
-   * @return this element as XMLNode
+   * @return this element as an XMLNode.
    * 
-   * @warning This operation is expensive, as the element has to be 
-   *          fully serialized to string and then parsed into the 
-   *          XMLNode structure. 
+   * @warning This operation is computationally expensive, because the
+   * element has to be fully serialized to a string and then parsed into the
+   * XMLNode structure.  Attempting to convert a large tree structure (e.g.,
+   * a large Model) may consume significant computer memory and time.
    */
    XMLNode* toXMLNode();
 
-  /** 
+
+  /**
    * Reads (initializes) this SBML object by reading from the given XMLNode.
    * 
-   * @param node The XMLNode to read from
+   * @param node The XMLNode to read from.
    *
-   * @param flag An optional flag, that allows to influence how errors are 
-   *             logged during read
+   * @param flag An optional flag that determines how how errors are logged
+   * during the reading process.
    *
-   * @warning This method is expensive, as the given node has to be serialized to 
-   *          string first. 
+   * @warning This method is computationally expensive, because the given
+   * node has to be serialized to a string first.  Attempting to serialize a
+   * large tree structure (e.g., a large Model) may consume significant
+   * computer memory and time.
    */
    void read(XMLNode& node, XMLErrorSeverityOverride_t flag = LIBSBML_OVERRIDE_DISABLED);
 
@@ -2776,6 +2717,8 @@ s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></b
    * Returns a plug-in object (extension interface) for an SBML Level&nbsp;3
    * package extension with the given package name or URI.
    *
+   * @htmlinclude what-are-plugins.html
+   *
    * @param package the name or URI of the package
    *
    * @return the plug-in object (the libSBML extension interface) of
@@ -2787,6 +2730,8 @@ s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></b
   /**
    * Returns a plug-in object (extension interface) for an SBML Level&nbsp;3
    * package extension with the given package name or URI.
+   *
+   * @htmlinclude what-are-plugins.html
    *
    * @param package the name or URI of the package
    *
@@ -2800,6 +2745,8 @@ s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></b
    * Returns the nth plug-in object (extension interface) for an SBML Level&nbsp;3
    * package extension.
    *
+   * @htmlinclude what-are-plugins.html
+   *
    * @param n the index of the plug-in to return
    *
    * @return the plug-in object (the libSBML extension interface) of
@@ -2812,6 +2759,8 @@ s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></b
    * Returns the nth plug-in object (extension interface) for an SBML Level&nbsp;3
    * package extension.
    *
+   * @htmlinclude what-are-plugins.html
+   *
    * @param n the index of the plug-in to return
    *
    * @return the plug-in object (the libSBML extension interface) of a
@@ -2823,6 +2772,8 @@ s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></b
   /**
    * Returns the number of plug-in objects (extenstion interfaces) for SBML
    * Level&nbsp;3 package extensions known.
+   *
+   * @htmlinclude what-are-plugins.html
    *
    * @return the number of plug-in objects (extension interfaces) of
    * package extensions known by this instance of libSBML.
@@ -3054,13 +3005,15 @@ s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></b
 
 
   /**
-   * Removes itself from its parent.  If the parent was storing it as a
-   * pointer, it is deleted.  If not, it is simply cleared (as in ListOf
-   * objects).  Pure virutal, as every SBase element has different parents,
-   * and therefore different methods of removing itself.  Will fail (and
-   * not delete itself) if it has no parent object.  This function is
-   * designed to be overridden, but for all objects whose parent is of the
-   * class ListOf, the default implementation will work.
+   * Removes this object from its parent.
+   *
+   * If the parent was storing this object as a pointer, it is deleted.  If
+   * not, it is simply cleared (as in ListOf objects).  This is a pure
+   * virtual method, as every SBase element has different parents, and
+   * therefore different methods of removing itself.  Will fail (and not
+   * delete itself) if it has no parent object.  This function is designed to
+   * be overridden, but for all objects whose parent is of the class ListOf,
+   * the default implementation will work.
    *
    * @return integer value indicating success/failure of the
    * function.  @if clike The value is drawn from the
@@ -3121,10 +3074,9 @@ s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></b
   
   
   /**
-   * Sets the user data of this element. This can be used by the application
-   * developer to attach custom information to the node. In case of a deep
-   * copy this attribute will passed as it is. The attribute will be never
-   * interpreted by this class.
+   * Sets the user data of this element.
+   *
+   * @htmlinclude what-is-user-data.html 
    * 
    * @param userData specifies the new user data. 
    *
@@ -3139,6 +3091,8 @@ s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></b
   /**
    * Returns the user data that has been previously set via setUserData().
    *
+   * @htmlinclude what-is-user-data.html 
+   *
    * @return the user data of this node, or @c NULL if no user data has been set.
    * 
    * @if clike
@@ -3149,29 +3103,30 @@ s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></b
 
   
   /**
-   * Gets the URI to which this element belongs to.
+   * Gets the namespace URI to which this element belongs to.
+   *
    * For example, all elements that belong to SBML Level 3 Version 1 Core
-   * must would have the URI "http://www.sbml.org/sbml/level3/version1/core"; 
+   * must would have the URI "http://www.sbml.org/sbml/level3/version1/core";
    * all elements that belong to Layout Extension Version 1 for SBML Level 3
    * Version 1 Core must would have the URI
    * "http://www.sbml.org/sbml/level3/version1/layout/version1/"
    *
-   * Unlike getElementNamespace, this function first returns the URI for this 
-   * element by looking into the SBMLNamespaces object of the document with 
-   * the its package name. if not found it will return the result of 
-   * getElementNamespace
+   * Unlike getElementNamespace(), this function first returns the URI for
+   * this element by looking into the SBMLNamespaces object of the document
+   * with the its package name. if not found it will return the result of
+   * getElementNamespace().
    *
-   * @return the URI this elements  
+   * @return the URI of this element
    *
-   * @see getPackageName
-   * @see getElementNamespace
-   * @see getSBMLNamespaces
-   * @see getSBMLDocument
+   * @see getPackageName()
+   * @see getElementNamespace()
+   * @see getSBMLDocument()
    */
   std::string getURI() const;
 
+
   /**
-   * Return the prefix of this element.
+   * Returns the namespace prefix of this element.
    */
   std::string getPrefix() const;
 

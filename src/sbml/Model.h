@@ -2729,14 +2729,37 @@ public:
   
   virtual void renameIDs(List* elements, IdentifierTransformer* idTransformer);
 
+
   /**
-   * Renames all the SIdRef attributes on this element, including any found in MathML
+   * Renames all the @c SIdRef attributes on this element, including any
+   * found in MathML.
+   *
+   * @htmlinclude what-is-sidref.html
+   * 
+   * This method works by looking at all attributes and (if appropriate)
+   * mathematical formulas, comparing the identifiers to the value of @p
+   * oldid.  If any matches are found, the matching identifiers are replaced
+   * with @p newid.  The method does @em not descend into child elements.
+   *
+   * @param oldid the old identifier
+   * @param newid the new identifier
    */
   virtual void renameSIdRefs(std::string oldid, std::string newid);
 
 
   /**
-   * Renames all the UnitSIdRef attributes on this element
+   * Renames all the @c UnitSIdRef attributes on this element.
+   *
+   * @htmlinclude what-is-unitsidref.html
+   *
+   * This method works by looking at all unit identifier attribute values
+   * (including, if appropriate, inside mathematical formulas), comparing the
+   * unit identifiers to the value of @p oldid.  If any matches are found,
+   * the matching identifiers are replaced with @p newid.  The method does
+   * @em not descend into child elements.
+   * 
+   * @param oldid the old identifier
+   * @param newid the new identifier
    */
   virtual void renameUnitSIdRefs(std::string oldid, std::string newid);
 
@@ -3558,8 +3581,10 @@ public:
 
   /**
    * Takes the contents of the passed-in Model, makes copies of everything,
-   * and appends those copies to the appropriate places in this Model.  Also
-   * calls 'appendFrom' on all plugin objects.
+   * and appends those copies to the appropriate places in this Model.
+   *
+   * This method also calls the <code>appendFrom</code> method on all libSBML
+   * plug-in objects.&nbsp; @htmlinclude what-are-plugins.html
    *
    * @param model the Model to merge with this one.
    *

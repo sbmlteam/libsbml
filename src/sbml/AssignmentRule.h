@@ -253,9 +253,8 @@ public:
 
 
   /**
-   * Predicate returning @c true if
-   * all the required attributes for this AssignmentRule object
-   * have been set.
+   * Predicate returning @c true if all the required attributes for this
+   * AssignmentRule object have been set.
    *
    * @note In SBML Levels&nbsp;2&ndash;3, the only required attribute for
    * an AssignmentRule object is "variable".  For Level&nbsp;1, where the
@@ -270,7 +269,18 @@ public:
 
 
   /**
-   * Renames all the SIdRef attributes on this element, including any found in MathML
+   * Renames all the @c SIdRef attributes on this element, including any
+   * found in MathML.
+   *
+   * @htmlinclude what-is-sidref.html
+   * 
+   * This method works by looking at all attributes and (if appropriate)
+   * mathematical formulas, comparing the identifiers to the value of @p
+   * oldid.  If any matches are found, the matching identifiers are replaced
+   * with @p newid.  The method does @em not descend into child elements.
+   *
+   * @param oldid the old identifier
+   * @param newid the new identifier
    */
   virtual void renameSIdRefs(std::string oldid, std::string newid);
 
