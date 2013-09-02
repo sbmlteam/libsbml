@@ -65,9 +65,9 @@ void CompFlatteningConverter::init()
 
 
 CompFlatteningConverter::CompFlatteningConverter() : SBMLConverter()
-  , mDisabledPackages()
 {
-
+  mDisabledPackages.clear();
+  mPackageRequired.clear();
 }
 
 
@@ -75,6 +75,7 @@ CompFlatteningConverter::CompFlatteningConverter
                          (const CompFlatteningConverter& orig) :
 SBMLConverter(orig)
   , mDisabledPackages(orig.mDisabledPackages)
+  , mPackageRequired (orig.mPackageRequired)
 {
 }
 
@@ -250,7 +251,7 @@ CompFlatteningConverter::convert()
       return result;
     }
 
-    dummy->checkConsistency();
+    dummy->checkConsistency(true);
     unsigned int errors = 
              dummy->getErrorLog()->getNumFailsWithSeverity(LIBSBML_SEV_ERROR);
     if (errors > 0)
@@ -500,11 +501,14 @@ CompFlatteningConverter::canBeFlattened()
   //  mDocument->getErrorLog()->add(*(d->getError(i)));
   //}
 
-  if (d->getErrorLog()->contains(RequiredPackagePresent) && !getIgnorePackages()) {
+  if (d->getErrorLog()->contains(RequiredPackagePresent) 
+    && getIgnorePackages() == false) 
+  {
     canFlatten = false;
   }
   
-  // add messages about required/unrequired packages being present but not readable
+  // add messages about required/unrequired packages 
+  // being present but not readable
   for (unsigned int i = 0; i < d->getErrorLog()->getNumErrors(); i++)
   {
     if (d->getError(i)->getErrorId() == RequiredPackagePresent 
@@ -565,7 +569,9 @@ CompFlatteningConverter::canBeFlattened()
       message += postmessage;
       if (getIgnorePackages())
       {
-        //LS DEBUG:  This will change the original document even if flattening fails for some other reason (BUG)
+        //LS DEBUG:  This will change the original document even if 
+        //flattening fails for some other reason (BUG)
+        // This is fixed with restoreNamespaces
         string nsURI = ns->getURI(i);
         string nsPrefix = ns->getPrefix(i);
         mDocument->enablePackageInternal(nsURI, nsPrefix, false);
@@ -596,7 +602,9 @@ CompFlatteningConverter::canBeFlattened()
       message += postmessage;
       if (getIgnorePackages())
       {
-        //LS DEBUG:  This will change the original document even if flattening fails for some other reason (BUG)
+        //LS DEBUG:  This will change the original document even if 
+        //flattening fails for some other reason (BUG)
+        // This is fixed with restoreNamespaces
         std::string pkgURI = mDocument->getPlugin(i)->getURI();
         std::string prefix = mDocument->getPlugin(i)->getPrefix();
         mDocument->disablePackage(pkgURI, prefix);

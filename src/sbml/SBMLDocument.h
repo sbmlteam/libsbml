@@ -1572,6 +1572,8 @@ protected:
 
   //PkgRequiredMap           mPkgRequiredMap;
   XMLAttributes            mRequiredAttrOfUnknownPkg;
+  XMLAttributes            mRequiredAttrOfUnknownDisabledPkg;
+
   PkgUseDefaultNSMap       mPkgUseDefaultNSMap;
 
   friend class SBase;

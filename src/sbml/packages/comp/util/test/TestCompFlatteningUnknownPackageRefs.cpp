@@ -381,6 +381,52 @@ START_TEST (test_comp_flatten_unknown_20)
 END_TEST
 
 
+START_TEST (test_comp_flatten_unknown_21)
+{ 
+  string filename(TestDataDirectory);
+  //string filename("C:\\Development\\libsbml\\src\\sbml\\packages\\comp\\util\\test\\test-data\\");
+  
+  ConversionProperties* props = new ConversionProperties();
+  
+  props->addOption("flatten comp");
+  props->addOption("basePath", filename);
+  props->addOption("perform validation", false);
+
+  SBMLConverter* converter = SBMLConverterRegistry::getInstance().getConverterFor(*props);
+  
+  // load document
+  string cfile = filename + "flatten_fail_unknown.xml";  
+  SBMLDocument* doc = readSBMLFromFile(cfile.c_str());
+
+  // fail if there is no model (readSBMLFromFile always returns a valid document)
+  fail_unless(doc->getModel() != NULL);
+
+  // write the doc before we attempt conversion
+  string newModel = writeSBMLToString(doc);
+
+  converter->setDocument(doc);
+  int result = converter->convert();
+
+  // we should fail because we are testing the restoreNamespaces function
+  fail_unless(result == LIBSBML_OPERATION_FAILED);
+
+
+  string flatModel = writeSBMLToString(doc);
+  fail_unless(flatModel == newModel);
+
+  delete converter;
+
+  //SBMLErrorLog* errors = doc->getErrorLog();
+  //fail_unless(errors->getNumErrors() == 4);
+  //fail_unless(errors->contains(RequiredPackagePresent) == true);
+  //fail_unless(errors->contains(CompFlatteningNotRecognisedReqd) == true);
+  //fail_unless(errors->contains(CompFlatteningWarning) == true);
+
+  delete doc;  
+}
+END_TEST
+
+
 Suite *
 create_suite_TestFlatteningUnknownPackageRefs (void)
 { 
@@ -407,6 +453,7 @@ create_suite_TestFlatteningUnknownPackageRefs (void)
   tcase_add_test(tcase, test_comp_flatten_unknown_18);
   tcase_add_test(tcase, test_comp_flatten_unknown_19);
   tcase_add_test(tcase, test_comp_flatten_unknown_20);
+  tcase_add_test(tcase, test_comp_flatten_unknown_21);
  
   suite_add_tcase(suite, tcase);
 

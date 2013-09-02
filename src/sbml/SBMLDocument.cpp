@@ -1170,6 +1170,15 @@ SBMLDocument::setPackageRequired(const std::string& package, bool flag)
     mRequiredAttrOfUnknownPkg.add("required", value, package, prefix);
     return LIBSBML_OPERATION_SUCCESS;
   }
+  else if (mRequiredAttrOfUnknownDisabledPkg.getValue("required",package) != "")
+  {
+    int index = mRequiredAttrOfUnknownDisabledPkg.getIndex("required",package);
+    std::string prefix = mRequiredAttrOfUnknownDisabledPkg.getPrefix(index);
+    std::string value = (flag) ? "true" : "false";
+
+    mRequiredAttrOfUnknownPkg.add("required", value, package, prefix);
+    return LIBSBML_OPERATION_SUCCESS;
+  }
 
   return LIBSBML_PKG_UNKNOWN_VERSION;
 }
@@ -1774,6 +1783,9 @@ SBMLDocument::enablePackageInternal(const std::string& pkgURI, const std::string
       if (pkgURI == mRequiredAttrOfUnknownPkg.getURI(i)
         && pkgPrefix == mRequiredAttrOfUnknownPkg.getPrefix(i))
       {
+        mRequiredAttrOfUnknownDisabledPkg.add(
+          mRequiredAttrOfUnknownPkg.getName(i), 
+          mRequiredAttrOfUnknownPkg.getValue(i), pkgURI, pkgPrefix);
         mRequiredAttrOfUnknownPkg.remove(i);
         break;
       }
