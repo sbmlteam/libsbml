@@ -225,7 +225,7 @@ namespace LibSBMLCSTest.sbml {
       Model m = d.createModel();
       m.setVolumeUnits( "litre");
       assertTrue( m.getNumUnitDefinitions() == 0 );
-      assertTrue( d.setLevelAndVersion(1,2,false) == true );
+      assertTrue( d.setLevelAndVersion(2,4,false) == true );
       m = d.getModel();
       assertTrue( m.getNumUnitDefinitions() == 1 );
       ud = m.getUnitDefinition(0);

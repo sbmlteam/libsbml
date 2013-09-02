@@ -122,7 +122,7 @@ class TestSBMLConvert < Test::Unit::TestCase
     m = d.createModel()
     m.setVolumeUnits( "litre")
     assert( m.getNumUnitDefinitions() == 0 )
-    assert( d.setLevelAndVersion(1,2,false) == true )
+    assert( d.setLevelAndVersion(2,4,false) == true )
     m = d.getModel()
     assert( m.getNumUnitDefinitions() == 1 )
     ud = m.getUnitDefinition(0)

@@ -126,7 +126,7 @@ class TestSBMLConvert(unittest.TestCase):
     m = d.createModel()
     m.setVolumeUnits( "litre")
     self.assert_( m.getNumUnitDefinitions() == 0 )
-    self.assert_( d.setLevelAndVersion(1,2,False) == True )
+    self.assert_( d.setLevelAndVersion(2,4,False) == True )
     m = d.getModel()
     self.assert_( m.getNumUnitDefinitions() == 1 )
     ud = m.getUnitDefinition(0)
