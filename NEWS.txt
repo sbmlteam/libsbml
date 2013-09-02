@@ -132,7 +132,16 @@ STABLE RELEASE
     Thanks to Neil Swainston for reporting the issue and testing
     the fix.
 
-  - '' package-specific bug fixes:
+  - 'comp' package-specific bug fixes:
+  
+    - It is possible to construct a model which tries to delete an 
+	  object more than once.  This was not being detected correctly.
+	  This has been addressed and flattening code will report this 
+	  issue as an error.
+	  
+	- Similarly replacing both an object and independently replacing
+	  a child of that object could also cause problems. These have
+	  been sorted.
 
 * Configuration/build system changes
 
