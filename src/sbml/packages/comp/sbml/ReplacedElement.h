@@ -328,7 +328,11 @@ public:
    * Removes the referenced element from instantiated submodels, and points
    * all old references to that element to the replacement element.
    */
-  virtual int performReplacement(std::set<SBase*>* removed, std::set<SBase*>* toremove);
+  virtual int performReplacement();
+#if (0)
+  virtual int performReplacement(std::set<SBase*>* removed, 
+                                 std::set<SBase*>* toremove);
+#endif
 
 
   /**

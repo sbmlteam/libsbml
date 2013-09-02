@@ -903,6 +903,7 @@ void SBaseRef::clearReferencedElement()
   mReferencedElement = NULL;
 }
 
+#if (0)
 int SBaseRef::performDeletion(set<SBase*>* removed)
 {
   SBase* todelete = getReferencedElement();
@@ -915,6 +916,7 @@ int SBaseRef::performDeletion(set<SBase*>* removed)
       return LIBSBML_OPERATION_SUCCESS;
     }
   }
+
   CompSBasePlugin* todplug = static_cast<CompSBasePlugin*>(todelete->getPlugin(getPrefix()));
   if (todplug != NULL) {
     for (unsigned long re=0; re<todplug->getNumReplacedElements(); re++) {
@@ -932,6 +934,41 @@ int SBaseRef::performDeletion(set<SBase*>* removed)
     }
   }
   return CompBase::removeFromParentAndPorts(todelete, removed);
+}
+#endif
+
+
+int SBaseRef::performDeletion()
+{
+  SBase* todelete = getReferencedElement();
+  if (todelete==NULL) {
+    return LIBSBML_INVALID_OBJECT;
+  }
+
+  if (insertRemovedObject(todelete) == false)
+  {
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+
+  CompSBasePlugin* todplug = 
+    static_cast<CompSBasePlugin*>(todelete->getPlugin(getPrefix()));
+  if (todplug != NULL) {
+    for (unsigned long re=0; re<todplug->getNumReplacedElements(); re++) {
+      todplug->getReplacedElement(re)->performDeletion();
+    }
+    if (todplug->isSetReplacedBy()) {
+      todplug->getReplacedBy()->performDeletion();
+    }
+  }
+
+  List* children = todelete->getAllElements();
+  for (unsigned int el=0; el<children->getSize(); el++) {
+    SBase* element = static_cast<SBase*>(children->get(el));
+    insertRemovedObject(element);
+  }
+
+  int success = removeFromParentAndPorts(todelete);
+  return success;
 }
 
 int SBaseRef::removeFromParentAndDelete()

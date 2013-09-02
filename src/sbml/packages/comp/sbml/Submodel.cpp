@@ -969,6 +969,27 @@ Submodel::instantiate()
   return LIBSBML_OPERATION_SUCCESS;
 }
 
+int Submodel::performDeletions()
+{
+  if (mInstantiatedModel == NULL) return LIBSBML_INVALID_OBJECT;
+
+  /* since we realised that we need a means of checking whether 
+   * an object has already been deleted before deleting it
+   * this function has become unstable
+   *
+   * it is being left in since it was part of the publiuc API
+   * but needs addressing
+   */
+
+  //for (unsigned int i = 0; i < getNumDeletions(); i++)
+  //{
+  //  SBase* todelete = getDeletion(i)->getReferencedElementFrom(mInstantiatedModel);
+  //  if (todelete == NULL) continue;
+  //  CompBase::removeFromParentAndPorts(todelete);
+  //}
+  return LIBSBML_OPERATION_FAILED;
+}
+
 int 
 Submodel::replaceElement(SBase* toReplace, SBase* replacement)
 {

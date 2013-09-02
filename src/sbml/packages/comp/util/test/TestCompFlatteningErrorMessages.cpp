@@ -2299,7 +2299,7 @@ START_TEST(test_comp_flatten_invalid43)
   SBMLDocument document(&sbmlns);
   ReplacedBy rb(3, 1, 1);
   rb.setSBMLDocument(&document);
-  rb.performReplacement(NULL, NULL);
+  rb.performReplacement();
 
   SBMLErrorLog* errors = document.getErrorLog();
 
@@ -2315,7 +2315,7 @@ START_TEST(test_comp_flatten_invalid44)
   ReplacedElement re(3, 1, 1);
   re.setSBMLDocument(&document);
   re.setSubmodelRef("submod1");
-  re.performReplacement(NULL, NULL);
+  re.performReplacement();
 
   SBMLErrorLog* errors = document.getErrorLog();
 
@@ -2333,7 +2333,7 @@ START_TEST(test_comp_flatten_invalid45)
   lore.appendAndOwn(re);
   re->setSBMLDocument(&document);
   re->setSubmodelRef("submod1");
-  re->performReplacement(NULL, NULL);
+  re->performReplacement();
 
   SBMLErrorLog* errors = document.getErrorLog();
 
@@ -2351,7 +2351,7 @@ START_TEST(test_comp_flatten_invalid46)
   lore.appendAndOwn(re);
   re->setSBMLDocument(&document);
   re->setSubmodelRef("submod1");
-  re->performReplacement(NULL, NULL);
+  re->performReplacement();
 
   SBMLErrorLog* errors = document.getErrorLog();
 

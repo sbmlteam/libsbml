@@ -319,6 +319,7 @@ ReplacedElement::renameSIdRefs(std::string oldid, std::string newid)
 }
 
 
+#if (0)
 int ReplacedElement::performReplacement(set<SBase*>* removed, set<SBase*>* toremove)
 {
   SBMLDocument* doc = getSBMLDocument();
@@ -401,6 +402,90 @@ int ReplacedElement::performReplacement(set<SBase*>* removed, set<SBase*>* torem
   if (toremove) {
     toremove->insert(ref);
   }
+  return LIBSBML_OPERATION_SUCCESS;
+}
+#endif
+
+
+
+int ReplacedElement::performReplacement()
+{
+  SBMLDocument* doc = getSBMLDocument();
+  if (isSetDeletion()) {
+    //Deletions don't need to be replaced.
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  //Find the various objects and plugin objects we need for this to work.
+  SBase* lore = getParentSBMLObject();
+  ListOf* lorelist = static_cast<ListOf*>(lore);
+  if (lore == NULL) {
+    if (doc) {
+      string error = "Cannot carry out replacement in ReplacedElement::performReplacement: no parent <listOfReplacedElements> could be found for the given replacement element.";
+      doc->getErrorLog()->logPackageError("comp", CompModelFlatteningFailed, getPackageVersion(), getLevel(), getVersion(), error, getLine(), getColumn());
+    }
+    return LIBSBML_INVALID_OBJECT;
+  }
+  if (lore->getTypeCode() != SBML_LIST_OF || lorelist->getItemTypeCode() != SBML_COMP_REPLACEDELEMENT) {
+    if (doc) {
+      string error = "Cannot carry out replacement in ReplacedElement::performReplacement: no parent <listOfReplacedElements> could be found for the given replacement element.";
+      doc->getErrorLog()->logPackageError("comp", CompModelFlatteningFailed, getPackageVersion(), getLevel(), getVersion(), error, getLine(), getColumn());
+    }
+    return LIBSBML_INVALID_OBJECT;
+  }
+  SBase* parent = lore->getParentSBMLObject();
+  if (parent==NULL) {
+    if (doc) {
+      string error = "Cannot carry out replacement in ReplacedElement::performReplacement: no parent could be found for the parent <listOfReplacedElements> object.";
+      doc->getErrorLog()->logPackageError("comp", CompModelFlatteningFailed, getPackageVersion(), getLevel(), getVersion(), error, getLine(), getColumn());
+    }
+    return LIBSBML_INVALID_OBJECT;
+  }
+  SBase* ref = getReferencedElement();
+  if (ref==NULL) {
+    //getReferencedElement sets its own error messages.
+    return LIBSBML_INVALID_OBJECT;
+  }
+
+  std::set<SBase*> removed = getRemovedSet();
+  if (removed.find(ref)!=removed.end()) {
+    //Already deleted: can't get the deleted element's ID to 
+    if (doc) {
+      string error = "Cannot carry out replacement in ReplacedElement::performReplacement: a <" + parent->getElementName() + ">";
+      if (parent->isSetId()) {
+        error += " with the ID '" + parent->getId() + "'";
+      }
+      error += " has a child <replacedElement> that points to something that has already been deleted, probably because its parent was deleted.";
+      doc->getErrorLog()->logPackageError("comp", CompNoReplacingDeletedItems, getPackageVersion(), getLevel(), getVersion(), error, getLine(), getColumn());
+    }
+    return LIBSBML_INVALID_OBJECT;
+  }
+
+  //Update the IDs.
+  int ret = updateIDs(ref, parent);
+  if (ret != LIBSBML_OPERATION_SUCCESS) {
+    return ret;
+  }
+
+  //Perform any conversions on references in the submodel.
+  ASTNode* blank = NULL;
+  ret = performConversions(parent, blank);
+  if (ret != LIBSBML_OPERATION_SUCCESS) return ret;
+
+  CompSBasePlugin* refplug = static_cast<CompSBasePlugin*>(ref->getPlugin(getPrefix()));
+  if (refplug != NULL) {
+    //Now recurse down the 'replace*' tree, renaming IDs and deleting things as we go.
+    for (unsigned int re=0; re<refplug->getNumReplacedElements(); re++) {
+      refplug->getReplacedElement(re)->replaceWithAndMaybeDelete(parent, true, blank);
+      insertToRemoveObject(refplug->getReplacedElement(re)->getReferencedElement());
+    }
+    if (refplug->isSetReplacedBy()) {
+      //Even if the subelement used to be replaced by something further down, it is now being replaced by the parent.  It just can't catch a break, it seems.
+      refplug->getReplacedBy()->replaceWithAndMaybeDelete(parent, true, blank);
+      insertToRemoveObject(refplug->getReplacedBy()->getReferencedElement());
+    }
+  }
+
+  insertToRemoveObject(ref);
   return LIBSBML_OPERATION_SUCCESS;
 }
 

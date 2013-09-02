@@ -631,7 +631,10 @@ public:
    * plus any other elements that element points to through ReplacedElement
    * or ReplacedBy children
    */
+  virtual int performDeletion();
+#if (0)
   virtual int performDeletion(std::set<SBase*>* removed);
+#endif
 
 
   /**

@@ -508,7 +508,52 @@ public:
    */
   virtual int instantiateSubmodels();
 
-  private:
+
+private:
+
+  /** @cond doxygenLibsbmlInternal */
+
+  std::set<SBase*> getRemovedSet() const;
+
+  /** @endcond */
+
+  /** @cond doxygenLibsbmlInternal */
+
+  std::set<SBase*> getToRemoveSet() const;
+
+  /** @endcond */
+
+  /** @cond doxygenLibsbmlInternal */
+
+  bool insertRemovedObject(SBase* obj);
+
+  /** @endcond */
+
+  /** @cond doxygenLibsbmlInternal */
+
+  bool insertToRemoveObject(SBase* obj);
+
+  /** @endcond */
+
+  /** @cond doxygenLibsbmlInternal */
+
+  void clearRemovedSet();
+
+  /** @endcond */
+
+  /** @cond doxygenLibsbmlInternal */
+
+  void clearToRemoveSet();
+
+  /** @endcond */
+
+  /** @cond doxygenLibsbmlInternal */
+
+  std::set<SBase*>  mRemoved;
+  std::set<SBase*>  mToRemove;
+
+
+  /** @endcond */
 
   /*
    * Combine mListOfPorts and mListOfSubmodels.  If this is called from
@@ -537,7 +582,11 @@ public:
    * plus any elements those deleted elements may have replaced or been
    * replaced by.
    */
+  virtual int performDeletions();
+#if (0)
   virtual int performDeletions(std::set<SBase*>* removed);
+#endif
+
 
   /*
    * Removes all elements from instantiated submodels slated to be replaced,
@@ -547,7 +596,11 @@ public:
    * identifiers, and points all old references to the replacement object's
    * old identifiers to the new identifiers.
    */
-  virtual int performReplacementsAndConversions(std::set<SBase*>* removed, std::set<SBase*>* toremove);
+  virtual int performReplacementsAndConversions();
+#if (0)
+  virtual int performReplacementsAndConversions(std::set<SBase*>* removed, 
+                                                std::set<SBase*>* toremove);
+#endif
 
   /** @cond doxygenLibsbmlInternal */
   virtual void findUniqueSubmodPrefixes(std::vector<std::string>& submodids, List* allElements);

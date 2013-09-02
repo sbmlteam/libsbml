@@ -41,6 +41,9 @@ CompBase::CompBase (unsigned int level, unsigned int version, unsigned int pkgVe
   CompPkgNamespaces* cpn = new CompPkgNamespaces(level,version,pkgVersion);
   setSBMLNamespacesAndOwn(cpn);
 
+  mRemoved.clear();
+  mToRemove.clear();
+
   // connect child elements to this element.
   connectToChild();
 
@@ -55,6 +58,9 @@ CompBase::CompBase(CompPkgNamespaces* compns)
   // set the element namespace of this object
   setElementNamespace(compns->getURI());
 
+  mRemoved.clear();
+  mToRemove.clear();
+
   // connect child elements to this element.
   connectToChild();
 }
@@ -64,6 +70,9 @@ CompBase::CompBase(const CompBase& source)
   : SBase (source)
   , mSBMLExt(source.mSBMLExt)
 {
+  mRemoved = source.mRemoved;
+  mToRemove = source.mToRemove;
+
   // connect child elements to this element.
   connectToChild();
 
@@ -77,6 +86,9 @@ CompBase& CompBase::operator=(const CompBase& source)
   {
     SBase::operator=(source);
     mSBMLExt = source.mSBMLExt;
+
+    mRemoved = source.mRemoved;
+    mToRemove = source.mToRemove;
 
     // connect child elements to this element.
     connectToChild();
@@ -467,6 +479,105 @@ int CompBase::removeFromParentAndPorts(SBase* todelete, set<SBase*>* removed)
   }
   return todelete->removeFromParentAndDelete();
 }
+
+
+
+int CompBase::removeFromParentAndPorts(SBase* todelete)
+{
+  //First remove from ports:
+  Model* parent = static_cast<Model*>(todelete->getAncestorOfType(SBML_COMP_MODELDEFINITION, "comp"));
+  if (parent==NULL) {
+    parent = static_cast<Model*>(todelete->getAncestorOfType(SBML_MODEL));
+  }
+  while (parent != NULL) {
+    CompModelPlugin* cmp = static_cast<CompModelPlugin*>(parent->getPlugin("comp"));
+    if (cmp==NULL) {
+      parent = NULL;
+      continue;
+    }
+    for (unsigned long p=0; p<cmp->getNumPorts();) {
+      Port* port = cmp->getPort(p);
+      if (port->getReferencedElement() == todelete) {
+        insertRemovedObject(port);
+        port->removeFromParentAndDelete();
+      }
+      else {
+        p++;
+      }
+    }
+    Model* tempparent = static_cast<Model*>(parent->getAncestorOfType(SBML_COMP_MODELDEFINITION, "comp"));
+    if (tempparent==NULL) {
+      parent = static_cast<Model*>(parent->getAncestorOfType(SBML_MODEL));
+    }
+    else parent = tempparent;
+  }
+  //And secondly, remove from parent
+  insertRemovedObject(todelete);
+
+  return todelete->removeFromParentAndDelete();
+}
+
+/** @cond doxygenLibsbmlInternal */
+
+std::set<SBase*> 
+CompBase::getRemovedSet() const 
+{ 
+  return mRemoved; 
+}
+
+/** @endcond */
+
+/** @cond doxygenLibsbmlInternal */
+
+std::set<SBase*> 
+CompBase::getToRemoveSet() const 
+{ 
+  return mToRemove; 
+}
+
+/** @endcond */
+
+/** @cond doxygenLibsbmlInternal */
+
+bool 
+CompBase::insertRemovedObject(SBase* obj) 
+{ 
+  return (mRemoved.insert(obj)).second; 
+}
+
+/** @endcond */
+
+/** @cond doxygenLibsbmlInternal */
+
+bool 
+CompBase::insertToRemoveObject(SBase* obj) 
+{ 
+  return (mToRemove.insert(obj)).second; 
+}
+
+
+/** @endcond */
+
+/** @cond doxygenLibsbmlInternal */
+
+void 
+CompBase::clearRemovedSet()
+{ 
+  mRemoved.clear(); 
+}
+
+/** @endcond */
+
+/** @cond doxygenLibsbmlInternal */
+
+void
+CompBase::clearToRemoveSet() 
+{ 
+  mToRemove.clear(); 
+}
+
+/** @endcond */
+
 
 LIBSBML_CPP_NAMESPACE_END
 
