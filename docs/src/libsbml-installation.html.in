@@ -1,10 +1,10 @@
 <!-- ====================================================================== -->
 <center>
-<table border="0"><tr><td>
+<table style="font-size: 13px" border="0"><tr><td>
 <a href="#quick">1. Quick start: avoid work by using ready-to-install binaries</a>
 
 </td></tr><tr><td>
-<a href="#detailed-unix">2. Procedures for Linux, Mac OS X, FreeBSD, Solaris and Cygwin</a>
+<a href="#detailed-unix">2. Building libSBML under Linux, Mac OS X, FreeBSD, Solaris and Cygwin</a>
 <ul>
 <li><a href="#unix-cmake">2.1 Configuring using CMake</a></li>
 <li><a href="#unix-gnumake">2.2 Configuring using GNU make</a></li>
@@ -23,7 +23,7 @@
 </ul>
 
 </td></tr><tr><td>
-<a href="#detailed-windows">3. Procedures for Windows</a>
+<a href="#detailed-windows">3. Building libSBML under Windows</a>
 <ul>
 <li><a href="#windows-configuring">3.1 Configuring using CMake</a></li>
 <li><a href="#windows-compiling">3.2 Compiling and installing using MSVC</a></li>
@@ -48,12 +48,21 @@
 <h2><a class="anchor" name="quick">1. Quick start: avoid work by using ready-to-install binaries</a></h2>
 <!-- ---------------------------------------------------------------------- -->
 
-<p> Check the <a target="_blank"
+<p> We supply ready-to-install precompiled binaries for many systems. Please
+check the <a target="_blank"
 href="http://sf.net/projects/sbml/files/libsbml/@PACKAGE_VERSION@">download
 site for libSBML on SourceForge.net</a> for possible installation packages
-for your operating system.  We supply ready-to-install precompiled binaries
-for many systems, so that you may be able to save yourself the time and
+for your operating system.  You may be able to save yourself the time and
 trouble of following the remaining instructions on this page.
+
+<center style="padding-bottom: 1.5em; padding-top: 1em; width: 500px;
+margin: 1em auto">
+  <a target="_blank"
+href="http://sf.net/projects/sbml/files/libsbml/@PACKAGE_VERSION@">
+<img class="screenshot" src="sourceforge-download.png" alt="Image of SourceForge download page for libSBML" width="500px"></a>
+<p style="font-style: italic"> Screenshot of the <a target="_blank"
+href="http://sf.net/projects/sbml/files/libsbml/@PACKAGE_VERSION@">SourceForge download page</a> for libSBML.  The "stable" directory contains downloads for the main release, while the "experimental" directory contains beta-test code for such things as SBML Level&nbsp;3 packages.
+</center>
 
 
 <!-- ---------------------------------------------------------------------- -->
