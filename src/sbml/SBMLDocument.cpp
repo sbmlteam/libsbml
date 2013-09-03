@@ -1170,15 +1170,6 @@ SBMLDocument::setPackageRequired(const std::string& package, bool flag)
     mRequiredAttrOfUnknownPkg.add("required", value, package, prefix);
     return LIBSBML_OPERATION_SUCCESS;
   }
-  else if (mRequiredAttrOfUnknownDisabledPkg.getValue("required",package) != "")
-  {
-    int index = mRequiredAttrOfUnknownDisabledPkg.getIndex("required",package);
-    std::string prefix = mRequiredAttrOfUnknownDisabledPkg.getPrefix(index);
-    std::string value = (flag) ? "true" : "false";
-
-    mRequiredAttrOfUnknownPkg.add("required", value, package, prefix);
-    return LIBSBML_OPERATION_SUCCESS;
-  }
 
   return LIBSBML_PKG_UNKNOWN_VERSION;
 }
@@ -1778,6 +1769,9 @@ SBMLDocument::enablePackageInternal(const std::string& pkgURI, const std::string
 //      xmlns->remove(xmlns->getIndex(pkgURI));
 //    }
 
+    /* before we remove the unknown package keep a copy
+     * in case we try to re-enable it later
+     */
     for (int i = 0; i < mRequiredAttrOfUnknownPkg.getLength(); i++)
     {
       if (pkgURI == mRequiredAttrOfUnknownPkg.getURI(i)
@@ -1787,6 +1781,24 @@ SBMLDocument::enablePackageInternal(const std::string& pkgURI, const std::string
           mRequiredAttrOfUnknownPkg.getName(i), 
           mRequiredAttrOfUnknownPkg.getValue(i), pkgURI, pkgPrefix);
         mRequiredAttrOfUnknownPkg.remove(i);
+        break;
+      }
+    }
+  }
+  else
+  {
+    /* check whether we are trying to reenable an unknown package
+     * that we previously disabled
+     */
+    for (int i = 0; i < mRequiredAttrOfUnknownDisabledPkg.getLength(); i++)
+    {
+      if (pkgURI == mRequiredAttrOfUnknownDisabledPkg.getURI(i)
+        && pkgPrefix == mRequiredAttrOfUnknownDisabledPkg.getPrefix(i))
+      {
+        mRequiredAttrOfUnknownPkg.add(
+          mRequiredAttrOfUnknownDisabledPkg.getName(i), 
+          mRequiredAttrOfUnknownDisabledPkg.getValue(i), pkgURI, pkgPrefix);
+        mRequiredAttrOfUnknownDisabledPkg.remove(i);
         break;
       }
     }

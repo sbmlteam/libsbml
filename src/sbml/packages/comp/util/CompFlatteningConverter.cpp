@@ -632,7 +632,6 @@ void CompFlatteningConverter::restoreNamespaces()
   for (set<pair<string, bool> >::iterator pkg = mPackageRequired.begin();
        pkg != mPackageRequired.end(); pkg++)
   {
-    //Note:  the following does not work for unrecognized packages. LS DEBUG
     mDocument->setPackageRequired((*pkg).first, (*pkg).second);
   }
 }
