@@ -977,7 +977,7 @@ ListOfFunctionTerms::accept(SBMLVisitor& v) const
 
 
 /**
- * write comments
+ *
  */
 LIBSBML_EXTERN
 FunctionTerm_t *
@@ -989,7 +989,7 @@ FunctionTerm_create(unsigned int level, unsigned int version,
 
 
 /**
- * write comments
+ *
  */
 LIBSBML_EXTERN
 void
@@ -1001,7 +1001,7 @@ FunctionTerm_free(FunctionTerm_t * ft)
 
 
 /**
- * write comments
+ *
  */
 LIBSBML_EXTERN
 FunctionTerm_t *
@@ -1019,7 +1019,7 @@ FunctionTerm_clone(FunctionTerm_t * ft)
 
 
 /**
- * write comments
+ *
  */
 LIBSBML_EXTERN
 int
@@ -1030,7 +1030,7 @@ FunctionTerm_getResultLevel(FunctionTerm_t * ft)
 
 
 /**
- * write comments
+ *
  */
 LIBSBML_EXTERN
 int
@@ -1041,7 +1041,7 @@ FunctionTerm_isSetResultLevel(FunctionTerm_t * ft)
 
 
 /**
- * write comments
+ *
  */
 LIBSBML_EXTERN
 int
@@ -1052,7 +1052,7 @@ FunctionTerm_setResultLevel(FunctionTerm_t * ft, int resultLevel)
 
 
 /**
- * write comments
+ *
  */
 LIBSBML_EXTERN
 int
@@ -1063,7 +1063,7 @@ FunctionTerm_unsetResultLevel(FunctionTerm_t * ft)
 
 
 /**
- * write comments
+ *
  */
 LIBSBML_EXTERN
 int
@@ -1074,7 +1074,7 @@ FunctionTerm_hasRequiredAttributes(FunctionTerm_t * ft)
 
 
 /**
- * write comments
+ *
  */
 LIBSBML_EXTERN
 FunctionTerm_t *
@@ -1088,7 +1088,7 @@ ListOfFunctionTerms_getById(ListOf_t * lo, const char * sid)
 
 
 /**
- * write comments
+ *
  */
 LIBSBML_EXTERN
 FunctionTerm_t *

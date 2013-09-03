@@ -1070,7 +1070,7 @@ ListOfInputs::writeXMLNS(XMLOutputStream& stream) const
 
 
 /**
- * write comments
+ *
  */
 LIBSBML_EXTERN
 Input_t *
@@ -1082,7 +1082,7 @@ Input_create(unsigned int level, unsigned int version,
 
 
 /**
- * write comments
+ *
  */
 LIBSBML_EXTERN
 void
@@ -1094,7 +1094,7 @@ Input_free(Input_t * i)
 
 
 /**
- * write comments
+ *
  */
 LIBSBML_EXTERN
 Input_t *
@@ -1112,7 +1112,7 @@ Input_clone(Input_t * i)
 
 
 /**
- * write comments
+ *
  */
 LIBSBML_EXTERN
 char *
@@ -1126,7 +1126,7 @@ Input_getId(Input_t * i)
 
 
 /**
- * write comments
+ *
  */
 LIBSBML_EXTERN
 char *
@@ -1140,7 +1140,7 @@ Input_getQualitativeSpecies(Input_t * i)
 
 
 /**
- * write comments
+ *
  */
 LIBSBML_EXTERN
 InputTransitionEffect_t
@@ -1154,7 +1154,7 @@ Input_getTransitionEffect(Input_t * i)
 
 
 /**
- * write comments
+ *
  */
 LIBSBML_EXTERN
 char *
@@ -1168,7 +1168,7 @@ Input_getName(Input_t * i)
 
 
 /**
- * write comments
+ *
  */
 LIBSBML_EXTERN
 InputSign_t
@@ -1182,7 +1182,7 @@ Input_getSign(Input_t * i)
 
 
 /**
- * write comments
+ *
  */
 LIBSBML_EXTERN
 int
@@ -1193,7 +1193,7 @@ Input_getThresholdLevel(Input_t * i)
 
 
 /**
- * write comments
+ *
  */
 LIBSBML_EXTERN
 int
@@ -1204,7 +1204,7 @@ Input_isSetId(Input_t * i)
 
 
 /**
- * write comments
+ *
  */
 LIBSBML_EXTERN
 int
@@ -1215,7 +1215,7 @@ Input_isSetQualitativeSpecies(Input_t * i)
 
 
 /**
- * write comments
+ *
  */
 LIBSBML_EXTERN
 int
@@ -1226,7 +1226,7 @@ Input_isSetTransitionEffect(Input_t * i)
 
 
 /**
- * write comments
+ *
  */
 LIBSBML_EXTERN
 int
@@ -1237,7 +1237,7 @@ Input_isSetName(Input_t * i)
 
 
 /**
- * write comments
+ *
  */
 LIBSBML_EXTERN
 int
@@ -1248,7 +1248,7 @@ Input_isSetSign(Input_t * i)
 
 
 /**
- * write comments
+ *
  */
 LIBSBML_EXTERN
 int
@@ -1259,7 +1259,7 @@ Input_isSetThresholdLevel(Input_t * i)
 
 
 /**
- * write comments
+ *
  */
 LIBSBML_EXTERN
 int
@@ -1270,7 +1270,7 @@ Input_setId(Input_t * i, const char * id)
 
 
 /**
- * write comments
+ *
  */
 LIBSBML_EXTERN
 int
@@ -1281,7 +1281,7 @@ Input_setQualitativeSpecies(Input_t * i, const char * qualitativeSpecies)
 
 
 /**
- * write comments
+ *
  */
 LIBSBML_EXTERN
 int
@@ -1292,7 +1292,7 @@ Input_setTransitionEffect(Input_t * i, InputTransitionEffect_t transitionEffect)
 
 
 /**
- * write comments
+ *
  */
 LIBSBML_EXTERN
 int
@@ -1303,7 +1303,7 @@ Input_setName(Input_t * i, const char * name)
 
 
 /**
- * write comments
+ *
  */
 LIBSBML_EXTERN
 int
@@ -1314,7 +1314,7 @@ Input_setSign(Input_t * i, InputSign_t sign)
 
 
 /**
- * write comments
+ *
  */
 LIBSBML_EXTERN
 int
@@ -1325,7 +1325,7 @@ Input_setThresholdLevel(Input_t * i, int thresholdLevel)
 
 
 /**
- * write comments
+ *
  */
 LIBSBML_EXTERN
 int
@@ -1336,7 +1336,7 @@ Input_unsetId(Input_t * i)
 
 
 /**
- * write comments
+ *
  */
 LIBSBML_EXTERN
 int
@@ -1347,7 +1347,7 @@ Input_unsetQualitativeSpecies(Input_t * i)
 
 
 /**
- * write comments
+ *
  */
 LIBSBML_EXTERN
 int
@@ -1358,7 +1358,7 @@ Input_unsetTransitionEffect(Input_t * i)
 
 
 /**
- * write comments
+ *
  */
 LIBSBML_EXTERN
 int
@@ -1369,7 +1369,7 @@ Input_unsetName(Input_t * i)
 
 
 /**
- * write comments
+ *
  */
 LIBSBML_EXTERN
 int
@@ -1380,7 +1380,7 @@ Input_unsetSign(Input_t * i)
 
 
 /**
- * write comments
+ *
  */
 LIBSBML_EXTERN
 int
@@ -1391,7 +1391,7 @@ Input_unsetThresholdLevel(Input_t * i)
 
 
 /**
- * write comments
+ *
  */
 LIBSBML_EXTERN
 int
@@ -1402,7 +1402,7 @@ Input_hasRequiredAttributes(Input_t * i)
 
 
 /**
- * write comments
+ *
  */
 LIBSBML_EXTERN
 Input_t *
@@ -1416,7 +1416,7 @@ ListOfInputs_getById(ListOf_t * lo, const char * sid)
 
 
 /**
- * write comments
+ *
  */
 LIBSBML_EXTERN
 Input_t *

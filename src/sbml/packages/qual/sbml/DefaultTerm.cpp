@@ -395,7 +395,7 @@ DefaultTerm::writeAttributes (XMLOutputStream& stream) const
 
 
 /**
- * write comments
+ *
  */
 LIBSBML_EXTERN
 DefaultTerm_t *
@@ -407,7 +407,7 @@ DefaultTerm_create(unsigned int level, unsigned int version,
 
 
 /**
- * write comments
+ *
  */
 LIBSBML_EXTERN
 void
@@ -419,7 +419,7 @@ DefaultTerm_free(DefaultTerm_t * dt)
 
 
 /**
- * write comments
+ *
  */
 LIBSBML_EXTERN
 DefaultTerm_t *
@@ -437,7 +437,7 @@ DefaultTerm_clone(DefaultTerm_t * dt)
 
 
 /**
- * write comments
+ *
  */
 LIBSBML_EXTERN
 int
@@ -448,7 +448,7 @@ DefaultTerm_getResultLevel(DefaultTerm_t * dt)
 
 
 /**
- * write comments
+ *
  */
 LIBSBML_EXTERN
 int
@@ -459,7 +459,7 @@ DefaultTerm_isSetResultLevel(DefaultTerm_t * dt)
 
 
 /**
- * write comments
+ *
  */
 LIBSBML_EXTERN
 int
@@ -470,7 +470,7 @@ DefaultTerm_setResultLevel(DefaultTerm_t * dt, int resultLevel)
 
 
 /**
- * write comments
+ *
  */
 LIBSBML_EXTERN
 int
@@ -481,7 +481,7 @@ DefaultTerm_unsetResultLevel(DefaultTerm_t * dt)
 
 
 /**
- * write comments
+ *
  */
 LIBSBML_EXTERN
 int

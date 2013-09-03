@@ -1403,7 +1403,7 @@ ListOfTransitions::writeXMLNS(XMLOutputStream& stream) const
 
 
 /**
- * write comments
+ *
  */
 LIBSBML_EXTERN
 Transition_t *
@@ -1415,7 +1415,7 @@ Transition_create(unsigned int level, unsigned int version,
 
 
 /**
- * write comments
+ *
  */
 LIBSBML_EXTERN
 void
@@ -1427,7 +1427,7 @@ Transition_free(Transition_t * t)
 
 
 /**
- * write comments
+ *
  */
 LIBSBML_EXTERN
 Transition_t *
@@ -1445,7 +1445,7 @@ Transition_clone(Transition_t * t)
 
 
 /**
- * write comments
+ *
  */
 LIBSBML_EXTERN
 char *
@@ -1459,7 +1459,7 @@ Transition_getId(Transition_t * t)
 
 
 /**
- * write comments
+ *
  */
 LIBSBML_EXTERN
 char *
@@ -1473,7 +1473,7 @@ Transition_getName(Transition_t * t)
 
 
 /**
- * write comments
+ *
  */
 LIBSBML_EXTERN
 int
@@ -1484,7 +1484,7 @@ Transition_isSetId(Transition_t * t)
 
 
 /**
- * write comments
+ *
  */
 LIBSBML_EXTERN
 int
@@ -1495,7 +1495,7 @@ Transition_isSetName(Transition_t * t)
 
 
 /**
- * write comments
+ *
  */
 LIBSBML_EXTERN
 int
@@ -1506,7 +1506,7 @@ Transition_setId(Transition_t * t, const char * id)
 
 
 /**
- * write comments
+ *
  */
 LIBSBML_EXTERN
 int
@@ -1517,7 +1517,7 @@ Transition_setName(Transition_t * t, const char * name)
 
 
 /**
- * write comments
+ *
  */
 LIBSBML_EXTERN
 int
@@ -1528,7 +1528,7 @@ Transition_unsetId(Transition_t * t)
 
 
 /**
- * write comments
+ *
  */
 LIBSBML_EXTERN
 int
@@ -1732,7 +1732,7 @@ Transition_removeFunctionTermById(Transition_t * t, const char * sid)
 
 
 /**
- * write comments
+ *
  */
 LIBSBML_EXTERN
 int
@@ -1743,7 +1743,7 @@ Transition_hasRequiredAttributes(Transition_t * t)
 
 
 /**
- * write comments
+ *
  */
 LIBSBML_EXTERN
 Transition_t *
@@ -1757,7 +1757,7 @@ ListOfTransitions_getById(ListOf_t * lo, const char * sid)
 
 
 /**
- * write comments
+ *
  */
 LIBSBML_EXTERN
 Transition_t *

@@ -987,7 +987,7 @@ ListOfOutputs::writeXMLNS(XMLOutputStream& stream) const
 
 
 /**
- * write comments
+ *
  */
 LIBSBML_EXTERN
 Output_t *
@@ -999,7 +999,7 @@ Output_create(unsigned int level, unsigned int version,
 
 
 /**
- * write comments
+ *
  */
 LIBSBML_EXTERN
 void
@@ -1011,7 +1011,7 @@ Output_free(Output_t * o)
 
 
 /**
- * write comments
+ *
  */
 LIBSBML_EXTERN
 Output_t *
@@ -1029,7 +1029,7 @@ Output_clone(Output_t * o)
 
 
 /**
- * write comments
+ *
  */
 LIBSBML_EXTERN
 char *
@@ -1043,7 +1043,7 @@ Output_getId(Output_t * o)
 
 
 /**
- * write comments
+ *
  */
 LIBSBML_EXTERN
 char *
@@ -1057,7 +1057,7 @@ Output_getQualitativeSpecies(Output_t * o)
 
 
 /**
- * write comments
+ *
  */
 LIBSBML_EXTERN
 OutputTransitionEffect_t
@@ -1071,7 +1071,7 @@ Output_getTransitionEffect(Output_t * o)
 
 
 /**
- * write comments
+ *
  */
 LIBSBML_EXTERN
 char *
@@ -1085,7 +1085,7 @@ Output_getName(Output_t * o)
 
 
 /**
- * write comments
+ *
  */
 LIBSBML_EXTERN
 int
@@ -1096,7 +1096,7 @@ Output_getOutputLevel(Output_t * o)
 
 
 /**
- * write comments
+ *
  */
 LIBSBML_EXTERN
 int
@@ -1107,7 +1107,7 @@ Output_isSetId(Output_t * o)
 
 
 /**
- * write comments
+ *
  */
 LIBSBML_EXTERN
 int
@@ -1118,7 +1118,7 @@ Output_isSetQualitativeSpecies(Output_t * o)
 
 
 /**
- * write comments
+ *
  */
 LIBSBML_EXTERN
 int
@@ -1129,7 +1129,7 @@ Output_isSetTransitionEffect(Output_t * o)
 
 
 /**
- * write comments
+ *
  */
 LIBSBML_EXTERN
 int
@@ -1140,7 +1140,7 @@ Output_isSetName(Output_t * o)
 
 
 /**
- * write comments
+ *
  */
 LIBSBML_EXTERN
 int
@@ -1151,7 +1151,7 @@ Output_isSetOutputLevel(Output_t * o)
 
 
 /**
- * write comments
+ *
  */
 LIBSBML_EXTERN
 int
@@ -1162,7 +1162,7 @@ Output_setId(Output_t * o, const char * id)
 
 
 /**
- * write comments
+ *
  */
 LIBSBML_EXTERN
 int
@@ -1173,7 +1173,7 @@ Output_setQualitativeSpecies(Output_t * o, const char * qualitativeSpecies)
 
 
 /**
- * write comments
+ *
  */
 LIBSBML_EXTERN
 int
@@ -1184,7 +1184,7 @@ Output_setTransitionEffect(Output_t * o, OutputTransitionEffect_t transitionEffe
 
 
 /**
- * write comments
+ *
  */
 LIBSBML_EXTERN
 int
@@ -1195,7 +1195,7 @@ Output_setName(Output_t * o, const char * name)
 
 
 /**
- * write comments
+ *
  */
 LIBSBML_EXTERN
 int
@@ -1206,7 +1206,7 @@ Output_setOutputLevel(Output_t * o, int outputLevel)
 
 
 /**
- * write comments
+ *
  */
 LIBSBML_EXTERN
 int
@@ -1217,7 +1217,7 @@ Output_unsetId(Output_t * o)
 
 
 /**
- * write comments
+ *
  */
 LIBSBML_EXTERN
 int
@@ -1228,7 +1228,7 @@ Output_unsetQualitativeSpecies(Output_t * o)
 
 
 /**
- * write comments
+ *
  */
 LIBSBML_EXTERN
 int
@@ -1239,7 +1239,7 @@ Output_unsetTransitionEffect(Output_t * o)
 
 
 /**
- * write comments
+ *
  */
 LIBSBML_EXTERN
 int
@@ -1250,7 +1250,7 @@ Output_unsetName(Output_t * o)
 
 
 /**
- * write comments
+ *
  */
 LIBSBML_EXTERN
 int
@@ -1261,7 +1261,7 @@ Output_unsetOutputLevel(Output_t * o)
 
 
 /**
- * write comments
+ *
  */
 LIBSBML_EXTERN
 int
@@ -1272,7 +1272,7 @@ Output_hasRequiredAttributes(Output_t * o)
 
 
 /**
- * write comments
+ *
  */
 LIBSBML_EXTERN
 Output_t *
@@ -1286,7 +1286,7 @@ ListOfOutputs_getById(ListOf_t * lo, const char * sid)
 
 
 /**
- * write comments
+ *
  */
 LIBSBML_EXTERN
 Output_t *

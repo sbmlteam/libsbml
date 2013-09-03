@@ -1044,7 +1044,7 @@ ListOfQualitativeSpecies::writeXMLNS(XMLOutputStream& stream) const
 
 
 /**
- * write comments
+ *
  */
 LIBSBML_EXTERN
 QualitativeSpecies_t *
@@ -1056,7 +1056,7 @@ QualitativeSpecies_create(unsigned int level, unsigned int version,
 
 
 /**
- * write comments
+ *
  */
 LIBSBML_EXTERN
 void
@@ -1068,7 +1068,7 @@ QualitativeSpecies_free(QualitativeSpecies_t * qs)
 
 
 /**
- * write comments
+ *
  */
 LIBSBML_EXTERN
 QualitativeSpecies_t *
@@ -1086,7 +1086,7 @@ QualitativeSpecies_clone(QualitativeSpecies_t * qs)
 
 
 /**
- * write comments
+ *
  */
 LIBSBML_EXTERN
 char *
@@ -1100,7 +1100,7 @@ QualitativeSpecies_getId(QualitativeSpecies_t * qs)
 
 
 /**
- * write comments
+ *
  */
 LIBSBML_EXTERN
 char *
@@ -1114,7 +1114,7 @@ QualitativeSpecies_getCompartment(QualitativeSpecies_t * qs)
 
 
 /**
- * write comments
+ *
  */
 LIBSBML_EXTERN
 int
@@ -1125,7 +1125,7 @@ QualitativeSpecies_getConstant(QualitativeSpecies_t * qs)
 
 
 /**
- * write comments
+ *
  */
 LIBSBML_EXTERN
 char *
@@ -1139,7 +1139,7 @@ QualitativeSpecies_getName(QualitativeSpecies_t * qs)
 
 
 /**
- * write comments
+ *
  */
 LIBSBML_EXTERN
 int
@@ -1150,7 +1150,7 @@ QualitativeSpecies_getInitialLevel(QualitativeSpecies_t * qs)
 
 
 /**
- * write comments
+ *
  */
 LIBSBML_EXTERN
 int
@@ -1161,7 +1161,7 @@ QualitativeSpecies_getMaxLevel(QualitativeSpecies_t * qs)
 
 
 /**
- * write comments
+ *
  */
 LIBSBML_EXTERN
 int
@@ -1172,7 +1172,7 @@ QualitativeSpecies_isSetId(QualitativeSpecies_t * qs)
 
 
 /**
- * write comments
+ *
  */
 LIBSBML_EXTERN
 int
@@ -1183,7 +1183,7 @@ QualitativeSpecies_isSetCompartment(QualitativeSpecies_t * qs)
 
 
 /**
- * write comments
+ *
  */
 LIBSBML_EXTERN
 int
@@ -1194,7 +1194,7 @@ QualitativeSpecies_isSetConstant(QualitativeSpecies_t * qs)
 
 
 /**
- * write comments
+ *
  */
 LIBSBML_EXTERN
 int
@@ -1205,7 +1205,7 @@ QualitativeSpecies_isSetName(QualitativeSpecies_t * qs)
 
 
 /**
- * write comments
+ *
  */
 LIBSBML_EXTERN
 int
@@ -1216,7 +1216,7 @@ QualitativeSpecies_isSetInitialLevel(QualitativeSpecies_t * qs)
 
 
 /**
- * write comments
+ *
  */
 LIBSBML_EXTERN
 int
@@ -1227,7 +1227,7 @@ QualitativeSpecies_isSetMaxLevel(QualitativeSpecies_t * qs)
 
 
 /**
- * write comments
+ *
  */
 LIBSBML_EXTERN
 int
@@ -1238,7 +1238,7 @@ QualitativeSpecies_setId(QualitativeSpecies_t * qs, const char * id)
 
 
 /**
- * write comments
+ *
  */
 LIBSBML_EXTERN
 int
@@ -1249,7 +1249,7 @@ QualitativeSpecies_setCompartment(QualitativeSpecies_t * qs, const char * compar
 
 
 /**
- * write comments
+ *
  */
 LIBSBML_EXTERN
 int
@@ -1260,7 +1260,7 @@ QualitativeSpecies_setConstant(QualitativeSpecies_t * qs, int constant)
 
 
 /**
- * write comments
+ *
  */
 LIBSBML_EXTERN
 int
@@ -1271,7 +1271,7 @@ QualitativeSpecies_setName(QualitativeSpecies_t * qs, const char * name)
 
 
 /**
- * write comments
+ *
  */
 LIBSBML_EXTERN
 int
@@ -1282,7 +1282,7 @@ QualitativeSpecies_setInitialLevel(QualitativeSpecies_t * qs, int initialLevel)
 
 
 /**
- * write comments
+ *
  */
 LIBSBML_EXTERN
 int
@@ -1293,7 +1293,7 @@ QualitativeSpecies_setMaxLevel(QualitativeSpecies_t * qs, int maxLevel)
 
 
 /**
- * write comments
+ *
  */
 LIBSBML_EXTERN
 int
@@ -1304,7 +1304,7 @@ QualitativeSpecies_unsetId(QualitativeSpecies_t * qs)
 
 
 /**
- * write comments
+ *
  */
 LIBSBML_EXTERN
 int
@@ -1315,7 +1315,7 @@ QualitativeSpecies_unsetCompartment(QualitativeSpecies_t * qs)
 
 
 /**
- * write comments
+ *
  */
 LIBSBML_EXTERN
 int
@@ -1326,7 +1326,7 @@ QualitativeSpecies_unsetConstant(QualitativeSpecies_t * qs)
 
 
 /**
- * write comments
+ *
  */
 LIBSBML_EXTERN
 int
@@ -1337,7 +1337,7 @@ QualitativeSpecies_unsetName(QualitativeSpecies_t * qs)
 
 
 /**
- * write comments
+ *
  */
 LIBSBML_EXTERN
 int
@@ -1348,7 +1348,7 @@ QualitativeSpecies_unsetInitialLevel(QualitativeSpecies_t * qs)
 
 
 /**
- * write comments
+ *
  */
 LIBSBML_EXTERN
 int
@@ -1359,7 +1359,7 @@ QualitativeSpecies_unsetMaxLevel(QualitativeSpecies_t * qs)
 
 
 /**
- * write comments
+ *
  */
 LIBSBML_EXTERN
 int
@@ -1370,7 +1370,7 @@ QualitativeSpecies_hasRequiredAttributes(QualitativeSpecies_t * qs)
 
 
 /**
- * write comments
+ *
  */
 LIBSBML_EXTERN
 QualitativeSpecies_t *
@@ -1384,7 +1384,7 @@ ListOfQualitativeSpecies_getById(ListOf_t * lo, const char * sid)
 
 
 /**
- * write comments
+ *
  */
 LIBSBML_EXTERN
 QualitativeSpecies_t *
