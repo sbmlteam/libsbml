@@ -3648,7 +3648,7 @@ START_TEST(test_comp_flatten_invalid77)
   string newdoc = writeSBMLToString(doc);
 
   fail_unless( result == LIBSBML_OPERATION_FAILED);
-  //fail_unless(newdoc == origdoc); //Failing to convert should always leave the original document intact.
+  fail_unless(newdoc == origdoc); //Failing to convert should always leave the original document intact.
 
   fail_unless(errors->getNumErrors() == 4);
   fail_unless(errors->contains(UnrequiredPackagePresent) == true);
