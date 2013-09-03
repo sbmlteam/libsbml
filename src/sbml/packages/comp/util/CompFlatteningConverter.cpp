@@ -244,7 +244,7 @@ CompFlatteningConverter::convert()
     // create a dummyDocument that will mirror what the user options are 
     //Now check to see if the flat model is valid
     // run regular validation on the flattened document if requested.
-    result = reconstructDocument(flatmodel, *(dummy) );
+    result = reconstructDocument(flatmodel, *(dummy), true );
     if (result != LIBSBML_OPERATION_SUCCESS)
     {
       restoreNamespaces();
@@ -307,8 +307,8 @@ CompFlatteningConverter::convert()
 
   // now reconstruct the document to be returned 
   // taking user options into account
-  SBMLDocument tempDoc;
-  result = reconstructDocument(flatmodel, tempDoc);
+  result = reconstructDocument(flatmodel);
+
 
   if (result != LIBSBML_OPERATION_SUCCESS) 
   {
@@ -319,19 +319,20 @@ CompFlatteningConverter::convert()
   return LIBSBML_OPERATION_SUCCESS;
 }
 
+
+int
+CompFlatteningConverter::reconstructDocument(Model * flatmodel)
+{
+  SBMLDocument * tempDoc = NULL;
+  return reconstructDocument(flatmodel, *(tempDoc));
+}
+
+
 int
 CompFlatteningConverter::reconstructDocument(Model * flatmodel, 
-                                             SBMLDocument& dummyDoc)
+                           SBMLDocument& dummyDoc,  bool dummyRecon)
 {
   int result = LIBSBML_OPERATION_FAILED;
-
-  // are we reconstruction the document
-  // or doing a dummy reconstruction
-  bool dummyRecon = false;
-  if (dummyDoc.getPlugin("comp") != NULL)
-  {
-    dummyRecon = true;
-  }
 
   // to ensure correct validation need to force the model to recalculate units
   if (flatmodel->isPopulatedListFormulaUnitsData() == true)
@@ -482,6 +483,7 @@ CompFlatteningConverter::getPerformValidation() const
   }
 }
 
+
 bool
 CompFlatteningConverter::canBeFlattened()
 {
@@ -622,7 +624,9 @@ CompFlatteningConverter::canBeFlattened()
   return canFlatten;
 }
 
-void CompFlatteningConverter::restoreNamespaces()
+
+void 
+CompFlatteningConverter::restoreNamespaces()
 {
   for (set<pair<string, string> >::iterator pkg = mDisabledPackages.begin();
        pkg != mDisabledPackages.end(); pkg++)

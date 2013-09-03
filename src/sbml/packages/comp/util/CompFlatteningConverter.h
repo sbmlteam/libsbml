@@ -120,7 +120,10 @@ public:
 
 private:
 
-  int reconstructDocument(Model* flatmodel, SBMLDocument &dummyDoc);
+  int reconstructDocument(Model* flatmodel); 
+
+  int reconstructDocument(Model* flatmodel, 
+                          SBMLDocument &dummyDoc,  bool dummyRecon = false);
 
   bool getLeavePorts() const;
 
