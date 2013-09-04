@@ -190,14 +190,13 @@ public:
    * To retain old functionality, this function calls performReplacementAndCollect,
    * and then actually removes the now-redundant element.  However, this can lead
    * to doubly-deleted elements, as well as the incorrect interpretation of some
-   * models.  It is therefore recommended to instead call performReplacementAndCollect,
-   * removing the now-redundant elements all at once.
+   * models.  There is a replacement function performReplacementAndCollect,
+   * but it has been marked protected, in the hopes that people will instead simply
+   * use CompModelPlugin::instantiateSubmodels, which hides all the complexity while
+   * still allowing access to a non-flattened version of a hierarchical model.
    */
   virtual int performReplacement();
 
-
-  virtual int performReplacementAndCollect(std::set<SBase*>* removed, 
-                                           std::set<SBase*>* toremove) = 0;
 
   /** @cond doxygenLibsbmlInternal */
   /**
@@ -344,6 +343,16 @@ protected:
    */
   virtual int convertConversionFactor(ASTNode*& conversionFactor);
   /** @endcond */
+
+
+  /**
+   * An internal flattening routine, necessarily overridden by any subclass, to 
+   * rename the necessary elements, perform any conversions, and add the now-redundant
+   * element to the 'toremove' list.
+   */
+  virtual int performReplacementAndCollect(std::set<SBase*>* removed, 
+                                           std::set<SBase*>* toremove) = 0;
+
 };
 
 

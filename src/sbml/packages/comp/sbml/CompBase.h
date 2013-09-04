@@ -236,7 +236,6 @@ protected:
    * deletes all such invalid ports before deleting the object.
    */
   static int removeFromParentAndPorts(SBase* todelete, std::set<SBase*>* removed);
-
   friend class CompModelPlugin;
 
   /** @endcond */

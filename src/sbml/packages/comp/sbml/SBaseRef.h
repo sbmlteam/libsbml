@@ -631,24 +631,12 @@ public:
    *
    * Deletes the referenced object,
    * plus any other elements that element points to through ReplacedElement
-   * or ReplacedBy children.  Instead of calling this function, 'collectDeletions'
-   * should be used instead.
+   * or ReplacedBy children.  Instead of calling this function directly, use
+   * 'CompModelPlugin::instantiateSubmodels' instead, which deals with all the
+   * intricacies of replacements and deletions, and gives you access to the
+   * non-flattened hierarchical form of the model.
    */
   virtual int performDeletion();
-
-private:
-
-  /**
-   * Collects (in 'toremove') the referenced object,
-   * plus any other elements that element points to through ReplacedElement
-   * or ReplacedBy children.  Does not delete the object directly; this should
-   * be done carefully to avoid double-deletions or misinterpretation of 
-   * nested replacements/deletions.  Any element already in 'removed' will
-   * not be added to 'toremove', nor will its children be checked.
-   */
-  virtual int collectDeletions(std::set<SBase*>* removed, std::set<SBase*>* toremove);
-
-  public:
 
   /**
    * Finds this SBaseRef's parent, which can either be a List or can be
@@ -719,6 +707,18 @@ protected:
   /** @cond doxygenLibsbmlInternal */
   friend class CompModelPlugin; //for getDirectReference
   /** @endcond */
+
+private:
+  /**
+   * Collects (in 'toremove') the referenced object,
+   * plus any other elements that element points to through ReplacedElement
+   * or ReplacedBy children.  Does not delete the object directly; this should
+   * be done carefully to avoid double-deletions or misinterpretation of 
+   * nested replacements/deletions.  Any element already in 'removed' will
+   * not be added to 'toremove', nor will its children be checked.
+   */
+  virtual int collectDeletions(std::set<SBase*>* removed, std::set<SBase*>* toremove);
+
 };
 
 

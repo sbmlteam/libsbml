@@ -145,21 +145,6 @@ public:
   virtual int removeFromParentAndDelete();
 
 
-  /**
-   * Updates all IDs and references to those IDs.  Does not actually
-   * remove the now-redundant element!  The elements to be removed is instead 
-   * added to 'toremove', allowing one to remove the element carefully
-   * to prevent double-deletion of elements, and to allow the correct
-   * interpretation of 'nested' replacements and deletions.
-   *
-   * The 'removed' argument is present to ensure that the replaced element was
-   * not already removed, which would make it impossible to check it for its
-   * old IDs.  In normal comp flattening, 'removed' will only contain comp elements,
-   * which should usually not be replaced, only deleted.
-   */
-  virtual int performReplacementAndCollect(std::set<SBase*>* removed, std::set<SBase*>* toremove);
-
-
   /** @cond doxygenLibsbmlInternal */
   /**
    * Searches the model that @p oldnames came from for references to any of its ids,
@@ -183,7 +168,6 @@ public:
 
 
   /** @cond doxygenLibsbmlInternal */
-
   /**
    * Accepts the given SBMLVisitor.
    *
@@ -192,8 +176,23 @@ public:
    * sibling object (if available).
    */
   virtual bool accept (SBMLVisitor& v) const;
-
   /** @endcond */
+
+  protected:
+  /**
+   * Updates all IDs and references to those IDs.  Does not actually
+   * remove the now-redundant element!  The elements to be removed is instead 
+   * added to 'toremove', allowing one to remove the element carefully
+   * to prevent double-deletion of elements, and to allow the correct
+   * interpretation of 'nested' replacements and deletions.
+   *
+   * The 'removed' argument is present to ensure that the replaced element was
+   * not already removed, which would make it impossible to check it for its
+   * old IDs.  In normal comp flattening, 'removed' will only contain comp elements,
+   * which should usually not be replaced, only deleted.
+   */
+  virtual int performReplacementAndCollect(std::set<SBase*>* removed, std::set<SBase*>* toremove);
+  friend class CompModelPlugin;
 
 };
 
