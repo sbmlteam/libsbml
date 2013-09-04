@@ -626,7 +626,6 @@ public:
   virtual void clearReferencedElement();
 
 
-  /** @cond doxygenLibsbmlInternal */
   /**
    * DEPRECATED FUNCTION:  DO NOT USE
    *
@@ -636,7 +635,8 @@ public:
    * should be used instead.
    */
   virtual int performDeletion();
-  /** @endcond */
+
+private:
 
   /**
    * Collects (in 'toremove') the referenced object,
@@ -648,6 +648,7 @@ public:
    */
   virtual int collectDeletions(std::set<SBase*>* removed, std::set<SBase*>* toremove);
 
+  public:
 
   /**
    * Finds this SBaseRef's parent, which can either be a List or can be

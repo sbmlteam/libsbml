@@ -184,7 +184,6 @@ public:
   virtual void renameSIdRefs(std::string oldid, std::string newid);
 
 
-  /** @cond doxygenLibsbmlInternal */
   /**
    * DEPRECATED FUNCTION:  DO NOT USE
    * 
@@ -195,7 +194,7 @@ public:
    * removing the now-redundant elements all at once.
    */
   virtual int performReplacement();
-  /** @endcond */
+
 
   virtual int performReplacementAndCollect(std::set<SBase*>* removed, 
                                            std::set<SBase*>* toremove) = 0;
