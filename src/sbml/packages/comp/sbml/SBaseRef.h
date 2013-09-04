@@ -626,15 +626,27 @@ public:
   virtual void clearReferencedElement();
 
 
+  /** @cond doxygenLibsbmlInternal */
   /**
-   * Deletes the referenced object (will delete the saved one, if it exists),
+   * DEPRECATED FUNCTION:  DO NOT USE
+   *
+   * Deletes the referenced object,
    * plus any other elements that element points to through ReplacedElement
-   * or ReplacedBy children
+   * or ReplacedBy children.  Instead of calling this function, 'collectDeletions'
+   * should be used instead.
    */
   virtual int performDeletion();
-#if (0)
-  virtual int performDeletion(std::set<SBase*>* removed);
-#endif
+  /** @endcond */
+
+  /**
+   * Collects (in 'toremove') the referenced object,
+   * plus any other elements that element points to through ReplacedElement
+   * or ReplacedBy children.  Does not delete the object directly; this should
+   * be done carefully to avoid double-deletions or misinterpretation of 
+   * nested replacements/deletions.  Any element already in 'removed' will
+   * not be added to 'toremove', nor will its children be checked.
+   */
+  virtual int collectDeletions(std::set<SBase*>* removed, std::set<SBase*>* toremove);
 
 
   /**

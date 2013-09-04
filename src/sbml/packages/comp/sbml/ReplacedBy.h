@@ -146,13 +146,18 @@ public:
 
 
   /**
-   * Removes the redundant element from instantiated submodels, and points
-   * all old references to the remaining element.
+   * Updates all IDs and references to those IDs.  Does not actually
+   * remove the now-redundant element!  The elements to be removed is instead 
+   * added to 'toremove', allowing one to remove the element carefully
+   * to prevent double-deletion of elements, and to allow the correct
+   * interpretation of 'nested' replacements and deletions.
+   *
+   * The 'removed' argument is present to ensure that the replaced element was
+   * not already removed, which would make it impossible to check it for its
+   * old IDs.  In normal comp flattening, 'removed' will only contain comp elements,
+   * which should usually not be replaced, only deleted.
    */
-  virtual int performReplacement();
-#if (0)
-  virtual int performReplacement(std::set<SBase*>* removed, std::set<SBase*>* toremove);
-#endif
+  virtual int performReplacementAndCollect(std::set<SBase*>* removed, std::set<SBase*>* toremove);
 
 
   /** @cond doxygenLibsbmlInternal */

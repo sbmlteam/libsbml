@@ -243,45 +243,12 @@ protected:
 
   /** @cond doxygenLibsbmlInternal */
   /**
-   * Remove the given SBase object, and any Ports that point to it.
+   * DEPRECATED FUNCTION:  DO NOT USE
+   *
+   * Remove the given SBase object, and any Ports that point to it.  Unsafe,
+   * because the program might later attempt to delete any removed Port.
    */
   int removeFromParentAndPorts(SBase* todelete);
-
-  /** @endcond */
-
-  /** @cond doxygenLibsbmlInternal */
-
-  std::set<SBase*> getRemovedSet() const;
-
-  /** @endcond */
-
-  /** @cond doxygenLibsbmlInternal */
-
-  std::set<SBase*> getToRemoveSet() const;
-
-  /** @endcond */
-
-  /** @cond doxygenLibsbmlInternal */
-
-  bool insertRemovedObject(SBase* obj);
-
-  /** @endcond */
-
-  /** @cond doxygenLibsbmlInternal */
-
-  bool insertToRemoveObject(SBase* obj);
-
-  /** @endcond */
-
-  /** @cond doxygenLibsbmlInternal */
-
-  void clearRemovedSet();
-
-  /** @endcond */
-
-  /** @cond doxygenLibsbmlInternal */
-
-  void clearToRemoveSet();
 
   /** @endcond */
 
@@ -292,9 +259,6 @@ private:
   // The owner of this object is SBMLExtensionRegistry class.
   //
   const SBMLExtension  *mSBMLExt;
-
-  std::set<SBase*>  mRemoved;
-  std::set<SBase*>  mToRemove;
 
   /** @endcond */
 };

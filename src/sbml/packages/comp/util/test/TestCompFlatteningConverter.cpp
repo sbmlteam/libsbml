@@ -918,6 +918,19 @@ START_TEST (test_comp_flatten_id_collisions2)
 }
 END_TEST
   
+START_TEST(test_comp_flatten_nested_replace_delete)
+{
+  TestFlattenedPair("replace_implied_deletion.xml", "replace_implied_deletion_flat.xml");
+}
+END_TEST
+
+
+START_TEST(test_comp_flatten_nested_replace_delete2)
+{
+  TestFlattenedPair("replace_implied_deletion2.xml", "replace_implied_deletion2_flat.xml");
+}
+END_TEST
+
 
 START_TEST (test_comp_flatten_converter_properties1)
 { 
@@ -1733,6 +1746,9 @@ create_suite_TestFlatteningConverter (void)
 
   tcase_add_test(tcase, test_comp_flatten_id_collisions);
   tcase_add_test(tcase, test_comp_flatten_id_collisions2);
+
+  tcase_add_test(tcase, test_comp_flatten_nested_replace_delete);
+  tcase_add_test(tcase, test_comp_flatten_nested_replace_delete2);
 
   tcase_add_test(tcase, test_comp_flatten_converter_properties1);
   tcase_add_test(tcase, test_comp_flatten_converter_properties2);

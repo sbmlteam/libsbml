@@ -42,9 +42,8 @@ CompModelPlugin::CompModelPlugin (const std::string &uri, const std::string &pre
   , mListOfSubmodels(compns)
   , mListOfPorts(compns)
   , mDivider("__")
+  , mRemoved()
 {
-  mRemoved.clear();
-  mToRemove.clear();
   connectToChild();
 }
 
@@ -54,9 +53,8 @@ CompModelPlugin::CompModelPlugin(const CompModelPlugin& orig)
   , mListOfSubmodels(orig.mListOfSubmodels)
   , mListOfPorts(orig.mListOfPorts)
   , mDivider("__")
+  , mRemoved() //If we're making a copy, the list of things we've removed is new.
 {
-  mRemoved = orig.mRemoved;
-  mToRemove = orig.mToRemove;
   connectToChild();
 }
 
@@ -74,8 +72,7 @@ CompModelPlugin::operator=(const CompModelPlugin& orig)
     mListOfSubmodels = orig.mListOfSubmodels;
     mListOfPorts = orig.mListOfPorts;
     mDivider = orig.mDivider;
-    mRemoved = orig.mRemoved;
-    mToRemove = orig.mToRemove;
+    mRemoved.clear(); //If we're making a copy, the list of things we've removed is new.
     connectToChild();
   }
   return *this;
@@ -688,9 +685,12 @@ CompModelPlugin::instantiateSubmodels()
     return ret;
   }
 
-  // Perform deletions (top-down):  
+  mRemoved.clear();
+  set<SBase*> toremove;
+
+  // Collect deletions (top-down):  
   // need to do this before renaming in case we delete a local parameter.
-  ret = performDeletions();
+  ret = collectDeletionsAndDeleteSome(&mRemoved, &toremove);
 
   if (ret != LIBSBML_OPERATION_SUCCESS) {
     return ret;
@@ -702,33 +702,21 @@ CompModelPlugin::instantiateSubmodels()
     return ret;
   }
 
-  //Perform replacements and conversions (top-down)
-  ret = performReplacementsAndConversions();
+  //Perform replacements and conversions (top-down) and collect them.
+  ret = collectRenameAndConvertReplacements(&mRemoved, &toremove);
 
   if (ret != LIBSBML_OPERATION_SUCCESS) {
     return ret;
   }
 
-  set<SBase*> removed = getRemovedSet();
-  set<SBase*> toremove = getToRemoveSet();
+  //Finally, actually remove the collected elements from the model--they are
+  // all now redundant.  Have to wait until now to do this, because of the
+  // possibility of nested constructs:  replacing the child of a replaced
+  // element, for example, or even replacing the child of a deleted
+  // element.
+  removeCollectedElements(&mRemoved, &toremove);
 
-  while (toremove.size() > 0) {
-    SBase* removeme = *(toremove.begin());
-    if (removed.insert(removeme).second) {
-      //Need to remove it.
-      List* children = removeme->getAllElements();
-      for (unsigned int el=0; el<children->getSize(); el++) {
-        SBase* element = static_cast<SBase*>(children->get(el));
-        removed.insert(element);
-      }
-      delete children;
-      CompBase::removeFromParentAndPorts(removeme, &removed);
-    }
-    toremove.erase(toremove.begin());
-  }
-
-  clearRemovedSet();
-  clearToRemoveSet();
+  mRemoved.clear();
 
   return LIBSBML_OPERATION_SUCCESS;
 }
@@ -1103,9 +1091,7 @@ void CompModelPlugin::renameIDs(List* allElements, const string& prefix)
 }
 /** @endcond */
 
-#if (0)
-
-int CompModelPlugin::performDeletions(set<SBase*>* removed)
+int CompModelPlugin::collectDeletionsAndDeleteSome(set<SBase*>* removed, set<SBase*>* toremove)
 {
   int ret = LIBSBML_OPERATION_SUCCESS;
   SBMLDocument* doc = getSBMLDocument();
@@ -1124,12 +1110,26 @@ int CompModelPlugin::performDeletions(set<SBase*>* removed)
     //First perform any deletions
     for (unsigned int d=0; d<submodel->getNumDeletions(); d++) {
       Deletion* deletion = submodel->getDeletion(d);
-      ret = deletion->performDeletion(removed);
-      if (ret!=LIBSBML_OPERATION_SUCCESS) {
-        return ret;
+      SBase* todel = deletion->getReferencedElement();
+      if (todel && (todel->getTypeCode() == SBML_COMP_DELETION ||
+                    todel->getTypeCode() == SBML_COMP_REPLACEDBY ||
+                    todel->getTypeCode() == SBML_COMP_REPLACEDELEMENT ||
+                    todel->getTypeCode() == SBML_LOCAL_PARAMETER) )
+      {
+        //Go ahead and delete it!
+        set<SBase*> newToRemove;
+        newToRemove.insert(todel);
+        removeCollectedElements(removed, &newToRemove);
+      }
+      else {
+        //Otherwise, just collect it.
+        ret = deletion->collectDeletions(removed, toremove);
+        if (ret!=LIBSBML_OPERATION_SUCCESS) {
+          return ret;
+        }
       }
     }
-    //Next perform any deletions in that instantiated submodel (some of which may have just been deleted)
+    //Next collect any deletions in that instantiated submodel (any that weren't just deleted)
     Model* mod = submodel->getInstantiation();
     if (mod==NULL) {
       //getInstantiation sets its own error messages.
@@ -1144,94 +1144,29 @@ int CompModelPlugin::performDeletions(set<SBase*>* removed)
       }
       return LIBSBML_OPERATION_FAILED;
     }
-    modplug->performDeletions(removed);
+    modplug->collectDeletionsAndDeleteSome(removed, toremove);
   }
   return ret;
 }
 
-
-#endif
 
 int CompModelPlugin::performDeletions()
 {
-  int ret = LIBSBML_OPERATION_SUCCESS;
   SBMLDocument* doc = getSBMLDocument();
-  Model* model = static_cast<Model*>(getParentSBMLObject());
-  if (model==NULL) {
-    if (doc) {
-      string error = "Unable to attempt to perform deletions in CompModelPlugin::performDeletions: no parent model could be found for the given 'comp' model plugin element.";
-      doc->getErrorLog()->logPackageError("comp", CompModelFlatteningFailed, getPackageVersion(), getLevel(), getVersion(), error);
-    }
-    return LIBSBML_OPERATION_FAILED;
+  if (doc) {
+    doc->getErrorLog()->logPackageError("comp", CompDeprecatedDeleteFunction, getPackageVersion(), getLevel(), getVersion());
   }
 
-  //Since deletions only exist in submodels, loop through the submodels.
-  for (unsigned int sub=0; sub<getNumSubmodels(); sub++) {
-    Submodel* submodel = getSubmodel(sub);
-    //First perform any deletions
-    for (unsigned int d=0; d<submodel->getNumDeletions(); d++) {
-      Deletion* deletion = submodel->getDeletion(d);
-      
-      // add the removed objects to this deletion
-      set<SBase*> thisSet = this->getRemovedSet();
-      for (std::set<SBase*>::iterator it = thisSet.begin();
-        it != thisSet.end(); it++)
-      {
-        deletion->insertRemovedObject(*it);
-      }
-
-      ret = deletion->performDeletion();
-      
-      // add any new removed objects to the parent compModelPlugin
-      thisSet = deletion->getRemovedSet();
-      for (std::set<SBase*>::iterator it = thisSet.begin();
-        it != thisSet.end(); it++)
-      {
-        insertRemovedObject(*it);
-      }
-      if (ret!=LIBSBML_OPERATION_SUCCESS) {
-        return ret;
-      }
-    }
-    //Next perform any deletions in that instantiated submodel (some of which may have just been deleted)
-    Model* mod = submodel->getInstantiation();
-    if (mod==NULL) {
-      //getInstantiation sets its own error messages.
-      return LIBSBML_OPERATION_FAILED;
-    }
-    CompModelPlugin* modplug = static_cast<CompModelPlugin*>(mod->getPlugin(getPrefix()));
-    if (modplug==NULL) {
-      if (doc) {
-        //Shouldn't happen:  'getInstantiation' turns on the comp plugin.
-        string error = "Unable to rename elements in CompModelPlugin::performDeletions: no valid 'comp' plugin for the model instantiated from submodel " + submodel->getId();
-        doc->getErrorLog()->logPackageError("comp", CompModelFlatteningFailed, getPackageVersion(), getLevel(), getVersion(), error);
-      }
-      return LIBSBML_OPERATION_FAILED;
-    }
-    // add any removed items to the new instance
-    set<SBase*> thisPluginSet = this->getRemovedSet();
-    for (std::set<SBase*>::iterator it = thisPluginSet.begin();
-      it != thisPluginSet.end(); it++)
-    {
-      modplug->insertRemovedObject(*it);
-    }
-    
-    modplug->performDeletions();
-    
-    // add any new removed items back to the parent
-    thisPluginSet = modplug->getRemovedSet();
-    for (std::set<SBase*>::iterator it = thisPluginSet.begin();
-      it != thisPluginSet.end(); it++)
-    {
-      insertRemovedObject(*it);
-    }
+  set<SBase*> toremove;
+  //We have to assume that mRemoved has been set properly, though there's no guarantee that this has happened.
+  int ret = collectDeletionsAndDeleteSome(&mRemoved, &toremove);
+  if (ret != LIBSBML_OPERATION_SUCCESS) {
+    return ret;
   }
-  return ret;
+  return removeCollectedElements(&mRemoved, &toremove);
 }
 
-#if (0)
-
-int CompModelPlugin::performReplacementsAndConversions(set<SBase*>* removed, set<SBase*>* toremove)
+int CompModelPlugin::collectRenameAndConvertReplacements(set<SBase*>* removed, set<SBase*>* toremove)
 {
   int ret = LIBSBML_OPERATION_SUCCESS;
   SBMLDocument* doc = getSBMLDocument();
@@ -1262,7 +1197,7 @@ int CompModelPlugin::performReplacementsAndConversions(set<SBase*>* removed, set
 
   //ReplacedElement replacements
   for (size_t re=0; re<res.size(); re++) {
-    ret = res[re]->performReplacement(removed, toremove);
+    ret = res[re]->performReplacementAndCollect(removed, toremove);
     if (ret != LIBSBML_OPERATION_SUCCESS) {
       return ret;
     }
@@ -1278,153 +1213,58 @@ int CompModelPlugin::performReplacementsAndConversions(set<SBase*>* removed, set
     //'left behind' converions (not LaHaye-style)
     ret = submodel->convertTimeAndExtent();
     if (ret != LIBSBML_OPERATION_SUCCESS) return ret;
-    ret = modplug->performReplacementsAndConversions(removed, toremove);
+    ret = modplug->collectRenameAndConvertReplacements(removed, toremove);
     if (ret != LIBSBML_OPERATION_SUCCESS) return ret;
   }
 
   //Perform ReplacedBy replacements *after* the submodels are done, so that the topmost-level names take precedence.
   for (size_t rb=0; rb<rbs.size(); rb++) {
-    ret = rbs[rb]->performReplacement(removed, toremove);
-    if (ret != LIBSBML_OPERATION_SUCCESS) return ret;
+    ret = rbs[rb]->performReplacementAndCollect(removed, toremove);
+    if (ret != LIBSBML_OPERATION_SUCCESS) {
+      return ret;
+    }
   }
 
   return ret;
 }
 
-#endif
-
+//Deprecated function
 int CompModelPlugin::performReplacementsAndConversions()
 {
-  int ret = LIBSBML_OPERATION_SUCCESS;
   SBMLDocument* doc = getSBMLDocument();
-  Model* model = static_cast<Model*>(getParentSBMLObject());
-  if (model==NULL) {
-    if (doc) {
-      string error = "Unable to perform replacements in CompModelPlugin::performDeletions: no parent model could be found for the given 'comp' model plugin element.";
-      doc->getErrorLog()->logPackageError("comp", CompModelFlatteningFailed, getPackageVersion(), getLevel(), getVersion(), error);
-    }
-    return LIBSBML_OPERATION_FAILED;
-  }
-  List* allElements = model->getAllElements();
-  vector<ReplacedElement*> res;
-  vector<ReplacedBy*> rbs;
-  //Collect replaced elements and replaced by's.
-  for (unsigned int e=0; e<allElements->getSize(); e++) {
-    SBase* element = static_cast<SBase*>(allElements->get(e));
-    int type = element->getTypeCode();
-    if (type==SBML_COMP_REPLACEDELEMENT) {
-      ReplacedElement* reference = static_cast<ReplacedElement*>(element);
-      res.push_back(reference);
-    }
-    if (type==SBML_COMP_REPLACEDBY) {
-      ReplacedBy* reference = static_cast<ReplacedBy*>(element);
-      rbs.push_back(reference);
-    }
+  if (doc) {
+    doc->getErrorLog()->logPackageError("comp", CompDeprecatedReplaceFunction, getPackageVersion(), getLevel(), getVersion());
   }
 
-  //ReplacedElement replacements
-  for (size_t re=0; re<res.size(); re++) {
-    // add any removed/toremove items to the object
-    set<SBase*> thisPluginSet = this->getRemovedSet();
-    for (std::set<SBase*>::iterator it = thisPluginSet.begin();
-      it != thisPluginSet.end(); it++)
-    {
-      res[re]->insertRemovedObject(*it);
-    }
-
-    thisPluginSet = this->getToRemoveSet();
-    for (std::set<SBase*>::iterator it = thisPluginSet.begin();
-      it != thisPluginSet.end(); it++)
-    {
-      res[re]->insertToRemoveObject(*it);
-    }
-
-    ret = res[re]->performReplacement();
-
-    // add any new toremove items back to the parent
-    thisPluginSet = res[re]->getToRemoveSet();
-    for (std::set<SBase*>::iterator it = thisPluginSet.begin();
-      it != thisPluginSet.end(); it++)
-    {
-      insertToRemoveObject(*it);
-    }
-
-    if (ret != LIBSBML_OPERATION_SUCCESS) {
-      return ret;
-    }
+  set<SBase*> toremove;
+  //We have to assume that mRemoved has been set properly, though there's no guarantee that this has happened.
+  int ret = collectRenameAndConvertReplacements(&mRemoved, &toremove);
+  if (ret != LIBSBML_OPERATION_SUCCESS) {
+    return ret;
   }
-
-  //Now do the same thing for anything left over in the submodels
-  for (unsigned int sub=0; sub<getNumSubmodels(); sub++) {
-    Submodel* submodel = getSubmodel(sub);
-    Model* mod = submodel->getInstantiation();
-    if (mod==NULL) return LIBSBML_OPERATION_FAILED;
-    CompModelPlugin* modplug = static_cast<CompModelPlugin*>(mod->getPlugin(getPrefix()));
-    if (modplug==NULL) return LIBSBML_OPERATION_FAILED;
-    //'left behind' converions (not LaHaye-style)
-    ret = submodel->convertTimeAndExtent();
-    if (ret != LIBSBML_OPERATION_SUCCESS) return ret;
-        
-    // add any removed/toremove items to the new instance
-    set<SBase*> thisPluginSet = this->getRemovedSet();
-    for (std::set<SBase*>::iterator it = thisPluginSet.begin();
-      it != thisPluginSet.end(); it++)
-    {
-      modplug->insertRemovedObject(*it);
-    }
-    thisPluginSet = this->getToRemoveSet();
-    for (std::set<SBase*>::iterator it = thisPluginSet.begin();
-      it != thisPluginSet.end(); it++)
-    {
-      modplug->insertToRemoveObject(*it);
-    }
-    
-    modplug->performReplacementsAndConversions();
-    
-    // add any new removed items back to the parent
-    thisPluginSet = modplug->getToRemoveSet();
-    for (std::set<SBase*>::iterator it = thisPluginSet.begin();
-      it != thisPluginSet.end(); it++)
-    {
-      insertToRemoveObject(*it);
-    }
-
-    if (ret != LIBSBML_OPERATION_SUCCESS) return ret;
-  }
-
-  //Perform ReplacedBy replacements *after* the submodels are done, so that the topmost-level names take precedence.
-  for (size_t rb=0; rb<rbs.size(); rb++) {
-    // add any removed/toremove items to the object
-    std::set<SBase*> thisPluginSet = this->getRemovedSet();
-    for (std::set<SBase*>::iterator it = thisPluginSet.begin();
-      it != thisPluginSet.end(); it++)
-    {
-      rbs[rb]->insertRemovedObject(*it);
-    }
-
-    thisPluginSet = this->getToRemoveSet();
-    for (std::set<SBase*>::iterator it = thisPluginSet.begin();
-      it != thisPluginSet.end(); it++)
-    {
-      rbs[rb]->insertToRemoveObject(*it);
-    }
-    ret = rbs[rb]->performReplacement();
-
-    // add any new toremove items back to the parent
-    thisPluginSet = rbs[rb]->getToRemoveSet();
-    for (std::set<SBase*>::iterator it = thisPluginSet.begin();
-      it != thisPluginSet.end(); it++)
-    {
-      insertToRemoveObject(*it);
-    }
-
-    if (ret != LIBSBML_OPERATION_SUCCESS) return ret;
-  }
-
-  return ret;
+  return removeCollectedElements(&mRemoved, &toremove);
 }
 
-/** @cond doxygenLibsbmlInternal */
+int CompModelPlugin::removeCollectedElements(set<SBase*>* removed, set<SBase*>* toremove)
+{
+  while (toremove->size() > 0) {
+    SBase* removeme = *(toremove->begin());
+    if (removed->insert(removeme).second == true) {
+      //Need to remove the element.
+      List* children = removeme->getAllElements();
+      for (unsigned int el=0; el<children->getSize(); el++) {
+        SBase* element = static_cast<SBase*>(children->get(el));
+        removed->insert(element);
+      }
+      CompBase::removeFromParentAndPorts(removeme, removed);
+    }
+    toremove->erase(removeme);
+  }
+  return LIBSBML_OPERATION_SUCCESS;
+}
+
+  
+  /** @cond doxygenLibsbmlInternal */
 
 bool 
 CompModelPlugin::accept(SBMLVisitor& v) const
@@ -1449,64 +1289,11 @@ CompModelPlugin::accept(SBMLVisitor& v) const
 /** @endcond */
 
 /** @cond doxygenLibsbmlInternal */
-
-std::set<SBase*> 
-CompModelPlugin::getRemovedSet() const 
+std::set<SBase*>* 
+CompModelPlugin::getRemovedSet() 
 { 
-  return mRemoved; 
+  return &mRemoved; 
 }
-
-/** @endcond */
-
-/** @cond doxygenLibsbmlInternal */
-
-std::set<SBase*> 
-CompModelPlugin::getToRemoveSet() const 
-{ 
-  return mToRemove; 
-}
-
-/** @endcond */
-
-/** @cond doxygenLibsbmlInternal */
-
-bool 
-CompModelPlugin::insertRemovedObject(SBase* obj) 
-{ 
-  return (mRemoved.insert(obj)).second; 
-}
-
-/** @endcond */
-
-/** @cond doxygenLibsbmlInternal */
-
-bool 
-CompModelPlugin::insertToRemoveObject(SBase* obj) 
-{ 
-  return (mToRemove.insert(obj)).second; 
-}
-
-
-/** @endcond */
-
-/** @cond doxygenLibsbmlInternal */
-
-void 
-CompModelPlugin::clearRemovedSet()
-{ 
-  mRemoved.clear(); 
-}
-
-/** @endcond */
-
-/** @cond doxygenLibsbmlInternal */
-
-void
-CompModelPlugin::clearToRemoveSet() 
-{ 
-  mToRemove.clear(); 
-}
-
 /** @endcond */
 
 LIBSBML_EXTERN

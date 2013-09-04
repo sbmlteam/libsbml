@@ -184,16 +184,21 @@ public:
   virtual void renameSIdRefs(std::string oldid, std::string newid);
 
 
+  /** @cond doxygenLibsbmlInternal */
   /**
-   * Removes the redundant element from instantiated submodels, and points
-   * all old references to the remaining element (different for
-   * ReplacedElements and ReplacedBy elements.
+   * DEPRECATED FUNCTION:  DO NOT USE
+   * 
+   * To retain old functionality, this function calls performReplacementAndCollect,
+   * and then actually removes the now-redundant element.  However, this can lead
+   * to doubly-deleted elements, as well as the incorrect interpretation of some
+   * models.  It is therefore recommended to instead call performReplacementAndCollect,
+   * removing the now-redundant elements all at once.
    */
-  virtual int performReplacement() = 0;
-#if (0)
-  virtual int performReplacement(std::set<SBase*>* removed, 
-                                 std::set<SBase*>* toremove) = 0;
-#endif
+  virtual int performReplacement();
+  /** @endcond */
+
+  virtual int performReplacementAndCollect(std::set<SBase*>* removed, 
+                                           std::set<SBase*>* toremove) = 0;
 
   /** @cond doxygenLibsbmlInternal */
   /**

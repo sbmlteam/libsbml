@@ -489,8 +489,16 @@ public:
    *@return a Model object with no submodels.  On failure, return @c NULL.
    */
   virtual Model* flattenModel() const;
-
   friend class CompFlatteningConverter;
+
+  /**
+   * Deletes any elements in 'toremove' that do not already exist in 'removed', 
+   * while taking care to not double-delete any element.  Intended for use with
+   * collectDeletionsAndDeleteCompConstructs and 
+   * collectRenameAndConvertReplacements.
+   */
+  virtual int removeCollectedElements(std::set<SBase*>* removed, std::set<SBase*>* toremove);
+  friend class ReplacedElement;
 
   /**
    * Loop through all Submodels in this Model, instantiate all of them,
@@ -509,50 +517,22 @@ public:
   virtual int instantiateSubmodels();
 
 
+  /** @cond doxygenLibsbmlInternal */
+  std::set<SBase*>* getRemovedSet();
+  friend class Replacing;
+  friend class SBaseRef;
+  friend class CompBase;
+  /** @endcond */
+
 private:
 
   /** @cond doxygenLibsbmlInternal */
-
-  std::set<SBase*> getRemovedSet() const;
-
-  /** @endcond */
-
-  /** @cond doxygenLibsbmlInternal */
-
-  std::set<SBase*> getToRemoveSet() const;
-
-  /** @endcond */
-
-  /** @cond doxygenLibsbmlInternal */
-
-  bool insertRemovedObject(SBase* obj);
-
-  /** @endcond */
-
-  /** @cond doxygenLibsbmlInternal */
-
-  bool insertToRemoveObject(SBase* obj);
-
-  /** @endcond */
-
-  /** @cond doxygenLibsbmlInternal */
-
-  void clearRemovedSet();
-
-  /** @endcond */
-
-  /** @cond doxygenLibsbmlInternal */
-
-  void clearToRemoveSet();
-
-  /** @endcond */
-
-  /** @cond doxygenLibsbmlInternal */
-
+  /*
+   * This is a nuisance variable, used for the deprecated functions 
+   * performDeletions and performReplacementsAndConversions.  It has 
+   * no other use.
+   */
   std::set<SBase*>  mRemoved;
-  std::set<SBase*>  mToRemove;
-
-
   /** @endcond */
 
   /*
@@ -577,18 +557,52 @@ private:
    */
   virtual int renameAllIDsAndPrepend(const std::string& prefix);
 
+  /** @cond doxygenLibsbmlInternal */
   /*
-   * Removes all elements from instantiated submodels slated to be deleted,
-   * plus any elements those deleted elements may have replaced or been
-   * replaced by.
+   * DEPRECATED FUNCTION:  DO NOT USE!!!
+   *
+   * It is impossible to properly use this function as it was originally designed,
+   * without some models either causing the program to crash, or causing them
+   * to be interpreted incorrectly.  Instead, one should use 
+   * collectDeletionsAndDeleteCompConstructs, in conjunction with 
+   * collectRenameAndConvertReplacements and removeCollectedElements
+   * to properly process hierarchical models.
    */
   virtual int performDeletions();
-#if (0)
-  virtual int performDeletions(std::set<SBase*>* removed);
-#endif
+  /** @endcond */
+ 
+  
+  /**
+   * Collects all elements from instantiated submodels slated to be deleted,
+   * and stores them in 'toremove', and also actually deletes the comp constructs
+   * Deletions, ReplacedElements, and ReplacedBy's.  This is so that
+   * it is possible to delete a deletion or replacement, and end up with a model 
+   * that still has the element that would have otherwise been deleted.
+   * Also, actually deletes local parameters, because this potentially affects
+   * the naming conventions when replacing.
+   *
+   * Any comp elements or local parameters that have been removed will be added to 'removed', and
+   * any elements that are to be removed will be added to 'toremove'.
+   */
+virtual int collectDeletionsAndDeleteSome(std::set<SBase*>* removed, 
+                                          std::set<SBase*>* toremove);
 
 
+  /** @cond doxygenLibsbmlInternal */
   /*
+   * DEPRECATED FUNCTION:  DO NOT USE!!!
+   *
+   * It is impossible to properly use this function as it was originally designed,
+   * without some models either causing the program to crash, or causing them
+   * to be interpreted incorrectly.  Instead, one should use 
+   * collectDeletionsAndDeleteCompConstructs, in conjunction with 
+   * collectRenameAndConvertReplacements and removeCollectedElements
+   * to properly process hierarchical models.
+   */
+  virtual int performReplacementsAndConversions();
+  /** @endcond */
+
+  /**
    * Removes all elements from instantiated submodels slated to be replaced,
    * and points all old references to that element to the replacement
    * element.  Also takes any 'replacedBy' construct, deleting the original
@@ -596,11 +610,8 @@ private:
    * identifiers, and points all old references to the replacement object's
    * old identifiers to the new identifiers.
    */
-  virtual int performReplacementsAndConversions();
-#if (0)
-  virtual int performReplacementsAndConversions(std::set<SBase*>* removed, 
-                                                std::set<SBase*>* toremove);
-#endif
+  virtual int collectRenameAndConvertReplacements(std::set<SBase*>* removed, 
+                                                  std::set<SBase*>* toremove);
 
   /** @cond doxygenLibsbmlInternal */
   virtual void findUniqueSubmodPrefixes(std::vector<std::string>& submodids, List* allElements);
@@ -613,7 +624,6 @@ private:
   protected:
   virtual int saveAllReferencedElements(std::set<SBase*> uniqueRefs, std::set<SBase*> replacedBys);
   /** @endcond */
-
 
 };
 

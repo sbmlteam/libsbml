@@ -361,12 +361,6 @@ Replacing::replaceWithAndMaybeDelete(SBase* replacement, bool deleteme, ASTNode*
     ret = replacedplug->getReplacedBy()->replaceWithAndMaybeDelete(replacement, deleteme, conversionFactor);
     if (ret != LIBSBML_OPERATION_SUCCESS) return ret;
   }
-
-  //And now delete the replaced thing.
-  if (deleteme) {
-    //We have to iterate upwards and see if any ports referenced this deletion.  If so, delete those ports.
-//    return CompBase::removeFromParentAndPorts(replaced, toreplace);
-  }
   return LIBSBML_OPERATION_SUCCESS;
 }
 /** @endcond */
@@ -537,6 +531,32 @@ int Replacing::convertConversionFactor(ASTNode*& conversionFactor)
   return ret;
 }
 
-  
+//Deprecated function
+int Replacing::performReplacement()
+{
+  set<SBase*> toremove;
+  set<SBase*>* removed = NULL;
+  CompModelPlugin* cmp = NULL;
+  SBase* parent = getParentSBMLObject();
+  while (parent != NULL && parent->getTypeCode() != SBML_DOCUMENT) {
+    if (parent->getTypeCode() == SBML_COMP_MODELDEFINITION ||
+        parent->getTypeCode() == SBML_MODEL) {
+          cmp = static_cast<CompModelPlugin*>(parent->getPlugin("comp"));
+          if (cmp != NULL) {
+            removed = cmp->getRemovedSet();
+          }
+    }
+    parent = parent->getParentSBMLObject();
+  }
+  int ret = performReplacementAndCollect(removed, &toremove);
+  if (ret != LIBSBML_OPERATION_SUCCESS) {
+    return ret;
+  }
+  if (cmp == NULL) {
+    return LIBSBML_INVALID_OBJECT;
+  }
+  return cmp->removeCollectedElements(removed, &toremove);
+}
+ 
 LIBSBML_CPP_NAMESPACE_END
 

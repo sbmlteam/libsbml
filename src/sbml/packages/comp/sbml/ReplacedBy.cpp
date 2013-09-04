@@ -29,6 +29,7 @@
 #include <sbml/packages/comp/sbml/ReplacedBy.h>
 #include <sbml/packages/comp/extension/CompExtension.h>
 #include <sbml/packages/comp/extension/CompSBasePlugin.h>
+#include <sbml/packages/comp/extension/CompModelPlugin.h>
 #include <sbml/packages/comp/validator/CompSBMLError.h>
 
 using namespace std;
@@ -98,8 +99,7 @@ ReplacedBy::removeFromParentAndDelete()
   return comp_parent->unsetReplacedBy();
 }
 
-#if (0)
-int ReplacedBy::performReplacement(set<SBase*>* removed, set<SBase*>* toremove)
+int ReplacedBy::performReplacementAndCollect(set<SBase*>* removed, set<SBase*>* toremove)
 {
   SBMLDocument* doc = getSBMLDocument();
   //Find the various objects and plugin objects we need for this to work.
@@ -133,44 +133,6 @@ int ReplacedBy::performReplacement(set<SBase*>* removed, set<SBase*>* toremove)
   if (toremove) {
     toremove->insert(parent);
   }
-  return LIBSBML_OPERATION_SUCCESS;
-}
-#endif
-
-
-int ReplacedBy::performReplacement()
-{
-  SBMLDocument* doc = getSBMLDocument();
-  //Find the various objects and plugin objects we need for this to work.
-  SBase* parent = getParentSBMLObject();
-  if (parent==NULL) {
-    if (doc) {
-      string error = "Unable to perform replacement in ReplacedBy::performReplacement: no parent object for this <replacedBy> could be found.";
-      doc->getErrorLog()->logPackageError("comp", CompModelFlatteningFailed, getPackageVersion(), getLevel(), getVersion(), error, getLine(), getColumn());
-    }
-    return LIBSBML_INVALID_OBJECT;
-  }
-  SBase* ref = getReferencedElement();
-  if (ref==NULL) {
-    //getReferencedElement sets its own error messages.
-    return LIBSBML_INVALID_OBJECT;
-  }
-
-  //Update the IDs. (Will set its own error messages.)
-  int ret = updateIDs(ref, parent);
-  
-  //ReplacedBy elements do get the name of the top-level element, assuming it has one:
-  if (parent->isSetId()) {
-    ref->setId(parent->getId());
-  }
-  if (parent->isSetMetaId()) {
-    ref->setMetaId(parent->getMetaId());
-  }
-  if (ret != LIBSBML_OPERATION_SUCCESS) return ret;
-
-  //And finally, get ready to delete the parent object.
-  insertToRemoveObject(parent);
-
   return LIBSBML_OPERATION_SUCCESS;
 }
 

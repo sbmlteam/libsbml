@@ -1231,16 +1231,6 @@ static const packageErrorTableEntry compErrorTable[] =
     }
   },
 
-  // 1021206
-  { CompNoReplacingDeletedItems, 
-    "The children of deleted items may not be replaced.",
-    LIBSBML_CAT_GENERAL_CONSISTENCY, 
-    LIBSBML_SEV_ERROR,
-    "If an element is deleted with a <deletion>, its children may not be the targets of any <replacedBy> or <replacedElement>.",
-    { "L3V1 Comp V1 Section 3.6.5"
-    }
-  },
-
 
   // 1090101
   { CompUnresolvedReference, 
@@ -1366,6 +1356,59 @@ static const packageErrorTableEntry compErrorTable[] =
     "" ,
     { ""
     }
+  },
+
+  // 1090112
+  { CompDeprecatedDeleteFunction,
+    "The performDeletions fuctions is deprecated.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY, 
+    LIBSBML_SEV_ERROR,
+    "The software used to process this hierarchical model used the deprecated "
+    "function performDeletions to do so.  Unfortunately, it is "
+    "impossible to properly use this function "
+    "as it was originally designed, "
+    "without some models either causing the program to crash, or causing them "
+    "to be interpreted incorrectly.  Instead, the software should use "
+    "collectDeletionsAndDeleteCompConstructs, in conjunction with "
+    "collectRenameAndConvertReplacements and removeCollectedElements "
+    "to properly process hierarchical models."
+    "" ,
+    { ""
+    }
+  },
+
+  // 1090113
+  { CompDeprecatedReplaceFunction,
+    "The performReplacementsAndConversions fuctions is deprecated.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY, 
+    LIBSBML_SEV_ERROR,
+    "The software used to process this hierarchical model used the deprecated "
+    "function performReplacementsAndConversions to do so.  Unfortunately, it is "
+    "impossible to properly use this function "
+    "as it was originally designed, "
+    "without some models either causing the program to crash, or causing them "
+    "to be interpreted incorrectly.  Instead, the software should use "
+    "collectDeletionsAndDeleteCompConstructs, in conjunction with "
+    "collectRenameAndConvertReplacements and removeCollectedElements "
+    "to properly process hierarchical models."
+    "" ,
+    { ""
+    }
+  },
+
+  // 1090114
+  { CompDeletedReplacement,
+    "Element deleted before a subelement could be replaced.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY, 
+    LIBSBML_SEV_ERROR,
+    "The model contained a deletion whose subelement was replaced.  This "
+    "is perfectly legal, but unfortunately, the subroutine used to implement "
+    "this actually removed the deleted element and all of its children before "
+    "replacing the child, making it impossible to discover any IDs that need to "
+    "be replaced."
+    "" ,
+    { ""
+    }
   }
 };
 
@@ -1373,4 +1416,3 @@ LIBSBML_CPP_NAMESPACE_END
 
 #endif
 /** @endcond */
-

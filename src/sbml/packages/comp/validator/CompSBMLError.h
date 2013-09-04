@@ -160,7 +160,6 @@ typedef enum
 , CompMustReplaceMetaIDs                = 1021203
 , CompMustReplacePackageIDs             = 1021204
 , CompReplacedUnitsShouldMatch          = 1021205
-, CompNoReplacingDeletedItems           = 1021206
 
 , CompUnresolvedReference               = 1090101
 , CompNoModelInReference                = 1090102
@@ -174,6 +173,9 @@ typedef enum
 , CompFlatteningNotImplementedNotReqd   = 1090109
 , CompFlatteningNotImplementedReqd      = 1090110
 , CompFlatteningWarning                 = 1090111
+, CompDeprecatedDeleteFunction          = 1090112
+, CompDeprecatedReplaceFunction         = 1090113
+, CompDeletedReplacement                = 1090114
 
 } CompSBMLErrorCode_t;
 

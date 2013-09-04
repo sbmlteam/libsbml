@@ -903,72 +903,60 @@ void SBaseRef::clearReferencedElement()
   mReferencedElement = NULL;
 }
 
-#if (0)
-int SBaseRef::performDeletion(set<SBase*>* removed)
+int SBaseRef::collectDeletions(set<SBase*>* removed, set<SBase*>* toremove)
 {
   SBase* todelete = getReferencedElement();
   if (todelete==NULL) {
     return LIBSBML_INVALID_OBJECT;
   }
   if (removed) {
-    if (removed->insert(todelete).second == false) {
+    if (removed->find(todelete) != removed->end()) {
       //Already deleted or replaced.
       return LIBSBML_OPERATION_SUCCESS;
     }
   }
 
+  if (toremove) {
+    toremove->insert(todelete);
+  }
+
   CompSBasePlugin* todplug = static_cast<CompSBasePlugin*>(todelete->getPlugin(getPrefix()));
   if (todplug != NULL) {
     for (unsigned long re=0; re<todplug->getNumReplacedElements(); re++) {
-      todplug->getReplacedElement(re)->performDeletion(removed);
+      todplug->getReplacedElement(re)->collectDeletions(removed, toremove);
     }
     if (todplug->isSetReplacedBy()) {
-      todplug->getReplacedBy()->performDeletion(removed);
+      todplug->getReplacedBy()->collectDeletions(removed, toremove);
     }
   }
-  if (removed) {
-    List* children = todelete->getAllElements();
-    for (unsigned int el=0; el<children->getSize(); el++) {
-      SBase* element = static_cast<SBase*>(children->get(el));
-      removed->insert(element);
-    }
-  }
-  return CompBase::removeFromParentAndPorts(todelete, removed);
+  return LIBSBML_OPERATION_SUCCESS;
 }
-#endif
 
-
+//Deprecated function
 int SBaseRef::performDeletion()
 {
-  SBase* todelete = getReferencedElement();
-  if (todelete==NULL) {
+  set<SBase*> toremove;
+  set<SBase*>* removed;
+  CompModelPlugin* cmp = NULL;
+  SBase* parent = getParentSBMLObject();
+  while (parent != NULL && parent->getTypeCode() != SBML_DOCUMENT) {
+    if (parent->getTypeCode() == SBML_COMP_MODELDEFINITION ||
+        parent->getTypeCode() == SBML_MODEL) {
+          cmp = static_cast<CompModelPlugin*>(parent->getPlugin("comp"));
+          if (cmp != NULL) {
+            removed = cmp->getRemovedSet();
+          }
+    }
+    parent = parent->getParentSBMLObject();
+  }
+  int ret = collectDeletions(removed, &toremove);
+  if (ret != LIBSBML_OPERATION_SUCCESS) {
+    return ret;
+  }
+  if (cmp == NULL) {
     return LIBSBML_INVALID_OBJECT;
   }
-
-  if (insertRemovedObject(todelete) == false)
-  {
-    return LIBSBML_OPERATION_SUCCESS;
-  }
-
-  CompSBasePlugin* todplug = 
-    static_cast<CompSBasePlugin*>(todelete->getPlugin(getPrefix()));
-  if (todplug != NULL) {
-    for (unsigned long re=0; re<todplug->getNumReplacedElements(); re++) {
-      todplug->getReplacedElement(re)->performDeletion();
-    }
-    if (todplug->isSetReplacedBy()) {
-      todplug->getReplacedBy()->performDeletion();
-    }
-  }
-
-  List* children = todelete->getAllElements();
-  for (unsigned int el=0; el<children->getSize(); el++) {
-    SBase* element = static_cast<SBase*>(children->get(el));
-    insertRemovedObject(element);
-  }
-
-  int success = removeFromParentAndPorts(todelete);
-  return success;
+  return cmp->removeCollectedElements(removed, &toremove);
 }
 
 int SBaseRef::removeFromParentAndDelete()
