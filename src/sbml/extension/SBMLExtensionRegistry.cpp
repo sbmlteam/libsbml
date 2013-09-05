@@ -415,6 +415,7 @@ SBMLExtensionRegistry::disablePackage(const std::string& package)
     ext->setEnabled(false);
 }
 
+/** @cond doxygenLibsbmlInternal */
 /**
  * Disables all packages with the given URI / name.
  */
@@ -428,6 +429,7 @@ SBMLExtensionRegistry::disablePackages(const std::vector<std::string>& packages)
     ++it;
   }  
 }
+/** @endcond */
 
 /**
  * Enables the package with the given URI / name.
@@ -452,6 +454,7 @@ SBMLExtensionRegistry::isPackageEnabled(const std::string& package)
   return false;
 }
 
+/** @cond doxygenLibsbmlInternal */
 /**
  * Enables all packages with the given URI / name.
  */
@@ -465,6 +468,7 @@ SBMLExtensionRegistry::enablePackages(const std::vector<std::string>& packages)
     ++it;
   }
 }
+/** @endcond */
 
 
 

@@ -1098,7 +1098,7 @@ int CompModelPlugin::collectDeletionsAndDeleteSome(set<SBase*>* removed, set<SBa
   Model* model = static_cast<Model*>(getParentSBMLObject());
   if (model==NULL) {
     if (doc) {
-      string error = "Unable to attempt to perform deletions in CompModelPlugin::performDeletions: no parent model could be found for the given 'comp' model plugin element.";
+      string error = "Unable to attempt to perform deletions in CompModelPlugin::collectDeletionsAndDeleteSome: no parent model could be found for the given 'comp' model plugin element.";
       doc->getErrorLog()->logPackageError("comp", CompModelFlatteningFailed, getPackageVersion(), getLevel(), getVersion(), error);
     }
     return LIBSBML_OPERATION_FAILED;
@@ -1139,7 +1139,7 @@ int CompModelPlugin::collectDeletionsAndDeleteSome(set<SBase*>* removed, set<SBa
     if (modplug==NULL) {
       if (doc) {
         //Shouldn't happen:  'getInstantiation' turns on the comp plugin.
-        string error = "Unable to rename elements in CompModelPlugin::performDeletions: no valid 'comp' plugin for the model instantiated from submodel " + submodel->getId();
+        string error = "Unable to rename elements in CompModelPlugin::collectDeletionsAndDeleteSome: no valid 'comp' plugin for the model instantiated from submodel " + submodel->getId();
         doc->getErrorLog()->logPackageError("comp", CompModelFlatteningFailed, getPackageVersion(), getLevel(), getVersion(), error);
       }
       return LIBSBML_OPERATION_FAILED;
@@ -1150,6 +1150,7 @@ int CompModelPlugin::collectDeletionsAndDeleteSome(set<SBase*>* removed, set<SBa
 }
 
 
+/** @cond doxygenLibsbmlInternal */
 int CompModelPlugin::performDeletions()
 {
   SBMLDocument* doc = getSBMLDocument();
@@ -1165,6 +1166,7 @@ int CompModelPlugin::performDeletions()
   }
   return removeCollectedElements(&mRemoved, &toremove);
 }
+/** @endcond */
 
 int CompModelPlugin::collectRenameAndConvertReplacements(set<SBase*>* removed, set<SBase*>* toremove)
 {
@@ -1173,7 +1175,7 @@ int CompModelPlugin::collectRenameAndConvertReplacements(set<SBase*>* removed, s
   Model* model = static_cast<Model*>(getParentSBMLObject());
   if (model==NULL) {
     if (doc) {
-      string error = "Unable to perform replacements in CompModelPlugin::performDeletions: no parent model could be found for the given 'comp' model plugin element.";
+      string error = "Unable to perform replacements in CompModelPlugin::collectRenameAndConvertReplacements: no parent model could be found for the given 'comp' model plugin element.";
       doc->getErrorLog()->logPackageError("comp", CompModelFlatteningFailed, getPackageVersion(), getLevel(), getVersion(), error);
     }
     return LIBSBML_OPERATION_FAILED;
@@ -1228,6 +1230,7 @@ int CompModelPlugin::collectRenameAndConvertReplacements(set<SBase*>* removed, s
   return ret;
 }
 
+/** @cond doxygenLibsbmlInternal */
 //Deprecated function
 int CompModelPlugin::performReplacementsAndConversions()
 {
@@ -1244,6 +1247,7 @@ int CompModelPlugin::performReplacementsAndConversions()
   }
   return removeCollectedElements(&mRemoved, &toremove);
 }
+/** @endcond */
 
 int CompModelPlugin::removeCollectedElements(set<SBase*>* removed, set<SBase*>* toremove)
 {

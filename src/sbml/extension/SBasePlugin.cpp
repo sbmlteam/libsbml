@@ -381,14 +381,15 @@ SBasePlugin::prependStringToAllIdentifiers(const std::string& prefix)
 {
   return LIBSBML_OPERATION_SUCCESS;
 }
-  /** @endcond */
-  
+/** @endcond */
 
+/** @cond doxygenLibsbmlInternal */
 int 
 SBasePlugin::transformIdentifiers(IdentifierTransformer* idTransformer)
 {
    return LIBSBML_OPERATION_SUCCESS;
 }
+/** @endcond */
 
 /*
  * Returns the namespace URI of this element.

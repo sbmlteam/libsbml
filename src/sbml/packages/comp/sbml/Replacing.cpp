@@ -366,6 +366,7 @@ Replacing::replaceWithAndMaybeDelete(SBase* replacement, bool deleteme, ASTNode*
 /** @endcond */
 
 
+/** @cond doxygenLibsbmlInternal */
 int 
 Replacing::updateIDs(SBase* oldnames, SBase* newnames)
 {
@@ -439,7 +440,10 @@ Replacing::updateIDs(SBase* oldnames, SBase* newnames)
   //LS DEBUG And here is where we would need some sort of way to check for ids that were not 'id' or 'metaid'.
   return ret;
 }
+/** @endcond */
 
+
+/** @cond doxygenLibsbmlInternal */
 int Replacing::performConversions(SBase* replacement, ASTNode*& conversionFactor)
 {
   SBMLDocument* doc = getSBMLDocument();
@@ -494,7 +498,10 @@ int Replacing::performConversions(SBase* replacement, ASTNode*& conversionFactor
   }
   return ret;
 }
+/** @endcond */
 
+
+/** @cond doxygenLibsbmlInternal */
 int Replacing::convertConversionFactor(ASTNode*& conversionFactor)
 {
   int ret = LIBSBML_OPERATION_SUCCESS;
@@ -530,6 +537,8 @@ int Replacing::convertConversionFactor(ASTNode*& conversionFactor)
   }
   return ret;
 }
+/** @endcond */
+
 
 //Deprecated function
 int Replacing::performReplacement()

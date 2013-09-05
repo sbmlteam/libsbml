@@ -150,7 +150,7 @@ public:
 
   
   /**
-   * Returns @c true or @c false depending on whether the argument string
+   * Returns @c true or @c false depending on whether the @param uri argument string
    * conforms to the XML data type <code>anyURI</code>.
    *
    * Type anyURI is defined by XML Schema 1.0. It is a character string 
@@ -165,7 +165,7 @@ public:
    * This method provides programs with the ability to test explicitly that
    * the strings they create conform to the XML anyURI syntax.
    *
-   * @param id string to be checked for conformance to the syntax of
+   * @param uri string to be checked for conformance to the syntax of
    * <a target="_blank" 
    * href="http://www.w3.org/TR/xmlschema-2/#anyURI">anyURI</a>.
    *

@@ -983,10 +983,12 @@ int SBaseRef::removeFromParentAndDelete()
   }
 }
 
+/** @cond doxygenLibsbmlInternal */
 SBase* SBaseRef::getDirectReference()
 {
   return mDirectReference;
 }
+/** @endcond */
 
 /**
  * 

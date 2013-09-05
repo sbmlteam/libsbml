@@ -222,6 +222,7 @@ SBase::prependStringToAllIdentifiers(const std::string& prefix)
   /** @endcond */
 
 
+/** @cond doxygenLibsbmlInternal */
 int 
 SBase::transformIdentifiers(IdentifierTransformer* idTransformer)
 {
@@ -249,6 +250,7 @@ SBase::transformIdentifiers(IdentifierTransformer* idTransformer)
 
   return ret;
 }
+/** @endcond */
 
 List*
 SBase::getAllElementsFromPlugins(ElementFilter *filter)

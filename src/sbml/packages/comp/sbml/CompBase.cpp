@@ -430,6 +430,7 @@ CompBase::hasValidLevelVersionNamespaceCombination()
 /** @endcond */
 
 
+/** @cond doxygenLibsbmlInternal */
 int CompBase::removeFromParentAndPorts(SBase* todelete, set<SBase*>* removed)
 {
   //First remove from ports:
@@ -467,8 +468,10 @@ int CompBase::removeFromParentAndPorts(SBase* todelete, set<SBase*>* removed)
   }
   return todelete->removeFromParentAndDelete();
 }
+/** @endcond */
 
 
+/** @cond doxygenLibsbmlInternal */
 //Deprecated function
 int CompBase::removeFromParentAndPorts(SBase* todelete)
 {
@@ -517,7 +520,6 @@ int CompBase::removeFromParentAndPorts(SBase* todelete)
   //And secondly, remove from parent
   return todelete->removeFromParentAndDelete();
 }
-
 /** @endcond */
 
 LIBSBML_CPP_NAMESPACE_END

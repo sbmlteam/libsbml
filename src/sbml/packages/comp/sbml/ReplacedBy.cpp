@@ -136,6 +136,7 @@ int ReplacedBy::performReplacementAndCollect(set<SBase*>* removed, set<SBase*>* 
   return LIBSBML_OPERATION_SUCCESS;
 }
 
+/** @cond doxygenLibsbmlInternal */
 int 
 ReplacedBy::updateIDs(SBase* oldnames, SBase* newnames)
 {
@@ -168,6 +169,7 @@ ReplacedBy::updateIDs(SBase* oldnames, SBase* newnames)
   //LS DEBUG We also need to update the other package IDs.
   return Replacing::updateIDs(oldnames, newnames);
 }
+/** @endcond */
 
 
 /** @cond doxygenLibsbmlInternal */

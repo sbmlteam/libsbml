@@ -1285,8 +1285,8 @@ public:
 
 
   /**
-  * Predicate returning @c true if this node is of type @param type,
-  * and has the number of children @param numchildren.  Designed
+  * Predicate returning @c true if this node is of type @param type
+  * and has @param numchildren number of children.  Designed
   * for use in cases where it is useful to discover if the node is
   * a unary not or unary minus, or a times node with no children, etc.
   *
