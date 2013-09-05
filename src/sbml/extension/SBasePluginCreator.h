@@ -26,6 +26,10 @@
  * in the file named "LICENSE.txt" included with this software distribution
  * and also available online as http://sbml.org/software/libsbml/license.html
  * ------------------------------------------------------------------------ -->
+ *
+ * @class SBasePluginCreator
+ * @ingroup Core
+ * @brief Template class of %SBasePlugin.
  */
 
 #ifndef SBasePluginCreator_h

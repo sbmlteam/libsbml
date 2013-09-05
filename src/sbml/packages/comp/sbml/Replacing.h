@@ -190,8 +190,8 @@ public:
    * To retain old functionality, this function calls performReplacementAndCollect,
    * and then actually removes the now-redundant element.  However, this can lead
    * to doubly-deleted elements, as well as the incorrect interpretation of some
-   * models.  There is a replacement function performReplacementAndCollect,
-   * but it has been marked protected, in the hopes that people will instead simply
+   * models.  The replacement function performReplacementAndCollect
+   * has been marked protected, in the hopes that people will instead simply
    * use CompModelPlugin::instantiateSubmodels, which hides all the complexity while
    * still allowing access to a non-flattened version of a hierarchical model.
    */

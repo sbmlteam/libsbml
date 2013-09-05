@@ -552,6 +552,12 @@ protected:
   /** @endcond */
 };
 
+/**
+ * @class ListOfObjectives
+ * @ingroup FBC
+ * @brief @htmlinclude pkg-marker-fbc.html
+ * Implementation of the %ListOfObjectives construct from the 'fbc' package.
+ */
 class LIBSBML_EXTERN ListOfObjectives : public ListOf
 {
 public:

@@ -27,6 +27,17 @@
  * in the file named "LICENSE.txt" included with this software distribution
  * and also available online as http://sbml.org/software/libsbml/license.html
  * ------------------------------------------------------------------------ -->
+ *
+ * @class SBMLDocumentPluginNotRequired
+ * @ingroup Core
+ * @brief Template class for the %SBMLDocument Plugin class for non-required packages.
+ *
+ * The SBMLDocumentPluginNotRequired class extends the SBMLDocumentPlugin class, and
+ * will add a validation error to a read-in SBML Document that has the package's 
+ * 'required' flag set to @c true:  for all packages, the value of the 'required' flag
+ * is set by the specification itself to be @c true or @c false, depending on whether
+ * constructs in the package can potentially be used to change the mathematics of
+ * the model.
  */
 
 #ifndef SBMLDocumentPluginNotRequired_h

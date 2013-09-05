@@ -26,6 +26,17 @@
  * in the file named "LICENSE.txt" included with this software distribution
  * and also available online as http://sbml.org/software/libsbml/license.html
  * ------------------------------------------------------------------------ -->
+ *
+ * @class SBMLDocumentPlugin
+ * @ingroup Core
+ * @brief Template class for the %SBMLDocument Plugin class needed by all packages.
+ *
+ * Plugin objects for the SBMLDocument element must be this class or 
+ *        a derived class of this class.
+ *        Package developers should use this class as-is if only "required" 
+ *        attribute is added in the SBMLDocument element by their packages.
+ *        Otherwise, developers must implement a derived class of this class 
+ *        and use that class as the plugin object for the SBMLDocument element. 
  */
 
 #ifndef SBMLDocumentPlugin_h
@@ -43,14 +54,6 @@
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
-//
-// (NOTE) Plugin objects for the SBMLDocument element must be this class or 
-//        a derived class of this class.
-//        Package developers should use this class as-is if only "required" 
-//        attribute is added in the SBMLDocument element by their packages, 
-//        otherwise developers must implement a derived class of this class 
-//        and use the class as the plugin object for the SBMLDocument element. 
-//
 
 /**
  * @ingroup Core

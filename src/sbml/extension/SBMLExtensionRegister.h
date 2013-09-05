@@ -1,7 +1,7 @@
 /**
  * @file    SBMLExtensionRegister.h
  * @brief   Definition of SBMLExtensionRegister, the template class for registering
- *          an extension package to SBMLExtensionRegistry class.
+ *          an extension package to the SBMLExtensionRegistry class.
  * @author  Akiya Jouraku
  *
  *
@@ -26,6 +26,12 @@
  * in the file named "LICENSE.txt" included with this software distribution
  * and also available online as http://sbml.org/software/libsbml/license.html
  * ------------------------------------------------------------------------ -->
+ *
+ * @class SBMLExtensionRegister
+ * @ingroup Core
+ * @brief Template class for registering an extension package to the
+ *        SBMLExtensionRegistry class.
+ *
  */
 
 #ifndef SBMLExtensionRegister_h

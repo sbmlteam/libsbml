@@ -26,6 +26,11 @@
  * in the file named "LICENSE.txt" included with this software distribution
  * and also available online as http://sbml.org/software/libsbml/license.html
  * ------------------------------------------------------------------------ -->
+ *
+ * @class SBMLExtensionRegistry
+ * @ingroup Core
+ * @brief Registry class in which extension packages are registered.
+ *
  */
 
 #ifndef SBMLExtensionRegistry_h
