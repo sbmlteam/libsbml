@@ -1,0 +1,114 @@
+// dummy script for graduating a package to trunk
+// NOTE this is NOT a functioning script
+
+SET PACKAGE_NAME=arrays
+
+// assume I'm running from this directory
+// i.e. libsbml-experimental/dev/packages/graduate_package_to_trunk
+
+// move to top-level directory
+cd ..
+cd ..
+cd ..
+
+// copy the relevant cmake file
+svn cp %PACKAGE_NAME%-package.cmake https://svn.code.sf.net/p/sbml/code/trunk/libsbml -m "graduating %PACKAGE_NAME% to trunk"
+
+// copy the create archives file
+cd dev/packages/create_archives
+svn cp create-zip-%PACKAGE_NAME%.bat https://svn.code.sf.net/p/sbml/code/trunk/libsbml/dev/packages/create_archives -m "graduating %PACKAGE_NAME% to trunk"
+
+// copy examples files
+cd ..
+cd ..
+cd ..
+cd examples
+svn cp %PACKAGE_NAME%-package.cmake https://svn.code.sf.net/p/sbml/code/trunk/libsbml/examples -m "graduating %PACKAGE_NAME% to trunk"
+
+cd c
+if exists dir %PACKAGE_NAME%
+svn cp %PACKAGE_NAME% https://svn.code.sf.net/p/sbml/code/trunk/libsbml/examples/c/%PACKAGE_NAME% -m "graduating %PACKAGE_NAME% to trunk"
+cd ..
+
+cd c++
+if exists dir %PACKAGE_NAME%
+svn cp %PACKAGE_NAME% https://svn.code.sf.net/p/sbml/code/trunk/libsbml/examples/c++/%PACKAGE_NAME% -m "graduating %PACKAGE_NAME% to trunk"
+cd ..
+
+cd csharp
+if exists dir %PACKAGE_NAME%
+svn cp %PACKAGE_NAME% https://svn.code.sf.net/p/sbml/code/trunk/libsbml/examples/csharp/%PACKAGE_NAME% -m "graduating %PACKAGE_NAME% to trunk"
+cd ..
+
+cd java
+if exists dir %PACKAGE_NAME%
+svn cp %PACKAGE_NAME% https://svn.code.sf.net/p/sbml/code/trunk/libsbml/examples/java/%PACKAGE_NAME% -m "graduating %PACKAGE_NAME% to trunk"
+cd ..
+
+cd perl
+if exists dir %PACKAGE_NAME%
+svn cp %PACKAGE_NAME% https://svn.code.sf.net/p/sbml/code/trunk/libsbml/examples/perl/%PACKAGE_NAME% -m "graduating %PACKAGE_NAME% to trunk"
+cd ..
+
+cd python
+if exists dir %PACKAGE_NAME%
+svn cp %PACKAGE_NAME% https://svn.code.sf.net/p/sbml/code/trunk/libsbml/examples/python/%PACKAGE_NAME% -m "graduating %PACKAGE_NAME% to trunk"
+cd ..
+
+cd r
+if exists dir %PACKAGE_NAME%
+svn cp %PACKAGE_NAME% https://svn.code.sf.net/p/sbml/code/trunk/libsbml/examples/r/%PACKAGE_NAME% -m "graduating %PACKAGE_NAME% to trunk"
+cd ..
+
+cd ruby
+if exists dir %PACKAGE_NAME%
+svn cp %PACKAGE_NAME% https://svn.code.sf.net/p/sbml/code/trunk/libsbml/examples/ruby/%PACKAGE_NAME% -m "graduating %PACKAGE_NAME% to trunk"
+cd ..
+
+// move to src and copy cmake file
+cd ..
+cd src
+svn cp %PACKAGE_NAME%-package.cmake https://svn.code.sf.net/p/sbml/code/trunk/libsbml/src -m "graduating %PACKAGE_NAME% to trunk"
+
+// bindings
+cd bindings
+
+cd csharp
+svn cp *-%PACKAGE_NAME%.* https://svn.code.sf.net/p/sbml/code/trunk/libsbml/src/bindings/csharp -m "graduating %PACKAGE_NAME% to trunk"
+cd ..
+
+cd java
+svn cp *-%PACKAGE_NAME%.* https://svn.code.sf.net/p/sbml/code/trunk/libsbml/src/bindings/java -m "graduating %PACKAGE_NAME% to trunk"
+cd ..
+
+cd perl
+svn cp *-%PACKAGE_NAME%.* https://svn.code.sf.net/p/sbml/code/trunk/libsbml/src/bindings/perl -m "graduating %PACKAGE_NAME% to trunk"
+cd ..
+
+cd python
+svn cp *-%PACKAGE_NAME%.* https://svn.code.sf.net/p/sbml/code/trunk/libsbml/src/bindings/python -m "graduating %PACKAGE_NAME% to trunk"
+cd ..
+
+cd r
+svn cp *-%PACKAGE_NAME%.* https://svn.code.sf.net/p/sbml/code/trunk/libsbml/src/bindings/r -m "graduating %PACKAGE_NAME% to trunk"
+cd ..
+
+cd ruby
+svn cp *-%PACKAGE_NAME%.* https://svn.code.sf.net/p/sbml/code/trunk/libsbml/src/bindings/ruby -m "graduating %PACKAGE_NAME% to trunk"
+cd ..
+
+cd swig
+svn cp %PACKAGE_NAME%-*.* https://svn.code.sf.net/p/sbml/code/trunk/libsbml/src/bindings/swig -m "graduating %PACKAGE_NAME% to trunk"
+cd ..
+
+// move to src/sbml/packages and copy files
+cd ..
+cd sbml/packages
+svn cp %PACKAGE_NAME%-register.* https://svn.code.sf.net/p/sbml/code/trunk/libsbml/src/sbml/packages -m "graduating %PACKAGE_NAME% to trunk"
+
+// copy the package directory
+svn cp %PACKAGE_NAME% https://svn.code.sf.net/p/sbml/code/trunk/libsbml/src/sbml/packages/%PACKAGE_NAME% -m "graduating %PACKAGE_NAME% to trunk"
+
+cd ..
+cd ..
+cd ..
