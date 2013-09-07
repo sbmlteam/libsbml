@@ -93,25 +93,11 @@ TestValidator::test (const TestFile& file)
   bool error = false;
 
   unsigned int id       = file.getConstraintId();
-  //cout << file.getFilename() << endl;
-  /* change numbers for specific units tests that report same number */
-  if (id == 99502 || id == 99503 || id == 99504)
-    id = 10501;
-
-  /* change numbers for specific units tests that report same number */
-  if (id == 90502 || id == 90503 || id == 90504)
-    id = 90501;
-
   unsigned int expected = file.getNumFailures();
   unsigned int others   = file.getAdditionalFailId();
-  /* for 10311 called using just the id validator you will get 99303 */
-  if (id == 10311 && expected == 1)
-  {
-    expected = 2;
-    others = 99303;
-  }
 
   unsigned int actual   = mValidator.validate( file.getFullname() );
+
 
   list<SBMLError>::const_iterator begin = mValidator.getFailures().begin();
   list<SBMLError>::const_iterator end   = mValidator.getFailures().end();
@@ -129,11 +115,24 @@ TestValidator::test (const TestFile& file)
   }
 
 
-  unsigned int same = (unsigned int)count_if(begin, end, HasId(id));
   vector<unsigned int> ids;
+  transform(begin, end, back_inserter(ids), ToId());
+
+  if (id == 1021204 && ids.at(0) == 99108)
+  {
+    id = 99108;
+  }
+
+  unsigned int same = (unsigned int)count_if(begin, end, HasId(id));
 
   if (expected != same && actual != same)
   {
+    // need to change report if we needed a package to be implemented
+    //but this version of libsbml does not have the package
+    if (id == 1021204)
+    {
+
+    }
     // need to consider case where the test case has
     // an additional fail
     if (expected - same != 1)
@@ -142,8 +141,6 @@ TestValidator::test (const TestFile& file)
     }
     else
     {
-      transform(begin, end, back_inserter(ids), ToId());
-
       unsigned int match = 0;
       for (unsigned int i = 0; i < ids.size(); i++)
       {
