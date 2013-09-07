@@ -10,7 +10,7 @@
         </comp:listOfReplacedElements>
         <comp:listOfReplacedElements>
           <comp:replacedElement comp:idRef="sub1" comp:submodelRef="sub2">
-            <comp:sBaseRef comp:idRef="S1"/>
+            <comp:sBaseRef comp:idRef="C1"/>
           </comp:replacedElement>
         </comp:listOfReplacedElements>
       </compartment>
@@ -29,6 +29,7 @@
     <comp:modelDefinition id="moddef1">
       <listOfCompartments>
         <compartment id="C" spatialDimensions="3" size="1" constant="false"/>
+        <compartment id="C1" spatialDimensions="3" size="1" constant="false"/>
       </listOfCompartments>
       <listOfSpecies>
         <species id="S1" compartment="C" initialConcentration="2.5" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>

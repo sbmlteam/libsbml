@@ -39,7 +39,7 @@
         <species id="S1" compartment="C" initialAmount="9" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
       </listOfSpecies>
        <comp:listOfPorts>
-        <comp:port comp:id="C_port" comp:idRef="C"/>
+        <comp:port comp:id="C_port" comp:idRef="S1"/>
       </comp:listOfPorts>
     </comp:modelDefinition>  
   </comp:listOfModelDefinitions>

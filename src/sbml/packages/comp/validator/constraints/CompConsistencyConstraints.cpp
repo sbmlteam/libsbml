@@ -42,6 +42,8 @@
 #include "SubmodelReferenceCycles.h"
 #include "UniquePortReferences.h"
 #include "UniqueReplacedReferences.h"
+#include "ClassReplacements.h"
+#include "PackageIdReplacementCheck.h"
 
 #endif
 
@@ -3726,6 +3728,15 @@ START_CONSTRAINT (CompReplacedBySubModelRef, ReplacedBy, repBy)
   inv(fail == false);
 }
 END_CONSTRAINT
+
+//21201
+EXTERN_CONSTRAINT( CompMustReplaceSameClass, ClassReplacements)
+
+//21202 - caught during flattening
+//21203 - caught during flattening
+
+//21204
+EXTERN_CONSTRAINT(CompMustReplacePackageIDs, PackageIdReplacementCheck)
 
 
 

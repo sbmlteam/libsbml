@@ -12,6 +12,7 @@
       <compartment id="C" spatialDimensions="3" size="10" constant="false" metaid="CD">
         <comp:listOfReplacedElements>
           <comp:replacedElement comp:idRef="sub1" comp:submodelRef="sub2">
+            <comp:sBaseRef comp:idRef="C"/>            
           </comp:replacedElement>
         </comp:listOfReplacedElements>
       </compartment>

@@ -154,7 +154,7 @@ UniqueReplacedReferences::checkReferencedElement(ReplacedElement& repE)
   if (mReferencedElements->find(refElem, 
                            (ListItemComparator) (ObjectsSame1)) != NULL)
   {
-    if (repE.getReferencedElement()->getTypeCode() != SBML_COMP_DELETION)
+    if (refElem->getTypeCode() != SBML_COMP_DELETION)
     {
       logReferenceExists (repE);
     }

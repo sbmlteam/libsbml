@@ -34,7 +34,7 @@
   <comp:listOfModelDefinitions>
     <comp:modelDefinition id="moddef1">
       <comp:listOfPorts>
-        <comp:port comp:idRef="C1" comp:id="moddef1_C_port"/>
+        <comp:port comp:idRef="S1" comp:id="moddef1_C_port"/>
       </comp:listOfPorts>
       <listOfUnitDefinitions>
         <unitDefinition id="perSecond">

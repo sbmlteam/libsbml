@@ -1,6 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <sbml xmlns="http://www.sbml.org/sbml/level3/version1/core" xmlns:comp="http://www.sbml.org/sbml/level3/version1/comp/version1" level="3" version="1" comp:required="true">
   <model>
+    <listOfUnitDefinitions>
+      <unitDefinition id="xyz">
+        <listOfUnits>
+          <unit kind="second" exponent="-1" scale="0" multiplier="1"/>
+        </listOfUnits>
+        <comp:listOfReplacedElements>
+          <comp:replacedElement comp:idRef="moddef3_sub2" comp:submodelRef="sub3">
+            <comp:sBaseRef comp:idRef="moddef2_sub1">
+              <comp:sBaseRef comp:unitRef="perSecond"/>
+            </comp:sBaseRef>
+          </comp:replacedElement>
+        </comp:listOfReplacedElements>
+      </unitDefinition>
+    </listOfUnitDefinitions>
     <listOfCompartments>
       <compartment id="C" spatialDimensions="3" size="10" constant="false">
         <comp:listOfReplacedElements>
@@ -12,13 +26,6 @@
     </listOfCompartments>
     <listOfSpecies>
       <species id="S1" compartment="C" initialAmount="5" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false">
-        <comp:listOfReplacedElements>
-          <comp:replacedElement comp:idRef="moddef3_sub2" comp:submodelRef="sub3">
-            <comp:sBaseRef comp:idRef="moddef2_sub1">
-              <comp:sBaseRef comp:unitRef="perSecond"/>
-            </comp:sBaseRef>
-          </comp:replacedElement>
-        </comp:listOfReplacedElements>
       </species>
     </listOfSpecies>
     <comp:listOfSubmodels>

@@ -6,6 +6,7 @@
         <listOfUnits>
           <unit kind="litre" multiplier="1" scale="0" exponent="0"/>
         </listOfUnits>
+        <comp:replacedBy comp:unitRef="ddd" comp:submodelRef="sub2"/>
       </unitDefinition>
     </listOfUnitDefinitions>
     <listOfCompartments>
@@ -16,7 +17,6 @@
         <comp:listOfReplacedElements>
           <comp:replacedElement comp:idRef="S1" comp:submodelRef="sub2"/>
         </comp:listOfReplacedElements>
-        <comp:replacedBy comp:unitRef="ddd" comp:submodelRef="sub2"/>
       </species>
     </listOfSpecies>
     <comp:listOfSubmodels>

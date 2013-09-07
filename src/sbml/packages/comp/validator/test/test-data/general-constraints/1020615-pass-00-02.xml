@@ -4,7 +4,9 @@
     <listOfCompartments>
       <compartment id="comp1" spatialDimensions="3" size="1" constant="true">
         <comp:listOfReplacedElements>
-          <comp:replacedElement comp:idRef="submod1" comp:submodelRef="submod1"/>
+          <comp:replacedElement comp:idRef="submod1" comp:submodelRef="submod1">
+            <comp:sBaseRef comp:idRef="comp"/>            
+          </comp:replacedElement>
         </comp:listOfReplacedElements>        
       </compartment>
     </listOfCompartments>

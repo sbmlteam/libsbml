@@ -50,10 +50,10 @@
         </unitDefinition>
       </listOfUnitDefinitions>
       <listOfCompartments>
-        <compartment id="C1" spatialDimensions="3" size="1" constant="false" metaid="_CC"/>
+        <compartment id="C1" spatialDimensions="3" size="1" constant="false"/>
       </listOfCompartments>
       <listOfSpecies>
-        <species id="S1" compartment="C1" initialConcentration="2.5" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+        <species id="S1"  metaid="_CC" compartment="C1" initialConcentration="2.5" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
       </listOfSpecies>
     </comp:modelDefinition>
     <comp:modelDefinition id="moddef2">

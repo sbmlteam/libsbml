@@ -1,11 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <sbml xmlns="http://www.sbml.org/sbml/level3/version1/core" xmlns:comp="http://www.sbml.org/sbml/level3/version1/comp/version1" level="3" version="1" comp:required="true">
   <model>
-     <listOfParameters>
-      <parameter id="p8" value="8" constant="false">
+    <listOfUnitDefinitions>
+      <unitDefinition id="unit1">
+        <listOfUnits>
+          <unit kind="litre" multiplier="1" scale="0" exponent="0"/>
+        </listOfUnits>
         <comp:listOfReplacedElements>
           <comp:replacedElement comp:unitRef="ddd" comp:submodelRef="sub1"/>
         </comp:listOfReplacedElements>
+      </unitDefinition>
+    </listOfUnitDefinitions>
+    <listOfParameters>
+      <parameter id="p8" value="8" constant="false">
       </parameter>
       <parameter id="p" value="2" constant="true" units="second"/>
     </listOfParameters>

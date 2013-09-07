@@ -1186,7 +1186,15 @@ static const packageErrorTableEntry compErrorTable[] =
     "Replaced classes must match.",
     LIBSBML_CAT_GENERAL_CONSISTENCY, 
     LIBSBML_SEV_ERROR,
-    "If one element replaces another, whether it is the target of a <replacedBy> element, or whether it has a child <replacedElement>, the SBML class of the replacement element must match the SBML class of the replaced element, with two exceptions: an element of a derived class may replace an object of its base class (for base classes other than SBase), and any SBML class with mathematical meaning may replace a <parameter>. A base class may not replace a derived class, however, nor may a <parameter> replace some other SBML element with mathematical meaning.",
+    "If one element replaces another, whether it is the target of a "
+    "<replacedBy> element, or whether it has a child <replacedElement>, "
+    "the SBML class of the replacement element must match the SBML class "
+    "of the replaced element, with two exceptions: an element of a derived "
+    "class may replace an object of its base class (for base classes other "
+    "than SBase), and any SBML class with mathematical meaning may "
+    "replace a <parameter>. A base class may not replace a derived class, "
+    "however, nor may a <parameter> replace some other SBML element with "
+    "mathematical meaning.",
     { "L3V1 Comp V1 Section 3.6.5"
     }
   },
@@ -1196,7 +1204,10 @@ static const packageErrorTableEntry compErrorTable[] =
     "Replaced IDs must be replaced with IDs.",
     LIBSBML_CAT_GENERAL_CONSISTENCY, 
     LIBSBML_SEV_ERROR,
-    "If one element replaces another, whether it is the target of a <replacedBy> element, or whether it has a child <replacedElement>, if the replaced element has the 'id' attribute set, the replacement element must also have the 'id' attribute set.",
+    "If one element replaces another, whether it is the target of a "
+    "<replacedBy> element, or whether it has a child <replacedElement>, "
+    "if the replaced element has the 'id' attribute set, the replacement !"
+    "element must also have the 'id' attribute set.",
     { "L3V1 Comp V1 Section 3.6.5"
     }
   },
@@ -1206,7 +1217,10 @@ static const packageErrorTableEntry compErrorTable[] =
     "Replaced metaids must be replaced with metaids.",
     LIBSBML_CAT_GENERAL_CONSISTENCY, 
     LIBSBML_SEV_ERROR,
-    "If one element replaces another, whether it is the target of a <replacedBy> element, or whether it has a child <replacedElement>, if the replaced element has the 'metaid' attribute set, the replacement element must also have the 'metaid' attribute set.",
+    "If one element replaces another, whether it is the target of a "
+    "<replacedBy> element, or whether it has a child <replacedElement>, "
+    "if the replaced element has the 'metaid' attribute set, the replacement "
+    "element must also have the 'metaid' attribute set.",
     { "L3V1 Comp V1 Section 3.6.5"
     }
   },
@@ -1216,7 +1230,11 @@ static const packageErrorTableEntry compErrorTable[] =
     "Replaced package IDs must be replaced with package IDs.",
     LIBSBML_CAT_GENERAL_CONSISTENCY, 
     LIBSBML_SEV_ERROR,
-    "If one element replaces another, whether it is the target of a <replacedBy> element, or whether it has a child <replacedElement>, if the replaced element has an identifier attribute from some other SBML package set, the replacement element must also have that same identifier attribute set.",
+    "If one element replaces another, whether it is the target of a "
+    "<replacedBy> element, or whether it has a child <replacedElement>, "
+    "if the replaced element has an identifier attribute from some other "
+    "SBML package set, the replacement element must also have that same "
+    "identifier attribute set.",
     { "L3V1 Comp V1 Section 3.6.5"
     }
   },
@@ -1226,7 +1244,11 @@ static const packageErrorTableEntry compErrorTable[] =
     "Units of replaced elements should match replacement units.",
     LIBSBML_CAT_GENERAL_CONSISTENCY, 
     LIBSBML_SEV_WARNING,
-    "If one element replaces another, whether it is the target of a <replacedBy> element, or whether it has a child <replacedElement>, the units of the replaced element, multiplied by the units of any applicable conversion factor, should equal the units of the replacement element.",
+    "If one element replaces another, whether it is the target of "
+    "a <replacedBy> element, or whether it has a child <replacedElement>, "
+    "the units of the replaced element, multiplied by the units of any "
+    "applicable conversion factor, should equal the units of the "
+    "replacement element.",
     { "L3V1 Comp V1 Section 3.6.5"
     }
   },

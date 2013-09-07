@@ -34,14 +34,14 @@
   <comp:listOfModelDefinitions>
     <comp:modelDefinition id="simple">
 	   <listOfUnitDefinitions>
-        <unitDefinition id="perSecond">
+	     <unitDefinition id="perSecond"  metaid="sub1">
           <listOfUnits>
             <unit kind="second" exponent="-1" scale="0" multiplier="1"/>
           </listOfUnits>
         </unitDefinition>
       </listOfUnitDefinitions>
       <listOfCompartments>
-        <compartment id="comp" spatialDimensions="3" size="1" constant="true" metaid="sub1"/>
+        <compartment id="comp" spatialDimensions="3" size="1" constant="true"/>
       </listOfCompartments>
       <listOfSpecies>
         <species id="S" compartment="comp" initialConcentration="5" hasOnlySubstanceUnits="false"
