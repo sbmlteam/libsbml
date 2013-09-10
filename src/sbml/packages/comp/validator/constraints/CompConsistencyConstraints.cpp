@@ -3468,7 +3468,7 @@ START_CONSTRAINT (CompReplacedElementConvFactorRef, ReplacedElement, repE)
   pre (repE.isSetSubmodelRef());
   pre (repE.isSetConversionFactor());
 
-  msg = "The 'timeConversionFactor' of a <replacedElement> in ";
+  msg = "The 'conversionFactor' of a <replacedElement> in ";
   const Model* mod = static_cast<const Model*>
                                  (repE.getAncestorOfType(SBML_MODEL, "core"));
   if (mod == NULL) {
@@ -3504,6 +3504,22 @@ END_CONSTRAINT
 
 //21010
 EXTERN_CONSTRAINT( CompReplacedElementSameReference, UniqueReplacedReferences)
+
+//21011
+START_CONSTRAINT (CompReplacedElementNoDelAndConvFact, ReplacedElement, repE)
+{
+  pre (repE.isSetDeletion());
+
+  bool fail = false;
+
+  if (repE.isSetConversionFactor() == true)
+  {
+    fail = true;
+  }
+
+  inv(fail == false);
+}
+END_CONSTRAINT
 
 //*************************************
 

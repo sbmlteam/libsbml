@@ -1143,6 +1143,17 @@ static const packageErrorTableEntry compErrorTable[] =
     }
   },
 
+  // 1021011
+  { CompReplacedElementNoDelAndConvFact, 
+    "No <replacedElement> with deletion and conversionfactor",
+    LIBSBML_CAT_GENERAL_CONSISTENCY, 
+    LIBSBML_SEV_ERROR,
+    "If a <replacedElement> uses the 'comp:deletion' attribute, then it "
+    "should not also use the 'comp:conversionFactor' attribute.",
+    { "L3V1 Comp V1 Section 3.6.2"
+    }
+  },
+
   // 1021101
   { CompReplacedByMustRefObject, 
     "ReplacedBy must reference an object",

@@ -151,6 +151,7 @@ typedef enum
 , CompReplacedElementDeletionRef        = 1021005
 , CompReplacedElementConvFactorRef      = 1021006
 , CompReplacedElementSameReference      = 1021010
+, CompReplacedElementNoDelAndConvFact   = 1021011
 
 , CompReplacedByMustRefObject           = 1021101
 , CompReplacedByMustRefOnlyOne          = 1021102
