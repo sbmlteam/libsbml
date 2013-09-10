@@ -26,6 +26,7 @@
 #include <sbml/packages/comp/util/SBMLUri.h>
 #include <sbml/packages/comp/extension/CompSBMLDocumentPlugin.h>
 #include <sbml/packages/comp/extension/CompModelPlugin.h>
+#include <sbml/packages/comp/validator/CompUnitConsistencyValidator.h>
 #include <sbml/packages/comp/validator/CompIdentifierConsistencyValidator.h>
 #include <sbml/packages/comp/validator/CompConsistencyValidator.h>
 #include <sbml/packages/comp/validator/CompValidator.h>
@@ -725,9 +726,11 @@ CompSBMLDocumentPlugin::checkConsistency(bool overrideFlattening)
   /* determine which validators to run */
   bool id    = ((applicableValidators & 0x01) == 0x01);
   bool sbml  = ((applicableValidators & 0x02) == 0x02);
+  bool units = ((applicableValidators & 0x10) == 0x10);
 
   CompIdentifierConsistencyValidator id_validator;
   CompConsistencyValidator validator;
+  CompUnitConsistencyValidator unit_validator;
 
   if (id)
   {
@@ -778,6 +781,35 @@ CompSBMLDocumentPlugin::checkConsistency(bool overrideFlattening)
       }
 
       log->add( validator.getFailures() );
+
+      /* only want to bail if errors not warnings */
+      if (log->getNumFailsWithSeverity(LIBSBML_SEV_ERROR) > 0)
+      {
+        return total_errors;
+      }
+    }
+  }
+
+  if (units)
+  {
+    unit_validator.init();
+    nerrors = unit_validator.validate(*doc);
+    total_errors += nerrors;
+    if (nerrors > 0) 
+    {
+      /* log a message to say not to trust line numbers 
+       * but only do this if we are actually logging errors
+       * and only do it once
+       */
+      if (lineNumMessageLogged == false)
+      {
+        log->logPackageError("comp", CompLineNumbersUnreliable, 
+          getPackageVersion(), getLevel(), getVersion());
+        total_errors++;
+        lineNumMessageLogged = true;
+      }
+
+      log->add( unit_validator.getFailures() );
 
       /* only want to bail if errors not warnings */
       if (log->getNumFailsWithSeverity(LIBSBML_SEV_ERROR) > 0)

@@ -268,7 +268,25 @@ EventAssignment::getDerivedUnitDefinition()
   /* if we have the whole model but it is not in a document
    * it is still possible to determine the units
    */
-  Model * m = static_cast <Model *> (getAncestorOfType(SBML_MODEL));
+
+  /* VERY NASTY HACK THAT WILL WORK IF WE DONT KNOW ABOUT COMP
+   * but will identify if the parent model is a ModelDefinition
+   */
+  Model * m = NULL;
+  
+  if (this->isPackageEnabled("comp"))
+  {
+    m = static_cast <Model *> (getAncestorOfType(251, "comp"));
+  }
+
+  if (m == NULL)
+  {
+    m = static_cast <Model *> (getAncestorOfType(SBML_MODEL));
+  }
+
+  /* we should have a model by this point 
+   * OR the object is not yet a child of a model
+   */
 
   if (m != NULL)
   {
@@ -319,7 +337,26 @@ EventAssignment::containsUndeclaredUnits()
   /* if we have the whole model but it is not in a document
    * it is still possible to determine the units
    */
-  Model * m = static_cast <Model *> (getAncestorOfType(SBML_MODEL));
+  
+  /* VERY NASTY HACK THAT WILL WORK IF WE DONT KNOW ABOUT COMP
+   * but will identify if the parent model is a ModelDefinition
+   */
+  Model * m = NULL;
+  
+  if (this->isPackageEnabled("comp"))
+  {
+    m = static_cast <Model *> (getAncestorOfType(251, "comp"));
+  }
+
+  if (m == NULL)
+  {
+    m = static_cast <Model *> (getAncestorOfType(SBML_MODEL));
+  }
+
+  /* we should have a model by this point 
+   * OR the object is not yet a child of a model
+   */
+
 
   if (m != NULL)
   {

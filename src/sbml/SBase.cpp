@@ -5682,6 +5682,37 @@ SBase::checkListOfPopulated(SBase* object)
 }
 /** @endcond */
 
+
+/** @cond doxygenLibsbmlInternal */
+
+/* returns the derived units of the object
+ * needs to be on SBase so that comp can use it for unit checking
+ * but may also need to be implemented for other packages
+ */
+UnitDefinition* 
+SBase::getDerivedUnitDefinition() 
+{ 
+  return NULL; 
+}
+
+/** @endcond */
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/* returns the derived units of the object
+ * needs to be on SBase so that comp can use it for unit checking
+ * but may also need to be implemented for other packages
+ */
+bool 
+SBase::containsUndeclaredUnits() 
+{ 
+  return false; 
+}
+
+/** @endcond */
+
+  
 //This assumes that the parent of the object is of the type ListOf.  If this is not the case, it will need to be overridden.
 int SBase::removeFromParentAndDelete()
 {

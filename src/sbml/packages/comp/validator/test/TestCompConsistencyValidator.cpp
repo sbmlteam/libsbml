@@ -37,6 +37,7 @@
 
 #include <sbml/packages/comp/validator/CompIdentifierConsistencyValidator.h>
 #include <sbml/packages/comp/validator/CompConsistencyValidator.h>
+#include <sbml/packages/comp/validator/CompUnitConsistencyValidator.h>
 
 /** @cond doxygenIgnored */
 
@@ -71,6 +72,23 @@ bool
 runIdTest (const TestFile& file)
 {
   CompIdentifierConsistencyValidator validator;
+  TestValidator        tester(validator);
+
+
+  validator.init();
+
+  return tester.test(file);
+}
+
+
+/*
+ * @return true if the Validator behaved as expected when validating
+ * TestFile, false otherwise.
+ */
+bool
+runUnitsTest (const TestFile& file)
+{
+  CompUnitConsistencyValidator validator;
   TestValidator        tester(validator);
 
 
@@ -156,6 +174,10 @@ main (int argc, char* argv[])
   testThisDataDir = testDataDir + "/" + "identifier-constraints";
   failed += runTests( "Testing Id Consistency Constraints (10300 - 10399)",
 		      testThisDataDir, 0, 0, runIdTest, library);
+
+  testThisDataDir = testDataDir + "/" + "units-constraints";
+  failed += runTests( "Testing Unit Consistency Constraints (10500 - 10599)",
+		      testThisDataDir, 0, 0, runUnitsTest, library);
 
   return failed;
 }

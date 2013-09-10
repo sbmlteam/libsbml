@@ -3004,6 +3004,24 @@ s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></b
   /** @endcond */
 
 
+  /** @cond doxygenLibsbmlInternal */
+  /* returns the derived units of the object
+   * needs to be on SBase so that comp can use it for unit checking
+   * but may also need to be implemented for other packages
+   */
+  virtual UnitDefinition* getDerivedUnitDefinition();
+  /** @endcond */
+
+
+  /** @cond doxygenLibsbmlInternal */
+  /* returns boolean indicating object has undeclared units
+   * needs to be on SBase so that comp can use it for unit checking
+   * but may also need to be implemented for other packages
+   */
+  virtual bool containsUndeclaredUnits();
+  /** @endcond */
+
+
   /**
    * Removes this object from its parent.
    *
@@ -3133,7 +3151,6 @@ s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></b
 
 protected:
 
-  
   /** 
    * When overridden allows SBase elements to use the text included in between
    * the elements tags. The default implementation does nothing.
