@@ -182,6 +182,21 @@ static const packageErrorTableEntry compErrorTable[] =
     }
   },
 
+  // 1010501
+  { CompReplacedUnitsShouldMatch, 
+    "Units of replaced elements should match replacement units.",
+    LIBSBML_CAT_UNITS_CONSISTENCY, 
+    LIBSBML_SEV_WARNING,
+    "If one element replaces another, whether it is the target of "
+    "a <replacedBy> element, or whether it has a child <replacedElement>, "
+    "the units of the replaced element, multiplied by the units of any "
+    "applicable conversion factor, should equal the units of the "
+    "replacement element.",
+    { "L3V1 Comp V1 Section 3.6.5"
+    }
+  },
+
+
   // 1020101
   { CompOneListOfReplacedElements, 
     "Only one <listOfReplacedElements> allowed.",
@@ -1238,21 +1253,6 @@ static const packageErrorTableEntry compErrorTable[] =
     { "L3V1 Comp V1 Section 3.6.5"
     }
   },
-
-  // 1021205
-  { CompReplacedUnitsShouldMatch, 
-    "Units of replaced elements should match replacement units.",
-    LIBSBML_CAT_GENERAL_CONSISTENCY, 
-    LIBSBML_SEV_WARNING,
-    "If one element replaces another, whether it is the target of "
-    "a <replacedBy> element, or whether it has a child <replacedElement>, "
-    "the units of the replaced element, multiplied by the units of any "
-    "applicable conversion factor, should equal the units of the "
-    "replacement element.",
-    { "L3V1 Comp V1 Section 3.6.5"
-    }
-  },
-
 
   // 1090101
   { CompUnresolvedReference, 

@@ -65,6 +65,8 @@ typedef enum
 , CompInvalidConversionFactorSyntax     = 1010310
 , CompInvalidNameSyntax                 = 1010311
 
+, CompReplacedUnitsShouldMatch          = 1010501
+
 , CompOneListOfReplacedElements         = 1020101
 , CompLOReplaceElementsAllowedElements  = 1020102
 , CompLOReplacedElementsAllowedAttribs  = 1020103
@@ -159,7 +161,6 @@ typedef enum
 , CompMustReplaceIDs                    = 1021202
 , CompMustReplaceMetaIDs                = 1021203
 , CompMustReplacePackageIDs             = 1021204
-, CompReplacedUnitsShouldMatch          = 1021205
 
 , CompUnresolvedReference               = 1090101
 , CompNoModelInReference                = 1090102
