@@ -8,6 +8,7 @@
     <tab type="usergroup" title="Level 3 Extensions">
       <tab type="user" url="@ref Comp" title="Hierarchical Model Composition"/>
       <tab type="user" url="@ref FBC" title="Flux Balance Constraints"/>
+      <tab type="user" url="@ref qual" title="Qualitative Models"/>
     </tab>
     <tab type="namespaces" visible="no" title="">
       <tab type="namespaces" visible="no" title=""/>
