@@ -946,7 +946,7 @@ public:
    *
    * @see SBMLDocument::checkInternalConsistency()
    */
-  unsigned int checkConsistency (bool overrideCompFlattening = false);
+  unsigned int checkConsistency ();
 
   /**
    * Performs consistency checking and validation on this SBML document.

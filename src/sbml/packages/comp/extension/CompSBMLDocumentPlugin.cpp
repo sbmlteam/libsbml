@@ -51,6 +51,7 @@ CompSBMLDocumentPlugin::CompSBMLDocumentPlugin (const string &uri, const string 
   , mURIToDocumentMap()
   , mCheckingDummyDoc (false)
   , mFlattenAndCheck (true)
+  , mOverrideCompFlattening (false)
 {
   connectToChild();
 }
@@ -63,6 +64,7 @@ CompSBMLDocumentPlugin::CompSBMLDocumentPlugin(const CompSBMLDocumentPlugin& ori
   , mURIToDocumentMap() //The documents are owning pointers, so don't copy them.
   , mCheckingDummyDoc (orig.mCheckingDummyDoc)
   , mFlattenAndCheck (orig.mFlattenAndCheck)
+  , mOverrideCompFlattening (orig.mOverrideCompFlattening)
 {
   connectToChild();
 }
@@ -80,6 +82,7 @@ CompSBMLDocumentPlugin::operator=(const CompSBMLDocumentPlugin& orig)
 
     mCheckingDummyDoc = orig.mCheckingDummyDoc;
     mFlattenAndCheck = orig.mFlattenAndCheck;
+    mOverrideCompFlattening = orig.mOverrideCompFlattening;
     connectToChild();
   }    
   return *this;
@@ -691,7 +694,7 @@ CompSBMLDocumentPlugin::isFlatteningImplemented() const
 
 
 unsigned int 
-CompSBMLDocumentPlugin::checkConsistency(bool overrideFlattening)
+CompSBMLDocumentPlugin::checkConsistency()
 {
   unsigned int nerrors = 0;
   unsigned int total_errors = 0;
@@ -880,7 +883,7 @@ CompSBMLDocumentPlugin::checkConsistency(bool overrideFlattening)
 
 
 
-  if (mFlattenAndCheck == true && overrideFlattening == false)
+  if (mFlattenAndCheck == true && mOverrideCompFlattening == false)
   {
     SBMLDocument * dummyDoc = doc->clone();
     ConversionProperties* props = new ConversionProperties();
@@ -985,6 +988,28 @@ CompSBMLDocumentPlugin::accept(SBMLVisitor& v) const
   v.leave(*doc);
 
   return true;
+}
+
+/** @endcond */
+
+
+/** @cond doxygenLibsbmlInternal */
+
+bool
+CompSBMLDocumentPlugin::getOverrideCompFlattening() const
+{
+  return mOverrideCompFlattening;
+}
+
+/** @endcond */
+
+
+/** @cond doxygenLibsbmlInternal */
+
+void
+CompSBMLDocumentPlugin::setOverrideCompFlattening(bool overrideCompFlattening)
+{
+  mOverrideCompFlattening = overrideCompFlattening;
 }
 
 /** @endcond */

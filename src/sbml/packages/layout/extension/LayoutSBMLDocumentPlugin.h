@@ -122,7 +122,7 @@ public:
 	/**
 	 * Check consistency function.
 	 */
-	virtual unsigned int checkConsistency(bool overrideFlattening);
+	virtual unsigned int checkConsistency();
 
 
 	/** @endcond doxygenLibsbmlInternal */

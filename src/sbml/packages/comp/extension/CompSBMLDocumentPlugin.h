@@ -204,7 +204,7 @@ public:
   virtual bool isFlatteningImplemented() const;
 
 
-  virtual unsigned int checkConsistency(bool overrideFlattening = false); 
+  virtual unsigned int checkConsistency(); 
 
 
   /** @cond doxygenLibsbmlInternal */
@@ -596,6 +596,22 @@ public:
 
   friend class ExternalModelDefinition; //So that it can call 'getSBMLDocumentFromURI' but nothing else can.
 
+  /** @cond doxygenLibsbmlInternal */
+
+  /* retrieve the override flattening flag */
+  bool getOverrideCompFlattening() const;
+
+  /** @endcond */
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /* retrieve the override flattening flag */
+  void setOverrideCompFlattening(bool overrideCompFlattening);
+
+  /** @endcond */
+
+
 private:
 
   /**
@@ -632,8 +648,11 @@ private:
   /** variables and functions for consistency checking **/
 
   /** @cond doxygenLibsbmlInternal */
+  
   bool mCheckingDummyDoc;
   bool mFlattenAndCheck;
+  bool mOverrideCompFlattening;
+
   /** @endcond */
 };
 

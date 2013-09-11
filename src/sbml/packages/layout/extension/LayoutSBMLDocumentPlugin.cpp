@@ -138,7 +138,7 @@ LayoutSBMLDocumentPlugin::isFlatteningImplemented() const
 
 
 unsigned int 
-LayoutSBMLDocumentPlugin::checkConsistency(bool overrideFlattening)
+LayoutSBMLDocumentPlugin::checkConsistency()
 {
   unsigned int nerrors = 0;
   unsigned int total_errors = 0;

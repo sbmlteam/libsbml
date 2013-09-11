@@ -202,7 +202,7 @@ public:
   virtual bool isFlatteningImplemented() const;
 
 
-  virtual unsigned int checkConsistency(bool overrideFlattening = false);
+  virtual unsigned int checkConsistency();
 
 
   /** @endcond */

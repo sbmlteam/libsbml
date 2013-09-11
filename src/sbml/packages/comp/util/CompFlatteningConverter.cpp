@@ -175,10 +175,15 @@ CompFlatteningConverter::convert()
     unsigned char origValidators = mDocument->getApplicableValidators();
     mDocument->setApplicableValidators(AllChecksON);
     
-    unsigned int errors = mDocument->checkConsistency(true);
+    // set the flag to ignore flattening when validating
+    bool originalOverrideFlag = plugin->getOverrideCompFlattening();
+    plugin->setOverrideCompFlattening(true);
+    unsigned int errors = mDocument->checkConsistency();
     errors = mDocument->getErrorLog()
                         ->getNumFailsWithSeverity(LIBSBML_SEV_ERROR);
     
+    // reset comp flattening flag and any validator
+    plugin->setOverrideCompFlattening(originalOverrideFlag);
     mDocument->setApplicableValidators(origValidators);
 
     if (errors > 0)
@@ -251,7 +256,22 @@ CompFlatteningConverter::convert()
       return result;
     }
 
-    dummy->checkConsistency(true);
+    // override comp flattening if necessary
+    CompSBMLDocumentPlugin * dummyPlugin = static_cast<CompSBMLDocumentPlugin*>
+                                           (dummy->getPlugin("comp"));
+
+    if (dummyPlugin != NULL)
+    {
+      dummyPlugin->setOverrideCompFlattening(true);
+    }
+
+    dummy->checkConsistency();
+
+    if (dummyPlugin != NULL)
+    {
+      dummyPlugin->setOverrideCompFlattening(false);
+    }
+
     unsigned int errors = 
              dummy->getErrorLog()->getNumFailsWithSeverity(LIBSBML_SEV_ERROR);
     if (errors > 0)
