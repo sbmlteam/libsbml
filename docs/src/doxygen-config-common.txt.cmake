@@ -371,7 +371,17 @@ INPUT =                                 \
   ../../src/sbml/packages/comp/extension \
   ../../src/sbml/packages/comp/util      \ 
   ../../src/sbml/packages/comp/validator \
-  ../../src/sbml/packages/comp/common
+  ../../src/sbml/packages/comp/common    \
+  ../../src/sbml/packages/fbc/sbml       \
+  ../../src/sbml/packages/fbc/extension  \
+  ../../src/sbml/packages/fbc/util       \ 
+  ../../src/sbml/packages/fbc/validator  \
+  ../../src/sbml/packages/fbc/common     \
+  ../../src/sbml/packages/qual/sbml      \
+  ../../src/sbml/packages/qual/extension \
+  ../../src/sbml/packages/qual/util      \ 
+  ../../src/sbml/packages/qual/validator \
+  ../../src/sbml/packages/qual/common
 
 # The EXCLUDE tag can be used to specify files and/or directories that should 
 # excluded from the INPUT source files. This way you can easily exclude a 

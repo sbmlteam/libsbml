@@ -345,6 +345,7 @@ INPUT =                                 \
   libsbml-group-core-intro.txt          \
   libsbml-group-comp-intro.txt           \
   libsbml-group-fbc-intro.txt            \
+  libsbml-group-qual-intro.txt           \
   libsbml-howto-implement-extension.txt  \
   libsbml-installation.txt               \
   libsbml-issues.txt                     \
@@ -377,7 +378,11 @@ INPUT =                                 \
   ../../src/sbml/packages/fbc/extension  \
   ../../src/sbml/packages/fbc/sbml       \
   ../../src/sbml/packages/fbc/util       \ 
-  ../../src/sbml/packages/fbc/validator 
+  ../../src/sbml/packages/fbc/validator  \
+  ../../src/sbml/packages/qual/common    \
+  ../../src/sbml/packages/qual/extension \
+  ../../src/sbml/packages/qual/sbml      \
+  ../../src/sbml/packages/qual/validator
 
 
 # The EXCLUDE tag can be used to specify files and/or directories that should 
