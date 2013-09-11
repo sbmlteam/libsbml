@@ -41,12 +41,11 @@
 }
 
 #nav-tree .label {
-  margin:0px;
   padding:0px;
 }
 
 #nav-tree .label a {
-  padding:2px;
+
 }
 
 #nav-tree .selected a {
@@ -141,7 +140,30 @@
 
 #side-nav .item {
     font-size: 10px;
-    line-height: 100%;
+    line-height: 20px;
+}
+
+#side-nav div.item:not(.selected) .label {
+
+}
+
+#side-nav img[src="ftv2mnode.png"] {
+
+}
+
+#side-nav .item span:not(.label):after {
+    color: rgb(135, 158, 201);
+    content: "\25cf";
+    float: right;
+    padding-right: 6px;
+    font-size: 12px;
+}
+
+#side-nav .label {
+    vertical-align: middle;
+}
+
+#side-nav li .label {
 }
 
 #side-nav .label a {
