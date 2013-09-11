@@ -150,6 +150,7 @@ distfiles =							\
         common-text/pkg-marker-comp.html			\
         common-text/pkg-marker-fbc.html				\
         common-text/pkg-marker-layout.html			\
+        common-text/pkg-marker-qual.html			\
         common-text/predefined-units.html			\
         common-text/rules-additional-restrictions.html		\
         common-text/rules-additional-restrictions.txt		\
@@ -232,6 +233,7 @@ distfiles =							\
         graphics/sbase.pdf					\
         graphics/sbase.vtt					\
         graphics/solution-explorer-windows.png			\
+	graphics/sourceforge-download.png			\
         graphics/species-boundarycondition.jpg			\
         graphics/species-hasonlysubstance.jpg			\
         graphics/species.eps					\
@@ -291,6 +293,8 @@ distfiles =							\
 	libsbml-group-fbc-intro.txt				\
 	libsbml-group-layout-intro.html				\
 	libsbml-group-layout-intro.txt				\
+	libsbml-group-qual-intro.html				\
+	libsbml-group-qual-intro.txt				\
         libsbml-howto-implement-extension.txt			\
         libsbml-installation.html.in				\
         libsbml-installation.txt				\
