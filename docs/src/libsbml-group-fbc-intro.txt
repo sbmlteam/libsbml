@@ -1,4 +1,4 @@
-/** @defgroup FBC Flux Balance Constraints
+/** @defgroup fbc Flux Balance Constraints
 
 @htmlinclude libsbml-group-fbc-intro.html
 

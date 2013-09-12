@@ -1,4 +1,4 @@
-/** @defgroup Comp Hierarchical Model Composition
+/** @defgroup comp Hierarchical Model Composition
 
 @htmlinclude libsbml-group-comp-intro.html
 
