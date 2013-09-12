@@ -86,7 +86,7 @@ FormulaTokenizer_free (FormulaTokenizer_t *ft)
 }
 
 
-/** @cond doxygen-internal-libsbml */
+/** @cond doxygenInternalLibsbml */
 
 /*
  * Reads a TT_NAME from the FormulaTokenizer into the given Token.  This is
