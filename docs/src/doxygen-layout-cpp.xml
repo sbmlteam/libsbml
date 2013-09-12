@@ -6,9 +6,10 @@
     <tab type="modules" visible="no" title=""/>
     <tab type="user" url="@ref Core" title="Core libSBML"/>
     <tab type="usergroup" title="Level 3 Extensions">
-      <tab type="user" url="@ref Comp" title="Hierarchical Model Composition"/>
-      <tab type="user" url="@ref FBC" title="Flux Balance Constraints"/>
-      <tab type="user" url="@ref qual" title="Qualitative Models"/>
+      <tab type="user" url="@ref comp"   title="Hierarchical Model Composition"/>
+      <tab type="user" url="@ref fbc"    title="Flux Balance Constraints"/>
+      <tab type="user" url="@ref layout" title="Layout"/>
+      <tab type="user" url="@ref qual"   title="Qualitative Models"/>
     </tab>
     <tab type="namespaces" visible="no" title="">
       <tab type="namespaces" visible="no" title=""/>
