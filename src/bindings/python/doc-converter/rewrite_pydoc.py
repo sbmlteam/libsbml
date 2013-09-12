@@ -532,13 +532,15 @@ def rewrite_htmlinclude(match, include_dir, quietly):
 
 def rewrite_image(match, graphics_dir, quietly):
     file_name      = match.group(1)
-    txt_file       = re.sub(r'jpg', 'txt', file_name, re.IGNORECASE)
+    txt_file       = re.sub(r'.(png|jpg)', '.txt', file_name, re.IGNORECASE)
+    print txt_file
     file_path      = os.path.join(graphics_dir, txt_file)
     trailing_space = match.group(2)
 
     if not valid_file(file_path):
         if not quietly:
-            print("Warning: unable to open @image txt file for '" + file_name + "'")
+            print("Warning: unable to open '" + txt_file
+                  + "' to replace '" + file_name + "'")
         return ''
 
     contents = read_file_contents(file_path)
