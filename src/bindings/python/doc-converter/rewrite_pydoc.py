@@ -353,6 +353,12 @@ def rewrite_one_body(body, include_dir, graphics_dir, quietly):
 
     body = rewrite_see(body)
 
+    # Remove excess inter-paragraph spacing prior to rewrapping paragraphs,
+    # or the extra spaces at the beginning of blank lines can introduce
+    # extra leading spaces in the first lines of the paragraphs.
+
+    body = re.sub(r'\n *\n *\n *', '\n\n ', body)
+
     body = re.sub(r'%',          '',                            body)
     body = re.sub(r'@li\s+',     '\n' + ' '*list_indent + '* ', body)
     body = re.sub(r'@em\s+',     '',                            body)
@@ -394,12 +400,6 @@ def rewrite_one_body(body, include_dir, graphics_dir, quietly):
 
     body = re.sub(r"\\'", "'", body)      # Don't need quoted single quotes.
 
-    # Remove excess inter-paragraph spacing prior to rewrapping paragraphs,
-    # or the extra spaces at the beginning of blank lines can introduce
-    # extra leading spaces in the first lines of the paragraphs.
-
-    body = re.sub(r'\n *\n *\n *', '\n\n ', body)
-
     # Wrap paragraphs, so that the text is more readable.
 
     p = re.compile(r'(.+?)(\n *\n|\Z)', re.DOTALL)
@@ -422,15 +422,19 @@ def rewrite_one_body(body, include_dir, graphics_dir, quietly):
     p = re.compile(r'(<h3>)\s*(.+?)</h3>(\n *\n)', re.DOTALL|re.IGNORECASE)
     body = p.sub(lambda match: rewrite_section_heading(match, line_width), body)
 
-    # Finally, replace verbatim block placeholders and format them.
+    # Delete some left-over things.
 
-    p = re.compile(r'{{{{(\d+)}}}}')
-    body = p.sub(lambda match: rewrite_verbatim(match, verbatim_blocks, line_width), body)
+    body = re.sub(r'@~', '', body)
 
     # Remove excess inter-paragraph spacing one more time, to normalize
     # spacing above and below verbatim's.
 
-    body = re.sub(r'\n *\n *\n', '\n\n ', body)
+    body = re.sub(r'\n *\n *\n', '\n\n', body)
+
+    # Finally, replace verbatim block placeholders and format them.
+
+    p = re.compile(r'{{{{(\d+)}}}}')
+    body = p.sub(lambda match: rewrite_verbatim(match, verbatim_blocks, line_width), body)
 
     # And we're done.
 
