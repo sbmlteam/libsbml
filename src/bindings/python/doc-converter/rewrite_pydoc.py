@@ -533,7 +533,6 @@ def rewrite_htmlinclude(match, include_dir, quietly):
 def rewrite_image(match, graphics_dir, quietly):
     file_name      = match.group(1)
     txt_file       = re.sub(r'.(png|jpg)', '.txt', file_name, re.IGNORECASE)
-    print txt_file
     file_path      = os.path.join(graphics_dir, txt_file)
     trailing_space = match.group(2)
 
