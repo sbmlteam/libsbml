@@ -47,11 +47,11 @@
 #include <sbml/packages/layout/extension/LayoutSpeciesReferencePlugin.h>
 
 
-/** @cond doxygen-ignore */
+/** @cond doxygenIgnore */
 
 using namespace std;
 
-/** @endcond doxygen-ignore */
+/** @endcond doxygenIgnore */
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
