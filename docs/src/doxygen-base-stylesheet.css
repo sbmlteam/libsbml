@@ -1709,7 +1709,7 @@ td.s-na {
 
 /* Hide the "Related Pages" tab because for us, it's an empty page. */
 
-ul.tablist li:nth-child(2) {
+#navrow1 ul.tablist li:nth-child(2) {
     display: none;
 }
 
