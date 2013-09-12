@@ -24,6 +24,11 @@
  * in the file named "LICENSE.txt" included with this software distribution
  * and also available online as http://sbml.org/software/libsbml/license.html
  * ------------------------------------------------------------------------ -->
+ *
+ * @class LayoutExtension
+ * @ingroup layout
+ * @brief @htmlinclude pkg-marker-layout.html
+ * The core module of the 'layout' package extension.
  */
 
 #ifndef LayoutExtension_h
@@ -126,7 +131,7 @@ public:
   /**
    * Returns the name of this package ("layout")
    *
-   * @param the name of this package ("layout")
+   * @return the name of this package ("layout")
    */
   virtual const std::string& getName() const;
 
