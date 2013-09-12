@@ -17,14 +17,14 @@
  *------------------------------------------------------------------------- -->
  *
  * @class FluxObjective
- * @ingroup FBC
+ * @ingroup fbc
  * @brief @htmlinclude pkg-marker-fbc.html
  * Implementation of the 'fbc' package %FluxObjective construct.
  * <!-- leave this next break as-is to work around some doxygen bug -->
  */ 
 /**
  * @class ListOfFluxObjectives
- * @ingroup FBC
+ * @ingroup fbc
  * @brief @htmlinclude pkg-marker-fbc.html
  * Implementation of the 'fbc' package %ListOfFluxObjectives construct.
  */

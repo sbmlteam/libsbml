@@ -17,7 +17,7 @@
  *------------------------------------------------------------------------- -->
  *
  * @class FbcExtension
- * @ingroup FBC
+ * @ingroup fbc
  * @brief @htmlinclude pkg-marker-fbc.html
  * The core module of the 'fbc' package extension.
  */

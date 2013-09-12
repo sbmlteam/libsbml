@@ -17,7 +17,7 @@
  *------------------------------------------------------------------------- -->
  *
  * @class Association
- * @ingroup FBC
+ * @ingroup fbc
  * @brief @htmlinclude pkg-marker-fbc.html
  * Implementation of the 'fbc' package %Association construct.
  */

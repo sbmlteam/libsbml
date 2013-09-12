@@ -27,7 +27,7 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class FbcSBMLError
- * @ingroup FBC
+ * @ingroup fbc
  * @brief @htmlinclude pkg-marker-fbc.html
  * Representaton of errors, warnings and other diagnostics for the 'fbc'
  * package.

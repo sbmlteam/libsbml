@@ -17,7 +17,7 @@
  *------------------------------------------------------------------------- -->
  *
  * @class GeneAssociation
- * @ingroup FBC
+ * @ingroup fbc
  * @brief @htmlinclude pkg-marker-fbc.html
  * Implementation of the 'fbc' package %GeneAssociation construct.
  *
@@ -25,7 +25,7 @@
  */ 
 /**
  * @class ListOfGeneAssociations
- * @ingroup FBC
+ * @ingroup fbc
  * @brief @htmlinclude pkg-marker-fbc.html
  * Implementation of the 'fbc' package %ListOfGeneAssociations construct.
  */

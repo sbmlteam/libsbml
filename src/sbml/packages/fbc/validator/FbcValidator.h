@@ -26,7 +26,7 @@
  * ---------------------------------------------------------------------- -->
  *
  * @class FbcValidator
- * @ingroup FBC
+ * @ingroup fbc
  * @brief @htmlinclude pkg-marker-fbc.html
  * Entry point for libSBML's implementation of SBML validation rules for 'fbc'.
  * 
