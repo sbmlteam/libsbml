@@ -17,11 +17,11 @@
  *------------------------------------------------------------------------- -->
  *
  * @class ModelDefinition
- * @ingroup Comp
+ * @ingroup comp
  * @brief @htmlinclude pkg-marker-comp.html
  * Implementation of the %ModelDefinition construct from the 'comp' package.
  *
- * The @ref Comp "Hierarchical Model Composition" package ('comp')
+ * The @ref comp "Hierarchical Model Composition" package ('comp')
  * allows multiple Model objects
  * to be defined in a single SBMLDocument.  While these new Model objects are
  * not new SBML classes, they are given a new name,

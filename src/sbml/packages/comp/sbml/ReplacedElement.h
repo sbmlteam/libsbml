@@ -17,12 +17,12 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class ReplacedElement
- * @ingroup Comp
+ * @ingroup comp
  * @brief @htmlinclude pkg-marker-comp.html
  * Implementation of the %ReplacedElement construct from the 'comp' package.
  *
  * The ReplacedElement class was introduced by the SBML Level&nbsp;3
- * @ref Comp "Hierarchical Model Composition" package ('comp')
+ * @ref comp "Hierarchical Model Composition" package ('comp')
  * to allow submodel elements
  * to be replaced, but still allow references to those elements to be valid.
  * A ReplacedElement object is essentially a pointer to a submodel object

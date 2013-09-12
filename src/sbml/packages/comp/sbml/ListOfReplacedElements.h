@@ -17,7 +17,7 @@
  *------------------------------------------------------------------------- -->
  *
  * @class ListOfReplacedElements
- * @ingroup Comp
+ * @ingroup comp
  * @brief  @htmlinclude pkg-marker-comp.html
  * Implementation of the %ListOfReplacedElements construct from the 'comp' package.
  * 

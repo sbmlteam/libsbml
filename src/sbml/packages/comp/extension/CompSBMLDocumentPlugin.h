@@ -18,13 +18,13 @@
  *------------------------------------------------------------------------- -->
  *
  * @class CompSBMLDocumentPlugin
- * @ingroup Comp
+ * @ingroup comp
  * @brief @htmlinclude pkg-marker-comp.html
  * Implementation of the 'comp' package extention to the %SBMLDocument construct.
  *
  * The CompSBMLDocumentPlugin class inherits from the SBMLDocumentPlugin
  * class, and codifies the extentions to the SBMLDocument class defined in
- * the SBML Level&nbsp;3 @ref Comp "Hierarchical Model Composition" package ('comp').
+ * the SBML Level&nbsp;3 @ref comp "Hierarchical Model Composition" package ('comp').
  * This extention allows multiple Model objects to be defined in a single
  * SBMLDocument, stored in an optional child ListOfModelDefinitions object,
  * as well as define references to Model objects in other files, stored in

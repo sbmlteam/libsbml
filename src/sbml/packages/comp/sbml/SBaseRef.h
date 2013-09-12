@@ -17,12 +17,12 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class SBaseRef
- * @ingroup Comp
+ * @ingroup comp
  * @brief @htmlinclude pkg-marker-comp.html
  * Implementation of the %SBaseRef construct from the 'comp' package.
  *
  * The SBaseRef class was introduced by the SBML Level&nbsp;3
- * @ref Comp "Hierarchical Model Composition" package ('comp') as the
+ * @ref comp "Hierarchical Model Composition" package ('comp') as the
  * principle way by which submodel elements may be referenced.  The SBaseRef
  * class is usually found as the base class of a Port, Deletion, ReplacedElement,
  * or ReplacedBy class, but may appear as an child of one of the above

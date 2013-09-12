@@ -18,13 +18,13 @@
  *------------------------------------------------------------------------- -->
  *
  * @class CompBase
- * @ingroup Comp
+ * @ingroup comp
  * @brief @htmlinclude pkg-marker-comp.html
  * A convenience subclass of 'comp' package SBase-derived classes
  *
  * The CompBase class derives from SBase, and defines a few functions
  * and features common to all SBase-derived classes in the SBML Level&nbsp;3
- * @ref Comp "Hierarchical Model Composition" package ('comp').
+ * @ref comp "Hierarchical Model Composition" package ('comp').
  */
 
 #ifndef CompBase_h

@@ -17,12 +17,12 @@
  *------------------------------------------------------------------------- -->
  *
  * @class ReplacedBy
- * @ingroup Comp
+ * @ingroup comp
  * @brief @htmlinclude pkg-marker-comp.html
  * Implementation of the %ReplacedBy construct from the 'comp' package.
  *
  * The ReplacedBy class was introduced by the SBML Level&nbsp;3 
- * @ref Comp "Hierarchical Model Composition" package ('comp')
+ * @ref comp "Hierarchical Model Composition" package ('comp')
  * to allow submodel elements to be
  * 'canonical' versions of the element while still allowing the parent model
  * to reference those elements.  Whereas a ReplacedElement object indicates

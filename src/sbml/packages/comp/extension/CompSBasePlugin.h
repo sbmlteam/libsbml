@@ -18,13 +18,13 @@
  *------------------------------------------------------------------------- -->
  *
  * @class CompSBasePlugin
- * @ingroup Comp
+ * @ingroup comp
  * @brief @htmlinclude pkg-marker-comp.html
  * Implementation of the 'comp' package extention to the %SBase construct.
  *
  * The CompSBasePlugin class inherits from the SBasePlugin class, 
  * and codifies the extentions to the SBase class defined in the
- * @ref Comp "Hierarchical Model Composition" package ('comp').
+ * @ref comp "Hierarchical Model Composition" package ('comp').
  * This extention allows the modeler to
  * define one or more submodel elements which the parent SBase object replaces,
  * and/or a single submodel element which replaces the parent SBase object.

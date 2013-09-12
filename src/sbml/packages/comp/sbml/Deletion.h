@@ -17,12 +17,12 @@
  *------------------------------------------------------------------------- -->
  *
  * @class Deletion
- * @ingroup Comp
+ * @ingroup comp
  * @brief @htmlinclude pkg-marker-comp.html
  * Implementation of the %Deletion construct from the 'comp' package.
  *
  * The Deletion class was introduced by the SBML Level&nbsp;3
- * @ref Comp "Hierarchical Model Composition" package ('comp')
+ * @ref comp "Hierarchical Model Composition" package ('comp')
  * to allow elements of submodels to be
  * removed before instantiation.
 

@@ -17,7 +17,7 @@
  *------------------------------------------------------------------------- -->
  *
  * @class ListOfModelDefinitions
- * @ingroup Comp
+ * @ingroup comp
  * @brief  @htmlinclude pkg-marker-comp.html
  * Implementation of the %ListOfModelDefinitions construct from the 'comp' package.
  * 

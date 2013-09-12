@@ -17,12 +17,12 @@
  *------------------------------------------------------------------------- -->
  *
  * @class Port
- * @ingroup Comp
+ * @ingroup comp
  * @brief @htmlinclude pkg-marker-comp.html
  * Implementation of the %Port construct from the 'comp' package.
  *
  * The Port class was introduced by the SBML Level&nbsp;3
- * @ref Comp "Hierarchical Model Composition" package ('comp')
+ * @ref comp "Hierarchical Model Composition" package ('comp')
  * to allow a Model to define a standard
  * interface between it and other models that might use it as a submodel.  It
  * derives from the SBaseRef class, and the elements defined there refer to

@@ -18,13 +18,13 @@
  *------------------------------------------------------------------------- -->
  *
  * @class CompModelPlugin
- * @ingroup Comp
+ * @ingroup comp
  * @brief @htmlinclude pkg-marker-comp.html
  * Implementation of the 'comp' package extention to the %Model construct.
  *
  * The CompModelPlugin class inherits from the SBMLSBasePlugin class, and
  * codifies the extentions to the Model class defined in the SBML
- * Level&nbsp;3 @ref Comp "Hierarchical Model Composition" package ('comp').  This
+ * Level&nbsp;3 @ref comp "Hierarchical Model Composition" package ('comp').  This
  * extention allows a Model to define Submodels (other Models that are
  * instantiated as new parts of the parent Model), and Ports, a defined
  * interface for including the given Model as a Submodel of a different

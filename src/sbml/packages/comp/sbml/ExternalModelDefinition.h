@@ -17,12 +17,12 @@
  *------------------------------------------------------------------------- -->
  *
  * @class ExternalModelDefinition
- * @ingroup Comp
+ * @ingroup comp
  * @brief @htmlinclude pkg-marker-comp.html
  * Implementation of the %ExternalModelDefinition construct from the 'comp' package.
  *
  * The ExternalModelDefinition class was introduced by the SBML Level&nbsp;3
- * @ref Comp "Hierarchical Model Composition" package ('comp')
+ * @ref comp "Hierarchical Model Composition" package ('comp')
  * to define references to
  * Model objects defined in other files.
  * 

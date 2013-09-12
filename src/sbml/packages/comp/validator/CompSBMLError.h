@@ -27,7 +27,7 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class CompSBMLError
- * @ingroup Comp
+ * @ingroup comp
  * @brief @htmlinclude pkg-marker-comp.html
  * Representaton of errors, warnings and other diagnostics for the 'comp'
  * package.

@@ -17,12 +17,12 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class Submodel
- * @ingroup Comp
+ * @ingroup comp
  * @brief @htmlinclude pkg-marker-comp.html
  * Implementation of the %Submodel construct from the 'comp' package.
  *
  * The Submodel class was introduced by the SBML Level&nbsp;3 
- * @ref Comp "Hierarchical Model Composition" package ('comp')
+ * @ref comp "Hierarchical Model Composition" package ('comp')
  * as the principle way by which models
  * are structured hierarchically.  Submodels are instantiations of models
  * contained within other models.  They reference another Model that is to be

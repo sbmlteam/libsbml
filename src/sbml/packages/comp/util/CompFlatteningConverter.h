@@ -26,7 +26,7 @@
  * ---------------------------------------------------------------------- -->
  *
  * @class CompFlatteningConverter
- * @ingroup Comp
+ * @ingroup comp
  * @brief @htmlinclude pkg-marker-comp.html
  * Flattening converter for the 'comp' package.
  */
