@@ -126,7 +126,7 @@ public:
   /**
    * Returns the name of this package ("layout")
    *
-   * @pram the name of this package ("layout")
+   * @param the name of this package ("layout")
    */
   virtual const std::string& getName() const;
 
