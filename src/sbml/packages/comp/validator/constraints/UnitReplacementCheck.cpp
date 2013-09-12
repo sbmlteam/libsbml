@@ -192,11 +192,9 @@ UnitReplacementCheck::checkReferencedElement(ReplacedBy& repBy)
   }
 
   SBase * parent = repBy.getParentSBMLObject();
-  UnitDefinition *parentUnits = 
-                  static_cast<Parameter*>(parent)->getDerivedUnitDefinition();
+  UnitDefinition *parentUnits = parent->getDerivedUnitDefinition();
   
-  UnitDefinition *refElemUnits = 
-                 static_cast<Parameter*>(refElem)->getDerivedUnitDefinition();
+  UnitDefinition *refElemUnits = refElem->getDerivedUnitDefinition();
 
   if (parentUnits == NULL || refElemUnits == NULL)
   {
@@ -263,11 +261,9 @@ UnitReplacementCheck::checkReferencedElement(ReplacedElement& repE,
   }
 
   SBase * parent = repE.getParentSBMLObject()->getParentSBMLObject();
-  UnitDefinition *parentUnits = 
-                  static_cast<Parameter*>(parent)->getDerivedUnitDefinition();
+  UnitDefinition *parentUnits = parent->getDerivedUnitDefinition();
   
-  UnitDefinition *refElemUnits = 
-                 static_cast<Parameter*>(refElem)->getDerivedUnitDefinition();
+  UnitDefinition *refElemUnits = refElem->getDerivedUnitDefinition();
   
   bool cfPresent = false;
   /* adjust the refElement units for conversion factor */
