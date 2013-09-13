@@ -390,14 +390,15 @@ public class TestSBMLConvert {
     assertTrue( u.getScale() == 0 );
     ud = m.getUnitDefinition(1);
     assertTrue( ud != null );
-    assertTrue(ud.getId().equals( "time"));
+    assertTrue(ud.getId().equals( "area"));
     assertTrue( ud.getNumUnits() == 1 );
     u = ud.getUnit(0);
-    assertTrue( u.getKind() == libsbml.UNIT_KIND_SECOND );
-    assertTrue( u.getExponent() == 1 );
+    assertTrue( u.getKind() == libsbml.UNIT_KIND_METRE );
+    assertTrue( u.getExponent() == 2 );
     assertTrue( u.getMultiplier() == 1 );
     assertTrue( u.getScale() == 0 );
-    assertTrue(m.getTimeUnits().equals( "time"));
+    assertTrue(m.isSetSubstanceUnits() == true);
+    assertTrue(m.getTimeUnits().equals( "second"));
     d = null;
   }
 
