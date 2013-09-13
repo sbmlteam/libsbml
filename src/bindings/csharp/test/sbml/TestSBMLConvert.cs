@@ -400,14 +400,14 @@ namespace LibSBMLCSTest.sbml {
       assertTrue( u.getScale() == 0 );
       ud = m.getUnitDefinition(1);
       assertTrue( ud != null );
-      assertTrue((  "time" == ud.getId() ));
+      assertTrue((  "area" == ud.getId() ));
       assertTrue( ud.getNumUnits() == 1 );
       u = ud.getUnit(0);
-      assertTrue( u.getKind() == libsbml.UNIT_KIND_SECOND );
-      assertTrue( u.getExponent() == 1 );
+      assertTrue( u.getKind() == libsbml.UNIT_KIND_METRE );
+      assertTrue( u.getExponent() == 2 );
       assertTrue( u.getMultiplier() == 1 );
       assertTrue( u.getScale() == 0 );
-      assertTrue((  "time" == m.getTimeUnits() ));
+      assertTrue((  "second" == m.getTimeUnits() ));
       d = null;
     }
 

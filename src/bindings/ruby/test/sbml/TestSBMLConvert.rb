@@ -286,14 +286,14 @@ class TestSBMLConvert < Test::Unit::TestCase
     assert( u.getScale() == 0 )
     ud = m.getUnitDefinition(1)
     assert( ud != nil )
-    assert ((  "time" == ud.getId() ))
+    assert ((  "area" == ud.getId() ))
     assert( ud.getNumUnits() == 1 )
     u = ud.getUnit(0)
-    assert( u.getKind() == LibSBML::UNIT_KIND_SECOND )
-    assert( u.getExponent() == 1 )
+    assert( u.getKind() == LibSBML::UNIT_KIND_METRE )
+    assert( u.getExponent() == 2 )
     assert( u.getMultiplier() == 1 )
     assert( u.getScale() == 0 )
-    assert ((  "time" == m.getTimeUnits() ))
+    assert ((  "second" == m.getTimeUnits() ))
     d = nil
   end
 
