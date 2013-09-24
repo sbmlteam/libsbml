@@ -26,6 +26,7 @@ foreach(file
 		printSBML
 		printsupported
 		printUnits
+		promoteParameters
 		readSBML
 		stripPackage
 		setIdFromNames

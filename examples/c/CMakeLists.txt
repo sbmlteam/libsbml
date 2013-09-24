@@ -31,6 +31,7 @@ foreach(example
 	printSBML
 	printSupported
 	printUnits
+	promoteParameters
 	readSBML
 	stripPackage
 	translateMath

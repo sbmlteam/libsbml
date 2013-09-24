@@ -33,6 +33,7 @@ foreach(example
 	printRegisteredPackages
 	printSupported
 	printUnits
+	promoteParameters
 	readSBML
 	renameSId
 	setIdFromNames

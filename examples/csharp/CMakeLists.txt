@@ -24,6 +24,7 @@ foreach( example
 	printSBML
 	printsupported
 	printUnits
+	promoteParameters
 	readSBML
 	stripPackage
 	SetIdFromNames
