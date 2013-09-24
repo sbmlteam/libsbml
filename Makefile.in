@@ -75,6 +75,7 @@ examples =                                                          \
   examples/c/printSBML.c                                            \
   examples/c/printSupported.c                                       \
   examples/c/printUnits.c                                           \
+  examples/c/promoteParameters.c                                    \
   examples/c/readSBML.c                                             \
   examples/c/stripPackage.c                                         \
   examples/c/translateMath.c                                        \
@@ -106,6 +107,7 @@ examples =                                                          \
   examples/c++/printSBML.cpp                                        \
   examples/c++/printSupported.cpp                                   \
   examples/c++/printUnits.cpp                                       \
+  examples/c++/promoteParameters.cpp                                \
   examples/c++/readSBML.cpp                                         \
   examples/c++/rngvalidator.cpp                                     \
   examples/c++/stripPackage.cpp                                     \
@@ -134,6 +136,7 @@ examples =                                                          \
   examples/csharp/printSBML.cs                                      \
   examples/csharp/printsupported.cs                                 \
   examples/csharp/printUnits.cs                                     \
+  examples/csharp/promoteParameters.cs                              \
   examples/csharp/readSBML.cs                                       \
   examples/csharp/stripPackage.cs                                   \
   examples/csharp/translateMath.cs                                  \
@@ -163,6 +166,7 @@ examples =                                                          \
   examples/java/printSBML.java                                      \
   examples/java/printsupported.java                                 \
   examples/java/printUnits.java                                     \
+  examples/java/promoteParameters.java                              \
   examples/java/readSBML.java                                       \
   examples/java/stripPackage.java                                   \
   examples/java/setIdFromNames.java                                 \
@@ -208,6 +212,7 @@ examples =                                                          \
   examples/perl/printSBML.pl                                        \
   examples/perl/printsupported.pl                                   \
   examples/perl/printUnits.pl                                       \
+  examples/perl/promoteParameters.pl                                \
   examples/perl/readSBML.pl                                         \
   examples/perl/translateMath.pl                                    \
   examples/perl/unsetAnnotation.pl                                  \
@@ -232,6 +237,7 @@ examples =                                                          \
   examples/python/printSBML.py                                      \
   examples/python/printsupported.py                                 \
   examples/python/printUnits.py                                     \
+  examples/python/promoteParameters.py                              \
   examples/python/readSBML.py                                       \
   examples/python/setIdFromNames.py                                 \
   examples/python/translateMath.py                                  \
@@ -254,8 +260,9 @@ examples =                                                          \
   examples/r/printSBML.R                                            \
   examples/r/printSupported.R                                       \
   examples/r/printUnits.R                                           \
+  examples/r/promoteParameters.R                                    \
   examples/r/readSBML.R                                             \
-  examples/r/stripPackage.R                                        \
+  examples/r/stripPackage.R                                         \
   examples/r/translateMath.R                                        \
   examples/r/unsetAnnotation.R                                      \
   examples/r/unsetNotes.R                                           \
@@ -269,7 +276,7 @@ examples =                                                          \
   examples/ruby/callExternalValidator.rb                            \
   examples/ruby/convertSBML.rb                                      \
   examples/ruby/createExampleSBML.rb                                \
-  examples/ruby/stripPackage.rb                                    \
+  examples/ruby/stripPackage.rb                                     \
   examples/ruby/echoSBML.rb                                         \
   examples/ruby/printAnnotation.rb                                  \
   examples/ruby/printMath.rb                                        \
@@ -278,6 +285,7 @@ examples =                                                          \
   examples/ruby/printSBML.rb                                        \
   examples/ruby/printsupported.rb                                   \
   examples/ruby/printUnits.rb                                       \
+  examples/ruby/promoteParameters.rb                                \
   examples/ruby/readSBML.rb                                         \
   examples/ruby/translateMath.rb                                    \
   examples/ruby/unsetAnnotation.rb                                  \
