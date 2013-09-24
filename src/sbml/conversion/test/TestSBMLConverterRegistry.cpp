@@ -112,6 +112,30 @@ START_TEST (test_conversion_units)
 }
 END_TEST
 
+START_TEST (test_conversion_parameters)
+{
+  
+  string filename(TestDataDirectory);
+  filename += "extend_l3.xml";
+
+  SBMLDocument* doc = readSBMLFromFile(filename.c_str());
+
+  fail_unless(doc->getModel() != NULL);
+
+  fail_unless(doc->getModel()->getNumParameters() == 0);
+
+  ConversionProperties props;
+  props.addOption("promoteLocalParameters", true, "Promotes all Local Parameters to Global ones");
+
+  fail_unless(doc->convert(props) == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(doc->getModel()->getReaction(0)->getKineticLaw()->getNumParameters() == 0);
+  fail_unless(doc->getModel()->getNumParameters() > 0);
+
+  delete doc;
+
+}
+END_TEST
+
 Suite *
 create_suite_TestSBMLConverterRegistry (void)
 { 
@@ -123,6 +147,7 @@ create_suite_TestSBMLConverterRegistry (void)
   tcase_add_test(tcase, test_conversion_registry_getByIndex);
 
   tcase_add_test(tcase, test_conversion_units);
+  tcase_add_test(tcase, test_conversion_parameters);
 
   suite_add_tcase(suite, tcase);
 
