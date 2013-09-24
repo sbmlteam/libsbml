@@ -37,6 +37,7 @@ foreach(example
 	readSBML
 	renameSId
 	setIdFromNames
+	setNamesFromIds
 	stripPackage
 	translateMath
 	translateL3Math

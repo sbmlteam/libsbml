@@ -90,6 +90,7 @@ examples =                                                          \
   examples/c++/addCustomValidator.cpp                               \
   examples/c++/renameSId.cpp                                        \
   examples/c++/setIdFromNames.cpp                                   \
+  examples/c++/setNamesFromIds.cpp                                  \
   examples/c++/addModelHistory.cpp                                  \
   examples/c++/addingEvidenceCodes_1.cpp                            \
   examples/c++/addingEvidenceCodes_2.cpp                            \
