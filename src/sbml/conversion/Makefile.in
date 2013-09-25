@@ -57,11 +57,12 @@ common_headers = \
   SBMLConverterRegister.h     \
   SBMLConverterRegistry.h     \
   SBMLFunctionDefinitionConverter.h \
+  SBMLIdConverter.h \
   SBMLInitialAssignmentConverter.h \
   SBMLLevelVersionConverter.h \
-  SBMLStripPackageConverter.h \
-  SBMLIdConverter.h \
+  SBMLLocalParameterConverter.h \
   SBMLRuleConverter.h \
+  SBMLStripPackageConverter.h \
   SBMLUnitsConverter.h
 
 common_sources = \
@@ -71,11 +72,12 @@ common_sources = \
   SBMLConverter.cpp     \
   SBMLConverterRegistry.cpp     \
   SBMLFunctionDefinitionConverter.cpp \
+  SBMLIdConverter.cpp \
   SBMLInitialAssignmentConverter.cpp \
   SBMLLevelVersionConverter.cpp \
-  SBMLStripPackageConverter.cpp \
-  SBMLIdConverter.cpp \
+  SBMLLocalParameterConverter.cpp \
   SBMLRuleConverter.cpp \
+  SBMLStripPackageConverter.cpp \
   SBMLUnitsConverter.cpp
 
 sources = $(common_sources)
