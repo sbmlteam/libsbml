@@ -53,6 +53,8 @@ thisdir   = src/sbml/util
 headers   = \
   IdList.h \
 	List.h \
+	IdFilter.h \
+	MetaIdFilter.h \
 	memory.h \
 	Stack.h \
 	StringBuffer.h \
@@ -65,6 +67,8 @@ header_inst_prefix = util
 sources   = \
   IdList.cpp \
 	List.cpp \
+	IdFilter.cpp \
+	ElementFilter.cpp \
 	memory.c \
 	Stack.c \
 	StringBuffer.c \
