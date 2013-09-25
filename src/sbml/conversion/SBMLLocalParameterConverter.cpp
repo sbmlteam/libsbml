@@ -43,6 +43,7 @@
 
 #include <algorithm>
 #include <string>
+#include <sstream>
 
 using namespace std;
 LIBSBML_CPP_NAMESPACE_BEGIN
@@ -95,20 +96,21 @@ SBMLLocalParameterConverter::matchesProperties(const ConversionProperties &props
 
 std::string getNewId(Model* model, const std::string& reactionId, const std::string& localId)
 {
-  stringstream str; str << reactionId << "_" << localId;
-  if (model->getParameter(str.str()) == NULL)
-    return str.str();
+  string newId = reactionId + "_" + localId;
+  if (model->getParameter(newId) == NULL)
+    return newId;
 
   int ncount = 1;
   do 
   {
-    str = stringstream();
+    stringstream str;
     str << reactionId << "_" << localId << "_" << ncount;
+    newId = str.str();
     ++ncount;
   }
-  while(model->getParameter(str.str()) != NULL);
+  while(model->getParameter(newId) != NULL);
 
-  return str.str();
+  return newId;
 
 }
 
