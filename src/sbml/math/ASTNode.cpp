@@ -2289,6 +2289,7 @@ ASTNode::replaceArgument(const std::string bvar, ASTNode * arg)
     {
       if (arg->isName())
       {
+        this->setType(arg->getType());
         this->setName(arg->getName());
       }
       else if (arg->isReal())
@@ -2322,6 +2323,7 @@ ASTNode::replaceArgument(const std::string bvar, ASTNode * arg)
       {
         if (arg->isName())
         {
+          getChild(i)->setType(arg->getType());
           getChild(i)->setName(arg->getName());
         }
         else if (arg->isReal())
