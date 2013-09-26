@@ -44,6 +44,19 @@ foreach(dir common extension sbml util validator validator/constraints)
 	                  ${CMAKE_CURRENT_SOURCE_DIR}/sbml/packages/layout/${dir}/*.c
 	                  ${CMAKE_CURRENT_SOURCE_DIR}/sbml/packages/layout/${dir}/*.h)
 	
+        # set the *Constraints.cpp files to be 'header' files so they won't be compiled--
+        #  they are #included directly, instead.
+        if ("${dir}" STREQUAL "validator/constraints")
+            foreach(tempFile ${current})
+                if ("${tempFile}" MATCHES ".*Constraints.cpp")
+                    set_source_files_properties(
+                        ${tempFile}
+                        PROPERTIES HEADER_FILE_ONLY true
+                        )
+                endif()
+            endforeach()
+        endif()
+
 	# add sources 
 	set(LAYOUT_SOURCES ${LAYOUT_SOURCES} ${current})
 
