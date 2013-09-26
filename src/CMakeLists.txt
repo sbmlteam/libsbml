@@ -218,8 +218,10 @@ foreach (directory annotation common conversion extension math sbml
             ${prefix}${directory}/*.c
             ${prefix}${directory}/*.h)
 
-    # remove the constraint files as they don't have to be compiled
-    # since they don't contain symbols but rather are included directly
+    # Set the constraint files to be 'headers' as they don't have to be compiled
+    # since they don't contain symbols but rather are included directly.  Could
+    # remove them, but that keeps their content from being found in searches, etc.
+    # in IDEs such as VisualStudio.
     if ("${directory}" STREQUAL "validator/constraints")
       foreach(tempFile ${temp})
         if ("${tempFile}" MATCHES ".*Constraints.cpp")
