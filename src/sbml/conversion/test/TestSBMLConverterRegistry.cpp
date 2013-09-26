@@ -136,6 +136,28 @@ START_TEST (test_conversion_parameters)
 }
 END_TEST
 
+START_TEST (test_conversion_inline)
+{
+  string filename(TestDataDirectory);
+  filename += "00856-sbml-l3v1.xml";
+
+  SBMLDocument* doc = readSBMLFromFile(filename.c_str());
+
+  fail_unless(doc->getModel() != NULL);
+
+  fail_unless(doc->getModel()->getNumParameters() == 0);
+
+  ConversionProperties props;
+  props.addOption("expandFunctionDefinitions", true);
+
+  fail_unless(doc->convert(props) == LIBSBML_OPERATION_SUCCESS);
+  doc->checkConsistency();
+  fail_unless(doc->getNumErrors(LIBSBML_SEV_ERROR) == 0);
+
+  delete doc;
+}
+END_TEST
+
 Suite *
 create_suite_TestSBMLConverterRegistry (void)
 { 
@@ -148,6 +170,7 @@ create_suite_TestSBMLConverterRegistry (void)
 
   tcase_add_test(tcase, test_conversion_units);
   tcase_add_test(tcase, test_conversion_parameters);
+  tcase_add_test(tcase, test_conversion_inline);
 
   suite_add_tcase(suite, tcase);
 
