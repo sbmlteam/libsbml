@@ -211,6 +211,7 @@ distfiles =							\
         graphics/cmake-empty-windows.png			\
         graphics/cmake-options-red-windows.png			\
         graphics/cmake-options-red.png				\
+	graphics/comp-overview.png 				\
         graphics/compartment-size.jpg				\
         graphics/enzymatic-reaction.jpg				\
         graphics/ftv2doc.png					\

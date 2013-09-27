@@ -1,2 +1,125 @@
 <p> The libSBML 'comp' extension implements support for the SBML Level&nbsp;3
 package <em>Hierarchical Model Composition</em>.
+
+<p> In the context of SBML, <em>hierarchical model composition</em> refers to
+the ability to include models as submodels inside another model. The goal is
+to support the ability of modelers and software tools to do such things as
+(1) decompose larger models into smaller ones, as a way to manage complexity;
+(2) incorporate multiple instances of a given model within one or more
+enclosing models, to avoid literal duplication of repeated elements; and (3)
+create libraries of reusable, tested models, much as is done in software
+development and other engineering fields. SBML Level 3 Version 1 Core, by
+itself, has no direct support for allowing a model to include other models as
+submodels.  The Level&nbsp;3 Hierarchical Model Composition package adds the
+missing capabilities.  The figure below illustrates some of the scenarios
+targeted by this package.
+
+<center>
+<figure> <img src="comp-overview.png" alt="Three different examples of model
+composition scenarios.  From left to right: (1) a model composed of multiple
+instances of a single, internally-defined submodel definition; (2) a model
+composed of a submodel that is itself composed of submodels; and (3) a model
+composed of submodels, one of which is defined in an external file."
+title="Examples of model configurations supported by the 'comp' package." />
+<figcaption>Three different examples of model composition scenarios.  From
+left to right: (1) a model composed of multiple instances of a single,
+internally-defined submodel definition; (2) a model composed of a submodel
+that is itself composed of submodels; and (3) a model composed of submodels,
+one of which is defined in an external file.</figcaption></figure>
+</center>
+
+<p>
+The following are the basic design goals followed in the SBML Level&nbsp;3
+Hierarchical Model Composition package:
+<ul>
+
+<li style="margin-bottom: 0.5em"> <em>Allow modelers to build models by
+  aggregation, composition, or modularity</em>.  These methods are so similar
+  to one another, and the process of creating an SBML Level&nbsp;3 package is
+  so involved, that we believe it is not advantageous to create one SBML
+  package for aggregation and composition, and a separate package for
+  modularity.  Users of the hierarchical model composition package should be
+  able to use and create models in the style that is best suited for their
+  individual tasks, using any of these mechanisms, and to exchange and reuse
+  models from other groups simply and straightforwardly.
+
+<li style="margin-bottom: 0.5em"> <em>Interoperate cleanly with other
+  packages</em>. The rules of composition should be such that they could
+  apply to any SBML element, even unanticipated elements not defined in SBML
+  Level&nbsp;3 Core and introduced by some future Level&nbsp;3 package.
+
+<li style="margin-bottom: 0.5em"> <em>Allow models produced with these
+  constructs to be valid SBML if the constructs are ignored</em>.  In SBML,
+  whenever possible, ignoring elements defined in a Level&nbsp;3 package
+  namespace should result in syntactically-correct SBML models that can still
+  be interpreted to some degree, even if it cannot produce the intended
+  simulation results of the full (i.e., interpreting the package constructs)
+  model.  For example, inspection and visualization of the Core model should
+  still be possible.
+
+<li style="margin-bottom: 0.5em"> <em>Ignore verbosity of models</em>. We
+  assume that software will deal with the &ldquot;nuts and bolts&rdquot; of
+  reading and writing SBML.  If there are two approaches to designing a
+  mechanism for this hierarchical composition package, where one approach is
+  clear but verbose and the other approach is concise but complex or
+  unobvious, we prefer the clear and verbose approach.  We assume that
+  software tools can abstract away the verbosity for the user.  (However,
+  tempering this goal is the next point.)
+
+<li style="margin-bottom: 0.5em"> <em>Avoid over-complicating the
+  specification</em>. Apart from the base constructs defined by this
+  specification, any new element or attribute introduced should have a clear
+  use case that cannot be achieved in any other way.
+
+<li style="margin-bottom: 0.5em"> <em>Allow modular access to files outside
+    the modeler's control</em>.  In order to encourage direct referencing of
+    models (e.g., to models hosted online on sites such as <a target="_blank"
+    href="http://biomodels.net/database">BioModels Database</a>), whenever
+    possible, we will require referenced submodels only to be in SBML
+    Level&nbsp;3 format (with or without other package information), and not
+    require that they include constructs from this specification.
+
+<li style="margin-bottom: 0.5em"> <em>Incorporate most, if not all, of the
+    desirable features of past proposals</em>. The names may change, but the
+    aims of past efforts at SBML model composition should still be achievable
+    with the present specification.
+
+</ul>
+
+<p>
+In the XML serialization of an SBML model, every SBML Level&nbsp;3 package is
+identified uniquely by an XML namespace URI.  For a model to use a given
+package, it must declare this namespace on the <code>&lt;sbml&gt;</code>
+element.  The following is the namespace URI for Version&nbsp;1 of the Hierarchical
+Model Composition package for SBML Level&nbsp;3:
+
+<center>
+<code>http://www.sbml.org/sbml/level3/version1/comp/version1</code>
+</center>
+
+<p>
+Future Versions of the Hierarchical Model Composition package will be
+identified by updating this URI&mdash;please check the current version of the
+package for the appropriate URI to use.
+
+<p>
+In addition to the XML namespace URI, SBML documents using a given package
+must indicate whether the package can be used to change the mathematical
+interpretation of a model.  This is done using the attribute
+<code>required</code> on the <code>&lt;sbml&gt;</code> element in the SBML
+document.  For the Hierarchical Model Composition package, the value of this
+attribute must be set to <code>true</code>, because the elements defined
+here can change the mathematical interpretation of several core elements.
+Note that this attribute must be set to <code>true</code> whether or not
+the particular model is changed by these package constructs.
+
+<p>
+The following fragment illustrates the beginning of a typical SBML model
+using SBML Level&nbsp;3 Core and Version&nbsp;1 of the Hierarchical Model
+Composition package:
+
+<pre class="fragment">
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;sbml xmlns="http://www.sbml.org/sbml/level3/version1/core" level="3" version="1"
+      xmlns:comp="http://www.sbml.org/sbml/level3/version1/comp/version1" comp:required="true"&gt;
+</pre>
