@@ -350,13 +350,6 @@ SBMLExternalValidator::getArgument(unsigned int n) const
 }
 
 
-
-/** @cond doxygenCOnly */
-
-
-
-/** @endcond */
-
 LIBSBML_CPP_NAMESPACE_END
 
 #endif  /* __cplusplus */
