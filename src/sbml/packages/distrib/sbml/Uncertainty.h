@@ -46,7 +46,7 @@
 #include <sbml/ListOf.h>
 #include <sbml/packages/distrib/extension/DistribExtension.h>
 
-//#include <sbml/packages/distrib/sbml/AbstractUncertainty.h>
+#include <sbml/packages/distrib/util/UncertMLNode.h>
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
@@ -58,7 +58,7 @@ protected:
 
 	std::string   mId;
 	std::string   mName;
-	XMLNode* mAbstractUncertainty;
+	UncertMLNode* mUncertML;
 
 
 public:
@@ -209,27 +209,27 @@ public:
 
 
 	/**
-	 * Returns the "AbstractUncertainty" element of this Uncertainty.
+	 * Returns the "UncertML" element of this Uncertainty.
 	 *
-	 * @return the "AbstractUncertainty" element of this Uncertainty.
+	 * @return the "UncertML" element of this Uncertainty.
 	 */
-	virtual const XMLNode* getAbstractUncertainty() const;
+	virtual const UncertMLNode* getUncertML() const;
 
 
 	/**
 	 * Predicate returning @c true or @c false depending on whether this
-	 * Uncertainty's "AbstractUncertainty" element has been set.
+	 * Uncertainty's "UncertML" element has been set.
 	 *
-	 * @return @c true if this Uncertainty's "AbstractUncertainty" element has been set,
+	 * @return @c true if this Uncertainty's "UncertML" element has been set,
 	 * otherwise @c false is returned.
 	 */
-	virtual bool isSetAbstractUncertainty() const;
+	virtual bool isSetUncertML() const;
 
 
 	/**
-	 * Sets the "AbstractUncertainty" element of this Uncertainty.
+	 * Sets the "UncertML" element of this Uncertainty.
 	 *
-	 * @param AbstractUncertainty; AbstractUncertainty* to be set.
+	 * @param UncertML; UncertMLNode* to be set.
 	 *
 	 * @return integer value indicating success/failure of the
 	 * function.  @if clike The value is drawn from the
@@ -238,11 +238,11 @@ public:
 	 * @li LIBSBML_OPERATION_SUCCESS
 	 * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
 	 */
-	virtual int setAbstractUncertainty(XMLNode* AbstractUncertainty);
+	virtual int setUncertML(UncertMLNode* uncertML);
 
 
 	/**
-	 * Unsets the "AbstractUncertainty" element of this Uncertainty.
+	 * Unsets the "UncertML" element of this Uncertainty.
 	 *
 	 * @return integer value indicating success/failure of the
 	 * function.  @if clike The value is drawn from the
@@ -251,7 +251,7 @@ public:
 	 * @li LIBSBML_OPERATION_SUCCESS
 	 * @li LIBSBML_OPERATION_FAILED
 	 */
-	virtual int unsetAbstractUncertainty();
+	virtual int unsetUncertML();
 
 
 	/**
@@ -301,7 +301,7 @@ public:
 	 * for this Uncertainty object have been set.
 	 *
 	 * @note The required attributes for a Uncertainty object are:
-	 * @li "AbstractUncertainty"
+	 * @li "UncertML"
 	 *
 	 * @return a boolean value indicating whether all the required
 	 * attributes for this object have been defined.
@@ -314,7 +314,7 @@ public:
 	 * for this Uncertainty object have been set.
 	 *
 	 * @note The required elements for a Uncertainty object are:
-	 * @li "AbstractUncertainty"
+	 * @li "UncertML"
 	 *
 	 * @return a boolean value indicating whether all the required
 	 * elements for this object have been defined.
@@ -391,6 +391,7 @@ protected:
 
 
   virtual bool readOtherXML(XMLInputStream &stream);
+
 	/** @endcond doxygenLibsbmlInternal */
 
 

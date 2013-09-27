@@ -44,7 +44,7 @@ Uncertainty::Uncertainty (unsigned int level, unsigned int version, unsigned int
 	: SBase(level, version)
 	 ,mId ("")
 	 ,mName ("")
-	 ,mAbstractUncertainty (NULL)
+	 ,mUncertML (NULL)
 {
 	// set an SBMLNamespaces derived object of this package
 	setSBMLNamespacesAndOwn(new DistribPkgNamespaces(level, version, pkgVersion));
@@ -61,7 +61,7 @@ Uncertainty::Uncertainty (DistribPkgNamespaces* distribns)
 	: SBase(distribns)
 	 ,mId ("")
 	 ,mName ("")
-	 ,mAbstractUncertainty (NULL)
+	 ,mUncertML (NULL)
 {
 	// set the element namespace of this object
 	setElementNamespace(distribns->getURI());
@@ -88,13 +88,13 @@ Uncertainty::Uncertainty (const Uncertainty& orig)
 	{
 		mId  = orig.mId;
 		mName  = orig.mName;
-		if (orig.mAbstractUncertainty != NULL)
+		if (orig.mUncertML != NULL)
 		{
-			mAbstractUncertainty = orig.mAbstractUncertainty->clone();
+			mUncertML = orig.mUncertML->clone();
 		}
 		else
 		{
-			mAbstractUncertainty = NULL;
+			mUncertML = NULL;
 		}
 
 		// connect to child objects
@@ -118,13 +118,13 @@ Uncertainty::operator=(const Uncertainty& rhs)
 		SBase::operator=(rhs);
 		mId  = rhs.mId;
 		mName  = rhs.mName;
-		if (rhs.mAbstractUncertainty != NULL)
+		if (rhs.mUncertML != NULL)
 		{
-			mAbstractUncertainty = rhs.mAbstractUncertainty->clone();
+			mUncertML = rhs.mUncertML->clone();
 		}
 		else
 		{
-			mAbstractUncertainty = NULL;
+			mUncertML = NULL;
 		}
 
 		// connect to child objects
@@ -173,12 +173,12 @@ Uncertainty::getName() const
 
 
 /*
- * Returns the value of the "AbstractUncertainty" attribute of this Uncertainty.
+ * Returns the value of the "UncertML" attribute of this Uncertainty.
  */
-const XMLNode*
-Uncertainty::getAbstractUncertainty() const
+const UncertMLNode*
+Uncertainty::getUncertML() const
 {
-	return mAbstractUncertainty;
+	return mUncertML;
 }
 
 
@@ -203,12 +203,12 @@ Uncertainty::isSetName() const
 
 
 /*
- * Returns true/false if AbstractUncertainty is set.
+ * Returns true/false if UncertML is set.
  */
 bool
-Uncertainty::isSetAbstractUncertainty() const
+Uncertainty::isSetUncertML() const
 {
-	return (mAbstractUncertainty != NULL);
+	return (mUncertML != NULL);
 }
 
 
@@ -241,29 +241,29 @@ Uncertainty::setName(const std::string& name)
 
 
 /*
- * Sets AbstractUncertainty and returns value indicating success.
+ * Sets UncertML and returns value indicating success.
  */
 int
-Uncertainty::setAbstractUncertainty(XMLNode* AbstractUncertainty)
+Uncertainty::setUncertML(UncertMLNode* uncertML)
 {
-	if (mAbstractUncertainty == AbstractUncertainty)
+	if (mUncertML == uncertML)
 	{
 		return LIBSBML_OPERATION_SUCCESS;
 	}
-	else if (AbstractUncertainty == NULL)
+	else if (uncertML == NULL)
 	{
-		delete mAbstractUncertainty;
-		mAbstractUncertainty = NULL;
+		delete mUncertML;
+		mUncertML = NULL;
 		return LIBSBML_OPERATION_SUCCESS;
 	}
 	else
 	{
-		delete mAbstractUncertainty;
-		mAbstractUncertainty = (AbstractUncertainty != NULL) ?
-			static_cast<XMLNode*>(AbstractUncertainty->clone()) : NULL;
-		//if (mAbstractUncertainty != NULL)
+		delete mUncertML;
+		mUncertML = (uncertML != NULL) ?
+			static_cast<UncertMLNode*>(uncertML->clone()) : NULL;
+		//if (mUncertML != NULL)
 		//{
-		//	mAbstractUncertainty->connectToParent(this);
+		//	mUncertML->connectToParent(this);
 		//}
 		return LIBSBML_OPERATION_SUCCESS;
 	}
@@ -309,13 +309,13 @@ Uncertainty::unsetName()
 
 
 /*
- * Unsets AbstractUncertainty and returns value indicating success.
+ * Unsets UncertML and returns value indicating success.
  */
 int
-Uncertainty::unsetAbstractUncertainty()
+Uncertainty::unsetUncertML()
 {
-	delete mAbstractUncertainty;
-	mAbstractUncertainty = NULL;
+	delete mUncertML;
+	mUncertML = NULL;
 	return LIBSBML_OPERATION_SUCCESS;
 }
 
@@ -361,7 +361,7 @@ Uncertainty::hasRequiredElements () const
 {
 	bool allPresent = true;
 
-	if (isSetAbstractUncertainty() == false)
+	if (isSetUncertML() == false)
 		allPresent = false;
 
 	return allPresent;
@@ -378,9 +378,9 @@ Uncertainty::writeElements (XMLOutputStream& stream) const
 {
 	SBase::writeElements(stream);
 
-	if (isSetAbstractUncertainty() == true)
+	if (isSetUncertML() == true)
 	{
-		mAbstractUncertainty->write(stream);
+		mUncertML->write(stream);
 	}
 	SBase::writeExtensionElements(stream);
 }
@@ -468,11 +468,6 @@ Uncertainty::createObject(XMLInputStream& stream)
 
 	DISTRIB_CREATE_NS(distribns, getSBMLNamespaces());
 
-	//if (name == "AbstractUncertainty")
-	//{
-	//	mAbstractUncertainty = new AbstractUncertainty(distribns);
-	//	object = mAbstractUncertainty;
-	//}
 
 	return object;
 }
@@ -483,16 +478,19 @@ Uncertainty::readOtherXML(XMLInputStream& stream)
 {
   const string& name = stream.peek().getName();
 
-  if (name == "AbstractUncertainty")
-  {
-    delete mAbstractUncertainty;
-    mAbstractUncertainty = new XMLNode(stream);
-
+	if (name == "UncertML")
+	{
+    delete mUncertML;
+    XMLNode * xml = new XMLNode(stream);
+    mUncertML = new UncertMLNode(xml);
+    delete xml;
     return true;
   }
 
   return false;
 }
+
+
 	/** @endcond doxygenLibsbmlInternal */
 
 

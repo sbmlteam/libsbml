@@ -39,5 +39,7 @@
 #include <sbml/packages/distrib/sbml/DistribInput.h>
 #include <sbml/packages/distrib/sbml/Uncertainty.h>
 
+#include <sbml/packages/distrib/util/UncertMLNode.h>
+
 #endif	/* DistribExtensionTypes_H */
 

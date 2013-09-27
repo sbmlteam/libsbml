@@ -212,13 +212,8 @@ DistribSBasePlugin::setUncertainty(const Uncertainty* uncertainty)
 	}
 	else
 	{
-    delete mUncertainty;
-    mUncertainty = static_cast<Uncertainty*>( uncertainty->clone() );
-    //if (mUncertainty != NULL)
-    //{
-    //  mUncertainty->connectToParent(this);
-    //}
-
+		delete mUncertainty;
+		mUncertainty = static_cast<Uncertainty*>(uncertainty->clone());
 		return LIBSBML_OPERATION_SUCCESS;
 	}
 }

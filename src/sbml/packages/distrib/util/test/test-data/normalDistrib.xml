@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level3/version1/core" level="3" version="1"
+      xmlns:distrib="http://www.sbml.org/sbml/level3/version1/distrib/version1" 
+      distrib:required="true">
+  <model id="UserDefined" name="User Defined Example">
+    <listOfFunctionDefinitions>
+      <functionDefinition id="mynormal">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <lambda>
+            <bvar>
+              <ci>param1</ci>
+            </bvar>
+            <bvar>
+              <ci>param2</ci>
+            </bvar>
+            <cn>0</cn>
+          </lambda>
+        </math>
+        <drawFromDistribution xmlns="http://www.sbml.org/sbml/level3/version1/distrib/version1">
+          <listOfDistribInputs>
+            <distribInput distrib:id="mu" distrib:index="0"/>
+            <distribInput distrib:id="sigma" distrib:index="1"/>
+          </listOfDistribInputs>
+          <UncertML xmlns="http://www.uncertml.org/3.0">
+            <NormalDistribution definition="http://www.uncertml.org/distributions/normal">
+              <mean> <var varId="mu"/> </mean>
+              <variance> <var varId="sigma"/> </variance>
+            </NormalDistribution>
+          </UncertML>
+        </drawFromDistribution>
+      </functionDefinition>
+    </listOfFunctionDefinitions>
+  </model>
+</sbml>

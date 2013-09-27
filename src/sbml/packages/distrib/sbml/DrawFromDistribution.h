@@ -47,7 +47,7 @@
 #include <sbml/packages/distrib/extension/DistribExtension.h>
 
 #include <sbml/packages/distrib/sbml/DistribInput.h>
-//#include <sbml/packages/distrib/sbml/Distribution.h>
+#include <sbml/packages/distrib/util/UncertMLNode.h>
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
@@ -58,7 +58,7 @@ class LIBSBML_EXTERN DrawFromDistribution : public SBase
 protected:
 
 	ListOfDistribInputs   mDistribInputs;
-	XMLNode* mDistribution;
+	UncertMLNode* mUncertML;
 
 
 public:
@@ -117,27 +117,27 @@ public:
 
 
  	/**
-	 * Returns the "Distribution" element of this DrawFromDistribution.
+	 * Returns the "UncertML" element of this DrawFromDistribution.
 	 *
-	 * @return the "Distribution" element of this DrawFromDistribution.
+	 * @return the "UncertML" element of this DrawFromDistribution.
 	 */
-	virtual const XMLNode* getDistribution() const;
+	virtual const UncertMLNode* getUncertML() const;
 
 
 	/**
 	 * Predicate returning @c true or @c false depending on whether this
-	 * DrawFromDistribution's "Distribution" element has been set.
+	 * DrawFromDistribution's "UncertML" element has been set.
 	 *
-	 * @return @c true if this DrawFromDistribution's "Distribution" element has been set,
+	 * @return @c true if this DrawFromDistribution's "UncertML" element has been set,
 	 * otherwise @c false is returned.
 	 */
-	virtual bool isSetDistribution() const;
+	virtual bool isSetUncertML() const;
 
 
 	/**
-	 * Sets the "Distribution" element of this DrawFromDistribution.
+	 * Sets the "UncertML" element of this DrawFromDistribution.
 	 *
-	 * @param Distribution; Distribution* to be set.
+	 * @param UncertML; UncertMLNode* to be set.
 	 *
 	 * @return integer value indicating success/failure of the
 	 * function.  @if clike The value is drawn from the
@@ -146,11 +146,11 @@ public:
 	 * @li LIBSBML_OPERATION_SUCCESS
 	 * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
 	 */
-	virtual int setDistribution(XMLNode* Distribution);
+	virtual int setUncertML(UncertMLNode* uncertML);
 
 
 	/**
-	 * Unsets the "Distribution" element of this DrawFromDistribution.
+	 * Unsets the "UncertML" element of this DrawFromDistribution.
 	 *
 	 * @return integer value indicating success/failure of the
 	 * function.  @if clike The value is drawn from the
@@ -159,7 +159,7 @@ public:
 	 * @li LIBSBML_OPERATION_SUCCESS
 	 * @li LIBSBML_OPERATION_FAILED
 	 */
-	virtual int unsetDistribution();
+	virtual int unsetUncertML();
 
 
 	/**
@@ -348,7 +348,7 @@ public:
 	 * for this DrawFromDistribution object have been set.
 	 *
 	 * @note The required attributes for a DrawFromDistribution object are:
-	 * @li "Distribution"
+	 * @li "UncertML"
 	 *
 	 * @return a boolean value indicating whether all the required
 	 * attributes for this object have been defined.
@@ -361,7 +361,7 @@ public:
 	 * for this DrawFromDistribution object have been set.
 	 *
 	 * @note The required elements for a DrawFromDistribution object are:
-	 * @li "Distribution"
+	 * @li "UncertML"
 	 *
 	 * @return a boolean value indicating whether all the required
 	 * elements for this object have been defined.

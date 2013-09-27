@@ -212,13 +212,8 @@ DistribFunctionDefinitionPlugin::setDrawFromDistribution(const DrawFromDistribut
 	}
 	else
 	{
-    delete mDrawFromDistribution;
-    mDrawFromDistribution = 
-         static_cast<DrawFromDistribution*>( drawFromDistribution->clone() );
-    //if (mUncertainty != NULL)
-    //{
-    //  mUncertainty->connectToParent(this);
-    //}
+		delete mDrawFromDistribution;
+		mDrawFromDistribution = static_cast<DrawFromDistribution*>(drawFromDistribution->clone());
 		return LIBSBML_OPERATION_SUCCESS;
 	}
 }

@@ -49,6 +49,8 @@ typedef CLASS_OR_STRUCT DrawFromDistribution		DrawFromDistribution_t;
 typedef CLASS_OR_STRUCT DistribInput		DistribInput_t;
 typedef CLASS_OR_STRUCT Uncertainty		Uncertainty_t;
 
+typedef CLASS_OR_STRUCT UncertMLNode		UncertMLNode_t;
+
 LIBSBML_CPP_NAMESPACE_END
 
 #undef CLASS_OR_STRUCT

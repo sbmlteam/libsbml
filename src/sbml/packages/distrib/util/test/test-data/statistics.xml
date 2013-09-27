@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level3/version1/core" level="3" version="1"
+      xmlns:distrib="http://www.sbml.org/sbml/level3/version1/distrib/version1" 
+      distrib:required="true">
+  <model id="UserDefined" name="User Defined Example">
+    
+    <listOfParameters>
+      <parameter id="V" constant="true">
+        <distrib:uncertainty>
+          <UncertML xmlns="http://www.uncertml.org/3.0">
+            <StatisticsCollection definition="http://www.uncertml.org/statistics">
+              <Mean definition="http://www.uncertml.org/statistics/mean">
+                <value><var varId="V_pop"/></value>
+              </Mean>
+              <Variance definition="http://www.uncertml.org/statistics/variance">
+                <value><var varId="V_omega"/></value>
+              </Variance>
+            </StatisticsCollection>
+          </UncertML>
+        </distrib:uncertainty>
+      </parameter>
+      
+      
+    </listOfParameters>
+    
+  </model>
+</sbml>

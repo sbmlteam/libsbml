@@ -43,7 +43,7 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 DrawFromDistribution::DrawFromDistribution (unsigned int level, unsigned int version, unsigned int pkgVersion)
 	: SBase(level, version)
 	 ,mDistribInputs (level, version, pkgVersion)
-	 ,mDistribution (NULL)
+	 ,mUncertML (NULL)
 {
 	// set an SBMLNamespaces derived object of this package
 	setSBMLNamespacesAndOwn(new DistribPkgNamespaces(level, version, pkgVersion));
@@ -59,7 +59,7 @@ DrawFromDistribution::DrawFromDistribution (unsigned int level, unsigned int ver
 DrawFromDistribution::DrawFromDistribution (DistribPkgNamespaces* distribns)
 	: SBase(distribns)
 	 ,mDistribInputs (distribns)
-	 ,mDistribution (NULL)
+	 ,mUncertML (NULL)
 {
 	// set the element namespace of this object
 	setElementNamespace(distribns->getURI());
@@ -85,13 +85,13 @@ DrawFromDistribution::DrawFromDistribution (const DrawFromDistribution& orig)
 	else
 	{
 		mDistribInputs  = orig.mDistribInputs;
-		if (orig.mDistribution != NULL)
+		if (orig.mUncertML != NULL)
 		{
-			mDistribution = orig.mDistribution->clone();
+			mUncertML = orig.mUncertML->clone();
 		}
 		else
 		{
-			mDistribution = NULL;
+			mUncertML = NULL;
 		}
 
 		// connect to child objects
@@ -114,13 +114,13 @@ DrawFromDistribution::operator=(const DrawFromDistribution& rhs)
 	{
 		SBase::operator=(rhs);
 		mDistribInputs  = rhs.mDistribInputs;
-		if (rhs.mDistribution != NULL)
+		if (rhs.mUncertML != NULL)
 		{
-			mDistribution = rhs.mDistribution->clone();
+			mUncertML = rhs.mUncertML->clone();
 		}
 		else
 		{
-			mDistribution = NULL;
+			mUncertML = NULL;
 		}
 
 		// connect to child objects
@@ -149,49 +149,49 @@ DrawFromDistribution::~DrawFromDistribution ()
 
 
 /*
- * Returns the value of the "Distribution" attribute of this DrawFromDistribution.
+ * Returns the value of the "UncertML" attribute of this DrawFromDistribution.
  */
-const XMLNode*
-DrawFromDistribution::getDistribution() const
+const UncertMLNode*
+DrawFromDistribution::getUncertML() const
 {
-	return mDistribution;
+	return mUncertML;
 }
 
 
 /*
- * Returns true/false if Distribution is set.
+ * Returns true/false if UncertML is set.
  */
 bool
-DrawFromDistribution::isSetDistribution() const
+DrawFromDistribution::isSetUncertML() const
 {
-	return (mDistribution != NULL);
+	return (mUncertML != NULL);
 }
 
 
 /*
- * Sets Distribution and returns value indicating success.
+ * Sets UncertML and returns value indicating success.
  */
 int
-DrawFromDistribution::setDistribution(XMLNode* Distribution)
+DrawFromDistribution::setUncertML(UncertMLNode* uncertML)
 {
-	if (mDistribution == Distribution)
+	if (mUncertML == uncertML)
 	{
 		return LIBSBML_OPERATION_SUCCESS;
 	}
-	else if (Distribution == NULL)
+	else if (uncertML == NULL)
 	{
-		delete mDistribution;
-		mDistribution = NULL;
+		delete mUncertML;
+		mUncertML = NULL;
 		return LIBSBML_OPERATION_SUCCESS;
 	}
 	else
 	{
-		delete mDistribution;
-		mDistribution = (Distribution != NULL) ?
-			static_cast<XMLNode*>(Distribution->clone()) : NULL;
-		//if (mDistribution != NULL)
+		delete mUncertML;
+		mUncertML = (uncertML != NULL) ?
+			static_cast<UncertMLNode*>(uncertML->clone()) : NULL;
+		//if (mUncertML != NULL)
 		//{
-		//	mDistribution->connectToParent(this);
+		//	mUncertML->connectToParent(this);
 		//}
 		return LIBSBML_OPERATION_SUCCESS;
 	}
@@ -199,13 +199,13 @@ DrawFromDistribution::setDistribution(XMLNode* Distribution)
 
 
 /*
- * Unsets Distribution and returns value indicating success.
+ * Unsets UncertML and returns value indicating success.
  */
 int
-DrawFromDistribution::unsetDistribution()
+DrawFromDistribution::unsetUncertML()
 {
-	delete mDistribution;
-	mDistribution = NULL;
+	delete mUncertML;
+	mUncertML = NULL;
 	return LIBSBML_OPERATION_SUCCESS;
 }
 
@@ -407,7 +407,7 @@ DrawFromDistribution::hasRequiredElements () const
 {
 	bool allPresent = true;
 
-	if (isSetDistribution() == false)
+	if (isSetUncertML() == false)
 		allPresent = false;
 
 	return allPresent;
@@ -429,9 +429,9 @@ DrawFromDistribution::writeElements (XMLOutputStream& stream) const
 		mDistribInputs.write(stream);
 	}
 
-	if (isSetDistribution() == true)
+	if (isSetUncertML() == true)
 	{
-    mDistribution->write(stream);
+     mUncertML->write(stream);
 	}
 	SBase::writeExtensionElements(stream);
 }
@@ -526,11 +526,6 @@ DrawFromDistribution::createObject(XMLInputStream& stream)
 	{
 		object = &mDistribInputs;
 	}
-	//else if (name == "Distribution")
-	//{
-	//	mDistribution = new Distribution(distribns);
-	//	object = mDistribution;
-	//}
 
 	return object;
 }
@@ -540,16 +535,19 @@ DrawFromDistribution::readOtherXML(XMLInputStream& stream)
 {
   const string& name = stream.peek().getName();
 
-  if (name == "Distribution")
+  if (name == "UncertML")
   {
-    delete mDistribution;
-    mDistribution = new XMLNode(stream);
-
+    delete mUncertML;
+    XMLNode * xml = new XMLNode(stream);
+    mUncertML = new UncertMLNode(xml);
+    delete xml;
     return true;
   }
 
   return false;
 }
+
+
 	/** @endcond doxygenLibsbmlInternal */
 
 
