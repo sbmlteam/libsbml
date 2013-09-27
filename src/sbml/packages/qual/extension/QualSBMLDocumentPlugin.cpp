@@ -129,13 +129,16 @@ QualSBMLDocumentPlugin::readAttributes (const XMLAttributes& attributes,
 /** @endcond doxygenLibsbmlInternal*/
 
 
+/** @cond doxygenLibsbmlInternal */
 bool
 QualSBMLDocumentPlugin::isFlatteningImplemented() const
 {
   return false;
 }
+/** @endcond */
 
 
+/** @cond doxygenLibsbmlInternal */
 unsigned int 
 QualSBMLDocumentPlugin::checkConsistency()
 {
@@ -200,6 +203,7 @@ QualSBMLDocumentPlugin::checkConsistency()
   }
   return total_errors;  
 }
+/** @endcond */
 
 /** @cond doxygenLibsbmlInternal */
 

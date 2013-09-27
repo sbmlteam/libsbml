@@ -26,7 +26,12 @@
  * in the file named "LICENSE.txt" included with this software distribution
  * and also available online as http://sbml.org/software/libsbml/license.html
  * ------------------------------------------------------------------------ -->
- */
+ *
+ * @class LayoutModelPlugin
+ * @ingroup layout
+ * @brief @htmlinclude pkg-marker-layout.html
+ * Implementation of the 'layout' package extention to the %Model construct.
+  */
 
 #ifndef LayoutModelPlugin_h
 #define LayoutModelPlugin_h

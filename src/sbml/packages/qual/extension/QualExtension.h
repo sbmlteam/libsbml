@@ -24,6 +24,11 @@
  * in the file named "LICENSE.txt" included with this software distribution
  * and also available online as http://sbml.org/software/libsbml/license.html
  * ------------------------------------------------------------------------ -->
+ *
+ * @class QualExtension
+ * @ingroup qual
+ * @brief @htmlinclude pkg-marker-qual.html
+ * The core module of the 'qual' package extension.
  */
 
 #ifndef QualExtension_h

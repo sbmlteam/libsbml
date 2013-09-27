@@ -590,6 +590,7 @@ BoundingBox::depth() const
   return this->mDimensions.depth();
 }
 
+/** @cond doxygenLibsbmlInternal */
 /*
  * Subclasses should override this method to write out their contained
  * SBML objects as XML elements.  Be sure to call your parents
@@ -611,6 +612,7 @@ void BoundingBox::writeElements (XMLOutputStream& stream) const
   //
   SBase::writeExtensionElements(stream);
 }
+/** @endcond */
 
 /*
  * Returns the XML element name of
@@ -785,6 +787,7 @@ XMLNode BoundingBox::toXML() const
 }
 
 
+/** @cond doxygenLibsbmlInternal */
 /*
  * Sets the parent SBMLDocument of this SBML object.
  */
@@ -796,8 +799,10 @@ BoundingBox::setSBMLDocument (SBMLDocument* d)
   mPosition.setSBMLDocument(d);
   mDimensions.setSBMLDocument(d);
 }
+/** @endcond */
 
 
+/** @cond doxygenLibsbmlInternal */
 /*
  * Sets this SBML object to child SBML objects (if any).
  * (Creates a child-parent relationship by the parent)
@@ -808,7 +813,9 @@ BoundingBox::connectToChild()
   mPosition.connectToParent(this);
   mDimensions.connectToParent(this);
 }
+/** @endcond */
 
+/** @cond doxygenLibsbmlInternal */
 /*
  * Enables/Disables the given package with this element and child
  * elements (if any).
@@ -823,6 +830,7 @@ BoundingBox::enablePackageInternal(const std::string& pkgURI,
   mPosition.enablePackageInternal(pkgURI,pkgPrefix,flag);
   mDimensions.enablePackageInternal(pkgURI,pkgPrefix,flag);
 }
+/** @endcond */
 
 
 /**

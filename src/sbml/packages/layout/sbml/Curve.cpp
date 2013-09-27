@@ -527,6 +527,7 @@ XMLNode Curve::toXML() const
 }
 
 
+/** @cond doxygenLibsbmlInternal */
 /*
  * Sets the parent SBMLDocument of this SBML object.
  */
@@ -537,8 +538,10 @@ Curve::setSBMLDocument (SBMLDocument* d)
 
   mCurveSegments.setSBMLDocument(d);
 }
+/** @endcond */
 
 
+/** @cond doxygenLibsbmlInternal */
 /*
  * Sets this SBML object to child SBML objects (if any).
  * (Creates a child-parent relationship by the parent)
@@ -548,8 +551,10 @@ Curve::connectToChild()
 {
   mCurveSegments.connectToParent(this);
 }
+/** @endcond */
 
 
+/** @cond doxygenLibsbmlInternal */
 /*
  * Enables/Disables the given package with this element and child
  * elements (if any).
@@ -563,6 +568,7 @@ Curve::enablePackageInternal(const std::string& pkgURI,
 
   mCurveSegments.enablePackageInternal(pkgURI,pkgPrefix,flag);
 }
+/** @endcond */
 
 
 /*

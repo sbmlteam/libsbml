@@ -25,6 +25,11 @@
  * in the file named "LICENSE.txt" included with this software distribution
  * and also available online as http://sbml.org/software/libsbml/license.html
  * ------------------------------------------------------------------------ -->
+ *
+ * @class QualModelPlugin
+ * @ingroup qual
+ * @brief @htmlinclude pkg-marker-qual.html
+ * Implementation of the 'qual' package extention to the %Model construct.
  */
 
 #ifndef QualModelPlugin_h

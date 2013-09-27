@@ -68,6 +68,7 @@
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
+/** @cond doxygenLibsbmlInternal */
 const std::string SpeciesReferenceGlyph::SPECIES_REFERENCE_ROLE_STRING[]={
     "undefined" 
    ,"substrate"
@@ -79,6 +80,7 @@ const std::string SpeciesReferenceGlyph::SPECIES_REFERENCE_ROLE_STRING[]={
    ,"inhibitor"
    ,""
 };
+/** @endcond */
 
 List*
 SpeciesReferenceGlyph::getAllElements(ElementFilter *filter)
@@ -814,6 +816,7 @@ SpeciesReferenceGlyph::accept (SBMLVisitor& v) const
 
 
 
+/** @cond doxygenLibsbmlInternal */
 /*
  * Sets the parent SBMLDocument of this SBML object.
  */
@@ -824,8 +827,10 @@ SpeciesReferenceGlyph::setSBMLDocument (SBMLDocument* d)
 
   mCurve.setSBMLDocument(d);
 }
+/** @endcond */
 
 
+/** @cond doxygenLibsbmlInternal */
 /*
  * Sets this SBML object to child SBML objects (if any).
  * (Creates a child-parent relationship by the parent)
@@ -835,8 +840,10 @@ SpeciesReferenceGlyph::connectToChild()
 {
   mCurve.connectToParent(this);
 }
+/** @endcond */
 
 
+/** @cond doxygenLibsbmlInternal */
 /*
  * Enables/Disables the given package with this element and child
  * elements (if any).
@@ -851,6 +858,7 @@ SpeciesReferenceGlyph::enablePackageInternal(const std::string& pkgURI,
 
   mCurve.enablePackageInternal(pkgURI,pkgPrefix,flag);
 }
+/** @endcond */
 
 
 

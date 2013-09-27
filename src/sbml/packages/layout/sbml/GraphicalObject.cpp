@@ -955,6 +955,7 @@ XMLNode GraphicalObject::toXML() const
 }
 
 
+/** @cond doxygenLibsbmlInternal */
 /*
  * Sets the parent SBMLDocument of this SBML object.
  */
@@ -965,8 +966,10 @@ GraphicalObject::setSBMLDocument (SBMLDocument* d)
 
   mBoundingBox.setSBMLDocument(d);
 }
+/** @endcond */
 
 
+/** @cond doxygenLibsbmlInternal */
 /*
  * Sets this SBML object to child SBML objects (if any).
  * (Creates a child-parent relationship by the parent)
@@ -976,8 +979,10 @@ GraphicalObject::connectToChild()
 {
   mBoundingBox.connectToParent(this);
 }
+/** @endcond */
 
 
+/** @cond doxygenLibsbmlInternal */
 /*
  * Enables/Disables the given package with this element and child
  * elements (if any).
@@ -991,6 +996,7 @@ GraphicalObject::enablePackageInternal(const std::string& pkgURI,
 
   mBoundingBox.enablePackageInternal(pkgURI,pkgPrefix,flag);
 }
+/** @endcond */
 
 
 
@@ -1181,6 +1187,7 @@ ListOfGraphicalObjects::createObject (XMLInputStream& stream)
 }
 /** @endcond */
 
+/** @cond doxygenLibsbmlInternal */
 bool 
 ListOfGraphicalObjects::isValidTypeForList(SBase * item)
 {
@@ -1195,6 +1202,7 @@ ListOfGraphicalObjects::isValidTypeForList(SBase * item)
     ||    (tc == SBML_LAYOUT_GENERALGLYPH )
     );
 }
+/** @endcond */
 
 XMLNode ListOfGraphicalObjects::toXML() const
 {

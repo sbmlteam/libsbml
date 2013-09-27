@@ -307,6 +307,7 @@ void CompartmentGlyph::initDefaults ()
   GraphicalObject::initDefaults();
 }
 
+/** @cond doxygenLibsbmlInternal */
 /*
  * Subclasses should override this method to write out their contained
  * SBML objects as XML elements.  Be sure to call your parents
@@ -325,6 +326,7 @@ void CompartmentGlyph::writeElements (XMLOutputStream& stream) const
   //
   SBase::writeExtensionElements(stream);
 }
+/** @endcond */
 
 /*
  * Returns the XML element name of

@@ -446,6 +446,7 @@ Point::getZOffsetExplicitlySet() const
   return mZOffsetExplicitlySet;
 }
 
+/** @cond doxygenLibsbmlInternal */
 /*
  * Subclasses should override this method to write out their contained
  * SBML objects as XML elements.  Be sure to call your parents
@@ -465,6 +466,7 @@ void Point::writeElements (XMLOutputStream& stream) const
   //
   SBase::writeExtensionElements(stream);
 }
+/** @endcond */
 
 /*
  * Sets the element name to be returned by getElementName.

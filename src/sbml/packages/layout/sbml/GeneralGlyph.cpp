@@ -786,7 +786,7 @@ GeneralGlyph::clone () const
 }
 
 
-/** @endcond */
+/** @cond doxygenLibsbmlInternal */
 SBase*
 GeneralGlyph::createObject (XMLInputStream& stream)
 {
@@ -1192,6 +1192,7 @@ GeneralGlyph::accept (SBMLVisitor& v) const
 
 
 
+/** @cond doxygenLibsbmlInternal */
 /*
  * Sets the parent SBMLDocument of this SBML object.
  */
@@ -1204,7 +1205,9 @@ GeneralGlyph::setSBMLDocument (SBMLDocument* d)
   mSubGlyphs.setSBMLDocument(d);
   mCurve.setSBMLDocument(d);
 }
+/** @endcond */
 
+/** @cond doxygenLibsbmlInternal */
 /*
  * Sets this SBML object to child SBML objects (if any).
  * (Creates a child-parent relationship by the parent)
@@ -1215,7 +1218,9 @@ GeneralGlyph::connectToChild()
   mReferenceGlyphs.connectToParent(this);
   mCurve.connectToParent(this);
 }
+/** @endcond */
 
+/** @cond doxygenLibsbmlInternal */
 /*
  * Enables/Disables the given package with this element and child
  * elements (if any).
@@ -1231,6 +1236,7 @@ GeneralGlyph::enablePackageInternal(const std::string& pkgURI,
   mSubGlyphs.enablePackageInternal(pkgURI,pkgPrefix,flag);
   mCurve.enablePackageInternal(pkgURI,pkgPrefix,flag);
 }
+/** @endcond */
 
 
 

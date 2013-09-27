@@ -758,6 +758,7 @@ ReferenceGlyph::accept (SBMLVisitor& v) const
 
 
 
+/** @cond doxygenLibsbmlInternal */
 /*
  * Sets the parent SBMLDocument of this SBML object.
  */
@@ -768,8 +769,10 @@ ReferenceGlyph::setSBMLDocument (SBMLDocument* d)
 
   mCurve.setSBMLDocument(d);
 }
+/** @endcond */
 
 
+/** @cond doxygenLibsbmlInternal */
 /*
  * Sets this SBML object to child SBML objects (if any).
  * (Creates a child-parent relationship by the parent)
@@ -779,8 +782,10 @@ ReferenceGlyph::connectToChild()
 {
   mCurve.connectToParent(this);
 }
+/** @endcond */
 
 
+/** @cond doxygenLibsbmlInternal */
 /*
  * Enables/Disables the given package with this element and child
  * elements (if any).
@@ -795,6 +800,7 @@ ReferenceGlyph::enablePackageInternal(const std::string& pkgURI,
 
   mCurve.enablePackageInternal(pkgURI,pkgPrefix,flag);
 }
+/** @endcond */
 
 
 

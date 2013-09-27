@@ -305,6 +305,7 @@ QualExtension::getStringFromTypeCode(int typeCode) const
 }
 
 
+/** @cond doxygenLibsbmlInternal */
 /*
  *
  * Initialization function of qual extension module which is automatically invoked 
@@ -391,6 +392,7 @@ QualExtension::init()
     std::cerr << "[Error] QualExtension::init() failed." << std::endl;
   }
 }
+/** @endcond */
 
 /** @cond doxygenLibsbmlInternal */
 packageErrorTableEntry

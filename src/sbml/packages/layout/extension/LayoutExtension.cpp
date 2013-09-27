@@ -336,6 +336,7 @@ LayoutExtension::getStringFromTypeCode(int typeCode) const
 }
 
 
+/** @cond doxygenLibsbmlInternal */
 /*
  *
  * Initialization function of layout extension module which is automatically invoked 
@@ -428,7 +429,7 @@ LayoutExtension::init()
     std::cerr << "[Error] LayoutExtension::init() failed." << std::endl;
   }
 }
-
+/** @endcond */
 
 
 /*
@@ -486,6 +487,8 @@ LayoutExtension::isInUse(SBMLDocument *doc) const
   return (plugin->getNumLayouts() > 0);
 }
 
+
+/** @cond doxygenLibsbmlInternal */
 /*
  * Return error table entry. 
  */
@@ -494,12 +497,10 @@ LayoutExtension::getErrorTable(unsigned int index) const
 {
 	return layoutErrorTable[index];
 }
+/** @endcond */
 
-	/** @endcond doxygenLibsbmlInternal */
 
-
-	/** @cond doxygenLibsbmlInternal */
-
+/** @cond doxygenLibsbmlInternal */
 /*
  * Return error table index for this id. 
  */
@@ -521,12 +522,10 @@ LayoutExtension::getErrorTableIndex(unsigned int errorId) const
 
 	return index;
 }
+/** @endcond */
 
-	/** @endcond doxygenLibsbmlInternal */
 
-
-	/** @cond doxygenLibsbmlInternal */
-
+/** @cond doxygenLibsbmlInternal */
 /*
  * Return error offset. 
  */
@@ -535,8 +534,7 @@ LayoutExtension::getErrorIdOffset() const
 {
 	return 6000000;
 }
-
-	/** @endcond doxygenLibsbmlInternal */
+/** @endcond */
 
 
 

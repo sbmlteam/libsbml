@@ -493,19 +493,23 @@ CubicBezier::setBasePoint2 (double x, double y, double z)
 }
 
 
+/** @cond doxygenLibsbmlInternal */
 bool
 CubicBezier::getBasePt1ExplicitlySet() const
 {
   return mBasePt1ExplicitlySet;
 }
+/** @endcond */
 
 
 
+/** @cond doxygenLibsbmlInternal */
 bool
 CubicBezier::getBasePt2ExplicitlySet() const
 {
   return mBasePt2ExplicitlySet;
 }
+/** @endcond */
 
 
 /*
@@ -650,6 +654,7 @@ CubicBezier::accept (SBMLVisitor& v) const
 
 
 
+/** @cond doxygenLibsbmlInternal */
 /*
  * Sets the parent SBMLDocument of this SBML object.
  */
@@ -661,8 +666,10 @@ CubicBezier::setSBMLDocument (SBMLDocument* d)
   mBasePoint1.setSBMLDocument(d);
   mBasePoint2.setSBMLDocument(d);
 }
+/** @endcond */
 
 
+/** @cond doxygenLibsbmlInternal */
 /*
  * Sets this SBML object to child SBML objects (if any).
  * (Creates a child-parent relationship by the parent)
@@ -674,8 +681,10 @@ CubicBezier::connectToChild()
   mBasePoint1.connectToParent(this);
   mBasePoint2.connectToParent(this);
 }
+/** @endcond */
 
 
+/** @cond doxygenLibsbmlInternal */
 /*
  * Enables/Disables the given package with this element and child
  * elements (if any).
@@ -690,6 +699,7 @@ CubicBezier::enablePackageInternal(const std::string& pkgURI,
   mBasePoint1.enablePackageInternal(pkgURI,pkgPrefix,flag);
   mBasePoint2.enablePackageInternal(pkgURI,pkgPrefix,flag);
 }
+/** @endcond */
 
 
 

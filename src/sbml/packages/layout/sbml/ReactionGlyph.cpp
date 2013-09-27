@@ -1006,6 +1006,7 @@ ReactionGlyph::accept (SBMLVisitor& v) const
 
 
 
+/** @cond doxygenLibsbmlInternal */
 /*
  * Sets the parent SBMLDocument of this SBML object.
  */
@@ -1017,7 +1018,9 @@ ReactionGlyph::setSBMLDocument (SBMLDocument* d)
   mSpeciesReferenceGlyphs.setSBMLDocument(d);
   mCurve.setSBMLDocument(d);
 }
+/** @endcond */
 
+/** @cond doxygenLibsbmlInternal */
 /*
  * Sets this SBML object to child SBML objects (if any).
  * (Creates a child-parent relationship by the parent)
@@ -1028,7 +1031,9 @@ ReactionGlyph::connectToChild()
   mSpeciesReferenceGlyphs.connectToParent(this);
   mCurve.connectToParent(this);
 }
+/** @endcond */
 
+/** @cond doxygenLibsbmlInternal */
 /*
  * Enables/Disables the given package with this element and child
  * elements (if any).
@@ -1043,6 +1048,7 @@ ReactionGlyph::enablePackageInternal(const std::string& pkgURI,
   mSpeciesReferenceGlyphs.enablePackageInternal(pkgURI,pkgPrefix,flag);
   mCurve.enablePackageInternal(pkgURI,pkgPrefix,flag);
 }
+/** @endcond */
 
 
 

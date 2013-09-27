@@ -823,6 +823,8 @@ Layout::getGeneralGlyph (unsigned int index) const
 }
 
 
+/** @cond doxygenLibsbmlInternal */
+/** @cond doxygenLibsbmlInternal */
 const GraphicalObject*
 Layout::getObjectWithId (const ListOf* list,const std::string& id) const
 {
@@ -838,7 +840,9 @@ Layout::getObjectWithId (const ListOf* list,const std::string& id) const
   }    
   return object;
 }
+/** @endcond */
 
+/** @cond doxygenLibsbmlInternal */
 GraphicalObject*
 Layout::getObjectWithId (ListOf* list,const std::string& id) 
 {
@@ -854,7 +858,9 @@ Layout::getObjectWithId (ListOf* list,const std::string& id)
   }    
   return object;
 }
+/** @endcond */
 
+/** @cond doxygenLibsbmlInternal */
 GraphicalObject*
 Layout::removeObjectWithId (ListOf* list,const std::string& id)
 {
@@ -871,6 +877,7 @@ Layout::removeObjectWithId (ListOf* list,const std::string& id)
   }    
   return object;
 }
+/** @endcond */
 
 /*
  * Removes the compartment glyph with the given index from the layout.
@@ -1730,6 +1737,7 @@ Layout::accept (SBMLVisitor& v) const
 }
 
 
+/** @cond doxygenLibsbmlInternal */
 /*
  * Sets the parent SBMLDocument of this SBML object.
  */
@@ -1745,8 +1753,10 @@ Layout::setSBMLDocument (SBMLDocument* d)
   mTextGlyphs.setSBMLDocument(d);
   mAdditionalGraphicalObjects.setSBMLDocument(d);
 }
+/** @endcond */
 
 
+/** @cond doxygenLibsbmlInternal */
 /*
  * Sets this SBML object to child SBML objects (if any).
  * (Creates a child-parent relationship by the parent)
@@ -1761,8 +1771,10 @@ Layout::connectToChild()
   mTextGlyphs.connectToParent(this);
   mAdditionalGraphicalObjects.connectToParent(this);
 }
+/** @endcond */
 
 
+/** @cond doxygenLibsbmlInternal */
 /*
  * Enables/Disables the given package with this element and child
  * elements (if any).
@@ -1781,6 +1793,7 @@ Layout::enablePackageInternal(const std::string& pkgURI,
   mTextGlyphs.enablePackageInternal(pkgURI,pkgPrefix,flag);
   mAdditionalGraphicalObjects.enablePackageInternal(pkgURI,pkgPrefix,flag);
 }
+/** @endcond */
 
 
 /*

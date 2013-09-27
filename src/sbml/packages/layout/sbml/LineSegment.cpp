@@ -409,19 +409,23 @@ LineSegment::setEnd (double x, double y, double z)
 }
 
 
+/** @cond doxygenLibsbmlInternal */
 bool
 LineSegment::getStartExplicitlySet() const
 {
   return mStartExplicitlySet;
 }
+/** @endcond */
 
 
 
+/** @cond doxygenLibsbmlInternal */
 bool
 LineSegment::getEndExplicitlySet() const
 {
   return mEndExplicitlySet;
 }
+/** @endcond */
 
 
 /*
@@ -653,6 +657,7 @@ LineSegment::accept (SBMLVisitor& v) const
 }
 
 
+/** @cond doxygenLibsbmlInternal */
 void 
 LineSegment::writeXMLNS (XMLOutputStream& stream) const
 {
@@ -660,6 +665,7 @@ LineSegment::writeXMLNS (XMLOutputStream& stream) const
   xmlns.add(LayoutExtension::getXmlnsXSI(), "xsi");
   stream << xmlns;
 }
+/** @endcond */
 
 /*
  * Creates an XMLNode object from this.
@@ -670,6 +676,7 @@ XMLNode LineSegment::toXML() const
 }
 
 
+/** @cond doxygenLibsbmlInternal */
 /*
  * Sets the parent SBMLDocument of this SBML object.
  */
@@ -681,8 +688,10 @@ LineSegment::setSBMLDocument (SBMLDocument* d)
   mStartPoint.setSBMLDocument(d);
   mEndPoint.setSBMLDocument(d);
 }
+/** @endcond */
 
 
+/** @cond doxygenLibsbmlInternal */
 /*
  * Sets this SBML object to child SBML objects (if any).
  * (Creates a child-parent relationship by the parent)
@@ -693,8 +702,10 @@ LineSegment::connectToChild()
   mStartPoint.connectToParent(this);
   mEndPoint.connectToParent(this);
 }
+/** @endcond */
 
 
+/** @cond doxygenLibsbmlInternal */
 /*
  * Enables/Disables the given package with this element and child
  * elements (if any).
@@ -709,6 +720,7 @@ LineSegment::enablePackageInternal(const std::string& pkgURI,
   mStartPoint.enablePackageInternal(pkgURI,pkgPrefix,flag);
   mEndPoint.enablePackageInternal(pkgURI,pkgPrefix,flag);
 }
+/** @endcond */
 
 
 
