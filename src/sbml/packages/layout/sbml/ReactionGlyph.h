@@ -48,9 +48,12 @@
  *
  *     Akiya Jouraku <jouraku@bio.keio.ac.jp>
  *     Modified this file for package extension in libSBML5
+ *------------------------------------------------------------------------- -->
  *
+ * @class ReactionGlyph
+ * @ingroup layout
+ * @brief @htmlinclude pkg-marker-layout.html
  */
-
 
 #ifndef ReactionGlyph_H__
 #define ReactionGlyph_H__

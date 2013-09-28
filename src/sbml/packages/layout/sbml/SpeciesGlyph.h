@@ -48,9 +48,12 @@
  *
  *     Akiya Jouraku <jouraku@bio.keio.ac.jp>
  *     Modified this file for package extension in libSBML5
+ *------------------------------------------------------------------------- -->
  *
+ * @class SpeciesGlyph
+ * @ingroup layout
+ * @brief @htmlinclude pkg-marker-layout.html
  */
-
 
 #ifndef SpeciesGlyph_H__
 #define SpeciesGlyph_H__

@@ -48,9 +48,12 @@
  *
  *     Akiya Jouraku <jouraku@bio.keio.ac.jp>
  *     Modified this file for package extension in libSBML5
+ *------------------------------------------------------------------------- -->
  *
+ * @class Dimensions
+ * @ingroup layout
+ * @brief @htmlinclude pkg-marker-layout.html
  */
-
 
 #ifndef Dimensions_H__
 #define Dimensions_H__

@@ -46,6 +46,10 @@
  *
  * Contributor(s):
  * ------------------------------------------------------------------------ -->
+ *
+ * @class LayoutUtilities
+ * @ingroup layout
+ * @brief @htmlinclude pkg-marker-layout.html
  */
 
 #ifndef LAYOUTUTILITIES_H_

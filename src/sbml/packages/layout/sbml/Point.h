@@ -48,9 +48,12 @@
  *
  *     Akiya Jouraku <jouraku@bio.keio.ac.jp>
  *     Modified this file for package extension in libSBML5
+ *------------------------------------------------------------------------- -->
  *
+ * @class Point
+ * @ingroup layout
+ * @brief @htmlinclude pkg-marker-layout.html
  */
-
 
 #ifndef Point_H__
 #define Point_H__

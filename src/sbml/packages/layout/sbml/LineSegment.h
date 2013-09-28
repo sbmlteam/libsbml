@@ -48,9 +48,12 @@
  *
  *     Akiya Jouraku <jouraku@bio.keio.ac.jp>
  *     Modified this file for package extension in libSBML5
+ *------------------------------------------------------------------------- -->
  *
+ * @class LineSegment
+ * @ingroup layout
+ * @brief @htmlinclude pkg-marker-layout.html
  */
-
 
 #ifndef LineSegment_H__
 #define LineSegment_H__

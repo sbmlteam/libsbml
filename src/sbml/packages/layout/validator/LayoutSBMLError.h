@@ -24,8 +24,11 @@
  * in the file named "LICENSE.txt" included with this software distribution
  * and also available online as http://sbml.org/software/libsbml/license.html
  * ------------------------------------------------------------------------ -->
+ *
+ * @class LayoutSBMLError
+ * @ingroup layout
+ * @brief @htmlinclude pkg-marker-layout.html
  */
-
 
 #ifndef LayoutSBMLError_H__
 #define LayoutSBMLError_H__
@@ -199,4 +202,3 @@ END_C_DECLS
 LIBSBML_CPP_NAMESPACE_END
 
 #endif  /*  LayoutSBMLError_h__  */
-

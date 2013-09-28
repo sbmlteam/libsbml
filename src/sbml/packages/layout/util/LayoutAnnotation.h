@@ -25,7 +25,9 @@
  * and also available online as http://sbml.org/software/libsbml/license.html
  * ---------------------------------------------------------------------- -->
  *
- * @ingroup Layout 
+ * @class LayoutAnnotation
+ * @ingroup layout
+ * @brief @htmlinclude pkg-marker-layout.html
  */
 
 #ifndef LayoutAnnotation_h

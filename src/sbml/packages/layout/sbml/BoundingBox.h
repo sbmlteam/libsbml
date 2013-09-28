@@ -49,6 +49,10 @@
  *     Akiya Jouraku <jouraku@bio.keio.ac.jp>
  *     Modified this file for package extension in libSBML5
  * ------------------------------------------------------------------------ -->
+ *
+ * @class BoundingBox
+ * @ingroup layout
+ * @brief @htmlinclude pkg-marker-layout.html
  */
 
 #ifndef BoundingBox_H__

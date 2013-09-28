@@ -48,7 +48,11 @@
  *
  *     Akiya Jouraku <jouraku@bio.keio.ac.jp>
  *     Modified this file for package extension in libSBML5
+ *------------------------------------------------------------------------- -->
  *
+ * @class CubicBezier
+ * @ingroup layout
+ * @brief @htmlinclude pkg-marker-layout.html
  */
 
 
