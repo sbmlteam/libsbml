@@ -204,6 +204,7 @@ distfiles =							\
         force-serif-font-on.html				\
         graphics/astnode-illustration.jpg			\
 	graphics/biology-qualifiers.png                         \
+	graphics/biology-qualifiers.txt                         \
         graphics/built-in-units.jpg				\
         graphics/cmake-configure-macos.png			\
         graphics/cmake-configure-windows.png			\
@@ -218,11 +219,13 @@ distfiles =							\
         graphics/ftv2folderclosed.png				\
         graphics/ftv2folderopen.png				\
         graphics/hellojsp-screenshot.png			\
+        graphics/layout-example.png				\
         graphics/listof-illustration.jpg			\
         graphics/listof-illustration.txt			\
         graphics/math-formula-precedence.jpg			\
         graphics/math-string-functions.jpg			\
 	graphics/model-qualifiers.png                           \
+	graphics/model-qualifiers.txt                           \
         graphics/official-sbml-supported-32.jpg			\
         graphics/official-sbml-supported-40.jpg			\
         graphics/official-sbml-supported-70.png			\
