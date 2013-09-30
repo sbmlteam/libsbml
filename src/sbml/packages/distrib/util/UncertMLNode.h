@@ -43,6 +43,7 @@
 
 
 #include <sbml/packages/distrib/extension/DistribExtension.h>
+#include <sbml/packages/distrib/sbml/DistribInput.h>
 
 
 LIBSBML_CPP_NAMESPACE_BEGIN
@@ -258,12 +259,74 @@ public:
    */
   std::string toXMLString() const;
 
+
+  /**
+   * Creates an UncertMLNode representing the statistical elements
+   * listed.
+   *
+   * @param arguments - a comma seperated list of the statistical elements
+   * @param argumentsIds - a comma seperated list of the ids to apply
+   * 
+   * Example usage would be
+   *            createStatisticsNode("Mean,Variance", "mu, sigma")
+   * which would produce a node representing the xml:
+   *
+   * <UncertML xmlns=\"http://www.uncertml.org/3.0\">
+   *   <StatisticsCollection definition=\"http://www.uncertml.org/statistics\">
+   *     <Mean definition=\"http://www.uncertml.org/statistics\">
+   *       <value>
+   *         <var varId=\"V_pop\"/>
+   *       </value>
+   *     </Mean>
+   *     <Variance definition=\"http://www.uncertml.org/statistics\">
+   *       <value>
+   *         <var varId=\"V_omega\"/>
+   *       </value>
+   *     </Variance>
+   *   </StatisticsCollection>
+   * </UncertML>;
+   *
+   * @returns an UncertMLNode representing the statistics
+   */
+  static UncertMLNode * createStatisticsNode(std::string arguments, 
+                                             std::string argumentIds); 
+
+
+  /**
+   * Creates an UncertMLNode representing the distribution with arguments
+   * listed.
+   *
+   * @param name - name of the distribtuion to create
+   * @param arguments - a comma seperated list of the argument names
+   * @param argumentsIds - a comma seperated list of the ids to apply
+   * 
+   * Example usage would be
+   *            createDistributionNode("NormalDistribtuion", 
+   *                                   "mean,variance", "mu, sigma")
+   * which would produce a node representing the xml:
+   *
+   * <UncertML xmlns=\"http://www.uncertml.org/3.0\">
+   *  <NormalDistribution definition=\"http://www.uncertml.org/distributions\">
+   *    <mean>
+   *      <var varId=\"mu\"/>
+   *    </mean>
+   *    <variance>
+   *      <var varId=\"sigma\"/>
+   *    </variance>
+   *  </NormalDistribution>
+   * </UncertML>;
+   *
+   * @returns an UncertMLNode representing the distribution
+   */
+  static UncertMLNode * createDistributionNode(std::string name, 
+    std::string arguments, std::string argumentIds); 
+
 protected:
 
   /** @cond doxygenLibsbmlInternal */
 
   /*
-   * parse the information from the XMLNode into teh uncertMLNode
+   * parse the information from the XMLNode into the uncertMLNode
    * return boolean indicating success/failure
    */
   bool parseXMLNode(const XMLNode* xml);
@@ -273,8 +336,8 @@ protected:
   /** @cond doxygenLibsbmlInternal */
 
   /*
-   * write the uncertMLNode to teh output stream
-   * at present this creates an XMLNode out of teh uncertMLNode
+   * write the uncertMLNode to the output stream
+   * at present this creates an XMLNode out of the uncertMLNode
    * and writes that out 
    */
   void write(XMLOutputStream & ostream) const;

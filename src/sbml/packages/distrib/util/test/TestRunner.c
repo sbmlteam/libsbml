@@ -47,6 +47,7 @@ CK_CPPSTART
 
 Suite *create_suite_TestUncertMLNodeAttributes  (void);
 Suite *create_suite_TestUncertMLNodeParsing (void);
+Suite *create_suite_TestUncertMLNodeCreateFunctions (void);
 /**
  * Global.
  *
@@ -92,7 +93,7 @@ main (void)
 
   SRunner *runner = srunner_create( create_suite_TestUncertMLNodeAttributes() );
   srunner_add_suite( runner, create_suite_TestUncertMLNodeParsing() );
-  //srunner_add_suite( runner, create_suite_TestFlatteningErrorMessages() );
+  srunner_add_suite( runner, create_suite_TestUncertMLNodeCreateFunctions() );
   //srunner_add_suite( runner, create_suite_TestFlatteningConverter() );
   //srunner_add_suite( runner, create_suite_TestExternalModelResolving() );
 

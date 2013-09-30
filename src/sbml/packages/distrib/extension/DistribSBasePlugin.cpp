@@ -228,6 +228,7 @@ DistribSBasePlugin::createUncertainty()
 	DISTRIB_CREATE_NS(distribns, getSBMLNamespaces());
 	mUncertainty = new Uncertainty(distribns);
 
+  mUncertainty->setSBMLDocument(this->getSBMLDocument());
 	return mUncertainty;
 }
 

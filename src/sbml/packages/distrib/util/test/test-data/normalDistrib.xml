@@ -16,18 +16,18 @@
             <cn>0</cn>
           </lambda>
         </math>
-        <drawFromDistribution xmlns="http://www.sbml.org/sbml/level3/version1/distrib/version1">
-          <listOfDistribInputs>
-            <distribInput distrib:id="mu" distrib:index="0"/>
-            <distribInput distrib:id="sigma" distrib:index="1"/>
-          </listOfDistribInputs>
+        <distrib:drawFromDistribution>
+          <distrib:listOfDistribInputs>
+            <distrib:distribInput distrib:id="mu" distrib:index="0"/>
+            <distrib:distribInput distrib:id="sigma" distrib:index="1"/>
+          </distrib:listOfDistribInputs>
           <UncertML xmlns="http://www.uncertml.org/3.0">
             <NormalDistribution definition="http://www.uncertml.org/distributions/normal">
               <mean> <var varId="mu"/> </mean>
               <variance> <var varId="sigma"/> </variance>
             </NormalDistribution>
           </UncertML>
-        </drawFromDistribution>
+        </distrib:drawFromDistribution>
       </functionDefinition>
     </listOfFunctionDefinitions>
   </model>

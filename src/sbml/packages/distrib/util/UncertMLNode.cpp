@@ -28,6 +28,7 @@
 
 
 #include <sbml/packages/distrib/util/UncertMLNode.h>
+#include <sbml/util/IdList.h>
 
 
 using namespace std;
@@ -71,6 +72,8 @@ UncertMLNode::UncertMLNode (const UncertMLNode& orig)
   {
     mElementName  = orig.mElementName;
     mAttributes  = orig.mAttributes;
+
+    mChildren = new List();
 
     for (unsigned int c = 0; c < orig.getNumChildren(); ++c)
     {
@@ -392,6 +395,121 @@ UncertMLNode::toXMLString() const
 
   return xml;
 }
+
+
+UncertMLNode * 
+UncertMLNode::createStatisticsNode(std::string arguments,  
+                                   std::string argumentIds)
+{
+  UncertMLNode *node = new UncertMLNode();
+  node->setElementName("StatisticsCollection");
+
+  XMLAttributes attr = XMLAttributes();
+  /* really the url should be specific to the distribtuion
+  * but whilst the attribue is required in uncertML it does not require
+  * it to be an exact match
+  */
+  attr.add("definition", "http://www.uncertml.org/statistics");
+  node->setAttributes(attr);
+
+  /* create an idlist from the arguments 
+   * and check we have the same number of args and ids
+   */
+  IdList args = IdList(arguments);
+  IdList argIds = IdList(argumentIds);
+
+  unsigned int numArgs = args.size();
+  unsigned int numIds = argIds.size();
+
+  if (numArgs != numIds)
+  {
+    return NULL;
+  }
+
+
+  for (unsigned int i = 0; i < numArgs; i++)
+  {
+    UncertMLNode * varChild = new UncertMLNode();
+    varChild->setElementName("var");
+    
+    XMLAttributes attributes = XMLAttributes();
+    attributes.add("varId", argIds.at(i));
+    varChild->setAttributes(attributes);
+
+    UncertMLNode * valueChild = new UncertMLNode();
+    valueChild->setElementName("value");
+
+    valueChild->addChild(varChild);
+
+    UncertMLNode * child = new UncertMLNode();
+    child->setElementName(args.at(i));
+    XMLAttributes attr1 = XMLAttributes();
+    attr1.add("definition", "http://www.uncertml.org/statistics");
+    child->setAttributes(attr1);
+
+    child->addChild(valueChild);
+
+    node->addChild(child);
+  }
+
+
+
+  return node;
+}
+
+
+UncertMLNode * 
+UncertMLNode::createDistributionNode(std::string name, 
+                     std::string arguments, std::string argumentIds)
+{
+  UncertMLNode *node = new UncertMLNode();
+  node->setElementName(name);
+
+  XMLAttributes attr = XMLAttributes();
+  /* really the url should be specific to the distribtuion
+  * but whilst the attribue is required in uncertML it does not require
+  * it to be an exact match
+  */
+  attr.add("definition", "http://www.uncertml.org/distributions");
+  node->setAttributes(attr);
+
+  /* create an idlist from the arguments 
+   * and check we have the same number of args and ids
+   */
+  IdList args = IdList(arguments);
+  IdList argIds = IdList(argumentIds);
+
+  unsigned int numArgs = args.size();
+  unsigned int numIds = argIds.size();
+
+  if (numArgs != numIds)
+  {
+    return NULL;
+  }
+
+
+  for (unsigned int i = 0; i < numArgs; i++)
+  {
+    UncertMLNode * varChild = new UncertMLNode();
+    varChild->setElementName("var");
+    
+    XMLAttributes attributes = XMLAttributes();
+    attributes.add("varId", argIds.at(i));
+    varChild->setAttributes(attributes);
+
+    UncertMLNode * child = new UncertMLNode();
+    child->setElementName(args.at(i));
+
+    child->addChild(varChild);
+
+    node->addChild(child);
+  }
+
+
+  return node;
+}
+
+
 
 /**
  *

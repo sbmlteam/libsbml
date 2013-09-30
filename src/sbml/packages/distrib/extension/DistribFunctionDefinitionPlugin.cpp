@@ -228,6 +228,8 @@ DistribFunctionDefinitionPlugin::createDrawFromDistribution()
 	DISTRIB_CREATE_NS(distribns, getSBMLNamespaces());
 	mDrawFromDistribution = new DrawFromDistribution(distribns);
 
+  mDrawFromDistribution->setSBMLDocument(this->getSBMLDocument());
+
 	return mDrawFromDistribution;
 }
 
