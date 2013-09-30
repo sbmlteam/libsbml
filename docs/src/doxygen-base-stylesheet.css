@@ -1781,3 +1781,11 @@ td.s-na {
     border: 1px solid rgb(155, 221, 177);
     background-color: rgba(155, 221, 177, 0.35);
 }
+
+/* The intro page texts end with "More ..." right before the list of
+   classes, but the "More ..." link sends you to a 2nd copy of exactly
+   the same text.  I don't get it.  It's confusing, so let's hide it. */
+
+a[href="#details"] {
+    display: none;
+}
