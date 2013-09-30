@@ -145,7 +145,7 @@ START_TEST (test_conversion_inline)
 
   fail_unless(doc->getModel() != NULL);
 
-  fail_unless(doc->getModel()->getNumParameters() == 0);
+  fail_unless(doc->getModel()->getNumParameters() == 3);
 
   ConversionProperties props;
   props.addOption("expandFunctionDefinitions", true);
