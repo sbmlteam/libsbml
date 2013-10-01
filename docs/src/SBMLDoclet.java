@@ -164,7 +164,7 @@ public class SBMLDoclet extends Doclet
          */
         public static boolean start(RootDoc root)
         {
-            root.printNotice("SBMLDoclet: removing excluded source files...");
+            root.printNotice("SBMLDoclet removing excluded source files...");
             ClassDoc[] classes = root.classes();
             for (int i = 0; i < classes.length; i++) {
                 if (m_excludeSet.contains(classes[i].qualifiedName()) ||
