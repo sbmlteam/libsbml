@@ -1,5 +1,5 @@
-<p> The libSBML 'layout' extension implements support for the SBML Level&nbsp;3
-package <em>Layout</em>.
+<p> The libSBML &ldquo;layout&rdquo; extension implements support for the
+SBML Level&nbsp;3 <em>Layout</em> package.
 
 <h2>Introduction</h2>
 
@@ -31,7 +31,7 @@ defined by this package.
 <p> Another important question is the level of detail that the description
 should provide. For simplicity, only the layout (i.e., the position of the
 different graphical objects) of the diagram is encoded, not the details of
-how it should be rendered; the latter is left to the SBML Level~3 Render
+how it should be rendered; the latter is left to the SBML Level&nbsp;3 Render
 package.  The figure at right illustrates this distinction. All three
 diagrams could be renderings of the same layout and would be described by
 identical SBML files. No information about colors, line styles, fonts, etc.,
@@ -71,7 +71,7 @@ given package, it must declare this namespace on the
 Version&nbsp;1 of the Layout package for SBML Level&nbsp;3:
 
 <center>
-<code>http://www.sbml.org/sbml/level3/version1/comp/layout1</code>
+<code>http://www.sbml.org/sbml/level3/version1/layout/version1</code>
 </center>
 
 <p> Future Versions of the Layout package will be identified by updating this
@@ -92,7 +92,7 @@ using SBML Level&nbsp;3 Core and Version&nbsp;1 of the Layout package:
 <pre class="fragment">
 &lt;?xml version="1.0" encoding="UTF-8"?&gt;
 &lt;sbml xmlns="http://www.sbml.org/sbml/level3/version1/core" level="3" version="1"
-      xmlns:comp="http://www.sbml.org/sbml/level3/version1/comp/layout1" comp:required="false"&gt;
+      xmlns:comp="http://www.sbml.org/sbml/level3/version1/comp/version1" comp:required="false"&gt;
 </pre>
 
 
@@ -121,3 +121,21 @@ XML namespace must be used for layout annotations in Level&nbsp;2 models:
   &lt;/model&gt;
 &lt;/sbml&gt;
 </pre>
+
+
+<h2>The specification for this SBML package</h2>
+
+<p style="color: #880000"> This API documentation for libSBML does not
+provide a complete explanation of the SBML Level&nbsp;3 Layout
+(&ldquo;layout&rdquo;) package.  If you are developing software that uses
+&ldquo;layout&rdquo;, you are strongly urged to read the actual specification
+for the package.  For your convenience, the current (at the time of this
+libSBML release) specification document is included with this documentation
+here:
+
+<center>
+<a class="spec-link" target="_blank" href="sbml-layout-version-1-release-1.pdf">
+<img class="big-icon" src="icon-format-pdf-44px.jpg">Specification for the
+SBML Level&nbsp;3 Version&nbsp;1 <em>Layout</em> package</a>
+(in PDF format).
+</center>

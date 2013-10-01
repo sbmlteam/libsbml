@@ -1,2 +1,84 @@
-<p> The libSBML 'qual' extension implements support for the SBML Level&nbsp;3
-package <em>Qualitative Models</em>.
+<p> The libSBML &ldquo;qual&rdquo; extension implements support for the SBML
+Level&nbsp;3 <em>Qualitative Models</em> package.
+
+<h2>Introduction</h2>
+
+<p> Quantitative methods for modeling biological networks require an
+in-depth knowledge of the biochemical reactions and their stoichiometric and
+kinetic parameters. In many practical cases, this knowledge is missing. This
+has led to the development of several qualitative modeling methods using
+information such as gene expression data coming from functional genomic
+experiments.
+
+<p> The qualitative models contemplated in this SBML Level&nbsp;3 package for
+<em>Qualitative Models</em> are essentially based on the definition of
+<em>regulatory</em> or <em>influence graphs</em>. The components of these
+models differ from the species and reactions used in current SBML models. For
+example, qualitative models typically associate discrete levels of activities
+with entity pools; the processes involving them cannot be described as
+reactions per se but rather as transitions between states. These systems can
+be viewed as reactive systems, whose dynamics are represented by means of
+state transition graphs (or other Kripke structures representing, in the form
+of a graph, which nodes are the reachable states and in which the edges are
+the state transitions). In this context, logical regulatory networks (Boolean
+or multi-valued) and standard Petri nets are the two formalisms mostly used
+in biology that give rise to such behaviors. Published models using these
+approaches cover, far from exhaustively, gene regulatory networks, signalling
+pathways and metabolic pathways.
+
+<p> Despite differences from traditional SBML models, it is desirable to
+bring these classes of models under a common format scheme. The purpose of
+this Qualitative Models package for SBML Level&nbsp;3 is to support encoding
+qualitative models in SBML.
+
+
+<h2>Namespace URI and other declarations necessary for using 
+this package</h2>
+
+<p> In the XML serialization of an SBML model, every SBML Level&nbsp;3
+package is identified uniquely by an XML namespace URI.  For a model to use a
+given package, it must declare this namespace on the
+<code>&lt;sbml&gt;</code> element.  The following is the namespace URI for
+Version&nbsp;1 of the Qualitative Models package for SBML Level&nbsp;3:
+
+<center>
+<code>http://www.sbml.org/sbml/level3/version1/qual/version1</code>
+</center>
+
+<p> Future Versions of the Layout package will be identified by updating this
+URI&mdash;please check the current version of the package for the appropriate
+URI to use.
+
+<p> In addition to the XML namespace URI, SBML documents using a given
+package must indicate whether the package can be used to change the
+mathematical interpretation of a model.  This is done using the attribute
+<code>required</code> on the <code>&lt;sbml&gt;</code> element in the SBML
+document.  For the Qualitative Models package, the value of this attribute
+must be set to <code>true</code>.
+
+<p> The following fragment illustrates the beginning of a typical SBML model
+using SBML Level&nbsp;3 Core and Version&nbsp;1 of the &ldquo;qual&rdquo; package:
+
+<pre class="fragment">
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;sbml xmlns="http://www.sbml.org/sbml/level3/version1/core" level="3" version="1"
+      xmlns:comp="http://www.sbml.org/sbml/level3/version1/qual/version1" comp:required="true"&gt;
+</pre>
+
+
+<h2>The specification for this SBML package</h2>
+
+<p style="color: #880000"> This API documentation for libSBML does not
+provide a complete explanation of the SBML Level&nbsp;3 Qualitative Models
+(&ldquo;qual&rdquo;) package.  If you are developing software that uses
+&ldquo;qual&rdquo;, you are strongly urged to read the actual specification
+for the package.  For your convenience, the current (at the time of this
+libSBML release) specification document is included with this documentation
+here:
+
+<center>
+<a class="spec-link" target="_blank" href="sbml-L3-qual-version1-release1.pdf">
+<img class="big-icon" src="icon-format-pdf-44px.jpg">Specification for the
+SBML Level&nbsp;3 Version&nbsp;1 <em>Qualitative Models</em> package</a>
+(in PDF format).
+</center>

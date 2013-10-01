@@ -1,2 +1,91 @@
-<p> The libSBML 'fbc' extension implements support for the SBML Level&nbsp;3
-package <em>Flux Balance Constraints</em>.
+<p> The libSBML &ldquo;fbc&rdquo; extension implements support for the SBML
+Level&nbsp;3 <em>Flux Balance Constraints</em> package.
+
+<h2>Introduction</h2>
+
+<p> Constraint based modeling is a widely accepted methodology used to analyze
+and study biological networks on both a small and whole organism (genome)
+scale. Typically these models are underdetermined and constraint based
+methods (e.g. linear, quadratic optimization) are used to optimize specific
+model properties. This is assumed to occur under a defined set of constraints
+(e.g. stoichiometric, metabolic) and bounds (e.g. thermodynamic, experimental
+and environmental) on the values that the solution fluxes can obtain.
+
+<p> Perhaps the most well known (and widely used) analysis method is Flux
+Balance Analysis (FBA), which is performed on Genome Scale
+Reconstructions. When using FBA, a target flux is optimized (e.g., to
+maximize a flux to biomass or minimize ATP production) while other fluxes can
+be bounded to simulate a selected growth environment or specific metabolic
+state.
+
+<p> As constraint based models are generally underdetermined, i.e., few or
+none of the kinetic rate equations and related parameters are known, it is
+crucial that a model definition includes the ability to define optimization
+parameters such as objective functions, flux bounds and constraints.  This is
+not well-supported in SBML Level&nbsp;3 Core.  The question of how to best
+encode constraint-based models in SBML is not new.  However, advances in the
+methods used to construct genome scale constraint-based models and the wider
+adoption of constraint based modeling in biotechnological/medical
+applications have led to a rapid increase in both the number of models being
+constructed and the tools used to analyze them.
+
+<p> Faced with such growth, both in number and diversity, the need for a
+standardized data format for the definition, exchange and annotation of
+constraint based models has become critical. As the core model components
+(e.g., species, reactions, stoichiometry) can already be efficiently
+described in SBML, the Flux Balance Constraints (FBC) package is designed to
+extend SBML Level~3 Core by adding the elements necessary to encode current
+and future constraint-based models.
+
+<h2>Namespace URI and other declarations necessary for using 
+this package</h2>
+
+<p> In the XML serialization of an SBML model, every SBML Level&nbsp;3
+package is identified uniquely by an XML namespace URI.  For a model to use a
+given package, it must declare this namespace on the
+<code>&lt;sbml&gt;</code> element.  The following is the namespace URI for
+Version&nbsp;1 of the Flux Balance Constraints package for SBML Level&nbsp;3:
+
+<center>
+<code>http://www.sbml.org/sbml/level3/version1/fbc/version1</code>
+</center>
+
+<p> Future Versions of the Flux Balance Constraints package will be
+identified by updating this URI&mdash;please check the current version of the
+package for the appropriate URI to use.
+
+<p> In addition to the XML namespace URI, SBML documents using a given
+package must indicate whether the package can be used to change the
+mathematical interpretation of a model.  This is done using the attribute
+<code>required</code> on the <code>&lt;sbml&gt;</code> element in the SBML
+document.  For the Flux Balance Constraints package, the value of this
+attribute must be set to <code>false</code>, because the elements defined
+here cannot change the mathematical interpretation of SBML Core elements.
+
+<p> The following fragment illustrates the beginning of a typical SBML model
+using SBML Level&nbsp;3 Core and Version&nbsp;1 of the Flux Balance
+Constraints package:
+
+<pre class="fragment">
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;sbml xmlns="http://www.sbml.org/sbml/level3/version1/core" level="3" version="1"
+      xmlns:comp="http://www.sbml.org/sbml/level3/version1/fbc/version1" comp:required="false"&gt;
+</pre>
+
+
+<h2>The specification for this SBML package</h2>
+
+<p style="color: #880000"> This API documentation for libSBML does not
+provide a complete explanation of the SBML Level&nbsp;3 Flux Balance
+Constraints (&ldquo;fbc&rdquo;) package.  If you are developing software that
+uses &ldquo;fbc&rdquo;, you are strongly urged to read the actual
+specification for the package.  For your convenience, the current (at the
+time of this libSBML release) specification document is included with this
+documentation here:
+
+<center>
+<a class="spec-link" target="_blank" href="sbml-fbc-version-1-release-1.pdf">
+<img class="big-icon" src="icon-format-pdf-44px.jpg">Specification for the
+SBML Level&nbsp;3 Version&nbsp;1 <em>Flux Balance Constraints</em> package</a>
+(in PDF format).
+</center>
