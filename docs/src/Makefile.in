@@ -476,8 +476,10 @@ endef
 
 define postprocess_doxygen
   cp $(logo-files) $(1)
+  cp graphics/*.txt $(1)
   cp graphics/*.gif $(1)
   cp graphics/*.png $(1)
+  cp graphics/*.jpg $(1)
   cp common-text/simple-ast.svg $(1)
   cp sbml.js $(1)
   cp documents/*.pdf $(1)
@@ -659,8 +661,10 @@ java-manual $(java-manual): $(core-sources) SBMLDoclet.class
 	cp -f doxygen-base-stylesheet.css $(java-manual)
 	cp -f $(logo-files) $(java-manual)
 	cp -f $(logo-files) $(java-manual)/$(java-class-path)/
+	cp -f graphics/*.gif $(java-manual)
 	cp -f graphics/*.png $(java-manual)
 	cp -f graphics/*.jpg $(java-manual)/$(java-class-path)/
+	cp -f documents/*.pdf $(java-manual)
 	cp -f common-text/*.svg $(java-manual)/$(java-class-path)/
 	cp -f sbml.js $(java-manual)
 	cp common-text/simple-ast.svg $(java-manual)
