@@ -179,6 +179,10 @@ distfiles =							\
         csdocfilter.py						\
 	documents/miriam-2005.pdf                               \
 	documents/miriam-resources-2007.pdf                     \
+	documents/sbml-L3-qual-version1-release1.pdf 		\
+	documents/sbml-comp-version-1-release-2.pdf		\
+	documents/sbml-fbc-version-1-release-1.pdf		\
+	documents/sbml-layout-version-1-release-1.pdf		\
         doxygen-base-stylesheet.css				\
         doxygen-config-c.txt.cmake				\
         doxygen-config-c.txt.in					\
@@ -221,6 +225,7 @@ distfiles =							\
         graphics/ftv2folderclosed.png				\
         graphics/ftv2folderopen.png				\
         graphics/hellojsp-screenshot.png			\
+	graphics/icon-format-pdf-44px.jpg			\
         graphics/layout-example.png				\
         graphics/listof-illustration.jpg			\
         graphics/listof-illustration.txt			\
