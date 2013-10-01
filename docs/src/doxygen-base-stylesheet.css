@@ -1789,3 +1789,8 @@ td.s-na {
 a[href="#details"] {
     display: none;
 }
+
+img.big-icon {
+    vertical-align: -40%;
+    margin: auto 5px;
+}
