@@ -414,13 +414,14 @@ START_TEST (test_comp_flatten_unknown_21)
   string flatModel = writeSBMLToString(doc);
   fail_unless(flatModel == newModel);
 
-  delete converter;
+  delete converter; 
 
-  //SBMLErrorLog* errors = doc->getErrorLog();
-  //fail_unless(errors->getNumErrors() == 4);
-  //fail_unless(errors->contains(RequiredPackagePresent) == true);
-  //fail_unless(errors->contains(CompFlatteningNotRecognisedReqd) == true);
-  //fail_unless(errors->contains(CompFlatteningWarning) == true);
+  SBMLErrorLog* errors = doc->getErrorLog();
+  fail_unless(errors->getNumErrors() == 4);
+  fail_unless(errors->contains(RequiredPackagePresent) == true);
+  fail_unless(errors->contains(CompFlatteningNotRecognisedReqd) == true);
+  fail_unless(errors->contains(CompModelFlatteningFailed) == true);
+  fail_unless(errors->contains(CompSubmodelMustReferenceModel) == true);
 
   delete doc;  
 }

@@ -1355,19 +1355,19 @@ START_TEST (test_comp_flatten_converter_properties10)
 END_TEST
 
 
-START_TEST (test_comp_flatten_converter_packages1)
+SBMLDocument* test_flatten_layout(string orig, string flat, string nolayout)
 { 
   string filename(TestDataDirectory);
   
   ConversionProperties* props = new ConversionProperties();
   
   props->addOption("flatten comp");
-  props->addOption("perform validation", true);
+  props->addOption("perform validation", false);
 
   SBMLConverter* converter = SBMLConverterRegistry::getInstance().getConverterFor(*props);
   
   // load document
-  string cfile = filename + "aggregate_layout.xml";  
+  string cfile = filename + orig;  
   SBMLDocument* doc = readSBMLFromFile(cfile.c_str());
 
   // fail if there is no model (readSBMLFromFile always returns a valid document)
@@ -1386,36 +1386,29 @@ START_TEST (test_comp_flatten_converter_packages1)
   string newModel = writeSBMLToString(doc);
   string ffile;
 
-  // NOTE: since layout flattening is not yet implemented
-  // the same result should be chieved whether layout is enabled or not
+  // NOTE: layout flattening is now implemented!
   if (SBMLExtensionRegistry::isPackageEnabled("layout") == true)
   {
-    ffile = filename + "aggregate_layout_flat_layout_removed.xml";
+    ffile = filename + flat;
     fail_unless(result == LIBSBML_OPERATION_SUCCESS);
-    fail_unless(doc->getNumErrors() == 1);
-    fail_unless(doc->getErrorLog()->getError(0)->getErrorId() == 1090109);
+    fail_unless(doc->getNumErrors() == 0);
   }
   else
   {
     fail_unless(result == LIBSBML_OPERATION_SUCCESS);
-    fail_unless(doc->getNumErrors() == 2);
-    fail_unless(doc->getErrorLog()->getError(0)->getErrorId() == 99108);
-    fail_unless(doc->getErrorLog()->getError(1)->getErrorId() == 1090108);
-    ffile = filename + "aggregate_layout_flat_layout_removed.xml";
+    ffile = filename + nolayout;
   }
 
   SBMLDocument* fdoc = readSBMLFromFile(ffile.c_str());
   string flatModel = writeSBMLToString(fdoc);
   fail_unless(flatModel == newModel);
 
-  delete doc;
   delete fdoc;
   delete converter;
+  return doc;
 }
-END_TEST
 
-
-START_TEST (test_comp_flatten_converter_packages2)
+SBMLDocument* test_flatten_fbc(string orig, string flat, string nofbc)
 { 
   string filename(TestDataDirectory);
  
@@ -1431,7 +1424,7 @@ START_TEST (test_comp_flatten_converter_packages2)
   SBMLConverter* converter = SBMLConverterRegistry::getInstance().getConverterFor(*props);
   
   // load document
-  string cfile = filename + "aggregate_fbc.xml";  
+  string cfile = filename + orig;  
   SBMLDocument* doc = readSBMLFromFile(cfile.c_str());
 
   // fail if there is no model (readSBMLFromFile always returns a valid document)
@@ -1458,151 +1451,95 @@ START_TEST (test_comp_flatten_converter_packages2)
     // fbc is not required so should just get removed
     fail_unless(result == LIBSBML_OPERATION_SUCCESS);
     fail_unless(doc->getNumErrors() == 1);
-    fail_unless(doc->getErrorLog()->getError(0)->getErrorId() == 1090109);
-    ffile = filename + "aggregate_fbc_flat_fbc_removed.xml";
+    fail_unless(doc->getErrorLog()->getError(0)->getErrorId() == CompFlatteningNotImplementedNotReqd);
+    ffile = filename + flat;
   }
   else
   {
     fail_unless(result == LIBSBML_OPERATION_SUCCESS);
     fail_unless(doc->getNumErrors() == 2);
-    fail_unless(doc->getErrorLog()->getError(0)->getErrorId() == 99108);
-    fail_unless(doc->getErrorLog()->getError(1)->getErrorId() == 1090108);
-    ffile = filename + "aggregate_fbc_flat_fbc_removed.xml";
+    fail_unless(doc->getErrorLog()->getError(0)->getErrorId() == UnrequiredPackagePresent);
+    fail_unless(doc->getErrorLog()->getError(1)->getErrorId() == CompFlatteningNotRecognisedNotReqd);
+    ffile = filename + nofbc;
   }
 
   SBMLDocument* fdoc = readSBMLFromFile(ffile.c_str());
   string flatModel = writeSBMLToString(fdoc);
   fail_unless(flatModel == newModel);
 
-  delete doc;
   delete fdoc;
   delete converter;
+  return doc;
 }
-END_TEST
 
-
-START_TEST (test_comp_flatten_converter_packages3)
+START_TEST (test_comp_flatten_converter_layout1)
 { 
-  string filename(TestDataDirectory);
- 
-  ConversionProperties* props = new ConversionProperties();
-  
-  props->addOption("flatten comp");
-  props->addOption("ignorePackages", true);
-  props->addOption("perform validation", true);
-
-  SBMLConverter* converter = SBMLConverterRegistry::getInstance().getConverterFor(*props);
-  
-  // load document
-  string cfile = filename + "aggregate_fbc.xml";  
-  SBMLDocument* doc = readSBMLFromFile(cfile.c_str());
-
-  // fail if there is no model (readSBMLFromFile always returns a valid document)
-  fail_unless(doc->getModel() != NULL);
-
-  //Fail if we claim there are errors in the document (there shouldn't be)
-
-  if (SBMLExtensionRegistry::isPackageEnabled("fbc") == true)
+  SBMLDocument* doc = test_flatten_layout("aggregate_layout.xml", "aggregate_layout_flat.xml", "aggregate_layout_flat_layout_removed.xml");
+  if (SBMLExtensionRegistry::isPackageEnabled("layout") == false)
   {
-    fail_unless(doc->getErrorLog()->getNumFailsWithSeverity(LIBSBML_SEV_ERROR) == 0);
-  }
-
-  converter->setDocument(doc);
-  int result = converter->convert();
-
-
-  string newModel = writeSBMLToString(doc);
-  string ffile;
-
-  // NOTE: since fbc flattening is not yet implemented
-  // the same result should be chieved whether fbc is enabled or not
-  if (SBMLExtensionRegistry::isPackageEnabled("fbc") == true)
-  {
-    // fbc is not required so should just get removed
-    fail_unless(result == LIBSBML_OPERATION_SUCCESS);
-    fail_unless(doc->getNumErrors() == 1);
-    fail_unless(doc->getErrorLog()->getError(0)->getErrorId() == 1090109);
-    ffile = filename + "aggregate_fbc_flat_fbc_removed.xml";
-  }
-  else
-  {
-    fail_unless(result == LIBSBML_OPERATION_SUCCESS);
     fail_unless(doc->getNumErrors() == 2);
-    fail_unless(doc->getErrorLog()->getError(0)->getErrorId() == 99108);
-    fail_unless(doc->getErrorLog()->getError(1)->getErrorId() == 1090108);
-    ffile = filename + "aggregate_fbc_flat_fbc_removed.xml";
+    fail_unless(doc->getErrorLog()->getError(0)->getErrorId() == UnrequiredPackagePresent);
+    fail_unless(doc->getErrorLog()->getError(1)->getErrorId() == CompFlatteningNotRecognisedNotReqd);
   }
-
-  SBMLDocument* fdoc = readSBMLFromFile(ffile.c_str());
-  string flatModel = writeSBMLToString(fdoc);
-  fail_unless(flatModel == newModel);
-
   delete doc;
-  delete fdoc;
-  delete converter;
 }
 END_TEST
 
 
-START_TEST (test_comp_flatten_converter_packages4)
+START_TEST (test_comp_flatten_converter_layout2)
 { 
-  string filename(TestDataDirectory);
-  
-  ConversionProperties* props = new ConversionProperties();
-  
-  props->addOption("flatten comp");
-  props->addOption("ignorePackages", false);
-  props->addOption("perform validation", true);
-
-  SBMLConverter* converter = SBMLConverterRegistry::getInstance().getConverterFor(*props);
-  
-  // load document
-  string cfile = filename + "aggregate_fbc.xml";  
-  SBMLDocument* doc = readSBMLFromFile(cfile.c_str());
-
-  // fail if there is no model (readSBMLFromFile always returns a valid document)
-  fail_unless(doc->getModel() != NULL);
-
-  //Fail if we claim there are errors in the document (there shouldn't be)
-
-  if (SBMLExtensionRegistry::isPackageEnabled("fbc") == true)
+  SBMLDocument* doc = test_flatten_layout("layout_deletion.xml", "layout_deletion_flat.xml", "layout_deletion_flat_layout_removed.xml");
+  if (SBMLExtensionRegistry::isPackageEnabled("layout") == false)
   {
-    fail_unless(doc->getErrorLog()->getNumFailsWithSeverity(LIBSBML_SEV_ERROR) == 0);
+    fail_unless(doc->getNumErrors() == 3);
+    fail_unless(doc->getErrorLog()->getError(0)->getErrorId() == UnrequiredPackagePresent);
+    fail_unless(doc->getErrorLog()->getError(1)->getErrorId() == CompFlatteningNotRecognisedNotReqd);
+    fail_unless(doc->getErrorLog()->getError(2)->getErrorId() == CompFlatteningWarning);
   }
-
-  converter->setDocument(doc);
-  int result = converter->convert();
-
-
-  string newModel = writeSBMLToString(doc);
-  string ffile;
-
-  // NOTE: here we explicitly say do not remove packages
-  if (SBMLExtensionRegistry::isPackageEnabled("fbc") == true)
-  {
-    fail_unless(result == LIBSBML_OPERATION_SUCCESS);
-    fail_unless(doc->getNumErrors() == 1);
-    fail_unless(doc->getErrorLog()->getError(0)->getErrorId() == 1090109);
-    ffile = filename + "aggregate_fbc_flat_fbc_not_removed.xml";
-  }
-  else
-  {
-    fail_unless(result == LIBSBML_OPERATION_SUCCESS);
-    fail_unless(doc->getNumErrors() == 2);
-    fail_unless(doc->getErrorLog()->getError(0)->getErrorId() == 99108);
-    fail_unless(doc->getErrorLog()->getError(1)->getErrorId() == 1090108);
-    ffile = filename + "aggregate_fbc_flat_fbc_not_enabled.xml";
-  }
-
-  SBMLDocument* fdoc = readSBMLFromFile(ffile.c_str());
-  string flatModel = writeSBMLToString(fdoc);
-  fail_unless(flatModel == newModel);
-
   delete doc;
-  delete fdoc;
-  delete converter;
 }
 END_TEST
+
+START_TEST (test_comp_flatten_converter_layout3)
+{ 
+  SBMLDocument* doc = test_flatten_layout("layout_replacedBy.xml", "layout_replacedBy_flat.xml", "layout_replacedBy_flat_layout_removed.xml");
+  if (SBMLExtensionRegistry::isPackageEnabled("layout") == false)
+  {
+    fail_unless(doc->getNumErrors() == 2);
+    fail_unless(doc->getErrorLog()->getError(0)->getErrorId() == UnrequiredPackagePresent);
+    fail_unless(doc->getErrorLog()->getError(1)->getErrorId() == CompFlatteningNotRecognisedNotReqd);
+  }
+  delete doc;
+}
+END_TEST
+
+START_TEST (test_comp_flatten_converter_layout4)
+{ 
+  SBMLDocument* doc = test_flatten_layout("layout_replacement.xml", "layout_replacement_flat.xml", "layout_replacement_flat_layout_removed.xml");
+  if (SBMLExtensionRegistry::isPackageEnabled("layout") == false)
+  {
+    fail_unless(doc->getNumErrors() == 2);
+    fail_unless(doc->getErrorLog()->getError(0)->getErrorId() == UnrequiredPackagePresent);
+    fail_unless(doc->getErrorLog()->getError(1)->getErrorId() == CompFlatteningNotRecognisedNotReqd);
+  }
+  delete doc;
+}
+END_TEST
+
+
+START_TEST (test_comp_flatten_converter_fbc1)
+{ 
+  SBMLDocument* doc = test_flatten_fbc("aggregate_fbc.xml", "aggregate_fbc_flat_fbc_removed.xml", "aggregate_fbc_flat_fbc_removed.xml");
+  if (SBMLExtensionRegistry::isPackageEnabled("fbc") == false)
+  {
+    fail_unless(doc->getNumErrors() == 2);
+    fail_unless(doc->getErrorLog()->getError(0)->getErrorId() == UnrequiredPackagePresent);
+    fail_unless(doc->getErrorLog()->getError(1)->getErrorId() == CompFlatteningNotRecognisedNotReqd);
+  }
+  delete doc;
+}
+END_TEST
+
 
 START_TEST(test_comp_validator_44781839)
 {
@@ -1761,10 +1698,11 @@ create_suite_TestFlatteningConverter (void)
   tcase_add_test(tcase, test_comp_flatten_converter_properties9);
   tcase_add_test(tcase, test_comp_flatten_converter_properties10);
 
-  tcase_add_test(tcase, test_comp_flatten_converter_packages1);
-  tcase_add_test(tcase, test_comp_flatten_converter_packages2);
-  tcase_add_test(tcase, test_comp_flatten_converter_packages3);
-  tcase_add_test(tcase, test_comp_flatten_converter_packages4);
+  tcase_add_test(tcase, test_comp_flatten_converter_layout1);
+  tcase_add_test(tcase, test_comp_flatten_converter_layout2);
+  tcase_add_test(tcase, test_comp_flatten_converter_layout3);
+  tcase_add_test(tcase, test_comp_flatten_converter_layout4);
+  tcase_add_test(tcase, test_comp_flatten_converter_fbc1);
   tcase_add_test(tcase, test_comp_validator_44781839);
  
   suite_add_tcase(suite, tcase);

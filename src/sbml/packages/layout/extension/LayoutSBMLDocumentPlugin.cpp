@@ -134,7 +134,7 @@ LayoutSBMLDocumentPlugin::readAttributes (const XMLAttributes& attributes,
 bool
 LayoutSBMLDocumentPlugin::isFlatteningImplemented() const
 {
-  return false;
+  return true;
 }
 /** @endcond */
 
