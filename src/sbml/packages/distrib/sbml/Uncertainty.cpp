@@ -41,16 +41,16 @@ LIBSBML_CPP_NAMESPACE_BEGIN
  * Creates a new Uncertainty with the given level, version, and package version.
  */
 Uncertainty::Uncertainty (unsigned int level, unsigned int version, unsigned int pkgVersion)
-	: SBase(level, version)
-	 ,mId ("")
-	 ,mName ("")
-	 ,mUncertML (NULL)
+  : SBase(level, version)
+   ,mId ("")
+   ,mName ("")
+   ,mUncertML (NULL)
 {
-	// set an SBMLNamespaces derived object of this package
-	setSBMLNamespacesAndOwn(new DistribPkgNamespaces(level, version, pkgVersion));
+  // set an SBMLNamespaces derived object of this package
+  setSBMLNamespacesAndOwn(new DistribPkgNamespaces(level, version, pkgVersion));
 
-	// connect to child objects
-	connectToChild();
+  // connect to child objects
+  connectToChild();
 }
 
 
@@ -58,19 +58,19 @@ Uncertainty::Uncertainty (unsigned int level, unsigned int version, unsigned int
  * Creates a new Uncertainty with the given DistribPkgNamespaces object.
  */
 Uncertainty::Uncertainty (DistribPkgNamespaces* distribns)
-	: SBase(distribns)
-	 ,mId ("")
-	 ,mName ("")
-	 ,mUncertML (NULL)
+  : SBase(distribns)
+   ,mId ("")
+   ,mName ("")
+   ,mUncertML (NULL)
 {
-	// set the element namespace of this object
-	setElementNamespace(distribns->getURI());
+  // set the element namespace of this object
+  setElementNamespace(distribns->getURI());
 
-	// connect to child objects
-	connectToChild();
+  // connect to child objects
+  connectToChild();
 
-	// load package extensions bound with this object (if any) 
-	loadPlugins(distribns);
+  // load package extensions bound with this object (if any) 
+  loadPlugins(distribns);
 }
 
 
@@ -78,28 +78,28 @@ Uncertainty::Uncertainty (DistribPkgNamespaces* distribns)
  * Copy constructor for Uncertainty.
  */
 Uncertainty::Uncertainty (const Uncertainty& orig)
-	: SBase(orig)
+  : SBase(orig)
 {
-	if (&orig == NULL)
-	{
-		throw SBMLConstructorException("Null argument to copy constructor");
-	}
-	else
-	{
-		mId  = orig.mId;
-		mName  = orig.mName;
-		if (orig.mUncertML != NULL)
-		{
-			mUncertML = orig.mUncertML->clone();
-		}
-		else
-		{
-			mUncertML = NULL;
-		}
+  if (&orig == NULL)
+  {
+    throw SBMLConstructorException("Null argument to copy constructor");
+  }
+  else
+  {
+    mId  = orig.mId;
+    mName  = orig.mName;
+    if (orig.mUncertML != NULL)
+    {
+      mUncertML = orig.mUncertML->clone();
+    }
+    else
+    {
+      mUncertML = NULL;
+    }
 
-		// connect to child objects
-		connectToChild();
-	}
+    // connect to child objects
+    connectToChild();
+  }
 }
 
 
@@ -109,28 +109,28 @@ Uncertainty::Uncertainty (const Uncertainty& orig)
 Uncertainty&
 Uncertainty::operator=(const Uncertainty& rhs)
 {
-	if (&rhs == NULL)
-	{
-		throw SBMLConstructorException("Null argument to assignment");
-	}
-	else if (&rhs != this)
-	{
-		SBase::operator=(rhs);
-		mId  = rhs.mId;
-		mName  = rhs.mName;
-		if (rhs.mUncertML != NULL)
-		{
-			mUncertML = rhs.mUncertML->clone();
-		}
-		else
-		{
-			mUncertML = NULL;
-		}
+  if (&rhs == NULL)
+  {
+    throw SBMLConstructorException("Null argument to assignment");
+  }
+  else if (&rhs != this)
+  {
+    SBase::operator=(rhs);
+    mId  = rhs.mId;
+    mName  = rhs.mName;
+    if (rhs.mUncertML != NULL)
+    {
+      mUncertML = rhs.mUncertML->clone();
+    }
+    else
+    {
+      mUncertML = NULL;
+    }
 
-		// connect to child objects
-		connectToChild();
-	}
-	return *this;
+    // connect to child objects
+    connectToChild();
+  }
+  return *this;
 }
 
 
@@ -140,7 +140,7 @@ Uncertainty::operator=(const Uncertainty& rhs)
 Uncertainty*
 Uncertainty::clone () const
 {
-	return new Uncertainty(*this);
+  return new Uncertainty(*this);
 }
 
 
@@ -158,7 +158,7 @@ Uncertainty::~Uncertainty ()
 const std::string&
 Uncertainty::getId() const
 {
-	return mId;
+  return mId;
 }
 
 
@@ -168,7 +168,7 @@ Uncertainty::getId() const
 const std::string&
 Uncertainty::getName() const
 {
-	return mName;
+  return mName;
 }
 
 
@@ -178,7 +178,7 @@ Uncertainty::getName() const
 const UncertMLNode*
 Uncertainty::getUncertML() const
 {
-	return mUncertML;
+  return mUncertML;
 }
 
 
@@ -188,7 +188,7 @@ Uncertainty::getUncertML() const
 bool
 Uncertainty::isSetId() const
 {
-	return (mId.empty() == false);
+  return (mId.empty() == false);
 }
 
 
@@ -198,7 +198,7 @@ Uncertainty::isSetId() const
 bool
 Uncertainty::isSetName() const
 {
-	return (mName.empty() == false);
+  return (mName.empty() == false);
 }
 
 
@@ -208,7 +208,7 @@ Uncertainty::isSetName() const
 bool
 Uncertainty::isSetUncertML() const
 {
-	return (mUncertML != NULL);
+  return (mUncertML != NULL);
 }
 
 
@@ -218,7 +218,7 @@ Uncertainty::isSetUncertML() const
 int
 Uncertainty::setId(const std::string& id)
 {
-	return SyntaxChecker::checkAndSetSId(id, mId);
+  return SyntaxChecker::checkAndSetSId(id, mId);
 }
 
 
@@ -228,15 +228,15 @@ Uncertainty::setId(const std::string& id)
 int
 Uncertainty::setName(const std::string& name)
 {
-	if (&(name) == NULL)
-	{
-		return LIBSBML_INVALID_ATTRIBUTE_VALUE;
-	}
-	else
-	{
-		mName = name;
-		return LIBSBML_OPERATION_SUCCESS;
-	}
+  if (&(name) == NULL)
+  {
+    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+  }
+  else
+  {
+    mName = name;
+    return LIBSBML_OPERATION_SUCCESS;
+  }
 }
 
 
@@ -246,27 +246,27 @@ Uncertainty::setName(const std::string& name)
 int
 Uncertainty::setUncertML(UncertMLNode* uncertML)
 {
-	if (mUncertML == uncertML)
-	{
-		return LIBSBML_OPERATION_SUCCESS;
-	}
-	else if (uncertML == NULL)
-	{
-		delete mUncertML;
-		mUncertML = NULL;
-		return LIBSBML_OPERATION_SUCCESS;
-	}
-	else
-	{
-		delete mUncertML;
-		mUncertML = (uncertML != NULL) ?
-			static_cast<UncertMLNode*>(uncertML->clone()) : NULL;
-		//if (mUncertML != NULL)
-		//{
-		//	mUncertML->connectToParent(this);
-		//}
-		return LIBSBML_OPERATION_SUCCESS;
-	}
+  if (mUncertML == uncertML)
+  {
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else if (uncertML == NULL)
+  {
+    delete mUncertML;
+    mUncertML = NULL;
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else
+  {
+    delete mUncertML;
+    mUncertML = (uncertML != NULL) ?
+      static_cast<UncertMLNode*>(uncertML->clone()) : NULL;
+    //if (mUncertML != NULL)
+    //{
+    //  mUncertML->connectToParent(this);
+    //}
+    return LIBSBML_OPERATION_SUCCESS;
+  }
 }
 
 
@@ -276,16 +276,16 @@ Uncertainty::setUncertML(UncertMLNode* uncertML)
 int
 Uncertainty::unsetId()
 {
-	mId.erase();
+  mId.erase();
 
-	if (mId.empty() == true)
-	{
-		return LIBSBML_OPERATION_SUCCESS;
-	}
-	else
-	{
-		return LIBSBML_OPERATION_FAILED;
-	}
+  if (mId.empty() == true)
+  {
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else
+  {
+    return LIBSBML_OPERATION_FAILED;
+  }
 }
 
 
@@ -295,16 +295,16 @@ Uncertainty::unsetId()
 int
 Uncertainty::unsetName()
 {
-	mName.erase();
+  mName.erase();
 
-	if (mName.empty() == true)
-	{
-		return LIBSBML_OPERATION_SUCCESS;
-	}
-	else
-	{
-		return LIBSBML_OPERATION_FAILED;
-	}
+  if (mName.empty() == true)
+  {
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else
+  {
+    return LIBSBML_OPERATION_FAILED;
+  }
 }
 
 
@@ -314,9 +314,9 @@ Uncertainty::unsetName()
 int
 Uncertainty::unsetUncertML()
 {
-	delete mUncertML;
-	mUncertML = NULL;
-	return LIBSBML_OPERATION_SUCCESS;
+  delete mUncertML;
+  mUncertML = NULL;
+  return LIBSBML_OPERATION_SUCCESS;
 }
 
 
@@ -326,8 +326,8 @@ Uncertainty::unsetUncertML()
 const std::string&
 Uncertainty::getElementName () const
 {
-	static const string name = "uncertainty";
-	return name;
+  static const string name = "uncertainty";
+  return name;
 }
 
 
@@ -337,7 +337,7 @@ Uncertainty::getElementName () const
 int
 Uncertainty::getTypeCode () const
 {
-	return SBML_DISTRIB_UNCERTAINTY;
+  return SBML_DISTRIB_UNCERTAINTY;
 }
 
 
@@ -347,9 +347,9 @@ Uncertainty::getTypeCode () const
 bool
 Uncertainty::hasRequiredAttributes () const
 {
-	bool allPresent = true;
+  bool allPresent = true;
 
-	return allPresent;
+  return allPresent;
 }
 
 
@@ -359,16 +359,16 @@ Uncertainty::hasRequiredAttributes () const
 bool
 Uncertainty::hasRequiredElements () const
 {
-	bool allPresent = true;
+  bool allPresent = true;
 
-	if (isSetUncertML() == false)
-		allPresent = false;
+  if (isSetUncertML() == false)
+    allPresent = false;
 
-	return allPresent;
+  return allPresent;
 }
 
 
-	/** @cond doxygenLibsbmlInternal */
+  /** @cond doxygenLibsbmlInternal */
 
 /*
  * write contained elements
@@ -376,20 +376,20 @@ Uncertainty::hasRequiredElements () const
 void
 Uncertainty::writeElements (XMLOutputStream& stream) const
 {
-	SBase::writeElements(stream);
+  SBase::writeElements(stream);
 
-	if (isSetUncertML() == true)
-	{
-		mUncertML->write(stream);
-	}
-	SBase::writeExtensionElements(stream);
+  if (isSetUncertML() == true)
+  {
+    mUncertML->write(stream);
+  }
+  SBase::writeExtensionElements(stream);
 }
 
 
-	/** @endcond doxygenLibsbmlInternal */
+  /** @endcond doxygenLibsbmlInternal */
 
 
-	/** @cond doxygenLibsbmlInternal */
+  /** @cond doxygenLibsbmlInternal */
 
 /*
  * Accepts the given SBMLVisitor.
@@ -397,20 +397,20 @@ Uncertainty::writeElements (XMLOutputStream& stream) const
 bool
 Uncertainty::accept (SBMLVisitor& v) const
 {
-	v.visit(*this);
+  v.visit(*this);
 
 /* VISIT CHILDREN */
 
-	v.leave(*this);
+  v.leave(*this);
 
-	return true;
+  return true;
 }
 
 
-	/** @endcond doxygenLibsbmlInternal */
+  /** @endcond doxygenLibsbmlInternal */
 
 
-	/** @cond doxygenLibsbmlInternal */
+  /** @cond doxygenLibsbmlInternal */
 
 /*
  * Sets the parent SBMLDocument.
@@ -418,17 +418,17 @@ Uncertainty::accept (SBMLVisitor& v) const
 void
 Uncertainty::setSBMLDocument (SBMLDocument* d)
 {
-	SBase::setSBMLDocument(d);
+  SBase::setSBMLDocument(d);
 }
 
 
-	/** @endcond doxygenLibsbmlInternal */
+  /** @endcond doxygenLibsbmlInternal */
 
 
-	/** @cond doxygenLibsbmlInternal */
+  /** @cond doxygenLibsbmlInternal */
 
 /*
-	 * Connects to child elements.
+   * Connects to child elements.
  */
 void
 Uncertainty::connectToChild()
@@ -436,10 +436,10 @@ Uncertainty::connectToChild()
 }
 
 
-	/** @endcond doxygenLibsbmlInternal */
+  /** @endcond doxygenLibsbmlInternal */
 
 
-	/** @cond doxygenLibsbmlInternal */
+  /** @cond doxygenLibsbmlInternal */
 
 /*
  * Enables/Disables the given package with this element.
@@ -448,14 +448,14 @@ void
 Uncertainty::enablePackageInternal(const std::string& pkgURI,
              const std::string& pkgPrefix, bool flag)
 {
-	SBase::enablePackageInternal(pkgURI, pkgPrefix, flag);
+  SBase::enablePackageInternal(pkgURI, pkgPrefix, flag);
 }
 
 
-	/** @endcond doxygenLibsbmlInternal */
+  /** @endcond doxygenLibsbmlInternal */
 
 
-	/** @cond doxygenLibsbmlInternal */
+  /** @cond doxygenLibsbmlInternal */
 
 /*
  * creates object.
@@ -463,13 +463,13 @@ Uncertainty::enablePackageInternal(const std::string& pkgURI,
 SBase*
 Uncertainty::createObject(XMLInputStream& stream)
 {
-	const string& name = stream.peek().getName();
-	SBase* object = NULL;
+  const string& name = stream.peek().getName();
+  SBase* object = NULL;
 
-	DISTRIB_CREATE_NS(distribns, getSBMLNamespaces());
+  DISTRIB_CREATE_NS(distribns, getSBMLNamespaces());
 
 
-	return object;
+  return object;
 }
 
 
@@ -478,8 +478,8 @@ Uncertainty::readOtherXML(XMLInputStream& stream)
 {
   const string& name = stream.peek().getName();
 
-	if (name == "UncertML")
-	{
+  if (name == "UncertML")
+  {
     delete mUncertML;
     XMLNode * xml = new XMLNode(stream);
     mUncertML = new UncertMLNode(xml);
@@ -491,10 +491,10 @@ Uncertainty::readOtherXML(XMLInputStream& stream)
 }
 
 
-	/** @endcond doxygenLibsbmlInternal */
+  /** @endcond doxygenLibsbmlInternal */
 
 
-	/** @cond doxygenLibsbmlInternal */
+  /** @cond doxygenLibsbmlInternal */
 
 /*
  * Get the list of expected attributes for this element.
@@ -502,17 +502,17 @@ Uncertainty::readOtherXML(XMLInputStream& stream)
 void
 Uncertainty::addExpectedAttributes(ExpectedAttributes& attributes)
 {
-	SBase::addExpectedAttributes(attributes);
+  SBase::addExpectedAttributes(attributes);
 
-	attributes.add("id");
-	attributes.add("name");
+  attributes.add("id");
+  attributes.add("name");
 }
 
 
-	/** @endcond doxygenLibsbmlInternal */
+  /** @endcond doxygenLibsbmlInternal */
 
 
-	/** @cond doxygenLibsbmlInternal */
+  /** @cond doxygenLibsbmlInternal */
 
 /*
  * Read values from the given XMLAttributes set into their specific fields.
@@ -521,98 +521,98 @@ void
 Uncertainty::readAttributes (const XMLAttributes& attributes,
                              const ExpectedAttributes& expectedAttributes)
 {
-	const unsigned int sbmlLevel   = getLevel  ();
-	const unsigned int sbmlVersion = getVersion();
+  const unsigned int sbmlLevel   = getLevel  ();
+  const unsigned int sbmlVersion = getVersion();
 
-	unsigned int numErrs;
+  unsigned int numErrs;
 
-	SBase::readAttributes(attributes, expectedAttributes);
+  SBase::readAttributes(attributes, expectedAttributes);
 
-	// look to see whether an unknown attribute error was logged
-	if (getErrorLog() != NULL)
-	{
-		numErrs = getErrorLog()->getNumErrors();
-		for (int n = numErrs-1; n >= 0; n--)
-		{
-			if (getErrorLog()->getError(n)->getErrorId() == UnknownPackageAttribute)
-			{
-				const std::string details =
-				                  getErrorLog()->getError(n)->getMessage();
-				getErrorLog()->remove(UnknownPackageAttribute);
-				getErrorLog()->logPackageError("distrib", DistribUnknownError,
-				               getPackageVersion(), sbmlLevel, sbmlVersion, details);
-			}
-			else if (getErrorLog()->getError(n)->getErrorId() == UnknownCoreAttribute)
-			{
-				const std::string details =
-				                  getErrorLog()->getError(n)->getMessage();
-				getErrorLog()->remove(UnknownCoreAttribute);
-				getErrorLog()->logPackageError("distrib", DistribUnknownError,
-				               getPackageVersion(), sbmlLevel, sbmlVersion, details);
-			}
-		}
-	}
+  // look to see whether an unknown attribute error was logged
+  if (getErrorLog() != NULL)
+  {
+    numErrs = getErrorLog()->getNumErrors();
+    for (int n = numErrs-1; n >= 0; n--)
+    {
+      if (getErrorLog()->getError(n)->getErrorId() == UnknownPackageAttribute)
+      {
+        const std::string details =
+                          getErrorLog()->getError(n)->getMessage();
+        getErrorLog()->remove(UnknownPackageAttribute);
+        getErrorLog()->logPackageError("distrib", DistribUnknownError,
+                       getPackageVersion(), sbmlLevel, sbmlVersion, details);
+      }
+      else if (getErrorLog()->getError(n)->getErrorId() == UnknownCoreAttribute)
+      {
+        const std::string details =
+                          getErrorLog()->getError(n)->getMessage();
+        getErrorLog()->remove(UnknownCoreAttribute);
+        getErrorLog()->logPackageError("distrib", DistribUnknownError,
+                       getPackageVersion(), sbmlLevel, sbmlVersion, details);
+      }
+    }
+  }
 
-	bool assigned = false;
+  bool assigned = false;
 
-	//
-	// id string   ( use = "optional" )
-	//
-	assigned = attributes.readInto("id", mId);
+  //
+  // id string   ( use = "optional" )
+  //
+  assigned = attributes.readInto("id", mId);
 
-	if (assigned == true)
-	{
-		// check string is not empty
+  if (assigned == true)
+  {
+    // check string is not empty
 
-		if (mId.empty() == true)
-		{
-			logEmptyString(mId, getLevel(), getVersion(), "<Uncertainty>");
-		}
-	}
+    if (mId.empty() == true)
+    {
+      logEmptyString(mId, getLevel(), getVersion(), "<Uncertainty>");
+    }
+  }
 
-	//
-	// name string   ( use = "optional" )
-	//
-	assigned = attributes.readInto("name", mName);
+  //
+  // name string   ( use = "optional" )
+  //
+  assigned = attributes.readInto("name", mName);
 
-	if (assigned == true)
-	{
-		// check string is not empty
+  if (assigned == true)
+  {
+    // check string is not empty
 
-		if (mName.empty() == true)
-		{
-			logEmptyString(mName, getLevel(), getVersion(), "<Uncertainty>");
-		}
-	}
+    if (mName.empty() == true)
+    {
+      logEmptyString(mName, getLevel(), getVersion(), "<Uncertainty>");
+    }
+  }
 
 }
 
 
-	/** @endcond doxygenLibsbmlInternal */
+  /** @endcond doxygenLibsbmlInternal */
 
 
-	/** @cond doxygenLibsbmlInternal */
+  /** @cond doxygenLibsbmlInternal */
 
 /*
  * Write values of XMLAttributes to the output stream.
  */
-	void
+  void
 Uncertainty::writeAttributes (XMLOutputStream& stream) const
 {
-	SBase::writeAttributes(stream);
+  SBase::writeAttributes(stream);
 
-	if (isSetId() == true)
-		stream.writeAttribute("id", getPrefix(), mId);
+  if (isSetId() == true)
+    stream.writeAttribute("id", getPrefix(), mId);
 
-	if (isSetName() == true)
-		stream.writeAttribute("name", getPrefix(), mName);
+  if (isSetName() == true)
+    stream.writeAttribute("name", getPrefix(), mName);
 
-	SBase::writeExtensionAttributes(stream);
+  SBase::writeExtensionAttributes(stream);
 
 }
 
 
-	/** @endcond doxygenLibsbmlInternal */
+  /** @endcond doxygenLibsbmlInternal */
 
 
 /**
@@ -623,7 +623,7 @@ Uncertainty_t *
 Uncertainty_create(unsigned int level, unsigned int version,
                    unsigned int pkgVersion)
 {
-	return new Uncertainty(level, version, pkgVersion);
+  return new Uncertainty(level, version, pkgVersion);
 }
 
 
@@ -634,8 +634,8 @@ LIBSBML_EXTERN
 void
 Uncertainty_free(Uncertainty_t * u)
 {
-	if (u != NULL)
-		delete u;
+  if (u != NULL)
+    delete u;
 }
 
 
@@ -646,14 +646,14 @@ LIBSBML_EXTERN
 Uncertainty_t *
 Uncertainty_clone(Uncertainty_t * u)
 {
-	if (u != NULL)
-	{
-		return static_cast<Uncertainty_t*>(u->clone());
-	}
-	else
-	{
-		return NULL;
-	}
+  if (u != NULL)
+  {
+    return static_cast<Uncertainty_t*>(u->clone());
+  }
+  else
+  {
+    return NULL;
+  }
 }
 
 
@@ -664,10 +664,10 @@ LIBSBML_EXTERN
 char *
 Uncertainty_getId(Uncertainty_t * u)
 {
-	if (u == NULL)
-		return NULL;
+  if (u == NULL)
+    return NULL;
 
-	return u->getId().empty() ? NULL : safe_strdup(u->getId().c_str());
+  return u->getId().empty() ? NULL : safe_strdup(u->getId().c_str());
 }
 
 
@@ -678,10 +678,10 @@ LIBSBML_EXTERN
 char *
 Uncertainty_getName(Uncertainty_t * u)
 {
-	if (u == NULL)
-		return NULL;
+  if (u == NULL)
+    return NULL;
 
-	return u->getName().empty() ? NULL : safe_strdup(u->getName().c_str());
+  return u->getName().empty() ? NULL : safe_strdup(u->getName().c_str());
 }
 
 
@@ -692,7 +692,7 @@ LIBSBML_EXTERN
 int
 Uncertainty_isSetId(Uncertainty_t * u)
 {
-	return (u != NULL) ? static_cast<int>(u->isSetId()) : 0;
+  return (u != NULL) ? static_cast<int>(u->isSetId()) : 0;
 }
 
 
@@ -703,7 +703,7 @@ LIBSBML_EXTERN
 int
 Uncertainty_isSetName(Uncertainty_t * u)
 {
-	return (u != NULL) ? static_cast<int>(u->isSetName()) : 0;
+  return (u != NULL) ? static_cast<int>(u->isSetName()) : 0;
 }
 
 
@@ -714,7 +714,7 @@ LIBSBML_EXTERN
 int
 Uncertainty_setId(Uncertainty_t * u, const char * id)
 {
-	return (u != NULL) ? u->setId(id) : LIBSBML_INVALID_OBJECT;
+  return (u != NULL) ? u->setId(id) : LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -725,7 +725,7 @@ LIBSBML_EXTERN
 int
 Uncertainty_setName(Uncertainty_t * u, const char * name)
 {
-	return (u != NULL) ? u->setName(name) : LIBSBML_INVALID_OBJECT;
+  return (u != NULL) ? u->setName(name) : LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -736,7 +736,7 @@ LIBSBML_EXTERN
 int
 Uncertainty_unsetId(Uncertainty_t * u)
 {
-	return (u != NULL) ? u->unsetId() : LIBSBML_INVALID_OBJECT;
+  return (u != NULL) ? u->unsetId() : LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -747,7 +747,7 @@ LIBSBML_EXTERN
 int
 Uncertainty_unsetName(Uncertainty_t * u)
 {
-	return (u != NULL) ? u->unsetName() : LIBSBML_INVALID_OBJECT;
+  return (u != NULL) ? u->unsetName() : LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -758,7 +758,7 @@ LIBSBML_EXTERN
 int
 Uncertainty_hasRequiredAttributes(Uncertainty_t * u)
 {
-	return (u != NULL) ? static_cast<int>(u->hasRequiredAttributes()) : 0;
+  return (u != NULL) ? static_cast<int>(u->hasRequiredAttributes()) : 0;
 }
 
 

@@ -39,7 +39,7 @@ BEGIN_C_DECLS
 
 typedef enum
 {
-	DistribUnknownError                  = 5010100
+  DistribUnknownError                  = 5010100
 
 
 }  DistribSBMLErrorCode_t;

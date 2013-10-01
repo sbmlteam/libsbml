@@ -64,8 +64,8 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 const std::string&
 DistribExtension::getPackageName ()
 {
-	static const std::string pkgName = "distrib";
-	return pkgName;
+  static const std::string pkgName = "distrib";
+  return pkgName;
 }
 
 
@@ -75,7 +75,7 @@ DistribExtension::getPackageName ()
 unsigned int
 DistribExtension::getDefaultLevel ()
 {
-	return 3;
+  return 3;
 }
 
 
@@ -85,7 +85,7 @@ DistribExtension::getDefaultLevel ()
 unsigned int
 DistribExtension::getDefaultVersion ()
 {
-	return 1;
+  return 1;
 }
 
 
@@ -95,7 +95,7 @@ DistribExtension::getDefaultVersion ()
 unsigned int
 DistribExtension::getDefaultPackageVersion ()
 {
-	return 1;
+  return 1;
 }
 
 
@@ -105,8 +105,8 @@ DistribExtension::getDefaultPackageVersion ()
 const std::string&
 DistribExtension::getXmlnsL3V1V1 ()
 {
-	static const std::string xmlns = "http://www.sbml.org/sbml/level3/version1/distrib/version1";
-	return xmlns;
+  static const std::string xmlns = "http://www.sbml.org/sbml/level3/version1/distrib/version1";
+  return xmlns;
 }
 
 
@@ -121,9 +121,9 @@ static SBMLExtensionRegister<DistribExtension> distribExtensionRegistry;
 static
 const char * SBML_DISTRIB_TYPECODE_STRINGS[] = 
 {
-	  "DrawFromDistribution"
-	, "DistribInput"
-	, "Uncertainty"
+    "DrawFromDistribution"
+  , "DistribInput"
+  , "Uncertainty"
 };
 
 
@@ -148,7 +148,7 @@ DistribExtension::DistribExtension()
  * Copy constructor
  */
 DistribExtension::DistribExtension(const DistribExtension& orig) :
- 	SBMLExtension(orig)
+   SBMLExtension(orig)
 {
 }
 
@@ -158,12 +158,12 @@ DistribExtension::DistribExtension(const DistribExtension& orig) :
  */
 DistribExtension&
 DistribExtension::operator=(const DistribExtension& rhs)
- {
-	if (&rhs != this)
-	{
-		SBMLExtension::operator=(rhs);
-	}
-	return *this;
+{
+  if (&rhs != this)
+  {
+    SBMLExtension::operator=(rhs);
+  }
+  return *this;
 }
 
 
@@ -173,7 +173,7 @@ DistribExtension::operator=(const DistribExtension& rhs)
 DistribExtension*
 DistribExtension::clone () const
  {
-	return new DistribExtension(*this);
+  return new DistribExtension(*this);
 }
 
 
@@ -191,7 +191,7 @@ DistribExtension::~DistribExtension()
 const std::string&
 DistribExtension::getName() const
 {
-	return getPackageName();
+  return getPackageName();
 }
 
 
@@ -203,20 +203,20 @@ DistribExtension::getURI(unsigned int sbmlLevel,
                                   unsigned int sbmlVersion,
                                   unsigned int pkgVersion) const
 {
-	if (sbmlLevel == 3)
-	{
-		if (sbmlVersion == 1)
-		{
-			if (pkgVersion == 1)
-			{
-				return getXmlnsL3V1V1();
-			}
-		}
-	}
+  if (sbmlLevel == 3)
+  {
+    if (sbmlVersion == 1)
+    {
+      if (pkgVersion == 1)
+      {
+        return getXmlnsL3V1V1();
+      }
+    }
+  }
 
-	static std::string empty = "";
+  static std::string empty = "";
 
-	return empty;
+  return empty;
 }
 
 
@@ -226,12 +226,12 @@ DistribExtension::getURI(unsigned int sbmlLevel,
 unsigned int
 DistribExtension::getLevel(const std::string &uri) const
 {
-	if (uri == getXmlnsL3V1V1())
-	{
-		return 3;
-	}
+  if (uri == getXmlnsL3V1V1())
+  {
+    return 3;
+  }
 
-	return 0;
+  return 0;
 }
 
 
@@ -241,12 +241,12 @@ DistribExtension::getLevel(const std::string &uri) const
 unsigned int
 DistribExtension::getVersion(const std::string &uri) const
 {
-	if (uri == getXmlnsL3V1V1())
-	{
-		return 1;
-	}
+  if (uri == getXmlnsL3V1V1())
+  {
+    return 1;
+  }
 
-	return 0;
+  return 0;
 }
 
 
@@ -256,12 +256,12 @@ DistribExtension::getVersion(const std::string &uri) const
 unsigned int
 DistribExtension::getPackageVersion(const std::string &uri) const
 {
-	if (uri == getXmlnsL3V1V1())
-	{
-		return 1;
-	}
+  if (uri == getXmlnsL3V1V1())
+  {
+    return 1;
+  }
 
-	return 0;
+  return 0;
 }
 
 
@@ -271,13 +271,13 @@ DistribExtension::getPackageVersion(const std::string &uri) const
 SBMLNamespaces*
 DistribExtension::getSBMLExtensionNamespaces(const std::string &uri) const
 {
-	DistribPkgNamespaces* pkgns = NULL;
-	if (uri == getXmlnsL3V1V1())
-	{
-		pkgns = new DistribPkgNamespaces(3, 1, 1);
-	}
+  DistribPkgNamespaces* pkgns = NULL;
+  if (uri == getXmlnsL3V1V1())
+  {
+    pkgns = new DistribPkgNamespaces(3, 1, 1);
+  }
 
-	return pkgns;
+  return pkgns;
 }
 
 
@@ -287,15 +287,15 @@ DistribExtension::getSBMLExtensionNamespaces(const std::string &uri) const
 const char*
 DistribExtension::getStringFromTypeCode(int typeCode) const
 {
-	int min = SBML_DISTRIB_DRAW_FROM_DISTRIBUTION;
-	int max = SBML_DISTRIB_UNCERTAINTY;
+  int min = SBML_DISTRIB_DRAW_FROM_DISTRIBUTION;
+  int max = SBML_DISTRIB_UNCERTAINTY;
 
-	if ( typeCode < min || typeCode > max)
-	{
-		return "(Unknown SBML Distrib Type)";
-	}
+  if ( typeCode < min || typeCode > max)
+  {
+    return "(Unknown SBML Distrib Type)";
+  }
 
-	return SBML_DISTRIB_TYPECODE_STRINGS[typeCode - min];
+  return SBML_DISTRIB_TYPECODE_STRINGS[typeCode - min];
 }
 
 
@@ -306,69 +306,69 @@ DistribExtension::getStringFromTypeCode(int typeCode) const
 void
 DistribExtension::init()
 {
-	//----------------------------------------------------------------
-	//
-	// 1. Check if the distrib package has already been registered
-	//
-	//----------------------------------------------------------------
+  //----------------------------------------------------------------
+  //
+  // 1. Check if the distrib package has already been registered
+  //
+  //----------------------------------------------------------------
 
-	if (SBMLExtensionRegistry::getInstance().isRegistered(getPackageName()))
-	{
-		// do nothing
-		 return;
-	}
+  if (SBMLExtensionRegistry::getInstance().isRegistered(getPackageName()))
+  {
+    // do nothing
+     return;
+  }
 
-	//----------------------------------------------------------------
-	//
-	// 2. Creates an SBMLExtension derived object
-	//
-	//----------------------------------------------------------------
+  //----------------------------------------------------------------
+  //
+  // 2. Creates an SBMLExtension derived object
+  //
+  //----------------------------------------------------------------
 
-	DistribExtension distribExtension;
+  DistribExtension distribExtension;
 
-	//----------------------------------------------------------------
-	//
-	// 3. Creates the SBasePlugins required by this package
-	//
-	//----------------------------------------------------------------
+  //----------------------------------------------------------------
+  //
+  // 3. Creates the SBasePlugins required by this package
+  //
+  //----------------------------------------------------------------
 
-	std::vector<std::string> packageURIs;
-	packageURIs.push_back(getXmlnsL3V1V1());
+  std::vector<std::string> packageURIs;
+  packageURIs.push_back(getXmlnsL3V1V1());
 
-	SBaseExtensionPoint sbmldocExtPoint("core", SBML_DOCUMENT);
-	SBaseExtensionPoint functiondefinitionExtPoint("core", SBML_FUNCTION_DEFINITION);
-	SBaseExtensionPoint sbaseExtPoint("all", SBML_GENERIC_SBASE);
+  SBaseExtensionPoint sbmldocExtPoint("core", SBML_DOCUMENT);
+  SBaseExtensionPoint functiondefinitionExtPoint("core", SBML_FUNCTION_DEFINITION);
+  SBaseExtensionPoint sbaseExtPoint("all", SBML_GENERIC_SBASE);
 
-	SBasePluginCreator<DistribSBMLDocumentPlugin, DistribExtension> sbmldocPluginCreator(sbmldocExtPoint, packageURIs);
-	SBasePluginCreator<DistribFunctionDefinitionPlugin, DistribExtension> functiondefinitionPluginCreator(functiondefinitionExtPoint, packageURIs);
-	SBasePluginCreator<DistribSBasePlugin, DistribExtension> sbasePluginCreator(sbaseExtPoint, packageURIs);
+  SBasePluginCreator<DistribSBMLDocumentPlugin, DistribExtension> sbmldocPluginCreator(sbmldocExtPoint, packageURIs);
+  SBasePluginCreator<DistribFunctionDefinitionPlugin, DistribExtension> functiondefinitionPluginCreator(functiondefinitionExtPoint, packageURIs);
+  SBasePluginCreator<DistribSBasePlugin, DistribExtension> sbasePluginCreator(sbaseExtPoint, packageURIs);
 
-	//----------------------------------------------------------------
-	//
-	// 4. Adds the creator objects to the extension
-	//
-	//----------------------------------------------------------------
+  //----------------------------------------------------------------
+  //
+  // 4. Adds the creator objects to the extension
+  //
+  //----------------------------------------------------------------
 
-	distribExtension.addSBasePluginCreator(&sbmldocPluginCreator);
-	distribExtension.addSBasePluginCreator(&functiondefinitionPluginCreator);
-	distribExtension.addSBasePluginCreator(&sbasePluginCreator);
+  distribExtension.addSBasePluginCreator(&sbmldocPluginCreator);
+  distribExtension.addSBasePluginCreator(&functiondefinitionPluginCreator);
+  distribExtension.addSBasePluginCreator(&sbasePluginCreator);
 
-	//----------------------------------------------------------------
-	//
-	// 5. Register the object with the registry
-	//
-	//----------------------------------------------------------------
+  //----------------------------------------------------------------
+  //
+  // 5. Register the object with the registry
+  //
+  //----------------------------------------------------------------
 
-	int result = SBMLExtensionRegistry::getInstance().addExtension(&distribExtension);
+  int result = SBMLExtensionRegistry::getInstance().addExtension(&distribExtension);
 
-	if (result != LIBSBML_OPERATION_SUCCESS)
-	{
-		std::cerr << "[Error] DistribExtension::init() failed." << std::endl;
-	}
+  if (result != LIBSBML_OPERATION_SUCCESS)
+  {
+    std::cerr << "[Error] DistribExtension::init() failed." << std::endl;
+  }
 }
 
 
-	/** @cond doxygenLibsbmlInternal */
+  /** @cond doxygenLibsbmlInternal */
 
 /*
  * Return error table entry. 
@@ -376,13 +376,13 @@ DistribExtension::init()
 packageErrorTableEntry
 DistribExtension::getErrorTable(unsigned int index) const
 {
-	return distribErrorTable[index];
+  return distribErrorTable[index];
 }
 
-	/** @endcond doxygenLibsbmlInternal */
+  /** @endcond doxygenLibsbmlInternal */
 
 
-	/** @cond doxygenLibsbmlInternal */
+  /** @cond doxygenLibsbmlInternal */
 
 /*
  * Return error table index for this id. 
@@ -390,26 +390,26 @@ DistribExtension::getErrorTable(unsigned int index) const
 unsigned int
 DistribExtension::getErrorTableIndex(unsigned int errorId) const
 {
-	unsigned int tableSize = sizeof(distribErrorTable)/sizeof(distribErrorTable[0]);
-	unsigned int index = 0;
+  unsigned int tableSize = sizeof(distribErrorTable)/sizeof(distribErrorTable[0]);
+  unsigned int index = 0;
 
-	for(unsigned int i = 0; i < tableSize; i++)
-	{
-		if (errorId == distribErrorTable[i].code)
-		{
-			index = i;
-			break;
-		}
+  for(unsigned int i = 0; i < tableSize; i++)
+  {
+    if (errorId == distribErrorTable[i].code)
+    {
+      index = i;
+      break;
+    }
 
-	}
+  }
 
-	return index;
+  return index;
 }
 
-	/** @endcond doxygenLibsbmlInternal */
+  /** @endcond doxygenLibsbmlInternal */
 
 
-	/** @cond doxygenLibsbmlInternal */
+  /** @cond doxygenLibsbmlInternal */
 
 /*
  * Return error offset. 
@@ -417,10 +417,10 @@ DistribExtension::getErrorTableIndex(unsigned int errorId) const
 unsigned int
 DistribExtension::getErrorIdOffset() const
 {
-	return 5000000;
+  return 5000000;
 }
 
-	/** @endcond doxygenLibsbmlInternal */
+  /** @endcond doxygenLibsbmlInternal */
 
 
 

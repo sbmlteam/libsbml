@@ -45,8 +45,8 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 DistribSBasePlugin::DistribSBasePlugin(const std::string& uri,  
                                  const std::string& prefix, 
                                DistribPkgNamespaces* distribns) :
-	  SBasePlugin(uri, prefix, distribns)
-	, mUncertainty  ( NULL )
+    SBasePlugin(uri, prefix, distribns)
+  , mUncertainty  ( NULL )
 {
 }
 
@@ -55,8 +55,8 @@ DistribSBasePlugin::DistribSBasePlugin(const std::string& uri,
  * Copy constructor for DistribSBasePlugin.
  */
 DistribSBasePlugin::DistribSBasePlugin(const DistribSBasePlugin& orig) :
-	  SBasePlugin(orig)
-	, mUncertainty ( orig.mUncertainty )
+    SBasePlugin(orig)
+  , mUncertainty ( orig.mUncertainty )
 {
 }
 
@@ -67,13 +67,13 @@ DistribSBasePlugin::DistribSBasePlugin(const DistribSBasePlugin& orig) :
 DistribSBasePlugin& 
 DistribSBasePlugin::operator=(const DistribSBasePlugin& rhs)
 {
-	if (&rhs != this)
-	{
-		this->SBasePlugin::operator=(rhs);
-		mUncertainty = rhs.mUncertainty;
-	}
+  if (&rhs != this)
+  {
+    this->SBasePlugin::operator=(rhs);
+    mUncertainty = rhs.mUncertainty;
+  }
 
-	return *this;
+  return *this;
 }
 
 
@@ -83,7 +83,7 @@ DistribSBasePlugin::operator=(const DistribSBasePlugin& rhs)
 DistribSBasePlugin* 
 DistribSBasePlugin::clone () const
 {
-	return new DistribSBasePlugin(*this);
+  return new DistribSBasePlugin(*this);
 }
 
 
@@ -107,27 +107,27 @@ DistribSBasePlugin::~DistribSBasePlugin()
 SBase*
 DistribSBasePlugin::createObject (XMLInputStream& stream)
 {
-	SBase* object = NULL; 
+  SBase* object = NULL; 
 
-	const std::string&      name   = stream.peek().getName(); 
-	const XMLNamespaces&    xmlns  = stream.peek().getNamespaces(); 
-	const std::string&      prefix = stream.peek().getPrefix(); 
+  const std::string&      name   = stream.peek().getName(); 
+  const XMLNamespaces&    xmlns  = stream.peek().getNamespaces(); 
+  const std::string&      prefix = stream.peek().getPrefix(); 
 
-	const std::string& targetPrefix = (xmlns.hasURI(mURI)) ? xmlns.getPrefix(mURI) : mPrefix;
+  const std::string& targetPrefix = (xmlns.hasURI(mURI)) ? xmlns.getPrefix(mURI) : mPrefix;
 
-	if (prefix == targetPrefix) 
-	{ 
-		DISTRIB_CREATE_NS(distribns, getSBMLNamespaces());
-		if (name == "uncertainty" ) 
-		{ 
-			mUncertainty = new Uncertainty(distribns);
+  if (prefix == targetPrefix) 
+  { 
+    DISTRIB_CREATE_NS(distribns, getSBMLNamespaces());
+    if (name == "uncertainty" ) 
+    { 
+      mUncertainty = new Uncertainty(distribns);
 
-			object = mUncertainty;
+      object = mUncertainty;
 
-		} 
-	} 
+    } 
+  } 
 
-	return object; 
+  return object; 
 }
 
 
@@ -137,10 +137,10 @@ DistribSBasePlugin::createObject (XMLInputStream& stream)
 void
 DistribSBasePlugin::writeElements (XMLOutputStream& stream) const
 {
-	if (isSetUncertainty() == true) 
-	{ 
-		mUncertainty->write(stream);
-	} 
+  if (isSetUncertainty() == true) 
+  { 
+    mUncertainty->write(stream);
+  } 
 }
 
 
@@ -150,11 +150,11 @@ DistribSBasePlugin::writeElements (XMLOutputStream& stream) const
 bool
 DistribSBasePlugin::hasRequiredElements () const
 {
-	bool allPresent = true; 
+  bool allPresent = true; 
 
-	// TO DO 
+  // TO DO 
 
-	return allPresent; 
+  return allPresent; 
 }
 
 
@@ -170,7 +170,7 @@ DistribSBasePlugin::hasRequiredElements () const
 const Uncertainty* 
 DistribSBasePlugin::getUncertainty () const
 {
-	return mUncertainty;
+  return mUncertainty;
 }
 
 
@@ -180,7 +180,7 @@ DistribSBasePlugin::getUncertainty () const
 bool 
 DistribSBasePlugin::isSetUncertainty () const
 {
-	return (mUncertainty != NULL);
+  return (mUncertainty != NULL);
 }
 
 
@@ -190,32 +190,32 @@ DistribSBasePlugin::isSetUncertainty () const
 int
 DistribSBasePlugin::setUncertainty(const Uncertainty* uncertainty)
 {
-	if (uncertainty == NULL)
-	{
-		return LIBSBML_OPERATION_FAILED;
-	}
-	else if (uncertainty->hasRequiredElements() == false)
-	{
-		return LIBSBML_INVALID_OBJECT;
-	}
-	else if (getLevel() != uncertainty->getLevel())
-	{
-		return LIBSBML_LEVEL_MISMATCH;
-	}
-	else if (getVersion() != uncertainty->getVersion())
-	{
-		return LIBSBML_VERSION_MISMATCH;
-	}
-	else if (getPackageVersion() != uncertainty->getPackageVersion())
-	{
-		return LIBSBML_PKG_VERSION_MISMATCH;
-	}
-	else
-	{
-		delete mUncertainty;
-		mUncertainty = static_cast<Uncertainty*>(uncertainty->clone());
-		return LIBSBML_OPERATION_SUCCESS;
-	}
+  if (uncertainty == NULL)
+  {
+    return LIBSBML_OPERATION_FAILED;
+  }
+  else if (uncertainty->hasRequiredElements() == false)
+  {
+    return LIBSBML_INVALID_OBJECT;
+  }
+  else if (getLevel() != uncertainty->getLevel())
+  {
+    return LIBSBML_LEVEL_MISMATCH;
+  }
+  else if (getVersion() != uncertainty->getVersion())
+  {
+    return LIBSBML_VERSION_MISMATCH;
+  }
+  else if (getPackageVersion() != uncertainty->getPackageVersion())
+  {
+    return LIBSBML_PKG_VERSION_MISMATCH;
+  }
+  else
+  {
+    delete mUncertainty;
+    mUncertainty = static_cast<Uncertainty*>(uncertainty->clone());
+    return LIBSBML_OPERATION_SUCCESS;
+  }
 }
 
 
@@ -225,11 +225,11 @@ DistribSBasePlugin::setUncertainty(const Uncertainty* uncertainty)
 Uncertainty*
 DistribSBasePlugin::createUncertainty()
 {
-	DISTRIB_CREATE_NS(distribns, getSBMLNamespaces());
-	mUncertainty = new Uncertainty(distribns);
+  DISTRIB_CREATE_NS(distribns, getSBMLNamespaces());
+  mUncertainty = new Uncertainty(distribns);
 
   mUncertainty->setSBMLDocument(this->getSBMLDocument());
-	return mUncertainty;
+  return mUncertainty;
 }
 
 
@@ -242,12 +242,12 @@ DistribSBasePlugin::createUncertainty()
 void
 DistribSBasePlugin::setSBMLDocument(SBMLDocument* d)
 {
-	SBasePlugin::setSBMLDocument(d);
+  SBasePlugin::setSBMLDocument(d);
 
-	if (isSetUncertainty() == true)
-	{
-		mUncertainty->setSBMLDocument(d);
-	}
+  if (isSetUncertainty() == true)
+  {
+    mUncertainty->setSBMLDocument(d);
+  }
 }
 
 
@@ -257,12 +257,12 @@ DistribSBasePlugin::setSBMLDocument(SBMLDocument* d)
 void
 DistribSBasePlugin::connectToParent(SBase* sbase)
 {
-	SBasePlugin::connectToParent(sbase);
+  SBasePlugin::connectToParent(sbase);
 
-	if (isSetUncertainty() == true)
-	{
-		mUncertainty->connectToParent(sbase);
-	}
+  if (isSetUncertainty() == true)
+  {
+    mUncertainty->connectToParent(sbase);
+  }
 }
 
 
@@ -273,10 +273,10 @@ void
 DistribSBasePlugin::enablePackageInternal(const std::string& pkgURI,
                                    const std::string& pkgPrefix, bool flag)
 {
-	if (isSetUncertainty() == true)
-	{
-		mUncertainty->enablePackageInternal(pkgURI, pkgPrefix, flag);
-	}
+  if (isSetUncertainty() == true)
+  {
+    mUncertainty->enablePackageInternal(pkgURI, pkgPrefix, flag);
+  }
 }
 
 
@@ -286,12 +286,12 @@ DistribSBasePlugin::enablePackageInternal(const std::string& pkgURI,
 bool
 DistribSBasePlugin::accept(SBMLVisitor& v) const
 {
-	const Model * model = static_cast<const Model * >(this->getParentSBMLObject());
+  const Model * model = static_cast<const Model * >(this->getParentSBMLObject());
 
-	v.visit(*model);
-	v.leave(*model);
+  v.visit(*model);
+  v.leave(*model);
 
-	return true;
+  return true;
 }
 
 

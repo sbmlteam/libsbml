@@ -41,20 +41,20 @@
 #  define CLASS_OR_STRUCT class
 #else
 #  define CLASS_OR_STRUCT struct
-#endif  /* __cplusplus */	
+#endif  /* __cplusplus */
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
-typedef CLASS_OR_STRUCT DrawFromDistribution		DrawFromDistribution_t;
-typedef CLASS_OR_STRUCT DistribInput		DistribInput_t;
-typedef CLASS_OR_STRUCT Uncertainty		Uncertainty_t;
+typedef CLASS_OR_STRUCT DrawFromDistribution    DrawFromDistribution_t;
+typedef CLASS_OR_STRUCT DistribInput    DistribInput_t;
+typedef CLASS_OR_STRUCT Uncertainty     Uncertainty_t;
 
-typedef CLASS_OR_STRUCT UncertMLNode		UncertMLNode_t;
+typedef CLASS_OR_STRUCT UncertMLNode    UncertMLNode_t;
 
 LIBSBML_CPP_NAMESPACE_END
 
 #undef CLASS_OR_STRUCT
 
 
-#endif	/* distribfwd_H */
+#endif  /* distribfwd_H */
 

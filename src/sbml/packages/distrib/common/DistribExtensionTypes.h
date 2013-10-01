@@ -41,5 +41,5 @@
 
 #include <sbml/packages/distrib/util/UncertMLNode.h>
 
-#endif	/* DistribExtensionTypes_H */
+#endif  /* DistribExtensionTypes_H */
 

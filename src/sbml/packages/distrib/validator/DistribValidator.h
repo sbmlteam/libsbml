@@ -33,11 +33,11 @@
 #ifdef __cplusplus
 
 
-	/** @cond doxygenLibsbmlInternal */
+  /** @cond doxygenLibsbmlInternal */
 
 #include <list>
 #include <string>
-	/** @endcond doxygenLibsbmlInternal */
+  /** @endcond doxygenLibsbmlInternal */
 
 
 #include <sbml/SBMLError.h>

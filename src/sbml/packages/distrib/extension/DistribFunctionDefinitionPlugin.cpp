@@ -45,8 +45,8 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 DistribFunctionDefinitionPlugin::DistribFunctionDefinitionPlugin(const std::string& uri,  
                                  const std::string& prefix, 
                                DistribPkgNamespaces* distribns) :
-	  SBasePlugin(uri, prefix, distribns)
-	, mDrawFromDistribution  ( NULL )
+    SBasePlugin(uri, prefix, distribns)
+  , mDrawFromDistribution  ( NULL )
 {
 }
 
@@ -55,8 +55,8 @@ DistribFunctionDefinitionPlugin::DistribFunctionDefinitionPlugin(const std::stri
  * Copy constructor for DistribFunctionDefinitionPlugin.
  */
 DistribFunctionDefinitionPlugin::DistribFunctionDefinitionPlugin(const DistribFunctionDefinitionPlugin& orig) :
-	  SBasePlugin(orig)
-	, mDrawFromDistribution ( orig.mDrawFromDistribution )
+    SBasePlugin(orig)
+  , mDrawFromDistribution ( orig.mDrawFromDistribution )
 {
 }
 
@@ -67,13 +67,13 @@ DistribFunctionDefinitionPlugin::DistribFunctionDefinitionPlugin(const DistribFu
 DistribFunctionDefinitionPlugin& 
 DistribFunctionDefinitionPlugin::operator=(const DistribFunctionDefinitionPlugin& rhs)
 {
-	if (&rhs != this)
-	{
-		this->SBasePlugin::operator=(rhs);
-		mDrawFromDistribution = rhs.mDrawFromDistribution;
-	}
+  if (&rhs != this)
+  {
+    this->SBasePlugin::operator=(rhs);
+    mDrawFromDistribution = rhs.mDrawFromDistribution;
+  }
 
-	return *this;
+  return *this;
 }
 
 
@@ -83,7 +83,7 @@ DistribFunctionDefinitionPlugin::operator=(const DistribFunctionDefinitionPlugin
 DistribFunctionDefinitionPlugin* 
 DistribFunctionDefinitionPlugin::clone () const
 {
-	return new DistribFunctionDefinitionPlugin(*this);
+  return new DistribFunctionDefinitionPlugin(*this);
 }
 
 
@@ -107,27 +107,27 @@ DistribFunctionDefinitionPlugin::~DistribFunctionDefinitionPlugin()
 SBase*
 DistribFunctionDefinitionPlugin::createObject (XMLInputStream& stream)
 {
-	SBase* object = NULL; 
+  SBase* object = NULL; 
 
-	const std::string&      name   = stream.peek().getName(); 
-	const XMLNamespaces&    xmlns  = stream.peek().getNamespaces(); 
-	const std::string&      prefix = stream.peek().getPrefix(); 
+  const std::string&      name   = stream.peek().getName(); 
+  const XMLNamespaces&    xmlns  = stream.peek().getNamespaces(); 
+  const std::string&      prefix = stream.peek().getPrefix(); 
 
-	const std::string& targetPrefix = (xmlns.hasURI(mURI)) ? xmlns.getPrefix(mURI) : mPrefix;
+  const std::string& targetPrefix = (xmlns.hasURI(mURI)) ? xmlns.getPrefix(mURI) : mPrefix;
 
-	if (prefix == targetPrefix) 
-	{ 
-		DISTRIB_CREATE_NS(distribns, getSBMLNamespaces());
-		if (name == "drawFromDistribution" ) 
-		{ 
-			mDrawFromDistribution = new DrawFromDistribution(distribns);
+  if (prefix == targetPrefix) 
+  { 
+    DISTRIB_CREATE_NS(distribns, getSBMLNamespaces());
+    if (name == "drawFromDistribution" ) 
+    { 
+      mDrawFromDistribution = new DrawFromDistribution(distribns);
 
-			object = mDrawFromDistribution;
+      object = mDrawFromDistribution;
 
-		} 
-	} 
+    } 
+  } 
 
-	return object; 
+  return object; 
 }
 
 
@@ -137,10 +137,10 @@ DistribFunctionDefinitionPlugin::createObject (XMLInputStream& stream)
 void
 DistribFunctionDefinitionPlugin::writeElements (XMLOutputStream& stream) const
 {
-	if (isSetDrawFromDistribution() == true) 
-	{ 
-		mDrawFromDistribution->write(stream);
-	} 
+  if (isSetDrawFromDistribution() == true) 
+  { 
+    mDrawFromDistribution->write(stream);
+  } 
 }
 
 
@@ -150,11 +150,11 @@ DistribFunctionDefinitionPlugin::writeElements (XMLOutputStream& stream) const
 bool
 DistribFunctionDefinitionPlugin::hasRequiredElements () const
 {
-	bool allPresent = true; 
+  bool allPresent = true; 
 
-	// TO DO 
+  // TO DO 
 
-	return allPresent; 
+  return allPresent; 
 }
 
 
@@ -170,7 +170,7 @@ DistribFunctionDefinitionPlugin::hasRequiredElements () const
 const DrawFromDistribution* 
 DistribFunctionDefinitionPlugin::getDrawFromDistribution () const
 {
-	return mDrawFromDistribution;
+  return mDrawFromDistribution;
 }
 
 
@@ -180,7 +180,7 @@ DistribFunctionDefinitionPlugin::getDrawFromDistribution () const
 bool 
 DistribFunctionDefinitionPlugin::isSetDrawFromDistribution () const
 {
-	return (mDrawFromDistribution != NULL);
+  return (mDrawFromDistribution != NULL);
 }
 
 
@@ -190,32 +190,32 @@ DistribFunctionDefinitionPlugin::isSetDrawFromDistribution () const
 int
 DistribFunctionDefinitionPlugin::setDrawFromDistribution(const DrawFromDistribution* drawFromDistribution)
 {
-	if (drawFromDistribution == NULL)
-	{
-		return LIBSBML_OPERATION_FAILED;
-	}
-	else if (drawFromDistribution->hasRequiredElements() == false)
-	{
-		return LIBSBML_INVALID_OBJECT;
-	}
-	else if (getLevel() != drawFromDistribution->getLevel())
-	{
-		return LIBSBML_LEVEL_MISMATCH;
-	}
-	else if (getVersion() != drawFromDistribution->getVersion())
-	{
-		return LIBSBML_VERSION_MISMATCH;
-	}
-	else if (getPackageVersion() != drawFromDistribution->getPackageVersion())
-	{
-		return LIBSBML_PKG_VERSION_MISMATCH;
-	}
-	else
-	{
-		delete mDrawFromDistribution;
-		mDrawFromDistribution = static_cast<DrawFromDistribution*>(drawFromDistribution->clone());
-		return LIBSBML_OPERATION_SUCCESS;
-	}
+  if (drawFromDistribution == NULL)
+  {
+    return LIBSBML_OPERATION_FAILED;
+  }
+  else if (drawFromDistribution->hasRequiredElements() == false)
+  {
+    return LIBSBML_INVALID_OBJECT;
+  }
+  else if (getLevel() != drawFromDistribution->getLevel())
+  {
+    return LIBSBML_LEVEL_MISMATCH;
+  }
+  else if (getVersion() != drawFromDistribution->getVersion())
+  {
+    return LIBSBML_VERSION_MISMATCH;
+  }
+  else if (getPackageVersion() != drawFromDistribution->getPackageVersion())
+  {
+    return LIBSBML_PKG_VERSION_MISMATCH;
+  }
+  else
+  {
+    delete mDrawFromDistribution;
+    mDrawFromDistribution = static_cast<DrawFromDistribution*>(drawFromDistribution->clone());
+    return LIBSBML_OPERATION_SUCCESS;
+  }
 }
 
 
@@ -225,12 +225,12 @@ DistribFunctionDefinitionPlugin::setDrawFromDistribution(const DrawFromDistribut
 DrawFromDistribution*
 DistribFunctionDefinitionPlugin::createDrawFromDistribution()
 {
-	DISTRIB_CREATE_NS(distribns, getSBMLNamespaces());
-	mDrawFromDistribution = new DrawFromDistribution(distribns);
+  DISTRIB_CREATE_NS(distribns, getSBMLNamespaces());
+  mDrawFromDistribution = new DrawFromDistribution(distribns);
 
   mDrawFromDistribution->setSBMLDocument(this->getSBMLDocument());
 
-	return mDrawFromDistribution;
+  return mDrawFromDistribution;
 }
 
 
@@ -243,12 +243,12 @@ DistribFunctionDefinitionPlugin::createDrawFromDistribution()
 void
 DistribFunctionDefinitionPlugin::setSBMLDocument(SBMLDocument* d)
 {
-	SBasePlugin::setSBMLDocument(d);
+  SBasePlugin::setSBMLDocument(d);
 
-	if (isSetDrawFromDistribution() == true)
-	{
-		mDrawFromDistribution->setSBMLDocument(d);
-	}
+  if (isSetDrawFromDistribution() == true)
+  {
+    mDrawFromDistribution->setSBMLDocument(d);
+  }
 }
 
 
@@ -258,12 +258,12 @@ DistribFunctionDefinitionPlugin::setSBMLDocument(SBMLDocument* d)
 void
 DistribFunctionDefinitionPlugin::connectToParent(SBase* sbase)
 {
-	SBasePlugin::connectToParent(sbase);
+  SBasePlugin::connectToParent(sbase);
 
-	if (isSetDrawFromDistribution() == true)
-	{
-		mDrawFromDistribution->connectToParent(sbase);
-	}
+  if (isSetDrawFromDistribution() == true)
+  {
+    mDrawFromDistribution->connectToParent(sbase);
+  }
 }
 
 
@@ -274,10 +274,10 @@ void
 DistribFunctionDefinitionPlugin::enablePackageInternal(const std::string& pkgURI,
                                    const std::string& pkgPrefix, bool flag)
 {
-	if (isSetDrawFromDistribution() == true)
-	{
-		mDrawFromDistribution->enablePackageInternal(pkgURI, pkgPrefix, flag);
-	}
+  if (isSetDrawFromDistribution() == true)
+  {
+    mDrawFromDistribution->enablePackageInternal(pkgURI, pkgPrefix, flag);
+  }
 }
 
 
@@ -287,12 +287,12 @@ DistribFunctionDefinitionPlugin::enablePackageInternal(const std::string& pkgURI
 bool
 DistribFunctionDefinitionPlugin::accept(SBMLVisitor& v) const
 {
-	const Model * model = static_cast<const Model * >(this->getParentSBMLObject());
+  const Model * model = static_cast<const Model * >(this->getParentSBMLObject());
 
-	v.visit(*model);
-	v.leave(*model);
+  v.visit(*model);
+  v.leave(*model);
 
-	return true;
+  return true;
 }
 
 

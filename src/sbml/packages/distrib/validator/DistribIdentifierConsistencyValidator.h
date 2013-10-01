@@ -1,4 +1,4 @@
-	/** @cond doxygenLibsbmlInternal */
+  /** @cond doxygenLibsbmlInternal */
 
 /**
  * @file:   DistribIdentifierConsistencyValidator.h
@@ -43,12 +43,12 @@ class DistribIdentifierConsistencyValidator: public DistribValidator
 {
 public:
 
-	DistribIdentifierConsistencyValidator () :
-		DistribValidator(LIBSBML_CAT_IDENTIFIER_CONSISTENCY) { }
+  DistribIdentifierConsistencyValidator () :
+    DistribValidator(LIBSBML_CAT_IDENTIFIER_CONSISTENCY) { }
 
-	virtual ~DistribIdentifierConsistencyValidator () { }
+  virtual ~DistribIdentifierConsistencyValidator () { }
 
-	 virtual void init ();
+  virtual void init ();
 };
 
 LIBSBML_CPP_NAMESPACE_END
@@ -57,6 +57,6 @@ LIBSBML_CPP_NAMESPACE_END
 #endif  /* DistribIdentifierConsistencyValidator_H__ */
 
 
-	/** @endcond doxygenLibsbmlInternal */
+  /** @endcond doxygenLibsbmlInternal */
 
 

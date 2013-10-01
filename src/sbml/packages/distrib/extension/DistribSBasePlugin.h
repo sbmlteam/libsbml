@@ -48,181 +48,181 @@ class LIBSBML_EXTERN DistribSBasePlugin : public SBasePlugin
 {
 public:
 
-	/**
-	 * Creates a new DistribSBasePlugin
-	 */
-	DistribSBasePlugin(const std::string& uri, const std::string& prefix, 
-	                               DistribPkgNamespaces* distribns);
+  /**
+   * Creates a new DistribSBasePlugin
+   */
+  DistribSBasePlugin(const std::string& uri, const std::string& prefix, 
+                                 DistribPkgNamespaces* distribns);
 
 
-	/**
-	 * Copy constructor for DistribSBasePlugin.
-	 *
-	 * @param orig; the DistribSBasePlugin instance to copy.
-	 */
-	DistribSBasePlugin(const DistribSBasePlugin& orig);
+  /**
+   * Copy constructor for DistribSBasePlugin.
+   *
+   * @param orig; the DistribSBasePlugin instance to copy.
+   */
+  DistribSBasePlugin(const DistribSBasePlugin& orig);
 
 
- 	/**
-	 * Assignment operator for DistribSBasePlugin.
-	 *
-	 * @param rhs; the object whose values are used as the basis
-	 * of the assignment
-	 */
-	DistribSBasePlugin& operator=(const DistribSBasePlugin& rhs);
+   /**
+   * Assignment operator for DistribSBasePlugin.
+   *
+   * @param rhs; the object whose values are used as the basis
+   * of the assignment
+   */
+  DistribSBasePlugin& operator=(const DistribSBasePlugin& rhs);
 
 
- 	/**
-	 * Creates and returns a deep copy of this DistribSBasePlugin object.
-	 *
-	 * @return a (deep) copy of this DistribSBasePlugin object.
-	 */
-	virtual DistribSBasePlugin* clone () const;
+   /**
+   * Creates and returns a deep copy of this DistribSBasePlugin object.
+   *
+   * @return a (deep) copy of this DistribSBasePlugin object.
+   */
+  virtual DistribSBasePlugin* clone () const;
 
 
- 	/**
-	 * Destructor for DistribSBasePlugin.
-	 */
-	virtual ~DistribSBasePlugin();
+   /**
+   * Destructor for DistribSBasePlugin.
+   */
+  virtual ~DistribSBasePlugin();
 
 
- 	//---------------------------------------------------------------
-	//
-	// overridden virtual functions for read/write/check
-	//
-	//---------------------------------------------------------------
+   //---------------------------------------------------------------
+  //
+  // overridden virtual functions for read/write/check
+  //
+  //---------------------------------------------------------------
 
-	/** @cond doxygenLibsbmlInternal */
+  /** @cond doxygenLibsbmlInternal */
 
-	/**
-	 * Subclasses must override this method to create, store, and then
-	 * return an SBML object corresponding to the next XMLToken in the
-	 * XMLInputStream if they have their specific elements.
-	 *
-	 * @return the SBML object corresponding to next XMLToken in the
-	 * XMLInputStream or NULL if the token was not recognized.
-	 */
-	virtual SBase* createObject (XMLInputStream& stream);
-
-
-	/** @endcond doxygenLibsbmlInternal */
+  /**
+   * Subclasses must override this method to create, store, and then
+   * return an SBML object corresponding to the next XMLToken in the
+   * XMLInputStream if they have their specific elements.
+   *
+   * @return the SBML object corresponding to next XMLToken in the
+   * XMLInputStream or NULL if the token was not recognized.
+   */
+  virtual SBase* createObject (XMLInputStream& stream);
 
 
-	/** @cond doxygenLibsbmlInternal */
-
-	/**
-	 * Subclasses must override this method to write out their contained
-	 * SBML objects as XML elements if they have their specific elements.
-	 */
-	virtual void writeElements (XMLOutputStream& stream) const;
+  /** @endcond doxygenLibsbmlInternal */
 
 
-	/** @endcond doxygenLibsbmlInternal */
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Subclasses must override this method to write out their contained
+   * SBML objects as XML elements if they have their specific elements.
+   */
+  virtual void writeElements (XMLOutputStream& stream) const;
 
 
-	/**
-	 * Checks if this plugin object has all the required elements.
-	 *
-	 * Subclasses must override this method 
-	 * if they have their specific elements.
-	 *
-	 * @return true if this plugin object has all the required elements
-	 * otherwise false will be returned.
-	 */
-	virtual bool hasRequiredElements () const;
+  /** @endcond doxygenLibsbmlInternal */
 
 
-	//---------------------------------------------------------------
+  /**
+   * Checks if this plugin object has all the required elements.
+   *
+   * Subclasses must override this method 
+   * if they have their specific elements.
+   *
+   * @return true if this plugin object has all the required elements
+   * otherwise false will be returned.
+   */
+  virtual bool hasRequiredElements () const;
 
 
-	//---------------------------------------------------------------
-	//
-	// Functions for interacting with the members of the plugin
-	//
-	//---------------------------------------------------------------
-
-	/**
-	 * Returns the Uncertainty from this DistribSBasePlugin object.
-	 *
-	 * @return the Uncertainty from object in this DistribSBasePlugin object.
-	 */
-	const Uncertainty* getUncertainty () const;
+  //---------------------------------------------------------------
 
 
-	/**
-	 * Predicate returning @c true or @c false depending on whether the
-	  "Uncertainty" element has been set.
-	 *
-	 * @return @c true if the "Uncertainty" element has been set,
-	 * otherwise @c false is returned.
-	 */
-	bool isSetUncertainty() const;
+  //---------------------------------------------------------------
+  //
+  // Functions for interacting with the members of the plugin
+  //
+  //---------------------------------------------------------------
+
+  /**
+   * Returns the Uncertainty from this DistribSBasePlugin object.
+   *
+   * @return the Uncertainty from object in this DistribSBasePlugin object.
+   */
+  const Uncertainty* getUncertainty () const;
 
 
-	/**
-	 * Sets the Uncertainty element in this DistribSBasePlugin object.
-	 *
-	 * @param uncertainty the uncertainty* to be set.
-	 *
-	 * @return integer value indicating success/failure of the
-	 * function.  @if clike The value is drawn from the
-	 * enumeration #OperationReturnValues_t. @endif The possible values
-	 * returned by this function are:
-	 * @li LIBSBML_OPERATION_SUCCESS
-	 */
-	int setUncertainty (const Uncertainty* uncertainty);
+  /**
+   * Predicate returning @c true or @c false depending on whether the
+    "Uncertainty" element has been set.
+   *
+   * @return @c true if the "Uncertainty" element has been set,
+   * otherwise @c false is returned.
+   */
+  bool isSetUncertainty() const;
 
 
-	/**
-	 * Creates a new Uncertainty object and adds it to the DistribSBasePlugin object.
-	 *
-	 * @return the newly created Uncertainty object.
-	 */
-	Uncertainty* createUncertainty ();
+  /**
+   * Sets the Uncertainty element in this DistribSBasePlugin object.
+   *
+   * @param uncertainty the uncertainty* to be set.
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   */
+  int setUncertainty (const Uncertainty* uncertainty);
 
 
-	/** @cond doxygenLibsbmlInternal */
-
-	/**
-	 * Sets the parent SBMLDocument.
-	 */
-	virtual void setSBMLDocument (SBMLDocument* d);
-
-
-	/** @endcond doxygenLibsbmlInternal */
+  /**
+   * Creates a new Uncertainty object and adds it to the DistribSBasePlugin object.
+   *
+   * @return the newly created Uncertainty object.
+   */
+  Uncertainty* createUncertainty ();
 
 
-	/** @cond doxygenLibsbmlInternal */
+  /** @cond doxygenLibsbmlInternal */
 
-	virtual void connectToParent (SBase* sbase);
-
-
-	/** @endcond doxygenLibsbmlInternal */
-
-
-	/** @cond doxygenLibsbmlInternal */
-
-	virtual void enablePackageInternal(const std::string& pkgURI,
-	                                   const std::string& pkgPrefix, bool flag);
+  /**
+   * Sets the parent SBMLDocument.
+   */
+  virtual void setSBMLDocument (SBMLDocument* d);
 
 
-	/** @endcond doxygenLibsbmlInternal */
+  /** @endcond doxygenLibsbmlInternal */
 
 
-	/** @cond doxygenLibsbmlInternal */
+  /** @cond doxygenLibsbmlInternal */
 
-	virtual bool accept (SBMLVisitor& v) const;
+  virtual void connectToParent (SBase* sbase);
 
-	/** @endcond doxygenLibsbmlInternal */
+
+  /** @endcond doxygenLibsbmlInternal */
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  virtual void enablePackageInternal(const std::string& pkgURI,
+                                     const std::string& pkgPrefix, bool flag);
+
+
+  /** @endcond doxygenLibsbmlInternal */
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  virtual bool accept (SBMLVisitor& v) const;
+
+  /** @endcond doxygenLibsbmlInternal */
 
 
 protected:
 
-	/** @cond doxygenLibsbmlInternal */
+  /** @cond doxygenLibsbmlInternal */
 
-	Uncertainty* mUncertainty;
+  Uncertainty* mUncertainty;
 
-	/** @endcond doxygenLibsbmlInternal */
+  /** @endcond doxygenLibsbmlInternal */
 
 
 };

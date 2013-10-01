@@ -1,4 +1,4 @@
-	/** @cond doxygenLibsbmlInternal */
+  /** @cond doxygenLibsbmlInternal */
 
 /**
  * @file:   DistribIdentifierConsistencyConstraints.cpp
@@ -46,6 +46,6 @@ using namespace std;
 
 /** PUT CONSTRAINTS HERE */
 
-	/** @endcond doxygenLibsbmlInternal */
+  /** @endcond doxygenLibsbmlInternal */
 
 

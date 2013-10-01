@@ -1,4 +1,4 @@
-	/** @cond doxygenLibsbmlInternal */
+  /** @cond doxygenLibsbmlInternal */
 
 /**
  * @file:   DistribIdentifierConsistencyValidator.cpp
@@ -48,6 +48,6 @@ LIBSBML_CPP_NAMESPACE_END
 
 #endif  /* __doxygen_ignore */
 
-	/** @endcond doxygenLibsbmlInternal */
+  /** @endcond doxygenLibsbmlInternal */
 
 

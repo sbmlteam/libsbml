@@ -30,11 +30,11 @@
 #include <sbml/packages/distrib/common/DistribExtensionTypes.h>
 #include <sbml/packages/distrib/validator/DistribValidator.h>
 
-	/** @cond doxygenLibsbmlInternal */
+  /** @cond doxygenLibsbmlInternal */
 
 using namespace std;
 
-	/** @endcond doxygenLibsbmlInternal */
+  /** @endcond doxygenLibsbmlInternal */
 
 
 LIBSBML_CPP_NAMESPACE_BEGIN
@@ -131,11 +131,11 @@ protected:
  */
 struct DistribValidatorConstraints
 {
-  ConstraintSet<SBMLDocument>             mSBMLDocument;
-  ConstraintSet<Model>                    mModel;
-	ConstraintSet<DrawFromDistribution>      mDrawFromDistribution;
-	ConstraintSet<DistribInput>      mDistribInput;
-	ConstraintSet<Uncertainty>      mUncertainty;
+  ConstraintSet<SBMLDocument>          mSBMLDocument;
+  ConstraintSet<Model>                 mModel;
+  ConstraintSet<DrawFromDistribution>  mDrawFromDistribution;
+  ConstraintSet<DistribInput>          mDistribInput;
+  ConstraintSet<Uncertainty>           mUncertainty;
   map<VConstraint*,bool> ptrMap;
 
   ~DistribValidatorConstraints ();
@@ -185,23 +185,23 @@ DistribValidatorConstraints::add (VConstraint* c)
     mModel.add( static_cast< TConstraint<Model>* >(c) );
     return;
   }
-	if (dynamic_cast< TConstraint<DrawFromDistribution>* >(c) != NULL)
-	{
-		mDrawFromDistribution.add( static_cast< TConstraint<DrawFromDistribution>* >(c) );
-		return;
-	}
+  if (dynamic_cast< TConstraint<DrawFromDistribution>* >(c) != NULL)
+  {
+    mDrawFromDistribution.add( static_cast< TConstraint<DrawFromDistribution>* >(c) );
+    return;
+  }
 
-	if (dynamic_cast< TConstraint<DistribInput>* >(c) != NULL)
-	{
-		mDistribInput.add( static_cast< TConstraint<DistribInput>* >(c) );
-		return;
-	}
+  if (dynamic_cast< TConstraint<DistribInput>* >(c) != NULL)
+  {
+    mDistribInput.add( static_cast< TConstraint<DistribInput>* >(c) );
+    return;
+  }
 
-	if (dynamic_cast< TConstraint<Uncertainty>* >(c) != NULL)
-	{
-		mUncertainty.add( static_cast< TConstraint<Uncertainty>* >(c) );
-		return;
-	}
+  if (dynamic_cast< TConstraint<Uncertainty>* >(c) != NULL)
+  {
+    mUncertainty.add( static_cast< TConstraint<Uncertainty>* >(c) );
+    return;
+  }
 
 }
 
@@ -227,53 +227,53 @@ class DistribValidatingVisitor: public SBMLVisitor
 public:
 
   DistribValidatingVisitor (DistribValidator& v, const Model& m) : v(v), m(m) { }
-	bool visit (const DrawFromDistribution &x)
-	{
-		v.mDistribConstraints->mDrawFromDistribution.applyTo(m, x);
-		return !v.mDistribConstraints->mDrawFromDistribution.empty();
-	}
+  bool visit (const DrawFromDistribution &x)
+  {
+    v.mDistribConstraints->mDrawFromDistribution.applyTo(m, x);
+    return !v.mDistribConstraints->mDrawFromDistribution.empty();
+  }
 
-	bool visit (const DistribInput &x)
-	{
-		v.mDistribConstraints->mDistribInput.applyTo(m, x);
-		return !v.mDistribConstraints->mDistribInput.empty();
-	}
+  bool visit (const DistribInput &x)
+  {
+    v.mDistribConstraints->mDistribInput.applyTo(m, x);
+    return !v.mDistribConstraints->mDistribInput.empty();
+  }
 
-	bool visit (const Uncertainty &x)
-	{
-		v.mDistribConstraints->mUncertainty.applyTo(m, x);
-		return !v.mDistribConstraints->mUncertainty.empty();
-	}
+  bool visit (const Uncertainty &x)
+  {
+    v.mDistribConstraints->mUncertainty.applyTo(m, x);
+    return !v.mDistribConstraints->mUncertainty.empty();
+  }
 
-	virtual bool visit(const SBase &x)
-	{
-		if (&x == NULL || x.getPackageName() != "distrib")
-		{
-			return SBMLVisitor::visit(x);
-		}
+  virtual bool visit(const SBase &x)
+  {
+    if (&x == NULL || x.getPackageName() != "distrib")
+    {
+      return SBMLVisitor::visit(x);
+    }
 
-		int code = x.getTypeCode();
+    int code = x.getTypeCode();
 
-		const ListOf* list = dynamic_cast<const ListOf*>(&x);
+    const ListOf* list = dynamic_cast<const ListOf*>(&x);
 
-		if (list != NULL)
-		{
-			return SBMLVisitor::visit(x);
-		}
-		else
-		{
-			if (code == SBML_DISTRIB_DRAW_FROM_DISTRIBUTION)
-			{
-				return visit((const DrawFromDistribution&)x);
-			}
-			else if (code == SBML_DISTRIB_INPUT)
-			{
-				return visit((const DistribInput&)x);
-			}
-			else if (code == SBML_DISTRIB_UNCERTAINTY)
-			{
-				return visit((const Uncertainty&)x);
-			}
+    if (list != NULL)
+    {
+      return SBMLVisitor::visit(x);
+    }
+    else
+    {
+      if (code == SBML_DISTRIB_DRAW_FROM_DISTRIBUTION)
+      {
+        return visit((const DrawFromDistribution&)x);
+      }
+      else if (code == SBML_DISTRIB_INPUT)
+      {
+        return visit((const DistribInput&)x);
+      }
+      else if (code == SBML_DISTRIB_UNCERTAINTY)
+      {
+        return visit((const Uncertainty&)x);
+      }
       else 
       {
         return SBMLVisitor::visit(x);

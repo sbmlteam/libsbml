@@ -35,26 +35,26 @@
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
-	/** @cond doxygenLibsbmlInternal */
+  /** @cond doxygenLibsbmlInternal */
 
 static const packageErrorTableEntry distribErrorTable[] = 
 {
-	//5010100
-	{	DistribUnknownError,
-		"Unknown error from distrib",
-		LIBSBML_CAT_GENERAL_CONSISTENCY,
-		LIBSBML_SEV_ERROR,
-		"Unknown error from distrib",
-		{ " "
-		}
-	}
+  //5010100
+  {  DistribUnknownError,
+    "Unknown error from distrib",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_ERROR,
+    "Unknown error from distrib",
+    { " "
+    }
+  }
 
 };
 
 
 LIBSBML_CPP_NAMESPACE_END
 
-	/** @endcond doxygenLibsbmlInternal */
+  /** @endcond doxygenLibsbmlInternal */
 
 
 #endif  /*  DistribSBMLErrorTable_h__  */

@@ -48,181 +48,181 @@ class LIBSBML_EXTERN DistribFunctionDefinitionPlugin : public SBasePlugin
 {
 public:
 
-	/**
-	 * Creates a new DistribFunctionDefinitionPlugin
-	 */
-	DistribFunctionDefinitionPlugin(const std::string& uri, const std::string& prefix, 
-	                               DistribPkgNamespaces* distribns);
+  /**
+   * Creates a new DistribFunctionDefinitionPlugin
+   */
+  DistribFunctionDefinitionPlugin(const std::string& uri, const std::string& prefix, 
+                                 DistribPkgNamespaces* distribns);
 
 
-	/**
-	 * Copy constructor for DistribFunctionDefinitionPlugin.
-	 *
-	 * @param orig; the DistribFunctionDefinitionPlugin instance to copy.
-	 */
-	DistribFunctionDefinitionPlugin(const DistribFunctionDefinitionPlugin& orig);
+  /**
+   * Copy constructor for DistribFunctionDefinitionPlugin.
+   *
+   * @param orig; the DistribFunctionDefinitionPlugin instance to copy.
+   */
+  DistribFunctionDefinitionPlugin(const DistribFunctionDefinitionPlugin& orig);
 
 
- 	/**
-	 * Assignment operator for DistribFunctionDefinitionPlugin.
-	 *
-	 * @param rhs; the object whose values are used as the basis
-	 * of the assignment
-	 */
-	DistribFunctionDefinitionPlugin& operator=(const DistribFunctionDefinitionPlugin& rhs);
+   /**
+   * Assignment operator for DistribFunctionDefinitionPlugin.
+   *
+   * @param rhs; the object whose values are used as the basis
+   * of the assignment
+   */
+  DistribFunctionDefinitionPlugin& operator=(const DistribFunctionDefinitionPlugin& rhs);
 
 
- 	/**
-	 * Creates and returns a deep copy of this DistribFunctionDefinitionPlugin object.
-	 *
-	 * @return a (deep) copy of this DistribFunctionDefinitionPlugin object.
-	 */
-	virtual DistribFunctionDefinitionPlugin* clone () const;
+   /**
+   * Creates and returns a deep copy of this DistribFunctionDefinitionPlugin object.
+   *
+   * @return a (deep) copy of this DistribFunctionDefinitionPlugin object.
+   */
+  virtual DistribFunctionDefinitionPlugin* clone () const;
 
 
- 	/**
-	 * Destructor for DistribFunctionDefinitionPlugin.
-	 */
-	virtual ~DistribFunctionDefinitionPlugin();
+   /**
+   * Destructor for DistribFunctionDefinitionPlugin.
+   */
+  virtual ~DistribFunctionDefinitionPlugin();
 
 
- 	//---------------------------------------------------------------
-	//
-	// overridden virtual functions for read/write/check
-	//
-	//---------------------------------------------------------------
+   //---------------------------------------------------------------
+  //
+  // overridden virtual functions for read/write/check
+  //
+  //---------------------------------------------------------------
 
-	/** @cond doxygenLibsbmlInternal */
+  /** @cond doxygenLibsbmlInternal */
 
-	/**
-	 * Subclasses must override this method to create, store, and then
-	 * return an SBML object corresponding to the next XMLToken in the
-	 * XMLInputStream if they have their specific elements.
-	 *
-	 * @return the SBML object corresponding to next XMLToken in the
-	 * XMLInputStream or NULL if the token was not recognized.
-	 */
-	virtual SBase* createObject (XMLInputStream& stream);
-
-
-	/** @endcond doxygenLibsbmlInternal */
+  /**
+   * Subclasses must override this method to create, store, and then
+   * return an SBML object corresponding to the next XMLToken in the
+   * XMLInputStream if they have their specific elements.
+   *
+   * @return the SBML object corresponding to next XMLToken in the
+   * XMLInputStream or NULL if the token was not recognized.
+   */
+  virtual SBase* createObject (XMLInputStream& stream);
 
 
-	/** @cond doxygenLibsbmlInternal */
-
-	/**
-	 * Subclasses must override this method to write out their contained
-	 * SBML objects as XML elements if they have their specific elements.
-	 */
-	virtual void writeElements (XMLOutputStream& stream) const;
+  /** @endcond doxygenLibsbmlInternal */
 
 
-	/** @endcond doxygenLibsbmlInternal */
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Subclasses must override this method to write out their contained
+   * SBML objects as XML elements if they have their specific elements.
+   */
+  virtual void writeElements (XMLOutputStream& stream) const;
 
 
-	/**
-	 * Checks if this plugin object has all the required elements.
-	 *
-	 * Subclasses must override this method 
-	 * if they have their specific elements.
-	 *
-	 * @return true if this plugin object has all the required elements
-	 * otherwise false will be returned.
-	 */
-	virtual bool hasRequiredElements () const;
+  /** @endcond doxygenLibsbmlInternal */
 
 
-	//---------------------------------------------------------------
+  /**
+   * Checks if this plugin object has all the required elements.
+   *
+   * Subclasses must override this method 
+   * if they have their specific elements.
+   *
+   * @return true if this plugin object has all the required elements
+   * otherwise false will be returned.
+   */
+  virtual bool hasRequiredElements () const;
 
 
-	//---------------------------------------------------------------
-	//
-	// Functions for interacting with the members of the plugin
-	//
-	//---------------------------------------------------------------
-
-	/**
-	 * Returns the DrawFromDistribution from this DistribFunctionDefinitionPlugin object.
-	 *
-	 * @return the DrawFromDistribution from object in this DistribFunctionDefinitionPlugin object.
-	 */
-	const DrawFromDistribution* getDrawFromDistribution () const;
+  //---------------------------------------------------------------
 
 
-	/**
-	 * Predicate returning @c true or @c false depending on whether the
-	  "DrawFromDistribution" element has been set.
-	 *
-	 * @return @c true if the "DrawFromDistribution" element has been set,
-	 * otherwise @c false is returned.
-	 */
-	bool isSetDrawFromDistribution() const;
+  //---------------------------------------------------------------
+  //
+  // Functions for interacting with the members of the plugin
+  //
+  //---------------------------------------------------------------
+
+  /**
+   * Returns the DrawFromDistribution from this DistribFunctionDefinitionPlugin object.
+   *
+   * @return the DrawFromDistribution from object in this DistribFunctionDefinitionPlugin object.
+   */
+  const DrawFromDistribution* getDrawFromDistribution () const;
 
 
-	/**
-	 * Sets the DrawFromDistribution element in this DistribFunctionDefinitionPlugin object.
-	 *
-	 * @param drawFromDistribution the drawFromDistribution* to be set.
-	 *
-	 * @return integer value indicating success/failure of the
-	 * function.  @if clike The value is drawn from the
-	 * enumeration #OperationReturnValues_t. @endif The possible values
-	 * returned by this function are:
-	 * @li LIBSBML_OPERATION_SUCCESS
-	 */
-	int setDrawFromDistribution (const DrawFromDistribution* drawFromDistribution);
+  /**
+   * Predicate returning @c true or @c false depending on whether the
+    "DrawFromDistribution" element has been set.
+   *
+   * @return @c true if the "DrawFromDistribution" element has been set,
+   * otherwise @c false is returned.
+   */
+  bool isSetDrawFromDistribution() const;
 
 
-	/**
-	 * Creates a new DrawFromDistribution object and adds it to the DistribFunctionDefinitionPlugin object.
-	 *
-	 * @return the newly created DrawFromDistribution object.
-	 */
-	DrawFromDistribution* createDrawFromDistribution ();
+  /**
+   * Sets the DrawFromDistribution element in this DistribFunctionDefinitionPlugin object.
+   *
+   * @param drawFromDistribution the drawFromDistribution* to be set.
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   */
+  int setDrawFromDistribution (const DrawFromDistribution* drawFromDistribution);
 
 
-	/** @cond doxygenLibsbmlInternal */
-
-	/**
-	 * Sets the parent SBMLDocument.
-	 */
-	virtual void setSBMLDocument (SBMLDocument* d);
-
-
-	/** @endcond doxygenLibsbmlInternal */
+  /**
+   * Creates a new DrawFromDistribution object and adds it to the DistribFunctionDefinitionPlugin object.
+   *
+   * @return the newly created DrawFromDistribution object.
+   */
+  DrawFromDistribution* createDrawFromDistribution ();
 
 
-	/** @cond doxygenLibsbmlInternal */
+  /** @cond doxygenLibsbmlInternal */
 
-	virtual void connectToParent (SBase* sbase);
-
-
-	/** @endcond doxygenLibsbmlInternal */
-
-
-	/** @cond doxygenLibsbmlInternal */
-
-	virtual void enablePackageInternal(const std::string& pkgURI,
-	                                   const std::string& pkgPrefix, bool flag);
+  /**
+   * Sets the parent SBMLDocument.
+   */
+  virtual void setSBMLDocument (SBMLDocument* d);
 
 
-	/** @endcond doxygenLibsbmlInternal */
+  /** @endcond doxygenLibsbmlInternal */
 
 
-	/** @cond doxygenLibsbmlInternal */
+  /** @cond doxygenLibsbmlInternal */
 
-	virtual bool accept (SBMLVisitor& v) const;
+  virtual void connectToParent (SBase* sbase);
 
-	/** @endcond doxygenLibsbmlInternal */
+
+  /** @endcond doxygenLibsbmlInternal */
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  virtual void enablePackageInternal(const std::string& pkgURI,
+                                     const std::string& pkgPrefix, bool flag);
+
+
+  /** @endcond doxygenLibsbmlInternal */
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  virtual bool accept (SBMLVisitor& v) const;
+
+  /** @endcond doxygenLibsbmlInternal */
 
 
 protected:
 
-	/** @cond doxygenLibsbmlInternal */
+  /** @cond doxygenLibsbmlInternal */
 
-	DrawFromDistribution* mDrawFromDistribution;
+  DrawFromDistribution* mDrawFromDistribution;
 
-	/** @endcond doxygenLibsbmlInternal */
+  /** @endcond doxygenLibsbmlInternal */
 
 
 };

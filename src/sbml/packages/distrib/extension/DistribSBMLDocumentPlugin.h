@@ -48,101 +48,101 @@ class LIBSBML_EXTERN DistribSBMLDocumentPlugin : public SBMLDocumentPlugin
 {
 public:
 
-	/**
-	 * Creates a new DistribSBMLDocumentPlugin
-	 */
-	DistribSBMLDocumentPlugin(const std::string& uri, const std::string& prefix, 
-	                               DistribPkgNamespaces* distribns);
+  /**
+   * Creates a new DistribSBMLDocumentPlugin
+   */
+  DistribSBMLDocumentPlugin(const std::string& uri, const std::string& prefix, 
+                                 DistribPkgNamespaces* distribns);
 
 
-	/**
-	 * Copy constructor for DistribSBMLDocumentPlugin.
-	 *
-	 * @param orig; the DistribSBMLDocumentPlugin instance to copy.
-	 */
-	DistribSBMLDocumentPlugin(const DistribSBMLDocumentPlugin& orig);
+  /**
+   * Copy constructor for DistribSBMLDocumentPlugin.
+   *
+   * @param orig; the DistribSBMLDocumentPlugin instance to copy.
+   */
+  DistribSBMLDocumentPlugin(const DistribSBMLDocumentPlugin& orig);
 
 
- 	/**
-	 * Assignment operator for DistribSBMLDocumentPlugin.
-	 *
-	 * @param rhs; the object whose values are used as the basis
-	 * of the assignment
-	 */
-	DistribSBMLDocumentPlugin& operator=(const DistribSBMLDocumentPlugin& rhs);
+   /**
+   * Assignment operator for DistribSBMLDocumentPlugin.
+   *
+   * @param rhs; the object whose values are used as the basis
+   * of the assignment
+   */
+  DistribSBMLDocumentPlugin& operator=(const DistribSBMLDocumentPlugin& rhs);
 
 
- 	/**
-	 * Creates and returns a deep copy of this DistribSBMLDocumentPlugin object.
-	 *
-	 * @return a (deep) copy of this DistribSBMLDocumentPlugin object.
-	 */
-	virtual DistribSBMLDocumentPlugin* clone () const;
+   /**
+   * Creates and returns a deep copy of this DistribSBMLDocumentPlugin object.
+   *
+   * @return a (deep) copy of this DistribSBMLDocumentPlugin object.
+   */
+  virtual DistribSBMLDocumentPlugin* clone () const;
 
 
- 	/**
-	 * Destructor for DistribSBMLDocumentPlugin.
-	 */
-	virtual ~DistribSBMLDocumentPlugin();
+   /**
+   * Destructor for DistribSBMLDocumentPlugin.
+   */
+  virtual ~DistribSBMLDocumentPlugin();
 
 
  #ifndef SWIG
 
-	/** @cond doxygenLibsbmlInternal */
+  /** @cond doxygenLibsbmlInternal */
 
-	/**
-	 * Reads the attributes of corresponding package in SBMLDocument element
-	 */
-	virtual void readAttributes (const XMLAttributes& attributes, 
-	                             const ExpectedAttributes& expectedAttributes);
+  /**
+   * Reads the attributes of corresponding package in SBMLDocument element
+   */
+  virtual void readAttributes (const XMLAttributes& attributes, 
+                               const ExpectedAttributes& expectedAttributes);
 
 
-	/** @endcond doxygenLibsbmlInternal */
+  /** @endcond doxygenLibsbmlInternal */
 
 
 #endif // SWIG
 
-	/** @cond doxygenLibsbmlInternal */
+  /** @cond doxygenLibsbmlInternal */
 
-	/**
-	 * Returns boolean based on whether flattening of a comp model has been implemented.
-	 *
-	 * @returns @c true if flattening for composed models has been implemented,
-	 * false otherwise.
-	 */
-	virtual bool isFlatteningImplemented() const;
-
-
-	/** @endcond doxygenLibsbmlInternal */
+  /**
+   * Returns boolean based on whether flattening of a comp model has been implemented.
+   *
+   * @returns @c true if flattening for composed models has been implemented,
+   * false otherwise.
+   */
+  virtual bool isFlatteningImplemented() const;
 
 
-	/** @cond doxygenLibsbmlInternal */
-
-	/**
-	 * Check consistency function.
-	 */
-	virtual unsigned int checkConsistency();
+  /** @endcond doxygenLibsbmlInternal */
 
 
-	/** @endcond doxygenLibsbmlInternal */
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Check consistency function.
+   */
+  virtual unsigned int checkConsistency();
 
 
-	/** @cond doxygenLibsbmlInternal */
-
-	/**
-	 * Accepts the SBMLVisitor.
-	 */
-	virtual bool accept(SBMLVisitor& v) const;
+  /** @endcond doxygenLibsbmlInternal */
 
 
- 	/** @endcond doxygenLibsbmlInternal */
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Accepts the SBMLVisitor.
+   */
+  virtual bool accept(SBMLVisitor& v) const;
+
+
+   /** @endcond doxygenLibsbmlInternal */
 
 
 protected:
 
-	/** @cond doxygenLibsbmlInternal */
+  /** @cond doxygenLibsbmlInternal */
 
-	/** @endcond doxygenLibsbmlInternal */
+  /** @endcond doxygenLibsbmlInternal */
 
 
 };

@@ -41,15 +41,15 @@ LIBSBML_CPP_NAMESPACE_BEGIN
  * Creates a new DrawFromDistribution with the given level, version, and package version.
  */
 DrawFromDistribution::DrawFromDistribution (unsigned int level, unsigned int version, unsigned int pkgVersion)
-	: SBase(level, version)
-	 ,mDistribInputs (level, version, pkgVersion)
-	 ,mUncertML (NULL)
+  : SBase(level, version)
+   ,mDistribInputs (level, version, pkgVersion)
+   ,mUncertML (NULL)
 {
-	// set an SBMLNamespaces derived object of this package
-	setSBMLNamespacesAndOwn(new DistribPkgNamespaces(level, version, pkgVersion));
+  // set an SBMLNamespaces derived object of this package
+  setSBMLNamespacesAndOwn(new DistribPkgNamespaces(level, version, pkgVersion));
 
-	// connect to child objects
-	connectToChild();
+  // connect to child objects
+  connectToChild();
 }
 
 
@@ -57,18 +57,18 @@ DrawFromDistribution::DrawFromDistribution (unsigned int level, unsigned int ver
  * Creates a new DrawFromDistribution with the given DistribPkgNamespaces object.
  */
 DrawFromDistribution::DrawFromDistribution (DistribPkgNamespaces* distribns)
-	: SBase(distribns)
-	 ,mDistribInputs (distribns)
-	 ,mUncertML (NULL)
+  : SBase(distribns)
+   ,mDistribInputs (distribns)
+   ,mUncertML (NULL)
 {
-	// set the element namespace of this object
-	setElementNamespace(distribns->getURI());
+  // set the element namespace of this object
+  setElementNamespace(distribns->getURI());
 
-	// connect to child objects
-	connectToChild();
+  // connect to child objects
+  connectToChild();
 
-	// load package extensions bound with this object (if any) 
-	loadPlugins(distribns);
+  // load package extensions bound with this object (if any) 
+  loadPlugins(distribns);
 }
 
 
@@ -76,27 +76,27 @@ DrawFromDistribution::DrawFromDistribution (DistribPkgNamespaces* distribns)
  * Copy constructor for DrawFromDistribution.
  */
 DrawFromDistribution::DrawFromDistribution (const DrawFromDistribution& orig)
-	: SBase(orig)
+  : SBase(orig)
 {
-	if (&orig == NULL)
-	{
-		throw SBMLConstructorException("Null argument to copy constructor");
-	}
-	else
-	{
-		mDistribInputs  = orig.mDistribInputs;
-		if (orig.mUncertML != NULL)
-		{
-			mUncertML = orig.mUncertML->clone();
-		}
-		else
-		{
-			mUncertML = NULL;
-		}
+  if (&orig == NULL)
+  {
+    throw SBMLConstructorException("Null argument to copy constructor");
+  }
+  else
+  {
+    mDistribInputs  = orig.mDistribInputs;
+    if (orig.mUncertML != NULL)
+    {
+      mUncertML = orig.mUncertML->clone();
+    }
+    else
+    {
+      mUncertML = NULL;
+    }
 
-		// connect to child objects
-		connectToChild();
-	}
+    // connect to child objects
+    connectToChild();
+  }
 }
 
 
@@ -106,27 +106,27 @@ DrawFromDistribution::DrawFromDistribution (const DrawFromDistribution& orig)
 DrawFromDistribution&
 DrawFromDistribution::operator=(const DrawFromDistribution& rhs)
 {
-	if (&rhs == NULL)
-	{
-		throw SBMLConstructorException("Null argument to assignment");
-	}
-	else if (&rhs != this)
-	{
-		SBase::operator=(rhs);
-		mDistribInputs  = rhs.mDistribInputs;
-		if (rhs.mUncertML != NULL)
-		{
-			mUncertML = rhs.mUncertML->clone();
-		}
-		else
-		{
-			mUncertML = NULL;
-		}
+  if (&rhs == NULL)
+  {
+    throw SBMLConstructorException("Null argument to assignment");
+  }
+  else if (&rhs != this)
+  {
+    SBase::operator=(rhs);
+    mDistribInputs  = rhs.mDistribInputs;
+    if (rhs.mUncertML != NULL)
+    {
+      mUncertML = rhs.mUncertML->clone();
+    }
+    else
+    {
+      mUncertML = NULL;
+    }
 
-		// connect to child objects
-		connectToChild();
-	}
-	return *this;
+    // connect to child objects
+    connectToChild();
+  }
+  return *this;
 }
 
 
@@ -136,7 +136,7 @@ DrawFromDistribution::operator=(const DrawFromDistribution& rhs)
 DrawFromDistribution*
 DrawFromDistribution::clone () const
 {
-	return new DrawFromDistribution(*this);
+  return new DrawFromDistribution(*this);
 }
 
 
@@ -154,7 +154,7 @@ DrawFromDistribution::~DrawFromDistribution ()
 const UncertMLNode*
 DrawFromDistribution::getUncertML() const
 {
-	return mUncertML;
+  return mUncertML;
 }
 
 
@@ -164,7 +164,7 @@ DrawFromDistribution::getUncertML() const
 bool
 DrawFromDistribution::isSetUncertML() const
 {
-	return (mUncertML != NULL);
+  return (mUncertML != NULL);
 }
 
 
@@ -174,27 +174,27 @@ DrawFromDistribution::isSetUncertML() const
 int
 DrawFromDistribution::setUncertML(UncertMLNode* uncertML)
 {
-	if (mUncertML == uncertML)
-	{
-		return LIBSBML_OPERATION_SUCCESS;
-	}
-	else if (uncertML == NULL)
-	{
-		delete mUncertML;
-		mUncertML = NULL;
-		return LIBSBML_OPERATION_SUCCESS;
-	}
-	else
-	{
-		delete mUncertML;
-		mUncertML = (uncertML != NULL) ?
-			static_cast<UncertMLNode*>(uncertML->clone()) : NULL;
-		//if (mUncertML != NULL)
-		//{
-		//	mUncertML->connectToParent(this);
-		//}
-		return LIBSBML_OPERATION_SUCCESS;
-	}
+  if (mUncertML == uncertML)
+  {
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else if (uncertML == NULL)
+  {
+    delete mUncertML;
+    mUncertML = NULL;
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else
+  {
+    delete mUncertML;
+    mUncertML = (uncertML != NULL) ?
+      static_cast<UncertMLNode*>(uncertML->clone()) : NULL;
+    //if (mUncertML != NULL)
+    //{
+    //  mUncertML->connectToParent(this);
+    //}
+    return LIBSBML_OPERATION_SUCCESS;
+  }
 }
 
 
@@ -204,9 +204,9 @@ DrawFromDistribution::setUncertML(UncertMLNode* uncertML)
 int
 DrawFromDistribution::unsetUncertML()
 {
-	delete mUncertML;
-	mUncertML = NULL;
-	return LIBSBML_OPERATION_SUCCESS;
+  delete mUncertML;
+  mUncertML = NULL;
+  return LIBSBML_OPERATION_SUCCESS;
 }
 
 
@@ -216,7 +216,7 @@ DrawFromDistribution::unsetUncertML()
 const ListOfDistribInputs*
 DrawFromDistribution::getListOfDistribInputs() const
 {
-	return &mDistribInputs;
+  return &mDistribInputs;
 }
 
 
@@ -226,7 +226,7 @@ DrawFromDistribution::getListOfDistribInputs() const
 ListOfDistribInputs*
 DrawFromDistribution::getListOfDistribInputs()
 {
-	return &mDistribInputs;
+  return &mDistribInputs;
 }
 
 
@@ -236,7 +236,7 @@ DrawFromDistribution::getListOfDistribInputs()
 DistribInput*
 DrawFromDistribution::removeDistribInput(unsigned int n)
 {
-	return mDistribInputs.remove(n);
+  return mDistribInputs.remove(n);
 }
 
 
@@ -246,7 +246,7 @@ DrawFromDistribution::removeDistribInput(unsigned int n)
 DistribInput*
 DrawFromDistribution::removeDistribInput(const std::string& sid)
 {
-	return mDistribInputs.remove(sid);
+  return mDistribInputs.remove(sid);
 }
 
 
@@ -256,7 +256,7 @@ DrawFromDistribution::removeDistribInput(const std::string& sid)
 DistribInput*
 DrawFromDistribution::getDistribInput(unsigned int n)
 {
-	return mDistribInputs.get(n);
+  return mDistribInputs.get(n);
 }
 
 
@@ -266,7 +266,7 @@ DrawFromDistribution::getDistribInput(unsigned int n)
 const DistribInput*
 DrawFromDistribution::getDistribInput(unsigned int n) const
 {
-	return mDistribInputs.get(n);
+  return mDistribInputs.get(n);
 }
 
 
@@ -276,7 +276,7 @@ DrawFromDistribution::getDistribInput(unsigned int n) const
 DistribInput*
 DrawFromDistribution::getDistribInput(const std::string& sid)
 {
-	return mDistribInputs.get(sid);
+  return mDistribInputs.get(sid);
 }
 
 
@@ -286,7 +286,7 @@ DrawFromDistribution::getDistribInput(const std::string& sid)
 const DistribInput*
 DrawFromDistribution::getDistribInput(const std::string& sid) const
 {
-	return mDistribInputs.get(sid);
+  return mDistribInputs.get(sid);
 }
 
 
@@ -296,32 +296,32 @@ DrawFromDistribution::getDistribInput(const std::string& sid) const
 int
 DrawFromDistribution::addDistribInput(const DistribInput* di)
 {
-	if (di == NULL)
-	{
-		return LIBSBML_OPERATION_FAILED;
-	}
-	else if (di->hasRequiredAttributes() == false)
-	{
-		return LIBSBML_INVALID_OBJECT;
-	}
-	else if (getLevel() != di->getLevel())
-	{
-		return LIBSBML_LEVEL_MISMATCH;
-	}
-	else if (getVersion() != di->getVersion())
-	{
-		return LIBSBML_VERSION_MISMATCH;
-	}
-	else if (matchesRequiredSBMLNamespacesForAddition(static_cast<const SBase *>(di)) == false)
-	{
-		return LIBSBML_NAMESPACES_MISMATCH;
-	}
-	else
-	{
-		mDistribInputs.append(di);
+  if (di == NULL)
+  {
+    return LIBSBML_OPERATION_FAILED;
+  }
+  else if (di->hasRequiredAttributes() == false)
+  {
+    return LIBSBML_INVALID_OBJECT;
+  }
+  else if (getLevel() != di->getLevel())
+  {
+    return LIBSBML_LEVEL_MISMATCH;
+  }
+  else if (getVersion() != di->getVersion())
+  {
+    return LIBSBML_VERSION_MISMATCH;
+  }
+  else if (matchesRequiredSBMLNamespacesForAddition(static_cast<const SBase *>(di)) == false)
+  {
+    return LIBSBML_NAMESPACES_MISMATCH;
+  }
+  else
+  {
+    mDistribInputs.append(di);
 
-		return LIBSBML_OPERATION_SUCCESS;
-	}
+    return LIBSBML_OPERATION_SUCCESS;
+  }
 }
 
 
@@ -331,7 +331,7 @@ DrawFromDistribution::addDistribInput(const DistribInput* di)
 unsigned int
 DrawFromDistribution::getNumDistribInputs() const
 {
-	return mDistribInputs.size();
+  return mDistribInputs.size();
 }
 
 
@@ -341,28 +341,28 @@ DrawFromDistribution::getNumDistribInputs() const
 DistribInput*
 DrawFromDistribution::createDistribInput()
 {
-	DistribInput* di = NULL;
+  DistribInput* di = NULL;
 
-	try
-	{
-		DISTRIB_CREATE_NS(distribns, getSBMLNamespaces());
-		di = new DistribInput(distribns);
-	}
-	catch (...)
-	{
-		/* here we do not create a default object as the level/version must
-		 * match the parent object
-		 *
-		 * do nothing
-		 */
-	}
+  try
+  {
+    DISTRIB_CREATE_NS(distribns, getSBMLNamespaces());
+    di = new DistribInput(distribns);
+  }
+  catch (...)
+  {
+    /* here we do not create a default object as the level/version must
+     * match the parent object
+     *
+     * do nothing
+     */
+  }
 
-	if(di != NULL)
-	{
-		mDistribInputs.appendAndOwn(di);
-	}
+  if(di != NULL)
+  {
+    mDistribInputs.appendAndOwn(di);
+  }
 
-	return di;
+  return di;
 }
 
 
@@ -372,8 +372,8 @@ DrawFromDistribution::createDistribInput()
 const std::string&
 DrawFromDistribution::getElementName () const
 {
-	static const string name = "drawFromDistribution";
-	return name;
+  static const string name = "drawFromDistribution";
+  return name;
 }
 
 
@@ -383,7 +383,7 @@ DrawFromDistribution::getElementName () const
 int
 DrawFromDistribution::getTypeCode () const
 {
-	return SBML_DISTRIB_DRAW_FROM_DISTRIBUTION;
+  return SBML_DISTRIB_DRAW_FROM_DISTRIBUTION;
 }
 
 
@@ -393,9 +393,9 @@ DrawFromDistribution::getTypeCode () const
 bool
 DrawFromDistribution::hasRequiredAttributes () const
 {
-	bool allPresent = true;
+  bool allPresent = true;
 
-	return allPresent;
+  return allPresent;
 }
 
 
@@ -405,16 +405,16 @@ DrawFromDistribution::hasRequiredAttributes () const
 bool
 DrawFromDistribution::hasRequiredElements () const
 {
-	bool allPresent = true;
+  bool allPresent = true;
 
-	if (isSetUncertML() == false)
-		allPresent = false;
+  if (isSetUncertML() == false)
+    allPresent = false;
 
-	return allPresent;
+  return allPresent;
 }
 
 
-	/** @cond doxygenLibsbmlInternal */
+  /** @cond doxygenLibsbmlInternal */
 
 /*
  * write contained elements
@@ -422,25 +422,25 @@ DrawFromDistribution::hasRequiredElements () const
 void
 DrawFromDistribution::writeElements (XMLOutputStream& stream) const
 {
-	SBase::writeElements(stream);
+  SBase::writeElements(stream);
 
-	if (getNumDistribInputs() > 0)
-	{
-		mDistribInputs.write(stream);
-	}
+  if (getNumDistribInputs() > 0)
+  {
+    mDistribInputs.write(stream);
+  }
 
-	if (isSetUncertML() == true)
-	{
+  if (isSetUncertML() == true)
+  {
      mUncertML->write(stream);
-	}
-	SBase::writeExtensionElements(stream);
+  }
+  SBase::writeExtensionElements(stream);
 }
 
 
-	/** @endcond doxygenLibsbmlInternal */
+  /** @endcond doxygenLibsbmlInternal */
 
 
-	/** @cond doxygenLibsbmlInternal */
+  /** @cond doxygenLibsbmlInternal */
 
 /*
  * Accepts the given SBMLVisitor.
@@ -448,20 +448,20 @@ DrawFromDistribution::writeElements (XMLOutputStream& stream) const
 bool
 DrawFromDistribution::accept (SBMLVisitor& v) const
 {
-	v.visit(*this);
+  v.visit(*this);
 
 /* VISIT CHILDREN */
 
-	v.leave(*this);
+  v.leave(*this);
 
-	return true;
+  return true;
 }
 
 
-	/** @endcond doxygenLibsbmlInternal */
+  /** @endcond doxygenLibsbmlInternal */
 
 
-	/** @cond doxygenLibsbmlInternal */
+  /** @cond doxygenLibsbmlInternal */
 
 /*
  * Sets the parent SBMLDocument.
@@ -469,30 +469,30 @@ DrawFromDistribution::accept (SBMLVisitor& v) const
 void
 DrawFromDistribution::setSBMLDocument (SBMLDocument* d)
 {
-	SBase::setSBMLDocument(d);
-	mDistribInputs.setSBMLDocument(d);
+  SBase::setSBMLDocument(d);
+  mDistribInputs.setSBMLDocument(d);
 }
 
 
-	/** @endcond doxygenLibsbmlInternal */
+  /** @endcond doxygenLibsbmlInternal */
 
 
-	/** @cond doxygenLibsbmlInternal */
+  /** @cond doxygenLibsbmlInternal */
 
 /*
-	 * Connects to child elements.
+   * Connects to child elements.
  */
 void
 DrawFromDistribution::connectToChild()
 {
-	mDistribInputs.connectToParent(this);
+  mDistribInputs.connectToParent(this);
 }
 
 
-	/** @endcond doxygenLibsbmlInternal */
+  /** @endcond doxygenLibsbmlInternal */
 
 
-	/** @cond doxygenLibsbmlInternal */
+  /** @cond doxygenLibsbmlInternal */
 
 /*
  * Enables/Disables the given package with this element.
@@ -501,15 +501,15 @@ void
 DrawFromDistribution::enablePackageInternal(const std::string& pkgURI,
              const std::string& pkgPrefix, bool flag)
 {
-	SBase::enablePackageInternal(pkgURI, pkgPrefix, flag);
-	mDistribInputs.enablePackageInternal(pkgURI, pkgPrefix, flag);
+  SBase::enablePackageInternal(pkgURI, pkgPrefix, flag);
+  mDistribInputs.enablePackageInternal(pkgURI, pkgPrefix, flag);
 }
 
 
-	/** @endcond doxygenLibsbmlInternal */
+  /** @endcond doxygenLibsbmlInternal */
 
 
-	/** @cond doxygenLibsbmlInternal */
+  /** @cond doxygenLibsbmlInternal */
 
 /*
  * creates object.
@@ -517,17 +517,17 @@ DrawFromDistribution::enablePackageInternal(const std::string& pkgURI,
 SBase*
 DrawFromDistribution::createObject(XMLInputStream& stream)
 {
-	const string& name = stream.peek().getName();
-	SBase* object = NULL;
+  const string& name = stream.peek().getName();
+  SBase* object = NULL;
 
-	DISTRIB_CREATE_NS(distribns, getSBMLNamespaces());
+  DISTRIB_CREATE_NS(distribns, getSBMLNamespaces());
 
-	if (name == "listOfDistribInputs")
-	{
-		object = &mDistribInputs;
-	}
+  if (name == "listOfDistribInputs")
+  {
+    object = &mDistribInputs;
+  }
 
-	return object;
+  return object;
 }
 
 bool
@@ -548,10 +548,10 @@ DrawFromDistribution::readOtherXML(XMLInputStream& stream)
 }
 
 
-	/** @endcond doxygenLibsbmlInternal */
+  /** @endcond doxygenLibsbmlInternal */
 
 
-	/** @cond doxygenLibsbmlInternal */
+  /** @cond doxygenLibsbmlInternal */
 
 /*
  * Get the list of expected attributes for this element.
@@ -559,15 +559,15 @@ DrawFromDistribution::readOtherXML(XMLInputStream& stream)
 void
 DrawFromDistribution::addExpectedAttributes(ExpectedAttributes& attributes)
 {
-	SBase::addExpectedAttributes(attributes);
+  SBase::addExpectedAttributes(attributes);
 
 }
 
 
-	/** @endcond doxygenLibsbmlInternal */
+  /** @endcond doxygenLibsbmlInternal */
 
 
-	/** @cond doxygenLibsbmlInternal */
+  /** @cond doxygenLibsbmlInternal */
 
 /*
  * Read values from the given XMLAttributes set into their specific fields.
@@ -576,62 +576,62 @@ void
 DrawFromDistribution::readAttributes (const XMLAttributes& attributes,
                              const ExpectedAttributes& expectedAttributes)
 {
-	const unsigned int sbmlLevel   = getLevel  ();
-	const unsigned int sbmlVersion = getVersion();
+  const unsigned int sbmlLevel   = getLevel  ();
+  const unsigned int sbmlVersion = getVersion();
 
-	unsigned int numErrs;
+  unsigned int numErrs;
 
-	SBase::readAttributes(attributes, expectedAttributes);
+  SBase::readAttributes(attributes, expectedAttributes);
 
-	// look to see whether an unknown attribute error was logged
-	if (getErrorLog() != NULL)
-	{
-		numErrs = getErrorLog()->getNumErrors();
-		for (int n = numErrs-1; n >= 0; n--)
-		{
-			if (getErrorLog()->getError(n)->getErrorId() == UnknownPackageAttribute)
-			{
-				const std::string details =
-				                  getErrorLog()->getError(n)->getMessage();
-				getErrorLog()->remove(UnknownPackageAttribute);
-				getErrorLog()->logPackageError("distrib", DistribUnknownError,
-				               getPackageVersion(), sbmlLevel, sbmlVersion, details);
-			}
-			else if (getErrorLog()->getError(n)->getErrorId() == UnknownCoreAttribute)
-			{
-				const std::string details =
-				                  getErrorLog()->getError(n)->getMessage();
-				getErrorLog()->remove(UnknownCoreAttribute);
-				getErrorLog()->logPackageError("distrib", DistribUnknownError,
-				               getPackageVersion(), sbmlLevel, sbmlVersion, details);
-			}
-		}
-	}
+  // look to see whether an unknown attribute error was logged
+  if (getErrorLog() != NULL)
+  {
+    numErrs = getErrorLog()->getNumErrors();
+    for (int n = numErrs-1; n >= 0; n--)
+    {
+      if (getErrorLog()->getError(n)->getErrorId() == UnknownPackageAttribute)
+      {
+        const std::string details =
+                          getErrorLog()->getError(n)->getMessage();
+        getErrorLog()->remove(UnknownPackageAttribute);
+        getErrorLog()->logPackageError("distrib", DistribUnknownError,
+                       getPackageVersion(), sbmlLevel, sbmlVersion, details);
+      }
+      else if (getErrorLog()->getError(n)->getErrorId() == UnknownCoreAttribute)
+      {
+        const std::string details =
+                          getErrorLog()->getError(n)->getMessage();
+        getErrorLog()->remove(UnknownCoreAttribute);
+        getErrorLog()->logPackageError("distrib", DistribUnknownError,
+                       getPackageVersion(), sbmlLevel, sbmlVersion, details);
+      }
+    }
+  }
 
-	bool assigned = false;
+  bool assigned = false;
 
 }
 
 
-	/** @endcond doxygenLibsbmlInternal */
+  /** @endcond doxygenLibsbmlInternal */
 
 
-	/** @cond doxygenLibsbmlInternal */
+  /** @cond doxygenLibsbmlInternal */
 
 /*
  * Write values of XMLAttributes to the output stream.
  */
-	void
+  void
 DrawFromDistribution::writeAttributes (XMLOutputStream& stream) const
 {
-	SBase::writeAttributes(stream);
+  SBase::writeAttributes(stream);
 
-	SBase::writeExtensionAttributes(stream);
+  SBase::writeExtensionAttributes(stream);
 
 }
 
 
-	/** @endcond doxygenLibsbmlInternal */
+  /** @endcond doxygenLibsbmlInternal */
 
 
 /**
@@ -642,7 +642,7 @@ DrawFromDistribution_t *
 DrawFromDistribution_create(unsigned int level, unsigned int version,
                             unsigned int pkgVersion)
 {
-	return new DrawFromDistribution(level, version, pkgVersion);
+  return new DrawFromDistribution(level, version, pkgVersion);
 }
 
 
@@ -653,8 +653,8 @@ LIBSBML_EXTERN
 void
 DrawFromDistribution_free(DrawFromDistribution_t * dfd)
 {
-	if (dfd != NULL)
-		delete dfd;
+  if (dfd != NULL)
+    delete dfd;
 }
 
 
@@ -665,14 +665,14 @@ LIBSBML_EXTERN
 DrawFromDistribution_t *
 DrawFromDistribution_clone(DrawFromDistribution_t * dfd)
 {
-	if (dfd != NULL)
-	{
-		return static_cast<DrawFromDistribution_t*>(dfd->clone());
-	}
-	else
-	{
-		return NULL;
-	}
+  if (dfd != NULL)
+  {
+    return static_cast<DrawFromDistribution_t*>(dfd->clone());
+  }
+  else
+  {
+    return NULL;
+  }
 }
 
 
@@ -683,7 +683,7 @@ LIBSBML_EXTERN
 int
 DrawFromDistribution_hasRequiredAttributes(DrawFromDistribution_t * dfd)
 {
-	return (dfd != NULL) ? static_cast<int>(dfd->hasRequiredAttributes()) : 0;
+  return (dfd != NULL) ? static_cast<int>(dfd->hasRequiredAttributes()) : 0;
 }
 
 

@@ -99,7 +99,7 @@ DistribSBMLDocumentPlugin::readAttributes (const XMLAttributes& attributes,
     if (getErrorLog()->getNumErrors() == numErrs + 1 && 
         getErrorLog()->contains(XMLAttributeTypeMismatch))
     {
-			getErrorLog()->remove(XMLAttributeTypeMismatch);
+      getErrorLog()->remove(XMLAttributeTypeMismatch);
       getErrorLog()->logPackageError("distrib", DistribUnknownError,
         getPackageVersion(), getLevel(), getVersion());
     }
@@ -112,7 +112,7 @@ DistribSBMLDocumentPlugin::readAttributes (const XMLAttributes& attributes,
   else
   {
     mIsSetRequired = true;
-	/* LOG ERROR RELATING TO EXPECTED VALUE */
+    /* LOG ERROR RELATING TO EXPECTED VALUE */
     //if (mRequired == true)
     //{
     //  getErrorLog()->logPackageError("distrib", ERROR,
@@ -175,7 +175,7 @@ DistribSBMLDocumentPlugin::checkConsistency()
     if (nerrors > 0) 
     {
       log->add(validator.getFailures() );
-	  // DO NOT NEED THIS IN LAST CALL
+      // DO NOT NEED THIS IN LAST CALL
       // /* only want to bail if errors not warnings */
       // if (log->getNumFailsWithSeverity(LIBSBML_SEV_ERROR) > 0)
       // {
