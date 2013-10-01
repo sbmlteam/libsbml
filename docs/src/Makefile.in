@@ -177,6 +177,8 @@ distfiles =							\
         common-text/what-is-unitsidref.html			\
         common-text/what-is-user-data.html			\
         csdocfilter.py						\
+	documents/miriam-2005.pdf                               \
+	documents/miriam-resources-2007.pdf                     \
         doxygen-base-stylesheet.css				\
         doxygen-config-c.txt.cmake				\
         doxygen-config-c.txt.in					\
@@ -334,8 +336,6 @@ distfiles =							\
         libsbml-python-reading-files.txt			\
         libsbml-reading-files.txt				\
         libsbml-release-info.txt				\
-	papers/miriam-2005.pdf                                  \
-	papers/miriam-resources-2007.pdf                        \
         plain-font-off.html					\
         plain-font-on.html					\
         python-substitutions/ASTNodeList.py			\
@@ -480,7 +480,7 @@ define postprocess_doxygen
   cp graphics/*.png $(1)
   cp common-text/simple-ast.svg $(1)
   cp sbml.js $(1)
-  cp papers/*.pdf $(1)
+  cp documents/*.pdf $(1)
   cp -rf doxygen-tabs.css $(1)/tabs.css
   cp -rf doxygen-navtree.css $(1)/navtree.css
 endef
