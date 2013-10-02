@@ -197,7 +197,7 @@ public:
    */
   virtual int unsetName ();
 
-   /**
+  /**
    * Returns the value of the "reaction" attribute of this FluxBound.
    *
    * @return the value of the "reaction" attribute of this FluxBound.
@@ -241,7 +241,7 @@ public:
   virtual int unsetReaction ();
 
 
-   /**
+  /**
    * Returns the value of the "operation" attribute of this FluxBound.
    *
    * @return the value of the "operation" attribute of this FluxBound.
@@ -249,7 +249,7 @@ public:
   const std::string& getOperation ();
 
 
-   /**
+  /**
    * Returns the value of the "operation" attribute of this FluxBound.
    *
    * @return the value of the "operation" attribute of this FluxBound.
@@ -305,7 +305,7 @@ public:
    */
   virtual int unsetOperation ();
 
-   /**
+  /**
    * Returns the value of the "value" attribute of this FluxBound.
    *
    * @return the value of the "value" attribute of this FluxBound.

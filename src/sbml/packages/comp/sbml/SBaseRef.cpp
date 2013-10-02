@@ -998,7 +998,7 @@ SBaseRef_t *
 SBaseRef_create(unsigned int level, unsigned int version,
                 unsigned int pkgVersion)
 {
-	return new SBaseRef(level, version, pkgVersion);
+  return new SBaseRef(level, version, pkgVersion);
 }
 
 
@@ -1009,8 +1009,8 @@ LIBSBML_EXTERN
 void
 SBaseRef_free(SBaseRef_t * sbr)
 {
-	if (sbr != NULL)
-		delete sbr;
+  if (sbr != NULL)
+    delete sbr;
 }
 
 
@@ -1021,14 +1021,14 @@ LIBSBML_EXTERN
 SBaseRef_t *
 SBaseRef_clone(SBaseRef_t * sbr)
 {
-	if (sbr != NULL)
-	{
-		return static_cast<SBaseRef_t*>(sbr->clone());
-	}
-	else
-	{
-		return NULL;
-	}
+  if (sbr != NULL)
+  {
+    return static_cast<SBaseRef_t*>(sbr->clone());
+  }
+  else
+  {
+    return NULL;
+  }
 }
 
 
@@ -1039,10 +1039,10 @@ LIBSBML_EXTERN
 char *
 SBaseRef_getPortRef(SBaseRef_t * sbr)
 {
-	if (sbr == NULL)
-		return NULL;
+  if (sbr == NULL)
+    return NULL;
 
-	return sbr->getPortRef().empty() ? NULL : safe_strdup(sbr->getPortRef().c_str());
+  return sbr->getPortRef().empty() ? NULL : safe_strdup(sbr->getPortRef().c_str());
 }
 
 
@@ -1053,10 +1053,10 @@ LIBSBML_EXTERN
 char *
 SBaseRef_getIdRef(SBaseRef_t * sbr)
 {
-	if (sbr == NULL)
-		return NULL;
+  if (sbr == NULL)
+    return NULL;
 
-	return sbr->getIdRef().empty() ? NULL : safe_strdup(sbr->getIdRef().c_str());
+  return sbr->getIdRef().empty() ? NULL : safe_strdup(sbr->getIdRef().c_str());
 }
 
 
@@ -1067,10 +1067,10 @@ LIBSBML_EXTERN
 char *
 SBaseRef_getUnitRef(SBaseRef_t * sbr)
 {
-	if (sbr == NULL)
-		return NULL;
+  if (sbr == NULL)
+    return NULL;
 
-	return sbr->getUnitRef().empty() ? NULL : safe_strdup(sbr->getUnitRef().c_str());
+  return sbr->getUnitRef().empty() ? NULL : safe_strdup(sbr->getUnitRef().c_str());
 }
 
 
@@ -1081,10 +1081,10 @@ LIBSBML_EXTERN
 char *
 SBaseRef_getMetaIdRef(SBaseRef_t * sbr)
 {
-	if (sbr == NULL)
-		return NULL;
+  if (sbr == NULL)
+    return NULL;
 
-	return sbr->getMetaIdRef().empty() ? NULL : safe_strdup(sbr->getMetaIdRef().c_str());
+  return sbr->getMetaIdRef().empty() ? NULL : safe_strdup(sbr->getMetaIdRef().c_str());
 }
 
 
@@ -1095,10 +1095,10 @@ LIBSBML_EXTERN
 SBaseRef_t*
 SBaseRef_getSBaseRef(SBaseRef_t * sbr)
 {
-	if (sbr == NULL)
-		return NULL;
+  if (sbr == NULL)
+    return NULL;
 
-	return sbr->getSBaseRef();
+  return sbr->getSBaseRef();
 }
 
 
@@ -1109,7 +1109,7 @@ LIBSBML_EXTERN
 int
 SBaseRef_isSetPortRef(SBaseRef_t * sbr)
 {
-	return (sbr != NULL) ? static_cast<int>(sbr->isSetPortRef()) : 0;
+  return (sbr != NULL) ? static_cast<int>(sbr->isSetPortRef()) : 0;
 }
 
 
@@ -1120,7 +1120,7 @@ LIBSBML_EXTERN
 int
 SBaseRef_isSetIdRef(SBaseRef_t * sbr)
 {
-	return (sbr != NULL) ? static_cast<int>(sbr->isSetIdRef()) : 0;
+  return (sbr != NULL) ? static_cast<int>(sbr->isSetIdRef()) : 0;
 }
 
 
@@ -1131,7 +1131,7 @@ LIBSBML_EXTERN
 int
 SBaseRef_isSetUnitRef(SBaseRef_t * sbr)
 {
-	return (sbr != NULL) ? static_cast<int>(sbr->isSetUnitRef()) : 0;
+  return (sbr != NULL) ? static_cast<int>(sbr->isSetUnitRef()) : 0;
 }
 
 
@@ -1142,7 +1142,7 @@ LIBSBML_EXTERN
 int
 SBaseRef_isSetMetaIdRef(SBaseRef_t * sbr)
 {
-	return (sbr != NULL) ? static_cast<int>(sbr->isSetMetaIdRef()) : 0;
+  return (sbr != NULL) ? static_cast<int>(sbr->isSetMetaIdRef()) : 0;
 }
 
 
@@ -1153,7 +1153,7 @@ LIBSBML_EXTERN
 int
 SBaseRef_isSetSBaseRef(SBaseRef_t * sbr)
 {
-	return (sbr != NULL) ? static_cast<int>(sbr->isSetSBaseRef()) : 0;
+  return (sbr != NULL) ? static_cast<int>(sbr->isSetSBaseRef()) : 0;
 }
 
 
@@ -1164,7 +1164,7 @@ LIBSBML_EXTERN
 int
 SBaseRef_setPortRef(SBaseRef_t * sbr, const char * portRef)
 {
-	return (sbr != NULL) ? sbr->setPortRef(portRef) : LIBSBML_INVALID_OBJECT;
+  return (sbr != NULL) ? sbr->setPortRef(portRef) : LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -1175,7 +1175,7 @@ LIBSBML_EXTERN
 int
 SBaseRef_setIdRef(SBaseRef_t * sbr, const char * idRef)
 {
-	return (sbr != NULL) ? sbr->setIdRef(idRef) : LIBSBML_INVALID_OBJECT;
+  return (sbr != NULL) ? sbr->setIdRef(idRef) : LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -1186,7 +1186,7 @@ LIBSBML_EXTERN
 int
 SBaseRef_setUnitRef(SBaseRef_t * sbr, const char * unitRef)
 {
-	return (sbr != NULL) ? sbr->setUnitRef(unitRef) : LIBSBML_INVALID_OBJECT;
+  return (sbr != NULL) ? sbr->setUnitRef(unitRef) : LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -1197,7 +1197,7 @@ LIBSBML_EXTERN
 int
 SBaseRef_setMetaIdRef(SBaseRef_t * sbr, const char * metaIdRef)
 {
-	return (sbr != NULL) ? sbr->setMetaIdRef(metaIdRef) : LIBSBML_INVALID_OBJECT;
+  return (sbr != NULL) ? sbr->setMetaIdRef(metaIdRef) : LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -1208,7 +1208,7 @@ LIBSBML_EXTERN
 int
 SBaseRef_setSBaseRef(SBaseRef_t * sbr, SBaseRef_t * sBaseRef)
 {
-	return (sbr != NULL) ? sbr->setSBaseRef(sBaseRef) : LIBSBML_INVALID_OBJECT;
+  return (sbr != NULL) ? sbr->setSBaseRef(sBaseRef) : LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -1219,7 +1219,7 @@ LIBSBML_EXTERN
 int
 SBaseRef_unsetPortRef(SBaseRef_t * sbr)
 {
-	return (sbr != NULL) ? sbr->unsetPortRef() : LIBSBML_INVALID_OBJECT;
+  return (sbr != NULL) ? sbr->unsetPortRef() : LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -1230,7 +1230,7 @@ LIBSBML_EXTERN
 int
 SBaseRef_unsetIdRef(SBaseRef_t * sbr)
 {
-	return (sbr != NULL) ? sbr->unsetIdRef() : LIBSBML_INVALID_OBJECT;
+  return (sbr != NULL) ? sbr->unsetIdRef() : LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -1241,7 +1241,7 @@ LIBSBML_EXTERN
 int
 SBaseRef_unsetUnitRef(SBaseRef_t * sbr)
 {
-	return (sbr != NULL) ? sbr->unsetUnitRef() : LIBSBML_INVALID_OBJECT;
+  return (sbr != NULL) ? sbr->unsetUnitRef() : LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -1252,7 +1252,7 @@ LIBSBML_EXTERN
 int
 SBaseRef_unsetMetaIdRef(SBaseRef_t * sbr)
 {
-	return (sbr != NULL) ? sbr->unsetMetaIdRef() : LIBSBML_INVALID_OBJECT;
+  return (sbr != NULL) ? sbr->unsetMetaIdRef() : LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -1263,7 +1263,7 @@ LIBSBML_EXTERN
 int
 SBaseRef_unsetSBaseRef(SBaseRef_t * sbr)
 {
-	return (sbr != NULL) ? sbr->unsetSBaseRef() : LIBSBML_INVALID_OBJECT;
+  return (sbr != NULL) ? sbr->unsetSBaseRef() : LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -1274,7 +1274,7 @@ LIBSBML_EXTERN
 int
 SBaseRef_hasRequiredAttributes(SBaseRef_t * sbr)
 {
-	return (sbr != NULL) ? static_cast<int>(sbr->hasRequiredAttributes()) : 0;
+  return (sbr != NULL) ? static_cast<int>(sbr->hasRequiredAttributes()) : 0;
 }
 
 

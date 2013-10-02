@@ -473,7 +473,7 @@ ReplacedElement_t *
 ReplacedElement_create(unsigned int level, unsigned int version,
                        unsigned int pkgVersion)
 {
-	return new ReplacedElement(level, version, pkgVersion);
+  return new ReplacedElement(level, version, pkgVersion);
 }
 
 
@@ -484,8 +484,8 @@ LIBSBML_EXTERN
 void
 ReplacedElement_free(ReplacedElement_t * re)
 {
-	if (re != NULL)
-		delete re;
+  if (re != NULL)
+    delete re;
 }
 
 
@@ -496,14 +496,14 @@ LIBSBML_EXTERN
 ReplacedElement_t *
 ReplacedElement_clone(ReplacedElement_t * re)
 {
-	if (re != NULL)
-	{
-		return static_cast<ReplacedElement_t*>(re->clone());
-	}
-	else
-	{
-		return NULL;
-	}
+  if (re != NULL)
+  {
+    return static_cast<ReplacedElement_t*>(re->clone());
+  }
+  else
+  {
+    return NULL;
+  }
 }
 
 
@@ -514,10 +514,10 @@ LIBSBML_EXTERN
 char *
 ReplacedElement_getSubmodelRef(ReplacedElement_t * re)
 {
-	if (re == NULL)
-		return NULL;
+  if (re == NULL)
+    return NULL;
 
-	return re->getSubmodelRef().empty() ? NULL : safe_strdup(re->getSubmodelRef().c_str());
+  return re->getSubmodelRef().empty() ? NULL : safe_strdup(re->getSubmodelRef().c_str());
 }
 
 
@@ -528,10 +528,10 @@ LIBSBML_EXTERN
 char *
 ReplacedElement_getDeletion(ReplacedElement_t * re)
 {
-	if (re == NULL)
-		return NULL;
+  if (re == NULL)
+    return NULL;
 
-	return re->getDeletion().empty() ? NULL : safe_strdup(re->getDeletion().c_str());
+  return re->getDeletion().empty() ? NULL : safe_strdup(re->getDeletion().c_str());
 }
 
 
@@ -542,10 +542,10 @@ LIBSBML_EXTERN
 char *
 ReplacedElement_getConversionFactor(ReplacedElement_t * re)
 {
-	if (re == NULL)
-		return NULL;
+  if (re == NULL)
+    return NULL;
 
-	return re->getConversionFactor().empty() ? NULL : safe_strdup(re->getConversionFactor().c_str());
+  return re->getConversionFactor().empty() ? NULL : safe_strdup(re->getConversionFactor().c_str());
 }
 
 
@@ -556,7 +556,7 @@ LIBSBML_EXTERN
 int
 ReplacedElement_isSetSubmodelRef(ReplacedElement_t * re)
 {
-	return (re != NULL) ? static_cast<int>(re->isSetSubmodelRef()) : 0;
+  return (re != NULL) ? static_cast<int>(re->isSetSubmodelRef()) : 0;
 }
 
 
@@ -567,7 +567,7 @@ LIBSBML_EXTERN
 int
 ReplacedElement_isSetDeletion(ReplacedElement_t * re)
 {
-	return (re != NULL) ? static_cast<int>(re->isSetDeletion()) : 0;
+  return (re != NULL) ? static_cast<int>(re->isSetDeletion()) : 0;
 }
 
 
@@ -578,7 +578,7 @@ LIBSBML_EXTERN
 int
 ReplacedElement_isSetConversionFactor(ReplacedElement_t * re)
 {
-	return (re != NULL) ? static_cast<int>(re->isSetConversionFactor()) : 0;
+  return (re != NULL) ? static_cast<int>(re->isSetConversionFactor()) : 0;
 }
 
 
@@ -589,7 +589,7 @@ LIBSBML_EXTERN
 int
 ReplacedElement_setSubmodelRef(ReplacedElement_t * re, const char * submodelRef)
 {
-	return (re != NULL) ? re->setSubmodelRef(submodelRef) : LIBSBML_INVALID_OBJECT;
+  return (re != NULL) ? re->setSubmodelRef(submodelRef) : LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -600,7 +600,7 @@ LIBSBML_EXTERN
 int
 ReplacedElement_setDeletion(ReplacedElement_t * re, const char * deletion)
 {
-	return (re != NULL) ? re->setDeletion(deletion) : LIBSBML_INVALID_OBJECT;
+  return (re != NULL) ? re->setDeletion(deletion) : LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -611,7 +611,7 @@ LIBSBML_EXTERN
 int
 ReplacedElement_setConversionFactor(ReplacedElement_t * re, const char * conversionFactor)
 {
-	return (re != NULL) ? re->setConversionFactor(conversionFactor) : LIBSBML_INVALID_OBJECT;
+  return (re != NULL) ? re->setConversionFactor(conversionFactor) : LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -622,7 +622,7 @@ LIBSBML_EXTERN
 int
 ReplacedElement_unsetSubmodelRef(ReplacedElement_t * re)
 {
-	return (re != NULL) ? re->unsetSubmodelRef() : LIBSBML_INVALID_OBJECT;
+  return (re != NULL) ? re->unsetSubmodelRef() : LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -633,7 +633,7 @@ LIBSBML_EXTERN
 int
 ReplacedElement_unsetDeletion(ReplacedElement_t * re)
 {
-	return (re != NULL) ? re->unsetDeletion() : LIBSBML_INVALID_OBJECT;
+  return (re != NULL) ? re->unsetDeletion() : LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -644,7 +644,7 @@ LIBSBML_EXTERN
 int
 ReplacedElement_unsetConversionFactor(ReplacedElement_t * re)
 {
-	return (re != NULL) ? re->unsetConversionFactor() : LIBSBML_INVALID_OBJECT;
+  return (re != NULL) ? re->unsetConversionFactor() : LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -655,7 +655,7 @@ LIBSBML_EXTERN
 int
 ReplacedElement_hasRequiredAttributes(ReplacedElement_t * re)
 {
-	return (re != NULL) ? static_cast<int>(re->hasRequiredAttributes()) : 0;
+  return (re != NULL) ? static_cast<int>(re->hasRequiredAttributes()) : 0;
 }
 
 

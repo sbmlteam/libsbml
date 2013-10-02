@@ -197,7 +197,7 @@ ReplacedBy_t *
 ReplacedBy_create(unsigned int level, unsigned int version,
                   unsigned int pkgVersion)
 {
-	return new ReplacedBy(level, version, pkgVersion);
+  return new ReplacedBy(level, version, pkgVersion);
 }
 
 
@@ -208,8 +208,8 @@ LIBSBML_EXTERN
 void
 ReplacedBy_free(ReplacedBy_t * rb)
 {
-	if (rb != NULL)
-		delete rb;
+  if (rb != NULL)
+    delete rb;
 }
 
 
@@ -220,14 +220,14 @@ LIBSBML_EXTERN
 ReplacedBy_t *
 ReplacedBy_clone(ReplacedBy_t * rb)
 {
-	if (rb != NULL)
-	{
-		return static_cast<ReplacedBy_t*>(rb->clone());
-	}
-	else
-	{
-		return NULL;
-	}
+  if (rb != NULL)
+  {
+    return static_cast<ReplacedBy_t*>(rb->clone());
+  }
+  else
+  {
+    return NULL;
+  }
 }
 
 
@@ -238,10 +238,10 @@ LIBSBML_EXTERN
 char *
 ReplacedBy_getSubmodelRef(ReplacedBy_t * rb)
 {
-	if (rb == NULL)
-		return NULL;
+  if (rb == NULL)
+    return NULL;
 
-	return rb->getSubmodelRef().empty() ? NULL : safe_strdup(rb->getSubmodelRef().c_str());
+  return rb->getSubmodelRef().empty() ? NULL : safe_strdup(rb->getSubmodelRef().c_str());
 }
 
 
@@ -252,7 +252,7 @@ LIBSBML_EXTERN
 int
 ReplacedBy_isSetSubmodelRef(ReplacedBy_t * rb)
 {
-	return (rb != NULL) ? static_cast<int>(rb->isSetSubmodelRef()) : 0;
+  return (rb != NULL) ? static_cast<int>(rb->isSetSubmodelRef()) : 0;
 }
 
 
@@ -263,7 +263,7 @@ LIBSBML_EXTERN
 int
 ReplacedBy_setSubmodelRef(ReplacedBy_t * rb, const char * submodelRef)
 {
-	return (rb != NULL) ? rb->setSubmodelRef(submodelRef) : LIBSBML_INVALID_OBJECT;
+  return (rb != NULL) ? rb->setSubmodelRef(submodelRef) : LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -274,7 +274,7 @@ LIBSBML_EXTERN
 int
 ReplacedBy_unsetSubmodelRef(ReplacedBy_t * rb)
 {
-	return (rb != NULL) ? rb->unsetSubmodelRef() : LIBSBML_INVALID_OBJECT;
+  return (rb != NULL) ? rb->unsetSubmodelRef() : LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -285,7 +285,7 @@ LIBSBML_EXTERN
 int
 ReplacedBy_hasRequiredAttributes(ReplacedBy_t * rb)
 {
-	return (rb != NULL) ? static_cast<int>(rb->hasRequiredAttributes()) : 0;
+  return (rb != NULL) ? static_cast<int>(rb->hasRequiredAttributes()) : 0;
 }
 
 

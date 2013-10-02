@@ -311,6 +311,6 @@ END_CONSTRAINT
 
 // 20805 - 20806 - caught at read
 
-	/** @endcond doxygenLibsbmlInternal */
+  /** @endcond doxygenLibsbmlInternal */
 
 

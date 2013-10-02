@@ -258,7 +258,7 @@ FbcSpeciesPlugin::addExpectedAttributes(ExpectedAttributes& attributes)
   //
   // required attribute is not defined for SBML Level 2 or lesser.
   //
-	if ( mSBMLExt->getLevel(mURI) > 2 )
+  if ( mSBMLExt->getLevel(mURI) > 2 )
   {    
     attributes.add("charge");
     attributes.add("chemicalFormula");
@@ -329,13 +329,13 @@ FbcSpeciesPlugin::writeAttributes (XMLOutputStream& stream) const
   //cout << "[DEBUG] SBMLDocumentPlugin::writeAttributes() " << endl;
   if ( isSetCharge() ) 
   {
-	  XMLTriple tripleCharge("charge", mURI, mPrefix);
-	  stream.writeAttribute(tripleCharge, mCharge);
+    XMLTriple tripleCharge("charge", mURI, mPrefix);
+    stream.writeAttribute(tripleCharge, mCharge);
   }
   if ( isSetChemicalFormula() )
   {
-	  XMLTriple tripleChemicalFormula("chemicalFormula", mURI, mPrefix);
-	  stream.writeAttribute(tripleChemicalFormula, mChemicalFormula);
+    XMLTriple tripleChemicalFormula("chemicalFormula", mURI, mPrefix);
+    stream.writeAttribute(tripleChemicalFormula, mChemicalFormula);
   }
 }
 /** @endcond */

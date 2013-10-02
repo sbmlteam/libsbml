@@ -444,10 +444,10 @@ public:
   virtual void enablePackageInternal(const std::string& pkgURI,
                                      const std::string& pkgPrefix, bool flag);
 
-	/**
-	 * Accepts the given SBMLVisitor.
-	 */
-	virtual bool accept (SBMLVisitor& v) const;
+  /**
+   * Accepts the given SBMLVisitor.
+   */
+  virtual bool accept (SBMLVisitor& v) const;
 
   /** @endcond doxygenLibsbmlInternal */
 

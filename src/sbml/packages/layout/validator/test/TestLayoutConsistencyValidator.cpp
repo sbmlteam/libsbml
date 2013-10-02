@@ -84,10 +84,10 @@ runIdTest (const TestFile& file)
  */
 unsigned int
 runTests ( const string& msg,
-	   const string& directory,
-	   unsigned int  begin,
-	   unsigned int  end,
-	   bool (*tester)(const TestFile& file), 
+     const string& directory,
+     unsigned int  begin,
+     unsigned int  end,
+     bool (*tester)(const TestFile& file), 
      unsigned int library)
 {
   cout.precision(0);
@@ -151,11 +151,11 @@ main (int argc, char* argv[])
 
   testThisDataDir = testDataDir + "/" + "general-constraints";
   failed += runTests( "Testing General XML Consistency Constraints (20000 - 29999)",
-		      testThisDataDir, 0, 0, runMainTest, library);
+          testThisDataDir, 0, 0, runMainTest, library);
 
   testThisDataDir = testDataDir + "/" + "identifier-constraints";
   failed += runTests( "Testing Id Consistency Constraints (10300 - 10399)",
-		      testThisDataDir, 0, 0, runIdTest, library);
+          testThisDataDir, 0, 0, runIdTest, library);
 
   return failed;
 }

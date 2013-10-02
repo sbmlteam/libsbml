@@ -121,11 +121,11 @@ SBMLResolverRegistry::~SBMLResolverRegistry()
 SBMLDocument*
 SBMLResolverRegistry::resolve(const std::string &uri, const std::string& baseUri/*=""*/) const
 {
-	SBMLDocument* result = NULL;
+  SBMLDocument* result = NULL;
   std::vector<const SBMLResolver*>::const_iterator it = mResolvers.begin();
   while(it != mResolvers.end())
   {
-  	result = (*it)->resolve(uri, baseUri);
+    result = (*it)->resolve(uri, baseUri);
     if (result != NULL)
       return result;
     ++it;

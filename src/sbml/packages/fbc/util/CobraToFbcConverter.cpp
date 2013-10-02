@@ -125,12 +125,12 @@ int
   {
     Species* current = model->getSpecies(i);
     if (current->isSetCharge())
-	{
+    {
       chargeMap[current->getId()] = current->getCharge();
-	  // need to unset the charge here, as it the call will 
-	  // not work once this is an L3 model
+      // need to unset the charge here, as it the call will 
+      // not work once this is an L3 model
       current->unsetCharge();
-	}
+    }
     if (current->isSetNotes())
     {
       string notes = current->getNotesString();
@@ -158,7 +158,7 @@ int
   prop.addOption("setLevelAndVersion", true, "convert the document to the given level and version");
   int conversionResult = mDocument->convert(prop);
   if (conversionResult != LIBSBML_OPERATION_SUCCESS)
-	  return conversionResult;
+    return conversionResult;
 
   
   mDocument->enablePackage("http://www.sbml.org/sbml/level3/version1/fbc/version1", "fbc",true);

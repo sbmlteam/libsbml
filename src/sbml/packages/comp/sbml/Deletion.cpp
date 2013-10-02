@@ -332,7 +332,7 @@ Deletion_t *
 Deletion_create(unsigned int level, unsigned int version,
                 unsigned int pkgVersion)
 {
-	return new Deletion(level, version, pkgVersion);
+  return new Deletion(level, version, pkgVersion);
 }
 
 
@@ -343,8 +343,8 @@ LIBSBML_EXTERN
 void
 Deletion_free(Deletion_t * d)
 {
-	if (d != NULL)
-		delete d;
+  if (d != NULL)
+    delete d;
 }
 
 
@@ -355,14 +355,14 @@ LIBSBML_EXTERN
 Deletion_t *
 Deletion_clone(Deletion_t * d)
 {
-	if (d != NULL)
-	{
-		return static_cast<Deletion_t*>(d->clone());
-	}
-	else
-	{
-		return NULL;
-	}
+  if (d != NULL)
+  {
+    return static_cast<Deletion_t*>(d->clone());
+  }
+  else
+  {
+    return NULL;
+  }
 }
 
 
@@ -373,10 +373,10 @@ LIBSBML_EXTERN
 char *
 Deletion_getId(Deletion_t * d)
 {
-	if (d == NULL)
-		return NULL;
+  if (d == NULL)
+    return NULL;
 
-	return d->getId().empty() ? NULL : safe_strdup(d->getId().c_str());
+  return d->getId().empty() ? NULL : safe_strdup(d->getId().c_str());
 }
 
 
@@ -387,10 +387,10 @@ LIBSBML_EXTERN
 char *
 Deletion_getName(Deletion_t * d)
 {
-	if (d == NULL)
-		return NULL;
+  if (d == NULL)
+    return NULL;
 
-	return d->getName().empty() ? NULL : safe_strdup(d->getName().c_str());
+  return d->getName().empty() ? NULL : safe_strdup(d->getName().c_str());
 }
 
 
@@ -401,7 +401,7 @@ LIBSBML_EXTERN
 int
 Deletion_isSetId(Deletion_t * d)
 {
-	return (d != NULL) ? static_cast<int>(d->isSetId()) : 0;
+  return (d != NULL) ? static_cast<int>(d->isSetId()) : 0;
 }
 
 
@@ -412,7 +412,7 @@ LIBSBML_EXTERN
 int
 Deletion_isSetName(Deletion_t * d)
 {
-	return (d != NULL) ? static_cast<int>(d->isSetName()) : 0;
+  return (d != NULL) ? static_cast<int>(d->isSetName()) : 0;
 }
 
 
@@ -423,7 +423,7 @@ LIBSBML_EXTERN
 int
 Deletion_setId(Deletion_t * d, const char * id)
 {
-	return (d != NULL) ? d->setId(id) : LIBSBML_INVALID_OBJECT;
+  return (d != NULL) ? d->setId(id) : LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -434,7 +434,7 @@ LIBSBML_EXTERN
 int
 Deletion_setName(Deletion_t * d, const char * name)
 {
-	return (d != NULL) ? d->setName(name) : LIBSBML_INVALID_OBJECT;
+  return (d != NULL) ? d->setName(name) : LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -445,7 +445,7 @@ LIBSBML_EXTERN
 int
 Deletion_unsetId(Deletion_t * d)
 {
-	return (d != NULL) ? d->unsetId() : LIBSBML_INVALID_OBJECT;
+  return (d != NULL) ? d->unsetId() : LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -456,7 +456,7 @@ LIBSBML_EXTERN
 int
 Deletion_unsetName(Deletion_t * d)
 {
-	return (d != NULL) ? d->unsetName() : LIBSBML_INVALID_OBJECT;
+  return (d != NULL) ? d->unsetName() : LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -467,7 +467,7 @@ LIBSBML_EXTERN
 int
 Deletion_hasRequiredAttributes(Deletion_t * d)
 {
-	return (d != NULL) ? static_cast<int>(d->hasRequiredAttributes()) : 0;
+  return (d != NULL) ? static_cast<int>(d->hasRequiredAttributes()) : 0;
 }
 
 
@@ -478,10 +478,10 @@ LIBSBML_EXTERN
 Deletion_t *
 ListOfDeletions_getById(ListOf_t * lo, const char * sid)
 {
-	if (lo == NULL)
-		return NULL;
+  if (lo == NULL)
+    return NULL;
 
-	return (sid != NULL) ? static_cast <ListOfDeletions *>(lo)->get(sid) : NULL;
+  return (sid != NULL) ? static_cast <ListOfDeletions *>(lo)->get(sid) : NULL;
 }
 
 
@@ -492,10 +492,10 @@ LIBSBML_EXTERN
 Deletion_t *
 ListOfDeletions_removeById(ListOf_t * lo, const char * sid)
 {
-	if (lo == NULL)
-		return NULL;
+  if (lo == NULL)
+    return NULL;
 
-	return (sid != NULL) ? static_cast <ListOfDeletions *>(lo)->remove(sid) : NULL;
+  return (sid != NULL) ? static_cast <ListOfDeletions *>(lo)->remove(sid) : NULL;
 }
 
 

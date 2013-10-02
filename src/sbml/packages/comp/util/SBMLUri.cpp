@@ -88,7 +88,7 @@ SBMLUri::operator=(const SBMLUri& rhs)
   }
   else if(&rhs!=this)
   {
-  	mScheme = rhs.mScheme;
+    mScheme = rhs.mScheme;
     mHost = rhs.mHost;
     mPath = rhs.mPath;
     mQuery = rhs.mQuery;

@@ -101,7 +101,7 @@ CompBase::~CompBase ()
 const std::string& 
 CompBase::getPackageURI() const
 {
-	return mURI;
+  return mURI;
 }
 
 /*

@@ -42,13 +42,13 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 class ReplacedFilter : public ElementFilter
 {
 public:
-	ReplacedFilter() : ElementFilter()
-	{
-	}
+  ReplacedFilter() : ElementFilter()
+  {
+  }
 
-	virtual bool filter(const SBase* element)
-	{
-		// return in case we don't have a valid element with a comp plugin
+  virtual bool filter(const SBase* element)
+  {
+    // return in case we don't have a valid element with a comp plugin
         if (element == NULL)
         {
             return false;
@@ -67,8 +67,8 @@ public:
         }
 
 
-        return true;			
-	}
+        return true;
+  }
 
 };
 

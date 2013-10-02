@@ -104,7 +104,7 @@ QualSBMLDocumentPlugin::readAttributes (const XMLAttributes& attributes,
     if (getErrorLog()->getNumErrors() == numErrs + 1 && 
         getErrorLog()->contains(XMLAttributeTypeMismatch))
     {
-			getErrorLog()->remove(XMLAttributeTypeMismatch);
+      getErrorLog()->remove(XMLAttributeTypeMismatch);
       getErrorLog()->logPackageError("qual", QualAttributeRequiredMustBeBoolean,
         getPackageVersion(), getLevel(), getVersion());
     }
@@ -117,7 +117,7 @@ QualSBMLDocumentPlugin::readAttributes (const XMLAttributes& attributes,
   else
   {
     mIsSetRequired = true;
-	/* LOG ERROR RELATING TO EXPECTED VALUE */
+    /* LOG ERROR RELATING TO EXPECTED VALUE */
     //if (mRequired == true)
     //{
     //  getErrorLog()->logPackageError("qual", ERROR,

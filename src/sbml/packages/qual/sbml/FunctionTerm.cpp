@@ -42,16 +42,16 @@ LIBSBML_CPP_NAMESPACE_BEGIN
  * Creates a new FunctionTerm with the given level, version, and package version.
  */
 FunctionTerm::FunctionTerm (unsigned int level, unsigned int version, unsigned int pkgVersion)
-	: SBase(level, version)
-	 ,mResultLevel (SBML_INT_MAX)
-	 ,mIsSetResultLevel (false)
-	 ,mMath (NULL)
+  : SBase(level, version)
+   ,mResultLevel (SBML_INT_MAX)
+   ,mIsSetResultLevel (false)
+   ,mMath (NULL)
 {
-	// set an SBMLNamespaces derived object of this package
-	setSBMLNamespacesAndOwn(new QualPkgNamespaces(level, version, pkgVersion));
+  // set an SBMLNamespaces derived object of this package
+  setSBMLNamespacesAndOwn(new QualPkgNamespaces(level, version, pkgVersion));
 
-	// connect to child objects
-	connectToChild();
+  // connect to child objects
+  connectToChild();
 }
 
 
@@ -59,16 +59,16 @@ FunctionTerm::FunctionTerm (unsigned int level, unsigned int version, unsigned i
  * Creates a new FunctionTerm with the given QualPkgNamespaces object.
  */
 FunctionTerm::FunctionTerm (QualPkgNamespaces* qualns)
-	: SBase(qualns)
-	 ,mResultLevel (SBML_INT_MAX)
-	 ,mIsSetResultLevel (false)
-	 ,mMath (NULL)
+  : SBase(qualns)
+   ,mResultLevel (SBML_INT_MAX)
+   ,mIsSetResultLevel (false)
+   ,mMath (NULL)
 {
-	// set the element namespace of this object
-	setElementNamespace(qualns->getURI());
+  // set the element namespace of this object
+  setElementNamespace(qualns->getURI());
 
-	// load package extensions bound with this object (if any) 
-	loadPlugins(qualns);
+  // load package extensions bound with this object (if any) 
+  loadPlugins(qualns);
 }
 
 
@@ -76,25 +76,25 @@ FunctionTerm::FunctionTerm (QualPkgNamespaces* qualns)
  * Copy constructor for FunctionTerm.
  */
 FunctionTerm::FunctionTerm (const FunctionTerm& orig)
-	: SBase(orig)
+  : SBase(orig)
 {
-	if (&orig == NULL)
-	{
-		throw SBMLConstructorException("Null argument to copy constructor");
-	}
-	else
-	{
-		mResultLevel  = orig.mResultLevel;
-		mIsSetResultLevel  = orig.mIsSetResultLevel;
-		if (orig.mMath != NULL)
-		{
-			mMath = orig.mMath->deepCopy();
-		}
-		else
-		{
-			mMath = NULL;
-		}
-	}
+  if (&orig == NULL)
+  {
+    throw SBMLConstructorException("Null argument to copy constructor");
+  }
+  else
+  {
+    mResultLevel  = orig.mResultLevel;
+    mIsSetResultLevel  = orig.mIsSetResultLevel;
+    if (orig.mMath != NULL)
+    {
+      mMath = orig.mMath->deepCopy();
+    }
+    else
+    {
+      mMath = NULL;
+    }
+  }
 }
 
 
@@ -104,25 +104,25 @@ FunctionTerm::FunctionTerm (const FunctionTerm& orig)
 FunctionTerm&
 FunctionTerm::operator=(const FunctionTerm& rhs)
 {
-	if (&rhs == NULL)
-	{
-		throw SBMLConstructorException("Null argument to assignment");
-	}
-	else if (&rhs != this)
-	{
-		SBase::operator=(rhs);
-		mResultLevel  = rhs.mResultLevel;
-		mIsSetResultLevel  = rhs.mIsSetResultLevel;
-		if (rhs.mMath != NULL)
-		{
-			mMath = rhs.mMath->deepCopy();
-		}
-		else
-		{
-			mMath = NULL;
-		}
-	}
-	return *this;
+  if (&rhs == NULL)
+  {
+    throw SBMLConstructorException("Null argument to assignment");
+  }
+  else if (&rhs != this)
+  {
+    SBase::operator=(rhs);
+    mResultLevel  = rhs.mResultLevel;
+    mIsSetResultLevel  = rhs.mIsSetResultLevel;
+    if (rhs.mMath != NULL)
+    {
+      mMath = rhs.mMath->deepCopy();
+    }
+    else
+    {
+      mMath = NULL;
+    }
+  }
+  return *this;
 }
 
 
@@ -132,7 +132,7 @@ FunctionTerm::operator=(const FunctionTerm& rhs)
 FunctionTerm*
 FunctionTerm::clone () const
 {
-	return new FunctionTerm(*this);
+  return new FunctionTerm(*this);
 }
 
 
@@ -141,7 +141,7 @@ FunctionTerm::clone () const
  */
 FunctionTerm::~FunctionTerm ()
 {
-	delete mMath;
+  delete mMath;
 }
 
 
@@ -151,7 +151,7 @@ FunctionTerm::~FunctionTerm ()
 const int
 FunctionTerm::getResultLevel() const
 {
-	return mResultLevel;
+  return mResultLevel;
 }
 
 
@@ -161,7 +161,7 @@ FunctionTerm::getResultLevel() const
 const ASTNode*
 FunctionTerm::getMath() const
 {
-	return mMath;
+  return mMath;
 }
 
 
@@ -171,7 +171,7 @@ FunctionTerm::getMath() const
 bool
 FunctionTerm::isSetResultLevel() const
 {
-	return mIsSetResultLevel;
+  return mIsSetResultLevel;
 }
 
 
@@ -181,7 +181,7 @@ FunctionTerm::isSetResultLevel() const
 bool
 FunctionTerm::isSetMath() const
 {
-	return (mMath != NULL);
+  return (mMath != NULL);
 }
 
 
@@ -191,9 +191,9 @@ FunctionTerm::isSetMath() const
 int
 FunctionTerm::setResultLevel(int resultLevel)
 {
-	mResultLevel = resultLevel;
-	mIsSetResultLevel = true;
-	return LIBSBML_OPERATION_SUCCESS;
+  mResultLevel = resultLevel;
+  mIsSetResultLevel = true;
+  return LIBSBML_OPERATION_SUCCESS;
 }
 
 
@@ -203,31 +203,31 @@ FunctionTerm::setResultLevel(int resultLevel)
 int
 FunctionTerm::setMath(ASTNode* math)
 {
-	if (mMath == math)
-	{
-		return LIBSBML_OPERATION_SUCCESS;
-	}
-	else if (math == NULL)
-	{
-		delete mMath;
-		mMath = NULL;
-		return LIBSBML_OPERATION_SUCCESS;
-	}
-	else if (!(math->isWellFormedASTNode()))
-	{
-		return LIBSBML_INVALID_OBJECT;
-	}
-	else
-	{
-		delete mMath;
-		mMath = (math != NULL) ?
-			math->deepCopy() : NULL;
-		if (mMath != NULL)
-		{
-			mMath->setParentSBMLObject(this);
-		}
-		return LIBSBML_OPERATION_SUCCESS;
-	}
+  if (mMath == math)
+  {
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else if (math == NULL)
+  {
+    delete mMath;
+    mMath = NULL;
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else if (!(math->isWellFormedASTNode()))
+  {
+    return LIBSBML_INVALID_OBJECT;
+  }
+  else
+  {
+    delete mMath;
+    mMath = (math != NULL) ?
+      math->deepCopy() : NULL;
+    if (mMath != NULL)
+    {
+      mMath->setParentSBMLObject(this);
+    }
+    return LIBSBML_OPERATION_SUCCESS;
+  }
 }
 
 
@@ -237,17 +237,17 @@ FunctionTerm::setMath(ASTNode* math)
 int
 FunctionTerm::unsetResultLevel()
 {
-	mResultLevel = SBML_INT_MAX;
-	mIsSetResultLevel = false;
+  mResultLevel = SBML_INT_MAX;
+  mIsSetResultLevel = false;
 
-	if (isSetResultLevel() == false)
-	{
-		return LIBSBML_OPERATION_SUCCESS;
-	}
-	else
-	{
-		return LIBSBML_OPERATION_FAILED;
-	}
+  if (isSetResultLevel() == false)
+  {
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else
+  {
+    return LIBSBML_OPERATION_FAILED;
+  }
 }
 
 
@@ -257,9 +257,9 @@ FunctionTerm::unsetResultLevel()
 int
 FunctionTerm::unsetMath()
 {
-	delete mMath;
-	mMath = NULL;
-	return LIBSBML_OPERATION_SUCCESS;
+  delete mMath;
+  mMath = NULL;
+  return LIBSBML_OPERATION_SUCCESS;
 }
 
 
@@ -269,8 +269,8 @@ FunctionTerm::unsetMath()
 const std::string&
 FunctionTerm::getElementName () const
 {
-	static const string name = "functionTerm";
-	return name;
+  static const string name = "functionTerm";
+  return name;
 }
 
 
@@ -280,7 +280,7 @@ FunctionTerm::getElementName () const
 int
 FunctionTerm::getTypeCode () const
 {
-	return SBML_QUAL_FUNCTION_TERM;
+  return SBML_QUAL_FUNCTION_TERM;
 }
 
 
@@ -290,12 +290,12 @@ FunctionTerm::getTypeCode () const
 bool
 FunctionTerm::hasRequiredAttributes () const
 {
-	bool allPresent = true;
+  bool allPresent = true;
 
-	if (isSetResultLevel() == false)
-		allPresent = false;
+  if (isSetResultLevel() == false)
+    allPresent = false;
 
-	return allPresent;
+  return allPresent;
 }
 
 
@@ -305,16 +305,16 @@ FunctionTerm::hasRequiredAttributes () const
 bool
 FunctionTerm::hasRequiredElements () const
 {
-	bool allPresent = true;
+  bool allPresent = true;
 
-	if (isSetMath() == false)
-		allPresent = false;
+  if (isSetMath() == false)
+    allPresent = false;
 
-	return allPresent;
+  return allPresent;
 }
 
 
-	/** @cond doxygenLibsbmlInternal */
+  /** @cond doxygenLibsbmlInternal */
 
 /*
  * write contained elements
@@ -322,21 +322,21 @@ FunctionTerm::hasRequiredElements () const
 void
 FunctionTerm::writeElements (XMLOutputStream& stream) const
 {
-	SBase::writeElements(stream);
+  SBase::writeElements(stream);
 
-	if (isSetMath() == true)
-	{
-		writeMathML(getMath(), stream, getSBMLNamespaces());
-	}
+  if (isSetMath() == true)
+  {
+    writeMathML(getMath(), stream, getSBMLNamespaces());
+  }
 
-	SBase::writeExtensionElements(stream);
+  SBase::writeExtensionElements(stream);
 }
 
 
-	/** @endcond doxygenLibsbmlInternal */
+  /** @endcond doxygenLibsbmlInternal */
 
 
-	/** @cond doxygenLibsbmlInternal */
+  /** @cond doxygenLibsbmlInternal */
 
 /*
  * Accepts the given SBMLVisitor.
@@ -344,14 +344,14 @@ FunctionTerm::writeElements (XMLOutputStream& stream) const
 bool
 FunctionTerm::accept (SBMLVisitor& v) const
 {
-	return v.visit(*this);
+  return v.visit(*this);
 }
 
 
-	/** @endcond doxygenLibsbmlInternal */
+  /** @endcond doxygenLibsbmlInternal */
 
 
-	/** @cond doxygenLibsbmlInternal */
+  /** @cond doxygenLibsbmlInternal */
 
 /*
  * Sets the parent SBMLDocument.
@@ -359,14 +359,14 @@ FunctionTerm::accept (SBMLVisitor& v) const
 void
 FunctionTerm::setSBMLDocument (SBMLDocument* d)
 {
-	SBase::setSBMLDocument(d);
+  SBase::setSBMLDocument(d);
 }
 
 
-	/** @endcond doxygenLibsbmlInternal */
+  /** @endcond doxygenLibsbmlInternal */
 
 
-	/** @cond doxygenLibsbmlInternal */
+  /** @cond doxygenLibsbmlInternal */
 
 /*
  * Enables/Disables the given package with this element.
@@ -375,14 +375,14 @@ void
 FunctionTerm::enablePackageInternal(const std::string& pkgURI,
              const std::string& pkgPrefix, bool flag)
 {
-	SBase::enablePackageInternal(pkgURI, pkgPrefix, flag);
+  SBase::enablePackageInternal(pkgURI, pkgPrefix, flag);
 }
 
 
-	/** @endcond doxygenLibsbmlInternal */
+  /** @endcond doxygenLibsbmlInternal */
 
 
-	/** @cond doxygenLibsbmlInternal */
+  /** @cond doxygenLibsbmlInternal */
 
 /*
  * Get the list of expected attributes for this element.
@@ -390,16 +390,16 @@ FunctionTerm::enablePackageInternal(const std::string& pkgURI,
 void
 FunctionTerm::addExpectedAttributes(ExpectedAttributes& attributes)
 {
-	SBase::addExpectedAttributes(attributes);
+  SBase::addExpectedAttributes(attributes);
 
-	attributes.add("resultLevel");
+  attributes.add("resultLevel");
 }
 
 
-	/** @endcond doxygenLibsbmlInternal */
+  /** @endcond doxygenLibsbmlInternal */
 
 
-	/** @cond doxygenLibsbmlInternal */
+  /** @cond doxygenLibsbmlInternal */
 
 /*
  * Read values from the given XMLAttributes set into their specific fields.
@@ -408,19 +408,19 @@ void
 FunctionTerm::readAttributes (const XMLAttributes& attributes,
                              const ExpectedAttributes& expectedAttributes)
 {
-	const unsigned int sbmlLevel   = getLevel  ();
-	const unsigned int sbmlVersion = getVersion();
+  const unsigned int sbmlLevel   = getLevel  ();
+  const unsigned int sbmlVersion = getVersion();
 
-	unsigned int numErrs;
+  unsigned int numErrs;
 
-	/* look to see whether an unknown attribute error was logged
-	 * during the read of the listOfFunctionTerms - which will have
-	 * happened immediately prior to this read
-	*/
+  /* look to see whether an unknown attribute error was logged
+   * during the read of the listOfFunctionTerms - which will have
+   * happened immediately prior to this read
+  */
   if (getErrorLog() != NULL && 
     static_cast<ListOfFunctionTerms*>(getParentSBMLObject())->size() < 2)
   {
-		numErrs = getErrorLog()->getNumErrors();
+    numErrs = getErrorLog()->getNumErrors();
     for (int n = numErrs-1; n >= 0; n--)      
     {
       if (getErrorLog()->getError(n)->getErrorId() == UnknownPackageAttribute)
@@ -442,73 +442,73 @@ FunctionTerm::readAttributes (const XMLAttributes& attributes,
     }
   }
 
-	SBase::readAttributes(attributes, expectedAttributes);
+  SBase::readAttributes(attributes, expectedAttributes);
 
-	// look to see whether an unknown attribute error was logged
-	if (getErrorLog() != NULL)
-	{
-		numErrs = getErrorLog()->getNumErrors();
-		for (int n = numErrs-1; n >= 0; n--)
-		{
-			if (getErrorLog()->getError(n)->getErrorId() == UnknownPackageAttribute)
-			{
-				const std::string details =
-				                  getErrorLog()->getError(n)->getMessage();
-				getErrorLog()->remove(UnknownPackageAttribute);
-				getErrorLog()->logPackageError("qual", QualFuncTermAllowedAttributes,
-				               getPackageVersion(), sbmlLevel, sbmlVersion, details);
-			}
-			else if (getErrorLog()->getError(n)->getErrorId() == UnknownCoreAttribute)
-			{
-				const std::string details =
-				                  getErrorLog()->getError(n)->getMessage();
-				getErrorLog()->remove(UnknownCoreAttribute);
-				getErrorLog()->logPackageError("qual", QualFuncTermAllowedCoreAttributes,
-				               getPackageVersion(), sbmlLevel, sbmlVersion, details);
-			}
-		}
-	}
+  // look to see whether an unknown attribute error was logged
+  if (getErrorLog() != NULL)
+  {
+    numErrs = getErrorLog()->getNumErrors();
+    for (int n = numErrs-1; n >= 0; n--)
+    {
+      if (getErrorLog()->getError(n)->getErrorId() == UnknownPackageAttribute)
+      {
+        const std::string details =
+                          getErrorLog()->getError(n)->getMessage();
+        getErrorLog()->remove(UnknownPackageAttribute);
+        getErrorLog()->logPackageError("qual", QualFuncTermAllowedAttributes,
+                       getPackageVersion(), sbmlLevel, sbmlVersion, details);
+      }
+      else if (getErrorLog()->getError(n)->getErrorId() == UnknownCoreAttribute)
+      {
+        const std::string details =
+                          getErrorLog()->getError(n)->getMessage();
+        getErrorLog()->remove(UnknownCoreAttribute);
+        getErrorLog()->logPackageError("qual", QualFuncTermAllowedCoreAttributes,
+                       getPackageVersion(), sbmlLevel, sbmlVersion, details);
+      }
+    }
+  }
 
-	bool assigned = false;
+  bool assigned = false;
 
-	//
-	// resultLevel int   ( use = "required" )
-	//
-	numErrs = getErrorLog()->getNumErrors();
-	mIsSetResultLevel = attributes.readInto("resultLevel", mResultLevel);
+  //
+  // resultLevel int   ( use = "required" )
+  //
+  numErrs = getErrorLog()->getNumErrors();
+  mIsSetResultLevel = attributes.readInto("resultLevel", mResultLevel);
 
-	if (mIsSetResultLevel == false)
-	{
-		if (getErrorLog() != NULL)
-		{
-			if (getErrorLog()->getNumErrors() == numErrs + 1 &&
-			        getErrorLog()->contains(XMLAttributeTypeMismatch))
-			{
-				getErrorLog()->remove(XMLAttributeTypeMismatch);
-				getErrorLog()->logPackageError("qual", QualFuncTermResultMustBeInteger,
-				             getPackageVersion(), sbmlLevel, sbmlVersion);
-			}
-			else
-			{
-				std::string message = "Qual attribute 'resultLevel' is missing.";
-				getErrorLog()->logPackageError("qual", QualFuncTermAllowedAttributes,
-				               getPackageVersion(), sbmlLevel, sbmlVersion, message);
-			}
-		}
-	}
+  if (mIsSetResultLevel == false)
+  {
+    if (getErrorLog() != NULL)
+    {
+      if (getErrorLog()->getNumErrors() == numErrs + 1 &&
+              getErrorLog()->contains(XMLAttributeTypeMismatch))
+      {
+        getErrorLog()->remove(XMLAttributeTypeMismatch);
+        getErrorLog()->logPackageError("qual", QualFuncTermResultMustBeInteger,
+                     getPackageVersion(), sbmlLevel, sbmlVersion);
+      }
+      else
+      {
+        std::string message = "Qual attribute 'resultLevel' is missing.";
+        getErrorLog()->logPackageError("qual", QualFuncTermAllowedAttributes,
+                       getPackageVersion(), sbmlLevel, sbmlVersion, message);
+      }
+    }
+  }
   else
   {
     if (mResultLevel < 0)
     {
-			getErrorLog()->logPackageError("qual", QualFuncTermResultMustBeNonNeg,
-			             getPackageVersion(), sbmlLevel, sbmlVersion);
+      getErrorLog()->logPackageError("qual", QualFuncTermResultMustBeNonNeg,
+                   getPackageVersion(), sbmlLevel, sbmlVersion);
     }
   }
 
 }
 
 
-	/** @endcond doxygenLibsbmlInternal */
+  /** @endcond doxygenLibsbmlInternal */
 
 
 /** @cond doxygenLibsbmlInternal */
@@ -528,8 +528,8 @@ FunctionTerm::readOtherXML (XMLInputStream& stream)
   {
     if (mMath != NULL)
     {
-			getErrorLog()->logPackageError("qual", QualFuncTermOnlyOneMath,
-			             getPackageVersion(), getLevel(), getVersion());
+      getErrorLog()->logPackageError("qual", QualFuncTermOnlyOneMath,
+                   getPackageVersion(), getLevel(), getVersion());
     }
     /* check for MathML namespace 
      * this may be explicitly declared here
@@ -563,37 +563,37 @@ FunctionTerm::readOtherXML (XMLInputStream& stream)
 /** @endcond */
 
 
-	/** @cond doxygenLibsbmlInternal */
+  /** @cond doxygenLibsbmlInternal */
 
 /*
  * Write values of XMLAttributes to the output stream.
  */
-	void
+  void
 FunctionTerm::writeAttributes (XMLOutputStream& stream) const
 {
-	SBase::writeAttributes(stream);
+  SBase::writeAttributes(stream);
 
-	if (isSetResultLevel() == true)
-		stream.writeAttribute("resultLevel", getPrefix(), mResultLevel);
+  if (isSetResultLevel() == true)
+    stream.writeAttribute("resultLevel", getPrefix(), mResultLevel);
 
-	SBase::writeExtensionAttributes(stream);
+  SBase::writeExtensionAttributes(stream);
 
 }
 
 
-	/** @endcond doxygenLibsbmlInternal */
+  /** @endcond doxygenLibsbmlInternal */
 
 
 /*
  * Constructor 
  */
 ListOfFunctionTerms::ListOfFunctionTerms(unsigned int level, 
-	                    unsigned int version, 
-	                    unsigned int pkgVersion)
+                      unsigned int version, 
+                      unsigned int pkgVersion)
  : ListOf(level, version)
  , mDefaultTerm (NULL)
 {
-	setSBMLNamespacesAndOwn(new QualPkgNamespaces(level, version, pkgVersion)); 
+  setSBMLNamespacesAndOwn(new QualPkgNamespaces(level, version, pkgVersion)); 
 
   connectToChild();
 }
@@ -606,7 +606,7 @@ ListOfFunctionTerms::ListOfFunctionTerms(QualPkgNamespaces* qualns)
   : ListOf(qualns)
   , mDefaultTerm (NULL)
 {
-	setElementNamespace(qualns->getURI());
+  setElementNamespace(qualns->getURI());
 
   connectToChild();
 }
@@ -618,7 +618,7 @@ ListOfFunctionTerms::ListOfFunctionTerms(QualPkgNamespaces* qualns)
 ListOfFunctionTerms* 
 ListOfFunctionTerms::clone () const
 {
-	return new ListOfFunctionTerms(*this);
+  return new ListOfFunctionTerms(*this);
 }
 
 
@@ -626,21 +626,21 @@ ListOfFunctionTerms::clone () const
  * Copy constructor for FunctionTerm.
  */
 ListOfFunctionTerms::ListOfFunctionTerms (const ListOfFunctionTerms& orig)
-	: ListOf(orig)
+  : ListOf(orig)
 {
-	if (&orig == NULL)
-	{
-		throw SBMLConstructorException("Null argument to copy constructor");
-	}
-	else
-	{
+  if (&orig == NULL)
+  {
+    throw SBMLConstructorException("Null argument to copy constructor");
+  }
+  else
+  {
     if (orig.mDefaultTerm != NULL)
     {
       mDefaultTerm = static_cast<DefaultTerm*>( orig.mDefaultTerm->clone() );
     }
 
     connectToChild();
-	}
+  }
 }
 
 
@@ -650,13 +650,13 @@ ListOfFunctionTerms::ListOfFunctionTerms (const ListOfFunctionTerms& orig)
 ListOfFunctionTerms&
 ListOfFunctionTerms::operator=(const ListOfFunctionTerms& rhs)
 {
-	if (&rhs == NULL)
-	{
-		throw SBMLConstructorException("Null argument to assignment");
-	}
-	else if (&rhs != this)
-	{
-		ListOf::operator=(rhs);
+  if (&rhs == NULL)
+  {
+    throw SBMLConstructorException("Null argument to assignment");
+  }
+  else if (&rhs != this)
+  {
+    ListOf::operator=(rhs);
     delete mDefaultTerm;
     if (rhs.mDefaultTerm != NULL)
     {
@@ -668,8 +668,8 @@ ListOfFunctionTerms::operator=(const ListOfFunctionTerms& rhs)
     }
 
     connectToChild();
-	}
-	return *this;
+  }
+  return *this;
 }
 /*
  * Get a FunctionTerm from the ListOfFunctionTerms by index.
@@ -677,7 +677,7 @@ ListOfFunctionTerms::operator=(const ListOfFunctionTerms& rhs)
 FunctionTerm*
 ListOfFunctionTerms::get(unsigned int n)
 {
-	return static_cast<FunctionTerm*>(ListOf::get(n));
+  return static_cast<FunctionTerm*>(ListOf::get(n));
 }
 
 
@@ -687,7 +687,7 @@ ListOfFunctionTerms::get(unsigned int n)
 const FunctionTerm*
 ListOfFunctionTerms::get(unsigned int n) const
 {
-	return static_cast<const FunctionTerm*>(ListOf::get(n));
+  return static_cast<const FunctionTerm*>(ListOf::get(n));
 }
 
 
@@ -697,8 +697,8 @@ ListOfFunctionTerms::get(unsigned int n) const
 FunctionTerm*
 ListOfFunctionTerms::get(const std::string& sid)
 {
-	return const_cast<FunctionTerm*>(
-	  static_cast<const ListOfFunctionTerms&>(*this).get(sid));
+  return const_cast<FunctionTerm*>(
+    static_cast<const ListOfFunctionTerms&>(*this).get(sid));
 }
 
 
@@ -708,10 +708,10 @@ ListOfFunctionTerms::get(const std::string& sid)
 const FunctionTerm*
 ListOfFunctionTerms::get(const std::string& sid) const
 {
-	vector<SBase*>::const_iterator result;
+  vector<SBase*>::const_iterator result;
 
-	result = find_if( mItems.begin(), mItems.end(), IdEq<FunctionTerm>(sid) );
-	return (result == mItems.end()) ? 0 : static_cast <FunctionTerm*> (*result);
+  result = find_if( mItems.begin(), mItems.end(), IdEq<FunctionTerm>(sid) );
+  return (result == mItems.end()) ? 0 : static_cast <FunctionTerm*> (*result);
 }
 
 
@@ -721,7 +721,7 @@ ListOfFunctionTerms::get(const std::string& sid) const
 FunctionTerm*
 ListOfFunctionTerms::remove(unsigned int n)
 {
-	return static_cast<FunctionTerm*>(ListOf::remove(n));
+  return static_cast<FunctionTerm*>(ListOf::remove(n));
 }
 
 
@@ -731,18 +731,18 @@ ListOfFunctionTerms::remove(unsigned int n)
 FunctionTerm*
 ListOfFunctionTerms::remove(const std::string& sid)
 {
-	SBase* item = NULL;
-	vector<SBase*>::iterator result;
+  SBase* item = NULL;
+  vector<SBase*>::iterator result;
 
-	result = find_if( mItems.begin(), mItems.end(), IdEq<FunctionTerm>(sid) );
+  result = find_if( mItems.begin(), mItems.end(), IdEq<FunctionTerm>(sid) );
 
-	if (result != mItems.end())
-	{
-		item = *result;
-		mItems.erase(result);
-	}
+  if (result != mItems.end())
+  {
+    item = *result;
+    mItems.erase(result);
+  }
 
-	return static_cast <FunctionTerm*> (item);
+  return static_cast <FunctionTerm*> (item);
 }
 
 
@@ -752,8 +752,8 @@ ListOfFunctionTerms::remove(const std::string& sid)
 const std::string&
 ListOfFunctionTerms::getElementName () const
 {
-	static const string name = "listOfFunctionTerms";
-	return name;
+  static const string name = "listOfFunctionTerms";
+  return name;
 }
 
 
@@ -763,7 +763,7 @@ ListOfFunctionTerms::getElementName () const
 int
 ListOfFunctionTerms::getTypeCode () const
 {
-	return SBML_LIST_OF;
+  return SBML_LIST_OF;
 }
 
 
@@ -773,7 +773,7 @@ ListOfFunctionTerms::getTypeCode () const
 int
 ListOfFunctionTerms::getItemTypeCode () const
 {
-	return SBML_QUAL_FUNCTION_TERM;
+  return SBML_QUAL_FUNCTION_TERM;
 }
 
 
@@ -831,7 +831,7 @@ ListOfFunctionTerms::isSetDefaultTerm() const
 
 
 
-	/** @cond doxygenLibsbmlInternal */
+  /** @cond doxygenLibsbmlInternal */
 
 /*
  * Creates a new FunctionTerm in this ListOfFunctionTerms
@@ -839,35 +839,35 @@ ListOfFunctionTerms::isSetDefaultTerm() const
 SBase*
 ListOfFunctionTerms::createObject(XMLInputStream& stream)
 {
-	const std::string& name   = stream.peek().getName();
-	SBase* object = NULL;
+  const std::string& name   = stream.peek().getName();
+  SBase* object = NULL;
     
   QUAL_CREATE_NS(qualns, getSBMLNamespaces());
 
-	if (name == "functionTerm")
-	{
-		object = new FunctionTerm(qualns);
-		appendAndOwn(object);
-	}
-	else if (name == "defaultTerm")
-	{
-		object = new DefaultTerm(qualns);
-		setDefaultTerm(static_cast<DefaultTerm*>(object));
+  if (name == "functionTerm")
+  {
+    object = new FunctionTerm(qualns);
+    appendAndOwn(object);
+  }
+  else if (name == "defaultTerm")
+  {
+    object = new DefaultTerm(qualns);
+    setDefaultTerm(static_cast<DefaultTerm*>(object));
 
     /* teh setFunction clones the object and so need to reassign the pointer
      * or subsequent read of the term is to the wrong object
      */
     object = getDefaultTerm();
-	}
+  }
 
-	return object;
+  return object;
 }
 
 
-	/** @endcond doxygenLibsbmlInternal */
+  /** @endcond doxygenLibsbmlInternal */
 
 
-	/** @cond doxygenLibsbmlInternal */
+  /** @cond doxygenLibsbmlInternal */
 
 /*
  * Write the namespace for the Qual package.
@@ -875,26 +875,26 @@ ListOfFunctionTerms::createObject(XMLInputStream& stream)
 void
 ListOfFunctionTerms::writeXMLNS(XMLOutputStream& stream) const
 {
-	XMLNamespaces xmlns;
+  XMLNamespaces xmlns;
 
-	std::string prefix = getPrefix();
+  std::string prefix = getPrefix();
 
-	if (prefix.empty())
-	{
-		if (getNamespaces()->hasURI(QualExtension::getXmlnsL3V1V1()))
-		{
-			xmlns.add(QualExtension::getXmlnsL3V1V1(),prefix);
-		}
-	}
+  if (prefix.empty())
+  {
+    if (getNamespaces()->hasURI(QualExtension::getXmlnsL3V1V1()))
+    {
+      xmlns.add(QualExtension::getXmlnsL3V1V1(),prefix);
+    }
+  }
 
-	stream << xmlns;
+  stream << xmlns;
 }
 
 
-	/** @endcond doxygenLibsbmlInternal */
+  /** @endcond doxygenLibsbmlInternal */
 
 
-	/** @cond doxygenLibsbmlInternal */
+  /** @cond doxygenLibsbmlInternal */
 
 /*
  * Write the namespace for the Qual package.
@@ -915,8 +915,8 @@ ListOfFunctionTerms::writeElements(XMLOutputStream& stream) const
 }
 
 
-	/** @endcond doxygenLibsbmlInternal */
-	/** @cond doxygenLibsbmlInternal */
+  /** @endcond doxygenLibsbmlInternal */
+  /** @cond doxygenLibsbmlInternal */
 
 /*
  * 
@@ -929,10 +929,10 @@ ListOfFunctionTerms::connectToChild()
     mDefaultTerm->connectToParent(this);
   }
 }
-	/** @endcond doxygenLibsbmlInternal */
+  /** @endcond doxygenLibsbmlInternal */
 
 
-	/** @cond doxygenLibsbmlInternal */
+  /** @cond doxygenLibsbmlInternal */
 
 /*
  * 
@@ -946,10 +946,10 @@ ListOfFunctionTerms::setSBMLDocument(SBMLDocument* d)
     mDefaultTerm->setSBMLDocument(d);
   }
 }
-	/** @endcond doxygenLibsbmlInternal */
+  /** @endcond doxygenLibsbmlInternal */
 
 
-	/** @cond doxygenLibsbmlInternal */
+  /** @cond doxygenLibsbmlInternal */
 
 /*
  * 
@@ -973,7 +973,7 @@ ListOfFunctionTerms::accept(SBMLVisitor& v) const
 
   return result;
 }
-	/** @endcond doxygenLibsbmlInternal */
+  /** @endcond doxygenLibsbmlInternal */
 
 
 /**
@@ -984,7 +984,7 @@ FunctionTerm_t *
 FunctionTerm_create(unsigned int level, unsigned int version,
                     unsigned int pkgVersion)
 {
-	return new FunctionTerm(level, version, pkgVersion);
+  return new FunctionTerm(level, version, pkgVersion);
 }
 
 
@@ -995,8 +995,8 @@ LIBSBML_EXTERN
 void
 FunctionTerm_free(FunctionTerm_t * ft)
 {
-	if (ft != NULL)
-		delete ft;
+  if (ft != NULL)
+    delete ft;
 }
 
 
@@ -1007,14 +1007,14 @@ LIBSBML_EXTERN
 FunctionTerm_t *
 FunctionTerm_clone(FunctionTerm_t * ft)
 {
-	if (ft != NULL)
-	{
-		return static_cast<FunctionTerm_t*>(ft->clone());
-	}
-	else
-	{
-		return NULL;
-	}
+  if (ft != NULL)
+  {
+    return static_cast<FunctionTerm_t*>(ft->clone());
+  }
+  else
+  {
+    return NULL;
+  }
 }
 
 
@@ -1025,7 +1025,7 @@ LIBSBML_EXTERN
 int
 FunctionTerm_getResultLevel(FunctionTerm_t * ft)
 {
-	return (ft != NULL) ? ft->getResultLevel() : SBML_INT_MAX;
+  return (ft != NULL) ? ft->getResultLevel() : SBML_INT_MAX;
 }
 
 
@@ -1036,7 +1036,7 @@ LIBSBML_EXTERN
 int
 FunctionTerm_isSetResultLevel(FunctionTerm_t * ft)
 {
-	return (ft != NULL) ? static_cast<int>(ft->isSetResultLevel()) : 0;
+  return (ft != NULL) ? static_cast<int>(ft->isSetResultLevel()) : 0;
 }
 
 
@@ -1047,7 +1047,7 @@ LIBSBML_EXTERN
 int
 FunctionTerm_setResultLevel(FunctionTerm_t * ft, int resultLevel)
 {
-	return (ft != NULL) ? ft->setResultLevel(resultLevel) : LIBSBML_INVALID_OBJECT;
+  return (ft != NULL) ? ft->setResultLevel(resultLevel) : LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -1058,7 +1058,7 @@ LIBSBML_EXTERN
 int
 FunctionTerm_unsetResultLevel(FunctionTerm_t * ft)
 {
-	return (ft != NULL) ? ft->unsetResultLevel() : LIBSBML_INVALID_OBJECT;
+  return (ft != NULL) ? ft->unsetResultLevel() : LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -1069,7 +1069,7 @@ LIBSBML_EXTERN
 int
 FunctionTerm_hasRequiredAttributes(FunctionTerm_t * ft)
 {
-	return (ft != NULL) ? static_cast<int>(ft->hasRequiredAttributes()) : 0;
+  return (ft != NULL) ? static_cast<int>(ft->hasRequiredAttributes()) : 0;
 }
 
 
@@ -1080,10 +1080,10 @@ LIBSBML_EXTERN
 FunctionTerm_t *
 ListOfFunctionTerms_getById(ListOf_t * lo, const char * sid)
 {
-	if (lo == NULL)
-		return NULL;
+  if (lo == NULL)
+    return NULL;
 
-	return (sid != NULL) ? static_cast <ListOfFunctionTerms *>(lo)->get(sid) : NULL;
+  return (sid != NULL) ? static_cast <ListOfFunctionTerms *>(lo)->get(sid) : NULL;
 }
 
 
@@ -1094,10 +1094,10 @@ LIBSBML_EXTERN
 FunctionTerm_t *
 ListOfFunctionTerms_removeById(ListOf_t * lo, const char * sid)
 {
-	if (lo == NULL)
-		return NULL;
+  if (lo == NULL)
+    return NULL;
 
-	return (sid != NULL) ? static_cast <ListOfFunctionTerms *>(lo)->remove(sid) : NULL;
+  return (sid != NULL) ? static_cast <ListOfFunctionTerms *>(lo)->remove(sid) : NULL;
 }
 
 

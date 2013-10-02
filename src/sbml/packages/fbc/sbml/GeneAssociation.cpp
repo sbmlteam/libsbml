@@ -430,8 +430,8 @@ GeneAssociation::createObject (XMLInputStream& stream)
     if (mAssociation != NULL)
     {
       logError(NotSchemaConformant, getLevel(), getVersion(),
-	       "Only one <association> element is permitted "
-	       "in a single <geneAssociation> element.");
+         "Only one <association> element is permitted "
+         "in a single <geneAssociation> element.");
     }    
 
       mAssociation = new Association(getLevel(), getVersion());
@@ -677,14 +677,14 @@ ListOfGeneAssociations::createObject (XMLInputStream& stream)
   if (name == "geneAssociation")
   {
     try
-	{
+    {
       FBC_CREATE_NS(fbcns, getSBMLNamespaces());
       object = new GeneAssociation(fbcns);
       appendAndOwn(object);
       //mItems.push_back(object);
-	} 
-	catch(...)
-	{
+    } 
+    catch(...)
+    {
       /* 
       * NULL will be returned if the mSBMLNS is invalid (basically this
       * should not happen) or some exception is thrown (e.g. std::bad_alloc)
@@ -692,7 +692,7 @@ ListOfGeneAssociations::createObject (XMLInputStream& stream)
       * (Maybe this should be changed so that caller can detect what kind 
       *  of error happened in this function.)
       */
-	}
+    }
   }
 
   return object;

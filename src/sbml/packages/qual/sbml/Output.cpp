@@ -41,16 +41,16 @@ LIBSBML_CPP_NAMESPACE_BEGIN
  * Creates a new Output with the given level, version, and package version.
  */
 Output::Output (unsigned int level, unsigned int version, unsigned int pkgVersion)
-	: SBase(level, version)
-	 ,mId ("")
-	 ,mQualitativeSpecies ("")
-	 ,mTransitionEffect (OUTPUT_TRANSITION_EFFECT_UNKNOWN)
-	 ,mName ("")
-	 ,mOutputLevel (SBML_INT_MAX)
-	 ,mIsSetOutputLevel (false)
+  : SBase(level, version)
+   ,mId ("")
+   ,mQualitativeSpecies ("")
+   ,mTransitionEffect (OUTPUT_TRANSITION_EFFECT_UNKNOWN)
+   ,mName ("")
+   ,mOutputLevel (SBML_INT_MAX)
+   ,mIsSetOutputLevel (false)
 {
-	// set an SBMLNamespaces derived object of this package
-	setSBMLNamespacesAndOwn(new QualPkgNamespaces(level, version, pkgVersion));
+  // set an SBMLNamespaces derived object of this package
+  setSBMLNamespacesAndOwn(new QualPkgNamespaces(level, version, pkgVersion));
 }
 
 
@@ -58,19 +58,19 @@ Output::Output (unsigned int level, unsigned int version, unsigned int pkgVersio
  * Creates a new Output with the given QualPkgNamespaces object.
  */
 Output::Output (QualPkgNamespaces* qualns)
-	: SBase(qualns)
-	 ,mId ("")
-	 ,mQualitativeSpecies ("")
-	 ,mTransitionEffect (OUTPUT_TRANSITION_EFFECT_UNKNOWN)
-	 ,mName ("")
-	 ,mOutputLevel (SBML_INT_MAX)
-	 ,mIsSetOutputLevel (false)
+  : SBase(qualns)
+   ,mId ("")
+   ,mQualitativeSpecies ("")
+   ,mTransitionEffect (OUTPUT_TRANSITION_EFFECT_UNKNOWN)
+   ,mName ("")
+   ,mOutputLevel (SBML_INT_MAX)
+   ,mIsSetOutputLevel (false)
 {
-	// set the element namespace of this object
-	setElementNamespace(qualns->getURI());
+  // set the element namespace of this object
+  setElementNamespace(qualns->getURI());
 
-	// load package extensions bound with this object (if any) 
-	loadPlugins(qualns);
+  // load package extensions bound with this object (if any) 
+  loadPlugins(qualns);
 }
 
 
@@ -78,21 +78,21 @@ Output::Output (QualPkgNamespaces* qualns)
  * Copy constructor for Output.
  */
 Output::Output (const Output& orig)
-	: SBase(orig)
+  : SBase(orig)
 {
-	if (&orig == NULL)
-	{
-		throw SBMLConstructorException("Null argument to copy constructor");
-	}
-	else
-	{
-		mId  = orig.mId;
-		mQualitativeSpecies  = orig.mQualitativeSpecies;
-		mTransitionEffect  = orig.mTransitionEffect;
-		mName  = orig.mName;
-		mOutputLevel  = orig.mOutputLevel;
-		mIsSetOutputLevel  = orig.mIsSetOutputLevel;
-	}
+  if (&orig == NULL)
+  {
+    throw SBMLConstructorException("Null argument to copy constructor");
+  }
+  else
+  {
+    mId  = orig.mId;
+    mQualitativeSpecies  = orig.mQualitativeSpecies;
+    mTransitionEffect  = orig.mTransitionEffect;
+    mName  = orig.mName;
+    mOutputLevel  = orig.mOutputLevel;
+    mIsSetOutputLevel  = orig.mIsSetOutputLevel;
+  }
 }
 
 
@@ -102,21 +102,21 @@ Output::Output (const Output& orig)
 Output&
 Output::operator=(const Output& rhs)
 {
-	if (&rhs == NULL)
-	{
-		throw SBMLConstructorException("Null argument to assignment");
-	}
-	else if (&rhs != this)
-	{
-		SBase::operator=(rhs);
-		mId  = rhs.mId;
-		mQualitativeSpecies  = rhs.mQualitativeSpecies;
-		mTransitionEffect  = rhs.mTransitionEffect;
-		mName  = rhs.mName;
-		mOutputLevel  = rhs.mOutputLevel;
-		mIsSetOutputLevel  = rhs.mIsSetOutputLevel;
-	}
-	return *this;
+  if (&rhs == NULL)
+  {
+    throw SBMLConstructorException("Null argument to assignment");
+  }
+  else if (&rhs != this)
+  {
+    SBase::operator=(rhs);
+    mId  = rhs.mId;
+    mQualitativeSpecies  = rhs.mQualitativeSpecies;
+    mTransitionEffect  = rhs.mTransitionEffect;
+    mName  = rhs.mName;
+    mOutputLevel  = rhs.mOutputLevel;
+    mIsSetOutputLevel  = rhs.mIsSetOutputLevel;
+  }
+  return *this;
 }
 
 
@@ -126,7 +126,7 @@ Output::operator=(const Output& rhs)
 Output*
 Output::clone () const
 {
-	return new Output(*this);
+  return new Output(*this);
 }
 
 
@@ -144,7 +144,7 @@ Output::~Output ()
 const std::string&
 Output::getId() const
 {
-	return mId;
+  return mId;
 }
 
 
@@ -154,7 +154,7 @@ Output::getId() const
 const std::string&
 Output::getQualitativeSpecies() const
 {
-	return mQualitativeSpecies;
+  return mQualitativeSpecies;
 }
 
 
@@ -164,7 +164,7 @@ Output::getQualitativeSpecies() const
 const OutputTransitionEffect_t
 Output::getTransitionEffect() const
 {
-	return mTransitionEffect;
+  return mTransitionEffect;
 }
 
 
@@ -174,7 +174,7 @@ Output::getTransitionEffect() const
 const std::string&
 Output::getName() const
 {
-	return mName;
+  return mName;
 }
 
 
@@ -184,7 +184,7 @@ Output::getName() const
 const int
 Output::getOutputLevel() const
 {
-	return mOutputLevel;
+  return mOutputLevel;
 }
 
 
@@ -194,7 +194,7 @@ Output::getOutputLevel() const
 bool
 Output::isSetId() const
 {
-	return (mId.empty() == false);
+  return (mId.empty() == false);
 }
 
 
@@ -204,7 +204,7 @@ Output::isSetId() const
 bool
 Output::isSetQualitativeSpecies() const
 {
-	return (mQualitativeSpecies.empty() == false);
+  return (mQualitativeSpecies.empty() == false);
 }
 
 
@@ -214,7 +214,7 @@ Output::isSetQualitativeSpecies() const
 bool
 Output::isSetTransitionEffect() const
 {
-	return (mTransitionEffect != OUTPUT_TRANSITION_EFFECT_UNKNOWN);
+  return (mTransitionEffect != OUTPUT_TRANSITION_EFFECT_UNKNOWN);
 }
 
 
@@ -224,7 +224,7 @@ Output::isSetTransitionEffect() const
 bool
 Output::isSetName() const
 {
-	return (mName.empty() == false);
+  return (mName.empty() == false);
 }
 
 
@@ -234,7 +234,7 @@ Output::isSetName() const
 bool
 Output::isSetOutputLevel() const
 {
-	return mIsSetOutputLevel;
+  return mIsSetOutputLevel;
 }
 
 
@@ -244,7 +244,7 @@ Output::isSetOutputLevel() const
 int
 Output::setId(const std::string& id)
 {
-	return SyntaxChecker::checkAndSetSId(id, mId);
+  return SyntaxChecker::checkAndSetSId(id, mId);
 }
 
 
@@ -254,19 +254,19 @@ Output::setId(const std::string& id)
 int
 Output::setQualitativeSpecies(const std::string& qualitativeSpecies)
 {
-	if (&(qualitativeSpecies) == NULL)
-	{
-		return LIBSBML_INVALID_ATTRIBUTE_VALUE;
-	}
-	else if (!(SyntaxChecker::isValidInternalSId(qualitativeSpecies)))
-	{
-		return LIBSBML_INVALID_ATTRIBUTE_VALUE;
-	}
-	else
-	{
-		mQualitativeSpecies = qualitativeSpecies;
-		return LIBSBML_OPERATION_SUCCESS;
-	}
+  if (&(qualitativeSpecies) == NULL)
+  {
+    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+  }
+  else if (!(SyntaxChecker::isValidInternalSId(qualitativeSpecies)))
+  {
+    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+  }
+  else
+  {
+    mQualitativeSpecies = qualitativeSpecies;
+    return LIBSBML_OPERATION_SUCCESS;
+  }
 }
 
 
@@ -276,16 +276,16 @@ Output::setQualitativeSpecies(const std::string& qualitativeSpecies)
 int
 Output::setTransitionEffect(const OutputTransitionEffect_t transitionEffect)
 {
-	if (OutputTransitionEffect_isValidOutputTransitionEffect(transitionEffect) == 0)
-	{
+  if (OutputTransitionEffect_isValidOutputTransitionEffect(transitionEffect) == 0)
+  {
     mTransitionEffect = OUTPUT_TRANSITION_EFFECT_UNKNOWN;
-		return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
   }
-	else
-	{
-		mTransitionEffect = transitionEffect;
-		return LIBSBML_OPERATION_SUCCESS;
-	}
+  else
+  {
+    mTransitionEffect = transitionEffect;
+    return LIBSBML_OPERATION_SUCCESS;
+  }
 }
 
 
@@ -295,15 +295,15 @@ Output::setTransitionEffect(const OutputTransitionEffect_t transitionEffect)
 int
 Output::setName(const std::string& name)
 {
-	if (&(name) == NULL)
-	{
-		return LIBSBML_INVALID_ATTRIBUTE_VALUE;
-	}
-	else
-	{
-		mName = name;
-		return LIBSBML_OPERATION_SUCCESS;
-	}
+  if (&(name) == NULL)
+  {
+    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+  }
+  else
+  {
+    mName = name;
+    return LIBSBML_OPERATION_SUCCESS;
+  }
 }
 
 
@@ -313,9 +313,9 @@ Output::setName(const std::string& name)
 int
 Output::setOutputLevel(int outputLevel)
 {
-	mOutputLevel = outputLevel;
-	mIsSetOutputLevel = true;
-	return LIBSBML_OPERATION_SUCCESS;
+  mOutputLevel = outputLevel;
+  mIsSetOutputLevel = true;
+  return LIBSBML_OPERATION_SUCCESS;
 }
 
 
@@ -325,16 +325,16 @@ Output::setOutputLevel(int outputLevel)
 int
 Output::unsetId()
 {
-	mId.erase();
+  mId.erase();
 
-	if (mId.empty() == true)
-	{
-		return LIBSBML_OPERATION_SUCCESS;
-	}
-	else
-	{
-		return LIBSBML_OPERATION_FAILED;
-	}
+  if (mId.empty() == true)
+  {
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else
+  {
+    return LIBSBML_OPERATION_FAILED;
+  }
 }
 
 
@@ -344,16 +344,16 @@ Output::unsetId()
 int
 Output::unsetQualitativeSpecies()
 {
-	mQualitativeSpecies.erase();
+  mQualitativeSpecies.erase();
 
-	if (mQualitativeSpecies.empty() == true)
-	{
-		return LIBSBML_OPERATION_SUCCESS;
-	}
-	else
-	{
-		return LIBSBML_OPERATION_FAILED;
-	}
+  if (mQualitativeSpecies.empty() == true)
+  {
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else
+  {
+    return LIBSBML_OPERATION_FAILED;
+  }
 }
 
 
@@ -363,7 +363,7 @@ Output::unsetQualitativeSpecies()
 int
 Output::unsetTransitionEffect()
 {
-	mTransitionEffect = OUTPUT_TRANSITION_EFFECT_UNKNOWN;
+  mTransitionEffect = OUTPUT_TRANSITION_EFFECT_UNKNOWN;
   return LIBSBML_OPERATION_SUCCESS;
 }
 
@@ -374,16 +374,16 @@ Output::unsetTransitionEffect()
 int
 Output::unsetName()
 {
-	mName.erase();
+  mName.erase();
 
-	if (mName.empty() == true)
-	{
-		return LIBSBML_OPERATION_SUCCESS;
-	}
-	else
-	{
-		return LIBSBML_OPERATION_FAILED;
-	}
+  if (mName.empty() == true)
+  {
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else
+  {
+    return LIBSBML_OPERATION_FAILED;
+  }
 }
 
 
@@ -393,17 +393,17 @@ Output::unsetName()
 int
 Output::unsetOutputLevel()
 {
-	mOutputLevel = SBML_INT_MAX;
-	mIsSetOutputLevel = false;
+  mOutputLevel = SBML_INT_MAX;
+  mIsSetOutputLevel = false;
 
-	if (isSetOutputLevel() == false)
-	{
-		return LIBSBML_OPERATION_SUCCESS;
-	}
-	else
-	{
-		return LIBSBML_OPERATION_FAILED;
-	}
+  if (isSetOutputLevel() == false)
+  {
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else
+  {
+    return LIBSBML_OPERATION_FAILED;
+  }
 }
 
 
@@ -413,8 +413,8 @@ Output::unsetOutputLevel()
 const std::string&
 Output::getElementName () const
 {
-	static const string name = "output";
-	return name;
+  static const string name = "output";
+  return name;
 }
 
 
@@ -424,7 +424,7 @@ Output::getElementName () const
 int
 Output::getTypeCode () const
 {
-	return SBML_QUAL_OUTPUT;
+  return SBML_QUAL_OUTPUT;
 }
 
 
@@ -434,19 +434,19 @@ Output::getTypeCode () const
 bool
 Output::hasRequiredAttributes () const
 {
-	bool allPresent = true;
+  bool allPresent = true;
 
-	if (isSetQualitativeSpecies() == false)
-		allPresent = false;
+  if (isSetQualitativeSpecies() == false)
+    allPresent = false;
 
-	if (isSetTransitionEffect() == false)
-		allPresent = false;
+  if (isSetTransitionEffect() == false)
+    allPresent = false;
 
-	return allPresent;
+  return allPresent;
 }
 
 
-	/** @cond doxygenLibsbmlInternal */
+  /** @cond doxygenLibsbmlInternal */
 
 /*
  * write contained elements
@@ -454,16 +454,16 @@ Output::hasRequiredAttributes () const
 void
 Output::writeElements (XMLOutputStream& stream) const
 {
-	SBase::writeElements(stream);
+  SBase::writeElements(stream);
 
-	SBase::writeExtensionElements(stream);
+  SBase::writeExtensionElements(stream);
 }
 
 
-	/** @endcond doxygenLibsbmlInternal */
+  /** @endcond doxygenLibsbmlInternal */
 
 
-	/** @cond doxygenLibsbmlInternal */
+  /** @cond doxygenLibsbmlInternal */
 
 /*
  * Accepts the given SBMLVisitor.
@@ -471,14 +471,14 @@ Output::writeElements (XMLOutputStream& stream) const
 bool
 Output::accept (SBMLVisitor& v) const
 {
-	return v.visit(*this);
+  return v.visit(*this);
 }
 
 
-	/** @endcond doxygenLibsbmlInternal */
+  /** @endcond doxygenLibsbmlInternal */
 
 
-	/** @cond doxygenLibsbmlInternal */
+  /** @cond doxygenLibsbmlInternal */
 
 /*
  * Sets the parent SBMLDocument.
@@ -486,14 +486,14 @@ Output::accept (SBMLVisitor& v) const
 void
 Output::setSBMLDocument (SBMLDocument* d)
 {
-	SBase::setSBMLDocument(d);
+  SBase::setSBMLDocument(d);
 }
 
 
-	/** @endcond doxygenLibsbmlInternal */
+  /** @endcond doxygenLibsbmlInternal */
 
 
-	/** @cond doxygenLibsbmlInternal */
+  /** @cond doxygenLibsbmlInternal */
 
 /*
  * Enables/Disables the given package with this element.
@@ -502,14 +502,14 @@ void
 Output::enablePackageInternal(const std::string& pkgURI,
              const std::string& pkgPrefix, bool flag)
 {
-	SBase::enablePackageInternal(pkgURI, pkgPrefix, flag);
+  SBase::enablePackageInternal(pkgURI, pkgPrefix, flag);
 }
 
 
-	/** @endcond doxygenLibsbmlInternal */
+  /** @endcond doxygenLibsbmlInternal */
 
 
-	/** @cond doxygenLibsbmlInternal */
+  /** @cond doxygenLibsbmlInternal */
 
 /*
  * Get the list of expected attributes for this element.
@@ -517,20 +517,20 @@ Output::enablePackageInternal(const std::string& pkgURI,
 void
 Output::addExpectedAttributes(ExpectedAttributes& attributes)
 {
-	SBase::addExpectedAttributes(attributes);
+  SBase::addExpectedAttributes(attributes);
 
-	attributes.add("id");
-	attributes.add("qualitativeSpecies");
-	attributes.add("transitionEffect");
-	attributes.add("name");
-	attributes.add("outputLevel");
+  attributes.add("id");
+  attributes.add("qualitativeSpecies");
+  attributes.add("transitionEffect");
+  attributes.add("name");
+  attributes.add("outputLevel");
 }
 
 
-	/** @endcond doxygenLibsbmlInternal */
+  /** @endcond doxygenLibsbmlInternal */
 
 
-	/** @cond doxygenLibsbmlInternal */
+  /** @cond doxygenLibsbmlInternal */
 
 /*
  * Read values from the given XMLAttributes set into their specific fields.
@@ -539,20 +539,20 @@ void
 Output::readAttributes (const XMLAttributes& attributes,
                              const ExpectedAttributes& expectedAttributes)
 {
-	const unsigned int sbmlLevel   = getLevel  ();
-	const unsigned int sbmlVersion = getVersion();
+  const unsigned int sbmlLevel   = getLevel  ();
+  const unsigned int sbmlVersion = getVersion();
 
-	unsigned int numErrs;
+  unsigned int numErrs;
 
-	/* look to see whether an unknown attribute error was logged
-	 * during the read of the listOfOutputs - which will have
-	 * happened immediately prior to this read
-	*/
+  /* look to see whether an unknown attribute error was logged
+   * during the read of the listOfOutputs - which will have
+   * happened immediately prior to this read
+  */
 
   if (getErrorLog() != NULL && 
     static_cast<ListOfOutputs*>(getParentSBMLObject())->size() < 2)
   {
-		numErrs = getErrorLog()->getNumErrors();
+    numErrs = getErrorLog()->getNumErrors();
     for (int n = numErrs-1; n >= 0; n--)      
     {
       if (getErrorLog()->getError(n)->getErrorId() == UnknownPackageAttribute)
@@ -574,202 +574,202 @@ Output::readAttributes (const XMLAttributes& attributes,
     }
   }
 
-	SBase::readAttributes(attributes, expectedAttributes);
+  SBase::readAttributes(attributes, expectedAttributes);
 
-	// look to see whether an unknown attribute error was logged
-	if (getErrorLog() != NULL)
-	{
-		numErrs = getErrorLog()->getNumErrors();
-		for (int n = numErrs-1; n >= 0; n--)
-		{
-			if (getErrorLog()->getError(n)->getErrorId() == UnknownPackageAttribute)
-			{
-				const std::string details =
-				                  getErrorLog()->getError(n)->getMessage();
-				getErrorLog()->remove(UnknownPackageAttribute);
-				getErrorLog()->logPackageError("qual", QualOutputAllowedAttributes,
-				               getPackageVersion(), sbmlLevel, sbmlVersion, details);
-			}
-			else if (getErrorLog()->getError(n)->getErrorId() == UnknownCoreAttribute)
-			{
-				const std::string details =
-				                  getErrorLog()->getError(n)->getMessage();
-				getErrorLog()->remove(UnknownCoreAttribute);
-				getErrorLog()->logPackageError("qual", QualOutputAllowedCoreAttributes,
-				               getPackageVersion(), sbmlLevel, sbmlVersion, details);
-			}
-		}
-	}
+  // look to see whether an unknown attribute error was logged
+  if (getErrorLog() != NULL)
+  {
+    numErrs = getErrorLog()->getNumErrors();
+    for (int n = numErrs-1; n >= 0; n--)
+    {
+      if (getErrorLog()->getError(n)->getErrorId() == UnknownPackageAttribute)
+      {
+        const std::string details =
+                          getErrorLog()->getError(n)->getMessage();
+        getErrorLog()->remove(UnknownPackageAttribute);
+        getErrorLog()->logPackageError("qual", QualOutputAllowedAttributes,
+                       getPackageVersion(), sbmlLevel, sbmlVersion, details);
+      }
+      else if (getErrorLog()->getError(n)->getErrorId() == UnknownCoreAttribute)
+      {
+        const std::string details =
+                          getErrorLog()->getError(n)->getMessage();
+        getErrorLog()->remove(UnknownCoreAttribute);
+        getErrorLog()->logPackageError("qual", QualOutputAllowedCoreAttributes,
+                       getPackageVersion(), sbmlLevel, sbmlVersion, details);
+      }
+    }
+  }
 
-	bool assigned = false;
+  bool assigned = false;
 
-	//
-	// id SId  ( use = "optional" )
-	//
-	assigned = attributes.readInto("id", mId);
+  //
+  // id SId  ( use = "optional" )
+  //
+  assigned = attributes.readInto("id", mId);
 
- 	if (assigned == true)
-	{
-		// check string is not empty and correct syntax
+   if (assigned == true)
+  {
+    // check string is not empty and correct syntax
 
-		if (mId.empty() == true)
-		{
-			logEmptyString(mId, getLevel(), getVersion(), "<Output>");
-		}
-		else if (SyntaxChecker::isValidSBMLSId(mId) == false)
-		{
-			logError(InvalidIdSyntax);
-		}
-	}
+    if (mId.empty() == true)
+    {
+      logEmptyString(mId, getLevel(), getVersion(), "<Output>");
+    }
+    else if (SyntaxChecker::isValidSBMLSId(mId) == false)
+    {
+      logError(InvalidIdSyntax);
+    }
+  }
 
-	//
-	// qualitativeSpecies SIdRef   ( use = "required" )
-	//
-	assigned = attributes.readInto("qualitativeSpecies", mQualitativeSpecies);
+  //
+  // qualitativeSpecies SIdRef   ( use = "required" )
+  //
+  assigned = attributes.readInto("qualitativeSpecies", mQualitativeSpecies);
 
-	if (assigned == true)
-	{
-		// check string is not empty and correct syntax
+  if (assigned == true)
+  {
+    // check string is not empty and correct syntax
 
-		if (mQualitativeSpecies.empty() == true)
-		{
-			logEmptyString(mQualitativeSpecies, getLevel(), getVersion(), "<Output>");
-		}
-		else if (SyntaxChecker::isValidSBMLSId(mQualitativeSpecies) == false)
-		{
-			logError(InvalidIdSyntax);
-		}
-	}
-	else
-	{
-		std::string message = "Qual attribute 'qualitativeSpecies' is missing.";
-		getErrorLog()->logPackageError("qual", QualOutputAllowedAttributes,
-		               getPackageVersion(), sbmlLevel, sbmlVersion, message);
-	}
+    if (mQualitativeSpecies.empty() == true)
+    {
+      logEmptyString(mQualitativeSpecies, getLevel(), getVersion(), "<Output>");
+    }
+    else if (SyntaxChecker::isValidSBMLSId(mQualitativeSpecies) == false)
+    {
+      logError(InvalidIdSyntax);
+    }
+  }
+  else
+  {
+    std::string message = "Qual attribute 'qualitativeSpecies' is missing.";
+    getErrorLog()->logPackageError("qual", QualOutputAllowedAttributes,
+                   getPackageVersion(), sbmlLevel, sbmlVersion, message);
+  }
 
-	//
-	// transitionEffect string   ( use = "required" )
-	//
+  //
+  // transitionEffect string   ( use = "required" )
+  //
   std::string effect;
-	assigned = attributes.readInto("transitionEffect", effect);
+  assigned = attributes.readInto("transitionEffect", effect);
 
-	if (assigned == true)
-	{
-		// check string is not empty
+  if (assigned == true)
+  {
+    // check string is not empty
 
-		if (effect.empty() == true)
-		{
-			logEmptyString(effect, getLevel(), getVersion(), "<Output>");
-		}
+    if (effect.empty() == true)
+    {
+      logEmptyString(effect, getLevel(), getVersion(), "<Output>");
+    }
     else 
     {
        mTransitionEffect = OutputTransitionEffect_fromString( effect.c_str() );
        if (OutputTransitionEffect_isValidOutputTransitionEffect(mTransitionEffect) == 0)
        {
-		      getErrorLog()->logPackageError("qual", QualOutputTransEffectMustBeOutput,
-		                     getPackageVersion(), sbmlLevel, sbmlVersion);
+          getErrorLog()->logPackageError("qual", QualOutputTransEffectMustBeOutput,
+                         getPackageVersion(), sbmlLevel, sbmlVersion);
        }
     }
   }
-	else
-	{
-		std::string message = "Qual attribute 'transitionEffect' is missing.";
-		getErrorLog()->logPackageError("qual", QualOutputAllowedAttributes,
-		               getPackageVersion(), sbmlLevel, sbmlVersion, message);
-	}
+  else
+  {
+    std::string message = "Qual attribute 'transitionEffect' is missing.";
+    getErrorLog()->logPackageError("qual", QualOutputAllowedAttributes,
+                   getPackageVersion(), sbmlLevel, sbmlVersion, message);
+  }
 
-	//
-	// name string   ( use = "optional" )
-	//
-	assigned = attributes.readInto("name", mName);
+  //
+  // name string   ( use = "optional" )
+  //
+  assigned = attributes.readInto("name", mName);
 
-	if (assigned == true)
-	{
-		// check string is not empty
+  if (assigned == true)
+  {
+    // check string is not empty
 
-		if (mName.empty() == true)
-		{
-			logEmptyString(mName, getLevel(), getVersion(), "<Output>");
-		}
-	}
+    if (mName.empty() == true)
+    {
+      logEmptyString(mName, getLevel(), getVersion(), "<Output>");
+    }
+  }
 
-	//
-	// outputLevel int   ( use = "optional" )
-	//
-	numErrs = getErrorLog()->getNumErrors();
-	mIsSetOutputLevel = attributes.readInto("outputLevel", mOutputLevel);
+  //
+  // outputLevel int   ( use = "optional" )
+  //
+  numErrs = getErrorLog()->getNumErrors();
+  mIsSetOutputLevel = attributes.readInto("outputLevel", mOutputLevel);
 
-	if (mIsSetOutputLevel == false)
-	{
-		if (getErrorLog() != NULL)
-		{
-			if (getErrorLog()->getNumErrors() == numErrs + 1 &&
-			        getErrorLog()->contains(XMLAttributeTypeMismatch))
-			{
-				getErrorLog()->remove(XMLAttributeTypeMismatch);
-				getErrorLog()->logPackageError("qual", QualOutputLevelMustBeInteger,
-				             getPackageVersion(), sbmlLevel, sbmlVersion);
-			}
-		}
-	}
+  if (mIsSetOutputLevel == false)
+  {
+    if (getErrorLog() != NULL)
+    {
+      if (getErrorLog()->getNumErrors() == numErrs + 1 &&
+              getErrorLog()->contains(XMLAttributeTypeMismatch))
+      {
+        getErrorLog()->remove(XMLAttributeTypeMismatch);
+        getErrorLog()->logPackageError("qual", QualOutputLevelMustBeInteger,
+                     getPackageVersion(), sbmlLevel, sbmlVersion);
+      }
+    }
+  }
   else
   {
     if (mOutputLevel < 0)
     {
-			getErrorLog()->logPackageError("qual", QualOutputLevelMustBeNonNegative,
-			             getPackageVersion(), sbmlLevel, sbmlVersion);
+      getErrorLog()->logPackageError("qual", QualOutputLevelMustBeNonNegative,
+                   getPackageVersion(), sbmlLevel, sbmlVersion);
     }
   }
 
 }
 
 
-	/** @endcond doxygenLibsbmlInternal */
+  /** @endcond doxygenLibsbmlInternal */
 
 
-	/** @cond doxygenLibsbmlInternal */
+  /** @cond doxygenLibsbmlInternal */
 
 /*
  * Write values of XMLAttributes to the output stream.
  */
-	void
+  void
 Output::writeAttributes (XMLOutputStream& stream) const
 {
-	SBase::writeAttributes(stream);
+  SBase::writeAttributes(stream);
 
-	if (isSetId() == true)
-		stream.writeAttribute("id", getPrefix(), mId);
+  if (isSetId() == true)
+    stream.writeAttribute("id", getPrefix(), mId);
 
-	if (isSetQualitativeSpecies() == true)
-		stream.writeAttribute("qualitativeSpecies", getPrefix(), mQualitativeSpecies);
+  if (isSetQualitativeSpecies() == true)
+    stream.writeAttribute("qualitativeSpecies", getPrefix(), mQualitativeSpecies);
 
-	if (isSetTransitionEffect() == true)
-		stream.writeAttribute("transitionEffect", getPrefix(), 
+  if (isSetTransitionEffect() == true)
+    stream.writeAttribute("transitionEffect", getPrefix(), 
                      OutputTransitionEffect_toString(mTransitionEffect));
 
-	if (isSetName() == true)
-		stream.writeAttribute("name", getPrefix(), mName);
+  if (isSetName() == true)
+    stream.writeAttribute("name", getPrefix(), mName);
 
-	if (isSetOutputLevel() == true)
-		stream.writeAttribute("outputLevel", getPrefix(), mOutputLevel);
+  if (isSetOutputLevel() == true)
+    stream.writeAttribute("outputLevel", getPrefix(), mOutputLevel);
 
-	SBase::writeExtensionAttributes(stream);
+  SBase::writeExtensionAttributes(stream);
 
 }
 
 
-	/** @endcond doxygenLibsbmlInternal */
+  /** @endcond doxygenLibsbmlInternal */
 
 
 /*
  * Constructor 
  */
 ListOfOutputs::ListOfOutputs(unsigned int level, 
-	              unsigned int version, 
-	              unsigned int pkgVersion)
+                             unsigned int version, 
+                             unsigned int pkgVersion)
  : ListOf(level, version)
 {
-	setSBMLNamespacesAndOwn(new QualPkgNamespaces(level, version, pkgVersion)); 
+  setSBMLNamespacesAndOwn(new QualPkgNamespaces(level, version, pkgVersion)); 
 }
 
 
@@ -779,7 +779,7 @@ ListOfOutputs::ListOfOutputs(unsigned int level,
 ListOfOutputs::ListOfOutputs(QualPkgNamespaces* qualns)
   : ListOf(qualns)
 {
-	setElementNamespace(qualns->getURI());
+  setElementNamespace(qualns->getURI());
 }
 
 
@@ -789,7 +789,7 @@ ListOfOutputs::ListOfOutputs(QualPkgNamespaces* qualns)
 ListOfOutputs* 
 ListOfOutputs::clone () const
  {
-	return new ListOfOutputs(*this);
+  return new ListOfOutputs(*this);
 }
 
 
@@ -799,7 +799,7 @@ ListOfOutputs::clone () const
 Output*
 ListOfOutputs::get(unsigned int n)
 {
-	return static_cast<Output*>(ListOf::get(n));
+  return static_cast<Output*>(ListOf::get(n));
 }
 
 
@@ -809,7 +809,7 @@ ListOfOutputs::get(unsigned int n)
 const Output*
 ListOfOutputs::get(unsigned int n) const
 {
-	return static_cast<const Output*>(ListOf::get(n));
+  return static_cast<const Output*>(ListOf::get(n));
 }
 
 
@@ -819,8 +819,8 @@ ListOfOutputs::get(unsigned int n) const
 Output*
 ListOfOutputs::get(const std::string& sid)
 {
-	return const_cast<Output*>(
-	  static_cast<const ListOfOutputs&>(*this).get(sid));
+  return const_cast<Output*>(
+    static_cast<const ListOfOutputs&>(*this).get(sid));
 }
 
 
@@ -830,18 +830,18 @@ ListOfOutputs::get(const std::string& sid)
 const Output*
 ListOfOutputs::get(const std::string& sid) const
 {
-	vector<SBase*>::const_iterator result;
+  vector<SBase*>::const_iterator result;
 
-	result = find_if( mItems.begin(), mItems.end(), IdEq<Output>(sid) );
-	return (result == mItems.end()) ? 0 : static_cast <Output*> (*result);
+  result = find_if( mItems.begin(), mItems.end(), IdEq<Output>(sid) );
+  return (result == mItems.end()) ? 0 : static_cast <Output*> (*result);
 }
 
 
 Output*
 ListOfOutputs::getBySpecies(const std::string& sid)
 {
-	return const_cast<Output*>(
-	  static_cast<const ListOfOutputs&>(*this).getBySpecies(sid));
+  return const_cast<Output*>(
+    static_cast<const ListOfOutputs&>(*this).getBySpecies(sid));
 }
 
 /**
@@ -865,10 +865,10 @@ struct IdEqQS : public std::unary_function<SBase*, bool>
 const Output*
 ListOfOutputs::getBySpecies(const std::string& sid) const
 {
-	vector<SBase*>::const_iterator result;
+  vector<SBase*>::const_iterator result;
 
-	result = find_if( mItems.begin(), mItems.end(), IdEqQS(sid) );
-	return (result == mItems.end()) ? 0 : static_cast <Output*> (*result);
+  result = find_if( mItems.begin(), mItems.end(), IdEqQS(sid) );
+  return (result == mItems.end()) ? 0 : static_cast <Output*> (*result);
 }
 
 
@@ -878,7 +878,7 @@ ListOfOutputs::getBySpecies(const std::string& sid) const
 Output*
 ListOfOutputs::remove(unsigned int n)
 {
-	return static_cast<Output*>(ListOf::remove(n));
+  return static_cast<Output*>(ListOf::remove(n));
 }
 
 
@@ -888,18 +888,18 @@ ListOfOutputs::remove(unsigned int n)
 Output*
 ListOfOutputs::remove(const std::string& sid)
 {
-	SBase* item = NULL;
-	vector<SBase*>::iterator result;
+  SBase* item = NULL;
+  vector<SBase*>::iterator result;
 
-	result = find_if( mItems.begin(), mItems.end(), IdEq<Output>(sid) );
+  result = find_if( mItems.begin(), mItems.end(), IdEq<Output>(sid) );
 
-	if (result != mItems.end())
-	{
-		item = *result;
-		mItems.erase(result);
-	}
+  if (result != mItems.end())
+  {
+    item = *result;
+    mItems.erase(result);
+  }
 
-	return static_cast <Output*> (item);
+  return static_cast <Output*> (item);
 }
 
 
@@ -909,8 +909,8 @@ ListOfOutputs::remove(const std::string& sid)
 const std::string&
 ListOfOutputs::getElementName () const
 {
-	static const string name = "listOfOutputs";
-	return name;
+  static const string name = "listOfOutputs";
+  return name;
 }
 
 
@@ -920,7 +920,7 @@ ListOfOutputs::getElementName () const
 int
 ListOfOutputs::getTypeCode () const
 {
-	return SBML_LIST_OF;
+  return SBML_LIST_OF;
 }
 
 
@@ -930,11 +930,11 @@ ListOfOutputs::getTypeCode () const
 int
 ListOfOutputs::getItemTypeCode () const
 {
-	return SBML_QUAL_OUTPUT;
+  return SBML_QUAL_OUTPUT;
 }
 
 
-	/** @cond doxygenLibsbmlInternal */
+  /** @cond doxygenLibsbmlInternal */
 
 /*
  * Creates a new Output in this ListOfOutputs
@@ -942,24 +942,24 @@ ListOfOutputs::getItemTypeCode () const
 SBase*
 ListOfOutputs::createObject(XMLInputStream& stream)
 {
-	const std::string& name   = stream.peek().getName();
-	SBase* object = NULL;
+  const std::string& name   = stream.peek().getName();
+  SBase* object = NULL;
 
-	if (name == "output")
-	{
-		QUAL_CREATE_NS(qualns, getSBMLNamespaces());
-		object = new Output(qualns);
-		appendAndOwn(object);
-	}
+  if (name == "output")
+  {
+    QUAL_CREATE_NS(qualns, getSBMLNamespaces());
+    object = new Output(qualns);
+    appendAndOwn(object);
+  }
 
-	return object;
+  return object;
 }
 
 
-	/** @endcond doxygenLibsbmlInternal */
+  /** @endcond doxygenLibsbmlInternal */
 
 
-	/** @cond doxygenLibsbmlInternal */
+  /** @cond doxygenLibsbmlInternal */
 
 /*
  * Write the namespace for the Qual package.
@@ -967,23 +967,23 @@ ListOfOutputs::createObject(XMLInputStream& stream)
 void
 ListOfOutputs::writeXMLNS(XMLOutputStream& stream) const
 {
-	XMLNamespaces xmlns;
+  XMLNamespaces xmlns;
 
-	std::string prefix = getPrefix();
+  std::string prefix = getPrefix();
 
-	if (prefix.empty())
-	{
-		if (getNamespaces()->hasURI(QualExtension::getXmlnsL3V1V1()))
-		{
-			xmlns.add(QualExtension::getXmlnsL3V1V1(),prefix);
-		}
-	}
+  if (prefix.empty())
+  {
+    if (getNamespaces()->hasURI(QualExtension::getXmlnsL3V1V1()))
+    {
+      xmlns.add(QualExtension::getXmlnsL3V1V1(),prefix);
+    }
+  }
 
-	stream << xmlns;
+  stream << xmlns;
 }
 
 
-	/** @endcond doxygenLibsbmlInternal */
+  /** @endcond doxygenLibsbmlInternal */
 
 
 /**
@@ -994,7 +994,7 @@ Output_t *
 Output_create(unsigned int level, unsigned int version,
               unsigned int pkgVersion)
 {
-	return new Output(level, version, pkgVersion);
+  return new Output(level, version, pkgVersion);
 }
 
 
@@ -1005,8 +1005,8 @@ LIBSBML_EXTERN
 void
 Output_free(Output_t * o)
 {
-	if (o != NULL)
-		delete o;
+  if (o != NULL)
+    delete o;
 }
 
 
@@ -1017,14 +1017,14 @@ LIBSBML_EXTERN
 Output_t *
 Output_clone(Output_t * o)
 {
-	if (o != NULL)
-	{
-		return static_cast<Output_t*>(o->clone());
-	}
-	else
-	{
-		return NULL;
-	}
+  if (o != NULL)
+  {
+    return static_cast<Output_t*>(o->clone());
+  }
+  else
+  {
+    return NULL;
+  }
 }
 
 
@@ -1035,10 +1035,10 @@ LIBSBML_EXTERN
 char *
 Output_getId(Output_t * o)
 {
-	if (o == NULL)
-		return NULL;
+  if (o == NULL)
+    return NULL;
 
-	return o->getId().empty() ? NULL : safe_strdup(o->getId().c_str());
+  return o->getId().empty() ? NULL : safe_strdup(o->getId().c_str());
 }
 
 
@@ -1049,10 +1049,10 @@ LIBSBML_EXTERN
 char *
 Output_getQualitativeSpecies(Output_t * o)
 {
-	if (o == NULL)
-		return NULL;
+  if (o == NULL)
+    return NULL;
 
-	return o->getQualitativeSpecies().empty() ? NULL : safe_strdup(o->getQualitativeSpecies().c_str());
+  return o->getQualitativeSpecies().empty() ? NULL : safe_strdup(o->getQualitativeSpecies().c_str());
 }
 
 
@@ -1063,10 +1063,10 @@ LIBSBML_EXTERN
 OutputTransitionEffect_t
 Output_getTransitionEffect(Output_t * o)
 {
-	if (o == NULL)
-		return OUTPUT_TRANSITION_EFFECT_UNKNOWN;
+  if (o == NULL)
+    return OUTPUT_TRANSITION_EFFECT_UNKNOWN;
 
-	return o->getTransitionEffect();
+  return o->getTransitionEffect();
 }
 
 
@@ -1077,10 +1077,10 @@ LIBSBML_EXTERN
 char *
 Output_getName(Output_t * o)
 {
-	if (o == NULL)
-		return NULL;
+  if (o == NULL)
+    return NULL;
 
-	return o->getName().empty() ? NULL : safe_strdup(o->getName().c_str());
+  return o->getName().empty() ? NULL : safe_strdup(o->getName().c_str());
 }
 
 
@@ -1091,7 +1091,7 @@ LIBSBML_EXTERN
 int
 Output_getOutputLevel(Output_t * o)
 {
-	return (o != NULL) ? o->getOutputLevel() : SBML_INT_MAX;
+  return (o != NULL) ? o->getOutputLevel() : SBML_INT_MAX;
 }
 
 
@@ -1102,7 +1102,7 @@ LIBSBML_EXTERN
 int
 Output_isSetId(Output_t * o)
 {
-	return (o != NULL) ? static_cast<int>(o->isSetId()) : 0;
+  return (o != NULL) ? static_cast<int>(o->isSetId()) : 0;
 }
 
 
@@ -1113,7 +1113,7 @@ LIBSBML_EXTERN
 int
 Output_isSetQualitativeSpecies(Output_t * o)
 {
-	return (o != NULL) ? static_cast<int>(o->isSetQualitativeSpecies()) : 0;
+  return (o != NULL) ? static_cast<int>(o->isSetQualitativeSpecies()) : 0;
 }
 
 
@@ -1124,7 +1124,7 @@ LIBSBML_EXTERN
 int
 Output_isSetTransitionEffect(Output_t * o)
 {
-	return (o != NULL) ? static_cast<int>(o->isSetTransitionEffect()) : 0;
+  return (o != NULL) ? static_cast<int>(o->isSetTransitionEffect()) : 0;
 }
 
 
@@ -1135,7 +1135,7 @@ LIBSBML_EXTERN
 int
 Output_isSetName(Output_t * o)
 {
-	return (o != NULL) ? static_cast<int>(o->isSetName()) : 0;
+  return (o != NULL) ? static_cast<int>(o->isSetName()) : 0;
 }
 
 
@@ -1146,7 +1146,7 @@ LIBSBML_EXTERN
 int
 Output_isSetOutputLevel(Output_t * o)
 {
-	return (o != NULL) ? static_cast<int>(o->isSetOutputLevel()) : 0;
+  return (o != NULL) ? static_cast<int>(o->isSetOutputLevel()) : 0;
 }
 
 
@@ -1157,7 +1157,7 @@ LIBSBML_EXTERN
 int
 Output_setId(Output_t * o, const char * id)
 {
-	return (o != NULL) ? o->setId(id) : LIBSBML_INVALID_OBJECT;
+  return (o != NULL) ? o->setId(id) : LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -1168,7 +1168,7 @@ LIBSBML_EXTERN
 int
 Output_setQualitativeSpecies(Output_t * o, const char * qualitativeSpecies)
 {
-	return (o != NULL) ? o->setQualitativeSpecies(qualitativeSpecies) : LIBSBML_INVALID_OBJECT;
+  return (o != NULL) ? o->setQualitativeSpecies(qualitativeSpecies) : LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -1179,7 +1179,7 @@ LIBSBML_EXTERN
 int
 Output_setTransitionEffect(Output_t * o, OutputTransitionEffect_t transitionEffect)
 {
-	return (o != NULL) ? o->setTransitionEffect(transitionEffect) : LIBSBML_INVALID_OBJECT;
+  return (o != NULL) ? o->setTransitionEffect(transitionEffect) : LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -1190,7 +1190,7 @@ LIBSBML_EXTERN
 int
 Output_setName(Output_t * o, const char * name)
 {
-	return (o != NULL) ? o->setName(name) : LIBSBML_INVALID_OBJECT;
+  return (o != NULL) ? o->setName(name) : LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -1201,7 +1201,7 @@ LIBSBML_EXTERN
 int
 Output_setOutputLevel(Output_t * o, int outputLevel)
 {
-	return (o != NULL) ? o->setOutputLevel(outputLevel) : LIBSBML_INVALID_OBJECT;
+  return (o != NULL) ? o->setOutputLevel(outputLevel) : LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -1212,7 +1212,7 @@ LIBSBML_EXTERN
 int
 Output_unsetId(Output_t * o)
 {
-	return (o != NULL) ? o->unsetId() : LIBSBML_INVALID_OBJECT;
+  return (o != NULL) ? o->unsetId() : LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -1223,7 +1223,7 @@ LIBSBML_EXTERN
 int
 Output_unsetQualitativeSpecies(Output_t * o)
 {
-	return (o != NULL) ? o->unsetQualitativeSpecies() : LIBSBML_INVALID_OBJECT;
+  return (o != NULL) ? o->unsetQualitativeSpecies() : LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -1234,7 +1234,7 @@ LIBSBML_EXTERN
 int
 Output_unsetTransitionEffect(Output_t * o)
 {
-	return (o != NULL) ? o->unsetTransitionEffect() : LIBSBML_INVALID_OBJECT;
+  return (o != NULL) ? o->unsetTransitionEffect() : LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -1245,7 +1245,7 @@ LIBSBML_EXTERN
 int
 Output_unsetName(Output_t * o)
 {
-	return (o != NULL) ? o->unsetName() : LIBSBML_INVALID_OBJECT;
+  return (o != NULL) ? o->unsetName() : LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -1256,7 +1256,7 @@ LIBSBML_EXTERN
 int
 Output_unsetOutputLevel(Output_t * o)
 {
-	return (o != NULL) ? o->unsetOutputLevel() : LIBSBML_INVALID_OBJECT;
+  return (o != NULL) ? o->unsetOutputLevel() : LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -1267,7 +1267,7 @@ LIBSBML_EXTERN
 int
 Output_hasRequiredAttributes(Output_t * o)
 {
-	return (o != NULL) ? static_cast<int>(o->hasRequiredAttributes()) : 0;
+  return (o != NULL) ? static_cast<int>(o->hasRequiredAttributes()) : 0;
 }
 
 
@@ -1278,10 +1278,10 @@ LIBSBML_EXTERN
 Output_t *
 ListOfOutputs_getById(ListOf_t * lo, const char * sid)
 {
-	if (lo == NULL)
-		return NULL;
+  if (lo == NULL)
+    return NULL;
 
-	return (sid != NULL) ? static_cast <ListOfOutputs *>(lo)->get(sid) : NULL;
+  return (sid != NULL) ? static_cast <ListOfOutputs *>(lo)->get(sid) : NULL;
 }
 
 
@@ -1292,10 +1292,10 @@ LIBSBML_EXTERN
 Output_t *
 ListOfOutputs_removeById(ListOf_t * lo, const char * sid)
 {
-	if (lo == NULL)
-		return NULL;
+  if (lo == NULL)
+    return NULL;
 
-	return (sid != NULL) ? static_cast <ListOfOutputs *>(lo)->remove(sid) : NULL;
+  return (sid != NULL) ? static_cast <ListOfOutputs *>(lo)->remove(sid) : NULL;
 }
 
 static

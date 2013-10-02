@@ -83,15 +83,15 @@ static const packageErrorTableEntry fbcErrorTable[] =
     LIBSBML_CAT_IDENTIFIER_CONSISTENCY, 
     LIBSBML_SEV_ERROR,
     "(Extends validation rule #10301 in the SBML Level 3 Version 1 Core "
-	"specification.) Within a <model> object"
-	"the values of the attributes id and fbc:id on every instance of the "
-	"following classes of objects must be unique across the set of all id "
-	"and fbc:id attribute values of all such objects in a model: the "
-	"model itself, plus all contained <functionDefinition>, <compartment>,"
-	"<species>, <reaction>, <speciesReference>, <modifierSpeciesReference>, "
-  "<event>, and <parameter> objects, plus the <fluxBound>, <objective> "
-  "and <fluxObjective> "
-	"objects defined by the Flux Balance Constraints package.", 
+    "specification.) Within a <model> object"
+    "the values of the attributes id and fbc:id on every instance of the "
+    "following classes of objects must be unique across the set of all id "
+    "and fbc:id attribute values of all such objects in a model: the "
+    "model itself, plus all contained <functionDefinition>, <compartment>,"
+    "<species>, <reaction>, <speciesReference>, <modifierSpeciesReference>, "
+    "<event>, and <parameter> objects, plus the <fluxBound>, <objective> "
+    "and <fluxObjective> "
+    "objects defined by the Flux Balance Constraints package.", 
     { "L3V1 Fbc V1 Section 3.2"
     }
   },
@@ -281,8 +281,8 @@ static const packageErrorTableEntry fbcErrorTable[] =
     LIBSBML_CAT_GENERAL_CONSISTENCY, 
     LIBSBML_SEV_ERROR,
     "A <fluxBound> object may have the optional SBML Level 3 Core "
-	"attributes 'metaid' and 'sboTerm'. No other attributes from the "
-	"SBML Level 3 Core namespace are permitted on a <fluxBound>.",
+    "attributes 'metaid' and 'sboTerm'. No other attributes from the "
+    "SBML Level 3 Core namespace are permitted on a <fluxBound>.",
     { "L3V1 Core, Section 3.2."
     }
   },
@@ -293,8 +293,8 @@ static const packageErrorTableEntry fbcErrorTable[] =
     LIBSBML_CAT_GENERAL_CONSISTENCY, 
     LIBSBML_SEV_ERROR,
     "A <fluxBound> object may have the optional SBML Level 3 Core "
-	"subobjects for notes and annotations. No other elements from the "
-	"SBML Level 3 Core namespace are permitted on a <fluxBound>.",
+    "subobjects for notes and annotations. No other elements from the "
+    "SBML Level 3 Core namespace are permitted on a <fluxBound>.",
     { "L3V1 Core, Section 3.2."
     }
   },
@@ -306,8 +306,8 @@ static const packageErrorTableEntry fbcErrorTable[] =
     LIBSBML_SEV_ERROR,
     "A <fluxBound> object must have the required attributes 'fbc:reaction', "
     "'fbc:operation' and 'fbc:value', and may have the optional attributes "
-	"'fbc:id' and 'fbc:name'. No other attributes from the SBML Level 3 Flux "
-	"Balance Constraints namespace are permitted on a <fluxBound> object.",
+    "'fbc:id' and 'fbc:name'. No other attributes from the SBML Level 3 Flux "
+    "Balance Constraints namespace are permitted on a <fluxBound> object.",
     { "L3V1 Fbc V1 Section 3.5"
     }
   },
@@ -318,7 +318,7 @@ static const packageErrorTableEntry fbcErrorTable[] =
     LIBSBML_CAT_GENERAL_CONSISTENCY, 
     LIBSBML_SEV_ERROR,
     "The attribute 'fbc:reaction' of a <fluxBound> must be of the data "
-	"type SIdRef.",
+    "type SIdRef.",
     { "L3V1 Fbc V1 Section 3.5"
     }
   },
@@ -329,7 +329,7 @@ static const packageErrorTableEntry fbcErrorTable[] =
     LIBSBML_CAT_GENERAL_CONSISTENCY, 
     LIBSBML_SEV_ERROR,
     "The attribute 'fbc:name' of a <fluxBound> must be of the data type "
-	"string.",
+    "string.",
     { "L3V1 Fbc V1 Section 3.5"
     }
   },
@@ -340,7 +340,7 @@ static const packageErrorTableEntry fbcErrorTable[] =
     LIBSBML_CAT_GENERAL_CONSISTENCY, 
     LIBSBML_SEV_ERROR,
     "The attribute 'fbc:operation' of a <fluxBound> must be of the data "
-	  "type FbcOperation and thus it's value must be one of 'lessEqual', "
+    "type FbcOperation and thus it's value must be one of 'lessEqual', "
     "'greaterEqual' or 'equal'.",
     { "L3V1 Fbc V1 Section 3.5"
     }
@@ -352,7 +352,7 @@ static const packageErrorTableEntry fbcErrorTable[] =
     LIBSBML_CAT_GENERAL_CONSISTENCY, 
     LIBSBML_SEV_ERROR,
     "The attribute 'fbc:value' of a <fluxBound> must be of the "
-	"data type double.",
+    "data type double.",
     { "L3V1 Fbc V1 Section 3.5"
     }
   },
@@ -363,8 +363,8 @@ static const packageErrorTableEntry fbcErrorTable[] =
     LIBSBML_CAT_GENERAL_CONSISTENCY, 
     LIBSBML_SEV_ERROR,
     "The value of the attribute 'fbc:reaction' of a <fluxBound> object "
-	"must be the identifier of an existing <reaction> object defined in "
-	"the enclosing <model> object.",
+    "must be the identifier of an existing <reaction> object defined in "
+    "the enclosing <model> object.",
     { "L3V1 Fbc V1 Section 3.5"
     }
   },
@@ -375,9 +375,9 @@ static const packageErrorTableEntry fbcErrorTable[] =
     LIBSBML_CAT_GENERAL_CONSISTENCY, 
     LIBSBML_SEV_ERROR,
     "The combined set of all <fluxBound>'s with identical values for "
-	"'fbc:reaction' must be consistent. That is while it is possible "
-	"to define a lower and an upper bound for a reaction, it is not "
-	"possible to define multiple lower or upper bounds.",
+    "'fbc:reaction' must be consistent. That is while it is possible "
+    "to define a lower and an upper bound for a reaction, it is not "
+    "possible to define multiple lower or upper bounds.",
     { "L3V1 Fbc V1 Section 3.5"
     }
   },
@@ -388,8 +388,8 @@ static const packageErrorTableEntry fbcErrorTable[] =
     LIBSBML_CAT_GENERAL_CONSISTENCY, 
     LIBSBML_SEV_ERROR,
     "A <objective> object may have the optional SBML Level 3 Core "
-	"attributes 'metaid' and 'sboTerm'. No other attributes from the SBML "
-	"Level 3 Core namespace are permitted on a <objective>. ",
+    "attributes 'metaid' and 'sboTerm'. No other attributes from the SBML "
+    "Level 3 Core namespace are permitted on a <objective>. ",
     { "L3V1 Core, Section 3.2"
     }
   },
@@ -400,8 +400,8 @@ static const packageErrorTableEntry fbcErrorTable[] =
     LIBSBML_CAT_GENERAL_CONSISTENCY, 
     LIBSBML_SEV_ERROR,
     "A <objective> object may have the optional SBML Level 3 Core subobjects "
-	"for notes and annotations. No other elements from the SBML Level 3 Core "
-	"namespace are permitted on a <objective>.",
+    "for notes and annotations. No other elements from the SBML Level 3 Core "
+    "namespace are permitted on a <objective>.",
     { "L3V1 Core, Section 3.2"
     }
   },
@@ -412,9 +412,9 @@ static const packageErrorTableEntry fbcErrorTable[] =
     LIBSBML_CAT_GENERAL_CONSISTENCY, 
     LIBSBML_SEV_ERROR,
     "A <objective> object must have the required attributes 'fbc:id' and "
-	"'fbc:type' and may have the optional attribute 'fbc:name'. No other "
-	"attributes from the SBML Level 3 Flux Balance Constraints namespace "
-	"are permitted on a <objective> object.",
+    "'fbc:type' and may have the optional attribute 'fbc:name'. No other "
+    "attributes from the SBML Level 3 Flux Balance Constraints namespace "
+    "are permitted on a <objective> object.",
     { "L3V1 Fbc V1, Section 3.6"
     }
   },
@@ -425,7 +425,7 @@ static const packageErrorTableEntry fbcErrorTable[] =
     LIBSBML_CAT_GENERAL_CONSISTENCY, 
     LIBSBML_SEV_ERROR,
     "The attribute 'fbc:name' on a <objective> must be of the data type "
-	"'string'. ",
+    "'string'. ",
     { "L3V1 Fbc V1, Section 3.6"
     }
   },
@@ -436,8 +436,8 @@ static const packageErrorTableEntry fbcErrorTable[] =
     LIBSBML_CAT_GENERAL_CONSISTENCY, 
     LIBSBML_SEV_ERROR,
     "The attribute 'fbc:type' on a <objective> must be of the data type "
-	  "FbcType. and thus its value must be "
-	  "one of 'minimize' or 'maximize.",
+    "FbcType. and thus its value must be "
+    "one of 'minimize' or 'maximize.",
     { "L3V1 Fbc V1, Section 3.6"
     }
   },
@@ -448,7 +448,7 @@ static const packageErrorTableEntry fbcErrorTable[] =
     LIBSBML_CAT_GENERAL_CONSISTENCY, 
     LIBSBML_SEV_ERROR,
     "A <objective> object must have one and only one instance of the "
-	"<listOfFluxObjectives> object. ",
+    "<listOfFluxObjectives> object. ",
     { "L3V1 Fbc V1, Section 3.6"
     }
   },
@@ -459,7 +459,7 @@ static const packageErrorTableEntry fbcErrorTable[] =
     LIBSBML_CAT_GENERAL_CONSISTENCY, 
     LIBSBML_SEV_ERROR,
     "The <listOfFluxObjectives> subobject within a <objective> object must "
-	"not be empty.",
+    "not be empty.",
     { "L3V1 Fbc V1, Section 3.6"
     }
   },
@@ -470,8 +470,8 @@ static const packageErrorTableEntry fbcErrorTable[] =
     LIBSBML_CAT_GENERAL_CONSISTENCY, 
     LIBSBML_SEV_ERROR,
     "Apart from the general notes and annotation subobjects permitted on all "
-	"SBML objects, a <listOfFluxObjectives> container object may only contain "
-	"<fluxObjective> objects.",
+    "SBML objects, a <listOfFluxObjectives> container object may only contain "
+    "<fluxObjective> objects.",
     { "L3V1 Fbc V1, Section 3.6"
     }
   },
@@ -482,9 +482,9 @@ static const packageErrorTableEntry fbcErrorTable[] =
     LIBSBML_CAT_GENERAL_CONSISTENCY, 
     LIBSBML_SEV_ERROR,
     "A <listOfFluxObjectives> object may have the optional 'metaid' and "
-	"'sboTerm' defined by SBML Level 3 Core. No other attributes from the "
-	"SBML Level 3 Core namespace or the Flux Balance Constraints namespace "
-	"are permitted on a <listOfFluxObjectives> object",
+    "'sboTerm' defined by SBML Level 3 Core. No other attributes from the "
+    "SBML Level 3 Core namespace or the Flux Balance Constraints namespace "
+    "are permitted on a <listOfFluxObjectives> object",
     { "L3V1 Fbc V1, Section 3.6"
     }
   },
@@ -495,8 +495,8 @@ static const packageErrorTableEntry fbcErrorTable[] =
     LIBSBML_CAT_GENERAL_CONSISTENCY, 
     LIBSBML_SEV_ERROR,
     "A <fluxObjective> object may have the optional SBML Level 3 Core "
-	"attributes 'metaid' and 'sboTerm'. No other attributes from the SBML "
-	"Level 3 Core namespace are permitted on a <fluxObjective>. ",
+    "attributes 'metaid' and 'sboTerm'. No other attributes from the SBML "
+    "Level 3 Core namespace are permitted on a <fluxObjective>. ",
     { "L3V1 Core, Section 3.2"
     }
   },
@@ -507,8 +507,8 @@ static const packageErrorTableEntry fbcErrorTable[] =
     LIBSBML_CAT_GENERAL_CONSISTENCY, 
     LIBSBML_SEV_ERROR,
     "A <fluxObjective> object may have the optional SBML Level 3 Core "
-	"subobjects for notes and annotations. No other elements from the "
-	"SBML Level 3 Core namespace are permitted on a <fluxObjective>.",
+    "subobjects for notes and annotations. No other elements from the "
+    "SBML Level 3 Core namespace are permitted on a <fluxObjective>.",
     { "L3V1 Core, Section 3.2"
     }
   },
@@ -519,10 +519,10 @@ static const packageErrorTableEntry fbcErrorTable[] =
     LIBSBML_CAT_GENERAL_CONSISTENCY, 
     LIBSBML_SEV_ERROR,
     "A <fluxObjective> object must have the required attributes "
-	"'fbc:reaction' and 'fbc:coefficient', and may have the optional "
-	"attributes 'fbc:id' and 'fbc:name'. No other attributes from the "
-	"SBML Level 3 Flux Balance Constraints namespace are permitted on "
-	"a <fluxObjective> object.",
+    "'fbc:reaction' and 'fbc:coefficient', and may have the optional "
+    "attributes 'fbc:id' and 'fbc:name'. No other attributes from the "
+    "SBML Level 3 Flux Balance Constraints namespace are permitted on "
+    "a <fluxObjective> object.",
     { "L3V1 Fbc V1, Section 3.7"
     }
   },
@@ -533,7 +533,7 @@ static const packageErrorTableEntry fbcErrorTable[] =
     LIBSBML_CAT_GENERAL_CONSISTENCY, 
     LIBSBML_SEV_ERROR,
     "The attribute 'fbc:name' on a <fluxObjective> must be of the data "
-	"type 'string'.",
+    "type 'string'.",
     { "L3V1 Fbc V1, Section 3.7"
     }
   },
@@ -544,7 +544,7 @@ static const packageErrorTableEntry fbcErrorTable[] =
     LIBSBML_CAT_GENERAL_CONSISTENCY, 
     LIBSBML_SEV_ERROR,
     "The value of the attribute 'fbc:reaction' of a <fluxObjective> object "
-	"must conform to the syntax of the SBML data type 'SIdRef'.",
+    "must conform to the syntax of the SBML data type 'SIdRef'.",
     { "L3V1 Fbc V1, Section 3.7"
     }
   },
@@ -555,8 +555,8 @@ static const packageErrorTableEntry fbcErrorTable[] =
     LIBSBML_CAT_GENERAL_CONSISTENCY, 
     LIBSBML_SEV_ERROR,
     "The value of the attribute 'fbc:reaction' of a "
-	"<fluxObjective> object must be the identifier of an existing <reaction> "
-	"object defined in the enclosing <model> object.",
+    "<fluxObjective> object must be the identifier of an existing <reaction> "
+    "object defined in the enclosing <model> object.",
     { "L3V1 Fbc V1, Section 3.7"
     }
   },
@@ -567,7 +567,7 @@ static const packageErrorTableEntry fbcErrorTable[] =
     LIBSBML_CAT_GENERAL_CONSISTENCY, 
     LIBSBML_SEV_ERROR,
     "The value of the attribute 'fbc:coefficient' of a <fluxObjective> "
-	"object must conform to the syntax of the SBML data type 'double'.",
+    "object must conform to the syntax of the SBML data type 'double'.",
     { "L3V1 Fbc V1, Section 3.7"
     }
   }

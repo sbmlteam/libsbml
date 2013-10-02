@@ -289,7 +289,7 @@ int
   prop.addOption("setLevelAndVersion", true, "convert the document to the given level and version");
   int conversionResult = mDocument->convert(prop);
   if (conversionResult != LIBSBML_OPERATION_SUCCESS)
-	  return conversionResult;
+    return conversionResult;
 
   // set charge on species
   for (unsigned int i = 0; i < model->getNumSpecies(); ++i)  

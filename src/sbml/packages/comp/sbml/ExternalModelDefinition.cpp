@@ -745,7 +745,7 @@ ExternalModelDefinition_t *
 ExternalModelDefinition_create(unsigned int level, unsigned int version,
                                unsigned int pkgVersion)
 {
-	return new ExternalModelDefinition(level, version, pkgVersion);
+  return new ExternalModelDefinition(level, version, pkgVersion);
 }
 
 
@@ -756,8 +756,8 @@ LIBSBML_EXTERN
 void
 ExternalModelDefinition_free(ExternalModelDefinition_t * emd)
 {
-	if (emd != NULL)
-		delete emd;
+  if (emd != NULL)
+    delete emd;
 }
 
 
@@ -768,14 +768,14 @@ LIBSBML_EXTERN
 ExternalModelDefinition_t *
 ExternalModelDefinition_clone(ExternalModelDefinition_t * emd)
 {
-	if (emd != NULL)
-	{
-		return static_cast<ExternalModelDefinition_t*>(emd->clone());
-	}
-	else
-	{
-		return NULL;
-	}
+  if (emd != NULL)
+  {
+    return static_cast<ExternalModelDefinition_t*>(emd->clone());
+  }
+  else
+  {
+    return NULL;
+  }
 }
 
 
@@ -786,10 +786,10 @@ LIBSBML_EXTERN
 char *
 ExternalModelDefinition_getId(ExternalModelDefinition_t * emd)
 {
-	if (emd == NULL)
-		return NULL;
+  if (emd == NULL)
+    return NULL;
 
-	return emd->getId().empty() ? NULL : safe_strdup(emd->getId().c_str());
+  return emd->getId().empty() ? NULL : safe_strdup(emd->getId().c_str());
 }
 
 
@@ -800,10 +800,10 @@ LIBSBML_EXTERN
 char *
 ExternalModelDefinition_getSource(ExternalModelDefinition_t * emd)
 {
-	if (emd == NULL)
-		return NULL;
+  if (emd == NULL)
+    return NULL;
 
-	return emd->getSource().empty() ? NULL : safe_strdup(emd->getSource().c_str());
+  return emd->getSource().empty() ? NULL : safe_strdup(emd->getSource().c_str());
 }
 
 
@@ -814,10 +814,10 @@ LIBSBML_EXTERN
 char *
 ExternalModelDefinition_getName(ExternalModelDefinition_t * emd)
 {
-	if (emd == NULL)
-		return NULL;
+  if (emd == NULL)
+    return NULL;
 
-	return emd->getName().empty() ? NULL : safe_strdup(emd->getName().c_str());
+  return emd->getName().empty() ? NULL : safe_strdup(emd->getName().c_str());
 }
 
 
@@ -828,10 +828,10 @@ LIBSBML_EXTERN
 char *
 ExternalModelDefinition_getModelRef(ExternalModelDefinition_t * emd)
 {
-	if (emd == NULL)
-		return NULL;
+  if (emd == NULL)
+    return NULL;
 
-	return emd->getModelRef().empty() ? NULL : safe_strdup(emd->getModelRef().c_str());
+  return emd->getModelRef().empty() ? NULL : safe_strdup(emd->getModelRef().c_str());
 }
 
 
@@ -842,7 +842,7 @@ LIBSBML_EXTERN
 int
 ExternalModelDefinition_isSetId(ExternalModelDefinition_t * emd)
 {
-	return (emd != NULL) ? static_cast<int>(emd->isSetId()) : 0;
+  return (emd != NULL) ? static_cast<int>(emd->isSetId()) : 0;
 }
 
 
@@ -853,7 +853,7 @@ LIBSBML_EXTERN
 int
 ExternalModelDefinition_isSetSource(ExternalModelDefinition_t * emd)
 {
-	return (emd != NULL) ? static_cast<int>(emd->isSetSource()) : 0;
+  return (emd != NULL) ? static_cast<int>(emd->isSetSource()) : 0;
 }
 
 
@@ -864,7 +864,7 @@ LIBSBML_EXTERN
 int
 ExternalModelDefinition_isSetName(ExternalModelDefinition_t * emd)
 {
-	return (emd != NULL) ? static_cast<int>(emd->isSetName()) : 0;
+  return (emd != NULL) ? static_cast<int>(emd->isSetName()) : 0;
 }
 
 
@@ -875,7 +875,7 @@ LIBSBML_EXTERN
 int
 ExternalModelDefinition_isSetModelRef(ExternalModelDefinition_t * emd)
 {
-	return (emd != NULL) ? static_cast<int>(emd->isSetModelRef()) : 0;
+  return (emd != NULL) ? static_cast<int>(emd->isSetModelRef()) : 0;
 }
 
 
@@ -886,7 +886,7 @@ LIBSBML_EXTERN
 int
 ExternalModelDefinition_setId(ExternalModelDefinition_t * emd, const char * id)
 {
-	return (emd != NULL) ? emd->setId(id) : LIBSBML_INVALID_OBJECT;
+  return (emd != NULL) ? emd->setId(id) : LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -897,7 +897,7 @@ LIBSBML_EXTERN
 int
 ExternalModelDefinition_setSource(ExternalModelDefinition_t * emd, const char * source)
 {
-	return (emd != NULL) ? emd->setSource(source) : LIBSBML_INVALID_OBJECT;
+  return (emd != NULL) ? emd->setSource(source) : LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -908,7 +908,7 @@ LIBSBML_EXTERN
 int
 ExternalModelDefinition_setName(ExternalModelDefinition_t * emd, const char * name)
 {
-	return (emd != NULL) ? emd->setName(name) : LIBSBML_INVALID_OBJECT;
+  return (emd != NULL) ? emd->setName(name) : LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -919,7 +919,7 @@ LIBSBML_EXTERN
 int
 ExternalModelDefinition_setModelRef(ExternalModelDefinition_t * emd, const char * modelRef)
 {
-	return (emd != NULL) ? emd->setModelRef(modelRef) : LIBSBML_INVALID_OBJECT;
+  return (emd != NULL) ? emd->setModelRef(modelRef) : LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -930,7 +930,7 @@ LIBSBML_EXTERN
 int
 ExternalModelDefinition_unsetId(ExternalModelDefinition_t * emd)
 {
-	return (emd != NULL) ? emd->unsetId() : LIBSBML_INVALID_OBJECT;
+  return (emd != NULL) ? emd->unsetId() : LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -941,7 +941,7 @@ LIBSBML_EXTERN
 int
 ExternalModelDefinition_unsetSource(ExternalModelDefinition_t * emd)
 {
-	return (emd != NULL) ? emd->unsetSource() : LIBSBML_INVALID_OBJECT;
+  return (emd != NULL) ? emd->unsetSource() : LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -952,7 +952,7 @@ LIBSBML_EXTERN
 int
 ExternalModelDefinition_unsetName(ExternalModelDefinition_t * emd)
 {
-	return (emd != NULL) ? emd->unsetName() : LIBSBML_INVALID_OBJECT;
+  return (emd != NULL) ? emd->unsetName() : LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -963,7 +963,7 @@ LIBSBML_EXTERN
 int
 ExternalModelDefinition_unsetModelRef(ExternalModelDefinition_t * emd)
 {
-	return (emd != NULL) ? emd->unsetModelRef() : LIBSBML_INVALID_OBJECT;
+  return (emd != NULL) ? emd->unsetModelRef() : LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -974,7 +974,7 @@ LIBSBML_EXTERN
 int
 ExternalModelDefinition_hasRequiredAttributes(ExternalModelDefinition_t * emd)
 {
-	return (emd != NULL) ? static_cast<int>(emd->hasRequiredAttributes()) : 0;
+  return (emd != NULL) ? static_cast<int>(emd->hasRequiredAttributes()) : 0;
 }
 
 
@@ -985,10 +985,10 @@ LIBSBML_EXTERN
 ExternalModelDefinition_t *
 ListOfExternalModelDefinitions_getById(ListOf_t * lo, const char * sid)
 {
-	if (lo == NULL)
-		return NULL;
+  if (lo == NULL)
+    return NULL;
 
-	return (sid != NULL) ? static_cast <ListOfExternalModelDefinitions *>(lo)->get(sid) : NULL;
+  return (sid != NULL) ? static_cast <ListOfExternalModelDefinitions *>(lo)->get(sid) : NULL;
 }
 
 
@@ -999,10 +999,10 @@ LIBSBML_EXTERN
 ExternalModelDefinition_t *
 ListOfExternalModelDefinitions_removeById(ListOf_t * lo, const char * sid)
 {
-	if (lo == NULL)
-		return NULL;
+  if (lo == NULL)
+    return NULL;
 
-	return (sid != NULL) ? static_cast <ListOfExternalModelDefinitions *>(lo)->remove(sid) : NULL;
+  return (sid != NULL) ? static_cast <ListOfExternalModelDefinitions *>(lo)->remove(sid) : NULL;
 }
 
 

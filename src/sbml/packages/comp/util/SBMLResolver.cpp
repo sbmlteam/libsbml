@@ -81,7 +81,7 @@ SBMLResolver::operator=(const SBMLResolver& rhs)
   }
   else if(&rhs!=this)
   {
-  	//
+    //
   }
 
   return *this;

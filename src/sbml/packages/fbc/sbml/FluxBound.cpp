@@ -286,16 +286,16 @@ FluxBound::unsetReaction ()
 int
 FluxBound::setOperation (FluxBoundOperation_t operation)
 {
-	if (FluxBoundOperation_isValidFluxBoundOperation(operation) == 0)
-	{
+  if (FluxBoundOperation_isValidFluxBoundOperation(operation) == 0)
+  {
     mOperation = FLUXBOUND_OPERATION_UNKNOWN;
-		return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
   }
-	else
-	{
-		mOperation = operation;
-		return LIBSBML_OPERATION_SUCCESS;
-	}
+  else
+  {
+    mOperation = operation;
+    return LIBSBML_OPERATION_SUCCESS;
+  }
 }
 
 
@@ -572,19 +572,19 @@ FluxBound::readAttributes (const XMLAttributes& attributes,
   }
 
   //
-	// type string   ( use = "required" )
-	//
+  // type string   ( use = "required" )
+  //
   std::string operation;
   assigned = attributes.readInto("operation", operation);
 
-	if (assigned == true)
-	{
-		// check string is not empty
+  if (assigned == true)
+  {
+    // check string is not empty
 
-		if (operation.empty() == true)
-		{
-			logEmptyString(operation, sbmlLevel, sbmlVersion, "<Objective>");
-		}
+    if (operation.empty() == true)
+    {
+      logEmptyString(operation, sbmlLevel, sbmlVersion, "<Objective>");
+    }
     else 
     {
        mOperation = FluxBoundOperation_fromString( operation.c_str() );
@@ -594,7 +594,7 @@ FluxBound::readAttributes (const XMLAttributes& attributes,
             getPackageVersion(), sbmlLevel, sbmlVersion);
        }
     }
-	}
+  }
   else
   {
     std::string message = "Fbc attribute 'operation' is missing.";
@@ -878,14 +878,14 @@ ListOfFluxBounds::createObject (XMLInputStream& stream)
   if (name == "fluxBound")
   {
     try
-	{
+    {
       FBC_CREATE_NS(fbcns, getSBMLNamespaces());
       object = new FluxBound(fbcns);
       appendAndOwn(object);
       //mItems.push_back(object);
-	} 
-	catch(...)
-	{
+    } 
+    catch(...)
+    {
       /* 
       * NULL will be returned if the mSBMLNS is invalid (basically this
       * should not happen) or some exception is thrown (e.g. std::bad_alloc)
@@ -893,8 +893,7 @@ ListOfFluxBounds::createObject (XMLInputStream& stream)
       * (Maybe this should be changed so that caller can detect what kind 
       *  of error happened in this function.)
       */
-	}
-	
+    }
   }
 
   return object;

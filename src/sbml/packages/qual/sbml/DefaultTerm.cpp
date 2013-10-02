@@ -41,12 +41,12 @@ LIBSBML_CPP_NAMESPACE_BEGIN
  * Creates a new DefaultTerm with the given level, version, and package version.
  */
 DefaultTerm::DefaultTerm (unsigned int level, unsigned int version, unsigned int pkgVersion)
-	: SBase(level, version)
-	 ,mResultLevel (SBML_INT_MAX)
-	 ,mIsSetResultLevel (false)
+  : SBase(level, version)
+   ,mResultLevel (SBML_INT_MAX)
+   ,mIsSetResultLevel (false)
 {
-	// set an SBMLNamespaces derived object of this package
-	setSBMLNamespacesAndOwn(new QualPkgNamespaces(level, version, pkgVersion));
+  // set an SBMLNamespaces derived object of this package
+  setSBMLNamespacesAndOwn(new QualPkgNamespaces(level, version, pkgVersion));
 }
 
 
@@ -54,15 +54,15 @@ DefaultTerm::DefaultTerm (unsigned int level, unsigned int version, unsigned int
  * Creates a new DefaultTerm with the given QualPkgNamespaces object.
  */
 DefaultTerm::DefaultTerm (QualPkgNamespaces* qualns)
-	: SBase(qualns)
-	 ,mResultLevel (SBML_INT_MAX)
-	 ,mIsSetResultLevel (false)
+  : SBase(qualns)
+   ,mResultLevel (SBML_INT_MAX)
+   ,mIsSetResultLevel (false)
 {
-	// set the element namespace of this object
-	setElementNamespace(qualns->getURI());
+  // set the element namespace of this object
+  setElementNamespace(qualns->getURI());
 
-	// load package extensions bound with this object (if any) 
-	loadPlugins(qualns);
+  // load package extensions bound with this object (if any) 
+  loadPlugins(qualns);
 }
 
 
@@ -70,17 +70,17 @@ DefaultTerm::DefaultTerm (QualPkgNamespaces* qualns)
  * Copy constructor for DefaultTerm.
  */
 DefaultTerm::DefaultTerm (const DefaultTerm& orig)
-	: SBase(orig)
+  : SBase(orig)
 {
-	if (&orig == NULL)
-	{
-		throw SBMLConstructorException("Null argument to copy constructor");
-	}
-	else
-	{
-		mResultLevel  = orig.mResultLevel;
-		mIsSetResultLevel  = orig.mIsSetResultLevel;
-	}
+  if (&orig == NULL)
+  {
+    throw SBMLConstructorException("Null argument to copy constructor");
+  }
+  else
+  {
+    mResultLevel  = orig.mResultLevel;
+    mIsSetResultLevel  = orig.mIsSetResultLevel;
+  }
 }
 
 
@@ -90,17 +90,17 @@ DefaultTerm::DefaultTerm (const DefaultTerm& orig)
 DefaultTerm&
 DefaultTerm::operator=(const DefaultTerm& rhs)
 {
-	if (&rhs == NULL)
-	{
-		throw SBMLConstructorException("Null argument to assignment");
-	}
-	else if (&rhs != this)
-	{
-		SBase::operator=(rhs);
-		mResultLevel  = rhs.mResultLevel;
-		mIsSetResultLevel  = rhs.mIsSetResultLevel;
-	}
-	return *this;
+  if (&rhs == NULL)
+  {
+    throw SBMLConstructorException("Null argument to assignment");
+  }
+  else if (&rhs != this)
+  {
+    SBase::operator=(rhs);
+    mResultLevel  = rhs.mResultLevel;
+    mIsSetResultLevel  = rhs.mIsSetResultLevel;
+  }
+  return *this;
 }
 
 
@@ -110,7 +110,7 @@ DefaultTerm::operator=(const DefaultTerm& rhs)
 DefaultTerm*
 DefaultTerm::clone () const
 {
-	return new DefaultTerm(*this);
+  return new DefaultTerm(*this);
 }
 
 
@@ -128,7 +128,7 @@ DefaultTerm::~DefaultTerm ()
 const int
 DefaultTerm::getResultLevel() const
 {
-	return mResultLevel;
+  return mResultLevel;
 }
 
 
@@ -138,7 +138,7 @@ DefaultTerm::getResultLevel() const
 bool
 DefaultTerm::isSetResultLevel() const
 {
-	return mIsSetResultLevel;
+  return mIsSetResultLevel;
 }
 
 
@@ -148,9 +148,9 @@ DefaultTerm::isSetResultLevel() const
 int
 DefaultTerm::setResultLevel(int resultLevel)
 {
-	mResultLevel = resultLevel;
-	mIsSetResultLevel = true;
-	return LIBSBML_OPERATION_SUCCESS;
+  mResultLevel = resultLevel;
+  mIsSetResultLevel = true;
+  return LIBSBML_OPERATION_SUCCESS;
 }
 
 
@@ -160,17 +160,17 @@ DefaultTerm::setResultLevel(int resultLevel)
 int
 DefaultTerm::unsetResultLevel()
 {
-	mResultLevel = SBML_INT_MAX;
-	mIsSetResultLevel = false;
+  mResultLevel = SBML_INT_MAX;
+  mIsSetResultLevel = false;
 
-	if (isSetResultLevel() == false)
-	{
-		return LIBSBML_OPERATION_SUCCESS;
-	}
-	else
-	{
-		return LIBSBML_OPERATION_FAILED;
-	}
+  if (isSetResultLevel() == false)
+  {
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else
+  {
+    return LIBSBML_OPERATION_FAILED;
+  }
 }
 
 
@@ -180,8 +180,8 @@ DefaultTerm::unsetResultLevel()
 const std::string&
 DefaultTerm::getElementName () const
 {
-	static const string name = "defaultTerm";
-	return name;
+  static const string name = "defaultTerm";
+  return name;
 }
 
 
@@ -191,7 +191,7 @@ DefaultTerm::getElementName () const
 int
 DefaultTerm::getTypeCode () const
 {
-	return SBML_QUAL_DEFAULT_TERM;
+  return SBML_QUAL_DEFAULT_TERM;
 }
 
 
@@ -201,16 +201,16 @@ DefaultTerm::getTypeCode () const
 bool
 DefaultTerm::hasRequiredAttributes () const
 {
-	bool allPresent = true;
+  bool allPresent = true;
 
-	if (isSetResultLevel() == false)
-		allPresent = false;
+  if (isSetResultLevel() == false)
+    allPresent = false;
 
-	return allPresent;
+  return allPresent;
 }
 
 
-	/** @cond doxygenLibsbmlInternal */
+  /** @cond doxygenLibsbmlInternal */
 
 /*
  * write contained elements
@@ -218,16 +218,16 @@ DefaultTerm::hasRequiredAttributes () const
 void
 DefaultTerm::writeElements (XMLOutputStream& stream) const
 {
-	SBase::writeElements(stream);
+  SBase::writeElements(stream);
 
-	SBase::writeExtensionElements(stream);
+  SBase::writeExtensionElements(stream);
 }
 
 
-	/** @endcond doxygenLibsbmlInternal */
+  /** @endcond doxygenLibsbmlInternal */
 
 
-	/** @cond doxygenLibsbmlInternal */
+  /** @cond doxygenLibsbmlInternal */
 
 /*
  * Accepts the given SBMLVisitor.
@@ -235,14 +235,14 @@ DefaultTerm::writeElements (XMLOutputStream& stream) const
 bool
 DefaultTerm::accept (SBMLVisitor& v) const
 {
-	return v.visit(*this);
+  return v.visit(*this);
 }
 
 
-	/** @endcond doxygenLibsbmlInternal */
+  /** @endcond doxygenLibsbmlInternal */
 
 
-	/** @cond doxygenLibsbmlInternal */
+  /** @cond doxygenLibsbmlInternal */
 
 /*
  * Sets the parent SBMLDocument.
@@ -250,14 +250,14 @@ DefaultTerm::accept (SBMLVisitor& v) const
 void
 DefaultTerm::setSBMLDocument (SBMLDocument* d)
 {
-	SBase::setSBMLDocument(d);
+  SBase::setSBMLDocument(d);
 }
 
 
-	/** @endcond doxygenLibsbmlInternal */
+  /** @endcond doxygenLibsbmlInternal */
 
 
-	/** @cond doxygenLibsbmlInternal */
+  /** @cond doxygenLibsbmlInternal */
 
 /*
  * Enables/Disables the given package with this element.
@@ -266,14 +266,14 @@ void
 DefaultTerm::enablePackageInternal(const std::string& pkgURI,
              const std::string& pkgPrefix, bool flag)
 {
-	SBase::enablePackageInternal(pkgURI, pkgPrefix, flag);
+  SBase::enablePackageInternal(pkgURI, pkgPrefix, flag);
 }
 
 
-	/** @endcond doxygenLibsbmlInternal */
+  /** @endcond doxygenLibsbmlInternal */
 
 
-	/** @cond doxygenLibsbmlInternal */
+  /** @cond doxygenLibsbmlInternal */
 
 /*
  * Get the list of expected attributes for this element.
@@ -281,16 +281,16 @@ DefaultTerm::enablePackageInternal(const std::string& pkgURI,
 void
 DefaultTerm::addExpectedAttributes(ExpectedAttributes& attributes)
 {
-	SBase::addExpectedAttributes(attributes);
+  SBase::addExpectedAttributes(attributes);
 
-	attributes.add("resultLevel");
+  attributes.add("resultLevel");
 }
 
 
-	/** @endcond doxygenLibsbmlInternal */
+  /** @endcond doxygenLibsbmlInternal */
 
 
-	/** @cond doxygenLibsbmlInternal */
+  /** @cond doxygenLibsbmlInternal */
 
 /*
  * Read values from the given XMLAttributes set into their specific fields.
@@ -299,99 +299,99 @@ void
 DefaultTerm::readAttributes (const XMLAttributes& attributes,
                              const ExpectedAttributes& expectedAttributes)
 {
-	const unsigned int sbmlLevel   = getLevel  ();
-	const unsigned int sbmlVersion = getVersion();
+  const unsigned int sbmlLevel   = getLevel  ();
+  const unsigned int sbmlVersion = getVersion();
 
-	unsigned int numErrs;
+  unsigned int numErrs;
 
-	SBase::readAttributes(attributes, expectedAttributes);
+  SBase::readAttributes(attributes, expectedAttributes);
 
-	// look to see whether an unknown attribute error was logged
-	if (getErrorLog() != NULL)
-	{
-		numErrs = getErrorLog()->getNumErrors();
-		for (int n = numErrs-1; n >= 0; n--)
-		{
-			if (getErrorLog()->getError(n)->getErrorId() == UnknownPackageAttribute)
-			{
-				const std::string details =
-				                  getErrorLog()->getError(n)->getMessage();
-				getErrorLog()->remove(UnknownPackageAttribute);
-				getErrorLog()->logPackageError("qual", QualDefaultTermAllowedAttributes,
-				               getPackageVersion(), sbmlLevel, sbmlVersion, details);
-			}
-			else if (getErrorLog()->getError(n)->getErrorId() == UnknownCoreAttribute)
-			{
-				const std::string details =
-				                  getErrorLog()->getError(n)->getMessage();
-				getErrorLog()->remove(UnknownCoreAttribute);
-				getErrorLog()->logPackageError("qual", QualDefaultTermAllowedCoreAttributes,
-				               getPackageVersion(), sbmlLevel, sbmlVersion, details);
-			}
-		}
-	}
+  // look to see whether an unknown attribute error was logged
+  if (getErrorLog() != NULL)
+  {
+    numErrs = getErrorLog()->getNumErrors();
+    for (int n = numErrs-1; n >= 0; n--)
+    {
+      if (getErrorLog()->getError(n)->getErrorId() == UnknownPackageAttribute)
+      {
+        const std::string details =
+                          getErrorLog()->getError(n)->getMessage();
+        getErrorLog()->remove(UnknownPackageAttribute);
+        getErrorLog()->logPackageError("qual", QualDefaultTermAllowedAttributes,
+                       getPackageVersion(), sbmlLevel, sbmlVersion, details);
+      }
+      else if (getErrorLog()->getError(n)->getErrorId() == UnknownCoreAttribute)
+      {
+        const std::string details =
+                          getErrorLog()->getError(n)->getMessage();
+        getErrorLog()->remove(UnknownCoreAttribute);
+        getErrorLog()->logPackageError("qual", QualDefaultTermAllowedCoreAttributes,
+                       getPackageVersion(), sbmlLevel, sbmlVersion, details);
+      }
+    }
+  }
 
-	bool assigned = false;
+  bool assigned = false;
 
-	//
-	// resultLevel int   ( use = "required" )
-	//
-	numErrs = getErrorLog()->getNumErrors();
-	mIsSetResultLevel = attributes.readInto("resultLevel", mResultLevel);
+  //
+  // resultLevel int   ( use = "required" )
+  //
+  numErrs = getErrorLog()->getNumErrors();
+  mIsSetResultLevel = attributes.readInto("resultLevel", mResultLevel);
 
-	if (mIsSetResultLevel == false)
-	{
-		if (getErrorLog() != NULL)
-		{
-			if (getErrorLog()->getNumErrors() == numErrs + 1 &&
-			        getErrorLog()->contains(XMLAttributeTypeMismatch))
-			{
-				getErrorLog()->remove(XMLAttributeTypeMismatch);
-				getErrorLog()->logPackageError("qual", QualDefaultTermResultMustBeInteger,
-				             getPackageVersion(), sbmlLevel, sbmlVersion);
-			}
-			else
-			{
-				std::string message = "Qual attribute 'resultLevel' is missing.";
-				getErrorLog()->logPackageError("qual", QualDefaultTermAllowedAttributes,
-				               getPackageVersion(), sbmlLevel, sbmlVersion, message);
-			}
-		}
-	}
+  if (mIsSetResultLevel == false)
+  {
+    if (getErrorLog() != NULL)
+    {
+      if (getErrorLog()->getNumErrors() == numErrs + 1 &&
+              getErrorLog()->contains(XMLAttributeTypeMismatch))
+      {
+        getErrorLog()->remove(XMLAttributeTypeMismatch);
+        getErrorLog()->logPackageError("qual", QualDefaultTermResultMustBeInteger,
+                     getPackageVersion(), sbmlLevel, sbmlVersion);
+      }
+      else
+      {
+        std::string message = "Qual attribute 'resultLevel' is missing.";
+        getErrorLog()->logPackageError("qual", QualDefaultTermAllowedAttributes,
+                       getPackageVersion(), sbmlLevel, sbmlVersion, message);
+      }
+    }
+  }
   else
   {
     if (mResultLevel < 0)
     {
-			getErrorLog()->logPackageError("qual", QualDefaultTermResultMustBeNonNeg,
-			             getPackageVersion(), sbmlLevel, sbmlVersion);
+      getErrorLog()->logPackageError("qual", QualDefaultTermResultMustBeNonNeg,
+                   getPackageVersion(), sbmlLevel, sbmlVersion);
     }
   }
 
 }
 
 
-	/** @endcond doxygenLibsbmlInternal */
+  /** @endcond doxygenLibsbmlInternal */
 
 
-	/** @cond doxygenLibsbmlInternal */
+  /** @cond doxygenLibsbmlInternal */
 
 /*
  * Write values of XMLAttributes to the output stream.
  */
-	void
+  void
 DefaultTerm::writeAttributes (XMLOutputStream& stream) const
 {
-	SBase::writeAttributes(stream);
+  SBase::writeAttributes(stream);
 
-	if (isSetResultLevel() == true)
-		stream.writeAttribute("resultLevel", getPrefix(), mResultLevel);
+  if (isSetResultLevel() == true)
+    stream.writeAttribute("resultLevel", getPrefix(), mResultLevel);
 
-	SBase::writeExtensionAttributes(stream);
+  SBase::writeExtensionAttributes(stream);
 
 }
 
 
-	/** @endcond doxygenLibsbmlInternal */
+  /** @endcond doxygenLibsbmlInternal */
 
 
 /**
@@ -402,7 +402,7 @@ DefaultTerm_t *
 DefaultTerm_create(unsigned int level, unsigned int version,
                    unsigned int pkgVersion)
 {
-	return new DefaultTerm(level, version, pkgVersion);
+  return new DefaultTerm(level, version, pkgVersion);
 }
 
 
@@ -413,8 +413,8 @@ LIBSBML_EXTERN
 void
 DefaultTerm_free(DefaultTerm_t * dt)
 {
-	if (dt != NULL)
-		delete dt;
+  if (dt != NULL)
+    delete dt;
 }
 
 
@@ -425,14 +425,14 @@ LIBSBML_EXTERN
 DefaultTerm_t *
 DefaultTerm_clone(DefaultTerm_t * dt)
 {
-	if (dt != NULL)
-	{
-		return static_cast<DefaultTerm_t*>(dt->clone());
-	}
-	else
-	{
-		return NULL;
-	}
+  if (dt != NULL)
+  {
+    return static_cast<DefaultTerm_t*>(dt->clone());
+  }
+  else
+  {
+    return NULL;
+  }
 }
 
 
@@ -443,7 +443,7 @@ LIBSBML_EXTERN
 int
 DefaultTerm_getResultLevel(DefaultTerm_t * dt)
 {
-	return (dt != NULL) ? dt->getResultLevel() : SBML_INT_MAX;
+  return (dt != NULL) ? dt->getResultLevel() : SBML_INT_MAX;
 }
 
 
@@ -454,7 +454,7 @@ LIBSBML_EXTERN
 int
 DefaultTerm_isSetResultLevel(DefaultTerm_t * dt)
 {
-	return (dt != NULL) ? static_cast<int>(dt->isSetResultLevel()) : 0;
+  return (dt != NULL) ? static_cast<int>(dt->isSetResultLevel()) : 0;
 }
 
 
@@ -465,7 +465,7 @@ LIBSBML_EXTERN
 int
 DefaultTerm_setResultLevel(DefaultTerm_t * dt, int resultLevel)
 {
-	return (dt != NULL) ? dt->setResultLevel(resultLevel) : LIBSBML_INVALID_OBJECT;
+  return (dt != NULL) ? dt->setResultLevel(resultLevel) : LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -476,7 +476,7 @@ LIBSBML_EXTERN
 int
 DefaultTerm_unsetResultLevel(DefaultTerm_t * dt)
 {
-	return (dt != NULL) ? dt->unsetResultLevel() : LIBSBML_INVALID_OBJECT;
+  return (dt != NULL) ? dt->unsetResultLevel() : LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -487,7 +487,7 @@ LIBSBML_EXTERN
 int
 DefaultTerm_hasRequiredAttributes(DefaultTerm_t * dt)
 {
-	return (dt != NULL) ? static_cast<int>(dt->hasRequiredAttributes()) : 0;
+  return (dt != NULL) ? static_cast<int>(dt->hasRequiredAttributes()) : 0;
 }
 
 

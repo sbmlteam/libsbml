@@ -41,18 +41,18 @@ LIBSBML_CPP_NAMESPACE_BEGIN
  * Creates a new Transition with the given level, version, and package version.
  */
 Transition::Transition (unsigned int level, unsigned int version, unsigned int pkgVersion)
-	: SBase(level, version)
-	 ,mId ("")
-	 ,mName ("")
-	 ,mInputs (level, version, pkgVersion)
-	 ,mOutputs (level, version, pkgVersion)
-	 ,mFunctionTerms (level, version, pkgVersion)
+  : SBase(level, version)
+   ,mId ("")
+   ,mName ("")
+   ,mInputs (level, version, pkgVersion)
+   ,mOutputs (level, version, pkgVersion)
+   ,mFunctionTerms (level, version, pkgVersion)
 {
-	// set an SBMLNamespaces derived object of this package
-	setSBMLNamespacesAndOwn(new QualPkgNamespaces(level, version, pkgVersion));
+  // set an SBMLNamespaces derived object of this package
+  setSBMLNamespacesAndOwn(new QualPkgNamespaces(level, version, pkgVersion));
 
-	// connect to child objects
-	connectToChild();
+  // connect to child objects
+  connectToChild();
 }
 
 
@@ -60,21 +60,21 @@ Transition::Transition (unsigned int level, unsigned int version, unsigned int p
  * Creates a new Transition with the given QualPkgNamespaces object.
  */
 Transition::Transition (QualPkgNamespaces* qualns)
-	: SBase(qualns)
-	 ,mId ("")
-	 ,mName ("")
-	 ,mInputs (qualns)
-	 ,mOutputs (qualns)
-	 ,mFunctionTerms (qualns)
+  : SBase(qualns)
+   ,mId ("")
+   ,mName ("")
+   ,mInputs (qualns)
+   ,mOutputs (qualns)
+   ,mFunctionTerms (qualns)
 {
-	// set the element namespace of this object
-	setElementNamespace(qualns->getURI());
+  // set the element namespace of this object
+  setElementNamespace(qualns->getURI());
 
-	// connect to child objects
-	connectToChild();
+  // connect to child objects
+  connectToChild();
 
-	// load package extensions bound with this object (if any) 
-	loadPlugins(qualns);
+  // load package extensions bound with this object (if any) 
+  loadPlugins(qualns);
 }
 
 
@@ -82,23 +82,23 @@ Transition::Transition (QualPkgNamespaces* qualns)
  * Copy constructor for Transition.
  */
 Transition::Transition (const Transition& orig)
-	: SBase(orig)
+  : SBase(orig)
 {
-	if (&orig == NULL)
-	{
-		throw SBMLConstructorException("Null argument to copy constructor");
-	}
-	else
-	{
-		mId  = orig.mId;
-		mName  = orig.mName;
-		mInputs  = orig.mInputs;
-		mOutputs  = orig.mOutputs;
-		mFunctionTerms  = orig.mFunctionTerms;
+  if (&orig == NULL)
+  {
+    throw SBMLConstructorException("Null argument to copy constructor");
+  }
+  else
+  {
+    mId  = orig.mId;
+    mName  = orig.mName;
+    mInputs  = orig.mInputs;
+    mOutputs  = orig.mOutputs;
+    mFunctionTerms  = orig.mFunctionTerms;
 
-		// connect to child objects
-		connectToChild();
-	}
+    // connect to child objects
+    connectToChild();
+  }
 }
 
 
@@ -108,23 +108,23 @@ Transition::Transition (const Transition& orig)
 Transition&
 Transition::operator=(const Transition& rhs)
 {
-	if (&rhs == NULL)
-	{
-		throw SBMLConstructorException("Null argument to assignment");
-	}
-	else if (&rhs != this)
-	{
-		SBase::operator=(rhs);
-		mId  = rhs.mId;
-		mName  = rhs.mName;
-		mInputs  = rhs.mInputs;
-		mOutputs  = rhs.mOutputs;
-		mFunctionTerms  = rhs.mFunctionTerms;
+  if (&rhs == NULL)
+  {
+    throw SBMLConstructorException("Null argument to assignment");
+  }
+  else if (&rhs != this)
+  {
+    SBase::operator=(rhs);
+    mId  = rhs.mId;
+    mName  = rhs.mName;
+    mInputs  = rhs.mInputs;
+    mOutputs  = rhs.mOutputs;
+    mFunctionTerms  = rhs.mFunctionTerms;
 
-		// connect to child objects
-		connectToChild();
-	}
-	return *this;
+    // connect to child objects
+    connectToChild();
+  }
+  return *this;
 }
 
 
@@ -134,7 +134,7 @@ Transition::operator=(const Transition& rhs)
 Transition*
 Transition::clone () const
 {
-	return new Transition(*this);
+  return new Transition(*this);
 }
 
 
@@ -152,7 +152,7 @@ Transition::~Transition ()
 const std::string&
 Transition::getId() const
 {
-	return mId;
+  return mId;
 }
 
 
@@ -162,7 +162,7 @@ Transition::getId() const
 const std::string&
 Transition::getName() const
 {
-	return mName;
+  return mName;
 }
 
 
@@ -172,7 +172,7 @@ Transition::getName() const
 bool
 Transition::isSetId() const
 {
-	return (mId.empty() == false);
+  return (mId.empty() == false);
 }
 
 
@@ -182,7 +182,7 @@ Transition::isSetId() const
 bool
 Transition::isSetName() const
 {
-	return (mName.empty() == false);
+  return (mName.empty() == false);
 }
 
 
@@ -192,7 +192,7 @@ Transition::isSetName() const
 int
 Transition::setId(const std::string& id)
 {
-	return SyntaxChecker::checkAndSetSId(id, mId);
+  return SyntaxChecker::checkAndSetSId(id, mId);
 }
 
 
@@ -202,15 +202,15 @@ Transition::setId(const std::string& id)
 int
 Transition::setName(const std::string& name)
 {
-	if (&(name) == NULL)
-	{
-		return LIBSBML_INVALID_ATTRIBUTE_VALUE;
-	}
-	else
-	{
-		mName = name;
-		return LIBSBML_OPERATION_SUCCESS;
-	}
+  if (&(name) == NULL)
+  {
+    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+  }
+  else
+  {
+    mName = name;
+    return LIBSBML_OPERATION_SUCCESS;
+  }
 }
 
 
@@ -220,16 +220,16 @@ Transition::setName(const std::string& name)
 int
 Transition::unsetId()
 {
-	mId.erase();
+  mId.erase();
 
-	if (mId.empty() == true)
-	{
-		return LIBSBML_OPERATION_SUCCESS;
-	}
-	else
-	{
-		return LIBSBML_OPERATION_FAILED;
-	}
+  if (mId.empty() == true)
+  {
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else
+  {
+    return LIBSBML_OPERATION_FAILED;
+  }
 }
 
 
@@ -239,16 +239,16 @@ Transition::unsetId()
 int
 Transition::unsetName()
 {
-	mName.erase();
+  mName.erase();
 
-	if (mName.empty() == true)
-	{
-		return LIBSBML_OPERATION_SUCCESS;
-	}
-	else
-	{
-		return LIBSBML_OPERATION_FAILED;
-	}
+  if (mName.empty() == true)
+  {
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else
+  {
+    return LIBSBML_OPERATION_FAILED;
+  }
 }
 
 
@@ -258,7 +258,7 @@ Transition::unsetName()
 const ListOfInputs*
 Transition::getListOfInputs() const
 {
-	return &mInputs;
+  return &mInputs;
 }
 
 
@@ -268,7 +268,7 @@ Transition::getListOfInputs() const
 ListOfInputs*
 Transition::getListOfInputs()
 {
-	return &mInputs;
+  return &mInputs;
 }
 
 
@@ -278,7 +278,7 @@ Transition::getListOfInputs()
 Input*
 Transition::removeInput(unsigned int n)
 {
-	return mInputs.remove(n);
+  return mInputs.remove(n);
 }
 
 
@@ -288,7 +288,7 @@ Transition::removeInput(unsigned int n)
 Input*
 Transition::removeInput(const std::string& sid)
 {
-	return mInputs.remove(sid);
+  return mInputs.remove(sid);
 }
 
 
@@ -298,7 +298,7 @@ Transition::removeInput(const std::string& sid)
 Input*
 Transition::getInput(unsigned int n)
 {
-	return mInputs.get(n);
+  return mInputs.get(n);
 }
 
 
@@ -308,7 +308,7 @@ Transition::getInput(unsigned int n)
 const Input*
 Transition::getInput(unsigned int n) const
 {
-	return mInputs.get(n);
+  return mInputs.get(n);
 }
 
 
@@ -318,7 +318,7 @@ Transition::getInput(unsigned int n) const
 Input*
 Transition::getInput(const std::string& sid)
 {
-	return mInputs.get(sid);
+  return mInputs.get(sid);
 }
 
 
@@ -328,7 +328,7 @@ Transition::getInput(const std::string& sid)
 const Input*
 Transition::getInput(const std::string& sid) const
 {
-	return mInputs.get(sid);
+  return mInputs.get(sid);
 }
 
 
@@ -338,7 +338,7 @@ Transition::getInput(const std::string& sid) const
 Input*
 Transition::getInputBySpecies(const std::string& sid)
 {
-	return mInputs.getBySpecies(sid);
+  return mInputs.getBySpecies(sid);
 }
 
 
@@ -348,7 +348,7 @@ Transition::getInputBySpecies(const std::string& sid)
 const Input*
 Transition::getInputBySpecies(const std::string& sid) const
 {
-	return mInputs.getBySpecies(sid);
+  return mInputs.getBySpecies(sid);
 }
 
 
@@ -393,11 +393,11 @@ Transition::addInput(const Input* i)
 }
 
 
-	/**
-	 * Get the number of Input objects in this Transition.
-	 *
-	 * @return the number of Input objects in this Transition
-	 */
+  /**
+   * Get the number of Input objects in this Transition.
+   *
+   * @return the number of Input objects in this Transition
+   */
 unsigned int 
 Transition::getNumInputs() const
 {
@@ -443,7 +443,7 @@ Transition::getListOfOutputs() const
 
 
 {
-	return &mOutputs;
+  return &mOutputs;
 }
 
 
@@ -453,7 +453,7 @@ Transition::getListOfOutputs() const
 ListOfOutputs*
 Transition::getListOfOutputs()
 {
-	return &mOutputs;
+  return &mOutputs;
 }
 
 
@@ -463,7 +463,7 @@ Transition::getListOfOutputs()
 Output*
 Transition::removeOutput(unsigned int n)
 {
-	return mOutputs.remove(n);
+  return mOutputs.remove(n);
 }
 
 
@@ -473,7 +473,7 @@ Transition::removeOutput(unsigned int n)
 Output*
 Transition::removeOutput(const std::string& sid)
 {
-	return mOutputs.remove(sid);
+  return mOutputs.remove(sid);
 }
 
 
@@ -483,7 +483,7 @@ Transition::removeOutput(const std::string& sid)
 Output*
 Transition::getOutput(unsigned int n)
 {
-	return mOutputs.get(n);
+  return mOutputs.get(n);
 }
 
 
@@ -493,7 +493,7 @@ Transition::getOutput(unsigned int n)
 const Output*
 Transition::getOutput(unsigned int n) const
 {
-	return mOutputs.get(n);
+  return mOutputs.get(n);
 }
 
 
@@ -503,7 +503,7 @@ Transition::getOutput(unsigned int n) const
 Output*
 Transition::getOutput(const std::string& sid)
 {
-	return mOutputs.get(sid);
+  return mOutputs.get(sid);
 }
 
 
@@ -513,7 +513,7 @@ Transition::getOutput(const std::string& sid)
 const Output*
 Transition::getOutput(const std::string& sid) const
 {
-	return mOutputs.get(sid);
+  return mOutputs.get(sid);
 }
 
 
@@ -523,7 +523,7 @@ Transition::getOutput(const std::string& sid) const
 Output*
 Transition::getOutputBySpecies(const std::string& sid)
 {
-	return mOutputs.getBySpecies(sid);
+  return mOutputs.getBySpecies(sid);
 }
 
 
@@ -533,7 +533,7 @@ Transition::getOutputBySpecies(const std::string& sid)
 const Output*
 Transition::getOutputBySpecies(const std::string& sid) const
 {
-	return mOutputs.getBySpecies(sid);
+  return mOutputs.getBySpecies(sid);
 }
 
 
@@ -578,11 +578,11 @@ Transition::addOutput(const Output* i)
 }
 
 
-	/**
-	 * Get the number of Output objects in this Transition.
-	 *
-	 * @return the number of Output objects in this Transition
-	 */
+  /**
+   * Get the number of Output objects in this Transition.
+   *
+   * @return the number of Output objects in this Transition
+   */
 unsigned int 
 Transition::getNumOutputs() const
 {
@@ -628,7 +628,7 @@ Transition::getListOfFunctionTerms() const
 
 
 {
-	return &mFunctionTerms;
+  return &mFunctionTerms;
 }
 
 
@@ -638,7 +638,7 @@ Transition::getListOfFunctionTerms() const
 ListOfFunctionTerms*
 Transition::getListOfFunctionTerms()
 {
-	return &mFunctionTerms;
+  return &mFunctionTerms;
 }
 
 
@@ -648,7 +648,7 @@ Transition::getListOfFunctionTerms()
 FunctionTerm*
 Transition::removeFunctionTerm(unsigned int n)
 {
-	return mFunctionTerms.remove(n);
+  return mFunctionTerms.remove(n);
 }
 
 
@@ -658,7 +658,7 @@ Transition::removeFunctionTerm(unsigned int n)
 FunctionTerm*
 Transition::removeFunctionTerm(const std::string& sid)
 {
-	return mFunctionTerms.remove(sid);
+  return mFunctionTerms.remove(sid);
 }
 
 
@@ -668,7 +668,7 @@ Transition::removeFunctionTerm(const std::string& sid)
 FunctionTerm*
 Transition::getFunctionTerm(unsigned int n)
 {
-	return mFunctionTerms.get(n);
+  return mFunctionTerms.get(n);
 }
 
 
@@ -678,7 +678,7 @@ Transition::getFunctionTerm(unsigned int n)
 const FunctionTerm*
 Transition::getFunctionTerm(unsigned int n) const
 {
-	return mFunctionTerms.get(n);
+  return mFunctionTerms.get(n);
 }
 
 
@@ -688,7 +688,7 @@ Transition::getFunctionTerm(unsigned int n) const
 FunctionTerm*
 Transition::getFunctionTerm(const std::string& sid)
 {
-	return mFunctionTerms.get(sid);
+  return mFunctionTerms.get(sid);
 }
 
 
@@ -698,7 +698,7 @@ Transition::getFunctionTerm(const std::string& sid)
 const FunctionTerm*
 Transition::getFunctionTerm(const std::string& sid) const
 {
-	return mFunctionTerms.get(sid);
+  return mFunctionTerms.get(sid);
 }
 
 
@@ -737,11 +737,11 @@ Transition::addFunctionTerm(const FunctionTerm* i)
 }
 
 
-	/**
-	 * Get the number of FunctionTerm objects in this Transition.
-	 *
-	 * @return the number of FunctionTerm objects in this Transition
-	 */
+  /**
+   * Get the number of FunctionTerm objects in this Transition.
+   *
+   * @return the number of FunctionTerm objects in this Transition
+   */
 unsigned int 
 Transition::getNumFunctionTerms() const
 {
@@ -867,8 +867,8 @@ Transition::getDefaultTerm() const
 const std::string&
 Transition::getElementName () const
 {
-	static const string name = "transition";
-	return name;
+  static const string name = "transition";
+  return name;
 }
 
 
@@ -878,7 +878,7 @@ Transition::getElementName () const
 int
 Transition::getTypeCode () const
 {
-	return SBML_QUAL_TRANSITION;
+  return SBML_QUAL_TRANSITION;
 }
 
 
@@ -888,7 +888,7 @@ Transition::getTypeCode () const
 bool
 Transition::hasRequiredAttributes () const
 {
-	bool allPresent = true;
+  bool allPresent = true;
 
   return allPresent;
 }
@@ -900,13 +900,13 @@ Transition::hasRequiredAttributes () const
 bool
 Transition::hasRequiredElements () const
 {
-	bool allPresent = true;
+  bool allPresent = true;
 
-	return allPresent;
+  return allPresent;
 }
 
 
-	/** @cond doxygenLibsbmlInternal */
+  /** @cond doxygenLibsbmlInternal */
 
 /*
  * write contained elements
@@ -914,7 +914,7 @@ Transition::hasRequiredElements () const
 void
 Transition::writeElements (XMLOutputStream& stream) const
 {
-	SBase::writeElements(stream);
+  SBase::writeElements(stream);
 
   if (getNumInputs () > 0) 
   {
@@ -930,14 +930,14 @@ Transition::writeElements (XMLOutputStream& stream) const
     mFunctionTerms.write(stream);
   }
 
-	SBase::writeExtensionElements(stream);
+  SBase::writeExtensionElements(stream);
 }
 
 
-	/** @endcond doxygenLibsbmlInternal */
+  /** @endcond doxygenLibsbmlInternal */
 
 
-	/** @cond doxygenLibsbmlInternal */
+  /** @cond doxygenLibsbmlInternal */
 
 /*
  * Accepts the given SBMLVisitor.
@@ -945,22 +945,22 @@ Transition::writeElements (XMLOutputStream& stream) const
 bool
 Transition::accept (SBMLVisitor& v) const
 {
-	v.visit(*this);
+  v.visit(*this);
 
   mInputs.accept(v);
   mOutputs.accept(v);
   mFunctionTerms.accept(v);
 
-	v.leave(*this);
+  v.leave(*this);
 
-	return true;
+  return true;
 }
 
 
-	/** @endcond doxygenLibsbmlInternal */
+  /** @endcond doxygenLibsbmlInternal */
 
 
-	/** @cond doxygenLibsbmlInternal */
+  /** @cond doxygenLibsbmlInternal */
 
 /*
  * Sets the parent SBMLDocument.
@@ -968,7 +968,7 @@ Transition::accept (SBMLVisitor& v) const
 void
 Transition::setSBMLDocument (SBMLDocument* d)
 {
-	SBase::setSBMLDocument(d);
+  SBase::setSBMLDocument(d);
 
   mInputs.setSBMLDocument(d);
   mOutputs.setSBMLDocument(d);
@@ -977,10 +977,10 @@ Transition::setSBMLDocument (SBMLDocument* d)
 }
 
 
-	/** @endcond doxygenLibsbmlInternal */
+  /** @endcond doxygenLibsbmlInternal */
 
 
-	/** @cond doxygenLibsbmlInternal */
+  /** @cond doxygenLibsbmlInternal */
 
 /*
  * 
@@ -988,14 +988,14 @@ Transition::setSBMLDocument (SBMLDocument* d)
 void
 Transition::connectToChild()
 {
-	  mInputs.connectToParent(this);
-	  mOutputs.connectToParent(this);
-	  mFunctionTerms.connectToParent(this);
+    mInputs.connectToParent(this);
+    mOutputs.connectToParent(this);
+    mFunctionTerms.connectToParent(this);
 }
 
 
-	/** @endcond doxygenLibsbmlInternal */
-	/** @cond doxygenLibsbmlInternal */
+  /** @endcond doxygenLibsbmlInternal */
+  /** @cond doxygenLibsbmlInternal */
 
 /*
  * Enables/Disables the given package with this element.
@@ -1004,7 +1004,7 @@ void
 Transition::enablePackageInternal(const std::string& pkgURI,
              const std::string& pkgPrefix, bool flag)
 {
-	SBase::enablePackageInternal(pkgURI, pkgPrefix, flag);
+  SBase::enablePackageInternal(pkgURI, pkgPrefix, flag);
 
   mInputs.enablePackageInternal(pkgURI,pkgPrefix,flag);
   mOutputs.enablePackageInternal(pkgURI,pkgPrefix,flag);
@@ -1012,7 +1012,7 @@ Transition::enablePackageInternal(const std::string& pkgURI,
 }
 
 
-	/** @endcond doxygenLibsbmlInternal */
+  /** @endcond doxygenLibsbmlInternal */
 
 
 /** @cond doxygenLibsbmlInternal */
@@ -1065,17 +1065,17 @@ Transition::createObject (XMLInputStream& stream)
 void
 Transition::addExpectedAttributes(ExpectedAttributes& attributes)
 {
-	SBase::addExpectedAttributes(attributes);
+  SBase::addExpectedAttributes(attributes);
 
-	attributes.add("id");
-	attributes.add("name");
+  attributes.add("id");
+  attributes.add("name");
 }
 
 
-	/** @endcond doxygenLibsbmlInternal */
+  /** @endcond doxygenLibsbmlInternal */
 
 
-	/** @cond doxygenLibsbmlInternal */
+  /** @cond doxygenLibsbmlInternal */
 
 /*
  * Read values from the given XMLAttributes set into their specific fields.
@@ -1084,20 +1084,20 @@ void
 Transition::readAttributes (const XMLAttributes& attributes,
                              const ExpectedAttributes& expectedAttributes)
 {
-	const unsigned int sbmlLevel   = getLevel  ();
-	const unsigned int sbmlVersion = getVersion();
+  const unsigned int sbmlLevel   = getLevel  ();
+  const unsigned int sbmlVersion = getVersion();
 
-	unsigned int numErrs;
+  unsigned int numErrs;
 
-	/* look to see whether an unknown attribute error was logged
-	 * during the read of the listOfTransitions - which will have
-	 * happened immediately prior to this read
-	*/
+  /* look to see whether an unknown attribute error was logged
+   * during the read of the listOfTransitions - which will have
+   * happened immediately prior to this read
+  */
 
   if (getErrorLog() != NULL && 
     static_cast<ListOfTransitions*>(getParentSBMLObject())->size() < 2)
   {
-		numErrs = getErrorLog()->getNumErrors();
+    numErrs = getErrorLog()->getNumErrors();
     for (int n = numErrs-1; n >= 0; n--)      
     {
       if (getErrorLog()->getError(n)->getErrorId() == UnknownPackageAttribute)
@@ -1121,106 +1121,106 @@ Transition::readAttributes (const XMLAttributes& attributes,
 
   SBase::readAttributes(attributes, expectedAttributes);
 
-	// look to see whether an unknown attribute error was logged
-	if (getErrorLog() != NULL)
-	{
-		numErrs = getErrorLog()->getNumErrors();
-		for (int n = numErrs-1; n >= 0; n--)
-		{
-			if (getErrorLog()->getError(n)->getErrorId() == UnknownPackageAttribute)
-			{
-				const std::string details =
-				                  getErrorLog()->getError(n)->getMessage();
-				getErrorLog()->remove(UnknownPackageAttribute);
-				getErrorLog()->logPackageError("qual", QualTransitionAllowedAttributes,
-				               getPackageVersion(), sbmlLevel, sbmlVersion, details);
-			}
-			else if (getErrorLog()->getError(n)->getErrorId() == UnknownCoreAttribute)
-			{
-				const std::string details =
-				                  getErrorLog()->getError(n)->getMessage();
-				getErrorLog()->remove(UnknownCoreAttribute);
-				getErrorLog()->logPackageError("qual", QualTransitionAllowedCoreAttributes,
-				               getPackageVersion(), sbmlLevel, sbmlVersion, details);
-			}
-		}
-	}
+  // look to see whether an unknown attribute error was logged
+  if (getErrorLog() != NULL)
+  {
+    numErrs = getErrorLog()->getNumErrors();
+    for (int n = numErrs-1; n >= 0; n--)
+    {
+      if (getErrorLog()->getError(n)->getErrorId() == UnknownPackageAttribute)
+      {
+        const std::string details =
+                          getErrorLog()->getError(n)->getMessage();
+        getErrorLog()->remove(UnknownPackageAttribute);
+        getErrorLog()->logPackageError("qual", QualTransitionAllowedAttributes,
+                       getPackageVersion(), sbmlLevel, sbmlVersion, details);
+      }
+      else if (getErrorLog()->getError(n)->getErrorId() == UnknownCoreAttribute)
+      {
+        const std::string details =
+                          getErrorLog()->getError(n)->getMessage();
+        getErrorLog()->remove(UnknownCoreAttribute);
+        getErrorLog()->logPackageError("qual", QualTransitionAllowedCoreAttributes,
+                       getPackageVersion(), sbmlLevel, sbmlVersion, details);
+      }
+    }
+  }
 
-	bool assigned = false;
+  bool assigned = false;
 
-	//
-	// id SId  ( use = "optional" )
-	//
-	assigned = attributes.readInto("id", mId);
+  //
+  // id SId  ( use = "optional" )
+  //
+  assigned = attributes.readInto("id", mId);
 
- 	if (assigned == true)
-	{
-		// check string is not empty and correct syntax
+   if (assigned == true)
+  {
+    // check string is not empty and correct syntax
 
-		if (mId.empty() == true)
-		{
-			logEmptyString(mId, getLevel(), getVersion(), "<Transition>");
-		}
-		else if (SyntaxChecker::isValidSBMLSId(mId) == false)
-		{
-			logError(InvalidIdSyntax);
-		}
-	}
+    if (mId.empty() == true)
+    {
+      logEmptyString(mId, getLevel(), getVersion(), "<Transition>");
+    }
+    else if (SyntaxChecker::isValidSBMLSId(mId) == false)
+    {
+      logError(InvalidIdSyntax);
+    }
+  }
 
-	//
-	// name string   ( use = "optional" )
-	//
-	assigned = attributes.readInto("name", mName);
+  //
+  // name string   ( use = "optional" )
+  //
+  assigned = attributes.readInto("name", mName);
 
-	if (assigned == true)
-	{
-		// check string is not empty
+  if (assigned == true)
+  {
+    // check string is not empty
 
-		if (mName.empty() == true)
-		{
-			logEmptyString(mName, getLevel(), getVersion(), "<Transition>");
-		}
-	}
+    if (mName.empty() == true)
+    {
+      logEmptyString(mName, getLevel(), getVersion(), "<Transition>");
+    }
+  }
 
 }
 
 
-	/** @endcond doxygenLibsbmlInternal */
+  /** @endcond doxygenLibsbmlInternal */
 
 
-	/** @cond doxygenLibsbmlInternal */
+  /** @cond doxygenLibsbmlInternal */
 
 /*
  * Write values of XMLAttributes to the output stream.
  */
-	void
+  void
 Transition::writeAttributes (XMLOutputStream& stream) const
 {
-	SBase::writeAttributes(stream);
+  SBase::writeAttributes(stream);
 
-	if (isSetId() == true)
-		stream.writeAttribute("id", getPrefix(), mId);
+  if (isSetId() == true)
+    stream.writeAttribute("id", getPrefix(), mId);
 
-	if (isSetName() == true)
-		stream.writeAttribute("name", getPrefix(), mName);
+  if (isSetName() == true)
+    stream.writeAttribute("name", getPrefix(), mName);
 
-	SBase::writeExtensionAttributes(stream);
+  SBase::writeExtensionAttributes(stream);
 
 }
 
 
-	/** @endcond doxygenLibsbmlInternal */
+  /** @endcond doxygenLibsbmlInternal */
 
 
 /*
  * Constructor 
  */
 ListOfTransitions::ListOfTransitions(unsigned int level, 
-	                  unsigned int version, 
-	                  unsigned int pkgVersion)
+                                     unsigned int version, 
+                                     unsigned int pkgVersion)
  : ListOf(level, version)
 {
-	setSBMLNamespacesAndOwn(new QualPkgNamespaces(level, version, pkgVersion)); 
+  setSBMLNamespacesAndOwn(new QualPkgNamespaces(level, version, pkgVersion)); 
 }
 
 
@@ -1230,7 +1230,7 @@ ListOfTransitions::ListOfTransitions(unsigned int level,
 ListOfTransitions::ListOfTransitions(QualPkgNamespaces* qualns)
   : ListOf(qualns)
 {
-	setElementNamespace(qualns->getURI());
+  setElementNamespace(qualns->getURI());
 }
 
 
@@ -1240,7 +1240,7 @@ ListOfTransitions::ListOfTransitions(QualPkgNamespaces* qualns)
 ListOfTransitions* 
 ListOfTransitions::clone () const
  {
-	return new ListOfTransitions(*this);
+  return new ListOfTransitions(*this);
 }
 
 
@@ -1250,7 +1250,7 @@ ListOfTransitions::clone () const
 Transition*
 ListOfTransitions::get(unsigned int n)
 {
-	return static_cast<Transition*>(ListOf::get(n));
+  return static_cast<Transition*>(ListOf::get(n));
 }
 
 
@@ -1260,7 +1260,7 @@ ListOfTransitions::get(unsigned int n)
 const Transition*
 ListOfTransitions::get(unsigned int n) const
 {
-	return static_cast<const Transition*>(ListOf::get(n));
+  return static_cast<const Transition*>(ListOf::get(n));
 }
 
 
@@ -1270,8 +1270,8 @@ ListOfTransitions::get(unsigned int n) const
 Transition*
 ListOfTransitions::get(const std::string& sid)
 {
-	return const_cast<Transition*>(
-	  static_cast<const ListOfTransitions&>(*this).get(sid));
+  return const_cast<Transition*>(
+    static_cast<const ListOfTransitions&>(*this).get(sid));
 }
 
 
@@ -1281,10 +1281,10 @@ ListOfTransitions::get(const std::string& sid)
 const Transition*
 ListOfTransitions::get(const std::string& sid) const
 {
-	vector<SBase*>::const_iterator result;
+  vector<SBase*>::const_iterator result;
 
-	result = find_if( mItems.begin(), mItems.end(), IdEq<Transition>(sid) );
-	return (result == mItems.end()) ? 0 : static_cast <Transition*> (*result);
+  result = find_if( mItems.begin(), mItems.end(), IdEq<Transition>(sid) );
+  return (result == mItems.end()) ? 0 : static_cast <Transition*> (*result);
 }
 
 
@@ -1294,7 +1294,7 @@ ListOfTransitions::get(const std::string& sid) const
 Transition*
 ListOfTransitions::remove(unsigned int n)
 {
-	return static_cast<Transition*>(ListOf::remove(n));
+  return static_cast<Transition*>(ListOf::remove(n));
 }
 
 
@@ -1304,18 +1304,18 @@ ListOfTransitions::remove(unsigned int n)
 Transition*
 ListOfTransitions::remove(const std::string& sid)
 {
-	SBase* item = NULL;
-	vector<SBase*>::iterator result;
+  SBase* item = NULL;
+  vector<SBase*>::iterator result;
 
-	result = find_if( mItems.begin(), mItems.end(), IdEq<Transition>(sid) );
+  result = find_if( mItems.begin(), mItems.end(), IdEq<Transition>(sid) );
 
-	if (result != mItems.end())
-	{
-		item = *result;
-		mItems.erase(result);
-	}
+  if (result != mItems.end())
+  {
+    item = *result;
+    mItems.erase(result);
+  }
 
-	return static_cast <Transition*> (item);
+  return static_cast <Transition*> (item);
 }
 
 
@@ -1325,8 +1325,8 @@ ListOfTransitions::remove(const std::string& sid)
 const std::string&
 ListOfTransitions::getElementName () const
 {
-	static const string name = "listOfTransitions";
-	return name;
+  static const string name = "listOfTransitions";
+  return name;
 }
 
 
@@ -1336,7 +1336,7 @@ ListOfTransitions::getElementName () const
 int
 ListOfTransitions::getTypeCode () const
 {
-	return SBML_LIST_OF;
+  return SBML_LIST_OF;
 }
 
 
@@ -1346,11 +1346,11 @@ ListOfTransitions::getTypeCode () const
 int
 ListOfTransitions::getItemTypeCode () const
 {
-	return SBML_QUAL_TRANSITION;
+  return SBML_QUAL_TRANSITION;
 }
 
 
-	/** @cond doxygenLibsbmlInternal */
+  /** @cond doxygenLibsbmlInternal */
 
 /*
  * Creates a new Transition in this ListOfTransitions
@@ -1358,24 +1358,24 @@ ListOfTransitions::getItemTypeCode () const
 SBase*
 ListOfTransitions::createObject(XMLInputStream& stream)
 {
-	const std::string& name   = stream.peek().getName();
-	SBase* object = NULL;
+  const std::string& name   = stream.peek().getName();
+  SBase* object = NULL;
 
-	if (name == "transition")
-	{
-		QUAL_CREATE_NS(qualns, getSBMLNamespaces());
-		object = new Transition(qualns);
-		appendAndOwn(object);
-	}
+  if (name == "transition")
+  {
+    QUAL_CREATE_NS(qualns, getSBMLNamespaces());
+    object = new Transition(qualns);
+    appendAndOwn(object);
+  }
 
-	return object;
+  return object;
 }
 
 
-	/** @endcond doxygenLibsbmlInternal */
+  /** @endcond doxygenLibsbmlInternal */
 
 
-	/** @cond doxygenLibsbmlInternal */
+  /** @cond doxygenLibsbmlInternal */
 
 /*
  * Write the namespace for the Qual package.
@@ -1383,23 +1383,23 @@ ListOfTransitions::createObject(XMLInputStream& stream)
 void
 ListOfTransitions::writeXMLNS(XMLOutputStream& stream) const
 {
-	XMLNamespaces xmlns;
+  XMLNamespaces xmlns;
 
-	std::string prefix = getPrefix();
+  std::string prefix = getPrefix();
 
-	if (prefix.empty())
-	{
-		if (getNamespaces()->hasURI(QualExtension::getXmlnsL3V1V1()))
-		{
-			xmlns.add(QualExtension::getXmlnsL3V1V1(),prefix);
-		}
-	}
+  if (prefix.empty())
+  {
+    if (getNamespaces()->hasURI(QualExtension::getXmlnsL3V1V1()))
+    {
+      xmlns.add(QualExtension::getXmlnsL3V1V1(),prefix);
+    }
+  }
 
-	stream << xmlns;
+  stream << xmlns;
 }
 
 
-	/** @endcond doxygenLibsbmlInternal */
+  /** @endcond doxygenLibsbmlInternal */
 
 
 /**
@@ -1410,7 +1410,7 @@ Transition_t *
 Transition_create(unsigned int level, unsigned int version,
                   unsigned int pkgVersion)
 {
-	return new Transition(level, version, pkgVersion);
+  return new Transition(level, version, pkgVersion);
 }
 
 
@@ -1421,8 +1421,8 @@ LIBSBML_EXTERN
 void
 Transition_free(Transition_t * t)
 {
-	if (t != NULL)
-		delete t;
+  if (t != NULL)
+    delete t;
 }
 
 
@@ -1433,14 +1433,14 @@ LIBSBML_EXTERN
 Transition_t *
 Transition_clone(Transition_t * t)
 {
-	if (t != NULL)
-	{
-		return static_cast<Transition_t*>(t->clone());
-	}
-	else
-	{
-		return NULL;
-	}
+  if (t != NULL)
+  {
+    return static_cast<Transition_t*>(t->clone());
+  }
+  else
+  {
+    return NULL;
+  }
 }
 
 
@@ -1451,10 +1451,10 @@ LIBSBML_EXTERN
 char *
 Transition_getId(Transition_t * t)
 {
-	if (t == NULL)
-		return NULL;
+  if (t == NULL)
+    return NULL;
 
-	return t->getId().empty() ? NULL : safe_strdup(t->getId().c_str());
+  return t->getId().empty() ? NULL : safe_strdup(t->getId().c_str());
 }
 
 
@@ -1465,10 +1465,10 @@ LIBSBML_EXTERN
 char *
 Transition_getName(Transition_t * t)
 {
-	if (t == NULL)
-		return NULL;
+  if (t == NULL)
+    return NULL;
 
-	return t->getName().empty() ? NULL : safe_strdup(t->getName().c_str());
+  return t->getName().empty() ? NULL : safe_strdup(t->getName().c_str());
 }
 
 
@@ -1479,7 +1479,7 @@ LIBSBML_EXTERN
 int
 Transition_isSetId(Transition_t * t)
 {
-	return (t != NULL) ? static_cast<int>(t->isSetId()) : 0;
+  return (t != NULL) ? static_cast<int>(t->isSetId()) : 0;
 }
 
 
@@ -1490,7 +1490,7 @@ LIBSBML_EXTERN
 int
 Transition_isSetName(Transition_t * t)
 {
-	return (t != NULL) ? static_cast<int>(t->isSetName()) : 0;
+  return (t != NULL) ? static_cast<int>(t->isSetName()) : 0;
 }
 
 
@@ -1501,7 +1501,7 @@ LIBSBML_EXTERN
 int
 Transition_setId(Transition_t * t, const char * id)
 {
-	return (t != NULL) ? t->setId(id) : LIBSBML_INVALID_OBJECT;
+  return (t != NULL) ? t->setId(id) : LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -1512,7 +1512,7 @@ LIBSBML_EXTERN
 int
 Transition_setName(Transition_t * t, const char * name)
 {
-	return (t != NULL) ? t->setName(name) : LIBSBML_INVALID_OBJECT;
+  return (t != NULL) ? t->setName(name) : LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -1523,7 +1523,7 @@ LIBSBML_EXTERN
 int
 Transition_unsetId(Transition_t * t)
 {
-	return (t != NULL) ? t->unsetId() : LIBSBML_INVALID_OBJECT;
+  return (t != NULL) ? t->unsetId() : LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -1534,7 +1534,7 @@ LIBSBML_EXTERN
 int
 Transition_unsetName(Transition_t * t)
 {
-	return (t != NULL) ? t->unsetName() : LIBSBML_INVALID_OBJECT;
+  return (t != NULL) ? t->unsetName() : LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -1738,7 +1738,7 @@ LIBSBML_EXTERN
 int
 Transition_hasRequiredAttributes(Transition_t * t)
 {
-	return (t != NULL) ? static_cast<int>(t->hasRequiredAttributes()) : 0;
+  return (t != NULL) ? static_cast<int>(t->hasRequiredAttributes()) : 0;
 }
 
 
@@ -1749,10 +1749,10 @@ LIBSBML_EXTERN
 Transition_t *
 ListOfTransitions_getById(ListOf_t * lo, const char * sid)
 {
-	if (lo == NULL)
-		return NULL;
+  if (lo == NULL)
+    return NULL;
 
-	return (sid != NULL) ? static_cast <ListOfTransitions *>(lo)->get(sid) : NULL;
+  return (sid != NULL) ? static_cast <ListOfTransitions *>(lo)->get(sid) : NULL;
 }
 
 
@@ -1763,10 +1763,10 @@ LIBSBML_EXTERN
 Transition_t *
 ListOfTransitions_removeById(ListOf_t * lo, const char * sid)
 {
-	if (lo == NULL)
-		return NULL;
+  if (lo == NULL)
+    return NULL;
 
-	return (sid != NULL) ? static_cast <ListOfTransitions *>(lo)->remove(sid) : NULL;
+  return (sid != NULL) ? static_cast <ListOfTransitions *>(lo)->remove(sid) : NULL;
 }
 
 

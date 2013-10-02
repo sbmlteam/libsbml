@@ -131,13 +131,13 @@ struct QualValidatorConstraints
 {
   ConstraintSet<SBMLDocument>             mSBMLDocument;
   ConstraintSet<Model>                    mModel;
-	ConstraintSet<QualitativeSpecies>       mQualitativeSpecies;
-	ConstraintSet<Transition>               mTransition;
-	ConstraintSet<Input>                    mInput;
-	ConstraintSet<Output>                   mOutput;
-	ConstraintSet<FunctionTerm>             mFunctionTerm;
-	ConstraintSet<DefaultTerm>              mDefaultTerm;
-	ConstraintSet<ListOfFunctionTerms>      mListOfFunctionTerms;
+  ConstraintSet<QualitativeSpecies>       mQualitativeSpecies;
+  ConstraintSet<Transition>               mTransition;
+  ConstraintSet<Input>                    mInput;
+  ConstraintSet<Output>                   mOutput;
+  ConstraintSet<FunctionTerm>             mFunctionTerm;
+  ConstraintSet<DefaultTerm>              mDefaultTerm;
+  ConstraintSet<ListOfFunctionTerms>      mListOfFunctionTerms;
 
   map<VConstraint*,bool> ptrMap;
 
@@ -188,41 +188,41 @@ QualValidatorConstraints::add (VConstraint* c)
     return;
   }
 
-	if (dynamic_cast< TConstraint<QualitativeSpecies>* >(c) != NULL)
-	{
-		mQualitativeSpecies.add( static_cast< TConstraint<QualitativeSpecies>* >(c) );
-		return;
-	}
+  if (dynamic_cast< TConstraint<QualitativeSpecies>* >(c) != NULL)
+  {
+    mQualitativeSpecies.add( static_cast< TConstraint<QualitativeSpecies>* >(c) );
+    return;
+  }
 
-	if (dynamic_cast< TConstraint<Transition>* >(c) != NULL)
-	{
-		mTransition.add( static_cast< TConstraint<Transition>* >(c) );
-		return;
-	}
+  if (dynamic_cast< TConstraint<Transition>* >(c) != NULL)
+  {
+    mTransition.add( static_cast< TConstraint<Transition>* >(c) );
+    return;
+  }
 
-	if (dynamic_cast< TConstraint<Input>* >(c) != NULL)
-	{
-		mInput.add( static_cast< TConstraint<Input>* >(c) );
-		return;
-	}
+  if (dynamic_cast< TConstraint<Input>* >(c) != NULL)
+  {
+    mInput.add( static_cast< TConstraint<Input>* >(c) );
+    return;
+  }
 
-	if (dynamic_cast< TConstraint<Output>* >(c) != NULL)
-	{
-		mOutput.add( static_cast< TConstraint<Output>* >(c) );
-		return;
-	}
+  if (dynamic_cast< TConstraint<Output>* >(c) != NULL)
+  {
+    mOutput.add( static_cast< TConstraint<Output>* >(c) );
+    return;
+  }
 
-	if (dynamic_cast< TConstraint<FunctionTerm>* >(c) != NULL)
-	{
-		mFunctionTerm.add( static_cast< TConstraint<FunctionTerm>* >(c) );
-		return;
-	}
+  if (dynamic_cast< TConstraint<FunctionTerm>* >(c) != NULL)
+  {
+    mFunctionTerm.add( static_cast< TConstraint<FunctionTerm>* >(c) );
+    return;
+  }
 
-	if (dynamic_cast< TConstraint<DefaultTerm>* >(c) != NULL)
-	{
-		mDefaultTerm.add( static_cast< TConstraint<DefaultTerm>* >(c) );
-		return;
-	}
+  if (dynamic_cast< TConstraint<DefaultTerm>* >(c) != NULL)
+  {
+    mDefaultTerm.add( static_cast< TConstraint<DefaultTerm>* >(c) );
+    return;
+  }
 
   if (dynamic_cast< TConstraint<ListOfFunctionTerms>* >(c) != NULL)
   {
@@ -254,41 +254,41 @@ public:
 
   QualValidatingVisitor (QualValidator& v, const Model& m) : v(v), m(m) { }
 
-	bool visit (const QualitativeSpecies &x)
-	{
-		v.mQualConstraints->mQualitativeSpecies.applyTo(m, x);
-		return !v.mQualConstraints->mQualitativeSpecies.empty();
-	}
+  bool visit (const QualitativeSpecies &x)
+  {
+    v.mQualConstraints->mQualitativeSpecies.applyTo(m, x);
+    return !v.mQualConstraints->mQualitativeSpecies.empty();
+  }
 
-	bool visit (const Transition &x)
-	{
-		v.mQualConstraints->mTransition.applyTo(m, x);
-		return !v.mQualConstraints->mTransition.empty();
-	}
+  bool visit (const Transition &x)
+  {
+    v.mQualConstraints->mTransition.applyTo(m, x);
+    return !v.mQualConstraints->mTransition.empty();
+  }
 
-	bool visit (const Input &x)
-	{
-		v.mQualConstraints->mInput.applyTo(m, x);
-		return !v.mQualConstraints->mInput.empty();
-	}
+  bool visit (const Input &x)
+  {
+    v.mQualConstraints->mInput.applyTo(m, x);
+    return !v.mQualConstraints->mInput.empty();
+  }
 
-	bool visit (const Output &x)
-	{
-		v.mQualConstraints->mOutput.applyTo(m, x);
-		return !v.mQualConstraints->mOutput.empty();
-	}
+  bool visit (const Output &x)
+  {
+    v.mQualConstraints->mOutput.applyTo(m, x);
+    return !v.mQualConstraints->mOutput.empty();
+  }
 
-	bool visit (const FunctionTerm &x)
-	{
-		v.mQualConstraints->mFunctionTerm.applyTo(m, x);
-		return !v.mQualConstraints->mFunctionTerm.empty();
-	}
+  bool visit (const FunctionTerm &x)
+  {
+    v.mQualConstraints->mFunctionTerm.applyTo(m, x);
+    return !v.mQualConstraints->mFunctionTerm.empty();
+  }
 
-	bool visit (const DefaultTerm &x)
-	{
-		v.mQualConstraints->mDefaultTerm.applyTo(m, x);
-		return !v.mQualConstraints->mDefaultTerm.empty();
-	}
+  bool visit (const DefaultTerm &x)
+  {
+    v.mQualConstraints->mDefaultTerm.applyTo(m, x);
+    return !v.mQualConstraints->mDefaultTerm.empty();
+  }
 
   bool visit (const ListOfFunctionTerms &x)
   {
@@ -302,18 +302,18 @@ public:
   }
 
   virtual bool visit (const SBase &x)
-	{
-		if(&x == NULL || x.getPackageName() != "qual")
-		{
-			return SBMLVisitor::visit(x);
-		}
+  {
+    if(&x == NULL || x.getPackageName() != "qual")
+    {
+      return SBMLVisitor::visit(x);
+    }
 
-		int code = x.getTypeCode();
+    int code = x.getTypeCode();
 
-		const ListOf* list = dynamic_cast<const ListOf*>(&x);
+    const ListOf* list = dynamic_cast<const ListOf*>(&x);
 
-		if (list != NULL)
-		{
+    if (list != NULL)
+    {
       code = list->getItemTypeCode();
 
       if (code == SBML_QUAL_FUNCTION_TERM)
@@ -324,33 +324,33 @@ public:
       {
         return SBMLVisitor::visit(x);
       }
-		}
-		else
-		{
-			if (code == SBML_QUAL_QUALITATIVE_SPECIES)
-			{
-				return visit((const QualitativeSpecies&)x);
-			}
-			else if (code == SBML_QUAL_TRANSITION)
-			{
-				return visit((const Transition&)x);
-			}
-			else if (code == SBML_QUAL_INPUT)
-			{
-				return visit((const Input&)x);
-			}
-			else if (code == SBML_QUAL_OUTPUT)
-			{
-				return visit((const Output&)x);
-			}
-			else if (code == SBML_QUAL_FUNCTION_TERM)
-			{
-				return visit((const FunctionTerm&)x);
-			}
-			else if (code == SBML_QUAL_DEFAULT_TERM)
-			{
-				return visit((const DefaultTerm&)x);
-			}
+    }
+    else
+    {
+      if (code == SBML_QUAL_QUALITATIVE_SPECIES)
+      {
+        return visit((const QualitativeSpecies&)x);
+      }
+      else if (code == SBML_QUAL_TRANSITION)
+      {
+        return visit((const Transition&)x);
+      }
+      else if (code == SBML_QUAL_INPUT)
+      {
+        return visit((const Input&)x);
+      }
+      else if (code == SBML_QUAL_OUTPUT)
+      {
+        return visit((const Output&)x);
+      }
+      else if (code == SBML_QUAL_FUNCTION_TERM)
+      {
+        return visit((const FunctionTerm&)x);
+      }
+      else if (code == SBML_QUAL_DEFAULT_TERM)
+      {
+        return visit((const DefaultTerm&)x);
+      }
       else 
       {
         return SBMLVisitor::visit(x);

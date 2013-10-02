@@ -305,16 +305,16 @@ Objective::setType (const std::string& type)
 int 
 Objective::setType (ObjectiveType_t type)
 {
-	if (ObjectiveType_isValidObjectiveType(type) == 0)
-	{
+  if (ObjectiveType_isValidObjectiveType(type) == 0)
+  {
     mType = OBJECTIVE_TYPE_UNKNOWN;
-		return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
   }
-	else
-	{
-		mType = type;
-		return LIBSBML_OPERATION_SUCCESS;
-	}
+  else
+  {
+    mType = type;
+    return LIBSBML_OPERATION_SUCCESS;
+  }
 }
 
 
@@ -630,20 +630,20 @@ Objective::readAttributes (const XMLAttributes& attributes,
 
   attributes.readInto("name", mName);
   
-	//
-	// type string   ( use = "required" )
-	//
+  //
+  // type string   ( use = "required" )
+  //
   std::string type;
   assigned = attributes.readInto("type", type);
 
-	if (assigned == true)
-	{
-		// check string is not empty
+  if (assigned == true)
+  {
+    // check string is not empty
 
-		if (type.empty() == true)
-		{
-			logEmptyString(type, sbmlLevel, sbmlVersion, "<Objective>");
-		}
+    if (type.empty() == true)
+    {
+      logEmptyString(type, sbmlLevel, sbmlVersion, "<Objective>");
+    }
     else 
     {
        mType = ObjectiveType_fromString( type.c_str() );
@@ -653,7 +653,7 @@ Objective::readAttributes (const XMLAttributes& attributes,
             getPackageVersion(), sbmlLevel, sbmlVersion);
        }
     }
-	}
+  }
   else
   {
     std::string message = "Fbc attribute 'type' is missing.";
@@ -675,8 +675,8 @@ Objective::writeAttributes (XMLOutputStream& stream) const
   if(isSetName())
     stream.writeAttribute("name",   getPrefix(), mName);
   
-	if (isSetType() == true)
-		stream.writeAttribute("type", getPrefix(), 
+  if (isSetType() == true)
+    stream.writeAttribute("type", getPrefix(), 
                      ObjectiveType_toString(mType));
 
   //
@@ -946,14 +946,14 @@ ListOfObjectives::createObject (XMLInputStream& stream)
   if (name == "objective")
   {
     try
-	{
+    {
       FBC_CREATE_NS(fbcns, getSBMLNamespaces());
       object = new Objective(fbcns);
       appendAndOwn(object);
       //mItems.push_back(object);
-	}
-	catch(...)
-	{
+    }
+    catch(...)
+    {
       /* 
       * NULL will be returned if the mSBMLNS is invalid (basically this
       * should not happen) or some exception is thrown (e.g. std::bad_alloc)
@@ -961,7 +961,7 @@ ListOfObjectives::createObject (XMLInputStream& stream)
       * (Maybe this should be changed so that caller can detect what kind 
       *  of error happened in this function.)
       */
-	}
+    }
 
   }
 
@@ -977,7 +977,7 @@ ListOfObjectives::addExpectedAttributes(ExpectedAttributes& attributes)
   //
   // required attribute is not defined for SBML Level 2 or lesser.
   //
-	if ( getLevel() > 2 )
+  if ( getLevel() > 2 )
   {    
     attributes.add("activeObjective");
   }
@@ -1023,7 +1023,7 @@ ListOfObjectives::writeAttributes (XMLOutputStream& stream) const
   //cout << "[DEBUG] SBMLDocumentPlugin::writeAttributes() " << endl;
   if ( isSetActiveObjective() ) 
   {
-	  stream.writeAttribute("activeObjective", getPrefix(), mActiveObjective);
+    stream.writeAttribute("activeObjective", getPrefix(), mActiveObjective);
   }
 }
 /** @endcond */

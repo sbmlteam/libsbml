@@ -403,10 +403,10 @@ FbcModelPlugin::readOtherXML (SBase* parentObject, XMLInputStream& stream)
   }
   catch(...)
   {
-	// an exception occured, most likely becase a namespace constructor
-	// threw an exception, catching this here, and return false, to indicate
-	// that the annotation wasn't read. 
-	readAnnotationFromStream = false;
+    // an exception occured, most likely becase a namespace constructor
+    // threw an exception, catching this here, and return false, to indicate
+    // that the annotation wasn't read. 
+    readAnnotationFromStream = false;
   }
   
   return readAnnotationFromStream;

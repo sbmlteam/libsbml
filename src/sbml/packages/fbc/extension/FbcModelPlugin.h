@@ -144,7 +144,7 @@ public:
   /** @endcond */
 
 
-   /**
+  /**
    * Returns the first child element found that has the given @p id in the model-wide SId namespace, or @c NULL if no such object is found.
    *
    * @param id string representing the id of objects to find

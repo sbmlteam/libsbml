@@ -50,8 +50,8 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 
 const std::string& FbcExtension::getPackageName ()
 {
-	static const std::string pkgName = "fbc";
-	return pkgName;
+  static const std::string pkgName = "fbc";
+  return pkgName;
 }
 
 //
@@ -59,17 +59,17 @@ const std::string& FbcExtension::getPackageName ()
 //
 unsigned int FbcExtension::getDefaultLevel()
 {
-	return 3;
+  return 3;
 }  
 
 unsigned int FbcExtension::getDefaultVersion()
 {
-	return 1; 
+  return 1; 
 }
 
 unsigned int FbcExtension::getDefaultPackageVersion()
 {
-	return 1;
+  return 1;
 } 
 
 //
@@ -80,8 +80,8 @@ unsigned int FbcExtension::getDefaultPackageVersion()
 
 const std::string& FbcExtension::getXmlnsL3V1V1 ()
 {
-	static const std::string xmlns = "http://www.sbml.org/sbml/level3/version1/fbc/version1";
-	return xmlns;
+  static const std::string xmlns = "http://www.sbml.org/sbml/level3/version1/fbc/version1";
+  return xmlns;
 }
 
 //

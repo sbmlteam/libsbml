@@ -58,818 +58,818 @@ class LIBSBML_EXTERN Transition : public SBase
 
 protected:
 
-	std::string   mId;
-	std::string   mName;
-	ListOfInputs   mInputs;
-	ListOfOutputs   mOutputs;
-	ListOfFunctionTerms   mFunctionTerms;
+  std::string   mId;
+  std::string   mName;
+  ListOfInputs   mInputs;
+  ListOfOutputs   mOutputs;
+  ListOfFunctionTerms   mFunctionTerms;
 
 
 public:
 
-	/**
-	 * Creates a new Transition with the given level, version, and package version.
-	 *
-	 * @param level an unsigned int, the SBML Level to assign to this Transition
-	 *
-	 * @param version an unsigned int, the SBML Version to assign to this Transition
-	 *
-	 * @param pkgVersion an unsigned int, the SBML Qual Version to assign to this Transition
-	 */
-	Transition(unsigned int level      = QualExtension::getDefaultLevel(),
-	           unsigned int version    = QualExtension::getDefaultVersion(),
-	           unsigned int pkgVersion = QualExtension::getDefaultPackageVersion());
-
-
-	/**
-	 * Creates a new Transition with the given QualPkgNamespaces object.
-	 *
-	 * @param qualns the QualPkgNamespaces object
-	 */
-	Transition(QualPkgNamespaces* qualns);
-
-
- 	/**
-	 * Copy constructor for Transition.
-	 *
-	 * @param orig; the Transition instance to copy.
-	 */
-	Transition(const Transition& orig);
-
-
- 	/**
-	 * Assignment operator for Transition.
-	 *
-	 * @param rhs; the object whose values are used as the basis
-	 * of the assignment
-	 */
-	Transition& operator=(const Transition& rhs);
-
-
- 	/**
-	 * Creates and returns a deep copy of this Transition object.
-	 *
-	 * @return a (deep) copy of this Transition object.
-	 */
-	virtual Transition* clone () const;
-
-
- 	/**
-	 * Destructor for Transition.
-	 */
-	virtual ~Transition();
-
-
- 	/**
-	 * Returns the value of the "id" attribute of this Transition.
-	 *
-	 * @return the value of the "id" attribute of this Transition as a string.
-	 */
-	virtual const std::string& getId() const;
-
-
-	/**
-	 * Returns the value of the "name" attribute of this Transition.
-	 *
-	 * @return the value of the "name" attribute of this Transition as a string.
-	 */
-	virtual const std::string& getName() const;
-
-
-	/**
-	 * Predicate returning @c true or @c false depending on whether this
-	 * Transition's "id" attribute has been set.
-	 *
-	 * @return @c true if this Transition's "id" attribute has been set,
-	 * otherwise @c false is returned.
-	 */
-	virtual bool isSetId() const;
-
-
-	/**
-	 * Predicate returning @c true or @c false depending on whether this
-	 * Transition's "name" attribute has been set.
-	 *
-	 * @return @c true if this Transition's "name" attribute has been set,
-	 * otherwise @c false is returned.
-	 */
-	virtual bool isSetName() const;
-
-
-	/**
-	 * Sets the value of the "id" attribute of this Transition.
-	 *
-	 * @param id; const std::string& value of the "id" attribute to be set
-	 *
-	 * @return integer value indicating success/failure of the
-	 * function.  @if clike The value is drawn from the
-	 * enumeration #OperationReturnValues_t. @endif The possible values
-	 * returned by this function are:
-	 * @li LIBSBML_OPERATION_SUCCESS
-	 * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
-	 */
-	virtual int setId(const std::string& id);
-
-
-	/**
-	 * Sets the value of the "name" attribute of this Transition.
-	 *
-	 * @param name; const std::string& value of the "name" attribute to be set
-	 *
-	 * @return integer value indicating success/failure of the
-	 * function.  @if clike The value is drawn from the
-	 * enumeration #OperationReturnValues_t. @endif The possible values
-	 * returned by this function are:
-	 * @li LIBSBML_OPERATION_SUCCESS
-	 * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
-	 */
-	virtual int setName(const std::string& name);
-
-
-	/**
-	 * Unsets the value of the "id" attribute of this Transition.
-	 *
-	 * @return integer value indicating success/failure of the
-	 * function.  @if clike The value is drawn from the
-	 * enumeration #OperationReturnValues_t. @endif The possible values
-	 * returned by this function are:
-	 * @li LIBSBML_OPERATION_SUCCESS
-	 * @li LIBSBML_OPERATION_FAILED
-	 */
-	virtual int unsetId();
-
-
-	/**
-	 * Unsets the value of the "name" attribute of this Transition.
-	 *
-	 * @return integer value indicating success/failure of the
-	 * function.  @if clike The value is drawn from the
-	 * enumeration #OperationReturnValues_t. @endif The possible values
-	 * returned by this function are:
-	 * @li LIBSBML_OPERATION_SUCCESS
-	 * @li LIBSBML_OPERATION_FAILED
-	 */
-	virtual int unsetName();
-
-
-	/**
-	 * Returns the  "ListOfInputs" in this Transition object.
-	 *
-	 * @return the "ListOfInputs" attribute of this Transition.
-	 */
-	const ListOfInputs* getListOfInputs() const;
-
-
-	/**
-	 * Returns the  "ListOfInputs" in this Transition object.
-	 *
-	 * @return the "ListOfInputs" attribute of this Transition.
-	 */
-	ListOfInputs* getListOfInputs();
-
-
-	/**
-	 * Get a Input from the ListOfInputs.
-	 *
-	 * @param n the index number of the Input to get.
-	 *
-	 * @return the nth Input in the ListOfInputs within this Transition.
-	 *
-	 * @see getNumInputs()
-	 */
-	Input* getInput(unsigned int n);
-
-
-	/**
-	 * Get a Input from the ListOfInputs.
-	 *
-	 * @param n the index number of the Input to get.
-	 *
-	 * @return the nth Input in the ListOfInputs within this Transition.
-	 *
-	 * @see getNumInputs()
-	 */
-	const Input* getInput(unsigned int n) const;
-
-
-	/**
-	 * Get a Input from the ListOfInputs
-	 * based on its identifier.
-	 *
-	 * @param sid a string representing the identifier
-	 * of the Input to get.
-	 *
-	 * @return the Input in the ListOfInputs
-	 * with the given id or NULL if no such
-	 * Input exists.
-	 *
-	 * @see getInput(unsigned int n)
-	 *
-	 * @see getNumInputs()
-	 */
-	Input* getInput(const std::string& sid);
-
-
-	/**
-	 * Get a Input from the ListOfInputs
-	 * based on its identifier.
-	 *
-	 * @param sid a string representing the identifier
-	 * of the Input to get.
-	 *
-	 * @return the Input in the ListOfInputs
-	 * with the given id or NULL if no such
-	 * Input exists.
-	 *
-	 * @see getInput(unsigned int n)
-	 *
-	 * @see getNumInputs()
-	 */
-	const Input* getInput(const std::string& sid) const;
-
-
-	/**
-	 * Get a Input from the ListOfInputs
-	 * based on its qualitativeSpecies attribute.
-	 *
-	 * @param sid a string representing the qualitativeSpecies
-	 * of the Input to get.
-	 *
-	 * @return the first Input in the ListOfInputs
-	 * with the given qualitativeSpecies or NULL if no such
-	 * Input exists.
-	 *
-	 * @see getInput(unsigned int n)
-	 *
-	 * @see getNumInputs()
-	 */
-	Input* getInputBySpecies(const std::string& sid);
-
-
-	/**
-	 * Get a Input from the ListOfInputs
-	 * based on its qualitativeSpecies attribute.
-	 *
-	 * @param sid a string representing the qualitativeSpecies
-	 * of the Input to get.
-	 *
-	 * @return the first Input in the ListOfInputs
-	 * with the given qualitativeSpecies or NULL if no such
-	 * Input exists.
-	 *
-	 * @see getInput(unsigned int n)
-	 *
-	 * @see getNumInputs()
-	 */
-	const Input* getInputBySpecies(const std::string& sid) const;
-
-
-	/**
-	 * Adds a copy the given "Input" to this Transition.
-	 *
-	 * @param i; the Input object to add
-	 *
-	 * @return integer value indicating success/failure of the
-	 * function.  @if clike The value is drawn from the
-	 * enumeration #OperationReturnValues_t. @endif The possible values
-	 * returned by this function are:
-	 * @li LIBSBML_OPERATION_SUCCESS
-	 * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
-	 */
-	int addInput(const Input* i);
-
-
-	/**
-	 * Get the number of Input objects in this Transition.
-	 *
-	 * @return the number of Input objects in this Transition
-	 */
-	unsigned int getNumInputs() const;
-
-
-	/**
-	 * Creates a new Input object, adds it to this Transitions
-	 * ListOfInputs and returns the Input object created. 
-	 *
-	 * @return a new Input object instance
-	 *
-	 * @see addInput(const Input* i)
-	 */
-	Input* createInput();
-
-
-	/**
-	 * Removes the nth Input from the ListOfInputs within this Transition.
-	 * and returns a pointer to it.
-	 *
-	 * The caller owns the returned item and is responsible for deleting it.
-	 *
-	 * @param n the index of the Input to remove.
-	 *
-	 * @see getNumInputs()
-	 */
-	Input* removeInput(unsigned int n);
-
-
-	/**
-	 * Removes the Input with the given identifier from the ListOfInputs within this Transition
-	 * and returns a pointer to it.
-	 *
-	 * The caller owns the returned item and is responsible for deleting it.
-	 * If none of the items in this list have the identifier @p sid, then
-	 * @c NULL is returned.
-	 *
-	 * @param sid the identifier of the Input to remove.
-	 *
-	 * @return the Input removed. As mentioned above, the caller owns the
-	 * returned item.
-	 */
-	Input* removeInput(const std::string& sid);
-
-
-	/**
-	 * Returns the  "ListOfOutputs" in this Transition object.
-	 *
-	 * @return the "ListOfOutputs" attribute of this Transition.
-	 */
-	const ListOfOutputs* getListOfOutputs() const;
-
-
-	/**
-	 * Returns the  "ListOfOutputs" in this Transition object.
-	 *
-	 * @return the "ListOfOutputs" attribute of this Transition.
-	 */
-	ListOfOutputs* getListOfOutputs();
-
-
-	/**
-	 * Get a Output from the ListOfOutputs.
-	 *
-	 * @param n the index number of the Output to get.
-	 *
-	 * @return the nth Output in the ListOfOutputs within this Transition.
-	 *
-	 * @see getNumOutputs()
-	 */
-	Output* getOutput(unsigned int n);
-
-
-	/**
-	 * Get a Output from the ListOfOutputs.
-	 *
-	 * @param n the index number of the Output to get.
-	 *
-	 * @return the nth Output in the ListOfOutputs within this Transition.
-	 *
-	 * @see getNumOutputs()
-	 */
-	const Output* getOutput(unsigned int n) const;
-
-
-	/**
-	 * Get a Output from the ListOfOutputs
-	 * based on its identifier.
-	 *
-	 * @param sid a string representing the identifier
-	 * of the Output to get.
-	 *
-	 * @return the Output in the ListOfOutputs
-	 * with the given id or NULL if no such
-	 * Output exists.
-	 *
-	 * @see getOutput(unsigned int n)
-	 *
-	 * @see getNumOutputs()
-	 */
-	Output* getOutput(const std::string& sid);
-
-
-	/**
-	 * Get a Output from the ListOfOutputs
-	 * based on its identifier.
-	 *
-	 * @param sid a string representing the identifier
-	 * of the Output to get.
-	 *
-	 * @return the Output in the ListOfOutputs
-	 * with the given id or NULL if no such
-	 * Output exists.
-	 *
-	 * @see getOutput(unsigned int n)
-	 *
-	 * @see getNumOutputs()
-	 */
-	const Output* getOutput(const std::string& sid) const;
-
-
-	/**
-	 * Get a Output from the ListOfOutputs
-	 * based on its qualitativeSpecies attribute.
-	 *
-	 * @param sid a string representing the qualitativeSpecies
-	 * of the Output to get.
-	 *
-	 * @return the first Output in the ListOfOutputs
-	 * with the given qualitativeSpecies or NULL if no such
-	 * Output exists.
-	 *
-	 * @see getOutput(unsigned int n)
-	 *
-	 * @see getNumOutputs()
-	 */
-	Output* getOutputBySpecies(const std::string& sid);
-
-
-	/**
-	 * Get a Output from the ListOfOutputs
-	 * based on its qualitativeSpecies attribute.
-	 *
-	 * @param sid a string representing the qualitativeSpecies
-	 * of the Output to get.
-	 *
-	 * @return the first Output in the ListOfOutputs
-	 * with the given qualitativeSpecies or NULL if no such
-	 * Output exists.
-	 *
-	 * @see getOutput(unsigned int n)
-	 *
-	 * @see getNumOutputs()
-	 */
-	const Output* getOutputBySpecies(const std::string& sid) const;
-
-
-	/**
-	 * Adds a copy the given "Output" to this Transition.
-	 *
-	 * @param o; the Output object to add
-	 *
-	 * @return integer value indicating success/failure of the
-	 * function.  @if clike The value is drawn from the
-	 * enumeration #OperationReturnValues_t. @endif The possible values
-	 * returned by this function are:
-	 * @li LIBSBML_OPERATION_SUCCESS
-	 * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
-	 */
-	int addOutput(const Output* o);
-
-
-	/**
-	 * Get the number of Output objects in this Transition.
-	 *
-	 * @return the number of Output objects in this Transition
-	 */
-	unsigned int getNumOutputs() const;
-
-
-	/**
-	 * Creates a new Output object, adds it to this Transitions
-	 * ListOfOutputs and returns the Output object created. 
-	 *
-	 * @return a new Output object instance
-	 *
-	 * @see addOutput(const Output* o)
-	 */
-	Output* createOutput();
-
-
-	/**
-	 * Removes the nth Output from the ListOfOutputs within this Transition.
-	 * and returns a pointer to it.
-	 *
-	 * The caller owns the returned item and is responsible for deleting it.
-	 *
-	 * @param n the index of the Output to remove.
-	 *
-	 * @see getNumOutputs()
-	 */
-	Output* removeOutput(unsigned int n);
-
-
-	/**
-	 * Removes the Output with the given identifier from the ListOfOutputs within this Transition
-	 * and returns a pointer to it.
-	 *
-	 * The caller owns the returned item and is responsible for deleting it.
-	 * If none of the items in this list have the identifier @p sid, then
-	 * @c NULL is returned.
-	 *
-	 * @param sid the identifier of the Output to remove.
-	 *
-	 * @return the Output removed. As mentioned above, the caller owns the
-	 * returned item.
-	 */
-	Output* removeOutput(const std::string& sid);
-
-
-	/**
-	 * Returns the  "ListOfFunctionTerms" in this Transition object.
-	 *
-	 * @return the "ListOfFunctionTerms" attribute of this Transition.
-	 */
-	const ListOfFunctionTerms* getListOfFunctionTerms() const;
-
-
-	/**
-	 * Returns the  "ListOfFunctionTerms" in this Transition object.
-	 *
-	 * @return the "ListOfFunctionTerms" attribute of this Transition.
-	 */
-	ListOfFunctionTerms* getListOfFunctionTerms();
-
-
-	/**
-	 * Get a FunctionTerm from the ListOfFunctionTerms.
-	 *
-	 * @param n the index number of the FunctionTerm to get.
-	 *
-	 * @return the nth FunctionTerm in the ListOfFunctionTerms within this Transition.
-	 *
-	 * @see getNumFunctionTerms()
-	 */
-	FunctionTerm* getFunctionTerm(unsigned int n);
-
-
-	/**
-	 * Get a FunctionTerm from the ListOfFunctionTerms.
-	 *
-	 * @param n the index number of the FunctionTerm to get.
-	 *
-	 * @return the nth FunctionTerm in the ListOfFunctionTerms within this Transition.
-	 *
-	 * @see getNumFunctionTerms()
-	 */
-	const FunctionTerm* getFunctionTerm(unsigned int n) const;
-
-
-	/**
-	 * Get a FunctionTerm from the ListOfFunctionTerms
-	 * based on its identifier.
-	 *
-	 * @param sid a string representing the identifier
-	 * of the FunctionTerm to get.
-	 *
-	 * @return the FunctionTerm in the ListOfFunctionTerms
-	 * with the given id or NULL if no such
-	 * FunctionTerm exists.
-	 *
-	 * @see getFunctionTerm(unsigned int n)
-	 *
-	 * @see getNumFunctionTerms()
-	 */
-	FunctionTerm* getFunctionTerm(const std::string& sid);
-
-
-	/**
-	 * Get a FunctionTerm from the ListOfFunctionTerms
-	 * based on its identifier.
-	 *
-	 * @param sid a string representing the identifier
-	 * of the FunctionTerm to get.
-	 *
-	 * @return the FunctionTerm in the ListOfFunctionTerms
-	 * with the given id or NULL if no such
-	 * FunctionTerm exists.
-	 *
-	 * @see getFunctionTerm(unsigned int n)
-	 *
-	 * @see getNumFunctionTerms()
-	 */
-	const FunctionTerm* getFunctionTerm(const std::string& sid) const;
-
-
-	/**
-	 * Adds a copy the given "FunctionTerm" to this Transition.
-	 *
-	 * @param ft; the FunctionTerm object to add
-	 *
-	 * @return integer value indicating success/failure of the
-	 * function.  @if clike The value is drawn from the
-	 * enumeration #OperationReturnValues_t. @endif The possible values
-	 * returned by this function are:
-	 * @li LIBSBML_OPERATION_SUCCESS
-	 * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
-	 */
-	int addFunctionTerm(const FunctionTerm* ft);
-
-
-	/**
-	 * Get the number of FunctionTerm objects in this Transition.
-	 *
-	 * @return the number of FunctionTerm objects in this Transition
-	 */
-	unsigned int getNumFunctionTerms() const;
-
-
-	/**
-	 * Creates a new FunctionTerm object, adds it to this Transitions
-	 * ListOfFunctionTerms and returns the FunctionTerm object created. 
-	 *
-	 * @return a new FunctionTerm object instance
-	 *
-	 * @see addFunctionTerm(const FunctionTerm* ft)
-	 */
-	FunctionTerm* createFunctionTerm();
-
-
-	/**
-	 * Removes the nth FunctionTerm from the ListOfFunctionTerms within this Transition.
-	 * and returns a pointer to it.
-	 *
-	 * The caller owns the returned item and is responsible for deleting it.
-	 *
-	 * @param n the index of the FunctionTerm to remove.
-	 *
-	 * @see getNumFunctionTerms()
-	 */
-	FunctionTerm* removeFunctionTerm(unsigned int n);
-
-
-	/**
-	 * Removes the FunctionTerm with the given identifier from the ListOfFunctionTerms within this Transition
-	 * and returns a pointer to it.
-	 *
-	 * The caller owns the returned item and is responsible for deleting it.
-	 * If none of the items in this list have the identifier @p sid, then
-	 * @c NULL is returned.
-	 *
-	 * @param sid the identifier of the FunctionTerm to remove.
-	 *
-	 * @return the FunctionTerm removed. As mentioned above, the caller owns the
-	 * returned item.
-	 */
-	FunctionTerm* removeFunctionTerm(const std::string& sid);
-
-
-	/**
-	 * Creates a new DefaultTerm object, adds it to this Transitions
-	 * ListOfFunctionTerms and returns the DefaultTerm object created. 
-	 *
-	 * @return a new DefaultTerm object instance
-	 *
-	 * @see setDefaultTerm(const DefaultTerm* ft)
-	 */
-	 DefaultTerm* createDefaultTerm();
-
-
-	/**
-	 * Sets the given "DefaultTerm" to this Transition.
-	 *
-	 * @param ft; the DefaultTerm object to add
-	 *
-	 * @return integer value indicating success/failure of the
-	 * function.  @if clike The value is drawn from the
-	 * enumeration #OperationReturnValues_t. @endif The possible values
-	 * returned by this function are:
-	 * @li LIBSBML_OPERATION_SUCCESS
-	 * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
-	 */
-	int setDefaultTerm(const DefaultTerm* ft);
-
-
-	/**
-	 * Predicate returning @c true if all the defaultTerm 
-	 * for this Transition object has been set.
-	 *
-	 * @return a boolean value indicating whether the defaultTerm
-	 * attributes for this object have been defined.
-	 */
+  /**
+   * Creates a new Transition with the given level, version, and package version.
+   *
+   * @param level an unsigned int, the SBML Level to assign to this Transition
+   *
+   * @param version an unsigned int, the SBML Version to assign to this Transition
+   *
+   * @param pkgVersion an unsigned int, the SBML Qual Version to assign to this Transition
+   */
+  Transition(unsigned int level      = QualExtension::getDefaultLevel(),
+             unsigned int version    = QualExtension::getDefaultVersion(),
+             unsigned int pkgVersion = QualExtension::getDefaultPackageVersion());
+
+
+  /**
+   * Creates a new Transition with the given QualPkgNamespaces object.
+   *
+   * @param qualns the QualPkgNamespaces object
+   */
+  Transition(QualPkgNamespaces* qualns);
+
+
+  /**
+   * Copy constructor for Transition.
+   *
+   * @param orig; the Transition instance to copy.
+   */
+  Transition(const Transition& orig);
+
+
+  /**
+   * Assignment operator for Transition.
+   *
+   * @param rhs; the object whose values are used as the basis
+   * of the assignment
+   */
+  Transition& operator=(const Transition& rhs);
+
+
+  /**
+   * Creates and returns a deep copy of this Transition object.
+   *
+   * @return a (deep) copy of this Transition object.
+   */
+  virtual Transition* clone () const;
+
+
+  /**
+   * Destructor for Transition.
+   */
+  virtual ~Transition();
+
+
+  /**
+   * Returns the value of the "id" attribute of this Transition.
+   *
+   * @return the value of the "id" attribute of this Transition as a string.
+   */
+  virtual const std::string& getId() const;
+
+
+  /**
+   * Returns the value of the "name" attribute of this Transition.
+   *
+   * @return the value of the "name" attribute of this Transition as a string.
+   */
+  virtual const std::string& getName() const;
+
+
+  /**
+   * Predicate returning @c true or @c false depending on whether this
+   * Transition's "id" attribute has been set.
+   *
+   * @return @c true if this Transition's "id" attribute has been set,
+   * otherwise @c false is returned.
+   */
+  virtual bool isSetId() const;
+
+
+  /**
+   * Predicate returning @c true or @c false depending on whether this
+   * Transition's "name" attribute has been set.
+   *
+   * @return @c true if this Transition's "name" attribute has been set,
+   * otherwise @c false is returned.
+   */
+  virtual bool isSetName() const;
+
+
+  /**
+   * Sets the value of the "id" attribute of this Transition.
+   *
+   * @param id; const std::string& value of the "id" attribute to be set
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+   */
+  virtual int setId(const std::string& id);
+
+
+  /**
+   * Sets the value of the "name" attribute of this Transition.
+   *
+   * @param name; const std::string& value of the "name" attribute to be set
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+   */
+  virtual int setName(const std::string& name);
+
+
+  /**
+   * Unsets the value of the "id" attribute of this Transition.
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_OPERATION_FAILED
+   */
+  virtual int unsetId();
+
+
+  /**
+   * Unsets the value of the "name" attribute of this Transition.
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_OPERATION_FAILED
+   */
+  virtual int unsetName();
+
+
+  /**
+   * Returns the  "ListOfInputs" in this Transition object.
+   *
+   * @return the "ListOfInputs" attribute of this Transition.
+   */
+  const ListOfInputs* getListOfInputs() const;
+
+
+  /**
+   * Returns the  "ListOfInputs" in this Transition object.
+   *
+   * @return the "ListOfInputs" attribute of this Transition.
+   */
+  ListOfInputs* getListOfInputs();
+
+
+  /**
+   * Get a Input from the ListOfInputs.
+   *
+   * @param n the index number of the Input to get.
+   *
+   * @return the nth Input in the ListOfInputs within this Transition.
+   *
+   * @see getNumInputs()
+   */
+  Input* getInput(unsigned int n);
+
+
+  /**
+   * Get a Input from the ListOfInputs.
+   *
+   * @param n the index number of the Input to get.
+   *
+   * @return the nth Input in the ListOfInputs within this Transition.
+   *
+   * @see getNumInputs()
+   */
+  const Input* getInput(unsigned int n) const;
+
+
+  /**
+   * Get a Input from the ListOfInputs
+   * based on its identifier.
+   *
+   * @param sid a string representing the identifier
+   * of the Input to get.
+   *
+   * @return the Input in the ListOfInputs
+   * with the given id or NULL if no such
+   * Input exists.
+   *
+   * @see getInput(unsigned int n)
+   *
+   * @see getNumInputs()
+   */
+  Input* getInput(const std::string& sid);
+
+
+  /**
+   * Get a Input from the ListOfInputs
+   * based on its identifier.
+   *
+   * @param sid a string representing the identifier
+   * of the Input to get.
+   *
+   * @return the Input in the ListOfInputs
+   * with the given id or NULL if no such
+   * Input exists.
+   *
+   * @see getInput(unsigned int n)
+   *
+   * @see getNumInputs()
+   */
+  const Input* getInput(const std::string& sid) const;
+
+
+  /**
+   * Get a Input from the ListOfInputs
+   * based on its qualitativeSpecies attribute.
+   *
+   * @param sid a string representing the qualitativeSpecies
+   * of the Input to get.
+   *
+   * @return the first Input in the ListOfInputs
+   * with the given qualitativeSpecies or NULL if no such
+   * Input exists.
+   *
+   * @see getInput(unsigned int n)
+   *
+   * @see getNumInputs()
+   */
+  Input* getInputBySpecies(const std::string& sid);
+
+
+  /**
+   * Get a Input from the ListOfInputs
+   * based on its qualitativeSpecies attribute.
+   *
+   * @param sid a string representing the qualitativeSpecies
+   * of the Input to get.
+   *
+   * @return the first Input in the ListOfInputs
+   * with the given qualitativeSpecies or NULL if no such
+   * Input exists.
+   *
+   * @see getInput(unsigned int n)
+   *
+   * @see getNumInputs()
+   */
+  const Input* getInputBySpecies(const std::string& sid) const;
+
+
+  /**
+   * Adds a copy the given "Input" to this Transition.
+   *
+   * @param i; the Input object to add
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+   */
+  int addInput(const Input* i);
+
+
+  /**
+   * Get the number of Input objects in this Transition.
+   *
+   * @return the number of Input objects in this Transition
+   */
+  unsigned int getNumInputs() const;
+
+
+  /**
+   * Creates a new Input object, adds it to this Transitions
+   * ListOfInputs and returns the Input object created. 
+   *
+   * @return a new Input object instance
+   *
+   * @see addInput(const Input* i)
+   */
+  Input* createInput();
+
+
+  /**
+   * Removes the nth Input from the ListOfInputs within this Transition.
+   * and returns a pointer to it.
+   *
+   * The caller owns the returned item and is responsible for deleting it.
+   *
+   * @param n the index of the Input to remove.
+   *
+   * @see getNumInputs()
+   */
+  Input* removeInput(unsigned int n);
+
+
+  /**
+   * Removes the Input with the given identifier from the ListOfInputs within this Transition
+   * and returns a pointer to it.
+   *
+   * The caller owns the returned item and is responsible for deleting it.
+   * If none of the items in this list have the identifier @p sid, then
+   * @c NULL is returned.
+   *
+   * @param sid the identifier of the Input to remove.
+   *
+   * @return the Input removed. As mentioned above, the caller owns the
+   * returned item.
+   */
+  Input* removeInput(const std::string& sid);
+
+
+  /**
+   * Returns the  "ListOfOutputs" in this Transition object.
+   *
+   * @return the "ListOfOutputs" attribute of this Transition.
+   */
+  const ListOfOutputs* getListOfOutputs() const;
+
+
+  /**
+   * Returns the  "ListOfOutputs" in this Transition object.
+   *
+   * @return the "ListOfOutputs" attribute of this Transition.
+   */
+  ListOfOutputs* getListOfOutputs();
+
+
+  /**
+   * Get a Output from the ListOfOutputs.
+   *
+   * @param n the index number of the Output to get.
+   *
+   * @return the nth Output in the ListOfOutputs within this Transition.
+   *
+   * @see getNumOutputs()
+   */
+  Output* getOutput(unsigned int n);
+
+
+  /**
+   * Get a Output from the ListOfOutputs.
+   *
+   * @param n the index number of the Output to get.
+   *
+   * @return the nth Output in the ListOfOutputs within this Transition.
+   *
+   * @see getNumOutputs()
+   */
+  const Output* getOutput(unsigned int n) const;
+
+
+  /**
+   * Get a Output from the ListOfOutputs
+   * based on its identifier.
+   *
+   * @param sid a string representing the identifier
+   * of the Output to get.
+   *
+   * @return the Output in the ListOfOutputs
+   * with the given id or NULL if no such
+   * Output exists.
+   *
+   * @see getOutput(unsigned int n)
+   *
+   * @see getNumOutputs()
+   */
+  Output* getOutput(const std::string& sid);
+
+
+  /**
+   * Get a Output from the ListOfOutputs
+   * based on its identifier.
+   *
+   * @param sid a string representing the identifier
+   * of the Output to get.
+   *
+   * @return the Output in the ListOfOutputs
+   * with the given id or NULL if no such
+   * Output exists.
+   *
+   * @see getOutput(unsigned int n)
+   *
+   * @see getNumOutputs()
+   */
+  const Output* getOutput(const std::string& sid) const;
+
+
+  /**
+   * Get a Output from the ListOfOutputs
+   * based on its qualitativeSpecies attribute.
+   *
+   * @param sid a string representing the qualitativeSpecies
+   * of the Output to get.
+   *
+   * @return the first Output in the ListOfOutputs
+   * with the given qualitativeSpecies or NULL if no such
+   * Output exists.
+   *
+   * @see getOutput(unsigned int n)
+   *
+   * @see getNumOutputs()
+   */
+  Output* getOutputBySpecies(const std::string& sid);
+
+
+  /**
+   * Get a Output from the ListOfOutputs
+   * based on its qualitativeSpecies attribute.
+   *
+   * @param sid a string representing the qualitativeSpecies
+   * of the Output to get.
+   *
+   * @return the first Output in the ListOfOutputs
+   * with the given qualitativeSpecies or NULL if no such
+   * Output exists.
+   *
+   * @see getOutput(unsigned int n)
+   *
+   * @see getNumOutputs()
+   */
+  const Output* getOutputBySpecies(const std::string& sid) const;
+
+
+  /**
+   * Adds a copy the given "Output" to this Transition.
+   *
+   * @param o; the Output object to add
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+   */
+  int addOutput(const Output* o);
+
+
+  /**
+   * Get the number of Output objects in this Transition.
+   *
+   * @return the number of Output objects in this Transition
+   */
+  unsigned int getNumOutputs() const;
+
+
+  /**
+   * Creates a new Output object, adds it to this Transitions
+   * ListOfOutputs and returns the Output object created. 
+   *
+   * @return a new Output object instance
+   *
+   * @see addOutput(const Output* o)
+   */
+  Output* createOutput();
+
+
+  /**
+   * Removes the nth Output from the ListOfOutputs within this Transition.
+   * and returns a pointer to it.
+   *
+   * The caller owns the returned item and is responsible for deleting it.
+   *
+   * @param n the index of the Output to remove.
+   *
+   * @see getNumOutputs()
+   */
+  Output* removeOutput(unsigned int n);
+
+
+  /**
+   * Removes the Output with the given identifier from the ListOfOutputs within this Transition
+   * and returns a pointer to it.
+   *
+   * The caller owns the returned item and is responsible for deleting it.
+   * If none of the items in this list have the identifier @p sid, then
+   * @c NULL is returned.
+   *
+   * @param sid the identifier of the Output to remove.
+   *
+   * @return the Output removed. As mentioned above, the caller owns the
+   * returned item.
+   */
+  Output* removeOutput(const std::string& sid);
+
+
+  /**
+   * Returns the  "ListOfFunctionTerms" in this Transition object.
+   *
+   * @return the "ListOfFunctionTerms" attribute of this Transition.
+   */
+  const ListOfFunctionTerms* getListOfFunctionTerms() const;
+
+
+  /**
+   * Returns the  "ListOfFunctionTerms" in this Transition object.
+   *
+   * @return the "ListOfFunctionTerms" attribute of this Transition.
+   */
+  ListOfFunctionTerms* getListOfFunctionTerms();
+
+
+  /**
+   * Get a FunctionTerm from the ListOfFunctionTerms.
+   *
+   * @param n the index number of the FunctionTerm to get.
+   *
+   * @return the nth FunctionTerm in the ListOfFunctionTerms within this Transition.
+   *
+   * @see getNumFunctionTerms()
+   */
+  FunctionTerm* getFunctionTerm(unsigned int n);
+
+
+  /**
+   * Get a FunctionTerm from the ListOfFunctionTerms.
+   *
+   * @param n the index number of the FunctionTerm to get.
+   *
+   * @return the nth FunctionTerm in the ListOfFunctionTerms within this Transition.
+   *
+   * @see getNumFunctionTerms()
+   */
+  const FunctionTerm* getFunctionTerm(unsigned int n) const;
+
+
+  /**
+   * Get a FunctionTerm from the ListOfFunctionTerms
+   * based on its identifier.
+   *
+   * @param sid a string representing the identifier
+   * of the FunctionTerm to get.
+   *
+   * @return the FunctionTerm in the ListOfFunctionTerms
+   * with the given id or NULL if no such
+   * FunctionTerm exists.
+   *
+   * @see getFunctionTerm(unsigned int n)
+   *
+   * @see getNumFunctionTerms()
+   */
+  FunctionTerm* getFunctionTerm(const std::string& sid);
+
+
+  /**
+   * Get a FunctionTerm from the ListOfFunctionTerms
+   * based on its identifier.
+   *
+   * @param sid a string representing the identifier
+   * of the FunctionTerm to get.
+   *
+   * @return the FunctionTerm in the ListOfFunctionTerms
+   * with the given id or NULL if no such
+   * FunctionTerm exists.
+   *
+   * @see getFunctionTerm(unsigned int n)
+   *
+   * @see getNumFunctionTerms()
+   */
+  const FunctionTerm* getFunctionTerm(const std::string& sid) const;
+
+
+  /**
+   * Adds a copy the given "FunctionTerm" to this Transition.
+   *
+   * @param ft; the FunctionTerm object to add
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+   */
+  int addFunctionTerm(const FunctionTerm* ft);
+
+
+  /**
+   * Get the number of FunctionTerm objects in this Transition.
+   *
+   * @return the number of FunctionTerm objects in this Transition
+   */
+  unsigned int getNumFunctionTerms() const;
+
+
+  /**
+   * Creates a new FunctionTerm object, adds it to this Transitions
+   * ListOfFunctionTerms and returns the FunctionTerm object created. 
+   *
+   * @return a new FunctionTerm object instance
+   *
+   * @see addFunctionTerm(const FunctionTerm* ft)
+   */
+  FunctionTerm* createFunctionTerm();
+
+
+  /**
+   * Removes the nth FunctionTerm from the ListOfFunctionTerms within this Transition.
+   * and returns a pointer to it.
+   *
+   * The caller owns the returned item and is responsible for deleting it.
+   *
+   * @param n the index of the FunctionTerm to remove.
+   *
+   * @see getNumFunctionTerms()
+   */
+  FunctionTerm* removeFunctionTerm(unsigned int n);
+
+
+  /**
+   * Removes the FunctionTerm with the given identifier from the ListOfFunctionTerms within this Transition
+   * and returns a pointer to it.
+   *
+   * The caller owns the returned item and is responsible for deleting it.
+   * If none of the items in this list have the identifier @p sid, then
+   * @c NULL is returned.
+   *
+   * @param sid the identifier of the FunctionTerm to remove.
+   *
+   * @return the FunctionTerm removed. As mentioned above, the caller owns the
+   * returned item.
+   */
+  FunctionTerm* removeFunctionTerm(const std::string& sid);
+
+
+  /**
+   * Creates a new DefaultTerm object, adds it to this Transitions
+   * ListOfFunctionTerms and returns the DefaultTerm object created. 
+   *
+   * @return a new DefaultTerm object instance
+   *
+   * @see setDefaultTerm(const DefaultTerm* ft)
+   */
+   DefaultTerm* createDefaultTerm();
+
+
+  /**
+   * Sets the given "DefaultTerm" to this Transition.
+   *
+   * @param ft; the DefaultTerm object to add
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+   */
+  int setDefaultTerm(const DefaultTerm* ft);
+
+
+  /**
+   * Predicate returning @c true if all the defaultTerm 
+   * for this Transition object has been set.
+   *
+   * @return a boolean value indicating whether the defaultTerm
+   * attributes for this object have been defined.
+   */
   bool isSetDefaultTerm() const;
   
-	/**
-	 */
+  /**
+   */
   DefaultTerm* getDefaultTerm();
   const DefaultTerm* getDefaultTerm() const;
   
   /**
-	 * Returns the XML element name of this object, which for Transition, is
-	 * always @c "transition".
-	 *
-	 * @return the name of this element, i.e. @c "transition".
-	 */
-	virtual const std::string& getElementName () const;
+   * Returns the XML element name of this object, which for Transition, is
+   * always @c "transition".
+   *
+   * @return the name of this element, i.e. @c "transition".
+   */
+  virtual const std::string& getElementName () const;
 
 
-	/**
-	 * Returns the libSBML type code for this SBML object.
-	 * 
-	 * @if clike LibSBML attaches an identifying code to every kind of SBML
-	 * object.  These are known as <em>SBML type codes</em>.  The set of
-	 * possible type codes is defined in the enumeration #SBMLTypeCode_t.
-	 * The names of the type codes all begin with the characters @c
-	 * SBML_. @endif@if java LibSBML attaches an identifying code to every
-	 * kind of SBML object.  These are known as <em>SBML type codes</em>.  In
-	 * other languages, the set of type codes is stored in an enumeration; in
-	 * the Java language interface for libSBML, the type codes are defined as
-	 * static integer constants in the interface class {@link
-	 * libsbmlConstants}.  The names of the type codes all begin with the
-	 * characters @c SBML_. @endif@if python LibSBML attaches an identifying
-	 * code to every kind of SBML object.  These are known as <em>SBML type
-	 * codes</em>.  In the Python language interface for libSBML, the type
-	 * codes are defined as static integer constants in the interface class
-	 * @link libsbml@endlink.  The names of the type codes all begin with the
-	 * characters @c SBML_. @endif@if csharp LibSBML attaches an identifying
-	 * code to every kind of SBML object.  These are known as <em>SBML type
-	 * codes</em>.  In the C# language interface for libSBML, the type codes
-	 * are defined as static integer constants in the interface class @link
-	 * libsbmlcs.libsbml@endlink.  The names of the type codes all begin with
-	 * the characters @c SBML_. @endif
-	 *
-	 * @return the SBML type code for this object, or
-	 * @link SBMLTypeCode_t#SBML_UNKNOWN SBML_UNKNOWN@endlink (default).
-	 *
-	 * @see getElementName()
-	 */
-	virtual int getTypeCode () const;
+  /**
+   * Returns the libSBML type code for this SBML object.
+   * 
+   * @if clike LibSBML attaches an identifying code to every kind of SBML
+   * object.  These are known as <em>SBML type codes</em>.  The set of
+   * possible type codes is defined in the enumeration #SBMLTypeCode_t.
+   * The names of the type codes all begin with the characters @c
+   * SBML_. @endif@if java LibSBML attaches an identifying code to every
+   * kind of SBML object.  These are known as <em>SBML type codes</em>.  In
+   * other languages, the set of type codes is stored in an enumeration; in
+   * the Java language interface for libSBML, the type codes are defined as
+   * static integer constants in the interface class {@link
+   * libsbmlConstants}.  The names of the type codes all begin with the
+   * characters @c SBML_. @endif@if python LibSBML attaches an identifying
+   * code to every kind of SBML object.  These are known as <em>SBML type
+   * codes</em>.  In the Python language interface for libSBML, the type
+   * codes are defined as static integer constants in the interface class
+   * @link libsbml@endlink.  The names of the type codes all begin with the
+   * characters @c SBML_. @endif@if csharp LibSBML attaches an identifying
+   * code to every kind of SBML object.  These are known as <em>SBML type
+   * codes</em>.  In the C# language interface for libSBML, the type codes
+   * are defined as static integer constants in the interface class @link
+   * libsbmlcs.libsbml@endlink.  The names of the type codes all begin with
+   * the characters @c SBML_. @endif
+   *
+   * @return the SBML type code for this object, or
+   * @link SBMLTypeCode_t#SBML_UNKNOWN SBML_UNKNOWN@endlink (default).
+   *
+   * @see getElementName()
+   */
+  virtual int getTypeCode () const;
 
 
-	/**
-	 * Predicate returning @c true if all the required attributes
-	 * for this Transition object have been set.
-	 *
-	 * @note The required attributes for a Transition object are:
-	 * @li "output"
-	 *
-	 * @return a boolean value indicating whether all the required
-	 * attributes for this object have been defined.
-	 */
-	virtual bool hasRequiredAttributes() const;
+  /**
+   * Predicate returning @c true if all the required attributes
+   * for this Transition object have been set.
+   *
+   * @note The required attributes for a Transition object are:
+   * @li "output"
+   *
+   * @return a boolean value indicating whether all the required
+   * attributes for this object have been defined.
+   */
+  virtual bool hasRequiredAttributes() const;
 
 
-	/**
-	 * Predicate returning @c true if all the required attributes
-	 * for this Transition object have been set.
-	 *
-	 * @note The required elements for a Transition object are:
-	 * @li "output"
-	 *
-	 * @return a boolean value indicating whether all the required
-	 * elements for this object have been defined.
-	 */
-	virtual bool hasRequiredElements() const;
+  /**
+   * Predicate returning @c true if all the required attributes
+   * for this Transition object have been set.
+   *
+   * @note The required elements for a Transition object are:
+   * @li "output"
+   *
+   * @return a boolean value indicating whether all the required
+   * elements for this object have been defined.
+   */
+  virtual bool hasRequiredElements() const;
 
 
-	/** @cond doxygenLibsbmlInternal */
+  /** @cond doxygenLibsbmlInternal */
 
-	/**
-	 * Subclasses should override this method to write out their contained
-	 * SBML objects as XML elements.  Be sure to call your parents
-	 * implementation of this method as well.
-	 */
-	virtual void writeElements (XMLOutputStream& stream) const;
-
-
-	/** @endcond doxygenLibsbmlInternal */
+  /**
+   * Subclasses should override this method to write out their contained
+   * SBML objects as XML elements.  Be sure to call your parents
+   * implementation of this method as well.
+   */
+  virtual void writeElements (XMLOutputStream& stream) const;
 
 
-	/** @cond doxygenLibsbmlInternal */
-
-	/**
-	 * Accepts the given SBMLVisitor.
-	 */
-	virtual bool accept (SBMLVisitor& v) const;
+  /** @endcond doxygenLibsbmlInternal */
 
 
-	/** @endcond doxygenLibsbmlInternal */
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Accepts the given SBMLVisitor.
+   */
+  virtual bool accept (SBMLVisitor& v) const;
 
 
-	/** @cond doxygenLibsbmlInternal */
-
-	/**
-	 * Sets the parent SBMLDocument.
-	 */
-	virtual void setSBMLDocument (SBMLDocument* d);
+  /** @endcond doxygenLibsbmlInternal */
 
 
-	/** @endcond doxygenLibsbmlInternal */
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Sets the parent SBMLDocument.
+   */
+  virtual void setSBMLDocument (SBMLDocument* d);
 
 
-	/** @cond doxygenLibsbmlInternal */
-
-	/**
-	 * Connects to child elements.
-	 */
-	virtual void connectToChild ();
+  /** @endcond doxygenLibsbmlInternal */
 
 
-	/** @endcond doxygenLibsbmlInternal */
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Connects to child elements.
+   */
+  virtual void connectToChild ();
 
 
-	/** @cond doxygenLibsbmlInternal */
-
-	/**
-	 * Enables/Disables the given package with this element.
-	 */
-	virtual void enablePackageInternal(const std::string& pkgURI,
-	             const std::string& pkgPrefix, bool flag);
+  /** @endcond doxygenLibsbmlInternal */
 
 
-	/** @endcond doxygenLibsbmlInternal */
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Enables/Disables the given package with this element.
+   */
+  virtual void enablePackageInternal(const std::string& pkgURI,
+               const std::string& pkgPrefix, bool flag);
+
+
+  /** @endcond doxygenLibsbmlInternal */
 
 
 protected:
 
-	/** @cond doxygenLibsbmlInternal */
+  /** @cond doxygenLibsbmlInternal */
 
   /**
    * @return the SBML object corresponding to next XMLToken in the
@@ -879,35 +879,35 @@ protected:
 
 
   /**
-	 * Get the list of expected attributes for this element.
-	 */
-	virtual void addExpectedAttributes(ExpectedAttributes& attributes);
+   * Get the list of expected attributes for this element.
+   */
+  virtual void addExpectedAttributes(ExpectedAttributes& attributes);
 
 
-	/** @endcond doxygenLibsbmlInternal */
+  /** @endcond doxygenLibsbmlInternal */
 
 
-	/** @cond doxygenLibsbmlInternal */
+  /** @cond doxygenLibsbmlInternal */
 
-	/**
-	 * Read values from the given XMLAttributes set into their specific fields.
-	 */
-	virtual void readAttributes (const XMLAttributes& attributes,
-	                             const ExpectedAttributes& expectedAttributes);
-
-
-	/** @endcond doxygenLibsbmlInternal */
+  /**
+   * Read values from the given XMLAttributes set into their specific fields.
+   */
+  virtual void readAttributes (const XMLAttributes& attributes,
+                               const ExpectedAttributes& expectedAttributes);
 
 
-	/** @cond doxygenLibsbmlInternal */
-
-	/**
-	 * Write values of XMLAttributes to the output stream.
-	 */
-	virtual void writeAttributes (XMLOutputStream& stream) const;
+  /** @endcond doxygenLibsbmlInternal */
 
 
-	/** @endcond doxygenLibsbmlInternal */
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Write values of XMLAttributes to the output stream.
+   */
+  virtual void writeAttributes (XMLOutputStream& stream) const;
+
+
+  /** @endcond doxygenLibsbmlInternal */
 
 
 
@@ -918,221 +918,221 @@ class LIBSBML_EXTERN ListOfTransitions : public ListOf
 
 public:
 
-	/**
-	 * Creates a new ListOfTransitions with the given level, version, and package version.
-	 *
-	 * @param level an unsigned int, the SBML Level to assign to this ListOfTransitions
-	 *
-	 * @param version an unsigned int, the SBML Version to assign to this ListOfTransitions
-	 *
-	 * @param pkgVersion an unsigned int, the SBML Qual Version to assign to this ListOfTransitions
-	 */
-	ListOfTransitions(unsigned int level      = QualExtension::getDefaultLevel(),
-	                  unsigned int version    = QualExtension::getDefaultVersion(),
-	                  unsigned int pkgVersion = QualExtension::getDefaultPackageVersion());
+  /**
+   * Creates a new ListOfTransitions with the given level, version, and package version.
+   *
+   * @param level an unsigned int, the SBML Level to assign to this ListOfTransitions
+   *
+   * @param version an unsigned int, the SBML Version to assign to this ListOfTransitions
+   *
+   * @param pkgVersion an unsigned int, the SBML Qual Version to assign to this ListOfTransitions
+   */
+  ListOfTransitions(unsigned int level      = QualExtension::getDefaultLevel(),
+                    unsigned int version    = QualExtension::getDefaultVersion(),
+                    unsigned int pkgVersion = QualExtension::getDefaultPackageVersion());
 
 
-	/**
-	 * Creates a new ListOfTransitions with the given QualPkgNamespaces object.
-	 *
-	 * @param qualns the QualPkgNamespaces object
-	 */
-	ListOfTransitions(QualPkgNamespaces* qualns);
+  /**
+   * Creates a new ListOfTransitions with the given QualPkgNamespaces object.
+   *
+   * @param qualns the QualPkgNamespaces object
+   */
+  ListOfTransitions(QualPkgNamespaces* qualns);
 
 
- 	/**
-	 * Creates and returns a deep copy of this ListOfTransitions object.
-	 *
-	 * @return a (deep) copy of this ListOfTransitions object.
-	 */
-	virtual ListOfTransitions* clone () const;
+  /**
+   * Creates and returns a deep copy of this ListOfTransitions object.
+   *
+   * @return a (deep) copy of this ListOfTransitions object.
+   */
+  virtual ListOfTransitions* clone () const;
 
 
- 	/**
-	 * Get a Transition from the ListOfTransitions.
-	 *
-	 * @param n the index number of the Transition to get.
-	 *
-	 * @return the nth Transition in this ListOfTransitions.
-	 *
-	 * @see size()
-	 */
-	virtual Transition* get(unsigned int n);
+  /**
+   * Get a Transition from the ListOfTransitions.
+   *
+   * @param n the index number of the Transition to get.
+   *
+   * @return the nth Transition in this ListOfTransitions.
+   *
+   * @see size()
+   */
+  virtual Transition* get(unsigned int n);
 
 
-	/**
-	 * Get a Transition from the ListOfTransitions.
-	 *
-	 * @param n the index number of the Transition to get.
-	 *
-	 * @return the nth Transition in this ListOfTransitions.
-	 *
-	 * @see size()
-	 */
-	virtual const Transition* get(unsigned int n) const;
+  /**
+   * Get a Transition from the ListOfTransitions.
+   *
+   * @param n the index number of the Transition to get.
+   *
+   * @return the nth Transition in this ListOfTransitions.
+   *
+   * @see size()
+   */
+  virtual const Transition* get(unsigned int n) const;
 
 
-	/**
-	 * Get a Transition from the ListOfTransitions
-	 * based on its identifier.
-	 *
-	 * @param sid a string representing the identifier
-	 * of the Transition to get.
-	 *
-	 * @return Transition in this ListOfTransitions
-	 * with the given id or NULL if no such
-	 * Transition exists.
-	 *
-	 * @see get(unsigned int n)	 *
-	 * @see size()
-	 */
-	virtual Transition* get(const std::string& sid);
+  /**
+   * Get a Transition from the ListOfTransitions
+   * based on its identifier.
+   *
+   * @param sid a string representing the identifier
+   * of the Transition to get.
+   *
+   * @return Transition in this ListOfTransitions
+   * with the given id or NULL if no such
+   * Transition exists.
+   *
+   * @see get(unsigned int n)   *
+   * @see size()
+   */
+  virtual Transition* get(const std::string& sid);
 
 
-	/**
-	 * Get a Transition from the ListOfTransitions
-	 * based on its identifier.
-	 *
-	 * @param sid a string representing the identifier
-	 * of the Transition to get.
-	 *
-	 * @return Transition in this ListOfTransitions
-	 * with the given id or NULL if no such
-	 * Transition exists.
-	 *
-	 * @see get(unsigned int n)	 *
-	 * @see size()
-	 */
-	virtual const Transition* get(const std::string& sid) const;
+  /**
+   * Get a Transition from the ListOfTransitions
+   * based on its identifier.
+   *
+   * @param sid a string representing the identifier
+   * of the Transition to get.
+   *
+   * @return Transition in this ListOfTransitions
+   * with the given id or NULL if no such
+   * Transition exists.
+   *
+   * @see get(unsigned int n)   *
+   * @see size()
+   */
+  virtual const Transition* get(const std::string& sid) const;
 
 
-	/**
-	 * Removes the nth Transition from this ListOfTransitions
-	 * and returns a pointer to it.
-	 *
-	 * The caller owns the returned item and is responsible for deleting it.
-	 *
-	 * @param n the index of the Transition to remove.
-	 *
-	 * @see size()
-	 */
-	virtual Transition* remove(unsigned int n);
+  /**
+   * Removes the nth Transition from this ListOfTransitions
+   * and returns a pointer to it.
+   *
+   * The caller owns the returned item and is responsible for deleting it.
+   *
+   * @param n the index of the Transition to remove.
+   *
+   * @see size()
+   */
+  virtual Transition* remove(unsigned int n);
 
 
-	/**
-	 * Removes the Transition from this ListOfTransitions with the given identifier
-	 * and returns a pointer to it.
-	 *
-	 * The caller owns the returned item and is responsible for deleting it.
-	 * If none of the items in this list have the identifier @p sid, then
-	 * @c NULL is returned.
-	 *
-	 * @param sid the identifier of the Transition to remove.
-	 *
-	 * @return the Transition removed. As mentioned above, the caller owns the
-	 * returned item.
-	 */
-	virtual Transition* remove(const std::string& sid);
+  /**
+   * Removes the Transition from this ListOfTransitions with the given identifier
+   * and returns a pointer to it.
+   *
+   * The caller owns the returned item and is responsible for deleting it.
+   * If none of the items in this list have the identifier @p sid, then
+   * @c NULL is returned.
+   *
+   * @param sid the identifier of the Transition to remove.
+   *
+   * @return the Transition removed. As mentioned above, the caller owns the
+   * returned item.
+   */
+  virtual Transition* remove(const std::string& sid);
 
 
-	/**
-	 * Returns the XML element name of this object, which for ListOfTransitions, is
-	 * always @c "listOfTransitions".
-	 *
-	 * @return the name of this element, i.e. @c "listOfTransitions".
-	 */
-	virtual const std::string& getElementName () const;
+  /**
+   * Returns the XML element name of this object, which for ListOfTransitions, is
+   * always @c "listOfTransitions".
+   *
+   * @return the name of this element, i.e. @c "listOfTransitions".
+   */
+  virtual const std::string& getElementName () const;
 
 
-	/**
-	 * Returns the libSBML type code for this SBML object.
-	 * 
-	 * @if clike LibSBML attaches an identifying code to every kind of SBML
-	 * object.  These are known as <em>SBML type codes</em>.  The set of
-	 * possible type codes is defined in the enumeration #SBMLTypeCode_t.
-	 * The names of the type codes all begin with the characters @c
-	 * SBML_. @endif@if java LibSBML attaches an identifying code to every
-	 * kind of SBML object.  These are known as <em>SBML type codes</em>.  In
-	 * other languages, the set of type codes is stored in an enumeration; in
-	 * the Java language interface for libSBML, the type codes are defined as
-	 * static integer constants in the interface class {@link
-	 * libsbmlConstants}.  The names of the type codes all begin with the
-	 * characters @c SBML_. @endif@if python LibSBML attaches an identifying
-	 * code to every kind of SBML object.  These are known as <em>SBML type
-	 * codes</em>.  In the Python language interface for libSBML, the type
-	 * codes are defined as static integer constants in the interface class
-	 * @link libsbml@endlink.  The names of the type codes all begin with the
-	 * characters @c SBML_. @endif@if csharp LibSBML attaches an identifying
-	 * code to every kind of SBML object.  These are known as <em>SBML type
-	 * codes</em>.  In the C# language interface for libSBML, the type codes
-	 * are defined as static integer constants in the interface class @link
-	 * libsbmlcs.libsbml@endlink.  The names of the type codes all begin with
-	 * the characters @c SBML_. @endif
-	 *
-	 * @return the SBML type code for this object, or
-	 * @link SBMLTypeCode_t#SBML_UNKNOWN SBML_UNKNOWN@endlink (default).
-	 *
-	 * @see getElementName()
-	 */
-	virtual int getTypeCode () const;
+  /**
+   * Returns the libSBML type code for this SBML object.
+   * 
+   * @if clike LibSBML attaches an identifying code to every kind of SBML
+   * object.  These are known as <em>SBML type codes</em>.  The set of
+   * possible type codes is defined in the enumeration #SBMLTypeCode_t.
+   * The names of the type codes all begin with the characters @c
+   * SBML_. @endif@if java LibSBML attaches an identifying code to every
+   * kind of SBML object.  These are known as <em>SBML type codes</em>.  In
+   * other languages, the set of type codes is stored in an enumeration; in
+   * the Java language interface for libSBML, the type codes are defined as
+   * static integer constants in the interface class {@link
+   * libsbmlConstants}.  The names of the type codes all begin with the
+   * characters @c SBML_. @endif@if python LibSBML attaches an identifying
+   * code to every kind of SBML object.  These are known as <em>SBML type
+   * codes</em>.  In the Python language interface for libSBML, the type
+   * codes are defined as static integer constants in the interface class
+   * @link libsbml@endlink.  The names of the type codes all begin with the
+   * characters @c SBML_. @endif@if csharp LibSBML attaches an identifying
+   * code to every kind of SBML object.  These are known as <em>SBML type
+   * codes</em>.  In the C# language interface for libSBML, the type codes
+   * are defined as static integer constants in the interface class @link
+   * libsbmlcs.libsbml@endlink.  The names of the type codes all begin with
+   * the characters @c SBML_. @endif
+   *
+   * @return the SBML type code for this object, or
+   * @link SBMLTypeCode_t#SBML_UNKNOWN SBML_UNKNOWN@endlink (default).
+   *
+   * @see getElementName()
+   */
+  virtual int getTypeCode () const;
 
 
-	/**
-	 * Returns the libSBML type code for the SBML objects
-	 * contained in this ListOf object
-	 * 
-	 * @if clike LibSBML attaches an identifying code to every kind of SBML
-	 * object.  These are known as <em>SBML type codes</em>.  The set of
-	 * possible type codes is defined in the enumeration #SBMLTypeCode_t.
-	 * The names of the type codes all begin with the characters @c
-	 * SBML_. @endif@if java LibSBML attaches an identifying code to every
-	 * kind of SBML object.  These are known as <em>SBML type codes</em>.  In
-	 * other languages, the set of type codes is stored in an enumeration; in
-	 * the Java language interface for libSBML, the type codes are defined as
-	 * static integer constants in the interface class {@link
-	 * libsbmlConstants}.  The names of the type codes all begin with the
-	 * characters @c SBML_. @endif@if python LibSBML attaches an identifying
-	 * code to every kind of SBML object.  These are known as <em>SBML type
-	 * codes</em>.  In the Python language interface for libSBML, the type
-	 * codes are defined as static integer constants in the interface class
-	 * @link libsbml@endlink.  The names of the type codes all begin with the
-	 * characters @c SBML_. @endif@if csharp LibSBML attaches an identifying
-	 * code to every kind of SBML object.  These are known as <em>SBML type
-	 * codes</em>.  In the C# language interface for libSBML, the type codes
-	 * are defined as static integer constants in the interface class @link
-	 * libsbmlcs.libsbml@endlink.  The names of the type codes all begin with
-	 * the characters @c SBML_. @endif
-	 *
-	 * @return the SBML type code for the objects in this ListOf instance, or
-	 * @link SBMLTypeCode_t#SBML_UNKNOWN SBML_UNKNOWN@endlink (default).
-	 *
-	 * @see getElementName()
-	 */
-	virtual int getItemTypeCode () const;
+  /**
+   * Returns the libSBML type code for the SBML objects
+   * contained in this ListOf object
+   * 
+   * @if clike LibSBML attaches an identifying code to every kind of SBML
+   * object.  These are known as <em>SBML type codes</em>.  The set of
+   * possible type codes is defined in the enumeration #SBMLTypeCode_t.
+   * The names of the type codes all begin with the characters @c
+   * SBML_. @endif@if java LibSBML attaches an identifying code to every
+   * kind of SBML object.  These are known as <em>SBML type codes</em>.  In
+   * other languages, the set of type codes is stored in an enumeration; in
+   * the Java language interface for libSBML, the type codes are defined as
+   * static integer constants in the interface class {@link
+   * libsbmlConstants}.  The names of the type codes all begin with the
+   * characters @c SBML_. @endif@if python LibSBML attaches an identifying
+   * code to every kind of SBML object.  These are known as <em>SBML type
+   * codes</em>.  In the Python language interface for libSBML, the type
+   * codes are defined as static integer constants in the interface class
+   * @link libsbml@endlink.  The names of the type codes all begin with the
+   * characters @c SBML_. @endif@if csharp LibSBML attaches an identifying
+   * code to every kind of SBML object.  These are known as <em>SBML type
+   * codes</em>.  In the C# language interface for libSBML, the type codes
+   * are defined as static integer constants in the interface class @link
+   * libsbmlcs.libsbml@endlink.  The names of the type codes all begin with
+   * the characters @c SBML_. @endif
+   *
+   * @return the SBML type code for the objects in this ListOf instance, or
+   * @link SBMLTypeCode_t#SBML_UNKNOWN SBML_UNKNOWN@endlink (default).
+   *
+   * @see getElementName()
+   */
+  virtual int getItemTypeCode () const;
 
 
 protected:
 
-	/** @cond doxygenLibsbmlInternal */
+  /** @cond doxygenLibsbmlInternal */
 
-	/**
-	 * Creates a new Transition in this ListOfTransitions
-	 */
-	virtual SBase* createObject(XMLInputStream& stream);
-
-
-	/** @endcond doxygenLibsbmlInternal */
+  /**
+   * Creates a new Transition in this ListOfTransitions
+   */
+  virtual SBase* createObject(XMLInputStream& stream);
 
 
-	/** @cond doxygenLibsbmlInternal */
-
-	/**
-	 * Write the namespace for the Qual package.
-	 */
-	virtual void writeXMLNS(XMLOutputStream& stream) const;
+  /** @endcond doxygenLibsbmlInternal */
 
 
-	/** @endcond doxygenLibsbmlInternal */
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Write the namespace for the Qual package.
+   */
+  virtual void writeXMLNS(XMLOutputStream& stream) const;
+
+
+  /** @endcond doxygenLibsbmlInternal */
 
 
 

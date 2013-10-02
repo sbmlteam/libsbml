@@ -66,436 +66,436 @@ class LIBSBML_EXTERN Output : public SBase
 
 protected:
 
-	std::string   mId;
-	std::string   mQualitativeSpecies;
-	OutputTransitionEffect_t   mTransitionEffect;
-	std::string   mName;
-	int           mOutputLevel;
-	bool          mIsSetOutputLevel;
+  std::string   mId;
+  std::string   mQualitativeSpecies;
+  OutputTransitionEffect_t   mTransitionEffect;
+  std::string   mName;
+  int           mOutputLevel;
+  bool          mIsSetOutputLevel;
 
 
 public:
 
-	/**
-	 * Creates a new Output with the given level, version, and package version.
-	 *
-	 * @param level an unsigned int, the SBML Level to assign to this Output
-	 *
-	 * @param version an unsigned int, the SBML Version to assign to this Output
-	 *
-	 * @param pkgVersion an unsigned int, the SBML Qual Version to assign to this Output
-	 */
-	Output(unsigned int level      = QualExtension::getDefaultLevel(),
-	       unsigned int version    = QualExtension::getDefaultVersion(),
-	       unsigned int pkgVersion = QualExtension::getDefaultPackageVersion());
-
-
-	/**
-	 * Creates a new Output with the given QualPkgNamespaces object.
-	 *
-	 * @param qualns the QualPkgNamespaces object
-	 */
-	Output(QualPkgNamespaces* qualns);
-
-
- 	/**
-	 * Copy constructor for Output.
-	 *
-	 * @param orig; the Output instance to copy.
-	 */
-	Output(const Output& orig);
-
-
- 	/**
-	 * Assignment operator for Output.
-	 *
-	 * @param rhs; the object whose values are used as the basis
-	 * of the assignment
-	 */
-	Output& operator=(const Output& rhs);
-
-
- 	/**
-	 * Creates and returns a deep copy of this Output object.
-	 *
-	 * @return a (deep) copy of this Output object.
-	 */
-	virtual Output* clone () const;
-
-
- 	/**
-	 * Destructor for Output.
-	 */
-	virtual ~Output();
-
-
- 	/**
-	 * Returns the value of the "id" attribute of this Output.
-	 *
-	 * @return the value of the "id" attribute of this Output as a string.
-	 */
-	virtual const std::string& getId() const;
-
-
-	/**
-	 * Returns the value of the "qualitativeSpecies" attribute of this Output.
-	 *
-	 * @return the value of the "qualitativeSpecies" attribute of this Output as a string.
-	 */
-	virtual const std::string& getQualitativeSpecies() const;
-
-
-	/**
-	 * Returns the value of the "transitionEffect" attribute of this Output.
-	 *
-	 * @return the value of the "transitionEffect" attribute of this Output as a string.
-	 */
-	const OutputTransitionEffect_t getTransitionEffect() const;
-
-
-	/**
-	 * Returns the value of the "name" attribute of this Output.
-	 *
-	 * @return the value of the "name" attribute of this Output as a string.
-	 */
-	virtual const std::string& getName() const;
-
-
-	/**
-	 * Returns the value of the "outputLevel" attribute of this Output.
-	 *
-	 * @return the value of the "outputLevel" attribute of this Output as a integer.
-	 */
-	virtual const int getOutputLevel() const;
-
-
-	/**
-	 * Predicate returning @c true or @c false depending on whether this
-	 * Output's "id" attribute has been set.
-	 *
-	 * @return @c true if this Output's "id" attribute has been set,
-	 * otherwise @c false is returned.
-	 */
-	virtual bool isSetId() const;
-
-
-	/**
-	 * Predicate returning @c true or @c false depending on whether this
-	 * Output's "qualitativeSpecies" attribute has been set.
-	 *
-	 * @return @c true if this Output's "qualitativeSpecies" attribute has been set,
-	 * otherwise @c false is returned.
-	 */
-	virtual bool isSetQualitativeSpecies() const;
-
-
-	/**
-	 * Predicate returning @c true or @c false depending on whether this
-	 * Output's "transitionEffect" attribute has been set.
-	 *
-	 * @return @c true if this Output's "transitionEffect" attribute has been set,
-	 * otherwise @c false is returned.
-	 */
-	bool isSetTransitionEffect() const;
-
-
-	/**
-	 * Predicate returning @c true or @c false depending on whether this
-	 * Output's "name" attribute has been set.
-	 *
-	 * @return @c true if this Output's "name" attribute has been set,
-	 * otherwise @c false is returned.
-	 */
-	virtual bool isSetName() const;
-
-
-	/**
-	 * Predicate returning @c true or @c false depending on whether this
-	 * Output's "outputLevel" attribute has been set.
-	 *
-	 * @return @c true if this Output's "outputLevel" attribute has been set,
-	 * otherwise @c false is returned.
-	 */
-	virtual bool isSetOutputLevel() const;
-
-
-	/**
-	 * Sets the value of the "id" attribute of this Output.
-	 *
-	 * @param id; const std::string& value of the "id" attribute to be set
-	 *
-	 * @return integer value indicating success/failure of the
-	 * function.  @if clike The value is drawn from the
-	 * enumeration #OperationReturnValues_t. @endif The possible values
-	 * returned by this function are:
-	 * @li LIBSBML_OPERATION_SUCCESS
-	 * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
-	 */
-	virtual int setId(const std::string& id);
-
-
-	/**
-	 * Sets the value of the "qualitativeSpecies" attribute of this Output.
-	 *
-	 * @param qualitativeSpecies; const std::string& value of the "qualitativeSpecies" attribute to be set
-	 *
-	 * @return integer value indicating success/failure of the
-	 * function.  @if clike The value is drawn from the
-	 * enumeration #OperationReturnValues_t. @endif The possible values
-	 * returned by this function are:
-	 * @li LIBSBML_OPERATION_SUCCESS
-	 * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
-	 */
-	virtual int setQualitativeSpecies(const std::string& qualitativeSpecies);
-
-
-	/**
-	 * Sets the value of the "transitionEffect" attribute of this Output.
-	 *
-	 * @param transitionEffect; const std::string& value of the "transitionEffect" attribute to be set
-	 *
-	 * @return integer value indicating success/failure of the
-	 * function.  @if clike The value is drawn from the
-	 * enumeration #OperationReturnValues_t. @endif The possible values
-	 * returned by this function are:
-	 * @li LIBSBML_OPERATION_SUCCESS
-	 * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
-	 */
-	int setTransitionEffect(const OutputTransitionEffect_t transitionEffect);
-
-
-	/**
-	 * Sets the value of the "name" attribute of this Output.
-	 *
-	 * @param name; const std::string& value of the "name" attribute to be set
-	 *
-	 * @return integer value indicating success/failure of the
-	 * function.  @if clike The value is drawn from the
-	 * enumeration #OperationReturnValues_t. @endif The possible values
-	 * returned by this function are:
-	 * @li LIBSBML_OPERATION_SUCCESS
-	 * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
-	 */
-	virtual int setName(const std::string& name);
-
-
-	/**
-	 * Sets the value of the "outputLevel" attribute of this Output.
-	 *
-	 * @param outputLevel; int value of the "outputLevel" attribute to be set
-	 *
-	 * @return integer value indicating success/failure of the
-	 * function.  @if clike The value is drawn from the
-	 * enumeration #OperationReturnValues_t. @endif The possible values
-	 * returned by this function are:
-	 * @li LIBSBML_OPERATION_SUCCESS
-	 * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
-	 */
-	virtual int setOutputLevel(int outputLevel);
-
-
-	/**
-	 * Unsets the value of the "id" attribute of this Output.
-	 *
-	 * @return integer value indicating success/failure of the
-	 * function.  @if clike The value is drawn from the
-	 * enumeration #OperationReturnValues_t. @endif The possible values
-	 * returned by this function are:
-	 * @li LIBSBML_OPERATION_SUCCESS
-	 * @li LIBSBML_OPERATION_FAILED
-	 */
-	virtual int unsetId();
-
-
-	/**
-	 * Unsets the value of the "qualitativeSpecies" attribute of this Output.
-	 *
-	 * @return integer value indicating success/failure of the
-	 * function.  @if clike The value is drawn from the
-	 * enumeration #OperationReturnValues_t. @endif The possible values
-	 * returned by this function are:
-	 * @li LIBSBML_OPERATION_SUCCESS
-	 * @li LIBSBML_OPERATION_FAILED
-	 */
-	virtual int unsetQualitativeSpecies();
-
-
-	/**
-	 * Unsets the value of the "transitionEffect" attribute of this Output.
-	 *
-	 * @return integer value indicating success/failure of the
-	 * function.  @if clike The value is drawn from the
-	 * enumeration #OperationReturnValues_t. @endif The possible values
-	 * returned by this function are:
-	 * @li LIBSBML_OPERATION_SUCCESS
-	 * @li LIBSBML_OPERATION_FAILED
-	 */
-	int unsetTransitionEffect();
-
-
-	/**
-	 * Unsets the value of the "name" attribute of this Output.
-	 *
-	 * @return integer value indicating success/failure of the
-	 * function.  @if clike The value is drawn from the
-	 * enumeration #OperationReturnValues_t. @endif The possible values
-	 * returned by this function are:
-	 * @li LIBSBML_OPERATION_SUCCESS
-	 * @li LIBSBML_OPERATION_FAILED
-	 */
-	virtual int unsetName();
-
-
-	/**
-	 * Unsets the value of the "outputLevel" attribute of this Output.
-	 *
-	 * @return integer value indicating success/failure of the
-	 * function.  @if clike The value is drawn from the
-	 * enumeration #OperationReturnValues_t. @endif The possible values
-	 * returned by this function are:
-	 * @li LIBSBML_OPERATION_SUCCESS
-	 * @li LIBSBML_OPERATION_FAILED
-	 */
-	virtual int unsetOutputLevel();
-
-
-	/**
-	 * Returns the XML element name of this object, which for Output, is
-	 * always @c "output".
-	 *
-	 * @return the name of this element, i.e. @c "output".
-	 */
-	virtual const std::string& getElementName () const;
-
-
-	/**
-	 * Returns the libSBML type code for this SBML object.
-	 * 
-	 * @if clike LibSBML attaches an identifying code to every kind of SBML
-	 * object.  These are known as <em>SBML type codes</em>.  The set of
-	 * possible type codes is defined in the enumeration #SBMLTypeCode_t.
-	 * The names of the type codes all begin with the characters @c
-	 * SBML_. @endif@if java LibSBML attaches an identifying code to every
-	 * kind of SBML object.  These are known as <em>SBML type codes</em>.  In
-	 * other languages, the set of type codes is stored in an enumeration; in
-	 * the Java language interface for libSBML, the type codes are defined as
-	 * static integer constants in the interface class {@link
-	 * libsbmlConstants}.  The names of the type codes all begin with the
-	 * characters @c SBML_. @endif@if python LibSBML attaches an identifying
-	 * code to every kind of SBML object.  These are known as <em>SBML type
-	 * codes</em>.  In the Python language interface for libSBML, the type
-	 * codes are defined as static integer constants in the interface class
-	 * @link libsbml@endlink.  The names of the type codes all begin with the
-	 * characters @c SBML_. @endif@if csharp LibSBML attaches an identifying
-	 * code to every kind of SBML object.  These are known as <em>SBML type
-	 * codes</em>.  In the C# language interface for libSBML, the type codes
-	 * are defined as static integer constants in the interface class @link
-	 * libsbmlcs.libsbml@endlink.  The names of the type codes all begin with
-	 * the characters @c SBML_. @endif
-	 *
-	 * @return the SBML type code for this object, or
-	 * @link SBMLTypeCode_t#SBML_UNKNOWN SBML_UNKNOWN@endlink (default).
-	 *
-	 * @see getElementName()
-	 */
-	virtual int getTypeCode () const;
-
-
-	/**
-	 * Predicate returning @c true if all the required attributes
-	 * for this Output object have been set.
-	 *
-	 * @note The required attributes for a Output object are:
-	 * @li "qualitativeSpecies"
-	 * @li "transitionEffect"
-	 *
-	 * @return a boolean value indicating whether all the required
-	 * attributes for this object have been defined.
-	 */
-	virtual bool hasRequiredAttributes() const;
-
-
-	/** @cond doxygenLibsbmlInternal */
-
-	/**
-	 * Subclasses should override this method to write out their contained
-	 * SBML objects as XML elements.  Be sure to call your parents
-	 * implementation of this method as well.
-	 */
-	virtual void writeElements (XMLOutputStream& stream) const;
-
-
-	/** @endcond doxygenLibsbmlInternal */
-
-
-	/** @cond doxygenLibsbmlInternal */
-
-	/**
-	 * Accepts the given SBMLVisitor.
-	 */
-	virtual bool accept (SBMLVisitor& v) const;
-
-
-	/** @endcond doxygenLibsbmlInternal */
-
-
-	/** @cond doxygenLibsbmlInternal */
-
-	/**
-	 * Sets the parent SBMLDocument.
-	 */
-	virtual void setSBMLDocument (SBMLDocument* d);
-
-
-	/** @endcond doxygenLibsbmlInternal */
-
-
-	/** @cond doxygenLibsbmlInternal */
-
-	/**
-	 * Enables/Disables the given package with this element.
-	 */
-	virtual void enablePackageInternal(const std::string& pkgURI,
-	             const std::string& pkgPrefix, bool flag);
-
-
-	/** @endcond doxygenLibsbmlInternal */
+  /**
+   * Creates a new Output with the given level, version, and package version.
+   *
+   * @param level an unsigned int, the SBML Level to assign to this Output
+   *
+   * @param version an unsigned int, the SBML Version to assign to this Output
+   *
+   * @param pkgVersion an unsigned int, the SBML Qual Version to assign to this Output
+   */
+  Output(unsigned int level      = QualExtension::getDefaultLevel(),
+         unsigned int version    = QualExtension::getDefaultVersion(),
+         unsigned int pkgVersion = QualExtension::getDefaultPackageVersion());
+
+
+  /**
+   * Creates a new Output with the given QualPkgNamespaces object.
+   *
+   * @param qualns the QualPkgNamespaces object
+   */
+  Output(QualPkgNamespaces* qualns);
+
+
+  /**
+   * Copy constructor for Output.
+   *
+   * @param orig; the Output instance to copy.
+   */
+  Output(const Output& orig);
+
+
+  /**
+   * Assignment operator for Output.
+   *
+   * @param rhs; the object whose values are used as the basis
+   * of the assignment
+   */
+  Output& operator=(const Output& rhs);
+
+
+  /**
+   * Creates and returns a deep copy of this Output object.
+   *
+   * @return a (deep) copy of this Output object.
+   */
+  virtual Output* clone () const;
+
+
+  /**
+   * Destructor for Output.
+   */
+  virtual ~Output();
+
+
+  /**
+   * Returns the value of the "id" attribute of this Output.
+   *
+   * @return the value of the "id" attribute of this Output as a string.
+   */
+  virtual const std::string& getId() const;
+
+
+  /**
+   * Returns the value of the "qualitativeSpecies" attribute of this Output.
+   *
+   * @return the value of the "qualitativeSpecies" attribute of this Output as a string.
+   */
+  virtual const std::string& getQualitativeSpecies() const;
+
+
+  /**
+   * Returns the value of the "transitionEffect" attribute of this Output.
+   *
+   * @return the value of the "transitionEffect" attribute of this Output as a string.
+   */
+  const OutputTransitionEffect_t getTransitionEffect() const;
+
+
+  /**
+   * Returns the value of the "name" attribute of this Output.
+   *
+   * @return the value of the "name" attribute of this Output as a string.
+   */
+  virtual const std::string& getName() const;
+
+
+  /**
+   * Returns the value of the "outputLevel" attribute of this Output.
+   *
+   * @return the value of the "outputLevel" attribute of this Output as a integer.
+   */
+  virtual const int getOutputLevel() const;
+
+
+  /**
+   * Predicate returning @c true or @c false depending on whether this
+   * Output's "id" attribute has been set.
+   *
+   * @return @c true if this Output's "id" attribute has been set,
+   * otherwise @c false is returned.
+   */
+  virtual bool isSetId() const;
+
+
+  /**
+   * Predicate returning @c true or @c false depending on whether this
+   * Output's "qualitativeSpecies" attribute has been set.
+   *
+   * @return @c true if this Output's "qualitativeSpecies" attribute has been set,
+   * otherwise @c false is returned.
+   */
+  virtual bool isSetQualitativeSpecies() const;
+
+
+  /**
+   * Predicate returning @c true or @c false depending on whether this
+   * Output's "transitionEffect" attribute has been set.
+   *
+   * @return @c true if this Output's "transitionEffect" attribute has been set,
+   * otherwise @c false is returned.
+   */
+  bool isSetTransitionEffect() const;
+
+
+  /**
+   * Predicate returning @c true or @c false depending on whether this
+   * Output's "name" attribute has been set.
+   *
+   * @return @c true if this Output's "name" attribute has been set,
+   * otherwise @c false is returned.
+   */
+  virtual bool isSetName() const;
+
+
+  /**
+   * Predicate returning @c true or @c false depending on whether this
+   * Output's "outputLevel" attribute has been set.
+   *
+   * @return @c true if this Output's "outputLevel" attribute has been set,
+   * otherwise @c false is returned.
+   */
+  virtual bool isSetOutputLevel() const;
+
+
+  /**
+   * Sets the value of the "id" attribute of this Output.
+   *
+   * @param id; const std::string& value of the "id" attribute to be set
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+   */
+  virtual int setId(const std::string& id);
+
+
+  /**
+   * Sets the value of the "qualitativeSpecies" attribute of this Output.
+   *
+   * @param qualitativeSpecies; const std::string& value of the "qualitativeSpecies" attribute to be set
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+   */
+  virtual int setQualitativeSpecies(const std::string& qualitativeSpecies);
+
+
+  /**
+   * Sets the value of the "transitionEffect" attribute of this Output.
+   *
+   * @param transitionEffect; const std::string& value of the "transitionEffect" attribute to be set
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+   */
+  int setTransitionEffect(const OutputTransitionEffect_t transitionEffect);
+
+
+  /**
+   * Sets the value of the "name" attribute of this Output.
+   *
+   * @param name; const std::string& value of the "name" attribute to be set
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+   */
+  virtual int setName(const std::string& name);
+
+
+  /**
+   * Sets the value of the "outputLevel" attribute of this Output.
+   *
+   * @param outputLevel; int value of the "outputLevel" attribute to be set
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+   */
+  virtual int setOutputLevel(int outputLevel);
+
+
+  /**
+   * Unsets the value of the "id" attribute of this Output.
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_OPERATION_FAILED
+   */
+  virtual int unsetId();
+
+
+  /**
+   * Unsets the value of the "qualitativeSpecies" attribute of this Output.
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_OPERATION_FAILED
+   */
+  virtual int unsetQualitativeSpecies();
+
+
+  /**
+   * Unsets the value of the "transitionEffect" attribute of this Output.
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_OPERATION_FAILED
+   */
+  int unsetTransitionEffect();
+
+
+  /**
+   * Unsets the value of the "name" attribute of this Output.
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_OPERATION_FAILED
+   */
+  virtual int unsetName();
+
+
+  /**
+   * Unsets the value of the "outputLevel" attribute of this Output.
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_OPERATION_FAILED
+   */
+  virtual int unsetOutputLevel();
+
+
+  /**
+   * Returns the XML element name of this object, which for Output, is
+   * always @c "output".
+   *
+   * @return the name of this element, i.e. @c "output".
+   */
+  virtual const std::string& getElementName () const;
+
+
+  /**
+   * Returns the libSBML type code for this SBML object.
+   * 
+   * @if clike LibSBML attaches an identifying code to every kind of SBML
+   * object.  These are known as <em>SBML type codes</em>.  The set of
+   * possible type codes is defined in the enumeration #SBMLTypeCode_t.
+   * The names of the type codes all begin with the characters @c
+   * SBML_. @endif@if java LibSBML attaches an identifying code to every
+   * kind of SBML object.  These are known as <em>SBML type codes</em>.  In
+   * other languages, the set of type codes is stored in an enumeration; in
+   * the Java language interface for libSBML, the type codes are defined as
+   * static integer constants in the interface class {@link
+   * libsbmlConstants}.  The names of the type codes all begin with the
+   * characters @c SBML_. @endif@if python LibSBML attaches an identifying
+   * code to every kind of SBML object.  These are known as <em>SBML type
+   * codes</em>.  In the Python language interface for libSBML, the type
+   * codes are defined as static integer constants in the interface class
+   * @link libsbml@endlink.  The names of the type codes all begin with the
+   * characters @c SBML_. @endif@if csharp LibSBML attaches an identifying
+   * code to every kind of SBML object.  These are known as <em>SBML type
+   * codes</em>.  In the C# language interface for libSBML, the type codes
+   * are defined as static integer constants in the interface class @link
+   * libsbmlcs.libsbml@endlink.  The names of the type codes all begin with
+   * the characters @c SBML_. @endif
+   *
+   * @return the SBML type code for this object, or
+   * @link SBMLTypeCode_t#SBML_UNKNOWN SBML_UNKNOWN@endlink (default).
+   *
+   * @see getElementName()
+   */
+  virtual int getTypeCode () const;
+
+
+  /**
+   * Predicate returning @c true if all the required attributes
+   * for this Output object have been set.
+   *
+   * @note The required attributes for a Output object are:
+   * @li "qualitativeSpecies"
+   * @li "transitionEffect"
+   *
+   * @return a boolean value indicating whether all the required
+   * attributes for this object have been defined.
+   */
+  virtual bool hasRequiredAttributes() const;
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Subclasses should override this method to write out their contained
+   * SBML objects as XML elements.  Be sure to call your parents
+   * implementation of this method as well.
+   */
+  virtual void writeElements (XMLOutputStream& stream) const;
+
+
+  /** @endcond doxygenLibsbmlInternal */
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Accepts the given SBMLVisitor.
+   */
+  virtual bool accept (SBMLVisitor& v) const;
+
+
+  /** @endcond doxygenLibsbmlInternal */
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Sets the parent SBMLDocument.
+   */
+  virtual void setSBMLDocument (SBMLDocument* d);
+
+
+  /** @endcond doxygenLibsbmlInternal */
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Enables/Disables the given package with this element.
+   */
+  virtual void enablePackageInternal(const std::string& pkgURI,
+               const std::string& pkgPrefix, bool flag);
+
+
+  /** @endcond doxygenLibsbmlInternal */
 
 
 protected:
 
-	/** @cond doxygenLibsbmlInternal */
+  /** @cond doxygenLibsbmlInternal */
 
-	/**
-	 * Get the list of expected attributes for this element.
-	 */
-	virtual void addExpectedAttributes(ExpectedAttributes& attributes);
-
-
-	/** @endcond doxygenLibsbmlInternal */
+  /**
+   * Get the list of expected attributes for this element.
+   */
+  virtual void addExpectedAttributes(ExpectedAttributes& attributes);
 
 
-	/** @cond doxygenLibsbmlInternal */
-
-	/**
-	 * Read values from the given XMLAttributes set into their specific fields.
-	 */
-	virtual void readAttributes (const XMLAttributes& attributes,
-	                             const ExpectedAttributes& expectedAttributes);
+  /** @endcond doxygenLibsbmlInternal */
 
 
-	/** @endcond doxygenLibsbmlInternal */
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Read values from the given XMLAttributes set into their specific fields.
+   */
+  virtual void readAttributes (const XMLAttributes& attributes,
+                               const ExpectedAttributes& expectedAttributes);
 
 
-	/** @cond doxygenLibsbmlInternal */
-
-	/**
-	 * Write values of XMLAttributes to the output stream.
-	 */
-	virtual void writeAttributes (XMLOutputStream& stream) const;
+  /** @endcond doxygenLibsbmlInternal */
 
 
-	/** @endcond doxygenLibsbmlInternal */
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Write values of XMLAttributes to the output stream.
+   */
+  virtual void writeAttributes (XMLOutputStream& stream) const;
+
+
+  /** @endcond doxygenLibsbmlInternal */
 
 
 
@@ -506,255 +506,255 @@ class LIBSBML_EXTERN ListOfOutputs : public ListOf
 
 public:
 
-	/**
-	 * Creates a new ListOfOutputs with the given level, version, and package version.
-	 *
-	 * @param level an unsigned int, the SBML Level to assign to this ListOfOutputs
-	 *
-	 * @param version an unsigned int, the SBML Version to assign to this ListOfOutputs
-	 *
-	 * @param pkgVersion an unsigned int, the SBML Qual Version to assign to this ListOfOutputs
-	 */
-	ListOfOutputs(unsigned int level      = QualExtension::getDefaultLevel(),
-	              unsigned int version    = QualExtension::getDefaultVersion(),
-	              unsigned int pkgVersion = QualExtension::getDefaultPackageVersion());
+  /**
+   * Creates a new ListOfOutputs with the given level, version, and package version.
+   *
+   * @param level an unsigned int, the SBML Level to assign to this ListOfOutputs
+   *
+   * @param version an unsigned int, the SBML Version to assign to this ListOfOutputs
+   *
+   * @param pkgVersion an unsigned int, the SBML Qual Version to assign to this ListOfOutputs
+   */
+  ListOfOutputs(unsigned int level      = QualExtension::getDefaultLevel(),
+                unsigned int version    = QualExtension::getDefaultVersion(),
+                unsigned int pkgVersion = QualExtension::getDefaultPackageVersion());
 
 
-	/**
-	 * Creates a new ListOfOutputs with the given QualPkgNamespaces object.
-	 *
-	 * @param qualns the QualPkgNamespaces object
-	 */
-	ListOfOutputs(QualPkgNamespaces* qualns);
+  /**
+   * Creates a new ListOfOutputs with the given QualPkgNamespaces object.
+   *
+   * @param qualns the QualPkgNamespaces object
+   */
+  ListOfOutputs(QualPkgNamespaces* qualns);
 
 
- 	/**
-	 * Creates and returns a deep copy of this ListOfOutputs object.
-	 *
-	 * @return a (deep) copy of this ListOfOutputs object.
-	 */
-	virtual ListOfOutputs* clone () const;
+  /**
+   * Creates and returns a deep copy of this ListOfOutputs object.
+   *
+   * @return a (deep) copy of this ListOfOutputs object.
+   */
+  virtual ListOfOutputs* clone () const;
 
 
- 	/**
-	 * Get a Output from the ListOfOutputs.
-	 *
-	 * @param n the index number of the Output to get.
-	 *
-	 * @return the nth Output in this ListOfOutputs.
-	 *
-	 * @see size()
-	 */
-	virtual Output* get(unsigned int n);
+  /**
+   * Get a Output from the ListOfOutputs.
+   *
+   * @param n the index number of the Output to get.
+   *
+   * @return the nth Output in this ListOfOutputs.
+   *
+   * @see size()
+   */
+  virtual Output* get(unsigned int n);
 
 
-	/**
-	 * Get a Output from the ListOfOutputs.
-	 *
-	 * @param n the index number of the Output to get.
-	 *
-	 * @return the nth Output in this ListOfOutputs.
-	 *
-	 * @see size()
-	 */
-	virtual const Output* get(unsigned int n) const;
+  /**
+   * Get a Output from the ListOfOutputs.
+   *
+   * @param n the index number of the Output to get.
+   *
+   * @return the nth Output in this ListOfOutputs.
+   *
+   * @see size()
+   */
+  virtual const Output* get(unsigned int n) const;
 
 
-	/**
-	 * Get a Output from the ListOfOutputs
-	 * based on its identifier.
-	 *
-	 * @param sid a string representing the identifier
-	 * of the Output to get.
-	 *
-	 * @return Output in this ListOfOutputs
-	 * with the given id or NULL if no such
-	 * Output exists.
-	 *
-	 * @see get(unsigned int n)	 *
-	 * @see size()
-	 */
-	virtual Output* get(const std::string& sid);
+  /**
+   * Get a Output from the ListOfOutputs
+   * based on its identifier.
+   *
+   * @param sid a string representing the identifier
+   * of the Output to get.
+   *
+   * @return Output in this ListOfOutputs
+   * with the given id or NULL if no such
+   * Output exists.
+   *
+   * @see get(unsigned int n)   *
+   * @see size()
+   */
+  virtual Output* get(const std::string& sid);
 
 
-	/**
-	 * Get a Output from the ListOfOutputs
-	 * based on its identifier.
-	 *
-	 * @param sid a string representing the identifier
-	 * of the Output to get.
-	 *
-	 * @return Output in this ListOfOutputs
-	 * with the given id or NULL if no such
-	 * Output exists.
-	 *
-	 * @see get(unsigned int n)	 *
-	 * @see size()
-	 */
-	virtual const Output* get(const std::string& sid) const;
+  /**
+   * Get a Output from the ListOfOutputs
+   * based on its identifier.
+   *
+   * @param sid a string representing the identifier
+   * of the Output to get.
+   *
+   * @return Output in this ListOfOutputs
+   * with the given id or NULL if no such
+   * Output exists.
+   *
+   * @see get(unsigned int n)   *
+   * @see size()
+   */
+  virtual const Output* get(const std::string& sid) const;
 
 
-	/**
-	 * Get a Output from the ListOfInputs
-	 * based on the qualitativeSpecies to which it refers.
-	 *
-	 * @param sid a string representing the qualitativeSpecies attribute
-	 * of the Output to get.
-	 *
-	 * @return the first Output in this ListOfInputs
-	 * with the given qualitativeSpecies or NULL if no such
-	 * Output exists.
-	 *
-	 * @see get(unsigned int n)	 *
-	 * @see size()
-	 */
-	const Output* getBySpecies(const std::string& sid) const;
+  /**
+   * Get a Output from the ListOfInputs
+   * based on the qualitativeSpecies to which it refers.
+   *
+   * @param sid a string representing the qualitativeSpecies attribute
+   * of the Output to get.
+   *
+   * @return the first Output in this ListOfInputs
+   * with the given qualitativeSpecies or NULL if no such
+   * Output exists.
+   *
+   * @see get(unsigned int n)   *
+   * @see size()
+   */
+  const Output* getBySpecies(const std::string& sid) const;
 
 
-	/**
-	 * Get a Output from the ListOfInputs
-	 * based on the qualitativeSpecies to which it refers.
-	 *
-	 * @param sid a string representing the qualitativeSpecies attribute
-	 * of the Output to get.
-	 *
-	 * @return the first Output in this ListOfInputs
-	 * with the given qualitativeSpecies or NULL if no such
-	 * Output exists.
-	 *
-	 * @see get(unsigned int n)	 *
-	 * @see size()
-	 */
-	Output* getBySpecies(const std::string& sid);
+  /**
+   * Get a Output from the ListOfInputs
+   * based on the qualitativeSpecies to which it refers.
+   *
+   * @param sid a string representing the qualitativeSpecies attribute
+   * of the Output to get.
+   *
+   * @return the first Output in this ListOfInputs
+   * with the given qualitativeSpecies or NULL if no such
+   * Output exists.
+   *
+   * @see get(unsigned int n)   *
+   * @see size()
+   */
+  Output* getBySpecies(const std::string& sid);
 
 
-	/**
-	 * Removes the nth Input from this ListOfInputs
-	 * and returns a pointer to it.
-	 *
-	 * The caller owns the returned item and is responsible for deleting it.
-	 *
-	 * @param n the index of the Output to remove.
-	 *
-	 * @see size()
-	 */
-	virtual Output* remove(unsigned int n);
+  /**
+   * Removes the nth Input from this ListOfInputs
+   * and returns a pointer to it.
+   *
+   * The caller owns the returned item and is responsible for deleting it.
+   *
+   * @param n the index of the Output to remove.
+   *
+   * @see size()
+   */
+  virtual Output* remove(unsigned int n);
 
 
-	/**
-	 * Removes the Output from this ListOfOutputs with the given identifier
-	 * and returns a pointer to it.
-	 *
-	 * The caller owns the returned item and is responsible for deleting it.
-	 * If none of the items in this list have the identifier @p sid, then
-	 * @c NULL is returned.
-	 *
-	 * @param sid the identifier of the Output to remove.
-	 *
-	 * @return the Output removed. As mentioned above, the caller owns the
-	 * returned item.
-	 */
-	virtual Output* remove(const std::string& sid);
+  /**
+   * Removes the Output from this ListOfOutputs with the given identifier
+   * and returns a pointer to it.
+   *
+   * The caller owns the returned item and is responsible for deleting it.
+   * If none of the items in this list have the identifier @p sid, then
+   * @c NULL is returned.
+   *
+   * @param sid the identifier of the Output to remove.
+   *
+   * @return the Output removed. As mentioned above, the caller owns the
+   * returned item.
+   */
+  virtual Output* remove(const std::string& sid);
 
 
-	/**
-	 * Returns the XML element name of this object, which for ListOfOutputs, is
-	 * always @c "listOfOutputs".
-	 *
-	 * @return the name of this element, i.e. @c "listOfOutputs".
-	 */
-	virtual const std::string& getElementName () const;
+  /**
+   * Returns the XML element name of this object, which for ListOfOutputs, is
+   * always @c "listOfOutputs".
+   *
+   * @return the name of this element, i.e. @c "listOfOutputs".
+   */
+  virtual const std::string& getElementName () const;
 
 
-	/**
-	 * Returns the libSBML type code for this SBML object.
-	 * 
-	 * @if clike LibSBML attaches an identifying code to every kind of SBML
-	 * object.  These are known as <em>SBML type codes</em>.  The set of
-	 * possible type codes is defined in the enumeration #SBMLTypeCode_t.
-	 * The names of the type codes all begin with the characters @c
-	 * SBML_. @endif@if java LibSBML attaches an identifying code to every
-	 * kind of SBML object.  These are known as <em>SBML type codes</em>.  In
-	 * other languages, the set of type codes is stored in an enumeration; in
-	 * the Java language interface for libSBML, the type codes are defined as
-	 * static integer constants in the interface class {@link
-	 * libsbmlConstants}.  The names of the type codes all begin with the
-	 * characters @c SBML_. @endif@if python LibSBML attaches an identifying
-	 * code to every kind of SBML object.  These are known as <em>SBML type
-	 * codes</em>.  In the Python language interface for libSBML, the type
-	 * codes are defined as static integer constants in the interface class
-	 * @link libsbml@endlink.  The names of the type codes all begin with the
-	 * characters @c SBML_. @endif@if csharp LibSBML attaches an identifying
-	 * code to every kind of SBML object.  These are known as <em>SBML type
-	 * codes</em>.  In the C# language interface for libSBML, the type codes
-	 * are defined as static integer constants in the interface class @link
-	 * libsbmlcs.libsbml@endlink.  The names of the type codes all begin with
-	 * the characters @c SBML_. @endif
-	 *
-	 * @return the SBML type code for this object, or
-	 * @link SBMLTypeCode_t#SBML_UNKNOWN SBML_UNKNOWN@endlink (default).
-	 *
-	 * @see getElementName()
-	 */
-	virtual int getTypeCode () const;
+  /**
+   * Returns the libSBML type code for this SBML object.
+   * 
+   * @if clike LibSBML attaches an identifying code to every kind of SBML
+   * object.  These are known as <em>SBML type codes</em>.  The set of
+   * possible type codes is defined in the enumeration #SBMLTypeCode_t.
+   * The names of the type codes all begin with the characters @c
+   * SBML_. @endif@if java LibSBML attaches an identifying code to every
+   * kind of SBML object.  These are known as <em>SBML type codes</em>.  In
+   * other languages, the set of type codes is stored in an enumeration; in
+   * the Java language interface for libSBML, the type codes are defined as
+   * static integer constants in the interface class {@link
+   * libsbmlConstants}.  The names of the type codes all begin with the
+   * characters @c SBML_. @endif@if python LibSBML attaches an identifying
+   * code to every kind of SBML object.  These are known as <em>SBML type
+   * codes</em>.  In the Python language interface for libSBML, the type
+   * codes are defined as static integer constants in the interface class
+   * @link libsbml@endlink.  The names of the type codes all begin with the
+   * characters @c SBML_. @endif@if csharp LibSBML attaches an identifying
+   * code to every kind of SBML object.  These are known as <em>SBML type
+   * codes</em>.  In the C# language interface for libSBML, the type codes
+   * are defined as static integer constants in the interface class @link
+   * libsbmlcs.libsbml@endlink.  The names of the type codes all begin with
+   * the characters @c SBML_. @endif
+   *
+   * @return the SBML type code for this object, or
+   * @link SBMLTypeCode_t#SBML_UNKNOWN SBML_UNKNOWN@endlink (default).
+   *
+   * @see getElementName()
+   */
+  virtual int getTypeCode () const;
 
 
-	/**
-	 * Returns the libSBML type code for the SBML objects
-	 * contained in this ListOf object
-	 * 
-	 * @if clike LibSBML attaches an identifying code to every kind of SBML
-	 * object.  These are known as <em>SBML type codes</em>.  The set of
-	 * possible type codes is defined in the enumeration #SBMLTypeCode_t.
-	 * The names of the type codes all begin with the characters @c
-	 * SBML_. @endif@if java LibSBML attaches an identifying code to every
-	 * kind of SBML object.  These are known as <em>SBML type codes</em>.  In
-	 * other languages, the set of type codes is stored in an enumeration; in
-	 * the Java language interface for libSBML, the type codes are defined as
-	 * static integer constants in the interface class {@link
-	 * libsbmlConstants}.  The names of the type codes all begin with the
-	 * characters @c SBML_. @endif@if python LibSBML attaches an identifying
-	 * code to every kind of SBML object.  These are known as <em>SBML type
-	 * codes</em>.  In the Python language interface for libSBML, the type
-	 * codes are defined as static integer constants in the interface class
-	 * @link libsbml@endlink.  The names of the type codes all begin with the
-	 * characters @c SBML_. @endif@if csharp LibSBML attaches an identifying
-	 * code to every kind of SBML object.  These are known as <em>SBML type
-	 * codes</em>.  In the C# language interface for libSBML, the type codes
-	 * are defined as static integer constants in the interface class @link
-	 * libsbmlcs.libsbml@endlink.  The names of the type codes all begin with
-	 * the characters @c SBML_. @endif
-	 *
-	 * @return the SBML type code for the objects in this ListOf instance, or
-	 * @link SBMLTypeCode_t#SBML_UNKNOWN SBML_UNKNOWN@endlink (default).
-	 *
-	 * @see getElementName()
-	 */
-	virtual int getItemTypeCode () const;
+  /**
+   * Returns the libSBML type code for the SBML objects
+   * contained in this ListOf object
+   * 
+   * @if clike LibSBML attaches an identifying code to every kind of SBML
+   * object.  These are known as <em>SBML type codes</em>.  The set of
+   * possible type codes is defined in the enumeration #SBMLTypeCode_t.
+   * The names of the type codes all begin with the characters @c
+   * SBML_. @endif@if java LibSBML attaches an identifying code to every
+   * kind of SBML object.  These are known as <em>SBML type codes</em>.  In
+   * other languages, the set of type codes is stored in an enumeration; in
+   * the Java language interface for libSBML, the type codes are defined as
+   * static integer constants in the interface class {@link
+   * libsbmlConstants}.  The names of the type codes all begin with the
+   * characters @c SBML_. @endif@if python LibSBML attaches an identifying
+   * code to every kind of SBML object.  These are known as <em>SBML type
+   * codes</em>.  In the Python language interface for libSBML, the type
+   * codes are defined as static integer constants in the interface class
+   * @link libsbml@endlink.  The names of the type codes all begin with the
+   * characters @c SBML_. @endif@if csharp LibSBML attaches an identifying
+   * code to every kind of SBML object.  These are known as <em>SBML type
+   * codes</em>.  In the C# language interface for libSBML, the type codes
+   * are defined as static integer constants in the interface class @link
+   * libsbmlcs.libsbml@endlink.  The names of the type codes all begin with
+   * the characters @c SBML_. @endif
+   *
+   * @return the SBML type code for the objects in this ListOf instance, or
+   * @link SBMLTypeCode_t#SBML_UNKNOWN SBML_UNKNOWN@endlink (default).
+   *
+   * @see getElementName()
+   */
+  virtual int getItemTypeCode () const;
 
 
 protected:
 
-	/** @cond doxygenLibsbmlInternal */
+  /** @cond doxygenLibsbmlInternal */
 
-	/**
-	 * Creates a new Output in this ListOfOutputs
-	 */
-	virtual SBase* createObject(XMLInputStream& stream);
-
-
-	/** @endcond doxygenLibsbmlInternal */
+  /**
+   * Creates a new Output in this ListOfOutputs
+   */
+  virtual SBase* createObject(XMLInputStream& stream);
 
 
-	/** @cond doxygenLibsbmlInternal */
-
-	/**
-	 * Write the namespace for the Qual package.
-	 */
-	virtual void writeXMLNS(XMLOutputStream& stream) const;
+  /** @endcond doxygenLibsbmlInternal */
 
 
-	/** @endcond doxygenLibsbmlInternal */
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Write the namespace for the Qual package.
+   */
+  virtual void writeXMLNS(XMLOutputStream& stream) const;
+
+
+  /** @endcond doxygenLibsbmlInternal */
 
 
 

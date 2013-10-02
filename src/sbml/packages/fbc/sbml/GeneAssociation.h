@@ -199,7 +199,7 @@ public:
    */
   virtual const Association* getAssociation () const;
 
-    /**
+  /**
    * Returns Association object of this GeneAssociation.
    *
    * @return Association object of this GeneAssociation.

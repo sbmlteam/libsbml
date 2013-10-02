@@ -42,33 +42,33 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 class ReplacedFilter : public ElementFilter
 {
 public:
-	ReplacedFilter() : ElementFilter()
-	{
-	}
+  ReplacedFilter() : ElementFilter()
+  {
+  }
 
-	virtual bool filter(const SBase* element)
-	{
-		// return in case we don't have a valid element with a comp plugin
-        if (element == NULL)
-        {
-            return false;
-        }
-        const CompSBasePlugin * plug = static_cast<const CompSBasePlugin*>
-                                            (element->getPlugin("comp"));
-        if (plug == NULL)
-        {
-            return false;
-        }
-        // otherwise we have a comp plugin
-        // we want to keep the object if it has ReplacedElements
-        if (plug->getNumReplacedElements() == 0)
-        {
-          return false;
-        }
+  virtual bool filter(const SBase* element)
+  {
+    // return in case we don't have a valid element with a comp plugin
+    if (element == NULL)
+    {
+      return false;
+    }
+    const CompSBasePlugin * plug = static_cast<const CompSBasePlugin*>
+                                   (element->getPlugin("comp"));
+    if (plug == NULL)
+    {
+      return false;
+    }
+    // otherwise we have a comp plugin
+    // we want to keep the object if it has ReplacedElements
+    if (plug->getNumReplacedElements() == 0)
+    {
+      return false;
+    }
 
 
-        return true;			
-	}
+    return true;
+  }
 
 };
 
@@ -76,33 +76,33 @@ public:
 class ReplacedByFilter : public ElementFilter
 {
 public:
-	ReplacedByFilter() : ElementFilter()
-	{
-	}
+  ReplacedByFilter() : ElementFilter()
+  {
+  }
 
-	virtual bool filter(const SBase* element)
-	{
-		// return in case we don't have a valid element with a comp plugin
-        if (element == NULL)
-        {
-            return false;
-        }
-        const CompSBasePlugin * plug = static_cast<const CompSBasePlugin*>
-                                            (element->getPlugin("comp"));
-        if (plug == NULL)
-        {
-            return false;
-        }
-        // otherwise we have a comp plugin
-        // we want to keep the object if it has ReplacedElements
-        if (plug->getReplacedBy() == NULL)
-        {
-          return false;
-        }
+  virtual bool filter(const SBase* element)
+  {
+    // return in case we don't have a valid element with a comp plugin
+    if (element == NULL)
+    {
+      return false;
+    }
+    const CompSBasePlugin * plug = static_cast<const CompSBasePlugin*>
+                                   (element->getPlugin("comp"));
+    if (plug == NULL)
+    {
+      return false;
+    }
+    // otherwise we have a comp plugin
+    // we want to keep the object if it has ReplacedElements
+    if (plug->getReplacedBy() == NULL)
+    {
+      return false;
+    }
 
 
-        return true;			
-	}
+    return true;
+  }
 
 };
 

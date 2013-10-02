@@ -41,19 +41,19 @@ LIBSBML_CPP_NAMESPACE_BEGIN
  * Creates a new QualitativeSpecies with the given level, version, and package version.
  */
 QualitativeSpecies::QualitativeSpecies (unsigned int level, unsigned int version, unsigned int pkgVersion)
-	: SBase(level, version)
-	 ,mId ("")
-	 ,mCompartment ("")
-	 ,mConstant (false)
-	 ,mIsSetConstant (false)
-	 ,mName ("")
-	 ,mInitialLevel (SBML_INT_MAX)
-	 ,mIsSetInitialLevel (false)
-	 ,mMaxLevel (SBML_INT_MAX)
-	 ,mIsSetMaxLevel (false)
+  : SBase(level, version)
+   ,mId ("")
+   ,mCompartment ("")
+   ,mConstant (false)
+   ,mIsSetConstant (false)
+   ,mName ("")
+   ,mInitialLevel (SBML_INT_MAX)
+   ,mIsSetInitialLevel (false)
+   ,mMaxLevel (SBML_INT_MAX)
+   ,mIsSetMaxLevel (false)
 {
-	// set an SBMLNamespaces derived object of this package
-	setSBMLNamespacesAndOwn(new QualPkgNamespaces(level, version, pkgVersion));
+  // set an SBMLNamespaces derived object of this package
+  setSBMLNamespacesAndOwn(new QualPkgNamespaces(level, version, pkgVersion));
 }
 
 
@@ -61,22 +61,22 @@ QualitativeSpecies::QualitativeSpecies (unsigned int level, unsigned int version
  * Creates a new QualitativeSpecies with the given QualPkgNamespaces object.
  */
 QualitativeSpecies::QualitativeSpecies (QualPkgNamespaces* qualns)
-	: SBase(qualns)
-	 ,mId ("")
-	 ,mCompartment ("")
-	 ,mConstant (false)
-	 ,mIsSetConstant (false)
-	 ,mName ("")
-	 ,mInitialLevel (SBML_INT_MAX)
-	 ,mIsSetInitialLevel (false)
-	 ,mMaxLevel (SBML_INT_MAX)
-	 ,mIsSetMaxLevel (false)
+  : SBase(qualns)
+   ,mId ("")
+   ,mCompartment ("")
+   ,mConstant (false)
+   ,mIsSetConstant (false)
+   ,mName ("")
+   ,mInitialLevel (SBML_INT_MAX)
+   ,mIsSetInitialLevel (false)
+   ,mMaxLevel (SBML_INT_MAX)
+   ,mIsSetMaxLevel (false)
 {
-	// set the element namespace of this object
-	setElementNamespace(qualns->getURI());
+  // set the element namespace of this object
+  setElementNamespace(qualns->getURI());
 
-	// load package extensions bound with this object (if any) 
-	loadPlugins(qualns);
+  // load package extensions bound with this object (if any) 
+  loadPlugins(qualns);
 }
 
 
@@ -84,24 +84,24 @@ QualitativeSpecies::QualitativeSpecies (QualPkgNamespaces* qualns)
  * Copy constructor for QualitativeSpecies.
  */
 QualitativeSpecies::QualitativeSpecies (const QualitativeSpecies& orig)
-	: SBase(orig)
+  : SBase(orig)
 {
-	if (&orig == NULL)
-	{
-		throw SBMLConstructorException("Null argument to copy constructor");
-	}
-	else
-	{
-		mId  = orig.mId;
-		mCompartment  = orig.mCompartment;
-		mConstant  = orig.mConstant;
-		mIsSetConstant  = orig.mIsSetConstant;
-		mName  = orig.mName;
-		mInitialLevel  = orig.mInitialLevel;
-		mIsSetInitialLevel  = orig.mIsSetInitialLevel;
-		mMaxLevel  = orig.mMaxLevel;
-		mIsSetMaxLevel  = orig.mIsSetMaxLevel;
-	}
+  if (&orig == NULL)
+  {
+    throw SBMLConstructorException("Null argument to copy constructor");
+  }
+  else
+  {
+    mId  = orig.mId;
+    mCompartment  = orig.mCompartment;
+    mConstant  = orig.mConstant;
+    mIsSetConstant  = orig.mIsSetConstant;
+    mName  = orig.mName;
+    mInitialLevel  = orig.mInitialLevel;
+    mIsSetInitialLevel  = orig.mIsSetInitialLevel;
+    mMaxLevel  = orig.mMaxLevel;
+    mIsSetMaxLevel  = orig.mIsSetMaxLevel;
+  }
 }
 
 
@@ -111,24 +111,24 @@ QualitativeSpecies::QualitativeSpecies (const QualitativeSpecies& orig)
 QualitativeSpecies&
 QualitativeSpecies::operator=(const QualitativeSpecies& rhs)
 {
-	if (&rhs == NULL)
-	{
-		throw SBMLConstructorException("Null argument to assignment");
-	}
-	else if (&rhs != this)
-	{
-		SBase::operator=(rhs);
-		mId  = rhs.mId;
-		mCompartment  = rhs.mCompartment;
-		mConstant  = rhs.mConstant;
-		mIsSetConstant  = rhs.mIsSetConstant;
-		mName  = rhs.mName;
-		mInitialLevel  = rhs.mInitialLevel;
-		mIsSetInitialLevel  = rhs.mIsSetInitialLevel;
-		mMaxLevel  = rhs.mMaxLevel;
-		mIsSetMaxLevel  = rhs.mIsSetMaxLevel;
-	}
-	return *this;
+  if (&rhs == NULL)
+  {
+    throw SBMLConstructorException("Null argument to assignment");
+  }
+  else if (&rhs != this)
+  {
+    SBase::operator=(rhs);
+    mId  = rhs.mId;
+    mCompartment  = rhs.mCompartment;
+    mConstant  = rhs.mConstant;
+    mIsSetConstant  = rhs.mIsSetConstant;
+    mName  = rhs.mName;
+    mInitialLevel  = rhs.mInitialLevel;
+    mIsSetInitialLevel  = rhs.mIsSetInitialLevel;
+    mMaxLevel  = rhs.mMaxLevel;
+    mIsSetMaxLevel  = rhs.mIsSetMaxLevel;
+  }
+  return *this;
 }
 
 
@@ -138,7 +138,7 @@ QualitativeSpecies::operator=(const QualitativeSpecies& rhs)
 QualitativeSpecies*
 QualitativeSpecies::clone () const
 {
-	return new QualitativeSpecies(*this);
+  return new QualitativeSpecies(*this);
 }
 
 
@@ -156,7 +156,7 @@ QualitativeSpecies::~QualitativeSpecies ()
 const std::string&
 QualitativeSpecies::getId() const
 {
-	return mId;
+  return mId;
 }
 
 
@@ -166,7 +166,7 @@ QualitativeSpecies::getId() const
 const std::string&
 QualitativeSpecies::getCompartment() const
 {
-	return mCompartment;
+  return mCompartment;
 }
 
 
@@ -176,7 +176,7 @@ QualitativeSpecies::getCompartment() const
 const bool
 QualitativeSpecies::getConstant() const
 {
-	return mConstant;
+  return mConstant;
 }
 
 
@@ -186,7 +186,7 @@ QualitativeSpecies::getConstant() const
 const std::string&
 QualitativeSpecies::getName() const
 {
-	return mName;
+  return mName;
 }
 
 
@@ -196,7 +196,7 @@ QualitativeSpecies::getName() const
 const int
 QualitativeSpecies::getInitialLevel() const
 {
-	return mInitialLevel;
+  return mInitialLevel;
 }
 
 
@@ -206,7 +206,7 @@ QualitativeSpecies::getInitialLevel() const
 const int
 QualitativeSpecies::getMaxLevel() const
 {
-	return mMaxLevel;
+  return mMaxLevel;
 }
 
 
@@ -216,7 +216,7 @@ QualitativeSpecies::getMaxLevel() const
 bool
 QualitativeSpecies::isSetId() const
 {
-	return (mId.empty() == false);
+  return (mId.empty() == false);
 }
 
 
@@ -226,7 +226,7 @@ QualitativeSpecies::isSetId() const
 bool
 QualitativeSpecies::isSetCompartment() const
 {
-	return (mCompartment.empty() == false);
+  return (mCompartment.empty() == false);
 }
 
 
@@ -236,7 +236,7 @@ QualitativeSpecies::isSetCompartment() const
 bool
 QualitativeSpecies::isSetConstant() const
 {
-	return mIsSetConstant;
+  return mIsSetConstant;
 }
 
 
@@ -246,7 +246,7 @@ QualitativeSpecies::isSetConstant() const
 bool
 QualitativeSpecies::isSetName() const
 {
-	return (mName.empty() == false);
+  return (mName.empty() == false);
 }
 
 
@@ -256,7 +256,7 @@ QualitativeSpecies::isSetName() const
 bool
 QualitativeSpecies::isSetInitialLevel() const
 {
-	return mIsSetInitialLevel;
+  return mIsSetInitialLevel;
 }
 
 
@@ -266,7 +266,7 @@ QualitativeSpecies::isSetInitialLevel() const
 bool
 QualitativeSpecies::isSetMaxLevel() const
 {
-	return mIsSetMaxLevel;
+  return mIsSetMaxLevel;
 }
 
 
@@ -276,7 +276,7 @@ QualitativeSpecies::isSetMaxLevel() const
 int
 QualitativeSpecies::setId(const std::string& id)
 {
-	return SyntaxChecker::checkAndSetSId(id, mId);
+  return SyntaxChecker::checkAndSetSId(id, mId);
 }
 
 
@@ -286,19 +286,19 @@ QualitativeSpecies::setId(const std::string& id)
 int
 QualitativeSpecies::setCompartment(const std::string& compartment)
 {
-	if (&(compartment) == NULL)
-	{
-		return LIBSBML_INVALID_ATTRIBUTE_VALUE;
-	}
-	else if (!(SyntaxChecker::isValidInternalSId(compartment)))
-	{
-		return LIBSBML_INVALID_ATTRIBUTE_VALUE;
-	}
-	else
-	{
-		mCompartment = compartment;
-		return LIBSBML_OPERATION_SUCCESS;
-	}
+  if (&(compartment) == NULL)
+  {
+    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+  }
+  else if (!(SyntaxChecker::isValidInternalSId(compartment)))
+  {
+    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+  }
+  else
+  {
+    mCompartment = compartment;
+    return LIBSBML_OPERATION_SUCCESS;
+  }
 }
 
 
@@ -308,9 +308,9 @@ QualitativeSpecies::setCompartment(const std::string& compartment)
 int
 QualitativeSpecies::setConstant(bool constant)
 {
-	mConstant = constant;
-	mIsSetConstant = true;
-	return LIBSBML_OPERATION_SUCCESS;
+  mConstant = constant;
+  mIsSetConstant = true;
+  return LIBSBML_OPERATION_SUCCESS;
 }
 
 
@@ -320,15 +320,15 @@ QualitativeSpecies::setConstant(bool constant)
 int
 QualitativeSpecies::setName(const std::string& name)
 {
-	if (&(name) == NULL)
-	{
-		return LIBSBML_INVALID_ATTRIBUTE_VALUE;
-	}
-	else
-	{
-		mName = name;
-		return LIBSBML_OPERATION_SUCCESS;
-	}
+  if (&(name) == NULL)
+  {
+    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+  }
+  else
+  {
+    mName = name;
+    return LIBSBML_OPERATION_SUCCESS;
+  }
 }
 
 
@@ -338,9 +338,9 @@ QualitativeSpecies::setName(const std::string& name)
 int
 QualitativeSpecies::setInitialLevel(int initialLevel)
 {
-	mInitialLevel = initialLevel;
-	mIsSetInitialLevel = true;
-	return LIBSBML_OPERATION_SUCCESS;
+  mInitialLevel = initialLevel;
+  mIsSetInitialLevel = true;
+  return LIBSBML_OPERATION_SUCCESS;
 }
 
 
@@ -350,9 +350,9 @@ QualitativeSpecies::setInitialLevel(int initialLevel)
 int
 QualitativeSpecies::setMaxLevel(int maxLevel)
 {
-	mMaxLevel = maxLevel;
-	mIsSetMaxLevel = true;
-	return LIBSBML_OPERATION_SUCCESS;
+  mMaxLevel = maxLevel;
+  mIsSetMaxLevel = true;
+  return LIBSBML_OPERATION_SUCCESS;
 }
 
 
@@ -362,16 +362,16 @@ QualitativeSpecies::setMaxLevel(int maxLevel)
 int
 QualitativeSpecies::unsetId()
 {
-	mId.erase();
+  mId.erase();
 
-	if (mId.empty() == true)
-	{
-		return LIBSBML_OPERATION_SUCCESS;
-	}
-	else
-	{
-		return LIBSBML_OPERATION_FAILED;
-	}
+  if (mId.empty() == true)
+  {
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else
+  {
+    return LIBSBML_OPERATION_FAILED;
+  }
 }
 
 
@@ -381,16 +381,16 @@ QualitativeSpecies::unsetId()
 int
 QualitativeSpecies::unsetCompartment()
 {
-	mCompartment.erase();
+  mCompartment.erase();
 
-	if (mCompartment.empty() == true)
-	{
-		return LIBSBML_OPERATION_SUCCESS;
-	}
-	else
-	{
-		return LIBSBML_OPERATION_FAILED;
-	}
+  if (mCompartment.empty() == true)
+  {
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else
+  {
+    return LIBSBML_OPERATION_FAILED;
+  }
 }
 
 
@@ -400,9 +400,9 @@ QualitativeSpecies::unsetCompartment()
 int
 QualitativeSpecies::unsetConstant()
 {
-	mConstant = false;
-	mIsSetConstant = false;
-	return LIBSBML_OPERATION_SUCCESS;
+  mConstant = false;
+  mIsSetConstant = false;
+  return LIBSBML_OPERATION_SUCCESS;
 }
 
 
@@ -412,16 +412,16 @@ QualitativeSpecies::unsetConstant()
 int
 QualitativeSpecies::unsetName()
 {
-	mName.erase();
+  mName.erase();
 
-	if (mName.empty() == true)
-	{
-		return LIBSBML_OPERATION_SUCCESS;
-	}
-	else
-	{
-		return LIBSBML_OPERATION_FAILED;
-	}
+  if (mName.empty() == true)
+  {
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else
+  {
+    return LIBSBML_OPERATION_FAILED;
+  }
 }
 
 
@@ -431,17 +431,17 @@ QualitativeSpecies::unsetName()
 int
 QualitativeSpecies::unsetInitialLevel()
 {
-	mInitialLevel = SBML_INT_MAX;
-	mIsSetInitialLevel = false;
+  mInitialLevel = SBML_INT_MAX;
+  mIsSetInitialLevel = false;
 
-	if (isSetInitialLevel() == false)
-	{
-		return LIBSBML_OPERATION_SUCCESS;
-	}
-	else
-	{
-		return LIBSBML_OPERATION_FAILED;
-	}
+  if (isSetInitialLevel() == false)
+  {
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else
+  {
+    return LIBSBML_OPERATION_FAILED;
+  }
 }
 
 
@@ -451,17 +451,17 @@ QualitativeSpecies::unsetInitialLevel()
 int
 QualitativeSpecies::unsetMaxLevel()
 {
-	mMaxLevel = SBML_INT_MAX;
-	mIsSetMaxLevel = false;
+  mMaxLevel = SBML_INT_MAX;
+  mIsSetMaxLevel = false;
 
-	if (isSetMaxLevel() == false)
-	{
-		return LIBSBML_OPERATION_SUCCESS;
-	}
-	else
-	{
-		return LIBSBML_OPERATION_FAILED;
-	}
+  if (isSetMaxLevel() == false)
+  {
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else
+  {
+    return LIBSBML_OPERATION_FAILED;
+  }
 }
 
 
@@ -471,8 +471,8 @@ QualitativeSpecies::unsetMaxLevel()
 const std::string&
 QualitativeSpecies::getElementName () const
 {
-	static const string name = "qualitativeSpecies";
-	return name;
+  static const string name = "qualitativeSpecies";
+  return name;
 }
 
 
@@ -482,7 +482,7 @@ QualitativeSpecies::getElementName () const
 int
 QualitativeSpecies::getTypeCode () const
 {
-	return SBML_QUAL_QUALITATIVE_SPECIES;
+  return SBML_QUAL_QUALITATIVE_SPECIES;
 }
 
 
@@ -492,22 +492,22 @@ QualitativeSpecies::getTypeCode () const
 bool
 QualitativeSpecies::hasRequiredAttributes () const
 {
-	bool allPresent = true;
+  bool allPresent = true;
 
-	if (isSetId() == false)
-		allPresent = false;
+  if (isSetId() == false)
+    allPresent = false;
 
-	if (isSetCompartment() == false)
-		allPresent = false;
+  if (isSetCompartment() == false)
+    allPresent = false;
 
-	if (isSetConstant() == false)
-		allPresent = false;
+  if (isSetConstant() == false)
+    allPresent = false;
 
-	return allPresent;
+  return allPresent;
 }
 
 
-	/** @cond doxygenLibsbmlInternal */
+  /** @cond doxygenLibsbmlInternal */
 
 /*
  * write contained elements
@@ -515,16 +515,16 @@ QualitativeSpecies::hasRequiredAttributes () const
 void
 QualitativeSpecies::writeElements (XMLOutputStream& stream) const
 {
-	SBase::writeElements(stream);
+  SBase::writeElements(stream);
 
-	SBase::writeExtensionElements(stream);
+  SBase::writeExtensionElements(stream);
 }
 
 
-	/** @endcond doxygenLibsbmlInternal */
+  /** @endcond doxygenLibsbmlInternal */
 
 
-	/** @cond doxygenLibsbmlInternal */
+  /** @cond doxygenLibsbmlInternal */
 
 /*
  * Accepts the given SBMLVisitor.
@@ -532,14 +532,14 @@ QualitativeSpecies::writeElements (XMLOutputStream& stream) const
 bool
 QualitativeSpecies::accept (SBMLVisitor& v) const
 {
-	return v.visit(*this);
+  return v.visit(*this);
 }
 
 
-	/** @endcond doxygenLibsbmlInternal */
+  /** @endcond doxygenLibsbmlInternal */
 
 
-	/** @cond doxygenLibsbmlInternal */
+  /** @cond doxygenLibsbmlInternal */
 
 /*
  * Sets the parent SBMLDocument.
@@ -547,14 +547,14 @@ QualitativeSpecies::accept (SBMLVisitor& v) const
 void
 QualitativeSpecies::setSBMLDocument (SBMLDocument* d)
 {
-	SBase::setSBMLDocument(d);
+  SBase::setSBMLDocument(d);
 }
 
 
-	/** @endcond doxygenLibsbmlInternal */
+  /** @endcond doxygenLibsbmlInternal */
 
 
-	/** @cond doxygenLibsbmlInternal */
+  /** @cond doxygenLibsbmlInternal */
 
 /*
  * Enables/Disables the given package with this element.
@@ -563,14 +563,14 @@ void
 QualitativeSpecies::enablePackageInternal(const std::string& pkgURI,
              const std::string& pkgPrefix, bool flag)
 {
-	SBase::enablePackageInternal(pkgURI, pkgPrefix, flag);
+  SBase::enablePackageInternal(pkgURI, pkgPrefix, flag);
 }
 
 
-	/** @endcond doxygenLibsbmlInternal */
+  /** @endcond doxygenLibsbmlInternal */
 
 
-	/** @cond doxygenLibsbmlInternal */
+  /** @cond doxygenLibsbmlInternal */
 
 /*
  * Get the list of expected attributes for this element.
@@ -578,21 +578,21 @@ QualitativeSpecies::enablePackageInternal(const std::string& pkgURI,
 void
 QualitativeSpecies::addExpectedAttributes(ExpectedAttributes& attributes)
 {
-	SBase::addExpectedAttributes(attributes);
+  SBase::addExpectedAttributes(attributes);
 
-	attributes.add("id");
-	attributes.add("compartment");
-	attributes.add("constant");
-	attributes.add("name");
-	attributes.add("initialLevel");
-	attributes.add("maxLevel");
+  attributes.add("id");
+  attributes.add("compartment");
+  attributes.add("constant");
+  attributes.add("name");
+  attributes.add("initialLevel");
+  attributes.add("maxLevel");
 }
 
 
-	/** @endcond doxygenLibsbmlInternal */
+  /** @endcond doxygenLibsbmlInternal */
 
 
-	/** @cond doxygenLibsbmlInternal */
+  /** @cond doxygenLibsbmlInternal */
 
 /*
  * Read values from the given XMLAttributes set into their specific fields.
@@ -601,20 +601,20 @@ void
 QualitativeSpecies::readAttributes (const XMLAttributes& attributes,
                              const ExpectedAttributes& expectedAttributes)
 {
-	const unsigned int sbmlLevel   = getLevel  ();
-	const unsigned int sbmlVersion = getVersion();
+  const unsigned int sbmlLevel   = getLevel  ();
+  const unsigned int sbmlVersion = getVersion();
 
-	unsigned int numErrs;
+  unsigned int numErrs;
 
-	/* look to see whether an unknown attribute error was logged
-	 * during the read of the listOfQualitativeSpeciess - which will have
-	 * happened immediately prior to this read
-	*/
+  /* look to see whether an unknown attribute error was logged
+   * during the read of the listOfQualitativeSpeciess - which will have
+   * happened immediately prior to this read
+   */
 
   if (getErrorLog() != NULL && 
     static_cast<ListOfQualitativeSpecies*>(getParentSBMLObject())->size() < 2)
   {
-		numErrs = getErrorLog()->getNumErrors();
+    numErrs = getErrorLog()->getNumErrors();
     for (int n = numErrs-1; n >= 0; n--)      
     {
       if (getErrorLog()->getError(n)->getErrorId() == UnknownPackageAttribute)
@@ -635,233 +635,233 @@ QualitativeSpecies::readAttributes (const XMLAttributes& attributes,
       } 
     }
   }
-	SBase::readAttributes(attributes, expectedAttributes);
+  SBase::readAttributes(attributes, expectedAttributes);
 
-	// look to see whether an unknown attribute error was logged
-	if (getErrorLog() != NULL)
-	{
-		numErrs = getErrorLog()->getNumErrors();
-		for (int n = numErrs-1; n >= 0; n--)
-		{
-			if (getErrorLog()->getError(n)->getErrorId() == UnknownPackageAttribute)
-			{
-				const std::string details =
-				                  getErrorLog()->getError(n)->getMessage();
-				getErrorLog()->remove(UnknownPackageAttribute);
-				getErrorLog()->logPackageError("qual", QualQualSpeciesAllowedAttributes,
-				               getPackageVersion(), sbmlLevel, sbmlVersion, details);
-			}
-			else if (getErrorLog()->getError(n)->getErrorId() == UnknownCoreAttribute)
-			{
-				const std::string details =
-				                  getErrorLog()->getError(n)->getMessage();
-				getErrorLog()->remove(UnknownCoreAttribute);
-				getErrorLog()->logPackageError("qual", QualQualSpeciesAllowedCoreAttributes,
-				               getPackageVersion(), sbmlLevel, sbmlVersion, details);
-			}
-		}
-	}
+  // look to see whether an unknown attribute error was logged
+  if (getErrorLog() != NULL)
+  {
+    numErrs = getErrorLog()->getNumErrors();
+    for (int n = numErrs-1; n >= 0; n--)
+    {
+      if (getErrorLog()->getError(n)->getErrorId() == UnknownPackageAttribute)
+      {
+        const std::string details =
+                          getErrorLog()->getError(n)->getMessage();
+        getErrorLog()->remove(UnknownPackageAttribute);
+        getErrorLog()->logPackageError("qual", QualQualSpeciesAllowedAttributes,
+                       getPackageVersion(), sbmlLevel, sbmlVersion, details);
+      }
+      else if (getErrorLog()->getError(n)->getErrorId() == UnknownCoreAttribute)
+      {
+        const std::string details =
+                          getErrorLog()->getError(n)->getMessage();
+        getErrorLog()->remove(UnknownCoreAttribute);
+        getErrorLog()->logPackageError("qual", QualQualSpeciesAllowedCoreAttributes,
+                       getPackageVersion(), sbmlLevel, sbmlVersion, details);
+      }
+    }
+  }
 
-	bool assigned = false;
+  bool assigned = false;
 
-	//
-	// id SId  ( use = "required" )
-	//
-	assigned = attributes.readInto("id", mId);
+  //
+  // id SId  ( use = "required" )
+  //
+  assigned = attributes.readInto("id", mId);
 
- 	if (assigned == true)
-	{
-		// check string is not empty and correct syntax
+   if (assigned == true)
+  {
+    // check string is not empty and correct syntax
 
-		if (mId.empty() == true)
-		{
-			logEmptyString(mId, getLevel(), getVersion(), "<QualitativeSpecies>");
-		}
-		else if (SyntaxChecker::isValidSBMLSId(mId) == false)
-		{
-			logError(InvalidIdSyntax);
-		}
-	}
-	else
-	{
-		std::string message = "Qual attribute 'id' is missing.";
-		getErrorLog()->logPackageError("qual", QualQualSpeciesAllowedAttributes,
-		               getPackageVersion(), sbmlLevel, sbmlVersion, message);
-	}
+    if (mId.empty() == true)
+    {
+      logEmptyString(mId, getLevel(), getVersion(), "<QualitativeSpecies>");
+    }
+    else if (SyntaxChecker::isValidSBMLSId(mId) == false)
+    {
+      logError(InvalidIdSyntax);
+    }
+  }
+  else
+  {
+    std::string message = "Qual attribute 'id' is missing.";
+    getErrorLog()->logPackageError("qual", QualQualSpeciesAllowedAttributes,
+                   getPackageVersion(), sbmlLevel, sbmlVersion, message);
+  }
 
-	//
-	// compartment SIdRef   ( use = "required" )
-	//
-	assigned = attributes.readInto("compartment", mCompartment);
+  //
+  // compartment SIdRef   ( use = "required" )
+  //
+  assigned = attributes.readInto("compartment", mCompartment);
 
-	if (assigned == true)
-	{
-		// check string is not empty and correct syntax
+  if (assigned == true)
+  {
+    // check string is not empty and correct syntax
 
-		if (mCompartment.empty() == true)
-		{
-			logEmptyString(mCompartment, getLevel(), getVersion(), "<QualitativeSpecies>");
-		}
-		else if (SyntaxChecker::isValidSBMLSId(mCompartment) == false)
-		{
-			logError(InvalidIdSyntax);
-		}
-	}
-	else
-	{
-		std::string message = "Qual attribute 'compartment' is missing.";
-		getErrorLog()->logPackageError("qual", QualQualSpeciesAllowedAttributes,
-		               getPackageVersion(), sbmlLevel, sbmlVersion, message);
-	}
+    if (mCompartment.empty() == true)
+    {
+      logEmptyString(mCompartment, getLevel(), getVersion(), "<QualitativeSpecies>");
+    }
+    else if (SyntaxChecker::isValidSBMLSId(mCompartment) == false)
+    {
+      logError(InvalidIdSyntax);
+    }
+  }
+  else
+  {
+    std::string message = "Qual attribute 'compartment' is missing.";
+    getErrorLog()->logPackageError("qual", QualQualSpeciesAllowedAttributes,
+                   getPackageVersion(), sbmlLevel, sbmlVersion, message);
+  }
 
-	//
-	// constant bool   ( use = "required" )
-	//
-	numErrs = getErrorLog()->getNumErrors();
-	mIsSetConstant = attributes.readInto("constant", mConstant);
+  //
+  // constant bool   ( use = "required" )
+  //
+  numErrs = getErrorLog()->getNumErrors();
+  mIsSetConstant = attributes.readInto("constant", mConstant);
 
-	if (mIsSetConstant == false)
-	{
-		if (getErrorLog() != NULL)
-		{
-			if (getErrorLog()->getNumErrors() == numErrs + 1 &&
-			        getErrorLog()->contains(XMLAttributeTypeMismatch))
-			{
-				getErrorLog()->remove(XMLAttributeTypeMismatch);
-				getErrorLog()->logPackageError("qual", QualConstantMustBeBool,
-				             getPackageVersion(), sbmlLevel, sbmlVersion);
-			}
+  if (mIsSetConstant == false)
+  {
+    if (getErrorLog() != NULL)
+    {
+      if (getErrorLog()->getNumErrors() == numErrs + 1 &&
+              getErrorLog()->contains(XMLAttributeTypeMismatch))
+      {
+        getErrorLog()->remove(XMLAttributeTypeMismatch);
+        getErrorLog()->logPackageError("qual", QualConstantMustBeBool,
+                     getPackageVersion(), sbmlLevel, sbmlVersion);
+      }
       else
       {
-		  std::string message = "Qual attribute 'constant' is missing.";
-		  getErrorLog()->logPackageError("qual", QualQualSpeciesAllowedAttributes,
-		                 getPackageVersion(), sbmlLevel, sbmlVersion, message);
+      std::string message = "Qual attribute 'constant' is missing.";
+      getErrorLog()->logPackageError("qual", QualQualSpeciesAllowedAttributes,
+                     getPackageVersion(), sbmlLevel, sbmlVersion, message);
       }
-		}
-	}
-	
+    }
+  }
+  
 
-	//
-	// name string   ( use = "optional" )
-	//
-	assigned = attributes.readInto("name", mName);
+  //
+  // name string   ( use = "optional" )
+  //
+  assigned = attributes.readInto("name", mName);
 
-	if (assigned == true)
-	{
-		// check string is not empty
+  if (assigned == true)
+  {
+    // check string is not empty
 
-		if (mName.empty() == true)
-		{
-			logEmptyString(mName, getLevel(), getVersion(), "<QualitativeSpecies>");
-		}
-	}
+    if (mName.empty() == true)
+    {
+      logEmptyString(mName, getLevel(), getVersion(), "<QualitativeSpecies>");
+    }
+  }
 
-	//
-	// initialLevel int   ( use = "optional" )
-	//
+  //
+  // initialLevel int   ( use = "optional" )
+  //
   numErrs = getErrorLog()->getNumErrors();
-	mIsSetInitialLevel = attributes.readInto("initialLevel", mInitialLevel);
+  mIsSetInitialLevel = attributes.readInto("initialLevel", mInitialLevel);
 
-	if (mIsSetInitialLevel == false)
-	{
-		if (getErrorLog() != NULL)
-		{
-			if (getErrorLog()->getNumErrors() == numErrs + 1 &&
-			        getErrorLog()->contains(XMLAttributeTypeMismatch))
-			{
-				getErrorLog()->remove(XMLAttributeTypeMismatch);
-				getErrorLog()->logPackageError("qual", QualInitialLevelMustBeInt,
-				             getPackageVersion(), sbmlLevel, sbmlVersion);
-			}
-		}
-	}
+  if (mIsSetInitialLevel == false)
+  {
+    if (getErrorLog() != NULL)
+    {
+      if (getErrorLog()->getNumErrors() == numErrs + 1 &&
+              getErrorLog()->contains(XMLAttributeTypeMismatch))
+      {
+        getErrorLog()->remove(XMLAttributeTypeMismatch);
+        getErrorLog()->logPackageError("qual", QualInitialLevelMustBeInt,
+                     getPackageVersion(), sbmlLevel, sbmlVersion);
+      }
+    }
+  }
   else
   {
     if (mInitialLevel < 0)
     {
-			getErrorLog()->logPackageError("qual", QualInitalLevelNotNegative,
-			             getPackageVersion(), sbmlLevel, sbmlVersion);
+      getErrorLog()->logPackageError("qual", QualInitalLevelNotNegative,
+                   getPackageVersion(), sbmlLevel, sbmlVersion);
     }
   }
 
-	//
-	// maxLevel int   ( use = "optional" )
-	//
-	numErrs = getErrorLog()->getNumErrors();
+  //
+  // maxLevel int   ( use = "optional" )
+  //
+  numErrs = getErrorLog()->getNumErrors();
   mIsSetMaxLevel = attributes.readInto("maxLevel", mMaxLevel);
 
-	if (mIsSetMaxLevel == false)
-	{
-		if (getErrorLog() != NULL)
-		{
-			if (getErrorLog()->getNumErrors() == numErrs + 1 &&
-			        getErrorLog()->contains(XMLAttributeTypeMismatch))
-			{
-				getErrorLog()->remove(XMLAttributeTypeMismatch);
-				getErrorLog()->logPackageError("qual", QualMaxLevelMustBeInt,
-				             getPackageVersion(), sbmlLevel, sbmlVersion);
-			}
-		}
-	}
+  if (mIsSetMaxLevel == false)
+  {
+    if (getErrorLog() != NULL)
+    {
+      if (getErrorLog()->getNumErrors() == numErrs + 1 &&
+              getErrorLog()->contains(XMLAttributeTypeMismatch))
+      {
+        getErrorLog()->remove(XMLAttributeTypeMismatch);
+        getErrorLog()->logPackageError("qual", QualMaxLevelMustBeInt,
+                     getPackageVersion(), sbmlLevel, sbmlVersion);
+      }
+    }
+  }
   else
   {
     if (mMaxLevel < 0)
     {
-			getErrorLog()->logPackageError("qual", QualMaxLevelNotNegative,
-			             getPackageVersion(), sbmlLevel, sbmlVersion);
+      getErrorLog()->logPackageError("qual", QualMaxLevelNotNegative,
+                   getPackageVersion(), sbmlLevel, sbmlVersion);
     }
   }
 }
 
 
-	/** @endcond doxygenLibsbmlInternal */
+  /** @endcond doxygenLibsbmlInternal */
 
 
-	/** @cond doxygenLibsbmlInternal */
+  /** @cond doxygenLibsbmlInternal */
 
 /*
  * Write values of XMLAttributes to the output stream.
  */
-	void
+  void
 QualitativeSpecies::writeAttributes (XMLOutputStream& stream) const
 {
-	SBase::writeAttributes(stream);
+  SBase::writeAttributes(stream);
 
-	if (isSetId() == true)
-		stream.writeAttribute("id", getPrefix(), mId);
+  if (isSetId() == true)
+    stream.writeAttribute("id", getPrefix(), mId);
 
-	if (isSetCompartment() == true)
-		stream.writeAttribute("compartment", getPrefix(), mCompartment);
+  if (isSetCompartment() == true)
+    stream.writeAttribute("compartment", getPrefix(), mCompartment);
 
-	if (isSetConstant() == true)
-		stream.writeAttribute("constant", getPrefix(), mConstant);
+  if (isSetConstant() == true)
+    stream.writeAttribute("constant", getPrefix(), mConstant);
 
-	if (isSetName() == true)
-		stream.writeAttribute("name", getPrefix(), mName);
+  if (isSetName() == true)
+    stream.writeAttribute("name", getPrefix(), mName);
 
-	if (isSetInitialLevel() == true)
-		stream.writeAttribute("initialLevel", getPrefix(), mInitialLevel);
+  if (isSetInitialLevel() == true)
+    stream.writeAttribute("initialLevel", getPrefix(), mInitialLevel);
 
-	if (isSetMaxLevel() == true)
-		stream.writeAttribute("maxLevel", getPrefix(), mMaxLevel);
+  if (isSetMaxLevel() == true)
+    stream.writeAttribute("maxLevel", getPrefix(), mMaxLevel);
 
-	SBase::writeExtensionAttributes(stream);
+  SBase::writeExtensionAttributes(stream);
 
 }
 
 
-	/** @endcond doxygenLibsbmlInternal */
+  /** @endcond doxygenLibsbmlInternal */
 
 
 /*
  * Constructor 
  */
 ListOfQualitativeSpecies::ListOfQualitativeSpecies(unsigned int level, 
-	                         unsigned int version, 
-	                         unsigned int pkgVersion)
+                                                   unsigned int version, 
+                                                   unsigned int pkgVersion)
  : ListOf(level, version)
 {
-	setSBMLNamespacesAndOwn(new QualPkgNamespaces(level, version, pkgVersion)); 
+  setSBMLNamespacesAndOwn(new QualPkgNamespaces(level, version, pkgVersion)); 
 }
 
 
@@ -871,7 +871,7 @@ ListOfQualitativeSpecies::ListOfQualitativeSpecies(unsigned int level,
 ListOfQualitativeSpecies::ListOfQualitativeSpecies(QualPkgNamespaces* qualns)
   : ListOf(qualns)
 {
-	setElementNamespace(qualns->getURI());
+  setElementNamespace(qualns->getURI());
 }
 
 
@@ -881,7 +881,7 @@ ListOfQualitativeSpecies::ListOfQualitativeSpecies(QualPkgNamespaces* qualns)
 ListOfQualitativeSpecies* 
 ListOfQualitativeSpecies::clone () const
  {
-	return new ListOfQualitativeSpecies(*this);
+  return new ListOfQualitativeSpecies(*this);
 }
 
 
@@ -891,7 +891,7 @@ ListOfQualitativeSpecies::clone () const
 QualitativeSpecies*
 ListOfQualitativeSpecies::get(unsigned int n)
 {
-	return static_cast<QualitativeSpecies*>(ListOf::get(n));
+  return static_cast<QualitativeSpecies*>(ListOf::get(n));
 }
 
 
@@ -901,7 +901,7 @@ ListOfQualitativeSpecies::get(unsigned int n)
 const QualitativeSpecies*
 ListOfQualitativeSpecies::get(unsigned int n) const
 {
-	return static_cast<const QualitativeSpecies*>(ListOf::get(n));
+  return static_cast<const QualitativeSpecies*>(ListOf::get(n));
 }
 
 
@@ -911,8 +911,8 @@ ListOfQualitativeSpecies::get(unsigned int n) const
 QualitativeSpecies*
 ListOfQualitativeSpecies::get(const std::string& sid)
 {
-	return const_cast<QualitativeSpecies*>(
-	  static_cast<const ListOfQualitativeSpecies&>(*this).get(sid));
+  return const_cast<QualitativeSpecies*>(
+    static_cast<const ListOfQualitativeSpecies&>(*this).get(sid));
 }
 
 
@@ -922,10 +922,10 @@ ListOfQualitativeSpecies::get(const std::string& sid)
 const QualitativeSpecies*
 ListOfQualitativeSpecies::get(const std::string& sid) const
 {
-	vector<SBase*>::const_iterator result;
+  vector<SBase*>::const_iterator result;
 
-	result = find_if( mItems.begin(), mItems.end(), IdEq<QualitativeSpecies>(sid) );
-	return (result == mItems.end()) ? 0 : static_cast <QualitativeSpecies*> (*result);
+  result = find_if( mItems.begin(), mItems.end(), IdEq<QualitativeSpecies>(sid) );
+  return (result == mItems.end()) ? 0 : static_cast <QualitativeSpecies*> (*result);
 }
 
 
@@ -935,7 +935,7 @@ ListOfQualitativeSpecies::get(const std::string& sid) const
 QualitativeSpecies*
 ListOfQualitativeSpecies::remove(unsigned int n)
 {
-	return static_cast<QualitativeSpecies*>(ListOf::remove(n));
+  return static_cast<QualitativeSpecies*>(ListOf::remove(n));
 }
 
 
@@ -945,18 +945,18 @@ ListOfQualitativeSpecies::remove(unsigned int n)
 QualitativeSpecies*
 ListOfQualitativeSpecies::remove(const std::string& sid)
 {
-	SBase* item = NULL;
-	vector<SBase*>::iterator result;
+  SBase* item = NULL;
+  vector<SBase*>::iterator result;
 
-	result = find_if( mItems.begin(), mItems.end(), IdEq<QualitativeSpecies>(sid) );
+  result = find_if( mItems.begin(), mItems.end(), IdEq<QualitativeSpecies>(sid) );
 
-	if (result != mItems.end())
-	{
-		item = *result;
-		mItems.erase(result);
-	}
+  if (result != mItems.end())
+  {
+    item = *result;
+    mItems.erase(result);
+  }
 
-	return static_cast <QualitativeSpecies*> (item);
+  return static_cast <QualitativeSpecies*> (item);
 }
 
 
@@ -966,8 +966,8 @@ ListOfQualitativeSpecies::remove(const std::string& sid)
 const std::string&
 ListOfQualitativeSpecies::getElementName () const
 {
-	static const string name = "listOfQualitativeSpecies";
-	return name;
+  static const string name = "listOfQualitativeSpecies";
+  return name;
 }
 
 
@@ -977,7 +977,7 @@ ListOfQualitativeSpecies::getElementName () const
 int
 ListOfQualitativeSpecies::getTypeCode () const
 {
-	return SBML_LIST_OF;
+  return SBML_LIST_OF;
 }
 
 
@@ -987,11 +987,11 @@ ListOfQualitativeSpecies::getTypeCode () const
 int
 ListOfQualitativeSpecies::getItemTypeCode () const
 {
-	return SBML_QUAL_QUALITATIVE_SPECIES;
+  return SBML_QUAL_QUALITATIVE_SPECIES;
 }
 
 
-	/** @cond doxygenLibsbmlInternal */
+  /** @cond doxygenLibsbmlInternal */
 
 /*
  * Creates a new QualitativeSpecies in this ListOfQualitativeSpecies
@@ -999,24 +999,24 @@ ListOfQualitativeSpecies::getItemTypeCode () const
 SBase*
 ListOfQualitativeSpecies::createObject(XMLInputStream& stream)
 {
-	const std::string& name   = stream.peek().getName();
-	SBase* object = NULL;
+  const std::string& name   = stream.peek().getName();
+  SBase* object = NULL;
 
-	if (name == "qualitativeSpecies")
-	{
-		QUAL_CREATE_NS(qualns, getSBMLNamespaces());
-		object = new QualitativeSpecies(qualns);
-		appendAndOwn(object);
-	}
+  if (name == "qualitativeSpecies")
+  {
+    QUAL_CREATE_NS(qualns, getSBMLNamespaces());
+    object = new QualitativeSpecies(qualns);
+    appendAndOwn(object);
+  }
 
-	return object;
+  return object;
 }
 
 
-	/** @endcond doxygenLibsbmlInternal */
+  /** @endcond doxygenLibsbmlInternal */
 
 
-	/** @cond doxygenLibsbmlInternal */
+  /** @cond doxygenLibsbmlInternal */
 
 /*
  * Write the namespace for the Qual package.
@@ -1024,23 +1024,23 @@ ListOfQualitativeSpecies::createObject(XMLInputStream& stream)
 void
 ListOfQualitativeSpecies::writeXMLNS(XMLOutputStream& stream) const
 {
-	XMLNamespaces xmlns;
+  XMLNamespaces xmlns;
 
-	std::string prefix = getPrefix();
+  std::string prefix = getPrefix();
 
-	if (prefix.empty())
-	{
-		if (getNamespaces()->hasURI(QualExtension::getXmlnsL3V1V1()))
-		{
-			xmlns.add(QualExtension::getXmlnsL3V1V1(),prefix);
-		}
-	}
+  if (prefix.empty())
+  {
+    if (getNamespaces()->hasURI(QualExtension::getXmlnsL3V1V1()))
+    {
+      xmlns.add(QualExtension::getXmlnsL3V1V1(),prefix);
+    }
+  }
 
-	stream << xmlns;
+  stream << xmlns;
 }
 
 
-	/** @endcond doxygenLibsbmlInternal */
+  /** @endcond doxygenLibsbmlInternal */
 
 
 /**
@@ -1051,7 +1051,7 @@ QualitativeSpecies_t *
 QualitativeSpecies_create(unsigned int level, unsigned int version,
                           unsigned int pkgVersion)
 {
-	return new QualitativeSpecies(level, version, pkgVersion);
+  return new QualitativeSpecies(level, version, pkgVersion);
 }
 
 
@@ -1062,8 +1062,8 @@ LIBSBML_EXTERN
 void
 QualitativeSpecies_free(QualitativeSpecies_t * qs)
 {
-	if (qs != NULL)
-		delete qs;
+  if (qs != NULL)
+    delete qs;
 }
 
 
@@ -1074,14 +1074,14 @@ LIBSBML_EXTERN
 QualitativeSpecies_t *
 QualitativeSpecies_clone(QualitativeSpecies_t * qs)
 {
-	if (qs != NULL)
-	{
-		return static_cast<QualitativeSpecies_t*>(qs->clone());
-	}
-	else
-	{
-		return NULL;
-	}
+  if (qs != NULL)
+  {
+    return static_cast<QualitativeSpecies_t*>(qs->clone());
+  }
+  else
+  {
+    return NULL;
+  }
 }
 
 
@@ -1092,10 +1092,10 @@ LIBSBML_EXTERN
 char *
 QualitativeSpecies_getId(QualitativeSpecies_t * qs)
 {
-	if (qs == NULL)
-		return NULL;
+  if (qs == NULL)
+    return NULL;
 
-	return qs->getId().empty() ? NULL : safe_strdup(qs->getId().c_str());
+  return qs->getId().empty() ? NULL : safe_strdup(qs->getId().c_str());
 }
 
 
@@ -1106,10 +1106,10 @@ LIBSBML_EXTERN
 char *
 QualitativeSpecies_getCompartment(QualitativeSpecies_t * qs)
 {
-	if (qs == NULL)
-		return NULL;
+  if (qs == NULL)
+    return NULL;
 
-	return qs->getCompartment().empty() ? NULL : safe_strdup(qs->getCompartment().c_str());
+  return qs->getCompartment().empty() ? NULL : safe_strdup(qs->getCompartment().c_str());
 }
 
 
@@ -1120,7 +1120,7 @@ LIBSBML_EXTERN
 int
 QualitativeSpecies_getConstant(QualitativeSpecies_t * qs)
 {
-	return (qs != NULL) ? static_cast<int>(qs->getConstant()) : 0;
+  return (qs != NULL) ? static_cast<int>(qs->getConstant()) : 0;
 }
 
 
@@ -1131,10 +1131,10 @@ LIBSBML_EXTERN
 char *
 QualitativeSpecies_getName(QualitativeSpecies_t * qs)
 {
-	if (qs == NULL)
-		return NULL;
+  if (qs == NULL)
+    return NULL;
 
-	return qs->getName().empty() ? NULL : safe_strdup(qs->getName().c_str());
+  return qs->getName().empty() ? NULL : safe_strdup(qs->getName().c_str());
 }
 
 
@@ -1145,7 +1145,7 @@ LIBSBML_EXTERN
 int
 QualitativeSpecies_getInitialLevel(QualitativeSpecies_t * qs)
 {
-	return (qs != NULL) ? qs->getInitialLevel() : SBML_INT_MAX;
+  return (qs != NULL) ? qs->getInitialLevel() : SBML_INT_MAX;
 }
 
 
@@ -1156,7 +1156,7 @@ LIBSBML_EXTERN
 int
 QualitativeSpecies_getMaxLevel(QualitativeSpecies_t * qs)
 {
-	return (qs != NULL) ? qs->getMaxLevel() : SBML_INT_MAX;
+  return (qs != NULL) ? qs->getMaxLevel() : SBML_INT_MAX;
 }
 
 
@@ -1167,7 +1167,7 @@ LIBSBML_EXTERN
 int
 QualitativeSpecies_isSetId(QualitativeSpecies_t * qs)
 {
-	return (qs != NULL) ? static_cast<int>(qs->isSetId()) : 0;
+  return (qs != NULL) ? static_cast<int>(qs->isSetId()) : 0;
 }
 
 
@@ -1178,7 +1178,7 @@ LIBSBML_EXTERN
 int
 QualitativeSpecies_isSetCompartment(QualitativeSpecies_t * qs)
 {
-	return (qs != NULL) ? static_cast<int>(qs->isSetCompartment()) : 0;
+  return (qs != NULL) ? static_cast<int>(qs->isSetCompartment()) : 0;
 }
 
 
@@ -1189,7 +1189,7 @@ LIBSBML_EXTERN
 int
 QualitativeSpecies_isSetConstant(QualitativeSpecies_t * qs)
 {
-	return (qs != NULL) ? static_cast<int>(qs->isSetConstant()) : 0;
+  return (qs != NULL) ? static_cast<int>(qs->isSetConstant()) : 0;
 }
 
 
@@ -1200,7 +1200,7 @@ LIBSBML_EXTERN
 int
 QualitativeSpecies_isSetName(QualitativeSpecies_t * qs)
 {
-	return (qs != NULL) ? static_cast<int>(qs->isSetName()) : 0;
+  return (qs != NULL) ? static_cast<int>(qs->isSetName()) : 0;
 }
 
 
@@ -1211,7 +1211,7 @@ LIBSBML_EXTERN
 int
 QualitativeSpecies_isSetInitialLevel(QualitativeSpecies_t * qs)
 {
-	return (qs != NULL) ? static_cast<int>(qs->isSetInitialLevel()) : 0;
+  return (qs != NULL) ? static_cast<int>(qs->isSetInitialLevel()) : 0;
 }
 
 
@@ -1222,7 +1222,7 @@ LIBSBML_EXTERN
 int
 QualitativeSpecies_isSetMaxLevel(QualitativeSpecies_t * qs)
 {
-	return (qs != NULL) ? static_cast<int>(qs->isSetMaxLevel()) : 0;
+  return (qs != NULL) ? static_cast<int>(qs->isSetMaxLevel()) : 0;
 }
 
 
@@ -1233,7 +1233,7 @@ LIBSBML_EXTERN
 int
 QualitativeSpecies_setId(QualitativeSpecies_t * qs, const char * id)
 {
-	return (qs != NULL) ? qs->setId(id) : LIBSBML_INVALID_OBJECT;
+  return (qs != NULL) ? qs->setId(id) : LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -1244,7 +1244,7 @@ LIBSBML_EXTERN
 int
 QualitativeSpecies_setCompartment(QualitativeSpecies_t * qs, const char * compartment)
 {
-	return (qs != NULL) ? qs->setCompartment(compartment) : LIBSBML_INVALID_OBJECT;
+  return (qs != NULL) ? qs->setCompartment(compartment) : LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -1255,7 +1255,7 @@ LIBSBML_EXTERN
 int
 QualitativeSpecies_setConstant(QualitativeSpecies_t * qs, int constant)
 {
-	return (qs != NULL) ? qs->setConstant(constant) : LIBSBML_INVALID_OBJECT;
+  return (qs != NULL) ? qs->setConstant(constant) : LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -1266,7 +1266,7 @@ LIBSBML_EXTERN
 int
 QualitativeSpecies_setName(QualitativeSpecies_t * qs, const char * name)
 {
-	return (qs != NULL) ? qs->setName(name) : LIBSBML_INVALID_OBJECT;
+  return (qs != NULL) ? qs->setName(name) : LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -1277,7 +1277,7 @@ LIBSBML_EXTERN
 int
 QualitativeSpecies_setInitialLevel(QualitativeSpecies_t * qs, int initialLevel)
 {
-	return (qs != NULL) ? qs->setInitialLevel(initialLevel) : LIBSBML_INVALID_OBJECT;
+  return (qs != NULL) ? qs->setInitialLevel(initialLevel) : LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -1288,7 +1288,7 @@ LIBSBML_EXTERN
 int
 QualitativeSpecies_setMaxLevel(QualitativeSpecies_t * qs, int maxLevel)
 {
-	return (qs != NULL) ? qs->setMaxLevel(maxLevel) : LIBSBML_INVALID_OBJECT;
+  return (qs != NULL) ? qs->setMaxLevel(maxLevel) : LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -1299,7 +1299,7 @@ LIBSBML_EXTERN
 int
 QualitativeSpecies_unsetId(QualitativeSpecies_t * qs)
 {
-	return (qs != NULL) ? qs->unsetId() : LIBSBML_INVALID_OBJECT;
+  return (qs != NULL) ? qs->unsetId() : LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -1310,7 +1310,7 @@ LIBSBML_EXTERN
 int
 QualitativeSpecies_unsetCompartment(QualitativeSpecies_t * qs)
 {
-	return (qs != NULL) ? qs->unsetCompartment() : LIBSBML_INVALID_OBJECT;
+  return (qs != NULL) ? qs->unsetCompartment() : LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -1321,7 +1321,7 @@ LIBSBML_EXTERN
 int
 QualitativeSpecies_unsetConstant(QualitativeSpecies_t * qs)
 {
-	return (qs != NULL) ? qs->unsetConstant() : LIBSBML_INVALID_OBJECT;
+  return (qs != NULL) ? qs->unsetConstant() : LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -1332,7 +1332,7 @@ LIBSBML_EXTERN
 int
 QualitativeSpecies_unsetName(QualitativeSpecies_t * qs)
 {
-	return (qs != NULL) ? qs->unsetName() : LIBSBML_INVALID_OBJECT;
+  return (qs != NULL) ? qs->unsetName() : LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -1343,7 +1343,7 @@ LIBSBML_EXTERN
 int
 QualitativeSpecies_unsetInitialLevel(QualitativeSpecies_t * qs)
 {
-	return (qs != NULL) ? qs->unsetInitialLevel() : LIBSBML_INVALID_OBJECT;
+  return (qs != NULL) ? qs->unsetInitialLevel() : LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -1354,7 +1354,7 @@ LIBSBML_EXTERN
 int
 QualitativeSpecies_unsetMaxLevel(QualitativeSpecies_t * qs)
 {
-	return (qs != NULL) ? qs->unsetMaxLevel() : LIBSBML_INVALID_OBJECT;
+  return (qs != NULL) ? qs->unsetMaxLevel() : LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -1365,7 +1365,7 @@ LIBSBML_EXTERN
 int
 QualitativeSpecies_hasRequiredAttributes(QualitativeSpecies_t * qs)
 {
-	return (qs != NULL) ? static_cast<int>(qs->hasRequiredAttributes()) : 0;
+  return (qs != NULL) ? static_cast<int>(qs->hasRequiredAttributes()) : 0;
 }
 
 
@@ -1376,10 +1376,10 @@ LIBSBML_EXTERN
 QualitativeSpecies_t *
 ListOfQualitativeSpecies_getById(ListOf_t * lo, const char * sid)
 {
-	if (lo == NULL)
-		return NULL;
+  if (lo == NULL)
+    return NULL;
 
-	return (sid != NULL) ? static_cast <ListOfQualitativeSpecies *>(lo)->get(sid) : NULL;
+  return (sid != NULL) ? static_cast <ListOfQualitativeSpecies *>(lo)->get(sid) : NULL;
 }
 
 
@@ -1390,10 +1390,10 @@ LIBSBML_EXTERN
 QualitativeSpecies_t *
 ListOfQualitativeSpecies_removeById(ListOf_t * lo, const char * sid)
 {
-	if (lo == NULL)
-		return NULL;
+  if (lo == NULL)
+    return NULL;
 
-	return (sid != NULL) ? static_cast <ListOfQualitativeSpecies *>(lo)->remove(sid) : NULL;
+  return (sid != NULL) ? static_cast <ListOfQualitativeSpecies *>(lo)->remove(sid) : NULL;
 }
 
 

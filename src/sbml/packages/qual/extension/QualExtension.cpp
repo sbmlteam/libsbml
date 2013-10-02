@@ -55,8 +55,8 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 
 const std::string& QualExtension::getPackageName ()
 {
-	static const std::string pkgName = "qual";
-	return pkgName;
+  static const std::string pkgName = "qual";
+  return pkgName;
 }
 
 //
@@ -65,7 +65,7 @@ const std::string& QualExtension::getPackageName ()
 unsigned int
 QualExtension::getDefaultLevel ()
 {
-	return 3;
+  return 3;
 }  
 
 /*
@@ -74,7 +74,7 @@ QualExtension::getDefaultLevel ()
 unsigned int
 QualExtension::getDefaultVersion ()
 {
-	return 1; 
+  return 1; 
 }
 
 /*
@@ -83,7 +83,7 @@ QualExtension::getDefaultVersion ()
 unsigned int
 QualExtension::getDefaultPackageVersion ()
 {
-	return 1;
+  return 1;
 } 
 
 //
@@ -94,8 +94,8 @@ QualExtension::getDefaultPackageVersion ()
 const std::string&
 QualExtension::getXmlnsL3V1V1 ()
 {
-	static const std::string xmlns = "http://www.sbml.org/sbml/level3/version1/qual/version1";
-	return xmlns;
+  static const std::string xmlns = "http://www.sbml.org/sbml/level3/version1/qual/version1";
+  return xmlns;
 }
 
 //
@@ -157,11 +157,11 @@ QualExtension::~QualExtension ()
 QualExtension&
 QualExtension::operator=(const QualExtension& rhs)
  {
-	if (&rhs != this)
-	{
-		SBMLExtension::operator=(rhs);
-	}
-	return *this;
+  if (&rhs != this)
+  {
+    SBMLExtension::operator=(rhs);
+  }
+  return *this;
 }
 
 

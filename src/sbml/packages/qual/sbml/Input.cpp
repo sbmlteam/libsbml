@@ -41,17 +41,17 @@ LIBSBML_CPP_NAMESPACE_BEGIN
  * Creates a new Input with the given level, version, and package version.
  */
 Input::Input (unsigned int level, unsigned int version, unsigned int pkgVersion)
-	: SBase(level, version)
-	 ,mId ("")
-	 ,mQualitativeSpecies ("")
-	 ,mTransitionEffect (INPUT_TRANSITION_EFFECT_UNKNOWN)
-	 ,mName ("")
-	 ,mSign (INPUT_SIGN_VALUE_NOTSET)
-	 ,mThresholdLevel (SBML_INT_MAX)
-	 ,mIsSetThresholdLevel (false)
+  : SBase(level, version)
+   ,mId ("")
+   ,mQualitativeSpecies ("")
+   ,mTransitionEffect (INPUT_TRANSITION_EFFECT_UNKNOWN)
+   ,mName ("")
+   ,mSign (INPUT_SIGN_VALUE_NOTSET)
+   ,mThresholdLevel (SBML_INT_MAX)
+   ,mIsSetThresholdLevel (false)
 {
-	// set an SBMLNamespaces derived object of this package
-	setSBMLNamespacesAndOwn(new QualPkgNamespaces(level, version, pkgVersion));
+  // set an SBMLNamespaces derived object of this package
+  setSBMLNamespacesAndOwn(new QualPkgNamespaces(level, version, pkgVersion));
 }
 
 
@@ -59,20 +59,20 @@ Input::Input (unsigned int level, unsigned int version, unsigned int pkgVersion)
  * Creates a new Input with the given QualPkgNamespaces object.
  */
 Input::Input (QualPkgNamespaces* qualns)
-	: SBase(qualns)
-	 ,mId ("")
-	 ,mQualitativeSpecies ("")
-	 ,mTransitionEffect (INPUT_TRANSITION_EFFECT_UNKNOWN)
-	 ,mName ("")
-	 ,mSign (INPUT_SIGN_VALUE_NOTSET)
-	 ,mThresholdLevel (SBML_INT_MAX)
-	 ,mIsSetThresholdLevel (false)
+  : SBase(qualns)
+   ,mId ("")
+   ,mQualitativeSpecies ("")
+   ,mTransitionEffect (INPUT_TRANSITION_EFFECT_UNKNOWN)
+   ,mName ("")
+   ,mSign (INPUT_SIGN_VALUE_NOTSET)
+   ,mThresholdLevel (SBML_INT_MAX)
+   ,mIsSetThresholdLevel (false)
 {
-	// set the element namespace of this object
-	setElementNamespace(qualns->getURI());
+  // set the element namespace of this object
+  setElementNamespace(qualns->getURI());
 
-	// load package extensions bound with this object (if any) 
-	loadPlugins(qualns);
+  // load package extensions bound with this object (if any) 
+  loadPlugins(qualns);
 }
 
 
@@ -80,22 +80,22 @@ Input::Input (QualPkgNamespaces* qualns)
  * Copy constructor for Input.
  */
 Input::Input (const Input& orig)
-	: SBase(orig)
+  : SBase(orig)
 {
-	if (&orig == NULL)
-	{
-		throw SBMLConstructorException("Null argument to copy constructor");
-	}
-	else
-	{
-		mId  = orig.mId;
-		mQualitativeSpecies  = orig.mQualitativeSpecies;
-		mTransitionEffect  = orig.mTransitionEffect;
-		mName  = orig.mName;
-		mSign  = orig.mSign;
-		mThresholdLevel  = orig.mThresholdLevel;
-		mIsSetThresholdLevel  = orig.mIsSetThresholdLevel;
-	}
+  if (&orig == NULL)
+  {
+    throw SBMLConstructorException("Null argument to copy constructor");
+  }
+  else
+  {
+    mId  = orig.mId;
+    mQualitativeSpecies  = orig.mQualitativeSpecies;
+    mTransitionEffect  = orig.mTransitionEffect;
+    mName  = orig.mName;
+    mSign  = orig.mSign;
+    mThresholdLevel  = orig.mThresholdLevel;
+    mIsSetThresholdLevel  = orig.mIsSetThresholdLevel;
+  }
 }
 
 
@@ -105,22 +105,22 @@ Input::Input (const Input& orig)
 Input&
 Input::operator=(const Input& rhs)
 {
-	if (&rhs == NULL)
-	{
-		throw SBMLConstructorException("Null argument to assignment");
-	}
-	else if (&rhs != this)
-	{
-		SBase::operator=(rhs);
-		mId  = rhs.mId;
-		mQualitativeSpecies  = rhs.mQualitativeSpecies;
-		mTransitionEffect  = rhs.mTransitionEffect;
-		mName  = rhs.mName;
-		mSign  = rhs.mSign;
-		mThresholdLevel  = rhs.mThresholdLevel;
-		mIsSetThresholdLevel  = rhs.mIsSetThresholdLevel;
-	}
-	return *this;
+  if (&rhs == NULL)
+  {
+    throw SBMLConstructorException("Null argument to assignment");
+  }
+  else if (&rhs != this)
+  {
+    SBase::operator=(rhs);
+    mId  = rhs.mId;
+    mQualitativeSpecies  = rhs.mQualitativeSpecies;
+    mTransitionEffect  = rhs.mTransitionEffect;
+    mName  = rhs.mName;
+    mSign  = rhs.mSign;
+    mThresholdLevel  = rhs.mThresholdLevel;
+    mIsSetThresholdLevel  = rhs.mIsSetThresholdLevel;
+  }
+  return *this;
 }
 
 
@@ -130,7 +130,7 @@ Input::operator=(const Input& rhs)
 Input*
 Input::clone () const
 {
-	return new Input(*this);
+  return new Input(*this);
 }
 
 
@@ -148,7 +148,7 @@ Input::~Input ()
 const std::string&
 Input::getId() const
 {
-	return mId;
+  return mId;
 }
 
 
@@ -158,7 +158,7 @@ Input::getId() const
 const std::string&
 Input::getQualitativeSpecies() const
 {
-	return mQualitativeSpecies;
+  return mQualitativeSpecies;
 }
 
 
@@ -168,7 +168,7 @@ Input::getQualitativeSpecies() const
 const InputTransitionEffect_t
 Input::getTransitionEffect() const
 {
-	return mTransitionEffect;
+  return mTransitionEffect;
 }
 
 
@@ -178,7 +178,7 @@ Input::getTransitionEffect() const
 const std::string&
 Input::getName() const
 {
-	return mName;
+  return mName;
 }
 
 
@@ -188,7 +188,7 @@ Input::getName() const
 const InputSign_t
 Input::getSign() const
 {
-	return mSign;
+  return mSign;
 }
 
 
@@ -198,7 +198,7 @@ Input::getSign() const
 const int
 Input::getThresholdLevel() const
 {
-	return mThresholdLevel;
+  return mThresholdLevel;
 }
 
 
@@ -208,7 +208,7 @@ Input::getThresholdLevel() const
 bool
 Input::isSetId() const
 {
-	return (mId.empty() == false);
+  return (mId.empty() == false);
 }
 
 
@@ -218,7 +218,7 @@ Input::isSetId() const
 bool
 Input::isSetQualitativeSpecies() const
 {
-	return (mQualitativeSpecies.empty() == false);
+  return (mQualitativeSpecies.empty() == false);
 }
 
 
@@ -228,7 +228,7 @@ Input::isSetQualitativeSpecies() const
 bool
 Input::isSetTransitionEffect() const
 {
-	return (mTransitionEffect != INPUT_TRANSITION_EFFECT_UNKNOWN);
+  return (mTransitionEffect != INPUT_TRANSITION_EFFECT_UNKNOWN);
 }
 
 
@@ -238,7 +238,7 @@ Input::isSetTransitionEffect() const
 bool
 Input::isSetName() const
 {
-	return (mName.empty() == false);
+  return (mName.empty() == false);
 }
 
 
@@ -248,7 +248,7 @@ Input::isSetName() const
 bool
 Input::isSetSign() const
 {
-	return (mSign != INPUT_SIGN_VALUE_NOTSET);
+  return (mSign != INPUT_SIGN_VALUE_NOTSET);
 }
 
 
@@ -258,7 +258,7 @@ Input::isSetSign() const
 bool
 Input::isSetThresholdLevel() const
 {
-	return mIsSetThresholdLevel;
+  return mIsSetThresholdLevel;
 }
 
 
@@ -268,7 +268,7 @@ Input::isSetThresholdLevel() const
 int
 Input::setId(const std::string& id)
 {
-	return SyntaxChecker::checkAndSetSId(id, mId);
+  return SyntaxChecker::checkAndSetSId(id, mId);
 }
 
 
@@ -278,19 +278,19 @@ Input::setId(const std::string& id)
 int
 Input::setQualitativeSpecies(const std::string& qualitativeSpecies)
 {
-	if (&(qualitativeSpecies) == NULL)
-	{
-		return LIBSBML_INVALID_ATTRIBUTE_VALUE;
-	}
-	else if (!(SyntaxChecker::isValidInternalSId(qualitativeSpecies)))
-	{
-		return LIBSBML_INVALID_ATTRIBUTE_VALUE;
-	}
-	else
-	{
-		mQualitativeSpecies = qualitativeSpecies;
-		return LIBSBML_OPERATION_SUCCESS;
-	}
+  if (&(qualitativeSpecies) == NULL)
+  {
+    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+  }
+  else if (!(SyntaxChecker::isValidInternalSId(qualitativeSpecies)))
+  {
+    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+  }
+  else
+  {
+    mQualitativeSpecies = qualitativeSpecies;
+    return LIBSBML_OPERATION_SUCCESS;
+  }
 }
 
 
@@ -300,16 +300,16 @@ Input::setQualitativeSpecies(const std::string& qualitativeSpecies)
 int
 Input::setTransitionEffect(InputTransitionEffect_t transitionEffect)
 {
-	if (InputTransitionEffect_isValidInputTransitionEffect(transitionEffect) == 0)
-	{
+  if (InputTransitionEffect_isValidInputTransitionEffect(transitionEffect) == 0)
+  {
     mTransitionEffect = INPUT_TRANSITION_EFFECT_UNKNOWN;
-		return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
   }
-	else
-	{
-		mTransitionEffect = transitionEffect;
-		return LIBSBML_OPERATION_SUCCESS;
-	}
+  else
+  {
+    mTransitionEffect = transitionEffect;
+    return LIBSBML_OPERATION_SUCCESS;
+  }
 }
 
 
@@ -319,15 +319,15 @@ Input::setTransitionEffect(InputTransitionEffect_t transitionEffect)
 int
 Input::setName(const std::string& name)
 {
-	if (&(name) == NULL)
-	{
-		return LIBSBML_INVALID_ATTRIBUTE_VALUE;
-	}
-	else
-	{
-		mName = name;
-		return LIBSBML_OPERATION_SUCCESS;
-	}
+  if (&(name) == NULL)
+  {
+    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+  }
+  else
+  {
+    mName = name;
+    return LIBSBML_OPERATION_SUCCESS;
+  }
 }
 
 
@@ -337,16 +337,16 @@ Input::setName(const std::string& name)
 int
 Input::setSign(const InputSign_t sign)
 {
-	if (InputSign_isValidInputSign(sign) == 0)
-	{
+  if (InputSign_isValidInputSign(sign) == 0)
+  {
     mSign = INPUT_SIGN_VALUE_NOTSET;
-		return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
   }
-	else
-	{
-		mSign = sign;
-		return LIBSBML_OPERATION_SUCCESS;
-	}
+  else
+  {
+    mSign = sign;
+    return LIBSBML_OPERATION_SUCCESS;
+  }
 }
 
 
@@ -356,9 +356,9 @@ Input::setSign(const InputSign_t sign)
 int
 Input::setThresholdLevel(int thresholdLevel)
 {
-	mThresholdLevel = thresholdLevel;
-	mIsSetThresholdLevel = true;
-	return LIBSBML_OPERATION_SUCCESS;
+  mThresholdLevel = thresholdLevel;
+  mIsSetThresholdLevel = true;
+  return LIBSBML_OPERATION_SUCCESS;
 }
 
 
@@ -368,16 +368,16 @@ Input::setThresholdLevel(int thresholdLevel)
 int
 Input::unsetId()
 {
-	mId.erase();
+  mId.erase();
 
-	if (mId.empty() == true)
-	{
-		return LIBSBML_OPERATION_SUCCESS;
-	}
-	else
-	{
-		return LIBSBML_OPERATION_FAILED;
-	}
+  if (mId.empty() == true)
+  {
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else
+  {
+    return LIBSBML_OPERATION_FAILED;
+  }
 }
 
 
@@ -387,16 +387,16 @@ Input::unsetId()
 int
 Input::unsetQualitativeSpecies()
 {
-	mQualitativeSpecies.erase();
+  mQualitativeSpecies.erase();
 
-	if (mQualitativeSpecies.empty() == true)
-	{
-		return LIBSBML_OPERATION_SUCCESS;
-	}
-	else
-	{
-		return LIBSBML_OPERATION_FAILED;
-	}
+  if (mQualitativeSpecies.empty() == true)
+  {
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else
+  {
+    return LIBSBML_OPERATION_FAILED;
+  }
 }
 
 
@@ -406,7 +406,7 @@ Input::unsetQualitativeSpecies()
 int
 Input::unsetTransitionEffect()
 {
-	mTransitionEffect = INPUT_TRANSITION_EFFECT_UNKNOWN;
+  mTransitionEffect = INPUT_TRANSITION_EFFECT_UNKNOWN;
   return LIBSBML_OPERATION_SUCCESS;
 }
 
@@ -417,16 +417,16 @@ Input::unsetTransitionEffect()
 int
 Input::unsetName()
 {
-	mName.erase();
+  mName.erase();
 
-	if (mName.empty() == true)
-	{
-		return LIBSBML_OPERATION_SUCCESS;
-	}
-	else
-	{
-		return LIBSBML_OPERATION_FAILED;
-	}
+  if (mName.empty() == true)
+  {
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else
+  {
+    return LIBSBML_OPERATION_FAILED;
+  }
 }
 
 
@@ -436,7 +436,7 @@ Input::unsetName()
 int
 Input::unsetSign()
 {
-	mSign = INPUT_SIGN_VALUE_NOTSET;
+  mSign = INPUT_SIGN_VALUE_NOTSET;
   return LIBSBML_OPERATION_SUCCESS;
 }
 
@@ -447,17 +447,17 @@ Input::unsetSign()
 int
 Input::unsetThresholdLevel()
 {
-	mThresholdLevel = SBML_INT_MAX;
-	mIsSetThresholdLevel = false;
+  mThresholdLevel = SBML_INT_MAX;
+  mIsSetThresholdLevel = false;
 
-	if (isSetThresholdLevel() == false)
-	{
-		return LIBSBML_OPERATION_SUCCESS;
-	}
-	else
-	{
-		return LIBSBML_OPERATION_FAILED;
-	}
+  if (isSetThresholdLevel() == false)
+  {
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else
+  {
+    return LIBSBML_OPERATION_FAILED;
+  }
 }
 
 
@@ -467,8 +467,8 @@ Input::unsetThresholdLevel()
 const std::string&
 Input::getElementName () const
 {
-	static const string name = "input";
-	return name;
+  static const string name = "input";
+  return name;
 }
 
 
@@ -478,7 +478,7 @@ Input::getElementName () const
 int
 Input::getTypeCode () const
 {
-	return SBML_QUAL_INPUT;
+  return SBML_QUAL_INPUT;
 }
 
 
@@ -488,19 +488,19 @@ Input::getTypeCode () const
 bool
 Input::hasRequiredAttributes () const
 {
-	bool allPresent = true;
+  bool allPresent = true;
 
-	if (isSetQualitativeSpecies() == false)
-		allPresent = false;
+  if (isSetQualitativeSpecies() == false)
+    allPresent = false;
 
-	if (isSetTransitionEffect() == false)
-		allPresent = false;
+  if (isSetTransitionEffect() == false)
+    allPresent = false;
 
-	return allPresent;
+  return allPresent;
 }
 
 
-	/** @cond doxygenLibsbmlInternal */
+  /** @cond doxygenLibsbmlInternal */
 
 /*
  * write contained elements
@@ -508,16 +508,16 @@ Input::hasRequiredAttributes () const
 void
 Input::writeElements (XMLOutputStream& stream) const
 {
-	SBase::writeElements(stream);
+  SBase::writeElements(stream);
 
-	SBase::writeExtensionElements(stream);
+  SBase::writeExtensionElements(stream);
 }
 
 
-	/** @endcond doxygenLibsbmlInternal */
+  /** @endcond doxygenLibsbmlInternal */
 
 
-	/** @cond doxygenLibsbmlInternal */
+  /** @cond doxygenLibsbmlInternal */
 
 /*
  * Accepts the given SBMLVisitor.
@@ -525,14 +525,14 @@ Input::writeElements (XMLOutputStream& stream) const
 bool
 Input::accept (SBMLVisitor& v) const
 {
-	return v.visit(*this);
+  return v.visit(*this);
 }
 
 
-	/** @endcond doxygenLibsbmlInternal */
+  /** @endcond doxygenLibsbmlInternal */
 
 
-	/** @cond doxygenLibsbmlInternal */
+  /** @cond doxygenLibsbmlInternal */
 
 /*
  * Sets the parent SBMLDocument.
@@ -540,14 +540,14 @@ Input::accept (SBMLVisitor& v) const
 void
 Input::setSBMLDocument (SBMLDocument* d)
 {
-	SBase::setSBMLDocument(d);
+  SBase::setSBMLDocument(d);
 }
 
 
-	/** @endcond doxygenLibsbmlInternal */
+  /** @endcond doxygenLibsbmlInternal */
 
 
-	/** @cond doxygenLibsbmlInternal */
+  /** @cond doxygenLibsbmlInternal */
 
 /*
  * Enables/Disables the given package with this element.
@@ -556,14 +556,14 @@ void
 Input::enablePackageInternal(const std::string& pkgURI,
              const std::string& pkgPrefix, bool flag)
 {
-	SBase::enablePackageInternal(pkgURI, pkgPrefix, flag);
+  SBase::enablePackageInternal(pkgURI, pkgPrefix, flag);
 }
 
 
-	/** @endcond doxygenLibsbmlInternal */
+  /** @endcond doxygenLibsbmlInternal */
 
 
-	/** @cond doxygenLibsbmlInternal */
+  /** @cond doxygenLibsbmlInternal */
 
 /*
  * Get the list of expected attributes for this element.
@@ -571,21 +571,21 @@ Input::enablePackageInternal(const std::string& pkgURI,
 void
 Input::addExpectedAttributes(ExpectedAttributes& attributes)
 {
-	SBase::addExpectedAttributes(attributes);
+  SBase::addExpectedAttributes(attributes);
 
-	attributes.add("id");
-	attributes.add("qualitativeSpecies");
-	attributes.add("transitionEffect");
-	attributes.add("name");
-	attributes.add("sign");
-	attributes.add("thresholdLevel");
+  attributes.add("id");
+  attributes.add("qualitativeSpecies");
+  attributes.add("transitionEffect");
+  attributes.add("name");
+  attributes.add("sign");
+  attributes.add("thresholdLevel");
 }
 
 
-	/** @endcond doxygenLibsbmlInternal */
+  /** @endcond doxygenLibsbmlInternal */
 
 
-	/** @cond doxygenLibsbmlInternal */
+  /** @cond doxygenLibsbmlInternal */
 
 /*
  * Read values from the given XMLAttributes set into their specific fields.
@@ -594,20 +594,20 @@ void
 Input::readAttributes (const XMLAttributes& attributes,
                              const ExpectedAttributes& expectedAttributes)
 {
-	const unsigned int sbmlLevel   = getLevel  ();
-	const unsigned int sbmlVersion = getVersion();
+  const unsigned int sbmlLevel   = getLevel  ();
+  const unsigned int sbmlVersion = getVersion();
 
-	unsigned int numErrs;
+  unsigned int numErrs;
 
-	/* look to see whether an unknown attribute error was logged
-	 * during the read of the listOfInputs - which will have
-	 * happened immediately prior to this read
-	*/
+  /* look to see whether an unknown attribute error was logged
+   * during the read of the listOfInputs - which will have
+   * happened immediately prior to this read
+  */
 
   if (getErrorLog() != NULL && 
     static_cast<ListOfInputs*>(getParentSBMLObject())->size() < 2)
   {
-		numErrs = getErrorLog()->getNumErrors();
+    numErrs = getErrorLog()->getNumErrors();
     for (int n = numErrs-1; n >= 0; n--)      
     {
       if (getErrorLog()->getError(n)->getErrorId() == UnknownPackageAttribute)
@@ -631,228 +631,228 @@ Input::readAttributes (const XMLAttributes& attributes,
 
   SBase::readAttributes(attributes, expectedAttributes);
 
-	// look to see whether an unknown attribute error was logged
-	if (getErrorLog() != NULL)
-	{
-		unsigned int numErrs = getErrorLog()->getNumErrors();
-		for (int n = numErrs-1; n >= 0; n--)
-		{
-			if (getErrorLog()->getError(n)->getErrorId() == UnknownPackageAttribute)
-			{
-				const std::string details =
-				                  getErrorLog()->getError(n)->getMessage();
-				getErrorLog()->remove(UnknownPackageAttribute);
-				getErrorLog()->logPackageError("qual", QualInputAllowedAttributes,
-				               getPackageVersion(), sbmlLevel, sbmlVersion, details);
-			}
-			else if (getErrorLog()->getError(n)->getErrorId() == UnknownCoreAttribute)
-			{
-				const std::string details =
-				                  getErrorLog()->getError(n)->getMessage();
-				getErrorLog()->remove(UnknownCoreAttribute);
-				getErrorLog()->logPackageError("qual", QualInputAllowedCoreAttributes,
-				               getPackageVersion(), sbmlLevel, sbmlVersion, details);
-			}
-		}
-	}
+  // look to see whether an unknown attribute error was logged
+  if (getErrorLog() != NULL)
+  {
+    unsigned int numErrs = getErrorLog()->getNumErrors();
+    for (int n = numErrs-1; n >= 0; n--)
+    {
+      if (getErrorLog()->getError(n)->getErrorId() == UnknownPackageAttribute)
+      {
+        const std::string details =
+                          getErrorLog()->getError(n)->getMessage();
+        getErrorLog()->remove(UnknownPackageAttribute);
+        getErrorLog()->logPackageError("qual", QualInputAllowedAttributes,
+                       getPackageVersion(), sbmlLevel, sbmlVersion, details);
+      }
+      else if (getErrorLog()->getError(n)->getErrorId() == UnknownCoreAttribute)
+      {
+        const std::string details =
+                          getErrorLog()->getError(n)->getMessage();
+        getErrorLog()->remove(UnknownCoreAttribute);
+        getErrorLog()->logPackageError("qual", QualInputAllowedCoreAttributes,
+                       getPackageVersion(), sbmlLevel, sbmlVersion, details);
+      }
+    }
+  }
 
-	bool assigned = false;
+  bool assigned = false;
 
-	//
-	// id SId  ( use = "optional" )
-	//
-	assigned = attributes.readInto("id", mId);
+  //
+  // id SId  ( use = "optional" )
+  //
+  assigned = attributes.readInto("id", mId);
 
- 	if (assigned == true)
-	{
-		// check string is not empty and correct syntax
+   if (assigned == true)
+  {
+    // check string is not empty and correct syntax
 
-		if (mId.empty() == true)
-		{
-			logEmptyString(mId, getLevel(), getVersion(), "<Input>");
-		}
-		else if (SyntaxChecker::isValidSBMLSId(mId) == false)
-		{
-			logError(InvalidIdSyntax);
-		}
-	}
+    if (mId.empty() == true)
+    {
+      logEmptyString(mId, getLevel(), getVersion(), "<Input>");
+    }
+    else if (SyntaxChecker::isValidSBMLSId(mId) == false)
+    {
+      logError(InvalidIdSyntax);
+    }
+  }
 
-	//
-	// qualitativeSpecies SIdRef   ( use = "required" )
-	//
-	assigned = attributes.readInto("qualitativeSpecies", mQualitativeSpecies);
+  //
+  // qualitativeSpecies SIdRef   ( use = "required" )
+  //
+  assigned = attributes.readInto("qualitativeSpecies", mQualitativeSpecies);
 
-	if (assigned == true)
-	{
-		// check string is not empty and correct syntax
+  if (assigned == true)
+  {
+    // check string is not empty and correct syntax
 
-		if (mQualitativeSpecies.empty() == true)
-		{
-			logEmptyString(mQualitativeSpecies, getLevel(), getVersion(), "<Input>");
-		}
-		else if (SyntaxChecker::isValidSBMLSId(mQualitativeSpecies) == false)
-		{
-			logError(InvalidIdSyntax);
-		}
-	}
-	else
-	{
-		std::string message = "Qual attribute 'qualitativeSpecies' is missing.";
-		getErrorLog()->logPackageError("qual", QualInputAllowedAttributes,
-		               getPackageVersion(), sbmlLevel, sbmlVersion, message);
-	}
+    if (mQualitativeSpecies.empty() == true)
+    {
+      logEmptyString(mQualitativeSpecies, getLevel(), getVersion(), "<Input>");
+    }
+    else if (SyntaxChecker::isValidSBMLSId(mQualitativeSpecies) == false)
+    {
+      logError(InvalidIdSyntax);
+    }
+  }
+  else
+  {
+    std::string message = "Qual attribute 'qualitativeSpecies' is missing.";
+    getErrorLog()->logPackageError("qual", QualInputAllowedAttributes,
+                   getPackageVersion(), sbmlLevel, sbmlVersion, message);
+  }
 
-	//
-	// transitionEffect string   ( use = "required" )
-	//
+  //
+  // transitionEffect string   ( use = "required" )
+  //
   std::string effect;
-	assigned = attributes.readInto("transitionEffect", effect);
+  assigned = attributes.readInto("transitionEffect", effect);
 
-	if (assigned == true)
-	{
-		// check string is not empty
+  if (assigned == true)
+  {
+    // check string is not empty
 
-		if (effect.empty() == true)
-		{
-			logEmptyString(effect, getLevel(), getVersion(), "<Input>");
-		}
+    if (effect.empty() == true)
+    {
+      logEmptyString(effect, getLevel(), getVersion(), "<Input>");
+    }
     else 
     {
        mTransitionEffect = InputTransitionEffect_fromString( effect.c_str() );
        if (InputTransitionEffect_isValidInputTransitionEffect(mTransitionEffect) == 0)
        {
-				  getErrorLog()->logPackageError("qual", QualInputTransEffectMustBeInputEffect,
-				               getPackageVersion(), sbmlLevel, sbmlVersion);
+          getErrorLog()->logPackageError("qual", QualInputTransEffectMustBeInputEffect,
+                       getPackageVersion(), sbmlLevel, sbmlVersion);
        }
     }
-	}
-	else
-	{
-		std::string message = "Qual attribute 'transitionEffect' is missing.";
-		getErrorLog()->logPackageError("qual", QualInputAllowedAttributes,
-		               getPackageVersion(), sbmlLevel, sbmlVersion, message);
-	}
+  }
+  else
+  {
+    std::string message = "Qual attribute 'transitionEffect' is missing.";
+    getErrorLog()->logPackageError("qual", QualInputAllowedAttributes,
+                   getPackageVersion(), sbmlLevel, sbmlVersion, message);
+  }
 
-	//
-	// name string   ( use = "optional" )
-	//
-	assigned = attributes.readInto("name", mName);
+  //
+  // name string   ( use = "optional" )
+  //
+  assigned = attributes.readInto("name", mName);
 
-	if (assigned == true)
-	{
-		// check string is not empty
+  if (assigned == true)
+  {
+    // check string is not empty
 
-		if (mName.empty() == true)
-		{
-			logEmptyString(mName, getLevel(), getVersion(), "<Input>");
-		}
-	}
+    if (mName.empty() == true)
+    {
+      logEmptyString(mName, getLevel(), getVersion(), "<Input>");
+    }
+  }
 
-	//
-	// sign string   ( use = "optional" )
-	//
+  //
+  // sign string   ( use = "optional" )
+  //
   std::string sign;
-	assigned = attributes.readInto("sign", sign, getErrorLog(), false);
+  assigned = attributes.readInto("sign", sign, getErrorLog(), false);
 
-	if (assigned == true)
-	{
-		// check string is not empty
+  if (assigned == true)
+  {
+    // check string is not empty
 
-		if (sign.empty() == true)
-		{
-			logEmptyString(sign, getLevel(), getVersion(), "<Input>");
-		}
+    if (sign.empty() == true)
+    {
+      logEmptyString(sign, getLevel(), getVersion(), "<Input>");
+    }
     else 
     {
        mSign = InputSign_fromString( sign.c_str() );
        if (InputSign_isValidInputSign(mSign) == 0)
        {
-				  getErrorLog()->logPackageError("qual", QualInputSignMustBeSignEnum,
-				               getPackageVersion(), sbmlLevel, sbmlVersion);
+          getErrorLog()->logPackageError("qual", QualInputSignMustBeSignEnum,
+                       getPackageVersion(), sbmlLevel, sbmlVersion);
        }
     }
-	}
+  }
 
-	//
-	// thresholdLevel int   ( use = "optional" )
-	//
-	numErrs = getErrorLog()->getNumErrors();
-	mIsSetThresholdLevel = attributes.readInto("thresholdLevel", mThresholdLevel);
+  //
+  // thresholdLevel int   ( use = "optional" )
+  //
+  numErrs = getErrorLog()->getNumErrors();
+  mIsSetThresholdLevel = attributes.readInto("thresholdLevel", mThresholdLevel);
 
-	if (mIsSetThresholdLevel == false)
-	{
-		if (getErrorLog() != NULL)
-		{
-			if (getErrorLog()->getNumErrors() == numErrs + 1 &&
-			        getErrorLog()->contains(XMLAttributeTypeMismatch))
-			{
-				getErrorLog()->remove(XMLAttributeTypeMismatch);
-				getErrorLog()->logPackageError("qual", QualInputThreshMustBeInteger,
-				             getPackageVersion(), sbmlLevel, sbmlVersion);
-			}
-		}
-	}
+  if (mIsSetThresholdLevel == false)
+  {
+    if (getErrorLog() != NULL)
+    {
+      if (getErrorLog()->getNumErrors() == numErrs + 1 &&
+              getErrorLog()->contains(XMLAttributeTypeMismatch))
+      {
+        getErrorLog()->remove(XMLAttributeTypeMismatch);
+        getErrorLog()->logPackageError("qual", QualInputThreshMustBeInteger,
+                     getPackageVersion(), sbmlLevel, sbmlVersion);
+      }
+    }
+  }
   else
   {
     if (mThresholdLevel < 0)
     {
-			getErrorLog()->logPackageError("qual", QualInputThreshMustBeNonNegative,
-			             getPackageVersion(), sbmlLevel, sbmlVersion);
+      getErrorLog()->logPackageError("qual", QualInputThreshMustBeNonNegative,
+                   getPackageVersion(), sbmlLevel, sbmlVersion);
     }
   }
 
 }
 
 
-	/** @endcond doxygenLibsbmlInternal */
+  /** @endcond doxygenLibsbmlInternal */
 
 
-	/** @cond doxygenLibsbmlInternal */
+  /** @cond doxygenLibsbmlInternal */
 
 /*
  * Write values of XMLAttributes to the output stream.
  */
-	void
+  void
 Input::writeAttributes (XMLOutputStream& stream) const
 {
-	SBase::writeAttributes(stream);
+  SBase::writeAttributes(stream);
 
-	if (isSetId() == true)
-		stream.writeAttribute("id", getPrefix(), mId);
+  if (isSetId() == true)
+    stream.writeAttribute("id", getPrefix(), mId);
 
-	if (isSetQualitativeSpecies() == true)
-		stream.writeAttribute("qualitativeSpecies", getPrefix(), mQualitativeSpecies);
+  if (isSetQualitativeSpecies() == true)
+    stream.writeAttribute("qualitativeSpecies", getPrefix(), mQualitativeSpecies);
 
-	if (isSetTransitionEffect() == true)
-		stream.writeAttribute("transitionEffect", getPrefix(), 
+  if (isSetTransitionEffect() == true)
+    stream.writeAttribute("transitionEffect", getPrefix(), 
                      InputTransitionEffect_toString(mTransitionEffect));
 
-	if (isSetName() == true)
-		stream.writeAttribute("name", getPrefix(), mName);
+  if (isSetName() == true)
+    stream.writeAttribute("name", getPrefix(), mName);
 
-	if (isSetSign() == true)
-		stream.writeAttribute("sign", getPrefix(), InputSign_toString(mSign));
+  if (isSetSign() == true)
+    stream.writeAttribute("sign", getPrefix(), InputSign_toString(mSign));
 
-	if (isSetThresholdLevel() == true)
-		stream.writeAttribute("thresholdLevel", getPrefix(), mThresholdLevel);
+  if (isSetThresholdLevel() == true)
+    stream.writeAttribute("thresholdLevel", getPrefix(), mThresholdLevel);
 
-	SBase::writeExtensionAttributes(stream);
+  SBase::writeExtensionAttributes(stream);
 
 }
 
 
-	/** @endcond doxygenLibsbmlInternal */
+  /** @endcond doxygenLibsbmlInternal */
 
 
 /*
  * Constructor 
  */
 ListOfInputs::ListOfInputs(unsigned int level, 
-	             unsigned int version, 
-	             unsigned int pkgVersion)
+                           unsigned int version, 
+                           unsigned int pkgVersion)
  : ListOf(level, version)
 {
-	setSBMLNamespacesAndOwn(new QualPkgNamespaces(level, version, pkgVersion)); 
+  setSBMLNamespacesAndOwn(new QualPkgNamespaces(level, version, pkgVersion)); 
 }
 
 
@@ -862,7 +862,7 @@ ListOfInputs::ListOfInputs(unsigned int level,
 ListOfInputs::ListOfInputs(QualPkgNamespaces* qualns)
   : ListOf(qualns)
 {
-	setElementNamespace(qualns->getURI());
+  setElementNamespace(qualns->getURI());
 }
 
 
@@ -872,7 +872,7 @@ ListOfInputs::ListOfInputs(QualPkgNamespaces* qualns)
 ListOfInputs* 
 ListOfInputs::clone () const
  {
-	return new ListOfInputs(*this);
+  return new ListOfInputs(*this);
 }
 
 
@@ -882,7 +882,7 @@ ListOfInputs::clone () const
 Input*
 ListOfInputs::get(unsigned int n)
 {
-	return static_cast<Input*>(ListOf::get(n));
+  return static_cast<Input*>(ListOf::get(n));
 }
 
 
@@ -892,7 +892,7 @@ ListOfInputs::get(unsigned int n)
 const Input*
 ListOfInputs::get(unsigned int n) const
 {
-	return static_cast<const Input*>(ListOf::get(n));
+  return static_cast<const Input*>(ListOf::get(n));
 }
 
 
@@ -902,8 +902,8 @@ ListOfInputs::get(unsigned int n) const
 Input*
 ListOfInputs::get(const std::string& sid)
 {
-	return const_cast<Input*>(
-	  static_cast<const ListOfInputs&>(*this).get(sid));
+  return const_cast<Input*>(
+    static_cast<const ListOfInputs&>(*this).get(sid));
 }
 
 
@@ -913,18 +913,18 @@ ListOfInputs::get(const std::string& sid)
 const Input*
 ListOfInputs::get(const std::string& sid) const
 {
-	vector<SBase*>::const_iterator result;
+  vector<SBase*>::const_iterator result;
 
-	result = find_if( mItems.begin(), mItems.end(), IdEq<Input>(sid) );
-	return (result == mItems.end()) ? 0 : static_cast <Input*> (*result);
+  result = find_if( mItems.begin(), mItems.end(), IdEq<Input>(sid) );
+  return (result == mItems.end()) ? 0 : static_cast <Input*> (*result);
 }
 
 
 Input*
 ListOfInputs::getBySpecies(const std::string& sid)
 {
-	return const_cast<Input*>(
-	  static_cast<const ListOfInputs&>(*this).getBySpecies(sid));
+  return const_cast<Input*>(
+    static_cast<const ListOfInputs&>(*this).getBySpecies(sid));
 }
 
 /**
@@ -948,10 +948,10 @@ struct IdEqQS : public std::unary_function<SBase*, bool>
 const Input*
 ListOfInputs::getBySpecies(const std::string& sid) const
 {
-	vector<SBase*>::const_iterator result;
+  vector<SBase*>::const_iterator result;
 
-	result = find_if( mItems.begin(), mItems.end(), IdEqQS(sid) );
-	return (result == mItems.end()) ? 0 : static_cast <Input*> (*result);
+  result = find_if( mItems.begin(), mItems.end(), IdEqQS(sid) );
+  return (result == mItems.end()) ? 0 : static_cast <Input*> (*result);
 }
 
 
@@ -961,7 +961,7 @@ ListOfInputs::getBySpecies(const std::string& sid) const
 Input*
 ListOfInputs::remove(unsigned int n)
 {
-	return static_cast<Input*>(ListOf::remove(n));
+  return static_cast<Input*>(ListOf::remove(n));
 }
 
 
@@ -971,18 +971,18 @@ ListOfInputs::remove(unsigned int n)
 Input*
 ListOfInputs::remove(const std::string& sid)
 {
-	SBase* item = NULL;
-	vector<SBase*>::iterator result;
+  SBase* item = NULL;
+  vector<SBase*>::iterator result;
 
-	result = find_if( mItems.begin(), mItems.end(), IdEq<Input>(sid) );
+  result = find_if( mItems.begin(), mItems.end(), IdEq<Input>(sid) );
 
-	if (result != mItems.end())
-	{
-		item = *result;
-		mItems.erase(result);
-	}
+  if (result != mItems.end())
+  {
+    item = *result;
+    mItems.erase(result);
+  }
 
-	return static_cast <Input*> (item);
+  return static_cast <Input*> (item);
 }
 
 
@@ -992,8 +992,8 @@ ListOfInputs::remove(const std::string& sid)
 const std::string&
 ListOfInputs::getElementName () const
 {
-	static const string name = "listOfInputs";
-	return name;
+  static const string name = "listOfInputs";
+  return name;
 }
 
 
@@ -1003,7 +1003,7 @@ ListOfInputs::getElementName () const
 int
 ListOfInputs::getTypeCode () const
 {
-	return SBML_LIST_OF;
+  return SBML_LIST_OF;
 }
 
 
@@ -1013,11 +1013,11 @@ ListOfInputs::getTypeCode () const
 int
 ListOfInputs::getItemTypeCode () const
 {
-	return SBML_QUAL_INPUT;
+  return SBML_QUAL_INPUT;
 }
 
 
-	/** @cond doxygenLibsbmlInternal */
+  /** @cond doxygenLibsbmlInternal */
 
 /*
  * Creates a new Input in this ListOfInputs
@@ -1025,24 +1025,24 @@ ListOfInputs::getItemTypeCode () const
 SBase*
 ListOfInputs::createObject(XMLInputStream& stream)
 {
-	const std::string& name   = stream.peek().getName();
-	SBase* object = NULL;
+  const std::string& name   = stream.peek().getName();
+  SBase* object = NULL;
 
-	if (name == "input")
-	{
+  if (name == "input")
+  {
     QUAL_CREATE_NS(qualns, getSBMLNamespaces());
-		object = new Input(qualns);
-		appendAndOwn(object);
-	}
+    object = new Input(qualns);
+    appendAndOwn(object);
+  }
 
-	return object;
+  return object;
 }
 
 
-	/** @endcond doxygenLibsbmlInternal */
+  /** @endcond doxygenLibsbmlInternal */
 
 
-	/** @cond doxygenLibsbmlInternal */
+  /** @cond doxygenLibsbmlInternal */
 
 /*
  * Write the namespace for the Qual package.
@@ -1050,23 +1050,23 @@ ListOfInputs::createObject(XMLInputStream& stream)
 void
 ListOfInputs::writeXMLNS(XMLOutputStream& stream) const
 {
-	XMLNamespaces xmlns;
+  XMLNamespaces xmlns;
 
-	std::string prefix = getPrefix();
+  std::string prefix = getPrefix();
 
-	if (prefix.empty())
-	{
-		if (getNamespaces()->hasURI(QualExtension::getXmlnsL3V1V1()))
-		{
-			xmlns.add(QualExtension::getXmlnsL3V1V1(),prefix);
-		}
-	}
+  if (prefix.empty())
+  {
+    if (getNamespaces()->hasURI(QualExtension::getXmlnsL3V1V1()))
+    {
+      xmlns.add(QualExtension::getXmlnsL3V1V1(),prefix);
+    }
+  }
 
-	stream << xmlns;
+  stream << xmlns;
 }
 
 
-	/** @endcond doxygenLibsbmlInternal */
+  /** @endcond doxygenLibsbmlInternal */
 
 
 /**
@@ -1077,7 +1077,7 @@ Input_t *
 Input_create(unsigned int level, unsigned int version,
              unsigned int pkgVersion)
 {
-	return new Input(level, version, pkgVersion);
+  return new Input(level, version, pkgVersion);
 }
 
 
@@ -1088,8 +1088,8 @@ LIBSBML_EXTERN
 void
 Input_free(Input_t * i)
 {
-	if (i != NULL)
-		delete i;
+  if (i != NULL)
+    delete i;
 }
 
 
@@ -1100,14 +1100,14 @@ LIBSBML_EXTERN
 Input_t *
 Input_clone(Input_t * i)
 {
-	if (i != NULL)
-	{
-		return static_cast<Input_t*>(i->clone());
-	}
-	else
-	{
-		return NULL;
-	}
+  if (i != NULL)
+  {
+    return static_cast<Input_t*>(i->clone());
+  }
+  else
+  {
+    return NULL;
+  }
 }
 
 
@@ -1118,10 +1118,10 @@ LIBSBML_EXTERN
 char *
 Input_getId(Input_t * i)
 {
-	if (i == NULL)
-		return NULL;
+  if (i == NULL)
+    return NULL;
 
-	return i->getId().empty() ? NULL : safe_strdup(i->getId().c_str());
+  return i->getId().empty() ? NULL : safe_strdup(i->getId().c_str());
 }
 
 
@@ -1132,10 +1132,10 @@ LIBSBML_EXTERN
 char *
 Input_getQualitativeSpecies(Input_t * i)
 {
-	if (i == NULL)
-		return NULL;
+  if (i == NULL)
+    return NULL;
 
-	return i->getQualitativeSpecies().empty() ? NULL : safe_strdup(i->getQualitativeSpecies().c_str());
+  return i->getQualitativeSpecies().empty() ? NULL : safe_strdup(i->getQualitativeSpecies().c_str());
 }
 
 
@@ -1146,10 +1146,10 @@ LIBSBML_EXTERN
 InputTransitionEffect_t
 Input_getTransitionEffect(Input_t * i)
 {
-	if (i == NULL)
-		return INPUT_TRANSITION_EFFECT_UNKNOWN;
+  if (i == NULL)
+    return INPUT_TRANSITION_EFFECT_UNKNOWN;
 
-	return i->getTransitionEffect();
+  return i->getTransitionEffect();
 }
 
 
@@ -1160,10 +1160,10 @@ LIBSBML_EXTERN
 char *
 Input_getName(Input_t * i)
 {
-	if (i == NULL)
-		return NULL;
+  if (i == NULL)
+    return NULL;
 
-	return i->getName().empty() ? NULL : safe_strdup(i->getName().c_str());
+  return i->getName().empty() ? NULL : safe_strdup(i->getName().c_str());
 }
 
 
@@ -1174,10 +1174,10 @@ LIBSBML_EXTERN
 InputSign_t
 Input_getSign(Input_t * i)
 {
-	if (i == NULL)
-		return INPUT_SIGN_VALUE_NOTSET;
+  if (i == NULL)
+    return INPUT_SIGN_VALUE_NOTSET;
 
-	return i->getSign();
+  return i->getSign();
 }
 
 
@@ -1188,7 +1188,7 @@ LIBSBML_EXTERN
 int
 Input_getThresholdLevel(Input_t * i)
 {
-	return (i != NULL) ? i->getThresholdLevel() : SBML_INT_MAX;
+  return (i != NULL) ? i->getThresholdLevel() : SBML_INT_MAX;
 }
 
 
@@ -1199,7 +1199,7 @@ LIBSBML_EXTERN
 int
 Input_isSetId(Input_t * i)
 {
-	return (i != NULL) ? static_cast<int>(i->isSetId()) : 0;
+  return (i != NULL) ? static_cast<int>(i->isSetId()) : 0;
 }
 
 
@@ -1210,7 +1210,7 @@ LIBSBML_EXTERN
 int
 Input_isSetQualitativeSpecies(Input_t * i)
 {
-	return (i != NULL) ? static_cast<int>(i->isSetQualitativeSpecies()) : 0;
+  return (i != NULL) ? static_cast<int>(i->isSetQualitativeSpecies()) : 0;
 }
 
 
@@ -1221,7 +1221,7 @@ LIBSBML_EXTERN
 int
 Input_isSetTransitionEffect(Input_t * i)
 {
-	return (i != NULL) ? static_cast<int>(i->isSetTransitionEffect()) : 0;
+  return (i != NULL) ? static_cast<int>(i->isSetTransitionEffect()) : 0;
 }
 
 
@@ -1232,7 +1232,7 @@ LIBSBML_EXTERN
 int
 Input_isSetName(Input_t * i)
 {
-	return (i != NULL) ? static_cast<int>(i->isSetName()) : 0;
+  return (i != NULL) ? static_cast<int>(i->isSetName()) : 0;
 }
 
 
@@ -1243,7 +1243,7 @@ LIBSBML_EXTERN
 int
 Input_isSetSign(Input_t * i)
 {
-	return (i != NULL) ? static_cast<int>(i->isSetSign()) : 0;
+  return (i != NULL) ? static_cast<int>(i->isSetSign()) : 0;
 }
 
 
@@ -1254,7 +1254,7 @@ LIBSBML_EXTERN
 int
 Input_isSetThresholdLevel(Input_t * i)
 {
-	return (i != NULL) ? static_cast<int>(i->isSetThresholdLevel()) : 0;
+  return (i != NULL) ? static_cast<int>(i->isSetThresholdLevel()) : 0;
 }
 
 
@@ -1265,7 +1265,7 @@ LIBSBML_EXTERN
 int
 Input_setId(Input_t * i, const char * id)
 {
-	return (i != NULL) ? i->setId(id) : LIBSBML_INVALID_OBJECT;
+  return (i != NULL) ? i->setId(id) : LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -1276,7 +1276,7 @@ LIBSBML_EXTERN
 int
 Input_setQualitativeSpecies(Input_t * i, const char * qualitativeSpecies)
 {
-	return (i != NULL) ? i->setQualitativeSpecies(qualitativeSpecies) : LIBSBML_INVALID_OBJECT;
+  return (i != NULL) ? i->setQualitativeSpecies(qualitativeSpecies) : LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -1287,7 +1287,7 @@ LIBSBML_EXTERN
 int
 Input_setTransitionEffect(Input_t * i, InputTransitionEffect_t transitionEffect)
 {
-	return (i != NULL) ? i->setTransitionEffect(transitionEffect) : LIBSBML_INVALID_OBJECT;
+  return (i != NULL) ? i->setTransitionEffect(transitionEffect) : LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -1298,7 +1298,7 @@ LIBSBML_EXTERN
 int
 Input_setName(Input_t * i, const char * name)
 {
-	return (i != NULL) ? i->setName(name) : LIBSBML_INVALID_OBJECT;
+  return (i != NULL) ? i->setName(name) : LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -1309,7 +1309,7 @@ LIBSBML_EXTERN
 int
 Input_setSign(Input_t * i, InputSign_t sign)
 {
-	return (i != NULL) ? i->setSign(sign) : LIBSBML_INVALID_OBJECT;
+  return (i != NULL) ? i->setSign(sign) : LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -1320,7 +1320,7 @@ LIBSBML_EXTERN
 int
 Input_setThresholdLevel(Input_t * i, int thresholdLevel)
 {
-	return (i != NULL) ? i->setThresholdLevel(thresholdLevel) : LIBSBML_INVALID_OBJECT;
+  return (i != NULL) ? i->setThresholdLevel(thresholdLevel) : LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -1331,7 +1331,7 @@ LIBSBML_EXTERN
 int
 Input_unsetId(Input_t * i)
 {
-	return (i != NULL) ? i->unsetId() : LIBSBML_INVALID_OBJECT;
+  return (i != NULL) ? i->unsetId() : LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -1342,7 +1342,7 @@ LIBSBML_EXTERN
 int
 Input_unsetQualitativeSpecies(Input_t * i)
 {
-	return (i != NULL) ? i->unsetQualitativeSpecies() : LIBSBML_INVALID_OBJECT;
+  return (i != NULL) ? i->unsetQualitativeSpecies() : LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -1353,7 +1353,7 @@ LIBSBML_EXTERN
 int
 Input_unsetTransitionEffect(Input_t * i)
 {
-	return (i != NULL) ? i->unsetTransitionEffect() : LIBSBML_INVALID_OBJECT;
+  return (i != NULL) ? i->unsetTransitionEffect() : LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -1364,7 +1364,7 @@ LIBSBML_EXTERN
 int
 Input_unsetName(Input_t * i)
 {
-	return (i != NULL) ? i->unsetName() : LIBSBML_INVALID_OBJECT;
+  return (i != NULL) ? i->unsetName() : LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -1375,7 +1375,7 @@ LIBSBML_EXTERN
 int
 Input_unsetSign(Input_t * i)
 {
-	return (i != NULL) ? i->unsetSign() : LIBSBML_INVALID_OBJECT;
+  return (i != NULL) ? i->unsetSign() : LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -1386,7 +1386,7 @@ LIBSBML_EXTERN
 int
 Input_unsetThresholdLevel(Input_t * i)
 {
-	return (i != NULL) ? i->unsetThresholdLevel() : LIBSBML_INVALID_OBJECT;
+  return (i != NULL) ? i->unsetThresholdLevel() : LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -1397,7 +1397,7 @@ LIBSBML_EXTERN
 int
 Input_hasRequiredAttributes(Input_t * i)
 {
-	return (i != NULL) ? static_cast<int>(i->hasRequiredAttributes()) : 0;
+  return (i != NULL) ? static_cast<int>(i->hasRequiredAttributes()) : 0;
 }
 
 
@@ -1408,10 +1408,10 @@ LIBSBML_EXTERN
 Input_t *
 ListOfInputs_getById(ListOf_t * lo, const char * sid)
 {
-	if (lo == NULL)
-		return NULL;
+  if (lo == NULL)
+    return NULL;
 
-	return (sid != NULL) ? static_cast <ListOfInputs *>(lo)->get(sid) : NULL;
+  return (sid != NULL) ? static_cast <ListOfInputs *>(lo)->get(sid) : NULL;
 }
 
 
@@ -1422,10 +1422,10 @@ LIBSBML_EXTERN
 Input_t *
 ListOfInputs_removeById(ListOf_t * lo, const char * sid)
 {
-	if (lo == NULL)
-		return NULL;
+  if (lo == NULL)
+    return NULL;
 
-	return (sid != NULL) ? static_cast <ListOfInputs *>(lo)->remove(sid) : NULL;
+  return (sid != NULL) ? static_cast <ListOfInputs *>(lo)->remove(sid) : NULL;
 }
 
 static

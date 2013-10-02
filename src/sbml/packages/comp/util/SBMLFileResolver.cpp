@@ -112,7 +112,7 @@ SBMLFileResolver::resolve(const std::string &sUri, const std::string& sBaseUri/*
   delete uri;
 
   if (fileExists(fileName))
-		return readSBML(fileName.c_str());
+    return readSBML(fileName.c_str());
 
   return NULL;
 
@@ -126,10 +126,10 @@ SBMLFileResolver::resolveUri(const std::string &sUri, const std::string& sBaseUr
 
   // greedily pick up the first file we see before trying more
   // elaborate means
-	if (fileExists(fileName))
+  if (fileExists(fileName))
     return new SBMLUri(fileName);
 
-	// filter scheme
+  // filter scheme
   SBMLUri uri(sUri);
   SBMLUri baseUri(sBaseUri);
 
@@ -141,23 +141,23 @@ SBMLFileResolver::resolveUri(const std::string &sUri, const std::string& sBaseUr
   {
     fileName = SBMLUri(*it).relativeTo(uri.getPath()).getPath();  
     if (fileExists(fileName))
-		  return new SBMLUri(fileName);
+      return new SBMLUri(fileName);
     // missing root? 
     fileName = "/" + fileName;
     if (fileExists(fileName))
-		  return new SBMLUri(fileName);
+      return new SBMLUri(fileName);
     ++it;
   }
   
   fileName = baseUri.relativeTo(uri.getPath()).getPath();  
   if (fileExists(fileName))
-		return new SBMLUri(fileName);
+    return new SBMLUri(fileName);
   // missing root?
   fileName = "/" + fileName;
   if (fileExists(fileName))
     return new SBMLUri(fileName);
 
-	
+
   // adjust for baseUri, when invoked with *full* filename, rather than just the path
   fileName = baseUri.getPath();
   size_t pos = fileName.rfind('/');
@@ -165,11 +165,11 @@ SBMLFileResolver::resolveUri(const std::string &sUri, const std::string& sBaseUr
   {
     fileName = SBMLUri(fileName.substr(0, pos)).relativeTo(uri.getPath()).getPath();
     if (fileExists(fileName))
-	  	return new SBMLUri(fileName);
+      return new SBMLUri(fileName);
     // missing root?
     fileName = "/" + fileName;
     if (fileExists(fileName))
-		  return new SBMLUri(fileName);
+      return new SBMLUri(fileName);
 
   }
 

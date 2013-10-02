@@ -1013,16 +1013,16 @@ public:
   {
     // if there is nothing to do return ... 
     if (element == NULL) 
-	  return LIBSBML_OPERATION_SUCCESS;
-	
-	// prefix meta id if we have one ... 
+    return LIBSBML_OPERATION_SUCCESS;
+  
+    // prefix meta id if we have one ... 
     if (element->isSetMetaId())
     {
       if (element->setMetaId(mPrefix + element->getMetaId()) != LIBSBML_OPERATION_SUCCESS)
         return LIBSBML_OPERATION_FAILED;
     }
-	
-	// prefix other ids (unitsid, or sid) ...
+
+    // prefix other ids (unitsid, or sid) ...
     // skip local parameters
     if (element->isSetId() && element->getTypeCode() != SBML_LOCAL_PARAMETER)
     {

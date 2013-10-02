@@ -686,14 +686,14 @@ ListOfFluxObjectives::createObject (XMLInputStream& stream)
   if (name == "fluxObjective")
   {
     try
-	{
+    {
       FBC_CREATE_NS(fbcns, getSBMLNamespaces());
       object = new FluxObjective(fbcns);
       appendAndOwn(object);
       //mItems.push_back(object);
-	} 
-	catch(...)
-	{
+    } 
+    catch(...)
+    {
       /* 
       * NULL will be returned if the mSBMLNS is invalid (basically this
       * should not happen) or some exception is thrown (e.g. std::bad_alloc)
@@ -701,7 +701,7 @@ ListOfFluxObjectives::createObject (XMLInputStream& stream)
       * (Maybe this should be changed so that caller can detect what kind 
       *  of error happened in this function.)
       */
-	}
+    }
   }
 
   return object;
