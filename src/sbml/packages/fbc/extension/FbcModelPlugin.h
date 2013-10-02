@@ -171,6 +171,12 @@ public:
   virtual List* getAllElements(ElementFilter* filter=NULL);
   
   
+  /** @cond doxygenLibsbmlInternal */
+
+  int appendFrom(const Model* model);
+
+  /** @endcond */
+
   /** ------------------------------------------------------------------
    *
    *  Additional public functions

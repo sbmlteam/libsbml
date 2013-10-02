@@ -480,6 +480,49 @@ FbcModelPlugin::getAllElements(ElementFilter *filter)
 }
 
 
+/** @cond doxygenLibsbmlInternal */
+int 
+FbcModelPlugin::appendFrom(const Model* model)
+{
+  int ret = LIBSBML_OPERATION_SUCCESS;
+
+  if (model==NULL)
+  {
+    return LIBSBML_INVALID_OBJECT;
+  }
+
+  const FbcModelPlugin* modplug = 
+    static_cast<const FbcModelPlugin*>(model->getPlugin(getPrefix()));
+  
+  if (modplug==NULL)
+  {
+    return LIBSBML_INVALID_OBJECT;
+  }
+
+  Model* parent = static_cast<Model*>(getParentSBMLObject());
+
+  if (parent==NULL) 
+  {
+    return LIBSBML_INVALID_OBJECT;
+  }
+  
+  ret = mBounds.appendFrom(modplug->getListOfFluxBounds());
+
+  if (ret != LIBSBML_OPERATION_SUCCESS)
+  {
+    return ret;
+  }
+
+  ret = mObjectives.appendFrom(modplug->getListOfObjectives());
+  
+  return ret;
+}
+/** @endcond */
+
+
+
+
+
 /*
 *
 *  (EXTENSION) Additional public functions

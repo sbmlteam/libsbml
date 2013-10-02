@@ -403,6 +403,20 @@ FluxBound::unsetValue ()
 
 
 /*
+ * rename attributes that are SIdRefs or instances in math
+ */
+void
+FluxBound::renameSIdRefs(std::string oldid, std::string newid)
+{
+  if (isSetReaction() == true && mReaction == oldid)
+  {
+    setReaction(newid);
+  }
+
+}
+
+
+/*
  * Returns the XML element name of
  * this SBML object.
  */
