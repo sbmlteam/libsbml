@@ -51,6 +51,9 @@ Objective::Objective (unsigned int level, unsigned int version, unsigned int pkg
 {
   // set an SBMLNamespaces derived object (FbcPkgNamespaces) of this package.
   setSBMLNamespacesAndOwn(new FbcPkgNamespaces(level,version,pkgVersion));  
+
+  // connect child elements to this element.
+  connectToChild();
 }
 
 
@@ -73,6 +76,9 @@ Objective::Objective(FbcPkgNamespaces* fbcns)
 
   // load package extensions bound with this object (if any) 
   loadPlugins(fbcns);
+
+  // connect child elements to this element.
+  connectToChild();
 }
 
 
@@ -87,6 +93,9 @@ Objective::Objective(const Objective& source) : SBase(source)
   this->mFluxes=source.mFluxes;
   this->mTypeString = source.mTypeString;
   this->mIsSetListOfFluxObjectives = source.mIsSetListOfFluxObjectives;
+
+  // connect child elements to this element.
+  connectToChild();
 }
 
 /*
@@ -103,6 +112,9 @@ Objective& Objective::operator=(const Objective& source)
     this->mFluxes= source.mFluxes;
     this->mTypeString = source.mTypeString;
     this->mIsSetListOfFluxObjectives = source.mIsSetListOfFluxObjectives;
+
+    // connect child elements to this element.
+    connectToChild();
   }
   
   return *this;
@@ -761,6 +773,7 @@ Objective::setSBMLDocument (SBMLDocument* d)
 void
 Objective::connectToChild()
 {
+  SBase::connectToChild();
   mFluxes.connectToParent(this);
 }
 /** @endcond */

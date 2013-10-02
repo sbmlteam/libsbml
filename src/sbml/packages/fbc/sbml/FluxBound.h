@@ -425,23 +425,6 @@ public:
 
   /** @cond doxygenLibsbmlInternal */
   /**
-   * Sets this SBML object to child SBML objects (if any).
-   * (Creates a child-parent relationship by the parent)
-   *
-   * Subclasses must override this function if they define
-   * one ore more child elements.
-   * Basically, this function needs to be called in
-   * constructor, copy constructor, assignment operator.
-   *
-   * @see setSBMLDocument
-   * @see enablePackageInternal
-   */
-  virtual void connectToChild ();
-  /** @endcond */
-
-
-  /** @cond doxygenLibsbmlInternal */
-  /**
    * Enables/Disables the given package with this element and child
    * elements (if any).
    * (This is an internal implementation for enablePakcage function)

@@ -708,19 +708,6 @@ FluxBound::setSBMLDocument (SBMLDocument* d)
 
 /** @cond doxygenLibsbmlInternal */
 /*
- * Sets this SBML object to child SBML objects (if any).
- * (Creates a child-parent relationship by the parent)
-  */
-void
-FluxBound::connectToChild()
-{
-  
-}
-/** @endcond */
-
-
-/** @cond doxygenLibsbmlInternal */
-/*
  * Enables/Disables the given package with this element and child
  * elements (if any).
  * (This is an internal implementation for enablePakcage function)

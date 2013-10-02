@@ -45,6 +45,8 @@ LIBSBML_CPP_NAMESPACE_BEGIN
   , mObjectives(fbcns)
   , mAssociations(fbcns)
 {
+  // connect child elements to this element.
+  connectToChild();
 }
 
 
@@ -57,6 +59,8 @@ FbcModelPlugin::FbcModelPlugin(const FbcModelPlugin& orig)
   , mObjectives(orig.mObjectives)
   , mAssociations(orig.mAssociations)
 {
+  // connect child elements to this element.
+  connectToChild();
 }
 
 
@@ -77,6 +81,9 @@ FbcModelPlugin&
     mBounds       = orig.mBounds;
     mObjectives   = orig.mObjectives;
     mAssociations = orig.mAssociations;
+
+    // connect child elements to this element.
+    connectToChild();
   }    
   return *this;
 }
@@ -1250,6 +1257,15 @@ void
   mBounds.setSBMLDocument(d);  
   mAssociations.setSBMLDocument(d);  
   mObjectives.setSBMLDocument(d);  
+}
+/** @endcond */
+
+
+/** @cond doxygenLibsbmlInternal */
+void
+FbcModelPlugin::connectToChild()
+{
+  connectToParent(getParentSBMLObject());
 }
 /** @endcond */
 
