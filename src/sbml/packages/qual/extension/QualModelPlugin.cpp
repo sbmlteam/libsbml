@@ -42,12 +42,14 @@ LIBSBML_CPP_NAMESPACE_BEGIN
  * Constructor
  */
 QualModelPlugin::QualModelPlugin (const std::string &uri, 
-                                      const std::string &prefix,
-                                      QualPkgNamespaces *qualns)
+                                  const std::string &prefix,
+                                  QualPkgNamespaces *qualns)
   : SBasePlugin(uri,prefix, qualns)
    ,mQualitativeSpecies(qualns)
    ,mTransitions(qualns)
 {
+  // connect child elements to this element.
+  connectToChild();
 }
 
 
@@ -59,6 +61,8 @@ QualModelPlugin::QualModelPlugin(const QualModelPlugin& orig)
   , mQualitativeSpecies(orig.mQualitativeSpecies)
   , mTransitions(orig.mTransitions)
 {
+  // connect child elements to this element.
+  connectToChild();
 }
 
 
@@ -78,6 +82,8 @@ QualModelPlugin::operator=(const QualModelPlugin& orig)
     this->SBasePlugin::operator =(orig);
     mQualitativeSpecies    = orig.mQualitativeSpecies;
     mTransitions    = orig.mTransitions;
+    // connect child elements to this element.
+    connectToChild();
   }    
   return *this;
 }
@@ -616,6 +622,15 @@ QualModelPlugin::setSBMLDocument (SBMLDocument* d)
 
   mQualitativeSpecies.setSBMLDocument(d);  
   mTransitions.setSBMLDocument(d);  
+}
+/** @endcond */
+
+
+/** @cond doxygenLibsbmlInternal */
+void
+QualModelPlugin::connectToChild()
+{
+  connectToParent(getParentSBMLObject());
 }
 /** @endcond */
 

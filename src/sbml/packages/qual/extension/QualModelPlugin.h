@@ -410,6 +410,18 @@ public:
   virtual void setSBMLDocument (SBMLDocument* d);
 
 
+  /** @cond doxygenLibsbmlInternal */
+  /**
+   * Sets the *parent* of this SBML object to child SBML objects (if any).
+   * (Creates a child-parent relationship by the parent)
+   *
+   * @see setSBMLDocument
+   * @see enablePackageInternal
+   */
+  virtual void connectToChild ();
+  /** @endcond */
+
+
   /**
    * Sets the parent SBML object of this plugin object to
    * this object and child elements (if any).
