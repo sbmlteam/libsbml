@@ -122,6 +122,15 @@ public:
    */
   XMLErrorLog ();
 
+  /**
+   * Copy Constructor
+   */
+  XMLErrorLog (const XMLErrorLog& other);
+
+  /**
+   * Assignment operator
+   */
+  XMLErrorLog& operator=(const XMLErrorLog& other);
 
   /**
    * Destroys this XMLErrorLog.
@@ -144,6 +153,14 @@ public:
    * @param errors list, a list of XMLError to be added to the log.
    */
   void add (const std::list<XMLError>& errors);
+
+  /**
+   * Logs (copies) the XMLErrors in the given XMLError list to this
+   * XMLErrorLog.
+   *
+   * @param errors list, a list of XMLError to be added to the log.
+   */
+  void add (const std::vector<XMLError*>& errors);
 
 
   /**

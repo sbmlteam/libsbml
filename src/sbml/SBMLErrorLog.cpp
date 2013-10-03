@@ -55,6 +55,24 @@ SBMLErrorLog::SBMLErrorLog ()
 {
 }
 
+/*
+* Copy Constructor
+*/
+SBMLErrorLog::SBMLErrorLog (const SBMLErrorLog& other)
+  : XMLErrorLog(other)
+{
+}
+
+/*
+* Assignment operator
+*/
+SBMLErrorLog& SBMLErrorLog::operator=(const SBMLErrorLog& other)
+{
+  XMLErrorLog::operator=(other);
+  return *this;
+}
+
+
 
 /*
  * Used by the Destructor to delete each item in mErrors.

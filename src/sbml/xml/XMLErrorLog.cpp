@@ -53,6 +53,29 @@ XMLErrorLog::XMLErrorLog ()
 }
 /** @endcond */
 
+/*
+* Copy Constructor
+*/
+XMLErrorLog::XMLErrorLog (const XMLErrorLog& other)
+  : mParser(NULL)
+  , mOverriddenSeverity(other.mOverriddenSeverity)
+{
+  add(other.mErrors);
+}
+
+/*
+* Assignment operator
+*/
+XMLErrorLog& XMLErrorLog::operator=(const XMLErrorLog& other)  
+{
+  mOverriddenSeverity = other.mOverriddenSeverity;
+  mParser = NULL;
+  
+  mErrors.clear();
+  add(other.mErrors);
+
+  return *this;
+}
 
 /** @cond doxygenLibsbmlInternal */
 
@@ -149,6 +172,21 @@ XMLErrorLog::add (const std::list<XMLError>& errors)
 }
 /** @endcond */
 
+
+/** @cond doxygenLibsbmlInternal */
+/*
+ * Logs (copies) the XMLErrors in the given XMLError list to this
+ * XMLErrorLog.
+ */
+void
+XMLErrorLog::add (const std::vector<XMLError*>& errors)
+{
+  vector<XMLError*>::const_iterator end = errors.end();
+  vector<XMLError*>::const_iterator iter;
+
+  for (iter = errors.begin(); iter != end; ++iter) add( *(*iter) );
+}
+/** @endcond */
 
 /**
  * Returns a boolean indicating whether or not the severity is overriden   

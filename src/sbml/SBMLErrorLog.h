@@ -171,6 +171,15 @@ public:
    */
   SBMLErrorLog ();
 
+  /**
+   * Copy Constructor
+   */
+  SBMLErrorLog (const SBMLErrorLog& other);
+
+  /**
+   * Assignment operator
+   */
+  SBMLErrorLog& operator=(const SBMLErrorLog& other);
 
   /**
    * Destroys this SBMLErrorLog.
