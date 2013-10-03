@@ -360,17 +360,6 @@ public:
   /** @cond doxygenLibsbmlInternal */
 
   /**
-   * Connects to child elements.
-   */
-  virtual void connectToChild ();
-
-
-  /** @endcond doxygenLibsbmlInternal */
-
-
-  /** @cond doxygenLibsbmlInternal */
-
-  /**
    * Enables/Disables the given package with this element.
    */
   virtual void enablePackageInternal(const std::string& pkgURI,

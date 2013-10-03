@@ -485,6 +485,7 @@ DrawFromDistribution::setSBMLDocument (SBMLDocument* d)
 void
 DrawFromDistribution::connectToChild()
 {
+  SBase::connectToChild();
   mDistribInputs.connectToParent(this);
 }
 

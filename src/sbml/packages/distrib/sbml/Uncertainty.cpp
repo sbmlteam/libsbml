@@ -428,20 +428,6 @@ Uncertainty::setSBMLDocument (SBMLDocument* d)
   /** @cond doxygenLibsbmlInternal */
 
 /*
-   * Connects to child elements.
- */
-void
-Uncertainty::connectToChild()
-{
-}
-
-
-  /** @endcond doxygenLibsbmlInternal */
-
-
-  /** @cond doxygenLibsbmlInternal */
-
-/*
  * Enables/Disables the given package with this element.
  */
 void

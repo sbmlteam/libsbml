@@ -407,20 +407,6 @@ DistribInput::setSBMLDocument (SBMLDocument* d)
   /** @cond doxygenLibsbmlInternal */
 
 /*
-   * Connects to child elements.
- */
-void
-DistribInput::connectToChild()
-{
-}
-
-
-  /** @endcond doxygenLibsbmlInternal */
-
-
-  /** @cond doxygenLibsbmlInternal */
-
-/*
  * Enables/Disables the given package with this element.
  */
 void
