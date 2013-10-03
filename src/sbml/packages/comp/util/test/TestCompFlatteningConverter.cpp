@@ -180,7 +180,8 @@ void TestFlattenedPair(string file1, string file2)
   */
 
   string newModel = writeSBMLToString(doc);
-  //writeSBMLToFile(doc, "test_flat.xml");
+  //string ofile = filename + "test_flat.xml";
+  //writeSBMLToFile(doc, ofile.c_str());
   string ffile = filename + file2;
   SBMLDocument* fdoc = readSBMLFromFile(ffile.c_str());
   string flatModel = writeSBMLToString(fdoc);
@@ -905,6 +906,12 @@ START_TEST (test_comp_flatten_test60)
 }
 END_TEST
 
+START_TEST (test_comp_flatten_test61)
+{ 
+  TestFlattenedPair("test61.xml", "test61_flat.xml");
+}
+END_TEST
+
 
 START_TEST (test_comp_flatten_id_collisions)
 { 
@@ -1419,7 +1426,7 @@ SBMLDocument* test_flatten_fbc(string orig, string flat, string nofbc)
   // the converter are used - otherwise it is identical to the
   // next test
 //  props->addOption("ignorePackages", true);
-  props->addOption("perform validation", true);
+  props->addOption("perform validation", false);
 
   SBMLConverter* converter = SBMLConverterRegistry::getInstance().getConverterFor(*props);
   
@@ -1439,27 +1446,19 @@ SBMLDocument* test_flatten_fbc(string orig, string flat, string nofbc)
 
   converter->setDocument(doc);
   int result = converter->convert();
+  fail_unless(result == LIBSBML_OPERATION_SUCCESS);
 
 
   string newModel = writeSBMLToString(doc);
   string ffile;
 
-  // NOTE: since fbc flattening is not yet implemented
-  // the same result should be chieved whether fbc is enabled or not
+  // NOTE: fbc flattening is now implemented
   if (SBMLExtensionRegistry::isPackageEnabled("fbc") == true)
   {
-    // fbc is not required so should just get removed
-    fail_unless(result == LIBSBML_OPERATION_SUCCESS);
-    fail_unless(doc->getNumErrors() == 1);
-    fail_unless(doc->getErrorLog()->getError(0)->getErrorId() == CompFlatteningNotImplementedNotReqd);
     ffile = filename + flat;
   }
   else
   {
-    fail_unless(result == LIBSBML_OPERATION_SUCCESS);
-    fail_unless(doc->getNumErrors() == 2);
-    fail_unless(doc->getErrorLog()->getError(0)->getErrorId() == UnrequiredPackagePresent);
-    fail_unless(doc->getErrorLog()->getError(1)->getErrorId() == CompFlatteningNotRecognisedNotReqd);
     ffile = filename + nofbc;
   }
 
@@ -1529,7 +1528,150 @@ END_TEST
 
 START_TEST (test_comp_flatten_converter_fbc1)
 { 
-  SBMLDocument* doc = test_flatten_fbc("aggregate_fbc.xml", "aggregate_fbc_flat_fbc_removed.xml", "aggregate_fbc_flat_fbc_removed.xml");
+  SBMLDocument* doc = test_flatten_fbc("aggregate_fbc.xml", "aggregate_fbc_flat.xml", "aggregate_fbc_flat_fbc_removed.xml");
+  if (SBMLExtensionRegistry::isPackageEnabled("fbc") == false)
+  {
+    fail_unless(doc->getNumErrors() == 2);
+    fail_unless(doc->getErrorLog()->getError(0)->getErrorId() == UnrequiredPackagePresent);
+    fail_unless(doc->getErrorLog()->getError(1)->getErrorId() == CompFlatteningNotRecognisedNotReqd);
+  }
+  delete doc;
+}
+END_TEST
+
+
+START_TEST (test_comp_flatten_converter_fbc2)
+{ 
+  SBMLDocument* doc = test_flatten_fbc("aggregate_fbc2.xml", "aggregate_fbc2_flat.xml", "aggregate_fbc2_flat_fbc_removed.xml");
+  if (SBMLExtensionRegistry::isPackageEnabled("fbc") == false)
+  {
+    fail_unless(doc->getNumErrors() == 2);
+    fail_unless(doc->getErrorLog()->getError(0)->getErrorId() == UnrequiredPackagePresent);
+    fail_unless(doc->getErrorLog()->getError(1)->getErrorId() == CompFlatteningNotRecognisedNotReqd);
+  }
+  delete doc;
+}
+END_TEST
+
+
+START_TEST (test_comp_flatten_converter_fbc3)
+{ 
+  SBMLDocument* doc = test_flatten_fbc("fbc_deletion_1.xml", "fbc_deletion_1_flat.xml", "fbc_deletion_1_flat_fbc_removed.xml");
+  if (SBMLExtensionRegistry::isPackageEnabled("fbc") == false)
+  {
+    fail_unless(doc->getNumErrors() == 3);
+    fail_unless(doc->getErrorLog()->getError(0)->getErrorId() == UnrequiredPackagePresent);
+    fail_unless(doc->getErrorLog()->getError(1)->getErrorId() == CompFlatteningNotRecognisedNotReqd);
+    fail_unless(doc->getErrorLog()->getError(2)->getErrorId() == CompFlatteningWarning);
+  }
+  delete doc;
+}
+END_TEST
+
+
+START_TEST (test_comp_flatten_converter_fbc4)
+{ 
+  SBMLDocument* doc = test_flatten_fbc("fbc_deletion_2.xml", "fbc_deletion_2_flat.xml", "fbc_deletion_2_flat_fbc_removed.xml");
+  if (SBMLExtensionRegistry::isPackageEnabled("fbc") == false)
+  {
+    fail_unless(doc->getNumErrors() == 3);
+    fail_unless(doc->getErrorLog()->getError(0)->getErrorId() == UnrequiredPackagePresent);
+    fail_unless(doc->getErrorLog()->getError(1)->getErrorId() == CompFlatteningNotRecognisedNotReqd);
+    fail_unless(doc->getErrorLog()->getError(2)->getErrorId() == CompFlatteningWarning);
+  }
+  delete doc;
+}
+END_TEST
+
+
+START_TEST (test_comp_flatten_converter_fbc5)
+{ 
+  SBMLDocument* doc = test_flatten_fbc("fbc_deletion_3.xml", "fbc_deletion_3_flat.xml", "fbc_deletion_3_flat_fbc_removed.xml");
+  if (SBMLExtensionRegistry::isPackageEnabled("fbc") == false)
+  {
+    fail_unless(doc->getNumErrors() == 3);
+    fail_unless(doc->getErrorLog()->getError(0)->getErrorId() == UnrequiredPackagePresent);
+    fail_unless(doc->getErrorLog()->getError(1)->getErrorId() == CompFlatteningNotRecognisedNotReqd);
+    fail_unless(doc->getErrorLog()->getError(2)->getErrorId() == CompFlatteningWarning);
+  }
+  delete doc;
+}
+END_TEST
+
+
+START_TEST (test_comp_flatten_converter_fbc6)
+{ 
+  SBMLDocument* doc = test_flatten_fbc("fbc_replacedBy_1.xml", "fbc_replacedBy_1_flat.xml", "fbc_replacedBy_1_flat_fbc_removed.xml");
+  if (SBMLExtensionRegistry::isPackageEnabled("fbc") == false)
+  {
+    fail_unless(doc->getNumErrors() == 2);
+    fail_unless(doc->getErrorLog()->getError(0)->getErrorId() == UnrequiredPackagePresent);
+    fail_unless(doc->getErrorLog()->getError(1)->getErrorId() == CompFlatteningNotRecognisedNotReqd);
+  }
+  delete doc;
+}
+END_TEST
+
+
+START_TEST (test_comp_flatten_converter_fbc7)
+{ 
+  SBMLDocument* doc = test_flatten_fbc("fbc_replacedBy_2.xml", "fbc_replacedBy_2_flat.xml", "fbc_replacedBy_2_flat_fbc_removed.xml");
+  if (SBMLExtensionRegistry::isPackageEnabled("fbc") == false)
+  {
+    fail_unless(doc->getNumErrors() == 2);
+    fail_unless(doc->getErrorLog()->getError(0)->getErrorId() == UnrequiredPackagePresent);
+    fail_unless(doc->getErrorLog()->getError(1)->getErrorId() == CompFlatteningNotRecognisedNotReqd);
+  }
+  delete doc;
+}
+END_TEST
+
+
+START_TEST (test_comp_flatten_converter_fbc8)
+{ 
+  SBMLDocument* doc = test_flatten_fbc("fbc_replacedBy_3.xml", "fbc_replacedBy_3_flat.xml", "fbc_replacedBy_3_flat_fbc_removed.xml");
+  if (SBMLExtensionRegistry::isPackageEnabled("fbc") == false)
+  {
+    fail_unless(doc->getNumErrors() == 2);
+    fail_unless(doc->getErrorLog()->getError(0)->getErrorId() == UnrequiredPackagePresent);
+    fail_unless(doc->getErrorLog()->getError(1)->getErrorId() == CompFlatteningNotRecognisedNotReqd);
+  }
+  delete doc;
+}
+END_TEST
+
+
+START_TEST (test_comp_flatten_converter_fbc9)
+{ 
+  SBMLDocument* doc = test_flatten_fbc("fbc_replacement_1.xml", "fbc_replacement_1_flat.xml", "fbc_replacement_1_flat_fbc_removed.xml");
+  if (SBMLExtensionRegistry::isPackageEnabled("fbc") == false)
+  {
+    fail_unless(doc->getNumErrors() == 2);
+    fail_unless(doc->getErrorLog()->getError(0)->getErrorId() == UnrequiredPackagePresent);
+    fail_unless(doc->getErrorLog()->getError(1)->getErrorId() == CompFlatteningNotRecognisedNotReqd);
+  }
+  delete doc;
+}
+END_TEST
+
+
+START_TEST (test_comp_flatten_converter_fbc10)
+{ 
+  SBMLDocument* doc = test_flatten_fbc("fbc_replacement_2.xml", "fbc_replacement_2_flat.xml", "fbc_replacement_2_flat_fbc_removed.xml");
+  if (SBMLExtensionRegistry::isPackageEnabled("fbc") == false)
+  {
+    fail_unless(doc->getNumErrors() == 2);
+    fail_unless(doc->getErrorLog()->getError(0)->getErrorId() == UnrequiredPackagePresent);
+    fail_unless(doc->getErrorLog()->getError(1)->getErrorId() == CompFlatteningNotRecognisedNotReqd);
+  }
+  delete doc;
+}
+END_TEST
+
+
+START_TEST (test_comp_flatten_converter_fbc11)
+{ 
+  SBMLDocument* doc = test_flatten_fbc("fbc_replacement_3.xml", "fbc_replacement_3_flat.xml", "fbc_replacement_3_flat_fbc_removed.xml");
   if (SBMLExtensionRegistry::isPackageEnabled("fbc") == false)
   {
     fail_unless(doc->getNumErrors() == 2);
@@ -1680,6 +1822,7 @@ create_suite_TestFlatteningConverter (void)
   tcase_add_test(tcase, test_comp_flatten_test58);
   tcase_add_test(tcase, test_comp_flatten_test59);
   tcase_add_test(tcase, test_comp_flatten_test60);
+  tcase_add_test(tcase, test_comp_flatten_test61);
 
   tcase_add_test(tcase, test_comp_flatten_id_collisions);
   tcase_add_test(tcase, test_comp_flatten_id_collisions2);
@@ -1703,6 +1846,17 @@ create_suite_TestFlatteningConverter (void)
   tcase_add_test(tcase, test_comp_flatten_converter_layout3);
   tcase_add_test(tcase, test_comp_flatten_converter_layout4);
   tcase_add_test(tcase, test_comp_flatten_converter_fbc1);
+  tcase_add_test(tcase, test_comp_flatten_converter_fbc2);
+  tcase_add_test(tcase, test_comp_flatten_converter_fbc3);
+  tcase_add_test(tcase, test_comp_flatten_converter_fbc4);
+  tcase_add_test(tcase, test_comp_flatten_converter_fbc5);
+  tcase_add_test(tcase, test_comp_flatten_converter_fbc6);
+  tcase_add_test(tcase, test_comp_flatten_converter_fbc7);
+  tcase_add_test(tcase, test_comp_flatten_converter_fbc8);
+  tcase_add_test(tcase, test_comp_flatten_converter_fbc9);
+  tcase_add_test(tcase, test_comp_flatten_converter_fbc10);
+  tcase_add_test(tcase, test_comp_flatten_converter_fbc11);
+
   tcase_add_test(tcase, test_comp_validator_44781839);
  
   suite_add_tcase(suite, tcase);

@@ -695,6 +695,23 @@ public:
 
   /** @endcond */
     
+  /**
+   * Adds a clone of all items in the provided ListOf to this object.  This means that when this ListOf is destroyed, the original items will not be destroyed.  In addition, copy over the input ListOfObjectives' 'activeObjective' attribute, if none is set for this element.
+   *
+   * @param list A list of items to be added.
+   *
+   * @see append(const SBase* item)
+   */
+  virtual int appendFrom(const ListOf* list);
+  
+
+  /**
+   * Renames all the SIdRef attributes on this element if they match
+   * @p oldid, but not any found in child or plugin elements.
+   */
+  virtual void renameSIdRefs(std::string oldid, std::string newid);
+
+
 
 protected:
   /** @cond doxygenLibsbmlInternal */

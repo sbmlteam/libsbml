@@ -62,10 +62,10 @@
     </fbc:listOfFluxBounds>
     <fbc:listOfObjectives fbc:activeObjective="obj1">
       <fbc:objective fbc:id="obj1" fbc:type="maximize">
-        <fbc:listOfFluxes>
+        <fbc:listOfFluxObjectives>
           <fbc:fluxObjective fbc:reaction="R1" fbc:coefficient="1"/>
           <fbc:fluxObjective fbc:reaction="R2" fbc:coefficient="1"/>
-        </fbc:listOfFluxes>
+        </fbc:listOfFluxObjectives>
       </fbc:objective>
     </fbc:listOfObjectives>
   </model>
@@ -129,10 +129,10 @@
       </fbc:listOfFluxBounds>
       <fbc:listOfObjectives fbc:activeObjective="obj1">
         <fbc:objective fbc:id="obj1" fbc:type="maximize">
-          <fbc:listOfFluxes>
+        <fbc:listOfFluxObjectives>
             <fbc:fluxObjective fbc:reaction="R1" fbc:coefficient="1"/>
             <fbc:fluxObjective fbc:reaction="R2" fbc:coefficient="1"/>
-          </fbc:listOfFluxes>
+        </fbc:listOfFluxObjectives>
         </fbc:objective>
       </fbc:listOfObjectives>
     </comp:modelDefinition>

@@ -948,6 +948,27 @@ ListOfObjectives::getElementName () const
 }
 
 
+int ListOfObjectives::appendFrom(const ListOf* list)
+{
+  int ret = ListOf::appendFrom(list);
+  if (ret != LIBSBML_OPERATION_SUCCESS) return ret;
+
+  const ListOfObjectives* objectives = static_cast<const ListOfObjectives*>(list);
+  if (objectives==NULL) return LIBSBML_INVALID_OBJECT;
+
+  if (!isSetActiveObjective()) {
+    setActiveObjective(objectives->getActiveObjective());
+  }
+  return ret;
+}
+
+void
+ListOfObjectives::renameSIdRefs(std::string oldid, std::string newid)
+{
+  if (mActiveObjective==oldid) mActiveObjective=newid;
+  ListOf::renameSIdRefs(oldid, newid);
+}
+
 /** @cond doxygenLibsbmlInternal */
 SBase*
 ListOfObjectives::createObject (XMLInputStream& stream)

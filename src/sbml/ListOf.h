@@ -202,7 +202,7 @@ public:
    *
    * @see append(const SBase* item)
    */
-  int appendFrom(const ListOf* list);
+  virtual int appendFrom(const ListOf* list);
   
 
   /** 
