@@ -938,6 +938,7 @@ ListOfFunctionTerms::writeElements(XMLOutputStream& stream) const
 void
 ListOfFunctionTerms::connectToChild()
 {
+  ListOf::connectToChild();
   if (mDefaultTerm != NULL)
   {
     mDefaultTerm->connectToParent(this);

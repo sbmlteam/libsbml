@@ -121,6 +121,26 @@ public:
 
 
   /**
+   * Returns the first child element found that has the given @p id in the model-wide SId namespace, or @c NULL if no such object is found.
+   *
+   * @param id string representing the id of objects to find
+   *
+   * @return a pointer to the SBase element with the given @p id.
+   */
+  virtual SBase* getElementBySId(std::string id);
+  
+  
+  /**
+   * Returns the first child element it can find with the given @p metaid, or itself if it has the given @p metaid, or @c NULL if no such object is found.
+   *
+   * @param metaid string representing the metaid of objects to find
+   *
+   * @return a pointer to the SBase element with the given @p metaid.
+   */
+  virtual SBase* getElementByMetaId(std::string metaid);
+  
+
+  /**
    * Returns the value of the "id" attribute of this Transition.
    *
    * @return the value of the "id" attribute of this Transition as a string.

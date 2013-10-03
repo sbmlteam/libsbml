@@ -146,6 +146,45 @@ Transition::~Transition ()
 }
 
 
+SBase* 
+Transition::getElementBySId(std::string id)
+{
+  if (id.empty()) return NULL;
+  SBase* obj = mInputs.getElementBySId(id);
+  if (obj != NULL) {
+    return obj;
+  }
+  obj = mOutputs.getElementBySId(id);
+  if (obj != NULL) {
+    return obj;
+  }
+  obj = mFunctionTerms.getElementBySId(id);
+  return obj;
+}
+
+
+SBase*
+Transition::getElementByMetaId(std::string metaid)
+{
+  if (metaid.empty()) return NULL;
+
+  if (mInputs.getMetaId() == metaid) return &mInputs;
+  if (mOutputs.getMetaId() == metaid) return &mOutputs;
+  if (mFunctionTerms.getMetaId() == metaid) return &mFunctionTerms;
+
+  SBase* obj = mInputs.getElementByMetaId(metaid);
+  if (obj != NULL) {
+    return obj;
+  }
+  obj = mOutputs.getElementByMetaId(metaid);
+  if (obj != NULL) {
+    return obj;
+  }
+  obj = mFunctionTerms.getElementByMetaId(metaid);
+  return obj;
+}
+
+
 /*
  * Returns the value of the "id" attribute of this Transition.
  */
