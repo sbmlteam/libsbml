@@ -277,7 +277,7 @@ QualExtension::getPackageVersion(const std::string &uri) const
 SBMLNamespaces*
 QualExtension::getSBMLExtensionNamespaces(const std::string &uri) const
 {
-  QualPkgNamespaces* pkgns = 0;
+  QualPkgNamespaces* pkgns = NULL;
   if ( uri == getXmlnsL3V1V1())
   {
     pkgns = new QualPkgNamespaces(3,1,1);    

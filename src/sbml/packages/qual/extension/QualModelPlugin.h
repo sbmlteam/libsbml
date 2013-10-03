@@ -128,7 +128,24 @@ public:
    *
    * ------------------------------------------------------------------
    */
-  
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  int appendFrom(const Model* model);
+
+  /** @endcond */
+
+
+  /**
+   * Returns a List of all child SBase objects, including those nested to an
+   * arbitary depth.
+   *
+   * @return a List* of pointers to all child objects.
+   */
+   virtual List* getAllElements(ElementFilter * filter = NULL);
+
+
   /**
    * Returns the ListOfQualitativeSpecies in this plugin object.
    *

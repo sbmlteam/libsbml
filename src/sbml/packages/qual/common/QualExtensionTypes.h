@@ -34,6 +34,7 @@
 #include <sbml/packages/qual/common/qualfwd.h>
 
 #include <sbml/packages/qual/extension/QualExtension.h>
+#include <sbml/packages/qual/extension/QualSBMLDocumentPlugin.h>
 #include <sbml/packages/qual/extension/QualModelPlugin.h>
 
 #include <sbml/packages/qual/sbml/QualitativeSpecies.h>

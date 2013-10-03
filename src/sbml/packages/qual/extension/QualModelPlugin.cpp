@@ -239,6 +239,60 @@ QualModelPlugin::hasRequiredElements() const
  *
  */  
 
+/** @cond doxygenLibsbmlInternal */
+
+int 
+QualModelPlugin::appendFrom(const Model* model)
+{
+  int ret = LIBSBML_OPERATION_SUCCESS;
+
+  if (model==NULL)
+  {
+    return LIBSBML_INVALID_OBJECT;
+  }
+
+  const QualModelPlugin* modplug = 
+    static_cast<const QualModelPlugin*>(model->getPlugin(getPrefix()));
+  
+  if (modplug==NULL)
+  {
+    return LIBSBML_INVALID_OBJECT;
+  }
+
+  Model* parent = static_cast<Model*>(getParentSBMLObject());
+
+  if (parent==NULL) 
+  {
+    return LIBSBML_INVALID_OBJECT;
+  }
+  
+  ret = mQualitativeSpecies.appendFrom(modplug->getListOfQualitativeSpecies());
+
+  if (ret != LIBSBML_OPERATION_SUCCESS)
+  {
+    return ret;
+  }
+
+  ret = mTransitions.appendFrom(modplug->getListOfTransitions());
+  
+  return ret;
+}
+/** @endcond */
+
+
+
+List*
+QualModelPlugin::getAllElements(ElementFilter* filter)
+{
+  List* ret = new List();
+  List* sublist = NULL;
+
+  ADD_FILTERED_LIST(ret, sublist, mQualitativeSpecies, filter);
+  ADD_FILTERED_LIST(ret, sublist, mTransitions, filter);
+
+  return ret;
+}
+
 
 /** @cond doxygenLibsbmlInternal */
 /*

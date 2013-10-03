@@ -264,6 +264,20 @@ FunctionTerm::unsetMath()
 
 
 /*
+ * rename attributes that are SIdRefs or instances in math
+ */
+void
+FunctionTerm::renameSIdRefs(std::string oldid, std::string newid)
+{
+  if (isSetMath() == true)
+  {
+    mMath->renameSIdRefs(oldid, newid);
+  }
+
+}
+
+
+/*
  * Returns the XML element name of this object
  */
 const std::string&

@@ -408,6 +408,20 @@ Output::unsetOutputLevel()
 
 
 /*
+ * rename attributes that are SIdRefs or instances in math
+ */
+void
+Output::renameSIdRefs(std::string oldid, std::string newid)
+{
+  if (isSetQualitativeSpecies() == true && mQualitativeSpecies == oldid)
+  {
+    setQualitativeSpecies(newid);
+  }
+
+}
+
+
+/*
  * Returns the XML element name of this object
  */
 const std::string&

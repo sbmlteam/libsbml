@@ -861,6 +861,23 @@ Transition::getDefaultTerm() const
 }
 
 
+List*
+Transition::getAllElements(ElementFilter* filter)
+{
+  List* ret = new List();
+  List* sublist = NULL;
+
+  ADD_FILTERED_LIST(ret, sublist, mInputs, filter);
+  ADD_FILTERED_LIST(ret, sublist, mOutputs, filter);
+  ADD_FILTERED_LIST(ret, sublist, mFunctionTerms, filter);
+
+
+  ADD_FILTERED_FROM_PLUGIN(ret, sublist, filter);
+
+  return ret;
+}
+
+
 /*
  * Returns the XML element name of this object
  */
