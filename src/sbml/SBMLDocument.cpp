@@ -950,7 +950,8 @@ SBMLDocument::setSBMLDocument (SBMLDocument* d)
 void
 SBMLDocument::connectToChild()
 {
-	if (mModel) mModel->connectToParent(this);
+  SBase::connectToChild();
+  if (mModel) mModel->connectToParent(this);
   connectToParent(this);
 }
 

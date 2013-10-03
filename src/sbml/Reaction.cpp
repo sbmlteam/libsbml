@@ -1310,6 +1310,7 @@ Reaction::setSBMLDocument (SBMLDocument* d)
 void
 Reaction::connectToChild()
 {
+  SBase::connectToChild();
   mReactants.connectToParent(this);
   mProducts .connectToParent(this);
   mModifiers.connectToParent(this);

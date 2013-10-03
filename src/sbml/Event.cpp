@@ -1142,6 +1142,7 @@ Event::setSBMLDocument (SBMLDocument* d)
 void
 Event::connectToChild()
 {
+  SBase::connectToChild();
   mEventAssignments.connectToParent(this);
   if (mTrigger != NULL) mTrigger->connectToParent(this);
   if (mDelay != NULL)   mDelay->connectToParent(this);

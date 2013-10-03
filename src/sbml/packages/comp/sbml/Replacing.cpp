@@ -318,19 +318,6 @@ Replacing::setSBMLDocument (SBMLDocument* d)
 
 
 /** @cond doxygenLibsbmlInternal */
-/*
- * Sets this SBML object to child SBML objects (if any).
- * (Creates a child-parent relationship by the parent)
- */
-void
-Replacing::connectToChild()
-{
-  SBaseRef::connectToChild();
-}
-/** @endcond */
-
-
-/** @cond doxygenLibsbmlInternal */
 int 
 Replacing::replaceWithAndMaybeDelete(SBase* replacement, bool deleteme, ASTNode* conversionFactor)
 {

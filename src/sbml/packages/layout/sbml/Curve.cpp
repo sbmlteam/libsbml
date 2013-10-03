@@ -549,6 +549,7 @@ Curve::setSBMLDocument (SBMLDocument* d)
 void
 Curve::connectToChild()
 {
+  SBase::connectToChild();
   mCurveSegments.connectToParent(this);
 }
 /** @endcond */

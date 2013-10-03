@@ -1764,6 +1764,7 @@ Layout::setSBMLDocument (SBMLDocument* d)
 void
 Layout::connectToChild()
 {
+  SBase::connectToChild();
   mDimensions.connectToParent(this);
   mCompartmentGlyphs.connectToParent(this);
   mSpeciesGlyphs.connectToParent(this);

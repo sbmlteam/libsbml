@@ -484,6 +484,7 @@ ListOf::setSBMLDocument (SBMLDocument* d)
 void
 ListOf::connectToChild()
 {
+  SBase::connectToChild();
   for_each( mItems.begin(), mItems.end(), SetParentSBMLObject(this) );
 }
 

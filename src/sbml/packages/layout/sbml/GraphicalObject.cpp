@@ -977,6 +977,7 @@ GraphicalObject::setSBMLDocument (SBMLDocument* d)
 void
 GraphicalObject::connectToChild()
 {
+  SBase::connectToChild();
   mBoundingBox.connectToParent(this);
 }
 /** @endcond */

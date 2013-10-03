@@ -1068,14 +1068,9 @@ KineticLaw::setSBMLDocument (SBMLDocument* d)
 void
 KineticLaw::connectToChild()
 {
-  if (getLevel() < 3)
-  {
+  SBase::connectToChild();
   mParameters.connectToParent(this);
-  }
-  else
-  {
-	  mLocalParameters.connectToParent(this);
-  }
+  mLocalParameters.connectToParent(this);
 }
 
 

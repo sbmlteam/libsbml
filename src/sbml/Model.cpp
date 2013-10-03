@@ -3261,6 +3261,7 @@ Model::setSBMLDocument (SBMLDocument* d)
 void
 Model::connectToChild()
 {
+      SBase::connectToChild();
 	  mFunctionDefinitions.connectToParent(this);
 	  mUnitDefinitions    .connectToParent(this);
 	  mCompartmentTypes   .connectToParent(this);

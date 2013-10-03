@@ -1215,6 +1215,7 @@ GeneralGlyph::setSBMLDocument (SBMLDocument* d)
 void
 GeneralGlyph::connectToChild()
 {
+  GraphicalObject::connectToChild();
   mReferenceGlyphs.connectToParent(this);
   mCurve.connectToParent(this);
 }

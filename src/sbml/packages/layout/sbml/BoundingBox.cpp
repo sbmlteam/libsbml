@@ -810,6 +810,7 @@ BoundingBox::setSBMLDocument (SBMLDocument* d)
 void
 BoundingBox::connectToChild()
 {
+  SBase::connectToChild();
   mPosition.connectToParent(this);
   mDimensions.connectToParent(this);
 }

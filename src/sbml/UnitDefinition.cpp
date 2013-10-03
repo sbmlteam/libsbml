@@ -673,6 +673,7 @@ UnitDefinition::setSBMLDocument (SBMLDocument* d)
 void
 UnitDefinition::connectToChild()
 {
+  SBase::connectToChild();
   mUnits.connectToParent(this);
 }
 

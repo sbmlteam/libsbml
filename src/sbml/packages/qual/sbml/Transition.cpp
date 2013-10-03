@@ -1044,9 +1044,10 @@ Transition::setSBMLDocument (SBMLDocument* d)
 void
 Transition::connectToChild()
 {
-    mInputs.connectToParent(this);
-    mOutputs.connectToParent(this);
-    mFunctionTerms.connectToParent(this);
+  SBase::connectToChild();
+  mInputs.connectToParent(this);
+  mOutputs.connectToParent(this);
+  mFunctionTerms.connectToParent(this);
 }
 
 

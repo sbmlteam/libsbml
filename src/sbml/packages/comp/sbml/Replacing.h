@@ -234,23 +234,6 @@ public:
 
 
   /** @cond doxygenLibsbmlInternal */
-  /**
-   * Sets this SBML object to child SBML objects (if any).
-   * (Creates a child-parent relationship by the parent)
-   *
-   * Subclasses must override this function if they define
-   * one ore more child elements.
-   * Basically, this function needs to be called in
-   * constructor, copy constructor, assignment operator.
-   *
-   * @see setSBMLDocument
-   * @see enablePackageInternal
-   */
-  virtual void connectToChild ();
-  /** @endcond */
-
-
-  /** @cond doxygenLibsbmlInternal */
   /* Replaces the referenced object with the replacement element, instead of the direct parent of this replaced element.  This is so we can call this recursively, when replacing something that itself replaces something.
    */
   virtual int replaceWithAndMaybeDelete(SBase* replacement, bool deleteme, ASTNode* conversionFactor);

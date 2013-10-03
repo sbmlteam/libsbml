@@ -699,6 +699,7 @@ LineSegment::setSBMLDocument (SBMLDocument* d)
 void
 LineSegment::connectToChild()
 {
+  SBase::connectToChild();
   mStartPoint.connectToParent(this);
   mEndPoint.connectToParent(this);
 }

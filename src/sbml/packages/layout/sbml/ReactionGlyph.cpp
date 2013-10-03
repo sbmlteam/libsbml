@@ -1028,6 +1028,7 @@ ReactionGlyph::setSBMLDocument (SBMLDocument* d)
 void
 ReactionGlyph::connectToChild()
 {
+  GraphicalObject::connectToChild();
   mSpeciesReferenceGlyphs.connectToParent(this);
   mCurve.connectToParent(this);
 }
