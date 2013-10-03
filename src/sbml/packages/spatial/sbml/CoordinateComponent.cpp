@@ -520,7 +520,8 @@ CoordinateComponent::getElementName () const
   */
 void
 CoordinateComponent::connectToChild()
-{	
+{
+  SBase::connectToChild();
 	if (isSetBoundaryMin()) 
     mBoundaryMin->connectToParent(this);
 	if (isSetBoundaryMax()) 

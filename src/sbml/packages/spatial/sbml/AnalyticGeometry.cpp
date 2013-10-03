@@ -237,7 +237,8 @@ AnalyticGeometry::getNumAnalyticVolumes () const
   */
 void
 AnalyticGeometry::connectToChild()
-{	
+{
+  GeometryDefinition::connectToChild();
 	mAnalyticVolumes.connectToParent(this);
 }
 

@@ -361,10 +361,11 @@ SampledFieldGeometry::getNumSampledVolumes () const
   */
 void
 SampledFieldGeometry::connectToChild()
-{	
-	mSampledVolumes.connectToParent(this);
+{
+  GeometryDefinition::connectToChild();
+  mSampledVolumes.connectToParent(this);
 
-	if (mSampledField) mSampledField->connectToParent(this);
+  if (mSampledField) mSampledField->connectToParent(this);
 }
 
 /**

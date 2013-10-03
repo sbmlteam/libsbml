@@ -361,7 +361,8 @@ CSGSetOperator::getNumCSGNodeChildren () const
   */
 void
 CSGSetOperator::connectToChild()
-{	
+{
+  CSGNode::connectToChild();
 	mCSGNodeChildren.connectToParent(this);
 }
 

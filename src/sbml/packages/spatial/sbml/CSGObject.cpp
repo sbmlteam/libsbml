@@ -445,7 +445,8 @@ CSGObject::createCSGHomogeneousTransformation ()
   */
 void
 CSGObject::connectToChild()
-{	
+{
+  SBase::connectToChild();
 	if (mCSGNodeRoot) mCSGNodeRoot->connectToParent(this);
 }
 

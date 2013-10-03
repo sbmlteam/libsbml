@@ -349,9 +349,10 @@ ParametricGeometry::getNumSpatialPoints () const
   */
 void
 ParametricGeometry::connectToChild()
-{	
-	mParametricObjects.connectToParent(this);
-	mSpatialPoints.connectToParent(this);
+{
+  GeometryDefinition::connectToChild();
+  mParametricObjects.connectToParent(this);
+  mSpatialPoints.connectToParent(this);
 }
 
 /**

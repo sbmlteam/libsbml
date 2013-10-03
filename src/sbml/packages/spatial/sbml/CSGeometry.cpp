@@ -239,7 +239,8 @@ CSGeometry::getNumCSGObjects () const
   */
 void
 CSGeometry::connectToChild()
-{	
+{
+  GeometryDefinition::connectToChild();
 	mCSGObjects.connectToParent(this);
 }
 

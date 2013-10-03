@@ -825,7 +825,8 @@ Geometry::getNumGeometryDefinitions () const
   */
 void
 Geometry::connectToChild()
-{	
+{
+  SBase::connectToChild();
 	mCoordinateComponents.connectToParent(this);
 	mDomainTypes.connectToParent(this);
 	mDomains.connectToParent(this);

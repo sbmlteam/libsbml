@@ -313,7 +313,8 @@ Domain::removeInteriorPoint (unsigned int n)
   */
 void
 Domain::connectToChild()
-{	
+{
+  SBase::connectToChild();
 	mInteriorPoints.connectToParent(this);
 }
 

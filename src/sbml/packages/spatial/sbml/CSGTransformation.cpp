@@ -575,7 +575,8 @@ CSGTransformation::accept (SBMLVisitor& v) const
   */
 void
 CSGTransformation::connectToChild()
-{	
+{
+  CSGNode::connectToChild();
 	if (mChild) mChild->connectToParent(this);
 }
 
