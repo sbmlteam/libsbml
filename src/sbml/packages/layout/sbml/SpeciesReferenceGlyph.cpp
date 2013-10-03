@@ -838,7 +838,7 @@ SpeciesReferenceGlyph::setSBMLDocument (SBMLDocument* d)
 void
 SpeciesReferenceGlyph::connectToChild()
 {
-  GraphicalObject::connectToChild()
+  GraphicalObject::connectToChild();
   mCurve.connectToParent(this);
 }
 /** @endcond */

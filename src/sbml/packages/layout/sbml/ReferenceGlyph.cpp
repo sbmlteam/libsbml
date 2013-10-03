@@ -780,7 +780,7 @@ ReferenceGlyph::setSBMLDocument (SBMLDocument* d)
 void
 ReferenceGlyph::connectToChild()
 {
-  GraphicalObject::connectToChild()
+  GraphicalObject::connectToChild();
   mCurve.connectToParent(this);
 }
 /** @endcond */
