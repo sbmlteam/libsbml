@@ -1,35 +1,36 @@
-/* The standard CSS for doxygen */
+body {
+    background-color: white;
+    color: black;
+    margin: 0;
+}
 
 body, table, div, p, dl {
     color: #332;
     font-family: Geneva, Helvetica, Arial, Sans, sans-serif;
     font-size: 12px;
     font-weight: normal;
-    line-height: 140%;
+    line-height: 130%;
 }
 
-/* @group Heading Levels */
+p {
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+}
 
 h1, h2, h3, h4, h5 {
     font-family: Helvetica, Arial, Sans, sans-serif;
+    margin-top: 1em;
+    margin-bottom: 0.5em;
 }
 
 h1 {
     font-size: 150%;
 }
 
-.title {
-    font-family: Helvetica, Arial, Sans, sans-serif;
-    font-size: 20px;
-    font-weight: bold;
-    margin: 10px 2px;
-}
-
 h2, h2 a {
     font-size: 18px;
     font-weight: bold;
     letter-spacing: 1px;
-    margin-top: 1em;
     padding-top: 0.5em;
     color: #443;
     line-height: 120%;
@@ -49,7 +50,6 @@ h3, h3 a {
     font-size: 16px;
     font-style: italic;
     font-weight: bold;
-    padding-top: 0.5em;
     padding-bottom: 3px;
 }
 
@@ -68,8 +68,82 @@ h4 code {
     font-size: 12px;
 }
 
+ul {
+    margin-top: 0.5em;
+    margin-bottom: 0;
+}
+
+tt {
+    width: 92%;
+    padding-left: 5px;
+    margin: 7px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+pre { 
+    font-size: 12px;
+}
+
+code, .code {
+    font-family: "Courier New", Courier, monospace, fixed;
+    font-weight: bold;
+    font-size: 10pt;
+    color: black;
+}
+
+/* This shows up in javadoc output. */
+a code, code a {
+    color: #1133a9;
+    text-decoration: none;
+    font-weight: bold;
+}
+
 dt {
     font-weight: bold;
+}
+
+blockquote {
+    background-color: #F7F8FB;
+    border-left: 2px solid #9CAFD4;
+    margin: 4px 24px 0 4px;
+    padding: 2px 12px 2px 16px;
+}
+
+address {
+    font-style: normal;
+    color: #2A3D61;
+}
+
+hr {
+    height: 0px;
+    border: none;
+    border-top: 1px solid #443;
+}
+
+hr.footer {
+    height: 1px;
+}
+
+table {
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+}
+
+caption, figcaption {
+    font-style: italic;
+}
+
+span.legend {
+    font-size: 70%;
+    text-align: center;
+}
+
+.title {
+    font-family: Helvetica, Arial, Sans, sans-serif;
+    font-size: 20px;
+    font-weight: bold;
+    margin: 10px 2px;
 }
 
 div.multicol {
@@ -93,17 +167,6 @@ p.enddd {
 
 p.endtd {
     margin-bottom: 2px;
-}
-
-/* @end */
-
-caption, figcaption {
-    font-style: italic;
-}
-
-span.legend {
-    font-size: 70%;
-    text-align: center;
 }
 
 h3.version {
@@ -134,10 +197,6 @@ a {
     text-decoration: none;
 }
 
-.contents a:visited {
-    color: #5580cf;
-}
-
 a:hover {
     text-decoration: underline;
 }
@@ -151,6 +210,10 @@ a.qindexHL {
     background-color: #9CAFD4;
     color: #ffffff;
     border: 1px double #869DCA;
+}
+
+.contents a:visited {
+    color: #5580cf;
 }
 
 .contents a.qindexHL:visited {
@@ -212,8 +275,8 @@ pre.fragment {
     background-color: #f0f0f0;
     color: black;
     padding: 5px;
-    padding-top: 6px;
-    margin: 5px 15px 5px 15px;
+    padding-top: 0.5em;
+    margin: 0.75em 2em;
     overflow: auto;
     word-wrap: break-word;
     line-height: 125%;
@@ -298,12 +361,6 @@ div.groupHeader {
 div.groupText {
     margin-left: 16px;
     font-style: italic;
-}
-
-body {
-    background-color: white;
-    color: black;
-    margin: 0;
 }
 
 div.contents {
@@ -416,13 +473,6 @@ span.vhdllogic {
     color: #ff0000 
 }
 
-blockquote {
-    background-color: #F7F8FB;
-    border-left: 2px solid #9CAFD4;
-    margin: 4px 24px 0 4px;
-    padding: 2px 12px 2px 16px;
-}
-
 /* @end */
 
 /*
@@ -457,16 +507,6 @@ td.tiny {
 th.dirtab {
     background: #EBEFF6;
     font-weight: bold;
-}
-
-hr {
-    height: 0px;
-    border: none;
-    border-top: 1px solid #443;
-}
-
-hr.footer {
-    height: 1px;
 }
 
 /* @group Member Descriptions */
@@ -559,24 +599,20 @@ table.memberdecls {
 }
 
 .memproto, dl.reflist dt {
-    border-top: 1px solid #b5b5b5;
-    border-left: 1px solid #b5b5b5;
-    border-right: 1px solid #b5b5b5;
-
     padding: 6px 0px 6px 0px;
     color: #253555;
     font-weight: bold;
-    text-shadow: 0px 1px 1px rgba(255, 255, 255, 0.9);
-
-    box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.15);
-    border-top-right-radius: 8px;
-    border-top-left-radius: 8px;
-
     background-color: #dfdfdf;
+    text-shadow: 0px 1px 1px rgba(255, 255, 255, 0.9);
+    box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.15);
     -moz-box-shadow: 5px 5px 5px #bbb;
     -webkit-box-shadow: 5px 5px 5px #bbb;
 
-    /* Tried, but this messes up the drawing by not being layered properly.
+    border: 1px solid #b5b5b5;
+    border-top-right-radius: 8px;
+    border-top-left-radius: 8px;
+
+    /* Tried, but this messes up the drawing by not being layered properly:
        filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#e5e5e5', endColorstr='#cccccc');
     */
 
@@ -784,11 +820,6 @@ div.dynheader {
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
-}
-
-address {
-    font-style: normal;
-    color: #2A3D61;
 }
 
 table.doxtable {
@@ -1217,35 +1248,6 @@ div.toc li.level4 {
     }
 }
 
-
-/* LibSBML additions */
-
-pre { 
-    font-size: 12px;
-}
-
-tt {
-    width: 92%;
-    padding-left: 5px;
-    margin: 7px;
-    padding-top: 10px;
-    padding-bottom: 10px;
-}
-
-code, .code {
-    font-family: "Courier New", Courier, monospace, fixed;
-    font-weight: bold;
-    font-size: 10pt;
-    color: black;
-}
-
-/* This shows up in javadoc output. */
-a code, code a {
-    color: #1133a9;
-    text-decoration: none;
-    font-weight: bold;
-}
-
 .papers {
   border: 1px solid #cbb;
   padding: 4px;
@@ -1457,7 +1459,12 @@ table.params td.paramname {
 }
 
 .textblock ul li {
-    padding-bottom: 0.25em;
+    padding-bottom: 0.5em;
+}
+
+ul li p {
+    margin: 0;
+    padding: 0;
 }
 
 .textblock ul li p.startli,
