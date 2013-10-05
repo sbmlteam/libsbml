@@ -5,7 +5,7 @@ body {
 }
 
 body, table, div, p, dl {
-    color: #332;
+    color: #444;
     font-family: Geneva, Helvetica, Arial, Sans, sans-serif;
     font-size: 12px;
     font-weight: normal;
@@ -21,6 +21,7 @@ h1, h2, h3, h4, h5 {
     font-family: Helvetica, Arial, Sans, sans-serif;
     margin-top: 1em;
     margin-bottom: 0.5em;
+    color: #383838;
 }
 
 h1 {
@@ -32,7 +33,7 @@ h2, h2 a {
     font-weight: bold;
     letter-spacing: 1px;
     padding-top: 0.5em;
-    color: #443;
+    color: #383838;
     line-height: 120%;
 }
 
@@ -41,7 +42,7 @@ h2 {
 }
 
 h2 a.anchor, h3 a.anchor, h4 a.anchor, h2 a.anchor:hover, h3 a.anchor:hover, h4 a.anchor:hover {
-    color: #443;
+    color: #383838;
     text-decoration: none;
 }
 
@@ -58,7 +59,7 @@ h3 code {
 }
 
 h4, h4 a {
-    color: #443;
+    color: #383838;
     font-style: italic;
     font-size: 14px;
     font-weight: bold;
