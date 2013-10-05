@@ -2,7 +2,7 @@
 
 body, table, div, p, dl {
     color: #332;
-    font-family: Lucida Sans, Tahoma, Helvetica, Arial, Sans, sans-serif;
+    font-family: Geneva, Helvetica, Arial, Sans, sans-serif;
     font-size: 12px;
     font-weight: normal;
     line-height: 140%;
@@ -10,11 +10,16 @@ body, table, div, p, dl {
 
 /* @group Heading Levels */
 
+h1, h2, h3, h4, h5 {
+    font-family: Helvetica, Arial, Sans, sans-serif;
+}
+
 h1 {
     font-size: 150%;
 }
 
 .title {
+    font-family: Helvetica, Arial, Sans, sans-serif;
     font-size: 20px;
     font-weight: bold;
     margin: 10px 2px;
@@ -40,7 +45,7 @@ h2 a.anchor, h3 a.anchor, h4 a.anchor, h2 a.anchor:hover, h3 a.anchor:hover, h4 
 }
 
 h3, h3 a {
-    font-family: Lucida Sans, Tahoma, Helvetica, Arial, Sans, sans-serif;
+    font-family: Geneva, Helvetica, Arial, Sans, sans-serif;
     font-size: 16px;
     font-style: italic;
     font-weight: bold;
@@ -1074,14 +1079,15 @@ dl.section dd {
 
 #projectname
 {
-    font: 300% Lucida Sans, Tahoma, Helvetica, Arial, Sans, sans-serif;
+    font: 300% Helvetica, Arial, Sans, sans-serif;
+    font-weight: bold;
     margin: 0px;
     padding: 0px;
 }
 
 #projectbrief
 {
-    font-family: Lucida Sans, Tahoma, Helvetica, Arial, Sans, sans-serif;
+    font-family: Geneva, Helvetica, Arial, Sans, sans-serif;
     font-style: italic;
     font-size: 10px
     padding: 0px 0px 5px 0px;
@@ -1090,7 +1096,7 @@ dl.section dd {
 
 #projectnumber
 {
-    font: 18px Lucida Sans, Tahoma, Helvetica, Arial, Sans, sans-serif;
+    font: 18px Geneva, Helvetica, Arial, Sans, sans-serif;
     position: absolute;
     right: 10px;
     top: 20px;
@@ -1428,7 +1434,7 @@ td.signatureIntro {
 }
 
 td.signatureBlock { 
-  font-family: Lucida Sans, Tahoma, Helvetica, Arial, Sans, sans-serif;
+  font-family: Geneva, Helvetica, Arial, Sans, sans-serif;
   font-size: 14px;
   padding-left: 20px;
   padding-right: 20px;
@@ -1511,12 +1517,12 @@ body[bgcolor="white"] {
 /* The next are for javadoc */
 
 TD.footer {
-  font-family: Lucida Sans, Tahoma, Helvetica, Arial, Sans, sans-serif;
+  font-family: Geneva, Helvetica, Arial, Sans, sans-serif;
   font-size: 12px;
 }
 
 .footercomment {
-  font-family: Lucida Sans, Tahoma, Helvetica, Arial, Sans, sans-serif;
+  font-family: Geneva, Helvetica, Arial, Sans, sans-serif;
   font-size: x-small;
   font-style: italic;
   color: #555555;
@@ -1604,7 +1610,7 @@ tr.TableSubHeadingColor th {
 tr.TableHeadingColor th {
   color: black;
   letter-spacing: 1px;
-  font-family: Lucida Sans, Tahoma, Helvetica, Arial, Sans, sans-serif;
+  font-family: Geneva, Helvetica, Arial, Sans, sans-serif;
   font-size: 18px;
   padding: 5px 2px;
   background-color: #ddd;

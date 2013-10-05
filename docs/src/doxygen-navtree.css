@@ -115,6 +115,7 @@
 }
 
 #nav-tree-contents {
+  font-family: Helvetica, Arial, Sans, sans-serif;
   margin: 6px 0px 0px 0px;
   padding-right: 5px;
 }
@@ -167,5 +168,6 @@
 }
 
 #side-nav .label a {
+    font-family: Helvetica, Arial, Sans, sans-serif;
     font-weight: bold;
 }    

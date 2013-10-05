@@ -15,7 +15,7 @@
 }
 
 .tablist {
-    font-family: Lucida Sans, Tahoma, Helvetica, Arial, Sans, sans-serif;
+    font-family: Helvetica, Arial, Sans, sans-serif;
     margin: 0;
     padding: 0;
     display: table;
@@ -91,7 +91,7 @@
 .tablist li a[href="examples.html"],
 .tablist li a[href="functions.html"]
 {
-    width: 105px;
+    width: 99px;
     letter-spacing: -1px;
 }
 
