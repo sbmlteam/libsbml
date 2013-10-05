@@ -127,7 +127,7 @@ START_CONSTRAINT (QualTransitionLOElements, ListOfFunctionTerms, loft)
 {
   bool fail = false;
 
-  if (loft.size() == 0)
+  if (loft.size() == 0 && loft.isSetDefaultTerm() == false)
   {
     fail = true;
   }
