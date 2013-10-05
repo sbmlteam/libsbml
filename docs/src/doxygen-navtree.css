@@ -95,12 +95,12 @@
 .ui-resizable-e {
   background-color: #bbb;
   border-right: 1px dotted #666;
-  border-top: 1px solid white;
+  border-top: none;
   border-bottom: 1px solid #888;
   cursor:e-resize;
   height:100%;
   right: 0;
-  top:0;
+  top: 6px;
   width: 8px;
   box-shadow: 2px 0px 3px #999;
   -webkit-box-shadow: 2px 0px 3px #999;
@@ -116,11 +116,13 @@
 
 #nav-tree-contents {
   font-family: Helvetica, Arial, Sans, sans-serif;
-  margin: 6px 0px 0px 0px;
-  padding-right: 5px;
+  margin: 0px;
+  padding-right: 0;
 }
 
 #nav-tree {
+  margin-top: 6px;
+  padding-top: 0;
   background-color: #f0f0f0;
   -webkit-overflow-scrolling : touch; /* iOS 5+ */
 }
