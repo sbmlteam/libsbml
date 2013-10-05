@@ -98,8 +98,6 @@ p.endtd {
 /* @end */
 
 caption, figcaption {
-    padding-top: 0.5em;
-    padding-bottom: 0.5em;
     font-style: italic;
 }
 
@@ -208,7 +206,7 @@ dl.el {
 
 pre.fragment {
     font-family: "Courier New", Courier, monospace, fixed;
-    font-size:  9pt;
+    font-size: 10pt;
     font-weight: bold;
     border: 1px solid orange;
     background-color: #f0f0f0;
@@ -1237,6 +1235,7 @@ tt {
 code, .code {
     font-family: "Courier New", Courier, monospace, fixed;
     font-weight: bold;
+    font-size: 10pt;
     color: black;
 }
 
@@ -1283,14 +1282,14 @@ a code, code a {
 }
 
 .top-caption {
-  padding-top: 1em;
+  padding-top: 0.5em;
   padding-bottom: 0.5em;
   caption-side: top;
 }
 
 .bottom-caption {
   padding-top: 0.5em;
-  padding-bottom: 1em;
+  padding-bottom: 0.5em;
   caption-side: bottom;
 }
 
@@ -1299,8 +1298,8 @@ a code, code a {
   border-top: 1px solid #aaa;
   border-bottom: 1px solid #aaa;
   border-collapse: collapse;
-  margin: 0.5em auto 1em auto;
-  -webkit-margin: 1em auto 1em auto;
+  margin: 1em auto 1.5em auto;
+  padding-top: 0em;
 }
 
 .text-table {
@@ -1310,7 +1309,7 @@ a code, code a {
 .text-table th {
   font-size: 12px;
   background-color: #dfdfdf;
-  padding: 3px 0.5em 1px 0.5em;
+  padding: 3px 0.5em 0.5em 0.5em;
   border-bottom: 1px solid #bbb;
   vertical-align: bottom;
 }
@@ -1617,8 +1616,9 @@ tr.TableSubHeadingColor th {
   padding: 5px;
 }
 
-.center {
-  text-align: center;
+.centered {
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .center img { 
