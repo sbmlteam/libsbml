@@ -189,14 +189,9 @@ dl.el {
     overflow: auto;
     word-wrap: break-word;
     line-height: 125%;
-    -webkit-border-top-left-radius: 8px;
-    -webkit-border-top-right-radius: 8px;
-    -moz-border-radius-topleft: 8px;
-    -moz-border-radius-topright: 8px;
-    -moz-border-radius-bottomleft: 8px;
-    -moz-border-radius-bottomright: 8px;
-    -webkit-border-bottom-left-radius: 8px;
-    -webkit-border-bottom-right-radius: 8px;
+    border-radius: 8px;
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
 }
 
 .contents div.textblock div.fragment {
@@ -206,14 +201,9 @@ dl.el {
     padding-top: 0;
     margin: 0;
     line-height: 100%;
-    -webkit-border-top-left-radius: none;
-    -webkit-border-top-right-radius: none;
-    -moz-border-radius-topleft: none;
-    -moz-border-radius-topright: none;
-    -moz-border-radius-bottomleft: none;
-    -moz-border-radius-bottomright: none;
-    -webkit-border-bottom-left-radius: none;
-    -webkit-border-bottom-right-radius: none;
+    border-radius: none;
+    -webkit-border-radius: none;
+    -moz-border-radius: none;
 }
 
 pre.fragment {
@@ -229,14 +219,9 @@ pre.fragment {
     overflow: auto;
     word-wrap: break-word;
     line-height: 125%;
-    -webkit-border-top-left-radius: 8px;
-    -webkit-border-top-right-radius: 8px;
-    -moz-border-radius-topleft: 8px;
-    -moz-border-radius-topright: 8px;
-    -moz-border-radius-bottomleft: 8px;
-    -moz-border-radius-bottomright: 8px;
-    -webkit-border-bottom-left-radius: 8px;
-    -webkit-border-bottom-right-radius: 8px;
+    border-radius: 8px;
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
 }
 
 div.line {
@@ -605,7 +590,7 @@ table.memberdecls {
     padding: 2px 5px;
     background-color: #fff;
     border-top-width: 0;
-    /* opera specific markup */
+    /* general -- opera and IE */
     border-bottom-left-radius: 8px;
     border-bottom-right-radius: 8px;
     box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.15);
@@ -1263,14 +1248,9 @@ a code, code a {
   margin: 1.5em 4em 1.5em 4em;
   text-align: left;
   background-color: #edd;
-  -webkit-border-top-left-radius: 8px;
-  -webkit-border-top-right-radius: 8px;
-  -webkit-border-bottom-left-radius: 8px;
-  -webkit-border-bottom-right-radius: 8px;
-  moz-border-radius-topleft: 8px;
-  moz-border-radius-topright: 8px;
-  moz-border-radius-bottomleft: 8px;
-  moz-border-radius-bottomright: 8px;
+  border-radius: 8px;
+  -webkit-border-radius: 8px;
+  -moz-border-radius: 8px;
 }
 
 #doc-content ul li ul {
@@ -1731,18 +1711,9 @@ td.s-na {
     background-color: rgb(245, 255, 225);
 */
     padding: 0px 3px 1px 2px;
-    border-radius-bottomleft: 5px;
-    border-radius-bottomright: 5px;
-    border-radius-topleft: 5px;
-    border-radius-topright: 5px;
-    -moz-border-radius-bottomleft: 5px;
-    -moz-border-radius-bottomright: 5px;
-    -moz-border-radius-topleft: 5px;
-    -moz-border-radius-topright: 5px;
-    -webkit-border-bottom-left-radius: 5px;
-    -webkit-border-bottom-right-radius: 5px;
-    -webkit-border-top-left-radius: 5px;
-    -webkit-border-top-right-radius: 5px;
+    border-radius: 5px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
     font-size: 90%;
     font-style: italic;
 }
