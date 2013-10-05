@@ -586,6 +586,7 @@ table.memberdecls {
     background-color: #dfdfdf;
     -moz-box-shadow: 5px 5px 5px #bbb;
     -webkit-box-shadow: 5px 5px 5px #bbb;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#e5e5e5', endColorstr='#cccccc');
     background: -moz-linear-gradient(top, #e5e5e5, #ccc); 
     background: -webkit-gradient(linear, left top, left bottom, from(#e5e5e5), to(#bbb)); 
     background-image: linear-gradient(top, #e5e5e5, #ccc);
@@ -882,6 +883,7 @@ table.fieldtable {
 .navpath ul
 {
     font-size: 11px;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#f8f8f8', endColorstr='#bbbbbb');
     background-image: -webkit-gradient(linear, left top, left bottom, from(#f8f8f8), to(#bbb),color-stop(0.5, #ddd));
     background-image: -moz-linear-gradient(center top, #f8f8f8 0%, #ddd 50%, #bbb);
     background-repeat:repeat-x;
