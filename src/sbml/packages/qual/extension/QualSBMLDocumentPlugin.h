@@ -24,6 +24,21 @@
  * in the file named "LICENSE.txt" included with this software distribution
  * and also available online as http://sbml.org/software/libsbml/license.html
  * ------------------------------------------------------------------------ -->
+ *
+ * @class QualSBMLDocumentPlugin
+ * @ingroup qual
+ * @brief @htmlinclude pkg-marker-qual.html
+ * Implementation of the 'qual' package extention to the %SBMLDocument construct.
+ *
+ * The QualSBMLDocumentPlugin class inherits from the SBMLDocumentPlugin
+ * class, and codifies the extentions to the SBMLDocument class defined in
+ * the SBML Level&nbsp;3 @ref qual "Qualitative Models" package ('qual').
+ *
+ * The QualSBMLDocumentPlugin defines a
+ * required flag named <code>required</code>, which indicates whether the
+ * 'qual' constructs can be used to change the core mathematics of the
+ * <code>&lt;model&gt;</code> child of the <code>&lt;sbml&gt;</code> element.
+ * Because they can not, this attribute must be set @c false.
  */
 
 

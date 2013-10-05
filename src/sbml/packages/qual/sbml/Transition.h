@@ -24,6 +24,21 @@
  * in the file named "LICENSE.txt" included with this software distribution
  * and also available online as http://sbml.org/software/libsbml/license.html
  * ------------------------------------------------------------------------ -->
+ *
+ * @class Transition
+ * @ingroup qual
+ * @brief @htmlinclude pkg-marker-qual.html
+ * The Transition class for the Qualitative Models package.
+ *
+ * A Transition element contains at most one ListOfInputs and one ListOfOutputs and exactly one ListOfFunctionTerms.
+ *
+ * A Transition defines the changes in level associated with the QualitativeSpecies that occur when a Transition is enabled.
+ * 
+ * In logical models, a Transition is used to specify the logical rule associated with a QualitativeSpecies (that appears as an Output of this Transition). For example, the rule "if A > 1 : B = 2" would be encapsulated as a Transition with QualitativeSpecies "A" as an Input and "B" as an Output; the "if A > 1" rule being encode by the math element of a FunctionTerm with the resultLevel attribute having a value "2". 
+ *
+ * In Petri net models, a Transition is interpreted, using the common Petri net semantics, as events that might occur within the system causing tokens to be moved.
+ *
+ * 
  */
 
 
@@ -942,6 +957,31 @@ protected:
 
 };
 
+/**
+ * @class ListOfTransitions
+ * @ingroup qual
+ * @brief @htmlinclude pkg-marker-qual.html
+ * Implementation of the %ListOfTransitions construct from the 'qual' package.
+ * 
+ * The ListOfTransitions is a container for the Transition elements of a Model.
+ * 
+ * The various ListOf___ classes in SBML are merely containers used for
+ * organizing the main components of an SBML model.  All are derived from
+ * the abstract class SBase, and inherit the various attributes and
+ * subelements of SBase, such as "metaid" as and "annotation".  The
+ * ListOf___ classes do not add any attributes of their own.
+ *
+ * Readers may wonder about the motivations for using the ListOf___
+ * containers.  A simpler approach in XML might be to place the components
+ * all directly at the top level of the model definition.  The choice made
+ * in SBML is to group them within XML elements named after
+ * ListOf<em>Classname</em>, in part because it helps organize the
+ * components.  More importantly, the fact that the container classes are
+ * derived from SBase means that software tools can add information @em about
+ * the lists themselves into each list container's "annotation".
+ *
+ * @see Transition
+ */
 class LIBSBML_EXTERN ListOfTransitions : public ListOf
 {
 

@@ -29,6 +29,16 @@
  * @ingroup layout
  * @brief @htmlinclude pkg-marker-layout.html
  * Implementation of the 'layout' package extention to the %SBMLDocument construct.
+ *
+ * The LayoutSBMLDocumentPlugin class inherits from the SBMLDocumentPlugin
+ * class, and codifies the extentions to the SBMLDocument class defined in
+ * the SBML Level&nbsp;3 @ref layout "Layout" package ('layout').
+ *
+ * The LayoutSBMLDocumentPlugin defines a
+ * required flag named <code>required</code>, which indicates whether the
+ * 'fbc' constructs can be used to change the core mathematics of the
+ * <code>&lt;model&gt;</code> child of the <code>&lt;sbml&gt;</code> element.
+ * Because they can not, this attribute must be set @c false.
  */
 
 

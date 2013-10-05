@@ -24,6 +24,17 @@
  * in the file named "LICENSE.txt" included with this software distribution
  * and also available online as http://sbml.org/software/libsbml/license.html
  * ------------------------------------------------------------------------ -->
+ *
+ * @class QualitativeSpecies
+ * @ingroup qual
+ * @brief @htmlinclude pkg-marker-qual.html
+ * The QualitativeSpecies class for the Qualitative Models package.
+ *
+ * Similarly to the Species in SBML, the components of qualitative models refer to pools of entities that are considered indistinguishable and are each located in a specific Compartment. However, here components are characterised by their qualitative influences rather than by taking part in reactions. Therefore, we define the QualitativeSpecies element to represent such pools of entities. 
+ *
+ * In a Petri net, qualitative species refer to the places of the model, while in a logical model, they refer to the variables of this model (i.e. nodes of the influence graph).
+ *
+ * A QualitativeSpecies describes a pool of indistinguishable entities in a Compartment. It is associated with a level (an integer representing e.g. an activity state, or a functional level of concentration, etc.) 
  */
 
 
@@ -555,6 +566,31 @@ protected:
 
 };
 
+/**
+ * @class ListOfQualitativeSpecies
+ * @ingroup qual
+ * @brief @htmlinclude pkg-marker-qual.html
+ * Implementation of the %ListOfQualitativeSpecies construct from the 'qual' package.
+ * 
+ * The ListOfQualitativeSpecies is a container for the QualitativeSpecies elements of a Model.
+ * 
+ * The various ListOf___ classes in SBML are merely containers used for
+ * organizing the main components of an SBML model.  All are derived from
+ * the abstract class SBase, and inherit the various attributes and
+ * subelements of SBase, such as "metaid" as and "annotation".  The
+ * ListOf___ classes do not add any attributes of their own.
+ *
+ * Readers may wonder about the motivations for using the ListOf___
+ * containers.  A simpler approach in XML might be to place the components
+ * all directly at the top level of the model definition.  The choice made
+ * in SBML is to group them within XML elements named after
+ * ListOf<em>Classname</em>, in part because it helps organize the
+ * components.  More importantly, the fact that the container classes are
+ * derived from SBase means that software tools can add information @em about
+ * the lists themselves into each list container's "annotation".
+ *
+ * @see QualitativeSpecies
+ */
 class LIBSBML_EXTERN ListOfQualitativeSpecies : public ListOf
 {
 

@@ -39,11 +39,10 @@
  * that should be simulated.
  *
  * In addition, as all packages do, the CompSBMLDocumentPlugin defines a
- * required flag named <code>required</code>, which indicates whether the
- * 'comp' constructs in the document change the mathematics of the
+ * required flag named <code>required</code>, which indicates whether 
+ * 'comp' constructs can be used to change the core mathematics of the
  * <code>&lt;model&gt;</code> child of the <code>&lt;sbml&gt;</code> element.
- * If they do, this attribute must be set @c true, and if not, this attribute
- * must be set @c false.
+ * Because they can, this attribute must be set @c true.
  */
 
 #ifndef CompSBMLDocumentPlugin_h

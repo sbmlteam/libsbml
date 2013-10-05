@@ -116,36 +116,43 @@ public:
 
 
   /** @cond doxygenLibsbmlInternal */
-
   /**
    * Creates a new empty XMLErrorLog.
    */
   XMLErrorLog ();
+  /** @endcond */
 
+  /** @cond doxygenLibsbmlInternal */
   /**
    * Copy Constructor
    */
   XMLErrorLog (const XMLErrorLog& other);
+  /** @endcond */
 
+  /** @cond doxygenLibsbmlInternal */
   /**
    * Assignment operator
    */
   XMLErrorLog& operator=(const XMLErrorLog& other);
+  /** @endcond */
 
+  /** @cond doxygenLibsbmlInternal */
   /**
    * Destroys this XMLErrorLog.
    */
   virtual ~XMLErrorLog ();
+  /** @endcond */
 
-
+  /** @cond doxygenLibsbmlInternal */
   /**
    * Logs the given XMLError.
    *
    * @param error XMLError, the error to be logged.
    */
   void add (const XMLError& error);
+  /** @endcond */
 
-
+  /** @cond doxygenLibsbmlInternal */
   /**
    * Logs (copies) the XMLErrors in the given XMLError list to this
    * XMLErrorLog.
@@ -153,7 +160,9 @@ public:
    * @param errors list, a list of XMLError to be added to the log.
    */
   void add (const std::list<XMLError>& errors);
+  /** @endcond */
 
+  /** @cond doxygenLibsbmlInternal */
   /**
    * Logs (copies) the XMLErrors in the given XMLError list to this
    * XMLErrorLog.
@@ -161,8 +170,9 @@ public:
    * @param errors list, a list of XMLError to be added to the log.
    */
   void add (const std::vector<XMLError*>& errors);
+  /** @endcond */
 
-
+  /** @cond doxygenLibsbmlInternal */
   /**
    * Sets the XMLParser associated with this XMLErrorLog.
    *
@@ -181,7 +191,6 @@ public:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
    */
   int setParser (const XMLParser* p);
-
   /** @endcond */
 
 

@@ -30,6 +30,16 @@
  * @ingroup fbc
  * @brief @htmlinclude pkg-marker-fbc.html
  * Implementation of the 'fbc' package extention to the %SBMLDocument construct.
+ *
+ * The FbcSBMLDocumentPlugin class inherits from the SBMLDocumentPlugin
+ * class, and codifies the extentions to the SBMLDocument class defined in
+ * the SBML Level&nbsp;3 @ref fbc "Flux Balance Constraints" package ('fbc').
+ *
+ * The FbcSBMLDocumentPlugin defines a
+ * required flag named <code>required</code>, which indicates whether the
+ * 'fbc' constructs can be used to change the core mathematics of the
+ * <code>&lt;model&gt;</code> child of the <code>&lt;sbml&gt;</code> element.
+ * Because they can not, this attribute must be set @c false.
  */
 
 #ifndef FbcSBMLDocumentPlugin_h

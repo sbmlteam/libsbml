@@ -53,6 +53,7 @@
  * @class CompartmentGlyph
  * @ingroup layout
  * @brief @htmlinclude pkg-marker-layout.html
+ * Representation of a compartment glyph.
  */
 
 #ifndef CompartmentGlyph_H__
@@ -72,10 +73,6 @@
 LIBSBML_CPP_NAMESPACE_BEGIN
 
 
-/**
- * @ingroup Layout
- * @brief Representation of a compartment glyph.
- */
 class LIBSBML_EXTERN CompartmentGlyph : public GraphicalObject
 {
 protected:

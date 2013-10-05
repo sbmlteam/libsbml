@@ -25,12 +25,6 @@
  * in the file named "LICENSE.txt" included with this software distribution
  * and also available online as http://sbml.org/software/libsbml/license.html
  * ------------------------------------------------------------------------ -->
- *
- * @class FbcSBMLError
- * @ingroup fbc
- * @brief @htmlinclude pkg-marker-fbc.html
- * Representaton of errors, warnings and other diagnostics for the 'fbc'
- * package.
  */
 
 #ifndef FbcSBMLError_h

@@ -30,6 +30,8 @@
  * @ingroup qual
  * @brief @htmlinclude pkg-marker-qual.html
  * Implementation of the 'qual' package extention to the %Model construct.
+ * The extension of SBML Level 3 Core’s Model class is relatively straightforward: the Qualitative Models Package adds two lists, one for holding qualitativeSpecies (ListOfQualitativeSpecies), and the other for holding transitions (ListOfTransitions).
+ * The Model element may contain at most one ListOfQualitativeSpecies, which must contain at least one QualitativeSpecies. It may also contain at most one ListOfTransitions which must contain at least one Transition.
  */
 
 #ifndef QualModelPlugin_h
@@ -345,7 +347,7 @@ public:
   /**
    * Adds a copy of the given Transition object to the list of qual.
    *
-   * @param qualitativeSpecies the Transition object to be added to the list of qual.
+   * @param transition the Transition object to be added to the list of qual.
    *
    * @return integer value indicating success/failure of the
    * function.  @if clike The value is drawn from the

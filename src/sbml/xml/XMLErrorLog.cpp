@@ -53,6 +53,7 @@ XMLErrorLog::XMLErrorLog ()
 }
 /** @endcond */
 
+/** @cond doxygenLibsbmlInternal */
 /*
 * Copy Constructor
 */
@@ -62,7 +63,9 @@ XMLErrorLog::XMLErrorLog (const XMLErrorLog& other)
 {
   add(other.mErrors);
 }
+/** @endcond */
 
+/** @cond doxygenLibsbmlInternal */
 /*
 * Assignment operator
 */
@@ -76,9 +79,9 @@ XMLErrorLog& XMLErrorLog::operator=(const XMLErrorLog& other)
 
   return *this;
 }
+/** @endcond */
 
 /** @cond doxygenLibsbmlInternal */
-
 /**
  * Used by the Destructor to delete each item in mErrors.
  */
@@ -86,8 +89,9 @@ struct Delete : public unary_function<XMLError*, void>
 {
   void operator() (XMLError* error) { delete error; }
 };
+/** @endcond */
 
-
+/** @cond doxygenLibsbmlInternal */
 /*
  * Destroys this XMLErrorLog.
  */

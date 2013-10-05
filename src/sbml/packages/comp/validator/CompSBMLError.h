@@ -25,12 +25,6 @@
  * in the file named "LICENSE.txt" included with this software distribution
  * and also available online as http://sbml.org/software/libsbml/license.html
  * ------------------------------------------------------------------------ -->
- *
- * @class CompSBMLError
- * @ingroup comp
- * @brief @htmlinclude pkg-marker-comp.html
- * Representaton of errors, warnings and other diagnostics for the 'comp'
- * package.
  */
 
 #ifndef CompSBMLError_h

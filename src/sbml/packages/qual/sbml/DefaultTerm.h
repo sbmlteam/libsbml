@@ -24,6 +24,14 @@
  * in the file named "LICENSE.txt" included with this software distribution
  * and also available online as http://sbml.org/software/libsbml/license.html
  * ------------------------------------------------------------------------ -->
+ *
+ * @class DefaultTerm
+ * @ingroup qual
+ * @brief @htmlinclude pkg-marker-qual.html
+ * The DefaultTerm class for the Qualitative Models package.
+ *
+ * The DefaultTerm defines the default result of a Transition. This term is used if there are no other FunctionTerm 
+elements or if none of the Math elements of the FunctionTerm elements evaluates to @c true.
  */
 
 
