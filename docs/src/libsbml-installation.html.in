@@ -1,6 +1,6 @@
 <!-- ====================================================================== -->
-<center>
-<table style="font-size: 13px" border="0"><tr><td>
+
+<table style="font-size: 13px; margin: 0px auto" border="0"><tr><td>
 <a href="#quick">1. Quick start: avoid work by using ready-to-install binaries</a>
 
 </td></tr><tr><td>
@@ -38,7 +38,7 @@
 
 </td></tr>
 </table>
-</center>
+
 <!-- ====================================================================== -->
 
 
