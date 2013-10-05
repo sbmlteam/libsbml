@@ -1,5 +1,4 @@
-<center style="margin-bottom: 2em; margin-top: 2em">
-<table border="0">
+<table border="0" class="centered" style="margin-bottom: 2em; margin-top: 2em">
 <tr>
 <td style="font-size: small;">
 <a href="#math-overview">&bull; Basic Concepts</a>
@@ -14,7 +13,6 @@
 </td></tr><tr><td style="font-size: small;">
 </tr>
 </table>
-</center>
 
 
 This section describes libSBML's facilities for working with SBML
@@ -43,8 +41,7 @@ illustrates an example of how the mathematical expression "<code>1 +
 href="http://www.w3.org/Math/">MathML&nbsp;2.0</a> representation:
 </p>
 
-<center style="padding-bottom: 0.5em">
-<table border="0" class="text-table width80 normal-font">
+<table border="0" class="centered text-table width80 normal-font" style="padding-bottom: 0.5em">
 <caption class="top-caption">Example AST representation of a mathematical expression.</caption>
 <tr>
 <th>Infix</th>
@@ -69,7 +66,6 @@ href="http://www.w3.org/Math/">MathML&nbsp;2.0</a> representation:
 </td>
 </tr>
 </table>
-</center>
 
 <p>
 The following are noteworthy about the AST representation in libSBML:
@@ -280,8 +276,7 @@ the symbol <code>^</code>, which is used in C for a different purpose.
 <code>power</code>.)
 </p>
 
-<center>
-<table border="0" class="text-table width80 normal-font alt-row-colors">
+<table border="0" class="centered text-table width80 normal-font alt-row-colors">
  <tr style="background: lightgray; font-size: 14px;">
      <th align="left">Token</th>
      <th align="left">Operation</th>
@@ -304,7 +299,6 @@ text-string format for mathematical expressions used by <code><a
 href="org/sbml/libsbml/libsbml.html#parseFormula(java.lang.String)">
 libsbml.parseFormula</a>(java.lang.String)</code>. </caption>
 </table>
-</center>
 
 <p>
 A program parsing a formula in an SBML model should assume that names
@@ -329,8 +323,7 @@ summarizes the differences between the predefined functions in SBML
 Level&nbsp;1 and the MathML equivalents in SBML Levels&nbsp;2 and&nbsp;3:
 </p>
 
-<center>
-<table border="0" class="text-table width80 normal-font alt-row-colors">
+<table border="0" class="centered text-table width80 normal-font alt-row-colors">
  <tr style="background: lightgray; font-size: 14px;">
      <th align="left">Text string formula functions</th>
      <th align="left">MathML equivalents in SBML Levels&nbsp;2 and&nbsp;3</th>
@@ -352,7 +345,6 @@ libsbml.parseFormula</a>(java.lang.String)</code>; the right column shows
 their equivalent function names in MathML&nbsp;2.0, used in SBML
 Levels&nbsp;2 and&nbsp;3.</caption>
 </table>
-</center>
 
 
 <h2><a class="anchor" name="math-ast">Methods for working with libSBML's Abstract Syntax Trees</a></h2>
@@ -368,8 +360,7 @@ shown in the following table; their names hopefully evoke the construct
 that they represent:
 </p>
 
-<center>
-<table cellspacing="5" border="0" class="small-font">
+<table cellspacing="5" border="0" class="centered small-font">
  <tr><td><code></code></td><td><code></code></td><td><code></code></td></tr>
  <tr><td><code>AST_UNKNOWN</code></td><td><code>AST_FUNCTION_ARCCOTH</code></td><td><code>AST_FUNCTION_POWER</code></td></tr>
  <tr><td><code>AST_PLUS</code></td><td><code>AST_FUNCTION_ARCCSC</code></td><td><code>AST_FUNCTION_ROOT</code></td></tr>
@@ -394,7 +385,6 @@ that they represent:
  <tr><td><code>AST_FUNCTION_ARCCOSH</code></td><td><code>AST_FUNCTION_LOG</code></td></tr>
  <tr><td><code>AST_FUNCTION_ARCCOT</code></td><td><code>AST_FUNCTION_PIECEWISE</code></td></tr>
 </table>
-</center>
 
 <p> There are a number of methods for interrogating the type of an <code><a
 href="org/sbml/libsbml/ASTNode.html">ASTNode</a></code> and for testing
