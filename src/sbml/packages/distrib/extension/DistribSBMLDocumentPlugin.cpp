@@ -125,7 +125,7 @@ DistribSBMLDocumentPlugin::readAttributes (const XMLAttributes& attributes,
 
 
 bool
-DistribSBMLDocumentPlugin::isFlatteningImplemented() const
+DistribSBMLDocumentPlugin::isCompFlatteningImplemented() const
 {
   return false;
 }
