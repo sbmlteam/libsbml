@@ -1251,7 +1251,7 @@ div.toc li.level4 {
 .papers {
   border: 1px solid #cbb;
   padding: 4px;
-  margin: 1.5em 4em 1.5em 4em;
+  margin: 1em 4em 1em 4em;
   text-align: left;
   background-color: #edd;
   border-radius: 8px;
@@ -1456,6 +1456,10 @@ table.params td {
 
 table.params td.paramname {
     padding-left: 0;
+}
+
+.textblock ul {
+    padding-top: 0.5em;
 }
 
 .textblock ul li {
