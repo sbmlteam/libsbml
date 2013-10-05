@@ -1471,6 +1471,61 @@ SBMLDocument* test_flatten_fbc(string orig, string flat, string nofbc)
   return doc;
 }
 
+
+
+SBMLDocument* test_flatten_qual(string orig, string flat, string noqual)
+{ 
+  string filename(TestDataDirectory);
+ 
+  ConversionProperties* props = new ConversionProperties();
+  
+  props->addOption("flatten comp");
+  props->addOption("perform validation", false);
+
+  SBMLConverter* converter = SBMLConverterRegistry::getInstance().getConverterFor(*props);
+  
+  // load document
+  string cfile = filename + orig;  
+  SBMLDocument* doc = readSBMLFromFile(cfile.c_str());
+
+  // fail if there is no model (readSBMLFromFile always returns a valid document)
+  fail_unless(doc->getModel() != NULL);
+
+  //Fail if we claim there are errors in the document (there shouldn't be)
+
+  if (SBMLExtensionRegistry::isPackageEnabled("qual") == true)
+  {
+    fail_unless(doc->getErrorLog()->getNumFailsWithSeverity(LIBSBML_SEV_ERROR) == 0);
+  }
+
+  converter->setDocument(doc);
+  int result = converter->convert();
+  fail_unless(result == LIBSBML_OPERATION_SUCCESS);
+
+
+  string newModel = writeSBMLToString(doc);
+  string ffile;
+
+  // NOTE: fbc flattening is now implemented
+  if (SBMLExtensionRegistry::isPackageEnabled("qual") == true)
+  {
+    ffile = filename + flat;
+  }
+  else
+  {
+    ffile = filename + noqual;
+  }
+
+  SBMLDocument* fdoc = readSBMLFromFile(ffile.c_str());
+  string flatModel = writeSBMLToString(fdoc);
+  fail_unless(flatModel == newModel);
+
+  delete fdoc;
+  delete converter;
+  return doc;
+}
+
+
 START_TEST (test_comp_flatten_converter_layout1)
 { 
   SBMLDocument* doc = test_flatten_layout("aggregate_layout.xml", "aggregate_layout_flat.xml", "aggregate_layout_flat_layout_removed.xml");
@@ -1683,6 +1738,152 @@ START_TEST (test_comp_flatten_converter_fbc11)
 END_TEST
 
 
+START_TEST (test_comp_flatten_converter_qual1)
+{ 
+  SBMLDocument* doc = test_flatten_qual("aggregate_qual.xml", "aggregate_qual_flat.xml", "qual_flat_qual_removed.xml");
+  if (SBMLExtensionRegistry::isPackageEnabled("qual") == false)
+  {
+    fail_unless(doc->getNumErrors() == 2);
+    fail_unless(doc->getErrorLog()->getError(0)->getErrorId() == RequiredPackagePresent);
+    fail_unless(doc->getErrorLog()->getError(1)->getErrorId() == CompFlatteningNotRecognisedReqd);
+  }
+  delete doc;
+}
+END_TEST
+
+
+START_TEST (test_comp_flatten_converter_qual2)
+{ 
+  SBMLDocument* doc = test_flatten_qual("qual_deletion_1.xml", "qual_deletion_1_flat.xml", "qual_flat_qual_removed.xml");
+  if (SBMLExtensionRegistry::isPackageEnabled("qual") == false)
+  {
+    fail_unless(doc->getNumErrors() == 3);
+    fail_unless(doc->getErrorLog()->getError(0)->getErrorId() == RequiredPackagePresent);
+    fail_unless(doc->getErrorLog()->getError(1)->getErrorId() == CompFlatteningNotRecognisedReqd);
+    fail_unless(doc->getErrorLog()->getError(2)->getErrorId() == CompFlatteningWarning);
+  }
+  delete doc;
+}
+END_TEST
+
+
+START_TEST (test_comp_flatten_converter_qual3)
+{ 
+  SBMLDocument* doc = test_flatten_qual("qual_deletion_2.xml", "qual_deletion_2_flat.xml", "qual_flat_qual_removed.xml");
+  if (SBMLExtensionRegistry::isPackageEnabled("qual") == false)
+  {
+    fail_unless(doc->getNumErrors() == 3);
+    fail_unless(doc->getErrorLog()->getError(0)->getErrorId() == RequiredPackagePresent);
+    fail_unless(doc->getErrorLog()->getError(1)->getErrorId() == CompFlatteningNotRecognisedReqd);
+    fail_unless(doc->getErrorLog()->getError(2)->getErrorId() == CompFlatteningWarning);
+  }
+  delete doc;
+}
+END_TEST
+
+
+START_TEST (test_comp_flatten_converter_qual4)
+{ 
+  SBMLDocument* doc = test_flatten_qual("qual_deletion_3.xml", "qual_deletion_3_flat.xml", "qual_flat_qual_removed.xml");
+  if (SBMLExtensionRegistry::isPackageEnabled("qual") == false)
+  {
+    fail_unless(doc->getNumErrors() == 3);
+    fail_unless(doc->getErrorLog()->getError(0)->getErrorId() == RequiredPackagePresent);
+    fail_unless(doc->getErrorLog()->getError(1)->getErrorId() == CompFlatteningNotRecognisedReqd);
+    fail_unless(doc->getErrorLog()->getError(2)->getErrorId() == CompFlatteningWarning);
+  }
+  delete doc;
+}
+END_TEST
+
+
+START_TEST (test_comp_flatten_converter_qual5)
+{ 
+  SBMLDocument* doc = test_flatten_qual("qual_deletion_4.xml", "qual_deletion_4_flat.xml", "qual_flat_qual_removed.xml");
+  if (SBMLExtensionRegistry::isPackageEnabled("qual") == false)
+  {
+    fail_unless(doc->getNumErrors() == 3);
+    fail_unless(doc->getErrorLog()->getError(0)->getErrorId() == RequiredPackagePresent);
+    fail_unless(doc->getErrorLog()->getError(1)->getErrorId() == CompFlatteningNotRecognisedReqd);
+    fail_unless(doc->getErrorLog()->getError(2)->getErrorId() == CompFlatteningWarning);
+  }
+  delete doc;
+}
+END_TEST
+
+
+START_TEST (test_comp_flatten_converter_qual6)
+{ 
+  SBMLDocument* doc = test_flatten_qual("qual_deletion_5.xml", "qual_deletion_5_flat.xml", "qual_flat_qual_removed.xml");
+  if (SBMLExtensionRegistry::isPackageEnabled("qual") == false)
+  {
+    fail_unless(doc->getNumErrors() == 3);
+    fail_unless(doc->getErrorLog()->getError(0)->getErrorId() == RequiredPackagePresent);
+    fail_unless(doc->getErrorLog()->getError(1)->getErrorId() == CompFlatteningNotRecognisedReqd);
+    fail_unless(doc->getErrorLog()->getError(2)->getErrorId() == CompFlatteningWarning);
+  }
+  delete doc;
+}
+END_TEST
+
+
+START_TEST (test_comp_flatten_converter_qual7)
+{ 
+  SBMLDocument* doc = test_flatten_qual("qual_replacedBy_1.xml", "qual_replacedBy_1_flat.xml", "qual_flat_qual_removed.xml");
+  if (SBMLExtensionRegistry::isPackageEnabled("qual") == false)
+  {
+    fail_unless(doc->getNumErrors() == 2);
+    fail_unless(doc->getErrorLog()->getError(0)->getErrorId() == RequiredPackagePresent);
+    fail_unless(doc->getErrorLog()->getError(1)->getErrorId() == CompFlatteningNotRecognisedReqd);
+  }
+  delete doc;
+}
+END_TEST
+
+
+START_TEST (test_comp_flatten_converter_qual8)
+{ 
+  SBMLDocument* doc = test_flatten_qual("qual_replacedBy_2.xml", "qual_replacedBy_2_flat.xml", "qual_flat_qual_removed.xml");
+  if (SBMLExtensionRegistry::isPackageEnabled("qual") == false)
+  {
+    fail_unless(doc->getNumErrors() == 2);
+    fail_unless(doc->getErrorLog()->getError(0)->getErrorId() == RequiredPackagePresent);
+    fail_unless(doc->getErrorLog()->getError(1)->getErrorId() == CompFlatteningNotRecognisedReqd);
+  }
+  delete doc;
+}
+END_TEST
+
+
+START_TEST (test_comp_flatten_converter_qual9)
+{ 
+  SBMLDocument* doc = test_flatten_qual("qual_replacement_1.xml", "qual_replacement_1_flat.xml", "qual_flat_qual_removed.xml");
+  if (SBMLExtensionRegistry::isPackageEnabled("qual") == false)
+  {
+    fail_unless(doc->getNumErrors() == 2);
+    fail_unless(doc->getErrorLog()->getError(0)->getErrorId() == RequiredPackagePresent);
+    fail_unless(doc->getErrorLog()->getError(1)->getErrorId() == CompFlatteningNotRecognisedReqd);
+  }
+  delete doc;
+}
+END_TEST
+
+
+START_TEST (test_comp_flatten_converter_qual10)
+{ 
+  SBMLDocument* doc = test_flatten_qual("qual_replacement_2.xml", "qual_replacement_2_flat.xml", "qual_flat_qual_removed.xml");
+  if (SBMLExtensionRegistry::isPackageEnabled("qual") == false)
+  {
+    fail_unless(doc->getNumErrors() == 2);
+    fail_unless(doc->getErrorLog()->getError(0)->getErrorId() == RequiredPackagePresent);
+    fail_unless(doc->getErrorLog()->getError(1)->getErrorId() == CompFlatteningNotRecognisedReqd);
+  }
+  delete doc;
+}
+END_TEST
+
+
+
 START_TEST(test_comp_validator_44781839)
 {
   SBMLDocument* doc = NULL;
@@ -1856,6 +2057,16 @@ create_suite_TestFlatteningConverter (void)
   tcase_add_test(tcase, test_comp_flatten_converter_fbc9);
   tcase_add_test(tcase, test_comp_flatten_converter_fbc10);
   tcase_add_test(tcase, test_comp_flatten_converter_fbc11);
+  tcase_add_test(tcase, test_comp_flatten_converter_qual1);
+  tcase_add_test(tcase, test_comp_flatten_converter_qual2);
+  tcase_add_test(tcase, test_comp_flatten_converter_qual3);
+  tcase_add_test(tcase, test_comp_flatten_converter_qual4);
+  tcase_add_test(tcase, test_comp_flatten_converter_qual5);
+  tcase_add_test(tcase, test_comp_flatten_converter_qual6);
+  tcase_add_test(tcase, test_comp_flatten_converter_qual7);
+  tcase_add_test(tcase, test_comp_flatten_converter_qual8);
+  tcase_add_test(tcase, test_comp_flatten_converter_qual9);
+  tcase_add_test(tcase, test_comp_flatten_converter_qual10);
 
   tcase_add_test(tcase, test_comp_validator_44781839);
  

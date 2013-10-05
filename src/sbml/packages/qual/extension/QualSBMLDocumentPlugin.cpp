@@ -133,7 +133,7 @@ QualSBMLDocumentPlugin::readAttributes (const XMLAttributes& attributes,
 bool
 QualSBMLDocumentPlugin::isFlatteningImplemented() const
 {
-  return false;
+  return true;
 }
 /** @endcond */
 
