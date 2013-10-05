@@ -1,4 +1,5 @@
 .tabs, .tabs2, .tabs3 {
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='whiteSmoke', endColorstr='#cccccc');
     background: -moz-linear-gradient(-90deg, whiteSmoke, #CCC);
     background: -webkit-gradient(linear, left top, left bottom, from(whiteSmoke), to(#CCC));
     width: 100%;
@@ -34,6 +35,7 @@
     padding: 0 5px;
     text-align: center;
     font-weight: bold;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='whiteSmoke', endColorstr='#cccccc');
     background: -moz-linear-gradient(-90deg, whiteSmoke, #CCC);
     background: -webkit-gradient(linear, left top, left bottom, from(whiteSmoke), to(#CCC));
     color: #283A5D;
