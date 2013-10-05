@@ -1777,4 +1777,5 @@ a[href="#details"] {
 img.big-icon {
     vertical-align: -40%;
     margin: auto 5px;
+    border: none;
 }
