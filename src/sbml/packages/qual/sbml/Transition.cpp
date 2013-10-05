@@ -171,6 +171,12 @@ Transition::getElementByMetaId(std::string metaid)
   if (mInputs.getMetaId() == metaid) return &mInputs;
   if (mOutputs.getMetaId() == metaid) return &mOutputs;
   if (mFunctionTerms.getMetaId() == metaid) return &mFunctionTerms;
+  
+  if (mFunctionTerms.isSetDefaultTerm() == true &&
+    mFunctionTerms.getDefaultTerm()->getMetaId() == metaid)
+  {
+    return mFunctionTerms.getDefaultTerm();
+  }
 
   SBase* obj = mInputs.getElementByMetaId(metaid);
   if (obj != NULL) {
@@ -909,7 +915,6 @@ Transition::getAllElements(ElementFilter* filter)
   ADD_FILTERED_LIST(ret, sublist, mInputs, filter);
   ADD_FILTERED_LIST(ret, sublist, mOutputs, filter);
   ADD_FILTERED_LIST(ret, sublist, mFunctionTerms, filter);
-
 
   ADD_FILTERED_FROM_PLUGIN(ret, sublist, filter);
 

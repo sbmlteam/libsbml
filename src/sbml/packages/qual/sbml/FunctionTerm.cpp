@@ -844,6 +844,27 @@ ListOfFunctionTerms::isSetDefaultTerm() const
 }
 
 
+List*
+ListOfFunctionTerms::getAllElements(ElementFilter *filter)
+{
+  List* ret = new List();
+  List* sublist = NULL;
+  for (unsigned int i = 0; i < size(); i++) {
+    SBase* obj = get(i);
+    if (filter == NULL || filter->filter(obj))
+      ret->add(obj);
+    sublist = obj->getAllElements(filter);
+    ret->transferFrom(sublist);
+    delete sublist;
+  }
+
+  ADD_FILTERED_POINTER(ret, sublist, mDefaultTerm, filter);  
+
+
+  ADD_FILTERED_FROM_PLUGIN(ret, sublist, filter);
+
+  return ret;
+}
 
   /** @cond doxygenLibsbmlInternal */
 

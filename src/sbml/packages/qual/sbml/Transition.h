@@ -136,7 +136,8 @@ public:
 
 
   /**
-   * Returns the first child element found that has the given @p id in the model-wide SId namespace, or @c NULL if no such object is found.
+   * Returns the first child element found that has the given @p id 
+   * in the model-wide SId namespace, or @c NULL if no such object is found.
    *
    * @param id string representing the id of objects to find
    *
@@ -146,7 +147,9 @@ public:
   
   
   /**
-   * Returns the first child element it can find with the given @p metaid, or itself if it has the given @p metaid, or @c NULL if no such object is found.
+   * Returns the first child element it can find with the given @p metaid, 
+   * or itself if it has the given @p metaid, or @c NULL if no such object 
+   * is found.
    *
    * @param metaid string representing the metaid of objects to find
    *

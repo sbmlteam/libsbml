@@ -42,6 +42,7 @@ CK_CPPSTART
 Suite *create_suite_QualExtension (void);
 Suite *create_suite_WriteQualExtension (void);
 Suite *create_suite_ReadQualExtension (void);
+Suite *create_suite_GetAllElements (void);
 
 /**
  * Global.
@@ -82,6 +83,7 @@ main (int argc, char* argv[])
   SRunner *runner = srunner_create(create_suite_QualExtension());
   srunner_add_suite(runner, create_suite_WriteQualExtension());
   srunner_add_suite(runner, create_suite_ReadQualExtension());
+  srunner_add_suite(runner, create_suite_GetAllElements());
 
   if (argc > 1 && !strcmp(argv[1], "-nofork"))
   {
