@@ -7,39 +7,61 @@ Version 5.9.0 ()
 
 STABLE RELEASE
 
+* Qualitative Models
+
+  - The first official version of the specification of the Qualitative
+    Models package is now available and thus the libSBML code for
+    'qual' is now included in the stable release of libSBML.  This
+    means that all prebuilt binaries for the stable release will
+    include the 'qual' package code. The src archive containing
+    libSBML core code will continue to be available but there will be
+    additional src archives available in the stable branch: one
+    containing libSBML core plus all stable packages and additional
+    archives of the individual package code.
+    
+    NOTE: The libSBML GNU make-based build system has not been updated
+          for packages. Thus, to build from src, it is necessary to
+          use the CMake build system.
+
+
 * New features
 
   - The SyntaxChecker class has a new function isValidXMLanyURI(std::string)
     that checks whether the string has the valid syntax for an 
-	XML anyURI datatype http://www.w3.org/TR/xmlschema-2/#anyURI.
+    XML anyURI datatype http://www.w3.org/TR/xmlschema-2/#anyURI.
 
   - There is a new base class ElementFilter that can be passed as an
     optional argument to the getAllElements function.  When implemented
-	this allows the elements to be filtered in whatever fashion
-	before being added to the List returned by the getAllElements()
-	function. The example getAllElementsWithNotes illustrates
-	this functionality.
+    this allows the elements to be filtered in whatever fashion
+    before being added to the List returned by the getAllElements()
+    function. The example getAllElementsWithNotes illustrates
+    this functionality.
 
   - There is new functionality to facilitate replacing the id
     attribute and all references to that id within a model. There 
-	is a new base class IdentifierTransformer that when passed
-	to the function renameAllIds on the Model object will perform
-	the transformation specified by the IdentifierTransformer class
-	on all id attributes within the model. Users should derive their 
-	own IdentifierTransformer class to perform the transformation
-	they require.  The example setIdFromName illustrates this
-	functionality.
-	
+    is a new base class IdentifierTransformer that when passed
+    to the function renameAllIds on the Model object will perform
+    the transformation specified by the IdentifierTransformer class
+    on all id attributes within the model. Users should derive their 
+    own IdentifierTransformer class to perform the transformation
+    they require.  The example setIdFromName illustrates this
+    functionality.
+  
   - The class IdList which allows users to create and manipulate 
     lists of 'id' strings has been made publically available. 
     Previously this class has been used internally by validation 
     and conversion code.  It is now available in the sbml/util
     directory.
-	
+  
   - There is a new converter, the SBMLIdConverter, that will allow
     a user to replace several ids within a model. The converter requires
     a comma seperated list of existing ids and another of the replacement
-    ids and will perform the necessary replacements.	
+    ids and will perform the necessary replacements.  
+    
+  - There is a new converter, teh SBMLLocalParameterConverter, that
+    will allow a user to replace any localParameters with global
+    parameters.  The promoteParameters example illustrates the use 
+    of this converter.
 
   - There are two new function SBML_formulaToL3String(ASTNode_t*) and
     SBML_formulaToL3StringWithSettings(ASTNode_t* L3ParrserSettings_t*)
@@ -58,17 +80,19 @@ STABLE RELEASE
     applied to the errorLog until such time as the status is reset.
     This facilitates the use of functions, that may on occasion log
     errors, in a situiation were error logging is not required.
-	
+  
   - There is a new function XMLErrorLog::changeErrorSeverity
     (XMLErrorSeverity_t , XMLErrorSeverity_t, std::string package)
-	that will chang the severity of errors within in the errorLog
-	based on the package name supplied.
-
-
+    that will chang the severity of errors within in the errorLog
+    based on the package name supplied.
+    
+  - The XMLErrorLog and SBMLErrorLog classes now have explicit
+    implementations for the copy and assignment constructors. 
+    
   - The SBase functions getURI() and getPrefix() that return 
     information relating to the namespace of the object have been
     made public. Formerly these functions were protected.
-	
+  
   - The function removeTopLevelAnnotationElement(const std::string 
     elementName, const std::string elementURI = "") allows users to
     remove a single top level element from the annotation node. If,
@@ -76,7 +100,7 @@ STABLE RELEASE
     node had no child elements the entire node was being deleted.
     There is now an additional optional argument to this function,
     bool removeEmpty, that allows the user to specify that they do not
-    wish the annotation to be deleted. 	
+    wish the annotation to be deleted.   
 
   - There are two new function on the SBase class that allow an
     element to be read from and written to an XMLNode.  The XMLNode
@@ -91,39 +115,46 @@ STABLE RELEASE
     expensive in that they serialise to a string. This drawback will
     be addressed in future libSBML architecture but cannot be overcome
     with the current libSBML-5 implementation.
-	
+  
   - 'layout' package-specific updates:
   
-	  - The code reading and writing layout as an annotation has been
+    - The code reading and writing layout as an annotation has been
       adapted to use the new read/write to/from XMLNode functions.
       This greatly reduces the complexity and repetition of code
-      previously needed to perform these functions.	  
+      previously needed to perform these functions.    
 
   - 'comp' package-specific updates:
   
-      - All the validation rules have been fully implemented.
-	  If there are no errors the validation process will proceed
-	  to produce a flattened version of the model and perform
-	  and report validation errors relating to the flattened model.
-	  
-	  - There is an additional option for the CompFlatteningConverter
-	  to allow the users to request that the document is validated
-	  before, during and after flattening. This provides the user with
-	  detailed information regarding why a document has failed to
-	  flatten as well as detailing any warnings related to the document
-      returned on success.	  
-	  
+    - All the validation rules have been fully implemented.
+      If there are no errors the validation process will proceed
+      to produce a flattened version of the model and perform
+      and report validation errors relating to the flattened model.
+    
+    - There is an additional option for the CompFlatteningConverter
+      to allow the users to request that the document is validated
+      before, during and after flattening. This provides the user with
+      detailed information regarding why a document has failed to
+      flatten as well as detailing any warnings related to the document
+      returned on success.    
+      
+    - The flattening routine has been extended to include all packages
+      available within the stable release: layout, qual and fbc.
+    
 * Bug fixes
+
+  - The converter that expanded functionDefinitions was failing to 
+    correctly deal with any csymbols it encountered in the math.
+    This has been fixed.
 
   - Conversion between SBML Levels was not correctly handling the 
     units attributes that appear on the Model object in an Level 3
-	model. This has been fixed. Thanks to Pratham Shah for the report.
+    model. This has been fixed. Thanks to Pratham Shah for the report.
 
   - The UnitDefinition::printUnits function had a mismatch between
     integer and double values for the exponent; causing incorrect
-	values to be used on occasion. This has been fixed. Thanks
-	to Pratham Shah for reporting this.
-	
+    values to be used on occasion. This has been fixed. Thanks
+    to Pratham Shah for reporting this.
+  
   - An annotation on a package element is permitted to use the 
     SBML namespace.  However, this situation was logging an error.
     This has been corrected.
@@ -135,13 +166,13 @@ STABLE RELEASE
   - 'comp' package-specific bug fixes:
   
     - It is possible to construct a model which tries to delete an 
-	  object more than once.  This was not being detected correctly.
-	  This has been addressed and flattening code will report this 
-	  issue as an error.
-	  
-	- Similarly replacing both an object and independently replacing
-	  a child of that object could also cause problems. These have
-	  been sorted.
+      object more than once.  This was not being detected correctly.
+      This has been addressed and flattening code will report this 
+      issue as an error.
+    
+    - Similarly replacing both an object and independently replacing
+      a child of that object could also cause problems. These have
+      been sorted.
 
 * Configuration/build system changes
 
@@ -152,8 +183,21 @@ STABLE RELEASE
 EXPERIMENTAL RELEASE
 
 * New features
+ 
+* Distributions
 
-  - '' package-specific new features:
+  - There is now a stabilized version of the specification for the
+    Distributions package and the experimental release now includes
+    code for this 'distrib' package.  As is the case with all packages
+    included in the Experimental Release the binaries are built with
+    'distrib' enabled and the libsbml source archive includes the
+    source code.
+    
+
+  - 'groups' package-specific new features:
+  
+    - The 'groups' package code has been updated to include revisions
+      made to teh latest specification.
   
 * Bug fixes
 
