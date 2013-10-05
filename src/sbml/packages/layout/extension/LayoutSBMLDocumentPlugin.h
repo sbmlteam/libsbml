@@ -126,7 +126,7 @@ public:
 	 * @returns @c true if flattening for composed models has been implemented,
 	 * false otherwise.
 	 */
-	virtual bool isFlatteningImplemented() const;
+	virtual bool isCompFlatteningImplemented() const;
 
 
 	/** @endcond doxygenLibsbmlInternal */

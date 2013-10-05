@@ -111,7 +111,7 @@ public:
 
 #endif //SWIG
  
-  virtual bool isFlatteningImplemented() const;
+  virtual bool isCompFlatteningImplemented() const;
 
 
   virtual unsigned int checkConsistency(); 

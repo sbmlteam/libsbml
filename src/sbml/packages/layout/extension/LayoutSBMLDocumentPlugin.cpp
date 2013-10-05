@@ -132,7 +132,7 @@ LayoutSBMLDocumentPlugin::readAttributes (const XMLAttributes& attributes,
 
 /** @cond doxygenLibsbmlInternal */
 bool
-LayoutSBMLDocumentPlugin::isFlatteningImplemented() const
+LayoutSBMLDocumentPlugin::isCompFlatteningImplemented() const
 {
   return true;
 }

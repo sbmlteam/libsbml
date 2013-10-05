@@ -182,7 +182,7 @@ SBMLDocumentPlugin::writeAttributes (XMLOutputStream& stream) const
 }
 
 bool
-SBMLDocumentPlugin::isFlatteningImplemented() const
+SBMLDocumentPlugin::isCompFlatteningImplemented() const
 {
   return false;
 }

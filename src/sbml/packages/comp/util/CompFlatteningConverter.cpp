@@ -547,7 +547,7 @@ CompFlatteningConverter::canBeFlattened()
     for (unsigned int i = 0; i < mDocument->getNumPlugins(); i++)
     {
       if (static_cast<SBMLDocumentPlugin*>(mDocument->getPlugin(i))
-                                        ->isFlatteningImplemented() == false)
+                                        ->isCompFlatteningImplemented() == false)
       {
         if (static_cast<SBMLDocumentPlugin*>(mDocument->getPlugin(i))
                                           ->getRequired() == true)
@@ -609,7 +609,7 @@ CompFlatteningConverter::canBeFlattened()
   for (unsigned int i = 0; i < mDocument->getNumPlugins(); i++)
   {
     if (static_cast<SBMLDocumentPlugin*>(mDocument->getPlugin(i))
-      ->isFlatteningImplemented() == false)
+      ->isCompFlatteningImplemented() == false)
     {
       unsigned int warningnumber = CompFlatteningNotImplementedNotReqd;
       std::string message = "The ";

@@ -687,7 +687,7 @@ CompSBMLDocumentPlugin::clearStoredURIDocuments()
 }
 
 bool
-CompSBMLDocumentPlugin::isFlatteningImplemented() const
+CompSBMLDocumentPlugin::isCompFlatteningImplemented() const
 {
   return true;
 }

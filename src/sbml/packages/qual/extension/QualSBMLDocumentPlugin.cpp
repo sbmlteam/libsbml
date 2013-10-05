@@ -131,7 +131,7 @@ QualSBMLDocumentPlugin::readAttributes (const XMLAttributes& attributes,
 
 /** @cond doxygenLibsbmlInternal */
 bool
-QualSBMLDocumentPlugin::isFlatteningImplemented() const
+QualSBMLDocumentPlugin::isCompFlatteningImplemented() const
 {
   return true;
 }

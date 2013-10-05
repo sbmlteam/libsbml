@@ -118,7 +118,7 @@ FbcSBMLDocumentPlugin::readAttributes (const XMLAttributes& attributes,
 
 
 bool
-FbcSBMLDocumentPlugin::isFlatteningImplemented() const
+FbcSBMLDocumentPlugin::isCompFlatteningImplemented() const
 {
   return true;
 }
