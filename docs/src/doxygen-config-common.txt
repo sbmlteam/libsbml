@@ -331,6 +331,8 @@ WARN_LOGFILE           =
 # with spaces.
 
 INPUT =                                    \
+  doxygen-regular-text-end.html            \
+  doxygen-regular-text-start.html          \
   libsbml-accessing.txt                    \
   libsbml-blurb.txt                        \
   libsbml-changes.txt                      \
@@ -683,7 +685,7 @@ BINARY_TOC             = NO
 # The TOC_EXPAND flag can be set to YES to add extra items for group members 
 # to the contents of the HTML help documentation and to the tree view.
 
-TOC_EXPAND             = YES
+TOC_EXPAND             = NO
 
 # The DISABLE_INDEX tag can be used to turn on/off the condensed index at 
 # top of each HTML page. The value NO (the default) enables the index and 
