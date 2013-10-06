@@ -16,7 +16,7 @@ class Tests(unittest.TestCase):
         fname      = rewrite_pydoc.get_input_file_name(args)
         contents   = rewrite_pydoc.read_file_contents(fname)
         rewritten  = rewrite_pydoc.rewrite(contents, '../../../../docs/src/common-text',
-                                           '../../../../docs/src/graphics', False)
+                                           '../../../../docs/src/common-graphics', False)
         expected   = open(testoutput, 'r').read()
         self.assertEqual(rewritten, expected)
 
