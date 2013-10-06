@@ -3,8 +3,10 @@
 <p> This section provides information about libSBML releases, including
 change histories, known issues, and licensing.
 
+@htmlinclude doxygen-regular-text-start.html
 - @subpage changes
 - @subpage libsbml-issues
 - @subpage libsbml-license
+@htmlinclude doxygen-regular-text-end.html
 
 */

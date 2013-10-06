@@ -222,7 +222,14 @@ a.qindexHL {
 }
 
 a.el {
+    font-family: "Courier New", Courier, monospace, fixed;
     font-weight: bold;
+    font-size: 10pt;
+}
+
+.regular-text a.el {
+    font-family: Verdana, Helvetica, Arial, Sans, sans-serif;
+    font-size: 12px;
 }
 
 a.elRef {
@@ -534,12 +541,18 @@ table.memberdecls {
 }
 
 .memItemLeft, .memTemplItemLeft {
+    font-family: "Courier New", Courier, monospace, fixed;
+    font-weight: bold;
+    font-size: 10pt;
     white-space: nowrap;
 }
 
 .memItemRight {
+    font-family: "Courier New", Courier, monospace, fixed;
+    font-weight: bold;
+    font-size: 10pt;
     width: 100%;
-    padding-bottom: 4px;
+    padding-bottom: 2px;
 }
 
 .mdescLeft, .mdescRight {
@@ -555,6 +568,12 @@ table.memberdecls {
 .memTemplParams {
     color: #4665A2;
     white-space: nowrap;
+}
+
+table.mlabels, 
+table.memname {
+    margin-top: 0;
+    margin-bottom: 0;
 }
 
 /* @end */
@@ -590,6 +609,9 @@ table.memberdecls {
 }
 
 .memname {
+    font-family: "Courier New", Courier, monospace, fixed;
+    font-weight: bold;
+    font-size: 10pt;
     white-space: nowrap;
     font-weight: bold;
     margin-left: 6px;
@@ -670,7 +692,10 @@ dl dd dl dd p {
 }
 
 .paramname {
-    color: #602020;
+    font-family: "Courier New", Courier, monospace, fixed;
+    font-weight: bold;
+    font-size: 10pt;
+    color: #803030;
     white-space: nowrap;
     vertical-align: top;
 }
@@ -1573,7 +1598,8 @@ font.NavBarFont1Rev b {
 td[align="right"] {
   background-color: #eee;  
   vertical-align: bottom;
-  padding: 5px;
+  padding-top: 2px;
+  padding-bottom: 2px;
 }
 
 #doc-content td[align="right"] {

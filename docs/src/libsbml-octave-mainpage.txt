@@ -9,6 +9,7 @@ Systems Biology Markup Language (SBML).
 @htmlinclude libsbml-blurb.html
 
 @htmlinclude force-serif-font-on.html
+@htmlinclude doxygen-regular-text-start.html
 <h2>General information</h2>
 - @subpage libsbml-installation
 - @subpage libsbml-accessing
@@ -22,6 +23,7 @@ Systems Biology Markup Language (SBML).
 - @subpage libsbml-communications
 
 @htmlinclude force-serif-font-off.html
+@htmlinclude doxygen-regular-text-end.html
 @htmlinclude libsbml-papers.html
 
 @htmlinclude FUNDING.txt
