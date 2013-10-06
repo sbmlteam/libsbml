@@ -292,7 +292,7 @@ pydoc-doxygen.i: $(swig_sources) $(main_sources) ../swig/swigdoc.py doc-converte
 
 pydoc-normal.i: pydoc-doxygen.i
 	./doc-converter/rewrite_pydoc.py -f pydoc-doxygen.i -o pydoc-normal.i \
-		-i ../../../docs/src/common-text -g ../../../docs/src/graphics
+		-i ../../../docs/src/common-text -g ../../../docs/src/common-graphics
 
 # Swig gets run twice, once with documentation strings whose format are
 # suitable for use within Python (e.g., for the 'help' command), and once

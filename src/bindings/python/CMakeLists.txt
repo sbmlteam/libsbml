@@ -123,7 +123,7 @@ ADD_CUSTOM_COMMAND(
 			-f "${CMAKE_CURRENT_BINARY_DIR}/pydoc-doxygen.i"
 			-o "${CMAKE_CURRENT_BINARY_DIR}/pydoc-normal.i"
 			-i ${CMAKE_CURRENT_SOURCE_DIR}/../../../docs/src/common-text
-			-g ${CMAKE_CURRENT_SOURCE_DIR}/../../../docs/src/graphics
+			-g ${CMAKE_CURRENT_SOURCE_DIR}/../../../docs/src/common-graphics
 	COMMAND "${CMAKE_COMMAND}"
 	ARGS    -E rename pydoc-doxygen.i pydoc.i
     COMMAND "${SWIG_EXECUTABLE}"
