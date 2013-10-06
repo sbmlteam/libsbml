@@ -53,6 +53,7 @@
  * @class BoundingBox
  * @ingroup layout
  * @brief @htmlinclude pkg-marker-layout.html
+ * Representation of a bounding box.
  */
 
 #ifndef BoundingBox_H__
@@ -76,10 +77,6 @@
 LIBSBML_CPP_NAMESPACE_BEGIN
 
 
-/**
- * @ingroup Layout
- * @brief Representation of a bounding box.
- */
 class LIBSBML_EXTERN BoundingBox : public SBase
 {
 protected:
