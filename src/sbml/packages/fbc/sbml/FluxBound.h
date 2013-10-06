@@ -496,9 +496,9 @@ protected:
 
 /**
  * @class ListOfFluxBounds
- * @ingroup qual
- * @brief @htmlinclude pkg-marker-qual.html
- * Implementation of the %ListOfFluxBounds construct from the 'qual' package.
+ * @ingroup fbc
+ * @brief @htmlinclude pkg-marker-fbc.html
+ * Implementation of the %ListOfFluxBounds construct from the 'fbc' package.
  * 
  * The ListOfFluxBounds is a container for the FluxBound elements of a Model.
  * 
