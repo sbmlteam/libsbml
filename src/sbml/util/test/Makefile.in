@@ -87,6 +87,29 @@ ifdef USE_LIBCHECK
   extra_clean       += $(check_driver)
 endif
 
+ifdef USE_EXPAT
+  extra_CPPFLAGS += $(EXPAT_CPPFLAGS)
+  extra_LDFLAGS  += $(EXPAT_LDFLAGS)
+  extra_LIBS     += $(EXPAT_LIBS)
+endif
+
+ifdef USE_XERCES
+  extra_CPPFLAGS += $(XERCES_CPPFLAGS)
+  extra_LDFLAGS  += $(XERCES_LDFLAGS)
+  extra_LIBS     += $(XERCES_LIBS)
+endif
+
+ifdef USE_LIBXML
+  extra_CPPFLAGS += $(LIBXML_CPPFLAGS)
+  extra_LDFLAGS  += $(LIBXML_LDFLAGS)
+  extra_LIBS     += $(LIBXML_LIBS)
+endif
+
+# Remove duplicates, just to shorten the command line.
+
+extra_CPPFLAGS := $(sort $(extra_CPPFLAGS))
+extra_LDFLAGS  := $(sort $(extra_LDFLAGS))
+
 # `distfiles' determines the files and directories included in a distribution.
 # `distfiles_exclude' is used to filter out specific items, so that even if
 # they appear in `distfiles', they will not be copied in the distribution.
@@ -113,9 +136,13 @@ all: Makefile
 # which is included at the bottom of this file.
 
 tmp     = $(test_sources:.cpp=.lo) $(test_sources:.c=.lo)
-objects = $(filter %.lo,$(tmp))
+localobjfiles = $(filter %.lo,$(tmp))
+otherdirs     = .. ../.. ../../xml ../../math ../../validator \
+	../../validator/constraints ../../units ../../compress ../../common \
+        ../../extension ../../conversion ../../annotation
 
-test_objfiles = $(objects) $(wildcard ../*.lo)
+otherobjfiles = $(wildcard $(addsuffix /*.lo,$(otherdirs)))
+test_objfiles = $(localobjfiles) $(otherobjfiles)
 
 ifdef USE_LIBCHECK
   check: all run-checks

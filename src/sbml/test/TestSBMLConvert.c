@@ -876,7 +876,7 @@ START_TEST (test_SBMLConvert_convertFromL3_modelUnits1)
   fail_unless(Unit_getScale(UnitDefinition_getUnit(ud2, 0)) == -6 );
 
 
-  Parameter * p1 = Model_getParameter(m, 0);
+  Parameter_t* p1 = Model_getParameter(m, 0);
 
   fail_unless(!strcmp(Parameter_getUnits(p1), "substanceFromOriginal"));
 

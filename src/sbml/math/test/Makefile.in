@@ -54,6 +54,7 @@ test_sources =           \
   TestASTNode.c          \
   TestFormulaFormatter.c \
   TestFormulaParser.c    \
+  TestL3FormulaFormatter.c \
   TestL3FormulaParserC.c  \
   TestL3FormulaParser.cpp \
   TestFormulaTokenizer.c \

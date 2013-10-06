@@ -68,13 +68,13 @@ sources   = \
   IdList.cpp \
 	List.cpp \
 	IdFilter.cpp \
-	ElementFilter.cpp \
+	MetaIdFilter.cpp \
 	memory.c \
 	Stack.c \
 	StringBuffer.c \
 	ElementFilter.cpp \
 	IdentifierTransformer.cpp \
-	util.c \
+	util.c
 
 extra_CPPFLAGS = -DPACKAGE_NAME=\"$(PACKAGE_NAME)\"
 
