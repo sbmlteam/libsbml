@@ -1,55 +1,79 @@
 /** @page libsbml-coding Coding conventions for libSBML
 
-The following is a collection of guidelines for libSBML authors and other
-interested persons to follow when writing libSBML code and documenting it.
+@section coding-toc Table of contents
 
-<center>
-<table border="0">
+@htmlinclude doxygen-regular-text-start.html
+<table border="0" class="centered">
 <tr><td style="font-size: small;">
-@ref coding-general @n
+@ref coding-intro @n
+@ref coding-basic @n
+@ref coding-docs @n
+@ref coding-other-situations @n
 @ref coding-doxygen-summary @n
-@ref coding-doc-h @n
-@ref coding-doc-cpp @n
+@ref coding-doc-toolchain @n
+@ref coding-misc-doxygen @n
 </td></tr>
 </table>
-</center>
+@htmlinclude doxygen-regular-text-end.html
 
+
+@section coding-intro 1. Introduction
+
+This document is a collection of guidelines for libSBML authors to follow
+when writing libSBML code and documenting it.
 
 LibSBML's application programming interface (API) is documented using a
-combination of tools: for C++, C and Python, we use the open-source
-software tool <a href="http://www.doxygen.org">Doxygen</a>, written by
-Dimitri van Heesch, and for the Java API, we use Javadoc.  In addition to
-these main tools, we use several scripts to massage the output of SWIG to
-produce better documentation.  The guidelines presented in this section are
-oriented towards explaining how to organize code comments such that Doxygen
-can produce good output, yet simultaneously make the comments in the code
-be readable on their own.
+combination of tools.  For almost all languages (C++, C#, C, Python, and
+others), the cornerstone of the approach is the open-source software tool <a
+href="http://www.doxygen.org">Doxygen</a>; for Java, we use Javadoc instead.
+We write the documentation in source code and auxiliary files in a way that
+both Javadoc and Doxygen can process or more less equally, which requires
+that programmers and documentation authors follow various conventions
+described in the rest of this document.  In addition, we use various
+home-grown scripts and programs to massage the output of SWIG to produce
+something that can be fed to the Doxygen and Javadoc-based toolchains.  
 
 
-@section coding-general General guidelines
+@section coding-basic 2. Basic guidelines for writing libSBML documentation
 
-@li Doxygen (and some humans) look in the .h file for a C++ class
-definition.  Doxygen is a bit annoying in this regard because the content
-of the .h file overrides the content of the .cpp file for the class members
-(the methods and the data members).  That is, if you only modify the
-comments in the class definition in the .cpp file, the changes will not be
-reflected in the documentation produced by Doxygen.  Thus, when documenting
-a class, concentrate on the .h files.  However, and confusingly, <em> C
-functions must be documented in the .cpp files</em>.  Thus, the rule is:
-document classes in .h files, but document C functions in the .cpp files.
-@li Doxygen tags can be prefixed with either @c \@ or @c @\\ .  Since it
-doesn't matter which, we may as well use the @c \@ form because it's also
-used by Javadoc (and thus is easier to remember for Java programmers).
-@li Doxygen comments consist of a C-style comment block beginning with two
-asterisks (@c *) characters, as in the following example:
+The guidelines presented in this section are oriented towards explaining how
+to organize code comments such that Doxygen and Javadoc can produce good
+output, yet simultaneously make the comments in the libSBML code be readable
+on their own.
+
+@li Doxygen keywords/tags can be prefixed with either @c \@ or @c @\\, but
+Javadoc keywords can only be prefixed with @c \@.  Always use the @c \@ prefix
+for keywords so that they will be understood by both Doxygen and Javadoc.
+@li The main types of Doxygen comments consist of a C-style comment block
+beginning with two asterisks (@c *) characters, as in the following example:
 @verbatim
 /**
- * Comments within which commands for Doxygen begin with the character @.
+ * Comments within which commands understood by Doxygen will begin
+ * with the character @.
  */ 
 @endverbatim
-If your comment does @em not begin with <code>/**</code>, then it will be
-ignored by Doxygen.  This can be either bad or good, depending on the
-intention behind the comment.
+Another type of Doxygen comment, used to document enumeration members, begins
+with <code>/*!&lt;</code>.  If your code documentation does @em not appear
+inside a comment block that begins with <code>/**</code> (or the more
+rarely-needed <code>/*!&lt;</code>), then it will be ignored by Doxygen.
+This may or may not be what you want, depending on the intention behind the
+comment.
+@li Doxygen comment blocks can appear at the beginning of a file, in front of
+a class declaration, in front of method declarations, in front of function
+declarations, and in front of data structure definitions.
+@li Doxygen reads both <code>.h</code> and <code>.cpp</code> files.  In the
+case of C++ code, there is a critical difference in how it constructs the
+final output from these files.  The contents of a <code>.h</code> file takes
+precedence over the contents of the corresponding <code>.cpp</code> file;
+however, if a class member (i.e., a method or data member) has
+<code>/**</code> comment blocks in both the <code>.h</code> and
+<code>.cpp</code> files, they are @em combined in the final output.  This
+frequently leads to duplicate text in the final output.  To avoid this, and
+to simplify maintenance of documentation, only document the C++ code in the
+<code>.h</code> files.  However, and confusingly, <em>C functions must be
+documented in the <code>.cpp</code> files</em>.  Thus, the rule is:
+<strong>document classes in <code>.h</code> files, but document C functions
+in the <code>.cpp</code> files and not the <code>.h</code> files</strong>.
 @li Please write in complete sentences, with correct English grammar and
 punctuation.  @em Do @em not treat new lines as new sentences or beginnings
 of different comments.  Here is an example of what should be @em avoided:
@@ -63,23 +87,6 @@ The text above doesn't end sentences with periods, doesn't begin sentences
 with capitals, doesn't form complete sentences, etc.  When Doxygen is used
 to generate HTML documentation from this, it turns into one long run-on
 paragraph, and it's unreadable.
-@li Please write sentences with @em two (2) spaces after the terminating
-period, not one.  First, this makes the resulting text easier to read
-compared to when sentence-ending periods are followed by only one space.
-Second, text editing programs such as Emacs have special features to
-recognize sentences based on this pattern, and they make proficient users
-of those editors much happier because they can use sentence-oriented
-editing commands.
-@li Watch out that Doxygen automatically turns entity names it recognizes
-in text into links to the definition of that entity.  This is usually what
-you want to have happen; for example, when describing the Model class, you
-may mention classes such as Species and Compartment, and those should be
-turned into convenient links to their definitions in the API documentation.
-However, sometimes you don't want that to happen.  To prevent Doxygen from
-linking a word, put a percentage sign (\%) in front of it, as in @c
-\%%Model.  Doxygen will remove the percentage sign and leave the rest of
-the word unlinked, resulting in the plain word %Model appearing in the
-finished document.
 @li We are using a feature of Doxygen that makes it use the first sentence
 of a documentation comment as the "brief" description of the entity being
 described (which may be a class, a method, a class data member, a function,
@@ -103,12 +110,16 @@ text in the as in the following example:
  * This is the beginning of the detailed description....
  */
 @endverbatim
-The visual split makes it really obvious what's going to happen.
-@li Please try to limit lengths of lines to 79 characters long or less.
-This makes code and documentation generally easier to read and edit in
-different software tools.  Sometimes it's too difficult to avoid a long
-line, and then it's okay, but generally it's possible to reformat code in
-such away as to keep things to 79 characters.
+The visual split in the source makes it more obvious what's going to happen.
+@li Doxygen automatically turns entity names it recognizes in text into links
+to the definition of that entity.  This is usually what you want to have
+happen; for example, when describing the Model class, you may mention classes
+such as Species and Compartment, and those should be turned into convenient
+links to their definitions in the API documentation.  However, sometimes you
+don't want that to happen.  To prevent Doxygen from linking a word, put a
+percentage sign (\%) in front of it, as in @c \%%Model.  Doxygen will remove
+the percentage sign and leave the rest of the word unlinked, resulting in the
+plain word %Model appearing in the finished document.
 @li Sometimes code is meant to be part of the internal implementation and
 not advertised to users of the library.  To make Doxygen ignore blocks of
 code, wrap the code with the comment
@@ -117,15 +128,310 @@ code, wrap the code with the comment
 @endverbatim
 at the beginning and 
 @verbatim
-/** @endcond doxygenLibsbmlInternal */
+/** @endcond */
 @endverbatim
 at the end of the block.  (Explanation: this sets up a conditional that
 will only be "seen" by Doxygen if the symbol "doxygenLibsbmlInternal" is
-defined.  Since it's never defined in the Doxygen configuration, it will
+defined.  Since it's never defined in the Doxygen configuration, 
 the block will be ignored.)
+@li Please try to limit lengths of lines to 79 characters long or less.
+This makes code and documentation generally easier to read and edit in
+different software tools.  Sometimes it's too difficult to avoid a long
+line, and then it's okay, but generally it's possible to reformat code in
+such away as to keep things to 79 characters.
+@li Please write sentences with @em two (2) spaces after the terminating
+period, not one.  This makes the resulting text easier to read during
+editing, compared to when sentence-ending periods are followed by only one
+space.  (This issue concerns the readability and editability of source code,
+not the apperance of rendered output.  The finished typeset output will @em
+not have two spaces after every sentence-ending period; it will have one or
+slightly more than one, depending on the output format produced.  The reason
+two-spacing is important for the source is that most people use monospaced
+fonts in their text editors and IDEs, and when using monospaced fonts, the
+ends of sentences are much easier for human eyes to pick out when two-spacing
+is used.  Further, text editing programs such as Emacs and vi have special
+features to recognize sentences based on this pattern, and proficient users
+of those editors can make use of sentence-oriented editing commands.)
 
 
-@section coding-doxygen-summary Summary of commonly-used Doxygen commands in libSBML
+@section coding-docs 3. Guidelines for different file types
+
+Below are explanations of how to write documentation for the most common
+types of files encountered in libSBML.
+
+
+@subsection coding-doc-h 3.1 Guidelines for .h files
+
+It is important to note that the documentation of global functions,
+variables, typedefs, and enums will only be included in the output of
+Doxygen if the file they are in is documented as well.
+
+@li Here is a template header file suitable for use when creating a new
+<code>.h</code> file for libSBML (and in fact, it's the same for
+<code>.cpp</code> files, too).  Of course, you should substitute appropriate
+content for the text in square brackets (@c [ and @c ]) below:
+@verbatim
+/**
+ * @file    [filename]
+ * @brief   [succinct description of what's in this file]
+ * @author  [author's name]
+ * 
+ *<!---------------------------------------------------------------------------
+ * This file is part of libSBML.  Please visit http://sbml.org for more
+ * information about SBML, and the latest version of libSBML.
+ *
+ * Copyright (C) 2009-2013 jointly by the following organizations: 
+ *     1. California Institute of Technology, Pasadena, CA, USA
+ *     2. EMBL European Bioinformatics Institute (EBML-EBI), Hinxton, UK
+ *  
+ * Copyright (C) 2006-2008 by the California Institute of Technology,
+ *     Pasadena, CA, USA 
+ *  
+ * Copyright (C) 2002-2005 jointly by the following organizations: 
+ *     1. California Institute of Technology, Pasadena, CA, USA
+ *     2. Japan Science and Technology Agency, Japan
+ * 
+ * This library is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation.  A copy of the license agreement is provided
+ * in the file named "LICENSE.txt" included with this software distribution
+ * and also available online as http://sbml.org/software/libsbml/license.html
+ *----------------------------------------------------------------------- -->*/
+@endverbatim
+@li When more than one author should be acknowledged for a given file, use 
+multiple <code>@@author</code> entries, one per line.
+@li A <code>.h</code> file will typically have a class declaration in it.
+The @em normal way that one would document the class (but we do not do it
+this way) is to put a comment block immediately in front of the class
+declaration.  Unfortunately, we are hit here by the problem of how to
+generate descriptions for different programming languages from the same
+source files.  In particular, those class declarations in the <code>.h</code>
+files are usually surrounded by <code>\#ifdef __cplusplus</code>, which means
+they become invisible when we use Doxygen to generate the descriptions for
+anything other than C++.  Thus, for the special case of documentation of
+classes, <strong>please put the documentation in the file header rather that
+ahead of the class itself</strong> in the file.  The following example
+illustrates this procedure (and note how more than one class can be described
+in the header):
+@verbatim
+/**
+ * @file    Compartment.h
+ * [...]
+ *
+ * @class Compartment
+ * @ingroup Core
+ * @brief Implementation of SBML's %Compartment construct.
+ *
+ * A compartment in SBML represents a bounded space in which species are
+ * located.  Compartments do not necessarily have to correspond to actual
+ * ....
+ * 
+ * <!-- leave this next break as-is to work around some doxygen bug -->
+ */ 
+/**
+ * @class ListOfCompartments
+ * @ingroup Core
+ * @brief Implementation of SBML Level&nbsp;2's %ListOfCompartments construct.
+ * 
+ * The various ListOf___ classes in SBML are merely containers used for
+ * ....
+ */
+
+#ifndef Compartment_h
+#define Compartment_h
+...
+@endverbatim
+@li Use the <code>@@ingroup</code> to indicate the SBML Level&nbsp;3 package
+to which a class belongs.  Place the keyword immediately on the line after
+the <code>@@class</code> declaration in the <code>.h</code> file. For
+example, <code>@@ingroup layout</code> would indicate that the associated
+class is part of the SBML Level&nbsp;3 <em>%Layout</em> package.  The code
+<code>@@ingroup core</code> should be used for SBML Core code.
+@li For each method or data member in the class definition, include a
+comment block ahead of it, making sure to provide at least a brief
+description.  If it's a method and the method returns a value, use @c
+\@return to describe the returned value; if it takes parameters, use @c
+\@param to describe the parameters.  If you also need to refer to the
+parameters in the textual description of the method, use the @c \@p
+command.  The following example illustrates this:
+@verbatim
+/**
+ * Creates a new CompartmentType, optionally with the given @p id and
+ * @p name attribute values.
+ *
+ * In SBML, identifiers are required for CompartmentType objects;
+ * however, the identifier does not have to be set at the time of
+ * creation of the object, and instead can be set using the setId()
+ * method on the SBase parent class.
+ *
+ * @param id a string, the identifier of this CompartmentType instance
+ * @param name a string, the optional name of this
+ */
+CompartmentType (const std::string& id = "", const std::string& name = "");
+@endverbatim
+@li Please try to leave 2 blank lines between method declarations and other
+items in the definitions of classes.  This makes it easier for the eye to
+spot transitions between method definitions. Here is an example taken
+from a class definition in a <code>.h</code> file:
+@verbatim
+class LIBSBML_EXTERN CompartmentType : public SBase
+{
+public:
+
+  /**
+   * Creates a new CompartmentType, optionally with the given @p id and @p
+   * name attribute values.
+   *
+   * In SBML, identifiers are required for CompartmentType objects;
+   * however, the identifier does not have to be set at the time of
+   * creation of the object, and instead can be set using the setId()
+   * method on the SBase parent class.
+   *
+   * @param id a string, the identifier of this CompartmentType instance
+   * @param name a string, the optional name of this
+   */
+  CompartmentType (const std::string& id = "", const std::string& name = "");
+
+
+  /**
+   * Destroys this CompartmentType.
+   */
+  virtual ~CompartmentType ();
+
+
+  /**
+   * Copy constructor; creates a copy of this CompartmentType.
+   */
+  CompartmentType(const CompartmentType& orig);
+@endverbatim
+
+
+@subsection coding-doc-cpp 3.2 Guidelines for .cpp files
+
+The <code>.cpp</code> files can be handled very similarly to the
+<code>.h</code> files described above.  You may use the same header template
+shown in the previous section about <code>.h</code> files, and all the same
+guidelines apply.
+
+The principal difference is that it is not necessary to repeat the class
+description placed in the <code>.h</code> file, nor indeed is it necessary to
+copy or recreate the documentation of class methods.  As already mentioned,
+when the API manual is generated by Doxygen, it will use the comments from
+the <code>.h</code> file as the source of the documentation for the class and
+methods.
+
+However, it @em is important to document @em functions, because these are not
+defined by the <code>.h</code> files.  This is especially important for the C
+wrappers around the C++ methods.  All the same documentation conventions
+described so far apply to describing functions.  The following example
+provides an illustration:
+@verbatim
+/**
+ * Creates a new CompartmentType with the given @p id and @p name attribute
+ * values.
+ *
+ * In SBML Level 2 and beyond, the identifier attribute of a
+ * CompartmentType is required to have a value, but the name is optional.
+ * Programs calling this function can legitimately use an empty string for
+ * the @p name parameter.
+ *
+ * @param sid the value to assign as the identifier of this CompartmentType
+ * @param name the value to assign as the name of this CompartmentType
+ *
+ * @return a pointer to the newly created CompartmentType_t structure.
+ */
+LIBSBML_EXTERN
+CompartmentType_t *
+CompartmentType_createWith (const char *sid, const char *name);
+@endverbatim
+
+
+@section coding-other-situations 4. How to handle important common situations
+
+The descriptions above cover the basics of using Doxygen and Javadoc for
+libSBML documentation.  What follows is a discussion of other, more involved
+topics.
+
+@subsection coding-reusing-text 4.1 Reusing common text
+
+One often encounters the need to repeat the same text in different places in
+the documentation, such as to add a detail to each method where the detail
+may be relevant.  In software documentation, unlike in non-technical prose or
+creative writing, it is better to repeat text&mdash;or refer to a common
+section&mdash;everywhere that it might be relevant, because a reader does not
+normally read class and method documentation linearly; they jump to a method
+description from elsewhere, and so the method description needs to contain
+the details or point the reader to another source directly.  However,
+copy-pasting documentation text leads to a maintenance nightmare because any
+updates or changes must be made in multiple places.
+
+
+
+
+@subsection coding-links 4.2 Links
+
+Most of the time, you can rely on Doxygen's ability to connect a written
+reference to a class or method to the definition of that class or method.  In
+a few cases, you must write an explicit <code>@@link</code>
+... <code>@@endlink</code> command.  The syntax of this Doxygen command
+consists of the target of the link, optionally followed by a name to be used
+for the link.
+
+In libSBML, the most common situation where an explicit link is needed is in
+references to enumeration values such as method/function return codes.  In
+those cases, to create a link, use the name of the enumeration (e.g.,
+<code>OperationReturnValues_t</code>), followed by a pound sign (@c #),
+followed by the enumeration member, optionally followed by a space and then a
+name for the link.  If the optional space and name are omitted, the name of
+the link is made the same as the target; this is generally @em not desirable
+because the result is more difficult to read.
+
+Here is an example, drawn from the documentation of the return type of a
+method on the Compartment class.  In these cases, the name of the link is
+given as simply the name of the enumeration member without the enumeration
+prefix:
+@verbatim
+/**
+ * Sets the value of the "id" attribute of this Compartment.
+ *
+ * The string @p sid is copied.  Note that SBML has strict requirements
+ * for the syntax of identifiers.  @htmlinclude id-syntax.html
+ *
+ * @param sid the string to use as the identifier of this Compartment
+ *
+ * @return integer value indicating success/failure of the
+ * function.  The possible values returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE @endlink
+ */
+virtual int setId (const std::string& sid);
+@endverbatim
+
+Another situation that calls for explicit links involves the non-C++
+languages.  There, it is common to need to refer to a constant defined on the
+class or package <code>libsbml</code>.  Here is an example:
+@verbatim
+* @if python LibSBML attaches an identifying
+* code to every kind of SBML object.  These are known as <em>SBML type
+* codes</em>.  In the Python language interface for libSBML, the type
+* codes are defined as static integer constants in the interface class
+* @link libsbml@endlink.  
+@endverbatim
+
+
+@subsection coding-conditionals 4.3 Conditional text
+
+Speaking of non-C++ languages, it very often happens that one needs to adapt
+the documentation for something based on the programming language.  
+
+
+@subsection coding-common-text 4.4 Warnings and other notes
+
+@subsection coding-figures 4.5 Figures
+
+
+
+@section coding-doxygen-summary 5. Summary of commonly-used Doxygen commands in libSBML
 
 The following is a summary of the doxygen commands we have found useful so
 far in documenting libSBML.  This is only intended as a quick orientation;
@@ -246,239 +552,15 @@ common one is the @c a tag for linking text to a URL, as in <code>&lt;a
 href="http://sbml.org"&gt;home page&lt;/a&gt;</code>.
 
 
+@section coding-doc-toolchain 6. The documentation-generation toolchain and procedures
 
-@section coding-doc-h Guidelines for documenting .h files
+The following diagram illustrates the overall processes used for generating
+the libSBML documentation.
 
-It is important to note that the documentation of global functions,
-variables, typedefs, and enums will only be included in the output of
-Doxygen if the file they are in is documented as well.
-
-@li Here is a template header file suitable for use when creating a new .h
-file for libSBML (and in fact, it's the same for .cpp files, too):
-@verbatim
-/**
- * @file    [filename]
- * @brief   [succinct description of what's in this file]
- * @author  [author's name]
- * 
- *<!---------------------------------------------------------------------------
- * This file is part of libSBML.  Please visit http://sbml.org for more
- * information about SBML, and the latest version of libSBML.
- *
- * Copyright 2005-2010 California Institute of Technology.
- * Copyright 2002-2005 California Institute of Technology and
- *                     Japan Science and Technology Corporation.
- * 
- * This library is free software; you can redistribute it and/or modify it
- * under the terms of the GNU Lesser General Public License as published by
- * the Free Software Foundation.  A copy of the license agreement is provided
- * in the file named "LICENSE.txt" included with this software distribution
- * and also available online as http://sbml.org/software/libsbml/license.html
- *----------------------------------------------------------------------- -->*/
-@endverbatim
-Of course, you should substitute appropriate content where the text is
-following is an complete example taken from an actual libSBML file at the
-time of this writing:
-@verbatim
-/**
- * @file    Compartment.h
- * @brief   The libSBML class of object implementing SBML's Compartment.
- * @author  Ben Bornstein
- *
- *
- *<!---------------------------------------------------------------------------
- * This file is part of libSBML.  Please visit http://sbml.org for more
- * information about SBML, and the latest version of libSBML.
- *
- * Copyright 2005-2010 California Institute of Technology.
- * Copyright 2002-2005 California Institute of Technology and
- *                     Japan Science and Technology Corporation.
- * 
- * This library is free software; you can redistribute it and/or modify it
- * under the terms of the GNU Lesser General Public License as published by
- * the Free Software Foundation.  A copy of the license agreement is provided
- * in the file named "LICENSE.txt" included with this software distribution
- * and also available online as http://sbml.org/software/libsbml/license.html
- *----------------------------------------------------------------------- -->*/
-
-#ifndef Compartment_h
-#define Compartment_h
-...
-@endverbatim
-
-@li A .h file will typically have a class declaration in it.  The @em
-normal way that one would document the class is to put a comment block in
-front of the class declaration, as in the following fragment:
-@verbatim
-/**
- * The libSBML class implementing SBML's CompartmentType construct.
- *
- * CompartmentTypes in SBML are ...
- */
-class LIBSBML_EXTERN CompartmentType : public SBase
-{
-public:
-...
-@endverbatim
-Unfortunately, we are hit here by a small problem of how to generate
-descriptions for different programming languages from the same source
-files.  In particular, those class declarations in the .h files are usually
-surrounded by <code>\#ifdef __cplusplus</code>, which means they become
-invisible when we use Doxygen to generate the descriptions for anything
-other than C++.  Thus, for the special case of documentation of classes,
-<em>please put the documentation in the file header</em> rather that ahead
-of the class itself in the file.  The following example illustrates this
-procedure (and note how more than one class can be described in the
-header):
-@verbatim
-/**
- * @file    CompartmentType.h
- * @brief   Definitions of CompartmentType and ListOfCompartmentTypes.
- * @author  Ben Bornstein
- * 
- *<!---------------------------------------------------------------------------
- * This file is part of libSBML.  Please visit http://sbml.org for more
- * information about SBML, and the latest version of libSBML.
- *
- * Copyright 2005-2010 California Institute of Technology.
- * Copyright 2002-2005 California Institute of Technology and
- *                     Japan Science and Technology Corporation.
- * 
- * This library is free software; you can redistribute it and/or modify it
- * under the terms of the GNU Lesser General Public License as published by
- * the Free Software Foundation.  A copy of the license agreement is provided
- * in the file named "LICENSE.txt" included with this software distribution
- * and also available online as http://sbml.org/software/libsbml/license.html
- *------------------------------------------------------------------------- -->
- * 
- * @class CompartmentType.
- * @brief LibSBML implementation of SBML's %CompartmentType construct.
- *
- * A <em>compartment type</em> in SBML is a grouping construct used to
- * establish a relationship between multiple Compartment objects.
- * ....
- *
- *
- * @class ListOfCompartmentTypes.
- * @brief LibSBML implementation of SBML's ListOfCompartmentTypes construct.
- * 
- * The various ListOf___ classes in SBML are merely containers used for
- * organizing the main components of an SBML model.  All are derived from
- *....
- */
-
-#ifndef CompartmentType_h
-#define CompartmentType_h
-...
-@endverbatim
-
-@li For each method or data member in the class definition, include a
-comment block ahead of it, making sure to provide at least a brief
-description.  If it's a method and the method returns a value, use @c
-\@return to describe the returned value; if it takes parameters, use @c
-\@param to describe the parameters.  If you also need to refer to the
-parameters in the textual description of the method, use the @c \@p
-command.  The following example illustrates this:
-@verbatim
-/**
- * Creates a new CompartmentType, optionally with the given @p id and
- * @p name attribute values.
- *
- * In SBML, identifiers are required for CompartmentType objects;
- * however, the identifier does not have to be set at the time of
- * creation of the object, and instead can be set using the setId()
- * method on the SBase parent class.
- *
- * @param id a string, the identifier of this CompartmentType instance
- * @param name a string, the optional name of this
- */
-CompartmentType (const std::string& id = "", const std::string& name = "");
-@endverbatim
-@li Please try to leave 2 blank lines between method declarations and other
-items in the definitions of classes.  This makes it easier for the eye to
-spot transitions between method definitions, despite the blank lines that
-exist within comment blocks.  Here is an example taken from a class
-definition in a .h file:
-@verbatim
-class LIBSBML_EXTERN CompartmentType : public SBase
-{
-public:
-
-  /**
-   * Creates a new CompartmentType, optionally with the given @p id and @p
-   * name attribute values.
-   *
-   * In SBML, identifiers are required for CompartmentType objects;
-   * however, the identifier does not have to be set at the time of
-   * creation of the object, and instead can be set using the setId()
-   * method on the SBase parent class.
-   *
-   * @param id a string, the identifier of this CompartmentType instance
-   * @param name a string, the optional name of this
-   */
-  CompartmentType (const std::string& id = "", const std::string& name = "");
+<em>Forthcoming...</em>
 
 
-  /**
-   * Destroys this CompartmentType.
-   */
-  virtual ~CompartmentType ();
-
-
-  /**
-   * Copy constructor; creates a copy of this CompartmentType.
-   */
-  CompartmentType(const CompartmentType& orig);
-
-
-  /**
-   * Assignment operator for CompartmentType.
-   */
-  CompartmentType& operator=(const CompartmentType& orig);
-@endverbatim
-
-
-
-
-
-@section coding-doc-cpp Guidelines for documenting .cpp files
-
-The .cpp files can be handled very similarly to the .h files described
-above.  You may use the same header template shown in the previous section
-about .h files, and all the same guidelines apply.  
-
-The principal difference is that it is not necessary to repeat the class
-description placed in the .h file, nor indeed is it necessary to copy or
-recreate the documentation of class methods.  As already mentioned, when
-the API manual is generated by Doxygen, it will use the comments from the
-.h file as the source of the documentation for the class and methods.
-
-However, it @em is important to document @em functions, because these are
-not defined by the .h files.  This is especially important for the C
-wrappers around the C++ methods.  All the same documentation conventions
-described so far apply to describing functions.  The following example
-provides an illustration:
-@verbatim
-/**
- * Creates a new CompartmentType with the given @p id and @p name attribute
- * values.
- *
- * In SBML Level 2 and beyond, the identifier attribute of a
- * CompartmentType is required to have a value, but the name is optional.
- * Programs calling this function can legitimately use an empty string for
- * the @p name parameter.
- *
- * @param sid the value to assign as the identifier of this CompartmentType
- * @param name the value to assign as the name of this CompartmentType
- *
- * @return a pointer to the newly created CompartmentType_t structure.
- */
-LIBSBML_EXTERN
-CompartmentType_t *
-CompartmentType_createWith (const char *sid, const char *name);
-@endverbatim
-
-@section coding-misc-doxygen Miscellaneous Doxygen notes
+@section coding-misc-doxygen 7. Miscellaneous Doxygen notes
 
 @li The doxygen command @c \@internal is (according to the doxygen
 documentation) supposed to let you flag things as internal implementation
@@ -490,4 +572,3 @@ ways.)
 
 
 */
-
