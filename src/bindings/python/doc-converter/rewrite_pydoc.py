@@ -659,10 +659,10 @@ def main():
         if not quietly: print("Error: cannot read file '" + input_file + "'")
         sys.exit(1)
     elif include_dir and not valid_directory(include_dir, quietly):
-        if not quietly: print("Error: cannot access directory '" + input_file + "'")
+        if not quietly: print("Error: cannot access directory '" + include_dir + "'")
         sys.exit(1)
     elif graphics_dir and not valid_directory(graphics_dir, quietly):
-        if not quietly: print("Error: cannot access directory '" + input_file + "'")
+        if not quietly: print("Error: cannot access directory '" + graphics_dir + "'")
         sys.exit(1)
 
     # Let's do this thing.
