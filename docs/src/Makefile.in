@@ -130,10 +130,9 @@ distfiles =						     \
 	common-documents/sbml-comp-version-1-release-2.pdf   \
 	common-documents/sbml-fbc-version-1-release-1.pdf    \
 	common-documents/sbml-layout-version-1-release-1.pdf \
-        common-graphics/astnode-illustration.jpg	     \
+	common-documents/sbml-level-3-version-1-core-rel-1.pdf \
 	common-graphics/biology-qualifiers.png		     \
 	common-graphics/biology-qualifiers.txt		     \
-        common-graphics/built-in-units.jpg		     \
         common-graphics/cmake-configure-macos.png	     \
         common-graphics/cmake-configure-windows.png	     \
         common-graphics/cmake-empty-screenshot.png	     \
@@ -141,7 +140,6 @@ distfiles =						     \
         common-graphics/cmake-options-red-windows.png	     \
         common-graphics/cmake-options-red.png		     \
 	common-graphics/comp-overview.png		     \
-        common-graphics/compartment-size.jpg		     \
         common-graphics/enzymatic-reaction.jpg		     \
         common-graphics/ftv2doc.png			     \
         common-graphics/ftv2folderclosed.png		     \
@@ -151,39 +149,18 @@ distfiles =						     \
         common-graphics/layout-example.png		     \
         common-graphics/listof-illustration.jpg		     \
         common-graphics/listof-illustration.txt		     \
-        common-graphics/math-formula-precedence.jpg	     \
-        common-graphics/math-string-functions.jpg	     \
 	common-graphics/model-qualifiers.png		     \
 	common-graphics/model-qualifiers.txt		     \
         common-graphics/official-sbml-supported-32.jpg	     \
         common-graphics/official-sbml-supported-40.jpg	     \
         common-graphics/official-sbml-supported-70.png	     \
         common-graphics/right-arrow.gif			     \
-        common-graphics/sbase-species.eps		     \
-        common-graphics/sbase-species.pdf		     \
-        common-graphics/sbase-species.vthought		     \
-        common-graphics/sbase.eps			     \
-        common-graphics/sbase.pdf			     \
-        common-graphics/sbase.vtt			     \
         common-graphics/solution-explorer-windows.png	     \
 	common-graphics/sourceforge-download.png	     \
-        common-graphics/species-boundarycondition.jpg	     \
-        common-graphics/species-hasonlysubstance.jpg	     \
-        common-graphics/species.eps			     \
-        common-graphics/species.pdf			     \
-        common-graphics/species.vtt			     \
-        common-graphics/string-functions.jpg		     \
-        common-graphics/string-syntax.jpg		     \
         common-graphics/tab_a.png			     \
         common-graphics/tab_b.png			     \
         common-graphics/tab_h.png			     \
         common-graphics/tab_s.png			     \
-        common-graphics/top-level.eps			     \
-        common-graphics/top-level.pdf			     \
-        common-graphics/top-level.vtt			     \
-        common-graphics/unitdefinition.eps		     \
-        common-graphics/unitdefinition.pdf		     \
-        common-graphics/unitdefinition.vtt		     \
         common-text/L1-math-syntax-warning.html		     \
         common-text/about-sbml-units-attrib.html	     \
         common-text/about-semantic-annotations.html	     \
@@ -229,13 +206,13 @@ distfiles =						     \
         common-text/unitkind-table.html			     \
         common-text/unitkind-table.txt			     \
         common-text/warn-default-args-in-docs.html	     \
-        common-text/xmlid-syntax.html			     \
         common-text/what-are-plugins.html		     \
         common-text/what-is-metaid.html			     \
         common-text/what-is-metaidref.html		     \
         common-text/what-is-sidref.html			     \
         common-text/what-is-unitsidref.html		     \
         common-text/what-is-user-data.html		     \
+        common-text/xmlid-syntax.html			     \
         csdocfilter.py					     \
         doxygen-base-stylesheet.css			     \
         doxygen-config-c.txt.cmake			     \
