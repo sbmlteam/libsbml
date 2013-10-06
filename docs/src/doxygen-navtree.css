@@ -100,7 +100,7 @@
   cursor:e-resize;
   height:100%;
   right: 0;
-  top: 6px;
+  top: 0px;
   width: 8px;
   box-shadow: 2px 0px 3px #999;
   -webkit-box-shadow: 2px 0px 3px #999;
@@ -121,7 +121,6 @@
 }
 
 #nav-tree {
-  margin-top: 6px;
   padding-top: 0;
   background-color: #f0f0f0;
   -webkit-overflow-scrolling : touch; /* iOS 5+ */
@@ -142,8 +141,8 @@
 }
 
 #side-nav .item {
-    font-size: 10px;
-    line-height: 20px;
+    font-size: 11px;
+    line-height: 18px;
 }
 
 #side-nav div.item:not(.selected) .label {
