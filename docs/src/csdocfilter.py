@@ -39,7 +39,10 @@ import sys, string, os.path, re
 
 
 def filterForDoxygen (istream, ostream):
-  # Read the stream line by line, looking for our marker.
+  # We read the stream line by line, looking for our marker.  The marker is
+  # created by src/bindings/swig/swigdoc.py; it is *not* the same marker as
+  # we use in Doxygen comments, but rather a separate marker used for
+  # communication between swigdoc.py and this (csdocfilter.py) script.
   pattern = re.compile('(.+?)/\* libsbml-internal \*/(.+?)public(.+?)')
   for line in istream.readlines():
     match = pattern.search(line)
