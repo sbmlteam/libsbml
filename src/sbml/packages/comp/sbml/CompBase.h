@@ -20,11 +20,11 @@
  * @class CompBase
  * @ingroup comp
  * @brief @htmlinclude pkg-marker-comp.html
- * A convenience subclass of 'comp' package SBase-derived classes
+ * A convenience subclass of &ldquo;comp&rdquo; package SBase-derived classes
  *
  * The CompBase class derives from SBase, and defines a few functions
  * and features common to all SBase-derived classes in the SBML Level&nbsp;3
- * @ref comp "Hierarchical Model Composition" package ('comp').
+ * @ref comp "Hierarchical Model Composition" package (&ldquo;comp&rdquo;).
  */
 
 #ifndef CompBase_h
@@ -208,7 +208,7 @@ protected:
    * object's level/version and namespace values correspond to a valid
    * SBML specification.
    *
-   * The valid combination of SBML Level and Version, 'comp' package version, and Namespace as of this
+   * The valid combination of SBML Level and Version, &ldquo;comp&rdquo; package version, and Namespace as of this
    * release of libSBML is the following:
    * <ul>
    * <li> Level&nbsp;3 Version&nbsp;1 Package&nbsp;Version&nbsp;1: <code>"http://www.sbml.org/sbml/level3/version1/comp/version1"</code>

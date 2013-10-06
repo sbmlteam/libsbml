@@ -19,7 +19,7 @@
  * @class CompExtension
  * @ingroup comp
  * @brief @htmlinclude pkg-marker-comp.html
- * The core module of the 'comp' package extension.
+ * The core module of the &ldquo;comp&rdquo; package extension.
  */
 
 #ifndef CompExtension_h

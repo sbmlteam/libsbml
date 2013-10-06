@@ -19,10 +19,10 @@
  * @class ReplacedElement
  * @ingroup comp
  * @brief @htmlinclude pkg-marker-comp.html
- * Implementation of the %ReplacedElement construct from the 'comp' package.
+ * Implementation of the %ReplacedElement construct from the &ldquo;comp&rdquo; package.
  *
  * The ReplacedElement class was introduced by the SBML Level&nbsp;3
- * @ref comp "Hierarchical Model Composition" package ('comp')
+ * @ref comp "Hierarchical Model Composition" package (&ldquo;comp&rdquo;)
  * to allow submodel elements
  * to be replaced, but still allow references to those elements to be valid.
  * A ReplacedElement object is essentially a pointer to a submodel object
@@ -305,7 +305,7 @@ public:
    * 
    * LibSBML attaches an identifying code to every kind of SBML object.
    * These are known as <em>SBML type codes</em>.  @if clike The set of
-   * possible type codes for the 'comp' package is defined in the enumeration
+   * possible type codes for the &ldquo;comp&rdquo; package is defined in the enumeration
    * #SBMLCompTypeCode_t.  The names of the type codes all begin with the
    * characters <code>SBML_COMP</code>. @endif@~
    *

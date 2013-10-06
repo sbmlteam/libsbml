@@ -19,10 +19,10 @@
  * @class SBaseRef
  * @ingroup comp
  * @brief @htmlinclude pkg-marker-comp.html
- * Implementation of the %SBaseRef construct from the 'comp' package.
+ * Implementation of the %SBaseRef construct from the &ldquo;comp&rdquo; package.
  *
  * The SBaseRef class was introduced by the SBML Level&nbsp;3
- * @ref comp "Hierarchical Model Composition" package ('comp') as the
+ * @ref comp "Hierarchical Model Composition" package (&ldquo;comp&rdquo;) as the
  * principle way by which submodel elements may be referenced.  The SBaseRef
  * class is usually found as the base class of a Port, Deletion, ReplacedElement,
  * or ReplacedBy class, but may appear as an child of one of the above
@@ -518,7 +518,7 @@ public:
    * 
    * LibSBML attaches an identifying code to every kind of SBML object.
    * These are known as <em>SBML type codes</em>.  @if clike The set of
-   * possible type codes for the 'comp' package is defined in the enumeration
+   * possible type codes for the &ldquo;comp&rdquo; package is defined in the enumeration
    * #SBMLCompTypeCode_t.  The names of the type codes all begin with the
    * characters <code>SBML_COMP</code>. @endif@~
    * 

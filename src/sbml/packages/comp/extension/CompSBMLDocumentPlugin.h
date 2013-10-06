@@ -20,11 +20,11 @@
  * @class CompSBMLDocumentPlugin
  * @ingroup comp
  * @brief @htmlinclude pkg-marker-comp.html
- * Implementation of the 'comp' package extention to the %SBMLDocument construct.
+ * Implementation of the &ldquo;comp&rdquo; package extention to the %SBMLDocument construct.
  *
  * The CompSBMLDocumentPlugin class inherits from the SBMLDocumentPlugin
  * class, and codifies the extentions to the SBMLDocument class defined in
- * the SBML Level&nbsp;3 @ref comp "Hierarchical Model Composition" package ('comp').
+ * the SBML Level&nbsp;3 @ref comp "Hierarchical Model Composition" package (&ldquo;comp&rdquo;).
  * This extention allows multiple Model objects to be defined in a single
  * SBMLDocument, stored in an optional child ListOfModelDefinitions object,
  * as well as define references to Model objects in other files, stored in
@@ -40,7 +40,7 @@
  *
  * In addition, as all packages do, the CompSBMLDocumentPlugin defines a
  * required flag named <code>required</code>, which indicates whether 
- * 'comp' constructs can be used to change the core mathematics of the
+ * &ldquo;comp&rdquo; constructs can be used to change the core mathematics of the
  * <code>&lt;model&gt;</code> child of the <code>&lt;sbml&gt;</code> element.
  * Because they can, this attribute must be set @c true.
  */

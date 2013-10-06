@@ -19,10 +19,10 @@
  * @class Submodel
  * @ingroup comp
  * @brief @htmlinclude pkg-marker-comp.html
- * Implementation of the %Submodel construct from the 'comp' package.
+ * Implementation of the %Submodel construct from the &ldquo;comp&rdquo; package.
  *
  * The Submodel class was introduced by the SBML Level&nbsp;3 
- * @ref comp "Hierarchical Model Composition" package ('comp')
+ * @ref comp "Hierarchical Model Composition" package (&ldquo;comp&rdquo;)
  * as the principle way by which models
  * are structured hierarchically.  Submodels are instantiations of models
  * contained within other models.  They reference another Model that is to be
@@ -632,7 +632,7 @@ public:
    * 
    * LibSBML attaches an identifying code to every kind of SBML object.
    * These are known as <em>SBML type codes</em>.  @if clike The set of
-   * possible type codes for the 'comp' package is defined in the enumeration
+   * possible type codes for the &ldquo;comp&rdquo; package is defined in the enumeration
    * #SBMLCompTypeCode_t.  The names of the type codes all begin with the
    * characters <code>SBML_COMP</code>. @endif@~
    * 

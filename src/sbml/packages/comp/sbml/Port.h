@@ -19,10 +19,10 @@
  * @class Port
  * @ingroup comp
  * @brief @htmlinclude pkg-marker-comp.html
- * Implementation of the %Port construct from the 'comp' package.
+ * Implementation of the %Port construct from the &ldquo;comp&rdquo; package.
  *
  * The Port class was introduced by the SBML Level&nbsp;3
- * @ref comp "Hierarchical Model Composition" package ('comp')
+ * @ref comp "Hierarchical Model Composition" package (&ldquo;comp&rdquo;)
  * to allow a Model to define a standard
  * interface between it and other models that might use it as a submodel.  It
  * derives from the SBaseRef class, and the elements defined there refer to
@@ -261,7 +261,7 @@ public:
    * 
    * LibSBML attaches an identifying code to every kind of SBML object.
    * These are known as <em>SBML type codes</em>.  @if clike The set of
-   * possible type codes for the 'comp' package is defined in the enumeration
+   * possible type codes for the &ldquo;comp&rdquo; package is defined in the enumeration
    * #SBMLCompTypeCode_t.  The names of the type codes all begin with the
    * characters <code>SBML_COMP</code>. @endif@~
    * 

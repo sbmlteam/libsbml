@@ -19,10 +19,10 @@
  * @class ReplacedBy
  * @ingroup comp
  * @brief @htmlinclude pkg-marker-comp.html
- * Implementation of the %ReplacedBy construct from the 'comp' package.
+ * Implementation of the %ReplacedBy construct from the &ldquo;comp&rdquo; package.
  *
  * The ReplacedBy class was introduced by the SBML Level&nbsp;3 
- * @ref comp "Hierarchical Model Composition" package ('comp')
+ * @ref comp "Hierarchical Model Composition" package (&ldquo;comp&rdquo;)
  * to allow submodel elements to be
  * 'canonical' versions of the element while still allowing the parent model
  * to reference those elements.  Whereas a ReplacedElement object indicates
@@ -119,7 +119,7 @@ public:
    * 
    * LibSBML attaches an identifying code to every kind of SBML object.
    * These are known as <em>SBML type codes</em>.  @if clike The set of
-   * possible type codes for the 'comp' package is defined in the enumeration
+   * possible type codes for the &ldquo;comp&rdquo; package is defined in the enumeration
    * #SBMLCompTypeCode_t.  The names of the type codes all begin with the
    * characters <code>SBML_COMP</code>. @endif@~
    * 
@@ -132,7 +132,7 @@ public:
 
 
   /**
-   * Finds this ReplacedBy's SBase parent, gets the 'comp' plugin from it,
+   * Finds this ReplacedBy's SBase parent, gets the &ldquo;comp&rdquo; plugin from it,
    * and tells that to remove this.
    *
    * @return integer value indicating success/failure of the

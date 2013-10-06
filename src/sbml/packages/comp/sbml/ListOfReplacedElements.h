@@ -19,7 +19,7 @@
  * @class ListOfReplacedElements
  * @ingroup comp
  * @brief  @htmlinclude pkg-marker-comp.html
- * Implementation of the %ListOfReplacedElements construct from the 'comp' package.
+ * Implementation of the %ListOfReplacedElements construct from the &ldquo;comp&rdquo; package.
  * 
  * The ListOfReplacedElements is a container for any SBase object.  It 
  * contains ReplacedElement objects, which point to elements the parent
@@ -144,7 +144,7 @@ public:
    * 
    * LibSBML attaches an identifying code to every kind of SBML object.
    * These are known as <em>SBML type codes</em>.  @if clike The set of
-   * possible type codes for the 'comp' package is defined in the enumeration
+   * possible type codes for the &ldquo;comp&rdquo; package is defined in the enumeration
    * #SBMLCompTypeCode_t.  The names of the type codes all begin with the
    * characters <code>SBML_COMP</code>. @endif@~
    * 

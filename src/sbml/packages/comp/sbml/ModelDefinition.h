@@ -19,9 +19,9 @@
  * @class ModelDefinition
  * @ingroup comp
  * @brief @htmlinclude pkg-marker-comp.html
- * Implementation of the %ModelDefinition construct from the 'comp' package.
+ * Implementation of the %ModelDefinition construct from the &ldquo;comp&rdquo; package.
  *
- * The @ref comp "Hierarchical Model Composition" package ('comp')
+ * The @ref comp "Hierarchical Model Composition" package (&ldquo;comp&rdquo;)
  * allows multiple Model objects
  * to be defined in a single SBMLDocument.  While these new Model objects are
  * not new SBML classes, they are given a new name,
@@ -120,7 +120,7 @@ public:
    * 
    * LibSBML attaches an identifying code to every kind of SBML object.
    * These are known as <em>SBML type codes</em>.  @if clike The set of
-   * possible type codes for the 'comp' package is defined in the enumeration
+   * possible type codes for the &ldquo;comp&rdquo; package is defined in the enumeration
    * #SBMLCompTypeCode_t.  The names of the type codes all begin with the
    * characters <code>SBML_COMP</code>. @endif@~
    * @return SBML_COMP_MODELDEFINITION
