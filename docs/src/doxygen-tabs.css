@@ -85,13 +85,17 @@
 .tablist li a[href="namespaces.html"],
 .tablist li a[href="namespacemembers.html"],
 .tablist li a[href="namespacemembers_vars.html"],
-.tablist li a[href="usergroup0.html"],
-.tablist li a[href="usergroup1.html"],
 .tablist li a[href="group___core.html"],
 .tablist li a[href="examples.html"],
+.tablist li a[href="usergroup0.html"],
+.tablist li a[href="usergroup1.html"],
 .tablist li a[href="functions.html"]
 {
-    width: 99px;
+    width: 95px;
+}
+
+.tablist li a[href="usergroup0.html"]
+{
     letter-spacing: -1px;
 }
 
