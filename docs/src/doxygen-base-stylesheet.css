@@ -25,11 +25,11 @@ h1, h2, h3, h4, h5 {
 }
 
 h1 {
-    font-size: 150%;
+    font-size: 18px;
 }
 
 h2, h2 a {
-    font-size: 18px;
+    font-size: 16px;
     font-weight: bold;
     letter-spacing: 1px;
     padding-top: 0.5em;
@@ -48,7 +48,7 @@ h2 a.anchor, h3 a.anchor, h4 a.anchor, h2 a.anchor:hover, h3 a.anchor:hover, h4 
 
 h3, h3 a {
     font-family: Verdana, Helvetica, Arial, Sans, sans-serif;
-    font-size: 16px;
+    font-size: 14px;
     font-style: italic;
     font-weight: bold;
     padding-bottom: 3px;
@@ -1488,8 +1488,12 @@ table.params td.paramname {
     padding-left: 0;
 }
 
+.textblock ul,
+.textblock ol {
+    padding-left: 2.5em;
+}
+
 .textblock ul {
-    padding-top: 0.5em;
 }
 
 .textblock ul li {
