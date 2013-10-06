@@ -57,11 +57,11 @@ site for libSBML on SourceForge.net</a> for possible installation packages
 for your operating system.  You may be able to save yourself the time and
 trouble of following the remaining instructions on this page.
 
-<center style="padding-bottom: 1.5em; padding-top: 1em; width: 500px;
+<center style="width: 500px;
 margin: 1em auto">
   <a target="_blank"
 href="http://sf.net/projects/sbml/files/libsbml/@PACKAGE_VERSION@">
-<img class="screenshot" src="sourceforge-download.png" alt="Image of SourceForge download page for libSBML" width="500px"></a>
+<img class="screenshot" style="border: 1px solid #ccc" src="sourceforge-download.png" alt="Image of SourceForge download page for libSBML" width="500px"></a>
 <p style="font-style: italic"> Screenshot of the <a target="_blank"
 href="http://sf.net/projects/sbml/files/libsbml/@PACKAGE_VERSION@">SourceForge download page</a> for libSBML.  The "stable" directory contains downloads for the main release, while the "experimental" directory contains beta-test code for such things as SBML Level&nbsp;3 packages.
 </center>
@@ -100,7 +100,7 @@ area on SourceForge.net</a> and save the archive somewhere on your file
 system, then unpack it.  Next, start up the CMake graphical user interface
 (GUI).  It will look something like the following screenshot:
 
-<center style="padding-bottom: 1.5em; padding-top: 1em; width: 500px;
+<center style="width: 500px;
 margin: 1em auto">
 <img class="screenshot" src="cmake-empty-screenshot.png">
 <p style="font-style: italic"> Screenshot of CMake when it first starts up.  Shown here is the
@@ -117,7 +117,7 @@ field in the CMake interface yourself.)  Then, click on the
 <b>Configure</b> button.  CMake should display a dialog similar to the
 following.
 
-<center style="padding-bottom: 1.5em; padding-top: 1em; margin: 1em auto">
+<center style="margin: 1em auto">
 <img class="screenshot" src="cmake-configure-macos.png">
 <p style="font-style: italic; width: 500px"> Screenshot of the <b>Configure</b> screen
 under Mac&nbsp;OS&nbsp;X.
@@ -130,7 +130,7 @@ whereupon CMake will read the libSBML configuration files and populate the
 options area in the CMake window with various libSBML options.  These new
 options are displayed in red, as illustrated in the following screenshot.
 
-<center style="padding-bottom: 1.5em; padding-top: 1em; margin: 1em auto">
+<center style="margin: 1em auto">
 <img class="screenshot" src="cmake-options-red.png"> <p style="font-style: italic; width: 500px">
 Screenshot of the CMake interface after the configuration step.
 </center>
@@ -185,7 +185,7 @@ libSBML into <code>/usr/local</code> (the default), then configuring
 libSBML is simply a matter of executing the following command:
 
 <div class="fragment"><pre class="fragment">
-  ./configure
+./configure
 </pre></div>
 
 <p> LibSBML requires a separate XML library for low-level XML tokenizing
@@ -210,14 +210,14 @@ RPM, Debian, Mandrake or other package distributions.  To use Expat, run
 the libSBML configuration program as follows:
 
 <div class="fragment"><pre class="fragment">
-  ./configure --with-expat
+./configure --with-expat
 </pre></div>
 
 <p>
 And for Xerces, use
 
 <div class="fragment"><pre class="fragment">
-  ./configure --with-xerces
+./configure --with-xerces
 </pre></div>
 
 <p> As already noted, there is a bug in Xerces 2.6.0 that cannot be worked
@@ -232,15 +232,15 @@ In this case, <code>configure</code> needs to be told explicitly where to
 find the libraries.  Use the following forms:
 
 <div class="fragment"><pre class="fragment">
-  ./configure --with-libxml="<span class="placeholder"><em>DIR</em></span>"
+./configure --with-libxml="<span class="placeholder"><em>DIR</em></span>"
 </pre></div>
 or
 <div class="fragment"><pre class="fragment">
-  ./configure --with-xerces="<span class="placeholder"><em>DIR</em></span>"
+./configure --with-xerces="<span class="placeholder"><em>DIR</em></span>"
 </pre></div>
 or
 <div class="fragment"><pre class="fragment">
-  ./configure --with-expat="<span class="placeholder"><em>DIR</em></span>"
+./configure --with-expat="<span class="placeholder"><em>DIR</em></span>"
 </pre></div>
 
 <p> where <span class="placeholder"><em>DIR</em></span> is the
@@ -252,7 +252,7 @@ Fink's default software tree, you would configure libSBML using the
 following command:
 
 <div class="fragment"><pre class="fragment">
-  ./configure --with-expat="/sw"
+./configure --with-expat="/sw"
 </pre></div>
 
 <p> By default, during the installation phase (i.e., when running
@@ -268,7 +268,7 @@ default, use the <nobr><code>--prefix</code></nobr> argument to the
 <code>configure</code> program.  For example,
 
 <div class="fragment"><pre class="fragment">
-  ./configure --prefix="/my/favorite/path"
+./configure --prefix="/my/favorite/path"
 </pre></div>
 
 <p> Of course, you can combine the flags to <code>configure</code>, giving both
@@ -294,7 +294,7 @@ with MATLAB version R2010a installed in its default location of
 <code>/Applications/MATLAB_R2010a.app</code>, the proper argument would be
 
 <div class="fragment"><pre class="fragment">
-  ./configure --with-matlab=/Applications/MATLAB_R2010a.app
+./configure --with-matlab=/Applications/MATLAB_R2010a.app
 </pre></div>
 
 <p>
@@ -302,7 +302,7 @@ If you want to build multiple language bindings for libSBML, combine
 multiple flags together as in the following example:
 
 <div class="fragment"><pre class="fragment">
-  ./configure --with-java --with-python
+./configure --with-java --with-python
 </pre></div>
 
 <p>Some of the language interfaces provide additional configuration options
@@ -316,7 +316,7 @@ the Apple-supplied version of Python 2.6 on a Mac&nbsp;OS&nbsp;X 10.7 system
 could use the following options:
 
 <div class="fragment"><pre class="fragment">
-  ./configure --with-python --with-python-interpreter=/usr/bin/python2.6
+./configure --with-python --with-python-interpreter=/usr/bin/python2.6
 </pre></div>
 
 <p>Please run <nobr><code>configure --help</code></nobr> to obtain a list of
@@ -372,7 +372,7 @@ available in 64-bit format.  Then, libSBML needs to be configured to be
 built as a 32-bit binary:
 
 <div class="fragment"><pre class="fragment">
-  ./configure --enable-m32
+./configure --enable-m32
 </pre></div>
 
 <p> The two options <nobr><code>--enable-m32</code></nobr> and
@@ -398,7 +398,7 @@ specify the optional argument
 <code>configure</code>.  The following example illustrates how to do this:
 
 <div class="fragment"><pre class="fragment">
-  ./configure --enable-universal-binary
+./configure --enable-universal-binary
 </pre></div>
 
 <p>
@@ -412,7 +412,7 @@ For example, universal binaries will be built with i386, ppc, x86_64 and
 ppc64 architectures in the following example:
 
 <div class="fragment"><pre class="fragment">
-  ./configure --enable-universal-binary="-arch i386 -arch ppc -arch x86_64 -arch ppc64"
+./configure --enable-universal-binary="-arch i386 -arch ppc -arch x86_64 -arch ppc64"
 </pre></div>
 
 <p> Beware that building with this option turn on results in the creation
@@ -449,7 +449,7 @@ the <nobr><code>--with-swig</code></nobr> option as in the following
 example:
 
 <div class="fragment"><pre class="fragment">
-  ./configure --with-swig="<em><span class="placeholder">DIR</span></em>"
+./configure --with-swig="<em><span class="placeholder">DIR</span></em>"
 </pre></div>
 
 
@@ -490,7 +490,7 @@ both libraries, add the <nobr><code>--enable-compression=no</code></nobr>
 option to configure:
 
 <div class="fragment"><pre class="fragment">
-  ./configure --enable-compression=no
+./configure --enable-compression=no
 </pre></div>
 
 
@@ -523,7 +523,7 @@ the following software tools in addition to a Unix-like environment (or
 <a target="_blank" href="http://cygwin.org">Cygwin</a> under Windows):
 <ul>
 
-<li style="margin-bottom: 1em"><em>For the C, C++ and Python API
+<li><em>For the C, C++ and Python API
 documentation</em>: You will need <a target="_blank"
 href="http://doxygen.org">Doxygen</a> version 1.6.3 or later and a
 reasonably complete installation of <a target="_blank"
@@ -537,11 +537,11 @@ point <code>configure</code> to the doxygen executable inside the package
 for Doxygen:
 
 <div class="fragment"><pre class="fragment">
-  ./configure --with-doxygen=/Applications/Doxygen.app/Contents/Resources
+./configure --with-doxygen=/Applications/Doxygen.app/Contents/Resources
 </pre></div>
 </li>
 
-</li> <li style="margin-bottom: 1em"><em>For the Java API
+</li> <li><em>For the Java API
 documentation</em>: You will need <a target="_blank"
 href="http://java.sun.com/j2se/javadoc/">Javadoc</a> version 1.5 (also
 known as version 5.0, confusingly enough), which should have come
@@ -558,19 +558,19 @@ Alternatively, you can moving to the <code>docs/src</code> subdirectory and
 execute
 
 <div class="fragment"><pre class="fragment">
-  make java-manual                   # Note: use 'gmake java-manual' on FreeBSD
+make java-manual           # Note: use 'gmake java-manual' on FreeBSD
 </pre></div>
 to recreate just the Java documentation, or 
 <div class="fragment"><pre class="fragment">
-  make cpp-manual                    # Note: use 'gmake cpp-manual' on FreeBSD
+make cpp-manual            # Note: use 'gmake cpp-manual' on FreeBSD
 </pre></div>
 to recreate just the C++ documentation, or 
 <div class="fragment"><pre class="fragment">
-  make c-manual                      # Note: use 'gmake c-manual' on FreeBSD
+make c-manual              # Note: use 'gmake c-manual' on FreeBSD
 </pre></div>
 to recreate just the C documentation, or
 <div class="fragment"><pre class="fragment">
-  make python-manual                 # Note: use 'gmake python-manual' on FreeBSD
+make python-manual         # Note: use 'gmake python-manual' on FreeBSD
 </pre></div>
 to recreate just the Python documentation.
 
@@ -605,15 +605,15 @@ versions of g++ after 3.3.)
 <nobr><code>--with-check</code></nobr> flag to the configure command:
 
 <div class="fragment"><pre class="fragment">
-  ./configure --with-check
+./configure --with-check
 </pre></div>
 
 <p>
 Following this, you must build libSBML and then you can run the tests:
 
 <div class="fragment"><pre class="fragment">
-  make                   # Note: use 'gmake' on FreeBSD
-  make check             # Note: use 'gmake check' on FreeBSD
+make                   # Note: use 'gmake' on FreeBSD
+make check             # Note: use 'gmake check' on FreeBSD
 </pre></div>
 
 <p> The make check step is optional and will build and run an
@@ -644,8 +644,8 @@ libSBML source code directory.  There, execute the following commands to
 compile and install libSBML:
 
 <div class="fragment"><pre class="fragment">
-  make               # Note: use 'gmake' on FreeBSD
-  make install       # Note: use 'gmake install' on FreeBSD
+make               # Note: use 'gmake' on FreeBSD
+make install       # Note: use 'gmake install' on FreeBSD
 </pre></div>
 
 
@@ -717,7 +717,7 @@ folder.
 on your system, start up the CMake graphical user interface (GUI).  It will
 look something like the following screenshot:
 
-<center style="padding-bottom: 1.5em; padding-top: 1em; width: 500px;
+<center style="width: 500px;
 margin: 1em auto">
 <img class="screenshot" src="cmake-empty-windows.png">
 <p style="font-style: italic"> Screenshot of CMake when it first starts up.
@@ -732,7 +732,7 @@ field in the CMake interface yourself.)  Then, click on the
 <b>Configure</b> button.  CMake should display a dialog similar to the
 following.
 
-<center style="padding-bottom: 1.5em; padding-top: 1em; margin: 1em auto">
+<center style="margin: 1em auto">
 <img style="padding: 2em auto 1em auto; border: none"
 src="cmake-configure-windows.png"> <p style="font-style: italic; width: 500px">
 Screenshot of the <b>Configure</b> screen under Microsoft Windows&nbsp;7.
@@ -745,7 +745,7 @@ area with various options it reads from the libSBML configuration files.
 These new options are displayed in red, as illustrated in the following
 screenshot.
 
-<center style="padding-bottom: 1.5em; padding-top: 1em; margin: 1em auto">
+<center style="margin: 1em auto">
 <img class="screenshot" src="cmake-options-red-windows.png"> <p
 style="font-style: italic; width: 500px"> Screenshot of the CMake interface
 after the configuration step.  </center>
@@ -782,7 +782,7 @@ the configuration selected.  The following screenshot illustrates what you
 should see when you use the Solution Explorer in MSVC, and some of the most
 important targets that you will find there:
 
-<div style="padding-bottom: 1.5em; margin: auto auto 1em auto;
+<div style="margin: 2em auto 1em auto;
 float: left; width: 330px">
 <img class="screenshot" src="solution-explorer-windows.png">
 <p style="font-style: italic; width: 300px"> Screenshot of MSVC's Solution Explorer when
@@ -792,27 +792,27 @@ viewing the MSVC Solution files generated using CMake.
 
 <ul style="padding-left: 2em">
 
-<li style="margin: auto auto 1em 2em"> <code>ALL_BUILD</code>: This target builds
+<li> <code>ALL_BUILD</code>: This target builds
 all the libSBML project files; that is, all projects except the ones that
 involve installation, packaging or testing.
 
-<li style="margin: auto auto 1em 2em"> <code>INSTALL</code>: This target will
+<li> <code>INSTALL</code>: This target will
 install the compiled binaries to the directory specified for the
 <code>CMAKE_INSTALL_PREFIX</code> option of the CMake configuration step.
 
-<li style="margin: auto auto 1em 2em"> <code>ZERO_CHECK</code>: This target is
+<li> <code>ZERO_CHECK</code>: This target is
 merely a verification project; it is used to check whether there have been
 any changes to the configuration since the last time it was run.  It is
 invoked automatically whenever any other target is being built.
 
-<li style="margin: auto auto 1em 2em"> <code>PACKAGE</code>: This target creates
+<li> <code>PACKAGE</code>: This target creates
 binary installers for libSBML.  If the Nullsoft scriptable installation
 system, NSIS (<a target="_blank"
 href="http://nsis.sf.net">http://nsis.sf.net</a>) is available, an
 installer is created for the current platform.  Most users will not need to
 use this build target/Solution.
 
-<li style="margin: auto auto 1em 2em"> <code>RUN_TESTS</code>: This target
+<li> <code>RUN_TESTS</code>: This target
 can be used to test all the libraries built.  It is only available if the
 <code>WITH_CHECK</code> option is selected during the CMake configuration
 step.  (Note: the <a target="_blank"
@@ -831,20 +831,20 @@ target.  Some examples include the following:
 
 <ul style="padding-left: 2em">
 
-<li style="margin: auto auto 1em 2em"> <code>binding_python_lib</code>:
+<li> <code>binding_python_lib</code>:
 builds the Python language bindings <code>_libsbml.pyd</code> file.
 
-<li style="margin: auto auto 1em 2em"> <code>binding_java_classes</code>:
+<li> <code>binding_java_classes</code>:
 builds the Java language bindings class JAR file.
 
-<li style="margin: auto auto 1em 2em"> <code>example_c_convertSBML</code>:
+<li> <code>example_c_convertSBML</code>:
 builds the <code>convertSBML</code> example program in C.
 
-<li style="margin: auto auto 1em 2em">
+<li>
 <code>example_java_addCVTerms</code>: builds the <code>addCVTerms</code>
 example program in Java.
 
-<li style="margin: auto auto 1em 2em"> <code>test_sbml_math</code>: builds
+<li> <code>test_sbml_math</code>: builds
 the tests in the libSBML <code>src/math</code> subdirectory.
 
 </ul>
@@ -856,14 +856,14 @@ performing the following steps:
 
 <ol>
 
-<li style="margin-bottom: 1em"> Select and run the <code>ALL_BUILD</code>
+<li> Select and run the <code>ALL_BUILD</code>
 target.  After a successful build, MSVC will put the libSBML library files
 and DLL into the <code>Release</code> subdirectory of the location
 specified using CMake.  This includes the language bindings, which will be
 placed in a subdirectory of the <code>Release</code> directory.  For
 example, C# files will appear in <code>Release/csharp</code>.
 
-<li style="margin-bottom: 1em"> Select and run the <code>INSTALL</code>
+<li> Select and run the <code>INSTALL</code>
 target.  This will install the compiled libSBML library and associated
 files into the directory determined by the
 <code>CMAKE_INSTALL_PREFIX</code> CMake configuration variable.
