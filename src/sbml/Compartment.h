@@ -308,6 +308,101 @@
  * @see ListOfConstraints
  * @see ListOfReactions
  * @see ListOfEvents
+ *
+ */
+
+/**
+ * <!-- ~ ~ ~ ~ ~ Start of common documentation strings ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+ * The following text is used as common documentation blocks copied multiple
+ * times elsewhere in this file.  The use of @class is a hack needed because
+ * Doxygen's @copydetails command has limited functionality.  Symbols
+ * beginning with "doc_" are marked as ignored in our Doxygen configuration.
+ * ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~  -->
+ *
+ * @class doc_note_setting_level_version
+ *
+ * @note Upon the addition of a Compartment object to an SBMLDocument (e.g.,
+ * using Model::addCompartment(@if java Compartment c@endif)), the SBML
+ * Level, SBML Version and XML namespace of the document @em override the
+ * values used when creating the Compartment object via the Compartment
+ * constructors.  This is necessary to ensure that an SBML document has a
+ * consistent overall structure.  Nevertheless, the ability to supply the
+ * values at the time of creation of a Compartment is an important aid to
+ * producing valid SBML.  Knowledge of the intented SBML Level and Version
+ * determine whether it is valid to assign a particular value to an
+ * attribute, or whether it is valid to add an object to an existing
+ * SBMLDocument.
+ *
+ * @class doc_compartment_units
+ *
+ * @par
+ * Compartments in SBML have an attribute ("units") for declaring the
+ * units of measurement intended for the value of the compartment's size.  In
+ * the absence of a value given for this attribute, the units are inherited
+ * from values either defined on the enclosing Model (in SBML Level&nbsp;3)
+ * or in defaults (in SBML Level&nbsp;2).  This method returns a
+ * UnitDefinition object based on how this compartment's units are
+ * interpreted according to the relevant SBML guidelines, or it returns @c
+ * NULL if no units have been declared and no defaults are defined by the
+ * relevant SBML specification.
+ *
+ * Note that unit declarations for Compartment objects are specified in terms
+ * of the @em identifier of a unit (e.g., using 
+ * Compartment::setUnits(@if java String sid@endif)), but @em this
+ * method returns a UnitDefinition object, not a unit identifier.  It does
+ * this by constructing an appropriate UnitDefinition.  For SBML Level&nbsp;2
+ * models, it will do this even when the value of the "units" attribute is
+ * one of the special SBML Level&nbsp;2 unit identifiers @c "substance", @c
+ * "volume", @c "area", @c "length" or @c "time".  Callers may find this
+ * useful in conjunction with the helper methods provided by the
+ * UnitDefinition class for comparing different UnitDefinition objects.
+ *
+ * @class doc_note_volume
+ *
+ * @note The attribute "volume" only exists by that name in SBML
+ * Level&nbsp;1.  In Level&nbsp;2 and above, the equivalent attribute is
+ * named "size".  In SBML Level&nbsp;1, a compartment's volume has a default
+ * value (@c 1.0) and therefore methods such as Compartment::isSetVolume()
+ * will always return @c true for a Level&nbsp;1 model.  In Level&nbsp;2, a
+ * compartment's size (the equivalent of SBML Level&nbsp;1's "volume") is
+ * optional and has no default value, and therefore may or may not be set.
+ *
+ * @class doc_both_size_and_volume
+ *
+ * @par
+ * In SBML Level&nbsp;1, compartments are always three-dimensional
+ * constructs and only have volumes, whereas in SBML Level&nbsp;2 and higher,
+ * compartments may be other than three-dimensional, and therefore the
+ * "volume" attribute is named "size" in Level&nbsp;2 and above.  LibSBML
+ * provides both Compartment::getSize() and Compartment::getVolume() for
+ * easier support of different SBML Levels.
+ *
+ * @class doc_typecodes
+ *
+ * @par 
+ * @if clike LibSBML attaches an identifying code to every kind of SBML
+ * object.  These are known as <em>SBML type codes</em>.  The set of
+ * possible type codes is defined in the enumeration #SBMLTypeCode_t.
+ * The names of the type codes all begin with the characters @c
+ * SBML_. @endif@if java LibSBML attaches an identifying code to every
+ * kind of SBML object.  These are known as <em>SBML type codes</em>.  In
+ * other languages, the set of type codes is stored in an enumeration; in
+ * the Java language interface for libSBML, the type codes are defined as
+ * static integer constants in the interface class {@link
+ * libsbmlConstants}.  The names of the type codes all begin with the
+ * characters @c SBML_. @endif@if python LibSBML attaches an identifying
+ * code to every kind of SBML object.  These are known as <em>SBML type
+ * codes</em>.  In the Python language interface for libSBML, the type
+ * codes are defined as static integer constants in the interface class
+ * @link libsbml@endlink.  The names of the type codes all begin with the
+ * characters @c SBML_. @endif@if csharp LibSBML attaches an identifying
+ * code to every kind of SBML object.  These are known as <em>SBML type
+ * codes</em>.  In the C# language interface for libSBML, the type codes
+ * are defined as static integer constants in the interface class @link
+ * libsbmlcs.libsbml@endlink.  The names of the type codes all begin with
+ * the characters @c SBML_. @endif@~
+ * 
+ * <!-- ~ ~ ~ ~ ~ ~ End of common documentation strings ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ -->
  */
 
 #ifndef Compartment_h
@@ -337,7 +432,6 @@ class SBMLVisitor;
 class LIBSBML_EXTERN Compartment : public SBase
 {
 public:
-
   /**
    * Creates a new Compartment using the given SBML @p level and @p version
    * values.
@@ -352,16 +446,7 @@ public:
    * of SBML object, are either invalid or mismatched with respect to the
    * parent SBMLDocument object.
    * 
-   * @note Upon the addition of a Compartment object to an SBMLDocument
-   * (e.g., using Model::addCompartment(@if java Compartment c@endif)), the SBML Level, SBML Version
-   * and XML namespace of the document @em override the values used
-   * when creating the Compartment object via this constructor.  This is
-   * necessary to ensure that an SBML document is a consistent structure.
-   * Nevertheless, the ability to supply the values at the time of creation
-   * of a Compartment is an important aid to producing valid SBML.
-   * Knowledge of the intented SBML Level and Version determine whether it
-   * is valid to assign a particular value to an attribute, or whether it
-   * is valid to add an object to an existing SBMLDocument.
+   * @copydetails doc_note_setting_level_version
    */
   Compartment (unsigned int level, unsigned int version);
   
@@ -391,16 +476,7 @@ public:
    * of SBML object, are either invalid or mismatched with respect to the
    * parent SBMLDocument object.
    *
-   * @note Upon the addition of a Compartment object to an SBMLDocument
-   * (e.g., using Model::addCompartment(@if java Compartment c@endif)), the SBML XML namespace of the
-   * document @em overrides the value used when creating the Compartment
-   * object via this constructor.  This is necessary to ensure that an SBML
-   * document is a consistent structure.  Nevertheless, the ability to
-   * supply the values at the time of creation of a Compartment is an
-   * important aid to producing valid SBML.  Knowledge of the intented SBML
-   * Level and Version determine whether it is valid to assign a particular
-   * value to an attribute, or whether it is valid to add an object to an
-   * existing SBMLDocument.
+   * @copydetails doc_note_setting_level_version
    */
   Compartment (SBMLNamespaces* sbmlns);
 
@@ -505,13 +581,13 @@ public:
   /**
    * Get the number of spatial dimensions of this Compartment object.
    *
+   * @return the value of the "spatialDimensions" attribute of this
+   * Compartment as an unsigned integer
+   *
    * @note In SBML Level&nbsp;3, the data type of the "spatialDimensions"
    * attribute is @c double, whereas in Level&nbsp;2, it is @c integer.
    * LibSBML provides a separate method for obtaining the value as a double,
    * for models where it is relevant.
-   *
-   * @return the value of the "spatialDimensions" attribute of this
-   * Compartment as an unsigned integer
    *
    * @see getSpatialDimensionsAsDouble()
    */
@@ -522,15 +598,15 @@ public:
    * Get the number of spatial dimensions of this Compartment object
    * as a double.
    *
+   * @return the value of the "spatialDimensions" attribute of this
+   * Compartment as a double, or @c NaN if this model is not in SBML
+   * Level&nbsp;3 format.
+   *
    * @note In SBML Level&nbsp;3, the data type of the "spatialDimensions"
    * attribute is @c double, whereas in Level&nbsp;2, it is @c integer.  To
    * avoid backward compatibility issues, libSBML provides a separate
    * method for obtaining the value as a double, for models where it is
    * relevant.
-   *
-   * @return the value of the "spatialDimensions" attribute of this
-   * Compartment as a double, or @c NaN if this model is not in SBML
-   * Level&nbsp;3 format.
    *
    * @see getSpatialDimensions()
    */
@@ -540,19 +616,13 @@ public:
   /**
    * Get the size of this Compartment.
    *
-   * This method is identical to
-   * @if java Compartment::getVolume()@else getVolume()@endif.
-   * In SBML Level&nbsp;1, compartments are always three-dimensional
-   * constructs and only have volumes, whereas in SBML Level&nbsp;2,
-   * compartments may be other than three-dimensional and therefore the
-   * "volume" attribute is named "size" in Level&nbsp;2.  LibSBML provides
-   * both
-   * @if java Compartment::getSize()@else getSize()@endif@~ and
-   * @if java Compartment::getVolume()@else getVolume()@endif@~ for
-   * easier compatibility between SBML Levels.
+   * @copydetails doc_both_size_and_volume 
    *
    * @return the value of the "size" attribute ("volume" in Level&nbsp;1) of
-   * this Compartment as a float-point number.
+   * this Compartment as a floating-point number.
+   *
+   * @note This method is identical to
+   * @if java Compartment::getVolume()@else getVolume()@endif.
    *
    * @see isSetSize()
    * @see getVolume()
@@ -563,24 +633,16 @@ public:
   /**
    * Get the volume of this Compartment.
    * 
-   * This method is identical to
-   * @if java Compartment::getSize()@else getSize()@endif.  In
-   * SBML Level&nbsp;1, compartments are always three-dimensional
-   * constructs and only have volumes, whereas in SBML Level&nbsp;2,
-   * compartments may be other than three-dimensional and therefore the
-   * "volume" attribute is named "size" in Level&nbsp;2.  LibSBML provides
-   * both
-   * @if java Compartment::getSize()@else getSize()@endif@~ and
-   * @if java Compartment::getVolume()@else getVolume()@endif@~
-   * for easier compatibility between SBML Levels.
+   * @copydetails doc_both_size_and_volume
    *
    * @return the value of the "volume" attribute ("size" in Level&nbsp;2) of
    * this Compartment, as a floating-point number.
    *
-   * @note The attribute "volume" only exists by that name in SBML
-   * Level&nbsp;1.  In Level&nbsp;2 and above, the equivalent attribute is
-   * named "size".
+   * @copydetails doc_note_volume
    * 
+   * @note This method is identical to
+   * @if java Compartment::getSize()@else getSize()@endif.
+   *
    * @see isSetVolume()
    * @see getSize()
    */
@@ -662,8 +724,8 @@ public:
 
 
   /**
-   * Predicate returning @c true if this
-   * Compartment's "size" attribute is set.
+   * Predicate returning @c true if this Compartment's "size" attribute is
+   * set.
    *
    * This method is similar but not identical to
    * @if java Compartment::isSetVolume()@else isSetVolume()@endif.  The latter
@@ -671,37 +733,31 @@ public:
    * @if java Compartment::isSetSize()@else isSetSize()@endif@~
    * because @if java Compartment::isSetVolume()@else isSetVolume()@endif@~
    * performs extra processing to take into account the difference in
-   * default values between SBML Levels 1 and 2.
+   * default values between SBML Levels&nbsp;1 and&nbsp;2.
    * 
    * @return @c true if the "size" attribute ("volume" in Level&nbsp;2) of
    * this Compartment is set, @c false otherwise.
    *
    * @see isSetVolume()
-   * @see setSize(double value)
+   * @see @if java Compartment::setSize(double value)@else setSize()@endif@~
    */
   bool isSetSize () const;
 
 
   /**
-   * Predicate returning @c true if this Compartment's
-   * "volume" attribute is set.
+   * Predicate returning @c true if this Compartment's "volume" attribute is
+   * set.
    * 
    * This method is similar but not identical to
    * @if java Compartment::isSetSize()@else isSetSize()@endif.  The latter
-   * should not be used in the context of SBML Level&nbsp;1 models because this
-   * method performs extra processing to take into account
-   * the difference in default values between SBML Levels 1 and 2.
+   * should not be used in the context of SBML Level&nbsp;1 models because the
+   * present method performs extra processing to take into account
+   * the difference in default values between SBML Levels&nbsp;1 and&nbsp;2.
    * 
    * @return @c true if the "volume" attribute ("size" in Level&nbsp;2 and
    * above) of this Compartment is set, @c false otherwise.
    *
-   * @note The attribute "volume" only exists by that name in SBML
-   * Level&nbsp;1.  In Level&nbsp;2 and above, the equivalent attribute is
-   * named "size".  In SBML Level&nbsp;1, a compartment's volume has a
-   * default value (@c 1.0) and therefore this method will always return @c
-   * true.  In Level 2, a compartment's size (the equivalent of SBML
-   * Level&nbsp;1's "volume") is optional and has no default value, and
-   * therefore may or may not be set.
+   * @copydetails doc_note_volume
    *
    * @see isSetSize()
    * @see @if java Compartment::setVolume(double value)@else setVolume()@endif@~
@@ -847,11 +903,6 @@ public:
    * Sets the "size" attribute (or "volume" in SBML Level&nbsp;1) of this
    * Compartment.
    *
-   * This method is identical to
-   * @if java Compartment::setVolume(double value)@else setVolume()@endif@~
-   * and is provided for compatibility between
-   * SBML Level&nbsp;1 and Level&nbsp;2.
-   *
    * @param value a @c double representing the size of this compartment
    * instance in whatever units are in effect for the compartment.
    *
@@ -860,9 +911,11 @@ public:
    * returned by this function are:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    *
-   * @note The attribute "volume" only exists by that name in SBML
-   * Level&nbsp;1.  In Level&nbsp;2 and above, the equivalent attribute is
-   * named "size".
+   * @note This method is identical to
+   * @if java Compartment::setVolume(double value)@else setVolume()@endif.
+   *
+   * @see isSetSize()
+   * @see @if java Compartment::setVolume(double value)@else setVolume()@endif
    */
   int setSize (double value);
 
@@ -872,7 +925,7 @@ public:
    * Compartment.
    *
    * This method is identical to
-   * @if java Compartment::setVolume(double value)@else setVolume()@endif@~
+   * @if java Compartment::setSize(double value)@else setSize()@endif@~
    * and is provided for compatibility between SBML Level&nbsp;1 and
    * Level&nbsp;2.
    * 
@@ -884,9 +937,10 @@ public:
    * returned by this function are:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    *
-   * @note The attribute "volume" only exists by that name in SBML
-   * Level&nbsp;1.  In Level&nbsp;2 and above, the equivalent attribute is
-   * named "size".
+   * @copydetails doc_note_volume
+   *
+   * @see isSetVolume()
+   * @see @if java Compartment::setSize(double value)@else setSize()@endif@~
    */
   int setVolume (double value);
 
@@ -1008,26 +1062,31 @@ public:
   /**
    * Unsets the value of the "size" attribute of this Compartment.
    * 
+   * In SBML Level&nbsp;1, a compartment's volume has a default value (@c
+   * 1.0) and therefore <em>should always be set</em>.  Calling this method
+   * on a Level&nbsp;1 model resets the value to @c 1.0 rather than actually
+   * unsetting it.  In Level&nbsp;2, a compartment's "size" is optional with
+   * no default value, and unsetting it will result in the compartment having
+   * no defined size.
+   * 
    * @return integer value indicating success/failure of the
    * function.  The possible values
    * returned by this function are:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
    *
-   * @note The attribute "volume" only exists by that name in SBML
-   * Level&nbsp;1.  In Level&nbsp;2 and above, the equivalent attribute is
-   * named "size".
+   * @note This method is identical to
+   * @if java Compartment::unsetVolume()@else unsetVolume()@endif.
    */
   int unsetSize ();
 
 
   /**
-   * Unsets the value of the "volume" attribute of this
-   * Compartment.
-   * 
-   * In SBML Level&nbsp;1, a Compartment volume has a default value (@c 1.0) and
-   * therefore <em>should always be set</em>.  In Level&nbsp;2, "size" is
-   * optional with no default value and as such may or may not be set.
+   * Unsets the value of the "volume" attribute of this Compartment.
+   *
+   * This method is identical to
+   * @if java Compartment::unsetSize()@else unsetSize()@endif.  Please refer
+   * to that method's documentation for more information about its behavior.
    *
    * @return integer value indicating success/failure of the
    * function.  The possible values
@@ -1035,9 +1094,7 @@ public:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
    *
-   * @note The attribute "volume" only exists by that name in SBML
-   * Level&nbsp;1.  In Level&nbsp;2 and above, the equivalent attribute is
-   * named "size".
+   * @copydetails doc_note_volume
    */
   int unsetVolume ();
 
@@ -1089,27 +1146,7 @@ public:
    * Constructs and returns a UnitDefinition that corresponds to the units
    * of this Compartment's designated size.
    *
-   * Compartments in SBML have an attribute ("units") for declaring the
-   * units of measurement intended for the value of the compartment's size.
-   * In the absence of a value given for this attribute, the units are
-   * inherited from values either defined on the enclosing Model (in SBML
-   * Level&nbsp;3) or in defaults (in SBML Level&nbsp;2).  This method
-   * returns a UnitDefinition object based on how this compartment's units
-   * are interpreted according to the relevant SBML guidelines, or it
-   * returns @c NULL if no units have been declared and no defaults are
-   * defined by the relevant SBML specification.
-   *
-   * Note that unit declarations for Compartment objects are specified in
-   * terms of the @em identifier of a unit (e.g., using
-   * @if java Compartment::setUnits(String sid)@else setUnits()@endif), but
-   * @em this method returns a UnitDefinition object, not a unit
-   * identifier.  It does this by constructing an appropriate
-   * UnitDefinition.  For SBML Level&nbsp;2 models, it will do this even
-   * when the value of the "units" attribute is one of the special SBML
-   * Level&nbsp;2 unit identifiers @c "substance", @c "volume", @c "area",
-   * @c "length" or @c "time".  Callers may find this useful in conjunction
-   * with the helper methods provided by the UnitDefinition class for
-   * comparing different UnitDefinition objects.
+   * @copydetails doc_compartment_units
    * 
    * @return a UnitDefinition that expresses the units of this 
    * Compartment, or @c NULL if one cannot be constructed.
@@ -1129,26 +1166,7 @@ public:
    * Constructs and returns a UnitDefinition that corresponds to the units
    * of this Compartment's designated size.
    *
-   * Compartments in SBML have an attribute ("units") for declaring the
-   * units of measurement intended for the value of the compartment's size.
-   * In the absence of a value given for this attribute, the units are
-   * inherited from values either defined on the enclosing Model (in SBML
-   * Level&nbsp;3) or in defaults (in SBML Level&nbsp;2).  This method
-   * returns a UnitDefinition object based on how this compartment's units
-   * are interpreted according to the relevant SBML guidelines, or it
-   * returns @c NULL if no units have been declared and no defaults are
-   * defined by the relevant SBML specification.
-   *
-   * Note that unit declarations for Compartment objects are specified in
-   * terms of the @em identifier of a unit (e.g., using setUnits(@if java String sid@endif)), but
-   * @em this method returns a UnitDefinition object, not a unit
-   * identifier.  It does this by constructing an appropriate
-   * UnitDefinition.  For SBML Level&nbsp;2 models, it will do this even
-   * when the value of the "units" attribute is one of the special SBML
-   * Level&nbsp;2 unit identifiers @c "substance", @c "volume", @c "area",
-   * @c "length" or @c "time".  Callers may find this useful in conjunction
-   * with the helper methods provided by the UnitDefinition class for
-   * comparing different UnitDefinition objects.
+   * @copydetails doc_compartment_units
    * 
    * @return a UnitDefinition that expresses the units of this 
    * Compartment, or @c NULL if one cannot be constructed.
@@ -1167,27 +1185,7 @@ public:
   /**
    * Returns the libSBML type code for this SBML object.
    * 
-   * @if clike LibSBML attaches an identifying code to every kind of SBML
-   * object.  These are known as <em>SBML type codes</em>.  The set of
-   * possible type codes is defined in the enumeration #SBMLTypeCode_t.
-   * The names of the type codes all begin with the characters @c
-   * SBML_. @endif@if java LibSBML attaches an identifying code to every
-   * kind of SBML object.  These are known as <em>SBML type codes</em>.  In
-   * other languages, the set of type codes is stored in an enumeration; in
-   * the Java language interface for libSBML, the type codes are defined as
-   * static integer constants in the interface class {@link
-   * libsbmlConstants}.  The names of the type codes all begin with the
-   * characters @c SBML_. @endif@if python LibSBML attaches an identifying
-   * code to every kind of SBML object.  These are known as <em>SBML type
-   * codes</em>.  In the Python language interface for libSBML, the type
-   * codes are defined as static integer constants in the interface class
-   * @link libsbml@endlink.  The names of the type codes all begin with the
-   * characters @c SBML_. @endif@if csharp LibSBML attaches an identifying
-   * code to every kind of SBML object.  These are known as <em>SBML type
-   * codes</em>.  In the C# language interface for libSBML, the type codes
-   * are defined as static integer constants in the interface class @link
-   * libsbmlcs.libsbml@endlink.  The names of the type codes all begin with
-   * the characters @c SBML_. @endif@~
+   * @copydetails doc_typecodes
    *
    * @return the SBML type code for this object, or
    * @link SBMLTypeCode_t#SBML_UNKNOWN SBML_UNKNOWN@endlink (default).
@@ -1353,29 +1351,10 @@ public:
   /**
    * Returns the libSBML type code for this SBML object.
    *
-   * @if clike LibSBML attaches an identifying code to every kind of SBML
-   * object.  These are known as <em>SBML type codes</em>.  The set of
-   * possible type codes is defined in the enumeration #SBMLTypeCode_t.
-   * The names of the type codes all begin with the characters @c
-   * SBML_. @endif@if java LibSBML attaches an identifying code to every
-   * kind of SBML object.  These are known as <em>SBML type codes</em>.  In
-   * other languages, the set of type codes is stored in an enumeration; in
-   * the Java language interface for libSBML, the type codes are defined as
-   * static integer constants in the interface class {@link
-   * libsbmlConstants}.  The names of the type codes all begin with the
-   * characters @c SBML_. @endif@if python LibSBML attaches an identifying
-   * code to every kind of SBML object.  These are known as <em>SBML type
-   * codes</em>.  In the Python language interface for libSBML, the type
-   * codes are defined as static integer constants in the interface class
-   * @link libsbml@endlink.  The names of the type codes all begin with the
-   * characters @c SBML_. @endif@if csharp LibSBML attaches an identifying
-   * code to every kind of SBML object.  These are known as <em>SBML type
-   * codes</em>.  In the C# language interface for libSBML, the type codes
-   * are defined as static integer constants in the interface class @link
-   * libsbmlcs.libsbml@endlink.  The names of the type codes all begin with
-   * the characters @c SBML_. @endif@~
+   * @copydetails doc_typecodes
    *
-   * @return the SBML type code for this object, or @link SBMLTypeCode_t#SBML_UNKNOWN SBML_UNKNOWN@endlink (default).
+   * @return the SBML type code for this object, or
+   * @link SBMLTypeCode_t#SBML_UNKNOWN SBML_UNKNOWN@endlink (default).
    *
    * @see getElementName()
    */
@@ -1386,28 +1365,8 @@ public:
    * Returns the libSBML type code for the objects contained in this ListOf
    * (i.e., Compartment objects, if the list is non-empty).
    *
-   * @if clike LibSBML attaches an identifying code to every kind of SBML
-   * object.  These are known as <em>SBML type codes</em>.  The set of
-   * possible type codes is defined in the enumeration #SBMLTypeCode_t.
-   * The names of the type codes all begin with the characters @c
-   * SBML_. @endif@if java LibSBML attaches an identifying code to every
-   * kind of SBML object.  These are known as <em>SBML type codes</em>.  In
-   * other languages, the set of type codes is stored in an enumeration; in
-   * the Java language interface for libSBML, the type codes are defined as
-   * static integer constants in the interface class {@link
-   * libsbmlConstants}.  The names of the type codes all begin with the
-   * characters @c SBML_. @endif@if python LibSBML attaches an identifying
-   * code to every kind of SBML object.  These are known as <em>SBML type
-   * codes</em>.  In the Python language interface for libSBML, the type
-   * codes are defined as static integer constants in the interface class
-   * @link libsbml@endlink.  The names of the type codes all begin with the
-   * characters @c SBML_. @endif@if csharp LibSBML attaches an identifying
-   * code to every kind of SBML object.  These are known as <em>SBML type
-   * codes</em>.  In the C# language interface for libSBML, the type codes
-   * are defined as static integer constants in the interface class @link
-   * libsbmlcs.libsbml@endlink.  The names of the type codes all begin with
-   * the characters @c SBML_. @endif@~
-   * 
+   * @copydetails doc_typecodes
+   *
    * @return the SBML type code for the objects contained in this ListOf
    * instance, or @link SBMLTypeCode_t#SBML_UNKNOWN SBML_UNKNOWN@endlink (default).
    *
