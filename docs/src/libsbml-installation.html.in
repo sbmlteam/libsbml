@@ -891,7 +891,6 @@ in use.  The following table summarizes the possibilities; note that these
 names changed slightly between libSBML&nbsp;3.x and&nbsp;4.x to incorporate
 the version number:
 
-<center>
 <table border="0" class="text-table width80 normal-font alt-row-colors">
  <tr style="background: lightgray; font-size: 14px;">
    <th style="border-bottom: none"></th>
@@ -920,7 +919,6 @@ the version number:
   <td><em>N/A</em></td>
 </tr>
 </table>
-</center>
 
 <p>
 If you have compiled additional language extensions with libSBML, these files
@@ -929,7 +927,6 @@ particular language extension.  The following two tables summarize the
 possibilities.  The first table lists the names of the files, while the second
 table below lists the pathnames where those files will be installed.
 
-<center>
 <table border="0" class="text-table  bigger-row-spacing  width80  normal-font">
  <tr style="background: lightgray; font-size: 14px;">
    <th colspan="2" style="border-bottom: none"></th>
@@ -1125,7 +1122,6 @@ table below lists the pathnames where those files will be installed.
 <caption class="bottom-caption" style="text-align: left">Legend: N/A = not available.
 </caption>
 </table>
-</center>
 
 <p> The next table gives the locations of the files listed in the table
 above for Linux/Unix-based operating systems.  The pathnames shown here are
@@ -1135,7 +1131,6 @@ value <em><span class="placeholder">DIR</span></em> given to the
 class="placeholder">DIR</span></em></nobr> option to the
 <code>configure</code> program discussed above).
 
-<center>
 <table border="0" class="text-table  bigger-row-spacing  width80  normal-font  alt-row-colors">
  <tr style="background: lightgray; font-size: 14px;">
      <th colspan="2" align="left">Language</th>
@@ -1235,7 +1230,6 @@ x86-64).
 </caption>
 
 </table>
-</center>
 
 
 <!-- ---------------------------------------------------------------------- -->
