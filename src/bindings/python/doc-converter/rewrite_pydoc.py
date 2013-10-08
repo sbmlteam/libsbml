@@ -567,7 +567,7 @@ def wrap_paragraph(text, line_width):
 
 def expanded_path(path):
     if path: return os.path.expanduser(os.path.expandvars(path))
-    else:    return None
+    else:    return ''
 
 
 def read_file_contents(file):
