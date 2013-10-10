@@ -273,9 +273,9 @@ distfiles =						     \
         libsbml-extension-support-classes.txt		     \
         libsbml-features.html				     \
         libsbml-features.txt				     \
-	libsbml-group-comp-intro.html.in		     \
+	libsbml-group-comp-intro.html			     \
 	libsbml-group-comp-intro.txt			     \
-	libsbml-group-core-intro.html			     \
+	libsbml-group-core-intro.html.in		     \
 	libsbml-group-core-intro.txt			     \
 	libsbml-group-fbc-intro.html			     \
 	libsbml-group-fbc-intro.txt			     \
