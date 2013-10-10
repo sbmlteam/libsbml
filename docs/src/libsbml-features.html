@@ -63,24 +63,24 @@ stoichiometric matrix for all reactions in a model.
 Some of the other features of libSBML include the following:
 <ul>
 
-<li style="margin-bottom: 1em">  <em>Full SBML Support</em>.
+<li>  <em>Full SBML Support</em>.
   All constructs in SBML Level&nbsp;1, 2 and&nbsp;3&nbsp;Core are
   supported.  For compatibility with some technically incorrect but popular
   Level&nbsp;1 applications and models, the parser also recognizes and
   stores notes and annotations defined for the top-level
   <code>&lt;sbml&gt;</code> element (logging a warning).</li>
 
-<li style="margin-bottom: 1em"> <em>Unified SBML Level&nbsp;3, Level&nbsp;2
+<li> <em>Unified SBML Level&nbsp;3, Level&nbsp;2
   and Level&nbsp;1 object models</em>.  All objects have
   <code>getSBMLDocument()</code>, <code>getModel()</code>,
   <code>getLevel()</code>, and <code>getVersion()</code> methods, among
   other things.</li>
 
-<li style="margin-bottom: 1em">  <em>Full XML and SBML Validation</em>.
+<li>  <em>Full XML and SBML Validation</em>.
   All XML warnings and errors are logged with line and column number
   information and may be retrieved and manipulated programmatically.</li>
 
-<li style="margin-bottom: 1em">  <em>Dimensional analysis and unit
+<li>  <em>Dimensional analysis and unit
   checking</em>.  LibSBML implements a thorough system for dimensional
   analysis and checking units of quantities in a model.  The validation
   rules for units that are specified in SBML Level&nbsp;2 Version&nbsp;2
@@ -88,7 +88,7 @@ Some of the other features of libSBML include the following:
   Level&nbsp;2 Version&nbsp;4 and Level&nbsp;3 Version&nbsp;1, are fully
   implemented, including checking units in mathematical formulas.
 
-<li style="margin-bottom: 1em">  <em>Access to SBML annotations and notes
+<li>  <em>Access to SBML annotations and notes
   as XML objects</em>.  Annotations and notes are read and manipulated as
   XML structures instead of text strings.  Further, in order to facilitate
   the support of <a href="http://biomodels.net/miriam">MIRIAM</a>
@@ -100,7 +100,7 @@ Some of the other features of libSBML include the following:
   CVTerm follow the general libSBML format of providing getters and setters
   for each variable stored within the class.</li>
 
-<li style="margin-bottom: 1em"> <em>Support for SBO</em>.  The <a
+<li> <em>Support for SBO</em>.  The <a
   href="http://biomodels.net/sbo">Systems Biology Ontology (SBO)</a> is a
   machine-readable ontology tailored for computational modeling in systems
   biology.  Annotating a model with SBO terms adds semantic information
@@ -109,7 +109,7 @@ Some of the other features of libSBML include the following:
   between different mathematical frameworks.  LibSBML provides API methods
   for adding and working with SBO terms in SBML models.
 
-<li style="margin-bottom: 1em"> <em>Support for compressed SBML files</em>.
+<li> <em>Support for compressed SBML files</em>.
   If an SBML file name ends in <code>.gz</code>, <code>.zip</code> or
   <code>.bz2</code>, libSBML will automatically uncompress the file upon
   reading it.  Similarly, if the file to be written has one of those
@@ -119,7 +119,7 @@ Some of the other features of libSBML include the following:
   written by Gilles Vollant and made freely available for all uses
   including commercial applications.)
 
-<li style="margin-bottom: 1em"> <em>Parser abstraction layer</em>.
+<li> <em>Parser abstraction layer</em>.
   LibSBML relies on third-party XML parser libraries, but thanks to its
   implementation of an abstraction layer, libSBML can use any of three
   different popular XML parser libraries: Expat, Apache Xerces-C++, and
@@ -128,23 +128,23 @@ Some of the other features of libSBML include the following:
   parsed and manipulated in the Unicode codepage for efficiency; however,
   strings are transcoded to the local code page for SBML structures.</li>
 
-<li style="margin-bottom: 1em"> <em>Convenience methods</em>.  LibSBML
+<li> <em>Convenience methods</em>.  LibSBML
   provides many other useful methods, such as for obtaining a count of the
   number of boundary condition species, determining the modifier species of
   a reaction (assuming the reaction provides kinetics), and more.
 
-<li style="margin-bottom: 1em">  <em>Small memory footprint and fast runtime</em>.
+<li>  <em>Small memory footprint and fast runtime</em>.
   The parser is event-based (SAX2) and loads SBML data into C++ structures
   that mirror the SBML specification.
       
-<li style="margin-bottom: 1em">  <em>Interfaces for C, C++, C#, Java, Python,
+<li>  <em>Interfaces for C, C++, C#, Java, Python,
   Perl, MATLAB, Octave, and Ruby</em>.  The C and C++ interfaces are
   implemented natively; the C#, Java, Perl, Python, and Ruby interfaces are
   implemented using <a href="http://www.swig.org">SWIG</a>, the Simplified
   Wrapper Interface Generator; and the MATLAB and Octave interfaces are
   implemented through custom hand-written code.
 
-<li style="margin-bottom: 1em"> <em>Well tested: libSBML has over
+<li> <em>Well tested: libSBML has over
   4300 unit tests containing a total of over 17,000 individual
   assertions</em>.  In addition to these tests, libSBML 
   contains over 4400 individually hand-written SBML XML files containing
@@ -153,13 +153,13 @@ Some of the other features of libSBML include the following:
   Kent Beck and eXtreme Programming, where it's one of the 12
   principles.</li>
     
-<li style="margin-bottom: 1em">  <em>Written in portable, pure ISO C and
+<li>  <em>Written in portable, pure ISO C and
   C++</em>. The build system uses GNU tools (<a target="_blank"
   href="http://www.gnu.org/software/autoconf/">Autoconf</a>, <a
   target="_blank" href="http://www.gnu.org/software/make/">GNU Make</a>) to
   build shared and static libraries.</li>
 
-<li style="margin-bottom: 1em">  <em>Complete user
+<li>  <em>Complete user
   manual</em>. Documentation is available in the "docs" subdirectory in
   both pre-formatted and source form.</li>
 </ul>
