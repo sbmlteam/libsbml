@@ -74,6 +74,15 @@ ul {
     margin-bottom: 0px;
 }
 
+ul li {
+    padding-bottom: 0.5em;
+}
+
+ul li p {
+    margin: 0px;
+    padding: 0px;
+}
+
 dl {
     margin-left: 0px;
 }
@@ -934,9 +943,13 @@ table.fieldtable {
     font-size: 13px;
 }
 
+.navpath {
+    font-family: Helvetica, Arial, Sans, sans-serif;
+    font-size: 10pt;
+}
+
 .navpath ul
 {
-    font-size: 11px;
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#f8f8f8', endColorstr='#bbbbbb');
     background-image: -webkit-gradient(linear, left top, left bottom, from(#f8f8f8), to(#bbb),color-stop(0.5, #ddd));
     background-image: -moz-linear-gradient(center top, #f8f8f8 0%, #ddd 50%, #bbb);
@@ -985,7 +998,6 @@ table.fieldtable {
     background-repeat:no-repeat;
     background-position:right;
     color:#364D7C;
-    font-size: 8pt;
 }
 
 
@@ -1519,18 +1531,6 @@ table.params td.paramname {
     padding-left: 2.5em;
 }
 
-.textblock ul {
-}
-
-.textblock ul li {
-    padding-bottom: 0.5em;
-}
-
-ul li p {
-    margin: 0px;
-    padding: 0px;
-}
-
 .textblock ul li p.startli,
 #doc-content ul li p.startli {
     padding: 0px;
@@ -1850,4 +1850,8 @@ img.big-icon {
     vertical-align: -40%;
     margin: auto 5px;
     border: none;
+}
+
+.tight-spacing {
+    letter-spacing: -1px;
 }
