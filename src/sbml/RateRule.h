@@ -27,7 +27,7 @@
  * ------------------------------------------------------------------------ -->
  * 
  * @class RateRule
- * @ingroup Core
+ * @ingroup core
  * @brief Implementation of %SBML's %RateRule construct.
  *
  * The rule type RateRule is derived from the parent class Rule.  It is

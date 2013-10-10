@@ -26,7 +26,7 @@
  * ---------------------------------------------------------------------- -->
  *
  * @class L3ParserSettings
- * @ingroup Core
+ * @ingroup core
  * @brief A helper class for controlling the behavior of the text-string 
  * formula parser.
  *

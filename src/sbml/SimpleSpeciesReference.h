@@ -27,7 +27,7 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class SimpleSpeciesReference
- * @ingroup Core
+ * @ingroup core
  * @brief Implementation of %SBML's %SimpleSpeciesReference construct.
  *
  * As mentioned in the description of Reaction, every species that enters

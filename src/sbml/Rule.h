@@ -27,7 +27,7 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class Rule
- * @ingroup Core
+ * @ingroup core
  * @brief Implementation of %SBML's %Rule construct.
  *
  * In SBML, @em rules provide additional ways to define the values of
@@ -70,7 +70,7 @@
  */ 
 /**
  * @class ListOfRules
- * @ingroup Core
+ * @ingroup core
  * @brief Implementation of SBML's %ListOfRules construct.
  * 
  * The various ListOf___ classes in %SBML are merely containers used for

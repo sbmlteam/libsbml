@@ -26,7 +26,7 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class Event
- * @ingroup Core
+ * @ingroup core
  * @brief Implementation of SBML's %Event construct.
  * 
  * An SBML Event object defines when the event can occur, the variables
@@ -207,7 +207,7 @@
  */ 
 /**
  * @class ListOfEvents
- * @ingroup Core
+ * @ingroup core
  * @brief Implementation of SBML's %ListOfEvents construct.
  * 
  * The various ListOf___ classes in SBML are merely containers used for

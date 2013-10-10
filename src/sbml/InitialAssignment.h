@@ -26,7 +26,7 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class InitialAssignment
- * @ingroup Core
+ * @ingroup core
  * @brief  Implementation of %SBML's %InitialAssignment construct.
  *
  * SBML Level 2 Versions 2&ndash;4 and SBML Level&nbsp;3 provide two ways of assigning initial
@@ -168,7 +168,7 @@
  * <!---------------------------------------------------------------------- -->
  *
  * @class ListOfInitialAssignments
- * @ingroup Core
+ * @ingroup core
  * @brief Implementation of SBML's %ListOfInitialAssignments construct.
  * 
  * The various ListOf___ classes in %SBML are merely containers used for

@@ -26,7 +26,7 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class SBMLWriter
- * @ingroup Core
+ * @ingroup core
  * @brief Methods for writing SBML to files and text strings.
  *
  * @htmlinclude not-sbml-warning.html

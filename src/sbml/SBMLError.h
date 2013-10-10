@@ -27,7 +27,7 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class SBMLError
- * @ingroup Core
+ * @ingroup core
  * @brief Representation of errors, warnings and other diagnostics
  *
  * @htmlinclude not-sbml-warning.html

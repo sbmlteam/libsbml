@@ -26,7 +26,7 @@
  * ------------------------------------------------------------------------ -->
  * 
  * @class List
- * @ingroup Core
+ * @ingroup core
  * @brief Simple, plain, generic lists, and associated list utilities.
  *
  * @htmlinclude not-sbml-warning.html

@@ -26,7 +26,7 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class ConversionOption
- * @ingroup Core
+ * @ingroup core
  * @brief Class of object that encapsulates a conversion option.
  * 
  * @htmlinclude libsbml-facility-only-warning.html

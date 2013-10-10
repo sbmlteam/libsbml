@@ -26,7 +26,7 @@
  * ------------------------------------------------------------------------ -->
  * 
  * @class Reaction
- * @ingroup Core
+ * @ingroup core
  * @brief Implementation of SBML's %Reaction construct.
  *
  * A @em reaction represents any transformation, transport or binding
@@ -146,7 +146,7 @@
  * 
  * 
  * @class ListOfReactions.
- * @ingroup Core
+ * @ingroup core
  * @brief Implementation of SBML's %ListOfReactions construct.
  * 
  * The various ListOf___ classes in SBML are merely containers used for

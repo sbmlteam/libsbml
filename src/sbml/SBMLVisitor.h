@@ -26,7 +26,7 @@
  * ---------------------------------------------------------------------- -->
  *
  * @class SBMLVisitor
- * @ingroup Core
+ * @ingroup core
  * @brief Support class for performing operations on SBML objects.
  * 
  * <em style='color: #555'>This class of objects is defined by libSBML only

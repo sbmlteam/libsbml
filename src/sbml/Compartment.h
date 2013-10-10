@@ -26,7 +26,7 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class Compartment
- * @ingroup Core
+ * @ingroup core
  * @brief Implementation of SBML's %Compartment construct.
  *
  * A compartment in SBML represents a bounded space in which species are
@@ -272,7 +272,7 @@
  */ 
 /**
  * @class ListOfCompartments
- * @ingroup Core
+ * @ingroup core
  * @brief Implementation of SBML Level&nbsp;2's %ListOfCompartments construct.
  * 
  * The various ListOf___ classes in SBML are merely containers used for

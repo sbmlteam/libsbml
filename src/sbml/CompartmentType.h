@@ -26,7 +26,7 @@
  * ------------------------------------------------------------------------ -->
  * 
  * @class CompartmentType.
- * @ingroup Core
+ * @ingroup core
  * @brief Implementation of SBML's Level&nbsp;2's %CompartmentType construct.
  *
  * SBML Level&nbsp;2 Versions&nbsp;2&ndash;4 provide the <em>compartment
@@ -68,7 +68,7 @@
  * 
  * 
  * @class ListOfCompartmentTypes.
- * @ingroup Core
+ * @ingroup core
  * @brief Implementation of SBML's %ListOfCompartmentTypes construct.
  * 
  * The various ListOf___ classes in SBML are merely containers used for

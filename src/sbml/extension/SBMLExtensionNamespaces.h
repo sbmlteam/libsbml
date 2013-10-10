@@ -28,7 +28,7 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class SBMLExtensionNamespaces
- * @ingroup Core
+ * @ingroup core
  * @brief Class to store level, version and namespace information of SBML extension
  *        package.
  *

@@ -27,7 +27,7 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class AlgebraicRule
- * @ingroup Core
+ * @ingroup core
  * @brief Implementation of %SBML's %AlgebraicRule construct.
  *
  * The rule type AlgebraicRule is derived from the parent class Rule.  It

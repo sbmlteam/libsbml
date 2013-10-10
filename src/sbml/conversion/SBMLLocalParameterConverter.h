@@ -26,7 +26,7 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class SBMLLocalParameterConverter
- * @ingroup Core
+ * @ingroup core
  * @brief SBML converter for replacing SIds.
  *
  * @htmlinclude libsbml-facility-only-warning.html

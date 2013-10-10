@@ -26,7 +26,7 @@
  * ---------------------------------------------------------------------- -->
  * 
  * @class FormulaTokenizer
- * @ingroup Core
+ * @ingroup core
  * @brief Tokenizes a mathematical formula string in SBML Level 1 syntax.
  *
  * @htmlinclude not-sbml-warning.html

@@ -26,7 +26,7 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class Delay
- * @ingroup Core
+ * @ingroup core
  * @brief Implementation of %SBML's %Delay construct for %Event.
  *
  * An Event object defines when the event can occur, the variables that

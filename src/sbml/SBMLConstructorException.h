@@ -26,7 +26,7 @@
  * ------------------------------------------------------------------------ -->
  * 
  * @class SBMLConstructorException
- * @ingroup Core
+ * @ingroup core
  * @brief Class of exceptions thrown by constructors of some libSBML objects.
  *
  * In some situations, constructors for SBML objects may need to indicate to

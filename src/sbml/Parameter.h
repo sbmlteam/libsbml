@@ -26,7 +26,7 @@
  * ------------------------------------------------------------------------ -->
  * 
  * @class Parameter.
- * @ingroup Core
+ * @ingroup core
  * @brief Implementation of SBML's %Parameter construct.
  *
  * A Parameter is used in SBML to define a symbol associated with a value;
@@ -124,7 +124,7 @@
  */ 
 /**
  * @class ListOfParameters
- * @ingroup Core
+ * @ingroup core
  * @brief Implementation of SBML's %ListOfParameters construct.
  * 
  * The various ListOf___ classes in SBML are merely containers used for

@@ -26,7 +26,7 @@
  * ------------------------------------------------------------------------ -->
  * 
  * @class ModelCreator
- * @ingroup Core
+ * @ingroup core
  * @brief Representation of MIRIAM-compliant model creator data used
  * in ModelHistory. 
  *

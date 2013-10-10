@@ -26,7 +26,7 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class UnitDefinition
- * @ingroup Core
+ * @ingroup core
  * @brief Implementation of SBML's %UnitDefinition construct.
  *
  * Units of measurement may be supplied in a number of contexts in an SBML
@@ -232,7 +232,7 @@
  */ 
 /**
  * @class ListOfUnitDefinitions
- * @ingroup Core
+ * @ingroup core
  * @brief Implementation of SBML's %ListOfUnitDefinitions construct.
  * 
  * The various ListOf___ classes in SBML are merely containers used for

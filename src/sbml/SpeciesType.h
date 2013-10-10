@@ -26,7 +26,7 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class SpeciesType
- * @ingroup Core
+ * @ingroup core
  * @brief Implementation of SBML Level&nbsp;2's %SpeciesType construct.
  *
  * The term @em species @em type refers to reacting entities independent of
@@ -67,7 +67,7 @@
  * <!---------------------------------------------------------------------- -->
  *
  * @class ListOfSpeciesTypes.
- * @ingroup Core
+ * @ingroup core
  * @brief Implementation of SBML's %ListOfSpeciesTypes construct.
  * 
  * The various ListOf___ classes in SBML are merely containers used for

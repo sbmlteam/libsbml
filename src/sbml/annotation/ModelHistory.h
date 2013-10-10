@@ -26,7 +26,7 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class ModelHistory
- * @ingroup Core
+ * @ingroup core
  * @brief Representation of MIRIAM-compliant model history data.
  *
  * @htmlinclude not-sbml-warning.html
@@ -94,7 +94,7 @@
  */ 
 /**
  * @class ModelCreator
- * @ingroup Core
+ * @ingroup core
  * @brief Representation of MIRIAM-compliant model creator data used
  * in ModelHistory. 
  *
@@ -144,7 +144,7 @@
  */ 
 /**
  * @class Date
- * @ingroup Core
+ * @ingroup core
  * @brief Representation of MIRIAM-compliant dates used in ModelHistory.
  *
  * @htmlinclude not-sbml-warning.html

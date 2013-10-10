@@ -26,7 +26,7 @@
  * ---------------------------------------------------------------------- -->
  *
  * @class SyntaxChecker
- * @ingroup Core
+ * @ingroup core
  * @brief Methods for checking syntax of SBML identifiers and other strings.
  * 
  * @htmlinclude not-sbml-warning.html

@@ -28,7 +28,7 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class SBasePlugin
- * @ingroup Core
+ * @ingroup core
  * @brief Representation of a plug-in object of SBML's package extension.
  * 
  * Additional attributes and/or elements of a package extension which are directly 

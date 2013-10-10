@@ -26,7 +26,7 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class SBaseExtensionPoint
- * @ingroup Core
+ * @ingroup core
  * @brief Representation of an extension point of SBML's package extension.
  *
  * SBaseExtensionPoint represents an element to be extended (extension point) and the

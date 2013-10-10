@@ -26,7 +26,7 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class SBMLConverterRegistry
- * @ingroup Core
+ * @ingroup core
  * @brief Registry of all SBML converters.
  *
  * @htmlinclude libsbml-facility-only-warning.html

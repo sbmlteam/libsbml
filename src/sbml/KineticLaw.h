@@ -26,7 +26,7 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class KineticLaw
- * @ingroup Core
+ * @ingroup core
  * @brief Implementation of %SBML's %KineticLaw construct.
  *
  * An object of class KineticLaw is used to describe the rate at which the
