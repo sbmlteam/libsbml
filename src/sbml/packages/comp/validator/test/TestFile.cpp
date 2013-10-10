@@ -128,6 +128,7 @@ bool
 TestFile::isValid (const string& filename)
 {
   return ((filename.length() == 22 && filename.substr(18, 4) == ".xml")
+    || (filename.length() == 28 && filename.substr(24, 4) == ".xml")
     || (filename.length() == 30 && filename.substr(26, 4) == ".xml"));
 }
 
