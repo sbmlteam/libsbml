@@ -389,6 +389,7 @@ AC_CONFIG_FILES([docs/src/doxygen-config-python.txt])
 AC_CONFIG_FILES([docs/src/doxygen-config-perl.txt])
 AC_CONFIG_FILES([docs/src/doxygen-config-matlab.txt])
 AC_CONFIG_FILES([docs/src/libsbml-installation.html])
+AC_CONFIG_FILES([docs/src/libsbml-group-core-intro.html])
 AC_CONFIG_FILES([docs/src/common-text/libsbml-version.html],
                 [tr -d '\n' < docs/src/common-text/libsbml-version.html > libsbmlversiontmp;
 		 mv libsbmlversiontmp docs/src/common-text/libsbml-version.html])

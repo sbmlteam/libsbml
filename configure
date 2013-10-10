@@ -26362,6 +26362,8 @@ ac_config_files="$ac_config_files docs/src/doxygen-config-matlab.txt"
 
 ac_config_files="$ac_config_files docs/src/libsbml-installation.html"
 
+ac_config_files="$ac_config_files docs/src/libsbml-group-core-intro.html"
+
 ac_config_files="$ac_config_files docs/src/common-text/libsbml-version.html"
 
 ac_config_files="$ac_config_files docs/src/Makefile"
@@ -27277,6 +27279,7 @@ do
     "docs/src/doxygen-config-perl.txt") CONFIG_FILES="$CONFIG_FILES docs/src/doxygen-config-perl.txt" ;;
     "docs/src/doxygen-config-matlab.txt") CONFIG_FILES="$CONFIG_FILES docs/src/doxygen-config-matlab.txt" ;;
     "docs/src/libsbml-installation.html") CONFIG_FILES="$CONFIG_FILES docs/src/libsbml-installation.html" ;;
+    "docs/src/libsbml-group-core-intro.html") CONFIG_FILES="$CONFIG_FILES docs/src/libsbml-group-core-intro.html" ;;
     "docs/src/common-text/libsbml-version.html") CONFIG_FILES="$CONFIG_FILES docs/src/common-text/libsbml-version.html" ;;
     "docs/src/Makefile") CONFIG_FILES="$CONFIG_FILES docs/src/Makefile" ;;
     "examples/c/Makefile") CONFIG_FILES="$CONFIG_FILES examples/c/Makefile" ;;
