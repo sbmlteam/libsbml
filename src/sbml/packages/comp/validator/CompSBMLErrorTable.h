@@ -1442,7 +1442,37 @@ static const packageErrorTableEntry compErrorTable[] =
     "" ,
     { ""
     }
+  },
+
+  // 1090115
+  { CompIdRefMayReferenceUnknownPackage,
+    "The 'comp:idRef' attribute must be the 'id' of a model element",
+    LIBSBML_CAT_GENERAL_CONSISTENCY, 
+    LIBSBML_SEV_WARNING,
+    "The value of a 'comp:idRef' attribute on an <sBaseRef> object must "
+    "be the identifier of an object contained in (that is, within the "
+    "SId namespace of) the <model> referenced by that <sBaseRef>. This "
+    "includes objects with 'id' attributes defined in packages other "
+    "than SBML Level 3 Core or the Hierarchical Model Composition "
+    "package.",
+    { ""
+    }
+  },
+
+  // 1090116
+  { CompMetaIdRefMayReferenceUnknownPkg,
+    "The 'comp:metaIdRef' attribute must be the 'metaid' of a model element",
+    LIBSBML_CAT_GENERAL_CONSISTENCY, 
+    LIBSBML_SEV_WARNING,
+    "The value of a 'comp:metaIdRef' attribute on an <sBaseRef> object "
+    "must be the value of a 'comp:metaid' attribute on an element contained "
+    "in the <model> referenced by that <sBaseRef>.",
+    { ""
+    }
   }
+
+
+
 };
 
 LIBSBML_CPP_NAMESPACE_END

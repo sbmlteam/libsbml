@@ -759,23 +759,61 @@ int CompModelPlugin::saveAllReferencedElements(set<SBase*> uniqueRefs, set<SBase
           SBaseRef* reference = static_cast<SBaseRef*>(element);
           ReplacedElement* re = static_cast<ReplacedElement*>(element);
           ret = reference->saveReferencedElement();
-          if (ret != LIBSBML_OPERATION_SUCCESS) {
-            if (type != SBML_COMP_REPLACEDBY && doc) {
+          if (ret != LIBSBML_OPERATION_SUCCESS) 
+          {
+            if (type != SBML_COMP_REPLACEDBY && doc) 
+            {
               SBMLErrorLog* errlog = doc->getErrorLog();
-              SBMLError* lasterr = const_cast<SBMLError*>(doc->getErrorLog()->getError(doc->getNumErrors()-1));
+              SBMLError* lasterr = const_cast<SBMLError*>
+                (doc->getErrorLog()->getError(doc->getNumErrors()-1));
               if ( (errlog->contains(UnrequiredPackagePresent) || 
-                    errlog->contains(RequiredPackagePresent)) && 
-                   (lasterr->getErrorId() == CompIdRefMustReferenceObject ||
-                    lasterr->getErrorId() == CompMetaIdRefMustReferenceObject)
-                 ) {
+                    errlog->contains(RequiredPackagePresent))) 
+              {
+                if ( lasterr->getErrorId() == CompIdRefMustReferenceObject)
+                {
                    //Change the error into a warning
-                   string fullmsg = lasterr->getMessage() + "  However, this may be because of the unrecognized package present in this document:  ignoring this element and flattening anyway.";
+                   string fullmsg = lasterr->getMessage() 
+                     + "  However, this may be because of the unrecognized "
+                     + "package present in this document:  ignoring this "
+                     + "element and flattening anyway.";
                    errlog->remove(lasterr->getErrorId());
-                   errlog->logPackageError("comp", CompFlatteningWarning, getPackageVersion(), getLevel(), getVersion(), fullmsg, element->getLine(), element->getColumn(), LIBSBML_SEV_WARNING);
-                   element->removeFromParentAndDelete();
-                   continue;
+                   errlog->logPackageError("comp", 
+                     CompIdRefMayReferenceUnknownPackage, getPackageVersion(), 
+                     getLevel(), getVersion(), fullmsg, element->getLine(), 
+                     element->getColumn(), LIBSBML_SEV_WARNING);
+                    element->removeFromParentAndDelete();
+                    continue;
+                }
+                else if ( lasterr->getErrorId() == CompMetaIdRefMustReferenceObject)
+                {
+                   //Change the error into a warning
+                   string fullmsg = lasterr->getMessage() 
+                     + "  However, this may be because of the unrecognized "
+                     + "package present in this document:  ignoring this "
+                     + "element and flattening anyway.";
+                   errlog->remove(lasterr->getErrorId());
+                   errlog->logPackageError("comp", 
+                     CompMetaIdRefMayReferenceUnknownPkg, getPackageVersion(), 
+                     getLevel(), getVersion(), fullmsg, element->getLine(), 
+                     element->getColumn(), LIBSBML_SEV_WARNING);
+                    element->removeFromParentAndDelete();
+                    continue;
+                }
+                else if (lasterr->getErrorId() == 
+                                  CompIdRefMayReferenceUnknownPackage)
+                {
+                  element->removeFromParentAndDelete();
+                  continue;
+                }
+                else if (lasterr->getErrorId() == 
+                                  CompMetaIdRefMayReferenceUnknownPkg)
+                {
+                  element->removeFromParentAndDelete();
+                  continue;
+                }
               }
-              else {
+              else 
+              {
                 return ret;
               }
             }

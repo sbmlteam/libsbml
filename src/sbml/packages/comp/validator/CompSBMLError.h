@@ -173,6 +173,9 @@ typedef enum
 , CompDeprecatedReplaceFunction         = 1090113
 , CompDeletedReplacement                = 1090114
 
+, CompIdRefMayReferenceUnknownPackage   = 1090115
+, CompMetaIdRefMayReferenceUnknownPkg   = 1090116
+
 } CompSBMLErrorCode_t;
 
 

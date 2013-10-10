@@ -746,7 +746,8 @@ CompSBMLDocumentPlugin::checkConsistency()
        * but only do this if we are actually logging errors
        * and only do it once
        */
-      if (lineNumMessageLogged == false)
+      if (lineNumMessageLogged == false
+          && log->contains(CompLineNumbersUnreliable) == false)
       {
         log->logPackageError("comp", CompLineNumbersUnreliable, 
           getPackageVersion(), getLevel(), getVersion());
@@ -775,7 +776,8 @@ CompSBMLDocumentPlugin::checkConsistency()
        * but only do this if we are actually logging errors
        * and only do it once
        */
-      if (lineNumMessageLogged == false)
+      if (lineNumMessageLogged == false
+          && log->contains(CompLineNumbersUnreliable) == false)
       {
         log->logPackageError("comp", CompLineNumbersUnreliable, 
           getPackageVersion(), getLevel(), getVersion());
@@ -804,7 +806,8 @@ CompSBMLDocumentPlugin::checkConsistency()
        * but only do this if we are actually logging errors
        * and only do it once
        */
-      if (lineNumMessageLogged == false)
+      if (lineNumMessageLogged == false
+          && log->contains(CompLineNumbersUnreliable) == false)
       {
         log->logPackageError("comp", CompLineNumbersUnreliable, 
           getPackageVersion(), getLevel(), getVersion());
@@ -832,6 +835,25 @@ CompSBMLDocumentPlugin::checkConsistency()
       mCheckingDummyDoc = true;
       mFlattenAndCheck = false;
       SBMLDocument * dummyDoc = doc->clone();
+
+      /* a document clone does not clone the error log as this was deemed
+       * to be a situation where you wanted an empty log
+       *
+       * BUT for some of teh comp rules they actually need to know 
+       * whether there are unrecognised packages present
+       * so add these errors if they exist in the original
+       */
+      if (doc->getErrorLog()->contains(UnrequiredPackagePresent) == true)
+      {
+        dummyDoc->getErrorLog()->logError(UnrequiredPackagePresent, 
+          doc->getLevel(), doc->getVersion());
+      }
+      if (doc->getErrorLog()->contains(RequiredPackagePresent) == true)
+      {
+        dummyDoc->getErrorLog()->logError(RequiredPackagePresent, 
+          doc->getLevel(), doc->getVersion());
+      }
+      
       const Model * dummyModel = doc->getModel();
       
       CompSBMLDocumentPlugin * dummyPlugin = 
@@ -846,6 +868,19 @@ CompSBMLDocumentPlugin::checkConsistency()
 
 
       nerrors = dummyDoc->checkConsistency();
+
+      /* remove the unknown package errors as these will just get relogged
+       */
+      if (dummyDoc->getErrorLog()->contains(UnrequiredPackagePresent) == true)
+      {
+        dummyDoc->getErrorLog()->remove(UnrequiredPackagePresent);
+      }
+      if (dummyDoc->getErrorLog()->contains(RequiredPackagePresent) == true)
+      {
+        dummyDoc->getErrorLog()->remove(RequiredPackagePresent);
+      }
+
+
       total_errors += nerrors;
       if (nerrors > 0) 
       {
@@ -853,7 +888,8 @@ CompSBMLDocumentPlugin::checkConsistency()
          * but only do this if we are actually logging errors
          * and only do it once
          */
-        if (lineNumMessageLogged == false)
+        if (lineNumMessageLogged == false 
+          && log->contains(CompLineNumbersUnreliable) == false)
         {
           log->logPackageError("comp", CompLineNumbersUnreliable, 
             getPackageVersion(), getLevel(), getVersion());
@@ -863,7 +899,11 @@ CompSBMLDocumentPlugin::checkConsistency()
 
         for (unsigned int n = 0; n < nerrors; n++)
         {
-          log->add( *(dummyDoc->getErrorLog()->getError(n)) );
+          if (dummyDoc->getErrorLog()->getError(n)->getErrorId() 
+            != CompLineNumbersUnreliable)
+          {
+            log->add( *(dummyDoc->getErrorLog()->getError(n)) );
+          }
         }
 
         /* only want to bail if errors not warnings */
@@ -909,7 +949,8 @@ CompSBMLDocumentPlugin::checkConsistency()
          * but only do this if we are actually logging errors
          * and only do it once
          */
-        if (lineNumMessageLogged == false)
+        if (lineNumMessageLogged == false
+          && log->contains(CompLineNumbersUnreliable) == false)
         {
           log->logPackageError("comp", CompLineNumbersUnreliable, 
             getPackageVersion(), getLevel(), getVersion());
@@ -930,7 +971,8 @@ CompSBMLDocumentPlugin::checkConsistency()
          * but only do this if we are actually logging errors
          * and only do it once
          */
-        if (lineNumMessageLogged == false)
+        if (lineNumMessageLogged == false
+          && log->contains(CompLineNumbersUnreliable) == false)
         {
           log->logPackageError("comp", CompLineNumbersUnreliable, 
             getPackageVersion(), getLevel(), getVersion());
@@ -940,7 +982,11 @@ CompSBMLDocumentPlugin::checkConsistency()
 
         for (unsigned int n = 0; n < nerrors; n++)
         {
-          log->add( *(dummyDoc->getErrorLog()->getError(n)) );
+          if (dummyDoc->getErrorLog()->getError(n)->getErrorId() 
+            != CompLineNumbersUnreliable)
+          {
+            log->add( *(dummyDoc->getErrorLog()->getError(n)) );
+          }
         }
       }
     }
@@ -954,7 +1000,8 @@ CompSBMLDocumentPlugin::checkConsistency()
          * but only do this if we are actually logging errors
          * and only do it once
          */
-        if (lineNumMessageLogged == false)
+        if (lineNumMessageLogged == false
+          && log->contains(CompLineNumbersUnreliable) == false)
         {
           log->logPackageError("comp", CompLineNumbersUnreliable, 
             getPackageVersion(), getLevel(), getVersion());
@@ -964,7 +1011,11 @@ CompSBMLDocumentPlugin::checkConsistency()
 
         for (unsigned int n = 0; n < nerrors; n++)
         {
-          log->add( *(dummyDoc->getErrorLog()->getError(n)) );
+          if (dummyDoc->getErrorLog()->getError(n)->getErrorId() 
+            != CompLineNumbersUnreliable)
+          {
+            log->add( *(dummyDoc->getErrorLog()->getError(n)) );
+          }
         }
       }
     }

@@ -1548,7 +1548,7 @@ START_TEST (test_comp_flatten_converter_layout2)
     fail_unless(doc->getNumErrors() == 3);
     fail_unless(doc->getErrorLog()->getError(0)->getErrorId() == UnrequiredPackagePresent);
     fail_unless(doc->getErrorLog()->getError(1)->getErrorId() == CompFlatteningNotRecognisedNotReqd);
-    fail_unless(doc->getErrorLog()->getError(2)->getErrorId() == CompFlatteningWarning);
+    fail_unless(doc->getErrorLog()->getError(2)->getErrorId() == CompIdRefMayReferenceUnknownPackage);
   }
   delete doc;
 }
@@ -1617,7 +1617,7 @@ START_TEST (test_comp_flatten_converter_fbc3)
     fail_unless(doc->getNumErrors() == 3);
     fail_unless(doc->getErrorLog()->getError(0)->getErrorId() == UnrequiredPackagePresent);
     fail_unless(doc->getErrorLog()->getError(1)->getErrorId() == CompFlatteningNotRecognisedNotReqd);
-    fail_unless(doc->getErrorLog()->getError(2)->getErrorId() == CompFlatteningWarning);
+    fail_unless(doc->getErrorLog()->getError(2)->getErrorId() == CompIdRefMayReferenceUnknownPackage);
   }
   delete doc;
 }
@@ -1632,7 +1632,7 @@ START_TEST (test_comp_flatten_converter_fbc4)
     fail_unless(doc->getNumErrors() == 3);
     fail_unless(doc->getErrorLog()->getError(0)->getErrorId() == UnrequiredPackagePresent);
     fail_unless(doc->getErrorLog()->getError(1)->getErrorId() == CompFlatteningNotRecognisedNotReqd);
-    fail_unless(doc->getErrorLog()->getError(2)->getErrorId() == CompFlatteningWarning);
+    fail_unless(doc->getErrorLog()->getError(2)->getErrorId() == CompIdRefMayReferenceUnknownPackage);
   }
   delete doc;
 }
@@ -1647,7 +1647,7 @@ START_TEST (test_comp_flatten_converter_fbc5)
     fail_unless(doc->getNumErrors() == 3);
     fail_unless(doc->getErrorLog()->getError(0)->getErrorId() == UnrequiredPackagePresent);
     fail_unless(doc->getErrorLog()->getError(1)->getErrorId() == CompFlatteningNotRecognisedNotReqd);
-    fail_unless(doc->getErrorLog()->getError(2)->getErrorId() == CompFlatteningWarning);
+    fail_unless(doc->getErrorLog()->getError(2)->getErrorId() == CompIdRefMayReferenceUnknownPackage);
   }
   delete doc;
 }
@@ -1760,7 +1760,7 @@ START_TEST (test_comp_flatten_converter_qual2)
     fail_unless(doc->getNumErrors() == 3);
     fail_unless(doc->getErrorLog()->getError(0)->getErrorId() == RequiredPackagePresent);
     fail_unless(doc->getErrorLog()->getError(1)->getErrorId() == CompFlatteningNotRecognisedReqd);
-    fail_unless(doc->getErrorLog()->getError(2)->getErrorId() == CompFlatteningWarning);
+    fail_unless(doc->getErrorLog()->getError(2)->getErrorId() == CompIdRefMayReferenceUnknownPackage);
   }
   delete doc;
 }
@@ -1775,7 +1775,7 @@ START_TEST (test_comp_flatten_converter_qual3)
     fail_unless(doc->getNumErrors() == 3);
     fail_unless(doc->getErrorLog()->getError(0)->getErrorId() == RequiredPackagePresent);
     fail_unless(doc->getErrorLog()->getError(1)->getErrorId() == CompFlatteningNotRecognisedReqd);
-    fail_unless(doc->getErrorLog()->getError(2)->getErrorId() == CompFlatteningWarning);
+    fail_unless(doc->getErrorLog()->getError(2)->getErrorId() == CompIdRefMayReferenceUnknownPackage);
   }
   delete doc;
 }
@@ -1790,7 +1790,7 @@ START_TEST (test_comp_flatten_converter_qual4)
     fail_unless(doc->getNumErrors() == 3);
     fail_unless(doc->getErrorLog()->getError(0)->getErrorId() == RequiredPackagePresent);
     fail_unless(doc->getErrorLog()->getError(1)->getErrorId() == CompFlatteningNotRecognisedReqd);
-    fail_unless(doc->getErrorLog()->getError(2)->getErrorId() == CompFlatteningWarning);
+    fail_unless(doc->getErrorLog()->getError(2)->getErrorId() == CompIdRefMayReferenceUnknownPackage);
   }
   delete doc;
 }
@@ -1805,7 +1805,7 @@ START_TEST (test_comp_flatten_converter_qual5)
     fail_unless(doc->getNumErrors() == 3);
     fail_unless(doc->getErrorLog()->getError(0)->getErrorId() == RequiredPackagePresent);
     fail_unless(doc->getErrorLog()->getError(1)->getErrorId() == CompFlatteningNotRecognisedReqd);
-    fail_unless(doc->getErrorLog()->getError(2)->getErrorId() == CompFlatteningWarning);
+    fail_unless(doc->getErrorLog()->getError(2)->getErrorId() == CompIdRefMayReferenceUnknownPackage);
   }
   delete doc;
 }
@@ -1820,7 +1820,7 @@ START_TEST (test_comp_flatten_converter_qual6)
     fail_unless(doc->getNumErrors() == 3);
     fail_unless(doc->getErrorLog()->getError(0)->getErrorId() == RequiredPackagePresent);
     fail_unless(doc->getErrorLog()->getError(1)->getErrorId() == CompFlatteningNotRecognisedReqd);
-    fail_unless(doc->getErrorLog()->getError(2)->getErrorId() == CompFlatteningWarning);
+    fail_unless(doc->getErrorLog()->getError(2)->getErrorId() == CompIdRefMayReferenceUnknownPackage);
   }
   delete doc;
 }

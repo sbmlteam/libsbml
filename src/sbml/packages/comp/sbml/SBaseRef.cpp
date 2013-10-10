@@ -784,7 +784,19 @@ SBaseRef::getReferencedElementFrom(Model* model)
     referent = model->getElementBySId(getIdRef());
     if (referent == NULL && doc) {
       string error = "In SBaseRef::getReferencedElementFrom, unable to find referenced element: no such SId in the model: '" + getIdRef() + "'.";
-      doc->getErrorLog()->logPackageError("comp", CompIdRefMustReferenceObject, getPackageVersion(), getLevel(), getVersion(), error, getLine(), getColumn());
+      if (doc->getErrorLog()->contains(UnrequiredPackagePresent) 
+        || doc->getErrorLog()->contains(RequiredPackagePresent))
+      {
+        doc->getErrorLog()->logPackageError("comp", 
+          CompIdRefMayReferenceUnknownPackage, getPackageVersion(), 
+          getLevel(), getVersion(), error, getLine(), getColumn());
+      }
+      else
+      {
+        doc->getErrorLog()->logPackageError("comp", 
+          CompIdRefMustReferenceObject, getPackageVersion(), 
+          getLevel(), getVersion(), error, getLine(), getColumn());
+      }
     }
   }
   else if (isSetUnitRef()) {
@@ -798,7 +810,19 @@ SBaseRef::getReferencedElementFrom(Model* model)
     referent = model->getElementByMetaId(getMetaIdRef());
     if (referent == NULL && doc) {
       string error = "In SBaseRef::getReferencedElementFrom, unable to find referenced element: no such metaid in the model: '" + getMetaIdRef() + "'.";
-      doc->getErrorLog()->logPackageError("comp", CompMetaIdRefMustReferenceObject, getPackageVersion(), getLevel(), getVersion(), error, getLine(), getColumn());
+      if (doc->getErrorLog()->contains(UnrequiredPackagePresent) 
+        || doc->getErrorLog()->contains(RequiredPackagePresent))
+      {
+        doc->getErrorLog()->logPackageError("comp", 
+          CompIdRefMayReferenceUnknownPackage, getPackageVersion(), 
+          getLevel(), getVersion(), error, getLine(), getColumn());
+      }
+      else
+      {
+        doc->getErrorLog()->logPackageError("comp", 
+          CompMetaIdRefMustReferenceObject, getPackageVersion(), 
+          getLevel(), getVersion(), error, getLine(), getColumn());
+      }
     }
   }
   else {

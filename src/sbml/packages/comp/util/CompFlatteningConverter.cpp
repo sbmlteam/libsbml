@@ -279,9 +279,12 @@ CompFlatteningConverter::convert()
       // we have serious errors so we are going to bail on the
       // flattening - log ONLY the errors
       //Transfer the errors to mDocument and don't reset the model.
-      log->logPackageError("comp", CompLineNumbersUnreliable, 
-        modelPlugin->getPackageVersion(), modelPlugin->getLevel(), 
-        modelPlugin->getVersion());
+      if (log->contains(CompLineNumbersUnreliable) == false)
+      {
+        log->logPackageError("comp", CompLineNumbersUnreliable, 
+          modelPlugin->getPackageVersion(), modelPlugin->getLevel(), 
+          modelPlugin->getVersion());
+      }
       std::string message = "Errors that follow relate to the flattened ";
       message += "document produced using the CompFlatteningConverter.";
       log->logPackageError("comp", CompFlatModelNotValid,

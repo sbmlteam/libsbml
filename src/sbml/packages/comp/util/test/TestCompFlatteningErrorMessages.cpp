@@ -3618,7 +3618,7 @@ START_TEST(test_comp_flatten_invalid77)
   fail_unless(errors->contains(UnrequiredPackagePresent) == true);
   fail_unless(errors->contains(CompFlatteningNotRecognisedNotReqd) == true);
   fail_unless(errors->contains(CompModelFlatteningFailed) == true);
-  fail_unless(errors->contains(CompIdRefMustReferenceObject) == true);
+  fail_unless(errors->contains(CompIdRefMayReferenceUnknownPackage) == true);
 
   delete doc;
   delete converter;
