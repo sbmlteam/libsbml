@@ -28,6 +28,7 @@
     line-height: 36px;
     list-style: none;
     border-right: 1px solid #888;
+    padding-bottom: 0px;
 }
 
 .tablist a {
@@ -86,6 +87,7 @@
 .tablist li a[href="namespacemembers.html"],
 .tablist li a[href="namespacemembers_vars.html"],
 .tablist li a[href="group___core.html"],
+.tablist li a[href="group__core.html"],
 .tablist li a[href="examples.html"],
 .tablist li a[href="usergroup0.html"],
 .tablist li a[href="usergroup1.html"],
