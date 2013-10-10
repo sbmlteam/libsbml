@@ -4,7 +4,7 @@
     <tab type="mainpage" visible="yes" title=""/>
     <tab type="pages" visible="yes" title=""/>
     <tab type="modules" visible="no" title=""/>
-    <tab type="user" url="@ref Core" title="Core libSBML"/>
+    <tab type="user" url="@ref core" title="Core libSBML"/>
     <tab type="usergroup" title="Level 3 Extensions">
       <tab type="user" url="@ref comp"   title="Hierarchical Model Composition"/>
       <tab type="user" url="@ref fbc"    title="Flux Balance Constraints"/>
