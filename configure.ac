@@ -414,7 +414,7 @@ if test -d dev; then
   AC_CONFIG_FILES([dev/misc-files/readmes-for-downloads-new-dir-struct/experimental/binaries/macos/R_interface/README.txt])
   AC_CONFIG_FILES([dev/misc-files/readmes-for-downloads-new-dir-struct/experimental/binaries/windows/README.txt])
   AC_CONFIG_FILES([dev/misc-files/readmes-for-downloads-new-dir-struct/experimental/binaries/windows/R_interface/README.txt])
-  AC_CONFIG_FILES([dev/misc-files/readmes-for-downloads-new-dir-struct/experimental/src/README.txt])
+  AC_CONFIG_FILES([dev/misc-files/readmes-for-downloads-new-dir-struct/experimental/source/README.txt])
   AC_CONFIG_FILES([dev/misc-files/readmes-for-downloads-new-dir-struct/stable/README.txt])
   AC_CONFIG_FILES([dev/misc-files/readmes-for-downloads-new-dir-struct/stable/linux/32-bit/README.txt])
   AC_CONFIG_FILES([dev/misc-files/readmes-for-downloads-new-dir-struct/stable/linux/32-bit/R_interface/README.txt])
