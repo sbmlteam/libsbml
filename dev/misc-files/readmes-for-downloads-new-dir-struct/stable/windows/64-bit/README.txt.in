@@ -23,13 +23,15 @@ Here you will find the following files:
 
       Complete libSBML binary distribution.
 
-  * libSBML-@PACKAGE_VERSION@-win-matlab-x64.exe
+  * libSBML-@PACKAGE_VERSION@-win-matlab-fbc-x64.exe
 
       Installer for the MATLAB libSBML interface ONLY.  Download this
       if you ONLY need to use libSBML from MATLAB.  (This installer is
       also contained within libSBML-@PACKAGE_VERSION@-win-x64.exe, so if you
       downloaded that, you do NOT need to download and install this
       MATLAB interface installer in addition.)
+      
+      (Note: The MATLAB interface supports SBML core and the L3 fbc package only.)
 
   * Python
 

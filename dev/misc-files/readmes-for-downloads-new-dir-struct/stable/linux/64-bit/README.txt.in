@@ -24,6 +24,12 @@ Here you will find the following files:
   * libSBML-@PACKAGE_VERSION@-Linux-x64.deb
        -- for Debian-based Linux distributions (Ubuntu & variants, Debian)
 
+  * libSBML-@PACKAGE_VERSION@-Linux-x64-binaries-centos.tar.gz
+       -- an archive containing just the binary files built for centos
+
+  * libSBML-@PACKAGE_VERSION@-Linux-x64-binaries-ubuntu.tar.gz
+       -- an archive containing the binary files built for ubuntu
+
   * R_interface
        -- This folder contains installer for the R libSBML interface ONLY.
      

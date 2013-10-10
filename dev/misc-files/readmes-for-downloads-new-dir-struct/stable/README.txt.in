@@ -20,6 +20,10 @@ Code for full stable release (core plus accepted packages):
 Code for individual accepted packages:
 
   libSBML-@PACKAGE_VERSION@-comp-src.zip     \ source code (only), zip archive
+  libSBML-@PACKAGE_VERSION@-fbc-src.zip      \ source code (only), zip archive
+  libSBML-@PACKAGE_VERSION@-qual-src.zip     \ source code (only), zip archive
+
+  (Note for historical reasons the layout code is included within the core code archives.)
 
 Documentation:
 

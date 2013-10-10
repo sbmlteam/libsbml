@@ -6,7 +6,7 @@ the same destination on your computer before you install libSBML using
 these installers, or you may end up with mixed versions of different
 libSBML components on your system.
 
-This directory contains the Python-only installer for libSBML.  This
+This directory contains the Python-only installers for libSBML.  Each file
 contains ONLY the precompiled Python interface plus the core libSBML native
 library.  Download this if you only need to use libSBML from Python and do
 not need the rest of the libSBML distribution.
