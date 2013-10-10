@@ -33,6 +33,7 @@
 #include <string>
 
 #include <expat.h>
+#include <sbml/xml/XMLHandler.h>
 #include <sbml/xml/XMLNamespaces.h>
 #include <sbml/xml/XMLError.h>
 
@@ -40,8 +41,6 @@
 /** @cond doxygenLibsbmlInternal */
 
 LIBSBML_CPP_NAMESPACE_BEGIN
-
-class  XMLHandler;
 
 
 class ExpatHandler
@@ -53,6 +52,20 @@ public:
    * given XMLHandler.
    */
   ExpatHandler (XML_Parser parser, XMLHandler& handler);
+
+  /** @cond doxygenLibsbmlInternal */
+  /**
+   * Copy Constructor
+   */
+  ExpatHandler (const ExpatHandler& other);
+  /** @endcond */
+
+  /** @cond doxygenLibsbmlInternal */
+  /**
+   * Assignment operator
+   */
+  ExpatHandler& operator=(const ExpatHandler& other);
+  /** @endcond */
 
 
   /**

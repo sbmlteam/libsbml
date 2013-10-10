@@ -56,6 +56,12 @@ public:
    */
   XMLHandler ();
 
+  /** @cond doxygenLibsbmlInternal */
+  /**
+   * Copy Constructor
+   */
+  XMLHandler (const XMLHandler& other);
+  /** @endcond */
 
   /**
    * Destroys this XMLHandler.

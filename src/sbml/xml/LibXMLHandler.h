@@ -30,9 +30,10 @@
 
 #include <libxml/parser.h>
 
+#include <sbml/xml/XMLHandler.h>
+
 LIBSBML_CPP_NAMESPACE_BEGIN
 
-class XMLHandler;
 class LibXMLAttributes;
 class LibXMLNamespaces;
 
@@ -49,6 +50,19 @@ public:
    */
   LibXMLHandler (XMLHandler& handler);
 
+  /** @cond doxygenLibsbmlInternal */
+  /**
+   * Copy Constructor
+   */
+  LibXMLHandler (const LibXMLHandler& other);
+  /** @endcond */
+
+  /** @cond doxygenLibsbmlInternal */
+  /**
+   * Assignment operator
+   */
+  LibXMLHandler& operator=(const LibXMLHandler& other);
+  /** @endcond */
 
   /**
    * Destroys this LibXMLHandler.

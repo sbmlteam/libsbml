@@ -164,6 +164,35 @@ LibXMLHandler::LibXMLHandler (XMLHandler& handler) :
 {
 }
 
+/** @cond doxygenLibsbmlInternal */
+/**
+* Copy Constructor
+*/
+LibXMLHandler::LibXMLHandler (const LibXMLHandler& other)
+  : mHandler (other.mHandler)
+  , mContext (other.mContext)
+  , mLocator (other.mLocator)
+{
+}
+/** @endcond */
+
+/** @cond doxygenLibsbmlInternal */
+/**
+* Assignment operator
+*/
+LibXMLHandler& LibXMLHandler::operator=(const LibXMLHandler& other)
+{
+  if (this == &other) return *this;
+
+  mHandler = other.mHandler;
+  mContext = other.mContext; 
+  mLocator = other.mLocator;
+
+  return *this;
+}
+/** @endcond */
+
+
 
 /**
  * Destroys this LibXMLHandler.

@@ -70,6 +70,32 @@ XercesHandler::XercesHandler (XMLHandler& handler) :
 }
 
 
+ /** @cond doxygenLibsbmlInternal */
+  /**
+   * Copy Constructor
+   */
+  XercesHandler::XercesHandler (const XercesHandler& other)
+    : mHandler(other.mHandler)
+    , mLocator(other.mLocator)
+  {
+  }
+  /** @endcond */
+
+  /** @cond doxygenLibsbmlInternal */
+  /**
+   * Assignment operator
+   */
+  XercesHandler& XercesHandler::operator=(const XercesHandler& other)
+  {
+    if (this == &other) return *this;
+
+    mHandler = other.mHandler;
+    mLocator = other.mLocator;
+
+    return *this;
+  }
+  /** @endcond */
+
 /**
  * Destroys this XercesHandler.
  */

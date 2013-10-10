@@ -57,6 +57,12 @@ public:
    */
   XMLTokenizer ();
 
+  /** @cond doxygenLibsbmlInternal */
+  /**
+   * Copy Constructor
+   */
+  XMLTokenizer (const XMLTokenizer& other);
+  /** @endcond */
 
   /**
    * Destroys this XMLTokenizer.

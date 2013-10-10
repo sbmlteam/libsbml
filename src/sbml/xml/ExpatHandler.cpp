@@ -124,9 +124,38 @@ ExpatHandler::ExpatHandler (XML_Parser parser, XMLHandler& handler) :
   setHasXMLDeclaration(false);
 }
 
+/** @cond doxygenLibsbmlInternal */
+/**
+* Copy Constructor
+*/
+ExpatHandler::ExpatHandler (const ExpatHandler& other)
+  : mParser  (other.mParser)
+  , mHandler (other.mHandler)
+  , mNamespaces (other.mNamespaces)
+  , mHandlerError(NULL)
+{
+}
+/** @endcond */
+
+/** @cond doxygenLibsbmlInternal */
+/**
+* Assignment operator
+*/
+ExpatHandler& ExpatHandler::operator=(const ExpatHandler& other)
+{
+  if (this == &other) return *this;
+
+  mParser = other.mParser;
+  mHandler = other.mHandler; 
+  mNamespaces = other.mNamespaces;
+  mHandlerError = NULL;
+
+  return *this;
+}
+/** @endcond */
 
 /**
- * Destroys this ExpatHandler.
+* Destroys this ExpatHandler.
  */
 ExpatHandler::~ExpatHandler ()
 {

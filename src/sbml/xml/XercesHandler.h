@@ -32,15 +32,13 @@
 
 #include <string>
 
+#include <sbml/xml/XMLHandler.h>
 #include <sbml/xml/XercesTranscode.h>
 #include <xercesc/sax2/DefaultHandler.hpp>
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
 /** @cond doxygenLibsbmlInternal */
-
-class XMLHandler;
-
 
 class XercesHandler : public xercesc::DefaultHandler
 {
@@ -52,6 +50,19 @@ public:
    */
   XercesHandler (XMLHandler& handler);
 
+  /** @cond doxygenLibsbmlInternal */
+  /**
+   * Copy Constructor
+   */
+  XercesHandler (const XercesHandler& other);
+  /** @endcond */
+
+  /** @cond doxygenLibsbmlInternal */
+  /**
+   * Assignment operator
+   */
+  XercesHandler& operator=(const XercesHandler& other);
+  /** @endcond */
 
   /**
    * Destroys this XercesHandler.

@@ -45,6 +45,14 @@ XMLHandler::XMLHandler ()
 {
 }
 
+/** @cond doxygenLibsbmlInternal */
+/**
+ * Copy Constructor
+ */
+XMLHandler::XMLHandler (const XMLHandler& other)
+{
+}
+/** @endcond */
 
 /*
  * Destroys this XMLHandler.

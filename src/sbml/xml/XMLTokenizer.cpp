@@ -50,6 +50,22 @@ XMLTokenizer::XMLTokenizer () :
 {
 }
 
+/** @cond doxygenLibsbmlInternal */
+/**
+ * Copy Constructor
+ */
+XMLTokenizer::XMLTokenizer (const XMLTokenizer& other)
+  : mInChars(other.mInChars)
+  , mInStart(other.mInStart)
+  , mEOFSeen(other.mEOFSeen)
+  , mEncoding(other.mEncoding)
+  , mVersion(other.mVersion)
+  , mCurrent(other.mCurrent)
+  , mTokens(other.mTokens)
+{
+}
+/** @endcond */
+
 
 /*
  * Destroys this XMLTokenizer.

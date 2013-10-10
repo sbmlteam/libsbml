@@ -71,12 +71,14 @@ XMLErrorLog::XMLErrorLog (const XMLErrorLog& other)
 */
 XMLErrorLog& XMLErrorLog::operator=(const XMLErrorLog& other)  
 {
-  mOverriddenSeverity = other.mOverriddenSeverity;
-  mParser = NULL;
-  
-  mErrors.clear();
-  add(other.mErrors);
-
+  if (this != &other)
+  {
+    mOverriddenSeverity = other.mOverriddenSeverity;
+    mParser = NULL;
+    
+    mErrors.clear();
+    add(other.mErrors);
+  }
   return *this;
 }
 /** @endcond */
