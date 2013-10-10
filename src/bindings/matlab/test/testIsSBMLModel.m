@@ -1,4 +1,4 @@
-function y = testIsSBMLModel(silent)
+function y = testIsSBMLModel(silent, FbcEnabled)
 
   fail = 0;
   test = 66;
@@ -534,9 +534,6 @@ function y = testIsSBMLModel(silent)
       disp(message);
   end;
 
- cd ..;
- FbcEnabled = isFbcEnabled();
- cd test;
  
  if (FbcEnabled == 1)
    test = test + 12;

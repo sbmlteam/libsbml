@@ -58,7 +58,7 @@ try
   if (install == 0)
     Totalfail = Totalfail + testReadFlags(install);
   end;
-  Totalfail = Totalfail + testIsSBMLModel(install);
+  Totalfail = Totalfail + testIsSBMLModel(install, FbcEnabled);
 
   if (install == 0)
     Totalfail = Totalfail + testOutput('Out-test1', 0, FbcEnabled);
@@ -73,9 +73,7 @@ end;
 function Totalfail = doTestRunsOctave(install, test)
 
 Totalfail = 0;
-cd ..;
 FbcEnabled = isFbcEnabled();
-cd test;
 try
 
   Totalfail = Totalfail + testReadFromFile1(install);
@@ -97,7 +95,7 @@ try
     Totalfail = Totalfail + testReadFromFileFbc1(install);
   end;
 
-  Totalfail = Totalfail + testIsSBMLModel(install);
+  Totalfail = Totalfail + testIsSBMLModel(install, FbcEnabled);
 
   if (install == 0)
     Totalfail = Totalfail + testOutput('Out-test1', 0, FbcEnabled);

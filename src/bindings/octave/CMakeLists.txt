@@ -112,6 +112,7 @@ foreach(mFile
     installSBML.m
     isoctave.m
     isSBML_Model.m
+    isFbcEnabled.m
     OutputSBML.m
     TranslateSBML.m
 	
@@ -127,22 +128,31 @@ if (WITH_CHECK)
 	
 	
 	# copy test files
-	file(GLOB files ${CMAKE_CURRENT_SOURCE_DIR}/../matlab/*.m
-		${CMAKE_CURRENT_SOURCE_DIR}/../matlab/test/*.m)
-	list(REMOVE_ITEM files "${CMAKE_CURRENT_SOURCE_DIR}/../matlab/test/testReadFromFile9.m")
+	file(GLOB files ${CMAKE_CURRENT_SOURCE_DIR}/../matlab/*.m)
 	foreach(testfile ${files})
 		file(COPY ${testfile} DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
 	endforeach()
+	
+	file(MAKE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/test)
+	file(GLOB files ${CMAKE_CURRENT_SOURCE_DIR}/../matlab/test/*.m)
+	list(REMOVE_ITEM files "${CMAKE_CURRENT_SOURCE_DIR}/../matlab/test/testReadFromFile9.m")
+	foreach(testfile ${files})
+		file(COPY ${testfile} DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/test)
+	endforeach()
 
 	# this file needs to overwrite the matlab version!
-	file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/test/testReadFromFile9.m DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
-
+	file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/../matlab/isFbcEnabled.m DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/test)
+	file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/test/testReadFromFile9.m DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/test)
 
 	# copy test data
-	file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/../matlab/test/test-data DESTINATION ${CMAKE_CURRENT_BINARY_DIR}  )
+	file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/../matlab/test/test-data DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/test  )
 
+	file(TO_NATIVE_PATH ${CMAKE_CURRENT_BINARY_DIR} bin_dir)
 
-	add_test(test_octave_binding "${OCTAVE_EXECUTABLE}" -p . -p .. -p test  -p ${CMAKE_CURRENT_BINARY_DIR} --eval testBinding)
+	add_test(
+	  NAME test_octave_binding 
+	  WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/test
+	  COMMAND "${OCTAVE_EXECUTABLE}" -p . -p .. -p ${bin_dir} --eval runTests)
 	
 	if(UNIX)
 		if(APPLE)
@@ -150,9 +160,15 @@ if (WITH_CHECK)
 		else()
 			set_tests_properties(test_octave_binding PROPERTIES ENVIRONMENT "LD_LIBRARY_PATH=${CMAKE_CURRENT_BINARY_DIR}:${CMAKE_CURRENT_BINARY_DIR}/../..:$ENV{LD_LIBRARY_PATH}")
 		endif()
+	else()
+	    if(WIN32)
+			STRING(REPLACE "\\;" ";" PATH_STRING " ${CMAKE_CURRENT_BINARY_DIR};${CMAKE_CURRENT_BINARY_DIR}/../..;$ENV{PATH}")
+			STRING(REPLACE ";" "\\;" PATH_STRING "${PATH_STRING}")
+			set_tests_properties(test_octave_binding PROPERTIES ENVIRONMENT "PATH=${PATH_STRING}")
+		endif()
 	endif()
 
-	set_tests_properties(test_octave_binding PROPERTIES PASS_REGULAR_EXPRESSION "successful." )
+	set_tests_properties(test_octave_binding PROPERTIES PASS_REGULAR_EXPRESSION "successful" )
 	
 	
 endif()
