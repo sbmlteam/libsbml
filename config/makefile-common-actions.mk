@@ -790,6 +790,7 @@ $(TOP_SRCDIR)/config.status: $(TOP_SRCDIR)/configure $(TOP_SRCDIR)/VERSION.txt
 $(TOP_SRCDIR)/configure: \
 	     $(TOP_SRCDIR)/configure.ac \
 	     $(TOP_SRCDIR)/VERSION.txt \
+	     $(TOP_SRCDIR)/VERSION_PACKAGES.ac \
 	     $(ACLOCAL_M4) \
 	     $(wildcard $(TOP_SRCDIR)/config/*.m4)
 	cd $(TOP_SRCDIR) && $(AUTOCONF) -Wall --force
