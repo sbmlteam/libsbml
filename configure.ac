@@ -119,6 +119,12 @@ if test "$enable_layout" != no; then
 fi
 
 dnl -------------------------------------------------------
+dnl Other SBML L3 package variables
+dnl -------------------------------------------------------
+
+CONFIG_SBML_PACKAGE_VARS
+
+dnl -------------------------------------------------------
 dnl Compression
 dnl -------------------------------------------------------
 
@@ -390,6 +396,10 @@ AC_CONFIG_FILES([docs/src/doxygen-config-perl.txt])
 AC_CONFIG_FILES([docs/src/doxygen-config-matlab.txt])
 AC_CONFIG_FILES([docs/src/libsbml-installation.html])
 AC_CONFIG_FILES([docs/src/libsbml-group-core-intro.html])
+AC_CONFIG_FILES([docs/src/libsbml-group-comp-intro.html])
+AC_CONFIG_FILES([docs/src/libsbml-group-fbc-intro.html])
+AC_CONFIG_FILES([docs/src/libsbml-group-layout-intro.html])
+AC_CONFIG_FILES([docs/src/libsbml-group-qual-intro.html])
 AC_CONFIG_FILES([docs/src/common-text/libsbml-version.html],
                 [tr -d '\n' < docs/src/common-text/libsbml-version.html > libsbmlversiontmp;
 		 mv libsbmlversiontmp docs/src/common-text/libsbml-version.html])
