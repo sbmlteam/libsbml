@@ -16,9 +16,7 @@ submodels.  The Level&nbsp;3 Hierarchical Model Composition package adds the
 missing capabilities.  The figure below illustrates some of the scenarios
 targeted by this package.
 
-<figure> <img class="centered" src="comp-examples.png"
-alt="Figure of two examples of model composition scenarios."
-title="Two examples of model configuration supported by the &ldquo;comp&rdquo; package." />
+<figure> <object class="centered" type="image/svg+xml" data="comp-examples.svg" height="330px"></object>
 <figcaption>Two examples of model configuration supported by the
 &ldquo;comp&rdquo; package: (left) a model composed of a submodel
 that is itself composed of submodels; (right) a model composed of submodels,

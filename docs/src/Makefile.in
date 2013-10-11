@@ -139,7 +139,8 @@ distfiles =						     \
         common-graphics/cmake-empty-windows.png		     \
         common-graphics/cmake-options-red-windows.png	     \
         common-graphics/cmake-options-red.png		     \
-	common-graphics/comp-overview.png		     \
+	common-graphics/comp-examples.graffle		     \
+	common-graphics/comp-examples.svg		     \
         common-graphics/enzymatic-reaction.jpg		     \
         common-graphics/ftv2doc.png			     \
         common-graphics/ftv2folderclosed.png		     \
@@ -471,6 +472,7 @@ define postprocess_doxygen
   cp common-graphics/*.gif $(1)
   cp common-graphics/*.png $(1)
   cp common-graphics/*.jpg $(1)
+  cp common-graphics/*.svg $(1)
   cp common-text/simple-ast.svg $(1)
   cp sbml.js $(1)
   cp common-documents/*.pdf $(1)
@@ -654,6 +656,10 @@ java-manual $(java-manual): $(core-sources) SBMLDoclet.class
 	cp -f $(logo-files) $(java-manual)/$(java-class-path)/
 	cp -f common-graphics/*.gif $(java-manual)
 	cp -f common-graphics/*.png $(java-manual)
+	cp -f common-graphics/*.png $(java-manual)/$(java-class-path)/
+	cp -f common-graphics/*.svg $(java-manual)
+	cp -f common-graphics/*.svg $(java-manual)/$(java-class-path)/
+	cp -f common-graphics/*.jpg $(java-manual)
 	cp -f common-graphics/*.jpg $(java-manual)/$(java-class-path)/
 	cp -f common-documents/*.pdf $(java-manual)
 	cp -f common-text/*.svg $(java-manual)/$(java-class-path)/

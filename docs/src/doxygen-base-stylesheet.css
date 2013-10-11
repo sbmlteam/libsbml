@@ -1701,6 +1701,12 @@ img.centered {
     margin-right: auto;
 }
 
+object.centered {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 .center img { 
   margin-bottom: 10px;
 }
