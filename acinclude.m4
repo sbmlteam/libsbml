@@ -1,3 +1,5 @@
+m4_include([VERSION_PACKAGES.ac])
+
 m4_include([config/dolt.m4])
 m4_include([config/libtool.m4])
 m4_include([config/machine.m4])
