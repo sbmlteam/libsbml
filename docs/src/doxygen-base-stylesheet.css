@@ -146,6 +146,8 @@ table {
 
 caption, figcaption {
     font-style: italic;
+    font-size: 11px;
+    margin-top: 0.5em;
 }
 
 span.legend {
@@ -1691,6 +1693,12 @@ tr.TableSubHeadingColor th {
 .centered {
   margin-left: auto;
   margin-right: auto;
+}
+
+img.centered {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .center img { 

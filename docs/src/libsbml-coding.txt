@@ -134,6 +134,10 @@ at the end of the block.  (Explanation: this sets up a conditional that
 will only be "seen" by Doxygen if the symbol "doxygenLibsbmlInternal" is
 defined.  Since it's never defined in the Doxygen configuration, 
 the block will be ignored.)
+@li Do not use \@retval for describing return values; instead, use \@return
+because (1) it is what Javadoc uses and (2) the narrative form of \@return
+lets you provide more contextual information and other details in describing
+the return value(s) of a method or function.
 @li Please try to limit lengths of lines to 79 characters long or less.
 This makes code and documentation generally easier to read and edit in
 different software tools.  Sometimes it's too difficult to avoid a long
@@ -249,11 +253,11 @@ class is part of the SBML Level&nbsp;3 <em>%Layout</em> package.  The code
 <code>@@ingroup core</code> should be used for SBML Core code.
 @li For each method or data member in the class definition, include a
 comment block ahead of it, making sure to provide at least a brief
-description.  If it's a method and the method returns a value, use @c
-\@return to describe the returned value; if it takes parameters, use @c
-\@param to describe the parameters.  If you also need to refer to the
-parameters in the textual description of the method, use the @c \@p
-command.  The following example illustrates this:
+description.  If it takes parameters, use @c \@param to describe the
+parameters.  If it's a method and the method returns a value, also use @c
+\@return to describe the returned value.  If you also need to refer to the
+parameters in the textual description of the method, use the @c \@p command.
+The following example illustrates this:
 @verbatim
 /**
  * Creates a new CompartmentType, optionally with the given @p id and

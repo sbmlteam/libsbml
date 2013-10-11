@@ -273,15 +273,15 @@ distfiles =						     \
         libsbml-extension-support-classes.txt		     \
         libsbml-features.html				     \
         libsbml-features.txt				     \
-	libsbml-group-comp-intro.html			     \
+	libsbml-group-comp-intro.html.in		     \
 	libsbml-group-comp-intro.txt			     \
 	libsbml-group-core-intro.html.in		     \
 	libsbml-group-core-intro.txt			     \
-	libsbml-group-fbc-intro.html			     \
+	libsbml-group-fbc-intro.html.in			     \
 	libsbml-group-fbc-intro.txt			     \
-	libsbml-group-layout-intro.html			     \
+	libsbml-group-layout-intro.html.in		     \
 	libsbml-group-layout-intro.txt			     \
-	libsbml-group-qual-intro.html			     \
+	libsbml-group-qual-intro.html.in		     \
 	libsbml-group-qual-intro.txt			     \
         libsbml-howto-implement-extension.txt		     \
         libsbml-installation.html.in			     \
@@ -436,7 +436,7 @@ doxygen-config-matlab.txt:  $(doxygen-matlab-conf) $(TOP_SRCDIR)/VERSION.txt
 doxygen-config-octave.txt:  $(doxygen-octave-conf) $(TOP_SRCDIR)/VERSION.txt
 	cd $(TOP_BUILDDIR) && $(SHELL) ./config.status $(thisdir)/$@
 
-libsbml-installation.html: libsbml-installation.html.in
+%.html: %.html.in
 	cd $(TOP_BUILDDIR) && $(SHELL) ./config.status $(thisdir)/$@
 
 core-sources = \
