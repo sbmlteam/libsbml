@@ -439,10 +439,19 @@ doxygen-config-octave.txt:  $(doxygen-octave-conf) $(TOP_SRCDIR)/VERSION.txt
 %.html: %.html.in
 	cd $(TOP_BUILDDIR) && $(SHELL) ./config.status $(thisdir)/$@
 
+expanded-html-files =		  \
+  libsbml-group-comp-intro.html	  \
+  libsbml-group-core-intro.html	  \
+  libsbml-group-fbc-intro.html	  \
+  libsbml-group-layout-intro.html \
+  libsbml-group-qual-intro.html   \
+  libsbml-installation.html
+
 core-sources = \
   $(wildcard ../../src/*/*.[cpp,h] ../../src/*/*/.[cpp,h]) \
   $(wildcard libsbml-*.txt) \
-  $(wildcard libsbml-*.html)
+  $(wildcard libsbml-*.html) \
+  $(expanded-html-files)
 
 ifneq "$(USE_DOXYGEN)" ""
 
