@@ -30,8 +30,8 @@ the time of this libSBML release (@PACKAGE_VERSION@).  Note: an Internet
 connection is required to access these documents.</caption>
 <tr>
 <th style="text-align: left">Specification (in PDF format)</th>
-<th style="text-align: left">Known errata</th>
-<th style="text-align: left" width="210px">Special notes</th>
+<th style="text-align: left">Known issues</th>
+<th style="text-align: left" width="195px">Special notes</th>
 </tr>
 
 <tr><td>
@@ -39,7 +39,7 @@ connection is required to access these documents.</caption>
 <img class="big-icon" width="22px" src="icon-format-pdf-44px.jpg">SBML Level&nbsp;3 Version&nbsp;1 Release&nbsp;1</a>
 </td><td>
 <a class="spec-link" target="_blank" href="http://sbml.org/Documents/Specifications/SBML_Level_3/Version_1/Core/Confirmed_issues_in_the_Level_3_Version_1_Core_Specification">
-<img class="big-icon" width="22px" src="icon-format-html-44px.jpg">Web page</a>
+<img class="big-icon" width="22px" src="icon-format-html-44px.jpg">Errata page</a>
 </td><td>
 </td></tr>
 
@@ -48,7 +48,7 @@ connection is required to access these documents.</caption>
 <img class="big-icon" width="22px" src="icon-format-pdf-44px.jpg">SBML Level&nbsp;2 Version&nbsp;4 Release&nbsp;1</a>
 </td><td>
 <a class="spec-link" target="_blank" href="http://sbml.org/Documents/Specifications/SBML_Level_2/Version_4/Errata">
-<img class="big-icon" width="22px" src="icon-format-html-44px.jpg">Web page</a>
+<img class="big-icon" width="22px" src="icon-format-html-44px.jpg">Errata page</a>
 </td><td>
 </td></tr>
 
@@ -57,7 +57,7 @@ connection is required to access these documents.</caption>
 <img class="big-icon" width="22px" src="icon-format-pdf-44px.jpg">SBML Level&nbsp;2 Version&nbsp;3 Release&nbsp;2</a>
 </td><td>
 <a class="spec-link" target="_blank" href="http://sbml.org/Documents/Specifications/SBML_Level_2/Version_3/Errata">
-<img class="big-icon" width="22px" src="icon-format-html-44px.jpg">Web page</a>
+<img class="big-icon" width="22px" src="icon-format-html-44px.jpg">Errata page</a>
 </td><td>
 </td></tr>
 
@@ -66,7 +66,7 @@ connection is required to access these documents.</caption>
 <img class="big-icon" width="22px" src="icon-format-pdf-44px.jpg">SBML Level&nbsp;2 Version&nbsp;2 Release&nbsp;1</a>
 </td><td>
 <a class="spec-link" target="_blank" href="http://sbml.org/Documents/Specifications/SBML_Level_2/Version_2/Errata">
-<img class="big-icon" width="22px" src="icon-format-html-44px.jpg">Web page</a>
+<img class="big-icon" width="22px" src="icon-format-html-44px.jpg">Errata page</a>
 </td><td>
 </td></tr>
 
@@ -75,7 +75,7 @@ connection is required to access these documents.</caption>
 <img class="big-icon" width="22px" src="icon-format-pdf-44px.jpg">SBML Level&nbsp;2 Version&nbsp;1 Release&nbsp;1</a>
 </td><td>
 <a class="spec-link" target="_blank" href="http://sbml.org/Documents/Specifications/SBML_Level_2/Version_1/Errata">
-<img class="big-icon" width="22px" src="icon-format-html-44px.jpg">Web page</a>
+<img class="big-icon" width="22px" src="icon-format-html-44px.jpg">Errata page</a>
 </td><td>
 Has significant limitations; use later L2 versions instead.
 </td></tr>
@@ -85,7 +85,7 @@ Has significant limitations; use later L2 versions instead.
 <img class="big-icon" width="22px" src="icon-format-pdf-44px.jpg">SBML Level&nbsp;1 Version&nbsp;2 Release&nbsp;1</a>
 </td><td>
 <a class="spec-link" target="_blank" href="http://sbml.org/Specifications/SBML_Level_1/Errata">
-<img class="big-icon" width="22px" src="icon-format-html-44px.jpg">Web page</a>
+<img class="big-icon" width="22px" src="icon-format-html-44px.jpg">Errata page</a>
 </td><td>
 </td></tr>
 
@@ -122,7 +122,7 @@ possible components defined in all Level/Versions of SBML:
   species may be located.  Compartments may or may not represent actual
   physical structures.
 
-<li><em>Compartment type</em> (only in SBML Level 2 Versions 2&nbsp;4): An
+<li><em>Compartment type</em> (only in SBML Level 2 Versions 2&ndash;4): An
   optional construct allowing compartments to be typed.
 
 <li><em>Species</em>: A pool of entities of the same kind located in a
