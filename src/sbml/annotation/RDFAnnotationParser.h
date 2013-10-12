@@ -34,7 +34,7 @@
  *
  * RDFAnnotationParser is a libSBML construct used as part of the libSBML
  * support for annotations conforming to the guidelines specified by MIRIAM
- * (<a target="_blank" href="miriam-2005.pdf">"Minimum Information Requested
+ * (<a target="_blank" href="http://www.nature.com/nbt/journal/v23/n12/abs/nbt1156.html">"Minimum Information Requested
  * in the Annotation of biochemical Models"</a>, <i>Nature Biotechnology</i>,
  * vol. 23, no. 12, Dec. 2005).  Section 6 of the SBML Level&nbsp;2 and
  * Level&nbsp;3 specification documents defines a recommended way of encoding
