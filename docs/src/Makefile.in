@@ -149,6 +149,8 @@ distfiles =						     \
         common-graphics/official-sbml-supported-40.jpg	     \
         common-graphics/official-sbml-supported-70.png	     \
         common-graphics/right-arrow.gif			     \
+        common-graphics/simple-ast.graffle		     \
+        common-graphics/simple-ast.svg			     \
         common-graphics/solution-explorer-windows.png	     \
 	common-graphics/sourceforge-download.png	     \
         common-graphics/tab_a.png			     \
@@ -188,8 +190,6 @@ distfiles =						     \
         common-text/rules-general-summary.html		     \
         common-text/rules-general-summary.txt		     \
         common-text/sbmlerror-table.html		     \
-        common-text/simple-ast.graffle			     \
-        common-text/simple-ast.svg			     \
         common-text/species-boundarycondition.html	     \
         common-text/species-hasonlysubstance.html	     \
         common-text/string-functions-table-l3.html	     \
@@ -466,9 +466,7 @@ define postprocess_doxygen
   cp common-graphics/*.png $(1)
   cp common-graphics/*.jpg $(1)
   cp common-graphics/*.svg $(1)
-  cp common-text/simple-ast.svg $(1)
   cp sbml.js $(1)
-  cp common-documents/*.pdf $(1)
   cp -rf doxygen-tabs.css $(1)/tabs.css
   cp -rf doxygen-navtree.css $(1)/navtree.css
 endef
@@ -654,10 +652,7 @@ java-manual $(java-manual): $(core-sources) SBMLDoclet.class
 	cp -f common-graphics/*.svg $(java-manual)/$(java-class-path)/
 	cp -f common-graphics/*.jpg $(java-manual)
 	cp -f common-graphics/*.jpg $(java-manual)/$(java-class-path)/
-	cp -f common-documents/*.pdf $(java-manual)
-	cp -f common-text/*.svg $(java-manual)/$(java-class-path)/
 	cp -f sbml.js $(java-manual)
-	cp common-text/simple-ast.svg $(java-manual)
 	$(call merge_html,libsbml-java-overview.html,$(java-manual)/overview-summary.html,Java @PACKAGE_VERSION@ API)
 	$(call merge_html,libsbml-installation.html,$(java-manual)/libsbml-installation.html,installation)
 	$(call merge_html,libsbml-accessing.html,$(java-manual)/libsbml-accessing.html,accessibility to your software)
