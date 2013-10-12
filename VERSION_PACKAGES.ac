@@ -26,6 +26,11 @@
 ## in the file named "LICENSE.txt" included with this software distribution
 ## and also available online as http://sbml.org/software/libsbml/license.html
 ## --------------------------------------------------------------------- -->*/
+##
+## This file consists of simple definitions of variables about the current
+## version of SBML L3 packages being included as part of the libSBML stable
+## release.  The variables are currently not used for anything but
+## documentation.
 
 AC_DEFUN([CONFIG_SBML_PACKAGE_VARS],
 [
