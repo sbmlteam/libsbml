@@ -124,13 +124,6 @@ distfiles =						     \
 	doxygen-layout-notcpp.xml			     \
         SBMLDoclet.java					     \
         Makefile.in					     \
-	common-documents/miriam-2005.pdf                     \
-	common-documents/miriam-resources-2007.pdf           \
-	common-documents/sbml-L3-qual-version1-release1.pdf  \
-	common-documents/sbml-comp-version-1-release-2.pdf   \
-	common-documents/sbml-fbc-version-1-release-1.pdf    \
-	common-documents/sbml-layout-version-1-release-1.pdf \
-	common-documents/sbml-level-3-version-1-core-rel-1.pdf \
 	common-graphics/biology-qualifiers.png		     \
 	common-graphics/biology-qualifiers.txt		     \
         common-graphics/cmake-configure-macos.png	     \
