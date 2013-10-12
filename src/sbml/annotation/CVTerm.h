@@ -37,7 +37,7 @@
  * biochemical entities, and (b) describing the creator of a model and the
  * model's modification history.  This SBML format is a concrete syntax that
  * conforms to the guidelines of MIRIAM (<a target="_blank"
- * href="miriam-2005.pdf">"Minimum Information Requested in the Annotation of
+ * href="http://www.nature.com/nbt/journal/v23/n12/abs/nbt1156.html">"Minimum Information Requested in the Annotation of
  * biochemical Models"</a>, <i>Nature Biotechnology</i>, vol. 23, no. 12,
  * Dec. 2005).  The format uses a subset of W3C RDF (<a target="_blank"
  * href="http://www.w3.org/RDF/">Resource Description Format</a>).  In order
@@ -124,7 +124,7 @@
  * detail online at <a target="_blank"
  * href="http://biomodels.net/miriam">http://biomodels.net/miriam</a>) and
  * also in the paper <a target="_blank"
- * href="miriam-resources-2007.pdf">"MIRIAM Resources: tools to generate and
+ * href="http://www.biomedcentral.com/1752-0509/1/58">"MIRIAM Resources: tools to generate and
  * resolve robust cross-references in Systems Biology"</a>, <i>BMC Systems
  * Biology</i>, 58(1), 2007.
  *
