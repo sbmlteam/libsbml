@@ -180,13 +180,13 @@ examples =                                                          \
   examples/layout/convertLayout.cpp                                 \
   examples/layout/example1.cpp                                      \
   examples/layout/example1-L3.cpp                                   \
-  examples/layout/example1.java                                     \
-  examples/layout/example1_L3.java                                  \
-  examples/layout/example1-L3.pl                                    \
-  examples/layout/example1-L3.py                                    \
-  examples/layout/example1-L3.rb                                    \
-  examples/layout/example1-L3.cs                                    \
-  examples/layout/example1.py                                       \
+  examples/java/layout/example1.java                                \
+  examples/java/layout/example1_L3.java                             \
+  examples/perl/layout/example1-L3.pl                               \
+  examples/python/layout/example1-L3.py                             \
+  examples/ruby/layout/example1-L3.rb                               \
+  examples/csharp/layout/example1-L3.cs                             \
+  examples/python/layout/example1.py                                \
   examples/layout/example2.cpp                                      \
   examples/layout/example2-L3.cpp                                   \
   examples/layout/example3.cpp                                      \
