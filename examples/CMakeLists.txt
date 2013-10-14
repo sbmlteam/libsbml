@@ -78,15 +78,16 @@ file(GLOB python_samples "${CMAKE_CURRENT_SOURCE_DIR}/python/*.py"
 install(FILES ${python_samples} DESTINATION ${MISC_PREFIX}examples/python)
 endif()
 
-if (ENABLE_LAYOUT)
+#layout examples now follow the structure of other packages
+#if (ENABLE_LAYOUT)
 # install layout examples
-file(GLOB layout_samples "${CMAKE_CURRENT_SOURCE_DIR}/layout/*.cpp"
-                         "${CMAKE_CURRENT_SOURCE_DIR}/layout/*.java"
-                         "${CMAKE_CURRENT_SOURCE_DIR}/layout/*.xsl"
-                         "${CMAKE_CURRENT_SOURCE_DIR}/layout/*.py"
+#file(GLOB layout_samples "${CMAKE_CURRENT_SOURCE_DIR}/layout/*.cpp"
+#                         "${CMAKE_CURRENT_SOURCE_DIR}/layout/*.java"
+#                         "${CMAKE_CURRENT_SOURCE_DIR}/layout/*.xsl"
+#                         "${CMAKE_CURRENT_SOURCE_DIR}/layout/*.py"
 					 )
-install(FILES ${layout_samples} DESTINATION ${MISC_PREFIX}examples/layout)
-endif()
+#install(FILES ${layout_samples} DESTINATION ${MISC_PREFIX}examples/layout)
+#endif()
 
 # install sample-models
 file(GLOB l2_samples "${CMAKE_CURRENT_SOURCE_DIR}/sample-models/from-spec/level-2/*.xml")
