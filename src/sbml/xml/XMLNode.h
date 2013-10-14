@@ -358,12 +358,12 @@ public:
   /**
    * Returns the <code>n</code>th child of this XMLNode.
    *
-   * If the index @p n is greater than the number of child nodes, or it is
-   * 0 or less, this method returns an empty node.
+   * If the index @p n is greater than the number of child nodes,
+   * this method returns an empty node.
    *
-   * @param n the index of the node to return
+   * @param n an unsigned integer, the index of the node to return
    * 
-   * @return the  <code>n</code>th child of this XMLNode.
+   * @return the <code>n</code>th child of this XMLNode.
    */
   XMLNode& getChild (unsigned int n);
 
@@ -371,12 +371,12 @@ public:
   /**
    * Returns the  <code>n</code>th child of this XMLNode.
    *
-   * If the index @p n is greater than the number of child nodes, or it is
-   * 0 or less, this method returns an empty node.
+   * If the index @p n is greater than the number of child nodes,
+   * this method returns an empty node.
    *
-   * @param n an integer, the index of the node to return
+   * @param n an unsigned integer, the index of the node to return
    * 
-   * @return the  <code>n</code>th child of this XMLNode.
+   * @return the <code>n</code>th child of this XMLNode.
    */
   const XMLNode& getChild (unsigned int n) const;
 
