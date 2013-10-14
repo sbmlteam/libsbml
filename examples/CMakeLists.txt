@@ -85,7 +85,7 @@ endif()
 #                         "${CMAKE_CURRENT_SOURCE_DIR}/layout/*.java"
 #                         "${CMAKE_CURRENT_SOURCE_DIR}/layout/*.xsl"
 #                         "${CMAKE_CURRENT_SOURCE_DIR}/layout/*.py"
-					 )
+#					 )
 #install(FILES ${layout_samples} DESTINATION ${MISC_PREFIX}examples/layout)
 #endif()
 
