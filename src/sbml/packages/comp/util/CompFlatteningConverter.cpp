@@ -167,7 +167,7 @@ CompFlatteningConverter::convert()
   }  
 
   /* run the comp validation rules as flattening will fail
-   * if there are bad or missing refernces between elements
+   * if there are bad or missing references between elements
    */
 
   if (getPerformValidation() == true)
@@ -220,7 +220,7 @@ CompFlatteningConverter::convert()
     return LIBSBML_OPERATION_FAILED;
   }
 
-  // we havent failed flattening so remove tht error message
+  // we haven't failed flattening so remove that error message
   mDocument->getErrorLog()->remove(CompModelFlatteningFailed);
   
 
