@@ -53,6 +53,7 @@ thisdir   = src/sbml/conversion/test
 test_sources =                       \
   TestConversionOption.cpp           \
   TestConversionProperties.cpp       \
+  TestInferUnitsConverter.cpp      \
   TestSBMLConverterRegistry.cpp      \
   TestSBMLRuleConverter.cpp          \
   TestUnitsConverter.cpp             \

@@ -58,6 +58,7 @@ common_headers = \
   SBMLConverterRegistry.h     \
   SBMLFunctionDefinitionConverter.h \
   SBMLIdConverter.h \
+  SBMLInferUnitsConverter.h \
   SBMLInitialAssignmentConverter.h \
   SBMLLevelVersionConverter.h \
   SBMLLocalParameterConverter.h \
@@ -73,6 +74,7 @@ common_sources = \
   SBMLConverterRegistry.cpp     \
   SBMLFunctionDefinitionConverter.cpp \
   SBMLIdConverter.cpp \
+  SBMLInferUnitsConverter.cpp \
   SBMLInitialAssignmentConverter.cpp \
   SBMLLevelVersionConverter.cpp \
   SBMLLocalParameterConverter.cpp \
