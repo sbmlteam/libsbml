@@ -292,7 +292,8 @@ class CHeader:
           docstring += line
           continue
         else:
-          docstring = '/**\n' + docstring + ' */'
+          if not classname.startswith("doc_"):
+            docstring = '/**\n' + docstring + ' */'
           doc = CClassDoc(docstring, classname, isInternal)
           self.classDocs.append(doc)
 
@@ -760,7 +761,7 @@ def sanitizeForHTML (docstring):
   # Javadoc doesn't have an @htmlinclude command, so we process the file
   # inclusion directly here.
 
-  p = re.compile('@htmlinclude\s+([^\s:;,(){}+|?"\'/@]+)([\s:;,(){}+|?"\'/@])', re.MULTILINE)
+  p = re.compile('@htmlinclude\s+([^\s:;,(){}+|?"\'/@*]+)([\s:;,(){}+|?"\'/@*])', re.MULTILINE)
   docstring = p.sub(translateInclude, docstring)
 
   # There's no Javadoc verbatim or @code/@endcode equivalent, so we have to
@@ -804,7 +805,7 @@ def sanitizeForHTML (docstring):
   # of a line and the thing to be formatted starts on the next one after
   # the comment '*' character on the beginning of the line.
 
-  docstring = re.sub('@c *([^ ,;()/*\n\t]+)', r'<code>\1</code>', docstring)
+  docstring = re.sub('@c +([^ ,;()/*\n\t]+)', r'<code>\1</code>', docstring)
   docstring = re.sub('@c(\n[ \t]*\*[ \t]*)([^ ,;()/*\n\t]+)', r'\1<code>\2</code>', docstring)
   docstring = re.sub('@p +([^ ,.:;()/*\n\t]+)', r'<code>\1</code>', docstring)
   docstring = re.sub('@p(\n[ \t]*\*[ \t]+)([^ ,.:;()/*\n\t]+)', r'\1<code>\2</code>', docstring)
