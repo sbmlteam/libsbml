@@ -59,7 +59,7 @@ headers =               \
   operationReturnValues.h \
   sbmlfwd.h
 
-sources = libsbml-version.cpp 
+sources = libsbml-version.cpp  operationReturnValues.cpp
 
 header_inst_prefix = common
 
@@ -67,24 +67,25 @@ header_inst_prefix = common
 # `distfiles_exclude' is used to filter out specific items, so that even if
 # they appear in `distfiles', they will not be copied in the distribution.
 
-distfiles =                \
-  Makefile.in              \
-  libsbml-version.h.cmake  \
+distfiles =                     \
+  Makefile.in                   \
+  libsbml-version.h.cmake       \
   libsbml-config-common.h.cmake \
-  common.h                 \
-  extern.h                 \
-  libsbml-config.h         \
-  common-documentation.h   \
-  libsbml-config-common.h  \
-  libsbml-config-common.h.in \
-  libsbml-namespace.h      \
-  libsbml-namespace.h.in   \
-  libsbml-package.h        \
-  libsbml-package.h.in     \
-  libsbml-version.h        \
-  libsbml-version.h.in     \
-  libsbml-version.cpp     \
-  operationReturnValues.h \
+  common.h                      \
+  extern.h                      \
+  libsbml-config.h              \
+  common-documentation.h        \
+  libsbml-config-common.h       \
+  libsbml-config-common.h.in    \
+  libsbml-namespace.h           \
+  libsbml-namespace.h.in        \
+  libsbml-package.h             \
+  libsbml-package.h.in          \
+  libsbml-version.h             \
+  libsbml-version.h.in          \
+  libsbml-version.cpp           \
+  operationReturnValues.h       \
+  operationReturnValues.cpp     \
   sbmlfwd.h
 
 

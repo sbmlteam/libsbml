@@ -33,6 +33,7 @@
 #endif 
 
 #include <sbml/common/common.h>
+#include <sbml/common/operationReturnValues.h>
 #include <locale.h>
 
 #include <check.h>
@@ -320,6 +321,16 @@ START_TEST (test_util_accessWithNULL)
 }
 END_TEST
 
+START_TEST (test_util_operationReturn)
+{
+  int NONE_EXISTING_RETURN_CODE=123456;
+  fail_unless(OperationReturnValue_toString(LIBSBML_OPERATION_FAILED) != NULL);
+  fail_unless(OperationReturnValue_toString(LIBSBML_CONV_PKG_CONSIDERED_UNKNOWN) != NULL);
+  fail_unless(OperationReturnValue_toString(NONE_EXISTING_RETURN_CODE) == NULL);
+}
+END_TEST
+
+
 Suite *
 create_suite_util (void) 
 { 
@@ -340,6 +351,7 @@ create_suite_util (void)
   tcase_add_test( tcase, test_util_NegZero            );
   tcase_add_test( tcase, test_util_isInf              );
   tcase_add_test( tcase, test_util_accessWithNULL     );
+  tcase_add_test( tcase, test_util_operationReturn    );
 
   suite_add_tcase(suite, tcase);
 

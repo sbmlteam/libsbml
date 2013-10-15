@@ -28,7 +28,11 @@
 #ifndef LIBSBML_OPERATION_RETURN_VALUES_H
 #define LIBSBML_OPERATION_RETURN_VALUES_H
 
+#include <sbml/common/extern.h>
+
 LIBSBML_CPP_NAMESPACE_BEGIN
+
+BEGIN_C_DECLS
 
 /**
  * Diagnostic return codes.
@@ -247,6 +251,22 @@ typedef enum
      */
 
 } OperationReturnValues_t;
+
+/**
+ * This method takes an SBML operation return value and returns a string representing
+ * the code.
+ *
+ * @return a human readable name for the given
+ * @if clike #OperationReturnValues_t value@else operation return value @endif.
+ *
+ * @note The caller does not own the returned string and is therefore not
+ * allowed to modify it.
+ */
+LIBSBML_EXTERN
+const char *
+OperationReturnValue_toString (int returnValue);
+
+END_C_DECLS
 
 LIBSBML_CPP_NAMESPACE_END
 
