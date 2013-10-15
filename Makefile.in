@@ -388,6 +388,7 @@ distfiles =                         \
   NEWS.txt                          \
   README.txt                        \
   VERSION.txt                       \
+  VERSION_PACKAGES.ac               \
   aclocal.m4                        \
   acinclude.m4                      \
   config/chk_swig_version.sh.in     \
