@@ -692,6 +692,10 @@ dl.reflist dd {
     padding: 5px;
 }
 
+dl.section.user dd {
+    padding-bottom: 0.5em !important;
+}
+
 /* The next one is to tighten vertical spacing in Java parameter lists in method descriptions */
 dl dd dl dd p {
     padding: 2px;
