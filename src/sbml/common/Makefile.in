@@ -74,7 +74,7 @@ distfiles =                \
   common.h                 \
   extern.h                 \
   libsbml-config.h         \
-  common-documentation     \
+  common-documentation.h   \
   libsbml-config-common.h  \
   libsbml-config-common.h.in \
   libsbml-namespace.h      \
