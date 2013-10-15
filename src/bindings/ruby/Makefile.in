@@ -98,6 +98,8 @@ endif
 ifdef USE_UNIVBINARY
   ifneq "$(MACOS_VERSION)" "10.6"
   ifneq "$(MACOS_VERSION)" "10.7"
+  ifneq "$(MACOS_VERSION)" "10.8"
+  ifneq "$(MACOS_VERSION)" "10.9"
 
     filtered_cflags   = $(shell echo '$(CFLAGS)'   | sed -e "s/-arch x86_64//g")
     filtered_cppflags = $(shell echo '$(CPPFLAGS)' | sed -e "s/-arch x86_64//g")
@@ -108,6 +110,8 @@ ifdef USE_UNIVBINARY
     CPPFLAGS := $(filtered_cppflags)
     CXXFLAGS := $(filtered_cxxflags)
     LDFLAGS  := $(filtered_ldflags)
+  endif    
+  endif    
   endif    
   endif
 endif
