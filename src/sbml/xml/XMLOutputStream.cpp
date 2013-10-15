@@ -168,6 +168,34 @@ bool hasPredefinedEntity(const std::string &chars, size_t index)
 }   
 
 
+/** @cond doxygenLibsbmlInternal */
+/**
+ * Copy Constructor, made private so as to notify users, that copying an input stream is not supported. 
+ */
+XMLOutputStream::XMLOutputStream (const XMLOutputStream& other)
+  : mStream(other.mStream)
+  , mEncoding(other.mEncoding)
+  , mInStart (other.mInStart)
+  , mDoIndent(other.mDoIndent)
+  , mIndent(other.mIndent)
+  , mInText(other.mInText)
+  , mSkipNextIndent(mSkipNextIndent)
+  , mNextAmpersandIsRef(other.mNextAmpersandIsRef)
+  , mStringStream(other.mStringStream)
+{
+}
+/** @endcond */
+
+/** @cond doxygenLibsbmlInternal */
+/**
+ * Assignment operator, made private so as to notify users, that copying an input stream is not supported. 
+ */
+XMLOutputStream& XMLOutputStream::operator=(const XMLOutputStream& other)
+{
+  return *this;
+}
+/** @endcond */
+
 /*
  * Creates a new XMLOutputStream that wraps stream.
  */

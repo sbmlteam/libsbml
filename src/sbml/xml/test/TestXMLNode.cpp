@@ -29,6 +29,7 @@
 #include <sbml/xml/XMLTriple.h>
 #include <sbml/xml/XMLToken.h>
 #include <sbml/xml/XMLNode.h>
+#include <sbml/xml/XMLInputStream.h>
 
 #include <check.h>
 using namespace std;
@@ -1312,13 +1313,32 @@ START_TEST(test_XMLNode_attribute_set_clear)
 }
 END_TEST
 
+//
+//START_TEST(test_XMLInputStream_assignment)
+//{
+//	const char* xmlstr1 = "<annotation>\n"
+//	"  <test xmlns=\"http://test.org/\" id=\"test\">test</test>\n"
+//	"</annotation>";
+//  const char* xmlstr2= "<annotations>\n"
+//	"  <test xmlns=\"http://test.org/\" id=\"test\">test</test>\n"
+//	"</annotations>";
+//
+//  XMLInputStream stream(xmlstr1, false);
+//  XMLNode node(stream);
+//  fail_unless(node.getName() == "annotation");
+//  stream = XMLInputStream(xmlstr2, false);
+//  fail_unless(stream.isError() == true);
+//}
+//END_TEST
+//
 
 Suite *
 create_suite_XMLNode (void)
 {
   Suite *suite = suite_create("XMLNode");
   TCase *tcase = tcase_create("XMLNode");
-	
+
+  //tcase_add_test( tcase, test_XMLInputStream_assignment );
   tcase_add_test( tcase, test_XMLNode_getIndex  );
   tcase_add_test( tcase, test_XMLNode_hasChild  );
   tcase_add_test( tcase, test_XMLNode_getChildForName  );

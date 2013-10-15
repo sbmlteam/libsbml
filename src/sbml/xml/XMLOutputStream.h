@@ -301,6 +301,21 @@ public:
   bool getStringStream()   { return mStringStream;  }
   /** @endcond */
 
+private:
+  /** @cond doxygenLibsbmlInternal */
+  /**
+   * Copy Constructor, made private so as to notify users, that copying an input stream is not supported. 
+   */
+  XMLOutputStream (const XMLOutputStream& other);
+  /** @endcond */
+
+  /** @cond doxygenLibsbmlInternal */
+  /**
+   * Assignment operator, made private so as to notify users, that copying an input stream is not supported. 
+   */
+  XMLOutputStream& operator=(const XMLOutputStream& other);
+  /** @endcond */
+
 protected:
   /** @cond doxygenLibsbmlInternal */
 

@@ -67,6 +67,29 @@ XMLInputStream::XMLInputStream (  const char*   content
     mIsError = true; 
 }
 
+ /** @cond doxygenLibsbmlInternal */
+ /**
+ * Copy Constructor, made private so as to notify users, that copying an input stream is not supported. 
+ */
+ XMLInputStream::XMLInputStream (const XMLInputStream& other)
+   : mIsError(true)   
+   , mParser(NULL)
+   , mSBMLns(NULL)
+ {
+ }
+ /** @endcond */
+
+ /** @cond doxygenLibsbmlInternal */
+ /**
+ * Assignment operator, made private so as to notify users, that copying an input stream is not supported. 
+ */
+ XMLInputStream& XMLInputStream::operator=(const XMLInputStream& other)
+ {
+   if (this == &other) return *this;
+   mIsError = true;
+   return *this;
+ }
+ /** @endcond */
 
 /*
  * Destroys this XMLInputStream.

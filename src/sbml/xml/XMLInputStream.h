@@ -80,6 +80,7 @@ public:
                   , const std::string  library  = "" 
                   , XMLErrorLog*       errorLog = NULL );
 
+
   /**
    * Destroys this XMLInputStream.
    */
@@ -178,6 +179,21 @@ public:
   SBMLNamespaces * getSBMLNamespaces();
 
   void setSBMLNamespaces(SBMLNamespaces * sbmlns);
+
+private:
+  /** @cond doxygenLibsbmlInternal */
+  /**
+   * Copy Constructor, made private so as to notify users, that copying an input stream is not supported. 
+   */
+  XMLInputStream (const XMLInputStream& other);
+  /** @endcond */
+
+  /** @cond doxygenLibsbmlInternal */
+  /**
+   * Assignment operator, made private so as to notify users, that copying an input stream is not supported. 
+   */
+  XMLInputStream& operator=(const XMLInputStream& other);
+  /** @endcond */
 
 protected:
 
