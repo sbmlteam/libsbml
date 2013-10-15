@@ -1428,8 +1428,11 @@ def main (args):
   finalstream = open(args[5], 'w')
   postProcessOutput(tmpstream, finalstream)
 
-  tmpstream.flush()
-  tmpstream.close()
+  try:
+    tmpstream.flush()
+    tmpstream.close()
+  except Exception, e:
+    print "\tWarning, error flushing stream \n\t\t'%s'. \n\tThis is not a serious error, but an issue with the python interpreter known to occur in python 2.7." % e
   finalstream.flush()
   finalstream.close()
 
