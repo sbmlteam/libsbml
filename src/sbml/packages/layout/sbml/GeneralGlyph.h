@@ -53,6 +53,10 @@
  * @class GeneralGlyph
  * @ingroup layout
  * @brief @htmlinclude pkg-marker-layout.html
+ * The %GeneralGlyph is used by the Layout package to represent any SBML object.
+ *
+ * The GeneralGlyph is used to facilitate the representation of elements other than Compartment, Species and Reaction and thus can be used for the display of relationships of Rule or elements defined by other SBML packages. It closely follows the structure of the ReactionGlyph. 
+ * GeneralGlyph is defined to have an optional attribute reference as well as the elements curve, listOfReferenceGlyphs and listOfSubGlyphs.
  */
 
 #ifndef GeneralGlyph_H__
@@ -77,6 +81,30 @@
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
+/**
+ * @class ListOfReferenceGlyphs
+ * @ingroup layout
+ * @brief  @htmlinclude pkg-marker-layout.html
+ * Implementation of the %ListOfReferenceGlyphs construct from the &ldquo;layout&rdquo; package.
+ * 
+ * The ListOfReferenceGlyphs is a container for the ReferenceGlyph elements of a GeneralGlyph.
+ * 
+ * The various ListOf___ classes in SBML are merely containers used for
+ * organizing the main components of an SBML model.  All are derived from
+ * the abstract class SBase, and inherit the various attributes and
+ * subelements of SBase, such as "metaid" as and "annotation".  The
+ * ListOf___ classes do not add any attributes of their own.
+ *
+ * Readers may wonder about the motivations for using the ListOf___
+ * containers.  A simpler approach in XML might be to place the components
+ * all directly at the top level of the model definition.  The choice made
+ * in SBML is to group them within XML elements named after
+ * ListOf<em>Classname</em>, in part because it helps organize the
+ * components.  More importantly, the fact that the container classes are
+ * derived from SBase means that software tools can add information @em about
+ * the lists themselves into each list container's "annotation".
+ *
+ */
 class LIBSBML_EXTERN ListOfReferenceGlyphs : public ListOf
 {
 public:

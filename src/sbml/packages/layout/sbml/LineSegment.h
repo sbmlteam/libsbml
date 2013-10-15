@@ -53,6 +53,9 @@
  * @class LineSegment
  * @ingroup layout
  * @brief @htmlinclude pkg-marker-layout.html
+ * The representation of a line in the Layout package.
+ *
+ * The LineSegment class consists of the mandatory attribute xsi:type and two child elements of type Point. One is called 'start' and represents the starting point of the line, the other is called 'end' and represents the endpoint of the line.  The LineSegment class is also the base class for CubicBezier, which represent curved lines instead of straight ones.
  */
 
 #ifndef LineSegment_H__

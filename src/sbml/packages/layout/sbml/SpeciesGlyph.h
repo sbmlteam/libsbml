@@ -53,6 +53,9 @@
  * @class SpeciesGlyph
  * @ingroup layout
  * @brief @htmlinclude pkg-marker-layout.html
+ * The %SpeciesGlyph represents a Species in the Layout package.
+ *
+ * In addition to the attributes it inherits from GraphicalObject, the SpeciesGlyph object has an optional 'species' attribute.
  */
 
 #ifndef SpeciesGlyph_H__

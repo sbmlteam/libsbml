@@ -53,6 +53,11 @@
  * @class Dimensions
  * @ingroup layout
  * @brief @htmlinclude pkg-marker-layout.html
+ * The %Dimensions class describes the overall 2D or 3D shape of a Layout package object.
+ *
+ * A dimension is specified via the required attributes width, height and an optional attribute depth, all of which are of type double. If the attribute depth is not specified, the object is a two dimensional object. 
+ * The width attribute of Dimensions specifies the size of the object in the direction of the positive x axis, the height attribute specifies the size of the object along the positive y axis and the depth attribute specifies the size of the object along the positive z axis. All sizes for Dimensions objects are positive values, and so the attributes are not allowed to take negative values. 
+ * The Dimensions class also has an optional attribute id of type SId. While not used in the Layout package, it can be used by programs to refer to the elements.
  */
 
 #ifndef Dimensions_H__

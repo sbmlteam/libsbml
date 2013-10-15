@@ -53,6 +53,10 @@
  * @class Point
  * @ingroup layout
  * @brief @htmlinclude pkg-marker-layout.html
+ * The representation of a point in the Layout package.
+ *
+ * A point is specified via the required attributes 'x', 'y' and an optional attribute 'z', all of which are of type double. If the attribute z is not specified, the object is a two dimensional object.
+ * The Point class also has an optional attribute id of type SId. While not used in the Layout package, it can be used by programs to refer to the elements.
  */
 
 #ifndef Point_H__

@@ -53,6 +53,9 @@
  * @class ReactionGlyph
  * @ingroup layout
  * @brief @htmlinclude pkg-marker-layout.html
+ * The %ReactionGlyph is used to represent Reaction elements in the layout. Analogous to how a Reaction object has to at least have one reactant or product, the ReactionGlyph has to at least have one SpeciesReferenceGlyph stored in the ListOfSpeciesReferenceGlyphs. Figure 12 on the following page provides the UML diagram for the class definition. 
+ * The ReactionGlyph inherits from GraphicalObject. In addition to the attributes inherited from GraphicalObject, the ReactionGlyph is described by an attribute reaction, a Curve element and a listOfSpeciesReferenceGlyphs element. 
+ * The Curve describes the center section of a ReactionGlyph. The center section is frequently used by tools to separate the point where substrates arcs come together, from the point where product arcs split off. The Curve is optional, and when not present the dimensions of the inherited BoundingBox describes the center section, by storing its position and dimension.
  */
 
 #ifndef ReactionGlyph_H__
@@ -77,6 +80,30 @@
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
+/**
+ * @class ListOfSpeciesReferenceGlyphs
+ * @ingroup layout
+ * @brief  @htmlinclude pkg-marker-layout.html
+ * Implementation of the %ListOfSpeciesReferenceGlyphs construct from the &ldquo;layout&rdquo; package.
+ * 
+ * The ListOfSpeciesReferenceGlyphs is a container for the SpeciesReferenceGlyphs elements of a ReactionGlyph.
+ * 
+ * The various ListOf___ classes in SBML are merely containers used for
+ * organizing the main components of an SBML model.  All are derived from
+ * the abstract class SBase, and inherit the various attributes and
+ * subelements of SBase, such as "metaid" as and "annotation".  The
+ * ListOf___ classes do not add any attributes of their own.
+ *
+ * Readers may wonder about the motivations for using the ListOf___
+ * containers.  A simpler approach in XML might be to place the components
+ * all directly at the top level of the model definition.  The choice made
+ * in SBML is to group them within XML elements named after
+ * ListOf<em>Classname</em>, in part because it helps organize the
+ * components.  More importantly, the fact that the container classes are
+ * derived from SBase means that software tools can add information @em about
+ * the lists themselves into each list container's "annotation".
+ *
+ */
 class LIBSBML_EXTERN ListOfSpeciesReferenceGlyphs : public ListOf
 {
 public:

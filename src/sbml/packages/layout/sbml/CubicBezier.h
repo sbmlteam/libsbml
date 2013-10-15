@@ -53,6 +53,10 @@
  * @class CubicBezier
  * @ingroup layout
  * @brief @htmlinclude pkg-marker-layout.html
+ * A %CubicBezier represents a smooth curve in the Layout package.
+ *
+ * In order to be able to represent smooth curves the Layout package defines the class CubicBezier. It represents a Bezier curve, and is readily available in most graphics APIs. 
+ * The class CubicBezier is derived from LineSegment. It consists of four elements: the two inherited elements 'start' and 'end', which specify the starting point and the endpoint of the cubic bezier curve, and two elements 'basePoint1' and 'basePoint2', which specify the two additional base points that are needed to describe a cubic bezier curve.
  */
 
 

@@ -53,6 +53,10 @@
  * @class ReferenceGlyph
  * @ingroup layout
  * @brief @htmlinclude pkg-marker-layout.html
+ * The %ReferenceGlyph is used by the Layout package to connect a GraphicalObject and a GeneralGlyph.
+ *
+ * The ReferenceGlyph element describes the graphical connection between an arbitrary GraphicalObject (or derived element) and a GeneralGlyph (which would be an arrow or some curve in most cases). A ReferenceGlyph inherits from GraphicalObject. Additionally it has a mandatory attribute 'glyph' and two optional attributes 'reference' and 'role'. Optionally, the ReferenceGlyph also has an element 'curve'.
+ * The ReferenceGlyph should either contain a bounding box or a curve specification.  If both are given, the bounding box should be ignored.
  */
 
 #ifndef ReferenceGlyph_H__

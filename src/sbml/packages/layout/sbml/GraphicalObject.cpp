@@ -1057,11 +1057,13 @@ ListOfGraphicalObjects::getElementName () const
   return mElementName;
 }
 
+/** @cond doxygenLibsbmlInternal */
 void 
 ListOfGraphicalObjects::setElementName(const std::string &elementName)
 {
   mElementName = elementName;
 }
+/** @endcond **/
 
 
 /* return nth item in list */

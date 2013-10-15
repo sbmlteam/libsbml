@@ -53,6 +53,10 @@
  * @class GraphicalObject
  * @ingroup layout
  * @brief @htmlinclude pkg-marker-layout.html
+ * The basic Layout package element for storing layout information.
+ *
+ * All the more specific layout elements (CompartmentGlyph, GeneralGlyph, SpeciesGlyph, ReactionGlyph, ReferenceGlyph, TextGlyph, and SpeciesReferenceGlyph) are derived from the class GraphicalObject. Each object of class GraphicalObject has a mandatory BoundingBox, which specifies the position and the size of the object.
+ * While GraphicalObject is the base class for most elements in the Layout package, it is not an abstract class. It can be instantiated when used in the listOfAdditionalGraphicalObjects to describe additional elements and relationships. Since it only describes a BoundingBox, programs are encouraged to add Annotation objects that describe program-specific graphical information.
  */
 
 #ifndef GraphicalObject_H__
@@ -449,6 +453,30 @@ protected:
 };
 
 
+/**
+ * @class ListOfGraphicalObjects
+ * @ingroup layout
+ * @brief  @htmlinclude pkg-marker-layout.html
+ * Implementation of the %ListOfAdditionalGraphicalObjects construct from the &ldquo;layout&rdquo; package.
+ * 
+ * The ListOfGraphicalObjects class in libSBML actually represents the ListOfAdditionalGraphicalObjects class in the Layout package, and is a container for the additional GraphicalObject elements of a Layout.
+ * 
+ * The various ListOf___ classes in SBML are merely containers used for
+ * organizing the main components of an SBML model.  All are derived from
+ * the abstract class SBase, and inherit the various attributes and
+ * subelements of SBase, such as "metaid" as and "annotation".  The
+ * ListOf___ classes do not add any attributes of their own.
+ *
+ * Readers may wonder about the motivations for using the ListOf___
+ * containers.  A simpler approach in XML might be to place the components
+ * all directly at the top level of the model definition.  The choice made
+ * in SBML is to group them within XML elements named after
+ * ListOf<em>Classname</em>, in part because it helps organize the
+ * components.  More importantly, the fact that the container classes are
+ * derived from SBase means that software tools can add information @em about
+ * the lists themselves into each list container's "annotation".
+ *
+ */
 class LIBSBML_EXTERN ListOfGraphicalObjects : public ListOf
 {
 public:
@@ -485,10 +513,12 @@ public:
    */
   virtual const std::string& getElementName () const;
 
+  /** @cond doxygenLibsbmlInternal */
   /* 
    * Allow overwriting the element name (as used by the generalGlyph)
    */ 
   void setElementName(const std::string& elementName);
+  /** @endcond **/
 
   /**
    * Get a GraphicalObject from the ListOfGraphicalObjects.

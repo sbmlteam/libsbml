@@ -28,6 +28,27 @@
  * @class LayoutValidator
  * @ingroup layout
  * @brief @htmlinclude pkg-marker-layout.html
+ * Entry point for libSBML's implementation of SBML validation rules for the
+ * &ldquo;layout&rdquo; package.
+ * 
+ * @htmlinclude not-sbml-warning.html
+ *
+ * LibSBML implements facilities for verifying that a given SBML document
+ * is valid according to the SBML specifications; it also exposes the
+ * validation interface so that user programs and SBML Level&nbsp;3 package
+ * authors may use the facilities to implement new validators.  There are
+ * two main interfaces to libSBML's validation facilities, based on the
+ * classes LayoutValidator and LayoutValidator.
+ *
+ * The LayoutValidator class is the basis of the system for validating an SBML
+ * document against the validation rules defined in the SBML
+ * specifications.  The scheme used by LayoutValidator relies is compact and uses
+ * the @em visitor programming pattern, but it relies on C/C++ features and
+ * is not directly accessible from language bindings.  LayoutValidator offers
+ * a framework for straightforward class-based extensibility, so that user
+ * code can subclass LayoutValidator to implement new validation systems,
+ * different validators can be introduced or turned off at run-time, and
+ * interfaces can be provided in the libSBML language bindings.
  */
 
 #ifndef LayoutValidator__H

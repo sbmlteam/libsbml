@@ -53,6 +53,10 @@
  * @class Layout
  * @ingroup layout
  * @brief @htmlinclude pkg-marker-layout.html
+ * Each Layout object stores a set of layout information for objects in the Model.
+ *
+ * The Layout class stores layout information for some or all elements of the SBML model as well as additional objects that need not be connected to the model. The Layout has two attributes: id and name. Additionally, a Dimensions element specifies the size of the layout. 
+ * The actual layout elements are contained in several lists, namely: a ListOfCompartmentGlyphs, a ListOfSpeciesGlyphs, a ListOfReactionGlyphs, a ListOfTextGlyphs, and a ListOfAdditionalGraphicalObjects. Each of these lists can only occur once, and, if present, are not allowed to be empty.
  */
 
 #ifndef Layout_H__
@@ -83,6 +87,30 @@
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
+/**
+ * @class ListOfCompartmentGlyphs
+ * @ingroup layout
+ * @brief  @htmlinclude pkg-marker-layout.html
+ * Implementation of the %ListOfCompartmentGlyphs construct from the &ldquo;layout&rdquo; package.
+ * 
+ * The ListOfCompartmentGlyphs is a container for the CompartmentGlyph elements of a Layout.
+ * 
+ * The various ListOf___ classes in SBML are merely containers used for
+ * organizing the main components of an SBML model.  All are derived from
+ * the abstract class SBase, and inherit the various attributes and
+ * subelements of SBase, such as "metaid" as and "annotation".  The
+ * ListOf___ classes do not add any attributes of their own.
+ *
+ * Readers may wonder about the motivations for using the ListOf___
+ * containers.  A simpler approach in XML might be to place the components
+ * all directly at the top level of the model definition.  The choice made
+ * in SBML is to group them within XML elements named after
+ * ListOf<em>Classname</em>, in part because it helps organize the
+ * components.  More importantly, the fact that the container classes are
+ * derived from SBase means that software tools can add information @em about
+ * the lists themselves into each list container's "annotation".
+ *
+ */
 class LIBSBML_EXTERN ListOfCompartmentGlyphs : public ListOf
 {
 public:
@@ -222,6 +250,30 @@ protected:
   /** @endcond */
 };
 
+/**
+ * @class ListOfSpeciesGlyphs
+ * @ingroup layout
+ * @brief  @htmlinclude pkg-marker-layout.html
+ * Implementation of the %ListOfSpeciesGlyphs construct from the &ldquo;layout&rdquo; package.
+ * 
+ * The ListOfSpeciesGlyphs is a container for the SpeciesGlyph elements of a Layout.
+ * 
+ * The various ListOf___ classes in SBML are merely containers used for
+ * organizing the main components of an SBML model.  All are derived from
+ * the abstract class SBase, and inherit the various attributes and
+ * subelements of SBase, such as "metaid" as and "annotation".  The
+ * ListOf___ classes do not add any attributes of their own.
+ *
+ * Readers may wonder about the motivations for using the ListOf___
+ * containers.  A simpler approach in XML might be to place the components
+ * all directly at the top level of the model definition.  The choice made
+ * in SBML is to group them within XML elements named after
+ * ListOf<em>Classname</em>, in part because it helps organize the
+ * components.  More importantly, the fact that the container classes are
+ * derived from SBase means that software tools can add information @em about
+ * the lists themselves into each list container's "annotation".
+ *
+ */
 class LIBSBML_EXTERN ListOfSpeciesGlyphs : public ListOf
 {
 public:
@@ -360,6 +412,30 @@ protected:
   /** @endcond */
 };
 
+/**
+ * @class ListOfReactionGlyphs
+ * @ingroup layout
+ * @brief  @htmlinclude pkg-marker-layout.html
+ * Implementation of the %ListOfReactionGlyphs construct from the &ldquo;layout&rdquo; package.
+ * 
+ * The ListOfReactionGlyphs is a container for the ReactionGlyph elements of a Layout.
+ * 
+ * The various ListOf___ classes in SBML are merely containers used for
+ * organizing the main components of an SBML model.  All are derived from
+ * the abstract class SBase, and inherit the various attributes and
+ * subelements of SBase, such as "metaid" as and "annotation".  The
+ * ListOf___ classes do not add any attributes of their own.
+ *
+ * Readers may wonder about the motivations for using the ListOf___
+ * containers.  A simpler approach in XML might be to place the components
+ * all directly at the top level of the model definition.  The choice made
+ * in SBML is to group them within XML elements named after
+ * ListOf<em>Classname</em>, in part because it helps organize the
+ * components.  More importantly, the fact that the container classes are
+ * derived from SBase means that software tools can add information @em about
+ * the lists themselves into each list container's "annotation".
+ *
+ */
 class LIBSBML_EXTERN ListOfReactionGlyphs : public ListOf
 {
 public:
@@ -498,6 +574,30 @@ protected:
   /** @endcond */
 };
 
+/**
+ * @class ListOfTextGlyphs
+ * @ingroup layout
+ * @brief  @htmlinclude pkg-marker-layout.html
+ * Implementation of the %ListOfTextGlyphs construct from the &ldquo;layout&rdquo; package.
+ * 
+ * The ListOfTextGlyphs is a container for the TextGlyph elements of a Layout.
+ * 
+ * The various ListOf___ classes in SBML are merely containers used for
+ * organizing the main components of an SBML model.  All are derived from
+ * the abstract class SBase, and inherit the various attributes and
+ * subelements of SBase, such as "metaid" as and "annotation".  The
+ * ListOf___ classes do not add any attributes of their own.
+ *
+ * Readers may wonder about the motivations for using the ListOf___
+ * containers.  A simpler approach in XML might be to place the components
+ * all directly at the top level of the model definition.  The choice made
+ * in SBML is to group them within XML elements named after
+ * ListOf<em>Classname</em>, in part because it helps organize the
+ * components.  More importantly, the fact that the container classes are
+ * derived from SBase means that software tools can add information @em about
+ * the lists themselves into each list container's "annotation".
+ *
+ */
 class LIBSBML_EXTERN ListOfTextGlyphs : public ListOf
 {
 public:
@@ -1430,6 +1530,30 @@ protected:
 };
 
 
+/**
+ * @class ListOfLayouts
+ * @ingroup layout
+ * @brief  @htmlinclude pkg-marker-layout.html
+ * Implementation of the %ListOfLayouts construct from the &ldquo;layout&rdquo; package.
+ * 
+ * The ListOfLayouts is a container for the Layout elements of an extended Model element.
+ * 
+ * The various ListOf___ classes in SBML are merely containers used for
+ * organizing the main components of an SBML model.  All are derived from
+ * the abstract class SBase, and inherit the various attributes and
+ * subelements of SBase, such as "metaid" as and "annotation".  The
+ * ListOf___ classes do not add any attributes of their own.
+ *
+ * Readers may wonder about the motivations for using the ListOf___
+ * containers.  A simpler approach in XML might be to place the components
+ * all directly at the top level of the model definition.  The choice made
+ * in SBML is to group them within XML elements named after
+ * ListOf<em>Classname</em>, in part because it helps organize the
+ * components.  More importantly, the fact that the container classes are
+ * derived from SBase means that software tools can add information @em about
+ * the lists themselves into each list container's "annotation".
+ *
+ */
 class LIBSBML_EXTERN ListOfLayouts : public ListOf
 {
 public:

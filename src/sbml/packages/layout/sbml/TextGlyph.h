@@ -53,6 +53,7 @@
  * @class TextGlyph
  * @ingroup layout
  * @brief @htmlinclude pkg-marker-layout.html
+ * The TextGlyph class describes the position and dimension of text labels in the Layout package. It inherits from GraphicalObject and adds the attributes graphicalObject, text and originOfText.
  */
 
 #ifndef TextGlyph_H__

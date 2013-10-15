@@ -53,6 +53,11 @@
  * @class SpeciesReferenceGlyph
  * @ingroup layout
  * @brief @htmlinclude pkg-marker-layout.html
+ * A %SpeciesReferenceGlyph represents a reactant or product from a Reaction in the Layout package.
+ *
+ * The %SpeciesReferenceGlyph element describes the graphical connection between a SpeciesGlyph and a ReactionGlyph (which would be an arrow or some curve in most cases). A SpeciesReferenceGlyph inherits from GraphicalObject, and adds a mandatory attribute 'speciesGlyph' and two optional attributes 'speciesReference' and 'role'. Optionally, the SpeciesReferenceGlyph also has a child element 'curve'.
+ *
+ * If the curve is specified, it overrides the inherited bounding box.
  */
 
 #ifndef SpeciesReferenceGlyph_H__
