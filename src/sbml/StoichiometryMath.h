@@ -155,6 +155,41 @@
  * @see Reaction
  */
 
+/**
+ * <!-- ~ ~ ~ ~ ~ Start of common documentation strings ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+ * The following text is used as common documentation blocks copied multiple
+ * times elsewhere in this file.  The use of @class is a hack needed because
+ * Doxygen's @copydetails command has limited functionality.  Symbols
+ * beginning with "doc_" are marked as ignored in our Doxygen configuration.
+ * ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~  -->
+ *
+ * @class doc_note_stoichiometrymath_setting_lv
+ * 
+ * @note Upon the addition of a StoichiometryMath object to an
+ * SBMLDocument (e.g., using
+ * SpeciesReference::createStoichiometryMath()), the SBML Level, SBML
+ * Version and XML namespace of the document @em override the values used
+ * when creating the StoichiometryMath object via this constructor.  This
+ * is necessary to ensure that an SBML document is a consistent
+ * structure.  Nevertheless, the ability to supply the values at the time
+ * of creation of a StoichiometryMath is an important aid to producing
+ * valid SBML.  Knowledge of the intented SBML Level and Version
+ * determine whether it is valid to assign a particular value to an
+ * attribute, or whether it is valid to add an object to an existing
+ * SBMLDocument.
+ *
+ * @class doc_note_stoichiometrymath_availability
+ * 
+ * @note The StoichiometryMath construct exists only in SBML Level&nbsp;2.
+ * It is an optional construct available for defining the stoichiometries of
+ * reactants and products in Reaction objects.  Note that a different
+ * mechanism is used in SBML Level&nbsp;3, where StoichiometryMath is not
+ * available.  Please consult the top of this libSBML StoichiometryMath
+ * documentation for more information about the differences between SBML
+ * Level&nbsp;2 and&nbsp;3 with respect to stoichiometries.
+ * 
+ * <!-- ~ ~ ~ ~ ~ ~ End of common documentation strings ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ -->
+ */
 
 #ifndef StoichiometryMath_h
 #define StoichiometryMath_h
@@ -190,31 +225,14 @@ public:
    * @param version an unsigned int, the SBML Version to assign to this
    * StoichiometryMath
    *
-   * The StoichiometryMath construct exists only in SBML Level&nbsp;2.  It
-   * is an optional construct available for defining the stoichiometries of
-   * reactants and products in Reaction objects.  Note that a different
-   * mechanism is used in SBML Level&nbsp;3, where StoichiometryMath is not
-   * available.  Please consult the top of this libSBML StoichiometryMath
-   * documentation for more information about the differences between SBML
-   * Level&nbsp;2 and&nbsp;3 with respect to stoichiometries.
-   *
    * @throws @if python ValueError @else SBMLConstructorException @endif@~
    * Thrown if the given @p level and @p version combination, or this kind
    * of SBML object, are either invalid or mismatched with respect to the
    * parent SBMLDocument object.
-   * 
-   * @note Upon the addition of a StoichiometryMath object to an
-   * SBMLDocument (e.g., using
-   * SpeciesReference::createStoichiometryMath()), the SBML Level, SBML
-   * Version and XML namespace of the document @em override the values used
-   * when creating the StoichiometryMath object via this constructor.  This
-   * is necessary to ensure that an SBML document is a consistent
-   * structure.  Nevertheless, the ability to supply the values at the time
-   * of creation of a StoichiometryMath is an important aid to producing
-   * valid SBML.  Knowledge of the intented SBML Level and Version
-   * determine whether it is valid to assign a particular value to an
-   * attribute, or whether it is valid to add an object to an existing
-   * SBMLDocument.
+   *
+   * @copydetails doc_note_stoichiometrymath_availability
+   *
+   * @copydetails doc_note_stoichiometrymath_setting_lv
    */
   StoichiometryMath (unsigned int level, unsigned int version);
 
@@ -223,39 +241,18 @@ public:
    * Creates a new StoichiometryMath object using the given SBMLNamespaces object
    * @p sbmlns.
    *
-   * The SBMLNamespaces object encapsulates SBML Level/Version/namespaces
-   * information.  It is used to communicate the SBML Level, Version, and
-   * (in Level&nbsp;3) packages used in addition to SBML Level&nbsp;3 Core.
-   * A common approach to using this class constructor is to create an
-   * SBMLNamespaces object somewhere in a program, once, then pass it to
-   * object constructors such as this one when needed.
+   * @copydetails doc_what_are_sbmlnamespaces 
    *
    * @param sbmlns an SBMLNamespaces object.
-   *
-   * The StoichiometryMath construct exists only in SBML Level&nbsp;2.  It
-   * is an optional construct available for defining the stoichiometries of
-   * reactants and products in Reaction objects.  Note that a different
-   * mechanism is used in SBML Level&nbsp;3, where StoichiometryMath is not
-   * available.  Please consult the top of this libSBML StoichiometryMath
-   * documentation for more information about the differences between SBML
-   * Level&nbsp;2 and&nbsp;3 with respect to stoichiometries.
    *
    * @throws @if python ValueError @else SBMLConstructorException @endif@~
    * Thrown if the given @p level and @p version combination, or this kind
    * of SBML object, are either invalid or mismatched with respect to the
    * parent SBMLDocument object.
    *
-   * @note Upon the addition of a StoichiometryMath object to an
-   * SBMLDocument (e.g., using
-   * SpeciesReference::createStoichiometryMath()), the SBML XML namespace
-   * of the document @em overrides the value used when creating the
-   * StoichiometryMath object via this constructor.  This is necessary to
-   * ensure that an SBML document is a consistent structure.  Nevertheless,
-   * the ability to supply the values at the time of creation of a
-   * StoichiometryMath is an important aid to producing valid SBML.
-   * Knowledge of the intented SBML Level and Version determine whether it
-   * is valid to assign a particular value to an attribute, or whether it
-   * is valid to add an object to an existing SBMLDocument.
+   * @copydetails doc_note_stoichiometrymath_availability
+   *
+   * @copydetails doc_note_stoichiometrymath_setting_lv
    */
   StoichiometryMath (SBMLNamespaces* sbmlns);
 
@@ -313,13 +310,7 @@ public:
    * 
    * @return the math of this StoichiometryMath.
    *
-   * The StoichiometryMath construct exists only in SBML Level&nbsp;2.  It
-   * is an optional construct available for defining the stoichiometries of
-   * reactants and products in Reaction objects.  Note that a different
-   * mechanism is used in SBML Level&nbsp;3, where StoichiometryMath is not
-   * available.  Please consult the top of this libSBML StoichiometryMath
-   * documentation for more information about the differences between SBML
-   * Level&nbsp;2 and&nbsp;3 with respect to stoichiometries.
+   * @copydetails doc_note_stoichiometrymath_availability
    */
   const ASTNode* getMath () const;
 
@@ -331,13 +322,7 @@ public:
    * @return @c true if the formula (meaning the @c math subelement) of
    * this StoichiometryMath is set, @c false otherwise.
    *
-   * The StoichiometryMath construct exists only in SBML Level&nbsp;2.  It
-   * is an optional construct available for defining the stoichiometries of
-   * reactants and products in Reaction objects.  Note that a different
-   * mechanism is used in SBML Level&nbsp;3, where StoichiometryMath is not
-   * available.  Please consult the top of this libSBML StoichiometryMath
-   * documentation for more information about the differences between SBML
-   * Level&nbsp;2 and&nbsp;3 with respect to stoichiometries.
+   * @copydetails doc_note_stoichiometrymath_availability
    */
   bool isSetMath () const;
 
@@ -354,13 +339,7 @@ public:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT @endlink
    *
-   * The StoichiometryMath construct exists only in SBML Level&nbsp;2.  It
-   * is an optional construct available for defining the stoichiometries of
-   * reactants and products in Reaction objects.  Note that a different
-   * mechanism is used in SBML Level&nbsp;3, where StoichiometryMath is not
-   * available.  Please consult the top of this libSBML StoichiometryMath
-   * documentation for more information about the differences between SBML
-   * Level&nbsp;2 and&nbsp;3 with respect to stoichiometries.
+   * @copydetails doc_note_stoichiometrymath_availability
    */
   int setMath (const ASTNode* math);
 
@@ -498,29 +477,10 @@ public:
   /**
    * Returns the libSBML type code of this object instance.
    *
-   * @if clike LibSBML attaches an identifying code to every kind of SBML
-   * object.  These are known as <em>SBML type codes</em>.  The set of
-   * possible type codes is defined in the enumeration #SBMLTypeCode_t.
-   * The names of the type codes all begin with the characters @c
-   * SBML_. @endif@if java LibSBML attaches an identifying code to every
-   * kind of SBML object.  These are known as <em>SBML type codes</em>.  In
-   * other languages, the set of type codes is stored in an enumeration; in
-   * the Java language interface for libSBML, the type codes are defined as
-   * static integer constants in the interface class {@link
-   * libsbmlConstants}.  The names of the type codes all begin with the
-   * characters @c SBML_. @endif@if python LibSBML attaches an identifying
-   * code to every kind of SBML object.  These are known as <em>SBML type
-   * codes</em>.  In the Python language interface for libSBML, the type
-   * codes are defined as static integer constants in the interface class
-   * @link libsbml@endlink.  The names of the type codes all begin with the
-   * characters @c SBML_. @endif@if csharp LibSBML attaches an identifying
-   * code to every kind of SBML object.  These are known as <em>SBML type
-   * codes</em>.  In the C# language interface for libSBML, the type codes
-   * are defined as static integer constants in the interface class @link
-   * libsbmlcs.libsbml@endlink.  The names of the type codes all begin with
-   * the characters @c SBML_. @endif@~
+   * @copydetails doc_what_are_typecodes
    *
-   * @return the SBML type code for this object, or @link SBMLTypeCode_t#SBML_UNKNOWN SBML_UNKNOWN@endlink (default).
+   * @return the SBML type code for this object, or
+   * @link SBMLTypeCode_t#SBML_UNKNOWN SBML_UNKNOWN@endlink (default).
    *
    * @see getElementName()
    */
@@ -572,7 +532,10 @@ public:
 
 
   /**
-   * Finds this StoichiometryMath's SpeciesReference parent and calls unsetStoichiometryMath() on it, indirectly deleting itself.  Overridden from the SBase function since the parent is not a ListOf.
+   * Finds this StoichiometryMath's SpeciesReference parent and calls
+   * unsetStoichiometryMath() on it, indirectly deleting itself.
+   *
+   * Overridden from the SBase function since the parent is not a ListOf.
    *
    * @return integer value indicating success/failure of the
    * function.  @if clike The value is drawn from the
@@ -588,7 +551,7 @@ public:
    * Renames all the @c SIdRef attributes on this element, including any
    * found in MathML.
    *
-   * @htmlinclude what-is-sidref.html
+   * @copydetails doc_what_is_sidref
    * 
    * This method works by looking at all attributes and (if appropriate)
    * mathematical formulas, comparing the identifiers to the value of @p
@@ -604,7 +567,7 @@ public:
   /**
    * Renames all the @c UnitSIdRef attributes on this element.
    *
-   * @htmlinclude what-is-unitsidref.html
+   * @copydetails doc_what_is_unitsidref
    *
    * This method works by looking at all unit identifier attribute values
    * (including, if appropriate, inside mathematical formulas), comparing the

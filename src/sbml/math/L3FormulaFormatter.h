@@ -43,61 +43,7 @@ BEGIN_C_DECLS
  * derived from SBML Level&nbsp;1, but extended to include elements from
  * SBML Level&nbsp;2 and SBML Level&nbsp;3.
  *
- * The text-string form of mathematical formulas produced by
- * @if clike SBML_formulaToL3String()@endif@if csharp SBML_formulaToL3String()@endif@if python libsbml.formulaToString()@endif@if java <code><a href="libsbml.html#formulaToString(org.sbml.libsbml.ASTNode)">libsbml.formulaToString(ASTNode tree)</a></code>@endif@~
- * and read by @if clike SBML_parseFormula()@endif@if csharp SBML_parseFormula()@endif@if python libsbml.parseFormula()@endif@if java <code><a href="libsbml.html#parseFormula(java.lang.String)">libsbml.parseFormula(String formula)</a></code>@endif@~
- * use a simple C-inspired infix notation taken from SBML Level&nbsp;1.  A
- * formula in this text-string form therefore can be handed to a program
- * that understands SBML Level&nbsp;1 mathematical expressions, or used as
- * part of a formula translation system.  The syntax is described in detail
- * in the documentation for ASTNode. 
- *
- * Note that this facility is provided as a convenience by libSBML&mdash;the
- * MathML standard does not actually define a "string-form" equivalent to
- * MathML expression trees, so the choice of formula syntax is somewhat
- * arbitrary.  The approach taken by libSBML is to use the syntax defined by
- * SBML Level&nbsp;1 (which in fact used a text-string representation of
- * formulas and not MathML).  This formula syntax is based mostly on C
- * programming syntax, and may contain operators, function calls, symbols,
- * and white space characters.  The following table provides the precedence
- * rules for the different entities that may appear in formula strings.
- *
- * @htmlinclude math-precedence-table.html
- * 
- * In the table above, @em operand implies the construct is an operand, @em
- * prefix implies the operation is applied to the following arguments, @em
- * unary implies there is one argument, and @em binary implies there are
- * two arguments.  The values in the <b>Precedence</b> column show how the
- * order of different types of operation are determined.  For example, the
- * expression <code>a * b + c</code> is evaluated as <code>(a * b) +
- * c</code> because the @c * operator has higher precedence.  The
- * <b>Associates</b> column shows how the order of similar precedence
- * operations is determined; for example, <code>a - b + c</code> is
- * evaluated as <code>(a - b) + c</code> because the @c + and @c -
- * operators are left-associative.
- *
- * The function call syntax consists of a function name, followed by optional
- * white space, followed by an opening parenthesis token, followed by a
- * sequence of zero or more arguments separated by commas (with each comma
- * optionally preceded and/or followed by zero or more white space
- * characters, followed by a closing parenthesis token.  The function name
- * must be chosen from one of the pre-defined functions in SBML or a
- * user-defined function in the model.  The following table lists the names
- * of certain common mathematical functions; this table corresponds to
- * Table&nbsp;6 in the <a target="_blank" href="http://sbml.org/Documents/Specifications#SBML_Level_1_Version_2">SBML Level&nbsp;1 Version&nbsp;2 specification</a>:
- *
- * @htmlinclude string-functions-table.html
- *
- * @warning There are differences between the symbols used to represent the
- * common mathematical functions and the corresponding MathML token names.
- * This is a potential source of incompatibilities.  Note in particular that
- * in this text-string syntax, <code>log(x)</code> represents the natural
- * logarithm, whereas in MathML, the natural logarithm is
- * <code>&lt;ln/&gt;</code>.  Application writers are urged to be careful
- * when translating between text forms and MathML forms, especially if they
- * provide a direct text-string input facility to users of their software
- * systems.<br><br>
- * @htmlinclude L1-math-syntax-warning.html
+ * @copydetails doc_summary_of_string_math_l3
  *
  * @param tree the AST to be converted.
  * 

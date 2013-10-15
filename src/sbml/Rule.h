@@ -3,7 +3,6 @@
  * @brief   Definitions of Rule and ListOfRules.
  * @author  Ben Bornstein
  *
- *
  * <!--------------------------------------------------------------------------
  * This file is part of libSBML.  Please visit http://sbml.org for more
  * information about SBML, and the latest version of libSBML.
@@ -43,72 +42,66 @@
  * subclasses AssignmentRule, AlgebraicRule and RateRule can be
  * instantiated directly.
  *
- * @section general General summary of SBML rules
+ * @copydetails doc_rules_general_summary
  *
- * @htmlinclude rules-general-summary.html
- * 
- * @section additional-restrictions Additional restrictions on SBML rules
- * 
- * @htmlinclude rules-additional-restrictions.html
- * 
- * @section RuleType_t Rule types for SBML Level 1
  *
- * SBML Level 1 uses a different scheme than SBML Level 2 and Level 3 for
- * distinguishing rules; specifically, it uses an attribute whose value is
- * drawn from an enumeration of 3 values.  LibSBML supports this using methods
- * that work @if clike a libSBML enumeration type, RuleType_t, whose values
- * are @else with the enumeration values @endif@~ listed below.
- *
- * @li @link RuleType_t#RULE_TYPE_RATE RULE_TYPE_RATE@endlink: Indicates
- * the rule is a "rate" rule.
- * @li @link RuleType_t#RULE_TYPE_SCALAR RULE_TYPE_SCALAR@endlink:
- * Indicates the rule is a "scalar" rule.
- * @li @link RuleType_t#RULE_TYPE_INVALID RULE_TYPE_INVALID@endlink:
- * Indicates the rule type is unknown or not yet set.
- *
- * <!-- leave this next break as-is to work around some doxygen bug -->
- */ 
-/**
+ * <!-- ------------------------------------------------------------------- -->
  * @class ListOfRules
  * @ingroup core
  * @brief Implementation of SBML's %ListOfRules construct.
  * 
- * The various ListOf___ classes in %SBML are merely containers used for
- * organizing the main components of an %SBML model.  All are derived from
- * the abstract class SBase, and inherit the various attributes and
- * subelements of SBase, such as "metaid" as and "annotation".  The
- * ListOf___ classes do not add any attributes of their own.
- *
- * The relationship between the lists and the rest of an %SBML model is
- * illustrated by the following (for SBML Level&nbsp;3 and later versions
- * of SBML Level&nbsp;2 as well):
- *
- * @image html listof-illustration.jpg "ListOf___ elements in an SBML Model"
- * @image latex listof-illustration.jpg "ListOf___ elements in an SBML Model"
- *
- * Readers may wonder about the motivations for using the ListOf___
- * containers.  A simpler approach in XML might be to place the components
- * all directly at the top level of the model definition.  The choice made
- * in SBML is to group them within XML elements named after
- * ListOf<em>Classname</em>, in part because it helps organize the
- * components.  More importantly, the fact that the container classes are
- * derived from SBase means that software tools can add information @em about
- * the lists themselves into each list container's "annotation".
- *
- * @see ListOfFunctionDefinitions
- * @see ListOfUnitDefinitions
- * @see ListOfCompartmentTypes
- * @see ListOfSpeciesTypes
- * @see ListOfCompartments
- * @see ListOfSpecies
- * @see ListOfParameters
- * @see ListOfInitialAssignments
- * @see ListOfRules
- * @see ListOfConstraints
- * @see ListOfReactions
- * @see ListOfEvents
+ * @copydetails doc_what_is_listof
  */
 
+/**
+ * <!-- ~ ~ ~ ~ ~ Start of common documentation strings ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+ * The following text is used as common documentation blocks copied multiple
+ * times elsewhere in this file.  The use of @class is a hack needed because
+ * Doxygen's @copydetails command has limited functionality.  Symbols
+ * beginning with "doc_" are marked as ignored in our Doxygen configuration.
+ * ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~  -->
+ *
+ * @class doc_rule_level_1
+ *
+ * @par
+ * In SBML Level&nbsp;1, the different rule types each have a different
+ * name for the attribute holding the reference to the object constituting
+ * the left-hand side of the rule.  (E.g., for SBML Level&nbsp;1's
+ * SpeciesConcentrationRule the attribute is "species", for
+ * CompartmentVolumeRule it is "compartment", etc.)  In SBML Levels&nbsp;2
+ * and&nbsp;3, the only two types of Rule objects with a left-hand side
+ * object reference are AssignmentRule and RateRule, and both of them use the
+ * same name for attribute: "variable".  In order to make it easier for
+ * application developers to work with all Levels of SBML, libSBML uses a
+ * uniform name for all such attributes, and it is "variable", regardless of
+ * whether Level&nbsp;1 rules or Level&nbsp;2&ndash;3 rules are being used.
+ * 
+ * @class doc_rule_units
+ *
+ * @par
+ * The units are calculated based on the mathematical expression in the
+ * Rule and the model quantities referenced by <code>&lt;ci&gt;</code>
+ * elements used within that expression.  The method
+ * Rule::getDerivedUnitDefinition() returns the calculated units, to the
+ * extent that libSBML can compute them.
+ * 
+ * @class doc_warning_rule_math_literals
+ * 
+ * @warning Note that it is possible the "math" expression in the Rule
+ * contains pure numbers or parameters with undeclared units.  In those
+ * cases, it is not possible to calculate the units of the overall
+ * expression without making assumptions.  LibSBML does not make
+ * assumptions about the units, and Rule::getDerivedUnitDefinition() only
+ * returns the units as far as it is able to determine them.  For example,
+ * in an expression <em>X + Y</em>, if <em>X</em> has unambiguously-defined
+ * units and <em>Y</em> does not, it will return the units of <em>X</em>.
+ * <strong>It is important that callers also invoke the method</strong>
+ * Rule::containsUndeclaredUnits() <strong>to determine whether this
+ * situation holds</strong>.  Callers may wish to take suitable actions in
+ * those scenarios.
+ *
+ * <!-- ~ ~ ~ ~ ~ ~ End of common documentation strings ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ -->
+ */
 
 #ifndef Rule_h
 #define Rule_h
@@ -246,18 +239,7 @@ public:
   /**
    * Get the value of the "variable" attribute of this Rule object.
    *
-   * In SBML Level&nbsp;1, the different rule types each have a different
-   * name for the attribute holding the reference to the object
-   * constituting the left-hand side of the rule.  (E.g., for
-   * SBML Level&nbsp;1's SpeciesConcentrationRule the attribute is "species", for
-   * CompartmentVolumeRule it is "compartment", etc.)  In SBML
-   * Levels&nbsp;2 and&nbsp;3, the only two types of Rule objects with a
-   * left-hand side object reference are AssignmentRule and RateRule, and
-   * both of them use the same name for attribute: "variable".  In order to
-   * make it easier for application developers to work with all Levels of
-   * SBML, libSBML uses a uniform name for all of such attributes, and it
-   * is "variable", regardless of whether Level&nbsp;1 rules or
-   * Level&nbsp;2&ndash;3 rules are being used.
+   * @copydetails doc_rule_level_1
    * 
    * @return the identifier string stored as the "variable" attribute value
    * in this Rule, or @c NULL if this object is an AlgebraicRule object.
@@ -278,8 +260,8 @@ public:
 
 
   /**
-   * Predicate returning @c true if this
-   * Rule's mathematical expression is set.
+   * Predicate returning @c true if this Rule's mathematical expression is
+   * set.
    * 
    * This method is equivalent to isSetMath().  This version is present for
    * easier compatibility with SBML Level&nbsp;1, in which mathematical
@@ -300,8 +282,8 @@ public:
 
 
   /**
-   * Predicate returning @c true if this
-   * Rule's mathematical expression is set.
+   * Predicate returning @c true if this Rule's mathematical expression is
+   * set.
    *
    * This method is equivalent to isSetFormula().
    * 
@@ -320,22 +302,10 @@ public:
 
 
   /**
-   * Predicate returning @c true if this
-   * Rule's "variable" attribute is set.
+   * Predicate returning @c true if this Rule's "variable" attribute is set.
    *
-   * In SBML Level&nbsp;1, the different rule types each have a different
-   * name for the attribute holding the reference to the object
-   * constituting the left-hand side of the rule.  (E.g., for
-   * SBML Level&nbsp;1's SpeciesConcentrationRule the attribute is "species", for
-   * CompartmentVolumeRule it is "compartment", etc.)  In SBML
-   * Levels&nbsp;2 and&nbsp;3, the only two types of Rule objects with a
-   * left-hand side object reference are AssignmentRule and RateRule, and
-   * both of them use the same name for attribute: "variable".  In order to
-   * make it easier for application developers to work with all Levels of
-   * SBML, libSBML uses a uniform name for all such attributes, and it is
-   * "variable", regardless of whether Level&nbsp;1 rules or
-   * Level&nbsp;2&ndash;3 rules are being used.
-   *
+   * @copydetails doc_rule_level_1
+   * 
    * @return @c true if the "variable" attribute value of this Rule is
    * set, @c false otherwise.
    */
@@ -343,8 +313,7 @@ public:
 
 
   /**
-   * Predicate returning @c true
-   * if this Rule's "units" attribute is set.
+   * Predicate returning @c true if this Rule's "units" attribute is set.
    *
    * @return @c true if the units for this Rule is set, @c false
    * otherwise
@@ -356,8 +325,8 @@ public:
 
 
   /**
-   * Sets the "math" subelement of this Rule to an expression in
-   * text-string form.
+   * Sets the "math" subelement of this Rule to an expression in text-string
+   * form.
    *
    * This is equivalent to setMath(const ASTNode* math).  The provision of
    * using text-string formulas is retained for easier SBML Level&nbsp;1
@@ -408,18 +377,7 @@ public:
   /**
    * Sets the "variable" attribute value of this Rule object.
    *
-   * In SBML Level&nbsp;1, the different rule types each have a different
-   * name for the attribute holding the reference to the object
-   * constituting the left-hand side of the rule.  (E.g., for
-   * SBML Level&nbsp;1's SpeciesConcentrationRule the attribute is "species", for
-   * CompartmentVolumeRule it is "compartment", etc.)  In SBML
-   * Levels&nbsp;2 and&nbsp;3, the only two types of Rule objects with a
-   * left-hand side object reference are AssignmentRule and RateRule, and
-   * both of them use the same name for attribute: "variable".  In order to
-   * make it easier for application developers to work with all Levels of
-   * SBML, libSBML uses a uniform name for all such attributes, and it is
-   * "variable", regardless of whether Level&nbsp;1 rules or
-   * Level&nbsp;2&ndash;3 rules are being used.
+   * @copydetails doc_rule_level_1
    * 
    * @param sid the identifier of a Compartment, Species or Parameter
    * elsewhere in the enclosing Model object.
@@ -472,29 +430,11 @@ public:
    * Calculates and returns a UnitDefinition that expresses the units of
    * measurement assumed for the "math" expression of this Rule.
    *
-   * The units are calculated based on the mathematical expression in the
-   * Rule and the model quantities referenced by <code>&lt;ci&gt;</code>
-   * elements used within that expression.  The getDerivedUnitDefinition()
-   * method returns the calculated units.
+   * @copydetails doc_rule_units 
    *
-   * Note that the functionality that facilitates unit analysis depends 
-   * on the model as a whole.  Thus, in cases where the object has not 
-   * been added to a model or the model itself is incomplete,
-   * unit analysis is not possible and this method will return @c NULL.
+   * @copydetails doc_note_unit_inference_depends_on_model 
    *
-   * @warning Note that it is possible the "math" expression in the Rule
-   * contains pure numbers or parameters with undeclared units.  In those
-   * cases, it is not possible to calculate the units of the overall
-   * expression without making assumptions.  LibSBML does not make
-   * assumptions about the units, and getDerivedUnitDefinition() only
-   * returns the units as far as it is able to determine them.  For
-   * example, in an expression <em>X + Y</em>, if <em>X</em> has
-   * unambiguously-defined units and <em>Y</em> does not, it will return
-   * the units of <em>X</em>.  <strong>It is important that callers also
-   * invoke the method</strong>
-   * @if java Rule::containsUndeclaredUnits()@else containsUndeclaredUnits()@endif@~
-   * <strong>to determine whether this situation holds</strong>.  Callers may
-   * wish to take suitable actions in those scenarios.
+   * @copydetails doc_warning_rule_math_literals
    * 
    * @return a UnitDefinition that expresses the units of the math 
    * expression of this Rule, or @c NULL if one cannot be constructed.
@@ -508,29 +448,11 @@ public:
    * Calculates and returns a UnitDefinition that expresses the units of
    * measurement assumed for the "math" expression of this Rule.
    *
-   * The units are calculated based on the mathematical expression in the
-   * Rule and the model quantities referenced by <code>&lt;ci&gt;</code>
-   * elements used within that expression.  The getDerivedUnitDefinition()
-   * method returns the calculated units.
+   * @copydetails doc_rule_units 
    *
-   * Note that the functionality that facilitates unit analysis depends 
-   * on the model as a whole.  Thus, in cases where the object has not 
-   * been added to a model or the model itself is incomplete,
-   * unit analysis is not possible and this method will return @c NULL.
+   * @copydetails doc_note_unit_inference_depends_on_model 
    *
-   * @warning Note that it is possible the "math" expression in the Rule
-   * contains pure numbers or parameters with undeclared units.  In those
-   * cases, it is not possible to calculate the units of the overall
-   * expression without making assumptions.  LibSBML does not make
-   * assumptions about the units, and getDerivedUnitDefinition() only
-   * returns the units as far as it is able to determine them.  For
-   * example, in an expression <em>X + Y</em>, if <em>X</em> has
-   * unambiguously-defined units and <em>Y</em> does not, it will return
-   * the units of <em>X</em>.  <strong>It is important that callers also
-   * invoke the method</strong>
-   * @if java Rule::containsUndeclaredUnits()@else containsUndeclaredUnits()@endif@~
-   * <strong>to determine whether this situation holds</strong>.  Callers
-   * may wish to take suitable actions in those scenarios.
+   * @copydetails doc_warning_rule_math_literals
    * 
    * @return a UnitDefinition that expresses the units of the math 
    * expression of this Rule, or @c NULL if one cannot be constructed.
@@ -541,13 +463,11 @@ public:
 
 
   /**
-   * Predicate returning @c true if 
-   * the math expression of this Rule contains
+   * Predicate returning @c true if the math expression of this Rule contains
    * parameters/numbers with undeclared units.
    * 
-   * @return @c true if the math expression of this Rule
-   * includes parameters/numbers 
-   * with undeclared units, @c false otherwise.
+   * @return @c true if the math expression of this Rule includes
+   * parameters/numbers with undeclared units, @c false otherwise.
    *
    * @note A return value of @c true indicates that the UnitDefinition
    * returned by getDerivedUnitDefinition() may not accurately represent
@@ -559,17 +479,15 @@ public:
 
 
   /**
-   * Predicate returning @c true if 
-   * the math expression of this Rule contains
+   * Predicate returning @c true if the math expression of this Rule contains
    * parameters/numbers with undeclared units.
    * 
-   * @return @c true if the math expression of this Rule
-   * includes parameters/numbers 
-   * with undeclared units, @c false otherwise.
+   * @return @c true if the math expression of this Rule includes
+   * parameters/numbers with undeclared units, @c false otherwise.
    *
    * @note A return value of @c true indicates that the UnitDefinition
-   * returned by getDerivedUnitDefinition() may not accurately represent
-   * the units of the expression.
+   * returned by getDerivedUnitDefinition() may not accurately represent the
+   * units of the expression.
    *
    * @see getDerivedUnitDefinition()
    */
@@ -592,8 +510,7 @@ public:
 
 
   /**
-   * Predicate returning @c true if this
-   * Rule is an AlgebraicRule.
+   * Predicate returning @c true if this Rule is an AlgebraicRule.
    * 
    * @return @c true if this Rule is an AlgebraicRule, @c false otherwise.
    */
@@ -601,8 +518,7 @@ public:
 
 
   /**
-   * Predicate returning @c true if this
-   * Rule is an AssignmentRule.
+   * Predicate returning @c true if this Rule is an AssignmentRule.
    * 
    * @return @c true if this Rule is an AssignmentRule, @c false otherwise.
    */
@@ -642,9 +558,9 @@ public:
 
 
   /**
-   * Predicate returning @c true if this Rule
-   * is a RateRule (SBML Levels&nbsp;2&ndash;3) or has a "type" attribute
-   * value of @c "rate" (SBML Level&nbsp;1).
+   * Predicate returning @c true if this Rule is a RateRule (SBML
+   * Levels&nbsp;2&ndash;3) or has a "type" attribute value of @c "rate"
+   * (SBML Level&nbsp;1).
    *
    * @return @c true if this Rule is a RateRule (Level&nbsp;2) or has
    * type "rate" (Level&nbsp;1), @c false otherwise.
@@ -653,9 +569,9 @@ public:
 
 
   /**
-   * Predicate returning @c true if this Rule
-   * is an AssignmentRule (SBML Levels&nbsp;2&ndash;3) or has a "type"
-   * attribute value of @c "scalar" (SBML Level&nbsp;1).
+   * Predicate returning @c true if this Rule is an AssignmentRule (SBML
+   * Levels&nbsp;2&ndash;3) or has a "type" attribute value of @c "scalar"
+   * (SBML Level&nbsp;1).
    *
    * @return @c true if this Rule is an AssignmentRule (Level&nbsp;2) or has
    * type "scalar" (Level&nbsp;1), @c false otherwise.
@@ -664,8 +580,8 @@ public:
 
 
   /**
-   * Predicate returning @c true if this Rule is a
-   * SpeciesConcentrationRule or equivalent.
+   * Predicate returning @c true if this Rule is a SpeciesConcentrationRule
+   * or equivalent.
    *
    * This libSBML method works for SBML Level&nbsp;1 models (where there is
    * such a thing as an explicit SpeciesConcentrationRule), as well as
@@ -682,30 +598,10 @@ public:
   /**
    * Returns the libSBML type code for this %SBML object.
    * 
-   * @if clike LibSBML attaches an identifying code to every kind of SBML
-   * object.  These are known as <em>SBML type codes</em>.  The set of
-   * possible type codes is defined in the enumeration #SBMLTypeCode_t.
-   * The names of the type codes all begin with the characters @c
-   * SBML_. @endif@if java LibSBML attaches an identifying code to every
-   * kind of SBML object.  These are known as <em>SBML type codes</em>.  In
-   * other languages, the set of type codes is stored in an enumeration; in
-   * the Java language interface for libSBML, the type codes are defined as
-   * static integer constants in the interface class {@link
-   * libsbmlConstants}.  The names of the type codes all begin with the
-   * characters @c SBML_. @endif@if python LibSBML attaches an identifying
-   * code to every kind of SBML object.  These are known as <em>SBML type
-   * codes</em>.  In the Python language interface for libSBML, the type
-   * codes are defined as static integer constants in the interface class
-   * @link libsbml@endlink.  The names of the type codes all begin with the
-   * characters @c SBML_. @endif@if csharp LibSBML attaches an identifying
-   * code to every kind of SBML object.  These are known as <em>SBML type
-   * codes</em>.  In the C# language interface for libSBML, the type codes
-   * are defined as static integer constants in the interface class @link
-   * libsbmlcs.libsbml@endlink.  The names of the type codes all begin with
-   * the characters @c SBML_. @endif@~
+   * @copydetails doc_what_are_typecodes
    *
-   * @return the SBML type code for this object, or @link
-   * SBMLTypeCode_t#SBML_UNKNOWN SBML_UNKNOWN@endlink (default).
+   * @return the SBML type code for this object, or
+   * @link SBMLTypeCode_t#SBML_UNKNOWN SBML_UNKNOWN@endlink (default).
    *
    * @see getElementName()
    */
@@ -786,8 +682,8 @@ public:
 
 
   /**
-   * Predicate returning @c true if all the
-   * required elements for this Rule object have been set.
+   * Predicate returning @c true if all the required elements for this Rule
+   * object have been set.
    *
    * The only required element for a Rule object is the "math" subelement.
    *
@@ -798,8 +694,8 @@ public:
 
 
   /**
-   * Predicate returning @c true if all the
-   * required attributes for this Rule object have been set.
+   * Predicate returning @c true if all the required attributes for this Rule
+   * object have been set.
    *
    * The required attributes for a Rule object depend on the type of Rule
    * it is.  For AssignmentRule and RateRule objects (and SBML
@@ -817,7 +713,7 @@ public:
    * Renames all the @c SIdRef attributes on this element, including any
    * found in MathML.
    *
-   * @htmlinclude what-is-sidref.html
+   * @copydetails doc_what_is_sidref
    * 
    * This method works by looking at all attributes and (if appropriate)
    * mathematical formulas, comparing the identifiers to the value of @p
@@ -833,7 +729,7 @@ public:
   /**
    * Renames all the @c UnitSIdRef attributes on this element.
    *
-   * @htmlinclude what-is-unitsidref.html
+   * @copydetails doc_what_is_unitsidref
    *
    * This method works by looking at all unit identifier attribute values
    * (including, if appropriate, inside mathematical formulas), comparing the
@@ -1008,29 +904,10 @@ public:
   /**
    * Returns the libSBML type code for this %SBML object.
    * 
-   * @if clike LibSBML attaches an identifying code to every kind of SBML
-   * object.  These are known as <em>SBML type codes</em>.  The set of
-   * possible type codes is defined in the enumeration #SBMLTypeCode_t.
-   * The names of the type codes all begin with the characters @c
-   * SBML_. @endif@if java LibSBML attaches an identifying code to every
-   * kind of SBML object.  These are known as <em>SBML type codes</em>.  In
-   * other languages, the set of type codes is stored in an enumeration; in
-   * the Java language interface for libSBML, the type codes are defined as
-   * static integer constants in the interface class {@link
-   * libsbmlConstants}.  The names of the type codes all begin with the
-   * characters @c SBML_. @endif@if python LibSBML attaches an identifying
-   * code to every kind of SBML object.  These are known as <em>SBML type
-   * codes</em>.  In the Python language interface for libSBML, the type
-   * codes are defined as static integer constants in the interface class
-   * @link libsbml@endlink.  The names of the type codes all begin with the
-   * characters @c SBML_. @endif@if csharp LibSBML attaches an identifying
-   * code to every kind of SBML object.  These are known as <em>SBML type
-   * codes</em>.  In the C# language interface for libSBML, the type codes
-   * are defined as static integer constants in the interface class @link
-   * libsbmlcs.libsbml@endlink.  The names of the type codes all begin with
-   * the characters @c SBML_. @endif@~
+   * @copydetails doc_what_are_typecodes
    *
-   * @return the SBML type code for this object, or @link SBMLTypeCode_t#SBML_UNKNOWN SBML_UNKNOWN@endlink (default).
+   * @return the SBML type code for this object, or
+   * @link SBMLTypeCode_t#SBML_UNKNOWN SBML_UNKNOWN@endlink (default).
    *
    * @see getElementName()
    */
@@ -1041,30 +918,10 @@ public:
    * Returns the libSBML type code for the objects contained in this ListOf
    * (i.e., Rule objects, if the list is non-empty).
    * 
-   * @if clike LibSBML attaches an identifying code to every kind of SBML
-   * object.  These are known as <em>SBML type codes</em>.  The set of
-   * possible type codes is defined in the enumeration #SBMLTypeCode_t.
-   * The names of the type codes all begin with the characters @c
-   * SBML_. @endif@if java LibSBML attaches an identifying code to every
-   * kind of SBML object.  These are known as <em>SBML type codes</em>.  In
-   * other languages, the set of type codes is stored in an enumeration; in
-   * the Java language interface for libSBML, the type codes are defined as
-   * static integer constants in the interface class {@link
-   * libsbmlConstants}.  The names of the type codes all begin with the
-   * characters @c SBML_. @endif@if python LibSBML attaches an identifying
-   * code to every kind of SBML object.  These are known as <em>SBML type
-   * codes</em>.  In the Python language interface for libSBML, the type
-   * codes are defined as static integer constants in the interface class
-   * @link libsbml@endlink.  The names of the type codes all begin with the
-   * characters @c SBML_. @endif@if csharp LibSBML attaches an identifying
-   * code to every kind of SBML object.  These are known as <em>SBML type
-   * codes</em>.  In the C# language interface for libSBML, the type codes
-   * are defined as static integer constants in the interface class @link
-   * libsbmlcs.libsbml@endlink.  The names of the type codes all begin with
-   * the characters @c SBML_. @endif@~
-   * 
-   * @return the SBML type code for the objects contained in this ListOf
-   * instance, or @link SBMLTypeCode_t#SBML_UNKNOWN SBML_UNKNOWN@endlink (default).
+   * @copydetails doc_what_are_typecodes
+   *
+   * @return the SBML type code for this object, or
+   * @link SBMLTypeCode_t#SBML_UNKNOWN SBML_UNKNOWN@endlink (default).
    *
    * @see getElementName()
    */
@@ -1106,15 +963,12 @@ public:
 
 
   /**
-   * Get a Rule from the ListOfRules
-   * based on its identifier.
+   * Get a Rule from the ListOfRules based on its identifier.
    *
-   * @param sid a string representing the identifier 
-   * of the Rule to get.
+   * @param sid a string representing the identifier of the Rule to get.
    * 
-   * @return Rule in this ListOfRules
-   * with the given @p id or @c NULL if no such
-   * Rule exists.
+   * @return Rule in this ListOfRules with the given @p id or @c NULL if no
+   * such Rule exists.
    *
    * @see get(unsigned int n)
    * @see size()
@@ -1123,15 +977,12 @@ public:
 
 
   /**
-   * Get a Rule from the ListOfRules
-   * based on its identifier.
+   * Get a Rule from the ListOfRules based on its identifier.
    *
-   * @param sid a string representing the identifier 
-   * of the Rule to get.
+   * @param sid a string representing the identifier of the Rule to get.
    * 
-   * @return Rule in this ListOfRules
-   * with the given @p sid or @c NULL if no such
-   * Rule exists.
+   * @return Rule in this ListOfRules with the given @p sid or @c NULL if no
+   * such Rule exists.
    *
    * @see get(unsigned int n)
    * @see size()
@@ -1153,7 +1004,12 @@ public:
 
 
   /**
-   * Returns the first child element found that has the given @p id in the model-wide SId namespace, or @c NULL if no such object is found.  Note that AssignmentRules and RateRules do not actually have IDs, but the libsbml interface pretends that they do:  no assignment rule or rate rule is returned by this function.
+   * Returns the first child element found that has the given @p id in the
+   * model-wide SId namespace, or @c NULL if no such object is found.
+   *
+   * Note that AssignmentRules and RateRules do not actually have IDs, but
+   * the libsbml interface pretends that they do: no assignment rule or rate
+   * rule is returned by this function.
    *
    * @param id string representing the id of objects to find
    *

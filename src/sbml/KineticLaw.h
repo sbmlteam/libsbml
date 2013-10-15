@@ -103,6 +103,62 @@
  * object is LocalParameter.
  */
 
+/**
+ * <!-- ~ ~ ~ ~ ~ Start of common documentation strings ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+ * The following text is used as common documentation blocks copied multiple
+ * times elsewhere in this file.  The use of @class is a hack needed because
+ * Doxygen's @copydetails command has limited functionality.  Symbols
+ * beginning with "doc_" are marked as ignored in our Doxygen configuration.
+ * ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~  -->
+ *
+ * @class doc_kineticlaw_units
+ *
+ * @par
+ * The units are calculated based on the mathematical expression in the
+ * KineticLaw and the model quantities referenced by <code>&lt;ci&gt;</code>
+ * elements used within that expression.  The
+ * @if java KineticLaw::getDerivedUnitDefinition()@else getDerivedUnitDefinition()@endif@~
+ * method returns the calculated units.
+ *
+ * @class doc_warning_kineticlaw_math_literals
+ *
+ * @warning Note that it is possible the "math" expression in the KineticLaw
+ * contains pure numbers or parameters with undeclared units.  In those
+ * cases, it is not possible to calculate the units of the overall expression
+ * without making assumptions.  LibSBML does not make assumptions about the
+ * units, and @if java KineticLaw::getDerivedUnitDefinition()@else getDerivedUnitDefinition()@endif@~
+ * only returns the units
+ * as far as it is able to determine them.  For example, in an expression
+ * <em>X + Y</em>, if <em>X</em> has unambiguously-defined units and
+ * <em>Y</em> does not, it will return the units of <em>X</em>.  <strong>It
+ * is important that callers also invoke the method</strong>
+ * @if java KineticLaw::containsUndeclaredUnits()@else containsUndeclaredUnits()@endif@~
+ * <strong>to determine whether this situation holds</strong>.  Callers may
+ * wish to take suitable actions in those scenarios.
+ * 
+ * @class doc_note_kineticlaw_setting_lv
+ * 
+ * @note Upon the addition of a KineticLaw object to an SBMLDocument (e.g.,
+ * using Reaction::setKineticLaw(@if java KineticLaw kl@endif)), the SBML
+ * Level, SBML Version and XML namespace of the document @em override the
+ * values used when creating the KineticLaw object via this constructor.
+ * This is necessary to ensure that an SBML document is a consistent
+ * structure.  Nevertheless, the ability to supply the values at the time of
+ * creation of a KineticLaw is an important aid to producing valid SBML.
+ * Knowledge of the intented SBML Level and Version determine whether it is
+ * valid to assign a particular value to an attribute, or whether it is valid
+ * to add an object to an existing SBMLDocument.
+ *
+ * @class doc_note_timeunits_substanceunits
+ *
+ * @note The attributes "timeUnits" and "substanceUnits" are present only
+ * in SBML Level&nbsp;2 Version&nbsp;1.  In SBML Level&nbsp;2
+ * Version&nbsp;2, the "timeUnits" and "substanceUnits" attributes were
+ * removed.  For compatibility with new versions of SBML, users are
+ * cautioned to avoid these attributes.
+ *
+ * <!-- ~ ~ ~ ~ ~ ~ End of common documentation strings ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ -->
+ */
 
 #ifndef KineticLaw_h
 #define KineticLaw_h
@@ -146,17 +202,8 @@ public:
    * Thrown if the given @p level and @p version combination, or this kind
    * of SBML object, are either invalid or mismatched with respect to the
    * parent SBMLDocument object.
-   * 
-   * @note Upon the addition of a KineticLaw object to an SBMLDocument
-   * (e.g., using Reaction::setKineticLaw(@if java KineticLaw kl@endif)), the SBML Level, SBML Version
-   * and XML namespace of the document @em override the values used
-   * when creating the KineticLaw object via this constructor.  This is
-   * necessary to ensure that an SBML document is a consistent structure.
-   * Nevertheless, the ability to supply the values at the time of creation
-   * of a KineticLaw is an important aid to producing valid SBML.  Knowledge
-   * of the intented SBML Level and Version determine whether it is valid
-   * to assign a particular value to an attribute, or whether it is valid
-   * to add an object to an existing SBMLDocument.
+   *
+   * @copydetails doc_note_kineticlaw_setting_lv
    */
   KineticLaw (unsigned int level, unsigned int version);
 
@@ -165,12 +212,7 @@ public:
    * Creates a new KineticLaw using the given SBMLNamespaces object
    * @p sbmlns.
    *
-   * The SBMLNamespaces object encapsulates SBML Level/Version/namespaces
-   * information.  It is used to communicate the SBML Level, Version, and
-   * (in Level&nbsp;3) packages used in addition to SBML Level&nbsp;3 Core.
-   * A common approach to using this class constructor is to create an
-   * SBMLNamespaces object somewhere in a program, once, then pass it to
-   * object constructors such as this one when needed.
+   * @copydetails doc_what_are_sbmlnamespaces
    *
    * @param sbmlns an SBMLNamespaces object.
    *
@@ -179,16 +221,7 @@ public:
    * of SBML object, are either invalid or mismatched with respect to the
    * parent SBMLDocument object.
    *
-   * @note Upon the addition of a KineticLaw object to an SBMLDocument
-   * (e.g., using Reaction::setKineticLaw(@if java KineticLaw kl@endif)), the SBML XML namespace of the
-   * document @em overrides the value used when creating the KineticLaw
-   * object via this constructor.  This is necessary to ensure that an SBML
-   * document is a consistent structure.  Nevertheless, the ability to
-   * supply the values at the time of creation of a KineticLaw is an
-   * important aid to producing valid SBML.  Knowledge of the intented SBML
-   * Level and Version determine whether it is valid to assign a particular
-   * value to an attribute, or whether it is valid to add an object to an
-   * existing SBMLDocument.
+   * @copydetails doc_note_kineticlaw_setting_lv
    */
   KineticLaw (SBMLNamespaces* sbmlns);
 
@@ -241,7 +274,8 @@ public:
 
 
    /**
-   * Returns the first child element found that has the given @p id in the model-wide SId namespace, or @c NULL if no such object is found.
+   * Returns the first child element found that has the given @p id in the
+   * model-wide SId namespace, or @c NULL if no such object is found.
    *
    * @param id string representing the id of objects to find.
    *
@@ -251,7 +285,8 @@ public:
   
   
   /**
-   * Returns the first child element it can find with the given @p metaid, or @c NULL if no such object is found.
+   * Returns the first child element it can find with the given @p metaid, or
+   * @c NULL if no such object is found.
    *
    * @param metaid string representing the metaid of objects to find
    *
@@ -260,15 +295,16 @@ public:
   virtual SBase* getElementByMetaId(std::string metaid);
   
   
-    /**
-   * Returns a List of all child SBase objects, including those nested to an arbitrary depth
+  /**
+   * Returns a List of all child SBase objects, including those nested to an
+   * arbitrary depth
    *
    * @return a List of pointers to all children objects.
    */
   virtual List* getAllElements(ElementFilter* filter=NULL);
   
   
-/**
+  /**
    * Returns the mathematical formula for this KineticLaw object and return
    * it as as a text string.
    *
@@ -309,11 +345,7 @@ public:
    *
    * @return the "timeUnits" attribute value.
    *
-   * @note The attributes "timeUnits" and "substanceUnits" are present only
-   * in SBML Level&nbsp;2 Version&nbsp;1.  In SBML Level&nbsp;2
-   * Version&nbsp;2, the "timeUnits" and "substanceUnits" attributes were
-   * removed.  For compatibility with new versions of SBML, users are
-   * cautioned to avoid these attributes.
+   * @copydetails doc_note_timeunits_substanceunits 
    */
   const std::string& getTimeUnits () const;
 
@@ -324,18 +356,14 @@ public:
    *
    * @return the "substanceUnits" attribute value.
    *
-   * @note The attributes "timeUnits" and "substanceUnits" are present only
-   * in SBML Level&nbsp;2 Version&nbsp;1.  In SBML Level&nbsp;2
-   * Version&nbsp;2, the "timeUnits" and "substanceUnits" attributes were
-   * removed.  For compatibility with new versions of SBML, users are
-   * cautioned to avoid these attributes.
+   * @copydetails doc_note_timeunits_substanceunits 
    */
   const std::string& getSubstanceUnits () const;
 
 
   /**
-   * Predicate returning @c true if this
-   * KineticLaw's "formula" attribute is set.
+   * Predicate returning @c true if this KineticLaw's "formula" attribute is
+   * set.
    *
    * This is functionally identical to the method
    * @if java KineticLaw::isSetMath()@else isSetMath()@endif.  It is
@@ -354,8 +382,7 @@ public:
 
 
   /**
-   * Predicate returning @c true if this
-   * Kinetic's "math" subelement is set.
+   * Predicate returning @c true if this Kinetic's "math" subelement is set.
    *
    * This is identical to the method
    * @if java KineticLaw::isSetFormula()@else isSetFormula()@endif.
@@ -378,11 +405,7 @@ public:
    * @return @c true if the "timeUnits" attribute of this KineticLaw object
    * is set, @c false otherwise.
    *
-   * @note The attributes "timeUnits" and "substanceUnits" are present only
-   * in SBML Level&nbsp;2 Version&nbsp;1.  In SBML Level&nbsp;2
-   * Version&nbsp;2, the "timeUnits" and "substanceUnits" attributes were
-   * removed.  For compatibility with new versions of SBML, users are
-   * cautioned to avoid these attributes.
+   * @copydetails doc_note_timeunits_substanceunits 
    */
   bool isSetTimeUnits () const;
 
@@ -394,11 +417,7 @@ public:
    * @return @c true if the "substanceUnits" attribute of this KineticLaw
    * object is set, @c false otherwise.
    *
-   * @note The attributes "timeUnits" and "substanceUnits" are present only
-   * in SBML Level&nbsp;2 Version&nbsp;1.  In SBML Level&nbsp;2
-   * Version&nbsp;2, the "timeUnits" and "substanceUnits" attributes were
-   * removed.  For compatibility with new versions of SBML, users are
-   * cautioned to avoid these attributes.
+   * @copydetails doc_note_timeunits_substanceunits 
    */
   bool isSetSubstanceUnits () const;
 
@@ -462,11 +481,7 @@ public:
    * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE @endlink
    * @li @link OperationReturnValues_t#LIBSBML_UNEXPECTED_ATTRIBUTE LIBSBML_UNEXPECTED_ATTRIBUTE @endlink
    *
-   * @note The attributes "timeUnits" and "substanceUnits" are present only
-   * in SBML Level&nbsp;2 Version&nbsp;1.  In SBML Level&nbsp;2
-   * Version&nbsp;2, the "timeUnits" and "substanceUnits" attributes were
-   * removed.  For compatibility with new versions of SBML, users are
-   * cautioned to avoid these attributes.
+   * @copydetails doc_note_timeunits_substanceunits 
    */
   int setTimeUnits (const std::string& sid);
 
@@ -485,11 +500,7 @@ public:
    * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE @endlink
    * @li @link OperationReturnValues_t#LIBSBML_UNEXPECTED_ATTRIBUTE LIBSBML_UNEXPECTED_ATTRIBUTE @endlink
    *
-   * @note The attributes "timeUnits" and "substanceUnits" are present only
-   * in SBML Level&nbsp;2 Version&nbsp;1.  In SBML Level&nbsp;2
-   * Version&nbsp;2, the "timeUnits" and "substanceUnits" attributes were
-   * removed.  For compatibility with new versions of SBML, users are
-   * cautioned to avoid these attributes.
+   * @copydetails doc_note_timeunits_substanceunits 
    */
   int setSubstanceUnits (const std::string& sid);
 
@@ -505,11 +516,7 @@ public:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
    * @li @link OperationReturnValues_t#LIBSBML_UNEXPECTED_ATTRIBUTE LIBSBML_UNEXPECTED_ATTRIBUTE @endlink
    *
-   * @note The attributes "timeUnits" and "substanceUnits" are present only
-   * in SBML Level&nbsp;2 Version&nbsp;1.  In SBML Level&nbsp;2
-   * Version&nbsp;2, the "timeUnits" and "substanceUnits" attributes were
-   * removed.  For compatibility with new versions of SBML, users are
-   * cautioned to avoid these attributes.
+   * @copydetails doc_note_timeunits_substanceunits 
    */
   int unsetTimeUnits ();
 
@@ -525,11 +532,7 @@ public:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
    * @li @link OperationReturnValues_t#LIBSBML_UNEXPECTED_ATTRIBUTE LIBSBML_UNEXPECTED_ATTRIBUTE @endlink
    *
-   * @note The attributes "timeUnits" and "substanceUnits" are present only
-   * in SBML Level&nbsp;2 Version&nbsp;1.  In SBML Level&nbsp;2
-   * Version&nbsp;2, the "timeUnits" and "substanceUnits" attributes were
-   * removed.  For compatibility with new versions of SBML, users are
-   * cautioned to avoid these attributes.
+   * @copydetails doc_note_timeunits_substanceunits 
    */
   int unsetSubstanceUnits ();
 
@@ -550,16 +553,7 @@ public:
    * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT @endlink
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
    *
-   * @note This method should be used with some caution.  The fact that
-   * this method @em copies the object passed to it means that the caller
-   * will be left holding a physically different object instance than the
-   * one contained in this KineticLaw.  Changes made to the original object
-   * instance (such as resetting attribute values) will <em>not affect the
-   * instance in the KineticLaw</em>.  In addition, the caller should make
-   * sure to free the original object if it is no longer being used, or
-   * else a memory leak will result.  Please see
-   * @if java KineticLaw::createParameter()@else createParameter()@endif@~
-   * for a method that does not lead to these issues.
+   * @copydetails doc_note_object_is_copied 
    *
    * @see createParameter()
    */
@@ -582,16 +576,7 @@ public:
    * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT @endlink
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
    *
-   * @note This method should be used with some caution.  The fact that
-   * this method @em copies the object passed to it means that the caller
-   * will be left holding a physically different object instance than the
-   * one contained in this KineticLaw.  Changes made to the original object
-   * instance (such as resetting attribute values) will <em>not affect the
-   * instance in the KineticLaw</em>.  In addition, the caller should make
-   * sure to free the original object if it is no longer being used, or
-   * else a memory leak will result.  Please see
-   * @if java KineticLaw::createParameter()@else createParameter()@endif@~
-   * for a method that does not lead to these issues.
+   * @copydetails doc_note_object_is_copied 
    *
    * @see createLocalParameter()
    */
@@ -757,36 +742,15 @@ public:
 
 
   /**
-   * Calculates and returns a UnitDefinition that expresses the units
-   * of measurement assumed for the "math" expression of this
-   * KineticLaw.
+   * Calculates and returns a UnitDefinition that expresses the units of
+   * measurement assumed for the "math" expression of this KineticLaw.
    *
-   * The units are calculated based on the mathematical expression in the
-   * KineticLaw and the model quantities referenced by
-   * <code>&lt;ci&gt;</code> elements used within that expression.  The
-   * @if java KineticLaw::getDerivedUnitDefinition()@else getDerivedUnitDefinition()@endif@~
-   * method returns the calculated units.
+   * @copydetails doc_kineticlaw_units 
    *
-   * Note that the functionality that facilitates unit analysis depends 
-   * on the model as a whole.  Thus, in cases where the object has not 
-   * been added to a model or the model itself is incomplete,
-   * unit analysis is not possible and this method will return @c NULL.
+   * @copydetails doc_note_unit_inference_depends_on_model 
    *
-   * @warning Note that it is possible the "math" expression in the
-   * KineticLaw contains pure numbers or parameters with undeclared
-   * units.  In those cases, it is not possible to calculate the units of
-   * the overall expression without making assumptions.  LibSBML does not
-   * make assumptions about the units, and
-   * @if java KineticLaw::getDerivedUnitDefinition()@else getDerivedUnitDefinition()@endif@~
-   * only returns the units as far as it is able to determine them.  For
-   * example, in an expression <em>X + Y</em>, if <em>X</em> has
-   * unambiguously-defined units and <em>Y</em> does not, it will return
-   * the units of <em>X</em>.  <strong>It is important that callers also
-   * invoke the method</strong>
-   * @if java KineticLaw::containsUndeclaredUnits()@else containsUndeclaredUnits()@endif@~
-   * <strong>to determine whether this situation holds</strong>.  Callers may
-   * wish to take suitable actions in those scenarios.
-   *
+   * @copydetails doc_warning_kineticlaw_math_literals
+   * 
    * @return a UnitDefinition that expresses the units of the math 
    * expression of this KineticLaw, or @c NULL if one cannot be constructed.
    *
@@ -796,35 +760,14 @@ public:
 
 
   /**
-   * Calculates and returns a UnitDefinition that expresses the units
-   * of measurement assumed for the "math" expression of this
-   * KineticLaw.
+   * Calculates and returns a UnitDefinition that expresses the units of
+   * measurement assumed for the "math" expression of this KineticLaw.
    *
-   * The units are calculated based on the mathematical expression in the
-   * KineticLaw and the model quantities referenced by
-   * <code>&lt;ci&gt;</code> elements used within that expression.  The
-   * @if java KineticLaw::getDerivedUnitDefinition()@else getDerivedUnitDefinition()@endif@~
-   * method returns the calculated units.
+   * @copydetails doc_kineticlaw_units 
    *
-   * Note that the functionality that facilitates unit analysis depends 
-   * on the model as a whole.  Thus, in cases where the object has not 
-   * been added to a model or the model itself is incomplete,
-   * unit analysis is not possible and this method will return @c NULL.
+   * @copydetails doc_note_unit_inference_depends_on_model 
    *
-   * @warning Note that it is possible the "math" expression in the
-   * KineticLaw contains pure numbers or parameters with undeclared
-   * units.  In those cases, it is not possible to calculate the units of
-   * the overall expression without making assumptions.  LibSBML does not
-   * make assumptions about the units, and
-   * @if java KineticLaw::getDerivedUnitDefinition()@else getDerivedUnitDefinition()@endif@~
-   * only returns the units as far as it is able to determine them.  For
-   * example, in an expression <em>X + Y</em>, if <em>X</em> has
-   * unambiguously-defined units and <em>Y</em> does not, it will return
-   * the units of <em>X</em>.  <strong>It is important that callers also
-   * invoke the method</strong>
-   * @if java KineticLaw::containsUndeclaredUnits()@else containsUndeclaredUnits()@endif@~
-   * <strong>to determine whether this situation holds</strong>.  Callers
-   * may wish to take suitable actions in those scenarios.
+   * @copydetails doc_warning_kineticlaw_math_literals
    *
    * @return a UnitDefinition that expresses the units of the math 
    * expression of this KineticLaw, or @c NULL if one cannot be constructed.
@@ -835,9 +778,8 @@ public:
 
 
   /**
-   * Predicate returning @c true if 
-   * the math expression of this KineticLaw contains
-   * parameters/numbers with undeclared units.
+   * Predicate returning @c true if the math expression of this KineticLaw
+   * contains parameters/numbers with undeclared units.
    * 
    * @return @c true if the math expression of this KineticLaw
    * includes parameters/numbers 
@@ -854,9 +796,8 @@ public:
 
 
   /**
-   * Predicate returning @c true if 
-   * the math expression of this KineticLaw contains
-   * parameters/numbers with undeclared units.
+   * Predicate returning @c true if the math expression of this KineticLaw
+   * contains parameters/numbers with undeclared units.
    * 
    * @return @c true if the math expression of this KineticLaw
    * includes parameters/numbers 
@@ -944,10 +885,9 @@ public:
    * Sets this SBML object to child SBML objects (if any).
    * (Creates a child-parent relationship by the parent)
    *
-   * Subclasses must override this function if they define
-   * one ore more child elements.
-   * Basically, this function needs to be called in
-   * constructor, copy constructor and assignment operator.
+   * Subclasses must override this function if they define one ore more child
+   * elements.  Basically, this function needs to be called in constructor,
+   * copy constructor and assignment operator.
    *
    * @see setSBMLDocument
    * @see enablePackageInternal
@@ -971,30 +911,10 @@ public:
   /**
    * Returns the libSBML type code for this %SBML object.
    * 
-   * @if clike LibSBML attaches an identifying code to every kind of SBML
-   * object.  These are known as <em>SBML type codes</em>.  The set of
-   * possible type codes is defined in the enumeration #SBMLTypeCode_t.
-   * The names of the type codes all begin with the characters @c
-   * SBML_. @endif@if java LibSBML attaches an identifying code to every
-   * kind of SBML object.  These are known as <em>SBML type codes</em>.  In
-   * other languages, the set of type codes is stored in an enumeration; in
-   * the Java language interface for libSBML, the type codes are defined as
-   * static integer constants in the interface class {@link
-   * libsbmlConstants}.  The names of the type codes all begin with the
-   * characters @c SBML_. @endif@if python LibSBML attaches an identifying
-   * code to every kind of SBML object.  These are known as <em>SBML type
-   * codes</em>.  In the Python language interface for libSBML, the type
-   * codes are defined as static integer constants in the interface class
-   * @link libsbml@endlink.  The names of the type codes all begin with the
-   * characters @c SBML_. @endif@if csharp LibSBML attaches an identifying
-   * code to every kind of SBML object.  These are known as <em>SBML type
-   * codes</em>.  In the C# language interface for libSBML, the type codes
-   * are defined as static integer constants in the interface class @link
-   * libsbmlcs.libsbml@endlink.  The names of the type codes all begin with
-   * the characters @c SBML_. @endif@~
+   * @copydetails doc_what_are_typecodes
    *
-   * @return the SBML type code for this object, or @link
-   * SBMLTypeCode_t#SBML_UNKNOWN SBML_UNKNOWN@endlink (default).
+   * @return the SBML type code for this object, or
+   * @link SBMLTypeCode_t#SBML_UNKNOWN SBML_UNKNOWN@endlink (default).
    *
    * @see getElementName()
    */
@@ -1030,9 +950,8 @@ public:
 
 
   /**
-   * Predicate returning @c true if
-   * all the required attributes for this KineticLaw object
-   * have been set.
+   * Predicate returning @c true if all the required attributes for this
+   * KineticLaw object have been set.
    *
    * @note The required attributes for a KineticLaw object are:
    * @li "formula" (SBML Level&nbsp;1 only)
@@ -1044,9 +963,8 @@ public:
 
 
   /**
-   * Predicate returning @c true if
-   * all the required elements for this KineticLaw object
-   * have been set.
+   * Predicate returning @c true if all the required elements for this
+   * KineticLaw object have been set.
    *
    * @note The required elements for a KineticLaw object are:
    * @li "math"
@@ -1058,7 +976,10 @@ public:
 
 
   /**
-   * Finds this KineticLaw's Reaction parent and calls unsetKineticLaw() on it, indirectly deleting itself.  Overridden from the SBase function since the parent is not a ListOf.
+   * Finds this KineticLaw's Reaction parent and calls unsetKineticLaw() on
+   * it, indirectly deleting itself.
+   *
+   * Overridden from the SBase function since the parent is not a ListOf.
    *
    * @return integer value indicating success/failure of the
    * function.  @if clike The value is drawn from the
@@ -1074,7 +995,7 @@ public:
    * Renames all the @c SIdRef attributes on this element, including any
    * found in MathML.
    *
-   * @htmlinclude what-is-sidref.html
+   * @copydetails doc_what_is_sidref
    * 
    * This method works by looking at all attributes and (if appropriate)
    * mathematical formulas, comparing the identifiers to the value of @p
@@ -1090,7 +1011,7 @@ public:
   /**
    * Renames all the @c UnitSIdRef attributes on this element
    *
-   * @htmlinclude what-is-unitsidref.html
+   * @copydetails doc_what_is_unitsidref
    *
    * This method works by looking at all unit identifier attribute values
    * (including, if appropriate, inside mathematical formulas), comparing the

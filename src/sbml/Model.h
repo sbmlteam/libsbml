@@ -363,6 +363,30 @@ sp.setId("MySpecies");
  * specification.
  */
 
+/**
+ * <!-- ~ ~ ~ ~ ~ Start of common documentation strings ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+ * The following text is used as common documentation blocks copied multiple
+ * times elsewhere in this file.  The use of @class is a hack needed because
+ * Doxygen's @copydetails command has limited functionality.  Symbols
+ * beginning with "doc_" are marked as ignored in our Doxygen configuration.
+ * ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~  -->
+ *
+ * @class doc_note_model_setting_lv
+ * 
+ * @note Upon the addition of a Model object to an SBMLDocument
+ * (e.g., using SBMLDocument::setModel(@if java Model m@endif)), the SBML Level, SBML Version
+ * and XML namespace of the document @em override the values used
+ * when creating the Model object via this constructor.  This is
+ * necessary to ensure that an SBML document is a consistent structure.
+ * Nevertheless, the ability to supply the values at the time of creation
+ * of a Model is an important aid to producing valid SBML.  Knowledge
+ * of the intented SBML Level and Version determine whether it is valid
+ * to assign a particular value to an attribute, or whether it is valid
+ * to add an object to an existing SBMLDocument.
+ *
+ * <!-- ~ ~ ~ ~ ~ ~ End of common documentation strings ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ -->
+ */
+
 #ifndef Model_h
 #define Model_h
 
@@ -426,17 +450,8 @@ public:
    * Thrown if the given @p level and @p version combination, or this kind
    * of SBML object, are either invalid or mismatched with respect to the
    * parent SBMLDocument object.
-   * 
-   * @note Upon the addition of a Model object to an SBMLDocument
-   * (e.g., using SBMLDocument::setModel(@if java Model m@endif)), the SBML Level, SBML Version
-   * and XML namespace of the document @em override the values used
-   * when creating the Model object via this constructor.  This is
-   * necessary to ensure that an SBML document is a consistent structure.
-   * Nevertheless, the ability to supply the values at the time of creation
-   * of a Model is an important aid to producing valid SBML.  Knowledge
-   * of the intented SBML Level and Version determine whether it is valid
-   * to assign a particular value to an attribute, or whether it is valid
-   * to add an object to an existing SBMLDocument.
+   *
+   * @copydetails doc_note_model_setting_lv
    */
   Model (unsigned int level, unsigned int version);
 
@@ -445,12 +460,7 @@ public:
    * Creates a new Model using the given SBMLNamespaces object
    * @p sbmlns.
    *
-   * The SBMLNamespaces object encapsulates SBML Level/Version/namespaces
-   * information.  It is used to communicate the SBML Level, Version, and
-   * (in Level&nbsp;3) packages used in addition to SBML Level&nbsp;3 Core.
-   * A common approach to using this class constructor is to create an
-   * SBMLNamespaces object somewhere in a program, once, then pass it to
-   * object constructors such as this one when needed.
+   * @copydetails doc_what_are_sbmlnamespaces 
    *
    * @param sbmlns an SBMLNamespaces object.
    *
@@ -459,16 +469,7 @@ public:
    * of SBML object, are either invalid or mismatched with respect to the
    * parent SBMLDocument object.
    *
-   * @note Upon the addition of a Model object to an SBMLDocument (e.g.,
-   * using SBMLDocument::setModel(@if java Model m@endif)), the SBML XML namespace of the document @em
-   * overrides the value used when creating the Model object via this
-   * constructor.  This is necessary to ensure that an SBML document is a
-   * consistent structure.  Nevertheless, the ability to supply the values
-   * at the time of creation of a Model is an important aid to producing
-   * valid SBML.  Knowledge of the intented SBML Level and Version
-   * determine whether it is valid to assign a particular value to an
-   * attribute, or whether it is valid to add an object to an existing
-   * SBMLDocument.
+   * @copydetails doc_note_model_setting_lv
    */
   Model (SBMLNamespaces* sbmlns);
 
@@ -758,8 +759,9 @@ public:
   /**
    * Sets the value of the "id" attribute of this Model.
    *
-   * The string @p sid is copied.  Note that SBML has strict requirements
-   * for the syntax of identifiers.  @htmlinclude id-syntax.html
+   * The string @p sid is copied.
+   *
+   * @copydetails doc_id_syntax
    *
    * @param sid the string to use as the identifier of this Model
    *
@@ -1076,15 +1078,7 @@ public:
    * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT @endlink
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
    * 
-   * @note This method should be used with some caution.  The fact that
-   * this method @em copies the object passed to it means that the caller
-   * will be left holding a physically different object instance than the
-   * one contained in this Model.  Changes made to the original object
-   * instance (such as resetting attribute values) will <em>not affect the
-   * instance in the Model</em>.  In addition, the caller should make sure
-   * to free the original object if it is no longer being used, or else a
-   * memory leak will result.  Please see Model::createFunctionDefinition()
-   * for a method that does not lead to these issues.
+   * @copydetails doc_note_object_is_copied 
    *
    * @see createFunctionDefinition()
    */
@@ -1106,15 +1100,7 @@ public:
    * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT @endlink
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
    * 
-   * @note This method should be used with some caution.  The fact that
-   * this method @em copies the object passed to it means that the caller
-   * will be left holding a physically different object instance than the
-   * one contained in this Model.  Changes made to the original object
-   * instance (such as resetting attribute values) will <em>not affect the
-   * instance in the Model</em>.  In addition, the caller should make sure
-   * to free the original object if it is no longer being used, or else a
-   * memory leak will result.  Please see Model::createUnitDefinition() for
-   * a method that does not lead to these issues.
+   * @copydetails doc_note_object_is_copied 
    *
    * @see createUnitDefinition()
    */
@@ -1136,15 +1122,7 @@ public:
    * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT @endlink
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
    * 
-   * @note This method should be used with some caution.  The fact that
-   * this method @em copies the object passed to it means that the caller
-   * will be left holding a physically different object instance than the
-   * one contained in this Model.  Changes made to the original object
-   * instance (such as resetting attribute values) will <em>not affect the
-   * instance in the Model</em>.  In addition, the caller should make sure
-   * to free the original object if it is no longer being used, or else a
-   * memory leak will result.  Please see Model::createCompartmentType()
-   * for a method that does not lead to these issues.
+   * @copydetails doc_note_object_is_copied 
    *
    * @note The CompartmentType object class is only available in SBML
    * Level&nbsp;2 Versions&nbsp;2&ndash;4.  It is not available in
@@ -1170,15 +1148,7 @@ public:
    * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT @endlink
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
    * 
-   * @note This method should be used with some caution.  The fact that
-   * this method @em copies the object passed to it means that the caller
-   * will be left holding a physically different object instance than the
-   * one contained in this Model.  Changes made to the original object
-   * instance (such as resetting attribute values) will <em>not affect the
-   * instance in the Model</em>.  In addition, the caller should make sure
-   * to free the original object if it is no longer being used, or else a
-   * memory leak will result.  Please see Model::createSpeciesType() for a
-   * method that does not lead to these issues.
+   * @copydetails doc_note_object_is_copied 
    *
    * @note The SpeciesType object class is only available in SBML
    * Level&nbsp;2 Versions&nbsp;2&ndash;4.  It is not available in
@@ -1204,15 +1174,7 @@ public:
    * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT @endlink
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
    *
-   * @note This method should be used with some caution.  The fact that
-   * this method @em copies the object passed to it means that the caller
-   * will be left holding a physically different object instance than the
-   * one contained in this Model.  Changes made to the original object
-   * instance (such as resetting attribute values) will <em>not affect the
-   * instance in the Model</em>.  In addition, the caller should make sure
-   * to free the original object if it is no longer being used, or else a
-   * memory leak will result.  Please see Model::createCompartment() for a
-   * method that does not lead to these issues.
+   * @copydetails doc_note_object_is_copied 
    *
    * @see createCompartment()
    */
@@ -1234,15 +1196,7 @@ public:
    * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT @endlink
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
    * 
-   * @note This method should be used with some caution.  The fact that
-   * this method @em copies the object passed to it means that the caller
-   * will be left holding a physically different object instance than the
-   * one contained in this Model.  Changes made to the original object
-   * instance (such as resetting attribute values) will <em>not affect the
-   * instance in the Model</em>.  In addition, the caller should make sure
-   * to free the original object if it is no longer being used, or else a
-   * memory leak will result.  Please see Model::createSpecies() for a
-   * method that does not lead to these issues.
+   * @copydetails doc_note_object_is_copied 
    *
    * @see createSpecies()
    */
@@ -1264,15 +1218,7 @@ public:
    * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT @endlink
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
    * 
-   * @note This method should be used with some caution.  The fact that
-   * this method @em copies the object passed to it means that the caller
-   * will be left holding a physically different object instance than the
-   * one contained in this Model.  Changes made to the original object
-   * instance (such as resetting attribute values) will <em>not affect the
-   * instance in the Model</em>.  In addition, the caller should make sure
-   * to free the original object if it is no longer being used, or else a
-   * memory leak will result.  Please see Model::createParameter() for a
-   * method that does not lead to these issues.
+   * @copydetails doc_note_object_is_copied 
    *
    * @see createParameter()
    */
@@ -1294,15 +1240,7 @@ public:
    * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT @endlink
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
    * 
-   * @note This method should be used with some caution.  The fact that
-   * this method @em copies the object passed to it means that the caller
-   * will be left holding a physically different object instance than the
-   * one contained in this Model.  Changes made to the original object
-   * instance (such as resetting attribute values) will <em>not affect the
-   * instance in the Model</em>.  In addition, the caller should make sure
-   * to free the original object if it is no longer being used, or else a
-   * memory leak will result.  Please see Model::createInitialAssignment()
-   * for a method that does not lead to these issues.
+   * @copydetails doc_note_object_is_copied 
    *
    * @see createInitialAssignment()
    */
@@ -1324,16 +1262,7 @@ public:
    * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT @endlink
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
    * 
-   * @note This method should be used with some caution.  The fact that
-   * this method @em copies the object passed to it means that the caller
-   * will be left holding a physically different object instance than the
-   * one contained in this Model.  Changes made to the original object
-   * instance (such as resetting attribute values) will <em>not affect the
-   * instance in the Model</em>.  In addition, the caller should make sure
-   * to free the original object if it is no longer being used, or else a
-   * memory leak will result.  Please see the methods
-   * Model::createAlgebraicRule(), Model::createAssignmentRule() and
-   * Model::createRateRule() for methods that do not lead to these issues.
+   * @copydetails doc_note_object_is_copied 
    *
    * @see createAlgebraicRule()
    * @see createAssignmentRule()
@@ -1356,15 +1285,7 @@ public:
    * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT @endlink
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
    * 
-   * @note This method should be used with some caution.  The fact that
-   * this method @em copies the object passed to it means that the caller
-   * will be left holding a physically different object instance than the
-   * one contained in this Model.  Changes made to the original object
-   * instance (such as resetting attribute values) will <em>not affect the
-   * instance in the Model</em>.  In addition, the caller should make sure
-   * to free the original object if it is no longer being used, or else a
-   * memory leak will result.  Please see Model::createConstraint() for a
-   * method that does not lead to these issues.
+   * @copydetails doc_note_object_is_copied 
    *
    * @see createConstraint()
    */
@@ -1386,15 +1307,7 @@ public:
    * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT @endlink
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
    * 
-   * @note This method should be used with some caution.  The fact that
-   * this method @em copies the object passed to it means that the caller
-   * will be left holding a physically different object instance than the
-   * one contained in this Model.  Changes made to the original object
-   * instance (such as resetting attribute values) will <em>not affect the
-   * instance in the Model</em>.  In addition, the caller should make sure
-   * to free the original object if it is no longer being used, or else a
-   * memory leak will result.  Please see Model::createReaction() for a
-   * method that does not lead to these issues.
+   * @copydetails doc_note_object_is_copied 
    *
    * @see createReaction()
    */
@@ -1416,15 +1329,7 @@ public:
    * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT @endlink
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
    * 
-   * @note This method should be used with some caution.  The fact that
-   * this method @em copies the object passed to it means that the caller
-   * will be left holding a physically different object instance than the
-   * one contained in this Model.  Changes made to the original object
-   * instance (such as resetting attribute values) will <em>not affect the
-   * instance in the Model</em>.  In addition, the caller should make sure
-   * to free the original object if it is no longer being used, or else a
-   * memory leak will result.  Please see Model::createEvent() for a method
-   * that does not lead to these issues.
+   * @copydetails doc_note_object_is_copied 
    *
    * @see createEvent()
    */
@@ -2734,7 +2639,7 @@ public:
    * Renames all the @c SIdRef attributes on this element, including any
    * found in MathML.
    *
-   * @htmlinclude what-is-sidref.html
+   * @copydetails doc_what_is_sidref
    * 
    * This method works by looking at all attributes and (if appropriate)
    * mathematical formulas, comparing the identifiers to the value of @p
@@ -2750,7 +2655,7 @@ public:
   /**
    * Renames all the @c UnitSIdRef attributes on this element.
    *
-   * @htmlinclude what-is-unitsidref.html
+   * @copydetails doc_what_is_unitsidref
    *
    * This method works by looking at all unit identifier attribute values
    * (including, if appropriate, inside mathematical formulas), comparing the
@@ -2986,27 +2891,7 @@ public:
   /**
    * Returns the libSBML type code for this %SBML object.
    * 
-   * @if clike LibSBML attaches an identifying code to every kind of SBML
-   * object.  These are known as <em>SBML type codes</em>.  The set of
-   * possible type codes is defined in the enumeration #SBMLTypeCode_t.
-   * The names of the type codes all begin with the characters @c
-   * SBML_. @endif@if java LibSBML attaches an identifying code to every
-   * kind of SBML object.  These are known as <em>SBML type codes</em>.  In
-   * other languages, the set of type codes is stored in an enumeration; in
-   * the Java language interface for libSBML, the type codes are defined as
-   * static integer constants in the interface class {@link
-   * libsbmlConstants}.  The names of the type codes all begin with the
-   * characters @c SBML_. @endif@if python LibSBML attaches an identifying
-   * code to every kind of SBML object.  These are known as <em>SBML type
-   * codes</em>.  In the Python language interface for libSBML, the type
-   * codes are defined as static integer constants in the interface class
-   * @link libsbml@endlink.  The names of the type codes all begin with the
-   * characters @c SBML_. @endif@if csharp LibSBML attaches an identifying
-   * code to every kind of SBML object.  These are known as <em>SBML type
-   * codes</em>.  In the C# language interface for libSBML, the type codes
-   * are defined as static integer constants in the interface class @link
-   * libsbmlcs.libsbml@endlink.  The names of the type codes all begin with
-   * the characters @c SBML_. @endif@~
+   * @copydetails doc_what_are_typecodes
    *
    * @return the SBML type code for this object, or
    * @link SBMLTypeCode_t#SBML_UNKNOWN SBML_UNKNOWN@endlink (default).
@@ -3584,7 +3469,7 @@ public:
    * and appends those copies to the appropriate places in this Model.
    *
    * This method also calls the <code>appendFrom</code> method on all libSBML
-   * plug-in objects.&nbsp; @htmlinclude what-are-plugins.html
+   * plug-in objects.&nbsp; @copydetails doc_what_are_plugins
    *
    * @param model the Model to merge with this one.
    *

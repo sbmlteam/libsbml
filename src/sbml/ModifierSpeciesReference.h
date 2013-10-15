@@ -55,6 +55,30 @@
  * 
  */
 
+/**
+ * <!-- ~ ~ ~ ~ ~ Start of common documentation strings ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+ * The following text is used as common documentation blocks copied multiple
+ * times elsewhere in this file.  The use of @class is a hack needed because
+ * Doxygen's @copydetails command has limited functionality.  Symbols
+ * beginning with "doc_" are marked as ignored in our Doxygen configuration.
+ * ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~  -->
+ *
+ * @class doc_note_modifierspeciesreference_setting_lv
+ * 
+ * @note Upon the addition of a ModifierSpeciesReference object to an
+ * SBMLDocument (e.g., using Reaction::addModifier(@if java ModifierSpeciesReference msr@endif)), the
+ * SBML Level, SBML Version and XML namespace of the document @em
+ * override the values used when creating the ModifierSpeciesReference
+ * object via this constructor.  This is necessary to ensure that an SBML
+ * document is a consistent structure.  Nevertheless, the ability to
+ * supply the values at the time of creation of a
+ * ModifierSpeciesReference is an important aid to producing valid SBML.
+ * Knowledge of the intented SBML Level and Version determine whether it
+ * is valid to assign a particular value to an attribute, or whether it
+ * is valid to add an object to an existing SBMLDocument.
+ *
+ * <!-- ~ ~ ~ ~ ~ ~ End of common documentation strings ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ -->
+ */
 
 #ifndef ModifierSpeciesReference_h
 #define ModifierSpeciesReference_h
@@ -82,46 +106,27 @@ class LIBSBML_EXTERN ModifierSpeciesReference : public SimpleSpeciesReference
 public:
 
   /**
-   * Creates a new ModifierSpeciesReference using the given SBML @p level and @p version
-   * values.
+   * Creates a new ModifierSpeciesReference using the given SBML @p level and
+   * @p version values.
    *
-   * @param level an unsigned int, the SBML Level to assign to this ModifierSpeciesReference
+   * @param level an unsigned int, the SBML Level to assign to this
+   * ModifierSpeciesReference
    *
    * @param version an unsigned int, the SBML Version to assign to this
    * ModifierSpeciesReference
-   * 
-   * @note Upon the addition of a ModifierSpeciesReference object to an
-   * SBMLDocument (e.g., using Reaction::addModifier(@if java ModifierSpeciesReference msr@endif)), the
-   * SBML Level, SBML Version and XML namespace of the document @em
-   * override the values used when creating the ModifierSpeciesReference
-   * object via this constructor.  This is necessary to ensure that an SBML
-   * document is a consistent structure.  Nevertheless, the ability to
-   * supply the values at the time of creation of a
-   * ModifierSpeciesReference is an important aid to producing valid SBML.
-   * Knowledge of the intented SBML Level and Version determine whether it
-   * is valid to assign a particular value to an attribute, or whether it
-   * is valid to add an object to an existing SBMLDocument.
+   *
+   * @copydetails doc_note_modifierspeciesreference_setting_lv
    */
   ModifierSpeciesReference (unsigned int level, unsigned int version);
 
 
   /**
-   * Creates a new ModifierSpeciesReference using the given SBMLNamespaces object
-   * @p sbmlns.
+   * Creates a new ModifierSpeciesReference using the given SBMLNamespaces
+   * object @p sbmlns.
    *
    * @param sbmlns an SBMLNamespaces object.
    *
-   * @note Upon the addition of a ModifierSpeciesReference object to an
-   * SBMLDocument (e.g., using Reaction::addModifier(@if java ModifierSpeciesReference msr@endif)), the
-   * SBML XML namespace of the document @em overrides the value used when
-   * creating the ModifierSpeciesReference object via this constructor.
-   * This is necessary to ensure that an SBML document is a consistent
-   * structure.  Nevertheless, the ability to supply the values at the time
-   * of creation of a ModifierSpeciesReference is an important aid to
-   * producing valid SBML.  Knowledge of the intented SBML Level and
-   * Version determine whether it is valid to assign a particular value to
-   * an attribute, or whether it is valid to add an object to an existing
-   * SBMLDocument.
+   * @copydetails doc_note_modifierspeciesreference_setting_lv
    */
   ModifierSpeciesReference (SBMLNamespaces* sbmlns);
 
@@ -154,29 +159,10 @@ public:
   /**
    * Returns the libSBML type code for this %SBML object.
    * 
-   * @if clike LibSBML attaches an identifying code to every kind of SBML
-   * object.  These are known as <em>SBML type codes</em>.  The set of
-   * possible type codes is defined in the enumeration #SBMLTypeCode_t.
-   * The names of the type codes all begin with the characters @c
-   * SBML_. @endif@if java LibSBML attaches an identifying code to every
-   * kind of SBML object.  These are known as <em>SBML type codes</em>.  In
-   * other languages, the set of type codes is stored in an enumeration; in
-   * the Java language interface for libSBML, the type codes are defined as
-   * static integer constants in the interface class {@link
-   * libsbmlConstants}.  The names of the type codes all begin with the
-   * characters @c SBML_. @endif@if python LibSBML attaches an identifying
-   * code to every kind of SBML object.  These are known as <em>SBML type
-   * codes</em>.  In the Python language interface for libSBML, the type
-   * codes are defined as static integer constants in the interface class
-   * @link libsbml@endlink.  The names of the type codes all begin with the
-   * characters @c SBML_. @endif@if csharp LibSBML attaches an identifying
-   * code to every kind of SBML object.  These are known as <em>SBML type
-   * codes</em>.  In the C# language interface for libSBML, the type codes
-   * are defined as static integer constants in the interface class @link
-   * libsbmlcs.libsbml@endlink.  The names of the type codes all begin with
-   * the characters @c SBML_. @endif@~
+   * @copydetails doc_what_are_typecodes
    *
-   * @return the SBML type code for this object, or @link SBMLTypeCode_t#SBML_UNKNOWN SBML_UNKNOWN@endlink (default).
+   * @return the SBML type code for this object, or
+   * @link SBMLTypeCode_t#SBML_UNKNOWN SBML_UNKNOWN@endlink (default).
    *
    * @see getElementName()
    */

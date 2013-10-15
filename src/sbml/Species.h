@@ -330,48 +330,72 @@
  * was initialized using a concentration value is irrelevant.
  * 
  *
- * <!-- leave this next break as-is to work around some doxygen bug -->
- */ 
-/**
- * @class ListOfSpecies.
+ * <!-- ------------------------------------------------------------------- -->
+ * @class ListOfSpecies
  * @ingroup core
  * @brief Implementation of SBML Level&nbsp;2's %ListOfSpecies construct.
  * 
- * The various ListOf___ classes in SBML are merely containers used for
- * organizing the main components of an SBML model.  All are derived from
- * the abstract class SBase, and inherit the various attributes and
- * subelements of SBase, such as "metaid" as and "annotation".  The
- * ListOf___ classes do not add any attributes of their own.
- *
- * The relationship between the lists and the rest of an SBML model is
- * illustrated by the following (for SBML Level&nbsp;2 Version&nbsp;4):
- *
- * @image html listof-illustration.jpg "ListOf___ elements in an SBML Model"
- * @image latex listof-illustration.jpg "ListOf___ elements in an SBML Model"
- *
- * Readers may wonder about the motivations for using the ListOf___
- * containers.  A simpler approach in XML might be to place the components
- * all directly at the top level of the model definition.  The choice made
- * in SBML is to group them within XML elements named after
- * ListOf<em>Classname</em>, in part because it helps organize the
- * components.  More importantly, the fact that the container classes are
- * derived from SBase means that software tools can add information @em about
- * the lists themselves into each list container's "annotation".
- *
- * @see ListOfFunctionDefinitions
- * @see ListOfUnitDefinitions
- * @see ListOfCompartmentTypes
- * @see ListOfSpeciesTypes
- * @see ListOfCompartments
- * @see ListOfSpecies
- * @see ListOfParameters
- * @see ListOfInitialAssignments
- * @see ListOfRules
- * @see ListOfConstraints
- * @see ListOfReactions
- * @see ListOfEvents
+ * @copydetails doc_what_is_listof
  */
 
+/**
+ * <!-- ~ ~ ~ ~ ~ Start of common documentation strings ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+ * The following text is used as common documentation blocks copied multiple
+ * times elsewhere in this file.  The use of @class is a hack needed because
+ * Doxygen's @copydetails command has limited functionality.  Symbols
+ * beginning with "doc_" are marked as ignored in our Doxygen configuration.
+ * ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~  -->
+ *
+ * @class doc_note_species_setting_lv
+ *
+ * @note Upon the addition of a Species object to an SBMLDocument (e.g.,
+ * using Model::addSpecies(@if java Species s@endif)), the SBML Level, SBML Version and XML
+ * namespace of the document @em override the values used when creating
+ * the Species object via this constructor.  This is necessary to ensure
+ * that an SBML document is a consistent structure.  Nevertheless, the
+ * ability to supply the values at the time of creation of a Species is
+ * an important aid to producing valid SBML.  Knowledge of the intented
+ * SBML Level and Version determine whether it is valid to assign a
+ * particular value to an attribute, or whether it is valid to add an
+ * object to an existing SBMLDocument.
+ *
+ * @class doc_warning_species_spatialSizeUnits
+ *
+ * @warning In versions of SBML Level&nbsp;2 before Version&nbsp;3, the
+ * class Species included an attribute called "spatialSizeUnits", which
+ * allowed explicitly setting the units of size for initial
+ * concentration.  This attribute was removed in SBML Level&nbsp;2
+ * Version&nbsp;3.  LibSBML retains this attribute for compatibility with
+ * older definitions of Level&nbsp;2, but its use is strongly discouraged
+ * because it is incompatible with Level&nbsp;2 Version&nbsp;3 and
+ * Level&nbsp;2 Version&nbsp;4.
+ *
+ * @class doc_note_species_units
+ * 
+ * @note The "units" attribute is defined only in SBML Level&nbsp;1.  In
+ * SBML Level&nbsp;2 and Level&nbsp;3, it has been replaced by a
+ * combination of "substanceUnits" and the units of the Compartment
+ * object in which a species is located.  In SBML Level&nbsp;2
+ * Versions&nbsp;1&ndash;2, an additional attribute "spatialSizeUnits"
+ * helps determine the units of the species quantity, but this attribute
+ * was removed in later versions of SBML Level&nbsp;2.
+ *
+ * @class doc_note_charge_deprecated
+ * 
+ * @note Beginning in SBML Level&nbsp;2 Version&nbsp;2, the "charge"
+ * attribute on Species is deprecated and in SBML Level&nbsp;3 it does
+ * not exist at all.  Its use strongly discouraged.  Its presence is
+ * considered a misfeature in earlier definitions of SBML because its
+ * implications for the mathematics of a model were never defined, and in
+ * any case, no known modeling system ever used it.  Instead, models take
+ * account of charge values directly in their definitions of species by
+ * (for example) having separate species identities for the charged and
+ * uncharged versions of the same species.  This allows the condition to
+ * affect model mathematics directly.  LibSBML retains this method for
+ * easier compatibility with SBML Level&nbsp;1.
+
+ * <!-- ~ ~ ~ ~ ~ ~ End of common documentation strings ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ -->
+ */
 
 #ifndef Species_h
 #define Species_h
@@ -411,17 +435,8 @@ public:
    * Thrown if the given @p level and @p version combination, or this kind
    * of SBML object, are either invalid or mismatched with respect to the
    * parent SBMLDocument object.
-   * 
-   * @note Upon the addition of a Species object to an SBMLDocument (e.g.,
-   * using Model::addSpecies(@if java Species s@endif)), the SBML Level, SBML Version and XML
-   * namespace of the document @em override the values used when creating
-   * the Species object via this constructor.  This is necessary to ensure
-   * that an SBML document is a consistent structure.  Nevertheless, the
-   * ability to supply the values at the time of creation of a Species is
-   * an important aid to producing valid SBML.  Knowledge of the intented
-   * SBML Level and Version determine whether it is valid to assign a
-   * particular value to an attribute, or whether it is valid to add an
-   * object to an existing SBMLDocument.
+   *
+   * @copydetails doc_note_species_setting_lv
    */
   Species (unsigned int level, unsigned int version);
 
@@ -430,12 +445,7 @@ public:
    * Creates a new Species using the given SBMLNamespaces object
    * @p sbmlns.
    *
-   * The SBMLNamespaces object encapsulates SBML Level/Version/namespaces
-   * information.  It is used to communicate the SBML Level, Version, and
-   * (in Level&nbsp;3) packages used in addition to SBML Level&nbsp;3 Core.
-   * A common approach to using this class constructor is to create an
-   * SBMLNamespaces object somewhere in a program, once, then pass it to
-   * object constructors such as this one when needed.
+   * @copydetails doc_what_are_sbmlnamespaces 
    *
    * It is worth emphasizing that although this constructor does not take
    * an identifier argument, in SBML Level&nbsp;2 and beyond, the "id"
@@ -451,16 +461,7 @@ public:
    * of SBML object, are either invalid or mismatched with respect to the
    * parent SBMLDocument object.
    *
-   * @note Upon the addition of a Species object to an SBMLDocument (e.g.,
-   * using Model::addSpecies(@if java Species s@endif)), the SBML XML namespace of the document @em
-   * overrides the value used when creating the Species object via this
-   * constructor.  This is necessary to ensure that an SBML document is a
-   * consistent structure.  Nevertheless, the ability to supply the values
-   * at the time of creation of a Species is an important aid to producing
-   * valid SBML.  Knowledge of the intented SBML Level and Version
-   * determine whether it is valid to assign a particular value to an
-   * attribute, or whether it is valid to add an object to an existing
-   * SBMLDocument.
+   * @copydetails doc_note_species_setting_lv
    */
   Species (SBMLNamespaces* sbmlns);
 
@@ -596,7 +597,7 @@ public:
    * as a string.  An empty string indicates that no units have been
    * assigned.
    *
-   * @note @htmlinclude unassigned-units-are-not-a-default.html
+   * @copydetails doc_unassigned_unit_are_not_a_default
    *
    * @see isSetSubstanceUnits()
    * @see setSubstanceUnits(const std::string& sid)
@@ -609,15 +610,8 @@ public:
    * 
    * @return the value of the "spatialSizeUnits" attribute of this Species
    * object, as a string.
-   * 
-   * @warning In versions of SBML Level&nbsp;2 before Version&nbsp;3, the
-   * class Species included an attribute called "spatialSizeUnits", which
-   * allowed explicitly setting the units of size for initial
-   * concentration.  This attribute was removed in SBML Level&nbsp;2
-   * Version&nbsp;3.  LibSBML retains this attribute for compatibility with
-   * older definitions of Level&nbsp;2, but its use is strongly discouraged
-   * because it is incompatible with Level&nbsp;2 Version&nbsp;3 and
-   * Level&nbsp;2 Version&nbsp;4.
+   *
+   * @copydetails doc_warning_species_spatialSizeUnits
    */
   const std::string& getSpatialSizeUnits () const;
 
@@ -627,13 +621,7 @@ public:
    * 
    * @return the units of this Species (L1 only).
    *
-   * @note The "units" attribute is defined only in SBML Level&nbsp;1.  In
-   * SBML Level&nbsp;2 and Level&nbsp;3, it has been replaced by a
-   * combination of "substanceUnits" and the units of the Compartment
-   * object in which a species is located.  In SBML Level&nbsp;2
-   * Versions&nbsp;1&ndash;2, an additional attribute "spatialSizeUnits"
-   * helps determine the units of the species quantity, but this attribute
-   * was removed in later versions of SBML Level&nbsp;2.
+   * @copydetails doc_note_species_units 
    */
   const std::string& getUnits () const;
 
@@ -664,17 +652,7 @@ public:
    * 
    * @return the charge of this Species object.
    *
-   * @note Beginning in SBML Level&nbsp;2 Version&nbsp;2, the "charge"
-   * attribute on Species is deprecated and in SBML Level&nbsp;3 it does
-   * not exist at all.  Its use strongly discouraged.  Its presence is
-   * considered a misfeature in earlier definitions of SBML because its
-   * implications for the mathematics of a model were never defined, and in
-   * any case, no known modeling system ever used it.  Instead, models take
-   * account of charge values directly in their definitions of species by
-   * (for example) having separate species identities for the charged and
-   * uncharged versions of the same species.  This allows the condition to
-   * affect model mathematics directly.  LibSBML retains this method for
-   * easier compatibility with SBML Level&nbsp;1.
+   * @copydetails doc_note_charge_deprecated
    */
   int getCharge () const;
 
@@ -791,14 +769,8 @@ public:
    *
    * @return @c true if the "spatialSizeUnits" attribute of this Species is
    * set, @c false otherwise.
-   * 
-   * @warning In versions of SBML Level~2 before Version&nbsp;3, the class
-   * Species included an attribute called "spatialSizeUnits", which allowed
-   * explicitly setting the units of size for initial concentration.  This
-   * attribute was removed in SBML Level&nbsp;2 Version&nbsp;3.  LibSBML
-   * retains this attribute for compatibility with older definitions of
-   * Level&nbsp;2, but its use is strongly discouraged because it is
-   * incompatible with Level&nbsp;2 Version&nbsp;3 and Level&nbsp;2 Version&nbsp;4.
+   *
+   * @copydetails doc_warning_species_spatialSizeUnits
    */
   bool isSetSpatialSizeUnits () const;
 
@@ -820,17 +792,7 @@ public:
    * @return @c true if the "charge" attribute of this Species is
    * set, @c false otherwise.
    *
-   * @note Beginning in SBML Level&nbsp;2 Version&nbsp;2, the "charge"
-   * attribute on Species in SBML is deprecated and in SBML Level&nbsp;3 it
-   * does not exist at all.  Its use strongly discouraged.  Its presence is
-   * considered a misfeature in earlier definitions of SBML because its
-   * implications for the mathematics of a model were never defined, and in
-   * any case, no known modeling system ever used it.  Instead, models take
-   * account of charge values directly in their definitions of species by
-   * (for example) having separate species identities for the charged and
-   * uncharged versions of the same species.  This allows the condition to
-   * affect model mathematics directly.  LibSBML retains this method for
-   * easier compatibility with SBML Level&nbsp;1.
+   * @copydetails doc_note_charge_deprecated 
    */
   bool isSetCharge () const;
 
@@ -888,8 +850,9 @@ public:
   /**
    * Sets the value of the "id" attribute of this Species object.
    *
-   * The string @p sid is copied.  Note that SBML has strict requirements
-   * for the syntax of identifiers.  @htmlinclude id-syntax.html
+   * The string @p sid is copied.
+   *
+   * @copydetails doc_id_syntax
    *
    * @param sid the string to use as the identifier of this Species
    *
@@ -1076,18 +1039,7 @@ public:
    *
    * @param value an integer to which to set the "charge" to.
    *
-   * @note Beginning in SBML Level&nbsp;2 Version&nbsp;2, the "charge"
-   * attribute on Species in SBML is deprecated and its use strongly
-   * discouraged, and it does not exist in SBML Level&nbsp;3 at all.  Its
-   * presence is considered a misfeature in earlier definitions of SBML
-   * because its implications for the mathematics of a model were never
-   * defined, and in any case, no known modeling system ever used it.
-   * Instead, models take account of charge values directly in their
-   * definitions of species by (for example) having separate species
-   * identities for the charged and uncharged versions of the same species.
-   * This allows the condition to affect model mathematics directly.
-   * LibSBML retains this method for easier compatibility with SBML
-   * Level&nbsp;1.
+   * @copydetails doc_note_charge_deprecated 
    *
    * @return integer value indicating success/failure of the
    * function.  The possible values
@@ -1210,14 +1162,8 @@ public:
    * returned by this function are:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
-   * 
-   * @warning In versions of SBML Level~2 before Version&nbsp;3, the class
-   * Species included an attribute called "spatialSizeUnits", which allowed
-   * explicitly setting the units of size for initial concentration.  This
-   * attribute was removed in SBML Level&nbsp;2 Version&nbsp;3.  LibSBML
-   * retains this attribute for compatibility with older definitions of
-   * Level&nbsp;2, but its use is strongly discouraged because it is
-   * incompatible with Level&nbsp;2 Version&nbsp;3 and Level&nbsp;2 Version&nbsp;4.
+   *
+   * @copydetails doc_warning_species_spatialSizeUnits
    */
   int unsetSpatialSizeUnits ();
 
@@ -1245,18 +1191,7 @@ public:
    * @li @link OperationReturnValues_t#LIBSBML_UNEXPECTED_ATTRIBUTE LIBSBML_UNEXPECTED_ATTRIBUTE @endlink
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
    *
-   * @note Beginning in SBML Level&nbsp;2 Version&nbsp;2, the "charge"
-   * attribute on Species in SBML is deprecated and its use strongly
-   * discouraged, and it does not exist in SBML Level&nbsp;3 at all.  Its
-   * presence is considered a misfeature in earlier definitions of SBML
-   * because its implications for the mathematics of a model were never
-   * defined, and in any case, no known modeling system ever used it.
-   * Instead, models take account of charge values directly in their
-   * definitions of species by (for example) having separate species
-   * identities for the charged and uncharged versions of the same species.
-   * This allows the condition to affect model mathematics directly.
-   * LibSBML retains this method for easier compatibility with SBML
-   * Level&nbsp;1.
+   * @copydetails doc_note_charge_deprecated 
    */
   int unsetCharge ();
 
@@ -1367,29 +1302,10 @@ public:
   /**
    * Returns the libSBML type code for this SBML object.
    * 
-   * @if clike LibSBML attaches an identifying code to every kind of SBML
-   * object.  These are known as <em>SBML type codes</em>.  The set of
-   * possible type codes is defined in the enumeration #SBMLTypeCode_t.
-   * The names of the type codes all begin with the characters @c
-   * SBML_. @endif@if java LibSBML attaches an identifying code to every
-   * kind of SBML object.  These are known as <em>SBML type codes</em>.  In
-   * other languages, the set of type codes is stored in an enumeration; in
-   * the Java language interface for libSBML, the type codes are defined as
-   * static integer constants in the interface class {@link
-   * libsbmlConstants}.  The names of the type codes all begin with the
-   * characters @c SBML_. @endif@if python LibSBML attaches an identifying
-   * code to every kind of SBML object.  These are known as <em>SBML type
-   * codes</em>.  In the Python language interface for libSBML, the type
-   * codes are defined as static integer constants in the interface class
-   * @link libsbml@endlink.  The names of the type codes all begin with the
-   * characters @c SBML_. @endif@if csharp LibSBML attaches an identifying
-   * code to every kind of SBML object.  These are known as <em>SBML type
-   * codes</em>.  In the C# language interface for libSBML, the type codes
-   * are defined as static integer constants in the interface class @link
-   * libsbmlcs.libsbml@endlink.  The names of the type codes all begin with
-   * the characters @c SBML_. @endif@~
+   * @copydetails doc_what_are_typecodes
    *
-   * @return the SBML type code for this object, or @link SBMLTypeCode_t#SBML_UNKNOWN SBML_UNKNOWN@endlink (default).
+   * @return the SBML type code for this object, or
+   * @link SBMLTypeCode_t#SBML_UNKNOWN SBML_UNKNOWN@endlink (default).
    *
    * @see getElementName()
    */
@@ -1438,7 +1354,7 @@ public:
    * Renames all the @c SIdRef attributes on this element, including any
    * found in MathML.
    *
-   * @htmlinclude what-is-sidref.html
+   * @copydetails doc_what_is_sidref
    * 
    * This method works by looking at all attributes and (if appropriate)
    * mathematical formulas, comparing the identifiers to the value of @p
@@ -1454,7 +1370,7 @@ public:
   /**
    * Renames all the @c UnitSIdRef attributes on this element.
    *
-   * @htmlinclude what-is-unitsidref.html
+   * @copydetails doc_what_is_unitsidref
    *
    * This method works by looking at all unit identifier attribute values
    * (including, if appropriate, inside mathematical formulas), comparing the
@@ -1606,29 +1522,10 @@ public:
   /**
    * Returns the libSBML type code for this SBML object.
    * 
-   * @if clike LibSBML attaches an identifying code to every kind of SBML
-   * object.  These are known as <em>SBML type codes</em>.  The set of
-   * possible type codes is defined in the enumeration #SBMLTypeCode_t.
-   * The names of the type codes all begin with the characters @c
-   * SBML_. @endif@if java LibSBML attaches an identifying code to every
-   * kind of SBML object.  These are known as <em>SBML type codes</em>.  In
-   * other languages, the set of type codes is stored in an enumeration; in
-   * the Java language interface for libSBML, the type codes are defined as
-   * static integer constants in the interface class {@link
-   * libsbmlConstants}.  The names of the type codes all begin with the
-   * characters @c SBML_. @endif@if python LibSBML attaches an identifying
-   * code to every kind of SBML object.  These are known as <em>SBML type
-   * codes</em>.  In the Python language interface for libSBML, the type
-   * codes are defined as static integer constants in the interface class
-   * @link libsbml@endlink.  The names of the type codes all begin with the
-   * characters @c SBML_. @endif@if csharp LibSBML attaches an identifying
-   * code to every kind of SBML object.  These are known as <em>SBML type
-   * codes</em>.  In the C# language interface for libSBML, the type codes
-   * are defined as static integer constants in the interface class @link
-   * libsbmlcs.libsbml@endlink.  The names of the type codes all begin with
-   * the characters @c SBML_. @endif@~
+   * @copydetails doc_what_are_typecodes
    *
-   * @return the SBML type code for this object, or @link SBMLTypeCode_t#SBML_UNKNOWN SBML_UNKNOWN@endlink (default).
+   * @return the SBML type code for this object, or
+   * @link SBMLTypeCode_t#SBML_UNKNOWN SBML_UNKNOWN@endlink (default).
    *
    * @see getElementName()
    */
@@ -1639,30 +1536,10 @@ public:
    * Returns the libSBML type code for the objects contained in this ListOf
    * (i.e., Species objects, if the list is non-empty).
    * 
-   * @if clike LibSBML attaches an identifying code to every kind of SBML
-   * object.  These are known as <em>SBML type codes</em>.  The set of
-   * possible type codes is defined in the enumeration #SBMLTypeCode_t.
-   * The names of the type codes all begin with the characters @c
-   * SBML_. @endif@if java LibSBML attaches an identifying code to every
-   * kind of SBML object.  These are known as <em>SBML type codes</em>.  In
-   * other languages, the set of type codes is stored in an enumeration; in
-   * the Java language interface for libSBML, the type codes are defined as
-   * static integer constants in the interface class {@link
-   * libsbmlConstants}.  The names of the type codes all begin with the
-   * characters @c SBML_. @endif@if python LibSBML attaches an identifying
-   * code to every kind of SBML object.  These are known as <em>SBML type
-   * codes</em>.  In the Python language interface for libSBML, the type
-   * codes are defined as static integer constants in the interface class
-   * @link libsbml@endlink.  The names of the type codes all begin with the
-   * characters @c SBML_. @endif@if csharp LibSBML attaches an identifying
-   * code to every kind of SBML object.  These are known as <em>SBML type
-   * codes</em>.  In the C# language interface for libSBML, the type codes
-   * are defined as static integer constants in the interface class @link
-   * libsbmlcs.libsbml@endlink.  The names of the type codes all begin with
-   * the characters @c SBML_. @endif@~
-   * 
-   * @return the SBML type code for the objects contained in this ListOf
-   * instance, or @link SBMLTypeCode_t#SBML_UNKNOWN SBML_UNKNOWN@endlink (default).
+   * @copydetails doc_what_are_typecodes
+   *
+   * @return the SBML type code for this object, or
+   * @link SBMLTypeCode_t#SBML_UNKNOWN SBML_UNKNOWN@endlink (default).
    *
    * @see getElementName()
    */

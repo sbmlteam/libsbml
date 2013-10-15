@@ -11,48 +11,9 @@ Trees</a> (ASTs) to provide a canonical, in-memory representation for all
 mathematical formulas regardless of their original format (i.e., C-like
 infix strings or <a target="_blank"
 href="http://www.w3.org/TR/MathML2/">MathML&nbsp;2.0</a>).  In libSBML, an
-AST is a collection of one or more objects of class ASTNode.  An AST @em
-node in libSBML is a recursive structure containing a pointer to the node's
-value (which might be, for example, a number or a symbol) and a list of
-children nodes.  Each ASTNode node may have none, one, two, or more child
-depending on its type.  The following diagram illustrates an example of how
-the mathematical expression "1 + 2" is represented as an AST with one @em
-plus node having two @em integer children nodes for the numbers 1 and 2.
-The figure also shows the corresponding MathML&nbsp;2.0 "content"
-representation:
+AST is a collection of one or more objects of class ASTNode.
 
-@htmlinclude astnode-illustration.html
-
-The following are noteworthy about the AST representation in libSBML:
-
-@li A numerical value represented in MathML as a real number with an
-exponent is preserved as such in the AST node representation, even if
-the number could be stored in a @c double data type.  This is done
-so that when an %SBML model is read in and then written out again, the
-amount of change introduced by libSBML to the SBML during the round-trip
-activity is minimized.
-@li Rational numbers are represented in an AST node using separate
-numerator and denominator values.  These can be retrieved using the methods
-@link ASTNode::getNumerator() getNumerator() @endlink and @link
-ASTNode::getDenominator() getDenominator() @endlink on an ASTNode object.
-@li The children of an ASTNode are other ASTNode objects.  The list of
-children is empty for nodes that are leaf elements, such as numbers.
-For nodes that are actually roots of expression subtrees, the list of
-children points to the parsed objects that make up the rest of the
-expression.
-
-For many applications, the details of ASTs are irrelevant because the
-applications can use the text-string based translation functions such as
-SBML_formulaToString(), SBML_parseL3Formula() and SBML_parseFormula().  If
-you find the complexity of using the AST representation of expressions too
-high for your purposes, perhaps the string-based functions will be more
-suitable.
-
-Finally, it is worth noting that the AST and MathML handling code in
-libSBML remains written in C, not C++.  (All of libSBML was originally
-written in C.)  Readers may occasionally wonder why some aspects are more
-C-like and less object oriented, and that's one of the reasons.
-
+@copydetails doc_what_is_astnode
 
 @section math-convert Converting between ASTs and text strings
 
@@ -186,14 +147,7 @@ equivalents in SBML Levels&nbsp;2 and&nbsp;3:
 
 @section math-ast Methods for working with libSBML's Abstract Syntax Trees
 
-Every ASTNode in a libSBML abstract syntax tree has an associated type,
-which is a value taken from the enumeration <a
-href="_a_s_t_node_8h.html">ASTNodeType_t</a>. The list of possible types is
-quite long, because it covers all the mathematical functions that are
-permitted in SBML.  The values are shown in the following table; their
-names hopefully evoke the construct that they represent:
-
-@htmlinclude astnode-types.html
+@copydetails doc_astnode_types
 
 There are a number of methods for interrogating the type of an ASTNode and
 for testing whether a node belongs to a general category of constructs.

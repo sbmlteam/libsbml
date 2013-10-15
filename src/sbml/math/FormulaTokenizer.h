@@ -210,7 +210,7 @@ typedef struct
  * @see FormulaTokenizer_nextToken()
  * @see FormulaTokenizer_free()
  *
- * @warning @htmlinclude L1-math-syntax-warning.html
+ * @copydetails doc_warning_L1_math_string_syntax
  */
 LIBSBML_EXTERN
 FormulaTokenizer_t *
@@ -257,7 +257,7 @@ FormulaTokenizer_free (FormulaTokenizer_t *ft);
  * @see FormulaTokenizer_free()
  * @see FormulaTokenizer_createFromFormula()
  *
- * @warning @htmlinclude L1-math-syntax-warning.html
+ * @copydetails doc_warning_L1_math_string_syntax
  */
 LIBSBML_EXTERN
 Token_t *

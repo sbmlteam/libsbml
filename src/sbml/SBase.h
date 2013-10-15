@@ -120,6 +120,24 @@
  * author(s) and modification history.
  */
 
+/**
+ * <!-- ~ ~ ~ ~ ~ Start of common documentation strings ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+ * The following text is used as common documentation blocks copied multiple
+ * times elsewhere in this file.  The use of @class is a hack needed because
+ * Doxygen's @copydetails command has limited functionality.  Symbols
+ * beginning with "doc_" are marked as ignored in our Doxygen configuration.
+ * ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~  -->
+ * 
+ * @class doc_sbase_what_is_user_data
+ *
+ * @par
+ * The user data associated with an SBML object can be used by an application
+ * developer to attach custom information to that object in the model.  In case
+ * of a deep copy, this attribute will passed as it is.  The attribute will be
+ * never interpreted by libSBML.
+ * 
+ * <!-- ~ ~ ~ ~ ~ ~ End of common documentation strings ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ -->
+ */
 
 #ifndef SBase_h
 #define SBase_h
@@ -222,7 +240,7 @@ public:
    * Returns the first child element it can find with a specific "metaid"
    * attribute value, or @c NULL if no such object is found.
    *
-   * @htmlinclude what-is-metaid.html
+   * @copydetails doc_what_is_metaid
    *
    * @param metaid string representing the "metaid" attribute value of the
    * object to find.
@@ -245,7 +263,7 @@ public:
    * Renames all the @c SIdRef attributes on this element, including any
    * found in MathML content (if such exists).
    *
-   * @htmlinclude what-is-sidref.html 
+   * @copydetails doc_what_is_sidref 
    *
    * This method works by looking at all attributes and (if appropriate)
    * mathematical formulas, comparing the identifiers to the value of @p
@@ -261,7 +279,7 @@ public:
   /**
    * Renames all the meta-identifier attributes on this element.
    *
-   * @htmlinclude what-is-metaidref.html 
+   * @copydetails doc_what_is_metaidref
    *
    * This method works by looking at all meta-identifier attribute values,
    * comparing the identifiers to the value of @p oldid.  If any matches are
@@ -277,7 +295,7 @@ public:
   /**
    * Renames all the @c UnitSIdRef attributes on this element.
    *
-   * @htmlinclude what-is-unitsidref.html 
+   * @copydetails doc_what_is_unitsidref 
    *
    * This method works by looking at all unit identifier attribute values
    * (including, if appropriate, inside mathematical formulas), comparing the
@@ -376,14 +394,13 @@ public:
   /** @cond doxygenLibsbmlInternal */
   virtual int transformIdentifiers(IdentifierTransformer* idTransformer);
   /** @endcond */
-  
 
 
   /**
    * Returns a List of all child SBase objects contained in SBML package
    * plug-ins.
    *
-   * @htmlinclude what-are-plugins.html
+   * @copydetails doc_what_are_plugins
    *
    * This method walks down the list of all SBML Level&nbsp;3 packages used
    * by this object and returns all child objects defined by those packages.
@@ -397,7 +414,7 @@ public:
   /**
    * Returns the value of the "metaid" attribute of this object.
    *
-   * @htmlinclude what-is-metaid.html
+   * @copydetails doc_what_is_metaid
    *  
    * @return the meta-identifier of this SBML object.
    *
@@ -410,7 +427,7 @@ public:
   /**
    * Returns the value of the "metaid" attribute of this object.
    *
-   * @htmlinclude what-is-metaid.html
+   * @copydetails doc_what_is_metaid
    *  
    * @return the meta-identifier of this SBML object, as a string.
    *
@@ -531,25 +548,7 @@ public:
    * Returns the content of the "notes" subelement of this object as
    * a tree of XMLNode objects.
    *
-   * The optional SBML element named "notes", present on every major SBML
-   * component type, is intended as a place for storing optional
-   * information intended to be seen by humans.  An example use of the
-   * "notes" element would be to contain formatted user comments about the
-   * model element in which the "notes" element is enclosed.  Every object
-   * derived directly or indirectly from type SBase can have a separate
-   * value for "notes", allowing users considerable freedom when adding
-   * comments to their models.
-   *
-   * The format of "notes" elements must be <a target="_blank"
-   * href="http://www.w3.org/TR/xhtml1/">XHTML&nbsp;1.0</a>.  To help
-   * verify the formatting of "notes" content, libSBML provides the static
-   * utility method SyntaxChecker::hasExpectedXHTMLSyntax(@if java XMLNode xhtml@endif); however,
-   * readers are urged to consult the appropriate <a target="_blank"
-   * href="http://sbml.org/Documents/Specifications">SBML specification
-   * document</a> for the Level and Version of their model for more
-   * in-depth explanations.  The SBML Level&nbsp;2 and &nbsp;3
-   * specifications have considerable detail about how "notes" element
-   * content must be structured.
+   * @copydetails doc_what_are_notes 
    *
    * The "notes" element content returned by this method will be in XML
    * form, but libSBML does not provide an object model specifically for
@@ -577,25 +576,7 @@ public:
    * Returns the content of the "notes" subelement of this object as
    * a tree of XMLNode objects.
    *
-   * The optional SBML element named "notes", present on every major SBML
-   * component type, is intended as a place for storing optional
-   * information intended to be seen by humans.  An example use of the
-   * "notes" element would be to contain formatted user comments about the
-   * model element in which the "notes" element is enclosed.  Every object
-   * derived directly or indirectly from type SBase can have a separate
-   * value for "notes", allowing users considerable freedom when adding
-   * comments to their models.
-   *
-   * The format of "notes" elements must be <a target="_blank"
-   * href="http://www.w3.org/TR/xhtml1/">XHTML&nbsp;1.0</a>.  To help
-   * verify the formatting of "notes" content, libSBML provides the static
-   * utility method SyntaxChecker::hasExpectedXHTMLSyntax(@if java XMLNode xhtml@endif); however,
-   * readers are urged to consult the appropriate <a target="_blank"
-   * href="http://sbml.org/Documents/Specifications">SBML specification
-   * document</a> for the Level and Version of their model for more
-   * in-depth explanations.  The SBML Level&nbsp;2 and &nbsp;3
-   * specifications have considerable detail about how "notes" element
-   * content must be structured.
+   * @copydetails doc_what_are_notes 
    *
    * The "notes" element content returned by this method will be in XML
    * form, but libSBML does not provide an object model specifically for
@@ -623,25 +604,7 @@ public:
    * Returns the content of the "notes" subelement of this object as a
    * string.
    *
-   * The optional SBML element named "notes", present on every major SBML
-   * component type, is intended as a place for storing optional
-   * information intended to be seen by humans.  An example use of the
-   * "notes" element would be to contain formatted user comments about the
-   * model element in which the "notes" element is enclosed.  Every object
-   * derived directly or indirectly from type SBase can have a separate
-   * value for "notes", allowing users considerable freedom when adding
-   * comments to their models.
-   *
-   * The format of "notes" elements must be <a target="_blank"
-   * href="http://www.w3.org/TR/xhtml1/">XHTML&nbsp;1.0</a>.  To help
-   * verify the formatting of "notes" content, libSBML provides the static
-   * utility method SyntaxChecker::hasExpectedXHTMLSyntax(@if java XMLNode xhtml@endif); however,
-   * readers are urged to consult the appropriate <a target="_blank"
-   * href="http://sbml.org/Documents/Specifications">SBML specification
-   * document</a> for the Level and Version of their model for more
-   * in-depth explanations.  The SBML Level&nbsp;2 and &nbsp;3
-   * specifications have considerable detail about how "notes" element
-   * content must be structured.
+   * @copydetails doc_what_are_notes 
    *
    * For an alternative method of accessing the notes, see getNotes(),
    * which returns the content as an XMLNode tree structure.  Depending on
@@ -667,25 +630,7 @@ public:
    * Returns the content of the "notes" subelement of this object as a
    * string.
    *
-   * The optional SBML element named "notes", present on every major SBML
-   * component type, is intended as a place for storing optional
-   * information intended to be seen by humans.  An example use of the
-   * "notes" element would be to contain formatted user comments about the
-   * model element in which the "notes" element is enclosed.  Every object
-   * derived directly or indirectly from type SBase can have a separate
-   * value for "notes", allowing users considerable freedom when adding
-   * comments to their models.
-   *
-   * The format of "notes" elements must be <a target="_blank"
-   * href="http://www.w3.org/TR/xhtml1/">XHTML&nbsp;1.0</a>.  To help
-   * verify the formatting of "notes" content, libSBML provides the static
-   * utility method SyntaxChecker::hasExpectedXHTMLSyntax(@if java XMLNode xhtml@endif); however,
-   * readers are urged to consult the appropriate <a target="_blank"
-   * href="http://sbml.org/Documents/Specifications">SBML specification
-   * document</a> for the Level and Version of their model for more
-   * in-depth explanations.  The SBML Level&nbsp;2 and &nbsp;3
-   * specifications have considerable detail about how "notes" element
-   * content must be structured.
+   * @copydetails doc_what_are_notes 
    *
    * For an alternative method of accessing the notes, see getNotes(),
    * which returns the content as an XMLNode tree structure.  Depending on
@@ -711,19 +656,7 @@ public:
    * Returns the content of the "annotation" subelement of this object as
    * a tree of XMLNode objects.
    *
-   * Whereas the SBML "notes" subelement is a container for content to be
-   * shown directly to humans, the "annotation" element is a container for
-   * optional software-generated content @em not meant to be shown to
-   * humans.  Every object derived from SBase can have its own value for
-   * "annotation".  The element's content type is <a target="_blank"
-   * href="http://www.w3.org/TR/2004/REC-xml-20040204/#elemdecls">XML type
-   * "any"</a>, allowing essentially arbitrary well-formed XML data
-   * content.
-   *
-   * SBML places a few restrictions on the organization of the content of
-   * annotations; these are intended to help software tools read and write
-   * the data as well as help reduce conflicts between annotations added by
-   * different tools.  Please see the SBML specifications for more details.
+   * @copydetails doc_what_are_annotations 
    *
    * The annotations returned by this method will be in XML form.  LibSBML
    * provides an object model and related interfaces for certain specific
@@ -748,19 +681,7 @@ public:
    * Returns the content of the "annotation" subelement of this object as
    * a tree of XMLNode objects.
    *
-   * Whereas the SBML "notes" subelement is a container for content to be
-   * shown directly to humans, the "annotation" element is a container for
-   * optional software-generated content @em not meant to be shown to
-   * humans.  Every object derived from SBase can have its own value for
-   * "annotation".  The element's content type is <a target="_blank"
-   * href="http://www.w3.org/TR/2004/REC-xml-20040204/#elemdecls">XML type
-   * "any"</a>, allowing essentially arbitrary well-formed XML data
-   * content.
-   *
-   * SBML places a few restrictions on the organization of the content of
-   * annotations; these are intended to help software tools read and write
-   * the data as well as help reduce conflicts between annotations added by
-   * different tools.  Please see the SBML specifications for more details.
+   * @copydetails doc_what_are_annotations 
    *
    * The annotations returned by this method will be in XML form.  LibSBML
    * provides an object model and related interfaces for certain specific
@@ -785,21 +706,10 @@ public:
    * Returns the content of the "annotation" subelement of this object as a
    * character string.
    *
-   * Whereas the SBML "notes" subelement is a container for content to be
-   * shown directly to humans, the "annotation" element is a container for
-   * optional software-generated content @em not meant to be shown to
-   * humans.  Every object derived from SBase can have its own value for
-   * "annotation".  The element's content type is <a target="_blank"
-   * href="http://www.w3.org/TR/2004/REC-xml-20040204/#elemdecls">XML type
-   * "any"</a>, allowing essentially arbitrary well-formed XML data
-   * content.
+   * @copydetails doc_what_are_annotations 
    *
-   * SBML places a few restrictions on the organization of the content of
-   * annotations; these are intended to help software tools read and write
-   * the data as well as help reduce conflicts between annotations added by
-   * different tools.  Please see the SBML specifications for more details.
-   *
-   * The annotations returned by this method will be in string form.
+   * The annotations returned by this method will be in string form.  See the
+   * method getAnnotation() for a version that returns annotations in XML form.
    *
    * @return the annotation of this SBML object as a character string.
    *
@@ -818,21 +728,10 @@ public:
    * Returns the content of the "annotation" subelement of this object as a
    * character string.
    *
-   * Whereas the SBML "notes" subelement is a container for content to be
-   * shown directly to humans, the "annotation" element is a container for
-   * optional software-generated content @em not meant to be shown to
-   * humans.  Every object derived from SBase can have its own value for
-   * "annotation".  The element's content type is <a target="_blank"
-   * href="http://www.w3.org/TR/2004/REC-xml-20040204/#elemdecls">XML type
-   * "any"</a>, allowing essentially arbitrary well-formed XML data
-   * content.
+   * @copydetails doc_what_are_annotations 
    *
-   * SBML places a few restrictions on the organization of the content of
-   * annotations; these are intended to help software tools read and write
-   * the data as well as help reduce conflicts between annotations added by
-   * different tools.  Please see the SBML specifications for more details.
-   *
-   * The annotations returned by this method will be in string form.
+   * The annotations returned by this method will be in string form.  See the
+   * method getAnnotation() for a version that returns annotations in XML form.
    *
    * @return the annotation of this SBML object as a character string.
    *
@@ -851,9 +750,8 @@ public:
    * Returns a list of the XML Namespaces declared on this SBML document.
    * 
    * The SBMLNamespaces object encapsulates SBML Level/Version/namespaces
-   * information.  It is used to communicate the SBML Level, Version, and
-   * (in SBML Level&nbsp;3) packages used in addition to SBML Level&nbsp;3
-   * Core.
+   * information.  It is used to communicate the SBML Level, Version, and (in
+   * Level&nbsp;3) packages used in addition to SBML Level&nbsp;3 Core.
    * 
    * @return the XML Namespaces associated with this SBML object
    *
@@ -866,14 +764,7 @@ public:
   /**
    * Returns the SBMLDocument object containing @em this object instance.
    *
-   * LibSBML uses the class SBMLDocument as a top-level container for
-   * storing SBML content and data associated with it (such as warnings and
-   * error messages).  An SBML model in libSBML is contained inside an
-   * SBMLDocument object.  SBMLDocument corresponds roughly to the class
-   * <i>SBML</i> defined in the SBML Level&nbsp;3 and Level&nbsp;2
-   * specifications, but it does not have a direct correspondence in SBML
-   * Level&nbsp;1.  (But, it is created by libSBML no matter whether the
-   * model is Level&nbsp;1, Level&nbsp;2 or Level&nbsp;3.)
+   * @copydetails doc_what_is_SBMLDocument
    *
    * This method allows the caller to obtain the SBMLDocument for the
    * current object.
@@ -889,14 +780,7 @@ public:
   /**
    * Returns the SBMLDocument object containing @em this object instance.
    *
-   * LibSBML uses the class SBMLDocument as a top-level container for
-   * storing SBML content and data associated with it (such as warnings and
-   * error messages).  An SBML model in libSBML is contained inside an
-   * SBMLDocument object.  SBMLDocument corresponds roughly to the class
-   * <i>SBML</i> defined in the SBML Level&nbsp;3 and Level&nbsp;2
-   * specifications, but it does not have a direct correspondence in SBML
-   * Level&nbsp;1.  (But, it is created by libSBML no matter whether the
-   * model is Level&nbsp;1, Level&nbsp;2 or Level&nbsp;3.)
+   * @copydetails doc_what_is_SBMLDocument
    *
    * This method allows the caller to obtain the SBMLDocument for the
    * current object.
@@ -1184,7 +1068,7 @@ public:
   /**
    * Predicate returning @c true if this object's "metaid" attribute is set.
    *
-   * @htmlinclude what-is-metaid.html 
+   * @copydetails doc_what_is_metaid 
    *
    * @return @c true if the "metaid" attribute of this SBML object is
    * set, @c false otherwise.
@@ -1387,7 +1271,7 @@ public:
   /**
    * Sets the value of the meta-identifier attribute of this object.
    *
-   * @htmlinclude what-is-metaid.html 
+   * @copydetails doc_what_is_metaid 
    *
    * The string @p metaid is copied.  
    *
@@ -1427,8 +1311,9 @@ public:
    * Sets the value of the "id" attribute of this SBML object to a copy
    * of @p id.
    *
-   * The string @p sid is copied.  Note that SBML has strict requirements
-   * for the syntax of identifiers.  @htmlinclude id-syntax.html
+   * The string @p sid is copied.
+   *
+   * @copydetails doc_id_syntax
    *
    * @param sid the string to use as the identifier of this object
    *
@@ -2006,6 +1891,8 @@ s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></b
   /**
    * Sets the parent SBMLDocument of this SBML object.
    *
+   * @copydetails doc_what_is_SBMLDocument
+   * 
    * @param d the SBMLDocument object to use
    *
    * @see connectToChild()
@@ -2136,7 +2023,7 @@ s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></b
   /**
    * Unsets the value of the "metaid" attribute of this SBML object.
    *
-   * @htmlinclude what-is-metaid.html 
+   * @copydetails doc_what_is_metaid 
    *  
    * @return integer value indicating success/failure of the
    * function.  The possible values returned by this function are:
@@ -2564,6 +2451,8 @@ s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></b
    * Returns the SBML Level of the SBMLDocument object containing this
    * object.
    * 
+   * @copydetails doc_what_is_SBMLDocument
+   * 
    * @return the SBML level of this SBML object.
    * 
    * @see getVersion()
@@ -2576,6 +2465,8 @@ s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></b
   /**
    * Returns the Version within the SBML Level of the SBMLDocument object
    * containing this object.
+   * 
+   * @copydetails doc_what_is_SBMLDocument
    * 
    * @return the SBML version of this SBML object.
    *
@@ -2717,7 +2608,7 @@ s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></b
    * Returns a plug-in object (extension interface) for an SBML Level&nbsp;3
    * package extension with the given package name or URI.
    *
-   * @htmlinclude what-are-plugins.html
+   * @copydetails doc_what_are_plugins
    *
    * @param package the name or URI of the package
    *
@@ -2731,7 +2622,7 @@ s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></b
    * Returns a plug-in object (extension interface) for an SBML Level&nbsp;3
    * package extension with the given package name or URI.
    *
-   * @htmlinclude what-are-plugins.html
+   * @copydetails doc_what_are_plugins
    *
    * @param package the name or URI of the package
    *
@@ -2745,7 +2636,7 @@ s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></b
    * Returns the nth plug-in object (extension interface) for an SBML Level&nbsp;3
    * package extension.
    *
-   * @htmlinclude what-are-plugins.html
+   * @copydetails doc_what_are_plugins
    *
    * @param n the index of the plug-in to return
    *
@@ -2759,7 +2650,7 @@ s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></b
    * Returns the nth plug-in object (extension interface) for an SBML Level&nbsp;3
    * package extension.
    *
-   * @htmlinclude what-are-plugins.html
+   * @copydetails doc_what_are_plugins
    *
    * @param n the index of the plug-in to return
    *
@@ -2773,7 +2664,7 @@ s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></b
    * Returns the number of plug-in objects (extenstion interfaces) for SBML
    * Level&nbsp;3 package extensions known.
    *
-   * @htmlinclude what-are-plugins.html
+   * @copydetails doc_what_are_plugins
    *
    * @return the number of plug-in objects (extension interfaces) of
    * package extensions known by this instance of libSBML.
@@ -3047,6 +2938,8 @@ s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></b
    * Returns @c true if this object's set of XML namespaces are the same
    * as the given object's XML namespaces.
    *
+   * @copydetails doc_what_are_sbmlnamespaces
+   *
    * @param sb an object to compare with respect to namespaces
    *
    * @return boolean, @c true if this object's collection of namespaces is
@@ -3058,6 +2951,8 @@ s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></b
   /**
    * Returns @c true if this object's set of XML namespaces are the same
    * as the given object's XML namespaces.
+   *
+   * @copydetails doc_what_are_sbmlnamespaces
    *
    * @param sb an object to compare with respect to namespaces
    *
@@ -3071,6 +2966,8 @@ s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></b
    * Returns @c true if this object's set of XML namespaces are a subset
    * of the given object's XML namespaces.
    *
+   * @copydetails doc_what_are_sbmlnamespaces
+   *
    * @param sb an object to compare with respect to namespaces
    *
    * @return boolean, @c true if this object's collection of namespaces is
@@ -3083,6 +2980,8 @@ s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></b
    * Returns @c true if this object's set of XML namespaces are a subset
    * of the given object's XML namespaces.
    *
+   * @copydetails doc_what_are_sbmlnamespaces
+   *
    * @param sb an object to compare with respect to namespaces
    *
    * @return boolean, @c true if this object's collection of namespaces is
@@ -3094,7 +2993,7 @@ s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></b
   /**
    * Sets the user data of this element.
    *
-   * @htmlinclude what-is-user-data.html 
+   * @copydetails doc_sbase_what_is_user_data 
    * 
    * @param userData specifies the new user data. 
    *
@@ -3109,7 +3008,7 @@ s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></b
   /**
    * Returns the user data that has been previously set via setUserData().
    *
-   * @htmlinclude what-is-user-data.html 
+   * @copydetails doc_sbase_what_is_user_data 
    *
    * @return the user data of this node, or @c NULL if no user data has been set.
    * 

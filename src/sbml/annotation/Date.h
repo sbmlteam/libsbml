@@ -43,37 +43,34 @@
  * YYYY-MM-DDThh:mm:ssXHH:ZZ (e.g., <code>1997-07-16T19:20:30+01:00</code>)
  * where XHH:ZZ is the time zone offset.  The libSBML Date object contains
  * the following fields to represent these values:
- * <ul>
  * 
- * <li> @em year: an unsigned int representing the year.  This should be a
+ * @li @em year: an unsigned int representing the year.  This should be a
  * four-digit number such as @c 2011.
  * 
- * <li> @em month: an unsigned int representing the month, with a range of
+ * @li @em month: an unsigned int representing the month, with a range of
  * values of 1&ndash;12.  The value @c 1 represents January, and so on.
  *
- * <li> @em day: an unsigned int representing the day of the month, with a
+ * @li @em day: an unsigned int representing the day of the month, with a
  * range of values of 1&ndash;31.
  * 
- * <li> @em hour: an unsigned int representing the hour on a 24-hour clock,
+ * @li @em hour: an unsigned int representing the hour on a 24-hour clock,
  * with a range of values of 0&ndash;23.
  * 
- * <li> @em minute: an unsigned int representing the minute, with a range
+ * @li @em minute: an unsigned int representing the minute, with a range
  * of 0&ndash;59.
  * 
- * <li> @em second: an unsigned int representing the second, with a range
+ * @li @em second: an unsigned int representing the second, with a range
  * of 0&ndash;59.
  * 
- * <li> @em sign: an unsigned int representing the sign of the offset (@c 0
+ * @li @em sign: an unsigned int representing the sign of the offset (@c 0
  * signifying @c + and @c 1 signifying @c -).  See the paragraph below for
  * further explanations.
  * 
- * <li> @em hours offset: an unsigned int representing the time zone's hour
+ * @li @em hours offset: an unsigned int representing the time zone's hour
  * offset from GMT.
  * 
- * <li> @em minute offset: an unsigned int representing the time zone's
+ * @li @em minute offset: an unsigned int representing the time zone's
  * minute offset from GMT.
- * 
- * </ul>
  *
  * To illustrate the time zone offset, a value of <code>-05:00</code> would
  * correspond to USA Eastern Standard Time.  In the Date object, this would
@@ -118,6 +115,56 @@
     </annotation>
 </model>@endverbatim
  */
+
+/**
+ * <!-- ~ ~ ~ ~ ~ Start of common documentation strings ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+ * The following text is used as common documentation blocks copied multiple
+ * times elsewhere in this file.  The use of @class is a hack needed because
+ * Doxygen's @copydetails command has limited functionality.  Symbols
+ * beginning with "doc_" are marked as ignored in our Doxygen configuration.
+ * ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~  -->
+ *
+ * @class doc_date_string_format
+ *
+ * @par
+ * The date format expresses a date and time value as a string of the form
+ * YYYY-MM-DDThh:mm:ssXHH:ZZ, where
+ * 
+ * @li @em YYYY is a four-digit integer representing the year.  This
+ * should be a four-digit number such as @c 2011.
+ * 
+ * @li @em MM is a two-digit integer representing the month, with a range
+ * of values of 01&ndash;12.  The value @c 1 represents January, and so
+ * on.
+ *
+ * @li @em DD is a two-digit integer representing the day of the month,
+ * with a range of values of 01&ndash;31.
+ * 
+ * @li @em hh is a two-digit integer representing the hour on a 24-hour
+ * clock, with a range of values of 00&ndash;23.
+ * 
+ * @li @em mm is a two-digit integer representing the minute, with a
+ * range of 00&ndash;59.
+ * 
+ * @li @em ss is a two-digit integer representing the second, with a
+ * range of 0&ndash;59.
+ * 
+ * @li @em X is the the sign of the time zone offset, either @c + or
+ * <code>-</code>.
+ *
+ * @li @em HH is a two-digit integer representing the hour of the time
+ * zone offset, with a range of 00&ndash;23.
+ *
+ * @li @em ZZ is a two-digit integer representing the minutes of the time
+ * zone offset, with a range of 00&ndash;59.
+ *
+ * In the string format above, it is important not to forget the literal
+ * character @c T in the string.  Here is an example date/time string:
+ * <code>1997-07-16T19:20:30+01:00</code>, which would represent July 16,
+ * 1997, at 19:20:30 in Central European Time (which is UTC +1:00).
+ * <!-- ~ ~ ~ ~ ~ ~ End of common documentation strings ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ -->
+ */
+
 
 #ifndef Date_h
 #define Date_h
@@ -205,44 +252,8 @@ public:
    * This constructor expects its argument to be in the <a target="_blank"
    * href="http://www.w3.org/TR/NOTE-datetime">W3C date format with time
    * zone offset</a>, used in RDF Dublin Core annotations within SBML.
-   * This format expresses a date and time value as a string of the form
-   * YYYY-MM-DDThh:mm:ssXHH:ZZ, where
-   * <ul>
    * 
-   * <li> @em YYYY is a four-digit integer representing the year.  This
-   * should be a four-digit number such as @c 2011.
-   * 
-   * <li> @em MM is a two-digit integer representing the month, with a range
-   * of values of 01&ndash;12.  The value @c 1 represents January, and so
-   * on.
-   *
-   * <li> @em DD is a two-digit integer representing the day of the month,
-   * with a range of values of 01&ndash;31.
-   * 
-   * <li> @em hh is a two-digit integer representing the hour on a 24-hour
-   * clock, with a range of values of 00&ndash;23.
-   * 
-   * <li> @em mm is a two-digit integer representing the minute, with a
-   * range of 00&ndash;59.
-   * 
-   * <li> @em ss is a two-digit integer representing the second, with a
-   * range of 0&ndash;59.
-   * 
-   * <li> @em X is the the sign of the time zone offset, either @c + or
-   * <code>-</code>.
-   *
-   * <li> @em HH is a two-digit integer representing the hour of the time
-   * zone offset, with a range of 00&ndash;23.
-   *
-   * <li> @em ZZ is a two-digit integer representing the minutes of the time
-   * zone offset, with a range of 00&ndash;59.
-   *
-   * </ul>
-   *
-   * In the string format above, it is important not to forget the literal
-   * character @c T in the string.  Here is an example date/time string:
-   * <code>1997-07-16T19:20:30+01:00</code>, which would represent July 16,
-   * 1997, at 19:20:30 in Central European Time (which is UTC +1:00).
+   * @copydetails doc_date_string_format 
    *
    * If this constructor is given a @c NULL argument or a string of length
    * zero, it constructs a Date object with the value of January 1, 2000,
@@ -369,43 +380,8 @@ public:
    * The string returned will be in the <a target="_blank"
    * href="http://www.w3.org/TR/NOTE-datetime">W3C date format with time
    * zone offset</a>, used in RDF Dublin Core annotations within SBML.
-   * This format expresses a date and time value as a string of the form
-   * YYYY-MM-DDThh:mm:ssXHH:ZZ, where
-   * <ul>
-   * 
-   * <li> @em YYYY is a four-digit integer representing the year.  This
-   * should be a four-digit number such as @c 2011.
-   * 
-   * <li> @em MM is a two-digit integer representing the month, with a range
-   * of values of 01&ndash;12.  The value @c 1 represents January, and so
-   * on.
    *
-   * <li> @em DD is a two-digit integer representing the day of the month,
-   * with a range of values of 01&ndash;31.
-   * 
-   * <li> @em hh is a two-digit integer representing the hour on a 24-hour
-   * clock, with a range of values of 00&ndash;23.
-   * 
-   * <li> @em mm is a two-digit integer representing the minute, with a
-   * range of 00&ndash;59.
-   * 
-   * <li> @em ss is a two-digit integer representing the second, with a
-   * range of 0&ndash;59.
-   * 
-   * <li> @em X is the the sign of the time zone offset, either @c + or
-   * <code>-</code>.
-   *
-   * <li> @em HH is a two-digit integer representing the hour of the time
-   * zone offset, with a range of 00&ndash;23.
-   *
-   * <li> @em ZZ is a two-digit integer representing the minutes of the time
-   * zone offset, with a range of 00&ndash;59.
-   *
-   * </ul>
-   *
-   * An example date/time string is <code>1997-07-16T19:20:30+01:00</code>,
-   * which represents July 16, 1997, at 19:20:30 in Central European Time
-   * (which is UTC +1:00).
+   * @copydetails doc_date_string_format 
    *
    * @return the date as a string.
    */
@@ -571,43 +547,8 @@ public:
    * This method expects its argument to be in the <a target="_blank"
    * href="http://www.w3.org/TR/NOTE-datetime">W3C date format with time
    * zone offset</a>, used in RDF Dublin Core annotations within SBML.
-   * This format expresses a date and time value as a string of the form
-   * YYYY-MM-DDThh:mm:ssXHH:ZZ, where <ul>
-   * 
-   * <li> @em YYYY is a four-digit integer representing the year.  This
-   * should be a four-digit number such as @c 2011.
-   * 
-   * <li> @em MM is a two-digit integer representing the month, with a range
-   * of values of 01&ndash;12.  The value @c 1 represents January, and so
-   * on.
    *
-   * <li> @em DD is a two-digit integer representing the day of the month,
-   * with a range of values of 01&ndash;31.
-   * 
-   * <li> @em hh is a two-digit integer representing the hour on a 24-hour
-   * clock, with a range of values of 00&ndash;23.
-   * 
-   * <li> @em mm is a two-digit integer representing the minute, with a
-   * range of 00&ndash;59.
-   * 
-   * <li> @em ss is a two-digit integer representing the second, with a
-   * range of 0&ndash;59.
-   * 
-   * <li> @em X is the the sign of the time zone offset, either @c + or
-   * <code>-</code>.
-   *
-   * <li> @em HH is a two-digit integer representing the hour of the time
-   * zone offset, with a range of 00&ndash;23.
-   *
-   * <li> @em ZZ is a two-digit integer representing the minutes of the time
-   * zone offset, with a range of 00&ndash;59.
-   *
-   * </ul>
-   *
-   * In the string format above, it is important not to forget the literal
-   * character @c T in the string.  Here is an example date/time string:
-   * <code>1997-07-16T19:20:30+01:00</code>, which would represent July 16,
-   * 1997, at 19:20:30 in Central European Time (which is UTC +1:00).
+   * @copydetails doc_date_string_format 
    *
    * If this method is given a @c NULL argument or a string of length zero,
    * it constructs a Date object with the value of January 1, 2000, at time

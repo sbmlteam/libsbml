@@ -165,18 +165,88 @@
  *
  * @see Event
  *
- *
+ * 
+ * <!-- ------------------------------------------------------------------- -->
  * @class ListOfEventAssignments 
  * @ingroup core
  * @brief Implementation of SBML's %ListOfEventAssignments construct.
+ * 
+ * @copydetails doc_what_is_listof
+ */
+
+/**
+ * <!-- ~ ~ ~ ~ ~ Start of common documentation strings ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+ * The following text is used as common documentation blocks copied multiple
+ * times elsewhere in this file.  The use of @class is a hack needed because
+ * Doxygen's @copydetails command has limited functionality.  Symbols
+ * beginning with "doc_" are marked as ignored in our Doxygen configuration.
+ * ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~  -->
+ * 
+ * @class doc_note_eventassignment_setting_lv
+ * 
+ * @note Upon the addition of a EventAssignment object to an SBMLDocument
+ * (e.g., using Event::addEventAssignment(@if java EventAssignment ea@endif)), 
+ * the SBML Level, SBML Version and XML namespace of the document @em
+ * override the values used when creating the EventAssignment object via
+ * this constructor.  This is necessary to ensure that an SBML document
+ * is a consistent structure.  Nevertheless, the ability to supply the
+ * values at the time of creation of a EventAssignment is an important
+ * aid to producing valid SBML.  Knowledge of the intented SBML Level and
+ * Version determine whether it is valid to assign a particular value to
+ * an attribute, or whether it is valid to add an object to an existing
+ * SBMLDocument.
  *
- * The various ListOf___ classes in %SBML are merely containers used for
- * organizing the main components of an %SBML model.  All are derived from
- * the abstract class SBase, and inherit the various attributes and
- * subelements of SBase, such as "metaid" as and "annotation".  The
- * ListOf___ classes do not add any attributes of their own.
+ * @class doc_eventassignment_units
  *
- * ListOfEventAssignments is entirely contained within Event.
+ * @par
+ * The units are calculated based on the mathematical expression in the
+ * Rule and the model quantities referenced by <code>&lt;ci&gt;</code>
+ * elements used within that expression.  The method
+ * Rule::getDerivedUnitDefinition() returns the calculated units, to the
+ * extent that libSBML can compute them.
+ *
+ * @class doc_warning_eventassignment_math_literals
+ * 
+ * @warning Note that it is possible the "math" expression in the
+ * EventAssignment contains literal numbers or parameters with undeclared
+ * units.  In those cases, it is not possible to calculate the units of the
+ * overall expression without making assumptions.  LibSBML does not make
+ * assumptions about the units, and
+ * EventAssignment::getDerivedUnitDefinition() only returns the units as far
+ * as it is able to determine them.  For example, in an expression <em>X +
+ * Y</em>, if <em>X</em> has unambiguously-defined units and <em>Y</em> does
+ * not, it will return the units of <em>X</em>.  When using this method,
+ * <strong>it is critical that callers also invoke the method</strong>
+ * EventAssignment::containsUndeclaredUnits() <strong>to determine whether
+ * this situation holds</strong>.  Callers should take suitable action in
+ * those situations.
+ *
+ * @class doc_eventassignment_units
+ *
+ * @par
+ * The units are calculated based on the mathematical expression in the
+ * EventAssignment and the model quantities referenced by
+ * <code>&lt;ci&gt;</code> elements used within that expression.  The method
+ * EventAssignment::getDerivedUnitDefinition() returns the calculated units,
+ * to the extent that libSBML can compute them.
+ *
+ * @class doc_warning_eventassignment_math_literals
+ * 
+ * @warning Note that it is possible the "math" expression in the
+ * EventAssignment contains literal numbers or parameters with undeclared
+ * units.  In those cases, it is not possible to calculate the units of the
+ * overall expression without making assumptions.  LibSBML does not make
+ * assumptions about the units, and
+ * EventAssignment::getDerivedUnitDefinition() only returns the units as far
+ * as it is able to determine them.  For example, in an expression <em>X +
+ * Y</em>, if <em>X</em> has unambiguously-defined units and <em>Y</em> does
+ * not, it will return the units of <em>X</em>.  When using this method,
+ * <strong>it is critical that callers also invoke the method</strong>
+ * EventAssignment::containsUndeclaredUnits() <strong>to determine whether
+ * this situation holds</strong>.  Callers should take suitable action in
+ * those situations.
+ *   
+ * <!-- ~ ~ ~ ~ ~ ~ End of common documentation strings ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ -->
  */
 
 #ifndef EventAssignment_h
@@ -218,18 +288,8 @@ public:
    * Thrown if the given @p level and @p version combination, or this kind
    * of SBML object, are either invalid or mismatched with respect to the
    * parent SBMLDocument object.
-   * 
-   * @note Upon the addition of a EventAssignment object to an SBMLDocument
-   * (e.g., using Event::addEventAssignment(@if java EventAssignment ea@endif)), 
-   * the SBML Level, SBML Version and XML namespace of the document @em
-   * override the values used when creating the EventAssignment object via
-   * this constructor.  This is necessary to ensure that an SBML document
-   * is a consistent structure.  Nevertheless, the ability to supply the
-   * values at the time of creation of a EventAssignment is an important
-   * aid to producing valid SBML.  Knowledge of the intented SBML Level and
-   * Version determine whether it is valid to assign a particular value to
-   * an attribute, or whether it is valid to add an object to an existing
-   * SBMLDocument.
+   *
+   * @copydetails doc_note_eventassignment_setting_lv
    */
   EventAssignment (unsigned int level, unsigned int version);
 
@@ -238,12 +298,7 @@ public:
    * Creates a new EventAssignment using the given SBMLNamespaces object
    * @p sbmlns.
    *
-   * The SBMLNamespaces object encapsulates SBML Level/Version/namespaces
-   * information.  It is used to communicate the SBML Level, Version, and
-   * (in Level&nbsp;3) packages used in addition to SBML Level&nbsp;3 Core.
-   * A common approach to using this class constructor is to create an
-   * SBMLNamespaces object somewhere in a program, once, then pass it to
-   * object constructors such as this one when needed.
+   * @copydetails doc_what_are_sbmlnamespaces 
    *
    * @param sbmlns an SBMLNamespaces object.
    *
@@ -252,17 +307,7 @@ public:
    * of SBML object, are either invalid or mismatched with respect to the
    * parent SBMLDocument object.
    *
-   * @note Upon the addition of a EventAssignment object to an SBMLDocument
-   * (e.g., using Event::addEventAssignment(@if java EventAssignment ea@endif)),
-   * the SBML XML namespace of the document @em overrides the value used
-   * when creating the EventAssignment object via this constructor.  This
-   * is necessary to ensure that an SBML document is a consistent
-   * structure.  Nevertheless, the ability to supply the values at the time
-   * of creation of a EventAssignment is an important aid to producing
-   * valid SBML.  Knowledge of the intented SBML Level and Version
-   * determine whether it is valid to assign a particular value to an
-   * attribute, or whether it is valid to add an object to an existing
-   * SBMLDocument.
+   * @copydetails doc_note_eventassignment_setting_lv
    */
   EventAssignment (SBMLNamespaces* sbmlns);
 
@@ -391,34 +436,14 @@ public:
 
 
   /**
-   * Calculates and returns a UnitDefinition that expresses the units
-   * of measurement assumed for the "math" expression of this
-   * EventAssignment.
+   * Calculates and returns a UnitDefinition that expresses the units of
+   * measurement assumed for the "math" expression of this EventAssignment.
    *
-   * The units are calculated based on the mathematical expression in the
-   * EventAssignment and the model quantities referenced by
-   * <code>&lt;ci&gt;</code> elements used within that expression.  The
-   * EventAssignment::getDerivedUnitDefinition() method returns the
-   * calculated units.
+   * @copydetails doc_eventassignment_units 
    *
-   * Note that the functionality that facilitates unit analysis depends 
-   * on the model as a whole.  Thus, in cases where the object has not 
-   * been added to a model or the model itself is incomplete,
-   * unit analysis is not possible and this method will return @c NULL.
+   * @copydetails doc_note_unit_inference_depends_on_model 
    *
-   * @warning Note that it is possible the "math" expression in the
-   * EventAssignment contains literal numbers or parameters with undeclared
-   * units.  In those cases, it is not possible to calculate the units of
-   * the overall expression without making assumptions.  LibSBML does not
-   * make assumptions about the units, and
-   * EventAssignment::getDerivedUnitDefinition() only returns the units as
-   * far as it is able to determine them.  For example, in an expression
-   * <em>X + Y</em>, if <em>X</em> has unambiguously-defined units and
-   * <em>Y</em> does not, it will return the units of <em>X</em>.  When
-   * using this method, <strong>it is critical that callers also invoke the
-   * method</strong> EventAssignment::containsUndeclaredUnits() <strong>to
-   * determine whether this situation holds</strong>.  Callers should take
-   * suitable action in those situations.
+   * @copydetails doc_warning_eventassignment_math_literals
    * 
    * @return a UnitDefinition that expresses the units of the math 
    * expression of this EventAssignment, or @c NULL if one cannot be constructed.
@@ -429,34 +454,14 @@ public:
 
 
   /**
-   * Calculates and returns a UnitDefinition that expresses the units
-   * of measurement assumed for the "math" expression of this
-   * EventAssignment.
+   * Calculates and returns a UnitDefinition that expresses the units of
+   * measurement assumed for the "math" expression of this EventAssignment.
    *
-   * The units are calculated based on the mathematical expression in the
-   * EventAssignment and the model quantities referenced by
-   * <code>&lt;ci&gt;</code> elements used within that expression.  The
-   * EventAssignment::getDerivedUnitDefinition() method returns the
-   * calculated units.
+   * @copydetails doc_eventassignment_units 
    *
-   * Note that the functionality that facilitates unit analysis depends 
-   * on the model as a whole.  Thus, in cases where the object has not 
-   * been added to a model or the model itself is incomplete,
-   * unit analysis is not possible and this method will return @c NULL.
+   * @copydetails doc_note_unit_inference_depends_on_model 
    *
-   * @warning Note that it is possible the "math" expression in the
-   * EventAssignment contains literal numbers or parameters with undeclared
-   * units.  In those cases, it is not possible to calculate the units of
-   * the overall expression without making assumptions.  LibSBML does not
-   * make assumptions about the units, and
-   * EventAssignment::getDerivedUnitDefinition() only returns the units as
-   * far as it is able to determine them.  For example, in an expression
-   * <em>X + Y</em>, if <em>X</em> has unambiguously-defined units and
-   * <em>Y</em> does not, it will return the units of <em>X</em>.  When
-   * using this method, <strong>it is critical that callers also invoke the
-   * method</strong> EventAssignment::containsUndeclaredUnits() <strong>to
-   * determine whether this situation holds</strong>.  Callers should take
-   * suitable action in those situations.
+   * @copydetails doc_warning_eventassignment_math_literals
    * 
    * @return a UnitDefinition that expresses the units of the math 
    * expression of this EventAssignment, or @c NULL if one cannot be constructed.
@@ -467,17 +472,16 @@ public:
 
 
   /**
-   * Predicate returning @c true if the math
-   * expression of this EventAssignment contains literal numbers or
-   * parameters with undeclared units.
+   * Predicate returning @c true if the math expression of this
+   * EventAssignment contains literal numbers or parameters with undeclared
+   * units.
    *
-   * The EventAssignment::getDerivedUnitDefinition() method returns what
-   * libSBML computes to be the units of the "math", to the extent that
-   * libSBML can compute them.  However, if the expression contains literal
-   * numbers or parameters with undeclared units, libSBML may not be able
-   * to compute the full units of the expression and will only return what
-   * it can compute.  Callers should always use
-   * EventAssignment::containsUndeclaredUnits() when using
+   * @copydetails doc_eventassignment_units
+   *
+   * If the expression contains literal numbers or parameters with undeclared
+   * units, libSBML may not be able to compute the full units of the
+   * expression and will only return what it can compute.  Callers should
+   * always use EventAssignment::containsUndeclaredUnits() when using
    * EventAssignment::getDerivedUnitDefinition() to decide whether the
    * returned units may be incomplete.
    * 
@@ -495,17 +499,16 @@ public:
 
 
   /**
-   * Predicate returning @c true if the math
-   * expression of this EventAssignment contains literal numbers or
-   * parameters with undeclared units.
+   * Predicate returning @c true if the math expression of this
+   * EventAssignment contains literal numbers or parameters with undeclared
+   * units.
    *
-   * The EventAssignment::getDerivedUnitDefinition() method returns what
-   * libSBML computes to be the units of the "math", to the extent that
-   * libSBML can compute them.  However, if the expression contains literal
-   * numbers or parameters with undeclared units, libSBML may not be able
-   * to compute the full units of the expression and will only return what
-   * it can compute.  Callers should always use
-   * EventAssignment::containsUndeclaredUnits() when using
+   * @copydetails doc_eventassignment_units
+   *
+   * If the expression contains literal numbers or parameters with undeclared
+   * units, libSBML may not be able to compute the full units of the
+   * expression and will only return what it can compute.  Callers should
+   * always use EventAssignment::containsUndeclaredUnits() when using
    * EventAssignment::getDerivedUnitDefinition() to decide whether the
    * returned units may be incomplete.
    * 
@@ -525,29 +528,10 @@ public:
   /**
    * Returns the libSBML type code of this object instance.
    *
-   * @if clike LibSBML attaches an identifying code to every kind of SBML
-   * object.  These are known as <em>SBML type codes</em>.  The set of
-   * possible type codes is defined in the enumeration #SBMLTypeCode_t.
-   * The names of the type codes all begin with the characters @c
-   * SBML_. @endif@if java LibSBML attaches an identifying code to every
-   * kind of SBML object.  These are known as <em>SBML type codes</em>.  In
-   * other languages, the set of type codes is stored in an enumeration; in
-   * the Java language interface for libSBML, the type codes are defined as
-   * static integer constants in the interface class {@link
-   * libsbmlConstants}.  The names of the type codes all begin with the
-   * characters @c SBML_. @endif@if python LibSBML attaches an identifying
-   * code to every kind of SBML object.  These are known as <em>SBML type
-   * codes</em>.  In the Python language interface for libSBML, the type
-   * codes are defined as static integer constants in the interface class
-   * @link libsbml@endlink.  The names of the type codes all begin with the
-   * characters @c SBML_. @endif@if csharp LibSBML attaches an identifying
-   * code to every kind of SBML object.  These are known as <em>SBML type
-   * codes</em>.  In the C# language interface for libSBML, the type codes
-   * are defined as static integer constants in the interface class @link
-   * libsbmlcs.libsbml@endlink.  The names of the type codes all begin with
-   * the characters @c SBML_. @endif@~
+   * @copydetails doc_what_are_typecodes
    *
-   * @return the SBML type code for this object, or @link SBMLTypeCode_t#SBML_UNKNOWN SBML_UNKNOWN@endlink (default).
+   * @return the SBML type code for this object, or
+   * @link SBMLTypeCode_t#SBML_UNKNOWN SBML_UNKNOWN@endlink (default).
    *
    * @see getElementName()
    */
@@ -574,9 +558,8 @@ public:
 
 
   /**
-   * Predicate returning @c true if
-   * all the required attributes for this EventAssignment object
-   * have been set.
+   * Predicate returning @c true if all the required attributes for this
+   * EventAssignment object have been set.
    *
    * @note The required attributes for a EventAssignment object are:
    * @li "variable"
@@ -588,9 +571,8 @@ public:
 
 
   /**
-   * Predicate returning @c true if
-   * all the required elements for this EventAssignment object
-   * have been set.
+   * Predicate returning @c true if all the required elements for this
+   * EventAssignment object have been set.
    *
    * @note The required elements for a EventAssignment object are:
    * @li "math"
@@ -620,7 +602,7 @@ public:
    * Renames all the @c SIdRef attributes on this element, including any
    * found in MathML.
    *
-   * @htmlinclude what-is-sidref.html
+   * @copydetails doc_what_is_sidref
    * 
    * This method works by looking at all attributes and (if appropriate)
    * mathematical formulas, comparing the identifiers to the value of @p
@@ -636,7 +618,7 @@ public:
   /**
    * Renames all the @c UnitSIdRef attributes on this element.
    *
-   * @htmlinclude what-is-unitsidref.html
+   * @copydetails doc_what_is_unitsidref
    *
    * This method works by looking at all unit identifier attribute values
    * (including, if appropriate, inside mathematical formulas), comparing the
@@ -781,29 +763,10 @@ public:
   /**
    * Returns the libSBML type code for this %SBML object.
    *
-   * @if clike LibSBML attaches an identifying code to every kind of SBML
-   * object.  These are known as <em>SBML type codes</em>.  The set of
-   * possible type codes is defined in the enumeration #SBMLTypeCode_t.
-   * The names of the type codes all begin with the characters @c
-   * SBML_. @endif@if java LibSBML attaches an identifying code to every
-   * kind of SBML object.  These are known as <em>SBML type codes</em>.  In
-   * other languages, the set of type codes is stored in an enumeration; in
-   * the Java language interface for libSBML, the type codes are defined as
-   * static integer constants in the interface class {@link
-   * libsbmlConstants}.  The names of the type codes all begin with the
-   * characters @c SBML_. @endif@if python LibSBML attaches an identifying
-   * code to every kind of SBML object.  These are known as <em>SBML type
-   * codes</em>.  In the Python language interface for libSBML, the type
-   * codes are defined as static integer constants in the interface class
-   * @link libsbml@endlink.  The names of the type codes all begin with the
-   * characters @c SBML_. @endif@if csharp LibSBML attaches an identifying
-   * code to every kind of SBML object.  These are known as <em>SBML type
-   * codes</em>.  In the C# language interface for libSBML, the type codes
-   * are defined as static integer constants in the interface class @link
-   * libsbmlcs.libsbml@endlink.  The names of the type codes all begin with
-   * the characters @c SBML_. @endif@~
+   * @copydetails doc_what_are_typecodes
    *
-   * @return the SBML type code for this object, or @link SBMLTypeCode_t#SBML_UNKNOWN SBML_UNKNOWN@endlink (default).
+   * @return the SBML type code for this object, or
+   * @link SBMLTypeCode_t#SBML_UNKNOWN SBML_UNKNOWN@endlink (default).
    *
    * @see getElementName()
    */
@@ -814,30 +777,10 @@ public:
    * Returns the libSBML type code for the objects contained in this ListOf
    * (i.e., EventAssignment objects, if the list is non-empty).
    *
-   * @if clike LibSBML attaches an identifying code to every kind of SBML
-   * object.  These are known as <em>SBML type codes</em>.  The set of
-   * possible type codes is defined in the enumeration #SBMLTypeCode_t.
-   * The names of the type codes all begin with the characters @c
-   * SBML_. @endif@if java LibSBML attaches an identifying code to every
-   * kind of SBML object.  These are known as <em>SBML type codes</em>.  In
-   * other languages, the set of type codes is stored in an enumeration; in
-   * the Java language interface for libSBML, the type codes are defined as
-   * static integer constants in the interface class {@link
-   * libsbmlConstants}.  The names of the type codes all begin with the
-   * characters @c SBML_. @endif@if python LibSBML attaches an identifying
-   * code to every kind of SBML object.  These are known as <em>SBML type
-   * codes</em>.  In the Python language interface for libSBML, the type
-   * codes are defined as static integer constants in the interface class
-   * @link libsbml@endlink.  The names of the type codes all begin with the
-   * characters @c SBML_. @endif@if csharp LibSBML attaches an identifying
-   * code to every kind of SBML object.  These are known as <em>SBML type
-   * codes</em>.  In the C# language interface for libSBML, the type codes
-   * are defined as static integer constants in the interface class @link
-   * libsbmlcs.libsbml@endlink.  The names of the type codes all begin with
-   * the characters @c SBML_. @endif@~
-   * 
-   * @return the SBML type code for the objects contained in this ListOf
-   * instance, or @link SBMLTypeCode_t#SBML_UNKNOWN SBML_UNKNOWN@endlink (default).
+   * @copydetails doc_what_are_typecodes
+   *
+   * @return the SBML type code for the objects contained in this ListOf, or
+   * @link SBMLTypeCode_t#SBML_UNKNOWN SBML_UNKNOWN@endlink (default).
    *
    * @see getElementName()
    */
@@ -913,8 +856,8 @@ public:
 
 
   /**
-   * Removes the nth item from this ListOfEventAssignments items and returns a pointer to
-   * it.
+   * Removes the nth item from this ListOfEventAssignments items and returns
+   * a pointer to it.
    *
    * The caller owns the returned item and is responsible for deleting it.
    *
@@ -926,7 +869,8 @@ public:
 
 
   /**
-   * Removes item in this ListOfEventAssignments items with the given identifier.
+   * Removes item in this ListOfEventAssignments items with the given
+   * identifier.
    *
    * The caller owns the returned item and is responsible for deleting it.
    * If none of the items in this list have the identifier @p sid, then @c
@@ -941,7 +885,12 @@ public:
 
 
   /**
-   * Returns the first child element found that has the given @p id in the model-wide SId namespace, or @c NULL if no such object is found.  Note that EventAssignments do not actually have IDs, but the libsbml interface pretends that they do:  no event assignment is returned by this function.
+   * Returns the first child element found that has the given @p id in the
+   * model-wide SId namespace, or @c NULL if no such object is found.
+   *
+   * Note that EventAssignments do not actually have IDs, but the libsbml
+   * interface pretends that they do: no event assignment is returned by this
+   * function.
    *
    * @param id string representing the id of objects to find
    *

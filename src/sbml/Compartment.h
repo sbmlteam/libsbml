@@ -104,8 +104,58 @@
  * object in the enclosing Model, subject to the restrictions detailed in
  * the following table:
  *
- * @htmlinclude compartment-size-restrictions.html 
- *
+ * <table border="0" class="centered text-table width80 normal-font alt-row-colors"
+ *        style="padding-bottom: 0.5em">
+ * <caption class="top-caption">Restrictions on values permitted for
+ * compartment <code>size</code> and <code>units</code> attributes.</caption>
+ *  <tr>
+ *      <th align="left" valign="bottom">
+ *        Value of<br><code>spatialDimensions</code>
+ *      </th>
+ *      <th align="left" valign="bottom">
+ *        <code>size</code><br>allowed?
+ *      </th>
+ *      <th align="left" valign="bottom">
+ *        <code>units</code><br>allowed?
+ *      </th>
+ *      <th align="left" valign="bottom">
+ * 	  Allowable kinds of units
+ *      </th>
+ *      <th align="left" valign="bottom">
+ * 	  Default value of attribute <code>units</code>
+ *      </th>
+ *  </tr>
+ *  <tr>
+ *      <td>&quot;<code>3</code>&quot;</td>
+ *      <td>yes</td>
+ *      <td>yes</td>
+ *      <td>units of volume, or <code>dimensionless</code></td>
+ *      <td>&quot;<code>volume</code>&quot;</td>
+ *  </tr>
+ *  <tr>
+ *      <td>&quot;<code>2</code>&quot;</td>
+ *      <td>yes</td>
+ *      <td>yes</td>
+ *      <td>units of area, or <code>dimensionless</code></td>
+ *      <td>&quot;<code>area</code>&quot;</td>
+ *  </tr>
+ *  <tr>
+ *      <td>&quot;<code>1</code>&quot;</td>
+ *      <td>yes</td>
+ *      <td>yes</td>
+ *      <td>units of length, or <code>dimensionless</code></td>
+ *      <td>&quot;<code>length</code>&quot;</td>
+ *  </tr>
+ *  <tr>
+ *      <td>&quot;<code>0</code>&quot;</td>
+ *      <td>no</td>
+ *      <td>no</td>
+ *      <td>(no units allowed)</td>
+ *      <td></td>
+ *  </tr>
+ *  </tr>
+ * </table>
+ * 
  * In SBML Level&nbsp;2, the units of the compartment size, as defined by the
  * "units" attribute or (if "units" is not set) the default value listed in
  * the table above, are used in the following ways when the compartment has
@@ -204,7 +254,42 @@
  * that all models specify the units of measurement for all compartment
  * sizes.
  *
- * @htmlinclude compartment-size-recommendations.html
+ * <table border="0" class="centered text-table width80 normal-font alt-row-colors"
+ *        style="padding-bottom: 0.5em">
+ * <caption class="top-caption">Interpretation of the Compartment "units" attribute.</caption>
+ *  <tr>
+ *      <th align="left" valign="bottom">
+ *        Value of attribute<br>"spatialDimensions"
+ *      </th>
+ *      <th align="left" valign="bottom">
+ *        Attribute of Model used<br>for inheriting the unit
+ *      </th>
+ *      <th align="left" valign="bottom">
+ *        Recommended candidate units
+ *      </th>
+ *  </tr>
+ *  <tr>
+ *      <td>&quot;<code>3</code>&quot;</td>
+ *      <td>&quot;volumeUnits&quot;</td>
+ *      <td>units of volume, or <code>dimensionless</code></td>
+ *  </tr>
+ *  <tr>
+ *      <td>&quot;<code>2</code>&quot;</td>
+ *      <td>&quot;areaUnits&quot;</td>
+ *      <td>units of area, or <code>dimensionless</code></td>
+ *  </tr>
+ *  <tr>
+ *      <td>&quot;<code>1</code>&quot;</td>
+ *      <td>&quot;lengthUnits&quot;</td>
+ *      <td>units of length, or <code>dimensionless</code></td>
+ *  </tr>
+ *  <tr>
+ *      <td><em>other</em></td>
+ *      <td><em>no units inherited</em></td>
+ *      <td><em>no specific recommendations</em></td>
+ *  </tr>
+ *  </tr>
+ * </table>
  *
  * The unit of measurement associated with a compartment's size, as defined
  * by the "units" attribute or (if "units" is not set) the inherited value
@@ -266,49 +351,14 @@
  * the absence of a value for "outside", compartment definitions in SBML
  * Level&nbsp;2 do not have any implied spatial relationships between each
  * other.
+ *
  * 
- * 
- * <!-- leave this next break as-is to work around some doxygen bug -->
- */ 
-/**
+ * <!-- ------------------------------------------------------------------- -->
  * @class ListOfCompartments
  * @ingroup core
  * @brief Implementation of SBML Level&nbsp;2's %ListOfCompartments construct.
  * 
- * The various ListOf___ classes in SBML are merely containers used for
- * organizing the main components of an SBML model.  All are derived from
- * the abstract class SBase, and inherit the various attributes and
- * subelements of SBase, such as "metaid" as and "annotation".  The
- * ListOf___ classes do not add any attributes of their own.
- *
- * The relationship between the lists and the rest of an SBML model is
- * illustrated by the following (for SBML Level&nbsp;2 Version&nbsp;4):
- *
- * @image html listof-illustration.jpg "ListOf___ elements in an SBML Model"
- * @image latex listof-illustration.jpg "ListOf___ elements in an SBML Model"
- *
- * Readers may wonder about the motivations for using the ListOf___
- * containers.  A simpler approach in XML might be to place the components
- * all directly at the top level of the model definition.  The choice made
- * in SBML is to group them within XML elements named after
- * ListOf<em>Classname</em>, in part because it helps organize the
- * components.  More importantly, the fact that the container classes are
- * derived from SBase means that software tools can add information @em about
- * the lists themselves into each list container's "annotation".
- *
- * @see ListOfFunctionDefinitions
- * @see ListOfUnitDefinitions
- * @see ListOfCompartmentTypes
- * @see ListOfSpeciesTypes
- * @see ListOfCompartments
- * @see ListOfSpecies
- * @see ListOfParameters
- * @see ListOfInitialAssignments
- * @see ListOfRules
- * @see ListOfConstraints
- * @see ListOfReactions
- * @see ListOfEvents
- *
+ * @copydetails doc_what_is_listof
  */
 
 /**
@@ -318,20 +368,6 @@
  * Doxygen's @copydetails command has limited functionality.  Symbols
  * beginning with "doc_" are marked as ignored in our Doxygen configuration.
  * ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~  -->
- *
- * @class doc_note_setting_level_version
- *
- * @note Upon the addition of a Compartment object to an SBMLDocument (e.g.,
- * using Model::addCompartment(@if java Compartment c@endif)), the SBML
- * Level, SBML Version and XML namespace of the document @em override the
- * values used when creating the Compartment object via the Compartment
- * constructors.  This is necessary to ensure that an SBML document has a
- * consistent overall structure.  Nevertheless, the ability to supply the
- * values at the time of creation of a Compartment is an important aid to
- * producing valid SBML.  Knowledge of the intented SBML Level and Version
- * determine whether it is valid to assign a particular value to an
- * attribute, or whether it is valid to add an object to an existing
- * SBMLDocument.
  *
  * @class doc_compartment_units
  *
@@ -357,17 +393,7 @@
  * useful in conjunction with the helper methods provided by the
  * UnitDefinition class for comparing different UnitDefinition objects.
  *
- * @class doc_note_volume
- *
- * @note The attribute "volume" only exists by that name in SBML
- * Level&nbsp;1.  In Level&nbsp;2 and above, the equivalent attribute is
- * named "size".  In SBML Level&nbsp;1, a compartment's volume has a default
- * value (@c 1.0) and therefore methods such as Compartment::isSetVolume()
- * will always return @c true for a Level&nbsp;1 model.  In Level&nbsp;2, a
- * compartment's size (the equivalent of SBML Level&nbsp;1's "volume") is
- * optional and has no default value, and therefore may or may not be set.
- *
- * @class doc_both_size_and_volume
+ * @class doc_compartment_both_size_and_volume
  *
  * @par
  * In SBML Level&nbsp;1, compartments are always three-dimensional
@@ -377,31 +403,30 @@
  * provides both Compartment::getSize() and Compartment::getVolume() for
  * easier support of different SBML Levels.
  *
- * @class doc_typecodes
+ * @class doc_note_compartment_setting_lv
  *
- * @par 
- * @if clike LibSBML attaches an identifying code to every kind of SBML
- * object.  These are known as <em>SBML type codes</em>.  The set of
- * possible type codes is defined in the enumeration #SBMLTypeCode_t.
- * The names of the type codes all begin with the characters @c
- * SBML_. @endif@if java LibSBML attaches an identifying code to every
- * kind of SBML object.  These are known as <em>SBML type codes</em>.  In
- * other languages, the set of type codes is stored in an enumeration; in
- * the Java language interface for libSBML, the type codes are defined as
- * static integer constants in the interface class {@link
- * libsbmlConstants}.  The names of the type codes all begin with the
- * characters @c SBML_. @endif@if python LibSBML attaches an identifying
- * code to every kind of SBML object.  These are known as <em>SBML type
- * codes</em>.  In the Python language interface for libSBML, the type
- * codes are defined as static integer constants in the interface class
- * @link libsbml@endlink.  The names of the type codes all begin with the
- * characters @c SBML_. @endif@if csharp LibSBML attaches an identifying
- * code to every kind of SBML object.  These are known as <em>SBML type
- * codes</em>.  In the C# language interface for libSBML, the type codes
- * are defined as static integer constants in the interface class @link
- * libsbmlcs.libsbml@endlink.  The names of the type codes all begin with
- * the characters @c SBML_. @endif@~
- * 
+ * @note Upon the addition of a Compartment object to an SBMLDocument (e.g.,
+ * using Model::addCompartment(@if java Compartment c@endif)), the SBML
+ * Level, SBML Version and XML namespace of the document @em override the
+ * values used when creating the Compartment object via the Compartment
+ * constructors.  This is necessary to ensure that an SBML document has a
+ * consistent overall structure.  Nevertheless, the ability to supply the
+ * values at the time of creation of a Compartment is an important aid to
+ * producing valid SBML.  Knowledge of the intented SBML Level and Version
+ * determine whether it is valid to assign a particular value to an
+ * attribute, or whether it is valid to add an object to an existing
+ * SBMLDocument.
+ *
+ * @class doc_note_compartment_volume
+ *
+ * @note The attribute "volume" only exists by that name in SBML
+ * Level&nbsp;1.  In Level&nbsp;2 and above, the equivalent attribute is
+ * named "size".  In SBML Level&nbsp;1, a compartment's volume has a default
+ * value (@c 1.0) and therefore methods such as Compartment::isSetVolume()
+ * will always return @c true for a Level&nbsp;1 model.  In Level&nbsp;2, a
+ * compartment's size (the equivalent of SBML Level&nbsp;1's "volume") is
+ * optional and has no default value, and therefore may or may not be set.
+ *
  * <!-- ~ ~ ~ ~ ~ ~ End of common documentation strings ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ -->
  */
 
@@ -446,7 +471,7 @@ public:
    * of SBML object, are either invalid or mismatched with respect to the
    * parent SBMLDocument object.
    * 
-   * @copydetails doc_note_setting_level_version
+   * @copydetails doc_note_compartment_setting_lv
    */
   Compartment (unsigned int level, unsigned int version);
   
@@ -455,12 +480,7 @@ public:
    * Creates a new Compartment using the given SBMLNamespaces object 
    * @p sbmlns.
    *
-   * The SBMLNamespaces object encapsulates SBML Level/Version/namespaces
-   * information.  It is used to communicate the SBML Level, Version, and
-   * (in Level&nbsp;3) packages used in addition to SBML Level&nbsp;3 Core.
-   * A common approach to using this class constructor is to create an
-   * SBMLNamespaces object somewhere in a program, once, then pass it to
-   * object constructors such as this one when needed.
+   * @copydetails doc_what_are_sbmlnamespaces 
    *
    * It is worth emphasizing that although this constructor does not take
    * an identifier argument, in SBML Level&nbsp;2 and beyond, the "id"
@@ -476,7 +496,7 @@ public:
    * of SBML object, are either invalid or mismatched with respect to the
    * parent SBMLDocument object.
    *
-   * @copydetails doc_note_setting_level_version
+   * @copydetails doc_note_compartment_setting_lv
    */
   Compartment (SBMLNamespaces* sbmlns);
 
@@ -616,7 +636,7 @@ public:
   /**
    * Get the size of this Compartment.
    *
-   * @copydetails doc_both_size_and_volume 
+   * @copydetails doc_compartment_both_size_and_volume 
    *
    * @return the value of the "size" attribute ("volume" in Level&nbsp;1) of
    * this Compartment as a floating-point number.
@@ -633,12 +653,12 @@ public:
   /**
    * Get the volume of this Compartment.
    * 
-   * @copydetails doc_both_size_and_volume
+   * @copydetails doc_compartment_both_size_and_volume
    *
    * @return the value of the "volume" attribute ("size" in Level&nbsp;2) of
    * this Compartment, as a floating-point number.
    *
-   * @copydetails doc_note_volume
+   * @copydetails doc_note_compartment_volume
    * 
    * @note This method is identical to
    * @if java Compartment::getSize()@else getSize()@endif.
@@ -659,7 +679,7 @@ public:
    * string.  An empty string indicates that no units have been assigned to
    * the value of the size.
    *
-   * @note @htmlinclude unassigned-units-are-not-a-default.html
+   * @copydetails doc_note_unassigned_unit_are_not_a_default
    *
    * @see isSetUnits()
    * @see @if java Compartment::setUnits(String sid)@else setUnits()@endif@~
@@ -757,7 +777,7 @@ public:
    * @return @c true if the "volume" attribute ("size" in Level&nbsp;2 and
    * above) of this Compartment is set, @c false otherwise.
    *
-   * @copydetails doc_note_volume
+   * @copydetails doc_note_compartment_volume
    *
    * @see isSetSize()
    * @see @if java Compartment::setVolume(double value)@else setVolume()@endif@~
@@ -772,7 +792,7 @@ public:
    * @return @c true if the "units" attribute of this Compartment is
    * set, @c false otherwise.
    *
-   * @note @htmlinclude unassigned-units-are-not-a-default.html
+   * @copydetails doc_note_unassigned_unit_are_not_a_default
    */
   bool isSetUnits () const;
 
@@ -814,8 +834,9 @@ public:
   /**
    * Sets the value of the "id" attribute of this Compartment.
    *
-   * The string @p sid is copied.  Note that SBML has strict requirements
-   * for the syntax of identifiers.  @htmlinclude id-syntax.html
+   * The string @p sid is copied.
+   *
+   * @copydetails doc_id_syntax
    *
    * @param sid the string to use as the identifier of this Compartment
    *
@@ -937,7 +958,7 @@ public:
    * returned by this function are:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    *
-   * @copydetails doc_note_volume
+   * @copydetails doc_note_compartment_volume
    *
    * @see isSetVolume()
    * @see @if java Compartment::setSize(double value)@else setSize()@endif@~
@@ -997,7 +1018,7 @@ public:
    * Renames all the @c SIdRef attributes on this element, including any
    * found in MathML.
    *
-   * @htmlinclude what-is-sidref.html
+   * @copydetails doc_what_is_sidref
    * 
    * This method works by looking at all attributes and (if appropriate)
    * mathematical formulas, comparing the identifiers to the value of @p
@@ -1013,7 +1034,7 @@ public:
   /**
    * Renames all the @c UnitSIdRef attributes on this element.
    *
-   * @htmlinclude what-is-unitsidref.html
+   * @copydetails doc_what_is_unitsidref
    *
    * This method works by looking at all unit identifier attribute values
    * (including, if appropriate, inside mathematical formulas), comparing the
@@ -1094,7 +1115,7 @@ public:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
    *
-   * @copydetails doc_note_volume
+   * @copydetails doc_note_compartment_volume
    */
   int unsetVolume ();
 
@@ -1185,7 +1206,7 @@ public:
   /**
    * Returns the libSBML type code for this SBML object.
    * 
-   * @copydetails doc_typecodes
+   * @copydetails doc_what_are_typecodes
    *
    * @return the SBML type code for this object, or
    * @link SBMLTypeCode_t#SBML_UNKNOWN SBML_UNKNOWN@endlink (default).

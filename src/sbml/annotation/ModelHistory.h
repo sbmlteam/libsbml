@@ -34,10 +34,11 @@
  * The SBML specification beginning with Level&nbsp;2 Version&nbsp;2 defines
  * a standard approach to recording optional model history and model creator
  * information in a form that complies with MIRIAM (<a target="_blank"
- * href="http://www.nature.com/nbt/journal/v23/n12/abs/nbt1156.html">"Minimum Information Requested in the Annotation of
- * biochemical Models"</a>, <i>Nature Biotechnology</i>, vol. 23, no. 12,
- * Dec. 2005).  LibSBML provides the ModelHistory class as a convenient
- * high-level interface for working with model history data.
+ * href="http://www.nature.com/nbt/journal/v23/n12/abs/nbt1156.html">"Minimum
+ * Information Requested in the Annotation of biochemical Models"</a>,
+ * <i>Nature Biotechnology</i>, vol. 23, no. 12, Dec. 2005).  LibSBML
+ * provides the ModelHistory class as a convenient high-level interface for
+ * working with model history data.
  *
  * Model histories in SBML consist of one or more <em>model creators</em>,
  * a single date of @em creation, and one or more @em modification dates.
@@ -89,153 +90,9 @@
  * are data that can be filled in using the various methods on
  * the ModelHistory class described below.
  *
- *
- * <!-- leave this next break as-is to work around some doxygen bug -->
+ * @see ModelCreator
+ * @see Date
  */ 
-/**
- * @class ModelCreator
- * @ingroup core
- * @brief Representation of MIRIAM-compliant model creator data used
- * in ModelHistory. 
- *
- * @htmlinclude not-sbml-warning.html
- *
- * The SBML specification beginning with Level&nbsp;2 Version&nbsp;2
- * defines a standard approach to recording model history and model creator
- * information in a form that complies with MIRIAM ("Minimum Information
- * Requested in the Annotation of biochemical Models", <i>Nature
- * Biotechnology</i>, vol. 23, no. 12, Dec. 2005).  For the model creator,
- * this form involves the use of parts of the <a target="_blank"
- * href="http://en.wikipedia.org/wiki/VCard">vCard</a> representation.
- * LibSBML provides the ModelCreator class as a convenience high-level
- * interface for working with model creator data.  Objects of class
- * ModelCreator can be used to store and carry around creator data within a
- * program, and the various methods in this object class let callers
- * manipulate the different parts of the model creator representation.
- *
- * @section parts The different parts of a model creator definition
- *
- * The ModelCreator class mirrors the structure of the MIRIAM model creator
- * annotations in SBML.  The following template illustrates these different
- * fields when they are written in XML form:
- *
- <pre class="fragment">
- &lt;vCard:N rdf:parseType="Resource"&gt;
-   &lt;vCard:Family&gt;<span style="background-color: #bbb">family name</span>&lt;/vCard:Family&gt;
-   &lt;vCard:Given&gt;<span style="background-color: #bbb">given name</span>&lt;/vCard:Given&gt;
- &lt;/vCard:N&gt;
- ...
- &lt;vCard:EMAIL&gt;<span style="background-color: #bbb">email address</span>&lt;/vCard:EMAIL&gt;
- ...
- &lt;vCard:ORG rdf:parseType="Resource"&gt;
-   &lt;vCard:Orgname&gt;<span style="background-color: #bbb">organization</span>&lt;/vCard:Orgname&gt;
- &lt;/vCard:ORG&gt;
- </pre>
- *
- * Each of the separate data values
- * <span class="code" style="background-color: #bbb">family name</span>,
- * <span class="code" style="background-color: #bbb">given name</span>,
- * <span class="code" style="background-color: #bbb">email address</span>, and
- * <span class="code" style="background-color: #bbb">organization</span> can
- * be set and retrieved via corresponding methods in the ModelCreator 
- * class.  These methods are documented in more detail below.
- *
- * <!-- leave this next break as-is to work around some doxygen bug -->
- */ 
-/**
- * @class Date
- * @ingroup core
- * @brief Representation of MIRIAM-compliant dates used in ModelHistory.
- *
- * @htmlinclude not-sbml-warning.html
- *
- * A Date object stores a reasonably complete representation of date and
- * time.  Its purpose is to serve as a way to store dates to be read and
- * written in the <a target="_blank"
- * href="http://www.w3.org/TR/NOTE-datetime">W3C date format</a> used in
- * RDF Dublin Core annotations within SBML.  The W3C date format is a
- * restricted form of <a target="_blank"
- * href="http://en.wikipedia.org/wiki/ISO_8601">ISO 8601</a>, the
- * international standard for the representation of dates and times.  A
- * time and date value in this W3C format takes the form
- * YYYY-MM-DDThh:mm:ssXHH:ZZ (e.g., <code>1997-07-16T19:20:30+01:00</code>)
- * where XHH:ZZ is the time zone offset.  The libSBML Date object contains
- * the following fields to represent these values:
- * <ul>
- * 
- * <li> @em year: an unsigned int representing the year.  This should be a
- * four-digit number such as @c 2011.
- * 
- * <li> @em month: an unsigned int representing the month, with a range of
- * values of 1&ndash;12.  The value @c 1 represents January, and so on.
- *
- * <li> @em day: an unsigned int representing the day of the month, with a
- * range of values of 1&ndash;31.
- * 
- * <li> @em hour: an unsigned int representing the hour on a 24-hour clock,
- * with a range of values of 0&ndash;23.
- * 
- * <li> @em minute: an unsigned int representing the minute, with a range
- * of 0&ndash;59.
- * 
- * <li> @em second: an unsigned int representing the second, with a range
- * of 0&ndash;59.
- * 
- * <li> @em sign: an unsigned int representing the sign of the offset (@c 0
- * signifying @c + and @c 1 signifying @c -).  See the paragraph below for
- * further explanations.
- * 
- * <li> @em hours offset: an unsigned int representing the time zone's hour
- * offset from GMT.
- * 
- * <li> @em minute offset: an unsigned int representing the time zone's
- * minute offset from GMT.
- * 
- * </ul>
- *
- * To illustrate the time zone offset, a value of <code>-05:00</code> would
- * correspond to USA Eastern Standard Time.  In the Date object, this would
- * require a value of @c 1 for the sign field, @c 5 for the hour offset and
- * @c 0 for the minutes offset.
- *
- * In the restricted RDF annotations used in SBML, described in
- * Section&nbsp;6 of the SBML Level&nbsp;2 and Level&nbsp;3 specification
- * documents, date/time stamps can be used to indicate the time of
- * creation and modification of a model.  The following SBML model fragment
- * illustrates this:
-@verbatim
-<model metaid="_180340" id="GMO" name="Goldbeter1991_MinMitOscil">
-    <annotation>
-        <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-                 xmlns:dc="http://purl.org/dc/elements/1.1/"
-                 xmlns:dcterms="http://purl.org/dc/terms/"
-                 xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" >
-            <rdf:Description rdf:about="#_180340">
-                <dc:creator>
-                    <rdf:Bag>
-                        <rdf:li rdf:parseType="Resource">
-                            <vCard:N rdf:parseType="Resource">
-                                <vCard:Family>Shapiro</vCard:Family>
-                                <vCard:Given>Bruce</vCard:Given>
-                            </vCard:N>
-                            <vCard:EMAIL>bshapiro@jpl.nasa.gov</vCard:EMAIL>
-                            <vCard:ORG rdf:parseType="Resource">
-                                <vCard:Orgname>NASA Jet Propulsion Laboratory</vCard:Orgname>
-                            </vCard:ORG>
-                        </rdf:li>
-                    </rdf:Bag>
-                </dc:creator>
-                <dcterms:created rdf:parseType="Resource">
-                    <dcterms:W3CDTF>2005-02-06T23:39:40+00:00</dcterms:W3CDTF>
-                </dcterms:created>
-                <dcterms:modified rdf:parseType="Resource">
-                    <dcterms:W3CDTF>2005-09-13T13:24:56+00:00</dcterms:W3CDTF>
-                </dcterms:modified>
-            </rdf:Description>
-        </rdf:RDF>
-    </annotation>
-</model>@endverbatim
- */
 
 #ifndef ModelHistory_h
 #define ModelHistory_h

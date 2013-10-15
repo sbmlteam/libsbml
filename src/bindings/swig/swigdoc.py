@@ -209,6 +209,14 @@ overriders = \
 }
 
 #
+# Global variable for tracking all class docs, so that we can handle
+# cross-references like @copydetails that may refer to files other
+# than the file being processed at any given time.
+#
+
+allclassdocs = {}
+
+#
 # Classes and methods.
 #
 
@@ -226,6 +234,7 @@ class CHeader:
 
     Creates a new CHeader reading from the given stream.
     """
+
     self.classes   = [ ]
     self.functions = [ ]
     self.classDocs = [ ]
@@ -591,6 +600,17 @@ def translateInclude (match):
 
 
 
+def translateCopydetails (match):
+  name = match.group(1)
+  if (name in allclassdocs):
+    text = allclassdocs[name]
+  else:
+    # If it's not found, just write out what we read in.
+    text = '@copydetails ' + name
+  return text
+
+
+
 def translateIfElse (match):
   text = match.group()
   if match.group(1) == language or \
@@ -698,9 +718,11 @@ def sanitizeForHTML (docstring):
   Performs HTML transformations on the C++/Doxygen docstring.
   """
 
-  # Remove @~, which we use as a hack in Doxygen 1.7-1.8
+  # Remove some things we use as hacks in Doxygen 1.7-1.8.
 
   docstring = docstring.replace(r'@~', '')
+  p = re.compile('@par(\s)', re.MULTILINE)
+  docstring = p.sub(r'\1', docstring)
 
   # First do conditional section inclusion based on the current language.
   # Our possible conditional elements and their meanings are:
@@ -738,7 +760,7 @@ def sanitizeForHTML (docstring):
   # Javadoc doesn't have an @htmlinclude command, so we process the file
   # inclusion directly here.
 
-  p = re.compile('@htmlinclude\s+([^\s:;,(){}+|?"\'/]+)([\s:;,(){}+|?"\'/])', re.MULTILINE)
+  p = re.compile('@htmlinclude\s+([^\s:;,(){}+|?"\'/@]+)([\s:;,(){}+|?"\'/@])', re.MULTILINE)
   docstring = p.sub(translateInclude, docstring)
 
   # There's no Javadoc verbatim or @code/@endcode equivalent, so we have to
@@ -1022,6 +1044,14 @@ def rewriteDocstringForPython (docstring):
   more elaborate filter that processes the output of *this* filter.
   """
 
+  # Remove some things we use as hacks in Doxygen 1.7-1.8.
+
+  docstring = docstring.replace(r'@~', '')
+  p = re.compile('@par(\s)', re.MULTILINE)
+  docstring = p.sub(r'\1', docstring)
+
+  # Rewrite some common things.
+
   docstring = rewriteCommonReferences(docstring)  
 
   # Take out the C++ comment start and end.
@@ -1248,26 +1278,43 @@ def generateFunctionDocString (methodname, docstring, args, isInternal):
 
 
 def generateClassDocString (docstring, classname):
+  pretext   = ''
+  separator = ''
+  posttext  = ''
+  
   if language == 'java':
-    pre = '%typemap(javaimports) '
+    pretext   = '%typemap(javaimports) '
+    separator = ' "\n'
+    posttext  = '\n"\n\n\n'
     docstring = rewriteDocstringForJava(docstring).strip()
-    output = pre + classname + ' "\n' + docstring + '\n"\n\n\n'
 
   elif language == 'csharp':
-    pre = '%typemap(csimports) '
+    pretext   = '%typemap(csimports) '
+    separator = ' "\n using System;\n using System.Runtime.InteropServices;\n\n'
+    posttext  = '\n"\n\n\n'
     docstring = rewriteDocstringForCSharp(docstring).strip()
-    output = pre + classname + ' "\n using System;\n using System.Runtime.InteropServices;\n\n' + docstring + '\n"\n\n\n'
 
   elif language == 'python':
-    pre = '%feature("docstring") '
+    pretext   = '%feature("docstring") '
+    separator = ' "\n '
+    posttext  = '\n";\n\n\n'
     docstring = rewriteDocstringForPython(docstring).strip()
-    output = pre + classname + ' "\n ' + docstring + '\n";\n\n\n'
 
   elif language == 'perl':
+    pretext   = '=back\n\n=head2 '
+    separator = '\n\n'
+    posttext  = '\n\n=over\n\n\n'
     docstring = rewriteDocstringForPerl(docstring).strip()
-    output = '=back\n\n=head2 ' + classname + '\n\n' + docstring + '\n\n=over\n\n\n'
 
-  return output
+  # If this is one of our fake classes used for creating commonly-reused
+  # documentation strings, we don't write it to the output file; we only
+  # store the documentation string in a global variable to be used later.
+
+  if classname.startswith('doc_'):
+    allclassdocs[classname] = docstring
+    return ''
+  else:
+    return pretext + classname + separator + docstring + posttext
 
 
 
@@ -1310,6 +1357,20 @@ def processFile (filename, ostream):
 
 
 
+def postProcessOutput(istream, ostream):
+  """postProcessOutput(instream, outstream)
+
+  Post-processes the output to perform final substitutions."""
+
+  for line in istream.readlines():
+
+    p = re.compile('@copydetails\s+(\w+)', re.MULTILINE)
+    line = p.sub(translateCopydetails, line)
+      
+    ostream.write(line)
+
+
+
 def main (args):
   """usage: swigdoc.py [java | python | perl | csharp] -Ipath -Dpath libsbml.i output.i
 
@@ -1330,7 +1391,14 @@ def main (args):
   includepath = args[2].replace('-I', '')
   docincpath  = args[3].replace('-D', '')
   headers     = getHeadersFromSWIG(args[4])
-  stream      = open(args[5], 'w')
+
+  # We first write all our output to a temporary file.  Later, we open this
+  # file, post-process it, and write the final output to the real destination.
+
+  tmpfilename = args[5] + ".tmp"
+  stream      = open(tmpfilename, 'w')
+
+  # Now starts the main processing pass.
 
   headers.append("bindings/swig/OStream.h")
 
@@ -1350,6 +1418,21 @@ def main (args):
     stream.write('=cut\n')
 
   stream.close()
+
+  # Certain things can't be done until we have seen all the input.  So, now
+  # we reopen the file we wrote, post-process the contents, and write the
+  # results to the real destination (which is given as arg[5]).
+
+  tmpstream   = open(tmpfilename, 'r')
+  finalstream = open(args[5], 'w')
+  postProcessOutput(tmpstream, finalstream)
+
+  tmpstream.flush()
+  tmpstream.close()
+  finalstream.flush()
+  finalstream.close()
+
+  os.remove(tmpfilename)
 
 
 if __name__ == '__main__':

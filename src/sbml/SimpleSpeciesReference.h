@@ -3,7 +3,6 @@
  * @brief   Definitions of SimpleSpeciesReference. 
  * @author  Ben Bornstein
  *
- *
  * <!--------------------------------------------------------------------------
  * This file is part of libSBML.  Please visit http://sbml.org for more
  * information about SBML, and the latest version of libSBML.
@@ -60,10 +59,8 @@
  * allowing instances to be referenced from other structures.  No SBML
  * structures currently do this; however, such structures are anticipated
  * in future SBML Levels.
- *
  *  
  */
-
 
 #ifndef SimpleSpeciesReference_h
 #define SimpleSpeciesReference_h
@@ -221,8 +218,9 @@ public:
   /**
    * Sets the value of the "id" attribute of this SimpleSpeciesReference.
    *
-   * The string @p sid is copied.  Note that SBML has strict requirements
-   * for the syntax of identifiers.  @htmlinclude id-syntax.html
+   * The string @p sid is copied.
+   *
+   * @copydetails doc_id_syntax
    *
    * @param sid the string to use as the identifier of this SimpleSpeciesReference
    *
@@ -291,7 +289,7 @@ public:
    * Renames all the @c SIdRef attributes on this element, including any
    * found in MathML.
    *
-   * @htmlinclude what-is-sidref.html
+   * @copydetails doc_what_is_sidref
    * 
    * This method works by looking at all attributes and (if appropriate)
    * mathematical formulas, comparing the identifiers to the value of @p
@@ -314,12 +312,7 @@ protected:
    * Creates a new SimpleSpeciesReference using the given SBMLNamespaces object
    * @p sbmlns.
    *
-   * The SBMLNamespaces object encapsulates SBML Level/Version/namespaces
-   * information.  It is used to communicate the SBML Level, Version, and
-   * (in Level&nbsp;3) packages used in addition to SBML Level&nbsp;3 Core.
-   * A common approach to using this class constructor is to create an
-   * SBMLNamespaces object somewhere in a program, once, then pass it to
-   * object constructors such as this one when needed.
+   * @copydetails doc_what_are_sbmlnamespaces 
    *
    * @param sbmlns an SBMLNamespaces object.
    *

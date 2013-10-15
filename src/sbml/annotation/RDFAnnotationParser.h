@@ -34,19 +34,17 @@
  *
  * RDFAnnotationParser is a libSBML construct used as part of the libSBML
  * support for annotations conforming to the guidelines specified by MIRIAM
- * (<a target="_blank" href="http://www.nature.com/nbt/journal/v23/n12/abs/nbt1156.html">"Minimum Information Requested
- * in the Annotation of biochemical Models"</a>, <i>Nature Biotechnology</i>,
- * vol. 23, no. 12, Dec. 2005).  Section 6 of the SBML Level&nbsp;2 and
- * Level&nbsp;3 specification documents defines a recommended way of encoding
- * MIRIAM information using a subset of RDF (<a target="_blank"
- * href="http://www.w3.org/RDF/">Resource Description Format</a>).  The
- * general scheme is as follows.  A set of RDF-based annotations attached to
- * a given SBML <code>&lt;annotation&gt;</code> element are read by
- * RDFAnnotationParser and converted into a list of CVTerm objects.  There
- * are different versions of the main method, @if clike
- * RDFAnnotationParser::parseRDFAnnotation(const XMLNode *annotation, %List
- * *CVTerms) @endif@if java RDFAnnotationParser::parseRDFAnnotation(const
- * XMLNode *annotation, %CVTermList *CVTerms) @endif@~ and
+ * (<a target="_blank"
+ * href="http://www.nature.com/nbt/journal/v23/n12/abs/nbt1156.html">"Minimum
+ * Information Requested in the Annotation of biochemical Models"</a>,
+ * <i>Nature Biotechnology</i>, vol. 23, no. 12, Dec. 2005).  Section 6 of
+ * the SBML Level&nbsp;2 and Level&nbsp;3 specification documents defines a
+ * recommended way of encoding MIRIAM information using a subset of RDF (<a
+ * target="_blank" href="http://www.w3.org/RDF/">Resource Description
+ * Format</a>).  The general scheme is as follows.  A set of RDF-based
+ * annotations attached to a given SBML <code>&lt;annotation&gt;</code>
+ * element are read by RDFAnnotationParser and converted into a list of
+ * CVTerm objects.  There are different versions of the main method, @if clike RDFAnnotationParser::parseRDFAnnotation(const XMLNode *annotation, %List *CVTerms) @endif@if java RDFAnnotationParser::parseRDFAnnotation(const XMLNode *annotation, %CVTermList *CVTerms) @endif@~ and
  * RDFAnnotationParser::parseRDFAnnotation(const XMLNode *annotation), used
  * depending on whether the annotation in question concerns the MIRIAM model
  * history or other MIRIAM resource annotations.  A special object class,

@@ -174,6 +174,46 @@
  * href="http://biomodels.net/qualifiers">http://biomodels.net/qualifiers</a>.
  */
 
+/**
+ * <!-- ~ ~ ~ ~ ~ Start of common documentation strings ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+ * The following text is used as common documentation blocks copied multiple
+ * times elsewhere in this file.  The use of @class is a hack needed because
+ * Doxygen's @copydetails command has limited functionality.  Symbols
+ * beginning with "doc_" are marked as ignored in our Doxygen configuration.
+ * ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~  -->
+ *
+ * @class doc_cvterm_common_description
+ *
+ * @par
+ * The RDF element used in the SBML format for referring to external entities
+ * is <code>&lt;rdf:Description&gt;</code>, with a
+ * <code>&lt;rdf:Bag&gt;</code> element inside of it containing one or more
+ * <code>&lt;rdf:li&gt;</code> elements.  The following template illustrates
+ * the structure:
+ * <pre class="fragment">
+ * &lt;rdf:Description rdf:about=&quot;#<span style="border-bottom: 1px solid black">meta id</span>&quot;&gt;
+ *   <span style="background-color: #ddd; border-bottom: 2px dotted #888">HISTORY</span>
+ *   &lt;<span style="background-color: #bbb">RELATION_ELEMENT</span>&gt;
+ *     &lt;rdf:Bag&gt;
+ *       &lt;rdf:li rdf:resource=&quot;<span style="background-color: #d0d0ee">resource URI</span>&quot; /&gt;
+ *       <span style="background-color: #edd">...</span>
+ *     &lt;/rdf:Bag&gt;
+ *   &lt;/<span style="background-color: #bbb">RELATION_ELEMENT</span>&gt;
+ *   <span style="background-color: #edd">...</span>
+ * &lt;/rdf:Description&gt;
+ * </pre>
+ * In the template above, the placeholder <span class="code"
+ * style="border-bottom: 1px solid black">meta id</span> stands for the
+ * element's meta identifier, which is a field available on all SBML
+ * components derived from the SBase base object class.  The <span
+ * style="border-bottom: 2px dotted #888">dotted</span> portions are
+ * optional, and the ellipses <span class="code" style="background-color:
+ * #edd">...</span> are placeholders for zero or more elements of the same
+ * form as the immediately preceding element.
+ * 
+ * <!-- ~ ~ ~ ~ ~ ~ End of common documentation strings ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ -->
+ */
+
 #ifndef CVTerm_h
 #define CVTerm_h
 
@@ -362,22 +402,7 @@ public:
    * Creates an empty CVTerm, optionally with the given
    * @if clike #QualifierType_t value@else qualifier@endif@~ @p type.
    *
-   * The SBML Level&nbsp;2 and Level&nbsp;3 specifications define a simple
-   * format for annotating models when (a) referring to controlled
-   * vocabulary terms and database identifiers that define and describe
-   * biological and other entities, and (b) describing the creator of a
-   * model and the model's modification history.  The annotation content is
-   * stored in <code>&lt;annotation&gt;</code> elements attached to
-   * individual SBML elements.  The format for storing the content inside
-   * SBML <code>&lt;annotation&gt;</code> elements is a subset of W3C RDF
-   * (<a target="_blank" href="http://www.w3.org/RDF/">Resource Description
-   * Format</a>) expressed in XML.  The CVTerm class provides a programming
-   * interface for working directly with controlled vocabulary term ("CV
-   * term") objects without having to deal directly with the XML form.
-   * When libSBML reads in an SBML model containing RDF annotations, it
-   * parses those annotations into a list of CVTerm objects, and when
-   * writing a model, it parses the CVTerm objects back into the
-   * appropriate SBML <code>&lt;annotation&gt;</code> structure.
+   * @copydetails doc_what_are_cvterms 
    *
    * This method creates an empty CVTerm object.  The possible qualifier
    * types usable as values of @p type are @link
@@ -405,27 +430,12 @@ public:
   /**
    * Creates a new CVTerm from the given XMLNode.
    *
-   * The SBML Level&nbsp;2 and Level&nbsp;3 specifications define a simple
-   * format for annotating models when (a) referring to controlled
-   * vocabulary terms and database identifiers that define and describe
-   * biological and other entities, and (b) describing the creator of a
-   * model and the model's modification history.  The annotation content is
-   * stored in <code>&lt;annotation&gt;</code> elements attached to
-   * individual SBML elements.  The format for storing the content inside
-   * SBML <code>&lt;annotation&gt;</code> elements is a subset of W3C RDF
-   * (<a target="_blank" href="http://www.w3.org/RDF/">Resource Description
-   * Format</a>) expressed in XML.  The CVTerm class provides a programming
-   * interface for working directly with controlled vocabulary term ("CV
-   * term") objects without having to deal directly with the XML form.
-   * When libSBML reads in an SBML model containing RDF annotations, it
-   * parses those annotations into a list of CVTerm objects, and when
-   * writing a model, it parses the CVTerm objects back into the
-   * appropriate SBML <code>&lt;annotation&gt;</code> structure.
+   * @copydetails doc_what_are_cvterms 
    * 
-   * This method creates a CVTerm object from the XMLNode object @p node.
-   * Recall that XMLNode is a node in an XML tree of elements, and each
-   * such element can be placed in a namespace.  This constructor looks for
-   * the element to be in the XML namespaces
+   * This method creates a CVTerm object from the given XMLNode object @p
+   * node.  XMLNode is libSBML's representation of a node in an XML tree of
+   * elements, and each such element can be placed in a namespace.  This
+   * constructor looks for the element to be in the XML namespaces
    * <code>"http://biomodels.net/model-qualifiers"</code> (for
    * model qualifiers) and
    * <code>"http://biomodels.net/biology-qualifiers"</code> (for
@@ -480,7 +490,7 @@ public:
   /**
    * Returns the qualifier type of this CVTerm object.
    *
-   * @htmlinclude cvterm-common-description-text.html
+   * @copydetails doc_cvterm_common_description
    *
    * The placeholder <span class="code" style="background-color: #bbb">
    * RELATION_ELEMENT</span> refers to a BioModels.net qualifier
@@ -518,7 +528,7 @@ public:
   /**
    * Returns the model qualifier type of this CVTerm object.
    * 
-   * @htmlinclude cvterm-common-description-text.html
+   * @copydetails doc_cvterm_common_description
    *
    * The placeholder <span class="code" style="background-color: #bbb">
    * RELATION_ELEMENT</span> refers to a BioModels.net qualifier
@@ -559,7 +569,7 @@ public:
   /**
    * Returns the biological qualifier type of this CVTerm object.
    * 
-   * @htmlinclude cvterm-common-description-text.html
+   * @copydetails doc_cvterm_common_description
    *
    * The placeholder <span class="code" style="background-color: #bbb">
    * RELATION_ELEMENT</span> refers to a BioModels.net qualifier
@@ -609,7 +619,7 @@ public:
   /**
    * Returns the resource references for this CVTerm object.
    *
-   * @htmlinclude cvterm-common-description-text.html
+   * @copydetails doc_cvterm_common_description
    *
    * The <span class="code" style="background-color: #d0d0ee">resource
    * URI</span> values shown in the template above are stored internally in
@@ -634,7 +644,7 @@ public:
   /**
    * Returns the resources for this CVTerm object.
    * 
-   * @htmlinclude cvterm-common-description-text.html
+   * @copydetails doc_cvterm_common_description
    *
    * The <span class="code" style="background-color: #d0d0ee">resource
    * URI</span> values shown in the template above are stored internally in
@@ -659,7 +669,7 @@ public:
   /**
    * Returns the number of resources for this CVTerm object.
    * 
-   * @htmlinclude cvterm-common-description-text.html
+   * @copydetails doc_cvterm_common_description
    *
    * The fragment above illustrates that there can be more than one
    * resource referenced by a given relationship annotation (i.e., the
@@ -680,7 +690,7 @@ public:
   /**
    * Returns the value of the <em>n</em>th resource for this CVTerm object.
    *
-   * @htmlinclude cvterm-common-description-text.html
+   * @copydetails doc_cvterm_common_description
    *
    * The fragment above illustrates that there can be more than one
    * resource referenced by a given relationship annotation (i.e., the
@@ -808,13 +818,7 @@ public:
   /**
    * Adds a resource reference to this CVTerm object.
    *
-   * The SBML Level&nbsp;2 and Level&nbsp;3 specifications define a simple
-   * standardized format for annotating models with references to
-   * controlled vocabulary terms and database identifiers that define and
-   * describe biological or other entities.  This annotation format
-   * consists of RDF-based content placed inside an
-   * <code>&lt;annotation&gt;</code> element attached to an SBML component
-   * such as Species, Compartment, etc.
+   * @copydetails doc_what_are_cvterms 
    *
    * The specific RDF element used in this SBML format for referring to
    * external entities is <code>&lt;rdf:Description&gt;</code>, with a

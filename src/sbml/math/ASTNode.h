@@ -43,103 +43,13 @@
  * in-memory representation for all mathematical formulas regardless of
  * their original format (which might be MathML or might be text strings).
  *
- * An AST @em node in libSBML is a recursive structure containing a pointer
- * to the node's value (which might be, for example, a number or a symbol)
- * and a list of children nodes.  Each ASTNode node may have none, one,
- * two, or more children depending on its type.  The following diagram
- * illustrates an example of how the mathematical expression <code>"1 +
- * 2"</code> is represented as an AST with one @em plus node having two @em
- * integer children nodes for the numbers <code>1</code> and
- * <code>2</code>.  The figure also shows the corresponding MathML
- * representation:
- *
- * @htmlinclude astnode-illustration.html
- *
- * The following are other noteworthy points about the AST representation
- * in libSBML:
- * <ul>
- * <li> A numerical value represented in MathML as a real number with an
- * exponent is preserved as such in the AST node representation, even if
- * the number could be stored in a @c double data type.  This is done
- * so that when an SBML model is read in and then written out again, the
- * amount of change introduced by libSBML to the SBML during the round-trip
- * activity is minimized.
- *  
- * <li> Rational numbers are represented in an AST node using separate
- * numerator and denominator values.  These can be retrieved using the
- * methods ASTNode::getNumerator() and ASTNode::getDenominator().
- * 
- * <li> The children of an ASTNode are other ASTNode objects.  The list of
- * children is empty for nodes that are leaf elements, such as numbers.
- * For nodes that are actually roots of expression subtrees, the list of
- * children points to the parsed objects that make up the rest of the
- * expression.
- * </ul>
- *
+ * @copydetails doc_what_is_astnode
  *
  * @if clike <h3><a class="anchor" name="ASTNodeType_t">
  * ASTNodeType_t</a></h3> @else <h3><a class="anchor"
  * name="ASTNodeType_t">The set of possible %ASTNode types</a></h3> @endif@~
  *
- * Every ASTNode has an associated type code to indicate,
- * for example, whether it holds a number or stands for an arithmetic
- * operator.
- * @if clike The type is recorded as a value drawn from the enumeration 
- * @link ASTNode.h::ASTNodeType_t ASTNodeType_t@endlink.@endif
- * @if java The type is recorded as a value drawn from a
- * set of static integer constants defined in the class {@link
- * libsbmlConstants}. Their names begin with the characters @c AST_.@endif
- * @if python The type is recorded as a value drawn from a
- * set of static integer constants defined in the class {@link
- * libsbml}. Their names begin with the characters @c AST_.@endif
- * @if csharp The type is recorded as a value drawn from a
- * set of static integer constants defined in the class {@link
- * libsbml}. Their names begin with the characters @c AST_.@endif
- * The list of possible types is quite long, because it covers all the
- * mathematical functions that are permitted in SBML. The values are shown
- * in the following table:
- *
- * @htmlinclude astnode-types.html
- *
- * The types have the following meanings:
- * <ul>
- * <li> If the node is basic mathematical operator (e.g., @c "+"), then the
- * node's type will be @c AST_PLUS, @c AST_MINUS, @c AST_TIMES, @c AST_DIVIDE,
- * or @c AST_POWER, as appropriate.
- *
- * <li> If the node is a predefined function or operator from %SBML Level&nbsp;1
- * (in the string-based formula syntax used in Level&nbsp;1) or %SBML Levels&nbsp;2 and&nbsp;3
- * (in the subset of MathML used in SBML Levels&nbsp;2 and&nbsp;3), then the node's type
- * will be either <code>AST_FUNCTION_</code><em><span
- * class="placeholder">X</span></em>, <code>AST_LOGICAL_</code><em><span
- * class="placeholder">X</span></em>, or
- * <code>AST_RELATIONAL_</code><em><span class="placeholder">X</span></em>,
- * as appropriate.  (Examples: @c AST_FUNCTION_LOG, @c AST_RELATIONAL_LEQ.)
- *
- * <li> If the node refers to a user-defined function, the node's type will
- * be @c AST_FUNCTION (because it holds the name of the function).
- *
- * <li> If the node is a lambda expression, its type will be @c AST_LAMBDA.
- * 
- * <li> If the node is a predefined constant (@c "ExponentialE", @c "Pi", 
- * @c "True" or @c "False"), then the node's type will be @c AST_CONSTANT_E,
- * @c AST_CONSTANT_PI, @c AST_CONSTANT_TRUE, or @c AST_CONSTANT_FALSE.
- * 
- * <li> (Levels&nbsp;2 and&nbsp;3 only) If the node is the special MathML csymbol @c time,
- * the value of the node will be @c AST_NAME_TIME.  (Note, however, that the
- * MathML csymbol @c delay is translated into a node of type
- * @c AST_FUNCTION_DELAY.  The difference is due to the fact that @c time is a
- * single variable, whereas @c delay is actually a function taking
- * arguments.)
- *
- * <li> (Level&nbsp;3 only) If the node is the special MathML csymbol @c avogadro,
- * the value of the node will be @c AST_NAME_AVOGADRO.
- * 
- * <li> If the node contains a numerical value, its type will be
- * @c AST_INTEGER, @c AST_REAL, @c AST_REAL_E, or @c AST_RATIONAL,
- * as appropriate.
- * </ul>
- *
+ * @copydetails doc_astnode_types
  * 
  * <h3><a class="anchor" name="math-convert">Converting between ASTs and text strings</a></h3>
  * 
@@ -205,7 +115,7 @@
  * 
  * @htmlinclude math-functions.html
  * 
- * @warning @htmlinclude L1-math-syntax-warning.html
+ * @copydetails doc_warning_L1_math_string_syntax
  *
  * @if clike @see SBML_parseL3Formula()@endif@~
  * @if csharp @see SBML_parseL3Formula()@endif@~
@@ -238,56 +148,7 @@ LIBSBML_CPP_NAMESPACE_BEGIN
  * @enum  ASTNodeType_t
  * @brief ASTNodeType_t is the enumeration of possible ASTNode types.
  *
- * Each ASTNode has a type whose value is one of the elements of this
- * enumeration.  The types have the following meanings:
- * <ul>
- *
- * <li> If the node is basic mathematical operator (e.g., @c "+"), then the
- * node's type will be @link ASTNodeType_t#AST_PLUS AST_PLUS@endlink, @link
- * ASTNodeType_t#AST_MINUS AST_MINUS@endlink, @link ASTNodeType_t#AST_TIMES
- * AST_TIMES@endlink, @link ASTNodeType_t#AST_DIVIDE AST_DIVIDE@endlink, or
- * @link ASTNodeType_t#AST_POWER AST_POWER@endlink, as appropriate.
- *
- * <li> If the node is a predefined function or operator from %SBML Level&nbsp;1
- * (in the string-based formula syntax used in Level&nbsp;1) or %SBML Level&nbsp;2 and&nbsp;3
- * (in the subset of MathML used in SBML Levels&nbsp;2 and&nbsp;3), then the node's type
- * will be either @c AST_FUNCTION_<em><span
- * class="placeholder">X</span></em>, @c AST_LOGICAL_<em><span
- * class="placeholder">X</span></em>, or @c AST_RELATIONAL_<em><span
- * class="placeholder">X</span></em>, as appropriate.  (Examples: @link
- * ASTNodeType_t#AST_FUNCTION_LOG AST_FUNCTION_LOG@endlink, @link
- * ASTNodeType_t#AST_RELATIONAL_LEQ AST_RELATIONAL_LEQ@endlink.)
- *
- * <li> If the node refers to a user-defined function, the node's type will
- * be @link ASTNodeType_t#AST_FUNCTION AST_FUNCTION@endlink (because it holds the
- * name of the function).
- *
- * <li> If the node is a lambda expression, its type will be @link
- * ASTNodeType_t#AST_LAMBDA AST_LAMBDA@endlink.
- * 
- * <li> If the node is a predefined constant (@c "ExponentialE", @c "Pi",
- * @c "True" or @c "False"), then the node's type will be @link
- * ASTNodeType_t#AST_CONSTANT_E AST_CONSTANT_E@endlink, @link
- * ASTNodeType_t#AST_CONSTANT_PI AST_CONSTANT_PI@endlink, @link
- * ASTNodeType_t#AST_CONSTANT_TRUE AST_CONSTANT_TRUE@endlink, or @link
- * ASTNodeType_t#AST_CONSTANT_FALSE AST_CONSTANT_FALSE@endlink.
- * 
- * <li> (Levels&nbsp;2 and&nbsp;3 only) If the node is the special MathML csymbol @c time,
- * the value of the node will be @link ASTNodeType_t#AST_NAME_TIME
- * AST_NAME_TIME@endlink.  (Note, however, that the MathML csymbol @c delay
- * is translated into a node of type @link ASTNodeType_t#AST_FUNCTION_DELAY
- * AST_FUNCTION_DELAY@endlink.  The difference is due to the fact that @c
- * time is a single variable, whereas @c delay is actually a function
- * taking arguments.)
- *
- * <li> (Level&nbsp;3 only) If the node is the special MathML csymbol @c avogadro,
- * the value of the node will be @c AST_NAME_AVOGADRO.
- *
- * <li> If the node contains a numerical value, its type will be @link
- * ASTNodeType_t#AST_INTEGER AST_INTEGER@endlink, @link
- * ASTNodeType_t#AST_REAL AST_REAL@endlink, @link ASTNodeType_t#AST_REAL_E
- * AST_REAL_E@endlink, or @link ASTNodeType_t#AST_RATIONAL
- * AST_RATIONAL@endlink, as appropriate.  </ul>
+ * @copydetails doc_astnode_types
  * 
  * @see ASTNode::getType()
  * @see ASTNode::canonicalize()

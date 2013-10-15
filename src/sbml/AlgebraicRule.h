@@ -3,7 +3,6 @@
  * @brief   Definitions of AlgebraicRule.
  * @author  Ben Bornstein
  *
- *
  * <!--------------------------------------------------------------------------
  * This file is part of libSBML.  Please visit http://sbml.org for more
  * information about SBML, and the latest version of libSBML.
@@ -68,32 +67,32 @@
  * the rates of reactions lacking kinetic laws are simply undefined, and
  * not determined by the algebraic rule.)
  * 
- * @section general General summary of SBML rules
- *
- * @htmlinclude rules-general-summary.html
- * 
- * @section additional-restrictions Additional restrictions on SBML rules
- * 
- * @htmlinclude rules-additional-restrictions.html
- * 
- * @section RuleType_t Rule types for SBML Level 1
- *
- * SBML Level 1 uses a different scheme than SBML Level 2 and Level 3 for
- * distinguishing rules; specifically, it uses an attribute whose value is
- * drawn from an enumeration of 3 values.  LibSBML supports this using methods
- * that work @if clike a libSBML enumeration type, RuleType_t, whose values
- * are @else with the enumeration values @endif@~ listed below.
- *
- * @li @link RuleType_t#RULE_TYPE_RATE RULE_TYPE_RATE@endlink: Indicates
- * the rule is a "rate" rule.
- * @li @link RuleType_t#RULE_TYPE_SCALAR RULE_TYPE_SCALAR@endlink:
- * Indicates the rule is a "scalar" rule.
- * @li @link RuleType_t#RULE_TYPE_INVALID RULE_TYPE_INVALID@endlink:
- * Indicates the rule type is unknown or not yet set.
- *
- * <!-- leave this next break as-is to work around some doxygen bug -->
+ * @copydetails doc_rules_general_summary
  */ 
 
+/**
+ * <!-- ~ ~ ~ ~ ~ Start of common documentation strings ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+ * The following text is used as common documentation blocks copied multiple
+ * times elsewhere in this file.  The use of @class is a hack needed because
+ * Doxygen's @copydetails command has limited functionality.  Symbols
+ * beginning with "doc_" are marked as ignored in our Doxygen configuration.
+ * ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~  -->
+ *
+ * @class doc_algebraicrule_setting_lv
+ *
+ * @note Upon the addition of an AlgebraicRule object to an SBMLDocument
+ * (e.g., using Model::addRule(@if java Rule r@endif)), the SBML Level, SBML
+ * Version and XML namespace of the document @em override the values used
+ * when creating the AlgebraicRule object via the AlgebraicRule constructors.
+ * This is necessary to ensure that an SBML document has a consistent overall
+ * structure.  Nevertheless, the ability to supply the values at the time of
+ * creation of a AlgebraicRule is an important aid to producing valid SBML.
+ * Knowledge of the intented SBML Level and Version determine whether it is
+ * valid to assign a particular value to an attribute, or whether it is valid
+ * to add an object to an existing SBMLDocument.
+ * 
+ * <!-- ~ ~ ~ ~ ~ ~ End of common documentation strings ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ -->
+ */
 
 #ifndef AlgebraicRule_h
 #define AlgebraicRule_h
@@ -133,17 +132,8 @@ public:
    * Thrown if the given @p level and @p version combination, or this kind
    * of SBML object, are either invalid or mismatched with respect to the
    * parent SBMLDocument object.
-   * 
-   * @note Upon the addition of an AlgebraicRule object to an SBMLDocument
-   * (e.g., using&nbsp; @if java Model::addRule(Rule r)@else Model::addRule()@endif), the SBML Level, SBML Version
-   * and XML namespace of the document @em override the values used
-   * when creating the AlgebraicRule object via this constructor.  This is
-   * necessary to ensure that an SBML document is a consistent structure.
-   * Nevertheless, the ability to supply the values at the time of creation
-   * of a AlgebraicRule is an important aid to producing valid SBML.
-   * Knowledge of the intented SBML Level and Version determine whether it
-   * is valid to assign a particular value to an attribute, or whether it
-   * is valid to add an object to an existing SBMLDocument.
+   *
+   * @copydetails doc_algebraicrule_setting_lv
    */
   AlgebraicRule (unsigned int level, unsigned int version);
 
@@ -166,16 +156,7 @@ public:
    * of SBML object, are either invalid or mismatched with respect to the
    * parent SBMLDocument object.
    *
-   * @note Upon the addition of a AlgebraicRule object to an SBMLDocument
-   * (e.g., using&nbsp; @if java Model::addRule(Rule r)@else Model::addRule()@endif, the SBML XML namespace of the
-   * document @em overrides the value used when creating the AlgebraicRule
-   * object via this constructor.  This is necessary to ensure that an SBML
-   * document is a consistent structure.  Nevertheless, the ability to
-   * supply the values at the time of creation of a AlgebraicRule is an
-   * important aid to producing valid SBML.  Knowledge of the intented SBML
-   * Level and Version determine whether it is valid to assign a particular
-   * value to an attribute, or whether it is valid to add an object to an
-   * existing SBMLDocument.
+   * @copydetails doc_algebraicrule_setting_lv
    */
   AlgebraicRule (SBMLNamespaces* sbmlns);
 

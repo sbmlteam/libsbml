@@ -81,6 +81,49 @@
  * are being communicated across data links of limited bandwidth.
  */
 
+/**
+ * <!-- ~ ~ ~ ~ ~ Start of common documentation strings ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+ * The following text is used as common documentation blocks copied multiple
+ * times elsewhere in this file.  The use of @class is a hack needed because
+ * Doxygen's @copydetails command has limited functionality.  Symbols
+ * beginning with "doc_" are marked as ignored in our Doxygen configuration.
+ * ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~  -->
+ *
+ * @class doc_sbmlreader_if_compressed
+ *
+ * @par
+ * If the given filename ends with the suffix @c ".gz" (for example, @c
+ * "myfile.xml.gz"), the file is assumed to be compressed in @em gzip
+ * format and will be automatically decompressed upon reading.
+ * Similarly, if the given filename ends with @c ".zip" or @c ".bz2", the
+ * file is assumed to be compressed in @em zip or @em bzip2 format
+ * (respectively).  Files whose names lack these suffixes will be read
+ * uncompressed.  Note that if the file is in @em zip format but the
+ * archive contains more than one file, only the first file in the
+ * archive will be read and the rest ignored.
+ *
+ * @class doc_note_sbmlreader_error_handling
+ * 
+ * @note LibSBML versions 2.x and later versions behave differently in
+ * error handling in several respects.  One difference is how early some
+ * errors are caught and whether libSBML continues processing a file in
+ * the face of some early errors.  In general, libSBML versions after 2.x
+ * stop parsing SBML inputs sooner than libSBML version 2.x in the face
+ * of XML errors, because the errors may invalidate any further SBML
+ * content.  For example, a missing XML declaration at the beginning of
+ * the file was ignored by libSBML 2.x but in version 3.x and later, it
+ * will cause libSBML to stop parsing the rest of the input altogether.
+ * While this behavior may seem more severe and intolerant, it was
+ * necessary in order to provide uniform behavior regardless of which
+ * underlying XML parser (Expat, Xerces, libxml2) is being used by
+ * libSBML.  The XML parsers themselves behave differently in their error
+ * reporting, and sometimes libSBML has to resort to the lowest common
+ * denominator.
+
+
+ * <!-- ~ ~ ~ ~ ~ ~ End of common documentation strings ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ -->
+ */
+
 #ifndef SBMLReader_h
 #define SBMLReader_h
 
@@ -224,39 +267,18 @@ public:
  @endverbatim
  @endif@~
    *
-   * If the given filename ends with the suffix @c ".gz" (for example, @c
-   * "myfile.xml.gz"), the file is assumed to be compressed in @em gzip
-   * format and will be automatically decompressed upon reading.
-   * Similarly, if the given filename ends with @c ".zip" or @c ".bz2", the
-   * file is assumed to be compressed in @em zip or @em bzip2 format
-   * (respectively).  Files whose names lack these suffixes will be read
-   * uncompressed.  Note that if the file is in @em zip format but the
-   * archive contains more than one file, only the first file in the
-   * archive will be read and the rest ignored.
+   * @copydetails doc_sbmlreader_if_compressed
    *
-   * @htmlinclude note-reading-zipped-files.html
+   * @copydetails doc_config_for_reading_zipped_files
    *
    * @param filename the name or full pathname of the file to be read.
    *
    * @return a pointer to the SBMLDocument created from the SBML content.
    *
-   * @note LibSBML versions 2.x and later versions behave differently in
-   * error handling in several respects.  One difference is how early some
-   * errors are caught and whether libSBML continues processing a file in
-   * the face of some early errors.  In general, libSBML versions after 2.x
-   * stop parsing SBML inputs sooner than libSBML version 2.x in the face
-   * of XML errors, because the errors may invalidate any further SBML
-   * content.  For example, a missing XML declaration at the beginning of
-   * the file was ignored by libSBML 2.x but in version 3.x and later, it
-   * will cause libSBML to stop parsing the rest of the input altogether.
-   * While this behavior may seem more severe and intolerant, it was
-   * necessary in order to provide uniform behavior regardless of which
-   * underlying XML parser (Expat, Xerces, libxml2) is being used by
-   * libSBML.  The XML parsers themselves behave differently in their error
-   * reporting, and sometimes libSBML has to resort to the lowest common
-   * denominator.
+   * @copydetails doc_note_sbmlreader_error_handling
    *
    * @see SBMLError
+   * @see SBMLDocument
    */
   SBMLDocument* readSBML (const std::string& filename);
 
@@ -344,37 +366,15 @@ public:
  @endverbatim
  @endif@~
    *
-   * If the given filename ends with the suffix @c ".gz" (for example, @c
-   * "myfile.xml.gz"), the file is assumed to be compressed in @em gzip
-   * format and will be automatically decompressed upon reading.
-   * Similarly, if the given filename ends with @c ".zip" or @c ".bz2", the
-   * file is assumed to be compressed in @em zip or @em bzip2 format
-   * (respectively).  Files whose names lack these suffixes will be read
-   * uncompressed.  Note that if the file is in @em zip format but the
-   * archive contains more than one file, only the first file in the
-   * archive will be read and the rest ignored.
+   * @copydetails doc_sbmlreader_if_compressed
    *
-   * @htmlinclude note-reading-zipped-files.html
+   * @copydetails doc_config_for_reading_zipped_files
    *
    * @param filename the name or full pathname of the file to be read.
    *
    * @return a pointer to the SBMLDocument created from the SBML content.
    *
-   * @note LibSBML versions 2.x and later versions behave differently in
-   * error handling in several respects.  One difference is how early some
-   * errors are caught and whether libSBML continues processing a file in
-   * the face of some early errors.  In general, libSBML versions after 2.x
-   * stop parsing SBML inputs sooner than libSBML version 2.x in the face
-   * of XML errors, because the errors may invalidate any further SBML
-   * content.  For example, a missing XML declaration at the beginning of
-   * the file was ignored by libSBML 2.x but in version 3.x and later, it
-   * will cause libSBML to stop parsing the rest of the input altogether.
-   * While this behavior may seem more severe and intolerant, it was
-   * necessary in order to provide uniform behavior regardless of which
-   * underlying XML parser (Expat, Xerces, libxml2) is being used by
-   * libSBML.  The XML parsers themselves behave differently in their error
-   * reporting, and sometimes libSBML has to resort to the lowest common
-   * denominator.
+   * @copydetails doc_note_sbmlreader_error_handling
    *
    * @see SBMLError
    * @see SBMLDocument
@@ -503,34 +503,13 @@ SBMLReader_free (SBMLReader_t *sr);
  *   }\n
  * </code>
  *
- * If the given filename ends with the suffix @c ".gz" (for example, @c
- * "myfile.xml.gz"), the file is assumed to be compressed in @em gzip
- * format and will be automatically decompressed upon reading.
- * Similarly, if the given filename ends with @c ".zip" or @c ".bz2", the
- * file is assumed to be compressed in @em zip or @em bzip2 format
- * (respectively).  Files whose names lack these suffixes will be read
- * uncompressed.  Note that if the file is in @em zip format but the
- * archive contains more than one file, only the first file in the
- * archive will be read and the rest ignored.
- *
- * @note LibSBML versions 2.x and 3.x behave differently in error
- * handling in several respects.  One difference is how early some errors
- * are caught and whether libSBML continues processing a file in the face
- * of some early errors.  In general, libSBML 3.x stops parsing SBML
- * inputs sooner than libSBML 2.x in the face of XML errors because the
- * errors may invalidate any further SBML content.  For example, a
- * missing XML declaration at the beginning of the file was ignored by
- * libSBML 2.x but in version 3.x, it will cause libSBML to stop parsing
- * the rest of the input altogether.  While this behavior may seem more
- * severe and intolerant, it was necessary in order to provide uniform
- * behavior regardless of which underlying XML parser (Expat, Xerces,
- * libxml2) is being used by libSBML.  The XML parsers themselves behave
- * differently in their error reporting, and sometimes libSBML has to
- * resort to the lowest common denominator.
- *
- * @htmlinclude note-reading-zipped-files.html
+ * @copydetails doc_sbmlreader_if_compressed 
+ * 
+ * @copydetails doc_config_for_reading_zipped_files
  *
  * @return a pointer to the SBMLDocument read.
+ *
+ * @copydetails doc_note_sbmlreader_error_handling
  */
 LIBSBML_EXTERN
 SBMLDocument_t *

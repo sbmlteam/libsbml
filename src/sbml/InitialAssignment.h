@@ -170,40 +170,58 @@
  * @class ListOfInitialAssignments
  * @ingroup core
  * @brief Implementation of SBML's %ListOfInitialAssignments construct.
+ *
+ * @copydetails doc_what_is_listof
+ */
+
+/**
+ * <!-- ~ ~ ~ ~ ~ Start of common documentation strings ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+ * The following text is used as common documentation blocks copied multiple
+ * times elsewhere in this file.  The use of @class is a hack needed because
+ * Doxygen's @copydetails command has limited functionality.  Symbols
+ * beginning with "doc_" are marked as ignored in our Doxygen configuration.
+ * ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~  -->
+ *
+ * @class doc_note_initialassignment_setting_lv
+ *
+ * @note Upon the addition of a InitialAssignment object to an SBMLDocument
+ * (e.g., using Model::addInitialAssignment(@if java InitialAssignment
+ * ia@endif)), the SBML Level, SBML Version and XML namespace of the document
+ * @em override the values used when creating the InitialAssignment object
+ * via this constructor.  This is necessary to ensure that an SBML document
+ * is a consistent structure.  Nevertheless, the ability to supply the values
+ * at the time of creation of a InitialAssignment is an important aid to
+ * producing valid SBML.  Knowledge of the intented SBML Level and Version
+ * determine whether it is valid to assign a particular value to an
+ * attribute, or whether it is valid to add an object to an existing
+ * SBMLDocument.
+ *
+ * @class doc_eventassignment_units
+ *
+ * @par
+ * The units are calculated based on the mathematical expression in the
+ * InitialAssignment and the model quantities referenced by
+ * <code>&lt;ci&gt;</code> elements used within that expression.  The method
+ * InitialAssignment::getDerivedUnitDefinition() returns the calculated
+ * units, to the extent that libSBML can compute them.
+ *
+ * @class doc_warning_eventassignment_math_literals
  * 
- * The various ListOf___ classes in %SBML are merely containers used for
- * organizing the main components of an %SBML model.  All are derived from
- * the abstract class SBase, and inherit the various attributes and
- * subelements of SBase, such as "metaid" as and "annotation".  The
- * ListOf___ classes do not add any attributes of their own.
+ * @warning Note that it is possible the "math" expression in the
+ * InitialAssignment contains literal numbers or parameters with undeclared
+ * units.  In those cases, it is not possible to calculate the units of the
+ * overall expression without making assumptions.  LibSBML does not make
+ * assumptions about the units, and
+ * InitialAssignment::getDerivedUnitDefinition() only returns the units as
+ * far as it is able to determine them.  For example, in an expression <em>X
+ * + Y</em>, if <em>X</em> has unambiguously-defined units and <em>Y</em>
+ * does not, it will return the units of <em>X</em>.  When using this method,
+ * <strong>it is critical that callers also invoke the method</strong>
+ * InitialAssignment::containsUndeclaredUnits() <strong>to determine whether
+ * this situation holds</strong>.  Callers should take suitable action in
+ * those situations.
  *
- * The relationship between the lists and the rest of an %SBML model is
- * illustrated by the following (for %SBML Level&nbsp;2 Version&nbsp;4):
- *
- * @image html listof-illustration.jpg "ListOf___ elements in an SBML Model"
- * @image latex listof-illustration.jpg "ListOf___ elements in an SBML Model"
- *
- * Readers may wonder about the motivations for using the ListOf___
- * containers.  A simpler approach in XML might be to place the components
- * all directly at the top level of the model definition.  The choice made
- * in SBML is to group them within XML elements named after
- * ListOf<em>Classname</em>, in part because it helps organize the
- * components.  More importantly, the fact that the container classes are
- * derived from SBase means that software tools can add information @em about
- * the lists themselves into each list container's "annotation".
- *
- * @see ListOfFunctionDefinitions
- * @see ListOfUnitDefinitions
- * @see ListOfCompartmentTypes
- * @see ListOfSpeciesTypes
- * @see ListOfCompartments
- * @see ListOfSpecies
- * @see ListOfParameters
- * @see ListOfInitialAssignments
- * @see ListOfRules
- * @see ListOfConstraints
- * @see ListOfReactions
- * @see ListOfEvents
+ * <!-- ~ ~ ~ ~ ~ ~ End of common documentation strings ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ -->
  */
 
 #ifndef InitialAssignment_h
@@ -245,18 +263,8 @@ public:
    * Thrown if the given @p level and @p version combination, or this kind
    * of SBML object, are either invalid or mismatched with respect to the
    * parent SBMLDocument object.
-   * 
-   * @note Upon the addition of a InitialAssignment object to an
-   * SBMLDocument (e.g., using Model::addInitialAssignment(@if java InitialAssignment ia@endif)), the SBML
-   * Level, SBML Version and XML namespace of the document @em
-   * override the values used when creating the InitialAssignment object
-   * via this constructor.  This is necessary to ensure that an SBML
-   * document is a consistent structure.  Nevertheless, the ability to
-   * supply the values at the time of creation of a InitialAssignment is an
-   * important aid to producing valid SBML.  Knowledge of the intented SBML
-   * Level and Version determine whether it is valid to assign a particular
-   * value to an attribute, or whether it is valid to add an object to an
-   * existing SBMLDocument.
+   *
+   * @copydetails doc_note_initialassignment_setting_lv
    */
   InitialAssignment (unsigned int level, unsigned int version);
 
@@ -265,12 +273,7 @@ public:
    * Creates a new InitialAssignment using the given SBMLNamespaces object
    * @p sbmlns.
    *
-   * The SBMLNamespaces object encapsulates SBML Level/Version/namespaces
-   * information.  It is used to communicate the SBML Level, Version, and
-   * (in Level&nbsp;3) packages used in addition to SBML Level&nbsp;3 Core.
-   * A common approach to using this class constructor is to create an
-   * SBMLNamespaces object somewhere in a program, once, then pass it to
-   * object constructors such as this one when needed.
+   * @copydetails doc_what_are_sbmlnamespaces 
    *
    * @param sbmlns an SBMLNamespaces object.
    *
@@ -279,16 +282,7 @@ public:
    * of SBML object, are either invalid or mismatched with respect to the
    * parent SBMLDocument object.
    *
-   * @note Upon the addition of a InitialAssignment object to an
-   * SBMLDocument (e.g., using Model::addInitialAssignment(@if java InitialAssignment ia@endif)), the SBML XML
-   * namespace of the document @em overrides the value used when creating
-   * the InitialAssignment object via this constructor.  This is necessary
-   * to ensure that an SBML document is a consistent structure.
-   * Nevertheless, the ability to supply the values at the time of creation
-   * of a InitialAssignment is an important aid to producing valid SBML.
-   * Knowledge of the intented SBML Level and Version determine whether it
-   * is valid to assign a particular value to an attribute, or whether it
-   * is valid to add an object to an existing SBMLDocument.
+   * @copydetails doc_note_initialassignment_setting_lv 
    */
   InitialAssignment (SBMLNamespaces* sbmlns);
 
@@ -417,32 +411,12 @@ public:
    * of measurement assumed for the "math" expression of this
    * InitialAssignment.
    *
-   * The units are calculated based on the mathematical expression in the
-   * InitialAssignment and the model quantities referenced by
-   * <code>&lt;ci&gt;</code> elements used within that expression.  The
-   * @if java InitialAssignment::getDerivedUnitDefinition()@else getDerivedUnitDefinition()@endif@~
-   * method returns the calculated units.
+   * @copydetails doc_eventassignment_units
    *
-   * Note that the functionality that facilitates unit analysis depends 
-   * on the model as a whole.  Thus, in cases where the object has not 
-   * been added to a model or the model itself is incomplete,
-   * unit analysis is not possible and this method will return @c NULL.
+   * @copydetails doc_note_unit_inference_depends_on_model 
    *
-   * @warning Note that it is possible the "math" expression in the
-   * InitialAssignment contains pure numbers or parameters with undeclared
-   * units.  In those cases, it is not possible to calculate the units of
-   * the overall expression without making assumptions.  LibSBML does not
-   * make assumptions about the units, and
-   * @if java InitialAssignment::getDerivedUnitDefinition()@else getDerivedUnitDefinition()@endif@~
-   * only returns the units as far as it is able to determine them.  For
-   * example, in an expression <em>X + Y</em>, if <em>X</em> has
-   * unambiguously-defined units and <em>Y</em> does not, it will return
-   * the units of <em>X</em>.  <strong>It is important that callers also
-   * invoke the method</strong>
-   * @if java InitialAssignment::containsUndeclaredUnits()@else containsUndeclaredUnits()@endif@~
-   * <strong>to determine whether this situation holds</strong>.  Callers
-   * may wish to take suitable actions in those scenarios.
-   * 
+   * @copydetails doc_warning_initialassignment_math_literals
+   *
    * @return a UnitDefinition that expresses the units of the math 
    * expression of this InitialAssignment, or @c NULL if one cannot be constructed.
    * 
@@ -456,31 +430,11 @@ public:
    * of measurement assumed for the "math" expression of this
    * InitialAssignment.
    *
-   * The units are calculated based on the mathematical expression in the
-   * InitialAssignment and the model quantities referenced by
-   * <code>&lt;ci&gt;</code> elements used within that expression.  The
-   * @if java InitialAssignment::getDerivedUnitDefinition()@else getDerivedUnitDefinition()@endif@~
-   * method returns the calculated units.
+   * @copydetails doc_eventassignment_units
    *
-   * Note that the functionality that facilitates unit analysis depends 
-   * on the model as a whole.  Thus, in cases where the object has not 
-   * been added to a model or the model itself is incomplete,
-   * unit analysis is not possible and this method will return @c NULL.
+   * @copydetails doc_note_unit_inference_depends_on_model 
    *
-   * @warning Note that it is possible the "math" expression in the
-   * InitialAssignment contains pure numbers or parameters with undeclared
-   * units.  In those cases, it is not possible to calculate the units of
-   * the overall expression without making assumptions.  LibSBML does not
-   * make assumptions about the units, and
-   * @if java InitialAssignment::getDerivedUnitDefinition()@else getDerivedUnitDefinition()@endif@~
-   * only returns the units as far as it is able to determine them.  For
-   * example, in an expression <em>X + Y</em>, if <em>X</em> has
-   * unambiguously-defined units and <em>Y</em> does not, it will return
-   * the units of <em>X</em>.  <strong>It is important that callers also
-   * invoke the method</strong>
-   * @if java InitialAssignment::containsUndeclaredUnits()@else containsUndeclaredUnits()@endif@~
-   * <strong>to determine whether this situation holds</strong>.  Callers
-   * may wish to take suitable actions in those scenarios.
+   * @copydetails doc_warning_initialassignment_math_literals
    * 
    * @return a UnitDefinition that expresses the units of the math 
    * expression of this InitialAssignment, or @c NULL if one cannot be constructed.
@@ -491,18 +445,16 @@ public:
 
 
   /**
-   * Predicate returning @c true if 
-   * the math expression of this InitialAssignment contains
-   * parameters/numbers with undeclared units.
+   * Predicate returning @c true if the math expression of this
+   * InitialAssignment contains parameters/numbers with undeclared units.
    * 
    * @return @c true if the math expression of this InitialAssignment
    * includes parameters/numbers 
    * with undeclared units, @c false otherwise.
    *
    * @note A return value of @c true indicates that the UnitDefinition
-   * returned by
-   * @if java InitialAssignment::getDerivedUnitDefinition()@else getDerivedUnitDefinition()@endif@~
-   * may not accurately represent the units of the expression.
+   * returned by InitialAssignment::getDerivedUnitDefinition may not
+   * accurately represent the units of the expression.
    *
    * @see getDerivedUnitDefinition()
    */
@@ -510,18 +462,16 @@ public:
 
 
   /**
-   * Predicate returning @c true if 
-   * the math expression of this InitialAssignment contains
-   * parameters/numbers with undeclared units.
+   * Predicate returning @c true if the math expression of this
+   * InitialAssignment contains parameters/numbers with undeclared units.
    * 
    * @return @c true if the math expression of this InitialAssignment
    * includes parameters/numbers 
    * with undeclared units, @c false otherwise.
    *
    * @note A return value of @c true indicates that the UnitDefinition
-   * returned by
-   * @if java InitialAssignment::getDerivedUnitDefinition()@else getDerivedUnitDefinition()@endif@~
-   * may not accurately represent the units of the expression.
+   * returned by InitialAssignment::getDerivedUnitDefinition may not
+   * accurately represent the units of the expression.
    *
    * @see getDerivedUnitDefinition()
    */
@@ -531,29 +481,10 @@ public:
   /**
    * Returns the libSBML type code for this %SBML object.
    * 
-   * @if clike LibSBML attaches an identifying code to every kind of SBML
-   * object.  These are known as <em>SBML type codes</em>.  The set of
-   * possible type codes is defined in the enumeration #SBMLTypeCode_t.
-   * The names of the type codes all begin with the characters @c
-   * SBML_. @endif@if java LibSBML attaches an identifying code to every
-   * kind of SBML object.  These are known as <em>SBML type codes</em>.  In
-   * other languages, the set of type codes is stored in an enumeration; in
-   * the Java language interface for libSBML, the type codes are defined as
-   * static integer constants in the interface class {@link
-   * libsbmlConstants}.  The names of the type codes all begin with the
-   * characters @c SBML_. @endif@if python LibSBML attaches an identifying
-   * code to every kind of SBML object.  These are known as <em>SBML type
-   * codes</em>.  In the Python language interface for libSBML, the type
-   * codes are defined as static integer constants in the interface class
-   * @link libsbml@endlink.  The names of the type codes all begin with the
-   * characters @c SBML_. @endif@if csharp LibSBML attaches an identifying
-   * code to every kind of SBML object.  These are known as <em>SBML type
-   * codes</em>.  In the C# language interface for libSBML, the type codes
-   * are defined as static integer constants in the interface class @link
-   * libsbmlcs.libsbml@endlink.  The names of the type codes all begin with
-   * the characters @c SBML_. @endif@~
+   * @copydetails doc_what_are_typecodes
    *
-   * @return the SBML type code for this object, or @link SBMLTypeCode_t#SBML_UNKNOWN SBML_UNKNOWN@endlink (default).
+   * @return the SBML type code for this object, or
+   * @link SBMLTypeCode_t#SBML_UNKNOWN SBML_UNKNOWN@endlink (default).
    *
    * @see getElementName()
    */
@@ -580,9 +511,8 @@ public:
 
 
   /**
-   * Predicate returning @c true if
-   * all the required attributes for this InitialAssignment object
-   * have been set.
+   * Predicate returning @c true if all the required attributes for this
+   * InitialAssignment object have been set.
    *
    * @note The required attributes for an InitialAssignment object are:
    * @li "symbol"
@@ -594,9 +524,8 @@ public:
 
 
   /**
-   * Predicate returning @c true if
-   * all the required elements for this InitialAssignment object
-   * have been set.
+   * Predicate returning @c true if all the required elements for this
+   * InitialAssignment object have been set.
    *
    * @note The required elements for a InitialAssignment object are:
    * @li "math"
@@ -624,7 +553,7 @@ public:
    * Renames all the @c SIdRef attributes on this element, including any
    * found in MathML.
    *
-   * @htmlinclude what-is-sidref.html
+   * @copydetails doc_what_is_sidref
    * 
    * This method works by looking at all attributes and (if appropriate)
    * mathematical formulas, comparing the identifiers to the value of @p
@@ -640,7 +569,7 @@ public:
   /**
    * Renames all the @c UnitSIdRef attributes on this element.
    *
-   * @htmlinclude what-is-unitsidref.html
+   * @copydetails doc_what_is_unitsidref
    *
    * This method works by looking at all unit identifier attribute values
    * (including, if appropriate, inside mathematical formulas), comparing the
@@ -662,6 +591,7 @@ public:
   virtual void replaceSIDWithFunction(const std::string& id, const ASTNode* function);
   /** @endcond */
 
+
   /** @cond doxygenLibsbmlInternal */
   /**
    * If this assignment assigns a value to the 'id' element, replace the 'math' object with the function (existing/function). 
@@ -669,12 +599,14 @@ public:
   virtual void divideAssignmentsToSIdByFunction(const std::string& id, const ASTNode* function);
   /** @endcond */
 
+
   /** @cond doxygenLibsbmlInternal */
   /**
    * If this assignment assigns a value to the 'id' element, replace the 'math' object with the function (existing*function). 
    */
   virtual void multiplyAssignmentsToSIdByFunction(const std::string& id, const ASTNode* function);
   /** @endcond */
+
 
 protected:
   /** @cond doxygenLibsbmlInternal */
@@ -785,29 +717,10 @@ public:
   /**
    * Returns the libSBML type code for this %SBML object.
    *
-   * @if clike LibSBML attaches an identifying code to every kind of SBML
-   * object.  These are known as <em>SBML type codes</em>.  The set of
-   * possible type codes is defined in the enumeration #SBMLTypeCode_t.
-   * The names of the type codes all begin with the characters @c
-   * SBML_. @endif@if java LibSBML attaches an identifying code to every
-   * kind of SBML object.  These are known as <em>SBML type codes</em>.  In
-   * other languages, the set of type codes is stored in an enumeration; in
-   * the Java language interface for libSBML, the type codes are defined as
-   * static integer constants in the interface class {@link
-   * libsbmlConstants}.  The names of the type codes all begin with the
-   * characters @c SBML_. @endif@if python LibSBML attaches an identifying
-   * code to every kind of SBML object.  These are known as <em>SBML type
-   * codes</em>.  In the Python language interface for libSBML, the type
-   * codes are defined as static integer constants in the interface class
-   * @link libsbml@endlink.  The names of the type codes all begin with the
-   * characters @c SBML_. @endif@if csharp LibSBML attaches an identifying
-   * code to every kind of SBML object.  These are known as <em>SBML type
-   * codes</em>.  In the C# language interface for libSBML, the type codes
-   * are defined as static integer constants in the interface class @link
-   * libsbmlcs.libsbml@endlink.  The names of the type codes all begin with
-   * the characters @c SBML_. @endif@~
+   * @copydetails doc_what_are_typecodes
    *
-   * @return the SBML type code for this object, or @link SBMLTypeCode_t#SBML_UNKNOWN SBML_UNKNOWN@endlink (default).
+   * @return the SBML type code for this object, or
+   * @link SBMLTypeCode_t#SBML_UNKNOWN SBML_UNKNOWN@endlink (default).
    *
    * @see getElementName()
    */
@@ -818,30 +731,10 @@ public:
    * Returns the libSBML type code for the objects contained in this ListOf
    * (i.e., InitialAssignment objects, if the list is non-empty).
    * 
-   * @if clike LibSBML attaches an identifying code to every kind of SBML
-   * object.  These are known as <em>SBML type codes</em>.  The set of
-   * possible type codes is defined in the enumeration #SBMLTypeCode_t.
-   * The names of the type codes all begin with the characters @c
-   * SBML_. @endif@if java LibSBML attaches an identifying code to every
-   * kind of SBML object.  These are known as <em>SBML type codes</em>.  In
-   * other languages, the set of type codes is stored in an enumeration; in
-   * the Java language interface for libSBML, the type codes are defined as
-   * static integer constants in the interface class {@link
-   * libsbmlConstants}.  The names of the type codes all begin with the
-   * characters @c SBML_. @endif@if python LibSBML attaches an identifying
-   * code to every kind of SBML object.  These are known as <em>SBML type
-   * codes</em>.  In the Python language interface for libSBML, the type
-   * codes are defined as static integer constants in the interface class
-   * @link libsbml@endlink.  The names of the type codes all begin with the
-   * characters @c SBML_. @endif@if csharp LibSBML attaches an identifying
-   * code to every kind of SBML object.  These are known as <em>SBML type
-   * codes</em>.  In the C# language interface for libSBML, the type codes
-   * are defined as static integer constants in the interface class @link
-   * libsbmlcs.libsbml@endlink.  The names of the type codes all begin with
-   * the characters @c SBML_. @endif@~
-   * 
-   * @return the SBML type code for the objects contained in this ListOf
-   * instance, or @link SBMLTypeCode_t#SBML_UNKNOWN SBML_UNKNOWN@endlink (default).
+   * @copydetails doc_what_are_typecodes
+   *
+   * @return the SBML type code for the objects contained in this ListOf, or
+   * @link SBMLTypeCode_t#SBML_UNKNOWN SBML_UNKNOWN@endlink (default).
    *
    * @see getElementName()
    */
@@ -946,7 +839,12 @@ public:
 
 
   /**
-   * Returns the first child element found that has the given @p id in the model-wide SId namespace, or @c NULL if no such object is found.  Note that InitialAssignments do not actually have IDs, though the libsbml interface pretends that they do:  no initial assignment is returned by this function.
+   * Returns the first child element found that has the given @p id in the
+   * model-wide SId namespace, or @c NULL if no such object is found.
+   *
+   * Note that InitialAssignments do not actually have IDs, though the
+   * libsbml interface pretends that they do: no initial assignment is
+   * returned by this function.
    *
    * @param id string representing the id of objects to find
    *

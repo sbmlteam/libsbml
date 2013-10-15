@@ -60,13 +60,7 @@ public:
    * Returns true @c true or @c false depending on whether the argument
    * string conforms to the syntax of SBML identifiers.
    *
-   * In SBML, identifiers that are the values of "id" attributes on objects
-   * must conform to a data type called <code>SId</code> in the SBML
-   * specifications.  LibSBML does not provide an explicit <code>SId</code>
-   * data type; it uses ordinary character strings, which is easier for
-   * applications to support.  LibSBML does, however, test for identifier
-   * validity at various times, such as when reading in models from files
-   * and data streams.
+   * @copydetails doc_what_is_sid 
    *
    * This method provides programs with the ability to test explicitly that
    * the identifier strings they create conform to the SBML identifier
@@ -114,14 +108,7 @@ public:
    * Returns @c true or @c false depending on whether the argument string
    * conforms to the XML data type <code>ID</code>.
    *
-   * In SBML, identifiers that are the values of "metaid" attributes on
-   * objects must conform to the <a target="_blank"
-   * href="http://www.w3.org/TR/REC-xml/#id">XML ID</a> data type.  LibSBML
-   * does not provide an explicit XML <code>ID</code> data type; it uses
-   * ordinary character strings, which is easier for applications to
-   * support.  LibSBML does, however, test for identifier validity at
-   * various times, such as when reading in models from files and data
-   * streams.
+   * @copydetails doc_what_is_metaid 
    *
    * This method provides programs with the ability to test explicitly that
    * the identifier strings they create conform to the SBML identifier
@@ -225,18 +212,7 @@ public:
    * Returns @c true or @c false depending on whether the given XMLNode
    * object contains valid XHTML content.
    *
-   * In SBML, the content of the "notes" subelement available on SBase, as
-   * well as the "message" subelement available on Constraint, must conform
-   * to <a target="_blank"
-   * href="http://www.w3.org/TR/xhtml1/">XHTML&nbsp;1.0</a> (which is
-   * simply an XML-ized version of HTML).  However, the content cannot be
-   * @em entirely free-form; it must satisfy certain requirements defined in
-   * the <a target="_blank"
-   * href="http://sbml.org/Documents/Specifications">SBML
-   * specifications</a> for specific SBML Levels.  This method implements a
-   * verification process that lets callers check whether the content of a
-   * given XMLNode object conforms to the SBML requirements for "notes" and
-   * "message" structure.
+   * @copydetails doc_what_are_notes
    *
    * An aspect of XHTML validity is that the content is declared to be in
    * the XML namespace for XHTML&nbsp;1.0.  There is more than one way in
