@@ -37,6 +37,7 @@
 #include <sbml/xml/XMLAttributes.h>
 #include <sbml/xml/XMLNode.h>
 #include <sbml/Model.h>
+#include <sbml/util/IdList.h>
 
 /** @cond doxygenIgnored */
 
@@ -2433,6 +2434,144 @@ ASTNode::setUserData(void *userData)
   }
 }
 
+LIBSBML_EXTERN
+bool ASTNode::containsVariable(const std::string id) const
+{
+  bool found = false;
+
+  List * nodes = this->getListOfNodes( ASTNode_isName );
+  unsigned int i = 0;
+  while (found == false && i < nodes->getSize())
+  {
+    ASTNode* node = static_cast<ASTNode*>( nodes->get(i) );
+    string   name = node->getName() ? node->getName() : "";
+    if (name == id)
+    {
+      found = true;
+    }
+    i++;
+  }
+
+  return found;
+}
+
+LIBSBML_EXTERN
+unsigned int ASTNode::getNumVariablesWithUndeclaredUnits(Model * m) const
+{
+  unsigned int number = 0;
+
+  if (m == NULL)
+  {
+    if (this->getParentSBMLObject() != NULL)
+    {
+      m = static_cast <Model *>(this->getParentSBMLObject()
+                                     ->getAncestorOfType(SBML_MODEL));
+    }
+  }
+
+  // we are possibly in a kineticLaw where parameters might
+  // have local ids
+  KineticLaw* kl = NULL;
+
+  if (this->getParentSBMLObject() != NULL && 
+    this->getParentSBMLObject()->getTypeCode() == SBML_KINETIC_LAW)
+  {
+    kl = static_cast<KineticLaw*>(this->getParentSBMLObject());
+  }
+
+  // create a list of variables in the math
+  List * nodes = this->getListOfNodes( ASTNode_isName );
+  IdList * variables = new IdList();
+  for (unsigned int i = 0; i < nodes->getSize(); i++)
+  {
+    ASTNode* node = static_cast<ASTNode*>( nodes->get(i) );
+    string   name = node->getName() ? node->getName() : "";
+    if (name.empty() == false)
+    {
+      if (variables->contains(name) == false)
+      {
+        variables->append(name);
+      }
+    }
+  }
+
+  if ( m == NULL)
+  {
+    // there is no model so we have no units
+    number = variables->size();
+  }
+  else
+  {    
+    // should we look for reactions or speciesreferences in the math
+    bool allowReactionId = true;
+    bool allowSpeciesRef = false;
+
+    if ( (m->getLevel() < 2) 
+     || ((m->getLevel() == 2) && (m->getVersion() == 1)) )
+    {
+      allowReactionId = false;
+    }
+
+    if (m->getLevel() > 2)
+    {
+      allowSpeciesRef = true;
+    }
+
+    // loop thru the list and check the unit status of each variable
+    for (unsigned int v = 0; v < variables->size(); v++)
+    {
+      string id = variables->at(v);
+      
+
+      if (m->getParameter(id) != NULL)
+      {
+        if (m->getParameter(id)->isSetUnits() == false)
+        {
+          number++;
+        }
+      }
+      else if (m->getSpecies(id) != NULL)
+      {
+        if (m->getSpecies(id)->getDerivedUnitDefinition()->getNumUnits() == 0)
+        {
+          number++;
+        }
+      }
+      else if (m->getCompartment(id) != NULL)
+      {
+         if (m->getCompartment(id)->getDerivedUnitDefinition()
+                                                         ->getNumUnits() == 0)
+        {
+          number++;
+        }
+      }
+      else if (kl != NULL && kl->getParameter(id) != NULL)
+      {
+        if (kl->getParameter(id)->getDerivedUnitDefinition() == NULL ||
+          kl->getParameter(id)->getDerivedUnitDefinition()->getNumUnits() == 0)
+        {
+          number++;
+        }
+      }
+      else if (allowReactionId == true 
+         && m->getReaction(id) != NULL 
+         && m->getReaction(id)->getKineticLaw() != NULL)
+      {
+         if (m->getReaction(id)->getKineticLaw()->getDerivedUnitDefinition()
+                                                         ->getNumUnits() == 0)
+        {
+          number++;
+        }
+      }
+      /* actually these always are considered to be dimensionless */
+      //else if (allowSpeciesRef == true && m->getSpeciesReference(id) != NULL)
+      //{
+      //}
+    }
+  }
+
+  return number;
+}
 /**
  * Creates a new ASTNode and returns a pointer to it.  The returned node
  * will have a type of AST_UNKNOWN and should be set to something else as

@@ -2864,6 +2864,87 @@ Model::getRule (const std::string& variable)
 
 
 /*
+ * @return the Rule in this Model with the given variable or @c NULL if no
+ * such Rule exists.
+ */
+const AssignmentRule*
+Model::getAssignmentRule (const std::string& variable) const
+{
+  const Rule * rule = static_cast<const Rule*>( mRules.get(variable) );
+
+  if (rule != NULL && rule->getTypeCode() == SBML_ASSIGNMENT_RULE)
+  {
+    return static_cast<const AssignmentRule*>(rule);
+  }
+  else
+  {
+    return NULL;
+  }
+}
+
+ 
+/*
+ * @return the Rule in this Model with the given symbol or @c NULL if no
+ * such Rule exists.
+ */
+AssignmentRule*
+Model::getAssignmentRule (const std::string& variable)
+{
+  Rule * rule = static_cast<Rule*>( mRules.get(variable) );
+
+  if (rule != NULL && rule->getTypeCode() == SBML_ASSIGNMENT_RULE)
+  {
+    return static_cast<AssignmentRule*>(rule);
+  }
+  else
+  {
+    return NULL;
+  }
+}
+
+
+
+/*
+ * @return the Rule in this Model with the given variable or @c NULL if no
+ * such Rule exists.
+ */
+const RateRule*
+Model::getRateRule (const std::string& variable) const
+{
+  const Rule * rule = static_cast<const Rule*>( mRules.get(variable) );
+
+  if (rule != NULL && rule->getTypeCode() == SBML_RATE_RULE)
+  {
+    return static_cast<const RateRule*>(rule);
+  }
+  else
+  {
+    return NULL;
+  }
+}
+
+ 
+/*
+ * @return the Rule in this Model with the given symbol or @c NULL if no
+ * such Rule exists.
+ */
+RateRule*
+Model::getRateRule (const std::string& variable)
+{
+  Rule * rule = static_cast<Rule*>( mRules.get(variable) );
+
+  if (rule != NULL && rule->getTypeCode() == SBML_RATE_RULE)
+  {
+    return static_cast<RateRule*>(rule);
+  }
+  else
+  {
+    return NULL;
+  }
+}
+
+
+/*
  * @return the nth Constraint of this Model.
  */
 const Constraint*
@@ -5683,6 +5764,62 @@ Model::getFormulaUnitsData (const std::string& sid, int typecode)
 
 
 /** @cond doxygenLibsbmlInternal */
+/*
+ * @return the FormulaUnitsData in this Model with the given @p id  and typecode 
+ * or @c NULL if no such FormulaUnitsData exists.
+ */
+FormulaUnitsData*
+Model::getFormulaUnitsDataForVariable (const std::string& sid)
+{
+  FormulaUnitsData * fud = NULL;
+
+  if (getParameter(sid) != NULL)
+  {
+    fud = getFormulaUnitsData(sid, SBML_PARAMETER);
+  }
+  else if (getCompartment(sid) != NULL)
+  {
+    fud = getFormulaUnitsData(sid, SBML_COMPARTMENT);
+  }
+  else if (getSpecies(sid) != NULL)
+  {
+    fud = getFormulaUnitsData(sid, SBML_SPECIES);
+  }
+  else if (getSpeciesReference(sid) != NULL)
+  {
+    fud = getFormulaUnitsData(sid, SBML_SPECIES_REFERENCE);
+  }
+
+  return fud;
+}
+/** @endcond */
+
+
+/** @cond doxygen-libsbml-internal */
+/*
+ * @return the FormulaUnitsData in this Model with the given @p id  and typecode 
+ * or @c NULL if no such FormulaUnitsData exists.
+ */
+FormulaUnitsData*
+Model::getFormulaUnitsDataForAssignment(const std::string& sid)
+{
+  FormulaUnitsData * fud = NULL;
+
+  if (getInitialAssignment(sid) != NULL)
+  {
+    fud = getFormulaUnitsData(sid, SBML_INITIAL_ASSIGNMENT);
+  }
+  else if (getAssignmentRule(sid) != NULL)
+  {
+    fud = getFormulaUnitsData(sid, SBML_ASSIGNMENT_RULE);
+  }
+
+  return fud;
+}
+/** @endcond */
+
+
+/** @cond doxygen-libsbml-internal */
 /*
  * @return the number of FormulaUnitsDatas in this Model.
  */

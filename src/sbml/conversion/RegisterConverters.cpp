@@ -38,6 +38,7 @@
 #include <sbml/conversion/SBMLUnitsConverter.h>
 #include <sbml/conversion/SBMLRuleConverter.h>
 #include <sbml/conversion/SBMLIdConverter.h>
+#include <sbml/conversion/SBMLInferUnitsConverter.h>
 #include <sbml/conversion/SBMLLocalParameterConverter.h>
 
 
@@ -53,6 +54,7 @@ static SBMLConverterRegister<SBMLInitialAssignmentConverter> registerIAConverter
 static SBMLConverterRegister<SBMLLevelVersionConverter> registerLVConverter;
 static SBMLConverterRegister<SBMLStripPackageConverter> registerStripConverter;
 static SBMLConverterRegister<SBMLUnitsConverter> registerUnitsConverter;
+static SBMLConverterRegister<SBMLInferUnitsConverter> registerInferUnitsConverter;
 static SBMLConverterRegister<SBMLLocalParameterConverter> registerlocaLParameterConverter;
 
 LIBSBML_CPP_NAMESPACE_END

@@ -455,6 +455,725 @@ START_TEST (test_UnitFormulaFormatter_getUnitDefinition_hasUndeclaredUnits)
 END_TEST
 
 
+START_TEST (test_UnitFormulaFormatter_inferUnitDefinition_times)
+{
+  ASTNode * node = SBML_parseFormula("k1*a");
+  UnitDefinition * ud = new UnitDefinition(m->getSBMLNamespaces());
+  UnitDefinition * expUD = new UnitDefinition(m->getSBMLNamespaces());
+  Unit * u = expUD->createUnit();
+  u->setKind(UNIT_KIND_METRE);
+  u->setExponent(2);
+    
+  ud = uff->inferUnitDefinition(expUD, node, "a");
+
+  fail_unless(ud->getNumUnits() == 1);
+
+  fail_unless(ud->getUnit(0)->getMultiplier() == 1);
+  fail_unless(ud->getUnit(0)->getScale() == 0);
+  fail_unless(ud->getUnit(0)->getExponent() == 1);
+  fail_unless(ud->getUnit(0)->getOffset() == 0.0);
+  fail_unless(ud->getUnit(0)->getKind() == UNIT_KIND_METRE);
+
+  delete node;
+  delete expUD;
+  delete ud;
+
+}
+END_TEST
+
+
+START_TEST (test_UnitFormulaFormatter_inferUnitDefinition_times1)
+{
+  ASTNode * node = SBML_parseFormula("a*k1");
+  UnitDefinition * ud = new UnitDefinition(m->getSBMLNamespaces());
+  UnitDefinition * expUD = new UnitDefinition(m->getSBMLNamespaces());
+  Unit * u = expUD->createUnit();
+  u->setKind(UNIT_KIND_METRE);
+  u->setExponent(2);
+    
+  ud = uff->inferUnitDefinition(expUD, node, "a");
+
+  fail_unless(ud->getNumUnits() == 1);
+
+  fail_unless(ud->getUnit(0)->getMultiplier() == 1);
+  fail_unless(ud->getUnit(0)->getScale() == 0);
+  fail_unless(ud->getUnit(0)->getExponent() == 1);
+  fail_unless(ud->getUnit(0)->getOffset() == 0.0);
+  fail_unless(ud->getUnit(0)->getKind() == UNIT_KIND_METRE);
+
+  delete node;
+  delete expUD;
+  delete ud;
+
+}
+END_TEST
+
+
+START_TEST (test_UnitFormulaFormatter_inferUnitDefinition_times2)
+{
+  ASTNode * node = SBML_parseFormula("k1*a*k1");
+  UnitDefinition * ud = new UnitDefinition(m->getSBMLNamespaces());
+  UnitDefinition * expUD = new UnitDefinition(m->getSBMLNamespaces());
+  Unit * u = expUD->createUnit();
+  u->setKind(UNIT_KIND_METRE);
+  u->setExponent(3);
+    
+  ud = uff->inferUnitDefinition(expUD, node, "a");
+
+  fail_unless(ud->getNumUnits() == 1);
+
+  fail_unless(ud->getUnit(0)->getMultiplier() == 1);
+  fail_unless(ud->getUnit(0)->getScale() == 0);
+  fail_unless(ud->getUnit(0)->getExponent() == 1);
+  fail_unless(ud->getUnit(0)->getOffset() == 0.0);
+  fail_unless(ud->getUnit(0)->getKind() == UNIT_KIND_METRE);
+
+  delete node;
+  delete expUD;
+  delete ud;
+
+}
+END_TEST
+
+
+START_TEST (test_UnitFormulaFormatter_inferUnitDefinition_times3)
+{
+  ASTNode * node = SBML_parseFormula("a*k1*k1");
+  UnitDefinition * ud = new UnitDefinition(m->getSBMLNamespaces());
+  UnitDefinition * expUD = new UnitDefinition(m->getSBMLNamespaces());
+  Unit * u = expUD->createUnit();
+  u->setKind(UNIT_KIND_METRE);
+  u->setExponent(3);
+    
+  ud = uff->inferUnitDefinition(expUD, node, "a");
+
+  fail_unless(ud->getNumUnits() == 1);
+
+  fail_unless(ud->getUnit(0)->getMultiplier() == 1);
+  fail_unless(ud->getUnit(0)->getScale() == 0);
+  fail_unless(ud->getUnit(0)->getExponent() == 1);
+  fail_unless(ud->getUnit(0)->getOffset() == 0.0);
+  fail_unless(ud->getUnit(0)->getKind() == UNIT_KIND_METRE);
+
+  delete node;
+  delete expUD;
+  delete ud;
+
+}
+END_TEST
+
+
+START_TEST (test_UnitFormulaFormatter_inferUnitDefinition_times4)
+{
+  ASTNode * node = SBML_parseFormula("a*k1*k1*k1");
+  UnitDefinition * ud = new UnitDefinition(m->getSBMLNamespaces());
+  UnitDefinition * expUD = new UnitDefinition(m->getSBMLNamespaces());
+  Unit * u = expUD->createUnit();
+  u->setKind(UNIT_KIND_METRE);
+  u->setExponent(4);
+    
+  ud = uff->inferUnitDefinition(expUD, node, "a");
+
+  fail_unless(ud->getNumUnits() == 1);
+
+  fail_unless(ud->getUnit(0)->getMultiplier() == 1);
+  fail_unless(ud->getUnit(0)->getScale() == 0);
+  fail_unless(ud->getUnit(0)->getExponent() == 1);
+  fail_unless(ud->getUnit(0)->getOffset() == 0.0);
+  fail_unless(ud->getUnit(0)->getKind() == UNIT_KIND_METRE);
+
+  delete node;
+  delete expUD;
+  delete ud;
+
+}
+END_TEST
+
+
+START_TEST (test_UnitFormulaFormatter_inferUnitDefinition_divide)
+{
+  ASTNode * node = SBML_parseFormula("k1/a");
+  UnitDefinition * ud = new UnitDefinition(m->getSBMLNamespaces());
+  UnitDefinition * expUD = new UnitDefinition(m->getSBMLNamespaces());
+  Unit * u = expUD->createUnit();
+  u->setKind(UNIT_KIND_DIMENSIONLESS);
+    
+  ud = uff->inferUnitDefinition(expUD, node, "a");
+
+  fail_unless(ud->getNumUnits() == 1);
+
+  fail_unless(ud->getUnit(0)->getMultiplier() == 1);
+  fail_unless(ud->getUnit(0)->getScale() == 0);
+  fail_unless(ud->getUnit(0)->getExponent() == 1);
+  fail_unless(ud->getUnit(0)->getOffset() == 0.0);
+  fail_unless(ud->getUnit(0)->getKind() == UNIT_KIND_METRE);
+
+  delete node;
+  delete expUD;
+  delete ud;
+
+}
+END_TEST
+
+
+START_TEST (test_UnitFormulaFormatter_inferUnitDefinition_divide1)
+{
+  ASTNode * node = SBML_parseFormula("a/k1");
+  UnitDefinition * ud = new UnitDefinition(m->getSBMLNamespaces());
+  UnitDefinition * expUD = new UnitDefinition(m->getSBMLNamespaces());
+  Unit * u = expUD->createUnit();
+  u->setKind(UNIT_KIND_METRE);
+    
+  ud = uff->inferUnitDefinition(expUD, node, "a");
+
+  fail_unless(ud->getNumUnits() == 1);
+
+  fail_unless(ud->getUnit(0)->getMultiplier() == 1);
+  fail_unless(ud->getUnit(0)->getScale() == 0);
+  fail_unless(ud->getUnit(0)->getExponent() == 2);
+  fail_unless(ud->getUnit(0)->getOffset() == 0.0);
+  fail_unless(ud->getUnit(0)->getKind() == UNIT_KIND_METRE);
+
+  delete node;
+  delete expUD;
+  delete ud;
+
+}
+END_TEST
+
+
+START_TEST (test_UnitFormulaFormatter_inferUnitDefinition_divide2)
+{
+  ASTNode * node = SBML_parseFormula("k1/(a/k1)");
+  UnitDefinition * ud = new UnitDefinition(m->getSBMLNamespaces());
+  UnitDefinition * expUD = new UnitDefinition(m->getSBMLNamespaces());
+  Unit * u = expUD->createUnit();
+  u->setKind(UNIT_KIND_METRE);
+  u->setExponent(1);
+    
+  ud = uff->inferUnitDefinition(expUD, node, "a");
+
+  fail_unless(ud->getNumUnits() == 1);
+
+  fail_unless(ud->getUnit(0)->getMultiplier() == 1);
+  fail_unless(ud->getUnit(0)->getScale() == 0);
+  fail_unless(ud->getUnit(0)->getExponent() == 1);
+  fail_unless(ud->getUnit(0)->getOffset() == 0.0);
+  fail_unless(ud->getUnit(0)->getKind() == UNIT_KIND_METRE);
+
+  delete node;
+  delete expUD;
+  delete ud;
+
+}
+END_TEST
+
+
+START_TEST (test_UnitFormulaFormatter_inferUnitDefinition_divide3)
+{
+  ASTNode * node = SBML_parseFormula("a/(k1/k1)");
+  UnitDefinition * ud = new UnitDefinition(m->getSBMLNamespaces());
+  UnitDefinition * expUD = new UnitDefinition(m->getSBMLNamespaces());
+  Unit * u = expUD->createUnit();
+  u->setKind(UNIT_KIND_METRE);
+  u->setExponent(3);
+    
+  ud = uff->inferUnitDefinition(expUD, node, "a");
+
+  fail_unless(ud->getNumUnits() == 1);
+
+  fail_unless(ud->getUnit(0)->getMultiplier() == 1);
+  fail_unless(ud->getUnit(0)->getScale() == 0);
+  fail_unless(ud->getUnit(0)->getExponent() == 3);
+  fail_unless(ud->getUnit(0)->getOffset() == 0.0);
+  fail_unless(ud->getUnit(0)->getKind() == UNIT_KIND_METRE);
+
+  delete node;
+  delete expUD;
+  delete ud;
+
+}
+END_TEST
+
+
+START_TEST (test_UnitFormulaFormatter_inferUnitDefinition_divide4)
+{
+  ASTNode * node = SBML_parseFormula("(a/k1)/(k1/k1)");
+  UnitDefinition * ud = new UnitDefinition(m->getSBMLNamespaces());
+  UnitDefinition * expUD = new UnitDefinition(m->getSBMLNamespaces());
+  Unit * u = expUD->createUnit();
+  u->setKind(UNIT_KIND_METRE);
+  u->setExponent(2);
+    
+  ud = uff->inferUnitDefinition(expUD, node, "a");
+
+  fail_unless(ud->getNumUnits() == 1);
+
+  fail_unless(ud->getUnit(0)->getMultiplier() == 1);
+  fail_unless(ud->getUnit(0)->getScale() == 0);
+  fail_unless(ud->getUnit(0)->getExponent() == 3);
+  fail_unless(ud->getUnit(0)->getOffset() == 0.0);
+  fail_unless(ud->getUnit(0)->getKind() == UNIT_KIND_METRE);
+
+  delete node;
+  delete expUD;
+  delete ud;
+
+}
+END_TEST
+
+
+START_TEST (test_UnitFormulaFormatter_inferUnitDefinition_plus)
+{
+  ASTNode * node = SBML_parseFormula("k1+a");
+  UnitDefinition * ud = new UnitDefinition(m->getSBMLNamespaces());
+  UnitDefinition * expUD = new UnitDefinition(m->getSBMLNamespaces());
+  Unit * u = expUD->createUnit();
+  u->setKind(UNIT_KIND_METRE);
+    
+  ud = uff->inferUnitDefinition(expUD, node, "a");
+
+  fail_unless(ud->getNumUnits() == 1);
+
+  fail_unless(ud->getUnit(0)->getMultiplier() == 1);
+  fail_unless(ud->getUnit(0)->getScale() == 0);
+  fail_unless(ud->getUnit(0)->getExponent() == 1);
+  fail_unless(ud->getUnit(0)->getOffset() == 0.0);
+  fail_unless(ud->getUnit(0)->getKind() == UNIT_KIND_METRE);
+
+  delete node;
+  delete expUD;
+  delete ud;
+
+}
+END_TEST
+
+
+START_TEST (test_UnitFormulaFormatter_inferUnitDefinition_plus1)
+{
+  ASTNode * node = SBML_parseFormula("a+k1");
+  UnitDefinition * ud = new UnitDefinition(m->getSBMLNamespaces());
+  UnitDefinition * expUD = new UnitDefinition(m->getSBMLNamespaces());
+  Unit * u = expUD->createUnit();
+  u->setKind(UNIT_KIND_METRE);
+    
+  ud = uff->inferUnitDefinition(expUD, node, "a");
+
+  fail_unless(ud->getNumUnits() == 1);
+
+  fail_unless(ud->getUnit(0)->getMultiplier() == 1);
+  fail_unless(ud->getUnit(0)->getScale() == 0);
+  fail_unless(ud->getUnit(0)->getExponent() == 1);
+  fail_unless(ud->getUnit(0)->getOffset() == 0.0);
+  fail_unless(ud->getUnit(0)->getKind() == UNIT_KIND_METRE);
+
+  delete node;
+  delete expUD;
+  delete ud;
+
+}
+END_TEST
+
+
+START_TEST (test_UnitFormulaFormatter_inferUnitDefinition_plus2)
+{
+  ASTNode * node = SBML_parseFormula("k1+a+k1");
+  UnitDefinition * ud = new UnitDefinition(m->getSBMLNamespaces());
+  UnitDefinition * expUD = new UnitDefinition(m->getSBMLNamespaces());
+  Unit * u = expUD->createUnit();
+  u->setKind(UNIT_KIND_METRE);
+    
+  ud = uff->inferUnitDefinition(expUD, node, "a");
+
+  fail_unless(ud->getNumUnits() == 1);
+
+  fail_unless(ud->getUnit(0)->getMultiplier() == 1);
+  fail_unless(ud->getUnit(0)->getScale() == 0);
+  fail_unless(ud->getUnit(0)->getExponent() == 1);
+  fail_unless(ud->getUnit(0)->getOffset() == 0.0);
+  fail_unless(ud->getUnit(0)->getKind() == UNIT_KIND_METRE);
+
+  delete node;
+  delete expUD;
+  delete ud;
+
+}
+END_TEST
+
+
+START_TEST (test_UnitFormulaFormatter_inferUnitDefinition_plus3)
+{
+  ASTNode * node = SBML_parseFormula("a+k1+k1");
+  UnitDefinition * ud = new UnitDefinition(m->getSBMLNamespaces());
+  UnitDefinition * expUD = new UnitDefinition(m->getSBMLNamespaces());
+  Unit * u = expUD->createUnit();
+  u->setKind(UNIT_KIND_METRE);
+    
+  ud = uff->inferUnitDefinition(expUD, node, "a");
+
+  fail_unless(ud->getNumUnits() == 1);
+
+  fail_unless(ud->getUnit(0)->getMultiplier() == 1);
+  fail_unless(ud->getUnit(0)->getScale() == 0);
+  fail_unless(ud->getUnit(0)->getExponent() == 1);
+  fail_unless(ud->getUnit(0)->getOffset() == 0.0);
+  fail_unless(ud->getUnit(0)->getKind() == UNIT_KIND_METRE);
+
+  delete node;
+  delete expUD;
+  delete ud;
+
+}
+END_TEST
+
+
+START_TEST (test_UnitFormulaFormatter_inferUnitDefinition_plus4)
+{
+  ASTNode * node = SBML_parseFormula("a+k1+k1+k1");
+  UnitDefinition * ud = new UnitDefinition(m->getSBMLNamespaces());
+  UnitDefinition * expUD = new UnitDefinition(m->getSBMLNamespaces());
+  Unit * u = expUD->createUnit();
+  u->setKind(UNIT_KIND_METRE);
+    
+  ud = uff->inferUnitDefinition(expUD, node, "a");
+
+  fail_unless(ud->getNumUnits() == 1);
+
+  fail_unless(ud->getUnit(0)->getMultiplier() == 1);
+  fail_unless(ud->getUnit(0)->getScale() == 0);
+  fail_unless(ud->getUnit(0)->getExponent() == 1);
+  fail_unless(ud->getUnit(0)->getOffset() == 0.0);
+  fail_unless(ud->getUnit(0)->getKind() == UNIT_KIND_METRE);
+
+  delete node;
+  delete expUD;
+  delete ud;
+
+}
+END_TEST
+
+
+START_TEST (test_UnitFormulaFormatter_inferUnitDefinition_minus)
+{
+  ASTNode * node = SBML_parseFormula("k1-a");
+  UnitDefinition * ud = new UnitDefinition(m->getSBMLNamespaces());
+  UnitDefinition * expUD = new UnitDefinition(m->getSBMLNamespaces());
+  Unit * u = expUD->createUnit();
+  u->setKind(UNIT_KIND_METRE);
+    
+  ud = uff->inferUnitDefinition(expUD, node, "a");
+
+  fail_unless(ud->getNumUnits() == 1);
+
+  fail_unless(ud->getUnit(0)->getMultiplier() == 1);
+  fail_unless(ud->getUnit(0)->getScale() == 0);
+  fail_unless(ud->getUnit(0)->getExponent() == 1);
+  fail_unless(ud->getUnit(0)->getOffset() == 0.0);
+  fail_unless(ud->getUnit(0)->getKind() == UNIT_KIND_METRE);
+
+  delete node;
+  delete expUD;
+  delete ud;
+
+}
+END_TEST
+
+
+START_TEST (test_UnitFormulaFormatter_inferUnitDefinition_minus1)
+{
+  ASTNode * node = SBML_parseFormula("a-k1");
+  UnitDefinition * ud = new UnitDefinition(m->getSBMLNamespaces());
+  UnitDefinition * expUD = new UnitDefinition(m->getSBMLNamespaces());
+  Unit * u = expUD->createUnit();
+  u->setKind(UNIT_KIND_METRE);
+    
+  ud = uff->inferUnitDefinition(expUD, node, "a");
+
+  fail_unless(ud->getNumUnits() == 1);
+
+  fail_unless(ud->getUnit(0)->getMultiplier() == 1);
+  fail_unless(ud->getUnit(0)->getScale() == 0);
+  fail_unless(ud->getUnit(0)->getExponent() == 1);
+  fail_unless(ud->getUnit(0)->getOffset() == 0.0);
+  fail_unless(ud->getUnit(0)->getKind() == UNIT_KIND_METRE);
+
+  delete node;
+  delete expUD;
+  delete ud;
+
+}
+END_TEST
+
+
+START_TEST (test_UnitFormulaFormatter_inferUnitDefinition_minus2)
+{
+  ASTNode * node = SBML_parseFormula("k1-a-k1");
+  UnitDefinition * ud = new UnitDefinition(m->getSBMLNamespaces());
+  UnitDefinition * expUD = new UnitDefinition(m->getSBMLNamespaces());
+  Unit * u = expUD->createUnit();
+  u->setKind(UNIT_KIND_METRE);
+    
+  ud = uff->inferUnitDefinition(expUD, node, "a");
+
+  fail_unless(ud->getNumUnits() == 1);
+
+  fail_unless(ud->getUnit(0)->getMultiplier() == 1);
+  fail_unless(ud->getUnit(0)->getScale() == 0);
+  fail_unless(ud->getUnit(0)->getExponent() == 1);
+  fail_unless(ud->getUnit(0)->getOffset() == 0.0);
+  fail_unless(ud->getUnit(0)->getKind() == UNIT_KIND_METRE);
+
+  delete node;
+  delete expUD;
+  delete ud;
+
+}
+END_TEST
+
+
+START_TEST (test_UnitFormulaFormatter_inferUnitDefinition_minus3)
+{
+  ASTNode * node = SBML_parseFormula("a-k1-k1");
+  UnitDefinition * ud = new UnitDefinition(m->getSBMLNamespaces());
+  UnitDefinition * expUD = new UnitDefinition(m->getSBMLNamespaces());
+  Unit * u = expUD->createUnit();
+  u->setKind(UNIT_KIND_METRE);
+    
+  ud = uff->inferUnitDefinition(expUD, node, "a");
+
+  fail_unless(ud->getNumUnits() == 1);
+
+  fail_unless(ud->getUnit(0)->getMultiplier() == 1);
+  fail_unless(ud->getUnit(0)->getScale() == 0);
+  fail_unless(ud->getUnit(0)->getExponent() == 1);
+  fail_unless(ud->getUnit(0)->getOffset() == 0.0);
+  fail_unless(ud->getUnit(0)->getKind() == UNIT_KIND_METRE);
+
+  delete node;
+  delete expUD;
+  delete ud;
+
+}
+END_TEST
+
+
+START_TEST (test_UnitFormulaFormatter_inferUnitDefinition_minus4)
+{
+  ASTNode * node = SBML_parseFormula("a-k1-k1-k1");
+  UnitDefinition * ud = new UnitDefinition(m->getSBMLNamespaces());
+  UnitDefinition * expUD = new UnitDefinition(m->getSBMLNamespaces());
+  Unit * u = expUD->createUnit();
+  u->setKind(UNIT_KIND_METRE);
+    
+  ud = uff->inferUnitDefinition(expUD, node, "a");
+
+  fail_unless(ud->getNumUnits() == 1);
+
+  fail_unless(ud->getUnit(0)->getMultiplier() == 1);
+  fail_unless(ud->getUnit(0)->getScale() == 0);
+  fail_unless(ud->getUnit(0)->getExponent() == 1);
+  fail_unless(ud->getUnit(0)->getOffset() == 0.0);
+  fail_unless(ud->getUnit(0)->getKind() == UNIT_KIND_METRE);
+
+  delete node;
+  delete expUD;
+  delete ud;
+
+}
+END_TEST
+
+
+START_TEST (test_UnitFormulaFormatter_inferUnitDefinition_power)
+{
+  ASTNode * node = SBML_parseFormula("k1^a");
+  UnitDefinition * ud = new UnitDefinition(m->getSBMLNamespaces());
+  UnitDefinition * expUD = new UnitDefinition(m->getSBMLNamespaces());
+  Unit * u = expUD->createUnit();
+  u->setKind(UNIT_KIND_METRE);
+    
+  ud = uff->inferUnitDefinition(expUD, node, "a");
+
+  fail_unless(ud->getNumUnits() == 1);
+
+  fail_unless(ud->getUnit(0)->getMultiplier() == 1);
+  fail_unless(ud->getUnit(0)->getScale() == 0);
+  fail_unless(ud->getUnit(0)->getExponent() == 1);
+  fail_unless(ud->getUnit(0)->getOffset() == 0.0);
+  fail_unless(ud->getUnit(0)->getKind() == UNIT_KIND_DIMENSIONLESS);
+
+  delete node;
+  delete expUD;
+  delete ud;
+
+}
+END_TEST
+
+
+START_TEST (test_UnitFormulaFormatter_inferUnitDefinition_power1)
+{
+  ASTNode * node = SBML_parseFormula("a^2");
+  UnitDefinition * ud = new UnitDefinition(m->getSBMLNamespaces());
+  UnitDefinition * expUD = new UnitDefinition(m->getSBMLNamespaces());
+  Unit * u = expUD->createUnit();
+  u->setKind(UNIT_KIND_METRE);
+  u->setExponent(2);
+    
+  ud = uff->inferUnitDefinition(expUD, node, "a");
+
+  fail_unless(ud->getNumUnits() == 1);
+
+  fail_unless(ud->getUnit(0)->getMultiplier() == 1);
+  fail_unless(ud->getUnit(0)->getScale() == 0);
+  fail_unless(ud->getUnit(0)->getExponent() == 1);
+  fail_unless(ud->getUnit(0)->getOffset() == 0.0);
+  fail_unless(ud->getUnit(0)->getKind() == UNIT_KIND_METRE);
+
+  delete node;
+  delete expUD;
+  delete ud;
+
+}
+END_TEST
+
+
+START_TEST (test_UnitFormulaFormatter_inferUnitDefinition_power2)
+{
+  ASTNode * node = SBML_parseFormula("k1^(k1*a)");
+  UnitDefinition * ud = new UnitDefinition(m->getSBMLNamespaces());
+  UnitDefinition * expUD = new UnitDefinition(m->getSBMLNamespaces());
+  Unit * u = expUD->createUnit();
+  u->setKind(UNIT_KIND_METRE);
+    
+  ud = uff->inferUnitDefinition(expUD, node, "a");
+
+  fail_unless(ud->getNumUnits() == 1);
+
+  fail_unless(ud->getUnit(0)->getMultiplier() == 1);
+  fail_unless(ud->getUnit(0)->getScale() == 0);
+  fail_unless(ud->getUnit(0)->getExponent() == -1);
+  fail_unless(ud->getUnit(0)->getOffset() == 0.0);
+  fail_unless(ud->getUnit(0)->getKind() == UNIT_KIND_METRE);
+
+  delete node;
+  delete expUD;
+  delete ud;
+
+}
+END_TEST
+
+
+START_TEST (test_UnitFormulaFormatter_inferUnitDefinition_power3)
+{
+  ASTNode * node = SBML_parseFormula("a^(cell/cell)");
+  UnitDefinition * ud = new UnitDefinition(m->getSBMLNamespaces());
+  UnitDefinition * expUD = new UnitDefinition(m->getSBMLNamespaces());
+  Unit * u = expUD->createUnit();
+  u->setKind(UNIT_KIND_METRE);
+
+    
+  ud = uff->inferUnitDefinition(expUD, node, "a");
+
+  fail_unless(ud->getNumUnits() == 1);
+
+  fail_unless(ud->getUnit(0)->getMultiplier() == 1);
+  fail_unless(ud->getUnit(0)->getScale() == 0);
+  fail_unless(ud->getUnit(0)->getExponent() == 1);
+  fail_unless(ud->getUnit(0)->getOffset() == 0.0);
+  fail_unless(ud->getUnit(0)->getKind() == UNIT_KIND_METRE);
+
+  delete node;
+  delete expUD;
+  delete ud;
+
+}
+END_TEST
+
+
+START_TEST (test_UnitFormulaFormatter_inferUnitDefinition_power4)
+{
+  ASTNode * node = SBML_parseFormula("a^k1");
+  UnitDefinition * ud = new UnitDefinition(m->getSBMLNamespaces());
+  UnitDefinition * expUD = new UnitDefinition(m->getSBMLNamespaces());
+  Unit * u = expUD->createUnit();
+  u->setKind(UNIT_KIND_METRE);
+
+    
+  ud = uff->inferUnitDefinition(expUD, node, "a");
+
+  fail_unless(ud == NULL);
+
+  delete node;
+  delete expUD;
+}
+END_TEST
+
+
+START_TEST (test_UnitFormulaFormatter_inferUnitDefinition_name)
+{
+  ASTNode * node = SBML_parseFormula("a");
+  UnitDefinition * ud = new UnitDefinition(m->getSBMLNamespaces());
+  UnitDefinition * expUD = new UnitDefinition(m->getSBMLNamespaces());
+  Unit * u = expUD->createUnit();
+  u->setKind(UNIT_KIND_METRE);
+    
+  ud = uff->inferUnitDefinition(expUD, node, "a");
+
+  fail_unless(ud->getNumUnits() == 1);
+
+  fail_unless(ud->getUnit(0)->getMultiplier() == 1);
+  fail_unless(ud->getUnit(0)->getScale() == 0);
+  fail_unless(ud->getUnit(0)->getExponent() == 1);
+  fail_unless(ud->getUnit(0)->getOffset() == 0.0);
+  fail_unless(ud->getUnit(0)->getKind() == UNIT_KIND_METRE);
+
+  delete node;
+  delete expUD;
+  delete ud;
+
+}
+END_TEST
+
+
+START_TEST (test_UnitFormulaFormatter_inferUnitDefinition_unknown)
+{
+  ASTNode * node = SBML_parseFormula("b");
+  UnitDefinition * ud = new UnitDefinition(m->getSBMLNamespaces());
+  UnitDefinition * expUD = new UnitDefinition(m->getSBMLNamespaces());
+  Unit * u = expUD->createUnit();
+  u->setKind(UNIT_KIND_METRE);
+    
+  ud = uff->inferUnitDefinition(expUD, node, "a");
+
+  fail_unless(ud == NULL);
+
+  delete node;
+  delete expUD;
+  delete ud;
+
+}
+END_TEST
+
+
+START_TEST (test_UnitFormulaFormatter_inferUnitDefinition_unknown1)
+{
+  ASTNode * node = SBML_parseFormula("sin(a)");
+  UnitDefinition * ud = new UnitDefinition(m->getSBMLNamespaces());
+  UnitDefinition * expUD = new UnitDefinition(m->getSBMLNamespaces());
+  Unit * u = expUD->createUnit();
+  u->setKind(UNIT_KIND_METRE);
+    
+  ud = uff->inferUnitDefinition(expUD, node, "a");
+
+  fail_unless(ud == NULL);
+
+  delete node;
+  delete expUD;
+  delete ud;
+
+}
+END_TEST
+
+
 Suite *
 create_suite_UnitFormulaFormatter (void)
 {
@@ -479,6 +1198,34 @@ create_suite_UnitFormulaFormatter (void)
   tcase_add_test(tcase, test_UnitFormulaFormatter_getUnitDefinition_reaction );
   tcase_add_test(tcase, test_UnitFormulaFormatter_getUnitDefinition_hasUndeclaredUnits );
 
+  tcase_add_test(tcase, test_UnitFormulaFormatter_inferUnitDefinition_times );
+  tcase_add_test(tcase, test_UnitFormulaFormatter_inferUnitDefinition_times1 );
+  tcase_add_test(tcase, test_UnitFormulaFormatter_inferUnitDefinition_times2 );
+  tcase_add_test(tcase, test_UnitFormulaFormatter_inferUnitDefinition_times3 );
+  tcase_add_test(tcase, test_UnitFormulaFormatter_inferUnitDefinition_times4 );
+  tcase_add_test(tcase, test_UnitFormulaFormatter_inferUnitDefinition_divide );
+  tcase_add_test(tcase, test_UnitFormulaFormatter_inferUnitDefinition_divide1 );
+  tcase_add_test(tcase, test_UnitFormulaFormatter_inferUnitDefinition_divide2 );
+  tcase_add_test(tcase, test_UnitFormulaFormatter_inferUnitDefinition_divide3 );
+  tcase_add_test(tcase, test_UnitFormulaFormatter_inferUnitDefinition_divide4 );
+  tcase_add_test(tcase, test_UnitFormulaFormatter_inferUnitDefinition_plus );
+  tcase_add_test(tcase, test_UnitFormulaFormatter_inferUnitDefinition_plus1 );
+  tcase_add_test(tcase, test_UnitFormulaFormatter_inferUnitDefinition_plus2 );
+  tcase_add_test(tcase, test_UnitFormulaFormatter_inferUnitDefinition_plus3 );
+  tcase_add_test(tcase, test_UnitFormulaFormatter_inferUnitDefinition_plus4 );
+  tcase_add_test(tcase, test_UnitFormulaFormatter_inferUnitDefinition_minus );
+  tcase_add_test(tcase, test_UnitFormulaFormatter_inferUnitDefinition_minus1 );
+  tcase_add_test(tcase, test_UnitFormulaFormatter_inferUnitDefinition_minus2 );
+  tcase_add_test(tcase, test_UnitFormulaFormatter_inferUnitDefinition_minus3 );
+  tcase_add_test(tcase, test_UnitFormulaFormatter_inferUnitDefinition_minus4 );
+  tcase_add_test(tcase, test_UnitFormulaFormatter_inferUnitDefinition_power );
+  tcase_add_test(tcase, test_UnitFormulaFormatter_inferUnitDefinition_power1 );
+  tcase_add_test(tcase, test_UnitFormulaFormatter_inferUnitDefinition_power2 );
+  tcase_add_test(tcase, test_UnitFormulaFormatter_inferUnitDefinition_power3 );
+  tcase_add_test(tcase, test_UnitFormulaFormatter_inferUnitDefinition_power4 );
+  tcase_add_test(tcase, test_UnitFormulaFormatter_inferUnitDefinition_name );
+  tcase_add_test(tcase, test_UnitFormulaFormatter_inferUnitDefinition_unknown );
+  tcase_add_test(tcase, test_UnitFormulaFormatter_inferUnitDefinition_unknown1 );
   suite_add_tcase(suite, tcase);
 
   return suite;

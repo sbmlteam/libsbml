@@ -321,6 +321,55 @@ START_TEST (test_DerivedUnitDefinition_event)
 END_TEST
 
 
+START_TEST (test_DerivedUnitDefinition_localParameter)
+{
+  UnitDefinition *fud = m->getReaction(0)->getKineticLaw()->getParameter(0)->getDerivedUnitDefinition();
+
+  fail_unless(fud->getNumUnits() == 1);
+
+  fail_unless(!strcmp(fud->getId().c_str(), ""), NULL);
+
+  fail_unless(fud->getUnit(0)->getMultiplier() == 1);
+  fail_unless(fud->getUnit(0)->getScale() == 0);
+  fail_unless(fud->getUnit(0)->getExponent() == 1);
+  fail_unless(fud->getUnit(0)->getOffset() == 0.0);
+  fail_unless(fud->getUnit(0)->getKind() == UNIT_KIND_SECOND);
+
+}
+END_TEST
+
+
+START_TEST (test_DerivedUnitDefinition_localParameter1)
+{
+  UnitDefinition *fud = m->getReaction(0)->getKineticLaw()->getParameter(0)->getDerivedUnitDefinition();
+
+  //fail_unless(fud->getNumUnits() == 1);
+
+  //fail_unless(!strcmp(fud->getId().c_str(), ""), NULL);
+
+  //fail_unless(fud->getUnit(0)->getMultiplier() == 1);
+  //fail_unless(fud->getUnit(0)->getScale() == 0);
+  //fail_unless(fud->getUnit(0)->getExponent() == 1);
+  //fail_unless(fud->getUnit(0)->getOffset() == 0.0);
+  //fail_unless(fud->getUnit(0)->getKind() == UNIT_KIND_SECOND);
+
+}
+END_TEST
+
+
+START_TEST (test_DerivedUnitDefinition_noModel)
+{
+  Parameter * p = new Parameter(3,1);
+  UnitDefinition *fud = p->getDerivedUnitDefinition();
+
+  fail_unless(fud == NULL);
+
+  delete p;
+
+}
+END_TEST
+
+
 Suite *
 create_suite_DerivedUnitDefinition (void)
 {
@@ -338,6 +387,9 @@ create_suite_DerivedUnitDefinition (void)
   tcase_add_test(tcase, test_DerivedUnitDefinition_rule );
   tcase_add_test(tcase, test_DerivedUnitDefinition_reaction );
   tcase_add_test(tcase, test_DerivedUnitDefinition_event );
+  tcase_add_test(tcase, test_DerivedUnitDefinition_localParameter );
+  tcase_add_test(tcase, test_DerivedUnitDefinition_localParameter1 );
+  tcase_add_test(tcase, test_DerivedUnitDefinition_noModel );
   suite_add_tcase(suite, tcase);
 
   return suite;

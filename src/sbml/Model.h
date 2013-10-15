@@ -2378,6 +2378,42 @@ public:
 
 
   /**
+   * Get a Rule object based on the variable to which it assigns a value.
+   * 
+   * @return the Rule in this Model with the given "variable" attribute
+   * value or @c NULL if no such Rule exists.
+   */
+  const AssignmentRule* getAssignmentRule (const std::string& variable) const;
+
+
+  /**
+   * Get a Rule object based on the variable to which it assigns a value.
+   * 
+   * @return the Rule in this Model with the given "variable" attribute
+   * value or @c NULL if no such Rule exists.
+   */
+  AssignmentRule* getAssignmentRule (const std::string& variable);
+
+
+  /**
+   * Get a Rule object based on the variable to which it assigns a value.
+   * 
+   * @return the Rule in this Model with the given "variable" attribute
+   * value or @c NULL if no such Rule exists.
+   */
+  const RateRule* getRateRule (const std::string& variable) const;
+
+
+  /**
+   * Get a Rule object based on the variable to which it assigns a value.
+   * 
+   * @return the Rule in this Model with the given "variable" attribute
+   * value or @c NULL if no such Rule exists.
+   */
+  RateRule* getRateRule (const std::string& variable);
+
+
+  /**
    * Get the nth Constraint object in this Model.
    * 
    * @return the nth Constraint of this Model.
@@ -3038,6 +3074,34 @@ public:
    */
   FormulaUnitsData* 
   getFormulaUnitsData(const std::string& sid, int);
+
+
+  /*
+   * Get a FormulaUnitsData variable object based on its unitReferenceId.
+   * 
+   * @return the FormulaUnitsData in this Model with the unitReferenceId @p sid 
+   * that corrsponds to a variable object or @c NULL
+   * if no such FormulaUnitsData exists.
+   *
+   * @note  This function restricts teh search to classes that can be varied
+   * Species, Compartment, Parameter, SpeciesReference.
+   */
+  FormulaUnitsData* 
+  getFormulaUnitsDataForVariable(const std::string& sid);
+
+
+  /*
+   * Get a FormulaUnitsData variable object based on its unitReferenceId.
+   * 
+   * @return the FormulaUnitsData in this Model with the unitReferenceId @p sid 
+   * that corrsponds to a variable object or @c NULL
+   * if no such FormulaUnitsData exists.
+   *
+   * @note  This function restricts teh search to classes that can be varied
+   * Species, Compartment, Parameter, SpeciesReference.
+   */
+  FormulaUnitsData* 
+  getFormulaUnitsDataForAssignment(const std::string& sid);
 
 
   /**

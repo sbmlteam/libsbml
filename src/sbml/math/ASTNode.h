@@ -1716,6 +1716,12 @@ public:
   bool isBvar() const { return mIsBvar; };
   void setBvar() { mIsBvar = true; };
 
+  LIBSBML_EXTERN
+  bool containsVariable(const std::string id) const;
+
+  LIBSBML_EXTERN
+  unsigned int getNumVariablesWithUndeclaredUnits(Model * m = NULL) const;
+
   /** @endcond */
 
 protected:

@@ -59,7 +59,6 @@
 #include <sbml/Reaction.h>
 #include <sbml/KineticLaw.h>
 #include <sbml/Event.h>
-
 #include <sbml/math/ASTNode.h>
 
 #ifdef __cplusplus
@@ -68,6 +67,7 @@
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
+class FormulaUnitsData;
 
 class   LIBSBML_EXTERN UnitFormulaFormatter
 {
@@ -301,9 +301,31 @@ public:
    */
   UnitDefinition * getUnitDefinitionFromOther(const ASTNode * node,
     bool inKL, int reactNo);
-/** @endcond */
+
+  /** @endcond */
+
+  /* @cond doxygenLibsbmlInternal */
+  
+  UnitDefinition * inferUnitDefinition(UnitDefinition* expectedUD, 
+    const ASTNode * LHS, std::string id, bool inKL = false, int reactNo = -1);
+
+  /** @endcond */
+
+  /* @cond doxygenLibsbmlInternal */
+  
+  bool variableCanBeDeterminedFromMath(const ASTNode * node, std::string id);
+
+  /** @endcond */
+
+  /* @cond doxygenLibsbmlInternal */
+  
+  bool possibleToUseUnitsData(FormulaUnitsData * fud);
+
+  /** @endcond */
 
 private:
+  /* @cond doxygenLibsbmlInternal */
+
   const Model * model;
   bool mContainsUndeclaredUnits;
   unsigned int mCanIgnoreUndeclaredUnits;
@@ -314,6 +336,12 @@ private:
   std::map<const ASTNode*, UnitDefinition*> unitDefinitionMap;
   std::map<const ASTNode*, bool>            undeclaredUnitsMap;
   std::map<const ASTNode*, unsigned int>    canIgnoreUndeclaredUnitsMap;  
+
+  UnitDefinition * inverseFunctionOnUnits(UnitDefinition* expectedUD,
+    const ASTNode * math, ASTNodeType_t functionType, bool inKL, int reactNo, 
+    bool unknownInLeftChild = false);
+
+  /** @endcond */
 
 };
 

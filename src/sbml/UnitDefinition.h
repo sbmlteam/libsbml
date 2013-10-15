@@ -894,6 +894,29 @@ public:
 
 
   /** 
+   * Combines two UnitDefinition objects into a single UnitDefinition as
+   * a division.
+   *
+   * This takes UnitDefinition objects @p ud1 and @p ud2, and creates a
+   * UnitDefinition object that expresses the division of the units of @p
+   * ud1 and @p ud2.
+   *
+   * @param ud1 the first UnitDefinition object 
+   * @param ud2 the second UnitDefinition object
+   *
+   * @return a UnitDefinition which represents the division of the 
+   * units of the two argument UnitDefinitions.
+   *
+   * @if notclike @note Because this is a @em static method, the
+   * non-C++ language interfaces for libSBML will contain two variants.  One
+   * will be a static method on the class (i.e., UnitDefinition), and the
+   * other will be a standalone top-level function with the name
+   * UnitDefinition_combine(). They are functionally identical. @endif@~
+   */
+  static UnitDefinition* divide(UnitDefinition * ud1, UnitDefinition * ud2);
+
+
+  /** 
    * Expresses the given definition in a plain-text form.
    *
    * For example,
@@ -1419,6 +1442,10 @@ UnitDefinition_areEquivalent(UnitDefinition_t *ud1 , UnitDefinition_t * ud2);
 LIBSBML_EXTERN
 UnitDefinition_t * 
 UnitDefinition_combine(UnitDefinition_t * ud1, UnitDefinition_t * ud2);
+
+LIBSBML_EXTERN
+UnitDefinition_t * 
+UnitDefinition_divide(UnitDefinition_t * ud1, UnitDefinition_t * ud2);
 
 LIBSBML_EXTERN
 const char *

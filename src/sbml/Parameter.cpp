@@ -58,6 +58,7 @@ Parameter::Parameter (unsigned int level, unsigned int version) :
  , mIsSetValue( false    )
  , mIsSetConstant (false )
  , mExplicitlySetConstant ( false )
+ , mCalculatingUnits (false)
 {
   if (!hasValidLevelVersionNamespaceCombination())
     throw SBMLConstructorException();
@@ -85,6 +86,7 @@ Parameter::Parameter (SBMLNamespaces * sbmlns) :
  , mIsSetValue( false    )
  , mIsSetConstant (false )
  , mExplicitlySetConstant ( false )
+ , mCalculatingUnits (false)
 {
   if (!hasValidLevelVersionNamespaceCombination())
   {
@@ -134,6 +136,7 @@ Parameter::Parameter(const Parameter& orig) :
     mName          = orig.mName;
     mIsSetConstant = orig.mIsSetConstant;
     mExplicitlySetConstant = orig.mExplicitlySetConstant;
+    mCalculatingUnits = false; // only set by units converter
   }
 }
 
@@ -158,6 +161,7 @@ Parameter& Parameter::operator=(const Parameter& rhs)
     mName = rhs.mName;
     mIsSetConstant = rhs.mIsSetConstant;
     mExplicitlySetConstant = rhs.mExplicitlySetConstant;
+    mCalculatingUnits = false; // only set by units converter
   }
 
   return *this;
@@ -512,6 +516,18 @@ Parameter::unsetUnits ()
 UnitDefinition *
 Parameter::getDerivedUnitDefinition()
 {
+  bool calculate = getCalculatingUnits();
+
+  /* we need to unset this flag because the code that does the unit
+   * calculations will try and establish whether 
+   * variables in math have units set possible using this
+   * function - but assuming that it is not calculating the units
+   * thus unless we unset the flag immediately 
+   * this may cause an infinite loop
+   */
+  this->setCalculatingUnits(false);
+
+  UnitDefinition * derivedUD = NULL;
   /* if we have the whole model but it is not in a document
    * it is still possible to determine the units
    */
@@ -535,71 +551,88 @@ Parameter::getDerivedUnitDefinition()
    * OR the object is not yet a child of a model
    */
 
+  /* need to distinguish between a global and local parameter
+  * for a global parameter a unit definition will have been created
+  * for a local parameter need to create one based on the units field
+  */
+  bool globalParameter = false;
+  SBase *parent  = getParentSBMLObject();
+  SBase *pparent = (parent) ? parent->getParentSBMLObject() : NULL; 
+  if (pparent != NULL && dynamic_cast<Model*>(pparent) != 0)
+  {
+    globalParameter = true;
+  }
+
+  /* if we have a model calculate all units */
   if (m != NULL)
   {
     if (!m->isPopulatedListFormulaUnitsData())
     {
       m->populateListFormulaUnitsData();
     }
-    
-    /* need to distinguish between a global and local parameter
-    * for a global parameter a unit definition will have been created
-    * for a local parameter need to create one based on the units field
-    */
-    bool globalParameter = false;
-    SBase *parent  = getParentSBMLObject();
-    SBase *pparent = (parent) ? parent->getParentSBMLObject() : NULL; 
-    if (pparent != NULL && dynamic_cast<Model*>(pparent) != 0)
-      globalParameter = true;
+  }
 
-    if (globalParameter)
+  std::string id = this->getId();
+
+  if (calculate == true)
+  {
+    if (m != NULL)
     {
-      if (m->getFormulaUnitsData(getId(), getTypeCode()) != NULL)
-      {
-        return m->getFormulaUnitsData(getId(), getTypeCode())
-                                              ->getUnitDefinition();
-    }
-    else
-    {
-      return NULL;
+      derivedUD = inferUnits(m, globalParameter);
     }
   }
   else
   {
-    UnitDefinition *ud = NULL;
-    const char * units = getUnits().c_str();
-    if (!strcmp(units, ""))
+    /* here we do not want to try to infer the unit from any formula
+    * we just use what is given
+    */
+    if (m != NULL)
     {
-      ud   = new UnitDefinition(getSBMLNamespaces());
-      return ud;
-    }
-    else
-    {
-      if (UnitKind_isValidUnitKindString(units, 
-                                getLevel(), getVersion()))
+      if (globalParameter)
       {
-        Unit * unit = new Unit(getSBMLNamespaces());
-        unit->setKind(UnitKind_forName(units));
-        unit->initDefaults();
-        ud   = new UnitDefinition(getSBMLNamespaces());
-        
-        ud->addUnit(unit);
-
-        delete unit;
+        /* we are global parameter so units might have been set
+         * if not return NULL
+         */
+        if (m->getFormulaUnitsData(id, getTypeCode()) != NULL)
+        {
+          derivedUD = new UnitDefinition(*(m->getFormulaUnitsData(id, 
+                              getTypeCode())->getUnitDefinition()));
+        }
       }
       else
       {
-        /* must be a unit definition */
-        ud = static_cast <Model *> (getAncestorOfType(SBML_MODEL))->getUnitDefinition(units);
-      }
-      return ud;
+        std::string units = getUnits();
+        if (units.empty() == false)
+        {
+          if (UnitKind_isValidUnitKindString(units.c_str(), 
+                                getLevel(), getVersion()))
+          {
+            Unit * unit = new Unit(getSBMLNamespaces());
+            unit->setKind(UnitKind_forName(units.c_str()));
+            unit->initDefaults();
+            derivedUD   = new UnitDefinition(getSBMLNamespaces());
+
+            derivedUD->addUnit(unit);
+
+            delete unit;
+          }
+          else
+          {
+            /* must be a unit definition */
+            derivedUD = new UnitDefinition(*(m->getUnitDefinition(units)));
+          }
+        }
+        else
+        {
+          // here we have none but for consistency return a unitDefinition
+          // with no units
+          derivedUD = new UnitDefinition(getSBMLNamespaces());
+        }
       }
     }
   }
-  else
-  {
-    return NULL;
-  }
+
+  return derivedUD;
 }
 
 
@@ -1038,6 +1071,378 @@ Parameter::writeAttributes (XMLOutputStream& stream) const
 }
 /** @endcond */
 
+/* private functions used for inferring units */
+/** @cond doxygenLibsbmlInternal */
+
+void
+Parameter::setCalculatingUnits(bool calculatingUnits)
+{
+  mCalculatingUnits = calculatingUnits;
+}
+
+/** @endcond */
+
+/** @cond doxygenLibsbmlInternal */
+
+bool
+Parameter::getCalculatingUnits() const
+{
+  return mCalculatingUnits;
+}
+
+/** @endcond */
+
+/** @cond doxygenLibsbmlInternal */
+
+UnitDefinition *
+Parameter::inferUnits(Model* m, bool globalParameter)
+{
+  UnitDefinition * derivedUD = NULL;
+  UnitFormulaFormatter *uff = new UnitFormulaFormatter(m);
+
+  if (globalParameter == true)
+  {
+    derivedUD = inferUnitsFromAssignments(uff, m);
+
+    if (derivedUD == NULL)
+    {
+      derivedUD = inferUnitsFromRules(uff, m);
+    }
+
+    if (derivedUD == NULL)
+    {
+      derivedUD = inferUnitsFromReactions(uff, m);
+    }
+
+    if (derivedUD == NULL)
+    {
+      derivedUD = inferUnitsFromEvents(uff, m);
+    }
+  }
+  else
+  {
+    // local parameter
+    // so we will have a parent that is a kineticLaw
+    KineticLaw * kl = NULL;
+    kl = static_cast<KineticLaw *>(
+                       this->getAncestorOfType(SBML_KINETIC_LAW, "core"));
+
+    derivedUD = inferUnitsFromKineticLaw(kl, uff, m);
+  }
+
+
+  return derivedUD;
+}
+
+
+/** @endcond */
+
+/** @cond doxygenLibsbmlInternal */
+
+UnitDefinition *
+Parameter::inferUnitsFromRules(UnitFormulaFormatter *uff, Model *m)
+{
+  UnitDefinition * derivedUD = NULL;
+  
+  std::string id = this->getId();
+  
+  bool found = false;
+  unsigned int i;
+  FormulaUnitsData *fud;
+
+  /* look in initialAssignments */
+  for (i = 0; found == false && i < m->getNumInitialAssignments(); i++)
+  {
+    const ASTNode *math = m->getInitialAssignment(i)->isSetMath() ?
+           m->getInitialAssignment(i)->getMath() : NULL;
+    if (uff->variableCanBeDeterminedFromMath(math, id) == true)
+    {
+      /* do we know the units of the LHS */
+      std::string symbol = m->getInitialAssignment(i)->getSymbol();
+      fud = m->getFormulaUnitsDataForVariable(symbol);
+
+      if (uff->possibleToUseUnitsData(fud) == true)
+      {
+        derivedUD = uff->inferUnitDefinition(fud->getUnitDefinition(),
+                                             math, id);
+        found = true;
+      }
+    }
+  }        
+  /* look in rules */
+  for (i = 0; found == false && i < m->getNumRules(); i++)
+  {
+    const ASTNode * math = m->getRule(i)->isSetMath() ? 
+                           m->getRule(i)->getMath() : NULL;
+    if (uff->variableCanBeDeterminedFromMath(math, id) == true)
+    {
+      /* do we know the units of the LHS */
+      std::string symbol = m->getRule(i)->getVariable();
+      fud = m->getFormulaUnitsDataForVariable(symbol);
+
+      if (uff->possibleToUseUnitsData(fud) == true)
+      {
+        if (m->getRule(i)->getTypeCode() == SBML_ASSIGNMENT_RULE)
+        {
+          derivedUD = uff->inferUnitDefinition(fud->getUnitDefinition(),
+                                               math, id);
+        }
+        else if (m->getRule(i)->getTypeCode() == SBML_RATE_RULE)
+        {
+          derivedUD = uff->inferUnitDefinition(fud->getPerTimeUnitDefinition(),
+                                               math, id);
+        }
+        found = true;
+      }
+    }
+  }        
+
+  return derivedUD;
+}
+
+
+/** @endcond */
+
+/** @cond doxygenLibsbmlInternal */
+
+UnitDefinition *
+Parameter::inferUnitsFromAssignments(UnitFormulaFormatter *uff, Model *m)
+{
+  UnitDefinition * derivedUD = NULL;
+  std::string id = this->getId();
+  bool found = false;
+
+  /* is it the variable of an initalAssignment/assignmentRule */
+  FormulaUnitsData *fud = m->getFormulaUnitsDataForAssignment(id);
+  if (uff->possibleToUseUnitsData(fud) == true)
+  {
+    derivedUD = new UnitDefinition(*(fud->getUnitDefinition()));
+    found = true;
+  }
+
+  /* is it the variable of a raterule */
+  if (m->getRateRule(id) != NULL)
+  {
+    fud = m->getFormulaUnitsData(id, SBML_RATE_RULE);
+    if (uff->possibleToUseUnitsData(fud) == true)
+    {
+      FormulaUnitsData *time = m->getFormulaUnitsData("time", SBML_MODEL);
+      if (time->getContainsUndeclaredUnits() == false)
+      {
+        derivedUD = UnitDefinition::combine(fud->getUnitDefinition(),
+                                      time->getUnitDefinition());
+        found = true;
+      }
+    }
+  }
+
+  /* is it the variable of an eventAssignment */
+  for (unsigned int i = 0; found == false && i < m->getNumEvents(); i++)
+  {
+    Event * e = m->getEvent(i);
+    EventAssignment * ea = e->getEventAssignment(id);
+    if (ea != NULL)
+    {
+      const string& variable = id + e->getId();
+      fud = m->getFormulaUnitsData(variable, SBML_EVENT_ASSIGNMENT);
+      if (uff->possibleToUseUnitsData(fud) == true)
+      {
+        derivedUD = new UnitDefinition(*(fud->getUnitDefinition()));
+        found = true;
+      }
+    }
+  }
+
+  return derivedUD;
+}
+
+
+/** @endcond */
+
+/** @cond doxygenLibsbmlInternal */
+
+UnitDefinition *
+Parameter::inferUnitsFromReactions(UnitFormulaFormatter *uff, Model *m)
+{
+  UnitDefinition * derivedUD = NULL;
+  bool found = false;
+
+  for (unsigned int i = 0; found == false && i < m->getNumReactions(); i++)
+  {
+    if (m->getReaction(i)->isSetKineticLaw() == true)
+    {
+      derivedUD = inferUnitsFromKineticLaw(m->getReaction(i)->getKineticLaw(),
+                                           uff, m);
+      if (derivedUD != NULL)
+      {
+        found = true;
+      }
+    }
+  }
+
+  return derivedUD;
+}
+
+/** @endcond */
+
+/** @cond doxygenLibsbmlInternal */
+
+UnitDefinition *
+Parameter::inferUnitsFromEvents(UnitFormulaFormatter *uff, Model *m)
+{
+  UnitDefinition * derivedUD = NULL;
+
+  bool found = false;
+
+  for (unsigned int i = 0; found == false && i < m->getNumEvents(); i++)
+  {
+    derivedUD = inferUnitsFromEvent(m->getEvent(i), uff, m);
+    if (derivedUD != NULL)
+    {
+      found = true;
+    }
+  }
+
+  return derivedUD;
+}
+
+/** @endcond */
+
+/** @cond doxygenLibsbmlInternal */
+
+UnitDefinition *
+Parameter::inferUnitsFromEvent(Event * e, UnitFormulaFormatter *uff, Model *m)
+{
+  UnitDefinition * derivedUD = NULL;
+  bool found = false;
+  std::string id = this->getId();
+  unsigned int i;
+
+  /* look at eventAssignments */
+  for (i = 0; found == false && i < e->getNumEventAssignments(); i++)
+  {
+    const ASTNode * math = e->getEventAssignment(i)->isSetMath() ?
+      e->getEventAssignment(i)->getMath() : NULL;
+
+    if (uff->variableCanBeDeterminedFromMath(math, id) == true)
+    {
+      /* do we know the units of the LHS */
+      std::string symbol = e->getEventAssignment(i)->getVariable();
+      FormulaUnitsData *fud = m->getFormulaUnitsDataForVariable(symbol);
+
+      if (uff->possibleToUseUnitsData(fud) == true)
+      {
+        derivedUD = uff->inferUnitDefinition(fud->getUnitDefinition(),
+                                             math, id);
+        found = false;
+      }
+    }
+  }        
+
+  /* look in delay*/
+  if (found == false && e->isSetDelay() == true)
+  {
+    const ASTNode * math = e->getDelay()->isSetMath() ?
+      e->getDelay()->getMath() : NULL;
+
+    if (uff->variableCanBeDeterminedFromMath(math, id) == true)
+    {
+      /* the units of the LHS will be the time units of the model */
+      FormulaUnitsData *fud = m->getFormulaUnitsData(e->getId(), SBML_EVENT);
+
+      // usually at this point we check the fud which should represent the
+      // LHS
+      // delay cannot use the possibleToUseUnitsData function as
+      // for a delay this refers to teh RHS which we know 
+      // has a variable with undeclared units  SO it will claim it
+      // cannot be used
+   
+      if (fud != NULL)
+      {
+        if (fud->getEventTimeUnitDefinition()->getNumUnits() > 0)
+        {
+          derivedUD = uff->inferUnitDefinition(
+                                fud->getEventTimeUnitDefinition(), math, id);
+          found = true;
+        }
+      }
+    }
+  }        
+    
+  /* look in priority*/
+  if (found == false && e->isSetPriority() == true)
+  {
+    const ASTNode * math = e->getPriority()->isSetMath() ?
+                           e->getPriority()->getMath() : NULL;
+
+    if (uff->variableCanBeDeterminedFromMath(math, id) == true)
+    {
+      /* the units of the LHS will be dimensionless */
+      UnitDefinition * dim = new UnitDefinition(getSBMLNamespaces());
+      Unit * u = dim->createUnit();
+      u->initDefaults();
+      u->setKind(UNIT_KIND_DIMENSIONLESS);
+
+      derivedUD = uff->inferUnitDefinition(dim, math, id);
+      found = true;
+    }
+  }              
+
+  return derivedUD;
+}
+
+/** @endcond */
+
+/** @cond doxygenLibsbmlInternal */
+
+UnitDefinition *
+Parameter::inferUnitsFromKineticLaw(KineticLaw* kl, 
+                                    UnitFormulaFormatter *uff, Model *m)
+{
+  UnitDefinition * derivedUD = NULL;
+
+  if (kl == NULL)
+  {
+    return derivedUD;
+  }
+
+  std::string id = this->getId();
+
+  int index = -1;
+  // unfortunately we need the index of the reaction
+  // that really should be done with id !!
+  std::string rnId = (kl->getAncestorOfType(SBML_REACTION) != NULL) ?
+                      kl->getAncestorOfType(SBML_REACTION)->getId() : "";
+  if (rnId.empty() == false)
+  {
+    for (unsigned int i = 0; i < m->getNumReactions(); i++)
+    {
+      if (rnId == m->getReaction(i)->getId())
+      {
+        index = i;
+        break;
+      }
+    }
+  }
+
+  const ASTNode * math = kl->isSetMath() ? kl->getMath() : NULL;
+        
+  if (index > -1 && uff->variableCanBeDeterminedFromMath(math, id) == true)
+  {
+    FormulaUnitsData * fud = 
+                       m->getFormulaUnitsData("subs_per_time", SBML_UNKNOWN);
+        
+    if (uff->possibleToUseUnitsData(fud) == true)
+    {
+      derivedUD = uff->inferUnitDefinition(fud->getUnitDefinition(),
+            math, id, true, index);
+    }
+  }
+
+  return derivedUD;
+}
+
+/** @endcond */
 
 /*
  * Creates a new ListOfParameters items.

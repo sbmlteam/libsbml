@@ -24,6 +24,7 @@ foreach(example
 	convertSBML
 	createExampleSBML
 	echoSBML
+	inferUnits
 	inlineFunctionDefintions
 	getAllElementsWithNotes
 	printAnnotation

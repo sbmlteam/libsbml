@@ -94,6 +94,9 @@ START_TEST (test_read_MathML_1)
   fail_unless (fd_math->getNumChildren() == 2, NULL);
   fail_unless (!strcmp(SBML_formulaToString(fd_math), "lambda(x, )"), NULL);
   fail_unless (fd_math->getParentSBMLObject() == fd, NULL);
+  fail_unless (fd_math->getNumVariablesWithUndeclaredUnits() == 0);
+  fail_unless( fd_math->containsVariable("c") == false );
+  fail_unless( fd_math->containsVariable("x") == true );
 
   ASTNode *child = fd_math->getRightChild();
   fail_unless (child->getType() == AST_UNKNOWN, NULL);
@@ -117,11 +120,16 @@ START_TEST (test_read_MathML_1)
   fail_unless (fd1_math->getNumChildren() == 2, NULL);
   fail_unless (!strcmp(SBML_formulaToString(fd1_math), "lambda(x, true)"), NULL);
   fail_unless (fd1_math->getParentSBMLObject() == fd, NULL);
+  fail_unless (fd1_math->getNumVariablesWithUndeclaredUnits() == 0);
+  fail_unless( fd1_math->containsVariable("c") == false );
+  fail_unless( fd1_math->containsVariable("x") == true );
 
   ASTNode *child1 = fd1_math->getRightChild();
   fail_unless (child1->getType() == AST_CONSTANT_TRUE, NULL);
   fail_unless (child1->getNumChildren() == 0, NULL);
   fail_unless (!strcmp(SBML_formulaToString(child1), "true"), NULL);
+  fail_unless( child1->containsVariable("c") == false );
+  fail_unless( child1->containsVariable("x") == false );
 
   //<initialAssignment symbol="p1">
   //  <math xmlns="http://www.w3.org/1998/Math/MathML">
@@ -135,6 +143,9 @@ START_TEST (test_read_MathML_1)
   fail_unless (ia_math->getNumChildren() == 0, NULL);
   fail_unless (!strcmp(SBML_formulaToString(ia_math), ""), NULL);
   fail_unless (ia_math->getParentSBMLObject() == ia, NULL);
+  fail_unless (ia_math->getNumVariablesWithUndeclaredUnits() == 0);
+  fail_unless( ia_math->containsVariable("c") == false );
+  fail_unless( ia_math->containsVariable("x") == false );
 
   //<algebraicRule>
   //  <math xmlns="http://www.w3.org/1998/Math/MathML">
@@ -148,6 +159,9 @@ START_TEST (test_read_MathML_1)
   fail_unless (r_math->getNumChildren() == 0, NULL);
   fail_unless (!strcmp(SBML_formulaToString(r_math), "true"), NULL);
   fail_unless (r_math->getParentSBMLObject() == r, NULL);
+  fail_unless (r_math->getNumVariablesWithUndeclaredUnits() == 0);
+  fail_unless( r_math->containsVariable("c") == false );
+  fail_unless( r_math->containsVariable("x") == false );
 
   //<assignmentRule variable="p2">
   //  <math xmlns="http://www.w3.org/1998/Math/MathML">
@@ -161,6 +175,9 @@ START_TEST (test_read_MathML_1)
   fail_unless (r1_math->getNumChildren() == 0, NULL);
   fail_unless (!strcmp(SBML_formulaToString(r1_math), "INF"), NULL);
   fail_unless (r1_math->getParentSBMLObject() == r, NULL);
+  fail_unless (r1_math->getNumVariablesWithUndeclaredUnits() == 0);
+  fail_unless( r1_math->containsVariable("c") == false );
+  fail_unless( r1_math->containsVariable("x") == false );
 
   //<kineticLaw>
   //  <math xmlns="http://www.w3.org/1998/Math/MathML">
@@ -179,7 +196,9 @@ START_TEST (test_read_MathML_1)
   fail_unless (kl_math->getNumChildren() == 0, NULL);
   fail_unless (!strcmp(SBML_formulaToString(kl_math), "4.5"), NULL);
   fail_unless (kl_math->getParentSBMLObject() == kl, NULL);
-
+  fail_unless (kl_math->getNumVariablesWithUndeclaredUnits() == 0);
+  fail_unless( kl_math->containsVariable("c") == false );
+  fail_unless( kl_math->containsVariable("x") == false );
 
   delete d;
 }

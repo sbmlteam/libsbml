@@ -381,6 +381,37 @@ START_TEST (test_ValidASTNode_returnsBoolean)
 }
 END_TEST
 
+
+START_TEST (test_ValidASTNode_containsId)
+{
+  ASTNode *n = new ASTNode(AST_DIVIDE);
+  fail_unless( n->containsVariable("c") == false );
+  fail_unless( n->getNumVariablesWithUndeclaredUnits() == 0);
+  
+  ASTNode *c = SBML_parseFormula("c");
+
+  n->addChild(c->deepCopy());
+  fail_unless( n->containsVariable("c") == true );
+  fail_unless( n->containsVariable("c1") == false );
+  fail_unless( n->getNumVariablesWithUndeclaredUnits() == 1);
+
+  n->addChild(c->deepCopy());
+  fail_unless( n->containsVariable("c") == true );
+  fail_unless( n->containsVariable("c1") == false );
+  fail_unless( n->getNumVariablesWithUndeclaredUnits() == 1);
+
+  ASTNode *d = SBML_parseFormula("c1");
+
+  n->addChild(d);
+  fail_unless( n->containsVariable("c") == true );
+  fail_unless( n->containsVariable("c1") == true );
+  fail_unless( n->getNumVariablesWithUndeclaredUnits() == 2);
+
+  delete n;
+}
+END_TEST
+
+
 Suite *
 create_suite_TestValidASTNode ()
 {
@@ -400,6 +431,7 @@ create_suite_TestValidASTNode ()
   tcase_add_test( tcase, test_ValidASTNode_root              );
   tcase_add_test( tcase, test_ValidASTNode_lambda            );
   tcase_add_test( tcase, test_ValidASTNode_setType           );
+  tcase_add_test( tcase, test_ValidASTNode_containsId        );
 
   suite_add_tcase(suite, tcase);
 

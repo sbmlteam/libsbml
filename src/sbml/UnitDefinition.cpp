@@ -1222,6 +1222,52 @@ UnitDefinition::combine(UnitDefinition *ud1, UnitDefinition *ud2)
   return ud;
 }
 
+
+UnitDefinition *
+UnitDefinition::divide(UnitDefinition *ud1, UnitDefinition *ud2)
+{
+  bool A = (ud1 == NULL);
+  bool B = (ud2 == NULL);
+
+  UnitDefinition * ud;
+
+  if (A && B)
+  {
+    ud = NULL;
+  }
+  else if (A && !B)
+  {
+    // no longer true
+    ud = new UnitDefinition(*ud2);
+    for (unsigned int i = 0; i < ud->getNumUnits(); i++)
+    {
+      ud->getUnit(i)->setExponent(ud->getUnit(i)->getExponent() * -1);
+    }
+  }
+  else if (B && !A)
+  {
+    ud = new UnitDefinition(*ud1);
+  }
+  else  if ( (ud1->getLevel() != ud2->getLevel()) ||
+       (ud1->getVersion() != ud2->getVersion()))
+  {
+    ud = NULL;
+  }
+  else
+  {
+    ud = new UnitDefinition(*ud1);
+    for (unsigned int n = 0; n < ud2->getNumUnits(); n++)
+    {
+      Unit * u = new Unit(*(ud2->getUnit(n)));
+      u->setExponent(u->getExponent() * -1);
+      ud->addUnit(u);
+    }
+
+    UnitDefinition::simplify(ud);
+  }
+  return ud;
+}
+
 /* 
  * Returns a string that expresses the units symbolised by the UnitDefinition.
  * For example printUnits applied to
@@ -2318,6 +2364,15 @@ UnitDefinition_t *
 UnitDefinition_combine(UnitDefinition_t * ud1, UnitDefinition_t * ud2)
 {
   return UnitDefinition::combine(static_cast<UnitDefinition*>(ud1),
+                                       static_cast<UnitDefinition*>(ud2));
+}
+
+
+LIBSBML_EXTERN
+UnitDefinition_t *  
+UnitDefinition_divide(UnitDefinition_t * ud1, UnitDefinition_t * ud2)
+{
+  return UnitDefinition::divide(static_cast<UnitDefinition*>(ud1),
                                        static_cast<UnitDefinition*>(ud2));
 }
 

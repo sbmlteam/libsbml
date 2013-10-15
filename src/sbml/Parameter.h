@@ -188,6 +188,7 @@
 LIBSBML_CPP_NAMESPACE_BEGIN
 
 class SBMLVisitor;
+class UnitFormulaFormatter;
 
 
 class LIBSBML_EXTERN Parameter : public SBase
@@ -709,6 +710,15 @@ public:
   virtual void renameUnitSIdRefs(const std::string& oldid, const std::string& newid);
 
 
+  /** @cond doxygenLibsbmlInternal */
+
+  /* set a flag to indicate that a parameter should 
+   * calculate its units from math */
+  virtual void setCalculatingUnits(bool calculatingUnits);
+  
+  /** @endcond */
+
+
 protected:
   /** @cond doxygenLibsbmlInternal */
 
@@ -776,6 +786,43 @@ protected:
   friend class UnitConsistencyValidator;
 
   /** @endcond */
+
+
+private:
+  
+  /** @cond doxygenLibsbmlInternal */
+  
+  UnitDefinition * inferUnits(Model* m, bool globalParameter);
+
+  UnitDefinition * inferUnitsFromAssignments(UnitFormulaFormatter *uff, 
+                                             Model *m);
+  
+  UnitDefinition * inferUnitsFromRules(UnitFormulaFormatter *uff, 
+                                             Model *m);
+
+  UnitDefinition * inferUnitsFromReactions(UnitFormulaFormatter *uff, 
+                                             Model *m);
+
+  UnitDefinition * inferUnitsFromEvents(UnitFormulaFormatter *uff, 
+                                             Model *m);
+
+  UnitDefinition * inferUnitsFromEvent(Event * e, UnitFormulaFormatter *uff, 
+                                             Model *m);
+  
+  UnitDefinition * inferUnitsFromKineticLaw(KineticLaw* kl,
+                  UnitFormulaFormatter *uff, Model *m);
+  
+  /** @endcond */
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /* flag to indicate that a parameter should calculate its units from math */
+  bool getCalculatingUnits() const;
+  
+  bool mCalculatingUnits;
+
+  /** @endcond */
+
 };
 
 
@@ -976,6 +1023,7 @@ protected:
   virtual SBase* createObject (XMLInputStream& stream);
 
   /** @endcond */
+
 };
 
 LIBSBML_CPP_NAMESPACE_END

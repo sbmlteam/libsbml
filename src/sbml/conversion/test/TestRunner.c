@@ -52,6 +52,7 @@ Suite *create_suite_TestUnitsConverter (void);
 Suite *create_suite_TestUnitsConverter2 (void);
 Suite *create_suite_TestSBMLRuleConverter(void);
 Suite *create_suite_TestUnitsConverterL2 (void);
+Suite *create_suite_TestInferUnitsConverter (void);
 
 
 /**
@@ -104,6 +105,7 @@ main (void)
   srunner_add_suite( runner, create_suite_TestUnitsConverter         () );
   srunner_add_suite( runner, create_suite_TestUnitsConverter2        () );
   srunner_add_suite( runner, create_suite_TestUnitsConverterL2       () );
+  srunner_add_suite( runner, create_suite_TestInferUnitsConverter    () );
 
   /* srunner_set_fork_status(runner, CK_NOFORK); */
 

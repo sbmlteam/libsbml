@@ -1027,55 +1027,143 @@ UnitFormulaFormatter::getUnitDefinitionFromOther(const ASTNode * node,
       {
         if (model->getReaction(node->getName()))
         {
+          ud = new UnitDefinition(model->getSBMLNamespaces());
           // <ci> element refers to reaction
           // units should be substance per time
           // NOTE: whether the KL has correct units is
           // checked elsewhere
+          // but in L3 there might not be units for extent
+          // or time
           /* check for builtin unit substance redefined */
-          tempUd = model->getUnitDefinition("substance");
-          if (tempUd == NULL) 
+          if (model->getLevel() < 3)
           {
-            unit = new Unit(model->getSBMLNamespaces());
-            unit->setKind(UnitKind_forName("mole"));
-            unit->initDefaults();
-            ud   = new UnitDefinition(model->getSBMLNamespaces());
-
-            ud->addUnit(unit);
-            delete unit;
-          }
-          else
-          {
-            ud   = new UnitDefinition(model->getSBMLNamespaces());
-
-            for (n = 0; n < tempUd->getNumUnits(); n++)
+            tempUd = model->getUnitDefinition("substance");
+            if (tempUd == NULL) 
             {
-              ud->addUnit(tempUd->getUnit(n));
+              unit = new Unit(model->getSBMLNamespaces());
+              unit->setKind(UnitKind_forName("mole"));
+              unit->initDefaults();
+              ud   = new UnitDefinition(model->getSBMLNamespaces());
+
+              ud->addUnit(unit);
+              delete unit;
+            }
+            else
+            {
+              ud   = new UnitDefinition(model->getSBMLNamespaces());
+
+              for (n = 0; n < tempUd->getNumUnits(); n++)
+              {
+                ud->addUnit(tempUd->getUnit(n));
+              }
+            }
+            /* check for redinition of time
+             * and add per time to ud
+             */
+            tempUd = model->getUnitDefinition("time");
+
+            if (tempUd == NULL) 
+            {
+              unit = new Unit(model->getSBMLNamespaces());
+              unit->setKind(UnitKind_forName("second"));
+              unit->initDefaults();
+              unit->setExponentUnitChecking(-1);
+          
+              ud->addUnit(unit);
+
+              delete unit;
+            }
+            else
+            {
+              for (n = 0; n < tempUd->getNumUnits(); n++)
+              {
+                unit = (const_cast<Unit*>(tempUd->getUnit(n)))->clone();
+                exponent = unit->getExponent();
+                unit->setExponentUnitChecking(exponent * -1);
+                ud->addUnit(unit);
+              }
             }
           }
-          /* check for redinition of time
-           * and add per time to ud
-           */
-          tempUd = model->getUnitDefinition("time");
-
-          if (tempUd == NULL) 
-          {
-            unit = new Unit(model->getSBMLNamespaces());
-            unit->setKind(UnitKind_forName("second"));
-            unit->initDefaults();
-            unit->setExponentUnitChecking(-1);
-        
-            ud->addUnit(unit);
-
-            delete unit;
-          }
           else
           {
-            for (n = 0; n < tempUd->getNumUnits(); n++)
+            /* in L3 the units will be extent per time
+             * or possibly not declared at all !
+             */
+            std::string extentUnits = model->getExtentUnits();
+            if (UnitKind_isValidUnitKindString(extentUnits.c_str(), 
+                                               model->getLevel(), 
+                                               model->getVersion()))
             {
-              unit = (const_cast<Unit*>(tempUd->getUnit(n)))->clone();
-              exponent = unit->getExponent();
-              unit->setExponentUnitChecking(exponent * -1);
-              ud->addUnit(unit);
+              Unit* u = new Unit(model->getSBMLNamespaces());
+              u->setKind(UnitKind_forName(extentUnits.c_str()));
+              u->initDefaults();
+              ud->addUnit(u);
+              delete u;
+            }
+            else if (model->getUnitDefinition(extentUnits) != NULL)
+            {
+              for (unsigned int n = 0; 
+                n < model->getUnitDefinition(extentUnits)->getNumUnits(); n++)
+              {
+                // need to prevent level/version mismatches
+                // ud will have default level and veersion
+                const Unit* uFromModel = 
+                          model->getUnitDefinition(extentUnits)->getUnit(n);
+                if (uFromModel  != NULL)
+                {
+                  Unit* u = new Unit(uFromModel->getSBMLNamespaces());
+                  u->setKind(uFromModel->getKind());
+                  u->setExponent(uFromModel->getExponent());
+                  u->setScale(uFromModel->getScale());
+                  u->setMultiplier(uFromModel->getMultiplier());
+                  ud->addUnit(u);
+                  delete u;
+                }
+              }
+            }
+            else
+            {
+              mContainsUndeclaredUnits = true;
+              mCanIgnoreUndeclaredUnits = false;
+            }
+
+            std::string timeUnits = model->getTimeUnits();
+            if (UnitKind_isValidUnitKindString(timeUnits.c_str(), 
+                                               model->getLevel(), 
+                                               model->getVersion()))
+            {
+              Unit* u = new Unit(model->getSBMLNamespaces());
+              u->setKind(UnitKind_forName(timeUnits.c_str()));
+              u->initDefaults();
+              u->setExponent(-1);
+              ud->addUnit(u);
+              delete u;
+            }
+            else if (model->getUnitDefinition(timeUnits) != NULL)
+            {
+              for (unsigned int n = 0; 
+                n < model->getUnitDefinition(timeUnits)->getNumUnits(); n++)
+              {
+                // need to prevent level/version mismatches
+                // ud will have default level and veersion
+                const Unit* uFromModel = 
+                            model->getUnitDefinition(timeUnits)->getUnit(n);
+                if (uFromModel  != NULL)
+                {
+                  Unit* u = new Unit(uFromModel->getSBMLNamespaces());
+                  u->setKind(uFromModel->getKind());
+                  u->setExponent(uFromModel->getExponent() * -1);
+                  u->setScale(uFromModel->getScale());
+                  u->setMultiplier(uFromModel->getMultiplier());
+                  ud->addUnit(u);
+                  delete u;
+                }
+              }
+            }
+            else
+            {
+              mContainsUndeclaredUnits = true;
+              mCanIgnoreUndeclaredUnits = false;
             }
           }
         }
@@ -2218,6 +2306,196 @@ UnitFormulaFormatter::resetFlags()
 {
   mContainsUndeclaredUnits = false;
   mCanIgnoreUndeclaredUnits = 2;
+}
+
+UnitDefinition *
+UnitFormulaFormatter::inferUnitDefinition(UnitDefinition* expectedUD, 
+    const ASTNode * LHS, std::string id, bool inKL, int reactNo)
+{
+  UnitDefinition * resultUD = NULL;
+
+  ASTNode * math = LHS->deepCopy();
+  math->reduceToBinary();
+
+  bool isolated = false;
+  ASTNode * child1 = NULL, * child2 = NULL;
+  unsigned int numChildren = math->getNumChildren();
+
+  // is teh math just the ci element
+  if (numChildren == 0 && math->getType() == AST_NAME
+    && math->getName() == id)
+  {
+    resultUD = new UnitDefinition(*expectedUD);
+    isolated = true;
+  }
+
+  while (isolated == false && numChildren > 0)
+  {
+    child1 = math->getChild(0);
+    if (numChildren != 2)
+    {
+      /* dont support this yet */
+      isolated = true;
+      resultUD = NULL;
+      break;
+    }
+    else
+    {
+      child2 = math->getChild(1);
+    }
+
+    if (child1->containsVariable(id) == true)
+    {
+      if (child1->getType() == AST_NAME && child1->getName() == id)
+      {
+        resultUD = inverseFunctionOnUnits(expectedUD, child2, math->getType(),
+                                          inKL, reactNo);
+        isolated = true;
+        continue;
+      }
+      else
+      {
+        expectedUD = inverseFunctionOnUnits(expectedUD, child2, math->getType(),
+                                            inKL, reactNo);
+        math = child1;
+        numChildren = math->getNumChildren();
+        continue;
+      }
+    }
+    else if (child2->containsVariable(id) == true)
+    {
+      if (child2->getType() == AST_NAME && child2->getName() == id)
+      {
+        resultUD = inverseFunctionOnUnits(expectedUD, child1, math->getType(),
+                                          inKL, reactNo, true);
+        isolated = true;
+        continue;
+      }
+      else
+      {
+        expectedUD = inverseFunctionOnUnits(expectedUD, child1, math->getType(),
+                                            inKL, reactNo, true);
+        math = child2;
+        numChildren = math->getNumChildren();
+        continue;
+      }
+    }
+    else
+    {
+      isolated = true;
+      resultUD = NULL;
+      break;
+    }
+  }
+
+  return resultUD;
+}
+
+UnitDefinition *
+UnitFormulaFormatter::inverseFunctionOnUnits(UnitDefinition* expectedUD,
+    const ASTNode * math, ASTNodeType_t functionType, 
+    bool inKL, int reactNo, bool unknownInLeftChild)
+{
+  UnitDefinition * resolvedUD = NULL;
+  UnitDefinition * mathUD = this->getUnitDefinition(math, inKL, reactNo);
+
+  switch (functionType)
+  {
+  case AST_TIMES:
+    resolvedUD = UnitDefinition::divide(expectedUD, mathUD);
+    break;
+  case AST_DIVIDE:
+    if (unknownInLeftChild == true)
+    {
+      resolvedUD = UnitDefinition::divide(mathUD, expectedUD);
+    }
+    else
+    {
+      resolvedUD = UnitDefinition::combine(expectedUD, mathUD);
+    }
+    break;
+  case AST_PLUS:
+  case AST_MINUS:
+    resolvedUD = UnitDefinition::combine(expectedUD, NULL);
+    break;
+  case AST_POWER:
+    if (unknownInLeftChild == true)
+    {
+      resolvedUD = new UnitDefinition(expectedUD->getSBMLNamespaces());
+      Unit * u = resolvedUD->createUnit();
+      u->setKind(UNIT_KIND_DIMENSIONLESS);
+      u->initDefaults();
+    }
+    else
+    {
+      if (mathUD == NULL || mathUD->getNumUnits() == 0 
+        || mathUD->isVariantOfDimensionless() == true)
+      {
+        SBMLTransforms::mapComponentValues(this->model);
+        double exp = 1.0/(SBMLTransforms::evaluateASTNode(math, this->model));
+        resolvedUD = new UnitDefinition(*expectedUD);
+        for (unsigned int i = 0; i < resolvedUD->getNumUnits(); i++)
+        {
+          Unit * u = resolvedUD->getUnit(i);
+          if (u->getLevel() < 3)
+          {
+            u->setExponent((int)(u->getExponent() * exp));
+          }
+          else
+          {
+            u->setExponent(u->getExponentAsDouble() * exp);
+          }
+        }
+      }
+    }
+    break;
+  default:
+    break;
+  }
+
+
+  return resolvedUD;
+}
+
+bool
+UnitFormulaFormatter::variableCanBeDeterminedFromMath(const ASTNode * node, 
+                                                  std::string id)
+{
+  bool possible = false;
+
+  if (node != NULL)
+  {
+    if (node->containsVariable(id) == true)
+    {
+      if (node->getNumVariablesWithUndeclaredUnits() == 1)
+      {
+        possible = true;
+      }
+    }
+  }
+
+  return possible;
+}
+
+
+bool
+UnitFormulaFormatter::possibleToUseUnitsData(FormulaUnitsData * fud)
+{
+  bool possible = false;
+
+  if (fud != NULL)
+  { 
+    if (fud->getContainsUndeclaredUnits() == false)
+    {
+      possible = true;
+    }
+    else if (fud->getCanIgnoreUndeclaredUnits() == true)
+    {
+      possible = true;
+    }
+  }
+
+  return possible;
 }
 
 
