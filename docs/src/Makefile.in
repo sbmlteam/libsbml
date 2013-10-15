@@ -157,7 +157,6 @@ distfiles =						     \
         common-graphics/tab_b.png			     \
         common-graphics/tab_h.png			     \
         common-graphics/tab_s.png			     \
-        common-text/L1-math-syntax-warning.html		     \
         common-text/about-sbml-units-attrib.html	     \
         common-text/about-semantic-annotations.html	     \
         common-text/assuming-compressed-file.html	     \
@@ -166,10 +165,6 @@ distfiles =						     \
         common-text/base-units.html			     \
         common-text/base-units2.html			     \
         common-text/comment-set-methods.html		     \
-        common-text/compartment-size-recommendations.html    \
-        common-text/compartment-size-restrictions.html	     \
-        common-text/cvterm-common-description-text.html	     \
-        common-text/id-syntax.html			     \
         common-text/level-1-uses-text-string-math.html	     \
         common-text/libsbml-facility-only-warning.html	     \
         common-text/libsbml-version.html.in		     \
@@ -185,27 +180,16 @@ distfiles =						     \
         common-text/pkg-marker-layout.html		     \
         common-text/pkg-marker-qual.html		     \
         common-text/predefined-units.html		     \
-        common-text/rules-additional-restrictions.html	     \
-        common-text/rules-additional-restrictions.txt	     \
-        common-text/rules-general-summary.html		     \
-        common-text/rules-general-summary.txt		     \
         common-text/sbmlerror-table.html		     \
         common-text/species-boundarycondition.html	     \
         common-text/species-hasonlysubstance.html	     \
         common-text/string-functions-table-l3.html	     \
         common-text/string-functions-table.html		     \
         common-text/string-values-table-l3.html		     \
-        common-text/unassigned-units-are-not-a-default.html  \
         common-text/unitid-syntax.html			     \
         common-text/unitkind-table.html			     \
         common-text/unitkind-table.txt			     \
         common-text/warn-default-args-in-docs.html	     \
-        common-text/what-are-plugins.html		     \
-        common-text/what-is-metaid.html			     \
-        common-text/what-is-metaidref.html		     \
-        common-text/what-is-sidref.html			     \
-        common-text/what-is-unitsidref.html		     \
-        common-text/what-is-user-data.html		     \
         common-text/xmlid-syntax.html			     \
         csdocfilter.py					     \
         doxygen-base-stylesheet.css			     \
