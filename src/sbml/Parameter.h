@@ -706,7 +706,7 @@ public:
    * @param oldid the old identifier
    * @param newid the new identifier
    */
-  virtual void renameUnitSIdRefs(std::string oldid, std::string newid);
+  virtual void renameUnitSIdRefs(const std::string& oldid, const std::string& newid);
 
 
 protected:

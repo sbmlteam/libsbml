@@ -312,7 +312,7 @@ ReplacedElement::getTypeCode () const
 }
 
 void
-ReplacedElement::renameSIdRefs(std::string oldid, std::string newid)
+ReplacedElement::renameSIdRefs(const std::string& oldid, const std::string& newid)
 {
   if (mDeletion==oldid) mDeletion=newid;
   Replacing::renameSIdRefs(oldid, newid);

@@ -360,7 +360,7 @@ SBMLDocument::getModel ()
 
 
 SBase* 
-SBMLDocument::getElementBySId(std::string id)
+SBMLDocument::getElementBySId(const std::string& id)
 {
   if (id.empty()) return NULL;
   if (mModel != NULL) {
@@ -373,7 +373,7 @@ SBMLDocument::getElementBySId(std::string id)
 
 
 SBase*
-SBMLDocument::getElementByMetaId(std::string metaid)
+SBMLDocument::getElementByMetaId(const std::string& metaid)
 {
   if (metaid.empty()) return NULL;
   if (getMetaId()==metaid) return this;

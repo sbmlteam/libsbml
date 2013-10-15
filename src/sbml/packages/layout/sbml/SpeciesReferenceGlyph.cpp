@@ -94,7 +94,7 @@ SpeciesReferenceGlyph::getAllElements(ElementFilter *filter)
 }
 
 void
-SpeciesReferenceGlyph::renameSIdRefs(std::string oldid, std::string newid)
+SpeciesReferenceGlyph::renameSIdRefs(const std::string& oldid, const std::string& newid)
 {
   GraphicalObject::renameSIdRefs(oldid, newid);
   if (isSetSpeciesReferenceId() && mSpeciesReference == oldid) 

@@ -663,7 +663,7 @@ Parameter::hasRequiredAttributes() const
 
 
 void 
-Parameter::renameUnitSIdRefs(std::string oldid, std::string newid)
+Parameter::renameUnitSIdRefs(const std::string& oldid, const std::string& newid)
 {
   if (mUnits == oldid) mUnits= newid;
 }

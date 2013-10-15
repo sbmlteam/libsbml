@@ -181,7 +181,7 @@ public:
    *
    * @return a pointer to the SBase element with the given @p id.
    */
-  virtual SBase* getElementBySId(std::string id);
+  virtual SBase* getElementBySId(const std::string& id);
   
   
   /**
@@ -192,7 +192,7 @@ public:
    *
    * @return a pointer to the SBase element with the given @p metaid.
    */
-  virtual SBase* getElementByMetaId(std::string metaid);
+  virtual SBase* getElementByMetaId(const std::string& metaid);
   
   
   /**
@@ -624,7 +624,7 @@ public:
   /**
    * Renames the conversion factor attributes on this element if @p oldid matches.
    */
-  virtual void renameSIdRefs(std::string oldid, std::string newid);
+  virtual void renameSIdRefs(const std::string& oldid, const std::string& newid);
 
 
   /**

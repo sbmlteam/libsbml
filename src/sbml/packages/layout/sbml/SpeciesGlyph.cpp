@@ -66,7 +66,7 @@
 LIBSBML_CPP_NAMESPACE_BEGIN
 
 void
-SpeciesGlyph::renameSIdRefs(std::string oldid, std::string newid)
+SpeciesGlyph::renameSIdRefs(const std::string& oldid, const std::string& newid)
 {
   GraphicalObject::renameSIdRefs(oldid, newid);
   if (isSetSpeciesId() && mSpecies == oldid) 

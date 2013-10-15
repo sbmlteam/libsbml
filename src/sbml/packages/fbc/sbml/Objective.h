@@ -109,7 +109,7 @@ public:
    *
    * @return a pointer to the SBase element with the given @p id.
    */
-  virtual SBase* getElementBySId(std::string id);
+  virtual SBase* getElementBySId(const std::string& id);
   
   
   /**
@@ -119,7 +119,7 @@ public:
    *
    * @return a pointer to the SBase element with the given @p metaid.
    */
-  virtual SBase* getElementByMetaId(std::string metaid);
+  virtual SBase* getElementByMetaId(const std::string& metaid);
   
   /**
    * Returns a List of all child SBase* objects, including those nested to an arbitrary depth
@@ -728,7 +728,7 @@ public:
    * Renames all the SIdRef attributes on this element if they match
    * @p oldid, but not any found in child or plugin elements.
    */
-  virtual void renameSIdRefs(std::string oldid, std::string newid);
+  virtual void renameSIdRefs(const std::string& oldid, const std::string& newid);
 
 
 

@@ -269,7 +269,7 @@ int StoichiometryMath::removeFromParentAndDelete()
 
 
 void
-StoichiometryMath::renameSIdRefs(std::string oldid, std::string newid)
+StoichiometryMath::renameSIdRefs(const std::string& oldid, const std::string& newid)
 {
   if (isSetMath()) {
     mMath->renameSIdRefs(oldid, newid);
@@ -277,7 +277,7 @@ StoichiometryMath::renameSIdRefs(std::string oldid, std::string newid)
 }
 
 void 
-StoichiometryMath::renameUnitSIdRefs(std::string oldid, std::string newid)
+StoichiometryMath::renameUnitSIdRefs(const std::string& oldid, const std::string& newid)
 {
   if (isSetMath()) {
     mMath->renameUnitSIdRefs(oldid, newid);

@@ -444,7 +444,7 @@ bool
 /** @endcond */
 
 SBase* 
-FbcModelPlugin::getElementBySId(std::string id)
+FbcModelPlugin::getElementBySId(const std::string& id)
 {
   if (id.empty()) return NULL;
   SBase* obj = mBounds.getElementBySId(id);
@@ -457,7 +457,7 @@ FbcModelPlugin::getElementBySId(std::string id)
 
 
 SBase*
-FbcModelPlugin::getElementByMetaId(std::string metaid)
+FbcModelPlugin::getElementByMetaId(const std::string& metaid)
 {
   if (metaid.empty()) return NULL;
   if (mBounds.getMetaId() == metaid) return &mBounds;

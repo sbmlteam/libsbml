@@ -136,7 +136,7 @@ public:
    *
    * @return a pointer to the SBase element with the given @p id.
    */
-  virtual SBase* getElementBySId(std::string id);
+  virtual SBase* getElementBySId(const std::string& id);
   
   
   /**
@@ -148,7 +148,7 @@ public:
    *
    * @return a pointer to the SBase element with the given @p metaid.
    */
-  virtual SBase* getElementByMetaId(std::string metaid);
+  virtual SBase* getElementByMetaId(const std::string& metaid);
   
 
   /**

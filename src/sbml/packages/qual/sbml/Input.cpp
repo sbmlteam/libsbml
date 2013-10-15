@@ -465,7 +465,7 @@ Input::unsetThresholdLevel()
  * rename attributes that are SIdRefs or instances in math
  */
 void
-Input::renameSIdRefs(std::string oldid, std::string newid)
+Input::renameSIdRefs(const std::string& oldid, const std::string& newid)
 {
   if (isSetQualitativeSpecies() == true && mQualitativeSpecies == oldid)
   {

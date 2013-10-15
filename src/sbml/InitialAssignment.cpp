@@ -454,7 +454,7 @@ InitialAssignment::hasRequiredElements() const
 
 
 void
-InitialAssignment::renameSIdRefs(std::string oldid, std::string newid)
+InitialAssignment::renameSIdRefs(const std::string& oldid, const std::string& newid)
 {
   if (mSymbol == oldid) {
     setSymbol(newid);
@@ -465,7 +465,7 @@ InitialAssignment::renameSIdRefs(std::string oldid, std::string newid)
 }
 
 void 
-InitialAssignment::renameUnitSIdRefs(std::string oldid, std::string newid)
+InitialAssignment::renameUnitSIdRefs(const std::string& oldid, const std::string& newid)
 {
   if (isSetMath()) {
     mMath->renameUnitSIdRefs(oldid, newid);
@@ -898,7 +898,7 @@ ListOfInitialAssignments::remove (const std::string& sid)
 
 
 SBase*
-ListOfInitialAssignments::getElementBySId(std::string id)
+ListOfInitialAssignments::getElementBySId(const std::string& id)
 {
   for (unsigned int i = 0; i < size(); i++)
   {

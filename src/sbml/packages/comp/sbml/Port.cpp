@@ -330,7 +330,7 @@ Port::saveReferencedElement()
 }
 
 void
-Port::renameSIdRefs(std::string oldid, std::string newid)
+Port::renameSIdRefs(const std::string& oldid, const std::string& newid)
 {
   if (mIdRef==oldid) mIdRef=newid;
   SBaseRef::renameSIdRefs(oldid, newid);
@@ -338,7 +338,7 @@ Port::renameSIdRefs(std::string oldid, std::string newid)
 
 
 void
-Port::renameUnitSIdRefs(std::string oldid, std::string newid)
+Port::renameUnitSIdRefs(const std::string& oldid, const std::string& newid)
 {
   if (mUnitRef==oldid) mUnitRef=newid;
   SBaseRef::renameUnitSIdRefs(oldid, newid);
@@ -346,7 +346,7 @@ Port::renameUnitSIdRefs(std::string oldid, std::string newid)
 
 
 void
-Port::renameMetaIdRefs(std::string oldid, std::string newid)
+Port::renameMetaIdRefs(const std::string& oldid, const std::string& newid)
 {
   if (mMetaIdRef==oldid) mMetaIdRef=newid;
   SBaseRef::renameMetaIdRefs(oldid, newid);

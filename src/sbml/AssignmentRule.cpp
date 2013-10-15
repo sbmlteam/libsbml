@@ -120,7 +120,7 @@ AssignmentRule::hasRequiredAttributes() const
 
 
 void
-AssignmentRule::renameSIdRefs(std::string oldid, std::string newid)
+AssignmentRule::renameSIdRefs(const std::string& oldid, const std::string& newid)
 {
   Rule::renameSIdRefs(oldid, newid);
   if (isSetVariable()) {

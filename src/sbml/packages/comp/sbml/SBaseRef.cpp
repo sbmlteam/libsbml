@@ -117,7 +117,7 @@ SBaseRef::~SBaseRef ()
 
 
 SBase* 
-SBaseRef::getElementBySId(std::string id)
+SBaseRef::getElementBySId(const std::string& id)
 {
   if (id.empty()) return NULL;
   if (mSBaseRef != NULL) {
@@ -129,7 +129,7 @@ SBaseRef::getElementBySId(std::string id)
 
 
 SBase*
-SBaseRef::getElementByMetaId(std::string metaid)
+SBaseRef::getElementByMetaId(const std::string& metaid)
 {
   if (metaid.empty()) return NULL;
   if (mSBaseRef != NULL) {
@@ -496,7 +496,7 @@ SBaseRef::hasRequiredAttributes() const
 }
 
 void
-SBaseRef::renameSIdRefs(std::string oldid, std::string newid)
+SBaseRef::renameSIdRefs(const std::string& oldid, const std::string& newid)
 {
   if (mPortRef==oldid) mPortRef=newid;
   if (mIdRef==oldid) mIdRef=newid;

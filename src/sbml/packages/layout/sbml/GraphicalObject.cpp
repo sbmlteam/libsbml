@@ -88,7 +88,7 @@ GraphicalObject::getAllElements(ElementFilter *filter)
 }
 
 void
-GraphicalObject::renameMetaIdRefs(std::string oldid, std::string newid)
+GraphicalObject::renameMetaIdRefs(const std::string& oldid, const std::string& newid)
 {
   SBase::renameMetaIdRefs(oldid, newid);
   if (isSetMetaIdRef() && mMetaIdRef == oldid) 

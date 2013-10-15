@@ -194,7 +194,7 @@ KineticLaw::clone () const
 
 
 SBase*
-KineticLaw::getElementBySId(std::string id)
+KineticLaw::getElementBySId(const std::string& id)
 {
   if (id.empty()) return NULL;
   //Don't look in mParameters--they're only for L1, so their IDs are not appropriate, and they won't have L3 plugins on them.  We can't rely on ListOfParameters being overridden, either, as we can for ListOfLocalParameters.
@@ -206,7 +206,7 @@ KineticLaw::getElementBySId(std::string id)
 
 
 SBase*
-KineticLaw::getElementByMetaId(std::string metaid)
+KineticLaw::getElementByMetaId(const std::string& metaid)
 {
   if (metaid.empty()) return NULL;
   //Go ahead and check mParameters, since metaIDs are global.
@@ -1160,7 +1160,7 @@ int KineticLaw::removeFromParentAndDelete()
 
 
 void
-KineticLaw::renameSIdRefs(std::string oldid, std::string newid)
+KineticLaw::renameSIdRefs(const std::string& oldid, const std::string& newid)
 {
   //If the oldid is actually a local parameter, we should not rename it.
   if (getParameter(oldid) != NULL) return;
@@ -1171,7 +1171,7 @@ KineticLaw::renameSIdRefs(std::string oldid, std::string newid)
 }
 
 void 
-KineticLaw::renameUnitSIdRefs(std::string oldid, std::string newid)
+KineticLaw::renameUnitSIdRefs(const std::string& oldid, const std::string& newid)
 {
   if (isSetMath()) {
     mMath->renameUnitSIdRefs(oldid, newid);

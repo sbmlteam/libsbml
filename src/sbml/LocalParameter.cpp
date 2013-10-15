@@ -437,7 +437,7 @@ ListOfLocalParameters::get (const std::string& sid) const
 
 
 SBase*
-ListOfLocalParameters::getElementBySId(std::string id)
+ListOfLocalParameters::getElementBySId(const std::string& id)
 {
   for (unsigned int i = 0; i < size(); i++)
   {

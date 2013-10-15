@@ -81,7 +81,7 @@ ReferenceGlyph::getAllElements(ElementFilter *filter)
 }
 
 void
-ReferenceGlyph::renameSIdRefs(std::string oldid, std::string newid)
+ReferenceGlyph::renameSIdRefs(const std::string& oldid, const std::string& newid)
 {
   GraphicalObject::renameSIdRefs(oldid, newid);
   if (isSetReferenceId() && mReference == oldid) 

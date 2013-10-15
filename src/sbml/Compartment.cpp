@@ -727,14 +727,14 @@ Compartment::setConstant (bool value)
 
 
 void
-Compartment::renameSIdRefs(std::string oldid, std::string newid)
+Compartment::renameSIdRefs(const std::string& oldid, const std::string& newid)
 {
   if (mCompartmentType==oldid) mCompartmentType = newid;
   if (mOutside==oldid) mOutside= newid; //You know, just in case.
 }
 
 void 
-Compartment::renameUnitSIdRefs(std::string oldid, std::string newid)
+Compartment::renameUnitSIdRefs(const std::string& oldid, const std::string& newid)
 {
   if (mUnits==oldid) mUnits = newid;
 }

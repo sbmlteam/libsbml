@@ -217,7 +217,7 @@ Replacing::saveReferencedElement()
 
 
 void
-Replacing::renameSIdRefs(std::string oldid, std::string newid)
+Replacing::renameSIdRefs(const std::string& oldid, const std::string& newid)
 {
   if (mSubmodelRef==oldid) mSubmodelRef=newid;
   if (mConversionFactor==oldid) mConversionFactor=newid;

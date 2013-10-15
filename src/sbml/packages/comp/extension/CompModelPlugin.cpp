@@ -161,7 +161,7 @@ CompModelPlugin::writeElements (XMLOutputStream& stream) const
 /** @endcond */
 
 SBase* 
-CompModelPlugin::getElementBySId(std::string id)
+CompModelPlugin::getElementBySId(const std::string& id)
 {
   if (id.empty()) return NULL;
   SBase* obj = mListOfSubmodels.getElementBySId(id);
@@ -173,7 +173,7 @@ CompModelPlugin::getElementBySId(std::string id)
 
 
 SBase*
-CompModelPlugin::getElementByMetaId(std::string metaid)
+CompModelPlugin::getElementByMetaId(const std::string& metaid)
 {
   if (metaid.empty()) return NULL;
   if (mListOfSubmodels.getMetaId() == metaid) return &mListOfSubmodels;

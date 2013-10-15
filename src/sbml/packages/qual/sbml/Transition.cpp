@@ -147,7 +147,7 @@ Transition::~Transition ()
 
 
 SBase* 
-Transition::getElementBySId(std::string id)
+Transition::getElementBySId(const std::string& id)
 {
   if (id.empty()) return NULL;
   SBase* obj = mInputs.getElementBySId(id);
@@ -164,7 +164,7 @@ Transition::getElementBySId(std::string id)
 
 
 SBase*
-Transition::getElementByMetaId(std::string metaid)
+Transition::getElementByMetaId(const std::string& metaid)
 {
   if (metaid.empty()) return NULL;
 

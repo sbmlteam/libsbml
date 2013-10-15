@@ -162,7 +162,7 @@ public:
    * @param oldid the old identifier
    * @param newid the new identifier
    */
-  virtual void renameSIdRefs(std::string oldid, std::string newid);
+  virtual void renameSIdRefs(const std::string& oldid, const std::string& newid);
 
 
   /**

@@ -170,7 +170,7 @@ CompSBasePlugin::writeElements (XMLOutputStream& stream) const
 /** @endcond */
 
 SBase* 
-CompSBasePlugin::getElementBySId(std::string id)
+CompSBasePlugin::getElementBySId(const std::string& id)
 {
   if (id.empty()) return NULL;
   SBase* obj = NULL;
@@ -187,7 +187,7 @@ CompSBasePlugin::getElementBySId(std::string id)
 
 
 SBase*
-CompSBasePlugin::getElementByMetaId(std::string metaid)
+CompSBasePlugin::getElementByMetaId(const std::string& metaid)
 {
   if (metaid.empty()) return NULL;
   SBase* obj = NULL;

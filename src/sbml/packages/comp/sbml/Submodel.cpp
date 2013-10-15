@@ -121,7 +121,7 @@ Submodel::~Submodel ()
 
 
 SBase* 
-Submodel::getElementBySId(std::string id)
+Submodel::getElementBySId(const std::string& id)
 {
   if (id.empty()) return NULL;
   SBase* obj = mListOfDeletions.getElementBySId(id);
@@ -132,7 +132,7 @@ Submodel::getElementBySId(std::string id)
 
 
 SBase*
-Submodel::getElementByMetaId(std::string metaid)
+Submodel::getElementByMetaId(const std::string& metaid)
 {
   if (metaid.empty()) return NULL;
   if (mListOfDeletions.getMetaId()==metaid) return &mListOfDeletions;
@@ -737,7 +737,7 @@ Submodel::createObject(XMLInputStream& stream)
 
 
 void
-Submodel::renameSIdRefs(std::string oldid, std::string newid)
+Submodel::renameSIdRefs(const std::string& oldid, const std::string& newid)
 {
   if (mTimeConversionFactor==oldid) mTimeConversionFactor=newid;
   if (mExtentConversionFactor==oldid) mExtentConversionFactor=newid;

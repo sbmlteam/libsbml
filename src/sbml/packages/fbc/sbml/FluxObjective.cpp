@@ -305,7 +305,7 @@ FluxObjective::unsetCoefficient ()
  * rename attributes that are SIdRefs or instances in math
  */
 void
-FluxObjective::renameSIdRefs(std::string oldid, std::string newid)
+FluxObjective::renameSIdRefs(const std::string& oldid, const std::string& newid)
 {
   if (isSetReaction() == true && mReaction == oldid)
   {

@@ -406,7 +406,7 @@ FluxBound::unsetValue ()
  * rename attributes that are SIdRefs or instances in math
  */
 void
-FluxBound::renameSIdRefs(std::string oldid, std::string newid)
+FluxBound::renameSIdRefs(const std::string& oldid, const std::string& newid)
 {
   if (isSetReaction() == true && mReaction == oldid)
   {

@@ -310,7 +310,7 @@ public:
    *
    * @return pointer to the first element found with the given @p id.
    */
-  virtual SBase* getElementBySId(std::string id);
+  virtual SBase* getElementBySId(const std::string& id);
   
   
   /**
@@ -321,7 +321,7 @@ public:
    *
    * @return pointer to the first element found with the given @p metaid.
    */
-  virtual SBase* getElementByMetaId(std::string metaid);
+  virtual SBase* getElementByMetaId(const std::string& metaid);
   
   
   /**
@@ -347,7 +347,7 @@ public:
    * @param oldid the old identifier
    * @param newid the new identifier
    */
-  virtual void renameSIdRefs(std::string oldid, std::string newid);
+  virtual void renameSIdRefs(const std::string& oldid, const std::string& newid);
 
 
   /**

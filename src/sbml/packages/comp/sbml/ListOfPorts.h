@@ -216,7 +216,7 @@ public:
    *
    * @return a pointer to the SBase element with the given @p id.
    */
-  virtual SBase* getElementBySId(std::string id);
+  virtual SBase* getElementBySId(const std::string& id);
   
  
 protected:

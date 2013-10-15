@@ -85,7 +85,7 @@ ReactionGlyph::getAllElements(ElementFilter *filter)
 }
 
 void
-ReactionGlyph::renameSIdRefs(std::string oldid, std::string newid)
+ReactionGlyph::renameSIdRefs(const std::string& oldid, const std::string& newid)
 {
   GraphicalObject::renameSIdRefs(oldid, newid);
   if (isSetReactionId() && mReaction == oldid) {

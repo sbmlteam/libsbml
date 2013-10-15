@@ -160,7 +160,7 @@ UnitDefinition::clone () const
 
 
 SBase*
-UnitDefinition::getElementBySId(std::string id)
+UnitDefinition::getElementBySId(const std::string& id)
 {
   if (id.empty()) return NULL;
   SBase* obj = mUnits.getElementBySId(id);
@@ -171,7 +171,7 @@ UnitDefinition::getElementBySId(std::string id)
 
 
 SBase*
-UnitDefinition::getElementByMetaId(std::string metaid)
+UnitDefinition::getElementByMetaId(const std::string& metaid)
 {
   if (metaid.empty()) return NULL;
   if (mUnits.getMetaId() == metaid) return &mUnits;
@@ -1650,7 +1650,7 @@ ListOfUnitDefinitions::get (const std::string& sid) const
 
 
 SBase*
-ListOfUnitDefinitions::getElementBySId(std::string id)
+ListOfUnitDefinitions::getElementBySId(const std::string& id)
 {
   for (unsigned int i = 0; i < size(); i++)
   {

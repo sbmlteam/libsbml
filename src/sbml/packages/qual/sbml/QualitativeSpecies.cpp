@@ -469,7 +469,7 @@ QualitativeSpecies::unsetMaxLevel()
  * rename attributes that are SIdRefs or instances in math
  */
 void
-QualitativeSpecies::renameSIdRefs(std::string oldid, std::string newid)
+QualitativeSpecies::renameSIdRefs(const std::string& oldid, const std::string& newid)
 {
   if (isSetCompartment() == true && mCompartment == oldid)
   {

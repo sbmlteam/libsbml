@@ -211,7 +211,7 @@ public:
    * @param oldid the old identifier
    * @param newid the new identifier
    */
-  virtual void renameMetaIdRefs(std::string oldid, std::string newid);
+  virtual void renameMetaIdRefs(const std::string& oldid, const std::string& newid);
 
   /**
    * Returns the value of the "id" attribute of this GraphicalObject.

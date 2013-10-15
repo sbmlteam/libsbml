@@ -181,7 +181,7 @@ public:
    * Renames all the SIdRef attributes on this element if they match
    * @p oldid, but not any found in child or plugin elements.
    */
-  virtual void renameSIdRefs(std::string oldid, std::string newid);
+  virtual void renameSIdRefs(const std::string& oldid, const std::string& newid);
 
 
   /**

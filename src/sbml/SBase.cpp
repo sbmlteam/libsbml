@@ -89,7 +89,7 @@ struct ClonePluginEntity : public unary_function<SBasePlugin*, SBasePlugin*>
 
 
 SBase*
-SBase::getElementBySId(std::string id)
+SBase::getElementBySId(const std::string& id)
 {
   if (id.empty()) return NULL;
   return getElementFromPluginsBySId(id);
@@ -97,7 +97,7 @@ SBase::getElementBySId(std::string id)
 
 
 SBase*
-SBase::getElementByMetaId(std::string metaid)
+SBase::getElementByMetaId(const std::string& metaid)
 {
   if (metaid.empty()) return NULL;
   return getElementFromPluginsByMetaId(metaid);
@@ -110,13 +110,13 @@ SBase::getAllElements(ElementFilter *filter)
 }
 
 void
-SBase::renameSIdRefs(std::string oldid, std::string newid)
+SBase::renameSIdRefs(const std::string& oldid, const std::string& newid)
 {
   //No SIdRefs in SBase
 }
 
 void
-SBase::renameMetaIdRefs(std::string oldid, std::string newid)
+SBase::renameMetaIdRefs(const std::string& oldid, const std::string& newid)
 {
   //The only thing in core that uses metaids is the annotation element.  If the metaid of an SBase object is changed, and the annotation was in the 'sbml-official' form, the rdf:about will be changed automatically, so this function doesn't need to do anything.  However, we do need the function itself so that packages can extend it for their own purposes (such as comp, with its 'metaIdRef' attributes, and annot, which one would imagine would use something similar).
 
@@ -137,7 +137,7 @@ SBase::renameMetaIdRefs(std::string oldid, std::string newid)
 }
 
 void
-SBase::renameUnitSIdRefs(std::string oldid, std::string newid)
+SBase::renameUnitSIdRefs(const std::string& oldid, const std::string& newid)
 {
   //No UnitSIdRefs in SBase, either.
 }

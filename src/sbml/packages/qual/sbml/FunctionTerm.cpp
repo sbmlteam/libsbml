@@ -267,7 +267,7 @@ FunctionTerm::unsetMath()
  * rename attributes that are SIdRefs or instances in math
  */
 void
-FunctionTerm::renameSIdRefs(std::string oldid, std::string newid)
+FunctionTerm::renameSIdRefs(const std::string& oldid, const std::string& newid)
 {
   if (isSetMath() == true)
   {

@@ -459,7 +459,7 @@ EventAssignment::hasRequiredElements() const
 
 
 void
-EventAssignment::renameSIdRefs(std::string oldid, std::string newid)
+EventAssignment::renameSIdRefs(const std::string& oldid, const std::string& newid)
 {
   if (mVariable == oldid) {
     setVariable(newid);
@@ -470,7 +470,7 @@ EventAssignment::renameSIdRefs(std::string oldid, std::string newid)
 }
 
 void 
-EventAssignment::renameUnitSIdRefs(std::string oldid, std::string newid)
+EventAssignment::renameUnitSIdRefs(const std::string& oldid, const std::string& newid)
 {
   if (isSetMath()) {
     mMath->renameUnitSIdRefs(oldid, newid);
@@ -904,7 +904,7 @@ ListOfEventAssignments::remove (const std::string& sid)
 
 
 SBase*
-ListOfEventAssignments::getElementBySId(std::string id)
+ListOfEventAssignments::getElementBySId(const std::string& id)
 {
   for (unsigned int i = 0; i < size(); i++)
   {

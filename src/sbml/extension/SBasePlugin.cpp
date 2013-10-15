@@ -144,7 +144,7 @@ SBasePlugin::getSBMLDocument () const
 
 
 SBase*
-SBasePlugin::getElementBySId(std::string id)
+SBasePlugin::getElementBySId(const std::string& id)
 {
   if (id.empty()) return NULL;
   IdFilter filter;
@@ -163,7 +163,7 @@ SBasePlugin::getElementBySId(std::string id)
 
 
 SBase*
-SBasePlugin::getElementByMetaId(std::string metaid)
+SBasePlugin::getElementByMetaId(const std::string& metaid)
 {
   if (metaid.empty()) return NULL;
   MetaIdFilter filter;

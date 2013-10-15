@@ -118,7 +118,7 @@ RateRule::accept (SBMLVisitor& v) const
 
 
 void
-RateRule::renameSIdRefs(std::string oldid, std::string newid)
+RateRule::renameSIdRefs(const std::string& oldid, const std::string& newid)
 {
   Rule::renameSIdRefs(oldid, newid);
   if (isSetVariable()) {

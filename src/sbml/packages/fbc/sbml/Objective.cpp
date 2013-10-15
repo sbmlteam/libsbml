@@ -130,7 +130,7 @@ Objective::~Objective ()
 
 
 SBase* 
-Objective::getElementBySId(std::string id)
+Objective::getElementBySId(const std::string& id)
 {
   if (id.empty()) return NULL;
   SBase* obj = mFluxes.getElementBySId(id);
@@ -139,7 +139,7 @@ Objective::getElementBySId(std::string id)
 
 
 SBase*
-Objective::getElementByMetaId(std::string metaid)
+Objective::getElementByMetaId(const std::string& metaid)
 {
   if (metaid.empty()) return NULL;
   if (mFluxes.getMetaId() == metaid) return &mFluxes;
@@ -963,7 +963,7 @@ int ListOfObjectives::appendFrom(const ListOf* list)
 }
 
 void
-ListOfObjectives::renameSIdRefs(std::string oldid, std::string newid)
+ListOfObjectives::renameSIdRefs(const std::string& oldid, const std::string& newid)
 {
   if (mActiveObjective==oldid) mActiveObjective=newid;
   ListOf::renameSIdRefs(oldid, newid);

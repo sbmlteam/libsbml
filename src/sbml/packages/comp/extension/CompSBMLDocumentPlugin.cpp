@@ -190,7 +190,7 @@ CompSBMLDocumentPlugin::writeElements (XMLOutputStream& stream) const
 /** @endcond */
 
 SBase* 
-CompSBMLDocumentPlugin::getElementBySId(string id)
+CompSBMLDocumentPlugin::getElementBySId(const std::string& id)
 {
   if (id.empty()) return NULL;
   SBase* obj = mListOfModelDefinitions.getElementBySId(id);
@@ -202,7 +202,7 @@ CompSBMLDocumentPlugin::getElementBySId(string id)
 
 
 SBase*
-CompSBMLDocumentPlugin::getElementByMetaId(string metaid)
+CompSBMLDocumentPlugin::getElementByMetaId(const std::string& metaid)
 {
   if (metaid.empty()) return NULL;
   if (mListOfModelDefinitions.getMetaId() == metaid) return &mListOfModelDefinitions;

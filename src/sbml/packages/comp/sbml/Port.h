@@ -291,19 +291,19 @@ public:
   /**
    * Renames the idRef attribute on this element if the oldid matches.
    */
-  virtual void renameSIdRefs(std::string oldid, std::string newid);
+  virtual void renameSIdRefs(const std::string& oldid, const std::string& newid);
 
 
   /**
    * Renames the unitRef attribute on this element if the oldid matches.
    */
-  virtual void renameUnitSIdRefs(std::string oldid, std::string newid);
+  virtual void renameUnitSIdRefs(const std::string& oldid, const std::string& newid);
 
 
   /**
    * Renames the metaIdRef attribute on this element if the oldid matches.
    */
-  virtual void renameMetaIdRefs(std::string oldid, std::string newid);
+  virtual void renameMetaIdRefs(const std::string& oldid, const std::string& newid);
 
 
   /** @cond doxygenLibsbmlInternal */

@@ -834,7 +834,7 @@ Rule::hasRequiredElements() const
 
 
 void
-Rule::renameSIdRefs(std::string oldid, std::string newid)
+Rule::renameSIdRefs(const std::string& oldid, const std::string& newid)
 {
   if (isSetMath()) {
     mMath->renameSIdRefs(oldid, newid);
@@ -851,7 +851,7 @@ Rule::renameSIdRefs(std::string oldid, std::string newid)
 }
 
 void 
-Rule::renameUnitSIdRefs(std::string oldid, std::string newid)
+Rule::renameUnitSIdRefs(const std::string& oldid, const std::string& newid)
 {
   if (isSetMath()) {
     mMath->renameUnitSIdRefs(oldid, newid);
@@ -1448,7 +1448,7 @@ ListOfRules::remove (unsigned int n)
 }
 
 SBase* 
-ListOfRules::getElementBySId(std::string id)
+ListOfRules::getElementBySId(const std::string& id)
 {
   for (unsigned int i = 0; i < size(); i++)
   {

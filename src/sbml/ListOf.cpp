@@ -251,7 +251,7 @@ ListOf::get (unsigned int n)
 
 
 SBase*
-ListOf::getElementBySId(std::string id)
+ListOf::getElementBySId(const std::string& id)
 {
   if (id.empty()) return NULL;
   for (unsigned int i = 0; i < size(); i++)
@@ -269,7 +269,7 @@ ListOf::getElementBySId(std::string id)
 }
 
 SBase*
-ListOf::getElementByMetaId(std::string metaid)
+ListOf::getElementByMetaId(const std::string& metaid)
 {
   if (metaid.empty()) return NULL;
   for (unsigned int i = 0; i < size(); i++)

@@ -557,7 +557,7 @@ public:
    *
    * @return pointer to the first element found with the given @p id.
    */
-  virtual SBase* getElementBySId(std::string id);
+  virtual SBase* getElementBySId(const std::string& id);
   
   
  /**

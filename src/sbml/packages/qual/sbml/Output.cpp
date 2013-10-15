@@ -411,7 +411,7 @@ Output::unsetOutputLevel()
  * rename attributes that are SIdRefs or instances in math
  */
 void
-Output::renameSIdRefs(std::string oldid, std::string newid)
+Output::renameSIdRefs(const std::string& oldid, const std::string& newid)
 {
   if (isSetQualitativeSpecies() == true && mQualitativeSpecies == oldid)
   {

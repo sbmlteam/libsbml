@@ -171,7 +171,7 @@ ListOfPorts::writeXMLNS (XMLOutputStream& stream) const
 /** @endcond */
 
 SBase*
-ListOfPorts::getElementBySId(std::string id)
+ListOfPorts::getElementBySId(const std::string& id)
 {
   for (unsigned int i = 0; i < size(); i++)
   {

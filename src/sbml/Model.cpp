@@ -303,7 +303,7 @@ Model::clone () const
 }
 
 SBase* 
-Model::getElementBySId(std::string id)
+Model::getElementBySId(const std::string& id)
 {
   if (id.empty()) return NULL;
   SBase* obj = mFunctionDefinitions.getElementBySId(id);
@@ -336,7 +336,7 @@ Model::getElementBySId(std::string id)
 
 
 SBase*
-Model::getElementByMetaId(std::string metaid)
+Model::getElementByMetaId(const std::string& metaid)
 {
   if (metaid.empty()) return NULL;
   if (mFunctionDefinitions.getMetaId()==metaid) return &mFunctionDefinitions;
@@ -3645,7 +3645,7 @@ Model::appendFrom(const Model* model)
 }
 
 void
-Model::renameSIdRefs(std::string oldid, std::string newid)
+Model::renameSIdRefs(const std::string& oldid, const std::string& newid)
 {
   if (isSetConversionFactor()) {
     if (getConversionFactor()==oldid) {
@@ -3655,7 +3655,7 @@ Model::renameSIdRefs(std::string oldid, std::string newid)
 }
 
 void 
-Model::renameUnitSIdRefs(std::string oldid, std::string newid)
+Model::renameUnitSIdRefs(const std::string& oldid, const std::string& newid)
 {
   if (mSubstanceUnits == oldid) mSubstanceUnits = newid;
   if (mTimeUnits == oldid)      mTimeUnits = newid;
