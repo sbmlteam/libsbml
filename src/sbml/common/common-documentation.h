@@ -611,8 +611,9 @@ e><a href="libsbml.html#parseL3Formula(java.lang.String)">libsbml.parseL3Formula
  * <li> The string @c avogadro can be parsed as a MathML @em csymbol or
  * as an identifier.
  * <li> A Model object may optionally be provided to the parser using the
- * variant function call @if clike SBML_parseL3FormulaWithModel()@endif@if
- * csharp SBML_parseL3FormulaWithModel()@endif@if python
+ * variant function call
+ * @if clike SBML_parseL3FormulaWithModel()@endif@if csharp
+ * SBML_parseL3FormulaWithModel()@endif@if python
  * libsbml.SBML_parseL3FormulaWithModel()@endif@if java <code><a
  * href="libsbml.html#parseL3FormulaWithModel(java.lang.String,
  * org.sbml.libsbml.Model)">libsbml.parseL3FormulaWithModel(String formula,
