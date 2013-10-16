@@ -48,14 +48,14 @@
 # configure script at the top level of the src tree.  It will recreate
 # "Makefile".
 
-include ../../config/makefile-common-vars.mk
+include ../../../config/makefile-common-vars.mk
 
 
 # The values of the following variables are obtained using the libSBML
 # configuration program.
 
-CORE_LIB     = ../../src/libsbml.la
-INCLUDEDIR   = ../../src
+CORE_LIB     = ../../../src/libsbml.la
+INCLUDEDIR   = ../../../src
 
 top_builddir = @top_builddir@
 LIBTOOL      = @LIBTOOL@
@@ -88,7 +88,7 @@ endif
 # assigned to the variables above.
 
 programs = example1 example2 example3 example1-L3 example2-L3 example3-L3 \
-           addLayout
+           addLayout convertLayout
 
 
 all: $(programs) Makefile.in
@@ -115,6 +115,9 @@ example2-L3: example2-L3.cpp
 
 
 example3-L3: example3-L3.cpp
+	$(CXX)  $(extra_CPPFLAGS) $(extra_LDFLAGS) -o $@ $^ $(extra_LIBS) $(LIBS)
+
+convertLayout: convertLayout.cpp
 	$(CXX)  $(extra_CPPFLAGS) $(extra_LDFLAGS) -o $@ $^ $(extra_LIBS) $(LIBS)
 
 

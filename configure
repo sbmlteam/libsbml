@@ -26398,6 +26398,10 @@ ac_config_files="$ac_config_files src/sbml/extension/Makefile"
 
 ac_config_files="$ac_config_files src/sbml/extension/test/Makefile"
 
+ac_config_files="$ac_config_files src/sbml/extension/RegisterExtensions.h"
+
+ac_config_files="$ac_config_files src/sbml/extension/RegisterExtensions.cxx"
+
 
 ac_config_files="$ac_config_files src/sbml/conversion/Makefile"
 
@@ -26464,7 +26468,7 @@ ac_config_files="$ac_config_files examples/csharp/Makefile"
 
 
 if test "$enable_layout" != "no" ; then
-  ac_config_files="$ac_config_files examples/layout/Makefile"
+  ac_config_files="$ac_config_files examples/c++/layout/Makefile"
 
 fi
 
@@ -26520,11 +26524,6 @@ if test -d dev; then
   ac_config_files="$ac_config_files dev/misc-files/readmes-for-downloads-new-dir-struct/stable/windows/README.txt"
 
 fi
-
-
-  ac_config_files="$ac_config_files src/sbml/extension/RegisterExtensions.h"
-
-  ac_config_files="$ac_config_files src/sbml/extension/RegisterExtensions.cxx"
 
 
   ac_config_files="$ac_config_files src/bindings/csharp/local-downcast-extension.i"
@@ -27345,6 +27344,8 @@ do
     "src/sbml/compress/Makefile") CONFIG_FILES="$CONFIG_FILES src/sbml/compress/Makefile" ;;
     "src/sbml/extension/Makefile") CONFIG_FILES="$CONFIG_FILES src/sbml/extension/Makefile" ;;
     "src/sbml/extension/test/Makefile") CONFIG_FILES="$CONFIG_FILES src/sbml/extension/test/Makefile" ;;
+    "src/sbml/extension/RegisterExtensions.h") CONFIG_FILES="$CONFIG_FILES src/sbml/extension/RegisterExtensions.h" ;;
+    "src/sbml/extension/RegisterExtensions.cxx") CONFIG_FILES="$CONFIG_FILES src/sbml/extension/RegisterExtensions.cxx" ;;
     "src/sbml/conversion/Makefile") CONFIG_FILES="$CONFIG_FILES src/sbml/conversion/Makefile" ;;
     "src/sbml/conversion/test/Makefile") CONFIG_FILES="$CONFIG_FILES src/sbml/conversion/test/Makefile" ;;
     "src/sbml/packages/Makefile") CONFIG_FILES="$CONFIG_FILES src/sbml/packages/Makefile" ;;
@@ -27375,7 +27376,7 @@ do
     "examples/c++/Makefile") CONFIG_FILES="$CONFIG_FILES examples/c++/Makefile" ;;
     "examples/java/Makefile") CONFIG_FILES="$CONFIG_FILES examples/java/Makefile" ;;
     "examples/csharp/Makefile") CONFIG_FILES="$CONFIG_FILES examples/csharp/Makefile" ;;
-    "examples/layout/Makefile") CONFIG_FILES="$CONFIG_FILES examples/layout/Makefile" ;;
+    "examples/c++/layout/Makefile") CONFIG_FILES="$CONFIG_FILES examples/c++/layout/Makefile" ;;
     "dev/misc-files/readmes-for-downloads-new-dir-struct/README.txt") CONFIG_FILES="$CONFIG_FILES dev/misc-files/readmes-for-downloads-new-dir-struct/README.txt" ;;
     "dev/misc-files/readmes-for-downloads-new-dir-struct/experimental/README.txt") CONFIG_FILES="$CONFIG_FILES dev/misc-files/readmes-for-downloads-new-dir-struct/experimental/README.txt" ;;
     "dev/misc-files/readmes-for-downloads-new-dir-struct/experimental/binaries/README.txt") CONFIG_FILES="$CONFIG_FILES dev/misc-files/readmes-for-downloads-new-dir-struct/experimental/binaries/README.txt" ;;
@@ -27401,8 +27402,6 @@ do
     "dev/misc-files/readmes-for-downloads-new-dir-struct/stable/windows/64-bit/python/README.txt") CONFIG_FILES="$CONFIG_FILES dev/misc-files/readmes-for-downloads-new-dir-struct/stable/windows/64-bit/python/README.txt" ;;
     "dev/misc-files/readmes-for-downloads-new-dir-struct/stable/windows/64-bit/R_interface/README.txt") CONFIG_FILES="$CONFIG_FILES dev/misc-files/readmes-for-downloads-new-dir-struct/stable/windows/64-bit/R_interface/README.txt" ;;
     "dev/misc-files/readmes-for-downloads-new-dir-struct/stable/windows/README.txt") CONFIG_FILES="$CONFIG_FILES dev/misc-files/readmes-for-downloads-new-dir-struct/stable/windows/README.txt" ;;
-    "src/sbml/extension/RegisterExtensions.h") CONFIG_FILES="$CONFIG_FILES src/sbml/extension/RegisterExtensions.h" ;;
-    "src/sbml/extension/RegisterExtensions.cxx") CONFIG_FILES="$CONFIG_FILES src/sbml/extension/RegisterExtensions.cxx" ;;
     "src/bindings/csharp/local-downcast-extension.i") CONFIG_FILES="$CONFIG_FILES src/bindings/csharp/local-downcast-extension.i" ;;
     "src/bindings/csharp/local-downcast-namespaces.i") CONFIG_FILES="$CONFIG_FILES src/bindings/csharp/local-downcast-namespaces.i" ;;
     "src/bindings/csharp/local-packages.i") CONFIG_FILES="$CONFIG_FILES src/bindings/csharp/local-packages.i" ;;

@@ -373,6 +373,8 @@ AC_CONFIG_FILES([src/sbml/compress/Makefile])
 
 AC_CONFIG_FILES([src/sbml/extension/Makefile])
 AC_CONFIG_FILES([src/sbml/extension/test/Makefile])
+AC_CONFIG_FILES([src/sbml/extension/RegisterExtensions.h])
+AC_CONFIG_FILES([src/sbml/extension/RegisterExtensions.cxx])
 
 AC_CONFIG_FILES([src/sbml/conversion/Makefile])
 AC_CONFIG_FILES([src/sbml/conversion/test/Makefile])
@@ -411,7 +413,7 @@ AC_CONFIG_FILES([examples/java/Makefile])
 AC_CONFIG_FILES([examples/csharp/Makefile])
 
 if test "$enable_layout" != "no" ; then
-  AC_CONFIG_FILES([examples/layout/Makefile])
+  AC_CONFIG_FILES([examples/c++/layout/Makefile])
 fi
 
 if test -d dev; then
@@ -445,9 +447,6 @@ fi
 dnl ---------------------------------------------------------------------------
 dnl package system files that include the layout package
 dnl ---------------------------------------------------------------------------
-
-  AC_CONFIG_FILES([src/sbml/extension/RegisterExtensions.h])
-  AC_CONFIG_FILES([src/sbml/extension/RegisterExtensions.cxx])
 
   AC_CONFIG_FILES([src/bindings/csharp/local-downcast-extension.i])
   AC_CONFIG_FILES([src/bindings/csharp/local-downcast-namespaces.i])

@@ -120,6 +120,11 @@ examples =                                                          \
   examples/c++/util.c                                               \
   examples/c++/util.h                                               \
   examples/c++/validateSBML.cpp                                     \
+  examples/c++/layout/Makefile.in                                   \
+  examples/c++/layout/addLayout.cpp                                 \
+  examples/c++/layout/convertLayout.cpp                             \
+  examples/c++/layout/example1.cpp                                  \
+  examples/c++/layout/example1-L3.cpp                               \
   examples/csharp/Makefile.in                                       \
   examples/csharp/addCustomValidator.cs                             \
   examples/csharp/addCVTerms.cs                                     \
@@ -176,11 +181,6 @@ examples =                                                          \
   examples/java/unsetAnnotation.java                                \
   examples/java/unsetNotes.java                                     \
   examples/java/validateSBML.java                                   \
-  examples/layout/Makefile.in                                       \
-  examples/layout/addLayout.cpp                                     \
-  examples/layout/convertLayout.cpp                                 \
-  examples/layout/example1.cpp                                      \
-  examples/layout/example1-L3.cpp                                   \
   examples/java/layout/example1.java                                \
   examples/java/layout/example1_L3.java                             \
   examples/perl/layout/example1-L3.pl                               \
