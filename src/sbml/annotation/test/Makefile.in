@@ -143,7 +143,7 @@ otherdirs     = .. ../.. ../../util ../../xml ../../math ../../validator \
 
 ifdef USE_LAYOUT
   otherdirs +=	../../packages/layout/extension ../../packages/layout/sbml \
-				../../packages/layout/common  ../../packages/layout/util 
+				../../packages/layout/common  ../../packages/layout/util  ../../packages/layout/validator 
 endif
 
 otherobjfiles = $(wildcard $(addsuffix /*.lo,$(otherdirs)))

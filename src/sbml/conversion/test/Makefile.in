@@ -134,7 +134,7 @@ otherdirs     = .. ../.. ../../util ../../xml ../../annotation \
 
 ifdef USE_LAYOUT
   otherdirs +=	../../packages/layout/extension ../../packages/layout/sbml \
-				../../packages/layout/common  ../../packages/layout/util 
+				../../packages/layout/common  ../../packages/layout/util  ../../packages/layout/validator 
 endif
 
 
