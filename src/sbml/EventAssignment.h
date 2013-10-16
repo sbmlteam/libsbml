@@ -199,11 +199,12 @@
  * @class doc_eventassignment_units
  *
  * @par
+
  * The units are calculated based on the mathematical expression in the
- * Rule and the model quantities referenced by <code>&lt;ci&gt;</code>
- * elements used within that expression.  The method
- * Rule::getDerivedUnitDefinition() returns the calculated units, to the
- * extent that libSBML can compute them.
+ * EventAssignment and the model quantities referenced by
+ * <code>&lt;ci&gt;</code> elements used within that expression.  The method
+ * EventAssignment::getDerivedUnitDefinition() returns the calculated units,
+ * to the extent that libSBML can compute them.
  *
  * @class doc_warning_eventassignment_math_literals
  * 
