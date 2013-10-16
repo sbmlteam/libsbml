@@ -269,6 +269,10 @@ distfiles =						     \
         libsbml-issues.html				     \
         libsbml-issues.txt				     \
         libsbml-java-bottom.html			     \
+	libsbml-java-example-bottom.html		     \
+	libsbml-java-example-files.html			     \
+	libsbml-java-example-footer.html		     \
+	libsbml-java-example-top.html			     \
         libsbml-java-fake-overview.html			     \
         libsbml-java-footer.html			     \
         libsbml-java-math.html				     \
@@ -300,6 +304,9 @@ distfiles =						     \
         libsbml-release-info.txt			     \
         plain-font-off.html				     \
         plain-font-on.html				     \
+	prettify/README.txt				     \
+	prettify/prettify.css				     \
+	prettify/prettify.js				     \
         python-substitutions/ASTNodeList.py		     \
         python-substitutions/CVTermList.py		     \
         python-substitutions/DateList.py		     \
