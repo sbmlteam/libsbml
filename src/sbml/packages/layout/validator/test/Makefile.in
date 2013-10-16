@@ -142,13 +142,14 @@ all: Makefile all-recursive
 
 tmp           = $(test_sources:.cpp=.lo) $(test_sources:.c=.lo)
 localobjfiles = $(filter %.lo,$(tmp))
-otherdirs     = .. ../.. ../constraints ../../util ../../xml ../../math \
-	 ../../units ../../annotation ../../compress ../../common \
-         ../../extension ../../conversion
+otherdirs     = ../../../ ../../../../ ../constraints ../../../../util \
+                ../../../../xml ../../../../math  ../../../../units \
+				../../../../annotation ../../../../compress ../../../../common \
+                ../../../../extension ../../../../conversion
 
 ifdef USE_LAYOUT
-  otherdirs +=	../../packages/layout/extension ../../packages/layout/sbml \
-				../../packages/layout/common  ../../packages/layout/util ../../packages/layout/validator 
+  otherdirs +=	../../extension ../../sbml \
+				../../common  ../../util ../../validator 
 endif
 
 
