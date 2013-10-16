@@ -145,7 +145,8 @@ localobjfiles = $(filter %.lo,$(tmp))
 otherdirs     = ../../../ ../../../../ ../constraints ../../../../util \
                 ../../../../xml ../../../../math  ../../../../units \
 				../../../../annotation ../../../../compress ../../../../common \
-                ../../../../extension ../../../../conversion
+                ../../../../extension ../../../../conversion  \
+                ../../../../validator/constraints/ ../../../../validator
 
 ifdef USE_LAYOUT
   otherdirs +=	../../extension ../../sbml \
