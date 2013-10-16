@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <sbml xmlns="http://www.sbml.org/sbml/level3/version1/core" 
   xmlns:layout="http://www.sbml.org/sbml/level3/version1/layout/version1" 
+  level = "3"
+  version = "1"
   layout:required="false">
   <model id="baz" name="baz">
     <listOfParameters>
