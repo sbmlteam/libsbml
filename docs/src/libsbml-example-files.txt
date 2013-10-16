@@ -70,9 +70,16 @@ Prints the rule, reaction, and event formulas in a given SBML document.
 @li @ref printNotes.cpp "printNotes.cpp":
 Prints the notes strings for each element in a given model.
 
+@li @ref printRegisteredPackages.cpp "printRegisteredPackages.cpp":
+A command-line program that prints the package plug-ins that are
+registered with this copy of libSBML.
+
 @li @ref printUnits.cpp "printUnits.cpp":
 A command-line program that prints information about the units 
 of measurement used in a given SBML file.
+
+@li @ref promoteParameters.cpp "promoteParameters.cpp":
+Promote all local parameters in the model to global parameters.
 
 @li @ref renameSId.cpp "renameSId.cpp":
 Program that renames a specific SId and updates all references to it 
@@ -84,6 +91,10 @@ Example of creating a RELAX NG (RNG) validator to be called during validation.
 @li @ref setIdFromNames.cpp "setIdFromNames.cpp":
 Program that renames all SIds that also have names specified. The new
 identifiers will be derived from the name, with all invalid characters removed.
+
+@li @ref setNamesFromIds.cpp "setNamesFromIds.cpp":
+Program that changes all objects' "name" attribute values to match
+their "id" attribute values.
 
 @li @ref stripPackage.cpp "stripPackage.cpp":
 Strips the given SBML Level 3 package from the given SBML file.

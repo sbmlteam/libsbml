@@ -1873,3 +1873,21 @@ img.big-icon {
 .tight-spacing {
     letter-spacing: -1px;
 }
+
+/* Google prettify */
+
+code.language-java .com {
+    color: #777;
+}
+
+code.language-java .kwd {
+    color: #e08000;
+}
+
+code.language-java .pln {
+    color: #444;
+}
+
+code.language-java .str {
+    color: 002080
+}

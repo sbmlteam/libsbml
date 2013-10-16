@@ -576,6 +576,12 @@ define merge_html_verb
   | perl -pe 's/%%title%%/$(3)/g;s/%%version%%/@PACKAGE_VERSION@/g' > $(2)
 endef
 
+define merge_html_code
+  cat libsbml-java-example-top.html $(1) \
+  libsbml-java-example-bottom.html libsbml-java-example-footer.html \
+  | perl -pe 's/%%title%%/$(3)/g;s/%%version%%/@PACKAGE_VERSION@/g' > $(2)
+endef
+
 define insert_javascript
   sed -i "" -e 's:<SCRIPT type="text/javascript">:<script src="../../../sbml.js"></script><SCRIPT type="text/javascript">:g' $(wildcard $(1)/*.html)
 endef
@@ -629,6 +635,7 @@ java-manual $(java-manual): $(core-sources) SBMLDoclet.class
 	    -sourcepath $(java-local-dir) org.sbml.libsbml \
         2>&1 | egrep -v $(java-ignorable-warnings)
 	cp -f doxygen-base-stylesheet.css $(java-manual)
+	cp -f prettify/prettify.js prettify/prettify.css $(java-manual)
 	cp -f $(logo-files) $(java-manual)
 	cp -f $(logo-files) $(java-manual)/$(java-class-path)/
 	cp -f common-graphics/*.gif $(java-manual)
@@ -648,9 +655,40 @@ java-manual $(java-manual): $(core-sources) SBMLDoclet.class
 	$(call merge_html,libsbml-java-math.html,$(java-manual)/libsbml-java-math.html,facilities for manipulating mathematical expressions)
 	$(call merge_html,libsbml-issues.html,$(java-manual)/libsbml-issues.html,known issues and pitfalls)
 	$(call merge_html,libsbml-java-misc.html,$(java-manual)/libsbml-java-misc.html,Miscellaneous Java-specific information)
+	$(call merge_html,libsbml-java-example-files.html,$(java-manual)/libsbml-java-example-files.html,example programs in Java)
 	$(call merge_html,../../LICENSE.html,$(java-manual)/libsbml-license.html,license)
 	$(call merge_html_verb,../../NEWS.txt,$(java-manual)/libsbml-news.html,news)
 	$(call merge_html_verb,../../OLD_NEWS.txt,$(java-manual)/libsbml-old-news.html,old-news)
+	mkdir -p $(java-manual)/examples
+	$(call merge_html_code,../../examples/java/echoSBML.java,$(java-manual)/examples/echoSBML.java.html,echoSBML.java)
+	$(call merge_html_code,../../examples/java/readSBML.java,$(java-manual)/examples/readSBML.java.html,readSBML.java)
+	$(call merge_html_code,../../examples/java/printSBML.java,$(java-manual)/examples/printSBML.java.html,printSBML.java)
+	$(call merge_html_code,../../examples/java/printRegisteredPackages.java,$(java-manual)/examples/printRegisteredPackages.java.html,printRegisteredPackages.java)
+	$(call merge_html_code,../../examples/java/printsupported.java,$(java-manual)/examples/printsupported.java.html,printsupported.java)
+	$(call merge_html_code,../../examples/java/addCVTerms.java,$(java-manual)/examples/addCVTerms.java.html,addCVTerms.java)
+	$(call merge_html_code,../../examples/java/addCustomValidator.java,$(java-manual)/examples/addCustomValidator.java.html,addCustomValidator.java)
+	$(call merge_html_code,../../examples/java/addModelHistory.java,$(java-manual)/examples/addModelHistory.java.html,addModelHistory.java)
+	$(call merge_html_code,../../examples/java/addingEvidenceCodes_1,$(java-manual)/examples/addingEvidenceCodejava.html,addingEvidenceCodes_java)
+	$(call merge_html_code,../../examples/java/addingEvidenceCodes_2,$(java-manual)/examples/addingEvidenceCodejava.html,addingEvidenceCodes_java)
+	$(call merge_html_code,../../examples/java/appendAnnotation.java,$(java-manual)/examples/appendAnnotation.java.html,appendAnnotation.java)
+	$(call merge_html_code,../../examples/java/callExternalValidator.java,$(java-manual)/examples/callExternalValidator.java.html,callExternalValidator.java)
+	$(call merge_html_code,../../examples/java/convertSBML.java,$(java-manual)/examples/convertSBML.java.html,convertSBML.java)
+	$(call merge_html_code,../../examples/java/createExampleSBML.java,$(java-manual)/examples/createExampleSBML.java.html,createExampleSBML.java)
+	$(call merge_html_code,../../examples/java/getAllElementsWithNotes.java,$(java-manual)/examples/getAllElementsWithNotes.java.html,getAllElementsWithNotes.java)
+	$(call merge_html_code,../../examples/java/printAnnotation.java,$(java-manual)/examples/printAnnotation.java.html,printAnnotation.java)
+	$(call merge_html_code,../../examples/java/printMath.java,$(java-manual)/examples/printMath.java.html,printMath.java)
+	$(call merge_html_code,../../examples/java/printNotes.java,$(java-manual)/examples/printNotes.java.html,printNotes.java)
+	$(call merge_html_code,../../examples/java/printRegisteredPackages.java,$(java-manual)/examples/printRegisteredPackages.java.html,printRegisteredPackages.java)
+	$(call merge_html_code,../../examples/java/printUnits.java,$(java-manual)/examples/printUnits.java.html,printUnits.java)
+	$(call merge_html_code,../../examples/java/promoteParameters.java,$(java-manual)/examples/promoteParameters.java.html,promoteParameters.java)
+	$(call merge_html_code,../../examples/java/renameSId.java,$(java-manual)/examples/renameSId.java.html,renameSId.java)
+	$(call merge_html_code,../../examples/java/rngvalidator.java,$(java-manual)/examples/rngvalidator.java.html,rngvalidator.java)
+	$(call merge_html_code,../../examples/java/setIdFromNames.java,$(java-manual)/examples/setIdFromNames.java.html,setIdFromNames.java)
+	$(call merge_html_code,../../examples/java/stripPackage.java,$(java-manual)/examples/stripPackage.java.html,stripPackage.java)
+	$(call merge_html_code,../../examples/java/translateMath.java,$(java-manual)/examples/translateMath.java.html,translateMath.java)
+	$(call merge_html_code,../../examples/java/unsetAnnotation.java,$(java-manual)/examples/unsetAnnotation.java.html,unsetAnnotation.java)
+	$(call merge_html_code,../../examples/java/unsetNotes.java,$(java-manual)/examples/unsetNotes.java.html,unsetNotes.java)
+	$(call merge_html_code,../../examples/java/validateSBML.java,$(java-manual)/examples/validateSBML.java.html,validateSBML.java)
 	${MAKE} insert-js
 
 insert-js :
