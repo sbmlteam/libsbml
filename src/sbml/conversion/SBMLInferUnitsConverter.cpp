@@ -43,7 +43,7 @@ using namespace std;
 LIBSBML_CPP_NAMESPACE_BEGIN
 
   
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 void SBMLInferUnitsConverter::init()
 {
   SBMLInferUnitsConverter converter;
@@ -230,7 +230,7 @@ SBMLInferUnitsConverter::convert()
 
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 std::string 
 SBMLInferUnitsConverter::existsAlready(Model& m, UnitDefinition *newUD)
 {
@@ -249,7 +249,7 @@ SBMLInferUnitsConverter::existsAlready(Model& m, UnitDefinition *newUD)
 
 
 
-/** @cond doxygen-c-only */
+/** @cond doxygenCOnly */
 
 
 /** @endcond */

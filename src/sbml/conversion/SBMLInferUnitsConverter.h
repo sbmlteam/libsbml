@@ -59,7 +59,7 @@ class LIBSBML_EXTERN  SBMLInferUnitsConverter : public SBMLConverter
 {
 public:
 
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
   
   /* register with the ConversionRegistry */
   static void init();  
@@ -173,7 +173,7 @@ public:
 
 
 private:
-  /** @cond doxygen-libsbml-internal */
+  /** @cond doxygenLibsbmlInternal */
 
   std::string existsAlready(Model& m, UnitDefinition *newUD);
 

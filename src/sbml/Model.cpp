@@ -5795,7 +5795,7 @@ Model::getFormulaUnitsDataForVariable (const std::string& sid)
 /** @endcond */
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 /*
  * @return the FormulaUnitsData in this Model with the given @p id  and typecode 
  * or @c NULL if no such FormulaUnitsData exists.
@@ -5819,7 +5819,7 @@ Model::getFormulaUnitsDataForAssignment(const std::string& sid)
 /** @endcond */
 
 
-/** @cond doxygen-libsbml-internal */
+/** @cond doxygenLibsbmlInternal */
 /*
  * @return the number of FormulaUnitsDatas in this Model.
  */
