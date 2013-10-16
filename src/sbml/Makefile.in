@@ -195,7 +195,7 @@ otherdirs = common util xml math validator validator/constraints units \
 
 ifdef USE_LAYOUT
   otherdirs +=	packages/layout/extension packages/layout/sbml \
-				packages/layout/common    packages/layout/util  ../../packages/layout/validator 
+				packages/layout/common    packages/layout/util  packages/layout/validator 
 endif
 		
 objfiles  = $(objects) $(wildcard $(addsuffix /*.$(OBJEXT),$(otherdirs)))
