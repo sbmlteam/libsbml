@@ -1073,6 +1073,10 @@ ListOfObjectives::isSetActiveObjective() const
 int 
 ListOfObjectives::setActiveObjective(const std::string &activeObjective)
 {
+  if (!SyntaxChecker::isValidSBMLSId(activeObjective)) 
+  {
+    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+  }
   mActiveObjective = activeObjective;
   return LIBSBML_OPERATION_SUCCESS;
 }

@@ -88,21 +88,9 @@ LIBSBML_CPP_NAMESPACE_BEGIN
  * 
  * The ListOfSpeciesReferenceGlyphs is a container for the SpeciesReferenceGlyphs elements of a ReactionGlyph.
  * 
- * The various ListOf___ classes in SBML are merely containers used for
- * organizing the main components of an SBML model.  All are derived from
- * the abstract class SBase, and inherit the various attributes and
- * subelements of SBase, such as "metaid" as and "annotation".  The
- * ListOf___ classes do not add any attributes of their own.
+ * @copydetails doc_what_is_listof
  *
- * Readers may wonder about the motivations for using the ListOf___
- * containers.  A simpler approach in XML might be to place the components
- * all directly at the top level of the model definition.  The choice made
- * in SBML is to group them within XML elements named after
- * ListOf<em>Classname</em>, in part because it helps organize the
- * components.  More importantly, the fact that the container classes are
- * derived from SBase means that software tools can add information @em about
- * the lists themselves into each list container's "annotation".
- *
+ * @see SpeciesReferenceGlyph
  */
 class LIBSBML_EXTERN ListOfSpeciesReferenceGlyphs : public ListOf
 {
@@ -127,8 +115,16 @@ public:
 
 
   /**
-   * @return the const char* of SBML objects contained in this ListOf or
-   * SBML_UNKNOWN (default).
+   * Returns the libSBML type code for the SBML objects
+   * contained in this ListOf object.
+   * 
+   * @copydetails doc_what_are_typecodes
+   *
+   * @return the SBML type code for this object, or
+   * @link SBMLTypeCode_t#SBML_UNKNOWN SBML_UNKNOWN@endlink (default).
+   *
+   * @see getElementName()
+   * @see getPackageName()
    */
   virtual int getItemTypeCode () const;
 
@@ -505,28 +501,11 @@ public:
 
 
   /**
-   * Returns the libSBML type code for this object.
+   * Returns the libSBML type code of this object instance.
    *
-   * This method MAY return the typecode of this SBML object or it MAY
-   * return SBML_UNKNOWN.  That is, subclasses of SBase are not required to
-   * implement this method to return a typecode.  This method is meant
-   * primarily for the LibSBML C interface where class and subclass
-   * information is not readily available.
+   * @copydetails doc_what_are_typecodes
    *
-   * @note In libSBML 5, the type of return value has been changed from
-   *       SBMLTypeCode_t to int. The return value is one of enum values defined
-   *       for each package. For example, return values will be one of
-   *       SBMLTypeCode_t if this object is defined in SBML core package,
-   *       return values will be one of SBMLLayoutTypeCode_t if this object is
-   *       defined in Layout extension (i.e. similar enum types are defined in
-   *       each pacakge extension for each SBase subclass)
-   *       The value of each typecode can be duplicated between those of
-   *       different packages. Thus, to distinguish the typecodes of different
-   *       packages, not only the return value of getTypeCode() but also that of
-   *       getPackageName() must be checked.
-   *
-   * @return the typecode (int value) of this SBML object or SBML_UNKNOWN
-   * (default).
+   * @return the SBML type code for this object: SBMLLayoutTypeCode_t#SBML_LAYOUT_REACTIONGLYPH
    *
    * @see getElementName()
    * @see getPackageName()

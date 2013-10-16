@@ -772,16 +772,6 @@ ListOfFunctionTerms::getElementName () const
 
 
 /*
- * Returns the libSBML type code for this SBML object.
- */
-int
-ListOfFunctionTerms::getTypeCode () const
-{
-  return SBML_LIST_OF;
-}
-
-
-/*
  * Returns the libSBML type code for the objects in this LIST_OF.
  */
 int

@@ -20,6 +20,8 @@
  * @ingroup fbc
  * @brief @htmlinclude pkg-marker-fbc.html
  * Implementation of the 'fbc' package %Objective construct.
+ *
+ * The FBC Objective class is derived from SBML SBase and inherits metaid and sboTerm, as well as the subcomponents for Annotation and Notes. An integral component in a complete description of a steady-state model is the so-called 'objective function' which generally consists of a linear combination of model variables (fluxes) and a sense (direction). In the FBC package this concept is succinctly captured in the Objective class.
  */
 
 
@@ -411,16 +413,22 @@ public:
 
 
   /**
+   * Creates and returns a deep copy of this Objective object.
+   *
    * @return a (deep) copy of this Objective.
    */
   virtual Objective* clone () const;
 
 
   /**
-   * @return the typecode (int) of this SBML object or SBML_UNKNOWN
-   * (default).
+   * Returns the libSBML type code of this object instance.
+   *
+   * @copydetails doc_what_are_typecodes
+   *
+   * @return the SBML type code for this object: SBMLFbcTypeCode_t#SBML_FBC_OBJECTIVE
    *
    * @see getElementName()
+   * @see getPackageName()
    */
   int getTypeCode () const;
 
@@ -560,20 +568,7 @@ protected:
  * 
  * The ListOfObjectives is a container for the Objective elements of Model.
  * 
- * The various ListOf___ classes in SBML are merely containers used for
- * organizing the main components of an SBML model.  All are derived from
- * the abstract class SBase, and inherit the various attributes and
- * subelements of SBase, such as "metaid" as and "annotation".  The
- * ListOf___ classes do not add any attributes of their own.
- *
- * Readers may wonder about the motivations for using the ListOf___
- * containers.  A simpler approach in XML might be to place the components
- * all directly at the top level of the model definition.  The choice made
- * in SBML is to group them within XML elements named after
- * ListOf<em>Classname</em>, in part because it helps organize the
- * components.  More importantly, the fact that the container classes are
- * derived from SBase means that software tools can add information @em about
- * the lists themselves into each list container's "annotation".
+ * @copydetails doc_what_is_listof
  *
  * @see Objective
  */
@@ -582,6 +577,8 @@ class LIBSBML_EXTERN ListOfObjectives : public ListOf
 public:
 
   /**
+   * Creates and returns a deep copy of this ListOfObjectives object.
+   *
    * @return a (deep) copy of this ListOfObjectives.
    */
   virtual ListOfObjectives* clone () const;
@@ -689,8 +686,15 @@ public:
 
 
   /**
-   * @return the typecode (int) of SBML objects contained in this ListOf or
-   * SBML_UNKNOWN (default).
+   * Returns the libSBML type code for the objects contained in this ListOf
+   * (i.e., SBMLFbcTypeCode_t#SBML_FBC_OBJECTIVE).
+   * 
+   * @copydetails doc_what_are_typecodes
+   *
+   * @return the SBML type code for this object, SBMLFbcTypeCode_t#SBML_FBC_OBJECTIVE
+   *
+   * @see getElementName()
+   * @see getPackageName()
    */
   virtual int getItemTypeCode () const;
 
@@ -703,9 +707,47 @@ public:
   virtual const std::string& getElementName () const;
 
 
+  /**
+   * Predicate returning @c true or @c false depending on whether this
+   * ListOfObjective's "activeObjective" attribute has been set.
+   *
+   * @return @c true if this ListOfObjective's "activeObjective" attribute has been set, 
+   * otherwise @c false is returned.
+   */
   virtual bool isSetActiveObjective() const;
+
+
+  /**
+   * Sets the value of the "activeObjective" attribute of this ListOfObjectives.
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+   */
   virtual int setActiveObjective(const std::string &activeObjective);
+
+
+  /**
+   * Returns the value of the "activeObjective" attribute of this ListOfObjectives.
+   *
+   * @return the value of the "activeObjective" attribute of this ListOfObjectives.
+   */
   virtual const std::string &getActiveObjective() const;
+
+
+  /**
+   * Unsets the value of the "activeObjective" attribute of this ListOfObjectives.
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_OPERATION_FAILED
+   */
   virtual int unsetActiveObjective();
 
   /** @cond doxygenLibsbmlInternal */

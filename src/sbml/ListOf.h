@@ -418,8 +418,8 @@ public:
    * Basically, this function needs to be called in
    * constructor, copy constructor and assignment operator.
    *
-   * @see setSBMLDocument
-   * @see enablePackageInternal
+   * @see setSBMLDocument()
+   * @see enablePackageInternal()
    */
   virtual void connectToChild ();
 
@@ -427,15 +427,21 @@ public:
   /** @endcond */
 
   /**
-   * Returns the libSBML type code for this object, namely, @c
-   * SBML_LIST_OF.
+   * Returns the libSBML type code for this object, namely,
+   * @link SBMLTypeCode_t#SBML_LIST_OF@endlink.
    * 
    * @copydetails doc_what_are_typecodes
    *
    * @return the SBML type code for this object, or
    * @link SBMLTypeCode_t#SBML_UNKNOWN SBML_UNKNOWN@endlink (default).
    *
+   * @note The various ListOf classes mostly differ from each other in what they
+   * contain.  Hence, one must call getItemTypeCode() to fully determine the
+   * class of this SBML object.
+   *
+   * @see getItemTypeCode()
    * @see getElementName()
+   * @see getPackageName()
    */
   virtual int getTypeCode () const;
 
@@ -447,6 +453,9 @@ public:
    *
    * @return the SBML type code for the objects contained in this ListOf, or
    * @link SBMLTypeCode_t#SBML_UNKNOWN SBML_UNKNOWN@endlink (default).
+   *
+   * @see getElementName()
+   * @see getPackageName()
    */
   virtual int getItemTypeCode () const;
 

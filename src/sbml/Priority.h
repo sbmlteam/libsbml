@@ -336,8 +336,10 @@ public:
    * @copydetails doc_what_are_typecodes
    *
    * @return the SBML type code for this object, or
-   * @link SBMLTypeCode_t#SBML_UNKNOWN SBML_UNKNOWN@endlink (default).
+   * @link SBMLTypeCode_t#SBML_UNKNOWN SBML_UNKNOWN@endlink (default).\
+   *
    * @see getElementName()
+   * @see getPackageName()
    */
   virtual int getTypeCode () const;
 

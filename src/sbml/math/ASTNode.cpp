@@ -2434,6 +2434,7 @@ ASTNode::setUserData(void *userData)
   }
 }
 
+/** @cond doxygenLibsbmlInternal */
 LIBSBML_EXTERN
 bool ASTNode::containsVariable(const std::string id) const
 {
@@ -2454,7 +2455,9 @@ bool ASTNode::containsVariable(const std::string id) const
 
   return found;
 }
+/** @endcond */
 
+/** @cond doxygenLibsbmlInternal */
 LIBSBML_EXTERN
 unsigned int ASTNode::getNumVariablesWithUndeclaredUnits(Model * m) const
 {
@@ -2572,6 +2575,8 @@ unsigned int ASTNode::getNumVariablesWithUndeclaredUnits(Model * m) const
 
   return number;
 }
+/** @endcond */
+
 /**
  * Creates a new ASTNode and returns a pointer to it.  The returned node
  * will have a type of AST_UNKNOWN and should be set to something else as

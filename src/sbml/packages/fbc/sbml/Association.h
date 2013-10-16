@@ -214,10 +214,14 @@ public:
 
 
   /**
-   * @return the typecode (int) of this SBML object or SBML_UNKNOWN
-   * (default).
+   * Returns the libSBML type code of this object instance.
+   *
+   * @copydetails doc_what_are_typecodes
+   *
+   * @return the SBML type code for this object: SBMLFbcTypeCode_t#SBML_FBC_ASSOCIATION
    *
    * @see getElementName()
+   * @see getPackageName()
    */
   int getTypeCode () const;
 

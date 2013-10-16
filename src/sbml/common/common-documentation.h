@@ -201,7 +201,7 @@
  * @par 
  * @if clike LibSBML attaches an identifying code to every kind of SBML
  * object.  These are known as <em>SBML type codes</em>.  The set of
- * possible type codes is defined in the enumeration #SBMLTypeCode_t.
+ * possible type codes for core elements is defined in the enumeration #SBMLTypeCode_t.
  * The names of the type codes all begin with the characters @c
  * SBML_. @endif@if java LibSBML attaches an identifying code to every
  * kind of SBML object.  These are known as <em>SBML type codes</em>.  In
@@ -220,6 +220,19 @@
  * are defined as static integer constants in the interface class @link
  * libsbmlcs.libsbml@endlink.  The names of the type codes all begin with
  * the characters @c SBML_. @endif@~
+ *
+ * @par
+ * @note In libSBML 5, the type of return value changed from
+ *       SBMLTypeCode_t to int. The return value is one of enum values defined
+ *       for each package. For example, return values will be one of
+ *       SBMLTypeCode_t if this object is defined in SBML core package,
+ *       return values will be one of SBMLLayoutTypeCode_t if this object is
+ *       defined in Layout extension (i.e. similar enum types are defined in
+ *       each pacakge extension for each SBase subclass)
+ *       The value of each typecode can be duplicated between those of
+ *       different packages. Thus, to distinguish the typecodes of different
+ *       packages, not only the return value of getTypeCode() but also that of
+ *       getPackageName() must be checked.
  *
  * <!-- ------------------------------------------------------------------- -->
  * @class doc_what_are_plugins

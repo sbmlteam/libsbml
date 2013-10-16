@@ -722,6 +722,7 @@ public:
    * @return the SBML type code for this object, or
    * @link SBMLTypeCode_t#SBML_UNKNOWN SBML_UNKNOWN@endlink (default).
    *
+   * @see getPackageName()
    * @see getElementName()
    */
   virtual int getTypeCode () const;
@@ -1100,19 +1101,6 @@ public:
 
 
   /**
-   * Returns the libSBML type code for this SBML object.
-   *
-   * @copydetails doc_what_are_typecodes
-   *
-   * @return the SBML type code for this object, or
-   * @link SBMLTypeCode_t#SBML_UNKNOWN SBML_UNKNOWN@endlink (default).
-   *
-   * @see getElementName()
-   */
-  virtual int getTypeCode () const { return SBML_LIST_OF; };
-
-
-  /**
    * Returns the libSBML type code for the objects contained in this ListOf
    * (i.e., UnitDefinition objects, if the list is non-empty).
    *
@@ -1122,6 +1110,7 @@ public:
    * @link SBMLTypeCode_t#SBML_UNKNOWN SBML_UNKNOWN@endlink (default).
    *
    * @see getElementName()
+   * @see getPackageName()
    */
   virtual int getItemTypeCode () const;
 

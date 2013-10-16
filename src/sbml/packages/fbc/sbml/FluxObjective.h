@@ -296,10 +296,14 @@ public:
 
 
   /**
-   * @return the typecode (int) of this SBML object or SBML_UNKNOWN
-   * (default).
+   * Returns the libSBML type code of this object instance.
+   *
+   * @copydetails doc_what_are_typecodes
+   *
+   * @return the SBML type code for this object: SBMLFbcTypeCode_t#SBML_FBC_FLUXOBJECTIVE
    *
    * @see getElementName()
+   * @see getPackageName()
    */
   int getTypeCode () const;
 
@@ -384,24 +388,11 @@ protected:
  * @brief @htmlinclude pkg-marker-fbc.html
  * Implementation of the 'fbc' package %ListOfFluxObjectives construct.
  * 
- * The ListOfFluxObjectives is a container for the GeneAssociation elements of a Model annotation.
+ * The ListOfFluxObjectives is a container for the FluxObjective elements of a Model annotation.
  * 
- * The various ListOf___ classes in SBML are merely containers used for
- * organizing the main components of an SBML model.  All are derived from
- * the abstract class SBase, and inherit the various attributes and
- * subelements of SBase, such as "metaid" as and "annotation".  The
- * ListOf___ classes do not add any attributes of their own.
+ * @copydetails doc_what_is_listof
  *
- * Readers may wonder about the motivations for using the ListOf___
- * containers.  A simpler approach in XML might be to place the components
- * all directly at the top level of the model definition.  The choice made
- * in SBML is to group them within XML elements named after
- * ListOf<em>Classname</em>, in part because it helps organize the
- * components.  More importantly, the fact that the container classes are
- * derived from SBase means that software tools can add information @em about
- * the lists themselves into each list container's "annotation".
- *
- * @see GeneAssociation
+ * @see FluxObjective
  */
 class LIBSBML_EXTERN ListOfFluxObjectives : public ListOf
 {
@@ -515,8 +506,16 @@ public:
 
 
   /**
-   * @return the typecode (int) of SBML objects contained in this ListOf or
-   * SBML_UNKNOWN (default).
+   * Returns the libSBML type code for the SBML objects
+   * contained in this ListOf object.
+   * 
+   * @copydetails doc_what_are_typecodes
+   *
+   * @return the SBML type code for this object, or
+   * @link SBMLTypeCode_t#SBML_UNKNOWN SBML_UNKNOWN@endlink (default).
+   *
+   * @see getElementName()
+   * @see getPackageName()
    */
   virtual int getItemTypeCode () const;
 

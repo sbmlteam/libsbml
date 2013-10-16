@@ -363,28 +363,11 @@ public:
 
 
   /**
-   * Returns the libSBML type code for this object.
+   * Returns the libSBML type code of this object instance.
    *
-   * This method MAY return the typecode of this SBML object or it MAY
-   * return SBML_UNKNOWN.  That is, subclasses of SBase are not required to
-   * implement this method to return a typecode.  This method is meant
-   * primarily for the LibSBML C interface where class and subclass
-   * information is not readily available.
+   * @copydetails doc_what_are_typecodes
    *
-   * @note In libSBML 5, the type of return value has been changed from
-   *       SBMLTypeCode_t to int. The return value is one of enum values defined
-   *       for each package. For example, return values will be one of
-   *       SBMLTypeCode_t if this object is defined in SBML core package,
-   *       return values will be one of SBMLLayoutTypeCode_t if this object is
-   *       defined in Layout extension (i.e. similar enum types are defined in
-   *       each pacakge extension for each SBase subclass)
-   *       The value of each typecode can be duplicated between those of
-   *       different packages. Thus, to distinguish the typecodes of different
-   *       packages, not only the return value of getTypeCode() but also that of
-   *       getPackageName() must be checked.
-   *
-   * @return the typecode (int value) of this SBML object or SBML_UNKNOWN
-   * (default).
+   * @return the SBML type code for this object: SBMLLayoutTypeCode_t#SBML_LAYOUT_BOUNDINGBOX
    *
    * @see getElementName()
    * @see getPackageName()

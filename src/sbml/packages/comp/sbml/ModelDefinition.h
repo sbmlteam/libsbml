@@ -116,16 +116,14 @@ public:
 
 
   /**
-   * Returns the libSBML type code for this SBML object.
-   * 
-   * LibSBML attaches an identifying code to every kind of SBML object.
-   * These are known as <em>SBML type codes</em>.  @if clike The set of
-   * possible type codes for the &ldquo;comp&rdquo; package is defined in the enumeration
-   * #SBMLCompTypeCode_t.  The names of the type codes all begin with the
-   * characters <code>SBML_COMP</code>. @endif@~
-   * @return SBML_COMP_MODELDEFINITION
+   * Returns the libSBML type code of this object instance.
+   *
+   * @copydetails doc_what_are_typecodes
+   *
+   * @return the SBML type code for this object: SBMLCompTypeCode_t#SBML_COMP_MODELDEFINITION 
    *
    * @see getElementName()
+   * @see getPackageName()
    */
   int getTypeCode () const;
 
