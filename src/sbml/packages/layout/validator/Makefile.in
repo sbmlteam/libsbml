@@ -60,7 +60,8 @@ headers =								 \
 header_inst_prefix = packages/layout/validator
 
 sources =								   \
-  LayoutConsistencyValidator.cpp		   \  LayoutIdentifierConsistencyValidator.cpp \
+  LayoutConsistencyValidator.cpp		   \
+  LayoutIdentifierConsistencyValidator.cpp \
   LayoutValidator.cpp		
   
 subdirs = constraints test
