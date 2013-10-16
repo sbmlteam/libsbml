@@ -77,7 +77,6 @@
  * beginning with "doc_" are marked as ignored in our Doxygen configuration.
  * ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~  -->
  * 
- * <!-- ~ ~ ~ ~ ~ ~ End of common documentation strings ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ -->
  */
 
 #ifndef SBMLWriter_h

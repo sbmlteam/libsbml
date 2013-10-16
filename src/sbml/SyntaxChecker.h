@@ -72,7 +72,7 @@ public:
    * @return @c true if the string conforms to type SBML data type
    * <code>SId</code>, @c false otherwise.
    *
-   * @note @copydetails doc_id_syntax
+   * @copydetails doc_id_syntax
    *
    * @if notclike @note Because this is a @em static method, the
    * non-C++ language interfaces for libSBML will contain two variants.  One

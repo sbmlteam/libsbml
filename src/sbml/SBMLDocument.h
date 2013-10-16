@@ -274,7 +274,6 @@
  * used by SBMLDocument if no Version is explicitly specified at the time of
  * the construction of an SBMLDocument instance.
  * 
- * <!-- ~ ~ ~ ~ ~ ~ End of common documentation strings ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ -->
  */
 
 #ifndef SBMLDocument_h

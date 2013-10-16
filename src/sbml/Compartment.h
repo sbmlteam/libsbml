@@ -427,7 +427,6 @@
  * compartment's size (the equivalent of SBML Level&nbsp;1's "volume") is
  * optional and has no default value, and therefore may or may not be set.
  *
- * <!-- ~ ~ ~ ~ ~ ~ End of common documentation strings ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ -->
  */
 
 #ifndef Compartment_h

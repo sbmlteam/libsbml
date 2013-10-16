@@ -100,7 +100,6 @@
  * situation holds</strong>.  Callers may wish to take suitable actions in
  * those scenarios.
  *
- * <!-- ~ ~ ~ ~ ~ ~ End of common documentation strings ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ -->
  */
 
 #ifndef Rule_h

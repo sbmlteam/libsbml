@@ -188,7 +188,6 @@
  * documentation for more information about the differences between SBML
  * Level&nbsp;2 and&nbsp;3 with respect to stoichiometries.
  * 
- * <!-- ~ ~ ~ ~ ~ ~ End of common documentation strings ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ -->
  */
 
 #ifndef StoichiometryMath_h

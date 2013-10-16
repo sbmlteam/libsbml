@@ -162,7 +162,6 @@
  * character @c T in the string.  Here is an example date/time string:
  * <code>1997-07-16T19:20:30+01:00</code>, which would represent July 16,
  * 1997, at 19:20:30 in Central European Time (which is UTC +1:00).
- * <!-- ~ ~ ~ ~ ~ ~ End of common documentation strings ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ -->
  */
 
 

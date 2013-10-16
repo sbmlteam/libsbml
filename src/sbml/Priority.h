@@ -180,7 +180,6 @@
  * @note The Priority construct exists only in SBML Level&nbsp;3; it
  * cannot be used in SBML Level&nbsp;2 or Level&nbsp;1 models.
  *
- * <!-- ~ ~ ~ ~ ~ ~ End of common documentation strings ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ -->
  */
 
 #ifndef Priority_h

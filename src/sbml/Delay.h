@@ -199,7 +199,6 @@
  * those situations.
  * 
  *
- * <!-- ~ ~ ~ ~ ~ ~ End of common documentation strings ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ -->
  */
 
 #ifndef Delay_h

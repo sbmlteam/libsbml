@@ -157,7 +157,6 @@
  * removed.  For compatibility with new versions of SBML, users are
  * cautioned to avoid these attributes.
  *
- * <!-- ~ ~ ~ ~ ~ ~ End of common documentation strings ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ -->
  */
 
 #ifndef KineticLaw_h

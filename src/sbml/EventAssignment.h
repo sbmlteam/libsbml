@@ -246,7 +246,6 @@
  * this situation holds</strong>.  Callers should take suitable action in
  * those situations.
  *   
- * <!-- ~ ~ ~ ~ ~ ~ End of common documentation strings ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ -->
  */
 
 #ifndef EventAssignment_h

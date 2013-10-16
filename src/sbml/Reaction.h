@@ -189,7 +189,6 @@
  * conditions under which a reaction can be considered to be fast in this
  * sense.
  *
- * <!-- ~ ~ ~ ~ ~ ~ End of common documentation strings ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ -->
  */
 
 #ifndef Reaction_h

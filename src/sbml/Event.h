@@ -284,7 +284,6 @@
  * the attribute is mandatory, not optional, and all events must specify
  * a value for it.
  *
- * <!-- ~ ~ ~ ~ ~ ~ End of common documentation strings ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ -->
  */
 
 #ifndef Event_h

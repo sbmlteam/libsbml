@@ -136,7 +136,6 @@
  * of a deep copy, this attribute will passed as it is.  The attribute will be
  * never interpreted by libSBML.
  * 
- * <!-- ~ ~ ~ ~ ~ ~ End of common documentation strings ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ -->
  */
 
 #ifndef SBase_h

@@ -259,7 +259,6 @@
  * attribute, or whether it is valid to add an object to an existing
  * SBMLDocument.
 
- * <!-- ~ ~ ~ ~ ~ ~ End of common documentation strings ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ -->
  */
 
 #ifndef SpeciesReference_h

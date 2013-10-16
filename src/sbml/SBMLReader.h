@@ -121,7 +121,6 @@
  * denominator.
 
 
- * <!-- ~ ~ ~ ~ ~ ~ End of common documentation strings ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ -->
  */
 
 #ifndef SBMLReader_h

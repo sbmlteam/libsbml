@@ -87,7 +87,6 @@
  * it easy to check for the presence of error objects with specific
  * severity levels.
  *
- * <!-- ~ ~ ~ ~ ~ ~ End of common documentation strings ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ -->
  */
 
 

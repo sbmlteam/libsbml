@@ -200,7 +200,6 @@
  * earlier versions of SBML Level&nbsp;2, but their use is strongly
  * discouraged.
  * 
- * <!-- ~ ~ ~ ~ ~ ~ End of common documentation strings ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ -->
  */
 
 #ifndef Unit_h

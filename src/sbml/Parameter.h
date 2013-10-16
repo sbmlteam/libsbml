@@ -166,7 +166,6 @@
  * methods pertaining to Parameter's attribute "constant" (i.e.,
  * isSetConstant(), setConstant(), and getConstant()).
  *
- * <!-- ~ ~ ~ ~ ~ ~ End of common documentation strings ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ -->
  */
 
 #ifndef Parameter_h

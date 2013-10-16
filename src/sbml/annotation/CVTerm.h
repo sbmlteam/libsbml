@@ -211,7 +211,6 @@
  * #edd">...</span> are placeholders for zero or more elements of the same
  * form as the immediately preceding element.
  * 
- * <!-- ~ ~ ~ ~ ~ ~ End of common documentation strings ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ -->
  */
 
 #ifndef CVTerm_h

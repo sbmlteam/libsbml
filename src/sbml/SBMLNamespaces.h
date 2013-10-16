@@ -87,7 +87,6 @@
  * constructor to produce the proper combination of attributes and other
  * internal data structures for the given SBML Level and Version.
  *
- * <!-- ~ ~ ~ ~ ~ ~ End of common documentation strings ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ -->
  */
 
 #ifndef SBMLNamespaces_h

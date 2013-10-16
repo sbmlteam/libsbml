@@ -142,7 +142,6 @@
  * methods provided by the UnitDefinition class for comparing different
  * UnitDefinition objects.
  *
- * <!-- ~ ~ ~ ~ ~ ~ End of common documentation strings ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ -->
  */
 
 #ifndef LocalParameter_h
