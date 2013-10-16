@@ -210,13 +210,13 @@ public class printNotes
     String pid = id;
 
     if (pid == "" && sb.isSetId())
-	{
-	  pid = sb.getId();
-	}
+    {
+      pid = sb.getId();
+    }
     println("----- " + sb.getElementName() + " (" + pid
-	     + ") notes -----");
-	println(sb.getNotesString());
-	println("");
+         + ") notes -----");
+    println(sb.getNotesString());
+    println("");
   }
 
   static void printNotes(SBase sb)

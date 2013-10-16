@@ -11,19 +11,19 @@ import org.sbml.libsbml.SBMLExtensionRegistry;
 import org.sbml.libsbml.libsbml;
 
 public class printRegisteredPackages {
-	public static void main(String[] args) {
-		System.loadLibrary("sbmlj");
-		System.out.print("This version of LibSBML: "
-				+ libsbml.getLibSBMLDottedVersion() + " includes: " + "\n");
+    public static void main(String[] args) {
+        System.loadLibrary("sbmlj");
+        System.out.print("This version of LibSBML: "
+                + libsbml.getLibSBMLDottedVersion() + " includes: " + "\n");
 
-		for (int i = 0; i < SBMLExtensionRegistry.getNumRegisteredPackages(); i++) {
-			System.out.print("\t"
-					+ SBMLExtensionRegistry.getRegisteredPackageName(i) + "\n");
-		}
+        for (int i = 0; i < SBMLExtensionRegistry.getNumRegisteredPackages(); i++) {
+            System.out.print("\t"
+                    + SBMLExtensionRegistry.getRegisteredPackageName(i) + "\n");
+        }
 
-		System.out.print("\n");
+        System.out.print("\n");
 
-		System.exit(0);
-	}
+        System.exit(0);
+    }
 
 }

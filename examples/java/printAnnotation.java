@@ -210,13 +210,13 @@ public class printAnnotation
     String pid = id;
 
     if (pid == "" && sb.isSetId())
-	{
-	  pid = sb.getId();
-	}
+    {
+      pid = sb.getId();
+    }
     println("----- " + sb.getElementName() + " (" + pid
-	     + ") annotation -----");
-	println(sb.getAnnotationString());
-	println("");
+         + ") annotation -----");
+    println(sb.getAnnotationString());
+    println("");
   }
 
   static void printAnnotation(SBase sb)

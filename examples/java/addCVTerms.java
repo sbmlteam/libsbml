@@ -43,17 +43,17 @@ public class addCVTerms
       d.printErrors();
       println("Correct the above and re-run.");
     }
-	else
-	{
-	  long n = d.getModel().getNumSpecies();
+    else
+    {
+      long n = d.getModel().getNumSpecies();
 
-	  if (n <= 0)
-	  { 
-	    println("Model has no species.\n Cannot add CV terms\n");
-	  } 
-	  else
-	  { 
-	    Species s = d.getModel().getSpecies(0);
+      if (n <= 0)
+      { 
+        println("Model has no species.\n Cannot add CV terms\n");
+      } 
+      else
+      { 
+        Species s = d.getModel().getSpecies(0);
 
         CVTerm cv = new CVTerm();
         cv.setQualifierType(libsbmlConstants.BIOLOGICAL_QUALIFIER);
@@ -75,8 +75,8 @@ public class addCVTerms
         s.addCVTerm(cv1);
 
         writer.writeSBML(d, args[1]);
-	  }
-	}
+      }
+    }
     System.exit((int)errors);
   }
 

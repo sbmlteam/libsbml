@@ -24,106 +24,106 @@ import org.sbml.libsbml.libsbml;
  * will be added to the error log.
  */
 public class addCustomValidator extends SBMLValidator {
-	public addCustomValidator() {
-		super();
-	}
+    public addCustomValidator() {
+        super();
+    }
 
-	public addCustomValidator(addCustomValidator orig) {
-		super(orig);
-	}
+    public addCustomValidator(addCustomValidator orig) {
+        super(orig);
+    }
 
-	public @Override
-	SBMLValidator clone() {
-		return new addCustomValidator(this);
-	}
+    public @Override
+    SBMLValidator clone() {
+        return new addCustomValidator(this);
+    }
 
-	public @Override
-	long validate() {
-		// if we don't have a model we don't apply this validator.
-		if (getDocument() == null || getModel() == null)
-			return 0;
+    public @Override
+    long validate() {
+        // if we don't have a model we don't apply this validator.
+        if (getDocument() == null || getModel() == null)
+            return 0;
 
-		// if we have no rules and reactions we don't apply this validator
-		// either
-		if (getModel().getNumReactions() == 0 && getModel().getNumRules() == 0)
-			return 0;
+        // if we have no rules and reactions we don't apply this validator
+        // either
+        if (getModel().getNumReactions() == 0 && getModel().getNumRules() == 0)
+            return 0;
 
-		int numErrors = 0;
-		// test for algebraic rules
-		for (int i = 0; i < getModel().getNumRules(); i++) {
-			if (getModel().getRule(i).getTypeCode() == libsbml.SBML_ALGEBRAIC_RULE) {
+        int numErrors = 0;
+        // test for algebraic rules
+        for (int i = 0; i < getModel().getNumRules(); i++) {
+            if (getModel().getRule(i).getTypeCode() == libsbml.SBML_ALGEBRAIC_RULE) {
 
-				getErrorLog()
-						.add(new SBMLError(
-								99999,
-								3,
-								1,
-								"This model uses algebraic rules, however this application does not support them.",
-								0, 0, libsbml.LIBSBML_SEV_WARNING, // or
-																	// LIBSBML_SEV_ERROR
-																	// if you
-																	// want to
-																	// stop
-								libsbml.LIBSBML_CAT_SBML // or whatever category
-															// you prefer
-						));
+                getErrorLog()
+                        .add(new SBMLError(
+                                99999,
+                                3,
+                                1,
+                                "This model uses algebraic rules, however this application does not support them.",
+                                0, 0, libsbml.LIBSBML_SEV_WARNING, // or
+                                                                    // LIBSBML_SEV_ERROR
+                                                                    // if you
+                                                                    // want to
+                                                                    // stop
+                                libsbml.LIBSBML_CAT_SBML // or whatever category
+                                                            // you prefer
+                        ));
 
-				numErrors++;
-			}
-		}
+                numErrors++;
+            }
+        }
 
-		// test for fast reactions
-		for (int i = 0; i < getModel().getNumReactions(); i++) {
-			// test whether value is set, and true
-			if (getModel().getReaction(i).isSetFast()
-					&& getModel().getReaction(i).getFast()) {
+        // test for fast reactions
+        for (int i = 0; i < getModel().getNumReactions(); i++) {
+            // test whether value is set, and true
+            if (getModel().getReaction(i).isSetFast()
+                    && getModel().getReaction(i).getFast()) {
 
-				getErrorLog()
-						.add(new SBMLError(
-								99999,
-								3,
-								1,
-								"This model uses fast reactions, however this application does not support them.",
-								0, 0, libsbml.LIBSBML_SEV_WARNING, // or
-																	// LIBSBML_SEV_ERROR
-																	// if you
-																	// want to
-																	// stop
-								libsbml.LIBSBML_CAT_SBML // or whatever category
-															// you prefer
-						));
+                getErrorLog()
+                        .add(new SBMLError(
+                                99999,
+                                3,
+                                1,
+                                "This model uses fast reactions, however this application does not support them.",
+                                0, 0, libsbml.LIBSBML_SEV_WARNING, // or
+                                                                    // LIBSBML_SEV_ERROR
+                                                                    // if you
+                                                                    // want to
+                                                                    // stop
+                                libsbml.LIBSBML_CAT_SBML // or whatever category
+                                                            // you prefer
+                        ));
 
-				numErrors++;
+                numErrors++;
 
-			}
-		}
+            }
+        }
 
-		return numErrors;
-	}
+        return numErrors;
+    }
 
-	public static void main(String[] args) {
-		if (args.length != 1) {
-			System.out.println("Usage: addCustomValidator filename");
-			System.exit(1);
-		}
+    public static void main(String[] args) {
+        if (args.length != 1) {
+            System.out.println("Usage: addCustomValidator filename");
+            System.exit(1);
+        }
 
-		System.loadLibrary("sbmlj");
+        System.loadLibrary("sbmlj");
 
-		// read the file name
-		SBMLDocument document = libsbml.readSBML(args[0]);
+        // read the file name
+        SBMLDocument document = libsbml.readSBML(args[0]);
 
-		// add a custom validator
-		document.addValidator(new addCustomValidator());
+        // add a custom validator
+        document.addValidator(new addCustomValidator());
 
-		// check consistency like before
-		int numErrors = (int) document.checkConsistency();
+        // check consistency like before
+        int numErrors = (int) document.checkConsistency();
 
-		// print errors and warnings
-		document.printErrors();
+        // print errors and warnings
+        document.printErrors();
 
-		// return number of errors
-		System.exit(numErrors);
+        // return number of errors
+        System.exit(numErrors);
 
-	}
+    }
 
 };

@@ -24,11 +24,11 @@ public class convertSBML
     if (args.length != 2)
     {
       println("Usage: convertSBML input-filename output-filename\n" +
-	      "This program will attempt to convert an SBML model either to\n" +
-	      "Level " + latestLevel + " " + "Version " + latestVersion + " " +
-	      "(if the model is not already), or if the\n" +
-	      "model is already at that Level and Version, this program\n" +
-	      "will attempt to convert it to SBML Level 1 Version 2.");
+          "This program will attempt to convert an SBML model either to\n" +
+          "Level " + latestLevel + " " + "Version " + latestVersion + " " +
+          "(if the model is not already), or if the\n" +
+          "model is already at that Level and Version, this program\n" +
+          "will attempt to convert it to SBML Level 1 Version 2.");
       System.exit(1);
     }
 

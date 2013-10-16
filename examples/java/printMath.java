@@ -113,9 +113,9 @@ public class printMath
       String var     = r.getVariable();
 
       if (r.getVariable().length() > 0)
-	  println("Rule " + n + ", formula: " + var + " = " + formula);
+      println("Rule " + n + ", formula: " + var + " = " + formula);
       else
-	  println("Rule " + n + ", formula: " + formula + " = 0");
+      println("Rule " + n + ", formula: " + formula + " = 0");
     }
   }
     

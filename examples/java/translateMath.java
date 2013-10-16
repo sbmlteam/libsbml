@@ -44,10 +44,10 @@ public class translateMath
         // Read a character from keyboard.
         i  = System.in.read();
 
-	// System.in.read() returns everything, including things
-	// like return, backspace, etc.  Filter those out.
-	if (i < 32 || i > 127)
-	  continue;
+    // System.in.read() returns everything, including things
+    // like return, backspace, etc.  Filter those out.
+    if (i < 32 || i > 127)
+      continue;
 
         // 1 byte character is returned as an int, so cast it to a char.
         c = (char) i;

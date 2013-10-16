@@ -21,20 +21,20 @@ public class echoSBML
     {
       println("Usage: java echoSBML input-filename output-filename");
       System.exit(2);
-    }	
+    }   
 
-	SBMLReader reader     = new SBMLReader();
-	SBMLWriter writer     = new SBMLWriter();
+    SBMLReader reader     = new SBMLReader();
+    SBMLWriter writer     = new SBMLWriter();
 
-	SBMLDocument doc = reader.readSBML(args[0]);
-	if (doc.getNumErrors() > 0)
-	{
-		doc.printErrors();
-	}
-	else
-	{
-	  writer.writeSBML(doc, args[1]);
-	}
+    SBMLDocument doc = reader.readSBML(args[0]);
+    if (doc.getNumErrors() > 0)
+    {
+        doc.printErrors();
+    }
+    else
+    {
+      writer.writeSBML(doc, args[1]);
+    }
   }
 
 

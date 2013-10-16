@@ -14,23 +14,23 @@ import org.sbml.libsbml.SBMLNamespacesList;
 import org.sbml.libsbml.libsbml;
 
 public class printsupported {
-	// / <summary>
-	// / The main entry point for the application.
-	// / </summary>
-	public static void main(String[] args) {
-		System.loadLibrary("sbmlj");
+    // / <summary>
+    // / The main entry point for the application.
+    // / </summary>
+    public static void main(String[] args) {
+        System.loadLibrary("sbmlj");
 
-		System.out.println("Supported by LibSBML "
-				+ libsbml.getLibSBMLDottedVersion());
-		System.out.println();
+        System.out.println("Supported by LibSBML "
+                + libsbml.getLibSBMLDottedVersion());
+        System.out.println();
 
-		SBMLNamespacesList supported = SBMLNamespaces.getSupportedNamespaces();
-		for (int i = 0; i < supported.getSize(); i++) {
-			SBMLNamespaces current = supported.get(i);
-			System.out.println("\tSBML Level: " + current.getLevel()
-					+ " Version: " + current.getVersion());
-		}
+        SBMLNamespacesList supported = SBMLNamespaces.getSupportedNamespaces();
+        for (int i = 0; i < supported.getSize(); i++) {
+            SBMLNamespaces current = supported.get(i);
+            System.out.println("\tSBML Level: " + current.getLevel()
+                    + " Version: " + current.getVersion());
+        }
 
-		System.out.println();
-	}
+        System.out.println();
+    }
 }

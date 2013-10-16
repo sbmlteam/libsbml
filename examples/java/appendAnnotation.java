@@ -45,40 +45,40 @@ public class appendAnnotation
       d.printErrors();
       println("Correct the above and re-run.");
     }
-	else
-	{
-	    String model_history_annotation = 
-	       "<annotation>\n" +
-	       "  <rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:dc=\"http://purl.org/dc/elements/1.1/\" xmlns:dcterms=\"http://purl.org/dc/terms/\" xmlns:vCard=\"http://www.w3.org/2001/vcard-rdf/3.0#\" xmlns:bqbiol=\"http://biomodels.net/biology-qualifiers/\" xmlns:bqmodel=\"http://biomodels.net/model-qualifiers/\">\n" +
-	       "    <rdf:Description rdf:about=\"#\">\n" +
-	       "      <dc:creator rdf:parseType=\"Resource\">\n" +
-	       "        <rdf:Bag>\n" +
-	       "          <rdf:li rdf:parseType=\"Resource\">\n" +
-	       "            <vCard:N rdf:parseType=\"Resource\">\n" +
-	       "              <vCard:Family>Keating</vCard:Family>\n" +
-	       "              <vCard:Given>Sarah</vCard:Given>\n" +
-	       "            </vCard:N>\n" +
-	       "            <vCard:EMAIL>sbml-team@caltech.edu</vCard:EMAIL>\n" +
-	       "            <vCard:ORG>\n" +
-	       "              <vCard:Orgname>University of Hertfordshire</vCard:Orgname>\n" + 
-	       "            </vCard:ORG>\n" +
-	       "          </rdf:li>\n" +
-	       "        </rdf:Bag>\n" +
-	       "      </dc:creator>\n" +
-	       "      <dcterms:created rdf:parseType=\"Resource\">\n" +
-	       "        <dcterms:W3CDTF>1999-11-13T06:54:32Z</dcterms:W3CDTF>\n" +
-	       "      </dcterms:created>\n" +
-	       "      <dcterms:modified rdf:parseType=\"Resource\">\n" +
-	       "        <dcterms:W3CDTF>2007-11-31T06:54:00-02:00</dcterms:W3CDTF>\n" +
-	       "      </dcterms:modified>\n" +
-	       "    </rdf:Description>\n" +
-	       "  </rdf:RDF>\n" +
-	       "</annotation>\n";
+    else
+    {
+        String model_history_annotation = 
+           "<annotation>\n" +
+           "  <rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:dc=\"http://purl.org/dc/elements/1.1/\" xmlns:dcterms=\"http://purl.org/dc/terms/\" xmlns:vCard=\"http://www.w3.org/2001/vcard-rdf/3.0#\" xmlns:bqbiol=\"http://biomodels.net/biology-qualifiers/\" xmlns:bqmodel=\"http://biomodels.net/model-qualifiers/\">\n" +
+           "    <rdf:Description rdf:about=\"#\">\n" +
+           "      <dc:creator rdf:parseType=\"Resource\">\n" +
+           "        <rdf:Bag>\n" +
+           "          <rdf:li rdf:parseType=\"Resource\">\n" +
+           "            <vCard:N rdf:parseType=\"Resource\">\n" +
+           "              <vCard:Family>Keating</vCard:Family>\n" +
+           "              <vCard:Given>Sarah</vCard:Given>\n" +
+           "            </vCard:N>\n" +
+           "            <vCard:EMAIL>sbml-team@caltech.edu</vCard:EMAIL>\n" +
+           "            <vCard:ORG>\n" +
+           "              <vCard:Orgname>University of Hertfordshire</vCard:Orgname>\n" + 
+           "            </vCard:ORG>\n" +
+           "          </rdf:li>\n" +
+           "        </rdf:Bag>\n" +
+           "      </dc:creator>\n" +
+           "      <dcterms:created rdf:parseType=\"Resource\">\n" +
+           "        <dcterms:W3CDTF>1999-11-13T06:54:32Z</dcterms:W3CDTF>\n" +
+           "      </dcterms:created>\n" +
+           "      <dcterms:modified rdf:parseType=\"Resource\">\n" +
+           "        <dcterms:W3CDTF>2007-11-31T06:54:00-02:00</dcterms:W3CDTF>\n" +
+           "      </dcterms:modified>\n" +
+           "    </rdf:Description>\n" +
+           "  </rdf:RDF>\n" +
+           "</annotation>\n";
 
-	    d.getModel().appendAnnotation(model_history_annotation);
-	    /*
-	     * The above code can be replaced by the following code.
-	     *
+        d.getModel().appendAnnotation(model_history_annotation);
+        /*
+         * The above code can be replaced by the following code.
+         *
          ModelHistory h = new ModelHistory();
 
          ModelCreator c = new ModelCreator();
@@ -98,37 +98,37 @@ public class appendAnnotation
          d.getModel().setModelHistory(h);
          *
          */
-	    
-	    long n = d.getModel().getNumSpecies();
+        
+        long n = d.getModel().getNumSpecies();
 
-	    if (n > 0)
-	    { 
-	      Species s = d.getModel().getSpecies(0);
+        if (n > 0)
+        { 
+          Species s = d.getModel().getSpecies(0);
 
-	      String cvterms_annotation =
-	        "<annotation>\n" +
-	        "  <rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:dc=\"http://purl.org/dc/elements/1.1/\" xmlns:dcterms=\"http://purl.org/dc/terms/\" xmlns:vCard=\"http://www.w3.org/2001/vcard-rdf/3.0#\" xmlns:bqbiol=\"http://biomodels.net/biology-qualifiers/\" xmlns:bqmodel=\"http://biomodels.net/model-qualifiers/\">\n" +
-	        "    <rdf:Description rdf:about=\"#\">\n" +
-	        "      <bqbiol:isVersionOf>\n" +
-	        "        <rdf:Bag>\n" +
-	        "          <rdf:li rdf:resource=\"http://www.geneontology.org/#GO:0005892\"/>\n" +
-	        "          <rdf:li rdf:resource=\"http://www.ebi.ac.uk/interpro/#IPR002394\"/>\n" +
-	        "        </rdf:Bag>\n" +
-	        "      </bqbiol:isVersionOf>\n" +
-	        "      <bqbiol:is>\n" +
-	        "        <rdf:Bag>\n" +
-	        "          <rdf:li rdf:resource=\"http://www.geneontology.org/#GO:0005895\"/>\n" +
-	        "        </rdf:Bag>\n" +
-	        "      </bqbiol:is>\n" +
-	        "    </rdf:Description>\n" +
-	        "  </rdf:RDF>\n" +
-	        "</annotation>\n";
+          String cvterms_annotation =
+            "<annotation>\n" +
+            "  <rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:dc=\"http://purl.org/dc/elements/1.1/\" xmlns:dcterms=\"http://purl.org/dc/terms/\" xmlns:vCard=\"http://www.w3.org/2001/vcard-rdf/3.0#\" xmlns:bqbiol=\"http://biomodels.net/biology-qualifiers/\" xmlns:bqmodel=\"http://biomodels.net/model-qualifiers/\">\n" +
+            "    <rdf:Description rdf:about=\"#\">\n" +
+            "      <bqbiol:isVersionOf>\n" +
+            "        <rdf:Bag>\n" +
+            "          <rdf:li rdf:resource=\"http://www.geneontology.org/#GO:0005892\"/>\n" +
+            "          <rdf:li rdf:resource=\"http://www.ebi.ac.uk/interpro/#IPR002394\"/>\n" +
+            "        </rdf:Bag>\n" +
+            "      </bqbiol:isVersionOf>\n" +
+            "      <bqbiol:is>\n" +
+            "        <rdf:Bag>\n" +
+            "          <rdf:li rdf:resource=\"http://www.geneontology.org/#GO:0005895\"/>\n" +
+            "        </rdf:Bag>\n" +
+            "      </bqbiol:is>\n" +
+            "    </rdf:Description>\n" +
+            "  </rdf:RDF>\n" +
+            "</annotation>\n";
 
-	      s.appendAnnotation(cvterms_annotation);
-	      
-	      /*
-	       * The above code can be replaced by the following code.
-	       *
+          s.appendAnnotation(cvterms_annotation);
+          
+          /*
+           * The above code can be replaced by the following code.
+           *
           CVTerm cv = new CVTerm();
           cv.setQualifierType(libsbmlConstants.BIOLOGICAL_QUALIFIER);
           cv.setBiologicalQualifierType(libsbmlConstants.BQB_IS_VERSION_OF);
@@ -147,11 +147,11 @@ public class appendAnnotation
           s.addCVTerm(cv);
           s.addCVTerm(cv2);
           s.addCVTerm(cv1);
-	       * 
-	       */
-	    }
-	}
-	writer.writeSBML(d, args[1]);
+           * 
+           */
+        }
+    }
+    writer.writeSBML(d, args[1]);
   }
 
   static void println (String msg)

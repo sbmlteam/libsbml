@@ -17,35 +17,35 @@ public class stripPackage
     {
       println("Usage: java stripPackage input-filename package-to-strip output-filename");
       System.exit(2);
-    }	
+    }   
 
-	SBMLReader reader     = new SBMLReader();
-	SBMLWriter writer     = new SBMLWriter();
+    SBMLReader reader     = new SBMLReader();
+    SBMLWriter writer     = new SBMLWriter();
 
-	SBMLDocument doc = reader.readSBML(args[0]);
-	if (doc.getErrorLog().getNumFailsWithSeverity(libsbml.LIBSBML_SEV_ERROR) > 0)
-	{
-		doc.printErrors();
-	}
-	else
-	{
-	  /* create a new conversion properties structure */
+    SBMLDocument doc = reader.readSBML(args[0]);
+    if (doc.getErrorLog().getNumFailsWithSeverity(libsbml.LIBSBML_SEV_ERROR) > 0)
+    {
+        doc.printErrors();
+    }
+    else
+    {
+      /* create a new conversion properties structure */
       ConversionProperties props = new ConversionProperties();
-	  
-	  /* add an option that we want to strip a given package */
-	  props.addOption("stripPackage", true, "Strip SBML Level 3 package constructs from the model");
-	  
-	  /* add an option with the package we want to remove */
-	  props.addOption("package", args[1],"Name of the SBML Level 3 package to be stripped");
-	  
-	  /* perform the conversion */
-	  if (doc.convert(props) != libsbml.LIBSBML_OPERATION_SUCCESS)
-	  {
-	  	println ("conversion failed ... ");
-	  	System.exit(3); 
-	  }
-	  writer.writeSBML(doc, args[2]);
-	}
+      
+      /* add an option that we want to strip a given package */
+      props.addOption("stripPackage", true, "Strip SBML Level 3 package constructs from the model");
+      
+      /* add an option with the package we want to remove */
+      props.addOption("package", args[1],"Name of the SBML Level 3 package to be stripped");
+      
+      /* perform the conversion */
+      if (doc.convert(props) != libsbml.LIBSBML_OPERATION_SUCCESS)
+      {
+        println ("conversion failed ... ");
+        System.exit(3); 
+      }
+      writer.writeSBML(doc, args[2]);
+    }
   }
 
 
@@ -99,8 +99,8 @@ public class stripPackage
                          " It is likely that your -classpath command line " +
                          " setting or your CLASSPATH environment variable " +
                          " do not include the file 'libsbmlj.jar'.");
-	  e.printStackTrace();
-      				 
+      e.printStackTrace();
+                     
       System.exit(1);
     }
     catch (SecurityException e)

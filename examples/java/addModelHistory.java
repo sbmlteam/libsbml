@@ -42,8 +42,8 @@ public class addModelHistory
       d.printErrors();
       println("Correct the above and re-run.");
     }
-	else
-	{
+    else
+    {
       ModelHistory h = new ModelHistory();
 
       ModelCreator c = new ModelCreator();
@@ -62,8 +62,8 @@ public class addModelHistory
 
       d.getModel().setModelHistory(h);
 
-	  writer.writeSBML(d, args[1]);
-	}
+      writer.writeSBML(d, args[1]);
+    }
 
     System.exit((int)errors);
   }

@@ -17,32 +17,32 @@ public class promoteParameters
     {
       println("Usage: java promoteParameters input-filename output-filename");
       System.exit(2);
-    }	
+    }   
 
-	SBMLReader reader     = new SBMLReader();
-	SBMLWriter writer     = new SBMLWriter();
+    SBMLReader reader     = new SBMLReader();
+    SBMLWriter writer     = new SBMLWriter();
 
-	SBMLDocument doc = reader.readSBML(args[0]);
-	if (doc.getErrorLog().getNumFailsWithSeverity(libsbml.LIBSBML_SEV_ERROR) > 0)
-	{
-		doc.printErrors();
-	}
-	else
-	{
-	  /* create a new conversion properties structure */
+    SBMLDocument doc = reader.readSBML(args[0]);
+    if (doc.getErrorLog().getNumFailsWithSeverity(libsbml.LIBSBML_SEV_ERROR) > 0)
+    {
+        doc.printErrors();
+    }
+    else
+    {
+      /* create a new conversion properties structure */
       ConversionProperties props = new ConversionProperties();
-	  
-	  /* add an option that we want to promote parameters */
-	  props.addOption("promoteLocalParameters", true, "Promotes all Local Parameters to Global ones");
-	  
-	  /* perform the conversion */
-	  if (doc.convert(props) != libsbml.LIBSBML_OPERATION_SUCCESS)
-	  {
-	  	println ("conversion failed ... ");
-	  	System.exit(3); 
-	  }
-	  writer.writeSBML(doc, args[1]);
-	}
+      
+      /* add an option that we want to promote parameters */
+      props.addOption("promoteLocalParameters", true, "Promotes all Local Parameters to Global ones");
+      
+      /* perform the conversion */
+      if (doc.convert(props) != libsbml.LIBSBML_OPERATION_SUCCESS)
+      {
+        println ("conversion failed ... ");
+        System.exit(3); 
+      }
+      writer.writeSBML(doc, args[1]);
+    }
   }
 
 
@@ -96,8 +96,8 @@ public class promoteParameters
                          " It is likely that your -classpath command line " +
                          " setting or your CLASSPATH environment variable " +
                          " do not include the file 'libsbmlj.jar'.");
-	  e.printStackTrace();
-      				 
+      e.printStackTrace();
+                     
       System.exit(1);
     }
     catch (SecurityException e)

@@ -55,8 +55,8 @@ public class validateSBML
 
       if (errors > 0)
       {
-	document.printErrors();
-	System.exit(1);
+        document.printErrors();
+        System.exit(1);
       }
     }
   }
