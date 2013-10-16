@@ -332,7 +332,6 @@ END_TEST
 
 START_TEST (test_infer_localParam_fromReaction)
 {
-  cout << "Here\n";
   string filename(TestDataDirectory);
   filename += "inferUnits-3.xml";
 
@@ -346,9 +345,7 @@ START_TEST (test_infer_localParam_fromReaction)
   fail_unless(p->isSetUnits() == false);
 
   p->setCalculatingUnits(true);
-  cout << "Here\n";
   UnitDefinition *ud = p->getDerivedUnitDefinition();
-  cout << "Here two \n";
 
   fail_unless(ud->getNumUnits() == 1);
   
