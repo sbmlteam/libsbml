@@ -1,16 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <sbml xmlns="http://www.sbml.org/sbml/level3/version1/core" 
   xmlns:layout="http://www.sbml.org/sbml/level3/version1/layout/version1" 
-  xmlns:comp="http://www.sbml.org/sbml/level3/version1/comp/version1" level="3" version="1" 
-  comp:required="true"
   layout:required="false">
   <model id="baz" name="baz">
     <listOfParameters>
       <parameter id="y" value="3" constant="true">
-        <comp:listOfReplacedElements>
-          <comp:replacedElement comp:idRef="x" comp:submodelRef="B">
-          </comp:replacedElement>
-        </comp:listOfReplacedElements>
       </parameter>
     </listOfParameters>
     <layout:listOfLayouts 
@@ -34,15 +28,5 @@
         
       </layout:layout>
     </layout:listOfLayouts>
-    <comp:listOfSubmodels>
-      <comp:submodel comp:id="B" comp:modelRef="foo"/>
-    </comp:listOfSubmodels>
   </model>
-  <comp:listOfModelDefinitions>
-    <comp:modelDefinition id="foo" name="foo">
-      <listOfParameters>
-        <parameter id="x" value="3" constant="true" metaid="_Node01"/>
-      </listOfParameters>
-    </comp:modelDefinition>
-  </comp:listOfModelDefinitions>
 </sbml>
