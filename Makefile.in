@@ -130,6 +130,7 @@ examples =                                                          \
   examples/c++/layout/example3.cpp                                  \
   examples/c++/layout/example3-L3.cpp                               \
   examples/xslt/layout/layout2svg.xsl                               \
+  examples/layout/README.txt                                        \
   examples/csharp/Makefile.in                                       \
   examples/csharp/addCustomValidator.cs                             \
   examples/csharp/addCVTerms.cs                                     \
