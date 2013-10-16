@@ -125,6 +125,11 @@ examples =                                                          \
   examples/c++/layout/convertLayout.cpp                             \
   examples/c++/layout/example1.cpp                                  \
   examples/c++/layout/example1-L3.cpp                               \
+  examples/c++/layout/example2.cpp                                  \
+  examples/c++/layout/example2-L3.cpp                               \
+  examples/c++/layout/example3.cpp                                  \
+  examples/c++/layout/example3-L3.cpp                               \
+  examples/xslt/layout/layout2svg.xsl                               \
   examples/csharp/Makefile.in                                       \
   examples/csharp/addCustomValidator.cs                             \
   examples/csharp/addCVTerms.cs                                     \
@@ -188,11 +193,6 @@ examples =                                                          \
   examples/ruby/layout/example1-L3.rb                               \
   examples/csharp/layout/example1-L3.cs                             \
   examples/python/layout/example1.py                                \
-  examples/layout/example2.cpp                                      \
-  examples/layout/example2-L3.cpp                                   \
-  examples/layout/example3.cpp                                      \
-  examples/layout/example3-L3.cpp                                   \
-  examples/layout/layout2svg.xsl                                    \
   examples/perl/addCVTerms.pl                                       \
   examples/perl/addCustomValidator.pl                               \
   examples/perl/addingEvidenceCodes_1.pl                            \
