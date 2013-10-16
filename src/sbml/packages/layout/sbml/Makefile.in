@@ -71,13 +71,13 @@ headers   = \
   CubicBezier.h               \
   Curve.h                     \
   Dimensions.h                \
+  GeneralGlyph.h              \
   GraphicalObject.h           \
   Layout.h                    \
   LineSegment.h               \
   Point.h                     \
-  GeneralGlyph.h              \
-  ReferenceGlyph.h            \
   ReactionGlyph.h             \
+  ReferenceGlyph.h            \
   SpeciesGlyph.h              \
   SpeciesReferenceGlyph.h     \
   SpeciesReferenceRole.h      \
@@ -91,13 +91,13 @@ sources   = \
   CubicBezier.cpp           \
   Curve.cpp                 \
   Dimensions.cpp            \
+  GeneralGlyph.cpp          \
   GraphicalObject.cpp       \
   Layout.cpp                \
   LineSegment.cpp           \
   Point.cpp                 \
-  GeneralGlyph.cpp          \
-  ReferenceGlyph.cpp        \
   ReactionGlyph.cpp         \
+  ReferenceGlyph.cpp        \
   SpeciesGlyph.cpp          \
   SpeciesReferenceGlyph.cpp \
   TextGlyph.cpp 

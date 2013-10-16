@@ -63,7 +63,7 @@ thisdir   = src/sbml/packages/layout
 # libsbml-layout.  Anything that goes into libsbml-layout needs to appear 
 # on the `subdirs' list before "sbml".
 #
-subdirs = common extension util sbml
+subdirs = common extension util sbml validator
 
 # Variables `headers', `sources', `libraries', `extra_CPPFLAGS',
 # `extra_CXXFLAGS', `extra_LDFLAGS' and `distfiles' are used by the default

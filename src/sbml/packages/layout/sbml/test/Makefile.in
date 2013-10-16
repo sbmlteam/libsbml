@@ -70,12 +70,12 @@ test_sources =                   \
   TestCubicBezier.cpp            \
   TestCurve.cpp                  \
   TestDimensions.cpp             \
+  TestGeneralGlyph.cpp           \
   TestGraphicalObject.cpp        \
   TestLayout.cpp                 \
   TestLineSegment.cpp            \
   TestPoint.cpp                  \
   TestReactionGlyph.cpp          \
-  TestGeneralGlyph.cpp           \
   TestReferenceGlyph.cpp         \
   TestSBMLHandler.cpp            \
   TestSpeciesGlyph.cpp           \

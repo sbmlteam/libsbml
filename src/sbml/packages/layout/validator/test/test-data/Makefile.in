@@ -1,12 +1,11 @@
- ## @configure_input@
+## @configure_input@
 ##
 ## Filename    : Makefile.in
-## Description : Makefile template for libsbml layout extension
+## Description : Makefile template for libsbml src/sbml/packages/layout/validator/test
 ## Author(s)   : SBML Team <sbml-team@caltech.edu>
 ## Organization: California Institute of Technology
-## Created     : 2009-08-29
+## Created     : 2005-03-15
 ## 
-## <!--------------------------------------------------------------------------
 ## This file is part of libSBML.  Please visit http://sbml.org for more
 ## information about SBML, and the latest version of libSBML.
 ##
@@ -26,9 +25,23 @@
 ## the Free Software Foundation.  A copy of the license agreement is provided
 ## in the file named "LICENSE.txt" included with this software distribution
 ## and also available online as http://sbml.org/software/libsbml/license.html
-## ------------------------------------------------------------------------ -->
+##
+## The original code contained here was initially developed by:
+##
+##     Ben Bornstein
+##     SBML Team
+##     Control and Dynamical Systems, MC 107-81
+##     California Institute of Technology
+##     Pasadena, CA, 91125, USA
+##
+##     http://www.sbml.org
+##     mailto:sbml-team@caltech.edu
+##
+## Contributor(s):
+##   Michael Hucka <mhucka@caltech.edu> Wrote this Makefile.in.
+##
 
-
+
 # -----------------------------------------------------------------------------
 # Configuration variables
 # -----------------------------------------------------------------------------
@@ -44,50 +57,21 @@ include @top_srcdir@/config/makefile-common-vars.mk
 # set `subdir' to an absolute path, or some `make' actions will fail.
 
 srcdir    = @srcdir@
-thisdir   = src/sbml/packages/layout/extension
-
-subdirs = 
+thisdir   = src/sbml/packages/layout/validator/test/test-data
 
 # Variables `headers', `sources', `libraries', `extra_CPPFLAGS',
 # `extra_CXXFLAGS', `extra_LDFLAGS' and `distfiles' are used by the default
 # rules in `makefile-common-actions.mk' included at the end.
 
-headers   = \
-LayoutExtension.h \
-LayoutModelPlugin.h \
-LayoutSpeciesReferencePlugin.h \
-LayoutSBMLDocumentPlugin.h
 
-header_inst_prefix = packages/layout/extension
-
-sources   = \
-LayoutExtension.cpp \
-LayoutModelPlugin.cpp \
-LayoutSpeciesReferencePlugin.cpp \
-LayoutSBMLDocumentPlugin.cpp
-
-extra_CPPFLAGS = -I../../..
-
-ifdef USE_EXPAT
-  extra_CPPFLAGS  += $(EXPAT_CPPFLAGS)
-  extra_LDFLAGS   += $(EXPAT_LDFLAGS)
-  extra_LIBS      += $(EXPAT_LIBS)
-endif
-
-ifdef USE_XERCES
-  extra_CPPFLAGS  += $(XERCES_CPPFLAGS)
-  extra_LDFLAGS   += $(XERCES_LDFLAGS)
-  extra_LIBS      += $(XERCES_LIBS)
-endif
-
-ifdef USE_LIBXML
-  extra_CPPFLAGS += $(LIBXML_CPPFLAGS)
-  extra_LDFLAGS  += $(LIBXML_LDFLAGS)
-  extra_LIBS     += $(LIBXML_LIBS)
-endif
+test_data_files = \
+  $(wildcard general-constraints/*.xml) \
+  $(wildcard identifier-constraints/*.xml) 
 
 
-distfiles = $(sources) $(headers) Makefile.in 
+distfiles = $(test_data_files) \
+	    Makefile.in 
+
 
 # -----------------------------------------------------------------------------
 # Primary build actions
@@ -95,13 +79,22 @@ distfiles = $(sources) $(headers) Makefile.in
 
 # The default action is to remake everything.
 
-all: Makefile default
+all: Makefile default all-recursive
+
 
 # -----------------------------------------------------------------------------
 # Checking.
 # -----------------------------------------------------------------------------
 
 check: all check-recursive
+
+
+# -----------------------------------------------------------------------------
+# Tags.
+# -----------------------------------------------------------------------------
+
+tags: etags ctags
+
 
 # -----------------------------------------------------------------------------
 # Installation
@@ -112,9 +105,10 @@ check: all check-recursive
 
 install: all install-headers
 
-uninstall: all uninstall-headers
-
 installcheck: all installcheck-headers
+
+uninstall: uninstall-recursive uninstall-headers
+
 
 # -----------------------------------------------------------------------------
 # Cleaning.
@@ -133,9 +127,9 @@ maintainer-clean: maintainer-clean-normal maintainer-clean-recursive
 # Creating distribution (for libSBML maintainers only)
 # -----------------------------------------------------------------------------
 
-dist: dist-normal dist-recursive
+dist: all dist-normal dist-recursive
 
-distcheck: distcheck-normal distcheck-recursive
+distcheck: all distcheck-normal distcheck-recursive
 
 
 # -----------------------------------------------------------------------------
@@ -144,6 +138,7 @@ distcheck: distcheck-normal distcheck-recursive
 
 include @top_srcdir@/config/makefile-common-actions.mk
 
+
 # -----------------------------------------------------------------------------
 # End.
 # -----------------------------------------------------------------------------
