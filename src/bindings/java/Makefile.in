@@ -157,7 +157,10 @@ ifdef USE_LAYOUT
   otherdirs += ../../sbml/packages/layout/common \
                ../../sbml/packages/layout/extension \
                ../../sbml/packages/layout/sbml \
-               ../../sbml/packages/layout/util 
+               ../../sbml/packages/layout/util \
+			   ../../sbml/packages/layout/validator \
+			   ../../sbml/packages/layout/validator/constraints 
+
 endif
 
 objfiles = libsbml_wrap.lo $(wildcard $(addsuffix /*.lo,$(otherdirs)))
