@@ -1371,7 +1371,7 @@ public:
   /**
    * Returns the libSBML type code for this SBML object.
    *
-   * @copydetails doc_typecodes
+   * @copydetails doc_what_are_typecodes
    *
    * @return the SBML type code for this object, or
    * @link SBMLTypeCode_t#SBML_UNKNOWN SBML_UNKNOWN@endlink (default).
@@ -1385,7 +1385,7 @@ public:
    * Returns the libSBML type code for the objects contained in this ListOf
    * (i.e., Compartment objects, if the list is non-empty).
    *
-   * @copydetails doc_typecodes
+   * @copydetails doc_what_are_typecodes
    *
    * @return the SBML type code for the objects contained in this ListOf
    * instance, or @link SBMLTypeCode_t#SBML_UNKNOWN SBML_UNKNOWN@endlink (default).

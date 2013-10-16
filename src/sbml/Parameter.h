@@ -354,7 +354,7 @@ public:
    * @return the value of the "units" attribute of this Parameter, as a
    * string.  An empty string indicates that no units have been assigned.
    *
-   * @copydetails doc_unassigned_unit_are_not_a_default
+   * @copydetails doc_note_unassigned_unit_are_not_a_default
    * 
    * @see isSetUnits()
    * @see setUnits(@if java String units@endif)
@@ -431,7 +431,7 @@ public:
    * @return @c true if the "units" attribute of this Parameter is
    * set, @c false otherwise.
    *
-   * @copydetails doc_unassigned_unit_are_not_a_default
+   * @copydetails doc_note_unassigned_unit_are_not_a_default
    */
   bool isSetUnits () const;
 

@@ -1609,10 +1609,10 @@ public:
    * different tools.  Please see the SBML specifications for more details.
    *
    * This method determines the name of the element to be replaced from the
-   * annotation argument. Functionally it is equivalent to calling
-   * <code> removeTopLevelAnnotationElement(name); appendAnnotation(annotation_with_name);
-   * </code> with the exception that the placement of the annotation element remains
-   * the same.
+   * annotation argument. Functionally it is equivalent to calling <code>
+   * removeTopLevelAnnotationElement(name)</code> followed by calling
+   * <code>appendAnnotation(annotation_with_name)</code>, with the exception
+   * that the placement of the annotation element remains the same.
    *
    * @param annotation XMLNode representing the replacement top level annotation 
    *
@@ -1638,10 +1638,10 @@ public:
    * different tools.  Please see the SBML specifications for more details.
    *
    * This method determines the name of the element to be replaced from the
-   * annotation argument. Functionally it is equivalent to calling
-   * <code> removeTopLevelAnnotationElement(name); appendAnnotation(annotation_with_name);
-   * </code> with the exception that the placement of the annotation element remains
-   * the same.
+   * annotation argument. Functionally it is equivalent to calling <code>
+   * removeTopLevelAnnotationElement(name)</code> followed by calling
+   * <code>appendAnnotation(annotation_with_name)</code>, with the exception
+   * that the placement of the annotation element remains the same.
    *
    * @param annotation string representing the replacement top level annotation 
    *
@@ -3027,16 +3027,16 @@ s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></b
    * Version 1 Core must would have the URI
    * "http://www.sbml.org/sbml/level3/version1/layout/version1/"
    *
-   * Unlike getElementNamespace(), this function first returns the URI for
-   * this element by looking into the SBMLNamespaces object of the document
-   * with the its package name. if not found it will return the result of
-   * getElementNamespace().
+   * This function first returns the URI for this element by looking into the
+   * SBMLNamespaces object of the document with the its package name.  If not
+   * found, it will @if clike return the result of getElementNamespace()@else
+   * return the XML namespace to which this element belongs@endif.
    *
    * @return the URI of this element
    *
-   * @see getPackageName()
-   * @see getElementNamespace()
    * @see getSBMLDocument()
+   * @see getPackageName()
+   * @if clike @see getElementNamespace() @endif
    */
   std::string getURI() const;
 

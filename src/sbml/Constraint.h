@@ -175,7 +175,7 @@ public:
    * of SBML object, are either invalid or mismatched with respect to the
    * parent SBMLDocument object.
    * 
-   * @copydetails doc_compartment_setting_lv
+   * @copydetails doc_constraint_setting_lv
    */
   Constraint (unsigned int level, unsigned int version);
 
@@ -193,7 +193,7 @@ public:
    * of SBML object, are either invalid or mismatched with respect to the
    * parent SBMLDocument object.
    * 
-   * @copydetails doc_compartment_setting_lv
+   * @copydetails doc_constraint_setting_lv
    */
   Constraint (SBMLNamespaces* sbmlns);
 

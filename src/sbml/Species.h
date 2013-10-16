@@ -596,7 +596,7 @@ public:
    * as a string.  An empty string indicates that no units have been
    * assigned.
    *
-   * @copydetails doc_unassigned_unit_are_not_a_default
+   * @copydetails doc_note_unassigned_unit_are_not_a_default
    *
    * @see isSetSubstanceUnits()
    * @see setSubstanceUnits(const std::string& sid)

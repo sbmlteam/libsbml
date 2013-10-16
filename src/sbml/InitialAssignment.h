@@ -196,7 +196,7 @@
  * attribute, or whether it is valid to add an object to an existing
  * SBMLDocument.
  *
- * @class doc_eventassignment_units
+ * @class doc_initialassignment_units
  *
  * @par
  * The units are calculated based on the mathematical expression in the
@@ -205,7 +205,7 @@
  * InitialAssignment::getDerivedUnitDefinition() returns the calculated
  * units, to the extent that libSBML can compute them.
  *
- * @class doc_warning_eventassignment_math_literals
+ * @class doc_warning_initialassignment_math_literals
  * 
  * @warning Note that it is possible the "math" expression in the
  * InitialAssignment contains literal numbers or parameters with undeclared
@@ -410,7 +410,7 @@ public:
    * of measurement assumed for the "math" expression of this
    * InitialAssignment.
    *
-   * @copydetails doc_eventassignment_units
+   * @copydetails doc_initialassignment_units
    *
    * @copydetails doc_note_unit_inference_depends_on_model 
    *
@@ -429,7 +429,7 @@ public:
    * of measurement assumed for the "math" expression of this
    * InitialAssignment.
    *
-   * @copydetails doc_eventassignment_units
+   * @copydetails doc_initialassignment_units
    *
    * @copydetails doc_note_unit_inference_depends_on_model 
    *
