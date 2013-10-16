@@ -5,7 +5,7 @@ REM
 
 SET THIS_DIR=%~dp0
 SET PACKAGE_NAME=fbc
-set VERSION=libSBML-5.8.0-%PACKAGE_NAME%-src
+set VERSION=libSBML-5.9.0-%PACKAGE_NAME%-src
 SET DIST_DIR=%~dp0\%VERSION%
 SET PACKAGE_DIR=%~dp0\..\..\..\
 
@@ -101,6 +101,8 @@ copy /y %PACKAGE_DIR%\src\bindings\swig\%PACKAGE_NAME%-*.h      src\bindings\swi
 mkdir examples
 mkdir examples\cpp
 mkdir examples\cpp\%PACKAGE_NAME%
+mkdir examples\csharp
+mkdir examples\csharp\&PACKAGE_NAME%
 mkdir examples\java
 mkdir examples\java\%PACKAGE_NAME%
 mkdir examples\python
@@ -112,9 +114,13 @@ mkdir examples\r\%PACKAGE_NAME%
 mkdir examples\ruby
 mkdir examples\ruby\%PACKAGE_NAME%
 
+copy /y %PACKAGE_DIR%\examples\%PACKAGE_NAME%-package.cmake     examples
 copy /y "%PACKAGE_DIR%\examples\c++\%PACKAGE_NAME%\*.cpp"       "examples\cpp\%PACKAGE_NAME%\*.cpp"
+copy /y "%PACKAGE_DIR%\examples\c++\%PACKAGE_NAME%\*.txt"       examples\cpp\%PACKAGE_NAME%\
 copy /y %PACKAGE_DIR%\examples\csharp\%PACKAGE_NAME%\*.cs       examples\csharp\%PACKAGE_NAME%\
+copy /y %PACKAGE_DIR%\examples\csharp\%PACKAGE_NAME%\*.txt      examples\csharp\%PACKAGE_NAME%\
 copy /y %PACKAGE_DIR%\examples\java\%PACKAGE_NAME%\*.java       examples\java\%PACKAGE_NAME%\
+copy /y %PACKAGE_DIR%\examples\java\%PACKAGE_NAME%\*.txt        examples\java\%PACKAGE_NAME%\
 copy /y %PACKAGE_DIR%\examples\python\%PACKAGE_NAME%\*.py       examples\python\%PACKAGE_NAME%\
 copy /y %PACKAGE_DIR%\examples\ruby\%PACKAGE_NAME%\*.rb         examples\ruby\%PACKAGE_NAME%\
 copy /y %PACKAGE_DIR%\examples\perl\%PACKAGE_NAME%\*.pl         examples\perl\%PACKAGE_NAME%\

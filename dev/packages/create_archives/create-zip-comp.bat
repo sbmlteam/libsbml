@@ -5,7 +5,7 @@ REM
 
 SET THIS_DIR=%~dp0
 SET PACKAGE_NAME=comp
-set VERSION=libSBML-5.8.0-%PACKAGE_NAME%-src
+set VERSION=libSBML-5.9.0-%PACKAGE_NAME%-src
 SET DIST_DIR=%~dp0\%VERSION%
 SET PACKAGE_DIR=%~dp0\..\..\..\
 
@@ -43,6 +43,7 @@ mkdir src\sbml\packages\%PACKAGE_NAME%\validator\test
 mkdir src\sbml\packages\%PACKAGE_NAME%\validator\test\test-data
 mkdir src\sbml\packages\%PACKAGE_NAME%\validator\test\test-data\general-constraints
 mkdir src\sbml\packages\%PACKAGE_NAME%\validator\test\test-data\identifier-constraints
+mkdir src\sbml\packages\%PACKAGE_NAME%\validator\test\test-data\units-constraints
 
 
 copy /y %PACKAGE_DIR%\%PACKAGE_NAME%-package.cmake .
@@ -74,6 +75,7 @@ copy /y %PACKAGE_DIR%\src\sbml\packages\%PACKAGE_NAME%\util\test\*.cpp          
 copy /y %PACKAGE_DIR%\src\sbml\packages\%PACKAGE_NAME%\util\test\*.txt           src\sbml\packages\%PACKAGE_NAME%\util\test\
 copy /y %PACKAGE_DIR%\src\sbml\packages\%PACKAGE_NAME%\util\test\test-data\*.xml src\sbml\packages\%PACKAGE_NAME%\util\test\test-data
 copy /y %PACKAGE_DIR%\src\sbml\packages\%PACKAGE_NAME%\util\test\test-data\subdir\*.xml src\sbml\packages\%PACKAGE_NAME%\util\test\test-data\subdir
+copy /y %PACKAGE_DIR%\src\sbml\packages\%PACKAGE_NAME%\util\test\test-data\subdir\*.txt src\sbml\packages\%PACKAGE_NAME%\util\test\test-data\subdir
 
 
 copy /y %PACKAGE_DIR%\src\sbml\packages\%PACKAGE_NAME%\extension\test\*.h             src\sbml\packages\%PACKAGE_NAME%\extension\test\
@@ -88,6 +90,7 @@ copy /y %PACKAGE_DIR%\src\sbml\packages\%PACKAGE_NAME%\validator\test\*.cpp     
 copy /y %PACKAGE_DIR%\src\sbml\packages\%PACKAGE_NAME%\validator\test\*.txt           src\sbml\packages\%PACKAGE_NAME%\validator\test\
 copy /y %PACKAGE_DIR%\src\sbml\packages\%PACKAGE_NAME%\validator\test\test-data\general-constraints\*.xml src\sbml\packages\%PACKAGE_NAME%\validator\test\test-data\general-constraints
 copy /y %PACKAGE_DIR%\src\sbml\packages\%PACKAGE_NAME%\validator\test\test-data\identifier-constraints\*.xml src\sbml\packages\%PACKAGE_NAME%\validator\test\test-data\identifier-constraints
+copy /y %PACKAGE_DIR%\src\sbml\packages\%PACKAGE_NAME%\validator\test\test-data\units-constraints\*.xml src\sbml\packages\%PACKAGE_NAME%\validator\test\test-data\units-constraints
 
 
 mkdir src\bindings
@@ -118,6 +121,8 @@ mkdir examples\c
 mkdir examples\c\%PACKAGE_NAME%
 mkdir examples\cpp
 mkdir examples\cpp\%PACKAGE_NAME%
+mkdir examples\csharp
+mkdir examples\csharp\&PACKAGE_NAME%
 mkdir examples\java
 mkdir examples\java\%PACKAGE_NAME%
 mkdir examples\python
@@ -129,20 +134,19 @@ mkdir examples\r\%PACKAGE_NAME%
 mkdir examples\ruby
 mkdir examples\ruby\%PACKAGE_NAME%
 
+copy /y %PACKAGE_DIR%\examples\%PACKAGE_NAME%-package.cmake     examples
 copy /y %PACKAGE_DIR%\examples\c\%PACKAGE_NAME%\*.c             examples\c\%PACKAGE_NAME%\
+copy /y %PACKAGE_DIR%\examples\c\%PACKAGE_NAME%\*.txt           examples\c\%PACKAGE_NAME%\
+copy /y "%PACKAGE_DIR%\examples\c++\%PACKAGE_NAME%\*.cpp"       examples\cpp\%PACKAGE_NAME%\
+copy /y "%PACKAGE_DIR%\examples\c++\%PACKAGE_NAME%\*.txt"       examples\cpp\%PACKAGE_NAME%\
 copy /y %PACKAGE_DIR%\examples\csharp\%PACKAGE_NAME%\*.cs       examples\csharp\%PACKAGE_NAME%\
+copy /y %PACKAGE_DIR%\examples\csharp\%PACKAGE_NAME%\*.txt      examples\csharp\%PACKAGE_NAME%\
 copy /y %PACKAGE_DIR%\examples\java\%PACKAGE_NAME%\*.java       examples\java\%PACKAGE_NAME%\
+copy /y %PACKAGE_DIR%\examples\java\%PACKAGE_NAME%\*.txt        examples\java\%PACKAGE_NAME%\
 copy /y %PACKAGE_DIR%\examples\python\%PACKAGE_NAME%\*.py       examples\python\%PACKAGE_NAME%\
 copy /y %PACKAGE_DIR%\examples\ruby\%PACKAGE_NAME%\*.rb         examples\ruby\%PACKAGE_NAME%\
 copy /y %PACKAGE_DIR%\examples\perl\%PACKAGE_NAME%\*.pl         examples\perl\%PACKAGE_NAME%\
 copy /y %PACKAGE_DIR%\examples\r\%PACKAGE_NAME%\*.R             examples\r\%PACKAGE_NAME%\
-
-copy /y "%PACKAGE_DIR%\examples\c++\%PACKAGE_NAME%\flattenModel.cpp"              examples\cpp\%PACKAGE_NAME%\
-copy /y "%PACKAGE_DIR%\examples\c++\%PACKAGE_NAME%\SBMLHttpResolverExample.cpp"   examples\cpp\%PACKAGE_NAME%\
-copy /y "%PACKAGE_DIR%\examples\c++\%PACKAGE_NAME%\spec_example1.cpp"             examples\cpp\%PACKAGE_NAME%\
-copy /y "%PACKAGE_DIR%\examples\c++\%PACKAGE_NAME%\spec_example2.cpp"             examples\cpp\%PACKAGE_NAME%\
-copy /y "%PACKAGE_DIR%\examples\c++\%PACKAGE_NAME%\spec_example3.cpp"             examples\cpp\%PACKAGE_NAME%\
-copy /y "%PACKAGE_DIR%\examples\c++\%PACKAGE_NAME%\spec_example4.cpp"             examples\cpp\%PACKAGE_NAME%\
 
 cd examples
 rename cpp "c++"
