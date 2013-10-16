@@ -1716,17 +1716,24 @@ public:
   bool isBvar() const { return mIsBvar; };
   void setBvar() { mIsBvar = true; };
 
-  LIBSBML_EXTERN
-  bool containsVariable(const std::string id) const;
+  //LIBSBML_EXTERN
+  //bool containsVariable(const std::string id) const;
 
-  LIBSBML_EXTERN
-  unsigned int getNumVariablesWithUndeclaredUnits(Model * m = NULL) const;
+  //LIBSBML_EXTERN
+  //unsigned int getNumVariablesWithUndeclaredUnits(Model * m = NULL) const;
 
   /** @endcond */
 
 protected:
   /** @cond doxygenLibsbmlInternal */
 
+  LIBSBML_EXTERN
+  bool containsVariable(const std::string id) const;
+
+  LIBSBML_EXTERN
+  unsigned int getNumVariablesWithUndeclaredUnits(Model * m = NULL) const;
+
+  friend class UnitFormulaFormatter;
   /**
    * Internal helper function for canonicalize().
    */
