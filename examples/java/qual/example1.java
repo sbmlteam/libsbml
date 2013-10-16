@@ -7,9 +7,7 @@
  * information about SBML, and the latest version of libSBML.
  */
 
-
 import org.sbml.libsbml.*;
-
 
 public class example1
 {

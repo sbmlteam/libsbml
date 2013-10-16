@@ -20,53 +20,53 @@ public class flattenModel
       System.exit(2);
     }
 
-	SBMLReader reader     = new SBMLReader();
-	SBMLWriter writer     = new SBMLWriter();
-  boolean leavePorts = false;
+    SBMLReader reader     = new SBMLReader();
+    SBMLWriter writer     = new SBMLWriter();
+    boolean leavePorts = false;
 
-  SBMLDocument doc;
-  if (args.length == 2)
-  {
-	  doc = reader.readSBML(args[0]);
-  }
-  else
-  {
-	  doc = reader.readSBML(args[1]);
-    leavePorts = true;
-  }
-
-
-	if (doc.getErrorLog().getNumFailsWithSeverity(libsbml.LIBSBML_SEV_ERROR) > 0)
-	{
-		doc.printErrors();
-	}
-	else
-	{
-	  /* create a new conversion properties structure */
-      ConversionProperties props = new ConversionProperties();
-
-	  /* add an option that we want to flatten */
-	  props.addOption("flatten comp", true, "flatten comp");
-
-	  /* add an option to leave ports if the user has requested this */
-	  props.addOption("leavePorts", leavePorts, "unused ports should be listed in the flattened model");
-
-	  /* perform the conversion */
-	  if (doc.convert(props) != libsbml.LIBSBML_OPERATION_SUCCESS)
-	  {
-	  	println ("conversion failed ... ");
-	  	System.exit(3);
-	  }
-
+    SBMLDocument doc;
     if (args.length == 2)
     {
-	    writer.writeSBML(doc, args[1]);
+      doc = reader.readSBML(args[0]);
     }
     else
     {
-	    writer.writeSBML(doc, args[2]);
+      doc = reader.readSBML(args[1]);
+      leavePorts = true;
     }
-	}
+
+
+    if (doc.getErrorLog().getNumFailsWithSeverity(libsbml.LIBSBML_SEV_ERROR) > 0)
+    {
+      doc.printErrors();
+    }
+    else
+    {
+      /* create a new conversion properties structure */
+      ConversionProperties props = new ConversionProperties();
+
+      /* add an option that we want to flatten */
+      props.addOption("flatten comp", true, "flatten comp");
+
+      /* add an option to leave ports if the user has requested this */
+      props.addOption("leavePorts", leavePorts, "unused ports should be listed in the flattened model");
+
+      /* perform the conversion */
+      if (doc.convert(props) != libsbml.LIBSBML_OPERATION_SUCCESS)
+      {
+        println ("conversion failed ... ");
+        System.exit(3);
+      }
+
+      if (args.length == 2)
+      {
+        writer.writeSBML(doc, args[1]);
+      }
+      else
+      {
+        writer.writeSBML(doc, args[2]);
+      }
+    }
   }
 
 
@@ -120,7 +120,7 @@ public class flattenModel
                          " It is likely that your -classpath command line " +
                          " setting or your CLASSPATH environment variable " +
                          " do not include the file 'libsbmlj.jar'.");
-	  e.printStackTrace();
+      e.printStackTrace();
 
       System.exit(1);
     }
