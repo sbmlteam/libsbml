@@ -300,12 +300,13 @@ public:
    *
    * @copydetails doc_what_are_typecodes
    *
-   * @return the SBML type code for this object: SBMLFbcTypeCode_t#SBML_FBC_FLUXOBJECTIVE
+   * @return the SBML type code for this object:
+   * @link SBMLFbcTypeCode_t#SBML_FBC_FLUXOBJECTIVE SBML_FBC_FLUXOBJECTIVE@endlink
    *
    * @see getElementName()
    * @see getPackageName()
    */
-  int getTypeCode () const;
+  virtual int getTypeCode () const;
 
 
   /** @cond doxygenLibsbmlInternal */
@@ -511,8 +512,8 @@ public:
    * 
    * @copydetails doc_what_are_typecodes
    *
-   * @return the SBML type code for this object, or
-   * @link SBMLTypeCode_t#SBML_UNKNOWN SBML_UNKNOWN@endlink (default).
+   * @return the SBML type code for objects contained in this list:
+   * @link SBMLTypeCode_t#SBML_FBC_FLUXOBJECTIVE SBML_FBC_FLUXOBJECTIVE@endlink (default).
    *
    * @see getElementName()
    * @see getPackageName()

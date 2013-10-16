@@ -129,8 +129,8 @@ public:
    * 
    * @copydetails doc_what_are_typecodes
    *
-   * @return the SBML type code for this object, or
-   * @link SBMLTypeCode_t#SBML_UNKNOWN SBML_UNKNOWN@endlink (default).
+   * @return the SBML type code for objects contained in this list:
+   * @link SBMLTypeCode_t#SBML_LAYOUT_COMPARTMENTGLYPH SBML_LAYOUT_COMPARTMENTGLYPH@endlink (default).
    *
    * @see getElementName()
    * @see getPackageName()
@@ -288,8 +288,8 @@ public:
    * 
    * @copydetails doc_what_are_typecodes
    *
-   * @return the SBML type code for this object, or
-   * @link SBMLTypeCode_t#SBML_UNKNOWN SBML_UNKNOWN@endlink (default).
+   * @return the SBML type code for objects contained in this list:
+   * @link SBMLTypeCode_t#SBML_LAYOUT_SPECIESGLYPH SBML_LAYOUT_SPECIESGLYPH@endlink (default).
    *
    * @see getElementName()
    * @see getPackageName()
@@ -446,8 +446,8 @@ public:
    * 
    * @copydetails doc_what_are_typecodes
    *
-   * @return the SBML type code for this object, or
-   * @link SBMLTypeCode_t#SBML_UNKNOWN SBML_UNKNOWN@endlink (default).
+   * @return the SBML type code for objects contained in this list:
+   * @link SBMLTypeCode_t#SBML_LAYOUT_REACTIONGLYPH SBML_LAYOUT_REACTIONGLYPH@endlink (default).
    *
    * @see getElementName()
    * @see getPackageName()
@@ -604,8 +604,8 @@ public:
    * 
    * @copydetails doc_what_are_typecodes
    *
-   * @return the SBML type code for this object, or
-   * @link SBMLTypeCode_t#SBML_UNKNOWN SBML_UNKNOWN@endlink (default).
+   * @return the SBML type code for objects contained in this list:
+   * @link SBMLTypeCode_t#SBML_LAYOUT_TEXTGLYPH SBML_LAYOUT_TEXTGLYPH@endlink (default).
    *
    * @see getElementName()
    * @see getPackageName()
@@ -1382,7 +1382,8 @@ public:
    *
    * @copydetails doc_what_are_typecodes
    *
-   * @return the SBML type code for this object: SBMLLayoutTypeCode_t#SBML_LAYOUT_LAYOUT
+   * @return the SBML type code for this object:
+   * @link SBMLLayoutTypeCode_t#SBML_LAYOUT_LAYOUT SBML_LAYOUT_LAYOUT@endlink
    *
    * @see getElementName()
    * @see getPackageName()
@@ -1539,8 +1540,8 @@ public:
    * 
    * @copydetails doc_what_are_typecodes
    *
-   * @return the SBML type code for this object, or
-   * @link SBMLTypeCode_t#SBML_UNKNOWN SBML_UNKNOWN@endlink (default).
+   * @return the SBML type code for objects contained in this list:
+   * @link SBMLTypeCode_t#SBML_LAYOUT_LAYOUT SBML_LAYOUT_LAYOUT@endlink (default).
    *
    * @see getElementName()
    * @see getPackageName()

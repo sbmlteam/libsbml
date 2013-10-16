@@ -223,10 +223,10 @@
  *
  * @par
  * @note In libSBML 5, the type of return value changed from
- *       SBMLTypeCode_t to int. The return value is one of enum values defined
+ *       #SBMLTypeCode_t to int. The return value is one of enum values defined
  *       for each package. For example, return values will be one of
- *       SBMLTypeCode_t if this object is defined in SBML core package,
- *       return values will be one of SBMLLayoutTypeCode_t if this object is
+ *       #SBMLTypeCode_t if this object is defined in SBML core package,
+ *       return values will be one of #SBMLLayoutTypeCode_t if this object is
  *       defined in Layout extension (i.e. similar enum types are defined in
  *       each pacakge extension for each SBase subclass)
  *       The value of each typecode can be duplicated between those of

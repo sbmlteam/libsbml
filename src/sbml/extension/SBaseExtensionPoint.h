@@ -116,7 +116,7 @@ public:
   /**
    * Returns the typecode of this extension point.
    */
-  int getTypeCode() const;
+  virtual int getTypeCode() const;
 
 private:
   std::string mPackageName;

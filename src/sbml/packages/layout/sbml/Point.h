@@ -281,7 +281,8 @@ public:
    *
    * @copydetails doc_what_are_typecodes
    *
-   * @return the SBML type code for this object: SBMLLayoutTypeCode_t#SBML_LAYOUT_POINT
+   * @return the SBML type code for this object:
+   * @link SBMLLayoutTypeCode_t#SBML_LAYOUT_POINT SBML_LAYOUT_POINT@endlink
    *
    * @see getElementName()
    * @see getPackageName()

@@ -845,8 +845,8 @@ public:
    * 
    * @copydetails doc_what_are_typecodes
    *
-   * @return the SBML type code for this object, or
-   * @link SBMLTypeCode_t#SBML_UNKNOWN SBML_UNKNOWN@endlink (default).
+   * @return the SBML type code for this object:
+   * @link SBMLTypeCode_t#SBML_SPECIES_REFERENCE SBML_SPECIES_REFERENCE@endlink (default).
    *
    * @see getElementName()
    * @see getPackageName()
@@ -1042,8 +1042,8 @@ public:
    *
    * @copydetails doc_what_are_typecodes
    *
-   * @return the SBML type code for this object, or
-   * @link SBMLTypeCode_t#SBML_UNKNOWN SBML_UNKNOWN@endlink (default).
+   * @return the SBML type code for objects contained in this list:
+   * @link SBMLTypeCode_t#SBML_SPECIES_REFERENCE SBML_SPECIES_REFERENCE@endlink (default).
    *
    * @see getElementName()
    * @see getPackageName()

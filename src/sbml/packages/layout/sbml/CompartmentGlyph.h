@@ -235,7 +235,8 @@ public:
    *
    * @copydetails doc_what_are_typecodes
    *
-   * @return the SBML type code for this object: SBMLLayoutTypeCode_t#SBML_LAYOUT_COMPARTMENTGLYPH
+   * @return the SBML type code for this object:
+   * @link SBMLLayoutTypeCode_t#SBML_LAYOUT_COMPARTMENTGLYPH SBML_LAYOUT_COMPARTMENTGLYPH@endlink
    *
    * @see getElementName()
    * @see getPackageName()

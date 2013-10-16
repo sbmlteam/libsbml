@@ -1224,8 +1224,8 @@ public:
    * 
    * @copydetails doc_what_are_typecodes
    *
-   * @return the SBML type code for this object, or
-   * @link SBMLTypeCode_t#SBML_UNKNOWN SBML_UNKNOWN@endlink (default).
+   * @return the SBML type code for this object:
+   * @link SBMLTypeCode_t#SBML_DOCUMENT SBML_DOCUMENT@endlink (default).
    *
    * @see SBMLDocument::getElementName()
    * @see getPackageName()

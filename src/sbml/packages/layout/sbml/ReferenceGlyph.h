@@ -298,7 +298,8 @@ public:
    *
    * @copydetails doc_what_are_typecodes
    *
-   * @return the SBML type code for this object: SBMLLayoutTypeCode_t#SBML_LAYOUT_REFERENCEGLYPH
+   * @return the SBML type code for this object:
+   * @link SBMLLayoutTypeCode_t#SBML_LAYOUT_REFERENCEGLYPH SBML_LAYOUT_REFERENCEGLYPH@endlink
    *
    * @see getElementName()
    * @see getPackageName()

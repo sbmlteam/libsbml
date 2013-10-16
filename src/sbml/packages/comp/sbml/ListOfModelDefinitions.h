@@ -176,8 +176,8 @@ public:
    * 
    * @copydetails doc_what_are_typecodes
    *
-   * @return the SBML type code for this object, or
-   * @link SBMLTypeCode_t#SBML_UNKNOWN SBML_UNKNOWN@endlink (default).
+   * @return the SBML type code for objects contained in this list:
+   * @link SBMLTypeCode_t#SBML_COMP_MODELDEFINITION SBML_COMP_MODELDEFINITION@endlink (default).
    *
    * @see getElementName()
    * @see getPackageName()

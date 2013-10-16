@@ -218,12 +218,13 @@ public:
    *
    * @copydetails doc_what_are_typecodes
    *
-   * @return the SBML type code for this object: SBMLFbcTypeCode_t#SBML_FBC_ASSOCIATION
+   * @return the SBML type code for this object:
+   * @link SBMLFbcTypeCode_t#SBML_FBC_ASSOCIATION SBML_FBC_ASSOCIATION@endlink
    *
    * @see getElementName()
    * @see getPackageName()
    */
-  int getTypeCode () const;
+  virtual int getTypeCode () const;
 
 
   /** @cond doxygenLibsbmlInternal */

@@ -428,12 +428,12 @@ public:
 
   /**
    * Returns the libSBML type code for this object, namely,
-   * @link SBMLTypeCode_t#SBML_LIST_OF@endlink.
+   * @link SBMLTypeCode_t#SBML_LIST_OF SBML_LIST_OF@endlink.
    * 
    * @copydetails doc_what_are_typecodes
    *
-   * @return the SBML type code for this object, or
-   * @link SBMLTypeCode_t#SBML_UNKNOWN SBML_UNKNOWN@endlink (default).
+   * @return the SBML type code for this object:
+   * @link SBMLTypeCode_t#SBML_LIST_OF SBML_LIST_OF@endlink (default).
    *
    * @note The various ListOf classes mostly differ from each other in what they
    * contain.  Hence, one must call getItemTypeCode() to fully determine the
@@ -451,8 +451,13 @@ public:
    * 
    * @copydetails doc_what_are_typecodes
    *
-   * @return the SBML type code for the objects contained in this ListOf, or
-   * @link SBMLTypeCode_t#SBML_UNKNOWN SBML_UNKNOWN@endlink (default).
+   * Classes that inherit from the ListOf class should 
+   * override this function to return the SBML type code for 
+   * the objects contained in this ListOf.  If they do not, 
+   * @link SBMLTypeCode_t#SBML_UNKNOWN SBML_UNKNOWN@endlink is returned.
+   * 
+   * @return The ListOf class itself contains no SBML objects, and 
+   * therefore returns @link SBMLTypeCode_t#SBML_UNKNOWN SBML_UNKNOWN@endlink.
    *
    * @see getElementName()
    * @see getPackageName()

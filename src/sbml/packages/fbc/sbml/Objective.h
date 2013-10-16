@@ -425,12 +425,13 @@ public:
    *
    * @copydetails doc_what_are_typecodes
    *
-   * @return the SBML type code for this object: SBMLFbcTypeCode_t#SBML_FBC_OBJECTIVE
+   * @return the SBML type code for this object:
+   * @link SBMLFbcTypeCode_t#SBML_FBC_OBJECTIVE SBML_FBC_OBJECTIVE@endlink
    *
    * @see getElementName()
    * @see getPackageName()
    */
-  int getTypeCode () const;
+  virtual int getTypeCode () const;
 
 
   /** @cond doxygenLibsbmlInternal */
@@ -691,7 +692,8 @@ public:
    * 
    * @copydetails doc_what_are_typecodes
    *
-   * @return the SBML type code for this object, SBMLFbcTypeCode_t#SBML_FBC_OBJECTIVE
+   * @return the SBML type code for objects contained in this list:
+   * @linkSBMLFbcTypeCode_t#SBML_FBC_OBJECTIVE SBML_FBC_OBJECTIVE@endlink
    *
    * @see getElementName()
    * @see getPackageName()

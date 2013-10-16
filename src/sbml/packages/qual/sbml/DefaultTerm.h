@@ -182,7 +182,8 @@ public:
    *
    * @copydetails doc_what_are_typecodes
    *
-   * @return the SBML type code for this object: SBMLQualTypeCode_t#SBML_QUAL_DEFAULT_TERM
+   * @return the SBML type code for this object:
+   * @link SBMLQualTypeCode_t#SBML_QUAL_DEFAULT_TERM SBML_QUAL_DEFAULT_TERM@endlink
    *
    * @see getElementName()
    * @see getPackageName()

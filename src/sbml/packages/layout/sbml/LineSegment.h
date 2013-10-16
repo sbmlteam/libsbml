@@ -246,7 +246,8 @@ public:
    *
    * @copydetails doc_what_are_typecodes
    *
-   * @return the SBML type code for this object: SBMLLayoutTypeCode_t#SBML_LAYOUT_LINESEGMENT
+   * @return the SBML type code for this object:
+   * @link SBMLLayoutTypeCode_t#SBML_LAYOUT_LINESEGMENT SBML_LAYOUT_LINESEGMENT@endlink
    *
    * @see getElementName()
    * @see getPackageName()

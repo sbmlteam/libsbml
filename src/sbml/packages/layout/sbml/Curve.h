@@ -125,8 +125,8 @@ class LIBSBML_EXTERN ListOfLineSegments : public ListOf
    * 
    * @copydetails doc_what_are_typecodes
    *
-   * @return the SBML type code for this object, or
-   * @link SBMLTypeCode_t#SBML_UNKNOWN SBML_UNKNOWN@endlink (default).
+   * @return the SBML type code for objects contained in this list:
+   * @link SBMLTypeCode_t#SBML_LAYOUT_LINESEGMENT SBML_LAYOUT_LINESEGMENT@endlink (default).
    *
    * @see getElementName()
    * @see getPackageName()
@@ -341,7 +341,8 @@ public:
    *
    * @copydetails doc_what_are_typecodes
    *
-   * @return the SBML type code for this object: SBMLLayoutTypeCode_t#SBML_LAYOUT_CURVE
+   * @return the SBML type code for this object:
+   * @link SBMLLayoutTypeCode_t#SBML_LAYOUT_CURVE SBML_LAYOUT_CURVE@endlink
    *
    * @see getElementName()
    * @see getPackageName()

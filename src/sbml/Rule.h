@@ -599,8 +599,11 @@ public:
    * 
    * @copydetails doc_what_are_typecodes
    *
-   * @return the SBML type code for this object, or
-   * @link SBMLTypeCode_t#SBML_UNKNOWN SBML_UNKNOWN@endlink (default).
+   * @return the SBML type code for this object, either
+   * @link SBMLTypeCode_t#SBML_ASSIGNMENT_RULE SBML_ASSIGNMENT_RULE@endlink,
+   * @link SBMLTypeCode_t#SBML_RATE_RULE SBML_RATE_RULE@endlink, or
+   * @link SBMLTypeCode_t#SBML_ALGEBRAIC_RULE SBML_ALGEBRAIC_RULE@endlink 
+   * for %SBML Core.
    *
    * @see getElementName()
    * @see getPackageName()
@@ -907,8 +910,8 @@ public:
    * 
    * @copydetails doc_what_are_typecodes
    *
-   * @return the SBML type code for this object, or
-   * @link SBMLTypeCode_t#SBML_UNKNOWN SBML_UNKNOWN@endlink (default).
+   * @return the SBML type code for objects contained in this list:
+   * @link SBMLTypeCode_t#SBML_RULE SBML_RULE@endlink (default).
    *
    * @see getElementName()
    * @see getPackageName()

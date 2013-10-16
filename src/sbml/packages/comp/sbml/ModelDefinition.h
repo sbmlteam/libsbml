@@ -120,12 +120,13 @@ public:
    *
    * @copydetails doc_what_are_typecodes
    *
-   * @return the SBML type code for this object: SBMLCompTypeCode_t#SBML_COMP_MODELDEFINITION 
+   * @return the SBML type code for this object:
+   * @link SBMLCompTypeCode_t#SBML_COMP_MODELDEFINITION SBML_COMP_MODELDEFINITION@endlink
    *
    * @see getElementName()
    * @see getPackageName()
    */
-  int getTypeCode () const;
+  virtual int getTypeCode () const;
 
 
   /**

@@ -261,12 +261,13 @@ public:
    *
    * @copydetails doc_what_are_typecodes
    *
-   * @return the SBML type code for this object: SBMLCompTypeCode_t#SBML_COMP_DELETION 
+   * @return the SBML type code for this object:
+   * @link SBMLCompTypeCode_t#SBML_COMP_DELETION SBML_COMP_DELETION@endlink
    *
    * @see getElementName()
    * @see getPackageName()
    */
-  int getTypeCode () const;
+  virtual int getTypeCode () const;
 
 
   /**

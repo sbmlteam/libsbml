@@ -632,12 +632,13 @@ public:
    *
    * @copydetails doc_what_are_typecodes
    *
-   * @return the SBML type code for this object: SBMLCompTypeCode_t#SBML_COMP_SUBMODEL 
+   * @return the SBML type code for this object:
+   * @link SBMLCompTypeCode_t#SBML_COMP_SUBMODEL SBML_COMP_SUBMODEL@endlink
    *
    * @see getElementName()
    * @see getPackageName()
    */
-  int getTypeCode () const;
+  virtual int getTypeCode () const;
 
 
   /** @cond doxygenLibsbmlInternal */

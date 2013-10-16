@@ -1207,8 +1207,8 @@ public:
    * 
    * @copydetails doc_what_are_typecodes
    *
-   * @return the SBML type code for this object, or
-   * @link SBMLTypeCode_t#SBML_UNKNOWN SBML_UNKNOWN@endlink (default).
+   * @return the SBML type code for this object:
+   * @link SBMLTypeCode_t#SBML_COMPARTMENT SBML_COMPARTMENT@endlink (default).
    *
    * @see getElementName()
    * @see getPackageName()
@@ -1376,7 +1376,7 @@ public:
    * @copydetails doc_what_are_typecodes
    *
    * @return the SBML type code for the objects contained in this ListOf
-   * instance, or @link SBMLTypeCode_t#SBML_UNKNOWN SBML_UNKNOWN@endlink (default).
+   * instance: @link SBMLTypeCode_t#SBML_COMPARTMENT SBML_COMPARTMENT@endlink (default).
    *
    * @see getElementName()
    * @see getPackageName()
