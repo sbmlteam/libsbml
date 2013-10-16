@@ -134,7 +134,8 @@ distfiles =						     \
         common-graphics/cmake-options-red.png		     \
 	common-graphics/comp-examples.graffle		     \
 	common-graphics/comp-examples.svg		     \
-        common-graphics/enzymatic-reaction.jpg		     \
+        common-graphics/enzyme-reaction-equation.graffle     \
+        common-graphics/enzyme-reaction-equation.svg	     \
         common-graphics/ftv2doc.png			     \
         common-graphics/ftv2folderclosed.png		     \
         common-graphics/ftv2folderopen.png		     \
@@ -166,6 +167,7 @@ distfiles =						     \
         common-text/base-units2.html			     \
         common-text/comment-set-methods.html		     \
         common-text/level-1-uses-text-string-math.html	     \
+        common-text/enzymatic-reaction-equation.html	     \
         common-text/libsbml-facility-only-warning.html	     \
         common-text/libsbml-version.html.in		     \
         common-text/math-functions.html			     \

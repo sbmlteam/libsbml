@@ -15,8 +15,7 @@ identified simply as <em>E</em>, <em>S</em>, <em>ES</em>, and
 reactions (one reversible, one irreversible) described by the
 following equation:
 
-@image html enzymatic-reaction.jpg
-@image latex enzymatic-reaction.jpg
+@htmlinclude enzymatic-reaction-equation.html
 
 From these equations, it becomes clear that the model also contains
 three parameters: <em>k<sub>on</sub></em>, <em>k<sub>off</sub></em>,
