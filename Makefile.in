@@ -100,6 +100,7 @@ examples =                                                          \
   examples/c++/createExampleSBML.cpp                                \
   examples/c++/echoSBML.cpp                                         \
   examples/c++/getAllElementsWithNotes.cpp                          \
+  examples/c++/inferUnits.cpp                                       \
   examples/c++/inlineFunctionDefintions.cpp                         \
   examples/c++/printAnnotation.cpp                                  \
   examples/c++/printMath.cpp                                        \

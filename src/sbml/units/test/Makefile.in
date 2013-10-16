@@ -65,6 +65,7 @@ thisdir   = src/sbml/units/test
 
 test_sources =                  \
   TestUtilsUnit.cpp             \
+  TestCalculatedUnitDefinitions.cpp   \
   TestUtilsUnitDefinition.cpp   \
   TestUnitFormulaFormatter.cpp  \
   TestUnitFormulaFormatter1.cpp \
