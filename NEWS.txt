@@ -23,8 +23,26 @@ STABLE RELEASE
           for packages. Thus, to build from src, it is necessary to
           use the CMake build system.
 
+* Layout
+
+  - The layout specification for SBML Level 3 has been accepted and
+    thus layout is now considered an official L3 package.  Since
+    layout code has been included with libsbml for many years this
+    has no impact on the code included within the stable release.
 
 * New features
+
+  - There are two new function SBML_formulaToL3String(ASTNode_t*) and
+    SBML_formulaToL3StringWithSettings(ASTNode_t* L3ParserSettings_t*)
+    that provide reciprocal AST to infix functionality based on 
+    the previously released L3Parser code. 
+
+  - Within an SBML file it may be possible to infer units for parameters 
+    based on their use within mathematical expressions.  A limited 
+    version of this functionality is now available using the 
+    SBMLInferUnitsConverter which will return a document with units
+    attached to any parameters where it is possible to infer the
+    units.
 
   - The SyntaxChecker class has a new function isValidXMLanyURI(std::string)
     that checks whether the string has the valid syntax for an 
@@ -58,16 +76,11 @@ STABLE RELEASE
     a comma seperated list of existing ids and another of the replacement
     ids and will perform the necessary replacements.  
     
-  - There is a new converter, teh SBMLLocalParameterConverter, that
+  - There is a new converter, the SBMLLocalParameterConverter, that
     will allow a user to replace any localParameters with global
     parameters.  The promoteParameters example illustrates the use 
     of this converter.
-
-  - There are two new function SBML_formulaToL3String(ASTNode_t*) and
-    SBML_formulaToL3StringWithSettings(ASTNode_t* L3ParrserSettings_t*)
-    that provide reciprocal AST to infix functionality based on 
-    the previously released L3Parser code. 
-
+    
   - Following the results of the user survey the L3Parser has
     changed the precedence of the '^' operator to be greater than
     a unary '-' operator and the precedence of the '!' operator
@@ -83,7 +96,7 @@ STABLE RELEASE
   
   - There is a new function XMLErrorLog::changeErrorSeverity
     (XMLErrorSeverity_t , XMLErrorSeverity_t, std::string package)
-    that will chang the severity of errors within in the errorLog
+    that will change the severity of errors within the errorLog
     based on the package name supplied.
     
   - The XMLErrorLog and SBMLErrorLog classes now have explicit
@@ -115,8 +128,18 @@ STABLE RELEASE
     expensive in that they serialise to a string. This drawback will
     be addressed in future libSBML architecture but cannot be overcome
     with the current libSBML-5 implementation.
+    
+  - All set or add functions in libSBML return a value from
+    the enumeration OperationReturnValue_t. There is now a function
+    OperationRetuenValue_toString that will return a string 
+    representation of the reason for the failure.
   
   - 'layout' package-specific updates:
+  
+    - The example code for layout has been moved to subdirectories
+      named layout beneath the appropriate language subdirectories
+      in the examples directory.  This reflects the structure used
+      example code for all packages.
   
     - The code reading and writing layout as an annotation has been
       adapted to use the new read/write to/from XMLNode functions.
@@ -197,7 +220,7 @@ EXPERIMENTAL RELEASE
   - 'groups' package-specific new features:
   
     - The 'groups' package code has been updated to include revisions
-      made to teh latest specification.
+      made to the latest specification.
   
 * Bug fixes
 
