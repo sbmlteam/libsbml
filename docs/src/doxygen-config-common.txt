@@ -340,7 +340,7 @@ INPUT =                                    \
   libsbml-core-versus-packages.txt         \
   libsbml-communications.txt               \
   libsbml-example.txt                      \
-  libsbml-examples.txt                     \
+  libsbml-example-files.txt                \
   libsbml-extending.txt                    \
   libsbml-extension-support-classes.txt    \
   libsbml-features.txt                     \

@@ -1,4 +1,4 @@
-/** @page libsbml-examples Additional complete example programs
+/** @page libsbml-example-files Additional complete example programs
 
 LibSBML comes with a selection of complete example programs in the
 top-level file directory named <code>examples</code>; code listings of
