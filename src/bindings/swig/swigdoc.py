@@ -722,7 +722,7 @@ def sanitizeForHTML (docstring):
   # Remove some things we use as hacks in Doxygen 1.7-1.8.
 
   docstring = docstring.replace(r'@~', '')
-  p = re.compile('@par(\s)', re.MULTILINE)
+  p = re.compile('^\s*\*\s+@par(\s)', re.MULTILINE)
   docstring = p.sub(r'\1', docstring)
 
   # First do conditional section inclusion based on the current language.
@@ -845,10 +845,16 @@ def sanitizeForHTML (docstring):
     docstring = p.sub(translateJavaCrossRef, docstring)
 
   # Clean-up step needed because some of the procedures above are imperfect.
-  # This converts " * * @foo" lines into " * @foo":
+  # The first converts " * * @foo" lines into " * @foo".
+  # The 2nd converts * <p> * <p> * sequences into one <p>.
 
   p = re.compile('^(\s+)\*\s+\*\s+@', re.MULTILINE)
   docstring = p.sub(r'\1* @', docstring)
+
+  p = re.compile('^(\s*)\*\s*<p>', re.MULTILINE)
+  docstring = p.sub(r'\1<p>', docstring)
+  p = re.compile('^(\s*)\*?\s*<p>((\s+\*)+\s+<p>)+', re.MULTILINE)
+  docstring = p.sub(r'\1*', docstring)
 
   # Take out any left-over Doxygen-style quotes, because Javadoc doesn't have
   # the %foo quoting mechanism.
@@ -892,6 +898,7 @@ def rewriteDocstringForJava (docstring):
   docstring = docstring.replace(r'const std::string ', 'String ')
   docstring = docstring.replace(r'std::string', 'String')
   docstring = docstring.replace(r'NULL', 'null')
+  docstring = re.sub(r'\bbool\b', 'boolean', docstring)
 
   # Also use Java syntax instead of "const XMLNode*" etc.
 
@@ -1365,7 +1372,7 @@ def postProcessOutput(istream, ostream):
 
   for line in istream.readlines():
 
-    p = re.compile('@copydetails\s+(\w+)', re.MULTILINE)
+    p = re.compile('@copydetails\s+(\w+)')
     line = p.sub(translateCopydetails, line)
       
     ostream.write(line)
