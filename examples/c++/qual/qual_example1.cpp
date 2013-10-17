@@ -41,7 +41,7 @@ int main(int argc,char** argv)
   //         with one of the following other styles.
   //
   // (1) Creates an SBMLNamespace object with a SBML core namespace and then
-  //     adds a qual package namespace to the object. 
+  //     adds a qual package namespace to the object.
   //
   //         SBMLNamespaces sbmlns(3,1);
   //         sbmlns.addPkgNamespace("qual",1);
@@ -52,9 +52,9 @@ int main(int argc,char** argv)
   //         sbmlns.addNamespace(QualExtension::XmlnsL3V1V1,"qual");
   //
   // (2) Creates a QualPkgNamespaces object (SBMLNamespace derived class for
-  //     qual package. The class is basically used for createing an SBase derived
-  //     objects defined in the qual package) with the given SBML level, version, 
-  //     and package version
+  //     qual package. The class is basically used for createing an SBase
+  //     derived objects defined in the qual package) with the given SBML
+  //     level, version, and package version
   //
   //        QualPkgNamespaces sbmlns(3,1,1);
   //     
@@ -82,10 +82,12 @@ int main(int argc,char** argv)
   //
   // Get a QualModelPlugin object plugged in the model object.
   //
-  // The type of the returned value of SBase::getPlugin() function is SBasePlugin*, and
-  // thus the value needs to be casted for the corresponding derived class. 
+  // The type of the returned value of SBase::getPlugin() function is
+  // SBasePlugin*, and thus the value needs to be casted for the
+  // corresponding derived class.
   //
-  QualModelPlugin* mplugin = static_cast<QualModelPlugin*>(model->getPlugin("qual"));
+  QualModelPlugin* mplugin
+    = static_cast<QualModelPlugin*>(model->getPlugin("qual"));
 
   // create the QualitativeSpecies
   QualitativeSpecies* qs = mplugin->createQualitativeSpecies();
