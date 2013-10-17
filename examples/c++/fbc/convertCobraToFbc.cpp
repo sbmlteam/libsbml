@@ -1,12 +1,11 @@
 /**
-* @file    convertCobraToFbc.cpp
-* @brief   Convert COBRA L2 to L3 with FBC
-* @author  Frank T. Bergmann
-* 
-* This file is part of libSBML.  Please visit http://sbml.org for more
-* information about SBML, and the latest version of libSBML.
-*/
-
+ * @file    convertCobraToFbc.cpp
+ * @brief   Convert COBRA L2 to L3 with FBC
+ * @author  Frank T. Bergmann
+ * 
+ * This file is part of libSBML.  Please visit http://sbml.org for more
+ * information about SBML, and the latest version of libSBML.
+ */
 
 #include <iostream>
 #include <sbml/SBMLTypes.h>
@@ -15,13 +14,13 @@
 using namespace std;
 LIBSBML_CPP_NAMESPACE_USE
 
-  int
-  main (int argc, char* argv[])
+int
+main (int argc, char* argv[])
 {
   if (argc != 3)
   {
     cout << endl << "Usage: convertCobraToFbc input-filename output-filename"
-      << endl << endl;
+         << endl << endl;
     return 2;
   }
 
@@ -40,7 +39,7 @@ LIBSBML_CPP_NAMESPACE_USE
 
 
     /* perform the conversion */
-	int result = d->convert(props);
+    int result = d->convert(props);
     if (result != LIBSBML_OPERATION_SUCCESS)
     {
       cout<< "conversion failed ... " << endl;

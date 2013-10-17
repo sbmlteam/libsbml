@@ -28,8 +28,8 @@ using namespace std;
 
 static SBMLExtensionRegister<CompExtension> compExtensionRegistry;
 
-int main(int argc,char** argv){
-
+int main(int argc,char** argv)
+{
   int retval = 0;
   SBMLNamespaces sbmlns(3,1,"comp",1);
 
@@ -37,7 +37,8 @@ int main(int argc,char** argv){
   SBMLDocument *document = new SBMLDocument(&sbmlns);
 
   //Define the external model definition
-  CompSBMLDocumentPlugin* compdoc = static_cast<CompSBMLDocumentPlugin*>(document->getPlugin("comp"));
+  CompSBMLDocumentPlugin* compdoc
+      = static_cast<CompSBMLDocumentPlugin*>(document->getPlugin("comp"));
   compdoc->setRequired(true);
   ExternalModelDefinition* extmod = compdoc->createExternalModelDefinition();
   extmod->setId("ExtMod1");
@@ -53,7 +54,9 @@ int main(int argc,char** argv){
   comp->setId("comp");
   comp->setSize(1L);
 
-  Species spec(&sbmlns); //We have to construct it this way because we get the comp plugin from it later.
+  // We have to construct it this way because we get the comp
+  // plugin from it later.
+  Species spec(&sbmlns);
   spec.setCompartment("comp");
   spec.setHasOnlySubstanceUnits(false);
   spec.setConstant(false);
@@ -80,7 +83,8 @@ int main(int argc,char** argv){
 
   mod1->addReaction(&rxn);
 
-  CompModelPlugin* mod1plug = static_cast<CompModelPlugin*>(mod1->getPlugin("comp"));
+  CompModelPlugin* mod1plug
+      = static_cast<CompModelPlugin*>(mod1->getPlugin("comp"));
   Port port;
   port.setId("S_port");
   port.setIdRef("S");
@@ -103,7 +107,8 @@ int main(int argc,char** argv){
   model->setId("complexified");
   
   // Set the submodels
-  CompModelPlugin* mplugin = static_cast<CompModelPlugin*>(model->getPlugin("comp"));
+  CompModelPlugin* mplugin
+      = static_cast<CompModelPlugin*>(model->getPlugin("comp"));
   Submodel* submod1 = mplugin->createSubmodel();
   submod1->setId("A");
   submod1->setModelRef("ExtMod1");
@@ -119,7 +124,8 @@ int main(int argc,char** argv){
   mcomp->setConstant(true);
   mcomp->setId("comp");
   mcomp->setSize(1L);
-  CompSBasePlugin* compartplug = static_cast<CompSBasePlugin*>(mcomp->getPlugin("comp"));
+  CompSBasePlugin* compartplug
+      = static_cast<CompSBasePlugin*>(mcomp->getPlugin("comp"));
   ReplacedElement re;
   re.setIdRef("comp");
   re.setSubmodelRef("A");
@@ -132,7 +138,8 @@ int main(int argc,char** argv){
   //Synchronize the species
   spec.setId("S");
   spec.unsetInitialConcentration();
-  CompSBasePlugin* specplug = static_cast<CompSBasePlugin*>(spec.getPlugin("comp"));
+  CompSBasePlugin* specplug
+      = static_cast<CompSBasePlugin*>(spec.getPlugin("comp"));
   ReplacedElement* sre = specplug->createReplacedElement();
   sre->setSubmodelRef("A");
   sre->setIdRef("S");
@@ -150,24 +157,30 @@ int main(int argc,char** argv){
   writeSBMLToFile(document,"spec_example3.xml");
   delete document;
   document = readSBMLFromFile("spec_example3.xml");
-  if (document == NULL) {
+  if (document == NULL)
+  {
     cout << "Error reading back in file." << endl;
     retval = -1;
   }
-  else {
+  else
+  {
     document->setConsistencyChecks(LIBSBML_CAT_UNITS_CONSISTENCY, false);
     document->checkConsistency();
-    if (document->getErrorLog()->getNumFailsWithSeverity(2) > 0 || document->getErrorLog()->getNumFailsWithSeverity(3) > 0){
+    if (document->getErrorLog()->getNumFailsWithSeverity(2) > 0
+        || document->getErrorLog()->getNumFailsWithSeverity(3) > 0)
+    {
       stringstream errorstream;
       document->printErrors(errorstream);
-      cout << "Errors encoutered when round-tripping  SBML file: \n" <<  errorstream.str() << endl;
+      cout << "Errors encoutered when round-tripping  SBML file: \n"
+           <<  errorstream.str() << endl;
       retval = -1;
     }
     writeSBMLToFile(document, "spec_example3_rt.xml");
     delete document;
   }
 #ifdef WIN32
-  if (retval != 0) {
+  if (retval != 0)
+  {
     cout << "(Press any key to exit.)" << endl;
     _getch();
   }

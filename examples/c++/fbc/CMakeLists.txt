@@ -17,7 +17,7 @@ foreach(example
 
 	convertCobraToFbc
 	convertFbcToCobra
-	example1
+	fbc_example1
 	
 )
 	add_executable(example_fbc_cpp_${example} ${example}.cpp ../util.c)

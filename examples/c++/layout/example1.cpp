@@ -44,7 +44,6 @@
  * Contributor(s):
  */
 
-
 #include "sbml/SBMLDocument.h"
 #include "sbml/Model.h"
 #include "sbml/Compartment.h"
@@ -72,228 +71,225 @@
 
 LIBSBML_CPP_NAMESPACE_USE
 
-int main(int argc,char** argv){
+int main(int argc, char** argv)
+{
+  //
+  // Creates an SBMLNamespaces object with the given SBML level, version
+  // package name.
+  //
+  SBMLNamespaces sbmlns(2, 4);
+  sbmlns.addNamespace(LayoutExtension::getXmlnsL2(),"layout");
 
-//
-// Creates an SBMLNamespaces object with the given SBML level, version
-// package name.
-//
-SBMLNamespaces sbmlns(2,4);
-sbmlns.addNamespace(LayoutExtension::getXmlnsL2(),"layout");
+  // (NOTES) The above code creating an SBMLNamespaces object can be replaced
+  //         with the following other style.
+  //
+  // (2) Creates a LayoutPkgNamespaces object (SBMLNamespace derived class
+  //     for layout package. The class is basically used for createing an
+  //     SBase derived objects belonging to the layout package) with the
+  //     given SBML level, version.  (Package version is not required by
+  //     Layout extension of SBML Level 2)
+  //
+  //        LayoutPkgNamespaces sbmlns(2, 4);
+  //
 
-// (NOTES) The above code creating an SBMLNamespaces object can be replaced
-//         with the following other style.
-//
-// (2) Creates a LayoutPkgNamespaces object (SBMLNamespace derived class for
-//     layout package. The class is basically used for createing an SBase derived
-//     objects belonging to the layout package) with the given SBML level, version.
-//     (Package version is not required by Layout extension of SBML Level 2)
-//
-//        LayoutPkgNamespaces sbmlns(2,4);
-//
+  // create the document
 
+  SBMLDocument *document = new SBMLDocument(&sbmlns);
 
-// create the document
+  // create the Model
 
-SBMLDocument *document=new SBMLDocument(&sbmlns);
+  Model* model = document->createModel();
+  model->setId("TestModel");
+  document->setModel(model);
 
-// create the Model
+  // create the Compartment
 
-Model* model=document->createModel();
-model->setId("TestModel");
-document->setModel(model);
+  Compartment* compartment = model->createCompartment();
+  compartment->setId("Compartment_1");
 
+  // create the Species
 
-// create the Compartment
+  Species* species1 = model->createSpecies();
+  species1->setId("Species_1");
+  species1->setCompartment(compartment->getId());
 
-Compartment* compartment=model->createCompartment();
-compartment->setId("Compartment_1");
+  Species* species2 = model->createSpecies();
+  species2->setId("Species_2");
+  species2->setCompartment(compartment->getId());
 
-// create the Species
+  // create the Reactions
 
-Species* species1=model->createSpecies();
-species1->setId("Species_1");
-species1->setCompartment(compartment->getId());
+  Reaction* reaction1 = model->createReaction();
+  reaction1->setId("Reaction_1");
+  reaction1->setReversible(false);
 
-Species* species2=model->createSpecies();
-species2->setId("Species_2");
-species2->setCompartment(compartment->getId());
-
-// create the Reactions
-
-Reaction* reaction1=model->createReaction();
-reaction1->setId("Reaction_1");
-reaction1->setReversible(false);
-
-SpeciesReference* reference1=reaction1->createReactant();
-reference1->setSpecies(species1->getId());
-reference1->setId("SpeciesReference_1");
-
-
-SpeciesReference* reference2=reaction1->createProduct();
-reference2->setSpecies(species2->getId());
-reference2->setId("SpeciesReference_2");
-
-Reaction* reaction2=model->createReaction();
-reaction2->setId("Reaction_2");
-reaction2->setReversible(false);
-
-SpeciesReference* reference3=reaction2->createReactant();
-reference3->setSpecies(species2->getId());
-reference3->setId("SpeciesReference_3");
-
-SpeciesReference* reference4=reaction2->createProduct();
-reference4->setSpecies(species1->getId());
-reference4->setId("SpeciesReference_4");
+  SpeciesReference* reference1 = reaction1->createReactant();
+  reference1->setSpecies(species1->getId());
+  reference1->setId("SpeciesReference_1");
 
 
-// create the Layout
+  SpeciesReference* reference2 = reaction1->createProduct();
+  reference2->setSpecies(species2->getId());
+  reference2->setId("SpeciesReference_2");
 
-LayoutPkgNamespaces layoutns(2,4);
+  Reaction* reaction2 = model->createReaction();
+  reaction2->setId("Reaction_2");
+  reaction2->setReversible(false);
 
-LayoutModelPlugin* mplugin = static_cast<LayoutModelPlugin*>(model->getPlugin("layout"));
-Layout* layout=mplugin->createLayout();
+  SpeciesReference* reference3 = reaction2->createReactant();
+  reference3->setSpecies(species2->getId());
+  reference3->setId("SpeciesReference_3");
 
-layout->setId("Layout_1");
-Dimensions dim(&layoutns, 400.0,220.0);
-layout->setDimensions(&dim);
+  SpeciesReference* reference4 = reaction2->createProduct();
+  reference4->setSpecies(species1->getId());
+  reference4->setId("SpeciesReference_4");
 
+  // create the Layout
 
-// create the CompartmentGlyph
+  LayoutPkgNamespaces layoutns(2, 4);
 
-CompartmentGlyph* compartmentGlyph=layout->createCompartmentGlyph();
-compartmentGlyph->setId("CompartmentGlyph_1");
-compartmentGlyph->setCompartmentId(compartment->getId());
-BoundingBox bb(&layoutns, "bb1",5,5,390,210);
-compartmentGlyph->setBoundingBox(&bb);
+  LayoutModelPlugin* mplugin
+    = static_cast<LayoutModelPlugin*>(model->getPlugin("layout"));
+  Layout* layout = mplugin->createLayout();
 
+  layout->setId("Layout_1");
+  Dimensions dim(&layoutns, 400.0, 220.0);
+  layout->setDimensions(&dim);
 
-// create the SpeciesGlyphs
+  // create the CompartmentGlyph
 
-SpeciesGlyph* speciesGlyph1=layout->createSpeciesGlyph();
-speciesGlyph1->setId("SpeciesGlyph_1");
-speciesGlyph1->setSpeciesId(species1->getId());
-bb=BoundingBox(&layoutns, "bb2",80,26,240,24);
-speciesGlyph1->setBoundingBox(&bb);
+  CompartmentGlyph* compartmentGlyph = layout->createCompartmentGlyph();
+  compartmentGlyph->setId("CompartmentGlyph_1");
+  compartmentGlyph->setCompartmentId(compartment->getId());
+  BoundingBox bb(&layoutns, "bb1", 5, 5, 390, 210);
+  compartmentGlyph->setBoundingBox(&bb);
 
-TextGlyph* textGlyph1=layout->createTextGlyph();
-textGlyph1->setId("TextGlyph_01");
-bb=BoundingBox(&layoutns, "bbA",92,26,228,24);
-textGlyph1->setBoundingBox(&bb);
-textGlyph1->setOriginOfTextId(speciesGlyph1->getId());
-textGlyph1->setGraphicalObjectId(speciesGlyph1->getId());
+  // create the SpeciesGlyphs
 
-SpeciesGlyph* speciesGlyph2=layout->createSpeciesGlyph();
-speciesGlyph2->setId("SpeciesGlyph_2");
-speciesGlyph2->setSpeciesId(species2->getId());
-bb=BoundingBox(&layoutns, "bb3",80,170,240,24);
-speciesGlyph2->setBoundingBox(&bb);
+  SpeciesGlyph* speciesGlyph1 = layout->createSpeciesGlyph();
+  speciesGlyph1->setId("SpeciesGlyph_1");
+  speciesGlyph1->setSpeciesId(species1->getId());
+  bb = BoundingBox(&layoutns, "bb2", 80, 26, 240, 24);
+  speciesGlyph1->setBoundingBox(&bb);
 
-TextGlyph* textGlyph2=layout->createTextGlyph();
-textGlyph2->setId("TextGlyph_02");
-bb=BoundingBox(&layoutns, "bbB",92,170,228,24);
-textGlyph2->setBoundingBox(&bb);
-textGlyph2->setOriginOfTextId(speciesGlyph2->getId());
-textGlyph2->setGraphicalObjectId(speciesGlyph2->getId());
+  TextGlyph* textGlyph1 = layout->createTextGlyph();
+  textGlyph1->setId("TextGlyph_01");
+  bb = BoundingBox(&layoutns, "bbA", 92, 26, 228, 24);
+  textGlyph1->setBoundingBox(&bb);
+  textGlyph1->setOriginOfTextId(speciesGlyph1->getId());
+  textGlyph1->setGraphicalObjectId(speciesGlyph1->getId());
 
-// create the ReactionGlyphs
+  SpeciesGlyph* speciesGlyph2 = layout->createSpeciesGlyph();
+  speciesGlyph2->setId("SpeciesGlyph_2");
+  speciesGlyph2->setSpeciesId(species2->getId());
+  bb = BoundingBox(&layoutns, "bb3", 80, 170, 240, 24);
+  speciesGlyph2->setBoundingBox(&bb);
 
-ReactionGlyph* reactionGlyph1=layout->createReactionGlyph();
-reactionGlyph1->setId("ReactionGlyph_1");
-reactionGlyph1->setReactionId(reaction1->getId());
+  TextGlyph* textGlyph2 = layout->createTextGlyph();
+  textGlyph2->setId("TextGlyph_02");
+  bb = BoundingBox(&layoutns, "bbB", 92, 170, 228, 24);
+  textGlyph2->setBoundingBox(&bb);
+  textGlyph2->setOriginOfTextId(speciesGlyph2->getId());
+  textGlyph2->setGraphicalObjectId(speciesGlyph2->getId());
 
-Curve* reactionCurve1=reactionGlyph1->getCurve();
-LineSegment* ls=reactionCurve1->createLineSegment();
-Point p(&layoutns,165,105);
-ls->setStart(&p);
-p=Point(&layoutns,165,115);
-ls->setEnd(&p);
+  // create the ReactionGlyphs
 
-ReactionGlyph* reactionGlyph2=layout->createReactionGlyph();
-reactionGlyph2->setId("ReactionGlyph_1");
-reactionGlyph2->setReactionId(reaction2->getId());
+  ReactionGlyph* reactionGlyph1 = layout->createReactionGlyph();
+  reactionGlyph1->setId("ReactionGlyph_1");
+  reactionGlyph1->setReactionId(reaction1->getId());
 
-Curve* reactionCurve2=reactionGlyph2->getCurve();
-ls=reactionCurve2->createLineSegment();
-p=Point(&layoutns,235,105);
-ls->setStart(&p);
-p=Point(&layoutns,235,115);
-ls->setEnd(&p);
+  Curve* reactionCurve1 = reactionGlyph1->getCurve();
+  LineSegment* ls = reactionCurve1->createLineSegment();
+  Point p(&layoutns, 165, 105);
+  ls->setStart(&p);
+  p = Point(&layoutns, 165, 115);
+  ls->setEnd(&p);
 
-// add the SpeciesReferenceGlyphs
+  ReactionGlyph* reactionGlyph2 = layout->createReactionGlyph();
+  reactionGlyph2->setId("ReactionGlyph_1");
+  reactionGlyph2->setReactionId(reaction2->getId());
 
-SpeciesReferenceGlyph* speciesReferenceGlyph1=reactionGlyph1->createSpeciesReferenceGlyph();
-speciesReferenceGlyph1->setId("SpeciesReferenceGlyph_1");
-speciesReferenceGlyph1->setSpeciesGlyphId(speciesGlyph1->getId());
-speciesReferenceGlyph1->setSpeciesReferenceId(reference1->getId());
-speciesReferenceGlyph1->setRole(SPECIES_ROLE_SUBSTRATE);
+  Curve* reactionCurve2 = reactionGlyph2->getCurve();
+  ls = reactionCurve2->createLineSegment();
+  p = Point(&layoutns, 235, 105);
+  ls->setStart(&p);
+  p = Point(&layoutns, 235, 115);
+  ls->setEnd(&p);
 
-Curve* speciesReferenceCurve1=speciesReferenceGlyph1->getCurve();
-CubicBezier* cb=speciesReferenceCurve1->createCubicBezier();
-p=Point(&layoutns,165,105);
-cb->setStart(&p);
-p=Point(&layoutns,165,90);
-cb->setBasePoint1(&p);
-p=Point(&layoutns,165,90);
-cb->setBasePoint2(&p);
-p=Point(&layoutns,195,60);
-cb->setEnd(&p);
+  // add the SpeciesReferenceGlyphs
 
-SpeciesReferenceGlyph* speciesReferenceGlyph2=reactionGlyph1->createSpeciesReferenceGlyph();
-speciesReferenceGlyph2->setId("SpeciesReferenceGlyph_2");
-speciesReferenceGlyph2->setSpeciesGlyphId(speciesGlyph2->getId());
-speciesReferenceGlyph2->setSpeciesReferenceId(reference2->getId());
-speciesReferenceGlyph2->setRole(SPECIES_ROLE_PRODUCT);
+  SpeciesReferenceGlyph* speciesReferenceGlyph1 = reactionGlyph1->createSpeciesReferenceGlyph();
+  speciesReferenceGlyph1->setId("SpeciesReferenceGlyph_1");
+  speciesReferenceGlyph1->setSpeciesGlyphId(speciesGlyph1->getId());
+  speciesReferenceGlyph1->setSpeciesReferenceId(reference1->getId());
+  speciesReferenceGlyph1->setRole(SPECIES_ROLE_SUBSTRATE);
 
-Curve* speciesReferenceCurve2=speciesReferenceGlyph2->getCurve();
-cb=speciesReferenceCurve2->createCubicBezier();
-p=Point(&layoutns,165,115);
-cb->setStart(&p);
-p=Point(&layoutns,165,130);
-cb->setBasePoint1(&p);
-p=Point(&layoutns,165,130);
-cb->setBasePoint2(&p);
-p=Point(&layoutns,195,160);
-cb->setEnd(&p);
+  Curve* speciesReferenceCurve1 = speciesReferenceGlyph1->getCurve();
+  CubicBezier* cb = speciesReferenceCurve1->createCubicBezier();
+  p = Point(&layoutns, 165, 105);
+  cb->setStart(&p);
+  p = Point(&layoutns, 165, 90);
+  cb->setBasePoint1(&p);
+  p = Point(&layoutns, 165, 90);
+  cb->setBasePoint2(&p);
+  p = Point(&layoutns, 195, 60);
+  cb->setEnd(&p);
 
+  SpeciesReferenceGlyph* speciesReferenceGlyph2
+    = reactionGlyph1->createSpeciesReferenceGlyph();
+  speciesReferenceGlyph2->setId("SpeciesReferenceGlyph_2");
+  speciesReferenceGlyph2->setSpeciesGlyphId(speciesGlyph2->getId());
+  speciesReferenceGlyph2->setSpeciesReferenceId(reference2->getId());
+  speciesReferenceGlyph2->setRole(SPECIES_ROLE_PRODUCT);
 
-SpeciesReferenceGlyph* speciesReferenceGlyph3=reactionGlyph2->createSpeciesReferenceGlyph();
-speciesReferenceGlyph3->setId("SpeciesReferenceGlyph_3");
-speciesReferenceGlyph3->setSpeciesGlyphId(speciesGlyph2->getId());
-speciesReferenceGlyph3->setSpeciesReferenceId(reference3->getId());
-speciesReferenceGlyph3->setRole(SPECIES_ROLE_SUBSTRATE);
+  Curve* speciesReferenceCurve2 = speciesReferenceGlyph2->getCurve();
+  cb = speciesReferenceCurve2->createCubicBezier();
+  p = Point(&layoutns, 165, 115);
+  cb->setStart(&p);
+  p = Point(&layoutns, 165, 130);
+  cb->setBasePoint1(&p);
+  p = Point(&layoutns, 165, 130);
+  cb->setBasePoint2(&p);
+  p = Point(&layoutns, 195, 160);
+  cb->setEnd(&p);
 
-Curve* speciesReferenceCurve3=speciesReferenceGlyph3->getCurve();
-cb=speciesReferenceCurve3->createCubicBezier();
-p=Point(&layoutns,235,115);
-cb->setStart(&p);
-p=Point(&layoutns,235,130);
-cb->setBasePoint1(&p);
-p=Point(&layoutns,235,130);
-cb->setBasePoint2(&p);
-p=Point(&layoutns,205,160);
-cb->setEnd(&p);
+  SpeciesReferenceGlyph* speciesReferenceGlyph3
+    = reactionGlyph2->createSpeciesReferenceGlyph();
+  speciesReferenceGlyph3->setId("SpeciesReferenceGlyph_3");
+  speciesReferenceGlyph3->setSpeciesGlyphId(speciesGlyph2->getId());
+  speciesReferenceGlyph3->setSpeciesReferenceId(reference3->getId());
+  speciesReferenceGlyph3->setRole(SPECIES_ROLE_SUBSTRATE);
 
-SpeciesReferenceGlyph* speciesReferenceGlyph4=reactionGlyph2->createSpeciesReferenceGlyph();
-speciesReferenceGlyph4->setId("SpeciesReferenceGlyph_4");
-speciesReferenceGlyph4->setSpeciesGlyphId(speciesGlyph1->getId());
-speciesReferenceGlyph4->setSpeciesReferenceId(reference4->getId());
-speciesReferenceGlyph4->setRole(SPECIES_ROLE_PRODUCT);
+  Curve* speciesReferenceCurve3 = speciesReferenceGlyph3->getCurve();
+  cb = speciesReferenceCurve3->createCubicBezier();
+  p = Point(&layoutns, 235, 115);
+  cb->setStart(&p);
+  p = Point(&layoutns, 235, 130);
+  cb->setBasePoint1(&p);
+  p = Point(&layoutns, 235, 130);
+  cb->setBasePoint2(&p);
+  p = Point(&layoutns, 205, 160);
+  cb->setEnd(&p);
 
-Curve* speciesReferenceCurve4=speciesReferenceGlyph4->getCurve();
-cb=speciesReferenceCurve4->createCubicBezier();
-p=Point(&layoutns,235,105);
-cb->setStart(&p);
-p=Point(&layoutns,235,90);
-cb->setBasePoint1(&p);
-p=Point(&layoutns,235,90);
-cb->setBasePoint2(&p);
-p=Point(&layoutns,205,60);
-cb->setEnd(&p);
+  SpeciesReferenceGlyph* speciesReferenceGlyph4
+    = reactionGlyph2->createSpeciesReferenceGlyph();
+  speciesReferenceGlyph4->setId("SpeciesReferenceGlyph_4");
+  speciesReferenceGlyph4->setSpeciesGlyphId(speciesGlyph1->getId());
+  speciesReferenceGlyph4->setSpeciesReferenceId(reference4->getId());
+  speciesReferenceGlyph4->setRole(SPECIES_ROLE_PRODUCT);
 
+  Curve* speciesReferenceCurve4 = speciesReferenceGlyph4->getCurve();
+  cb = speciesReferenceCurve4->createCubicBezier();
+  p = Point(&layoutns, 235, 105);
+  cb->setStart(&p);
+  p = Point(&layoutns, 235, 90);
+  cb->setBasePoint1(&p);
+  p = Point(&layoutns, 235, 90);
+  cb->setBasePoint2(&p);
+  p = Point(&layoutns, 205, 60);
+  cb->setEnd(&p);
 
-writeSBML(document,"layout_example1_L2.xml");
-delete document;
-
+  writeSBML(document,"layout_example1_L2.xml");
+  delete document;
 }
 

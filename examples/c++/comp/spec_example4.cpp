@@ -28,14 +28,15 @@ using namespace std;
 
 static SBMLExtensionRegister<CompExtension> compExtensionRegistry;
 
-int main(int argc,char** argv){
-
+int main(int argc,char** argv)
+{
   int retval = 0;
   SBMLNamespaces sbmlns(3,1,"comp",1);
 
   // create the document
   SBMLDocument *document = new SBMLDocument(&sbmlns);
-  CompSBMLDocumentPlugin* compdoc = static_cast<CompSBMLDocumentPlugin*>(document->getPlugin("comp"));
+  CompSBMLDocumentPlugin* compdoc
+      = static_cast<CompSBMLDocumentPlugin*>(document->getPlugin("comp"));
   compdoc->setRequired(true);
 
   // create the 'enzyme' model definition
@@ -47,7 +48,10 @@ int main(int argc,char** argv){
   comp->setConstant(true);
   comp->setId("comp");
   comp->setSize(1L);
-  Species spec(&sbmlns); //We have to construct it this way because we get the comp plugin from it later.
+
+  // We have to construct it this way because we get the
+  // comp plugin from it later.
+  Species spec(&sbmlns);
   spec.setCompartment("comp");
   spec.setHasOnlySubstanceUnits(false);
   spec.setConstant(false);
@@ -84,7 +88,8 @@ int main(int argc,char** argv){
   mod1->addReaction(&rxn);
   mod1->addReaction(&rxn2);
 
-  CompModelPlugin* mod1plug = static_cast<CompModelPlugin*>(mod1->getPlugin("comp"));
+  CompModelPlugin* mod1plug
+      = static_cast<CompModelPlugin*>(mod1->getPlugin("comp"));
   Port m1port;
   m1port.setIdRef("comp");
   m1port.setId("comp_port");
@@ -108,7 +113,6 @@ int main(int argc,char** argv){
   m1port.setId("J1_port");
   mod1plug->addPort(&m1port);
 
-
   //Create the 'simple' model definition
   ModelDefinition* mod2 = compdoc->createModelDefinition();
   mod2->setId("simple");
@@ -129,7 +133,9 @@ int main(int argc,char** argv){
   spec.setInitialConcentration(10);
   mod2->addSpecies(&spec);
 
-  Reaction rxn3(&sbmlns); //We have to construct it this way because we get the comp plugin from it later.
+  // We have to construct it this way because we get the
+  // comp plugin from it later.
+  Reaction rxn3(&sbmlns);
   rxn3.setReversible(true);
   rxn3.setFast(false);
   rxn3.setId("J0");
@@ -144,7 +150,8 @@ int main(int argc,char** argv){
 
   mod2->addReaction(&rxn3);
 
-  CompModelPlugin* mod2plug = static_cast<CompModelPlugin*>(mod2->getPlugin("comp"));
+  CompModelPlugin* mod2plug
+      = static_cast<CompModelPlugin*>(mod2->getPlugin("comp"));
   Port port;
   port.setId("S_port");
   port.setIdRef("S");
@@ -167,7 +174,8 @@ int main(int argc,char** argv){
   model->setId("complexified");
   
   // Set the submodels
-  CompModelPlugin* mplugin = static_cast<CompModelPlugin*>(model->getPlugin("comp"));
+  CompModelPlugin* mplugin
+      = static_cast<CompModelPlugin*>(model->getPlugin("comp"));
   Submodel* submod1 = mplugin->createSubmodel();
   submod1->setId("A");
   submod1->setModelRef("enzyme");
@@ -184,7 +192,8 @@ int main(int argc,char** argv){
   mcomp->setConstant(true);
   mcomp->setId("comp");
   mcomp->setSize(1L);
-  CompSBasePlugin* compartplug = static_cast<CompSBasePlugin*>(mcomp->getPlugin("comp"));
+  CompSBasePlugin* compartplug
+      = static_cast<CompSBasePlugin*>(mcomp->getPlugin("comp"));
   ReplacedElement re;
   re.setIdRef("comp");
   re.setSubmodelRef("A");
@@ -197,7 +206,8 @@ int main(int argc,char** argv){
   //Synchronize the species
   spec.setId("S");
   spec.unsetInitialConcentration();
-  CompSBasePlugin* specplug = static_cast<CompSBasePlugin*>(spec.getPlugin("comp"));
+  CompSBasePlugin* specplug
+      = static_cast<CompSBasePlugin*>(spec.getPlugin("comp"));
   ReplacedElement* sre = specplug->createReplacedElement();
   sre->setSubmodelRef("A");
   sre->setIdRef("S");
@@ -221,7 +231,8 @@ int main(int argc,char** argv){
   sr3.setStoichiometry(1);
   sr3.setSpecies("S");
   blankrxn.addReactant(&sr3);
-  CompSBasePlugin* blankrxnplug = static_cast<CompSBasePlugin*>(blankrxn.getPlugin("comp"));
+  CompSBasePlugin* blankrxnplug
+      = static_cast<CompSBasePlugin*>(blankrxn.getPlugin("comp"));
   ReplacedElement deletion;
   deletion.setDeletion("oldrxn");
   deletion.setSubmodelRef("B");
@@ -237,29 +248,34 @@ int main(int argc,char** argv){
   rb2->setPortRef("J1_port");
   model->addReaction(&blankrxn);
 
-
   writeSBMLToFile(document,"eg-replacement.xml");
   writeSBMLToFile(document,"spec_example4.xml");
   delete document;
   document = readSBMLFromFile("spec_example4.xml");
-  if (document == NULL) {
+  if (document == NULL)
+  {
     cout << "Error reading back in file." << endl;
     retval = -1;
   }
-  else {
+  else
+  {
     document->setConsistencyChecks(LIBSBML_CAT_UNITS_CONSISTENCY, false);
     document->checkConsistency();
-    if (document->getErrorLog()->getNumFailsWithSeverity(2) > 0 || document->getErrorLog()->getNumFailsWithSeverity(3) > 0){
+    if (document->getErrorLog()->getNumFailsWithSeverity(2) > 0
+        || document->getErrorLog()->getNumFailsWithSeverity(3) > 0)
+    {
       stringstream errorstream;
       document->printErrors(errorstream);
-      cout << "Errors encoutered when round-tripping  SBML file: \n" <<  errorstream.str() << endl;
+      cout << "Errors encoutered when round-tripping  SBML file: \n"
+           <<  errorstream.str() << endl;
       retval = -1;
     }
     writeSBMLToFile(document, "spec_example4_rt.xml");
     delete document;
   }
 #ifdef WIN32
-  if (retval != 0) {
+  if (retval != 0)
+  {
     cout << "(Press any key to exit.)" << endl;
     _getch();
   }

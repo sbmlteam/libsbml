@@ -20,7 +20,7 @@
 using namespace std;
 LIBSBML_CPP_NAMESPACE_USE
 
-int main(int argc,char** argv){
+int main(int argc, char** argv){
 
   if (argc != 2)
   {
@@ -40,24 +40,25 @@ int main(int argc,char** argv){
     // note layout in L2 uses a different namespace than L3
     if (d->getLevel() == 2)
     {
-      d->enablePackage(LayoutExtension::getXmlnsL2(),"layout", true);
+      d->enablePackage(LayoutExtension::getXmlnsL2(), "layout",  true);
     }
     else if (d->getLevel() == 3)
     {
-      d->enablePackage(LayoutExtension::getXmlnsL3V1V1(),"layout", true);
+      d->enablePackage(LayoutExtension::getXmlnsL3V1V1(), "layout",  true);
     }
 
     // get the model plugin
     Model * model = d->getModel();
 
-    LayoutModelPlugin* mplugin = static_cast<LayoutModelPlugin*>(model->getPlugin("layout"));
+    LayoutModelPlugin* mplugin
+      = static_cast<LayoutModelPlugin*>(model->getPlugin("layout"));
     
     // create the Layout
     LayoutPkgNamespaces layoutns(d->getLevel(), d->getVersion());
-    Layout* layout=mplugin->createLayout();
+    Layout* layout = mplugin->createLayout();
 
     layout->setId("Layout_1");
-    Dimensions dim(&layoutns, 400.0,220.0);
+    Dimensions dim(&layoutns, 400.0, 220.0);
     layout->setDimensions(&dim);
 
     // write out the model

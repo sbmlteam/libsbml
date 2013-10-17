@@ -28,8 +28,8 @@ using namespace std;
 
 static SBMLExtensionRegister<CompExtension> compExtensionRegistry;
 
-int main(int argc,char** argv){
-
+int main(int argc,char** argv) 
+{
   int retval = 0;
   SBMLNamespaces sbmlns(3,1,"comp",1);
 
@@ -37,7 +37,8 @@ int main(int argc,char** argv){
   SBMLDocument *document = new SBMLDocument(&sbmlns);
 
   //Create our submodel
-  CompSBMLDocumentPlugin* compdoc = static_cast<CompSBMLDocumentPlugin*>(document->getPlugin("comp"));
+  CompSBMLDocumentPlugin* compdoc
+      = static_cast<CompSBMLDocumentPlugin*>(document->getPlugin("comp"));
   compdoc->setRequired(true);
   ModelDefinition* mod1 = compdoc->createModelDefinition();
   mod1->setId("enzyme");
@@ -102,24 +103,30 @@ int main(int argc,char** argv){
   writeSBMLToFile(document,"enzyme_model.xml");
   delete document;
   document = readSBMLFromFile("enzyme_model.xml");
-  if (document == NULL) {
+  if (document == NULL)
+  {
     cout << "Error reading back in file." << endl;
     retval = -1;
   }
-  else {
+  else
+  {
     document->setConsistencyChecks(LIBSBML_CAT_UNITS_CONSISTENCY, false);
     document->checkConsistency();
-    if (document->getErrorLog()->getNumFailsWithSeverity(2) > 0 || document->getErrorLog()->getNumFailsWithSeverity(3) > 0){
+    if (document->getErrorLog()->getNumFailsWithSeverity(2) > 0
+        || document->getErrorLog()->getNumFailsWithSeverity(3) > 0)
+    {
       stringstream errorstream;
       document->printErrors(errorstream);
-      cout << "Errors encoutered when round-tripping  SBML file: \n" <<  errorstream.str() << endl;
+      cout << "Errors encoutered when round-tripping  SBML file: \n"
+           <<  errorstream.str() << endl;
       retval = -1;
     }
     writeSBMLToFile(document, "enzyme_model_rt.xml");
     delete document;
   }
 #ifdef WIN32
-  if (retval != 0) {
+  if (retval != 0)
+  {
     cout << "(Press any key to exit.)" << endl;
     _getch();
   }
