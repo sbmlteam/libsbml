@@ -42,8 +42,12 @@ MA 02110-1301,  USA.
             Third-party software incorporated into
                    the libSBML distribution
 
-LibSBML incorporates a third-party software library, MiniZip
-1.01e, copyright (C) 1998-2005 Gilles Vollant, released under
-terms compatible with the LGPL.  Please see the file
+* MiniZip 1.01e, copyright (C) 1998-2005 Gilles Vollant, released 
+under terms compatible with the LGPL.  Please see the file
 src/sbml/compress/00README.txt for more information about MiniZip
 1.01e and its license terms.
+
+* Google Code Prettify, distributed under the terms of the
+Apache License Version 2.0, January 2004.  Code downloaded from 
+http://code.google.com/p/google-code-prettify/ on 2013-10-16.
+
