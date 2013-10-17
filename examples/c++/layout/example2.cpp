@@ -1364,7 +1364,7 @@ int main(int argc, char** argv)
   cb->setBasePoint1(&p);
   p = Point(&layoutns, 170, 1530);
   cb->setBasePoint2(&p);
-  p = Point(&layoutns, 260, 1!530);
+  p = Point(&layoutns, 260, 1530);
   cb->setEnd(&p);
 
 
