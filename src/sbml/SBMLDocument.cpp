@@ -130,6 +130,8 @@ SBMLDocument::SBMLDocument (unsigned int level, unsigned int version) :
  , mVersion ( version )
  , mModel   ( NULL       )
  , mLocationURI     ("")
+ , mRequiredAttrOfUnknownPkg()
+ , mRequiredAttrOfUnknownDisabledPkg()
 {
 
   mInternalValidator = new SBMLInternalValidator();
@@ -163,6 +165,8 @@ SBMLDocument::SBMLDocument (SBMLNamespaces* sbmlns) :
    SBase  (sbmlns)
  , mModel ( NULL       )
  , mLocationURI ("")
+ , mRequiredAttrOfUnknownPkg()
+ , mRequiredAttrOfUnknownDisabledPkg()
 {
 
   mInternalValidator = new SBMLInternalValidator();
@@ -263,6 +267,8 @@ SBMLDocument::SBMLDocument (const SBMLDocument& orig) :
     mInternalValidator->setDocument(this);
     mInternalValidator->setApplicableValidators(orig.getApplicableValidators());
     mInternalValidator->setConversionValidators(orig.getConversionValidators());
+    mRequiredAttrOfUnknownPkg = orig.mRequiredAttrOfUnknownPkg;
+    mRequiredAttrOfUnknownDisabledPkg = orig.mRequiredAttrOfUnknownDisabledPkg;
 
     if (orig.mModel != NULL) 
     {
@@ -302,6 +308,8 @@ SBMLDocument& SBMLDocument::operator=(const SBMLDocument& rhs)
 
     mInternalValidator = (SBMLInternalValidator*)rhs.mInternalValidator->clone();
     mInternalValidator->setDocument(this);
+    mRequiredAttrOfUnknownPkg = rhs.mRequiredAttrOfUnknownPkg;
+    mRequiredAttrOfUnknownDisabledPkg = rhs.mRequiredAttrOfUnknownDisabledPkg;
 
     if (rhs.mModel != NULL) 
     {

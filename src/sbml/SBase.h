@@ -3540,11 +3540,13 @@ SBase.readExtensionAttributes(attributes, expectedAttributes);
   // XMLAttributes object containing attributes of unknown pacakges
   //
   XMLAttributes mAttributesOfUnknownPkg;
+  XMLAttributes mAttributesOfUnknownDisabledPkg;
 
   //
   // XMLNode object containing elements of unknown pacakges
   //
   XMLNode       mElementsOfUnknownPkg;
+  XMLNode       mElementsOfUnknownDisabledPkg;
 
   //-----------------------------------------------------------------------------
 

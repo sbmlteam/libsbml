@@ -291,6 +291,10 @@ SBase::SBase (unsigned int level, unsigned int version) :
  , mURI("")
  , mHistoryChanged (false)
  , mCVTermsChanged (false)
+ , mAttributesOfUnknownPkg()
+ , mAttributesOfUnknownDisabledPkg()
+ , mElementsOfUnknownPkg()
+ , mElementsOfUnknownDisabledPkg()
 {
   mSBMLNamespaces = new SBMLNamespaces(level, version);
 
@@ -330,6 +334,10 @@ SBase::SBase (SBMLNamespaces *sbmlns) :
  , mURI("")
  , mHistoryChanged (false)
  , mCVTermsChanged (false)
+ , mAttributesOfUnknownPkg()
+ , mAttributesOfUnknownDisabledPkg()
+ , mElementsOfUnknownPkg()
+ , mElementsOfUnknownDisabledPkg()
 {
   if (!sbmlns)
   {
@@ -387,6 +395,10 @@ SBase::SBase(const SBase& orig)
   this->mColumn     = orig.mColumn;
   this->mParentSBMLObject = NULL;
   this->mUserData   = orig.mUserData;
+  this->mAttributesOfUnknownPkg = orig.mAttributesOfUnknownPkg;
+  this->mAttributesOfUnknownDisabledPkg = orig.mAttributesOfUnknownDisabledPkg;
+  this->mElementsOfUnknownPkg = orig.mElementsOfUnknownPkg;
+  this->mElementsOfUnknownDisabledPkg = orig.mElementsOfUnknownDisabledPkg;
 
   /* if the object belongs to document that has had the level/version reset
    * the copy will end up with the wrong namespace information
@@ -494,6 +506,10 @@ SBase& SBase::operator=(const SBase& rhs)
     this->mColumn     = rhs.mColumn;
     this->mParentSBMLObject = rhs.mParentSBMLObject;
     this->mUserData   = rhs.mUserData;
+    this->mAttributesOfUnknownPkg = rhs.mAttributesOfUnknownPkg;
+    this->mAttributesOfUnknownDisabledPkg = rhs.mAttributesOfUnknownDisabledPkg;
+    this->mElementsOfUnknownPkg = rhs.mElementsOfUnknownPkg;
+    this->mElementsOfUnknownDisabledPkg = rhs.mElementsOfUnknownDisabledPkg;
 
     delete this->mSBMLNamespaces;
 
@@ -3111,6 +3127,35 @@ SBase::enablePackageInternal(const std::string& pkgURI, const std::string& pkgPr
       }
 
     }
+    /* check whether we are trying to reenable an unknown package
+     * that we previously disabled
+     */
+    for (int i = 0; i < mAttributesOfUnknownDisabledPkg.getLength();)
+    {
+      if (pkgURI == mAttributesOfUnknownDisabledPkg.getURI(i)
+        && pkgPrefix == mAttributesOfUnknownDisabledPkg.getPrefix(i))
+      {
+        mAttributesOfUnknownPkg.add(
+          mAttributesOfUnknownDisabledPkg.getName(i), 
+          mAttributesOfUnknownDisabledPkg.getValue(i), pkgURI, pkgPrefix);
+        mAttributesOfUnknownDisabledPkg.remove(i);
+      }
+      else {
+        i++;
+      }
+    }
+    for (unsigned int i = 0; i < mElementsOfUnknownDisabledPkg.getNumChildren();)
+    {
+      if (pkgURI == mElementsOfUnknownDisabledPkg.getChild(i).getURI()
+        && pkgPrefix == mElementsOfUnknownDisabledPkg.getChild(i).getPrefix())
+      {
+        mElementsOfUnknownPkg.addChild(mElementsOfUnknownDisabledPkg.getChild(i));
+        mElementsOfUnknownDisabledPkg.removeChild(i);
+      }
+      else {
+        i++;
+      }
+    }
   }
   else
   {
@@ -3129,6 +3174,36 @@ SBase::enablePackageInternal(const std::string& pkgURI, const std::string& pkgPr
     if (mSBMLNamespaces)
     {
       mSBMLNamespaces->removeNamespace(pkgURI);
+    }
+
+    /* before we remove the unknown package keep a copy
+     * in case we try to re-enable it later
+     */
+    for (int i = 0; i < mAttributesOfUnknownPkg.getLength();)
+    {
+      if (pkgURI == mAttributesOfUnknownPkg.getURI(i)
+        && pkgPrefix == mAttributesOfUnknownPkg.getPrefix(i))
+      {
+        mAttributesOfUnknownDisabledPkg.add(
+          mAttributesOfUnknownPkg.getName(i), 
+          mAttributesOfUnknownPkg.getValue(i), pkgURI, pkgPrefix);
+        mAttributesOfUnknownPkg.remove(i);
+      }
+      else {
+        i++;
+      }
+    }
+    for (unsigned int i = 0; i < mElementsOfUnknownPkg.getNumChildren();)
+    {
+      if (pkgURI == mElementsOfUnknownPkg.getChild(i).getURI()
+        && pkgPrefix == mElementsOfUnknownPkg.getChild(i).getPrefix())
+      {
+        mElementsOfUnknownDisabledPkg.addChild(mElementsOfUnknownPkg.getChild(i));
+        mElementsOfUnknownPkg.removeChild(i);
+      }
+      else {
+        i++;
+      }
     }
   }
 
