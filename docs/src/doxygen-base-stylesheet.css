@@ -324,7 +324,7 @@ div.line {
 	padding-left: 53px;
 	padding-bottom: 0px;
 	margin: 0px;
-        margin-left: 2em;
+        margin-left: 0.5em;
 	-webkit-transition-property: background-color, box-shadow;
 	-webkit-transition-duration: 0.5s;
 	-moz-transition-property: background-color, box-shadow;
