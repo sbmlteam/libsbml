@@ -15,7 +15,7 @@ endif(EXTRA_INCLUDE_DIRS)
 
 foreach(example 
 
-	example1
+	qual_example1
 	
 )
 	add_executable(example_qual_cpp_${example} ${example}.cpp ../util.c)
