@@ -53,6 +53,8 @@ public:
   void append (const std::string UnitKind) { mKinds.push_back(UnitKind); }
 
   /**
+   * Returns true if @p UnitKind is already in this UnitKindList, false otherwise.
+   *
    * @return true if UnitKind is already in this UnitKindList, false otherwise.
    */
   bool contains (const std::string UnitKind) const;
@@ -63,11 +65,15 @@ public:
   void removeUnitKind (const std::string UnitKind);
 
   /**
+   * Returns the number of UnitKinds in this UnitKindList.
+   *
    * @return the number of UnitKinds in this UnitKindList.
    */
   unsigned int size () const { return (unsigned int)mKinds.size(); }
 
   /**
+   * Returns an iterator to the beginning of this UnitKindList.
+   *
    * @return an iterator to the beginning of this UnitKindList.
    */
   std::vector<std::string>::const_iterator begin () const
@@ -76,6 +82,8 @@ public:
   }
 
   /**
+   * Returns an iterator to the end of this UnitKindList.
+   *
    * @return an iterator to the end of this UnitKindList.
    */
   std::vector<std::string>::const_iterator end () const

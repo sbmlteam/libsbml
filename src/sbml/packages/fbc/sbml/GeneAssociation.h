@@ -249,6 +249,8 @@ public:
 
 
   /**
+   * Creates and returns a deep copy of this GeneAssociation.
+   *
    * @return a (deep) copy of this GeneAssociation.
    */
   virtual GeneAssociation* clone () const;
@@ -299,6 +301,9 @@ public:
 protected:
   /** @cond doxygenLibsbmlInternal */
   /**
+   * Creates and returns an SBML object corresponding to the next
+   * XMLToken in the @p stream, or NULL if the token was not recognized.
+   *
    * @return the SBML object corresponding to next XMLToken in the
    * XMLInputStream or NULL if the token was not recognized.
    */
@@ -362,6 +367,8 @@ class LIBSBML_EXTERN ListOfGeneAssociations : public ListOf
 public:
 
   /**
+   * Creates and returns a deep copy of this ListOfGeneAssociations.
+   *
    * @return a (deep) copy of this ListOfGeneAssociations.
    */
   virtual ListOfGeneAssociations* clone () const;
@@ -495,6 +502,8 @@ protected:
 
   /** @cond doxygenLibsbmlInternal */
   /**
+   * Create and return a geneAssociation object, if present.
+   *
    * @return the SBML object corresponding to next XMLToken in the
    * XMLInputStream or NULL if the token was not recognized.
    */

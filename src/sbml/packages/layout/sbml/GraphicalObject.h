@@ -302,6 +302,8 @@ public:
   virtual const std::string& getElementName () const ;
 
   /**
+   * Creates and returns a deep copy of this GraphicalObject.
+   * 
    * @return a (deep) copy of this GraphicalObject.
    */
   virtual GraphicalObject* clone () const;
@@ -380,6 +382,8 @@ public:
 protected:
   /** @cond doxygenLibsbmlInternal */
   /**
+   * Create and return an SBML object of this class, if present.
+   *
    * @return the SBML object corresponding to next XMLToken in the
    * XMLInputStream or NULL if the token was not recognized.
    */
@@ -454,6 +458,8 @@ class LIBSBML_EXTERN ListOfGraphicalObjects : public ListOf
 public:
 
   /**
+   * Creates and returns a deep copy of this ListOfGraphicalObjects.
+   * 
    * @return a (deep) copy of this ListOfGraphicalObjects.
    */
   virtual ListOfGraphicalObjects* clone () const;
@@ -594,6 +600,8 @@ protected:
 
   /** @cond doxygenLibsbmlInternal */
   /**
+   * Create and return an SBML object of this class, if present.
+   *
    * @return the SBML object corresponding to next XMLToken in the
    * XMLInputStream or NULL if the token was not recognized.
    */

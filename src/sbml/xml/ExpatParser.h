@@ -110,12 +110,16 @@ public:
 
 
   /**
+   * Returns the current column position of the parser.
+   *
    * @return the current column position of the parser.
    */
   virtual unsigned int getColumn () const;
 
 
   /**
+   * Returns the current line position of the parser.
+   *
    * @return the current line position of the parser.
    */
   virtual unsigned int getLine () const;
@@ -124,6 +128,8 @@ public:
 protected:
 
   /**
+   * Returns true if the parser encountered an error, false otherwise.
+   *
    * @return true if the parser encountered an error, false otherwise.
    */
   bool error () const;

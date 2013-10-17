@@ -225,6 +225,8 @@ public:
   virtual const std::string& getElementName () const ;
 
   /**
+   * Creates and returns a deep copy of this CompartmentGlyph.
+   * 
    * @return a (deep) copy of this CompartmentGlyph.
    */
   virtual CompartmentGlyph* clone () const;
@@ -252,6 +254,8 @@ public:
 protected:
   /** @cond doxygenLibsbmlInternal */
   /**
+   * Create and return an SBML object of this class, if present.
+   *
    * @return the SBML object corresponding to next XMLToken in the
    * XMLInputStream or NULL if the token was not recognized.
    */

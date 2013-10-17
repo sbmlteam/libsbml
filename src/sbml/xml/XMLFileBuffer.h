@@ -74,6 +74,9 @@ public:
 
 
   /**
+   * Returns true if there was an error reading from the underlying buffer,
+   * false otherwise.
+   *
    * @return true if there was an error reading from the underlying buffer,
    * false otherwise.
    */

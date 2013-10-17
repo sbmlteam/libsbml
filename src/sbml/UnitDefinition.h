@@ -996,6 +996,8 @@ protected:
   /** @cond doxygenLibsbmlInternal */
 
   /**
+   * Create and return a unitDefinition object, if present.
+   *
    * @return the SBML object corresponding to next XMLToken in the
    * XMLInputStream or @c NULL if the token was not recognized.
    */
@@ -1252,6 +1254,8 @@ protected:
   /** @cond doxygenLibsbmlInternal */
 
   /**
+   * Create and return a listOfUnitDefinitions object, if present.
+   *
    * @return the SBML object corresponding to next XMLToken in the
    * XMLInputStream or NULL if the token was not recognized.
    */

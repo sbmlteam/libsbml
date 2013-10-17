@@ -123,12 +123,14 @@ protected:
   void createExistingMap (const Model& m);
 
   /**
-   * @return the error message to use when logging constraint violations.
+   * Returns the error message to use when logging constraint violations.
    * This method is called by logFailure.
    *
    * If at all possible please use getPreamble() and getFieldname() when
    * constructing error messages.  This will help to make your constraint
    * easily customizable.
+   * 
+   * @return the error message to use when logging constraint violations.
    */
   const std::string
   getMessage (const std::string& id, const SBase& object);
@@ -154,6 +156,9 @@ protected:
 
 
   /**
+   * Returns a non-owning character pointer to the typename of the given SBase 
+   * @p object, as constructed from its typecode and package.
+   *
    * @return the typename of the given SBase object.
    */
   const char* getTypename (const SBase& object);

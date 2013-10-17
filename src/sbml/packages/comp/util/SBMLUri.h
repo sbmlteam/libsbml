@@ -103,30 +103,48 @@ public:
 
 
   /**
-   * @return the parsed scheme like 'file' or 'http'
+   * Returns the scheme of the stored URI, i.e. the text
+   * before the first colon, like 'file' or 'http'.  If no
+   * such scheme exists, returns an empty string.
+   *
+   * @return the parsed scheme like 'file' or 'http', or 
+   * an empty string if none exists.
    */
   const std::string& getScheme() const;
 
 
   /**
+   * Returns the host of the stored URI, i.e. the text
+   * after 'http://' and before the next '/'.  URIs with file
+   * or URN schemes have no host, and return an empty string.
+   *
    * @return the host of the URI (empty in case of files)
    */
   const std::string& getHost() const;
 
 
   /**
+   * Returns the path and filename of the stored URI, i.e. the text
+   * after the scheme, colon, and host (if present), and 
+   * before the next '?'.  May be empty for some URIs.
+   *
    * @return the path of the URI (i.e: the full filename with path)
    */
   const std::string& getPath() const;
 
 
   /**
+   * Returns the query of the stored URI, i.e. the text
+   * after the filename, starting with a '?'.  May be empty for some (many) URIs.
+   *
    * @return the query of the URI (i.e.: the part after the full filename with path)
    */
   const std::string& getQuery() const;
 
 
   /**
+   * Returns the full stored URI, with any backslashes replaced with slashes.
+   *
    * @return the original URI (with only backslashes replaced to slashes)
    */
   const std::string& getUri() const;

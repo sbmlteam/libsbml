@@ -57,12 +57,17 @@ public:
 protected:
 
   /**
+   * Returns the fieldname to use when logging constraint violations
+   * ("variable")
+   *
    * @return the fieldname ("variable") to use when logging constraint
    * violations.
    */
   virtual const char* getFieldname ();
 
   /**
+   * Returns the preamble to use when logging constraint violations.  
+   *
    * @return the preamble to use when logging constraint violations.
    */
   virtual const char* getPreamble ();

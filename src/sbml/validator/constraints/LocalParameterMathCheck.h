@@ -73,6 +73,8 @@ protected:
   virtual void checkMath (const Model& m, const ASTNode& node, const SBase & sb);
   
   /**
+   * Returns the preamble to use when logging constraint violations.  
+   *
    * @return the preamble to use when logging constraint violations.  The
    * preamble will be prepended to each log message.  If not overriden,
    * returns an empty string.
@@ -88,12 +90,14 @@ protected:
   void checkCiElement (const Model& m, const ASTNode& node, const SBase & sb);
 
   /**
-   * @return the error message to use when logging constraint violations.
+   * Returns the error message to use when logging constraint violations.
    * This method is called by logFailure.
    *
    * If at all possible please use getPreamble() and getFieldname() when
    * constructing error messages.  This will help to make your constraint
    * easily customizable.
+   *
+   * @return the error message to use when logging constraint violations.
    */
   virtual const std::string
   getMessage (const ASTNode& node, const SBase& object);

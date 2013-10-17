@@ -290,6 +290,8 @@ public:
 
 
   /**
+   * Creates and returns a deep copy of this FluxObjective.
+   * 
    * @return a (deep) copy of this FluxObjective.
    */
   virtual FluxObjective* clone () const;
@@ -338,6 +340,8 @@ public:
 protected:
   /** @cond doxygenLibsbmlInternal */
   /**
+   * Create and return an SBML object of this class, if present.
+   *
    * @return the SBML object corresponding to next XMLToken in the
    * XMLInputStream or NULL if the token was not recognized.
    */
@@ -400,6 +404,8 @@ class LIBSBML_EXTERN ListOfFluxObjectives : public ListOf
 public:
 
   /**
+   * Creates and returns a deep copy of this ListOfFluxObjectives.
+   * 
    * @return a (deep) copy of this ListOfFluxObjectives.
    */
   virtual ListOfFluxObjectives* clone () const;
@@ -533,6 +539,8 @@ protected:
 
   /** @cond doxygenLibsbmlInternal */
   /**
+   * Create and return an SBML object of this class, if present.
+   *
    * @return the SBML object corresponding to next XMLToken in the
    * XMLInputStream or NULL if the token was not recognized.
    */

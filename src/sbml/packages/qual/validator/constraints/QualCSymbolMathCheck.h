@@ -77,12 +77,14 @@ protected:
 
 
   /**
-   * @return the error message to use when logging constraint violations.
+   * Returns the error message to use when logging constraint violations.
    * This method is called by logFailure.
    *
    * If at all possible please use getPreamble() and getFieldname() when
    * constructing error messages.  This will help to make your constraint
    * easily customizable.
+   * 
+   * @return the error message to use when logging constraint violations.
    */
   virtual const std::string
   getMessage (const ASTNode& node, const SBase& object);

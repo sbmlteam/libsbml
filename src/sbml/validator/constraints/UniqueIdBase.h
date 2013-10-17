@@ -82,11 +82,11 @@ protected:
 
 
   /**
-   * @return the error message to use when logging constraint violations.
+   * Returns the error message to use when logging constraint violations.
    * This method is called by logFailure.
    *
    * Returns a message that the given @p id and its corresponding object are
-   * in  conflict with an object previously defined.
+   * in conflict with an object previously defined.
    */
   virtual const std::string
   getMessage (const std::string& id, const SBase& object);

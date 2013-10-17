@@ -76,6 +76,8 @@ public:
 
 
   /**
+   * Returns the program name of the validator to be run
+   *
    * @return the program name of the validator to be run
    */
   const std::string& getProgram()  const;
@@ -90,7 +92,9 @@ public:
 
 
   /**
-   * @return the output file name (this is the file the external program will write)
+   * Returns the output file name (this is the file the external program will write)
+   *
+   * @return the output file name
    */
   const std::string& getOutputFileName()  const;
 

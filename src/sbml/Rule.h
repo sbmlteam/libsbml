@@ -1045,6 +1045,8 @@ protected:
   /** @cond doxygenLibsbmlInternal */
 
   /**
+   * Create and return a listOfRules object, if present.
+   *
    * @return the SBML object corresponding to next XMLToken in the
    * XMLInputStream or @c NULL if the token was not recognized.
    */

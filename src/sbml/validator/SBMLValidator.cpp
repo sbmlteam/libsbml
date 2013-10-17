@@ -198,7 +198,7 @@ SBMLValidator::validate(const SBMLDocument& d)
   
 
 /*
- * @return the SBMLErrorLog used to log errors during while reading and
+ * @return the SBMLErrorLog used to log errors while reading and
  * validating SBML.
  */
 SBMLErrorLog*

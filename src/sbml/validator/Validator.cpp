@@ -112,6 +112,8 @@ public:
   }
 
   /**
+   * Returns true if this ConstraintSet is empty, false otherwise.
+   *
    * @return true if this ConstraintSet is empty, false otherwise.
    */
   bool empty () const

@@ -97,6 +97,8 @@ class LIBSBML_EXTERN ListOfSpeciesReferenceGlyphs : public ListOf
 public:
 
   /**
+   * Creates and returns a deep copy of this ListOfSpeciesReferenceGlyphs.
+   * 
    * @return a (deep) copy of this ListOfSpeciesReferenceGlyphs.
    */
   virtual ListOfSpeciesReferenceGlyphs* clone () const;
@@ -229,6 +231,8 @@ protected:
 
   /** @cond doxygenLibsbmlInternal */
   /**
+   * Create and return an SBML object of this class, if present.
+   *
    * @return the SBML object corresponding to next XMLToken in the
    * XMLInputStream or NULL if the token was not recognized.
    */
@@ -495,6 +499,8 @@ public:
   virtual const std::string& getElementName () const ;
 
   /**
+   * Creates and returns a deep copy of this ReactionGlyph object.
+   * 
    * @return a (deep) copy of this ReactionGlyph.
    */
   virtual ReactionGlyph* clone () const;
@@ -573,6 +579,8 @@ public:
 protected:
   /** @cond doxygenLibsbmlInternal */
   /**
+   * Create and return an SBML object of this class, if present.
+   *
    * @return the SBML object corresponding to next XMLToken in the
    * XMLInputStream or NULL if the token was not recognized.
    */

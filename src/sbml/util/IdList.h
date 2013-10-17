@@ -57,6 +57,8 @@ public:
   void append (const std::string id) { mIds.push_back(id); }
 
   /**
+   * Returns true if id is already in this IdList, false otherwise.
+   *
    * @return true if id is already in this IdList, false otherwise.
    */
   bool contains (const std::string id) const;
@@ -67,12 +69,16 @@ public:
   void removeIdsBefore (const std::string id);
 
   /**
+   * Returns the number of ids in this IdList.
+   *
    * @return the number of ids in this IdList.
    */
   unsigned int size () const { return (unsigned int)mIds.size(); }
 
 #ifndef SWIG
   /**
+   * Returns an iterator to the beginning of this IdList.
+   *
    * @return an iterator to the beginning of this IdList.
    */
   std::vector<std::string>::const_iterator begin () const
@@ -81,6 +87,8 @@ public:
   }
 
   /**
+   * Returns an iterator to the end of this IdList.
+   *
    * @return an iterator to the end of this IdList.
    */
   std::vector<std::string>::const_iterator end () const

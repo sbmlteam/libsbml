@@ -1208,6 +1208,8 @@ protected:
   /** @cond doxygenLibsbmlInternal */
 
   /**
+   * Create and return an SBML object of this class, if present.
+   *
    * @return the SBML object corresponding to next XMLToken in the
    * XMLInputStream or @c NULL if the token was not recognized.
    */
@@ -1435,6 +1437,8 @@ public:
   /** @cond doxygenLibsbmlInternal */
 
   /**
+   * Return the position of this element.
+   *
    * @return the ordinal position of the element with respect to its
    * siblings or -1 (default) to indicate the position is not significant.
    */
@@ -1447,6 +1451,8 @@ protected:
   /** @cond doxygenLibsbmlInternal */
 
   /**
+   * Create and return an SBML object of this class, if present.
+   *
    * @return the SBML object corresponding to next XMLToken in the
    * XMLInputStream or @c NULL if the token was not recognized.
    */

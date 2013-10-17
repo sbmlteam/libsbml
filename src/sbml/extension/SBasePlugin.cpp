@@ -648,7 +648,7 @@ SBasePlugin::writeXMLNS (XMLOutputStream& stream) const
 
 /** @cond doxygenLibsbmlInternal */
 /*
- * @return the SBMLErrorLog used to log errors during while reading and
+ * @return the SBMLErrorLog used to log errors while reading and
  * validating SBML.
  */
 SBMLErrorLog* 

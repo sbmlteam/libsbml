@@ -104,6 +104,8 @@ class LIBSBML_EXTERN ListOfCompartmentGlyphs : public ListOf
 public:
 
   /**
+   * Creates and returns a deep copy of this ListOfCompartmentGlyphs.
+   * 
    * @return a (deep) copy of this ListOfCompartmentGlyphs.
    */
   virtual ListOfCompartmentGlyphs* clone () const;
@@ -239,6 +241,8 @@ protected:
 
   /** @cond doxygenLibsbmlInternal */
   /**
+   * Create and return an SBML object of this class, if present.
+   *
    * @return the SBML object corresponding to next XMLToken in the
    * XMLInputStream or NULL if the token was not recognized.
    */
@@ -263,6 +267,8 @@ class LIBSBML_EXTERN ListOfSpeciesGlyphs : public ListOf
 public:
 
   /**
+   * Creates and returns a deep copy of this ListOfSpeciesGlyphs.
+   * 
    * @return a (deep) copy of this ListOfSpeciesGlyphs.
    */
   virtual ListOfSpeciesGlyphs* clone () const;
@@ -397,6 +403,8 @@ protected:
 
   /** @cond doxygenLibsbmlInternal */
   /**
+   * Create and return an SBML object of this class, if present.
+   *
    * @return the SBML object corresponding to next XMLToken in the
    * XMLInputStream or NULL if the token was not recognized.
    */
@@ -421,6 +429,8 @@ class LIBSBML_EXTERN ListOfReactionGlyphs : public ListOf
 public:
 
   /**
+   * Creates and returns a deep copy of this ListOfReactionGlyphs.
+   * 
    * @return a (deep) copy of this ListOfReactionGlyphs.
    */
   virtual ListOfReactionGlyphs* clone () const;
@@ -555,6 +565,8 @@ protected:
 
   /** @cond doxygenLibsbmlInternal */
   /**
+   * Create and return an SBML object of this class, if present.
+   *
    * @return the SBML object corresponding to next XMLToken in the
    * XMLInputStream or NULL if the token was not recognized.
    */
@@ -579,6 +591,8 @@ class LIBSBML_EXTERN ListOfTextGlyphs : public ListOf
 public:
 
   /**
+   * Creates and returns a deep copy of this ListOfTextGlyphs.
+   * 
    * @return a (deep) copy of this ListOfTextGlyphs.
    */
   virtual ListOfTextGlyphs* clone () const;
@@ -713,6 +727,8 @@ protected:
 
   /** @cond doxygenLibsbmlInternal */
   /**
+   * Create and return an SBML object of this class, if present.
+   *
    * @return the SBML object corresponding to next XMLToken in the
    * XMLInputStream or NULL if the token was not recognized.
    */
@@ -1372,6 +1388,8 @@ public:
   virtual const std::string& getElementName () const ;
 
   /**
+   * Creates and returns a deep copy of this Layout.
+   * 
    * @return a (deep) copy of this Layout.
    */
   virtual Layout* clone () const;
@@ -1451,6 +1469,8 @@ public:
 protected:
   /** @cond doxygenLibsbmlInternal */
   /**
+   * Create and return an SBML object of this class, if present.
+   *
    * @return the SBML object corresponding to next XMLToken in the
    * XMLInputStream or NULL if the token was not recognized.
    */
@@ -1515,6 +1535,8 @@ class LIBSBML_EXTERN ListOfLayouts : public ListOf
 public:
 
   /**
+   * Creates and returns a deep copy of this ListOfLayouts.
+   * 
    * @return a (deep) copy of this ListOfLayouts.
    */
   virtual ListOfLayouts* clone () const;
@@ -1652,6 +1674,8 @@ protected:
 
   /** @cond doxygenLibsbmlInternal */
   /**
+   * Create and return an SBML object of this class, if present.
+   *
    * @return the SBML object corresponding to next XMLToken in the
    * XMLInputStream or NULL if the token was not recognized.
    */

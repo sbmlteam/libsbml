@@ -83,6 +83,9 @@ protected:
   void checkForCycle (const Model& m, const Compartment* c);
 
   /**
+   * Returns true if Compartment @p c is contained in one of the already found
+   * cycles, false otherwise.
+   *
    * @return true if Compartment c is contained in one of the already found
    * cycles, false otherwise.
    */

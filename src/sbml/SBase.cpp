@@ -4241,10 +4241,6 @@ SBase::getElementPosition () const
 
 
 /** @cond doxygenLibsbmlInternal */
-/*
- * @return the SBMLErrorLog used to log errors during while reading and
- * validating SBML.
- */
 SBMLErrorLog*
 SBase::getErrorLog ()
 {

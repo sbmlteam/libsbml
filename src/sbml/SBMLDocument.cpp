@@ -1061,7 +1061,7 @@ SBMLDocument::getNamespaces() const
 
 
 /*
- * @return the SBMLErrorLog used to log errors during while reading and
+ * @return the SBMLErrorLog used to log errors while reading and
  * validating SBML.
  */
 SBMLErrorLog*
@@ -1072,7 +1072,7 @@ SBMLDocument::getErrorLog ()
 
 
 /*
- * @return the SBMLErrorLog used to log errors during while reading and
+ * @return the SBMLErrorLog used to log errors while reading and
  * validating SBML.
  */
 const SBMLErrorLog*

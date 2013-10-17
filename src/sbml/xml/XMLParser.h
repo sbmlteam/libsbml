@@ -129,18 +129,25 @@ public:
 
 
   /**
+   * Returns the current column position of the parser.  Must be overridden by child classes.
+   *
    * @return the current column position of the parser.
    */
   virtual unsigned int getColumn () const = 0;
 
 
   /**
+   * Returns the current line position of the parser.  Must be overridden by child classes.
+   *
    * @return the current line position of the parser.
    */
   virtual unsigned int getLine () const = 0;
 
 
   /**
+   * Returns an XMLErrorLog which can be used to log XML parse errors and
+   * other validation errors (and messages).
+   *
    * @return an XMLErrorLog which can be used to log XML parse errors and
    * other validation errors (and messages).
    */

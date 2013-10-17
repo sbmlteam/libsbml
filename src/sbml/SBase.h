@@ -3151,7 +3151,10 @@ protected:
 
 
   /**
-   * @return the SBMLErrorLog used to log errors during while reading and
+   * Returns the SBMLErrorLog used to log errors while reading and
+   * validating SBML.
+   *
+   * @return the SBMLErrorLog used to log errors while reading and
    * validating SBML.
    */
   SBMLErrorLog* getErrorLog ();
@@ -3561,6 +3564,8 @@ private:
 
 
   /**
+   * Reads an annotation from the stream and returns true if successful.
+   *
    * @return true if read an <annotation> element from the stream
    */
   bool readAnnotation (XMLInputStream& stream);
@@ -3577,6 +3582,8 @@ private:
   int addTermToExistingBag(CVTerm *term, QualifierType_t type);
 
   /**
+   * Reads the notes from the stream and returns true if successful.
+   *
    * @return true if read a <notes> element from the stream
    */
   bool readNotes (XMLInputStream& stream);

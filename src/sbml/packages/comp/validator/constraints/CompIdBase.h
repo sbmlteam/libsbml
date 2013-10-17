@@ -106,25 +106,31 @@ protected:
   virtual void doCheckId (const std::string& id, const SBase& object) = 0;
 
   /**
-   * @return the fieldname to use logging constraint violations.  If not
-   * overridden, "id" is returned.
+   * Returns the fieldname to use when logging constraint violations.  Subclasses
+   * are supposed to override this method if "id" is not appropriate.
+   *
+   * @return the string "id".
    */
   virtual const char* getFieldname ();
 
   /**
-   * @return the preamble to use when logging constraint violations.  The
-   * preamble will be prepended to each log message.  If not overriden,
-   * returns an empty string.
+   * Returns the preamble to use when logging constraint violations.  
+   * An empty string by default, any subclasses
+   * are supposed to override this method if this is not appropriate.
+   *
+   * @return an empty string (the preamble to use when logging constraint violations).
    */
   virtual const char* getPreamble ();
 
   /**
-   * @return the error message to use when logging constraint violations.
-   * This method is called by logFailure.
+   * Returns the error message to use when logging constraint violations.
+   * This method must be overridden by subclasses.
    *
    * If at all possible please use getPreamble() and getFieldname() when
    * constructing error messages.  This will help to make your constraint
    * easily customizable.
+   * 
+   * @return the error message to use when logging constraint violations.
    */
   virtual const std::string
   getMessage (const std::string& id, const SBase& object) = 0;
@@ -175,6 +181,9 @@ protected:
 //  void checkId (const SBase&    x);
 
   /**
+   * Returns a non-owning character pointer to the typename of the given SBase 
+   * @p object, as constructed from its typecode and package.
+   *
    * @return the typename of the given SBase object.
    */
   const char* getTypename (const SBase& object);

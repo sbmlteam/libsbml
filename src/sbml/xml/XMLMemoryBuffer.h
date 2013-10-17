@@ -63,8 +63,11 @@ public:
 
 
   /**
-   * @return true if there was an error reading from the underlying buffer
+   * Returns true if there was an error reading from the underlying buffer
    * (i.e. it's null), false otherwise.
+   *
+   * @return true if there was an error reading from the underlying buffer,
+   * false otherwise.
    */
   virtual bool error ();
 

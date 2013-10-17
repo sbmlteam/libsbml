@@ -57,6 +57,8 @@ public:
 protected:
 
   /**
+   * Returns the preamble to use when logging constraint violations.  
+   *
    * @return the preamble to use when logging constraint violations.
    */
   virtual const char* getPreamble ();

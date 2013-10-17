@@ -101,6 +101,8 @@ class LIBSBML_EXTERN ListOfLineSegments : public ListOf
  public:
 
   /**
+   * Creates and returns a deep copy of this ListOfLineSegments.
+   * 
    * @return a (deep) copy of this ListOfLineSegments.
    */
   virtual ListOfLineSegments* clone () const;
@@ -186,6 +188,8 @@ protected:
 
   /** @cond doxygenLibsbmlInternal */
   /**
+   * Create and return an SBML object of this class, if present.
+   *
    * @return the SBML object corresponding to next XMLToken in the
    * XMLInputStream or NULL if the token was not recognized.
    */
@@ -331,6 +335,8 @@ public:
   virtual const std::string& getElementName () const ;
 
   /**
+   * Creates and returns a deep copy of this Curve.
+   * 
    * @return a (deep) copy of this Curve.
    */
   virtual Curve* clone () const;
@@ -408,6 +414,8 @@ public:
 protected:
   /** @cond doxygenLibsbmlInternal */
   /**
+   * Create and return an SBML object of this class, if present.
+   *
    * @return the SBML object corresponding to next XMLToken in the
    * XMLInputStream or NULL if the token was not recognized.
    */

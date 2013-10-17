@@ -112,6 +112,8 @@ public:
  
   /** @cond doxygenLibsbmlInternal */
   /**
+   * Create and return an SBML object of this class, if present.
+   *
    * @return the SBML object corresponding to next XMLToken in the
    * XMLInputStream or @c NULL if the token was not recognized.
    */

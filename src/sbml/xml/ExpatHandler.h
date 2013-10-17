@@ -129,12 +129,16 @@ public:
 
 
   /**
+   * Returns the column number of the current XML event.
+   *
    * @return the column number of the current XML event.
    */
   unsigned int getColumn () const;
 
 
   /**
+   * Returns the line number of the current XML event.
+   *
    * @return the line number of the current XML event.
    */
   unsigned int getLine () const;

@@ -800,7 +800,10 @@ protected:
 
 
   /**
-   * @return the SBMLErrorLog used to log errors during while reading and
+   * Returns the SBMLErrorLog used to log errors while reading and
+   * validating SBML.
+   *
+   * @return the SBMLErrorLog used to log errors while reading and
    * validating SBML.
    */
   SBMLErrorLog* getErrorLog ();
