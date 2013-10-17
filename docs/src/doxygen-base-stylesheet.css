@@ -465,7 +465,9 @@ span.keywordflow {
 }
 
 span.comment {
-    color: #800000
+    color: #777;
+    font-weight: normal;
+    font-style: italic;
 }
 
 span.preprocessor {
@@ -1446,10 +1448,6 @@ div.toc li.level4 {
   padding-bottom: 0px;
 }
 
-span.comment {
-  color: #777;
-}
-
 #projectname {
     background-image: url(official-sbml-supported-32.jpg);
     background-position: left center;
@@ -1878,6 +1876,7 @@ img.big-icon {
 
 code.language-java .com {
     color: #777;
+    font-weight: normal;
 }
 
 code.language-java .kwd {
