@@ -77,5 +77,6 @@ ENABLED_SECTIONS       = cpp clike doxygenCppOnly
 # Note: The output has a lot of errors.  Can't enable just yet.
 # GENERATE_MAN           = YES
 
-EXAMPLE_PATH           = common-text examples . ../.. ../../examples/c++
-
+EXAMPLE_PATH           = common-text examples . ../.. ../../examples/c++ \
+                         ../../examples/c++/comp ../../examples/c++/layout \
+                         ../../examples/c++/fbc ../../examples/c++/qual 
