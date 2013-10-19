@@ -48,6 +48,6 @@ using namespace std;
 // 10301
 EXTERN_CONSTRAINT(QualDuplicateComponentId, QualUniqueModelWideIds);
 
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 

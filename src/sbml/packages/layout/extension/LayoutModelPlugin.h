@@ -371,7 +371,7 @@ public:
 
 	virtual bool accept (SBMLVisitor& v) const;
 
-	/** @endcond doxygenLibsbmlInternal */
+	/** @endcond */
 
 
 protected:

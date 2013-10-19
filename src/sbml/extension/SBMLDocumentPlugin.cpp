@@ -125,9 +125,7 @@ SBMLDocumentPlugin::addExpectedAttributes(ExpectedAttributes& attributes)
 }
 
 
-/**
- *
- */
+/** @cond doxygenLibsbmlInternal */
 void
 SBMLDocumentPlugin::readAttributes (const XMLAttributes& attributes,
                                     const ExpectedAttributes& expectedAttributes)
@@ -159,11 +157,10 @@ SBMLDocumentPlugin::readAttributes (const XMLAttributes& attributes,
     }
   }
 }
+/** @endcond */
 
 
-/**
- *
- */
+/** @cond doxygenLibsbmlInternal */
 void
 SBMLDocumentPlugin::writeAttributes (XMLOutputStream& stream) const
 {
@@ -180,15 +177,19 @@ SBMLDocumentPlugin::writeAttributes (XMLOutputStream& stream) const
     stream.writeAttribute(tripleRequired, mRequired);
   }
 }
+/** @endcond */
 
+/** @cond doxygenLibsbmlInternal */
 bool
 SBMLDocumentPlugin::isCompFlatteningImplemented() const
 {
   return false;
 }
+/** @endcond */
 
 
 
+/** @cond doxygenLibsbmlInternal */
 unsigned int 
 SBMLDocumentPlugin::checkConsistency()
 {

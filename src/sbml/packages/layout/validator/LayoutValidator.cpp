@@ -34,7 +34,7 @@
 
 using namespace std;
 
-	/** @endcond doxygenLibsbmlInternal */
+	/** @endcond */
 
 
 LIBSBML_CPP_NAMESPACE_BEGIN

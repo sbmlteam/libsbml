@@ -690,12 +690,12 @@ public:
 
   /**
    * Returns the libSBML type code for the objects contained in this ListOf
-   * (i.e., SBMLFbcTypeCode_t#SBML_FBC_OBJECTIVE).
+   * (i.e., @link SBMLFbcTypeCode_t#SBML_FBC_OBJECTIVE SBML_FBC_OBJECTIVE@endlink).
    * 
    * @copydetails doc_what_are_typecodes
    *
    * @return the SBML type code for objects contained in this list:
-   * @linkSBMLFbcTypeCode_t#SBML_FBC_OBJECTIVE SBML_FBC_OBJECTIVE@endlink
+   * @link SBMLFbcTypeCode_t#SBML_FBC_OBJECTIVE SBML_FBC_OBJECTIVE@endlink
    *
    * @see getElementName()
    * @see getPackageName()

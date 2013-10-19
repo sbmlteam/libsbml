@@ -20,6 +20,8 @@
  * @ingroup fbc
  * @brief @htmlinclude pkg-marker-fbc.html
  * Implementation of the 'fbc' package %FluxObjective construct.
+ *
+ * An integral component in a complete description of a steady-state model is the so-called ‘objective function’ which generally consists of a linear combination of model variables (fluxes) and a sense (direction). In the FBC package this concept is succinctly captured in the Objective class.
  * <!-- leave this next break as-is to work around some doxygen bug -->
  */ 
 

@@ -686,13 +686,16 @@ CompSBMLDocumentPlugin::clearStoredURIDocuments()
   mURIToDocumentMap.clear();
 }
 
+/** @cond doxygenLibsbmlInternal */
 bool
 CompSBMLDocumentPlugin::isCompFlatteningImplemented() const
 {
   return true;
 }
+/** @endcond */
 
 
+/** @cond doxygenLibsbmlInternal */
 unsigned int 
 CompSBMLDocumentPlugin::checkConsistency()
 {
@@ -1024,6 +1027,7 @@ CompSBMLDocumentPlugin::checkConsistency()
   }
   return total_errors;  
 }
+/** @endcond */
 
 /** @cond doxygenLibsbmlInternal */
 

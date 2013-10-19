@@ -62,7 +62,7 @@
 
 #include <list>
 #include <string>
-	/** @endcond doxygenLibsbmlInternal */
+	/** @endcond */
 
 
 #include <sbml/SBMLError.h>

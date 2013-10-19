@@ -480,7 +480,7 @@ public:
    */
   virtual bool accept (SBMLVisitor& v) const;
 
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 protected:
   /** @cond doxygenLibsbmlInternal */
@@ -490,7 +490,7 @@ protected:
   ListOfQualitativeSpecies mQualitativeSpecies;
   ListOfTransitions mTransitions;
 
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 };
 
 LIBSBML_CPP_NAMESPACE_END

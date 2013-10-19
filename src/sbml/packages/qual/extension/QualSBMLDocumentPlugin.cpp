@@ -126,7 +126,7 @@ QualSBMLDocumentPlugin::readAttributes (const XMLAttributes& attributes,
   }
 }
 
-/** @endcond doxygenLibsbmlInternal*/
+/** @endcond*/
 
 
 /** @cond doxygenLibsbmlInternal */

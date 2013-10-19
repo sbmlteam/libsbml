@@ -347,7 +347,7 @@ FunctionTerm::writeElements (XMLOutputStream& stream) const
 }
 
 
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
   /** @cond doxygenLibsbmlInternal */
@@ -362,7 +362,7 @@ FunctionTerm::accept (SBMLVisitor& v) const
 }
 
 
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
   /** @cond doxygenLibsbmlInternal */
@@ -377,7 +377,7 @@ FunctionTerm::setSBMLDocument (SBMLDocument* d)
 }
 
 
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
   /** @cond doxygenLibsbmlInternal */
@@ -393,7 +393,7 @@ FunctionTerm::enablePackageInternal(const std::string& pkgURI,
 }
 
 
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
   /** @cond doxygenLibsbmlInternal */
@@ -410,7 +410,7 @@ FunctionTerm::addExpectedAttributes(ExpectedAttributes& attributes)
 }
 
 
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
   /** @cond doxygenLibsbmlInternal */
@@ -522,7 +522,7 @@ FunctionTerm::readAttributes (const XMLAttributes& attributes,
 }
 
 
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
 /** @cond doxygenLibsbmlInternal */
@@ -595,7 +595,7 @@ FunctionTerm::writeAttributes (XMLOutputStream& stream) const
 }
 
 
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
 /*
@@ -889,7 +889,7 @@ ListOfFunctionTerms::createObject(XMLInputStream& stream)
 }
 
 
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
   /** @cond doxygenLibsbmlInternal */
@@ -916,7 +916,7 @@ ListOfFunctionTerms::writeXMLNS(XMLOutputStream& stream) const
 }
 
 
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
   /** @cond doxygenLibsbmlInternal */
@@ -940,7 +940,7 @@ ListOfFunctionTerms::writeElements(XMLOutputStream& stream) const
 }
 
 
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
   /** @cond doxygenLibsbmlInternal */
 
 /*
@@ -955,7 +955,7 @@ ListOfFunctionTerms::connectToChild()
     mDefaultTerm->connectToParent(this);
   }
 }
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
   /** @cond doxygenLibsbmlInternal */
@@ -972,7 +972,7 @@ ListOfFunctionTerms::setSBMLDocument(SBMLDocument* d)
     mDefaultTerm->setSBMLDocument(d);
   }
 }
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
   /** @cond doxygenLibsbmlInternal */
@@ -999,7 +999,7 @@ ListOfFunctionTerms::accept(SBMLVisitor& v) const
 
   return result;
 }
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
 /**

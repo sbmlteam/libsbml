@@ -102,7 +102,9 @@ public:
 
 
   /**
-   * clone 
+   * Creates and returns a deep copy of this SBaseExtensionPoint.
+   * 
+   * @return a (deep) copy of this SBaseExtensionPoint.
    */
   SBaseExtensionPoint* clone() const;
 

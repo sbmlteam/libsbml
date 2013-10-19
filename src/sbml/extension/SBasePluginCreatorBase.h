@@ -69,7 +69,9 @@ public:
 
 
   /**
-   * clone
+   * Creates and returns a deep copy of this SBasePluginCreatorBase.  Must be overridden by child classes.
+   * 
+   * @return a (deep) copy of this SBasePluginCreatorBase.
    */
   virtual SBasePluginCreatorBase* clone() const = 0;
 

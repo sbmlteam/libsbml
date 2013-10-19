@@ -1147,7 +1147,9 @@ public:
   /** @cond doxygenLibsbmlInternal **/
 
   /**
-   * clone function
+   * Creates and returns a deep copy of this SBMLError.
+   * 
+   * @return a (deep) copy of this SBMLError.
    */
   virtual SBMLError* clone() const; 
 

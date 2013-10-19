@@ -57,30 +57,33 @@ protected:
 public:
 
   /**
-   * Creates a new GeneAssociation with the given level, version, and package version.
+   * Creates a new GeneAssociation with the given @p level, @p version, and @p pkgVersion.
    */
-   GeneAssociation(unsigned int level      = FbcExtension::getDefaultLevel(),
-          unsigned int version    = FbcExtension::getDefaultVersion(),
-          unsigned int pkgVersion = FbcExtension::getDefaultPackageVersion());
+  GeneAssociation(unsigned int level      = FbcExtension::getDefaultLevel(),
+                  unsigned int version    = FbcExtension::getDefaultVersion(),
+                  unsigned int pkgVersion = FbcExtension::getDefaultPackageVersion());
 
+  /**
+   * Creates a new GeneAssociation with the given @p node and FbcPkgNamespaces @p fbcns.
+   */
   GeneAssociation(const XMLNode& node, FbcPkgNamespaces* fbcns);
 
   /**
    * Creates a new GeneAssociation with the given FbcPkgNamespaces object.
    */
-   GeneAssociation(FbcPkgNamespaces* fbcns);
+  GeneAssociation(FbcPkgNamespaces* fbcns);
 
 
   /**
    * Copy constructor.
    */
-   GeneAssociation(const GeneAssociation& source);
+  GeneAssociation(const GeneAssociation& source);
 
 
   /**
    * Assignment operator.
    */
-   GeneAssociation& operator=(const GeneAssociation& source);
+  GeneAssociation& operator=(const GeneAssociation& source);
 
 
   /**
@@ -295,6 +298,9 @@ public:
   virtual bool accept (SBMLVisitor& v) const;
   
   
+  /**
+   * Creates an XMLNode object from this.
+   */
   XMLNode toXML() const;
 
   

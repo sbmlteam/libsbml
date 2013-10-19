@@ -52,6 +52,6 @@ EXTERN_CONSTRAINT(LayoutDuplicateComponentId, UniqueIdsLayout);
 // 10302 - caught at read
 
 
-	/** @endcond doxygenLibsbmlInternal */
+	/** @endcond */
 
 

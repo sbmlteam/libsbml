@@ -1812,4 +1812,4 @@ LIBSBML_CPP_NAMESPACE_END
 
 #endif  /*  LayoutSBMLErrorTable_h__  */
 
-/** @endcond doxygenLibsbmlInternal */
+/** @endcond */

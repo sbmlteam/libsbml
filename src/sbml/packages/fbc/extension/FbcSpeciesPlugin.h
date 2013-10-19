@@ -21,6 +21,8 @@
  * @ingroup fbc
  * @brief @htmlinclude pkg-marker-fbc.html
  * Implementation of the 'fbc' package extention to the %Species construct.
+ *
+ * The Flux Balance Constraints package extends the SBML Level 3 Version 1 Core Species class with the addition of two attributes: 'charge' and 'chemicalFormula'.
  */
 
 #ifndef FbcSpeciesPlugin_h
@@ -80,17 +82,81 @@ public:
    */
   virtual FbcSpeciesPlugin * clone () const;
 
-
-  
-
+  /**
+   * Predicate returning @c true or @c false depending on whether this
+   * FbcSpeciesPlugin "charge" attribute has been set.
+   *
+   * @return @c true if this FbcSpeciesPlugin "charge" attribute has been set,
+   * otherwise @c false is returned.
+   */
   virtual bool isSetCharge() const;
+
+  /**
+   * Sets the value of the "charge" attribute of this FbcSpeciesPlugin.
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The only possible value
+   * returned by this function is:
+   * @li LIBSBML_OPERATION_SUCCESS
+   */
   virtual int setCharge(int charge);
+
+  /**
+   * Returns the value of the "charge" attribute of this FbcSpeciesPlugin.
+   *
+   * @return the value of the "charge" attribute of this FbcSpeciesPlugin.
+   */
   virtual int getCharge() const;
+
+  /**
+   * Unsets the value of the "charge" attribute of this FbcSpeciesPlugin.
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The only possible value
+   * returned by this function is:
+   * @li LIBSBML_OPERATION_SUCCESS
+   */
   virtual int unsetCharge();
 
+  /**
+   * Predicate returning @c true or @c false depending on whether this
+   * FbcSpeciesPlugin "chemicalFormula" attribute has been set.
+   *
+   * @return @c true if this FbcSpeciesPlugin "chemicalFormula" attribute has been set,
+   * otherwise @c false is returned.
+   */
   virtual bool isSetChemicalFormula() const;
+
+  /**
+   * Sets the value of the "chemicalFormula" attribute of this FbcSpeciesPlugin.
+   * The format of chemicalFormula must consist only of atomic names (as in the Periodic Table) or user defined compounds either of which take the form of a single capital letter followed by zero or more lowercase letters. Where there is more than a single atom present, this is indicated with an integer. With regards to order (and enhance inter-operability) it is recommended to use the Hill system order.  (However, no error-checking is performed by this routine.)
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The only possible value
+   * returned by this function is:
+   * @li LIBSBML_OPERATION_SUCCESS
+   */
   virtual int setChemicalFormula(const std::string& chemicalFormula);
+
+  /**
+   * Returns the value of the "chemicalFormula" attribute of this FbcSpeciesPlugin.
+   *
+   * @return the value of the "chemicalFormula" attribute of this FbcSpeciesPlugin.
+   */
   virtual const std::string& getChemicalFormula() const;
+
+  /**
+   * Unsets the value of the "chemicalFormula" attribute of this FbcSpeciesPlugin.
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The only possible value
+   * returned by this function is:
+   * @li LIBSBML_OPERATION_SUCCESS
+   */
   virtual int unsetChemicalFormula();
   
 

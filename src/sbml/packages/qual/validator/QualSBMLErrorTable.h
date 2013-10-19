@@ -930,7 +930,7 @@ static const packageErrorTableEntry qualErrorTable[] =
 
 LIBSBML_CPP_NAMESPACE_END
 
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
 #endif  /*  QualSBMLErrorTable_h__  */

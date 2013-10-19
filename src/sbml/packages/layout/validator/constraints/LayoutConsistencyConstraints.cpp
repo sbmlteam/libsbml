@@ -927,6 +927,6 @@ START_CONSTRAINT (LayoutCBezAllowedElements, CubicBezier, line)
 END_CONSTRAINT
 
 
-	/** @endcond doxygenLibsbmlInternal */
+	/** @endcond */
 
 

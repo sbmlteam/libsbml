@@ -221,7 +221,7 @@ public:
 
   static void init();
 
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
   
   
   /** @cond doxygenLibsbmlInternal */
@@ -236,7 +236,7 @@ public:
   virtual packageErrorTableEntry getErrorTable(unsigned int index) const;
 
 
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
   /** @cond doxygenLibsbmlInternal */
@@ -251,7 +251,7 @@ public:
   virtual unsigned int getErrorTableIndex(unsigned int errorId) const;
 
 
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
   /** @cond doxygenLibsbmlInternal */
@@ -264,7 +264,7 @@ public:
   virtual unsigned int getErrorIdOffset() const;
 
 
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 };
 

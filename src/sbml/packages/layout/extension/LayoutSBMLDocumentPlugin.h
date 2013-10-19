@@ -113,7 +113,7 @@ public:
 	                             const ExpectedAttributes& expectedAttributes);
 
 
-	/** @endcond doxygenLibsbmlInternal */
+	/** @endcond */
 
 
 #endif // SWIG
@@ -129,18 +129,15 @@ public:
 	virtual bool isCompFlatteningImplemented() const;
 
 
-	/** @endcond doxygenLibsbmlInternal */
+	/** @endcond */
 
 
 	/** @cond doxygenLibsbmlInternal */
-
 	/**
 	 * Check consistency function.
 	 */
 	virtual unsigned int checkConsistency();
-
-
-	/** @endcond doxygenLibsbmlInternal */
+	/** @endcond */
 
 
 	/** @cond doxygenLibsbmlInternal */
@@ -159,7 +156,7 @@ public:
 
   List * getListElementsWithId() const;
 
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
 protected:
@@ -175,7 +172,7 @@ protected:
   bool mValidationListsPopulated;
 	
   
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
 };

@@ -112,7 +112,7 @@ public:
                                const ExpectedAttributes& expectedAttributes);
 
 
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
 #endif // SWIG
@@ -126,9 +126,7 @@ public:
    * false otherwise.
    */
   virtual bool isCompFlatteningImplemented() const;
-
-
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
   /** @cond doxygenLibsbmlInternal */
@@ -139,7 +137,7 @@ public:
   virtual unsigned int checkConsistency();
 
 
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
   /** @cond doxygenLibsbmlInternal */
@@ -150,14 +148,14 @@ public:
   virtual bool accept(SBMLVisitor& v) const;
 
 
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
 protected:
 
   /** @cond doxygenLibsbmlInternal */
 
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
 };

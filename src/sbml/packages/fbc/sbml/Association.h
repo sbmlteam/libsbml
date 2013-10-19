@@ -19,7 +19,9 @@
  * @class Association
  * @ingroup fbc
  * @brief @htmlinclude pkg-marker-fbc.html
- * Implementation of the 'fbc' package %Association construct.
+ * Implementation of the 'fbc' proposed package %Association construct.
+ *
+ * The Association class is not part of the official Flux Balance specification, but is instead a proposed future development of the package.  If adopted, it would be a child of a GeneAssociation that would describe a single 'and' or 'or' relationship between two or more genes or other associations. 
  */
 
 #ifndef Association_H__
@@ -186,16 +188,49 @@ public:
    */
   virtual int unsetReference ();
 
+  /**
+   * Add a gene with the given @p id to the association.
+   */
   virtual int addGene(const std::string& id);
+
+  /**
+   * Returns the number of child Associations of this Association.
+   */
   virtual unsigned int getNumAssociations();
+
+  /**
+   * Adds a child Association to this Association.
+   */
   virtual int addAssociation(Association &association);
+
+  /**
+   * Removes the child Associations with the given @p index from this Association.
+   */
   virtual int removeAssociation(int index);
+
+  /**
+   * Returns the number of child Associations of this Association.
+   */
   virtual int clearAssociations();
 
+  /**
+   * Creates and returns a new Association of type 'and'.  Does not actually add the created Association as a child of this Association or do anything else with it--the returning pointer is now owned by the caller.
+   */
   virtual Association* createAnd();
+
+  /**
+   * Creates and returns a new Association of type 'or'.  Does not actually add the created Association as a child of this Association or do anything else with it--the returning pointer is now owned by the caller.
+   */
   virtual Association* createOr();
+
+  /**
+   * Creates and returns a new Association of type 'and', and with the gene reference @p reference.  Does not actually add the created Association as a child of this Association or do anything else with it--the returning pointer is now owned by the caller.
+   */
   virtual Association* createGene(const std::string reference = "" );
 
+  /**
+   * Creates an XMLNode object from this.
+   */
   XMLNode toXML() const;
   
   /**

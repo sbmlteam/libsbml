@@ -56,4 +56,4 @@ LIBSBML_CPP_NAMESPACE_END
 #endif  /* LayoutConsistencyValidator_H__ */
 
 
-/** @endcond doxygenLibsbmlInternal */
+/** @endcond */

@@ -202,10 +202,17 @@ public:
 
 #endif //SWIG
  
+  /** @cond doxygenLibsbmlInternal */
   virtual bool isCompFlatteningImplemented() const;
+  /** @endcond */
 
 
-  virtual unsigned int checkConsistency(); 
+  /** @cond doxygenLibsbmlInternal */
+  /**
+   * Check consistency function.
+   */
+  virtual unsigned int checkConsistency();
+  /** @endcond */
 
 
   /** @cond doxygenLibsbmlInternal */

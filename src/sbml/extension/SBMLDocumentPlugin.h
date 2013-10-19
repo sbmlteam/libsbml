@@ -199,10 +199,17 @@ public:
   /** @cond doxygenLibsbmlInternal */
 
   
+  /** @cond doxygenLibsbmlInternal */
   virtual bool isCompFlatteningImplemented() const;
+  /** @endcond */
 
 
+  /** @cond doxygenLibsbmlInternal */
+  /**
+   * Check consistency function.
+   */
   virtual unsigned int checkConsistency();
+  /** @endcond */
 
 
   /** @endcond */
