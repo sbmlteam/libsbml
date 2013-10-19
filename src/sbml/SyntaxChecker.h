@@ -137,7 +137,7 @@ public:
 
   
   /**
-   * Returns @c true or @c false depending on whether the @param uri argument string
+   * Returns @c true or @c false depending on whether the @p uri argument string
    * conforms to the XML data type <code>anyURI</code>.
    *
    * Type anyURI is defined by XML Schema 1.0. It is a character string 
