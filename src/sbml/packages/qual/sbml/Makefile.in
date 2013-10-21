@@ -60,7 +60,7 @@ headers =	       \
   QualitativeSpecies.h \
   Transition.h
 
-header_inst_prefix = packages/layout/sbml
+header_inst_prefix = packages/qual/sbml
 
 sources =		 \
   DefaultTerm.cpp	 \
