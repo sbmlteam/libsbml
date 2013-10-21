@@ -199,40 +199,31 @@
  * @class doc_what_are_typecodes
  *
  * @par 
- * @if clike LibSBML attaches an identifying code to every kind of SBML
- * object.  These are known as <em>SBML type codes</em>.  The set of
- * possible type codes for core elements is defined in the enumeration #SBMLTypeCode_t.
- * The names of the type codes all begin with the characters @c
- * SBML_. @endif@if java LibSBML attaches an identifying code to every
- * kind of SBML object.  These are known as <em>SBML type codes</em>.  In
- * other languages, the set of type codes is stored in an enumeration; in
- * the Java language interface for libSBML, the type codes are defined as
- * static integer constants in the interface class {@link
- * libsbmlConstants}.  The names of the type codes all begin with the
- * characters @c SBML_. @endif@if python LibSBML attaches an identifying
- * code to every kind of SBML object.  These are known as <em>SBML type
- * codes</em>.  In the Python language interface for libSBML, the type
- * codes are defined as static integer constants in the interface class
- * @link libsbml@endlink.  The names of the type codes all begin with the
- * characters @c SBML_. @endif@if csharp LibSBML attaches an identifying
- * code to every kind of SBML object.  These are known as <em>SBML type
- * codes</em>.  In the C# language interface for libSBML, the type codes
- * are defined as static integer constants in the interface class @link
- * libsbmlcs.libsbml@endlink.  The names of the type codes all begin with
- * the characters @c SBML_. @endif@~
+ * LibSBML attaches an identifying code to every kind of SBML object.  These
+ * are integer constants known as <em>SBML type codes</em>.  The names of all
+ * the codes begin with the characters &ldquo;<code>SBML_</code>&rdquo;. 
+ * @if clike The set of possible type codes for core elements is defined in
+ * the enumeration #SBMLTypeCode_t, and in addition, libSBML plug-ins for
+ * SBML Level&nbsp;3 packages define their own extra enumerations of type
+ * codes (e.g., #SBMLLayoutTypeCode_t for the Level&nbsp;3 Layout
+ * package).@endif@if java In the Java language interface for libSBML, the
+ * type codes are defined as static integer constants in the interface class
+ * {@link libsbmlConstants}.  @endif@if python In the Python language
+ * interface for libSBML, the type codes are defined as static integer
+ * constants in the interface class @link libsbml@endlink.@endif@if csharp In
+ * the C# language interface for libSBML, the type codes are defined as
+ * static integer constants in the interface class
+ * @link libsbmlcs.libsbml@endlink.@endif@~  Note that different Level&nbsp;3 
+ * package plug-ins may use overlapping type codes; to identify the package
+ * to which a given object belongs, call getPackageName().
+ * 
+ * <!-- ------------------------------------------------------------------- -->
+ * @class doc_warning_typecodes_not_unique
  *
- * @par
- * @note In libSBML 5, the type of return value changed from
- *       #SBMLTypeCode_t to int. The return value is one of enum values defined
- *       for each package. For example, return values will be one of
- *       #SBMLTypeCode_t if this object is defined in SBML core package,
- *       return values will be one of #SBMLLayoutTypeCode_t if this object is
- *       defined in Layout extension (i.e. similar enum types are defined in
- *       each pacakge extension for each SBase subclass)
- *       The value of each typecode can be duplicated between those of
- *       different packages. Thus, to distinguish the typecodes of different
- *       packages, not only the return value of getTypeCode() but also that of
- *       getPackageName() must be checked.
+ * @warning The specific integer values of the possible type codes may be
+ * reused by different Level&nbsp;3 package plug-ins.  Thus, to identifiy
+ * the correct code, <strong>it is necessary to invoke both getTypeCode() and
+ * getPackageName()</strong>.
  *
  * <!-- ------------------------------------------------------------------- -->
  * @class doc_what_are_plugins
