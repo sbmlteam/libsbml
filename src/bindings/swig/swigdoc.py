@@ -514,19 +514,51 @@ class CClassDoc:
 
 
 
-def getHeadersFromSWIG (filename):
+def getHeadersFromSWIG (filename, includedfiles=[]):
   """getHeadersFromSWIG (filename) -> (filename1, filename2, .., filenameN)
 
-  Reads the list of %include directives from the given SWIG (.i).  The
-  list of C/C++ headers (.h) included is returned.
+  Reads the list of %include directives from the given SWIG (.i), and returns
+  a list of C/C++ headers (.h) found.  This uses a recursive algorithm.
   """
   stream = open(filename)
   lines  = stream.readlines()
   stream.close()
 
+  # First look for %include's of .i files, and read those as additional files
+  # to search for .h files.
+
+  ignored_ifiles = ['std_string.i']
+
+  ifiles = [line for line in lines if line.strip().startswith('%include')]
+  ifiles = [line.replace('"', '') for line in ifiles]
+  ifiles = [line for line in ifiles if line.strip().endswith('.i')]
+  ifiles = [line.replace('%include', '').strip() for line in ifiles]
+  ifiles = [file for file in ifiles if file not in ignored_ifiles]
+
+  # SWIG searches multiple paths for %include'd files.  We just look in a
+  # couple of likely places.
+  for ifilename in ifiles:
+    thefile = ''
+    if os.path.isfile(ifilename):
+      thefile = ifilename
+    else:
+      slash = filename.rfind('/')
+      if slash > 0:
+        thefile = filename[:slash + 1] + ifilename
+    if thefile != '':
+      includedfiles.extend(getHeadersFromSWIG(thefile, includedfiles))
+
+  # Now look through everything for .h files & return the list of those names.
+
+  ignored_hfiles = ['ListWrapper.h', 'OStream.h']
+
   lines  = [line for line in lines if line.strip().startswith('%include')]
+  lines  = [line.replace('"', '') for line in lines]
   lines  = [line for line in lines if line.strip().endswith('.h')]
-  return [line.replace('%include', '').strip() for line in lines]
+  hfiles = [line.replace('%include', '').strip() for line in lines]
+  hfiles = [file for file in hfiles if file not in ignored_hfiles]
+  hfiles.extend(includedfiles)
+  return hfiles
 
 
 
@@ -562,6 +594,7 @@ def rewriteCommonReferences (docstring):
     docstring = re.sub(r'XMLErrorCategory_t#',      target, docstring)
     docstring = re.sub(r'XMLErrorSeverity_t#',      target, docstring)
     docstring = re.sub(r'ParseLogType_t#',          target, docstring)
+    docstring = re.sub(r'SBMLLayoutTypeCode_t#',    target, docstring)
 
   return docstring
 
@@ -578,7 +611,7 @@ def translateVerbatim (match):
   text = text.replace('>', '&gt;')
 
   regexp = '@' + tagName + '[ \t]*'
-  text = re.sub(regexp, r"<div class='fragment'><pre>", text)
+  text = re.sub(regexp, r"<div class='fragment'><pre class='fragment'>", text)
 
   regexp = '(\s*\*\s*)*@end' + tagName
   p = re.compile(regexp, re.MULTILINE)
@@ -1449,4 +1482,3 @@ def main (args):
 if __name__ == '__main__':
   main(sys.argv)
  
-
