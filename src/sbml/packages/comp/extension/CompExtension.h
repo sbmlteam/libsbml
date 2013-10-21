@@ -20,6 +20,11 @@
  * @ingroup comp
  * @brief @htmlinclude pkg-marker-comp.html
  * The core module of the &ldquo;comp&rdquo; package extension.
+ *
+ * @class CompPkgNamespaces
+ * @ingroup comp
+ * @brief @htmlinclude pkg-marker-comp.html
+ * Extension of SBMLNamespaces for the SBML Level&nbsp;3 'comp' package.
  */
 
 #ifndef CompExtension_h

@@ -29,6 +29,11 @@
  * @ingroup layout
  * @brief @htmlinclude pkg-marker-layout.html
  * The core module of the 'layout' package extension.
+ *
+ * @class LayoutPkgNamespaces
+ * @ingroup layout
+ * @brief @htmlinclude pkg-marker-layout.html
+ * Extension of SBMLNamespaces for the SBML Level&nbsp;3 'layout' package.
  */
 
 #ifndef LayoutExtension_h
