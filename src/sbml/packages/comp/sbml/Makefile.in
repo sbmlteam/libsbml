@@ -70,7 +70,7 @@ headers =				 \
 	SBaseRef.h			 \
 	Submodel.h
 
-header_inst_prefix = packages/layout/sbml
+header_inst_prefix = packages/comp/sbml
 
 sources =				   \
 	CompBase.cpp			   \

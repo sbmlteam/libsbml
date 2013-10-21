@@ -36,7 +36,7 @@ headers   =			  \
 	SBMLResolverRegistry.h	  \
 	SBMLUri.h
 
-header_inst_prefix = packages/layout/util
+header_inst_prefix = packages/comp/util
 
 sources   =			    \
 	CompFlatteningConverter.cpp \

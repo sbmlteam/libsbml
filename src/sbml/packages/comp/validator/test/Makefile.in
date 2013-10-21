@@ -136,7 +136,7 @@ otherdirs     = ../../../ ../../../../ ../constraints ../../../../util \
                 ../../../../validator/constraints/ ../../../../validator
 
 ifdef USE_COMP
-  otherdirs +=  ../../extension ../../sbml \
+  otherdirs +=  ../../extension ../../sbml ../../util \
                 ../../common ../../validator 
 endif
 

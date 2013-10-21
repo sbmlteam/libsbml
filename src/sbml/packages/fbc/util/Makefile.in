@@ -34,7 +34,7 @@ headers   =			  \
 	FbcToCobraConverter.h
 
 
-header_inst_prefix = packages/layout/util
+header_inst_prefix = packages/fbc/util
 
 sources   =			    \
 	CobraToFbcConverter.cpp \

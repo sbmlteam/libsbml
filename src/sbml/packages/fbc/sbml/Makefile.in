@@ -1,7 +1,7 @@
 ## @configure_input@
 ##
 ## Filename    : Makefile.in
-## Description : Makefile template for libsbml 'comp' extension
+## Description : Makefile template for libsbml 'fbc' extension
 ## Author(s)   : Michael Hucka
 ## Organization: California Institute of Technology
 ## Created     : 2013-10-19
@@ -44,9 +44,7 @@ include @top_srcdir@/config/makefile-common-vars.mk
 # set `subdir' to an absolute path, or some `make' actions will fail.
 
 srcdir    = @srcdir@
-thisdir   = src/sbml/packages/comp/sbml
-
-subdirs = test
+thisdir   = src/sbml/packages/fbc/sbml
 
 # Variables `headers', `sources', `libraries', `extra_CPPFLAGS',
 # `extra_CXXFLAGS', `extra_LDFLAGS' and `distfiles' are used by the default
@@ -59,7 +57,7 @@ headers =		  \
 	GeneAssociation.h \
 	Objective.h
 
-header_inst_prefix = packages/comp/sbml
+header_inst_prefix = packages/fbc/sbml
 
 sources =		    \
 	Association.cpp	    \
