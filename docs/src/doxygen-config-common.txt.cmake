@@ -634,7 +634,7 @@ HTML_FOOTER            = doxygen-footer.html
 # fine-tune the look of the HTML output. If the tag is left blank doxygen 
 # will generate a default style sheet
 
-HTML_STYLESHEET        = doxygen-base-stylesheet.css
+HTML_STYLESHEET        = css/libsml-doxygen-stylesheet.css
 
 # If the HTML_DYNAMIC_SECTIONS tag is set to YES then the generated HTML
 # documentation will contain sections that can be hidden and shown after

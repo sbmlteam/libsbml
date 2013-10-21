@@ -194,7 +194,15 @@ distfiles =						     \
         common-text/warn-default-args-in-docs.html	     \
         common-text/xmlid-syntax.html			     \
         csdocfilter.py					     \
-        doxygen-base-stylesheet.css			     \
+	css/generate-pkg-stylesheet.py			     \
+	css/libsbml-base-stylesheet.css			     \
+	css/libsbml-doxygen-navtree.css			     \
+	css/libsbml-doxygen-stylesheet.css		     \
+	css/libsbml-doxygen-tabs.css			     \
+	css/libsbml-javadoc-stylesheet.css		     \
+	css/libsbml-reset-stylesheet.css		     \
+        css/search.css					     \
+        css/search.png					     \
         doxygen-config-c.txt.cmake			     \
         doxygen-config-c.txt.in				     \
         doxygen-config-common.txt			     \
@@ -211,9 +219,6 @@ distfiles =						     \
         doxygen-config-python.txt.in			     \
         doxygen-footer.html				     \
         doxygen-header.html				     \
-        doxygen-navtree.css				     \
-        doxygen-tabs.css				     \
-        doxygen-tree.css				     \
         examples/readmath.cpp				     \
         examples/readSBML.java				     \
         examples/simpleread.cpp				     \
@@ -325,8 +330,6 @@ distfiles =						     \
         pythondocfilter.py				     \
         pythondocpreprocessor.py			     \
         sbml.js						     \
-        search.css					     \
-        search.png					     \
         templates/c++.txt				     \
         templates/c.txt					     \
         templates/m4.txt				     \
@@ -435,10 +438,28 @@ expanded-html-files =		  \
   libsbml-installation.html
 
 core-sources = \
-  $(wildcard ../../src/*/*.[cpp,h] ../../src/*/*/.[cpp,h]) \
+  $(wildcard ../../src/*/*.[cpp,h] ../../src/*/*.[cpp,h]) \
+  $(wildcard ../../src/*/*/*.[cpp,h] ../../src/*/*/*.[cpp,h]) \
+  $(wildcard ../../src/sbml/packages/*/*.[cpp,h] ../../src/sbml/packages/*/*.[cpp,h]) \
   $(wildcard libsbml-*.txt) \
   $(wildcard libsbml-*.html) \
   $(expanded-html-files)
+
+css/libsbml-package-stylesheet.css: css/generate-pkg-stylesheet.py \
+  $(wildcard css/*.css) $(core-sources)
+	css/generate-pkg-stylesheet.py $(TOP_SRCDIR)/src/sbml/packages > $@
+
+css-files =			     \
+  css/libsbml-base-stylesheet.css    \
+  css/libsbml-doxygen-navtree.css    \
+  css/libsbml-doxygen-stylesheet.css \
+  css/libsbml-doxygen-tabs.css	     \
+  css/libsbml-javadoc-stylesheet.css \
+  css/libsbml-package-stylesheet.css \
+  css/libsbml-reset-stylesheet.css	
+
+# If this copy of libSBML hasn't been configured with Doxygen support, we
+# throw an error in the "else" clause of the next conditional.
 
 ifneq "$(USE_DOXYGEN)" ""
 
@@ -460,17 +481,19 @@ define postprocess_doxygen
   cp common-graphics/*.jpg $(1)
   cp common-graphics/*.svg $(1)
   cp sbml.js $(1)
-  cp -rf doxygen-tabs.css $(1)/tabs.css
-  cp -rf doxygen-navtree.css $(1)/navtree.css
+  cp -rf css/libsbml-reset-stylesheet.css $(1)
+  cp -rf css/libsbml-base-stylesheet.css $(1)
+  cp -rf css/libsbml-doxygen-tabs.css $(1)/tabs.css
+  cp -rf css/libsbml-doxygen-navtree.css $(1)/navtree.css
 endef
 
-cpp-manual $(cpp-manual): doxygen-config-cpp.txt $(core-sources)
+cpp-manual $(cpp-manual): doxygen-config-cpp.txt $(core-sources) $(css-files)
 	mkdir -p $(cpp-manual)
 	$(call preprocess_doxygen)
 	$(DOXYGEN) doxygen-config-cpp.txt
 	$(call postprocess_doxygen,$(cpp-manual))
 
-c-manual $(c-manual): doxygen-config-c.txt $(core-sources)
+c-manual $(c-manual): doxygen-config-c.txt $(core-sources) $(css-files)
 	mkdir -p $(c-manual)
 	$(call preprocess_doxygen)
 	$(DOXYGEN) doxygen-config-c.txt
@@ -530,7 +553,8 @@ ifdef USE_CSHARP
 
 cs-ignorable-warnings = "is not found in the argument list of|explicit link request to 'GO' could not be resolved"
 
-csharp-manual $(csharp-manual): doxygen-config-csharp.txt $(core-sources)
+csharp-manual $(csharp-manual): doxygen-config-csharp.txt $(core-sources) \
+  $(css-files)
 	mkdir -p $(csharp-manual)
 	$(call preprocess_doxygen)
 	$(DOXYGEN) doxygen-config-csharp.txt 2>&1 | egrep -v $(cs-ignorable-warnings)
@@ -593,6 +617,10 @@ define insert_javascript
   sed -i "" -e 's:<SCRIPT type="text/javascript">:<script src="../../../sbml.js"></script><SCRIPT type="text/javascript">:g' $(wildcard $(1)/*.html)
 endef
 
+define adjust_frameset
+  sed -i "" -e 's/20%,80%/25%,75%/' $(1)
+endef
+
 # Compile the SBMLDoclet class file if needed.
 
 SBMLDoclet.class: SBMLDoclet.java
@@ -621,27 +649,28 @@ java-local-dir  = java-files
 java-subst-dir  = java-substitutions
 java-class-path = org/sbml/libsbml
 
-java-manual $(java-manual): $(core-sources) SBMLDoclet.class
+java-manual $(java-manual): $(core-sources) $(css-files) SBMLDoclet.class
 	rm -rf $(java-local-dir)
 	mkdir -p $(java-local-dir)/$(java-class-path)
 	cp -rp $(java-source-dir)/$(java-class-path)/* $(java-local-dir)/$(java-class-path)
 	cp -rp $(java-subst-dir)/* $(java-local-dir)/$(java-class-path)
 	$(JAVA) -cp $(JAVADOC_JAR):. SBMLDoclet -excludefile java-skip.txt \
-	    -use -public -version -author -sourcetab 4 -keywords \
+	    -use -public -version -author -sourcetab 4 -keywords -nohelp \
 	    -link http://java.sun.com/j2se/1.5.0/docs/api \
 	    -header $(javadoc-header) \
 	    -bottom $(javadoc-footer) \
 	    -windowtitle $(javadoc-windowtitle) \
 	    -doctitle $(javadoc-doctitle) \
 	    -overview libsbml-java-fake-overview.html \
-	    -stylesheetfile doxygen-base-stylesheet.css \
+	    -stylesheetfile css/libsbml-javadoc-stylesheet.css \
 	    -d $(java-manual) \
 	    -tag ingroup:a:"" \
 	    -tag note:a:"Note:" \
 	    -tag warning:a:"Warning:" \
 	    -sourcepath $(java-local-dir) org.sbml.libsbml \
         2>&1 | egrep -v $(java-ignorable-warnings)
-	cp -f doxygen-base-stylesheet.css $(java-manual)
+	cp -f $(css-files) $(java-manual)
+	cp -f $(css-files) $(java-manual)/$(java-class-path)
 	cp -f prettify/prettify.js prettify/prettify.css $(java-manual)
 	cp -f $(logo-files) $(java-manual)
 	cp -f $(logo-files) $(java-manual)/$(java-class-path)/
@@ -697,9 +726,13 @@ java-manual $(java-manual): $(core-sources) SBMLDoclet.class
 	$(call merge_html_code,../../examples/java/unsetNotes.java,$(java-manual)/examples/unsetNotes.java.html,unsetNotes.java)
 	$(call merge_html_code,../../examples/java/validateSBML.java,$(java-manual)/examples/validateSBML.java.html,validateSBML.java)
 	${MAKE} insert-js
+	${MAKE} adjust-frameset
 
 insert-js :
 	$(call insert_javascript,$(java-manual)/$(java-class-path))
+
+adjust-frameset :
+	$(call adjust_frameset,$(java-manual)/index.html)
 
 endif
 
