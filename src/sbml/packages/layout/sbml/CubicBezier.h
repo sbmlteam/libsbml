@@ -291,6 +291,8 @@ public:
    * @return the SBML type code for this object:
    * @link SBMLLayoutTypeCode_t#SBML_LAYOUT_CUBICBEZIER SBML_LAYOUT_CUBICBEZIER@endlink
    *
+   * @copydetails doc_warning_typecodes_not_unique
+   *
    * @see getElementName()
    * @see getPackageName()
    */

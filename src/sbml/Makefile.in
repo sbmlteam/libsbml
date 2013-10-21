@@ -76,7 +76,7 @@ headers =                    \
   SBMLDocument.h             \
   SBMLError.h                \
   SBMLErrorLog.h             \
-  SBMLErrorTable.h	         \
+  SBMLErrorTable.h           \
   SBMLNamespaces.h           \
   SBMLReader.h               \
   SBMLTransforms.h           \
@@ -84,7 +84,7 @@ headers =                    \
   SBMLTypes.h                \
   SBMLVisitor.h              \
   SBMLWriter.h               \
-  SBO.h		                 \
+  SBO.h		             \
   SimpleSpeciesReference.h   \
   SBase.h                    \
   Species.h                  \
@@ -194,11 +194,16 @@ otherdirs = common util xml math validator validator/constraints units \
 	    annotation compress extension conversion
 
 ifdef USE_LAYOUT
-  otherdirs +=	packages/layout/extension packages/layout/sbml  \
-				packages/layout/common    packages/layout/util  \
-				packages/layout/validator packages/layout/validator/constraints
+  otherdirs +=  packages/layout/extension packages/layout/sbml  \
+                packages/layout/common    packages/layout/util  \
+                packages/layout/validator packages/layout/validator/constraints
 endif
-		
+ifdef USE_QUAL
+  otherdirs +=  packages/qual/extension packages/qual/sbml  \
+                packages/qual/common \
+                packages/qual/validator packages/qual/validator/constraints
+endif
+
 objfiles  = $(objects) $(wildcard $(addsuffix /*.$(OBJEXT),$(otherdirs)))
 
 

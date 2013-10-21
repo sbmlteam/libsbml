@@ -436,6 +436,8 @@ public:
    * @return the SBML type code for this object:
    * @link SBMLTypeCode_t#SBML_FUNCTION_DEFINITION SBML_FUNCTION_DEFINITION@endlink (default).
    *
+   * @copydetails doc_warning_typecodes_not_unique
+   *
    * @see getElementName()
    * @see getPackageName()
    */

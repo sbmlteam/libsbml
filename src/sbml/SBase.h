@@ -2516,6 +2516,8 @@ s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></b
    * of this SBML object or
    * @link SBMLTypeCode_t#SBML_UNKNOWN SBML_UNKNOWN@endlink (the default).
    *
+   * @copydetails doc_warning_typecodes_not_unique
+   *
    * @see getElementName()
    * @see getPackageName()
    */

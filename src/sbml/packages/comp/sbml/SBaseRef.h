@@ -521,6 +521,8 @@ public:
    * @return the SBML type code for this object:
    * @link SBMLCompTypeCode_t#SBML_COMP_SBASEREF SBML_COMP_SBASEREF@endlink
    *
+   * @copydetails doc_warning_typecodes_not_unique
+   *
    * @see getElementName()
    * @see getPackageName()
    */

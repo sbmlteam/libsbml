@@ -264,6 +264,8 @@ public:
    * @return the SBML type code for this object:
    * @link SBMLCompTypeCode_t#SBML_COMP_DELETION SBML_COMP_DELETION@endlink
    *
+   * @copydetails doc_warning_typecodes_not_unique
+   *
    * @see getElementName()
    * @see getPackageName()
    */

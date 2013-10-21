@@ -264,6 +264,8 @@ public:
    * @return the SBML type code for this object:
    * @link SBMLCompTypeCode_t#SBML_COMP_PORT SBML_COMP_PORT@endlink
    *
+   * @copydetails doc_warning_typecodes_not_unique
+   *
    * @see getElementName()
    * @see getPackageName()
    */

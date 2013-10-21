@@ -1210,6 +1210,8 @@ public:
    * @return the SBML type code for this object:
    * @link SBMLTypeCode_t#SBML_COMPARTMENT SBML_COMPARTMENT@endlink (default).
    *
+   * @copydetails doc_warning_typecodes_not_unique
+   *
    * @see getElementName()
    * @see getPackageName()
    */

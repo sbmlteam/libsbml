@@ -440,6 +440,8 @@ public:
    * @return the SBML type code for this object:
    * @link SBMLQualTypeCode_t#SBML_QUAL_QUALITATIVE_SPECIES SBML_QUAL_QUALITATIVE_SPECIES@endlink
    *
+   * @copydetails doc_warning_typecodes_not_unique
+   *
    * @see getElementName()
    * @see getPackageName()
    */

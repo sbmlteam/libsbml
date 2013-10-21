@@ -653,6 +653,8 @@ public:
    * @return the SBML type code for this object:
    * @link SBMLTypeCode_t#SBML_PARAMETER SBML_PARAMETER@endlink (default).
    *
+   * @copydetails doc_warning_typecodes_not_unique
+   *
    * @see getElementName()
    * @see getPackageName()
    */

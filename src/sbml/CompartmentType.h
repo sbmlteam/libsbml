@@ -311,6 +311,8 @@ public:
    * @return the SBML type code for this object:
    * @link SBMLTypeCode_t#SBML_COMPARTMENT_TYPE SBML_COMPARTMENT_TYPE@endlink (default).
    *
+   * @copydetails doc_warning_typecodes_not_unique
+   *
    * @see getElementName()
    * @see getPackageName()
    */

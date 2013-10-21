@@ -308,6 +308,8 @@ public:
    * @return the SBML type code for this object:
    * @link SBMLCompTypeCode_t#SBML_COMP_REPLACEDELEMENT SBML_COMP_REPLACEDELEMENT@endlink
    *
+   * @copydetails doc_warning_typecodes_not_unique
+   *
    * @see getElementName()
    * @see getPackageName()
    */

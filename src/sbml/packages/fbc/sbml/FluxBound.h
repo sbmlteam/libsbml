@@ -386,6 +386,8 @@ public:
    * @return the SBML type code for this object:
    * @link SBMLFbcTypeCode_t#SBML_FBC_FLUXBOUND SBML_FBC_FLUXBOUND@endlink
    *
+   * @copydetails doc_warning_typecodes_not_unique
+   *
    * @see getElementName()
    * @see getPackageName()
    */

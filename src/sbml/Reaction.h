@@ -1164,6 +1164,8 @@ public:
    * @return the SBML type code for this object:
    * @link SBMLTypeCode_t#SBML_REACTION SBML_REACTION@endlink (default).
    *
+   * @copydetails doc_warning_typecodes_not_unique
+   *
    * @see getElementName()
    * @see getPackageName()
    */

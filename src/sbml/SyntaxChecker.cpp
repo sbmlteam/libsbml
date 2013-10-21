@@ -131,7 +131,7 @@ SyntaxChecker::isValidSBMLSId(std::string sid)
 }
 
 #ifndef SWIG
-/**
+/*
  * Checks the validity of the given srcId and sets the srcId to dstId
  * and returns LIBSBML_OPERATION_SUCCESS if the srcId is valid, otherwise 
  * srcId is not set to the dstId and returns LIBSBML_INVALID_ATTRIBUTE_VALUE.
@@ -1315,7 +1315,7 @@ case 3:
 
 
 /** @cond doxygenLibsbmlInternal */
-/**
+/*
   * Checks if a character is part of the Unicode Digit set.
   * @return true if the character is a part of the set, false otherwise.
   */

@@ -485,6 +485,8 @@ public:
    * @return the SBML type code for this object:
    * @link SBMLTypeCode_t#SBML_INITIAL_ASSIGNMENT SBML_INITIAL_ASSIGNMENT@endlink (default).
    *
+   * @copydetails doc_warning_typecodes_not_unique
+   *
    * @see getElementName()
    * @see getPackageName()
    */

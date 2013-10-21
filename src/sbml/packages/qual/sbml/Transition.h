@@ -814,6 +814,8 @@ public:
    * @return the SBML type code for this object:
    * @link SBMLQualTypeCode_t#SBML_QUAL_TRANSITION SBML_QUAL_TRANSITION@endlink
    *
+   * @copydetails doc_warning_typecodes_not_unique
+   *
    * @see getElementName()
    * @see getPackageName()
    */

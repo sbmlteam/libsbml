@@ -439,6 +439,8 @@ public:
    * contain.  Hence, one must call getItemTypeCode() to fully determine the
    * class of this SBML object.
    *
+   * @copydetails doc_warning_typecodes_not_unique
+   *
    * @see getItemTypeCode()
    * @see getElementName()
    * @see getPackageName()

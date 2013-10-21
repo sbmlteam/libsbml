@@ -428,6 +428,8 @@ public:
    * @return the SBML type code for this object:
    * @link SBMLFbcTypeCode_t#SBML_FBC_OBJECTIVE SBML_FBC_OBJECTIVE@endlink
    *
+   * @copydetails doc_warning_typecodes_not_unique
+   *
    * @see getElementName()
    * @see getPackageName()
    */
