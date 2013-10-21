@@ -62,7 +62,6 @@ header_inst_prefix = packages/fbc/validator
 sources =				       \
 	FbcConsistencyValidator.cpp	       \
 	FbcIdentifierConsistencyValidator.cpp \
-	FbcUnitConsistencyValidator.cpp       \
 	FbcValidator.cpp
 
 subdirs = constraints test
