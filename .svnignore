@@ -16,3 +16,8 @@ a.out.dSYM
 libtool
 doltlibtool
 doltcompile
+build
+CMakeCache.txt
+CMakeFiles
+CPackConfig.cmake
+CPackSourceConfig.cmake
