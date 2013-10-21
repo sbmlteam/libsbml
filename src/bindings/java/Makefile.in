@@ -53,15 +53,25 @@ thisdir           = src/bindings/java
 # other libSBML build organization, we still use the name `sources'.
 
 sources           = libsbml_wrap.cpp libsbml_wrap.h javadoc.i
+
 extra_sources     = libsbml.i                          \
                     local.cpp                          \
                     local.i                            \
                     local-doc-extras.i                 \
+                    local-downcast-extension-comp.i    \
+                    local-downcast-extension-fbc.i     \
                     local-downcast-extension-layout.i  \
+                    local-downcast-extension-qual.i    \
                     local-downcast-extension.i.in      \
+                    local-downcast-namespaces-comp.i   \
+                    local-downcast-namespaces-fbc.i    \
                     local-downcast-namespaces-layout.i \
+                    local-downcast-namespaces-qual.i   \
                     local-downcast-namespaces.i.in     \
+                    local-packages-comp.i	       \
+                    local-packages-fbc.i	       \
                     local-packages-layout.i            \
+                    local-packages-qual.i	       \
                     local-packages.i.in
 
 # The SWIG interface files should not need to be regenerated for recipients
@@ -70,8 +80,17 @@ extra_sources     = libsbml.i                          \
 
 swig_sources      = $(extra_sources) ../swig/libsbml.h ../swig/libsbml.i
 
+ifdef USE_COMP
+  swig_sources   += ../swig/comp-package.i
+endif
+ifdef USE_FBC
+  swig_sources   += ../swig/fbc-package.i
+endif
 ifdef USE_LAYOUT
-  swig_sources += ../swig/layout-package.i
+  swig_sources   += ../swig/layout-package.i
+endif
+ifdef USE_QUAL
+  swig_sources   += ../swig/qual-package.i
 endif
 
 # Variables `subdirs', `headers', `sources', `libraries', `extra_CPPFLAGS',
@@ -103,10 +122,27 @@ ifdef USE_LIBXML
   extra_LIBS     += @LIBXML_LIBS@
 endif
 
+# SBML package plug-ins
+
+ifdef USE_COMP
+  SWIGFLAGS      += -DUSE_COMP
+  extra_CPPFLAGS += -DUSE_COMP
+endif # USE_COMP  
+
+ifdef USE_FBC
+  SWIGFLAGS      += -DUSE_FBC
+  extra_CPPFLAGS += -DUSE_FBC
+endif # USE_FBC  
+
 ifdef USE_LAYOUT
   SWIGFLAGS      += -DUSE_LAYOUT
   extra_CPPFLAGS += -DUSE_LAYOUT
 endif # USE_LAYOUT  
+
+ifdef USE_QUAL
+  SWIGFLAGS      += -DUSE_QUAL
+  extra_CPPFLAGS += -DUSE_QUAL
+endif # USE_QUAL  
 
 # -fno-strict-aliasing option is added to CXXFLAGS when using GCC.  As
 # written in the SWIG Manual (section 20.2.4), SWIG generated code could
@@ -153,14 +189,36 @@ otherdirs = ../../sbml/common ../../sbml/util ../../sbml/xml \
             ../../sbml/units ../../sbml/annotation ../../sbml/compress \
             ../../sbml/ ../../sbml/extension ../../sbml/conversion
 
+ifdef USE_COMP
+  otherdirs += ../../sbml/packages/comp/common \
+               ../../sbml/packages/comp/extension \
+               ../../sbml/packages/comp/sbml \
+               ../../sbml/packages/comp/util \
+               ../../sbml/packages/comp/validator \
+               ../../sbml/packages/comp/validator/constraints 
+endif
+ifdef USE_FBC
+  otherdirs += ../../sbml/packages/fbc/common \
+               ../../sbml/packages/fbc/extension \
+               ../../sbml/packages/fbc/sbml \
+               ../../sbml/packages/fbc/util \
+               ../../sbml/packages/fbc/validator \
+               ../../sbml/packages/fbc/validator/constraints 
+endif
 ifdef USE_LAYOUT
   otherdirs += ../../sbml/packages/layout/common \
                ../../sbml/packages/layout/extension \
                ../../sbml/packages/layout/sbml \
                ../../sbml/packages/layout/util \
-			   ../../sbml/packages/layout/validator \
-			   ../../sbml/packages/layout/validator/constraints 
-
+               ../../sbml/packages/layout/validator \
+               ../../sbml/packages/layout/validator/constraints 
+endif
+ifdef USE_QUAL
+  otherdirs += ../../sbml/packages/qual/common \
+               ../../sbml/packages/qual/extension \
+               ../../sbml/packages/qual/sbml \
+               ../../sbml/packages/qual/validator \
+               ../../sbml/packages/qual/validator/constraints 
 endif
 
 objfiles = libsbml_wrap.lo $(wildcard $(addsuffix /*.lo,$(otherdirs)))
@@ -212,7 +270,7 @@ extra_clean = $(class_files) $(check_sources:.java=.class) test_copy1.xml \
   test_write.xml TestFilenameFilter.class $(wildcard test.xml.*) out.xml
 
 extra_distclean = Manifest.txt local-downcast-extension.i \
-	local-downcast-namespaces.i local-packages.i
+    local-downcast-namespaces.i local-packages.i
 
 # For Linux/Unix, LD_LIBRARY_PATH *may* need to contain one or more library
 # paths to libsbml.so, libxerces-c.so and/or libexpat.so and/or the
@@ -236,10 +294,10 @@ ifdef USE_JAVA
   all: Makefile libsbml_wrap.cpp $(outpath)/libsbml.class $(libraries)
 else
   all:
-	@echo
-	@echo "Reconfigure libSBML using --with-java to enable Java support.";
-	@echo
-	@exit 1
+    @echo
+    @echo "Reconfigure libSBML using --with-java to enable Java support.";
+    @echo
+    @exit 1
 endif
 
 # Rummage through ../swig/libsbml.i to figure out the core libSBML files that
@@ -267,7 +325,7 @@ main_sources = \
 # libsbml_wrap.cpp via a call like this,
 # 
 #  libsbml_wrap.cpp: $(shell $(call check_layout)) ...other dependencies...
-# 	...ACTIONS...
+#   ...ACTIONS...
 #
 # what will happen is either check_layout will return nothing, in which
 # case the dependency is satisfied and no swig'ing needs to be done, or
@@ -300,7 +358,7 @@ javadoc.i: $(main_sources) $(swig_sources) ../swig/swigdoc.py $(wildcard ../swig
 	../swig/swigdoc.py java -I../.. -D../../../docs/src ../swig/libsbml.i javadoc.i
 
 libsbml_wrap.cpp $(outpath): javadoc.i $(swig_sources) $(main_sources) \
-	$(shell $(call check_layout))
+    $(shell $(call check_layout))
 	@top_srcdir@/config/chk_swig_version.sh || exit
 ifneq "$(MAKEFLAGS)" ""
 	$(MAKE) -$(MAKEFLAGS) clean-swigfiles
@@ -310,7 +368,7 @@ endif
 	test -d $(outpath) || mkdir -p $(outpath)
 	"$(SWIG)" $(SWIGFLAGS) $(sort $(default_includes) $(INCLUDES)) \
 		-c++ -java -package $(java_package) \
-	        -outdir $(outpath) -o libsbml_wrap.cpp libsbml.i
+		-outdir $(outpath) -o libsbml_wrap.cpp libsbml.i
 
 # We use a trick involving marking methods as deprecated with the Javadoc
 # @deprecated comment directive, but unfortunately javac seems to pay
@@ -357,11 +415,11 @@ $(check_classes): Makefile $(libraries) $(check_sources)
 
 ifeq "$(HOST_TYPE)" "darwin"
   define runjavatest
-	env DYLD_LIBRARY_PATH="$(RUN_LDPATH):$(DYLD_LIBRARY_PATH):." "$(JAVA)" -classpath "$(classpath)" AutoTestRunner
+    env DYLD_LIBRARY_PATH="$(RUN_LDPATH):$(DYLD_LIBRARY_PATH):." "$(JAVA)" -classpath "$(classpath)" AutoTestRunner
   endef
 else
   define runjavatest
-	env LD_LIBRARY_PATH="$(RUN_LDPATH):$(LD_LIBRARY_PATH):." "$(JAVA)" -Djava.library.path=. -classpath "$(classpath)" AutoTestRunner
+    env LD_LIBRARY_PATH="$(RUN_LDPATH):$(LD_LIBRARY_PATH):." "$(JAVA)" -Djava.library.path=. -classpath "$(classpath)" AutoTestRunner
   endef
 endif
 
@@ -411,7 +469,7 @@ uninstall:
 	  if test -f "$$lib"; then \
 	    echo rm "$$lib"; \
 	    rm $$lib; \
-          fi; \
+	  fi; \
 	done;
 
 installcheck:
