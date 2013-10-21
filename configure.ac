@@ -102,20 +102,59 @@ if test "$enable_cpp_namespace" != no; then
 fi
 
 dnl -------------------------------------------------------
-dnl Layout extension
+dnl Extension plug-ins for SBML Level 3 packages.
 dnl -------------------------------------------------------
 
 AC_ARG_ENABLE([layout],
   AS_HELP_STRING([--enable-layout@<:@=ARG@:>@],
-                 [build the SBML layout extension @<:@default=no@:>@]),
+                 [build support for SBML 'layout' @<:@default=no@:>@]),
   [enable_layout=$enableval],
   [enable_layout=no])
 
 if test "$enable_layout" != no; then
-  AC_DEFINE([USE_LAYOUT], 1, [Define to 1 to build the SBML layout extension.])
-  AC_DEFINE([LIBSBML_HAS_PACKAGE_LAYOUT], 1, [Define to 1 to build the SBML layout extension.])
+  AC_DEFINE([USE_LAYOUT], 1, [Define to 1 to build support for SBML 'layout'.])
+  AC_DEFINE([LIBSBML_HAS_PACKAGE_LAYOUT], 1, [Define to 1 to build support for SBML 'layout'.])
   AC_SUBST(USE_LAYOUT, 1)
   AC_SUBST(LIBSBML_HAS_PACKAGE_LAYOUT, 1)
+fi
+
+AC_ARG_ENABLE([comp],
+  AS_HELP_STRING([--enable-comp@<:@=ARG@:>@],
+                 [build support for SBML 'comp' @<:@default=no@:>@]),
+  [enable_comp=$enableval],
+  [enable_comp=no])
+
+if test "$enable_comp" != no; then
+  AC_DEFINE([USE_COMP], 1, [Define to 1 to build support for SBML 'comp'.])
+  AC_DEFINE([LIBSBML_HAS_PACKAGE_COMP], 1, [Define to 1 to build support for SBML 'comp'.])
+  AC_SUBST(USE_COMP, 1)
+  AC_SUBST(LIBSBML_HAS_PACKAGE_COMP, 1)
+fi
+
+AC_ARG_ENABLE([fbc],
+  AS_HELP_STRING([--enable-fbc@<:@=ARG@:>@],
+                 [build support for SBML 'fbc' @<:@default=no@:>@]),
+  [enable_fbc=$enableval],
+  [enable_fbc=no])
+
+if test "$enable_fbc" != no; then
+  AC_DEFINE([USE_FBC], 1, [Define to 1 to build support for SBML 'fbc'.])
+  AC_DEFINE([LIBSBML_HAS_PACKAGE_FBC], 1, [Define to 1 to build support for SBML 'fbc'.])
+  AC_SUBST(USE_FBC, 1)
+  AC_SUBST(LIBSBML_HAS_PACKAGE_FBC, 1)
+fi
+
+AC_ARG_ENABLE([qual],
+  AS_HELP_STRING([--enable-qual@<:@=ARG@:>@],
+                 [build support for SBML 'qual' @<:@default=no@:>@]),
+  [enable_qual=$enableval],
+  [enable_qual=no])
+
+if test "$enable_qual" != no; then
+  AC_DEFINE([USE_QUAL], 1, [Define to 1 to build support for SBML 'qual'.])
+  AC_DEFINE([LIBSBML_HAS_PACKAGE_QUAL], 1, [Define to 1 to build support for SBML 'qual'.])
+  AC_SUBST(USE_QUAL, 1)
+  AC_SUBST(LIBSBML_HAS_PACKAGE_QUAL, 1)
 fi
 
 dnl -------------------------------------------------------
@@ -380,16 +419,59 @@ AC_CONFIG_FILES([src/sbml/conversion/Makefile])
 AC_CONFIG_FILES([src/sbml/conversion/test/Makefile])
 
 AC_CONFIG_FILES([src/sbml/packages/Makefile])
-AC_CONFIG_FILES([src/sbml/packages/layout/Makefile])
-AC_CONFIG_FILES([src/sbml/packages/layout/common/Makefile])
-AC_CONFIG_FILES([src/sbml/packages/layout/extension/Makefile])
-AC_CONFIG_FILES([src/sbml/packages/layout/sbml/Makefile])
-AC_CONFIG_FILES([src/sbml/packages/layout/sbml/test/Makefile])
-AC_CONFIG_FILES([src/sbml/packages/layout/util/Makefile])
-AC_CONFIG_FILES([src/sbml/packages/layout/validator/Makefile])
-AC_CONFIG_FILES([src/sbml/packages/layout/validator/constraints/Makefile])
-AC_CONFIG_FILES([src/sbml/packages/layout/validator/test/Makefile])
-AC_CONFIG_FILES([src/sbml/packages/layout/validator/test/test-data/Makefile])
+
+if test "$enable_comp" != "no" ; then
+  AC_CONFIG_FILES([src/sbml/packages/comp/Makefile])
+  AC_CONFIG_FILES([src/sbml/packages/comp/common/Makefile])
+  AC_CONFIG_FILES([src/sbml/packages/comp/extension/Makefile])
+  AC_CONFIG_FILES([src/sbml/packages/comp/extension/test/Makefile])
+  AC_CONFIG_FILES([src/sbml/packages/comp/sbml/Makefile])
+  AC_CONFIG_FILES([src/sbml/packages/comp/sbml/test/Makefile])
+  AC_CONFIG_FILES([src/sbml/packages/comp/util/Makefile])
+  AC_CONFIG_FILES([src/sbml/packages/comp/util/test/Makefile])
+  AC_CONFIG_FILES([src/sbml/packages/comp/validator/Makefile])
+  AC_CONFIG_FILES([src/sbml/packages/comp/validator/constraints/Makefile])
+  AC_CONFIG_FILES([src/sbml/packages/comp/validator/test/Makefile])
+  AC_CONFIG_FILES([src/sbml/packages/comp/validator/test/test-data/Makefile])
+fi
+
+if test "$enable_fbc" != "no" ; then
+  AC_CONFIG_FILES([src/sbml/packages/fbc/common/Makefile])
+  AC_CONFIG_FILES([src/sbml/packages/fbc/extension/Makefile])
+  AC_CONFIG_FILES([src/sbml/packages/fbc/extension/test/Makefile])
+  AC_CONFIG_FILES([src/sbml/packages/fbc/Makefile])
+  AC_CONFIG_FILES([src/sbml/packages/fbc/sbml/Makefile])
+  AC_CONFIG_FILES([src/sbml/packages/fbc/util/Makefile])
+  AC_CONFIG_FILES([src/sbml/packages/fbc/validator/constraints/Makefile])
+  AC_CONFIG_FILES([src/sbml/packages/fbc/validator/Makefile])
+  AC_CONFIG_FILES([src/sbml/packages/fbc/validator/test/Makefile])
+  AC_CONFIG_FILES([src/sbml/packages/fbc/validator/test/test-data/Makefile])
+fi
+
+if test "$enable_layout" != "no" ; then
+  AC_CONFIG_FILES([src/sbml/packages/layout/Makefile])
+  AC_CONFIG_FILES([src/sbml/packages/layout/common/Makefile])
+  AC_CONFIG_FILES([src/sbml/packages/layout/extension/Makefile])
+  AC_CONFIG_FILES([src/sbml/packages/layout/sbml/Makefile])
+  AC_CONFIG_FILES([src/sbml/packages/layout/sbml/test/Makefile])
+  AC_CONFIG_FILES([src/sbml/packages/layout/util/Makefile])
+  AC_CONFIG_FILES([src/sbml/packages/layout/validator/Makefile])
+  AC_CONFIG_FILES([src/sbml/packages/layout/validator/constraints/Makefile])
+  AC_CONFIG_FILES([src/sbml/packages/layout/validator/test/Makefile])
+  AC_CONFIG_FILES([src/sbml/packages/layout/validator/test/test-data/Makefile])
+fi
+
+if test "$enable_qual" != "no" ; then
+  AC_CONFIG_FILES([src/sbml/packages/qual/Makefile])
+  AC_CONFIG_FILES([src/sbml/packages/qual/common/Makefile])
+  AC_CONFIG_FILES([src/sbml/packages/qual/extension/Makefile])
+  AC_CONFIG_FILES([src/sbml/packages/qual/sbml/Makefile])
+  AC_CONFIG_FILES([src/sbml/packages/qual/sbml/test/Makefile])
+  AC_CONFIG_FILES([src/sbml/packages/qual/validator/Makefile])
+  AC_CONFIG_FILES([src/sbml/packages/qual/validator/constraints/Makefile])
+  AC_CONFIG_FILES([src/sbml/packages/qual/validator/test/Makefile])
+  AC_CONFIG_FILES([src/sbml/packages/qual/validator/test/test-data/Makefile])
+fi
 
 AC_CONFIG_FILES([docs/Makefile])
 AC_CONFIG_FILES([docs/index.html])
@@ -452,34 +534,34 @@ dnl ---------------------------------------------------------------------------
 dnl package system files that include the layout package
 dnl ---------------------------------------------------------------------------
 
-  AC_CONFIG_FILES([src/bindings/csharp/local-downcast-extension.i])
-  AC_CONFIG_FILES([src/bindings/csharp/local-downcast-namespaces.i])
-  AC_CONFIG_FILES([src/bindings/csharp/local-packages.i])
+AC_CONFIG_FILES([src/bindings/csharp/local-downcast-extension.i])
+AC_CONFIG_FILES([src/bindings/csharp/local-downcast-namespaces.i])
+AC_CONFIG_FILES([src/bindings/csharp/local-packages.i])
 
-  AC_CONFIG_FILES([src/bindings/java/local-downcast-extension.i])
-  AC_CONFIG_FILES([src/bindings/java/local-downcast-namespaces.i])
-  AC_CONFIG_FILES([src/bindings/java/local-packages.i])
+AC_CONFIG_FILES([src/bindings/java/local-downcast-extension.i])
+AC_CONFIG_FILES([src/bindings/java/local-downcast-namespaces.i])
+AC_CONFIG_FILES([src/bindings/java/local-packages.i])
 
-  AC_CONFIG_FILES([src/bindings/perl/local-downcast.cpp])
-  AC_CONFIG_FILES([src/bindings/perl/local-downcast-extension.cpp])
-  AC_CONFIG_FILES([src/bindings/perl/local-downcast-namespaces.cpp])
-  AC_CONFIG_FILES([src/bindings/perl/local-downcast-plugins.cpp])
-  AC_CONFIG_FILES([src/bindings/perl/local-packages.i])
+AC_CONFIG_FILES([src/bindings/perl/local-downcast.cpp])
+AC_CONFIG_FILES([src/bindings/perl/local-downcast-extension.cpp])
+AC_CONFIG_FILES([src/bindings/perl/local-downcast-namespaces.cpp])
+AC_CONFIG_FILES([src/bindings/perl/local-downcast-plugins.cpp])
+AC_CONFIG_FILES([src/bindings/perl/local-packages.i])
 
-  AC_CONFIG_FILES([src/bindings/python/local-downcast.cpp])
-  AC_CONFIG_FILES([src/bindings/python/local-downcast-extension.cpp])
-  AC_CONFIG_FILES([src/bindings/python/local-downcast-namespaces.cpp])
-  AC_CONFIG_FILES([src/bindings/python/local-downcast-plugins.cpp])
-  AC_CONFIG_FILES([src/bindings/python/local-packages.i])
-  
-  AC_CONFIG_FILES([src/bindings/ruby/local-downcast.cpp])
-  AC_CONFIG_FILES([src/bindings/ruby/local-downcast-extension.cpp])
-  AC_CONFIG_FILES([src/bindings/ruby/local-downcast-namespaces.cpp])
-  AC_CONFIG_FILES([src/bindings/ruby/local-downcast-plugins.cpp])
-  AC_CONFIG_FILES([src/bindings/ruby/local-packages.i])
-  
-  AC_CONFIG_FILES([src/bindings/swig/libsbml-packages.h])
-  AC_CONFIG_FILES([src/bindings/swig/libsbml-packages.i])
+AC_CONFIG_FILES([src/bindings/python/local-downcast.cpp])
+AC_CONFIG_FILES([src/bindings/python/local-downcast-extension.cpp])
+AC_CONFIG_FILES([src/bindings/python/local-downcast-namespaces.cpp])
+AC_CONFIG_FILES([src/bindings/python/local-downcast-plugins.cpp])
+AC_CONFIG_FILES([src/bindings/python/local-packages.i])
+
+AC_CONFIG_FILES([src/bindings/ruby/local-downcast.cpp])
+AC_CONFIG_FILES([src/bindings/ruby/local-downcast-extension.cpp])
+AC_CONFIG_FILES([src/bindings/ruby/local-downcast-namespaces.cpp])
+AC_CONFIG_FILES([src/bindings/ruby/local-downcast-plugins.cpp])
+AC_CONFIG_FILES([src/bindings/ruby/local-packages.i])
+
+AC_CONFIG_FILES([src/bindings/swig/libsbml-packages.h])
+AC_CONFIG_FILES([src/bindings/swig/libsbml-packages.i])
   
 dnl ---------------------------------------------------------------------------
 
@@ -616,8 +698,14 @@ if test "$enable_cpp_namespace" != "no" ; then
   echo "  Using C++ namespace for libSBML (libsbml) = yes"
 fi
 
+echo ""
+echo "Support for SBML packages:"
+
 if test "$enable_layout" != "no" ; then
-  echo "  Using layout extension  = yes"
+  echo "  SBML 'comp'                   = $enable_comp"
+  echo "  SBML 'fbc'                    = $enable_fbc"
+  echo "  SBML 'layout'                 = $enable_layout"
+  echo "  SBML 'qual'                   = $enable_qual"
 fi
 
 echo ""

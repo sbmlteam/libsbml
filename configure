@@ -914,6 +914,12 @@ PACKAGE_COMP_ERRATA_URL
 PACKAGE_COMP_SPEC_URL
 PACKAGE_COMP_RELEASE
 PACKAGE_COMP_VERSION
+LIBSBML_HAS_PACKAGE_QUAL
+USE_QUAL
+LIBSBML_HAS_PACKAGE_FBC
+USE_FBC
+LIBSBML_HAS_PACKAGE_COMP
+USE_COMP
 LIBSBML_HAS_PACKAGE_LAYOUT
 USE_LAYOUT
 LIBSBML_BETA_VERSION
@@ -964,6 +970,9 @@ ac_user_opts='
 enable_option_checking
 enable_cpp_namespace
 enable_layout
+enable_comp
+enable_fbc
+enable_qual
 enable_compression
 enable_m32
 enable_m64
@@ -1631,7 +1640,10 @@ Optional Features:
   --enable-FEATURE[=ARG]  include FEATURE [ARG=yes]
   --enable-cpp-namespace[=ARG]
                           enable C++ namespace for libsbml [default=no]
-  --enable-layout[=ARG]   build the SBML layout extension [default=no]
+  --enable-layout[=ARG]   build support for SBML 'layout' [default=no]
+  --enable-comp[=ARG]     build support for SBML 'comp' [default=no]
+  --enable-fbc[=ARG]      build support for SBML 'fbc' [default=no]
+  --enable-qual[=ARG]     build support for SBML 'qual' [default=no]
   --enable-compression[=ARG]
                           enable file compression if possible [default=yes]
   --enable-m32            build 32-bit binaries [default=autodetect]
@@ -2930,6 +2942,69 @@ $as_echo "#define LIBSBML_HAS_PACKAGE_LAYOUT 1" >>confdefs.h
   USE_LAYOUT=1
 
   LIBSBML_HAS_PACKAGE_LAYOUT=1
+
+fi
+
+# Check whether --enable-comp was given.
+if test "${enable_comp+set}" = set; then :
+  enableval=$enable_comp; enable_comp=$enableval
+else
+  enable_comp=no
+fi
+
+
+if test "$enable_comp" != no; then
+
+$as_echo "#define USE_COMP 1" >>confdefs.h
+
+
+$as_echo "#define LIBSBML_HAS_PACKAGE_COMP 1" >>confdefs.h
+
+  USE_COMP=1
+
+  LIBSBML_HAS_PACKAGE_COMP=1
+
+fi
+
+# Check whether --enable-fbc was given.
+if test "${enable_fbc+set}" = set; then :
+  enableval=$enable_fbc; enable_fbc=$enableval
+else
+  enable_fbc=no
+fi
+
+
+if test "$enable_fbc" != no; then
+
+$as_echo "#define USE_FBC 1" >>confdefs.h
+
+
+$as_echo "#define LIBSBML_HAS_PACKAGE_FBC 1" >>confdefs.h
+
+  USE_FBC=1
+
+  LIBSBML_HAS_PACKAGE_FBC=1
+
+fi
+
+# Check whether --enable-qual was given.
+if test "${enable_qual+set}" = set; then :
+  enableval=$enable_qual; enable_qual=$enableval
+else
+  enable_qual=no
+fi
+
+
+if test "$enable_qual" != no; then
+
+$as_echo "#define USE_QUAL 1" >>confdefs.h
+
+
+$as_echo "#define LIBSBML_HAS_PACKAGE_QUAL 1" >>confdefs.h
+
+  USE_QUAL=1
+
+  LIBSBML_HAS_PACKAGE_QUAL=1
 
 fi
 
@@ -9665,7 +9740,7 @@ ia64-*-hpux*)
   ;;
 *-*-irix6*)
   # Find out which ABI we are using.
-  echo '#line 9668 "configure"' > conftest.$ac_ext
+  echo '#line 9743 "configure"' > conftest.$ac_ext
   if { { eval echo "\"\$as_me\":${as_lineno-$LINENO}: \"$ac_compile\""; } >&5
   (eval $ac_compile) 2>&5
   ac_status=$?
@@ -11883,11 +11958,11 @@ else
    -e 's:.*FLAGS}\{0,1\} :&$lt_compiler_flag :; t' \
    -e 's: [^ ]*conftest\.: $lt_compiler_flag&:; t' \
    -e 's:$: $lt_compiler_flag:'`
-   (eval echo "\"\$as_me:11886: $lt_compile\"" >&5)
+   (eval echo "\"\$as_me:11961: $lt_compile\"" >&5)
    (eval "$lt_compile" 2>conftest.err)
    ac_status=$?
    cat conftest.err >&5
-   echo "$as_me:11890: \$? = $ac_status" >&5
+   echo "$as_me:11965: \$? = $ac_status" >&5
    if (exit $ac_status) && test -s "$ac_outfile"; then
      # The compiler can only warn and ignore the option if not recognized
      # So say no if there are warnings other than the usual output.
@@ -12173,11 +12248,11 @@ else
    -e 's:.*FLAGS}\{0,1\} :&$lt_compiler_flag :; t' \
    -e 's: [^ ]*conftest\.: $lt_compiler_flag&:; t' \
    -e 's:$: $lt_compiler_flag:'`
-   (eval echo "\"\$as_me:12176: $lt_compile\"" >&5)
+   (eval echo "\"\$as_me:12251: $lt_compile\"" >&5)
    (eval "$lt_compile" 2>conftest.err)
    ac_status=$?
    cat conftest.err >&5
-   echo "$as_me:12180: \$? = $ac_status" >&5
+   echo "$as_me:12255: \$? = $ac_status" >&5
    if (exit $ac_status) && test -s "$ac_outfile"; then
      # The compiler can only warn and ignore the option if not recognized
      # So say no if there are warnings other than the usual output.
@@ -12277,11 +12352,11 @@ else
    -e 's:.*FLAGS}\{0,1\} :&$lt_compiler_flag :; t' \
    -e 's: [^ ]*conftest\.: $lt_compiler_flag&:; t' \
    -e 's:$: $lt_compiler_flag:'`
-   (eval echo "\"\$as_me:12280: $lt_compile\"" >&5)
+   (eval echo "\"\$as_me:12355: $lt_compile\"" >&5)
    (eval "$lt_compile" 2>out/conftest.err)
    ac_status=$?
    cat out/conftest.err >&5
-   echo "$as_me:12284: \$? = $ac_status" >&5
+   echo "$as_me:12359: \$? = $ac_status" >&5
    if (exit $ac_status) && test -s out/conftest2.$ac_objext
    then
      # The compiler can only warn and ignore the option if not recognized
@@ -14302,7 +14377,7 @@ else
   lt_dlunknown=0; lt_dlno_uscore=1; lt_dlneed_uscore=2
   lt_status=$lt_dlunknown
   cat > conftest.$ac_ext <<EOF
-#line 14305 "configure"
+#line 14380 "configure"
 #include "confdefs.h"
 
 #if HAVE_DLFCN_H
@@ -14402,7 +14477,7 @@ else
   lt_dlunknown=0; lt_dlno_uscore=1; lt_dlneed_uscore=2
   lt_status=$lt_dlunknown
   cat > conftest.$ac_ext <<EOF
-#line 14405 "configure"
+#line 14480 "configure"
 #include "confdefs.h"
 
 #if HAVE_DLFCN_H
@@ -16747,11 +16822,11 @@ else
    -e 's:.*FLAGS}\{0,1\} :&$lt_compiler_flag :; t' \
    -e 's: [^ ]*conftest\.: $lt_compiler_flag&:; t' \
    -e 's:$: $lt_compiler_flag:'`
-   (eval echo "\"\$as_me:16750: $lt_compile\"" >&5)
+   (eval echo "\"\$as_me:16825: $lt_compile\"" >&5)
    (eval "$lt_compile" 2>conftest.err)
    ac_status=$?
    cat conftest.err >&5
-   echo "$as_me:16754: \$? = $ac_status" >&5
+   echo "$as_me:16829: \$? = $ac_status" >&5
    if (exit $ac_status) && test -s "$ac_outfile"; then
      # The compiler can only warn and ignore the option if not recognized
      # So say no if there are warnings other than the usual output.
@@ -16851,11 +16926,11 @@ else
    -e 's:.*FLAGS}\{0,1\} :&$lt_compiler_flag :; t' \
    -e 's: [^ ]*conftest\.: $lt_compiler_flag&:; t' \
    -e 's:$: $lt_compiler_flag:'`
-   (eval echo "\"\$as_me:16854: $lt_compile\"" >&5)
+   (eval echo "\"\$as_me:16929: $lt_compile\"" >&5)
    (eval "$lt_compile" 2>out/conftest.err)
    ac_status=$?
    cat out/conftest.err >&5
-   echo "$as_me:16858: \$? = $ac_status" >&5
+   echo "$as_me:16933: \$? = $ac_status" >&5
    if (exit $ac_status) && test -s out/conftest2.$ac_objext
    then
      # The compiler can only warn and ignore the option if not recognized
@@ -18434,11 +18509,11 @@ else
    -e 's:.*FLAGS}\{0,1\} :&$lt_compiler_flag :; t' \
    -e 's: [^ ]*conftest\.: $lt_compiler_flag&:; t' \
    -e 's:$: $lt_compiler_flag:'`
-   (eval echo "\"\$as_me:18437: $lt_compile\"" >&5)
+   (eval echo "\"\$as_me:18512: $lt_compile\"" >&5)
    (eval "$lt_compile" 2>conftest.err)
    ac_status=$?
    cat conftest.err >&5
-   echo "$as_me:18441: \$? = $ac_status" >&5
+   echo "$as_me:18516: \$? = $ac_status" >&5
    if (exit $ac_status) && test -s "$ac_outfile"; then
      # The compiler can only warn and ignore the option if not recognized
      # So say no if there are warnings other than the usual output.
@@ -18538,11 +18613,11 @@ else
    -e 's:.*FLAGS}\{0,1\} :&$lt_compiler_flag :; t' \
    -e 's: [^ ]*conftest\.: $lt_compiler_flag&:; t' \
    -e 's:$: $lt_compiler_flag:'`
-   (eval echo "\"\$as_me:18541: $lt_compile\"" >&5)
+   (eval echo "\"\$as_me:18616: $lt_compile\"" >&5)
    (eval "$lt_compile" 2>out/conftest.err)
    ac_status=$?
    cat out/conftest.err >&5
-   echo "$as_me:18545: \$? = $ac_status" >&5
+   echo "$as_me:18620: \$? = $ac_status" >&5
    if (exit $ac_status) && test -s out/conftest2.$ac_objext
    then
      # The compiler can only warn and ignore the option if not recognized
@@ -20708,11 +20783,11 @@ else
    -e 's:.*FLAGS}\{0,1\} :&$lt_compiler_flag :; t' \
    -e 's: [^ ]*conftest\.: $lt_compiler_flag&:; t' \
    -e 's:$: $lt_compiler_flag:'`
-   (eval echo "\"\$as_me:20711: $lt_compile\"" >&5)
+   (eval echo "\"\$as_me:20786: $lt_compile\"" >&5)
    (eval "$lt_compile" 2>conftest.err)
    ac_status=$?
    cat conftest.err >&5
-   echo "$as_me:20715: \$? = $ac_status" >&5
+   echo "$as_me:20790: \$? = $ac_status" >&5
    if (exit $ac_status) && test -s "$ac_outfile"; then
      # The compiler can only warn and ignore the option if not recognized
      # So say no if there are warnings other than the usual output.
@@ -20998,11 +21073,11 @@ else
    -e 's:.*FLAGS}\{0,1\} :&$lt_compiler_flag :; t' \
    -e 's: [^ ]*conftest\.: $lt_compiler_flag&:; t' \
    -e 's:$: $lt_compiler_flag:'`
-   (eval echo "\"\$as_me:21001: $lt_compile\"" >&5)
+   (eval echo "\"\$as_me:21076: $lt_compile\"" >&5)
    (eval "$lt_compile" 2>conftest.err)
    ac_status=$?
    cat conftest.err >&5
-   echo "$as_me:21005: \$? = $ac_status" >&5
+   echo "$as_me:21080: \$? = $ac_status" >&5
    if (exit $ac_status) && test -s "$ac_outfile"; then
      # The compiler can only warn and ignore the option if not recognized
      # So say no if there are warnings other than the usual output.
@@ -21102,11 +21177,11 @@ else
    -e 's:.*FLAGS}\{0,1\} :&$lt_compiler_flag :; t' \
    -e 's: [^ ]*conftest\.: $lt_compiler_flag&:; t' \
    -e 's:$: $lt_compiler_flag:'`
-   (eval echo "\"\$as_me:21105: $lt_compile\"" >&5)
+   (eval echo "\"\$as_me:21180: $lt_compile\"" >&5)
    (eval "$lt_compile" 2>out/conftest.err)
    ac_status=$?
    cat out/conftest.err >&5
-   echo "$as_me:21109: \$? = $ac_status" >&5
+   echo "$as_me:21184: \$? = $ac_status" >&5
    if (exit $ac_status) && test -s out/conftest2.$ac_objext
    then
      # The compiler can only warn and ignore the option if not recognized
@@ -26410,26 +26485,100 @@ ac_config_files="$ac_config_files src/sbml/conversion/test/Makefile"
 
 ac_config_files="$ac_config_files src/sbml/packages/Makefile"
 
-ac_config_files="$ac_config_files src/sbml/packages/layout/Makefile"
 
-ac_config_files="$ac_config_files src/sbml/packages/layout/common/Makefile"
+if test "$enable_comp" != "no" ; then
+  ac_config_files="$ac_config_files src/sbml/packages/comp/Makefile"
 
-ac_config_files="$ac_config_files src/sbml/packages/layout/extension/Makefile"
+  ac_config_files="$ac_config_files src/sbml/packages/comp/common/Makefile"
 
-ac_config_files="$ac_config_files src/sbml/packages/layout/sbml/Makefile"
+  ac_config_files="$ac_config_files src/sbml/packages/comp/extension/Makefile"
 
-ac_config_files="$ac_config_files src/sbml/packages/layout/sbml/test/Makefile"
+  ac_config_files="$ac_config_files src/sbml/packages/comp/extension/test/Makefile"
 
-ac_config_files="$ac_config_files src/sbml/packages/layout/util/Makefile"
+  ac_config_files="$ac_config_files src/sbml/packages/comp/sbml/Makefile"
 
-ac_config_files="$ac_config_files src/sbml/packages/layout/validator/Makefile"
+  ac_config_files="$ac_config_files src/sbml/packages/comp/sbml/test/Makefile"
 
-ac_config_files="$ac_config_files src/sbml/packages/layout/validator/constraints/Makefile"
+  ac_config_files="$ac_config_files src/sbml/packages/comp/util/Makefile"
 
-ac_config_files="$ac_config_files src/sbml/packages/layout/validator/test/Makefile"
+  ac_config_files="$ac_config_files src/sbml/packages/comp/util/test/Makefile"
 
-ac_config_files="$ac_config_files src/sbml/packages/layout/validator/test/test-data/Makefile"
+  ac_config_files="$ac_config_files src/sbml/packages/comp/validator/Makefile"
 
+  ac_config_files="$ac_config_files src/sbml/packages/comp/validator/constraints/Makefile"
+
+  ac_config_files="$ac_config_files src/sbml/packages/comp/validator/test/Makefile"
+
+  ac_config_files="$ac_config_files src/sbml/packages/comp/validator/test/test-data/Makefile"
+
+fi
+
+if test "$enable_fbc" != "no" ; then
+  ac_config_files="$ac_config_files src/sbml/packages/fbc/common/Makefile"
+
+  ac_config_files="$ac_config_files src/sbml/packages/fbc/extension/Makefile"
+
+  ac_config_files="$ac_config_files src/sbml/packages/fbc/extension/test/Makefile"
+
+  ac_config_files="$ac_config_files src/sbml/packages/fbc/Makefile"
+
+  ac_config_files="$ac_config_files src/sbml/packages/fbc/sbml/Makefile"
+
+  ac_config_files="$ac_config_files src/sbml/packages/fbc/util/Makefile"
+
+  ac_config_files="$ac_config_files src/sbml/packages/fbc/validator/constraints/Makefile"
+
+  ac_config_files="$ac_config_files src/sbml/packages/fbc/validator/Makefile"
+
+  ac_config_files="$ac_config_files src/sbml/packages/fbc/validator/test/Makefile"
+
+  ac_config_files="$ac_config_files src/sbml/packages/fbc/validator/test/test-data/Makefile"
+
+fi
+
+if test "$enable_layout" != "no" ; then
+  ac_config_files="$ac_config_files src/sbml/packages/layout/Makefile"
+
+  ac_config_files="$ac_config_files src/sbml/packages/layout/common/Makefile"
+
+  ac_config_files="$ac_config_files src/sbml/packages/layout/extension/Makefile"
+
+  ac_config_files="$ac_config_files src/sbml/packages/layout/sbml/Makefile"
+
+  ac_config_files="$ac_config_files src/sbml/packages/layout/sbml/test/Makefile"
+
+  ac_config_files="$ac_config_files src/sbml/packages/layout/util/Makefile"
+
+  ac_config_files="$ac_config_files src/sbml/packages/layout/validator/Makefile"
+
+  ac_config_files="$ac_config_files src/sbml/packages/layout/validator/constraints/Makefile"
+
+  ac_config_files="$ac_config_files src/sbml/packages/layout/validator/test/Makefile"
+
+  ac_config_files="$ac_config_files src/sbml/packages/layout/validator/test/test-data/Makefile"
+
+fi
+
+if test "$enable_qual" != "no" ; then
+  ac_config_files="$ac_config_files src/sbml/packages/qual/Makefile"
+
+  ac_config_files="$ac_config_files src/sbml/packages/qual/common/Makefile"
+
+  ac_config_files="$ac_config_files src/sbml/packages/qual/extension/Makefile"
+
+  ac_config_files="$ac_config_files src/sbml/packages/qual/sbml/Makefile"
+
+  ac_config_files="$ac_config_files src/sbml/packages/qual/sbml/test/Makefile"
+
+  ac_config_files="$ac_config_files src/sbml/packages/qual/validator/Makefile"
+
+  ac_config_files="$ac_config_files src/sbml/packages/qual/validator/constraints/Makefile"
+
+  ac_config_files="$ac_config_files src/sbml/packages/qual/validator/test/Makefile"
+
+  ac_config_files="$ac_config_files src/sbml/packages/qual/validator/test/test-data/Makefile"
+
+fi
 
 ac_config_files="$ac_config_files docs/Makefile"
 
@@ -26534,56 +26683,56 @@ if test -d dev; then
 fi
 
 
-  ac_config_files="$ac_config_files src/bindings/csharp/local-downcast-extension.i"
+ac_config_files="$ac_config_files src/bindings/csharp/local-downcast-extension.i"
 
-  ac_config_files="$ac_config_files src/bindings/csharp/local-downcast-namespaces.i"
+ac_config_files="$ac_config_files src/bindings/csharp/local-downcast-namespaces.i"
 
-  ac_config_files="$ac_config_files src/bindings/csharp/local-packages.i"
-
-
-  ac_config_files="$ac_config_files src/bindings/java/local-downcast-extension.i"
-
-  ac_config_files="$ac_config_files src/bindings/java/local-downcast-namespaces.i"
-
-  ac_config_files="$ac_config_files src/bindings/java/local-packages.i"
+ac_config_files="$ac_config_files src/bindings/csharp/local-packages.i"
 
 
-  ac_config_files="$ac_config_files src/bindings/perl/local-downcast.cpp"
+ac_config_files="$ac_config_files src/bindings/java/local-downcast-extension.i"
 
-  ac_config_files="$ac_config_files src/bindings/perl/local-downcast-extension.cpp"
+ac_config_files="$ac_config_files src/bindings/java/local-downcast-namespaces.i"
 
-  ac_config_files="$ac_config_files src/bindings/perl/local-downcast-namespaces.cpp"
-
-  ac_config_files="$ac_config_files src/bindings/perl/local-downcast-plugins.cpp"
-
-  ac_config_files="$ac_config_files src/bindings/perl/local-packages.i"
+ac_config_files="$ac_config_files src/bindings/java/local-packages.i"
 
 
-  ac_config_files="$ac_config_files src/bindings/python/local-downcast.cpp"
+ac_config_files="$ac_config_files src/bindings/perl/local-downcast.cpp"
 
-  ac_config_files="$ac_config_files src/bindings/python/local-downcast-extension.cpp"
+ac_config_files="$ac_config_files src/bindings/perl/local-downcast-extension.cpp"
 
-  ac_config_files="$ac_config_files src/bindings/python/local-downcast-namespaces.cpp"
+ac_config_files="$ac_config_files src/bindings/perl/local-downcast-namespaces.cpp"
 
-  ac_config_files="$ac_config_files src/bindings/python/local-downcast-plugins.cpp"
+ac_config_files="$ac_config_files src/bindings/perl/local-downcast-plugins.cpp"
 
-  ac_config_files="$ac_config_files src/bindings/python/local-packages.i"
-
-
-  ac_config_files="$ac_config_files src/bindings/ruby/local-downcast.cpp"
-
-  ac_config_files="$ac_config_files src/bindings/ruby/local-downcast-extension.cpp"
-
-  ac_config_files="$ac_config_files src/bindings/ruby/local-downcast-namespaces.cpp"
-
-  ac_config_files="$ac_config_files src/bindings/ruby/local-downcast-plugins.cpp"
-
-  ac_config_files="$ac_config_files src/bindings/ruby/local-packages.i"
+ac_config_files="$ac_config_files src/bindings/perl/local-packages.i"
 
 
-  ac_config_files="$ac_config_files src/bindings/swig/libsbml-packages.h"
+ac_config_files="$ac_config_files src/bindings/python/local-downcast.cpp"
 
-  ac_config_files="$ac_config_files src/bindings/swig/libsbml-packages.i"
+ac_config_files="$ac_config_files src/bindings/python/local-downcast-extension.cpp"
+
+ac_config_files="$ac_config_files src/bindings/python/local-downcast-namespaces.cpp"
+
+ac_config_files="$ac_config_files src/bindings/python/local-downcast-plugins.cpp"
+
+ac_config_files="$ac_config_files src/bindings/python/local-packages.i"
+
+
+ac_config_files="$ac_config_files src/bindings/ruby/local-downcast.cpp"
+
+ac_config_files="$ac_config_files src/bindings/ruby/local-downcast-extension.cpp"
+
+ac_config_files="$ac_config_files src/bindings/ruby/local-downcast-namespaces.cpp"
+
+ac_config_files="$ac_config_files src/bindings/ruby/local-downcast-plugins.cpp"
+
+ac_config_files="$ac_config_files src/bindings/ruby/local-packages.i"
+
+
+ac_config_files="$ac_config_files src/bindings/swig/libsbml-packages.h"
+
+ac_config_files="$ac_config_files src/bindings/swig/libsbml-packages.i"
 
 
 
@@ -27357,6 +27506,28 @@ do
     "src/sbml/conversion/Makefile") CONFIG_FILES="$CONFIG_FILES src/sbml/conversion/Makefile" ;;
     "src/sbml/conversion/test/Makefile") CONFIG_FILES="$CONFIG_FILES src/sbml/conversion/test/Makefile" ;;
     "src/sbml/packages/Makefile") CONFIG_FILES="$CONFIG_FILES src/sbml/packages/Makefile" ;;
+    "src/sbml/packages/comp/Makefile") CONFIG_FILES="$CONFIG_FILES src/sbml/packages/comp/Makefile" ;;
+    "src/sbml/packages/comp/common/Makefile") CONFIG_FILES="$CONFIG_FILES src/sbml/packages/comp/common/Makefile" ;;
+    "src/sbml/packages/comp/extension/Makefile") CONFIG_FILES="$CONFIG_FILES src/sbml/packages/comp/extension/Makefile" ;;
+    "src/sbml/packages/comp/extension/test/Makefile") CONFIG_FILES="$CONFIG_FILES src/sbml/packages/comp/extension/test/Makefile" ;;
+    "src/sbml/packages/comp/sbml/Makefile") CONFIG_FILES="$CONFIG_FILES src/sbml/packages/comp/sbml/Makefile" ;;
+    "src/sbml/packages/comp/sbml/test/Makefile") CONFIG_FILES="$CONFIG_FILES src/sbml/packages/comp/sbml/test/Makefile" ;;
+    "src/sbml/packages/comp/util/Makefile") CONFIG_FILES="$CONFIG_FILES src/sbml/packages/comp/util/Makefile" ;;
+    "src/sbml/packages/comp/util/test/Makefile") CONFIG_FILES="$CONFIG_FILES src/sbml/packages/comp/util/test/Makefile" ;;
+    "src/sbml/packages/comp/validator/Makefile") CONFIG_FILES="$CONFIG_FILES src/sbml/packages/comp/validator/Makefile" ;;
+    "src/sbml/packages/comp/validator/constraints/Makefile") CONFIG_FILES="$CONFIG_FILES src/sbml/packages/comp/validator/constraints/Makefile" ;;
+    "src/sbml/packages/comp/validator/test/Makefile") CONFIG_FILES="$CONFIG_FILES src/sbml/packages/comp/validator/test/Makefile" ;;
+    "src/sbml/packages/comp/validator/test/test-data/Makefile") CONFIG_FILES="$CONFIG_FILES src/sbml/packages/comp/validator/test/test-data/Makefile" ;;
+    "src/sbml/packages/fbc/common/Makefile") CONFIG_FILES="$CONFIG_FILES src/sbml/packages/fbc/common/Makefile" ;;
+    "src/sbml/packages/fbc/extension/Makefile") CONFIG_FILES="$CONFIG_FILES src/sbml/packages/fbc/extension/Makefile" ;;
+    "src/sbml/packages/fbc/extension/test/Makefile") CONFIG_FILES="$CONFIG_FILES src/sbml/packages/fbc/extension/test/Makefile" ;;
+    "src/sbml/packages/fbc/Makefile") CONFIG_FILES="$CONFIG_FILES src/sbml/packages/fbc/Makefile" ;;
+    "src/sbml/packages/fbc/sbml/Makefile") CONFIG_FILES="$CONFIG_FILES src/sbml/packages/fbc/sbml/Makefile" ;;
+    "src/sbml/packages/fbc/util/Makefile") CONFIG_FILES="$CONFIG_FILES src/sbml/packages/fbc/util/Makefile" ;;
+    "src/sbml/packages/fbc/validator/constraints/Makefile") CONFIG_FILES="$CONFIG_FILES src/sbml/packages/fbc/validator/constraints/Makefile" ;;
+    "src/sbml/packages/fbc/validator/Makefile") CONFIG_FILES="$CONFIG_FILES src/sbml/packages/fbc/validator/Makefile" ;;
+    "src/sbml/packages/fbc/validator/test/Makefile") CONFIG_FILES="$CONFIG_FILES src/sbml/packages/fbc/validator/test/Makefile" ;;
+    "src/sbml/packages/fbc/validator/test/test-data/Makefile") CONFIG_FILES="$CONFIG_FILES src/sbml/packages/fbc/validator/test/test-data/Makefile" ;;
     "src/sbml/packages/layout/Makefile") CONFIG_FILES="$CONFIG_FILES src/sbml/packages/layout/Makefile" ;;
     "src/sbml/packages/layout/common/Makefile") CONFIG_FILES="$CONFIG_FILES src/sbml/packages/layout/common/Makefile" ;;
     "src/sbml/packages/layout/extension/Makefile") CONFIG_FILES="$CONFIG_FILES src/sbml/packages/layout/extension/Makefile" ;;
@@ -27367,6 +27538,15 @@ do
     "src/sbml/packages/layout/validator/constraints/Makefile") CONFIG_FILES="$CONFIG_FILES src/sbml/packages/layout/validator/constraints/Makefile" ;;
     "src/sbml/packages/layout/validator/test/Makefile") CONFIG_FILES="$CONFIG_FILES src/sbml/packages/layout/validator/test/Makefile" ;;
     "src/sbml/packages/layout/validator/test/test-data/Makefile") CONFIG_FILES="$CONFIG_FILES src/sbml/packages/layout/validator/test/test-data/Makefile" ;;
+    "src/sbml/packages/qual/Makefile") CONFIG_FILES="$CONFIG_FILES src/sbml/packages/qual/Makefile" ;;
+    "src/sbml/packages/qual/common/Makefile") CONFIG_FILES="$CONFIG_FILES src/sbml/packages/qual/common/Makefile" ;;
+    "src/sbml/packages/qual/extension/Makefile") CONFIG_FILES="$CONFIG_FILES src/sbml/packages/qual/extension/Makefile" ;;
+    "src/sbml/packages/qual/sbml/Makefile") CONFIG_FILES="$CONFIG_FILES src/sbml/packages/qual/sbml/Makefile" ;;
+    "src/sbml/packages/qual/sbml/test/Makefile") CONFIG_FILES="$CONFIG_FILES src/sbml/packages/qual/sbml/test/Makefile" ;;
+    "src/sbml/packages/qual/validator/Makefile") CONFIG_FILES="$CONFIG_FILES src/sbml/packages/qual/validator/Makefile" ;;
+    "src/sbml/packages/qual/validator/constraints/Makefile") CONFIG_FILES="$CONFIG_FILES src/sbml/packages/qual/validator/constraints/Makefile" ;;
+    "src/sbml/packages/qual/validator/test/Makefile") CONFIG_FILES="$CONFIG_FILES src/sbml/packages/qual/validator/test/Makefile" ;;
+    "src/sbml/packages/qual/validator/test/test-data/Makefile") CONFIG_FILES="$CONFIG_FILES src/sbml/packages/qual/validator/test/test-data/Makefile" ;;
     "docs/Makefile") CONFIG_FILES="$CONFIG_FILES docs/Makefile" ;;
     "docs/index.html") CONFIG_FILES="$CONFIG_FILES docs/index.html" ;;
     "docs/src/doxygen-config-c.txt") CONFIG_FILES="$CONFIG_FILES docs/src/doxygen-config-c.txt" ;;
@@ -28154,8 +28334,14 @@ if test "$enable_cpp_namespace" != "no" ; then
   echo "  Using C++ namespace for libSBML (libsbml) = yes"
 fi
 
+echo ""
+echo "Support for SBML packages:"
+
 if test "$enable_layout" != "no" ; then
-  echo "  Using layout extension  = yes"
+  echo "  SBML 'comp'                   = $enable_comp"
+  echo "  SBML 'fbc'                    = $enable_fbc"
+  echo "  SBML 'layout'                 = $enable_layout"
+  echo "  SBML 'qual'                   = $enable_qual"
 fi
 
 echo ""
