@@ -49,12 +49,21 @@ thisdir = src/sbml/packages
 # subdirectories will be added to the list of targets.
 
 ifneq "$(MAKECMDGOALS)" "dist"
+  ifdef USE_COMP
+    subdirs += comp
+  endif
+  ifdef USE_FBC
+    subdirs += fbc
+  endif
   ifdef USE_LAYOUT
     subdirs += layout
   endif
+  ifdef USE_QUAL
+    subdirs += qual
+  endif
 else
   # If `make dist' was given, include all subdirectories.
-  subdirs = layout 
+  subdirs = comp fbc layout qual
 endif
 
 # Variables `subdirs', `headers', `sources', `libraries', `extra_CPPFLAGS',
@@ -78,6 +87,7 @@ all: Makefile all-recursive
 include: include-recursive
 
 docs:
+
 
 # -----------------------------------------------------------------------------
 # Checking.
