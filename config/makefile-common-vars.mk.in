@@ -163,7 +163,19 @@ UFFI              = @UFFI@
 EXT_CPARSE        = @EXT_CPARSE@
 CPARSE            = @CPARSE@
 
+USE_ANNOT         = @USE_ANNOT@
+USE_ARRAYS        = @USE_ARRAYS@
+USE_COMP          = @USE_COMP@
+USE_DISTRIB       = @USE_DISTRIB@
+USE_DYN           = @USE_DYN@
+USE_FBC           = @USE_FBC@
+USE_GROUPS        = @USE_GROUPS@
 USE_LAYOUT        = @USE_LAYOUT@
+USE_MULTI         = @USE_MULTI@
+USE_QUAL          = @USE_QUAL@
+USE_RENDER        = @USE_RENDER@
+USE_REQ           = @USE_REQ@
+USE_SPATIAL       = @USE_SPATIAL@
 
 USE_SWIG          = @USE_SWIG@
 SWIG              = @SWIG@
