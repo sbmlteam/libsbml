@@ -89,6 +89,24 @@
 /* Define to 1 to build the SBML layout extension. */
 #undef LIBSBML_HAS_PACKAGE_LAYOUT
 
+/* Define to 1 to build the SBML fbc extension. */
+#undef USE_FBC
+
+/* Define to 1 to build the SBML fbc extension. */
+#undef LIBSBML_HAS_PACKAGE_FBC
+
+/* Define to 1 to build the SBML qual extension. */
+#undef USE_QUAL
+
+/* Define to 1 to build the SBML qual extension. */
+#undef LIBSBML_HAS_PACKAGE_QUAL
+
+/* Define to 1 to build the SBML comp extension. */
+#undef USE_COMP
+
+/* Define to 1 to build the SBML comp extension. */
+#undef LIBSBML_HAS_PACKAGE_COMP
+
 
 /* Define to 1 to build the SBML groups extension. */
 #undef USE_GROUPS
@@ -97,3 +115,4 @@
 /* Define to 1 if your processor stores words with the most significant byte
    first (like Motorola and SPARC, unlike Intel and VAX). */
 #undef WORDS_BIGENDIAN
+
