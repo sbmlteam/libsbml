@@ -80,18 +80,6 @@ extra_sources     = libsbml.i                          \
 
 swig_sources      = $(extra_sources) ../swig/libsbml.h ../swig/libsbml.i
 
-ifdef USE_COMP
-  swig_sources   += ../swig/comp-package.i
-endif
-ifdef USE_FBC
-  swig_sources   += ../swig/fbc-package.i
-endif
-ifdef USE_LAYOUT
-  swig_sources   += ../swig/layout-package.i
-endif
-ifdef USE_QUAL
-  swig_sources   += ../swig/qual-package.i
-endif
 
 # Variables `subdirs', `headers', `sources', `libraries', `extra_CPPFLAGS',
 # `extra_CXXFLAGS', `extra_LDFLAGS' and `distfiles' are used by the default
@@ -123,25 +111,20 @@ ifdef USE_LIBXML
 endif
 
 # SBML package plug-ins
-
 ifdef USE_COMP
   SWIGFLAGS      += -DUSE_COMP
-  extra_CPPFLAGS += -DUSE_COMP
 endif # USE_COMP  
 
 ifdef USE_FBC
   SWIGFLAGS      += -DUSE_FBC
-  extra_CPPFLAGS += -DUSE_FBC
 endif # USE_FBC  
 
 ifdef USE_LAYOUT
   SWIGFLAGS      += -DUSE_LAYOUT
-  extra_CPPFLAGS += -DUSE_LAYOUT
 endif # USE_LAYOUT  
 
 ifdef USE_QUAL
   SWIGFLAGS      += -DUSE_QUAL
-  extra_CPPFLAGS += -DUSE_QUAL
 endif # USE_QUAL  
 
 # -fno-strict-aliasing option is added to CXXFLAGS when using GCC.  As

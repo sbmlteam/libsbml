@@ -91,10 +91,21 @@ swig_sources =      \
 
 PACKAGE_ARGS=
 
+ifeq ("@USE_COMP@", "1")
+	PACKAGE_ARGS += -DUSE_COMP
+endif
+
+ifeq ("@USE_FBC@", "1")
+	PACKAGE_ARGS += -DUSE_FBC
+endif
+
 ifeq ("@USE_LAYOUT@", "1")
 	PACKAGE_ARGS += -DUSE_LAYOUT
 endif
 
+ifeq ("@USE_QUAL@", "1")
+	PACKAGE_ARGS += -DUSE_QUAL
+endif
 
 main_sources = \
   $(shell grep '%include sbml' ../swig/libsbml.i | grep -v 'libsbml-version.h' \

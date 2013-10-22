@@ -134,13 +134,37 @@ otherdirs = ../../sbml/common ../../sbml/util ../../sbml/xml \
 	    ../../sbml/units ../../sbml/annotation ../../sbml/compress \
             ../../sbml/ ../../sbml/extension
 
+
+ifdef USE_COMP
+  otherdirs += ../../sbml/packages/comp/common \
+               ../../sbml/packages/comp/extension \
+               ../../sbml/packages/comp/sbml \
+               ../../sbml/packages/comp/util \
+               ../../sbml/packages/comp/validator \
+               ../../sbml/packages/comp/validator/constraints 
+endif
+ifdef USE_FBC
+  otherdirs += ../../sbml/packages/fbc/common \
+               ../../sbml/packages/fbc/extension \
+               ../../sbml/packages/fbc/sbml \
+               ../../sbml/packages/fbc/util \
+               ../../sbml/packages/fbc/validator \
+               ../../sbml/packages/fbc/validator/constraints 
+endif
 ifdef USE_LAYOUT
   otherdirs += ../../sbml/packages/layout/common \
                ../../sbml/packages/layout/extension \
                ../../sbml/packages/layout/sbml \
-			   ../../sbml/packages/layout/util \
-			   ../../sbml/packages/layout/validator \
-			   ../../sbml/packages/layout/validator/constraints 
+               ../../sbml/packages/layout/util \
+               ../../sbml/packages/layout/validator \
+               ../../sbml/packages/layout/validator/constraints 
+endif
+ifdef USE_QUAL
+  otherdirs += ../../sbml/packages/qual/common \
+               ../../sbml/packages/qual/extension \
+               ../../sbml/packages/qual/sbml \
+               ../../sbml/packages/qual/validator \
+               ../../sbml/packages/qual/validator/constraints 
 endif
 
 objfiles  = libsbml_wrap.lo $(wildcard $(addsuffix /*.lo,$(otherdirs)))
@@ -179,10 +203,23 @@ ifdef USE_LIBXML
   extra_LIBS     += @LIBXML_LIBS@
 endif
 
+# SBML package plug-ins
+ifdef USE_COMP
+  SWIGFLAGS      += -DUSE_COMP
+endif # USE_COMP  
+
+ifdef USE_FBC
+  SWIGFLAGS      += -DUSE_FBC
+endif # USE_FBC  
+
 ifdef USE_LAYOUT
   SWIGFLAGS      += -DUSE_LAYOUT
-  extra_CPPFLAGS += -DUSE_LAYOUT
 endif # USE_LAYOUT  
+
+ifdef USE_QUAL
+  SWIGFLAGS      += -DUSE_QUAL
+endif # USE_QUAL  
+
 
 
 # -fno-strict-aliasing option is added to CXXFLAGS when using GCC.
@@ -246,9 +283,6 @@ swig_sources =      \
   ../swig/libsbml.h \
   ../swig/libsbml.i
 
-ifdef USE_LAYOUT
-  swig_sources += ../swig/layout-package.i
-endif
 
 main_sources = \
   $(shell grep '%include sbml' ../swig/libsbml.i | grep -v 'libsbml-version.h' \
