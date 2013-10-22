@@ -524,15 +524,18 @@ def getHeadersFromSWIG (filename, includedfiles=[]):
   lines  = stream.readlines()
   stream.close()
 
-  # First look for %include's of .i files, and read those as additional files
-  # to search for .h files.
+  # Create list of %include statements found in the file.
+
+  includes = [line for line in lines if line.strip().startswith('%include')]
+  includes = [entry.replace('"', '') for entry in includes]
+  includes = [entry.replace('%include', '').strip() for entry in includes]
+
+  # Look for %include's of .i files, and read those as additional files to
+  # search for .h files.
 
   ignored_ifiles = ['std_string.i']
 
-  ifiles = [line for line in lines if line.strip().startswith('%include')]
-  ifiles = [line.replace('"', '') for line in ifiles]
-  ifiles = [line for line in ifiles if line.strip().endswith('.i')]
-  ifiles = [line.replace('%include', '').strip() for line in ifiles]
+  ifiles = [file for file in includes if file.strip().endswith('.i')]
   ifiles = [file for file in ifiles if file not in ignored_ifiles]
 
   # SWIG searches multiple paths for %include'd files.  We just look in a
@@ -552,11 +555,9 @@ def getHeadersFromSWIG (filename, includedfiles=[]):
 
   ignored_hfiles = ['ListWrapper.h', 'OStream.h']
 
-  lines  = [line for line in lines if line.strip().startswith('%include')]
-  lines  = [line.replace('"', '') for line in lines]
-  lines  = [line for line in lines if line.strip().endswith('.h')]
-  hfiles = [line.replace('%include', '').strip() for line in lines]
+  hfiles = [file for file in includes if file.strip().endswith('.h')]
   hfiles = [file for file in hfiles if file not in ignored_hfiles]
+
   hfiles.extend(includedfiles)
   return hfiles
 
