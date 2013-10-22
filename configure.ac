@@ -420,6 +420,7 @@ AC_CONFIG_FILES([src/sbml/conversion/test/Makefile])
 
 AC_CONFIG_FILES([src/sbml/packages/Makefile])
 
+if test -d src/sbml/packages/comp; then
 if test "$enable_comp" != "no" ; then
   AC_CONFIG_FILES([src/sbml/packages/comp/Makefile])
   AC_CONFIG_FILES([src/sbml/packages/comp/common/Makefile])
@@ -434,7 +435,9 @@ if test "$enable_comp" != "no" ; then
   AC_CONFIG_FILES([src/sbml/packages/comp/validator/test/Makefile])
   AC_CONFIG_FILES([src/sbml/packages/comp/validator/test/test-data/Makefile])
 fi
+fi
 
+if test -d src/sbml/packages/fbc; then
 if test "$enable_fbc" != "no" ; then
   AC_CONFIG_FILES([src/sbml/packages/fbc/common/Makefile])
   AC_CONFIG_FILES([src/sbml/packages/fbc/extension/Makefile])
@@ -446,6 +449,7 @@ if test "$enable_fbc" != "no" ; then
   AC_CONFIG_FILES([src/sbml/packages/fbc/validator/Makefile])
   AC_CONFIG_FILES([src/sbml/packages/fbc/validator/test/Makefile])
   AC_CONFIG_FILES([src/sbml/packages/fbc/validator/test/test-data/Makefile])
+fi
 fi
 
 if test "$enable_layout" != "no" ; then
@@ -461,6 +465,7 @@ if test "$enable_layout" != "no" ; then
   AC_CONFIG_FILES([src/sbml/packages/layout/validator/test/test-data/Makefile])
 fi
 
+if test -d src/sbml/packages/qual; then
 if test "$enable_qual" != "no" ; then
   AC_CONFIG_FILES([src/sbml/packages/qual/Makefile])
   AC_CONFIG_FILES([src/sbml/packages/qual/common/Makefile])
@@ -471,6 +476,7 @@ if test "$enable_qual" != "no" ; then
   AC_CONFIG_FILES([src/sbml/packages/qual/validator/constraints/Makefile])
   AC_CONFIG_FILES([src/sbml/packages/qual/validator/test/Makefile])
   AC_CONFIG_FILES([src/sbml/packages/qual/validator/test/test-data/Makefile])
+fi
 fi
 
 AC_CONFIG_FILES([docs/Makefile])
