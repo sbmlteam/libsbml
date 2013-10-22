@@ -851,7 +851,7 @@ def sanitizeForHTML (docstring):
   # simple-minded (I suppose like most of this code), but ought to work
   # for the cases we use in practice.
 
-  p = re.compile('^(\s+\*\s+)(@li\s+.*?)(\s+)(<p>\s+\*\s+(?!@li\s))', re.MULTILINE|re.DOTALL)
+  p = re.compile('^(\s+\*\s+)(@li\s+.*?)(\s+)(\*/|<p>\s+\*\s+(?!@li\s))', re.MULTILINE|re.DOTALL)
   docstring = p.sub(rewriteList, docstring)
 
   # Wrap @deprecated content with a class so that we can style it.
