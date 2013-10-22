@@ -741,7 +741,7 @@ public:
    *
    * @return the value of the "activeObjective" attribute of this ListOfObjectives.
    */
-  virtual const std::string &getActiveObjective() const;
+  virtual const std::string& getActiveObjective() const;
 
 
   /**
