@@ -294,10 +294,10 @@ ifdef USE_JAVA
   all: Makefile libsbml_wrap.cpp $(outpath)/libsbml.class $(libraries)
 else
   all:
-    @echo
-    @echo "Reconfigure libSBML using --with-java to enable Java support.";
-    @echo
-    @exit 1
+	@echo
+	@echo "Reconfigure libSBML using --with-java to enable Java support.";
+	@echo
+	@exit 1
 endif
 
 # Rummage through ../swig/libsbml.i to figure out the core libSBML files that
