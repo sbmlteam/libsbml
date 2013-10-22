@@ -28,6 +28,8 @@
 #include <sbml/common/common.h>
 
 #include <sbml/packages/comp/sbml/Port.h>
+#include <sbml/packages/comp/extension/CompExtension.h>
+
 #include <sbml/SBMLDocument.h>
 
 #include <check.h>
