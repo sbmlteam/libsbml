@@ -545,7 +545,7 @@ def getHeadersFromSWIG (filename, includedfiles=[]):
       slash = filename.rfind('/')
       if slash > 0:
         thefile = filename[:slash + 1] + ifilename
-    if thefile != '':
+    if thefile != '' and os.path.isfile(ifilename):
       includedfiles.extend(getHeadersFromSWIG(thefile, includedfiles))
 
   # Now look through everything for .h files & return the list of those names.
