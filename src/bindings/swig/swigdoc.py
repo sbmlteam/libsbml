@@ -527,13 +527,13 @@ def getHeadersFromSWIG (filename, includedfiles=[]):
   # Create list of %include statements found in the file.
 
   includes = [line for line in lines if line.strip().startswith('%include')]
-  includes = [entry.replace('"', '') for entry in includes]
+  includes = [re.sub('["<>]', '', entry) for entry in includes]
   includes = [entry.replace('%include', '').strip() for entry in includes]
 
   # Look for %include's of .i files, and read those as additional files to
   # search for .h files.
 
-  ignored_ifiles = ['std_string.i']
+  ignored_ifiles = ['std_string.i', 'enumsimple.swg', 'javadoc.i']
 
   ifiles = [file for file in includes if file.strip().endswith('.i')]
   ifiles = [file for file in ifiles if file not in ignored_ifiles]
@@ -548,7 +548,7 @@ def getHeadersFromSWIG (filename, includedfiles=[]):
       slash = filename.rfind('/')
       if slash > 0:
         thefile = filename[:slash + 1] + ifilename
-    if thefile != '' and os.path.isfile(ifilename):
+    if thefile != '' and os.path.isfile(thefile):
       includedfiles.extend(getHeadersFromSWIG(thefile, includedfiles))
 
   # Now look through everything for .h files & return the list of those names.
