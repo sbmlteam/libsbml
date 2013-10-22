@@ -141,7 +141,6 @@ int
 ReplacedBy::updateIDs(SBase* oldnames, SBase* newnames)
 {
   //The trick here is that 'oldnames' is actually replacing 'newnames' so we need to get the error messages correct.
-  int ret = LIBSBML_OPERATION_SUCCESS;
   SBMLDocument* doc = getSBMLDocument();
   if (!oldnames->isSetId() && newnames->isSetId()) {
     if (doc) {
