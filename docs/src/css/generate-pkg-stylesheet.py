@@ -50,7 +50,7 @@ color_table = [
     ['comp',	'190', 	'200', 	'231'],
     ['fbc',	'185', 	'255',	'210'],
     ['layout',	'233',	'176',	'149'],
-    ['qual',	'140', 	'210',	'255'],
+    ['qual',	'150', 	'190',	'255'],
     ['multi',	'223',	'189',	'30'],
     ['groups',	'250',	'170',	'210'],
     ['arrays',	'55',	'221',	'177'],
@@ -198,19 +198,19 @@ def main(args):
 
         for c in classes:
             comma = (',' if c != last else '')
-            print 'a[href$="{}.html"]{}'.format(c, comma)
+            print '.FrameItemFont a[href$="{}.html"]{}'.format(c, comma)
         print safari_bugfix_template
 
         # With that out of the way, we can write the real CSS.
 
         for c in classes:
             comma = (',' if c != last else '')
-            print 'a[href$="{}.html"]:before{}'.format(c, comma)
+            print '.FrameItemFont a[href$="{}.html"]:before{}'.format(c, comma)
         print before_template.format(pkg, color[1], color[2], color[3])
 
         for c in classes:
             comma = (',' if c != last else '')
-            print 'a[href$="{}.html"]:after{}'.format(c, comma)
+            print '.FrameItemFont a[href$="{}.html"]:after{}'.format(c, comma)
         print after_template.format(pkg, color[1], color[2], color[3])
 
 
