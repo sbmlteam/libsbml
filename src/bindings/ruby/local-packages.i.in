@@ -1,14 +1,14 @@
 // ## @configure_input@
 
 #ifdef USE_COMP
-%include "local-packages-comp.i"
+%include "local-comp.i"
 #endif
 #ifdef USE_FBC
-%include "local-packages-fbc.i"
+%include "local-fbc.i"
 #endif
 #ifdef USE_LAYOUT
-%include "local-packages-layout.i"
+%include "local-layout.i"
 #endif
 #ifdef USE_QUAL
-%include "local-packages-qual.i"
+%include "local-qual.i"
 #endif
