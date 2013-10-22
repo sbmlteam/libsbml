@@ -1473,7 +1473,8 @@ def main (args):
     tmpstream.close()
   except Exception, e:
     #FB: not printing the warning below, as after all the documentation file
-	#    has been correctly created. 
+    #    has been correctly created. 
+    pass
     # print "\tWarning, error flushing stream \n\t\t'%s'. \n\tThis is not a serious error, but an issue with the python interpreter known to occur in python 2.7." % e
   finalstream.flush()
   finalstream.close()
