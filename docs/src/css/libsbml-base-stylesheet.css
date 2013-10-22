@@ -63,7 +63,12 @@ h2
     padding-bottom: 2px;
 }
 
-h2 a.anchor, h3 a.anchor, h4 a.anchor, h2 a.anchor:hover, h3 a.anchor:hover, h4 a.anchor:hover
+h2 a.anchor,
+h3 a.anchor,
+h4 a.anchor,
+h2 a.anchor:hover,
+h3 a.anchor:hover,
+h4 a.anchor:hover
 {
     color: #383838;
     text-decoration: none;
@@ -291,10 +296,35 @@ object.centered
     caption-side: bottom;
 }
 
+.text-table
+{
+    font-size: 12px;
+    border-top: 1px solid #aaa;
+    border-bottom: 1px solid #aaa;
+    border-collapse: collapse;
+    padding-top: 0em;
+    margin-top: 1em;
+    margin-bottom: 1.5em;
+}
+
+.text-table th
+{
+    font-size: 12px;
+    background-color: #dfdfdf;
+    padding: 3px 0.5em 0.5em 0.5em;
+    border-bottom: 1px solid #bbb;
+    vertical-align: bottom;
+}
+
+.text-table td
+{ 
+    padding: 2px 0.5em;
+    line-height: 140%;
+}
+
 .width80
 {
-    margin-left: 3em;
-    margin-right: 3em;
+    width: 80%;
 }
 
 .bigger-row-spacing td
@@ -386,4 +416,30 @@ code.language-java .str
     width: 40px;
     display: inline-block;
     text-align: center;
+}
+
+/* 
+ * Multicolumn list solution found here:
+ * http://weedygarden.net/2012/04/css3-multi-column-lists/
+ */
+
+.columnlist
+{
+    margin: 1em 0px;
+    padding-left: auto;
+    padding-right: auto;
+    display: inline-block;
+    *display: inline;
+    *zoom: 1;
+    width: 95%;
+}
+
+.list3
+{
+    column-count: 3;
+    -moz-column-count: 3;
+    -moz-column-gap: 1.5em;
+    -webkit-column-count: 3;
+    -webkit-column-gap: 1.5em;
+    column-gap: 1.5em;
 }

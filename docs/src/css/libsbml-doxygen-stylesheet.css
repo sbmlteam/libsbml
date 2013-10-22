@@ -1164,31 +1164,6 @@ div.toc li.level4 {
     line-height: 100%;
 }
 
-.text-table {
-  border-top: 1px solid #aaa;
-  border-bottom: 1px solid #aaa;
-  border-collapse: collapse;
-  margin: 1em auto 1.5em auto;
-  padding-top: 0em;
-}
-
-.text-table {
-  font-size: 12px;
-}
-
-.text-table th {
-  font-size: 12px;
-  background-color: #dfdfdf;
-  padding: 3px 0.5em 0.5em 0.5em;
-  border-bottom: 1px solid #bbb;
-  vertical-align: bottom;
-}
-
-.text-table td { 
-  padding: 2px 0.5em;
-  line-height: 140%;
-}
-
 #main-page-sections H2,
 #main-page-sections H2 a
 {
@@ -1367,30 +1342,6 @@ td.s-info {
 td.s-na {
   font-weight: bold;
   text-align: center;
-}
-
-/* 
- * Multicolumn list solution found here:
- * http://weedygarden.net/2012/04/css3-multi-column-lists/
- */
-
-.columnlist {
-    margin: 1em 0px;
-    padding-left: auto;
-    padding-right: auto;
-    display: inline-block;
-    *display: inline;
-    *zoom: 1;
-    width: 95%;
-}
-
-.list3 {
-    column-count: 3;
-    -moz-column-count: 3;
-    -moz-column-gap: 1.5em;
-    -webkit-column-count: 3;
-    -webkit-column-gap: 1.5em;
-    column-gap: 1.5em;
 }
 
 /* Hide the "Related Pages" tab because for us, it's an empty page. */
