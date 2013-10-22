@@ -195,12 +195,12 @@ otherdirs = common util xml math validator validator/constraints units \
 
 ifdef USE_COMP
   otherdirs +=  packages/comp/extension packages/comp/sbml  \
-                packages/comp/common \
+                packages/comp/common packages/comp/util \
                 packages/comp/validator packages/comp/validator/constraints
 endif
 ifdef USE_FBC
   otherdirs +=  packages/fbc/extension packages/fbc/sbml  \
-                packages/fbc/common \
+                packages/fbc/common packages/fbc/util \
                 packages/fbc/validator packages/fbc/validator/constraints
 endif
 ifdef USE_LAYOUT
