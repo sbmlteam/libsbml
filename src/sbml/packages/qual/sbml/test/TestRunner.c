@@ -31,13 +31,15 @@
 
 #include <stdlib.h>
 #include <string.h>
-#include <check.h>
+
 #include <sbml/common/extern.h>
 #include <sbml/util/memory.h>
 
+#include <check.h>
+
 LIBSBML_CPP_NAMESPACE_USE
 
-CK_CPPSTART
+BEGIN_C_DECLS
 
 Suite *create_suite_Input (void);
 Suite *create_suite_Output (void);
@@ -47,6 +49,8 @@ Suite *create_suite_QualitativeSpecies (void);
 Suite *create_suite_DefaultTerm (void);
 Suite *create_suite_ListOfFunctionTerms (void);
 Suite *create_suite_CopyAndClone (void);
+
+END_C_DECLS
 
 /**
  * Global.
@@ -105,5 +109,3 @@ main (int argc, char* argv[])
 
   return num_failed;
 }
-
-CK_CPPEND
