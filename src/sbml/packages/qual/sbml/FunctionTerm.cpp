@@ -483,8 +483,6 @@ FunctionTerm::readAttributes (const XMLAttributes& attributes,
     }
   }
 
-  bool assigned = false;
-
   //
   // resultLevel int   ( use = "required" )
   //
