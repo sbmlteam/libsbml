@@ -615,11 +615,11 @@ define merge_html_code
 endef
 
 define insert_javascript
-  sed -i "" -e 's:<SCRIPT type="text/javascript">:<script src="../../../sbml.js"></script><SCRIPT type="text/javascript">:g' $(wildcard $(1)/*.html)
+  perl -i -pe 's:<SCRIPT type="text/javascript">:<script src="../../../sbml.js"></script><SCRIPT type="text/javascript">:g' $(wildcard $(1)/*.html)
 endef
 
 define adjust_frameset
-  sed -i "" -e 's/20%,80%/22%,78%/' $(1)
+  perl -i -pe 's/20%,80%/22%,78%/' $(1)
 endef
 
 # Compile the SBMLDoclet class file if needed.
