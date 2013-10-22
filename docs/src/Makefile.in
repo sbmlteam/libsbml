@@ -446,7 +446,7 @@ core-sources = \
   $(expanded-html-files)
 
 css/libsbml-package-stylesheet.css: css/generate-pkg-stylesheet.py \
-  $(wildcard css/*.css) $(core-sources)
+  $(core-sources) css/libsbml-javadoc-stylesheet.css
 	css/generate-pkg-stylesheet.py $(TOP_SRCDIR)/src/sbml/packages > $@
 
 css-files =			     \
@@ -483,6 +483,7 @@ define postprocess_doxygen
   cp sbml.js $(1)
   cp -rf css/libsbml-reset-stylesheet.css $(1)
   cp -rf css/libsbml-base-stylesheet.css $(1)
+  cp -rf css/libsbml-package-stylesheet.css $(1)
   cp -rf css/libsbml-doxygen-tabs.css $(1)/tabs.css
   cp -rf css/libsbml-doxygen-navtree.css $(1)/navtree.css
 endef
@@ -618,7 +619,7 @@ define insert_javascript
 endef
 
 define adjust_frameset
-  sed -i "" -e 's/20%,80%/25%,75%/' $(1)
+  sed -i "" -e 's/20%,80%/22%,78%/' $(1)
 endef
 
 # Compile the SBMLDoclet class file if needed.
