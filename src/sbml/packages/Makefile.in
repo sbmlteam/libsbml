@@ -70,8 +70,10 @@ endif
 # `extra_CXXFLAGS', `extra_LDFLAGS' and `distfiles' are used by the default
 # rules in `makefile-common-actions.mk' included at the end.
 
-distfiles = Makefile.in layout-register.h layout-register.cxx
-
+distfiles = Makefile.in layout-register.h layout-register.cxx \
+  comp-register.h comp-register.cxx \
+  fbc-register.h fbc-register.cxx \
+  qual-register.h qual-register.cxx
 
 # -----------------------------------------------------------------------------
 # Primary build actions

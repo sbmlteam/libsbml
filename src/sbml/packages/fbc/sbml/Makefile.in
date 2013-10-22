@@ -99,7 +99,7 @@ extra_LDFLAGS += ../../../../libsbml.la
 # redefines the defaults from makefile-common-actions.mk to accomplish this.
 
 objects   = $(call make_objects_list,$(sources))
-otherdirs = ../extension
+otherdirs = ../extension ../util
 
 objfiles  = $(objects) $(wildcard $(addsuffix /*.$(OBJEXT),$(otherdirs)))
 

@@ -96,10 +96,11 @@ ifdef BUGGY_APPLE_LIBXML
 endif
 endif
 
+extra_LDFLAGS  += ../../../../../libsbml.la
+
 # `distfiles' determines the files and directories included in a distribution.
 # `distfiles_exclude' is used to filter out specific items, so that even if
 # they appear in `distfiles', they will not be copied in the distribution.
-
 
 distfiles = $(test_sources) $(test_headers) \
 	    Makefile.in CMakeLists.txt
@@ -129,17 +130,23 @@ all: Makefile all-recursive
 
 tmp           = $(test_sources:.cpp=.lo) $(test_sources:.c=.lo)
 localobjfiles = $(filter %.lo,$(tmp))
-otherdirs     = ../../../ ../../../../ ../constraints ../../../../util \
-                ../../../../xml ../../../../math  ../../../../units \
-                ../../../../annotation ../../../../compress ../../../../common \
-                ../../../../extension ../../../../conversion  \
-                ../../../../validator/constraints/ ../../../../validator
 
-ifdef USE_QUAL
-  otherdirs +=  ../../extension ../../sbml \
-                ../../common ../../validator 
+otherdirs     = ../common ../../extension ../../util ../../sbml ../../validator
+ifdef USE_FBC
+  otherdirs  += ../../../fbc/common ../../../fbc/sbml \
+		../../../fbc/extension ../../../fbc/util \
+		../../../fbc/validator
 endif
-
+ifdef USE_LAYOUT
+  otherdirs  += ../../../layout/common ../../../layout/sbml \
+		../../../layout/extension ../../../layout/util \
+		../../../layout/validator
+endif
+ifdef USE_COMP
+  otherdirs  += ../../../comp/common ../../../comp/sbml \
+		../../../comp/extension ../../../comp/util \
+		../../../comp/validator
+endif
 
 otherobjfiles = $(wildcard $(addsuffix /*.lo,$(otherdirs)))
 test_objfiles = $(localobjfiles) $(otherobjfiles)

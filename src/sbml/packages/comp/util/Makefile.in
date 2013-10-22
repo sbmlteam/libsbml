@@ -23,7 +23,7 @@ include @top_srcdir@/config/makefile-common-vars.mk
 srcdir    = @srcdir@
 thisdir   = src/sbml/packages/comp/util
 
-subdirs = 
+subdirs = test
 
 # Variables `headers', `sources', `libraries', `extra_CPPFLAGS',
 # `extra_CXXFLAGS', `extra_LDFLAGS' and `distfiles' are used by the default

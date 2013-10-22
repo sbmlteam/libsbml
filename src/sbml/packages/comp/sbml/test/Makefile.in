@@ -57,7 +57,7 @@ test_sources =		       \
 
 test_headers =
 
-extra_CPPFLAGS = -I.. -I../extension
+extra_CPPFLAGS = -I.. -I../extension -I../../../.. -I../../../../..
 
 ifdef USE_LIBCHECK
   check_driver      = TestRunner
@@ -132,8 +132,22 @@ all: Makefile
 tmp           = $(test_sources:.cpp=.lo) $(test_sources:.c=.lo)
 localobjfiles = $(filter %.lo,$(tmp))
 
-otherdirs     = ..  ../../extension
-
+otherdirs     = ../common ../../extension ../../util ../../sbml ../../validator
+ifdef USE_FBC
+  otherdirs  += ../../../fbc/common ../../../fbc/sbml \
+		../../../fbc/extension ../../../fbc/util \
+		../../../fbc/validator
+endif
+ifdef USE_LAYOUT
+  otherdirs  += ../../../layout/common ../../../layout/sbml \
+		../../../layout/extension ../../../layout/util \
+		../../../layout/validator
+endif
+ifdef USE_QUAL
+  otherdirs  += ../../../qual/common ../../../qual/sbml \
+		../../../qual/extension ../../../qual/util \
+		../../../qual/validator
+endif
 
 otherobjfiles = $(wildcard $(addsuffix /*.lo,$(otherdirs)))
 

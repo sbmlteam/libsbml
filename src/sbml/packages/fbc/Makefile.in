@@ -53,7 +53,7 @@ thisdir   = src/sbml/packages/fbc
 # libsbml-fbc.  Anything that goes into libsbml-fbc needs to appear 
 # on the `subdirs' list before "sbml".
 #
-subdirs = common extension sbml util validator
+subdirs = common extension util sbml validator
 
 # Variables `headers', `sources', `libraries', `extra_CPPFLAGS',
 # `extra_CXXFLAGS', `extra_LDFLAGS' and `distfiles' are used by the default

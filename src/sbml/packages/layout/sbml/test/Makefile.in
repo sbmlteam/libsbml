@@ -165,8 +165,19 @@ all: Makefile
 tmp           = $(test_sources:.cpp=.lo) $(test_sources:.c=.lo)
 localobjfiles = $(filter %.lo,$(tmp))
 
-otherdirs     = ..  ../../extension ../../util 
-
+otherdirs     = ../common ../../extension ../../util ../../validator
+ifdef USE_COMP
+  otherdirs  += ../../../comp/common ../../../comp/sbml ../../../comp/extension \
+		../../../comp/util ../../../comp/validator
+endif
+ifdef USE_FBC
+  otherdirs  += ../../../fbc/common ../../../fbc/sbml ../../../fbc/extension \
+		../../../fbc/util ../../../fbc/validator
+endif
+ifdef USE_QUAL
+  otherdirs  += ../../../qual/common ../../../qual/sbml ../../../qual/extension \
+		../../../qual/util ../../../qual/validator
+endif
 
 otherobjfiles = $(wildcard $(addsuffix /*.lo,$(otherdirs)))
 
