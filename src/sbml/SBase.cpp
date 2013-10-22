@@ -3030,58 +3030,80 @@ SBase::enablePackage(const std::string& pkgURI, const std::string& prefix, bool 
   // Checks if the package with the given URI is already enabled/disabled with
   // this element.
   //
+  int success = LIBSBML_OPERATION_SUCCESS;
+
   if (flag)
   {
     if (isPackageURIEnabled(pkgURI))
     {
-      return LIBSBML_OPERATION_SUCCESS;
+      return success;
+    }
+    else if (mSBML != NULL && mSBML->isIgnoredPackage(pkgURI) == true)
+    {
+      return success;
     }
   }
   else
   {
     if (!isPackageURIEnabled(pkgURI))
     {
-      return LIBSBML_OPERATION_SUCCESS;
+      if (mSBML == NULL)
+      {
+        return success;
+
+      }
+      else if (mSBML->isIgnoredPackage(pkgURI) == false)
+      {
+        return success;
+      }
     }
   }
 
+  // if we are dealing with an unknown package it will not be in the register
+  if (mSBML == NULL 
+    || (mSBML != NULL && mSBML->isIgnoredPackage(pkgURI) == false 
+   && mSBML->isDisabledIgnoredPackage(pkgURI) == false))
+  {
   //
   // Checks if the given pkgURI is registered in SBMLExtensionRegistry
   //
-  if (!SBMLExtensionRegistry::getInstance().isRegistered(pkgURI))
-  {
-    return LIBSBML_PKG_UNKNOWN;
-  }
+    if (!SBMLExtensionRegistry::getInstance().isRegistered(pkgURI))
+    {
+      return LIBSBML_PKG_UNKNOWN;
+    }
 
-  const SBMLExtension *sbmlext = SBMLExtensionRegistry::getInstance().getExtensionInternal(pkgURI);
+    const SBMLExtension *sbmlext = 
+          SBMLExtensionRegistry::getInstance().getExtensionInternal(pkgURI);
 
-  //
-  // Checks version conflicts of the given package
-  //
-  if (flag && isPackageEnabled(sbmlext->getName()))
-  {
-    return LIBSBML_PKG_CONFLICTED_VERSION;
-  }
+    //
+    // Checks version conflicts of the given package
+    //
+    if (flag && isPackageEnabled(sbmlext->getName()))
+    {
+      return LIBSBML_PKG_CONFLICTED_VERSION;
+    }
 
-  //
-  // Checks if the SBML Level and Version of the given pkgURI is
-  // consistent with those of this object.
-  //
-  /* if we happen to be using layout in L2 we cannot do the version
-   * check since the uri has no way of telling which sbml version is being used.
-   */
-  if (sbmlext->getName() == "layout" || sbmlext->getName() == "render" )
-  {
-    if (sbmlext->getLevel(pkgURI)   != getLevel() )
+    //
+    // Checks if the SBML Level and Version of the given pkgURI is
+    // consistent with those of this object.
+    //
+    /* if we happen to be using layout in L2 we cannot do the version
+     * check since the uri has no way of telling which sbml version is being used.
+     */
+    if (sbmlext->getName() == "layout" || sbmlext->getName() == "render" )
+    {
+      if (sbmlext->getLevel(pkgURI)   != getLevel() )
+      {
+        return LIBSBML_PKG_VERSION_MISMATCH;
+      }
+    }
+    else if ( (sbmlext->getLevel(pkgURI)   != getLevel()  ) ||
+         (sbmlext->getVersion(pkgURI) != getVersion())
+       )
     {
       return LIBSBML_PKG_VERSION_MISMATCH;
     }
-  }
-  else if ( (sbmlext->getLevel(pkgURI)   != getLevel()  ) ||
-       (sbmlext->getVersion(pkgURI) != getVersion())
-     )
-  {
-    return LIBSBML_PKG_VERSION_MISMATCH;
+
   }
 
   SBase* rootElement = getRootElement();

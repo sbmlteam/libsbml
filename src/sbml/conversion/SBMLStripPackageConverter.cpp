@@ -134,10 +134,15 @@ SBMLStripPackageConverter::convert()
   {
     return LIBSBML_INVALID_ATTRIBUTE_VALUE;
   }
-
+  
   if (mDocument->isPkgEnabled(packageToStrip) == false)
   {
-    return LIBSBML_CONV_PKG_CONSIDERED_UNKNOWN;
+    std::string pkgURI = mDocument->getSBMLNamespaces()
+                         ->getNamespaces()->getURI(packageToStrip);
+    if (mDocument->isIgnoredPackage(pkgURI) == false)
+    {
+      return LIBSBML_CONV_PKG_CONSIDERED_UNKNOWN;
+    }
   }
 
 // TO DO - SK Comment

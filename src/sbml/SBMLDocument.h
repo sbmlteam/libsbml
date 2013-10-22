@@ -1378,6 +1378,23 @@ public:
   
   
   /**
+   * Returns @c true if the given package extension is one of an ignored
+   * packages that has been disabled, otherwise returns @c false.
+   *
+   * An ignored package is one that is defined to be used in this SBML
+   * document, but the package is not enabled in this copy of libSBML.
+   * It may have been disabled to avoid reproducing the package
+   * information when writing out the file.
+   *
+   * @param pkgURI the URI of the package extension.
+   *
+   * @return a Boolean, @c true if the package is being ignored and
+   * @c false otherwise.
+   */
+  bool isDisabledIgnoredPackage(const std::string& pkgURI);
+  
+  
+  /**
    * Sets the value of the <code>required</code> attribute for the given
    * package.
    *

@@ -1270,6 +1270,28 @@ SBMLDocument::isIgnoredPackage(const std::string& pkgURI)
   return false;
 }
 
+/*
+ * Returnes @c true if the given package extension is one of ignored
+ * packages (i.e. the package is defined in this document but the package
+ * is not available), otherwise returns @c false.
+ */
+bool 
+SBMLDocument::isDisabledIgnoredPackage(const std::string& pkgURI)
+{
+  if (!isPackageURIEnabled(pkgURI))
+  {
+    std::string req = 
+            mRequiredAttrOfUnknownDisabledPkg.getValue("required", pkgURI);
+    
+    if (!req.empty()) 
+    {
+      return true;
+    }
+  }
+
+  return false;
+}
+
 bool 
 SBMLDocument::isIgnoredPkg(const std::string& pkgURI)
 {
