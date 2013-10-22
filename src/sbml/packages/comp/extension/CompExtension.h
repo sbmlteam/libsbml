@@ -45,10 +45,13 @@
   EXTENSION_CREATE_NS(CompPkgNamespaces,variable,sbmlns);
 #endif
 
-
 #include <vector>
 
+#endif  /* __cplusplus */
+
 LIBSBML_CPP_NAMESPACE_BEGIN
+
+#ifdef __cplusplus
 
 class LIBSBML_EXTERN CompExtension : public SBMLExtension
 {
@@ -256,6 +259,10 @@ public:
 //
 typedef SBMLExtensionNamespaces<CompExtension> CompPkgNamespaces; 
 
+#endif  /* __cplusplus */
+
+BEGIN_C_DECLS
+
 typedef enum
   {
     SBML_COMP_SUBMODEL                = 250
@@ -269,8 +276,8 @@ typedef enum
 
   } SBMLCompTypeCode_t;
 
+END_C_DECLS
 
 LIBSBML_CPP_NAMESPACE_END
 
-#endif  /* __cplusplus */
 #endif  /* CompExtension_h */
