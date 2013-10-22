@@ -58,20 +58,11 @@ extra_sources     = libsbml.i                          \
                     local.cpp                          \
                     local.i                            \
                     local-doc-extras.i                 \
-                    local-downcast-extension-comp.i    \
-                    local-downcast-extension-fbc.i     \
                     local-downcast-extension-layout.i  \
-                    local-downcast-extension-qual.i    \
                     local-downcast-extension.i.in      \
-                    local-downcast-namespaces-comp.i   \
-                    local-downcast-namespaces-fbc.i    \
                     local-downcast-namespaces-layout.i \
-                    local-downcast-namespaces-qual.i   \
                     local-downcast-namespaces.i.in     \
-                    local-packages-comp.i	       \
-                    local-packages-fbc.i	       \
                     local-packages-layout.i            \
-                    local-packages-qual.i	       \
                     local-packages.i.in
 
 # The SWIG interface files should not need to be regenerated for recipients
