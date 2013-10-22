@@ -24,6 +24,21 @@ a code, code a
     font-weight: bold;
 }
 
+table[summary=""] td
+{
+    padding: 1px;
+}
+
+table[summary=""]
+{
+    margin-top: 1em;
+}
+
+td.NavBarCell1 table[summary=""]
+{
+    margin-top: 1px;
+}
+
 tr.TableRowColor td 
 {
     font-style: italic;
@@ -32,19 +47,33 @@ tr.TableRowColor td
     border-bottom: 1px solid #bbb;
     vertical-align: top;
     padding-top: 4px;
+    line-height: 150%;
+    padding-left: 4px;
+    padding-right: 4px;
 } 
 
 tr.TableRowColor td code 
 {
-    font-style: normal;
     color: #444;
-    padding-left: 4px;
-    line-height: 18px;
 } 
 
-tr.TableHeadingColor th font b 
+tr.TableRowColor a[title="class in org.sbml.libsbml"],
+tr.TableRowColor a[href$="org.sbml.libsbml"],
+tr.TableRowColor a[href*="org/sbml/libsbml"]
 {
-    font-size: 18px;
+    font-family: "Courier New", Courier, monospace, fixed;
+    font-weight: bold;
+    font-size: 10pt;
+    line-height: 150%;
+    vertical-align: top;
+}
+
+a[title="class in org.sbml.libsbml"],
+a[title="interface in org.sbml.libsbml"]
+{
+    font-family: "Courier New", Courier, monospace, fixed;
+    font-weight: bold;
+    font-size: 10pt;
 }
 
 tr.TableSubHeadingColor th 
@@ -68,6 +97,18 @@ tr.TableHeadingColor th
     border-top: 3px solid #888;
     border-left: none;
     border-right: none;
+}
+
+tr.TableHeadingColor th font[size="+2"]
+{
+    font-size: 18px;
+}
+
+tr.TableHeadingColor th a[href*="org/sbml/libsbml"],
+tr.TableSubHeadingColor th a[href*="org/sbml/libsbml"]
+{
+    font-family: "Courier New", Courier, monospace, fixed;
+    font-weight: bold;
 }
 
 tr.TableHeadingColor th font b 
@@ -99,6 +140,12 @@ dl dd dl dd p
     margin: 0px;
 }
 
+dl dd a[href*="org/sbml/libsbml"]
+{
+    font-family: "Courier New", Courier, monospace, fixed;
+    font-weight: bold;
+}
+
 /* Hackacious correction for Javadoc, which doesn't have .contents.
    This uses the fact that Javadoc (but not doxygen) adds a bgcolor attrib. */
 
@@ -111,21 +158,6 @@ body[bgcolor="white"]
 td, th
 {
     padding: 2px;
-}
-
-table[summary=""] td
-{
-    padding: 1px;
-}
-
-table[summary=""]
-{
-    margin-top: 1em;
-}
-
-td.NavBarCell1 table[summary=""]
-{
-    margin-top: 1px;
 }
 
 td.footer 
@@ -191,6 +223,13 @@ td[align="right"]
     vertical-align: bottom;
     padding-top: 2px;
     padding-bottom: 2px;
+}
+
+font.FrameItemFont a
+{
+    font-family: Verdana, Helvetica, Arial, Sans, sans-serif;
+    font-weight: normal;
+    font-size: 9pt;
 }
 
 /* The next two items remove <hr> lines (because Javadoc loves to 
