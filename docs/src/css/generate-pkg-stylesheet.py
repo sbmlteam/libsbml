@@ -91,9 +91,15 @@ pkg_style_template = '''.pkg-color-{0}
 '''
 
 
+safari_bugfix_template = '''{
+    display: inline-block;
+}
+'''
+
+
 before_template = '''{{
     content: "\\25cf";
-    color: rgb({1}, {2}, {3}) !important;
+    color: rgb({1}, {2}, {3});
     margin-right: 0.25em;
 }}
 '''
@@ -184,14 +190,27 @@ def main(args):
         classes = find_classes(files)
         last = classes[-1]
 
+        # There is a spectacularly obscure bug in Safari that necessitates
+        # first writing CSS rules that use the same attribute selectors we
+        # use later, but without using pseudo elements.  Here, we output a
+        # benign bit of CSS that doesn't change anything.  See
+        # http://stackoverflow.com/a/8988418/743730
+
         for c in classes:
             comma = (',' if c != last else '')
-            print 'font a[href="org/sbml/libsbml/{}.html"]:before{}'.format(c, comma)
+            print 'a[href$="{}.html"]{}'.format(c, comma)
+        print safari_bugfix_template
+
+        # With that out of the way, we can write the real CSS.
+
+        for c in classes:
+            comma = (',' if c != last else '')
+            print 'a[href$="{}.html"]:before{}'.format(c, comma)
         print before_template.format(pkg, color[1], color[2], color[3])
 
         for c in classes:
             comma = (',' if c != last else '')
-            print 'font a[href="org/sbml/libsbml/{}.html"]:after{}'.format(c, comma)
+            print 'a[href$="{}.html"]:after{}'.format(c, comma)
         print after_template.format(pkg, color[1], color[2], color[3])
 
 
