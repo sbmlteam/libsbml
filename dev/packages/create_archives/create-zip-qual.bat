@@ -44,31 +44,41 @@ copy /y %PACKAGE_DIR%\%PACKAGE_NAME%-package.cmake .
 copy /y %PACKAGE_DIR%\src\%PACKAGE_NAME%-package.cmake src
 copy /y %PACKAGE_DIR%\src\sbml\packages\%PACKAGE_NAME%-register*      src\sbml\packages
 
+copy /y %PACKAGE_DIR%\src\sbml\packages\%PACKAGE_NAME%\*.in      src\sbml\packages\%PACKAGE_NAME%\
+copy /y %PACKAGE_DIR%\src\sbml\packages\%PACKAGE_NAME%\common\*.in      src\sbml\packages\%PACKAGE_NAME%\common\
 copy /y %PACKAGE_DIR%\src\sbml\packages\%PACKAGE_NAME%\common\*.h      src\sbml\packages\%PACKAGE_NAME%\common\
+copy /y %PACKAGE_DIR%\src\sbml\packages\%PACKAGE_NAME%\extension\*.in   src\sbml\packages\%PACKAGE_NAME%\extension\
 copy /y %PACKAGE_DIR%\src\sbml\packages\%PACKAGE_NAME%\extension\*.h   src\sbml\packages\%PACKAGE_NAME%\extension\
 copy /y %PACKAGE_DIR%\src\sbml\packages\%PACKAGE_NAME%\extension\*.cpp src\sbml\packages\%PACKAGE_NAME%\extension\
 copy /y %PACKAGE_DIR%\src\sbml\packages\%PACKAGE_NAME%\sbml\*.h        src\sbml\packages\%PACKAGE_NAME%\sbml\
+copy /y %PACKAGE_DIR%\src\sbml\packages\%PACKAGE_NAME%\sbml\*.in        src\sbml\packages\%PACKAGE_NAME%\sbml\
 copy /y %PACKAGE_DIR%\src\sbml\packages\%PACKAGE_NAME%\sbml\*.cpp      src\sbml\packages\%PACKAGE_NAME%\sbml\
+copy /y %PACKAGE_DIR%\src\sbml\packages\%PACKAGE_NAME%\validator\*.in        src\sbml\packages\%PACKAGE_NAME%\validator\
 copy /y %PACKAGE_DIR%\src\sbml\packages\%PACKAGE_NAME%\validator\*.h        src\sbml\packages\%PACKAGE_NAME%\validator\
 copy /y %PACKAGE_DIR%\src\sbml\packages\%PACKAGE_NAME%\validator\*.cpp      src\sbml\packages\%PACKAGE_NAME%\validator\
+copy /y %PACKAGE_DIR%\src\sbml\packages\%PACKAGE_NAME%\validator\constraints\*.in        src\sbml\packages\%PACKAGE_NAME%\validator\constraints
 copy /y %PACKAGE_DIR%\src\sbml\packages\%PACKAGE_NAME%\validator\constraints\*.h        src\sbml\packages\%PACKAGE_NAME%\validator\constraints
 copy /y %PACKAGE_DIR%\src\sbml\packages\%PACKAGE_NAME%\validator\constraints\*.cpp      src\sbml\packages\%PACKAGE_NAME%\validator\constraints
 
+copy /y %PACKAGE_DIR%\src\sbml\packages\%PACKAGE_NAME%\extension\test\*.in             src\sbml\packages\%PACKAGE_NAME%\extension\test\
 copy /y %PACKAGE_DIR%\src\sbml\packages\%PACKAGE_NAME%\extension\test\*.h             src\sbml\packages\%PACKAGE_NAME%\extension\test\
 copy /y %PACKAGE_DIR%\src\sbml\packages\%PACKAGE_NAME%\extension\test\*.c             src\sbml\packages\%PACKAGE_NAME%\extension\test\
 copy /y %PACKAGE_DIR%\src\sbml\packages\%PACKAGE_NAME%\extension\test\*.cpp           src\sbml\packages\%PACKAGE_NAME%\extension\test\
 copy /y %PACKAGE_DIR%\src\sbml\packages\%PACKAGE_NAME%\extension\test\*.txt           src\sbml\packages\%PACKAGE_NAME%\extension\test\
 copy /y %PACKAGE_DIR%\src\sbml\packages\%PACKAGE_NAME%\extension\test\test-data\*.xml src\sbml\packages\%PACKAGE_NAME%\extension\test\test-data
 
+copy /y %PACKAGE_DIR%\src\sbml\packages\%PACKAGE_NAME%\sbml\test\*.in             src\sbml\packages\%PACKAGE_NAME%\sbml\test\
 copy /y %PACKAGE_DIR%\src\sbml\packages\%PACKAGE_NAME%\sbml\test\*.h             src\sbml\packages\%PACKAGE_NAME%\sbml\test\
 copy /y %PACKAGE_DIR%\src\sbml\packages\%PACKAGE_NAME%\sbml\test\*.c             src\sbml\packages\%PACKAGE_NAME%\sbml\test\
 copy /y %PACKAGE_DIR%\src\sbml\packages\%PACKAGE_NAME%\sbml\test\*.cpp           src\sbml\packages\%PACKAGE_NAME%\sbml\test\
 copy /y %PACKAGE_DIR%\src\sbml\packages\%PACKAGE_NAME%\sbml\test\*.txt           src\sbml\packages\%PACKAGE_NAME%\sbml\test\
 
+copy /y %PACKAGE_DIR%\src\sbml\packages\%PACKAGE_NAME%\validator\test\*.in             src\sbml\packages\%PACKAGE_NAME%\validator\test\
 copy /y %PACKAGE_DIR%\src\sbml\packages\%PACKAGE_NAME%\validator\test\*.h             src\sbml\packages\%PACKAGE_NAME%\validator\test\
 copy /y %PACKAGE_DIR%\src\sbml\packages\%PACKAGE_NAME%\validator\test\*.c             src\sbml\packages\%PACKAGE_NAME%\validator\test\
 copy /y %PACKAGE_DIR%\src\sbml\packages\%PACKAGE_NAME%\validator\test\*.cpp           src\sbml\packages\%PACKAGE_NAME%\validator\test\
 copy /y %PACKAGE_DIR%\src\sbml\packages\%PACKAGE_NAME%\validator\test\*.txt           src\sbml\packages\%PACKAGE_NAME%\validator\test\
+copy /y %PACKAGE_DIR%\src\sbml\packages\%PACKAGE_NAME%\validator\test\test-data\*.in src\sbml\packages\%PACKAGE_NAME%\validator\test\test-data
 copy /y %PACKAGE_DIR%\src\sbml\packages\%PACKAGE_NAME%\validator\test\test-data\general-constraints\*.xml src\sbml\packages\%PACKAGE_NAME%\validator\test\test-data\general-constraints
 copy /y %PACKAGE_DIR%\src\sbml\packages\%PACKAGE_NAME%\validator\test\test-data\identifier-constraints\*.xml src\sbml\packages\%PACKAGE_NAME%\validator\test\test-data\identifier-constraints
 copy /y %PACKAGE_DIR%\src\sbml\packages\%PACKAGE_NAME%\validator\test\test-data\math-constraints\*.xml src\sbml\packages\%PACKAGE_NAME%\validator\test\test-data\math-constraints
