@@ -734,6 +734,7 @@ def rewriteList (match):
   ending = match.group(4);
 
   list = re.sub(r'@li\b', '<li>', list)
+  list = re.sub('r<p>', '', list)       # Remove embedded <p>'s.
   return lead + "<ul>\n" + lead + list + "\n" + lead + "</ul>" + space + ending;
 
 
@@ -839,18 +840,18 @@ def sanitizeForHTML (docstring):
   # of a line and the thing to be formatted starts on the next one after
   # the comment '*' character on the beginning of the line.
 
-  docstring = re.sub('@c +([^ ,;()/*\n\t]+)', r'<code>\1</code>', docstring)
-  docstring = re.sub('@c(\n[ \t]*\*[ \t]*)([^ ,;()/*\n\t]+)', r'\1<code>\2</code>', docstring)
-  docstring = re.sub('@p +([^ ,.:;()/*\n\t]+)', r'<code>\1</code>', docstring)
-  docstring = re.sub('@p(\n[ \t]*\*[ \t]+)([^ ,.:;()/*\n\t]+)', r'\1<code>\2</code>', docstring)
-  docstring = re.sub('@em *([^ ,.:;()/*\n\t]+)', r'<em>\1</em>', docstring)
-  docstring = re.sub('@em(\n[ \t]*\*[ \t]*)([^ ,.:;()/*\n\t]+)', r'\1<em>\2</em>', docstring)
+  docstring = re.sub('@c +([^ ,;()/*\n\t<]+)', r'<code>\1</code>', docstring)
+  docstring = re.sub('@c(\n[ \t]*\*[ \t]*)([^ ,;()/*\n\t<]+)', r'\1<code>\2</code>', docstring)
+  docstring = re.sub('@p +([^ ,.:;()/*\n\t<]+)', r'<code>\1</code>', docstring)
+  docstring = re.sub('@p(\n[ \t]*\*[ \t]+)([^ ,.:;()/*\n\t<]+)', r'\1<code>\2</code>', docstring)
+  docstring = re.sub('@em *([^ ,.:;()/*\n\t<]+)', r'<em>\1</em>', docstring)
+  docstring = re.sub('@em(\n[ \t]*\*[ \t]*)([^ ,.:;()/*\n\t<]+)', r'\1<em>\2</em>', docstring)
 
   # Convert @li into <li>, but also add <ul> ... </ul>.  This is a bit
   # simple-minded (I suppose like most of this code), but ought to work
   # for the cases we use in practice.
 
-  p = re.compile('^(\s+\*\s+)(@li\s+.*?)(\s+)(\*/|\*\s+@(?!li\s)|\*\s+<p>)', re.MULTILINE|re.DOTALL)
+  p = re.compile('^(\s+\*\s+)(@li\s+.*?)(\s+)(<p>\s+\*\s+(?!@li\s))', re.MULTILINE|re.DOTALL)
   docstring = p.sub(rewriteList, docstring)
 
   # Wrap @deprecated content with a class so that we can style it.
@@ -1187,12 +1188,12 @@ def rewriteDocstringForPerl (docstring):
   # of a line and the thing to be formatted starts on the next one after
   # the comment '*' character on the beginning of the line.
 
-  docstring = re.sub('@c *([^ ,.:;()/*\n\t]+)', r'C<\1>', docstring)
-  docstring = re.sub('@c(\n[ \t]*\*[ \t]*)([^ ,.:;()/*\n\t]+)', r'\1C<\2>', docstring)
-  docstring = re.sub('@p +([^ ,.:;()/*\n\t]+)', r'C<\1>', docstring)
-  docstring = re.sub('@p(\n[ \t]*\*[ \t]+)([^ ,.:;()/*\n\t]+)', r'\1C<\2>', docstring)
-  docstring = re.sub('@em *([^ ,.:;()/*\n\t]+)', r'I<\1>', docstring)
-  docstring = re.sub('@em(\n[ \t]*\*[ \t]*)([^ ,.:;()/*\n\t]+)', r'\1I<\2>', docstring)
+  docstring = re.sub('@c *([^ ,.:;()/*\n\t<]+)', r'C<\1>', docstring)
+  docstring = re.sub('@c(\n[ \t]*\*[ \t]*)([^ ,.:;()/*\n\t<]+)', r'\1C<\2>', docstring)
+  docstring = re.sub('@p +([^ ,.:;()/*\n\t<]+)', r'C<\1>', docstring)
+  docstring = re.sub('@p(\n[ \t]*\*[ \t]+)([^ ,.:;()/*\n\t<]+)', r'\1C<\2>', docstring)
+  docstring = re.sub('@em *([^ ,.:;()/*\n\t<]+)', r'I<\1>', docstring)
+  docstring = re.sub('@em(\n[ \t]*\*[ \t]*)([^ ,.:;()/*\n\t<]+)', r'\1I<\2>', docstring)
 
   docstring = docstring.replace('<ul>', '\n=over\n')
   docstring = docstring.replace('<li> ', '\n=item\n\n')
