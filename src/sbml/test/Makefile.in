@@ -225,6 +225,24 @@ ifdef USE_LAYOUT
 				../packages/layout/validator ../packages/layout/validator/constraints
 endif
 
+ifdef USE_FBC
+  otherdirs +=	../../packages/fbc/extension ../../packages/fbc/sbml \
+				../../packages/fbc/common  ../../packages/fbc/util \
+				../../packages/fbc/validator ../../packages/fbc/validator/constraints
+endif
+
+ifdef USE_QUAL
+  otherdirs +=	../../packages/qual/extension ../../packages/qual/sbml \
+				../../packages/qual/common\
+				../../packages/qual/validator ../../packages/qual/validator/constraints
+endif
+
+ifdef USE_COMP
+  otherdirs +=	../../packages/comp/extension ../../packages/comp/sbml \
+				../../packages/comp/common  ../../packages/comp/util \
+				../../packages/comp/validator ../../packages/comp/validator/constraints
+endif
+
 otherobjfiles = $(wildcard $(addsuffix /*.lo,$(otherdirs)))
 
 test_objfiles = $(localobjfiles) $(otherobjfiles)
