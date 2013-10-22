@@ -131,21 +131,21 @@ all: Makefile all-recursive
 tmp           = $(test_sources:.cpp=.lo) $(test_sources:.c=.lo)
 localobjfiles = $(filter %.lo,$(tmp))
 
-otherdirs     = ../common ../../extension ../../util ../../sbml ../../validator
+otherdirs     = ../../common ../../extension ../../util ../../sbml .. ../constraints
 ifdef USE_FBC
   otherdirs  += ../../../fbc/common ../../../fbc/sbml \
 		../../../fbc/extension ../../../fbc/util \
-		../../../fbc/validator
+		../../../fbc/validator ../../../fbc/validator/constraints
 endif
 ifdef USE_LAYOUT
   otherdirs  += ../../../layout/common ../../../layout/sbml \
 		../../../layout/extension ../../../layout/util \
-		../../../layout/validator
+		../../../layout/validator ../../../layout/validator/constraints
 endif
 ifdef USE_QUAL
   otherdirs  += ../../../qual/common ../../../qual/sbml \
 		../../../qual/extension ../../../qual/util \
-		../../../qual/validator
+		../../../qual/validator ../../../qual/validator/constraints
 endif
 
 otherobjfiles = $(wildcard $(addsuffix /*.lo,$(otherdirs)))
