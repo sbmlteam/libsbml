@@ -294,6 +294,7 @@ class CHeader:
         else:
           if not classname.startswith("doc_"):
             docstring = '/**\n' + docstring + ' */'
+          docstring = removeHTMLcomments(docstring)
           doc = CClassDoc(docstring, classname, isInternal)
           self.classDocs.append(doc)
 
@@ -379,6 +380,9 @@ class CHeader:
               endparen = lines.rfind(')')
               args     = lines[searchstart + stop : endparen + 1]
               isConst  = lines[endparen:].rfind('const')
+
+              # Remove embedded HTML comments before we store the doc string.
+              docstring = removeHTMLcomments(docstring)
 
               # Swig doesn't seem to mind C++ argument lists, even though they
               # have "const", "&", etc. So I'm leaving the arg list unmodified.
@@ -630,6 +634,7 @@ def translateInclude (match):
   stream  = open(docincpath + '/common-text/' + file, 'r')
   content = stream.read()
   stream.close()
+  content = removeHTMLcomments(content)
 
   return content + ending
 
@@ -908,6 +913,11 @@ def removeStar (match):
   text = match.group()
   text = text.replace('*', '')
   return text
+
+
+
+def removeHTMLcomments (docstring):
+  return re.sub(r'<!--.+?\s-->', '', docstring, re.DOTALL|re.MULTILINE)
 
 
 
@@ -1487,3 +1497,9 @@ def main (args):
 if __name__ == '__main__':
   main(sys.argv)
  
+
+
+## The following is for Emacs users.  Please leave in place.
+## Local Variables: 
+## python-indent-offset: 2
+## End: 
