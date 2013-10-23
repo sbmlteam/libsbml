@@ -285,15 +285,15 @@ main_sources = \
 #
 #  (1) libsbml_wrap.cpp does not exist
 #  (2) libsbml_wrap.cpp exists, but the file is not consistent with the
-#       current USE_LAYOUT value.
+#       current USE_LAYOUT, USE_COMP, etc., values.
 #
-# If the last run was made with --enable-layout and this one isn't, or
-# vice-versa, the swig wrap files will be wrong for this run.  However, you
-# can't tell just by looking at file mod times, so you can't use normal
-# make dependencies.  So we do this grungy trick of looking inside
+# If the last run was made with a package flag like --enable-layout, and this
+# run isn't, or vice-versa, the swig wrap files will be wrong for this run.
+# However, you can't tell just by looking at file mod times, so you can't use
+# normal make dependencies.  So we do this grungy trick of looking inside
 # libsbml_wrap.cpp to see what's inside.
 #
-# The check_layout macro works as follows.  It returns a non-empty string
+# The check_foo macros works as follows.  They return a non-empty string
 # "do_reswig" if re-swig'ing is called for, and this string is a phony make
 # target declared below.  When check_layout is used as a dependency of
 # libsbml_wrap.cpp via a call like this,
@@ -308,6 +308,30 @@ main_sources = \
 
 .PHONY: do_reswig
 
+ifdef USE_COMP
+  define check_comp
+    if test ! -f libsbml_wrap.cpp; then echo "do_reswig"; exit; fi; \
+    if test -z "`grep getListOfSubmodels libsbml_wrap.cpp`"; then echo "do_reswig"; fi;
+  endef
+else
+  define check_comp
+    if test ! -f libsbml_wrap.cpp; then echo "do_reswig"; exit; fi; \
+    if test -n "`grep getListOfSubmodels libsbml_wrap.cpp`"; then echo "do_reswig"; fi;
+  endef
+endif
+
+ifdef USE_FBC
+  define check_fbc
+    if test ! -f libsbml_wrap.cpp; then echo "do_reswig"; exit; fi; \
+    if test -z "`grep ListOfFluxBounds libsbml_wrap.cpp`"; then echo "do_reswig"; fi;
+  endef
+else
+  define check_fbc
+    if test ! -f libsbml_wrap.cpp; then echo "do_reswig"; exit; fi; \
+    if test -n "`grep ListOfFluxBounds libsbml_wrap.cpp`"; then echo "do_reswig"; fi;
+  endef
+endif
+
 ifdef USE_LAYOUT
   define check_layout
     if test ! -f libsbml_wrap.cpp; then echo "do_reswig"; exit; fi; \
@@ -317,6 +341,18 @@ else
   define check_layout
     if test ! -f libsbml_wrap.cpp; then echo "do_reswig"; exit; fi; \
     if test -n "`grep getListOfLayouts libsbml_wrap.cpp`"; then echo "do_reswig"; fi;
+  endef
+endif
+
+ifdef USE_QUAL
+  define check_qual
+    if test ! -f libsbml_wrap.cpp; then echo "do_reswig"; exit; fi; \
+    if test -z "`grep ListOfQualitativeSpecies libsbml_wrap.cpp`"; then echo "do_reswig"; fi;
+  endef
+else
+  define check_qual
+    if test ! -f libsbml_wrap.cpp; then echo "do_reswig"; exit; fi; \
+    if test -n "`grep ListOfQualitativeSpecies libsbml_wrap.cpp`"; then echo "do_reswig"; fi;
   endef
 endif
 
@@ -332,7 +368,8 @@ javadoc.i: $(main_sources) $(swig_sources) ../swig/swigdoc.py $(wildcard ../swig
 	../swig/swigdoc.py java -I../.. -D../../../docs/src ../swig/libsbml.i javadoc.i
 
 libsbml_wrap.cpp $(outpath): javadoc.i $(swig_sources) $(main_sources) \
-    $(shell $(call check_layout))
+    $(shell $(call check_comp)) $(shell $(call check_fbc)) \
+    $(shell $(call check_layout)) $(shell $(call check_qual))
 	@top_srcdir@/config/chk_swig_version.sh || exit
 ifneq "$(MAKEFLAGS)" ""
 	$(MAKE) -$(MAKEFLAGS) clean-swigfiles
@@ -401,7 +438,9 @@ endif
 # or the previous version of it to work in my environment anymore.  I'm
 # switching to a straight invocation of java.
 
-check: $(check_classes) $(shell $(call check_layout))
+check: $(check_classes) $(shell $(call check_layout)) \
+  $(shell $(call check_comp))  $(shell $(call check_fbc)) \
+  $(shell $(call check_qual))
 	@echo
 	@echo
 	@echo Running Tests in $(thisdir)
@@ -434,7 +473,9 @@ tags: etags ctags
 JNI_INSTPATH=$(DESTDIR)$(LIBDIR)/$(jnifile)
 JAR_INSTPATH=$(DESTDIR)$(DATADIR)/java/$(jarfile)
 
-install: $(libraries) $(shell $(call check_layout))
+install: $(libraries) $(shell $(call check_layout)) \
+  $(shell $(call check_comp)) $(shell $(call check_fbc)) \
+  $(shell $(call check_qual))
 	$(INSTALL_SH) $(jnifile) $(JNI_INSTPATH)
 	$(INSTALL_SH) $(jarfile) $(JAR_INSTPATH)
 
