@@ -361,14 +361,14 @@
  *
  * @class doc_warning_species_spatialSizeUnits
  *
- * @warning In versions of SBML Level&nbsp;2 before Version&nbsp;3, the
- * class Species included an attribute called "spatialSizeUnits", which
- * allowed explicitly setting the units of size for initial
- * concentration.  This attribute was removed in SBML Level&nbsp;2
+ * @warning <span class="warning">In versions of SBML Level&nbsp;2 before
+ * Version&nbsp;3, the class Species included an attribute called
+ * "spatialSizeUnits", which allowed explicitly setting the units of size for
+ * initial concentration.  This attribute was removed in SBML Level&nbsp;2
  * Version&nbsp;3.  LibSBML retains this attribute for compatibility with
  * older definitions of Level&nbsp;2, but its use is strongly discouraged
  * because it is incompatible with Level&nbsp;2 Version&nbsp;3 and
- * Level&nbsp;2 Version&nbsp;4.
+ * Level&nbsp;2 Version&nbsp;4.</span>
  *
  * @class doc_note_species_units
  * 
@@ -970,14 +970,6 @@ public:
    * (SBML Level&nbsp;2 Versions&nbsp;1&ndash;2) Sets the "spatialSizeUnits" attribute of this Species object.
    *
    * @param sid the identifier of the unit to use.
-   * 
-   * @warning In versions of SBML Level~2 before Version&nbsp;3, the class
-   * Species included an attribute called "spatialSizeUnits", which allowed
-   * explicitly setting the units of size for initial concentration.  This
-   * attribute was removed in SBML Level&nbsp;2 Version&nbsp;3.  LibSBML
-   * retains this attribute for compatibility with older definitions of
-   * Level&nbsp;2, but its use is strongly discouraged because it is
-   * incompatible with Level&nbsp;2 Version&nbsp;3 and Level&nbsp;2 Version&nbsp;4.
    *
    * @return integer value indicating success/failure of the
    * function.  The possible values
@@ -985,6 +977,8 @@ public:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE @endlink
    * @li @link OperationReturnValues_t#LIBSBML_UNEXPECTED_ATTRIBUTE LIBSBML_UNEXPECTED_ATTRIBUTE @endlink
+   *
+   * @copydetails doc_warning_species_spatialSizeUnits
    */
   int setSpatialSizeUnits (const std::string& sid);
 

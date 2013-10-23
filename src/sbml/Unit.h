@@ -190,15 +190,15 @@
  *
  * @class doc_warning_unit_offset_only_l2v1
  * 
- * @warning The "offset" attribute is only available in SBML Level&nbsp;2
- * Version&nbsp;1.  This attribute is not present in SBML Level&nbsp;2
- * Version&nbsp;2 or above.  When producing SBML models using these later
- * specifications, modelers and software tools need to account for units
- * with offsets explicitly.  The %SBML specification document offers a
- * number of suggestions for how to achieve this.  LibSBML methods such
- * as this one related to "offset" are retained for compatibility with
+ * @warning <span class="warning">The "offset" attribute is only available in
+ * SBML Level&nbsp;2 Version&nbsp;1.  This attribute is not present in SBML
+ * Level&nbsp;2 Version&nbsp;2 or above.  When producing SBML models using
+ * these later specifications, modelers and software tools need to account
+ * for units with offsets explicitly.  The %SBML specification document
+ * offers a number of suggestions for how to achieve this.  LibSBML methods
+ * such as this one related to "offset" are retained for compatibility with
  * earlier versions of SBML Level&nbsp;2, but their use is strongly
- * discouraged.
+ * discouraged.</span>
  * 
  */
 
@@ -446,12 +446,12 @@ public:
    * @return @c true if the kind of this Unit is @c Celsius, @c false
    * otherwise. 
    *
-   * @warning The predefined unit @c Celsius was removed from the list of
-   * predefined units in SBML Level&nbsp;2 Version&nbsp;2 at the same time
-   * that the "offset" attribute was removed from Unit definitions.
-   * LibSBML methods such as this one related to @c Celsius are retained in
-   * order to support SBML Level&nbsp;2 Version&nbsp;1, but their use is
-   * strongly discouraged.
+   * @warning <span class="warning">The predefined unit @c Celsius was
+   * removed from the list of predefined units in SBML Level&nbsp;2
+   * Version&nbsp;2 at the same time that the "offset" attribute was removed
+   * from Unit definitions.  LibSBML methods such as this one related to @c
+   * Celsius are retained in order to support SBML Level&nbsp;2
+   * Version&nbsp;1, but their use is strongly discouraged.</span>
    */
   bool isCelsius () const;
 

@@ -233,11 +233,11 @@
  *
  * @class doc_warning_eventassignment_math_literals
  * 
- * @warning Note that it is possible the "math" expression in the
- * EventAssignment contains literal numbers or parameters with undeclared
- * units.  In those cases, it is not possible to calculate the units of the
- * overall expression without making assumptions.  LibSBML does not make
- * assumptions about the units, and
+ * @warning <span class="warning">Note that it is possible the "math"
+ * expression in the EventAssignment contains literal numbers or parameters
+ * with undeclared units.  In those cases, it is not possible to calculate
+ * the units of the overall expression without making assumptions.  LibSBML
+ * does not make assumptions about the units, and
  * EventAssignment::getDerivedUnitDefinition() only returns the units as far
  * as it is able to determine them.  For example, in an expression <em>X +
  * Y</em>, if <em>X</em> has unambiguously-defined units and <em>Y</em> does
@@ -245,7 +245,7 @@
  * <strong>it is critical that callers also invoke the method</strong>
  * EventAssignment::containsUndeclaredUnits() <strong>to determine whether
  * this situation holds</strong>.  Callers should take suitable action in
- * those situations.
+ * those situations.</span>
  *   
  */
 

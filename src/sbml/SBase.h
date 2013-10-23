@@ -2195,14 +2195,8 @@ s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></b
    * reference, if the object has no "metaid" attribute value set, then the
    * CVTerm will not be added.
    *
-   * @warning The fact that this method @em copies the object passed to it
-   * means that the caller will be left holding a physically different
-   * object instance than the one contained in @em this object.  Changes
-   * made to the original object instance (such as resetting attribute
-   * values) will <em>not affect the instance added here</em>.  In
-   * addition, the caller should make sure to free the original object if
-   * it is no longer being used, or else a memory leak will result.
-   *
+   * @copydetails doc_note_object_is_copied
+   * 
    * @if notcpp @htmlinclude warn-default-args-in-docs.html @endif@~
    */
   int addCVTerm(CVTerm * term, bool newBag = false);
@@ -2563,8 +2557,9 @@ s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></b
    * 
    * @return the partial SBML that describes this SBML object.
    *
-   * @warning This is primarily provided for testing and debugging
-   * purposes.  It may be removed in a future version of libSBML.
+   * @warning <span class="warning">This is primarily provided for testing
+   * and debugging purposes.  It may be removed in a future version of
+   * libSBML.</span>
    */
   char* toSBML();
 
@@ -2574,10 +2569,11 @@ s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></b
    * 
    * @return this element as an XMLNode.
    * 
-   * @warning This operation is computationally expensive, because the
-   * element has to be fully serialized to a string and then parsed into the
-   * XMLNode structure.  Attempting to convert a large tree structure (e.g.,
-   * a large Model) may consume significant computer memory and time.
+   * @warning <span class="warning">This operation is computationally
+   * expensive, because the element has to be fully serialized to a string
+   * and then parsed into the XMLNode structure.  Attempting to convert a
+   * large tree structure (e.g., a large Model) may consume significant
+   * computer memory and time.</span>
    */
    XMLNode* toXMLNode();
 
@@ -2590,10 +2586,10 @@ s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></b
    * @param flag An optional flag that determines how how errors are logged
    * during the reading process.
    *
-   * @warning This method is computationally expensive, because the given
-   * node has to be serialized to a string first.  Attempting to serialize a
-   * large tree structure (e.g., a large Model) may consume significant
-   * computer memory and time.
+   * @warning <span class="warning">This method is computationally expensive,
+   * because the given node has to be serialized to a string first.
+   * Attempting to serialize a large tree structure (e.g., a large Model) may
+   * consume significant computer memory and time.</span>
    */
    void read(XMLNode& node, XMLErrorSeverityOverride_t flag = LIBSBML_OVERRIDE_DISABLED);
 

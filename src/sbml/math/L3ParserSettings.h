@@ -268,9 +268,9 @@ public:
    *
    * @param model a Model object to be used for disambiguating identifiers
    *
-   * @warning This does @em not copy the Model object.  This means that
-   * modifications made to the object after invoking this method may affect
-   * parsing behavior.
+   * @warning <span class="warning">This does @em not copy the Model object.
+   * This means that modifications made to the object after invoking this
+   * method may affect parsing behavior.</span>
    *
    * @see getModel()
    * @see unsetModel()

@@ -234,23 +234,24 @@
  *
  * @class doc_warning_event_timeUnits
  *
- * @warning Definitions of Event in SBML Level 2 Versions&nbsp;1
- * and&nbsp;2 included the additional attribute called "timeUnits", but
- * it was removed in SBML Level&nbsp;2 Version&nbsp;3.  LibSBML supports
- * this attribute for compatibility with previous versions of SBML
- * Level&nbsp;2, but its use is discouraged since models in Level&nbsp;2
- * Versions&nbsp;3 and&nbsp;4 cannot contain it.  If a Version&nbsp;3
- * or&nbsp;4 model sets the attribute, the consistency-checking method
- * SBMLDocument::checkConsistency() will report an error.
+ * @warning <span class="warning">Definitions of Event in SBML Level 2
+ * Versions&nbsp;1 and&nbsp;2 included the additional attribute called
+ * "timeUnits", but it was removed in SBML Level&nbsp;2 Version&nbsp;3.
+ * LibSBML supports this attribute for compatibility with previous versions
+ * of SBML Level&nbsp;2, but its use is discouraged since models in
+ * Level&nbsp;2 Versions&nbsp;3 and&nbsp;4 cannot contain it.  If a
+ * Version&nbsp;3 or&nbsp;4 model sets the attribute, the
+ * consistency-checking method SBMLDocument::checkConsistency() will report
+ * an error.</span>
  *
  * @class doc_warning_useValuesFromTriggerTime
  *
- * @warning The attribute "useValuesFromTriggerTime" was introduced in
- * SBML Level&nbsp;2 Version&nbsp;4.  It is not valid in models defined
- * using SBML Level&nbsp;2 versions prior to Version&nbsp;4.  If a
- * Level&nbsp;2 Version&nbsp;1&ndash;3 model sets the attribute, the
- * consistency-checking method SBMLDocument::checkConsistency() will
- * report an error.
+ * @warning <span class="warning">The attribute "useValuesFromTriggerTime"
+ * was introduced in SBML Level&nbsp;2 Version&nbsp;4.  It is not valid in
+ * models defined using SBML Level&nbsp;2 versions prior to Version&nbsp;4.
+ * If a Level&nbsp;2 Version&nbsp;1&ndash;3 model sets the attribute, the
+ * consistency-checking method SBMLDocument::checkConsistency() will report
+ * an error.</span>
  *
  * @class doc_event_using_useValuesFromTriggerTime
  *

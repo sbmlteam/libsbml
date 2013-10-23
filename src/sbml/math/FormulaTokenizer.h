@@ -55,7 +55,7 @@
  * tokenizer system, such as FormulaTokenizer_createFromFormula() and
  * FormulaTokenizer_getName().
  * 
- * @warning @htmlinclude L1-math-syntax-warning.html
+ * @copydetails doc_warning_L1_math_string_syntax
  */
 
 #ifndef FormulaTokenizer_h

@@ -249,3 +249,8 @@ body > dl
     padding-bottom: 1em;
     border-bottom: 1px solid #bbb;
 }
+
+.warning
+{
+    color: #8b0000;
+}

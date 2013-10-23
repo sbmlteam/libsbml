@@ -75,17 +75,17 @@
  * As with all other major SBML components, LocalParameter is derived from
  * SBase, and the methods defined on SBase are available on LocalParameter.
  * 
- * @warning LibSBML derives LocalParameter from Parameter; however, this
- * does not precisely match the object hierarchy defined by SBML
- * Level&nbsp;3, where LocalParameter is derived directly from SBase and not
- * Parameter.  We believe this arrangement makes it easier for libSBML
- * users to program applications that work with both SBML Level&nbsp;2 and
- * SBML Level&nbsp;3, but programmers should also keep in mind this
- * difference exists.  A side-effect of libSBML's scheme is that certain
- * methods on LocalParameter that are inherited from Parameter do not
- * actually have relevance to LocalParameter objects.  An example of this
- * is the methods pertaining to Parameter's attribute "constant"
- * (i.e., isSetConstant(), setConstant(), and getConstant()).
+ * @warning <span class="warning">LibSBML derives LocalParameter from
+ * Parameter; however, this does not precisely match the object hierarchy
+ * defined by SBML Level&nbsp;3, where LocalParameter is derived directly
+ * from SBase and not Parameter.  We believe this arrangement makes it easier
+ * for libSBML users to program applications that work with both SBML
+ * Level&nbsp;2 and SBML Level&nbsp;3, but programmers should also keep in
+ * mind this difference exists.  A side-effect of libSBML's scheme is that
+ * certain methods on LocalParameter that are inherited from Parameter do not
+ * actually have relevance to LocalParameter objects.  An example of this is
+ * the methods pertaining to Parameter's attribute "constant" (i.e.,
+ * isSetConstant(), setConstant(), and getConstant()).</span>
  *
  * @see ListOfLocalParameters
  * @see KineticLaw

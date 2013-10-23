@@ -176,18 +176,18 @@
  *
  * @class doc_warning_reaction_cant_ignore_fast
  * 
- * @warning SBML definitions before SBML Level&nbsp;2 Version&nbsp;2
- * incorrectly indicated that software tools could ignore the "fast"
- * attribute if they did not implement support for the corresponding concept;
- * however, further research in SBML has revealed that this is not true, and
- * "fast" <em>cannot be ignored</em> if it is set to @c true.  Beginning with
- * SBML Level&nbsp;2 Versions&nbsp;2, the SBML specifications therefore
- * stipulate that if a model has any reactions with "fast" set to @c true, a
- * software tool must be able to respect the attribute or else indicate to
- * the user that it does not have the capacity to do so.  Readers are
- * directed to the SBML specifications, which provides more detail about the
- * conditions under which a reaction can be considered to be fast in this
- * sense.
+ * @warning <span class="warning">SBML definitions before SBML Level&nbsp;2
+ * Version&nbsp;2 incorrectly indicated that software tools could ignore the
+ * "fast" attribute if they did not implement support for the corresponding
+ * concept; however, further research in SBML has revealed that this is not
+ * true, and "fast" <em>cannot be ignored</em> if it is set to @c true.
+ * Beginning with SBML Level&nbsp;2 Versions&nbsp;2, the SBML specifications
+ * therefore stipulate that if a model has any reactions with "fast" set to
+ * @c true, a software tool must be able to respect the attribute or else
+ * indicate to the user that it does not have the capacity to do so.  Readers
+ * are directed to the SBML specifications, which provides more detail about
+ * the conditions under which a reaction can be considered to be fast in this
+ * sense.</span>
  *
  */
 

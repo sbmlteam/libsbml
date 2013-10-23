@@ -122,19 +122,19 @@
  *
  * @class doc_warning_kineticlaw_math_literals
  *
- * @warning Note that it is possible the "math" expression in the KineticLaw
- * contains pure numbers or parameters with undeclared units.  In those
- * cases, it is not possible to calculate the units of the overall expression
- * without making assumptions.  LibSBML does not make assumptions about the
- * units, and @if java KineticLaw::getDerivedUnitDefinition()@else getDerivedUnitDefinition()@endif@~
- * only returns the units
- * as far as it is able to determine them.  For example, in an expression
- * <em>X + Y</em>, if <em>X</em> has unambiguously-defined units and
- * <em>Y</em> does not, it will return the units of <em>X</em>.  <strong>It
- * is important that callers also invoke the method</strong>
- * @if java KineticLaw::containsUndeclaredUnits()@else containsUndeclaredUnits()@endif@~
- * <strong>to determine whether this situation holds</strong>.  Callers may
- * wish to take suitable actions in those scenarios.
+ * @warning <span class="warning">Note that it is possible the "math"
+ * expression in the KineticLaw contains pure numbers or parameters with
+ * undeclared units.  In those cases, it is not possible to calculate the
+ * units of the overall expression without making assumptions.  LibSBML does
+ * not make assumptions about the units, and
+ * KineticLaw::getDerivedUnitDefinition() returns the units as far as it is
+ * able to determine them.  For example, in an expression <em>X + Y</em>, if
+ * <em>X</em> has unambiguously-defined units and <em>Y</em> does not, it
+ * will return the units of <em>X</em>.  <strong>It is important that callers
+ * also invoke the method</strong>
+ * KineticLaw::containsUndeclaredUnits()<strong>to determine whether this
+ * situation holds</strong>.  Callers may wish to take suitable actions in
+ * those scenarios.</span>
  * 
  * @class doc_note_kineticlaw_setting_lv
  * 
