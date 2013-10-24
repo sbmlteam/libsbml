@@ -47,10 +47,10 @@ from os.path import join
 
 color_table = [
     # Name, 	red, 	green, 	blue
-    ['comp',	'190', 	'200', 	'231'],
-    ['fbc',	'185', 	'255',	'210'],
-    ['layout',	'233',	'176',	'149'],
-    ['qual',	'150', 	'190',	'255'],
+    ['comp',	'205', 	'200', 	'230'],
+    ['fbc',	'190', 	'230',	'215'],
+    ['layout',	'240',	'195',	'160'],
+    ['qual',	'160', 	'185',	'235'],
     ['multi',	'223',	'189',	'30'],
     ['groups',	'250',	'170',	'210'],
     ['arrays',	'55',	'221',	'177'],
@@ -153,17 +153,14 @@ def main(args):
     src_dir = args[1]
 
     # First, write out an informative file header.
-
     print header_template
 
     # Next, write out the .pkg-color-x CSS classes:
-
     for entry in color_table:
         print pkg_style_template.format(entry[0], entry[1], entry[2], entry[3])
 
     # Next, read the source dir to find out the L3 packages available, and
     # extract the names of the libSBML object classes in each package.
-
     known_pkgs = [entry[0] for entry in color_table]
     top_root, top_level_dirs, top_level_files = os.walk(src_dir).next()
     found_pkgs = [pkg for pkg in known_pkgs if pkg in top_level_dirs]
@@ -173,7 +170,6 @@ def main(args):
     # (because the CSS code doesn't match anything there), so technically we
     # could split this into a separate file for Javadoc-only styling, but
     # it's easier to write all our package CSS code into one file.
-
     for pkg in found_pkgs:
         print pkg_separator_template.format(pkg)
 
@@ -195,14 +191,12 @@ def main(args):
         # use later, but without using pseudo elements.  Here, we output a
         # benign bit of CSS that doesn't change anything.  See
         # http://stackoverflow.com/a/8988418/743730
-
         for c in classes:
             comma = (',' if c != last else '')
             print '.FrameItemFont a[href$="{}.html"]{}'.format(c, comma)
         print safari_bugfix_template
 
         # With that out of the way, we can write the real CSS.
-
         for c in classes:
             comma = (',' if c != last else '')
             print '.FrameItemFont a[href$="{}.html"]:before{}'.format(c, comma)
@@ -212,6 +206,14 @@ def main(args):
             comma = (',' if c != last else '')
             print '.FrameItemFont a[href$="{}.html"]:after{}'.format(c, comma)
         print after_template.format(pkg, color[1], color[2], color[3])
+
+    # A final bit of styling for Doxygen output.
+    print '\n/* Styling for Doxygen "Level 3 Extensions" section. */\n'
+    for entry in color_table:
+        print '#navrow2 ul.tablist li a[href="group__{}.html"]:after,'.format(entry[0])
+        print '.contents ul li a[href="group__{}.html"]:after'.format(entry[0])
+        print after_template.format(entry[0], entry[1], entry[2], entry[3])
+
 
 
 if __name__ == '__main__':
