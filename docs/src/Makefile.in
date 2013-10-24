@@ -730,11 +730,13 @@ java-manual $(java-manual): $(core-sources) $(css-files) SBMLDoclet.class
 	$(call merge_html,libsbml-issues.html,libsbml-issues.html,known issues and pitfalls)
 	$(call merge_html,libsbml-java-misc.html,libsbml-java-misc.html,miscellaneous Java-specific information)
 	$(call merge_html,libsbml-java-example-files.html,libsbml-java-example-files.html,example programs in Java)
+	$(call merge_html,libsbml-core-versus-packages.html,libsbml-core-versus-packages.html,&ldquo;core&rdquo; and libSBML extensions)
 	$(call merge_html,../../LICENSE.html,libsbml-license.html,license)
 	$(call merge_html_verb,../../NEWS.txt,libsbml-news.html,news)
 	$(call merge_html_verb,../../OLD_NEWS.txt,libsbml-old-news.html,old-news)
 	mkdir -p $(java-manual)/examples
 	$(foreach file,$(wildcard ../../examples/java/*.java),$(call merge_java_example,$(file)))
+	$(foreach file,$(wildcard ../../examples/java/*/*.java),$(call merge_java_example,$(file)))
 	${MAKE} postprocess_javadoc
 
 postprocess_javadoc:
