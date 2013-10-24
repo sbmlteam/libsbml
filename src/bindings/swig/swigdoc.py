@@ -632,11 +632,14 @@ def translateInclude (match):
 
   file    = match.group(1)
   ending  = match.group(2)
-  stream  = open(docincpath + '/common-text/' + file, 'r')
-  content = stream.read()
-  stream.close()
-  content = removeHTMLcomments(content)
-
+  content = ''  
+  try:
+    stream  = open(docincpath + '/common-text/' + file, 'r')
+    content = stream.read()
+    stream.close()
+    content = removeHTMLcomments(content)
+  except Exception, e:
+    print('Warning: cannot expand common-text: {0}'.format(file))
   return content + ending
 
 
