@@ -524,6 +524,7 @@ def getHeadersFromSWIG (filename, includedfiles=[]):
   Reads the list of %include directives from the given SWIG (.i), and returns
   a list of C/C++ headers (.h) found.  This uses a recursive algorithm.
   """
+
   stream = open(filename)
   lines  = stream.readlines()
   stream.close()
@@ -1460,9 +1461,13 @@ def main (args):
     stream.write(infile.read())
     stream.write('=head1 FUNCTION INDEX\n\n=over 8\n\n')
 
+  processed = []
   for file in headers:
     filename = os.path.normpath(os.path.join(includepath, file))
+    if filename in processed: 
+	  continue
     processFile(filename, stream)
+    processed.append(filename)
 
   if os.path.exists('local-doc-extras.i'):
     stream.write('\n%include "local-doc-extras.i"\n')
