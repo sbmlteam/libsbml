@@ -83,7 +83,6 @@ font.NavBarFont1Rev b
 
 tr.TableRowColor td 
 {
-    font-style: italic;
     color: #666;
     border: none;
     border-bottom: 1px solid #bbb;
