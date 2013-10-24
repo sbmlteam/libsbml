@@ -39,6 +39,48 @@ td.NavBarCell1 table[summary=""]
     margin-top: 1px;
 }
 
+td.NavBarCell1 a font.NavBarFont1
+{
+    font-size: 8pt;
+    border: 1px solid #999;
+    border-radius: 6px;
+    -moz-border-radius: 6px;
+    -webkit-border-radius: 6px;
+    margin-right: 4px;
+    padding-left: 4px;
+    padding-right: 4px;
+}
+
+td.NavBarCell1 a[href*="package-summary"] font.NavBarFont1,
+td.NavBarCell1 a[href*="extensions-summary"] font.NavBarFont1
+{
+    letter-spacing: -1px;
+}
+
+font.NavBarFont1Rev b,
+a[href="overview-summary.html"] font.NavBarFont1.top-level,
+td.NavBarCell1 a[href="extensions-summary.html"] font.NavBarFont1.selected,
+td.NavBarCell1 a[href="../../../org/sbml/libsbml/package-summary.html"] font.NavBarFont1.selected
+{
+    color: white;
+    background-color: #959595;
+    border: 1px solid #999;
+    border-radius: 6px;
+    -moz-border-radius: 6px;
+    -webkit-border-radius: 6px;
+    box-shadow: 1px 1px 1px #444 inset;
+    -moz-box-shadow: 1px 1px 1px #444 inset;
+    -webkit-box-shadow: 1px 1px 1px #444 inset;;
+}
+
+font.NavBarFont1Rev b
+{ 
+    margin-right: 3px;
+    padding-left: 3px;
+    padding-right: 3px;
+    text-decoration: none;
+}
+
 tr.TableRowColor td 
 {
     font-style: italic;
@@ -59,7 +101,7 @@ tr.TableRowColor td code
 
 tr.TableRowColor a[title="class in org.sbml.libsbml"],
 tr.TableRowColor a[href$="org.sbml.libsbml"],
-tr.TableRowColor a[href*="org/sbml/libsbml"]
+tr.TableRowColor b a[href*="org/sbml/libsbml"]
 {
     font-family: "Courier New", Courier, monospace, fixed;
     font-weight: bold;
@@ -201,20 +243,7 @@ td.NavBarCell3
 
 td.NavBarCell1Rev 
 {
-    margin-bottom: 1px;
-    padding-bottom: 1px;
-    border: 1px solid gray;
-    line-height: 120%;
-}
-
-font.NavBarFont1Rev 
-{ 
-    background-color: white;
-}
-
-font.NavBarFont1Rev b 
-{ 
-    text-decoration: none;
+    background-color: #eee !important; 
 }
 
 td[align="right"] 
@@ -230,6 +259,15 @@ font.FrameItemFont a
     font-family: Verdana, Helvetica, Arial, Sans, sans-serif;
     font-weight: normal;
     font-size: 9pt;
+}
+
+/* Hide the "libSBML 5.x.x in the navigation bar because it takes
+   up space and it's not really critical.
+*/
+
+td[rowspan="3"]
+{
+    display: none;
 }
 
 /* The next two items remove <hr> lines (because Javadoc loves to 
