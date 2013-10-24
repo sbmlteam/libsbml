@@ -125,13 +125,23 @@ private:
   int reconstructDocument(Model* flatmodel, 
                           SBMLDocument &dummyDoc,  bool dummyRecon = false);
 
+  void stripUnflattenablePackages();
+
   bool getLeavePorts() const;
 
   bool getLeaveDefinitions() const;
 
   bool getIgnorePackages() const;
 
+  bool getStripUnflattenablePackages() const;
+
   bool getPerformValidation() const;
+
+  bool getAbortForAll() const;
+
+  bool getAbortForRequired() const;
+
+  bool getAbortForNone() const;
 
   bool canBeFlattened();
 
@@ -139,6 +149,32 @@ private:
 
   std::set<std::pair<std::string, std::string> > mDisabledPackages;
   std::set<std::pair<std::string, bool       > > mPackageRequired;
+
+  SBMLDocument* mOriginalDocument;
+
+#ifndef SWIG
+  typedef std::vector<bool>                     ValueSet;
+  typedef std::map<const std::string, ValueSet> PackageValueMap;
+  typedef PackageValueMap::iterator             PackageValueIter;
+#endif
+
+  PackageValueMap mPackageValues;
+
+  void analyseDocument();
+
+  bool getRequiredStatus(const std::string & package);
+
+  bool getKnownStatus(const std::string& package);
+
+  bool getFlattenableStatus(const std::string& package);
+
+  bool haveUnknownRequiredPackages();
+
+  bool haveUnknownUnrequiredPackages();
+
+  bool haveUnflattenableRequiredPackages();
+
+  bool haveUnflattenableUnrequiredPackages();
 
 };
 

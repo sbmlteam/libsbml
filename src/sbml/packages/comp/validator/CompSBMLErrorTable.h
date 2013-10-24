@@ -1333,22 +1333,22 @@ static const packageErrorTableEntry compErrorTable[] =
   },
 
     // 1090107
-  { CompFlatteningNotRecognisedNotReqd,
-    "Flattening not implemented for unrequired package.",
+  { CompFlatteningNotRecognisedReqd,
+    "Flattening not implemented for required package.",
     LIBSBML_CAT_GENERAL_CONSISTENCY, 
     LIBSBML_SEV_WARNING,
-    "The CompFlatteningConverter has encountered an unrequired package for "
+    "The CompFlatteningConverter has encountered a required package for "
     "which libSBML does not recognize the information.",
     { ""
     }
   },
 
     // 1090108
-  { CompFlatteningNotRecognisedReqd,
-    "Flattening not implemented for required package.",
+  { CompFlatteningNotRecognisedNotReqd,
+    "Flattening not implemented for unrequired package.",
     LIBSBML_CAT_GENERAL_CONSISTENCY, 
     LIBSBML_SEV_WARNING,
-    "The CompFlatteningConverter has encountered a required package for "
+    "The CompFlatteningConverter has encountered an unrequired package for "
     "which libSBML does not recognize the information.",
     { ""
     }
