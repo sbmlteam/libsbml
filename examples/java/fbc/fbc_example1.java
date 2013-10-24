@@ -9,7 +9,7 @@
 
 import org.sbml.libsbml.*;
 
-public class example1
+public class fbc_example1
 {
 
   public static void main(String[] args)
