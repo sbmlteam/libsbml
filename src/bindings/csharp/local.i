@@ -172,6 +172,14 @@ SWIGEXPORT void SWIGSTDCALL SWIGRegisterWStringCallback_$module(SWIG_CSharpWStri
 %typemap(csout)  uint                { return (long)$imcall; }
 %typemap(csdirectorout) unsigned int "(uint)$cscall"
 
+// definition that allows all methods to be overridden, that cause issues 
+// as usually happens when swigdoc adds documentation on a virtual member. 
+
+%define COVARIANT_METHOD_NAME(_CNAME_,_METHOD_)
+%typemap(cstype) string   _CNAME_ ## ::_METHOD_  "_CNAME_"
+%csmethodmodifiers  _CNAME_ ## ::_METHOD_  "public new"
+%enddef
+
 //////////////////////////////////////////////////////////////////////
 
 
