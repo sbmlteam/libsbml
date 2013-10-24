@@ -44,7 +44,7 @@
 
 import org.sbml.libsbml.*;
 
-public class example1
+public class layout_example1
 {
   /**
    * Loads the SWIG generated libsbml Java module when this class is
