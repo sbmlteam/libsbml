@@ -538,7 +538,7 @@ def getHeadersFromSWIG (filename, includedfiles=[]):
   # Look for %include's of .i files, and read those as additional files to
   # search for .h files.
 
-  ignored_ifiles = ['std_string.i', 'enumsimple.swg', 'javadoc.i']
+  ignored_ifiles = ['std_string.i', 'enumsimple.swg', 'javadoc.i', 'spatial-package.i']
 
   ifiles = [file for file in includes if file.strip().endswith('.i')]
   ifiles = [file for file in ifiles if file not in ignored_ifiles]
