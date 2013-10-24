@@ -120,8 +120,6 @@ extra_distclean =                           \
 # There are additional separate rules below.
 
 distfiles =						     \
-	doxygen-layout-cpp.xml				     \
-	doxygen-layout-notcpp.xml			     \
         SBMLDoclet.java					     \
         Makefile.in					     \
 	common-graphics/biology-qualifiers.png		     \
@@ -219,11 +217,14 @@ distfiles =						     \
         doxygen-config-python.txt.in			     \
         doxygen-footer.html				     \
         doxygen-header.html				     \
+	doxygen-layout-cpp.xml				     \
+	doxygen-layout-notcpp.xml			     \
         examples/readmath.cpp				     \
         examples/readSBML.java				     \
         examples/simpleread.cpp				     \
         force-serif-font-off.html			     \
         force-serif-font-on.html			     \
+	generate-extensions-summary.py			     \
         java-skip.txt					     \
         java-substitutions/ASTNodeList.java		     \
         java-substitutions/CVTermList.java		     \
@@ -507,7 +508,8 @@ python-subst-dir = python-substitutions
 # Certain things like parameters will never match up in Doxygen.
 # Ignore those warnings to avoid confusing people.
 
-python-ignorable-warnings = "is not found in the argument list|The following parameters of libsbml|parameter 'args'"
+python-ignorable-warnings = \
+  "is not found in the argument list|The following parameters of libsbml|parameter 'args'"
 
 python-manual $(python-manual): doxygen-config-python.txt $(python-sources)
 	mkdir -p $(python-manual)
@@ -528,7 +530,8 @@ perl-manual $(perl-manual): doxygen-config-perl.txt $(perl-sources)
 endif
 
 ifdef USE_MATLAB
-matlab-sources = $(wildcard ../../src/bindings/matlab/*.m ../../src/bindings/matlab/*.c)
+matlab-sources = \
+  $(wildcard ../../src/bindings/matlab/*.m ../../src/bindings/matlab/*.c)
 
 matlab-manual $(matlab-manual): doxygen-config-matlab.txt $(matlab-sources)
 	mkdir -p $(matlab-manual)
@@ -538,7 +541,8 @@ matlab-manual $(matlab-manual): doxygen-config-matlab.txt $(matlab-sources)
 endif
 
 ifdef USE_OCTAVE
-octave-sources = $(wildcard ../../src/bindings/octave/*.m ../../src/bindings/octave/*.c)
+octave-sources = \
+  $(wildcard ../../src/bindings/octave/*.m ../../src/bindings/octave/*.c)
 
 octave-manual $(octave-manual): doxygen-config-octave.txt $(octave-sources)
 	mkdir -p $(octave-manual)
@@ -552,7 +556,8 @@ ifdef USE_CSHARP
 # Some differences are just really hard to deal with.  Let's ignore warnings
 # we can't currently do anything about, and that are harmless.
 
-cs-ignorable-warnings = "is not found in the argument list of|explicit link request to 'GO' could not be resolved"
+cs-ignorable-warnings = \
+  "is not found in the argument list of|explicit link request to 'GO' could not be resolved"
 
 csharp-manual $(csharp-manual): doxygen-config-csharp.txt $(core-sources) \
   $(css-files)
@@ -598,29 +603,57 @@ javadoc-footer      = "`cat libsbml-java-footer.html`"
 javadoc-windowtitle = "LibSBML Java API"
 
 define merge_html
-  cat libsbml-java-top.html $(1) libsbml-java-bottom.html libsbml-java-footer.html \
-  | perl -pe 's/%%title%%/$(3)/g;s/%%version%%/@PACKAGE_VERSION@/g' > $(2)
+  cat libsbml-java-top.html $(1) libsbml-java-bottom.html \
+  libsbml-java-footer.html \
+  | perl -pe 's/%%title%%/$(3)/g;s/%%version%%/@PACKAGE_VERSION@/g' \
+  > $(java-manual)/$(2)
 endef
 
 define merge_html_verb
   cat libsbml-java-top.html libsbml-java-verb-top.html $(1) \
-  libsbml-java-verb-bottom.html libsbml-java-bottom.html libsbml-java-footer.html \
-  | perl -pe 's/%%title%%/$(3)/g;s/%%version%%/@PACKAGE_VERSION@/g' > $(2)
+  libsbml-java-verb-bottom.html libsbml-java-bottom.html \
+  libsbml-java-footer.html \
+  | perl -pe 's/%%title%%/$(3)/g;s/%%version%%/@PACKAGE_VERSION@/g' \
+  > $(java-manual)/$(2)
 endef
 
-define merge_html_code
-  cat libsbml-java-example-top.html $(1) \
+define merge_java_example
+  $(shell cat libsbml-java-example-top.html $(1) \
   libsbml-java-example-bottom.html libsbml-java-example-footer.html \
-  | perl -pe 's/%%title%%/$(3)/g;s/%%version%%/@PACKAGE_VERSION@/g' > $(2)
+  | perl -pe 's/%%title%%/$(notdir $(1))/g;s/%%version%%/@PACKAGE_VERSION@/g' \
+  > $(java-manual)/examples/$(notdir $(1)).html)
 endef
 
 define insert_javascript
-  perl -i -pe 's:<SCRIPT type="text/javascript">:<script src="../../../sbml.js"></script><SCRIPT type="text/javascript">:g' $(wildcard $(1)/*.html)
+  perl -i -pe 's|<SCRIPT type="text/javascript">|<script src="../../../sbml.js"></script><SCRIPT type="text/javascript">|g' $(wildcard $(1)/*.html)
 endef
 
-define adjust_frameset
+define rewrite_links
+  perl -i -pe 's|<FONT CLASS="NavBarFont1"><B>Package|<FONT CLASS="NavBarFont1"><B>org.sbml.libsbml|g' $(wildcard $(1)/*.html)
+  perl -i -pe 's|<FONT CLASS="NavBarFont1 top-level"><B>Package|<FONT CLASS="NavBarFont1 top-level"><B>org.sbml.libsbml|g' $(wildcard $(1)/*.html)
+  perl -i -pe 's|org.sbml.libsbml</B></FONT></A>&nbsp;</TD>|org.sbml.libsbml</B></FONT></A>&nbsp;</TD>\n  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="$(2)extensions-summary.html"><FONT CLASS="NavBarFont1"><B>Level 3 Extensions</B></FONT></A>&nbsp;</TD>|g' $(wildcard $(1)/*.html)
+endef
+
+define adjust_frameset_in_file
   perl -i -pe 's/20%,80%/22%,78%/' $(1)
 endef
+
+define fix_broken_highlighting
+  perl -i -pe 's|<FONT CLASS="NavBarFont1"><B>org.sbml.libsbml|<FONT CLASS="NavBarFont1 selected"><B>org.sbml.libsbml|g' \
+    $(java-manual)/index.html
+  perl -i -pe 's|<FONT CLASS="NavBarFont1"><B>org.sbml.libsbml|<FONT CLASS="NavBarFont1 selected"><B>org.sbml.libsbml|g' \
+    $(java-manual)/$(java-class-path)/package-summary.html
+  perl -i -pe 's|CLASS="NavBarFont1"><B>Level 3 Extensions|CLASS="NavBarFont1 selected"><B>Level 3 Extensions|g' \
+    $(java-manual)/extensions-summary.html
+  perl -i -pe 's|NavBarFont1 top-level|NavBarFont1|g' \
+    $(java-manual)/extensions-summary.html
+endef
+
+define create_extensions_page
+  ./generate-extensions-summary.py $(1) > java-extensions-list.html
+  $(call merge_html,java-extensions-list.html,extensions-summary.html,extensions for SBML Level 3 packages)
+endef
+
 
 # Compile the SBMLDoclet class file if needed.
 
@@ -678,62 +711,41 @@ java-manual $(java-manual): $(core-sources) $(css-files) SBMLDoclet.class
 	cp -f common-graphics/*.gif $(java-manual)
 	cp -f common-graphics/*.png $(java-manual)
 	cp -f common-graphics/*.png $(java-manual)/$(java-class-path)/
+	cp -f common-graphics/*.png $(java-manual)/$(java-class-path)/class-use
 	cp -f common-graphics/*.svg $(java-manual)
 	cp -f common-graphics/*.svg $(java-manual)/$(java-class-path)/
+	cp -f common-graphics/*.svg $(java-manual)/$(java-class-path)/class-use
 	cp -f common-graphics/*.jpg $(java-manual)
 	cp -f common-graphics/*.jpg $(java-manual)/$(java-class-path)/
+	cp -f common-graphics/*.jpg $(java-manual)/$(java-class-path)/class-use
 	cp -f sbml.js $(java-manual)
-	$(call merge_html,libsbml-java-overview.html,$(java-manual)/overview-summary.html,Java @PACKAGE_VERSION@ API)
-	$(call merge_html,libsbml-installation.html,$(java-manual)/libsbml-installation.html,installation)
-	$(call merge_html,libsbml-accessing.html,$(java-manual)/libsbml-accessing.html,accessibility to your software)
-	$(call merge_html,libsbml-features.html,$(java-manual)/libsbml-features.html,features)
-	$(call merge_html,libsbml-communications.html,$(java-manual)/libsbml-communications.html,bug reports and other communications)
-	$(call merge_html,libsbml-java-reading.html,$(java-manual)/libsbml-java-reading.html,basic facilities for reading and writing SBML content)
-	$(call merge_html,libsbml-java-math.html,$(java-manual)/libsbml-java-math.html,facilities for manipulating mathematical expressions)
-	$(call merge_html,libsbml-issues.html,$(java-manual)/libsbml-issues.html,known issues and pitfalls)
-	$(call merge_html,libsbml-java-misc.html,$(java-manual)/libsbml-java-misc.html,Miscellaneous Java-specific information)
-	$(call merge_html,libsbml-java-example-files.html,$(java-manual)/libsbml-java-example-files.html,example programs in Java)
-	$(call merge_html,../../LICENSE.html,$(java-manual)/libsbml-license.html,license)
-	$(call merge_html_verb,../../NEWS.txt,$(java-manual)/libsbml-news.html,news)
-	$(call merge_html_verb,../../OLD_NEWS.txt,$(java-manual)/libsbml-old-news.html,old-news)
+	cp -f sbml.js $(java-manual)/$(java-class-path)/
+	$(call merge_html,libsbml-java-overview.html,overview-summary.html,Java @PACKAGE_VERSION@ API)
+	$(call merge_html,libsbml-installation.html,libsbml-installation.html,installation)
+	$(call merge_html,libsbml-accessing.html,libsbml-accessing.html,accessibility for your software)
+	$(call merge_html,libsbml-features.html,libsbml-features.html,features)
+	$(call merge_html,libsbml-communications.html,libsbml-communications.html,bug reports and other communications)
+	$(call merge_html,libsbml-java-reading.html,libsbml-java-reading.html,basic facilities for reading and writing SBML content)
+	$(call merge_html,libsbml-java-math.html,libsbml-java-math.html,facilities for manipulating mathematical expressions)
+	$(call merge_html,libsbml-issues.html,libsbml-issues.html,known issues and pitfalls)
+	$(call merge_html,libsbml-java-misc.html,libsbml-java-misc.html,miscellaneous Java-specific information)
+	$(call merge_html,libsbml-java-example-files.html,libsbml-java-example-files.html,example programs in Java)
+	$(call merge_html,../../LICENSE.html,libsbml-license.html,license)
+	$(call merge_html_verb,../../NEWS.txt,libsbml-news.html,news)
+	$(call merge_html_verb,../../OLD_NEWS.txt,libsbml-old-news.html,old-news)
 	mkdir -p $(java-manual)/examples
-	$(call merge_html_code,../../examples/java/echoSBML.java,$(java-manual)/examples/echoSBML.java.html,echoSBML.java)
-	$(call merge_html_code,../../examples/java/readSBML.java,$(java-manual)/examples/readSBML.java.html,readSBML.java)
-	$(call merge_html_code,../../examples/java/printSBML.java,$(java-manual)/examples/printSBML.java.html,printSBML.java)
-	$(call merge_html_code,../../examples/java/printRegisteredPackages.java,$(java-manual)/examples/printRegisteredPackages.java.html,printRegisteredPackages.java)
-	$(call merge_html_code,../../examples/java/printsupported.java,$(java-manual)/examples/printsupported.java.html,printsupported.java)
-	$(call merge_html_code,../../examples/java/addCVTerms.java,$(java-manual)/examples/addCVTerms.java.html,addCVTerms.java)
-	$(call merge_html_code,../../examples/java/addCustomValidator.java,$(java-manual)/examples/addCustomValidator.java.html,addCustomValidator.java)
-	$(call merge_html_code,../../examples/java/addModelHistory.java,$(java-manual)/examples/addModelHistory.java.html,addModelHistory.java)
-	$(call merge_html_code,../../examples/java/addingEvidenceCodes_1,$(java-manual)/examples/addingEvidenceCodejava.html,addingEvidenceCodes_java)
-	$(call merge_html_code,../../examples/java/addingEvidenceCodes_2,$(java-manual)/examples/addingEvidenceCodejava.html,addingEvidenceCodes_java)
-	$(call merge_html_code,../../examples/java/appendAnnotation.java,$(java-manual)/examples/appendAnnotation.java.html,appendAnnotation.java)
-	$(call merge_html_code,../../examples/java/callExternalValidator.java,$(java-manual)/examples/callExternalValidator.java.html,callExternalValidator.java)
-	$(call merge_html_code,../../examples/java/convertSBML.java,$(java-manual)/examples/convertSBML.java.html,convertSBML.java)
-	$(call merge_html_code,../../examples/java/createExampleSBML.java,$(java-manual)/examples/createExampleSBML.java.html,createExampleSBML.java)
-	$(call merge_html_code,../../examples/java/getAllElementsWithNotes.java,$(java-manual)/examples/getAllElementsWithNotes.java.html,getAllElementsWithNotes.java)
-	$(call merge_html_code,../../examples/java/printAnnotation.java,$(java-manual)/examples/printAnnotation.java.html,printAnnotation.java)
-	$(call merge_html_code,../../examples/java/printMath.java,$(java-manual)/examples/printMath.java.html,printMath.java)
-	$(call merge_html_code,../../examples/java/printNotes.java,$(java-manual)/examples/printNotes.java.html,printNotes.java)
-	$(call merge_html_code,../../examples/java/printRegisteredPackages.java,$(java-manual)/examples/printRegisteredPackages.java.html,printRegisteredPackages.java)
-	$(call merge_html_code,../../examples/java/printUnits.java,$(java-manual)/examples/printUnits.java.html,printUnits.java)
-	$(call merge_html_code,../../examples/java/promoteParameters.java,$(java-manual)/examples/promoteParameters.java.html,promoteParameters.java)
-	$(call merge_html_code,../../examples/java/renameSId.java,$(java-manual)/examples/renameSId.java.html,renameSId.java)
-	$(call merge_html_code,../../examples/java/rngvalidator.java,$(java-manual)/examples/rngvalidator.java.html,rngvalidator.java)
-	$(call merge_html_code,../../examples/java/setIdFromNames.java,$(java-manual)/examples/setIdFromNames.java.html,setIdFromNames.java)
-	$(call merge_html_code,../../examples/java/stripPackage.java,$(java-manual)/examples/stripPackage.java.html,stripPackage.java)
-	$(call merge_html_code,../../examples/java/translateMath.java,$(java-manual)/examples/translateMath.java.html,translateMath.java)
-	$(call merge_html_code,../../examples/java/unsetAnnotation.java,$(java-manual)/examples/unsetAnnotation.java.html,unsetAnnotation.java)
-	$(call merge_html_code,../../examples/java/unsetNotes.java,$(java-manual)/examples/unsetNotes.java.html,unsetNotes.java)
-	$(call merge_html_code,../../examples/java/validateSBML.java,$(java-manual)/examples/validateSBML.java.html,validateSBML.java)
-	${MAKE} insert-js
-	${MAKE} adjust-frameset
+	$(foreach file,$(wildcard ../../examples/java/*.java),$(call merge_java_example,$(file)))
+	${MAKE} postprocess_javadoc
 
-insert-js :
+postprocess_javadoc:
+	$(call create_extensions_page,$(java-manual)/$(java-class-path)/package-summary.html)
 	$(call insert_javascript,$(java-manual)/$(java-class-path))
+	$(call rewrite_links,$(java-manual),)
+	$(call rewrite_links,$(java-manual)/$(java-class-path),../../../)
+	$(call rewrite_links,$(java-manual)/$(java-class-path)/class-use,../../../../)
+	$(call adjust_frameset_in_file,$(java-manual)/index.html)
+	$(call fix_broken_highlighting)
 
-adjust-frameset :
-	$(call adjust_frameset,$(java-manual)/index.html)
 
 endif
 
