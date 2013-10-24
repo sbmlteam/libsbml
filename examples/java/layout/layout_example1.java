@@ -1,5 +1,5 @@
 /**
- * \file    example1.java
+ * \file    layout_example1.java
  * \brief   SBML Layout example
  * \author  Ralph Gauges
  * 

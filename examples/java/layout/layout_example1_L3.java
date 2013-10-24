@@ -1,5 +1,5 @@
 /**
- * \file    example1-L3.cs
+ * \file    layout_example1_L3.java
  * \brief   SBML Layout example
  * \author  Ralph Gauges
  * \author  Akiya Jouraku
