@@ -1,5 +1,5 @@
 // 
-// @file    example1.java
+// @file    fbc_example1.java
 // @brief   SBML FBC example
 // @author  Frank Bergmann 
 // 
@@ -18,23 +18,23 @@ public class example1
 
     SBMLNamespaces sbmlns = new SBMLNamespaces(3,1,"fbc",1);
                 
-                
     // create the document
                 
     SBMLDocument document = new SBMLDocument(sbmlns);
                 
     // create the Model
                 
-    Model model=document.createModel();
+    Model model = document.createModel();
                 
     // create the Compartment
-                
+
     Compartment compartment = model.createCompartment();
     compartment.setId("compartment");
     compartment.setConstant(true);
     compartment.setSize(1);
                 
     // create the Species
+
     Species species = model.createSpecies();
     species.setId("Node1");
     species.setCompartment("compartment");
@@ -265,6 +265,7 @@ public class example1
     objective.setType("maximize");
         
     // mark obj1 as active objective
+
     mplugin.setActiveObjectiveId("obj1");
     
     
