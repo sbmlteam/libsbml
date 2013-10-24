@@ -602,6 +602,10 @@ javadoc-header      = "<B>@PACKAGE_NAME@<BR>@PACKAGE_VERSION@</B>"
 javadoc-footer      = "`cat libsbml-java-footer.html`"
 javadoc-windowtitle = "LibSBML Java API"
 
+define substitute_version
+  perl -i -pe 's/%%version%%/@PACKAGE_VERSION@/g' $(1)
+endef
+
 define merge_html
   cat libsbml-java-top.html $(1) libsbml-java-bottom.html \
   libsbml-java-footer.html \
@@ -720,6 +724,7 @@ java-manual $(java-manual): $(core-sources) $(css-files) SBMLDoclet.class
 	cp -f common-graphics/*.jpg $(java-manual)/$(java-class-path)/class-use
 	cp -f sbml.js $(java-manual)
 	cp -f sbml.js $(java-manual)/$(java-class-path)/
+	$(foreach file,$(wildcard $(java-manual)/$(java-class-path)/*.html),$(call substitute_version,$(file)))
 	$(call merge_html,libsbml-java-overview.html,overview-summary.html,Java @PACKAGE_VERSION@ API)
 	$(call merge_html,libsbml-installation.html,libsbml-installation.html,installation)
 	$(call merge_html,libsbml-accessing.html,libsbml-accessing.html,accessibility for your software)
