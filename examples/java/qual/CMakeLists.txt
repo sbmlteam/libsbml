@@ -7,7 +7,7 @@
 find_package(Java COMPONENTS Development REQUIRED)
 
 foreach(file 
-		example1
+		qual_example1
 		)
 	
 	file(TO_NATIVE_PATH ${CMAKE_CURRENT_BINARY_DIR} CURRENT_BIN)

@@ -1,5 +1,5 @@
 /**
- * @file    example1.java
+ * @file    qual_example1.java
  * @brief   SBML Qual example
  * @author  Sarah Keating
  *
@@ -9,7 +9,7 @@
 
 import org.sbml.libsbml.*;
 
-public class example1
+public class qual_example1
 {
 
   public static void main(String[] args)
