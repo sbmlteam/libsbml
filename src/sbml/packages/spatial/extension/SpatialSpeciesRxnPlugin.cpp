@@ -103,20 +103,8 @@ SpatialSpeciesRxnPlugin::clone () const
 void
 SpatialSpeciesRxnPlugin::addExpectedAttributes(ExpectedAttributes& attributes)
 {
-  //
-  // required attribute is not defined for SBML Level 2 or lesser.
-  //
-  if ( mSBMLExt->getLevel(mURI) > 2 )
-  {
-	  if ( getIsSpatial() )
-	  {
-		attributes.add("isSpatial");
-	  }
-	  if ( getIsLocal() )
-	  {
-		attributes.add("isLocal");
-	  }
-   }
+  attributes.add("isLocal");
+  attributes.add("isSpatial");
 }
 
 /**
@@ -128,13 +116,10 @@ SpatialSpeciesRxnPlugin::readAttributes (const XMLAttributes& attributes,
 {
   SBasePlugin::readAttributes(attributes, expectedAttributes);
 
-  if ( mSBMLExt->getLevel(mURI) > 2 )
-  {    
-    XMLTriple tripleIsSpatial("isSpatial", mURI, mPrefix);
-    attributes.readInto(tripleIsSpatial, mIsSpatial, getErrorLog(), true, getLine(), getColumn());
-    XMLTriple tripleIsLocal("isLocal", mURI, mPrefix);
-    attributes.readInto(tripleIsLocal, mIsLocal, getErrorLog(), true, getLine(), getColumn());
-  }
+  XMLTriple tripleIsSpatial("isSpatial", mURI, mPrefix);
+  attributes.readInto(tripleIsSpatial, mIsSpatial, getErrorLog(), true, getLine(), getColumn());
+  XMLTriple tripleIsLocal("isLocal", mURI, mPrefix);
+  attributes.readInto(tripleIsLocal, mIsLocal, getErrorLog(), true, getLine(), getColumn());
 }
 
 
@@ -144,13 +129,6 @@ SpatialSpeciesRxnPlugin::readAttributes (const XMLAttributes& attributes,
 void 
 SpatialSpeciesRxnPlugin::writeAttributes (XMLOutputStream& stream) const
 {
-  //
-  // required attribute is not defined for SBML Level 2 .
-  //
-  if ( mSBMLExt->getLevel(mURI) < 3)
-    return;
-
-  //cout << "[DEBUG] SBMLDocumentPlugin::writeAttributes() " << endl;
   if ( getIsSpatial() ) 
   {
 	  XMLTriple tripleIsSpatial("isSpatial", mURI, mPrefix);
@@ -180,15 +158,8 @@ SpatialSpeciesRxnPlugin::getIsSpatial() const
 int 
 SpatialSpeciesRxnPlugin::setIsSpatial(bool value) 
 {
-  //
-  // required attribute is not defined for SBML Level 2 or less.
-  //
-  if ( mSBMLExt->getLevel(mURI) < 3)
-    return LIBSBML_UNEXPECTED_ATTRIBUTE;
-
   mIsSpatial = value;
   return LIBSBML_OPERATION_SUCCESS;
-
 }
 
 
@@ -201,12 +172,6 @@ SpatialSpeciesRxnPlugin::getIsLocal() const
 int 
 SpatialSpeciesRxnPlugin::setIsLocal(bool value) 
 {
-  //
-  // required attribute is not defined for SBML Level 2 or less.
-  //
-  if ( mSBMLExt->getLevel(mURI) < 3)
-    return LIBSBML_UNEXPECTED_ATTRIBUTE;
-
   mIsLocal = value;
   return LIBSBML_OPERATION_SUCCESS;
 }

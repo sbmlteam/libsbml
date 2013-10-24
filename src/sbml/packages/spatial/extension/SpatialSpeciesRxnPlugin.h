@@ -168,15 +168,10 @@ protected:
   /*-- data members --*/
 
   //
-  // 'mathOverridden' - represents the namespace prefix(?) of a package that
-  // redefines given element's math (element whose math is directly affected)
   //
   bool          mIsSpatial;	// for species
 
   //
-  // boolean that is set to T or F depending on whether an interpreter that
-  // only understands the core package would have a workable/complete (could 
-  // be different) version of the math for given element.
   //
   bool			mIsLocal;	// for reaction
 
