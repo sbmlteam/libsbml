@@ -220,10 +220,10 @@
  * <!-- ------------------------------------------------------------------- -->
  * @class doc_warning_typecodes_not_unique
  *
- * @warning The specific integer values of the possible type codes may be
- * reused by different Level&nbsp;3 package plug-ins.  Thus, to identifiy
- * the correct code, <strong>it is necessary to invoke both getTypeCode() and
- * getPackageName()</strong>.
+ * @warning <span class="warning">The specific integer values of the possible
+ * type codes may be reused by different Level&nbsp;3 package plug-ins.
+ * Thus, to identifiy the correct code, <strong>it is necessary to invoke
+ * both getTypeCode() and getPackageName()</strong>.</span>
  *
  * <!-- ------------------------------------------------------------------- -->
  * @class doc_what_are_plugins
@@ -483,15 +483,15 @@
  *
  * @htmlinclude string-functions-table.html
  *
- * @warning There are differences between the symbols used to represent the
- * common mathematical functions and the corresponding MathML token names.
- * This is a potential source of incompatibilities.  Note in particular that
- * in this text-string syntax, <code>log(x)</code> represents the natural
- * logarithm, whereas in MathML, the natural logarithm is
- * <code>&lt;ln/&gt;</code>.  Application writers are urged to be careful
+ * @warning <span class="warning">There are differences between the symbols
+ * used to represent the common mathematical functions and the corresponding
+ * MathML token names.  This is a potential source of incompatibilities.
+ * Note in particular that in this text-string syntax, <code>log(x)</code>
+ * represents the natural logarithm, whereas in MathML, the natural logarithm
+ * is <code>&lt;ln/&gt;</code>.  Application writers are urged to be careful
  * when translating between text forms and MathML forms, especially if they
  * provide a direct text-string input facility to users of their software
- * systems.<br><br>
+ * systems.</span>
  *
  * <!-- ------------------------------------------------------------------- -->
  * @class doc_summary_of_string_math_l3
@@ -962,11 +962,12 @@ e><a href="libsbml.html#parseL3Formula(java.lang.String)">libsbml.parseL3Formula
  * <!-- ------------------------------------------------------------------- -->
  * @class doc_warning_L1_math_string_syntax
  * 
- * @warning We urge developers to keep in mind that the text-string formula
- * syntax is specific to SBML Level&nbsp;1's C-like mathematical formula
- * syntax.  In particular, it is <em>not a general-purpose mathematical
- * expression syntax</em>.  LibSBML provides methods for parsing and
- * transforming text-string math formulas back and forth from AST structures,
- * but it is important to keep the system's limitations in mind.
+ * @warning <span class="warning">We urge developers to keep in mind that
+ * the text-string formula syntax is specific to SBML Level&nbsp;1's C-like
+ * mathematical formula syntax.  In particular, it is <em>not a
+ * general-purpose mathematical expression syntax</em>.  LibSBML provides
+ * methods for parsing and transforming text-string math formulas back and
+ * forth from AST structures, but it is important to keep the system's
+ * limitations in mind.</span>
  * 
  */
