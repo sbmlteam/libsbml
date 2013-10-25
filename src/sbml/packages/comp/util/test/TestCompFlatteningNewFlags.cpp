@@ -239,6 +239,47 @@ START_TEST(test_comp_flatten_abort_reqd_only_6)
   
   props->addOption("flatten comp");
   
+  props->addOption("stripUnflattenablePackages", false);
+
+  SBMLConverter* converter = 
+    SBMLConverterRegistry::getInstance().getConverterFor(*props);
+  
+  // load document
+  string dir(TestDataDirectory);
+  string fileName = dir + "unknown1.xml";  
+  SBMLDocument* doc = readSBMLFromFile(fileName.c_str());
+
+  // fail if there is no model 
+  //(but we have the unrecognised package error)
+  fail_unless(doc->getNumErrors() == 1);
+  fail_unless(doc->getModel() != NULL);
+  fail_unless(doc->getErrorLog()->contains(UnrequiredPackagePresent) == true);
+
+  converter->setDocument(doc);
+  int result = converter->convert();
+
+  fail_unless( result == LIBSBML_OPERATION_SUCCESS);
+
+  string newModel = writeSBMLToString(doc);
+
+  string ffile = dir + "unknown1_flat_stay.xml";
+  SBMLDocument* fdoc = readSBMLFromFile(ffile.c_str());
+  string flatModel = writeSBMLToString(fdoc);
+  fail_unless(flatModel == newModel);
+
+  delete doc;
+  delete fdoc;
+  delete converter;
+}
+END_TEST
+
+
+START_TEST(test_comp_flatten_abort_all_1)
+{
+  ConversionProperties* props = new ConversionProperties();
+  
+  props->addOption("flatten comp");
+  
   // checking the default
   props->addOption("abortIfUnflattenable", "all");
 
@@ -271,7 +312,7 @@ START_TEST(test_comp_flatten_abort_reqd_only_6)
 END_TEST
 
 
-START_TEST(test_comp_flatten_abort_reqd_only_7)
+START_TEST(test_comp_flatten_abort_all_2)
 {
   ConversionProperties* props = new ConversionProperties();
   
@@ -309,7 +350,85 @@ START_TEST(test_comp_flatten_abort_reqd_only_7)
 END_TEST
 
 
-START_TEST(test_comp_flatten_abort_reqd_only_8)
+START_TEST(test_comp_flatten_abort_all_3)
+{
+  ConversionProperties* props = new ConversionProperties();
+  
+  props->addOption("flatten comp");
+  
+  // checking the default
+  props->addOption("abortIfUnflattenable", "all");
+  props->addOption("stripUnflattenablePackages", false);
+
+  SBMLConverter* converter = 
+    SBMLConverterRegistry::getInstance().getConverterFor(*props);
+  
+  // load document
+  string dir(TestDataDirectory);
+  string fileName = dir + "unknown2.xml";  
+  SBMLDocument* doc = readSBMLFromFile(fileName.c_str());
+
+  // fail if there is no model 
+  //(but we have the unrecognised package error)
+  fail_unless(doc->getNumErrors() == 1);
+  fail_unless(doc->getModel() != NULL);
+  fail_unless(doc->getErrorLog()->contains(RequiredPackagePresent) == true);
+
+  converter->setDocument(doc);
+  int result = converter->convert();
+
+  fail_unless( result == LIBSBML_OPERATION_FAILED);
+
+  fail_unless(doc->getNumErrors() == 2);
+  fail_unless(doc->getErrorLog()->contains(RequiredPackagePresent) == true);
+  fail_unless(doc->getErrorLog()->contains(CompFlatteningNotRecognisedReqd) == true);
+
+  delete doc;
+  delete converter;
+}
+END_TEST
+
+
+START_TEST(test_comp_flatten_abort_all_4)
+{
+  ConversionProperties* props = new ConversionProperties();
+  
+  props->addOption("flatten comp");
+  
+  
+  props->addOption("abortIfUnflattenable", "all");
+  props->addOption("stripUnflattenablePackages", false);
+
+  SBMLConverter* converter = 
+    SBMLConverterRegistry::getInstance().getConverterFor(*props);
+  
+  // load document
+  string dir(TestDataDirectory);
+  string fileName = dir + "unknown1.xml";  
+  SBMLDocument* doc = readSBMLFromFile(fileName.c_str());
+
+  // fail if there is no model 
+  //(but we have the unrecognised package error)
+  fail_unless(doc->getNumErrors() == 1);
+  fail_unless(doc->getModel() != NULL);
+  fail_unless(doc->getErrorLog()->contains(UnrequiredPackagePresent) == true);
+
+  converter->setDocument(doc);
+  int result = converter->convert();
+
+  fail_unless( result == LIBSBML_OPERATION_FAILED);
+
+  fail_unless(doc->getNumErrors() == 2);
+  fail_unless(doc->getErrorLog()->contains(UnrequiredPackagePresent) == true);
+  fail_unless(doc->getErrorLog()->contains(CompFlatteningNotRecognisedNotReqd) == true);
+
+  delete doc;
+  delete converter;
+}
+END_TEST
+
+
+START_TEST(test_comp_flatten_abort_none_1)
 {
   ConversionProperties* props = new ConversionProperties();
   
@@ -351,7 +470,7 @@ START_TEST(test_comp_flatten_abort_reqd_only_8)
 END_TEST
 
 
-START_TEST(test_comp_flatten_abort_reqd_only_9)
+START_TEST(test_comp_flatten_abort_none_2)
 {
   ConversionProperties* props = new ConversionProperties();
   
@@ -393,6 +512,90 @@ START_TEST(test_comp_flatten_abort_reqd_only_9)
 END_TEST
 
 
+START_TEST(test_comp_flatten_abort_none_3)
+{
+  ConversionProperties* props = new ConversionProperties();
+  
+  props->addOption("flatten comp");
+  
+  // checking for none
+  props->addOption("abortIfUnflattenable", "none");
+  props->addOption("stripUnflattenablePackages", false);
+
+  SBMLConverter* converter = 
+    SBMLConverterRegistry::getInstance().getConverterFor(*props);
+  
+  // load document
+  string dir(TestDataDirectory);
+  string fileName = dir + "unknown2.xml";  
+  SBMLDocument* doc = readSBMLFromFile(fileName.c_str());
+
+  // fail if there is no model 
+  //(but we have the unrecognised package error)
+  fail_unless(doc->getNumErrors() == 1);
+  fail_unless(doc->getModel() != NULL);
+  fail_unless(doc->getErrorLog()->contains(RequiredPackagePresent) == true);
+
+  converter->setDocument(doc);
+  int result = converter->convert();
+
+  fail_unless( result == LIBSBML_OPERATION_SUCCESS);
+
+  string newModel = writeSBMLToString(doc);
+
+  string ffile = dir + "unknown2_flat_stay.xml";
+  SBMLDocument* fdoc = readSBMLFromFile(ffile.c_str());
+  string flatModel = writeSBMLToString(fdoc);
+  fail_unless(flatModel == newModel);
+
+  delete doc;
+  delete fdoc;
+  delete converter;
+}
+END_TEST
+
+
+START_TEST(test_comp_flatten_abort_none_4)
+{
+  ConversionProperties* props = new ConversionProperties();
+  
+  props->addOption("flatten comp");
+  
+  // checking for none
+  props->addOption("abortIfUnflattenable", "none");
+  props->addOption("stripUnflattenablePackages", false);
+
+  SBMLConverter* converter = 
+    SBMLConverterRegistry::getInstance().getConverterFor(*props);
+  
+  // load document
+  string dir(TestDataDirectory);
+  string fileName = dir + "unknown1.xml";  
+  SBMLDocument* doc = readSBMLFromFile(fileName.c_str());
+
+  // fail if there is no model 
+  //(but we have the unrecognised package error)
+  fail_unless(doc->getNumErrors() == 1);
+  fail_unless(doc->getModel() != NULL);
+  fail_unless(doc->getErrorLog()->contains(UnrequiredPackagePresent) == true);
+
+  converter->setDocument(doc);
+  int result = converter->convert();
+
+  fail_unless( result == LIBSBML_OPERATION_SUCCESS);
+
+  string newModel = writeSBMLToString(doc);
+
+  string ffile = dir + "unknown1_flat_stay.xml";
+  SBMLDocument* fdoc = readSBMLFromFile(ffile.c_str());
+  string flatModel = writeSBMLToString(fdoc);
+  fail_unless(flatModel == newModel);
+
+  delete doc;
+  delete fdoc;
+  delete converter;
+}
+END_TEST
 
 
 Suite *
@@ -407,9 +610,14 @@ create_suite_TestCompFlatteningNewFlags (void)
   tcase_add_test(tcase, test_comp_flatten_abort_reqd_only_4);
   tcase_add_test(tcase, test_comp_flatten_abort_reqd_only_5);
   tcase_add_test(tcase, test_comp_flatten_abort_reqd_only_6);
-  tcase_add_test(tcase, test_comp_flatten_abort_reqd_only_7);
-  tcase_add_test(tcase, test_comp_flatten_abort_reqd_only_8);
-  tcase_add_test(tcase, test_comp_flatten_abort_reqd_only_9);
+  tcase_add_test(tcase, test_comp_flatten_abort_all_1);
+  tcase_add_test(tcase, test_comp_flatten_abort_all_2);
+  tcase_add_test(tcase, test_comp_flatten_abort_all_3);
+  tcase_add_test(tcase, test_comp_flatten_abort_all_4);
+  tcase_add_test(tcase, test_comp_flatten_abort_none_1);
+  tcase_add_test(tcase, test_comp_flatten_abort_none_2);
+  tcase_add_test(tcase, test_comp_flatten_abort_none_3);
+  tcase_add_test(tcase, test_comp_flatten_abort_none_4);
 
   suite_add_tcase(suite, tcase);
 
