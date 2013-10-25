@@ -2,7 +2,7 @@
 
 
 ====================================================================
-Version 5.9.0 ()
+Version 5.9.0 (2013-11-07)
 ====================================================================
 
 STABLE RELEASE
@@ -160,6 +160,14 @@ STABLE RELEASE
       flatten as well as detailing any warnings related to the document
       returned on success.    
       
+    - There is a further additional option for the CompFlatteningConverter
+      to allow the users to specify how the required status of any
+      unflattenable package should influence whether flattening is
+      attempted or not. By default this option has a value of
+      'requiredOnly' which indicates that flattening will abort if it
+      encounters an unflattenable package that has a required attribute of
+      true. Other options are 'all' or 'none'.
+      
     - The flattening routine has been extended to include all packages
       available within the stable release: layout, qual and fbc.
     
@@ -216,16 +224,25 @@ EXPERIMENTAL RELEASE
     'distrib' enabled and the libsbml source archive includes the
     source code.
     
+* Multistate, Multicomponent and Multicompartment Species
 
+  - There is now a stabilized version of the specification for the
+    Multistate, Multicomponent and Multicompartment Species Package 
+    and the experimental release now includes code for this 'multi' 
+    package.  As is the case with all packages
+    included in the Experimental Release the binaries are built with
+    'multi' enabled and the libsbml source archive includes the
+    source code.  It should be noted that it is not yet possible
+    to extend the math <ci> element; which the 'multi' proposal does;
+    however the definitionURL attribute can be used on the <ci> element
+    to convey the necessary information until libsbml provides
+    the ability to extend the math.
+    
   - 'groups' package-specific new features:
   
     - The 'groups' package code has been updated to include revisions
       made to the latest specification.
   
-* Bug fixes
-
-  - '' package-specific bug fixes:
-
 ====================================================================
 Version 5.8.0 (2013-02-28)
 ====================================================================
