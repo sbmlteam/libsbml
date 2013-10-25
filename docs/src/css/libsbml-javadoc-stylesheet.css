@@ -173,7 +173,7 @@ body dl dd {
 
 
 /* The next one is to tighten vertical spacing in Java parameter
-   lists in method descriptions */
+lists in method descriptions */
 
 dl dd dl dd p 
 {
@@ -185,15 +185,6 @@ dl dd a[href*="org/sbml/libsbml"]
 {
     font-family: "Courier New", Courier, monospace, fixed;
     font-weight: bold;
-}
-
-/* Hackacious correction for Javadoc, which doesn't have .contents.
-   This uses the fact that Javadoc (but not doxygen) adds a bgcolor attrib. */
-
-body[bgcolor="white"] 
-{
-    margin-left: 10px;
-    margin-right: 10px;
 }
 
 td, th
@@ -253,15 +244,28 @@ td[align="right"]
     padding-bottom: 2px;
 }
 
+
+/* The next two are for the list of classes in the left-hand frame. */
+
+/* The body:not selector catches the left-hand list of all classes, 
+by virtue of the hack that Javadoc doesn't give it an onload
+attribute like it does for the other pages. */
+
+body:not([onload])
+{
+    margin-left: 5px;
+}
+
 font.FrameItemFont a
 {
     font-family: Verdana, Helvetica, Arial, Sans, sans-serif;
     font-weight: normal;
     font-size: 9pt;
+    margin-left: 10px;
 }
 
 /* Hide the "libSBML 5.x.x in the navigation bar because it takes
-   up space and it's not really critical.
+up space and it's not really critical.
 */
 
 td[rowspan="3"]
@@ -270,10 +274,10 @@ td[rowspan="3"]
 }
 
 /* The next two items remove <hr> lines (because Javadoc loves to 
-   insert them all over the place) and adds a line after (only) top-level
-   <dl> elements.  The result is that documentation for functions in
-   Javadoc get lines between them, but the hardwired-by-Javadoc <hr>
-   elements are made invisible. */
+insert them all over the place) and adds a line after (only) top-level
+<dl> elements.  The result is that documentation for functions in
+Javadoc get lines between them, but the hardwired-by-Javadoc <hr>
+elements are made invisible. */
 
 body hr,
 body > hr
