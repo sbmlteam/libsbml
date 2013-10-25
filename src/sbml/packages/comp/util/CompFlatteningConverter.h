@@ -132,6 +132,7 @@ public:
   virtual ConversionProperties getDefaultProperties() const;
 
 private:
+  /** @cond doxygenLibsbmlInternal */
 
   int reconstructDocument(Model* flatmodel); 
 
@@ -161,9 +162,7 @@ private:
   void restoreNamespaces();
 
   std::set<std::pair<std::string, std::string> > mDisabledPackages;
-  std::set<std::pair<std::string, bool       > > mPackageRequired;
 
-  SBMLDocument* mOriginalDocument;
 
 #ifndef SWIG
   typedef std::vector<bool>                     ValueSet;
@@ -188,6 +187,8 @@ private:
   bool haveUnflattenableRequiredPackages();
 
   bool haveUnflattenableUnrequiredPackages();
+
+    /** @endcond */
 
 };
 

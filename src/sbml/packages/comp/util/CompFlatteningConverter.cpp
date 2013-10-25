@@ -67,7 +67,6 @@ void CompFlatteningConverter::init()
 CompFlatteningConverter::CompFlatteningConverter() : SBMLConverter()
 {
   mDisabledPackages.clear();
-  mPackageRequired.clear();
 }
 
 
@@ -75,7 +74,6 @@ CompFlatteningConverter::CompFlatteningConverter
                          (const CompFlatteningConverter& orig) :
 SBMLConverter(orig)
   , mDisabledPackages(orig.mDisabledPackages)
-  , mPackageRequired (orig.mPackageRequired)
 {
 }
 
@@ -631,149 +629,7 @@ CompFlatteningConverter::getAbortForNone() const
   }
 }
 
-#if (0)
-bool
-CompFlatteningConverter::canBeFlattened()
-{
-  bool canFlatten = true;
 
-  // check for unrecognised packages
-  mDocument->getErrorLog()->clearLog();
-
-  /* hack to catch errors caught at read time */
-  char* doc = writeSBMLToString(mDocument);
-  SBMLDocument *d = readSBMLFromString(doc);
-  util_free(doc);
-  unsigned int errors = d->getNumErrors();
-
-  //for (unsigned int i = 0; i < errors; i++)
-  //{
-  //  mDocument->getErrorLog()->add(*(d->getError(i)));
-  //}
-
-  if (d->getErrorLog()->contains(RequiredPackagePresent) 
-    && getIgnorePackages() == false) 
-  {
-    canFlatten = false;
-  }
-  
-  // add messages about required/unrequired packages 
-  // being present but not readable
-  for (unsigned int i = 0; i < d->getErrorLog()->getNumErrors(); i++)
-  {
-    if (d->getError(i)->getErrorId() == RequiredPackagePresent 
-      || d->getError(i)->getErrorId() == UnrequiredPackagePresent)
-    {
-      mDocument->getErrorLog()->add(*(d->getError(i)));
-    }
-  }
-  delete d;
-
-  if (canFlatten == true)
-  {
-    // check that any other packages found in the model CAN be flattened
-    for (unsigned int i = 0; i < mDocument->getNumPlugins(); i++)
-    {
-      if (static_cast<SBMLDocumentPlugin*>(mDocument->getPlugin(i))
-                                        ->isCompFlatteningImplemented() == false)
-      {
-        if (static_cast<SBMLDocumentPlugin*>(mDocument->getPlugin(i))
-                                          ->getRequired() == true)
-        {
-          if (!getIgnorePackages()) {
-            canFlatten = false;
-            break;
-          }
-        }
-      }
-    }
-  }
-  
-
-  string postmessage = " cannot be flattened and ";
-  postmessage += "the CompFlatteningConverter ";
-  postmessage += "has the 'ignore packages' option set to ";
-  if (getIgnorePackages() == false)
-  {
-    postmessage += "'false'.  Thus, flattening will not be attempted.";
-  }
-  else
-  {
-    postmessage += "'true'. Thus, information from this";
-    postmessage += " package will not appear in the flattened model.";
-  }
-
-  XMLNamespaces *ns = mDocument->getSBMLNamespaces()->getNamespaces();
-  for (int i = 0; i < ns->getLength(); i++)
-  {
-    if (mDocument->isIgnoredPackage(ns->getURI(i)) == true)
-    {
-      unsigned int warningnumber = CompFlatteningNotRecognisedNotReqd;
-      std::string message = "The ";
-      bool required = mDocument->getPackageRequired(ns->getURI(i));
-      if (required) {
-        message += "required ";
-        warningnumber = CompFlatteningNotRecognisedReqd;
-      }
-      message += "package '" + ns->getPrefix(i) + "'";
-      message += postmessage;
-      if (getIgnorePackages())
-      {
-        //LS DEBUG:  This will change the original document even if 
-        //flattening fails for some other reason (BUG)
-        // This is fixed with restoreNamespaces
-        string nsURI = ns->getURI(i);
-        string nsPrefix = ns->getPrefix(i);
-        mDocument->enablePackageInternal(nsURI, nsPrefix, false);
-        mDisabledPackages.insert(make_pair(nsURI, nsPrefix));
-        mPackageRequired.insert(make_pair(nsURI, required));
-      }
-      mDocument->getErrorLog()->logPackageError("comp", 
-        warningnumber, 
-        mDocument->getPlugin("comp")->getPackageVersion(), 
-        mDocument->getLevel(), mDocument->getVersion(), message);
-    }
-  }
-  for (unsigned int i = 0; i < mDocument->getNumPlugins(); i++)
-  {
-    if (static_cast<SBMLDocumentPlugin*>(mDocument->getPlugin(i))
-      ->isCompFlatteningImplemented() == false)
-    {
-      unsigned int warningnumber = CompFlatteningNotImplementedNotReqd;
-      std::string message = "The ";
-      bool required = static_cast<SBMLDocumentPlugin*>(mDocument->getPlugin(i))
-        ->getRequired();
-      if (required)
-      {
-        message += "required ";
-        warningnumber = CompFlatteningNotImplementedReqd;
-      }
-      message += "package '" + mDocument->getPlugin(i)->getPackageName() + "'";
-      message += postmessage;
-      if (getIgnorePackages())
-      {
-        //LS DEBUG:  This will change the original document even if 
-        //flattening fails for some other reason (BUG)
-        // This is fixed with restoreNamespaces
-        std::string pkgURI = mDocument->getPlugin(i)->getURI();
-        std::string prefix = mDocument->getPlugin(i)->getPrefix();
-        mDocument->disablePackage(pkgURI, prefix);
-        mDisabledPackages.insert(make_pair(pkgURI, prefix));
-        mPackageRequired.insert(make_pair(pkgURI, required));
-      }
-
-      mDocument->getErrorLog()->logPackageError("comp", 
-        warningnumber,
-        mDocument->getPlugin("comp")->getPackageVersion(), 
-        mDocument->getLevel(), mDocument->getVersion(), message);
-    }
-  }
-
-  return canFlatten;
-}
-
-
-#endif
 void
 CompFlatteningConverter::stripUnflattenablePackages()
 {
@@ -838,7 +694,6 @@ CompFlatteningConverter::stripUnflattenablePackages()
       // disable all
       mDocument->enablePackage(nsURI, package, false);
       mDisabledPackages.insert(make_pair(nsURI, package));
-      mPackageRequired.insert(make_pair(nsURI, required));
       mDocument->getErrorLog()->logPackageError("comp", errorId, 
         mDocument->getPlugin("comp")->getPackageVersion(), 
         mDocument->getLevel(), mDocument->getVersion(), message);
@@ -850,7 +705,6 @@ CompFlatteningConverter::stripUnflattenablePackages()
       {
         mDocument->enablePackage(nsURI, package, false);
         mDisabledPackages.insert(make_pair(nsURI, package));
-        mPackageRequired.insert(make_pair(nsURI, required));
         mDocument->getErrorLog()->logPackageError("comp", errorId, 
           mDocument->getPlugin("comp")->getPackageVersion(), 
           mDocument->getLevel(), mDocument->getVersion(), message);
@@ -943,12 +797,7 @@ CompFlatteningConverter::restoreNamespaces()
   for (set<pair<string, string> >::iterator pkg = mDisabledPackages.begin();
        pkg != mDisabledPackages.end(); pkg++)
   {
-    mDocument->enablePackageInternal((*pkg).first, (*pkg).second, true);
-  }
-  for (set<pair<string, bool> >::iterator pkg = mPackageRequired.begin();
-       pkg != mPackageRequired.end(); pkg++)
-  {
-    mDocument->setPackageRequired((*pkg).first, (*pkg).second);
+    mDocument->enablePackage((*pkg).first, (*pkg).second, true);
   }
 }
 
