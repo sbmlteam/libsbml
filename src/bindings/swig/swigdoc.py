@@ -904,14 +904,19 @@ def sanitizeForHTML (docstring):
   p = re.compile('^(\s*)\*?\s*<p>((\s+\*)+\s+<p>)+', re.MULTILINE)
   docstring = p.sub(r'\1*', docstring)
 
+  # Merge separated @see's, or else the first gets lost in the javadoc output.
+
+  p = re.compile(r'(@see.+?)<p>.+?@see', re.DOTALL)
+  docstring = p.sub(r'\1@see', docstring)
+
   # Take out any left-over Doxygen-style quotes, because Javadoc doesn't have
   # the %foo quoting mechanism.
 
-  docstring = re.sub('(\s)%(\w)', r'\1\2', docstring)
+  docstring = re.sub(r'(\s)%(\w)', r'\1\2', docstring)
 
   # Currently, we don't handle @ingroup.
 
-  docstring = re.sub('@ingroup \w+', '', docstring)
+  docstring = re.sub(r'@ingroup \w+', '', docstring)
 
   return docstring
 
