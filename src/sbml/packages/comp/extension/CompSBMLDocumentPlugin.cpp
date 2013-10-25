@@ -932,7 +932,7 @@ CompSBMLDocumentPlugin::checkConsistency()
     ConversionProperties* props = new ConversionProperties();
     
     props->addOption("flatten comp");
-    props->addOption("perform validation", false);
+    props->addOption("performValidation", false);
 
     SBMLConverter* converter = 
                SBMLConverterRegistry::getInstance().getConverterFor(*props);

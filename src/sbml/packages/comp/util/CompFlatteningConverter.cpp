@@ -99,10 +99,10 @@ CompFlatteningConverter::getDefaultProperties() const
     "the model definitions should be listed");
   prop.addOption("ignorePackages", true, 
     "any packages that cannot be flattened should be stripped");
-  prop.addOption("perform validation", true, 
-    "do not perform validation before trying to flatten");
-  prop.addOption("abort if unflattenable", "requiredOnly", 
-    "do not perform validation before trying to flatten");
+  prop.addOption("performValidation", true, 
+    "perform validation before trying to flatten");
+  prop.addOption("abortIfUnflattenable", "requiredOnly", 
+    "specify the required status of packages that will not flatten");
   prop.addOption("stripUnflattenablePackages", true, 
     "any packages that cannot be flattened should be stripped");
   return prop;
@@ -546,13 +546,13 @@ CompFlatteningConverter::getPerformValidation() const
   {
     return false;
   }
-  else if (getProperties()->hasOption("perform validation") == false)
+  else if (getProperties()->hasOption("performValidation") == false)
   {
     return true;
   }
   else
   {
-    return getProperties()->getBoolValue("perform validation");
+    return getProperties()->getBoolValue("performValidation");
   }
 }
 
@@ -564,13 +564,13 @@ CompFlatteningConverter::getAbortForAll() const
   {
     return false;
   }
-  else if (getProperties()->hasOption("abort if unflattenable") == false)
+  else if (getProperties()->hasOption("abortIfUnflattenable") == false)
   {
     return false;
   }
   else
   {
-    if (getProperties()->getValue("abort if unflattenable") == "all")
+    if (getProperties()->getValue("abortIfUnflattenable") == "all")
     {
       return true;
     }
@@ -589,13 +589,13 @@ CompFlatteningConverter::getAbortForRequired() const
   {
     return false;
   }
-  else if (getProperties()->hasOption("abort if unflattenable") == false)
+  else if (getProperties()->hasOption("abortIfUnflattenable") == false)
   {
     return true;
   }
   else
   {
-    if (getProperties()->getValue("abort if unflattenable") == "requiredOnly")
+    if (getProperties()->getValue("abortIfUnflattenable") == "requiredOnly")
     {
       return true;
     }
@@ -614,13 +614,13 @@ CompFlatteningConverter::getAbortForNone() const
   {
     return false;
   }
-  else if (getProperties()->hasOption("abort if unflattenable") == false)
+  else if (getProperties()->hasOption("abortIfUnflattenable") == false)
   {
     return false;
   }
   else
   {
-    if (getProperties()->getValue("abort if unflattenable") == "none")
+    if (getProperties()->getValue("abortIfUnflattenable") == "none")
     {
       return true;
     }
@@ -871,7 +871,7 @@ CompFlatteningConverter::canBeFlattened()
   if (getAbortForAll() == true)
   {
     std::string message = "The CompFlatteningConverter has the ";
-    message += "'abort if unflattenable' option set to 'all' ";
+    message += "'abortIfUnflattenable' option set to 'all' ";
     message += " and thus flattening will not be attempted.";
     
     // so user says abort for any unflattenable package
@@ -911,7 +911,7 @@ CompFlatteningConverter::canBeFlattened()
   else if (getAbortForRequired() == true)
   {
     std::string message = "The CompFlatteningConverter has the ";
-    message += "'abort if unflattenable' option set to 'requiredOnly' ";
+    message += "'abortIfUnflattenable' option set to 'requiredOnly' ";
     message += " and thus flattening will not be attempted.";
 
     // only bail if we have a required package we cannot flatten

@@ -109,9 +109,22 @@ public:
    * The properties for the CompFlatteningConverter are:
    * @li "flatten comp": the name of this converter
    * @li "basePath": the base directory to find external references in
-   * @li "leavePorts": unused ports should be listed in the flattened model
-   * @li "listModelDefinitions": the model definitions should be listed in the flattened model
-   * @li "ignorePackages": packages that cannot be flattened should be removed 
+   * @li "leavePorts": boolean indicating whether unused ports 
+   *   should be listed in the flattened model; default = false
+   * @li "listModelDefinitions": boolean indicating whether the model 
+   *   definitions should be listed in the flattened model; default = false
+   * @li "stripUnflattenablePackages": boolean indicating whether packages 
+   *   that cannot be flattened should be removed; default = true
+   * @li "performValidation": boolean indicating whether validation should be 
+   *   performed. When @true either an invalid source document or 
+   *   an invalid flattened document will cause flattening to fail; default = true
+   * @li "abortIfUnflattenable": string indicating the required status of
+   *   any unflattenable packages that should cause flattening to fail.
+   *   Possible values are "none", "requiredOnly" and "all"; default = requiredOnly
+   *
+   * @note previously there was an "ignorePackages" option; whose name
+   * proved to be very misleading. This option has been deprecated and 
+   * replaced by the "stripUnflattenablePackages" but will still work.
    *
    * @return the ConversionProperties object describing the default properties
    * for this converter.

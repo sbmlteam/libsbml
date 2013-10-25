@@ -88,7 +88,7 @@ START_TEST(test_comp_flatten_abort_reqd_only_2)
   props->addOption("flatten comp");
   
   // checking the default
-  props->addOption("abort if unflattenable", "requiredOnly");
+  props->addOption("abortIfUnflattenable", "requiredOnly");
 
   SBMLConverter* converter = 
     SBMLConverterRegistry::getInstance().getConverterFor(*props);
@@ -240,7 +240,7 @@ START_TEST(test_comp_flatten_abort_reqd_only_6)
   props->addOption("flatten comp");
   
   // checking the default
-  props->addOption("abort if unflattenable", "all");
+  props->addOption("abortIfUnflattenable", "all");
 
   SBMLConverter* converter = 
     SBMLConverterRegistry::getInstance().getConverterFor(*props);
@@ -278,7 +278,7 @@ START_TEST(test_comp_flatten_abort_reqd_only_7)
   props->addOption("flatten comp");
   
   // checking the default
-  props->addOption("abort if unflattenable", "all");
+  props->addOption("abortIfUnflattenable", "all");
 
   SBMLConverter* converter = 
     SBMLConverterRegistry::getInstance().getConverterFor(*props);
@@ -316,7 +316,7 @@ START_TEST(test_comp_flatten_abort_reqd_only_8)
   props->addOption("flatten comp");
   
   // checking for none
-  props->addOption("abort if unflattenable", "none");
+  props->addOption("abortIfUnflattenable", "none");
 
   SBMLConverter* converter = 
     SBMLConverterRegistry::getInstance().getConverterFor(*props);
@@ -358,7 +358,7 @@ START_TEST(test_comp_flatten_abort_reqd_only_9)
   props->addOption("flatten comp");
   
   // checking for none
-  props->addOption("abort if unflattenable", "none");
+  props->addOption("abortIfUnflattenable", "none");
 
   SBMLConverter* converter = 
     SBMLConverterRegistry::getInstance().getConverterFor(*props);

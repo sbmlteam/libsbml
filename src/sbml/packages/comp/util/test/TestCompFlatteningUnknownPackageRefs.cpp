@@ -55,7 +55,7 @@ SBMLDocument* TestFlattenedUnknownNoValidate(string file1, string file2)
   
   props->addOption("flatten comp");
   props->addOption("basePath", filename);
-  props->addOption("perform validation", false);
+  props->addOption("performValidation", false);
 
   SBMLConverter* converter = SBMLConverterRegistry::getInstance().getConverterFor(*props);
   
@@ -108,7 +108,7 @@ SBMLDocument* TestFlattenedUnknownValidate(string file1, string file2)
   
   props->addOption("flatten comp");
   props->addOption("basePath", filename);
-  props->addOption("perform validation", true);
+  props->addOption("performValidation", true);
 
   SBMLConverter* converter = 
     SBMLConverterRegistry::getInstance().getConverterFor(*props);
@@ -148,7 +148,7 @@ SBMLDocument* TestFlattenedUnknownValidateFailsFlattening(string file1)
   
   props->addOption("flatten comp");
   props->addOption("basePath", filename);
-  props->addOption("perform validation", true);
+  props->addOption("performValidation", true);
 
   SBMLConverter* converter = 
     SBMLConverterRegistry::getInstance().getConverterFor(*props);
@@ -188,8 +188,8 @@ SBMLDocument* TestFlattenedUnknownAbortNone(string file1, string file2)
   
   props->addOption("flatten comp");
   props->addOption("basePath", filename);
-  props->addOption("perform validation", false);
-  props->addOption("abort if unflattenable", "none");
+  props->addOption("performValidation", false);
+  props->addOption("abortIfUnflattenable", "none");
 
   SBMLConverter* converter = SBMLConverterRegistry::getInstance().getConverterFor(*props);
   
@@ -525,7 +525,7 @@ START_TEST (test_comp_flatten_unknown_21)
   
   props->addOption("flatten comp");
   props->addOption("basePath", filename);
-  props->addOption("perform validation", false);
+  props->addOption("performValidation", false);
 
   SBMLConverter* converter = SBMLConverterRegistry::getInstance().getConverterFor(*props);
   
@@ -853,7 +853,7 @@ START_TEST (test_comp_flatten_unknown_withValidation_21)
   
   props->addOption("flatten comp");
   props->addOption("basePath", filename);
-  props->addOption("perform validation", true);
+  props->addOption("performValidation", true);
 
   SBMLConverter* converter = SBMLConverterRegistry::getInstance().getConverterFor(*props);
   
