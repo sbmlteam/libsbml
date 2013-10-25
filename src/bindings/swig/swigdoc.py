@@ -769,6 +769,10 @@ def sanitizeForHTML (docstring):
   p = re.compile('^\s*\*\s+@par(\s)', re.MULTILINE)
   docstring = p.sub(r'\1', docstring)
 
+  # Remove @ref's, since we currently have no way to deal with them.
+
+  docstring = re.sub('@ref\s+\w+', '', docstring)
+
   # First do conditional section inclusion based on the current language.
   # Our possible conditional elements and their meanings are:
   #
