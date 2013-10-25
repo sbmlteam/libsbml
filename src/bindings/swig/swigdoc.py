@@ -600,7 +600,10 @@ def rewriteCommonReferences (docstring):
     docstring = re.sub(r'XMLErrorCategory_t#',      target, docstring)
     docstring = re.sub(r'XMLErrorSeverity_t#',      target, docstring)
     docstring = re.sub(r'ParseLogType_t#',          target, docstring)
+    docstring = re.sub(r'SBMLFbcTypeCode_t#',       target, docstring)
+    docstring = re.sub(r'SBMLCompTypeCode_t#',      target, docstring)
     docstring = re.sub(r'SBMLLayoutTypeCode_t#',    target, docstring)
+    docstring = re.sub(r'SBMLQualTypeCode_t#',      target, docstring)
 
   return docstring
 
