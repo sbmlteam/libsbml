@@ -45,7 +45,7 @@ public interface libsbmlConstants
 
     /**
      * One of the possible libSBML operation return codes.
-     *
+     * <p>
      * This code has the following meaning: The operation was successful.
      */
     public final static int LIBSBML_OPERATION_SUCCESS = 0;
@@ -68,7 +68,7 @@ public interface libsbmlConstants
 
     /**
      * One of the possible libSBML operation return codes.
-     *
+     * <p>
      * This code has the following meaning: The attribute that is the
      * subject of this operation is not valid for the combination of SBML
      * Level and Version for the underlying object.  This can happen
@@ -84,7 +84,7 @@ public interface libsbmlConstants
 
     /**
      * One of the possible libSBML operation return codes.
-     *
+     * <p>
      * This code has the following meaning: The requested action could not
      * be performed.  This can occur in a variety of contexts, such as
      * passing a null object as a parameter in a situation where it does
@@ -95,7 +95,7 @@ public interface libsbmlConstants
 
     /**
      * One of the possible libSBML operation return codes.
-     *
+     * <p>
      * This code has the following meaning: A value passed as an argument
      * to the method is not of a type that is valid for the operation or
      * kind of object involved.  For example, this return code is used when
@@ -107,7 +107,7 @@ public interface libsbmlConstants
 
     /**
      * One of the possible libSBML operation return codes.
-     *
+     * <p>
      * This code has the following meaning: The object passed as an
      * argument to the method is not of a type that is valid for the
      * operation or kind of object involved.  For example, handing an
@@ -119,7 +119,7 @@ public interface libsbmlConstants
 
     /**
      * One of the possible libSBML operation return codes.
-     *
+     * <p>
      * This code has the following meaning: There already exists an object
      * with this identifier in the context where this operation is being
      * attempted.  This error is typically returned in situations where
@@ -131,7 +131,7 @@ public interface libsbmlConstants
 
     /**
      * One of the possible libSBML operation return codes.
-     *
+     * <p>
      * This code has the following meaning: The SBML Level associated with
      * the object does not match the Level of the parent object.  This
      * error can happen when an SBML component such as a species or
@@ -144,7 +144,7 @@ public interface libsbmlConstants
 
     /**
      * One of the possible libSBML operation return codes.
-     *
+     * <p>
      * This code has the following meaning: The SBML Version within the
      * SBML Level associated with the object does not match the Version of
      * the parent object.  This error can happen when an SBML component
@@ -157,7 +157,7 @@ public interface libsbmlConstants
 
     /**
      * One of the possible libSBML operation return codes.
-     *
+     * <p>
      * This code has the following meaning: The XML operation attempted is
      * not valid for the object or context involved.  This error is
      * typically returned by the XML interface layer of libSBML, when a
@@ -169,7 +169,7 @@ public interface libsbmlConstants
 
     /**
      * One of the possible libSBML operation return codes.
-     *
+     * <p>
      * This code has the following meaning: The operation attempt could not
      * be performed because the object(s) involved have mismatched XML
      * namespaces for SBML Level/Versions.  This typically means the
@@ -181,7 +181,7 @@ public interface libsbmlConstants
 
     /**
      * One of the possible libSBML operation return codes.
-     *
+     * <p>
      * This code has the following meaning: The existing annotation does
      * not have a top-level element with the given name. This error is
      * typically returned in situations one of the annotation replacement
@@ -194,7 +194,7 @@ public interface libsbmlConstants
 
     /**
      * One of the possible libSBML operation return codes.
-     *
+     * <p>
      * This code has the following meaning: The existing annotation does
      * not have a top-level element with the given namespace. This error is
      * typically returned in situations where one of the annotation
@@ -207,7 +207,7 @@ public interface libsbmlConstants
 
     /**
      * One of the possible libSBML package operation return codes.
-     *
+     * <p>
      * This code has the following meaning: the Version of the package
      * extension within the SBML Level and version associated with the
      * object does not match the Version of the parent object. This error
@@ -221,7 +221,7 @@ public interface libsbmlConstants
 
     /**
      * One of the possible libSBML package operation return codes.
-     *
+     * <p>
      * This code has the following meaning: the required package extension
      * is unknown. This error is typically returned when creating an object
      * of {@link SBase} derived class with the required package, creating
@@ -235,7 +235,7 @@ public interface libsbmlConstants
 
     /**
      * One of the possible libSBML package operation return codes.
-     *
+     * <p>
      * This code has the following meaning: The required version of the
      * package extension is unknown.  This error is typically returned when
      * creating an object of {@link SBase} derived class with the required
@@ -249,7 +249,7 @@ public interface libsbmlConstants
 
     /**
      * One of the possible libSBML package operation return codes.
-     *
+     * <p>
      * This code has the following meaning: The required package extension
      * is disabled.  This error is typically returned when creating an
      * object of {@link SBase} derived class with the required package,
@@ -263,7 +263,7 @@ public interface libsbmlConstants
 
     /**
      * One of the possible libSBML package operation return codes.
-     *
+     * <p>
      * This code has the following meaning: another version of the required
      * package extension has already been enabled in the target SBase
      * object, or enabled in the model to/in which the target object to be
@@ -278,7 +278,7 @@ public interface libsbmlConstants
 
     /**
      * One of the possible libSBML package operation return codes.
-     *
+     * <p>
      * This code has the following meaning: another SBML package extension
      * for the same URI has already been registered. This error is
      * typically returned when adding a SBML package extension to the
@@ -290,7 +290,7 @@ public interface libsbmlConstants
 
     /**
      * One of the possible libSBML package operation return codes.
-     *
+     * <p>
      * This code has the following meaning: while attempting to convert the
      * SBML document using {@link SBMLLevelVersionConverter#convert()} or
      * related methods, the target namespace has been found to be invalid
@@ -302,7 +302,7 @@ public interface libsbmlConstants
 
     /**
      * One of the possible libSBML package operation return codes.
-     *
+     * <p>
      * This code has the following meaning: conversions involving SBML
      * Level&nbsp;3 packages are not available in the given libSBML
      * method. This error is typically returned when calling a converter
@@ -315,7 +315,7 @@ public interface libsbmlConstants
 
     /**
      * One of the possible libSBML package operation return codes.
-     *
+     * <p>
      * This code has the following meaning: The document on which
      * conversion is being requested is invalid and the requested
      * conversion cannot be performed. This error is typically returned
@@ -330,11 +330,20 @@ public interface libsbmlConstants
 
     /**
      * One of the possible libSBML package operation return codes.
-     *
+     * <p>
      * This code has the following meaning: conversion with the given
      * properties is not yet available.
      */
     public final static int LIBSBML_CONV_CONVERSION_NOT_AVAILABLE = -33;
+
+
+    /**
+     * One of the possible libSBML package operation return codes.
+     * <p>
+     * This code has the following meaning: the SBML Level 3 package
+     * involved is not known to this copy of libSBML.
+     */
+    public final static int LIBSBML_CONV_PKG_CONSIDERED_UNKNOWN = -34;
 
 
 
@@ -342,7 +351,7 @@ public interface libsbmlConstants
 
     /**
      * One of the possible SBML component type codes.
-     *
+     * <p>
      * LibSBML attaches an identifying code to every kind of SBML object.
      * These are known as <em>SBML type codes</em>.  In other languages,
      * the set of type codes is stored in an enumeration; in the Java
@@ -356,7 +365,7 @@ public interface libsbmlConstants
 
     /**
      * One of the possible SBML component type codes.
-     *
+     * <p>
      * LibSBML attaches an identifying code to every kind of SBML object.
      * These are known as <em>SBML type codes</em>.  In other languages,
      * the set of type codes is stored in an enumeration; in the Java
@@ -370,7 +379,7 @@ public interface libsbmlConstants
 
     /**
      * One of the possible SBML component type codes.
-     *
+     * <p>
      * LibSBML attaches an identifying code to every kind of SBML object.
      * These are known as <em>SBML type codes</em>.  In other languages,
      * the set of type codes is stored in an enumeration; in the Java
@@ -384,7 +393,7 @@ public interface libsbmlConstants
 
     /**
      * One of the possible SBML component type codes.
-     *
+     * <p>
      * LibSBML attaches an identifying code to every kind of SBML object.
      * These are known as <em>SBML type codes</em>.  In other languages,
      * the set of type codes is stored in an enumeration; in the Java
@@ -398,7 +407,7 @@ public interface libsbmlConstants
 
     /**
      * One of the possible SBML component type codes.
-     *
+     * <p>
      * LibSBML attaches an identifying code to every kind of SBML object.
      * These are known as <em>SBML type codes</em>.  In other languages,
      * the set of type codes is stored in an enumeration; in the Java
@@ -412,7 +421,7 @@ public interface libsbmlConstants
 
     /**
      * One of the possible SBML component type codes.
-     *
+     * <p>
      * LibSBML attaches an identifying code to every kind of SBML object.
      * These are known as <em>SBML type codes</em>.  In other languages,
      * the set of type codes is stored in an enumeration; in the Java
@@ -426,7 +435,7 @@ public interface libsbmlConstants
 
     /**
      * One of the possible SBML component type codes.
-     *
+     * <p>
      * LibSBML attaches an identifying code to every kind of SBML object.
      * These are known as <em>SBML type codes</em>.  In other languages,
      * the set of type codes is stored in an enumeration; in the Java
@@ -440,7 +449,7 @@ public interface libsbmlConstants
 
     /**
      * One of the possible SBML component type codes.
-     *
+     * <p>
      * LibSBML attaches an identifying code to every kind of SBML object.
      * These are known as <em>SBML type codes</em>.  In other languages,
      * the set of type codes is stored in an enumeration; in the Java
@@ -454,7 +463,7 @@ public interface libsbmlConstants
 
     /**
      * One of the possible SBML component type codes.
-     *
+     * <p>
      * LibSBML attaches an identifying code to every kind of SBML object.
      * These are known as <em>SBML type codes</em>.  In other languages,
      * the set of type codes is stored in an enumeration; in the Java
@@ -468,7 +477,7 @@ public interface libsbmlConstants
 
     /**
      * One of the possible SBML component type codes.
-     *
+     * <p>
      * LibSBML attaches an identifying code to every kind of SBML object.
      * These are known as <em>SBML type codes</em>.  In other languages,
      * the set of type codes is stored in an enumeration; in the Java
@@ -482,7 +491,7 @@ public interface libsbmlConstants
 
     /**
      * One of the possible SBML component type codes.
-     *
+     * <p>
      * LibSBML attaches an identifying code to every kind of SBML object.
      * These are known as <em>SBML type codes</em>.  In other languages,
      * the set of type codes is stored in an enumeration; in the Java
@@ -496,7 +505,7 @@ public interface libsbmlConstants
 
     /**
      * One of the possible SBML component type codes.
-     *
+     * <p>
      * LibSBML attaches an identifying code to every kind of SBML object.
      * These are known as <em>SBML type codes</em>.  In other languages,
      * the set of type codes is stored in an enumeration; in the Java
@@ -510,7 +519,7 @@ public interface libsbmlConstants
 
     /**
      * One of the possible SBML component type codes.
-     *
+     * <p>
      * LibSBML attaches an identifying code to every kind of SBML object.
      * These are known as <em>SBML type codes</em>.  In other languages,
      * the set of type codes is stored in an enumeration; in the Java
@@ -524,7 +533,7 @@ public interface libsbmlConstants
 
     /**
      * One of the possible SBML component type codes.
-     *
+     * <p>
      * LibSBML attaches an identifying code to every kind of SBML object.
      * These are known as <em>SBML type codes</em>.  In other languages,
      * the set of type codes is stored in an enumeration; in the Java
@@ -538,7 +547,7 @@ public interface libsbmlConstants
 
     /**
      * One of the possible SBML component type codes.
-     *
+     * <p>
      * LibSBML attaches an identifying code to every kind of SBML object.
      * These are known as <em>SBML type codes</em>.  In other languages,
      * the set of type codes is stored in an enumeration; in the Java
@@ -552,7 +561,7 @@ public interface libsbmlConstants
 
     /**
      * One of the possible SBML component type codes.
-     *
+     * <p>
      * LibSBML attaches an identifying code to every kind of SBML object.
      * These are known as <em>SBML type codes</em>.  In other languages,
      * the set of type codes is stored in an enumeration; in the Java
@@ -566,7 +575,7 @@ public interface libsbmlConstants
 
     /**
      * One of the possible SBML component type codes.
-     *
+     * <p>
      * LibSBML attaches an identifying code to every kind of SBML object.
      * These are known as <em>SBML type codes</em>.  In other languages,
      * the set of type codes is stored in an enumeration; in the Java
@@ -580,7 +589,7 @@ public interface libsbmlConstants
 
     /**
      * One of the possible SBML component type codes.
-     *
+     * <p>
      * LibSBML attaches an identifying code to every kind of SBML object.
      * These are known as <em>SBML type codes</em>.  In other languages,
      * the set of type codes is stored in an enumeration; in the Java
@@ -594,7 +603,7 @@ public interface libsbmlConstants
 
     /**
      * One of the possible SBML component type codes.
-     *
+     * <p>
      * LibSBML attaches an identifying code to every kind of SBML object.
      * These are known as <em>SBML type codes</em>.  In other languages,
      * the set of type codes is stored in an enumeration; in the Java
@@ -608,7 +617,7 @@ public interface libsbmlConstants
 
     /**
      * One of the possible SBML component type codes.
-     *
+     * <p>
      * LibSBML attaches an identifying code to every kind of SBML object.
      * These are known as <em>SBML type codes</em>.  In other languages,
      * the set of type codes is stored in an enumeration; in the Java
@@ -622,7 +631,7 @@ public interface libsbmlConstants
 
     /**
      * One of the possible SBML component type codes.
-     *
+     * <p>
      * LibSBML attaches an identifying code to every kind of SBML object.
      * These are known as <em>SBML type codes</em>.  In other languages,
      * the set of type codes is stored in an enumeration; in the Java
@@ -636,7 +645,7 @@ public interface libsbmlConstants
 
     /**
      * One of the possible SBML component type codes.
-     *
+     * <p>
      * LibSBML attaches an identifying code to every kind of SBML object.
      * These are known as <em>SBML type codes</em>.  In other languages,
      * the set of type codes is stored in an enumeration; in the Java
@@ -650,7 +659,7 @@ public interface libsbmlConstants
 
     /**
      * One of the possible SBML component type codes.
-     *
+     * <p>
      * LibSBML attaches an identifying code to every kind of SBML object.
      * These are known as <em>SBML type codes</em>.  In other languages,
      * the set of type codes is stored in an enumeration; in the Java
@@ -664,7 +673,7 @@ public interface libsbmlConstants
 
     /**
      * One of the possible SBML component type codes.
-     *
+     * <p>
      * LibSBML attaches an identifying code to every kind of SBML object.
      * These are known as <em>SBML type codes</em>.  In other languages,
      * the set of type codes is stored in an enumeration; in the Java
@@ -678,7 +687,7 @@ public interface libsbmlConstants
 
     /**
      * One of the possible SBML component type codes.
-     *
+     * <p>
      * LibSBML attaches an identifying code to every kind of SBML object.
      * These are known as <em>SBML type codes</em>.  In other languages,
      * the set of type codes is stored in an enumeration; in the Java
@@ -692,7 +701,7 @@ public interface libsbmlConstants
 
     /**
      * One of the possible SBML component type codes.
-     *
+     * <p>
      * LibSBML attaches an identifying code to every kind of SBML object.
      * These are known as <em>SBML type codes</em>.  In other languages,
      * the set of type codes is stored in an enumeration; in the Java
@@ -706,7 +715,7 @@ public interface libsbmlConstants
 
     /**
      * One of the possible SBML component type codes.
-     *
+     * <p>
      * LibSBML attaches an identifying code to every kind of SBML object.
      * These are known as <em>SBML type codes</em>.  In other languages,
      * the set of type codes is stored in an enumeration; in the Java
@@ -720,7 +729,7 @@ public interface libsbmlConstants
 
     /**
      * One of the possible SBML component type codes.
-     *
+     * <p>
      * LibSBML attaches an identifying code to every kind of SBML object.
      * These are known as <em>SBML type codes</em>.  In other languages,
      * the set of type codes is stored in an enumeration; in the Java
@@ -734,7 +743,7 @@ public interface libsbmlConstants
 
     /**
      * One of the possible SBML component type codes.
-     *
+     * <p>
      * LibSBML attaches an identifying code to every kind of SBML object.
      * These are known as <em>SBML type codes</em>.  In other languages,
      * the set of type codes is stored in an enumeration; in the Java
@@ -748,7 +757,7 @@ public interface libsbmlConstants
 
     /**
      * One of the possible SBML component type codes.
-     *
+     * <p>
      * LibSBML attaches an identifying code to every kind of SBML object.
      * These are known as <em>SBML type codes</em>.  In other languages,
      * the set of type codes is stored in an enumeration; in the Java
@@ -762,7 +771,7 @@ public interface libsbmlConstants
 
     /**
      * One of the possible SBML component type codes.
-     *
+     * <p>
      * LibSBML attaches an identifying code to every kind of SBML object.
      * These are known as <em>SBML type codes</em>.  In other languages,
      * the set of type codes is stored in an enumeration; in the Java
@@ -776,7 +785,7 @@ public interface libsbmlConstants
 
     /**
      * One of the possible SBML component type codes.
-     *
+     * <p>
      * LibSBML attaches an identifying code to every kind of SBML object.
      * These are known as <em>SBML type codes</em>.  In other languages,
      * the set of type codes is stored in an enumeration; in the Java
@@ -790,7 +799,7 @@ public interface libsbmlConstants
 
     /**
      * One of the possible SBML component type codes.
-     *
+     * <p>
      * LibSBML attaches an identifying code to every kind of SBML object.
      * These are known as <em>SBML type codes</em>.  In other languages,
      * the set of type codes is stored in an enumeration; in the Java
@@ -799,12 +808,12 @@ public interface libsbmlConstants
      * The names of the type codes all begin with the characters
      * <code>SBML_</code>.
      */
-    public final static int SBML_FORMULA_UNITS_DATA = SBML_PRIORITY + 1;
+    public final static int SBML_GENERIC_SBASE = SBML_PRIORITY + 1;
   
 
     /**
      * One of the possible SBML component type codes.
-     *
+     * <p>
      * LibSBML attaches an identifying code to every kind of SBML object.
      * These are known as <em>SBML type codes</em>.  In other languages,
      * the set of type codes is stored in an enumeration; in the Java
@@ -818,7 +827,7 @@ public interface libsbmlConstants
 
     /**
      * One of the possible SBML component type codes.
-     *
+     * <p>
      * LibSBML attaches an identifying code to every kind of SBML object.
      * These are known as <em>SBML type codes</em>.  In other languages,
      * the set of type codes is stored in an enumeration; in the Java
@@ -832,7 +841,7 @@ public interface libsbmlConstants
 
     /**
      * One of the possible SBML component type codes.
-     *
+     * <p>
      * LibSBML attaches an identifying code to every kind of SBML object.
      * These are known as <em>SBML type codes</em>.  In other languages,
      * the set of type codes is stored in an enumeration; in the Java
@@ -846,7 +855,7 @@ public interface libsbmlConstants
 
     /**
      * One of the possible SBML component type codes.
-     *
+     * <p>
      * LibSBML attaches an identifying code to every kind of SBML object.
      * These are known as <em>SBML type codes</em>.  In other languages,
      * the set of type codes is stored in an enumeration; in the Java
@@ -860,7 +869,7 @@ public interface libsbmlConstants
 
     /**
      * One of the possible SBML component type codes.
-     *
+     * <p>
      * LibSBML attaches an identifying code to every kind of SBML object.
      * These are known as <em>SBML type codes</em>.  In other languages,
      * the set of type codes is stored in an enumeration; in the Java
@@ -874,7 +883,7 @@ public interface libsbmlConstants
 
     /**
      * One of the possible SBML component type codes.
-     *
+     * <p>
      * LibSBML attaches an identifying code to every kind of SBML object.
      * These are known as <em>SBML type codes</em>.  In other languages,
      * the set of type codes is stored in an enumeration; in the Java
@@ -888,7 +897,7 @@ public interface libsbmlConstants
 
     /**
      * One of the possible SBML component type codes.
-     *
+     * <p>
      * LibSBML attaches an identifying code to every kind of SBML object.
      * These are known as <em>SBML type codes</em>.  In other languages,
      * the set of type codes is stored in an enumeration; in the Java
@@ -902,7 +911,7 @@ public interface libsbmlConstants
 
     /**
      * One of the possible SBML component type codes.
-     *
+     * <p>
      * LibSBML attaches an identifying code to every kind of SBML object.
      * These are known as <em>SBML type codes</em>.  In other languages,
      * the set of type codes is stored in an enumeration; in the Java
@@ -916,7 +925,7 @@ public interface libsbmlConstants
 
     /**
      * One of the possible SBML component type codes.
-     *
+     * <p>
      * LibSBML attaches an identifying code to every kind of SBML object.
      * These are known as <em>SBML type codes</em>.  In other languages,
      * the set of type codes is stored in an enumeration; in the Java
@@ -930,7 +939,7 @@ public interface libsbmlConstants
 
     /**
      * One of the possible SBML component type codes.
-     *
+     * <p>
      * LibSBML attaches an identifying code to every kind of SBML object.
      * These are known as <em>SBML type codes</em>.  In other languages,
      * the set of type codes is stored in an enumeration; in the Java
@@ -944,7 +953,7 @@ public interface libsbmlConstants
 
     /**
      * One of the possible SBML component type codes.
-     *
+     * <p>
      * LibSBML attaches an identifying code to every kind of SBML object.
      * These are known as <em>SBML type codes</em>.  In other languages,
      * the set of type codes is stored in an enumeration; in the Java
@@ -958,7 +967,7 @@ public interface libsbmlConstants
 
     /**
      * One of the possible SBML component type codes.
-     *
+     * <p>
      * LibSBML attaches an identifying code to every kind of SBML object.
      * These are known as <em>SBML type codes</em>.  In other languages,
      * the set of type codes is stored in an enumeration; in the Java
@@ -972,7 +981,7 @@ public interface libsbmlConstants
 
     /**
      * One of the possible SBML component type codes.
-     *
+     * <p>
      * LibSBML attaches an identifying code to every kind of SBML object.
      * These are known as <em>SBML type codes</em>.  In other languages,
      * the set of type codes is stored in an enumeration; in the Java
@@ -986,7 +995,7 @@ public interface libsbmlConstants
 
     /**
      * One of the possible SBML component type codes.
-     *
+     * <p>
      * LibSBML attaches an identifying code to every kind of SBML object.
      * These are known as <em>SBML type codes</em>.  In other languages,
      * the set of type codes is stored in an enumeration; in the Java
@@ -1000,7 +1009,7 @@ public interface libsbmlConstants
 
     /**
      * One of the possible SBML component type codes.
-     *
+     * <p>
      * LibSBML attaches an identifying code to every kind of SBML object.
      * These are known as <em>SBML type codes</em>.  In other languages,
      * the set of type codes is stored in an enumeration; in the Java
@@ -1014,7 +1023,7 @@ public interface libsbmlConstants
 
     /**
      * One of the possible SBML component type codes.
-     *
+     * <p>
      * LibSBML attaches an identifying code to every kind of SBML object.
      * These are known as <em>SBML type codes</em>.  In other languages,
      * the set of type codes is stored in an enumeration; in the Java
@@ -2246,7 +2255,7 @@ public interface libsbmlConstants
 
     /**
      * Category code for errors in the XML layer.
-     *
+     * <p>
      * This code has the following meaning: A problem involving the libSBML
      * software itself or the underlying XML parser.  This almost certainly
      * indicates a software defect (i.e., bug) in libSBML.  Please report
@@ -2257,7 +2266,7 @@ public interface libsbmlConstants
 
     /**
      * Category code for errors in the XML layer.
-     *
+     * <p>
      * This code has the following meaning: A problem reported by the
      * operating system, such as an inability to read or write a file.
      * This indicates something that is not a program error but is outside
@@ -2268,7 +2277,7 @@ public interface libsbmlConstants
 
     /**
      * Category code for errors in the XML layer.
-     *
+     * <p>
      * This code has the following meaning: A problem in the XML content
      * itself.  This usually arises from malformed XML or the use of
      * constructs not permitted in SBML.
@@ -2280,7 +2289,7 @@ public interface libsbmlConstants
 
     /**
      * Severity code for errors in the XML layer.
-     *
+     * <p>
      * This code has the following meaning: The error is actually
      * informational and not necessarily a serious problem.
      */
@@ -2289,7 +2298,7 @@ public interface libsbmlConstants
 
     /**
      * Severity code for errors in the XML layer.
-     *
+     * <p>
      * This code has the following meaning: The error object represents a
      * problem that is not serious enough to necessarily stop the problem,
      * but applications should take note of the problem and evaluate what
@@ -2300,7 +2309,7 @@ public interface libsbmlConstants
 
     /**
      * Severity code for errors in the XML layer.
-     *
+     * <p>
      * This code has the following meaning: The error object represents a
      * serious error.  The application may continue running but it is
      * unlikely to be able to continue processing the same XML file or data
@@ -2311,12 +2320,44 @@ public interface libsbmlConstants
 
     /**
      * Severity code for errors in the XML layer.
-     *
+     * <p>
      * This code has the following meaning: A serious error occurred, such
      * as an out-of-memory condition, and the software should terminate
      * immediately.
      */
     public final static int LIBSBML_SEV_FATAL = LIBSBML_SEV_ERROR + 1;
+
+
+    // XMLErrorSeverityOverride_t 
+
+    /**
+     * Severity override code for errors logged in the XML layer.
+     * <p>
+     * XMLErrorLog can be configured whether to log errors or not log them.
+     * This code has the following meaning: log errors in the error log, as
+     * normal.
+     */
+    public final static int LIBSBML_OVERRIDE_DISABLED = 0;
+
+
+    /**
+     * Severity override code for errors logged in the XML layer.
+     * <p>
+     * XMLErrorLog can be configured whether to log errors or not log them.
+     * This code has the following meaning: disable all error logging.
+     */
+    public final static int LIBSBML_OVERRIDE_DONT_LOG = LIBSBML_OVERRIDE_DISABLED + 1;
+
+
+    /**
+     * Severity override code for errors logged in the XML layer.
+     * <p>
+     * XMLErrorLog can be configured whether to log errors or not log them.
+     * This code has the following meaning: log all errors as warnings instead
+     * of actual errors.
+     */
+    public final static int LIBSBML_OVERRIDE_WARNING = LIBSBML_OVERRIDE_DONT_LOG + 1;
+
 
     // SBMLErrorCode_t 
   
@@ -2912,6 +2953,15 @@ public interface libsbmlConstants
      * documentation for {@link SBMLError} for an explanation of the
      * meaning of this particular error code.
      */
+    public final static int UpperUnitBound = 10599;
+
+
+    /**
+     * A value in the enumeration of all the SBML error and warning codes
+     * for objects of class {@link SBMLError}.  Please consult the
+     * documentation for {@link SBMLError} for an explanation of the
+     * meaning of this particular error code.
+     */
     public final static int InvalidModelSBOTerm = 10701;
   
 
@@ -3175,6 +3225,15 @@ public interface libsbmlConstants
      */
     public final static int MissingModel = 20201;
   
+
+    /**
+     * A value in the enumeration of all the SBML error and warning codes
+     * for objects of class {@link SBMLError}.  Please consult the
+     * documentation for {@link SBMLError} for an explanation of the
+     * meaning of this particular error code.
+     */
+    public final static int L3PackageOnLowerSBML = 20109;
+
 
     /**
      * A value in the enumeration of all the SBML error and warning codes
@@ -4723,6 +4782,15 @@ public interface libsbmlConstants
      */
     public final static int CompartmentShouldHaveSize = 80501;
   
+ 
+    /**
+     * A value in the enumeration of all the SBML error and warning codes
+     * for objects of class {@link SBMLError}.  Please consult the
+     * documentation for {@link SBMLError} for an explanation of the
+     * meaning of this particular error code.
+     */
+    public final static int SpeciesShouldHaveValue = 80601;
+
 
     /**
      * A value in the enumeration of all the SBML error and warning codes
@@ -4731,7 +4799,7 @@ public interface libsbmlConstants
      * meaning of this particular error code.
      */
     public final static int ParameterShouldHaveUnits = 80701;
-  
+
 
     /**
      * A value in the enumeration of all the SBML error and warning codes
@@ -4820,7 +4888,7 @@ public interface libsbmlConstants
      * documentation for {@link SBMLError} for an explanation of the
      * meaning of this particular error code.
      */
-    public final static int NoNon3DComparmentsInL1 = 91007;
+    public final static int NoNon3DCompartmentsInL1 = 91007;
   
 
     /**
@@ -4919,6 +4987,33 @@ public interface libsbmlConstants
      * documentation for {@link SBMLError} for an explanation of the
      * meaning of this particular error code.
      */
+    public final static int GlobalUnitsNotDeclared = 91018;
+
+
+    /**
+     * A value in the enumeration of all the SBML error and warning codes
+     * for objects of class {@link SBMLError}.  Please consult the
+     * documentation for {@link SBMLError} for an explanation of the
+     * meaning of this particular error code.
+     */
+    public final static int HasOnlySubstanceUnitsNotinL1 = 91019;
+
+
+    /**
+     * A value in the enumeration of all the SBML error and warning codes
+     * for objects of class {@link SBMLError}.  Please consult the
+     * documentation for {@link SBMLError} for an explanation of the
+     * meaning of this particular error code.
+     */
+    public final static int AvogadroNotSupported = 91020;
+
+
+    /**
+     * A value in the enumeration of all the SBML error and warning codes
+     * for objects of class {@link SBMLError}.  Please consult the
+     * documentation for {@link SBMLError} for an explanation of the
+     * meaning of this particular error code.
+     */
     public final static int NoConstraintsInL2v1 = 92001;
   
 
@@ -5009,7 +5104,7 @@ public interface libsbmlConstants
      * documentation for {@link SBMLError} for an explanation of the
      * meaning of this particular error code.
      */
-    public final static int PrioirtyLostFromL3 = 92011;
+    public final static int PriorityLostFromL3 = 92011;
   
 
     /**
@@ -5407,6 +5502,14 @@ public interface libsbmlConstants
      */
     public final static int UnrequiredPackagePresent = 99108;
 
+    /**
+     * A value in the enumeration of all the SBML error and warning codes
+     * for objects of class {@link SBMLError}.  Please consult the
+     * documentation for {@link SBMLError} for an explanation of the
+     * meaning of this particular error code.
+     */
+    public final static int PackageRequiredShouldBeFalse = 99109;
+
 
     /**
      * A value in the enumeration of all the SBML error and warning codes
@@ -5434,6 +5537,15 @@ public interface libsbmlConstants
      */
     public final static int FormulaInLevel1KL = 99129;
   
+
+    /**
+     * A value in the enumeration of all the SBML error and warning codes
+     * for objects of class {@link SBMLError}.  Please consult the
+     * documentation for {@link SBMLError} for an explanation of the
+     * meaning of this particular error code.
+     */
+    public final static int L3SubstanceUnitsOnModel = 99130;
+
 
     /**
      * A value in the enumeration of all the SBML error and warning codes
@@ -5515,6 +5627,69 @@ public interface libsbmlConstants
      */
     public final static int NoBodyInFunctionDef = 99302;
   
+
+    /**
+     * A value in the enumeration of all the SBML error and warning codes
+     * for objects of class {@link SBMLError}.  Please consult the
+     * documentation for {@link SBMLError} for an explanation of the
+     * meaning of this particular error code.
+     */
+    public final static int DanglingUnitSIdRef = 99303;
+
+
+    /**
+     * A value in the enumeration of all the SBML error and warning codes
+     * for objects of class {@link SBMLError}.  Please consult the
+     * documentation for {@link SBMLError} for an explanation of the
+     * meaning of this particular error code.
+     */
+    public final static int RDFMissingAboutTag = 99401;
+
+
+    /**
+     * A value in the enumeration of all the SBML error and warning codes
+     * for objects of class {@link SBMLError}.  Please consult the
+     * documentation for {@link SBMLError} for an explanation of the
+     * meaning of this particular error code.
+     */
+    public final static int RDFEmptyAboutTag = 99402;
+
+
+    /**
+     * A value in the enumeration of all the SBML error and warning codes
+     * for objects of class {@link SBMLError}.  Please consult the
+     * documentation for {@link SBMLError} for an explanation of the
+     * meaning of this particular error code.
+     */
+    public final static int RDFAboutTagNotMetaid = 99403;
+
+
+    /**
+     * A value in the enumeration of all the SBML error and warning codes
+     * for objects of class {@link SBMLError}.  Please consult the
+     * documentation for {@link SBMLError} for an explanation of the
+     * meaning of this particular error code.
+     */
+    public final static int RDFNotCompleteModelHistory = 99404;
+
+
+    /**
+     * A value in the enumeration of all the SBML error and warning codes
+     * for objects of class {@link SBMLError}.  Please consult the
+     * documentation for {@link SBMLError} for an explanation of the
+     * meaning of this particular error code.
+     */
+    public final static int RDFNotModelHistory = 99405;
+
+
+    /**
+     * A value in the enumeration of all the SBML error and warning codes
+     * for objects of class {@link SBMLError}.  Please consult the
+     * documentation for {@link SBMLError} for an explanation of the
+     * meaning of this particular error code.
+     */
+    public final static int AnnotationNotElement = 99406;
+
 
     /**
      * A value in the enumeration of all the SBML error and warning codes
@@ -5820,7 +5995,43 @@ public interface libsbmlConstants
      * meaning of this particular error code.
      */
     public final static int OffsetNotValidAttribute = 99925;
+
   
+    /**
+     * A value in the enumeration of all the SBML error and warning codes
+     * for objects of class {@link SBMLError}.  Please consult the
+     * documentation for {@link SBMLError} for an explanation of the
+     * meaning of this particular error code.
+     */
+    public final static int L3SpatialDimensionsUnset = 99926;
+
+
+    /**
+     * A value in the enumeration of all the SBML error and warning codes
+     * for objects of class {@link SBMLError}.  Please consult the
+     * documentation for {@link SBMLError} for an explanation of the
+     * meaning of this particular error code.
+     */
+    public final static int UnknownCoreAttribute = 99994;
+
+
+    /**
+     * A value in the enumeration of all the SBML error and warning codes
+     * for objects of class {@link SBMLError}.  Please consult the
+     * documentation for {@link SBMLError} for an explanation of the
+     * meaning of this particular error code.
+     */
+    public final static int UnknownPackageAttribute = 99995;
+
+
+    /**
+     * A value in the enumeration of all the SBML error and warning codes
+     * for objects of class {@link SBMLError}.  Please consult the
+     * documentation for {@link SBMLError} for an explanation of the
+     * meaning of this particular error code.
+     */
+    public final static int PackageConversionNotSupported = 99996;
+
 
     /**
      * A value in the enumeration of all the SBML error and warning codes
@@ -5853,7 +6064,7 @@ public interface libsbmlConstants
 
     /**
      * Category code for {@link SBMLError} diagnostics.
-     *
+     * <p>
      * This code has the following meaning: General SBML error not falling
      * into another category below.
      */
@@ -5862,7 +6073,7 @@ public interface libsbmlConstants
 
     /**
      * Category code for {@link SBMLError} diagnostics.
-     *
+     * <p>
      * This code has the following meaning: Category of errors that can
      * only occur during attempted translation from one Level/Version of
      * SBML to another.  This particular category applies to errors
@@ -5874,7 +6085,7 @@ public interface libsbmlConstants
 
     /**
      * Category code for {@link SBMLError} diagnostics.
-     *
+     * <p>
      * This code has the following meaning: Category of errors that can
      * only occur during attempted translation from one Level/Version of
      * SBML to another.  This particular category applies to errors
@@ -5886,7 +6097,7 @@ public interface libsbmlConstants
 
     /**
      * Category code for {@link SBMLError} diagnostics.
-     *
+     * <p>
      * This code has the following meaning: Category of errors that can
      * only occur during attempted translation from one Level/Version of
      * SBML to another.  This particular category applies to errors
@@ -5898,7 +6109,7 @@ public interface libsbmlConstants
 
     /**
      * Category code for {@link SBMLError} diagnostics.
-     *
+     * <p>
      * This code has the following meaning: Category of errors that can
      * occur while validating general SBML constructs.  With respect to the
      * SBML specification, these concern failures in applying the
@@ -5910,7 +6121,7 @@ public interface libsbmlConstants
 
     /**
      * Category code for {@link SBMLError} diagnostics.
-     *
+     * <p>
      * This code has the following meaning: Category of errors that can
      * occur while validating symbol identifiers in a model.  With respect
      * to the SBML specification, these concern failures in applying the
@@ -5922,7 +6133,7 @@ public interface libsbmlConstants
 
     /**
      * Category code for {@link SBMLError} diagnostics.
-     *
+     * <p>
      * This code has the following meaning: Category of errors that can
      * occur while validating the units of measurement on quantities in a
      * model.  With respect to the SBML specification, these concern
@@ -5934,7 +6145,7 @@ public interface libsbmlConstants
 
     /**
      * Category code for {@link SBMLError} diagnostics.
-     *
+     * <p>
      * This code has the following meaning: Category of errors that can
      * occur while validating MathML formulas in a model.  With respect to
      * the SBML specification, these concern failures in applying the
@@ -5946,7 +6157,7 @@ public interface libsbmlConstants
 
     /**
      * Category code for {@link SBMLError} diagnostics.
-     *
+     * <p>
      * This code has the following meaning: Category of errors that can
      * occur while validating SBO identifiers in a model.  With respect to
      * the SBML specification, these concern failures in applying the
@@ -5958,7 +6169,7 @@ public interface libsbmlConstants
 
     /**
      * Category code for {@link SBMLError} diagnostics.
-     *
+     * <p>
      * This code has the following meaning: Error in the system of
      * equations in the model: the system is overdetermined, therefore
      * violating a tenet of proper SBML.  With respect to the SBML
@@ -5970,7 +6181,7 @@ public interface libsbmlConstants
 
     /**
      * Category code for {@link SBMLError} diagnostics.
-     *
+     * <p>
      * This code has the following meaning: Category of errors that can
      * only occur during attempted translation from one Level/Version of
      * SBML to another.  This particular category applies to errors
@@ -5982,7 +6193,7 @@ public interface libsbmlConstants
 
     /**
      * Category code for {@link SBMLError} diagnostics.
-     *
+     * <p>
      * This code has the following meaning: Category of warnings about
      * recommended good practices involving SBML and computational
      * modeling.  (These are tests performed by libSBML and do not have
@@ -5993,7 +6204,7 @@ public interface libsbmlConstants
 
     /**
      * Category code for {@link SBMLError} diagnostics.
-     *
+     * <p>
      * This code has the following meaning: Category of errors that can
      * occur while validating libSBML's internal representation of SBML
      * constructs. (These are tests performed by libSBML and do not have
@@ -6004,7 +6215,7 @@ public interface libsbmlConstants
 
     /**
      * Category code for {@link SBMLError} diagnostics.
-     *
+     * <p>
      * This code has the following meaning: Category of errors that can
      * only occur during attempted translation from one Level/Version of
      * SBML to another.  This particular category applies to errors
@@ -6016,7 +6227,7 @@ public interface libsbmlConstants
 
     /**
      * Category code for {@link SBMLError} diagnostics.
-     *
+     * <p>
      * This code has the following meaning: Category of errors that can
      * only occur during attempted translation from one Level/Version of
      * SBML to another.  This particular category applies to errors
@@ -6027,7 +6238,7 @@ public interface libsbmlConstants
 
 
     // SBMLErrorSeverity_t 
-  
+
     // QualifierType_t 
   
 
@@ -6228,95 +6439,1273 @@ public interface libsbmlConstants
     public final static int CNV_TYPE_STRING = 4;
 
 
+    // SBMLCompTypeCode_t 
 
-  // SBMLCompTypeCode_t 
-  public final static int SBML_COMP_SUBMODEL = 250;
-  public final static int SBML_COMP_MODELDEFINITION = 251;
-  public final static int SBML_COMP_EXTERNALMODELDEFINITION = 252;
-  public final static int SBML_COMP_SBASEREF = 253;
-  public final static int SBML_COMP_DELETION = 254;
-  public final static int SBML_COMP_REPLACEDELEMENT = 255;
-  public final static int SBML_COMP_REPLACEDBY = 256;
-  public final static int SBML_COMP_PORT = 257;
+    /**
+     * <span class="pkg-marker pkg-color-comp">comp</span> One of the
+     * possible SBML component type codes.
+     * <p>
+     * LibSBML attaches an identifying code to every kind of SBML object.
+     * These are known as <em>SBML type codes</em>.  In other languages,
+     * the set of type codes is stored in an enumeration; in the Java
+     * language interface for libSBML, the type codes are defined as static
+     * integer constants in the interface class {@link libsbmlConstants}.
+     * The names of the type codes all begin with the characters
+     * <code>SBML_</code>.
+     * <p>
+     * Each libSBML extension for SBML Level&nbsp;3 packages adds its own
+     * type codes to objects.  The present type code belongs to libSBML's
+     * extension to support the SBML Level&nbsp;3 Hierarchical Model
+     * Composition (&ldquo;comp&rdquo;) package.  It is used to identify
+     * the type of SBML component to which a given object corresponds.
+     */
+    public final static int SBML_COMP_SUBMODEL = 250;
 
-  // SBMLFbcTypeCode_t 
-  public final static int SBML_FBC_ASSOCIATION = 800;
-  public final static int SBML_FBC_FLUXBOUND = 801;
-  public final static int SBML_FBC_FLUXOBJECTIVE = 802;
-  public final static int SBML_FBC_GENEASSOCIATION = 803;
-  public final static int SBML_FBC_OBJECTIVE = 804;
 
-  // AssociationTypeCode_t 
-  public final static int GENE_ASSOCIATION = 0;
-  public final static int AND_ASSOCIATION = 1;
-  public final static int OR_ASSOCIATION = 2;
-  public final static int UNKNOWN_ASSOCIATION = 3;
+    /**
+     * <span class="pkg-marker pkg-color-comp">comp</span> One of the
+     * possible SBML component type codes.
+     * <p>
+     * LibSBML attaches an identifying code to every kind of SBML object.
+     * These are known as <em>SBML type codes</em>.  In other languages,
+     * the set of type codes is stored in an enumeration; in the Java
+     * language interface for libSBML, the type codes are defined as static
+     * integer constants in the interface class {@link libsbmlConstants}.
+     * The names of the type codes all begin with the characters
+     * <code>SBML_</code>.
+     * <p>
+     * Each libSBML extension for SBML Level&nbsp;3 packages adds its own
+     * type codes to objects.  The present type code belongs to libSBML's
+     * extension to support the SBML Level&nbsp;3 Hierarchical Model
+     * Composition (&ldquo;comp&rdquo;) package.  It is used to identify
+     * the type of SBML component to which a given object corresponds.
+     */
+    public final static int SBML_COMP_MODELDEFINITION = 251;
 
-  // FluxBoundOperation_t 
-  public final static int FLUXBOUND_OPERATION_LESS_EQUAL = 0;
-  public final static int FLUXBOUND_OPERATION_GREATER_EQUAL = FLUXBOUND_OPERATION_LESS_EQUAL + 1;
-  public final static int FLUXBOUND_OPERATION_LESS = FLUXBOUND_OPERATION_GREATER_EQUAL + 1;
-  public final static int FLUXBOUND_OPERATION_GREATER = FLUXBOUND_OPERATION_LESS + 1;
-  public final static int FLUXBOUND_OPERATION_EQUAL = FLUXBOUND_OPERATION_GREATER + 1;
-  public final static int FLUXBOUND_OPERATION_UNKNOWN = FLUXBOUND_OPERATION_EQUAL + 1;
 
-  // ObjectiveType_t 
-  public final static int OBJECTIVE_TYPE_MAXIMIZE = 0;
-  public final static int OBJECTIVE_TYPE_MINIMIZE = OBJECTIVE_TYPE_MAXIMIZE + 1;
-  public final static int OBJECTIVE_TYPE_UNKNOWN = OBJECTIVE_TYPE_MINIMIZE + 1;
+    /**
+     * <span class="pkg-marker pkg-color-comp">comp</span> One of the
+     * possible SBML component type codes.
+     * <p>
+     * LibSBML attaches an identifying code to every kind of SBML object.
+     * These are known as <em>SBML type codes</em>.  In other languages,
+     * the set of type codes is stored in an enumeration; in the Java
+     * language interface for libSBML, the type codes are defined as static
+     * integer constants in the interface class {@link libsbmlConstants}.
+     * The names of the type codes all begin with the characters
+     * <code>SBML_</code>.
+     * <p>
+     * Each libSBML extension for SBML Level&nbsp;3 packages adds its own
+     * type codes to objects.  The present type code belongs to libSBML's
+     * extension to support the SBML Level&nbsp;3 Hierarchical Model
+     * Composition (&ldquo;comp&rdquo;) package.  It is used to identify
+     * the type of SBML component to which a given object corresponds.
+     */
+    public final static int SBML_COMP_EXTERNALMODELDEFINITION = 252;
 
-  // SpeciesReferenceRole_t 
-  public final static int SPECIES_ROLE_UNDEFINED = 0;
-  public final static int SPECIES_ROLE_SUBSTRATE = SPECIES_ROLE_UNDEFINED + 1;
-  public final static int SPECIES_ROLE_PRODUCT = SPECIES_ROLE_SUBSTRATE + 1;
-  public final static int SPECIES_ROLE_SIDESUBSTRATE = SPECIES_ROLE_PRODUCT + 1;
-  public final static int SPECIES_ROLE_SIDEPRODUCT = SPECIES_ROLE_SIDESUBSTRATE + 1;
-  public final static int SPECIES_ROLE_MODIFIER = SPECIES_ROLE_SIDEPRODUCT + 1;
-  public final static int SPECIES_ROLE_ACTIVATOR = SPECIES_ROLE_MODIFIER + 1;
-  public final static int SPECIES_ROLE_INHIBITOR = SPECIES_ROLE_ACTIVATOR + 1;
 
-  // SBMLLayoutTypeCode_t 
-  public final static int SBML_LAYOUT_BOUNDINGBOX = 100;
-  public final static int SBML_LAYOUT_COMPARTMENTGLYPH = 101;
-  public final static int SBML_LAYOUT_CUBICBEZIER = 102;
-  public final static int SBML_LAYOUT_CURVE = 103;
-  public final static int SBML_LAYOUT_DIMENSIONS = 104;
-  public final static int SBML_LAYOUT_GRAPHICALOBJECT = 105;
-  public final static int SBML_LAYOUT_LAYOUT = 106;
-  public final static int SBML_LAYOUT_LINESEGMENT = 107;
-  public final static int SBML_LAYOUT_POINT = 108;
-  public final static int SBML_LAYOUT_REACTIONGLYPH = 109;
-  public final static int SBML_LAYOUT_SPECIESGLYPH = 110;
-  public final static int SBML_LAYOUT_SPECIESREFERENCEGLYPH = 111;
-  public final static int SBML_LAYOUT_TEXTGLYPH = 112;
-  public final static int SBML_LAYOUT_REFERENCEGLYPH = 113;
-  public final static int SBML_LAYOUT_GENERALGLYPH = 114;
+    /**
+     * <span class="pkg-marker pkg-color-comp">comp</span> One of the
+     * possible SBML component type codes.
+     * <p>
+     * LibSBML attaches an identifying code to every kind of SBML object.
+     * These are known as <em>SBML type codes</em>.  In other languages,
+     * the set of type codes is stored in an enumeration; in the Java
+     * language interface for libSBML, the type codes are defined as static
+     * integer constants in the interface class {@link libsbmlConstants}.
+     * The names of the type codes all begin with the characters
+     * <code>SBML_</code>.
+     * <p>
+     * Each libSBML extension for SBML Level&nbsp;3 packages adds its own
+     * type codes to objects.  The present type code belongs to libSBML's
+     * extension to support the SBML Level&nbsp;3 Hierarchical Model
+     * Composition (&ldquo;comp&rdquo;) package.  It is used to identify
+     * the type of SBML component to which a given object corresponds.
+     */
+    public final static int SBML_COMP_SBASEREF = 253;
 
-  // SBMLQualTypeCode_t 
-  public final static int SBML_QUAL_QUALITATIVE_SPECIES = 1100;
-  public final static int SBML_QUAL_TRANSITION = 1101;
-  public final static int SBML_QUAL_INPUT = 1102;
-  public final static int SBML_QUAL_OUTPUT = 1103;
-  public final static int SBML_QUAL_FUNCTION_TERM = 1104;
-  public final static int SBML_QUAL_DEFAULT_TERM = 1105;
 
-  // InputTransitionEffect_t 
-  public final static int INPUT_TRANSITION_EFFECT_NONE = 0;
-  public final static int INPUT_TRANSITION_EFFECT_CONSUMPTION = INPUT_TRANSITION_EFFECT_NONE + 1;
-  public final static int INPUT_TRANSITION_EFFECT_UNKNOWN = INPUT_TRANSITION_EFFECT_CONSUMPTION + 1;
+    /**
+     * <span class="pkg-marker pkg-color-comp">comp</span> One of the
+     * possible SBML component type codes.
+     * <p>
+     * LibSBML attaches an identifying code to every kind of SBML object.
+     * These are known as <em>SBML type codes</em>.  In other languages,
+     * the set of type codes is stored in an enumeration; in the Java
+     * language interface for libSBML, the type codes are defined as static
+     * integer constants in the interface class {@link libsbmlConstants}.
+     * The names of the type codes all begin with the characters
+     * <code>SBML_</code>.
+     * <p>
+     * Each libSBML extension for SBML Level&nbsp;3 packages adds its own
+     * type codes to objects.  The present type code belongs to libSBML's
+     * extension to support the SBML Level&nbsp;3 Hierarchical Model
+     * Composition (&ldquo;comp&rdquo;) package.  It is used to identify
+     * the type of SBML component to which a given object corresponds.
+     */
+    public final static int SBML_COMP_DELETION = 254;
 
-  // InputSign_t 
-  public final static int INPUT_SIGN_POSITIVE = 0;
-  public final static int INPUT_SIGN_NEGATIVE = INPUT_SIGN_POSITIVE + 1;
-  public final static int INPUT_SIGN_DUAL = INPUT_SIGN_NEGATIVE + 1;
-  public final static int INPUT_SIGN_UNKNOWN = INPUT_SIGN_DUAL + 1;
-  public final static int INPUT_SIGN_VALUE_NOTSET = INPUT_SIGN_UNKNOWN + 1;
 
-  // OutputTransitionEffect_t 
-  public final static int OUTPUT_TRANSITION_EFFECT_PRODUCTION = 0;
-  public final static int OUTPUT_TRANSITION_EFFECT_ASSIGNMENT_LEVEL = OUTPUT_TRANSITION_EFFECT_PRODUCTION + 1;
-  public final static int OUTPUT_TRANSITION_EFFECT_UNKNOWN = OUTPUT_TRANSITION_EFFECT_ASSIGNMENT_LEVEL + 1;
-    
+    /**
+     * <span class="pkg-marker pkg-color-comp">comp</span> One of the
+     * possible SBML component type codes.
+     * <p>
+     * LibSBML attaches an identifying code to every kind of SBML object.
+     * These are known as <em>SBML type codes</em>.  In other languages,
+     * the set of type codes is stored in an enumeration; in the Java
+     * language interface for libSBML, the type codes are defined as static
+     * integer constants in the interface class {@link libsbmlConstants}.
+     * The names of the type codes all begin with the characters
+     * <code>SBML_</code>.
+     * <p>
+     * Each libSBML extension for SBML Level&nbsp;3 packages adds its own
+     * type codes to objects.  The present type code belongs to libSBML's
+     * extension to support the SBML Level&nbsp;3 Hierarchical Model
+     * Composition (&ldquo;comp&rdquo;) package.  It is used to identify
+     * the type of SBML component to which a given object corresponds.
+     */
+    public final static int SBML_COMP_REPLACEDELEMENT = 255;
 
+
+    /**
+     * <span class="pkg-marker pkg-color-comp">comp</span> One of the
+     * possible SBML component type codes.
+     * <p>
+     * LibSBML attaches an identifying code to every kind of SBML object.
+     * These are known as <em>SBML type codes</em>.  In other languages,
+     * the set of type codes is stored in an enumeration; in the Java
+     * language interface for libSBML, the type codes are defined as static
+     * integer constants in the interface class {@link libsbmlConstants}.
+     * The names of the type codes all begin with the characters
+     * <code>SBML_</code>.
+     * <p>
+     * Each libSBML extension for SBML Level&nbsp;3 packages adds its own
+     * type codes to objects.  The present type code belongs to libSBML's
+     * extension to support the SBML Level&nbsp;3 Hierarchical Model
+     * Composition (&ldquo;comp&rdquo;) package.  It is used to identify
+     * the type of SBML component to which a given object corresponds.
+     */
+    public final static int SBML_COMP_REPLACEDBY = 256;
+
+
+    /**
+     * <span class="pkg-marker pkg-color-comp">comp</span> One of the
+     * possible SBML component type codes.
+     * <p>
+     * LibSBML attaches an identifying code to every kind of SBML object.
+     * These are known as <em>SBML type codes</em>.  In other languages,
+     * the set of type codes is stored in an enumeration; in the Java
+     * language interface for libSBML, the type codes are defined as static
+     * integer constants in the interface class {@link libsbmlConstants}.
+     * The names of the type codes all begin with the characters
+     * <code>SBML_</code>.
+     * <p>
+     * Each libSBML extension for SBML Level&nbsp;3 packages adds its own
+     * type codes to objects.  The present type code belongs to libSBML's
+     * extension to support the SBML Level&nbsp;3 Hierarchical Model
+     * Composition (&ldquo;comp&rdquo;) package.  It is used to identify
+     * the type of SBML component to which a given object corresponds.
+     */
+    public final static int SBML_COMP_PORT = 257;
+
+
+    // SBMLFbcTypeCode_t 
+
+    /**
+     * <span class="pkg-marker pkg-color-fbc">fbc</span> One of the
+     * possible SBML component type codes.
+     * <p>
+     * LibSBML attaches an identifying code to every kind of SBML object.
+     * These are known as <em>SBML type codes</em>.  In other languages,
+     * the set of type codes is stored in an enumeration; in the Java
+     * language interface for libSBML, the type codes are defined as static
+     * integer constants in the interface class {@link libsbmlConstants}.
+     * The names of the type codes all begin with the characters
+     * <code>SBML_</code>.
+     * <p>
+     * Each libSBML extension for SBML Level&nbsp;3 packages adds its own
+     * type codes to objects.  The present type code belongs to libSBML's
+     * extension to support the SBML Level&nbsp;3 Flux Balance Constraints
+     * (&ldquo;fbc&rdquo;) package.  It is used to identify the type of SBML
+     * component to which a given object corresponds.
+     */
+    public final static int SBML_FBC_ASSOCIATION = 800;
+
+
+    /**
+     * <span class="pkg-marker pkg-color-fbc">fbc</span> One of the
+     * possible SBML component type codes.
+     * <p>
+     * LibSBML attaches an identifying code to every kind of SBML object.
+     * These are known as <em>SBML type codes</em>.  In other languages,
+     * the set of type codes is stored in an enumeration; in the Java
+     * language interface for libSBML, the type codes are defined as static
+     * integer constants in the interface class {@link libsbmlConstants}.
+     * The names of the type codes all begin with the characters
+     * <code>SBML_</code>.
+     * <p>
+     * Each libSBML extension for SBML Level&nbsp;3 packages adds its own
+     * type codes to objects.  The present type code belongs to libSBML's
+     * extension to support the SBML Level&nbsp;3 Flux Balance Constraints
+     * (&ldquo;fbc&rdquo;) package.  It is used to identify the type of SBML
+     * component to which a given object corresponds.
+     */
+    public final static int SBML_FBC_FLUXBOUND = 801;
+
+
+    /**
+     * <span class="pkg-marker pkg-color-fbc">fbc</span> One of the
+     * possible SBML component type codes.
+     * <p>
+     * LibSBML attaches an identifying code to every kind of SBML object.
+     * These are known as <em>SBML type codes</em>.  In other languages,
+     * the set of type codes is stored in an enumeration; in the Java
+     * language interface for libSBML, the type codes are defined as static
+     * integer constants in the interface class {@link libsbmlConstants}.
+     * The names of the type codes all begin with the characters
+     * <code>SBML_</code>.
+     * <p>
+     * Each libSBML extension for SBML Level&nbsp;3 packages adds its own
+     * type codes to objects.  The present type code belongs to libSBML's
+     * extension to support the SBML Level&nbsp;3 Flux Balance Constraints
+     * (&ldquo;fbc&rdquo;) package.  It is used to identify the type of SBML
+     * component to which a given object corresponds.
+     */
+    public final static int SBML_FBC_FLUXOBJECTIVE = 802;
+
+
+    /**
+     * <span class="pkg-marker pkg-color-fbc">fbc</span> One of the
+     * possible SBML component type codes.
+     * <p>
+     * LibSBML attaches an identifying code to every kind of SBML object.
+     * These are known as <em>SBML type codes</em>.  In other languages,
+     * the set of type codes is stored in an enumeration; in the Java
+     * language interface for libSBML, the type codes are defined as static
+     * integer constants in the interface class {@link libsbmlConstants}.
+     * The names of the type codes all begin with the characters
+     * <code>SBML_</code>.
+     * <p>
+     * Each libSBML extension for SBML Level&nbsp;3 packages adds its own
+     * type codes to objects.  The present type code belongs to libSBML's
+     * extension to support the SBML Level&nbsp;3 Flux Balance Constraints
+     * (&ldquo;fbc&rdquo;) package.  It is used to identify the type of SBML
+     * component to which a given object corresponds.
+     */
+    public final static int SBML_FBC_GENEASSOCIATION = 803;
+
+
+    /**
+     * <span class="pkg-marker pkg-color-fbc">fbc</span> One of the
+     * possible SBML component type codes.
+     * <p>
+     * LibSBML attaches an identifying code to every kind of SBML object.
+     * These are known as <em>SBML type codes</em>.  In other languages,
+     * the set of type codes is stored in an enumeration; in the Java
+     * language interface for libSBML, the type codes are defined as static
+     * integer constants in the interface class {@link libsbmlConstants}.
+     * The names of the type codes all begin with the characters
+     * <code>SBML_</code>.
+     * <p>
+     * Each libSBML extension for SBML Level&nbsp;3 packages adds its own
+     * type codes to objects.  The present type code belongs to libSBML's
+     * extension to support the SBML Level&nbsp;3 Flux Balance Constraints
+     * (&ldquo;fbc&rdquo;) package.  It is used to identify the type of SBML
+     * component to which a given object corresponds.
+     */
+    public final static int SBML_FBC_OBJECTIVE = 804;
+
+
+
+    // AssociationTypeCode_t 
+
+    /**
+     * <span class="pkg-marker pkg-color-fbc">fbc</span> One of the
+     * possible Association types.
+     * <p>
+     * The Association class is not part of the official SBML Level&nbsp;3
+     * Flux Balance Constraints specification, but is instead a proposed
+     * future development of the package.  If adopted, it would be a child of
+     * a GeneAssociation that would describe a single 'and' or 'or'
+     * relationship between two or more genes or other associations.
+     * <p>
+     * The present code is one of the possible Association types for this
+     * proposed SBML Level&nbsp;3 Flux Balance Constraints
+     * (&ldquo;fbc&rdquo;) package future development.  
+     */
+    public final static int GENE_ASSOCIATION = 0;
+
+
+    /**
+     * <span class="pkg-marker pkg-color-fbc">fbc</span> One of the
+     * possible Association types.
+     * <p>
+     * The Association class is not part of the official SBML Level&nbsp;3
+     * Flux Balance Constraints specification, but is instead a proposed
+     * future development of the package.  If adopted, it would be a child of
+     * a GeneAssociation that would describe a single 'and' or 'or'
+     * relationship between two or more genes or other associations.
+     * <p>
+     * The present code is one of the possible Association types for this
+     * proposed SBML Level&nbsp;3 Flux Balance Constraints
+     * (&ldquo;fbc&rdquo;) package future development.  
+     */
+    public final static int AND_ASSOCIATION = 1;
+
+
+    /**
+     * <span class="pkg-marker pkg-color-fbc">fbc</span> One of the
+     * possible Association types.
+     * <p>
+     * The Association class is not part of the official SBML Level&nbsp;3
+     * Flux Balance Constraints specification, but is instead a proposed
+     * future development of the package.  If adopted, it would be a child of
+     * a GeneAssociation that would describe a single 'and' or 'or'
+     * relationship between two or more genes or other associations.
+     * <p>
+     * The present code is one of the possible Association types for this
+     * proposed SBML Level&nbsp;3 Flux Balance Constraints
+     * (&ldquo;fbc&rdquo;) package future development.  
+     */
+    public final static int OR_ASSOCIATION = 2;
+
+
+    /**
+     * <span class="pkg-marker pkg-color-fbc">fbc</span> One of the
+     * possible Association types.
+     * <p>
+     * The Association class is not part of the official SBML Level&nbsp;3
+     * Flux Balance Constraints specification, but is instead a proposed
+     * future development of the package.  If adopted, it would be a child of
+     * a GeneAssociation that would describe a single 'and' or 'or'
+     * relationship between two or more genes or other associations.
+     * <p>
+     * The present code is one of the possible Association types for this
+     * proposed SBML Level&nbsp;3 Flux Balance Constraints
+     * (&ldquo;fbc&rdquo;) package future development.  
+     */
+    public final static int UNKNOWN_ASSOCIATION = 3;
+
+
+    // FluxBoundOperation_t 
+
+    /**
+     * <span class="pkg-marker pkg-color-fbc">fbc</span> One of the
+     * possible FluxBound operation types.
+     * <p>
+     * The FluxBound class is part of the SBML Level&nbsp;3 Flux Balanced
+     * Constraints package.  Its purpose is to to hold a single equality or
+     * inequality that represents the maximum or minimum value a reaction
+     * flux can obtain at steady state.  One of the attributes of FluxBound
+     * is "operation".  This code is one of the possible values of the
+     * "operation" attribute.  The possible legal values are less than or
+     * equal to, greater than or equal to, or equal to.  The additional two
+     * options "less than" and "greater than" are not legal values for the
+     * FluxBound "operation" attribute, but are provided to allow backwards
+     * compatibility with an earlier version of the draft specification.
+     */
+    public final static int FLUXBOUND_OPERATION_LESS_EQUAL = 0;
+
+
+    /**
+     * <span class="pkg-marker pkg-color-fbc">fbc</span> One of the
+     * possible FluxBound operation types.
+     * <p>
+     * The FluxBound class is part of the SBML Level&nbsp;3 Flux Balanced
+     * Constraints package.  Its purpose is to to hold a single equality or
+     * inequality that represents the maximum or minimum value a reaction
+     * flux can obtain at steady state.  One of the attributes of FluxBound
+     * is "operation".  This code is one of the possible values of the
+     * "operation" attribute.  The possible legal values are less than or
+     * equal to, greater than or equal to, or equal to.  The additional two
+     * options "less than" and "greater than" are not legal values for the
+     * FluxBound "operation" attribute, but are provided to allow backwards
+     * compatibility with an earlier version of the draft specification.
+     */
+    public final static int FLUXBOUND_OPERATION_GREATER_EQUAL = FLUXBOUND_OPERATION_LESS_EQUAL + 1;
+
+
+    /**
+     * <span class="pkg-marker pkg-color-fbc">fbc</span> One of the
+     * possible FluxBound operation types.
+     * <p>
+     * The FluxBound class is part of the SBML Level&nbsp;3 Flux Balanced
+     * Constraints package.  Its purpose is to to hold a single equality or
+     * inequality that represents the maximum or minimum value a reaction
+     * flux can obtain at steady state.  One of the attributes of FluxBound
+     * is "operation".  This code is one of the possible values of the
+     * "operation" attribute.  The possible legal values are less than or
+     * equal to, greater than or equal to, or equal to.  The additional two
+     * options "less than" and "greater than" are not legal values for the
+     * FluxBound "operation" attribute, but are provided to allow backwards
+     * compatibility with an earlier version of the draft specification.
+     */
+    public final static int FLUXBOUND_OPERATION_LESS = FLUXBOUND_OPERATION_GREATER_EQUAL + 1;
+
+
+    /**
+     * <span class="pkg-marker pkg-color-fbc">fbc</span> One of the
+     * possible FluxBound operation types.
+     * <p>
+     * The FluxBound class is part of the SBML Level&nbsp;3 Flux Balanced
+     * Constraints package.  Its purpose is to to hold a single equality or
+     * inequality that represents the maximum or minimum value a reaction
+     * flux can obtain at steady state.  One of the attributes of FluxBound
+     * is "operation".  This code is one of the possible values of the
+     * "operation" attribute.  The possible legal values are less than or
+     * equal to, greater than or equal to, or equal to.  The additional two
+     * options "less than" and "greater than" are not legal values for the
+     * FluxBound "operation" attribute, but are provided to allow backwards
+     * compatibility with an earlier version of the draft specification.
+     */
+    public final static int FLUXBOUND_OPERATION_GREATER = FLUXBOUND_OPERATION_LESS + 1;
+
+
+    /**
+     * <span class="pkg-marker pkg-color-fbc">fbc</span> One of the
+     * possible FluxBound operation types.
+     * <p>
+     * The FluxBound class is part of the SBML Level&nbsp;3 Flux Balanced
+     * Constraints package.  Its purpose is to to hold a single equality or
+     * inequality that represents the maximum or minimum value a reaction
+     * flux can obtain at steady state.  One of the attributes of FluxBound
+     * is "operation".  This code is one of the possible values of the
+     * "operation" attribute.  The possible legal values are less than or
+     * equal to, greater than or equal to, or equal to.  The additional two
+     * options "less than" and "greater than" are not legal values for the
+     * FluxBound "operation" attribute, but are provided to allow backwards
+     * compatibility with an earlier version of the draft specification.
+     */
+    public final static int FLUXBOUND_OPERATION_EQUAL = FLUXBOUND_OPERATION_GREATER + 1;
+
+
+    /**
+     * <span class="pkg-marker pkg-color-fbc">fbc</span> One of the
+     * possible FluxBound operation types.
+     * <p>
+     * The FluxBound class is part of the SBML Level&nbsp;3 Flux Balanced
+     * Constraints package.  Its purpose is to to hold a single equality or
+     * inequality that represents the maximum or minimum value a reaction
+     * flux can obtain at steady state.  One of the attributes of FluxBound
+     * is "operation".  This code is one of the possible values of the
+     * "operation" attribute.  The possible legal values are less than or
+     * equal to, greater than or equal to, or equal to.  The additional two
+     * options "less than" and "greater than" are not legal values for the
+     * FluxBound "operation" attribute, but are provided to allow backwards
+     * compatibility with an earlier version of the draft specification.
+     */
+    public final static int FLUXBOUND_OPERATION_UNKNOWN = FLUXBOUND_OPERATION_EQUAL + 1;
+
+    // ObjectiveType_t 
+
+    /**
+     * <span class="pkg-marker pkg-color-fbc">fbc</span> One of the
+     * possible Objective types.
+     * <p>
+
+     * The Objective class is part of the SBML Level&nbsp;3 Flux Balanced
+     * Constraints package.  Its purpose is to represent the so-called
+     * <em>objective function</em>, which generally consist of a linear
+     * combination ofmodel variables (fluxes) and a sense (direction).  The
+     * Objective class has a "type" attribute, and the present code is one of
+     * possible type values.
+     */
+    public final static int OBJECTIVE_TYPE_MAXIMIZE = 0;
+
+
+    /**
+     * <span class="pkg-marker pkg-color-fbc">fbc</span> One of the
+     * possible Objective types.
+     * <p>
+
+     * The Objective class is part of the SBML Level&nbsp;3 Flux Balanced
+     * Constraints package.  Its purpose is to represent the so-called
+     * <em>objective function</em>, which generally consist of a linear
+     * combination ofmodel variables (fluxes) and a sense (direction).  The
+     * Objective class has a "type" attribute, and the present code is one of
+     * possible type values.
+     */
+    public final static int OBJECTIVE_TYPE_MINIMIZE = OBJECTIVE_TYPE_MAXIMIZE + 1;
+
+
+    /**
+     * <span class="pkg-marker pkg-color-fbc">fbc</span> One of the
+     * possible Objective types.
+     * <p>
+
+     * The Objective class is part of the SBML Level&nbsp;3 Flux Balanced
+     * Constraints package.  Its purpose is to represent the so-called
+     * <em>objective function</em>, which generally consist of a linear
+     * combination ofmodel variables (fluxes) and a sense (direction).  The
+     * Objective class has a "type" attribute, and the present code is one of
+     * possible type values.
+     */
+    public final static int OBJECTIVE_TYPE_UNKNOWN = OBJECTIVE_TYPE_MINIMIZE + 1;
+
+
+    // SBMLLayoutTypeCode_t 
+
+    /**
+     * <span class="pkg-marker pkg-color-layout">layout</span> One of the
+     * possible SBML component type codes.
+     * <p>
+     * LibSBML attaches an identifying code to every kind of SBML object.
+     * These are known as <em>SBML type codes</em>.  In other languages,
+     * the set of type codes is stored in an enumeration; in the Java
+     * language interface for libSBML, the type codes are defined as static
+     * integer constants in the interface class {@link libsbmlConstants}.
+     * The names of the type codes all begin with the characters
+     * <code>SBML_</code>.
+     * <p>
+     * Each libSBML extension for SBML Level&nbsp;3 packages adds its own
+     * type codes to objects.  The present type code belongs to libSBML's
+     * extension to support the SBML Level&nbsp;3 Layout
+     * (&ldquo;layout&rdquo;) package.  It is used to identify the type of
+     * SBML component to which a given object corresponds.
+     */
+    public final static int SBML_LAYOUT_BOUNDINGBOX = 100;
+
+
+    /**
+     * <span class="pkg-marker pkg-color-layout">layout</span> One of the
+     * possible SBML component type codes.
+     * <p>
+     * LibSBML attaches an identifying code to every kind of SBML object.
+     * These are known as <em>SBML type codes</em>.  In other languages,
+     * the set of type codes is stored in an enumeration; in the Java
+     * language interface for libSBML, the type codes are defined as static
+     * integer constants in the interface class {@link libsbmlConstants}.
+     * The names of the type codes all begin with the characters
+     * <code>SBML_</code>.
+     * <p>
+     * Each libSBML extension for SBML Level&nbsp;3 packages adds its own
+     * type codes to objects.  The present type code belongs to libSBML's
+     * extension to support the SBML Level&nbsp;3 Layout
+     * (&ldquo;layout&rdquo;) package.  It is used to identify the type of
+     * SBML component to which a given object corresponds.
+     */
+    public final static int SBML_LAYOUT_COMPARTMENTGLYPH = 101;
+
+
+    /**
+     * <span class="pkg-marker pkg-color-layout">layout</span> One of the
+     * possible SBML component type codes.
+     * <p>
+     * LibSBML attaches an identifying code to every kind of SBML object.
+     * These are known as <em>SBML type codes</em>.  In other languages,
+     * the set of type codes is stored in an enumeration; in the Java
+     * language interface for libSBML, the type codes are defined as static
+     * integer constants in the interface class {@link libsbmlConstants}.
+     * The names of the type codes all begin with the characters
+     * <code>SBML_</code>.
+     * <p>
+     * Each libSBML extension for SBML Level&nbsp;3 packages adds its own
+     * type codes to objects.  The present type code belongs to libSBML's
+     * extension to support the SBML Level&nbsp;3 Layout
+     * (&ldquo;layout&rdquo;) package.  It is used to identify the type of
+     * SBML component to which a given object corresponds.
+     */
+    public final static int SBML_LAYOUT_CUBICBEZIER = 102;
+
+
+    /**
+     * <span class="pkg-marker pkg-color-layout">layout</span> One of the
+     * possible SBML component type codes.
+     * <p>
+     * LibSBML attaches an identifying code to every kind of SBML object.
+     * These are known as <em>SBML type codes</em>.  In other languages,
+     * the set of type codes is stored in an enumeration; in the Java
+     * language interface for libSBML, the type codes are defined as static
+     * integer constants in the interface class {@link libsbmlConstants}.
+     * The names of the type codes all begin with the characters
+     * <code>SBML_</code>.
+     * <p>
+     * Each libSBML extension for SBML Level&nbsp;3 packages adds its own
+     * type codes to objects.  The present type code belongs to libSBML's
+     * extension to support the SBML Level&nbsp;3 Layout
+     * (&ldquo;layout&rdquo;) package.  It is used to identify the type of
+     * SBML component to which a given object corresponds.
+     */
+    public final static int SBML_LAYOUT_CURVE = 103;
+
+
+    /**
+     * <span class="pkg-marker pkg-color-layout">layout</span> One of the
+     * possible SBML component type codes.
+     * <p>
+     * LibSBML attaches an identifying code to every kind of SBML object.
+     * These are known as <em>SBML type codes</em>.  In other languages,
+     * the set of type codes is stored in an enumeration; in the Java
+     * language interface for libSBML, the type codes are defined as static
+     * integer constants in the interface class {@link libsbmlConstants}.
+     * The names of the type codes all begin with the characters
+     * <code>SBML_</code>.
+     * <p>
+     * Each libSBML extension for SBML Level&nbsp;3 packages adds its own
+     * type codes to objects.  The present type code belongs to libSBML's
+     * extension to support the SBML Level&nbsp;3 Layout
+     * (&ldquo;layout&rdquo;) package.  It is used to identify the type of
+     * SBML component to which a given object corresponds.
+     */
+    public final static int SBML_LAYOUT_DIMENSIONS = 104;
+
+
+    /**
+     * <span class="pkg-marker pkg-color-layout">layout</span> One of the
+     * possible SBML component type codes.
+     * <p>
+     * LibSBML attaches an identifying code to every kind of SBML object.
+     * These are known as <em>SBML type codes</em>.  In other languages,
+     * the set of type codes is stored in an enumeration; in the Java
+     * language interface for libSBML, the type codes are defined as static
+     * integer constants in the interface class {@link libsbmlConstants}.
+     * The names of the type codes all begin with the characters
+     * <code>SBML_</code>.
+     * <p>
+     * Each libSBML extension for SBML Level&nbsp;3 packages adds its own
+     * type codes to objects.  The present type code belongs to libSBML's
+     * extension to support the SBML Level&nbsp;3 Layout
+     * (&ldquo;layout&rdquo;) package.  It is used to identify the type of
+     * SBML component to which a given object corresponds.
+     */
+    public final static int SBML_LAYOUT_GRAPHICALOBJECT = 105;
+
+
+    /**
+     * <span class="pkg-marker pkg-color-layout">layout</span> One of the
+     * possible SBML component type codes.
+     * <p>
+     * LibSBML attaches an identifying code to every kind of SBML object.
+     * These are known as <em>SBML type codes</em>.  In other languages,
+     * the set of type codes is stored in an enumeration; in the Java
+     * language interface for libSBML, the type codes are defined as static
+     * integer constants in the interface class {@link libsbmlConstants}.
+     * The names of the type codes all begin with the characters
+     * <code>SBML_</code>.
+     * <p>
+     * Each libSBML extension for SBML Level&nbsp;3 packages adds its own
+     * type codes to objects.  The present type code belongs to libSBML's
+     * extension to support the SBML Level&nbsp;3 Layout
+     * (&ldquo;layout&rdquo;) package.  It is used to identify the type of
+     * SBML component to which a given object corresponds.
+     */
+    public final static int SBML_LAYOUT_LAYOUT = 106;
+
+
+    /**
+     * <span class="pkg-marker pkg-color-layout">layout</span> One of the
+     * possible SBML component type codes.
+     * <p>
+     * LibSBML attaches an identifying code to every kind of SBML object.
+     * These are known as <em>SBML type codes</em>.  In other languages,
+     * the set of type codes is stored in an enumeration; in the Java
+     * language interface for libSBML, the type codes are defined as static
+     * integer constants in the interface class {@link libsbmlConstants}.
+     * The names of the type codes all begin with the characters
+     * <code>SBML_</code>.
+     * <p>
+     * Each libSBML extension for SBML Level&nbsp;3 packages adds its own
+     * type codes to objects.  The present type code belongs to libSBML's
+     * extension to support the SBML Level&nbsp;3 Layout
+     * (&ldquo;layout&rdquo;) package.  It is used to identify the type of
+     * SBML component to which a given object corresponds.
+     */
+    public final static int SBML_LAYOUT_LINESEGMENT = 107;
+
+
+    /**
+     * <span class="pkg-marker pkg-color-layout">layout</span> One of the
+     * possible SBML component type codes.
+     * <p>
+     * LibSBML attaches an identifying code to every kind of SBML object.
+     * These are known as <em>SBML type codes</em>.  In other languages,
+     * the set of type codes is stored in an enumeration; in the Java
+     * language interface for libSBML, the type codes are defined as static
+     * integer constants in the interface class {@link libsbmlConstants}.
+     * The names of the type codes all begin with the characters
+     * <code>SBML_</code>.
+     * <p>
+     * Each libSBML extension for SBML Level&nbsp;3 packages adds its own
+     * type codes to objects.  The present type code belongs to libSBML's
+     * extension to support the SBML Level&nbsp;3 Layout
+     * (&ldquo;layout&rdquo;) package.  It is used to identify the type of
+     * SBML component to which a given object corresponds.
+     */
+    public final static int SBML_LAYOUT_POINT = 108;
+
+
+    /**
+     * <span class="pkg-marker pkg-color-layout">layout</span> One of the
+     * possible SBML component type codes.
+     * <p>
+     * LibSBML attaches an identifying code to every kind of SBML object.
+     * These are known as <em>SBML type codes</em>.  In other languages,
+     * the set of type codes is stored in an enumeration; in the Java
+     * language interface for libSBML, the type codes are defined as static
+     * integer constants in the interface class {@link libsbmlConstants}.
+     * The names of the type codes all begin with the characters
+     * <code>SBML_</code>.
+     * <p>
+     * Each libSBML extension for SBML Level&nbsp;3 packages adds its own
+     * type codes to objects.  The present type code belongs to libSBML's
+     * extension to support the SBML Level&nbsp;3 Layout
+     * (&ldquo;layout&rdquo;) package.  It is used to identify the type of
+     * SBML component to which a given object corresponds.
+     */
+    public final static int SBML_LAYOUT_REACTIONGLYPH = 109;
+
+
+    /**
+     * <span class="pkg-marker pkg-color-layout">layout</span> One of the
+     * possible SBML component type codes.
+     * <p>
+     * LibSBML attaches an identifying code to every kind of SBML object.
+     * These are known as <em>SBML type codes</em>.  In other languages,
+     * the set of type codes is stored in an enumeration; in the Java
+     * language interface for libSBML, the type codes are defined as static
+     * integer constants in the interface class {@link libsbmlConstants}.
+     * The names of the type codes all begin with the characters
+     * <code>SBML_</code>.
+     * <p>
+     * Each libSBML extension for SBML Level&nbsp;3 packages adds its own
+     * type codes to objects.  The present type code belongs to libSBML's
+     * extension to support the SBML Level&nbsp;3 Layout
+     * (&ldquo;layout&rdquo;) package.  It is used to identify the type of
+     * SBML component to which a given object corresponds.
+     */
+    public final static int SBML_LAYOUT_SPECIESGLYPH = 110;
+
+
+    /**
+     * <span class="pkg-marker pkg-color-layout">layout</span> One of the
+     * possible SBML component type codes.
+     * <p>
+     * LibSBML attaches an identifying code to every kind of SBML object.
+     * These are known as <em>SBML type codes</em>.  In other languages,
+     * the set of type codes is stored in an enumeration; in the Java
+     * language interface for libSBML, the type codes are defined as static
+     * integer constants in the interface class {@link libsbmlConstants}.
+     * The names of the type codes all begin with the characters
+     * <code>SBML_</code>.
+     * <p>
+     * Each libSBML extension for SBML Level&nbsp;3 packages adds its own
+     * type codes to objects.  The present type code belongs to libSBML's
+     * extension to support the SBML Level&nbsp;3 Layout
+     * (&ldquo;layout&rdquo;) package.  It is used to identify the type of
+     * SBML component to which a given object corresponds.
+     */
+    public final static int SBML_LAYOUT_SPECIESREFERENCEGLYPH = 111;
+
+
+    /**
+     * <span class="pkg-marker pkg-color-layout">layout</span> One of the
+     * possible SBML component type codes.
+     * <p>
+     * LibSBML attaches an identifying code to every kind of SBML object.
+     * These are known as <em>SBML type codes</em>.  In other languages,
+     * the set of type codes is stored in an enumeration; in the Java
+     * language interface for libSBML, the type codes are defined as static
+     * integer constants in the interface class {@link libsbmlConstants}.
+     * The names of the type codes all begin with the characters
+     * <code>SBML_</code>.
+     * <p>
+     * Each libSBML extension for SBML Level&nbsp;3 packages adds its own
+     * type codes to objects.  The present type code belongs to libSBML's
+     * extension to support the SBML Level&nbsp;3 Layout
+     * (&ldquo;layout&rdquo;) package.  It is used to identify the type of
+     * SBML component to which a given object corresponds.
+     */
+    public final static int SBML_LAYOUT_TEXTGLYPH = 112;
+
+
+    /**
+     * <span class="pkg-marker pkg-color-layout">layout</span> One of the
+     * possible SBML component type codes.
+     * <p>
+     * LibSBML attaches an identifying code to every kind of SBML object.
+     * These are known as <em>SBML type codes</em>.  In other languages,
+     * the set of type codes is stored in an enumeration; in the Java
+     * language interface for libSBML, the type codes are defined as static
+     * integer constants in the interface class {@link libsbmlConstants}.
+     * The names of the type codes all begin with the characters
+     * <code>SBML_</code>.
+     * <p>
+     * Each libSBML extension for SBML Level&nbsp;3 packages adds its own
+     * type codes to objects.  The present type code belongs to libSBML's
+     * extension to support the SBML Level&nbsp;3 Layout
+     * (&ldquo;layout&rdquo;) package.  It is used to identify the type of
+     * SBML component to which a given object corresponds.
+     */
+    public final static int SBML_LAYOUT_REFERENCEGLYPH = 113;
+
+
+    /**
+     * <span class="pkg-marker pkg-color-layout">layout</span> One of the
+     * possible SBML component type codes.
+     * <p>
+     * LibSBML attaches an identifying code to every kind of SBML object.
+     * These are known as <em>SBML type codes</em>.  In other languages,
+     * the set of type codes is stored in an enumeration; in the Java
+     * language interface for libSBML, the type codes are defined as static
+     * integer constants in the interface class {@link libsbmlConstants}.
+     * The names of the type codes all begin with the characters
+     * <code>SBML_</code>.
+     * <p>
+     * Each libSBML extension for SBML Level&nbsp;3 packages adds its own
+     * type codes to objects.  The present type code belongs to libSBML's
+     * extension to support the SBML Level&nbsp;3 Layout
+     * (&ldquo;layout&rdquo;) package.  It is used to identify the type of
+     * SBML component to which a given object corresponds.
+     */
+    public final static int SBML_LAYOUT_GENERALGLYPH = 114;
+
+
+    // SpeciesReferenceRole_t 
+
+    /**
+     * <span class="pkg-marker pkg-color-layout">layout</span> One of the
+     * possible roles of a SpeciesReferenceGlyph.
+     * <p>
+     * SpeciesReferenceGlyphs include an attribute to describe the role of a
+     * given SpeciesReference in a model diagram.  The present code is one of
+     * the possible values for this role attribute.
+     */
+    public final static int SPECIES_ROLE_UNDEFINED = 0;
+
+
+    /**
+     * <span class="pkg-marker pkg-color-layout">layout</span> One of the
+     * possible roles of a SpeciesReferenceGlyph.
+     * <p>
+     * SpeciesReferenceGlyphs include an attribute to describe the role of a
+     * given SpeciesReference in a model diagram.  The present code is one of
+     * the possible values for this role attribute.
+     */
+    public final static int SPECIES_ROLE_SUBSTRATE = SPECIES_ROLE_UNDEFINED + 1;
+
+
+    /**
+     * <span class="pkg-marker pkg-color-layout">layout</span> One of the
+     * possible roles of a SpeciesReferenceGlyph.
+     * <p>
+     * SpeciesReferenceGlyphs include an attribute to describe the role of a
+     * given SpeciesReference in a model diagram.  The present code is one of
+     * the possible values for this role attribute.
+     */
+    public final static int SPECIES_ROLE_PRODUCT = SPECIES_ROLE_SUBSTRATE + 1;
+
+
+    /**
+     * <span class="pkg-marker pkg-color-layout">layout</span> One of the
+     * possible roles of a SpeciesReferenceGlyph.
+     * <p>
+     * SpeciesReferenceGlyphs include an attribute to describe the role of a
+     * given SpeciesReference in a model diagram.  The present code is one of
+     * the possible values for this role attribute.
+     */
+    public final static int SPECIES_ROLE_SIDESUBSTRATE = SPECIES_ROLE_PRODUCT + 1;
+
+
+    /**
+     * <span class="pkg-marker pkg-color-layout">layout</span> One of the
+     * possible roles of a SpeciesReferenceGlyph.
+     * <p>
+     * SpeciesReferenceGlyphs include an attribute to describe the role of a
+     * given SpeciesReference in a model diagram.  The present code is one of
+     * the possible values for this role attribute.
+     */
+    public final static int SPECIES_ROLE_SIDEPRODUCT = SPECIES_ROLE_SIDESUBSTRATE + 1;
+
+
+    /**
+     * <span class="pkg-marker pkg-color-layout">layout</span> One of the
+     * possible roles of a SpeciesReferenceGlyph.
+     * <p>
+     * SpeciesReferenceGlyphs include an attribute to describe the role of a
+     * given SpeciesReference in a model diagram.  The present code is one of
+     * the possible values for this role attribute.
+     */
+    public final static int SPECIES_ROLE_MODIFIER = SPECIES_ROLE_SIDEPRODUCT + 1;
+
+
+    /**
+     * <span class="pkg-marker pkg-color-layout">layout</span> One of the
+     * possible roles of a SpeciesReferenceGlyph.
+     * <p>
+     * SpeciesReferenceGlyphs include an attribute to describe the role of a
+     * given SpeciesReference in a model diagram.  The present code is one of
+     * the possible values for this role attribute.
+     */
+    public final static int SPECIES_ROLE_ACTIVATOR = SPECIES_ROLE_MODIFIER + 1;
+
+
+    /**
+     * <span class="pkg-marker pkg-color-layout">layout</span> One of the
+     * possible roles of a SpeciesReferenceGlyph.
+     * <p>
+     * SpeciesReferenceGlyphs include an attribute to describe the role of a
+     * given SpeciesReference in a model diagram.  The present code is one of
+     * the possible values for this role attribute.
+     */
+    public final static int SPECIES_ROLE_INHIBITOR = SPECIES_ROLE_ACTIVATOR + 1;
+
+
+    // SBMLQualTypeCode_t 
+
+    /**
+     * <span class="pkg-marker pkg-color-qual">qual</span> One of the
+     * possible SBML component type codes.
+     * <p>
+     * LibSBML attaches an identifying code to every kind of SBML object.
+     * These are known as <em>SBML type codes</em>.  In other languages,
+     * the set of type codes is stored in an enumeration; in the Java
+     * language interface for libSBML, the type codes are defined as static
+     * integer constants in the interface class {@link libsbmlConstants}.
+     * The names of the type codes all begin with the characters
+     * <code>SBML_</code>.
+     * <p>
+     * Each libSBML extension for SBML Level&nbsp;3 packages adds its own
+     * type codes to objects.  The present type code belongs to libSBML's
+     * extension to support the SBML Level&nbsp;3 Qualitative Models
+     * (&ldquo;qual&rdquo;) package.  It is used to identify the type of
+     * SBML component to which a given object corresponds.
+     */
+    public final static int SBML_QUAL_QUALITATIVE_SPECIES = 1100;
+
+
+    /**
+     * <span class="pkg-marker pkg-color-qual">qual</span> One of the
+     * possible SBML component type codes.
+     * <p>
+     * LibSBML attaches an identifying code to every kind of SBML object.
+     * These are known as <em>SBML type codes</em>.  In other languages,
+     * the set of type codes is stored in an enumeration; in the Java
+     * language interface for libSBML, the type codes are defined as static
+     * integer constants in the interface class {@link libsbmlConstants}.
+     * The names of the type codes all begin with the characters
+     * <code>SBML_</code>.
+     * <p>
+     * Each libSBML extension for SBML Level&nbsp;3 packages adds its own
+     * type codes to objects.  The present type code belongs to libSBML's
+     * extension to support the SBML Level&nbsp;3 Qualitative Models
+     * (&ldquo;qual&rdquo;) package.  It is used to identify the type of
+     * SBML component to which a given object corresponds.
+     */
+    public final static int SBML_QUAL_TRANSITION = 1101;
+
+
+    /**
+     * <span class="pkg-marker pkg-color-qual">qual</span> One of the
+     * possible SBML component type codes.
+     * <p>
+     * LibSBML attaches an identifying code to every kind of SBML object.
+     * These are known as <em>SBML type codes</em>.  In other languages,
+     * the set of type codes is stored in an enumeration; in the Java
+     * language interface for libSBML, the type codes are defined as static
+     * integer constants in the interface class {@link libsbmlConstants}.
+     * The names of the type codes all begin with the characters
+     * <code>SBML_</code>.
+     * <p>
+     * Each libSBML extension for SBML Level&nbsp;3 packages adds its own
+     * type codes to objects.  The present type code belongs to libSBML's
+     * extension to support the SBML Level&nbsp;3 Qualitative Models
+     * (&ldquo;qual&rdquo;) package.  It is used to identify the type of
+     * SBML component to which a given object corresponds.
+     */
+    public final static int SBML_QUAL_INPUT = 1102;
+
+
+    /**
+     * <span class="pkg-marker pkg-color-qual">qual</span> One of the
+     * possible SBML component type codes.
+     * <p>
+     * LibSBML attaches an identifying code to every kind of SBML object.
+     * These are known as <em>SBML type codes</em>.  In other languages,
+     * the set of type codes is stored in an enumeration; in the Java
+     * language interface for libSBML, the type codes are defined as static
+     * integer constants in the interface class {@link libsbmlConstants}.
+     * The names of the type codes all begin with the characters
+     * <code>SBML_</code>.
+     * <p>
+     * Each libSBML extension for SBML Level&nbsp;3 packages adds its own
+     * type codes to objects.  The present type code belongs to libSBML's
+     * extension to support the SBML Level&nbsp;3 Qualitative Models
+     * (&ldquo;qual&rdquo;) package.  It is used to identify the type of
+     * SBML component to which a given object corresponds.
+     */
+    public final static int SBML_QUAL_OUTPUT = 1103;
+
+
+    /**
+     * <span class="pkg-marker pkg-color-qual">qual</span> One of the
+     * possible SBML component type codes.
+     * <p>
+     * LibSBML attaches an identifying code to every kind of SBML object.
+     * These are known as <em>SBML type codes</em>.  In other languages,
+     * the set of type codes is stored in an enumeration; in the Java
+     * language interface for libSBML, the type codes are defined as static
+     * integer constants in the interface class {@link libsbmlConstants}.
+     * The names of the type codes all begin with the characters
+     * <code>SBML_</code>.
+     * <p>
+     * Each libSBML extension for SBML Level&nbsp;3 packages adds its own
+     * type codes to objects.  The present type code belongs to libSBML's
+     * extension to support the SBML Level&nbsp;3 Qualitative Models
+     * (&ldquo;qual&rdquo;) package.  It is used to identify the type of
+     * SBML component to which a given object corresponds.
+     */
+    public final static int SBML_QUAL_FUNCTION_TERM = 1104;
+
+
+    /**
+     * <span class="pkg-marker pkg-color-qual">qual</span> One of the
+     * possible SBML component type codes.
+     * <p>
+     * LibSBML attaches an identifying code to every kind of SBML object.
+     * These are known as <em>SBML type codes</em>.  In other languages,
+     * the set of type codes is stored in an enumeration; in the Java
+     * language interface for libSBML, the type codes are defined as static
+     * integer constants in the interface class {@link libsbmlConstants}.
+     * The names of the type codes all begin with the characters
+     * <code>SBML_</code>.
+     * <p>
+     * Each libSBML extension for SBML Level&nbsp;3 packages adds its own
+     * type codes to objects.  The present type code belongs to libSBML's
+     * extension to support the SBML Level&nbsp;3 Qualitative Models
+     * (&ldquo;qual&rdquo;) package.  It is used to identify the type of
+     * SBML component to which a given object corresponds.
+     */
+    public final static int SBML_QUAL_DEFAULT_TERM = 1105;
+
+
+    // InputTransitionEffect_t 
+
+    /**
+     * <span class="pkg-marker pkg-color-qual">qual</span> One of the
+     * possible Input transition effects.
+     * <p>
+     * The Input class is part of the SBML Level&nbsp;3 Qualitative Models
+     * package.  Its purpose is to represent a qualitative species that
+     * participates in a Transition; specifically, in Petri nets, these are
+     * the input places of the transition, and in logical models, they are
+     * the regulators of the species whose behaviour is defined by the
+     * transition.  Input has an attribute named "transitionEffect" that 
+     * is used to describe how the QualitativeSpecies referenced by the
+     * Input is affected by the Transition.
+     * <p>
+     * The present code is one of the possible values of the
+     * "transitionEffect" attribute of an Input object.
+     */
+    public final static int INPUT_TRANSITION_EFFECT_NONE = 0;
+
+
+    /**
+     * <span class="pkg-marker pkg-color-qual">qual</span> One of the
+     * possible Input transition effects.
+     * <p>
+     * The Input class is part of the SBML Level&nbsp;3 Qualitative Models
+     * package.  Its purpose is to represent a qualitative species that
+     * participates in a Transition; specifically, in Petri nets, these are
+     * the input places of the transition, and in logical models, they are
+     * the regulators of the species whose behaviour is defined by the
+     * transition.  Input has an attribute named "transitionEffect" that 
+     * is used to describe how the QualitativeSpecies referenced by the
+     * Input is affected by the Transition.
+     * <p>
+     * The present code is one of the possible values of the
+     * "transitionEffect" attribute of an Input object.
+     */
+    public final static int INPUT_TRANSITION_EFFECT_CONSUMPTION = INPUT_TRANSITION_EFFECT_NONE + 1;
+
+
+    /**
+     * <span class="pkg-marker pkg-color-qual">qual</span> One of the
+     * possible Input transition effects.
+     * <p>
+     * The Input class is part of the SBML Level&nbsp;3 Qualitative Models
+     * package.  Its purpose is to represent a qualitative species that
+     * participates in a Transition; specifically, in Petri nets, these are
+     * the input places of the transition, and in logical models, they are
+     * the regulators of the species whose behaviour is defined by the
+     * transition.  Input has an attribute named "transitionEffect" that 
+     * is used to describe how the QualitativeSpecies referenced by the
+     * Input is affected by the Transition.
+     * <p>
+     * The present code is one of the possible values of the
+     * "transitionEffect" attribute of an Input object.
+     */
+    public final static int INPUT_TRANSITION_EFFECT_UNKNOWN = INPUT_TRANSITION_EFFECT_CONSUMPTION + 1;
+
+    // InputSign_t 
+
+    /**
+     * <span class="pkg-marker pkg-color-qual">qual</span> One of the
+     * possible Input "sign" attribute values.
+     * <p>
+     * The Input class is part of the SBML Level&nbsp;3 Qualitative Models
+     * package.  Its purpose is to represent a qualitative species that
+     * participates in a Transition; specifically, in Petri nets, these are
+     * the input places of the transition, and in logical models, they are
+     * the regulators of the species whose behaviour is defined by the
+     * transition.  Input has an attribute named "sign" that is used to
+     * indicate whether the contribution of this input is positive, negative,
+     * both (dual) or unknown. This enables a model to distinguish between
+     * stimulation and inhibition and can facilitate interpretation of
+     * themodel without the mathematics. The sign is particularly used for
+     * visualization purposes and has no impact on the mathematical
+     * interpretation.
+     * <p>
+     * The present code is one of the possible values of the "sign" attribute
+     * of an Input object.
+     */
+    public final static int INPUT_SIGN_POSITIVE = 0;
+
+
+    /**
+     * <span class="pkg-marker pkg-color-qual">qual</span> One of the
+     * possible Input "sign" attribute values.
+     * <p>
+     * The Input class is part of the SBML Level&nbsp;3 Qualitative Models
+     * package.  Its purpose is to represent a qualitative species that
+     * participates in a Transition; specifically, in Petri nets, these are
+     * the input places of the transition, and in logical models, they are
+     * the regulators of the species whose behaviour is defined by the
+     * transition.  Input has an attribute named "sign" that is used to
+     * indicate whether the contribution of this input is positive, negative,
+     * both (dual) or unknown. This enables a model to distinguish between
+     * stimulation and inhibition and can facilitate interpretation of
+     * themodel without the mathematics. The sign is particularly used for
+     * visualization purposes and has no impact on the mathematical
+     * interpretation.
+     * <p>
+     * The present code is one of the possible values of the "sign" attribute
+     * of an Input object.
+     */
+    public final static int INPUT_SIGN_NEGATIVE = INPUT_SIGN_POSITIVE + 1;
+
+
+    /**
+     * <span class="pkg-marker pkg-color-qual">qual</span> One of the
+     * possible Input "sign" attribute values.
+     * <p>
+     * The Input class is part of the SBML Level&nbsp;3 Qualitative Models
+     * package.  Its purpose is to represent a qualitative species that
+     * participates in a Transition; specifically, in Petri nets, these are
+     * the input places of the transition, and in logical models, they are
+     * the regulators of the species whose behaviour is defined by the
+     * transition.  Input has an attribute named "sign" that is used to
+     * indicate whether the contribution of this input is positive, negative,
+     * both (dual) or unknown. This enables a model to distinguish between
+     * stimulation and inhibition and can facilitate interpretation of
+     * themodel without the mathematics. The sign is particularly used for
+     * visualization purposes and has no impact on the mathematical
+     * interpretation.
+     * <p>
+     * The present code is one of the possible values of the "sign" attribute
+     * of an Input object.
+     */
+    public final static int INPUT_SIGN_DUAL = INPUT_SIGN_NEGATIVE + 1;
+
+
+    /**
+     * <span class="pkg-marker pkg-color-qual">qual</span> One of the
+     * possible Input "sign" attribute values.
+     * <p>
+     * The Input class is part of the SBML Level&nbsp;3 Qualitative Models
+     * package.  Its purpose is to represent a qualitative species that
+     * participates in a Transition; specifically, in Petri nets, these are
+     * the input places of the transition, and in logical models, they are
+     * the regulators of the species whose behaviour is defined by the
+     * transition.  Input has an attribute named "sign" that is used to
+     * indicate whether the contribution of this input is positive, negative,
+     * both (dual) or unknown. This enables a model to distinguish between
+     * stimulation and inhibition and can facilitate interpretation of
+     * themodel without the mathematics. The sign is particularly used for
+     * visualization purposes and has no impact on the mathematical
+     * interpretation.
+     * <p>
+     * The present code is one of the possible values of the "sign" attribute
+     * of an Input object.
+     */
+    public final static int INPUT_SIGN_UNKNOWN = INPUT_SIGN_DUAL + 1;
+
+
+    /**
+     * <span class="pkg-marker pkg-color-qual">qual</span> One of the
+     * possible Input "sign" attribute values.
+     * <p>
+     * The Input class is part of the SBML Level&nbsp;3 Qualitative Models
+     * package.  Its purpose is to represent a qualitative species that
+     * participates in a Transition; specifically, in Petri nets, these are
+     * the input places of the transition, and in logical models, they are
+     * the regulators of the species whose behaviour is defined by the
+     * transition.  Input has an attribute named "sign" that is used to
+     * indicate whether the contribution of this input is positive, negative,
+     * both (dual) or unknown. This enables a model to distinguish between
+     * stimulation and inhibition and can facilitate interpretation of
+     * themodel without the mathematics. The sign is particularly used for
+     * visualization purposes and has no impact on the mathematical
+     * interpretation.
+     * <p>
+     * The present code is one of the possible values of the "sign" attribute
+     * of an Input object.
+     */
+    public final static int INPUT_SIGN_VALUE_NOTSET = INPUT_SIGN_UNKNOWN + 1;
+
+
+    // OutputTransitionEffect_t 
+
+    /**
+     * <span class="pkg-marker pkg-color-qual">qual</span> One of the
+     * possible OutputTransition "transitionEffect" attribute values.
+     * <p>
+     * The OutputTransition class is part of the SBML Level&nbsp;3
+     * Qualitative Models package.  Its purpose is to represent a qualitative
+     * species that is affected by a Transition.  (In Petri net models, these
+     * are the output places of the transition.)  OutputTransition has an
+     * attribute named "transitionEffect" that is used to describe how the
+     * QualitativeSpecies referenced by the Output is affected by the
+     * Transition.
+     <p>
+     * The present code is one of the possible values of the
+     * "transitionEffect" attribute of an OutputTransition object.
+     */
+    public final static int OUTPUT_TRANSITION_EFFECT_PRODUCTION = 0;
+
+
+    /**
+     * <span class="pkg-marker pkg-color-qual">qual</span> One of the
+     * possible OutputTransition "transitionEffect" attribute values.
+     * <p>
+     * The OutputTransition class is part of the SBML Level&nbsp;3
+     * Qualitative Models package.  Its purpose is to represent a qualitative
+     * species that is affected by a Transition.  (In Petri net models, these
+     * are the output places of the transition.)  OutputTransition has an
+     * attribute named "transitionEffect" that is used to describe how the
+     * QualitativeSpecies referenced by the Output is affected by the
+     * Transition.
+     <p>
+     * The present code is one of the possible values of the
+     * "transitionEffect" attribute of an OutputTransition object.
+     */
+    public final static int OUTPUT_TRANSITION_EFFECT_ASSIGNMENT_LEVEL = OUTPUT_TRANSITION_EFFECT_PRODUCTION + 1;
+
+
+    /**
+     * <span class="pkg-marker pkg-color-qual">qual</span> One of the
+     * possible OutputTransition "transitionEffect" attribute values.
+     * <p>
+     * The OutputTransition class is part of the SBML Level&nbsp;3
+     * Qualitative Models package.  Its purpose is to represent a qualitative
+     * species that is affected by a Transition.  (In Petri net models, these
+     * are the output places of the transition.)  OutputTransition has an
+     * attribute named "transitionEffect" that is used to describe how the
+     * QualitativeSpecies referenced by the Output is affected by the
+     * Transition.
+     <p>
+     * The present code is one of the possible values of the
+     * "transitionEffect" attribute of an OutputTransition object.
+     */
+    public final static int OUTPUT_TRANSITION_EFFECT_UNKNOWN = OUTPUT_TRANSITION_EFFECT_ASSIGNMENT_LEVEL + 1;
 
 }
