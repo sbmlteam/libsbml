@@ -53,6 +53,12 @@ configure_file(
 	${CMAKE_CURRENT_SOURCE_DIR}/src/libsbml-installation.html
 )
 
+# configure java documentation file
+configure_file(
+	${CMAKE_CURRENT_SOURCE_DIR}/src/java-substitutions/libsbmlConstants.java.in
+	${CMAKE_CURRENT_SOURCE_DIR}/src/java-substitutions/libsbmlConstants.java
+)
+
 
 # disable dot if we don't have it
 set(HAVE_DOT)
