@@ -234,7 +234,7 @@ distfiles =						     \
         java-substitutions/SBMLNamespacesList.java	     \
         java-substitutions/SBaseList.java		     \
         java-substitutions/XMLConstructorException.java	     \
-        java-substitutions/libsbmlConstants.java	     \
+        java-substitutions/libsbmlConstants.java.in	     \
 	libsbml-doxygen.html				     \
 	libsbml-extending.txt				     \
         libsbml-accessing.html				     \

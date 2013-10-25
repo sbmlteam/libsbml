@@ -22,7 +22,7 @@ public interface libsbmlConstants
     /**
      * A version string of the form "1.2.3".
      */
-    public final static String LIBSBML_DOTTED_VERSION = "5.2.0";
+    public final static String LIBSBML_DOTTED_VERSION = "@PACKAGE_VERSION@";
 
 
     /**
@@ -31,13 +31,13 @@ public interface libsbmlConstants
      * libSBML is released, making it easy to use less-than and greater-than
      * comparisons when testing versions numbers.
      */
-    public final static int LIBSBML_VERSION = 50200;
+    public final static int LIBSBML_VERSION = @LIBSBML_VERSION_NUMERIC@;
 
 
     /**
      * The numeric version as a string: version 1.2.3 becomes "10203".
      */
-    public final static String LIBSBML_VERSION_STRING = "50200";
+    public final static String LIBSBML_VERSION_STRING = "@LIBSBML_VERSION_NUMERIC@";
 
 
     // OperationReturnValues_t 
@@ -6226,4 +6226,97 @@ public interface libsbmlConstants
      * One of the possible SBML {@link ConversionOption} value types.
      */
     public final static int CNV_TYPE_STRING = 4;
+
+
+
+  // SBMLCompTypeCode_t 
+  public final static int SBML_COMP_SUBMODEL = 250;
+  public final static int SBML_COMP_MODELDEFINITION = 251;
+  public final static int SBML_COMP_EXTERNALMODELDEFINITION = 252;
+  public final static int SBML_COMP_SBASEREF = 253;
+  public final static int SBML_COMP_DELETION = 254;
+  public final static int SBML_COMP_REPLACEDELEMENT = 255;
+  public final static int SBML_COMP_REPLACEDBY = 256;
+  public final static int SBML_COMP_PORT = 257;
+
+  // SBMLFbcTypeCode_t 
+  public final static int SBML_FBC_ASSOCIATION = 800;
+  public final static int SBML_FBC_FLUXBOUND = 801;
+  public final static int SBML_FBC_FLUXOBJECTIVE = 802;
+  public final static int SBML_FBC_GENEASSOCIATION = 803;
+  public final static int SBML_FBC_OBJECTIVE = 804;
+
+  // AssociationTypeCode_t 
+  public final static int GENE_ASSOCIATION = 0;
+  public final static int AND_ASSOCIATION = 1;
+  public final static int OR_ASSOCIATION = 2;
+  public final static int UNKNOWN_ASSOCIATION = 3;
+
+  // FluxBoundOperation_t 
+  public final static int FLUXBOUND_OPERATION_LESS_EQUAL = 0;
+  public final static int FLUXBOUND_OPERATION_GREATER_EQUAL = FLUXBOUND_OPERATION_LESS_EQUAL + 1;
+  public final static int FLUXBOUND_OPERATION_LESS = FLUXBOUND_OPERATION_GREATER_EQUAL + 1;
+  public final static int FLUXBOUND_OPERATION_GREATER = FLUXBOUND_OPERATION_LESS + 1;
+  public final static int FLUXBOUND_OPERATION_EQUAL = FLUXBOUND_OPERATION_GREATER + 1;
+  public final static int FLUXBOUND_OPERATION_UNKNOWN = FLUXBOUND_OPERATION_EQUAL + 1;
+
+  // ObjectiveType_t 
+  public final static int OBJECTIVE_TYPE_MAXIMIZE = 0;
+  public final static int OBJECTIVE_TYPE_MINIMIZE = OBJECTIVE_TYPE_MAXIMIZE + 1;
+  public final static int OBJECTIVE_TYPE_UNKNOWN = OBJECTIVE_TYPE_MINIMIZE + 1;
+
+  // SpeciesReferenceRole_t 
+  public final static int SPECIES_ROLE_UNDEFINED = 0;
+  public final static int SPECIES_ROLE_SUBSTRATE = SPECIES_ROLE_UNDEFINED + 1;
+  public final static int SPECIES_ROLE_PRODUCT = SPECIES_ROLE_SUBSTRATE + 1;
+  public final static int SPECIES_ROLE_SIDESUBSTRATE = SPECIES_ROLE_PRODUCT + 1;
+  public final static int SPECIES_ROLE_SIDEPRODUCT = SPECIES_ROLE_SIDESUBSTRATE + 1;
+  public final static int SPECIES_ROLE_MODIFIER = SPECIES_ROLE_SIDEPRODUCT + 1;
+  public final static int SPECIES_ROLE_ACTIVATOR = SPECIES_ROLE_MODIFIER + 1;
+  public final static int SPECIES_ROLE_INHIBITOR = SPECIES_ROLE_ACTIVATOR + 1;
+
+  // SBMLLayoutTypeCode_t 
+  public final static int SBML_LAYOUT_BOUNDINGBOX = 100;
+  public final static int SBML_LAYOUT_COMPARTMENTGLYPH = 101;
+  public final static int SBML_LAYOUT_CUBICBEZIER = 102;
+  public final static int SBML_LAYOUT_CURVE = 103;
+  public final static int SBML_LAYOUT_DIMENSIONS = 104;
+  public final static int SBML_LAYOUT_GRAPHICALOBJECT = 105;
+  public final static int SBML_LAYOUT_LAYOUT = 106;
+  public final static int SBML_LAYOUT_LINESEGMENT = 107;
+  public final static int SBML_LAYOUT_POINT = 108;
+  public final static int SBML_LAYOUT_REACTIONGLYPH = 109;
+  public final static int SBML_LAYOUT_SPECIESGLYPH = 110;
+  public final static int SBML_LAYOUT_SPECIESREFERENCEGLYPH = 111;
+  public final static int SBML_LAYOUT_TEXTGLYPH = 112;
+  public final static int SBML_LAYOUT_REFERENCEGLYPH = 113;
+  public final static int SBML_LAYOUT_GENERALGLYPH = 114;
+
+  // SBMLQualTypeCode_t 
+  public final static int SBML_QUAL_QUALITATIVE_SPECIES = 1100;
+  public final static int SBML_QUAL_TRANSITION = 1101;
+  public final static int SBML_QUAL_INPUT = 1102;
+  public final static int SBML_QUAL_OUTPUT = 1103;
+  public final static int SBML_QUAL_FUNCTION_TERM = 1104;
+  public final static int SBML_QUAL_DEFAULT_TERM = 1105;
+
+  // InputTransitionEffect_t 
+  public final static int INPUT_TRANSITION_EFFECT_NONE = 0;
+  public final static int INPUT_TRANSITION_EFFECT_CONSUMPTION = INPUT_TRANSITION_EFFECT_NONE + 1;
+  public final static int INPUT_TRANSITION_EFFECT_UNKNOWN = INPUT_TRANSITION_EFFECT_CONSUMPTION + 1;
+
+  // InputSign_t 
+  public final static int INPUT_SIGN_POSITIVE = 0;
+  public final static int INPUT_SIGN_NEGATIVE = INPUT_SIGN_POSITIVE + 1;
+  public final static int INPUT_SIGN_DUAL = INPUT_SIGN_NEGATIVE + 1;
+  public final static int INPUT_SIGN_UNKNOWN = INPUT_SIGN_DUAL + 1;
+  public final static int INPUT_SIGN_VALUE_NOTSET = INPUT_SIGN_UNKNOWN + 1;
+
+  // OutputTransitionEffect_t 
+  public final static int OUTPUT_TRANSITION_EFFECT_PRODUCTION = 0;
+  public final static int OUTPUT_TRANSITION_EFFECT_ASSIGNMENT_LEVEL = OUTPUT_TRANSITION_EFFECT_PRODUCTION + 1;
+  public final static int OUTPUT_TRANSITION_EFFECT_UNKNOWN = OUTPUT_TRANSITION_EFFECT_ASSIGNMENT_LEVEL + 1;
+    
+
+
 }
