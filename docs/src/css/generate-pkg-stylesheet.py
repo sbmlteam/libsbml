@@ -93,6 +93,7 @@ pkg_style_template = '''.pkg-color-{0}
 
 safari_bugfix_template = '''{
     display: inline-block;
+    margin-left: 0px;
 }
 '''
 
