@@ -38,7 +38,7 @@ import sys, string, os.path, re
 #
 
 language       = ''
-docincpath     = ''
+doc_include_path     = ''
 libsbmlclasses = ["AlgebraicRule",
                   "ASTNode",
                   "ASTNodeList",
@@ -518,12 +518,19 @@ class CClassDoc:
 
 
 
-def getHeadersFromSWIG (filename, includedfiles=[]):
-  """getHeadersFromSWIG (filename) -> (filename1, filename2, .., filenameN)
-
+def getHeadersFromSWIG (filename, include_path, included_hfiles=[], parent_dirs=[]):
+  """
   Reads the list of %include directives from the given SWIG (.i), and returns
   a list of C/C++ headers (.h) found.  This uses a recursive algorithm.
   """
+
+  # Record directories encountered.
+
+  dir = os.path.abspath(os.path.join(filename, os.pardir))
+  if dir not in parent_dirs:
+    parent_dirs.append(dir)
+
+  # Read the current file.
 
   stream = open(filename)
   lines  = stream.readlines()
@@ -536,35 +543,47 @@ def getHeadersFromSWIG (filename, includedfiles=[]):
   includes = [entry.replace('%include', '').strip() for entry in includes]
 
   # Look for %include's of .i files, and read those as additional files to
-  # search for .h files.
+  # search for .h files later below.
 
-  ignored_ifiles = ['std_string.i', 'enumsimple.swg', 'javadoc.i', 'spatial-package.i']
+  ignored_ifiles = ['std_string.i', 'javadoc.i', 'spatial-package.i']
 
   ifiles = [file for file in includes if file.strip().endswith('.i')]
   ifiles = [file for file in ifiles if file not in ignored_ifiles]
 
-  # SWIG searches multiple paths for %include'd files.  We just look in a
-  # couple of likely places.
+  # SWIG searches multiple paths for %include'd .i files.  We just look in
+  # the directories of the .i files we encounter.
   for ifilename in ifiles:
-    thefile = ''
-    if os.path.isfile(ifilename):
-      thefile = ifilename
-    else:
-      slash = filename.rfind('/')
-      if slash > 0:
-        thefile = filename[:slash + 1] + ifilename
-    if thefile != '' and os.path.isfile(thefile):
-      includedfiles.extend(getHeadersFromSWIG(thefile, includedfiles))
+    search_dirs = ['.'] + parent_dirs
+    for dir in search_dirs:
+      file = os.path.join(dir, ifilename)
+      if os.path.isfile(file):
+        included_hfiles.extend(getHeadersFromSWIG(file, include_path,
+                                                  included_hfiles, parent_dirs))
+        break
 
-  # Now look through everything for .h files & return the list of those names.
+  # Now combine the .h files we found recursively with the ones we found in
+  # the current file.
 
-  ignored_hfiles = ['ListWrapper.h', 'OStream.h']
+  ignored_hfiles = ['ListWrapper.h']
 
   hfiles = [file for file in includes if file.strip().endswith('.h')]
   hfiles = [file for file in hfiles if file not in ignored_hfiles]
+  hfiles.extend(included_hfiles)
 
-  hfiles.extend(includedfiles)
-  return hfiles
+  # Convert the .h files to absolute paths.  This is slightly tricky because
+  # the file might be in the current directory, or in the include_path we
+  # were given, or in the directory of one of the .i files we encountered.
+  # So, we need to search them all.
+
+  abs_hfiles = []
+  search_dirs = ['.'] + [include_path] + parent_dirs
+  for dir in search_dirs:
+    for file in hfiles:
+      abs_path = os.path.normpath(os.path.abspath(os.path.join(dir, file)))
+      if os.path.isfile(abs_path) and abs_path not in abs_hfiles:
+        abs_hfiles.append(abs_path)
+
+  return abs_hfiles
 
 
 
@@ -631,13 +650,13 @@ def translateVerbatim (match):
 
 
 def translateInclude (match):
-  global docincpath
+  global doc_include_path
 
   file    = match.group(1)
   ending  = match.group(2)
   content = ''  
   try:
-    stream  = open(docincpath + '/common-text/' + file, 'r')
+    stream  = open(doc_include_path + '/common-text/' + file, 'r')
     content = stream.read()
     stream.close()
     content = removeHTMLcomments(content)
@@ -1453,36 +1472,31 @@ def main (args):
     print((main.__doc__))
     sys.exit(1)
 
-  global docincpath
+  global doc_include_path
   global language
 
-  language    = args[1]
-  includepath = args[2].replace('-I', '')
-  docincpath  = args[3].replace('-D', '')
-  headers     = getHeadersFromSWIG(args[4])
+  language         = args[1]
+  h_include_path   = args[2].replace('-I', '')
+  doc_include_path = args[3].replace('-D', '')
+  main_ifile       = os.path.abspath(args[4]) # libsbml.i
+  output_ifile     = args[5]                  # some_output.i
+  headers          = getHeadersFromSWIG(main_ifile, h_include_path)
 
   # We first write all our output to a temporary file.  Later, we open this
   # file, post-process it, and write the final output to the real destination.
 
-  tmpfilename = args[5] + ".tmp"
+  tmpfilename = output_ifile + ".tmp"
   stream      = open(tmpfilename, 'w')
 
   # Now starts the main processing pass.
-
-  headers.append("bindings/swig/OStream.h")
 
   if language == 'perl':
     infile = open(os.path.abspath('LibSBML.txt'), 'r')
     stream.write(infile.read())
     stream.write('=head1 FUNCTION INDEX\n\n=over 8\n\n')
 
-  processed = []
   for file in headers:
-    filename = os.path.normpath(os.path.join(includepath, file))
-    if filename in processed: 
-	  continue
-    processFile(filename, stream)
-    processed.append(filename)
+    processFile(file, stream)
 
   if os.path.exists('local-doc-extras.i'):
     stream.write('\n%include "local-doc-extras.i"\n')
@@ -1497,7 +1511,7 @@ def main (args):
   # results to the real destination (which is given as arg[5]).
 
   tmpstream   = open(tmpfilename, 'r')
-  finalstream = open(args[5], 'w')
+  finalstream = open(output_ifile, 'w')
   postProcessOutput(tmpstream, finalstream)
 
   try:
