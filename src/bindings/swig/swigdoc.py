@@ -37,111 +37,11 @@ import sys, string, os.path, re
 # Globally-scoped variables
 #
 
-language       = ''
-doc_include_path     = ''
-libsbmlclasses = ["AlgebraicRule",
-                  "ASTNode",
-                  "ASTNodeList",
-                  "AssignmentRule",
-                  "CVTerm",
-                  "CVTermList",
-                  "Compartment",
-                  "CompartmentType",
-                  "Constraint",
-                  "ConversionOption",
-                  "ConversionProperties",
-                  "Date",
-                  "DateList",
-                  "Delay",
-                  "Event",
-                  "EventAssignment",
-                  "FunctionDefinition",
-                  "InitialAssignment",
-                  "KineticLaw",
-                  "libsbml",
-                  "L3ParserSettings",
-                  "List",
-                  "ListOf",
-                  "ListOfCompartmentTypes",
-                  "ListOfCompartments",
-                  "ListOfConstraints",
-                  "ListOfEventAssignments",
-                  "ListOfEvents",
-                  "ListOfFunctionDefinitions",
-                  "ListOfInitialAssignments",
-                  "ListOfLocalParameters",
-                  "ListOfParameters",
-                  "ListOfReactions",
-                  "ListOfRules",
-                  "ListOfSpecies",
-                  "ListOfSpeciesReferences",
-                  "ListOfSpeciesTypes",
-                  "ListOfUnitDefinitions",
-                  "ListOfUnits",
-                  "LocalParameter",
-                  "Model",
-                  "ModelCreator",
-                  "ModelCreatorList",
-                  "ModelHistory",
-                  "ModifierSpeciesReference",
-                  "OFStream",
-                  "OStream",
-                  "OStringStream",
-                  "Parameter",
-                  "Priority",
-                  "RDFAnnotationParser",
-                  "RateRule",
-                  "Reaction",
-                  "Rule",
-                  "SBMLConstructorException",
-                  "SBMLConverter",
-                  "SBMLConverterRegistry",
-                  "SBMLDocument",
-                  "SBMLDocumentPlugin",
-                  "SBMLDocumentPluginNotRequired",
-                  "SBMLError",
-                  "SBMLErrorLog",
-                  "SBMLExtension",
-                  "SBMLExtensionException",
-                  "SBMLExtensionNamespaces",
-                  "SBMLExtensionRegister",
-                  "SBMLExtensionRegistry",
-                  "SBMLExternalValidator",
-                  "SBMLFunctionDefinitionConverter",
-                  "SBMLInitialAssignmentConverter",
-                  "SBMLLevelVersionConverter",
-                  "SBMLNamespaces",
-                  "SBMLNamespacesList",
-                  "SBMLReader",
-                  "SBMLRuleConverter",
-                  "SBMLStripPackageConverter",
-                  "SBMLUnitsConverter",
-                  "SBMLVisitor",
-                  "SBMLWriter",
-                  "SBO",
-                  "SBase",
-                  "SBaseExtensionPoint",
-                  "SBaseList",
-                  "SBasePlugin",
-                  "SBasePluginCreator",
-                  "SBasePluginCreatorBase",
-                  "SimpleSpeciesReference",
-                  "Species",
-                  "SpeciesReference",
-                  "SpeciesType",
-                  "StoichiometryMath",
-                  "SyntaxChecker",
-                  "Trigger",
-                  "Unit", 
-                  "UnitDefinition",
-                  "XMLAttributes",
-                  "XMLConstructorException",
-                  "XMLError",
-                  "XMLErrorLog",
-                  "XMLNamespaces",
-                  "XMLNode",
-                  "XMLToken",
-                  "XMLTriple" ]
+language         = ''
+doc_include_path = ''
+ignored_hfiles   = ['ListWrapper.h']
+ignored_ifiles   = ['std_string.i', 'javadoc.i', 'spatial-package.i']
+libsbmlclasses   = []
 
 # In some languages like C#, we have to be careful about the method declaration
 # that we put on the swig %{java|cs}methodmodifiers.  In particular, in C#, if
@@ -518,21 +418,22 @@ class CClassDoc:
 
 
 
-def getHeadersFromSWIG (filename, include_path, included_hfiles=[], parent_dirs=[]):
+def get_swig_files (swig_file, included_files=[], parent_dirs=[]):
   """
-  Reads the list of %include directives from the given SWIG (.i), and returns
-  a list of C/C++ headers (.h) found.  This uses a recursive algorithm.
+  Builds a list of all the files %include'd recursively from the given
+  SWIG .i file.
   """
 
   # Record directories encountered.
 
-  dir = os.path.abspath(os.path.join(filename, os.pardir))
+  dir = os.path.abspath(os.path.join(swig_file, os.pardir))
   if dir not in parent_dirs:
     parent_dirs.append(dir)
 
   # Read the current file.
 
-  stream = open(filename)
+  swig_file = os.path.normpath(os.path.abspath(os.path.join(dir, swig_file)))
+  stream = open(swig_file)
   lines  = stream.readlines()
   stream.close()
 
@@ -545,41 +446,70 @@ def getHeadersFromSWIG (filename, include_path, included_hfiles=[], parent_dirs=
   # Look for %include's of .i files, and read those as additional files to
   # search for .h files later below.
 
-  ignored_ifiles = ['std_string.i', 'javadoc.i', 'spatial-package.i']
-
   ifiles = [file for file in includes if file.strip().endswith('.i')]
   ifiles = [file for file in ifiles if file not in ignored_ifiles]
 
   # SWIG searches multiple paths for %include'd .i files.  We just look in
   # the directories of the .i files we encounter.
+  found_ifiles = []
   for ifilename in ifiles:
     search_dirs = ['.'] + parent_dirs
     for dir in search_dirs:
-      file = os.path.join(dir, ifilename)
-      if os.path.isfile(file):
-        included_hfiles.extend(getHeadersFromSWIG(file, include_path,
-                                                  included_hfiles, parent_dirs))
+      file = os.path.normpath(os.path.abspath(os.path.join(dir, ifilename)))
+      if os.path.isfile(file) and file not in included_files:
+        included_files.append(file)
+        found_ifiles.extend(get_swig_files(file, included_files, parent_dirs))
         break
 
-  # Now combine the .h files we found recursively with the ones we found in
-  # the current file.
+  return [swig_file] + found_ifiles
 
-  ignored_hfiles = ['ListWrapper.h']
 
-  hfiles = [file for file in includes if file.strip().endswith('.h')]
+
+def extract_header_files (file):
+  """
+  Return a list of the .h files found in the given SWIG .i file.
+  """
+
+  stream = open(file)
+  lines  = stream.readlines()
+  stream.close()
+  
+  includes = [line for line in lines if line.strip().startswith('%include')]
+  includes = [re.sub('["<>]', '', entry) for entry in includes]
+  includes = [file for file in includes if file.strip().endswith('.h')]
+  includes = [entry.replace('%include', '').strip() for entry in includes]
+
+  return includes
+
+
+
+def get_header_files (swig_files, include_path):
+  """
+  Reads the list of %include directives from the given SWIG (.i) files, and
+  returns a list of C/C++ headers (.h) found.  This uses a recursive algorithm.
+  """
+
+  hfiles = []
+  for file in swig_files:
+    hfiles.extend(extract_header_files(file))
+
+  # Remove .h files we ignore.
+
   hfiles = [file for file in hfiles if file not in ignored_hfiles]
-  hfiles.extend(included_hfiles)
 
-  # Convert the .h files to absolute paths.  This is slightly tricky because
-  # the file might be in the current directory, or in the include_path we
-  # were given, or in the directory of one of the .i files we encountered.
-  # So, we need to search them all.
+  # Convert the .h file names to absolute paths.  This is slightly tricky
+  # because the file might be in the current directory, or in the
+  # include_path we were given, or in the directory of one of the .i files we
+  # encountered.  So, we need to search them all.
+
+  search_dirs = [os.path.abspath('.')] + [os.path.abspath(include_path)]
+  for file in swig_files:
+    search_dirs.append(os.path.dirname(file))
 
   abs_hfiles = []
-  search_dirs = ['.'] + [include_path] + parent_dirs
-  for dir in search_dirs:
-    for file in hfiles:
-      abs_path = os.path.normpath(os.path.abspath(os.path.join(dir, file)))
+  for file in hfiles:
+    for dir in search_dirs:
+      abs_path = os.path.abspath(os.path.join(dir, file))
       if os.path.isfile(abs_path) and abs_path not in abs_hfiles:
         abs_hfiles.append(abs_path)
 
@@ -900,7 +830,7 @@ def sanitizeForHTML (docstring):
   # cross-links just for the Java case, let's automate.  This needs to be
   # done better (e.g., by not hard-wiring the class names).
 
-  p = re.compile(r'([^a-zA-Z0-9_.">])(' + '|'.join(libsbmlclasses) + r')\b([^:])', re.DOTALL)
+  p = re.compile(r'([^a-zA-Z0-9_.">])(' + '|'.join(libsbml_classes) + r')\b([^:])', re.DOTALL)
   if language == 'csharp':
     docstring = p.sub(translateClassRefCSharp, docstring)
   elif language == 'java':
@@ -982,9 +912,9 @@ def rewriteDocstringForJava (docstring):
 
   # Also use Java syntax instead of "const XMLNode*" etc.
 
-  p = re.compile(r'const (%?)(' + '|'.join(libsbmlclasses) + r')( ?)(\*|&)', re.DOTALL)
+  p = re.compile(r'const (%?)(' + '|'.join(libsbml_classes) + r')( ?)(\*|&)', re.DOTALL)
   docstring = p.sub(rewriteClassRefAddingSpace, docstring)  
-  p = re.compile(r'(%?)(' + '|'.join(libsbmlclasses) + r')( ?)(\*|&)', re.DOTALL)
+  p = re.compile(r'(%?)(' + '|'.join(libsbml_classes) + r')( ?)(\*|&)', re.DOTALL)
   docstring = p.sub(rewriteClassRefAddingSpace, docstring)  
 
   # Do the big work.
@@ -1067,9 +997,9 @@ def rewriteDocstringForCSharp (docstring):
 
   # Use C# syntax instead of "const XMLNode*" etc.
 
-  p = re.compile(r'const (%?)(' + '|'.join(libsbmlclasses) + r')( ?)(\*|&)', re.DOTALL)
+  p = re.compile(r'const (%?)(' + '|'.join(libsbml_classes) + r')( ?)(\*|&)', re.DOTALL)
   docstring = p.sub(rewriteClassRefAddingSpace, docstring)  
-  p = re.compile(r'(%?)(' + '|'.join(libsbmlclasses) + r')( ?)(\*|&)', re.DOTALL)
+  p = re.compile(r'(%?)(' + '|'.join(libsbml_classes) + r')( ?)(\*|&)', re.DOTALL)
   docstring = p.sub(rewriteClassRefAddingSpace, docstring)  
 
   # <code> has its own special meaning in C#; we have to turn our input
@@ -1165,9 +1095,9 @@ def rewriteDocstringForPython (docstring):
 
   # Also use Python syntax instead of "const XMLNode*" etc.
 
-  p = re.compile(r'const (%?)(' + '|'.join(libsbmlclasses) + r') ?(\*|&)', re.DOTALL)
+  p = re.compile(r'const (%?)(' + '|'.join(libsbml_classes) + r') ?(\*|&)', re.DOTALL)
   docstring = p.sub(rewriteClassRef, docstring)  
-  p = re.compile(r'(%?)(' + '|'.join(libsbmlclasses) + r') ?(\*|&)', re.DOTALL)
+  p = re.compile(r'(%?)(' + '|'.join(libsbml_classes) + r') ?(\*|&)', re.DOTALL)
   docstring = p.sub(rewriteClassRef, docstring)  
 
   # Need to escape the quotation marks:
@@ -1459,6 +1389,46 @@ def postProcessOutput(istream, ostream):
 
 
 
+def classes_in_header_file(filename):
+    classes = []
+    stream = open(filename)
+    for line in stream.readlines():
+        start = line.find('@class')
+        if start < 0:
+            continue
+        name = re.sub(r'\.', '', line[start + 6:]).strip()
+        if not (name.startswith("doc_") or name.startswith("is ")):
+          classes.append(name)
+
+    stream.close()
+    return classes
+
+
+
+def classes_in_swig_file(filename):
+    classes = []
+    stream = open(filename)
+    for line in stream.readlines():
+        start = line.find('%template(')
+        if start < 0:
+            continue
+        end = line.find(')')
+        name = line[start + 10:end].strip()
+        classes.append(name)
+
+    stream.close()
+    return classes
+
+
+
+def find_classes(files, func):
+    classes = []
+    for f in files:
+        classes += func(f)
+    return classes
+
+
+
 def main (args):
   """usage: swigdoc.py [java | python | perl | csharp] -Ipath -Dpath libsbml.i output.i
 
@@ -1468,34 +1438,45 @@ def main (args):
   output.i                       is the file to output the SWIG docstrings.
   """
 
+  global doc_include_path
+  global header_files
+  global language
+  global libsbml_classes
+
   if len(args) != 6:
     print((main.__doc__))
     sys.exit(1)
 
-  global doc_include_path
-  global language
-
   language         = args[1]
   h_include_path   = args[2].replace('-I', '')
   doc_include_path = args[3].replace('-D', '')
-  main_ifile       = os.path.abspath(args[4]) # libsbml.i
-  output_ifile     = args[5]                  # some_output.i
-  headers          = getHeadersFromSWIG(main_ifile, h_include_path)
+  main_swig_file   = os.path.abspath(args[4]) # libsbml.i
+  output_swig_file = args[5]
 
   # We first write all our output to a temporary file.  Later, we open this
   # file, post-process it, and write the final output to the real destination.
 
-  tmpfilename = output_ifile + ".tmp"
+  tmpfilename = output_swig_file + ".tmp"
   stream      = open(tmpfilename, 'w')
 
-  # Now starts the main processing pass.
+  # Find all class names, by searching header files for @class declarations
+  # and SWIG .i files for %template declarations.  We need this list to
+  # recognize when class names are mentioned inside documentation text.
 
+  swig_files       = get_swig_files(main_swig_file)
+  header_files     = get_header_files(swig_files, h_include_path)
+  libsbml_classes  = find_classes(header_files, classes_in_header_file)
+  libsbml_classes += find_classes(swig_files, classes_in_swig_file)
+  libsbml_classes  = sorted(list(set(libsbml_classes)))
+
+  # Now, do the main processing pass, writing the output as we go along.
+  
   if language == 'perl':
     infile = open(os.path.abspath('LibSBML.txt'), 'r')
     stream.write(infile.read())
     stream.write('=head1 FUNCTION INDEX\n\n=over 8\n\n')
 
-  for file in headers:
+  for file in header_files:
     processFile(file, stream)
 
   if os.path.exists('local-doc-extras.i'):
@@ -1511,7 +1492,7 @@ def main (args):
   # results to the real destination (which is given as arg[5]).
 
   tmpstream   = open(tmpfilename, 'r')
-  finalstream = open(output_ifile, 'w')
+  finalstream = open(output_swig_file, 'w')
   postProcessOutput(tmpstream, finalstream)
 
   try:
