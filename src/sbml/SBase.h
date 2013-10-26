@@ -2430,9 +2430,9 @@ s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></b
 
 
   /**
-   * Returns the Model object in which the current object is located.
+   * Returns the Model object for the SBML Document in which the current object is located.
    * 
-   * @return the parent Model of this SBML object.
+   * @return the Model object for the SBML Document of this SBML object.
    *
    * @see getParentSBMLObject()
    * @see getSBMLDocument()
