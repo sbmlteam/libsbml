@@ -521,10 +521,10 @@ typedef enum
 
 
 /**
- * Severity override codes for errors logged
+ * Severity override codes for errors logged in the XML layer.
  *
- * The XMLErrorLog can be configured to not log errors by specifying 
- * one of these enum values below. 
+ * XMLErrorLog can be configured to not log errors by specifying one of these
+ * enum values below.
  *
  */
 typedef enum 
