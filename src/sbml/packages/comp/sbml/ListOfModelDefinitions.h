@@ -27,7 +27,7 @@
  * 
  * @copydetails doc_what_is_listof
  *
- * @see ModelDefinitions
+ * @see ModelDefinition
  * @see ListOfDeletions
  * @see ListOfExternalModelDefinitions
  * @see ListOfPorts

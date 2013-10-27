@@ -588,12 +588,13 @@ public:
    *
    * @return the URI this elements  
    *
-   * @see getPackageName
-   * @see getElementNamespace
-   * @see SBMLDocument::getSBMLNamespaces
-   * @see getSBMLDocument
+   * @see getPackageName()
+   * @see getElementNamespace()
+   * @see SBMLDocument::getSBMLNamespaces()
+   * @see getSBMLDocument()
    */
   std::string getURI() const;
+
 
   /**
    * Returns the parent SBase object to which this plugin 

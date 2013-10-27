@@ -471,7 +471,8 @@ public:
   /**
    * Returns the index of the species reference glyph with the given @p id.
    * If the reaction glyph does not contain a species reference glyph with this
-   * id, numeric_limits<unsigned int>::max() is returned.
+   * id, @if cpp numeric_limits<unsigned int>::max() @endif@if notcpp the
+   * value of the maximum long integer@endif@~ is returned as an indicator.
    */
   
   unsigned int

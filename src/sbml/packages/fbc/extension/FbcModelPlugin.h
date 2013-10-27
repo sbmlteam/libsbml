@@ -661,7 +661,7 @@ public:
    * Enables/Disables the given package with child elements in this plugin
    * object (if any).
    * (This is an internal implementation invoked from
-   *  SBase::enablePakcageInternal() function)
+   *  SBase::enablePackageInternal() function)
    *
    * @note Subclasses in which one or more SBase derived elements are
    * defined must override this function.

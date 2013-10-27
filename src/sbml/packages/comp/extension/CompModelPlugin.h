@@ -405,7 +405,7 @@ public:
    * (&quot;<code>__</code>&quot;) by default, and can be overridden
    * with the setDivider() function.
    *
-   * @see setDivider()
+   * @see setDivider(const std::string& divider)
    */
   std::string getDivider();
 

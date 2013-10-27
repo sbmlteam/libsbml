@@ -267,8 +267,8 @@ public:
    * @return ModelDefinition in the ListOfModelDefinitions with the given @p sid
    * or @c NULL if no such ModelDefinition exists.
    *
-   * @see get(unsigned int n)
-   * @see size()
+   * @see getModelDefinition(unsigned int n)
+   * @see getListOfModelDefinitions()
    */
   ModelDefinition* getModelDefinition (const std::string& sid);
 
@@ -282,8 +282,8 @@ public:
    * @return ModelDefinition in the ListOfModelDefinitions with the given @p sid
    * or @c NULL if no such ModelDefinition exists.
    *
-   * @see get(unsigned int n)
-   * @see size()
+   * @see getModelDefinition(unsigned int n)
+   * @see getListOfModelDefinitions()
    */
   const ModelDefinition* getModelDefinition (const std::string& sid) const;
 
@@ -399,8 +399,8 @@ public:
    * @return ExternalModelDefinition in the ListOfExternalModelDefinitions with the given @p sid
    * or @c NULL if no such ExternalModelDefinition exists.
    *
-   * @see get(unsigned int n)
-   * @see size()
+   * @see getExternalModelDefinition(unsigned int n)
+   * @see getListOfExternalModelDefinitions()
    */
   ExternalModelDefinition* getExternalModelDefinition (const std::string& sid);
 
@@ -414,8 +414,8 @@ public:
    * @return ExternalModelDefinition in the ListOfExternalModelDefinitions with the given @p sid
    * or @c NULL if no such ExternalModelDefinition exists.
    *
-   * @see get(unsigned int n)
-   * @see size()
+   * @see getExternalModelDefinition(unsigned int n)
+   * @see getListOfExternalModelDefinitions()
    */
   const ExternalModelDefinition* getExternalModelDefinition (const std::string& sid) const;
 

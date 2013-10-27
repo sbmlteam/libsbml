@@ -530,7 +530,8 @@ public:
   /**
    * Returns the index of the reference glyph with the given @p id.
    * If the glyph does not contain a reference glyph with this
-   * id, numeric_limits<unsigned int>::max() is returned.
+   * id, @if cpp numeric_limits<unsigned int>::max() @endif@if notcpp the
+   * value of the maximum long integer@endif@~ is returned as an indicator.
    */
   
   unsigned int
@@ -539,7 +540,8 @@ public:
   /**
    * Returns the index of the subglyph with the given @p id.
    * If the glyph does not contain a subglyph with this
-   * id, numeric_limits<unsigned int>::max() is returned.
+   * id, @if cpp numeric_limits<unsigned int>::max() @endif@if notcpp the
+   * value of the maximum long integer@endif@~ is returned as an indicator.
    */
   
   unsigned int
