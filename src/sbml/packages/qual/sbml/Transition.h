@@ -302,7 +302,6 @@ public:
    * Input exists.
    *
    * @see getInput(unsigned int n)
-   *
    * @see getNumInputs()
    */
   Input* getInput(const std::string& sid);

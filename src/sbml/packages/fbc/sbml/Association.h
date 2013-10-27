@@ -21,7 +21,11 @@
  * @brief @htmlinclude pkg-marker-fbc.html
  * Implementation of the 'fbc' proposed package %Association construct.
  *
- * The Association class is not part of the official Flux Balance specification, but is instead a proposed future development of the package.  If adopted, it would be a child of a GeneAssociation that would describe a single 'and' or 'or' relationship between two or more genes or other associations. 
+ * The Association class is not part of the official Flux Balance
+ * specification, but is instead a proposed future development of the
+ * package.  If adopted, it would be a child of a GeneAssociation that would
+ * describe a single 'and' or 'or' relationship between two or more genes or
+ * other associations.
  */
 
 #ifndef Association_H__

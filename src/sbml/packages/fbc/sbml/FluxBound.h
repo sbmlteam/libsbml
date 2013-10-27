@@ -21,8 +21,8 @@
  * @brief @htmlinclude pkg-marker-fbc.html
  * Implementation of the 'fbc' package %FluxBound construct.
  *
- * The FluxBound object holds a single (in)equality that provides the maximum or minimum value that a reaction flux can obtain at steady state.  
- * <!-- leave this next break as-is to work around some doxygen bug -->
+ * The FluxBound object holds a single (in)equality that provides the maximum
+ * or minimum value that a reaction flux can obtain at steady state.
  */ 
 
 #ifndef FluxBound_H__
@@ -36,7 +36,12 @@
 LIBSBML_CPP_NAMESPACE_BEGIN
 
   /**
-   * The FluxBoundOperation_t enumeration contains the possible values for the FluxBound 'operation' attribute.  The possible legal values are less than or equal to, greater than or equal to, or equal to.  The two options 'less than' and 'greater than' are not legal values for the FluxBound 'operation' attribute, but are provided to allow backwards compatibility with an earlier version of the draft specification.
+   * The FluxBoundOperation_t enumeration contains the possible values for
+   * the FluxBound 'operation' attribute.  The possible legal values are less
+   * than or equal to, greater than or equal to, or equal to.  The two
+   * options 'less than' and 'greater than' are not legal values for the
+   * FluxBound 'operation' attribute, but are provided to allow backwards
+   * compatibility with an earlier version of the draft specification.
    */
 typedef enum
 {
