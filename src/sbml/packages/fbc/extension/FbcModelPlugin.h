@@ -231,8 +231,8 @@ public:
    * @return FluxBound in the ListOfFluxBounds with the given @p sid
    * or NULL if no such FluxBound exists.
    *
-   * @see get(unsigned int n)
-   * @see size()
+   * @see getFluxBound(unsigned int n)
+   * @see getListOfFluxBounds()
    */
   FluxBound* getFluxBound (const std::string& sid);
 
@@ -246,10 +246,11 @@ public:
    * @return FluxBound in the ListOfFluxBounds with the given @p sid 
    * or NULL if no such FluxBound exists.
    *
-   * @see get(unsigned int n)
-   * @see size()
+   * @see getFluxBound(unsigned int n)
+   * @see getListOfFluxBounds()
    */
   const FluxBound* getFluxBound (const std::string& sid) const;
+
 
   /**
    * Adds a copy of the given FluxBound object to the list of FluxBounds.
@@ -362,8 +363,8 @@ public:
    * @return Objective in the ListOfObjectives with the given @p id
    * or NULL if no such Objective exists.
    *
-   * @see get(unsigned int n)
-   * @see size()
+   * @see getObjective(unsigned int n)
+   * @see getListOfObjectives()
    */
   Objective* getObjective (const std::string& sid);
 
@@ -377,10 +378,11 @@ public:
    * @return Objective in the ListOfObjectives with the given @p sid 
    * or NULL if no such Objective exists.
    *
-   * @see get(unsigned int n)
-   * @see size()
+   * @see getObjective(unsigned int n)
+   * @see getListOfObjectives()
    */
   const Objective* getObjective (const std::string& sid) const;
+
 
   /**
    * Adds a copy of the given Objective object to the list of Objectives.
@@ -515,8 +517,8 @@ public:
    * @return GeneAssociation in the ListOfGeneAssociations with the given @p sid
    * or NULL if no such GeneAssociation exists.
    *
-   * @see get(unsigned int n)
-   * @see size()
+   * @see getGeneAssociation(unsigned int n)
+   * @see getListOfGeneAssociations()
    */
   GeneAssociation* getGeneAssociation (const std::string& sid);
 
@@ -530,10 +532,11 @@ public:
    * @return GeneAssociation in the ListOfGeneAssociations with the given @p sid 
    * or NULL if no such GeneAssociation exists.
    *
-   * @see get(unsigned int n)
-   * @see size()
+   * @see getGeneAssociation(unsigned int n)
+   * @see getListOfGeneAssociations()
    */
   const GeneAssociation* getGeneAssociation (const std::string& sid) const;
+
 
   /**
    * Adds a copy of the given GeneAssociation object to the list of GeneAssociations.

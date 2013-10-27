@@ -195,8 +195,8 @@ public:
    * @return QualitativeSpecies in the ListOfQualitativeSpecies with the given id
    * or NULL if no such QualitativeSpecies exists.
    *
-   * @see get(unsigned int n)
-   * @see size()
+   * @see getQualitativeSpecies(unsigned int n)
+   * @see getListOfQualitativeSpecies()
    */
   QualitativeSpecies* getQualitativeSpecies (const std::string& sid);
 
@@ -210,10 +210,11 @@ public:
    * @return QualitativeSpecies in the ListOfQualitativeSpecies with the given id 
    * or NULL if no such QualitativeSpecies exists.
    *
-   * @see get(unsigned int n)
-   * @see size()
+   * @see getQualitativeSpecies(unsigned int n)
+   * @see getListOfQualitativeSpecies()
    */
   const QualitativeSpecies* getQualitativeSpecies (const std::string& sid) const;
+
 
   /**
    * Adds a copy of the given QualitativeSpecies object to the list of qual.
@@ -324,8 +325,8 @@ public:
    * @return Transition in the ListOfTransitions with the given id
    * or NULL if no such Transition exists.
    *
-   * @see get(unsigned int n)
-   * @see size()
+   * @see getTransition(unsigned int n)
+   * @see getListOfTransitions()
    */
   Transition* getTransition (const std::string& sid);
 
@@ -339,10 +340,11 @@ public:
    * @return Transition in the ListOfTransitions with the given id 
    * or NULL if no such Transition exists.
    *
-   * @see get(unsigned int n)
-   * @see size()
+   * @see getTransition(unsigned int n)
+   * @see getListOfTransitions()
    */
   const Transition* getTransition (const std::string& sid) const;
+
 
   /**
    * Adds a copy of the given Transition object to the list of qual.
