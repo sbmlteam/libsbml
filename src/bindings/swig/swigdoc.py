@@ -172,7 +172,7 @@ class CHeader:
       # remove them from the documentation.
 
       if (stripped.find('@cond doxygenLibsbmlInternal') >= 0): isInternal = True
-      if (stripped.find('@endcond') >= 0):                       isInternal = False
+      if (stripped.find('@endcond') >= 0):                     isInternal = False
 
       # Watch for class description, usually at top of file.
 
@@ -281,8 +281,13 @@ class CHeader:
               args     = lines[searchstart + stop : endparen + 1]
               isConst  = lines[endparen:].rfind('const')
 
-              # Remove embedded HTML comments before we store the doc string.
-              docstring = removeHTMLcomments(docstring)
+              if len(docstring) > 0:
+                # Remove embedded HTML comments before we store the doc string.
+                docstring = removeHTMLcomments(docstring)
+              else:
+                # We have an empty docstring.  Put in something so that later
+                # stages can do whatever postprocessing they need.
+                docstring = '/** */'
 
               # Swig doesn't seem to mind C++ argument lists, even though they
               # have "const", "&", etc. So I'm leaving the arg list unmodified.
@@ -290,6 +295,7 @@ class CHeader:
 
               # Reset buffer for the next iteration, to skip the part seen.
               lines = lines[endparen + 2:]
+              docstring = ''
 
               if inClass:
                 c = self.classes[-1]
