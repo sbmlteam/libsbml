@@ -793,7 +793,7 @@ def sanitizeForHTML (docstring):
   # but ditch @image latex.
 
   p = re.compile('@image\s+html+\s+([^\s]+).*$', re.MULTILINE)
-  docstring = p.sub(r"<center><img src='\1'></center><br>", docstring)
+  docstring = p.sub(r"<center class='image'><img src='\1'></center>", docstring)
   p = re.compile('@image\s+latex+\s+([^\s]+).*$', re.MULTILINE)
   docstring = p.sub(r'', docstring)
 

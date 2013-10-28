@@ -204,6 +204,14 @@ img.footer
 {
 }
 
+/* The following is based on the code our swigdoc.py emits for @image. */
+
+center.image
+{
+    margin-top: 1.5em;
+    margin-bottom: 1em;
+}
+
 .footercomment 
 {
     font-family: Verdana, Helvetica, Arial, Sans, sans-serif;
