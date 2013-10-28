@@ -504,8 +504,8 @@ public:
    *
    * @param d the SBMLDocument object to use
    *
-   * @see connectToParent
-   * @see enablePackageInternal
+   * @see connectToParent()
+   * @see enablePackageInternal()
    */
   virtual void setSBMLDocument (SBMLDocument* d);
   /** @endcond */
@@ -525,8 +525,10 @@ public:
    *
    * @param sbase the SBase object to use
    *
-   * @see setSBMLDocument
-   * @see enablePackageInternal
+   * @if cpp 
+   * @see setSBMLDocument()
+   * @see enablePackageInternal()
+   * @endif
    */
   virtual void connectToParent (SBase *sbase);
   /** @endcond */
@@ -543,8 +545,10 @@ public:
    * override this function if elements defined in them can be extended by
    * some other package extension.
    *
-   * @see setSBMLDocument
-   * @see connectToParent
+   * @if cpp 
+   * @see setSBMLDocument()
+   * @see connectToParent()
+   * @endif
    */
   virtual void enablePackageInternal(const std::string& pkgURI,
                                      const std::string& pkgPrefix, bool flag);
