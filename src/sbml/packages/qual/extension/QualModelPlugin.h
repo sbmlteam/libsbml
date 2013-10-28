@@ -443,6 +443,7 @@ public:
   /** @endcond */
 
 
+  /** @cond doxygenLibsbmlInternal */
   /**
    * Sets the parent SBML object of this plugin object to
    * this object and child elements (if any).
@@ -460,8 +461,10 @@ public:
    * @see enablePackageInternal
    */
   virtual void connectToParent (SBase *sbase);
+  /** @endcond */
 
 
+  /** @cond doxygenLibsbmlInternal */
   /**
    * Enables/Disables the given package with child elements in this plugin
    * object (if any).
@@ -476,13 +479,17 @@ public:
    */
   virtual void enablePackageInternal(const std::string& pkgURI,
                                      const std::string& pkgPrefix, bool flag);
+  /** @endcond */
 
+
+  /** @cond doxygenLibsbmlInternal */
   /**
    * Accepts the given SBMLVisitor.
    */
   virtual bool accept (SBMLVisitor& v) const;
 
   /** @endcond */
+
 
 protected:
   /** @cond doxygenLibsbmlInternal */

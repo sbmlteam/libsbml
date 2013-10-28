@@ -341,8 +341,10 @@ public:
    *
    * @param sbase the SBase object to use
    *
+   * @if cpp 
    * @see setSBMLDocument
    * @see enablePackageInternal
+   * @endif
    */
   virtual void connectToParent (SBase *sbase);
   /** @endcond */
@@ -358,20 +360,21 @@ public:
    * @note Subclasses in which one or more SBase derived elements are
    * defined must override this function.
    *
+   * @if cpp 
    * @see setSBMLDocument
    * @see connectToParent
+   * @endif
    */
   virtual void enablePackageInternal(const std::string& pkgURI,
                                      const std::string& pkgPrefix, bool flag);
   /** @endcond */
 
 
+  /** @cond doxygenLibsbmlInternal */
 
-	/** @cond doxygenLibsbmlInternal */
+  virtual bool accept (SBMLVisitor& v) const;
 
-	virtual bool accept (SBMLVisitor& v) const;
-
-	/** @endcond */
+  /** @endcond */
 
 
 protected:
