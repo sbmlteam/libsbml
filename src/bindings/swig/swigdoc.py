@@ -867,6 +867,19 @@ def sanitizeForHTML (docstring):
   p = re.compile(r'(@see.+?)<p>.+?@see', re.DOTALL)
   docstring = p.sub(r'\1@see', docstring)
 
+  # If the doc string ends with <p> followed by */, then javadoc parses it
+  # incorrectly.  Since we typically end class and method docs with a list of
+  # @see's, the consequence is that it omits the last entry of a list of
+  # @see's.  The behavior is totally baffling, but let's just deal with it.
+  # The two forms below are because, when we are processing method doc
+  # strings, they do not yet end with "*/" when we process them here, so we
+  # match against either the end of the string or a "*/".)
+
+  p = re.compile(r'(<p>\s*)+\*/', re.MULTILINE)
+  docstring = p.sub(r'*/', docstring)
+  p = re.compile(r'(<p>\s*)+\Z', re.MULTILINE)
+  docstring = p.sub(r'', docstring)
+
   # Take out any left-over Doxygen-style quotes, because Javadoc doesn't have
   # the %foo quoting mechanism.
 
@@ -928,9 +941,9 @@ def rewriteDocstringForJava (docstring):
   docstring = sanitizeForHTML(docstring)
 
   # Fix up for a problem introduced by sanitizeForHTML: it puts {@link ...}
-  # into the arguments of functions mentioned in @see's, if the function
-  # has more than one argument.  This gets rid of the @link's.  This should
-  # be fixed properly some day.
+  # into the arguments of functions mentioned in @see's, if the function has
+  # more than one argument.  The following gets rid of the @link's.  This
+  # should be fixed properly some day.
 
   p = re.compile(r'((@see|@throws)\s+[\w\\ ,.\'"=<>()#]*?){@link\s+([^}]+?)}')
   while re.search(p, docstring) != None:
@@ -1176,9 +1189,9 @@ def rewriteDocstringForPerl (docstring):
   docstring = re.sub('@em *([^ ,.:;()/*\n\t<]+)', r'I<\1>', docstring)
   docstring = re.sub('@em(\n[ \t]*\*[ \t]*)([^ ,.:;()/*\n\t<]+)', r'\1I<\2>', docstring)
 
-  docstring = docstring.replace('<ul>', '\n=over\n')
-  docstring = docstring.replace('<li> ', '\n=item\n\n')
-  docstring = docstring.replace('</ul>', '\n=back\n')
+  docstring = docstring.replace('<ul>', r'\n=over\n')
+  docstring = docstring.replace('<li> ', r'\n=item\n\n')
+  docstring = docstring.replace('</ul>', r'\n=back\n')
 
   docstring = docstring.replace('@return', 'Returns')
   docstring = docstring.replace(' < ', ' E<lt> ').replace(' > ', ' E<gt> ')
