@@ -105,15 +105,6 @@ CompBase::getPackageURI() const
 }
 
 /*
- * Returns the prefix bound to this element.
- */
-const std::string& 
-CompBase::getPrefix() const
-{
-  return mSBMLExt->getName();
-}
-
-/*
  * Returns the package name of this object.
  */
 const std::string& 
