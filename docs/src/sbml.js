@@ -66,5 +66,60 @@ function alternateRowColors()
   }
 }
 
+
 hookEvent("load", alternateRowColors);
 
+
+/*
+ * The next horrendous hack is because Javadoc has a ridiculous implementation
+ * of custom tags, with the following behavior: if you have two custom tags
+ * like our @note in a row, in the output it produces 
+ *
+ *    <p>, The text of the note....
+ *
+ * In other words, it puts a comma followed by a space for the second and
+ * subsequent @note entries, but it does nothing to distinguish them.  The
+ * output then has this leading comma in the text.  Without any classes or
+ * other distinguishing features, we can't format the result or do something
+ * smart to fix the situation.  Custom taglets are no use: it turns out that
+ * custom taglets suffer from a different limitation, which is that their
+ * content is not processed -- so any Javadoc tags in the content are left
+ * unprocessed in the output.  Thus, we can't use a custom taglet to implement
+ * our @note and other tags, and we can't fix the leading comma introduced
+ * by Javadoc short of implementing our *own* version of Javadoc.  
+ * 
+ * In desperation, I wrote the following Javascript code to search for the
+ * places where the leading comma is (usually) introduced, and remove it
+ * by manipulating the HTML in the browser.
+ *
+ * 2013-10-28 <mhucka@caltech.edu>
+ */
+
+function fixCommas()
+{
+    // All the cases we're looking for are inside <dl><dd> elements inside
+    // method descriptions.
+    var dd_elements = document.getElementsByTagName("dd");
+    var dd_elements_len = dd_elements.length;
+
+    // Look for paragraphs that start with ", " and manipulate them.
+    for (var i = 0; i < dd_elements_len; i++)
+    {
+        var this_dl = dd_elements[i];
+        var p_elements = this_dl.getElementsByTagName("p");
+        var p_elements_len = p_elements.length;
+        for (var j = 0; j < p_elements_len; j++)
+        {
+            var text = p_elements[j].innerHTML;
+            if (text.substring(0, 2) == ", ") {
+                var len = text.length;
+                p_elements[j].innerHTML = text.substring(2, len - 2);
+                // And let's make it possible to use some CSS with this:
+                p_elements[j].setAttribute('class', 'note');
+            }
+        }
+    }
+}
+
+
+hookEvent("load", fixCommas);

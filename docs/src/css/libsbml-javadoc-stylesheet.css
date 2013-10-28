@@ -303,3 +303,11 @@ body > dl
 {
     color: #8b0000;
 }
+
+/* This next one works in concert with some code in our sbml.js, to
+fix a problem with Javadoc's formatting of multiple custom tags. */
+
+p.note
+{
+    margin-top: 0.5em;
+}
