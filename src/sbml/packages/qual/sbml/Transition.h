@@ -200,11 +200,9 @@ public:
    * @param id; const std::string& value of the "id" attribute to be set
    *
    * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
-   * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
-   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+   * operation. The possible return values are:
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+   * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE @endlink
    */
   virtual int setId(const std::string& id);
 
@@ -215,11 +213,9 @@ public:
    * @param name; const std::string& value of the "name" attribute to be set
    *
    * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
-   * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
-   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+   * operation. The possible return values are:
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+   * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE @endlink
    */
   virtual int setName(const std::string& name);
 
@@ -228,11 +224,9 @@ public:
    * Unsets the value of the "id" attribute of this Transition.
    *
    * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
-   * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
-   * @li LIBSBML_OPERATION_FAILED
+   * operation. The possible return values are:
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
    */
   virtual int unsetId();
 
@@ -241,11 +235,9 @@ public:
    * Unsets the value of the "name" attribute of this Transition.
    *
    * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
-   * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
-   * @li LIBSBML_OPERATION_FAILED
+   * operation. The possible return values are:
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
    */
   virtual int unsetName();
 
@@ -367,11 +359,9 @@ public:
    * @param i; the Input object to add
    *
    * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
-   * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
-   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+   * operation. The possible return values are:
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+   * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE @endlink
    */
   int addInput(const Input* i);
 
@@ -542,11 +532,9 @@ public:
    * @param o; the Output object to add
    *
    * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
-   * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
-   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+   * operation. The possible return values are:
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+   * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE @endlink
    */
   int addOutput(const Output* o);
 
@@ -681,11 +669,9 @@ public:
    * @param ft; the FunctionTerm object to add
    *
    * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
-   * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
-   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+   * operation. The possible return values are:
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+   * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE @endlink
    */
   int addFunctionTerm(const FunctionTerm* ft);
 
@@ -755,11 +741,9 @@ public:
    * @param dt; the DefaultTerm object to add
    *
    * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
-   * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
-   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+   * operation. The possible return values are:
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+   * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE @endlink
    */
   int setDefaultTerm(const DefaultTerm* dt);
 

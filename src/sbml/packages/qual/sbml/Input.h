@@ -260,11 +260,9 @@ public:
    * @param id; const std::string& value of the "id" attribute to be set
    *
    * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
-   * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
-   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+   * operation. The possible return values are:
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+   * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE @endlink
    */
   virtual int setId(const std::string& id);
 
@@ -275,11 +273,9 @@ public:
    * @param qualitativeSpecies; const std::string& value of the "qualitativeSpecies" attribute to be set
    *
    * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
-   * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
-   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+   * operation. The possible return values are:
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+   * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE @endlink
    */
   virtual int setQualitativeSpecies(const std::string& qualitativeSpecies);
 
@@ -290,11 +286,9 @@ public:
    * @param transitionEffect; const std::string& value of the "transitionEffect" attribute to be set
    *
    * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
-   * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
-   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+   * operation. The possible return values are:
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+   * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE @endlink
    */
   int setTransitionEffect(const InputTransitionEffect_t transitionEffect);
 
@@ -305,11 +299,9 @@ public:
    * @param name; const std::string& value of the "name" attribute to be set
    *
    * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
-   * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
-   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+   * operation. The possible return values are:
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+   * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE @endlink
    */
   virtual int setName(const std::string& name);
 
@@ -320,11 +312,9 @@ public:
    * @param sign; const std::string& value of the "sign" attribute to be set
    *
    * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
-   * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
-   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+   * operation. The possible return values are:
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+   * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE @endlink
    */
   int setSign(const InputSign_t sign);
 
@@ -335,11 +325,9 @@ public:
    * @param thresholdLevel; int value of the "thresholdLevel" attribute to be set
    *
    * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
-   * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
-   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+   * operation. The possible return values are:
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+   * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE @endlink
    */
   virtual int setThresholdLevel(int thresholdLevel);
 
@@ -348,11 +336,9 @@ public:
    * Unsets the value of the "id" attribute of this Input.
    *
    * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
-   * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
-   * @li LIBSBML_OPERATION_FAILED
+   * operation. The possible return values are:
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
    */
   virtual int unsetId();
 
@@ -361,11 +347,9 @@ public:
    * Unsets the value of the "qualitativeSpecies" attribute of this Input.
    *
    * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
-   * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
-   * @li LIBSBML_OPERATION_FAILED
+   * operation. The possible return values are:
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
    */
   virtual int unsetQualitativeSpecies();
 
@@ -374,11 +358,9 @@ public:
    * Unsets the value of the "transitionEffect" attribute of this Input.
    *
    * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
-   * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
-   * @li LIBSBML_OPERATION_FAILED
+   * operation. The possible return values are:
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
    */
   int unsetTransitionEffect();
 
@@ -387,11 +369,9 @@ public:
    * Unsets the value of the "name" attribute of this Input.
    *
    * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
-   * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
-   * @li LIBSBML_OPERATION_FAILED
+   * operation. The possible return values are:
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
    */
   virtual int unsetName();
 
@@ -400,11 +380,9 @@ public:
    * Unsets the value of the "sign" attribute of this Input.
    *
    * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
-   * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
-   * @li LIBSBML_OPERATION_FAILED
+   * operation. The possible return values are:
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
    */
   virtual int unsetSign();
 
@@ -413,11 +391,9 @@ public:
    * Unsets the value of the "thresholdLevel" attribute of this Input.
    *
    * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
-   * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
-   * @li LIBSBML_OPERATION_FAILED
+   * operation. The possible return values are:
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
    */
   virtual int unsetThresholdLevel();
 

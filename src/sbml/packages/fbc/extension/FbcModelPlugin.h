@@ -258,10 +258,8 @@ public:
    * @param bound the FluxBound object to be added to the list of FluxBounds.
    *
    * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
-   * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
+   * operation. The possible return values are:
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    */ 
   int addFluxBound (const FluxBound* bound);
 
@@ -390,10 +388,8 @@ public:
    * @param bound the Objective object to be added to the list of Objectives.
    *
    * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
-   * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
+   * operation. The possible return values are:
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    */ 
   int addObjective (const Objective* bound);
 
@@ -544,10 +540,8 @@ public:
    * @param association the GeneAssociation object to be added to the list of GeneAssociations.
    *
    * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
-   * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
+   * operation. The possible return values are:
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    */ 
   int addGeneAssociation (const GeneAssociation* association);
 

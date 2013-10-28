@@ -222,10 +222,8 @@ public:
    * @param qualitativeSpecies the QualitativeSpecies object to be added to the list of qual.
    *
    * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
-   * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
+   * operation. The possible return values are:
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    */ 
   int addQualitativeSpecies (const QualitativeSpecies* qualitativeSpecies);
 
@@ -352,10 +350,8 @@ public:
    * @param transition the Transition object to be added to the list of qual.
    *
    * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
-   * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
+   * operation. The possible return values are:
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    */ 
   int addTransition (const Transition* transition);
 

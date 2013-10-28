@@ -98,7 +98,7 @@ public:
    * function.  @if clike The value is drawn from the
    * enumeration #OperationReturnValues_t. @endif The only possible value
    * returned by this function is:
-   * @li LIBSBML_OPERATION_SUCCESS
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    */
   virtual int setCharge(int charge);
 
@@ -116,7 +116,7 @@ public:
    * function.  @if clike The value is drawn from the
    * enumeration #OperationReturnValues_t. @endif The only possible value
    * returned by this function is:
-   * @li LIBSBML_OPERATION_SUCCESS
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    */
   virtual int unsetCharge();
 
@@ -137,7 +137,7 @@ public:
    * function.  @if clike The value is drawn from the
    * enumeration #OperationReturnValues_t. @endif The only possible value
    * returned by this function is:
-   * @li LIBSBML_OPERATION_SUCCESS
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    */
   virtual int setChemicalFormula(const std::string& chemicalFormula);
 
@@ -155,7 +155,7 @@ public:
    * function.  @if clike The value is drawn from the
    * enumeration #OperationReturnValues_t. @endif The only possible value
    * returned by this function is:
-   * @li LIBSBML_OPERATION_SUCCESS
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    */
   virtual int unsetChemicalFormula();
   
