@@ -187,8 +187,8 @@ examples =                                                          \
   examples/java/unsetAnnotation.java                                \
   examples/java/unsetNotes.java                                     \
   examples/java/validateSBML.java                                   \
-  examples/java/layout/example1.java                                \
-  examples/java/layout/example1_L3.java                             \
+  examples/java/layout/layout_example1.java                                \
+  examples/java/layout/layout_example1_L3.java                             \
   examples/perl/layout/example1-L3.pl                               \
   examples/python/layout/example1-L3.py                             \
   examples/ruby/layout/example1-L3.rb                               \
