@@ -1,0 +1,34 @@
+##libSBML @PACKAGE_VERSION@
+###Python interface installer for 64-bit Windows operating systems
+
+IMPORTANT: Please uninstall any existing copy of libSBML located in
+the same destination on your computer before you install libSBML using
+these installers, or you may end up with mixed versions of different
+libSBML components on your system.
+
+This directory contains the Python-only installer for libSBML.  This
+contains ONLY the precompiled Python interface plus the core libSBML native
+library.  Download this if you only need to use libSBML from Python and do
+not need the rest of the libSBML distribution.
+
+For detailed information about how to make libSBML accessible to your
+software, please visit the following URL:
+
+[http://sbml.org/Software/libSBML/docs/python-api/libsbml-accessing.html](http://sbml.org/Software/libSBML/docs/python-api/libsbml-accessing.html)
+
+Documentation for the libSBML Python API is available for downloading
+from [http://sourceforge.net/projects/sbml/files/libsbml/@PACKAGE_VERSION@/](http://sourceforge.net/projects/sbml/files/libsbml/@PACKAGE_VERSION@/) and it
+is available for viewing online at
+
+[http://sbml.org/Software/libSBML/docs/python-api](http://sbml.org/Software/libSBML/docs/python-api)
+
+Please report any problems with libSBML using the tracker at
+
+[http://sbml.org/Software/libSBML/issue-tracker](http://sbml.org/Software/libSBML/issue-tracker)
+
+Thank you for your interest in libSBML!
+
+The LibSBML Team.
+
+
+![SBML Logo](http://sbml.org/images/8/82/Official-sbml-supported-70.jpg)

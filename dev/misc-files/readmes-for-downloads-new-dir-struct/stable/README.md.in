@@ -1,0 +1,47 @@
+##libSBML @PACKAGE_VERSION@
+
+This directory contains the stable release of libSBML @PACKAGE_VERSION@. Here you
+will find the following:
+
+*  [Mac OS X](Mac%20OS%20X) -- folder of binary installers for Mac OS X systems
+*  [Windows](Windows)  -- folder of binary installers for Microsoft Windows systems
+*  [Linux](Linux)    -- folder of binary installers for Linux systems
+
+Code for core libSBML only:
+
+*  [libSBML-@PACKAGE_VERSION@-core-src.zip](libSBML-@PACKAGE_VERSION@-core-src.zip)     -- source code (only), zip archive
+*  [libSBML-@PACKAGE_VERSION@-core-src.tar.gz](libSBML-@PACKAGE_VERSION@-core-src.tar.gz)  -- source code (only), gzip'ed tar archive
+  
+Code for full stable release (core plus accepted packages):
+
+*  [libSBML-@PACKAGE_VERSION@-core-plus-packages-src.zip](libSBML-@PACKAGE_VERSION@-core-plus-packages-src.zip)     -- source code (only), zip archive
+*  [libSBML-@PACKAGE_VERSION@-core-plus-packages-src.tar.gz](libSBML-@PACKAGE_VERSION@-core-plus-packages-src.tar.gz)  -- source code (only), gzip'ed tar archive
+  
+Code for individual accepted packages:
+
+*  [libSBML-@PACKAGE_VERSION@-comp-src.zip](libSBML-@PACKAGE_VERSION@-comp-src.zip)     -- source code (only), zip archive
+*  [libSBML-@PACKAGE_VERSION@-fbc-src.zip](libSBML-@PACKAGE_VERSION@-fbc-src.zip)      -- source code (only), zip archive
+*  [libSBML-@PACKAGE_VERSION@-qual-src.zip](libSBML-@PACKAGE_VERSION@-qual-src.zip)     -- source code (only), zip archive
+
+  (Note for historical reasons the layout code is included within the core code archives.)
+
+Documentation:
+
+*  [libSBML-@PACKAGE_VERSION@-docs.zip](libSBML-@PACKAGE_VERSION@-docs.zip)    -- formatted documentation (only) -- see
+*  [libSBML-@PACKAGE_VERSION@-docs.tar.gz](libSBML-@PACKAGE_VERSION@-docs.tar.gz) -- important note below
+
+(Note about the documentation archives: after downloading an archive,
+make sure to `unzip`/`untar` it before opening `docs/index.html`. If you
+simply browse the compressed archive [e.g., using Windows Explorer],
+the links inside `index.html` will not work.)
+
+For more information about libSBML, please visit the libSBML website at
+                 [http://sbml.org/Software/libSBML](http://sbml.org/Software/libSBML)
+
+
+Thank you for your interest in libSBML!
+
+The LibSBML Team.
+
+
+![SBML Logo](http://sbml.org/images/8/82/Official-sbml-supported-70.jpg)

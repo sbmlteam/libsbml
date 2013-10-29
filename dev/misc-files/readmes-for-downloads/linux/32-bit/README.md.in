@@ -1,0 +1,51 @@
+##libSBML @PACKAGE_VERSION@
+###Installers for 32-bit Linux operating systems
+
+IMPORTANT: Please uninstall any existing copy of libSBML located in
+the same destination before you install libSBML using this installer,
+or you may end up with mixed versions of different libSBML components
+on your system.
+
+This directory contains installers for precompiled versions of libSBML
+for 32-bit Linux systems.  All copies were built using the libxml2 XML
+parser library.  The installer provides only the core libSBML library
+(C/C++ interface); it does not include the other language bindings.
+
+Here you will find the following files:
+
+*  [libSBML-@PACKAGE_VERSION@-Linux-x86.rpm](libSBML-@PACKAGE_VERSION@-Linux-x86.rpm) -- for RPM-based Linux distributions
+                                 (Fedora, Red Hat, CentOS)
+
+*  [libSBML-@PACKAGE_VERSION@-Linux-x86.deb](libSBML-@PACKAGE_VERSION@-Linux-x86.deb) -- for Debian-based Linux distributions
+                                 (Ubuntu & its variants, Debian)
+
+By default, the installer will put the contents in /usr/local.
+
+If you need the MATLAB or other language interfaces, or need to use a
+different XML parser library, it will be necessary to build libSBML
+yourself from the source distribution using suitable configuration
+flags.  The procedure is described in the libSBML documentation.  The
+source and documentation are available from the top-level download
+directory, [http://sourceforge.net/projects/sbml/files/libsbml/@PACKAGE_VERSION@/](http://sourceforge.net/projects/sbml/files/libsbml/@PACKAGE_VERSION@/)
+
+For detailed information about how to make libSBML accessible to your
+software, please visit the following URL:
+
+[http://sbml.org/Software/libSBML/docs/cpp-api/libsbml-accessing.html](http://sbml.org/Software/libSBML/docs/cpp-api/libsbml-accessing.html)
+
+For additional information about this version of libSBML, please visit
+the libSBML website at
+
+[http://sbml.org/Software/libSBML](http://sbml.org/Software/libSBML)
+
+Please report problems with libSBML using the tracker at
+
+[http://sbml.org/Software/libSBML/issue-tracker](http://sbml.org/Software/libSBML/issue-tracker)
+
+Thank you for your interest in libSBML!
+
+The LibSBML Team.
+
+
+
+![SBML Logo](http://sbml.org/images/8/82/Official-sbml-supported-70.jpg)

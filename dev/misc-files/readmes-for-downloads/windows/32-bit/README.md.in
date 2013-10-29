@@ -1,0 +1,59 @@
+##libSBML @PACKAGE_VERSION@
+###Installers for 32-bit Microsoft Windows operating systems
+
+IMPORTANT: Please uninstall any existing copy of libSBML located in
+the same destination on your computer before you install libSBML using
+these installers, or you may end up with mixed versions of different
+libSBML components on your system.
+
+This directory contains installers for precompiled versions of libSBML
+for Microsoft Windows 32-bit systems.  The copies of libSBML contained
+here were built using the libxml2 XML parser library.  Here you will
+find the following:
+
+  * [libSBML-@PACKAGE_VERSION@-win-x86.exe](libSBML-@PACKAGE_VERSION@-win-x86.exe)
+
+      Complete libSBML binary distribution, containing the precompiled
+      C/C++ libSBML core library and the following libSBML language
+      interfaces: C# (Mono), Java, MATLAB, Octave, Perl, Python, Ruby.
+
+  * [libSBML-@PACKAGE_VERSION@-win-matlab-x86.exe](libSBML-@PACKAGE_VERSION@-win-matlab-x86.exe)
+
+      Installer for the MATLAB libSBML interface ONLY.  Download this
+      if you ONLY need to use libSBML from MATLAB.  (This installer is
+      also contained within [libSBML-@PACKAGE_VERSION@-win-x86.exe](libSBML-@PACKAGE_VERSION@-win-x86.exe), so if you
+      downloaded that, you do NOT need to download and install this
+      MATLAB interface installer in addition.)
+
+  * [Python](Python)
+
+      This folder contains installers for the Python libSBML interface
+      ONLY, for different versions of Python.  Download and use one of
+      these installers if you only need the Python interface.  (The
+      interface is also included within [libSBML-@PACKAGE_VERSION@-win-x86.exe](libSBML-@PACKAGE_VERSION@-win-x86.exe), so
+      if you downloaded that, you do NOT need to download and install
+      the Python interface installer separately.)
+
+To use these installers, simply download the appropriate file to your
+computer, then run the file, and follow the instructions displayed by
+the installer program on your screen.
+
+For detailed information about how to make libSBML accessible to your
+software, please visit the following URL:
+
+[http://sbml.org/Software/libSBML/docs/cpp-api/libsbml-accessing.html](http://sbml.org/Software/libSBML/docs/cpp-api/libsbml-accessing.html)
+
+Detailed information about libSBML can be found at
+
+[http://sbml.org/Software/libSBML](http://sbml.org/Software/libSBML)
+
+Please report problems with libSBML using the tracker at
+
+[http://sbml.org/Software/libSBML/issue-tracker](http://sbml.org/Software/libSBML/issue-tracker)
+
+Thank you for your interest in libSBML!
+
+The LibSBML Team.
+
+
+![SBML Logo](http://sbml.org/images/8/82/Official-sbml-supported-70.jpg)

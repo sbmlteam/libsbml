@@ -1,0 +1,17 @@
+##libSBML @PACKAGE_VERSION@ R BINDINGS
+
+This directory contains the experimental R interface of libSBML @PACKAGE_VERSION@
+generated for R 2.15.1 on Microsoft Windows operating systems. Install with:
+
+	R CMD INSTALL <archivename>
+
+For more information about libSBML, please visit the libSBML website at
+                 [http://sbml.org/Software/libSBML](http://sbml.org/Software/libSBML)
+
+
+Thank you for your interest in libSBML!
+
+The LibSBML Team.
+
+
+![SBML Logo](http://sbml.org/images/8/82/Official-sbml-supported-70.jpg)

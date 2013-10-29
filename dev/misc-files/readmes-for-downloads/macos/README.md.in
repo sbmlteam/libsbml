@@ -1,0 +1,55 @@
+##libSBML @PACKAGE_VERSION@
+###Installers for Mac OS X operating systems
+
+IMPORTANT: Please uninstall any existing copy of libSBML located in
+the same destination before you install libSBML using this installer,
+or you may end up with mixed versions of different libSBML components
+on your system.
+
+This directory contains installers for precompiled versions of libSBML
+for Mac OS X systems.  All were built with the Apple-supplied libxml2
+library, and contain the following libSBML language interfaces in
+addition to the C/C++ libSBML core:
+
+  * C# (Mono)
+  * Java
+  * Perl
+  * Python
+  * Ruby
+
+The MATLAB and Octave interfaces are currently not included in the
+MacOSX installer.  If you need the MATLAB and/or Octave interfaces, or
+need to use a different XML parser library, it will be necessary to
+build libSBML yourself from the source distribution using suitable
+configuration flags.  The procedure is described in the libSBML
+documentation.  The source and docs are available from the download
+directory [http://sourceforge.net/projects/sbml/files/libsbml/@PACKAGE_VERSION@/](http://sourceforge.net/projects/sbml/files/libsbml/@PACKAGE_VERSION@/)
+
+By default, the installer will put the contents in /usr/local, but
+this location can be changed from the installer interface.
+
+To uninstall libSBML, please run the following command in your
+terminal:
+
+	sudo /usr/local/bin/uninstall-libsbml-pkg.sh
+
+(If you chose to install libSBML into a directory tree other than
+`/usr/local`, then please look for the `uninstall-libsbml-pkg.sh` script
+in the "bin" directory of that alternate location.)
+
+For additional information about this version of libSBML, please see
+the files in the `docs` subdirectory of this installer or visit the
+libSBML website at
+
+[http://sbml.org/Software/libSBML](http://sbml.org/Software/libSBML)
+
+Please report problems with libSBML using the tracker at
+
+[http://sbml.org/Software/libSBML/issue-tracker](http://sbml.org/Software/libSBML/issue-tracker)
+
+Thank you for your interest in libSBML!
+
+The LibSBML Team.
+
+
+![SBML Logo](http://sbml.org/images/8/82/Official-sbml-supported-70.jpg)

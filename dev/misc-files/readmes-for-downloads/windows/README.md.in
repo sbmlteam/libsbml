@@ -1,0 +1,22 @@
+##libSBML @PACKAGE_VERSION@
+###Installers for Microsoft Windows operating systems
+
+This directory contains installers for precompiled versions of libSBML
+for Microsoft Windows systems.  Please navigate to either the [32-bit](32-bit)
+or [64-bit](64-bit) folder, to match the version of the operating system you
+are using.
+
+For more information about libSBML, please visit the libSBML website at
+
+[http://sbml.org/Software/libSBML](http://sbml.org/Software/libSBML)
+
+Please report any problems with libSBML using the tracker at
+
+[http://sbml.org/Software/libSBML/issue-tracker](http://sbml.org/Software/libSBML/issue-tracker)
+
+Thank you for your interest in libSBML!
+
+The LibSBML Team.
+
+
+![SBML Logo](http://sbml.org/images/8/82/Official-sbml-supported-70.jpg)
