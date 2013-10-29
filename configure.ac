@@ -712,10 +712,16 @@ fi
 echo ""
 echo "Support for SBML packages:"
 
-if test "$enable_layout" != "no" ; then
+if test "$enable_comp" != "no" ; then
   echo "  SBML 'comp'                   = $enable_comp"
+fi
+if test "$enable_fbc" != "no" ; then
   echo "  SBML 'fbc'                    = $enable_fbc"
+fi
+if test "$enable_layout" != "no" ; then
   echo "  SBML 'layout'                 = $enable_layout"
+fi
+if test "$enable_qual" != "no" ; then
   echo "  SBML 'qual'                   = $enable_qual"
 fi
 
