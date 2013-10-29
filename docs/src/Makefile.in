@@ -140,7 +140,7 @@ distfiles =						     \
         common-graphics/hellojsp-screenshot.png		     \
 	common-graphics/icon-format-pdf-44px.jpg	     \
         common-graphics/layout-example.png		     \
-        common-graphics/listof-illustration.jpg		     \
+        common-graphics/listof-illustration.svg		     \
         common-graphics/listof-illustration.txt		     \
 	common-graphics/model-qualifiers.png		     \
 	common-graphics/model-qualifiers.txt		     \
