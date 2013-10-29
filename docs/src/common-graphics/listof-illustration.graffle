@@ -1693,6 +1693,15 @@
 			<string>Resize</string>
 			<key>FontInfo</key>
 			<dict>
+				<key>Color</key>
+				<dict>
+					<key>b</key>
+					<string>0.542356</string>
+					<key>g</key>
+					<string>0.537873</string>
+					<key>r</key>
+					<string>0.542254</string>
+				</dict>
 				<key>Font</key>
 				<string>LiGothicMed</string>
 				<key>Size</key>
@@ -1737,11 +1746,79 @@
 				<integer>0</integer>
 				<key>Pad</key>
 				<integer>0</integer>
+				<key>RTFD</key>
+				<data>
+				BAtzdHJlYW10eXBlZIHoA4QBQISEhBJOU0F0dHJpYnV0
+				ZWRTdHJpbmcAhIQITlNPYmplY3QAhZKEhIQITlNTdHJp
+				bmcBlIQBK4HgBDw/eG1sIHZlcnNpb249IjEuMCIgZW5j
+				b2Rpbmc9IlVURi04Ij8+CjxzYm1sIHhtbG5zPSJodHRw
+				Oi8vd3d3LnNibWwub3JnL3NibWwvbGV2ZWwzL3ZlcnNp
+				b24xL2NvcmUiIGxldmVsPSIzIiB2ZXJzaW9uPSIxIj4K
+				ICA8bW9kZWwgaWQ9Ik15X01vZGVsIj4KICAgIDxsaXN0
+				T2ZGdW5jdGlvbkRlZmluaXRpb25zPgogICAgICBvbmUg
+				b3IgbW9yZSA8ZnVuY3Rpb25EZWZpbml0aW9uPiAuLi4g
+				PC9mdW5jdGlvbkRlZmluaXRpb24+IGVsZW1lbnRzCiAg
+				ICA8L2xpc3RPZkZ1bmN0aW9uRGVmaW5pdGlvbnM+CiAg
+				ICA8bGlzdE9mVW5pdERlZmluaXRpb25zPgogICAgICBv
+				bmUgb3IgbW9yZSA8dW5pdERlZmluaXRpb24+IC4uLiA8
+				L3VuaXREZWZpbml0aW9uPiBlbGVtZW50cwogICAgPC9s
+				aXN0T2ZVbml0RGVmaW5pdGlvbnM+CiAgICA8bGlzdE9m
+				Q29tcGFydG1lbnRzPgogICAgICBvbmUgb3IgbW9yZSA8
+				Y29tcGFydG1lbnQ+IC4uLiA8L2NvbXBhcnRtZW50PiBl
+				bGVtZW50cwogICAgPC9saXN0T2ZDb21wYXJ0bWVudHM+
+				CiAgICA8bGlzdE9mU3BlY2llcz4KICAgICAgb25lIG9y
+				IG1vcmUgPHNwZWNpZXM+IC4uLiA8L3NwZWNpZXM+IGVs
+				ZW1lbnRzCiAgICA8L2xpc3RPZlNwZWNpZXM+CiAgICA8
+				bGlzdE9mUGFyYW1ldGVycz4KICAgICAgb25lIG9yIG1v
+				cmUgPHBhcmFtZXRlcj4gLi4uIDwvcGFyYW1ldGVyPiBl
+				bGVtZW50cwogICAgPC9saXN0T2ZQYXJhbWV0ZXJzPgog
+				ICAgPGxpc3RPZkluaXRpYWxBc3NpZ25tZW50cz4KICAg
+				ICAgb25lIG9yIG1vcmUgPGluaXRpYWxBc3NpZ25tZW50
+				PiAuLi4gPC9pbml0aWFsQXNzaWdubWVudD4gZWxlbWVu
+				dHMKICAgIDwvbGlzdE9mSW5pdGlhbEFzc2lnbm1lbnRz
+				PgogICAgPGxpc3RPZlJ1bGVzPgogICAgICBvbmUgb3Ig
+				bW9yZSBlbGVtZW50cyBvZiBzdWJjbGFzc2VzIG9mIFJ1
+				bGUKICAgIDwvbGlzdE9mUnVsZXM+CiAgICA8bGlzdE9m
+				Q29uc3RyYWludHM+CiAgICAgIG9uZSBvciBtb3JlIDxj
+				b25zdHJhaW50PiAuLi4gPC9jb25zdHJhaW50PiBlbGVt
+				ZW50cwogICAgPC9saXN0T2ZDb25zdHJhaW50cz4KICAg
+				IDxsaXN0T2ZSZWFjdGlvbnM+CiAgICAgIG9uZSBvciBt
+				b3JlIDxyZWFjdGlvbj4gLi4uIDwvcmVhY3Rpb24+IGVs
+				ZW1lbnRzCiAgICA8L2xpc3RPZlJlYWN0aW9ucz4KICAg
+				IDxsaXN0T2ZFdmVudHM+CiAgICAgIG9uZSBvciBtb3Jl
+				IDxldmVudD4gLi4uIDwvZXZlbnQ+IGVsZW1lbnRzCiAg
+				ICA8L2xpc3RPZkV2ZW50cz4KICA8L21vZGVsPgo8L3Ni
+				bWw+CoaEAmlJAYGRAJKEhIQMTlNEaWN0aW9uYXJ5AJSE
+				AWkDkoSWlgdOU0NvbG9yhpKEhIQHTlNDb2xvcgCUhAFj
+				A4QCZmYAAYaShJaWEE5TUGFyYWdyYXBoU3R5bGWGkoSE
+				hBBOU1BhcmFncmFwaFN0eWxlAJSEBENDQFMAAISEhAdO
+				U0FycmF5AJSZDJKEhIQJTlNUZXh0VGFiAJSEAkNmAByG
+				koSioQA4hpKEoqEAVIaShKKhAHCGkoSioQCBjACGkoSi
+				oQCBqACGkoSioQCBxACGkoSioQCB4ACGkoSioQCB/ACG
+				koSioQCBGAGGkoSioQCBNAGGkoSioQCBUAGGhoEACIQE
+				WzFmXYPNzEw9hpKElpYGTlNGb250hpKEhIQGTlNGb250
+				HpSZMIQFWzQ4Y10GAAAAKAAAAP/+QwBvAHUAcgBpAGUA
+				cgBOAGUAdwBQAFMALQBCAG8AbABkAE0AVACEAWYJmwCb
+				AZsAmwCGhpcCJ5KEmJkDkpmSmpKckp2SrpKEsJkkhAVb
+				MzZjXQYAAAAaAAAA//5DAG8AdQByAGkAZQByAC0AQgBv
+				AGwAZAAAAKUJmwCbAZsAmwCGhpcDC5KEmJkDkpmShJub
+				AoQEZmZmZoOdnBw/g5ybGz+DnZwcPwGGkpySnZKukoSw
+				mSiEBVs0MGNdBgAAAB4AAAD//lYAZQByAGQAYQBuAGEA
+				LQBJAHQAYQBsAGkAYwAAAKUJmwCbAZsAmwCGhpcBMJcD
+				CJcCApcBPJcCBpcEC5KEmJkDkpmSmpKckp2SrpK1hpcB
+				KJcDCJcFApKEmJkDkpmStJKckp2SrpKyhpcGHJKEmJkD
+				kpmStJKckp2SrpKvhpcBGZcCBpcDC5cBIpcDCJcCAZcB
+				LpcCBpcDC5cBGpcDCJcCAZcBLJcCBpcDC5cBHpcDCJcC
+				AZcBN5cCBpcDC5cBLpcDCJcCAZcBMpcCBpcDC5cFAZcD
+				FpcEAZcDApcCAZcBBJcCAZcBK5cCBpcDC5cBIJcDCJcC
+				AZcBL5cCBpcDC5cBHJcDCJcCAZcBKpcCBpcDC5cBFpcD
+				CJcCApcBJoY=
+				</data>
 				<key>Text</key>
 				<string>{\rtf1\ansi\ansicpg1252\cocoartf1187\cocoasubrtf400
 \cocoascreenfonts1{\fonttbl\f0\fmodern\fcharset0 CourierNewPS-BoldMT;\f1\fmodern\fcharset0 Courier-Bold;\f2\fnil\fcharset0 Verdana;
 }
-{\colortbl;\red255\green255\blue255;}
+{\colortbl;\red255\green255\blue255;\red138\green137\blue138;}
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural
 
 \f0\b\fs18 \cf0 &lt;?xml version="1.0" encoding="UTF-8"?&gt;\
@@ -1750,10 +1827,10 @@
 \f1 \
     &lt;listOfFunctionDefinitions&gt;\
       
-\f2\i\b0 one or more
-\f0\i0\b  &lt;functionDefinition&gt; ... &lt;/functionDefinition&gt; 
-\f2\i\b0 elements
-\f1\i0\b \
+\f2\i\b0 \cf2 one or more
+\f0\i0\b \cf0  &lt;functionDefinition&gt; ... &lt;/functionDefinition&gt; 
+\f2\i\b0 \cf2 elements
+\f1\i0\b \cf0 \
  
 \f0    &lt;/listOfFunctionDefinitions&gt;\
     &lt;listOfUnitDefinitions&gt;\
@@ -1761,53 +1838,53 @@
 \f1       
 \f2\i\b0 one or more
 \f0\i0\b  &lt;unitDefinition&gt; ... &lt;/unitDefinition&gt; 
-\f2\i\b0 elements
+\f2\i\b0 \cf2 elements
 \f1\i0\b \
  
 \f0    &lt;/listOfUnitDefinitions&gt;\
-    &lt;listOfCompartments&gt;\
+\cf0     &lt;listOfCompartments&gt;\
 
 \f1       
-\f2\i\b0 one or more
-\f0\i0\b  &lt;compartment&gt; ... &lt;/compartment&gt; 
-\f2\i\b0 elements
-\f1\i0\b \
+\f2\i\b0 \cf2 one or more
+\f0\i0\b \cf0  &lt;compartment&gt; ... &lt;/compartment&gt; 
+\f2\i\b0 \cf2 elements
+\f1\i0\b \cf0 \
 
 \f0     &lt;/listOfCompartments&gt;\
     &lt;listOfSpecies&gt;\
 
 \f1       
-\f2\i\b0 one or more
-\f0\i0\b  &lt;species&gt; ... &lt;/species&gt; 
-\f2\i\b0 elements
-\f1\i0\b \
+\f2\i\b0 \cf2 one or more
+\f0\i0\b \cf0  &lt;species&gt; ... &lt;/species&gt; 
+\f2\i\b0 \cf2 elements
+\f1\i0\b \cf0 \
 
 \f0     &lt;/listOfSpecies&gt;\
     &lt;listOfParameters&gt;\
 
 \f1       
-\f2\i\b0 one or more
-\f0\i0\b  &lt;parameter&gt; ... &lt;/parameter&gt; 
-\f2\i\b0 elements
-\f1\i0\b \
+\f2\i\b0 \cf2 one or more
+\f0\i0\b \cf0  &lt;parameter&gt; ... &lt;/parameter&gt; 
+\f2\i\b0 \cf2 elements
+\f1\i0\b \cf0 \
 
 \f0     &lt;/listOfParameters&gt;\
     &lt;listOfInitialAssignments&gt;\
 
 \f1       
-\f2\i\b0 one or more
-\f0\i0\b  &lt;initialAssignment&gt; ... &lt;/initialAssignment&gt; 
-\f2\i\b0 elements
-\f1\i0\b \
+\f2\i\b0 \cf2 one or more
+\f0\i0\b \cf0  &lt;initialAssignment&gt; ... &lt;/initialAssignment&gt; 
+\f2\i\b0 \cf2 elements
+\f1\i0\b \cf0 \
 
 \f0     &lt;/listOfInitialAssignments&gt;\
     &lt;listOfRules&gt;\
 
 \f1       
-\f2\i\b0 one or more
+\f2\i\b0 \cf2 one or more
 \f1\i0\b  
-\f2\i\b0 elements of subclasses of
-\f1\i0\b  
+\f2\i\b0 elements of subclasses\cf0  \cf2 of
+\f1\i0\b \cf0  
 \f0 Rule
 \f1 \
 
@@ -1815,28 +1892,28 @@
     &lt;listOfConstraints&gt;\
 
 \f1       
-\f2\i\b0 one or more
-\f0\i0\b  &lt;constraint&gt; ... &lt;/constraint&gt; 
-\f2\i\b0 elements
-\f1\i0\b \
+\f2\i\b0 \cf2 one or more
+\f0\i0\b \cf0  &lt;constraint&gt; ... &lt;/constraint&gt; 
+\f2\i\b0 \cf2 elements
+\f1\i0\b \cf0 \
 
 \f0     &lt;/listOfConstraints&gt;\
     &lt;listOfReactions&gt;\
 
 \f1       
-\f2\i\b0 one or more
-\f0\i0\b  &lt;reaction&gt; ... &lt;/reaction&gt; 
-\f2\i\b0 elements
-\f1\i0\b \
+\f2\i\b0 \cf2 one or more
+\f0\i0\b \cf0  &lt;reaction&gt; ... &lt;/reaction&gt; 
+\f2\i\b0 \cf2 elements
+\f1\i0\b \cf0 \
 
 \f0     &lt;/listOfReactions&gt;\
     &lt;listOfEvents&gt;\
 
 \f1       
-\f2\i\b0 one or more
-\f0\i0\b  &lt;event&gt; ... &lt;/event&gt; 
-\f2\i\b0 elements
-\f1\i0\b \
+\f2\i\b0 \cf2 one or more
+\f0\i0\b \cf0  &lt;event&gt; ... &lt;/event&gt; 
+\f2\i\b0 \cf2 elements
+\f1\i0\b \cf0 \
  
 \f0    &lt;/listOfEvents&gt;\
   &lt;/model&gt;\
@@ -1859,7 +1936,7 @@
 	<integer>1</integer>
 	<key>HorizontalGuides</key>
 	<array>
-		<real>77</real>
+		<real>75.666664123535156</real>
 		<real>110</real>
 		<real>144</real>
 		<real>176.66667175292969</real>
@@ -1908,7 +1985,7 @@
 	<key>MasterSheets</key>
 	<array/>
 	<key>ModificationDate</key>
-	<string>2013-10-29 01:17:27 +0000</string>
+	<string>2013-10-29 01:23:35 +0000</string>
 	<key>Modifier</key>
 	<string>Michael Hucka</string>
 	<key>NotesVisible</key>
