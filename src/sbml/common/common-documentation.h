@@ -45,8 +45,7 @@
  * The relationship between the lists and the rest of an SBML model is
  * illustrated by the following (for SBML Level&nbsp;2 Version&nbsp;4):
  *
- * @image html listof-illustration.svg "ListOf___ elements in an SBML Model"
- * @image latex listof-illustration.svg "ListOf___ elements in an SBML Model"
+ * @htmlinclude listof-illustration.html
  *
  * Readers may wonder about the motivations for using the ListOf___
  * containers.  A simpler approach in XML might be to place the components
