@@ -83,6 +83,21 @@ LayoutModelPlugin::appendFrom(const Model* model)
   
   ret = mLayouts.appendFrom(modplug->getListOfLayouts());
   
+  if (ret != LIBSBML_OPERATION_SUCCESS)
+  {
+    return ret;
+  }
+
+
+  for (unsigned int i = 0; i < mLayouts.SBase::getNumPlugins(); i++) 
+  {
+    ret = mLayouts.getPlugin(i)->appendFrom(model);
+    if (ret != LIBSBML_OPERATION_SUCCESS) 
+    {
+      return ret;
+    }
+  }
+
   return ret;
 }
 /** @endcond */
