@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<sbml xmlns="http://www.sbml.org/sbml/level3/version1/core" xmlns:comp="http://www.sbml.org/sbml/level3/version1/comp/version1" xmlns:qual="http://www.sbml.org/sbml/level3/version1/qual/version1" level="3" version="1" comp:required="true" qual:required="true">
+<sbml xmlns="http://www.sbml.org/sbml/level3/version1/core" xmlns:comp="http://www.sbml.org/sbml/level3/version1/comp/version1" xmlns:qual="http://www.sbml.org/sbml/level3/version1/qual/version1" level="3" version="1" comp:required="true" qual:required="false">
   <model id="example">
     <listOfCompartments>
       <compartment id="cytosol" spatialDimensions="3" size="1" units="litre" constant="true"/>
