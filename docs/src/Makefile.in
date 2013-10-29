@@ -227,9 +227,13 @@ distfiles =						     \
 	generate-extensions-summary.py			     \
         java-skip.txt					     \
         java-substitutions/ASTNodeList.java		     \
+        java-substitutions/CompPkgNamespaces.java	     \
         java-substitutions/CVTermList.java		     \
         java-substitutions/DateList.java		     \
+        java-substitutions/FbcPkgNamespaces.java	     \
+        java-substitutions/LayoutPkgNamespaces.java	     \
         java-substitutions/ModelCreatorList.java	     \
+        java-substitutions/QualPkgNamespaces.java	     \
         java-substitutions/SBMLConstructorException.java     \
         java-substitutions/SBMLNamespacesList.java	     \
         java-substitutions/SBaseList.java		     \
