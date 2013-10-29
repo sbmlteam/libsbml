@@ -434,6 +434,8 @@ if test "$enable_comp" != "no" ; then
   AC_CONFIG_FILES([src/sbml/packages/comp/validator/constraints/Makefile])
   AC_CONFIG_FILES([src/sbml/packages/comp/validator/test/Makefile])
   AC_CONFIG_FILES([src/sbml/packages/comp/validator/test/test-data/Makefile])
+  AC_CONFIG_FILES([examples/c++/comp/Makefile])
+  AC_CONFIG_FILES([examples/c/comp/Makefile])
 fi
 fi
 
@@ -449,6 +451,7 @@ if test "$enable_fbc" != "no" ; then
   AC_CONFIG_FILES([src/sbml/packages/fbc/validator/Makefile])
   AC_CONFIG_FILES([src/sbml/packages/fbc/validator/test/Makefile])
   AC_CONFIG_FILES([src/sbml/packages/fbc/validator/test/test-data/Makefile])
+  AC_CONFIG_FILES([examples/c++/fbc/Makefile])
 fi
 fi
 
@@ -476,6 +479,7 @@ if test "$enable_qual" != "no" ; then
   AC_CONFIG_FILES([src/sbml/packages/qual/validator/constraints/Makefile])
   AC_CONFIG_FILES([src/sbml/packages/qual/validator/test/Makefile])
   AC_CONFIG_FILES([src/sbml/packages/qual/validator/test/test-data/Makefile])
+  AC_CONFIG_FILES([examples/c++/qual/Makefile])
 fi
 fi
 
