@@ -39,15 +39,15 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 
 static const packageErrorTableEntry layoutErrorTable[] = 
 {
-	//6010100
-	{	LayoutUnknownError,
-		"Unknown error from layout",
-		LIBSBML_CAT_GENERAL_CONSISTENCY,
-		LIBSBML_SEV_ERROR,
-		"Unknown error from layout",
-		{ " "
-		}
-	},
+  //6010100
+  { LayoutUnknownError,
+    "Unknown error from layout",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_ERROR,
+    "Unknown error from layout",
+    { " "
+    }
+  },
 
   // 6010101
   { LayoutNSUndeclared, 
@@ -81,17 +81,17 @@ static const packageErrorTableEntry layoutErrorTable[] =
     LIBSBML_CAT_IDENTIFIER_CONSISTENCY, 
     LIBSBML_SEV_ERROR,
     "(Extends validation rule #10301 in the SBML Level 3 Version 1 Core "
-	  "specification.) Within a <model> object"
-	  "the values of the attributes id and layout:id on every instance of the "
-	  "following classes of objects must be unique across the set of all id "
-	  "and layout:id attribute values of all such objects in a model: the "
-	  "model itself, plus all contained <functionDefinition>, <compartment>,"
-	  "<species>, <reaction>, <speciesReference>, <modifierSpeciesReference>, "
+    "specification.) Within a <model> object"
+    "the values of the attributes id and layout:id on every instance of the "
+    "following classes of objects must be unique across the set of all id "
+    "and layout:id attribute values of all such objects in a model: the "
+    "model itself, plus all contained <functionDefinition>, <compartment>,"
+    "<species>, <reaction>, <speciesReference>, <modifierSpeciesReference>, "
     "<event>, and <parameter> objects, plus the <boundingBox>, "
     "<compartmentGlyph>, <generalGlyph>, <graphicalObject>, <layout>, "
     "<speciesGlyph>, <speciesReferenceGlyph>, <reactionGlyph>, "
     "<referenceGlyph> and <textGlyph> "
-	  "objects defined by the Layout package.", 
+    "objects defined by the Layout package.", 
     { "L3V1 Layout V1 Section 3.3"
     }
   },

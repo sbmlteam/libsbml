@@ -1393,7 +1393,7 @@ static const packageErrorTableEntry compErrorTable[] =
 
   // 1090112
   { CompDeprecatedDeleteFunction,
-    "The performDeletions fuctions is deprecated.",
+    "The performDeletions functions is deprecated.",
     LIBSBML_CAT_GENERAL_CONSISTENCY, 
     LIBSBML_SEV_ERROR,
     "The software used to process this hierarchical model used the deprecated "

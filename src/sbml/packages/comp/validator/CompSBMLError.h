@@ -35,7 +35,7 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 BEGIN_C_DECLS
 
 /**
- * Codes for all SBML-level errors and warnings.
+ * Codes for all 'comp' package SBML-level errors and warnings.
  *
  * These are distinguished from the XML layer (LIBLAX) error codes by being
  * numbered > 10000, while the XML layer's codes are < 9999.  Calling
@@ -46,135 +46,135 @@ BEGIN_C_DECLS
  */
 typedef enum
 {
-  CompUnknown                           = 1010100 
-, CompNSUndeclared                      = 1010101 
-, CompElementNotInNs                    = 1010102
+  CompUnknown                           = 1010100 /*!< Unknown error from comp */
+, CompNSUndeclared                      = 1010101 /*!< The comp ns is not correctly declared */
+, CompElementNotInNs                    = 1010102 /*!< Element not in comp namespace */
 
-, CompDuplicateComponentId              = 1010301
-, CompUniqueModelIds                    = 1010302
-, CompUniquePortIds                     = 1010303
-, CompInvalidSIdSyntax                  = 1010304 
-, CompInvalidSubmodelRefSyntax          = 1010308 
-, CompInvalidDeletionSyntax             = 1010309
-, CompInvalidConversionFactorSyntax     = 1010310
-, CompInvalidNameSyntax                 = 1010311
+, CompDuplicateComponentId              = 1010301 /*!< Duplicate 'id' attribute value */
+, CompUniqueModelIds                    = 1010302 /*!< Model and ExternalModelDefinitions must have unique ids */
+, CompUniquePortIds                     = 1010303 /*!< Ports must have unique ids */
+, CompInvalidSIdSyntax                  = 1010304 /*!< Invalid SId syntax */
+, CompInvalidSubmodelRefSyntax          = 1010308 /*!< Invalid submodelRef syntax */
+, CompInvalidDeletionSyntax             = 1010309 /*!< Invalid deletion syntax */
+, CompInvalidConversionFactorSyntax     = 1010310 /*!< Invalid conversionFactor syntax */
+, CompInvalidNameSyntax                 = 1010311 /*!< Invalid name syntax */
 
-, CompReplacedUnitsShouldMatch          = 1010501
+, CompReplacedUnitsShouldMatch          = 1010501 /*!< Units of replaced elements should match replacement units. */
 
-, CompOneListOfReplacedElements         = 1020101
-, CompLOReplaceElementsAllowedElements  = 1020102
-, CompLOReplacedElementsAllowedAttribs  = 1020103
-, CompEmptyLOReplacedElements           = 1020104
-, CompOneReplacedByElement              = 1020105
+, CompOneListOfReplacedElements         = 1020101 /*!< Only one <code>&lt;listOfReplacedElements&gt;</code> allowed. */
+, CompLOReplaceElementsAllowedElements  = 1020102 /*!< Allowed children of <code>&lt;listOfReplacedElements&gt;</code> */
+, CompLOReplacedElementsAllowedAttribs  = 1020103 /*!< Allowed <code>&lt;listOfReplacedElements&gt;</code> attributes */
+, CompEmptyLOReplacedElements           = 1020104 /*!< <code>&lt;listOfReplacedElements&gt;</code> must not be empty */
+, CompOneReplacedByElement              = 1020105 /*!< Only one <code>&lt;replacedBy&gt;</code> object allowed. */
 
-, CompAttributeRequiredMissing          = 1020201
-, CompAttributeRequiredMustBeBoolean    = 1020202
-, CompRequiredTrueIfElementsRemain      = 1020203
-, CompRequiredFalseIfAllElementsReplaced= 1020204
-, CompOneListOfModelDefinitions         = 1020205
-, CompEmptyLOModelDefs                  = 1020206
-, CompLOModelDefsAllowedElements        = 1020207
-, CompLOExtModelDefsAllowedElements     = 1020208
-, CompLOModelDefsAllowedAttributes      = 1020209
-, CompLOExtModDefsAllowedAttributes     = 1020210
-, CompOneListOfExtModelDefinitions      = 1020211
-, CompAttributeRequiredMustBeTrue       = 1020212
+, CompAttributeRequiredMissing          = 1020201 /*!< Required comp:required attribute on <code>&lt;sbml&gt;</code> */
+, CompAttributeRequiredMustBeBoolean    = 1020202 /*!< The comp:required attribute must be Boolean */
+, CompRequiredTrueIfElementsRemain      = 1020203 /*!< The comp:required attribute must be 'true' if math changes. NOTE:  Deprecated */
+, CompRequiredFalseIfAllElementsReplaced= 1020204 /*!< The comp:required attribute must be 'false' if math does not change. NOTE:  Deprecated */
+, CompOneListOfModelDefinitions         = 1020205 /*!< Only one <code>&lt;listOfModelDefinitions&gt;</code> allowed. */
+, CompEmptyLOModelDefs                  = 1020206 /*!< <code>&lt;listOfModelDefinitions&gt;</code> and <code>&lt;listOfExternalModelDefinitions&gt;</code> must not be empty */
+, CompLOModelDefsAllowedElements        = 1020207 /*!< Only <code>&lt;modelDefinitions&gt;</code> in <code>&lt;listOfModelDefinitions&gt;</code> */
+, CompLOExtModelDefsAllowedElements     = 1020208 /*!< Only <code>&lt;externalModelDefinitions&gt;</code> in <code>&lt;listOfExternalModelDefinitions&gt;</code> */
+, CompLOModelDefsAllowedAttributes      = 1020209 /*!< Allowed <code>&lt;listOfModelDefinitions&gt;</code> attributes */
+, CompLOExtModDefsAllowedAttributes     = 1020210 /*!< Allowed <code>&lt;listOfExternalModelDefinitions&gt;</code> attributes */
+, CompOneListOfExtModelDefinitions      = 1020211 /*!< Only one <code>&lt;listOfExternalModelDefinitions&gt;</code> allowed. */
+, CompAttributeRequiredMustBeTrue       = 1020212 /*!< The comp:required attribute must be 'true' */
 
-, CompExtModDefAllowedCoreAttributes    = 1020301
-, CompExtModDefAllowedElements          = 1020302
-, CompExtModDefAllowedAttributes        = 1020303
-, CompReferenceMustBeL3                 = 1020304
-, CompModReferenceMustIdOfModel         = 1020305
-, CompExtModMd5DoesNotMatch             = 1020306
-, CompInvalidSourceSyntax               = 1020307
-, CompInvalidModelRefSyntax             = 1020308
-, CompInvalidMD5Syntax                  = 1020309
-, CompCircularExternalModelReference    = 1020310
+, CompExtModDefAllowedCoreAttributes    = 1020301 /*!< Allowed <code>&lt;externalModelDefinitions&gt;</code> core attributes */
+, CompExtModDefAllowedElements          = 1020302 /*!< Allowed <code>&lt;externalModelDefinitions&gt;</code> elements */
+, CompExtModDefAllowedAttributes        = 1020303 /*!< Allowed <code>&lt;externalModelDefinitions&gt;</code> attributes */
+, CompReferenceMustBeL3                 = 1020304 /*!< External models must be L3 */
+, CompModReferenceMustIdOfModel         = 1020305 /*!< 'modelRef' must be the 'id' of a model in the 'source' document */
+, CompExtModMd5DoesNotMatch             = 1020306 /*!< MD5 checksum does not match the 'source' document */
+, CompInvalidSourceSyntax               = 1020307 /*!< The 'comp:source' attribute must be of type 'anyURI' */
+, CompInvalidModelRefSyntax             = 1020308 /*!< The 'comp:modelRef' attribute must have the syntax of 'SId' */
+, CompInvalidMD5Syntax                  = 1020309 /*!< The 'comp:md5' attribute must have the syntax of 'string' */
+, CompCircularExternalModelReference    = 1020310 /*!< Circular reference in <code>&lt;externalModelDefinition&gt;</code> */
 
-, CompOneListOfOnModel                  = 1020501
-, CompNoEmptyListOfOnModel              = 1020502
-, CompLOSubmodelsAllowedElements        = 1020503
-, CompLOPortsAllowedElements            = 1020504
-, CompLOSubmodelsAllowedAttributes      = 1020505
-, CompLOPortsAllowedAttributes          = 1020506
+, CompOneListOfOnModel                  = 1020501 /*!< Only one <code>&lt;listOfSubmodels&gt;</code> and one <code>&lt;listOfPorts&gt;</code> allowed */
+, CompNoEmptyListOfOnModel              = 1020502 /*!< No empty listOf elements allowed */
+, CompLOSubmodelsAllowedElements        = 1020503 /*!< Allowed elements on <code>&lt;listOfSubmodels&gt;</code> */
+, CompLOPortsAllowedElements            = 1020504 /*!< Allowed elements on <code>&lt;listOfPorts&gt;</code> */
+, CompLOSubmodelsAllowedAttributes      = 1020505 /*!< Allowed attributes on <code>&lt;listOfSubmodels&gt;</code> */
+, CompLOPortsAllowedAttributes          = 1020506 /*!< Allowed attributes on <code>&lt;listOfPorts&gt;</code> */
 
-, CompSubmodelAllowedCoreAttributes     = 1020601
-, CompSubmodelAllowedElements           = 1020602
-, CompOneListOfDeletionOnSubmodel       = 1020603
-, CompSubmodelNoEmptyLODeletions        = 1020604
-, CompLODeletionsAllowedElements        = 1020605
-, CompLODeletionAllowedAttributes       = 1020606
-, CompSubmodelAllowedAttributes         = 1020607
-, CompModReferenceSyntax                = 1020608
-, CompInvalidTimeConvFactorSyntax       = 1020613
-, CompInvalidExtentConvFactorSyntax     = 1020614
-, CompSubmodelMustReferenceModel        = 1020615
-, CompSubmodelCannotReferenceSelf       = 1020616
-, CompModCannotCircularlyReferenceSelf  = 1020617
-, CompTimeConversionMustBeParameter     = 1020622
-, CompExtentConversionMustBeParameter   = 1020623
+, CompSubmodelAllowedCoreAttributes     = 1020601 /*!< Allowed core attributes on <code>&lt;submodel&gt;</code> */
+, CompSubmodelAllowedElements           = 1020602 /*!< Allowed elements on <code>&lt;submodel&gt;</code> */
+, CompOneListOfDeletionOnSubmodel       = 1020603 /*!< Only one <code>&lt;listOfDeletions&gt;</code> on a <code>&lt;submodel&gt;</code> allowed */
+, CompSubmodelNoEmptyLODeletions        = 1020604 /*!< No empty listOfDeletions elements allowed */
+, CompLODeletionsAllowedElements        = 1020605 /*!< Allowed elements on <code>&lt;listOfDeletions&gt;</code> */
+, CompLODeletionAllowedAttributes       = 1020606 /*!< Allowed <code>&lt;listOfDeletions&gt;</code> attributes */
+, CompSubmodelAllowedAttributes         = 1020607 /*!< Allowed <code>&lt;submodel&gt;</code> attributes */
+, CompModReferenceSyntax                = 1020608 /*!< 'comp:modelRef' must conform to SId syntax */
+, CompInvalidTimeConvFactorSyntax       = 1020613 /*!< 'comp:timeConversionFactor' must conform to SId syntax */
+, CompInvalidExtentConvFactorSyntax     = 1020614 /*!< 'comp:extentConversionFactor' must conform to SId syntax */
+, CompSubmodelMustReferenceModel        = 1020615 /*!< The 'comp:modelRef' attribute must reference a model */
+, CompSubmodelCannotReferenceSelf       = 1020616 /*!< The 'comp:modelRef' attribute cannot reference own model */
+, CompModCannotCircularlyReferenceSelf  = 1020617 /*!< <code>&lt;model&gt;</code> may not reference <code>&lt;submodel&gt;</code> that references itself. */
+, CompTimeConversionMustBeParameter     = 1020622 /*!< The 'comp:timeConversionFactor' must reference a parameter */
+, CompExtentConversionMustBeParameter   = 1020623 /*!< The 'comp:extentConversionFactor' must reference a parameter */
 
-, CompPortRefMustReferencePort          = 1020701
-, CompIdRefMustReferenceObject          = 1020702
-, CompUnitRefMustReferenceUnitDef       = 1020703
-, CompMetaIdRefMustReferenceObject      = 1020704
-, CompParentOfSBRefChildMustBeSubmodel  = 1020705
-, CompInvalidPortRefSyntax              = 1020706
-, CompInvalidIdRefSyntax                = 1020707
-, CompInvalidUnitRefSyntax              = 1020708
-, CompInvalidMetaIdRefSyntax            = 1020709
-, CompOneSBaseRefOnly                   = 1020710
-, CompDeprecatedSBaseRefSpelling        = 1020711
-, CompSBaseRefMustReferenceObject       = 1020712
-, CompSBaseRefMustReferenceOnlyOneObject= 1020713
-, CompNoMultipleReferences              = 1020714
+, CompPortRefMustReferencePort          = 1020701 /*!< The 'comp:portRef' attribute must be the 'id' of a <code>&lt;port&gt;</code> */
+, CompIdRefMustReferenceObject          = 1020702 /*!< The 'comp:idRef' attribute must be the 'id' of a model element */
+, CompUnitRefMustReferenceUnitDef       = 1020703 /*!< The 'comp:unitRef' attribute must be the 'id' of a UnitDefinition */
+, CompMetaIdRefMustReferenceObject      = 1020704 /*!< The 'comp:metaIdRef' attribute must be the 'metaid' of an object */
+, CompParentOfSBRefChildMustBeSubmodel  = 1020705 /*!< If <code>&lt;sBaseRef&gt;</code> has a child <code>&lt;sBaseRef&gt;</code> its parent must be a <code>&lt;submodel&gt;</code> */
+, CompInvalidPortRefSyntax              = 1020706 /*!< The 'comp:portRef' attribute must have the syntax of an SBML SId */
+, CompInvalidIdRefSyntax                = 1020707 /*!< The 'comp:idRef' attribute must have the syntax of an SBML SId */
+, CompInvalidUnitRefSyntax              = 1020708 /*!< The 'comp:unitRef' attribute must have the syntax of an SBML SId */
+, CompInvalidMetaIdRefSyntax            = 1020709 /*!< The 'comp:metaIdRef' attribute must have the syntax of an XML ID */
+, CompOneSBaseRefOnly                   = 1020710 /*!< Only one <code>&lt;sbaseRef&gt;</code> */
+, CompDeprecatedSBaseRefSpelling        = 1020711 /*!< The spelling 'sbaseRef' is deprecated */
+, CompSBaseRefMustReferenceObject       = 1020712 /*!< An SBaseRef must reference an object. */
+, CompSBaseRefMustReferenceOnlyOneObject= 1020713 /*!< An SBaseRef must reference only one other object. */
+, CompNoMultipleReferences              = 1020714 /*!< Objects may not be referenced by mutiple SBaseRef constructs. */
 
-, CompPortMustReferenceObject           = 1020801
-, CompPortMustReferenceOnlyOneObject    = 1020802
-, CompPortAllowedAttributes             = 1020803
-, CompPortReferencesUnique              = 1020804 
+, CompPortMustReferenceObject           = 1020801 /*!< Port must reference an object */
+, CompPortMustReferenceOnlyOneObject    = 1020802 /*!< Port must reference only one other object. */
+, CompPortAllowedAttributes             = 1020803 /*!< Allowed attributes on a Port */
+, CompPortReferencesUnique              = 1020804 /*!< Port definitions must be unique. */
 
-, CompDeletionMustReferenceObject       = 1020901
-, CompDeletionMustReferOnlyOneObject    = 1020902
-, CompDeletionAllowedAttributes         = 1020903
+, CompDeletionMustReferenceObject       = 1020901 /*!< Deletion must reference an object */
+, CompDeletionMustReferOnlyOneObject    = 1020902 /*!< Deletion must reference only one other object. */
+, CompDeletionAllowedAttributes         = 1020903 /*!< Allowed attributes on a Deletion */
 
-, CompReplacedElementMustRefObject      = 1021001
-, CompReplacedElementMustRefOnlyOne     = 1021002
-, CompReplacedElementAllowedAttributes  = 1021003
-, CompReplacedElementSubModelRef        = 1021004
-, CompReplacedElementDeletionRef        = 1021005
-, CompReplacedElementConvFactorRef      = 1021006
-, CompReplacedElementSameReference      = 1021010
-, CompReplacedElementNoDelAndConvFact   = 1021011
+, CompReplacedElementMustRefObject      = 1021001 /*!< ReplacedElement must reference an object */
+, CompReplacedElementMustRefOnlyOne     = 1021002 /*!< ReplacedElement must reference only one other object. */
+, CompReplacedElementAllowedAttributes  = 1021003 /*!< Allowed attributes on <code>&lt;replacedElement&gt;</code> */
+, CompReplacedElementSubModelRef        = 1021004 /*!< The 'comp:submodelRef' attribute must point to a <code>&lt;submodel&gt;</code> */
+, CompReplacedElementDeletionRef        = 1021005 /*!< The 'comp:deletion' attribute must point to a <code>&lt;deletion&gt;</code> */
+, CompReplacedElementConvFactorRef      = 1021006 /*!< The 'comp:conversionFactor attribute must point to a <code>&lt;parameter&gt;</code> */
+, CompReplacedElementSameReference      = 1021010 /*!< No <code>&lt;replacedElement&gt;</code> refer to same object */
+, CompReplacedElementNoDelAndConvFact   = 1021011 /*!< No <code>&lt;replacedElement&gt;</code> with deletion and conversionfactor */
 
-, CompReplacedByMustRefObject           = 1021101
-, CompReplacedByMustRefOnlyOne          = 1021102
-, CompReplacedByAllowedAttributes       = 1021103
-, CompReplacedBySubModelRef             = 1021104
+, CompReplacedByMustRefObject           = 1021101 /*!< ReplacedBy must reference an object */
+, CompReplacedByMustRefOnlyOne          = 1021102 /*!< ReplacedBy must reference only one other object. */
+, CompReplacedByAllowedAttributes       = 1021103 /*!< Allowed attributes on <code>&lt;replacedBy&gt;</code> */
+, CompReplacedBySubModelRef             = 1021104 /*!< The 'comp:submodelRef' attribute must point to a <code>&lt;submodel&gt;</code> */
 
-, CompMustReplaceSameClass              = 1021201
-, CompMustReplaceIDs                    = 1021202
-, CompMustReplaceMetaIDs                = 1021203
-, CompMustReplacePackageIDs             = 1021204
+, CompMustReplaceSameClass              = 1021201 /*!< Replaced classes must match. */
+, CompMustReplaceIDs                    = 1021202 /*!< Replaced IDs must be replaced with IDs. */
+, CompMustReplaceMetaIDs                = 1021203 /*!< Replaced metaids must be replaced with metaids. */
+, CompMustReplacePackageIDs             = 1021204 /*!< Replaced package IDs must be replaced with package IDs. */
 
-, CompUnresolvedReference               = 1090101
-, CompNoModelInReference                = 1090102
-, CompExtModDefBad                      = 1090103
-, CompModelFlatteningFailed             = 1090104
-, CompFlatModelNotValid                 = 1090105
-, CompLineNumbersUnreliable             = 1090106
+, CompUnresolvedReference               = 1090101 /*!< Unresolved reference. */
+, CompNoModelInReference                = 1090102 /*!< No model in referenced document. */
+, CompExtModDefBad                      = 1090103 /*!< Referenced <code>&lt;externalModelDefinition&gt;</code> unresolvable. */
+, CompModelFlatteningFailed             = 1090104 /*!< Model failed to flatten. */
+, CompFlatModelNotValid                 = 1090105 /*!< Flat model not valid. */
+, CompLineNumbersUnreliable             = 1090106 /*!< Line numbers unreliable. */
 
-, CompFlatteningNotRecognisedReqd       = 1090107
-, CompFlatteningNotRecognisedNotReqd    = 1090108
-, CompFlatteningNotImplementedNotReqd   = 1090109
-, CompFlatteningNotImplementedReqd      = 1090110
-, CompFlatteningWarning                 = 1090111
-, CompDeprecatedDeleteFunction          = 1090112
-, CompDeprecatedReplaceFunction         = 1090113
-, CompDeletedReplacement                = 1090114
+, CompFlatteningNotRecognisedReqd       = 1090107 /*!< Flattening not implemented for required package. */
+, CompFlatteningNotRecognisedNotReqd    = 1090108 /*!< Flattening not implemented for unrequired package. */
+, CompFlatteningNotImplementedNotReqd   = 1090109 /*!< Flattening not implemented for unrequired package. */
+, CompFlatteningNotImplementedReqd      = 1090110 /*!< Flattening not implemented for required package. */
+, CompFlatteningWarning                 = 1090111 /*!< Flattening reference may come from package. */
+, CompDeprecatedDeleteFunction          = 1090112 /*!< The performDeletions functions is deprecated. */
+, CompDeprecatedReplaceFunction         = 1090113 /*!< The performReplacementsAndConversions fuctions is deprecated. */
+, CompDeletedReplacement                = 1090114 /*!< Element deleted before a subelement could be replaced. */
 
-, CompIdRefMayReferenceUnknownPackage   = 1090115
-, CompMetaIdRefMayReferenceUnknownPkg   = 1090116
+, CompIdRefMayReferenceUnknownPackage   = 1090115 /*!< The 'comp:idRef' attribute must be the 'id' of a model element */
+, CompMetaIdRefMayReferenceUnknownPkg   = 1090116 /*!< The 'comp:metaIdRef' attribute must be the 'metaid' of a model element */
 
 } CompSBMLErrorCode_t;
 

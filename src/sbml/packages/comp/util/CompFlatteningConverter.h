@@ -116,7 +116,7 @@ public:
    * @li "stripUnflattenablePackages": boolean indicating whether packages 
    *   that cannot be flattened should be removed; default = true
    * @li "performValidation": boolean indicating whether validation should be 
-   *   performed. When @true either an invalid source document or 
+   *   performed. When @c true either an invalid source document or 
    *   an invalid flattened document will cause flattening to fail; default = true
    * @li "abortIfUnflattenable": string indicating the required status of
    *   any unflattenable packages that should cause flattening to fail.
@@ -132,7 +132,6 @@ public:
   virtual ConversionProperties getDefaultProperties() const;
 
 private:
-  /** @cond doxygenLibsbmlInternal */
 
   int reconstructDocument(Model* flatmodel); 
 
@@ -187,8 +186,6 @@ private:
   bool haveUnflattenableRequiredPackages();
 
   bool haveUnflattenableUnrequiredPackages();
-
-    /** @endcond */
 
 };
 
