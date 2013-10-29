@@ -31,12 +31,6 @@
  *
  * @htmlinclude not-sbml-warning.html
  *
- * SBML defines various ListOf___ classes that are containers used for
- * organizing the main components of an SBML model.  All are derived from
- * the abstract class SBase, and inherit the attributes and subelements of
- * SBase, such as "metaid" as and "annotation".  The ListOf___ classes do
- * not add any attributes of their own.
- *
  * The ListOf class in libSBML is a utility class that serves as the parent
  * class for implementing the ListOf__ classes.  It provides methods for
  * working generically with the various SBML lists of objects in a program.
@@ -44,18 +38,7 @@
  * @if clike C&#43;&#43; @endif@if java Java@endif@if python Python@endif@~ lists,
  * so that it can provide the methods and features associated with SBase.
  *
- * @see ListOfFunctionDefinitions
- * @see ListOfUnitDefinitions
- * @see ListOfCompartmentTypes
- * @see ListOfSpeciesTypes
- * @see ListOfCompartments
- * @see ListOfSpecies
- * @see ListOfParameters
- * @see ListOfInitialAssignments
- * @see ListOfRules
- * @see ListOfConstraints
- * @see ListOfReactions
- * @see ListOfEvents
+ * @copydetails doc_what_is_listof 
  */
 
 
@@ -398,8 +381,8 @@ public:
    */
   unsigned int size () const;
 
-  /** @cond doxygenLibsbmlInternal */
 
+  /** @cond doxygenLibsbmlInternal */
   /**
    * Sets the parent SBMLDocument of this SBML object.
    *
@@ -407,8 +390,10 @@ public:
    * ListOf.
    */
   virtual void setSBMLDocument (SBMLDocument* d);
+  /** @endcond */
 
 
+  /** @cond doxygenLibsbmlInternal */
   /**
    * Sets this SBML object to child SBML objects (if any).
    * (Creates a child-parent relationship by the parent)
@@ -418,13 +403,14 @@ public:
    * Basically, this function needs to be called in
    * constructor, copy constructor and assignment operator.
    *
+   * @if cpp 
    * @see setSBMLDocument()
    * @see enablePackageInternal()
+   * @endif
    */
   virtual void connectToChild ();
-
-
   /** @endcond */
+
 
   /**
    * Returns the libSBML type code for this object, namely,
