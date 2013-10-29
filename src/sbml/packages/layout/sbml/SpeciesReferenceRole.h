@@ -64,14 +64,14 @@ BEGIN_C_DECLS
 LIBSBML_EXTERN
 typedef enum
 {
-    SPECIES_ROLE_UNDEFINED
-  , SPECIES_ROLE_SUBSTRATE
-  , SPECIES_ROLE_PRODUCT
-  , SPECIES_ROLE_SIDESUBSTRATE
-  , SPECIES_ROLE_SIDEPRODUCT
-  , SPECIES_ROLE_MODIFIER
-  , SPECIES_ROLE_ACTIVATOR
-  , SPECIES_ROLE_INHIBITOR
+    SPECIES_ROLE_UNDEFINED /*!< 'undefined':  The role of the referenced Species is undefined. */
+  , SPECIES_ROLE_SUBSTRATE /*!< 'substrate':  The referenced Species is a principle substrate of the reaction. */
+  , SPECIES_ROLE_PRODUCT /*!< 'product':  The referenced Species is a principle product of the reaction. */
+  , SPECIES_ROLE_SIDESUBSTRATE /*!< 'sidesubstrate':  The referenced Species is a side substrate of the reaction.  Used for simple chemicals such as ATP, NAD+, etc.*/
+  , SPECIES_ROLE_SIDEPRODUCT /*!< 'sideproduct':  The referenced Species is a side product of the reaction.  Used for simple chemicals such as ATP, NAD+, etc. */
+  , SPECIES_ROLE_MODIFIER /*!< 'modifier':  The referenced Species influences the reaction in some way, but is not produced or consumed by it. */
+  , SPECIES_ROLE_ACTIVATOR /*!< The referenced Species acts as an activator of the reaction. */
+  , SPECIES_ROLE_INHIBITOR /*!< The referenced Species acts as an inhibitor of the reaction. */
 } SpeciesReferenceRole_t;
 
 

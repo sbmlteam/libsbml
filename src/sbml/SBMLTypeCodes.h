@@ -60,7 +60,7 @@ BEGIN_C_DECLS
  *  - To distinguish the typecodes of different packages, not only the return
  *    value of getTypeCode() but also that of getPackageName() must be checked
  *    as follows:
- *
+ *    <pre>
  *       void example (const SBase *sb)
  *       {
  *         cons std::string pkgName = sb->getPackageName();
@@ -88,43 +88,44 @@ BEGIN_C_DECLS
  *         } 
  *         ...
  *       } 
+ *   </pre>
  *      
  */
 typedef enum
 {
-      SBML_UNKNOWN                    =  0
-    , SBML_COMPARTMENT                =  1
-    , SBML_COMPARTMENT_TYPE           =  2
-    , SBML_CONSTRAINT                 =  3
-    , SBML_DOCUMENT                   =  4
-    , SBML_EVENT                      =  5
-    , SBML_EVENT_ASSIGNMENT           =  6
-    , SBML_FUNCTION_DEFINITION        =  7
-    , SBML_INITIAL_ASSIGNMENT         =  8
-    , SBML_KINETIC_LAW                =  9
-    , SBML_LIST_OF                    = 10
-    , SBML_MODEL                      = 11
-    , SBML_PARAMETER                  = 12
-    , SBML_REACTION                   = 13
-    , SBML_RULE                       = 14
-    , SBML_SPECIES                    = 15
-    , SBML_SPECIES_REFERENCE          = 16
-    , SBML_SPECIES_TYPE               = 17
-    , SBML_MODIFIER_SPECIES_REFERENCE = 18
-    , SBML_UNIT_DEFINITION            = 19
-    , SBML_UNIT                       = 20
-    , SBML_ALGEBRAIC_RULE             = 21
-    , SBML_ASSIGNMENT_RULE            = 22
-    , SBML_RATE_RULE                  = 23
-    , SBML_SPECIES_CONCENTRATION_RULE = 24
-    , SBML_COMPARTMENT_VOLUME_RULE    = 25
-    , SBML_PARAMETER_RULE             = 26
-    , SBML_TRIGGER                    = 27
-    , SBML_DELAY                      = 28
-    , SBML_STOICHIOMETRY_MATH         = 29
-    , SBML_LOCAL_PARAMETER            = 30
-    , SBML_PRIORITY                   = 31
-    , SBML_GENERIC_SBASE              = 32
+      SBML_UNKNOWN                    =  0 /*!< An unknown SBase type.  The default, but will not be returned for any SBML core object.  May be returned if querying a package object without additionally supplying information about the package itself. */
+    , SBML_COMPARTMENT                =  1 /*!< Compartment */
+    , SBML_COMPARTMENT_TYPE           =  2 /*!< CompartmentType (Note: L2 only) */
+    , SBML_CONSTRAINT                 =  3 /*!< Constraint */
+    , SBML_DOCUMENT                   =  4 /*!< SBMLDocument */
+    , SBML_EVENT                      =  5 /*!< Event */
+    , SBML_EVENT_ASSIGNMENT           =  6 /*!< EventAssignment */
+    , SBML_FUNCTION_DEFINITION        =  7 /*!< FunctionDefinition */
+    , SBML_INITIAL_ASSIGNMENT         =  8 /*!< InitialAssignment */
+    , SBML_KINETIC_LAW                =  9 /*!< KineticLaw */
+    , SBML_LIST_OF                    = 10 /*!< ListOf */
+    , SBML_MODEL                      = 11 /*!< Model */
+    , SBML_PARAMETER                  = 12 /*!< Parameter */
+    , SBML_REACTION                   = 13 /*!< Reaction */
+    , SBML_RULE                       = 14 /*!< Rule (Note: will not be returned from any getType function on any SBML core object, as it is an abstract base class only.) */
+    , SBML_SPECIES                    = 15 /*!< Species */
+    , SBML_SPECIES_REFERENCE          = 16 /*!< SpeciesReference */
+    , SBML_SPECIES_TYPE               = 17 /*!< SpeciesType (Note: L2 only) */
+    , SBML_MODIFIER_SPECIES_REFERENCE = 18 /*!< ModifierSpeciesReference */
+    , SBML_UNIT_DEFINITION            = 19 /*!< UnitDefinition */
+    , SBML_UNIT                       = 20 /*!< Unit */
+    , SBML_ALGEBRAIC_RULE             = 21 /*!< AlgebraicRule */
+    , SBML_ASSIGNMENT_RULE            = 22 /*!< AssignmentRule */
+    , SBML_RATE_RULE                  = 23 /*!< RateRule */
+    , SBML_SPECIES_CONCENTRATION_RULE = 24 /*!< SpeciesConcentrationRule (Note: L1 only) */
+    , SBML_COMPARTMENT_VOLUME_RULE    = 25 /*!< CompartmentVolumeRule (Note: L1 only) */
+    , SBML_PARAMETER_RULE             = 26 /*!< ParameterRule (Note: L1 only) */
+    , SBML_TRIGGER                    = 27 /*!< Trigger */
+    , SBML_DELAY                      = 28 /*!< Delay */
+    , SBML_STOICHIOMETRY_MATH         = 29 /*!< StoichiometryMath (Note: L2 only)*/
+    , SBML_LOCAL_PARAMETER            = 30 /*!< LocalParameter */
+    , SBML_PRIORITY                   = 31 /*!< Priority */
+    , SBML_GENERIC_SBASE              = 32 /*!< Any SBase-derived class. Not returned by any getType function, but used internally for packages that extend the SBase class itself, in the PKGNAMEExtension classes (such as CompExtension). */
 } SBMLTypeCode_t;
 
 

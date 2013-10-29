@@ -112,20 +112,20 @@ typedef struct
  */
 typedef enum
 {
-    TT_PLUS    = '+'
-  , TT_MINUS   = '-'
-  , TT_TIMES   = '*'
-  , TT_DIVIDE  = '/'
-  , TT_POWER   = '^'
-  , TT_LPAREN  = '('
-  , TT_RPAREN  = ')'
-  , TT_COMMA   = ','
-  , TT_END     = '\0'
-  , TT_NAME    = 256
-  , TT_INTEGER
-  , TT_REAL
-  , TT_REAL_E
-  , TT_UNKNOWN
+    TT_PLUS    = '+' /*!< The '+' token */
+  , TT_MINUS   = '-' /*!< The '-' token */
+  , TT_TIMES   = '*' /*!< The '*' token */
+  , TT_DIVIDE  = '/' /*!< The '/' token */
+  , TT_POWER   = '^' /*!< The '^' token */
+  , TT_LPAREN  = '(' /*!< The '(' token */
+  , TT_RPAREN  = ')' /*!< The ')' token */
+  , TT_COMMA   = ',' /*!< The ',' token */
+  , TT_END     = '\0'/*!< The end-of-input token */
+  , TT_NAME    = 256/*!< The token for a name*/
+  , TT_INTEGER /*!< The token for an integer */
+  , TT_REAL /*!< The token for a real number (number with a decimal point) */
+  , TT_REAL_E /*!< The token for a real number using e-notation*/
+  , TT_UNKNOWN /*!< An unknown token */
 } TokenType_t;
 
 
