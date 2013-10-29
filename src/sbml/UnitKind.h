@@ -48,43 +48,43 @@ BEGIN_C_DECLS
  */
 typedef enum
 {
-    UNIT_KIND_AMPERE
-  , UNIT_KIND_AVOGADRO
-  , UNIT_KIND_BECQUEREL
-  , UNIT_KIND_CANDELA
-  , UNIT_KIND_CELSIUS
-  , UNIT_KIND_COULOMB
-  , UNIT_KIND_DIMENSIONLESS
-  , UNIT_KIND_FARAD
-  , UNIT_KIND_GRAM
-  , UNIT_KIND_GRAY
-  , UNIT_KIND_HENRY
-  , UNIT_KIND_HERTZ
-  , UNIT_KIND_ITEM
-  , UNIT_KIND_JOULE
-  , UNIT_KIND_KATAL
-  , UNIT_KIND_KELVIN
-  , UNIT_KIND_KILOGRAM
-  , UNIT_KIND_LITER
-  , UNIT_KIND_LITRE
-  , UNIT_KIND_LUMEN
-  , UNIT_KIND_LUX
-  , UNIT_KIND_METER
-  , UNIT_KIND_METRE
-  , UNIT_KIND_MOLE
-  , UNIT_KIND_NEWTON
-  , UNIT_KIND_OHM
-  , UNIT_KIND_PASCAL
-  , UNIT_KIND_RADIAN
-  , UNIT_KIND_SECOND
-  , UNIT_KIND_SIEMENS
-  , UNIT_KIND_SIEVERT
-  , UNIT_KIND_STERADIAN
-  , UNIT_KIND_TESLA
-  , UNIT_KIND_VOLT
-  , UNIT_KIND_WATT
-  , UNIT_KIND_WEBER
-  , UNIT_KIND_INVALID
+    UNIT_KIND_AMPERE /*!< Ampere ('A'); SI base unit of electrical current (<i>I</i>) */
+  , UNIT_KIND_AVOGADRO /*!< Avogadro; From the SBML specification, the unit 'dimensionless' multiplied with Avogadro's number*/
+  , UNIT_KIND_BECQUEREL /*!< Bequerel ('Bq'); SI derived unit of radioactivity, equivalent to seconds<sup>-1</sup>*/
+  , UNIT_KIND_CANDELA /*!< Candela ('cd'); SI base unit of luminous intensity */
+  , UNIT_KIND_CELSIUS /*!< Celsius ('&deg;C'); unit of measurement for temperature.  Can either mean a specific temperature on the Celsius scale, or can indicate a temperature interval.  This duality of purpose makes it a poor choice for a unit and is only included for completeness; use UNIT_KIND_KELVIN instead.*/
+  , UNIT_KIND_COULOMB /*!< Coulomb ('C'); SI derived unit of electric charge (<b>Q</b>); the charge transported by a constant current of one ampere in one second (<code>A x s</code>; also equivalent to <code>F x V</code>).*/
+  , UNIT_KIND_DIMENSIONLESS /*!< Dimensionless; Having no explicit dimensionality, from the SBML specification.  Sometimes used for counts of items.  Not equivalent to unknown!*/
+  , UNIT_KIND_FARAD /*!< Farad ('F'); SI derived unit of electric capacitance.  <code>s<sup>4</sup> x A<sup>2</sup> x m<sup>-2</sup> x kg<sup>-1</sup></code>*/
+  , UNIT_KIND_GRAM /*!< Gram ('g'); SI derived unit of mass.  Equivalent to <code>10<sup>-3</sup> kg</code>*/
+  , UNIT_KIND_GRAY /*!< Gray ('Gy'); SI derived unit of absorbed dose, specific energy (imparted) and of kerma.  Equivalent to one <code>m<sup>2</sup> x m<sup>-2</sup></code>, or one <code>J x kg<sup>-1</sup></code>.*/
+  , UNIT_KIND_HENRY /*!< Henry ('H'); SI derived unit of inductance.  Equivalent to <code>m<sup>2</sup> x kg x s<sup>-2</sup> x A<sup>-2</sup></code>*/
+  , UNIT_KIND_HERTZ /*!< Hertz ('Hz'); SI base unit of frequency; a number of cycles per second of a periodic phenomenon.*/
+  , UNIT_KIND_ITEM /*!< Item; From the SBML specification, 'item' is used for expressing such things as 'N items' when 'mole' is not an appropriate unit*/
+  , UNIT_KIND_JOULE /*!< Joule ('J'); The SI derived unit of energy.  Equivalent to <code>kg x m<sup>2</sup> x s<sup>-2</sup>.</code>*/
+  , UNIT_KIND_KATAL /*!< Katal ('kat'); The SI derived unit of catalytic activity.  Equivalent to <code>mol x s<sup>-1</sup>.</code>*/
+  , UNIT_KIND_KELVIN /*!< Kelvin ('K'); SI base unit of temperature.*/
+  , UNIT_KIND_KILOGRAM /*!< Kilogram ('kg'); SI base unit of mass.*/
+  , UNIT_KIND_LITER /*!< Liter ('L'); American spelling of the SI unit 'litre'.  Here solely to catch the misspelling; use  UNIT_KIND_LITRE instead.*/
+  , UNIT_KIND_LITRE /*!< Litre ('L'); non-SI metric system of volume.  Equivalent to <code>10<sup>3</sup>cm<sup>3</sup></code>.*/
+  , UNIT_KIND_LUMEN /*!< Lumen ('lm'); SI derived unit of luminous flux.  Equivalent to <code>cd x sr</code>.*/
+  , UNIT_KIND_LUX /*!< Lux ('lx'); SI derived unit of luminous emittance.  Equivalent to <code>lm x m<sup>-2</sup></code>.*/
+  , UNIT_KIND_METER /*!<Meter ('m'); American spelling of the SI unit 'metre'.  Here solely to catch the misspelling; use UNIT_KIND_METRE instead. */
+  , UNIT_KIND_METRE /*!< Metre ('m'); SI base unit of length.*/
+  , UNIT_KIND_MOLE /*!< Mole ('mol'); SI base unit of amount.  Defined as the amount of any substance that contains as many elementary entities as there are atoms in 12 grams of pure Carbon-12, which corresponds to the Avogadro constant.  See UNIT_KIND_AVOGADRO.*/
+  , UNIT_KIND_NEWTON /*!< Newton ('N'); SI derived unit of force.  Equivalent to one <code>kg x m x sec<sup>-2</sup></code>.*/
+  , UNIT_KIND_OHM /*!< Ohm ('&#8486;'); SI derived unit of electrical resistance.  Equivalent to <code>kg x m<sup>2</sup> x s<sup>-3</sup> x A<sup>-2</sup></code>.*/
+  , UNIT_KIND_PASCAL /*!< Pascal ('Pa'); SI derived unit of pressure.  Equivalent to <code>kg x m<sup>-1</sup> x s<sup>-2</sup></code>.*/
+  , UNIT_KIND_RADIAN /*!< Radian ('rad'); SI derived unit of angular measure.  Dimensionless; an angle's measurement in radians is numerically equal to the length of a corresponding arc of a unit circle.*/
+  , UNIT_KIND_SECOND /*!< Second ('s'); SI base unit of time.*/
+  , UNIT_KIND_SIEMENS /*!< Siemens ('S'); SI derived unit of electric conductance.  Equivalent to <code>A<sup>2</sup> x s<sup>3</sup> x kg<sup>-1</sup> x m<sup>-2</sup></code>.*/
+  , UNIT_KIND_SIEVERT /*!< Sievert ('Sv'); SI derived unit of equivalent radiation dose, effective dose, and committed dose.  Equivalent to the UNIT_KIND_GRAY (<code>m<sup>2</sup> x m<sup>-2</sup></code>), but used to express the biological equivalent dose in human tissue.*/
+  , UNIT_KIND_STERADIAN /*!< Steradian ('sr'); SI derived unit of solid angle.  An angle's measurement in steradians is numerically equal to the area of the corresponding surface on a unit sphere.  Like the radian, it is dimensionless, essentially because a solid angle is the ratio between the area subtended and the square of its distance from the vertex: both the numerator and denominator of this ratio have dimension length<sup>2</sup>. It is useful, however, to distinguish between dimensionless quantities of different nature, so in practice the symbol "sr" is used to indicate a solid angle..*/
+  , UNIT_KIND_TESLA /*!< Tesla ('T'); SI derived unit of magnetic field strength or magnetic flux density.  Equivalent to <code>kg x A<sup>-1</sup> x s<sup>-2</sup></code>.*/
+  , UNIT_KIND_VOLT /*!< Volt ('V'); SI derived unit of electric potential.  Equivalent to <code>kg x m<sup>2</sup> x A<sup>-1</sup> x s<sup>-3</sup></code>.*/
+  , UNIT_KIND_WATT /*!< Watt ('W'); SI derived unit of power.  Equivalent to <code>kg x m<sup>2</sup> x s<sup>-3</sup></code>.*/
+  , UNIT_KIND_WEBER /*!< Weber ('Wb'); SI derived unit of magnetic flux.  Equivalent to <code>kg x m<sup>2</sup> x A<sup>-1</sup> x s<sup>-2</sup></code>.*/
+  , UNIT_KIND_INVALID /*!< An invalid unit.  Used by libsbml when the 'unit' attribute of an element does not contain any allowed value.*/
 } UnitKind_t;
 
 
