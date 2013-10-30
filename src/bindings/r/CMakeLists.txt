@@ -227,6 +227,11 @@ if (EXTRA_INCLUDE_DIRS)
  include_directories(${EXTRA_INCLUDE_DIRS})
 endif(EXTRA_INCLUDE_DIRS)
 
+if (MSVC)
+  # the build fails when compiled with packages as the object file is too 
+  # big adding the big flag makes it work!
+  add_definitions(/bigobj)
+endif(MSVC)
 
 add_library(binding_r_lib SHARED ${CMAKE_CURRENT_BINARY_DIR}/libsbml_wrap.cpp)
 add_dependencies(binding_r_lib binding_r_swig)
