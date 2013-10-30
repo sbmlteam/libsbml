@@ -1174,6 +1174,8 @@ ListOfSpeciesReferences::getItemTypeCode () const
   case Unknown:
     return SBML_UNKNOWN;
   }
+  //Shouldn't reach:  all enum values accounted for above
+  return SBML_UNKNOWN;
 }
 
 
