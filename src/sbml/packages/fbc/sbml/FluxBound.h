@@ -17,7 +17,7 @@
  *------------------------------------------------------------------------- -->
  *
  * @class FluxBound
- * @ingroup fbc
+ * @sbmlpackage fbc
  * @brief @htmlinclude pkg-marker-fbc.html
  * Implementation of the 'fbc' package %FluxBound construct.
  *
@@ -488,7 +488,7 @@ protected:
 
 /**
  * @class ListOfFluxBounds
- * @ingroup fbc
+ * @sbmlpackage fbc
  * @brief @htmlinclude pkg-marker-fbc.html
  * Implementation of the %ListOfFluxBounds construct from the 'fbc' package.
  * 

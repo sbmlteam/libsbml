@@ -26,7 +26,7 @@
  * ---------------------------------------------------------------------- -->
  *
  * @class XMLTokenizer
- * @ingroup core
+ * @sbmlpackage core
  * @brief Class implementing methods for turning XML into tokens.
  *
  * @if notclike @internal @endif@~

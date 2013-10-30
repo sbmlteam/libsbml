@@ -25,7 +25,7 @@
  * also available online as http://sbml.org/software/libsbml/license.html
  * ---------------------------------------------------------------------- -->
  * @class XMLLogOverride
- * @ingroup core
+ * @sbmlpackage core
  * @brief Utility class implementing a temporary override the severity on error logs. 
  *
  * @if notclike @internal @endif@~

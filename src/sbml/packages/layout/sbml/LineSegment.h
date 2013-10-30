@@ -51,7 +51,7 @@
  *------------------------------------------------------------------------- -->
  *
  * @class LineSegment
- * @ingroup layout
+ * @sbmlpackage layout
  * @brief @htmlinclude pkg-marker-layout.html
  * The representation of a line in the &ldquo;layout&rdquo; package.
  *

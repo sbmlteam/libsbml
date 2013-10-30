@@ -26,7 +26,7 @@
  * ------------------------------------------------------------------------ -->
  * 
  * @class LocalParameter.
- * @ingroup core
+ * @sbmlpackage core
  * @brief Implementation of SBML Level&nbsp;3's %LocalParameter construct.
  *
  * LocalParameter has been introduced in SBML Level&nbsp;3 to serve as the
@@ -93,7 +93,7 @@
  * 
  * <!-- ------------------------------------------------------------------- -->
  * @class ListOfLocalParameters
- * @ingroup core
+ * @sbmlpackage core
  * @brief Implementation of SBML Level&nbsp;3's %ListOfLocalParameters construct.
  * 
  * @copydetails doc_what_is_listof

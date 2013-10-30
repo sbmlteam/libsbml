@@ -26,7 +26,7 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class Constraint
- * @ingroup core
+ * @sbmlpackage core
  * @brief Implementation of SBML's %Constraint construct.
  *
  * The Constraint object class was introduced in SBML Level&nbsp;2
@@ -104,7 +104,7 @@
  * <!---------------------------------------------------------------------- -->
  *
  * @class ListOfConstraints
- * @ingroup core
+ * @sbmlpackage core
  * @brief Implementation of SBML's %ListOfConstraints construct.
  * 
  * @copydetails doc_what_is_listof

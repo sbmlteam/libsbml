@@ -26,7 +26,7 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class RDFAnnotationParser
- * @ingroup core
+ * @sbmlpackage core
  * @brief Read/write/manipulate RDF annotations stored in SBML
  * annotation elements.
  *

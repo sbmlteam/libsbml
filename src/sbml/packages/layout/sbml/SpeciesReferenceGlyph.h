@@ -51,7 +51,7 @@
  *------------------------------------------------------------------------- -->
  *
  * @class SpeciesReferenceGlyph
- * @ingroup layout
+ * @sbmlpackage layout
  * @brief @htmlinclude pkg-marker-layout.html
  * A %SpeciesReferenceGlyph represents a reactant or product from a Reaction in the &ldquo;layout&rdquo; package.
  *

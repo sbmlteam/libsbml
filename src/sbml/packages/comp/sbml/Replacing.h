@@ -17,7 +17,7 @@
  *------------------------------------------------------------------------- -->
  *
  * @class Replacing
- * @ingroup comp
+ * @sbmlpackage comp
  * @brief @htmlinclude pkg-marker-comp.html
  * A convenience subclass of the %ReplacedElement and %ReplacedBy 
  * constructs from the &ldquo;comp&rdquo; package.

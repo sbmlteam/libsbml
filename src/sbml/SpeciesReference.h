@@ -27,7 +27,7 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class SpeciesReference
- * @ingroup core
+ * @sbmlpackage core
  * @brief Implementation of %SBML's %SpeciesReference construct.
  *
  * The Reaction structure provides a way to express which species act as
@@ -230,7 +230,7 @@
  * 
  * <!---------------------------------------------------------------------- -->
  * @class ListOfSpeciesReferences
- * @ingroup core
+ * @sbmlpackage core
  * @brief Implementation of SBML's %ListOfSpeciesReferences construct.
  *
  * @copydetails doc_what_is_listof 

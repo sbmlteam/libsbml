@@ -26,7 +26,7 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class FunctionDefinition
- * @ingroup core
+ * @sbmlpackage core
  * @brief Implementation of %SBML's %FunctionDefinition construct.
  *
  * The FunctionDefinition structure associates an identifier with a
@@ -95,7 +95,7 @@
  * <!---------------------------------------------------------------------- -->
  *
  * @class ListOfFunctionDefinitions
- * @ingroup core
+ * @sbmlpackage core
  * @brief Implementation of SBML's %ListOfFunctionDefinitions construct.
  *
  * @copydetails doc_what_is_listof

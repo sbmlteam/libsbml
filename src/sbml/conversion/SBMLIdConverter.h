@@ -26,7 +26,7 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class SBMLIdConverter
- * @ingroup core
+ * @sbmlpackage core
  * @brief SBML converter for replacing SIds.
  *
  * @htmlinclude libsbml-facility-only-warning.html

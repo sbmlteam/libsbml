@@ -26,7 +26,7 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class SBMLDocument
- * @ingroup core
+ * @sbmlpackage core
  * @brief Container for an SBML document and interface for global operations
  * on SBML documents.
  *

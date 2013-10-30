@@ -26,7 +26,7 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class Priority
- * @ingroup core
+ * @sbmlpackage core
  * @brief Implementation of %SBML Level 3's %Priority construct
  * for Event.
  *

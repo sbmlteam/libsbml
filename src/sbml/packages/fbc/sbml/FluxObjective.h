@@ -17,7 +17,7 @@
  *------------------------------------------------------------------------- -->
  *
  * @class FluxObjective
- * @ingroup fbc
+ * @sbmlpackage fbc
  * @brief @htmlinclude pkg-marker-fbc.html
  * Implementation of the 'fbc' package %FluxObjective construct.
  *
@@ -377,7 +377,7 @@ protected:
 
 /**
  * @class ListOfFluxObjectives
- * @ingroup fbc
+ * @sbmlpackage fbc
  * @brief @htmlinclude pkg-marker-fbc.html
  * Implementation of the 'fbc' package %ListOfFluxObjectives construct.
  * 

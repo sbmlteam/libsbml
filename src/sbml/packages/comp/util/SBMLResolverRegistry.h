@@ -26,7 +26,7 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class SBMLResolverRegistry
- * @ingroup comp
+ * @sbmlpackage comp
  * @brief  @htmlinclude pkg-marker-comp.html
  * Registry of all SBML resolvers.
  *

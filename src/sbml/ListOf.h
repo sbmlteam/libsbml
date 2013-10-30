@@ -26,7 +26,7 @@
  * ---------------------------------------------------------------------- -->
  *
  * @class ListOf
- * @ingroup core
+ * @sbmlpackage core
  * @brief Parent class for the various SBML "ListOfXYZ" classes.
  *
  * @htmlinclude not-sbml-warning.html

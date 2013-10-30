@@ -18,7 +18,7 @@
  *------------------------------------------------------------------------- -->
  *
  * @class FbcModelPlugin
- * @ingroup fbc
+ * @sbmlpackage fbc
  * @brief @htmlinclude pkg-marker-fbc.html
  * Implementation of the 'fbc' package extention to the %Model construct.
  */

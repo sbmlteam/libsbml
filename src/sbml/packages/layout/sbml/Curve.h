@@ -51,7 +51,7 @@
  *------------------------------------------------------------------------- -->
  *
  * @class Curve
- * @ingroup layout
+ * @sbmlpackage layout
  * @brief @htmlinclude pkg-marker-layout.html
  * The Curve class describes how to connect elements in a diagram defined with the use of the &ldquo;layout&rdquo; package. A curve is fully specified by a mandatory listOfCurveSegments element and is used in four places in the &ldquo;layout&rdquo; package: 
  * @li SpeciesReferenceGlyph: Here it describes a curve from/to the center piece of the parent ReactionGlyph to/from the SpeciesGlyph it represents.
@@ -86,7 +86,7 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 
 /**
  * @class ListOfLineSegments
- * @ingroup layout
+ * @sbmlpackage layout
  * @brief @htmlinclude pkg-marker-layout.html
  * Implementation of the %ListOfLineSegments construct from the 'layout' package.
  * 

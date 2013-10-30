@@ -885,9 +885,10 @@ def sanitizeForHTML (docstring):
 
   docstring = re.sub(r'(\s)%(\w)', r'\1\2', docstring)
 
-  # Currently, we don't handle @ingroup.
+  # Currently, we don't handle @ingroup or our pseudo-tag, @sbmlpackage
 
   docstring = re.sub(r'@ingroup \w+', '', docstring)
+  docstring = re.sub(r'@sbmlpackage \w+', '', docstring)
 
   return docstring
 

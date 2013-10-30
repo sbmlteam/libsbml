@@ -26,7 +26,7 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class Input
- * @ingroup qual
+ * @sbmlpackage qual
  * @brief @htmlinclude pkg-marker-qual.html
  * The Input class for the Qualitative Models package.
  *
@@ -548,7 +548,7 @@ protected:
 
 /**
  * @class ListOfInputs
- * @ingroup qual
+ * @sbmlpackage qual
  * @brief @htmlinclude pkg-marker-qual.html
  * Implementation of the %ListOfInputs construct from the 'qual' package.
  * 

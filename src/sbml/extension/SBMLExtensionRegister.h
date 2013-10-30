@@ -28,7 +28,7 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class SBMLExtensionRegister
- * @ingroup core
+ * @sbmlpackage core
  * @brief Template class for registering an extension package to the
  *        SBMLExtensionRegistry class.
  *
@@ -46,7 +46,7 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 
 
 /**
- * @ingroup core
+ * @sbmlpackage core
  */
 template<class SBMLExtensionType>
 class LIBSBML_EXTERN SBMLExtensionRegister

@@ -17,7 +17,7 @@
  *------------------------------------------------------------------------- -->
  *
  * @class ListOfExternalModelDefinitions
- * @ingroup Cop
+ * @sbmlpackage comp
  * @brief @htmlinclude pkg-marker-comp.html
  * Implementation of the %ListOfExternalModelDefinitions construct
  * from the &ldquo;comp&rdquo; package.

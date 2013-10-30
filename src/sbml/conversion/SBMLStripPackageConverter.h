@@ -26,7 +26,7 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class SBMLStripPackageConverter
- * @ingroup core
+ * @sbmlpackage core
  * @brief SBML converter for removing packages.
  * 
  * @htmlinclude libsbml-facility-only-warning.html

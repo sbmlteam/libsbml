@@ -26,7 +26,7 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class Transition
- * @ingroup qual
+ * @sbmlpackage qual
  * @brief @htmlinclude pkg-marker-qual.html
  * The Transition class for the Qualitative Models package.
  *
@@ -939,7 +939,7 @@ protected:
 
 /**
  * @class ListOfTransitions
- * @ingroup qual
+ * @sbmlpackage qual
  * @brief @htmlinclude pkg-marker-qual.html
  * Implementation of the %ListOfTransitions construct from the 'qual' package.
  * 

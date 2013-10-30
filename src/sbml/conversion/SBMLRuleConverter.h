@@ -26,7 +26,7 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class SBMLRuleConverter
- * @ingroup core
+ * @sbmlpackage core
  * @brief SBML converter for reordering rules and assignments in a model.
  * 
  * @htmlinclude libsbml-facility-only-warning.html

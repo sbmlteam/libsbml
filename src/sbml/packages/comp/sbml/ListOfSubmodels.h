@@ -17,7 +17,7 @@
  *------------------------------------------------------------------------- -->
  *
  * @class ListOfSubmodels
- * @ingroup comp
+ * @sbmlpackage comp
  * @brief @htmlinclude pkg-marker-comp.html
  * Implementation of the %ListOfSubmodels construct from the &ldquo;comp&rdquo; package.
  * 

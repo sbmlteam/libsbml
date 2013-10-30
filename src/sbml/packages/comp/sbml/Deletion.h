@@ -17,7 +17,7 @@
  *------------------------------------------------------------------------- -->
  *
  * @class Deletion
- * @ingroup comp
+ * @sbmlpackage comp
  * @brief @htmlinclude pkg-marker-comp.html
  * Implementation of the %Deletion construct from the &ldquo;comp&rdquo; package.
  *

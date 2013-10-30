@@ -17,7 +17,7 @@
  *------------------------------------------------------------------------- -->
  *
  * @class Objective
- * @ingroup fbc
+ * @sbmlpackage fbc
  * @brief @htmlinclude pkg-marker-fbc.html
  * Implementation of the 'fbc' package %Objective construct.
  *
@@ -560,7 +560,7 @@ protected:
 
 /**
  * @class ListOfObjectives
- * @ingroup fbc
+ * @sbmlpackage fbc
  * @brief @htmlinclude pkg-marker-fbc.html
  * Implementation of the %ListOfObjectives construct from the 'fbc' package.
  * 

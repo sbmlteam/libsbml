@@ -17,7 +17,7 @@
  *------------------------------------------------------------------------- -->
  *
  * @class ReplacedBy
- * @ingroup comp
+ * @sbmlpackage comp
  * @brief @htmlinclude pkg-marker-comp.html
  * Implementation of the %ReplacedBy construct from the &ldquo;comp&rdquo; package.
  *

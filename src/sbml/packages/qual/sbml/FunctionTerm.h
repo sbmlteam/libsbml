@@ -26,7 +26,7 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class FunctionTerm
- * @ingroup qual
+ * @sbmlpackage qual
  * @brief @htmlinclude pkg-marker-qual.html
  * The FunctionTerm class for the Qualitative Models package.
  *
@@ -373,7 +373,7 @@ protected:
 /**
  *
  * @class ListOfFunctionTerms
- * @ingroup qual
+ * @sbmlpackage qual
  * @brief @htmlinclude pkg-marker-qual.html
  * Implementation of the %ListOfFunctionTerms construct from the 'qual' package.
  * 

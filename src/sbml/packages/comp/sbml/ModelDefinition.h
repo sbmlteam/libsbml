@@ -17,7 +17,7 @@
  *------------------------------------------------------------------------- -->
  *
  * @class ModelDefinition
- * @ingroup comp
+ * @sbmlpackage comp
  * @brief @htmlinclude pkg-marker-comp.html
  * Implementation of the %ModelDefinition construct from the &ldquo;comp&rdquo; package.
  *

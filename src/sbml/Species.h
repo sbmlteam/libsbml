@@ -26,7 +26,7 @@
  * ------------------------------------------------------------------------ -->
  * 
  * @class Species
- * @ingroup core
+ * @sbmlpackage core
  * @brief Implementation of SBML's %Species construct.
  *
  * A @em species in SBML refers to a pool of entities that (a) are
@@ -332,7 +332,7 @@
  *
  * <!-- ------------------------------------------------------------------- -->
  * @class ListOfSpecies
- * @ingroup core
+ * @sbmlpackage core
  * @brief Implementation of SBML Level&nbsp;2's %ListOfSpecies construct.
  * 
  * @copydetails doc_what_is_listof

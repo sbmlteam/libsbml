@@ -26,7 +26,7 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class XMLConstructorException
- * @ingroup core
+ * @sbmlpackage core
  * @brief Class of exceptions thrown by constructors of some libSBML objects.
  *
  * @htmlinclude not-sbml-warning.html

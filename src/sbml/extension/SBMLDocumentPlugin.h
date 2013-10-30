@@ -28,7 +28,7 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class SBMLDocumentPlugin
- * @ingroup core
+ * @sbmlpackage core
  * @brief Template class for the %SBMLDocument Plugin class needed by all packages.
  *
  * Plugin objects for the SBMLDocument element must be this class or 
@@ -56,7 +56,7 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 
 
 /**
- * @ingroup core
+ * @sbmlpackage core
  */
 class LIBSBML_EXTERN SBMLDocumentPlugin : public SBasePlugin
 {

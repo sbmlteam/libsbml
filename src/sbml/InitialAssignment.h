@@ -26,7 +26,7 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class InitialAssignment
- * @ingroup core
+ * @sbmlpackage core
  * @brief  Implementation of %SBML's %InitialAssignment construct.
  *
  * SBML Level 2 Versions 2&ndash;4 and SBML Level&nbsp;3 provide two ways of assigning initial
@@ -168,7 +168,7 @@
  * <!---------------------------------------------------------------------- -->
  *
  * @class ListOfInitialAssignments
- * @ingroup core
+ * @sbmlpackage core
  * @brief Implementation of SBML's %ListOfInitialAssignments construct.
  *
  * @copydetails doc_what_is_listof

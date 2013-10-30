@@ -26,7 +26,7 @@
  * ------------------------------------------------------------------------ -->
  * 
  * @class ModelCreator
- * @ingroup core
+ * @sbmlpackage core
  * @brief Representation of MIRIAM-compliant model creator data used
  * in ModelHistory. 
  *

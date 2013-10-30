@@ -26,7 +26,7 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class QualValidator
- * @ingroup QUAL
+ * @sbmlpackage QUAL
  * @brief @htmlinclude pkg-marker-qual.html
  * Entry point for libSBML's implementation of SBML validation rules for 'qual'.
  * 

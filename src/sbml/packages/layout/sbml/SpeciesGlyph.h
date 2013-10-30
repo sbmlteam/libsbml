@@ -51,7 +51,7 @@
  *------------------------------------------------------------------------- -->
  *
  * @class SpeciesGlyph
- * @ingroup layout
+ * @sbmlpackage layout
  * @brief @htmlinclude pkg-marker-layout.html
  * The %SpeciesGlyph represents a Species in the &ldquo;layout&rdquo; package.
  *

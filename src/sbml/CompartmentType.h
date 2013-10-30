@@ -26,7 +26,7 @@
  * ------------------------------------------------------------------------ -->
  * 
  * @class CompartmentType
- * @ingroup core
+ * @sbmlpackage core
  * @brief Implementation of SBML's Level&nbsp;2's %CompartmentType construct.
  *
  * SBML Level&nbsp;2 Versions&nbsp;2&ndash;4 provide the <em>compartment
@@ -69,7 +69,7 @@
  * 
  * <!-- ------------------------------------------------------------------- -->
  * @class ListOfCompartmentTypes
- * @ingroup core
+ * @sbmlpackage core
  * @brief Implementation of SBML's %ListOfCompartmentTypes construct.
  * 
  * @copydetails doc_what_is_listof

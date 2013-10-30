@@ -26,12 +26,12 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class QualExtension
- * @ingroup qual
+ * @sbmlpackage qual
  * @brief @htmlinclude pkg-marker-qual.html
  * The core module of the 'qual' package extension.
  *
  * @class QualPkgNamespaces
- * @ingroup qual
+ * @sbmlpackage qual
  * @brief @htmlinclude pkg-marker-qual.html
  * Extension of SBMLNamespaces for the SBML Level&nbsp;3 'qual' package.
  */

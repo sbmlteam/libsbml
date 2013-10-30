@@ -26,7 +26,7 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class ASTNode
- * @ingroup core
+ * @sbmlpackage core
  * @brief Abstract Syntax Tree (AST) representation of a
  * mathematical expression.
  *

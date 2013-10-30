@@ -26,7 +26,7 @@
  * ---------------------------------------------------------------------- -->
  *
  * @class CompFlatteningConverter
- * @ingroup comp
+ * @sbmlpackage comp
  * @brief @htmlinclude pkg-marker-comp.html
  * Flattening converter for the &ldquo;comp&rdquo; package.
  */

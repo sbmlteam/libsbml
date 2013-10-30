@@ -26,7 +26,7 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class XMLNamespaces.
- * @ingroup core
+ * @sbmlpackage core
  * @brief Representation of XML Namespaces.
  *
  * @htmlinclude not-sbml-warning.html

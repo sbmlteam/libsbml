@@ -26,7 +26,7 @@
  * ---------------------------------------------------------------------- -->
  *
  * @class CompValidator
- * @ingroup comp
+ * @sbmlpackage comp
  * @brief @htmlinclude pkg-marker-comp.html
  * Entry point for libSBML's implementation of SBML validation rules for the
  * &ldquo;comp&rdquo; package.

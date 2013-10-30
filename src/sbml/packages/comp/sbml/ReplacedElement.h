@@ -17,7 +17,7 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class ReplacedElement
- * @ingroup comp
+ * @sbmlpackage comp
  * @brief @htmlinclude pkg-marker-comp.html
  * Implementation of the %ReplacedElement construct from the &ldquo;comp&rdquo; package.
  *

@@ -18,7 +18,7 @@
  *------------------------------------------------------------------------- -->
  *
  * @class CompSBMLDocumentPlugin
- * @ingroup comp
+ * @sbmlpackage comp
  * @brief @htmlinclude pkg-marker-comp.html
  * Implementation of the &ldquo;comp&rdquo; package extention to the %SBMLDocument construct.
  *

@@ -24,8 +24,9 @@
  * in the file named "LICENSE.txt" included with this software distribution
  * and also available online as http://sbml.org/software/libsbml/license.html
  * ------------------------------------------------------------------------ -->
+ *
  * @class XMLTriple.
- * @ingroup core
+ * @sbmlpackage core
  * @brief Representation of a qualified XML name.
  *
  * @htmlinclude not-sbml-warning.html

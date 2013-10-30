@@ -51,7 +51,7 @@
  *------------------------------------------------------------------------- -->
  *
  * @class Point
- * @ingroup layout
+ * @sbmlpackage layout
  * @brief @htmlinclude pkg-marker-layout.html
  * The representation of a point in the &ldquo;layout&rdquo; package.
  *

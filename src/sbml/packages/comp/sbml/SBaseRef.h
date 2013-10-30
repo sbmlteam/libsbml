@@ -17,7 +17,7 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class SBaseRef
- * @ingroup comp
+ * @sbmlpackage comp
  * @brief @htmlinclude pkg-marker-comp.html
  * Implementation of the %SBaseRef construct from the &ldquo;comp&rdquo; package.
  *

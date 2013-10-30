@@ -26,7 +26,7 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class SBMLConverter
- * @ingroup core
+ * @sbmlpackage core
  * @brief Base class for SBML converters.
  *
  * @htmlinclude libsbml-facility-only-warning.html

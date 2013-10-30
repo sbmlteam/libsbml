@@ -51,7 +51,7 @@
  *------------------------------------------------------------------------- -->
  *
  * @class CubicBezier
- * @ingroup layout
+ * @sbmlpackage layout
  * @brief @htmlinclude pkg-marker-layout.html
  * A %CubicBezier represents a smooth curve in the &ldquo;layout&rdquo; package.
  *

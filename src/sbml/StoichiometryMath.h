@@ -26,7 +26,7 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class StoichiometryMath
- * @ingroup core
+ * @sbmlpackage core
  * @brief Implementation of SBML Level&nbsp;2's %StoichiometryMath construct.
  *
  * @section l2-stoichiometries Stoichiometries in SBML Level 2

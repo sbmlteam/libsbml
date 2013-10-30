@@ -26,7 +26,7 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class Date
- * @ingroup core
+ * @sbmlpackage core
  * @brief Representation of MIRIAM-compliant dates used in ModelHistory.
  *
  * @htmlinclude not-sbml-warning.html

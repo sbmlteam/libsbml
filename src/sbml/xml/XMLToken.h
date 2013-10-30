@@ -26,7 +26,7 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class XMLToken.
- * @ingroup core
+ * @sbmlpackage core
  * @brief Representation of a token in an XML stream.
  *
  * @htmlinclude not-sbml-warning.html

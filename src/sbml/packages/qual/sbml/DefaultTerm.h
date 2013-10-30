@@ -26,7 +26,7 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class DefaultTerm
- * @ingroup qual
+ * @sbmlpackage qual
  * @brief @htmlinclude pkg-marker-qual.html
  * The DefaultTerm class for the Qualitative Models package.
  *

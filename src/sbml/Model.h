@@ -26,7 +26,7 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class Model
- * @ingroup core
+ * @sbmlpackage core
  * @brief Implementation of %SBML's %Model construct.
  *
  * In an SBML model definition, a single object of class Model serves as

@@ -51,7 +51,7 @@
  *------------------------------------------------------------------------- -->
  *
  * @class CompartmentGlyph
- * @ingroup layout
+ * @sbmlpackage layout
  * @brief @htmlinclude pkg-marker-layout.html
  * Representation of a compartment glyph.
  */

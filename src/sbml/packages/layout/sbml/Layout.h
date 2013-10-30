@@ -51,7 +51,7 @@
  *------------------------------------------------------------------------- -->
  *
  * @class Layout
- * @ingroup layout
+ * @sbmlpackage layout
  * @brief @htmlinclude pkg-marker-layout.html
  * Each Layout object stores a set of layout information for objects in the Model.
  *
@@ -89,7 +89,7 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 
 /**
  * @class ListOfCompartmentGlyphs
- * @ingroup layout
+ * @sbmlpackage layout
  * @brief  @htmlinclude pkg-marker-layout.html
  * Implementation of the %ListOfCompartmentGlyphs construct from the &ldquo;layout&rdquo; package.
  * 
@@ -252,7 +252,7 @@ protected:
 
 /**
  * @class ListOfSpeciesGlyphs
- * @ingroup layout
+ * @sbmlpackage layout
  * @brief  @htmlinclude pkg-marker-layout.html
  * Implementation of the %ListOfSpeciesGlyphs construct from the &ldquo;layout&rdquo; package.
  * 
@@ -414,7 +414,7 @@ protected:
 
 /**
  * @class ListOfReactionGlyphs
- * @ingroup layout
+ * @sbmlpackage layout
  * @brief  @htmlinclude pkg-marker-layout.html
  * Implementation of the %ListOfReactionGlyphs construct from the &ldquo;layout&rdquo; package.
  * 
@@ -576,7 +576,7 @@ protected:
 
 /**
  * @class ListOfTextGlyphs
- * @ingroup layout
+ * @sbmlpackage layout
  * @brief  @htmlinclude pkg-marker-layout.html
  * Implementation of the %ListOfTextGlyphs construct from the &ldquo;layout&rdquo; package.
  * 
@@ -1522,7 +1522,7 @@ protected:
 
 /**
  * @class ListOfLayouts
- * @ingroup layout
+ * @sbmlpackage layout
  * @brief  @htmlinclude pkg-marker-layout.html
  * Implementation of the %ListOfLayouts construct from the &ldquo;layout&rdquo; package.
  * 

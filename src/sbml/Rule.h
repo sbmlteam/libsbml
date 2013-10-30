@@ -26,7 +26,7 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class Rule
- * @ingroup core
+ * @sbmlpackage core
  * @brief Implementation of %SBML's %Rule construct.
  *
  * In SBML, @em rules provide additional ways to define the values of
@@ -47,7 +47,7 @@
  *
  * <!-- ------------------------------------------------------------------- -->
  * @class ListOfRules
- * @ingroup core
+ * @sbmlpackage core
  * @brief Implementation of SBML's %ListOfRules construct.
  * 
  * @copydetails doc_what_is_listof

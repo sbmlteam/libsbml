@@ -26,7 +26,7 @@
  * ---------------------------------------------------------------------- -->
  *
  * @class XMLInputStream
- * @ingroup core
+ * @sbmlpackage core
  *
  * @if notclike @internal @endif@~
  */

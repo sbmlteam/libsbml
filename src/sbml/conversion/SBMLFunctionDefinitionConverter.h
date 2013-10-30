@@ -26,7 +26,7 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class SBMLFunctionDefinitionConverter
- * @ingroup core
+ * @sbmlpackage core
  * @brief SBML converter for replacing function definitions.
  * 
  * @htmlinclude libsbml-facility-only-warning.html

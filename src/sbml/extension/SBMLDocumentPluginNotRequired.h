@@ -29,7 +29,7 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class SBMLDocumentPluginNotRequired
- * @ingroup core
+ * @sbmlpackage core
  * @brief Template class for the %SBMLDocument Plugin class for non-required packages.
  *
  * The SBMLDocumentPluginNotRequired class extends the SBMLDocumentPlugin class, and
@@ -50,7 +50,7 @@
 LIBSBML_CPP_NAMESPACE_BEGIN
 
 /**
- * @ingroup core
+ * @sbmlpackage core
  */
 class LIBSBML_EXTERN SBMLDocumentPluginNotRequired : public SBMLDocumentPlugin
 {

@@ -26,7 +26,7 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class XMLErrorLog
- * @ingroup core
+ * @sbmlpackage core
  * @brief Log of errors and other events encountered while processing an XML
  * file or data stream.
  *

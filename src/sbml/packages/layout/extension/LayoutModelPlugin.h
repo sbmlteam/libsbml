@@ -27,7 +27,7 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class LayoutModelPlugin
- * @ingroup layout
+ * @sbmlpackage layout
  * @brief @htmlinclude pkg-marker-layout.html
  * Implementation of the 'layout' package extention to the %Model construct.
   */

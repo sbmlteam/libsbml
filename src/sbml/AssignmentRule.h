@@ -27,7 +27,7 @@
  * ------------------------------------------------------------------------ -->
  * 
  * @class AssignmentRule
- * @ingroup core
+ * @sbmlpackage core
  * @brief Implementation of %SBML's %AssignmentRule construct.
  *
  * The rule type AssignmentRule is derived from the parent class Rule.  It

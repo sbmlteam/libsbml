@@ -26,7 +26,7 @@
  * ---------------------------------------------------------------------- -->
  *
  * @class Unit
- * @ingroup core
+ * @sbmlpackage core
  * @brief Implementation of SBML's %Unit construct.
  *
  * The SBML unit definition facility uses two classes of objects,
@@ -159,7 +159,7 @@
  * 
  * <!-- ------------------------------------------------------------------- -->
  * @class ListOfUnits
- * @ingroup core
+ * @sbmlpackage core
  * @brief Implementation of SBML's %ListOfUnits construct.
  * 
  * ListOfUnits is entirely contained within UnitDefinition.

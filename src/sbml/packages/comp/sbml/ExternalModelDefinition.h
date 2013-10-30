@@ -17,7 +17,7 @@
  *------------------------------------------------------------------------- -->
  *
  * @class ExternalModelDefinition
- * @ingroup comp
+ * @sbmlpackage comp
  * @brief @htmlinclude pkg-marker-comp.html
  * Implementation of the %ExternalModelDefinition construct from the &ldquo;comp&rdquo; package.
  *

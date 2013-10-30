@@ -26,7 +26,7 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class Output
- * @ingroup qual
+ * @sbmlpackage qual
  * @brief @htmlinclude pkg-marker-qual.html
  * The Output class for the Qualitative Models package.
  * 
@@ -494,7 +494,7 @@ protected:
 
 /**
  * @class ListOfOutputs
- * @ingroup qual
+ * @sbmlpackage qual
  * @brief @htmlinclude pkg-marker-qual.html
  * Implementation of the %ListOfOutputs construct from the 'qual' package.
  * 

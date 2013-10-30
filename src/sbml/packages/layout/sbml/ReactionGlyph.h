@@ -51,7 +51,7 @@
  *------------------------------------------------------------------------- -->
  *
  * @class ReactionGlyph
- * @ingroup layout
+ * @sbmlpackage layout
  * @brief @htmlinclude pkg-marker-layout.html
  * The %ReactionGlyph is used to represent Reaction elements in the layout. Analogous to how a Reaction object has to at least have one reactant or product, the ReactionGlyph has to at least have one SpeciesReferenceGlyph stored in the ListOfSpeciesReferenceGlyphs. Figure 12 on the following page provides the UML diagram for the class definition. 
  * The ReactionGlyph inherits from GraphicalObject. In addition to the attributes inherited from GraphicalObject, the ReactionGlyph is described by an attribute reaction, a Curve element and a listOfSpeciesReferenceGlyphs element. 
@@ -82,7 +82,7 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 
 /**
  * @class ListOfSpeciesReferenceGlyphs
- * @ingroup layout
+ * @sbmlpackage layout
  * @brief  @htmlinclude pkg-marker-layout.html
  * Implementation of the %ListOfSpeciesReferenceGlyphs construct from the &ldquo;layout&rdquo; package.
  * 

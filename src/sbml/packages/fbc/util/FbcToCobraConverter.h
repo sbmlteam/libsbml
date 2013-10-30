@@ -26,7 +26,7 @@
  * ---------------------------------------------------------------------- -->
  *
  * @class FbcToCobraConverter
- * @ingroup fbc
+ * @sbmlpackage fbc
  * @brief @htmlinclude pkg-marker-fbc.html
  * Implementation of a SBML Level 3 'fbc' package to COBRA converter.
  */

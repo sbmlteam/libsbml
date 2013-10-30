@@ -51,7 +51,7 @@
  *------------------------------------------------------------------------- -->
  *
  * @class GraphicalObject
- * @ingroup layout
+ * @sbmlpackage layout
  * @brief @htmlinclude pkg-marker-layout.html
  * The basic &ldquo;layout&rdquo; package element for storing layout information.
  *
@@ -445,7 +445,7 @@ protected:
 
 /**
  * @class ListOfGraphicalObjects
- * @ingroup layout
+ * @sbmlpackage layout
  * @brief  @htmlinclude pkg-marker-layout.html
  * Implementation of the %ListOfAdditionalGraphicalObjects construct from the &ldquo;layout&rdquo; package.
  * 

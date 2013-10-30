@@ -27,7 +27,7 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class ModifierSpeciesReference
- * @ingroup core
+ * @sbmlpackage core
  * @brief Implementation of %SBML's %ModifierSpeciesReference construct.
  *
  * Sometimes a species appears in the kinetic rate formula of a reaction

@@ -26,7 +26,7 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class QualitativeSpecies
- * @ingroup qual
+ * @sbmlpackage qual
  * @brief @htmlinclude pkg-marker-qual.html
  * The QualitativeSpecies class for the Qualitative Models package.
  *
@@ -527,7 +527,7 @@ protected:
 
 /**
  * @class ListOfQualitativeSpecies
- * @ingroup qual
+ * @sbmlpackage qual
  * @brief @htmlinclude pkg-marker-qual.html
  * Implementation of the %ListOfQualitativeSpecies construct from the 'qual' package.
  * 

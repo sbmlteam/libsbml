@@ -17,7 +17,7 @@
  *------------------------------------------------------------------------- -->
  *
  * @class ListOfModelDefinitions
- * @ingroup comp
+ * @sbmlpackage comp
  * @brief  @htmlinclude pkg-marker-comp.html
  * Implementation of the %ListOfModelDefinitions construct from the &ldquo;comp&rdquo; package.
  * 

@@ -17,7 +17,7 @@
  *------------------------------------------------------------------------- -->
  *
  * @class ListOfPorts
- * @ingroup comp
+ * @sbmlpackage comp
  * @brief @htmlinclude pkg-marker-comp.html
  * Implementation of the %ListOfPorts construct from the &ldquo;comp&rdquo; package.
  * 

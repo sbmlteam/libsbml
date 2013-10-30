@@ -26,7 +26,7 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class SBMLInferUnitsConverter
- * @ingroup Core
+ * @sbmlpackage Core
  * @brief SBML converter for inferring the units of parameters.
  *
  * @htmlinclude libsbml-facility-only-warning.html

@@ -51,7 +51,7 @@
  *------------------------------------------------------------------------- -->
  *
  * @class ReferenceGlyph
- * @ingroup layout
+ * @sbmlpackage layout
  * @brief @htmlinclude pkg-marker-layout.html
  * The %ReferenceGlyph is used by the &ldquo;layout&rdquo; package to connect a GraphicalObject and a GeneralGlyph.
  *

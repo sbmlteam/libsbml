@@ -51,7 +51,7 @@
  *------------------------------------------------------------------------- -->
  *
  * @class GeneralGlyph
- * @ingroup layout
+ * @sbmlpackage layout
  * @brief @htmlinclude pkg-marker-layout.html
  * The %GeneralGlyph is used by the &ldquo;layout&rdquo; package to represent any SBML object.
  *
@@ -83,7 +83,7 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 
 /**
  * @class ListOfReferenceGlyphs
- * @ingroup layout
+ * @sbmlpackage layout
  * @brief  @htmlinclude pkg-marker-layout.html
  * Implementation of the %ListOfReferenceGlyphs construct from the &ldquo;layout&rdquo; package.
  * 

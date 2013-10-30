@@ -28,7 +28,7 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class SBasePluginCreatorBase
- * @ingroup core
+ * @sbmlpackage core
  * @brief Base class of %SBasePluginCreator.
  */
 

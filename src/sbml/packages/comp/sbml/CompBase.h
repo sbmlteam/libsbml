@@ -18,7 +18,7 @@
  *------------------------------------------------------------------------- -->
  *
  * @class CompBase
- * @ingroup comp
+ * @sbmlpackage comp
  * @brief @htmlinclude pkg-marker-comp.html
  * A convenience subclass of &ldquo;comp&rdquo; package SBase-derived classes
  *
