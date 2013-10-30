@@ -35,14 +35,13 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 BEGIN_C_DECLS
 
 /**
- * Codes for all 'comp' package SBML-level errors and warnings.
+ * @enum CompSBMLErrorCode_t
+ * Codes for all SBML-level errors and warnings from the 'comp' package.
  *
- * These are distinguished from the XML layer (LIBLAX) error codes by being
- * numbered > 10000, while the XML layer's codes are < 9999.  Calling
- * programs may wish to check whether a given SBMLError object's error
- * identifier is actually from SBMLErrorCode_t or XMLError::XMLErrorCode_t.
- * This distinction corresponds to whether a given error represents a
- * low-level XML problem or an SBML problem.
+ * These are distinguished from other SBML error codes 
+ * by having a number between 1000000 and 1099999.  
+ * 
+ * @copydetails SBML_error_codes
  */
 typedef enum
 {

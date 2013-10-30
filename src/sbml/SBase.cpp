@@ -7772,9 +7772,9 @@ SBase_getModel (const SBase_t *sb)
  *       typecode (int) to int. The return value is one of enum values defined
  *       for each package. For example, return values will be one of
  *       typecode (int) if this object is defined in SBML core package,
- *       return values will be one of SBMLLayoutTypeCode_t if this object is
+ *       return values will be one of #SBMLLayoutTypeCode_t if this object is
  *       defined in Layout extension (i.e. similar enum types are defined in
- *       each pacakge extension for each SBase subclass)
+ *       each package extension for each SBase subclass)
  *       The value of each typecode can be duplicated between those of
  *       different packages. Thus, to distinguish the typecodes of different
  *       packages, not only the return value of getTypeCode() but also that of

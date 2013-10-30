@@ -348,7 +348,7 @@ LayoutExtension::init()
 {
   //-------------------------------------------------------------------------
   //
-  // 1. Checks if the layout pacakge has already been registered.
+  // 1. Checks if the layout package has already been registered.
   //
   //-------------------------------------------------------------------------
 

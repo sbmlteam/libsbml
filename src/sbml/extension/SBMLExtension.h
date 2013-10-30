@@ -44,8 +44,8 @@
  * The extended class is implemented based on the following steps:
  *
  * (NOTE: 
- *   "src/pacakges/groups/extension/GroupsExtension.{h,cpp}" and
- *   "src/pacakges/layout/extension/LayoutExtension.{h,cpp}" are
+ *   "src/packages/groups/extension/GroupsExtension.{h,cpp}" and
+ *   "src/packages/layout/extension/LayoutExtension.{h,cpp}" are
  *   example files in which SBMLExtension derived classes are implemented)
  *
  * <ol>
@@ -271,7 +271,7 @@ GroupsExtension::getSBMLExtensionNamespaces(const std::string &uri) const
  * and <em>SBML_GROUPS_MEMBER</em> corresponds to the Member (&lt;member&gt;) class, respectively.
  *
  *
- *  <p> Similarly, SBMLLayoutTypeCode_t 
+ *  <p> Similarly, #SBMLLayoutTypeCode_t 
  *   for layout package is defined in LayoutExtension.h as follows: </p>
  *
 @verbatim  
@@ -391,7 +391,7 @@ GroupsExtension::init()
 {
   //-------------------------------------------------------------------------
   //
-  // 1. Checks if the groups pacakge has already been registered.
+  // 1. Checks if the groups package has already been registered.
   //
   //-------------------------------------------------------------------------
 
@@ -748,7 +748,7 @@ public:
    *
    * Returns the ith URI (the supported package version)
    *
-   * @param i the index of the list of URI (the list of supporeted pacakge versions)
+   * @param i the index of the list of URI (the list of supporeted package versions)
    * @return the URI of supported package version with the given index.
    */
   const std::string& getSupportedPackageURI(unsigned int i) const;

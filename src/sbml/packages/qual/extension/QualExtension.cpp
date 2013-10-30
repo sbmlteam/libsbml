@@ -317,7 +317,7 @@ QualExtension::init()
 {
   //-------------------------------------------------------------------------
   //
-  // 1. Checks if the qual pacakge has already been registered.
+  // 1. Checks if the qual package has already been registered.
   //
   //-------------------------------------------------------------------------
 

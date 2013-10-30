@@ -46,11 +46,15 @@
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
+/** 
+ * @enum OutputTransitionEffect_t
+ * @brief Enumeration of possible values for the 'transitionEffect' attribute of an Output.
+ */
 typedef enum
 {
-    OUTPUT_TRANSITION_EFFECT_PRODUCTION
-  , OUTPUT_TRANSITION_EFFECT_ASSIGNMENT_LEVEL
-  , OUTPUT_TRANSITION_EFFECT_UNKNOWN
+    OUTPUT_TRANSITION_EFFECT_PRODUCTION /*!< 'production':  The level of the QualitativeSpecies is increased by the resultLevel of the applicable FunctionTerm possibly modified by the outputLevel of the Output. */
+  , OUTPUT_TRANSITION_EFFECT_ASSIGNMENT_LEVEL /*!< 'assignmentLevel':  The level of the qualitativeSpecies is set to the resultLevel of the selected term. */
+  , OUTPUT_TRANSITION_EFFECT_UNKNOWN /*!< Unknown or illegal value:  anything other than 'production' or 'assignmentLevel'. */
 } OutputTransitionEffect_t;
 
 LIBSBML_CPP_NAMESPACE_END

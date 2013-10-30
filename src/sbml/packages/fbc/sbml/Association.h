@@ -47,13 +47,17 @@
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
-enum AssociationTypeCode_t
+/**
+ * @enum  AssociationTypeCode_t
+ * @brief AssociationTypeCode_t is the enumeration of possible association children of the proposed GeneAssociation class.  This class is not part of Version&nbsp;1 of the Flux Balance Constraints specification.
+ */
+typedef enum
 {
-    GENE_ASSOCIATION      = 0
-   , AND_ASSOCIATION      = 1
-   , OR_ASSOCIATION       = 2
-   , UNKNOWN_ASSOCIATION       = 3
-};
+     GENE_ASSOCIATION     = 0 /*!< A 'gene' association (<code>&lt;fbc:gene&gt;</code>) */
+   , AND_ASSOCIATION      = 1 /*!< An 'and' association (<code>&lt;fbc:and&gt;</code>) */
+   , OR_ASSOCIATION       = 2 /*!< An 'or' association (<code>&lt;fbc:or&gt;</code>) */
+   , UNKNOWN_ASSOCIATION  = 3 /*!< An unknown or unset association (no legal XML) */
+} AssociationTypeCode_t;
 
 
 class LIBSBML_EXTERN Association : public SBase

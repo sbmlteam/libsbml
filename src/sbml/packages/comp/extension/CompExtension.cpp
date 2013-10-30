@@ -269,7 +269,7 @@ CompExtension::getStringFromTypeCode(int typeCode) const
 void 
 CompExtension::init()
 {
-  // 1. Checks if the comp pacakge has already been registered.
+  // 1. Checks if the comp package has already been registered.
   if (SBMLExtensionRegistry::getInstance().isRegistered(getPackageName()))
   {
     // do nothing;

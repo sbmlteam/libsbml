@@ -37,63 +37,17 @@ BEGIN_C_DECLS
 
 
 /**
- * An enumeration of SBML types to help identify SBML objects at runtime.
- * Abstract types do not have a typecode since they cannot be instantiated.
+ * @enum  SBMLTypeCode_t
+ * @brief SBMLTypeCode_t is the enumeration of possible SBML core types.
  *
- * (NOTES)
+ * An enumeration of SBML core types to help identify SBML objects at runtime.
+ * Abstract types sometimes do not have a typecode since they cannot be instantiated.
  *
- *  - Each typecode is used as a return value (int) of the following functions
- *
- *     - virtual int SBase::getTypeCode() const;
- *     - virtual int ListOf::getItemTypeCode() const;
- *
- *    (In libSBML 5, the type of return values in these functions have been changed
- *     from typecode (int) to int for extensibility.)
- *
- *  - Each pacakge extension must define similar enum type for each SBase subclass
- *    (e.g. SBMLLayoutTypeCode_t for the layout extension, SBMLGroupTypeCode_t for
- *          group extension).
- *
- *  - The value of each typecode can be duplicated between those of different 
- *    packages.
- *
- *  - To distinguish the typecodes of different packages, not only the return
- *    value of getTypeCode() but also that of getPackageName() must be checked
- *    as follows:
- *    <pre>
- *       void example (const SBase *sb)
- *       {
- *         cons std::string pkgName = sb->getPackageName();
- *         if (pkgName == "core")
- *         {
- *           switch (sb->getTypeCode())
- *           {
- *             case SBML_MODEL:
- *                ....
- *                break;
- *             case SBML_REACTION:
- *                ....
- *           }
- *         } 
- *         else if (pkgName == "layout")
- *         {
- *           switch (sb->getTypeCode())
- *           {
- *             case SBML_LAYOUT_LAYOUT:
- *                ....
- *                break;
- *             case SBML_LAYOUT_REACTIONGLYPH:
- *                ....
- *           }
- *         } 
- *         ...
- *       } 
- *   </pre>
- *      
+ * @copydetails SBML_type_codes
  */
 typedef enum
 {
-      SBML_UNKNOWN                    =  0 /*!< An unknown SBase type.  The default, but will not be returned for any SBML core object.  May be returned if querying a package object without additionally supplying information about the package itself. */
+      SBML_UNKNOWN                    =  0 /*!< An unknown SBase type.  The default, but will not be returned for any SBML core object, nor any fully-implemented package object. */
     , SBML_COMPARTMENT                =  1 /*!< Compartment */
     , SBML_COMPARTMENT_TYPE           =  2 /*!< CompartmentType (Note: L2 only) */
     , SBML_CONSTRAINT                 =  3 /*!< Constraint */
@@ -117,9 +71,9 @@ typedef enum
     , SBML_ALGEBRAIC_RULE             = 21 /*!< AlgebraicRule */
     , SBML_ASSIGNMENT_RULE            = 22 /*!< AssignmentRule */
     , SBML_RATE_RULE                  = 23 /*!< RateRule */
-    , SBML_SPECIES_CONCENTRATION_RULE = 24 /*!< SpeciesConcentrationRule (Note: L1 only) */
-    , SBML_COMPARTMENT_VOLUME_RULE    = 25 /*!< CompartmentVolumeRule (Note: L1 only) */
-    , SBML_PARAMETER_RULE             = 26 /*!< ParameterRule (Note: L1 only) */
+    , SBML_SPECIES_CONCENTRATION_RULE = 24 /*!< A Rule of the L1 type SpeciesConcentrationRule */
+    , SBML_COMPARTMENT_VOLUME_RULE    = 25 /*!< A Rule of the L1 type CompartmentVolumeRule */
+    , SBML_PARAMETER_RULE             = 26 /*!< A Rule of the L1 type ParameterRule */
     , SBML_TRIGGER                    = 27 /*!< Trigger */
     , SBML_DELAY                      = 28 /*!< Delay */
     , SBML_STOICHIOMETRY_MATH         = 29 /*!< StoichiometryMath (Note: L2 only)*/

@@ -39,11 +39,15 @@
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
+/** 
+ * @enum ObjectiveType_t
+ * @brief Enumeration of possible values for the 'type' attribute of an Objective.
+ */
 typedef enum
 {
-    OBJECTIVE_TYPE_MAXIMIZE
-  , OBJECTIVE_TYPE_MINIMIZE
-  , OBJECTIVE_TYPE_UNKNOWN
+    OBJECTIVE_TYPE_MAXIMIZE /*!< 'maximize' */
+  , OBJECTIVE_TYPE_MINIMIZE /*!< 'minimize' */
+  , OBJECTIVE_TYPE_UNKNOWN /*!< Unset or illegal value: anything other than 'maximize' or 'minimize'. */
 } ObjectiveType_t;
 
 LIBSBML_CPP_NAMESPACE_END

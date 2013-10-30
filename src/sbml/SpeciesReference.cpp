@@ -1164,16 +1164,14 @@ ListOfSpeciesReferences::clone () const
 int
 ListOfSpeciesReferences::getItemTypeCode () const
 {
-  if (mType == Reactant || mType == Product)
+  switch(mType)
   {
+  case Reactant:
+  case Product:
     return SBML_SPECIES_REFERENCE;
-  }
-  else if (mType == Modifier)
-  {
+  case Modifier:
     return SBML_MODIFIER_SPECIES_REFERENCE;
-  }
-  else
-  {
+  case Unknown:
     return SBML_UNKNOWN;
   }
 }

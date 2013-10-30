@@ -36,6 +36,15 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 BEGIN_C_DECLS
 
 
+/**
+ * @enum LayoutSBMLErrorCode_t
+ * Codes for all SBML-level errors and warnings from the 'layout' package.
+ *
+ * These are distinguished from other SBML error codes 
+ * by having a number between 6000000 and 6099999.  
+ * 
+ * @copydetails SBML_error_codes
+ */
 typedef enum
 {
     LayoutUnknownError                      = 6010100 /*!< Unknown error from layout */

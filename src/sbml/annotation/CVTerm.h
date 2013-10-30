@@ -262,7 +262,7 @@ typedef enum
 {
     MODEL_QUALIFIER       /*!< The qualifier is a model qualifier. */
   , BIOLOGICAL_QUALIFIER  /*!< The qualifier is a biological qualifier. */
-  , UNKNOWN_QUALIFIER
+  , UNKNOWN_QUALIFIER     /*!< The qualifier has not been set or is unknown. */
 } QualifierType_t;
 
 

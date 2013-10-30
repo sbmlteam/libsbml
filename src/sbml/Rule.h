@@ -114,12 +114,13 @@ BEGIN_C_DECLS
 
 /**
  * @enum RuleType_t
+ * @brief Enumeration of the two valid values for the 'type' attribute of an SBML Level&nbsp;1 Rule.
  */
 typedef enum
 {
-    RULE_TYPE_RATE
-  , RULE_TYPE_SCALAR
-  , RULE_TYPE_INVALID
+    RULE_TYPE_RATE /*!< 'rate' */
+  , RULE_TYPE_SCALAR /*!< 'scalar' */
+  , RULE_TYPE_INVALID /*!< An invalid value:  anything other than 'rate' or 'scalar'. */
 } RuleType_t;
 
 END_C_DECLS

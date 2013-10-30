@@ -239,13 +239,21 @@ public:
 //
 typedef SBMLExtensionNamespaces<FbcExtension> FbcPkgNamespaces; 
 
+/**
+ * @enum  SBMLFbcTypeCode_t
+ * @brief SBMLFbcTypeCode_t is the enumeration of possible types from the 'fbc' package.
+ *
+ * An enumeration of SBML fbc types to help identify SBML objects at runtime.
+ *
+ * @copydetails SBML_type_codes
+ */
 typedef enum
 {
-    SBML_FBC_ASSOCIATION      = 800
-   ,SBML_FBC_FLUXBOUND        = 801
-   ,SBML_FBC_FLUXOBJECTIVE    = 802
-   ,SBML_FBC_GENEASSOCIATION  = 803
-   ,SBML_FBC_OBJECTIVE        = 804
+    SBML_FBC_ASSOCIATION      = 800 /*!< Association */
+   ,SBML_FBC_FLUXBOUND        = 801 /*!< FluxBound */
+   ,SBML_FBC_FLUXOBJECTIVE    = 802 /*!< FluxObjective */
+   ,SBML_FBC_GENEASSOCIATION  = 803 /*!< GeneAssociation */
+   ,SBML_FBC_OBJECTIVE        = 804 /*!< Objective */
 } SBMLFbcTypeCode_t;
 
 

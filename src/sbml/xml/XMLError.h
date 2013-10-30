@@ -336,12 +336,15 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 BEGIN_C_DECLS
 
 /**
+ * @enum XMLErrorCode_t
  * Canonical error codes returned for low-level XML parser errors.
  *
- * These codes are 4 digits long, less than 10000, to distinguish them
- * from 5-digit SBML error codes > 10000.  The codes are an abstraction
+ * These are distinguished from other SBML error codes 
+ * by having a number 4 digits long, less than 10000.  The codes are an abstraction
  * of errors from the multiple parsers (Xerces, Expat, libxml2) supported
  * by libSBML.
+ * 
+ * @copydetails SBML_error_codes
  */
 typedef enum {
     XMLUnknownError           =    0 /*!< Unknown error encountered. */

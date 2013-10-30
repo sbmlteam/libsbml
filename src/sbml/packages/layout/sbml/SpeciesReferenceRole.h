@@ -61,6 +61,14 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 BEGIN_C_DECLS
 
 
+/**
+ * @enum  SpeciesReferenceRole_t
+ * @brief SpeciesReferenceRole_t is the enumeration of possible values for the 'role' attribute of a SpeciesReferenceGlyph.
+ *
+ * The role attribute is of type SpeciesReferenceRole and is used to specify how the species reference should be displayed. Allowed values are 'substrate', 'product', 'sidesubstrate', 'sideproduct', 'modifier', 'activator', 'inhibitor' and 'undefined'. 
+ *
+ * This attribute is optional and should only be necessary if the optional speciesReference attribute is not given or if the respective information from the model needs to be overridden.
+ */
 LIBSBML_EXTERN
 typedef enum
 {

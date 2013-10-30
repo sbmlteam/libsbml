@@ -299,7 +299,7 @@ FbcExtension::init()
 {
   //-------------------------------------------------------------------------
   //
-  // 1. Checks if the fbc pacakge has already been registered.
+  // 1. Checks if the fbc package has already been registered.
   //
   //-------------------------------------------------------------------------
 

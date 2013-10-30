@@ -327,23 +327,32 @@ public:
 //
 typedef SBMLExtensionNamespaces<LayoutExtension> LayoutPkgNamespaces; 
 
+/**
+ * @enum  SBMLLayoutTypeCode_t
+ * @brief SBMLLayoutTypeCode_t is the enumeration of possible types from the 'layout' package.
+ *
+ * An enumeration of SBML layout types to help identify SBML objects at runtime.
+ * Abstract types sometimes do not have a typecode since they cannot be instantiated.
+ *
+ * @copydetails SBML_type_codes
+ */
 typedef enum
 {
-   SBML_LAYOUT_BOUNDINGBOX           = 100
- , SBML_LAYOUT_COMPARTMENTGLYPH      = 101
- , SBML_LAYOUT_CUBICBEZIER           = 102
- , SBML_LAYOUT_CURVE                 = 103
- , SBML_LAYOUT_DIMENSIONS            = 104
- , SBML_LAYOUT_GRAPHICALOBJECT       = 105
- , SBML_LAYOUT_LAYOUT                = 106   
- , SBML_LAYOUT_LINESEGMENT           = 107   
- , SBML_LAYOUT_POINT                 = 108    
- , SBML_LAYOUT_REACTIONGLYPH         = 109    
- , SBML_LAYOUT_SPECIESGLYPH          = 110    
- , SBML_LAYOUT_SPECIESREFERENCEGLYPH = 111
- , SBML_LAYOUT_TEXTGLYPH             = 112
- , SBML_LAYOUT_REFERENCEGLYPH        = 113
- , SBML_LAYOUT_GENERALGLYPH          = 114
+   SBML_LAYOUT_BOUNDINGBOX           = 100 /*!< BoundingBox */
+ , SBML_LAYOUT_COMPARTMENTGLYPH      = 101 /*!< CompartmentGlyph */
+ , SBML_LAYOUT_CUBICBEZIER           = 102 /*!< CubicBezier*/
+ , SBML_LAYOUT_CURVE                 = 103 /*!< Curve */
+ , SBML_LAYOUT_DIMENSIONS            = 104 /*!< Dimensions */
+ , SBML_LAYOUT_GRAPHICALOBJECT       = 105 /*!< GraphicalObject */
+ , SBML_LAYOUT_LAYOUT                = 106 /*!< Layout */
+ , SBML_LAYOUT_LINESEGMENT           = 107 /*!< LineSegment */
+ , SBML_LAYOUT_POINT                 = 108 /*!< Point */
+ , SBML_LAYOUT_REACTIONGLYPH         = 109 /*!< ReactionGlyph */
+ , SBML_LAYOUT_SPECIESGLYPH          = 110 /*!< SpeciesGlyph */
+ , SBML_LAYOUT_SPECIESREFERENCEGLYPH = 111 /*!< SpeciesReferenceGlyph */
+ , SBML_LAYOUT_TEXTGLYPH             = 112 /*!< TextGlyph */
+ , SBML_LAYOUT_REFERENCEGLYPH        = 113 /*!< ReferenceGlyph */
+ , SBML_LAYOUT_GENERALGLYPH          = 114 /*!< GeneralGlyph */
 } SBMLLayoutTypeCode_t;
 
 

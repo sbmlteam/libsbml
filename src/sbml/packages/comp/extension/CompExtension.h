@@ -263,16 +263,25 @@ typedef SBMLExtensionNamespaces<CompExtension> CompPkgNamespaces;
 
 BEGIN_C_DECLS
 
+/**
+ * @enum  SBMLCompTypeCode_t
+ * @brief SBMLCompTypeCode_t is the enumeration of possible types from the 'comp' package.
+ *
+ * An enumeration of SBML comp types to help identify SBML objects at runtime.
+ * Abstract types sometimes do not have a typecode since they cannot be instantiated.
+ *
+ * @copydetails SBML_type_codes
+ */
 typedef enum
   {
-    SBML_COMP_SUBMODEL                = 250
-  , SBML_COMP_MODELDEFINITION         = 251
-  , SBML_COMP_EXTERNALMODELDEFINITION = 252
-  , SBML_COMP_SBASEREF                = 253
-  , SBML_COMP_DELETION                = 254
-  , SBML_COMP_REPLACEDELEMENT         = 255
-  , SBML_COMP_REPLACEDBY              = 256
-  , SBML_COMP_PORT                    = 257
+    SBML_COMP_SUBMODEL                = 250 /*!< Submodel */
+  , SBML_COMP_MODELDEFINITION         = 251 /*!< ModelDefinition */
+  , SBML_COMP_EXTERNALMODELDEFINITION = 252 /*!< ExternalModelDefinition */
+  , SBML_COMP_SBASEREF                = 253 /*!< SBaseRef */
+  , SBML_COMP_DELETION                = 254 /*!< Deletion */
+  , SBML_COMP_REPLACEDELEMENT         = 255 /*!< ReplacedElement */
+  , SBML_COMP_REPLACEDBY              = 256 /*!< ReplacedBy */
+  , SBML_COMP_PORT                    = 257 /*!< Port */
 
   } SBMLCompTypeCode_t;
 

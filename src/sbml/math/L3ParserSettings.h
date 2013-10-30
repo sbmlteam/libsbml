@@ -119,8 +119,19 @@
 
 
 /** 
- * Configuration values for handling @c log in formulas.
-  */
+ * @enum ParseLogType_t
+ * @brief Configuration values for handling @c log in formulas.
+ *
+ * The L3ParserSettings object can be used to modify the SBML L3 parser to translate the function <code>log(x)</code> three different ways, each settable with this type enum.
+ *
+ * @see L3ParserSettings
+ * @if clike @see SBML_parseL3FormulaWithSettings()
+ * @endif@~
+ * @if csharp @see SBML_parseL3FormulaWithSettings()
+ * @endif@~
+ * @if python @see libsbml.parseL3FormulaWithSettings()
+ * @endif@~
+ */
 typedef enum
 {
     L3P_PARSE_LOG_AS_LOG10 = 0,

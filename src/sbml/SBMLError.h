@@ -432,14 +432,10 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 BEGIN_C_DECLS
 
 /**
- * Codes for all SBML-level errors and warnings.
- *
- * These are distinguished from the XML layer (LIBLAX) error codes by being
- * numbered > 10000, while the XML layer's codes are < 9999.  Calling
- * programs may wish to check whether a given SBMLError object's error
- * identifier is actually from SBMLErrorCode_t or XMLError::XMLErrorCode_t.
- * This distinction corresponds to whether a given error represents a
- * low-level XML problem or an SBML problem.
+ * @enum SBMLErrorCode_t
+ * Codes for all SBML-level errors and warnings from the core specification.
+ * 
+ * @copydetails SBML_error_codes
  */
 typedef enum
 {
@@ -968,7 +964,9 @@ typedef enum
 /**
  * Severity codes for SBMLError diagnostics.
  *
- * These are distinct from XMLError's severity codes.  
+ * The only publicly-reported values of this type are the four from #XMLErrorSeverity_t.
+ * All other values are used internally only, with translation of those 
+ * codes done in SBMLError.cpp
  *
  * @see XMLErrorSeverity_t
  */

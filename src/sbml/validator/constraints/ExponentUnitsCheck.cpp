@@ -122,13 +122,13 @@ ExponentUnitsCheck::checkUnits (const Model& m, const ASTNode& node, const SBase
   * If inconsistent units are found, an error message is logged.
   *
   * The two arguments to root, which are of the form root(n, a) 
-  * where the degree n is optional (defaulting to “2”), should be as follows: 
+  * where the degree n is optional (defaulting to '2'), should be as follows: 
   * (1) if the optional degree qualifier n is an integer, 
   * then it must be possible to derive the n-th root of a; 
   * (2) if the optional degree qualifier n is a rational n/m 
   * then it must be possible to derive the n-th root of (a{unit})m, 
   * where {unit} signifies the units associated with a; 
-  * otherwise, (3) the units of a must be “dimensionless”.  
+  * otherwise, (3) the units of a must be 'dimensionless'.  
   */
 void 
 ExponentUnitsCheck::checkUnitsFromRoot (const Model& m, 

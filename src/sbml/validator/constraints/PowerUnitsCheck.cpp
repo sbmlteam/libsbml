@@ -137,8 +137,8 @@ PowerUnitsCheck::checkUnits (const Model& m, const ASTNode& node, const SBase & 
   * (2) if the second argument b is a rational number n/m, 
   * it must be possible to derive the m-th root of (a{unit})n,
   * where {unit} signifies the units associated with a; 
-  * otherwise, (3) the units of the first argument must be “dimensionless”. 
-  * The second argument (b) should always have units of “dimensionless”.
+  * otherwise, (3) the units of the first argument must be 'dimensionless'. 
+  * The second argument (b) should always have units of 'dimensionless'.
   *
   */
 void 
@@ -175,7 +175,7 @@ PowerUnitsCheck::checkUnitsFromPower (const Model& m,
   unsigned int undeclaredUnitsPower = 
     unitFormat->getContainsUndeclaredUnits();
 
-  // The second argument (b) should always have units of “dimensionless”.
+  // The second argument (b) should always have units of 'dimensionless'.
   // or it has undeclared units that we assume are correct
 
   if (undeclaredUnitsPower == 0 && !UnitDefinition::areEquivalent(&dim, unitsArgPower))

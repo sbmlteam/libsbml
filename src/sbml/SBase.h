@@ -823,7 +823,7 @@ public:
 
 
   /**
-   * Returns the first ancestor object that has the given SBML type code.
+   * Returns the first ancestor object that has the given SBML type code from the given package.
    *
    * @if clike LibSBML attaches an identifying code to every kind of SBML
    * object.  These are known as <em>SBML type codes</em>.  The set of
@@ -848,9 +848,13 @@ public:
    * the characters @c SBML_. @endif@~
    *
    * This method searches the tree of objects that are parents of this
-   * object, and returns the first one that has the given SBML type code.
-   * If the optional argument @p pkgName is given, it will cause the search
-   * to be limited to the SBML Level&nbsp;3 package given.
+   * object, and returns the first one that has the given SBML type code from 
+   * the given @p pkgName.
+   *
+   * @warning The optional argument @p pkgName must be used for all type codes
+   * from SBML Level&nbsp;3 packages.  Otherwise, the function will search the 
+   * "core" namespace alone, not find any corresponding elements, and return 
+   * NULL.
    *
    * @param type the SBML type code of the object sought
    *
@@ -867,7 +871,7 @@ public:
 
 
   /**
-   * Returns the first ancestor object that has the given SBML type code.
+   * Returns the first ancestor object that has the given SBML type code from the given package.
    *
    * @if clike LibSBML attaches an identifying code to every kind of SBML
    * object.  These are known as <em>SBML type codes</em>.  The set of
@@ -892,9 +896,13 @@ public:
    * the characters @c SBML_. @endif@~
    *
    * This method searches the tree of objects that are parents of this
-   * object, and returns the first one that has the given SBML type code.
-   * If the optional argument @p pkgName is given, it will cause the search
-   * to be limited to the SBML Level&nbsp;3 package given.
+   * object, and returns the first one that has the given SBML type code from 
+   * the given @p pkgName.
+   *
+   * @warning The optional argument @p pkgName must be used for all type codes
+   * from SBML Level&nbsp;3 packages.  Otherwise, the function will search the 
+   * "core" namespace alone, not find any corresponding elements, and return 
+   * NULL.
    *
    * @param type the SBML type code of the object sought
    *
@@ -3535,13 +3543,13 @@ SBase.readExtensionAttributes(attributes, expectedAttributes);
   bool            mCVTermsChanged;
 
   //
-  // XMLAttributes object containing attributes of unknown pacakges
+  // XMLAttributes object containing attributes of unknown packages
   //
   XMLAttributes mAttributesOfUnknownPkg;
   XMLAttributes mAttributesOfUnknownDisabledPkg;
 
   //
-  // XMLNode object containing elements of unknown pacakges
+  // XMLNode object containing elements of unknown packages
   //
   XMLNode       mElementsOfUnknownPkg;
   XMLNode       mElementsOfUnknownDisabledPkg;

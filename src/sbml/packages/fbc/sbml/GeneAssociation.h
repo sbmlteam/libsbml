@@ -21,7 +21,7 @@
  * @brief @htmlinclude pkg-marker-fbc.html
  * Implementation of the 'fbc' package %GeneAssociation construct.
  *
- * Gene associations are not part of the core FBC specification, but rather are a proposed annotation
+ * Gene associations are not part of the core FBC specification, but rather are a proposed annotation.
  * <!-- leave this next break as-is to work around some doxygen bug -->
  */ 
 

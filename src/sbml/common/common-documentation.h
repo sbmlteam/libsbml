@@ -969,4 +969,85 @@ e><a href="libsbml.html#parseL3Formula(java.lang.String)">libsbml.parseL3Formula
  * forth from AST structures, but it is important to keep the system's
  * limitations in mind.</span>
  * 
+ * <!-- ------------------------------------------------------------------- -->
+ * @class SBML_type_codes
+ * 
+ * @par
+ * (NOTES)
+ *
+ *  - Each typecode is used as a return value (int) of the following functions
+ *
+ *     - virtual int SBase::getTypeCode() const;
+ *     - virtual int ListOf::getItemTypeCode() const;
+ *
+ *    (In libSBML 5, the type of return values in these functions have been changed
+ *     from typecode (int) to int for extensibility.)
+ *
+ *  - Each package extension must define similar enum type for each SBase subclass
+ *    (e.g. SBMLLayoutTypeCode_t for the layout extension, SBMLGroupTypeCode_t for
+ *          group extension).
+ *
+ *  - The value of each typecode can be duplicated between those of different 
+ *    packages.
+ *
+ *  - To distinguish the typecodes of different packages, not only the return
+ *    value of SBase::getTypeCode() but also that of getPackageName() must be checked.
+ *    This is particularly important for functions that take an SBML type code 
+ *    as an argument, such as SBase::getAncestorOfType(), which by default assumes you
+ *    are handing it a core type, and will return NULL if the value
+ *    you give it is actually from a package.
+ *
+ *    The following example code illustrates the combined use of getPackageName()
+ *    and getTypeCode():
+ *
+ *    <pre>
+ *    void example (const SBase *sb)
+ *    {
+ *      cons std::string pkgName = sb->getPackageName();
+ *      if (pkgName == "core")
+ *      {
+ *        switch (sb->getTypeCode())
+ *        {
+ *          case SBML_MODEL:
+ *             ....
+ *             break;
+ *          case SBML_REACTION:
+ *             ....
+ *        }
+ *      } 
+ *      else if (pkgName == "layout")
+ *      {
+ *        switch (sb->getTypeCode())
+ *        {
+ *          case SBML_LAYOUT_LAYOUT:
+ *             ....
+ *             break;
+ *          case SBML_LAYOUT_REACTIONGLYPH:
+ *             ....
+ *        }
+ *      } 
+ *      ...
+ *    } 
+ *    </pre>
+ * 
+ *  @see #SBMLTypeCode_t
+ *  @see #SBMLCompTypeCode_t
+ *  @see #SBMLFbcTypeCode_t
+ *  @see #SBMLLayoutTypeCode_t
+ *  @see #SBMLQualTypeCode_t
+ * 
+ * <!-- ------------------------------------------------------------------- -->
+ * @class SBML_error_codes
+ * 
+ * @par
+ * Calling programs may wish to check which enumeration a given SBMLError object's error
+ * identifier is actually from:
+ * @li 0000000 to 0009999: #XMLErrorCode_t (a low-level XML problem)
+ * @li 0010000 to 0099999: #SBMLErrorCode_t (a problem with the SBML core specification)
+ * @li 1000000 to 1099999: #CompSBMLErrorCode_t (a problem with the SBML Level&nbsp;3 Hierarchical %Model Composition package specification).
+ * @li 2000000 to 2099999: #FbcSBMLErrorCode_t (a problem with the SBML Level&nbsp;3 Flux Balance Constraints package specification).
+ * @li 3000000 to 3099999: #QualSBMLErrorCode_t (a problem with the SBML Level&nbsp;3 Qualitative Models package specification).
+ * @li 6000000 to 6099999: #LayoutSBMLErrorCode_t (a problem with the SBML Level&nbsp;3 %Layout package specification).
+ *
+ * Other error code ranges are reserved for other packages.
  */

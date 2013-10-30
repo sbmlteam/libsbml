@@ -44,20 +44,28 @@
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
+/**
+ * @enum InputTransitionEffect_t
+ * Enumeration of possible values for the 'transitionEffect' attribute of an Input.  Must be 'none' or 'consumption'.
+ */
 typedef enum
 {
-    INPUT_TRANSITION_EFFECT_NONE
-  , INPUT_TRANSITION_EFFECT_CONSUMPTION
-  , INPUT_TRANSITION_EFFECT_UNKNOWN
+    INPUT_TRANSITION_EFFECT_NONE /*!< 'none': The level associated with the qualitativeSpecies is not modified. */
+  , INPUT_TRANSITION_EFFECT_CONSUMPTION /*!< 'consumption': The level of the qualitativeSpecies is decreased by the resultLevel of the applicable FunctionTerm possibly modified by the thresholdLevel of the Input. */
+  , INPUT_TRANSITION_EFFECT_UNKNOWN /*!< Unknown or illegal value:  anything other than 'none' or 'consumption'. */
 } InputTransitionEffect_t;
 
+/**
+ * @enum InputSign_t
+ * Enumeration of possible values for the 'transitionEffect' attribute of an Input.  Must be 'positive', 'negative', 'dual', or 'unknown'.
+ */
 typedef enum
 {
-    INPUT_SIGN_POSITIVE
-  , INPUT_SIGN_NEGATIVE
-  , INPUT_SIGN_DUAL
-  , INPUT_SIGN_UNKNOWN
-  , INPUT_SIGN_VALUE_NOTSET
+    INPUT_SIGN_POSITIVE /*!< 'positive': The contribution of this input is positive. */
+  , INPUT_SIGN_NEGATIVE /*!< 'negative': The contribution of this input is negative. */
+  , INPUT_SIGN_DUAL /*!< 'dual': The contribution of this input is both negative and positive. */
+  , INPUT_SIGN_UNKNOWN /*!< 'unknown': The contribution of this input is unknown. */
+  , INPUT_SIGN_VALUE_NOTSET /*!< unset or illegal value: Anything other than 'positive', 'negative', 'dual', or 'unknown'. */
 } InputSign_t;
 
 LIBSBML_CPP_NAMESPACE_END
