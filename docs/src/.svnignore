@@ -31,3 +31,4 @@ libsbml-group-qual-intro.html
 *.class
 doxygen-version-specific.txt
 java-extensions-list.html
+doxygen-config.txt
