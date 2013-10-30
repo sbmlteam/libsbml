@@ -194,7 +194,7 @@ XMLErrorLog::add (const std::vector<XMLError*>& errors)
 }
 /** @endcond */
 
-/**
+/*
  * Returns a boolean indicating whether or not the severity is overriden   
  */
 bool 
@@ -203,7 +203,7 @@ XMLErrorLog::isSeverityOverridden() const
   return mOverriddenSeverity != LIBSBML_OVERRIDE_DISABLED;
 }
 
-/**
+/*
  * usets an existing override 
  */ 
 void 
@@ -212,7 +212,7 @@ XMLErrorLog::unsetSeverityOverride()
   setSeverityOverride(LIBSBML_OVERRIDE_DISABLED);
 }
 
-/**
+/*
  * Returns the current override
  */
 XMLErrorSeverityOverride_t 
@@ -221,7 +221,7 @@ XMLErrorLog::getSeverityOverride() const
   return mOverriddenSeverity;
 }
 
-/**
+/*
  * Set the severity override. 
  * 
  * If set to LIBSBML_OVERRIDE_DISABLED (default) all errors will be 
