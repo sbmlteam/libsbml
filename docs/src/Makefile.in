@@ -478,6 +478,50 @@ define preprocess_doxygen
   fi
 endef
 
+# The use of @addindex in the next block of code is a hack, used only because
+# it's a Doxygen command that takes an argument but otherwise has no effect
+# on the output we generate.  We ultimately need to use @ingroup, but when
+# it's used for grouping classes, Doxygen (at least in version 1.8.5) fails
+# to include the classes in the table of contents for the navigation panel
+# along the left-hand side of the documentation pages.  To work around this
+# problem, we do a first Doxygen pass where we hide the use of @ingroup,
+# using this hack of redefining @sbmlpackage as @addindex (which is a no-op
+# for us).  In the second (final) pass, we expose the @ingroup command by
+# defining @sbmlpackage to be @ingroup.  This results in the table of
+# contents lacking all the classes flagged with @ingroup.  To solve that,
+# we copy over the index files created from the first Doxygen pass.
+
+define doxygen_indexing_pass
+  rm -f doxygen-config.txt
+  cp $(1) doxygen-config.txt
+  echo 'ALIASES += sbmlpackage="@addindex"' >> doxygen-config.txt
+  if test -n $(3); then \
+    $(DOXYGEN) doxygen-config.txt 2>&1 | egrep -v $(3); \
+  else \
+    $(DOXYGEN) doxygen-config.txt; \
+  fi
+  cp -f $(2)/navtreeindex*.js .
+  cp -f $(2)/navtree.js .
+  cp -f $(2)/files.js .
+endef
+
+define doxygen_final_pass
+  rm -f doxygen-config.txt
+  cp $(1) doxygen-config.txt
+  echo 'ALIASES += sbmlpackage="@ingroup"' >> doxygen-config.txt
+  if test -n $(3); then \
+    $(DOXYGEN) doxygen-config.txt 2>&1 | egrep -v $(3); \
+  else \
+    $(DOXYGEN) doxygen-config.txt; \
+  fi
+  cp -f navtreeindex*.js $(2)
+  cp -f navtree.js $(2)
+  cp -f files.js $(2)
+  rm navtreeindex*.js
+  rm navtree.js
+  rm files.js
+endef
+
 define postprocess_doxygen
   cp $(logo-files) $(1)
   cp common-graphics/*.txt $(1)
@@ -496,13 +540,27 @@ endef
 cpp-manual $(cpp-manual): doxygen-config-cpp.txt $(core-sources) $(css-files)
 	mkdir -p $(cpp-manual)
 	$(call preprocess_doxygen)
-	$(DOXYGEN) doxygen-config-cpp.txt
+	@echo "------------------------------------------------------------"
+	@echo "Running Doxygen to generate corrected table of contents"
+	@echo "------------------------------------------------------------"
+	$(call doxygen_indexing_pass,doxygen-config-cpp.txt,$(cpp-manual),"")
+	@echo "------------------------------------------------------------"
+	@echo "Running Doxygen for final output"
+	@echo "------------------------------------------------------------"
+	$(call doxygen_final_pass,doxygen-config-cpp.txt,$(cpp-manual),"")
 	$(call postprocess_doxygen,$(cpp-manual))
 
 c-manual $(c-manual): doxygen-config-c.txt $(core-sources) $(css-files)
 	mkdir -p $(c-manual)
 	$(call preprocess_doxygen)
-	$(DOXYGEN) doxygen-config-c.txt
+	@echo "------------------------------------------------------------"
+	@echo "Running Doxygen to generate corrected table of contents"
+	@echo "------------------------------------------------------------"
+	$(call doxygen_indexing_pass,doxygen-config-c.txt,$(c-manual),"")
+	@echo "------------------------------------------------------------"
+	@echo "Running Doxygen for final output"
+	@echo "------------------------------------------------------------"
+	$(call doxygen_final_pass,doxygen-config-c.txt,$(c-manual),"")
 	$(call postprocess_doxygen,$(c-manual))
 
 ifdef USE_PYTHON
@@ -519,7 +577,14 @@ python-manual $(python-manual): doxygen-config-python.txt $(python-sources)
 	mkdir -p $(python-manual)
 	./pythondocpreprocessor.py $(python-sources) libsbml.py $(wildcard $(python-subst-dir)/*.py)
 	$(call preprocess_doxygen)
-	$(DOXYGEN) doxygen-config-python.txt 2>&1 | egrep -v $(python-ignorable-warnings)
+	@echo "------------------------------------------------------------"
+	@echo "Running Doxygen to generate corrected table of contents"
+	@echo "------------------------------------------------------------"
+	$(call doxygen_indexing_pass,doxygen-config-python.txt,$(python-manual),$(python-ignorable-warnings))
+	@echo "------------------------------------------------------------"
+	@echo "Running Doxygen for final output"
+	@echo "------------------------------------------------------------"
+	$(call doxygen_final_pass,doxygen-config-python.txt,$(python-manual),$(python-ignorable-warnings))
 	$(call postprocess_doxygen,$(python-manual))
 endif
 
