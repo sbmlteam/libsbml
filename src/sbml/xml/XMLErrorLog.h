@@ -122,12 +122,14 @@ public:
   XMLErrorLog ();
   /** @endcond */
 
+
   /** @cond doxygenLibsbmlInternal */
   /**
    * Copy Constructor
    */
   XMLErrorLog (const XMLErrorLog& other);
   /** @endcond */
+
 
   /** @cond doxygenLibsbmlInternal */
   /**
@@ -136,12 +138,14 @@ public:
   XMLErrorLog& operator=(const XMLErrorLog& other);
   /** @endcond */
 
+
   /** @cond doxygenLibsbmlInternal */
   /**
    * Destroys this XMLErrorLog.
    */
   virtual ~XMLErrorLog ();
   /** @endcond */
+
 
   /** @cond doxygenLibsbmlInternal */
   /**
@@ -151,6 +155,7 @@ public:
    */
   void add (const XMLError& error);
   /** @endcond */
+
 
   /** @cond doxygenLibsbmlInternal */
   /**
@@ -162,6 +167,7 @@ public:
   void add (const std::list<XMLError>& errors);
   /** @endcond */
 
+
   /** @cond doxygenLibsbmlInternal */
   /**
    * Logs (copies) the XMLErrors in the given XMLError list to this
@@ -171,6 +177,7 @@ public:
    */
   void add (const std::vector<XMLError*>& errors);
   /** @endcond */
+
 
   /** @cond doxygenLibsbmlInternal */
   /**
@@ -185,8 +192,7 @@ public:
    * @param p XMLParser, the parser to use
    *
    * @return integer value indicating success/failure of the
-   * function.   The possible values
-   * returned by this function are:
+   * function.   The possible values returned by this function are:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
    */
@@ -209,21 +215,20 @@ public:
 
 
   /**
-   * Prints all the errors or warnings stored in this error log
+   * Prints all the errors or warnings stored in this error log.
    *
-   * It prints the text to the stream given by the optional parameter @p
-   * stream.  If no parameter is given, it prints the output to the
-   * standard error stream.
-   *
-   * If no errors have occurred, i.e., <code>getNumErrors() == 0</code>, no
-   * output will be sent to the stream.
+   * This method prints the text to the stream given by the optional
+   * parameter @p stream.  If no stream is given, the method prints the
+   * output to the standard error stream.
    *
    * The format of the output is:
    * @verbatim
    N error(s):
      line NNN: (id) message
  @endverbatim
-   *
+   * If no errors have occurred, i.e.,
+   * <code>getNumErrors() == 0</code>, then no output will be produced.
+
    * @param stream the ostream or ostringstream object indicating where
    * the output should be printed.
    *
@@ -231,35 +236,84 @@ public:
    */
   void printErrors (std::ostream& stream = std::cerr) const;
 
+
   /**
-   * Returns a boolean indicating whether or not the severity is overriden   
+   * Returns a boolean indicating whether or not the severity has been
+   * overridden.
+   *
+   * @return @c true if an error severity override has been set, @c false
+   * otherwise.
+   *
+   * @see setSeverityOverride(XMLErrorSeverityOverride_t severity)
    */
   bool isSeverityOverridden() const;
 
+
   /**
-   * usets an existing override 
+   * Usets an existing override.
+   *
+   * @see setSeverityOverride(XMLErrorSeverityOverride_t severity)
    */ 
   void unsetSeverityOverride();
 
+
   /**
-   * Returns the current override
+   * Returns the current override.
+   *
+   * @return a severity override code.  The possible values are @if clike drawn
+   * from the enumeration #XMLErrorSeverityOverride_t@endif:
+   * @li @link XMLErrorSeverityOverride_t#LIBSBML_OVERRIDE_DISABLED LIBSBML_OVERRIDE_DISABLED@endlink
+   * @li @link XMLErrorSeverityOverride_t#LIBSBML_OVERRIDE_DONT_LOG LIBSBML_OVERRIDE_DONT_LOG@endlink
+   * @li @link XMLErrorSeverityOverride_t#LIBSBML_OVERRIDE_WARNING LIBSBML_OVERRIDE_WARNING@endlink
+   *
+   * @see setSeverityOverride(XMLErrorSeverityOverride_t severity)
    */
   XMLErrorSeverityOverride_t getSeverityOverride() const;
+
 
   /**
    * Set the severity override. 
    * 
-   * If set to LIBSBML_OVERRIDE_DISABLED (default) all errors will be 
-   * logged as specified in the error. Set to LIBSBML_OVERRIDE_DONT_LOG
-   * no error will be logged. When set to LIBSBML_OVERRIDE_WARNING, then
-   * all errors will be logged as warnings. 
+   * @param an override code indicating what to do.  If the value is
+   * @link XMLErrorSeverityOverride_t#LIBSBML_OVERRIDE_DISABLED LIBSBML_OVERRIDE_DISABLED@endlink
+   * (the default setting) all errors logged will be given the severity
+   * specified in their usual definition.   If the value is
+   * @link XMLErrorSeverityOverride_t#LIBSBML_OVERRIDE_WARNING LIBSBML_OVERRIDE_WARNING@endlink,
+   * then all errors will be logged as warnings.  If the value is 
+   * @link XMLErrorSeverityOverride_t#LIBSBML_OVERRIDE_DONT_LOG LIBSBML_OVERRIDE_DONT_LOG@endlink,
+   * no error will be logged, regardless of their severity.
    *
+   * @see getSeverityOverride()
    */
   void setSeverityOverride(XMLErrorSeverityOverride_t severity);
 
+
+  /**
+   * Changes the severity override for errors in the log that have a given
+   * severity.
+   *
+   * This searches through the list of errors in the log, comparing each
+   * one's severity to the value of @p originalSeverity.  For each error
+   * encountered with that severity logged by the named @p package, the
+   * severity of the error is reset to @p targetSeverity.
+   *
+   * @param originalSeverity the severity code to match
+   *
+   * @param targetSeverity the severity code to use as the new severity
+   *
+   * @param package a string, the name of an SBML Level&nbsp;3 package
+   * extension to use to narrow the search for errors.  A value of @c "all"
+   * signifies to match against errors logged from any package; a value of a
+   * package nickname such as @c "comp" signifies to limit consideration to
+   * errors from just that package.
+   *
+   * @see getSeverityOverride()
+   *
+   * @if notcpp @htmlinclude warn-default-args-in-docs.html @endif@~
+   */
   void changeErrorSeverity(XMLErrorSeverity_t originalSeverity,
-                                 XMLErrorSeverity_t targetSeverity,
-                                 std::string package = "all");
+                           XMLErrorSeverity_t targetSeverity,
+                           std::string package = "all");
 
 protected:
   /** @cond doxygenLibsbmlInternal */
