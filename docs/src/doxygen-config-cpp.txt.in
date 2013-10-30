@@ -80,3 +80,4 @@ ENABLED_SECTIONS       = cpp clike doxygenCppOnly
 EXAMPLE_PATH           = common-text examples . ../.. ../../examples/c++ \
                          ../../examples/c++/comp ../../examples/c++/layout \
                          ../../examples/c++/fbc ../../examples/c++/qual 
+
