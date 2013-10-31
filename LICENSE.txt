@@ -1,15 +1,25 @@
            Licensing and Distribution Terms for libSBML
 
-Copyright (C) 2009-2013 jointly by the following organizations: 
-    1. California Institute of Technology, Pasadena, CA, USA
-    2. EMBL European Bioinformatics Institute (EBML-EBI), Hinxton, UK
+The majority of libSBML is copyrighted as follows:
+
+* Copyright (C) 2009-2013 jointly by the following organizations: 
+  1. California Institute of Technology, Pasadena, CA, USA
+  2. EMBL European Bioinformatics Institute (EBML-EBI), Hinxton, UK
  
-Copyright (C) 2006-2008 by the California Institute of Technology,
+* Copyright (C) 2006-2008 by the California Institute of Technology,
     Pasadena, CA, USA 
  
-Copyright (C) 2002-2005 jointly by the following organizations: 
-    1. California Institute of Technology, Pasadena, CA, USA
-    2. Japan Science and Technology Agency, Japan
+* Copyright (C) 2002-2005 jointly by the following organizations: 
+  1. California Institute of Technology, Pasadena, CA, USA
+  2. Japan Science and Technology Agency, Japan
+
+Portions of the source code comprising libSBML were copyrighted
+and contributed by third parties, and placed under the same LGPL
+2.1 license as the rest of libSBML. The following are their
+copyright statements:
+
+* Copyright (C) 2004-2008 by European Media Laboratories Research
+  gGmbH, Heidelberg, Germany.  (For the "SBML Layout" code.)
 
 LibSBML is free software; you can redistribute it and/or modify 
 it under the terms of the GNU Lesser General Public License as
@@ -39,15 +49,67 @@ Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
 MA 02110-1301,  USA.
 
 
-            Third-party software incorporated into
-                   the libSBML distribution
+     Third-party software incorporated into both the libSBML
+               binary and source-code distributions
+
+LibSBML incorporates an open-source compression library written by
+a third party.  The following is information about the copyright
+and distribution terms of this library:
 
 * MiniZip 1.01e, copyright (C) 1998-2005 Gilles Vollant, released 
-under terms compatible with the LGPL.  Please see the file
-src/sbml/compress/00README.txt for more information about MiniZip
-1.01e and its license terms.
+  under terms compatible with the LGPL.  Please see the file
+  src/sbml/compress/00README.txt for more information about
+  MiniZip 1.01e and its license terms.
+
+
+        Additional third-party software incorporated only
+            into the libSBML source code distribution
+
+Additional software is used to produce the documentation of
+libSBML.  The binary distributions of libSBML do not include this
+software; they are only present in the source code distribution
+and the libSBML documentation archives.
 
 * Google Code Prettify, distributed under the terms of the
-Apache License Version 2.0, January 2004.  Code downloaded from 
-http://code.google.com/p/google-code-prettify/ on 2013-10-16.
+  Apache License Version 2.0, January 2004.  Code downloaded from 
+  http://code.google.com/p/google-code-prettify/ on 2013-10-16.
 
+* ExcludeDoclet, copyright 2004 by Sun Microsystems, Inc., and
+  distributed under the following open-source terms:
+
+   Copyright 2004 Sun Microsystems, Inc. All Rights Reserved.
+
+   Redistribution and use in source and binary forms, with or
+   without modification, are permitted provided that the
+   following conditions are met:
+
+    - Redistribution of source code must retain the above
+   copyright notice, this list of conditions and the following
+   disclaimer.
+
+   - Redistribution in binary form must reproduce the above
+   copyright notice, this list of conditions and the following
+   disclaimer in the documentation and/or other materials provided
+   with the distribution. Neither the name of Sun Microsystems,
+   Inc. nor the names of contributors may be used to endorse or
+   promote products derived from this software without specific
+   prior written permission.
+
+   This software is provided "AS IS," without a warranty of any
+   kind. ALL EXPRESS OR IMPLIED CONDITIONS, REPRESENTATIONS AND
+   WARRANTIES, INCLUDING ANY IMPLIED WARRANTY OF MERCHANTABILITY,
+   FITNESS FOR A PARTICULAR PURPOSE OR NON-INFRINGEMENT, ARE
+   HEREBY EXCLUDED. SUN MICROSYSTEMS, INC. ("SUN") AND ITS
+   LICENSORS SHALL NOT BE LIABLE FOR ANY DAMAGES SUFFERED BY
+   LICENSEE AS A RESULT OF USING, MODIFYING OR DISTRIBUTING THIS
+   SOFTWARE OR ITS DERIVATIVES. IN NO EVENT WILL SUN OR ITS
+   LICENSORS BE LIABLE FOR ANY LOST REVENUE, PROFIT OR DATA, OR
+   FOR DIRECT, INDIRECT, SPECIAL, CONSEQUENTIAL, INCIDENTAL OR
+   PUNITIVE DAMAGES, HOWEVER CAUSED AND REGARDLESS OF THE THEORY
+   OF LIABILITY, ARISING OUT OF THE USE OF OR INABILITY TO USE
+   THIS SOFTWARE, EVEN IF SUN HAS BEEN ADVISED OF THE POSSIBILITY
+   OF SUCH DAMAGES.
+
+   You acknowledge that this software is not designed, licensed
+   or intended for use in the design, construction, operation or
+   maintenance of any nuclear facility.
