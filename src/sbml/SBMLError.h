@@ -237,7 +237,12 @@
  * longer and (hopefully) clearer explanation of the issue is returned by
  * SBMLError::getMessage().
  *
- * @htmlinclude sbmlerror-table.html
+ * The error codes come from different lists depending on whether they're from core or from a
+ * package.  The errors below come from #XMLErrorCode_t and #SBMLErrorCode_t (for core), 
+ * and #CompSBMLErrorCode_t, #FbcSBMLErrorCode_t, #LayoutSBMLErrorCode_t, and 
+ * #QualSBMLErrorCode_t (for packages).
+ *
+ * @copydetails sbmlerror_table
  * 
  * @if clike <h3><a class="anchor" name="SBMLErrorCategory_t">SBMLErrorCategory_t</a></h3>
  *
