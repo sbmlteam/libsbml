@@ -1023,9 +1023,9 @@ public:
    * Predicate returning @c true (non-zero) if this node contains a number,
    * @c false (zero) otherwise.  This is functionally equivalent to the
    * following code:
-   * @code
-   *   isInteger() || isReal()
-   * @endcode
+   * @verbatim
+ isInteger() || isReal()
+ @endverbatim
    * 
    * @return @c true if this ASTNode is a number, @c false otherwise.
    */
