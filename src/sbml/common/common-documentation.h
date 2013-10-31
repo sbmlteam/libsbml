@@ -1044,25 +1044,35 @@ e><a href="libsbml.html#parseL3Formula(java.lang.String)">libsbml.parseL3Formula
  *  @see #SBMLQualTypeCode_t
  * 
  * <!-- ------------------------------------------------------------------- -->
- * @class SBML_error_codes
+ * @class doc_sbml_error_code_ranges
  * 
  * @par
- * Calling programs may wish to check which enumeration a given SBMLError object's error
- * identifier is actually from:
+ * Calling programs may wish to check which enumeration a given SBMLError
+ * object's error identifier is actually from:
  * @li 0000000 to 0009999: #XMLErrorCode_t (a low-level XML problem)
- * @li 0010000 to 0099999: #SBMLErrorCode_t (a problem with the SBML core specification)
- * @li 1000000 to 1099999: #CompSBMLErrorCode_t (a problem with the SBML Level&nbsp;3 Hierarchical %Model Composition package specification).
- * @li 2000000 to 2099999: #FbcSBMLErrorCode_t (a problem with the SBML Level&nbsp;3 Flux Balance Constraints package specification).
- * @li 3000000 to 3099999: #QualSBMLErrorCode_t (a problem with the SBML Level&nbsp;3 Qualitative Models package specification).
- * @li 6000000 to 6099999: #LayoutSBMLErrorCode_t (a problem with the SBML Level&nbsp;3 %Layout package specification).
+ *
+ * @li 0010000 to 0099999: #SBMLErrorCode_t (a problem with the SBML
+ * core specification)
+ * @li 1000000 to 1099999: #CompSBMLErrorCode_t (a problem with the SBML
+ * Level&nbsp;3 Hierarchical %Model Composition package specification).
+ *
+ * @li 2000000 to 2099999: #FbcSBMLErrorCode_t (a problem with the SBML
+ * Level&nbsp;3 Flux Balance Constraints package specification).
+ * 
+ * @li 3000000 to 3099999: #QualSBMLErrorCode_t (a problem with the SBML
+ * Level&nbsp;3 Qualitative Models package specification).
+ * 
+ * @li 6000000 to 6099999: #LayoutSBMLErrorCode_t (a problem with the SBML
+ * Level&nbsp;3 %Layout package specification).
  *
  * Other error code ranges are reserved for other packages.
  *
  * <!-- ------------------------------------------------------------------- -->
- * @class sbmlerror_table
+ * @class doc_sbml_error_table
  *
  * @par
-<table width="95%" cellspacing="1" cellpadding="2" border="0" class="centered text-table small-font alt-row-colors">
+<table width="95%" cellspacing="1" cellpadding="2" border="0"
+       class="centered text-table small-font alt-row-colors">
  <tr style="background: lightgray" class="normal-font">
      <th valign="bottom"><strong>Enumerator</strong></th>
      <th valign="bottom"><strong>Meaning</strong></th>

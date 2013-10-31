@@ -45,7 +45,7 @@ BEGIN_C_DECLS
  * These are distinguished from other SBML error codes 
  * by having a number between 2000000 and 2099999.  
  * 
- * @copydetails SBML_error_codes
+ * @copydetails doc_sbml_error_code_ranges
  */
 typedef enum
 {

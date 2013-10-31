@@ -344,7 +344,7 @@ BEGIN_C_DECLS
  * of errors from the multiple parsers (Xerces, Expat, libxml2) supported
  * by libSBML.
  * 
- * @copydetails SBML_error_codes
+ * @copydetails doc_sbml_error_code_ranges
  */
 typedef enum {
     XMLUnknownError           =    0 /*!< Unknown error encountered. */

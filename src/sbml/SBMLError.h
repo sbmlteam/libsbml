@@ -242,7 +242,7 @@
  * and #CompSBMLErrorCode_t, #FbcSBMLErrorCode_t, #LayoutSBMLErrorCode_t, and 
  * #QualSBMLErrorCode_t (for packages).
  *
- * @copydetails sbmlerror_table
+ * @copydetails doc_sbml_error_table
  * 
  * @if clike <h3><a class="anchor" name="SBMLErrorCategory_t">SBMLErrorCategory_t</a></h3>
  *
@@ -440,7 +440,7 @@ BEGIN_C_DECLS
  * @enum SBMLErrorCode_t
  * Codes for all SBML-level errors and warnings from the core specification.
  * 
- * @copydetails SBML_error_codes
+ * @copydetails doc_sbml_error_code_ranges
  */
 typedef enum
 {
