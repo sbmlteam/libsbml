@@ -37,7 +37,7 @@ STABLE RELEASE
     that provide reciprocal AST to infix functionality based on 
     the previously released L3Parser code. 
 
-  - Within an SBML file it may be possible to infer units for parameters 
+  - Within an SBML file it may be possible to infer units for parameters
     based on their use within mathematical expressions.  A limited 
     version of this functionality is now available using the 
     SBMLInferUnitsConverter which will return a document with units
@@ -221,6 +221,13 @@ STABLE RELEASE
  
 * Miscellaneous
 
+  - The copyrights and license statements in LICENSE.txt/LICENSE.html
+    have been updated to reflect the inclusion of code from Ralph
+    Gauges (EML, Heidelberg, Germany) and a small program from Sun
+    Microsystems used in generating documentation.  Both of these are
+    distributed under terms compatible with the LGPL of all of libSBML.
+
+
 EXPERIMENTAL RELEASE
 
 * New features
@@ -252,6 +259,7 @@ EXPERIMENTAL RELEASE
   
   - The 'groups' package code has been updated to include revisions
     made to the latest specification.
+
   
 ====================================================================
 Version 5.8.0 (2013-02-28)
