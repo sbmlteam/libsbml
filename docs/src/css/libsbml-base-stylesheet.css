@@ -30,8 +30,8 @@ body
 
 p
 {
-    margin-top: 0.5em;
-    margin-bottom: 0.5em;
+    margin-top: 0.75em;
+    margin-bottom: 0.75em;
 }
 
 h1, h2, h3, h4, h5
@@ -108,13 +108,12 @@ strong, b
 
 ul
 {
-    margin-top: 0.5em;
-    margin-bottom: 0px;
+    margin-top: 0.75em;
+    margin-bottom: 0.75em;
 }
 
 ul li
 {
-    padding-bottom: 0.5em;
 }
 
 ul li p
