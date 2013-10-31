@@ -1142,7 +1142,8 @@ div.toc li.level4 {
 }
 
 #doc-content .memdoc li {
-
+    margin-top: 0px;
+    margin-bottom: 0px;
 }
 
 #doc-content #main-page-sections li {
@@ -1269,6 +1270,10 @@ table.params td.paramname {
     padding-left: 0px;
 }
 
+td.paramname {
+    padding-right: 1em;
+}
+
 .textblock ul,
 .textblock ol {
     padding-left: 2.5em;
@@ -1310,6 +1315,13 @@ body div.contents ol li {
 }
 
 /* Hide the "Related Pages" tab because for us, it's an empty page. */
+
+ul.tablist li {
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+    padding-top: 0;
+    padding-bottom: 0;
+}
 
 #navrow1 ul.tablist li:nth-child(2) {
     display: none;
