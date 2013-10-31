@@ -1048,9 +1048,60 @@ public:
    */
   static const std::string getStandardMessage (const int code);
 
+
+  /**
+   * Returns the SBML Level&nbsp;3 package extension (if any) that logged
+   * this error.
+   *
+   * Each error logged by an libSBML extension for SBML Level&nbsp;3 packages
+   * includes a record of the package that logged it.  The field is a simple
+   * text string.  If the string is empty or has the value @c "core", then
+   * the error came from libSBML core; otherwise, the string will be the
+   * short-form name of the package (e.g., @c "comp" for the Hierarchical
+   * Model Composition package).
+   *
+   * @return a string representing the name of the package that logged this
+   * error.  If the error did not come from a package extension, the value
+   * will be the empty string or @c "core".
+   */
   const std::string& getPackage() const;
 
+
+  /**
+   * Returns libSBML's internal numerical offset for the error code
+   * associated with this error.
+   *
+   * In the SBML Level&nbsp;3 package specifications, package validation
+   * rules are identified by 5-digit numbers prefixed with the nickname of
+   * the package itself&mdash;e.g., &ldquo;comp-10101&rdquo;,
+   * &ldquo;fbc-20301&rdquo;, etc.  Historically, libSBML reported error
+   * codes as pure integers, and some application software systems make
+   * decisions based on the numerical values of the error codes.  To permit
+   * these applications to continue to function in this fashion, libSBML
+   * internally continues to maintain error identifiers as pure integers.  To
+   * handle the possibility that errors may come from package extensions,
+   * libSBML uses numerical offsets added to the internal error codes.  These
+   * offsets add two leading digits to the regular 5-digit error codes; for
+   * example, &ldquo;comp&rdquo; error codes are stored as 1010101, 1020102,
+   * etc.  The offset in this case is 1000000.  Another package will have the
+   * offset 2000000, yet another will have 3000000, etc.
+   *
+   * This method returns the integer offset in this error's error code.
+   * Calling applications can get the 5-digit package-specific number for a
+   * given error code by subtracting the offset from the value reported by
+   * getErrorId():
+   * @verbatim
+ getErrorId() - getErrorIdOffset()
+ @endverbatim
+   * When libSBML produces error messages, it combines the text string
+   * returned by getPackage() with the subtracted value of the error code,
+   * to produce a text string of the form &ldquo;comp-10101&rdquo;.
+   *
+   * @see getErrorId()
+   * @see getPackage()
+   */
   unsigned int getErrorIdOffset() const;
+
 
 #ifndef SWIG
 
