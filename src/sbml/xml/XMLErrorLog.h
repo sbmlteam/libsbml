@@ -274,7 +274,7 @@ public:
   /**
    * Set the severity override. 
    * 
-   * @param an override code indicating what to do.  If the value is
+   * @param severity an override code indicating what to do.  If the value is
    * @link XMLErrorSeverityOverride_t#LIBSBML_OVERRIDE_DISABLED LIBSBML_OVERRIDE_DISABLED@endlink
    * (the default setting) all errors logged will be given the severity
    * specified in their usual definition.   If the value is
