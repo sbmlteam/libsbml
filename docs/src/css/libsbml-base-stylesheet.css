@@ -244,6 +244,12 @@ a:hover
     letter-spacing: -1px;
 }
 
+.tight-list li
+{
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
 .placeholder
 { 
     font-style: italic;
