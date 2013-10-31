@@ -7,17 +7,17 @@ will find the following:
 *  [Windows](Windows)  -- folder of binary installers for Microsoft Windows systems
 *  [Linux](Linux)    -- folder of binary installers for Linux systems
 
-Code for core libSBML only:
+Source code for core libSBML only:
 
 *  [libSBML-@PACKAGE_VERSION@-core-src.zip](libSBML-@PACKAGE_VERSION@-core-src.zip)     -- source code (only), zip archive
 *  [libSBML-@PACKAGE_VERSION@-core-src.tar.gz](libSBML-@PACKAGE_VERSION@-core-src.tar.gz)  -- source code (only), gzip'ed tar archive
   
-Code for full stable release (core plus accepted packages):
+Source code for full stable release (core plus accepted packages):
 
 *  [libSBML-@PACKAGE_VERSION@-core-plus-packages-src.zip](libSBML-@PACKAGE_VERSION@-core-plus-packages-src.zip)     -- source code (only), zip archive
 *  [libSBML-@PACKAGE_VERSION@-core-plus-packages-src.tar.gz](libSBML-@PACKAGE_VERSION@-core-plus-packages-src.tar.gz)  -- source code (only), gzip'ed tar archive
   
-Code for individual accepted packages:
+Source code for individual accepted packages:
 
 *  [libSBML-@PACKAGE_VERSION@-comp-src.zip](libSBML-@PACKAGE_VERSION@-comp-src.zip)     -- source code (only), zip archive
 *  [libSBML-@PACKAGE_VERSION@-fbc-src.zip](libSBML-@PACKAGE_VERSION@-fbc-src.zip)      -- source code (only), zip archive
@@ -27,8 +27,8 @@ Code for individual accepted packages:
 
 Documentation:
 
-*  [libSBML-@PACKAGE_VERSION@-docs.zip](libSBML-@PACKAGE_VERSION@-docs.zip)    -- formatted documentation (only) -- see
-*  [libSBML-@PACKAGE_VERSION@-docs.tar.gz](libSBML-@PACKAGE_VERSION@-docs.tar.gz) -- important note below
+*  [libSBML-@PACKAGE_VERSION@-docs.zip](libSBML-@PACKAGE_VERSION@-docs.zip)    -- formatted documentation (only)
+*  [libSBML-@PACKAGE_VERSION@-docs.tar.gz](libSBML-@PACKAGE_VERSION@-docs.tar.gz) -- formatted documentation (only)
 
 (Note about the documentation archives: after downloading an archive,
 make sure to `unzip`/`untar` it before opening `docs/index.html`. If you

@@ -16,8 +16,8 @@ will find the following:
 *  [libSBML-@PACKAGE_VERSION@-src.zip](libSBML-@PACKAGE_VERSION@-src.zip)     -- source code (only), zip archive
 *  [libSBML-@PACKAGE_VERSION@-src.tar.gz](libSBML-@PACKAGE_VERSION@-src.tar.gz)  -- source code (only), gzip'ed tar archive
 
-*  [libSBML-@PACKAGE_VERSION@-docs.zip](libSBML-@PACKAGE_VERSION@-docs.zip)    -- formatted documentation (only) -- see
-*  [libSBML-@PACKAGE_VERSION@-docs.tar.gz](libSBML-@PACKAGE_VERSION@-docs.tar.gz) -- important note below
+*  [libSBML-@PACKAGE_VERSION@-docs.zip](libSBML-@PACKAGE_VERSION@-docs.zip)    -- formatted documentation (only)
+*  [libSBML-@PACKAGE_VERSION@-docs.tar.gz](libSBML-@PACKAGE_VERSION@-docs.tar.gz) -- formatted documentation (only)
 
 (Note about the documentation archives: after downloading an archive,
 make sure to `unzip`/`untar` it before opening `docs/index.html`. If you
