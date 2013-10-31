@@ -442,3 +442,34 @@ code.language-java .str
     -webkit-column-gap: 1.5em;
     column-gap: 1.5em;
 }
+
+/* Color codes used in common-text/sbmlerror-table.html. */
+
+td.s-fatal {
+  background-color: #ff2233 !important;
+  font-weight: bold;
+  text-align: center;
+}
+
+td.s-error {
+  background-color: #ff99aa !important;
+  font-weight: bold;
+  text-align: center;
+}
+
+td.s-warning {
+  background-color: gold !important;
+  font-weight: bold;
+  text-align: center;
+}
+
+td.s-info {
+  background-color: #4c4 !important;
+  font-weight: bold;
+  text-align: center;
+}
+
+td.s-na {
+  font-weight: bold;
+  text-align: center;
+}

@@ -1309,35 +1309,6 @@ body div.contents ol li {
     border-color: orange;
 }
 
-td.s-fatal {
-  background-color: #ff2233 !important;
-  font-weight: bold;
-  text-align: center;
-}
-
-td.s-error {
-  background-color: #ff99aa !important;
-  font-weight: bold;
-  text-align: center;
-}
-
-td.s-warning {
-  background-color: gold !important;
-  font-weight: bold;
-  text-align: center;
-}
-
-td.s-info {
-  background-color: #4c4 !important;
-  font-weight: bold;
-  text-align: center;
-}
-
-td.s-na {
-  font-weight: bold;
-  text-align: center;
-}
-
 /* Hide the "Related Pages" tab because for us, it's an empty page. */
 
 #navrow1 ul.tablist li:nth-child(2) {
