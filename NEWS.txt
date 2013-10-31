@@ -2,7 +2,7 @@
 
 
 ====================================================================
-Version 5.9.0 (2013-11-07)
+Version 5.9.0 (2013-11-14)
 ====================================================================
 
 STABLE RELEASE
@@ -218,10 +218,7 @@ STABLE RELEASE
       a child of that object could also cause problems. These have
       been sorted.
 
-* Configuration/build system changes
-
-  - '' package-specific build system changes:
-  
+ 
 * Miscellaneous
 
 EXPERIMENTAL RELEASE
