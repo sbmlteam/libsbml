@@ -851,11 +851,6 @@ public:
    * object, and returns the first one that has the given SBML type code from 
    * the given @p pkgName.
    *
-   * @warning The optional argument @p pkgName must be used for all type codes
-   * from SBML Level&nbsp;3 packages.  Otherwise, the function will search the 
-   * "core" namespace alone, not find any corresponding elements, and return 
-   * NULL.
-   *
    * @param type the SBML type code of the object sought
    *
    * @param pkgName (optional) the short name of an SBML Level&nbsp;3
@@ -864,6 +859,11 @@ public:
    * @return the ancestor SBML object of this SBML object that corresponds
    * to the given @if clike #SBMLTypeCode_t value@else SBML object type
    * code@endif, or @c NULL if no ancestor exists.
+   *
+   * @warning The optional argument @p pkgName must be used for all type codes
+   * from SBML Level&nbsp;3 packages.  Otherwise, the function will search the 
+   * "core" namespace alone, not find any corresponding elements, and return 
+   * NULL.
    *
    * @if notcpp @htmlinclude warn-default-args-in-docs.html @endif@~
    */
@@ -899,11 +899,6 @@ public:
    * object, and returns the first one that has the given SBML type code from 
    * the given @p pkgName.
    *
-   * @warning The optional argument @p pkgName must be used for all type codes
-   * from SBML Level&nbsp;3 packages.  Otherwise, the function will search the 
-   * "core" namespace alone, not find any corresponding elements, and return 
-   * NULL.
-   *
    * @param type the SBML type code of the object sought
    *
    * @param pkgName (optional) the short name of an SBML Level&nbsp;3
@@ -912,6 +907,11 @@ public:
    * @return the ancestor SBML object of this SBML object that corresponds
    * to the given @if clike #SBMLTypeCode_t value@else SBML object type
    * code@endif, or @c NULL if no ancestor exists.
+   *
+   * @warning The optional argument @p pkgName must be used for all type codes
+   * from SBML Level&nbsp;3 packages.  Otherwise, the function will search the 
+   * "core" namespace alone, not find any corresponding elements, and return 
+   * NULL.
    *
    * @if notcpp @htmlinclude warn-default-args-in-docs.html @endif@~
    */
