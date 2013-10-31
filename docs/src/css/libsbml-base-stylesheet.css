@@ -101,6 +101,11 @@ h4 code
     font-size: 12px;
 }
 
+em
+{
+    font-style: italic;
+}
+
 strong, b
 {
     font-weight: bold;
