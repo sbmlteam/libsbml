@@ -45,5 +45,6 @@
 %include <sbml/packages/qual/sbml/QualitativeSpecies.h>
 %include <sbml/packages/qual/sbml/Transition.h>
 
+%include <sbml/packages/qual/validator/QualSBMLError.h>
 
 #endif /* USE_QUAL */

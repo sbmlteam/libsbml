@@ -97,6 +97,8 @@
 
 %include sbml/packages/layout/util/LayoutAnnotation.h
 
+%include sbml/packages/layout/validator/LayoutSBMLError.h
+
 %template(LayoutPkgNamespaces) SBMLExtensionNamespaces<LayoutExtension>;
 
 

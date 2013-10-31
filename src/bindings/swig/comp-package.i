@@ -68,6 +68,7 @@
 %include sbml/packages/comp/sbml/Submodel.h
 %include sbml/packages/comp/sbml/Replacing.h
 
+%include sbml/packages/comp/validator/CompSBMLError.h
 
 %template(CompPkgNamespaces) SBMLExtensionNamespaces<CompExtension>;
 
