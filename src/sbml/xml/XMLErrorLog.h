@@ -244,7 +244,7 @@ public:
    * @return @c true if an error severity override has been set, @c false
    * otherwise.
    *
-   * @see setSeverityOverride(XMLErrorSeverityOverride_t severity)
+   * @see setSeverityOverride(@if java int severity@endif)
    */
   bool isSeverityOverridden() const;
 
@@ -252,7 +252,7 @@ public:
   /**
    * Usets an existing override.
    *
-   * @see setSeverityOverride(XMLErrorSeverityOverride_t severity)
+   * @see setSeverityOverride(@if java int severity@endif)
    */ 
   void unsetSeverityOverride();
 
@@ -266,7 +266,7 @@ public:
    * @li @link XMLErrorSeverityOverride_t#LIBSBML_OVERRIDE_DONT_LOG LIBSBML_OVERRIDE_DONT_LOG@endlink
    * @li @link XMLErrorSeverityOverride_t#LIBSBML_OVERRIDE_WARNING LIBSBML_OVERRIDE_WARNING@endlink
    *
-   * @see setSeverityOverride(XMLErrorSeverityOverride_t severity)
+   * @see setSeverityOverride(@if java int severity@endif)
    */
   XMLErrorSeverityOverride_t getSeverityOverride() const;
 
@@ -307,9 +307,9 @@ public:
    * package nickname such as @c "comp" signifies to limit consideration to
    * errors from just that package.
    *
-   * @see getSeverityOverride()
-   *
    * @if notcpp @htmlinclude warn-default-args-in-docs.html @endif@~
+   *
+   * @see getSeverityOverride()
    */
   void changeErrorSeverity(XMLErrorSeverity_t originalSeverity,
                            XMLErrorSeverity_t targetSeverity,
