@@ -1,7 +1,9 @@
-##libSBML @PACKAGE_VERSION@ R BINDINGS
+##libSBML @PACKAGE_VERSION@ 
+###R interface installer for Linux
 
 This directory contains the experimental R interface of libSBML @PACKAGE_VERSION@
 generated for R 2.15.1 on a Linux operating system. (Ubuntu 12) 
+
 Install with: 
 
 	R CMD INSTALL <archivename>

@@ -26,7 +26,7 @@ different XML parser library, it will be necessary to build libSBML yourself
 from the source distribution using suitable configuration flags.  The
 procedure is described in the libSBML documentation.  The source and
 documentation are available from the top-level download directory,
-http://sourceforge.net/projects/sbml/files/libsbml/@PACKAGE_VERSION@
+[http://sourceforge.net/projects/sbml/files/libsbml/@PACKAGE_VERSION@](http://sourceforge.net/projects/sbml/files/libsbml/@PACKAGE_VERSION@)
 
 For additional information about this version of libSBML, please see
 the documentation or visit the libSBML website at

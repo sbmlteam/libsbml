@@ -1,7 +1,10 @@
-##libSBML @PACKAGE_VERSION@ R BINDINGS
+##libSBML @PACKAGE_VERSION@ 
+###R interface installer for Windows
 
 This directory contains the experimental R interface of libSBML @PACKAGE_VERSION@
-generated for R 2.15.1 on Microsoft Windows operating systems. Install with:
+generated for R 2.15.1 on Microsoft Windows operating systems. 
+
+Install with:
 
 	R CMD INSTALL <archivename>
 

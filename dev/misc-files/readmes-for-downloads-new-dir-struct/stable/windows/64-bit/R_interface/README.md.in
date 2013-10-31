@@ -1,7 +1,9 @@
-##libSBML @PACKAGE_VERSION@ R BINDINGS
+##libSBML @PACKAGE_VERSION@ 
+###R interface installer for 64 bit Windows
 
 This directory contains the release of the libSBML @PACKAGE_VERSION@
 R bindings generated for R 2.15.1 for 64 bit Windows operating systems. 
+
 Install with: 
 
 	R CMD INSTALL <archivename>

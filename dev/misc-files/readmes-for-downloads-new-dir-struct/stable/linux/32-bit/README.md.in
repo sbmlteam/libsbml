@@ -28,7 +28,7 @@ Here you will find the following files:
        -- an archive containing just the binary files built for centos
 
   * [libSBML-@PACKAGE_VERSION@-Linux-x86-binaries-ubuntu.tar.gz](libSBML-@PACKAGE_VERSION@-Linux-x86-binaries-ubuntu.tar.gz)
-       -- an archive containing the binary files built for ubuntu
+       -- an archive containing just the binary files built for ubuntu
 
   * [R interface](R%20interface)
        -- This folder contains installer for the R libSBML interface ONLY.

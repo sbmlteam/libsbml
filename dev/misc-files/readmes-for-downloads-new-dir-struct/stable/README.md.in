@@ -27,8 +27,8 @@ Source code for individual accepted packages:
 
 Documentation:
 
-*  [libSBML-@PACKAGE_VERSION@-docs.zip](libSBML-@PACKAGE_VERSION@-docs.zip)    -- formatted documentation (only)
-*  [libSBML-@PACKAGE_VERSION@-docs.tar.gz](libSBML-@PACKAGE_VERSION@-docs.tar.gz) -- formatted documentation (only)
+*  [libSBML-@PACKAGE_VERSION@-docs.zip](libSBML-@PACKAGE_VERSION@-docs.zip)    -- formatted documentation (only), zip archive
+*  [libSBML-@PACKAGE_VERSION@-docs.tar.gz](libSBML-@PACKAGE_VERSION@-docs.tar.gz) -- formatted documentation (only), gzip'ed tar archive
 
 (Note about the documentation archives: after downloading an archive,
 make sure to `unzip`/`untar` it before opening `docs/index.html`. If you
