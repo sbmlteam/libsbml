@@ -79,7 +79,7 @@ static const packageErrorTableEntry qualErrorTable[] =
 
     // 3010201
   { QualFunctionTermBool, 
-    "FunctionTerm must return boolean",
+    "FunctionTerm should return boolean",
     LIBSBML_CAT_MATHML_CONSISTENCY, 
     LIBSBML_SEV_WARNING,
     "The MathML <math> element in a <FunctionTerm> object should "
@@ -352,9 +352,9 @@ static const packageErrorTableEntry qualErrorTable[] =
   { QualQSAssignedOnlyOnce, 
     "A <qualitativeSpecies> can only be assigned once.",
     LIBSBML_CAT_GENERAL_CONSISTENCY, 
-    LIBSBML_SEV_ERROR,
+    LIBSBML_SEV_WARNING,
     "A <QualitativeSpecies> that is referenced by an <Output> with the "
-    "'qual:transitionEffect' attribute set to 'assignmentLevel' cannot be "
+    "'qual:transitionEffect' attribute set to 'assignmentLevel' should not be "
     "referenced by any other <Output> with the same 'transitionEffect' "
     "throughout the set of transitions for the containing model. ",
     { "L3V1 Qual V1 Section 3.6.2"

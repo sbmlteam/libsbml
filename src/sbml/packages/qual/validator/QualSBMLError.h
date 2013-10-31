@@ -50,7 +50,7 @@ typedef enum
 , QualNSUndeclared                      = 3010101 /*!< The qual ns is not correctly declared. */
 , QualElementNotInNs                    = 3010102 /*!< Element not in qual namespace. */
 
-, QualFunctionTermBool                  = 3010201 /*!< FunctionTerm must return boolean. */
+, QualFunctionTermBool                  = 3010201 /*!< FunctionTerm should return boolean. */
 , QualMathCSymbolDisallowed             = 3010202 /*!< CSymbol time or delay not allowed. */
 
 , QualDuplicateComponentId              = 3010301 /*!< Duplicate 'id' attribute value. */
