@@ -590,17 +590,23 @@ def translateVerbatim (match):
 def translateInclude (match):
   global doc_include_path
 
-  file    = match.group(1)
-  ending  = match.group(2)
+  file    = match.group(2)
+  file    = re.sub('["\']', '', file)     
   content = ''  
   try:
     stream  = open(doc_include_path + '/common-text/' + file, 'r')
     content = stream.read()
     stream.close()
-    content = removeHTMLcomments(content)
   except Exception, e:
     print('Warning: cannot expand common-text: {0}'.format(file))
-  return content + ending
+    print e
+
+  content = removeHTMLcomments(content)
+
+  # Quote embedded double quotes.
+  content = re.sub('\"', '\\\"', content)
+
+  return content
 
 
 
@@ -765,12 +771,6 @@ def sanitizeForHTML (docstring):
   docstring = p.sub(r'\1<p>', docstring)
   p = re.compile('^(?!\Z)$', re.MULTILINE)
   docstring = p.sub(r'<p>', docstring)
-
-  # Javadoc doesn't have an @htmlinclude command, so we process the file
-  # inclusion directly here.
-
-  p = re.compile('@htmlinclude\s+([^\s:;,(){}+|?"\'/@*]+)([\s:;,(){}+|?"\'/@*])', re.MULTILINE)
-  docstring = p.sub(translateInclude, docstring)
 
   # There's no Javadoc verbatim or @code/@endcode equivalent, so we have to
   # convert it to raw HTML and transform the content too.  This requires
@@ -1402,12 +1402,18 @@ def postProcessOutput(istream, ostream):
 
   Post-processes the output to perform final substitutions."""
 
-  for line in istream.readlines():
+  contents = istream.read()
 
-    p = re.compile('@copydetails\s+(\w+)')
-    line = p.sub(translateCopydetails, line)
-      
-    ostream.write(line)
+  p = re.compile('@copydetails\s+(\w+)')
+  contents = p.sub(translateCopydetails, contents)
+    
+  # Javadoc doesn't have an @htmlinclude command, so we process the file
+  # inclusion directly here.
+
+  p = re.compile('@htmlinclude\s+(\*\s+)*([-\w."\']+)', re.DOTALL)
+  contents = p.sub(translateInclude, contents)
+
+  ostream.write(contents)
 
 
 
