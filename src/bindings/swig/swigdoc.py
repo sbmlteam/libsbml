@@ -550,7 +550,6 @@ def rewriteCommonReferences (docstring):
     docstring = re.sub(r'RuleType_t#',                 target, docstring)
     docstring = re.sub(r'SBMLCompTypeCode_t#',         target, docstring)
     docstring = re.sub(r'SBMLErrorCategory_t#',        target, docstring)
-    docstring = re.sub(r'SBMLErrorCode_t#',            target, docstring)
     docstring = re.sub(r'SBMLErrorSeverity_t#',        target, docstring)
     docstring = re.sub(r'SBMLFbcTypeCode_t#',          target, docstring)
     docstring = re.sub(r'SBMLLayoutTypeCode_t#',       target, docstring)
@@ -561,6 +560,14 @@ def rewriteCommonReferences (docstring):
     docstring = re.sub(r'XMLErrorCode_t#',             target, docstring)
     docstring = re.sub(r'XMLErrorSeverityOverride_t#', target, docstring)
     docstring = re.sub(r'XMLErrorSeverity_t#',         target, docstring)
+
+    docstring = re.sub(r'CompSBMLErrorCode_t#',        target, docstring)
+    docstring = re.sub(r'QualSBMLErrorCode_t#',        target, docstring)
+    docstring = re.sub(r'FbcSBMLErrorCode_t#',         target, docstring)
+    docstring = re.sub(r'LayoutSBMLErrorCode_t#',      target, docstring)
+
+    # Put this one last, so it doesn't match the XXXXSBMLErrorCode_t ones.
+    docstring = re.sub(r'SBMLErrorCode_t#',            target, docstring)
 
   return docstring
 
