@@ -243,9 +243,9 @@ typedef SBMLExtensionNamespaces<FbcExtension> FbcPkgNamespaces;
  * @enum  SBMLFbcTypeCode_t
  * @brief SBMLFbcTypeCode_t is the enumeration of possible types from the 'fbc' package.
  *
- * An enumeration of SBML fbc types to help identify SBML objects at runtime.
+ * @copydetails doc_what_are_typecodes
  *
- * @copydetails SBML_type_codes
+ * @copydetails doc_additional_typecode_details
  */
 typedef enum
 {

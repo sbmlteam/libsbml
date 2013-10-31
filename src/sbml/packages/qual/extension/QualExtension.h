@@ -296,10 +296,9 @@ typedef SBMLExtensionNamespaces<QualExtension> QualPkgNamespaces;
  * @enum  SBMLQualTypeCode_t
  * @brief SBMLQualTypeCode_t is the enumeration of possible types from the 'qual' package.
  *
- * An enumeration of SBML qual types to help identify SBML objects at runtime.
- * Abstract types sometimes do not have a typecode since they cannot be instantiated.
+ * @copydetails doc_what_are_typecodes
  *
- * @copydetails SBML_type_codes
+ * @copydetails doc_additional_typecode_details
  */
 typedef enum
 {

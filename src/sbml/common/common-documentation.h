@@ -214,7 +214,8 @@
  * static integer constants in the interface class
  * @link libsbmlcs.libsbml@endlink.@endif@~  Note that different Level&nbsp;3 
  * package plug-ins may use overlapping type codes; to identify the package
- * to which a given object belongs, call getPackageName().
+ * to which a given object belongs, call the <code>getPackageName()</code>
+ * method on the object.
  * 
  * <!-- ------------------------------------------------------------------- -->
  * @class doc_warning_typecodes_not_unique
@@ -970,65 +971,71 @@ e><a href="libsbml.html#parseL3Formula(java.lang.String)">libsbml.parseL3Formula
  * limitations in mind.</span>
  * 
  * <!-- ------------------------------------------------------------------- -->
- * @class SBML_type_codes
+ * @class doc_additional_typecode_details
  * 
  * @par
- * (NOTES)
+ * Here follow some additional general information about SBML type codes:
  *
- *  - Each typecode is used as a return value (int) of the following functions
+ * @li The codes are the possible return values (integers) for the following
+ * functions:
+ * <ul>
+ *     <li> virtual int SBase::getTypeCode() const;
+ *     <li> virtual int ListOf::getItemTypeCode() const;
+ * </ul>
+ * (In libSBML 5, the type of return values of these functions changed from
+ * an enumeration to an integer for extensibility in the face of different
+ * programming languages.)
  *
- *     - virtual int SBase::getTypeCode() const;
- *     - virtual int ListOf::getItemTypeCode() const;
+ * @li Each package extension must define similar sets of values for each
+ * SBase subclass (e.g. #SBMLLayoutTypeCode_t for the SBML Level&nbsp;3
+ * Layout extension, #SBMLFbcTypeCode_t for the SBML Level&nbsp;3 Flux
+ * Balance Constraints extension, etc.).
  *
- *    (In libSBML 5, the type of return values in these functions have been changed
- *     from typecode (int) to int for extensibility.)
+ * @li The value of each package-specific type code can be duplicated between
+ * those of different packages.  (This is necessary because the development
+ * of libSBML extensions for different SBML packages may be undertaken by
+ * different developers at different times; requiring the developers to
+ * coordinate their use of type codes would be nettlesome and probably
+ * doomed to failure.)
  *
- *  - Each package extension must define similar enum type for each SBase subclass
- *    (e.g. #SBMLLayoutTypeCode_t for the layout extension, #SBMLFbcTypeCode_t for
- *          the fbc extension).
+ * @li To distinguish between the type codes of different packages, both the
+ * return value of SBase::getTypeCode() and SBase::getPackageName() must be
+ * checked.  This is particularly important for functions that take an SBML
+ * type code as an argument, such as SBase::getAncestorOfType(), which by
+ * default assumes you are handing it a core type, and will return @c NULL if
+ * the value you give it is actually from a package.
  *
- *  - The value of each typecode can be duplicated between those of different 
- *    packages.
- *
- *  - To distinguish the typecodes of different packages, not only the return
- *    value of SBase::getTypeCode() but also that of getPackageName() must be checked.
- *    This is particularly important for functions that take an SBML type code 
- *    as an argument, such as SBase::getAncestorOfType(), which by default assumes you
- *    are handing it a core type, and will return NULL if the value
- *    you give it is actually from a package.
- *
- *    The following example code illustrates the combined use of getPackageName()
- *    and getTypeCode():
- *
- *    <pre>
- *    void example (const SBase *sb)
- *    {
- *      cons std::string pkgName = sb->getPackageName();
- *      if (pkgName == "core")
- *      {
- *        switch (sb->getTypeCode())
- *        {
- *          case SBML_MODEL:
- *             ....
- *             break;
- *          case SBML_REACTION:
- *             ....
- *        }
- *      } 
- *      else if (pkgName == "layout")
- *      {
- *        switch (sb->getTypeCode())
- *        {
- *          case SBML_LAYOUT_LAYOUT:
- *             ....
- *             break;
- *          case SBML_LAYOUT_REACTIONGLYPH:
- *             ....
- *        }
- *      } 
- *      ...
- *    } 
- *    </pre>
+ * The following example code illustrates the combined use of
+ * SBase::getPackageName() and SBase::getTypeCode():
+ *@verbatim
+ void example (const SBase *sb)
+ {
+   cons std::string pkgName = sb->getPackageName();
+   if (pkgName == "core")
+   {
+     switch (sb->getTypeCode())
+     {
+       case SBML_MODEL:
+          ....
+          break;
+       case SBML_REACTION:
+          ....
+     }
+   } 
+   else if (pkgName == "layout")
+   {
+     switch (sb->getTypeCode())
+     {
+       case SBML_LAYOUT_LAYOUT:
+          ....
+          break;
+       case SBML_LAYOUT_REACTIONGLYPH:
+          ....
+     }
+   } 
+   ...
+ } 
+ @endverbatim
  * 
  *  @see #SBMLTypeCode_t
  *  @see #SBMLCompTypeCode_t
