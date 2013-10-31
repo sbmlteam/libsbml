@@ -148,35 +148,39 @@ STABLE RELEASE
 
   - 'comp' package-specific updates:
   
-    - All the validation rules have been fully implemented.
+    - All the validation rules have been fully implemented, up through
+      release 3 of the specification.
 
     - Validation is now incorporated into the flattening process.
-      If there are no errors the flattening process will proceed
-      to produce a flattened version of the model and perform
-      and report validation errors relating to the flattened model.
-      This provides the user with detailed information regarding
-      why a document has failed to flatten as well as detailing
-      any warnings related to the document returned on success.    
+      If there are no errors (or only warnings), the flattening process
+      will proceed to produce a flattened version of the model.  If
+      there are errors, the flattening process will halt and return an
+      unchanged version of the model, with the errors noted in the model's
+      error log.  This provides the user with detailed information
+      regarding why a document has failed to flatten as well as detailing
+      any warnings related to the document returned on success.
     
     - There is an additional option for the CompFlatteningConverter
       to allow the users to request that the document not be validated
       before or after flattening. This allows the user to produce a
       flattened model irrespective of the validity of the original model.
+      Errors produced during flattening will still stop the flattening
+      process, as they make it impossible to flatten the model.
       
     - There is a further additional option for the CompFlatteningConverter
       to allow the users to specify how the required status of any
       unflattenable package should influence whether flattening is
       attempted or not. By default this option has a value of
       'requiredOnly' which indicates that flattening will abort if it
-      encounters an unflattenable package that has a required attribute of
-      true. Other options are 'all' or 'none'.
+      encounters an unflattenable package that has a 'required' attribute of
+      'true'. Other options are 'all' or 'none'.
       
     - The flattening routine has been extended to include all packages
       available within the stable release: layout, qual and fbc.
       NOTE:  This means that the behavior of the flattening converter
       will be different than it used to be:  in the past, the converter
       would either refuse to flatten a model with information from any
-      of these packages, or would leave in unmodified package information
+      of these packages, or would leave unmodified package information
       from the main model only.  Now, all information from all submodels
       will be properly integrated into the flattened model.
     
