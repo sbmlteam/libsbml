@@ -50,12 +50,12 @@ typedef enum
 {
     UNIT_KIND_AMPERE /*!< Ampere ('A'); SI base unit of electrical current (<i>I</i>) */
   , UNIT_KIND_AVOGADRO /*!< Avogadro; From the SBML specification, the unit 'dimensionless' multiplied with Avogadro's number*/
-  , UNIT_KIND_BECQUEREL /*!< Bequerel ('Bq'); SI derived unit of radioactivity, equivalent to seconds<sup>-1</sup>*/
+  , UNIT_KIND_BECQUEREL /*!< Bequerel ('Bq'); SI derived unit of radioactivity.  Equivalent to <code>s<sup>-1</sup></code>.*/
   , UNIT_KIND_CANDELA /*!< Candela ('cd'); SI base unit of luminous intensity */
   , UNIT_KIND_CELSIUS /*!< Celsius ('&deg;C'); unit of measurement for temperature.  Can either mean a specific temperature on the Celsius scale, or can indicate a temperature interval.  This duality of purpose makes it a poor choice for a unit and is only included for completeness; use UNIT_KIND_KELVIN instead.*/
   , UNIT_KIND_COULOMB /*!< Coulomb ('C'); SI derived unit of electric charge (<b>Q</b>); the charge transported by a constant current of one ampere in one second (<code>A x s</code>; also equivalent to <code>F x V</code>).*/
   , UNIT_KIND_DIMENSIONLESS /*!< Dimensionless; Having no explicit dimensionality, from the SBML specification.  Sometimes used for counts of items.  Not equivalent to unknown!*/
-  , UNIT_KIND_FARAD /*!< Farad ('F'); SI derived unit of electric capacitance.  <code>s<sup>4</sup> x A<sup>2</sup> x m<sup>-2</sup> x kg<sup>-1</sup></code>*/
+  , UNIT_KIND_FARAD /*!< Farad ('F'); SI derived unit of electric capacitance.  Equivalent to <code>s<sup>4</sup> x A<sup>2</sup> x m<sup>-2</sup> x kg<sup>-1</sup></code>*/
   , UNIT_KIND_GRAM /*!< Gram ('g'); SI derived unit of mass.  Equivalent to <code>10<sup>-3</sup> kg</code>*/
   , UNIT_KIND_GRAY /*!< Gray ('Gy'); SI derived unit of absorbed dose, specific energy (imparted) and of kerma.  Equivalent to one <code>m<sup>2</sup> x m<sup>-2</sup></code>, or one <code>J x kg<sup>-1</sup></code>.*/
   , UNIT_KIND_HENRY /*!< Henry ('H'); SI derived unit of inductance.  Equivalent to <code>m<sup>2</sup> x kg x s<sup>-2</sup> x A<sup>-2</sup></code>*/
@@ -79,7 +79,7 @@ typedef enum
   , UNIT_KIND_SECOND /*!< Second ('s'); SI base unit of time.*/
   , UNIT_KIND_SIEMENS /*!< Siemens ('S'); SI derived unit of electric conductance.  Equivalent to <code>A<sup>2</sup> x s<sup>3</sup> x kg<sup>-1</sup> x m<sup>-2</sup></code>.*/
   , UNIT_KIND_SIEVERT /*!< Sievert ('Sv'); SI derived unit of equivalent radiation dose, effective dose, and committed dose.  Equivalent to the UNIT_KIND_GRAY (<code>m<sup>2</sup> x m<sup>-2</sup></code>), but used to express the biological equivalent dose in human tissue.*/
-  , UNIT_KIND_STERADIAN /*!< Steradian ('sr'); SI derived unit of solid angle.  An angle's measurement in steradians is numerically equal to the area of the corresponding surface on a unit sphere.  Like the radian, it is dimensionless, essentially because a solid angle is the ratio between the area subtended and the square of its distance from the vertex: both the numerator and denominator of this ratio have dimension length<sup>2</sup>. It is useful, however, to distinguish between dimensionless quantities of different nature, so in practice the symbol "sr" is used to indicate a solid angle..*/
+  , UNIT_KIND_STERADIAN /*!< Steradian ('sr'); SI derived unit of solid angle.  An angle's measurement in steradians is numerically equal to the area of the corresponding surface on a unit sphere.  Like the radian, it is dimensionless, essentially because a solid angle is the ratio between the area subtended and the square of its distance from the vertex: both the numerator and denominator of this ratio have dimension <code>length<sup>2</sup></code>. It is useful, however, to distinguish between dimensionless quantities of different nature, so in practice the symbol "sr" is used to indicate a solid angle..*/
   , UNIT_KIND_TESLA /*!< Tesla ('T'); SI derived unit of magnetic field strength or magnetic flux density.  Equivalent to <code>kg x A<sup>-1</sup> x s<sup>-2</sup></code>.*/
   , UNIT_KIND_VOLT /*!< Volt ('V'); SI derived unit of electric potential.  Equivalent to <code>kg x m<sup>2</sup> x A<sup>-1</sup> x s<sup>-3</sup></code>.*/
   , UNIT_KIND_WATT /*!< Watt ('W'); SI derived unit of power.  Equivalent to <code>kg x m<sup>2</sup> x s<sup>-3</sup></code>.*/

@@ -131,15 +131,15 @@ STABLE RELEASE
     
   - All set or add functions in libSBML return a value from
     the enumeration OperationReturnValue_t. There is now a function
-    OperationRetuenValue_toString that will return a string 
+    OperationReturnValue_toString that will return a string 
     representation of the reason for the failure.
   
   - 'layout' package-specific updates:
   
     - The example code for layout has been moved to subdirectories
-      named layout beneath the appropriate language subdirectories
+      named 'layout' beneath the appropriate language subdirectories
       in the examples directory.  This reflects the structure used
-      example code for all packages.
+      for example code from all packages.
   
     - The code reading and writing layout as an annotation has been
       adapted to use the new read/write to/from XMLNode functions.
@@ -149,16 +149,19 @@ STABLE RELEASE
   - 'comp' package-specific updates:
   
     - All the validation rules have been fully implemented.
-      If there are no errors the validation process will proceed
+
+    - Validation is now incorporated into the flattening process.
+      If there are no errors the flattening process will proceed
       to produce a flattened version of the model and perform
       and report validation errors relating to the flattened model.
+      This provides the user with detailed information regarding
+      why a document has failed to flatten as well as detailing
+      any warnings related to the document returned on success.    
     
     - There is an additional option for the CompFlatteningConverter
-      to allow the users to request that the document is validated
-      before, during and after flattening. This provides the user with
-      detailed information regarding why a document has failed to
-      flatten as well as detailing any warnings related to the document
-      returned on success.    
+      to allow the users to request that the document not be validated
+      before or after flattening. This allows the user to produce a
+      flattened model irrespective of the validity of the original model.
       
     - There is a further additional option for the CompFlatteningConverter
       to allow the users to specify how the required status of any
@@ -170,6 +173,12 @@ STABLE RELEASE
       
     - The flattening routine has been extended to include all packages
       available within the stable release: layout, qual and fbc.
+      NOTE:  This means that the behavior of the flattening converter
+      will be different than it used to be:  in the past, the converter
+      would either refuse to flatten a model with information from any
+      of these packages, or would leave in unmodified package information
+      from the main model only.  Now, all information from all submodels
+      will be properly integrated into the flattened model.
     
 * Bug fixes
 
@@ -238,10 +247,10 @@ EXPERIMENTAL RELEASE
     to convey the necessary information until libsbml provides
     the ability to extend the math.
     
-  - 'groups' package-specific new features:
+* Groups
   
-    - The 'groups' package code has been updated to include revisions
-      made to the latest specification.
+  - The 'groups' package code has been updated to include revisions
+    made to the latest specification.
   
 ====================================================================
 Version 5.8.0 (2013-02-28)

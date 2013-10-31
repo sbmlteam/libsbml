@@ -984,8 +984,8 @@ e><a href="libsbml.html#parseL3Formula(java.lang.String)">libsbml.parseL3Formula
  *     from typecode (int) to int for extensibility.)
  *
  *  - Each package extension must define similar enum type for each SBase subclass
- *    (e.g. SBMLLayoutTypeCode_t for the layout extension, SBMLGroupTypeCode_t for
- *          group extension).
+ *    (e.g. #SBMLLayoutTypeCode_t for the layout extension, #SBMLFbcTypeCode_t for
+ *          the fbc extension).
  *
  *  - The value of each typecode can be duplicated between those of different 
  *    packages.
