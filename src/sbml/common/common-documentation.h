@@ -6413,7 +6413,7 @@ e><a href="libsbml.html#parseL3Formula(java.lang.String)">libsbml.parseL3Formula
 <td class="s-na">N</td>
 <td class="s-error">E</td></tr>
 <tr><td><code>@link LayoutSBMLErrorCode_t#LayoutGOAllowedElements LayoutGOAllowedElements @endlink</code></td>
-<td> Layout elements allowed on <code>&lt;graphicalObject&gt;</code>. </td>
+<td> %Layout elements allowed on <code>&lt;graphicalObject&gt;</code>. </td>
 <td class="s-na">N</td>
 <td class="s-na">N</td>
 <td class="s-na">N</td>
@@ -6422,7 +6422,7 @@ e><a href="libsbml.html#parseL3Formula(java.lang.String)">libsbml.parseL3Formula
 <td class="s-na">N</td>
 <td class="s-error">E</td></tr>
 <tr><td><code>@link LayoutSBMLErrorCode_t#LayoutGOAllowedAttributes LayoutGOAllowedAttributes @endlink</code></td>
-<td> Layout attributes allowed on <code>&lt;graphicalObject&gt;</code>. </td>
+<td> %Layout attributes allowed on <code>&lt;graphicalObject&gt;</code>. </td>
 <td class="s-na">N</td>
 <td class="s-na">N</td>
 <td class="s-na">N</td>
@@ -6476,7 +6476,7 @@ e><a href="libsbml.html#parseL3Formula(java.lang.String)">libsbml.parseL3Formula
 <td class="s-na">N</td>
 <td class="s-error">E</td></tr>
 <tr><td><code>@link LayoutSBMLErrorCode_t#LayoutCGAllowedElements LayoutCGAllowedElements @endlink</code></td>
-<td> Layout elements allowed on <code>&lt;compartmentGlyph&gt;</code>. </td>
+<td> %Layout elements allowed on <code>&lt;compartmentGlyph&gt;</code>. </td>
 <td class="s-na">N</td>
 <td class="s-na">N</td>
 <td class="s-na">N</td>
@@ -6485,7 +6485,7 @@ e><a href="libsbml.html#parseL3Formula(java.lang.String)">libsbml.parseL3Formula
 <td class="s-na">N</td>
 <td class="s-error">E</td></tr>
 <tr><td><code>@link LayoutSBMLErrorCode_t#LayoutCGAllowedAttributes LayoutCGAllowedAttributes @endlink</code></td>
-<td> Layout attributes allowed on <code>&lt;compartmentGlyph&gt;</code>. </td>
+<td> %Layout attributes allowed on <code>&lt;compartmentGlyph&gt;</code>. </td>
 <td class="s-na">N</td>
 <td class="s-na">N</td>
 <td class="s-na">N</td>
@@ -6566,7 +6566,7 @@ e><a href="libsbml.html#parseL3Formula(java.lang.String)">libsbml.parseL3Formula
 <td class="s-na">N</td>
 <td class="s-error">E</td></tr>
 <tr><td><code>@link LayoutSBMLErrorCode_t#LayoutSGAllowedElements LayoutSGAllowedElements @endlink</code></td>
-<td> Layout elements allowed on <code>&lt;speciesGlyph&gt;</code>. </td>
+<td> %Layout elements allowed on <code>&lt;speciesGlyph&gt;</code>. </td>
 <td class="s-na">N</td>
 <td class="s-na">N</td>
 <td class="s-na">N</td>
@@ -6575,7 +6575,7 @@ e><a href="libsbml.html#parseL3Formula(java.lang.String)">libsbml.parseL3Formula
 <td class="s-na">N</td>
 <td class="s-error">E</td></tr>
 <tr><td><code>@link LayoutSBMLErrorCode_t#LayoutSGAllowedAttributes LayoutSGAllowedAttributes @endlink</code></td>
-<td> Layout attributes allowed on <code>&lt;speciesGlyph&gt;</code>. </td>
+<td> %Layout attributes allowed on <code>&lt;speciesGlyph&gt;</code>. </td>
 <td class="s-na">N</td>
 <td class="s-na">N</td>
 <td class="s-na">N</td>
@@ -6647,7 +6647,7 @@ e><a href="libsbml.html#parseL3Formula(java.lang.String)">libsbml.parseL3Formula
 <td class="s-na">N</td>
 <td class="s-error">E</td></tr>
 <tr><td><code>@link LayoutSBMLErrorCode_t#LayoutRGAllowedElements LayoutRGAllowedElements @endlink</code></td>
-<td> Layout elements allowed on <code>&lt;reactionGlyph&gt;</code>. </td>
+<td> %Layout elements allowed on <code>&lt;reactionGlyph&gt;</code>. </td>
 <td class="s-na">N</td>
 <td class="s-na">N</td>
 <td class="s-na">N</td>
@@ -6656,7 +6656,7 @@ e><a href="libsbml.html#parseL3Formula(java.lang.String)">libsbml.parseL3Formula
 <td class="s-na">N</td>
 <td class="s-error">E</td></tr>
 <tr><td><code>@link LayoutSBMLErrorCode_t#LayoutRGAllowedAttributes LayoutRGAllowedAttributes @endlink</code></td>
-<td> Layout attributes allowed on <code>&lt;reactionGlyph&gt;</code>. </td>
+<td> %Layout attributes allowed on <code>&lt;reactionGlyph&gt;</code>. </td>
 <td class="s-na">N</td>
 <td class="s-na">N</td>
 <td class="s-na">N</td>
@@ -6755,7 +6755,7 @@ e><a href="libsbml.html#parseL3Formula(java.lang.String)">libsbml.parseL3Formula
 <td class="s-na">N</td>
 <td class="s-error">E</td></tr>
 <tr><td><code>@link LayoutSBMLErrorCode_t#LayoutGGAllowedElements LayoutGGAllowedElements @endlink</code></td>
-<td> Layout elements allowed on <code>&lt;generalGlyph&gt;</code>. </td>
+<td> %Layout elements allowed on <code>&lt;generalGlyph&gt;</code>. </td>
 <td class="s-na">N</td>
 <td class="s-na">N</td>
 <td class="s-na">N</td>
@@ -6764,7 +6764,7 @@ e><a href="libsbml.html#parseL3Formula(java.lang.String)">libsbml.parseL3Formula
 <td class="s-na">N</td>
 <td class="s-error">E</td></tr>
 <tr><td><code>@link LayoutSBMLErrorCode_t#LayoutGGAllowedAttributes LayoutGGAllowedAttributes @endlink</code></td>
-<td> Layout attributes allowed on <code>&lt;generalGlyph&gt;</code>. </td>
+<td> %Layout attributes allowed on <code>&lt;generalGlyph&gt;</code>. </td>
 <td class="s-na">N</td>
 <td class="s-na">N</td>
 <td class="s-na">N</td>
@@ -6872,7 +6872,7 @@ e><a href="libsbml.html#parseL3Formula(java.lang.String)">libsbml.parseL3Formula
 <td class="s-na">N</td>
 <td class="s-error">E</td></tr>
 <tr><td><code>@link LayoutSBMLErrorCode_t#LayoutTGAllowedElements LayoutTGAllowedElements @endlink</code></td>
-<td> Layout elements allowed on <code>&lt;textGlyph&gt;</code>. </td>
+<td> %Layout elements allowed on <code>&lt;textGlyph&gt;</code>. </td>
 <td class="s-na">N</td>
 <td class="s-na">N</td>
 <td class="s-na">N</td>
@@ -6881,7 +6881,7 @@ e><a href="libsbml.html#parseL3Formula(java.lang.String)">libsbml.parseL3Formula
 <td class="s-na">N</td>
 <td class="s-error">E</td></tr>
 <tr><td><code>@link LayoutSBMLErrorCode_t#LayoutTGAllowedAttributes LayoutTGAllowedAttributes @endlink</code></td>
-<td> Layout attributes allowed on <code>&lt;textGlyph&gt;</code>. </td>
+<td> %Layout attributes allowed on <code>&lt;textGlyph&gt;</code>. </td>
 <td class="s-na">N</td>
 <td class="s-na">N</td>
 <td class="s-na">N</td>
@@ -6980,7 +6980,7 @@ e><a href="libsbml.html#parseL3Formula(java.lang.String)">libsbml.parseL3Formula
 <td class="s-na">N</td>
 <td class="s-error">E</td></tr>
 <tr><td><code>@link LayoutSBMLErrorCode_t#LayoutSRGAllowedElements LayoutSRGAllowedElements @endlink</code></td>
-<td> Layout elements allowed on <code>&lt;speciesReferenceGlyph&gt;</code>. </td>
+<td> %Layout elements allowed on <code>&lt;speciesReferenceGlyph&gt;</code>. </td>
 <td class="s-na">N</td>
 <td class="s-na">N</td>
 <td class="s-na">N</td>
@@ -6989,7 +6989,7 @@ e><a href="libsbml.html#parseL3Formula(java.lang.String)">libsbml.parseL3Formula
 <td class="s-na">N</td>
 <td class="s-error">E</td></tr>
 <tr><td><code>@link LayoutSBMLErrorCode_t#LayoutSRGAllowedAttributes LayoutSRGAllowedAttributes @endlink</code></td>
-<td> Layout attributes allowed on <code>&lt;speciesReferenceGlyph&gt;</code>. </td>
+<td> %Layout attributes allowed on <code>&lt;speciesReferenceGlyph&gt;</code>. </td>
 <td class="s-na">N</td>
 <td class="s-na">N</td>
 <td class="s-na">N</td>
@@ -7088,7 +7088,7 @@ e><a href="libsbml.html#parseL3Formula(java.lang.String)">libsbml.parseL3Formula
 <td class="s-na">N</td>
 <td class="s-error">E</td></tr>
 <tr><td><code>@link LayoutSBMLErrorCode_t#LayoutREFGAllowedElements LayoutREFGAllowedElements @endlink</code></td>
-<td> Layout elements allowed on <code>&lt;referenceGlyph&gt;</code>. </td>
+<td> %Layout elements allowed on <code>&lt;referenceGlyph&gt;</code>. </td>
 <td class="s-na">N</td>
 <td class="s-na">N</td>
 <td class="s-na">N</td>
@@ -7097,7 +7097,7 @@ e><a href="libsbml.html#parseL3Formula(java.lang.String)">libsbml.parseL3Formula
 <td class="s-na">N</td>
 <td class="s-error">E</td></tr>
 <tr><td><code>@link LayoutSBMLErrorCode_t#LayoutREFGAllowedAttributes LayoutREFGAllowedAttributes @endlink</code></td>
-<td> Layout attributes allowed on <code>&lt;referenceGlyph&gt;</code>. </td>
+<td> %Layout attributes allowed on <code>&lt;referenceGlyph&gt;</code>. </td>
 <td class="s-na">N</td>
 <td class="s-na">N</td>
 <td class="s-na">N</td>
@@ -7196,7 +7196,7 @@ e><a href="libsbml.html#parseL3Formula(java.lang.String)">libsbml.parseL3Formula
 <td class="s-na">N</td>
 <td class="s-error">E</td></tr>
 <tr><td><code>@link LayoutSBMLErrorCode_t#LayoutPointAllowedAttributes LayoutPointAllowedAttributes @endlink</code></td>
-<td> Layout attributes allowed on <code>&lt;point&gt;</code>. </td>
+<td> %Layout attributes allowed on <code>&lt;point&gt;</code>. </td>
 <td class="s-na">N</td>
 <td class="s-na">N</td>
 <td class="s-na">N</td>
@@ -7232,7 +7232,7 @@ e><a href="libsbml.html#parseL3Formula(java.lang.String)">libsbml.parseL3Formula
 <td class="s-na">N</td>
 <td class="s-error">E</td></tr>
 <tr><td><code>@link LayoutSBMLErrorCode_t#LayoutBBoxAllowedElements LayoutBBoxAllowedElements @endlink</code></td>
-<td> Layout elements allowed on <code>&lt;boundingBox&gt;</code>. </td>
+<td> %Layout elements allowed on <code>&lt;boundingBox&gt;</code>. </td>
 <td class="s-na">N</td>
 <td class="s-na">N</td>
 <td class="s-na">N</td>
@@ -7241,7 +7241,7 @@ e><a href="libsbml.html#parseL3Formula(java.lang.String)">libsbml.parseL3Formula
 <td class="s-na">N</td>
 <td class="s-error">E</td></tr>
 <tr><td><code>@link LayoutSBMLErrorCode_t#LayoutBBoxAllowedAttributes LayoutBBoxAllowedAttributes @endlink</code></td>
-<td> Layout attributes allowed on <code>&lt;boundingBox&gt;</code>. </td>
+<td> %Layout attributes allowed on <code>&lt;boundingBox&gt;</code>. </td>
 <td class="s-na">N</td>
 <td class="s-na">N</td>
 <td class="s-na">N</td>
@@ -7277,7 +7277,7 @@ e><a href="libsbml.html#parseL3Formula(java.lang.String)">libsbml.parseL3Formula
 <td class="s-na">N</td>
 <td class="s-error">E</td></tr>
 <tr><td><code>@link LayoutSBMLErrorCode_t#LayoutCurveAllowedElements LayoutCurveAllowedElements @endlink</code></td>
-<td> Layout elements allowed on <code>&lt;curve&gt;</code>. </td>
+<td> %Layout elements allowed on <code>&lt;curve&gt;</code>. </td>
 <td class="s-na">N</td>
 <td class="s-na">N</td>
 <td class="s-na">N</td>
@@ -7286,7 +7286,7 @@ e><a href="libsbml.html#parseL3Formula(java.lang.String)">libsbml.parseL3Formula
 <td class="s-na">N</td>
 <td class="s-error">E</td></tr>
 <tr><td><code>@link LayoutSBMLErrorCode_t#LayoutCurveAllowedAttributes LayoutCurveAllowedAttributes @endlink</code></td>
-<td> Layout attributes allowed on <code>&lt;curve&gt;</code>. </td>
+<td> %Layout attributes allowed on <code>&lt;curve&gt;</code>. </td>
 <td class="s-na">N</td>
 <td class="s-na">N</td>
 <td class="s-na">N</td>
@@ -7340,7 +7340,7 @@ e><a href="libsbml.html#parseL3Formula(java.lang.String)">libsbml.parseL3Formula
 <td class="s-na">N</td>
 <td class="s-error">E</td></tr>
 <tr><td><code>@link LayoutSBMLErrorCode_t#LayoutLSegAllowedElements LayoutLSegAllowedElements @endlink</code></td>
-<td> Layout elements allowed on <code>&lt;lineSegment&gt;</code>. </td>
+<td> %Layout elements allowed on <code>&lt;lineSegment&gt;</code>. </td>
 <td class="s-na">N</td>
 <td class="s-na">N</td>
 <td class="s-na">N</td>
@@ -7349,7 +7349,7 @@ e><a href="libsbml.html#parseL3Formula(java.lang.String)">libsbml.parseL3Formula
 <td class="s-na">N</td>
 <td class="s-error">E</td></tr>
 <tr><td><code>@link LayoutSBMLErrorCode_t#LayoutLSegAllowedAttributes LayoutLSegAllowedAttributes @endlink</code></td>
-<td> Layout attributes allowed on <code>&lt;lineSegment&gt;</code>. </td>
+<td> %Layout attributes allowed on <code>&lt;lineSegment&gt;</code>. </td>
 <td class="s-na">N</td>
 <td class="s-na">N</td>
 <td class="s-na">N</td>
@@ -7376,7 +7376,7 @@ e><a href="libsbml.html#parseL3Formula(java.lang.String)">libsbml.parseL3Formula
 <td class="s-na">N</td>
 <td class="s-error">E</td></tr>
 <tr><td><code>@link LayoutSBMLErrorCode_t#LayoutCBezAllowedElements LayoutCBezAllowedElements @endlink</code></td>
-<td> Layout elements allowed on <code>&lt;cubicBezier&gt;</code>. </td>
+<td> %Layout elements allowed on <code>&lt;cubicBezier&gt;</code>. </td>
 <td class="s-na">N</td>
 <td class="s-na">N</td>
 <td class="s-na">N</td>
@@ -7385,7 +7385,7 @@ e><a href="libsbml.html#parseL3Formula(java.lang.String)">libsbml.parseL3Formula
 <td class="s-na">N</td>
 <td class="s-error">E</td></tr>
 <tr><td><code>@link LayoutSBMLErrorCode_t#LayoutCBezAllowedAttributes LayoutCBezAllowedAttributes @endlink</code></td>
-<td> Layout attributes allowed on <code>&lt;cubicBezier&gt;</code>. </td>
+<td> %Layout attributes allowed on <code>&lt;cubicBezier&gt;</code>. </td>
 <td class="s-na">N</td>
 <td class="s-na">N</td>
 <td class="s-na">N</td>
@@ -7412,7 +7412,7 @@ e><a href="libsbml.html#parseL3Formula(java.lang.String)">libsbml.parseL3Formula
 <td class="s-na">N</td>
 <td class="s-error">E</td></tr>
 <tr><td><code>@link LayoutSBMLErrorCode_t#LayoutDimsAllowedAttributes LayoutDimsAllowedAttributes @endlink</code></td>
-<td> Layout attributes allowed on <code>&lt;dimensions&gt;</code>. </td>
+<td> %Layout attributes allowed on <code>&lt;dimensions&gt;</code>. </td>
 <td class="s-na">N</td>
 <td class="s-na">N</td>
 <td class="s-na">N</td>
