@@ -32,6 +32,7 @@
 
 #include <sbml/SBMLReader.h>
 #include <sbml/SBMLTypes.h>
+#include <sbml/packages/comp/validator/CompSBMLErrorTable.h>
 
 #include <string>
 
@@ -69,7 +70,7 @@ START_TEST (test_comp_fail_20212)
   unsigned int nerrors = doc->getNumErrors();
 
   fail_unless (nerrors == 1);
-  fail_unless (doc->getError(0)->getErrorId() == 1020212);
+  fail_unless (doc->getError(0)->getErrorId() == CompAttributeRequiredMustBeTrue);
 
   delete doc;
 }
