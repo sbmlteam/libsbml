@@ -24,5 +24,3 @@ for i in range(0,supported.getSize()):
 					" Version: " + str(current.getVersion()));
 print;
 
-
-
