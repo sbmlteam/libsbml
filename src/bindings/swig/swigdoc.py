@@ -1142,12 +1142,6 @@ def rewriteDocstringForPython (docstring):
   p = re.compile('(@see\s+)(\w+\s*)(\([^)]*?\))')
   docstring = p.sub(translatePythonSeeRef, docstring)
 
-  # SWIG does some bizarre truncation of leading characters that
-  # happens to hit us because of how we have to format verbatim's.
-  # This tries to kluge around it:  
-  p = re.compile('@verbatim.+?@endverbatim', re.DOTALL)
-  docstring = p.sub(indentVerbatimForPython, docstring)
-
   return docstring
 
 
