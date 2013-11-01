@@ -1087,8 +1087,8 @@ def rewriteDocstringForPython (docstring):
   C++/Doxygen docstring.
 
   Note: this is not the only processing performed for the Python
-  documentation.  In docs/src, the doxygen-based code has an additional,
-  more elaborate filter that processes the output of *this* filter.
+  documentation.  In docs/src, the doxygen-based code has an additional
+  filter that processes the output of *this* filter.
   """
 
   # Remove some things we use as hacks in Doxygen 1.7-1.8.
@@ -1104,8 +1104,8 @@ def rewriteDocstringForPython (docstring):
   # Take out the C++ comment start and end.
 
   docstring = docstring.replace('/**', '').replace('*/', '')
-  p = re.compile('^(\s*)\*([ \t]*)', re.MULTILINE)
-  docstring = p.sub(r'\2', docstring)
+  p = re.compile(r'^\s*\*[ \t]*', re.MULTILINE)
+  docstring = p.sub(r'', docstring)
 
   # Rewrite some of the data type references to equivalent Python types.
   # (Note: this rewriting affects only the documentation comments inside
@@ -1141,14 +1141,6 @@ def rewriteDocstringForPython (docstring):
   docstring = p.sub(translatePythonCrossRef, docstring)
   p = re.compile('(@see\s+)(\w+\s*)(\([^)]*?\))')
   docstring = p.sub(translatePythonSeeRef, docstring)
-
-  # Friggin' doxygen escapes HTML character codes, so the hack we have to
-  # do for Javadoc turns out doesn't work for the Python documentation.
-  # Kluge around it.
-
-  docstring = re.sub(r'\\f\$\\geq\\f\$', '>=', docstring)
-  docstring = re.sub(r'\\f\$\\leq\\f\$', '<=', docstring)
-  docstring = re.sub(r'\\f\$\\times\\f\$', '*', docstring)
 
   # SWIG does some bizarre truncation of leading characters that
   # happens to hit us because of how we have to format verbatim's.
@@ -1303,7 +1295,7 @@ def formatMethodDocString (methodname, classname, docstring, isInternal, args=No
   if language == 'perl':
     output += '%s\n\n%s%s\n\n\n'   % (methodname, docstring.strip(), post)
   elif language == 'python':
-    output += '%s "\n %s%s\n";\n\n\n' % (methodname, docstring.strip(), post)
+    output += '%s "\n%s%s\n";\n\n\n' % (methodname, docstring.strip(), post)
   else:
     output += '%s%s "\n%s%s\n";\n\n\n' % (methodname, args, docstring.strip(), post)
 
@@ -1343,7 +1335,7 @@ def generateClassDocString (docstring, classname):
 
   elif language == 'python':
     pretext   = '%feature("docstring") '
-    separator = ' "\n '
+    separator = ' "\n'
     posttext  = '\n";\n\n\n'
     docstring = rewriteDocstringForPython(docstring).strip()
 
@@ -1404,6 +1396,25 @@ def processFile (filename, ostream):
 
 
 
+def postProcessOutputForPython(contents):
+  """Do post-processing on the final output for Python."""
+
+  # Friggin' doxygen escapes HTML character codes it doesn't understand, so
+  # the hack we have to do for Javadoc turns out doesn't work for the Python
+  # documentation.  Kluge around it.
+
+  contents = re.sub(r'\\f\$\\geq\\f\$', '>=', contents)
+  contents = re.sub(r'\\f\$\\leq\\f\$', '<=', contents)
+  contents = re.sub(r'\\f\$\\times\\f\$', '*', contents)
+
+  # Doxygen understand <nobr>
+
+  contents = re.sub(r'</?nobr>', '', contents)
+
+  return contents
+
+
+
 def postProcessOutput(istream, ostream):
   """postProcessOutput(instream, outstream)
 
@@ -1419,6 +1430,11 @@ def postProcessOutput(istream, ostream):
 
   p = re.compile('@htmlinclude\s+(\*\s+)*([-\w."\']+)', re.DOTALL)
   contents = p.sub(translateInclude, contents)
+
+  # Do additional post-processing on a language-specific basis.
+
+  if language == 'python':  
+    contents = postProcessOutputForPython(contents)
 
   ostream.write(contents)
 
