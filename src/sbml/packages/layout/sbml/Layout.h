@@ -24,7 +24,6 @@
  * @class Layout
  * @sbmlpackage layout
  * @brief @htmlinclude pkg-marker-layout.html
-
  * Each Layout object stores a set of layout information for objects in the
  * Model.
  *

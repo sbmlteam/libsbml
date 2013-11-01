@@ -24,7 +24,6 @@
  * @class Curve
  * @sbmlpackage layout
  * @brief @htmlinclude pkg-marker-layout.html
- *
  * The Curve class describes how to connect elements in a diagram defined
  * with the use of the &ldquo;layout&rdquo; package. A curve is fully
  * specified by a mandatory listOfCurveSegments element and is used in four

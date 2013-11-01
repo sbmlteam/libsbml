@@ -24,7 +24,6 @@
  * @class Dimensions
  * @sbmlpackage layout
  * @brief @htmlinclude pkg-marker-layout.html
-
  * The %Dimensions class describes the overall 2D or 3D shape of a
  * &ldquo;layout&rdquo; package object.
  *

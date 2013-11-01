@@ -24,7 +24,6 @@
  * @class GeneralGlyph
  * @sbmlpackage layout
  * @brief @htmlinclude pkg-marker-layout.html
-
  * The %GeneralGlyph is used by the &ldquo;layout&rdquo; package to represent
  * any SBML object.
  *
