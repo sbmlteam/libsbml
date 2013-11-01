@@ -1070,16 +1070,6 @@ def rewriteDocstringForCSharp (docstring):
 
 
 
-def indentVerbatimForPython (match):
-  text = match.group()
-
-  p = re.compile('^(.)', re.MULTILINE)
-  text = p.sub(r'  \1', text)
-
-  return text
-
-
-
 def rewriteDocstringForPython (docstring):
   """rewriteDocstringForPython (docstring) -> docstring
 
