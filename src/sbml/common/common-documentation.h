@@ -195,6 +195,32 @@
  * requirements.
  * 
  * <!-- ------------------------------------------------------------------- -->
+ * @class doc_base_units
+ *
+ * @par
+<table border="0" class="centered text-table width80 normal-font code"
+       style="border: none !important">
+<tr>
+<td>ampere</td><td>farad</td><td>joule</td><td>lux</td><td>radian</td><td>volt</td>
+</tr>
+<tr>
+<td>avogadro</td><td>gram</td><td>katal</td><td>metre</td><td>second</td><td>watt</td>
+</tr>
+<tr>
+<td>becquerel</td><td>gray</td><td>kelvin</td><td>mole</td><td>siemens</td><td>weber</td>
+</tr>
+<tr>
+<td>candela</td><td>henry</td><td>kilogram</td><td>newton</td><td>sievert</td>
+</tr>
+<tr>
+<td>coulomb</td><td>hertz</td><td>litre</td><td>ohm</td><td>steradian</td>
+</tr>
+<tr>
+<td>dimensionless</td><td>item</td><td>lumen</td><td>pascal</td><td>tesla</td>
+</tr>
+</table>
+ *
+ * <!-- ------------------------------------------------------------------- -->
  * @class doc_what_are_typecodes
  *
  * @par 
