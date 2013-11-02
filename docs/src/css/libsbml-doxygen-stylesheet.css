@@ -936,7 +936,7 @@ div.headertitle
 #doc-content dl.attention
 {
     border-left:4px solid;
-    border-color: #FF0000;
+    border-color: #cc0000;
 }
 
 #doc-content dl.pre,
@@ -969,6 +969,13 @@ div.headertitle
 {
     border-left:4px solid;
     border-color: #C08050;
+}
+
+#doc-content dl.docnote
+{
+    padding: 0 0 0 10px;
+    border-left: 4px solid;
+    border-color: orange;
 }
 
 #projectlogo
@@ -1311,11 +1318,6 @@ body div.contents ol li {
   width: 200px;
   line-height: 110%;
   text-align: right;
-}
-
-#doc-content dl.docnote {
-    border-left: 4px solid;
-    border-color: orange;
 }
 
 /* Hide the "Related Pages" tab because for us, it's an empty page. */
