@@ -187,8 +187,11 @@ TAB_SIZE               = 4
 # will result in a user-defined paragraph with heading "Side Effects:". 
 # You can put \n's in the value part of an alias to insert newlines.
 
-ALIASES		      += startred="<em style='color: #b32222'>"
-ALIASES		      += stopred="</em>"
+# Note: @sbmlpackage is defined in Makefile.in dynamically.
+
+ALIASES += sbmlmarker{1}="@htmlinclude pkg-marker-\1.html"
+ALIASES += sbmlbrief{1}="@sbmlpackage{\1}\n\
+@brief @sbmlmarker{\1} "
 
 # This tag can be used to specify a number of word-keyword mappings (TCL only).
 # A mapping has the form "name=value". For example adding "class=itcl::class"
