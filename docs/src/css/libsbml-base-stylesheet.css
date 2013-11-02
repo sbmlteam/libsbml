@@ -156,8 +156,8 @@ pre, code
 .code
 {
     font-family: "Courier New", Courier, monospace, fixed;
-    font-weight: bold;
-    font-size: 10pt;
+    font-weight: bold !important;;
+    font-size: 10pt !important;
     color: black;
 }
 
@@ -393,6 +393,17 @@ div.fragment
     -webkit-border-radius: 8px;
     -moz-border-radius: 8px;
 }
+
+.borderless
+{
+    border: none;
+}
+
+.warning
+{
+    color: #cc0000;
+}
+
 
 /* Google prettify */
 
