@@ -192,14 +192,14 @@
  * the structure:
  * <pre class="fragment">
  * &lt;rdf:Description rdf:about=&quot;#<span style="border-bottom: 1px solid black">meta id</span>&quot;&gt;
- *   <span style="background-color: #ddd; border-bottom: 2px dotted #888">HISTORY</span>
- *   &lt;<span style="background-color: #bbb">RELATION_ELEMENT</span>&gt;
- *     &lt;rdf:Bag&gt;
- *       &lt;rdf:li rdf:resource=&quot;<span style="background-color: #d0d0ee">resource URI</span>&quot; /&gt;
- *       <span style="background-color: #edd">...</span>
- *     &lt;/rdf:Bag&gt;
- *   &lt;/<span style="background-color: #bbb">RELATION_ELEMENT</span>&gt;
- *   <span style="background-color: #edd">...</span>
+ * &nbsp;&nbsp;<span style="background-color: #ddd; border-bottom: 2px dotted #888">HISTORY</span>
+ * &nbsp;&nbsp;&lt;<span style="background-color: #bbb">RELATION_ELEMENT</span>&gt;
+ * &nbsp;&nbsp;&nbsp;&nbsp;&lt;rdf:Bag&gt;
+ * &nbsp;&nbsp;&nbsp;&nbsp;&lt;rdf:li rdf:resource=&quot;<span style="background-color: #d0d0ee">resource URI</span>&quot; /&gt;
+ * &nbsp;&nbsp;&nbsp;&nbsp;<span style="background-color: #edd">...</span>
+ * &nbsp;&nbsp;&nbsp;&nbsp;&lt;/rdf:Bag&gt;
+ * &nbsp;&nbsp;&lt;/<span style="background-color: #bbb">RELATION_ELEMENT</span>&gt;
+ * &nbsp;&nbsp;<span style="background-color: #edd">...</span>
  * &lt;/rdf:Description&gt;
  * </pre>
  * In the template above, the placeholder <span class="code"
