@@ -60,22 +60,31 @@
 ##   tags in the libSBML documentation, and so this program only looks for
 ##   the ones we have been using.
 ##
+## * We add our own Doxygen markup commands as aliases.  At the time
+##   of this writing, the main aliases are @sbmlpackage{...} and
+##   @sbmlbrief{...}.  This converter is designed to recognize and
+##   process these commands.
 ##
 ## Special features:
 ##
-## * When looking for @htmlinclude files, it first checks to see if a
-##   version of the file with a .txt extension exists in the same location
-##   where it finds the .html file.  If the .txt eversion exists, it
+## * This parser understands HTML tables to a limited degree, and converts
+##   them to text tables with the help of the PrettyTable library (included
+##   as a separate file).  The parser is far from being a full-featured HTML
+##   or HTML table parser, but it handles basic tables reasonably well.  It
+##   does not recognize row spans, column spans, or CSS styling.
+## 
+## * When expanding @htmlinclude directives, it first checks to see if a
+##   version of the named file, but with a .txt extension, exists in the same
+##   location where it finds the .html file.  If the .txt eversion exists, it
 ##   includes that instead of the .html file.  (This allows hand-formatted
-##   text files to be used, which is useful for files containing tables,
-##   because the Python HTML parser library doesn't handle tables.)
+##   text files to be used, which is useful for providing tables to replace
+##   HTML tables that the built-in table parser does not handle nicely.)
 ##
-## * When expanding @image directives, it looks for a file with the
-##   extension .txt in the same directory where it finds the .jpg file.  If
-##   the .txt version exists, it includes that; if it doesn't exist, it
-##   does not include anything.  (Since the docstrings are plain-text, no
-##   other action seems sensible in this context.)
-##
+## * When expanding @image directives, it looks for a file with the extension
+##   .txt in the same directory where it finds the .jpg file.  If the .txt
+##   version exists, it includes that; if it doesn't exist, it does not
+##   include anything.  (Since the docstrings are plain-text, no other action
+##   seems sensible in this context.)
 ##
 ## <!--------------------------------------------------------------------------
 ## This file is part of libSBML.  Please visit http://sbml.org for more
