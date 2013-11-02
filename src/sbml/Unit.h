@@ -46,7 +46,7 @@
  * Its value must be one of the text strings listed below; this list
  * corresponds to SBML Level&nbsp;3 Version&nbsp;1 Core:
  *
- * @htmlinclude base-units.html
+ * @copydetails doc_base_units
  *
  * A few small differences exist between the Level&nbsp;3 list of base
  * units and the list defined in other Level/Version combinations of SBML.

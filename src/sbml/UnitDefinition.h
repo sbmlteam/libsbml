@@ -108,7 +108,7 @@
  * litre, etc.).  In SBML Level&nbsp;3, this list consists of the
  * following:
  * 
- * @htmlinclude base-units.html
+ * @copydetails doc_base_units
  *
  * This list of predefined base units is nearly identical in SBML
  * Level&nbsp;2 Version&nbsp;4, the exception being that Level&nbsp;2 does
