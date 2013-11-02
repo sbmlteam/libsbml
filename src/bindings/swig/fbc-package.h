@@ -37,5 +37,6 @@
 #include <sbml/packages/fbc/sbml/GeneAssociation.h>
 #include <sbml/packages/fbc/sbml/Objective.h>
 
+#include <sbml/packages/fbc/validator/FbcSBMLError.h>
 
 #endif

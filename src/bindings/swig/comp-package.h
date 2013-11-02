@@ -55,5 +55,6 @@
 #include <sbml/packages/comp/sbml/ReplacedElement.h>
 #include <sbml/packages/comp/sbml/Submodel.h>
 #include <sbml/packages/comp/sbml/Replacing.h>
+#include <sbml/packages/comp/validator/CompSBMLError.h>
 
 #endif /* USE_COMP */
