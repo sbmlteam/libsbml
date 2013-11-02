@@ -143,7 +143,7 @@ tt
     padding-bottom: 10px;
 }
 
-pre, code, .code
+pre, code
 {
     font-family: "Courier New", Courier, monospace, fixed;
     font-weight: bold;
@@ -151,6 +151,14 @@ pre, code, .code
     color: black;
     margin-top: 1em;
     margin-bottom: 1em;
+}
+
+.code
+{
+    font-family: "Courier New", Courier, monospace, fixed;
+    font-weight: bold;
+    font-size: 10pt;
+    color: black;
 }
 
 pre a
