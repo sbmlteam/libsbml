@@ -4,7 +4,7 @@
 		  Computing + Mathematical Sciences
 		  California Institute of Technology
 
-		 Version 1 written in February, 2012
+             Version 2 written in October-November, 2013
 
 	More information about libSBML is available online at
 		   http://sbml.org/Software/libSBML
@@ -69,6 +69,11 @@ The main hardwired assumptions are the following:
   possible Doxygen tags in the libSBML documentation, and so this
   program only looks for the ones we have been using.
 
+* We add our own Doxygen markup commands as aliases.  At the time
+  of this writing, the main aliases are @sbmlpackage{...} and
+  @sbmlbrief{...}.  This converter is designed to recognize and
+  process these commands.
+
 
 Procedure
 ======================================================================
@@ -110,13 +115,20 @@ directory.
 Special features
 ======================================================================
 
+* This parser understands HTML tables to a limited degree, and
+  converts them to text tables with the help of the PrettyTable
+  library (included).  The parser is far from being a full-featured
+  HTML or HTML table parser, but it handles basic tables reasonably
+  well.  It does not recognize row spans, column spans, or CSS
+  styling.
+
 * When expanding @htmlinclude directives, it first checks to see if a
   version of the named file, but with a .txt extension, exists in the
   same location where it finds the .html file.  If the .txt eversion
   exists, it includes that instead of the .html file.  (This allows
-  hand-formatted text files to be used, which is useful for files
-  containing tables, because the Python HTML parser library doesn't
-  handle tables.)
+  hand-formatted text files to be used, which is useful for providing
+  tables to replace HTML tables that the built-in table parser does
+  not handle nicely.)
 
 * When expanding @image directives, it looks for a file with the
   extension .txt in the same directory where it finds the .jpg file.
@@ -132,6 +144,15 @@ The copy of "argparse.py" included in this directory is to provide
 compatibility with Python versions before 2.7 and 3.2, where argparse is
 not part of the standard set of modules.  The file argparse.py came from
 http://pypi.python.org/pypi/argparse/.
+
+The copy of "prettytable.py" came from the PrettyTable 0.7.2 distribution,
+available from http://code.google.com/p/prettytable/ and redistributable
+under modified BSD license terms.  Please see the subdirectory
+"prettytable-0.7.2" for the original code and licensing terms.  We use
+prettytable.py from rewrite_pydoc.py as part of the HTML table to text
+conversion facility.
+
+
 
 
 # The following is for [X]Emacs users.  Please leave in place.
