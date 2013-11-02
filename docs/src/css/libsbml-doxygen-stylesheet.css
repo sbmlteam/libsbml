@@ -416,6 +416,10 @@ table.memname {
     margin-bottom: 0px;
 }
 
+table.mlabels .mlabel {
+    margin-left: 5px;
+}
+
 /* @end */
 
 /* @group Member Details */
