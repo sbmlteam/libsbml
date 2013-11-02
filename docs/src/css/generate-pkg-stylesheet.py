@@ -108,6 +108,14 @@ before_template = '''{{
 
 after_template = '''{{
     content: "{0}";
+    display: inline-block;
+    font-family: Verdana, Helvetica, Arial, Sans, sans-serif;
+    font-size: 80%;
+    font-style: italic;
+    font-weight: normal;
+    line-height: 150%;
+    text-align: center;
+    color: #333 !important;
     background-color: rgba({1}, {2}, {3}, 0.35);
     border: 1px solid rgb({1}, {2}, {3});
     border-radius: 5px;
@@ -117,10 +125,6 @@ after_template = '''{{
     padding: 0px 3px;
     min-width: 40px;
     width: 40px;
-    text-align: center;
-    font-size: 80%;
-    font-style: italic;
-    color: #333 !important;
 }}
 '''
 
@@ -209,8 +213,9 @@ def main(args):
         print after_template.format(pkg, color[1], color[2], color[3])
 
     # A final bit of styling for Doxygen output.
-    print '\n/* Styling for Doxygen "Level 3 Extensions" section. */\n'
+    print '/* Styles for page headings and "Level 3 Extensions" section. */\n'
     for entry in color_table:
+        print '.title .ingroups a[href="group__{}.html"]:after,'.format(entry[0])
         print '#navrow2 ul.tablist li a[href="group__{}.html"]:after,'.format(entry[0])
         print '.contents ul li a[href="group__{}.html"]:after'.format(entry[0])
         print after_template.format(entry[0], entry[1], entry[2], entry[3])
