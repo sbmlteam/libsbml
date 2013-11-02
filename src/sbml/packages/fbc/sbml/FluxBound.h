@@ -17,9 +17,7 @@
  *------------------------------------------------------------------------- -->
  *
  * @class FluxBound
- * @sbmlpackage fbc
- * @brief @htmlinclude pkg-marker-fbc.html
- * Implementation of the 'fbc' package %FluxBound construct.
+ * @sbmlbrief{fbc} Implementation of the 'fbc' package %FluxBound construct.
  *
  * The FluxBound object holds a single (in)equality that provides the maximum
  * or minimum value that a reaction flux can obtain at steady state.
@@ -488,9 +486,8 @@ protected:
 
 /**
  * @class ListOfFluxBounds
- * @sbmlpackage fbc
- * @brief @htmlinclude pkg-marker-fbc.html
- * Implementation of the %ListOfFluxBounds construct from the 'fbc' package.
+ * @sbmlbrief{fbc} Implementation of the %ListOfFluxBounds construct from the
+ * 'fbc' package.
  * 
  * The ListOfFluxBounds is a container for the FluxBound elements of a Model.
  * 

@@ -27,9 +27,8 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class LayoutModelPlugin
- * @sbmlpackage layout
- * @brief @htmlinclude pkg-marker-layout.html
- * Implementation of the 'layout' package extention to the %Model construct.
+ * @sbmlbrief{layout} Implementation of the 'layout' package extention to the
+ * %Model construct.
   */
 
 #ifndef LayoutModelPlugin_h

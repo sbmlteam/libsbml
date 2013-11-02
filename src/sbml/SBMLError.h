@@ -27,8 +27,7 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class SBMLError
- * @sbmlpackage core
- * @brief Representation of errors, warnings and other diagnostics
+ * @sbmlbrief{core} Representation of errors, warnings and other diagnostics
  *
  * @htmlinclude not-sbml-warning.html
  *

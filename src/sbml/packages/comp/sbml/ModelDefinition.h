@@ -17,9 +17,8 @@
  *------------------------------------------------------------------------- -->
  *
  * @class ModelDefinition
- * @sbmlpackage comp
- * @brief @htmlinclude pkg-marker-comp.html
- * Implementation of the %ModelDefinition construct from the &ldquo;comp&rdquo; package.
+ * @sbmlbrief{comp} Implementation of the %ModelDefinition construct from the
+ * &ldquo;comp&rdquo; package.
  *
  * The @ref comp "Hierarchical Model Composition" package (&ldquo;comp&rdquo;)
  * allows multiple Model objects

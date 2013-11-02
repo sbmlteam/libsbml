@@ -26,8 +26,7 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class SBMLWriter
- * @sbmlpackage core
- * @brief Methods for writing SBML to files and text strings.
+ * @sbmlbrief{core} Methods for writing SBML to files and text strings.
  *
  * @htmlinclude not-sbml-warning.html
  *

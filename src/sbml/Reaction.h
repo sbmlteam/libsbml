@@ -26,8 +26,7 @@
  * ------------------------------------------------------------------------ -->
  * 
  * @class Reaction
- * @sbmlpackage core
- * @brief Implementation of SBML's %Reaction construct.
+ * @sbmlbrief{core} Implementation of SBML's %Reaction construct.
  *
  * A @em reaction represents any transformation, transport or binding
  * process, typically a chemical reaction, that can change the quantity of
@@ -147,8 +146,7 @@
  * 
  * <!-- ------------------------------------------------------------------- -->
  * @class ListOfReactions
- * @sbmlpackage core
- * @brief Implementation of SBML's %ListOfReactions construct.
+ * @sbmlbrief{core} Implementation of SBML's %ListOfReactions construct.
  * 
  * @copydetails doc_what_is_listof
  */

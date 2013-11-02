@@ -26,8 +26,8 @@
  * ---------------------------------------------------------------------- -->
  *
  * @class Validator
- * @sbmlpackage core
- * @brief Entry point for libSBML's implementation of SBML validation rules.
+ * @sbmlbrief{core} Entry point for libSBML's implementation of SBML
+ * validation rules.
  * 
  * @htmlinclude not-sbml-warning.html
  *

@@ -18,9 +18,8 @@
  *------------------------------------------------------------------------- -->
  *
  * @class CompModelPlugin
- * @sbmlpackage comp
- * @brief @htmlinclude pkg-marker-comp.html
- * Implementation of the &ldquo;comp&rdquo; package extention to the %Model construct.
+ * @sbmlbrief{comp} Implementation of the &ldquo;comp&rdquo; package
+ * extention to the %Model construct.
  *
  * The CompModelPlugin class inherits from the SBMLSBasePlugin class, and
  * codifies the extentions to the Model class defined in the SBML

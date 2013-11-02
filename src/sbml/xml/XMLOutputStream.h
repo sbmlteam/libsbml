@@ -26,7 +26,7 @@
  * ---------------------------------------------------------------------- -->
  *
  * @class XMLOutputStream
- * @sbmlpackage core
+ * @sbmlbrief{core} Interface to an XML output stream.
  *
  * @if notclike @internal @endif@~
  */

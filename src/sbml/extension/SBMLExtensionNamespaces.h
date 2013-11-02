@@ -28,9 +28,8 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class SBMLExtensionNamespaces
- * @sbmlpackage core
- * @brief Class to store level, version and namespace information of SBML extension
- *        package.
+ * @sbmlbrief{core} Class to store level, version and namespace information
+ *        of SBML extension package.
  *
  */
 

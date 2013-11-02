@@ -4,7 +4,6 @@
  *          an extension package to the SBMLExtensionRegistry class.
  * @author  Akiya Jouraku
  *
- *
  * <!--------------------------------------------------------------------------
  * This file is part of libSBML.  Please visit http://sbml.org for more
  * information about SBML, and the latest version of libSBML.
@@ -28,9 +27,8 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class SBMLExtensionRegister
- * @sbmlpackage core
- * @brief Template class for registering an extension package to the
- *        SBMLExtensionRegistry class.
+ * @sbmlbrief{core} Template class for registering an extension package to
+ * the SBMLExtensionRegistry class.
  *
  */
 
@@ -45,9 +43,6 @@
 LIBSBML_CPP_NAMESPACE_BEGIN
 
 
-/**
- * @sbmlpackage core
- */
 template<class SBMLExtensionType>
 class LIBSBML_EXTERN SBMLExtensionRegister
 {

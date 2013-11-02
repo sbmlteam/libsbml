@@ -26,8 +26,7 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class XMLTriple.
- * @sbmlpackage core
- * @brief Representation of a qualified XML name.
+ * @sbmlbrief{core} Representation of a qualified XML name.
  *
  * @htmlinclude not-sbml-warning.html
  *

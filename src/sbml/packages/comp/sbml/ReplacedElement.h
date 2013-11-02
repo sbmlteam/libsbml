@@ -17,9 +17,8 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class ReplacedElement
- * @sbmlpackage comp
- * @brief @htmlinclude pkg-marker-comp.html
- * Implementation of the %ReplacedElement construct from the &ldquo;comp&rdquo; package.
+ * @sbmlbrief{comp} Implementation of the %ReplacedElement construct from the
+ * &ldquo;comp&rdquo; package.
  *
  * The ReplacedElement class was introduced by the SBML Level&nbsp;3
  * @ref comp "Hierarchical Model Composition" package (&ldquo;comp&rdquo;)

@@ -26,9 +26,8 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class QualitativeSpecies
- * @sbmlpackage qual
- * @brief @htmlinclude pkg-marker-qual.html
- * The QualitativeSpecies class for the Qualitative Models package.
+ * @sbmlbrief{qual} The QualitativeSpecies class for the Qualitative Models
+ * package.
  *
  * Similarly to the Species in SBML, the components of qualitative models refer to pools of entities that are considered indistinguishable and are each located in a specific Compartment. However, here components are characterised by their qualitative influences rather than by taking part in reactions. Therefore, we define the QualitativeSpecies element to represent such pools of entities. 
  *
@@ -104,7 +103,7 @@ public:
   /**
    * Copy constructor for QualitativeSpecies.
    *
-   * @param orig; the QualitativeSpecies instance to copy.
+   * @param orig the QualitativeSpecies instance to copy.
    */
   QualitativeSpecies(const QualitativeSpecies& orig);
 
@@ -112,7 +111,7 @@ public:
   /**
    * Assignment operator for QualitativeSpecies.
    *
-   * @param rhs; the object whose values are used as the basis
+   * @param rhs the object whose values are used as the basis
    * of the assignment
    */
   QualitativeSpecies& operator=(const QualitativeSpecies& rhs);
@@ -243,7 +242,7 @@ public:
   /**
    * Sets the value of the "id" attribute of this QualitativeSpecies.
    *
-   * @param id; const std::string& value of the "id" attribute to be set
+   * @param id const std::string& value of the "id" attribute to be set
    *
    * @return integer value indicating success/failure of the
    * operation. The possible return values are:
@@ -256,7 +255,7 @@ public:
   /**
    * Sets the value of the "compartment" attribute of this QualitativeSpecies.
    *
-   * @param compartment; const std::string& value of the "compartment" attribute to be set
+   * @param compartment const std::string& value of the "compartment" attribute to be set
    *
    * @return integer value indicating success/failure of the
    * operation. The possible return values are:
@@ -269,7 +268,7 @@ public:
   /**
    * Sets the value of the "constant" attribute of this QualitativeSpecies.
    *
-   * @param constant; bool value of the "constant" attribute to be set
+   * @param constant bool value of the "constant" attribute to be set
    *
    * @return integer value indicating success/failure of the
    * operation. The possible return values are:
@@ -282,7 +281,7 @@ public:
   /**
    * Sets the value of the "name" attribute of this QualitativeSpecies.
    *
-   * @param name; const std::string& value of the "name" attribute to be set
+   * @param name const std::string& value of the "name" attribute to be set
    *
    * @return integer value indicating success/failure of the
    * operation. The possible return values are:
@@ -295,7 +294,7 @@ public:
   /**
    * Sets the value of the "initialLevel" attribute of this QualitativeSpecies.
    *
-   * @param initialLevel; int value of the "initialLevel" attribute to be set
+   * @param initialLevel int value of the "initialLevel" attribute to be set
    *
    * @return integer value indicating success/failure of the
    * operation. The possible return values are:
@@ -308,7 +307,7 @@ public:
   /**
    * Sets the value of the "maxLevel" attribute of this QualitativeSpecies.
    *
-   * @param maxLevel; int value of the "maxLevel" attribute to be set
+   * @param maxLevel int value of the "maxLevel" attribute to be set
    *
    * @return integer value indicating success/failure of the
    * operation. The possible return values are:
@@ -527,9 +526,8 @@ protected:
 
 /**
  * @class ListOfQualitativeSpecies
- * @sbmlpackage qual
- * @brief @htmlinclude pkg-marker-qual.html
- * Implementation of the %ListOfQualitativeSpecies construct from the 'qual' package.
+ * @sbmlbrief{qual} Implementation of the %ListOfQualitativeSpecies construct
+ * from the 'qual' package.
  * 
  * The ListOfQualitativeSpecies is a container for the QualitativeSpecies elements of a Model.
  * 

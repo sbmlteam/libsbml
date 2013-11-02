@@ -26,9 +26,8 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class QualSBMLDocumentPlugin
- * @sbmlpackage qual
- * @brief @htmlinclude pkg-marker-qual.html
- * Implementation of the 'qual' package extention to the %SBMLDocument construct.
+ * @sbmlbrief{qual} Implementation of the 'qual' package extention to the
+ * %SBMLDocument construct.
  *
  * The QualSBMLDocumentPlugin class inherits from the SBMLDocumentPlugin
  * class, and codifies the extentions to the SBMLDocument class defined in

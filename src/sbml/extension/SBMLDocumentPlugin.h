@@ -28,15 +28,15 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class SBMLDocumentPlugin
- * @sbmlpackage core
- * @brief Template class for the %SBMLDocument Plugin class needed by all packages.
+ * @sbmlbrief{core} Template class for the %SBMLDocument Plugin class needed
+ * by all packages.
  *
- * Plugin objects for the SBMLDocument element must be this class or 
- *        a derived class of this class.
- *        Package developers should use this class as-is if only "required" 
- *        attribute is added in the SBMLDocument element by their packages.
- *        Otherwise, developers must implement a derived class of this class 
- *        and use that class as the plugin object for the SBMLDocument element. 
+ * Plugin objects for the SBMLDocument element must be this class or a
+ * derived class of this class.  Package developers should use this class
+ * as-is if only "required" attribute is added in the SBMLDocument element by
+ * their packages.  Otherwise, developers must implement a derived class of
+ * this class and use that class as the plugin object for the SBMLDocument
+ * element.
  */
 
 #ifndef SBMLDocumentPlugin_h
@@ -55,9 +55,6 @@
 LIBSBML_CPP_NAMESPACE_BEGIN
 
 
-/**
- * @sbmlpackage core
- */
 class LIBSBML_EXTERN SBMLDocumentPlugin : public SBasePlugin
 {
 public:

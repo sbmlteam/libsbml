@@ -27,8 +27,8 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class ModifierSpeciesReference
- * @sbmlpackage core
- * @brief Implementation of %SBML's %ModifierSpeciesReference construct.
+ * @sbmlbrief{core} Implementation of %SBML's %ModifierSpeciesReference
+ * construct.
  *
  * Sometimes a species appears in the kinetic rate formula of a reaction
  * but is itself neither created nor destroyed in that reaction (for

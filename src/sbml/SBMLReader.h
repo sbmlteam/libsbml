@@ -26,8 +26,7 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class SBMLReader
- * @sbmlpackage core
- * @brief Methods for reading SBML from files and text strings.
+ * @sbmlbrief{core} Methods for reading SBML from files and text strings.
  *
  * @htmlinclude not-sbml-warning.html
  *

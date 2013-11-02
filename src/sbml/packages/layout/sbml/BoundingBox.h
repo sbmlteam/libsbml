@@ -22,9 +22,7 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class BoundingBox
- * @sbmlpackage layout
- * @brief @htmlinclude pkg-marker-layout.html
- * Representation of a bounding box.
+ * @sbmlbrief{layout} Representation of a bounding box.
  */
 
 #ifndef BoundingBox_H__

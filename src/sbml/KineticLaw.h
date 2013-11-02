@@ -26,8 +26,7 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class KineticLaw
- * @sbmlpackage core
- * @brief Implementation of %SBML's %KineticLaw construct.
+ * @sbmlbrief{core} Implementation of %SBML's %KineticLaw construct.
  *
  * An object of class KineticLaw is used to describe the rate at which the
  * process defined by a given Reaction takes place.  KineticLaw has

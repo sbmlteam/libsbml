@@ -26,9 +26,8 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class FunctionTerm
- * @sbmlpackage qual
- * @brief @htmlinclude pkg-marker-qual.html
- * The FunctionTerm class for the Qualitative Models package.
+ * @sbmlbrief{qual} The FunctionTerm class for the Qualitative Models
+ * package.
  *
  * Each FunctionTerm is associated with a result and with a Boolean function inside a Math element that can be used to set the conditions under which this term is selected.
  */
@@ -95,7 +94,7 @@ public:
   /**
    * Copy constructor for FunctionTerm.
    *
-   * @param orig; the FunctionTerm instance to copy.
+   * @param orig the FunctionTerm instance to copy.
    */
   FunctionTerm(const FunctionTerm& orig);
 
@@ -103,7 +102,7 @@ public:
   /**
    * Assignment operator for FunctionTerm.
    *
-   * @param rhs; the object whose values are used as the basis
+   * @param rhs the object whose values are used as the basis
    * of the assignment
    */
   FunctionTerm& operator=(const FunctionTerm& rhs);
@@ -144,7 +143,7 @@ public:
   /**
    * Sets the value of the "resultLevel" attribute of this FunctionTerm.
    *
-   * @param resultLevel; int value of the "resultLevel" attribute to be set
+   * @param resultLevel int value of the "resultLevel" attribute to be set
    *
    * @return integer value indicating success/failure of the
    * operation. The possible return values are:
@@ -186,7 +185,7 @@ public:
   /**
    * Sets the "math" element of this FunctionTerm.
    *
-   * @param math; ASTNode * math of the "resultLevel" attribute to be set
+   * @param math ASTNode * math of the "resultLevel" attribute to be set
    *
    * @return integer value indicating success/failure of the
    * operation. The possible return values are:
@@ -373,9 +372,8 @@ protected:
 /**
  *
  * @class ListOfFunctionTerms
- * @sbmlpackage qual
- * @brief @htmlinclude pkg-marker-qual.html
- * Implementation of the %ListOfFunctionTerms construct from the 'qual' package.
+ * @sbmlbrief{qual} Implementation of the %ListOfFunctionTerms construct from
+ * the 'qual' package.
  * 
  * The ListOfFunctionTerms is a container for the FunctionTerms of a Transition.
  * 
@@ -562,7 +560,7 @@ public:
   /**
    * Sets the given DefaultTerm to this Transition.
    *
-   * @param dt; the DefaultTerm object to add
+   * @param dt the DefaultTerm object to add
    *
    * @return integer value indicating success/failure of the
    * operation. The possible return values are:

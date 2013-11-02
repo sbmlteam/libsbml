@@ -26,9 +26,8 @@
  * ---------------------------------------------------------------------- -->
  *
  * @class L3ParserSettings
- * @sbmlpackage core
- * @brief A helper class for controlling the behavior of the text-string 
- * formula parser.
+ * @sbmlbrief{core} A helper class for controlling the behavior of the
+ * text-string formula parser.
  *
  * @htmlinclude not-sbml-warning.html
  *

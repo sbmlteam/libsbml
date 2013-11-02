@@ -28,8 +28,7 @@
  * ---------------------------------------------------------------------- -->
  *
  * @class SBMLTransforms
- * @sbmlpackage core
- * @brief Methods for transform elements of SBML
+ * @sbmlbrief{core} Methods for transform elements of SBML
  *
  */
 

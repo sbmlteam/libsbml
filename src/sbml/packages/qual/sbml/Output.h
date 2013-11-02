@@ -26,9 +26,7 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class Output
- * @sbmlpackage qual
- * @brief @htmlinclude pkg-marker-qual.html
- * The Output class for the Qualitative Models package.
+ * @sbmlbrief{qual} The Output class for the Qualitative Models package.
  * 
  * Each Output refers to a QualitativeSpecies that participates in (is affected by) the corresponding Transition. In Petri net models these are the output places of the transition. 
  *
@@ -114,7 +112,7 @@ public:
   /**
    * Copy constructor for Output.
    *
-   * @param orig; the Output instance to copy.
+   * @param orig the Output instance to copy.
    */
   Output(const Output& orig);
 
@@ -122,7 +120,7 @@ public:
   /**
    * Assignment operator for Output.
    *
-   * @param rhs; the object whose values are used as the basis
+   * @param rhs the object whose values are used as the basis
    * of the assignment
    */
   Output& operator=(const Output& rhs);
@@ -235,7 +233,7 @@ public:
   /**
    * Sets the value of the "id" attribute of this Output.
    *
-   * @param id; const std::string& value of the "id" attribute to be set
+   * @param id const std::string& value of the "id" attribute to be set
    *
    * @return integer value indicating success/failure of the
    * operation. The possible return values are:
@@ -248,7 +246,7 @@ public:
   /**
    * Sets the value of the "qualitativeSpecies" attribute of this Output.
    *
-   * @param qualitativeSpecies; const std::string& value of the "qualitativeSpecies" attribute to be set
+   * @param qualitativeSpecies const std::string& value of the "qualitativeSpecies" attribute to be set
    *
    * @return integer value indicating success/failure of the
    * operation. The possible return values are:
@@ -261,7 +259,7 @@ public:
   /**
    * Sets the value of the "transitionEffect" attribute of this Output.
    *
-   * @param transitionEffect; const std::string& value of the "transitionEffect" attribute to be set
+   * @param transitionEffect const std::string& value of the "transitionEffect" attribute to be set
    *
    * @return integer value indicating success/failure of the
    * operation. The possible return values are:
@@ -274,7 +272,7 @@ public:
   /**
    * Sets the value of the "name" attribute of this Output.
    *
-   * @param name; const std::string& value of the "name" attribute to be set
+   * @param name const std::string& value of the "name" attribute to be set
    *
    * @return integer value indicating success/failure of the
    * operation. The possible return values are:
@@ -287,7 +285,7 @@ public:
   /**
    * Sets the value of the "outputLevel" attribute of this Output.
    *
-   * @param outputLevel; int value of the "outputLevel" attribute to be set
+   * @param outputLevel int value of the "outputLevel" attribute to be set
    *
    * @return integer value indicating success/failure of the
    * operation. The possible return values are:
@@ -494,9 +492,8 @@ protected:
 
 /**
  * @class ListOfOutputs
- * @sbmlpackage qual
- * @brief @htmlinclude pkg-marker-qual.html
- * Implementation of the %ListOfOutputs construct from the 'qual' package.
+ * @sbmlbrief{qual} Implementation of the %ListOfOutputs construct from the
+ * 'qual' package.
  * 
  * The ListOfOutputs is a container for the Output elements of a Transition.
  * 

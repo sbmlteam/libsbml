@@ -27,9 +27,8 @@
  *------------------------------------------------------------------------- -->
  *
  * @class FbcSBMLDocumentPlugin
- * @sbmlpackage fbc
- * @brief @htmlinclude pkg-marker-fbc.html
- * Implementation of the 'fbc' package extention to the %SBMLDocument construct.
+ * @sbmlbrief{fbc} Implementation of the 'fbc' package extention to the
+ * %SBMLDocument construct.
  *
  * The FbcSBMLDocumentPlugin class inherits from the SBMLDocumentPlugin
  * class, and codifies the extentions to the SBMLDocument class defined in

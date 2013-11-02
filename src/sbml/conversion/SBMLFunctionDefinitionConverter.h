@@ -26,8 +26,7 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class SBMLFunctionDefinitionConverter
- * @sbmlpackage core
- * @brief SBML converter for replacing function definitions.
+ * @sbmlbrief{core} SBML converter for replacing function definitions.
  * 
  * @htmlinclude libsbml-facility-only-warning.html
  *

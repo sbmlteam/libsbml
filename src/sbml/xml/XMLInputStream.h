@@ -26,7 +26,7 @@
  * ---------------------------------------------------------------------- -->
  *
  * @class XMLInputStream
- * @sbmlpackage core
+ * @sbmlbrief{core} An interface to an XML input stream.
  *
  * @if notclike @internal @endif@~
  */

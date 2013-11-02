@@ -18,9 +18,8 @@
  *------------------------------------------------------------------------- -->
  *
  * @class CompSBasePlugin
- * @sbmlpackage comp
- * @brief @htmlinclude pkg-marker-comp.html
- * Implementation of the &ldquo;comp&rdquo; package extention to the %SBase construct.
+ * @sbmlbrief{comp} Implementation of the &ldquo;comp&rdquo; package
+ * extention to the %SBase construct.
  *
  * The CompSBasePlugin class inherits from the SBasePlugin class, 
  * and codifies the extentions to the SBase class defined in the

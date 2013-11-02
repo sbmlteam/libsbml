@@ -26,8 +26,7 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class ASTNode
- * @sbmlpackage core
- * @brief Abstract Syntax Tree (AST) representation of a
+ * @sbmlbrief{core} Abstract Syntax Tree (AST) representation of a
  * mathematical expression.
  *
  * @htmlinclude not-sbml-warning.html

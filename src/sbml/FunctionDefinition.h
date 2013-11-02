@@ -26,8 +26,7 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class FunctionDefinition
- * @sbmlpackage core
- * @brief Implementation of %SBML's %FunctionDefinition construct.
+ * @sbmlbrief{core} Implementation of %SBML's %FunctionDefinition construct.
  *
  * The FunctionDefinition structure associates an identifier with a
  * function definition.  This identifier can then be used as the function
@@ -95,8 +94,8 @@
  * <!---------------------------------------------------------------------- -->
  *
  * @class ListOfFunctionDefinitions
- * @sbmlpackage core
- * @brief Implementation of SBML's %ListOfFunctionDefinitions construct.
+ * @sbmlbrief{core} Implementation of SBML's %ListOfFunctionDefinitions
+ * construct.
  *
  * @copydetails doc_what_is_listof
  */

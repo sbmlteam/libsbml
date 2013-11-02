@@ -26,8 +26,7 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class SBMLExtension
- * @sbmlpackage core
- * @brief The core component of SBML's package extension.
+ * @sbmlbrief{core} The core component of SBML's package extension.
  *
  * SBMLExtension class (abstract class) is a core component of package extension
  * which needs to be extended by package developers. 
@@ -883,7 +882,7 @@ public:
   virtual void removeL2Namespaces(XMLNamespaces* xmlns)  const;
 
   /**
-   * adds all L2 Extension namespaces to the namespace list. 
+   * Adds all L2 Extension namespaces to the namespace list. 
    * 
    * This method should be overridden by all extensions that want to serialize
    * to an L2 annotation.

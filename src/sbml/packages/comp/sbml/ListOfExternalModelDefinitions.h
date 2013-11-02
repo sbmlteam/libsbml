@@ -17,10 +17,8 @@
  *------------------------------------------------------------------------- -->
  *
  * @class ListOfExternalModelDefinitions
- * @sbmlpackage comp
- * @brief @htmlinclude pkg-marker-comp.html
- * Implementation of the %ListOfExternalModelDefinitions construct
- * from the &ldquo;comp&rdquo; package.
+ * @sbmlbrief{comp} Implementation of the %ListOfExternalModelDefinitions
+ * construct from the &ldquo;comp&rdquo; package.
  * 
  * The ListOfExternalModelDefinitions is a container for the extended 
  * SBMLDocument that defines references to Models defined in external

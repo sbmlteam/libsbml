@@ -26,8 +26,8 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class CVTerm.
- * @sbmlpackage core
- * @brief Representation of MIRIAM-compliant controlled vocabulary annotation.
+ * @sbmlbrief{core} Representation of MIRIAM-compliant controlled vocabulary
+ * annotation.
  *
  * @htmlinclude not-sbml-warning.html
  *

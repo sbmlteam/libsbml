@@ -28,8 +28,7 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class SBMLExtensionRegistry
- * @sbmlpackage core
- * @brief Registry class in which extension packages are registered.
+ * @sbmlbrief{core} Registry class in which extension packages are registered.
  *
  */
 
@@ -45,9 +44,7 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 #include <list>
 #include <map>
 
-/**
- * @sbmlpackage core
- */
+
 class LIBSBML_EXTERN SBMLExtensionRegistry
 {
 public:

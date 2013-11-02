@@ -26,8 +26,7 @@
  * ------------------------------------------------------------------------ -->
  * 
  * @class Species
- * @sbmlpackage core
- * @brief Implementation of SBML's %Species construct.
+ * @sbmlbrief{core} Implementation of SBML's %Species construct.
  *
  * A @em species in SBML refers to a pool of entities that (a) are
  * considered indistinguishable from each other for the purposes of the
@@ -332,8 +331,8 @@
  *
  * <!-- ------------------------------------------------------------------- -->
  * @class ListOfSpecies
- * @sbmlpackage core
- * @brief Implementation of SBML Level&nbsp;2's %ListOfSpecies construct.
+ * @sbmlbrief{core} Implementation of SBML Level&nbsp;2's %ListOfSpecies
+ * construct.
  * 
  * @copydetails doc_what_is_listof
  */

@@ -17,14 +17,11 @@
  *------------------------------------------------------------------------- -->
  *
  * @class FbcExtension
- * @sbmlpackage fbc
- * @brief @htmlinclude pkg-marker-fbc.html
- * The core module of the 'fbc' package extension.
+ * @sbmlbrief{fbc} The core module of the 'fbc' package extension.
  *
  * @class FbcPkgNamespaces
- * @sbmlpackage fbc
- * @brief @htmlinclude pkg-marker-fbc.html
- * Extension of SBMLNamespaces for the SBML Level&nbsp;3 'fbc' package.
+ * @sbmlbrief{fbc} Extension of SBMLNamespaces for the SBML Level&nbsp;3
+ * 'fbc' package.
  */
 
 #ifndef FbcExtension_h

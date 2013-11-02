@@ -26,8 +26,7 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class Compartment
- * @sbmlpackage core
- * @brief Implementation of SBML's %Compartment construct.
+ * @sbmlbrief{core} Implementation of SBML's %Compartment construct.
  *
  * A compartment in SBML represents a bounded space in which species are
  * located.  Compartments do not necessarily have to correspond to actual
@@ -355,8 +354,8 @@
  * 
  * <!-- ------------------------------------------------------------------- -->
  * @class ListOfCompartments
- * @sbmlpackage core
- * @brief Implementation of SBML Level&nbsp;2's %ListOfCompartments construct.
+ * @sbmlbrief{core} Implementation of SBML Level&nbsp;2's %ListOfCompartments
+ * construct.
  * 
  * @copydetails doc_what_is_listof
  */

@@ -26,9 +26,7 @@
  * ---------------------------------------------------------------------- -->
  *
  * @class CompFlatteningConverter
- * @sbmlpackage comp
- * @brief @htmlinclude pkg-marker-comp.html
- * Flattening converter for the &ldquo;comp&rdquo; package.
+ * @sbmlbrief{comp} Flattening converter for the &ldquo;comp&rdquo; package.
  */
 
 #ifndef CompFlatteningConverter_h

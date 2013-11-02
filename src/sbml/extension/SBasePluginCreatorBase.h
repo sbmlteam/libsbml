@@ -28,8 +28,7 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class SBasePluginCreatorBase
- * @sbmlpackage core
- * @brief Base class of %SBasePluginCreator.
+ * @sbmlbrief{core} Base class of %SBasePluginCreator.
  */
 
 #ifndef SBasePluginCreatorBase_h

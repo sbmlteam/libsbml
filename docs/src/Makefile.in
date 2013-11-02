@@ -160,9 +160,6 @@ distfiles =						     \
         common-text/about-semantic-annotations.html	     \
         common-text/assuming-compressed-file.html	     \
         common-text/astnode-illustration.html		     \
-        common-text/astnode-types.html			     \
-        common-text/base-units.html			     \
-        common-text/base-units2.html			     \
         common-text/comment-set-methods.html		     \
         common-text/level-1-uses-text-string-math.html	     \
         common-text/enzymatic-reaction-equation.html	     \
@@ -494,7 +491,7 @@ endef
 define doxygen_indexing_pass
   rm -f doxygen-config.txt
   cp $(1) doxygen-config.txt
-  echo 'ALIASES += sbmlpackage="@addindex"' >> doxygen-config.txt
+  echo 'ALIASES += sbmlpackage{1}="@addindex \1"' >> doxygen-config.txt
   if test -n $(3); then \
     $(DOXYGEN) doxygen-config.txt 2>&1 | egrep -v $(3); \
   else \
@@ -508,7 +505,7 @@ endef
 define doxygen_final_pass
   rm -f doxygen-config.txt
   cp $(1) doxygen-config.txt
-  echo 'ALIASES += sbmlpackage="@ingroup"' >> doxygen-config.txt
+  echo 'ALIASES += sbmlpackage{1}="@ingroup \1"' >> doxygen-config.txt
   if test -n $(3); then \
     $(DOXYGEN) doxygen-config.txt 2>&1 | egrep -v $(3); \
   else \

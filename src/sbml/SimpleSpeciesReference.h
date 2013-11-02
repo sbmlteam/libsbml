@@ -26,8 +26,8 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class SimpleSpeciesReference
- * @sbmlpackage core
- * @brief Implementation of %SBML's %SimpleSpeciesReference construct.
+ * @sbmlbrief{core} Implementation of %SBML's %SimpleSpeciesReference
+ * construct.
  *
  * As mentioned in the description of Reaction, every species that enters
  * into a given reaction must appear in that reaction's lists of reactants,

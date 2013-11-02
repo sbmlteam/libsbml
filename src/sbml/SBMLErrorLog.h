@@ -28,8 +28,8 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class SBMLErrorLog
- * @sbmlpackage core
- * @brief Log of errors and other events encountered during SBML processing.
+ * @sbmlbrief{core} Log of errors and other events encountered during SBML
+ * processing.
  *
  * @htmlinclude not-sbml-warning.html
  *

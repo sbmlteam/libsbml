@@ -28,9 +28,8 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class LayoutSpeciesReferencePlugin
- * @sbmlpackage layout
- * @brief @htmlinclude pkg-marker-layout.html
- * Implementation of the 'layout' package extention to the %SpeciesReference construct.
+ * @sbmlbrief{layout} Implementation of the 'layout' package extention to the
+ * %SpeciesReference construct.
  */
 
 #ifndef LayoutSpeciesReferencePlugin_h

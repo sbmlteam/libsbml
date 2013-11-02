@@ -28,8 +28,7 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class SBasePluginCreator
- * @sbmlpackage core
- * @brief Template class of %SBasePlugin.
+ * @sbmlpackage{core} Template class of %SBasePlugin.
  */
 
 #ifndef SBasePluginCreator_h
@@ -44,9 +43,6 @@
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
-/**
- * @sbmlpackage core
- */
 template<class SBasePluginType, class SBMLExtensionType>
 class LIBSBML_EXTERN SBasePluginCreator : public SBasePluginCreatorBase
 {

@@ -17,9 +17,7 @@
  *------------------------------------------------------------------------- -->
  *
  * @class Objective
- * @sbmlpackage fbc
- * @brief @htmlinclude pkg-marker-fbc.html
- * Implementation of the 'fbc' package %Objective construct.
+ * @sbmlbrief{fbc} Implementation of the 'fbc' package %Objective construct.
  *
  * The FBC Objective class is derived from SBML SBase and inherits metaid and
  * sboTerm, as well as the subcomponents for Annotation and Notes. An
@@ -560,9 +558,8 @@ protected:
 
 /**
  * @class ListOfObjectives
- * @sbmlpackage fbc
- * @brief @htmlinclude pkg-marker-fbc.html
- * Implementation of the %ListOfObjectives construct from the 'fbc' package.
+ * @sbmlbrief{fbc} Implementation of the %ListOfObjectives construct from the
+ * 'fbc' package.
  * 
  * The ListOfObjectives is a container for the Objective elements of Model.
  * 

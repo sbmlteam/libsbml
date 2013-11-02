@@ -17,9 +17,8 @@
  *------------------------------------------------------------------------- -->
  *
  * @class ListOfDeletions
- * @sbmlpackage comp
- * @brief @htmlinclude pkg-marker-comp.html
- * Implementation of the %ListOfDeletions construct from the &ldquo;comp&rdquo; package.
+ * @sbmlbrief{comp} Implementation of the %ListOfDeletions construct from the
+ * &ldquo;comp&rdquo; package.
  * 
  * The ListOfDeletions is a container for the &ldquo;comp&rdquo;
  * Submodel that defines elements to be removed before instantiation.

@@ -26,8 +26,8 @@
  * ------------------------------------------------------------------------ -->
  * 
  * @class List
- * @sbmlpackage core
- * @brief Simple, plain, generic lists, and associated list utilities.
+ * @sbmlbrief{core} Simple, plain, generic lists, and associated list
+ * utilities.
  *
  * @htmlinclude not-sbml-warning.html
  *

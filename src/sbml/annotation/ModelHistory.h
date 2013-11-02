@@ -26,8 +26,7 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class ModelHistory
- * @sbmlpackage core
- * @brief Representation of MIRIAM-compliant model history data.
+ * @sbmlbrief{core} Representation of MIRIAM-compliant model history data.
  *
  * @htmlinclude not-sbml-warning.html
  *

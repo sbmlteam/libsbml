@@ -26,9 +26,7 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class DefaultTerm
- * @sbmlpackage qual
- * @brief @htmlinclude pkg-marker-qual.html
- * The DefaultTerm class for the Qualitative Models package.
+ * @sbmlbrief{qual} The DefaultTerm class for the Qualitative Models package.
  *
  * The DefaultTerm defines the default result of a Transition. This term is used if there are no other FunctionTerm 
 elements or if none of the Math elements of the FunctionTerm elements evaluates to @c true.
@@ -94,7 +92,7 @@ public:
   /**
    * Copy constructor for DefaultTerm.
    *
-   * @param orig; the DefaultTerm instance to copy.
+   * @param orig the DefaultTerm instance to copy.
    */
   DefaultTerm(const DefaultTerm& orig);
 
@@ -102,7 +100,7 @@ public:
   /**
    * Assignment operator for DefaultTerm.
    *
-   * @param rhs; the object whose values are used as the basis
+   * @param rhs the object whose values are used as the basis
    * of the assignment
    */
   DefaultTerm& operator=(const DefaultTerm& rhs);
@@ -143,7 +141,7 @@ public:
   /**
    * Sets the value of the "resultLevel" attribute of this DefaultTerm.
    *
-   * @param resultLevel; int value of the "resultLevel" attribute to be set
+   * @param resultLevel int value of the "resultLevel" attribute to be set
    *
    * @return integer value indicating success/failure of the
    * operation. The possible return values are:

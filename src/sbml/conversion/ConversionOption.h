@@ -26,8 +26,7 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class ConversionOption
- * @sbmlpackage core
- * @brief Class of object that encapsulates a conversion option.
+ * @sbmlbrief{core} Class of object that encapsulates a conversion option.
  * 
  * @htmlinclude libsbml-facility-only-warning.html
  *

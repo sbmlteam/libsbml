@@ -26,8 +26,7 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class Event
- * @sbmlpackage core
- * @brief Implementation of SBML's %Event construct.
+ * @sbmlbrief{core} Implementation of SBML's %Event construct.
  * 
  * An SBML Event object defines when the event can occur, the variables
  * that are affected by it, how the variables are affected, and the event's
@@ -205,8 +204,7 @@
  *
  * <!-- ------------------------------------------------------------------- -->
  * @class ListOfEvents
- * @sbmlpackage core
- * @brief Implementation of SBML's %ListOfEvents construct.
+ * @sbmlbrief{core} Implementation of SBML's %ListOfEvents construct.
  * 
  * @copydetails doc_what_is_listof
  */

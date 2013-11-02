@@ -26,9 +26,7 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class SBMLUri
- * @sbmlpackage comp
- * @brief @htmlinclude pkg-marker-comp.html
- * utility class for handling URIs.
+ * @sbmlbrief{comp} utility class for handling URIs.
  *
  * @htmlinclude libsbml-facility-only-warning.html
  *

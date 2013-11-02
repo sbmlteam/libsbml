@@ -22,9 +22,7 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class CompartmentGlyph
- * @sbmlpackage layout
- * @brief @htmlinclude pkg-marker-layout.html
- * Representation of a compartment glyph.
+ * @sbmlbrief{layout} Representation of a compartment glyph.
  */
 
 #ifndef CompartmentGlyph_H__

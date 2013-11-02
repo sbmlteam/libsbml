@@ -26,8 +26,8 @@
  * ---------------------------------------------------------------------- -->
  *
  * @class SyntaxChecker
- * @sbmlpackage core
- * @brief Methods for checking syntax of SBML identifiers and other strings.
+ * @sbmlbrief{core} Methods for checking syntax of SBML identifiers and other
+ * strings.
  * 
  * @htmlinclude not-sbml-warning.html
  * 

@@ -17,9 +17,8 @@
  *------------------------------------------------------------------------- -->
  *
  * @class ListOfPorts
- * @sbmlpackage comp
- * @brief @htmlinclude pkg-marker-comp.html
- * Implementation of the %ListOfPorts construct from the &ldquo;comp&rdquo; package.
+ * @sbmlbrief{comp} Implementation of the %ListOfPorts construct from the
+ * &ldquo;comp&rdquo; package.
  * 
  * The ListOfPorts is a container for the extended 
  * Model for Port objects for that Model.

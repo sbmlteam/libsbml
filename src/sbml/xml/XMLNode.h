@@ -26,8 +26,7 @@
  * ---------------------------------------------------------------------- -->
  *
  * @class XMLNode
- * @sbmlpackage core
- * @brief Representation of a node in an XML document tree.
+ * @sbmlbrief{core} Representation of a node in an XML document tree.
  * 
  * Beginning with version 3.0.0, libSBML implements an XML abstraction
  * layer.  This layer presents a uniform XML interface to calling programs

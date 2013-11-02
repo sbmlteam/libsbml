@@ -17,9 +17,8 @@
  *------------------------------------------------------------------------- -->
  *
  * @class GeneAssociation
- * @sbmlpackage fbc
- * @brief @htmlinclude pkg-marker-fbc.html
- * Implementation of the 'fbc' package %GeneAssociation construct.
+ * @sbmlbrief{fbc} Implementation of the 'fbc' package %GeneAssociation
+ * construct.
  *
  * Gene associations are not part of the core FBC specification, but rather are a proposed annotation.
  * <!-- leave this next break as-is to work around some doxygen bug -->
@@ -348,9 +347,8 @@ protected:
 
 /**
  * @class ListOfGeneAssociations
- * @sbmlpackage fbc
- * @brief @htmlinclude pkg-marker-fbc.html
- * Implementation of the 'fbc' package suggested %ListOfGeneAssociations annotation construct.
+ * @sbmlbrief{fbc} Implementation of the 'fbc' package suggested
+ * %ListOfGeneAssociations annotation construct.
  * 
  * The ListOfGeneAssociations is a container for the GeneAssociation elements of the proposed Model annotation, and is not part of the official FBC specification.
  * 

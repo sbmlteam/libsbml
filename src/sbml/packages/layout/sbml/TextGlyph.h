@@ -22,10 +22,8 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class TextGlyph
- * @sbmlpackage layout
- * @brief @htmlinclude pkg-marker-layout.html
- * The %TextGlyph class describes the position and dimension of text labels
- * in the &ldquo;layout&rdquo; package.
+ * @sbmlbrief{layout} The %TextGlyph class describes the position and
+ * dimension of text labels in the &ldquo;layout&rdquo; package.
  *
  * It inherits from GraphicalObject and adds the attributes graphicalObject,
  * text and originOfText.

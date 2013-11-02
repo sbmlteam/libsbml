@@ -17,9 +17,8 @@
  *------------------------------------------------------------------------- -->
  *
  * @class ReplacedBy
- * @sbmlpackage comp
- * @brief @htmlinclude pkg-marker-comp.html
- * Implementation of the %ReplacedBy construct from the &ldquo;comp&rdquo; package.
+ * @sbmlbrief{comp} Implementation of the %ReplacedBy construct from the
+ * &ldquo;comp&rdquo; package.
  *
  * The ReplacedBy class was introduced by the SBML Level&nbsp;3 
  * @ref comp "Hierarchical Model Composition" package (&ldquo;comp&rdquo;)

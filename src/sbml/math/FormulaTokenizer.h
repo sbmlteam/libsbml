@@ -26,8 +26,8 @@
  * ---------------------------------------------------------------------- -->
  * 
  * @class FormulaTokenizer
- * @sbmlpackage core
- * @brief Tokenizes a mathematical formula string in SBML Level 1 syntax.
+ * @sbmlbrief{core} Tokenizes a mathematical formula string in SBML Level 1
+ * syntax.
  *
  * @htmlinclude not-sbml-warning.html
  *
@@ -70,8 +70,7 @@ BEGIN_C_DECLS
 
 /**
  * @struct FormulaTokenizer_t
- * @sbmlpackage core
- * Structure used to track the state of tokenizing a string.
+ * @sbmlbrief{core} used to track the state of tokenizing a string.
  *
  * SBML Level 1 uses a simple text-string representation of mathematical
  * formulas, rather than the MathML-based representation used in SBML
@@ -131,8 +130,7 @@ typedef enum
 
 /**
  * @struct Token_t
- * @sbmlpackage core
- * Structure used to store a token returned by
+ * @sbmlbrief{core} Structure used to store a token returned by
  * FormulaTokenizer_nextToken().
  * 
  * A Token_t token has a @c type and a @c value.  The @c value field is a

@@ -26,8 +26,7 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class RDFAnnotationParser
- * @sbmlpackage core
- * @brief Read/write/manipulate RDF annotations stored in SBML
+ * @sbmlbrief{core} Read/write/manipulate RDF annotations stored in SBML
  * annotation elements.
  *
  * @htmlinclude not-sbml-warning.html

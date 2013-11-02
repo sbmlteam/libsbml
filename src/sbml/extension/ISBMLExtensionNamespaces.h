@@ -28,7 +28,7 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class ISBMLExtensionNamespaces
- * @sbmlpackage core
+ * @sbmlpackage{core}
  *
  */
 

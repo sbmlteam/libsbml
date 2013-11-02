@@ -26,8 +26,7 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class Rule
- * @sbmlpackage core
- * @brief Implementation of %SBML's %Rule construct.
+ * @sbmlbrief{core} Implementation of %SBML's %Rule construct.
  *
  * In SBML, @em rules provide additional ways to define the values of
  * variables in a model, their relationships, and the dynamical behaviors
@@ -47,8 +46,7 @@
  *
  * <!-- ------------------------------------------------------------------- -->
  * @class ListOfRules
- * @sbmlpackage core
- * @brief Implementation of SBML's %ListOfRules construct.
+ * @sbmlbrief{core} Implementation of SBML's %ListOfRules construct.
  * 
  * @copydetails doc_what_is_listof
  */

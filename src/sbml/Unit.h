@@ -26,8 +26,7 @@
  * ---------------------------------------------------------------------- -->
  *
  * @class Unit
- * @sbmlpackage core
- * @brief Implementation of SBML's %Unit construct.
+ * @sbmlbrief{core} Implementation of SBML's %Unit construct.
  *
  * The SBML unit definition facility uses two classes of objects,
  * UnitDefinition and Unit.  The approach to defining units in %SBML is
@@ -159,8 +158,7 @@
  * 
  * <!-- ------------------------------------------------------------------- -->
  * @class ListOfUnits
- * @sbmlpackage core
- * @brief Implementation of SBML's %ListOfUnits construct.
+ * @sbmlbrief{core} Implementation of SBML's %ListOfUnits construct.
  * 
  * ListOfUnits is entirely contained within UnitDefinition.
  *

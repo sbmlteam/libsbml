@@ -26,8 +26,7 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class AlgebraicRule
- * @sbmlpackage core
- * @brief Implementation of %SBML's %AlgebraicRule construct.
+ * @sbmlbrief{core} Implementation of %SBML's %AlgebraicRule construct.
  *
  * The rule type AlgebraicRule is derived from the parent class Rule.  It
  * is used to express equations that are neither assignments of model

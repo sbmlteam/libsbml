@@ -22,10 +22,8 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class Layout
- * @sbmlpackage layout
- * @brief @htmlinclude pkg-marker-layout.html
- * Each Layout object stores a set of layout information for objects in the
- * Model.
+ * @sbmlbrief{layout} Each Layout object stores a set of layout information
+ * for objects in the Model.
  *
  * The Layout class stores layout information for some or all elements of the
  * SBML model as well as additional objects that need not be connected to the
@@ -67,9 +65,8 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 
 /**
  * @class ListOfCompartmentGlyphs
- * @sbmlpackage layout
- * @brief  @htmlinclude pkg-marker-layout.html
- * Implementation of the %ListOfCompartmentGlyphs construct from the &ldquo;layout&rdquo; package.
+ * @sbmlbrief{layout} Implementation of the %ListOfCompartmentGlyphs
+ * construct from the &ldquo;layout&rdquo; package.
  * 
  * The ListOfCompartmentGlyphs is a container for the CompartmentGlyph elements of a Layout.
  * 
@@ -230,9 +227,8 @@ protected:
 
 /**
  * @class ListOfSpeciesGlyphs
- * @sbmlpackage layout
- * @brief  @htmlinclude pkg-marker-layout.html
- * Implementation of the %ListOfSpeciesGlyphs construct from the &ldquo;layout&rdquo; package.
+ * @sbmlbrief{layout} @sbmlmarker{layout} Implementation of the
+ * %ListOfSpeciesGlyphs construct from the &ldquo;layout&rdquo; package.
  * 
  * The ListOfSpeciesGlyphs is a container for the SpeciesGlyph elements of a Layout.
  * 
@@ -392,9 +388,8 @@ protected:
 
 /**
  * @class ListOfReactionGlyphs
- * @sbmlpackage layout
- * @brief  @htmlinclude pkg-marker-layout.html
- * Implementation of the %ListOfReactionGlyphs construct from the &ldquo;layout&rdquo; package.
+ * @sbmlbrief{layout} @sbmlmarker{layout} Implementation of the
+ * %ListOfReactionGlyphs construct from the &ldquo;layout&rdquo; package.
  * 
  * The ListOfReactionGlyphs is a container for the ReactionGlyph elements of a Layout.
  * 
@@ -554,9 +549,8 @@ protected:
 
 /**
  * @class ListOfTextGlyphs
- * @sbmlpackage layout
- * @brief  @htmlinclude pkg-marker-layout.html
- * Implementation of the %ListOfTextGlyphs construct from the &ldquo;layout&rdquo; package.
+ * @sbmlbrief{layout} Implementation of the %ListOfTextGlyphs construct from
+ * the &ldquo;layout&rdquo; package.
  * 
  * The ListOfTextGlyphs is a container for the TextGlyph elements of a Layout.
  * 
@@ -1500,9 +1494,8 @@ protected:
 
 /**
  * @class ListOfLayouts
- * @sbmlpackage layout
- * @brief  @htmlinclude pkg-marker-layout.html
- * Implementation of the %ListOfLayouts construct from the &ldquo;layout&rdquo; package.
+ * @sbmlbrief{layout} Implementation of the * %ListOfLayouts construct from
+ * the &ldquo;layout&rdquo; package.
  * 
  * The ListOfLayouts is a container for the Layout elements of an extended Model element.
  * 

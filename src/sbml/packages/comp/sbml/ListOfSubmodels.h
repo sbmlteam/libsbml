@@ -17,9 +17,8 @@
  *------------------------------------------------------------------------- -->
  *
  * @class ListOfSubmodels
- * @sbmlpackage comp
- * @brief @htmlinclude pkg-marker-comp.html
- * Implementation of the %ListOfSubmodels construct from the &ldquo;comp&rdquo; package.
+ * @sbmlbrief{comp} Implementation of the %ListOfSubmodels construct from the
+ * &ldquo;comp&rdquo; package.
  * 
  * The ListOfSubmodels is a container for the extended 
  * Model that contains Submodel objects to be instantiated in that Model.

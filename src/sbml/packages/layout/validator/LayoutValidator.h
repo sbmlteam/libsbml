@@ -26,10 +26,8 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class LayoutValidator
- * @sbmlpackage layout
- * @brief @htmlinclude pkg-marker-layout.html
- * Entry point for libSBML's implementation of SBML validation rules for the
- * &ldquo;layout&rdquo; package.
+ * @sbmlbrief{layout} Entry point for libSBML's implementation of SBML
+ * validation rules for the &ldquo;layout&rdquo; package.
  * 
  * @htmlinclude not-sbml-warning.html
  *

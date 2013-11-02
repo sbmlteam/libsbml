@@ -29,8 +29,8 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class SBMLDocumentPluginNotRequired
- * @sbmlpackage core
- * @brief Template class for the %SBMLDocument Plugin class for non-required packages.
+ * @sbmlbrief{core} Template class for the %SBMLDocument Plugin class for
+ * non-required packages.
  *
  * The SBMLDocumentPluginNotRequired class extends the SBMLDocumentPlugin class, and
  * will add a validation error to a read-in SBML Document that has the package's 
@@ -49,9 +49,6 @@
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
-/**
- * @sbmlpackage core
- */
 class LIBSBML_EXTERN SBMLDocumentPluginNotRequired : public SBMLDocumentPlugin
 {
 public:

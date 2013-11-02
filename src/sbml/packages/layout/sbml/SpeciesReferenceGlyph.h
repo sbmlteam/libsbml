@@ -22,10 +22,8 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class SpeciesReferenceGlyph
- * @sbmlpackage layout
- * @brief @htmlinclude pkg-marker-layout.html
- * A %SpeciesReferenceGlyph represents a reactant or product from a Reaction
- * in the &ldquo;layout&rdquo; package.
+ * @sbmlbrief{layout} A %SpeciesReferenceGlyph represents a reactant or
+ * product from a Reaction in the &ldquo;layout&rdquo; package.
  *
  * The %SpeciesReferenceGlyph element describes the graphical connection
  * between a SpeciesGlyph and a ReactionGlyph (which would be an arrow or

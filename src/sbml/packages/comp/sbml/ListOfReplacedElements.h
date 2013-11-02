@@ -17,9 +17,8 @@
  *------------------------------------------------------------------------- -->
  *
  * @class ListOfReplacedElements
- * @sbmlpackage comp
- * @brief  @htmlinclude pkg-marker-comp.html
- * Implementation of the %ListOfReplacedElements construct from the &ldquo;comp&rdquo; package.
+ * @sbmlbrief{comp} Implementation of the %ListOfReplacedElements construct
+ * from the &ldquo;comp&rdquo; package.
  * 
  * The ListOfReplacedElements is a container for any SBase object.  It 
  * contains ReplacedElement objects, which point to elements the parent

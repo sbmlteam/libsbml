@@ -26,9 +26,8 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class LayoutSBMLDocumentPlugin
- * @sbmlpackage layout
- * @brief @htmlinclude pkg-marker-layout.html
- * Implementation of the 'layout' package extention to the %SBMLDocument construct.
+ * @sbmlbrief{layout} Implementation of the 'layout' package extention to the
+ * %SBMLDocument construct.
  *
  * The LayoutSBMLDocumentPlugin class inherits from the SBMLDocumentPlugin
  * class, and codifies the extentions to the SBMLDocument class defined in

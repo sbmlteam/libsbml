@@ -26,9 +26,7 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class Input
- * @sbmlpackage qual
- * @brief @htmlinclude pkg-marker-qual.html
- * The Input class for the Qualitative Models package.
+ * @sbmlbrief{qual} The Input class for the Qualitative Models package.
  *
  * Each Input refers to a QualitativeSpecies that participates in the corresponding Transition. In Petri nets, these are the input places of the transition. In logical models, they are the regulators of the species whose behaviour is defined by the transition.
  */
@@ -126,7 +124,7 @@ public:
   /**
    * Copy constructor for Input.
    *
-   * @param orig; the Input instance to copy.
+   * @param orig the Input instance to copy.
    */
   Input(const Input& orig);
 
@@ -134,7 +132,7 @@ public:
   /**
    * Assignment operator for Input.
    *
-   * @param rhs; the object whose values are used as the basis
+   * @param rhs the object whose values are used as the basis
    * of the assignment
    */
   Input& operator=(const Input& rhs);
@@ -265,7 +263,7 @@ public:
   /**
    * Sets the value of the "id" attribute of this Input.
    *
-   * @param id; const std::string& value of the "id" attribute to be set
+   * @param id const std::string& value of the "id" attribute to be set
    *
    * @return integer value indicating success/failure of the
    * operation. The possible return values are:
@@ -278,7 +276,7 @@ public:
   /**
    * Sets the value of the "qualitativeSpecies" attribute of this Input.
    *
-   * @param qualitativeSpecies; const std::string& value of the "qualitativeSpecies" attribute to be set
+   * @param qualitativeSpecies const std::string& value of the "qualitativeSpecies" attribute to be set
    *
    * @return integer value indicating success/failure of the
    * operation. The possible return values are:
@@ -291,7 +289,7 @@ public:
   /**
    * Sets the value of the "transitionEffect" attribute of this Input.
    *
-   * @param transitionEffect; const std::string& value of the "transitionEffect" attribute to be set
+   * @param transitionEffect const std::string& value of the "transitionEffect" attribute to be set
    *
    * @return integer value indicating success/failure of the
    * operation. The possible return values are:
@@ -304,7 +302,7 @@ public:
   /**
    * Sets the value of the "name" attribute of this Input.
    *
-   * @param name; const std::string& value of the "name" attribute to be set
+   * @param name const std::string& value of the "name" attribute to be set
    *
    * @return integer value indicating success/failure of the
    * operation. The possible return values are:
@@ -317,7 +315,7 @@ public:
   /**
    * Sets the value of the "sign" attribute of this Input.
    *
-   * @param sign; const std::string& value of the "sign" attribute to be set
+   * @param sign const std::string& value of the "sign" attribute to be set
    *
    * @return integer value indicating success/failure of the
    * operation. The possible return values are:
@@ -330,7 +328,7 @@ public:
   /**
    * Sets the value of the "thresholdLevel" attribute of this Input.
    *
-   * @param thresholdLevel; int value of the "thresholdLevel" attribute to be set
+   * @param thresholdLevel int value of the "thresholdLevel" attribute to be set
    *
    * @return integer value indicating success/failure of the
    * operation. The possible return values are:
@@ -548,9 +546,8 @@ protected:
 
 /**
  * @class ListOfInputs
- * @sbmlpackage qual
- * @brief @htmlinclude pkg-marker-qual.html
- * Implementation of the %ListOfInputs construct from the 'qual' package.
+ * @sbmlbrief{qual} Implementation of the %ListOfInputs construct from the
+ * 'qual' package.
  * 
  * The ListOfInputs is a container for the Inputs of a Transition.
  * 

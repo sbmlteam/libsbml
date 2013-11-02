@@ -26,8 +26,8 @@
  * ------------------------------------------------------------------------ -->
  * 
  * @class LocalParameter.
- * @sbmlpackage core
- * @brief Implementation of SBML Level&nbsp;3's %LocalParameter construct.
+ * @sbmlbrief{core} Implementation of SBML Level&nbsp;3's %LocalParameter
+ * construct.
  *
  * LocalParameter has been introduced in SBML Level&nbsp;3 to serve as the
  * object class for parameter definitions that are intended to be local to
@@ -93,8 +93,8 @@
  * 
  * <!-- ------------------------------------------------------------------- -->
  * @class ListOfLocalParameters
- * @sbmlpackage core
- * @brief Implementation of SBML Level&nbsp;3's %ListOfLocalParameters construct.
+ * @sbmlbrief{core} Implementation of SBML Level&nbsp;3's
+ * %ListOfLocalParameters construct.
  * 
  * @copydetails doc_what_is_listof
  */

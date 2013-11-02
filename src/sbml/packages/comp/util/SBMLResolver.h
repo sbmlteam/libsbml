@@ -26,9 +26,7 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class SBMLResolver
- * @sbmlpackage comp
- * @brief @htmlinclude pkg-marker-comp.html
- * Base class for SBML resolvers.
+ * @sbmlbrief{comp} Base class for SBML resolvers.
  *
  * @htmlinclude libsbml-facility-only-warning.html
  *

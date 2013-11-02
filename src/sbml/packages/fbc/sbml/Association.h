@@ -17,9 +17,8 @@
  *------------------------------------------------------------------------- -->
  *
  * @class Association
- * @sbmlpackage fbc
- * @brief @htmlinclude pkg-marker-fbc.html
- * Implementation of the 'fbc' proposed package %Association construct.
+ * @sbmlbrief{fbc} Implementation of the 'fbc' proposed package %Association
+ * construct.
  *
  * The Association class is not part of the official Flux Balance
  * specification, but is instead a proposed future development of the

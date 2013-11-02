@@ -22,9 +22,8 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class CubicBezier
- * @sbmlpackage layout
- * @brief @htmlinclude pkg-marker-layout.html
- * A %CubicBezier represents a smooth curve in the &ldquo;layout&rdquo; package.
+ * @sbmlbrief{layout} A %CubicBezier represents a smooth curve in the
+ * &ldquo;layout&rdquo; package.
  *
  * In order to be able to represent smooth curves the &ldquo;layout&rdquo;
  * package defines the class CubicBezier. It represents a Bezier curve, and

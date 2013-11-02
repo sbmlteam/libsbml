@@ -17,9 +17,8 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class Submodel
- * @sbmlpackage comp
- * @brief @htmlinclude pkg-marker-comp.html
- * Implementation of the %Submodel construct from the &ldquo;comp&rdquo; package.
+ * @sbmlbrief{comp} Implementation of the %Submodel construct from the
+ * &ldquo;comp&rdquo; package.
  *
  * The Submodel class was introduced by the SBML Level&nbsp;3 
  * @ref comp "Hierarchical Model Composition" package (&ldquo;comp&rdquo;)

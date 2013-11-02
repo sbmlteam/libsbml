@@ -17,10 +17,8 @@
  *------------------------------------------------------------------------- -->
  *
  * @class Replacing
- * @sbmlpackage comp
- * @brief @htmlinclude pkg-marker-comp.html
- * A convenience subclass of the %ReplacedElement and %ReplacedBy 
- * constructs from the &ldquo;comp&rdquo; package.
+ * @sbmlbrief{comp} A convenience subclass of the %ReplacedElement and
+ * %ReplacedBy constructs from the &ldquo;comp&rdquo; package.
  *
  * The Replacing class does not exist officialy in the the
  * @ref comp "Hierarchical Model Composition" package (&ldquo;comp&rdquo;),

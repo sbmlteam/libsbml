@@ -26,9 +26,8 @@
  * ------------------------------------------------------------------------ -->
  * 
  * @class ModelCreator
- * @sbmlpackage core
- * @brief Representation of MIRIAM-compliant model creator data used
- * in ModelHistory. 
+ * @sbmlbrief{core} Representation of MIRIAM-compliant model creator data
+ * used in ModelHistory.
  *
  * @htmlinclude not-sbml-warning.html
  *

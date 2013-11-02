@@ -22,9 +22,8 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class Point
- * @sbmlpackage layout
- * @brief @htmlinclude pkg-marker-layout.html
- * The representation of a point in the &ldquo;layout&rdquo; package.
+ * @sbmlbrief{layout} The representation of a point in the
+ * &ldquo;layout&rdquo; package.
  *
  * A point is specified via the required attributes 'x', 'y' and an optional
  * attribute 'z', all of which are of type double. If the attribute z is not
