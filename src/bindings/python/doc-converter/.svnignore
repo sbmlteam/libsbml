@@ -2,3 +2,5 @@
 # WARNING: It is meant to be used in conjunction with our script in 
 # WARNING: sbml/trunk/project/scripts/svn-update-from-svnignore.sh
 __pycache__
+prettytable-0.7.2
+*.pyc
