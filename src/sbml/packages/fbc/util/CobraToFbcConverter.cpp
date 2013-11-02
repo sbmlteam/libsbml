@@ -143,7 +143,11 @@ int
         {
           string formula = notes.substr(pos + 9, end-(pos+9));
           if (formula[0] != '<' &&  formula[0] != '/' )
+          {
+            size_t pos = formula.find_first_not_of(" \n\t\r");
+            if (pos != std::string::npos)
             formulaMap[current->getId()] = formula;
+          }
         }
       }
     }

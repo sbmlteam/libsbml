@@ -676,6 +676,15 @@ public:
   ListOfFluxBounds * getFluxBoundsForReaction(const std::string& reaction) const;
 
 protected:
+
+  /** @cond doxygenLibsbmlInternal */
+  /** 
+   * Parse L2 annotation if supported
+   *
+   */
+  virtual void parseAnnotation(SBase *parentObject, XMLNode *annotation);
+  /** @endcond */
+
   /** @cond doxygenLibsbmlInternal */
 
   /*-- data members --*/

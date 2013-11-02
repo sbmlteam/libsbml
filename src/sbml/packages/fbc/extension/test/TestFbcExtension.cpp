@@ -11,7 +11,10 @@
 
 #include <iostream>
 #include <check.h>
-#include <FbcExtension.h>
+#include <sbml/conversion/ConversionProperties.h>
+#include <sbml/packages/fbc/extension/FbcExtension.h>
+#include <sbml/packages/fbc/extension/FbcModelPlugin.h>
+#include <sbml/packages/fbc/sbml/Association.h>
 #include <sbml/extension/SBMLExtensionRegistry.h>
 #include <sbml/SBMLTypeCodes.h>
 #include <string>
@@ -250,6 +253,115 @@ START_TEST(test_FbcExtension_SBMLtypecode)
 }
 END_TEST
 
+START_TEST(test_FbcExtension_parseGeneAssociation)
+{	
+  const char* model1 =
+    "<?xml version='1.0' encoding='UTF-8'?>"
+    "<sbml xmlns:html='http://www.w3.org/1999/xhtml' xmlns='http://www.sbml.org/sbml/level3/version1/core' xmlns:fbc='http://www.sbml.org/sbml/level3/version1/fbc/version1' level='3' version='1' fbc:required='false'>"
+    "  <model id='M' name='E' timeUnits='dimensionless'>"
+    "    <annotation>"
+    "      <listOfGeneAssociations xmlns='http://www.sbml.org/sbml/level3/version1/fbc/version1'>"
+    "        <geneAssociation id='ga_1' reaction='R_2DGLCNRx'>"
+    "          <gene reference='B3553'/>"
+    "        </geneAssociation>"
+    "	 </listOfGeneAssociations>"
+    "	</annotation>"
+    "  </model>"
+    "</sbml>"
+    ;
+  const char* model2 = 
+    "<?xml version='1.0' encoding='UTF-8'?>"
+    "<sbml xmlns='http://www.sbml.org/sbml/level3/version1/core' xmlns:fbc='http://www.sbml.org/sbml/level3/version1/fbc/version1' metaid='_1f29713d_1639_4193_9935_d6c7ec5255c6' level='3' version='1' fbc:required='false'>"
+    " <model metaid='meta' id='id' name='name' timeUnits='dimensionless'>"
+    "   <notes>"
+    "      <p xmlns='http://www.w3.org/1999/xhtml'>"
+    "	   I prevent you from reading annotations ... "
+    "	 </p>"
+    "   </notes>"
+    "  <annotation>"
+    "   <listOfGeneAssociations xmlns='http://www.sbml.org/sbml/level3/version1/fbc/version1'>"
+    "    <geneAssociation id='ga_1' reaction='MNXR2184_i'>"
+    "      <or>"
+    "        <gene reference='MCON_1478_I'/>"
+    "        <gene reference='MCON_2528_I'/>"
+    "        <gene reference='MCON_3321_I'/>"
+    "        <gene reference='METACYC_GHHN_1245_MONOMER_I'/>"
+    "        <gene reference='METACYC_GHHN_2657_MONOMER_I'/>"
+    "        <gene reference='METACYC_GHHN_2722_MONOMER_I'/>"
+    "      </or>"
+    "    </geneAssociation>"
+    "   </listOfGeneAssociations>"
+    "  </annotation>"
+    " </model>"
+    "</sbml>"
+    ;
+
+  const char* model3 =
+    "<?xml version='1.0' encoding='UTF-8'?>"
+    "<sbml xmlns:html='http://www.w3.org/1999/xhtml' xmlns='http://www.sbml.org/sbml/level3/version1/core' xmlns:fbc='http://www.sbml.org/sbml/level3/version1/fbc/version1' level='3' version='1' fbc:required='false'>"
+    "  <model id='M' name='E' timeUnits='dimensionless'>"
+    "    <annotation>"
+    "      <listOfGeneAssociations xmlns='http://www.sbml.org/sbml/level3/version1/fbc/version1'>"
+    "        <geneAssociation id='ga_1' reaction='R_2DGLCNRx'>"
+    "          <gene reference='B3553.FR1.F121312'/>"
+    "        </geneAssociation>"
+    "	 </listOfGeneAssociations>"
+    "	</annotation>"
+    "  </model>"
+    "</sbml>"
+    ;
+
+  const char* model4 =
+    "<?xml version='1.0' encoding='UTF-8'?>"
+    "<sbml xmlns:html='http://www.w3.org/1999/xhtml' xmlns='http://www.sbml.org/sbml/level3/version1/core' xmlns:fbc='http://www.sbml.org/sbml/level3/version1/fbc/version1' level='3' version='1' fbc:required='false'>"
+    "  <model id='M' name='E' timeUnits='dimensionless'>"
+    "    <annotation>"
+    "      <listOfGeneAssociations xmlns='http://www.sbml.org/sbml/level3/version1/fbc/version1'>"
+    "        <geneAssociation id='ga_1' reaction='R_2DGLCNRx'>"
+    "          <gene reference='3.14'/>"
+    "        </geneAssociation>"
+    "	 </listOfGeneAssociations>"
+    "	</annotation>"
+    "  </model>"
+    "</sbml>"
+    ;
+
+
+  SBMLDocument* doc = readSBMLFromString(model1);
+  fail_unless(doc->getModel() != NULL);
+  FbcModelPlugin* fbc = dynamic_cast<FbcModelPlugin*>(doc->getModel()->getPlugin("fbc"));
+  fail_unless(fbc != NULL);
+  fail_unless(fbc->getNumGeneAssociations() == 1);
+  SBMLDocument_free(doc);
+  doc = readSBMLFromString(model2);
+  fail_unless(doc->getModel() != NULL);
+  fbc = dynamic_cast<FbcModelPlugin*>(doc->getModel()->getPlugin("fbc"));
+  fail_unless(fbc != NULL);
+  fail_unless(fbc->getNumGeneAssociations() == 1);
+  SBMLDocument_free(doc);
+  doc = readSBMLFromString(model3);
+  fail_unless(doc->getModel() != NULL);
+  fbc = dynamic_cast<FbcModelPlugin*>(doc->getModel()->getPlugin("fbc"));
+  fail_unless(fbc != NULL);
+  fail_unless(fbc->getNumGeneAssociations() == 1);
+  SBMLDocument_free(doc);  
+  doc = readSBMLFromString(model4);
+  fail_unless(doc->getModel() != NULL);
+  fbc = dynamic_cast<FbcModelPlugin*>(doc->getModel()->getPlugin("fbc"));
+  fail_unless(fbc != NULL);
+  fail_unless(fbc->getNumGeneAssociations() == 1);
+  SBMLDocument_free(doc);
+
+  Association* test = Association::parseInfixAssociation("F1.F2.F3 OR F2.f3.f4");
+  fail_unless(test != NULL);
+  fail_unless(test->toInfix() == "(F1.F2.F3 or F2.f3.f4)");
+  test = Association::parseInfixAssociation("3.1 or 3.2");
+  fail_unless(test != NULL);
+  fail_unless(test->toInfix() == "(3.1 or 3.2)");
+
+}
+END_TEST
+
 Suite *
 create_suite_FbcExtension (void)
 {
@@ -262,6 +374,7 @@ create_suite_FbcExtension (void)
   tcase_add_test( tcase, test_FbcExtension_getURI          );
   tcase_add_test( tcase, test_FbcExtension_getLevelVersion );
   tcase_add_test( tcase, test_FbcExtension_getSBMLExtensionNamespaces);
+  tcase_add_test( tcase, test_FbcExtension_parseGeneAssociation);  
   tcase_add_test( tcase, test_FbcExtension_copy            );
   tcase_add_test( tcase, test_FbcExtension_assignment      );
   tcase_add_test( tcase, test_FbcExtension_clone           );

@@ -265,7 +265,19 @@ Association* toAssociation(const ASTNode* node)
   {
     Association* a = new Association();
     a->setType(GENE_ASSOCIATION);
-    a->setReference(node->getName());
+    std::string name = node->getName();
+    replaceAllSubStrings(name, "__DOT__", ".");
+    replaceAllSubStrings(name, "__ONE__"  ,"1" );
+    replaceAllSubStrings(name, "__TWO__"  ,"2" );
+    replaceAllSubStrings(name, "__THREE__","3"  );
+    replaceAllSubStrings(name, "__FOUR__" ,"4" );
+    replaceAllSubStrings(name, "__FIVE__" ,"5" );
+    replaceAllSubStrings(name, "__SIX__"  ,"6"  );
+    replaceAllSubStrings(name, "__SEVEN__","7" );
+    replaceAllSubStrings(name, "__EIGHT__","8" );
+    replaceAllSubStrings(name, "__NINE__" ,"9" );
+    replaceAllSubStrings(name, "__ZERO__" ,"0" );
+    a->setReference(name);
     return a;
   }
   else if (node->getType() == AST_PLUS)
@@ -293,6 +305,17 @@ Association::parseInfixAssociation(const std::string& association)
   replaceAllSubStrings(tweaked, " AND ", " * ");
   replaceAllSubStrings(tweaked, " or ", " + ");
   replaceAllSubStrings(tweaked, " OR ", " + ");
+  replaceAllSubStrings(tweaked, ".", "__DOT__");
+  replaceAllSubStrings(tweaked, "1", "__ONE__");
+  replaceAllSubStrings(tweaked, "2", "__TWO__");
+  replaceAllSubStrings(tweaked, "3", "__THREE__");
+  replaceAllSubStrings(tweaked, "4", "__FOUR__");
+  replaceAllSubStrings(tweaked, "5", "__FIVE__");
+  replaceAllSubStrings(tweaked, "6", "__SIX__");
+  replaceAllSubStrings(tweaked, "7", "__SEVEN__");
+  replaceAllSubStrings(tweaked, "8", "__EIGHT__");
+  replaceAllSubStrings(tweaked, "9", "__NINE__");
+  replaceAllSubStrings(tweaked, "0", "__ZERO__");
   
   ASTNode* node = SBML_parseFormula(tweaked.c_str());
 

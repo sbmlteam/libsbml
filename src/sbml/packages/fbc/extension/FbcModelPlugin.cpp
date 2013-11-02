@@ -320,10 +320,40 @@ FbcModelPlugin::writeAttributes (XMLOutputStream& stream) const
 }
 /** @endcond */
 
+
+void 
+FbcModelPlugin::parseAnnotation(SBase *parentObject, XMLNode *pAnnotation)
+{
+  mAssociations.setSBMLDocument(mSBML); 
+  // don't read if we have an invalid node or already a gene associations object
+  if (pAnnotation == NULL || mAssociations.size() > 0)
+    return;
+
+  // annotation element has been parsed by the parent element
+  // (Model) of this plugin object, thus the annotation element 
+  // set to the above pAnnotation variable is parsed in this block.
+  
+  XMLNode& listOfGeneAssociations = pAnnotation->getChild("listOfGeneAssociations");
+  if (listOfGeneAssociations.getNumChildren() == 0)
+    return;
+ 
+  // read the xml node, overriding that all errors are flagged as 
+  // warnings
+  mAssociations.read(listOfGeneAssociations, LIBSBML_OVERRIDE_WARNING);
+  // remove listOfLayouts annotation  
+  parentObject->removeTopLevelAnnotationElement("listOfGeneAssociations", "", false);
+ 
+
+
+}
+
 /** @cond doxygenLibsbmlInternal */
 bool
 FbcModelPlugin::readOtherXML (SBase* parentObject, XMLInputStream& stream)
 {
+#ifndef ANNOATION
+  return false;
+#else
   bool readAnnotationFromStream = false;
   const string& name = stream.peek().getName();
   
@@ -417,6 +447,7 @@ FbcModelPlugin::readOtherXML (SBase* parentObject, XMLInputStream& stream)
   }
   
   return readAnnotationFromStream;
+#endif
 }
 /** @endcond */
 
