@@ -109,6 +109,7 @@ try:
     from htmllib import HTMLParser
 except Exception:
     from html.parser import HTMLParser
+from prettytable import PrettyTable
 
 
 # -----------------------------------------------------------------------------
@@ -250,7 +251,7 @@ def rewrite(contents, include_dir, graphics_dir, quietly=False):
 
 
 def rewrite_each(match, include_dir, graphics_dir, quietly):
-    """Called by 'rewrite' to translate a single instannce of a docstring.
+    """Called by 'rewrite' to translate a single instance of a docstring.
     'match' is the regular expression match."""
 
     feature_line = match.group(1)
@@ -258,7 +259,7 @@ def rewrite_each(match, include_dir, graphics_dir, quietly):
     tail         = match.group(3)
 
     if re.search('@internal', body):   # Skip everything if it's internal.
-        body = " Internal implementation method.\n"
+        body = "Internal implementation method.\n"
     else:        
         body = rewrite_one_body(body, include_dir, graphics_dir, quietly)
     return feature_line + body + tail
@@ -285,71 +286,82 @@ def rewrite_one_body(body, include_dir, graphics_dir, quietly):
     p = re.compile(r'@if\s+(\S+)\s+(.+?)((@else)\s+(.+?))?@endif', re.DOTALL)
     body = p.sub(rewrite_if_else, body)
 
-    # Insert inclusions.
+    # Insert inclusions early, because we may need to process the contents.
 
     p = re.compile(r'@htmlinclude\s+([^\s:;,(){}+|?"\'/]+)([\s:;,(){}+|?"\'/])')
     body = p.sub(lambda match: rewrite_htmlinclude(match, include_dir, quietly), body)
 
-    # Do basic HTML entities.  These can show up in verbatim blocks, so we
-    # do them before processing verbatim blocks.
-
-    body = re.sub(r'&lt;',       '<',        body)
-    body = re.sub(r'&gt;',       '>',        body)
-    body = re.sub(r'&#34;',      '\\"',      body)
-    body = re.sub(r'&#64;',      '@',        body)
-    body = re.sub(r'&quot;',     '\\\\"',    body)
-
     # Remove & store verbatim blocks.  These present a special challenge
-    # because we don't want to fill the paragraphs in these regions.  The
-    # approach here is to store the blocks and put them back in a final
-    # step at the end.  Note that verbatim, code and <pre> are all formatted
-    # in the same way, because in plain-text it's difficult to make the
-    # distinctions clear (and anyway, we don't use them much differently
-    # in the libSBML code).
+    # because we don't want to fill the paragraphs in these regions or do
+    # other processing.  The approach here is to store the blocks and put
+    # them back in a final step at the end.  Note that verbatim, code and
+    # <pre> are all formatted in the same way, because in plain-text it's
+    # difficult to make the distinctions clear (and anyway, we don't use them
+    # much differently in the libSBML code).
 
-    verbatim_blocks = []
+    placeholders = []
     p = re.compile('@verbatim(.+?)@endverbatim\n', re.DOTALL)
-    body = p.sub(lambda match: record_placeholder(match, verbatim_blocks), body)
+    body = p.sub(lambda match: store_text(match, 1, placeholders, "\n"), body)
     p = re.compile('@code(.+?)@endcode\n', re.DOTALL)
-    body = p.sub(lambda match: record_placeholder(match, verbatim_blocks), body)
+    body = p.sub(lambda match: store_text(match, 1, placeholders, "\n"), body)
 
-    # Treat the signature descriptions (which also use <pre>) differently:
-    p = re.compile(r"<pre class='signature'>(.+?)</pre>", re.DOTALL|re.IGNORECASE)
-    body = p.sub(r"\n    \1\n", body)
-    p = re.compile(r"<pre.*?>(.+?)</pre>", re.DOTALL|re.IGNORECASE)
-    body = p.sub(lambda match: record_placeholder(match, verbatim_blocks), body)
+    # Remove things that have been commented out with HTML comments.
 
-    # Do other HTML constructs.
-
-    p = re.compile(r'<!--(.+?) -->', re.DOTALL) # HTML comments get removed.
+    p = re.compile(r'<!--(.+?) -->', re.DOTALL)
     body = p.sub(r'', body)
 
-    body = re.sub(r'&nbsp;',          ' ',                           body)
-    body = re.sub(r'&ndash;',         '-',                           body)
-    body = re.sub(r'&mdash;',         ' -- ',                        body)
-    body = re.sub(r'</?([bpi]|em)>',  '',                            body)
-    body = re.sub(r'<br>',            '\n',                          body)
-    body = re.sub(r'<ul>',            '\n',                          body)
-    body = re.sub(r'</ul>',           '',                            body)
-    body = re.sub(r'<li.*?>',         '\n' + ' '*list_indent + '* ', body)
+    # Translate basic HTML constructs.
 
-    # The following needs to be done repeatedly because the elements may be nested
-    # in arbitrary order.
+    body = re.sub(r'&lt;',       '<',                                    body)
+    body = re.sub(r'&le;',       '<=',                                   body)
+    body = re.sub(r'&gt;',       '>',                                    body)
+    body = re.sub(r'&ge;',       '>=',                                   body)
+    body = re.sub(r'&ne;',       '!=',                                   body)
+    body = re.sub(r'&pi;',       'Pi',                                   body)
+    body = re.sub(r'&#34;',      '\\"',                                  body)
+    body = re.sub(r'&#64;',      '@',                                    body)
+    body = re.sub(r'&quot;',     '\\\\"',                                body)
+    body = re.sub(r'&[lr]quo;',  '\\\\"',                                body)
+    body = re.sub(r'&nbsp;',     ' ',                                    body)
+    body = re.sub(r'&ndash;',    '-',                                    body)
+    body = re.sub(r'&mdash;',    ' -- ',                                 body)
+    body = re.sub(r'<br>\s*',    '\n',                                   body)
+    body = re.sub(r'<ul(\s+.*?)?>\s*', '\n',                          body)
+    body = re.sub(r'</ul>\s*',            '',                            body)
+    body = re.sub(r'<li(\s+.*?)?>\s*', '\n' + ' '*list_indent + '* ', body)
+    body = re.sub(r'</li>\s*',            '',                            body)
 
-    for i in range(0,4):
-        p = re.compile(r'<(?P<tag>code|span|div|a).*?>(.+?)</(?P=tag)>', re.DOTALL|re.IGNORECASE)
-        body = p.sub(r'\2', body)
+    # Matched pairs of tags.
 
-    # We probably should do <sub> and <sup> repeatedly too, but in our docs
-    # we've never nested them.
+    for tag in ['strong', 'em', 'i', 'b', 'code', 'span', 'div', 'a']:
+        p = re.compile(r'<(?P<tag>' + tag + r')(\s+.*?)?>(.*?)</(?P=tag)>',
+                       re.DOTALL|re.IGNORECASE)
+        body = p.sub(r'\3', body)
+
+    # We probably should do <sub> and <sup> repeatedly, in case there's
+    # nesting involved, but in our docs we've never nested them.
 
     p = re.compile(r'<sub>(.+?)</sub>', re.DOTALL|re.IGNORECASE)
     body = p.sub(r'_\1', body)
-
     p = re.compile(r'<sup>\s*(.+?)\s*</sup>', re.DOTALL|re.IGNORECASE)
     body = p.sub(r'^\1', body)
 
-    # Next, rewrite most Doxygen tags.
+    # We don't want our <pre> blocks to be wrapped, but we do want basic HTML
+    # processing done, so we wait until now to store them.  We also treat our
+    # <pre> elements for signature descriptions specially first.
+
+    p = re.compile(r"<pre class='signature'>(.+?)</pre>", re.DOTALL|re.IGNORECASE)
+    body = p.sub(r"\n    \1\n", body)
+    p = re.compile(r'<pre(\s+.*?)?>(.+?)</pre>', re.DOTALL|re.IGNORECASE)
+    body = p.sub(lambda match: store_text(match, 2, placeholders, "\n"), body)
+
+    # Doing <p> after <pre> is easier than coming up with a hairy regexp to
+    # avoid the wrong match.
+
+    body = re.sub(r'<p.*?>\s*',  '\n',                          body)
+    body = re.sub(r'</p>',       '',                            body)
+
+    # Now finish rewriting Doxygen tags.
 
     body = rewrite_see(body)
 
@@ -357,12 +369,12 @@ def rewrite_one_body(body, include_dir, graphics_dir, quietly):
     # or the extra spaces at the beginning of blank lines can introduce
     # extra leading spaces in the first lines of the paragraphs.
 
-    body = re.sub(r'\n *\n *\n *', '\n\n ', body)
+    body = re.sub(r'\n *\n *\n *', '\n\n', body)
 
-    body = re.sub(r'%',          '',                            body)
-    body = re.sub(r'@li\s+',     '\n' + ' '*list_indent + '* ', body)
-    body = re.sub(r'@em\s+',     '',                            body)
-    body = re.sub(r'@return\s+', 'Returns ',                    body)
+    body = re.sub(r'%',            '',                            body)
+    body = re.sub(r'@li\s+',       '\n' + ' '*list_indent + '* ', body)
+    body = re.sub(r'@em\s+',       '',                            body)
+    body = re.sub(r'@returns?\s+', 'Returns ',                    body)
 
     p = re.compile(r'@c\s+(\S+(\(\))?)', re.IGNORECASE)
     body = p.sub(r'\1', body)
@@ -383,13 +395,16 @@ def rewrite_one_body(body, include_dir, graphics_dir, quietly):
     body = p.sub(r'\1', body)
 
     p = re.compile(r'@note(\s*)', re.IGNORECASE)
-    body = p.sub(r'Note:\n\n\1', body)    
+    body = p.sub(r'Note:\n\n', body)    
 
     p = re.compile(r'@docnote(\s*)', re.IGNORECASE)
-    body = p.sub(r'Documentation note:\n\n\1', body)    
+    body = p.sub(r'Documentation note:\n\n', body)    
 
     p = re.compile(r'@warning(\s*)', re.IGNORECASE)
-    body = p.sub(r'WARNING:\n\n\1', body)    
+    body = p.sub(r'WARNING:\n\n', body)    
+
+    p = re.compile(r'@sbmlpackage{(\w+)}', re.IGNORECASE)
+    body = p.sub(r'', body)
 
     # Handle @image as best as we can.  We ignore @image latex, and for
     # @image html, we will try to substitute a .txt file later on.
@@ -399,6 +414,17 @@ def rewrite_one_body(body, include_dir, graphics_dir, quietly):
     # Miscellaneous other adjustments.
 
     body = re.sub(r"\\'", "'", body)      # Don't need quoted single quotes.
+    body = re.sub(r'@~', '', body)        # We use this as a Doxygen hack.
+
+    # Convert HTML tables to text.  This is another case of where we don't
+    # want to wrap the results.  To handle this, the table translator outputs
+    # special characters before and after the results, and we match these to
+    # store the results using the same place holders we use for verbatim.
+
+    p = re.compile(r'<table[^>]*?>(.*?)</table>', re.DOTALL|re.IGNORECASE)
+    body = p.sub(lambda match: rewrite_htmltable_guarded(match), body)
+    p = re.compile(r"%%%%{(.+?)}%%%%", re.DOTALL|re.IGNORECASE)
+    body = p.sub(lambda match: store_text(match, 1, placeholders), body)
 
     # Wrap paragraphs, so that the text is more readable.
 
@@ -412,33 +438,30 @@ def rewrite_one_body(body, include_dir, graphics_dir, quietly):
     body = p.sub(lambda match: rewrite_image(match, graphics_dir, quietly), body)
 
     # Handle @section and other headings, adding underlining to them.  Also
-    # handle <hr> tags.  This all needs to be done last, after filling
+    # handle <hr> tags.  This all needs to be done last, after wrapping
     # paragraphs.
 
     p = re.compile(r'^ *<hr> ?', re.MULTILINE)
-    body = p.sub(' ' + '_'*line_width + '\n', body)
+    body = p.sub('_'*line_width + '\n', body)
     p = re.compile(r'@(sub)?section\s+\S+\s+(.+?)(\n *\n)', re.DOTALL|re.IGNORECASE)
     body = p.sub(lambda match: rewrite_section_heading(match, line_width), body)
     p = re.compile(r'(<h3>)\s*(.+?)</h3>(\n *\n)', re.DOTALL|re.IGNORECASE)
     body = p.sub(lambda match: rewrite_section_heading(match, line_width), body)
 
-    # Delete some left-over things.
+    # Now replace verbatim block placeholders.
 
-    body = re.sub(r'@~', '', body)
+    p = re.compile(r'{{{{(\d+)}}}}')
+    body = p.sub(lambda match: replace_stored_text(match, placeholders), body)
 
     # Remove excess inter-paragraph spacing one more time, to normalize
     # spacing above and below verbatim's.
 
-    body = re.sub(r'\n *\n *\n', '\n\n', body)
-
-    # Finally, replace verbatim block placeholders and format them.
-
-    p = re.compile(r'{{{{(\d+)}}}}')
-    body = p.sub(lambda match: rewrite_verbatim(match, verbatim_blocks, line_width), body)
+    body = re.sub(r'\n *\n *\n *\n', '\n\n', body)
+    body = re.sub(r'\n *\n *\n',     '\n\n', body)
 
     # And we're done.
 
-    return ' ' + body.strip() + '\n'
+    return body.strip() + '\n'
 
 
 def rewrite_if_else(match):
@@ -451,18 +474,18 @@ def rewrite_if_else(match):
         return ''
 
 
-def record_placeholder(match, placeholder_list):
-    text = match.group(1)    
-    placeholder_list.append(text)
+def store_text(match, group_number, placeholder_list, padding=""):
+    text = match.group(group_number)
+    placeholder_list.append(padding + text + padding)
     index = len(placeholder_list) - 1
-    return '\n{{{{' + str(index) + '}}}}\n'
+    return '\n\n{{{{' + str(index) + '}}}}\n\n'
 
 
-def rewrite_verbatim(match, placeholder_list, line_width):
+def replace_stored_text(match, placeholder_list):
     index = int(match.group(1))
     text = placeholder_list[index]
-    text = re.sub(r'\n', '\n    ', text).strip()
-    body = '\n' + '    ' + text + '\n'
+    text = re.sub(r'\n', '\n  ', text)
+    body = '  ' + text.rstrip() + '\n'
     return body
 
 
@@ -491,7 +514,7 @@ def rewrite_section_heading(match, line_width):
     else:
         underline_char = '='
     heading_text = wrap_paragraph(heading_text, line_width).strip()
-    return heading_text + "\n " + underline_char*70 + tail_whitespace
+    return heading_text + "\n" + underline_char*70 + tail_whitespace
 
 
 # When expanding @htmlinclude directives, it first checks to see if a
@@ -502,7 +525,7 @@ def rewrite_section_heading(match, line_width):
 # because the Python HTML parser doesn't handle tables.)
 
 def rewrite_htmlinclude(match, include_dir, quietly):
-    file_path = os.path.join(include_dir, match.group(1))    
+    file_path = os.path.join(include_dir, match.group(1))
     trailing_char = match.group(2)
 
     if not valid_file(file_path):
@@ -550,8 +573,57 @@ def rewrite_image(match, graphics_dir, quietly):
     return rewrite_included_contents(contents) + trailing_space
 
 
+def rewrite_htmltable_guarded(match):
+    headings    = []
+    body        = []
+    num_columns = 0
+
+    row_pattern = re.compile(r'<tr[^>]*?>(.*?)</tr>', re.DOTALL|re.IGNORECASE)
+    th_pattern  = re.compile(r'<th[^>]*?>(.*?)</th>', re.DOTALL|re.IGNORECASE)
+    td_pattern  = re.compile(r'<td[^>]*?>(.*?)</td>', re.DOTALL|re.IGNORECASE)
+    for row in re.finditer(row_pattern, match.group(1)):
+        heads = [c.group(1).replace('\n', ' ').strip() for c in re.finditer(th_pattern, row.group(1))]
+        if not empty_list(heads):
+            headings.append(heads)
+        data = [c.group(1).replace('\n', ' ').strip() for c in re.finditer(td_pattern, row.group(1))]
+        if not empty_list(data):
+            body.append(data)
+        num_columns = max(num_columns, len(heads), len(data))
+
+    # Pad rows that don't have the same number of columns, or else PrettyTable
+    # chokes on the input.
+
+    for row in headings:
+        for x in range(0, num_columns - len(row)):
+            row.append("")
+
+    for row in body:
+        for x in range(0, num_columns - len(row)):
+            row.append("")
+
+    # Now generate the table structure and return it.
+
+    if not empty_list(headings):
+        table = PrettyTable(headings[0])
+    else:
+        table = PrettyTable()
+        table.header = False
+
+    for row in body:
+        table.add_row(row)
+
+    # For the table borders, we only insert borders if the table has a heading.
+    # This more often matches the way we use tables in libSBML.
+
+    table.border = not empty_list(headings)
+    table.align = "l"
+    table.right_padding_width = 2
+    table.left_padding_width = 0
+
+    return "%%%%{" + "\n" + table.get_string() + "\n" + "}%%%%"
+
+
 def rewrite_included_contents(contents):
-    contents = re.sub('\n', '\n ', contents) # Indent every line.
     contents = re.sub(r'"', '\\"', contents) # Quote all double quotes.
     return contents
 
@@ -562,7 +634,7 @@ def rewrite_fill_paragraph(match, line_width):
 
 
 def wrap_paragraph(text, line_width):
-    return textwrap.fill(text, subsequent_indent = ' ', width = line_width) + '\n\n'
+    return textwrap.fill(text, width = line_width) + '\n\n'
 
 
 def expanded_path(path):
@@ -600,6 +672,13 @@ def valid_directory(dir, quiet=False):
     else:
         return True
     
+
+# The following is based on http://stackoverflow.com/a/1605679/743730
+# specifically the one-line version by user "Stephan202".
+
+def empty_list(data):
+    return all(map(empty_list, data)) if isinstance(data, list) else False
+
 
 # The following came from a StackOverflow posting by "Soldier.moth" in 2011:
 # http://stackoverflow.com/questions/930303/python-string-cleanup-manipulation-accented-characters
