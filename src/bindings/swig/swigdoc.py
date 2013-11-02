@@ -188,6 +188,12 @@ class CHeader:
         if stripped.startswith('* @brief'):
           docstring += ' * ' + stripped[9:].strip() + '\n'
           continue
+        elif stripped.startswith('* @sbmlbrief{'):
+          end = stripped.find('}')
+          if end != -1:
+            pkgmarker = '@htmlinclude pkg-marker-' + stripped[13:end] + '.html '
+            docstring += ' * ' + pkgmarker + stripped[end + 1:].strip() + '\n'
+          continue
         elif not stripped.endswith('*/') and not stripped.startswith('* @class'):
           docstring += line
           continue
@@ -894,10 +900,10 @@ def sanitizeForHTML (docstring):
 
   docstring = re.sub(r'(\s)%(\w)', r'\1\2', docstring)
 
-  # Currently, we don't handle @ingroup or our pseudo-tag, @sbmlpackage
+  # Currently, we don't handle @ingroup or our pseudo-tag, @sbmlpackage.
 
   docstring = re.sub(r'@ingroup \w+', '', docstring)
-  docstring = re.sub(r'@sbmlpackage \w+', '', docstring)
+  docstring = re.sub(r'@sbmlpackage{\w+}', '', docstring)
 
   return docstring
 
@@ -1179,7 +1185,7 @@ def rewriteDocstringForPerl (docstring):
   docstring = docstring.replace('<li> ', r'\n=item\n\n')
   docstring = docstring.replace('</ul>', r'\n=back\n')
 
-  docstring = docstring.replace('@return', 'Returns')
+  docstring = docstring.replace(r'@returns?', 'Returns')
   docstring = docstring.replace(' < ', ' E<lt> ').replace(' > ', ' E<gt> ')
   docstring = re.sub('<code>([^<]*)</code>', r'C<\1>', docstring)
   docstring = re.sub('<b>([^<]*)</b>', r'B<\1>', docstring)  
@@ -1224,7 +1230,7 @@ def processClassMethods(ostream, cclass):
           # The dictionary entries are keyed by method arguments (as strings).
           # The dictionary values are the 'func' objects we use.
           if re.search('@internal', argVariant.docstring) == None:
-            newdoc += "\n <hr>\n Method variant with the following"\
+            newdoc += "\n<hr>\nMethod variant with the following"\
                       + " signature:\n <pre class='signature'>" \
                       + argVariant.name \
                       + rewriteDocstringForPython(argVariant.args) \
@@ -1390,6 +1396,7 @@ def postProcessOutputForPython(contents):
   contents = re.sub(r'\\f\$\\geq\\f\$', '>=', contents)
   contents = re.sub(r'\\f\$\\leq\\f\$', '<=', contents)
   contents = re.sub(r'\\f\$\\times\\f\$', '*', contents)
+  contents = re.sub(r'&quot;', '\\\"', contents)
 
   # Doxygen understand <nobr>
 
@@ -1409,16 +1416,15 @@ def postProcessOutput(istream, ostream):
   p = re.compile('@copydetails\s+(\w+)')
   contents = p.sub(translateCopydetails, contents)
     
-  # Javadoc doesn't have an @htmlinclude command, so we process the file
-  # inclusion directly here.
-
-  p = re.compile('@htmlinclude\s+(\*\s+)*([-\w."\']+)', re.DOTALL)
-  contents = p.sub(translateInclude, contents)
-
   # Do additional post-processing on a language-specific basis.
 
   if language == 'python':  
     contents = postProcessOutputForPython(contents)
+  elif language == 'java':
+    # Javadoc doesn't have an @htmlinclude command, so we process the file
+    # inclusion directly here.
+    p = re.compile('@htmlinclude\s+(\*\s+)*([-\w."\']+)', re.DOTALL)
+    contents = p.sub(translateInclude, contents)
 
   ostream.write(contents)
 
@@ -1432,7 +1438,7 @@ def classes_in_header_file(filename):
         if start < 0:
             continue
         name = re.sub(r'\.', '', line[start + 6:]).strip()
-        if not (name.startswith("doc_") or name.startswith("is ")):
+        if name and (not (name.startswith("doc_") or name.startswith("is "))):
           classes.append(name)
 
     stream.close()
@@ -1449,7 +1455,8 @@ def classes_in_swig_file(filename):
             continue
         end = line.find(')')
         name = line[start + 10:end].strip()
-        classes.append(name)
+        if name:
+          classes.append(name)
 
     stream.close()
     return classes
