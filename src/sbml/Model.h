@@ -207,7 +207,7 @@ sp.setId("MySpecies");
  * class="placeholder"><em>Object</em></span>s&gt;</code> elements in the
  * finished XML rendition of SBML.)  In the example above,
  * Model::createSpecies() adds the created species directly to the
- * <code>&lt;listOfSpecies<i></i>&gt;</code> list in the model.  Subsequently,
+ * <code>&lt;listOfSpecies&gt;</code> list in the model.  Subsequently,
  * methods called on the species change the species in the model (which is
  * what is expected in most situations).
  *
