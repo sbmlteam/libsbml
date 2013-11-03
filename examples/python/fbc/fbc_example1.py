@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # 
-#  @file    example1.py
+#  @file    fbc_example1.py
 #  @brief   SBML FBC example
 #  @author  Frank Bergmann 
 #  
