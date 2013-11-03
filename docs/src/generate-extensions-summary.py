@@ -105,8 +105,8 @@ def main(args):
     # the class name, the package name, and a class description, in
     # that order.  The re.findall(...) will create a list of tuples.
     regexp = r'class in org.sbml.libsbml">\s*(\w+)\s*</A></B></TD>' \
-             + '\s*<TD><span class=\'pkg-marker pkg-color-\w+\'>' \
-             + '<a href=\'group__\w+.html\'>(\w+)</a></span>\s*(.+?)\s*</TD>'
+             + r'\s*<TD><span class=[\'"]pkg-marker pkg-color-\w+[\'"]>' \
+             + r'<a href=[\'"]group__\w+.html[\'"]>(\w+)</a></span>\s*(.+?)\s*</TD>'
     tuples = re.findall(regexp, lines, re.DOTALL)
     found_pkgs = sorted(list(set([entry[1] for entry in tuples])))
 
