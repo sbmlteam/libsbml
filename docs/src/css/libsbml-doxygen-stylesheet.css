@@ -1270,7 +1270,7 @@ pre.signature {
 }
 
 div.contents hr { 
-  margin: 2em 0 2em 0px;
+  margin: 1em 0 1em 0px;
 }
 
 table.params td {
@@ -1345,4 +1345,13 @@ img.big-icon {
     vertical-align: -40%;
     margin: auto 5px;
     border: none;
+}
+
+/* The next one only appears in our Python documentation. The text that
+uses it is introduced by swigdoc.py. */
+
+.variant-sig-heading {
+    font-style: italic;
+    padding-bottom: 2px;
+    border-bottom: 1px dotted #888;
 }
