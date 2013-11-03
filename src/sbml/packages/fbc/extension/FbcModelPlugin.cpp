@@ -321,6 +321,7 @@ FbcModelPlugin::writeAttributes (XMLOutputStream& stream) const
 /** @endcond */
 
 
+/** @cond doxygenLibsbmlInternal */
 void 
 FbcModelPlugin::parseAnnotation(SBase *parentObject, XMLNode *pAnnotation)
 {
@@ -342,10 +343,9 @@ FbcModelPlugin::parseAnnotation(SBase *parentObject, XMLNode *pAnnotation)
   mAssociations.read(listOfGeneAssociations, LIBSBML_OVERRIDE_WARNING);
   // remove listOfLayouts annotation  
   parentObject->removeTopLevelAnnotationElement("listOfGeneAssociations", "", false);
- 
-
-
 }
+/** @endcond */
+
 
 /** @cond doxygenLibsbmlInternal */
 bool
