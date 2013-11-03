@@ -179,7 +179,7 @@ XMLOutputStream::XMLOutputStream (const XMLOutputStream& other)
   , mDoIndent(other.mDoIndent)
   , mIndent(other.mIndent)
   , mInText(other.mInText)
-  , mSkipNextIndent(mSkipNextIndent)
+  , mSkipNextIndent(other.mSkipNextIndent)
   , mNextAmpersandIsRef(other.mNextAmpersandIsRef)
   , mStringStream(other.mStringStream)
 {
