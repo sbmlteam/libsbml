@@ -73,33 +73,52 @@ PREDEFINED             = __cplusplus  \
 
 ENABLED_SECTIONS       = python notclike notcpp doxygenPythonOnly
 
-# Because of how we construct the Python documentation, we don't want
-# the first sentence to be assumed to be the brief description.
+# Because of how we construct the Python documentation, the first sentence in
+# method descriptions will unfortunately always be "Python method signature",
+# which is not helpful in the list of members of a class.  However, if we set
+# this to "NO", then Doxygen changes the output of group pages such that the
+# pages start with a list of all class names (no descriptions, just names)
+# and then the intro text.  If we set this to YES, then at least the group
+# pages start with the intro and then a list of classes *with* their brief
+# descriptions, which seems useful.
 
-BRIEF_MEMBER_DESC      = NO
+BRIEF_MEMBER_DESC      = YES
 
 # Override the settings in doxygen-config-common.txt to refer to just
 # the files relevant for the Python bindings.
 
 INPUT = \
-  libsbml-accessing.txt            \
-  libsbml-blurb.txt                \
-  libsbml-changes.txt              \
-  libsbml-communications.txt       \
-  libsbml-features.txt             \
-  libsbml-installation.txt         \
-  libsbml-issues.txt               \
-  libsbml-license.txt              \
-  libsbml-news.txt                 \
-  libsbml-old-news.txt             \
-  libsbml-programming-python.txt   \
-  libsbml-python-mainpage.txt      \
-  libsbml-python-math.txt          \
-  libsbml-python-reading-files.txt \
-  libsbml-release-info.txt         \
+  libsbml-accessing.txt                 \
+  libsbml-blurb.txt                     \
+  libsbml-changes.txt                   \
+  libsbml-coding.txt                    \
+  libsbml-communications.txt            \
+  libsbml-core-versus-packages.txt      \
+  libsbml-extending.txt                 \
+  libsbml-extension-support-classes.txt \
+  libsbml-features.txt                  \
+  libsbml-group-comp-intro.txt          \
+  libsbml-group-core-intro.txt          \
+  libsbml-group-fbc-intro.txt           \
+  libsbml-group-layout-intro.txt        \
+  libsbml-group-qual-intro.txt          \
+  libsbml-howto-implement-extension.txt \
+  libsbml-installation.txt              \
+  libsbml-issues.txt                    \
+  libsbml-license.txt                   \
+  libsbml-news.txt                      \
+  libsbml-old-news.txt                  \
+  libsbml-other.txt                     \
+  libsbml-papers.txt                    \
+  libsbml-programming-python.txt        \
+  libsbml-python-example-files.txt      \
+  libsbml-python-mainpage.txt           \
+  libsbml-python-math.txt               \
+  libsbml-python-reading-files.txt      \
+  libsbml-release-info.txt              \
   libsbml.py
 
-LAYOUT_FILE = doxygen-layout-notcpp.xml
+LAYOUT_FILE = doxygen-layout-python.xml
 
 # The INPUT_FILTER tag can be used to specify a program that doxygen should 
 # invoke to filter for each input file. Doxygen will invoke the filter program 
@@ -156,3 +175,7 @@ EXCLUDE_SYMBOLS =                      \
   _newclass                            \
   accept                               \
   string
+
+EXAMPLE_PATH           = common-text examples . ../.. ../../examples/python \
+                         ../../examples/python/comp ../../examples/python/layout \
+                         ../../examples/python/fbc ../../examples/python/qual 
