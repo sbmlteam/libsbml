@@ -160,6 +160,7 @@ distfiles =						     \
         common-text/about-semantic-annotations.html	     \
         common-text/assuming-compressed-file.html	     \
         common-text/astnode-illustration.html		     \
+        common-text/astnode-types.html			     \
         common-text/comment-set-methods.html		     \
         common-text/level-1-uses-text-string-math.html	     \
         common-text/enzymatic-reaction-equation.html	     \
@@ -216,6 +217,7 @@ distfiles =						     \
         doxygen-header.html				     \
 	doxygen-layout-cpp.xml				     \
 	doxygen-layout-notcpp.xml			     \
+	doxygen-layout-python.xml			     \
         examples/readmath.cpp				     \
         examples/readSBML.java				     \
         examples/simpleread.cpp				     \
@@ -304,6 +306,7 @@ distfiles =						     \
         libsbml-programming.txt				     \
 	libsbml-programming-csharp.txt			     \
 	libsbml-programming-python.txt			     \
+        libsbml-python-example-files.txt		     \
         libsbml-python-mainpage.txt			     \
         libsbml-python-math.txt				     \
         libsbml-python-reading-files.txt		     \
@@ -316,15 +319,19 @@ distfiles =						     \
 	prettify/prettify.js				     \
         python-substitutions/ASTNodeList.py		     \
         python-substitutions/CVTermList.py		     \
+        python-substitutions/CompPkgNamespaces.py	     \
         python-substitutions/DateList.py		     \
+        python-substitutions/FbcPkgNamespaces.py	     \
         python-substitutions/ISBMLExtensionNamespaces.py     \
+        python-substitutions/LayoutPkgNamespaces.py	     \
         python-substitutions/libsbml.py			     \
         python-substitutions/ModelCreatorList.py	     \
-        python-substitutions/SBaseExtensionPoint.py	     \
-        python-substitutions/SBaseList.py		     \
+        python-substitutions/QualPkgNamespaces.py	     \
         python-substitutions/SBMLExtension.py		     \
         python-substitutions/SBMLNamespacesList.py	     \
         python-substitutions/SBMLTransforms.py		     \
+        python-substitutions/SBaseExtensionPoint.py	     \
+        python-substitutions/SBaseList.py		     \
         python-substitutions/string.py			     \
         python-substitutions/SwigPyIterator.py		     \
         python-substitutions/XMLInputStream.py		     \
@@ -489,6 +496,9 @@ endef
 # we copy over the index files created from the first Doxygen pass.
 
 define doxygen_indexing_pass
+  @echo "-----------------------------------------------------------------"
+  @echo "Running Doxygen pass 1 of 2: generate corrected table of contents"
+  @echo "-----------------------------------------------------------------"
   rm -f doxygen-config.txt
   cp $(1) doxygen-config.txt
   echo 'ALIASES += sbmlpackage{1}="@addindex \1"' >> doxygen-config.txt
@@ -502,7 +512,15 @@ define doxygen_indexing_pass
   cp -f $(2)/files.js .
 endef
 
+define run_doxygen
+  $(call doxygen_indexing_pass,$(1),$(2),$(3))
+  $(call doxygen_final_pass,$(1),$(2),$(3))
+endef
+
 define doxygen_final_pass
+  @echo "-----------------------------------------------------------------"
+  @echo "Running Doxygen pass 2 of 2: generate final output"
+  @echo "-----------------------------------------------------------------"
   rm -f doxygen-config.txt
   cp $(1) doxygen-config.txt
   echo 'ALIASES += sbmlpackage{1}="@ingroup \1"' >> doxygen-config.txt
@@ -537,31 +555,17 @@ endef
 cpp-manual $(cpp-manual): doxygen-config-cpp.txt $(core-sources) $(css-files)
 	mkdir -p $(cpp-manual)
 	$(call preprocess_doxygen)
-	@echo "------------------------------------------------------------"
-	@echo "Running Doxygen to generate corrected table of contents"
-	@echo "------------------------------------------------------------"
-	$(call doxygen_indexing_pass,doxygen-config-cpp.txt,$(cpp-manual),"")
-	@echo "------------------------------------------------------------"
-	@echo "Running Doxygen for final output"
-	@echo "------------------------------------------------------------"
-	$(call doxygen_final_pass,doxygen-config-cpp.txt,$(cpp-manual),"")
+	$(call run_doxygen,doxygen-config-cpp.txt,$(cpp-manual),"")
 	$(call postprocess_doxygen,$(cpp-manual))
 
 c-manual $(c-manual): doxygen-config-c.txt $(core-sources) $(css-files)
 	mkdir -p $(c-manual)
 	$(call preprocess_doxygen)
-	@echo "------------------------------------------------------------"
-	@echo "Running Doxygen to generate corrected table of contents"
-	@echo "------------------------------------------------------------"
-	$(call doxygen_indexing_pass,doxygen-config-c.txt,$(c-manual),"")
-	@echo "------------------------------------------------------------"
-	@echo "Running Doxygen for final output"
-	@echo "------------------------------------------------------------"
-	$(call doxygen_final_pass,doxygen-config-c.txt,$(c-manual),"")
+	$(call run_doxygen,doxygen-config-c.txt,$(c-manual),"")
 	$(call postprocess_doxygen,$(c-manual))
 
 ifdef USE_PYTHON
-python-sources   = ../../src/bindings/python/libsbml-doxygen.py
+python-input     = ../../src/bindings/python/libsbml-doxygen.py
 python-subst-dir = python-substitutions
 
 # Certain things like parameters will never match up in Doxygen.
@@ -572,16 +576,9 @@ python-ignorable-warnings = \
 
 python-manual $(python-manual): doxygen-config-python.txt $(python-sources)
 	mkdir -p $(python-manual)
-	./pythondocpreprocessor.py $(python-sources) libsbml.py $(wildcard $(python-subst-dir)/*.py)
+	./pythondocpreprocessor.py $(python-input) libsbml.py $(wildcard $(python-subst-dir)/*.py)
 	$(call preprocess_doxygen)
-	@echo "------------------------------------------------------------"
-	@echo "Running Doxygen to generate corrected table of contents"
-	@echo "------------------------------------------------------------"
-	$(call doxygen_indexing_pass,doxygen-config-python.txt,$(python-manual),$(python-ignorable-warnings))
-	@echo "------------------------------------------------------------"
-	@echo "Running Doxygen for final output"
-	@echo "------------------------------------------------------------"
-	$(call doxygen_final_pass,doxygen-config-python.txt,$(python-manual),$(python-ignorable-warnings))
+	$(call run_doxygen,doxygen-config-python.txt,$(python-manual),$(python-ignorable-warnings))
 	$(call postprocess_doxygen,$(python-manual))
 endif
 
@@ -591,7 +588,7 @@ perl-sources = ../../src/bindings/perl/LibSBML.pm
 perl-manual $(perl-manual): doxygen-config-perl.txt $(perl-sources)
 	mkdir -p $(perl-manual)
 	$(call preprocess_doxygen)
-	$(DOXYGEN) doxygen-config-perl.txt
+	$(call run_doxygen,doxygen-config-perl.txt,$(c-manual),"")
 	$(call postprocess_doxygen,$(perl-manual))
 endif
 
@@ -768,7 +765,6 @@ java-manual $(java-manual): $(core-sources) $(css-files) SBMLDoclet.class
 	    -overview libsbml-java-fake-overview.html \
 	    -stylesheetfile css/libsbml-javadoc-stylesheet.css \
 	    -d $(java-manual) \
-	    -tag ingroup:a:"" \
 	    -tag note:a:"Note:" \
 	    -tag warning:a:"Warning:" \
 	    -sourcepath $(java-local-dir) org.sbml.libsbml \
