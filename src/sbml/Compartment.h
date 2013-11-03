@@ -125,28 +125,28 @@
  *      </th>
  *  </tr>
  *  <tr>
- *      <td>&quot;<code>3</code>&quot;</td>
+ *      <td><code>3</code></td>
  *      <td>yes</td>
  *      <td>yes</td>
  *      <td>units of volume, or <code>dimensionless</code></td>
- *      <td>&quot;<code>volume</code>&quot;</td>
+ *      <td><code>volume</code></td>
  *  </tr>
  *  <tr>
- *      <td>&quot;<code>2</code>&quot;</td>
+ *      <td><code>2</code></td>
  *      <td>yes</td>
  *      <td>yes</td>
  *      <td>units of area, or <code>dimensionless</code></td>
- *      <td>&quot;<code>area</code>&quot;</td>
+ *      <td><code>area</code></td>
  *  </tr>
  *  <tr>
- *      <td>&quot;<code>1</code>&quot;</td>
+ *      <td><code>1</code></td>
  *      <td>yes</td>
  *      <td>yes</td>
  *      <td>units of length, or <code>dimensionless</code></td>
- *      <td>&quot;<code>length</code>&quot;</td>
+ *      <td><code>length</code></td>
  *  </tr>
  *  <tr>
- *      <td>&quot;<code>0</code>&quot;</td>
+ *      <td><code>0</code></td>
  *      <td>no</td>
  *      <td>no</td>
  *      <td>(no units allowed)</td>
@@ -268,17 +268,17 @@
  *      </th>
  *  </tr>
  *  <tr>
- *      <td>&quot;<code>3</code>&quot;</td>
+ *      <td><code>3</code></td>
  *      <td>&quot;volumeUnits&quot;</td>
  *      <td>units of volume, or <code>dimensionless</code></td>
  *  </tr>
  *  <tr>
- *      <td>&quot;<code>2</code>&quot;</td>
+ *      <td><code>2</code></td>
  *      <td>&quot;areaUnits&quot;</td>
  *      <td>units of area, or <code>dimensionless</code></td>
  *  </tr>
  *  <tr>
- *      <td>&quot;<code>1</code>&quot;</td>
+ *      <td><code>1</code></td>
  *      <td>&quot;lengthUnits&quot;</td>
  *      <td>units of length, or <code>dimensionless</code></td>
  *  </tr>
