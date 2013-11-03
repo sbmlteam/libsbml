@@ -92,7 +92,8 @@
 .tablist li a[href="usergroup0.html"],
 .tablist li a[href="usergroup1.html"],
 .tablist li a[href="functions.html"],
-.tablist li a[href="libsbml-example-files.html"]
+.tablist li a[href="libsbml-example-files.html"],
+.tablist li a[href="libsbml-python-example-files.html"]
 {
     width: 95px;
 }
