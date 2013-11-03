@@ -453,11 +453,6 @@ else
    * to the set of namespaces within this SBMLNamespaces object.
    *
    * The SBML Level and SBML Version of this object is used.
-   *
-   * @note An XML namespace of a non-registered package extension can't be
-   * added by this function (@link
-   * OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE@endlink 
-   * will be returned).
    * 
    * @param pkgName the string of package name (e.g. "layout", "multi")
    * @param pkgVersion the package version
@@ -471,6 +466,11 @@ else
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE @endlink
    *
+   * @note An XML namespace of a non-registered package extension can't be
+   * added by this function (@link
+   * OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE@endlink 
+   * will be returned).
+   *
    * @see addNamespace(@if java String uri, String prefix@endif)
    */
   int addPackageNamespace(const std::string &pkgName, unsigned int pkgVersion, 
@@ -481,12 +481,6 @@ else
    * Add the XML namespaces of package extensions in the given XMLNamespace
    * object to the set of namespaces within this SBMLNamespaces object
    * (Non-package XML namespaces are not added by this function).
-   *
-   * @note XML namespaces of a non-registered package extensions are not
-   * added (just ignored) by this function. @link
-   * OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE
-   * LIBSBML_INVALID_ATTRIBUTE_VALUE@endlink will be returned if the given
-   * xmlns is null.
    * 
    * @param xmlns the XML namespaces to be added.
    *
@@ -496,6 +490,12 @@ else
    * returned by this function are:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE @endlink
+   *
+   * @note XML namespaces of a non-registered package extensions are not
+   * added (just ignored) by this function. @link
+   * OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE
+   * LIBSBML_INVALID_ATTRIBUTE_VALUE@endlink will be returned if the given
+   * xmlns is null.
    */
   int addPackageNamespaces(const XMLNamespaces* xmlns);
 
@@ -527,11 +527,6 @@ else
    * to the set of namespaces within this SBMLNamespaces object.
    * 
    * The SBML Level and SBML Version of this object is used.
-   *
-   * @note An XML namespace of a non-registered package extension can't be
-   * added by this function (@link
-   * OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE@endlink 
-   * will be returned).
    * 
    * @param pkgName the string of package name (e.g. "layout", "multi")
    * @param pkgVersion the package version
@@ -545,6 +540,11 @@ else
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE @endlink
    *
+   * @note An XML namespace of a non-registered package extension can't be
+   * added by this function (@link
+   * OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE@endlink 
+   * will be returned).
+   *
    * @see addNamespace(@if java String uri, String prefix@endif)
    */
   int addPkgNamespace(const std::string &pkgName, unsigned int pkgVersion, 
@@ -556,12 +556,6 @@ else
    * object to the set of namespaces within this SBMLNamespaces object.
    * 
    * Non-package XML namespaces are not added by this function.
-   *
-   * @note XML namespaces of a non-registered package extensions are not
-   * added (just ignored) by this function. @link
-   * OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE
-   * LIBSBML_INVALID_ATTRIBUTE_VALUE@endlink will be returned if the given
-   * xmlns is null.
    * 
    * @param xmlns the XML namespaces to be added.
    *
@@ -571,6 +565,12 @@ else
    * returned by this function are:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE @endlink
+   *
+   * @note XML namespaces of a non-registered package extensions are not
+   * added (just ignored) by this function. @link
+   * OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE
+   * LIBSBML_INVALID_ATTRIBUTE_VALUE@endlink will be returned if the given
+   * xmlns is null.
    */
   int addPkgNamespaces(const XMLNamespaces* xmlns);
 
