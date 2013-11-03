@@ -394,6 +394,14 @@ variable must be set in the terminal shell from which MATLAB is started
 prior to starting MATLAB.  (Otherwise, MATLAB itself will not "see" the
 value of the variable.)
 
+<p class="warning">
+Important: some versions of MATLAB produced for Linux include a version of
+the stdc++ library that conflicts with the version provided by the operating 
+system, causing a mystifying error when MATLAB tries to run or compile code
+involving libSBML.  Please see the <a
+href="libsbml-issues.html#matlab-linux">section in the <em>Known Issues</em>
+document</a> for more information. </p>
+
 <p> An additional step is necessary in the MATLAB environment itself:
 adding the same directory to the list of directories that MATLAB searches
 to find functions.  If <span class="placeholder">DIR</span> is the
