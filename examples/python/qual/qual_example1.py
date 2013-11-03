@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 ## 
-## @file    example1.py
+## @file    qual_example1.py
 ## @brief   Qual Example
 ## @author  Sarah Keating
 ## 
