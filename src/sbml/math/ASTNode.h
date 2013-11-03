@@ -528,9 +528,9 @@ public:
    * right child.  If
    * @if clike getNumChildren()@else ASTNode::getNumChildren()@endif@~
    * <code>&gt; 1</code>, then this is equivalent to:
-   * @code
-   * getChild( getNumChildren() - 1 );
-   * @endcode
+   * @verbatim
+getChild( getNumChildren() - 1 );
+@endverbatim
    */
   LIBSBML_EXTERN
   ASTNode* getRightChild () const;
@@ -611,9 +611,9 @@ public:
    * is passed in as a pointer to a function.  @if clike The function
    * definition must have the type @link ASTNode::ASTNodePredicate
    * ASTNodePredicate @endlink, which is defined as
-   * @code
-   * int (*ASTNodePredicate) (const ASTNode_t *node);
-   * @endcode
+   * @verbatim
+int (*ASTNodePredicate) (const ASTNode_t *node);
+@endverbatim
    * where a return value of non-zero represents @c true and zero
    * represents @c false. @endif
    *
@@ -642,9 +642,9 @@ public:
    * is passed in as a pointer to a function.  The function definition must
    * have the type @link ASTNode.h::ASTNodePredicate ASTNodePredicate
    * @endlink, which is defined as
-   * @code
-   * int (*ASTNodePredicate) (const ASTNode_t *node);
-   * @endcode
+   * @verbatim
+int (*ASTNodePredicate) (const ASTNode_t *node);
+@endverbatim
    * where a return value of non-zero represents @c true and zero
    * represents @c false.
    *
@@ -1362,9 +1362,9 @@ public:
    * the node type to @link ASTNodeType_t#AST_REAL AST_REAL@endlink.
    *
    * This is functionally equivalent to:
-   * @code
-   * setValue(value, 0);
-   * @endcode
+   * @verbatim
+setValue(value, 0);
+@endverbatim
    *
    * @param value the @c double format number to which this node's value
    * should be set
@@ -2189,9 +2189,9 @@ ASTNode_isNegInfinity (const ASTNode_t *node);
  * otherwise.
  *
  * This is functionally equivalent to:
- * @code
- *   ASTNode_isInteger(node) || ASTNode_isReal(node).
- * @endcode
+ * @verbatim
+ASTNode_isInteger(node) || ASTNode_isReal(node).
+@endverbatim
  */
 LIBSBML_EXTERN
 int
@@ -2370,9 +2370,9 @@ ASTNode_setRational (ASTNode_t *node, long numerator, long denominator);
  * node type to @c AST_REAL.
  *
  * This is functionally equivalent to:
- * @code
- *   ASTNode_setRealWithExponent(node, value, 0);
- * @endcode
+ * @verbatim
+ASTNode_setRealWithExponent(node, value, 0);
+@endverbatim
  */
 LIBSBML_EXTERN
 int
