@@ -474,10 +474,10 @@ LIBSBML_CPP_NAMESPACE_USE
 %extend SBase
 {
         /**
-         * Returns a list of all child SBase objects, including those nested to
-         * an arbitrary depth.
+         * Returns an SBaseList of all child SBase objects, including those
+         * nested to an arbitrary depth.
          *
-         * @return SBaseList
+         * @return an SBaseList
          */
 	ListWrapper<SBase>* getListOfAllElements(ElementFilter* filter=NULL)
 	{
@@ -486,14 +486,13 @@ LIBSBML_CPP_NAMESPACE_USE
 	}
 
         /**
-         * Returns a List of all child SBase objects contained in SBML package
-         * plugins.
-         *
-         * This method walks down the list of all packages used by the model and
-         * returns all objects contained in them.
-         *
-         * @return a pointer to a List of pointers to all children objects from
-         * plugins.
+         * Returns an SBaseList of all child SBase objects contained in SBML
+         * package plugins.
+         * 
+         * This method walks down the list of all packages used by the model
+         * and returns all objects contained in them.
+         * 
+         * @return an SBaseList of all children objects from plugins.
 	 */
 	ListWrapper<SBase>* getListOfAllElementsFromPlugins(ElementFilter* filter=NULL)
 	{
