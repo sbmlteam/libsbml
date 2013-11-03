@@ -2678,13 +2678,13 @@ s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></b
 
 
   /**
-   * Enables or disables the given SBML Level&nbsp;3 package
+   * Enables or disables the given SBML Level&nbsp;3 package on this object.
    *
-   * This method enables or disables the specified package on this object
-   * and other objects connected by child-parent links in the same
-   * SBMLDocument object.
+   * This method enables the specified package on this object and other
+   * objects connected by child-parent links in the same SBMLDocument object.
+   * This method is the converse of disablePackage().
    *
-   * @param pkgURI the URI of the package
+   * @param pkgURI the URI of the package.
    * 
    * @param pkgPrefix the XML prefix of the package
    * 
@@ -2698,16 +2698,107 @@ s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></b
    * @li @link OperationReturnValues_t#LIBSBML_PKG_UNKNOWN LIBSBML_PKG_UNKNOWN @endlink
    * @li @link OperationReturnValues_t#LIBSBML_PKG_VERSION_MISMATCH LIBSBML_PKG_VERSION_MISMATCH @endlink
    * @li @link OperationReturnValues_t#LIBSBML_PKG_CONFLICTED_VERSION LIBSBML_PKG_CONFLICTED_VERSION @endlink
+   *
+   * @see disablePackage()
    */
   int enablePackage(const std::string& pkgURI, const std::string& pkgPrefix, bool flag);
 
 
   /**
-   * Disables the given SBML Level&nbsp;3 package
+   * Disables the given SBML Level&nbsp;3 package on this object.
    *
-   * This method enables or disables the specified package on this object
+   * This method disables the specified package on this object
    * and other objects connected by child-parent links in the same
    * SBMLDocument object.
+   * 
+   * An example of when this may be useful is during construction of model
+   * components when mixing existing and new models.  Suppose your
+   * application read an SBML document containing a model that used the SBML
+   * Hierarchical Model Composition (&ldquo;comp&rdquo;) package, and
+   * extracted parts of that model in order to construct a new model in
+   * memory.  The new, in-memory model will not accept a component drawn from
+   * an other SBMLDocument with different package namespace declarations.
+   * You could reconstruct the same namespaces in the in-memory model first,
+   * but as a shortcut, you could also disable the package namespace on the
+   * object being added.  Here is a code example to help clarify this:
+   * @if clike @verbatim
+// We read in an SBML L3V1 model that uses the 'comp' package namespace
+doc = readSBML("sbml-file-with-comp-elements.xml");
+
+// We extract one of the species from the model we just read in.
+Species* s1 = doc->getModel()->getSpecies(0);
+
+// We construct a new model.  This model does not use the 'comp' package.
+Model * newModel = new Model(3,1);
+
+// The following will fail with an error, because addSpecies() will
+// first check that the parent of the given object has namespaces
+// declared, and will discover that s1 does but newModel does not.
+
+// newModel->addSpecies(s1);
+
+// However, if we disable the 'comp' package on s1, then the call
+// to addSpecies will work.
+
+s1->disablePackage("http://www.sbml.org/sbml/level3/version1/comp/version1",
+                   "comp");
+newModel->addSpecies(s1);
+@endverbatim
+@endif@if python
+@verbatim
+import sys
+import os.path
+from libsbml import *
+
+# We read in an SBML L3V1 model that uses the 'comp' package namespace
+doc = readSBML("sbml-file-with-comp-elements.xml");
+
+# We extract one of the species from the model we just read in.
+s1 = doc.getModel().getSpecies(0);
+
+# We construct a new model.  This model does not use the 'comp' package.
+newDoc = SBMLDocument(3, 1);
+newModel = newDoc.createModel();
+
+# The following would fail with an error, because addSpecies() would
+# first check that the parent of the given object has namespaces
+# declared, and will discover that s1 does but newModel does not.
+
+# newModel.addSpecies(s1);
+
+# However, if we disable the 'comp' package on s1, then the call
+# to addSpecies will work.
+
+s1.disablePackage("http://www.sbml.org/sbml/level3/version1/comp/version1",
+                  "comp");
+newModel.addSpecies(s1);
+@endverbatim
+@endif@if java
+@verbatim
+// We read in an SBML L3V1 model that uses the 'comp' package namespace
+SBMLReader reader = new SBMLReader();
+SBMLDocument doc = reader.readSBML("sbml-file-with-comp-elements.xml");
+
+// We extract one of the species from the model we just read in.
+Species s1 = doc.getModel().getSpecies(0);
+
+// We construct a new model.  This model does not use the 'comp' package.
+Model newModel = new Model(3,1);
+
+// The following will fail with an error, because addSpecies() will
+// first check that the parent of the given object has namespaces
+// declared, and will discover that s1 does but newModel does not.
+
+// newModel->addSpecies(s1);
+
+// However, if we disable the 'comp' package on s1, then the call
+// to addSpecies will work.
+
+s1->disablePackage("http://www.sbml.org/sbml/level3/version1/comp/version1",
+                   "comp");
+newModel.addSpecies(s1);
+@endverbatim
+@endif
    *
    * @param pkgURI the URI of the package
    * 
@@ -2721,6 +2812,8 @@ s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></b
    * @li @link OperationReturnValues_t#LIBSBML_PKG_UNKNOWN LIBSBML_PKG_UNKNOWN @endlink
    * @li @link OperationReturnValues_t#LIBSBML_PKG_VERSION_MISMATCH LIBSBML_PKG_VERSION_MISMATCH @endlink
    * @li @link OperationReturnValues_t#LIBSBML_PKG_CONFLICTED_VERSION LIBSBML_PKG_CONFLICTED_VERSION @endlink
+   *
+   * @see enablePackage()
    */
   int disablePackage(const std::string& pkgURI, const std::string& pkgPrefix);
   
