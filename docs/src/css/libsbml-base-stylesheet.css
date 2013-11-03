@@ -386,12 +386,15 @@ pre.fragment
 
 div.fragment 
 {
-    overflow: auto;
     word-wrap: break-word;
     line-height: 125%;
+    border: 1px solid orange;
+    background-color: #f0f0f0;
     border-radius: 8px;
     -webkit-border-radius: 8px;
     -moz-border-radius: 8px;
+    padding-top: 0.5em;
+    padding: 5px;
 }
 
 .borderless
