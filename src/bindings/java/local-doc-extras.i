@@ -42,9 +42,18 @@
 
 %javamethodmodifiers ASTNode::getListOfNodes "
   /**
-   * Performs a depth-first search of the tree rooted at this {@link ASTNode}
-   * object, and returns an {@link ASTNodeList} of all nodes.
-   *
-   * @return the list of {@link ASTNode} objects.
+   * Returns an {@link ASTNodeList} of all {@link ASTNode} objects.
+   * 
+   * Unlike the equivalent method in the libSBML C/C++ interface, this method does
+   * not offer the ability to pass a predicate as an argument.  The method always
+   * returns the list of all {@link ASTNode} objects.
+   * 
+   * @return the {@link ASTNodeList} of nodes for which the predicate
+   * returned @c true (non-zero).
+   * 
+   * @warning The list returned is owned by the caller and should be deleted
+   * after the caller is done using it.  The {@link ASTNode} objects in the
+   * list; however, are <strong>not</strong> owned by the caller (as they
+   * still belong to the tree itself), and therefore should not be deleted.
    */
  public";
