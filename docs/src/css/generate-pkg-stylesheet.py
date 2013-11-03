@@ -113,7 +113,7 @@ after_template = '''{{
     font-size: 80%;
     font-style: italic;
     font-weight: normal;
-    line-height: 150%;
+    line-height: 130%;
     text-align: center;
     color: #333 !important;
     background-color: rgba({1}, {2}, {3}, 0.35);
