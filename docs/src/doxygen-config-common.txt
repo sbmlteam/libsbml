@@ -515,8 +515,8 @@ INPUT =                                    \
   libsbml-blurb.txt                        \
   libsbml-changes.txt                      \
   libsbml-coding.txt                       \
-  libsbml-core-versus-packages.txt         \
   libsbml-communications.txt               \
+  libsbml-core-versus-packages.txt         \
   libsbml-example.txt                      \
   libsbml-example-files.txt                \
   libsbml-extending.txt                    \
@@ -533,7 +533,6 @@ INPUT =                                    \
   libsbml-license.txt                      \
   libsbml-mainpage.txt                     \
   libsbml-math.txt                         \
-  libsbml-news.txt                         \
   libsbml-news.txt                         \
   libsbml-old-news.txt                     \
   libsbml-other.txt                        \
