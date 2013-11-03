@@ -30,17 +30,18 @@
  *
  * @htmlinclude libsbml-facility-only-warning.html
  *
- * LibSBML provides facilities for resolving SBML
- * documents in various ways from a given URI. Resolvers are
- * implemented as objects derived from the class SBMLResolver.
+ * LibSBML provides facilities for resolving SBML documents in various ways
+ * from a given URI. Resolvers are implemented as objects derived from the
+ * class SBMLResolver.
  *
- * The resolver registry, implemented as a singleton object of class
- * SBMLResolverRegistry, maintains a list of known resolvers and provides
- * methods for discovering them.  Callers can use the method
- * SBMLResolverRegistry::getNumResolvers() to find out how many
- * resolvers are registered, then use
- * SBMLResolverRegistry::getResolverByIndex(@if java int index@endif) to
- * iterate over each one;
+ * The resolver registry maintains a list of known resolvers and provides
+ * methods for discovering them.  It is implemented as a singleton object of
+ * class SBMLResolverRegistry.  Callers can use the method
+ * SBMLResolverRegistry::getNumResolvers() to find out how many resolvers are
+ * registered, then use SBMLResolverRegistry::getResolverByIndex(@if java int
+ * index@endif) to iterate over each one;
+ *
+ * @see SBMLFileResolver
  */
 
 #ifndef SBMLResolverRegistry_h

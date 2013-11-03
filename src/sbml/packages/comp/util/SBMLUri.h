@@ -30,7 +30,11 @@
  *
  * @htmlinclude libsbml-facility-only-warning.html
  *
- * The SBMLUri parses URIs and provides information about them.
+ * This class implements functionality for parsing URIs and extracting
+ * information about them.
+ *
+ * @see SBMLResolver
+ * @see SBMLFileResolver
  */
 
 #ifndef SBMLUri_h
@@ -101,49 +105,61 @@ public:
 
 
   /**
-   * Returns the scheme of the stored URI, i.e. the text
-   * before the first colon, like 'file' or 'http'.  If no
-   * such scheme exists, returns an empty string.
+   * Returns the scheme of the stored URI.
    *
-   * @return the parsed scheme like 'file' or 'http', or 
-   * an empty string if none exists.
+   * The @em scheme of the URI is the text before the first colon character.
+   * Typical examples of what this might return are the strings @c "file" or
+   * @c "http".  If the current URI does not have a scheme, this method
+   * returns an empty string.
+   *
+   * @return the parsed scheme, such as @c "http", or an empty string if no
+   * scheme exists for the current URI.
    */
   const std::string& getScheme() const;
 
 
   /**
-   * Returns the host of the stored URI, i.e. the text
-   * after 'http://' and before the next '/'.  URIs with file
-   * or URN schemes have no host, and return an empty string.
+   * Returns the host portion of the stored URI.
    *
-   * @return the host of the URI (empty in case of files)
+   * For a scheme such as @c "http", this method returns the part of the URI
+   * after @c "http://" and before the next @c "/" character.  URIs with file
+   * or URN schemes have no host; in that case, this method returns an empty
+   * string.
+   *
+   * @return the host of the URI, or an empty string in the case of files
+   * or URNs schemes that do not possess a host portion.
    */
   const std::string& getHost() const;
 
 
   /**
-   * Returns the path and filename of the stored URI, i.e. the text
-   * after the scheme, colon, and host (if present), and 
-   * before the next '?'.  May be empty for some URIs.
+   * Returns the path and filename portion of the stored URI.
    *
-   * @return the path of the URI (i.e: the full filename with path)
+   * This method returns the text after the scheme, colon, and host (if
+   * present), and before the next @c "?" character.  The result may be an
+   * empty string for some URIs.
+   *
+   * @return the path of the URI (i.e., the full filename with path)
    */
   const std::string& getPath() const;
 
 
   /**
-   * Returns the query of the stored URI, i.e. the text
-   * after the filename, starting with a '?'.  May be empty for some (many) URIs.
+   * Returns the query portion of the stored URI.
    *
-   * @return the query of the URI (i.e.: the part after the full filename with path)
+   * The equery portion of a URI is the text after a filename, starting with
+   * the character @c "?".  For many URIs, this is an empty string.
+   *
+   * @return the query of the URI (i.e., the part after the full filename
+   * with path)
    */
   const std::string& getQuery() const;
 
 
   /**
-   * Returns the full stored URI, with any backslashes replaced with slashes.
+   * Returns the full stored URI, after replacing backslashes with slashes.
    *
-   * @return the original URI (with only backslashes replaced to slashes)
+   * @return the original URI, with backslashes replaced with slashes.
    */
   const std::string& getUri() const;
 
@@ -151,12 +167,16 @@ public:
   /**
    * Constructs a new URI relative to this object and the given URI. 
    * 
-   * For example,  SBMLUri("c:\\test").relativeTo("test.xml") would 
-   * construct a new file URI, with path c:/test/test.xml.
+   * For example,
+   @verbatim
+SBMLUri("c:\\test").relativeTo("test.xml")
+@endverbatim
+   * would construct a new file URI, with path
+   * <code>c:/test/test.xml</code>.
    * 
-   * @param uri URI to be added
+   * @param uri a URI to be added to this object
    * 
-   * @return the new URI
+   * @return the resulting new URI
    */
   SBMLUri relativeTo(const std::string& uri) const;
 

@@ -31,7 +31,14 @@
  * @htmlinclude libsbml-facility-only-warning.html
  *
  * The SBMLResolver class is the base class for the various SBML @em
- * resolvers: classes of objects that resolve SBML documents.
+ * resolvers: facilities that take a unique identifier as input and return
+ * the document associated with that identifier.  In SBML, resolvers come
+ * into play with the SBML Level&nbsp;3 Hierarchical Model Composition
+ * package; this package includes features that allow a model to be composed
+ * from pieces that are external to a given SBML document, which implies the
+ * need to be able to identify and locate those external pieces.  The
+ * SBMLResolver class and its subclasses provide facilities for software
+ * applications to be able to do these tasks.
  *
  * LibSBML provides a number of built-in resolvers, and applications can
  * create their own by subclassing SBMLResolver and following the examples
@@ -39,6 +46,12 @@
  * in libSBML @htmlinclude libsbml-version.html:
  * @li SBMLFileResolver
  *
+ * More resolvers may be provided by libSBML in the future.  Application
+ * authors may also write their own.  @if cpp An example of how to create
+ * an HTTP resolver is included with the libSBML distribution in the file
+ * @ref SBMLHttpResolverExample.cpp "SBMLHttpResolverExample.cpp".@endif.
+ *
+ * @see SBMLUri 
  */
 
 #ifndef SBMLResolver_h

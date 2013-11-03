@@ -1,6 +1,6 @@
 /**
  * @file    SBMLFileResolver.h
- * @brief   Definition of SBMLFileResolver, the file system based resolver for SBML Documents.
+ * @brief   A file-based resolver for SBML Documents.
  * @author  Frank Bergmann
  *
  * <!--------------------------------------------------------------------------
@@ -26,12 +26,28 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class SBMLFileResolver
- * @sbmlbrief{comp} Base class for SBML resolvers.
+ * @sbmlbrief{comp} A resolver for documents stored on a file system.
  *
  * @htmlinclude libsbml-facility-only-warning.html
  *
- * The SBMLFileResolver class is the class used for the resolving URIs for
- * relative or absolute files for SBML documents.
+ * In SBML, @em resolvers come into play with the SBML Level&nbsp;3
+ * Hierarchical Model Composition package (&ldquo;comp&rdquo;); this package
+ * includes features that allow a model to be composed from pieces that are
+ * external to a given SBML document, which implies the need to be able to
+ * identify and locate those external pieces.  The identifiers used in
+ * &ldquo;comp&rdquo; are URIs (<a target="_blank"
+ * href="http://en.wikipedia.org/wiki/Uniform_resource_identifier">Uniform
+ * Resource Identifiers</a>).
+ *
+ * SBMLFileResolver is a class implementing the ability to resolve URIs to
+ * files.  It works on the local file system only.  It can resolve relative
+ * and absolute paths, and directories to be searched can be specified using
+ * the methods @if clike SBMLFileResolver::setAdditionalDirs(), @endif
+ * SBMLFileResolver::addAdditionalDir(@if java String dir@endif) and
+ * SBMLFileResolver::clearAdditionalDirs().
+ *
+ * @see SBMLResolver
+ * @see SBMLUri
  */
 
 #ifndef SBMLFileResolver_h
@@ -100,42 +116,65 @@ public:
    * @param uri the URI to the target document
    * @param baseUri base URI, in case the URI is a relative one
    *
-   * @return  the document, if this resolver can resolve the document or NULL.
+   * @return the document, if this resolver can resolve the document or NULL.
    */
-  virtual SBMLDocument* resolve(const std::string &uri, const std::string& baseUri="") const;
+  virtual SBMLDocument* resolve(const std::string &uri,
+                                const std::string& baseUri="") const;
 
 
   /**
-   * Resolves the full URI for the given URI without actually reading the
+   * Resolves the full URI for a given URI without actually reading the
    * document.
    *
    * @param uri the URI to the target document
    * @param baseUri base URI, in case the URI is a relative one
    *
-   * @return  the full URI to the document, if this resolver can resolve the document or NULL.
+   * @return the full URI to the document, if this resolver can resolve the
+   * document or NULL.
    */
-  virtual SBMLUri* resolveUri(const std::string &uri, const std::string& baseUri="") const;
+  virtual SBMLUri* resolveUri(const std::string &uri, 
+                              const std::string& baseUri="") const;
 
 
   /**
-   * Sets the list of additional directories in which to search for files to resolve.
+   * Sets the list of directories in which to search for files to resolve.
+   *
+   * Unlike the similar
+   * SBMLFileResolver::addAdditionalDir(@if java String dir@endif), this
+   * method replaces any current list of search directories with the given
+   * list of @p dirs.
    *
    * @param dirs A vector of strings which contain directories
+   *
+   * @see addAdditionalDir(@if java String dir@endif)
+   * @see clearAdditionalDirs()
    */
   virtual void setAdditionalDirs(const std::vector<std::string>& dirs);
 
 
   /**
-   * Removes the list of additional directories in which to search for files
-   * to resolve.  Only absolute or relative directories will be searched.
+   * Removes the list of directories to search for files to resolve.
+   *
+   * After this method is called,
+   * SBMLFileResolver::resolve(const std::string &uri, const std::string& baseUri)
+   * will only search absolute or relative directories.  New directories can
+   * be added using SBMLFileResolver::addAdditionalDir(@if java String
+   * dir@endif) @if clike or setAdditionalDirs()@endif.
+   *
+   * @see addAdditionalDir(@if java String dir@endif)
+   * @if clike @see setAdditionalDirs()@endif
    */
   virtual void clearAdditionalDirs();
 
 
   /**
-   * Adds a directory to the list of additional directories in which to search for files to resolve.
+   * Adds a directory to the list of directories to search for files to
+   * resolve.
    *
-   * @param dir The directory to add
+   * @param dir the directory to add.
+   *
+   * @see clearAdditionalDirs()
+   * @if clike @see setAdditionalDirs()@endif
    */
   virtual void addAdditionalDir(const std::string& dir);
 
