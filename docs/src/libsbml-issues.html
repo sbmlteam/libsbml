@@ -1,18 +1,77 @@
 This section documents the following known problems, limitations, and
 possible pitfalls in using libSBML:
 <ul style="line-height: 150%">
+<li><a href="#link-accidents">Potential for language bindings to link old versions of libSBML by accident</a></li>
+<li><a href="#matlab-linux">Some versions of MATLAB include a conflicting version of libstdc++</a></li>
+<li><a href="#windows-free">Explicit freeing of memory when using static MSVC runtimes</a></li>
 <li><a href="#name-collisions">Name collisions in mathematical expressions</a></li>
 <li><a href="#xml-parser-diffs">Differences in XML parser behavior</a></li>
 <li><a href="#cannot-report-10312">Cannot report a failure of validation rule #10312</a></li>
 <li><a href="#diff-20413">Different error number (either 20413 or 20409) may be reported depending on Level of SBML in use</a></li>
-<li><a href="#link-accidents">Potential for language bindings to link old versions of libSBML by accident</a></li>
 <li><a href="#make-uninstall">Possible unexpected <code>make uninstall</code> behavior</a></li>
-<li><a href="#windows-free">Explicit freeing of memory when using static MSVC runtimes</a></li>
 <li><a href="#conv-l1v1">Conversion to/from SBML Level 1 Version 1 is not supported</a></li>
 <li><a href="#line-numbers">Line/column numbers are not always accurate</a></li>
 <li><a href="#libsbml_wrap">Sometimes, the libsbml_wrap.cpp files are not recreated</a></li>
-<li><a href="#matlab-linux">Some versions of MATLAB include a conflicting version of libstdc++</a></li>
 </ul>
+
+
+<h2><a class="anchor" name="link-accidents"/>Potential for language bindings to link old versions of libSBML by accident</a></h2>
+
+At application run-time, the language bindings for C#, Java, Python, Perl
+and others must be able to dynamically link the core libSBML library file
+(i.e., <code>libsbml.so</code>, <code>libsbml.dylib</code> or
+<code>libsbml.dll</code>, depending on your operating system).  If a user's
+environment includes an old version of this library file, and it is picked
+up at run-time instead of the correct library version, linking may fail
+with mysterious errors about undefined symbols.  Users and developers are
+cautioned to make sure that their installations have matched versions of
+libSBML components and are free of older versions that may be picked up
+inadvertently.
+
+
+<h2><a class="anchor" name="matlab-linux"/>Some versions of MATLAB include a conflicting version of libstdc++</a></h2>
+  
+Some versions of MATLAB produced for Linux include a version of the stdc++
+library that conflicts with the version provided by the operating
+system. This copy of the library is installed in MATLAB's own
+directories. This may cause a conflict when MATLAB tries to run or compile
+code involving LibSBML.  (Example error message:
+<em>"/unix/bin/glnxa64/../../sys/os/glnxa64/libstdc++.so.6: version
+`GLIBCXX_3.4.11' not found"</em>.)
+
+<p> The solution is to preload the system stdc++ library before invoking
+MATLAB.  You can accomplish this by setting the Linux environment variable
+<code>LD_PRELOAD</code> to the path of the system's <code>libstdc++</code>
+library file.  This will take the form of the following:
+
+<pre class="fragment">
+export LD_PRELOAD=/path/to/system/libstdc++</code>
+</pre>
+for <i>sh</i>-based shells such as Bash, or 
+<pre class="fragment">
+setenv LD_PRELOAD /path/to/system/libstdc++</code>
+</pre>
+for <i>csh</i>-based shells.
+
+
+<h2><a class="anchor" name="windows-free"/>Explicit freeing of memory when using static MSVC runtimes</a></h2>
+
+On MS Windows, when using libSBML compiled against a static MSVC runtime
+library, it is not possible to use the standard <code>free()</code>
+function call to free memory allocated and returned by libSBML.
+Without the ability to use <code>free()</code> to free the string returned
+by libSBML, the calling application will leak memory.  An example
+of typical code where one would want to free the returned by libSBML
+is the following:
+
+<pre class="fragment">
+   char * formula = SBML_formulaToString(astNode);
+   /* ... do some work with formula here ... */
+   free(formula);
+</pre>
+
+<p> To cope with this issue, beginning with version 4.2, libSBML provides a
+special function for this situation: <code>util_free()</code>.
 
 
 <h2><a class="anchor" name="name-collisions"/>Name collisions in mathematical expressions</a></h2>
@@ -132,20 +191,6 @@ same situation depending on whether it is dealing with a Level&nbsp;2 or a
 Level&nbsp;3 model.
 
 
-<h2><a class="anchor" name="link-accidents"/>Potential for language bindings to link old versions of libSBML by accident</a></h2>
-
-At application run-time, the language bindings for C#, Java, Python, Perl
-and others must be able to dynamically link the core libSBML library file
-(i.e., <code>libsbml.so</code>, <code>libsbml.dylib</code> or
-<code>libsbml.dll</code>, depending on your operating system).  If a user's
-environment includes an old version of this library file, and it is picked
-up at run-time instead of the correct library version, linking may fail
-with mysterious errors about undefined symbols.  Users and developers are
-cautioned to make sure that their installations have matched versions of
-libSBML components and are free of older versions that may be picked up
-inadvertently.
-
-
 <h2><a class="anchor" name="make-uninstall"/>Possible unexpected <code>make uninstall</code> behavior</a></h2>
 
 <p> The libSBML <code>make uninstall</code> command on Linux, Mac&nbsp;OS, Cygwin,
@@ -156,26 +201,6 @@ options, and finally try <code>make uninstall</code>, the result will be to
 attempt removing the files implied by the most recent run of
 <code>configure</code>, <em>not</em> the files installed by the
 <em>original</em> <code>make install</code>.
-
-
-<h2><a class="anchor" name="windows-free"/>Explicit freeing of memory when using static MSVC runtimes</a></h2>
-
-On MS Windows, when using libSBML compiled against a static MSVC runtime
-library, it is not possible to use the standard <code>free()</code>
-function call to free memory allocated and returned by libSBML.
-Without the ability to use <code>free()</code> to free the string returned
-by libSBML, the calling application will leak memory.  An example
-of typical code where one would want to free the returned by libSBML
-is the following:
-
-<pre class="fragment">
-   char * formula = SBML_formulaToString(astNode);
-   /* ... do some work with formula here ... */
-   free(formula);
-</pre>
-
-<p> To cope with this issue, beginning with version 4.2, libSBML provides a
-special function for this situation: <code>util_free()</code>.
 
 
 <h2><a class="anchor" name="conv-l1v1"/>Conversion to/from SBML Level 1 Version 1 is not supported</a></h2>
@@ -250,29 +275,5 @@ binding files being out of date) compilation/linking will work.
 libSBML, only the libSBML developers and those are are venturing into
 developing new features in libSBML.
 
-
-<h2><a class="anchor" name="matlab-linux"/>Some versions of MATLAB include a conflicting version of libstdc++</a></h2>
-  
-Some versions of MATLAB produced for Linux include a version of the stdc++
-library that conflicts with the version provided by the operating
-system. This copy of the library is installed in MATLAB's own
-directories. This may cause a conflict when MATLAB tries to run or compile
-code involving LibSBML.  (Example error message:
-<em>"/unix/bin/glnxa64/../../sys/os/glnxa64/libstdc++.so.6: version
-`GLIBCXX_3.4.11' not found"</em>.)
-
-<p> The solution is to preload the system stdc++ library before invoking
-MATLAB.  You can accomplish this by setting the Linux environment variable
-<code>LD_PRELOAD</code> to the path of the system's <code>libstdc++</code>
-library file.  This will take the form of the following:
-
-<pre class="fragment">
-export LD_PRELOAD=/path/to/system/libstdc++</code>
-</pre>
-for <i>sh</i>-based shells such as Bash, or 
-<pre class="fragment">
-setenv LD_PRELOAD /path/to/system/libstdc++</code>
-</pre>
-for <i>csh</i>-based shells.
 
 <p>
