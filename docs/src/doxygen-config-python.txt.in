@@ -111,6 +111,7 @@ INPUT = \
   libsbml-other.txt                     \
   libsbml-papers.txt                    \
   libsbml-programming-python.txt        \
+  libsbml-python-creating-model.txt     \
   libsbml-python-example-files.txt      \
   libsbml-python-mainpage.txt           \
   libsbml-python-math.txt               \
