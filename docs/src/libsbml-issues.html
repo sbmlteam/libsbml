@@ -36,8 +36,8 @@ library that conflicts with the version provided by the operating
 system. This copy of the library is installed in MATLAB's own
 directories. This may cause a conflict when MATLAB tries to run or compile
 code involving LibSBML.  (Example error message:
-<em>"/unix/bin/glnxa64/../../sys/os/glnxa64/libstdc++.so.6: version
-`GLIBCXX_3.4.11' not found"</em>.)
+<em><code>"/unix/bin/glnxa64/../../sys/os/glnxa64/libstdc++.so.6: version
+`GLIBCXX_3.4.11' not found"</code></em>.)
 
 <p> The solution is to preload the system stdc++ library before invoking
 MATLAB.  You can accomplish this by setting the Linux environment variable
