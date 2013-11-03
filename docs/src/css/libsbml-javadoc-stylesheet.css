@@ -311,3 +311,11 @@ p.note
 {
     margin-top: 0.5em;
 }
+
+div.fragment
+{
+    border: none;
+    padding: 0;
+    background-color: white;
+}
+
