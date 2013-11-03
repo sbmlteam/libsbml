@@ -190,9 +190,18 @@ class CHeader:
           continue
         elif stripped.startswith('* @sbmlbrief{'):
           end = stripped.find('}')
-          if end != -1:
-            pkgmarker = '@htmlinclude pkg-marker-' + stripped[13:end] + '.html '
-            docstring += ' * ' + pkgmarker + stripped[end + 1:].strip() + '\n'
+          pkg = stripped[13:end]
+          rest = stripped[end + 1:].strip()
+          marker = '@htmlinclude pkg-marker-' + pkg + '.html'
+
+          # In the case of Java, the output of swigdoc is fed to Javadoc and
+          # not Doxygen.  So, we do our own processing of our special Doxygen
+          # aliases.  If we're not doing this for Java, we leave them in.
+          if language == 'java':
+            docstring += ' * ' + marker + ' ' + rest + '\n'
+          else:
+            group = '@sbmlpackage{' + pkg + '}'
+            docstring += ' * \n * ' + group + '\n *\n' + marker + ' ' + rest + '\n'
           continue
         elif not stripped.endswith('*/') and not stripped.startswith('* @class'):
           docstring += line
@@ -1230,8 +1239,8 @@ def processClassMethods(ostream, cclass):
           # The dictionary entries are keyed by method arguments (as strings).
           # The dictionary values are the 'func' objects we use.
           if re.search('@internal', argVariant.docstring) == None:
-            newdoc += "\n<hr>\nMethod variant with the following"\
-                      + " signature:\n <pre class='signature'>" \
+            newdoc += "\n@par\n<hr>\n<span class='variant-sig-heading'>Method variant with the following"\
+                      + " signature</span>:\n <pre class='signature'>" \
                       + argVariant.name \
                       + rewriteDocstringForPython(argVariant.args) \
                       + "</pre>\n\n"
