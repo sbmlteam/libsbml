@@ -179,24 +179,7 @@ there exist a few differences.  The following table summarizes the
 differences between the predefined functions in SBML Level 1 and the MathML
 equivalents in SBML Level 2:
 
-<center>
-<table cellspacing="1" border="0">
- <tr style="background: lightgray; font-size: 14px;">
-     <td>Text string formula functions</td>
-     <td>MathML equivalents in SBML Level 2</td>
- </tr>
- <tr><td><code>acos</code></td><td><code>arccos</code></td></tr>
- <tr><td><code>asin</code></td><td><code>arcsin</code></td></tr>
- <tr><td><code>atan</code></td><td><code>arctan</code></td></tr>
- <tr><td><code>ceil</code></td><td><code>ceiling</code></td></tr>
- <tr><td><code>log</code></td><td><code>ln</code></td></tr>
- <tr><td><code>log10(x)</code></td><td><code>log(10, x)</code></td></tr>
- <tr><td><code>pow(x, y)</code></td><td><code>power(x, y)</code></td></tr>
- <tr><td><code>sqr(x)</code></td><td><code>power(x, 2)</code></td></tr>
- <tr><td><code>sqrt(x)</code></td><td><code>root(2, x)</code></td></tr>
-</table>
-</center>
-
+@htmlinclude math-functions.html
 
 @section math-ast Methods for working with libSBML's Abstract Syntax Trees
 
@@ -207,33 +190,8 @@ The list of possible types is quite long,
 because it covers all the mathematical functions that are permitted in
 SBML's subset of MathML.  The values are shown in the following table;
 their names hopefully evoke the construct that they represent:
-<center>
-<table width="80%" cellspacing="1" cellspacing="1" border="0">
- <tr><td><code></code></td><td><code></code></td><td><code></code></td></tr>
- <tr><td><code>AST_UNKNOWN</code></td><td><code>AST_FUNCTION_ARCCOTH</code></td><td><code>AST_FUNCTION_POWER</code></td></tr>
- <tr><td><code>AST_PLUS</code></td><td><code>AST_FUNCTION_ARCCSC</code></td><td><code>AST_FUNCTION_ROOT</code></td></tr>
- <tr><td><code>AST_MINUS</code></td><td><code>AST_FUNCTION_ARCCSCH</code></td><td><code>AST_FUNCTION_SEC</code></td></tr>
- <tr><td><code>AST_TIMES</code></td><td><code>AST_FUNCTION_ARCSEC</code></td><td><code>AST_FUNCTION_SECH</code></td></tr>
- <tr><td><code>AST_DIVIDE</code></td><td><code>AST_FUNCTION_ARCSECH</code></td><td><code>AST_FUNCTION_SIN</code></td></tr>
- <tr><td><code>AST_POWER</code></td><td><code>AST_FUNCTION_ARCSIN</code></td><td><code>AST_FUNCTION_SINH</code></td></tr>
- <tr><td><code>AST_INTEGER</code></td><td><code>AST_FUNCTION_ARCSINH</code></td><td><code>AST_FUNCTION_TAN</code></td></tr>
- <tr><td><code>AST_REAL</code></td><td><code>AST_FUNCTION_ARCTAN</code></td><td><code>AST_FUNCTION_TANH</code></td></tr>
- <tr><td><code>AST_REAL_E</code></td><td><code>AST_FUNCTION_ARCTANH</code></td><td><code>AST_LOGICAL_AND</code></td></tr>
- <tr><td><code>AST_RATIONAL</code></td><td><code>AST_FUNCTION_CEILING</code></td><td><code>AST_LOGICAL_NOT</code></td></tr>
- <tr><td><code>AST_NAME</code></td><td><code>AST_FUNCTION_COS</code></td><td><code>AST_LOGICAL_OR</code></td></tr>
- <tr><td><code>AST_NAME_TIME</code></td><td><code>AST_FUNCTION_COSH</code></td><td><code>AST_LOGICAL_XOR</code></td></tr>
- <tr><td><code>AST_CONSTANT_E</code></td><td><code>AST_FUNCTION_COT</code></td><td><code>AST_RELATIONAL_EQ</code></td></tr>
- <tr><td><code>AST_CONSTANT_FALSE</code></td><td><code>AST_FUNCTION_COTH</code></td><td><code>AST_RELATIONAL_GEQ</code></td></tr>
- <tr><td><code>AST_CONSTANT_PI</code></td><td><code>AST_FUNCTION_CSC</code></td><td><code>AST_RELATIONAL_GT</code></td></tr>
- <tr><td><code>AST_CONSTANT_TRUE</code></td><td><code>AST_FUNCTION_CSCH</code></td><td><code>AST_RELATIONAL_LEQ</code></td></tr>
- <tr><td><code>AST_LAMBDA</code></td><td><code>AST_FUNCTION_EXP</code></td><td><code>AST_RELATIONAL_LT</code></td></tr>
- <tr><td><code>AST_FUNCTION</code></td><td><code>AST_FUNCTION_FACTORIAL</code></td><td><code>AST_RELATIONAL_NEQ</code></td></tr>
- <tr><td><code>AST_FUNCTION_ABS</code></td><td><code>AST_FUNCTION_FLOOR</code></td><td><code></code></td></tr>
- <tr><td><code>AST_FUNCTION_ARCCOS</code></td><td><code>AST_FUNCTION_LN</code></td></tr>
- <tr><td><code>AST_FUNCTION_ARCCOSH</code></td><td><code>AST_FUNCTION_LOG</code></td></tr>
- <tr><td><code>AST_FUNCTION_ARCCOT</code></td><td><code>AST_FUNCTION_PIECEWISE</code></td></tr>
-</table>
-</center>
+
+@htmlinclude astnode-types.html
 
 There are a number of methods for interrogating the type of an ASTNode and
 for testing whether a node belongs to a general category of constructs.
