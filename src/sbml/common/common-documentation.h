@@ -7711,7 +7711,7 @@ e><a href="libsbml.html#parseL3Formula(java.lang.String)">libsbml.parseL3Formula
 <td class="s-na">N</td>
 <td class="s-na">N</td>
 <td class="s-na">N</td>
-<td class="s-warning">W</td></tr>
+<td class="s-error">E</td></tr>
 <tr><td><code>@link QualSBMLErrorCode_t#QualInitalLevelNotNegative QualInitalLevelNotNegative @endlink</code></td>
 <td> Attribute 'initialLevel' on <code>&lt;qualitativeSpecies&gt;</code> cannot be negative. </td>
 <td class="s-na">N</td>

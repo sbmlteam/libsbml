@@ -352,7 +352,7 @@ static const packageErrorTableEntry qualErrorTable[] =
   { QualQSAssignedOnlyOnce, 
     "A <qualitativeSpecies> can only be assigned once.",
     LIBSBML_CAT_GENERAL_CONSISTENCY, 
-    LIBSBML_SEV_WARNING,
+    LIBSBML_SEV_ERROR,
     "A <QualitativeSpecies> that is referenced by an <Output> with the "
     "'qual:transitionEffect' attribute set to 'assignmentLevel' should not be "
     "referenced by any other <Output> with the same 'transitionEffect' "
