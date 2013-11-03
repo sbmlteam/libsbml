@@ -756,7 +756,7 @@ public:
   /** @endcond */
 
   
-  /*
+  /**
    * Return the variable attribute of this object.
    *
    * @note This function is an alias of getVariable() function.
