@@ -2682,7 +2682,8 @@ s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></b
    *
    * This method enables the specified package on this object and other
    * objects connected by child-parent links in the same SBMLDocument object.
-   * This method is the converse of disablePackage().
+   * This method is the converse of
+   * SBase::disablePackage(const std::string& pkgURI, const std::string& pkgPrefix).
    *
    * @param pkgURI the URI of the package.
    * 
@@ -2699,7 +2700,7 @@ s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></b
    * @li @link OperationReturnValues_t#LIBSBML_PKG_VERSION_MISMATCH LIBSBML_PKG_VERSION_MISMATCH @endlink
    * @li @link OperationReturnValues_t#LIBSBML_PKG_CONFLICTED_VERSION LIBSBML_PKG_CONFLICTED_VERSION @endlink
    *
-   * @see disablePackage()
+   * @see disablePackage(const std::string& pkgURI, const std::string& pkgPrefix)
    */
   int enablePackage(const std::string& pkgURI, const std::string& pkgPrefix, bool flag);
 
@@ -2813,7 +2814,7 @@ newModel.addSpecies(s1);
    * @li @link OperationReturnValues_t#LIBSBML_PKG_VERSION_MISMATCH LIBSBML_PKG_VERSION_MISMATCH @endlink
    * @li @link OperationReturnValues_t#LIBSBML_PKG_CONFLICTED_VERSION LIBSBML_PKG_CONFLICTED_VERSION @endlink
    *
-   * @see enablePackage()
+   * @see enablePackage(const std::string& pkgURI, const std::string& pkgPrefix, bool flag)
    */
   int disablePackage(const std::string& pkgURI, const std::string& pkgPrefix);
   
