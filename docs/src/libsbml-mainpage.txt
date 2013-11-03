@@ -15,6 +15,7 @@ this manual helpful:
 - @subpage libsbml-installation
 - @subpage libsbml-accessing
 - @subpage libsbml-programming
+- @subpage libsbml-issues
 - @subpage libsbml-communications
 @htmlinclude doxygen-regular-text-end.html
 

@@ -1,4 +1,4 @@
-/** @mainpage About libSBML and its use
+/** @mainpage About libSBML and this manual
 
 @htmlinclude libsbml-authors.html
 
@@ -22,12 +22,19 @@ this manual helpful:
 - @subpage libsbml-installation
 - @subpage libsbml-accessing
 - @subpage libsbml-programming-python
+- @subpage libsbml-issues
 - @subpage libsbml-communications
-- @subpage libsbml-release-info
 @htmlinclude doxygen-regular-text-end.html
 
 You can use the navigation bar, table of contents and search facilities of
-this manual to locate specific documentation about the libSBML API.
+this manual to locate specific documentation about the libSBML API.  In
+addition, if you are interested in developing enhancements or extensions to
+libSBML, the following section may be helpful:
+
+@htmlinclude doxygen-regular-text-start.html
+- @subpage libsbml-release-info
+- @subpage libsbml-other
+@htmlinclude doxygen-regular-text-end.html
 
 @htmlinclude libsbml-papers.html
 
