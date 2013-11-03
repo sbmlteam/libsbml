@@ -227,8 +227,8 @@ protected:
 
 /**
  * @class ListOfSpeciesGlyphs
- * @sbmlbrief{layout} @sbmlmarker{layout} Implementation of the
- * %ListOfSpeciesGlyphs construct from the &ldquo;layout&rdquo; package.
+ * @sbmlbrief{layout} Implementation of the %ListOfSpeciesGlyphs construct
+ * from the &ldquo;layout&rdquo; package.
  * 
  * The ListOfSpeciesGlyphs is a container for the SpeciesGlyph elements of a Layout.
  * 
@@ -388,8 +388,8 @@ protected:
 
 /**
  * @class ListOfReactionGlyphs
- * @sbmlbrief{layout} @sbmlmarker{layout} Implementation of the
- * %ListOfReactionGlyphs construct from the &ldquo;layout&rdquo; package.
+ * @sbmlbrief{layout} Implementation of the %ListOfReactionGlyphs construct
+ * from the &ldquo;layout&rdquo; package.
  * 
  * The ListOfReactionGlyphs is a container for the ReactionGlyph elements of a Layout.
  * 
