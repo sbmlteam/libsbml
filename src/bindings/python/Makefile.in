@@ -177,6 +177,7 @@ distfiles =							  \
             Makefile.in						  \
             CMakeLists.txt					  \
             test.py						  \
+	    local-doc-extras.i					  \
             local-packages.i.in					  \
             local-layout.i					  \
             setup.cfg						  \
