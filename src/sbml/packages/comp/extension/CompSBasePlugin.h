@@ -405,7 +405,7 @@ public:
    * addXXX, createXXX, and connectToChild functions of the
    * parent element).
    *
-   * @param sb the SBML object to use
+   * @param parent the SBML object to use
    */
   void connectToParent (SBase* parent);
   /** @endcond */

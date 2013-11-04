@@ -514,9 +514,9 @@ public:
    * @li @link libsbmlConstants#RULE_TYPE_INVALID RULE_TYPE_INVALID@endlink
    * @endif@if csharp
    * 
-   * @li @link libsbmlcs.RULE_TYPE_RATE RULE_TYPE_RATE@endlink
-   * @li @link libsbmlcs.RULE_TYPE_SCALAR RULE_TYPE_SCALAR@endlink
-   * @li @link libsbmlcs.RULE_TYPE_INVALID RULE_TYPE_INVALID@endlink
+   * @li @link libsbmlcs.libsbml.RULE_TYPE_RATE RULE_TYPE_RATE@endlink
+   * @li @link libsbmlcs.libsbml.RULE_TYPE_SCALAR RULE_TYPE_SCALAR@endlink
+   * @li @link libsbmlcs.libsbml.RULE_TYPE_INVALID RULE_TYPE_INVALID@endlink
    * 
    * @endif@~
    *
