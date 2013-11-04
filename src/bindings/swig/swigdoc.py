@@ -61,14 +61,17 @@ overriders = \
 'AssignmentRule'            : [ 'clone', 'hasRequiredAttributes' ],
 'Compartment'               : [ 'clone', 'getId', 'getName', 'isSetId', 'isSetName', 'getTypeCode', 'getElementName', 'hasRequiredAttributes', 'setId', 'setName', 'unsetId', 'unsetName' ],
 'CompartmentType'           : [ 'clone', 'getId', 'getName', 'isSetId', 'isSetName', 'getTypeCode', 'getElementName', 'hasRequiredAttributes', 'setId', 'setName', 'unsetId', 'unsetName' ],
+'CompExtension'             : [ 'clone', 'getErrorIdOffset' ],
 'Constraint'                : [ 'clone', 'getTypeCode', 'getElementName', 'hasRequiredElements' ],
 'Delay'                     : [ 'clone', 'getTypeCode', 'getElementName', 'hasRequiredElements' ],
 'Event'                     : [ 'clone', 'getId', 'getName', 'isSetId', 'isSetName', 'getTypeCode', 'getElementName', 'hasRequiredAttributes', 'hasRequiredElements', 'setId', 'setName', 'unsetId', 'unsetName', 'connectToChild', 'enablePackageInternal' ],
 'EventAssignment'           : [ 'clone', 'getTypeCode', 'getElementName', 'hasRequiredAttributes', 'hasRequiredElements', 'getId' ],
+'FbcExtension'              : [ 'clone', 'getErrorIdOffset' ],
 'FunctionDefinition'        : [ 'clone', 'getId', 'getName', 'isSetId', 'isSetName', 'getTypeCode', 'getElementName', 'hasRequiredAttributes', 'hasRequiredElements', 'setId', 'setName', 'unsetId', 'unsetName' ],
 'InitialAssignment'         : [ 'clone', 'getTypeCode', 'getElementName', 'hasRequiredAttributes', 'hasRequiredElements', 'getId' ],
 'ISBMLExtensionNamespaces'  : [ 'getURI', 'getPackageName' ],
 'KineticLaw'                : [ 'clone', 'getTypeCode', 'getElementName', 'hasRequiredAttributes', 'hasRequiredElements', 'connectToChild', 'enablePackageInternal' ],
+'LayoutExtension'           : [ 'clone', 'getErrorIdOffset' ],
 'ListOf'                    : [ 'clone', 'getTypeCode', 'getElementName', 'connectToChild', 'enablePackageInternal' ],
 'ListOfCompartmentTypes'    : [ 'clone', 'getTypeCode', 'getItemTypeCode', 'getElementName', 'get', 'remove' ],
 'ListOfCompartments'        : [ 'clone', 'getTypeCode', 'getItemTypeCode', 'getElementName', 'get', 'remove' ],
@@ -87,6 +90,7 @@ overriders = \
 'ListOfUnitDefinitions'     : [ 'clone', 'getTypeCode', 'getItemTypeCode', 'getElementName', 'get', 'remove' ],
 'ListOfUnits'               : [ 'clone', 'getTypeCode', 'getItemTypeCode', 'getElementName', 'get', 'remove' ],
 'Parameter'                 : [ 'clone', 'getId', 'getName', 'isSetId', 'isSetName', 'getTypeCode', 'getElementName', 'hasRequiredAttributes', 'setId', 'setName', 'unsetId', 'unsetName' ],
+'QualExtension'             : [ 'clone', 'getErrorIdOffset' ],
 'LocalParameter'            : [ 'clone', 'getTypeCode', 'getElementName', 'hasRequiredAttributes', 'getDerivedUnitDefinition' ],
 'Model'                     : [ 'clone', 'getId', 'getName', 'isSetId', 'isSetName', 'getTypeCode', 'getElementName', 'hasRequiredElements', 'setId', 'setName', 'unsetId', 'unsetName', 'setAnnotation', 'appendAnnotation', 'connectToChild', 'enablePackageInternal' ],
 'SimpleSpeciesReference'    : [ 'getId', 'getName', 'isSetId', 'isSetName', 'setId', 'setName', 'unsetId', 'unsetName' ],
@@ -1021,11 +1025,19 @@ def rewriteDocstringForCSharp (docstring):
   C++/Doxygen docstring.
   """
 
+  # Remove some things we use as hacks in Doxygen 1.7-1.8.
+
+  docstring = docstring.replace(r'@~', '')
+  p = re.compile('@par(\s)', re.MULTILINE)
+  docstring = p.sub(r'\1', docstring)
+
+  # Rewrite some common things.
+
   docstring = rewriteCommonReferences(docstring)  
 
-  # Preliminary: rewrite some of the data type references to equivalent
-  # C# types.  (Note: this rewriting affects only the documentation
-  # comments inside classes & methods, not the actual method signatures.)
+  # Rewrite some of the data type references to equivalent C# types.  (Note:
+  # this rewriting affects only the documentation comments inside classes &
+  # methods, not the actual method signatures.)
 
   docstring = docstring.replace(r'const char *', 'string ')
   docstring = docstring.replace(r'const char* ', 'string ')
@@ -1045,15 +1057,6 @@ def rewriteDocstringForCSharp (docstring):
   docstring = p.sub(rewriteClassRefAddingSpace, docstring)  
   p = re.compile(r'(%?)(' + '|'.join(libsbml_classes) + r')( ?)(\*|&)', re.DOTALL)
   docstring = p.sub(rewriteClassRefAddingSpace, docstring)  
-
-  # <code> has its own special meaning in C#; we have to turn our input
-  # file's uses of <code> into <c>.  Conversely, we have to turn our
-  # uses of verbatim to <code>.
-
-  p = re.compile(r'<code>(.+?)</code>', re.DOTALL)
-  docstring = p.sub(r'<c>\1</c>', docstring)
-  p = re.compile('@verbatim(.+?)@endverbatim', re.DOTALL)
-  docstring = p.sub(r'<code>\1</code>', docstring)
 
   # Do replacements on some documentation text we sometimes use.
 
