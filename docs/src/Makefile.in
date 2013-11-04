@@ -141,7 +141,6 @@ distfiles =						     \
 	common-graphics/icon-format-pdf-44px.jpg	     \
         common-graphics/layout-example.png		     \
         common-graphics/listof-illustration.svg		     \
-        common-graphics/listof-illustration.txt		     \
 	common-graphics/model-qualifiers.png		     \
 	common-graphics/model-qualifiers.txt		     \
         common-graphics/official-sbml-supported-32.jpg	     \
@@ -166,6 +165,7 @@ distfiles =						     \
         common-text/enzymatic-reaction-equation.html	     \
         common-text/libsbml-facility-only-warning.html	     \
         common-text/libsbml-version.html.in		     \
+        common-text/listof-illustration.txt		     \
         common-text/math-functions.html			     \
         common-text/math-precedence-table-l3.html	     \
         common-text/math-precedence-table.html		     \
@@ -178,7 +178,6 @@ distfiles =						     \
         common-text/pkg-marker-layout.html		     \
         common-text/pkg-marker-qual.html		     \
         common-text/predefined-units.html		     \
-        common-text/sbmlerror-table.html		     \
         common-text/species-boundarycondition.html	     \
         common-text/species-hasonlysubstance.html	     \
         common-text/string-functions-table-l3.html	     \
@@ -254,7 +253,7 @@ distfiles =						     \
         libsbml-conversion-warnings.txt			     \
 	libsbml-core-versus-packages.html		     \
 	libsbml-core-versus-packages.txt		     \
-        libsbml-csharp-examples-files.txt		     \
+        libsbml-csharp-example-files.txt		     \
         libsbml-csharp-mainpage.txt			     \
         libsbml-csharp-math.txt				     \
         libsbml-csharp-reading-files.txt		     \
