@@ -44,25 +44,38 @@ OPTIMIZE_OUTPUT_JAVA   = YES
 # directories like "/usr/src/myproject". Separate the files or directories 
 # with spaces.
 
-INPUT =                            \
-  libsbml-accessing.txt            \
-  libsbml-blurb.txt                \
-  libsbml-changes.txt              \
-  libsbml-communications.txt       \
-  libsbml-features.txt             \
-  libsbml-installation.txt         \
-  libsbml-issues.txt               \
-  libsbml-license.txt              \
-  libsbml-news.txt                 \
-  libsbml-old-news.txt             \
-  libsbml-programming-csharp.txt   \
-  libsbml-csharp-mainpage.txt      \
-  libsbml-csharp-math.txt          \
-  libsbml-csharp-reading-files.txt \
-  libsbml-release-info.txt         \
+INPUT =                                 \
+  libsbml-accessing.txt                 \
+  libsbml-blurb.txt                     \
+  libsbml-changes.txt                   \
+  libsbml-coding.txt                    \
+  libsbml-communications.txt            \
+  libsbml-core-versus-packages.txt      \
+  libsbml-extending.txt                 \
+  libsbml-extension-support-classes.txt \
+  libsbml-features.txt                  \
+  libsbml-group-comp-intro.txt          \
+  libsbml-group-core-intro.txt          \
+  libsbml-group-fbc-intro.txt           \
+  libsbml-group-layout-intro.txt        \
+  libsbml-group-qual-intro.txt          \
+  libsbml-howto-implement-extension.txt \
+  libsbml-installation.txt              \
+  libsbml-issues.txt                    \
+  libsbml-license.txt                   \
+  libsbml-news.txt                      \
+  libsbml-old-news.txt                  \
+  libsbml-other.txt                     \
+  libsbml-papers.txt                    \
+  libsbml-programming-csharp.txt        \
+  libsbml-csharp-example-files.txt      \
+  libsbml-csharp-mainpage.txt           \
+  libsbml-csharp-math.txt               \
+  libsbml-csharp-reading-files.txt      \
+  libsbml-release-info.txt              \
   ../../src/bindings/csharp/csharp-files
 
-LAYOUT_FILE = doxygen-layout-notcpp.xml
+LAYOUT_FILE = doxygen-layout-csharp.xml
 
 # If the value of the INPUT tag contains directories, you can use the 
 # FILE_PATTERNS tag to specify one or more wildcard pattern (like *.cpp 
@@ -114,3 +127,7 @@ EXCLUDE_SYMBOLS         =  \
   SBMLTransforms           \
   SBaseExtensionPoint
 
+
+EXAMPLE_PATH           = common-text examples . ../.. ../../examples/csharp \
+                         ../../examples/csharp/comp ../../examples/csharp/layout \
+                         ../../examples/csharp/fbc ../../examples/csharp/qual 

@@ -216,6 +216,7 @@ distfiles =						     \
         doxygen-footer.html				     \
         doxygen-header.html				     \
 	doxygen-layout-cpp.xml				     \
+	doxygen-layout-csharp.xml			     \
 	doxygen-layout-notcpp.xml			     \
 	doxygen-layout-python.xml			     \
         examples/readmath.cpp				     \
@@ -253,6 +254,7 @@ distfiles =						     \
         libsbml-conversion-warnings.txt			     \
 	libsbml-core-versus-packages.html		     \
 	libsbml-core-versus-packages.txt		     \
+        libsbml-csharp-examples-files.txt		     \
         libsbml-csharp-mainpage.txt			     \
         libsbml-csharp-math.txt				     \
         libsbml-csharp-reading-files.txt		     \
@@ -627,7 +629,7 @@ csharp-manual $(csharp-manual): doxygen-config-csharp.txt $(core-sources) \
   $(css-files)
 	mkdir -p $(csharp-manual)
 	$(call preprocess_doxygen)
-	$(DOXYGEN) doxygen-config-csharp.txt 2>&1 | egrep -v $(cs-ignorable-warnings)
+	$(call run_doxygen,doxygen-config-csharp.txt,$(csharp-manual),$(cs-ignorable-warnings))
 	$(call postprocess_doxygen,$(csharp-manual))
 endif
 
