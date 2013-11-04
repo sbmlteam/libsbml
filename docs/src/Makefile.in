@@ -805,11 +805,10 @@ java-manual $(java-manual): $(core-sources) $(css-files) SBMLDoclet.class
 	$(call merge_html_verb,../../NEWS.txt,libsbml-news.html,news)
 	$(call merge_html_verb,../../OLD_NEWS.txt,libsbml-old-news.html,old-news)
 	mkdir -p $(java-manual)/examples
-	$(foreach file,$(wildcard ../../examples/java/*.java),$(call merge_java_example,$(file)))
-	$(foreach file,$(wildcard ../../examples/java/*/*.java),$(call merge_java_example,$(file)))
 	${MAKE} postprocess_javadoc
+	${MAKE} create_java_examples
 
-postprocess_javadoc:
+postprocess_javadoc:;
 	$(call create_extensions_page,$(java-manual)/$(java-class-path)/package-summary.html)
 	$(call insert_javascript,$(java-manual)/$(java-class-path))
 	$(call rewrite_links,$(java-manual),)
@@ -819,6 +818,9 @@ postprocess_javadoc:
 	$(call fix_broken_highlighting)
 	$(call substitute_version)
 
+create_java_examples:;
+	$(foreach file,$(wildcard ../../examples/java/*.java),$(call merge_java_example,$(file)))
+	$(foreach file,$(wildcard ../../examples/java/*/*.java),$(call merge_java_example,$(file)))
 
 endif
 
