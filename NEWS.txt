@@ -27,170 +27,173 @@ STABLE RELEASE
 
   - The layout specification for SBML Level 3 has been accepted and
     thus layout is now considered an official L3 package.  Since
-    layout code has been included with libsbml for many years this
+    layout code has been included with libsbml for many years, this
     has no impact on the code included within the stable release.
 
 * New features
 
   - There are two new function SBML_formulaToL3String(ASTNode_t*) and
     SBML_formulaToL3StringWithSettings(ASTNode_t* L3ParserSettings_t*)
-    that provide reciprocal AST to infix functionality based on 
-    the previously released L3Parser code. 
+    that provide reciprocal AST to infix functionality based on the
+    previously released L3Parser code.
 
-  - Within an SBML file it may be possible to infer units for parameters
-    based on their use within mathematical expressions.  A limited 
-    version of this functionality is now available using the 
+  - Within an SBML file it may be possible to infer units for
+    parameters based on their use within mathematical expressions.  A
+    limited version of this functionality is now available using the
     SBMLInferUnitsConverter which will return a document with units
     attached to any parameters where it is possible to infer the
     units.
 
-  - The SyntaxChecker class has a new function isValidXMLanyURI(std::string)
-    that checks whether the string has the valid syntax for an 
-    XML anyURI datatype http://www.w3.org/TR/xmlschema-2/#anyURI.
+  - The SyntaxChecker class has a new function named
+    isValidXMLanyURI(std::string) that can check whether a given
+    string has the valid syntax for an XML anyURI datatype
+    http://www.w3.org/TR/xmlschema-2/#anyURI.
 
   - There is a new base class ElementFilter that can be passed as an
-    optional argument to the getAllElements function.  When implemented
-    this allows the elements to be filtered in whatever fashion
-    before being added to the List returned by the getAllElements()
-    function. The example getAllElementsWithNotes illustrates
-    this functionality.
+    optional argument to the getAllElements function.  When
+    implemented this allows the elements to be filtered in whatever
+    fashion before being added to the List returned by the
+    getAllElements() function. The example getAllElementsWithNotes
+    illustrates this functionality.
 
   - There is new functionality to facilitate replacing the id
-    attribute and all references to that id within a model. There 
-    is a new base class IdentifierTransformer that when passed
-    to the function renameAllIds on the Model object will perform
-    the transformation specified by the IdentifierTransformer class
-    on all id attributes within the model. Users should derive their 
-    own IdentifierTransformer class to perform the transformation
-    they require.  The example setIdFromName illustrates this
+    attribute and all references to that id within a model. There is a
+    new base class IdentifierTransformer that when passed to the
+    function renameAllIds on the Model object will perform the
+    transformation specified by the IdentifierTransformer class on all
+    id attributes within the model. Users should derive their own
+    IdentifierTransformer class to perform the transformation they
+    require.  The example setIdFromName illustrates this
     functionality.
   
-  - The class IdList which allows users to create and manipulate 
-    lists of 'id' strings has been made publically available. 
-    Previously this class has been used internally by validation 
-    and conversion code.  It is now available in the sbml/util
-    directory.
+  - The class IdList which allows users to create and manipulate lists
+    of 'id' strings has been made publically available.  Previously
+    this class has been used internally by validation and conversion
+    code.  It is now available in the sbml/util directory.
   
-  - There is a new converter, the SBMLIdConverter, that will allow
-    a user to replace several ids within a model. The converter requires
-    a comma seperated list of existing ids and another of the replacement
-    ids and will perform the necessary replacements.  
+  - There is a new converter, the SBMLIdConverter, that will allow a
+    user to replace several ids within a model. The converter requires
+    a comma seperated list of existing ids and another of the
+    replacement ids and will perform the necessary replacements.
     
   - There is a new converter, the SBMLLocalParameterConverter, that
     will allow a user to replace any localParameters with global
-    parameters.  The promoteParameters example illustrates the use 
-    of this converter.
+    parameters.  The promoteParameters example illustrates the use of
+    this converter.
     
-  - Following the results of the user survey the L3Parser has
-    changed the precedence of the '^' operator to be greater than
-    a unary '-' operator and the precedence of the '!' operator
-    to be higher than algebraic operators (and equal to the unary '-'
-    operator). The precedence of '&&' remains the same as the
-    precedence of '||'.
+  - Following the results of the user survey the L3Parser has changed
+    the precedence of the '^' operator to be greater than a unary '-'
+    operator and the precedence of the '!' operator to be higher than
+    algebraic operators (and equal to the unary '-' operator). The
+    precedence of '&&' remains the same as the precedence of '||'.
 
-  - It is now possible to override the severity of errors logged
-    or to disable error logging completely. Any override is
-    applied to the errorLog until such time as the status is reset.
-    This facilitates the use of functions, that may on occasion log
-    errors, in a situiation were error logging is not required.
+  - It is now possible to override the severity of errors logged or to
+    disable error logging completely. Any override is applied to the
+    errorLog until such time as the status is reset.  This facilitates
+    the use of functions, that may on occasion log errors, in a
+    situiation were error logging is not required.
   
   - There is a new function XMLErrorLog::changeErrorSeverity
     (XMLErrorSeverity_t , XMLErrorSeverity_t, std::string package)
-    that will change the severity of errors within the errorLog
-    based on the package name supplied.
+    that will change the severity of errors within the errorLog based
+    on the package name supplied.
     
   - The XMLErrorLog and SBMLErrorLog classes now have explicit
-    implementations for the copy and assignment constructors. 
+    implementations for the copy and assignment constructors.
     
   - The SBase functions getURI() and getPrefix() that return 
     information relating to the namespace of the object have been
     made public. Formerly these functions were protected.
   
-  - The function removeTopLevelAnnotationElement(const std::string 
+  - The function removeTopLevelAnnotationElement(const std::string
     elementName, const std::string elementURI = "") allows users to
     remove a single top level element from the annotation node. If,
-    having removed the specified annotation, the overall annotation 
+    having removed the specified annotation, the overall annotation
     node had no child elements the entire node was being deleted.
     There is now an additional optional argument to this function,
     bool removeEmpty, that allows the user to specify that they do not
-    wish the annotation to be deleted.   
+    wish the annotation to be deleted.
 
   - There are two new function on the SBase class that allow an
-    element to be read from and written to an XMLNode.  The XMLNode
-    is the underlying class used by the XML parsing layer of libSBML.
+    element to be read from and written to an XMLNode.  The XMLNode is
+    the underlying class used by the XML parsing layer of libSBML.
     The function XMLNode* SBase::toXMLNode() returns a pointer to an
     XMLNode that represents the SBase object; which will facilitate
-    the ability to look up attributes of an object by name. The 
-    function void SBase::read(XMLNode& node, XMLErrorSeverityOverride_t)
-    invokes the read functionality on a given XMLNode. This facilitates
-    reading blocks of annotation that may represent SBML in some way.
-    It should be noted that these functions are computational 
-    expensive in that they serialise to a string. This drawback will
-    be addressed in future libSBML architecture but cannot be overcome
-    with the current libSBML-5 implementation.
+    the ability to look up attributes of an object by name. The
+    function void SBase::read(XMLNode& node,
+    XMLErrorSeverityOverride_t) invokes the read functionality on a
+    given XMLNode. This facilitates reading blocks of annotation that
+    may represent SBML in some way.  It should be noted that these
+    functions are computational expensive in that they serialise to a
+    string. This drawback will be addressed in future libSBML
+    architecture but cannot be overcome with the current libSBML-5
+    implementation.
     
-  - All set or add functions in libSBML return a value from
-    the enumeration OperationReturnValue_t. There is now a function
-    OperationReturnValue_toString that will return a string 
+  - All set or add functions in libSBML return a value from the
+    enumeration OperationReturnValue_t. There is now a function
+    OperationReturnValue_toString that will return a string
     representation of the reason for the failure.
   
   - 'layout' package-specific updates:
   
     - The example code for layout has been moved to subdirectories
       named 'layout' beneath the appropriate language subdirectories
-      in the examples directory.  This reflects the structure used
-      for example code from all packages.
+      in the examples directory.  This reflects the structure used for
+      example code from all packages.
   
     - The code reading and writing layout as an annotation has been
       adapted to use the new read/write to/from XMLNode functions.
       This greatly reduces the complexity and repetition of code
-      previously needed to perform these functions.    
+      previously needed to perform these functions.
 
   - 'comp' package-specific updates:
   
     - All the validation rules have been fully implemented, up through
       release 3 of the specification.
 
-    - Validation is now incorporated into the flattening process.
-      If there are no errors (or only warnings), the flattening process
+    - Validation is now incorporated into the flattening process.  If
+      there are no errors (or only warnings), the flattening process
       will proceed to produce a flattened version of the model.  If
       there are errors, the flattening process will halt and return an
-      unchanged version of the model, with the errors noted in the model's
-      error log.  This provides the user with detailed information
-      regarding why a document has failed to flatten as well as detailing
-      any warnings related to the document returned on success.
+      unchanged version of the model, with the errors noted in the
+      model's error log.  This provides the user with detailed
+      information regarding why a document has failed to flatten as
+      well as detailing any warnings related to the document returned
+      on success.
     
-    - There is an additional option for the CompFlatteningConverter
-      to allow the users to request that the document not be validated
+    - There is an additional option for the CompFlatteningConverter to
+      allow the users to request that the document not be validated
       before or after flattening. This allows the user to produce a
-      flattened model irrespective of the validity of the original model.
-      Errors produced during flattening will still stop the flattening
-      process, as they make it impossible to flatten the model.
+      flattened model irrespective of the validity of the original
+      model.  Errors produced during flattening will still stop the
+      flattening process, as they make it impossible to flatten the
+      model.
       
-    - There is a further additional option for the CompFlatteningConverter
-      to allow the users to specify how the required status of any
-      unflattenable package should influence whether flattening is
-      attempted or not. By default this option has a value of
-      'requiredOnly' which indicates that flattening will abort if it
-      encounters an unflattenable package that has a 'required' attribute of
-      'true'. Other options are 'all' or 'none'.
+    - There is a further additional option for the
+      CompFlatteningConverter to allow the users to specify how the
+      required status of any unflattenable package should influence
+      whether flattening is attempted or not. By default this option
+      has a value of 'requiredOnly' which indicates that flattening
+      will abort if it encounters an unflattenable package that has a
+      'required' attribute of 'true'. Other options are 'all' or
+      'none'.
       
     - The flattening routine has been extended to include all packages
       available within the stable release: layout, qual and fbc.
-      NOTE:  This means that the behavior of the flattening converter
-      will be different than it used to be:  in the past, the converter
+      NOTE: This means that the behavior of the flattening converter
+      will be different than it used to be: in the past, the converter
       would either refuse to flatten a model with information from any
       of these packages, or would leave unmodified package information
-      from the main model only.  Now, all information from all submodels
-      will be properly integrated into the flattened model.
+      from the main model only.  Now, all information from all
+      submodels will be properly integrated into the flattened model.
     
 * Bug fixes
 
-  - The converter that expanded functionDefinitions was failing to 
-    correctly deal with any csymbols it encountered in the math.
-    This has been fixed.
+  - The converter that expanded functionDefinitions was failing to
+    correctly deal with any csymbols it encountered in the math.  This
+    has been fixed.
 
-  - Conversion between SBML Levels was not correctly handling the 
+  - Conversion between SBML Levels was not correctly handling the
     units attributes that appear on the Model object in an Level 3
     model. This has been fixed. Thanks to Pratham Shah for the report.
 
@@ -199,33 +202,33 @@ STABLE RELEASE
     values to be used on occasion. This has been fixed. Thanks
     to Pratham Shah for reporting this.
   
-  - An annotation on a package element is permitted to use the 
-    SBML namespace.  However, this situation was logging an error.
-    This has been corrected.
+  - An annotation on a package element is permitted to use the SBML
+    namespace.  However, this situation was logging an error.  This
+    has been corrected.
     
   - A memory leak in the TranslateSBML function has been plugged.
-    Thanks to Neil Swainston for reporting the issue and testing
-    the fix.
+    Thanks to Neil Swainston for reporting the issue and testing the
+    fix.
 
   - 'comp' package-specific bug fixes:
   
-    - It is possible to construct a model which tries to delete an 
+    - It is possible to construct a model which tries to delete an
       object more than once.  This was not being detected correctly.
-      This has been addressed and flattening code will report this 
+      This has been addressed and flattening code will report this
       issue as an error.
     
     - Similarly replacing both an object and independently replacing
       a child of that object could also cause problems. These have
       been sorted.
-
  
 * Miscellaneous
 
   - The API manuals for Java, Python and C# now include information
     about the SBML Level 3 package extensions.  In addition, many
-    formatting errors have been resolved, new sections have been
-    added, and finally, the overall look and feel of the documentation
-    has been updated (and hopefully improved).
+    content errors have been fixed, many formatting errors have been
+    resolved, new sections have been added, and finally, the overall
+    look and feel of the documentation has been updated (and hopefully
+    improved).
 
   - The copyrights and license statements in LICENSE.txt/LICENSE.html
     have been updated to reflect the inclusion of code from Ralph
@@ -241,9 +244,10 @@ STABLE RELEASE
     LICENSE.txt or LICENSE.html for specific information about the
     authors and license terms of these packages.
 
-  - A new, simple tutorial example of creating a model using the Python
-    language interface is now available in the Python documentation.
-    The example was kindly provided by Martins Mednis (in 2012!).
+  - A new, simple tutorial example of creating a model using the
+    Python language interface is now available in the Python
+    documentation.  The example was kindly provided by Martins Mednis
+    (in 2012!).
 
 
 EXPERIMENTAL RELEASE
@@ -262,16 +266,16 @@ EXPERIMENTAL RELEASE
 * Multistate, Multicomponent and Multicompartment Species
 
   - There is now a stabilized version of the specification for the
-    Multistate, Multicomponent and Multicompartment Species Package 
-    and the experimental release now includes code for this 'multi' 
-    package.  As is the case with all packages
-    included in the Experimental Release the binaries are built with
-    'multi' enabled and the libsbml source archive includes the
-    source code.  It should be noted that it is not yet possible
-    to extend the math <ci> element; which the 'multi' proposal does;
-    however the definitionURL attribute can be used on the <ci> element
-    to convey the necessary information until libsbml provides
-    the ability to extend the math.
+    Multistate, Multicomponent and Multicompartment Species Package
+    and the experimental release now includes code for this 'multi'
+    package.  As is the case with all packages included in the
+    Experimental Release the binaries are built with 'multi' enabled
+    and the libsbml source archive includes the source code.  It
+    should be noted that it is not yet possible to extend the math
+    <ci> element; which the 'multi' proposal does; however the
+    definitionURL attribute can be used on the <ci> element to convey
+    the necessary information until libsbml provides the ability to
+    extend the math.
     
 * Groups
   
