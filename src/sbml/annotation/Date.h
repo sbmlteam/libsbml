@@ -113,7 +113,8 @@
             </rdf:Description>
         </rdf:RDF>
     </annotation>
-</model>@endverbatim
+</model>
+@endverbatim
  */
 
 /**
