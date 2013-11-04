@@ -227,6 +227,18 @@ STABLE RELEASE
     Microsystems used in generating documentation.  Both of these are
     distributed under terms compatible with the LGPL of all of libSBML.
 
+  - To help produce better documentation, the libSBML sources now use
+    (and incorporate) two utilities, PrettyTable 0.7.2 (in
+    src/bindings/python/doc-converter) and Google Code Prettify (in
+    docs/src).  Both are redistributable under terms compatible with
+    the LGPL terms used for libSBML as a whole.  Please see the file
+    LICENSE.txt or LICENSE.html for specific information about the
+    authors and license terms of these packages.
+
+  - A new, simple tutorial example of creating a model using the Python
+    language interface is now available in the Python documentation.
+    The example was kindly provided by Martins Mednis (in 2012!).
+
 
 EXPERIMENTAL RELEASE
 
