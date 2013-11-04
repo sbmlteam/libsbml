@@ -71,9 +71,9 @@
  *         </li>
  *         <li> <code>virtual bool readOtherXML (SBase* parentObject, XMLInputStream& stream)</code>
  *         <p>This function should be overridden if elements of annotation, notes, MathML, etc. need 
- *            to be directly parsed from the given XMLInputStream object instead of the
- *            SBase::readAnnotation(XMLInputStream& stream) 
- *            and/or SBase::readNotes(XMLInputStream& stream) functions.
+ *            to be directly parsed from the given XMLInputStream object @if clike instead of the
+ *            SBase::readAnnotation(XMLInputStream& stream)
+ *            and/or SBase::readNotes(XMLInputStream& stream) functions@endif.
  *         </p> 
  *         </li>
  *       </ol>
