@@ -138,15 +138,15 @@ public:
 
 
   /**
-   * Returns the URI (namespace) of the package corresponding to the combination of 
-   * the given sbml level, sbml version, and package version.
-   * Empty string will be returned if no corresponding URI exists.
+   * Returns the namespace URI corresponding to the combination of the given
+   * SBML Level, Version, and package version.
    *
    * @param sbmlLevel the level of SBML
    * @param sbmlVersion the version of SBML
    * @param pkgVersion the version of package
    *
-   * @return a string of the package URI
+   * @return a string of the package URI, or an empty string if no
+   * corresponding URI exists.
    */
   virtual const std::string& getURI(unsigned int sbmlLevel,
                                     unsigned int sbmlVersion,
@@ -154,55 +154,57 @@ public:
 
 
   /**
-   * Returns the SBML level with the given URI of this package.
+   * Returns the SBML Level for the given URI of this package.
    *
-   * @param uri the string of URI that represents one of versions of qual package
+   * @param uri the string of URI that represents one of versions of the
+   * &ldquo;qual&rdquo; package
    *
-   * @return the SBML level with the given URI of this package. 0 will be returned
-   * if the given URI is invalid.
-   *
+   * @return the SBML Level with the given URI of this package, or @c 0 if
+   * the given URI is invalid.
    */
   virtual unsigned int getLevel(const std::string &uri) const;
 
 
   /**
-   * Returns the SBML version with the given URI of this package.
+   * Returns the SBML Version for the given URI of this package.
    *
-   * @param uri the string of URI that represents one of versions of qual package
+   * @param uri the string of URI that represents one of versions of the
+   * &ldquo;qual&rdquo; package
    *
-   * @return the SBML version with the given URI of this package. 0 will be returned
-   * if the given URI is invalid.
+   * @return the SBML version with the given URI of this package, or @c 0 if
+   * the given URI is invalid.
    */
   virtual unsigned int getVersion(const std::string &uri) const;
 
 
   /**
-   * Returns the package version with the given URI of this package.
+   * Returns the package version for the given URI of this package.
    *
-   * @param uri the string of URI that represents one of versions of qual package
+   * @param uri the string of URI that represents one of versions of the
+   * &ldquo;qual&rdquo; package
    *
-   * @return the package version with the given URI of this package. 0 will be returned
+   * @return the package version with the given URI of this package, or @c 0
    * if the given URI is invalid.
    */
   virtual unsigned int getPackageVersion(const std::string &uri) const;
 
 
   /**
-   * Returns an SBMLExtensionNamespaces<QualExtension> object whose alias type is 
-   * QualPkgNamespace.
-   * Null will be returned if the given uri is not defined in the qual package.
+   * Returns an QualPkgNamespaces object.
    *
-   * @param uri the string of URI that represents one of versions of qual package
+   * @param uri the string of URI that represents one of versions of the
+   * &ldquo;qual&rdquo; package
    *
-   * @return an QualPkgNamespace object corresponding to the given uri. NULL will
-   * be returned if the given URI is not defined in qual package.
+   * @return an QualPkgNamespace object corresponding to the given @p uri, or
+   * @c NULL if the URI is not defined in the Hierarchical %Model Qualosition
+   * package.
    */
   virtual SBMLNamespaces* getSBMLExtensionNamespaces(const std::string &uri) const;
 
 
   /**
-   * This method takes a type code of qual package and returns a string representing 
-   * the code.
+   * Takes a type code of the &ldquo;qual&rdquo; package and returns a string
+   * describing the code.
    */
   virtual const char* getStringFromTypeCode(int typeCode) const;
 

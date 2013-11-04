@@ -139,16 +139,15 @@ public:
 
 
   /**
-   * Returns the URI (namespace) of the package corresponding to the
-   * combination of the given SBML Level, SBML Version, and Level&nbsp;3
-   * package version.
+   * Returns the namespace URI corresponding to the combination of the given
+   * SBML Level, Version, and package version.
    *
    * @param sbmlLevel the level of SBML
    * @param sbmlVersion the version of SBML
    * @param pkgVersion the version of package
    *
-   * @return a string of the package URI.  An empty string will be returned
-   * if no corresponding URI exists.
+   * @return a string of the package URI, or an empty string if no
+   * corresponding URI exists.
    */
   virtual const std::string& getURI(unsigned int sbmlLevel,
                                     unsigned int sbmlVersion, 
@@ -156,59 +155,57 @@ public:
 
 
   /**
-   * Returns the SBML Level with the given URI of this package.
+   * Returns the SBML Level for the given URI of this package.
    *
-   * @param uri the string of URI that represents one of versions of the comp
-   * package.
+   * @param uri the string of URI that represents one of versions of the
+   * &ldquo;comp&rdquo; package
    *
-   * @return the SBML level with the given URI of this package. @c 0 will be returned
-   * if the given URI is invalid.
-   *
+   * @return the SBML Level with the given URI of this package, or @c 0 if
+   * the given URI is invalid.
    */
   virtual unsigned int getLevel(const std::string &uri) const;
 
 
   /**
-   * Returns the SBML version with the given URI of this package.
+   * Returns the SBML Version for the given URI of this package.
    *
-   * @param uri the string of URI that represents one of versions of comp package.
+   * @param uri the string of URI that represents one of versions of the
+   * &ldquo;comp&rdquo; package
    *
-   * @return the SBML version with the given URI of this package. @c 0 will
-   * be returned if the given URI is invalid.
+   * @return the SBML version with the given URI of this package, or @c 0 if
+   * the given URI is invalid.
    */
   virtual unsigned int getVersion(const std::string &uri) const;
 
 
   /**
-   * Returns the package version with the given URI of this package.
+   * Returns the package version for the given URI of this package.
    *
-   * @param uri the string of URI that represents one of versions of comp package.
+   * @param uri the string of URI that represents one of versions of the
+   * &ldquo;comp&rdquo; package
    *
-   * @return the package version with the given URI of this package. 0 will be returned
+   * @return the package version with the given URI of this package, or @c 0
    * if the given URI is invalid.
    */
   virtual unsigned int getPackageVersion(const std::string &uri) const;
 
 
   /**
-   * Returns an SBMLExtensionNamespaces&lt;CompExtension&gt; object whose alias
-   * type is CompPkgNamespace.
+   * Returns an CompPkgNamespaces object.
    *
-   * @param uri the string of URI that represents one of versions of comp package.
+   * @param uri the string of URI that represents one of versions of the
+   * &ldquo;comp&rdquo; package
    *
-   * @return an CompPkgNamespace object corresponding to the given URI. @c
-   * NULL will be returned if the given URI is not defined in comp package.
+   * @return an CompPkgNamespace object corresponding to the given @p uri, or
+   * @c NULL if the URI is not defined in the Hierarchical %Model Composition
+   * package.
    */
   virtual SBMLNamespaces* getSBMLExtensionNamespaces(const std::string &uri) const;
 
 
   /**
-   * This method takes a type code of comp package and returns a string
-   * representing the code.
-   *
-   * @param typeCode the libSBML typecode in question.
-   *
-   * @return a string representing the libSBML type code.
+   * Takes a type code of the &ldquo;comp&rdquo; package and returns a string
+   * describing the code.
    */
   virtual const char* getStringFromTypeCode(int typeCode) const;
 
