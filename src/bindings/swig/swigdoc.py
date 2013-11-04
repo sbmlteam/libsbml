@@ -1099,12 +1099,6 @@ def rewriteDocstringForPython (docstring):
   filter that processes the output of *this* filter.
   """
 
-  # Remove some things we use as hacks in Doxygen 1.7-1.8.
-
-  docstring = docstring.replace(r'@~', '')
-  p = re.compile('@par(\s)', re.MULTILINE)
-  docstring = p.sub(r'\1', docstring)
-
   # Rewrite some common things.
 
   docstring = rewriteCommonReferences(docstring)  
