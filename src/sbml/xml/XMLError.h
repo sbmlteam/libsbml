@@ -48,7 +48,7 @@
  * identifies the nature of the problem.
  * @if clike This error identifier will be up to five digits 
  * long and drawn from the enumeration <a class="el"
- * href="#XMLErrorCode_t">XMLErrorCode_t</a>.  Applications can use the
+ * href="#error-codes">XMLErrorCode_t</a>.  Applications can use the
  * error identifiers as a means of recognizing the error encountered and
  * changing their behavior if desired. @else This
  * error identifier is one of the constants listed in the next section below.
@@ -98,14 +98,14 @@
  * could be provided by libSBML in that situation.
  * 
  * @if clike
- * <h3><a class="anchor" name="XMLErrorCode_t">XMLErrorCode_t</a></h3>
+ * <h3><a class="anchor" name="error-codes">XMLErrorCode_t</a></h3>
  *
  * This is an enumeration of all the error and warning codes returned by
  * the XML layer in libSBML.  Each code is an integer with a 4-digit value
  * less than 10000.  The following table lists each possible value and a
  * brief description of its meaning.
  * @endif@if java <h3><a class="anchor" 
- * name="XMLErrorCode_t">Error codes associated with XMLError objects</a></h3>
+ * name="error-codes">Error codes associated with XMLError objects</a></h3>
  * 
  * The error and warning codes returned by the XML layer in libSBML are
  * listed in the table below.  In the libSBML Java language interface,
@@ -117,7 +117,7 @@
  * enumerations in Java prior to JDK 1.5.  Future versions of libSBML may
  * use a proper Java enumeration type to define the error
  * identifiers. @endif@if csharp <h3><a class="anchor" 
- * name="XMLErrorCode_t">Error codes associated with XMLError objects</a></h3>
+ * name="error-codes">Error codes associated with XMLError objects</a></h3>
  * 
  * The error and warning codes returned by the XML layer in libSBML are
  * listed in the table below.  In the libSBML C# language interface,
@@ -190,7 +190,7 @@
  *
  *
  * @if clike
- * <h3><a class="anchor" name="XMLErrorCategory_t">XMLErrorCategory_t</a></h3>
+ * <h3><a class="anchor" name="error-categories">XMLErrorCategory_t</a></h3>
  *
  * As discussed above, each XMLError object contains a value for a category
  * identifier, describing the type of issue that the XMLError object
@@ -200,7 +200,7 @@
  * XMLErrorCategory_t</a>.  The following table
  * lists each possible value and a brief description of its meaning.
  * @endif@if java <h3><a class="anchor"
- * name="XMLErrorCategory_t">Category codes associated with XMLError objects</a></h3>
+ * name="error-categories">Category codes associated with XMLError objects</a></h3>
  *
  * As discussed above, each XMLError object contains a value for a category
  * identifier, describing the type of issue that the XMLError object represents.
@@ -214,7 +214,7 @@
  * <code>libsbmlConstants</code> in the file "<a
  * href="libsbmlConstants.html">libsbmlConstants.java</a>".
  * @endif@if csharp <h3><a class="anchor"
- * name="XMLErrorCategory_t">Category codes associated with XMLError objects</a></h3>
+ * name="error-categories">Category codes associated with XMLError objects</a></h3>
  *
  * As discussed above, each XMLError object contains a value for a category
  * identifier, describing the type of issue that the XMLError object represents.
@@ -252,7 +252,7 @@
  *
  *
  * @if clike
- * <h3><a class="anchor" name="XMLErrorSeverity_t">XMLErrorSeverity_t</a></h3>
+ * <h3><a class="anchor" name="error-severities">XMLErrorSeverity_t</a></h3>
  *
  * As described above, each XMLError object contains a value for a severity
  * code, describing how critical is the issue that the XMLError object
@@ -262,7 +262,7 @@
  * XMLErrorSeverity_t</a>.  The following table
  * lists each possible value and a brief description of its meaning.
  * @endif@if java <h3><a class="anchor"
- * name="XMLErrorSeverity_t">Severity codes associated with XMLError objects</a></h3>
+ * name="error-severities">Severity codes associated with XMLError objects</a></h3>
  * 
  * As described above, each XMLError object contains a value for a severity
  * code, describing how severe is the issue that the XMLError object
@@ -280,7 +280,7 @@
  * enumerations in Java prior to JDK 1.5.  Future versions of libSBML may
  * use a proper Java enumeration type to define the severity
  * codes. @endif@if csharp <h3><a class="anchor"
- * name="XMLErrorSeverity_t">Severity codes associated with XMLError objects</a></h3>
+ * name="error-severities">Severity codes associated with XMLError objects</a></h3>
  * 
  * As described above, each XMLError object contains a value for a severity
  * code, describing how severe is the issue that the XMLError object
@@ -564,23 +564,23 @@ public:
    * XMLError objects have identification numbers to indicate the nature of
    * the exception.  @if clike These numbers are drawn from
    * the enumeration <a class="el"
-   * href="#XMLErrorCode_t">XMLErrorCode_t</a>.
+   * href="#error-codes">XMLErrorCode_t</a>.
    * @else These numbers are defined as unsigned 
    * integer constants in the file
    * "libsbmlConstants.java".  See the <a class="el"
-   * href="#XMLErrorCode_t">top of this documentation</a> for a table
+   * href="#error-codes">top of this documentation</a> for a table
    * listing the possible values and their meanings. @endif@~ The argument @p
    * errorId to this constructor @em can be (but does not have to be) a
    * value from this @if clike enumeration. If it is a value
-   * from <a class="el" href="#XMLErrorCode_t">XMLErrorCode_t</a>, the
+   * from <a class="el" href="#error-codes">XMLErrorCode_t</a>, the
    * XMLError class assumes the error is a low-level system or XML layer
    * error and <em>prepends</em> a built-in, predefined error message to
    * any string passed in the argument @p details to this constructor.  In
-   * addition, all <a class="el" href="#XMLErrorCode_t">XMLErrorCode_t</a>
+   * addition, all <a class="el" href="#error-codes">XMLErrorCode_t</a>
    * errors have associated values for the @p severity and @p category
    * codes, and these fields are filled-in as well from the enumerations <a
-   * class="el" href="#XMLErrorSeverity_t">XMLErrorSeverity_t</a> and <a
-   * class="el" href="#XMLErrorCategory_t">XMLErrorCategory_t</a>,
+   * class="el" href="#error-severities">XMLErrorSeverity_t</a> and <a
+   * class="el" href="#error-categories">XMLErrorCategory_t</a>,
    * respectively. @else set of constants.  If it is
    * one of the predefined error identifiers, the XMLError class assumes
    * the error is a low-level system or XML layer error and
@@ -601,23 +601,23 @@ public:
    *
    * @if clike As mentioned above, there are two other
    * enumerations, <a class="el"
-   * href="#XMLErrorSeverity_t">XMLErrorSeverity_t</a> and <a class="el"
-   * href="#XMLErrorCategory_t">XMLErrorCategory_t</a>, used for indicating
+   * href="#error-severities">XMLErrorSeverity_t</a> and <a class="el"
+   * href="#error-categories">XMLErrorCategory_t</a>, used for indicating
    * the severity and category of error for the predefined XMLError codes.
    * The values passed in @p severity and @p category override the defaults
    * assigned based on the error code.  If the value of @p errorId is a
-   * value from <a class="el" href="#XMLErrorCode_t">XMLErrorCode_t</a>,
+   * value from <a class="el" href="#error-codes">XMLErrorCode_t</a>,
    * callers do not need to fill in @p severity and @p category.
    * Conversely, if @p errorId is not a value from <a class="el"
-   * href="#XMLErrorCode_t">XMLErrorCode_t</a>, callers can use other
+   * href="#error-codes">XMLErrorCode_t</a>, callers can use other
    * values (not just those from <a class="el"
-   * href="#XMLErrorSeverity_t">XMLErrorSeverity_t</a> and <a class="el"
-   * href="#XMLErrorCategory_t">XMLErrorCategory_t</a>, but their own
+   * href="#error-severities">XMLErrorSeverity_t</a> and <a class="el"
+   * href="#error-categories">XMLErrorCategory_t</a>, but their own
    * special values) for @p severity and @p
    * category. @else As mentioned above, 
    * there are additional constants defined for <a class="el"
-   * href="#XMLErrorSeverity_t">standard severity</a> and <a class="el"
-   * href="#XMLErrorCategory_t">standard category</a> codes, and every predefined 
+   * href="#error-severities">standard severity</a> and <a class="el"
+   * href="#error-categories">standard category</a> codes, and every predefined 
    * error in libSBML has an associated value for severity and category taken
    * from these predefined sets.  These constants have symbol names
    * prefixed with <code>LIBSBML_SEV_</code> and <code>LIBSBML_CAT_</code>,
@@ -1041,8 +1041,8 @@ public:
    * predefined XMLError code.
    *
    * @param code the error code whose message is sought; it must be a
-   * predefined value from @if clike <a class="el" href="#XMLErrorCode_t">
-   * XMLErrorCode_t</a>. @else <a class="el" href="#XMLErrorCode_t">the set
+   * predefined value from @if clike <a class="el" href="#error-codes">
+   * XMLErrorCode_t</a>. @else <a class="el" href="#error-codes">the set
    * of predefined error identifiers</a>.@endif@~
    */
   static const std::string getStandardMessage (const int code);

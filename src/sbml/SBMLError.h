@@ -236,10 +236,21 @@
  * longer and (hopefully) clearer explanation of the issue is returned by
  * SBMLError::getMessage().
  *
- * The error codes come from different lists depending on whether they're from core or from a
- * package.  The errors below come from #XMLErrorCode_t and #SBMLErrorCode_t (for core), 
- * and #CompSBMLErrorCode_t, #FbcSBMLErrorCode_t, #LayoutSBMLErrorCode_t, and 
- * #QualSBMLErrorCode_t (for packages).
+ * The error codes come from different lists depending on whether they're
+ * from libSBML core or from an SBML Level&nbsp;3 package extension.
+ * @if clike The errors below come from #XMLErrorCode_t and #SBMLErrorCode_t
+ * (for core), and #CompSBMLErrorCode_t, #FbcSBMLErrorCode_t,
+ * #LayoutSBMLErrorCode_t, and #QualSBMLErrorCode_t (for packages).@endif
+ * @if notclike However, in the language interfaces other than C++, all
+ * libSBML error codes are ultimately represented as integer constants rather
+ * than separate enumerations lists, and they are all stored in a single
+ * interface class.  Codes from different libSBML extensions have names that
+ * begin with the package's nickname, such as <code>Qual</code> for
+ * the Qualitative Models package, <code>Layout</code> for the Layout
+ * package, and so on.  If the name of a code does not begin with one of
+ * the package nicknames (<code>%Layout</code>, <code>Fbc</code>,
+ * <code>Comp</code>, <code>Qual</code>, etc.), then it is a code
+ * from libSBML core.@endif
  *
  * @copydetails doc_sbml_error_table
  * 

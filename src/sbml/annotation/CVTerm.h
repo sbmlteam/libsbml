@@ -109,10 +109,10 @@
  * biological qualifier).  Note that these namespace URIs are only labels,
  * and not actual Web locations, which means you cannot visit an address such
  * as <code>"http://biomodels.net/model-qualifiers"</code> in your browser or
- * try to have your application access it.  Refer instead to the enumerations
+ * try to have your application access it.  @if Refer instead to the enumerations
  * #ModelQualifierType_t and #BiolQualifierType_t for a list of the available
  * relationship elements that can be used for <span class="code"
- * style="background-color: #bbb">RELATION_ELEMENT</span>.
+ * style="background-color: #bbb">RELATION_ELEMENT</span>.@endif@~
  *
  * The <span class="code" style="background-color: #d0d0ee">URI</span> is a
  * required data value that uniquely identifies a resource and data within
