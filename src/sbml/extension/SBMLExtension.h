@@ -394,7 +394,7 @@ GroupsExtension::init()
   //
   //-------------------------------------------------------------------------
 
-  if (SBMLExtensionRegistry::getInstance().isRegistered(getPackageName()))
+  if ( SBMLExtensionRegistry::getInstance().isRegistered(getPackageName()) )
   {
     // do nothing;
     return;
