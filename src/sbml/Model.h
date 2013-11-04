@@ -2664,9 +2664,18 @@ public:
    */
   virtual int removeFromParentAndDelete();
 
+  /** @cond doxygenLibsbmlInternal */
+
   virtual int renameAllIds(IdentifierTransformer* idTransformer, ElementFilter* filter=NULL);
   
+  /** @endcond */
+
+
+  /** @cond doxygenLibsbmlInternal */
+  
   virtual void renameIDs(List* elements, IdentifierTransformer* idTransformer);
+
+  /** @endcond */
 
 
   /**
