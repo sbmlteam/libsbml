@@ -8,7 +8,7 @@ foreach( example
 	
 	convertCobraToFbc
 	convertFbcToCobra
-	example1
+	fbc_example1
 	
 )
 
