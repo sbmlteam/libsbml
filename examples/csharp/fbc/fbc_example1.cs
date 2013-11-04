@@ -2,7 +2,7 @@ using System;
 using libsbmlcs;
 
 
-public class Example1
+public class fbc_Example1
 {
     
     static void Main(string[] args)
