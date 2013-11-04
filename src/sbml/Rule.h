@@ -776,7 +776,8 @@ public:
   /** @endcond */
 
   
-  /**
+  /** @cond doxygenLibsbmlInternal */
+  /*
    * Return the variable attribute of this object.
    *
    * @note This function is an alias of getVariable() function.
@@ -787,6 +788,7 @@ public:
    * @see getVariable()
    */
   virtual const std::string& getId() const;
+  /** @endcond */
 
 
   /** @cond doxygenLibsbmlInternal */

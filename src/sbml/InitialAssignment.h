@@ -537,6 +537,7 @@ public:
   virtual bool hasRequiredElements() const ;
 
 
+  /** @cond doxygenLibsbmlInternal */
   /*
    * Return the variable attribute of this object.
    *
@@ -548,6 +549,7 @@ public:
    * @see getSymbol()
    */
   virtual const std::string& getId() const;
+  /** @endcond */
 
 
   /**
