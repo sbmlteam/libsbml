@@ -218,6 +218,8 @@ distfiles =						     \
 	doxygen-layout-csharp.xml			     \
 	doxygen-layout-notcpp.xml			     \
 	doxygen-layout-python.xml			     \
+	doxygen-regular-text-end.html			     \
+	doxygen-regular-text-start.html			     \
         examples/readmath.cpp				     \
         examples/readSBML.java				     \
         examples/simpleread.cpp				     \
