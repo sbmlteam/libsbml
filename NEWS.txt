@@ -221,11 +221,17 @@ STABLE RELEASE
  
 * Miscellaneous
 
+  - The API manuals for Java, Python and C# now include information
+    about the SBML Level 3 package extensions.  In addition, many
+    formatting errors have been resolved, new sections have been
+    added, and finally, the overall look and feel of the documentation
+    has been updated (and hopefully improved).
+
   - The copyrights and license statements in LICENSE.txt/LICENSE.html
     have been updated to reflect the inclusion of code from Ralph
-    Gauges (EML, Heidelberg, Germany) and a small program from Sun
-    Microsystems used in generating documentation.  Both of these are
-    distributed under terms compatible with the LGPL of all of libSBML.
+    Gauges (EML, Heidelberg, Germany), a small program from Sun
+    Microsystems used in generating documentation, and the PrettyTable
+    and Google Code Prettify utilities mentioned below.  
 
   - To help produce better documentation, the libSBML sources now use
     (and incorporate) two utilities, PrettyTable 0.7.2 (in
