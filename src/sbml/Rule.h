@@ -498,18 +498,26 @@ public:
    * @return the rule type, which will be one of the following three possible
    * values:
    * @if clike
+   * 
    * @li @link RuleType_t#RULE_TYPE_RATE RULE_TYPE_RATE@endlink
    * @li @link RuleType_t#RULE_TYPE_SCALAR RULE_TYPE_SCALAR@endlink
    * @li @link RuleType_t#RULE_TYPE_INVALID RULE_TYPE_INVALID@endlink
    * @endif@if python
+   * 
    * @li @link libsbml.RULE_TYPE_RATE RULE_TYPE_RATE@endlink
    * @li @link libsbml.RULE_TYPE_SCALAR RULE_TYPE_SCALAR@endlink
    * @li @link libsbml.RULE_TYPE_INVALID RULE_TYPE_INVALID@endlink
    * @endif@if java
+   *
+   * @li @link libsbmlConstants#RULE_TYPE_RATE RULE_TYPE_RATE@endlink
+   * @li @link libsbmlConstants#RULE_TYPE_SCALAR RULE_TYPE_SCALAR@endlink
+   * @li @link libsbmlConstants#RULE_TYPE_INVALID RULE_TYPE_INVALID@endlink
+   * @endif@if csharp
+   * 
    * @li @link libsbmlcs.RULE_TYPE_RATE RULE_TYPE_RATE@endlink
    * @li @link libsbmlcs.RULE_TYPE_SCALAR RULE_TYPE_SCALAR@endlink
    * @li @link libsbmlcs.RULE_TYPE_INVALID RULE_TYPE_INVALID@endlink
-   * @endif@if csharp
+   * 
    * @endif@~
    *
    * @note The attribute "type" on Rule objects is present only in SBML
