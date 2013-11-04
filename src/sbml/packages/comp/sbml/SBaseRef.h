@@ -20,12 +20,13 @@
  * @sbmlbrief{comp} Implementation of the %SBaseRef construct from the
  * &ldquo;comp&rdquo; package.
  *
- * The SBaseRef class was introduced by the SBML Level&nbsp;3
- * @ref comp "Hierarchical Model Composition" package (&ldquo;comp&rdquo;) as the
- * principle way by which submodel elements may be referenced.  The SBaseRef
- * class is usually found as the base class of a Port, Deletion, ReplacedElement,
- * or ReplacedBy class, but may appear as an child of one of the above
- * classes if the parent object references a Submodel.
+ * The SBaseRef class was introduced by the SBML Level&nbsp;3 @ref comp
+ * @if java "Hierarchical %Model Composition"@endif@~ package
+ * (&ldquo;comp&rdquo;) as the principle way by which submodel elements may
+ * be referenced.  The SBaseRef class is usually found as the base class of a
+ * Port, Deletion, ReplacedElement, or ReplacedBy class, but may appear as an
+ * child of one of the above classes if the parent object references a
+ * Submodel.
  *
  * An SBaseRef object must reference an element using exactly one of the
  * optional attributes of the class.  Subclasses of SBaseRef may define

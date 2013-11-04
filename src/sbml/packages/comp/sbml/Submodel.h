@@ -20,13 +20,13 @@
  * @sbmlbrief{comp} Implementation of the %Submodel construct from the
  * &ldquo;comp&rdquo; package.
  *
- * The Submodel class was introduced by the SBML Level&nbsp;3 
- * @ref comp "Hierarchical Model Composition" package (&ldquo;comp&rdquo;)
- * as the principle way by which models
- * are structured hierarchically.  Submodels are instantiations of models
- * contained within other models.  They reference another Model that is to be
- * instantiated within its parent Model, and additionally define how that
- * Model is to be modified before instantiation.
+ * The Submodel class was introduced by the SBML Level&nbsp;3 @ref comp
+ * @if java "Hierarchical %Model Composition"@endif@~ package
+ * (&ldquo;comp&rdquo;) as the principle way by which models are structured
+ * hierarchically.  Submodels are instantiations of models contained within
+ * other models.  They reference another Model that is to be instantiated
+ * within its parent Model, and additionally define how that Model is to be
+ * modified before instantiation.
  *
  * The Submodel object class has a required attribute "modelRef", which must
  * reference another Model or ExternalModelDefinition object present in the

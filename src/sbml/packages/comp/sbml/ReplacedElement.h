@@ -21,13 +21,13 @@
  * &ldquo;comp&rdquo; package.
  *
  * The ReplacedElement class was introduced by the SBML Level&nbsp;3
- * @ref comp "Hierarchical Model Composition" package (&ldquo;comp&rdquo;)
- * to allow submodel elements
- * to be replaced, but still allow references to those elements to be valid.
- * A ReplacedElement object is essentially a pointer to a submodel object
- * that should be considered 'replaced'.  The object holding the
- * ReplacedElement instance is the one doing the replacing; the object
- * pointed to by the ReplacedElement object is the object being replaced.
+ * @ref comp @if java "Hierarchical %Model Composition"@endif@~  package
+ * (&ldquo;comp&rdquo;) to allow submodel elements to be replaced, but still
+ * allow references to those elements to be valid.  A ReplacedElement object
+ * is essentially a pointer to a submodel object that should be considered
+ * 'replaced'.  The object holding the ReplacedElement instance is the one
+ * doing the replacing; the object pointed to by the ReplacedElement object
+ * is the object being replaced.
  *
  * A replacement implies that dependencies involving the replaced object
  * must be updated: all references to the replaced object elsewhere in the

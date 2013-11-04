@@ -23,11 +23,11 @@
  *
  * The CompModelPlugin class inherits from the SBMLSBasePlugin class, and
  * codifies the extentions to the Model class defined in the SBML
- * Level&nbsp;3 @ref comp "Hierarchical Model Composition" package (&ldquo;comp&rdquo;).  This
- * extention allows a Model to define Submodels (other Models that are
- * instantiated as new parts of the parent Model), and Ports, a defined
- * interface for including the given Model as a Submodel of a different
- * Model.
+ * Level&nbsp;3 @ref comp @if java "Hierarchical %Model Composition"@endif@~ 
+ * package (&ldquo;comp&rdquo;).  This extention allows a Model to define
+ * Submodels (other Models that are instantiated as new parts of the parent
+ * Model), and Ports, a defined interface for including the given Model as a
+ * Submodel of a different Model.
  *
  * Submodels are stored in an optional child ListOfSubmodels object, which, 
  * if present, must contain one or more Submodel objects.  All of the Submodels

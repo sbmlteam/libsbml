@@ -20,10 +20,10 @@
  * @sbmlbrief{comp} A convenience subclass of the %ReplacedElement and
  * %ReplacedBy constructs from the &ldquo;comp&rdquo; package.
  *
- * The Replacing class does not exist officialy in the the
- * @ref comp "Hierarchical Model Composition" package (&ldquo;comp&rdquo;),
- * but is implemented here as a convenience subclass of the
- * ReplacedElement and ReplacedBy classes, since both of those classes 
+ * The Replacing class does not exist officialy in the the @ref comp
+ * @if java "Hierarchical %Model Composition"@endif@~ package
+ * (&ldquo;comp&rdquo;), but is implemented here as a convenience subclass of
+ * the ReplacedElement and ReplacedBy classes, since both of those classes
  * define a 'submodelRef' attribute.
  *
  * The required attribute "submodelRef" takes a value of type

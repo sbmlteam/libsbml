@@ -20,13 +20,13 @@
  * @sbmlbrief{comp} Implementation of the %ReplacedBy construct from the
  * &ldquo;comp&rdquo; package.
  *
- * The ReplacedBy class was introduced by the SBML Level&nbsp;3 
- * @ref comp "Hierarchical Model Composition" package (&ldquo;comp&rdquo;)
- * to allow submodel elements to be
- * 'canonical' versions of the element while still allowing the parent model
- * to reference those elements.  Whereas a ReplacedElement object indicates
- * that the containing object replaces another, a ReplacedBy object indicates
- * the converse: the parent object is to be replaced by another object.
+ * The ReplacedBy class was introduced by the SBML Level&nbsp;3 @ref comp
+ * @if java "Hierarchical %Model Composition"@endif@~ 
+ * package (&ldquo;comp&rdquo;) to allow submodel elements to be 'canonical'
+ * versions of the element while still allowing the parent model to reference
+ * those elements.  Whereas a ReplacedElement object indicates that the
+ * containing object replaces another, a ReplacedBy object indicates the
+ * converse: the parent object is to be replaced by another object.
 
  * As is the case with ReplacedElement, the ReplacedBy class inherits from SBaseRef.  
  * It additionally defines one required attribute ("submodelRef"), defined in 

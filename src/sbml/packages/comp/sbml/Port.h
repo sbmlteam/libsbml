@@ -20,16 +20,16 @@
  * @sbmlbrief{comp} Implementation of the %Port construct from the
  * &ldquo;comp&rdquo; package.
  *
- * The Port class was introduced by the SBML Level&nbsp;3
- * @ref comp "Hierarchical Model Composition" package (&ldquo;comp&rdquo;)
- * to allow a Model to define a standard
- * interface between it and other models that might use it as a submodel.  It
- * derives from the SBaseRef class, and the elements defined there refer to
- * elements in the same parent Model as the Port object.  A Port object
- * instance therefore uses those attributes to define a port for a component
- * in a model.  When other SBaseRef or SBaseRef-derived classes refer to a
- * Port object using a "portRef" attribute, the element being referenced is
- * the element the Port object itself points to.
+ * The Port class was introduced by the SBML Level&nbsp;3 @ref comp
+ * @if java "Hierarchical %Model Composition"@endif@~ package
+ * (&ldquo;comp&rdquo;) to allow a Model to define a standard interface
+ * between it and other models that might use it as a submodel.  It derives
+ * from the SBaseRef class, and the elements defined there refer to elements
+ * in the same parent Model as the Port object.  A Port object instance
+ * therefore uses those attributes to define a port for a component in a
+ * model.  When other SBaseRef or SBaseRef-derived classes refer to a Port
+ * object using a "portRef" attribute, the element being referenced is the
+ * element the Port object itself points to.
  *
  * In the present formulation of the Hierarchical %Model Composition
  * package, the use of ports is not enforced, nor is there any

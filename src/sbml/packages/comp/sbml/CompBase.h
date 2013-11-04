@@ -23,7 +23,8 @@
  *
  * The CompBase class derives from SBase, and defines a few functions
  * and features common to all SBase-derived classes in the SBML Level&nbsp;3
- * @ref comp "Hierarchical Model Composition" package (&ldquo;comp&rdquo;).
+ * @ref comp @if java "Hierarchical %Model Composition"@endif@~ package
+ * (&ldquo;comp&rdquo;).
  */
 
 #ifndef CompBase_h

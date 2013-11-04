@@ -23,10 +23,11 @@
  *
  * The CompSBMLDocumentPlugin class inherits from the SBMLDocumentPlugin
  * class, and codifies the extentions to the SBMLDocument class defined in
- * the SBML Level&nbsp;3 @ref comp "Hierarchical %Model Composition" package
- * (&ldquo;comp&rdquo;).  This extention allows multiple Model objects to be
- * defined in a single SBMLDocument, stored in an optional child
- * ListOfModelDefinitions object, as well as define references to Model
+ * the SBML Level&nbsp;3 @ref comp
+ * @if java "Hierarchical %Model Composition"@endif@~ 
+ * package (&ldquo;comp&rdquo;).  This extention allows multiple Model
+ * objects to be defined in a single SBMLDocument, stored in an optional
+ * child ListOfModelDefinitions object, as well as define references to Model
  * objects in other files, stored in the optional child
  * ListOfExternalModelDefinitions object.  These model definitions, if
  * present, allow Submodel objects to reference other Models to instantiate.

@@ -21,9 +21,9 @@
  * from the &ldquo;comp&rdquo; package.
  *
  * The ExternalModelDefinition class was introduced by the SBML Level&nbsp;3
- * @ref comp "Hierarchical Model Composition" package (&ldquo;comp&rdquo;)
- * to define references to
- * Model objects defined in other files.
+ * @ref comp @if java "Hierarchical %Model Composition"@endif@~ 
+ * package (&ldquo;comp&rdquo;) to define references to Model
+ * objects defined in other files.
  * 
  * ExternalModelDefinition objects are model definitions&mdash;in and of
  * themselves, they are definitions of models but not uses of those models.

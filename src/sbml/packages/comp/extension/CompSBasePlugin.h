@@ -23,9 +23,9 @@
  *
  * The CompSBasePlugin class inherits from the SBasePlugin class, 
  * and codifies the extentions to the SBase class defined in the
- * @ref comp "Hierarchical Model Composition" package (&ldquo;comp&rdquo;).
- * This extention allows the modeler to
- * define one or more submodel elements which the parent SBase object replaces,
+ * @ref comp @if java "Hierarchical %Model Composition"@endif@~ 
+ * package (&ldquo;comp&rdquo;).  This extention allows the modeler to define
+ * one or more submodel elements which the parent SBase object replaces,
  * and/or a single submodel element which replaces the parent SBase object.
 
  * This is accomplished through the addition of an optional ListOfReplacedElements
