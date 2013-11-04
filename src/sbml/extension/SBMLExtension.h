@@ -873,6 +873,7 @@ public:
    */
   bool isEnabled() const;
 
+
   /**
    * Removes the L2 Namespaces. 
    *
@@ -880,6 +881,7 @@ public:
    * to an L2 annotation.
    */
   virtual void removeL2Namespaces(XMLNamespaces* xmlns)  const;
+
 
   /**
    * Adds all L2 Extension namespaces to the namespace list. 
@@ -889,6 +891,7 @@ public:
    */
   virtual void addL2Namespaces(XMLNamespaces *xmlns) const;
 
+
   /**
    * Adds the L2 Namespace to the document and enables the extension.
    *
@@ -897,19 +900,21 @@ public:
    */
   virtual void enableL2NamespaceForDocument(SBMLDocument* doc)  const;
 
+
   /** 
-   * Determines whether this extension is being used by the given SBMLDocument
+   * Indicates whether this extension is being used by the given SBMLDocument.
    *
    * The default implementation returns true. This means that when a document
    * had this extension enabled, it will not be possible to convert it to L2
    * as we cannot make sure that the extension can be converted.
    * 
-   * @param doc the sbml document to test. 
+   * @param doc the SBML document to test. 
    * 
    * @return a boolean indicating whether the extension is actually being used
-   *         byy the document. 
+   *         by the document. 
    */
   virtual bool isInUse(SBMLDocument *doc) const;
+
 
   /** @cond doxygenLibsbmlInternal */
   /*
