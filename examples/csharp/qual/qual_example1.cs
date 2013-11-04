@@ -1,5 +1,5 @@
 /**
- * @file    example1.cs
+ * @file    qual_example1.cs
  * @brief   SBML Qual example
  * @author  Sarah Keating
  *
@@ -15,7 +15,7 @@ using System.Text;
 using libsbmlcs;
 
 
-public class example1
+public class qual_example1
 {
 
   public static int Main(string[] args)

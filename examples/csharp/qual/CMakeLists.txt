@@ -6,7 +6,7 @@
 
 foreach( example
 	
-	example1
+	qual_example1
 	
 )
 
