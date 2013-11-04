@@ -226,6 +226,7 @@ Rule::getVariable () const
 }
 
 
+/** @cond doxygenLibsbmlInternal */
 /**
  * @return the string of variable attribute of this object.
  * 
@@ -238,6 +239,7 @@ Rule::getId() const
 {
   return getVariable();
 }
+/** @endcond */
 
 
 /*
