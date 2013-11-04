@@ -169,6 +169,7 @@ InitialAssignment::getSymbol () const
 }
 
 
+/** @cond doxygenLibsbmlInternal */
 /**
  * @return the string of symbol attribute of this object.
  * 
@@ -181,7 +182,7 @@ InitialAssignment::getId() const
 {
   return getSymbol();
 }
-
+/** @endcond */
 
 
 /*

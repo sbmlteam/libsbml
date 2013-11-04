@@ -406,6 +406,7 @@ Model::getAllElements(ElementFilter *filter)
 }
 
 
+/** @cond doxygenLibsbmlInternal */
 int 
 Model::renameAllIds(IdentifierTransformer* idTransformer, ElementFilter* filter)
 {
@@ -419,7 +420,10 @@ Model::renameAllIds(IdentifierTransformer* idTransformer, ElementFilter* filter)
   renameIDs(allElements, idTransformer);
   return LIBSBML_OPERATION_SUCCESS;
 }
-  
+/** @endcond */
+
+
+/** @cond doxygenLibsbmlInternal */
 void 
 Model::renameIDs(List* elements, IdentifierTransformer* idTransformer)
 {
@@ -489,7 +493,10 @@ Model::renameIDs(List* elements, IdentifierTransformer* idTransformer)
     }
   }
 }
+/** @endcond */
 
+
+/** @cond doxygenLibsbmlInternal */
 /*
  * @return the id of this SBML object.
  */
@@ -498,6 +505,7 @@ Model::getId () const
 {
   return mId;
 }
+/** @endcond */
 
 
 /*
