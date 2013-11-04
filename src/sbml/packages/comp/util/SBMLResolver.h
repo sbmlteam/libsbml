@@ -49,7 +49,7 @@
  * More resolvers may be provided by libSBML in the future.  Application
  * authors may also write their own.  @if cpp An example of how to create
  * an HTTP resolver is included with the libSBML distribution in the file
- * @ref SBMLHttpResolverExample.cpp "SBMLHttpResolverExample.cpp".@endif.
+ * @ref SBMLHttpResolverExample.cpp "SBMLHttpResolverExample.cpp".@endif
  *
  * @see SBMLUri 
  */
