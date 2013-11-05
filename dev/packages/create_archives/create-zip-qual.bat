@@ -117,6 +117,7 @@ mkdir examples\python
 mkdir examples\python\%PACKAGE_NAME%
 
 copy /y %PACKAGE_DIR%\examples\%PACKAGE_NAME%-package.cmake     examples
+copy /y "%PACKAGE_DIR%\examples\c++\%PACKAGE_NAME%\*.in"        examples\cpp\%PACKAGE_NAME%\
 copy /y "%PACKAGE_DIR%\examples\c++\%PACKAGE_NAME%\*.cpp"       examples\cpp\%PACKAGE_NAME%\
 copy /y "%PACKAGE_DIR%\examples\c++\%PACKAGE_NAME%\*.txt"       examples\cpp\%PACKAGE_NAME%\
 copy /y %PACKAGE_DIR%\examples\csharp\%PACKAGE_NAME%\*.cs       examples\csharp\%PACKAGE_NAME%\

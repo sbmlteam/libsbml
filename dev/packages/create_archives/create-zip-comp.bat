@@ -148,8 +148,10 @@ mkdir examples\ruby\%PACKAGE_NAME%
 
 copy /y %PACKAGE_DIR%\examples\%PACKAGE_NAME%-package.cmake     examples
 copy /y %PACKAGE_DIR%\examples\c\%PACKAGE_NAME%\*.c             examples\c\%PACKAGE_NAME%\
+copy /y %PACKAGE_DIR%\examples\c\%PACKAGE_NAME%\*.in            examples\c\%PACKAGE_NAME%\
 copy /y %PACKAGE_DIR%\examples\c\%PACKAGE_NAME%\*.txt           examples\c\%PACKAGE_NAME%\
 copy /y "%PACKAGE_DIR%\examples\c++\%PACKAGE_NAME%\*.cpp"       examples\cpp\%PACKAGE_NAME%\
+copy /y "%PACKAGE_DIR%\examples\c++\%PACKAGE_NAME%\*.in"        examples\cpp\%PACKAGE_NAME%\
 copy /y "%PACKAGE_DIR%\examples\c++\%PACKAGE_NAME%\*.txt"       examples\cpp\%PACKAGE_NAME%\
 copy /y %PACKAGE_DIR%\examples\csharp\%PACKAGE_NAME%\*.cs       examples\csharp\%PACKAGE_NAME%\
 copy /y %PACKAGE_DIR%\examples\csharp\%PACKAGE_NAME%\*.txt      examples\csharp\%PACKAGE_NAME%\
