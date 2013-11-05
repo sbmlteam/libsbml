@@ -59,6 +59,7 @@ test_sources =                    \
   TestSBMLExtension.cpp           \
   TestSBMLExtensionNamespaces.cpp \
   TestSBMLExtensionRegistry.cpp   \
+  TestUnknownPackage.cpp          \
   TestPackage.cpp                 \
   TestPackage.h                   \
   TestRunner.c
