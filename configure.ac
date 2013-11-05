@@ -455,18 +455,16 @@ if test "$enable_fbc" != "no" ; then
 fi
 fi
 
-if test "$enable_layout" != "no" ; then
-  AC_CONFIG_FILES([src/sbml/packages/layout/Makefile])
-  AC_CONFIG_FILES([src/sbml/packages/layout/common/Makefile])
-  AC_CONFIG_FILES([src/sbml/packages/layout/extension/Makefile])
-  AC_CONFIG_FILES([src/sbml/packages/layout/sbml/Makefile])
-  AC_CONFIG_FILES([src/sbml/packages/layout/sbml/test/Makefile])
-  AC_CONFIG_FILES([src/sbml/packages/layout/util/Makefile])
-  AC_CONFIG_FILES([src/sbml/packages/layout/validator/Makefile])
-  AC_CONFIG_FILES([src/sbml/packages/layout/validator/constraints/Makefile])
-  AC_CONFIG_FILES([src/sbml/packages/layout/validator/test/Makefile])
-  AC_CONFIG_FILES([src/sbml/packages/layout/validator/test/test-data/Makefile])
-fi
+AC_CONFIG_FILES([src/sbml/packages/layout/Makefile])
+AC_CONFIG_FILES([src/sbml/packages/layout/common/Makefile])
+AC_CONFIG_FILES([src/sbml/packages/layout/extension/Makefile])
+AC_CONFIG_FILES([src/sbml/packages/layout/sbml/Makefile])
+AC_CONFIG_FILES([src/sbml/packages/layout/sbml/test/Makefile])
+AC_CONFIG_FILES([src/sbml/packages/layout/util/Makefile])
+AC_CONFIG_FILES([src/sbml/packages/layout/validator/Makefile])
+AC_CONFIG_FILES([src/sbml/packages/layout/validator/constraints/Makefile])
+AC_CONFIG_FILES([src/sbml/packages/layout/validator/test/Makefile])
+AC_CONFIG_FILES([src/sbml/packages/layout/validator/test/test-data/Makefile])
 
 if test -d src/sbml/packages/qual; then
 if test "$enable_qual" != "no" ; then
