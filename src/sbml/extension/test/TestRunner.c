@@ -50,6 +50,7 @@ Suite *create_suite_SBMLDocumentPlugin       (void);
 Suite *create_suite_SBMLExtension		     (void);
 Suite *create_suite_SBMLExtensionNamespaces  (void);
 Suite *create_suite_SBMLExtensionRegistry    (void);
+Suite *create_suite_TestUnknownPackages      (void);
 
 END_C_DECLS
 
@@ -69,6 +70,7 @@ main (void)
   srunner_add_suite( runner, create_suite_SBMLExtension () );
   srunner_add_suite( runner, create_suite_SBMLExtensionNamespaces () );
   srunner_add_suite( runner, create_suite_SBMLExtensionRegistry () );
+  srunner_add_suite( runner, create_suite_TestUnknownPackages () );
 
   /* srunner_set_fork_status(runner, CK_NOFORK); */
 
