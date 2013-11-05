@@ -29,19 +29,33 @@ subdirs =
 # `extra_CXXFLAGS', `extra_LDFLAGS' and `distfiles' are used by the default
 # rules in `makefile-common-actions.mk' included at the end.
 
-headers   = 
+test_headers   = 
 
-header_inst_prefix = packages/comp/util/test
-
-sources   =					 \
+test_sources   =					 \
 	TestCompFlatteningConverter.cpp		 \
 	TestCompFlatteningErrorMessages.cpp	 \
 	TestCompFlatteningUnknownPackageRefs.cpp \
 	TestExternalModelResolving.cpp		 \
+  TestCompFlatteningNewFlags.cpp \
 	TestRunner.c				 \
 	TestURIResolvers.cpp
 
-extra_CPPFLAGS = -I../../..
+extra_CPPFLAGS = -I.. -I../extension -I../../../.. -I../../../../..
+
+
+ifdef USE_LIBCHECK
+  check_driver      = TestRunner
+  ifeq "$(findstring $(LIBCHECK_CPPFLAGS),$(extra_CPPFLAGS))" ""
+    extra_CPPFLAGS  += $(LIBCHECK_CPPFLAGS)
+  endif
+  ifeq "$(findstring $(LIBCHECK_LDFLAGS),$(extra_LDFLAGS))" ""
+    extra_LDFLAGS   += $(LIBCHECK_LDFLAGS)
+  endif
+  ifeq "$(findstring $(LIBCHECK_LIBS),$(extra_LIBS))" ""
+    extra_LIBS      += $(LIBCHECK_LIBS)
+  endif
+  extra_clean       += $(check_driver)
+endif
 
 ifdef USE_EXPAT
   extra_CPPFLAGS  += $(EXPAT_CPPFLAGS)
@@ -61,6 +75,8 @@ ifdef USE_LIBXML
   extra_LIBS     += $(LIBXML_LIBS)
 endif
 
+
+extra_LDFLAGS  += ../../../../../libsbml.la
 
 distfiles = $(sources) $(headers) Makefile.in 
 
@@ -84,24 +100,24 @@ all: Makefile default
 # dependencies on other subdirectoris of the source tree, we do some rummaging
 # around in .. and ../../subdirs.
 
-tmp           = $(sources:.cpp=.lo) $(sources:.c=.lo)
+tmp           = $(test_sources:.cpp=.lo) $(test_sources:.c=.lo)
 localobjfiles = $(filter %.lo,$(tmp))
 
-otherdirs     = ../common ../../extension ../../util ../../sbml ../../validator
+otherdirs     = ../../common ../../extension ../../sbml .. ../../validator/constraints ../../validator/
 ifdef USE_FBC
   otherdirs  += ../../../fbc/common ../../../fbc/sbml \
 		../../../fbc/extension ../../../fbc/util \
-		../../../fbc/validator
+		../../../fbc/validator ../../../fbc/validator/constraints
 endif
 ifdef USE_LAYOUT
   otherdirs  += ../../../layout/common ../../../layout/sbml \
 		../../../layout/extension ../../../layout/util \
-		../../../layout/validator
+		../../../layout/validator ../../../layout/validator/constraints
 endif
 ifdef USE_QUAL
   otherdirs  += ../../../qual/common ../../../qual/sbml \
 		../../../qual/extension ../../../qual/util \
-		../../../qual/validator
+		../../../qual/validator ../../../qual/validator/constraints
 endif
 
 otherobjfiles = $(wildcard $(addsuffix /*.lo,$(otherdirs)))
