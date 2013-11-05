@@ -118,6 +118,12 @@ SBMLFileResolver::resolve(const std::string &sUri, const std::string& sBaseUri/*
 
 }
 
+void prefixFileIfNeeded(std::string& fileName)
+{
+  if (fileName.length() == 0) return;
+  if (fileName[0] == '/') return;
+  fileName = "/" + fileName;
+}
 
 SBMLUri* 
 SBMLFileResolver::resolveUri(const std::string &sUri, const std::string& sBaseUri/*=""*/) const
@@ -143,7 +149,7 @@ SBMLFileResolver::resolveUri(const std::string &sUri, const std::string& sBaseUr
     if (fileExists(fileName))
       return new SBMLUri(fileName);
     // missing root? 
-    fileName = "/" + fileName;
+    prefixFileIfNeeded(fileName);
     if (fileExists(fileName))
       return new SBMLUri(fileName);
     ++it;
@@ -153,7 +159,7 @@ SBMLFileResolver::resolveUri(const std::string &sUri, const std::string& sBaseUr
   if (fileExists(fileName))
     return new SBMLUri(fileName);
   // missing root?
-  fileName = "/" + fileName;
+  prefixFileIfNeeded(fileName);
   if (fileExists(fileName))
     return new SBMLUri(fileName);
 
@@ -167,7 +173,7 @@ SBMLFileResolver::resolveUri(const std::string &sUri, const std::string& sBaseUr
     if (fileExists(fileName))
       return new SBMLUri(fileName);
     // missing root?
-    fileName = "/" + fileName;
+    prefixFileIfNeeded(fileName);
     if (fileExists(fileName))
       return new SBMLUri(fileName);
 
@@ -179,7 +185,7 @@ SBMLFileResolver::resolveUri(const std::string &sUri, const std::string& sBaseUr
   return NULL;
 }
 
-#ifndef WIN32
+#if !defined(WIN32) || defined(CYGWIN)
 #include <dirent.h>
 bool directoryExists( const char* path )
 {
@@ -209,7 +215,7 @@ SBMLFileResolver::fileExists(const std::string& fileName)
   // on linux we know that ther fileName exists, however 
   // it could be a directory (windows does not allow 
   // a directory be opened)
-  #ifndef WIN32
+  #if !defined(WIN32) || defined(CYGWIN)
   if (directoryExists(fileName.c_str()))
     return false;
   #endif
