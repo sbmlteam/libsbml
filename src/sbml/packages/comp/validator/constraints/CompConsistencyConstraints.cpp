@@ -47,12 +47,13 @@
 
 #endif
 
+#include <sbml/common/libsbml-namespace.h>
 #include <sbml/validator/ConstraintMacros.h>
 
 /** @cond doxygenIgnored */
 
 using namespace std;
-
+LIBSBML_CPP_NAMESPACE_USE
 /** @endcond */
 
 class ReferencedModel
