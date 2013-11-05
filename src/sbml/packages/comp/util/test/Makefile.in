@@ -84,7 +84,7 @@ all: Makefile default
 # dependencies on other subdirectoris of the source tree, we do some rummaging
 # around in .. and ../../subdirs.
 
-tmp           = $(test_sources:.cpp=.lo) $(test_sources:.c=.lo)
+tmp           = $(sources:.cpp=.lo) $(sources:.c=.lo)
 localobjfiles = $(filter %.lo,$(tmp))
 
 otherdirs     = ../common ../../extension ../../util ../../sbml ../../validator
