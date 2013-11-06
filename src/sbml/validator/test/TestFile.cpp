@@ -174,7 +174,10 @@ TestFile::getFilesIn ( const string& directory,
       //  if (id == 10309) continue;
 
         // libxml bug for 2.6.16 on a Mac
-#ifdef BUGGY_APPLE_LIBXML
+	// more and more we are getting systems where we hit the libxml 
+	// issue with these files so rather than try and find those systems 
+	// we take them out for libxml and revisit the whole issue soon
+#ifdef USE_LIBXML
       // unsigned int num = file.getSequenceId();
 
       if (id == 1013) continue;

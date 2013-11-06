@@ -74,19 +74,6 @@ test_headers =                 \
 
 extra_CPPFLAGS = -I.. -I../..
 
-ifdef USE_LIBCHECK
-  check_driver      = TestConsistencyValidator
-  ifeq "$(findstring $(LIBCHECK_CPPFLAGS),$(extra_CPPFLAGS))" ""
-    extra_CPPFLAGS  += $(LIBCHECK_CPPFLAGS)
-  endif
-  ifeq "$(findstring $(LIBCHECK_LDFLAGS),$(extra_LDFLAGS))" ""
-    extra_LDFLAGS   += $(LIBCHECK_LDFLAGS)
-  endif
-  ifeq "$(findstring $(LIBCHECK_LIBS),$(extra_LIBS))" ""
-    extra_LIBS      += $(LIBCHECK_LIBS)
-  endif
-  extra_clean       += $(check_driver)
-endif
 
 ifdef USE_EXPAT
   extra_CPPFLAGS += $(EXPAT_CPPFLAGS)
@@ -101,12 +88,27 @@ ifdef USE_XERCES
 endif
 
 ifdef USE_LIBXML
-  extra_CPPFLAGS += $(LIBXML_CPPFLAGS)
+  extra_CPPFLAGS += $(LIBXML_CPPFLAGS) -DUSE_LIBXML 
   extra_LDFLAGS  += $(LIBXML_LDFLAGS)
   extra_LIBS     += $(LIBXML_LIBS)
 ifdef BUGGY_APPLE_LIBXML
   extra_CPPFLAGS += -DBUGGY_APPLE_LIBXML=$(BUGGY_APPLE_LIBXML)
 endif
+endif
+
+
+ifdef USE_LIBCHECK
+  check_driver      = TestConsistencyValidator
+  ifeq "$(findstring $(LIBCHECK_CPPFLAGS),$(extra_CPPFLAGS))" ""
+    extra_CPPFLAGS  += $(LIBCHECK_CPPFLAGS)
+  endif
+  ifeq "$(findstring $(LIBCHECK_LDFLAGS),$(extra_LDFLAGS))" ""
+    extra_LDFLAGS   += $(LIBCHECK_LDFLAGS)
+  endif
+  ifeq "$(findstring $(LIBCHECK_LIBS),$(extra_LIBS))" ""
+    extra_LIBS      += $(LIBCHECK_LIBS)
+  endif
+  extra_clean       += $(check_driver)
 endif
 
 # `distfiles' determines the files and directories included in a distribution.
