@@ -125,10 +125,43 @@ void prefixFileIfNeeded(std::string& fileName)
   fileName = "/" + fileName;
 }
 
+#if !defined(WIN32) || defined(CYGWIN)
+#include <dirent.h>
+bool directoryExists( const char* path )
+{
+  if ( path == NULL) return false;
+
+  bool result = false;
+  DIR *dir = opendir (path);
+
+
+  if (dir != NULL)
+  {
+    result = true;    
+    (void) closedir (dir);
+  }
+
+  return result;
+}
+#endif
+
+
 SBMLUri* 
 SBMLFileResolver::resolveUri(const std::string &sUri, const std::string& sBaseUri/*=""*/) const
 {
   string fileName = sUri;
+
+#if !defined(WIN32) || defined(CYGWIN)
+  // cygwin has an issue if the filename is actually a directory
+  // later attempts to create relative paths cause infinite loops
+  // in the attempts to create files/open directories
+  // thus if we are in cygwin - check if the name is a directory
+  // and get out now if it is
+  if (directoryExists(fileName.c_str()))
+  {
+    return NULL;
+  }
+#endif
 
   // greedily pick up the first file we see before trying more
   // elaborate means
@@ -184,25 +217,6 @@ SBMLFileResolver::resolveUri(const std::string &sUri, const std::string& sBaseUr
 
   return NULL;
 }
-
-#if !defined(WIN32) || defined(CYGWIN)
-#include <dirent.h>
-bool directoryExists( const char* path )
-{
-  if ( path == NULL) return false;
-
-  bool result = false;
-  DIR *dir = opendir (path);
-
-  if (dir != NULL)
-  {
-    result = true;    
-    (void) closedir (dir);
-  }
-
-  return result;
-}
-#endif
 
 /** @cond doxygenLibsbmlInternal */
 bool
