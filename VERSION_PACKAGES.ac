@@ -40,8 +40,8 @@ AC_DEFUN([CONFIG_SBML_PACKAGE_VARS],
 # -----------------------------------------------------------------------------
 
 AC_SUBST(PACKAGE_COMP_VERSION, 1)
-AC_SUBST(PACKAGE_COMP_RELEASE, 2)
-AC_SUBST(PACKAGE_COMP_SPEC_URL, [http://sbml.org/specifications/sbml-level-3/version-1/comp/sbml-comp-version-1-release-2.pdf])
+AC_SUBST(PACKAGE_COMP_RELEASE, 3)
+AC_SUBST(PACKAGE_COMP_SPEC_URL, [http://sbml.org/specifications/sbml-level-3/version-1/comp/sbml-comp-version-1-release-3.pdf])
 AC_SUBST(PACKAGE_COMP_ERRATA_URL, [http://sbml.org/Documents/Specifications/SBML_Level_3/Packages/Hierarchical_Model_Composition_%28comp%29/Confirmed_issues_in_the_Hierarchical_Model_Composition_package_specification])
 
 # -----------------------------------------------------------------------------
