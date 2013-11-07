@@ -217,6 +217,11 @@ SBMLUri::relativeTo(const std::string& uri) const
   bool slashNeeded = (!other.mPath.empty() && other.mPath[0] != '/' || 
 		(!mPath.empty() && !other.mPath.empty() && other.mPath[0] != '/' && mPath[mPath.length() -1 ] != '/') ||
 		(!mPath.empty() && other.mPath.empty() && mPath[mPath.length() -1 ] != '/') );
+  if (slashNeeded && other.mPath.length() > 2 && other.mPath[1] == ':')
+  {
+	// the uri is a full path with drive letter
+	return other;
+  }
   other.mPath = mPath + (slashNeeded  ? "/" : "") + other.mPath;
   other.mUri = mScheme + "://" + mHost + (slashNeeded  ? "/" : "") + other.mPath;
   if (!other.mQuery.empty())

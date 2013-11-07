@@ -129,15 +129,14 @@ START_TEST (test_comp_sbmluri_parse)
   // testing directory
   uri = TestDataDirectory;
   fail_unless(uri.getScheme() == "file");
-  fail_unless(uri.getPath() == TestDataDirectory);
   fail_unless(uri.getQuery() == "");
   fail_unless(uri.getHost() == "");
   
-  uri = SBMLUri("").relativeTo(TestDataDirectory);
-  fail_unless(uri.getScheme() == "file");
-  fail_unless(uri.getPath() == TestDataDirectory);
-  fail_unless(uri.getQuery() == "");
-  fail_unless(uri.getHost() == "");
+  SBMLUri uri2 = SBMLUri("").relativeTo(TestDataDirectory);
+  fail_unless(uri2.getScheme() == "file");
+  fail_unless(uri2.getPath() == uri.getPath());
+  fail_unless(uri2.getQuery() == "");
+  fail_unless(uri2.getHost() == "");
   
   // testing odd schemes
   string filename(TestDataDirectory);
