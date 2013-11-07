@@ -214,8 +214,11 @@ SBMLUri::relativeTo(const std::string& uri) const
   SBMLUri other(uri);
   other.mScheme = mScheme;
   other.mHost = mHost;
-  other.mPath = mPath + "/" + other.mPath;
-  other.mUri = mScheme + "://" + mHost + "/" + other.mPath;
+  bool slashNeeded = (!other.mPath.empty() && other.mPath[0] != '/' || 
+		(!mPath.empty() && !other.mPath.empty() && other.mPath[0] != '/' && mPath[mPath.length() -1 ] != '/') ||
+		(!mPath.empty() && other.mPath.empty() && mPath[mPath.length() -1 ] != '/') );
+  other.mPath = mPath + (slashNeeded  ? "/" : "") + other.mPath;
+  other.mUri = mScheme + "://" + mHost + (slashNeeded  ? "/" : "") + other.mPath;
   if (!other.mQuery.empty())
     other.mUri += "?" + other.mQuery;
   return other;

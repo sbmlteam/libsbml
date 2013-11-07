@@ -151,22 +151,6 @@ SBMLFileResolver::resolveUri(const std::string &sUri, const std::string& sBaseUr
 {
   string fileName = sUri;
 
-#if !defined(WIN32) || defined(CYGWIN)
-  // cygwin has an issue if the filename is actually a directory
-  // later attempts to create relative paths cause infinite loops
-  // in the attempts to create files/open directories
-  // thus if we are in cygwin - check if the name is a directory
-  // and get out now if it is
-  if (directoryExists(fileName.c_str()))
-  {
-    return NULL;
-  }
-#endif
-
-  // greedily pick up the first file we see before trying more
-  // elaborate means
-  if (fileExists(fileName))
-    return new SBMLUri(fileName);
 
   // filter scheme
   SBMLUri uri(sUri);
@@ -175,6 +159,12 @@ SBMLFileResolver::resolveUri(const std::string &sUri, const std::string& sBaseUr
   if (uri.getScheme() != "file" && baseUri.getScheme() != "file")
     return NULL;
 
+  // greedily pick up the first file we see before trying more
+  // elaborate means
+  if (fileExists(fileName))
+    return new SBMLUri(fileName);
+    
+    
   std::vector<std::string>::const_iterator it = mAdditionalDirs.begin();
   while(it != mAdditionalDirs.end())
   {
@@ -222,6 +212,17 @@ SBMLFileResolver::resolveUri(const std::string &sUri, const std::string& sBaseUr
 bool
 SBMLFileResolver::fileExists(const std::string& fileName)
 {
+#if !defined(WIN32) || defined(CYGWIN)
+  // cygwin has an issue if the filename is actually a directory
+  // later attempts to create relative paths cause infinite loops
+  // in the attempts to create files/open directories
+  // thus if we are in cygwin - check if the name is a directory
+  // and get out now if it is
+  if (directoryExists(fileName.c_str()))
+  {
+    return false;
+  }
+#endif
   ifstream file(fileName.c_str());
   if (!file)
     return false;
