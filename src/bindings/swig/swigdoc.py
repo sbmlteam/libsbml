@@ -624,7 +624,7 @@ def translateInclude (match):
     content = stream.read()
     stream.close()
   except Exception, e:
-    print('Warning: cannot expand common-text: {0}'.format(file))
+    print('Warning: cannot expand common-text: ' + file)
     print e
 
   content = removeHTMLcomments(content)
@@ -1515,7 +1515,11 @@ def main (args):
   header_files     = get_header_files(swig_files, h_include_path)
   libsbml_classes  = find_classes(header_files, classes_in_header_file)
   libsbml_classes += find_classes(swig_files, classes_in_swig_file)
-  libsbml_classes  = sorted(list(set(libsbml_classes)))
+
+  try: 
+    libsbml_classes  = sorted(list(set(libsbml_classes)))
+  except Exception, e:
+    pass
 
   # Now, do the main processing pass, writing the output as we go along.
   
