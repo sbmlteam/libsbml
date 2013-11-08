@@ -81,7 +81,7 @@ SBMLTypeCode_toString (int tc, const char* pkgName)
 {
   if (!strcmp(pkgName, "core"))
   {
-    int max = SBML_LOCAL_PARAMETER;
+    int max = SBML_PRIORITY;
 
     if (tc < SBML_COMPARTMENT || tc > max)
     {
