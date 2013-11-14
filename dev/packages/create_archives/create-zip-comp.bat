@@ -134,7 +134,7 @@ mkdir examples\c\%PACKAGE_NAME%
 mkdir examples\cpp
 mkdir examples\cpp\%PACKAGE_NAME%
 mkdir examples\csharp
-mkdir examples\csharp\&PACKAGE_NAME%
+mkdir examples\csharp\%PACKAGE_NAME%
 mkdir examples\java
 mkdir examples\java\%PACKAGE_NAME%
 mkdir examples\python

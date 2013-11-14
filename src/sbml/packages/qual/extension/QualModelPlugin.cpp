@@ -219,14 +219,6 @@ QualModelPlugin::hasRequiredElements() const
 {
   bool allPresent = true;
 
-  if (mQualitativeSpecies.size() < 0)
-  {
-    allPresent = false;    
-  }
-  if (mTransitions.size() < 0)
-  {
-    allPresent = false;    
-  }
   return allPresent;
 }
 /** @endcond */
