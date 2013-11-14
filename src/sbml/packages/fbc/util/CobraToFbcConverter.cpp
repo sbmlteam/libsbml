@@ -43,6 +43,7 @@
 
 #include <algorithm>
 #include <string>
+#include <sstream>
 
 using namespace std;
 LIBSBML_CPP_NAMESPACE_BEGIN
@@ -124,7 +125,8 @@ int
   for (unsigned int i = 0; i < model->getNumSpecies();++i)
   {
     Species* current = model->getSpecies(i);
-    if (current->isSetCharge())
+    bool haveCharge = current->isSetCharge();
+    if (haveCharge)
     {
       chargeMap[current->getId()] = current->getCharge();
       // need to unset the charge here, as it the call will 
@@ -133,7 +135,8 @@ int
     }
     if (current->isSetNotes())
     {
-      string notes = current->getNotesString();
+      string originalNotes = current->getNotesString();
+	  string notes(originalNotes);
       std::transform(notes.begin(), notes.end(), notes.begin(), ::toupper);
       size_t pos = notes.find("FORMULA:");
       if (pos != string::npos)
@@ -141,7 +144,7 @@ int
         size_t end = notes.find("</", pos+9);
         if (end != string::npos)
         {
-          string formula = notes.substr(pos + 9, end-(pos+9));
+          string formula = originalNotes.substr(pos + 9, end-(pos+9));
           if (formula[0] != '<' &&  formula[0] != '/' )
           {
             size_t pos = formula.find_first_not_of(" \n\t\r");
@@ -149,9 +152,32 @@ int
             formulaMap[current->getId()] = formula;
           }
         }
-      }
-    }
-  }
+      } // added chemical formula if present 
+	 
+      pos = notes.find("CHARGE:");
+      if (pos != string::npos && !haveCharge)
+      {
+        size_t end = notes.find("</", pos+8);
+        if (end != string::npos)
+        {
+          string formula = originalNotes.substr(pos + 8, end-(pos+8));
+          if (formula[0] != '<' &&  formula[0] != '/' )
+          {
+            size_t pos = formula.find_first_not_of(" \n\t\r");
+            if (pos != std::string::npos)
+		  {
+			int charge; 
+			stringstream str; 
+			str << formula; 
+			str >> charge;
+			if (charge != 0)
+			  chargeMap[current->getId()] = charge;
+		  }
+          }
+        }
+      } // added charge if present
+    } // handled notes
+  } // finished updating species
 
 
   mDocument->setConversionValidators(AllChecksON & UnitsCheckOFF);
@@ -178,7 +204,7 @@ int
   for (unsigned int i = 0; i < model->getNumReactions(); ++i)
   {
     Reaction* reaction = model->getReaction(i);
-    const std::string rID = reaction->getId();
+    const string rID = reaction->getId();
     KineticLaw* kineticLaw = reaction->getKineticLaw();
     if (kineticLaw == NULL) continue;
     double LB = kineticLaw->getLocalParameter("LOWER_BOUND") != NULL ? kineticLaw->getLocalParameter("LOWER_BOUND")->getValue() : -std::numeric_limits<double>::infinity();
@@ -220,7 +246,8 @@ int
 
     if (reaction->isSetNotes())
     {
-      string notes = reaction->getNotesString();
+      string originalNotes = reaction->getNotesString();
+      string notes(originalNotes);
       std::transform(notes.begin(), notes.end(), notes.begin(), ::toupper);
       size_t pos = notes.find("ASSOCIATION:");
       if (pos != string::npos)
@@ -228,7 +255,7 @@ int
         size_t end = notes.find("</", pos+12);
         if (end != string::npos)
         {
-          string geneAssociation = notes.substr(pos + 12, end-(pos+12));
+          string geneAssociation = originalNotes.substr(pos + 12, end-(pos+12));
           Association* association = Association::parseInfixAssociation(geneAssociation);
           if (association != NULL)
           {

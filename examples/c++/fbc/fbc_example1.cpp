@@ -19,6 +19,7 @@ int main(int argc,char** argv)
   // create the document
 
   SBMLDocument *document = new SBMLDocument(&sbmlns);
+  document->setPackageRequired("fbc", false);
 
   // create the Model
 

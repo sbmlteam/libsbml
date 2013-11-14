@@ -262,6 +262,30 @@ START_TEST(test_FbcExtension_read_L3V1V1_with_wonky_chemicals)
   ConversionProperties prop;
   prop.addOption("convert fbc to cobra", true);
   fail_unless(doc->convert(prop) == LIBSBML_OPERATION_SUCCESS);
+  
+  // add species with notes 
+  Species* testSpecies = doc->getModel()->createSpecies();
+  testSpecies->initDefaults();
+  testSpecies->setId("testSpecies");
+  testSpecies->setNotes(
+          "<body xmlns='http://www.w3.org/1999/xhtml'>"
+          "  <p>FORMULA: Fe2S2X</p>                   "
+          "  <p>CHARGE: -1</p>                        "
+          "</body>                                    "
+  );
+  
+  // convert it back
+  prop.addOption("convert cobra", true);
+  fail_unless(doc->convert(prop) == LIBSBML_OPERATION_SUCCESS);
+  
+  // check the formula
+  Species* tested = doc->getModel()->getSpecies("testSpecies");
+  fail_unless(tested != NULL);
+  FbcSpeciesPlugin* fbcSpeciesPlugin = dynamic_cast<FbcSpeciesPlugin*>(tested->getPlugin("fbc"));
+  fail_unless(fbcSpeciesPlugin != NULL);
+  fail_unless(fbcSpeciesPlugin->getCharge() == -1);
+  fail_unless(fbcSpeciesPlugin->getChemicalFormula() == "Fe2S2X");
+  
 
 }
 END_TEST
