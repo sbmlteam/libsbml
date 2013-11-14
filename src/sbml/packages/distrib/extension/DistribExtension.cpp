@@ -59,7 +59,7 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 /*------------------ (START) ----------------------------------*/
 
 /*
-/* Returns the package name of this extension.
+ * Returns the package name of this extension.
  */
 const std::string&
 DistribExtension::getPackageName ()
