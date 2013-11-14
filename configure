@@ -26662,6 +26662,8 @@ if test -d dev; then
 
   ac_config_files="$ac_config_files dev/misc-files/readmes-for-downloads-new-dir-struct/experimental/binaries/windows/R_interface/README.md"
 
+  ac_config_files="$ac_config_files dev/misc-files/readmes-for-downloads-new-dir-struct/experimental/binaries/windows/python/README.md"
+
   ac_config_files="$ac_config_files dev/misc-files/readmes-for-downloads-new-dir-struct/experimental/source/README.md"
 
   ac_config_files="$ac_config_files dev/misc-files/readmes-for-downloads-new-dir-struct/stable/README.md"
@@ -27597,7 +27599,8 @@ do
     "dev/misc-files/readmes-for-downloads-new-dir-struct/experimental/binaries/macos/R_interface/README.md") CONFIG_FILES="$CONFIG_FILES dev/misc-files/readmes-for-downloads-new-dir-struct/experimental/binaries/macos/R_interface/README.md" ;;
     "dev/misc-files/readmes-for-downloads-new-dir-struct/experimental/binaries/windows/README.md") CONFIG_FILES="$CONFIG_FILES dev/misc-files/readmes-for-downloads-new-dir-struct/experimental/binaries/windows/README.md" ;;
     "dev/misc-files/readmes-for-downloads-new-dir-struct/experimental/binaries/windows/R_interface/README.md") CONFIG_FILES="$CONFIG_FILES dev/misc-files/readmes-for-downloads-new-dir-struct/experimental/binaries/windows/R_interface/README.md" ;;
-    "dev/misc-files/readmes-for-downloads-new-dir-struct/experimental/source/README.md") CONFIG_FILES="$CONFIG_FILES dev/misc-files/readmes-for-downloads-new-dir-struct/experimental/source/README.md" ;;
+    "dev/misc-files/readmes-for-downloads-new-dir-struct/experimental/binaries/windows/python/README.md") CONFIG_FILES="$CONFIG_FILES dev/misc-files/readmes-for-downloads-new-dir-struct/experimental/binaries/windows/python/README.md" ;;   
+	"dev/misc-files/readmes-for-downloads-new-dir-struct/experimental/source/README.md") CONFIG_FILES="$CONFIG_FILES dev/misc-files/readmes-for-downloads-new-dir-struct/experimental/source/README.md" ;;
     "dev/misc-files/readmes-for-downloads-new-dir-struct/stable/README.md") CONFIG_FILES="$CONFIG_FILES dev/misc-files/readmes-for-downloads-new-dir-struct/stable/README.md" ;;
     "dev/misc-files/readmes-for-downloads-new-dir-struct/stable/linux/32-bit/README.md") CONFIG_FILES="$CONFIG_FILES dev/misc-files/readmes-for-downloads-new-dir-struct/stable/linux/32-bit/README.md" ;;
     "dev/misc-files/readmes-for-downloads-new-dir-struct/stable/linux/32-bit/R_interface/README.md") CONFIG_FILES="$CONFIG_FILES dev/misc-files/readmes-for-downloads-new-dir-struct/stable/linux/32-bit/R_interface/README.md" ;;

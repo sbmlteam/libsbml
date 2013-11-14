@@ -520,6 +520,7 @@ if test -d dev; then
   AC_CONFIG_FILES([dev/misc-files/readmes-for-downloads-new-dir-struct/experimental/binaries/macos/README.md])
   AC_CONFIG_FILES([dev/misc-files/readmes-for-downloads-new-dir-struct/experimental/binaries/macos/R_interface/README.md])
   AC_CONFIG_FILES([dev/misc-files/readmes-for-downloads-new-dir-struct/experimental/binaries/windows/README.md])
+  AC_CONFIG_FILES([dev/misc-files/readmes-for-downloads-new-dir-struct/experimental/binaries/windows/python/README.md])
   AC_CONFIG_FILES([dev/misc-files/readmes-for-downloads-new-dir-struct/experimental/binaries/windows/R_interface/README.md])
   AC_CONFIG_FILES([dev/misc-files/readmes-for-downloads-new-dir-struct/experimental/source/README.md])
   AC_CONFIG_FILES([dev/misc-files/readmes-for-downloads-new-dir-struct/stable/README.md])

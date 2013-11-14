@@ -2,7 +2,7 @@
 ###R interface installer for Mac OS X
 
 This directory contains the experimental R interface of libSBML @PACKAGE_VERSION@
-generated for R 2.15.1 on a Mac OS X operating system. 
+generated for R 2.15.2 on a Mac OS X operating system. 
 
 Install with: 
 

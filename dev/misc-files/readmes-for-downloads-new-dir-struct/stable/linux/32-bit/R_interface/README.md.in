@@ -2,7 +2,7 @@
 ###R interface installer for 32 bit Linux
 
 This directory contains the release of the libSBML @PACKAGE_VERSION@
-R bindings generated for R 2.15.1 on a 32 bit Linux operating system. 
+R bindings generated for R 2.15.2 on a 32 bit Linux operating system. 
 
 Install with: 
 
