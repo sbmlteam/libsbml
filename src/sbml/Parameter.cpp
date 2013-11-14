@@ -1412,7 +1412,7 @@ Parameter::inferUnitsFromKineticLaw(KineticLaw* kl,
   // unfortunately we need the index of the reaction
   // that really should be done with id !!
   std::string rnId = (kl->getAncestorOfType(SBML_REACTION) != NULL) ?
-                      kl->getAncestorOfType(SBML_REACTION)->getId() : "";
+                      kl->getAncestorOfType(SBML_REACTION)->getId() : std::string();
   if (rnId.empty() == false)
   {
     for (unsigned int i = 0; i < m->getNumReactions(); i++)
