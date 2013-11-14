@@ -151,7 +151,6 @@ other_headers = \
   LocalParameterMathCheck.h                \
   LocalParameterShadowsIdInModel.h         \
   LogicalArgsMathCheck.h                   \
-  Makefile                                 \
   Makefile.in                              \
   NumberArgsMathCheck.h                    \
   NumericArgsMathCheck.h                   \
