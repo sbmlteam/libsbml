@@ -143,7 +143,7 @@ public:
    * Predicate returning @c true or @c false depending on whether this
    * CoordinateComponent's "unitSize" attribute has been set.
    *
-   * @htmlinclude libsbml-comment-set-methods.html
+   * @htmlinclude comment-set-methods.html
    * 
    * @return @c true if the "unitSize" attribute of this CoordinateComponent has
    * been set, @c false otherwise.
@@ -202,7 +202,7 @@ public:
    * Sets the "unitSize" attribute of this CoordinateComponent and marks the field
    * as set.
    *
-   * @htmlinclude libsbml-comment-set-methods.html
+   * @htmlinclude comment-set-methods.html
    *
    * @param value the value to which the "unitSize" attribute should
    * be set.
@@ -254,7 +254,7 @@ public:
   /**
    * Unsets the "unitSize" attribute value of this CoordinateComponent.
    *
-   * @htmlinclude libsbml-comment-set-methods.html
+   * @htmlinclude comment-set-methods.html
    *
    * @return integer value indicating success/failure of the
    * function.  @if clike The value is drawn from the

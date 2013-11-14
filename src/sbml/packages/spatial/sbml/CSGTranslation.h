@@ -115,7 +115,7 @@ public:
    * Predicate returning @c true or @c false depending on whether this
    * CSGTranslation's "translateX" attribute has been set.
    * 
-   * @htmlinclude libsbml-comment-set-methods.html
+   * @htmlinclude comment-set-methods.html
    *
    * @note This function only applies to SBML L3 where there are no
    * default values.
@@ -129,7 +129,7 @@ public:
    * Predicate returning @c true or @c false depending on whether this
    * CSGTranslation's "translateY" attribute has been set.
    * 
-   * @htmlinclude libsbml-comment-set-methods.html
+   * @htmlinclude comment-set-methods.html
    *
    * @note This function only applies to SBML L3 where there are no
    * default values.
@@ -143,7 +143,7 @@ public:
    * Predicate returning @c true or @c false depending on whether this
    * CSGTranslation's "translateZ" attribute has been set.
    * 
-   * @htmlinclude libsbml-comment-set-methods.html
+   * @htmlinclude comment-set-methods.html
    *
    * @note This function only applies to SBML L3 where there are no
    * default values.

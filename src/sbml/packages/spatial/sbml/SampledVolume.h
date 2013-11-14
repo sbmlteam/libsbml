@@ -146,7 +146,7 @@ public:
    * Predicate returning @c true or @c false depending on whether this
    * SampledVolume's "sampledValue" attribute has been set.
    *
-   * @htmlinclude libsbml-comment-set-methods.html
+   * @htmlinclude comment-set-methods.html
    * 
    * @return @c true if the "sampledValue" attribute of this SampledVolume has
    * been set, @c false otherwise.
@@ -163,7 +163,7 @@ public:
    * Predicate returning @c true or @c false depending on whether this
    * SampledVolume's "minValue" attribute has been set.
    *
-   * @htmlinclude libsbml-comment-set-methods.html
+   * @htmlinclude comment-set-methods.html
    * 
    * @return @c true if the "minValue" attribute of this SampledVolume has
    * been set, @c false otherwise.
@@ -180,7 +180,7 @@ public:
    * Predicate returning @c true or @c false depending on whether this
    * SampledVolume's "maxValue" attribute has been set.
    *
-   * @htmlinclude libsbml-comment-set-methods.html
+   * @htmlinclude comment-set-methods.html
    * 
    * @return @c true if the "maxValue" attribute of this SampledVolume has
    * been set, @c false otherwise.
@@ -219,7 +219,7 @@ public:
    * Sets the "sampledValue" attribute of this SampledVolume and marks the field
    * as set.
    *
-   * @htmlinclude libsbml-comment-set-methods.html
+   * @htmlinclude comment-set-methods.html
    *
    * @param value the value to which the "sampledValue" attribute should
    * be set.
@@ -236,7 +236,7 @@ public:
    * Sets the "minValue" attribute of this SampledVolume and marks the field
    * as set.
    *
-   * @htmlinclude libsbml-comment-set-methods.html
+   * @htmlinclude comment-set-methods.html
    *
    * @param value the value to which the "minValue" attribute should
    * be set.
@@ -254,7 +254,7 @@ public:
    * Sets the "maxValue" attribute of this SampledVolume and marks
    * the field as set.
    *
-   * @htmlinclude libsbml-comment-set-methods.html
+   * @htmlinclude comment-set-methods.html
    *
    * @param value the value to which the "maxValue" attribute
    * should be set.
@@ -296,7 +296,7 @@ public:
   /**
    * Unsets the "sampledValue" attribute value of this SampledVolume.
    *
-   * @htmlinclude libsbml-comment-set-methods.html
+   * @htmlinclude comment-set-methods.html
    *
    * @return integer value indicating success/failure of the
    * function.  @if clike The value is drawn from the
@@ -309,7 +309,7 @@ public:
   /**
    * Unsets the "minValue" attribute value of this SampledVolume.
    *
-   * @htmlinclude libsbml-comment-set-methods.html
+   * @htmlinclude comment-set-methods.html
    *
    * @return integer value indicating success/failure of the
    * function.  @if clike The value is drawn from the
@@ -322,7 +322,7 @@ public:
   /**
    * Unsets the "maxValue" attribute value of this SampledVolume.
    *
-   * @htmlinclude libsbml-comment-set-methods.html
+   * @htmlinclude comment-set-methods.html
    *
    * @return integer value indicating success/failure of the
    * function.  @if clike The value is drawn from the

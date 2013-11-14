@@ -113,7 +113,7 @@ public:
    * Predicate returning @c true or @c false depending on whether this
    * DomainType's "spatialDimensions" attribute has been set.
    * 
-   * @htmlinclude libsbml-comment-set-methods.html
+   * @htmlinclude comment-set-methods.html
    *
    * @note This function only applies to SBML L3 where there are no
    * default values.
@@ -142,7 +142,7 @@ public:
   /**
    * Sets the "spatialDimensions" attribute of this DomainType.
    *
-   * @htmlinclude libsbml-comment-set-methods.html
+   * @htmlinclude comment-set-methods.html
    *
    * If @p value is not one of @c 0, @c 1, @c 2, or @c 3, this method will
    * have no effect (i.e., the "spatialDimensions" attribute will not be
@@ -178,7 +178,7 @@ public:
   /**
    * Unsets the value of the "spatialDimensions" attribute of this DomainType.
    *
-   * @htmlinclude libsbml-comment-set-methods.html
+   * @htmlinclude comment-set-methods.html
    *
    * @return integer value indicating success/failure of the
    * function.  @if clike The value is drawn from the

@@ -126,7 +126,7 @@ public:
    * Predicate returning @c true or @c false depending on whether this
    * CSGRotation's "rotationAxisX" attribute has been set.
    * 
-   * @htmlinclude libsbml-comment-set-methods.html
+   * @htmlinclude comment-set-methods.html
    *
    * @note This function only applies to SBML L3 where there are no
    * default values.
@@ -140,7 +140,7 @@ public:
    * Predicate returning @c true or @c false depending on whether this
    * CSGRotation's "rotationAxisY" attribute has been set.
    * 
-   * @htmlinclude libsbml-comment-set-methods.html
+   * @htmlinclude comment-set-methods.html
    *
    * @note This function only applies to SBML L3 where there are no
    * default values.
@@ -154,7 +154,7 @@ public:
    * Predicate returning @c true or @c false depending on whether this
    * CSGRotation's "rotationAxisZ" attribute has been set.
    * 
-   * @htmlinclude libsbml-comment-set-methods.html
+   * @htmlinclude comment-set-methods.html
    *
    * @note This function only applies to SBML L3 where there are no
    * default values.
@@ -168,7 +168,7 @@ public:
    * Predicate returning @c true or @c false depending on whether this
    * CSGRotation's "rotationAngleInRadians" attribute has been set.
    * 
-   * @htmlinclude libsbml-comment-set-methods.html
+   * @htmlinclude comment-set-methods.html
    *
    * @note This function only applies to SBML L3 where there are no
    * default values.

@@ -253,7 +253,7 @@ public:
  /**
    * Unsets the "mCSGNode" subelement of this CSGNodeGeometry.
    *
-   * @htmlinclude libsbml-comment-set-methods.html
+   * @htmlinclude comment-set-methods.html
    *
    * @return integer value indicating success/failure of the
    * function.  @if clike The value is drawn from the

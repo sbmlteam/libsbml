@@ -106,7 +106,7 @@ public:
    * Predicate returning @c true or @c false depending on whether this
    * Boundary's "value" attribute has been set.
    *
-   * @htmlinclude libsbml-comment-set-methods.html
+   * @htmlinclude comment-set-methods.html
    * 
    * @return @c true if the "value" attribute of this Boundary has
    * been set, @c false otherwise.
@@ -138,7 +138,7 @@ public:
    * Sets the "value" attribute of this Boundary and marks the field
    * as set.
    *
-   * @htmlinclude libsbml-comment-set-methods.html
+   * @htmlinclude comment-set-methods.html
    *
    * @param value the value to which the "value" attribute should
    * be set.
@@ -167,7 +167,7 @@ public:
   /**
    * Unsets the "value" attribute value of this Boundary.
    *
-   * @htmlinclude libsbml-comment-set-methods.html
+   * @htmlinclude comment-set-methods.html
    *
    * @return integer value indicating success/failure of the
    * function.  @if clike The value is drawn from the
