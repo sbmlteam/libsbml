@@ -77,11 +77,10 @@ public:
     unsigned int version    = sbmlext->getVersion(uri);
     unsigned int pkgVersion = sbmlext->getPackageVersion(uri);
 
-    SBMLExtensionNamespaces<SBMLExtensionType>* extns;
-    extns = new SBMLExtensionNamespaces<SBMLExtensionType>(level, version, pkgVersion, prefix);
-    extns->addNamespaces(xmlns);
+    SBMLExtensionNamespaces<SBMLExtensionType> extns(level, version, pkgVersion, prefix);
+    extns.addNamespaces(xmlns);
 
-    return new SBasePluginType(uri,prefix,extns);
+    return new SBasePluginType(uri,prefix,&extns);
   }
 
 
