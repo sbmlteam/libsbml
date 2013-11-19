@@ -966,12 +966,17 @@ writeCI (const ASTNode& node, XMLOutputStream& stream, SBMLNamespaces *sbmlns)
   {
     stream.startElement("ci");
     stream.setAutoIndent(false);
-	writeAttributes(node, stream);
-  if (node.getDefinitionURL())
-    stream.writeAttribute("definitionURL", 
+	  writeAttributes(node, stream);
+    if (node.getDefinitionURL() != NULL)
+    {
+      stream.writeAttribute("definitionURL", 
                             node.getDefinitionURL()->getValue(0));
+    }
 
-    stream << " " << node.getName() << " ";
+    if (node.getName() != NULL)
+    {
+      stream << " " << node.getName() << " ";
+    }
 
     stream.endElement("ci");
     stream.setAutoIndent(true);
