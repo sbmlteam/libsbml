@@ -1,5 +1,79 @@
            libSBML NEWS -- History of user-visible changes
 
+====================================================================
+Next release ...
+====================================================================
+
+STABLE RELEASE
+
+* New features
+
+  - 'comp' package-specific updates:
+
+  - 'fbc' package-specific updates:
+
+  - 'layout' package-specific updates:
+
+  - 'qual' package-specific updates:
+
+* Bug fixes
+
+  - The Borland compiler does not handle implicit casts and 
+    unfortunately there was one such cast in the new code introduced 
+    for 5.9.0. This has now been fixed. Thanks to Totte Karlsson for 
+    reporting it.
+    
+  - A memory leak in SBasePluiginCreator has been plugged. Thanks to 
+    Andy Somogyi for reporting it. 
+
+  - 'comp' package-specific updates:
+
+  - 'fbc' package-specific updates:
+    
+    - The CobraToFbcConverter was losing the charge and the 
+      capitalization of the formula when parsing the notes element.  
+      This has been fixed. 
+
+  - 'layout' package-specific updates:
+
+  - 'qual' package-specific updates:
+
+* Configuration/build system changes
+
+
+* Miscellaneous
+
+
+EXPERIMENTAL RELEASE
+
+* New features
+
+  - 'distrib' package-specific updates:
+
+  - 'groups' package-specific updates:
+
+  - 'multi' package-specific updates:
+
+  - 'render' package-specific updates:
+
+  - 'req' package-specific updates:
+
+  - 'spatial' package-specific updates:
+
+* Bug fixes
+
+  - 'distrib' package-specific updates:
+
+  - 'groups' package-specific updates:
+
+  - 'multi' package-specific updates:
+
+  - 'render' package-specific updates:
+
+  - 'req' package-specific updates:
+
+  - 'spatial' package-specific updates:
+
 
 ====================================================================
 Version 5.9.0 (2013-11-14)
