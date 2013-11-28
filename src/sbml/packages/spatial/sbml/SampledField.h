@@ -148,6 +148,13 @@ public:
   const ImageData* getImageData() const;
 
   /**
+   * Returns the "imageData" attribute of this SampledField.
+   *
+   * @return the "imageData" attribute of this SampledField.
+   */
+  ImageData* getImageData();
+
+  /**
    * Predicate returning @c true or @c false depending on whether this
    * SampledField's "spatialId" attribute has been set.
    *

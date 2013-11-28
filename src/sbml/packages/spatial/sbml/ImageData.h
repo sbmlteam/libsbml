@@ -45,12 +45,16 @@ protected:
   std::string mDataType;
   int* mSamples;
   unsigned int mSamplesLength;
+  int* mUncompressedSamples;
+  int mUncompressedLength;
   
   std::string mURI;
   SBase* mParentSBMLObject;
   SBMLNamespaces* mSBMLNamespaces;
 
   bool  mIsSetSamples;
+
+  static void copySampleArrays(int* &target, int& targetLength, int* source, int sourceLength);
 
 public:
 
@@ -100,6 +104,32 @@ public:
    * @return void.
    */
   void getSamples(int* outputSamples) const;
+
+ /**
+   * Returns the "samplesLength" attribute of this ImageData.
+   *
+   * @return the "samplesLength" attribute of this ImageData.
+   */
+  unsigned int getUncompressedLength();
+
+ /**
+   * The "samples" attribute of this ImageData is returned in an int array (pointer) 
+   * that is passed as argument to the method (this is needed while using SWIG to
+   * convert int[] from C++ to Java). This method returns the uncompressed sample field.
+   *
+   * @return void.
+   */
+  void getUncompressed(int* outputSamples);
+
+  /** 
+   * utility function freeing the uncompressed data. 
+   */
+  void freeUncompressed();
+  
+  /** 
+   * utility function uncompressing samples
+   */
+  void uncompress();
 
  /**
    * Returns the "samplesLength" attribute of this ImageData.
@@ -259,7 +289,7 @@ public:
    * @param length the output lenght of the array
    *
    */
-  void getUncompressedData(int* &data, int& length) const;
+  void getUncompressedData(int* &data, int& length);
 
   protected:
 

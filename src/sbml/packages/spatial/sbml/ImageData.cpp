@@ -83,6 +83,8 @@ ImageData::ImageData (unsigned int level, unsigned int version, unsigned int pkg
  , mDataType("")
  , mSamples(NULL)
  , mSamplesLength(0)
+ , mUncompressedSamples(NULL)
+ , mUncompressedLength(0)
  , mURI("")
  , mParentSBMLObject(NULL)
  , mSBMLNamespaces(NULL)
@@ -119,6 +121,8 @@ ImageData::ImageData(SpatialPkgNamespaces* spatialns)
  , mDataType("")
  , mSamples(NULL)
  , mSamplesLength(0)
+ , mUncompressedSamples(NULL)
+ , mUncompressedLength(0)
  , mURI("")
  , mParentSBMLObject(NULL)
  , mSBMLNamespaces(NULL)
@@ -154,6 +158,8 @@ ImageData::ImageData(const ImageData& source)
  , mDataType(source.mDataType)
  , mSamples(NULL)
  , mSamplesLength(source.mSamplesLength)
+ , mUncompressedSamples(NULL)
+ , mUncompressedLength(0)
  , mURI(source.mURI)
  , mParentSBMLObject(NULL)
  , mSBMLNamespaces(NULL)
@@ -175,6 +181,8 @@ ImageData& ImageData::operator=(const ImageData& source)
   {
 	this->mDataType = source.mDataType;
 	this->mSamplesLength = source.mSamplesLength;
+  mUncompressedSamples = NULL;
+  mUncompressedLength = 0;
   if (source.mSamples != NULL)
   {
   this->mSamples = new int[mSamplesLength];
@@ -202,6 +210,7 @@ ImageData::~ImageData ()
 	// destroy 'samples' array here --- ???
 	delete[] mSamples;
 	mSamplesLength = 0;
+  freeUncompressed();
 }
 
 /*
@@ -223,13 +232,10 @@ ImageData::getDataType () const
 void 
 ImageData::getSamples (int* outputSamples) const
 {
-   if (outputSamples == NULL) {
-	 throw SBMLExtensionException("Cannot return null or 0-length array");
-   }
+   if (outputSamples == NULL) return;
 
    memcpy(outputSamples , mSamples, sizeof(int)*mSamplesLength);
    
-  // return mSamples;
 }
 
 unsigned int
@@ -286,6 +292,7 @@ ImageData::setSamples (int* samples, int samplesLength)
 	  mSamples = new int[mSamplesLength];
     memcpy(mSamples, samples, sizeof(int)*samplesLength);
 	  mIsSetSamples  = true;
+    freeUncompressed();
     return LIBSBML_OPERATION_SUCCESS;
   }
 }
@@ -317,6 +324,7 @@ ImageData::unsetSamples ()
   
   if (!isSetSamples())
   {
+    freeUncompressed();
     return LIBSBML_OPERATION_SUCCESS;
   }
   else
@@ -487,6 +495,15 @@ ImageData::getURI() const
 	return mURI;
 }
 
+void 
+ImageData::copySampleArrays(int* &target, int& targetLength, int* source, int sourceLength)
+{
+    targetLength = sourceLength;
+    target = (int*)malloc(sizeof(int)*sourceLength);
+    memset(target, 0, sizeof(int)*sourceLength);
+    memcpy(target, source, sizeof(int)*sourceLength);
+}
+
 /**  
  *  Returns the data of this image as uncompressed array of integers
  * 
@@ -496,30 +513,72 @@ ImageData::getURI() const
  *
  */
 void 
-ImageData::getUncompressedData(int* &data, int& length) const
+  ImageData::getUncompressedData(int* &data, int& length) 
 {
+  if (mUncompressedSamples == NULL)
+  {
+    uncompress();
+  }
+
+  copySampleArrays(data, length, mUncompressedSamples, mUncompressedLength);
+  return;
+
+}
+
+void 
+ImageData::uncompress()
+{
+  freeUncompressed();
   if (mDataType.empty() || mDataType == "compressed")
   {
     char* csamples = (char*)malloc(sizeof(char)*mSamplesLength);
     for (unsigned int i = 0 ; i < mSamplesLength; ++i)
       csamples[i] = mSamples[i];
-    ImageData::uncompress_data(csamples, mSamplesLength, data, length);
+    ImageData::uncompress_data(csamples, mSamplesLength, mUncompressedSamples, mUncompressedLength);
     free(csamples);
   }
   else
   {
-    // lets just return a copy of the data we have as they ought to be uncompressed
-    length = mSamplesLength;
-    data = (int*)malloc(sizeof(int)*mSamplesLength);
-    memcpy(mSamples, data, sizeof(int)*length);
+    copySampleArrays(mUncompressedSamples, mUncompressedLength, mSamples, mSamplesLength);
   }
+
 }
+
+unsigned int 
+ImageData::getUncompressedLength()
+{
+  if (mUncompressedSamples == NULL)
+    uncompress();
+  return mUncompressedLength;
+}
+
+void 
+ImageData::getUncompressed(int* outputSamples)
+{
+  if (outputSamples == NULL) return;
+  if (mUncompressedSamples == NULL)
+    uncompress();
+  memcpy(outputSamples , mUncompressedSamples, sizeof(int)*mUncompressedLength);   
+}
+
+void 
+ImageData::freeUncompressed()
+{
+  if (mUncompressedSamples == NULL) return;
+  mUncompressedLength = 0;
+  free(mUncompressedSamples);
+  mUncompressedSamples = NULL;
+}
+
 
 void 
 ImageData::uncompress_data(void *data, size_t length, int*& result, int& outLength)
 {
 #ifndef USE_ZLIB
-  throw ZlibNotLinked();
+  // throwing an exception won't help our users, better set the result array and length to NULL. 
+  // throw ZlibNotLinked();
+  outLength = 0;
+  result = NULL;  
 #else
   std::vector<char> buffer;
 

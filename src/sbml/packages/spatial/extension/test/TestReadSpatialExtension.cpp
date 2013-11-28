@@ -887,42 +887,23 @@ END_TEST
 }
 END_TEST
 
+std::string dataToString(int* field, int numSamples1, int length)
+{
+  stringstream builder;
+  for (int i =0 ; i < length; ++i)
+  {
+    builder<< field[i] << " ";
+    if ((i+1)%numSamples1 == 0) builder << "\n";
+  }
+  return builder.str();
+}
+
 #ifdef USE_ZLIB
   START_TEST (test_SpatialExtension_read_compressed)
 {
   string filename(TestDataDirectory);
   filename += "ImageTest3.xml";
-  SBMLDocument* doc = readSBMLFromFile(filename.c_str());
-  fail_unless(doc->getModel() != NULL);
-  SpatialModelPlugin* plugin = (SpatialModelPlugin*)doc->getModel()->getPlugin("spatial");
-  fail_unless(plugin != NULL);
-  fail_unless(plugin->getGeometry() != NULL);
-  fail_unless(plugin->getGeometry()->getListOfGeometryDefinitions() != NULL);
-  fail_unless(plugin->getGeometry()->getListOfGeometryDefinitions()->size() == 1);
-  SampledFieldGeometry* geometry = (SampledFieldGeometry*)plugin->getGeometry()->getListOfGeometryDefinitions()->get(0);
-  fail_unless(geometry != NULL);
-  SampledField* field = geometry->getSampledField();
-  fail_unless(field->getNumSamples1() == 57);
-  fail_unless(field->getNumSamples2() == 63);
-  const ImageData *data = field->getImageData();
-  fail_unless(data != NULL);
-  fail_unless(data->getDataType() == "compressed");
-  
-  int* result; int resultLength;
-  data->getUncompressedData(result, resultLength);
-  
-  fail_unless(resultLength == 3591);
-
-  stringstream builder;
-  for (int i =0 ; i < resultLength; ++i)
-  {
-    builder<< result[i] << " ";
-    if ((i+1)%field->getNumSamples1() == 0) builder << "\n";
-  }
-  
-  string resultString = builder.str();
-
-  string expected(
+  const string expected(
     "0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 \n"
     "0 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 0 \n"
     "0 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 1 1 0 \n"
@@ -988,11 +969,168 @@ END_TEST
     "0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 \n"
     );
 
+  SBMLDocument* doc = readSBMLFromFile(filename.c_str());
+  fail_unless(doc->getModel() != NULL);
+  SpatialModelPlugin* plugin = (SpatialModelPlugin*)doc->getModel()->getPlugin("spatial");
+  fail_unless(plugin != NULL);
+  fail_unless(plugin->getGeometry() != NULL);
+  fail_unless(plugin->getGeometry()->getListOfGeometryDefinitions() != NULL);
+  fail_unless(plugin->getGeometry()->getListOfGeometryDefinitions()->size() == 1);
+  SampledFieldGeometry* geometry = (SampledFieldGeometry*)plugin->getGeometry()->getListOfGeometryDefinitions()->get(0);
+  fail_unless(geometry != NULL);
+  SampledField* field = geometry->getSampledField();
+  fail_unless(field->getNumSamples1() == 57);
+  fail_unless(field->getNumSamples2() == 63);
+  ImageData *data = field->getImageData();
+  fail_unless(data != NULL);
+  fail_unless(data->getDataType() == "compressed");
+  
+  // test new API 
+  int length1 = data->getUncompressedLength();
+  int* array1 = new int[length1]; 
+  fail_unless(length1 == 3591);
+  data->getUncompressed(array1);
+  std:string test1 = dataToString(array1, field->getNumSamples1(), length1);
+  fail_unless(test1 == expected);
+
+  int* result; int resultLength;
+  data->getUncompressedData(result, resultLength);
+
+  fail_unless(resultLength == length1);
+
+  string resultString = dataToString(result, field->getNumSamples1(), resultLength);
+
+  
+  fail_unless(resultString == expected);
+
+  // test new API
+  int uncompressed = data->getUncompressedLength();
+  fail_unless(resultLength == uncompressed);
+  int* more = new int[uncompressed]; 
+  data->getUncompressed(more);
+  resultString = dataToString(more, field->getNumSamples1(), resultLength);
   fail_unless(resultString == expected);
 
 }
 END_TEST
 #endif
+  
+ START_TEST (test_SpatialExtension_read_uncompressed)
+{
+  string filename(TestDataDirectory);
+  filename += "ImageTest2.xml";
+  const string expected(
+    "0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 \n"
+    "0 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 0 \n"
+    "0 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 1 1 0 \n"
+    "0 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 1 0 \n"
+    "0 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 1 0 \n"
+    "0 1 1 1 1 2 2 2 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 1 0 \n"
+    "0 1 1 1 2 2 2 2 2 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 1 1 0 \n"
+    "0 1 1 1 2 2 2 2 2 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 0 \n"
+    "0 1 1 1 2 2 2 2 2 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 0 \n"
+    "0 1 1 1 2 2 2 2 2 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 0 \n"
+    "0 1 1 1 2 2 2 2 2 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 1 1 0 \n"
+    "0 1 1 1 2 2 2 2 2 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 1 0 \n"
+    "0 1 1 1 2 2 2 2 2 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 1 0 \n"
+    "0 1 1 1 2 2 2 2 2 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 1 0 \n"
+    "0 1 1 1 2 2 2 2 2 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 1 1 0 \n"
+    "0 1 1 1 2 2 2 2 2 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 0 \n"
+    "0 1 1 1 2 2 2 2 2 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 0 \n"
+    "0 1 1 1 2 2 2 2 2 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 1 1 0 \n"
+    "0 1 1 1 2 2 2 2 2 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 1 0 \n"
+    "0 1 1 1 2 2 2 2 2 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 1 0 \n"
+    "0 1 1 1 2 2 2 2 2 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 1 0 \n"
+    "0 1 1 1 2 2 2 2 2 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 1 1 0 \n"
+    "0 1 1 1 2 2 2 2 2 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 0 \n"
+    "0 1 1 1 2 2 2 2 2 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 0 \n"
+    "0 1 1 1 2 2 2 2 2 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 0 \n"
+    "0 1 1 1 2 2 2 2 2 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 0 \n"
+    "0 1 1 1 2 2 2 2 2 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 0 \n"
+    "0 1 1 1 2 2 2 2 2 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 0 \n"
+    "0 1 1 1 2 2 2 2 2 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 0 \n"
+    "0 1 1 1 1 2 2 2 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 2 2 2 1 1 1 2 2 2 1 1 1 1 1 1 1 0 \n"
+    "0 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 2 2 2 2 2 1 2 2 2 2 2 1 1 1 1 1 1 0 \n"
+    "0 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 2 2 2 2 2 1 2 2 2 2 2 1 1 1 1 1 1 0 \n"
+    "0 1 1 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 1 1 1 1 2 2 2 2 2 1 2 2 2 2 2 1 1 1 1 1 1 0 \n"
+    "0 1 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 1 1 1 2 2 2 2 2 1 2 2 2 2 2 1 1 1 1 1 1 0 \n"
+    "0 1 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 1 1 1 2 2 2 2 2 1 2 2 2 2 2 1 1 1 1 1 1 0 \n"
+    "0 1 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 1 1 1 2 2 2 2 2 1 2 2 2 2 2 1 1 1 1 1 1 0 \n"
+    "0 1 1 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 1 1 1 1 2 2 2 2 2 1 2 2 2 2 2 1 1 1 1 1 1 0 \n"
+    "0 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 2 2 2 2 2 1 2 2 2 2 2 1 1 1 1 1 1 0 \n"
+    "0 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 2 2 2 2 2 1 2 2 2 2 2 1 1 1 1 1 1 0 \n"
+    "0 1 1 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 1 1 1 1 2 2 2 2 2 1 2 2 2 2 2 1 1 1 1 1 1 0 \n"
+    "0 1 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 1 1 1 2 2 2 2 2 1 2 2 2 2 2 1 1 1 1 1 1 0 \n"
+    "0 1 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 1 1 1 2 2 2 2 2 1 2 2 2 2 2 1 1 1 1 1 1 0 \n"
+    "0 1 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 1 1 1 2 2 2 2 2 1 2 2 2 2 2 1 1 1 1 1 1 0 \n"
+    "0 1 1 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 1 1 1 1 2 2 2 2 2 1 2 2 2 2 2 1 1 1 1 1 1 0 \n"
+    "0 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 2 2 2 2 2 1 2 2 2 2 2 1 1 1 1 1 1 0 \n"
+    "0 1 1 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 1 1 1 1 2 2 2 2 2 1 2 2 2 2 2 1 1 1 1 1 1 0 \n"
+    "0 1 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 1 1 1 2 2 2 2 2 1 2 2 2 2 2 1 1 1 1 1 1 0 \n"
+    "0 1 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 1 1 1 2 2 2 2 2 1 2 2 2 2 2 1 1 1 1 1 1 0 \n"
+    "0 1 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 1 1 1 2 2 2 2 2 1 2 2 2 2 2 1 1 1 1 1 1 0 \n"
+    "0 1 1 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 1 1 1 1 2 2 2 2 2 1 2 2 2 2 2 1 1 1 1 1 1 0 \n"
+    "0 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 2 2 2 2 2 1 2 2 2 2 2 1 1 1 1 1 1 0 \n"
+    "0 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 2 2 2 2 2 1 2 2 2 2 2 1 1 1 1 1 1 0 \n"
+    "0 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 2 2 2 2 2 1 2 2 2 2 2 1 1 1 1 1 1 0 \n"
+    "0 1 1 1 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 1 1 1 1 2 2 2 2 2 1 2 2 2 2 2 1 1 1 1 1 1 0 \n"
+    "0 1 1 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 1 1 1 2 2 2 2 2 1 2 2 2 2 2 1 1 1 1 1 1 0 \n"
+    "0 1 1 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 1 1 1 2 2 2 2 2 1 2 2 2 2 2 1 1 1 1 1 1 0 \n"
+    "0 1 1 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 1 1 1 2 2 2 2 2 1 2 2 2 2 2 1 1 1 1 1 1 0 \n"
+    "0 1 1 1 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 1 1 1 1 2 2 2 2 2 1 2 2 2 2 2 1 1 1 1 1 1 0 \n"
+    "0 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 2 2 2 2 2 1 2 2 2 2 2 1 1 1 1 1 1 0 \n"
+    "0 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 2 2 2 2 2 1 2 2 2 2 2 1 1 1 1 1 1 0 \n"
+    "0 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 2 2 2 1 1 1 2 2 2 1 1 1 1 1 1 1 0 \n"
+    "0 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 0 \n"
+    "0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 \n"
+    );
+  SBMLDocument* doc = readSBMLFromFile(filename.c_str());
+  fail_unless(doc->getModel() != NULL);
+  SpatialModelPlugin* plugin = (SpatialModelPlugin*)doc->getModel()->getPlugin("spatial");
+  fail_unless(plugin != NULL);
+  fail_unless(plugin->getGeometry() != NULL);
+  fail_unless(plugin->getGeometry()->getListOfGeometryDefinitions() != NULL);
+  fail_unless(plugin->getGeometry()->getListOfGeometryDefinitions()->size() == 1);
+  SampledFieldGeometry* geometry = (SampledFieldGeometry*)plugin->getGeometry()->getListOfGeometryDefinitions()->get(0);
+  fail_unless(geometry != NULL);
+  SampledField* field = geometry->getSampledField();
+  fail_unless(field->getNumSamples1() == 57);
+  fail_unless(field->getNumSamples2() == 63);
+  ImageData *data = field->getImageData();
+  fail_unless(data != NULL);
+  fail_unless(data->getDataType() == "uint8");
+  
+  // test new API 
+  int length1 = data->getUncompressedLength();
+  int* array1 = new int[length1]; 
+  fail_unless(length1 == 3591);
+  data->getUncompressed(array1);
+  std:string test1 = dataToString(array1, field->getNumSamples1(), length1);
+  fail_unless(test1 == expected);
+
+  int* result; int resultLength;
+  data->getUncompressedData(result, resultLength);
+
+  fail_unless(resultLength == length1);
+
+  string resultString = dataToString(result, field->getNumSamples1(), resultLength);
+
+
+  fail_unless(resultString == expected);
+
+  // test new API
+  int uncompressed = data->getUncompressedLength();
+  fail_unless(resultLength == uncompressed);
+  int* more = new int[uncompressed]; 
+  data->getUncompressed(more);
+  resultString = dataToString(more, field->getNumSamples1(), resultLength);
+  fail_unless(resultString == expected);
+
+
+
+}
+END_TEST
+
 
   Suite *
   create_suite_ReadSpatialExtension (void)
@@ -1003,8 +1141,9 @@ END_TEST
   tcase_add_test( tcase, test_SpatialExtension_read_L3V1V1);
   tcase_add_test( tcase, test_SpatialExtension_read_L3V1V1_defaultNS);
   tcase_add_test( tcase, test_SpatialExtension_read_L3V1V1_unknown_elements);
+  tcase_add_test( tcase, test_SpatialExtension_read_uncompressed);
 #ifdef USE_ZLIB
-  tcase_add_test( tcase, test_SpatialExtension_read_compressed);
+  tcase_add_test( tcase, test_SpatialExtension_read_compressed);  
 #endif
   suite_add_tcase(suite, tcase);
 

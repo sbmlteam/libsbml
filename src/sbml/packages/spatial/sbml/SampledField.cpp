@@ -227,6 +227,16 @@ SampledField::getImageData () const
 }
 
 /*
+  * Returns the "imageData" of this SampledField.
+  */
+ImageData* 
+SampledField::getImageData ()
+{
+  return mImageData;
+}
+
+
+/*
   * Predicate returning @c true or @c false depending on whether this
   * SampledField's "spatialId" attribute has been set.
   */
