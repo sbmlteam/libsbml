@@ -288,6 +288,7 @@ if(WITH_EXPAT)
     find_path(LIBEXPAT_INCLUDE_DIR
         NAMES expat.h
         PATHS /usr/include /usr/local/include
+              ${CMAKE_OSX_SYSROOT}/usr/include
               ${LIBSBML_DEPENDENCY_DIR}/include
         DOC "The directory containing the Expat include files."
               )
@@ -321,6 +322,7 @@ if(WITH_LIBXML)
         NAMES libxml/parser.h
         PATHS /usr/include /usr/local/include
               /usr/include/libxml2
+              ${CMAKE_OSX_SYSROOT}/usr/include/libxml2
               /usr/local/include/libxml2
               ${LIBSBML_DEPENDENCY_DIR}/include
         DOC "The directory containing the libxml2 include files."
@@ -356,6 +358,7 @@ if(WITH_XERCES)
     find_path(XERCES_INCLUDE_DIR
         NAMES xercesc/parsers/XercesDOMParser.hpp
         PATHS /usr/include /usr/local/include
+              ${CMAKE_OSX_SYSROOT}/usr/include/xercesc
               /usr/include/xercesc
               /usr/local/include/xercesc
               ${LIBSBML_DEPENDENCY_DIR}/include
@@ -382,6 +385,7 @@ set(BZIP_INITIAL_VALUE)
 find_library(LIBBZ_LIBRARY
     NAMES bzip2.lib bz2 libbz2.lib
     PATHS /usr/lib /usr/local/lib
+          ${CMAKE_OSX_SYSROOT}/usr/lib
           ${LIBSBML_DEPENDENCY_DIR}/lib
     DOC "The file name of the bzip2 library."
 )
@@ -398,10 +402,21 @@ if(WITH_BZIP2)
 
     find_path(LIBBZ_INCLUDE_DIR
         NAMES bzlib.h bzip2/bzlib.h
-        PATHS /usr/include /usr/local/include
+        PATHS ${CMAKE_OSX_SYSROOT}/usr/include
+              /usr/include /usr/local/include
+              ${LIBSBML_DEPENDENCY_DIR}/include
+              NO_DEFAULT_PATH
+        DOC "The directory containing the bzip2 include files."
+              )
+    if (NOT LIBBZ_INCLUDE_DIR)
+      find_path(LIBBZ_INCLUDE_DIR
+        NAMES bzlib.h bzip2/bzlib.h
+        PATHS ${CMAKE_OSX_SYSROOT}/usr/include
+              /usr/include /usr/local/include
               ${LIBSBML_DEPENDENCY_DIR}/include
         DOC "The directory containing the bzip2 include files."
               )
+    endif()
 
     set(USE_BZ2 ON)
     add_definitions( -DUSE_BZ2 )
@@ -442,6 +457,7 @@ set(ZLIB_INITIAL_VALUE)
 find_library(LIBZ_LIBRARY
     NAMES zdll.lib z zlib.lib
     PATHS /usr/lib /usr/local/lib
+          ${CMAKE_OSX_SYSROOT}/usr/lib
           ${LIBSBML_DEPENDENCY_DIR}/lib
     DOC "The file name of the zip compression library."
     )
@@ -458,10 +474,21 @@ if(WITH_ZLIB)
 
     find_path(LIBZ_INCLUDE_DIR
         NAMES zlib.h zlib/zlib.h
-        PATHS /usr/include /usr/local/include
+        PATHS ${CMAKE_OSX_SYSROOT}/usr/include
+              /usr/include /usr/local/include
+              ${LIBSBML_DEPENDENCY_DIR}/include
+              NO_DEFAULT_PATH
+        DOC "The directory containing the zlib include files."
+              )
+    if (NOT LIBZ_INCLUDE_DIR)
+        find_path(LIBZ_INCLUDE_DIR
+        NAMES zlib.h zlib/zlib.h
+        PATHS ${CMAKE_OSX_SYSROOT}/usr/include
+              /usr/include /usr/local/include
               ${LIBSBML_DEPENDENCY_DIR}/include
         DOC "The directory containing the zlib include files."
               )
+    endif()
     set(USE_ZLIB ON)
     add_definitions( -DUSE_ZLIB )
 
@@ -704,6 +731,7 @@ else(UNIX)
           find_library(LIBICONV_LIBRARY
               NAMES libiconv.lib iconv.lib iconv
               PATHS /usr/lib /usr/local/lib
+                    ${CMAKE_OSX_SYSROOT}/usr/lib
                     ${LIBSBML_DEPENDENCY_DIR}/lib
               DOC "The file name of the libiconv library."
               )
