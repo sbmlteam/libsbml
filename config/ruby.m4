@@ -76,14 +76,20 @@ AC_DEFUN([CONFIG_PROG_RUBY],
     RUBY_PREFIX=`$RUBY -rrbconfig -e ["include Config; puts CONFIG['prefix']"]`
     AC_MSG_RESULT($RUBY_PREFIX)
 
-    if test `$RUBY -rrbconfig -e ["puts RUBY_VERSION >= \"1.9.0\" ? \"OK\" : \"OLD\""]` = "OK"; 
+    if test `$RUBY -rrbconfig -e ["puts RUBY_VERSION >= \"2.0.0\" ? \"OK\" : \"OLD\""]` = "OK";
+    then
+      RUBY_ARCHDIR=`$RUBY -rrbconfig -e ["include RbConfig; print \"#{CONFIG['rubyhdrdir']} -I#{CONFIG['rubyhdrdir']}/#{CONFIG['arch']}\" "]`
+      RUBY_H=`$RUBY -rrbconfig -e ["include RbConfig; print \"#{CONFIG['rubyhdrdir']}\" "]`"/ruby.h"
+    else
+    if test `$RUBY -rrbconfig -e ["puts RUBY_VERSION >= \"1.9.0\" ? \"OK\" : \"OLD\""]` = "OK";
     then
       RUBY_ARCHDIR=`$RUBY -rrbconfig -e ["include Config; print \"#{CONFIG['rubyhdrdir']} -I#{CONFIG['rubyhdrdir']}/#{CONFIG['arch']}\" "]`
       RUBY_H=`$RUBY -rrbconfig -e ["include Config; print \"#{CONFIG['rubyhdrdir']}\" "]`"/ruby.h"
     else
       RUBY_ARCHDIR=`$RUBY -rrbconfig -e ["include Config; puts CONFIG['archdir']"]`
       RUBY_H="${RUBY_ARCHDIR}/ruby.h"
-    fi    
+    fi  
+    fi
 
     AC_MSG_CHECKING(for ruby.h)
     if test -z "$RUBY_H" || ! test -f "$RUBY_H"; 
