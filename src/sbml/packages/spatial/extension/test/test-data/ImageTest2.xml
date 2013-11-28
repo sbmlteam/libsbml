@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level3/version1/core" xmlns:req="http://www.sbml.org/sbml/level3/version1/requiredElements/version1" xmlns:spatial="http://www.sbml.org/sbml/level3/version1/spatial/version1" level="3" version="1" req:required="true" spatial:required="true">
+  <model id="BioModel1_Application0" name="BioModel1_Application0">
+    <annotation>
+      <vcell:VCellInfo xmlns:vcell="http://sourceforge.net/projects/vcell">
+        <vcell:VCMLSpecific>
+          <vcell:BioModel Name="BioModel1"/>
+          <vcell:SimulationSpec Name="Application0"/>
+        </vcell:VCMLSpecific>
+      </vcell:VCellInfo>
+    </annotation>
+    <listOfUnitDefinitions>
+      <unitDefinition id="substance">
+        <listOfUnits>
+          <unit kind="mole" exponent="1" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="volume">
+        <listOfUnits>
+          <unit kind="metre" exponent="3" scale="0" multiplier="0.1"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="area">
+        <listOfUnits>
+          <unit kind="metre" exponent="2" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="length">
+        <listOfUnits>
+          <unit kind="metre" exponent="1" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="time">
+        <listOfUnits>
+          <unit kind="second" exponent="1" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="mol">
+        <listOfUnits>
+          <unit kind="mole" exponent="1" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+    </listOfUnitDefinitions>
+    <listOfCompartments>
+      <compartment id="c0" name="c0" spatialDimensions="3" size="50000" units="litre" constant="true">
+        <spatial:compartmentMapping spatial:spatialId="backgroundc0" spatial:compartment="c0" spatial:domainType="background" spatial:unitSize="1"/>
+      </compartment>
+      <compartment id="c1" name="c1" spatialDimensions="3" size="5000" units="litre" constant="true">
+        <annotation>
+          <vcell:VCellInfo xmlns:vcell="http://sourceforge.net/projects/vcell">
+            <vcell:VCMLSpecific>
+              <vcell:OutsideCompartment Name="Membrane0"/>
+            </vcell:VCMLSpecific>
+          </vcell:VCellInfo>
+        </annotation>
+        <spatial:compartmentMapping spatial:spatialId="roi_237c1" spatial:compartment="c1" spatial:domainType="roi_237" spatial:unitSize="1"/>
+      </compartment>
+      <compartment id="c2" name="c2" spatialDimensions="3" size="500" units="litre" constant="true">
+        <annotation>
+          <vcell:VCellInfo xmlns:vcell="http://sourceforge.net/projects/vcell">
+            <vcell:VCMLSpecific>
+              <vcell:OutsideCompartment Name="Membrane1"/>
+            </vcell:VCMLSpecific>
+          </vcell:VCellInfo>
+        </annotation>
+        <spatial:compartmentMapping spatial:spatialId="roi_255c2" spatial:compartment="c2" spatial:domainType="roi_255" spatial:unitSize="1"/>
+      </compartment>
+      <compartment id="Membrane0" name="Membrane0" spatialDimensions="2" size="1414" units="m2" constant="true">
+        <annotation>
+          <vcell:VCellInfo xmlns:vcell="http://sourceforge.net/projects/vcell">
+            <vcell:VCMLSpecific>
+              <vcell:OutsideCompartment Name="c0"/>
+            </vcell:VCMLSpecific>
+          </vcell:VCellInfo>
+        </annotation>
+        <spatial:compartmentMapping spatial:spatialId="background_roi_237_membraneMembrane0" spatial:compartment="Membrane0" spatial:domainType="background_roi_237_membrane" spatial:unitSize="1"/>
+      </compartment>
+      <compartment id="Membrane1" name="Membrane1" spatialDimensions="2" size="304.6" units="m2" constant="true">
+        <annotation>
+          <vcell:VCellInfo xmlns:vcell="http://sourceforge.net/projects/vcell">
+            <vcell:VCMLSpecific>
+              <vcell:OutsideCompartment Name="c1"/>
+            </vcell:VCMLSpecific>
+          </vcell:VCellInfo>
+        </annotation>
+        <spatial:compartmentMapping spatial:spatialId="roi_237_roi_255_membraneMembrane1" spatial:compartment="Membrane1" spatial:domainType="roi_237_roi_255_membrane" spatial:unitSize="1"/>
+      </compartment>
+    </listOfCompartments>
+    <listOfParameters>
+      <parameter id="x" value="0" req:mathOverridden="spatial" req:coreHasAlternateMath="false">
+        <spatial:spatialSymbolReference spatial:spatialId="x" spatial:type="coordinateComponent"/>
+      </parameter>
+      <parameter id="y" value="0" req:mathOverridden="spatial" req:coreHasAlternateMath="false">
+        <spatial:spatialSymbolReference spatial:spatialId="y" spatial:type="coordinateComponent"/>
+      </parameter>
+    </listOfParameters>
+    <spatial:geometry spatial:coordinateSystem="Cartesian">
+      <spatial:listOfCoordinateComponents>
+        <spatial:coordinateComponent spatial:spatialId="x" spatial:componentType="cartesianX" spatial:sbmlUnit="m" spatial:index="0">
+          <spatial:boundaryMin spatial:spatialId="Xmin" spatial:value="0"/>
+          <spatial:boundaryMax spatial:spatialId="Xmax" spatial:value="1.65000001288718e-005"/>
+        </spatial:coordinateComponent>
+        <spatial:coordinateComponent spatial:spatialId="y" spatial:componentType="cartesianY" spatial:sbmlUnit="m" spatial:index="1">
+          <spatial:boundaryMin spatial:spatialId="Ymin" spatial:value="0"/>
+          <spatial:boundaryMax spatial:spatialId="Ymax" spatial:value="1.8300001102034e-005"/>
+        </spatial:coordinateComponent>
+      </spatial:listOfCoordinateComponents>
+      <spatial:listOfDomainTypes>
+        <spatial:domainType spatial:spatialId="background" spatial:spatialDimensions="3"/>
+        <spatial:domainType spatial:spatialId="roi_237" spatial:spatialDimensions="3"/>
+        <spatial:domainType spatial:spatialId="roi_255" spatial:spatialDimensions="3"/>
+        <spatial:domainType spatial:spatialId="background_roi_237_membrane" spatial:spatialDimensions="2"/>
+        <spatial:domainType spatial:spatialId="roi_237_roi_255_membrane" spatial:spatialDimensions="2"/>
+      </spatial:listOfDomainTypes>
+      <spatial:listOfDomains>
+        <spatial:domain spatial:spatialId="background0" spatial:domainType="background" spatial:implicit="false">
+          <spatial:listOfInteriorPoints>
+            <spatial:interiorPoint spatial:coord1="0" spatial:coord2="0" spatial:coord3="4.49999987495175e-007"/>
+          </spatial:listOfInteriorPoints>
+        </spatial:domain>
+        <spatial:domain spatial:spatialId="roi_2371" spatial:domainType="roi_237" spatial:implicit="false">
+          <spatial:listOfInteriorPoints>
+            <spatial:interiorPoint spatial:coord1="2.94642859444139e-007" spatial:coord2="2.95161308097323e-007" spatial:coord3="4.49999987495175e-007"/>
+          </spatial:listOfInteriorPoints>
+        </spatial:domain>
+        <spatial:domain spatial:spatialId="roi_2552" spatial:domainType="roi_255" spatial:implicit="false">
+          <spatial:listOfInteriorPoints>
+            <spatial:interiorPoint spatial:coord1="9.1339286427683e-006" spatial:coord2="5.90322616194645e-007" spatial:coord3="4.49999987495175e-007"/>
+          </spatial:listOfInteriorPoints>
+        </spatial:domain>
+        <spatial:domain spatial:spatialId="roi_2553" spatial:domainType="roi_255" spatial:implicit="false">
+          <spatial:listOfInteriorPoints>
+            <spatial:interiorPoint spatial:coord1="1.47321429722069e-006" spatial:coord2="1.47580654048661e-006" spatial:coord3="4.49999987495175e-007"/>
+          </spatial:listOfInteriorPoints>
+        </spatial:domain>
+        <spatial:domain spatial:spatialId="roi_2554" spatial:domainType="roi_255" spatial:implicit="false">
+          <spatial:listOfInteriorPoints>
+            <spatial:interiorPoint spatial:coord1="9.1339286427683e-006" spatial:coord2="2.95161308097323e-006" spatial:coord3="4.49999987495175e-007"/>
+          </spatial:listOfInteriorPoints>
+        </spatial:domain>
+        <spatial:domain spatial:spatialId="roi_2555" spatial:domainType="roi_255" spatial:implicit="false">
+          <spatial:listOfInteriorPoints>
+            <spatial:interiorPoint spatial:coord1="9.1339286427683e-006" spatial:coord2="5.01774223765448e-006" spatial:coord3="4.49999987495175e-007"/>
+          </spatial:listOfInteriorPoints>
+        </spatial:domain>
+        <spatial:domain spatial:spatialId="roi_2556" spatial:domainType="roi_255" spatial:implicit="false">
+          <spatial:listOfInteriorPoints>
+            <spatial:interiorPoint spatial:coord1="1.17857143777655e-005" spatial:coord2="8.55967793482235e-006" spatial:coord3="4.49999987495175e-007"/>
+          </spatial:listOfInteriorPoints>
+        </spatial:domain>
+        <spatial:domain spatial:spatialId="roi_2557" spatial:domainType="roi_255" spatial:implicit="false">
+          <spatial:listOfInteriorPoints>
+            <spatial:interiorPoint spatial:coord1="1.35535715344304e-005" spatial:coord2="8.55967793482235e-006" spatial:coord3="4.49999987495175e-007"/>
+          </spatial:listOfInteriorPoints>
+        </spatial:domain>
+        <spatial:domain spatial:spatialId="roi_2558" spatial:domainType="roi_255" spatial:implicit="false">
+          <spatial:listOfInteriorPoints>
+            <spatial:interiorPoint spatial:coord1="8.83928578332416e-007" spatial:coord2="9.44516185911432e-006" spatial:coord3="4.49999987495175e-007"/>
+          </spatial:listOfInteriorPoints>
+        </spatial:domain>
+        <spatial:domain spatial:spatialId="roi_2559" spatial:domainType="roi_255" spatial:implicit="false">
+          <spatial:listOfInteriorPoints>
+            <spatial:interiorPoint spatial:coord1="8.83928578332416e-007" spatial:coord2="1.15112910157956e-005" spatial:coord3="4.49999987495175e-007"/>
+          </spatial:listOfInteriorPoints>
+        </spatial:domain>
+        <spatial:domain spatial:spatialId="roi_25510" spatial:domainType="roi_255" spatial:implicit="false">
+          <spatial:listOfInteriorPoints>
+            <spatial:interiorPoint spatial:coord1="8.83928578332416e-007" spatial:coord2="1.32822588643795e-005" spatial:coord3="4.49999987495175e-007"/>
+          </spatial:listOfInteriorPoints>
+        </spatial:domain>
+        <spatial:domain spatial:spatialId="roi_25511" spatial:domainType="roi_255" spatial:implicit="false">
+          <spatial:listOfInteriorPoints>
+            <spatial:interiorPoint spatial:coord1="1.17857143777655e-006" spatial:coord2="1.56435493291581e-005" spatial:coord3="4.49999987495175e-007"/>
+          </spatial:listOfInteriorPoints>
+        </spatial:domain>
+        <spatial:domain spatial:spatialId="membrane_background0_roi_2371" spatial:domainType="background_roi_237_membrane" spatial:implicit="false"/>
+        <spatial:domain spatial:spatialId="membrane_roi_2371_roi_2552" spatial:domainType="roi_237_roi_255_membrane" spatial:implicit="false"/>
+        <spatial:domain spatial:spatialId="membrane_roi_2371_roi_2553" spatial:domainType="roi_237_roi_255_membrane" spatial:implicit="false"/>
+        <spatial:domain spatial:spatialId="membrane_roi_2371_roi_2554" spatial:domainType="roi_237_roi_255_membrane" spatial:implicit="false"/>
+        <spatial:domain spatial:spatialId="membrane_roi_2371_roi_2555" spatial:domainType="roi_237_roi_255_membrane" spatial:implicit="false"/>
+        <spatial:domain spatial:spatialId="membrane_roi_2371_roi_2556" spatial:domainType="roi_237_roi_255_membrane" spatial:implicit="false"/>
+        <spatial:domain spatial:spatialId="membrane_roi_2371_roi_2557" spatial:domainType="roi_237_roi_255_membrane" spatial:implicit="false"/>
+        <spatial:domain spatial:spatialId="membrane_roi_2371_roi_2558" spatial:domainType="roi_237_roi_255_membrane" spatial:implicit="false"/>
+        <spatial:domain spatial:spatialId="membrane_roi_2371_roi_2559" spatial:domainType="roi_237_roi_255_membrane" spatial:implicit="false"/>
+        <spatial:domain spatial:spatialId="membrane_roi_2371_roi_25510" spatial:domainType="roi_237_roi_255_membrane" spatial:implicit="false"/>
+        <spatial:domain spatial:spatialId="membrane_roi_2371_roi_25511" spatial:domainType="roi_237_roi_255_membrane" spatial:implicit="false"/>
+      </spatial:listOfDomains>
+      <spatial:listOfAdjacentDomains>
+        <spatial:adjacentDomains spatial:spatialId="membrane_background0_roi_2371_roi_2371" spatial:domain1="membrane_background0_roi_2371" spatial:domain2="roi_2371"/>
+        <spatial:adjacentDomains spatial:spatialId="membrane_background0_roi_2371_background0" spatial:domain1="membrane_background0_roi_2371" spatial:domain2="background0"/>
+        <spatial:adjacentDomains spatial:spatialId="membrane_roi_2371_roi_2552_roi_2552" spatial:domain1="membrane_roi_2371_roi_2552" spatial:domain2="roi_2552"/>
+        <spatial:adjacentDomains spatial:spatialId="membrane_roi_2371_roi_2552_roi_2371" spatial:domain1="membrane_roi_2371_roi_2552" spatial:domain2="roi_2371"/>
+        <spatial:adjacentDomains spatial:spatialId="membrane_roi_2371_roi_2553_roi_2553" spatial:domain1="membrane_roi_2371_roi_2553" spatial:domain2="roi_2553"/>
+        <spatial:adjacentDomains spatial:spatialId="membrane_roi_2371_roi_2553_roi_2371" spatial:domain1="membrane_roi_2371_roi_2553" spatial:domain2="roi_2371"/>
+        <spatial:adjacentDomains spatial:spatialId="membrane_roi_2371_roi_2554_roi_2554" spatial:domain1="membrane_roi_2371_roi_2554" spatial:domain2="roi_2554"/>
+        <spatial:adjacentDomains spatial:spatialId="membrane_roi_2371_roi_2554_roi_2371" spatial:domain1="membrane_roi_2371_roi_2554" spatial:domain2="roi_2371"/>
+        <spatial:adjacentDomains spatial:spatialId="membrane_roi_2371_roi_2555_roi_2555" spatial:domain1="membrane_roi_2371_roi_2555" spatial:domain2="roi_2555"/>
+        <spatial:adjacentDomains spatial:spatialId="membrane_roi_2371_roi_2555_roi_2371" spatial:domain1="membrane_roi_2371_roi_2555" spatial:domain2="roi_2371"/>
+        <spatial:adjacentDomains spatial:spatialId="membrane_roi_2371_roi_2556_roi_2556" spatial:domain1="membrane_roi_2371_roi_2556" spatial:domain2="roi_2556"/>
+        <spatial:adjacentDomains spatial:spatialId="membrane_roi_2371_roi_2556_roi_2371" spatial:domain1="membrane_roi_2371_roi_2556" spatial:domain2="roi_2371"/>
+        <spatial:adjacentDomains spatial:spatialId="membrane_roi_2371_roi_2557_roi_2557" spatial:domain1="membrane_roi_2371_roi_2557" spatial:domain2="roi_2557"/>
+        <spatial:adjacentDomains spatial:spatialId="membrane_roi_2371_roi_2557_roi_2371" spatial:domain1="membrane_roi_2371_roi_2557" spatial:domain2="roi_2371"/>
+        <spatial:adjacentDomains spatial:spatialId="membrane_roi_2371_roi_2558_roi_2558" spatial:domain1="membrane_roi_2371_roi_2558" spatial:domain2="roi_2558"/>
+        <spatial:adjacentDomains spatial:spatialId="membrane_roi_2371_roi_2558_roi_2371" spatial:domain1="membrane_roi_2371_roi_2558" spatial:domain2="roi_2371"/>
+        <spatial:adjacentDomains spatial:spatialId="membrane_roi_2371_roi_2559_roi_2559" spatial:domain1="membrane_roi_2371_roi_2559" spatial:domain2="roi_2559"/>
+        <spatial:adjacentDomains spatial:spatialId="membrane_roi_2371_roi_2559_roi_2371" spatial:domain1="membrane_roi_2371_roi_2559" spatial:domain2="roi_2371"/>
+        <spatial:adjacentDomains spatial:spatialId="membrane_roi_2371_roi_25510_roi_25510" spatial:domain1="membrane_roi_2371_roi_25510" spatial:domain2="roi_25510"/>
+        <spatial:adjacentDomains spatial:spatialId="membrane_roi_2371_roi_25510_roi_2371" spatial:domain1="membrane_roi_2371_roi_25510" spatial:domain2="roi_2371"/>
+        <spatial:adjacentDomains spatial:spatialId="membrane_roi_2371_roi_25511_roi_25511" spatial:domain1="membrane_roi_2371_roi_25511" spatial:domain2="roi_25511"/>
+        <spatial:adjacentDomains spatial:spatialId="membrane_roi_2371_roi_25511_roi_2371" spatial:domain1="membrane_roi_2371_roi_25511" spatial:domain2="roi_2371"/>
+      </spatial:listOfAdjacentDomains>
+      <spatial:listOfGeometryDefinitions>
+        <spatial:sampledFieldGeometry spatial:spatialId="SegmentedImage_BioModel1_Application0_20120725_161513">
+          <spatial:listOfSampledVolumes>
+            <spatial:sampledVolume spatial:spatialId="background" spatial:domainType="background" spatial:sampledValue="0" spatial:minValue="0" spatial:maxValue="0"/>
+            <spatial:sampledVolume spatial:spatialId="roi_237" spatial:domainType="roi_237" spatial:sampledValue="1" spatial:minValue="0" spatial:maxValue="0"/>
+            <spatial:sampledVolume spatial:spatialId="roi_255" spatial:domainType="roi_255" spatial:sampledValue="2" spatial:minValue="0" spatial:maxValue="0"/>
+          </spatial:listOfSampledVolumes>
+          <spatial:sampledField spatial:spatialId="SegmentedImageSampledField" spatial:dataType="integer" spatial:interpolationType="constant" spatial:numSamples1="57" spatial:numSamples2="63" spatial:numSamples3="1">
+            <spatial:imageData spatial:dataType="uint8">0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 0 0 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 1 1 0 0 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 1 0 0 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 1 0 0 1 1 1 1 2 2 2 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 1 0 0 1 1 1 2 2 2 2 2 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 1 1 0 0 1 1 1 2 2 2 2 2 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 0 0 1 1 1 2 2 2 2 2 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 0 0 1 1 1 2 2 2 2 2 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 0 0 1 1 1 2 2 2 2 2 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 1 1 0 0 1 1 1 2 2 2 2 2 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 1 0 0 1 1 1 2 2 2 2 2 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 1 0 0 1 1 1 2 2 2 2 2 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 1 0 0 1 1 1 2 2 2 2 2 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 1 1 0 0 1 1 1 2 2 2 2 2 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 0 0 1 1 1 2 2 2 2 2 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 0 0 1 1 1 2 2 2 2 2 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 1 1 0 0 1 1 1 2 2 2 2 2 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 1 0 0 1 1 1 2 2 2 2 2 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 1 0 0 1 1 1 2 2 2 2 2 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 1 0 0 1 1 1 2 2 2 2 2 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 1 1 0 0 1 1 1 2 2 2 2 2 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 0 0 1 1 1 2 2 2 2 2 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 0 0 1 1 1 2 2 2 2 2 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 0 0 1 1 1 2 2 2 2 2 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 0 0 1 1 1 2 2 2 2 2 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 0 0 1 1 1 2 2 2 2 2 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 0 0 1 1 1 2 2 2 2 2 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 0 0 1 1 1 1 2 2 2 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 2 2 2 1 1 1 2 2 2 1 1 1 1 1 1 1 0 0 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 2 2 2 2 2 1 2 2 2 2 2 1 1 1 1 1 1 0 0 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 2 2 2 2 2 1 2 2 2 2 2 1 1 1 1 1 1 0 0 1 1 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 1 1 1 1 2 2 2 2 2 1 2 2 2 2 2 1 1 1 1 1 1 0 0 1 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 1 1 1 2 2 2 2 2 1 2 2 2 2 2 1 1 1 1 1 1 0 0 1 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 1 1 1 2 2 2 2 2 1 2 2 2 2 2 1 1 1 1 1 1 0 0 1 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 1 1 1 2 2 2 2 2 1 2 2 2 2 2 1 1 1 1 1 1 0 0 1 1 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 1 1 1 1 2 2 2 2 2 1 2 2 2 2 2 1 1 1 1 1 1 0 0 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 2 2 2 2 2 1 2 2 2 2 2 1 1 1 1 1 1 0 0 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 2 2 2 2 2 1 2 2 2 2 2 1 1 1 1 1 1 0 0 1 1 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 1 1 1 1 2 2 2 2 2 1 2 2 2 2 2 1 1 1 1 1 1 0 0 1 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 1 1 1 2 2 2 2 2 1 2 2 2 2 2 1 1 1 1 1 1 0 0 1 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 1 1 1 2 2 2 2 2 1 2 2 2 2 2 1 1 1 1 1 1 0 0 1 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 1 1 1 2 2 2 2 2 1 2 2 2 2 2 1 1 1 1 1 1 0 0 1 1 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 1 1 1 1 2 2 2 2 2 1 2 2 2 2 2 1 1 1 1 1 1 0 0 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 2 2 2 2 2 1 2 2 2 2 2 1 1 1 1 1 1 0 0 1 1 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 1 1 1 1 2 2 2 2 2 1 2 2 2 2 2 1 1 1 1 1 1 0 0 1 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 1 1 1 2 2 2 2 2 1 2 2 2 2 2 1 1 1 1 1 1 0 0 1 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 1 1 1 2 2 2 2 2 1 2 2 2 2 2 1 1 1 1 1 1 0 0 1 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 1 1 1 2 2 2 2 2 1 2 2 2 2 2 1 1 1 1 1 1 0 0 1 1 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 1 1 1 1 2 2 2 2 2 1 2 2 2 2 2 1 1 1 1 1 1 0 0 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 2 2 2 2 2 1 2 2 2 2 2 1 1 1 1 1 1 0 0 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 2 2 2 2 2 1 2 2 2 2 2 1 1 1 1 1 1 0 0 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 2 2 2 2 2 1 2 2 2 2 2 1 1 1 1 1 1 0 0 1 1 1 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 1 1 1 1 2 2 2 2 2 1 2 2 2 2 2 1 1 1 1 1 1 0 0 1 1 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 1 1 1 2 2 2 2 2 1 2 2 2 2 2 1 1 1 1 1 1 0 0 1 1 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 1 1 1 2 2 2 2 2 1 2 2 2 2 2 1 1 1 1 1 1 0 0 1 1 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 1 1 1 2 2 2 2 2 1 2 2 2 2 2 1 1 1 1 1 1 0 0 1 1 1 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 1 1 1 1 2 2 2 2 2 1 2 2 2 2 2 1 1 1 1 1 1 0 0 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 2 2 2 2 2 1 2 2 2 2 2 1 1 1 1 1 1 0 0 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 2 2 2 2 2 1 2 2 2 2 2 1 1 1 1 1 1 0 0 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 2 2 2 1 1 1 2 2 2 1 1 1 1 1 1 1 0 0 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 </spatial:imageData>
+          </spatial:sampledField>
+        </spatial:sampledFieldGeometry>
+      </spatial:listOfGeometryDefinitions>
+    </spatial:geometry>
+  </model>
+</sbml>
