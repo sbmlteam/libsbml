@@ -879,6 +879,11 @@ Submodel_getModelRef(Submodel_t * s);
 
 LIBSBML_EXTERN
 char *
+Submodel_getSubstanceConversionFactor(Submodel_t * s);
+
+
+LIBSBML_EXTERN
+char *
 Submodel_getTimeConversionFactor(Submodel_t * s);
 
 
@@ -900,6 +905,11 @@ Submodel_isSetName(Submodel_t * s);
 LIBSBML_EXTERN
 int
 Submodel_isSetModelRef(Submodel_t * s);
+
+
+LIBSBML_EXTERN
+int
+Submodel_isSetSubstanceConversionFactor(Submodel_t * s);
 
 
 LIBSBML_EXTERN
@@ -929,6 +939,11 @@ Submodel_setModelRef(Submodel_t * s, const char * modelRef);
 
 LIBSBML_EXTERN
 int
+Submodel_setSubstanceConversionFactor(Submodel_t * s, const char * timeConversionFactor);
+
+
+LIBSBML_EXTERN
+int
 Submodel_setTimeConversionFactor(Submodel_t * s, const char * timeConversionFactor);
 
 
@@ -950,6 +965,11 @@ Submodel_unsetName(Submodel_t * s);
 LIBSBML_EXTERN
 int
 Submodel_unsetModelRef(Submodel_t * s);
+
+
+LIBSBML_EXTERN
+int
+Submodel_unsetSubstanceConversionFactor(Submodel_t * s);
 
 
 LIBSBML_EXTERN

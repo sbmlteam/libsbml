@@ -1438,6 +1438,20 @@ Submodel_getModelRef(Submodel_t * s)
  */
 LIBSBML_EXTERN
 char *
+Submodel_getSubstanceConversionFactor(Submodel_t * s)
+{
+  if (s == NULL)
+    return NULL;
+
+  return s->getSubstanceConversionFactor().empty() ? NULL : safe_strdup(s->getSubstanceConversionFactor().c_str());
+}
+
+
+/**
+ * 
+ */
+LIBSBML_EXTERN
+char *
 Submodel_getTimeConversionFactor(Submodel_t * s)
 {
   if (s == NULL)
@@ -1491,6 +1505,17 @@ int
 Submodel_isSetModelRef(Submodel_t * s)
 {
   return (s != NULL) ? static_cast<int>(s->isSetModelRef()) : 0;
+}
+
+
+/**
+ * 
+ */
+LIBSBML_EXTERN
+int
+Submodel_isSetSubstanceConversionFactor(Submodel_t * s)
+{
+  return (s != NULL) ? static_cast<int>(s->isSetSubstanceConversionFactor()) : 0;
 }
 
 
@@ -1554,6 +1579,17 @@ Submodel_setModelRef(Submodel_t * s, const char * modelRef)
  */
 LIBSBML_EXTERN
 int
+Submodel_setSubstanceConversionFactor(Submodel_t * s, const char * timeConversionFactor)
+{
+  return (s != NULL) ? s->setSubstanceConversionFactor(timeConversionFactor) : LIBSBML_INVALID_OBJECT;
+}
+
+
+/**
+ * 
+ */
+LIBSBML_EXTERN
+int
 Submodel_setTimeConversionFactor(Submodel_t * s, const char * timeConversionFactor)
 {
   return (s != NULL) ? s->setTimeConversionFactor(timeConversionFactor) : LIBSBML_INVALID_OBJECT;
@@ -1601,6 +1637,17 @@ int
 Submodel_unsetModelRef(Submodel_t * s)
 {
   return (s != NULL) ? s->unsetModelRef() : LIBSBML_INVALID_OBJECT;
+}
+
+
+/**
+ * 
+ */
+LIBSBML_EXTERN
+int
+Submodel_unsetSubstanceConversionFactor(Submodel_t * s)
+{
+  return (s != NULL) ? s->unsetSubstanceConversionFactor() : LIBSBML_INVALID_OBJECT;
 }
 
 

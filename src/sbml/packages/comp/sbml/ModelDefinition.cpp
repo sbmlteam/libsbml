@@ -195,5 +195,41 @@ ModelDefinition::readAttributes (const XMLAttributes& attributes,
 }
 /** @endcond */
 
+
+LIBSBML_EXTERN
+ModelDefinition_t *
+ModelDefinition_create(unsigned int level, unsigned int version,
+                       unsigned int pkgVersion)
+{
+  return new ModelDefinition(level, version, pkgVersion);
+}
+
+LIBSBML_EXTERN
+void
+ModelDefinition_free(ModelDefinition_t * md)
+{
+  if (md != NULL)
+    delete md;
+}
+
+
+/**
+ * 
+ */
+LIBSBML_EXTERN
+ModelDefinition_t *
+ModelDefinition_clone(ModelDefinition_t * md)
+{
+  if (md != NULL)
+  {
+    return static_cast<ModelDefinition_t*>(md->clone());
+  }
+  else
+  {
+    return NULL;
+  }
+}
+
+
 LIBSBML_CPP_NAMESPACE_END
 

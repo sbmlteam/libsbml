@@ -196,6 +196,22 @@ BEGIN_C_DECLS
 //
 // C API will be added here.
 //
+LIBSBML_EXTERN
+ModelDefinition_t *
+ModelDefinition_create(unsigned int level, unsigned int version,
+                       unsigned int pkgVersion);
+
+LIBSBML_EXTERN
+void
+ModelDefinition_free(ModelDefinition_t * emd);
+
+
+LIBSBML_EXTERN
+ModelDefinition_t *
+ModelDefinition_clone(ModelDefinition_t * emd);
+
+
+
 
 END_C_DECLS
 LIBSBML_CPP_NAMESPACE_END
