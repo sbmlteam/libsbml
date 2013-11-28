@@ -140,6 +140,11 @@ START_TEST (test_comp_sbmluri_parse)
   
   // testing odd schemes
   string filename(TestDataDirectory);
+  size_t slash = filename.find('\\');
+  while (slash != string::npos) {
+    filename.replace(slash, 1, "/");
+    slash = filename.find('\\');
+  }
   filename += "1090101-fail-01-04.xml";
   uri = SBMLUri("1//jjj/lllkl:jjkj");
   fail_unless(uri.getScheme() == "1//jjj/lllkl");
