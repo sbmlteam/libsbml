@@ -103,14 +103,8 @@ RequiredElementsSBasePlugin::clone () const
 void
 RequiredElementsSBasePlugin::addExpectedAttributes(ExpectedAttributes& attributes)
 {
-  //
-  // required attribute is not defined for SBML Level 2 or lesser.
-  //
-	if ( mSBMLExt->getLevel(mURI) > 2  && (!getMathOverridden().empty()) )
-  {    
-    attributes.add("mathOverridden");
-	attributes.add("coreHasAlternateMath");
-  }
+  attributes.add("mathOverridden");
+  attributes.add("coreHasAlternateMath");
 }
 
 /**
@@ -122,14 +116,10 @@ RequiredElementsSBasePlugin::readAttributes (const XMLAttributes& attributes,
 {
   SBasePlugin::readAttributes(attributes, expectedAttributes);
 
-  if ( mSBMLExt->getLevel(mURI) > 2 )
-  {    
-    XMLTriple tripleMathOverridden("mathOverridden", mURI, mPrefix);
-    attributes.readInto(tripleMathOverridden, mMathOverridden, getErrorLog(), true, getLine(), getColumn());
-    XMLTriple tripleAltMath("coreHasAlternateMath", mURI, mPrefix);
-    attributes.readInto(tripleAltMath, mCoreHasAlternateMath, getErrorLog(), true, getLine(), getColumn());
-
-  }
+  XMLTriple tripleMathOverridden("mathOverridden", mURI, mPrefix);
+  attributes.readInto(tripleMathOverridden, mMathOverridden, getErrorLog(), false, getLine(), getColumn());
+  XMLTriple tripleAltMath("coreHasAlternateMath", mURI, mPrefix);
+  attributes.readInto(tripleAltMath, mCoreHasAlternateMath, getErrorLog(), false, getLine(), getColumn());
 }
 
 
