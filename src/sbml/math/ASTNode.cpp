@@ -1855,6 +1855,21 @@ ASTNode::setType (ASTNodeType_t type)
     //{
       mReal = 6.02214179e23;
     //}
+    mDefinitionURL->clear();
+    mDefinitionURL->add("definitionURL", 
+                        "http://www.sbml.org/sbml/symbols/avogadro");
+  }
+  else if (type == AST_NAME_TIME)
+  {
+    mDefinitionURL->clear();
+    mDefinitionURL->add("definitionURL", 
+                        "http://www.sbml.org/sbml/symbols/time");
+  }
+  else if (type == AST_FUNCTION_DELAY)
+  {
+    mDefinitionURL->clear();
+    mDefinitionURL->add("definitionURL", 
+                        "http://www.sbml.org/sbml/symbols/delay");
   }
 
   /**
@@ -1869,24 +1884,53 @@ ASTNode::setType (ASTNodeType_t type)
     freeName();
   }
 
+  // if the new type is not a number unset the units
+  if (ASTNodeType_isNumber(type) == 0)
+  {
+    unsetUnits();
+  }
+
+  bool clearDefinitionURL = true;
   if ( ASTNodeType_isOperator(type) )
   {
     mType = type;
     mChar = (char) type;
-    return LIBSBML_OPERATION_SUCCESS;
   }
   else if ((type >= AST_INTEGER) && (type < AST_UNKNOWN))
   {
     mType = type;
     mChar = 0;
-    return LIBSBML_OPERATION_SUCCESS;
+
+    // clear teh definitionURL unless new type is csymbol
+    // or a number or is a semantics
+    switch(type)
+    {
+      case AST_NAME:
+      case AST_NAME_TIME:
+      case AST_NAME_AVOGADRO:
+      case AST_FUNCTION_DELAY:
+        clearDefinitionURL = false;
+        break;
+      default:
+        break;
+    }
   }
   else
   {
     mType = AST_UNKNOWN;
     mChar = 0;
+    mDefinitionURL->clear();
     return LIBSBML_INVALID_ATTRIBUTE_VALUE;
   }
+
+  if (clearDefinitionURL == true && getSemanticsFlag() == false)
+  {
+    mDefinitionURL->clear();
+  }
+
+    
+  return LIBSBML_OPERATION_SUCCESS;
+
 }
 
 LIBSBML_EXTERN
@@ -4050,6 +4094,52 @@ ASTNode_isWellFormedASTNode(ASTNode_t* node)
   if (node == NULL) return (int) false;
   return static_cast <int> (node->isWellFormedASTNode());
 }
+
+
+LIBSBML_EXTERN
+XMLAttributes_t * 
+ASTNode_getDefinitionURL(ASTNode_t* node)
+{
+  if (node == NULL) return NULL;
+  return node->getDefinitionURL();
+}
+
+
+
+LIBSBML_EXTERN
+int 
+ASTNode_setDefinitionURL(ASTNode_t* node, XMLAttributes_t defnURL)
+{
+  if (node == NULL) return LIBSBML_INVALID_OBJECT;
+  return node->setDefinitionURL(defnURL);
+}
+
+
+LIBSBML_EXTERN
+const char * 
+ASTNode_getDefinitionURLString(ASTNode_t* node)
+{
+  if (node == NULL) return "";
+  XMLAttributes *att = node->getDefinitionURL();
+  return (att != NULL) ? safe_strdup(att->getValue("definitionURL").c_str()) : "";
+}
+
+
+
+LIBSBML_EXTERN
+int 
+ASTNode_setDefinitionURLString(ASTNode_t* node, const char * defnURL)
+{
+  if (node == NULL) return LIBSBML_INVALID_OBJECT;
+  XMLAttributes_t *att = XMLAttributes_create();
+  XMLAttributes_add(att, "definitionURL", defnURL);
+  return node->setDefinitionURL(*(att));
+}
+
+
+
+
+
 
 /** @cond doxygenLibsbmlInternal */
 /*

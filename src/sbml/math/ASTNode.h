@@ -2490,6 +2490,28 @@ LIBSBML_EXTERN
 int
 ASTNode_isWellFormedASTNode(ASTNode_t* node);
 
+
+LIBSBML_EXTERN
+XMLAttributes_t * 
+ASTNode_getDefinitionURL(ASTNode_t* node);
+
+
+LIBSBML_EXTERN
+int 
+ASTNode_setDefinitionURL(ASTNode_t* node, XMLAttributes_t * defnURL);
+
+
+LIBSBML_EXTERN
+const char * 
+ASTNode_getDefinitionURLString(ASTNode_t* node);
+
+
+LIBSBML_EXTERN
+int 
+ASTNode_setDefinitionURLString(ASTNode_t* node, const char * defnURL);
+
+
+
 /** @cond doxygenLibsbmlInternal */
 LIBSBML_EXTERN
 int

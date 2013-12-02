@@ -883,9 +883,11 @@ readMathML (ASTNode& node, XMLInputStream& stream, std::string reqd_prefix)
   else if (name == "semantics")
   {
     /** read in attributes */
-    node.setDefinitionURL(elem.getAttributes());
+    XMLAttributes tempAtt = elem.getAttributes();
+    //node.setDefinitionURL(elem.getAttributes());
     readMathML(node, stream, reqd_prefix);
     node.setSemanticsFlag();
+    node.setDefinitionURL(*(tempAtt).clone());
     /** need to look for any annotation on the semantics element **/
     while ( stream.isGood() && !stream.peek().isEndFor(elem))
     {
