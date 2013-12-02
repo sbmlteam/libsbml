@@ -337,7 +337,7 @@ CompartmentMapping::addExpectedAttributes(ExpectedAttributes& attributes)
   attributes.add("spatialId");
   attributes.add("compartment");
   attributes.add("domainType");
-  attributes.add("implicit");
+  attributes.add("unitSize");
 }
 
 
@@ -390,9 +390,13 @@ CompartmentMapping::writeAttributes (XMLOutputStream& stream) const
 {
   SBase::writeAttributes(stream);
 
+  if (isSetSpatialId())
   stream.writeAttribute("spatialId",   getPrefix(), mSpatialId);
+  if (isSetCompartment())
   stream.writeAttribute("compartment",   getPrefix(), mCompartment);
+  if (isSetDomainType())
   stream.writeAttribute("domainType",   getPrefix(), mDomainType);  
+  if (isSetUnitSize())
   stream.writeAttribute("unitSize", getPrefix(), mUnitSize);
 
 
