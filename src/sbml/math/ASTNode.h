@@ -1715,12 +1715,6 @@ setValue(value, 0);
   bool isBvar() const { return mIsBvar; };
   void setBvar() { mIsBvar = true; };
 
-  //LIBSBML_EXTERN
-  //bool containsVariable(const std::string id) const;
-
-  //LIBSBML_EXTERN
-  //unsigned int getNumVariablesWithUndeclaredUnits(Model * m = NULL) const;
-
   /** @endcond */
 
 protected:
@@ -2449,6 +2443,12 @@ ASTNode_reduceToBinary(ASTNode_t* node);
 LIBSBML_EXTERN
 SBase_t * 
 ASTNode_getParentSBMLObject(ASTNode_t* node);
+
+
+LIBSBML_EXTERN
+void 
+ASTNode_setParentSBMLObject(ASTNode_t* node, SBase_t * sb);
+
 
 LIBSBML_EXTERN
 int

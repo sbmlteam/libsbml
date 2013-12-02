@@ -1726,6 +1726,7 @@ ASTNode::setName (const char *name)
   if (getName() == name) 
     return LIBSBML_OPERATION_SUCCESS;
 
+  unsetUnits();
 
   if ( isOperator() || isNumber() || isUnknown() )
   {
@@ -3816,6 +3817,22 @@ ASTNode_getParentSBMLObject(ASTNode_t* node)
   if (node == NULL) return NULL;
   return node->getParentSBMLObject();
 }
+
+
+/**
+  * Sets the parent SBML structure of the given ASTNode_t structure.
+  *
+  * @param node the ASTNode_t on which to set the parent.
+  * @param sb SBML SBase_t structure to set as parent of this ASTNode_t.
+  */
+LIBSBML_EXTERN
+void
+ASTNode_setParentSBMLObject(ASTNode_t* node, SBase_t * sb)
+{
+  if (node == NULL) return;
+  node->setParentSBMLObject(sb);
+}
+
 
 /**
  * Removes child n of the given ASTNode_t structure. 
