@@ -1909,6 +1909,7 @@ ASTNode::setType (ASTNodeType_t type)
       case AST_NAME_TIME:
       case AST_NAME_AVOGADRO:
       case AST_FUNCTION_DELAY:
+      case AST_FUNCTION:
         clearDefinitionURL = false;
         break;
       default:
