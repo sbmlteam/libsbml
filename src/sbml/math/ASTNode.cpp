@@ -105,6 +105,7 @@ static const char *AST_CONSTANT_STRINGS[] =
   , "false"
   , "pi"
   , "true"
+  , "avogadro"
 };
 
 static const char *AST_FUNCTION_STRINGS[] =
@@ -1047,7 +1048,14 @@ ASTNode::getName () const
   {
     if ( isConstant() )
     {
-      result = AST_CONSTANT_STRINGS[ mType - AST_CONSTANT_E ];
+      if (mType == AST_NAME_AVOGADRO)
+      {
+        result = AST_CONSTANT_STRINGS[4];
+      }
+      else
+      {
+        result = AST_CONSTANT_STRINGS[ mType - AST_CONSTANT_E ];
+      }
     }
     else if ( isLambda() )
     {
