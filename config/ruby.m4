@@ -80,15 +80,18 @@ AC_DEFUN([CONFIG_PROG_RUBY],
     then
       RUBY_ARCHDIR=`$RUBY -rrbconfig -e ["include RbConfig; print \"#{CONFIG['rubyhdrdir']} -I#{CONFIG['rubyhdrdir']}/#{CONFIG['arch']}\" "]`
       RUBY_H=`$RUBY -rrbconfig -e ["include RbConfig; print \"#{CONFIG['rubyhdrdir']}\" "]`"/ruby.h"
+      RUBY_INSTALL_DIR=`/usr/bin/ruby -rrbconfig -e 's = File::SEPARATOR; a = RbConfig::CONFIG["archdir"].squeeze(s); b = RbConfig::CONFIG["libdir"].squeeze(s); print a.sub(/^#{b}#{s}ruby/, "/usr/local/lib#{s}ruby#{s}site_ruby")'`
     else
     if test `$RUBY -rrbconfig -e ["puts RUBY_VERSION >= \"1.9.0\" ? \"OK\" : \"OLD\""]` = "OK";
     then
       RUBY_ARCHDIR=`$RUBY -rrbconfig -e ["include Config; print \"#{CONFIG['rubyhdrdir']} -I#{CONFIG['rubyhdrdir']}/#{CONFIG['arch']}\" "]`
       RUBY_H=`$RUBY -rrbconfig -e ["include Config; print \"#{CONFIG['rubyhdrdir']}\" "]`"/ruby.h"
+      RUBY_INSTALL_DIR=`/usr/bin/ruby -rrbconfig -e 's = File::SEPARATOR; a = Config::CONFIG["archdir"].squeeze(s); b = Config::CONFIG["libdir"].squeeze(s); print a.sub(/^#{b}#{s}ruby/, "/usr/local/lib#{s}ruby#{s}site_ruby")'`
     else
       RUBY_ARCHDIR=`$RUBY -rrbconfig -e ["include Config; puts CONFIG['archdir']"]`
       RUBY_H="${RUBY_ARCHDIR}/ruby.h"
-    fi  
+      RUBY_INSTALL_DIR=`/usr/bin/ruby -rrbconfig -e 's = File::SEPARATOR; a = Config::CONFIG["archdir"].squeeze(s); b = Config::CONFIG["libdir"].squeeze(s); print a.sub(/^#{b}#{s}ruby/, "/usr/local/lib#{s}ruby#{s}site_ruby")'`
+    fi
     fi
 
     AC_MSG_CHECKING(for ruby.h)
@@ -427,6 +430,7 @@ recompile or replace it it before proceeding further.
     AC_SUBST(USE_RUBY, 1)
 
     AC_SUBST(RUBY_CPPFLAGS)
+    AC_SUBST(RUBY_INSTALL_DIR)
     AC_SUBST(RUBY_LDFLAGS)
     AC_SUBST(RUBY_LIBS)
 
