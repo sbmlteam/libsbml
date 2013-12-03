@@ -2300,6 +2300,335 @@ START_TEST (test_ASTNode_setType_17)
 END_TEST
 
 
+START_TEST (test_ASTNode_setType_18)
+{
+  ASTNode_t  *node = ASTNode_createWithType(AST_PLUS);
+  Model_t * m = Model_create(3, 1);
+  ASTNode_setId(node, "s");
+  ASTNode_setParentSBMLObject(node, m);
+
+
+  fail_unless( ASTNode_getType(node) == AST_PLUS );
+  fail_unless( ASTNode_getInteger(node) == 0);
+  fail_unless( ASTNode_getMantissa(node) == 0);
+  fail_unless( ASTNode_getExponent(node) == 0);
+  fail_unless( ASTNode_getDenominator(node) == 1);
+  fail_unless( ASTNode_getNumerator(node) == 0);
+  fail_unless( util_isEqual(ASTNode_getReal(node), 0));
+  fail_unless( strcmp(ASTNode_getId(node), "s") == 0);
+  fail_unless( strcmp(ASTNode_getUnits(node), "") == 0);
+  fail_unless( ASTNode_getParentSBMLObject(node) == m);
+
+  ASTNode_setType(node, AST_INTEGER);
+
+  fail_unless( ASTNode_getType(node) == AST_INTEGER );
+  fail_unless( ASTNode_getInteger(node) == 0);
+  fail_unless( ASTNode_getMantissa(node) == 0);
+  fail_unless( ASTNode_getExponent(node) == 0);
+  fail_unless( ASTNode_getDenominator(node) == 1);
+  fail_unless( ASTNode_getNumerator(node) == 0);
+  fail_unless( util_isEqual(ASTNode_getReal(node), 0));
+  fail_unless( strcmp(ASTNode_getId(node), "s") == 0);
+  fail_unless( strcmp(ASTNode_getUnits(node), "") == 0);
+  fail_unless( ASTNode_getParentSBMLObject(node) == m);
+
+
+  ASTNode_free(node);
+}
+END_TEST
+
+
+START_TEST (test_ASTNode_setType_19)
+{
+  ASTNode_t  *node = ASTNode_createWithType(AST_PLUS);
+  Model_t * m = Model_create(3, 1);
+  ASTNode_setId(node, "s");
+  ASTNode_setParentSBMLObject(node, m);
+
+
+  fail_unless( ASTNode_getType(node) == AST_PLUS );
+  fail_unless( ASTNode_getInteger(node) == 0);
+  fail_unless( ASTNode_getMantissa(node) == 0);
+  fail_unless( ASTNode_getExponent(node) == 0);
+  fail_unless( ASTNode_getDenominator(node) == 1);
+  fail_unless( ASTNode_getNumerator(node) == 0);
+  fail_unless( util_isEqual(ASTNode_getReal(node), 0));
+  fail_unless( strcmp(ASTNode_getId(node), "s") == 0);
+  fail_unless( strcmp(ASTNode_getUnits(node), "") == 0);
+  fail_unless( ASTNode_getParentSBMLObject(node) == m);
+
+  ASTNode_setType(node, AST_RATIONAL);
+
+  fail_unless( ASTNode_getType(node) == AST_RATIONAL );
+  fail_unless( ASTNode_getInteger(node) == 0);
+  fail_unless( ASTNode_getMantissa(node) == 0);
+  fail_unless( ASTNode_getExponent(node) == 0);
+  fail_unless( ASTNode_getDenominator(node) == 1);
+  fail_unless( ASTNode_getNumerator(node) == 0);
+  fail_unless( util_isEqual(ASTNode_getReal(node), 0));
+  fail_unless( strcmp(ASTNode_getId(node), "s") == 0);
+  fail_unless( strcmp(ASTNode_getUnits(node), "") == 0);
+  fail_unless( ASTNode_getParentSBMLObject(node) == m);
+
+
+  ASTNode_free(node);
+}
+END_TEST
+
+
+START_TEST (test_ASTNode_setType_20)
+{
+  ASTNode_t  *node = ASTNode_createWithType(AST_PLUS);
+  Model_t * m = Model_create(3, 1);
+  ASTNode_setId(node, "s");
+  ASTNode_setParentSBMLObject(node, m);
+
+
+  fail_unless( ASTNode_getType(node) == AST_PLUS );
+  fail_unless( ASTNode_getInteger(node) == 0);
+  fail_unless( ASTNode_getMantissa(node) == 0);
+  fail_unless( ASTNode_getExponent(node) == 0);
+  fail_unless( ASTNode_getDenominator(node) == 1);
+  fail_unless( ASTNode_getNumerator(node) == 0);
+  fail_unless( util_isEqual(ASTNode_getReal(node), 0));
+  fail_unless( strcmp(ASTNode_getId(node), "s") == 0);
+  fail_unless( strcmp(ASTNode_getUnits(node), "") == 0);
+  fail_unless( ASTNode_getParentSBMLObject(node) == m);
+
+  ASTNode_setType(node, AST_REAL_E);
+
+  fail_unless( ASTNode_getType(node) == AST_REAL_E );
+  fail_unless( ASTNode_getInteger(node) == 0);
+  fail_unless( ASTNode_getMantissa(node) == 0);
+  fail_unless( ASTNode_getExponent(node) == 0);
+  fail_unless( ASTNode_getDenominator(node) == 1);
+  fail_unless( ASTNode_getNumerator(node) == 0);
+  fail_unless( util_isEqual(ASTNode_getReal(node), 0));
+  fail_unless( strcmp(ASTNode_getId(node), "s") == 0);
+  fail_unless( strcmp(ASTNode_getUnits(node), "") == 0);
+  fail_unless( ASTNode_getParentSBMLObject(node) == m);
+
+
+  ASTNode_free(node);
+}
+END_TEST
+
+
+START_TEST (test_ASTNode_setType_21)
+{
+  ASTNode_t  *node = ASTNode_createWithType(AST_PLUS);
+  Model_t * m = Model_create(3, 1);
+  ASTNode_setId(node, "s");
+  ASTNode_setParentSBMLObject(node, m);
+
+
+  fail_unless( ASTNode_getType(node) == AST_PLUS );
+  fail_unless( ASTNode_getInteger(node) == 0);
+  fail_unless( ASTNode_getMantissa(node) == 0);
+  fail_unless( ASTNode_getExponent(node) == 0);
+  fail_unless( ASTNode_getDenominator(node) == 1);
+  fail_unless( ASTNode_getNumerator(node) == 0);
+  fail_unless( util_isEqual(ASTNode_getReal(node), 0));
+  fail_unless( strcmp(ASTNode_getId(node), "s") == 0);
+  fail_unless( strcmp(ASTNode_getUnits(node), "") == 0);
+  fail_unless( ASTNode_getParentSBMLObject(node) == m);
+
+  ASTNode_setType(node, AST_REAL);
+
+  fail_unless( ASTNode_getType(node) == AST_REAL );
+  fail_unless( ASTNode_getInteger(node) == 0);
+  fail_unless( ASTNode_getMantissa(node) == 0);
+  fail_unless( ASTNode_getExponent(node) == 0);
+  fail_unless( ASTNode_getDenominator(node) == 1);
+  fail_unless( ASTNode_getNumerator(node) == 0);
+  fail_unless( util_isEqual(ASTNode_getReal(node), 0));
+  fail_unless( strcmp(ASTNode_getId(node), "s") == 0);
+  fail_unless( strcmp(ASTNode_getUnits(node), "") == 0);
+  fail_unless( ASTNode_getParentSBMLObject(node) == m);
+
+
+  ASTNode_free(node);
+}
+END_TEST
+
+
+START_TEST (test_ASTNode_setType_22)
+{
+  ASTNode_t  *node = ASTNode_createWithType(AST_PLUS);
+  Model_t * m = Model_create(3, 1);
+  ASTNode_setId(node, "s");
+  ASTNode_setParentSBMLObject(node, m);
+
+
+  fail_unless( ASTNode_getType(node) == AST_PLUS );
+  fail_unless( ASTNode_getInteger(node) == 0);
+  fail_unless( ASTNode_getMantissa(node) == 0);
+  fail_unless( ASTNode_getExponent(node) == 0);
+  fail_unless( ASTNode_getDenominator(node) == 1);
+  fail_unless( ASTNode_getNumerator(node) == 0);
+  fail_unless( util_isEqual(ASTNode_getReal(node), 0));
+  fail_unless( strcmp(ASTNode_getId(node), "s") == 0);
+  fail_unless( strcmp(ASTNode_getUnits(node), "") == 0);
+  fail_unless( ASTNode_getParentSBMLObject(node) == m);
+  fail_unless( ASTNode_getName(node) == NULL);
+  fail_unless( ASTNode_isName(node) == 0);
+
+
+  ASTNode_setType(node, AST_NAME);
+
+  fail_unless( ASTNode_getType(node) == AST_NAME );
+  fail_unless( ASTNode_getInteger(node) == 0);
+  fail_unless( ASTNode_getMantissa(node) == 0);
+  fail_unless( ASTNode_getExponent(node) == 0);
+  fail_unless( ASTNode_getDenominator(node) == 1);
+  fail_unless( ASTNode_getNumerator(node) == 0);
+  fail_unless( util_isEqual(ASTNode_getReal(node), 0));
+  fail_unless( strcmp(ASTNode_getId(node), "s") == 0);
+  fail_unless( strcmp(ASTNode_getUnits(node), "") == 0);
+  fail_unless( ASTNode_getParentSBMLObject(node) == m);
+  fail_unless( ASTNode_getName(node) == NULL);
+  fail_unless( ASTNode_isName(node) == 1);
+
+
+  ASTNode_free(node);
+}
+END_TEST
+
+
+START_TEST (test_ASTNode_setType_23)
+{
+  ASTNode_t  *node = ASTNode_createWithType(AST_PLUS);
+  Model_t * m = Model_create(3, 1);
+  ASTNode_setId(node, "s");
+  ASTNode_setParentSBMLObject(node, m);
+
+
+  fail_unless( ASTNode_getType(node) == AST_PLUS );
+  fail_unless( ASTNode_getInteger(node) == 0);
+  fail_unless( ASTNode_getMantissa(node) == 0);
+  fail_unless( ASTNode_getExponent(node) == 0);
+  fail_unless( ASTNode_getDenominator(node) == 1);
+  fail_unless( ASTNode_getNumerator(node) == 0);
+  fail_unless( util_isEqual(ASTNode_getReal(node), 0));
+  fail_unless( strcmp(ASTNode_getId(node), "s") == 0);
+  fail_unless( strcmp(ASTNode_getUnits(node), "") == 0);
+  fail_unless( ASTNode_getParentSBMLObject(node) == m);
+  fail_unless( ASTNode_isConstant(node) == 0);
+
+  ASTNode_setType(node, AST_CONSTANT_E);
+
+  fail_unless( ASTNode_getType(node) == AST_CONSTANT_E );
+  fail_unless( ASTNode_getInteger(node) == 0);
+  fail_unless( ASTNode_getMantissa(node) == 0);
+  fail_unless( ASTNode_getExponent(node) == 0);
+  fail_unless( ASTNode_getDenominator(node) == 1);
+  fail_unless( ASTNode_getNumerator(node) == 0);
+  fail_unless( util_isEqual(ASTNode_getReal(node), 0));
+  fail_unless( strcmp(ASTNode_getId(node), "s") == 0);
+  fail_unless( strcmp(ASTNode_getUnits(node), "") == 0);
+  fail_unless( ASTNode_getParentSBMLObject(node) == m);
+  fail_unless( ASTNode_isConstant(node) == 1);
+
+
+  ASTNode_free(node);
+}
+END_TEST
+
+
+START_TEST (test_ASTNode_setType_24)
+{
+  ASTNode_t  *node = ASTNode_createWithType(AST_PLUS);
+  Model_t * m = Model_create(3, 1);
+  ASTNode_setId(node, "s");
+  ASTNode_setParentSBMLObject(node, m);
+
+
+  fail_unless( ASTNode_getType(node) == AST_PLUS );
+  fail_unless( ASTNode_getInteger(node) == 0);
+  fail_unless( ASTNode_getMantissa(node) == 0);
+  fail_unless( ASTNode_getExponent(node) == 0);
+  fail_unless( ASTNode_getDenominator(node) == 1);
+  fail_unless( ASTNode_getNumerator(node) == 0);
+  fail_unless( util_isEqual(ASTNode_getReal(node), 0));
+  fail_unless( strcmp(ASTNode_getId(node), "s") == 0);
+  fail_unless( strcmp(ASTNode_getUnits(node), "") == 0);
+  fail_unless( ASTNode_getParentSBMLObject(node) == m);
+  fail_unless( ASTNode_getName(node) == NULL);
+  fail_unless( ASTNode_isName(node) == 0);
+  fail_unless( strcmp(ASTNode_getDefinitionURLString(node), "") == 0);
+  fail_unless( ASTNode_isConstant(node) == 0);
+
+  ASTNode_setType(node, AST_NAME_AVOGADRO);
+
+  fail_unless( ASTNode_getType(node) == AST_NAME_AVOGADRO );
+  fail_unless( ASTNode_getInteger(node) == 0);
+  fail_unless( util_isEqual(ASTNode_getMantissa(node), 6.02214179e23));
+  fail_unless( ASTNode_getExponent(node) == 0);
+  fail_unless( ASTNode_getDenominator(node) == 1);
+  fail_unless( ASTNode_getNumerator(node) == 0);
+  fail_unless( util_isEqual(ASTNode_getReal(node), 6.02214179e23));
+  fail_unless( strcmp(ASTNode_getId(node), "s") == 0);
+  fail_unless( strcmp(ASTNode_getUnits(node), "") == 0);
+  fail_unless( ASTNode_getParentSBMLObject(node) == m);
+  fail_unless( strcmp(ASTNode_getName(node), "avogadro") == 0);
+  fail_unless( ASTNode_isName(node) == 1);
+  fail_unless( strcmp(ASTNode_getDefinitionURLString(node), 
+    "http://www.sbml.org/sbml/symbols/avogadro") == 0);
+  fail_unless( ASTNode_isConstant(node) == 1);
+
+
+  ASTNode_free(node);
+}
+END_TEST
+
+
+START_TEST (test_ASTNode_setType_25)
+{
+  ASTNode_t  *node = ASTNode_createWithType(AST_PLUS);
+  Model_t * m = Model_create(3, 1);
+  ASTNode_setId(node, "s");
+  ASTNode_setParentSBMLObject(node, m);
+
+
+  fail_unless( ASTNode_getType(node) == AST_PLUS );
+  fail_unless( ASTNode_getInteger(node) == 0);
+  fail_unless( ASTNode_getMantissa(node) == 0);
+  fail_unless( ASTNode_getExponent(node) == 0);
+  fail_unless( ASTNode_getDenominator(node) == 1);
+  fail_unless( ASTNode_getNumerator(node) == 0);
+  fail_unless( util_isEqual(ASTNode_getReal(node), 0));
+  fail_unless( strcmp(ASTNode_getId(node), "s") == 0);
+  fail_unless( strcmp(ASTNode_getUnits(node), "") == 0);
+  fail_unless( ASTNode_getParentSBMLObject(node) == m);
+  fail_unless( ASTNode_getName(node) == NULL);
+  fail_unless( ASTNode_isName(node) == 0);
+  fail_unless( strcmp(ASTNode_getDefinitionURLString(node), "") == 0);
+  fail_unless( ASTNode_isConstant(node) == 0);
+
+  ASTNode_setType(node, AST_NAME_TIME);
+
+  fail_unless( ASTNode_getType(node) == AST_NAME_TIME );
+  fail_unless( ASTNode_getInteger(node) == 0);
+  fail_unless( util_isEqual(ASTNode_getMantissa(node), 0));
+  fail_unless( ASTNode_getExponent(node) == 0);
+  fail_unless( ASTNode_getDenominator(node) == 1);
+  fail_unless( ASTNode_getNumerator(node) == 0);
+  fail_unless( util_isEqual(ASTNode_getReal(node), 0));
+  fail_unless( strcmp(ASTNode_getId(node), "s") == 0);
+  fail_unless( strcmp(ASTNode_getUnits(node), "") == 0);
+  fail_unless( ASTNode_getParentSBMLObject(node) == m);
+  fail_unless( ASTNode_getName(node) == NULL);
+  fail_unless( ASTNode_isName(node) == 1);
+  fail_unless( strcmp(ASTNode_getDefinitionURLString(node), 
+    "http://www.sbml.org/sbml/symbols/time") == 0);
+  fail_unless( ASTNode_isConstant(node) == 0);
+
+
+  ASTNode_free(node);
+}
+END_TEST
+
+
 START_TEST (test_ASTNode_no_children)
 {
   ASTNode_t *node = ASTNode_create();
@@ -3583,6 +3912,14 @@ create_suite_ASTNode (void)
   tcase_add_test( tcase, test_ASTNode_setType_15                 );
   tcase_add_test( tcase, test_ASTNode_setType_16                 );
   tcase_add_test( tcase, test_ASTNode_setType_17                 );
+  tcase_add_test( tcase, test_ASTNode_setType_18                 );
+  tcase_add_test( tcase, test_ASTNode_setType_19                 );
+  tcase_add_test( tcase, test_ASTNode_setType_20                 );
+  tcase_add_test( tcase, test_ASTNode_setType_21                 );
+  tcase_add_test( tcase, test_ASTNode_setType_22                 );
+  tcase_add_test( tcase, test_ASTNode_setType_23                 );
+  tcase_add_test( tcase, test_ASTNode_setType_24                 );
+  tcase_add_test( tcase, test_ASTNode_setType_25                 );
   tcase_add_test( tcase, test_ASTNode_no_children             );
   tcase_add_test( tcase, test_ASTNode_one_child               );
   tcase_add_test( tcase, test_ASTNode_children                );
