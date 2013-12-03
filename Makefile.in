@@ -727,9 +727,16 @@ dist: dist-all dist-gzip dist-zip
 	  $(remove_distdir); \
 	fi
 
+TAR := $(shell gnutar --version 2>/dev/null)
+ifdef TAR
+  TAR:=gnutar
+else
+  TAR:=tar
+endif
+
 dist-gzip: config-check dist-all
 	if test -d $(DISTDIR); then \
-	  gnutar -C $(DISTDIR)/.. -czf $(tar_archive) $(notdir $(DISTDIR)); \
+	  $(TAR) -C $(DISTDIR)/.. -czf $(tar_archive) $(notdir $(DISTDIR)); \
 	fi
 
 # The dependency on dist-gzip is to make sure that one is done first, because
@@ -824,7 +831,7 @@ docs_archive_contents =		    \
 
 dist-docs:
 	make docs
-	gnutar -czf $(docs_tar_archive) $(docs_archive_contents)
+	$(TAR) -czf $(docs_tar_archive) $(docs_archive_contents)
 	zip -Xyvr9 $(docs_zip_archive) $(docs_archive_contents)
 
 ## This target untars the dist file and tries a VPATH configuration.  Then
