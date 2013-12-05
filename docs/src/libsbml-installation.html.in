@@ -2,7 +2,7 @@
 
 <h2>Table of contents</h2>
 
-<table style="margin: 0px auto; line-height: 100%" border="0"><tr><td>
+<table class="text-table borderless centered"><tr><td>
 <a href="#quick">1. Quick start: avoid work by using ready-to-install binaries</a>
 
 </td></tr>
