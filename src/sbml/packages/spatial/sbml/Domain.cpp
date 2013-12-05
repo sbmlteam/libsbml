@@ -368,7 +368,7 @@ Domain::addExpectedAttributes(ExpectedAttributes& attributes)
 
   attributes.add("spatialId");
   attributes.add("domainType");
-  // attributes.add("goemetricObject");
+  attributes.add("implicit");
 }
 
 
@@ -391,14 +391,16 @@ Domain::readAttributes (const XMLAttributes& attributes,
   {
     logEmptyString(mSpatialId, sbmlLevel, sbmlVersion, "<Domain>");
   }
-  if (!SyntaxChecker::isValidSBMLSId(mSpatialId)) logError(InvalidIdSyntax);
+  if (!SyntaxChecker::isValidSBMLSId(mSpatialId)) 
+    logError(InvalidIdSyntax, getLevel(), getVersion(), "spatialId='" + mSpatialId + "'");
 
   assigned = attributes.readInto("domainType", mDomainType, getErrorLog(), true, getLine(), getColumn());
   if (assigned && mDomainType.empty())
   {
     logEmptyString(mDomainType, sbmlLevel, sbmlVersion, "<Domain>");
   }
-  if (!SyntaxChecker::isValidSBMLSId(mDomainType)) logError(InvalidIdSyntax);
+  if (!SyntaxChecker::isValidSBMLSId(mDomainType)) 
+    logError(InvalidIdSyntax, getLevel(), getVersion(), "domainType='" + mDomainType + "'");
   
 }
 

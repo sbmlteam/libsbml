@@ -433,14 +433,16 @@ SpatialPoint::readAttributes (const XMLAttributes& attributes,
   {
     logEmptyString(mSpatialId, sbmlLevel, sbmlVersion, "<SpatialPoint>");
   }
-  if (!SyntaxChecker::isValidSBMLSId(mSpatialId)) logError(InvalidIdSyntax);
+  if (!SyntaxChecker::isValidSBMLSId(mSpatialId)) 
+        logError(InvalidIdSyntax, getLevel(), getVersion(), "spatialId='" + mSpatialId + "'");
 
   assigned = attributes.readInto("domain", mDomain, getErrorLog(), true, getLine(), getColumn());
   if (assigned && mDomain.empty())
   {
     logEmptyString(mDomain, sbmlLevel, sbmlVersion, "<SpatialPoint>");
   }
-  if (!SyntaxChecker::isValidSBMLSId(mDomain)) logError(InvalidIdSyntax);
+  if (!SyntaxChecker::isValidSBMLSId(mDomain)) 
+    logError(InvalidIdSyntax, getLevel(), getVersion(), "domain='" + mDomain + "'");
 
   mIsSetCoord1 = attributes.readInto("coord1", mCoord1, getErrorLog(), true, getLine(), getColumn());
   mIsSetCoord2 = attributes.readInto("coord2", mCoord2, getErrorLog(), true, getLine(), getColumn());

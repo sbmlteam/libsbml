@@ -423,14 +423,16 @@ SampledVolume::readAttributes (const XMLAttributes& attributes,
   {
     logEmptyString(mSpatialId, sbmlLevel, sbmlVersion, "<SampledVolume>");
   }
-  if (!SyntaxChecker::isValidSBMLSId(mSpatialId)) logError(InvalidIdSyntax);
+  if (!SyntaxChecker::isValidSBMLSId(mSpatialId)) 
+    logError(InvalidIdSyntax, getLevel(), getVersion(), "spatialId='" + mSpatialId + "'");
 
   assigned = attributes.readInto("domainType", mDomainType, getErrorLog(), true, getLine(), getColumn());
   if (assigned && mDomainType.empty())
   {
     logEmptyString(mDomainType, sbmlLevel, sbmlVersion, "<SampledVolume>");
   }
-  if (!SyntaxChecker::isValidSBMLSId(mDomainType)) logError(InvalidIdSyntax);
+  if (!SyntaxChecker::isValidSBMLSId(mDomainType)) 
+    logError(InvalidIdSyntax, getLevel(), getVersion(), "mDomainType='" + mDomainType + "'");
 
   mIsSetSampledValue = attributes.readInto("sampledValue", mSampledValue, getErrorLog(), true, getLine(), getColumn());
   mIsSetMinValue = attributes.readInto("minValue", mMinValue, getErrorLog(), true, getLine(), getColumn());

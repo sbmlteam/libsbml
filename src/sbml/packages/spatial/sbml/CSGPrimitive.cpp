@@ -217,7 +217,8 @@ CSGPrimitive::readAttributes (const XMLAttributes& attributes,
   {
     logEmptyString(mPrimitiveType, sbmlLevel, sbmlVersion, "<CSGPrimitive>");
   }
-  if (!SyntaxChecker::isValidSBMLSId(mPrimitiveType)) logError(InvalidIdSyntax);
+  if (!SyntaxChecker::isValidSBMLSId(mPrimitiveType)) 
+    logError(InvalidIdSyntax, getLevel(), getVersion(), "primitiveType='" + mPrimitiveType + "'");
 
 }
 

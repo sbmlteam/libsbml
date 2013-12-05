@@ -298,21 +298,23 @@ public:
 
 
 protected:
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Get the list of expected attributes for this element.
+   */
+  virtual void addExpectedAttributes(ExpectedAttributes& attributes);
+
+
+  /** @endcond doxygenLibsbmlInternal */
+
   /**
    * @return the SBML object corresponding to next XMLToken in the
    * XMLInputStream or NULL if the token was not recognized.
    */
   SBase*
   createObject (XMLInputStream& stream);
-
-  /**
-   * Subclasses should override this method to get the list of
-   * expected attributes.
-   * This function is invoked from corresponding readAttributes()
-   * function.
-   */
-  void addExpectedAttributes(ExpectedAttributes& attributes){
-  };
 
 
   /**

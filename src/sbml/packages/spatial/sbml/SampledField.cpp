@@ -664,28 +664,32 @@ SampledField::readAttributes (const XMLAttributes& attributes,
   {
     logEmptyString(mSpatialId, sbmlLevel, sbmlVersion, "<SampledField>");
   }
-  if (!SyntaxChecker::isValidSBMLSId(mSpatialId)) logError(InvalidIdSyntax);
+  if (!SyntaxChecker::isValidSBMLSId(mSpatialId)) 
+    logError(InvalidIdSyntax, getLevel(), getVersion(), "spatialId='" + mSpatialId + "'");
 
   assigned = attributes.readInto("dataType", mDataType, getErrorLog(), true, getLine(), getColumn());
   if (assigned && mDataType.empty())
   {
     logEmptyString(mDataType, sbmlLevel, sbmlVersion, "<SampledField>");
   }
-  if (!SyntaxChecker::isValidSBMLSId(mDataType)) logError(InvalidIdSyntax);
+  if (!SyntaxChecker::isValidSBMLSId(mDataType)) 
+    logError(InvalidIdSyntax, getLevel(), getVersion(), "dataType='" + mDataType + "'");
 
   assigned = attributes.readInto("interpolationType", mInterpolationType, getErrorLog(), true, getLine(), getColumn());
   if (assigned && mInterpolationType.empty())
   {
     logEmptyString(mInterpolationType, sbmlLevel, sbmlVersion, "<SampledField>");
   }
-  if (!SyntaxChecker::isValidSBMLSId(mInterpolationType)) logError(InvalidIdSyntax);
+  if (!SyntaxChecker::isValidSBMLSId(mInterpolationType)) 
+    logError(InvalidIdSyntax, getLevel(), getVersion(), "interpolationType='" + mInterpolationType + "'");
   
   assigned = attributes.readInto("encoding", mEncoding, getErrorLog(), true, getLine(), getColumn());
   if (assigned && mEncoding.empty())
   {
     logEmptyString(mEncoding, sbmlLevel, sbmlVersion, "<SampledField>");
   }
-  if (!SyntaxChecker::isValidSBMLSId(mEncoding)) logError(InvalidIdSyntax);
+  if (!SyntaxChecker::isValidSBMLSId(mEncoding)) 
+    logError(InvalidIdSyntax, getLevel(), getVersion(), "encoding='" + mEncoding + "'");
   
   attributes.readInto("numSamples1", mNumSamples1, getErrorLog(), true, getLine(), getColumn());
   if (mNumSamples1 < 0)

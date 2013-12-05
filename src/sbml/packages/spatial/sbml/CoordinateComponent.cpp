@@ -627,21 +627,24 @@ CoordinateComponent::readAttributes (const XMLAttributes& attributes,
   {
     logEmptyString(mSpatialId, sbmlLevel, sbmlVersion, "<CoordinateComponent>");
   }
-  if (!SyntaxChecker::isValidSBMLSId(mSpatialId)) logError(InvalidIdSyntax);
+  if (!SyntaxChecker::isValidSBMLSId(mSpatialId)) 
+    logError(InvalidIdSyntax, getLevel(), getVersion(), "spatialId='" + mSpatialId + "'");
 
   assigned = attributes.readInto("componentType", mComponentType, getErrorLog(), true, getLine(), getColumn());
   if (assigned && mComponentType.empty())
   {
     logEmptyString(mComponentType, sbmlLevel, sbmlVersion, "<CoordinateComponent>");
   }
-  if (!SyntaxChecker::isValidSBMLSId(mComponentType)) logError(InvalidIdSyntax);
+  if (!SyntaxChecker::isValidSBMLSId(mComponentType)) 
+    logError(InvalidIdSyntax, getLevel(), getVersion(), "componentType='" + mComponentType + "'");
 
   assigned = attributes.readInto("sbmlUnit", mSbmlUnit, getErrorLog(), true, getLine(), getColumn());
   if (assigned && mSbmlUnit.empty())
   {
     logEmptyString(mSbmlUnit, sbmlLevel, sbmlVersion, "<CoordinateComponent>");
   }
-  if (!SyntaxChecker::isValidSBMLSId(mSbmlUnit)) logError(InvalidIdSyntax);
+  if (!SyntaxChecker::isValidSBMLSId(mSbmlUnit)) 
+    logError(InvalidIdSyntax, getLevel(), getVersion(), "sbmlUnit='" + mSbmlUnit + "'");
   
   attributes.readInto("index", mIndex, getErrorLog(), true, getLine(), getColumn());
   /*if (mIndex < 0)

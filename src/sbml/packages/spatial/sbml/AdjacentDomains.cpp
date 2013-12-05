@@ -304,21 +304,24 @@ AdjacentDomains::readAttributes (const XMLAttributes& attributes,
   {
     logEmptyString(mSpatialId, sbmlLevel, sbmlVersion, "<AdjacentDomains>");
   }
-  if (!SyntaxChecker::isValidSBMLSId(mSpatialId)) logError(InvalidIdSyntax);
+  if (!SyntaxChecker::isValidSBMLSId(mSpatialId)) 
+    logError(InvalidIdSyntax, getLevel(), getVersion(), "spatialId='" + mSpatialId + "'");
 
   assigned = attributes.readInto("domain1", mDomain1, getErrorLog(), true, getLine(), getColumn());
   if (assigned && mDomain1.empty())
   {
     logEmptyString(mDomain1, sbmlLevel, sbmlVersion, "<AdjacentDomains>");
   }
-  if (!SyntaxChecker::isValidSBMLSId(mDomain1)) logError(InvalidIdSyntax);
+  if (!SyntaxChecker::isValidSBMLSId(mDomain1)) 
+    logError(InvalidIdSyntax, getLevel(), getVersion(), "domain1='" + mDomain1 + "'");
   
   assigned = attributes.readInto("domain2", mDomain2, getErrorLog(), true, getLine(), getColumn());
   if (assigned && mDomain2.empty())
   {
     logEmptyString(mDomain2, sbmlLevel, sbmlVersion, "<AdjacentDomains>");
   }
-  if (!SyntaxChecker::isValidSBMLSId(mDomain2)) logError(InvalidIdSyntax);
+  if (!SyntaxChecker::isValidSBMLSId(mDomain2)) 
+    logError(InvalidIdSyntax, getLevel(), getVersion(), "domain2='" + mDomain2 + "'");
 
 }
 

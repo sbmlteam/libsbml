@@ -413,21 +413,24 @@ ParametricObject::readAttributes (const XMLAttributes& attributes,
   {
     logEmptyString(mSpatialId, sbmlLevel, sbmlVersion, "<ParametricObject>");
   }
-  if (!SyntaxChecker::isValidSBMLSId(mSpatialId)) logError(InvalidIdSyntax);
+  if (!SyntaxChecker::isValidSBMLSId(mSpatialId)) 
+    logError(InvalidIdSyntax, getLevel(), getVersion(), "spatialId='" + mSpatialId + "'");
 
   assigned = attributes.readInto("domain", mDomain, getErrorLog(), true, getLine(), getColumn());
   if (assigned && mDomain.empty())
   {
     logEmptyString(mDomain, sbmlLevel, sbmlVersion, "<ParametricObject>");
   }
-  if (!SyntaxChecker::isValidSBMLSId(mDomain)) logError(InvalidIdSyntax);
+  if (!SyntaxChecker::isValidSBMLSId(mDomain)) 
+    logError(InvalidIdSyntax, getLevel(), getVersion(), "domain='" + mDomain + "'");
 
   assigned = attributes.readInto("polygonType", mPolygonType, getErrorLog(), true, getLine(), getColumn());
   if (assigned && mPolygonType.empty())
   {
     logEmptyString(mPolygonType, sbmlLevel, sbmlVersion, "<ParametricObject>");
   }
-  if (!SyntaxChecker::isValidSBMLSId(mPolygonType)) logError(InvalidIdSyntax);
+  if (!SyntaxChecker::isValidSBMLSId(mPolygonType)) 
+    logError(InvalidIdSyntax, getLevel(), getVersion(), "polygonType='" + mPolygonType + "'");
 
 }
 

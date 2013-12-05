@@ -497,14 +497,16 @@ CSGObject::readAttributes (const XMLAttributes& attributes,
   {
     logEmptyString(mSpatialId, sbmlLevel, sbmlVersion, "<CSGObject>");
   }
-  if (!SyntaxChecker::isValidSBMLSId(mSpatialId)) logError(InvalidIdSyntax);
+  if (!SyntaxChecker::isValidSBMLSId(mSpatialId)) 
+    logError(InvalidIdSyntax, getLevel(), getVersion(), "spatialId='" + mSpatialId + "'");
 
   assigned = attributes.readInto("domainType", mDomainType, getErrorLog(), true, getLine(), getColumn());
   if (assigned && mDomainType.empty())
   {
     logEmptyString(mDomainType, sbmlLevel, sbmlVersion, "<CSGObject>");
   }
-  if (!SyntaxChecker::isValidSBMLSId(mDomainType)) logError(InvalidIdSyntax);
+  if (!SyntaxChecker::isValidSBMLSId(mDomainType)) 
+    logError(InvalidIdSyntax, getLevel(), getVersion(), "domainType='" + mDomainType + "'");
 
   attributes.readInto("ordinal", mOrdinal, getErrorLog(), false, getLine(), getColumn());
   /*if (mOrdinal < 0)

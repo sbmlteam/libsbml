@@ -357,28 +357,32 @@ BoundaryCondition::readAttributes (const XMLAttributes& attributes,
   {
     logEmptyString(mVariable, sbmlLevel, sbmlVersion, "<BoundaryCondition>");
   }
-  if (!SyntaxChecker::isValidSBMLSId(mVariable)) logError(InvalidIdSyntax);
+  if (!SyntaxChecker::isValidSBMLSId(mVariable)) 
+    logError(InvalidIdSyntax, getLevel(), getVersion(), "variable='" + mVariable + "'");
 
   assigned = attributes.readInto("coordinateBoundary", mCoordinateBoundary, getErrorLog(), true, getLine(), getColumn());
   if (assigned && mCoordinateBoundary.empty())
   {
     logEmptyString(mCoordinateBoundary, sbmlLevel, sbmlVersion, "<BoundaryCondition>");
   }
-  if (!SyntaxChecker::isValidSBMLSId(mCoordinateBoundary)) logError(InvalidIdSyntax);
+  if (!SyntaxChecker::isValidSBMLSId(mCoordinateBoundary)) 
+    logError(InvalidIdSyntax, getLevel(), getVersion(), "coordinateBoundary='" + mCoordinateBoundary + "'");
 
   assigned = attributes.readInto("type", mType, getErrorLog(), true, getLine(), getColumn());
   if (assigned && mType.empty())
   {
     logEmptyString(mType, sbmlLevel, sbmlVersion, "<BoundaryCondition>");
   }
-  if (!SyntaxChecker::isValidSBMLSId(mType)) logError(InvalidIdSyntax);
+  if (!SyntaxChecker::isValidSBMLSId(mType)) 
+    logError(InvalidIdSyntax, getLevel(), getVersion(), "type='" + mType + "'");
 
   assigned = attributes.readInto("boundaryDomainType", mBoundaryDomainType, getErrorLog(), false, getLine(), getColumn());
   if (assigned && mBoundaryDomainType.empty())
   {
     logEmptyString(mBoundaryDomainType, sbmlLevel, sbmlVersion, "<BoundaryCondition>");
 }
-  if (!SyntaxChecker::isValidSBMLSId(mBoundaryDomainType)) logError(InvalidIdSyntax);
+  if (!mBoundaryDomainType.empty() && !SyntaxChecker::isValidSBMLSId(mBoundaryDomainType)) 
+    logError(InvalidIdSyntax, getLevel(), getVersion(), "boundaryDomainType='" + mBoundaryDomainType + "'");
 
 }
 

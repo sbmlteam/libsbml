@@ -263,7 +263,8 @@ AdvectionCoefficient::readAttributes (const XMLAttributes& attributes,
   {
     logEmptyString(mVariable, sbmlLevel, sbmlVersion, "<AdvectionCoefficient>");
   }
-  if (!SyntaxChecker::isValidSBMLSId(mVariable)) logError(InvalidIdSyntax);
+  if (!SyntaxChecker::isValidSBMLSId(mVariable)) 
+    logError(InvalidIdSyntax, getLevel(), getVersion(), "variable='" + mVariable + "'");
 
   attributes.readInto("coordinateIndex", mCoordinateIndex, getErrorLog(), false, getLine(), getColumn());
   //if (mCoordinateIndex < 0)

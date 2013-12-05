@@ -127,6 +127,12 @@ AnalyticGeometry::~AnalyticGeometry ()
 {
 }
 
+void
+AnalyticGeometry::addExpectedAttributes(ExpectedAttributes& attributes)
+{
+  GeometryDefinition::addExpectedAttributes(attributes);
+}
+
 /*
  * Adds a copy of the given AnalyticVolume to this AnalyticGeometry.
  */

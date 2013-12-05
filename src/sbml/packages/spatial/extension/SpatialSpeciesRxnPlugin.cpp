@@ -115,11 +115,15 @@ SpatialSpeciesRxnPlugin::readAttributes (const XMLAttributes& attributes,
                                     const ExpectedAttributes& expectedAttributes)
 {
   SBasePlugin::readAttributes(attributes, expectedAttributes);
-
+  
   XMLTriple tripleIsSpatial("isSpatial", mURI, mPrefix);
-  attributes.readInto(tripleIsSpatial, mIsSpatial, getErrorLog(), true, getLine(), getColumn());
+  attributes.readInto(tripleIsSpatial, mIsSpatial, getErrorLog(), 
+    mParent != NULL && mParent->getTypeCode() == SBML_SPECIES, 
+    getLine(), getColumn());
   XMLTriple tripleIsLocal("isLocal", mURI, mPrefix);
-  attributes.readInto(tripleIsLocal, mIsLocal, getErrorLog(), true, getLine(), getColumn());
+  attributes.readInto(tripleIsLocal, mIsLocal, getErrorLog(), 
+    mParent != NULL && mParent->getTypeCode() == SBML_REACTION, 
+    getLine(), getColumn());
 }
 
 

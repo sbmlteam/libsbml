@@ -220,7 +220,8 @@ CSGPseudoPrimitive::readAttributes (const XMLAttributes& attributes,
   {
     logEmptyString(mcsgObjectRef, sbmlLevel, sbmlVersion, "<CSGPseudoPrimitive>");
   }
-  if (!SyntaxChecker::isValidSBMLSId(mcsgObjectRef)) logError(InvalidIdSyntax);
+  if (!SyntaxChecker::isValidSBMLSId(mcsgObjectRef)) 
+    logError(InvalidIdSyntax, getLevel(), getVersion(), "csgObjectRef='" + mcsgObjectRef + "'");
 
 }
 

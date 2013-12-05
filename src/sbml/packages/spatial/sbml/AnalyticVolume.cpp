@@ -447,21 +447,24 @@ AnalyticVolume::readAttributes (const XMLAttributes& attributes,
   {
     logEmptyString(mSpatialId, sbmlLevel, sbmlVersion, "<AnalyticVolume>");
   }
-  if (!SyntaxChecker::isValidSBMLSId(mSpatialId)) logError(InvalidIdSyntax);
+  if (!SyntaxChecker::isValidSBMLSId(mSpatialId)) 
+    logError(InvalidIdSyntax, getLevel(), getVersion(), "spatialId='" + mSpatialId + "'");
   
   assigned = attributes.readInto("domainType", mDomainType, getErrorLog(), true, getLine(), getColumn());
   if (assigned && mDomainType.empty())
   {
     logEmptyString(mDomainType, sbmlLevel, sbmlVersion, "<AnalyticVolume>");
   }
-  if (!SyntaxChecker::isValidSBMLSId(mDomainType)) logError(InvalidIdSyntax);
+  if (!SyntaxChecker::isValidSBMLSId(mDomainType)) 
+    logError(InvalidIdSyntax, getLevel(), getVersion(), "domainType='" + mDomainType + "'");
 
   assigned = attributes.readInto("functionType", mFunctionType, getErrorLog(), true, getLine(), getColumn());
   if (assigned && mFunctionType.empty())
   {
     logEmptyString(mFunctionType, sbmlLevel, sbmlVersion, "<AnalyticVolume>");
   }
-  if (!SyntaxChecker::isValidSBMLSId(mFunctionType)) logError(InvalidIdSyntax);
+  if (!SyntaxChecker::isValidSBMLSId(mFunctionType)) 
+    logError(InvalidIdSyntax, getLevel(), getVersion(), "functionType='" + mFunctionType + "'");
 
   attributes.readInto("ordinal", mOrdinal, getErrorLog(), false, getLine(), getColumn());
   /*if (mOrdinal < 0)

@@ -258,14 +258,16 @@ SpatialSymbolReference::readAttributes (const XMLAttributes& attributes,
   {
     logEmptyString(mSpatialId, sbmlLevel, sbmlVersion, "<SpatialSymbolReference>");
   }
-  if (!SyntaxChecker::isValidSBMLSId(mSpatialId)) logError(InvalidIdSyntax);
+  if (!SyntaxChecker::isValidSBMLSId(mSpatialId)) 
+    logError(InvalidIdSyntax, getLevel(), getVersion(), "spatialId='" + mSpatialId + "'");
 
   assigned = attributes.readInto("type", mType, getErrorLog(), true, getLine(), getColumn());
   if (assigned && mType.empty())
   {
     logEmptyString(mType, sbmlLevel, sbmlVersion, "<SpatialSymbolReference>");
   }
-  if (!SyntaxChecker::isValidSBMLSId(mType)) logError(InvalidIdSyntax);
+  if (!SyntaxChecker::isValidSBMLSId(mType)) 
+    logError(InvalidIdSyntax, getLevel(), getVersion(), "type='" + mType + "'");
 }
 
 /*
