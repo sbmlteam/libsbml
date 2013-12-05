@@ -524,7 +524,8 @@ Association::readAttributes (const XMLAttributes& attributes,
   {
     logEmptyString(mReference, sbmlLevel, sbmlVersion, "<gene>");
   }
-  if (!SyntaxChecker::isValidSBMLSId(mReference)) logError(InvalidIdSyntax);
+  if (!SyntaxChecker::isValidSBMLSId(mReference)) 
+    logError(InvalidIdSyntax, getLevel(), getVersion(), "reference='" + mReference + "'");
 
 }
 /** @endcond */

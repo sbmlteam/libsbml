@@ -680,7 +680,8 @@ InitialAssignment::readL2Attributes (const XMLAttributes& attributes)
   {
     logEmptyString("symbol", level, version, "<initialAssignment>");
   }
-  if (!SyntaxChecker::isValidInternalSId(mSymbol)) logError(InvalidIdSyntax);
+  if (!SyntaxChecker::isValidInternalSId(mSymbol)) 
+        logError(InvalidIdSyntax, getLevel(), getVersion(), "symbol='" + mSymbol + "'");
 
   //
   // sboTerm: SBOTerm { use="optional" }  (L2v2 ->)
@@ -717,7 +718,8 @@ InitialAssignment::readL3Attributes (const XMLAttributes& attributes)
   {
     logEmptyString("symbol", level, version, "<initialAssignment>");
   }
-  if (!SyntaxChecker::isValidInternalSId(mSymbol)) logError(InvalidIdSyntax);
+  if (!SyntaxChecker::isValidInternalSId(mSymbol)) 
+    logError(InvalidIdSyntax, getLevel(), getVersion(), "symbol='" + mSymbol + "'");
 
 }
 /** @endcond */

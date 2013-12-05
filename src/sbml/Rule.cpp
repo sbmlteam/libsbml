@@ -1112,7 +1112,7 @@ Rule::readL1Attributes (const XMLAttributes& attributes)
       logEmptyString(s, level, version, "<rule>");
     }
     if (!SyntaxChecker::isValidInternalSId(mVariable)) 
-      logError(InvalidIdSyntax);
+      logError(InvalidIdSyntax, getLevel(), getVersion(), s + "='" + mVariable + "'");
   }
   else if ( isCompartmentVolume() )
   {
@@ -1125,7 +1125,7 @@ Rule::readL1Attributes (const XMLAttributes& attributes)
       logEmptyString("compartment", level, version, "<rule>");
     }
     if (!SyntaxChecker::isValidInternalSId(mVariable)) 
-      logError(InvalidIdSyntax);
+      logError(InvalidIdSyntax, getLevel(), getVersion(), "compartment='" + mVariable + "'");
   }
   else if ( isParameter() )
   {
@@ -1138,7 +1138,7 @@ Rule::readL1Attributes (const XMLAttributes& attributes)
       logEmptyString("name", level, version, "<rule>");
     }
     if (!SyntaxChecker::isValidInternalSId(mVariable)) 
-      logError(InvalidIdSyntax);
+      logError(InvalidIdSyntax, getLevel(), getVersion(), "name='" + mVariable + "'");
 
     //
     // units  { use="optional" }  (L1v1, L1v2);

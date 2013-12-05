@@ -679,7 +679,8 @@ EventAssignment::readL2Attributes (const XMLAttributes& attributes)
   {
     logEmptyString("variable", level, version, "<eventAssignment>");
   }
-  if (!SyntaxChecker::isValidInternalSId(mVariable)) logError(InvalidIdSyntax);
+  if (!SyntaxChecker::isValidInternalSId(mVariable)) 
+    logError(InvalidIdSyntax, getLevel(), getVersion(), "variable='" + mVariable + "'");
 
 
   //

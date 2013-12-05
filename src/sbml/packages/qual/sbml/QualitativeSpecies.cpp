@@ -718,7 +718,7 @@ QualitativeSpecies::readAttributes (const XMLAttributes& attributes,
     }
     else if (SyntaxChecker::isValidSBMLSId(mCompartment) == false)
     {
-      logError(InvalidIdSyntax);
+      logError(InvalidIdSyntax, getLevel(), getVersion(), "compartment='" + mCompartment + "'");
     }
   }
   else

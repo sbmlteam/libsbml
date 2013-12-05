@@ -1614,7 +1614,7 @@ Species::readL3Attributes (const XMLAttributes& attributes)
   }
   if (!SyntaxChecker::isValidInternalSId(mConversionFactor))
   {
-    logError(InvalidIdSyntax);
+    logError(InvalidIdSyntax, getLevel(), getVersion(), "conversionFactor='" + mConversionFactor + "'");
   }
 }
 /** @endcond */

@@ -706,7 +706,7 @@ Input::readAttributes (const XMLAttributes& attributes,
     }
     else if (SyntaxChecker::isValidSBMLSId(mQualitativeSpecies) == false)
     {
-      logError(InvalidIdSyntax);
+      logError(InvalidIdSyntax, getLevel(), getVersion(), "qualitativeSpecies='" + mQualitativeSpecies + "'");
     }
   }
   else

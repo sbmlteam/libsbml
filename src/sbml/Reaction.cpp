@@ -1689,7 +1689,8 @@ Reaction::readL3Attributes (const XMLAttributes& attributes)
   {
     logEmptyString("compartment", level, version, "<reaction>");
   }
-  if (!SyntaxChecker::isValidInternalSId(mCompartment)) logError(InvalidIdSyntax);
+  if (!SyntaxChecker::isValidInternalSId(mCompartment)) 
+    logError(InvalidIdSyntax, getLevel(), getVersion(), "compartment='" + mCompartment + "'");
 }
 /** @endcond */
 
