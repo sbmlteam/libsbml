@@ -79,7 +79,7 @@ for ($i = 0; $i < $m->getNumReactions(); $i++) {
     # ModifierSpeciesReference (Modifiers)  
     for ($j = 0; $j < $re->getNumModifiers(); $j++) {
         $md = $re->getModifier($j);
-        if (md->isSetNotes()) {
+        if ($md->isSetNotes()) {
 		print("     ");
         }
         printNotes($md, $md->getSpecies());

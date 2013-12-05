@@ -78,7 +78,7 @@ for ($i = 0; $i < $m->getNumReactions(); $i++) {
     # ModifierSpeciesReference (Modifiers)  
     for ($j = 0; $j < $re->getNumModifiers(); $j++) {
         $md = $re->getModifier($j);
-        if (md->isSetAnnotation()) {
+        if ($md->isSetAnnotation()) {
 		print("     ");
         }
         printAnnotation($md, $md->getSpecies());
