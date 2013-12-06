@@ -218,7 +218,8 @@ CSGPrimitive::readAttributes (const XMLAttributes& attributes,
     logEmptyString(mPrimitiveType, sbmlLevel, sbmlVersion, "<CSGPrimitive>");
   }
   if (!SyntaxChecker::isValidSBMLSId(mPrimitiveType)) 
-    logError(InvalidIdSyntax, getLevel(), getVersion(), "primitiveType='" + mPrimitiveType + "'");
+    logError(InvalidIdSyntax, getLevel(), getVersion(), 
+    "The syntax of the attribute primitiveType='" + mPrimitiveType + "' does not conform.");
 
 }
 

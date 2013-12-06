@@ -424,7 +424,8 @@ SampledVolume::readAttributes (const XMLAttributes& attributes,
     logEmptyString(mSpatialId, sbmlLevel, sbmlVersion, "<SampledVolume>");
   }
   if (!SyntaxChecker::isValidSBMLSId(mSpatialId)) 
-    logError(InvalidIdSyntax, getLevel(), getVersion(), "spatialId='" + mSpatialId + "'");
+    logError(InvalidIdSyntax, getLevel(), getVersion(), 
+    "The syntax of the attribute spatialId='" + mSpatialId + "' does not conform.");
 
   assigned = attributes.readInto("domainType", mDomainType, getErrorLog(), true, getLine(), getColumn());
   if (assigned && mDomainType.empty())
@@ -432,7 +433,8 @@ SampledVolume::readAttributes (const XMLAttributes& attributes,
     logEmptyString(mDomainType, sbmlLevel, sbmlVersion, "<SampledVolume>");
   }
   if (!SyntaxChecker::isValidSBMLSId(mDomainType)) 
-    logError(InvalidIdSyntax, getLevel(), getVersion(), "mDomainType='" + mDomainType + "'");
+    logError(InvalidIdSyntax, getLevel(), getVersion(), 
+    "The syntax of the attribute mDomainType='" + mDomainType + "' does not conform.");
 
   mIsSetSampledValue = attributes.readInto("sampledValue", mSampledValue, getErrorLog(), true, getLine(), getColumn());
   mIsSetMinValue = attributes.readInto("minValue", mMinValue, getErrorLog(), true, getLine(), getColumn());

@@ -448,7 +448,8 @@ AnalyticVolume::readAttributes (const XMLAttributes& attributes,
     logEmptyString(mSpatialId, sbmlLevel, sbmlVersion, "<AnalyticVolume>");
   }
   if (!SyntaxChecker::isValidSBMLSId(mSpatialId)) 
-    logError(InvalidIdSyntax, getLevel(), getVersion(), "spatialId='" + mSpatialId + "'");
+    logError(InvalidIdSyntax, getLevel(), getVersion(), 
+    "The syntax of the attribute spatialId='" + mSpatialId + "' does not conform.");
   
   assigned = attributes.readInto("domainType", mDomainType, getErrorLog(), true, getLine(), getColumn());
   if (assigned && mDomainType.empty())
@@ -456,7 +457,8 @@ AnalyticVolume::readAttributes (const XMLAttributes& attributes,
     logEmptyString(mDomainType, sbmlLevel, sbmlVersion, "<AnalyticVolume>");
   }
   if (!SyntaxChecker::isValidSBMLSId(mDomainType)) 
-    logError(InvalidIdSyntax, getLevel(), getVersion(), "domainType='" + mDomainType + "'");
+    logError(InvalidIdSyntax, getLevel(), getVersion(), 
+    "The syntax of the attribute domainType='" + mDomainType + "' does not conform.");
 
   assigned = attributes.readInto("functionType", mFunctionType, getErrorLog(), true, getLine(), getColumn());
   if (assigned && mFunctionType.empty())
@@ -464,7 +466,8 @@ AnalyticVolume::readAttributes (const XMLAttributes& attributes,
     logEmptyString(mFunctionType, sbmlLevel, sbmlVersion, "<AnalyticVolume>");
   }
   if (!SyntaxChecker::isValidSBMLSId(mFunctionType)) 
-    logError(InvalidIdSyntax, getLevel(), getVersion(), "functionType='" + mFunctionType + "'");
+    logError(InvalidIdSyntax, getLevel(), getVersion(), 
+    "functionType='" + mFunctionType + "' does not conform.");
 
   attributes.readInto("ordinal", mOrdinal, getErrorLog(), false, getLine(), getColumn());
   /*if (mOrdinal < 0)

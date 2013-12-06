@@ -414,7 +414,8 @@ ParametricObject::readAttributes (const XMLAttributes& attributes,
     logEmptyString(mSpatialId, sbmlLevel, sbmlVersion, "<ParametricObject>");
   }
   if (!SyntaxChecker::isValidSBMLSId(mSpatialId)) 
-    logError(InvalidIdSyntax, getLevel(), getVersion(), "spatialId='" + mSpatialId + "'");
+    logError(InvalidIdSyntax, getLevel(), getVersion(), 
+    "The syntax of the attribute spatialId='" + mSpatialId + "' does not conform.");
 
   assigned = attributes.readInto("domain", mDomain, getErrorLog(), true, getLine(), getColumn());
   if (assigned && mDomain.empty())
@@ -422,7 +423,8 @@ ParametricObject::readAttributes (const XMLAttributes& attributes,
     logEmptyString(mDomain, sbmlLevel, sbmlVersion, "<ParametricObject>");
   }
   if (!SyntaxChecker::isValidSBMLSId(mDomain)) 
-    logError(InvalidIdSyntax, getLevel(), getVersion(), "domain='" + mDomain + "'");
+    logError(InvalidIdSyntax, getLevel(), getVersion(), 
+    "The syntax of the attribute domain='" + mDomain + "' does not conform.");
 
   assigned = attributes.readInto("polygonType", mPolygonType, getErrorLog(), true, getLine(), getColumn());
   if (assigned && mPolygonType.empty())
@@ -430,7 +432,8 @@ ParametricObject::readAttributes (const XMLAttributes& attributes,
     logEmptyString(mPolygonType, sbmlLevel, sbmlVersion, "<ParametricObject>");
   }
   if (!SyntaxChecker::isValidSBMLSId(mPolygonType)) 
-    logError(InvalidIdSyntax, getLevel(), getVersion(), "polygonType='" + mPolygonType + "'");
+    logError(InvalidIdSyntax, getLevel(), getVersion(), 
+    "The syntax of the attribute polygonType='" + mPolygonType + "' does not conform.");
 
 }
 

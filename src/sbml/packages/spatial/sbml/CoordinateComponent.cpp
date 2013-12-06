@@ -628,7 +628,8 @@ CoordinateComponent::readAttributes (const XMLAttributes& attributes,
     logEmptyString(mSpatialId, sbmlLevel, sbmlVersion, "<CoordinateComponent>");
   }
   if (!SyntaxChecker::isValidSBMLSId(mSpatialId)) 
-    logError(InvalidIdSyntax, getLevel(), getVersion(), "spatialId='" + mSpatialId + "'");
+    logError(InvalidIdSyntax, getLevel(), getVersion(), 
+    "The syntax of the attribute spatialId='" + mSpatialId + "' does not conform.");
 
   assigned = attributes.readInto("componentType", mComponentType, getErrorLog(), true, getLine(), getColumn());
   if (assigned && mComponentType.empty())
@@ -636,7 +637,8 @@ CoordinateComponent::readAttributes (const XMLAttributes& attributes,
     logEmptyString(mComponentType, sbmlLevel, sbmlVersion, "<CoordinateComponent>");
   }
   if (!SyntaxChecker::isValidSBMLSId(mComponentType)) 
-    logError(InvalidIdSyntax, getLevel(), getVersion(), "componentType='" + mComponentType + "'");
+    logError(InvalidIdSyntax, getLevel(), getVersion(), 
+    "The syntax of the attribute componentType='" + mComponentType + "' does not conform.");
 
   assigned = attributes.readInto("sbmlUnit", mSbmlUnit, getErrorLog(), true, getLine(), getColumn());
   if (assigned && mSbmlUnit.empty())
@@ -644,7 +646,8 @@ CoordinateComponent::readAttributes (const XMLAttributes& attributes,
     logEmptyString(mSbmlUnit, sbmlLevel, sbmlVersion, "<CoordinateComponent>");
   }
   if (!SyntaxChecker::isValidSBMLSId(mSbmlUnit)) 
-    logError(InvalidIdSyntax, getLevel(), getVersion(), "sbmlUnit='" + mSbmlUnit + "'");
+    logError(InvalidIdSyntax, getLevel(), getVersion(), 
+    "The syntax of the attribute sbmlUnit='" + mSbmlUnit + "' does not conform.");
   
   attributes.readInto("index", mIndex, getErrorLog(), true, getLine(), getColumn());
   /*if (mIndex < 0)

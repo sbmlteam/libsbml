@@ -392,7 +392,8 @@ Domain::readAttributes (const XMLAttributes& attributes,
     logEmptyString(mSpatialId, sbmlLevel, sbmlVersion, "<Domain>");
   }
   if (!SyntaxChecker::isValidSBMLSId(mSpatialId)) 
-    logError(InvalidIdSyntax, getLevel(), getVersion(), "spatialId='" + mSpatialId + "'");
+    logError(InvalidIdSyntax, getLevel(), getVersion(), 
+    "The syntax of the attribute spatialId='" + mSpatialId + "' does not conform.");
 
   assigned = attributes.readInto("domainType", mDomainType, getErrorLog(), true, getLine(), getColumn());
   if (assigned && mDomainType.empty())
@@ -400,7 +401,8 @@ Domain::readAttributes (const XMLAttributes& attributes,
     logEmptyString(mDomainType, sbmlLevel, sbmlVersion, "<Domain>");
   }
   if (!SyntaxChecker::isValidSBMLSId(mDomainType)) 
-    logError(InvalidIdSyntax, getLevel(), getVersion(), "domainType='" + mDomainType + "'");
+    logError(InvalidIdSyntax, getLevel(), getVersion(), 
+    "The syntax of the attribute domainType='" + mDomainType + "' does not conform.");
   
 }
 

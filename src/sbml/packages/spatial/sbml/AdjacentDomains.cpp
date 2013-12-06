@@ -305,7 +305,8 @@ AdjacentDomains::readAttributes (const XMLAttributes& attributes,
     logEmptyString(mSpatialId, sbmlLevel, sbmlVersion, "<AdjacentDomains>");
   }
   if (!SyntaxChecker::isValidSBMLSId(mSpatialId)) 
-    logError(InvalidIdSyntax, getLevel(), getVersion(), "spatialId='" + mSpatialId + "'");
+    logError(InvalidIdSyntax, getLevel(), getVersion(), 
+    "The syntax of the attribute spatialId='" + mSpatialId + "' does not conform.");
 
   assigned = attributes.readInto("domain1", mDomain1, getErrorLog(), true, getLine(), getColumn());
   if (assigned && mDomain1.empty())
@@ -313,7 +314,8 @@ AdjacentDomains::readAttributes (const XMLAttributes& attributes,
     logEmptyString(mDomain1, sbmlLevel, sbmlVersion, "<AdjacentDomains>");
   }
   if (!SyntaxChecker::isValidSBMLSId(mDomain1)) 
-    logError(InvalidIdSyntax, getLevel(), getVersion(), "domain1='" + mDomain1 + "'");
+    logError(InvalidIdSyntax, getLevel(), getVersion(), 
+    "The syntax of the attribute domain1='" + mDomain1 + "' does not conform.");
   
   assigned = attributes.readInto("domain2", mDomain2, getErrorLog(), true, getLine(), getColumn());
   if (assigned && mDomain2.empty())
@@ -321,7 +323,8 @@ AdjacentDomains::readAttributes (const XMLAttributes& attributes,
     logEmptyString(mDomain2, sbmlLevel, sbmlVersion, "<AdjacentDomains>");
   }
   if (!SyntaxChecker::isValidSBMLSId(mDomain2)) 
-    logError(InvalidIdSyntax, getLevel(), getVersion(), "domain2='" + mDomain2 + "'");
+    logError(InvalidIdSyntax, getLevel(), getVersion(), 
+    "The syntax of the attribute domain2='" + mDomain2 + "' does not conform.");
 
 }
 

@@ -221,7 +221,8 @@ CSGPseudoPrimitive::readAttributes (const XMLAttributes& attributes,
     logEmptyString(mcsgObjectRef, sbmlLevel, sbmlVersion, "<CSGPseudoPrimitive>");
   }
   if (!SyntaxChecker::isValidSBMLSId(mcsgObjectRef)) 
-    logError(InvalidIdSyntax, getLevel(), getVersion(), "csgObjectRef='" + mcsgObjectRef + "'");
+    logError(InvalidIdSyntax, getLevel(), getVersion(), 
+    "The syntax of the attribute csgObjectRef='" + mcsgObjectRef + "' does not conform.");
 
 }
 

@@ -458,7 +458,8 @@ CSGSetOperator::readAttributes (const XMLAttributes& attributes,
     logEmptyString(mOperationType, sbmlLevel, sbmlVersion, "<CSGSetOperator>");
   }
   if (!SyntaxChecker::isValidSBMLSId(mOperationType)) 
-    logError(InvalidIdSyntax, getLevel(), getVersion(), "operationType='" + mOperationType + "'");
+    logError(InvalidIdSyntax, getLevel(), getVersion(), 
+    "The syntax of the attribute operationType='" + mOperationType + "' does not conform.");
 
 }
 

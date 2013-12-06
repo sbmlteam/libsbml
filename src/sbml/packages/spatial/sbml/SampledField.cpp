@@ -665,7 +665,8 @@ SampledField::readAttributes (const XMLAttributes& attributes,
     logEmptyString(mSpatialId, sbmlLevel, sbmlVersion, "<SampledField>");
   }
   if (!SyntaxChecker::isValidSBMLSId(mSpatialId)) 
-    logError(InvalidIdSyntax, getLevel(), getVersion(), "spatialId='" + mSpatialId + "'");
+    logError(InvalidIdSyntax, getLevel(), getVersion(), 
+    "The syntax of the attribute spatialId='" + mSpatialId + "' does not conform.");
 
   assigned = attributes.readInto("dataType", mDataType, getErrorLog(), true, getLine(), getColumn());
   if (assigned && mDataType.empty())
@@ -673,7 +674,8 @@ SampledField::readAttributes (const XMLAttributes& attributes,
     logEmptyString(mDataType, sbmlLevel, sbmlVersion, "<SampledField>");
   }
   if (!SyntaxChecker::isValidSBMLSId(mDataType)) 
-    logError(InvalidIdSyntax, getLevel(), getVersion(), "dataType='" + mDataType + "'");
+    logError(InvalidIdSyntax, getLevel(), getVersion(), 
+    "The syntax of the attribute dataType='" + mDataType + "' does not conform.");
 
   assigned = attributes.readInto("interpolationType", mInterpolationType, getErrorLog(), true, getLine(), getColumn());
   if (assigned && mInterpolationType.empty())
@@ -681,7 +683,9 @@ SampledField::readAttributes (const XMLAttributes& attributes,
     logEmptyString(mInterpolationType, sbmlLevel, sbmlVersion, "<SampledField>");
   }
   if (!SyntaxChecker::isValidSBMLSId(mInterpolationType)) 
-    logError(InvalidIdSyntax, getLevel(), getVersion(), "interpolationType='" + mInterpolationType + "'");
+    logError(InvalidIdSyntax, getLevel(), getVersion(), 
+    "The syntax of the attribute interpolationType='" + mInterpolationType 
+    + "' does not conform.");
   
   assigned = attributes.readInto("encoding", mEncoding, getErrorLog(), true, getLine(), getColumn());
   if (assigned && mEncoding.empty())
@@ -689,7 +693,8 @@ SampledField::readAttributes (const XMLAttributes& attributes,
     logEmptyString(mEncoding, sbmlLevel, sbmlVersion, "<SampledField>");
   }
   if (!SyntaxChecker::isValidSBMLSId(mEncoding)) 
-    logError(InvalidIdSyntax, getLevel(), getVersion(), "encoding='" + mEncoding + "'");
+    logError(InvalidIdSyntax, getLevel(), getVersion(), 
+    "The syntax of the attribute encoding='" + mEncoding + "' does not conform.");
   
   attributes.readInto("numSamples1", mNumSamples1, getErrorLog(), true, getLine(), getColumn());
   if (mNumSamples1 < 0)

@@ -1105,7 +1105,8 @@ Geometry::readAttributes (const XMLAttributes& attributes,
     logEmptyString(mCoordinateSystem, sbmlLevel, sbmlVersion, "<geometry>");
   }
   if (!SyntaxChecker::isValidSBMLSId(mCoordinateSystem)) 
-    logError(InvalidIdSyntax, getLevel(), getVersion(), "coordinateSystem='" + mCoordinateSystem + "'");
+    logError(InvalidIdSyntax, getLevel(), getVersion(), 
+    "The syntax of the attribute coordinateSystem='" + mCoordinateSystem + "' does not conform.");
 
 }
 

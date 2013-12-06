@@ -358,7 +358,8 @@ BoundaryCondition::readAttributes (const XMLAttributes& attributes,
     logEmptyString(mVariable, sbmlLevel, sbmlVersion, "<BoundaryCondition>");
   }
   if (!SyntaxChecker::isValidSBMLSId(mVariable)) 
-    logError(InvalidIdSyntax, getLevel(), getVersion(), "variable='" + mVariable + "'");
+    logError(InvalidIdSyntax, getLevel(), getVersion(), 
+    "The syntax of the attribute variable='" + mVariable + "' does not conform.");
 
   assigned = attributes.readInto("coordinateBoundary", mCoordinateBoundary, getErrorLog(), true, getLine(), getColumn());
   if (assigned && mCoordinateBoundary.empty())
@@ -366,7 +367,9 @@ BoundaryCondition::readAttributes (const XMLAttributes& attributes,
     logEmptyString(mCoordinateBoundary, sbmlLevel, sbmlVersion, "<BoundaryCondition>");
   }
   if (!SyntaxChecker::isValidSBMLSId(mCoordinateBoundary)) 
-    logError(InvalidIdSyntax, getLevel(), getVersion(), "coordinateBoundary='" + mCoordinateBoundary + "'");
+    logError(InvalidIdSyntax, getLevel(), getVersion(), 
+    "The syntax of the attribute coordinateBoundary='" + mCoordinateBoundary 
+    + "' does not conform.");
 
   assigned = attributes.readInto("type", mType, getErrorLog(), true, getLine(), getColumn());
   if (assigned && mType.empty())
@@ -374,7 +377,8 @@ BoundaryCondition::readAttributes (const XMLAttributes& attributes,
     logEmptyString(mType, sbmlLevel, sbmlVersion, "<BoundaryCondition>");
   }
   if (!SyntaxChecker::isValidSBMLSId(mType)) 
-    logError(InvalidIdSyntax, getLevel(), getVersion(), "type='" + mType + "'");
+    logError(InvalidIdSyntax, getLevel(), getVersion(), 
+    "The syntax of the attribute type='" + mType + "' does not conform.");
 
   assigned = attributes.readInto("boundaryDomainType", mBoundaryDomainType, getErrorLog(), false, getLine(), getColumn());
   if (assigned && mBoundaryDomainType.empty())
@@ -382,7 +386,9 @@ BoundaryCondition::readAttributes (const XMLAttributes& attributes,
     logEmptyString(mBoundaryDomainType, sbmlLevel, sbmlVersion, "<BoundaryCondition>");
 }
   if (!mBoundaryDomainType.empty() && !SyntaxChecker::isValidSBMLSId(mBoundaryDomainType)) 
-    logError(InvalidIdSyntax, getLevel(), getVersion(), "boundaryDomainType='" + mBoundaryDomainType + "'");
+    logError(InvalidIdSyntax, getLevel(), getVersion(), 
+    "The syntax of the attribute boundaryDomainType='" + mBoundaryDomainType 
+    + "' does not conform.");
 
 }
 

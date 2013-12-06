@@ -259,7 +259,8 @@ SpatialSymbolReference::readAttributes (const XMLAttributes& attributes,
     logEmptyString(mSpatialId, sbmlLevel, sbmlVersion, "<SpatialSymbolReference>");
   }
   if (!SyntaxChecker::isValidSBMLSId(mSpatialId)) 
-    logError(InvalidIdSyntax, getLevel(), getVersion(), "spatialId='" + mSpatialId + "'");
+    logError(InvalidIdSyntax, getLevel(), getVersion(), 
+    "The syntax of the attribute spatialId='" + mSpatialId + "' does not conform.");
 
   assigned = attributes.readInto("type", mType, getErrorLog(), true, getLine(), getColumn());
   if (assigned && mType.empty())
@@ -267,7 +268,8 @@ SpatialSymbolReference::readAttributes (const XMLAttributes& attributes,
     logEmptyString(mType, sbmlLevel, sbmlVersion, "<SpatialSymbolReference>");
   }
   if (!SyntaxChecker::isValidSBMLSId(mType)) 
-    logError(InvalidIdSyntax, getLevel(), getVersion(), "type='" + mType + "'");
+    logError(InvalidIdSyntax, getLevel(), getVersion(), 
+    "The syntax of the attribute type='" + mType + "' does not conform.");
 }
 
 /*

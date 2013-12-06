@@ -434,7 +434,8 @@ SpatialPoint::readAttributes (const XMLAttributes& attributes,
     logEmptyString(mSpatialId, sbmlLevel, sbmlVersion, "<SpatialPoint>");
   }
   if (!SyntaxChecker::isValidSBMLSId(mSpatialId)) 
-        logError(InvalidIdSyntax, getLevel(), getVersion(), "spatialId='" + mSpatialId + "'");
+        logError(InvalidIdSyntax, getLevel(), getVersion(), 
+        "The syntax of the attribute spatialId='" + mSpatialId + "' does not conform.");
 
   assigned = attributes.readInto("domain", mDomain, getErrorLog(), true, getLine(), getColumn());
   if (assigned && mDomain.empty())
@@ -442,7 +443,8 @@ SpatialPoint::readAttributes (const XMLAttributes& attributes,
     logEmptyString(mDomain, sbmlLevel, sbmlVersion, "<SpatialPoint>");
   }
   if (!SyntaxChecker::isValidSBMLSId(mDomain)) 
-    logError(InvalidIdSyntax, getLevel(), getVersion(), "domain='" + mDomain + "'");
+    logError(InvalidIdSyntax, getLevel(), getVersion(), 
+    "The syntax of the attribute domain='" + mDomain + "' does not conform.");
 
   mIsSetCoord1 = attributes.readInto("coord1", mCoord1, getErrorLog(), true, getLine(), getColumn());
   mIsSetCoord2 = attributes.readInto("coord2", mCoord2, getErrorLog(), true, getLine(), getColumn());
