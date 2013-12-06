@@ -2478,6 +2478,20 @@ int
 ASTNode::setUserData(void *userData)
 {
 	this->mUserData = userData;
+ 
+  // allow userData to be set to NULL
+  if (userData == NULL)
+  {
+    if (mUserData != NULL)
+    {
+      return LIBSBML_OPERATION_FAILED;
+    }
+    else
+    {
+      return LIBSBML_OPERATION_SUCCESS;
+    }
+  }
+
   if (mUserData != NULL)
   {
     return LIBSBML_OPERATION_SUCCESS;

@@ -4547,6 +4547,30 @@ START_TEST (test_ASTNode_reduceToBinary)
 END_TEST
 
 
+START_TEST (test_ASTNode_userData_1)
+{
+  ASTNode_t *n = ASTNode_create();
+
+  Model_t * m = Model_create(3,1);
+  
+  fail_unless(ASTNode_getUserData(n) == NULL);
+
+  int i = ASTNode_setUserData(n, (void*)(m));
+
+  fail_unless(i == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(ASTNode_getUserData(n) != NULL);
+  fail_unless(ASTNode_getUserData(n) == m);
+  
+  i = ASTNode_setUserData(n, NULL);
+
+  fail_unless(i == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(ASTNode_getUserData(n) == NULL);
+
+  ASTNode_free(n);
+}
+END_TEST
+
+
 Suite *
 create_suite_ASTNode (void) 
 { 
@@ -4643,6 +4667,7 @@ create_suite_ASTNode (void)
   tcase_add_test( tcase, test_ASTNode_hasTypeAndNumChildren   );
   tcase_add_test( tcase, test_ASTNode_hasUnits   );
   tcase_add_test( tcase, test_ASTNode_reduceToBinary   );
+  tcase_add_test( tcase, test_ASTNode_userData_1   );
 
   suite_add_tcase(suite, tcase);
 
