@@ -1614,7 +1614,9 @@ Species::readL3Attributes (const XMLAttributes& attributes)
   }
   if (!SyntaxChecker::isValidInternalSId(mConversionFactor))
   {
-    logError(InvalidIdSyntax, getLevel(), getVersion(), "conversionFactor='" + mConversionFactor + "'");
+    logError(InvalidIdSyntax, getLevel(), getVersion(), 
+      "The syntax of the attribute conversionFactor='" + mConversionFactor 
+      + "' does not conform.");
   }
 }
 /** @endcond */

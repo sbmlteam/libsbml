@@ -718,7 +718,8 @@ QualitativeSpecies::readAttributes (const XMLAttributes& attributes,
     }
     else if (SyntaxChecker::isValidSBMLSId(mCompartment) == false)
     {
-      logError(InvalidIdSyntax, getLevel(), getVersion(), "compartment='" + mCompartment + "'");
+      logError(InvalidIdSyntax, getLevel(), getVersion(), 
+        "The syntax of the attribute compartment='" + mCompartment + "' does not conform.");
     }
   }
   else

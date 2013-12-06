@@ -681,7 +681,8 @@ InitialAssignment::readL2Attributes (const XMLAttributes& attributes)
     logEmptyString("symbol", level, version, "<initialAssignment>");
   }
   if (!SyntaxChecker::isValidInternalSId(mSymbol)) 
-        logError(InvalidIdSyntax, getLevel(), getVersion(), "symbol='" + mSymbol + "'");
+        logError(InvalidIdSyntax, getLevel(), getVersion(), 
+        "The syntax of the attribute symbol='" + mSymbol + "' does not conform.");
 
   //
   // sboTerm: SBOTerm { use="optional" }  (L2v2 ->)
@@ -719,7 +720,8 @@ InitialAssignment::readL3Attributes (const XMLAttributes& attributes)
     logEmptyString("symbol", level, version, "<initialAssignment>");
   }
   if (!SyntaxChecker::isValidInternalSId(mSymbol)) 
-    logError(InvalidIdSyntax, getLevel(), getVersion(), "symbol='" + mSymbol + "'");
+    logError(InvalidIdSyntax, getLevel(), getVersion(), 
+    "The syntax of the attribute symbol='" + mSymbol + "' does not conform.");
 
 }
 /** @endcond */

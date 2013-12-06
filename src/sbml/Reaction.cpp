@@ -1690,7 +1690,8 @@ Reaction::readL3Attributes (const XMLAttributes& attributes)
     logEmptyString("compartment", level, version, "<reaction>");
   }
   if (!SyntaxChecker::isValidInternalSId(mCompartment)) 
-    logError(InvalidIdSyntax, getLevel(), getVersion(), "compartment='" + mCompartment + "'");
+    logError(InvalidIdSyntax, getLevel(), getVersion(), 
+    "The syntax of the attribute compartment='" + mCompartment + "' does not conform.");
 }
 /** @endcond */
 

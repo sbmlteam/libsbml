@@ -1112,7 +1112,8 @@ Rule::readL1Attributes (const XMLAttributes& attributes)
       logEmptyString(s, level, version, "<rule>");
     }
     if (!SyntaxChecker::isValidInternalSId(mVariable)) 
-      logError(InvalidIdSyntax, getLevel(), getVersion(), s + "='" + mVariable + "'");
+      logError(InvalidIdSyntax, getLevel(), getVersion(), 
+      "The syntax of the attribute " + s + "='" + mVariable  + "' does not conform.");
   }
   else if ( isCompartmentVolume() )
   {
@@ -1125,7 +1126,8 @@ Rule::readL1Attributes (const XMLAttributes& attributes)
       logEmptyString("compartment", level, version, "<rule>");
     }
     if (!SyntaxChecker::isValidInternalSId(mVariable)) 
-      logError(InvalidIdSyntax, getLevel(), getVersion(), "compartment='" + mVariable + "'");
+      logError(InvalidIdSyntax, getLevel(), getVersion(), 
+      "The syntax of the attribute compartment='" + mVariable + "' does not conform.");
   }
   else if ( isParameter() )
   {
@@ -1138,7 +1140,8 @@ Rule::readL1Attributes (const XMLAttributes& attributes)
       logEmptyString("name", level, version, "<rule>");
     }
     if (!SyntaxChecker::isValidInternalSId(mVariable)) 
-      logError(InvalidIdSyntax, getLevel(), getVersion(), "name='" + mVariable + "'");
+      logError(InvalidIdSyntax, getLevel(), getVersion(), 
+      "The syntax of the attribute name='" + mVariable + "' does not conform.");
 
     //
     // units  { use="optional" }  (L1v1, L1v2);

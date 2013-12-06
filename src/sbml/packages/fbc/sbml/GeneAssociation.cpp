@@ -481,7 +481,8 @@ GeneAssociation::readAttributes (const XMLAttributes& attributes,
     logEmptyString(mReaction, sbmlLevel, sbmlVersion, "<geneAssociation>");
   }
   if (!SyntaxChecker::isValidSBMLSId(mReaction)) 
-    logError(InvalidIdSyntax, getLevel(), getVersion(), "reaction='" + mReaction + "'");
+    logError(InvalidIdSyntax, getLevel(), getVersion(), 
+    "The syntax of the attribute reaction='" + mReaction + "' does not conform.");
 }
 /** @endcond */
 
