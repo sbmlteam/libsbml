@@ -1,12 +1,15 @@
            libSBML NEWS -- History of user-visible changes
 
 ====================================================================
-Next release ...
+Current svn 5.9.1
 ====================================================================
 
 STABLE RELEASE
 
 * New features
+
+  - The error messages relating to invalid SId syntax have been
+    improved to report the attribute causing the problem.
 
   - 'comp' package-specific updates:
 
@@ -18,12 +21,22 @@ STABLE RELEASE
 
 * Bug fixes
 
+  - Some of the perl examples had syntax errors - these have been fixed.
+    Thanks to Joern Behre for reporting them.
+
+  - Some subtle bugs in the ASTNode class have been fixed. These
+    include returning 'bad allocation' as the name of a node; 
+    failing to replace the definitionURL of a csymbol node; 
+    not removing the units member when a node represents a function
+    and incorrectly reporting failure when setting user data to NULL.
+    Many additional tests have been added.
+
   - The Borland compiler does not handle implicit casts and 
     unfortunately there was one such cast in the new code introduced 
     for 5.9.0. This has now been fixed. Thanks to Totte Karlsson for 
     reporting it.
     
-  - A memory leak in SBasePluiginCreator has been plugged. Thanks to 
+  - A memory leak in SBasePluginCreator has been plugged. Thanks to 
     Andy Somogyi for reporting it. 
 
   - 'comp' package-specific updates:
@@ -39,6 +52,9 @@ STABLE RELEASE
   - 'qual' package-specific updates:
 
 * Configuration/build system changes
+
+  - Any necessary fixes to facilitate the use of the new version
+    of Mac OSX - Mac OSX 10.9 Mavericks - have been made.
 
 
 * Miscellaneous
@@ -59,6 +75,12 @@ EXPERIMENTAL RELEASE
   - 'req' package-specific updates:
 
   - 'spatial' package-specific updates:
+  
+    - The API for accessing compressed data has been improved
+      to allow access to this data using language bindings.
+      ImageData is now uncompressed during the first call to
+      this and saved for subsequent access. Previously the data
+      was uncompressed each time it was accessed.
 
 * Bug fixes
 
@@ -71,8 +93,15 @@ EXPERIMENTAL RELEASE
   - 'render' package-specific updates:
 
   - 'req' package-specific updates:
+  
+    - The attributes for the package were incorrectly assumed
+      to be mandatory, thus causing numerous inaccurate
+      error messages. This has been fixed.
 
   - 'spatial' package-specific updates:
+  
+    - Errors relating to missing attributes have been sorted
+      to correctly relate to attributes required by the specification.
 
 
 ====================================================================
