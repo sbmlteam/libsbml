@@ -890,7 +890,10 @@ readMathML (ASTNode& node, XMLInputStream& stream, std::string reqd_prefix)
     //node.setDefinitionURL(elem.getAttributes());
     readMathML(node, stream, reqd_prefix);
     node.setSemanticsFlag();
-    node.setDefinitionURL(*(tempAtt).clone());
+    if (tempAtt.hasAttribute("definitionURL") == true)
+    {
+      node.setDefinitionURL(*(tempAtt).clone());
+    }
     /** need to look for any annotation on the semantics element **/
     while ( stream.isGood() && !stream.peek().isEndFor(elem))
     {
