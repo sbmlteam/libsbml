@@ -403,7 +403,10 @@ setTypeCI (ASTNode& node, const XMLToken& element, XMLInputStream& stream)
   }
   else if (element.getName() == "ci")
   {
-    node.setDefinitionURL(element.getAttributes());
+    if (element.getAttributes().hasAttribute("definitionURL") == true)
+    {
+      node.setDefinitionURL(element.getAttributes());
+    }
   }
 
   const string name = trim( stream.next().getCharacters() );
