@@ -37,7 +37,9 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 SpatialSpeciesRxnPlugin::SpatialSpeciesRxnPlugin (const std::string &uri, const std::string &prefix, SpatialPkgNamespaces *spatialns)
   : SBasePlugin(uri,prefix, spatialns)
   , mIsSpatial(false)
+  , mIsSetSpatial(false)
   , mIsLocal(false)
+  , mIsSetLocal(false)
 {
 }
 
@@ -48,7 +50,9 @@ SpatialSpeciesRxnPlugin::SpatialSpeciesRxnPlugin (const std::string &uri, const 
 SpatialSpeciesRxnPlugin::SpatialSpeciesRxnPlugin(const SpatialSpeciesRxnPlugin& orig)
   : SBasePlugin(orig)
   , mIsSpatial(orig.mIsSpatial)
+  , mIsSetSpatial(orig.mIsSetSpatial)
   , mIsLocal(orig.mIsLocal)
+  , mIsSetLocal(orig.mIsSetLocal)
 {
 }
 
@@ -116,12 +120,10 @@ SpatialSpeciesRxnPlugin::readAttributes (const XMLAttributes& attributes,
 {
   SBasePlugin::readAttributes(attributes, expectedAttributes);
   
-  XMLTriple tripleIsSpatial("isSpatial", mURI, mPrefix);
-  attributes.readInto(tripleIsSpatial, mIsSpatial, getErrorLog(), 
+  mIsSetSpatial = attributes.readInto("isSpatial", mIsSpatial, getErrorLog(), 
     mParent != NULL && mParent->getTypeCode() == SBML_SPECIES, 
     getLine(), getColumn());
-  XMLTriple tripleIsLocal("isLocal", mURI, mPrefix);
-  attributes.readInto(tripleIsLocal, mIsLocal, getErrorLog(), 
+  mIsSetLocal = attributes.readInto("isLocal", mIsLocal, getErrorLog(), 
     mParent != NULL && mParent->getTypeCode() == SBML_REACTION, 
     getLine(), getColumn());
 }
@@ -133,12 +135,12 @@ SpatialSpeciesRxnPlugin::readAttributes (const XMLAttributes& attributes,
 void 
 SpatialSpeciesRxnPlugin::writeAttributes (XMLOutputStream& stream) const
 {
-  if ( getIsSpatial() ) 
+  if ( isSetIsSpatial() ) 
   {
 	  XMLTriple tripleIsSpatial("isSpatial", mURI, mPrefix);
 	  stream.writeAttribute(tripleIsSpatial, mIsSpatial);
   }
-  if ( getIsLocal() )
+  if ( isSetIsLocal() )
   {
 	  XMLTriple tripleIsLocal("isLocal", mURI, mPrefix);
 	  stream.writeAttribute(tripleIsLocal, mIsLocal);
@@ -153,6 +155,31 @@ SpatialSpeciesRxnPlugin::writeAttributes (XMLOutputStream& stream) const
  *
  */  
 
+  
+bool 
+SpatialSpeciesRxnPlugin::isSetIsSpatial() const
+{
+  return mIsSetSpatial;
+}
+
+void 
+SpatialSpeciesRxnPlugin::unsetIsSpatial()
+{
+  mIsSetSpatial = false;
+}
+void 
+SpatialSpeciesRxnPlugin::unsetIsLocal()
+{
+  mIsSetLocal = false;
+}
+
+bool 
+SpatialSpeciesRxnPlugin::isSetIsLocal() const
+{
+  return mIsSetLocal;
+}
+
+
 bool
 SpatialSpeciesRxnPlugin::getIsSpatial() const
 {
@@ -163,6 +190,7 @@ int
 SpatialSpeciesRxnPlugin::setIsSpatial(bool value) 
 {
   mIsSpatial = value;
+  mIsSetSpatial = true;
   return LIBSBML_OPERATION_SUCCESS;
 }
 
@@ -177,6 +205,7 @@ int
 SpatialSpeciesRxnPlugin::setIsLocal(bool value) 
 {
   mIsLocal = value;
+  mIsSetLocal = true;
   return LIBSBML_OPERATION_SUCCESS;
 }
 

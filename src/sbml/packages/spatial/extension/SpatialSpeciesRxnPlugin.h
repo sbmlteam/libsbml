@@ -125,6 +125,25 @@ public:
    */
   virtual bool getIsSpatial() const;
   
+    /**
+   *
+   * Returns a boolean indicating whether the "isSpatial" attribute has been set
+   *
+   * @return a boolean indicating whether the "isSpatial" attribute has been set
+   */
+  virtual bool isSetIsSpatial() const;
+
+  virtual void unsetIsSpatial(); 
+  virtual void unsetIsLocal(); 
+
+    /**
+   *
+   * Returns a boolean indicating whether the "isLocal" attribute has been set
+   *
+   * @return a boolean indicating whether the "isLocal" attribute has been set
+   */
+  virtual bool isSetIsLocal() const;
+  
 
   /**
    *
@@ -170,10 +189,12 @@ protected:
   //
   //
   bool          mIsSpatial;	// for species
+  bool          mIsSetSpatial;	// for species
 
   //
   //
   bool			mIsLocal;	// for reaction
+  bool			mIsSetLocal;	// for reaction
 
   /** @endcond doxygenLibsbmlInternal */
 };
