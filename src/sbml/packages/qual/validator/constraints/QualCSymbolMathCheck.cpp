@@ -2,7 +2,7 @@
  * @cond doxygenLibsbmlInternal
  *
  * @file    QualCSymbolMathCheck.cpp
- * @brief   checks <ci> element is the id of a component
+ * @brief   checks &lt;ci&gt; element is the id of a component
  * @author  Sarah Keating
  * 
  * <!--------------------------------------------------------------------------
@@ -38,7 +38,7 @@ using namespace std;
 /** @endcond */
 
 LIBSBML_CPP_NAMESPACE_BEGIN
-
+#ifdef __cplusplus
 /**
  * Creates a new Constraint with the given @p id.
  */
@@ -90,7 +90,7 @@ QualCSymbolMathCheck::checkMath (const Model& m, const ASTNode& node, const SBas
 {
   ASTNodeType_t type = node.getType();
     
-  /* if the node is a <ci> element it will have type AST_NAME
+  /* if the node is a &lt;ci&gt; element it will have type AST_NAME
    * check that this name is an appropriate component of the model */
   switch (type) 
   {
@@ -136,3 +136,4 @@ LIBSBML_CPP_NAMESPACE_END
 
 /** @endcond */
 
+#endif /* __cplusplus */

@@ -178,6 +178,7 @@ static const char *AST_OPERATOR_STRINGS[] =
 };
 
 
+#ifdef __cplusplus
 /*
  * Creates a new ASTNode.
  *
@@ -2645,6 +2646,11 @@ unsigned int ASTNode::getNumVariablesWithUndeclaredUnits(Model * m) const
 }
 /** @endcond */
 
+#endif /* __cplusplus */
+
+
+/** @cond doxygenCOnly */
+
 /**
  * Creates a new ASTNode and returns a pointer to it.  The returned node
  * will have a type of AST_UNKNOWN and should be set to something else as
@@ -4177,4 +4183,5 @@ ASTNode_true(const ASTNode *node)
 /** @endcond */
 
 
+/** @endcond */
 LIBSBML_CPP_NAMESPACE_END

@@ -59,6 +59,7 @@
 using namespace std;
 
 LIBSBML_CPP_NAMESPACE_BEGIN
+#ifdef __cplusplus
 
 /** @endcond */
 
@@ -6347,6 +6348,7 @@ SBase::getElementNamespace() const
 
 
 
+#endif /* __cplusplus */
 /** @cond doxygenCOnly */
 
 /**
@@ -6479,7 +6481,7 @@ SBase_unsetCVTerms(SBase_t *sb)
  *
  * @return the ModelHistory of the given SBase_t structure.
  *
- * @param m the SBase_t structure
+ * @param sb the SBase_t structure
  */
 LIBSBML_EXTERN
 ModelHistory_t *
@@ -6492,7 +6494,7 @@ SBase_getModelHistory(SBase_t *sb)
  * Predicate for testing whether the ModelHistory of a given SBase_t structure is
  * assigned.
  *
- * @param m the SBase_t structure
+ * @param sb the SBase_t structure
  *
  * @return nonzero if the ModelHistory of this SBase_t structure is
  * set, zero (0) otherwise.
@@ -6507,7 +6509,7 @@ SBase_isSetModelHistory(SBase_t *sb)
 /**
  * Set the ModelHistory of the given SBase_t structure.
  *
- * @param m the SBase_t structure
+ * @param sb the SBase_t structure
  * @param history the ModelHistory_t structure
  *
  * @return integer value indicating success/failure of the
@@ -6527,7 +6529,7 @@ SBase_setModelHistory(SBase_t *sb, ModelHistory_t *history)
 /**
  * Unsets the ModelHistory of the given SBase_t structure.
  *
- * @param m the SBase_t structure
+ * @param sb the SBase_t structure
  *
  * @return integer value indicating success/failure of the
  * function.  @if clike The value is drawn from the
@@ -6682,6 +6684,7 @@ SBase_getParentSBMLObject (SBase_t *sb)
  *
  * @param sb the SBase_t structure
  * @param type the typecode (int) of the structure to be returned
+ * @param pkgName the name of the package that defines the @param type
  *
  * @return the ancestor SBase_t structure of this SBML object with
  * the corresponding typecode (int), NULL if there is no ancestor of
@@ -7093,7 +7096,6 @@ SBase_setMetaId (SBase_t *sb, const char *metaid)
  * about the use of SBO and the "sboTerm" attribute.
  *
  * @param sb the SBase_t structure
- *
  * @param value the NNNNNNN integer portion of the SBO identifier
  *
  * @return integer value indicating success/failure of the
@@ -7488,9 +7490,9 @@ SBase_removeTopLevelAnnotationElement (SBase_t *sb, char *name)
  * whilst the remaining annotations remain intact.
  *
  * @param sb SBase_t object containing the annotation to be altered
- * @param elementName a string representing the name of the top level
+ * @param name a string representing the name of the top level
  * annotation element that is to be removed
- * @param elementURI a string that is used to check both the name
+ * @param uri a string that is used to check both the name
  * and URI of the top level element to be removed
  *
  * @return integer value indicating success/failure of the
@@ -7923,7 +7925,7 @@ SBase_setUserData(SBase_t* sb, void *userData)
 /**
  * Returns the user data that has been previously set by setUserData().
  *
- * @param node defines the node of interest.
+ * @param sb the SBase_t structure in question.
  * @return the user data of this node. NULL if no user data has been.
  * @see SBase_setUserData
  */

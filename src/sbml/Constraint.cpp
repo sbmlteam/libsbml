@@ -49,6 +49,7 @@ using namespace std;
 /** @endcond */
 
 LIBSBML_CPP_NAMESPACE_BEGIN
+#ifdef __cplusplus
 
 Constraint::Constraint (unsigned int level, unsigned int version) :
    SBase ( level, version )
@@ -750,6 +751,7 @@ ListOfConstraints::createObject (XMLInputStream& stream)
 
 
 
+#endif /* __cplusplus */
 /** @cond doxygenCOnly */
 
 
@@ -902,7 +904,7 @@ Constraint_getMessage (const Constraint_t *c)
  * @return the message for this Constraint, as a string (char*).
  * @c NULL is returned if the message is not set.
  *
- * @notice returned char* should be freed with safe_free() by the caller.
+ * @note returned char* should be freed with safe_free() by the caller.
  */
 LIBSBML_EXTERN
 char*

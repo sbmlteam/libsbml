@@ -44,6 +44,7 @@
 #include <sbml/xml/XMLOutputStream.h>
 
 LIBSBML_CPP_NAMESPACE_BEGIN
+#ifdef __cplusplus
 
 List*
 GeneralGlyph::getAllElements(ElementFilter *filter)
@@ -1212,6 +1213,9 @@ GeneralGlyph::enablePackageInternal(const std::string& pkgURI,
 
 
 
+#endif /* __cplusplus */
+/** @cond doxygenCOnly */
+
 /**
  * Creates a new GeneralGlyph and returns the pointer to it.
  */
@@ -1480,4 +1484,5 @@ GeneralGlyph_clone (const GeneralGlyph_t *m)
 }
 
 
+/** @endcond */
 LIBSBML_CPP_NAMESPACE_END

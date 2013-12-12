@@ -33,6 +33,7 @@
 using namespace std;
 
 LIBSBML_CPP_NAMESPACE_BEGIN
+#ifdef __cplusplus
 
 CompBase::CompBase (unsigned int level, unsigned int version, unsigned int pkgVersion) 
   : SBase (level,version)
@@ -512,6 +513,8 @@ int CompBase::removeFromParentAndPorts(SBase* todelete)
   return todelete->removeFromParentAndDelete();
 }
 /** @endcond */
+
+#endif  /* __cplusplus */
 
 LIBSBML_CPP_NAMESPACE_END
 

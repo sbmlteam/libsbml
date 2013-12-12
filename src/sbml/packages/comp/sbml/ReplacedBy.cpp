@@ -35,6 +35,7 @@
 using namespace std;
 
 LIBSBML_CPP_NAMESPACE_BEGIN
+#ifdef __cplusplus
 
 ReplacedBy::ReplacedBy (unsigned int level, unsigned int version, unsigned int pkgVersion) 
   : Replacing(level,version, pkgVersion)
@@ -188,6 +189,9 @@ ReplacedBy::accept (SBMLVisitor& v) const
 
 /** @endcond */
 
+#endif /* __cplusplus */
+/** @cond doxygenCOnly */
+
 /**
  * 
  */
@@ -289,5 +293,6 @@ ReplacedBy_hasRequiredAttributes(ReplacedBy_t * rb)
 
 
 
+/** @endcond */
 LIBSBML_CPP_NAMESPACE_END
 

@@ -34,6 +34,7 @@
 
 #include <sbml/packages/layout/validator/LayoutSBMLError.h>
 LIBSBML_CPP_NAMESPACE_BEGIN
+#ifdef __cplusplus
 
 void
 SpeciesGlyph::renameSIdRefs(const std::string& oldid, const std::string& newid)
@@ -424,6 +425,8 @@ XMLNode SpeciesGlyph::toXML() const
 
 
 
+#endif /* __cplusplus */
+/** @cond doxygenCOnly */
 /**
  * Creates a new SpeciesGlyph and returns the pointer to it.
  */
@@ -537,5 +540,6 @@ SpeciesGlyph_clone (const SpeciesGlyph_t *m)
   return static_cast<SpeciesGlyph*>( m->clone() );
 }
 
+/** @endcond */
 LIBSBML_CPP_NAMESPACE_END
 

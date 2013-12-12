@@ -2,7 +2,7 @@
  * @cond doxygenLibsbmlInternal
  *
  * @file    LocalParameterMathCheck.h
- * @brief   checks <ci> element of local parameter not used elsewhere 
+ * @brief   checks &lt;ci&gt; element of local parameter not used elsewhere 
  * @author  Sarah Keating
  * 
  * <!--------------------------------------------------------------------------
@@ -82,7 +82,7 @@ protected:
   virtual const char* getPreamble ();
 
   /**
-   * Checks any <ci> elements in the MathML of the ASTnode 
+   * Checks any &lt;ci&gt; elements in the MathML of the ASTnode 
    * contain the id of an appropriate component of the model
    *
    * If an inconsistency is found, an error message is logged.

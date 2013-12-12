@@ -38,6 +38,7 @@
 using namespace std;
 
 LIBSBML_CPP_NAMESPACE_BEGIN
+#ifdef __cplusplus
 
 /*
  * Creates a new FluxBound with the given level, version, and package version.
@@ -909,6 +910,9 @@ ListOfFluxBounds::writeXMLNS (XMLOutputStream& stream) const
 
 
 
+#endif /* __cplusplus */
+/** @cond doxygenCOnly */
+
 /**
  *
  */
@@ -1250,5 +1254,6 @@ FluxBoundOperation_isValidFluxBoundOperationString(const char* s)
 
 
 
+/** @endcond */
 LIBSBML_CPP_NAMESPACE_END
 

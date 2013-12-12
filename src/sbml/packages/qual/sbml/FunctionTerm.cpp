@@ -36,6 +36,7 @@ using namespace std;
 
 
 LIBSBML_CPP_NAMESPACE_BEGIN
+#ifdef __cplusplus
 
 
 /*
@@ -1000,6 +1001,9 @@ ListOfFunctionTerms::accept(SBMLVisitor& v) const
   /** @endcond */
 
 
+#endif /* __cplusplus */  
+/** @cond doxygenCOnly */
+
 /**
  *
  */
@@ -1127,6 +1131,7 @@ ListOfFunctionTerms_removeById(ListOf_t * lo, const char * sid)
 
 
 
+/** @endcond */
 LIBSBML_CPP_NAMESPACE_END
 
 

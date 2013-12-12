@@ -37,6 +37,7 @@ using namespace std;
 /** @endcond */
 
 LIBSBML_CPP_NAMESPACE_BEGIN
+#ifdef __cplusplus
 
 
 /*
@@ -272,6 +273,7 @@ UniqueModelWideIds::createExistingMap (const Model& m)
   for (n = 0; n < size; ++n) logId( *m.getSpeciesType(n) );
 }
 
+#endif /* __cplusplus */
 LIBSBML_CPP_NAMESPACE_END
 
 /** @endcond */

@@ -43,6 +43,7 @@
 #include <sbml/packages/layout/validator/LayoutSBMLError.h>
 
 LIBSBML_CPP_NAMESPACE_BEGIN
+#ifdef __cplusplus
 
 List*
 Curve::getAllElements(ElementFilter *filter)
@@ -661,10 +662,8 @@ Curve::accept (SBMLVisitor& v) const
 
 
 
-
-
-
-
+#endif /* __cplusplus */
+/** @cond doxygenCOnly */
 
 /**
  * Creates a new curve and returns the pointer to it.
@@ -787,5 +786,6 @@ Curve_clone (const Curve_t *m)
   return static_cast<Curve*>( m->clone() );
 }
 
+/** @endcond */
 LIBSBML_CPP_NAMESPACE_END
 

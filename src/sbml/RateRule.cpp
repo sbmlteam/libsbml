@@ -52,6 +52,7 @@ using namespace std;
 /** @endcond */
 
 LIBSBML_CPP_NAMESPACE_BEGIN
+#ifdef __cplusplus
 
 RateRule::RateRule (unsigned int level, unsigned int version) :
   Rule(SBML_RATE_RULE, level, version)
@@ -128,4 +129,10 @@ RateRule::renameSIdRefs(const std::string& oldid, const std::string& newid)
   }
 }
 
+#endif /* __cplusplus */
+
+
+/** @cond doxygenCOnly */
+
+/** @endcond */
 LIBSBML_CPP_NAMESPACE_END

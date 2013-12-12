@@ -34,12 +34,10 @@
 #include <sbml/conversion/SBMLConverterRegistry.h>
 
 
-#ifdef __cplusplus
-
 #include <iostream>
 
 LIBSBML_CPP_NAMESPACE_BEGIN
-
+#ifdef __cplusplus
 // -------------------------------------------------------------------------
 //
 // This block is global initialization code which should be automatically 

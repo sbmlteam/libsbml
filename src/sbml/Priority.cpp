@@ -50,6 +50,7 @@ using namespace std;
 /** @endcond */
 
 LIBSBML_CPP_NAMESPACE_BEGIN
+#ifdef __cplusplus
 
 Priority::Priority (unsigned int level, unsigned int version) :
    SBase ( level, version )
@@ -480,6 +481,7 @@ Priority::writeElements (XMLOutputStream& stream) const
 /** @endcond */
 
 
+#endif /* __cplusplus */
 /** @cond doxygenCOnly */
 
 
@@ -569,7 +571,7 @@ Priority_free (Priority_t *t)
 /**
  * Creates and returns a deep copy of the given Priority_t structure.
  *
- * @param t the Priority_t structure to copy. 
+ * @param p the Priority_t structure to copy. 
  *
  * @return a (deep) copy of the given Priority_t structure @p t.
  */
@@ -601,7 +603,7 @@ Priority_getNamespaces(Priority_t *p)
  * Get the mathematical formula for a Priority_t structure and return it as
  * as an ASTNode structure.
  *
- * @param t the Priority_t structure to query.
+ * @param p the Priority_t structure to query.
  * 
  * @return an ASTNode_t structure representing the expression tree.
  */
@@ -617,7 +619,7 @@ Priority_getMath (const Priority_t *p)
  * Predicate to test whether the formula for the given Priority_t structure
  * is set.
  *
- * @param t the Priority_t structure to query
+ * @param p the Priority_t structure to query
  *
  * @return @c true if the formula (meaning the @c math subelement) of
  * this Priority is set, @c false otherwise.
@@ -634,7 +636,7 @@ Priority_isSetMath (const Priority_t *p)
  * Sets the math expression of the given Priority_t instance to a copy of the
  * given ASTNode_t structure.
  *
- * @param t the Priority_t structure to set.
+ * @param p the Priority_t structure to set.
  * @param math an ASTNode representing a formula tree.
  *
  * @return integer value indicating success/failure of the

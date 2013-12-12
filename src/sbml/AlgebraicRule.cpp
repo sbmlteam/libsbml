@@ -52,6 +52,7 @@ using namespace std;
 /** @endcond */
 
 LIBSBML_CPP_NAMESPACE_BEGIN
+#ifdef __cplusplus
 
 
 AlgebraicRule::AlgebraicRule (unsigned int level, unsigned int version) :
@@ -140,4 +141,10 @@ AlgebraicRule::getInternalIdOnly() const
 
 /** @endcond */
 
+#endif /* __cplusplus */
+
+
+/** @cond doxygenCOnly */
+
+/** @endcond */
 LIBSBML_CPP_NAMESPACE_END

@@ -40,6 +40,7 @@ using namespace std;
 /** @endcond */
 
 LIBSBML_CPP_NAMESPACE_BEGIN
+#ifdef __cplusplus
 
 
 /*
@@ -151,6 +152,7 @@ FluxBoundsConsistent::logInconsistency (std::string name, const FluxBound& objec
   logFailure(object);
 }
 
+#endif /* __cplusplus */
 LIBSBML_CPP_NAMESPACE_END
 
 /** @endcond */

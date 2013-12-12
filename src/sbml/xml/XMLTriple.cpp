@@ -37,6 +37,7 @@ using namespace std;
 /** @endcond */
 
 LIBSBML_CPP_NAMESPACE_BEGIN
+#ifdef __cplusplus
 
 /*
  * Creates a new empty XMLTriple.
@@ -233,6 +234,7 @@ bool operator!=(const XMLTriple& lhs, const XMLTriple& rhs)
   return !(lhs == rhs);
 }
 
+#endif /* __cplusplus */
 /** @cond doxygenCOnly */
 
 

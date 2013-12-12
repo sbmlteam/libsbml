@@ -39,6 +39,7 @@ using namespace std;
 /** @endcond */
 
 LIBSBML_CPP_NAMESPACE_BEGIN
+#ifdef __cplusplus
 
 /*
  * Creates a new ModelCreator.
@@ -421,6 +422,11 @@ ModelCreator::resetModifiedFlags()
 }
 /** @endcond */
 
+
+#endif /* __cplusplus */
+
+
+/** @cond doxygenCOnly */
 
 /**
  * Creates a new ModelCreator_t structure and returns a pointer to it.
@@ -881,6 +887,7 @@ ModelCreator_hasRequiredAttributes(ModelCreator_t *mc)
   return static_cast<int> (mc->hasRequiredAttributes());
 }
 
+/** @endcond */
 
 LIBSBML_CPP_NAMESPACE_END
 

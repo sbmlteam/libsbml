@@ -52,6 +52,7 @@ using namespace std;
 /** @endcond */
 
 LIBSBML_CPP_NAMESPACE_BEGIN
+#ifdef __cplusplus
 
 KineticLaw::KineticLaw (unsigned int level, unsigned int version) :
    SBase ( level, version )
@@ -1589,6 +1590,7 @@ KineticLaw::writeAttributes (XMLOutputStream& stream) const
 /** @endcond */
 
 
+#endif /* __cplusplus */
 /** @cond doxygenCOnly */
 
 
@@ -2348,7 +2350,7 @@ KineticLaw_getNumLocalParameters (const KineticLaw_t *kl)
   * unit analysis is not possible and this method will return @c NULL.
   *
   * @note The units are calculated by applying the mathematics 
-  * from the expression to the units of the <ci> elements used 
+  * from the expression to the units of the &lt;ci&gt; elements used 
   * within the expression. Where there are parameters/numbers
   * with undeclared units the UnitDefinition_t returned by this
   * function may not accurately represent the units of the expression.
@@ -2413,7 +2415,7 @@ KineticLaw_removeParameter (KineticLaw_t *kl, unsigned int n)
  *
  * The caller owns the returned object and is responsible for deleting it.
  *
- * @param m the Model_t structure
+ * @param kl the KineticLaw_t structure
  * @param n the integer index of the LocalParameter_t sought
  *
  * @return the LocalParameter_t object removed.  As mentioned above, 
@@ -2435,7 +2437,7 @@ KineticLaw_removeLocalParameter (KineticLaw_t *kl, unsigned int n)
  *
  * The caller owns the returned object and is responsible for deleting it.
  *
- * @param m the KineticLaw_t structure
+ * @param kl the KineticLaw_t structure
  * @param sid the string of the "id" attribute of the Parameter_t sought
  *
  * @return the Parameter_t object removed.  As mentioned above, the 
@@ -2460,7 +2462,7 @@ KineticLaw_removeParameterById (KineticLaw_t *kl, const char *sid)
  *
  * The caller owns the returned object and is responsible for deleting it.
  *
- * @param m the KineticLaw_t structure
+ * @param kl the KineticLaw_t structure
  * @param sid the string of the "id" attribute of the LocalParameter_t sought
  *
  * @return the LocalParameter_t object removed.  As mentioned above, the 

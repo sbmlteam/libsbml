@@ -50,6 +50,7 @@ using namespace std;
 /** @endcond */
 
 LIBSBML_CPP_NAMESPACE_BEGIN
+#ifdef __cplusplus
 
 /**
  * Used by getReactant(species), getProduct(species), and
@@ -1981,6 +1982,11 @@ ListOfReactions::createObject (XMLInputStream& stream)
 }
 /** @endcond */
 
+#endif /* __cplusplus */
+
+
+/** @cond doxygenCOnly */
+
 
 /**
  * Creates a new Reaction_t structure using the given SBML @p level
@@ -2933,4 +2939,5 @@ ListOfReactions_removeById (ListOf_t *lo, const char *sid)
     return NULL;
 }
 
+/** @endcond */
 LIBSBML_CPP_NAMESPACE_END

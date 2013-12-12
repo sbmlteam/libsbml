@@ -59,7 +59,7 @@ public:
 protected:
 
   /**
-   * Checks that <ci> element after an apply is already listed as a FunctionDefinition.
+   * Checks that &lt;ci&gt; element after an apply is already listed as a FunctionDefinition.
    */
   virtual void check_ (const Model& m, const Model& object);
 

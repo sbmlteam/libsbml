@@ -32,6 +32,7 @@
 using namespace std;
 
 LIBSBML_CPP_NAMESPACE_BEGIN
+#ifdef __cplusplus
 
 ListOfPorts::ListOfPorts(CompPkgNamespaces* compns)
   : ListOf(compns)
@@ -184,5 +185,7 @@ ListOfPorts::getElementBySId(const std::string& id)
   return getElementFromPluginsBySId(id);
 }
   
+
+#endif /* __cplusplus */
 
 LIBSBML_CPP_NAMESPACE_END

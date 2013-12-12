@@ -38,6 +38,7 @@
 #include "constraints/FbcIdentifierConsistencyConstraints.cpp"
 
 LIBSBML_CPP_NAMESPACE_BEGIN
+#ifdef __cplusplus
 
 /*
  * Initializes this Validator with a set of Constraints.
@@ -49,6 +50,7 @@ FbcIdentifierConsistencyValidator::init ()
 #include "constraints/FbcIdentifierConsistencyConstraints.cpp"
 }
 
+#endif /* __cplusplus */
 LIBSBML_CPP_NAMESPACE_END
 
 #endif

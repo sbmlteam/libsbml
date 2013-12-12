@@ -51,6 +51,7 @@ using namespace std;
 /** @endcond */
 
 LIBSBML_CPP_NAMESPACE_BEGIN
+#ifdef __cplusplus
 
 Event::Event (unsigned int level, unsigned int version) :
    SBase ( level, version )
@@ -1844,6 +1845,7 @@ ListOfEvents::createObject (XMLInputStream& stream)
 
 
 
+#endif /* __cplusplus */
 /** @cond doxygenCOnly */
 
 
@@ -1965,7 +1967,7 @@ Event_getNamespaces(Event_t *e)
 /**
  * Takes an Event_t structure and returns its identifier.
  *
- * @param p the Event_t structure whose identifier is sought
+ * @param e the Event_t structure whose identifier is sought
  * 
  * @return the identifier of this Event_t, as a pointer to a string.
  */
@@ -1980,7 +1982,7 @@ Event_getId (const Event_t *e)
 /**
  * Takes a Event_t structure and returns its name.
  *
- * @param p the Event_t whose name is sought.
+ * @param e the Event_t whose name is sought.
 
  * @return the name of this Event_t, as a pointer to a string.
  */
@@ -2713,7 +2715,7 @@ Event_getNumEventAssignments (const Event_t *e)
  *
  * The caller owns the returned object and is responsible for deleting it.
  *
- * @param m the Event_t structure
+ * @param e the Event_t structure
  * @param n the integer index of the EventAssignment_t sought
  *
  * @return the EventAssignment_t object removed.  As mentioned above, 
@@ -2734,7 +2736,7 @@ Event_removeEventAssignment (Event_t *e, unsigned int n)
  *
  * The caller owns the returned object and is responsible for deleting it.
  *
- * @param m the Event_t structure
+ * @param e the Event_t structure
  * @param sid the string of the "variable" attribute of the EventAssignment_t sought
  *
  * @return the EventAssignment_t object removed.  As mentioned above, the 

@@ -42,6 +42,7 @@ using namespace std;
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
+#ifdef __cplusplus
 
 /*
  * Creates a new ModelHistory.
@@ -465,6 +466,11 @@ ModelHistory::resetModifiedFlags()
 /** @endcond */
 
 
+#endif /* __cplusplus */
+
+
+/** @cond doxygenCOnly */
+
 /**
  * Creates a new ModelHistory_t structure and returns a pointer to it.
  *
@@ -777,6 +783,7 @@ ModelHistory_hasRequiredAttributes(ModelHistory_t *mh)
   return static_cast<int> (mh->hasRequiredAttributes());
 }
 
+/** @endcond */
 
 LIBSBML_CPP_NAMESPACE_END
 

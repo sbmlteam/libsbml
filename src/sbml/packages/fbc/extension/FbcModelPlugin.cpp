@@ -30,9 +30,8 @@
 using namespace std;
 
 
-#ifdef __cplusplus
-
 LIBSBML_CPP_NAMESPACE_BEGIN
+#ifdef __cplusplus
 
   /*
   * Constructor
@@ -1384,6 +1383,9 @@ FbcModelPlugin::getFluxBoundsForReaction(const std::string& reaction) const
   return loFB;
 }
 
+#endif /* __cplusplus */
+/** @cond doxygenCOnly */
+
 
 /**
  *
@@ -1486,6 +1488,5 @@ FbcModelPlugin_setActiveObjectiveId(SBasePlugin_t * fbc, char * activeId)
 }
 
 
+/** @endcond */
 LIBSBML_CPP_NAMESPACE_END
-
-#endif  /* __cplusplus */

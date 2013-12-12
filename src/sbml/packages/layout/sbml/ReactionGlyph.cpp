@@ -41,6 +41,7 @@
 
 
 LIBSBML_CPP_NAMESPACE_BEGIN
+#ifdef __cplusplus
 
 
 List*
@@ -1024,6 +1025,8 @@ ReactionGlyph::enablePackageInternal(const std::string& pkgURI,
 
 
 
+#endif /* __cplusplus */
+/** @cond doxygenCOnly */
 /**
  * Creates a new ReactionGlyph and returns the pointer to it.
  */
@@ -1292,4 +1295,5 @@ ReactionGlyph_clone (const ReactionGlyph_t *m)
 }
 
 
+/** @endcond */
 LIBSBML_CPP_NAMESPACE_END

@@ -35,6 +35,7 @@ using namespace std;
 /** @endcond */
 
 LIBSBML_CPP_NAMESPACE_BEGIN
+#ifdef __cplusplus
 
 /**
  * elements permitted on the body element of xhtml
@@ -2047,6 +2048,7 @@ SyntaxChecker::isExtender(std::string::iterator it, unsigned int numBytes)
 }
 /** @endcond */
 
+#endif /* __cplusplus */
 /** @cond doxygenCOnly */
 
 /**
@@ -2130,7 +2132,7 @@ SyntaxChecker_isValidUnitSId(const char * units)
  * argument XMLNode_t structure represents XHTML that conforms to the 
  * requirements of the SBML specification.
  *
- * @param xhtml the XMLNode_t structure to be checked for conformance.
+ * @param node the XMLNode_t structure to be checked for conformance.
  * @param sbmlns the SBMLNamespaces_t structure associated with the object.
  *
  * @return @c true (non-zero) if the XMLNode_t structure conforms, 

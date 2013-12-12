@@ -43,6 +43,7 @@ using namespace std;
 /** @endcond */
 
 LIBSBML_CPP_NAMESPACE_BEGIN
+#ifdef __cplusplus
 
 /** @cond doxygenLibsbmlInternal */
 /** Most of the methods are internal.  A few visible ones are at the end. */
@@ -335,5 +336,11 @@ SBMLErrorLog::getError (unsigned int n) const
   return static_cast<const SBMLError*>(XMLErrorLog::getError(n));
 }
 
+#endif /* __cplusplus */
+
+
+/** @cond doxygenCOnly */
+
+/** @endcond */
 LIBSBML_CPP_NAMESPACE_END
 

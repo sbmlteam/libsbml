@@ -46,6 +46,7 @@ using namespace std;
 /** @endcond */
 
 LIBSBML_CPP_NAMESPACE_BEGIN
+#ifdef __cplusplus
 /*
  * @return s with whitespace removed from the beginning and end.
  */
@@ -1283,6 +1284,7 @@ operator<< (XMLOutputStream& stream, const XMLAttributes& attributes)
 /** @endcond */
 
 
+#endif /* __cplusplus */
 /** @cond doxygenCOnly */
 
 
@@ -1362,7 +1364,7 @@ XMLAttributes_add (XMLAttributes_t *xa,
  * @param xa the XMLAttributes_t structure.
  * @param name a string, the local name of the attribute.
  * @param value a string, the value of the attribute.
- * @param namespaceURI a string, the namespace URI of the attribute.
+ * @param uri a string, the namespace URI of the attribute.
  * @param prefix a string, the prefix of the namespace
  *
  * @return integer value indicating success/failure of the

@@ -41,6 +41,7 @@ using namespace std;
 /** @endcond */
 
 LIBSBML_CPP_NAMESPACE_BEGIN
+#ifdef __cplusplus
 
 /*
  * Creates a new empty XMLToken.
@@ -1285,6 +1286,7 @@ operator<< (XMLOutputStream& stream, const XMLToken& token)
 /** @endcond */
 
 
+#endif /* __cplusplus */
 /** @cond doxygenCOnly */
 
 

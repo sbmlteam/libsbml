@@ -41,6 +41,7 @@ using namespace std;
 /** @endcond */
 
 LIBSBML_CPP_NAMESPACE_BEGIN
+#ifdef __cplusplus
 
 /** @cond doxygenLibsbmlInternal **/
 
@@ -809,6 +810,7 @@ ostream& operator<< (ostream& s, const XMLError& error)
 }
 
 
+#endif /* __cplusplus */
 /** @cond doxygenCOnly */
 
 
@@ -1119,8 +1121,8 @@ XMLError_isFatal (const XMLError_t *error)
  *
  *   line: (id) message
  *
- * @param error, the XMLError_t structure to write.
- * @param stream, the stream to write to.
+ * @param error the XMLError_t structure to write.
+ * @param stream the stream to write to.
  */
 LIBLAX_EXTERN
 void

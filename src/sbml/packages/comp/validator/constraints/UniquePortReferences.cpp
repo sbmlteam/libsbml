@@ -37,6 +37,7 @@ using namespace std;
 /** @endcond */
 
 LIBSBML_CPP_NAMESPACE_BEGIN
+#ifdef __cplusplus
 
 /*
  * Creates a new Constraint with the given constraint id.
@@ -147,6 +148,11 @@ UniquePortReferences::logReferenceExists (Port& p)
 
   logFailure(p);
 }
+
+#endif /* __cplusplus */
+/** @cond doxygenCOnly */
+
+/** @endcond */
 
 LIBSBML_CPP_NAMESPACE_END
 

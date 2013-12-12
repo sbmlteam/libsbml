@@ -44,6 +44,7 @@ using namespace std;
 /** @endcond */
 
 LIBSBML_CPP_NAMESPACE_BEGIN
+#ifdef __cplusplus
 
 CompartmentType::CompartmentType (unsigned int level, unsigned int version) :
    SBase ( level, version )
@@ -652,6 +653,7 @@ ListOfCompartmentTypes::createObject (XMLInputStream& stream)
 /** @endcond */
 
 
+#endif /* __cplusplus */
 /** @cond doxygenCOnly */
 
 

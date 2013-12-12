@@ -35,6 +35,7 @@ using namespace std;
 
 
 LIBSBML_CPP_NAMESPACE_BEGIN
+#ifdef __cplusplus
 
 
 /*
@@ -1454,6 +1455,9 @@ ListOfTransitions::writeXMLNS(XMLOutputStream& stream) const
   /** @endcond */
 
 
+#endif /* __cplusplus */  
+/** @cond doxygenCOnly */
+
 /**
  *
  */
@@ -1824,6 +1828,7 @@ ListOfTransitions_removeById(ListOf_t * lo, const char * sid)
 
 
 
+/** @endcond */
 LIBSBML_CPP_NAMESPACE_END
 
 

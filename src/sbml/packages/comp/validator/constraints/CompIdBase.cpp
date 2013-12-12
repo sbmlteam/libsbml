@@ -41,6 +41,7 @@ using namespace std;
 /** @endcond */
 
 LIBSBML_CPP_NAMESPACE_BEGIN
+#ifdef __cplusplus
 
 
 /*
@@ -290,6 +291,8 @@ CompIdBase::logIdConflict (const std::string& id, const SBase& object)
 {
   logFailure(object, getMessage(id, object));
 }
+
+#endif  /* __cplusplus */
 
 LIBSBML_CPP_NAMESPACE_END
 

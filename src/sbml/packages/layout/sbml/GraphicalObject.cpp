@@ -43,6 +43,7 @@
 #endif
 
 LIBSBML_CPP_NAMESPACE_BEGIN
+#ifdef __cplusplus
 
 List*
 GraphicalObject::getAllElements(ElementFilter *filter)
@@ -1184,6 +1185,9 @@ XMLNode ListOfGraphicalObjects::toXML() const
 
 
 
+#endif /* __cplusplus */
+/** @cond doxygenCOnly */
+
 /**
  * Creates a new GraphicalObject.
  */
@@ -1302,5 +1306,6 @@ GraphicalObject_unsetId (GraphicalObject_t *go)
   go->unsetId();
 }
 
+/** @endcond */
 LIBSBML_CPP_NAMESPACE_END
 

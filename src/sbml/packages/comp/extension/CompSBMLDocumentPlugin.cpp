@@ -43,6 +43,7 @@
 using namespace std;
 
 LIBSBML_CPP_NAMESPACE_BEGIN
+#ifdef __cplusplus
 
 CompSBMLDocumentPlugin::CompSBMLDocumentPlugin (const string &uri, const string &prefix, CompPkgNamespaces *compns)
   : SBMLDocumentPlugin(uri,prefix, compns)
@@ -1070,6 +1071,9 @@ CompSBMLDocumentPlugin::setOverrideCompFlattening(bool overrideCompFlattening)
 /** @endcond */
 
 
+#endif /* __cplusplus */
+/** @cond doxygenCOnly */
+
 LIBSBML_EXTERN
 ModelDefinition_t *
 CompSBMLDocumentPlugin_createModelDefinition(CompSBMLDocumentPlugin_t * docPlug)
@@ -1077,8 +1081,7 @@ CompSBMLDocumentPlugin_createModelDefinition(CompSBMLDocumentPlugin_t * docPlug)
   return docPlug->createModelDefinition();
 }
 
-
-
+/** @endcond */
 
 LIBSBML_CPP_NAMESPACE_END
 

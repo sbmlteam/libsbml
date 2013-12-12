@@ -51,6 +51,7 @@ using namespace std;
 /** @endcond */
 
 LIBSBML_CPP_NAMESPACE_BEGIN
+#ifdef __cplusplus
 
 
 ModifierSpeciesReference::ModifierSpeciesReference (unsigned int level, 
@@ -137,6 +138,11 @@ ModifierSpeciesReference::hasRequiredAttributes() const
   return allPresent;
 }
 
+#endif /* __cplusplus */
 
+
+/** @cond doxygenCOnly */
+
+/** @endcond */
 LIBSBML_CPP_NAMESPACE_END
 

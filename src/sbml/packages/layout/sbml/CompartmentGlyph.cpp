@@ -40,6 +40,7 @@
 using namespace std;
 
 LIBSBML_CPP_NAMESPACE_BEGIN
+#ifdef __cplusplus
 
 void
 CompartmentGlyph::renameSIdRefs(const std::string& oldid, const std::string& newid)
@@ -528,6 +529,9 @@ XMLNode CompartmentGlyph::toXML() const
 }
 
 
+#endif /* __cplusplus */
+/** @cond doxygenCOnly */
+
 /**
  * Creates a new CompartmentGlyph and returns the pointer to it.
  */
@@ -682,4 +686,5 @@ CompartmentGlyph_clone (const CompartmentGlyph_t *m)
   return static_cast<CompartmentGlyph*>( m->clone() );
 }
 
+/** @endcond */
 LIBSBML_CPP_NAMESPACE_END

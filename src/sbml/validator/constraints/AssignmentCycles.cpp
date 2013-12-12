@@ -46,6 +46,7 @@ using namespace std;
 /** @endcond */
 
 LIBSBML_CPP_NAMESPACE_BEGIN
+#ifdef __cplusplus
 
 /**
  * Creates a new Constraint with the given constraint id.
@@ -405,7 +406,7 @@ AssignmentCycles::checkForImplicitCompartmentReference(const Model& m)
 }
 
 /**
-  * Logs a message about an undefined <ci> element in the given
+  * Logs a message about an undefined &lt;ci&gt; element in the given
   * FunctionDefinition.
   */
 void
@@ -576,6 +577,7 @@ AssignmentCycles::logImplicitReference (const SBase* object,
   logFailure(*object);
 }
 
+#endif /* __cplusplus */
 LIBSBML_CPP_NAMESPACE_END
 
 

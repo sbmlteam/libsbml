@@ -59,17 +59,17 @@ public:
 protected:
 
   /**
-   * Checks that <ci> element after an apply is already listed as a FunctionDefinition.
+   * Checks that &lt;ci&gt; element after an apply is already listed as a FunctionDefinition.
    */
   virtual void check_ (const Model& m, const Model& object);
 
   /**
-   * Checks that <ci> element after an apply is already listed as a FunctionDefinition.
+   * Checks that &lt;ci&gt; element after an apply is already listed as a FunctionDefinition.
    */
   void checkAnnotation(const SBase& object);
 
   /**
-   * Logs a message about an undefined <ci> element in the given
+   * Logs a message about an undefined &lt;ci&gt; element in the given
    * FunctionDefinition.
    */
   void logDuplicate (const std::string name, const SBase& object);

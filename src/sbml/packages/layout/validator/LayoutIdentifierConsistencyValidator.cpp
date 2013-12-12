@@ -36,6 +36,7 @@
 #include "constraints/LayoutIdentifierConsistencyConstraints.cpp"
 
 LIBSBML_CPP_NAMESPACE_BEGIN
+#ifdef __cplusplus
 
 void
 LayoutIdentifierConsistencyValidator::init ()
@@ -44,6 +45,7 @@ LayoutIdentifierConsistencyValidator::init ()
 #include "constraints/LayoutIdentifierConsistencyConstraints.cpp"
 }
 
+#endif /* __cplusplus */
 LIBSBML_CPP_NAMESPACE_END
 
 #endif  /* __doxygen_ignore */

@@ -38,6 +38,7 @@ using namespace std;
 /** @endcond */
 
 LIBSBML_CPP_NAMESPACE_BEGIN
+#ifdef __cplusplus
 
 /*
  * Creates a new UniqueCompIdBase with the given constraint id.
@@ -129,6 +130,8 @@ UniqueCompIdBase::getMessage (const string& id, const SBase& object)
 
   return msg.str();
 }
+
+#endif /* __cplusplus */
 
 LIBSBML_CPP_NAMESPACE_END
 

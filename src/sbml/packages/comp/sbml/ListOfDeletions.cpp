@@ -33,6 +33,7 @@
 using namespace std;
 
 LIBSBML_CPP_NAMESPACE_BEGIN
+#ifdef __cplusplus
 
 ListOfDeletions::ListOfDeletions(CompPkgNamespaces* compns)
   : ListOf(compns)
@@ -178,5 +179,7 @@ ListOfDeletions::writeXMLNS (XMLOutputStream& stream) const
 }
 /** @endcond */
 
+
+#endif  /* __cplusplus */
 
 LIBSBML_CPP_NAMESPACE_END

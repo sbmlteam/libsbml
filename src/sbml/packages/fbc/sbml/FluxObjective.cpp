@@ -39,6 +39,7 @@
 using namespace std;
 
 LIBSBML_CPP_NAMESPACE_BEGIN
+#ifdef __cplusplus
 
 /*
  * Creates a new FluxObjective with the given level, version, and package version.
@@ -709,6 +710,9 @@ ListOfFluxObjectives::createObject (XMLInputStream& stream)
 /** @endcond */
 
 
+#endif /* __cplusplus */
+/** @cond doxygenCOnly */
+
 /**
  *
  */
@@ -907,5 +911,6 @@ FluxObjective_unsetCoefficient(FluxObjective_t * flux)
 }
 
 
+/** @endcond */
 LIBSBML_CPP_NAMESPACE_END
 

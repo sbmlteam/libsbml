@@ -45,6 +45,7 @@ using namespace std;
 /** @endcond */
 
 LIBSBML_CPP_NAMESPACE_BEGIN
+#ifdef __cplusplus
 
 /*
  * Creates a new empty list of XML namespace declarations.
@@ -466,6 +467,7 @@ operator<< (XMLOutputStream& stream, const XMLNamespaces& namespaces)
 #endif  /* !SWIG */
 
 
+#endif /* __cplusplus */
 /** @cond doxygenCOnly */
 
 /**
@@ -513,7 +515,7 @@ XMLNamespaces_clone (const XMLNamespaces_t* ns)
  * Appends an XML namespace prefix/URI pair to this XMLNamespaces_t 
  * structure.
  *
- * @param ns XMLNamespaces structure.
+ * @param ns the XMLNamespaces structure.
  * @param uri a string, the uri for the namespace.
  * @param prefix a string, the prefix for the namespace.
  *
@@ -538,6 +540,7 @@ XMLNamespaces_add (XMLNamespaces_t *ns,
 /**
  * Removes an XML Namespace stored in the given position of this list.
  *
+ * @param ns XMLNamespaces structure.
  * @param index an integer, position of the removed namespace.
  *
  * @return integer value indicating success/failure of the
@@ -559,6 +562,7 @@ int XMLNamespaces_remove (XMLNamespaces_t *ns, int index)
 /**
  * Removes an XML Namespace with the given Prefix.
  *
+ * @param ns XMLNamespaces structure.
  * @param prefix a string, prefix of the required namespace.
  *
  * @return integer value indicating success/failure of the
@@ -602,6 +606,7 @@ XMLNamespaces_clear (XMLNamespaces_t *ns)
 /**
  * Lookup the index of an XML namespace declaration by URI.
  *
+ * @param ns the XMLNamespaces_t structure
  * @param uri a string, uri of the required namespace.
  *
  * @return the index of the given declaration, or -1 if not present.
@@ -618,6 +623,7 @@ XMLNamespaces_getIndex (const XMLNamespaces_t *ns, const char *uri)
 /**
  * Look up the index of an XML namespace declaration by Prefix.
  *
+ * @param ns the XMLNamespaces_t structure
  * @param prefix a string, prefix of the required namespace.
  *
  * @return the index of the given declaration, or -1 if not present.

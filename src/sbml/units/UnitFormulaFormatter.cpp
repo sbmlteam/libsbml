@@ -35,7 +35,7 @@
 
 
 LIBSBML_CPP_NAMESPACE_BEGIN
-
+#ifdef __cplusplus
 /*
  *  constructs a UnitFormulaFormatter
  */
@@ -2498,6 +2498,8 @@ UnitFormulaFormatter::possibleToUseUnitsData(FormulaUnitsData * fud)
   return possible;
 }
 
+#endif /* __cplusplus */
+/** @cond doxygenCOnly */
 
 /* NOT YET NECESSARY 
 LIBSBML_EXTERN

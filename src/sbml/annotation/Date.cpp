@@ -39,6 +39,7 @@ using namespace std;
 /** @endcond */
 
 LIBSBML_CPP_NAMESPACE_BEGIN
+#ifdef __cplusplus
 
 /*
  * creates a date from the individual fields entered as numbers
@@ -669,11 +670,12 @@ Date::resetModifiedFlags()
 {
   mHasBeenModified = false;
 }
-
-
-
 /** @endcond */
 
+#endif /* __cplusplus */
+
+
+/** @cond doxygenCOnly */
 
 /**
  * Creates a date optionally from the individual fields entered as numbers.
@@ -1154,6 +1156,7 @@ Date_representsValidDate(Date_t *date)
   return static_cast<int> (date->representsValidDate());
 }
 
+/** @endcond */
 
 LIBSBML_CPP_NAMESPACE_END
 

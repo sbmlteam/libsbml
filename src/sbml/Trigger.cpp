@@ -50,6 +50,7 @@ using namespace std;
 /** @endcond */
 
 LIBSBML_CPP_NAMESPACE_BEGIN
+#ifdef __cplusplus
 
 Trigger::Trigger (unsigned int level, unsigned int version) :
    SBase ( level, version )
@@ -649,6 +650,7 @@ Trigger::writeElements (XMLOutputStream& stream) const
 
 
 
+#endif /* __cplusplus */
 /** @cond doxygenCOnly */
 
 /**

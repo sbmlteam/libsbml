@@ -55,6 +55,7 @@ using namespace std;
 /** @endcond */
 
 LIBSBML_CPP_NAMESPACE_BEGIN
+#ifdef __cplusplus
 
 /** @cond doxygenLibsbmlInternal */
 /*
@@ -1650,6 +1651,7 @@ ListOfRules::createObject (XMLInputStream& stream)
 /** @endcond */
 
 
+#endif /* __cplusplus */
 /** @cond doxygenCOnly */
 
 
@@ -2267,7 +2269,7 @@ Rule_getL1TypeCode (const Rule_t *r)
  * Sets the SBML Level&nbsp;1 typecode for this Rule.
  *
  * @param r the Rule_t structure
- * @param type the SBML Level&nbsp;1 typecode for this Rule
+ * @param L1type the SBML Level&nbsp;1 typecode for this Rule
  * (@c SBML_COMPARTMENT_VOLUME_RULE, @c SBML_PARAMETER_RULE,
  * or @c SBML_SPECIES_CONCENTRATION_RULE).
  *
@@ -2299,7 +2301,7 @@ Rule_setL1TypeCode (Rule_t *r, int L1Type)
   * unit analysis is not possible and this method will return @c NULL.
   *
   * @note The units are calculated by applying the mathematics 
-  * from the expression to the units of the <ci> elements used 
+  * from the expression to the units of the &lt;ci&gt; elements used 
   * within the expression. Where there are parameters/numbers
   * with undeclared units the UnitDefinition_t returned by this
   * function may not accurately represent the units of the expression.

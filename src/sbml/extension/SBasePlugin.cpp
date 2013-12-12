@@ -40,6 +40,7 @@
 #include <iostream>
 
 LIBSBML_CPP_NAMESPACE_BEGIN
+#ifdef __cplusplus
 
 
 /** @cond doxygenLibsbmlInternal */
@@ -758,6 +759,7 @@ SBasePlugin::logEmptyString(const std::string &attribute,
 /** @endcond */
 
 
+#endif /* __cplusplus */
 /** @cond doxygenCOnly */
 
 /**

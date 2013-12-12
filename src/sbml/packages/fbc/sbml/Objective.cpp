@@ -36,6 +36,7 @@
 using namespace std;
 
 LIBSBML_CPP_NAMESPACE_BEGIN
+#ifdef __cplusplus
 
 /*
  * Creates a new Objective with the given level, version, and package version.
@@ -1110,6 +1111,9 @@ ListOfObjectives::accept(SBMLVisitor& v) const
 
 
 
+#endif /* __cplusplus */
+/** @cond doxygenCOnly */
+
 /**
  *
  */
@@ -1426,5 +1430,6 @@ ObjectiveType_isValidObjectiveTypeString(const char* s)
 
 
 
+/** @endcond */
 LIBSBML_CPP_NAMESPACE_END
 

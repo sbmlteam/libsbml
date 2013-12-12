@@ -44,6 +44,7 @@ using namespace std;
 /** @endcond */
 
 LIBSBML_CPP_NAMESPACE_BEGIN
+#ifdef __cplusplus
 
 //
 // NOTE: ConstraintSet, ValidatorConstraints, and ValidatingVisitor used to
@@ -424,6 +425,7 @@ FbcValidator::validate (const std::string& filename)
 }
 
 
+#endif /* __cplusplus */
 LIBSBML_CPP_NAMESPACE_END
 
 // ----------------------------------------------------------------------

@@ -50,6 +50,7 @@ using namespace std;
 /** @endcond doxygenIgnore */
 
 LIBSBML_CPP_NAMESPACE_BEGIN
+#ifdef __cplusplus
 
 /*
  * takes an annotation that has been read into the model
@@ -263,4 +264,5 @@ XMLNode* parseLayoutId(const SimpleSpeciesReference* sr)
   return pNode;
 }
 
+#endif /* __cplusplus */
 LIBSBML_CPP_NAMESPACE_END

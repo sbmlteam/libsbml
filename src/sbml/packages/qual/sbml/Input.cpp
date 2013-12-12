@@ -35,6 +35,7 @@ using namespace std;
 
 
 LIBSBML_CPP_NAMESPACE_BEGIN
+#ifdef __cplusplus
 
 
 /*
@@ -1075,6 +1076,9 @@ ListOfInputs::writeXMLNS(XMLOutputStream& stream) const
   /** @endcond */
 
 
+#endif /* __cplusplus */  
+/** @cond doxygenCOnly */
+
 /**
  *
  */
@@ -1573,6 +1577,7 @@ InputSign_isValidInputSignString(const char* s)
 }
 
 
+/** @endcond */
 LIBSBML_CPP_NAMESPACE_END
 
 

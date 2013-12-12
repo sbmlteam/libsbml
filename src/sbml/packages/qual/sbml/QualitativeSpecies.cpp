@@ -35,6 +35,7 @@ using namespace std;
 
 
 LIBSBML_CPP_NAMESPACE_BEGIN
+#ifdef __cplusplus
 
 
 /*
@@ -1043,10 +1044,10 @@ ListOfQualitativeSpecies::writeXMLNS(XMLOutputStream& stream) const
 
   stream << xmlns;
 }
+/** @endcond */
 
-
-  /** @endcond */
-
+#endif /* __cplusplus */
+/** @cond doxygenCOnly */
 
 /**
  *
@@ -1402,6 +1403,7 @@ ListOfQualitativeSpecies_removeById(ListOf_t * lo, const char * sid)
 }
 
 
+/** @endcond */
 
 
 LIBSBML_CPP_NAMESPACE_END

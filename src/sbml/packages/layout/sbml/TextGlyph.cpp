@@ -35,6 +35,7 @@
 #include <sbml/xml/XMLOutputStream.h>
 
 LIBSBML_CPP_NAMESPACE_BEGIN
+#ifdef __cplusplus
 
 void
 TextGlyph::renameSIdRefs(const std::string& oldid, const std::string& newid)
@@ -549,6 +550,9 @@ XMLNode TextGlyph::toXML() const
 
 
 
+#endif /* __cplusplus */
+/** @cond doxygenCOnly */
+
 /**
  * Creates a new TextGlyph and returns the pointer to it.
  */
@@ -732,5 +736,6 @@ TextGlyph_clone (const TextGlyph_t *m)
   return static_cast<TextGlyph*>( m->clone() );
 }
 
+/** @endcond */
 LIBSBML_CPP_NAMESPACE_END
 

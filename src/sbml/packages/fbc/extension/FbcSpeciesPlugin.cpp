@@ -27,9 +27,8 @@
 using namespace std;
 
 
-#ifdef __cplusplus
-
 LIBSBML_CPP_NAMESPACE_BEGIN
+#ifdef __cplusplus
 
 static void
 parseChemicalFormula(std::string& chemicalFormula, 
@@ -369,6 +368,9 @@ void
 }
 /** @endcond */
 
+#endif /* __cplusplus */
+/** @cond doxygenCOnly */
+
 /**
  *
  */
@@ -470,6 +472,6 @@ FbcSpeciesPlugin_unsetChemicalFormula(SBasePlugin_t * fbc)
     : LIBSBML_INVALID_OBJECT;
 }
 
+/** @endcond */
 LIBSBML_CPP_NAMESPACE_END
 
-#endif  /* __cplusplus */

@@ -33,6 +33,7 @@
 using namespace std;
 
 LIBSBML_CPP_NAMESPACE_BEGIN
+#ifdef __cplusplus
 
 ListOfExternalModelDefinitions::ListOfExternalModelDefinitions(CompPkgNamespaces* compns)
   : ListOf(compns)
@@ -186,5 +187,6 @@ ListOfExternalModelDefinitions::accept(SBMLVisitor& v) const
 
 /** @endcond */
 
+#endif /* __cplusplus */
 LIBSBML_CPP_NAMESPACE_END
 

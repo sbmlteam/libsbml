@@ -34,6 +34,7 @@ using namespace std;
 /** @endcond */
 
 LIBSBML_CPP_NAMESPACE_BEGIN
+#ifdef __cplusplus
 
 VConstraint::VConstraint (unsigned int id, Validator& v) :
     mId       ( id   )
@@ -107,5 +108,11 @@ VConstraint::logFailure (const SBase& object, const std::string& message)
 }
 /** @endcond */
 
+#endif /* __cplusplus */
+
+
+/** @cond doxygenCOnly */
+
+/** @endcond */
 LIBSBML_CPP_NAMESPACE_END
 

@@ -35,6 +35,7 @@ using namespace std;
 
 
 LIBSBML_CPP_NAMESPACE_BEGIN
+#ifdef __cplusplus
 
 
 /*
@@ -392,6 +393,9 @@ DefaultTerm::writeAttributes (XMLOutputStream& stream) const
   /** @endcond */
 
 
+#endif /* __cplusplus */  
+/** @cond doxygenCOnly */
+
 /**
  *
  */
@@ -491,6 +495,7 @@ DefaultTerm_hasRequiredAttributes(DefaultTerm_t * dt)
 
 
 
+/** @endcond */
 LIBSBML_CPP_NAMESPACE_END
 
 

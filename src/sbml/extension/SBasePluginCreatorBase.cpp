@@ -38,6 +38,7 @@
 using namespace std;
 
 LIBSBML_CPP_NAMESPACE_BEGIN
+#ifdef __cplusplus
 
 /** @cond doxygenLibsbmlInternal */
 SBasePluginCreatorBase::SBasePluginCreatorBase (const SBaseExtensionPoint& extPoint,
@@ -156,6 +157,7 @@ SBasePluginCreatorBase::isSupported(const std::string& uri) const
 }
 /** @endcond */
 
+#endif /* __cplusplus */
 /** @cond doxygenCOnly */
 
 /**

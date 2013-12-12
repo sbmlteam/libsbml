@@ -54,6 +54,7 @@ using namespace std;
 /** @endcond */
 
 LIBSBML_CPP_NAMESPACE_BEGIN
+#ifdef __cplusplus
 
 
 SpeciesReference::SpeciesReference (unsigned int level, unsigned int version) :
@@ -1427,6 +1428,7 @@ ListOfSpeciesReferences::createObject (XMLInputStream& stream)
 /** @endcond */
 
 
+#endif /* __cplusplus */
 /** @cond doxygenCOnly */
 
 /**
@@ -1987,7 +1989,7 @@ SpeciesReference_setId (SpeciesReference_t *sr, const char *sid)
  *
  * @param sr The SpeciesReference_t structure to use.
  *
- * @param sid The identifier string that will be copied and assigned as the
+ * @param name The identifier string that will be copied and assigned as the
  * "name" attribute value.
  *
  * @return integer value indicating success/failure of the
@@ -2164,7 +2166,7 @@ SpeciesReference_setDenominator (SpeciesReference_t *sr, int value)
 /**
  * Assign the "constant" attribute of a SpeciesReference_t structure.
  *
- * @param p the SpeciesReference_t structure to set.
+ * @param sr the SpeciesReference_t structure to set.
  * @param value the value to assign as the "constant" attribute
  * of the speciesReference, either zero for false or nonzero for true.
  *
@@ -2295,7 +2297,7 @@ SpeciesReference_unsetStoichiometry (SpeciesReference_t *sr)
   * all the required attributes for this SpeciesReference object
   * have been set.
   *
- * @param p the SpeciesReference_t structure to check.
+ * @param sr the SpeciesReference_t structure to check.
  *
   * @note The required attributes for a SpeciesReference object are:
   * @li species

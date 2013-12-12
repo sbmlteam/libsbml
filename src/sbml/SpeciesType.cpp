@@ -44,6 +44,7 @@ using namespace std;
 /** @endcond */
 
 LIBSBML_CPP_NAMESPACE_BEGIN
+#ifdef __cplusplus
 
 SpeciesType::SpeciesType (unsigned int level, unsigned int version) :
    SBase ( level, version )
@@ -652,6 +653,7 @@ ListOfSpeciesTypes::createObject (XMLInputStream& stream)
 
 
 
+#endif /* __cplusplus */
 /** @cond doxygenCOnly */
 
 /**
@@ -726,7 +728,7 @@ SpeciesType_createWithNS (SBMLNamespaces_t* sbmlns)
 /**
  * Frees the given SpeciesType_t structure.
  *
- * @param ct the SpeciesType_t structure to be freed.
+ * @param st the SpeciesType_t structure to be freed.
  */
 LIBSBML_EXTERN
 void
@@ -740,7 +742,7 @@ SpeciesType_free (SpeciesType_t *st)
 /**
  * Creates a deep copy of the given SpeciesType_t structure
  * 
- * @param ct the SpeciesType_t structure to be copied
+ * @param st the SpeciesType_t structure to be copied
  * 
  * @return a (deep) copy of this SpeciesType_t structure.
  */
@@ -772,7 +774,7 @@ SpeciesType_getNamespaces(SpeciesType_t *st)
 /**
  * Takes a SpeciesType_t structure and returns its identifier.
  *
- * @param ct the SpeciesType_t structure whose identifier is sought
+ * @param st the SpeciesType_t structure whose identifier is sought
  * 
  * @return the identifier of this SpeciesType_t, as a pointer to a string.
  */
@@ -787,7 +789,7 @@ SpeciesType_getId (const SpeciesType_t *st)
 /**
  * Takes a SpeciesType_t structure and returns its name.
  *
- * @param ct the SpeciesType_t whose name is sought.
+ * @param st the SpeciesType_t whose name is sought.
  *
  * @return the name of this SpeciesType_t, as a pointer to a string.
  */
@@ -803,7 +805,7 @@ SpeciesType_getName (const SpeciesType_t *st)
  * Predicate returning @c true or @c false depending on whether the given
  * SpeciesType_t structure's identifier is set.
  *
- * @param ct the SpeciesType_t structure to query
+ * @param st the SpeciesType_t structure to query
  * 
  * @return @c non-zero (true) if the "id" field of the given
  * SpeciesType is set, zero (false) otherwise.
@@ -820,7 +822,7 @@ SpeciesType_isSetId (const SpeciesType_t *st)
  * Predicate returning @c true or @c false depending on whether the given
  * SpeciesType_t structure's name is set.
  *
- * @param ct the SpeciesType_t structure to query
+ * @param st the SpeciesType_t structure to query
  * 
  * @return @c non-zero (true) if the "name" field of the given
  * SpeciesType is set, zero (false) otherwise.
@@ -838,7 +840,7 @@ SpeciesType_isSetName (const SpeciesType_t *st)
  *
  * This makes a copy of the string passed as the argument @p sid.
  *
- * @param ct the SpeciesType_t structure to set.
+ * @param st the SpeciesType_t structure to set.
  * @param sid the string to use as the identifier.
  *
  * @return integer value indicating success/failure of the
@@ -867,7 +869,7 @@ SpeciesType_setId (SpeciesType_t *st, const char *sid)
  *
  * This makes a copy of the string passed as the argument @p name.
  *
- * @param ct the SpeciesType_t structure to set.
+ * @param st the SpeciesType_t structure to set.
  * @param name the string to use as the name.
  *
  * @return integer value indicating success/failure of the
@@ -894,7 +896,7 @@ SpeciesType_setName (SpeciesType_t *st, const char *name)
 /**
  * Unsets the name of a SpeciesType.
  * 
- * @param ct the SpeciesType_t structure whose name is to be unset.
+ * @param st the SpeciesType_t structure whose name is to be unset.
  *
  * @return integer value indicating success/failure of the
  * function.  @if clike The value is drawn from the

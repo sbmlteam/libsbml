@@ -30,9 +30,8 @@
 #include <sbml/common/operationReturnValues.h>
 #include <sbml/extension/SBaseExtensionPoint.h>
 
-#ifdef __cplusplus
-
 LIBSBML_CPP_NAMESPACE_BEGIN
+#ifdef __cplusplus
 
 /*
  * constructor
@@ -116,6 +115,7 @@ bool operator<(const SBaseExtensionPoint& lhs, const SBaseExtensionPoint& rhs)
 }
 
 
+#endif /* __cplusplus */
 /** @cond doxygenCOnly */
 
 /**
@@ -207,7 +207,4 @@ SBaseExtensionPoint_getTypeCode(const SBaseExtensionPoint_t *extPoint)
 /** @endcond */
 
 LIBSBML_CPP_NAMESPACE_END
-
-#endif  /* __cplusplus */
-
 

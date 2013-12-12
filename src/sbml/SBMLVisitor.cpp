@@ -34,6 +34,7 @@
 #include <sbml/ModifierSpeciesReference.h>
 
 LIBSBML_CPP_NAMESPACE_BEGIN
+#ifdef __cplusplus
 
 SBMLVisitor::~SBMLVisitor ()
 {
@@ -277,4 +278,10 @@ SBMLVisitor::leave (const ListOf& x, int type)
 {
 }
 
+#endif /* __cplusplus */
+
+
+/** @cond doxygenCOnly */
+
+/** @endcond */
 LIBSBML_CPP_NAMESPACE_END

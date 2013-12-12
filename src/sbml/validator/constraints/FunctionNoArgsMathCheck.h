@@ -82,7 +82,7 @@ protected:
   virtual const char* getPreamble ();
 
   /**
-   * Checks that the functionDefinition referred to by a <ci> element 
+   * Checks that the functionDefinition referred to by a &lt;ci&gt; element 
    * has the appropriate number of arguments.
    *
    * If not, an error message is logged.

@@ -46,7 +46,7 @@ using namespace std;
 /** @endcond */
 
 LIBSBML_CPP_NAMESPACE_BEGIN
-
+#ifdef __cplusplus
 /** @cond doxygenLibsbmlInternal */
 
 //static const int SBML_INT_MAX = 2147483647;
@@ -368,7 +368,7 @@ reduceBinary (ASTNode& node)
 
 
 /**
- * Sets the type of an ASTNode based on the given MathML <ci> element.
+ * Sets the type of an ASTNode based on the given MathML &lt;ci&gt; element.
  * Errors will be logged in the stream's SBMLErrorLog object.
  */
 static void
@@ -1545,6 +1545,9 @@ static void
 }
 
 
+#endif /* __cplusplus */
+/** @cond doxygenCOnly */
+
 /**
  * Reads the MathML from the given XMLInputStream, constructs a corresponding
  * abstract syntax tree and returns a pointer to the root of the tree.
@@ -1766,5 +1769,7 @@ writeMathMLToString (const ASTNode* node)
 
   return result;
 }
+
+/** @endcond */
 
 LIBSBML_CPP_NAMESPACE_END

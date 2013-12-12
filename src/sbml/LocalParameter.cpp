@@ -47,6 +47,7 @@ using namespace std;
 /** @endcond */
 
 LIBSBML_CPP_NAMESPACE_BEGIN
+#ifdef __cplusplus
 
 LocalParameter::LocalParameter (unsigned int level, unsigned int version) :
    Parameter ( level, version )
@@ -470,6 +471,7 @@ ListOfLocalParameters::createObject (XMLInputStream& stream)
 /** @endcond */
 
 
+#endif /* __cplusplus */
 /** @cond doxygenCOnly */
 
 

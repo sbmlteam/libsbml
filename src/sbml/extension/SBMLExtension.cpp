@@ -36,6 +36,7 @@
 
 using namespace std;
 LIBSBML_CPP_NAMESPACE_BEGIN
+#ifdef __cplusplus
 
 static const packageErrorTableEntry defaultErrorTable[] =
 {
@@ -399,6 +400,7 @@ SBMLExtension::getShortMessage(unsigned int index) const
 /** @endcond */
 
 
+#endif /* __cplusplus */
 /** @cond doxygenCOnly */
 
 /**

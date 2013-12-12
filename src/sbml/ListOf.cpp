@@ -41,6 +41,7 @@ using namespace std;
 /** @endcond */
 
 LIBSBML_CPP_NAMESPACE_BEGIN
+#ifdef __cplusplus
 
 /*
  * Creates a new ListOf items.
@@ -607,6 +608,7 @@ ListOf::writeAttributes (XMLOutputStream& stream) const
 
 
 
+#endif /* __cplusplus */
 /** @cond doxygenCOnly */
 
 

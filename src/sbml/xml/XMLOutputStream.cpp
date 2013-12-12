@@ -45,6 +45,7 @@ using namespace std;
 /** @endcond */
 
 LIBSBML_CPP_NAMESPACE_BEGIN
+#ifdef __cplusplus
 
 /**
  * Checks if the given string has a character reference at index in the string.
@@ -1096,6 +1097,7 @@ XMLOutputFileStream::XMLOutputFileStream (  std::ofstream& stream
 
 /** @endcond */
 
+#endif /* __cplusplus */
 /** @cond doxygenCOnly */
 /**
  * Creates a new XMLOutputStream_t that wraps std output stream.

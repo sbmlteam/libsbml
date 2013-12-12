@@ -41,6 +41,7 @@ using namespace std;
 /** @endcond */
 
 LIBSBML_CPP_NAMESPACE_BEGIN
+#ifdef __cplusplus
 
 /** @cond doxygenLibsbmlInternal */
 /*
@@ -324,6 +325,7 @@ XMLErrorLog::changeErrorSeverity(XMLErrorSeverity_t originalSeverity,
   }
 }
 
+#endif /* __cplusplus */
 /** @cond doxygenCOnly */
 
 /**

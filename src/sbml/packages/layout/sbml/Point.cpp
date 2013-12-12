@@ -38,6 +38,7 @@
 #include <sbml/packages/layout/validator/LayoutSBMLError.h>
 
 LIBSBML_CPP_NAMESPACE_BEGIN
+#ifdef __cplusplus
 
 /*
  * Creates a new point with x,y and z set  to 0.0.
@@ -685,6 +686,9 @@ bool Point::accept (SBMLVisitor& v) const
 
 
 
+#endif /* __cplusplus */
+/** @cond doxygenCOnly */
+
 /**
  * Creates a new point with the coordinates (0.0,0.0,0.0).
  */ 
@@ -882,5 +886,6 @@ Point_clone (const Point_t *m)
   return static_cast<Point*>( m->clone() );
 }
 
+/** @endcond */
 LIBSBML_CPP_NAMESPACE_END
 

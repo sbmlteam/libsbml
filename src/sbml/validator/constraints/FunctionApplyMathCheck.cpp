@@ -50,6 +50,7 @@ using namespace std;
 /** @endcond */
 
 LIBSBML_CPP_NAMESPACE_BEGIN
+#ifdef __cplusplus
 
 static const char* PREAMBLE =
     "Outside of a <functionDefinition>, if a 'ci' element is the first "
@@ -112,7 +113,7 @@ FunctionApplyMathCheck::checkMath (const Model& m, const ASTNode& node, const SB
 
   
 /**
-  * Checks that the functionDefinition referred to by a <ci> element exists
+  * Checks that the functionDefinition referred to by a &lt;ci&gt; element exists
   *
   * If <ci> does not refer to functionDefinition id, an error message is logged.
   */
@@ -149,6 +150,8 @@ FunctionApplyMathCheck::getMessage (const ASTNode& node, const SBase& object)
 
   return msg.str();
 }
+
+#endif /* __cplusplus */
 
 LIBSBML_CPP_NAMESPACE_END
 

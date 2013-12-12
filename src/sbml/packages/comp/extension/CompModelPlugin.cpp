@@ -36,6 +36,7 @@
 using namespace std;
 
 LIBSBML_CPP_NAMESPACE_BEGIN
+#ifdef __cplusplus
 
 CompModelPlugin::CompModelPlugin (const std::string &uri, const std::string &prefix, CompPkgNamespaces *compns)
   : CompSBasePlugin(uri,prefix, compns)
@@ -1338,12 +1339,16 @@ CompModelPlugin::getRemovedSet()
 }
 /** @endcond */
 
+#endif /* __cplusplus */
+/** @cond doxygenCOnly */
 LIBSBML_EXTERN
 Submodel_t *
 CompModelPlugin_createSubmodel(CompModelPlugin_t * modelPlug)
 {
   return modelPlug->createSubmodel();
 }
+/** @endcond */
+
 
 LIBSBML_CPP_NAMESPACE_END
 

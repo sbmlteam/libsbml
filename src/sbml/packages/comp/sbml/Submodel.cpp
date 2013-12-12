@@ -40,6 +40,7 @@
 using namespace std;
 
 LIBSBML_CPP_NAMESPACE_BEGIN
+#ifdef __cplusplus
 
 Submodel::Submodel (unsigned int level, unsigned int version, unsigned int pkgVersion) 
   : CompBase (level,version, pkgVersion)
@@ -1349,6 +1350,11 @@ void Submodel::createNewConversionFactor(string& cf, const ASTNode* newcf, strin
   string math = oldcf + " * " + newcf->getName();
   ia->setMath(SBML_parseL3Formula(math.c_str()));
 }
+
+
+#endif /* __cplusplus */
+/** @cond doxygenCOnly */
+
 /**
  * 
  */
@@ -1801,5 +1807,6 @@ ListOfSubmodels_removeById(ListOf_t * lo, const char * sid)
 
 
 
+/** @endcond */
 LIBSBML_CPP_NAMESPACE_END
 

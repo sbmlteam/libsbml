@@ -34,7 +34,9 @@
 #include <sbml/ExpectedAttributes.h>
 
 LIBSBML_CPP_NAMESPACE_BEGIN
+#ifdef __cplusplus
 
+#endif /* __cplusplus */
 /** @cond doxygenCOnly */
 
 

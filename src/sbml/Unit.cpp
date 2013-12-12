@@ -48,6 +48,7 @@ using namespace std;
 /** @endcond */
 
 LIBSBML_CPP_NAMESPACE_BEGIN
+#ifdef __cplusplus
 
 Unit::Unit (unsigned int level, unsigned int version) :
    SBase ( level, version )
@@ -2176,6 +2177,7 @@ ListOfUnits::createObject (XMLInputStream& stream)
 /** @endcond */
 
 
+#endif /* __cplusplus */
 /** @cond doxygenCOnly */
 
 /**
@@ -3210,10 +3212,12 @@ Unit_hasRequiredAttributes(Unit_t *u)
 
 /**
  * Predicate to test whether a given string is the name of a built-in SBML
- * unit.
+ * unit, depending on the SBML level, since new units were added between
+ * levels 2 and 3.
  *
  * @param name a string to be tested against the built-in unit names
-
+ * @param level the level of SBML one is checking. 
+ *
  * @return nonzero (for true) if @p name is one of the five SBML
  * built-in Unit names (@c "substance", @c "volume, @c "area", @c "length"
  * or @c "time"), zero (0) otherwise

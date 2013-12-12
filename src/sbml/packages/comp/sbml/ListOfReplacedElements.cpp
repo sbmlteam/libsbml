@@ -32,6 +32,7 @@
 using namespace std;
 
 LIBSBML_CPP_NAMESPACE_BEGIN
+#ifdef __cplusplus
 
 ListOfReplacedElements::ListOfReplacedElements(CompPkgNamespaces* compns)
   : ListOf(compns)
@@ -133,6 +134,8 @@ ListOfReplacedElements::writeXMLNS (XMLOutputStream& stream) const
 }
 /** @endcond */
 
+
+#endif /* __cplusplus */
 
 LIBSBML_CPP_NAMESPACE_END
 

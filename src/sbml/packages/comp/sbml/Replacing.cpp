@@ -35,6 +35,7 @@
 using namespace std;
 
 LIBSBML_CPP_NAMESPACE_BEGIN
+#ifdef __cplusplus
 
 Replacing::Replacing (unsigned int level, unsigned int version, unsigned int pkgVersion) 
   : SBaseRef (level,version, pkgVersion)
@@ -554,5 +555,7 @@ int Replacing::performReplacement()
   return cmp->removeCollectedElements(removed, &toremove);
 }
  
+#endif /* __cplusplus */
+
 LIBSBML_CPP_NAMESPACE_END
 

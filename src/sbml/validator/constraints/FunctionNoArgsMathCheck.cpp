@@ -50,6 +50,7 @@ using namespace std;
 /** @endcond */
 
 LIBSBML_CPP_NAMESPACE_BEGIN
+#ifdef __cplusplus
 
 static const char* PREAMBLE =
     "The number of arguments used in a call to a function defined by a "
@@ -113,7 +114,7 @@ FunctionNoArgsMathCheck::checkMath (const Model& m, const ASTNode& node, const S
 
   
 /**
-  * Checks that the functionDefinition referred to by a <ci> element 
+  * Checks that the functionDefinition referred to by a &lt;ci&gt; element 
   * has the appropriate number of arguments.
   *
   * If not, an error message is logged.
@@ -169,6 +170,8 @@ FunctionNoArgsMathCheck::getMessage (const ASTNode& node, const SBase& object)
 
   return msg.str();
 }
+
+#endif /* __cplusplus */
 
 LIBSBML_CPP_NAMESPACE_END
 

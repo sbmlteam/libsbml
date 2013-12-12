@@ -50,6 +50,7 @@ using namespace std;
 /** @endcond */
 
 LIBSBML_CPP_NAMESPACE_BEGIN
+#ifdef __cplusplus
 
 /**
  * logs the given erroron the error log of the stream.
@@ -1368,6 +1369,7 @@ RDFAnnotationParser::hasHistoryRDFAnnotation(const XMLNode *annotation)
 
   /** @endcond */
 
+#endif /* __cplusplus */
 /** @cond doxygenCOnly */
 
 /**

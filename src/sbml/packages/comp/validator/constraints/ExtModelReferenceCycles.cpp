@@ -44,6 +44,7 @@ using namespace std;
 /** @endcond */
 
 LIBSBML_CPP_NAMESPACE_BEGIN
+#ifdef __cplusplus
 
 /**
  * Creates a new Constraint with the given constraint id.
@@ -248,7 +249,7 @@ ExtModelReferenceCycles::determineCycles(const Model& m)
  
 
 /**
-  * Logs a message about an undefined <ci> element in the given
+  * Logs a message about an undefined &lt;ci&gt; element in the given
   * FunctionDefinition.
   */
 void
@@ -303,8 +304,9 @@ ExtModelReferenceCycles::logCycle ( const SBase* object,
   logFailure(*object);
 }
 
-LIBSBML_CPP_NAMESPACE_END
+#endif  /* __cplusplus */
 
+LIBSBML_CPP_NAMESPACE_END
 
 /** @endcond */
 

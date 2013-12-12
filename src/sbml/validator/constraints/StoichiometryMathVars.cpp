@@ -43,7 +43,7 @@ using namespace std;
 /** @endcond */
 
 LIBSBML_CPP_NAMESPACE_BEGIN
-
+#ifdef __cplusplus
 /**
  * Creates a new Constraint with the given @p id.
  */
@@ -156,6 +156,8 @@ StoichiometryMathVars::logUndefined ( const Reaction& r,
   
   logFailure(r);
 }
+
+#endif /* __cplusplus */
 
 LIBSBML_CPP_NAMESPACE_END
 

@@ -34,6 +34,7 @@
 using namespace std;
 
 LIBSBML_CPP_NAMESPACE_BEGIN
+#ifdef __cplusplus
 
 Port::Port (unsigned int level, unsigned int version, unsigned int pkgVersion) 
   : SBaseRef (level,version, pkgVersion)
@@ -371,6 +372,9 @@ Port::accept (SBMLVisitor& v) const
 /** @endcond */
 
 
+#endif /* __cplusplus */
+/** @cond doxygenCOnly */
+
 /**
  * 
  */
@@ -546,5 +550,6 @@ ListOfPorts_removeById(ListOf_t * lo, const char * sid)
 }
 
 
+/** @endcond */
 LIBSBML_CPP_NAMESPACE_END
 

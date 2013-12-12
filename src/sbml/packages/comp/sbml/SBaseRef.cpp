@@ -37,6 +37,7 @@
 using namespace std;
 
 LIBSBML_CPP_NAMESPACE_BEGIN
+#ifdef __cplusplus
 
 SBaseRef::SBaseRef (unsigned int level, unsigned int version, unsigned int pkgVersion) 
   : CompBase (level,version, pkgVersion)
@@ -1014,6 +1015,9 @@ SBase* SBaseRef::getDirectReference()
 }
 /** @endcond */
 
+#endif /* __cplusplus */
+/** @cond doxygenCOnly */
+
 /**
  * 
  */
@@ -1302,4 +1306,5 @@ SBaseRef_hasRequiredAttributes(SBaseRef_t * sbr)
 }
 
 
+/** @endcond */
 LIBSBML_CPP_NAMESPACE_END

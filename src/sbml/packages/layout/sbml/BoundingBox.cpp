@@ -38,6 +38,7 @@
 #include <sbml/packages/layout/validator/LayoutSBMLError.h>
 
 LIBSBML_CPP_NAMESPACE_BEGIN
+#ifdef __cplusplus
 
 
 List*
@@ -804,6 +805,9 @@ BoundingBox::enablePackageInternal(const std::string& pkgURI,
 /** @endcond */
 
 
+#endif /* __cplusplus */
+/** @cond doxygenCOnly */
+
 /**
  * Function that creates a BoundingBox_t object with position set to
  * (0.0,0.0,0.0) and dimensions set to (0.0,0.0,0.0). The id is set to the
@@ -1085,6 +1089,7 @@ BoundingBox_unsetId (BoundingBox_t *bb)
   bb->unsetId();
 }
 
+/** @endcond */
 LIBSBML_CPP_NAMESPACE_END
 
 

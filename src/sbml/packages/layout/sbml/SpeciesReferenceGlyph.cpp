@@ -37,6 +37,7 @@
 #include <sbml/util/ElementFilter.h>
 
 LIBSBML_CPP_NAMESPACE_BEGIN
+#ifdef __cplusplus
 
 /** @cond doxygenLibsbmlInternal */
 const std::string SpeciesReferenceGlyph::SPECIES_REFERENCE_ROLE_STRING[]={
@@ -834,6 +835,8 @@ SpeciesReferenceGlyph::enablePackageInternal(const std::string& pkgURI,
 
 
 
+#endif /* __cplusplus */
+/** @cond doxygenCOnly */
 /**
  * Creates a new SpeciesReferenceGlyph object and returns a pointer to it.
  */
@@ -1123,5 +1126,6 @@ SpeciesReferenceGlyph_unsetId (SpeciesReferenceGlyph_t *srg)
   srg->unsetId();
 }
 
+/** @endcond */
 LIBSBML_CPP_NAMESPACE_END
 

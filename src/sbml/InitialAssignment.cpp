@@ -47,6 +47,7 @@ using namespace std;
 /** @endcond */
 
 LIBSBML_CPP_NAMESPACE_BEGIN
+#ifdef __cplusplus
 
 InitialAssignment::InitialAssignment (unsigned int level, unsigned int version) :
    SBase ( level, version )
@@ -967,6 +968,7 @@ ListOfInitialAssignments::createObject (XMLInputStream& stream)
 
 
 
+#endif /* __cplusplus */
 /** @cond doxygenCOnly */
 
 
@@ -1156,7 +1158,7 @@ InitialAssignment_isSetMath (const InitialAssignment_t *ia)
  *
  * @param ia the InitialAssignment_t structure
  *
- * @param sid, the identifier of a Species, Compartment or Parameter
+ * @param sid the identifier of a Species, Compartment or Parameter
  * object defined elsewhere in this Model.
  *
  * @return integer value indicating success/failure of the
@@ -1220,7 +1222,7 @@ InitialAssignment_setMath (InitialAssignment_t *ia, const ASTNode_t *math)
   * unit analysis is not possible and this method will return @c NULL.
   *
   * @note The units are calculated by applying the mathematics 
-  * from the expression to the units of the <ci> elements used 
+  * from the expression to the units of the &lt;ci&gt; elements used 
   * within the expression. Where there are parameters/numbers
   * with undeclared units the UnitDefinition_t returned by this
   * function may not accurately represent the units of the expression.

@@ -37,6 +37,7 @@
 #include <sbml/packages/layout/validator/LayoutSBMLError.h>
 
 LIBSBML_CPP_NAMESPACE_BEGIN
+#ifdef __cplusplus
 
 List*
 CubicBezier::getAllElements(ElementFilter *filter)
@@ -683,6 +684,9 @@ XMLNode CubicBezier::toXML() const
 
 
 
+#endif /* __cplusplus */
+/** @cond doxygenCOnly */
+
 /**
  * Creates a CubicBezier and returns the pointer.
  */
@@ -866,5 +870,6 @@ CubicBezier_clone (const CubicBezier_t *m)
 }
 
 
+/** @endcond */
 LIBSBML_CPP_NAMESPACE_END
 

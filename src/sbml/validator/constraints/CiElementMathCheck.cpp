@@ -2,7 +2,7 @@
  * @cond doxygenLibsbmlInternal
  *
  * @file    CiElementMathCheck.cpp
- * @brief   checks <ci> element is the id of a component
+ * @brief   checks &lt;ci&gt; element is the id of a component
  * @author  Sarah Keating
  * 
  * <!--------------------------------------------------------------------------
@@ -51,6 +51,7 @@ using namespace std;
 /** @endcond */
 
 LIBSBML_CPP_NAMESPACE_BEGIN
+#ifdef __cplusplus
 
 static const char* PREAMBLE =
     "Outside of a <functionDefinition>, if a 'ci' element is not the first "
@@ -96,7 +97,7 @@ CiElementMathCheck::checkMath (const Model& m, const ASTNode& node, const SBase 
 {
   ASTNodeType_t type = node.getType();
     
-  /* if the node is a <ci> element it will have type AST_NAME
+  /* if the node is a &lt;ci&gt; element it will have type AST_NAME
    * check that this name is an appropriate component of the model */
   switch (type) 
   {
@@ -115,7 +116,7 @@ CiElementMathCheck::checkMath (const Model& m, const ASTNode& node, const SBase 
 
   
 /**
-  * Checks any <ci> elements in the MathML of the ASTnode 
+  * Checks any &lt;ci&gt; elements in the MathML of the ASTnode 
   * contain the id of an appropriate component of the model
   *
   * If an inconsistency is found, an error message is logged.
@@ -197,6 +198,7 @@ CiElementMathCheck::getMessage (const ASTNode& node, const SBase& object)
   return msg.str();
 }
 
+#endif /* __cplusplus */
 LIBSBML_CPP_NAMESPACE_END
 
 /** @endcond */

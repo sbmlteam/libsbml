@@ -2,7 +2,7 @@
  * @cond doxygenLibsbmlInternal
  *
  * @file    LocalParameterMathCheck.cpp
- * @brief   checks <ci> element of local parameter not used elsewhere
+ * @brief   checks &lt;ci&gt; element of local parameter not used elsewhere
  * @author  Sarah Keating
  * 
  * <!--------------------------------------------------------------------------
@@ -51,6 +51,7 @@ using namespace std;
 /** @endcond */
 
 LIBSBML_CPP_NAMESPACE_BEGIN
+#ifdef __cplusplus
 
 static const char* PREAMBLE =
     "The 'id' value of a <parameter> defined within a <kineticLaw> can only "
@@ -96,7 +97,7 @@ LocalParameterMathCheck::checkMath (const Model& m, const ASTNode& node, const S
 {
   ASTNodeType_t type = node.getType();
     
-  /* if the node is a <ci> element it will have type AST_NAME
+  /* if the node is a &lt;ci&gt; element it will have type AST_NAME
    * check that this name is an appropriate component of the model */
     
   switch (type) 
@@ -116,7 +117,7 @@ LocalParameterMathCheck::checkMath (const Model& m, const ASTNode& node, const S
 
   
 /**
-  * Checks any <ci> elements in the MathML of the ASTnode 
+  * Checks any &lt;ci&gt; elements in the MathML of the ASTnode 
   * contain the id of an appropriate component of the model
   *
   * If an inconsistency is found, an error message is logged.
@@ -178,6 +179,8 @@ LocalParameterMathCheck::getMessage (const ASTNode& node, const SBase& object)
 
   return msg.str();
 }
+
+#endif /* __cplusplus */
 
 LIBSBML_CPP_NAMESPACE_END
 

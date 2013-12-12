@@ -32,6 +32,7 @@
  using namespace std;
  
  LIBSBML_CPP_NAMESPACE_BEGIN
+#ifdef __cplusplus
 
  XMLLogOverride::XMLLogOverride(XMLErrorLog* log, XMLErrorSeverityOverride_t new_override) 
  : mLog(log)
@@ -46,5 +47,9 @@
 	if (mLog == NULL) return;
 	mLog->setSeverityOverride(mOldStatus);
  }
+
+#endif /* __cplusplus */
+/** @cond doxygenCOnly */
+/** @endcond */
 
  LIBSBML_CPP_NAMESPACE_END

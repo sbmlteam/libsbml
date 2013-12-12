@@ -45,6 +45,7 @@ using namespace std;
 /** @endcond */
 
 LIBSBML_CPP_NAMESPACE_BEGIN
+#ifdef __cplusplus
 
 Species::Species (unsigned int level, unsigned int version) :
    SBase ( level, version )
@@ -2019,6 +2020,7 @@ ListOfSpecies::createObject (XMLInputStream& stream)
 /** @endcond */
 
 
+#endif /* __cplusplus */
 /** @cond doxygenCOnly */
 
 
@@ -2108,7 +2110,7 @@ Species_free (Species_t *s)
 /**
  * Creates a deep copy of the given Species_t structure
  * 
- * @param p the Species_t structure to be copied
+ * @param s the Species_t structure to be copied
  * 
  * @return a (deep) copy of the given Species_t structure.
  */
@@ -2739,7 +2741,7 @@ Species_setName (Species_t *s, const char *name)
  *
  * @param s the Species_t structure
  * 
- * @param speciesType the identifer to which the "speciesType" attribute
+ * @param sid the identifer to which the "speciesType" attribute
  * should be set.
  *
  * @return integer value indicating success/failure of the
@@ -2862,7 +2864,7 @@ Species_setInitialConcentration (Species_t *s, double value)
  *
  * @param s the Species_t structure
  * 
- * @param substanceUnits the identifer to which the "substanceUnits"
+ * @param sid the identifer to which the "substanceUnits"
  * attribute should be set.
  *
  * @return integer value indicating success/failure of the
@@ -2894,7 +2896,7 @@ Species_setSubstanceUnits (Species_t *s, const char *sid)
  *
  * @param s the Species_t structure
  * 
- * @param spatialSizeUnits the identifer to which the "spatialSizeUnits"
+ * @param sid the identifer to which the "spatialSizeUnits"
  * attribute should be set.
  *
  * @return integer value indicating success/failure of the
@@ -2937,7 +2939,7 @@ Species_setSpatialSizeUnits (Species_t *s, const char *sid)
  *
  * @param s the Species_t structure
  * 
- * @param units the identifer to which the "units" attribute
+ * @param sname the identifer to which the "units" attribute
  * should be set.
  *
  * @return integer value indicating success/failure of the
@@ -3083,7 +3085,7 @@ Species_setConstant (Species_t *s, int value)
  *
  * @param s the Species_t structure
  * 
- * @param conversionFactor the identifer to which the "conversionFactor" attribute
+ * @param sid the identifer to which the "conversionFactor" attribute
  * should be set.
  *
  * @return integer value indicating success/failure of the

@@ -47,6 +47,7 @@ using namespace std;
 /** @endcond */
 
 LIBSBML_CPP_NAMESPACE_BEGIN
+#ifdef __cplusplus
 
 /*
  * Creates a new SBMLWriter.
@@ -322,6 +323,9 @@ SBMLWriter::hasBzip2()
 }
 
 
+#endif /* __cplusplus */
+/** @cond doxygenCOnly */
+
 
 /**
  * Creates a new SBMLWriter and returns a pointer to it.
@@ -582,6 +586,8 @@ writeSBMLToString (const SBMLDocument_t *d)
   else
     return sw.writeToString(d);
 }
+
+/** @endcond */
 
 LIBSBML_CPP_NAMESPACE_END
 

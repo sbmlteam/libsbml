@@ -45,6 +45,7 @@
 using namespace std;
 
 LIBSBML_CPP_NAMESPACE_BEGIN
+#ifdef __cplusplus
 
 bool SBMLExtensionRegistry::registered = false;
 
@@ -472,6 +473,7 @@ SBMLExtensionRegistry::enablePackages(const std::vector<std::string>& packages)
 
 
 
+#endif /* __cplusplus */
 /** @cond doxygenCOnly */
 
 

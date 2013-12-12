@@ -43,6 +43,7 @@ using namespace std;
 /** @endcond */
 
 LIBSBML_CPP_NAMESPACE_BEGIN
+#ifdef __cplusplus
 
 
 //
@@ -620,6 +621,8 @@ CompValidator::validate (const std::string& filename)
 
   return validate(d);
 }
+
+#endif  /* __cplusplus */
 
 LIBSBML_CPP_NAMESPACE_END
 

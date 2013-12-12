@@ -43,6 +43,7 @@ using namespace std;
 /** @endcond */
 
 LIBSBML_CPP_NAMESPACE_BEGIN
+#ifdef __cplusplus
 
 /** @cond doxygenLibsbmlInternal **/
 /** 
@@ -443,6 +444,12 @@ SBMLError::adjustErrorId(unsigned int offset)
 }
 /** @endcond */
 
+#endif /* __cplusplus */
+
+
+/** @cond doxygenCOnly */
+
+/** @endcond */
 
 LIBSBML_CPP_NAMESPACE_END
 

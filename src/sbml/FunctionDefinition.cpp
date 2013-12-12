@@ -50,6 +50,7 @@ using namespace std;
 /** @endcond */
 
 LIBSBML_CPP_NAMESPACE_BEGIN
+#ifdef __cplusplus
 
 FunctionDefinition::FunctionDefinition (unsigned int level, unsigned int version) :
    SBase ( level, version )
@@ -1008,6 +1009,7 @@ ListOfFunctionDefinitions::createObject (XMLInputStream& stream)
 /** @endcond */
 
 
+#endif /* __cplusplus */
 /** @cond doxygenCOnly */
 
 /**

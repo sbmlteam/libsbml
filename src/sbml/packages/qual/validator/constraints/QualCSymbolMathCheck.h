@@ -2,7 +2,7 @@
  * @cond doxygenLibsbmlInternal
  *
  * @file    QualCSymbolMathCheck.h
- * @brief   checks <ci> element is the id of a component
+ * @brief   checks &lt;ci&gt; element is the id of a component
  * @author  Sarah Keating
  * 
  * <!--------------------------------------------------------------------------

@@ -38,6 +38,7 @@ using namespace std;
 
 
 LIBSBML_CPP_NAMESPACE_BEGIN
+#ifdef __cplusplus
 
 //
 // NOTE: ConstraintSet, ValidatorConstraints, and ValidatingVisitor used to
@@ -596,6 +597,7 @@ LayoutValidator::validate (const std::string& filename)
 }
 
 
+#endif /* __cplusplus */
 LIBSBML_CPP_NAMESPACE_END
 
 // ----------------------------------------------------------------------

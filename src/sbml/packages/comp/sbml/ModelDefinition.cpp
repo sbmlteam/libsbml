@@ -37,6 +37,7 @@
 using namespace std;
 
 LIBSBML_CPP_NAMESPACE_BEGIN
+#ifdef __cplusplus
 
 ModelDefinition::ModelDefinition (unsigned int level, unsigned int version, unsigned int pkgVersion) 
   : Model(level,version)
@@ -196,6 +197,9 @@ ModelDefinition::readAttributes (const XMLAttributes& attributes,
 /** @endcond */
 
 
+#endif /* __cplusplus */
+/** @cond doxygenCOnly */
+
 LIBSBML_EXTERN
 ModelDefinition_t *
 ModelDefinition_create(unsigned int level, unsigned int version,
@@ -231,5 +235,6 @@ ModelDefinition_clone(ModelDefinition_t * md)
 }
 
 
+/** @endcond */
 LIBSBML_CPP_NAMESPACE_END
 

@@ -33,6 +33,7 @@
 using namespace std;
 
 LIBSBML_CPP_NAMESPACE_BEGIN
+#ifdef __cplusplus
 
 /*
  * Creates a new GeneAssociation with the given level, version, and package version.
@@ -702,5 +703,6 @@ ListOfGeneAssociations::createObject (XMLInputStream& stream)
 /** @endcond */
 
 
+#endif /* __cplusplus */
 LIBSBML_CPP_NAMESPACE_END
 

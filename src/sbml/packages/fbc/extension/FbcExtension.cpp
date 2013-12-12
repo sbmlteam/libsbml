@@ -414,6 +414,6 @@ FbcExtension::getErrorIdOffset() const
 /** @endcond */
 
 
-#endif  /* __cplusplus */
 LIBSBML_CPP_NAMESPACE_END
 
+#endif  /* __cplusplus */

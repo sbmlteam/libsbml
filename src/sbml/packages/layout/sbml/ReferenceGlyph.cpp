@@ -38,6 +38,7 @@
 #include <sbml/packages/layout/validator/LayoutSBMLError.h>
 
 LIBSBML_CPP_NAMESPACE_BEGIN
+#ifdef __cplusplus
 
 List*
 ReferenceGlyph::getAllElements(ElementFilter *filter)
@@ -776,6 +777,8 @@ ReferenceGlyph::enablePackageInternal(const std::string& pkgURI,
 
 
 
+#endif /* __cplusplus */
+/** @cond doxygenCOnly */
 /**
  * Creates a new ReferenceGlyph object and returns a pointer to it.
  */
@@ -1051,5 +1054,6 @@ ReferenceGlyph_unsetId (ReferenceGlyph_t *srg)
   srg->unsetId();
 }
 
+/** @endcond */
 LIBSBML_CPP_NAMESPACE_END
 

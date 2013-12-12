@@ -34,6 +34,7 @@
 using namespace std;
 
 LIBSBML_CPP_NAMESPACE_BEGIN
+#ifdef __cplusplus
 
 ExternalModelDefinition::ExternalModelDefinition (unsigned int level, unsigned int version, unsigned int pkgVersion) 
   : CompBase (level,version, pkgVersion)
@@ -737,6 +738,8 @@ ExternalModelDefinition::getReferencedModel(SBMLDocument* errordoc, set<pair<str
   return model;
 }
 
+#endif /* __cplusplus */
+/** @cond doxygenCOnly */
 /**
  * 
  */
@@ -1007,6 +1010,7 @@ ListOfExternalModelDefinitions_removeById(ListOf_t * lo, const char * sid)
 
 
 
+/** @endcond */
 
 LIBSBML_CPP_NAMESPACE_END
 

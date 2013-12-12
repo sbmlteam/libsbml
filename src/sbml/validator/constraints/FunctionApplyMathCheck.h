@@ -82,7 +82,7 @@ protected:
   virtual const char* getPreamble ();
 
   /**
-   * Checks that the functionDefinition referred to by a <ci> element exists
+   * Checks that the functionDefinition referred to by a &lt;ci&gt; element exists
    *
    * If <ci> does not refer to functionDefinition id, an error message is logged.
    */

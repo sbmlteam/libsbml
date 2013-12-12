@@ -39,9 +39,11 @@
 #include <sbml/extension/SBMLExtensionNamespaces.h>
 
 LIBSBML_CPP_NAMESPACE_BEGIN
+#ifdef __cplusplus
 BEGIN_C_DECLS
 
 
+#endif /* __cplusplus */
 /** @cond doxygenCOnly */
 
 /**

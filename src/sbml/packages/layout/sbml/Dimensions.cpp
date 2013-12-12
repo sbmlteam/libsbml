@@ -39,6 +39,7 @@
 #include <sbml/packages/layout/validator/LayoutSBMLError.h>
 
 LIBSBML_CPP_NAMESPACE_BEGIN
+#ifdef __cplusplus
 
 /*
  * Creates a new Dimensions object with all sizes set to 0.0.
@@ -626,6 +627,9 @@ XMLNode Dimensions::toXML() const
 
 
 
+#endif /* __cplusplus */
+/** @cond doxygenCOnly */
+
 /**
  * Creates a new Dimensions object with all sizes set to 0.0.
  */ 
@@ -787,5 +791,6 @@ Dimensions_clone (const Dimensions_t *m)
   return static_cast<Dimensions*>( m->clone() );
 }
 
+/** @endcond */
 LIBSBML_CPP_NAMESPACE_END
 

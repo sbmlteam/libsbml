@@ -43,6 +43,7 @@
 #include <sbml/packages/layout/validator/LayoutSBMLError.h>
 
 LIBSBML_CPP_NAMESPACE_BEGIN
+#ifdef __cplusplus
 
 /*
  * Creates a new Layout with the given level, version, and package version.
@@ -2551,6 +2552,9 @@ XMLNode ListOfTextGlyphs::toXML() const
 
 
 
+#endif /* __cplusplus */
+/** @cond doxygenCOnly */
+
 /**
  * Creates a new Layout and returns a pointer to it.
  */
@@ -3143,5 +3147,6 @@ Layout_unsetId (Layout_t *l)
   l->unsetId();
 }
 
+/** @endcond */
 LIBSBML_CPP_NAMESPACE_END
 

@@ -28,6 +28,7 @@
 
 
 LIBSBML_CPP_NAMESPACE_BEGIN
+#ifdef __cplusplus
 
 LIBSBML_EXTERN
 void 
@@ -117,4 +118,5 @@ copySBaseAttributes(const SBase& source,SBase& target)
     }
 }
 
+#endif /* __cplusplus */
 LIBSBML_CPP_NAMESPACE_END

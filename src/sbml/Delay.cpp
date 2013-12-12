@@ -50,6 +50,7 @@ using namespace std;
 /** @endcond */
 
 LIBSBML_CPP_NAMESPACE_BEGIN
+#ifdef __cplusplus
 
 Delay::Delay (unsigned int level, unsigned int version) :
    SBase ( level, version )
@@ -626,6 +627,7 @@ Delay::writeElements (XMLOutputStream& stream) const
 /** @endcond */
 
 
+#endif /* __cplusplus */  
 /** @cond doxygenCOnly */
 
 
@@ -814,7 +816,7 @@ Delay_setMath (Delay_t *t, const ASTNode_t *math)
   * unit analysis is not possible and this method will return @c NULL.
   *
   * @note The units are calculated by applying the mathematics 
-  * from the expression to the units of the <ci> elements used 
+  * from the expression to the units of the &lt;ci&gt; elements used 
   * within the expression. Where there are parameters/numbers
   * with undeclared units the UnitDefinition_t returned by this
   * function may not accurately represent the units of the expression.

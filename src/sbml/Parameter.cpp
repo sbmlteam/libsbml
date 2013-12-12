@@ -47,6 +47,7 @@ using namespace std;
 /** @endcond */
 
 LIBSBML_CPP_NAMESPACE_BEGIN
+#ifdef __cplusplus
 
 Parameter::Parameter (unsigned int level, unsigned int version) :
    SBase ( level, version )
@@ -1631,6 +1632,7 @@ ListOfParameters::createObject (XMLInputStream& stream)
 /** @endcond */
 
 
+#endif /* __cplusplus */
 /** @cond doxygenCOnly */
 
 

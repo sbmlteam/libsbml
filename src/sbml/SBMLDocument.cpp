@@ -63,6 +63,7 @@ using namespace std;
 /** @endcond */
 
 LIBSBML_CPP_NAMESPACE_BEGIN
+#ifdef __cplusplus
 
 /*
  * Function to check whether an error reported by a compatability validation
@@ -1843,6 +1844,7 @@ SBMLDocument::enablePackageInternal(const std::string& pkgURI, const std::string
 
 
 
+#endif /* __cplusplus */
 /** @cond doxygenCOnly */
 
 
@@ -1994,7 +1996,7 @@ SBMLDocument_getModel (SBMLDocument_t *d)
 
 /**
  * Removes any FunctionDefinitions from the document and expands
- * any instances of their use within <math> elements.
+ * any instances of their use within &gt;math&lt; elements.
  *
  * For example a Model contains a FunctionDefinition with id f
  * representing the math expression: f(x, y) = x * y.
@@ -2011,7 +2013,7 @@ SBMLDocument_getModel (SBMLDocument_t *d)
  * @note This function will check the consistency of a model
  * before attemptimg the transformation.  In the case of a model
  * with invalid SBML the transformation will not be done and the
- * function will return @false.
+ * function will return @c false.
  * 
  */
 LIBSBML_EXTERN
@@ -2043,12 +2045,12 @@ SBMLDocument_expandFunctionDefintions (SBMLDocument_t *d)
  * @note This function will check the consistency of a model
  * before attemptimg the transformation.  In the case of a model
  * with invalid SBML the transformation will not be done and the
- * function will return @false.  As part of the process the 
+ * function will return @c false.  As part of the process the 
  * function will check that it has values for any components
  * referred to by the math elements of InitialAssignments.  In
  * the case where not all values have been declared the particular
  * InitialAssignment will not be removed and the function will 
- * return @false.
+ * return @c false.
  */
 LIBSBML_EXTERN
 int

@@ -29,6 +29,7 @@
 #include <sbml/util/List.h>
 
 LIBSBML_CPP_NAMESPACE_BEGIN
+#ifdef __cplusplus
 
 /*
  * Creates a new List.
@@ -353,6 +354,7 @@ List::transferFrom(List* list)
   list->size = 0;
 }
 
+#endif /* __cplusplus */
 /** @cond doxygenCOnly */
 
 

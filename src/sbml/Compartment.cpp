@@ -45,6 +45,7 @@ using namespace std;
 /** @endcond */
 
 LIBSBML_CPP_NAMESPACE_BEGIN
+#ifdef __cplusplus
 
 Compartment::Compartment (unsigned int level, unsigned int version) :
    SBase             ( level, version )
@@ -1618,6 +1619,7 @@ ListOfCompartments::createObject (XMLInputStream& stream)
 /** @endcond */
 
 
+#endif /* __cplusplus */
 /** @cond doxygenCOnly */
 
 
@@ -1690,7 +1692,7 @@ Compartment_free (Compartment_t *c)
 /**
  * Creates a deep copy of the given Compartment_t structure
  * 
- * @param p the Compartment_t structure to be copied
+ * @param c the Compartment_t structure to be copied
  * 
  * @return a (deep) copy of the given Compartment_t structure.
  */
@@ -1719,7 +1721,7 @@ Compartment_clone (const Compartment_t* c)
  * @li (SBML Level 2 only) sets attribute "spatialDimensions" to @c 3
  * @li (SBML Level 2 only) sets attribute "constant" to @c 1 (true)
  *
- * @param p the Compartment_t structure to initialize
+ * @param c the Compartment_t structure to initialize
  */
 LIBSBML_EXTERN
 void
@@ -2149,7 +2151,7 @@ Compartment_setId (Compartment_t *c, const char *sid)
  *
  * @param c the Compartment_t structure
  *
- * @param string the identifier to which the structures "id" attribute
+ * @param name the identifier to which the structures "id" attribute
  * should be set.
  *
  * @return integer value indicating success/failure of the
@@ -2181,7 +2183,7 @@ Compartment_setName (Compartment_t *c, const char *name)
  * NULL, this function performs unsetName() instead.
  *
  * @param c the Compartment_t structure
- * @param sid, the identifier of a CompartmentType object defined
+ * @param sid the identifier of a CompartmentType object defined
  * elsewhere in the enclosing Model_t structure.
  *
  * @return integer value indicating success/failure of the

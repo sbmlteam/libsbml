@@ -38,6 +38,7 @@
 #include "constraints/CompConsistencyConstraints.cpp"
 
 LIBSBML_CPP_NAMESPACE_BEGIN
+#ifdef __cplusplus
 
 /*
  * Initializes this Validator with a set of Constraints.
@@ -48,6 +49,8 @@ CompConsistencyValidator::init ()
 #define  AddingConstraintsToValidator 1
 #include "constraints/CompConsistencyConstraints.cpp"
 }
+
+#endif /* __cplusplus */
 
 LIBSBML_CPP_NAMESPACE_END
 

@@ -38,6 +38,7 @@
 #include <sbml/packages/layout/validator/LayoutSBMLError.h>
 
 LIBSBML_CPP_NAMESPACE_BEGIN
+#ifdef __cplusplus
 
 List*
 LineSegment::getAllElements(ElementFilter *filter)
@@ -696,6 +697,9 @@ LineSegment::enablePackageInternal(const std::string& pkgURI,
 
 
 
+#endif /* __cplusplus */
+/** @cond doxygenCOnly */
+
 /**
  * Creates a LineSegment and returns the pointer.
  */
@@ -818,5 +822,6 @@ LineSegment_clone (const LineSegment_t *m)
   return static_cast<LineSegment*>( m->clone() );
 }
 
+/** @endcond */
 LIBSBML_CPP_NAMESPACE_END
 

@@ -34,6 +34,7 @@
 using namespace std;
 
 LIBSBML_CPP_NAMESPACE_BEGIN
+#ifdef __cplusplus
 
 Deletion::Deletion (unsigned int level, unsigned int version, unsigned int pkgVersion) 
   : SBaseRef (level,version, pkgVersion)
@@ -324,6 +325,8 @@ Deletion::accept (SBMLVisitor& v) const
 /** @endcond */
 
 
+#endif /* __cplusplus */
+/** @cond doxygenCOnly */
 /**
  * 
  */
@@ -500,6 +503,7 @@ ListOfDeletions_removeById(ListOf_t * lo, const char * sid)
 
 
 
+/** @endcond */
 
 LIBSBML_CPP_NAMESPACE_END
 

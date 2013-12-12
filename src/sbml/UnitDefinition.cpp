@@ -50,6 +50,7 @@ using namespace std;
 /** @endcond */
 
 LIBSBML_CPP_NAMESPACE_BEGIN
+#ifdef __cplusplus
 
 UnitDefinition::UnitDefinition (unsigned int level, unsigned int version) :
    SBase  ( level, version )
@@ -1789,6 +1790,7 @@ ListOfUnitDefinitions::createObject (XMLInputStream& stream)
 /** @endcond */
 
 
+#endif /* __cplusplus */
 /** @cond doxygenCOnly */
 
 
@@ -2293,7 +2295,7 @@ UnitDefinition_getNumUnits (const UnitDefinition_t *ud)
  *
  * The caller owns the returned object and is responsible for deleting it.
  *
- * @param m the UnitDefinition_t structure
+ * @param ud the UnitDefinition_t structure
  * @param n the integer index of the Unit_t sought
  *
  * @return the Unit_t object removed.  As mentioned above, 

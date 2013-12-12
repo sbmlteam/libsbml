@@ -37,6 +37,7 @@ using namespace std;
 /** @endcond */
 
 LIBSBML_CPP_NAMESPACE_BEGIN
+#ifdef __cplusplus
 
 /*
  * Creates a new Constraint with the given constraint id.
@@ -136,6 +137,8 @@ UniqueComponentIds::doCheck (const Model& m)
 
   reset();
 }
+
+#endif /* __cplusplus */
 
 LIBSBML_CPP_NAMESPACE_END
 

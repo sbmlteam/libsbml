@@ -50,6 +50,7 @@ using namespace std;
 /** @endcond */
 
 LIBSBML_CPP_NAMESPACE_BEGIN
+#ifdef __cplusplus
 
 
 /*
@@ -444,13 +445,8 @@ CVTerm::resetModifiedFlags()
   mHasBeenModified = false;
 }
 
-
-
-
 /** @endcond */
-
-
-
+#endif /* __cplusplus */
 
 
 /** @cond doxygenCOnly */
@@ -514,7 +510,7 @@ CVTerm_free(CVTerm_t * term)
 /**
  * Creates a deep copy of the given CVTerm_t structure
  * 
- * @param p the CVTerm_t structure to be copied
+ * @param c the CVTerm_t structure to be copied
  * 
  * @return a (deep) copy of the given CVTerm_t structure.
  */
@@ -611,7 +607,7 @@ CVTerm_getNumResources(CVTerm_t* term)
 /**
  * Returns the value of the nth resource for this %CVTerm.
  *
- * @param term the CVTerm_t structure
+ * @param cv the CVTerm_t structure
  * @param n the index of the resource to query
  *
  * @return string representing the value of the nth resource

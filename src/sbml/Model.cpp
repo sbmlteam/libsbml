@@ -61,6 +61,7 @@ using namespace std;
 /** @endcond */
 
 LIBSBML_CPP_NAMESPACE_BEGIN
+#ifdef __cplusplus
 
 Model::Model (unsigned int level, unsigned int version) :
    SBase ( level, version )
@@ -5883,6 +5884,7 @@ Model::isPopulatedListFormulaUnitsData()
 
 
 
+#endif /* __cplusplus */
 /** @cond doxygenCOnly */
 
 
@@ -8050,6 +8052,7 @@ Model_getInitialAssignment (Model_t *m, unsigned int n)
  * @c NULL if no such InitialAssignment exists.
  *
  * @param m the Model_t structure
+ * @param symbol the symbol to search for
  */
 LIBSBML_EXTERN
 InitialAssignment_t *
@@ -8077,10 +8080,11 @@ Model_getRule (Model_t *m, unsigned int n)
 
 
 /**
- * @return the Rule in this Model with the given symbol or @c NULL if no
+ * @return the Rule in this Model with the given variable or @c NULL if no
  * such Rule exists.
  *
  * @param m the Model_t structure
+ * @param variable the variable to search for
  */
 LIBSBML_EXTERN
 Rule_t *
@@ -8832,7 +8836,7 @@ Model_removeInitialAssignment (Model_t *m, unsigned int n)
  * The caller owns the returned object and is responsible for deleting it.
  *
  * @param m the Model_t structure
- * @param sid the string of the "symbol" attribute of the InitialAssignment_t sought
+ * @param symbol the string of the "symbol" attribute of the InitialAssignment_t sought
  *
  * @return the InitialAssignment_t object removed.  As mentioned above, the 
  * caller owns the returned object. @c NULL is returned if no InitialAssignment_t
@@ -8880,7 +8884,7 @@ Model_removeRule (Model_t *m, unsigned int n)
  * The caller owns the returned object and is responsible for deleting it.
  *
  * @param m the Model_t structure
- * @param sid the string of the "variable" attribute of the Rule_t sought
+ * @param variable the string of the "variable" attribute of the Rule_t sought
  *
  * @return the Rule_t object removed.  As mentioned above, the 
  * caller owns the returned object. @c NULL is returned if no Rule_t

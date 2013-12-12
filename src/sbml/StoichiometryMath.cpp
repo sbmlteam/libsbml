@@ -50,6 +50,7 @@ using namespace std;
 /** @endcond */
 
 LIBSBML_CPP_NAMESPACE_BEGIN
+#ifdef __cplusplus
 
 StoichiometryMath::StoichiometryMath (unsigned int level, unsigned int version) :
    SBase ( level, version )
@@ -605,6 +606,8 @@ StoichiometryMath::writeElements (XMLOutputStream& stream) const
 }
 /** @endcond */
 
+#endif /* __cplusplus */
+/** @cond doxygenCOnly */
 
 
 /**
@@ -823,5 +826,7 @@ StoichiometryMath_containsUndeclaredUnits(StoichiometryMath_t *stoichMath)
                                 ->containsUndeclaredUnits()) : 0;
 }
 
+
+/** @endcond */
 
 LIBSBML_CPP_NAMESPACE_END

@@ -45,6 +45,7 @@ using namespace std;
 /** @endcond */
 
 LIBSBML_CPP_NAMESPACE_BEGIN
+#ifdef __cplusplus
 
 /*
  * @return s with whitespace removed from the beginning and end.
@@ -643,6 +644,7 @@ XMLOutputStream& operator<< (XMLOutputStream& stream, const XMLNode& node)
 /** @endcond */
 
 
+#endif /* __cplusplus */
 /** @cond doxygenCOnly */
 
 
@@ -822,7 +824,7 @@ XMLNode_addChild (XMLNode_t *node, const XMLNode_t *child)
  * Inserts a copy of child node to this XMLNode_t structure.
  *
  * @param node XMLNode_t structure to which child is to be added.
- * @pram n the index at which the given node is inserted
+ * @param n the index at which the given node is inserted
  * @param child XMLNode_t structure to be inserted as nth child.
  *
  * @return the newly inserted child in this XMLNode. 
@@ -864,7 +866,8 @@ XMLNode_removeChild(XMLNode_t *node, unsigned int n)
 /**
  * Removes all children from this node.
  *
- * @param n an integer the index of the resource to be deleted
+ * @param node XMLNode_t structure whose children to remove.
+ *
  * @return integer value indicating success/failure of the
  * function.  @if clike The value is drawn from the
  * enumeration #OperationReturnValues_t. @endif@~ The possible values
@@ -1081,7 +1084,8 @@ XMLNode_hasChild (const XMLNode_t *node, const char*  name)
  * represent the same XML tree, or false (zero) otherwise.
  *
  *
- * @param other another XMLNode to compare against
+ * @param node the original XMLNode_t structure
+ * @param other another XMLNode_t to compare against
  *
  * @return true (non-zero) if both nodes
  * represent the same XML tree, or false (zero) otherwise
@@ -1282,7 +1286,6 @@ XMLNode_removeAttr (XMLNode_t *node, int n)
  *
  * @param node XMLNode_t structure from which an attribute to be removed.
  * @param name   a string, the local name of the attribute.
- * @param uri    a string, the namespace URI of the attribute.
  *
  * @return integer value indicating success/failure of the
  * function.  @if clike The value is drawn from the

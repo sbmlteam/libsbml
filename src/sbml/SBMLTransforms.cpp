@@ -41,6 +41,7 @@ using namespace std;
 /** @endcond */
 
 LIBSBML_CPP_NAMESPACE_BEGIN
+#ifdef __cplusplus
 
 /** @cond doxygenLibsbmlInternal */
 SBMLTransforms::IdValueMap SBMLTransforms::mValues;
@@ -1109,6 +1110,7 @@ SBMLTransforms::expandInitialAssignment(Species * s,
 
 /** @endcond */
 
+#endif /* __cplusplus */
 /** @cond doxygenCOnly */
 
 

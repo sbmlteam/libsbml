@@ -46,6 +46,7 @@ using namespace std;
 /** @endcond */
 
 LIBSBML_CPP_NAMESPACE_BEGIN
+#ifdef __cplusplus
 
 /*
  * Creates a new SBMLReader and returns it. 
@@ -319,6 +320,7 @@ SBMLReader::readInternal (const char* content, bool isFile)
 /** @endcond */
 
 
+#endif /* __cplusplus */
 /** @cond doxygenCOnly */
 
 

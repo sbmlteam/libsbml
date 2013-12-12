@@ -37,6 +37,7 @@ using namespace std;
 /** @endcond */
 LIBSBML_CPP_NAMESPACE_BEGIN
 
+#ifdef __cplusplus
 L3ParserSettings::L3ParserSettings()
   : mModel (NULL)
   , mParselog(L3P_PARSE_LOG_AS_LOG10)
@@ -119,6 +120,11 @@ bool L3ParserSettings::getParseAvogadroCsymbol() const
   return mAvoCsymbol;
 }
 
+
+#endif /* __cplusplus */
+
+
+/** @cond doxygenCOnly */
 
 /**
  * Creates a new L3ParserSettings_t object and returns a pointer to it
@@ -368,4 +374,5 @@ L3ParserSettings_getParseAvogadroCsymbol (const L3ParserSettings_t * settings)
 }
 
 
+/** @endcond */
 LIBSBML_CPP_NAMESPACE_END

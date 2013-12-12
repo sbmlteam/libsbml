@@ -35,6 +35,7 @@ using namespace std;
 
 
 LIBSBML_CPP_NAMESPACE_BEGIN
+#ifdef __cplusplus
 
 
 /*
@@ -992,6 +993,9 @@ ListOfOutputs::writeXMLNS(XMLOutputStream& stream) const
   /** @endcond */
 
 
+#endif /* __cplusplus */  
+/** @cond doxygenCOnly */
+
 /**
  *
  */
@@ -1373,6 +1377,7 @@ OutputTransitionEffect_isValidOutputTransitionEffectString(const char* s)
 }
 
 
+/** @endcond */
 LIBSBML_CPP_NAMESPACE_END
 
 

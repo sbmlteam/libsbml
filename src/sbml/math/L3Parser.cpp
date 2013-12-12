@@ -2796,8 +2796,10 @@ L3ParserSettings L3Parser::getDefaultL3ParserSettings()
 /** @endcond */
 
 LIBSBML_CPP_NAMESPACE_BEGIN
+#ifdef __cplusplus
 BEGIN_C_DECLS
 
+#endif /* __cplusplus */
 /** @cond doxygenCOnly */
 /**
  * Parses the given mathematical formula and returns a representation of it
