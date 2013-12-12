@@ -301,6 +301,29 @@ START_TEST (test_element_csymbol_delay_3)
 END_TEST
 
 
+START_TEST (test_element_csymbol_delay_4)
+{
+  const char* s = wrapMathML
+  (
+    "<apply>"
+    "  <csymbol encoding='text' definitionURL='http://www.sbml.org/sbml/"
+    "symbols/delay'> my_delay </csymbol>"
+    "  <ci> x </ci>"
+    "</apply>\n"
+  );
+
+
+
+  N = readMathMLFromString(s);
+
+  fail_unless( N != NULL );
+
+  F = SBML_formulaToString(N);
+  fail_unless( !strcmp(F, "my_delay(x)") );
+}
+END_TEST
+
+
 START_TEST (test_element_constants_true)
 {
   const char* s = wrapMathML("<true/>");
@@ -1996,6 +2019,7 @@ create_suite_ReadMathML ()
   tcase_add_test( tcase, test_element_csymbol_delay_1           );
   tcase_add_test( tcase, test_element_csymbol_delay_2           );
   tcase_add_test( tcase, test_element_csymbol_delay_3           );
+  tcase_add_test( tcase, test_element_csymbol_delay_4           );
 
   tcase_add_test( tcase, test_element_constants_true            );
   tcase_add_test( tcase, test_element_constants_false           );
