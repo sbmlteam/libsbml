@@ -1121,6 +1121,7 @@ Geometry::writeAttributes (XMLOutputStream& stream) const
 {
   SBase::writeAttributes(stream);
 
+  if (isSetCoordinateSystem())
   stream.writeAttribute("coordinateSystem",   getPrefix(), mCoordinateSystem);
 
   //

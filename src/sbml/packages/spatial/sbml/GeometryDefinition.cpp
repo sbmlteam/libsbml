@@ -176,6 +176,7 @@ GeometryDefinition::writeAttributes (XMLOutputStream& stream) const
 {
   SBase::writeAttributes(stream);
 
+  if (isSetSpatialId())
   stream.writeAttribute("spatialId",   getPrefix(), mSpatialId);
 
   //

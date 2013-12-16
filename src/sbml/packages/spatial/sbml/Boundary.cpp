@@ -322,7 +322,9 @@ Boundary::writeAttributes (XMLOutputStream& stream) const
 {
   SBase::writeAttributes(stream);
 
+  if (isSetSpatialId())
   stream.writeAttribute("spatialId",   getPrefix(), mSpatialId);
+  if (isSetValue())
   stream.writeAttribute("value", getPrefix(), mValue);
 
   //

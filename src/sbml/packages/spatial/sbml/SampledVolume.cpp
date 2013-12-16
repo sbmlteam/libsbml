@@ -452,10 +452,15 @@ SampledVolume::writeAttributes (XMLOutputStream& stream) const
 {
   SBase::writeAttributes(stream);
 
+  if (isSetSpatialId())
   stream.writeAttribute("spatialId",   getPrefix(), mSpatialId);
+  if (isSetDomainType())
   stream.writeAttribute("domainType",   getPrefix(), mDomainType);
+  if (isSetSampledValue())
   stream.writeAttribute("sampledValue", getPrefix(), mSampledValue);
+  if (isSetMinValue())
   stream.writeAttribute("minValue", getPrefix(), mMinValue);
+  if (isSetMaxValue())
   stream.writeAttribute("maxValue", getPrefix(), mMaxValue);
 
 

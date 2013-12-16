@@ -417,7 +417,9 @@ Domain::writeAttributes (XMLOutputStream& stream) const
 {
   SBase::writeAttributes(stream);
 
+  if (isSetSpatialId())
   stream.writeAttribute("spatialId",   getPrefix(), mSpatialId);
+  if (isSetDomainType())
   stream.writeAttribute("domainType",   getPrefix(), mDomainType);  
 
   //

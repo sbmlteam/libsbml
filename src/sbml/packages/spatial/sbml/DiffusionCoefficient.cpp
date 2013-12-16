@@ -269,7 +269,7 @@ DiffusionCoefficient::readAttributes (const XMLAttributes& attributes,
     logError(InvalidIdSyntax, getLevel(), getVersion(), 
     "The syntax of the attribute variable='" + mVariable + "' does not conform.");
 
-  attributes.readInto("coordinateIndex", mCoordinateIndex, getErrorLog(), false, getLine(), getColumn());
+  mIsSetCoordinateIndex = attributes.readInto("coordinateIndex", mCoordinateIndex, getErrorLog(), false, getLine(), getColumn());
   /*if (mCoordinateIndex < 0)
   {
     std::string message = "The coordinateIndex attribute on ";
@@ -288,8 +288,10 @@ DiffusionCoefficient::writeAttributes (XMLOutputStream& stream) const
 {
   SBase::writeAttributes(stream);
 
+  if (isSetVariable())
   stream.writeAttribute("variable",   getPrefix(), mVariable);
 
+  if (isSetCoordinateIndex())
   stream.writeAttribute("coordinateIndex",   getPrefix(), mCoordinateIndex);
 
   //

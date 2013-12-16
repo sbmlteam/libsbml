@@ -1126,8 +1126,6 @@ END_TEST
   resultString = dataToString(more, field->getNumSamples1(), resultLength);
   fail_unless(resultString == expected);
 
-
-
 }
 END_TEST
 

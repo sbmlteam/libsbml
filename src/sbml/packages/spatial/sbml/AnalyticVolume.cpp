@@ -469,7 +469,7 @@ AnalyticVolume::readAttributes (const XMLAttributes& attributes,
     logError(InvalidIdSyntax, getLevel(), getVersion(), 
     "functionType='" + mFunctionType + "' does not conform.");
 
-  attributes.readInto("ordinal", mOrdinal, getErrorLog(), false, getLine(), getColumn());
+  mIsSetOrdinal = attributes.readInto("ordinal", mOrdinal, getErrorLog(), false, getLine(), getColumn());
   /*if (mOrdinal < 0)
   {
     std::string message = "The ordinal attribute on ";
@@ -560,9 +560,13 @@ AnalyticVolume::writeAttributes (XMLOutputStream& stream) const
 {
   SBase::writeAttributes(stream);
 
+  if (isSetSpatialId())
   stream.writeAttribute("spatialId",   getPrefix(), mSpatialId);
+  if (isSetDomainType())
   stream.writeAttribute("domainType",   getPrefix(), mDomainType);
+  if (isSetFunctionType())
   stream.writeAttribute("functionType",   getPrefix(), mFunctionType);
+  if (isSetOrdinal())
   stream.writeAttribute("ordinal", getPrefix(), mOrdinal);
 
   //

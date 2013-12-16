@@ -402,9 +402,13 @@ BoundaryCondition::writeAttributes (XMLOutputStream& stream) const
 {
   SBase::writeAttributes(stream);
 
+  if (isSetVariable())
   stream.writeAttribute("variable",   getPrefix(), mVariable);
+  if (isSetCoordinateBoundary())
   stream.writeAttribute("coordinateBoundary",   getPrefix(), mCoordinateBoundary);
+  if (isSetType())
   stream.writeAttribute("type",   getPrefix(), mType);
+  if (isSetBoundaryDomainType())
   stream.writeAttribute("boundaryDomainType",   getPrefix(), mBoundaryDomainType);
 
   //

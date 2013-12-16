@@ -649,7 +649,7 @@ CoordinateComponent::readAttributes (const XMLAttributes& attributes,
     logError(InvalidIdSyntax, getLevel(), getVersion(), 
     "The syntax of the attribute sbmlUnit='" + mSbmlUnit + "' does not conform.");
   
-  attributes.readInto("index", mIndex, getErrorLog(), true, getLine(), getColumn());
+  mIsSetIndex = attributes.readInto("index", mIndex, getErrorLog(), true, getLine(), getColumn());
   /*if (mIndex < 0)
   {
     std::string message = "The index attribute on ";
@@ -670,9 +670,13 @@ CoordinateComponent::writeAttributes (XMLOutputStream& stream) const
 {
   SBase::writeAttributes(stream);
 
+  if (isSetSpatialId())
   stream.writeAttribute("spatialId",   getPrefix(), mSpatialId);
+  if (isSetComponentType())
   stream.writeAttribute("componentType",   getPrefix(), mComponentType);
+  if (isSetSbmlUnit())
   stream.writeAttribute("sbmlUnit",   getPrefix(), mSbmlUnit);  
+  if (isSetIndex())
   stream.writeAttribute("index",   getPrefix(), mIndex);
 
   //

@@ -288,7 +288,7 @@ DomainType::readAttributes (const XMLAttributes& attributes,
   //                     default="3" }  (L2v1 ->)
   // spatialDimensions { use="optional"}  (L3v1 ->)
   //
-  attributes.readInto("spatialDimensions", mSpatialDimensions, getErrorLog(), false, getLine(), getColumn());
+  mIsSetSpatialDimensions= attributes.readInto("spatialDimensions", mSpatialDimensions, getErrorLog(), false, getLine(), getColumn());
   if (mSpatialDimensions > 3)
   {
     std::string message = "The spatialDimensions attribute on ";
@@ -308,10 +308,11 @@ DomainType::writeAttributes (XMLOutputStream& stream) const
 {
   SBase::writeAttributes(stream);
 
+  if (isSetSpatialId())
   stream.writeAttribute("spatialId",   getPrefix(), mSpatialId);
 
   unsigned int sd = mSpatialDimensions;
-  if (sd <= 3)
+  if (mIsSetSpatialDimensions &&  sd <= 3)
   {
     stream.writeAttribute("spatialDimensions", getPrefix(), sd);
   }

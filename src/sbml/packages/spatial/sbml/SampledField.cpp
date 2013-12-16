@@ -696,7 +696,7 @@ SampledField::readAttributes (const XMLAttributes& attributes,
     logError(InvalidIdSyntax, getLevel(), getVersion(), 
     "The syntax of the attribute encoding='" + mEncoding + "' does not conform.");
   
-  attributes.readInto("numSamples1", mNumSamples1, getErrorLog(), true, getLine(), getColumn());
+  mIsSetNumSamples1 = attributes.readInto("numSamples1", mNumSamples1, getErrorLog(), true, getLine(), getColumn());
   if (mNumSamples1 < 0)
   {
     std::string message = "The numSamples1 attribute on ";
@@ -704,7 +704,7 @@ SampledField::readAttributes (const XMLAttributes& attributes,
     getErrorLog()->logError(NotSchemaConformant, sbmlLevel, sbmlVersion, message);
   }
 
-  attributes.readInto("numSamples2", mNumSamples2, getErrorLog(), true, getLine(), getColumn());
+  mIsSetNumSamples2 = attributes.readInto("numSamples2", mNumSamples2, getErrorLog(), true, getLine(), getColumn());
   if (mNumSamples2 < 0)
   {
     std::string message = "The numSamples2 attribute on ";
@@ -712,7 +712,7 @@ SampledField::readAttributes (const XMLAttributes& attributes,
     getErrorLog()->logError(NotSchemaConformant, sbmlLevel, sbmlVersion, message);
   }
 
-  attributes.readInto("numSamples3", mNumSamples3, getErrorLog(), true, getLine(), getColumn());
+  mIsSetNumSamples3 =  attributes.readInto("numSamples3", mNumSamples3, getErrorLog(), true, getLine(), getColumn());
   if (mNumSamples3 < 0)
   {
     std::string message = "The numSamples3 attribute on ";
@@ -763,12 +763,19 @@ SampledField::writeAttributes (XMLOutputStream& stream) const
 {
   SBase::writeAttributes(stream);
 
+  if (isSetSpatialId())
   stream.writeAttribute("spatialId",   getPrefix(), mSpatialId);
+  if (isSetDataType())
   stream.writeAttribute("dataType",   getPrefix(), mDataType);
+  if (isSetInterpolationType())
   stream.writeAttribute("interpolationType",   getPrefix(), mInterpolationType);  
+  if (isSetEncoding())
   stream.writeAttribute("encoding",   getPrefix(), mEncoding);  
+  if (isSetNumSamples1())
   stream.writeAttribute("numSamples1", getPrefix(), mNumSamples1);
+  if (isSetNumSamples2())
   stream.writeAttribute("numSamples2", getPrefix(), mNumSamples2);
+  if (isSetNumSamples3())
   stream.writeAttribute("numSamples3", getPrefix(), mNumSamples3);
 
 

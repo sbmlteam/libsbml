@@ -339,8 +339,11 @@ AdjacentDomains::writeAttributes (XMLOutputStream& stream) const
 {
   SBase::writeAttributes(stream);
 
+  if (isSetSpatialId())
   stream.writeAttribute("spatialId",   getPrefix(), mSpatialId);
+  if (isSetDomain1())
   stream.writeAttribute("domain1",   getPrefix(), mDomain1);  
+  if (isSetDomain2())
   stream.writeAttribute("domain2",   getPrefix(), mDomain2);
 
   //

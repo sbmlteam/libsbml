@@ -282,7 +282,9 @@ SpatialSymbolReference::writeAttributes (XMLOutputStream& stream) const
 {
   SBase::writeAttributes(stream);
 
+  if (isSetSpatialId())
   stream.writeAttribute("spatialId",   getPrefix(), mSpatialId);
+  if (isSetType())
   stream.writeAttribute("type",   getPrefix(), mType);
 
   //

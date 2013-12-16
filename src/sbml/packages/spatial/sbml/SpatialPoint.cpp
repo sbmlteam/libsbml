@@ -462,10 +462,15 @@ SpatialPoint::writeAttributes (XMLOutputStream& stream) const
 {
   SBase::writeAttributes(stream);
 
+  if (isSetSpatialId())
   stream.writeAttribute("spatialId", getPrefix(), mSpatialId);
+  if (isSetDomain())
   stream.writeAttribute("domain", getPrefix(), mDomain);  
+  if (isSetCoord1())
   stream.writeAttribute("coord1", getPrefix(), mCoord1);
+  if (isSetCoord2())
   stream.writeAttribute("coord2", getPrefix(), mCoord2);
+  if (isSetCoord3())
   stream.writeAttribute("coord3", getPrefix(), mCoord3);
 
   //
