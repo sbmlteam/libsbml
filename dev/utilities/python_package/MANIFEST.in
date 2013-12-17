@@ -1,0 +1,2 @@
+recursive-include base *.h *.cpp *.cxx *.i
+recursive-include swig *.i *.h *.cpp 
