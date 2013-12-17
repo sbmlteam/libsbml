@@ -490,11 +490,12 @@ SBMLDocument::expandInitialAssignments()
  */
 bool
 SBMLDocument::setLevelAndVersion (unsigned int level, unsigned int version,
-                                  bool strict)
+                                  bool strict, bool ignorePackages)
 {
   ConversionProperties prop(new SBMLNamespaces(level, version));
   prop.addOption("strict", strict, "should validity be preserved");
   prop.addOption("setLevelAndVersion", true, "convert the document to the given level and version");
+  prop.addOption("ignorePackages", ignorePackages);
 
   if (convert(prop) == LIBSBML_OPERATION_SUCCESS)
     return true;

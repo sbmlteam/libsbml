@@ -636,6 +636,10 @@ public:
    * of both the source and target model when performing
    * conversion (defaults to <code> true </code>)
    *
+   * @param ignorePackages boolean indicating whether the presence of
+   * packages should be ignored by the conversion routine 
+   * (defaults to <code> false </code>)
+   *
    * @return @c true if the level and version of the document were
    * successfully set to the requested values (which may have required
    * conversion of the model), @c false otherwise.
@@ -660,7 +664,7 @@ public:
    * @see checkL3v1Compatibility()
    */
   bool setLevelAndVersion (unsigned int level, unsigned int version,
-                           bool strict = true);
+                           bool strict = true, bool ignorePackages = false);
 
 
   /** @cond doxygenLibsbmlInternal */
