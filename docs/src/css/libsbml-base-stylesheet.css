@@ -45,14 +45,14 @@ h1, h2, h3, h4, h5
 
 h1
 {
-    font-size: 16pt;
+    font-size: 15pt;
+    letter-spacing: 1px;
 }
 
 h2, h2 a
 {
-    font-size: 16px;
+    font-size: 14pt;
     font-weight: bold;
-    letter-spacing: 1px;
     padding-top: 0.5em;
     color: #383838;
     line-height: 120%;
@@ -76,8 +76,7 @@ h4 a.anchor:hover
 
 h3, h3 a
 {
-    font-family: Verdana, Helvetica, Arial, Sans, sans-serif;
-    font-size: 14px;
+    font-size: 12pt;
     font-style: italic;
     font-weight: bold;
     padding-bottom: 3px;
@@ -92,7 +91,7 @@ h4, h4 a
 {
     color: #383838;
     font-style: italic;
-    font-size: 14px;
+    font-size: 11pt;
     font-weight: bold;
 }
 
