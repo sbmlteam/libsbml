@@ -1,0 +1,46 @@
+/**
+ * @file    libsbml-c-stylesheet.css
+ * @brief   Additional stylesheet used for C documentation.
+ * @author  Michael Hucka
+ *
+ * This file is part of libSBML.  Please visit http://sbml.org for more
+ * information about SBML, and the latest version of libSBML.
+ */
+
+/* The following is a shocking hack to force a section heading in front of
+   the list of function declarations on "group" pages in the docs.  It works
+   in concert with doxygen-layout-c.xml, which defines the <group> section to
+   put <groupgraph> right in front of <memberdecl>.  The HTML output for
+   <groupgraph> has a <div> with a class of "dynheader", and this div is
+   immediately followed by the "dyncontent" div for a diagram.  We don't need
+   the diagram (it's useless in our system), so the following hides
+   "dyncontent" and hijacks the "dynheader" to use it to show completely
+   different text.  The CSS selectors below rely on the the fact that even
+   though dynheader is used in other pages in the doxygen output, the element
+   hierarchy on groups pages in particular puts dynheader as an immediate
+   child of the "contents" <div>.  This makes these changes only affect our
+   groups pages. */
+
+div.contents > div.dynheader:before {
+    display: block;
+    content: "Function Declarations";
+    font-family: Helvetica, Arial, Sans, sans-serif;
+    font-size: 14pt;
+    font-weight: bold;
+    color: #383838;
+    line-height: 120%;
+    margin-top: 1em;
+    margin-bottom: 0em;
+}
+
+div.contents > div.dynheader {
+    /* We can't use display: none here because then no part of the element
+       will be shown, and we won't be able to use the CSS code above.  So,
+       the following sets the content color of the dynheader <div> to white,
+       making the content text invisible.  Wow, is this gross or what?  */
+    color: white;
+}
+
+div.contents > div.dyncontent {
+    display: none;
+}
