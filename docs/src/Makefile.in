@@ -464,6 +464,7 @@ css/libsbml-package-stylesheet.css: css/generate-pkg-stylesheet.py \
 
 css-files =			     \
   css/libsbml-base-stylesheet.css    \
+  css/libsbml-c-stylesheet.css       \
   css/libsbml-doxygen-navtree.css    \
   css/libsbml-doxygen-stylesheet.css \
   css/libsbml-doxygen-tabs.css	     \
@@ -499,6 +500,11 @@ endef
 # contents lacking all the classes flagged with @ingroup.  To solve that,
 # we copy over the index files created from the first Doxygen pass.
 
+define run_doxygen
+  $(call doxygen_indexing_pass,$(1),$(2),$(3))
+  $(call doxygen_final_pass,$(1),$(2),$(3))
+endef
+
 define doxygen_indexing_pass
   @echo "-----------------------------------------------------------------"
   @echo "Running Doxygen pass 1 of 2: generate corrected table of contents"
@@ -514,11 +520,6 @@ define doxygen_indexing_pass
   cp -f $(2)/navtreeindex*.js .
   cp -f $(2)/navtree.js .
   cp -f $(2)/files.js .
-endef
-
-define run_doxygen
-  $(call doxygen_indexing_pass,$(1),$(2),$(3))
-  $(call doxygen_final_pass,$(1),$(2),$(3))
 endef
 
 define doxygen_final_pass
@@ -567,6 +568,7 @@ c-manual $(c-manual): doxygen-config-c.txt $(core-sources) $(css-files)
 	$(call preprocess_doxygen)
 	$(call run_doxygen,doxygen-config-c.txt,$(c-manual),"")
 	$(call postprocess_doxygen,$(c-manual))
+	cp -f css/libsbml-c-stylesheet.css $(c-manual)
 
 ifdef USE_PYTHON
 python-input     = ../../src/bindings/python/libsbml-doxygen.py
