@@ -39,8 +39,20 @@ OPTIMIZE_OUTPUT_FOR_C  = YES
 
 # The ENABLED_SECTIONS tag can be used to enable conditional 
 # documentation sections, marked by \if sectionname ... \endif.
+#
+# In libSBML, we use the following section names for the languages:
+#
+#   java:     only Java
+#   python:   only Python
+#   perl:     only Perl
+#   cpp:      only C++
+#   csharp:   only C#
+#   conly:    only C
+#   clike:    C, C++
+#   notcpp:   not C++
+#   notclike: not C or C++
 
-ENABLED_SECTIONS       = doxygenCOnly doxygenCLikeOnly notcpp
+ENABLED_SECTIONS       = clike doxygenCOnly doxygenCLikeOnly notcpp
 
 # When TYPEDEF_HIDES_STRUCT is enabled, a typedef of a struct, union, or enum
 # is documented as struct, union, or enum with the name of the typedef. So
@@ -52,6 +64,16 @@ ENABLED_SECTIONS       = doxygenCOnly doxygenCLikeOnly notcpp
 # the tag name.
 
 TYPEDEF_HIDES_STRUCT   = YES
+
+# If you use STL classes (i.e. std::string, std::vector, etc.) but do not
+# want to include (a tag file for) the STL sources as input, then you should
+# set this tag to YES in order to let doxygen match functions declarations
+# and definitions whose arguments contain STL classes
+# (e.g. func(std::string); v.s. func(std::string) {}). This also make the
+# inheritance and collaboration diagrams that involve STL classes more
+# complete and accurate.
+
+BUILTIN_STL_SUPPORT    = NO
 
 # The PREDEFINED tag can be used to specify one or more macro names that 
 # are defined before the preprocessor is started (similar to the -D option of 
@@ -65,4 +87,19 @@ PREDEFINED             = LIBSBML_EXTERN:="" \
 			 LIBSBML_CPP_NAMESPACE_BEGIN:="" \
 			 LIBSBML_CPP_NAMESPACE_END:="" 
 
-#			 __cplusplus 
+EXAMPLE_PATH           = common-text examples . ../.. ../../examples/c \
+                         ../../examples/c/comp
+
+LAYOUT_FILE = doxygen-layout-c.xml
+
+COLLABORATION_GRAPH = NO
+
+GROUP_GRAPHS = YES
+
+INLINE_SIMPLE_STRUCTS = YES
+
+ALIASES += sbmldefgroup{2}="@defgroup \1 \2"
+ALIASES += sbmlingroup{1}="@ingroup \1 \n\
+@{"
+ALIASES += sbmlendgroup="@}"
+
