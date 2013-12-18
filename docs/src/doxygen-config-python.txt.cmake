@@ -156,3 +156,9 @@ EXCLUDE_SYMBOLS =                      \
   _newclass                            \
   accept                               \
   string
+
+# Blank definitions for some constructs used only for some languages.
+
+ALIASES += sbmldefgroup{2}=""
+ALIASES += sbmlingroup{1}=""
+ALIASES += sbmlendgroup=""

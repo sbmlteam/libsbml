@@ -90,3 +90,9 @@ INPUT_FILTER           = ./csdocfilter.py
 RECURSIVE              = NO
 
 ENABLED_SECTIONS       = csharp notclike doxygenCsharpOnly
+
+# Blank definitions for some constructs used only for some languages.
+
+ALIASES += sbmldefgroup{2}=""
+ALIASES += sbmlingroup{1}=""
+ALIASES += sbmlendgroup=""
