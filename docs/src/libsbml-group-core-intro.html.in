@@ -24,7 +24,7 @@ specifications for the core of SBML.  This excludes the currently-available
 Level&nbsp;3 package specifications; there are separate sections in this API
 document that provide information about the packages.</p>
 
-<table border="0" class="centered text-table width80 normal-font alt-row-colors" style="padding-bottom: 0.5em">
+<table border="0" class="centered text-table normal-font alt-row-colors" style="padding-bottom: 0.5em">
 <caption class="top-caption">Specifications for the core of SBML, current at
 the time of this libSBML release (@PACKAGE_VERSION@).  Note: an Internet
 connection is required to access these documents.</caption>
@@ -169,7 +169,7 @@ components, with every list being optional.  The next table enumerates the
 lists and objects defined by core SBML; also shown are the SBML Level+Version
 combinations for which they are valid.
 
-<table border="0" class="centered text-table width80 normal-font
+<table border="0" class="centered text-table normal-font
 alt-row-colors" style="padding-bottom: 0.5em"> <caption
 class="top-caption">SBML components and corresponding libSBML objects.  The
 meaning of expressions such as &ldquo;L2V4&rdquo; is as follows:

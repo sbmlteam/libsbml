@@ -31,7 +31,7 @@ plausibility.  The table of values for all the quantities we will use
 is shown below:
 
 <center>
-<table border="0" class="text-table width80 normal-font alt-row-colors">
+<table border="0" class="text-table normal-font alt-row-colors">
  <tr style="background: lightgray; font-size: 14px;">
      <th align="left">Entity in the %Model</th>
      <th align="left">Initial value</th>
