@@ -25,7 +25,7 @@
       <tab type="filelist" visible="yes" title="" intro=""/>
       <tab type="globals" visible="yes" title="" intro=""/>
     </tab>
-    <tab type="user" url="@ref libsbml-example-files" title="Examples"/>
+    <tab type="user" url="@ref libsbml-example-files-c" title="Examples"/>
   </navindex>
 
   <!-- Layout definition for a class page -->
