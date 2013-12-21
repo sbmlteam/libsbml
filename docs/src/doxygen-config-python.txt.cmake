@@ -82,24 +82,38 @@ BRIEF_MEMBER_DESC      = NO
 # the files relevant for the Python bindings.
 
 INPUT = \
-  libsbml-accessing.txt            \
-  libsbml-blurb.txt                \
-  libsbml-changes.txt              \
-  libsbml-communications.txt       \
-  libsbml-features.txt             \
-  libsbml-installation.txt         \
-  libsbml-issues.txt               \
-  libsbml-license.txt              \
-  libsbml-news.txt                 \
-  libsbml-old-news.txt             \
-  libsbml-release-info.txt         \
-  libsbml-programming-python.txt   \
-  libsbml-python-mainpage.txt      \
-  libsbml-python-math.txt          \
-  libsbml-python-reading-files.txt \
+  libsbml-accessing.txt                 \
+  libsbml-blurb.txt                     \
+  libsbml-changes.txt                   \
+  libsbml-coding.txt                    \
+  libsbml-communications.txt            \
+  libsbml-core-versus-packages.txt      \
+  libsbml-extending.txt                 \
+  libsbml-extension-support-classes.txt \
+  libsbml-features.txt                  \
+  libsbml-group-comp-intro.txt          \
+  libsbml-group-core-intro.txt          \
+  libsbml-group-fbc-intro.txt           \
+  libsbml-group-layout-intro.txt        \
+  libsbml-group-qual-intro.txt          \
+  libsbml-howto-implement-extension.txt \
+  libsbml-installation.txt              \
+  libsbml-issues.txt                    \
+  libsbml-license.txt                   \
+  libsbml-math.txt                      \
+  libsbml-news.txt                      \
+  libsbml-old-news.txt                  \
+  libsbml-other.txt                     \
+  libsbml-papers.txt                    \
+  libsbml-programming-python.txt        \
+  libsbml-python-creating-model.txt     \
+  libsbml-python-example-files.txt      \
+  libsbml-python-mainpage.txt           \
+  libsbml-python-reading-files.txt      \
+  libsbml-release-info.txt              \
   libsbml.py
 
-LAYOUT_FILE = doxygen-layout-notcpp.xml
+LAYOUT_FILE = doxygen-layout-python.xml
 
 # The INPUT_FILTER tag can be used to specify a program that doxygen should 
 # invoke to filter for each input file. Doxygen will invoke the filter program 
@@ -157,8 +171,6 @@ EXCLUDE_SYMBOLS =                      \
   accept                               \
   string
 
-# Blank definitions for some constructs used only for some languages.
-
-ALIASES += sbmldefgroup{2}=""
-ALIASES += sbmlingroup{1}=""
-ALIASES += sbmlendgroup=""
+EXAMPLE_PATH           = common-text examples . ../.. ../../examples/python \
+                         ../../examples/python/comp ../../examples/python/layout \
+                         ../../examples/python/fbc ../../examples/python/qual 
