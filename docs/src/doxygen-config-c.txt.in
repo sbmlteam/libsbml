@@ -86,10 +86,27 @@ PREDEFINED             = LIBSBML_EXTERN:="" \
 			 BEGIN_C_DECLS:="" \
 			 END_C_DECLS:="" \
 			 LIBSBML_CPP_NAMESPACE_BEGIN:="" \
-			 LIBSBML_CPP_NAMESPACE_END:="" 
+			 LIBSBML_CPP_NAMESPACE_END:=""
 
 EXAMPLE_PATH           = common-text examples . ../.. ../../examples/c \
                          ../../examples/c/comp
+
+
+# The INPUT_FILTER tag can be used to specify a program that doxygen should 
+# invoke to filter for each input file. Doxygen will invoke the filter program 
+# by executing (via popen()) the command <filter> <input-file>, where <filter> 
+# is the value of the INPUT_FILTER tag, and <input-file> is the name of an 
+# input file. Doxygen will then use the output that the filter program writes 
+# to standard output.
+
+INPUT_FILTER = ./c-doc-filter.py
+
+# If the FILTER_SOURCE_FILES tag is set to YES, the input filter (if set using
+# INPUT_FILTER ) will also be used to filter the input files that are used for
+# producing the source files to browse (i.e. when SOURCE_BROWSER is set to
+# YES).
+
+FILTER_SOURCE_FILES = YES
 
 LAYOUT_FILE = doxygen-layout-c.xml
 
@@ -98,8 +115,3 @@ COLLABORATION_GRAPH = NO
 GROUP_GRAPHS = YES
 
 INLINE_SIMPLE_STRUCTS = YES
-
-ALIASES += sbmldefgroup{2}="@defgroup \1 \2"
-ALIASES += sbmlingroup{1}="@ingroup \1 \n\
-@{"
-ALIASES += sbmlendgroup="@}"
