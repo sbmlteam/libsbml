@@ -1623,9 +1623,6 @@ ListOfCompartments::createObject (XMLInputStream& stream)
 /** @cond doxygenCOnly */
 
 
-/**
- * @copydoc Compartment::Compartment(unsigned int level, unsigned int version);
- */
 LIBSBML_EXTERN
 Compartment_t *
 Compartment_create (unsigned int level, unsigned int version)
@@ -1642,23 +1639,6 @@ Compartment_create (unsigned int level, unsigned int version)
 }
 
 
-/**
- * Creates a new Compartment_t structure using the given
- * SBMLNamespaces_t structure.
- *
- * @param sbmlns SBMLNamespaces, a pointer to an SBMLNamespaces structure
- * to assign to this Compartment
- *
- * @return a pointer to the newly created Compartment_t structure.
- *
- * @note Once a Compartment has been added to an SBMLDocument, the
- * @p sbmlns namespaces for the document @em override those used to create
- * the Compartment.  Despite this, the ability to supply the values at creation 
- * time is an important aid to creating valid SBML.  Knowledge of the intended 
- * SBML Level and Version determine whether it is valid to assign a particular 
- * value to an attribute, or whether it is valid to add an object to an existing
- * SBMLDocument.
- */
 LIBSBML_EXTERN
 Compartment_t *
 Compartment_createWithNS (SBMLNamespaces_t* sbmlns)
@@ -1675,11 +1655,6 @@ Compartment_createWithNS (SBMLNamespaces_t* sbmlns)
 }
 
 
-/**
- * Frees the given Compartment_t structure.
- *
- * @param c the Compartment_t structure to be freed.
- */
 LIBSBML_EXTERN
 void
 Compartment_free (Compartment_t *c)
@@ -1689,13 +1664,6 @@ Compartment_free (Compartment_t *c)
 }
 
 
-/**
- * Creates a deep copy of the given Compartment_t structure
- * 
- * @param c the Compartment_t structure to be copied
- * 
- * @return a (deep) copy of the given Compartment_t structure.
- */
 LIBSBML_EXTERN
 Compartment_t *
 Compartment_clone (const Compartment_t* c)
@@ -1711,18 +1679,6 @@ Compartment_clone (const Compartment_t* c)
 }
 
 
-/**
- * Initializes the attributes of this Compartment_t structure to their defaults.
- *
- * The exact results depends on the %SBML Level and Version in use.  The
- * cases are currently the following:
- * 
- * @li (SBML Level 1 only) sets attribute "volume" to @c 1.0
- * @li (SBML Level 2 only) sets attribute "spatialDimensions" to @c 3
- * @li (SBML Level 2 only) sets attribute "constant" to @c 1 (true)
- *
- * @param c the Compartment_t structure to initialize
- */
 LIBSBML_EXTERN
 void
 Compartment_initDefaults (Compartment_t *c)
@@ -1731,15 +1687,6 @@ Compartment_initDefaults (Compartment_t *c)
 }
 
 
-/**
- * Returns a list of XMLNamespaces_t associated with this Compartment_t
- * structure.
- *
- * @param c the Compartment_t structure
- * 
- * @return pointer to the XMLNamespaces_t structure associated with 
- * this SBML object
- */
 LIBSBML_EXTERN
 const XMLNamespaces_t *
 Compartment_getNamespaces(Compartment_t *c)
@@ -1754,14 +1701,7 @@ Compartment_getNamespaces(Compartment_t *c)
   }
 }
 
-/**
- * Takes a Compartment_t structure and returns its identifier.
- *
- * @param c the Compartment_t structure whose identifier is sought
- * 
- * @return the identifier of the Compartment_t structure @p c, as a pointer
- * to a string.
- */
+
 LIBSBML_EXTERN
 const char *
 Compartment_getId (const Compartment_t *c)
@@ -1770,14 +1710,6 @@ Compartment_getId (const Compartment_t *c)
 }
 
 
-/**
- * Takes a Compartment_t structure and returns its name.
- *
- * @param c the Compartment_t whose name is sought.
- *
- * @return the name of the Compartment_t structure @p c, as a pointer to a
- * string.
- */
 LIBSBML_EXTERN
 const char *
 Compartment_getName (const Compartment_t *c)
@@ -1786,15 +1718,6 @@ Compartment_getName (const Compartment_t *c)
 }
 
 
-/**
- * Get the compartment type of this Compartment, as indicated by the
- * Compartment_t structure's "compartmentType" attribute.
- *
- * @param c the Compartment_t structure
- * 
- * @return the value of the "compartmentType" attribute of the
- * Compartment_t structure @p c as a string.
- */
 LIBSBML_EXTERN
 const char *
 Compartment_getCompartmentType (const Compartment_t *c)
@@ -1804,14 +1727,6 @@ Compartment_getCompartmentType (const Compartment_t *c)
 }
 
 
-/**
- * Get the number of spatial dimensions of this Compartment_t structure.
- *
- * @param c the Compartment_t structure
- * 
- * @return the value of the "spatialDimensions" attribute of the
- * Compartment_t structure @p c as an unsigned integer
- */
 LIBSBML_EXTERN
 unsigned int
 Compartment_getSpatialDimensions (const Compartment_t *c)
@@ -1820,14 +1735,6 @@ Compartment_getSpatialDimensions (const Compartment_t *c)
 }
 
 
-/**
- * Get the number of spatial dimensions of this Compartment_t structure.
- *
- * @param c the Compartment_t structure
- * 
- * @return the value of the "spatialDimensions" attribute of the
- * Compartment_t structure @p c as a double
- */
 LIBSBML_EXTERN
 double
 Compartment_getSpatialDimensionsAsDouble (const Compartment_t *c)
@@ -1837,23 +1744,6 @@ Compartment_getSpatialDimensionsAsDouble (const Compartment_t *c)
 }
 
 
-/**
- * Get the size of this Compartment.
- *
- * This method is identical to Compartment_getVolume().  In SBML Level 1,
- * compartments are always three-dimensional constructs and only have
- * volumes, whereas in SBML Level 2, compartments may be other than
- * three-dimensional and therefore the "volume" attribute is named "size"
- * in Level 2.  LibSBML provides both Compartment_getSize() and
- * Compartment_getVolume() for easier compatibility between SBML Levels.
- *
- * @param c the Compartment_t structure
- *
- * @return the value of the "size" attribute ("volume" in Level 1) of
- * the Compartment_t structure @p c as a float-point number.
- *
- * @see Compartment_isSetSize()
- */
 LIBSBML_EXTERN
 double
 Compartment_getSize (const Compartment_t *c)
@@ -1862,23 +1752,6 @@ Compartment_getSize (const Compartment_t *c)
 }
 
 
-/**
- * (For SBML Level 1) Get the volume of this Compartment
- * 
- * This method is identical to Compartment_getSize().  In SBML Level 1,
- * compartments are always three-dimensional constructs and only have
- * volumes, whereas in SBML Level 2, compartments may be other than
- * three-dimensional and therefore the "volume" attribute is named "size"
- * in Level 2.  LibSBML provides both Compartment_getSize() and
- * Compartment_getVolume() for easier compatibility between SBML Levels.
- *
- * @param c the Compartment_t structure
- *
- * @return the value of the "volume" attribute ("size" in Level 2) of
- * the Compartment_t structure @p c, as a floating-point number.
- *
- * @see Compartment_isSetVolume()
- */
 LIBSBML_EXTERN
 double
 Compartment_getVolume (const Compartment_t *c)
@@ -1887,14 +1760,6 @@ Compartment_getVolume (const Compartment_t *c)
 }
 
 
-/**
- * Get the units of this compartment's size or volume.
- *
- * @param c the Compartment_t structure
- * 
- * @return the value of the "units" attribute of the Compartment_t
- * structure @p c.
- */
 LIBSBML_EXTERN
 const char *
 Compartment_getUnits (const Compartment_t *c)
@@ -1903,15 +1768,6 @@ Compartment_getUnits (const Compartment_t *c)
 }
 
 
-/**
- * Get the identifier, if any, of the compartment that is designated
- * as being outside of this one.
- *
- * @param c the Compartment_t structure
- * 
- * @return the value of the "outside" attribute of the Compartment_t
- * structure @p c.
- */
 LIBSBML_EXTERN
 const char *
 Compartment_getOutside (const Compartment_t *c)
@@ -1920,14 +1776,6 @@ Compartment_getOutside (const Compartment_t *c)
 }
 
 
-/**
- * Get the value of the "constant" attribute of this Compartment.
- *
- * @param c the Compartment_t structure
- *
- * @return @c true if the Compartment_t structure's size is flagged as
- * being constant, @c false otherwise.
- */
 LIBSBML_EXTERN
 int
 Compartment_getConstant (const Compartment_t *c)
@@ -1936,15 +1784,6 @@ Compartment_getConstant (const Compartment_t *c)
 }
 
 
-/**
- * Predicate indicating whether the identifier of the given Compartment_t
- * structure is set.
- * 
- * @param c the Compartment_t structure
- * 
- * @return true (non-zero) if the "id" attribute of the Compartment_t
- * structure @p c is set, false (0) otherwise.
- */
 LIBSBML_EXTERN
 int
 Compartment_isSetId (const Compartment_t *c)
@@ -1953,15 +1792,6 @@ Compartment_isSetId (const Compartment_t *c)
 }
 
 
-/**
- * Predicate indicating whether the name of the given Compartment_t
- * structure is set.
- * 
- * @param c the Compartment_t structure
- * 
- * @return true (non-zero) if the "name" attribute of the Compartment_t
- * structure @p c is set, false (0) otherwise.
- */
 LIBSBML_EXTERN
 int
 Compartment_isSetName (const Compartment_t *c)
@@ -1970,15 +1800,6 @@ Compartment_isSetName (const Compartment_t *c)
 }
 
 
-/**
- * Predicate returning @c true or @c false depending on whether the given
- * Compartment_t structures's "compartmentType" attribute is set.
- *
- * @param c the Compartment_t structure
- * 
- * @return @c true if the "compartmentType" attribute of the Compartment_t
- * structure @p c is set, @c false otherwise.
- */
 LIBSBML_EXTERN
 int
 Compartment_isSetCompartmentType (const Compartment_t *c)
@@ -1987,23 +1808,6 @@ Compartment_isSetCompartmentType (const Compartment_t *c)
 }
 
 
-/**
- * Predicate returning @c true or @c false depending on whether the given
- * Compartment_t structure's "size" attribute is set.
- *
- * This method is similar but not identical to Compartment_isSetVolume().
- * The latter should be used in the context of SBML Level 1 models instead
- * of Compartment_isSetSize() because Compartment_isSetVolume() performs
- * extra processing to take into account the difference in default values
- * between SBML Levels 1 and 2.
- *
- * @param c the Compartment_t structure
- * 
- * @return @c true if the "size" attribute ("volume" in Level) of the
- * Compartment_t structure @p c is set, @c false otherwise.
- *
- * @see Compartment_isSetVolume(), Compartment_setSize()
- */
 LIBSBML_EXTERN
 int
 Compartment_isSetSize (const Compartment_t *c)
@@ -2012,30 +1816,6 @@ Compartment_isSetSize (const Compartment_t *c)
 }
 
 
-/**
- * (For SBML Level 1) Predicate returning @c true or @c false depending on
- * whether the given Compartment_t structures's "volume" attribute is
- * set.
- * 
- * This method is similar but not identical to Compartment_isSetSize().
- * The latter should not be used in the context of SBML Level 1 models
- * because this method (Compartment_isSetVolume()) performs extra
- * processing to take into account the difference in default values between
- * SBML Levels 1 and 2.
- *
- * @param c the Compartment_t structure
- * 
- * @return @c true if the "volume" attribute ("size" in L2) of the given
- * Compartment_t structure @p c is set, @c false otherwise.
- *
- * @see Compartment_isSetSize(), Compartment_setVolume()
- *
- * @note In SBML Level 1, a compartment's volume has a default value (@c
- * 1.0) and therefore this method will always return @c true.  In Level
- * 2, a compartment's size (the equivalent of SBML Level 1's "volume") is
- * optional and has no default value, and therefore may or may not be
- * set.
- */
 LIBSBML_EXTERN
 int
 Compartment_isSetVolume (const Compartment_t *c)
@@ -2044,15 +1824,6 @@ Compartment_isSetVolume (const Compartment_t *c)
 }
 
 
-/**
- * Predicate returning @c true or @c false depending on whether the given
- * Compartment_t structures's "units" attribute is set.
- *
- * @param c the Compartment_t structure
- * 
- * @return @c true if the "units" attribute of the Compartment_t structure
- * @p c is set, @c false otherwise.
- */
 LIBSBML_EXTERN
 int
 Compartment_isSetUnits (const Compartment_t *c)
@@ -2061,15 +1832,6 @@ Compartment_isSetUnits (const Compartment_t *c)
 }
 
 
-/**
- * Predicate returning @c true or @c false depending on whether the given
- * Compartment_t structure's "outside" attribute is set.
- *
- * @param c the Compartment_t structure
- * 
- * @return @c true if the "outside" attribute of the Compartment_t
- * structure @p c is set, @c false otherwise.
- */
 LIBSBML_EXTERN
 int
 Compartment_isSetOutside (const Compartment_t *c)
@@ -2078,15 +1840,6 @@ Compartment_isSetOutside (const Compartment_t *c)
 }
 
 
-/**
- * Predicate returning @c true or @c false depending on whether the given
- * Compartment_t structure's "spatialDimensions" attribute is set.
- *
- * @param c the Compartment_t structure
- * 
- * @return @c true if the "spatialDimensions" attribute of the Compartment_t
- * structure @p c is set, @c false otherwise.
- */
 LIBSBML_EXTERN
 int
 Compartment_isSetSpatialDimensions (const Compartment_t *c)
@@ -2095,15 +1848,6 @@ Compartment_isSetSpatialDimensions (const Compartment_t *c)
 }
 
 
-/**
- * Predicate returning @c true or @c false depending on whether the given
- * Compartment_t structure's "constant" attribute is set.
- *
- * @param c the Compartment_t structure
- * 
- * @return @c true if the "constant" attribute of the Compartment_t
- * structure @p c is set, @c false otherwise.
- */
 LIBSBML_EXTERN
 int
 Compartment_isSetConstant (const Compartment_t *c)
@@ -2112,26 +1856,6 @@ Compartment_isSetConstant (const Compartment_t *c)
 }
 
 
-/**
- * Sets the identifier of the given Compartment_t structure.
- *
- * This function copies the string given in @p sid.  If the string is
- * NULL, this function performs unsetId() instead.
- *
- * @param c the Compartment_t structure.
- * @param sid the identifier to which the structures "id" attribute should
- * be set.
- *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif@~ The possible values
- * returned by this function are:
- * @li LIBSBML_OPERATION_SUCCESS
- * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
- *
- * @note Using this function with an id of NULL is equivalent to
- * unsetting the "id" attribute.
- */
 LIBSBML_EXTERN
 int
 Compartment_setId (Compartment_t *c, const char *sid)
@@ -2143,27 +1867,6 @@ Compartment_setId (Compartment_t *c, const char *sid)
 }
 
 
-/**
- * Sets the name of the given Compartment_t structure.
- *
- * This function copies the string given in @p string.  If the string is
- * NULL, this function performs unsetName() instead.
- *
- * @param c the Compartment_t structure
- *
- * @param name the identifier to which the structures "id" attribute
- * should be set.
- *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif@~ The possible values
- * returned by this function are:
- * @li LIBSBML_OPERATION_SUCCESS
- * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
- *
- * @note Using this function with the name set to NULL is equivalent to
- * unsetting the "name" attribute.
- */
 LIBSBML_EXTERN
 int
 Compartment_setName (Compartment_t *c, const char *name)
@@ -2175,28 +1878,6 @@ Compartment_setName (Compartment_t *c, const char *name)
 }
 
 
-/**
- * Sets the "compartmentType" attribute of the given Compartment_t
- * structure.
- *
- * This function copies the string given in @p string.  If the string is
- * NULL, this function performs unsetName() instead.
- *
- * @param c the Compartment_t structure
- * @param sid the identifier of a CompartmentType object defined
- * elsewhere in the enclosing Model_t structure.
- *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif@~ The possible values
- * returned by this function are:
- * @li LIBSBML_OPERATION_SUCCESS
- * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
- * @li LIBSBML_UNEXPECTED_ATTRIBUTE
- *
- * @note Using this function with an id of NULL is equivalent to
- * unsetting the "compartmentType" attribute.
- */
 LIBSBML_EXTERN
 int
 Compartment_setCompartmentType (Compartment_t *c, const char *sid)
@@ -2209,27 +1890,6 @@ Compartment_setCompartmentType (Compartment_t *c, const char *sid)
 }
 
 
-/**
- * Sets the "spatialDimensions" attribute of the given Compartment_t
- * structure.
- *
- * If @p value is not one of @c 0, @c 1, @c 2, or @c 3, this method will
- * have no effect (i.e., the "spatialDimensions" attribute will not be
- * set).
- * 
- *
- * @param c the Compartment_t structure
- * @param value an unsigned integer indicating the number of dimensions
- * of the given compartment.
- *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif@~ The possible values
- * returned by this function are:
- * @li LIBSBML_OPERATION_SUCCESS
- * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
- * @li LIBSBML_UNEXPECTED_ATTRIBUTE
- */
 LIBSBML_EXTERN
 int
 Compartment_setSpatialDimensions (Compartment_t *c, unsigned int value)
@@ -2241,22 +1901,6 @@ Compartment_setSpatialDimensions (Compartment_t *c, unsigned int value)
 }
 
 
-/**
- * Sets the "spatialDimensions" attribute of the given Compartment_t
- * structure.
- *
- * @param c the Compartment_t structure
- * @param value a double indicating the number of dimensions
- * of the given compartment.
- *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif@~ The possible values
- * returned by this function are:
- * @li LIBSBML_OPERATION_SUCCESS
- * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
- * @li LIBSBML_UNEXPECTED_ATTRIBUTE
- */
 LIBSBML_EXTERN
 int
 Compartment_setSpatialDimensionsAsDouble (Compartment_t *c, double value)
@@ -2268,23 +1912,6 @@ Compartment_setSpatialDimensionsAsDouble (Compartment_t *c, double value)
 }
 
 
-/**
- * Sets the "size" attribute (or "volume" in SBML Level 1) of the given
- * Compartment_t structure.
- *
- * This method is identical to Compartment_setVolume() and is provided for
- * compatibility between SBML Level 1 and Level 2.
- *
- * @param c the Compartment_t structure
- * @param value a @c double representing the size of the given
- * Compartment_t structure in whatever units are in effect
- *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif@~ The possible values
- * returned by this function are:
- * @li LIBSBML_OPERATION_SUCCESS
- */
 LIBSBML_EXTERN
 int
 Compartment_setSize (Compartment_t *c, double value)
@@ -2296,24 +1923,6 @@ Compartment_setSize (Compartment_t *c, double value)
 }
 
 
-/**
- * Sets the "volume" attribute (or "size" in SBML Level 2) of the givenq
- * Compartment_t structure.
- *
- * This method is identical to setVolume() and is provided for
- * compatibility between SBML Level 1 and Level 2.
- *
- * @param c the Compartment_t structure
- * 
- * @param value a @c double representing the volume of the given
- * Compartment_t structure in whatever units are in effect
- *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif@~ The possible values
- * returned by this function are:
- * @li LIBSBML_OPERATION_SUCCESS
- */
 LIBSBML_EXTERN
 int
 Compartment_setVolume (Compartment_t *c, double value)
@@ -2325,24 +1934,6 @@ Compartment_setVolume (Compartment_t *c, double value)
 }
 
 
-/**
- * Sets the "units" attribute of the given Compartment_t structure.
- *
- * @param c the Compartment_t structure
- * 
- * @param sid the identifier of the defined units to use.  The string will
- * be copied.
- *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif@~ The possible values
- * returned by this function are:
- * @li LIBSBML_OPERATION_SUCCESS
- * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
- *
- * @note Using this function with an id of NULL is equivalent to
- * unsetting the "units" attribute.
- */
 LIBSBML_EXTERN
 int
 Compartment_setUnits (Compartment_t *c, const char *sid)
@@ -2354,24 +1945,6 @@ Compartment_setUnits (Compartment_t *c, const char *sid)
 }
 
 
-/**
- * Sets the "outside" attribute of the given Compartment_t structure.
- *
- * @param c the Compartment_t structure
- * 
- * @param sid the identifier of a compartment that encloses this one.  The
- * string will be copied.
- *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif@~ The possible values
- * returned by this function are:
- * @li LIBSBML_OPERATION_SUCCESS
- * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
- *
- * @note Using this function with an id of NULL is equivalent to
- * unsetting the "outside" attribute.
- */
 LIBSBML_EXTERN
 int
 Compartment_setOutside (Compartment_t *c, const char *sid)
@@ -2383,21 +1956,6 @@ Compartment_setOutside (Compartment_t *c, const char *sid)
 }
 
 
-/**
- * Sets the value of the "constant" attribute of the given Compartment_t
- * structure.
- *
- * @param c the Compartment_t structure
- * @param value an integer indicating whether the size/volume of the
- * compartment @p c should be considered constant (nonzero) or variable (zero).
- *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif@~ The possible values
- * returned by this function are:
- * @li LIBSBML_OPERATION_SUCCESS
- * @li LIBSBML_UNEXPECTED_ATTRIBUTE
- */
 LIBSBML_EXTERN
 int
 Compartment_setConstant (Compartment_t *c, int value)
@@ -2409,18 +1967,6 @@ Compartment_setConstant (Compartment_t *c, int value)
 }
 
 
-/**
- * Unsets the name of the given Compartment_t structure.
- *
- * @param c the Compartment_t structure
- *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif@~ The possible values
- * returned by this function are:
- * @li LIBSBML_OPERATION_SUCCESS
- * @li LIBSBML_OPERATION_FAILED
- */
 LIBSBML_EXTERN
 int
 Compartment_unsetName (Compartment_t *c)
@@ -2432,19 +1978,6 @@ Compartment_unsetName (Compartment_t *c)
 }
 
 
-/**
- * Unsets the value of the "compartmentType" attribute of the given
- * Compartment_t structure.
- *
- * @param c the Compartment_t structure
- *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif@~ The possible values
- * returned by this function are:
- * @li LIBSBML_OPERATION_SUCCESS
- * @li LIBSBML_OPERATION_FAILED
- */
 LIBSBML_EXTERN
 int 
 Compartment_unsetCompartmentType (Compartment_t *c)
@@ -2456,18 +1989,6 @@ Compartment_unsetCompartmentType (Compartment_t *c)
 }
 
 
-/**
- * Unsets the value of the "size" attribute of the given Compartment_t
- * structure. 
- *
- * @param c the Compartment_t structure
- *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif@~ The possible values
- * returned by this function are:
- * @li LIBSBML_OPERATION_SUCCESS
- */
 LIBSBML_EXTERN
 int
 Compartment_unsetSize (Compartment_t *c)
@@ -2479,23 +2000,6 @@ Compartment_unsetSize (Compartment_t *c)
 }
 
 
-/**
- * (For SBML Level 1) Unsets the value of the "volume" attribute of the 
- * given Compartment_t structure.
- *
- * In SBML Level 1, a Compartment_t structure's "volume" attribute has a
- * default value (1.0) and therefore <em>should always be set</em>.  In
- * Level 2, "size" is optional with no default value and as such may or may
- * not be set.
- *
- * @param c the Compartment_t structure
- *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif@~ The possible values
- * returned by this function are:
- * @li LIBSBML_OPERATION_SUCCESS
- */
 LIBSBML_EXTERN
 int
 Compartment_unsetVolume (Compartment_t *c)
@@ -2507,19 +2011,6 @@ Compartment_unsetVolume (Compartment_t *c)
 }
 
 
-/**
- * Unsets the value of the "units" attribute of the given Compartment_t
- * structure.
- *
- * @param c the Compartment_t structure
- *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif@~ The possible values
- * returned by this function are:
- * @li LIBSBML_OPERATION_SUCCESS
- * @li LIBSBML_OPERATION_FAILED
- */
 LIBSBML_EXTERN
 int
 Compartment_unsetUnits (Compartment_t *c)
@@ -2531,19 +2022,6 @@ Compartment_unsetUnits (Compartment_t *c)
 }
 
 
-/**
- * Unsets the value of the "outside" attribute of the given Compartment_t
- * structure.
- *
- * @param c the Compartment_t structure
- *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif@~ The possible values
- * returned by this function are:
- * @li LIBSBML_OPERATION_SUCCESS
- * @li LIBSBML_OPERATION_FAILED
- */
 LIBSBML_EXTERN
 int
 Compartment_unsetOutside (Compartment_t *c)
@@ -2555,19 +2033,6 @@ Compartment_unsetOutside (Compartment_t *c)
 }
 
 
-/**
- * Unsets the value of the "spatialDimensions" attribute of the given Compartment_t
- * structure.
- *
- * @param c the Compartment_t structure
- *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif@~ The possible values
- * returned by this function are:
- * @li LIBSBML_OPERATION_SUCCESS
- * @li LIBSBML_OPERATION_FAILED
- */
 LIBSBML_EXTERN
 int
 Compartment_unsetSpatialDimensions (Compartment_t *c)
@@ -2579,26 +2044,6 @@ Compartment_unsetSpatialDimensions (Compartment_t *c)
 }
 
 
-/**
- * Constructs and returns a UnitDefinition_t structure that expresses 
- * the units of this Compartment_t structure.
- *
- * @param c the Compartment_t structure whose units are to be returned.
- *
- * @return a UnitDefinition_t structure that expresses the units 
- * of this Compartment_t strucuture.
- *
- * @note This function returns the units of the Compartment_t expressed 
- * as a UnitDefinition_t. The units may be those explicitly declared 
- * or those derived from the default units of the Model_t containing
- * this Compartment_t.
- *
- * Note that the functionality that facilitates unit analysis depends 
- * on the model as a whole.  Thus, in cases where the object has not 
- * been added to a model or the model itself is incomplete,
- * unit analysis is not possible and this method will return @c NULL.
- *
- */
 LIBSBML_EXTERN
 UnitDefinition_t * 
 Compartment_getDerivedUnitDefinition(Compartment_t *c)
@@ -2610,20 +2055,6 @@ Compartment_getDerivedUnitDefinition(Compartment_t *c)
 }
 
 
-/**
-  * Predicate returning @c true or @c false depending on whether
-  * all the required attributes for this Compartment object
-  * have been set.
-  *
- * @param c the Compartment_t structure to check.
- *
-  * @note The required attributes for a Compartment object are:
-  * @li id (name in L1)
-  * @li constant (in L3 only)
-  *
-  * @return a true if all the required
-  * attributes for this object have been defined, false otherwise.
-  */
 LIBSBML_EXTERN
 int
 Compartment_hasRequiredAttributes(Compartment_t *c)
@@ -2632,10 +2063,6 @@ Compartment_hasRequiredAttributes(Compartment_t *c)
 }
 
 
-/**
- * @return item in this ListOfCompartment with the given @p id or @c NULL if no such
- * item exists.
- */
 LIBSBML_EXTERN
 Compartment_t *
 ListOfCompartments_getById (ListOf_t *lo, const char *sid)
@@ -2648,11 +2075,6 @@ ListOfCompartments_getById (ListOf_t *lo, const char *sid)
 }
 
 
-/**
- * Removes item in this ListOf items with the given @p id or @c NULL if no such
- * item exists.  The caller owns the returned item and is responsible for
- * deleting it.
- */
 LIBSBML_EXTERN
 Compartment_t *
 ListOfCompartments_removeById (ListOf_t *lo, const char *sid)
