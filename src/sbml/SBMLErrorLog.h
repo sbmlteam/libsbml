@@ -135,7 +135,7 @@ public:
    * Returns the number of errors that have been logged with the given
    * severity code.
    *
-   * @class doc_errorlog_what_are_severities
+   * @copydetails doc_errorlog_what_are_severities
    *
    * @if clike @param severity a value from
    * #SBMLErrorSeverity_t @endif@if java @param severity a
@@ -156,7 +156,7 @@ public:
    * Returns the number of errors that have been logged with the given
    * severity code.
    *
-   * @class doc_errorlog_what_are_severities
+   * @copydetails doc_errorlog_what_are_severities
    *
    * @if clike @param severity a value from
    * #SBMLErrorSeverity_t @endif@if java @param severity a
