@@ -40,18 +40,11 @@ Adds evidence codes to a species in a model.
 @li @ref appendAnnotation.c "appendAnnotation.c":
 Adds annotation strings to a model and a species.
 
-@li @ref callExternalValidator.c "callExternalValidator.c":
-Example that shows how to call an external program for validation.
-
 @li @ref convertSBML.c "convertSBML.c":
 Example demonstrating how to convert SBML documents between SBML Levels.
 
 @li @ref createExampleSBML.c "createExampleSBML.c":
 Lengthy example of creating SBML models presented in the SBML specification.
-
-@li @ref getAllElementsWithNotes.c "getAllElementsWithNotes.c":
-Demonstrates how to use the element filter class to search the model
-for elements with specific attributes .
 
 @li @ref printAnnotation.c "printAnnotation.c":
 Prints the annotation strings for each element in a given model.
@@ -72,17 +65,6 @@ of measurement used in a given SBML file.
 
 @li @ref promoteParameters.c "promoteParameters.c":
 Promote all local parameters in the model to global parameters.
-
-@li @ref renameSId.c "renameSId.c":
-Program that renames a specific SId and updates all references to it 
-in a given model.
-
-@li @ref rngvalidator.c "rngvalidator.c":
-Example of creating a RELAX NG (RNG) validator to be called during validation.
-
-@li @ref setNamesFromIds.c "setNamesFromIds.c":
-Program that changes all objects' "name" attribute values to match
-their "id" attribute values.
 
 @li @ref stripPackage.c "stripPackage.c":
 Strips the given SBML Level 3 package from the given SBML file.
