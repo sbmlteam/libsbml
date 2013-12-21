@@ -263,7 +263,9 @@ distfiles =						     \
         libsbml-csharp-reading-files.txt		     \
 	libsbml-doxygen.html				     \
         libsbml-example.txt				     \
+        libsbml-example-c.txt				     \
         libsbml-example-files.txt			     \
+        libsbml-example-files-c.txt			     \
         libsbml-extension-support-classes.txt		     \
         libsbml-features.html				     \
         libsbml-features.txt				     \
@@ -314,7 +316,6 @@ distfiles =						     \
         libsbml-python-creating-model.txt		     \
         libsbml-python-example-files.txt		     \
         libsbml-python-mainpage.txt			     \
-        libsbml-python-math.txt				     \
         libsbml-python-reading-files.txt		     \
         libsbml-reading-files.txt			     \
         libsbml-release-info.txt			     \
