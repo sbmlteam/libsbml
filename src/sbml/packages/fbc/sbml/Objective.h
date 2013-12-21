@@ -556,6 +556,7 @@ protected:
   /** @endcond */
 };
 
+
 /**
  * @class ListOfObjectives
  * @sbmlbrief{fbc} Implementation of the %ListOfObjectives construct from the

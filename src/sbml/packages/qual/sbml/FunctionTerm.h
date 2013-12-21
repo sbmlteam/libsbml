@@ -29,7 +29,9 @@
  * @sbmlbrief{qual} The FunctionTerm class for the Qualitative Models
  * package.
  *
- * Each FunctionTerm is associated with a result and with a Boolean function inside a Math element that can be used to set the conditions under which this term is selected.
+ * Each FunctionTerm is associated with a result and with a Boolean function
+ * inside a Math element that can be used to set the conditions under which
+ * this term is selected.
  */
 
 

@@ -28,10 +28,10 @@
  * @class DefaultTerm
  * @sbmlbrief{qual} The DefaultTerm class for the Qualitative Models package.
  *
- * The DefaultTerm defines the default result of a Transition. This term is used if there are no other FunctionTerm 
-elements or if none of the Math elements of the FunctionTerm elements evaluates to @c true.
+ * The DefaultTerm defines the default result of a Transition. This term is
+ * used if there are no other FunctionTerm elements or if none of the Math
+ * elements of the FunctionTerm elements evaluates to @c true.
  */
-
 
 #ifndef DefaultTerm_H__
 #define DefaultTerm_H__

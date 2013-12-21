@@ -29,11 +29,20 @@
  * @sbmlbrief{qual} The QualitativeSpecies class for the Qualitative Models
  * package.
  *
- * Similarly to the Species in SBML, the components of qualitative models refer to pools of entities that are considered indistinguishable and are each located in a specific Compartment. However, here components are characterised by their qualitative influences rather than by taking part in reactions. Therefore, we define the QualitativeSpecies element to represent such pools of entities. 
+ * Similarly to the Species in SBML, the components of qualitative models
+ * refer to pools of entities that are considered indistinguishable and are
+ * each located in a specific Compartment. However, here components are
+ * characterised by their qualitative influences rather than by taking part
+ * in reactions. Therefore, we define the QualitativeSpecies element to
+ * represent such pools of entities.
  *
- * In a Petri net, qualitative species refer to the places of the model, while in a logical model, they refer to the variables of this model (i.e. nodes of the influence graph).
+ * In a Petri net, qualitative species refer to the places of the model,
+ * while in a logical model, they refer to the variables of this model
+ * (i.e. nodes of the influence graph).
  *
- * A QualitativeSpecies describes a pool of indistinguishable entities in a Compartment. It is associated with a level (an integer representing e.g. an activity state, or a functional level of concentration, etc.) 
+ * A QualitativeSpecies describes a pool of indistinguishable entities in a
+ * Compartment. It is associated with a level (an integer representing
+ * e.g. an activity state, or a functional level of concentration, etc.)
  */
 
 

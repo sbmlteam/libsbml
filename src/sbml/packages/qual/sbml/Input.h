@@ -28,7 +28,10 @@
  * @class Input
  * @sbmlbrief{qual} The Input class for the Qualitative Models package.
  *
- * Each Input refers to a QualitativeSpecies that participates in the corresponding Transition. In Petri nets, these are the input places of the transition. In logical models, they are the regulators of the species whose behaviour is defined by the transition.
+ * Each Input refers to a QualitativeSpecies that participates in the
+ * corresponding Transition. In Petri nets, these are the input places of the
+ * transition. In logical models, they are the regulators of the species
+ * whose behaviour is defined by the transition.
  */
 
 

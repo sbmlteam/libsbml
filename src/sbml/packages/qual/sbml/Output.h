@@ -28,9 +28,14 @@
  * @class Output
  * @sbmlbrief{qual} The Output class for the Qualitative Models package.
  * 
- * Each Output refers to a QualitativeSpecies that participates in (is affected by) the corresponding Transition. In Petri net models these are the output places of the transition. 
+ * Each Output refers to a QualitativeSpecies that participates in (is
+ * affected by) the corresponding Transition. In Petri net models these are
+ * the output places of the transition.
  *
- * In a logical model, a QualitativeSpecies should be referenced in at most one ListOfOutputs, (that of the Transition defining the evolution of this species). When a Transition has several outputs, it is because the referenced species share the same regulators and the same logical rules.
+ * In a logical model, a QualitativeSpecies should be referenced in at most
+ * one ListOfOutputs, (that of the Transition defining the evolution of this
+ * species). When a Transition has several outputs, it is because the
+ * referenced species share the same regulators and the same logical rules.
  */
 
 

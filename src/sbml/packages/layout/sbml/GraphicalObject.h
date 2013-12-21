@@ -427,7 +427,10 @@ protected:
  * @sbmlbrief{layout} Implementation of the %ListOfAdditionalGraphicalObjects
  * construct from the &ldquo;layout&rdquo; package.
  * 
- * The ListOfGraphicalObjects class in libSBML actually represents the ListOfAdditionalGraphicalObjects class in the &ldquo;layout&rdquo; package, and is a container for the additional GraphicalObject elements of a Layout.
+ * The ListOfGraphicalObjects class in libSBML actually represents the
+ * ListOfAdditionalGraphicalObjects class in the &ldquo;layout&rdquo;
+ * package, and is a container for the additional GraphicalObject elements of
+ * a Layout.
  * 
  * @copydetails doc_what_is_listof
  *

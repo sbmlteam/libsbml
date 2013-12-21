@@ -374,6 +374,7 @@ protected:
   /** @endcond */
 };
 
+
 /**
  * @class ListOfFluxObjectives
  * @sbmlbrief{fbc} Implementation of the 'fbc' package %ListOfFluxObjectives
