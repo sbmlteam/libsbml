@@ -122,6 +122,7 @@ extra_distclean =                           \
 distfiles =						     \
         SBMLDoclet.java					     \
         Makefile.in					     \
+	c-doc-filter.py					     \
 	common-graphics/biology-qualifiers.png		     \
 	common-graphics/biology-qualifiers.txt		     \
         common-graphics/cmake-configure-macos.png	     \
@@ -225,6 +226,7 @@ distfiles =						     \
         examples/simpleread.cpp				     \
         force-serif-font-off.html			     \
         force-serif-font-on.html			     \
+	generate-class-name-list.py			     \
 	generate-extensions-summary.py			     \
         java-skip.txt					     \
         java-substitutions/ASTNodeList.java		     \
@@ -563,7 +565,11 @@ cpp-manual $(cpp-manual): doxygen-config-cpp.txt $(core-sources) $(css-files)
 	$(call run_doxygen,doxygen-config-cpp.txt,$(cpp-manual),"")
 	$(call postprocess_doxygen,$(cpp-manual))
 
-c-manual $(c-manual): doxygen-config-c.txt $(core-sources) $(css-files)
+class-list.txt: $(core-sources) generate-class-name-list.py
+	./generate-class-name-list.py $(TOP_SRCDIR)/src/sbml > class-list.txt
+
+c-manual $(c-manual): doxygen-config-c.txt $(core-sources) $(css-files) \
+  c-doc-filter.py class-list.txt
 	mkdir -p $(c-manual)
 	$(call preprocess_doxygen)
 	$(call run_doxygen,doxygen-config-c.txt,$(c-manual),"")
