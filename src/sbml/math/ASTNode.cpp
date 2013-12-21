@@ -179,6 +179,7 @@ static const char *AST_OPERATOR_STRINGS[] =
 
 
 #ifdef __cplusplus
+
 /*
  * Creates a new ASTNode.
  *
@@ -2646,6 +2647,7 @@ unsigned int ASTNode::getNumVariablesWithUndeclaredUnits(Model * m) const
 }
 /** @endcond */
 
+
 #endif /* __cplusplus */
 
 
@@ -4134,7 +4136,6 @@ ASTNode_getDefinitionURL(ASTNode_t* node)
 }
 
 
-
 LIBSBML_EXTERN
 int 
 ASTNode_setDefinitionURL(ASTNode_t* node, XMLAttributes_t defnURL)
@@ -4166,10 +4167,6 @@ ASTNode_setDefinitionURLString(ASTNode_t* node, const char * defnURL)
 }
 
 
-
-
-
-
 /** @cond doxygenLibsbmlInternal */
 /*
  * Internal utility function used in some language binding code.
@@ -4184,4 +4181,5 @@ ASTNode_true(const ASTNode *node)
 
 
 /** @endcond */
+
 LIBSBML_CPP_NAMESPACE_END

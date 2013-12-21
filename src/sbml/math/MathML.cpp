@@ -1546,6 +1546,7 @@ static void
 
 
 #endif /* __cplusplus */
+
 /** @cond doxygenCOnly */
 
 /**
