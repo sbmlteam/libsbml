@@ -360,14 +360,19 @@
 
  * @li A numerical value represented in MathML as a real number with an
  * exponent is preserved as such in the AST node representation, even if
- * the number could be stored in a @c double data type.  This is done
- * so that when an SBML model is read in and then written out again, the
+ * the number could be stored in a
+ * @if python @c float@endif@if clike @c double @endif data type.  This is
+ * done so that when an SBML model is read in and then written out again, the
  * amount of change introduced by libSBML to the SBML during the round-trip
  * activity is minimized.
  *  
  * @li Rational numbers are represented in an AST node using separate
  * numerator and denominator values.  These can be retrieved using the
- * methods ASTNode::getNumerator() and ASTNode::getDenominator().
+ * methods @if cpp ASTNode::getNumerator() and ASTNode::getDenominator().
+ * @endif@if python
+ * @link libsbml.ASTNode.getNumerator() ASTNode.getNumerator()@endlink and
+ * @link libsbml.ASTNode.getDenominator() ASTNode.getDenominator()@endlink.
+ * @endif
  * 
  * @li The children of an ASTNode are other ASTNode objects.  The list of
  * children is empty for nodes that are leaf elements, such as numbers.
@@ -377,7 +382,9 @@
  *
  * For many applications, the details of ASTs are irrelevant because the
  * applications can use the text-string based translation functions such as
- * SBML_formulaToString(), SBML_parseL3Formula() and SBML_parseFormula().  If
+ * @if clike SBML_formulaToString(), SBML_parseL3Formula() and
+ * SBML_parseFormula()@endif@if python libsbml.formulaToString(),
+ * libsbml.parseL3Formula() and libsbml.parseFormula()@endif.  If
  * you find the complexity of using the AST representation of expressions too
  * high for your purposes, perhaps the string-based functions will be more
  * suitable.
