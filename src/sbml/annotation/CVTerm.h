@@ -25,7 +25,7 @@
  * and also available online as http://sbml.org/software/libsbml/license.html
  * ------------------------------------------------------------------------ -->
  *
- * @class CVTerm.
+ * @class CVTerm
  * @sbmlbrief{core} Representation of MIRIAM-compliant controlled vocabulary
  * annotation.
  *
@@ -37,9 +37,10 @@
  * biochemical entities, and (b) describing the creator of a model and the
  * model's modification history.  This SBML format is a concrete syntax that
  * conforms to the guidelines of MIRIAM (<a target="_blank"
- * href="http://www.nature.com/nbt/journal/v23/n12/abs/nbt1156.html">"Minimum Information Requested in the Annotation of
- * biochemical Models"</a>, <i>Nature Biotechnology</i>, vol. 23, no. 12,
- * Dec. 2005).  The format uses a subset of W3C RDF (<a target="_blank"
+ * href="http://www.nature.com/nbt/journal/v23/n12/abs/nbt1156.html">"Minimum
+ * Information Requested in the Annotation of biochemical Models"</a>,
+ * <i>Nature Biotechnology</i>, vol. 23, no. 12, Dec. 2005).  The format uses
+ * a subset of W3C RDF (<a target="_blank"
  * href="http://www.w3.org/RDF/">Resource Description Format</a>).  In order
  * to help application developers work with annotations in this format,
  * libSBML provides several helper classes that provide higher-level
