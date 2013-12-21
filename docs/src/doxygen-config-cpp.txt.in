@@ -80,9 +80,3 @@ ENABLED_SECTIONS       = cpp clike doxygenCppOnly
 EXAMPLE_PATH           = common-text examples . ../.. ../../examples/c++ \
                          ../../examples/c++/comp ../../examples/c++/layout \
                          ../../examples/c++/fbc ../../examples/c++/qual 
-
-# Blank definitions for some constructs used only for some languages.
-
-ALIASES += sbmldefgroup{2}=""
-ALIASES += sbmlingroup{1}=""
-ALIASES += sbmlendgroup=""
