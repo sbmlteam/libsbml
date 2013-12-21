@@ -24,7 +24,7 @@
  * in the file named "LICENSE.txt" included with this software distribution
  * and also available online as http://sbml.org/software/libsbml/license.html
  * ------------------------------------------------------------------------ -->
- * 
+ *
  * @class CompartmentType
  * @sbmlbrief{core} Implementation of SBML's Level&nbsp;2's %CompartmentType
  * construct.
@@ -609,9 +609,6 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 BEGIN_C_DECLS
 
 
-/* ----------------------------------------------------------------------------
- * See the .cpp file for the documentation of the following functions.
- * --------------------------------------------------------------------------*/
 
 /*
 LIBSBML_EXTERN
@@ -620,6 +617,10 @@ CompartmentType_createWithLevelVersionAndNamespaces (unsigned int level,
               unsigned int version, XMLNamespaces_t *xmlns);
 */
 
+/**
+ *
+ * @memberof CompartmentType_t
+ */
 LIBSBML_EXTERN
 CompartmentType_t *
 CompartmentType_create (unsigned int level, unsigned int version);

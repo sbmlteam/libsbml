@@ -25,7 +25,7 @@
  * also available online as http://sbml.org/software/libsbml/license.html
  * ------------------------------------------------------------------------ -->
  * 
- * @class LocalParameter.
+ * @class LocalParameter
  * @sbmlbrief{core} Implementation of SBML Level&nbsp;3's %LocalParameter
  * construct.
  *

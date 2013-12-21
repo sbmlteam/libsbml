@@ -58,11 +58,11 @@
 
 using namespace std;
 
-LIBSBML_CPP_NAMESPACE_BEGIN
-#ifdef __cplusplus
-
 /** @endcond */
 
+LIBSBML_CPP_NAMESPACE_BEGIN
+
+#ifdef __cplusplus
 
 /** @cond doxygenLibsbmlInternal */
 
@@ -6346,9 +6346,8 @@ SBase::getElementNamespace() const
 
 /** @endcond */
 
-
-
 #endif /* __cplusplus */
+
 /** @cond doxygenCOnly */
 
 /**

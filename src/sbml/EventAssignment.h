@@ -167,7 +167,7 @@
  *
  * 
  * <!-- ------------------------------------------------------------------- -->
- * @class ListOfEventAssignments 
+ * @class ListOfEventAssignments
  * @sbmlbrief{core} Implementation of SBML's %ListOfEventAssignments
  * construct.
  * 
