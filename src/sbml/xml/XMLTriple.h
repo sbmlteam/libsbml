@@ -25,7 +25,7 @@
  * and also available online as http://sbml.org/software/libsbml/license.html
  * ------------------------------------------------------------------------ -->
  *
- * @class XMLTriple.
+ * @class XMLTriple
  * @sbmlbrief{core} Representation of a qualified XML name.
  *
  * @htmlinclude not-sbml-warning.html

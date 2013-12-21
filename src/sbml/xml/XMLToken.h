@@ -25,7 +25,7 @@
  * and also available online as http://sbml.org/software/libsbml/license.html
  * ------------------------------------------------------------------------ -->
  *
- * @class XMLToken.
+ * @class XMLToken
  * @sbmlbrief{core} Representation of a token in an XML stream.
  *
  * @htmlinclude not-sbml-warning.html

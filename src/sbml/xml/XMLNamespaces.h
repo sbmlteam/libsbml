@@ -25,7 +25,7 @@
  * and also available online as http://sbml.org/software/libsbml/license.html
  * ------------------------------------------------------------------------ -->
  *
- * @class XMLNamespaces.
+ * @class XMLNamespaces
  * @sbmlbrief{core} Representation of XML Namespaces.
  *
  * @htmlinclude not-sbml-warning.html
