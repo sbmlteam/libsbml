@@ -29,31 +29,7 @@
  * @sbmlbrief{core} Representation of attributes on an XML node.
  *
  * @htmlinclude not-sbml-warning.html
- *
- * <!-- leave this next break as-is to work around some doxygen bug -->
  */ 
-/**
- * @class XMLConstructorException
- * @sbmlbrief{core} Class of exceptions thrown by constructors of some
- * libSBML objects.
- *
- * @htmlinclude not-sbml-warning.html
- *
- * In some situations, constructors for SBML objects may need to indicate
- * to callers that the creation of the object failed.  The failure may be
- * for different reasons, such as an attempt to use invalid parameters or a
- * system condition such as a memory error.  To communicate this to
- * callers, those classes will throw an XMLConstructorException.  @if cpp
- * Callers can use the standard C++ <code>std::exception</code> method
- * <code>what()</code> to extract the diagnostic message stored with the
- * exception.@endif@~
- * <p>
- * In languages that don't have an exception mechanism (e.g., C), the
- * constructors generally try to return an error code instead of throwing
- * an exception.
- *
- * @see SBMLConstructorException
- */
 
 
 #ifndef XMLAttributes_h
