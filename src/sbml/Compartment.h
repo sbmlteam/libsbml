@@ -1635,8 +1635,8 @@ Compartment_initDefaults (Compartment_t *c);
 
 
 /**
- * Returns a list of XMLNamespaces_t associated with the given Compartment_t
- * structure.
+ * Returns a list of XMLNamespaces_t structures associated with the given
+ * Compartment_t structure.
  *
  * @param c the Compartment_t structure.
  *
