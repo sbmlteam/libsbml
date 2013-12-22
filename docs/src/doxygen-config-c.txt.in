@@ -152,6 +152,8 @@ INPUT =                                    \
   ../../src/sbml/packages/qual/sbml        \
   ../../src/sbml/packages/qual/validator
 
+EXCLUDE += ../../src/sbml/common/sbmlfwd.h
+
 # The INPUT_FILTER tag can be used to specify a program that doxygen should 
 # invoke to filter for each input file. Doxygen will invoke the filter program 
 # by executing (via popen()) the command <filter> <input-file>, where <filter> 
