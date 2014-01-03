@@ -10,6 +10,12 @@ STABLE RELEASE
 
   - The error messages relating to invalid SId syntax have been
     improved to report the attribute causing the problem.
+    
+  - The SBMLLevelVersionConverter has an option to ignore
+    unrequired L3 packages. However there was no way to access
+    this option when using the helper 'setLevelAndVersion' 
+    function.  This function has no been given a default argument
+    to allow users to specify the ignore packages option.
 
   - 'comp' package-specific updates:
 
@@ -81,6 +87,11 @@ EXPERIMENTAL RELEASE
       ImageData is now uncompressed during the first call to
       this and saved for subsequent access. Previously the data
       was uncompressed each time it was accessed.
+      
+    - Functions to determine whether an attribute has been set;
+      i.e. the isSetFoo functions, have been provided where these
+      were missing. Boolean attributes that have not been set are
+      no longer written out.
 
 * Bug fixes
 
@@ -97,6 +108,9 @@ EXPERIMENTAL RELEASE
     - The attributes for the package were incorrectly assumed
       to be mandatory, thus causing numerous inaccurate
       error messages. This has been fixed.
+      
+    - The csharp binding for this package was not complete. 
+      This has been corrected.
 
   - 'spatial' package-specific updates:
   
