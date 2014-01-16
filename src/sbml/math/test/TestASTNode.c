@@ -1010,7 +1010,7 @@ START_TEST (test_ASTNode_deepCopy_2)
   fail_unless( !strcmp(ASTNode_getName(copy), "Foo") );
   fail_unless( ASTNode_getNumChildren(copy) == 0     );
 
-  fail_unless( ASTNode_getName(copy) != ASTNode_getName(node) );
+  fail_unless( !strcmp(ASTNode_getName(copy), ASTNode_getName(node)) );
 
   ASTNode_free(node);
   ASTNode_free(copy);
@@ -1037,7 +1037,7 @@ START_TEST (test_ASTNode_deepCopy_3)
   fail_unless( !strcmp(ASTNode_getName(copy), "Foo") );
   fail_unless( ASTNode_getNumChildren(copy) == 0     );
 
-  fail_unless( ASTNode_getName(copy) != ASTNode_getName(node) );
+  fail_unless( !strcmp(ASTNode_getName(copy), ASTNode_getName(node)) );
 
   ASTNode_free(node);
   ASTNode_free(copy);
@@ -1064,7 +1064,7 @@ START_TEST (test_ASTNode_deepCopy_4)
   fail_unless( !strcmp(ASTNode_getName(copy), "ABS")     );
   fail_unless( ASTNode_getNumChildren(copy) == 0         );
 
-  fail_unless( ASTNode_getName(copy) != ASTNode_getName(node) );
+  fail_unless( !strcmp(ASTNode_getName(copy), ASTNode_getName(node)) );
 
   ASTNode_free(node);
   ASTNode_free(copy);
