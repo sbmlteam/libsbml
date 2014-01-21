@@ -725,7 +725,7 @@ else(UNIX)
         INSTALL(FILES ${WIN32_BINARIES} DESTINATION bin)
         file(GLOB WIN32_DEPENDENCIES ${LIBSBML_DEPENDENCY_DIR}/lib/*.lib)
         install(FILES ${WIN32_DEPENDENCIES} DESTINATION lib)
-        if(WITH_LIBXML AND WITH_STATIC_RUNTIME)
+        if(WITH_LIBXML)
 		  if (EXTRA_LIBS STREQUAL "")
 		  # populate EXTRA_LIBS variable
           find_library(LIBICONV_LIBRARY
@@ -867,7 +867,7 @@ libSBML version ${PACKAGE_VERSION}
 
    To contact the developers directly, email libsbml-team@caltech.edu
 
-   Configured on host "$ENV{COMPUTERNAME}" ${HOSTNAME}
+   Configured on host '$ENV{COMPUTERNAME}' ${HOSTNAME}
      host type                     = ${CMAKE_SYSTEM_NAME}
      host operating system         = ${CMAKE_SYSTEM_NAME} ${CMAKE_SYSTEM_VERSION}
      host CPU architecture         = ${CMAKE_SYSTEM_PROCESSOR}
@@ -899,7 +899,7 @@ if(UNIX)
 endif()
 
 if(WITH_SWIG)
-    message(STATUS "  Using SWIG                    = ${SWIG_EXECUTABLE}")
+    message(STATUS "  Using SWIG                       = ${SWIG_EXECUTABLE}")
     
     if (SWIG_FOUND AND SWIG_VERSION VERSION_LESS "2.0.4")
     	message(WARNING "   You are using swig version ${SWIG_VERSION} while we recommend at least version 2.0.4.")
