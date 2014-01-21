@@ -47,7 +47,20 @@ using namespace std;
 LIBSBML_CPP_NAMESPACE_BEGIN
 #ifdef __cplusplus
 
+SBMLExtensionRegistry* SBMLExtensionRegistry::mInstance = NULL;
+
 bool SBMLExtensionRegistry::registered = false;
+
+void 
+SBMLExtensionRegistry::deleteRegistry()
+{
+  if (mInstance != NULL)
+  {
+    delete mInstance;
+    mInstance = NULL;
+    registered = false;
+  }
+}
 
 /*
  *
@@ -55,16 +68,23 @@ bool SBMLExtensionRegistry::registered = false;
 SBMLExtensionRegistry& 
 SBMLExtensionRegistry::getInstance()
 {
-  static SBMLExtensionRegistry singletonObj;
+  if (mInstance == NULL)
+  {
+    mInstance = new SBMLExtensionRegistry();
+    std::atexit(SBMLExtensionRegistry::deleteRegistry);
+  }
+
   if (!registered)
   {
     registered = true;
     #include "RegisterExtensions.cxx"
   }
-  return singletonObj;
+  return *mInstance;
 }
 
-SBMLExtensionRegistry::SBMLExtensionRegistry()
+SBMLExtensionRegistry::SBMLExtensionRegistry() 
+: mSBMLExtensionMap()
+, mSBasePluginMap()
 {
 }
 
@@ -76,6 +96,51 @@ SBMLExtensionRegistry::SBMLExtensionRegistry(const SBMLExtensionRegistry& orig)
     mSBMLExtensionMap =   orig.mSBMLExtensionMap;
     mSBasePluginMap   =   orig.mSBasePluginMap;
   }
+}
+
+SBMLExtensionRegistry& SBMLExtensionRegistry::operator= (const SBMLExtensionRegistry&rhs)
+{
+  if (this != &rhs)
+  {
+    mSBMLExtensionMap = rhs.mSBMLExtensionMap;
+    mSBasePluginMap = rhs.mSBasePluginMap;
+  }
+  return *this;
+}
+
+SBMLExtensionRegistry::~SBMLExtensionRegistry()
+{
+  vector<void*> deletedExtensions;
+  SBMLExtensionMapIter it = mSBMLExtensionMap.begin();
+  while (it != mSBMLExtensionMap.end())
+  {
+    SBMLExtension* ext = const_cast<SBMLExtension*>(it->second);
+    void* address = reinterpret_cast<void*>(ext);
+
+    // it turns out that the same extension can be in there multiple times.
+    if (std::find(deletedExtensions.begin(), deletedExtensions.end(),address) == deletedExtensions.end())
+    {
+      deletedExtensions.push_back(address);
+      delete ext;
+    }
+
+    ++it;
+  }
+  mSBMLExtensionMap.clear();
+
+  // // not necessary, as when the extension is deleted, the plugins 
+  // // are deleted as well. 
+  // // 
+  // SBasePluginMapIter sbaseIt = mSBasePluginMap.begin();
+  // while (sbaseIt != mSBasePluginMap.end())
+  // {
+  //   SBasePluginCreatorBase* base = const_cast<SBasePluginCreatorBase*>(sbaseIt->second);
+  //   delete base;
+  //   ++sbaseIt;
+  // }
+  mSBasePluginMap.clear();
+
+  deletedExtensions.clear();
 }
 
 
@@ -114,6 +179,7 @@ SBMLExtensionRegistry::addExtension (const SBMLExtension* sbmlExt)
   {    
     mSBMLExtensionMap.insert( SBMLExtensionPair(sbmlExt->getSupportedPackageURI(i), sbmlExtClone) );
   }
+  //
   mSBMLExtensionMap.insert( SBMLExtensionPair(sbmlExt->getName(), sbmlExtClone) );
 
 

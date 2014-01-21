@@ -207,7 +207,14 @@ public:
    */
   const SBasePluginCreatorBase* getSBasePluginCreator(const SBaseExtensionPoint& extPoint,
                                                       const std::string& uri);
-               
+  
+  /** 
+   * This function deletes the SBML Extension Registry. It is not meant
+   * to be called by programs directly, it will be automatically called
+   * by the C++ runtime, at the end of the program. 
+   */
+  static void deleteRegistry();
+
 #endif //SWIG
 
   /**
@@ -291,6 +298,9 @@ private:
   //
   SBMLExtensionRegistry();
   SBMLExtensionRegistry(const SBMLExtensionRegistry& orig);
+  SBMLExtensionRegistry& operator= (const SBMLExtensionRegistry& rhs);
+  ~SBMLExtensionRegistry();
+
   
   static bool registered;
 
@@ -298,6 +308,8 @@ private:
  
   SBMLExtensionMap  mSBMLExtensionMap;
   SBasePluginMap    mSBasePluginMap;
+
+  static SBMLExtensionRegistry* mInstance;
 
   //
   // Allow getExtensionInternal to be used from within libsbml. 
