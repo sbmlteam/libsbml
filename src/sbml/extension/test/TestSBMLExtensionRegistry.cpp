@@ -140,7 +140,7 @@ START_TEST (test_SBMLExtensionRegistry_getExtension)
 
 	// get a valid one
 	result = instance.getExtension(uri);
-    fail_unless(result != NULL);
+  fail_unless(result != NULL);
 
 	bool status = instance.setEnabled(uri, false);
 	fail_unless(status == false);

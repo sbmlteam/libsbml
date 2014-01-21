@@ -96,7 +96,7 @@ START_TEST (test_SBasePlugin_c_api)
 	TestPkgNamespaces ns(3, 1, 1);
 	string uri = TestExtension::getXmlnsL3V1V1();
 	TestExtension* ext = (TestExtension*)SBMLExtensionRegistry::getInstance().getExtension(uri);
-        (void) ext;
+        
 	TestModelPlugin plugin(uri, "prefix", &ns);
 
   SBasePlugin_t* cPlugin = SBasePlugin_clone(&plugin);
@@ -116,6 +116,7 @@ START_TEST (test_SBasePlugin_c_api)
   fail_unless(SBasePlugin_getURI(NULL) == NULL);
   fail_unless(SBasePlugin_hasRequiredElements(NULL) == LIBSBML_INVALID_OBJECT);
   
+  delete ext;
 }
 END_TEST
 

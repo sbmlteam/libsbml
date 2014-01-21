@@ -353,7 +353,7 @@ SBMLError::SBMLError (  const unsigned int errorId
   if (package.empty() == false && package != "core")
   {
     // we are logging an error from a package
-    const SBMLExtension *sbext = 
+    SBMLExtension *sbext = 
       SBMLExtensionRegistry::getInstance().getExtension(package);
     if (sbext != NULL)
     {
@@ -366,6 +366,7 @@ SBMLError::SBMLError (  const unsigned int errorId
         mShortMessage = sbext->getShortMessage(index);
         mPackage = package;
         mErrorIdOffset = sbext->getErrorIdOffset();
+        delete sbext;
       }
       mSeverityString = stringForSeverity(mSeverity);
       mCategoryString = stringForCategory(mCategory);
