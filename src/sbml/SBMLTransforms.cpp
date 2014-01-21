@@ -211,7 +211,13 @@ SBMLTransforms::nodeContainsNameNotInList(const ASTNode * node, IdList& ids)
 IdList 
 SBMLTransforms::mapComponentValues(const Model * m)
 {
-  mValues.clear();
+  return getComponentValuesForModel(m, mValues);
+}
+
+IdList 
+SBMLTransforms::getComponentValuesForModel(const Model * m, IdValueMap& values)
+{
+  values.clear();
   /* it is possible that a model does not have all 
    * the necessary values specified
    * in which case we can not calculate other values
@@ -238,19 +244,19 @@ SBMLTransforms::mapComponentValues(const Model * m)
       {
         ids.append(c->getId());
         ValueSet v = make_pair(numeric_limits<double>::quiet_NaN(), false);
-        mValues.insert(pair<const std::string, ValueSet>(c->getId(), v));
+        values.insert(pair<const std::string, ValueSet>(c->getId(), v));
       }
       else
       {
         ValueSet v = make_pair(c->getSize(), true);
-        mValues.insert(pair<const std::string, ValueSet>(c->getId(), v));
+        values.insert(pair<const std::string, ValueSet>(c->getId(), v));
       }
     }
     else
     {
       /* is set by assignment - need to work it out */
       ValueSet v = make_pair(numeric_limits<double>::quiet_NaN(), true);
-      mValues.insert(pair<const std::string, ValueSet>(c->getId(), v));
+      values.insert(pair<const std::string, ValueSet>(c->getId(), v));
     }
   }
 
@@ -270,7 +276,7 @@ SBMLTransforms::mapComponentValues(const Model * m)
       {
         ids.append(s->getId());
         ValueSet v = make_pair(numeric_limits<double>::quiet_NaN(), false);
-        mValues.insert(pair<const std::string, ValueSet>(s->getId(), v));
+        values.insert(pair<const std::string, ValueSet>(s->getId(), v));
       }
       else
       {
@@ -281,42 +287,42 @@ SBMLTransforms::mapComponentValues(const Model * m)
         if (s->getHasOnlySubstanceUnits())
         {
           ValueSet v = make_pair(s->getInitialAmount(), true);
-          mValues.insert(pair<const std::string, ValueSet>(s->getId(), v));
-          //mValues.insert(pair<const std::string, double>(s->getId(), 
+          values.insert(pair<const std::string, ValueSet>(s->getId(), v));
+          //values.insert(pair<const std::string, double>(s->getId(), 
           //                                            s->getInitialAmount()));
         }
         else if (s->isSetInitialAmount())
         {
           /* at present only deal with case where compartment size is fixed */
           IdValueIter it;
-          it = mValues.find(s->getCompartment());
-          if (it != mValues.end())
+          it = values.find(s->getCompartment());
+          if (it != values.end())
           {
             /* compartment size is set */
             if (((*it).second).second)
             {
               double conc = s->getInitialAmount()/(((*it).second).first);
               ValueSet v = make_pair(conc, true);
-              mValues.insert(pair<const std::string, ValueSet>(s->getId(), v));
+              values.insert(pair<const std::string, ValueSet>(s->getId(), v));
             }
             else
             {
               ids.append(s->getId());
               ValueSet v = make_pair(numeric_limits<double>::quiet_NaN(), false);
-              mValues.insert(pair<const std::string, ValueSet>(s->getId(), v));
+              values.insert(pair<const std::string, ValueSet>(s->getId(), v));
             }
           }
           else
           {
             ids.append(s->getId());
             ValueSet v = make_pair(numeric_limits<double>::quiet_NaN(), false);
-            mValues.insert(pair<const std::string, ValueSet>(s->getId(), v));
+            values.insert(pair<const std::string, ValueSet>(s->getId(), v));
           }
         }
         else
         {
           ValueSet v = make_pair(s->getInitialConcentration(), true);
-          mValues.insert(pair<const std::string, ValueSet>(s->getId(), v));
+          values.insert(pair<const std::string, ValueSet>(s->getId(), v));
         }
 
       }
@@ -325,7 +331,7 @@ SBMLTransforms::mapComponentValues(const Model * m)
     {
       /* is set by assignment - need to work it out */
       ValueSet v = make_pair(numeric_limits<double>::quiet_NaN(), true);
-      mValues.insert(pair<const std::string, ValueSet>(s->getId(), v));
+      values.insert(pair<const std::string, ValueSet>(s->getId(), v));
     }
   }
 
@@ -346,19 +352,19 @@ SBMLTransforms::mapComponentValues(const Model * m)
       {
         ids.append(p->getId());
         ValueSet v = make_pair(numeric_limits<double>::quiet_NaN(), false);
-        mValues.insert(pair<const std::string, ValueSet>(p->getId(), v));
+        values.insert(pair<const std::string, ValueSet>(p->getId(), v));
       }
       else
       {
         ValueSet v = make_pair(p->getValue(), true);
-        mValues.insert(pair<const std::string, ValueSet>(p->getId(), v));
+        values.insert(pair<const std::string, ValueSet>(p->getId(), v));
       }
     }
     else
     {
       /* is set by assignment - need to work it out */
       ValueSet v = make_pair(numeric_limits<double>::quiet_NaN(), true);
-      mValues.insert(pair<const std::string, ValueSet>(p->getId(), v));
+      values.insert(pair<const std::string, ValueSet>(p->getId(), v));
     }
   }
 
@@ -384,19 +390,19 @@ SBMLTransforms::mapComponentValues(const Model * m)
         {
           ids.append(sr->getId());
           ValueSet v = make_pair(numeric_limits<double>::quiet_NaN(), false);
-          mValues.insert(pair<const std::string, ValueSet>(sr->getId(), v));
+          values.insert(pair<const std::string, ValueSet>(sr->getId(), v));
         }
         else
         {
           ValueSet v = make_pair(sr->getStoichiometry(), true);
-          mValues.insert(pair<const std::string, ValueSet>(sr->getId(), v));
+          values.insert(pair<const std::string, ValueSet>(sr->getId(), v));
         }
       }
       else
       {
         /* is set by assignment - need to work it out */
         ValueSet v = make_pair(numeric_limits<double>::quiet_NaN(), true);
-        mValues.insert(pair<const std::string, ValueSet>(sr->getId(), v));
+        values.insert(pair<const std::string, ValueSet>(sr->getId(), v));
       }
     }
 
@@ -417,19 +423,19 @@ SBMLTransforms::mapComponentValues(const Model * m)
         {
           ids.append(sr->getId());
           ValueSet v = make_pair(numeric_limits<double>::quiet_NaN(), false);
-          mValues.insert(pair<const std::string, ValueSet>(sr->getId(), v));
+          values.insert(pair<const std::string, ValueSet>(sr->getId(), v));
         }
         else
         {
           ValueSet v = make_pair(sr->getStoichiometry(), true);
-          mValues.insert(pair<const std::string, ValueSet>(sr->getId(), v));
+          values.insert(pair<const std::string, ValueSet>(sr->getId(), v));
         }
       }
       else
       {
         /* is set by assignment - need to work it out */
         ValueSet v = make_pair(numeric_limits<double>::quiet_NaN(), true);
-        mValues.insert(pair<const std::string, ValueSet>(sr->getId(), v));
+        values.insert(pair<const std::string, ValueSet>(sr->getId(), v));
       }
     }
   }
@@ -451,6 +457,26 @@ SBMLTransforms::clearComponentValues()
 
 double
 SBMLTransforms::evaluateASTNode(const ASTNode *node, const Model *m)
+{
+  return evaluateASTNode(node, mValues, m);
+}
+
+double 
+SBMLTransforms::evaluateASTNode(const ASTNode * node, const std::map<std::string, double>& values, const Model * m)
+{
+  IdValueMap currentSet;
+  std::map<std::string, double>::const_iterator it = values.begin();
+  while (it != values.end())
+  {
+    ValueSet v = make_pair(it->second, false);
+    currentSet.insert(pair<const std::string, ValueSet>(it->first, v));
+    ++it;
+  }
+  return evaluateASTNode(node, currentSet, m);
+}
+
+double
+SBMLTransforms::evaluateASTNode(const ASTNode * node, const IdValueMap& values, const Model * m)
 {
   double result;
   int i;
@@ -474,12 +500,12 @@ SBMLTransforms::evaluateASTNode(const ASTNode *node, const Model *m)
     break;
   
   case AST_NAME:
-    if (!mValues.empty())
+    if (!values.empty())
     {
-      if (mValues.find(node->getName()) != mValues.end())
+      if (values.find(node->getName()) != values.end())
       {
-        result = (mValues.find(node->getName())->second).first;
-        bool set = (mValues.find(node->getName())->second).second;
+        result = (values.find(node->getName())->second).first;
+        bool set = (values.find(node->getName())->second).second;
         if (util_isNaN(result) && set)
         {
           if (m != NULL)
@@ -490,11 +516,11 @@ SBMLTransforms::evaluateASTNode(const ASTNode *node, const Model *m)
                                 m->getInitialAssignment(node->getName());
             if (r != NULL)
             {
-              result = evaluateASTNode(r->getMath(), m);
+              result = evaluateASTNode(r->getMath(), values, m);
             }
             else if (ia != NULL)
             {
-              result = evaluateASTNode(ia->getMath(), m);
+              result = evaluateASTNode(ia->getMath(), values, m);
             }
           }
         }
@@ -547,21 +573,21 @@ SBMLTransforms::evaluateASTNode(const ASTNode *node, const Model *m)
     }
     else if (node->getNumChildren() == 1)
     {
-      result = evaluateASTNode(node->getChild(0), m);
+      result = evaluateASTNode(node->getChild(0), values, m);
     }
     else
     {
-      result = evaluateASTNode(node->getChild(0), m) + 
-               evaluateASTNode(node->getChild(1), m) ;
+      result = evaluateASTNode(node->getChild(0), values, m) +
+               evaluateASTNode(node->getChild(1), values, m) ;
     }
     break;
 
   case AST_MINUS:
     if(node->getNumChildren() == 1)
-      result = - (evaluateASTNode(node->getChild(0), m));
+      result = -(evaluateASTNode(node->getChild(0), values, m));
     else
-    result = evaluateASTNode(node->getChild(0), m) - 
-             evaluateASTNode(node->getChild(1), m) ;
+      result = evaluateASTNode(node->getChild(0), values, m) -
+      evaluateASTNode(node->getChild(1), values, m);
     break;
 
   case AST_TIMES:
@@ -571,127 +597,127 @@ SBMLTransforms::evaluateASTNode(const ASTNode *node, const Model *m)
     }
     else if (node->getNumChildren() == 1)
     {
-      result = evaluateASTNode(node->getChild(0), m);
+      result = evaluateASTNode(node->getChild(0), values, m);
     }
     else
     {
-      result = evaluateASTNode(node->getChild(0), m) * 
-               evaluateASTNode(node->getChild(1), m) ;
+      result = evaluateASTNode(node->getChild(0), values, m) *
+        evaluateASTNode(node->getChild(1), values, m);
     }
     break;
 
   case AST_DIVIDE:
-    result = evaluateASTNode(node->getChild(0), m) / 
-             evaluateASTNode(node->getChild(1), m) ;
+    result = evaluateASTNode(node->getChild(0), values, m) /
+      evaluateASTNode(node->getChild(1), values, m);
     break;
 
   case AST_POWER:
   case AST_FUNCTION_POWER:
-    result = pow(evaluateASTNode(node->getChild(0), m), 
-             evaluateASTNode(node->getChild(1), m)) ;
+    result = pow(evaluateASTNode(node->getChild(0), values, m),
+      evaluateASTNode(node->getChild(1), values, m));
     break;
 
   case AST_FUNCTION_ABS:
-    result = (double) (fabs((double)(evaluateASTNode(node->getChild(0), m))));
+    result = (double)(fabs((double)(evaluateASTNode(node->getChild(0), values, m))));
     break;
 
   case AST_FUNCTION_ARCCOS:
-    result = acos(evaluateASTNode(node->getChild(0), m));
+    result = acos(evaluateASTNode(node->getChild(0), values, m));
     break;
 
   case AST_FUNCTION_ARCCOSH:
     /* arccosh(x) = ln(x + sqrt(x-1).sqrt(x+1)) */
-    result = log(evaluateASTNode(node->getChild(0), m)
-      + pow((evaluateASTNode(node->getChild(0), m)-1), 0.5)
-      * pow((evaluateASTNode(node->getChild(0), m)+1), 0.5));
+    result = log(evaluateASTNode(node->getChild(0), values, m)
+      + pow((evaluateASTNode(node->getChild(0), values, m) - 1), 0.5)
+      * pow((evaluateASTNode(node->getChild(0), values, m) + 1), 0.5));
     break;
 
   case AST_FUNCTION_ARCCOT:
     /* arccot x =  arctan (1 / x) */
-    result = atan(1.0/evaluateASTNode(node->getChild(0), m));
+    result = atan(1.0 / evaluateASTNode(node->getChild(0), values, m));
     break;
 
   case AST_FUNCTION_ARCCOTH:
     /* arccoth x = 1/2 * ln((x+1)/(x-1)) */
-    result = ((1.0/2.0) * log((evaluateASTNode(node->getChild(0), m) + 1.0)
-                             /(evaluateASTNode(node->getChild(0), m) - 1.0)) );
+    result = ((1.0 / 2.0) * log((evaluateASTNode(node->getChild(0), values, m) + 1.0)
+      / (evaluateASTNode(node->getChild(0), values, m) - 1.0)));
     break;
 
   case AST_FUNCTION_ARCCSC:
     /* arccsc(x) = Arcsin(1 / x) */
-    result = asin( 1.0/evaluateASTNode(node->getChild(0), m));
+    result = asin(1.0 / evaluateASTNode(node->getChild(0), values, m));
     break;
 
   case AST_FUNCTION_ARCCSCH:
     /* arccsch(x) = ln((1 + sqrt(1 + x^2)) / x) */
     result = log((1.0 + pow(1.0 + 
-      pow(evaluateASTNode(node->getChild(0), m), 2), 0.5))
-      /evaluateASTNode(node->getChild(0), m));
+      pow(evaluateASTNode(node->getChild(0), values, m), 2), 0.5))
+      / evaluateASTNode(node->getChild(0), values, m));
     break;
 
   case AST_FUNCTION_ARCSEC:
     /* arcsec(x) = arccos(1/x) */
-    result = acos(1.0/evaluateASTNode(node->getChild(0), m));
+    result = acos(1.0 / evaluateASTNode(node->getChild(0), values, m));
     break;
 
   case AST_FUNCTION_ARCSECH:
     /* arcsech(x) = ln((1 + sqrt(1 - x^2)) / x) */
     result = log((1.0 + pow((1.0 - 
-      pow(evaluateASTNode(node->getChild(0), m), 2)), 0.5))
-      /evaluateASTNode(node->getChild(0), m));
+      pow(evaluateASTNode(node->getChild(0), values, m), 2)), 0.5))
+      / evaluateASTNode(node->getChild(0), values, m));
     break;
 
   case AST_FUNCTION_ARCSIN:
-    result = asin(evaluateASTNode(node->getChild(0), m));
+    result = asin(evaluateASTNode(node->getChild(0), values, m));
     break;
 
   case AST_FUNCTION_ARCSINH:
     /* arcsinh(x) = ln(x + sqrt(1 + x^2)) */
-    result = log(evaluateASTNode(node->getChild(0), m)
-      + pow((1.0+pow(evaluateASTNode(node->getChild(0), m), 2)), 0.5));
+    result = log(evaluateASTNode(node->getChild(0), values, m)
+      + pow((1.0 + pow(evaluateASTNode(node->getChild(0), values, m), 2)), 0.5));
     break;
 
   case AST_FUNCTION_ARCTAN:
-    result = atan(evaluateASTNode(node->getChild(0), m));
+    result = atan(evaluateASTNode(node->getChild(0), values, m));
     break;
 
   case AST_FUNCTION_ARCTANH:
     /* arctanh = 0.5 * ln((1+x)/(1-x)) */
-    result = 0.5 * log((1.0 + evaluateASTNode(node->getChild(0), m))
-      /(1.0 - evaluateASTNode(node->getChild(0), m)));
+    result = 0.5 * log((1.0 + evaluateASTNode(node->getChild(0), values, m))
+      / (1.0 - evaluateASTNode(node->getChild(0), values, m)));
     break;
 
   case AST_FUNCTION_CEILING:
-    result = ceil(evaluateASTNode(node->getChild(0), m));
+    result = ceil(evaluateASTNode(node->getChild(0), values, m));
     break;
 
   case AST_FUNCTION_COS:
-    result = cos(evaluateASTNode(node->getChild(0), m));
+    result = cos(evaluateASTNode(node->getChild(0), values, m));
     break;
 
   case AST_FUNCTION_COSH:
-    result = cosh(evaluateASTNode(node->getChild(0), m));
+    result = cosh(evaluateASTNode(node->getChild(0), values, m));
     break;
 
   case AST_FUNCTION_COT:
     /* cot x = 1 / tan x */
-    result = (1.0/tan(evaluateASTNode(node->getChild(0), m)));
+    result = (1.0 / tan(evaluateASTNode(node->getChild(0), values, m)));
     break;
 
   case AST_FUNCTION_COTH:
     /* coth x = cosh x / sinh x */
-    result = cosh(evaluateASTNode(node->getChild(0), m)) / 
-             sinh(evaluateASTNode(node->getChild(0), m));
+    result = cosh(evaluateASTNode(node->getChild(0), values, m)) /
+      sinh(evaluateASTNode(node->getChild(0), values, m));
     break;
 
   case AST_FUNCTION_CSC:
     /* csc x = 1 / sin x */
-    result = (1.0/sin(evaluateASTNode(node->getChild(0), m)));
+    result = (1.0 / sin(evaluateASTNode(node->getChild(0), values, m)));
     break;
 
   case AST_FUNCTION_CSCH:
     /* csch x = 1 / sinh x  */
-    result = (1.0/sinh(evaluateASTNode(node->getChild(0), m)));
+    result = (1.0 / sinh(evaluateASTNode(node->getChild(0), values, m)));
     break;
 
   case AST_FUNCTION_DELAY:
@@ -699,11 +725,11 @@ SBMLTransforms::evaluateASTNode(const ASTNode *node, const Model *m)
     break;
 
   case AST_FUNCTION_EXP:
-    result = exp(evaluateASTNode(node->getChild(0), m));
+    result = exp(evaluateASTNode(node->getChild(0), values, m));
     break;
 
   case AST_FUNCTION_FACTORIAL:
-    i = (int) (floor(evaluateASTNode(node->getChild(0), m)));
+    i = (int)(floor(evaluateASTNode(node->getChild(0), values, m)));
     for(result=1; i>1; --i)
     {
       result *= i;
@@ -711,15 +737,15 @@ SBMLTransforms::evaluateASTNode(const ASTNode *node, const Model *m)
     break;
 
   case AST_FUNCTION_FLOOR:
-    result = floor(evaluateASTNode(node->getChild(0), m));
+    result = floor(evaluateASTNode(node->getChild(0), values, m));
     break;
 
   case AST_FUNCTION_LN:
-    result = log(evaluateASTNode(node->getChild(0), m));
+    result = log(evaluateASTNode(node->getChild(0), values, m));
     break;
 
   case AST_FUNCTION_LOG:
-    result = log10(evaluateASTNode(node->getChild(1), m));
+    result = log10(evaluateASTNode(node->getChild(1), values, m));
     break;
 
   case AST_FUNCTION_PIECEWISE:    
@@ -731,8 +757,8 @@ SBMLTransforms::evaluateASTNode(const ASTNode *node, const Model *m)
         for (unsigned int i = 0; i < numChildren; i+=2)
         {
           // compute piece
-          double value = evaluateASTNode(node->getChild(i), m);
-          double boolean = evaluateASTNode(node->getChild(i+1), m);
+          double value = evaluateASTNode(node->getChild(i), values, m);
+          double boolean = evaluateASTNode(node->getChild(i + 1), values, m);
           if (boolean == 1.0)
           {
             // we might have two true piece statements
@@ -767,8 +793,8 @@ SBMLTransforms::evaluateASTNode(const ASTNode *node, const Model *m)
         for (unsigned int i = 0; i < numChildren-1; i+=2)
         {
           // compute piece
-          double value = evaluateASTNode(node->getChild(i), m);
-          double boolean = evaluateASTNode(node->getChild(i+1), m);
+          double value = evaluateASTNode(node->getChild(i), values, m);
+          double boolean = evaluateASTNode(node->getChild(i + 1), values, m);
           if (boolean == 1.0)
           {
             // we might have two true piece statements
@@ -795,41 +821,41 @@ SBMLTransforms::evaluateASTNode(const ASTNode *node, const Model *m)
         if (!assigned)
         {
           // compute otherwise
-          result = evaluateASTNode(node->getChild(numChildren-1), m);
+          result = evaluateASTNode(node->getChild(numChildren - 1), values, m);
         }
       }
     }
     break;
 
   case AST_FUNCTION_ROOT:
-    result = pow(evaluateASTNode(node->getChild(1), m),
-      (1.0/evaluateASTNode(node->getChild(0), m)));
+    result = pow(evaluateASTNode(node->getChild(1), values, m),
+      (1.0 / evaluateASTNode(node->getChild(0), values, m)));
     break;
 
   case AST_FUNCTION_SEC:
     /* sec x = 1 / cos x */
-    result = 1.0/cos(evaluateASTNode(node->getChild(0), m));
+    result = 1.0 / cos(evaluateASTNode(node->getChild(0), values, m));
     break;
 
   case AST_FUNCTION_SECH:
     /* sech x = 1 / cosh x */
-    result = 1.0/cosh(evaluateASTNode(node->getChild(0), m));
+    result = 1.0 / cosh(evaluateASTNode(node->getChild(0), values, m));
     break;
 
   case AST_FUNCTION_SIN:
-    result = sin(evaluateASTNode(node->getChild(0), m));
+    result = sin(evaluateASTNode(node->getChild(0), values, m));
     break;
 
   case AST_FUNCTION_SINH:
-    result = sinh(evaluateASTNode(node->getChild(0), m));
+    result = sinh(evaluateASTNode(node->getChild(0), values, m));
     break;
 
   case AST_FUNCTION_TAN:
-    result = tan(evaluateASTNode(node->getChild(0), m));
+    result = tan(evaluateASTNode(node->getChild(0), values, m));
     break;
 
   case AST_FUNCTION_TANH:
-    result = tanh(evaluateASTNode(node->getChild(0), m));
+    result = tanh(evaluateASTNode(node->getChild(0), values, m));
     break;
 
   case AST_LOGICAL_AND:
@@ -837,15 +863,15 @@ SBMLTransforms::evaluateASTNode(const ASTNode *node, const Model *m)
       if (node->getNumChildren() == 0)
         result = 1.0;
       else if (node->getNumChildren() == 1)
-        result = evaluateASTNode(node->getChild(0), m);
+        result = evaluateASTNode(node->getChild(0), values, m);
       else
-        result = (double) ((evaluateASTNode(node->getChild(0), m)) 
-        && (evaluateASTNode(node->getChild(1), m)));
+        result = (double)((evaluateASTNode(node->getChild(0), values, m))
+        && (evaluateASTNode(node->getChild(1), values, m)));
     }
     break;
 
   case AST_LOGICAL_NOT:
-    result = (double) (!(evaluateASTNode(node->getChild(0), m)));
+    result = (double)(!(evaluateASTNode(node->getChild(0), values, m)));
     break;
 
   case AST_LOGICAL_OR:
@@ -853,10 +879,10 @@ SBMLTransforms::evaluateASTNode(const ASTNode *node, const Model *m)
       if (node->getNumChildren() == 0)
         result = 0.0;
       else if (node->getNumChildren() == 1)
-        result = evaluateASTNode(node->getChild(0), m);
+        result = evaluateASTNode(node->getChild(0), values, m);
       else
-        result = (double) ((evaluateASTNode(node->getChild(0), m)) 
-        || (evaluateASTNode(node->getChild(1), m)));
+        result = (double)((evaluateASTNode(node->getChild(0), values, m))
+        || (evaluateASTNode(node->getChild(1), values, m)));
     }
     break;
 
@@ -865,43 +891,43 @@ SBMLTransforms::evaluateASTNode(const ASTNode *node, const Model *m)
       if (node->getNumChildren() == 0)
         result = 0.0;
       else if (node->getNumChildren() == 1)
-        result = evaluateASTNode(node->getChild(0), m);
+        result = evaluateASTNode(node->getChild(0), values, m);
       else
-        result = (double) ((!(evaluateASTNode(node->getChild(0), m)) 
-                       && (evaluateASTNode(node->getChild(1), m)))
-        || ((evaluateASTNode(node->getChild(0), m)) 
-                       && !(evaluateASTNode(node->getChild(1), m))));
+        result = (double)((!(evaluateASTNode(node->getChild(0), values, m))
+        && (evaluateASTNode(node->getChild(1), values, m)))
+        || ((evaluateASTNode(node->getChild(0), values, m))
+        && !(evaluateASTNode(node->getChild(1), values, m))));
     }
     break;
 
   case AST_RELATIONAL_EQ :
-    result = (double) ((evaluateASTNode(node->getChild(0), m)) 
-      == (evaluateASTNode(node->getChild(1), m)));
+    result = (double)((evaluateASTNode(node->getChild(0), values, m))
+      == (evaluateASTNode(node->getChild(1), values, m)));
     break;
 
   case AST_RELATIONAL_GEQ:
-    result = (double) ((evaluateASTNode(node->getChild(0), m)) 
-      >= (evaluateASTNode(node->getChild(1), m)));
+    result = (double)((evaluateASTNode(node->getChild(0), values, m))
+      >= (evaluateASTNode(node->getChild(1), values, m)));
     break;
 
   case AST_RELATIONAL_GT:
-    result = (double) ((evaluateASTNode(node->getChild(0), m)) 
-      > (evaluateASTNode(node->getChild(1), m)));
+    result = (double)((evaluateASTNode(node->getChild(0), values, m))
+      > (evaluateASTNode(node->getChild(1), values, m)));
     break;
 
   case AST_RELATIONAL_LEQ:
-    result = (double) ((evaluateASTNode(node->getChild(0), m)) 
-      <= (evaluateASTNode(node->getChild(1), m)));
+    result = (double)((evaluateASTNode(node->getChild(0), values, m))
+      <= (evaluateASTNode(node->getChild(1), values, m)));
     break;
 
   case AST_RELATIONAL_LT :
-    result = (double) ((evaluateASTNode(node->getChild(0), m)) 
-      < (evaluateASTNode(node->getChild(1), m)));
+    result = (double)((evaluateASTNode(node->getChild(0), values, m))
+      < (evaluateASTNode(node->getChild(1), values, m)));
     break;
 
   case AST_RELATIONAL_NEQ :
-    result = (double) ((evaluateASTNode(node->getChild(0), m)) 
-      != (evaluateASTNode(node->getChild(1), m)));
+    result = (double)((evaluateASTNode(node->getChild(0), values, m))
+      != (evaluateASTNode(node->getChild(1), values, m)));
     break;
 
   default:
@@ -931,7 +957,7 @@ SBMLTransforms::expandInitialAssignments(Model * m)
     
     /* list ids that have a calculated/assigned value */
     idsWithValues.clear();
-    for (iter = mValues.begin(); iter != mValues.end(); iter++)
+    for (iter = mValues.begin(); iter != mValues.end(); ++iter)
     {
       if (((*iter).second).second)
       {

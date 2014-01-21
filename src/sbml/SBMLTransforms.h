@@ -120,7 +120,12 @@ public:
 
   
   static double evaluateASTNode(const ASTNode * node, const Model * m = NULL);
-
+  
+#ifndef SWIG
+  static double evaluateASTNode(const ASTNode * node, const IdValueMap& values, const Model * m = NULL);
+  static double evaluateASTNode(const ASTNode * node, const std::map<std::string, double>& values, const Model * m = NULL);
+  static IdList getComponentValuesForModel(const Model * m, IdValueMap& values);
+#endif
   
   static IdList mapComponentValues(const Model * m);
 

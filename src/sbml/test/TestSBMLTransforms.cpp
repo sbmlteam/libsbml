@@ -657,6 +657,22 @@ START_TEST (test_SBMLTransforms_expandFD)
 }
 END_TEST
 
+START_TEST(test_SBMLTransforms_evaluateCustomAST)
+{
+  std::map<std::string, double> values;
+  const char* formula = "a + b + c"; 
+
+  ASTNode* node = SBML_parseFormula(formula);
+  fail_unless(node != NULL);
+  fail_unless(util_isNaN(SBMLTransforms::evaluateASTNode(node, values)));
+  values["a"] = 1;
+  values["b"] = 1;
+  fail_unless(util_isNaN(SBMLTransforms::evaluateASTNode(node, values)));
+  values["c"] = 1;
+  fail_unless(SBMLTransforms::evaluateASTNode(node, values) == 3);
+}
+END_TEST
+
 START_TEST (test_SBMLTransforms_replaceIA_species)
 {
   SBMLReader        reader;
@@ -707,6 +723,7 @@ create_suite_SBMLTransforms (void)
   tcase_add_test(tcase, test_SBMLTransforms_expandFD);
   tcase_add_test(tcase, test_SBMLTransforms_replaceFD);
   tcase_add_test(tcase, test_SBMLTransforms_evaluateAST);
+  tcase_add_test(tcase, test_SBMLTransforms_evaluateCustomAST);
   tcase_add_test(tcase, test_SBMLTransforms_replaceIA);
   tcase_add_test(tcase, test_SBMLTransforms_replaceIA_species);
 
