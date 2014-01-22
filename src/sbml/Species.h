@@ -1669,310 +1669,1237 @@ LIBSBML_CPP_NAMESPACE_END
 LIBSBML_CPP_NAMESPACE_BEGIN
 BEGIN_C_DECLS
 
-/* ----------------------------------------------------------------------------
- * See the .cpp file for the documentation of the following functions.
- * --------------------------------------------------------------------------*/
-
-
+/**
+ * Creates a new Species_t structure using the given SBML @p level
+ * and @p version values.
+ *
+ * @param level an unsigned int, the SBML Level to assign to this
+ * Species_t
+ *
+ * @param version an unsigned int, the SBML Version to assign to this
+ * Species_t
+ *
+ * @return a pointer to the newly created Species_t structure.
+ *
+ * @note Once a Species_t has been added to an SBMLDocument, the @p
+ * level and @p version for the document @em override those used to create
+ * the Species_t.  Despite this, the ability to supply the values at
+ * creation time is an important aid to creating valid SBML.  Knowledge of
+ * the intended SBML Level and Version  determine whether it is valid to
+ * assign a particular value to an attribute, or whether it is valid to add
+ * an object to an existing SBMLDocument.
+ *
+ * @memberof Species_t
+ */
 LIBSBML_EXTERN
 Species_t *
 Species_create (unsigned int level, unsigned int version);
 
 
+/**
+ * Creates a new Species_t structure using the given
+ * SBMLNamespaces_t structure.
+ *
+ * @param sbmlns SBMLNamespaces, a pointer to an SBMLNamespaces structure
+ * to assign to this Species_t
+ *
+ * @return a pointer to the newly created Species_t structure.
+ *
+ * @note Once a Species_t has been added to an SBMLDocument, the
+ * @p sbmlns namespaces for the document @em override those used to create
+ * the Species_t.  Despite this, the ability to supply the values at creation time
+ * is an important aid to creating valid SBML.  Knowledge of the intended SBML
+ * Level and Version determine whether it is valid to assign a particular value
+ * to an attribute, or whether it is valid to add an object to an existing
+ * SBMLDocument.
+ *
+ * @memberof Species_t
+ */
 LIBSBML_EXTERN
 Species_t *
 Species_createWithNS (SBMLNamespaces_t *sbmlns);
 
 
+/**
+ * Frees the given Species_t structure.
+ *
+ * @param s the Species_t structure to be freed.
+ *
+ * @memberof Species_t
+ */
 LIBSBML_EXTERN
 void
 Species_free (Species_t *s);
 
 
+/**
+ * Creates a deep copy of the given Species_t structure
+ * 
+ * @param s the Species_t structure to be copied
+ * 
+ * @return a (deep) copy of the given Species_t structure.
+ *
+ * @memberof Species_t
+ */
 LIBSBML_EXTERN
 Species_t *
 Species_clone (const Species_t *s);
 
 
+/**
+ * Initializes the attributes of the given Species_t structure to the
+ * defaults defined in the specification of the relevant Level/Version of
+ * SBML.
+ * 
+ * @li sets "boundaryCondition" to @c 1 (true)
+ * @li (Level 2 only) sets "constant" to @c 0 (false)
+ * @li (Level 2 only) sets "hasOnlySubstanceUnits" to @c 0 (false)
+ *
+ * @param s the Species_t structure.
+ *
+ * @memberof Species_t
+ */
 LIBSBML_EXTERN
 void
 Species_initDefaults (Species_t *s);
 
 
+/**
+ * Returns a list of XMLNamespaces_t associated with this Species_t
+ * structure.
+ *
+ * @param s the Species_t structure
+ * 
+ * @return pointer to the XMLNamespaces_t structure associated with 
+ * this SBML object
+ *
+ * @memberof Species_t
+ */
 LIBSBML_EXTERN
 const XMLNamespaces_t *
-Species_getNamespaces(Species_t *c);
+Species_getNamespaces(Species_t *s);
 
 
+/**
+ * Takes a Species_t structure and returns its identifier.
+ *
+ * @param s the Species_t structure whose identifier is sought
+ * 
+ * @return the identifier of the Species_t structure @p s, as a pointer
+ * to a string.
+ *
+ * @memberof Species_t
+ */
 LIBSBML_EXTERN
 const char *
 Species_getId (const Species_t *s);
 
 
+/**
+ * Takes a Species_t structure and returns its name.
+ *
+ * @param s the Species_t structure whose name is sought.
+ *
+ * @return the name of the Species_t structure @p s, as a pointer to a
+ * string.
+ *
+ * @memberof Species_t
+ */
 LIBSBML_EXTERN
 const char *
 Species_getName (const Species_t *s);
 
 
+/**
+ * Get the species type of this Species_t structure, as indicated by the
+ * Species_t structure object's "speciesType" attribute value.
+ *
+ * @param s the Species_t structure
+ * 
+ * @return the value of the "speciesType" attribute of the
+ * Species_t structure @p s as a string.
+ *
+ * @memberof Species_t
+ */
 LIBSBML_EXTERN
 const char *
 Species_getSpeciesType (const Species_t *s);
 
 
+/**
+ * Get the compartment in which this species is located.
+ *
+ * @param s the Species_t structure
+ * 
+ * @return the value of the "compartment" attribute of the given Species_t
+ * structure, as a string.
+ *
+ * @memberof Species_t
+ */
 LIBSBML_EXTERN
 const char *
 Species_getCompartment (const Species_t *s);
 
 
+/**
+ * Get the value of the "initialAmount" attribute.
+ *
+ * @param s the Species_t structure
+ * 
+ * @return the "initialAmount" attribute of the given Species_t structure,
+ * as a float-point number.
+ *
+ * @memberof Species_t
+ */
 LIBSBML_EXTERN
 double
 Species_getInitialAmount (const Species_t *s);
 
 
+/**
+ * Get the value of the "initialConcentration" attribute.
+ *
+ * @param s the Species_t structure
+ * 
+ * @return the "initialConcentration" of the given Species_t structure, as
+ * a float-point number.
+ *
+ * @memberof Species_t
+ */
 LIBSBML_EXTERN
 double
 Species_getInitialConcentration (const Species_t *s);
 
 
+/**
+ * Get the value of the "substanceUnit" attribute.
+ *
+ * @param s the Species_t structure
+ * 
+ * @return the "substanceUnits" attribute of the given Species_t structure,
+ * as a string.
+ *
+ * @memberof Species_t
+ */
 LIBSBML_EXTERN
 const char *
 Species_getSubstanceUnits (const Species_t *s);
 
 
+/**
+ * Get the value of the "spatialSizeUnits" attribute.
+ *
+ * @param s the Species_t structure
+ * 
+ * @return the spatialSizeUnits of the given Species_t.
+ * 
+ * @warning In versions of SBML Level~2 before Version 3, the Species_t
+ * structure included an attribute called "spatialSizeUnits", which allowed
+ * explicitly setting the units of size for initial concentration.  This
+ * attribute was removed in SBML Level 2 Version 3.  LibSBML retains this
+ * attribute for compatibility with older definitions of Level 2, but its
+ * use is strongly discouraged because it is incompatible with Level 2
+ * Versions 3 and 4.
+ *
+ * @memberof Species_t
+ */
 LIBSBML_EXTERN
 const char *
 Species_getSpatialSizeUnits (const Species_t *s);
 
 
+/**
+ * (SBML Level 1 only) Get the value of the "units" attribute.
+ *
+ * @param s the Species_t structure
+ * 
+ * @return the units of the given Species_t structure.
+ *
+ * @memberof Species_t
+ */
 LIBSBML_EXTERN
 const char *
 Species_getUnits (const Species_t *s);
 
 
+/**
+ * Get the value of the "hasOnlySubstanceUnits" attribute.
+ *
+ * @param s the Species_t structure
+ * 
+ * @return nonzero (true) if the given Species_t structure's
+ * "hasOnlySubstanceUnits" attribute value is nonzero, zero (0) otherwise.
+ *
+ * @memberof Species_t
+ */
 LIBSBML_EXTERN
 int
 Species_getHasOnlySubstanceUnits (const Species_t *s);
 
 
+/**
+ * Get the value of the "boundaryCondition" attribute.
+ *
+ * @param s the Species_t structure
+ * 
+ * @return nonzero (true) if the given Species_t structure's
+ * "boundaryCondition" attribute value is nonzero, zero (0) otherwise.
+ *
+ * @memberof Species_t
+ */
 LIBSBML_EXTERN
 int
 Species_getBoundaryCondition (const Species_t *s);
 
 
+/**
+ * Get the value of the "charge" attribute.
+ *
+ * @param s the Species_t structure
+ * 
+ * @return the charge of the given Species_t structure.
+ *
+ * @note Beginning in SBML Level 2 Version 2, the "charge" attribute on
+ * Species_t is deprecated and its use strongly discouraged.  Its presence
+ * is considered a misfeature in earlier definitions of SBML because its
+ * implications for the mathematics of a model were never defined, and in
+ * any case, no known modeling system ever used it.  Instead, models take
+ * account of charge values directly in their definitions of species by
+ * (for example) having separate species identities for the charged and
+ * uncharged versions of the same species.  This allows the condition to
+ * affect model mathematics directly.  LibSBML retains this method for
+ * easier compatibility with SBML Level 1.
+ *
+ * @memberof Species_t
+ */
 LIBSBML_EXTERN
 int
 Species_getCharge (const Species_t *s);
 
 
+/**
+ * Get the value of the "constant" attribute.
+ *
+ * @param s the Species_t structure
+ * 
+ * @return nonzero (true) if the given Species_t structure's "constant"
+ * attribute value is nonzero, @c false otherwise.
+ *
+ * @memberof Species_t
+ */
 LIBSBML_EXTERN
 int
 Species_getConstant (const Species_t *s);
 
 
+/**
+ * Get the value of the "conversionFactor" attribute.
+ *
+ * @param s the Species_t structure
+ * 
+ * @return the "conversionFactor" attribute of the given Species_t structure,
+ * as a string.
+ *
+ * @memberof Species_t
+ */
 LIBSBML_EXTERN
 const char *
 Species_getConversionFactor (const Species_t *s);
 
 
+/**
+ * Predicate returning true or false depending on whether the attribute
+ * "id" of the given Species_t structure is set.
+ *
+ * @param s the Species_t structure
+ * 
+ * @return true (nonzero) if the "id" attribute of the given Species_t
+ * structure is set, false (0) otherwise.
+ *
+ * @memberof Species_t
+ */
 LIBSBML_EXTERN
 int
 Species_isSetId (const Species_t *s);
 
 
+/**
+ * Predicate returning true or false depending on whether the attribute
+ * "name" of the given Species_t structure is set.
+ *
+ * @param s the Species_t structure
+ * 
+ * @return true (nonzero) if the "name" attribute of the given Species_t
+ * structure is set, false (0) otherwise.
+ *
+ * @memberof Species_t
+ */
 LIBSBML_EXTERN
 int
 Species_isSetName (const Species_t *s);
 
 
+/**
+ * Predicate returning true or false depending on whether the attribute
+ * "speciesType" of the given Species_t structure is set.
+ *
+ * @param s the Species_t structure
+ * 
+ * @return true (nonzero) if the "speciesType" attribute of the given
+ * Species_t structure is set, false (0) otherwise.
+ *
+ * @memberof Species_t
+ */
 LIBSBML_EXTERN
 int
 Species_isSetSpeciesType (const Species_t *s);
 
 
+/**
+ * Predicate returning true or false depending on whether the attribute
+ * "compartment" of the given Species_t structure is set.
+ *
+ * @param s the Species_t structure
+ * 
+ * @return true (nonzero) if the "compartment" attribute of the given
+ * Species_t structure is set, false (0) otherwise.
+ *
+ * @memberof Species_t
+ */
 LIBSBML_EXTERN
 int
 Species_isSetCompartment (const Species_t *s);
 
 
+/**
+ * Predicate returning true or false depending on whether the attribute
+ * "initialAmount" of the given Species_t structure is set.
+ *
+ * @param s the Species_t structure
+ * 
+ * @return true (nonzero) if the "initialAmount" attribute of the given
+ * Species_t structure is set, false (0) otherwise.
+ *
+ * @note In SBML Level 1, Species_t' "initialAmount" is required and
+ * therefore <em>should always be set</em>.  (However, in Level 1, the
+ * attribute has no default value either, so this method will not return
+ * nonzero until a value has been assigned.)  In SBML Level 2,
+ * "initialAmount" is optional and as such may or may not be set.
+ *
+ * @memberof Species_t
+ */
 LIBSBML_EXTERN
 int
 Species_isSetInitialAmount (const Species_t *s);
 
 
+/**
+ * Predicate returning true or false depending on whether the attribute
+ * "compartment" of the given Species_t structure is set.
+ *
+ * @param s the Species_t structure
+ * 
+ * @return true (nonzero) if the "compartment" attribute of the given
+ * Species_t structure is set, false (0) otherwise.
+ *
+ * @memberof Species_t
+ */
 LIBSBML_EXTERN
 int
 Species_isSetInitialConcentration (const Species_t *s);
 
 
+/**
+ * Predicate returning true or false depending on whether the attribute
+ * "substanceUnits" of the given Species_t structure is set.
+ *
+ * @param s the Species_t structure
+ * 
+ * @return true (nonzero) if the "substanceUnits" attribute of the given
+ * Species_t structure is set, false (0) otherwise.
+ *
+ * @memberof Species_t
+ */
 LIBSBML_EXTERN
 int
 Species_isSetSubstanceUnits (const Species_t *s);
 
 
+/**
+ * Predicate returning true or false depending on whether the attribute
+ * "spatialSizeUnits" of the given Species_t structure is set.
+ *
+ * @param s the Species_t structure
+ * 
+ * @return true (nonzero) if the "spatialSizeUnits" attribute of the given
+ * Species_t structure is set, false (0) otherwise.
+ * 
+ * @warning In versions of SBML Level~2 before Version 3, the 
+ * Species_t included an attribute called "spatialSizeUnits", which allowed
+ * explicitly setting the units of size for initial concentration.  This
+ * attribute was removed in SBML Level 2 Version 3.  LibSBML retains this
+ * attribute for compatibility with older definitions of Level 2, but its
+ * use is strongly discouraged because it is incompatible with Level 2
+ * Versions 3 and 4.
+ *
+ * @memberof Species_t
+ */
 LIBSBML_EXTERN
 int
 Species_isSetSpatialSizeUnits (const Species_t *s);
 
 
+/**
+ * (SBML Level 1 only) Predicate returning true or false depending on
+ * whether the attribute "units" of the given Species_t structure is
+ * set.
+ *
+ * @param s the Species_t structure
+ * 
+ * @return true (nonzero) if the "units" attribute of the given
+ * Species_t structure is set, false (0) otherwise.
+ *
+ * @memberof Species_t
+ */
 LIBSBML_EXTERN
 int
 Species_isSetUnits (const Species_t *s);
 
 
+/**
+ * Predicate returning true or false depending on whether the attribute
+ * "charge" of the given Species_t structure is set.
+ *
+ * @param s the Species_t structure
+ * 
+ * @return true (nonzero) if the "charge" attribute of the given
+ * Species_t structure is set, false (0) otherwise.
+ *
+ * @note Beginning in SBML Level 2 Version 2, the "charge" attribute on
+ * Species_t in SBML is deprecated and its use strongly discouraged.  Its
+ * presence is considered a misfeature in earlier definitions of SBML
+ * because its implications for the mathematics of a model were never
+ * defined, and in any case, no known modeling system ever used it.
+ * Instead, models take account of charge values directly in their
+ * definitions of species by (for example) having separate species
+ * identities for the charged and uncharged versions of the same species.
+ * This allows the condition to affect model mathematics directly.
+ * LibSBML retains this method for easier compatibility with SBML Level 1.
+ *
+ * @memberof Species_t
+ */
 LIBSBML_EXTERN
 int
 Species_isSetCharge (const Species_t *s);
 
 
+/**
+ * Predicate returning true or false depending on whether the attribute
+ * "conversionFactor" of the given Species_t structure is set.
+ *
+ * @param s the Species_t structure
+ * 
+ * @return true (nonzero) if the "conversionFactor" attribute of the given Species_t
+ * structure is set, false (0) otherwise.
+ *
+ * @memberof Species_t
+ */
 LIBSBML_EXTERN
 int
 Species_isSetConversionFactor (const Species_t *s);
 
 
+/**
+ * Predicate returning true or false depending on whether the attribute
+ * "constant" of the given Species_t structure is set.
+ *
+ * @param s the Species_t structure
+ * 
+ * @return true (nonzero) if the "constant" attribute of the given Species_t
+ * structure is set, false (0) otherwise.
+ *
+ * @memberof Species_t
+ */
 LIBSBML_EXTERN
 int
 Species_isSetConstant (const Species_t *s);
 
 
+/**
+ * Predicate returning true or false depending on whether the attribute
+ * "boundaryCondition" of the given Species_t structure is set.
+ *
+ * @param s the Species_t structure
+ * 
+ * @return true (nonzero) if the "boundaryCondition" attribute of the given Species_t
+ * structure is set, false (0) otherwise.
+ *
+ * @memberof Species_t
+ */
 LIBSBML_EXTERN
 int
 Species_isSetBoundaryCondition (const Species_t *s);
 
 
+/**
+ * Predicate returning true or false depending on whether the attribute
+ * "hasOnlySubstanceUnits" of the given Species_t structure is set.
+ *
+ * @param s the Species_t structure
+ * 
+ * @return true (nonzero) if the "hasOnlySubstanceUnits" attribute of the given Species_t
+ * structure is set, false (0) otherwise.
+ *
+ * @memberof Species_t
+ */
 LIBSBML_EXTERN
 int
 Species_isSetHasOnlySubstanceUnits (const Species_t *s);
 
 
+/**
+ * Sets the "id" attribute of the given Species_t structure.
+ *
+ * This function copies the string given in @p sid.  If the string is
+ * @c NULL, this function performs unsetId() instead.
+ *
+ * @param s the Species_t structure
+ * 
+ * @param sid the identifier string to which the "id" attribute should be
+ * set.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+ *
+ * @note Using this function with an id of NULL is equivalent to
+ * unsetting the "id" attribute.
+ *
+ * @memberof Species_t
+ */
 LIBSBML_EXTERN
 int
 Species_setId (Species_t *s, const char *sid);
 
 
+/**
+ * Sets the "name" attribute of the given Species_t structure.
+ *
+ * This function copies the string given in @p name.  If the string is
+ * @c NULL, this function performs unsetName() instead.
+ *
+ * @param s the Species_t structure
+ * 
+ * @param name the name string to which the "name" attribute should be set.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+ *
+ * @note Using this function with the name set to NULL is equivalent to
+ * unsetting the "name" attribute.
+ *
+ * @memberof Species_t
+ */
 LIBSBML_EXTERN
 int
-Species_setName (Species_t *s, const char *string);
+Species_setName (Species_t *s, const char *name);
 
 
+/**
+ * Sets the "speciesType" attribute of the given Species_t structure.
+ *
+ * This function copies the string given in @p sid.  If the string
+ * is NULL, this function performs unsetSpeciesType() instead.
+ *
+ * @param s the Species_t structure
+ * 
+ * @param sid the identifer to which the "speciesType" attribute
+ * should be set.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+ * @li LIBSBML_UNEXPECTED_ATTRIBUTE
+ *
+ * @note Using this function with an id of NULL is equivalent to
+ * unsetting the "speciesType" attribute.
+ *
+ * @memberof Species_t
+ */
 LIBSBML_EXTERN
 int
 Species_setSpeciesType (Species_t *s, const char *sid);
 
 
+/**
+ * Sets the "compartment" attribute of the given Species_t structure.
+ *
+ * This function copies the string given in @p compartment.  If the string
+ * is NULL, this function performs unsetCompartment() instead.
+ *
+ * @param s the Species_t structure
+ * 
+ * @param sid the identifer to which the "compartment" attribute
+ * should be set.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+ *
+ * @note Using this function with an id of NULL is equivalent to
+ * unsetting the "compartment" attribute.
+ *
+ * @memberof Species_t
+ */
 LIBSBML_EXTERN
 int
 Species_setCompartment (Species_t *s, const char *sid);
 
 
+/**
+ * Sets the "initialAmount" attribute value of the given Species_t
+ * structure.
+ *
+ * As a side-effect, calling this function also unsets the
+ * "initialConcentration" attribute.
+ *
+ * @param s the Species_t structure
+ *
+ * @param value the numerical value for the "initialAmount" attribute
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ *
+ * @memberof Species_t
+ */
 LIBSBML_EXTERN
 int
 Species_setInitialAmount (Species_t *s, double value);
 
 
+/**
+ * Sets the "initialConcentration" attribute value of the given Species_t
+ * structure.
+ *
+ * As a side-effect, calling this function also unsets the "initialAmount"
+ * attribute.
+ *
+ * @param s the Species_t structure
+ *
+ * @param value the numerical value for the "initialConcentration"
+ * attribute
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_UNEXPECTED_ATTRIBUTE
+ *
+ * @memberof Species_t
+ */
 LIBSBML_EXTERN
 int
 Species_setInitialConcentration (Species_t *s, double value);
 
 
+/**
+ * Sets the "substanceUnits" attribute of the given Species_t structure.
+ *
+ * This function copies the string given in @p sid.  If the string
+ * is NULL, this function performs unsetSubstanceUnits() instead.
+ *
+ * @param s the Species_t structure
+ * 
+ * @param sid the identifer to which the "substanceUnits"
+ * attribute should be set.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+ *
+ * @note Using this function with an id of NULL is equivalent to
+ * unsetting the "substanceUnits" attribute.
+ *
+ * @memberof Species_t
+ */
 LIBSBML_EXTERN
 int
 Species_setSubstanceUnits (Species_t *s, const char *sid);
 
 
+/**
+ * Sets the "spatialSizeUnits" attribute of the given Species_t structure.
+ *
+ * This function copies the string given in @p sid.  If the string is NULL,
+ * this function performs unsetSpatialSizeUnits() instead.
+ *
+ * @param s the Species_t structure
+ * 
+ * @param sid the identifer to which the "spatialSizeUnits"
+ * attribute should be set.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+ * @li LIBSBML_UNEXPECTED_ATTRIBUTE
+ *
+ * @note Using this function with an id of NULL is equivalent to
+ * unsetting the "spatialSizeUnits" attribute.
+ * 
+ * @warning In versions of SBML Level~2 before Version 3, the structure
+ * Species_t included an attribute called "spatialSizeUnits", which allowed
+ * explicitly setting the units of size for initial concentration.  This
+ * attribute was removed in SBML Level 2 Version 3.  LibSBML retains this
+ * attribute for compatibility with older definitions of Level 2, but its
+ * use is strongly discouraged because it is incompatible with Level 2
+ * Versions 3 and 4.
+ *
+ * @memberof Species_t
+ */
 LIBSBML_EXTERN
 int
 Species_setSpatialSizeUnits (Species_t *s, const char *sid);
 
 
+/**
+ * (SBML Level 1 only) Sets the "units" attribute of the given Species_t
+ * structure.
+ *
+ * This function copies the string given in @p sid.  If the string is NULL,
+ * this function performs unsetUnits() instead.
+ *
+ * @param s the Species_t structure
+ * 
+ * @param sname the identifer to which the "units" attribute
+ * should be set.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+ *
+ * @note Using this function with an id of NULL is equivalent to
+ * unsetting the "units" attribute.
+ *
+ * @memberof Species_t
+ */
 LIBSBML_EXTERN
 int
 Species_setUnits (Species_t *s, const char *sname);
 
 
+/**
+ * Sets the "hasOnlySubstanceUnits" attribute of the given Species_t
+ * structure.
+ *
+ * @param s the Species_t structure
+ * 
+ * @param value nonzero to indicate true, zero to indicate false.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_UNEXPECTED_ATTRIBUTE
+ *
+ * @memberof Species_t
+ */
 LIBSBML_EXTERN
 int
 Species_setHasOnlySubstanceUnits (Species_t *s, int value);
 
 
+/**
+ * Sets the "boundaryCondition" attribute of the given Species_t
+ * structure.
+ *
+ * @param s the Species_t structure
+ * 
+ * @param value nonzero to indicate true, zero to indicate false.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ *
+ * @memberof Species_t
+ */
 LIBSBML_EXTERN
 int
 Species_setBoundaryCondition (Species_t *s, int value);
 
 
+/**
+ * Sets the "charge" attribute of the given Species_t
+ * structure.
+ *
+ * @param s the Species_t structure
+ * 
+ * @param value the value of charge to assign to the "charge" attribute
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_UNEXPECTED_ATTRIBUTE
+ *
+ * @note Beginning in SBML Level 2 Version 2, the "charge" attribute on
+ * Species_t in SBML is deprecated and its use strongly discouraged.  Its
+ * presence is considered a misfeature in earlier definitions of SBML
+ * because its implications for the mathematics of a model were never
+ * defined, and in any case, no known modeling system ever used it.
+ * Instead, models take account of charge values directly in their
+ * definitions of species by (for example) having separate species
+ * identities for the charged and uncharged versions of the same species.
+ * This allows the condition to affect model mathematics directly.
+ * LibSBML retains this method for easier compatibility with SBML Level 1.
+ *
+ * @memberof Species_t
+ */
 LIBSBML_EXTERN
 int
 Species_setCharge (Species_t *s, int value);
 
 
+/**
+ * Sets the "constant" attribute of the given Species_t
+ * structure.
+ *
+ * @param s the Species_t structure
+ * 
+ * @param value nonzero to indicate true, zero to indicate false.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_UNEXPECTED_ATTRIBUTE
+ *
+ * @memberof Species_t
+ */
 LIBSBML_EXTERN
 int
 Species_setConstant (Species_t *s, int value);
 
 
+/**
+ * Sets the "conversionFactor" attribute of the given Species_t structure.
+ *
+ * This function copies the string given in @p sid.  If the string
+ * is NULL, this function performs unsetConversionFactor() instead.
+ *
+ * @param s the Species_t structure
+ * 
+ * @param sid the identifer to which the "conversionFactor" attribute
+ * should be set.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+ * @li LIBSBML_UNEXPECTED_ATTRIBUTE
+ *
+ * @note Using this function with an id of NULL is equivalent to
+ * unsetting the "conversionFactor" attribute.
+ *
+ * @memberof Species_t
+ */
 LIBSBML_EXTERN
 int
 Species_setConversionFactor (Species_t *s, const char *sid);
 
 
+/**
+ * Unsets the "name" attribute of the given Species_t structure.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_OPERATION_FAILED
+ *
+ * @memberof Species_t
+ */
 LIBSBML_EXTERN
 int
 Species_unsetName (Species_t *s);
 
 
+/**
+ * Unsets the "speciesType" attribute of the given Species_t structure.
+ *
+ * @param s the Species_t structure whose attribute is to be unset.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_OPERATION_FAILED
+ *
+ * @memberof Species_t
+ */
 LIBSBML_EXTERN
 int
 Species_unsetSpeciesType (Species_t *s);
 
 
+/**
+ * Unsets the "initialAmount" attribute of the given Species_t structure.
+ *
+ * @param s the Species_t structure whose attribute is to be unset.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ *
+ * @memberof Species_t
+ */
 LIBSBML_EXTERN
 int
 Species_unsetInitialAmount (Species_t *s);
 
 
+/**
+ * Unsets the "initialConcentration" attribute of the given
+ * Species_t structure.
+ *
+ * @param s the Species_t structure whose attribute is to be unset.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ *
+ * @memberof Species_t
+ */
 LIBSBML_EXTERN
 int
 Species_unsetInitialConcentration (Species_t *s);
 
 
+/**
+ * Unsets the "substanceUnits" attribute of the given
+ * Species_t structure.
+ *
+ * @param s the Species_t structure whose attribute is to be unset.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_OPERATION_FAILED
+ *
+ * @memberof Species_t
+ */
 LIBSBML_EXTERN
 int
 Species_unsetSubstanceUnits (Species_t *s);
 
 
+/**
+ * Unsets the "spatialSizeUnits" attribute of the given
+ * Species_t structure.
+ *
+ * @param s the Species_t structure whose attribute is to be unset.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_OPERATION_FAILED
+ * 
+ * @warning In versions of SBML Level~2 before Version 3, the structure
+ * Species_t included an attribute called "spatialSizeUnits", which allowed
+ * explicitly setting the units of size for initial concentration.  This
+ * attribute was removed in SBML Level 2 Version 3.  LibSBML retains this
+ * attribute for compatibility with older definitions of Level 2, but its
+ * use is strongly discouraged because it is incompatible with Level 2
+ * Versions 3 and 4.
+ *
+ * @memberof Species_t
+ */
 LIBSBML_EXTERN
 int
 Species_unsetSpatialSizeUnits (Species_t *s);
 
 
+/**
+ * Unsets the "units" attribute of the given
+ * Species_t structure.
+ *
+ * @param s the Species_t structure whose attribute is to be unset.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_OPERATION_FAILED
+ *
+ * @memberof Species_t
+ */
 LIBSBML_EXTERN
 int
 Species_unsetUnits (Species_t *s);
 
 
+/**
+ * Unsets the "charge" attribute of the given
+ * Species_t structure.
+ *
+ * @param s the Species_t structure whose attribute is to be unset.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_OPERATION_FAILED
+ *
+ * @note Beginning in SBML Level 2 Version 2, the "charge" attribute on
+ * Species_t in SBML is deprecated and its use strongly discouraged.  Its
+ * presence is considered a misfeature in earlier definitions of SBML
+ * because its implications for the mathematics of a model were never
+ * defined, and in any case, no known modeling system ever used it.
+ * Instead, models take account of charge values directly in their
+ * definitions of species by (for example) having separate species
+ * identities for the charged and uncharged versions of the same species.
+ * This allows the condition to affect model mathematics directly.
+ * LibSBML retains this method for easier compatibility with SBML Level 1.
+ *
+ * @memberof Species_t
+ */
 LIBSBML_EXTERN
 int
 Species_unsetCharge (Species_t *s);
 
+/**
+ * Unsets the "conversionFactor" attribute of the given Species_t structure.
+ *
+ * @param s the Species_t structure whose attribute is to be unset.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_OPERATION_FAILED
+ *
+ * @memberof Species_t
+ */
 LIBSBML_EXTERN
 int
 Species_unsetConversionFactor (Species_t *s);
 
 
+/**
+ * Constructs and returns a UnitDefinition_t structure that expresses 
+ * the units of this Species_t structure.
+ *
+ * @param s the Species_t structure whose units are to be returned.
+ *
+ * @return a UnitDefinition_t structure that expresses the units 
+ * of this Species_t strucuture.
+ *
+ * @note This function returns the units of the Species_t expressed 
+ * as a UnitDefinition_t. The units may be those explicitly declared 
+ * or those derived from the default units of the Model_t containing
+ * this Species_t and it's Compartment_t.
+ *
+ * Note that the functionality that facilitates unit analysis depends 
+ * on the model as a whole.  Thus, in cases where the object has not 
+ * been added to a model or the model itself is incomplete,
+ * unit analysis is not possible and this method will return @c NULL.
+ *
+ *
+ * @memberof Species_t
+ */
 LIBSBML_EXTERN
 UnitDefinition_t * 
 Species_getDerivedUnitDefinition(Species_t *s);
 
 
+/**
+ * Predicate returning @c true or @c false depending on whether
+ * all the required attributes for this Species_t object
+ * have been set.
+ *
+ * @param s the Species_t structure to check.
+ *
+ * @note The required attributes for a Species_t object are:
+ * @li id (name L1)
+ * @li compartment
+ * @li initialAmount (L1 only)
+ * @li hasOnlySubstanceUnits (L3 on)
+ * @li boundaryCondition (L3 on)
+ * @li constant (L3 on)
+ *
+ * @return a true if all the required
+ * attributes for this object have been defined, false otherwise.
+ *
+ * @memberof Species_t
+ */
 LIBSBML_EXTERN
 int
-Species_hasRequiredAttributes (Species_t *c);
+Species_hasRequiredAttributes (Species_t *s);
 
 
+/**
+ * @return item in this ListOfSpecies with the given @p id or @c NULL if no such
+ * item exists.
+ *
+ * @memberof ListOfSpecies_t
+ */
 LIBSBML_EXTERN
 Species_t *
 ListOfSpecies_getById (ListOf_t *lo, const char *sid);
 
 
+/**
+ * Removes item in this ListOf items with the given @p id or @c NULL if no such
+ * item exists.  The caller owns the returned item and is responsible for
+ * deleting it.
+ *
+ * @memberof ListOfSpecies_t
+ */
 LIBSBML_EXTERN
 Species_t *
 ListOfSpecies_removeById (ListOf_t *lo, const char *sid);

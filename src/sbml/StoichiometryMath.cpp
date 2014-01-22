@@ -610,26 +610,6 @@ StoichiometryMath::writeElements (XMLOutputStream& stream) const
 /** @cond doxygenCOnly */
 
 
-/**
- * Creates a new StoichiometryMath_t structure using the given SBML @p level
- * and @p version values.
- *
- * @param level an unsigned int, the SBML Level to assign to this
- * StoichiometryMath
- *
- * @param version an unsigned int, the SBML Version to assign to this
- * StoichiometryMath
- *
- * @return a pointer to the newly created StoichiometryMath_t structure.
- *
- * @note Once a StoichiometryMath has been added to an SBMLDocument, the @p
- * level and @p version for the document @em override those used to create
- * the StoichiometryMath.  Despite this, the ability to supply the values at
- * creation time is an important aid to creating valid SBML.  Knowledge of
- * the intended SBML Level and Version  determine whether it is valid to
- * assign a particular value to an attribute, or whether it is valid to add
- * an object to an existing SBMLDocument.
- */
 LIBSBML_EXTERN
 StoichiometryMath_t *
 StoichiometryMath_create (unsigned int level, unsigned int version)
@@ -646,23 +626,6 @@ StoichiometryMath_create (unsigned int level, unsigned int version)
 }
 
 
-/**
- * Creates a new StoichiometryMath_t structure using the given
- * SBMLNamespaces_t structure.
- *
- * @param sbmlns SBMLNamespaces, a pointer to an SBMLNamespaces structure
- * to assign to this StoichiometryMath
- *
- * @return a pointer to the newly created StoichiometryMath_t structure.
- *
- * @note Once a StoichiometryMath has been added to an SBMLDocument, the
- * @p sbmlns namespaces for the document @em override those used to create
- * the StoichiometryMath.  Despite this, the ability to supply the values at 
- * creation time is an important aid to creating valid SBML.  Knowledge of the
- * intended SBML Level and Version determine whether it is valid to assign a 
- * particular value to an attribute, or whether it is valid to add an object 
- * to an existing SBMLDocument.
- */
 LIBSBML_EXTERN
 StoichiometryMath_t *
 StoichiometryMath_createWithNS (SBMLNamespaces_t* sbmlns)
@@ -679,9 +642,6 @@ StoichiometryMath_createWithNS (SBMLNamespaces_t* sbmlns)
 }
 
 
-/**
- * Frees the given StoichiometryMath.
- */
 LIBSBML_EXTERN
 void
 StoichiometryMath_free (StoichiometryMath_t *stoichMath)
@@ -691,9 +651,6 @@ StoichiometryMath_free (StoichiometryMath_t *stoichMath)
 }
 
 
-/**
- * @return a (deep) copy of this StoichiometryMath.
- */
 LIBSBML_EXTERN
 StoichiometryMath_t *
 StoichiometryMath_clone (const StoichiometryMath_t *stoichMath)
@@ -702,15 +659,6 @@ StoichiometryMath_clone (const StoichiometryMath_t *stoichMath)
 }
 
 
-/**
- * Returns a list of XMLNamespaces_t associated with this StoichiometryMath_t
- * structure.
- *
- * @param sm the StoichiometryMath_t structure
- * 
- * @return pointer to the XMLNamespaces_t structure associated with 
- * this SBML object
- */
 LIBSBML_EXTERN
 const XMLNamespaces_t *
 StoichiometryMath_getNamespaces(StoichiometryMath_t *sm)
@@ -719,9 +667,6 @@ StoichiometryMath_getNamespaces(StoichiometryMath_t *sm)
 }
 
 
-/**
- * @return the stoichMath of this StoichiometryMath.
- */
 LIBSBML_EXTERN
 const ASTNode_t *
 StoichiometryMath_getMath (const StoichiometryMath_t *stoichMath)
@@ -730,10 +675,6 @@ StoichiometryMath_getMath (const StoichiometryMath_t *stoichMath)
 }
 
 
-/**
- * @return true (non-zero) if the stoichMath (or equivalently the formula) of
- * this StoichiometryMath is set, false (0) otherwise.
- */
 LIBSBML_EXTERN
 int
 StoichiometryMath_isSetMath (const StoichiometryMath_t *stoichMath)
@@ -742,16 +683,6 @@ StoichiometryMath_isSetMath (const StoichiometryMath_t *stoichMath)
 }
 
 
-/**
- * Sets the math of this StoichiometryMath to a copy of the given ASTNode.
- *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif@~ The possible values
- * returned by this function are:
- * @li LIBSBML_OPERATION_SUCCESS
- * @li LIBSBML_INVALID_OBJECT
- */
 LIBSBML_EXTERN
 int
 StoichiometryMath_setMath (StoichiometryMath_t *stoichMath, const ASTNode_t *math)
@@ -761,35 +692,6 @@ StoichiometryMath_setMath (StoichiometryMath_t *stoichMath, const ASTNode_t *mat
 }
 
 
-/**
- * Calculates and returns a UnitDefinition that expresses the units
- * returned by the math expression in this StoichiometryMath.
- *
- * @param stoichMath the StoichiometryMath structure to check
- *
- * @return A UnitDefinition that expresses the units of the math 
- *
- *
- * The units are calculated based on the mathematical expression in the
- * StoichiometryMath and the model quantities referenced by
- * <code>&lt;ci&gt;</code> elements used within that expression.  The
- * getDerivedUnitDefinition() method returns the calculated units.
- * 
- * @warning Note that it is possible the "math" expression in the
- * StoichiometryMath contains pure numbers or parameters with undeclared
- * units.  In those cases, it is not possible to calculate the units of
- * the overall expression without making assumptions.  LibSBML does not
- * make assumptions about the units, and getDerivedUnitDefinition() only
- * returns the units as far as it is able to determine them.  For
- * example, in an expression <em>X + Y</em>, if <em>X</em> has
- * unambiguously-defined units and <em>Y</em> does not, it will return
- * the units of <em>X</em>.  <strong>It is important that callers also
- * invoke the method</strong> containsUndeclaredUnits() <strong>to
- * determine whether this situation holds</strong>.  Callers may wish to
- * take suitable actions in those scenarios.
- *
- * @see containsUndeclaredUnits()
- */
 LIBSBML_EXTERN
 UnitDefinition_t * 
 StoichiometryMath_getDerivedUnitDefinition(StoichiometryMath_t *stoichMath)
@@ -800,23 +702,6 @@ StoichiometryMath_getDerivedUnitDefinition(StoichiometryMath_t *stoichMath)
 }
 
 
-/**
- * Predicate returning @c true or @c false depending on whether 
- * the math expression of this StoichiometryMath contains
- * parameters/numbers with undeclared units.
- *
- * @param stoichMath the StoichiometryMath structure to check
- * 
- * @return @c true if the math expression of this StoichiometryMath
- * includes parameters/numbers 
- * with undeclared units, @c false otherwise.
- *
- * @note A return value of @c true indicates that the UnitDefinition
- * returned by getDerivedUnitDefinition() may not accurately represent
- * the units of the expression.
- *
- * @see StoichiometryMath_getDerivedUnitDefinition()
- */
 LIBSBML_EXTERN
 int 
 StoichiometryMath_containsUndeclaredUnits(StoichiometryMath_t *stoichMath)

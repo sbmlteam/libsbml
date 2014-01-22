@@ -1655,26 +1655,6 @@ ListOfRules::createObject (XMLInputStream& stream)
 /** @cond doxygenCOnly */
 
 
-/**
- * Creates a new AlgebraicRule (Rule_t) structure using the given SBML 
- * @p level and @p version values.
- *
- * @param level an unsigned int, the SBML Level to assign to this
- * AlgebraicRule
- *
- * @param version an unsigned int, the SBML Version to assign to this
- * AlgebraicRule
- *
- * @return a pointer to the newly created Rule_t structure.
- *
- * @note Once a AlgebraicRule has been added to an SBMLDocument, the @p
- * level and @p version for the document @em override those used to create
- * the AlgebraicRule.  Despite this, the ability to supply the values at
- * creation time is an important aid to creating valid SBML.  Knowledge of
- * the intended SBML Level and Version  determine whether it is valid to
- * assign a particular value to an attribute, or whether it is valid to add
- * an object to an existing SBMLDocument.
- */
 LIBSBML_EXTERN
 Rule_t *
 Rule_createAlgebraic (unsigned int level, unsigned int version)
@@ -1691,23 +1671,6 @@ Rule_createAlgebraic (unsigned int level, unsigned int version)
 }
 
 
-/**
- * Creates a new AlgebraicRule (Rule_t) structure using the given
- * SBMLNamespaces_t structure.
- *
- * @param sbmlns SBMLNamespaces, a pointer to an SBMLNamespaces structure
- * to assign to this AlgebraicRule
- *
- * @return a pointer to the newly created Rule_t structure.
- *
- * @note Once a AlgebraicRule has been added to an SBMLDocument, the
- * @p sbmlns namespaces for the document @em override those used to create
- * the AlgebraicRule.  Despite this, the ability to supply the values at creation 
- * time is an important aid to creating valid SBML.  Knowledge of the intended 
- * SBML Level and Version determine whether it is valid to assign a particular 
- * value to an attribute, or whether it is valid to add an object to an existing
- * SBMLDocument.
- */
 LIBSBML_EXTERN
 Rule_t *
 Rule_createAlgebraicWithNS (SBMLNamespaces_t* sbmlns)
@@ -1724,26 +1687,6 @@ Rule_createAlgebraicWithNS (SBMLNamespaces_t* sbmlns)
 }
 
 
-/**
- * Creates a new AssignmentRule (Rule_t) structure using the given SBML
- * @p level and @p version values.
- *
- * @param level an unsigned int, the SBML Level to assign to this
- * AssignmentRule
- *
- * @param version an unsigned int, the SBML Version to assign to this
- * AssignmentRule
- *
- * @return a pointer to the newly created Rule_t structure.
- *
- * @note Once a AssignmentRule has been added to an SBMLDocument, the @p
- * level and @p version for the document @em override those used to create
- * the AssignmentRule.  Despite this, the ability to supply the values at
- * creation time is an important aid to creating valid SBML.  Knowledge of
- * the intended SBML Level and Version  determine whether it is valid to
- * assign a particular value to an attribute, or whether it is valid to add
- * an object to an existing SBMLDocument.
- */
 LIBSBML_EXTERN
 Rule_t *
 Rule_createAssignment (unsigned int level, unsigned int version)
@@ -1760,23 +1703,6 @@ Rule_createAssignment (unsigned int level, unsigned int version)
 }
 
 
-/**
- * Creates a new AssignmentRule (Rule_t) structure using the given
- * SBMLNamespaces_t structure.
- *
- * @param sbmlns SBMLNamespaces, a pointer to an SBMLNamespaces structure
- * to assign to this AssignmentRule
- *
- * @return a pointer to the newly created Rule_t structure.
- *
- * @note Once a AssignmentRule has been added to an SBMLDocument, the
- * @p sbmlns namespaces for the document @em override those used to create
- * the AssignmentRule.  Despite this, the ability to supply the values at creation
- * time is an important aid to creating valid SBML.  Knowledge of the intended
- * SBML Level and Version determine whether it is valid to assign a particular
- * value to an attribute, or whether it is valid to add an object to an existing
- * SBMLDocument.
- */
 LIBSBML_EXTERN
 Rule_t *
 Rule_createAssignmentWithNS (SBMLNamespaces_t* sbmlns)
@@ -1793,26 +1719,6 @@ Rule_createAssignmentWithNS (SBMLNamespaces_t* sbmlns)
 }
 
 
-/**
- * Creates a new RateRule (Rule_t) structure using the given SBML
- * @p level and @p version values.
- *
- * @param level an unsigned int, the SBML Level to assign to this
- * RateRule
- *
- * @param version an unsigned int, the SBML Version to assign to this
- * RateRule
- *
- * @return a pointer to the newly created Rule_t structure.
- *
- * @note Once a RateRule has been added to an SBMLDocument, the @p
- * level and @p version for the document @em override those used to create
- * the RateRule.  Despite this, the ability to supply the values at
- * creation time is an important aid to creating valid SBML.  Knowledge of
- * the intended SBML Level and Version  determine whether it is valid to
- * assign a particular value to an attribute, or whether it is valid to add
- * an object to an existing SBMLDocument.
- */
 LIBSBML_EXTERN
 Rule_t *
 Rule_createRate (unsigned int level, unsigned int version)
@@ -1829,23 +1735,6 @@ Rule_createRate (unsigned int level, unsigned int version)
 }
 
 
-/**
- * Creates a new RateRule (Rule_t) structure using the given
- * SBMLNamespaces_t structure.
- *
- * @param sbmlns SBMLNamespaces, a pointer to an SBMLNamespaces structure
- * to assign to this RateRule
- *
- * @return a pointer to the newly created Rule_t structure.
- *
- * @note Once a RateRule has been added to an SBMLDocument, the
- * @p sbmlns namespaces for the document @em override those used to create
- * the RateRule.  Despite this, the ability to supply the values at creation
- * time is an important aid to creating valid SBML.  Knowledge of the intended
- * SBML Level and Version determine whether it is valid to assign a particular
- * value to an attribute, or whether it is valid to add an object to an existing
- * SBMLDocument.
- */
 LIBSBML_EXTERN
 Rule_t *
 Rule_createRateWithNS (SBMLNamespaces_t* sbmlns)
@@ -1862,9 +1751,6 @@ Rule_createRateWithNS (SBMLNamespaces_t* sbmlns)
 }
 
 
-/**
- * Destroys this Rule.
- */
 LIBSBML_EXTERN
 void
 Rule_free (Rule_t *r)
@@ -1874,9 +1760,6 @@ Rule_free (Rule_t *r)
 }
 
 
-/**
- * @return a (deep) copy of this Rule.
- */
 LIBSBML_EXTERN
 Rule_t *
 Rule_clone (const Rule_t *r)
@@ -1885,15 +1768,6 @@ Rule_clone (const Rule_t *r)
 }
 
 
-/**
- * Returns a list of XMLNamespaces_t associated with this Rule_t
- * structure.
- *
- * @param r the Rule_t structure
- * 
- * @return pointer to the XMLNamespaces_t structure associated with 
- * this SBML object
- */
 LIBSBML_EXTERN
 const XMLNamespaces_t *
 Rule_getNamespaces(Rule_t *r)
@@ -1901,19 +1775,6 @@ Rule_getNamespaces(Rule_t *r)
   return (r != NULL) ? r->getNamespaces() : NULL;
 }
 
-/**
- * @note SBML Level 1 uses a text-string format for mathematical formulas.
- * SBML Level 2 uses MathML, an XML format for representing mathematical
- * expressions.  LibSBML provides an Abstract Syntax Tree API for working
- * with mathematical expressions; this API is more powerful than working
- * with formulas directly in text form, and ASTs can be translated into
- * either MathML or the text-string syntax.  The libSBML methods that
- * accept text-string formulas directly (such as this one) are
- * provided for SBML Level 1 compatibility, but developers are encouraged
- * to use the AST mechanisms.  
- *
- * @return the formula for this Rule.
- */
 LIBSBML_EXTERN
 const char *
 Rule_getFormula (const Rule_t *r)
@@ -1922,9 +1783,6 @@ Rule_getFormula (const Rule_t *r)
 }
 
 
-/**
- * @return the math for this Rule.
- */
 LIBSBML_EXTERN
 const ASTNode_t *
 Rule_getMath (const Rule_t *r)
@@ -1933,10 +1791,6 @@ Rule_getMath (const Rule_t *r)
 }
 
 
-/**
- * @return the type of this Rule, either RULE_TYPE_RATE or
- * RULE_TYPE_SCALAR.
- */
 LIBSBML_EXTERN
 RuleType_t
 Rule_getType (const Rule_t *r)
@@ -1945,9 +1799,6 @@ Rule_getType (const Rule_t *r)
 }
 
 
-/**
- * @return the variable for this Rule.
- */
 LIBSBML_EXTERN
 const char *
 Rule_getVariable (const Rule_t *r)
@@ -1956,9 +1807,6 @@ Rule_getVariable (const Rule_t *r)
 }
 
 
-/**
- * @return the units for this Rule (L1 ParameterRules only).
- */
 LIBSBML_EXTERN
 const char *
 Rule_getUnits (const Rule_t *r)
@@ -1967,20 +1815,6 @@ Rule_getUnits (const Rule_t *r)
 }
 
 
-/**
- * @note SBML Level 1 uses a text-string format for mathematical formulas.
- * SBML Level 2 uses MathML, an XML format for representing mathematical
- * expressions.  LibSBML provides an Abstract Syntax Tree API for working
- * with mathematical expressions; this API is more powerful than working
- * with formulas directly in text form, and ASTs can be translated into
- * either MathML or the text-string syntax.  The libSBML methods that
- * accept text-string formulas directly (such as this one) are
- * provided for SBML Level 1 compatibility, but developers are encouraged
- * to use the AST mechanisms.
- *
- * @return true (non-zero) if the formula (or equivalently the math) for
- * this Rule is set, false (0) otherwise.
- */
 LIBSBML_EXTERN
 int
 Rule_isSetFormula (const Rule_t *r)
@@ -1989,10 +1823,6 @@ Rule_isSetFormula (const Rule_t *r)
 }
 
 
-/**
- * @return true (non-zero) if the math (or equivalently the formula) for
- * this Rule is set, false (0) otherwise.
- */
 LIBSBML_EXTERN
 int
 Rule_isSetMath (const Rule_t *r)
@@ -2001,10 +1831,6 @@ Rule_isSetMath (const Rule_t *r)
 }
 
 
-/**
- * @return true (non-zero) if the variable of this Rule is set, false
- * (0) otherwise.
- */
 LIBSBML_EXTERN
 int
 Rule_isSetVariable (const Rule_t *r)
@@ -2013,10 +1839,6 @@ Rule_isSetVariable (const Rule_t *r)
 }
 
 
-/**
- * @return true (non-zero) if the units for this Rule is set, false
- * (0) otherwise (L1 ParameterRules only).
- */
 LIBSBML_EXTERN
 int
 Rule_isSetUnits (const Rule_t *r)
@@ -2025,26 +1847,6 @@ Rule_isSetUnits (const Rule_t *r)
 }
 
 
-/**
- * Sets the formula of this Rule to a copy of string.
- *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif@~ The possible values
- * returned by this function are:
- * @li LIBSBML_OPERATION_SUCCESS
- * @li LIBSBML_INVALID_OBJECT
- *
- * @note SBML Level 1 uses a text-string format for mathematical formulas.
- * SBML Level 2 uses MathML, an XML format for representing mathematical
- * expressions.  LibSBML provides an Abstract Syntax Tree API for working
- * with mathematical expressions; this API is more powerful than working
- * with formulas directly in text form, and ASTs can be translated into
- * either MathML or the text-string syntax.  The libSBML methods that
- * accept text-string formulas directly (such as this one) are
- * provided for SBML Level 1 compatibility, but developers are encouraged
- * to use the AST mechanisms.
- */
 LIBSBML_EXTERN
 int
 Rule_setFormula (Rule_t *r, const char *formula)
@@ -2056,16 +1858,6 @@ Rule_setFormula (Rule_t *r, const char *formula)
 }
 
 
-/**
- * Sets the math of this Rule to a copy of the given ASTNode.
- *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif@~ The possible values
- * returned by this function are:
- * @li LIBSBML_OPERATION_SUCCESS
- * @li LIBSBML_INVALID_OBJECT
- */
 LIBSBML_EXTERN
 int
 Rule_setMath (Rule_t *r, const ASTNode_t *math)
@@ -2077,20 +1869,6 @@ Rule_setMath (Rule_t *r, const ASTNode_t *math)
 }
 
 
-/**
- * Sets the variable of this RateRule to a copy of sid.
- *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif@~ The possible values
- * returned by this function are:
- * @li LIBSBML_OPERATION_SUCCESS
- * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
- * @li LIBSBML_UNEXPECTED_ATTRIBUTE
- *
- * @note Using this function with an id of NULL is equivalent to
- * unsetting the "variable" attribute.
- */
 LIBSBML_EXTERN
 int
 Rule_setVariable (Rule_t *r, const char *sid)
@@ -2102,21 +1880,6 @@ Rule_setVariable (Rule_t *r, const char *sid)
 }
 
 
-/**
- * Sets the units for this Rule to a copy of sname (L1 ParameterRules
- * only).
- *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif@~ The possible values
- * returned by this function are:
- * @li LIBSBML_OPERATION_SUCCESS
- * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
- * @li LIBSBML_UNEXPECTED_ATTRIBUTE
- *
- * @note Using this function with an id of NULL is equivalent to
- * unsetting the "units" attribute.
- */
 LIBSBML_EXTERN
 int
 Rule_setUnits (Rule_t *r, const char *sname)
@@ -2128,16 +1891,6 @@ Rule_setUnits (Rule_t *r, const char *sname)
 }
 
 
-/**
- * Unsets the units for this Rule (L1 ParameterRules only).
- *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif@~ The possible values
- * returned by this function are:
- * @li LIBSBML_OPERATION_SUCCESS
- * @li LIBSBML_OPERATION_FAILED
- */
 LIBSBML_EXTERN
 int
 Rule_unsetUnits (Rule_t *r)
@@ -2149,10 +1902,6 @@ Rule_unsetUnits (Rule_t *r)
 }
 
 
-/**
- * @return true (non-zero) if this Rule is an AlgebraicRule, false (0)
- * otherwise.
- */
 LIBSBML_EXTERN
 int
 Rule_isAlgebraic (const Rule_t *r)
@@ -2161,10 +1910,6 @@ Rule_isAlgebraic (const Rule_t *r)
 }
 
 
-/**
- * @return true (non-zero) if this Rule is an AssignmentRule, false (0)
- * otherwise.
- */
 LIBSBML_EXTERN
 int
 Rule_isAssignment (const Rule_t *r)
@@ -2173,13 +1918,6 @@ Rule_isAssignment (const Rule_t *r)
 }
 
 
-/**
- * This method attempts to lookup the Rule's variable in the Model's list
- * of Compartments.
- *
- * @return true (non-zero) if this Rule is a CompartmentVolumeRule, false
- * (0) otherwise.
- */
 LIBSBML_EXTERN
 int
 Rule_isCompartmentVolume (const Rule_t *r)
@@ -2188,13 +1926,6 @@ Rule_isCompartmentVolume (const Rule_t *r)
 }
 
 
-/**
- * This method attempts to lookup the Rule's variable in the Model's list
- * of Parameters.
- *
- * @return true (non-zero) if this Rule is a ParameterRule, false (0)
- * otherwise.
- */
 LIBSBML_EXTERN
 int
 Rule_isParameter (const Rule_t *r)
@@ -2203,10 +1934,6 @@ Rule_isParameter (const Rule_t *r)
 }
 
 
-/**
- * @return true (non-zero) if this Rule is a RateRule (L2) or has
- * type="rate" (L1), false (0) otherwise.
- */
 LIBSBML_EXTERN
 int
 Rule_isRate (const Rule_t *r)
@@ -2215,10 +1942,6 @@ Rule_isRate (const Rule_t *r)
 }
 
 
-/**
- * @return true (non-zero) if this Rule is an AssignmentRule (L2) has
- * type="scalar" (L1), false (0) otherwise.
- */
 LIBSBML_EXTERN
 int
 Rule_isScalar (const Rule_t *r)
@@ -2227,13 +1950,6 @@ Rule_isScalar (const Rule_t *r)
 }
 
 
-/**
- * This method attempts to lookup the Rule's variable in the Model's list
- * of Species.
- *
- * @return true (non-zero) if this Rule is a SpeciesConcentrationRule, false
- * (0) otherwise.
- */
 LIBSBML_EXTERN
 int
 Rule_isSpeciesConcentration (const Rule_t *r)
@@ -2242,10 +1958,6 @@ Rule_isSpeciesConcentration (const Rule_t *r)
 }
 
 
-/**
- * @return the typecode (int) of SBML objects contained in this ListOf or
- * (default).
- */
 LIBSBML_EXTERN
 int
 Rule_getTypeCode (const Rule_t *r)
@@ -2254,10 +1966,6 @@ Rule_getTypeCode (const Rule_t *r)
 }
 
 
-/**
- * @return the SBML Level 1 typecode for this Rule or SBML_UNKNOWN
- * (default).
- */
 LIBSBML_EXTERN
 int
 Rule_getL1TypeCode (const Rule_t *r)
@@ -2265,22 +1973,6 @@ Rule_getL1TypeCode (const Rule_t *r)
   return (r != NULL) ? r->getL1TypeCode() : SBML_UNKNOWN;
 }
 
-/**
- * Sets the SBML Level&nbsp;1 typecode for this Rule.
- *
- * @param r the Rule_t structure
- * @param L1type the SBML Level&nbsp;1 typecode for this Rule
- * (@c SBML_COMPARTMENT_VOLUME_RULE, @c SBML_PARAMETER_RULE,
- * or @c SBML_SPECIES_CONCENTRATION_RULE).
- *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif@~ The possible values
- * returned by this function are:
- * @li LIBSBML_OPERATION_SUCCESS
- * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
- *
- */
 LIBSBML_EXTERN
 int
 Rule_setL1TypeCode (Rule_t *r, int L1Type)
@@ -2288,26 +1980,6 @@ Rule_setL1TypeCode (Rule_t *r, int L1Type)
   return (r != NULL) ? r->setL1TypeCode(L1Type) : LIBSBML_INVALID_OBJECT;
 }
 
-/**
-  * Calculates and returns a UnitDefinition_t that expresses the units
-  * returned by the math expression of this Rule_t.
-  *
-  * @return a UnitDefinition_t that expresses the units of the math 
-  * expression of this Rule_t.
-  *
-  * Note that the functionality that facilitates unit analysis depends 
-  * on the model as a whole.  Thus, in cases where the object has not 
-  * been added to a model or the model itself is incomplete,
-  * unit analysis is not possible and this method will return @c NULL.
-  *
-  * @note The units are calculated by applying the mathematics 
-  * from the expression to the units of the &lt;ci&gt; elements used 
-  * within the expression. Where there are parameters/numbers
-  * with undeclared units the UnitDefinition_t returned by this
-  * function may not accurately represent the units of the expression.
-  * 
-  * @see Rule_containsUndeclaredUnits()
-  */
 LIBSBML_EXTERN
 UnitDefinition_t * 
 Rule_getDerivedUnitDefinition(Rule_t *r)
@@ -2316,21 +1988,6 @@ Rule_getDerivedUnitDefinition(Rule_t *r)
 }
 
 
-/**
-  * Predicate returning @c true or @c false depending on whether 
-  * the math expression of this Rule_t contains
-  * parameters/numbers with undeclared units.
-  * 
-  * @return @c true if the math expression of this Rule_t
-  * includes parameters/numbers 
-  * with undeclared units, @c false otherwise.
-  *
-  * @note a return value of @c true indicates that the UnitDefinition_t
-  * returned by the getDerivedUnitDefinition function may not 
-  * accurately represent the units of the expression.
-  *
-  * @see Rule_getDerivedUnitDefinition()
-  */
 LIBSBML_EXTERN
 int 
 Rule_containsUndeclaredUnits(Rule_t *r)
@@ -2339,10 +1996,6 @@ Rule_containsUndeclaredUnits(Rule_t *r)
 }
 
 
-/**
- * @return item in this ListOfRule with the given @p id or @c NULL if no such
- * item exists.
- */
 LIBSBML_EXTERN
 Rule_t *
 ListOfRules_getById (ListOf_t *lo, const char *sid)
@@ -2355,11 +2008,6 @@ ListOfRules_getById (ListOf_t *lo, const char *sid)
 }
 
 
-/**
- * Removes item in this ListOf items with the given @p id or @c NULL if no such
- * item exists.  The caller owns the returned item and is responsible for
- * deleting it.
- */
 LIBSBML_EXTERN
 Rule_t *
 ListOfRules_removeById (ListOf_t *lo, const char *sid)

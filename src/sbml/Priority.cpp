@@ -486,26 +486,6 @@ Priority::writeElements (XMLOutputStream& stream) const
 /** @cond doxygenCOnly */
 
 
-/**
- * Creates a new Priority_t structure using the given SBML @p level
- * and @p version values.
- *
- * @param level an unsigned int, the SBML Level to assign to this
- * Priority
- *
- * @param version an unsigned int, the SBML Version to assign to this
- * Priority
- *
- * @return a pointer to the newly created Priority_t structure.
- *
- * @note Once a Priority has been added to an SBMLDocument, the @p
- * level and @p version for the document @em override those used to create
- * the Priority.  Despite this, the ability to supply the values at
- * creation time is an important aid to creating valid SBML.  Knowledge of
- * the intended SBML Level and Version  determine whether it is valid to
- * assign a particular value to an attribute, or whether it is valid to add
- * an object to an existing SBMLDocument.
- */
 LIBSBML_EXTERN
 Priority_t *
 Priority_create (unsigned int level, unsigned int version)
@@ -522,23 +502,6 @@ Priority_create (unsigned int level, unsigned int version)
 }
 
 
-/**
- * Creates a new Priority_t structure using the given
- * SBMLNamespaces_t structure.
- *
- * @param sbmlns SBMLNamespaces, a pointer to an SBMLNamespaces structure
- * to assign to this Priority
- *
- * @return a pointer to the newly created Priority_t structure.
- *
- * @note Once a Priority has been added to an SBMLDocument, the
- * @p sbmlns namespaces for the document @em override those used to create
- * the Priority.  Despite this, the ability to supply the values at creation time
- * is an important aid to creating valid SBML.  Knowledge of the intended SBML
- * Level and Version determine whether it is valid to assign a particular value
- * to an attribute, or whether it is valid to add an object to an existing
- * SBMLDocument.
- */
 LIBSBML_EXTERN
 Priority_t *
 Priority_createWithNS (SBMLNamespaces_t* sbmlns)
@@ -555,11 +518,6 @@ Priority_createWithNS (SBMLNamespaces_t* sbmlns)
 }
 
 
-/**
- * Frees the given Priority_t structure.
- *
- * @param t the Priority_t structure to free.
- */
 LIBSBML_EXTERN
 void
 Priority_free (Priority_t *t)
@@ -569,13 +527,6 @@ Priority_free (Priority_t *t)
 }
 
 
-/**
- * Creates and returns a deep copy of the given Priority_t structure.
- *
- * @param p the Priority_t structure to copy. 
- *
- * @return a (deep) copy of the given Priority_t structure @p t.
- */
 LIBSBML_EXTERN
 Priority_t *
 Priority_clone (const Priority_t *p)
@@ -584,15 +535,6 @@ Priority_clone (const Priority_t *p)
 }
 
 
-/**
- * Returns a list of XMLNamespaces_t associated with this Priority_t
- * structure.
- *
- * @param d the Priority_t structure
- * 
- * @return pointer to the XMLNamespaces_t structure associated with 
- * this SBML object
- */
 LIBSBML_EXTERN
 const XMLNamespaces_t *
 Priority_getNamespaces(Priority_t *p)
@@ -600,14 +542,6 @@ Priority_getNamespaces(Priority_t *p)
   return (p != NULL) ? p->getNamespaces() : NULL;
 }
 
-/**
- * Get the mathematical formula for a Priority_t structure and return it as
- * as an ASTNode structure.
- *
- * @param p the Priority_t structure to query.
- * 
- * @return an ASTNode_t structure representing the expression tree.
- */
 LIBSBML_EXTERN
 const ASTNode_t *
 Priority_getMath (const Priority_t *p)
@@ -616,15 +550,6 @@ Priority_getMath (const Priority_t *p)
 }
 
 
-/**
- * Predicate to test whether the formula for the given Priority_t structure
- * is set.
- *
- * @param p the Priority_t structure to query
- *
- * @return @c true if the formula (meaning the @c math subelement) of
- * this Priority is set, @c false otherwise.
- */
 LIBSBML_EXTERN
 int
 Priority_isSetMath (const Priority_t *p)
@@ -633,20 +558,6 @@ Priority_isSetMath (const Priority_t *p)
 }
 
 
-/**
- * Sets the math expression of the given Priority_t instance to a copy of the
- * given ASTNode_t structure.
- *
- * @param p the Priority_t structure to set.
- * @param math an ASTNode representing a formula tree.
- *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif@~ The possible values
- * returned by this function are:
- * @li LIBSBML_OPERATION_SUCCESS
- * @li LIBSBML_INVALID_OBJECT
- */
 LIBSBML_EXTERN
 int
 Priority_setMath (Priority_t *p, const ASTNode_t *math)

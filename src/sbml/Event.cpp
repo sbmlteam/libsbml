@@ -1849,26 +1849,6 @@ ListOfEvents::createObject (XMLInputStream& stream)
 /** @cond doxygenCOnly */
 
 
-/**
- * Creates a new Event_t structure using the given SBML @p level
- * and @p version values.
- *
- * @param level an unsigned int, the SBML Level to assign to this
- * Event
- *
- * @param version an unsigned int, the SBML Version to assign to this
- * Event
- *
- * @return a pointer to the newly created Event_t structure.
- *
- * @note Once a Event has been added to an SBMLDocument, the @p
- * level and @p version for the document @em override those used to create
- * the Event.  Despite this, the ability to supply the values at
- * creation time is an important aid to creating valid SBML.  Knowledge of
- * the intended SBML Level and Version  determine whether it is valid to
- * assign a particular value to an attribute, or whether it is valid to add
- * an object to an existing SBMLDocument.
- */
 LIBSBML_EXTERN
 Event_t *
 Event_create (unsigned int level, unsigned int version)
@@ -1885,23 +1865,6 @@ Event_create (unsigned int level, unsigned int version)
 }
 
 
-/**
- * Creates a new Event_t structure using the given
- * SBMLNamespaces_t structure.
- *
- * @param sbmlns SBMLNamespaces, a pointer to an SBMLNamespaces structure
- * to assign to this Event
- *
- * @return a pointer to the newly created Event_t structure.
- *
- * @note Once a Event has been added to an SBMLDocument, the
- * @p sbmlns namespaces for the document @em override those used to create
- * the Event.  Despite this, the ability to supply the values at creation time
- * is an important aid to creating valid SBML.  Knowledge of the intended SBML
- * Level and Version determine whether it is valid to assign a particular value
- * to an attribute, or whether it is valid to add an object to an existing
- * SBMLDocument.
- */
 LIBSBML_EXTERN
 Event_t *
 Event_createWithNS (SBMLNamespaces_t* sbmlns)
@@ -1918,11 +1881,6 @@ Event_createWithNS (SBMLNamespaces_t* sbmlns)
 }
 
 
-/**
- * Frees the given Event_t structure.
- *
- * @param e the Event_t structure to free.
- */
 LIBSBML_EXTERN
 void
 Event_free (Event_t *e)
@@ -1932,13 +1890,6 @@ Event_free (Event_t *e)
 }
 
 
-/**
- * Returns a copy of the given Event_t structure.
- *
- * @param e the Event_t structure to copy.
- * 
- * @return a (deep) copy of the Event_t.
- */
 LIBSBML_EXTERN
 Event_t *
 Event_clone (const Event_t *e)
@@ -1947,15 +1898,6 @@ Event_clone (const Event_t *e)
 }
 
 
-/**
- * Returns a list of XMLNamespaces_t associated with this Event_t
- * structure.
- *
- * @param e the Event_t structure
- * 
- * @return pointer to the XMLNamespaces_t structure associated with 
- * this SBML object
- */
 LIBSBML_EXTERN
 const XMLNamespaces_t *
 Event_getNamespaces(Event_t *e)
@@ -1964,13 +1906,6 @@ Event_getNamespaces(Event_t *e)
 }
 
 
-/**
- * Takes an Event_t structure and returns its identifier.
- *
- * @param e the Event_t structure whose identifier is sought
- * 
- * @return the identifier of this Event_t, as a pointer to a string.
- */
 LIBSBML_EXTERN
 const char *
 Event_getId (const Event_t *e)
@@ -1979,13 +1914,6 @@ Event_getId (const Event_t *e)
 }
 
 
-/**
- * Takes a Event_t structure and returns its name.
- *
- * @param e the Event_t whose name is sought.
-
- * @return the name of this Event_t, as a pointer to a string.
- */
 LIBSBML_EXTERN
 const char *
 Event_getName (const Event_t *e)
@@ -1994,13 +1922,6 @@ Event_getName (const Event_t *e)
 }
 
 
-/**
- * Takes an Event_t structure and returns its Trigger_t structure.
- *
- * @param e the Event_t structure whose trigger definition is sought.
- * 
- * @return the Trigger_t of this Event.
- */
 LIBSBML_EXTERN
 Trigger_t *
 Event_getTrigger (Event_t *e)
@@ -2009,13 +1930,6 @@ Event_getTrigger (Event_t *e)
 }
 
 
-/**
- * Takes an Event_t structure and returns its Delay_t structure.
- *
- * @param e the Event_t structure whose delay definition is sought.
- * 
- * @return the Delay_t of this Event.
- */
 LIBSBML_EXTERN
 Delay_t *
 Event_getDelay (Event_t *e)
@@ -2024,13 +1938,6 @@ Event_getDelay (Event_t *e)
 }
 
 
-/**
- * Takes an Event_t structure and returns its Priority_t structure.
- *
- * @param e the Event_t structure whose delay definition is sought.
- * 
- * @return the Priority_t of this Event.
- */
 LIBSBML_EXTERN
 Priority_t *
 Event_getPriority (Event_t *e)
@@ -2039,20 +1946,6 @@ Event_getPriority (Event_t *e)
 }
 
 
-/**
- * Takes an Event_t structure and returns the value of its "timeUnits"
- * attribute.
- *
- * @param e the Event_t structure whose "timeUnits" value is sought
- * 
- * @return the timeUnits of this Event
- *
- * @warning Definitions of Event in SBML Level 2 Versions 1 and 2
- * included the additional attribute called "timeUnits", but it was
- * removed in SBML Level 2 Version 3.  LibSBML supports this attribute
- * for compatibility with previous versions of SBML Level 2, but its use
- * is discouraged since models in Level 2 Versions 3 and 4 cannot contain it.
- */
 LIBSBML_EXTERN
 const char *
 Event_getTimeUnits (const Event_t *e)
@@ -2061,14 +1954,6 @@ Event_getTimeUnits (const Event_t *e)
 }
 
 
-/**
- * Takes an Event_t structure and returns the value of its "useValuesFromTriggerTime"
- * attribute.
- *
- * @param e the Event_t structure whose "useValuesFromTriggerTime" value is sought
- * 
- * @return the useValuesFromTriggerTime of this Event
- */
 LIBSBML_EXTERN
 int
 Event_getUseValuesFromTriggerTime (const Event_t *e)
@@ -2077,15 +1962,6 @@ Event_getUseValuesFromTriggerTime (const Event_t *e)
 }
 
 
-/**
- * Predicate returning @c true or @c false depending on whether the given
- * Event_t structure's identifier is set.
- *
- * @param e the Event_t structure to query
- * 
- * @return @c non-zero (true) if the "id" attribute of the given
- * Event_t structure is set, zero (false) otherwise.
- */
 LIBSBML_EXTERN
 int
 Event_isSetId (const Event_t *e)
@@ -2094,15 +1970,6 @@ Event_isSetId (const Event_t *e)
 }
 
 
-/**
- * Predicate returning @c true or @c false depending on whether the given
- * Event_t structure's name is set.
- *
- * @param e the Event_t structure to query
- * 
- * @return @c non-zero (true) if the "name" attribute of the given
- * Event_t structure is set, zero (false) otherwise.
- */
 LIBSBML_EXTERN
 int
 Event_isSetName (const Event_t *e)
@@ -2111,15 +1978,6 @@ Event_isSetName (const Event_t *e)
 }
 
 
-/**
- * Predicate returning @c true or @c false depending on whether the given
- * Event_t structure's trigger is set.
- *
- * @param e the Event_t structure to query
- * 
- * @return @c non-zero (true) if a Trigger_t structure is assigned to
- * the given Event_t structure, zero (false) otherwise.
- */
 LIBSBML_EXTERN
 int
 Event_isSetTrigger (const Event_t *e)
@@ -2128,15 +1986,6 @@ Event_isSetTrigger (const Event_t *e)
 }
 
 
-/**
- * Predicate returning @c true or @c false depending on whether the given
- * Event_t structure's delay is set.
- *
- * @param e the Event_t structure to query
- * 
- * @return @c non-zero (true) if a Delay_t structure is assigned to
- * the given Event_t structure, zero (false) otherwise.
- */
 LIBSBML_EXTERN
 int
 Event_isSetDelay (const Event_t *e)
@@ -2145,15 +1994,6 @@ Event_isSetDelay (const Event_t *e)
 }
 
 
-/**
- * Predicate returning @c true or @c false depending on whether the given
- * Event_t structure's priority is set.
- *
- * @param e the Event_t structure to query
- * 
- * @return @c non-zero (true) if a Priority_t structure is assigned to
- * the given Event_t structure, zero (false) otherwise.
- */
 LIBSBML_EXTERN
 int
 Event_isSetPriority (const Event_t *e)
@@ -2162,21 +2002,6 @@ Event_isSetPriority (const Event_t *e)
 }
 
 
-/**
- * Predicate returning @c true or @c false depending on whether the given
- * Event_t structure's "timeUnits" attribute is set.
- *
- * @param e the Event_t structure to query
- * 
- * @return @c non-zero (true) if a value for the "timeUnits" attribute is
- * assigned in the given Event_t structure, zero (false) otherwise.
- *
- * @warning Definitions of Event in SBML Level 2 Versions 1 and 2
- * included the additional attribute called "timeUnits", but it was
- * removed in SBML Level 2 Version 3.  LibSBML supports this attribute
- * for compatibility with previous versions of SBML Level 2, but its use
- * is discouraged since models in Level 2 Versions 3 and 4 cannot contain it.
- */
 LIBSBML_EXTERN
 int
 Event_isSetTimeUnits (const Event_t *e)
@@ -2185,15 +2010,6 @@ Event_isSetTimeUnits (const Event_t *e)
 }
 
 
-/**
- * Predicate returning @c true or @c false depending on whether the given
- * Event_t structure's useValuesFromTriggerTime attribute is set.
- *
- * @param e the Event_t structure to query
- * 
- * @return @c non-zero (true) if the "useValuesFromTriggerTime" attribute of the given
- * Event_t structure is set, zero (false) otherwise.
- */
 LIBSBML_EXTERN
 int
 Event_isSetUseValuesFromTriggerTime (const Event_t *e)
@@ -2203,24 +2019,6 @@ Event_isSetUseValuesFromTriggerTime (const Event_t *e)
 }
 
 
-/**
- * Assigns the identifier of an Event_t structure.
- *
- * This makes a copy of the string passed in the param @p sid.
- *
- * @param e the Event_t structure to set.
- * @param sid the string to use as the identifier.
- *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif@~ The possible values
- * returned by this function are:
- * @li LIBSBML_OPERATION_SUCCESS
- * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
- *
- * @note Using this function with an id of NULL is equivalent to
- * unsetting the "id" attribute.
- */
 LIBSBML_EXTERN
 int
 Event_setId (Event_t *e, const char *sid)
@@ -2232,22 +2030,6 @@ Event_setId (Event_t *e, const char *sid)
 }
 
 
-/**
- * Sets the name of this Event to a copy of @p name.
- *
- * @param e the Event_t structure to set
- * @param name the name to assign to this Event_t's "name" attribute.
- *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif@~ The possible values
- * returned by this function are:
- * @li LIBSBML_OPERATION_SUCCESS
- * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
- *
- * @note Using this function with the name set to NULL is equivalent to
- * unsetting the "name" attribute.
- */
 LIBSBML_EXTERN
 int
 Event_setName (Event_t *e, const char *name)
@@ -2259,20 +2041,6 @@ Event_setName (Event_t *e, const char *name)
 }
 
 
-/**
- * Sets the trigger of this Event to a copy of the given Trigger.
- *
- * @param e the Event_t structure to set
- * @param trigger the Trigger_t structure to use.
- *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif@~ The possible values
- * returned by this function are:
- * @li LIBSBML_OPERATION_SUCCESS
- * @li LIBSBML_LEVEL_MISMATCH
- * @li LIBSBML_VERSION_MISMATCH
- */
 LIBSBML_EXTERN
 int
 Event_setTrigger (Event_t *e, const Trigger_t *trigger)
@@ -2284,20 +2052,6 @@ Event_setTrigger (Event_t *e, const Trigger_t *trigger)
 }
 
 
-/**
- * Sets the delay of this Event to a copy of the given Delay.
- * 
- * @param e the Event_t structure to set
- * @param delay the Delay_t structure to use.
- *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif@~ The possible values
- * returned by this function are:
- * @li LIBSBML_OPERATION_SUCCESS
- * @li LIBSBML_LEVEL_MISMATCH
- * @li LIBSBML_VERSION_MISMATCH
- */
 LIBSBML_EXTERN
 int
 Event_setDelay (Event_t *e, const Delay_t *delay)
@@ -2309,21 +2063,6 @@ Event_setDelay (Event_t *e, const Delay_t *delay)
 }
 
 
-/**
- * Sets the priority of this Event to a copy of the given Priority.
- * 
- * @param e the Event_t structure to set
- * @param priority the Priority_t structure to use.
- *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif@~ The possible values
- * returned by this function are:
- * @li LIBSBML_OPERATION_SUCCESS
- * @li LIBSBML_LEVEL_MISMATCH
- * @li LIBSBML_VERSION_MISMATCH
- * @li LIBSBML_UNEXPECTED_ATTRIBUTE
- */
 LIBSBML_EXTERN
 int
 Event_setPriority (Event_t *e, const Priority_t *priority)
@@ -2335,30 +2074,6 @@ Event_setPriority (Event_t *e, const Priority_t *priority)
 }
 
 
-/**
- * Sets the "timeUnits" attribute of this Event to a copy of @p sid.
- * 
- * @param e the Event_t structure to set
- * @param sid the identifier of the units to use as the value of the
- * "timeUnits" attribute
- *
- * @warning Definitions of Event in SBML Level 2 Versions 1 and 2
- * included the additional attribute called "timeUnits", but it was
- * removed in SBML Level 2 Version 3.  LibSBML supports this attribute
- * for compatibility with previous versions of SBML Level 2, but its use
- * is discouraged since models in Level 2 Versions 3 and 4 cannot contain it.
- *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif@~ The possible values
- * returned by this function are:
- * @li LIBSBML_OPERATION_SUCCESS
- * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
- * @li LIBSBML_UNEXPECTED_ATTRIBUTE
- *
- * @note Using this function with an id of NULL is equivalent to
- * unsetting the "timeUnits" attribute.
- */
 LIBSBML_EXTERN
 int
 Event_setTimeUnits (Event_t *e, const char *sid)
@@ -2370,19 +2085,6 @@ Event_setTimeUnits (Event_t *e, const char *sid)
 }
 
 
-/**
- * Sets the "useValuesFromTriggerTime" attribute of this Event to a @p value.
- * 
- * @param e the Event_t structure to set
- * @param value the value of the "useValuesFromTriggerTime" attribute
- *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif@~ The possible values
- * returned by this function are:
- * @li LIBSBML_OPERATION_SUCCESS
- * @li LIBSBML_UNEXPECTED_ATTRIBUTE
- */
 LIBSBML_EXTERN
 int
 Event_setUseValuesFromTriggerTime (Event_t *e, int value)
@@ -2394,18 +2096,6 @@ Event_setUseValuesFromTriggerTime (Event_t *e, int value)
 }
 
 
-/**
- * Unsets the "id" attribute of this Event_t structure.
- *
- * @param e the Event_t structure to unset
- *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif@~ The possible values
- * returned by this function are:
- * @li LIBSBML_OPERATION_SUCCESS
- * @li LIBSBML_OPERATION_FAILED
- */
 LIBSBML_EXTERN
 int
 Event_unsetId (Event_t *e)
@@ -2417,18 +2107,6 @@ Event_unsetId (Event_t *e)
 }
 
 
-/**
- * Unsets the "name" attribute of this Event_t structure.
- *
- * @param e the Event_t structure to unset
- *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif@~ The possible values
- * returned by this function are:
- * @li LIBSBML_OPERATION_SUCCESS
- * @li LIBSBML_OPERATION_FAILED
- */
 LIBSBML_EXTERN
 int
 Event_unsetName (Event_t *e)
@@ -2440,18 +2118,6 @@ Event_unsetName (Event_t *e)
 }
 
 
-/**
- * Unsets the delay of this Event.
- *
- * @param e the Event_t structure to unset
- *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif@~ The possible values
- * returned by this function are:
- * @li LIBSBML_OPERATION_SUCCESS
- * @li LIBSBML_OPERATION_FAILED
- */
 LIBSBML_EXTERN
 int
 Event_unsetDelay (Event_t *e)
@@ -2463,18 +2129,6 @@ Event_unsetDelay (Event_t *e)
 }
 
 
-/**
- * Unsets the priority of this Event.
- *
- * @param e the Event_t structure to unset
- *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif@~ The possible values
- * returned by this function are:
- * @li LIBSBML_OPERATION_SUCCESS
- * @li LIBSBML_OPERATION_FAILED
- */
 LIBSBML_EXTERN
 int
 Event_unsetPriority (Event_t *e)
@@ -2486,24 +2140,6 @@ Event_unsetPriority (Event_t *e)
 }
 
 
-/**
- * Unsets the "timeUnits" attribute of this Event.
- *
- * @param e the Event_t structure to unset
- *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif@~ The possible values
- * returned by this function are:
- * @li LIBSBML_OPERATION_SUCCESS
- * @li LIBSBML_OPERATION_FAILED
- *
- * @warning Definitions of Event in SBML Level 2 Versions 1 and 2
- * included the additional attribute called "timeUnits", but it was
- * removed in SBML Level 2 Version 3.  LibSBML supports this attribute
- * for compatibility with previous versions of SBML Level 2, but its use
- * is discouraged since models in Level 2 Versions 3 and 4 cannot contain it.
- */
 LIBSBML_EXTERN
 int
 Event_unsetTimeUnits (Event_t *e)
@@ -2515,14 +2151,6 @@ Event_unsetTimeUnits (Event_t *e)
 }
 
 
-/**
-  * Predicate returning @c true or @c false depending on whether
-  * all the required attributes for this Event object
-  * have been set.
-  *
-  * @note The required attributes for a Event object are:
-  * @li useValuesfromTriggerTime ( L3 onwards )
-  */
 LIBSBML_EXTERN
 int
 Event_hasRequiredAttributes (Event_t *e)
@@ -2532,15 +2160,6 @@ Event_hasRequiredAttributes (Event_t *e)
 
 
 
-/**
-  * Predicate returning @c true or @c false depending on whether
-  * all the required elements for this Event object
-  * have been set.
-  *
-  * @note The required elements for a Event object are:
-  * @li trigger
-  * @li listOfEventAssignments (requirement removed in L3)
-  */
 LIBSBML_EXTERN
 int
 Event_hasRequiredElements (Event_t *e)
@@ -2550,25 +2169,6 @@ Event_hasRequiredElements (Event_t *e)
 
 
 
-/**
- * Appends a copy of the given EventAssignment_t structure to this Event_t
- * structure.
- *
- * @param e the Event_t structure to which the event assignment should be
- * added
- *
- * @param ea an EventAssignment_t structure to add
- *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif@~ The possible values
- * returned by this function are:
- * @li LIBSBML_OPERATION_SUCCESS
- * @li LIBSBML_LEVEL_MISMATCH
- * @li LIBSBML_VERSION_MISMATCH
- * @li LIBSBML_DUPLICATE_OBJECT_ID
- * @li LIBSBML_OPERATION_FAILED
- */
 LIBSBML_EXTERN
 int
 Event_addEventAssignment (Event_t *e, const EventAssignment_t *ea)
@@ -2580,13 +2180,6 @@ Event_addEventAssignment (Event_t *e, const EventAssignment_t *ea)
 }
 
 
-/**
- * Creates a new, empty EventAssignment_t structure, adds it to this
- * Event's list of event assignments, and returns the EventAssignment_t.
- *
- * @param e the Event_t structure to which the event assignment should be
- * added
- */
 LIBSBML_EXTERN
 EventAssignment_t *
 Event_createEventAssignment (Event_t *e)
@@ -2595,13 +2188,6 @@ Event_createEventAssignment (Event_t *e)
 }
 
 
-/**
- * Creates a new, empty Trigger_t structure, adds it to this
- * Event, and returns the Trigger_t.
- *
- * @param e the Event_t structure to which the trigger should be
- * added
- */
 LIBSBML_EXTERN
 Trigger_t *
 Event_createTrigger (Event_t *e)
@@ -2610,13 +2196,6 @@ Event_createTrigger (Event_t *e)
 }
 
 
-/**
- * Creates a new, empty Delay_t structure, adds it to this
- * Event, and returns the Delay_t.
- *
- * @param e the Event_t structure to which the delay should be
- * added
- */
 LIBSBML_EXTERN
 Delay_t *
 Event_createDelay (Event_t *e)
@@ -2625,13 +2204,6 @@ Event_createDelay (Event_t *e)
 }
 
 
-/**
- * Creates a new, empty Priority_t structure, adds it to this
- * Event, and returns the Priority_t.
- *
- * @param e the Event_t structure to which the priority should be
- * added
- */
 LIBSBML_EXTERN
 Priority_t *
 Event_createPriority (Event_t *e)
@@ -2640,14 +2212,6 @@ Event_createPriority (Event_t *e)
 }
 
 
-/**
- * Get the list of EventAssignment_t structures from this Event_t
- * structure.
- *
- * @param e the Event_t structure to use.
- *
- * @return the list of EventAssignments for this Event.
- */
 LIBSBML_EXTERN
 ListOf_t *
 Event_getListOfEventAssignments (Event_t *e)
@@ -2656,15 +2220,6 @@ Event_getListOfEventAssignments (Event_t *e)
 }
 
 
-/**
- * Return a specific EventAssignment_t structure of this Event_t.
- *
- * @param e the Event_t structure to use
- *
- * @param n an integer, the index of the EventAssignment_t structure to return
- * 
- * @return the nth EventAssignment_t of this Event.
- */
 LIBSBML_EXTERN
 EventAssignment_t *
 Event_getEventAssignment (Event_t *e, unsigned int n)
@@ -2673,17 +2228,6 @@ Event_getEventAssignment (Event_t *e, unsigned int n)
 }
 
 
-/**
- * Return the event assignment indicated by the given @p variable.
- *
- * @param e the Event_t structure to use
- *
- * @param variable a string, the identifier of the variable whose
- * EventAssignment_t is being sought.
- *
- * @return the EventAssignment_t for the given variable, or @c NULL if no such
- * EventAssignment_t exits.
- */
 LIBSBML_EXTERN
 EventAssignment_t *
 Event_getEventAssignmentByVar (Event_t *e, const char *variable)
@@ -2693,14 +2237,6 @@ Event_getEventAssignmentByVar (Event_t *e, const char *variable)
 }
 
 
-/**
- * Returns the number of EventAssignment_t objects attached to this
- * Event.
- *
- * @param e the Event_t structure to use
- * 
- * @return the number of EventAssignment_t structures in this Event.
- */
 LIBSBML_EXTERN
 unsigned int
 Event_getNumEventAssignments (const Event_t *e)
@@ -2709,19 +2245,6 @@ Event_getNumEventAssignments (const Event_t *e)
 }
 
 
-/**
- * Removes the nth EventAssignment_t object from this Event_t object and
- * returns a pointer to it.
- *
- * The caller owns the returned object and is responsible for deleting it.
- *
- * @param e the Event_t structure
- * @param n the integer index of the EventAssignment_t sought
- *
- * @return the EventAssignment_t object removed.  As mentioned above, 
- * the caller owns the returned item. @c NULL is returned if the given index 
- * is out of range.
- */
 LIBSBML_EXTERN
 EventAssignment_t *
 Event_removeEventAssignment (Event_t *e, unsigned int n)
@@ -2730,19 +2253,6 @@ Event_removeEventAssignment (Event_t *e, unsigned int n)
 }
 
 
-/**
- * Removes the EventAssignment_t object with the given "variable" attribute
- * from this Event_t object and returns a pointer to it.
- *
- * The caller owns the returned object and is responsible for deleting it.
- *
- * @param e the Event_t structure
- * @param sid the string of the "variable" attribute of the EventAssignment_t sought
- *
- * @return the EventAssignment_t object removed.  As mentioned above, the 
- * caller owns the returned object. @c NULL is returned if no EventAssignment_t
- * object with the "variable" attribute exists in this Event_t object.
- */
 LIBSBML_EXTERN
 EventAssignment_t *
 Event_removeEventAssignmentByVar (Event_t *e, const char *variable)
@@ -2754,10 +2264,6 @@ Event_removeEventAssignmentByVar (Event_t *e, const char *variable)
 }
 
 
-/**
- * @return item in this ListOfEvent with the given @p id or @c NULL if no such
- * item exists.
- */
 LIBSBML_EXTERN
 Event_t *
 ListOfEvents_getById (ListOf_t *lo, const char *sid)
@@ -2770,11 +2276,6 @@ ListOfEvents_getById (ListOf_t *lo, const char *sid)
 }
 
 
-/**
- * Removes item in this ListOf items with the given @p id or @c NULL if no such
- * item exists.  The caller owns the returned item and is responsible for
- * deleting it.
- */
 LIBSBML_EXTERN
 Event_t *
 ListOfEvents_removeById (ListOf_t *lo, const char *sid)

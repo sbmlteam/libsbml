@@ -656,26 +656,6 @@ ListOfSpeciesTypes::createObject (XMLInputStream& stream)
 #endif /* __cplusplus */
 /** @cond doxygenCOnly */
 
-/**
- * Creates a new SpeciesType_t structure using the given SBML @p level
- * and @p version values.
- *
- * @param level an unsigned int, the SBML Level to assign to this
- * SpeciesType
- *
- * @param version an unsigned int, the SBML Version to assign to this
- * SpeciesType
- *
- * @return a pointer to the newly created SpeciesType_t structure.
- *
- * @note Once a SpeciesType has been added to an SBMLDocument, the @p
- * level and @p version for the document @em override those used to create
- * the SpeciesType.  Despite this, the ability to supply the values at
- * creation time is an important aid to creating valid SBML.  Knowledge of
- * the intended SBML Level and Version  determine whether it is valid to
- * assign a particular value to an attribute, or whether it is valid to add
- * an object to an existing SBMLDocument.
- */
 LIBSBML_EXTERN
 SpeciesType_t *
 SpeciesType_create (unsigned int level, unsigned int version)
@@ -692,23 +672,6 @@ SpeciesType_create (unsigned int level, unsigned int version)
 }
 
 
-/**
- * Creates a new SpeciesType_t structure using the given
- * SBMLNamespaces_t structure.
- *
- * @param sbmlns SBMLNamespaces, a pointer to an SBMLNamespaces structure
- * to assign to this SpeciesType
- *
- * @return a pointer to the newly created SpeciesType_t structure.
- *
- * @note Once a SpeciesType has been added to an SBMLDocument, the
- * @p sbmlns namespaces for the document @em override those used to create
- * the SpeciesType. Despite this, the ability to supply the values at creation 
- * time is an important aid to creating valid SBML.  Knowledge of the intended 
- * SBML Level and Version determine whether it is valid to assign a particular 
- * value to an attribute, or whether it is valid to add an object to an existing
- * SBMLDocument.
- */
 LIBSBML_EXTERN
 SpeciesType_t *
 SpeciesType_createWithNS (SBMLNamespaces_t* sbmlns)
@@ -725,11 +688,6 @@ SpeciesType_createWithNS (SBMLNamespaces_t* sbmlns)
 }
 
 
-/**
- * Frees the given SpeciesType_t structure.
- *
- * @param st the SpeciesType_t structure to be freed.
- */
 LIBSBML_EXTERN
 void
 SpeciesType_free (SpeciesType_t *st)
@@ -739,13 +697,6 @@ SpeciesType_free (SpeciesType_t *st)
 }
 
 
-/**
- * Creates a deep copy of the given SpeciesType_t structure
- * 
- * @param st the SpeciesType_t structure to be copied
- * 
- * @return a (deep) copy of this SpeciesType_t structure.
- */
 LIBSBML_EXTERN
 SpeciesType_t *
 SpeciesType_clone (const SpeciesType_t *st)
@@ -754,15 +705,6 @@ SpeciesType_clone (const SpeciesType_t *st)
 }
 
 
-/**
- * Returns a list of XMLNamespaces_t associated with this SpeciesType_t
- * structure.
- *
- * @param st the SpeciesType_t structure
- * 
- * @return pointer to the XMLNamespaces_t structure associated with 
- * this SBML object
- */
 LIBSBML_EXTERN
 const XMLNamespaces_t *
 SpeciesType_getNamespaces(SpeciesType_t *st)
@@ -771,13 +713,6 @@ SpeciesType_getNamespaces(SpeciesType_t *st)
 }
 
 
-/**
- * Takes a SpeciesType_t structure and returns its identifier.
- *
- * @param st the SpeciesType_t structure whose identifier is sought
- * 
- * @return the identifier of this SpeciesType_t, as a pointer to a string.
- */
 LIBSBML_EXTERN
 const char *
 SpeciesType_getId (const SpeciesType_t *st)
@@ -786,13 +721,6 @@ SpeciesType_getId (const SpeciesType_t *st)
 }
 
 
-/**
- * Takes a SpeciesType_t structure and returns its name.
- *
- * @param st the SpeciesType_t whose name is sought.
- *
- * @return the name of this SpeciesType_t, as a pointer to a string.
- */
 LIBSBML_EXTERN
 const char *
 SpeciesType_getName (const SpeciesType_t *st)
@@ -801,15 +729,6 @@ SpeciesType_getName (const SpeciesType_t *st)
 }
 
 
-/**
- * Predicate returning @c true or @c false depending on whether the given
- * SpeciesType_t structure's identifier is set.
- *
- * @param st the SpeciesType_t structure to query
- * 
- * @return @c non-zero (true) if the "id" field of the given
- * SpeciesType is set, zero (false) otherwise.
- */
 LIBSBML_EXTERN
 int
 SpeciesType_isSetId (const SpeciesType_t *st)
@@ -818,15 +737,6 @@ SpeciesType_isSetId (const SpeciesType_t *st)
 }
 
 
-/**
- * Predicate returning @c true or @c false depending on whether the given
- * SpeciesType_t structure's name is set.
- *
- * @param st the SpeciesType_t structure to query
- * 
- * @return @c non-zero (true) if the "name" field of the given
- * SpeciesType is set, zero (false) otherwise.
- */
 LIBSBML_EXTERN
 int
 SpeciesType_isSetName (const SpeciesType_t *st)
@@ -835,24 +745,6 @@ SpeciesType_isSetName (const SpeciesType_t *st)
 }
 
 
-/**
- * Assigns the identifier of a SpeciesType_t structure.
- *
- * This makes a copy of the string passed as the argument @p sid.
- *
- * @param st the SpeciesType_t structure to set.
- * @param sid the string to use as the identifier.
- *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif@~ The possible values
- * returned by this function are:
- * @li LIBSBML_OPERATION_SUCCESS
- * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
- *
- * @note Using this function with an id of NULL is equivalent to
- * unsetting the "id" attribute.
- */
 LIBSBML_EXTERN
 int
 SpeciesType_setId (SpeciesType_t *st, const char *sid)
@@ -864,24 +756,6 @@ SpeciesType_setId (SpeciesType_t *st, const char *sid)
 }
 
 
-/**
- * Assign the name of a SpeciesType_t structure.
- *
- * This makes a copy of the string passed as the argument @p name.
- *
- * @param st the SpeciesType_t structure to set.
- * @param name the string to use as the name.
- *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif@~ The possible values
- * returned by this function are:
- * @li LIBSBML_OPERATION_SUCCESS
- * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
- *
- * @note Using this function with the name set to NULL is equivalent to
- * unsetting the "name" attribute.
- */
 LIBSBML_EXTERN
 int
 SpeciesType_setName (SpeciesType_t *st, const char *name)
@@ -893,18 +767,6 @@ SpeciesType_setName (SpeciesType_t *st, const char *name)
 }
 
 
-/**
- * Unsets the name of a SpeciesType.
- * 
- * @param st the SpeciesType_t structure whose name is to be unset.
- *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif@~ The possible values
- * returned by this function are:
- * @li LIBSBML_OPERATION_SUCCESS
- * @li LIBSBML_OPERATION_FAILED
- */
 LIBSBML_EXTERN
 int
 SpeciesType_unsetName (SpeciesType_t *st)
@@ -914,10 +776,6 @@ SpeciesType_unsetName (SpeciesType_t *st)
 
 
 
-/**
- * @return item in this ListOfSpeciesType with the given @p id or @c NULL if no such
- * item exists.
- */
 LIBSBML_EXTERN
 SpeciesType_t *
 ListOfSpeciesTypes_getById (ListOf_t *lo, const char *sid)
@@ -930,11 +788,6 @@ ListOfSpeciesTypes_getById (ListOf_t *lo, const char *sid)
 }
 
 
-/**
- * Removes item in this ListOf items with the given @p id or @c NULL if no such
- * item exists.  The caller owns the returned item and is responsible for
- * deleting it.
- */
 LIBSBML_EXTERN
 SpeciesType_t *
 ListOfSpeciesTypes_removeById (ListOf_t *lo, const char *sid)

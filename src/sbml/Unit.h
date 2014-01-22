@@ -1054,7 +1054,8 @@ public:
  @endverbatim
    *
    * @param unit1 the first Unit object; the result of the operation is
-   * left as a new version of this unit, modified in-place.
+   * left as a new version of this unit, modified in-place.  Not modified if
+   * the two units have different kinds.
    * 
    * @param unit2 the second Unit object to merge with the first
    *
@@ -1396,311 +1397,1100 @@ LIBSBML_CPP_NAMESPACE_END
 LIBSBML_CPP_NAMESPACE_BEGIN
 BEGIN_C_DECLS
 
-/* ----------------------------------------------------------------------------
- * See the .cpp file for the documentation of the following functions.
- * --------------------------------------------------------------------------*/
-
-
+/**
+ * Creates a new Unit_t structure using the given SBML @p level
+ * and @p version values.
+ *
+ * @param level an unsigned int, the SBML Level to assign to this
+ * Unit
+ *
+ * @param version an unsigned int, the SBML Version to assign to this
+ * Unit
+ *
+ * @return a pointer to the newly created Unit_t structure.
+ *
+ * @note Once a Unit has been added to an SBMLDocument, the @p
+ * level and @p version for the document @em override those used to create
+ * the Unit.  Despite this, the ability to supply the values at
+ * creation time is an important aid to creating valid SBML.  Knowledge of
+ * the intended SBML Level and Version  determine whether it is valid to
+ * assign a particular value to an attribute, or whether it is valid to add
+ * an object to an existing SBMLDocument.
+ *
+ * @memberof Unit_t
+ */
 LIBSBML_EXTERN
 Unit_t *
 Unit_create (unsigned int level, unsigned int version);
 
 
+/**
+ * Creates a new Unit_t structure using the given
+ * SBMLNamespaces_t structure.
+ *
+ * @param sbmlns SBMLNamespaces, a pointer to an SBMLNamespaces structure
+ * to assign to this Unit
+ *
+ * @return a pointer to the newly created Unit_t structure.
+ *
+ * @note Once a Unit has been added to an SBMLDocument, the
+ * @p sbmlns namespaces for the document @em override those used to create
+ * the Unit.  Despite this, the ability to supply the values at creation time
+ * is an important aid to creating valid SBML.  Knowledge of the intended SBML
+ * Level and Version determine whether it is valid to assign a particular value
+ * to an attribute, or whether it is valid to add an object to an existing
+ * SBMLDocument.
+ *
+ * @memberof Unit_t
+ */
 LIBSBML_EXTERN
 Unit_t *
 Unit_createWithNS (SBMLNamespaces_t *sbmlns);
 
 
+/**
+ * Frees the given Unit_t structure.
+ *
+ * @param u the Unit_t structure to be freed.
+ *
+ * @memberof Unit_t
+ */
 LIBSBML_EXTERN
 void
 Unit_free (Unit_t *u);
 
 
+/**
+ * Creates a deep copy of the given Unit_t structure
+ * 
+ * @param u the Unit_t structure to be copied
+ * 
+ * @return a (deep) copy of the given Unit_t structure.
+ *
+ * @memberof Unit_t
+ */
 LIBSBML_EXTERN
 Unit_t *
-Unit_clone (const Unit_t* c);
+Unit_clone (const Unit_t* u);
 
 
+/**
+ * Initializes the attributes of this Unit (except for "kind") to their
+ * defaults values.
+ *
+ * The default values are as follows:
+ * 
+ * - exponent   = 1
+ * - scale      = 0
+ * - multiplier = 1.0
+ *
+ * @memberof Unit_t
+ */
 LIBSBML_EXTERN
 void
 Unit_initDefaults (Unit_t *u);
 
 
+/**
+ * Returns a list of XMLNamespaces_t associated with this Unit_t
+ * structure.
+ *
+ * @param u the Unit_t structure
+ * 
+ * @return pointer to the XMLNamespaces_t structure associated with 
+ * this SBML object.
+ *
+ * @memberof Unit_t
+ */
 LIBSBML_EXTERN
 const XMLNamespaces_t *
-Unit_getNamespaces(Unit_t *c);
+Unit_getNamespaces(Unit_t *u);
 
 
+/**
+ * Returns the "kind" attribute value of the given unit @p u.
+ * 
+ * @return the value of the "kind" attribute of this Unit as a value from
+ * the UnitKind_t enumeration.
+ *
+ * @memberof Unit_t
+ */
 LIBSBML_EXTERN
 UnitKind_t
 Unit_getKind (const Unit_t *u);
 
 
+/**
+ * Returns the value of the "exponent" attribute of the given Unit_t
+ * structure @p u.
+ *
+ * @param u a Unit_t structure
+ *
+ * @return the "exponent" value of this Unit_t structure, as an integer.
+ *
+ * @memberof Unit_t
+ */
 LIBSBML_EXTERN
 int
 Unit_getExponent (const Unit_t *u);
 
 
+/**
+ * Returns the value of the "exponent" attribute of the given Unit_t
+ * structure @p u.
+ *
+ * @param u a Unit_t structure
+ *
+ * @return the "exponent" value of this Unit_t structure, as a double.
+ *
+ * @memberof Unit_t
+ */
 LIBSBML_EXTERN
 double
 Unit_getExponentAsDouble (const Unit_t *u);
 
 
+/**
+ * Returns the value of the "scale" attribute of the given Unit_t structure
+ * @p u.
+ *
+ * @param u a Unit_t structure
+ *
+ * @return the "scale" value of this Unit, as an integer.
+ *
+ * @memberof Unit_t
+ */
 LIBSBML_EXTERN
 int
 Unit_getScale (const Unit_t *u);
 
 
+/**
+ * Returns the value of the "multiplier" attribute of the given Unit_t
+ * structure @p u.
+ * 
+ * @param u a Unit_t structure
+ *
+ * @return the "multiplier" value of this Unit, as a double
+ *
+ * @memberof Unit_t
+ */
 LIBSBML_EXTERN
 double
 Unit_getMultiplier (const Unit_t *u);
 
 
+/**
+ * Returns the value of the "offset" attribute of the given Unit_t
+ * structure @p u.
+ * 
+ * @param u a Unit_t structure
+ *
+ * @return the "offset" value of this Unit, as a double
+ *
+ * @warning The "offset" attribute is only available in SBML Level 2
+ * Version 1.  This attribute is not present in SBML Level 2 Version 2 or
+ * above.  When producing SBML models using these later specifications,
+ * Modelers and software need to account for units with offsets explicitly.
+ * The SBML specification document offers a number of suggestions for how
+ * to achieve this.  LibSBML functions such as this one related to "offset"
+ * are retained for compatibility with earlier versions of SBML Level 2,
+ * but their use is strongly discouraged.
+ * 
+ *
+ * @memberof Unit_t
+ */
 LIBSBML_EXTERN
 double
 Unit_getOffset (const Unit_t *u);
 
 
+/**
+ * Predicate for testing whether the given Unit_t structure represents a
+ * unit of the kind @c ampere.
+ *
+ * @param u the Unit_t structure to query
+ * 
+ * @return nonzero (for true) if the "kind" attribute of the given
+ * Unit_t structure is set to @c "ampere", zero (0) otherwise.
+ *
+ * @memberof Unit_t
+ */
 LIBSBML_EXTERN
 int
 Unit_isAmpere (const Unit_t *u);
 
 
+/**
+ * Predicate for testing whether the given Unit_t structure represents a
+ * unit of the kind @c becquerel.
+ *
+ * @param u the Unit_t structure to query
+ * 
+ * @return nonzero (for true) if the "kind" attribute of the given
+ * Unit_t structure is set to @c "becquerel", zero (0) otherwise.
+ *
+ * @memberof Unit_t
+ */
 LIBSBML_EXTERN
 int
 Unit_isBecquerel (const Unit_t *u);
 
 
+/**
+ * Predicate for testing whether the given Unit_t structure represents a
+ * unit of the kind @c candela.
+ *
+ * @param u the Unit_t structure to query
+ * 
+ * @return nonzero (for true) if the "kind" attribute of the given
+ * Unit_t structure is set to @c "candela", zero (0) otherwise.
+ *
+ * @memberof Unit_t
+ */
 LIBSBML_EXTERN
 int
 Unit_isCandela (const Unit_t *u);
 
 
+/**
+ * Predicate for testing whether the given Unit_t structure represents a
+ * unit of the kind @c Celsius.
+ *
+ * @param u the Unit_t structure to query
+ * 
+ * @return nonzero (for true) if the "kind" attribute of the given
+ * Unit_t structure is set to @c "Celsius", zero (0) otherwise.
+ *
+ * @warning The predefined unit @c Celsius was removed from the list of
+ * predefined units in SBML Level 2 Version 3 at the same time that the
+ * "offset" attribute was removed from Unit definitions.  LibSBML functions
+ * such as this one related to @c Celsius are retained for compatibility
+ * with earlier versions of SBML Level 2, but their use is strongly
+ * discouraged.
+ *
+ * @memberof Unit_t
+ */
 LIBSBML_EXTERN
 int
 Unit_isCelsius (const Unit_t *u);
 
 
+/**
+ * Predicate for testing whether the given Unit_t structure represents a
+ * unit of the kind @c coulomb.
+ *
+ * @param u the Unit_t structure to query
+ * 
+ * @return nonzero (for true) if the "kind" attribute of the given
+ * Unit_t structure is set to @c "coulomb", zero (0) otherwise.
+ *
+ * @memberof Unit_t
+ */
 LIBSBML_EXTERN
 int
 Unit_isCoulomb (const Unit_t *u);
 
 
+/**
+ * Predicate for testing whether the given Unit_t structure represents a
+ * unit of the kind @c dimensionless.
+ *
+ * @param u the Unit_t structure to query
+ * 
+ * @return nonzero (for true) if the "kind" attribute of the given
+ * Unit_t structure is set to @c "dimensionless", zero (0) otherwise.
+ *
+ * @memberof Unit_t
+ */
 LIBSBML_EXTERN
 int
 Unit_isDimensionless (const Unit_t *u);
 
 
+/**
+ * Predicate for testing whether the given Unit_t structure represents a
+ * unit of the kind @c farad.
+ *
+ * @param u the Unit_t structure to query
+ * 
+ * @return nonzero (for true) if the "kind" attribute of the given
+ * Unit_t structure is set to @c "farad", zero (0) otherwise.
+ *
+ * @memberof Unit_t
+ */
 LIBSBML_EXTERN
 int
 Unit_isFarad (const Unit_t *u);
 
 
+/**
+ * Predicate for testing whether the given Unit_t structure represents a
+ * unit of the kind @c gram.
+ *
+ * @param u the Unit_t structure to query
+ * 
+ * @return nonzero (for true) if the "kind" attribute of the given
+ * Unit_t structure is set to @c "gram", zero (0) otherwise.
+ *
+ * @memberof Unit_t
+ */
 LIBSBML_EXTERN
 int
 Unit_isGram (const Unit_t *u);
 
 
+/**
+ * Predicate for testing whether the given Unit_t structure represents a
+ * unit of the kind @c gray.
+ *
+ * @param u the Unit_t structure to query
+ * 
+ * @return nonzero (for true) if the "kind" attribute of the given
+ * Unit_t structure is set to @c "gray", zero (0) otherwise.
+ *
+ * @memberof Unit_t
+ */
 LIBSBML_EXTERN
 int
 Unit_isGray (const Unit_t *u);
 
 
+/**
+ * Predicate for testing whether the given Unit_t structure represents a
+ * unit of the kind @c henry.
+ *
+ * @param u the Unit_t structure to query
+ * 
+ * @return nonzero (for true) if the "kind" attribute of the given
+ * Unit_t structure is set to @c "henry", zero (0) otherwise.
+ *
+ * @memberof Unit_t
+ */
 LIBSBML_EXTERN
 int
 Unit_isHenry (const Unit_t *u);
 
 
+/**
+ * Predicate for testing whether the given Unit_t structure represents a
+ * unit of the kind @c hertz.
+ *
+ * @param u the Unit_t structure to query
+ * 
+ * @return nonzero (for true) if the "kind" attribute of the given
+ * Unit_t structure is set to @c "hertz", zero (0) otherwise.
+ *
+ * @memberof Unit_t
+ */
 LIBSBML_EXTERN
 int
 Unit_isHertz (const Unit_t *u);
 
 
+/**
+ * Predicate for testing whether the given Unit_t structure represents a
+ * unit of the kind @c item.
+ *
+ * @param u the Unit_t structure to query
+ * 
+ * @return nonzero (for true) if the "kind" attribute of the given
+ * Unit_t structure is set to @c "item", zero (0) otherwise.
+ *
+ * @memberof Unit_t
+ */
 LIBSBML_EXTERN
 int
 Unit_isItem (const Unit_t *u);
 
 
+/**
+ * Predicate for testing whether the given Unit_t structure represents a
+ * unit of the kind @c joule.
+ *
+ * @param u the Unit_t structure to query
+ * 
+ * @return nonzero (for true) if the "kind" attribute of the given
+ * Unit_t structure is set to @c "joule", zero (0) otherwise.
+ *
+ * @memberof Unit_t
+ */
 LIBSBML_EXTERN
 int
 Unit_isJoule (const Unit_t *u);
 
 
+/**
+ * Predicate for testing whether the given Unit_t structure represents a
+ * unit of the kind @c katal.
+ *
+ * @param u the Unit_t structure to query
+ * 
+ * @return nonzero (for true) if the "kind" attribute of the given
+ * Unit_t structure is set to @c "katal", zero (0) otherwise.
+ *
+ * @memberof Unit_t
+ */
 LIBSBML_EXTERN
 int
 Unit_isKatal (const Unit_t *u);
 
 
+/**
+ * Predicate for testing whether the given Unit_t structure represents a
+ * unit of the kind @c kelvin.
+ *
+ * @param u the Unit_t structure to query
+ * 
+ * @return nonzero (for true) if the "kind" attribute of the given
+ * Unit_t structure is set to @c "kelvin", zero (0) otherwise.
+ *
+ * @memberof Unit_t
+ */
 LIBSBML_EXTERN
 int
 Unit_isKelvin (const Unit_t *u);
 
 
+/**
+ * Predicate for testing whether the given Unit_t structure represents a
+ * unit of the kind @c kilogram.
+ *
+ * @param u the Unit_t structure to query
+ * 
+ * @return nonzero (for true) if the "kind" attribute of the given
+ * Unit_t structure is set to @c "kilogram", zero (0) otherwise.
+ *
+ * @memberof Unit_t
+ */
 LIBSBML_EXTERN
 int
 Unit_isKilogram (const Unit_t *u);
 
 
+/**
+ * Predicate for testing whether the given Unit_t structure represents a
+ * unit of the kind @c litre or @c liter.
+ *
+ * @param u the Unit_t structure to query
+ * 
+ * @return nonzero (for true) if the "kind" attribute of the given Unit_t
+ * structure is set to @c "litre" or @c "liter", zero (0) otherwise.
+ *
+ * @memberof Unit_t
+ */
 LIBSBML_EXTERN
 int
 Unit_isLitre (const Unit_t *u);
 
 
+/**
+ * Predicate for testing whether the given Unit_t structure represents a
+ * unit of the kind @c lumen.
+ *
+ * @param u the Unit_t structure to query
+ * 
+ * @return nonzero (for true) if the "kind" attribute of the given
+ * Unit_t structure is set to @c "lumen", zero (0) otherwise.
+ *
+ * @memberof Unit_t
+ */
 LIBSBML_EXTERN
 int
 Unit_isLumen (const Unit_t *u);
 
 
+/**
+ * Predicate for testing whether the given Unit_t structure represents a
+ * unit of the kind @c lux.
+ *
+ * @param u the Unit_t structure to query
+ * 
+ * @return nonzero (for true) if the "kind" attribute of the given
+ * Unit_t structure is set to @c "lux", zero (0) otherwise.
+ *
+ * @memberof Unit_t
+ */
 LIBSBML_EXTERN
 int
 Unit_isLux (const Unit_t *u);
 
 
+/**
+ * Predicate for testing whether the given Unit_t structure represents a
+ * unit of the kind @c metre or @c meter.
+ *
+ * @param u the Unit_t structure to query
+ * 
+ * @return nonzero (for true) if the "kind" attribute of the given Unit_t
+ * structure is set to @c "metre" or @c "meter", zero (0) otherwise.
+ *
+ * @memberof Unit_t
+ */
 LIBSBML_EXTERN
 int
 Unit_isMetre (const Unit_t *u);
 
 
+/**
+ * Predicate for testing whether the given Unit_t structure represents a
+ * unit of the kind @c mole.
+ *
+ * @param u the Unit_t structure to query
+ * 
+ * @return nonzero (for true) if the "kind" attribute of the given
+ * Unit_t structure is set to @c "mole", zero (0) otherwise.
+ *
+ * @memberof Unit_t
+ */
 LIBSBML_EXTERN
 int
 Unit_isMole (const Unit_t *u);
 
 
+/**
+ * Predicate for testing whether the given Unit_t structure represents a
+ * unit of the kind @c newton.
+ *
+ * @param u the Unit_t structure to query
+ * 
+ * @return nonzero (for true) if the "kind" attribute of the given
+ * Unit_t structure is set to @c "newton", zero (0) otherwise.
+ *
+ * @memberof Unit_t
+ */
 LIBSBML_EXTERN
 int
 Unit_isNewton (const Unit_t *u);
 
 
+/**
+ * Predicate for testing whether the given Unit_t structure represents a
+ * unit of the kind @c ohm.
+ *
+ * @param u the Unit_t structure to query
+ * 
+ * @return nonzero (for true) if the "kind" attribute of the given
+ * Unit_t structure is set to @c "ohm", zero (0) otherwise.
+ *
+ * @memberof Unit_t
+ */
 LIBSBML_EXTERN
 int
 Unit_isOhm (const Unit_t *u);
 
 
+/**
+ * Predicate for testing whether the given Unit_t structure represents a
+ * unit of the kind @c pascal.
+ *
+ * @param u the Unit_t structure to query
+ * 
+ * @return nonzero (for true) if the "kind" attribute of the given
+ * Unit_t structure is set to @c "pascal", zero (0) otherwise.
+ *
+ * @memberof Unit_t
+ */
 LIBSBML_EXTERN
 int
 Unit_isPascal (const Unit_t *u);
 
 
+/**
+ * Predicate for testing whether the given Unit_t structure represents a
+ * unit of the kind @c radian.
+ *
+ * @param u the Unit_t structure to query
+ * 
+ * @return nonzero (for true) if the "kind" attribute of the given
+ * Unit_t structure is set to @c "radian", zero (0) otherwise.
+ *
+ * @memberof Unit_t
+ */
 LIBSBML_EXTERN
 int
 Unit_isRadian (const Unit_t *u);
 
 
+/**
+ * Predicate for testing whether the given Unit_t structure represents a
+ * unit of the kind @c second.
+ *
+ * @param u the Unit_t structure to query
+ * 
+ * @return nonzero (for true) if the "kind" attribute of the given
+ * Unit_t structure is set to @c "second", zero (0) otherwise.
+ *
+ * @memberof Unit_t
+ */
 LIBSBML_EXTERN
 int
 Unit_isSecond (const Unit_t *u);
 
 
+/**
+ * Predicate for testing whether the given Unit_t structure represents a
+ * unit of the kind @c siemens.
+ *
+ * @param u the Unit_t structure to query
+ * 
+ * @return nonzero (for true) if the "kind" attribute of the given
+ * Unit_t structure is set to @c "siemens", zero (0) otherwise.
+ *
+ * @memberof Unit_t
+ */
 LIBSBML_EXTERN
 int
 Unit_isSiemens (const Unit_t *u);
 
 
+/**
+ * Predicate for testing whether the given Unit_t structure represents a
+ * unit of the kind @c sievert.
+ *
+ * @param u the Unit_t structure to query
+ * 
+ * @return nonzero (for true) if the "kind" attribute of the given
+ * Unit_t structure is set to @c "sievert", zero (0) otherwise.
+ *
+ * @memberof Unit_t
+ */
 LIBSBML_EXTERN
 int
 Unit_isSievert (const Unit_t *u);
 
 
+/**
+ * Predicate for testing whether the given Unit_t structure represents a
+ * unit of the kind @c steradian.
+ *
+ * @param u the Unit_t structure to query
+ * 
+ * @return nonzero (for true) if the "kind" attribute of the given
+ * Unit_t structure is set to @c "steradian", zero (0) otherwise.
+ *
+ * @memberof Unit_t
+ */
 LIBSBML_EXTERN
 int
 Unit_isSteradian (const Unit_t *u);
 
 
+/**
+ * Predicate for testing whether the given Unit_t structure represents a
+ * unit of the kind @c tesla.
+ *
+ * @param u the Unit_t structure to query
+ * 
+ * @return nonzero (for true) if the "kind" attribute of the given
+ * Unit_t structure is set to @c "tesla", zero (0) otherwise.
+ *
+ * @memberof Unit_t
+ */
 LIBSBML_EXTERN
 int
 Unit_isTesla (const Unit_t *u);
 
 
+/**
+ * Predicate for testing whether the given Unit_t structure represents a
+ * unit of the kind @c volt.
+ *
+ * @param u the Unit_t structure to query
+ * 
+ * @return nonzero (for true) if the "kind" attribute of the given
+ * Unit_t structure is set to @c "volt", zero (0) otherwise.
+ *
+ * @memberof Unit_t
+ */
 LIBSBML_EXTERN
 int
 Unit_isVolt (const Unit_t *u);
 
 
+/**
+ * Predicate for testing whether the given Unit_t structure represents a
+ * unit of the kind @c watt.
+ *
+ * @param u the Unit_t structure to query
+ * 
+ * @return nonzero (for true) if the "kind" attribute of the given
+ * Unit_t structure is set to @c "watt", zero (0) otherwise.
+ *
+ * @memberof Unit_t
+ */
 LIBSBML_EXTERN
 int
 Unit_isWatt (const Unit_t *u);
 
 
+/**
+ * Predicate for testing whether the given Unit_t structure represents a
+ * unit of the kind @c weber.
+ *
+ * @param u the Unit_t structure to query
+ * 
+ * @return nonzero (for true) if the "kind" attribute of the given
+ * Unit_t structure is set to @c "weber", zero (0) otherwise.
+ *
+ * @memberof Unit_t
+ */
 LIBSBML_EXTERN
 int
 Unit_isWeber (const Unit_t *u);
 
 
+/**
+ * Predicate to test whether the "kind" attribute of the given Unit_t
+ * structure @p u is set.
+ *
+ * @param u the Unit_t structure to query
+ * 
+ * @return nonzero (for true) if the "kind" attribute of the given
+ * Unit_t structure is set, zero (0) otherwise.
+ *
+ * @memberof Unit_t
+ */
 LIBSBML_EXTERN
 int
 Unit_isSetKind (const Unit_t *u);
 
 
+/**
+ * Predicate to test whether the "exponent" attribute of the given Unit_t
+ * structure @p u is set.
+ *
+ * @param u the Unit_t structure to query
+ * 
+ * @return nonzero (for true) if the "exponent" attribute of the given
+ * Unit_t structure is set, zero (0) otherwise.
+ *
+ * @memberof Unit_t
+ */
 LIBSBML_EXTERN
 int
 Unit_isSetExponent (const Unit_t *u);
 
 
+/**
+ * Predicate to test whether the "multiplier" attribute of the given Unit_t
+ * structure @p u is set.
+ *
+ * @param u the Unit_t structure to query
+ * 
+ * @return nonzero (for true) if the "multiplier" attribute of the given
+ * Unit_t structure is set, zero (0) otherwise.
+ *
+ * @memberof Unit_t
+ */
 LIBSBML_EXTERN
 int
 Unit_isSetMultiplier (const Unit_t *u);
 
 
+/**
+ * Predicate to test whether the "scale" attribute of the given Unit_t
+ * structure @p u is set.
+ *
+ * @param u the Unit_t structure to query
+ * 
+ * @return nonzero (for true) if the "scale" attribute of the given
+ * Unit_t structure is set, zero (0) otherwise.
+ *
+ * @memberof Unit_t
+ */
 LIBSBML_EXTERN
 int
 Unit_isSetScale (const Unit_t *u);
 
 
+/**
+ * Sets the kind of the given Unit_t structure @p u to the given
+ * UnitKind_t value.
+ *
+ * @param u the Unit_t structure whose value is to be set
+ * @param kind a value from the UnitKind_t enumeration 
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+ *
+ * @memberof Unit_t
+ */
 LIBSBML_EXTERN
 int
 Unit_setKind (Unit_t *u, UnitKind_t kind);
 
 
+/**
+ * Sets the "exponent" attribute value of the given Unit_t structure @p u.
+ *
+ * @param u the Unit_t structure whose value is to be set
+ * @param value the integer to which the attribute "exponent" should be set
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ *
+ * @memberof Unit_t
+ */
 LIBSBML_EXTERN
 int
 Unit_setExponent (Unit_t *u, int value);
 
 
+/**
+ * Sets the "exponent" attribute value of the given Unit_t structure @p u.
+ *
+ * @param u the Unit_t structure whose value is to be set
+ * @param value the double to which the attribute "exponent" should be set
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ *
+ * @memberof Unit_t
+ */
 LIBSBML_EXTERN
 int
 Unit_setExponentAsDouble (Unit_t *u, double value);
 
 
+/**
+ * Sets the "scale" attribute value of the given Unit_t structure @p u.
+ *
+ * @param u the Unit_t structure whose value is to be set
+ * @param value the integer to which the attribute "scale" should be set
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ *
+ * @memberof Unit_t
+ */
 LIBSBML_EXTERN
 int
 Unit_setScale (Unit_t *u, int value);
 
 
+/**
+ * Sets the "multiplier" attribute value of the given Unit_t structure @p u.
+ *
+ * @param u the Unit_t structure whose value is to be set
+ * @param value the integer to which the attribute "multiplier" should be set
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_UNEXPECTED_ATTRIBUTE
+ *
+ * @memberof Unit_t
+ */
 LIBSBML_EXTERN
 int
 Unit_setMultiplier (Unit_t *u, double value);
 
 
+/**
+ * Sets the "offset" attribute value of the given Unit_t structure @p u.
+ * 
+ * @param u the Unit_t structure whose value is to be set
+ * @param value the integer to which the attribute "offset" should be set
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_UNEXPECTED_ATTRIBUTE
+ *
+ * @warning The "offset" attribute is only available in SBML Level 2
+ * Version 1.  This attribute is not present in SBML Level 2 Version 2 or
+ * above.  When producing SBML models using these later specifications,
+ * Modelers and software need to account for units with offsets explicitly.
+ * The SBML specification document offers a number of suggestions for how
+ * to achieve this.  LibSBML functions such as this one related to "offset"
+ * are retained for compatibility with earlier versions of SBML Level 2,
+ * but their use is strongly discouraged.
+ *
+ * @memberof Unit_t
+ */
 LIBSBML_EXTERN
 int
 Unit_setOffset (Unit_t *u, double value);
 
 
+/**
+ * Predicate returning @c true or @c false depending on whether
+ * all the required attributes for this Unit object
+ * have been set.
+ *
+ * @note The required attributes for a Unit object are:
+ * @li kind
+ * @li exponent (L3 on)
+ * @li multiplier (L3 on)
+ * @li scale (L3 on)
+ *
+ * @return a boolean value indicating whether all the required
+ * elements for this object have been defined.
+ *
+ * @memberof Unit_t
+ */
 LIBSBML_EXTERN
 int
 Unit_hasRequiredAttributes(Unit_t *u);
 
 
+/**
+ * Predicate to test whether a given string is the name of a built-in SBML
+ * unit, depending on the SBML level, since new units were added between
+ * levels 2 and 3.
+ *
+ * @param name a string to be tested against the built-in unit names
+ * @param level the level of SBML one is checking. 
+ *
+ * @return nonzero (for true) if @p name is one of the five SBML
+ * built-in Unit names (@c "substance", @c "volume, @c "area", @c "length"
+ * or @c "time"), zero (0) otherwise
+ *
+ * @note: @c "length" and @c "area" were added in Level 2 Version 1
+ *
+ * @memberof Unit_t
+ */
 LIBSBML_EXTERN
 int
 Unit_isBuiltIn (const char *name, unsigned int level);
 
+/** 
+ * Predicate returning @c true (non-zero) if two
+ * Unit_t structures are identical.
+ *
+ * Two Unit_t structures are considered to be @em identical if they match in
+ * all attributes.  (Contrast this to the method areEquivalent(), which 
+ * compares Unit_t structures only with respect
+ * to certain attributes.)
+ *
+ * @param unit1 the first Unit_t structure to compare
+ * @param unit2 the second Unit_t structure to compare
+ *
+ * @return @c true if all the attributes of unit1 are identical
+ * to the attributes of unit2, @c false otherwise.
+ *
+ * @see Unit_areEquivalent()
+ *
+ * @memberof Unit_t
+ */
 LIBSBML_EXTERN
 int 
 Unit_areIdentical(Unit_t * unit1, Unit_t * unit2);
 
+/** 
+ * Predicate returning @c true if 
+ * Unit_t structures are equivalent.
+ *
+ * Two Unit_t structures are considered to be @em equivalent either if (1) both
+ * have a "kind" attribute value of @c dimensionless, or (2) their "kind",
+ * "exponent" and (for SBML Level&nbsp;2 Version&nbsp;1) "offset"
+ * attribute values are equal. (Contrast this to the method
+ * areIdentical(), which compares Unit_t structures with respect to all
+ * attributes, not just the "kind" and "exponent".)
+ *
+ * @param unit1 the first Unit_t structure to compare
+ * @param unit2 the second Unit_t structure to compare
+ *
+ * @return @c true if the "kind" and "exponent" attributes of unit1 are
+ * identical to the kind and exponent attributes of unit2, @c false
+ * otherwise.
+ * 
+ * @see Unit_areIdentical()
+ *
+ * @memberof Unit_t
+ */
 LIBSBML_EXTERN
 int
 Unit_areEquivalent(Unit_t * unit1, Unit_t * unit2);
 
+/** 
+ * Manipulates the attributes of the Unit_t to express the unit with the 
+ * value of the scale attribute reduced to zero.
+ *
+ * For example, 1 millimetre can be expressed as a Unit with kind=@c
+ * "metre" multiplier=@c "1" scale=@c "-3" exponent=@c "1". It can also be
+ * expressed as a Unit_t with kind=@c "metre"
+ * multiplier=<code>"0.001"</code> scale=@c "0" exponent=@c "1".
+ *
+ * @param unit the Unit_t structure to manipulate.
+ *
+ * @return integer value indicating success/failure of the function.  The
+ * possible values returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+ *
+ * @see Unit_convertToSI()
+ * @see Unit_merge()
+ *
+ * @memberof Unit_t
+ */
 LIBSBML_EXTERN
 int 
 Unit_removeScale(Unit_t * unit);
 
+/** 
+ * Merges two Unit_t structures with the same "kind" attribute value into a
+ * single Unit.
+ * 
+ * For example, the following,
+ * @verbatim
+ <unit kind="metre" exponent="2"/>
+ <unit kind="metre" exponent="1"/>
+ @endverbatim
+ * would be merged to become
+ * @verbatim
+ <unit kind="metre" exponent="3"/>
+ @endverbatim
+ *
+ * @param unit1 the first Unit_t structure; the result of the operation is
+ * left as a new version of this unit, modified in-place.  Not modified if
+ * the two units have different kinds.
+ * 
+ * @param unit2 the second Unit_t structure to merge with the first
+ * 
+ * @see Unit_convertToSI()
+ * @see Unit_removeScale()
+ *
+ * @memberof Unit_t
+ */
 LIBSBML_EXTERN
 void 
 Unit_merge(Unit_t * unit1, Unit_t * unit2);
 
+/**
+ * Returns a UnitDefinition_t structure containing the given @p unit converted
+ * to the appropriate SI unit.
+ *
+ * This method exists because some units can be expressed in terms of
+ * others when the same physical dimension is involved.  For example, one
+ * hertz is identical to 1&nbsp;sec<sup>-1</sup>, one litre is equivalent
+ * to 1 cubic decametre, and so on.
+ *
+ * @param unit the Unit_t structure to convert to SI
+ *
+ * @return a UnitDefinition_t structure containing the SI unit.
+ *
+ * @see Unit_merge()
+ *
+ * @memberof Unit_t
+ */
 LIBSBML_EXTERN
 UnitDefinition_t * 
 Unit_convertToSI(Unit_t * unit);

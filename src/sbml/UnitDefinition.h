@@ -1277,179 +1277,682 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 BEGIN_C_DECLS
 
 
-/* ----------------------------------------------------------------------------
- * See the .cpp file for the documentation of the following functions.
- * --------------------------------------------------------------------------*/
-
-
+/**
+ * Creates a new UnitDefinition_t structure using the given SBML @p level 
+ * and @p version values.
+ *
+ * @param level an unsigned int, the SBML Level to assign to this 
+ * UnitDefinition
+ *
+ * @param version an unsigned int, the SBML Version to assign to this
+ * UnitDefinition
+ * 
+ * @return a pointer to the newly created UnitDefinition_t structure.
+ *
+ * @note Once a UnitDefinition has been added to an SBMLDocument, the @p 
+ * level and @p version for the document @em override those used to create 
+ * the UnitDefinition.  Despite this, the ability to supply the values at 
+ * creation time is an important aid to creating valid SBML.  Knowledge of 
+ * the intended SBML Level and Version  determine whether it is valid to 
+ * assign a particular value to an attribute, or whether it is valid to add 
+ * an object to an existing SBMLDocument.
+ *
+ * @memberof UnitDefinition_t
+ */
 LIBSBML_EXTERN
 UnitDefinition_t *
 UnitDefinition_create (unsigned int level, unsigned int version);
 
 
+/**
+ * Creates a new UnitDefinition_t structure using the given 
+ * SBMLNamespaces_t structure.
+ *
+ * @param sbmlns SBMLNamespaces, a pointer to an SBMLNamespaces structure
+ * to assign to this UnitDefinition
+ *
+ * @return a pointer to the newly created UnitDefinition_t structure.
+ *
+ * @note Once a UnitDefinition has been added to an SBMLDocument, the
+ * @p sbmlns namespaces for the document @em override those used to create
+ * the UnitDefinition.  Despite this, the ability to supply the values at
+ * creation time is an important aid to creating valid SBML.  Knowledge of
+ * the intended SBML Level and Version determine whether it is valid to assign
+ * a particular value to an attribute, or whether it is valid to add an object
+ * to an existing SBMLDocument.
+ *
+ * @memberof UnitDefinition_t
+ */
 LIBSBML_EXTERN
 UnitDefinition_t *
 UnitDefinition_createWithNS (SBMLNamespaces_t *sbmlns);
 
 
+/**
+ * Frees the given UnitDefinition_t.
+ *
+ * @memberof UnitDefinition_t
+ */
 LIBSBML_EXTERN
 void
 UnitDefinition_free (UnitDefinition_t *ud);
 
 
+/**
+ * Creates and returns a deep copy of the given UnitDefinition_t structure.
+ *
+ * @param ud the UnitDefinition_t structure to copy
+ * 
+ * @return a (deep) copy of UnitDefinition_t.
+ *
+ * @memberof UnitDefinition_t
+ */
 LIBSBML_EXTERN
 UnitDefinition_t*
 UnitDefinition_clone (const UnitDefinition_t *ud);
 
 
+/**
+ * Returns a list of XMLNamespaces_t associated with this UnitDefinition_t
+ * structure.
+ *
+ * @param ud the UnitDefinition_t structure
+ * 
+ * @return pointer to the XMLNamespaces_t structure associated with 
+ * this SBML structure
+ *
+ * @memberof UnitDefinition_t
+ */
 LIBSBML_EXTERN
 const XMLNamespaces_t *
-UnitDefinition_getNamespaces(UnitDefinition_t *c);
+UnitDefinition_getNamespaces(UnitDefinition_t *ud);
 
 
+/**
+ * Returns the identifier of this UnitDefinition_t structure.
+ *
+ * @param ud the UnitDefinition_t whose identifier is sought
+ * 
+ * @return the value of the "id" attribute of this UnitDefinition_t.
+ *
+ * @memberof UnitDefinition_t
+ */
 LIBSBML_EXTERN
 const char *
 UnitDefinition_getId (const UnitDefinition_t *ud);
 
 
+/**
+ * Returns the name of this UnitDefinition_t structure.
+ *
+ * @param ud the UnitDefinition_t whose name is sought
+ * 
+ * @return the value of the "name" attribute of this UnitDefinition_t.
+ *
+ * @memberof UnitDefinition_t
+ */
 LIBSBML_EXTERN
 const char *
 UnitDefinition_getName (const UnitDefinition_t *ud);
 
 
+/**
+ * Predicate to test whether the "id" attribute of the given UnitDefinition_t
+ * @p ud is set.
+ *
+ * @param ud the UnitDefinition_t to query.
+ *
+ * @return nonzero (true) if the "id" attribute of the given
+ * UnitDefinition_t is set, zero (0) otherwise.
+ *
+ * @memberof UnitDefinition_t
+ */
 LIBSBML_EXTERN
 int
 UnitDefinition_isSetId (const UnitDefinition_t *ud);
 
 
+/**
+ * Predicate to test whether the "name" attribute of the given
+ * UnitDefinition_t @p ud is set.
+ *
+ * @param ud the UnitDefinition_t to query.
+ *
+ * @return nonzero (true) if the "name" attribute of the given
+ * UnitDefinition_t is set, zero (0) otherwise.
+ *
+ * @memberof UnitDefinition_t
+ */
 LIBSBML_EXTERN
 int
 UnitDefinition_isSetName (const UnitDefinition_t *ud);
 
 
+/**
+ * Convenience function for testing if a given unit definition is a
+ * variant of the built-in unit @c "area".
+ * 
+ * @param ud the UnitDefinition_t to query.
+ *
+ * @return @c true if the UnitDefinition_t structure @p ud is a variant of
+ * the built-in unit @c area, meaning square metres with only abritrary
+ * variations in scale or multiplier values; @c false otherwise.
+ *
+ * @memberof UnitDefinition_t
+ */
 LIBSBML_EXTERN
 int
 UnitDefinition_isVariantOfArea (const UnitDefinition_t *ud);
 
 
+/**
+ * Convenience function for testing if a given unit definition is a
+ * variant of the built-in unit @c "length".
+ *
+ * @param ud the UnitDefinition_t to query.
+ *
+ * @return @c true if this UnitDefinition_t is a variant of the built-in
+ * unit @c length, meaning metres with only abritrary variations in scale
+ * or multiplier values; @c false otherwise.
+ *
+ * @memberof UnitDefinition_t
+ */
 LIBSBML_EXTERN
 int
 UnitDefinition_isVariantOfLength (const UnitDefinition_t *ud);
 
 
+/**
+ * Convenience function for testing if a given unit definition is a
+ * variant of the built-in unit @c "substance".
+ *
+ * @param ud the UnitDefinition_t to query.
+ *
+ * @return @c true if this UnitDefinition is a variant of the built-in
+ * unit substance, meaning moles or items with only abritrary variations
+ * in scale or multiplier values; @c false otherwise.
+ *
+ * @memberof UnitDefinition_t
+ */
 LIBSBML_EXTERN
 int
 UnitDefinition_isVariantOfSubstance (const UnitDefinition_t *ud);
 
 
+/**
+ * Convenience function for testing if a given unit definition is a
+ * variant of the built-in unit @c "time".
+ *
+ * @param ud the UnitDefinition_t to query.
+ *
+ * @return @c true if this UnitDefinition is a variant of the built-in
+ * unit time, meaning seconds with only abritrary variations in scale or
+ * multiplier values; @c false otherwise.
+ *
+ * @memberof UnitDefinition_t
+ */
 LIBSBML_EXTERN
 int
 UnitDefinition_isVariantOfTime (const UnitDefinition_t *ud);
 
 
+/**
+ * Convenience function for testing if a given unit definition is a
+ * variant of the built-in unit @c "volume".
+ *
+ * @param ud the UnitDefinition_t to query.
+ *
+ * @return @c true if this UnitDefinition is a variant of the built-in
+ * unit volume, meaning litre or cubic metre with only abritrary
+ * variations in scale or multiplier values; @c false otherwise.
+ *
+ * @memberof UnitDefinition_t
+ */
 LIBSBML_EXTERN
 int
 UnitDefinition_isVariantOfVolume (const UnitDefinition_t *ud);
 
 
+/**
+ * Convenience function for testing if a given unit definition is a
+ * variant of the unit @c "dimensionless".
+ *
+ * @param ud the UnitDefinition_t to query.
+ *
+ * @return @c true if this UnitDefinition is a variant of dimensionless,
+ * meaning dimensionless with only abritrary variations in scale or
+ * multiplier values; @c false otherwise.
+ *
+ * @memberof UnitDefinition_t
+ */
 LIBSBML_EXTERN
 int 
 UnitDefinition_isVariantOfDimensionless (const UnitDefinition_t *ud);
 
 
+/**
+ * Convenience function for testing if a given unit definition is a
+ * variant of the built-in unit @c "mass".
+ *
+ * @param ud the UnitDefinition_t to query.
+ *
+ * @return @c true if this UnitDefinition is a variant of mass, meaning
+ * gram or kilogram with only abritrary variations in scale or multiplier
+ * values; @c false otherwise.
+ *
+ * @memberof UnitDefinition_t
+ */
 LIBSBML_EXTERN
 int
 UnitDefinition_isVariantOfMass (const UnitDefinition_t *ud);
 
 
+/**
+ * Convenience function for testing if a given unit definition is a
+ * variant of the built-in unit @c "substance" divided by the built-in
+ * unit @c "time".
+ *
+ * @param ud the UnitDefinition_t to query.
+ *
+ * @return @c true if this UnitDefinition is a variant of the built-in
+ * unit substance per built-in unit time, meaning it contains two units
+ * one of which is a variant of substance and the other is a variant of
+ * time which an exponent of -1; @c false otherwise.
+ *
+ * @memberof UnitDefinition_t
+ */
 LIBSBML_EXTERN
 int
 UnitDefinition_isVariantOfSubstancePerTime (const UnitDefinition_t *ud);
 
 
+/**
+ * Sets the attribute "id" of the given UnitDefinition_t structure to a
+ * copy of the given string.
+ *
+ * @param ud the UnitDefinition_t structure whose id is to be set
+ * @param sid a string, the new identifier for the UnitDefinition_t structure
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+ *
+ * @note Using this function with an id of NULL is equivalent to
+ * unsetting the "id" attribute.
+ *
+ * @memberof UnitDefinition_t
+ */
 LIBSBML_EXTERN
 int
 UnitDefinition_setId (UnitDefinition_t *ud, const char *sid);
 
 
+/**
+ * Sets the attribute "name" of the given UnitDefinition_t structure to a
+ * copy of the given string.
+ *
+ * @param ud the UnitDefinition_t structure whose name is to be set
+ * @param name a string, the new name for the UnitDefinition_t structure
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+ *
+ * @note Using this function with the name set to NULL is equivalent to
+ * unsetting the "name" attribute.
+ *
+ * @memberof UnitDefinition_t
+ */
 LIBSBML_EXTERN
 int
 UnitDefinition_setName (UnitDefinition_t *ud, const char *name);
 
 
+/**
+ * Unsets the name of the given UnitDefinition_t structure.
+ *
+ * @param ud the UnitDefinition_t whose name is to be unset.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_OPERATION_FAILED
+ *
+ * @memberof UnitDefinition_t
+ */
 LIBSBML_EXTERN
 int
 UnitDefinition_unsetName (UnitDefinition_t *ud);
 
 
+/**
+ * Adds a copy of the given Unit to the given UnitDefinition_t structure.
+ *
+ * @param ud the UnitDefinition_t structure.
+ * @param u the Unit instance to add.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_LEVEL_MISMATCH
+ * @li LIBSBML_VERSION_MISMATCH
+ * @li LIBSBML_DUPLICATE_OBJECT_ID
+ * @li LIBSBML_OPERATION_FAILED
+ *
+ * @memberof UnitDefinition_t
+ */
 LIBSBML_EXTERN
 int
 UnitDefinition_addUnit (UnitDefinition_t *ud, const Unit_t *u);
 
 
+/**
+ * Creates a new and empty Unit_t structure, adds it to the given
+ * UnitDefinition_t structure's list of units, and returns the Unit_t
+ * structure.
+ *
+ * @return a newly constructed (and empty) Unit_t structure.
+ * 
+ * @note It is worth emphasizing that the attribute "kind" value of a
+ * Unit_t is a required attribute for a valid Unit_t definition.  The
+ * UnitDefinition_createUnit() method does not assign a valid kind to the
+ * constructed unit (instead, it sets the "kind" to UNIT_KIND_INVALID).
+ * Callers are cautioned to set the newly-constructed Unit's kind using
+ * UnitDefinition_setKind() soon after calling this method.
+ *
+ * @memberof UnitDefinition_t
+ */
 LIBSBML_EXTERN
 Unit_t *
 UnitDefinition_createUnit (UnitDefinition_t *ud);
 
 
+/**
+ * Returns the list of Units for the given UnitDefinition_t structure.
+ * 
+ * @param ud the UnitDefinition_t to use
+ *
+ * @return the ListOfUnits value for the given UnitDefinition_t.
+ *
+ * @memberof UnitDefinition_t
+ */
 LIBSBML_EXTERN
 ListOf_t *
 UnitDefinition_getListOfUnits (UnitDefinition_t *ud);
 
 
+/**
+ * Returns a specific Unit_t instance belonging to the given
+ * UnitDefinition_t structure.
+ *
+ * @param ud the UnitDefinition_t structure in question
+ * @param n an integer, the index of the Unit_t structure to be returned.
+ * 
+ * @return the nth Unit_t of this UnitDefinition_t structure.
+ *
+ * @see UnitDefinition_getNumUnits()
+ *
+ * @memberof UnitDefinition_t
+ */
 LIBSBML_EXTERN
 Unit_t *
 UnitDefinition_getUnit (UnitDefinition_t *ud, unsigned int n);
 
 
+/**
+ * Removes the nth Unit_t structure from this UnitDefinition_t structure and
+ * returns a pointer to it.
+ *
+ * The caller owns the returned structure and is responsible for deleting it.
+ *
+ * @param ud the UnitDefinition_t structure
+ * @param n the integer index of the Unit_t sought
+ *
+ * @return the Unit_t structure removed.  As mentioned above, 
+ * the caller owns the returned item. @c NULL is returned if the given index 
+ * is out of range.
+ *
+ * @memberof UnitDefinition_t
+ */
 LIBSBML_EXTERN
 Unit_t *
 UnitDefinition_removeUnit (UnitDefinition_t *ud, unsigned int n);
 
 
+/**
+ * Returns the number of Unit_t structures contained within this
+ * UnitDefinition_t.
+ *
+ * @param ud the UnitDefinition_t structure in question
+ * 
+ * @return an integer representing the number of Unit_t structures in this
+ * UnitDefinition_t structure.
+ *
+ * @memberof UnitDefinition_t
+ */
 LIBSBML_EXTERN
 unsigned int
 UnitDefinition_getNumUnits (const UnitDefinition_t *ud);
 
 
+/** 
+ * Simplifies the @param ud UnitDefinition_t such that any given kind of Unit_t structure
+ * occurs only once in the ListOfUnits.
+ *
+ * For example, the following definition,
+ * @verbatim
+ <unitDefinition>
+  <listOfUnits>
+    <unit kind="metre" exponent="1"/>
+    <unit kind="metre" exponent="2"/>
+  </listOfUnits>
+ <unitDefinition>
+ @endverbatim
+ * will be simplified to 
+ * @verbatim
+ <unitDefinition>
+   <listOfUnits>
+     <unit kind="metre" exponent="3"/>
+   </listOfUnits>
+ <unitDefinition>
+ @endverbatim
+ *
+ * @param ud the UnitDefinition_t structure to be simplified.
+ *
+ * @memberof UnitDefinition_t
+ */
 LIBSBML_EXTERN
 void 
 UnitDefinition_simplify(UnitDefinition_t * ud);
 
+/** 
+ * Alphabetically orders the Unit_t structures within the ListOfUnits of a
+ * @param ud UnitDefinition_t.
+ *
+ * @param ud the UnitDefinition_t structure whose units are to be reordered.
+ *
+ * @memberof UnitDefinition_t
+ */
 LIBSBML_EXTERN
 void 
 UnitDefinition_reorder(UnitDefinition_t * ud);
 
+/**
+ * Convert a given @param ud UnitDefinition_t into a new UnitDefinition_t structure
+ * that uses SI units.
+ * 
+ * @param ud the UnitDefinition_t structure to convert to SI
+ *
+ * @return a new UnitDefinition_t structure representing the results of the
+ * conversion.
+ *
+ * @memberof UnitDefinition_t
+ */
 LIBSBML_EXTERN
 UnitDefinition_t * 
 UnitDefinition_convertToSI(UnitDefinition_t * ud);
 
+/** 
+ * Predicate returning @c true if two
+ * UnitDefinition_t structures are identical.
+ *
+ * For the purposes of performing this comparison, two UnitDefinition_t
+ * structures are considered identical when they contain identical lists of
+ * Unit_t structures.  Pairs of Unit_t structures in the lists are in turn
+ * considered identical if they satisfy the predicate
+ * Unit_areIdentical().
+ * The predicate compares every attribute of the
+ * Unit_t structures.
+ *
+ * @param ud1 the first UnitDefinition_t structure to compare
+ * @param ud2 the second UnitDefinition_t structure to compare
+ *
+ * @return @c true if all the Unit_t structures in ud1 are identical to the
+ * Unit_t structures of ud2, @c false otherwise.
+ *
+ * @if notclike @note Because this is a @em static method, the
+ * non-C++ language interfaces for libSBML will contain two variants.  One
+ * will be a static method on the class (i.e., UnitDefinition), and the
+ * other will be a standalone top-level function with the name
+ * UnitDefinition_areIdentical(). They are functionally identical. @endif@~
+ *
+ * @see UnitDefinition_areEquivalent()
+ * @see Unit_areIdentical()
+ *
+ * @memberof UnitDefinition_t
+ */
 LIBSBML_EXTERN
 int 
 UnitDefinition_areIdentical(UnitDefinition_t * ud1, UnitDefinition_t * ud2);
 
+/** 
+ * Predicate returning @c true if two
+ * UnitDefinition_t structures are equivalent.
+ *
+ * For the purposes of performing this comparison, two UnitDefinition_t
+ * structures are considered equivalent when they contain @em equivalent
+ * list of Unit_t structures.  Unit_t structures are in turn considered equivalent
+ * if they satisfy the predicate
+ * Unit::areEquivalent(@if java Unit u1, %Unit u2@endif).
+ * The predicate tests a subset of the_t structures's attributes.
+ *
+ * @param ud1 the first UnitDefinition_t structure to compare
+ * 
+ * @param ud2 the second UnitDefinition_t structure to compare
+ *
+ * @return @c true if all the Unit_t structures in ud1 are equivalent
+ * to the Unit_t structures in ud2, @c false otherwise.
+ *
+ * @see UnitDefinition_areIdentical()
+ * @see Unit_areEquivalent()
+ *
+ * @memberof UnitDefinition_t
+ */
 LIBSBML_EXTERN
 int 
 UnitDefinition_areEquivalent(UnitDefinition_t *ud1 , UnitDefinition_t * ud2);
 
+/** 
+ * Combines two UnitDefinition_t structures into a single UnitDefinition.
+ *
+ * This takes UnitDefinition_t structures @p ud1 and @p ud2, and creates a
+ * UnitDefinition_t structure that expresses the product of the units of @p
+ * ud1 and @p ud2.
+ *
+ * @param ud1 the first UnitDefinition_t structure 
+ * @param ud2 the second UnitDefinition_t structure
+ *
+ * @return a UnitDefinition_t which represents the product of the 
+ * units of the two argument UnitDefinition_t's.
+ *
+ * @memberof UnitDefinition_t
+ */
 LIBSBML_EXTERN
 UnitDefinition_t * 
 UnitDefinition_combine(UnitDefinition_t * ud1, UnitDefinition_t * ud2);
 
+/** 
+ * Combines two UnitDefinition_t structures into a single UnitDefinition as
+ * a division.
+ *
+ * This takes UnitDefinition_t structures @p ud1 and @p ud2, and creates a
+ * UnitDefinition_t structure that expresses the division of the units of @p
+ * ud1 and @p ud2.
+ *
+ * @param ud1 the first UnitDefinition_t structure 
+ * @param ud2 the second UnitDefinition_t structure
+ *
+ * @return a UnitDefinition which represents the division of the 
+ * units of the two argument UnitDefinitions.
+ *
+ * @memberof UnitDefinition_t
+ */
 LIBSBML_EXTERN
 UnitDefinition_t * 
 UnitDefinition_divide(UnitDefinition_t * ud1, UnitDefinition_t * ud2);
 
+/** 
+ * Expresses the given definition in a plain-text form.
+ *
+ * For example, an @param ud of the form:
+ * @verbatim
+ <unitDefinition>
+  <listOfUnits>
+    <unit kind="metre" exponent="1"/>
+    <unit kind="second" exponent="-2"/>
+  </listOfUnits>
+ <unitDefinition>
+ @endverbatim
+ * will return the string <code>"metre (exponent = 1, multiplier = 1,
+ * scale = 0) second (exponent = -2, multiplier = 1, scale = 0)"</code> if
+ * @param compact is @c false, or 
+ * the string <code>"(1 metre)^1 (1 second)^-2"</code> if @param compact is 
+ * @c true.  This method may
+ * be useful for printing unit information to human users, or in
+ * debugging software, or other situations.
+ *
+ * @param ud the UnitDefinition_t structure
+ * @param compact boolean indicating whether the compact form
+ * should be used
+ *
+ * @return a string expressing the unit definition defined by the given
+ * UnitDefinition_t structure @p ud.
+ *
+ * @memberof UnitDefinition_t
+ */
 LIBSBML_EXTERN
 const char *
 UnitDefinition_printUnits(UnitDefinition_t * ud, int compact);
 
 
+/**
+ * @return item in this ListOfUnitDefinitions with the given @p id or @c NULL if no such
+ * item exists.
+ *
+ * @memberof ListOfUnitDefinitions_t
+ */
 LIBSBML_EXTERN
 UnitDefinition_t *
 ListOfUnitDefinitions_getById (ListOf_t *lo, const char *sid);
 
 
+/**
+ * Removes item in this ListOf items with the given @p id or @c NULL if no such
+ * item exists.  The caller owns the returned item and is responsible for
+ * deleting it.
+ *
+ * @memberof ListOfUnitDefinitions_t
+ */
 LIBSBML_EXTERN
 UnitDefinition_t *
 ListOfUnitDefinitions_removeById (ListOf_t *lo, const char *sid);

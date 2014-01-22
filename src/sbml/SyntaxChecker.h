@@ -362,24 +362,93 @@ LIBSBML_CPP_NAMESPACE_END
 LIBSBML_CPP_NAMESPACE_BEGIN
 BEGIN_C_DECLS
 
-/* ----------------------------------------------------------------------------
- * See the .cpp file for the documentation of the following functions.
- * --------------------------------------------------------------------------*/
+/**
+ * Predicate indicating whether the
+ * argument string conforms to the SBML type SId. 
+ *
+ * @param sid string to be checked for conformance
+ *
+ * @return @c true (non-zero) if the string conforms to type SId, 
+ * @c false (0) otherwise.
+ *
+ * @note The literal representation of SBML type SId consists of strings 
+ * of characters restricted to:
+ *
+ *  - letter ::= 'a'..'z','A'..'Z'
+ *  - digit  ::= '0'..'9'
+ *  - idChar ::= letter | digit | '_'
+ *  - SId    ::= ( letter | '_' ) idChar*
+ *
+ * @memberof SyntaxChecker_t
+ */  
 LIBSBML_EXTERN
 int
 SyntaxChecker_isValidSBMLSId(const char * sid);
 
 
+/**
+ * Predicate indicating whether the
+ * argument string conforms to the XML 1.0 type ID. 
+ *
+ * @param id string to be checked for conformance
+ *
+ * @return @c true (non-zero) if the string conforms to type ID, 
+ * @c false (0) otherwise.
+ *
+ * @note The literal representation of XML 1.0 type ID consists of strings 
+ * of characters restricted to:
+ *
+ *  - NCNameChar ::= letter | digit | '.' | '-' | '_' | ':' | CombiningChar | Extender
+ *  - ID ::= ( letter | '_' | ':' ) NCNameChar*
+ *
+ * @memberof SyntaxChecker_t
+ */  
 LIBSBML_EXTERN
 int
 SyntaxChecker_isValidXMLID(const char * id);
 
 
+/**
+ * Predicate indicating whether the
+ * argument string conforms to the SBML type UnitSId. 
+ *
+ * @param units string to be checked for conformance
+ *
+ * @return @c true (non-zero) if the string conforms to type UnitSId, 
+ * @c false (0) otherwise.
+ *
+ * @note The literal representation of SBML type UniySId consists of strings 
+ * of characters restricted to:
+ *
+ *  - letter ::= 'a'..'z','A'..'Z'
+ *  - digit  ::= '0'..'9'
+ *  - idChar ::= letter | digit | '_'
+ *  - UnitSId    ::= ( letter | '_' ) idChar*
+ *
+ * @memberof SyntaxChecker_t
+ */
 LIBSBML_EXTERN
 int
 SyntaxChecker_isValidUnitSId(const char * units);
 
 
+/**
+ * Predicate indicating whether the
+ * argument XMLNode_t structure represents XHTML that conforms to the 
+ * requirements of the SBML specification.
+ *
+ * @param node the XMLNode_t structure to be checked for conformance.
+ * @param sbmlns the SBMLNamespaces_t structure associated with the object.
+ *
+ * @return @c true (non-zero) if the XMLNode_t structure conforms, 
+ * @c false (0) otherwise.
+ *
+ * @note the optional SBMLNamespaces_t argument can be used to
+ * check for the declaration of the XHTML namespace at the top-level
+ * within an SBMLDocument.
+ *
+ * @memberof SyntaxChecker_t
+ */
 LIBSBML_EXTERN
 int
 SyntaxChecker_hasExpectedXHTMLSyntax(XMLNode_t * node, 

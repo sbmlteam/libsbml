@@ -653,26 +653,6 @@ Trigger::writeElements (XMLOutputStream& stream) const
 #endif /* __cplusplus */
 /** @cond doxygenCOnly */
 
-/**
- * Creates a new Trigger_t structure using the given SBML @p level
- * and @p version values.
- *
- * @param level an unsigned int, the SBML Level to assign to this
- * Trigger
- *
- * @param version an unsigned int, the SBML Version to assign to this
- * Trigger
- *
- * @return a pointer to the newly created Trigger_t structure.
- *
- * @note Once a Trigger has been added to an SBMLDocument, the @p
- * level and @p version for the document @em override those used to create
- * the Trigger.  Despite this, the ability to supply the values at
- * creation time is an important aid to creating valid SBML.  Knowledge of
- * the intended SBML Level and Version  determine whether it is valid to
- * assign a particular value to an attribute, or whether it is valid to add
- * an object to an existing SBMLDocument.
- */
 LIBSBML_EXTERN
 Trigger_t *
 Trigger_create (unsigned int level, unsigned int version)
@@ -689,23 +669,6 @@ Trigger_create (unsigned int level, unsigned int version)
 }
 
 
-/**
- * Creates a new Trigger_t structure using the given
- * SBMLNamespaces_t structure.
- *
- * @param sbmlns SBMLNamespaces, a pointer to an SBMLNamespaces structure
- * to assign to this Trigger
- *
- * @return a pointer to the newly created Trigger_t structure.
- *
- * @note Once a Trigger has been added to an SBMLDocument, the
- * @p sbmlns namespaces for the document @em override those used to create
- * the Trigger.  Despite this, the ability to supply the values at creation time
- * is an important aid to creating valid SBML.  Knowledge of the intended SBML
- * Level and Version determine whether it is valid to assign a particular value
- * to an attribute, or whether it is valid to add an object to an existing
- * SBMLDocument.
- */
 LIBSBML_EXTERN
 Trigger_t *
 Trigger_createWithNS (SBMLNamespaces_t* sbmlns)
@@ -722,9 +685,6 @@ Trigger_createWithNS (SBMLNamespaces_t* sbmlns)
 }
 
 
-/**
- * Frees the given Trigger.
- */
 LIBSBML_EXTERN
 void
 Trigger_free (Trigger_t *t)
@@ -734,9 +694,6 @@ Trigger_free (Trigger_t *t)
 }
 
 
-/**
- * @return a (deep) copy of this Trigger.
- */
 LIBSBML_EXTERN
 Trigger_t *
 Trigger_clone (const Trigger_t *t)
@@ -745,15 +702,6 @@ Trigger_clone (const Trigger_t *t)
 }
 
 
-/**
- * Returns a list of XMLNamespaces_t associated with this Trigger_t
- * structure.
- *
- * @param t the Trigger_t structure
- * 
- * @return pointer to the XMLNamespaces_t structure associated with 
- * this SBML object
- */
 LIBSBML_EXTERN
 const XMLNamespaces_t *
 Trigger_getNamespaces(Trigger_t *t)
@@ -761,9 +709,6 @@ Trigger_getNamespaces(Trigger_t *t)
   return (t != NULL) ? t->getNamespaces() : NULL;
 }
 
-/**
- * @return the math of this Trigger.
- */
 LIBSBML_EXTERN
 const ASTNode_t *
 Trigger_getMath (const Trigger_t *t)
@@ -772,14 +717,6 @@ Trigger_getMath (const Trigger_t *t)
 }
 
 
-/**
- * Get the value of the "initialValue" attribute of this Trigger.
- * 
- * @param t the Trigger_t structure
- *
- * @return the "initialValue" attribute value
- * in this Trigger.
- */
 LIBSBML_EXTERN
 int
 Trigger_getInitialValue (const Trigger_t *t)
@@ -788,14 +725,6 @@ Trigger_getInitialValue (const Trigger_t *t)
 }
 
 
-/**
- * Get the value of the "persistent" attribute of this Trigger.
- * 
- * @param t the Trigger_t structure
- *
- * @return the "persistent" attribute value
- * in this Trigger.
- */
 LIBSBML_EXTERN
 int
 Trigger_getPersistent (const Trigger_t *t)
@@ -804,10 +733,6 @@ Trigger_getPersistent (const Trigger_t *t)
 }
 
 
-/**
- * @return true (non-zero) if the math (or equivalently the formula) of
- * this Trigger is set, false (0) otherwise.
- */
 LIBSBML_EXTERN
 int
 Trigger_isSetMath (const Trigger_t *t)
@@ -816,14 +741,6 @@ Trigger_isSetMath (const Trigger_t *t)
 }
 
 
-/**
- * Return true if the  "initialValue" attribute of this Trigger is set.
- * 
- * @param t the Trigger_t structure
- *
- * @return true if the "initialValue" attribute value
- * in this Trigger is set, false otherwise.
- */
 LIBSBML_EXTERN
 int
 Trigger_isSetInitialValue (const Trigger_t *t)
@@ -832,14 +749,6 @@ Trigger_isSetInitialValue (const Trigger_t *t)
 }
 
 
-/**
- * Return true if the  "persistent" attribute of this Trigger is set.
- * 
- * @param t the Trigger_t structure
- *
- * @return true if the "persisent" attribute value
- * in this Trigger is set, false otherwise.
- */
 LIBSBML_EXTERN
 int
 Trigger_isSetPersistent (const Trigger_t *t)
@@ -848,16 +757,6 @@ Trigger_isSetPersistent (const Trigger_t *t)
 }
 
 
-/**
- * Sets the math of this Trigger to a copy of the given ASTNode.
- *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif@~ The possible values
- * returned by this function are:
- * @li LIBSBML_OPERATION_SUCCESS
- * @li LIBSBML_INVALID_OBJECT
- */
 LIBSBML_EXTERN
 int
 Trigger_setMath (Trigger_t *t, const ASTNode_t *math)
@@ -866,19 +765,6 @@ Trigger_setMath (Trigger_t *t, const ASTNode_t *math)
 }
 
 
-/**
- * Sets the "initialValue" attribute of this Trigger instance.
- *
- * @param t the Trigger_t structure
- * @param initialValue a boolean representing the initialValue to be set.
- *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif@~ The possible values
- * returned by this function are:
- * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
- * @li @link OperationReturnValues_t#LIBSBML_UNEXPECTED_ATTRIBUTE LIBSBML_UNEXPECTED_ATTRIBUTE @endlink
- */
 LIBSBML_EXTERN
 int
 Trigger_setInitialValue (Trigger_t *t, int initialValue)
@@ -888,19 +774,6 @@ Trigger_setInitialValue (Trigger_t *t, int initialValue)
 }
 
 
-/**
- * Sets the "persistent" attribute of this Trigger instance.
- *
- * @param t the Trigger_t structure
- * @param persistent a boolean representing the initialValue to be set.
- *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif@~ The possible values
- * returned by this function are:
- * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
- * @li @link OperationReturnValues_t#LIBSBML_UNEXPECTED_ATTRIBUTE LIBSBML_UNEXPECTED_ATTRIBUTE @endlink
- */
 LIBSBML_EXTERN
 int
 Trigger_setPersistent (Trigger_t *t, int persistent)
@@ -910,15 +783,6 @@ Trigger_setPersistent (Trigger_t *t, int persistent)
 }
 
 
-/**
-  * Predicate returning @c true or @c false depending on whether
-  * all the required attributes for this Trigger object
-  * have been set.
-  *
-  * @note The required attributes for a Trigger object are:
-  * @li persistent ( L3 onwards )
-  * @li initialValue ( L3 onwards )
-  */
 LIBSBML_EXTERN
 int
 Trigger_hasRequiredAttributes (Trigger_t *t)
@@ -928,14 +792,6 @@ Trigger_hasRequiredAttributes (Trigger_t *t)
 
 
 
-/**
-  * Predicate returning @c true or @c false depending on whether
-  * all the required elements for this Trigger object
-  * have been set.
-  *
-  * @note The required elements for a Trigger object are:
-  * @li math
-  */
 LIBSBML_EXTERN
 int
 Trigger_hasRequiredElements (Trigger_t *t)
