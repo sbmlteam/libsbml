@@ -1,8 +1,25 @@
            libSBML NEWS -- History of user-visible changes
 
 ====================================================================
-Current svn 5.9.1
+5.9.2-experimental (2014-01-31)
 ====================================================================
+
+********************************************************************
+
+***                 Experimental only release                    ***
+
+This is an experimental only release, that is, a release of those
+files provided in the experimental folder of a full release. 
+
+This includes updates to all the SBML L3 packages that are not yet
+accepted and undergoing development.
+
+NOTE: An experimental release is not as rigorously tested as a 
+full release.  Any changes/fixes listed as either referring to
+stable or experimental code may change before the next full release.
+
+********************************************************************
+
 
 STABLE RELEASE
 
@@ -16,14 +33,10 @@ STABLE RELEASE
     this option when using the helper 'setLevelAndVersion' 
     function.  This function has no been given a default argument
     to allow users to specify the ignore packages option.
-
-  - 'comp' package-specific updates:
-
-  - 'fbc' package-specific updates:
-
-  - 'layout' package-specific updates:
-
-  - 'qual' package-specific updates:
+	
+  - A new version of the SBMLTransforms::evaluateASTNode function
+    is available; allowing the user to pass a map of ids and values
+	to the function rather than needing a whole model.
 
 * Bug fixes
 
@@ -44,8 +57,10 @@ STABLE RELEASE
     
   - A memory leak in SBasePluginCreator has been plugged. Thanks to 
     Andy Somogyi for reporting it. 
-
-  - 'comp' package-specific updates:
+	
+  - The instances of the extensions loaded into the ExtensionRegistry
+    to facilitate plugins were not being correctly deleted. This 
+	has been corrected.
 
   - 'fbc' package-specific updates:
     
@@ -53,32 +68,23 @@ STABLE RELEASE
       capitalization of the formula when parsing the notes element.  
       This has been fixed. 
 
-  - 'layout' package-specific updates:
-
-  - 'qual' package-specific updates:
-
 * Configuration/build system changes
 
   - Any necessary fixes to facilitate the use of the new version
     of Mac OSX - Mac OSX 10.9 Mavericks - have been made.
 
 
-* Miscellaneous
-
-
 EXPERIMENTAL RELEASE
 
 * New features
 
-  - 'distrib' package-specific updates:
-
-  - 'groups' package-specific updates:
-
-  - 'multi' package-specific updates:
-
-  - 'render' package-specific updates:
-
   - 'req' package-specific updates:
+    
+	- The attributes in the req package are mandatory on all
+	  elements.  This caused huge numbers of errors when reading
+	  files which used the req package but did not actually
+	  need to attributes on many elements.  Thus the error has been
+	  suppressed.
 
   - 'spatial' package-specific updates:
   
@@ -95,20 +101,8 @@ EXPERIMENTAL RELEASE
 
 * Bug fixes
 
-  - 'distrib' package-specific updates:
-
-  - 'groups' package-specific updates:
-
-  - 'multi' package-specific updates:
-
-  - 'render' package-specific updates:
-
   - 'req' package-specific updates:
   
-    - The attributes for the package were incorrectly assumed
-      to be mandatory, thus causing numerous inaccurate
-      error messages. This has been fixed.
-      
     - The csharp binding for this package was not complete. 
       This has been corrected.
 
