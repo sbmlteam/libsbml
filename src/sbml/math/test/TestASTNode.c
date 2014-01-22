@@ -1476,7 +1476,7 @@ START_TEST (test_ASTNode_setName_2)
   fail_unless( strcmp(ASTNode_getId(node), "s") == 0);
   fail_unless( strcmp(ASTNode_getName(node), name) == 0);
 
-  delete node;
+  ASTNode_free(node);
 }
 END_TEST
 
@@ -1493,7 +1493,7 @@ START_TEST (test_ASTNode_setName_3)
   fail_unless( strcmp(ASTNode_getId(node), "s") == 0);
   fail_unless( strcmp(ASTNode_getName(node), name) == 0);
 
-  delete node;
+  ASTNode_free(node);
 }
 END_TEST
 
@@ -1510,7 +1510,7 @@ START_TEST (test_ASTNode_setName_4)
   fail_unless( strcmp(ASTNode_getId(node), "s") == 0);
   fail_unless( strcmp(ASTNode_getName(node), name) == 0);
 
-  delete node;
+  ASTNode_free(node);
 }
 END_TEST
 
@@ -1529,7 +1529,7 @@ START_TEST (test_ASTNode_setName_5)
   fail_unless( strcmp(ASTNode_getName(node), name) == 0);
   fail_unless( strcmp(ASTNode_getUnits(node), "") == 0);
 
-  delete node;
+  ASTNode_free(node);;
 }
 END_TEST
 
@@ -1714,7 +1714,7 @@ START_TEST (test_ASTNode_setType_2)
   ASTNode_setId(node, "s");
   ASTNode_setUnits(node, "mole");
   ASTNode_setInteger(node, 1);
-  ASTNode_setParentSBMLObject(node, m);
+  ASTNode_setParentSBMLObject(node, (SBase_t*)(m));
 
 
   fail_unless( ASTNode_getType(node) == AST_INTEGER );
