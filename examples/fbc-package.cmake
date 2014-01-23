@@ -37,16 +37,16 @@ if (ENABLE_FBC)
   
   if(WITH_RUBY)
   # install ruby examples
-  file(GLOB perl_fbc_samples "${CMAKE_CURRENT_SOURCE_DIR}/ruby/fbc/*.rb"
+  file(GLOB ruby_fbc_samples "${CMAKE_CURRENT_SOURCE_DIR}/ruby/fbc/*.rb"
                          "${CMAKE_CURRENT_SOURCE_DIR}/ruby/fbc/README.txt")
-  install(FILES ${perl_fbc_samples} DESTINATION ${MISC_PREFIX}examples/ruby/fbc)
+  install(FILES ${ruby_fbc_samples} DESTINATION ${MISC_PREFIX}examples/ruby/fbc)
   endif()
   
   if (WITH_R)
   # install r examples
-  file(GLOB python_fbc_samples "${CMAKE_CURRENT_SOURCE_DIR}/r/fbc/*.R"
+  file(GLOB r_fbc_samples "${CMAKE_CURRENT_SOURCE_DIR}/r/fbc/*.R"
                            "${CMAKE_CURRENT_SOURCE_DIR}/r/fbc/README.txt")
-  install(FILES ${python_fbc_samples} DESTINATION ${MISC_PREFIX}examples/r/fbc)
+  install(FILES ${r_fbc_samples} DESTINATION ${MISC_PREFIX}examples/r/fbc)
   endif()
   
 endif(ENABLE_FBC)

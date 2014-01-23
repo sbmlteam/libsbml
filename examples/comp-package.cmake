@@ -37,16 +37,16 @@ if (ENABLE_COMP)
   
   if(WITH_RUBY)
   # install ruby examples
-  file(GLOB perl_comp_samples "${CMAKE_CURRENT_SOURCE_DIR}/ruby/comp/*.rb"
+  file(GLOB ruby_comp_samples "${CMAKE_CURRENT_SOURCE_DIR}/ruby/comp/*.rb"
                          "${CMAKE_CURRENT_SOURCE_DIR}/ruby/comp/README.txt")
-  install(FILES ${perl_comp_samples} DESTINATION ${MISC_PREFIX}examples/ruby/comp)
+  install(FILES ${ruby_comp_samples} DESTINATION ${MISC_PREFIX}examples/ruby/comp)
   endif()
   
   if (WITH_R)
   # install r examples
-  file(GLOB python_comp_samples "${CMAKE_CURRENT_SOURCE_DIR}/r/comp/*.R"
+  file(GLOB r_comp_samples "${CMAKE_CURRENT_SOURCE_DIR}/r/comp/*.R"
                            "${CMAKE_CURRENT_SOURCE_DIR}/r/comp/README.txt")
-  install(FILES ${python_comp_samples} DESTINATION ${MISC_PREFIX}examples/r/comp)
+  install(FILES ${r_comp_samples} DESTINATION ${MISC_PREFIX}examples/r/comp)
   endif()
   
 endif(ENABLE_COMP)
