@@ -30,7 +30,21 @@ main (int argc, char* argv[])
          , SBMLNamespaces_getVersion(current)
        );
   }
-    
+
+
+  printf("\n");
+  printf("LibSBML is compiled against: \n");
+  if (isLibSBMLCompiledWith("expat"))
+    printf("\tExpat:       %s\n", getLibSBMLDependencyVersionOf("expat"));
+  if (isLibSBMLCompiledWith("libxml"))
+    printf("\tLibXML:      %s\n", getLibSBMLDependencyVersionOf("libxml"));
+  if (isLibSBMLCompiledWith("xerces-c"))
+    printf("\tXerces-C++:  %s\n", getLibSBMLDependencyVersionOf("xerces-c"));
+  if (isLibSBMLCompiledWith("zlib"))
+    printf("\tZlib:        %s\n", getLibSBMLDependencyVersionOf("zlib"));
+  if (isLibSBMLCompiledWith("bzip"))
+    printf("\tbzip2:       %s\n", getLibSBMLDependencyVersionOf("bzip"));
+  
   printf("\n");
 
   return 0;

@@ -31,6 +31,19 @@ main (int argc, char* argv[])
        const SBMLNamespaces *current = (const SBMLNamespaces *)supported->get(i);
        cout << "\tSBML Level " << current->getLevel() << " Version: " << current->getVersion() << endl;
   }
+  
+  cout << endl;
+  cout << "LibSBML is compiled against: " << endl;
+  if (isLibSBMLCompiledWith("expat"))
+    cout << "\tExpat:      "  << getLibSBMLDependencyVersionOf("expat") << endl;
+  if (isLibSBMLCompiledWith("libxml"))
+    cout << "\tLibXML:     "  << getLibSBMLDependencyVersionOf("libxml") << endl;
+  if (isLibSBMLCompiledWith("xerces-c"))
+    cout << "\tXerces-C++: "  << getLibSBMLDependencyVersionOf("xerces-c") << endl;
+  if (isLibSBMLCompiledWith("zlib"))
+    cout << "\tZlib:       "  << getLibSBMLDependencyVersionOf("zlib") << endl;
+  if (isLibSBMLCompiledWith("bzip"))
+    cout << "\tbzip2:      "  << getLibSBMLDependencyVersionOf("bzip") << endl;
     
   cout << endl;
 
