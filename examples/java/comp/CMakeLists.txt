@@ -38,3 +38,9 @@ foreach(file
 	add_dependencies(example_comp_java_${file} binding_java_jar)
 	
 endforeach()
+
+if(WITH_JAVA)
+# install java examples
+file(GLOB java_samples "${CMAKE_CURRENT_SOURCE_DIR}/java/*.java")
+install(FILES ${java_samples} DESTINATION ${MISC_PREFIX}examples/java/comp)
+endif()

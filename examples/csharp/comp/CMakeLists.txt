@@ -29,3 +29,9 @@ foreach( example
 	add_custom_target(example_comp_cs_${example} ALL DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/${example}.exe)
 	add_dependencies(example_comp_cs_${example} binding_csharp_managed_lib)
 endforeach()
+
+if(WITH_CSHARP)
+# install c# examples
+file(GLOB cs_samples "${CMAKE_CURRENT_SOURCE_DIR}/*.cs")
+install(FILES ${cs_samples} DESTINATION ${MISC_PREFIX}examples/csharp/comp)
+endif()

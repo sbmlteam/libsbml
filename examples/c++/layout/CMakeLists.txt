@@ -41,4 +41,9 @@ foreach(example
 
 endforeach()
 
+# install c++ examples
+file(GLOB cpp_samples "${CMAKE_CURRENT_SOURCE_DIR}/*.c"
+                    "${CMAKE_CURRENT_SOURCE_DIR}/*.cpp"
+                    "${CMAKE_CURRENT_SOURCE_DIR}/*.h")
+install(FILES ${cpp_samples} DESTINATION ${MISC_PREFIX}examples/c++/layout)
 

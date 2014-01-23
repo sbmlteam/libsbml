@@ -24,3 +24,8 @@ foreach(example
 	install(TARGETS example_comp_c_${example} DESTINATION bin)
 
 endforeach()
+
+# install c examples
+file(GLOB c_samples "${CMAKE_CURRENT_SOURCE_DIR}/*.c"
+                    "${CMAKE_CURRENT_SOURCE_DIR}/*.h")
+install(FILES ${c_samples} DESTINATION ${MISC_PREFIX}examples/c/comp)

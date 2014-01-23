@@ -31,8 +31,6 @@ install(FILES README.txt DESTINATION ${MISC_PREFIX}examples)
 # install c examples
 file(GLOB c_samples "${CMAKE_CURRENT_SOURCE_DIR}/c/*.c"
                     "${CMAKE_CURRENT_SOURCE_DIR}/c/*.h"
-                    "${CMAKE_CURRENT_SOURCE_DIR}/c/*/*.c"
-                    "${CMAKE_CURRENT_SOURCE_DIR}/c/*/*.h"
                     "${CMAKE_CURRENT_SOURCE_DIR}/c/README.txt")
 install(FILES ${c_samples} DESTINATION ${MISC_PREFIX}examples/c)
 
@@ -40,16 +38,12 @@ install(FILES ${c_samples} DESTINATION ${MISC_PREFIX}examples/c)
 file(GLOB cpp_samples "${CMAKE_CURRENT_SOURCE_DIR}/c++/*.c"
                       "${CMAKE_CURRENT_SOURCE_DIR}/c++/*.cpp"
                       "${CMAKE_CURRENT_SOURCE_DIR}/c++/*.h"
-                      "${CMAKE_CURRENT_SOURCE_DIR}/c++/*/*.c"
-                      "${CMAKE_CURRENT_SOURCE_DIR}/c++/*/*.cpp"
-                      "${CMAKE_CURRENT_SOURCE_DIR}/c++/*/*.h"
                       "${CMAKE_CURRENT_SOURCE_DIR}/c++/README.txt")
 install(FILES ${cpp_samples} DESTINATION ${MISC_PREFIX}examples/c++)
 
 if(WITH_CSHARP)
 # install c# examples
 file(GLOB cs_samples "${CMAKE_CURRENT_SOURCE_DIR}/csharp/*.cs"
-                     "${CMAKE_CURRENT_SOURCE_DIR}/csharp/*/*.cs"
                      "${CMAKE_CURRENT_SOURCE_DIR}/csharp/README.txt")
 install(FILES ${cs_samples} DESTINATION ${MISC_PREFIX}examples/csharp)
 endif()
@@ -57,7 +51,6 @@ endif()
 if(WITH_JAVA)
 # install java examples
 file(GLOB java_samples "${CMAKE_CURRENT_SOURCE_DIR}/java/*.java"
-                       "${CMAKE_CURRENT_SOURCE_DIR}/java/*/*.java"
                        "${CMAKE_CURRENT_SOURCE_DIR}/java/README.txt")
 install(FILES ${java_samples} DESTINATION ${MISC_PREFIX}examples/java)
 endif()
@@ -65,7 +58,6 @@ endif()
 if(WITH_PERL)
 # install perl examples
 file(GLOB perl_samples "${CMAKE_CURRENT_SOURCE_DIR}/perl/*.pl"
-                       "${CMAKE_CURRENT_SOURCE_DIR}/perl/*/*.pl"
                        "${CMAKE_CURRENT_SOURCE_DIR}/perl/README.txt")
 install(FILES ${perl_samples} DESTINATION ${MISC_PREFIX}examples/perl)
 endif()
@@ -73,10 +65,25 @@ endif()
 if (WITH_PYTHON)
 # install python examples
 file(GLOB python_samples "${CMAKE_CURRENT_SOURCE_DIR}/python/*.py"
-                         "${CMAKE_CURRENT_SOURCE_DIR}/python/*/*.py"
                          "${CMAKE_CURRENT_SOURCE_DIR}/python/README.txt")
 install(FILES ${python_samples} DESTINATION ${MISC_PREFIX}examples/python)
 endif()
+
+
+if(WITH_RUBY)
+# install ruby examples
+file(GLOB perl_samples "${CMAKE_CURRENT_SOURCE_DIR}/ruby/*.rb"
+                       "${CMAKE_CURRENT_SOURCE_DIR}/ruby/README.txt")
+install(FILES ${perl_samples} DESTINATION ${MISC_PREFIX}examples/ruby)
+endif()
+
+if (WITH_R)
+# install r examples
+file(GLOB python_samples "${CMAKE_CURRENT_SOURCE_DIR}/r/*.R"
+                         "${CMAKE_CURRENT_SOURCE_DIR}/r/README.txt")
+install(FILES ${python_samples} DESTINATION ${MISC_PREFIX}examples/r)
+endif()
+
 
 #layout examples now follow the structure of other packages
 #if (ENABLE_LAYOUT)
