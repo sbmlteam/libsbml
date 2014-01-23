@@ -33,7 +33,8 @@
 #include <expat.h>
 #endif 
 
-#ifdef USE_XERCESC
+#ifdef USE_XERCES
+#include <xercesc/util/XercesDefs.hpp>
 #include <xercesc/util/XercesVersion.hpp>
 #endif
 
@@ -133,7 +134,11 @@ isLibSBMLCompiledWith(const char* option)
     strcmp(option, "xercesc") == 0)
   {
 #ifdef USE_XERCES
-    return XERCES_FULLVERSIONNUM;
+#ifdef _XERCES_VERSION
+    return _XERCES_VERSION;
+#else
+    return 1;
+#endif
 #else
     return 0;
 #endif
