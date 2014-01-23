@@ -91,13 +91,15 @@ getLibSBMLVersionString ()
 
 /**
  * Returns an indication whether libSBML has been compiled with
- * against a specifiic library. 
+ * against a specific library. 
  *
  * @param option the library to test against, this can be one of
  *        "expat", "libxml", "xerces-c", "bzip2", "zip"
  * 
- * @return 0 in case the libsbml has not been compiled against 
- *         that library and non-zero otherwise.
+ * @return 0 in case the libSBML has not been compiled against 
+ *         that library and non-zero otherwise (for libraries 
+ *         that define an integer version number that number will 
+ *         be returned).
  *
  * @see getLibSBMLDependencyVersionOf()
  */
@@ -168,7 +170,7 @@ isLibSBMLCompiledWith(const char* option)
  *        should be retrieved, this can be one of
  *        "expat", "libxml", "xerces-c", "bzip2", "zip"
  * 
- * @return NULL in case the libsbml has not been compiled against 
+ * @return NULL in case libSBML has not been compiled against 
  *         that library and a version string otherwise.
  *
  * @see isLibSBMLCompiledWith()
