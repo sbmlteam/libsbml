@@ -117,7 +117,8 @@ isLibSBMLCompiledWith(const char* option)
   }
 
   if (strcmp(option, "libxml") == 0 ||
-    strcmp(option, "libxml2") == 0)
+      strcmp(option, "xml2") == 0 ||
+      strcmp(option, "libxml2") == 0)
   {
 #ifdef USE_LIBXML
     return LIBXML_VERSION;
@@ -153,7 +154,7 @@ isLibSBMLCompiledWith(const char* option)
 #ifdef USE_BZ2
     return 1;
 #else
-    return NULL;
+    return 0;
 #endif
   }
 
