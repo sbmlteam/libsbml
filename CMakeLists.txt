@@ -280,16 +280,17 @@ set(LIBSBML_XML_LIBRARY_LIBS)
 if(WITH_EXPAT)
     find_library(LIBEXPAT_LIBRARY
         NAMES libexpat.lib expat
-        PATHS /usr/lib /usr/local/lib
-              ${LIBSBML_DEPENDENCY_DIR}/lib
+        PATHS ${LIBSBML_DEPENDENCY_DIR}/lib
+              /usr/lib /usr/local/lib
+              /usr/lib/i386-linux-gnu
         DOC "The file name of the Expat library."
                 )
 
     find_path(LIBEXPAT_INCLUDE_DIR
         NAMES expat.h
-        PATHS /usr/include /usr/local/include
-              ${CMAKE_OSX_SYSROOT}/usr/include
-              ${LIBSBML_DEPENDENCY_DIR}/include
+        PATHS ${LIBSBML_DEPENDENCY_DIR}/include
+              /usr/include /usr/local/include
+              ${CMAKE_OSX_SYSROOT}/usr/include              
         DOC "The directory containing the Expat include files."
               )
 
@@ -320,11 +321,12 @@ if(WITH_LIBXML)
 
     find_path(LIBXML_INCLUDE_DIR
         NAMES libxml/parser.h
-        PATHS /usr/include /usr/local/include
+        PATHS ${LIBSBML_DEPENDENCY_DIR}/include
+              /usr/include /usr/local/include
               /usr/include/libxml2
               ${CMAKE_OSX_SYSROOT}/usr/include/libxml2
               /usr/local/include/libxml2
-              ${LIBSBML_DEPENDENCY_DIR}/include
+
         DOC "The directory containing the libxml2 include files."
               )
 
