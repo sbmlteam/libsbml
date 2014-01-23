@@ -466,6 +466,8 @@ BEGIN_C_DECLS
 /**
  * Creates a new SBMLReader and returns it.  By default XML Schema
  * validation is off.
+ *
+ * @memberof SBMLReader_t
  */
 LIBSBML_EXTERN
 SBMLReader_t *
@@ -473,6 +475,8 @@ SBMLReader_create (void);
 
 /**
  * Frees the given SBMLReader.
+ *
+ * @memberof SBMLReader_t
  */
 LIBSBML_EXTERN
 void
@@ -508,6 +512,8 @@ SBMLReader_free (SBMLReader_t *sr);
  * @return a pointer to the SBMLDocument read.
  *
  * @copydetails doc_note_sbmlreader_error_handling
+ *
+ * @memberof SBMLReader_t
  */
 LIBSBML_EXTERN
 SBMLDocument_t *
@@ -531,6 +537,8 @@ SBMLReader_readSBMLFromFile (SBMLReader_t *sr, const char *filename);
  * checking code.
  *
  * @return a pointer to the SBMLDocument read.
+ *
+ * @memberof SBMLReader_t
  */
 LIBSBML_EXTERN
 SBMLDocument_t *
@@ -539,9 +547,11 @@ SBMLReader_readSBMLFromString (SBMLReader_t *sr, const char *xml);
 
 /**
  * Predicate returning @c non-zero or @c zero depending on whether
- * underlying libSBML is linked with..
+ * underlying libSBML is linked with zlib or not.
  *
  * @return @c non-zero if libSBML is linked with zlib, @c zero otherwise.
+ *
+ * @memberof SBMLReader_t
  */
 LIBSBML_EXTERN
 int
@@ -553,12 +563,16 @@ SBMLReader_hasZlib ();
  * libSBML is linked with bzip2.
  *
  * @return @c non-zero if libSBML is linked with bzip2, @c zero otherwise.
+ *
+ * @memberof SBMLReader_t
  */
 LIBSBML_EXTERN
 int
 SBMLReader_hasBzip2 ();
 
-#endif  /* !SWIG */
+#endif  /* !SWIG *
+ * @memberof SBMLReader_t
+ */
 
 
 /**
@@ -571,6 +585,8 @@ SBMLReader_hasBzip2 ();
  * SBMLDocument for more information about the error reporting mechanism.
  *
  * @return a pointer to the SBMLDocument read.
+ *
+ * @memberof SBMLReader_t
  */
 LIBSBML_EXTERN
 SBMLDocument_t *
@@ -599,6 +615,8 @@ readSBMLFromFile (const char *filename);
  * SBMLDocument for more information about the error reporting mechanism.
  *
  * @return a pointer to the SBMLDocument read.
+ *
+ * @memberof SBMLReader_t
  */
 LIBSBML_EXTERN
 SBMLDocument_t *

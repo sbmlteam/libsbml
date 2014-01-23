@@ -6350,26 +6350,6 @@ SBase::getElementNamespace() const
 
 /** @cond doxygenCOnly */
 
-/**
- * Adds a copy of the given CVTerm to this SBML object.
- *
- * @param sb the object to add the CVTerm to
- * @param term the CVTerm_t to assign
- *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif@~ The possible values
- * returned by this function are:
- * @li LIBSBML_OPERATION_SUCCESS
- * @li LIBSBML_OPERATION_FAILED
- * @li LIBSBML_UNEXPECTED_ATTRIBUTE
- * @li LIBSBML_INVALID_OBJECT
- *
- * @note The annotation constructed from a CVTerm uses the metaid
- * of the object to identify it.  Adding a CVTerm to an object
- * where the 'metaId' attribute has not been set will fail with the
- * return value LIBSBML_UNEXPECTED_ATTRIBUTE.
- */
 LIBSBML_EXTERN
 int
 SBase_addCVTerm(SBase_t *sb, CVTerm_t *term)
@@ -6378,27 +6358,6 @@ SBase_addCVTerm(SBase_t *sb, CVTerm_t *term)
 }
 
 
-/**
- * Adds a copy of the given CVTerm to this SBML object creating
- * a new bBag element with the same identifier.
- *
- * @param sb the object to add the CVTerm to
- * @param term the CVTerm_t to assign
- *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif@~ The possible values
- * returned by this function are:
- * @li LIBSBML_OPERATION_SUCCESS
- * @li LIBSBML_OPERATION_FAILED
- * @li LIBSBML_UNEXPECTED_ATTRIBUTE
- * @li LIBSBML_INVALID_OBJECT
- *
- * @note The annotation constructed from a CVTerm uses the metaid
- * of the object to identify it.  Adding a CVTerm to an object
- * where the 'metaId' attribute has not been set will fail with the
- * return value LIBSBML_UNEXPECTED_ATTRIBUTE.
- */
 LIBSBML_EXTERN
 int
 SBase_addCVTermNewBag(SBase_t *sb, CVTerm_t *term)
@@ -6407,14 +6366,6 @@ SBase_addCVTermNewBag(SBase_t *sb, CVTerm_t *term)
 }
 
 
-/**
- * Returns a list of CVTerm objects in the annotations of this SBML
- * object.
- *
- * @param sb the object to getCVTerms from
- *
- * @return the list of CVTerms for this SBML object.
- */
 LIBSBML_EXTERN
 List_t*
 SBase_getCVTerms(SBase_t *sb)
@@ -6423,14 +6374,6 @@ SBase_getCVTerms(SBase_t *sb)
 }
 
 
-/**
- * Returns the number of CVTerm objects in the annotations of this SBML
- * object.
- *
- * @param sb the object to getCVTerms from
- *
- * @return the number of CVTerms for this SBML object.
- */
 LIBSBML_EXTERN
 unsigned int
 SBase_getNumCVTerms(SBase_t *sb)
@@ -6438,15 +6381,6 @@ SBase_getNumCVTerms(SBase_t *sb)
   return (sb != NULL) ? sb->getNumCVTerms() : SBML_INT_MAX;
 }
 
-/**
- * Returns the nth CVTerm in the list of CVTerms of this SBML
- * object.
- *
- * @param sb the object to getCVTerms from
- * @param n unsigned int the index of the CVTerm to retrieve
- *
- * @return the nth CVTerm in the list of CVTerms for this SBML object.
- */
 LIBSBML_EXTERN
 CVTerm_t*
 SBase_getCVTerm(SBase_t *sb, unsigned int n)
@@ -6454,19 +6388,6 @@ SBase_getCVTerm(SBase_t *sb, unsigned int n)
   return (sb != NULL) ? static_cast <CVTerm_t *> (sb->getCVTerm(n)) : NULL;
 }
 
-/**
- * Clears the list of CVTerms of this SBML
- * object.
- *
- * @param sb the object to clear CVTerms from
- *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif@~ The possible values
- * returned by this function are:
- * @li LIBSBML_OPERATION_SUCCESS
- * @li LIBSBML_OPERATION_FAILED
- */
 LIBSBML_EXTERN
 int
 SBase_unsetCVTerms(SBase_t *sb)
@@ -6475,13 +6396,6 @@ SBase_unsetCVTerms(SBase_t *sb)
 }
 
 
-/**
- * Returns the ModelHistory of the given SBase_t structure.
- *
- * @return the ModelHistory of the given SBase_t structure.
- *
- * @param sb the SBase_t structure
- */
 LIBSBML_EXTERN
 ModelHistory_t *
 SBase_getModelHistory(SBase_t *sb)
@@ -6489,15 +6403,7 @@ SBase_getModelHistory(SBase_t *sb)
   return (sb != NULL) ? sb->getModelHistory() : NULL;
 }
 
-/**
- * Predicate for testing whether the ModelHistory of a given SBase_t structure is
- * assigned.
- *
- * @param sb the SBase_t structure
- *
- * @return nonzero if the ModelHistory of this SBase_t structure is
- * set, zero (0) otherwise.
- */LIBSBML_EXTERN
+LIBSBML_EXTERN
 int
 SBase_isSetModelHistory(SBase_t *sb)
 {
@@ -6505,19 +6411,6 @@ SBase_isSetModelHistory(SBase_t *sb)
 }
 
 
-/**
- * Set the ModelHistory of the given SBase_t structure.
- *
- * @param sb the SBase_t structure
- * @param history the ModelHistory_t structure
- *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif@~ The possible values
- * returned by this function are:
- * @li LIBSBML_OPERATION_SUCCESS
- * @li LIBSBML_INVALID_OBJECT
- */
 LIBSBML_EXTERN
 int
 SBase_setModelHistory(SBase_t *sb, ModelHistory_t *history)
@@ -6525,18 +6418,6 @@ SBase_setModelHistory(SBase_t *sb, ModelHistory_t *history)
   return (sb != NULL) ? sb->setModelHistory(history) : LIBSBML_INVALID_OBJECT;
 }
 
-/**
- * Unsets the ModelHistory of the given SBase_t structure.
- *
- * @param sb the SBase_t structure
- *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif@~ The possible values
- * returned by this function are:
- * @li LIBSBML_OPERATION_SUCCESS
- * @li LIBSBML_OPERATION_FAILED
- */
 LIBSBML_EXTERN
 int
 SBase_unsetModelHistory(SBase_t *sb)
@@ -6545,16 +6426,6 @@ SBase_unsetModelHistory(SBase_t *sb)
 }
 
 
-/**
- * Returns the BiologicalQualifier associated with this resource,
- * BQB_UNKNOWN if the resource does not exist.
- *
- * @param sb the object to query
- * @param resource string representing the resource; e.g.,
- * "http://www.geneontology.org/#GO:0005892"
- *
- * @return the BiolQualifierType_t associated with the resource
- */
 LIBSBML_EXTERN
 BiolQualifierType_t
 SBase_getResourceBiologicalQualifier(SBase_t *sb, const char * resource)
@@ -6567,16 +6438,6 @@ SBase_getResourceBiologicalQualifier(SBase_t *sb, const char * resource)
 }
 
 
-/**
- * Returns the ModelQualifier associated with this resource,
- * BQM_UNKNOWN if the resource does not exist.
- *
- * @param sb the object to query
- * @param resource string representing the resource; e.g.,
- * "http://www.geneontology.org/#GO:0005892"
- *
- * @return the ModelQualifierType_t associated with the resource
- */
 LIBSBML_EXTERN
 ModelQualifierType_t
 SBase_getResourceModelQualifier(SBase_t *sb, const char * resource)
@@ -6589,16 +6450,6 @@ SBase_getResourceModelQualifier(SBase_t *sb, const char * resource)
 }
 
 
-
-
-/**
- * Returns the value of the "metaid" attribute of the given SBase_t
- * structure.
- *
- * @param sb the SBase_t structure
- *
- * @return the value of the "metaid" attribute of @p sb
- */
 LIBSBML_EXTERN
 const char *
 SBase_getMetaId (SBase_t *sb)
@@ -6607,46 +6458,6 @@ SBase_getMetaId (SBase_t *sb)
 }
 
 
-///**
-// * Returns the value of the "id" attribute of the given SBase_t
-// * structure.
-// *
-// * @param sb the SBase_t structure
-// *
-// * @return the value of the "id" attribute of @p sb
-// */
-//LIBSBML_EXTERN
-//const char *
-//SBase_getId (const SBase_t *sb)
-//{
-//  return sb->isSetId() ? sb->getId().c_str() : NULL;
-//}
-//
-//
-///**
-// * Returns the value of the "name" attribute of the given SBase_t
-// * structure.
-// *
-// * @param sb the SBase_t structure
-// *
-// * @return the value of the "name" attribute of @p sb
-// */
-//LIBSBML_EXTERN
-//const char *
-//SBase_getName (const SBase_t *sb)
-//{
-//  return sb->isSetName() ? sb->getName().c_str() : NULL;
-//}
-
-
-/**
- * Returns the parent SBMLDocument_t structure of the given SBase_t
- * structure.
- *
- * @param sb the SBase_t structure
- *
- * @return the parent SBMLDocument of this SBML object.
- */
 LIBSBML_EXTERN
 const SBMLDocument_t *
 SBase_getSBMLDocument (SBase_t *sb)
@@ -6655,14 +6466,6 @@ SBase_getSBMLDocument (SBase_t *sb)
 }
 
 
-/**
- * Returns the parent SBase_t structure of the given SBase_t
- * structure.
- *
- * @param sb the SBase_t structure
- *
- * @return the parent SBase  of this SBML object.
- */
 LIBSBML_EXTERN
 const SBase_t *
 SBase_getParentSBMLObject (SBase_t *sb)
@@ -6671,24 +6474,6 @@ SBase_getParentSBMLObject (SBase_t *sb)
 }
 
 
-/**
- * Returns the ancestor SBase_t structure of the given SBase_t
- * structure that corresponds to the given type.
- *
- * This function allows any object to determine its exact
- * location/function within a model. For example a
- * StoichiometryMath object has ancestors of type SpeciesReference,
- * ListOf(Products/Reactants), Reaction, ListOfReactions and Model;
- * any of which can be accessed via this function.
- *
- * @param sb the SBase_t structure
- * @param type the typecode (int) of the structure to be returned
- * @param pkgName the name of the package that defines the @param type
- *
- * @return the ancestor SBase_t structure of this SBML object with
- * the corresponding typecode (int), NULL if there is no ancestor of
- * this type.
- */
 LIBSBML_EXTERN
 const SBase_t *
 SBase_getAncestorOfType (SBase_t *sb, int type, const char* pkgName)
@@ -6697,26 +6482,6 @@ SBase_getAncestorOfType (SBase_t *sb, int type, const char* pkgName)
 }
 
 
-/**
- * Returns the integer portion of the value of the "sboTerm" attribute of
- * the given SBase_t structure.
- *
- * In SBML Level 2 Versions 2 and 3, the data type of the attribute is a
- * string of the form SBO:NNNNNNN, where NNNNNNN is a seven digit integer
- * number; libSBML simplifies the representation by only storing the
- * NNNNNNN integer portion.  Thus, in libSBML, the "sboTerm" attribute on
- * SBase_t has data type @c int, and SBO identifiers are stored simply as
- * integers.  SBO terms are a type of optional annotation, and each
- * different class of SBML object derived from SBase_t imposes its own
- * requirements about the values permitted for "sboTerm".  Please consult
- * the SBML Level 2 Version 4 specification for more information about
- * the use of SBO and the "sboTerm" attribute.
- *
- * @param sb the SBase_t structure
- *
- * @return the value of the "sboTerm" attribute as an integer, or @c -1
- * if the value is not set.
- */
 LIBSBML_EXTERN
 int
 SBase_getSBOTerm (const SBase_t *sb)
@@ -6725,25 +6490,6 @@ SBase_getSBOTerm (const SBase_t *sb)
 }
 
 
-/**
- * Returns the string representation of the "sboTerm" attribute of
- * this object.
- *
- * In SBML Level 2 Versions 2, 3 and 4, the data type of the attribute is a
- * string of the form SBO:NNNNNNN, where NNNNNNN is a seven digit integer
- * number; libSBML simplifies the representation by only storing the
- * NNNNNNN integer portion.  Thus, in libSBML, the "sboTerm" attribute on
- * SBase has data type @c int, and SBO identifiers are stored simply as
- * integers.  This function recreates the string representation from the
- * stored value.  SBO terms are a type of optional annotation, and each
- * different class of SBML object derived from SBase imposes its own
- * requirements about the values permitted for "sboTerm".  Please consult
- * the SBML Level 2 Version 4 specification for more information about
- * the use of SBO and the "sboTerm" attribute.
- *
- * @return the value of the "sboTerm" attribute as a string of the form
- * SBO:NNNNNNN, or @c NULL if the value is not set.
- */
 LIBSBML_EXTERN
 char*
 SBase_getSBOTermID (const SBase_t *sb)
@@ -6753,13 +6499,6 @@ SBase_getSBOTermID (const SBase_t *sb)
 }
 
 
-/**
- * Returns the identifiers.org URL  representation of the "sboTerm" attribute of
- * this object.
- *
- * @return the value of the "sboTerm" attribute as a string of the form
- * http://identifiers.org/biomodels.sbo/SBO:NNNNNNN, or @c NULL if the value is not set.
- */
 LIBSBML_EXTERN
 char*
 SBase_getSBOTermAsURL (const SBase_t *sb)
@@ -6769,15 +6508,6 @@ SBase_getSBOTermAsURL (const SBase_t *sb)
 }
 
 
-/**
- * Returns the SBML Level of the overall SBML document.
- *
- * @param sb the SBase_t structure to query
- *
- * @return the SBML level of the given object.
- *
- * @see getVersion()
- */
 LIBSBML_EXTERN
 unsigned int
 SBase_getLevel (const SBase_t *sb)
@@ -6786,15 +6516,6 @@ SBase_getLevel (const SBase_t *sb)
 }
 
 
-/**
- * Returns the Version within the SBML Level of the overall SBML document.
- *
- * @param sb the SBase_t structure to query
- *
- * @return the SBML version of the given object.
- *
- * @see getLevel()
- */
 LIBSBML_EXTERN
 unsigned int
 SBase_getVersion (const SBase_t *sb)
@@ -6803,13 +6524,6 @@ SBase_getVersion (const SBase_t *sb)
 }
 
 
-/**
- * Returns the notes from given SBML object.
- *
- * @param sb the given SBML object.
- *
- * @return the XMLNode_t structure representing the notes from this object.
- */
 LIBSBML_EXTERN
 XMLNode_t *
 SBase_getNotes (SBase_t *sb)
@@ -6818,15 +6532,6 @@ SBase_getNotes (SBase_t *sb)
 }
 
 
-/**
- * Returns the notes string from given SBML object.
- * The string is owned by the caller and should be freed
- * (with free()) when no longer needed.
- *
- * @param sb the given SBML object.
- *
- * @return the string (char*) representing the notes from this object.
- */
 LIBSBML_EXTERN
 char*
 SBase_getNotesString (SBase_t *sb)
@@ -6836,13 +6541,6 @@ SBase_getNotesString (SBase_t *sb)
 }
 
 
-/**
- * Returns the annotation from given SBML object.
- *
- * @param sb the given SBML object.
- *
- * @return the XMLNode_t structure representing the annotation from this object.
- */
 LIBSBML_EXTERN
 XMLNode_t *
 SBase_getAnnotation (SBase_t *sb)
@@ -6851,15 +6549,6 @@ SBase_getAnnotation (SBase_t *sb)
 }
 
 
-/**
- * Returns the annotation string from given SBML object.
- * The string is owned by the caller and should be freed
- * (with free()) when no longer needed.
- *
- * @param sb the given SBML object.
- *
- * @return the string (char*) representing the annotation from this object.
- */
 LIBSBML_EXTERN
 char*
 SBase_getAnnotationString (SBase_t *sb)
@@ -6869,15 +6558,6 @@ SBase_getAnnotationString (SBase_t *sb)
 }
 
 
-/**
- * Predicate returning nonzero true or false depending on whether the given
- * structure's "metaid" attribute is set.
- *
- * @param sb the SBase_t structure to query
- *
- * @return nonzero (for true) if the "metaid" attribute of this SBML object
- * is set, zero (for false) otherwise.
- */
 LIBSBML_EXTERN
 int
 SBase_isSetMetaId (const SBase_t *sb)
@@ -6886,49 +6566,6 @@ SBase_isSetMetaId (const SBase_t *sb)
 }
 
 
-///**
-// * Predicate returning nonzero true or false depending on whether the given
-// * structure's "id" attribute is set.
-// *
-// * @param sb the SBase_t structure to query
-// *
-// * @return nonzero (for true) if the "id" attribute of this SBML object
-// * is set, zero (for false) otherwise.
-// */
-//LIBSBML_EXTERN
-//int
-//SBase_isSetId (const SBase_t *sb)
-//{
-//  return static_cast<int>( sb->isSetId() );
-//}
-//
-//
-///**
-// * Predicate returning nonzero true or false depending on whether the given
-// * structure's "name" attribute is set.
-// *
-// * @param sb the SBase_t structure to query
-// *
-// * @return nonzero (for true) if the "name" attribute of this SBML object
-// * is set, zero (for false) otherwise.
-// */
-//LIBSBML_EXTERN
-//int
-//SBase_isSetName (const SBase_t *sb)
-//{
-//  return static_cast<int>( sb->isSetName() );
-//}
-
-
-/**
- * Predicate returning nonzero true or false depending on whether the given
- * structure's "notes" subelement is set.
- *
- * @param sb the SBase_t structure to query
- *
- * @return nonzero (for true) if the "notes" subelement of this SBML object
- * is set, zero (for false) otherwise.
- */
 LIBSBML_EXTERN
 int
 SBase_isSetNotes (const SBase_t *sb)
@@ -6937,15 +6574,6 @@ SBase_isSetNotes (const SBase_t *sb)
 }
 
 
-/**
- * Predicate returning nonzero true or false depending on whether the given
- * structure's "annotation" subelement is set.
- *
- * @param sb the SBase_t structure to query
- *
- * @return nonzero (for true) if the "annotation" subelement of this SBML object
- * is set, zero (for false) otherwise.
- */
 LIBSBML_EXTERN
 int
 SBase_isSetAnnotation (const SBase_t *sb)
@@ -6954,15 +6582,6 @@ SBase_isSetAnnotation (const SBase_t *sb)
 }
 
 
-/**
- * Predicate returning nonzero true or false depending on whether the given
- * structure's "sboTerm" attribute is set.
- *
- * @param sb the SBase_t structure to query
- *
- * @return nonzero (for true) if the "sboTerm" attribute of this SBML object
- * is set, zero (for false) otherwise.
- */
 LIBSBML_EXTERN
 int
 SBase_isSetSBOTerm (const SBase_t *sb)
@@ -6971,34 +6590,6 @@ SBase_isSetSBOTerm (const SBase_t *sb)
 }
 
 
-/**
- * Sets the value of the "metaid" attribute of the given object.
- *
- * The string @p metaid is copied.  The value of @p metaid must be an
- * identifier conforming to the syntax defined by the XML 1.0 data type
- * ID.  Among other things, this type requires that a value is unique
- * among all the values of type XML ID in an SBMLDocument.  Although SBML
- * only uses XML ID for the "metaid" attribute, callers should be careful
- * if they use XML ID's in XML portions of a model that are not defined
- * by SBML, such as in the application-specific content of the
- * "annotation" subelement.
- *
- * @param sb the SBase_t structure
- *
- * @param metaid the identifier string to use as the value of the
- * "metaid" attribute
- *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif@~ The possible values
- * returned by this function are:
- * @li LIBSBML_OPERATION_SUCCESS
- * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
- * @li LIBSBML_UNEXPECTED_ATTRIBUTE
- *
- * @note Using this function with the metaid set to NULL is equivalent to
- * unsetting the "metaid" attribute.
- */
 LIBSBML_EXTERN
 int
 SBase_setMetaId (SBase_t *sb, const char *metaid)
@@ -7010,101 +6601,6 @@ SBase_setMetaId (SBase_t *sb, const char *metaid)
 }
 
 
-///**
-// * Sets the value of the "id" attribute of this SBML object.
-// *
-// * The string @p sid is copied.  Note that SBML has strict requirements
-// * for the syntax of identifiers.  The following is summary of the
-// * definition of the SBML identifier type @c SId (here expressed in an
-// * extended form of BNF notation):
-// * @code
-// *   letter ::= 'a'..'z','A'..'Z'
-// *   digit  ::= '0'..'9'
-// *   idChar ::= letter | digit | '_'
-// *   SId    ::= ( letter | '_' ) idChar*
-// * @endcode
-// * The equality of SBML identifiers is determined by an exact character
-// * sequence match; i.e., comparisons must be performed in a
-// * case-sensitive manner.  In addition, there are a few conditions for
-// * the uniqueness of identifiers in an SBML model.  Please consult the
-// * SBML specifications for the exact formulations.
-// *
-// * @param sb the SBase_t structure
-// *
-// * @param sid the string to use as the identifier of this object
-// *
-// * @return integer value indicating success/failure of the
-// * function.  @if clike The value is drawn from the
-// * enumeration #OperationReturnValues_t. @endif@~ The possible values
-// * returned by this function are:
-// *
-// * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
-// * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE @endlink
-// *
-// * @note Using this function with an id of NULL is equivalent to
-// * unsetting the "id" attribute.
-// */
-//LIBSBML_EXTERN
-//int
-//SBase_setId (SBase_t *sb, const char *sid)
-//{
-//  return (sid == NULL) ? sb->unsetId() : sb->setId(sid);
-//}
-//
-//
-///**
-// * Sets the value of the "name" attribute of this SBML object.
-// *
-// * The string in @p name is copied.
-// *
-// * @param sb the SBase_t structure
-// *
-// * @param name the new name for the object
-// *
-// * @return integer value indicating success/failure of the
-// * function.  @if clike The value is drawn from the
-// * enumeration #OperationReturnValues_t. @endif@~ The possible values
-// * returned by this function are:
-// *
-// * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
-// * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE @endlink
-// *
-// * @note Using this function with the name set to NULL is equivalent to
-// * unsetting the "name" attribute.
-// */
-//LIBSBML_EXTERN
-//int
-//SBase_setName (SBase_t *sb, const char *name)
-//{
-//  return (name == NULL) ? sb->unsetName() : sb->setName(name);
-//}
-
-
-/**
- * Sets the value of the "sboTerm" attribute.
- *
- * In SBML Level 2 Versions 2, 3 and 4, the data type of the SBML "sboTerm"
- * attribute is a string of the form SBO:NNNNNNN, where NNNNNNN is a seven
- * digit integer number; libSBML simplifies the representation by only
- * storing the NNNNNNN integer portion.  Thus, in libSBML, the "sboTerm"
- * attribute on SBase_t has data type @c int, and SBO identifiers are
- * stored simply as integers.  SBO terms are a type of optional annotation,
- * and each different class of SBML object derived from SBase_t imposes its
- * own requirements about the values permitted for "sboTerm".  Please
- * consult the SBML Level 2 Version 4 specification for more information
- * about the use of SBO and the "sboTerm" attribute.
- *
- * @param sb the SBase_t structure
- * @param value the NNNNNNN integer portion of the SBO identifier
- *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif@~ The possible values
- * returned by this function are:
- * @li LIBSBML_OPERATION_SUCCESS
- * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
- * @li LIBSBML_UNEXPECTED_ATTRIBUTE
- */
 LIBSBML_EXTERN
 int
 SBase_setSBOTerm (SBase_t *sb, int value)
@@ -7116,32 +6612,6 @@ SBase_setSBOTerm (SBase_t *sb, int value)
 }
 
 
-/*
- * Sets the value of the "sboTerm" attribute by string.
- *
- * In SBML Level 2 Versions 2, 3 and 4, the data type of the SBML "sboTerm"
- * attribute is a string of the form SBO:NNNNNNN, where NNNNNNN is a
- * seven digit integer number; libSBML simplifies the representation by
- * only storing the NNNNNNN integer portion converted from the given string.
- * Thus, in libSBML, the "sboTerm" attribute on SBase has data type @c int,
- * and SBO identifiers are stored simply as integers.  SBO terms are a type
- * of optional annotation, and each different class of SBML object derived
- * from SBase imposes its own requirements about the values permitted for
- * "sboTerm".  Please consult the SBML Level 2 Version 4 specification for
- * more information about the use of SBO and the "sboTerm" attribute.
- *
- * @param sb the SBase_t structure
- *
- * @param value the SBO identifier string of the form SBO:NNNNNNN
- *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif@~ The possible values
- * returned by this function are:
- * @li LIBSBML_OPERATION_SUCCESS
- * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
- * @li LIBSBML_UNEXPECTED_ATTRIBUTE
- */
 LIBSBML_EXTERN
 int
 SBase_setSBOTermID (SBase_t *sb, const char* sboid)
@@ -7153,19 +6623,6 @@ SBase_setSBOTermID (SBase_t *sb, const char* sboid)
 }
 
 
-/**
- * Sets the namespaces relevant of this SBML object.
- *
- * @param sb the SBase_t structure
- *
- * @param xmlns the namespaces to set
- *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif@~ The possible values
- * returned by this function are:
- * @li LIBSBML_OPERATION_SUCCESS
- */
 LIBSBML_EXTERN
 int
 SBase_setNamespaces (SBase_t *sb, XMLNamespaces_t *xmlns)
@@ -7177,19 +6634,6 @@ SBase_setNamespaces (SBase_t *sb, XMLNamespaces_t *xmlns)
 }
 
 
-/**
- * Sets the notes for the given SBML object.
- *
- * @param sb the given SBML object.
- * @param notes the XMLNode_t structure respresenting the notes.
- *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif@~ The possible values
- * returned by this function are:
- * @li LIBSBML_OPERATION_SUCCESS
- * @li LIBSBML_INVALID_OBJECT
- */
 LIBSBML_EXTERN
 int
 SBase_setNotes (SBase_t *sb, XMLNode_t *notes)
@@ -7201,20 +6645,6 @@ SBase_setNotes (SBase_t *sb, XMLNode_t *notes)
 }
 
 
-/**
- * Sets the notes for the given SBML object.
- *
- * @param sb the given SBML object.
- * @param notes the string (const char*) respresenting the notes.
- *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif@~ The possible values
- * returned by this function are:
- * @li LIBSBML_OPERATION_SUCCESS
- * @li LIBSBML_INVALID_OBJECT
- * @li LIBSBML_OPERATION_FAILED
- */
 LIBSBML_EXTERN
 int
 SBase_setNotesString (SBase_t *sb, char *notes)
@@ -7235,20 +6665,6 @@ SBase_setNotesString (SBase_t *sb, char *notes)
 }
 
 
-/**
- * Sets the notes for the given SBML object.
- *
- * @param sb the given SBML object.
- * @param notes the string (const char*) respresenting the notes.
- *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif@~ The possible values
- * returned by this function are:
- * @li LIBSBML_OPERATION_SUCCESS
- * @li LIBSBML_INVALID_OBJECT
- * @li LIBSBML_OPERATION_FAILED
- */
 LIBSBML_EXTERN
 int
 SBase_setNotesStringAddMarkup (SBase_t *sb, char *notes)
@@ -7269,20 +6685,6 @@ SBase_setNotesStringAddMarkup (SBase_t *sb, char *notes)
 }
 
 
-/**
- * Appends the notes for the given SBML object.
- *
- * @param sb the given SBML object.
- * @param notes the XMLNode_t structure respresenting the notes.
- *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif@~ The possible values
- * returned by this function are:
- * @li LIBSBML_OPERATION_SUCCESS
- * @li LIBSBML_INVALID_OBJECT
- * @li LIBSBML_OPERATION_FAILED
- */
 LIBSBML_EXTERN
 int
 SBase_appendNotes (SBase_t *sb, XMLNode_t *notes)
@@ -7294,20 +6696,6 @@ SBase_appendNotes (SBase_t *sb, XMLNode_t *notes)
 }
 
 
-/**
- * Appends the notes for the given SBML object.
- *
- * @param sb the given SBML object.
- * @param notes the string (const char*) respresenting the notes.
- *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif@~ The possible values
- * returned by this function are:
- * @li LIBSBML_OPERATION_SUCCESS
- * @li LIBSBML_INVALID_OBJECT
- * @li LIBSBML_OPERATION_FAILED
- */
 LIBSBML_EXTERN
 int
 SBase_appendNotesString (SBase_t *sb, char *notes)
@@ -7324,18 +6712,6 @@ SBase_appendNotesString (SBase_t *sb, char *notes)
 }
 
 
-/**
- * Sets the annotation for the given SBML object.
- *
- * @param sb the given SBML object.
- * @param annotation the XMLNode_t structure respresenting the annotation.
- *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif@~ The possible values
- * returned by this function are:
- * @li LIBSBML_OPERATION_SUCCESS
- */
 LIBSBML_EXTERN
 int
 SBase_setAnnotation (SBase_t *sb, XMLNode_t *annotation)
@@ -7347,19 +6723,6 @@ SBase_setAnnotation (SBase_t *sb, XMLNode_t *annotation)
 }
 
 
-/**
- * Sets the annotation for the given SBML object.
- *
- * @param sb the given SBML object.
- * @param annotation the string (const char*) respresenting the annotation.
- *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif@~ The possible values
- * returned by this function are:
- * @li LIBSBML_OPERATION_SUCCESS
- * @li LIBSBML_OPERATION_FAILED
- */
 LIBSBML_EXTERN
 int
 SBase_setAnnotationString (SBase_t *sb, char *annotation)
@@ -7380,19 +6743,6 @@ SBase_setAnnotationString (SBase_t *sb, char *annotation)
 }
 
 
-/**
- * Appends the annotation for the given SBML object.
- *
- * @param sb the given SBML object.
- * @param annotation the XMLNode_t structure respresenting the annotation.
- *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif@~ The possible values
- * returned by this function are:
- * @li LIBSBML_OPERATION_SUCCESS
- * @li LIBSBML_OPERATION_FAILED
- */
 LIBSBML_EXTERN
 int
 SBase_appendAnnotation (SBase_t *sb, XMLNode_t *annotation)
@@ -7404,19 +6754,6 @@ SBase_appendAnnotation (SBase_t *sb, XMLNode_t *annotation)
 }
 
 
-/**
- * Appends the annotation for the given SBML object.
- *
- * @param sb the given SBML object.
- * @param annotation the string (const char*) respresenting the annotation.
- *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif@~ The possible values
- * returned by this function are:
- * @li LIBSBML_OPERATION_SUCCESS
- * @li LIBSBML_OPERATION_FAILED
- */
 LIBSBML_EXTERN
 int
 SBase_appendAnnotationString (SBase_t *sb, char *annotation)
@@ -7432,34 +6769,6 @@ SBase_appendAnnotationString (SBase_t *sb, char *annotation)
     return LIBSBML_INVALID_OBJECT;
 }
 
-/**
- * Removes the top-level element within the "annotation"
- * subelement of this SBML object with the given name.
- *
- * SBML places a few restrictions on the organization of the content of
- * annotations; these are intended to help software tools read and write
- * the data as well as help reduce conflicts between annotations added by
- * different tools.  Please see the SBML specifications for more details.
- *
- * Calling this method allows a particular annotation element to be removed
- * whilst the remaining annotations remain intact.
- *
- * @param sb SBase_t object containing the annotation to be altered
- * @param elementName a string representing the name of the top level
- * annotation element that is to be removed
- *
- * @return integer value indicating success/failure of the
- * function.  The possible values returned by this function are:
- * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
- * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
- * @li @link OperationReturnValues_t#LIBSBML_ANNOTATION_NAME_NOT_FOUND LIBSBML_ANNOTATION_NAME_NOT_FOUND @endlink
- * @li @link OperationReturnValues_t#LIBSBML_ANNOTATION_NS_NOT_FOUND LIBSBML_ANNOTATION_NS_NOT_FOUND @endlink
- *
- * @see SBase_removeTopLevelAnnotationElementWithURI (SBase_t *,
- *  const char *, const char *)
- * @see SBase_replaceTopLevelAnnotationElement (SBase_t *, XMLNode_t *)
- * @see SBase_replaceTopLevelAnnotationElementString (SBase_t *, char *)
- */
 LIBSBML_EXTERN
 int
 SBase_removeTopLevelAnnotationElement (SBase_t *sb, char *name)
@@ -7476,35 +6785,6 @@ SBase_removeTopLevelAnnotationElement (SBase_t *sb, char *name)
 }
 
 
-/**
- * Removes the top-level element within the "annotation"
- * subelement of this SBML object with the given name and URI.
- *
- * SBML places a few restrictions on the organization of the content of
- * annotations; these are intended to help software tools read and write
- * the data as well as help reduce conflicts between annotations added by
- * different tools.  Please see the SBML specifications for more details.
- *
- * Calling this method allows a particular annotation element to be removed
- * whilst the remaining annotations remain intact.
- *
- * @param sb SBase_t object containing the annotation to be altered
- * @param name a string representing the name of the top level
- * annotation element that is to be removed
- * @param uri a string that is used to check both the name
- * and URI of the top level element to be removed
- *
- * @return integer value indicating success/failure of the
- * function.  The possible values returned by this function are:
- * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
- * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
- * @li @link OperationReturnValues_t#LIBSBML_ANNOTATION_NAME_NOT_FOUND LIBSBML_ANNOTATION_NAME_NOT_FOUND @endlink
- * @li @link OperationReturnValues_t#LIBSBML_ANNOTATION_NS_NOT_FOUND LIBSBML_ANNOTATION_NS_NOT_FOUND @endlink
- *
- * @see SBase_removeTopLevelAnnotationElement (SBase_t *, const char *)
- * @see SBase_replaceTopLevelAnnotationElement (SBase_t *, XMLNode_t *)
- * @see SBase_replaceTopLevelAnnotationElementString (SBase_t *, char *)
- */
 LIBSBML_EXTERN
 int
 SBase_removeTopLevelAnnotationElementWithURI (SBase_t *sb, const char *name,
@@ -7522,36 +6802,6 @@ SBase_removeTopLevelAnnotationElementWithURI (SBase_t *sb, const char *name,
 }
 
 
-/**
- * Replaces the given top-level element within the "annotation"
- * subelement of this SBML object and with the annotation element supplied.
- *
- * SBML places a few restrictions on the organization of the content of
- * annotations; these are intended to help software tools read and write
- * the data as well as help reduce conflicts between annotations added by
- * different tools.  Please see the SBML specifications for more details.
- *
- * This method determines the name of the element to be replaced from the
- * annotation argument. Functionally it is equivalent to calling
- * <code> SBase_removeTopLevelAnnotationElement(sb, name);
- * SBase_appendAnnotation(sb, annotation_with_name);
- * </code> with the exception that the placement of the annotation element remains
- * the same.
- *
- * @param sb SBase_t object containing the annotation to be altered
- * @param annotation XMLNode representing the replacement top level annotation
- *
- * @return integer value indicating success/failure of the
- * function.  The possible values returned by this function are:
- * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
- * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
- * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT @endlink
- *
- * @see SBase_removeTopLevelAnnotationElement (SBase_t *, const char *)
- * @see SBase_removeTopLevelAnnotationElementWithURI (SBase_t *,
- *  const char *, const char *)
- * @see SBase_replaceTopLevelAnnotationElementString (SBase_t *, char *)
- */
 LIBSBML_EXTERN
 int
 SBase_replaceTopLevelAnnotationElement (SBase_t *sb, XMLNode_t *annotation)
@@ -7568,36 +6818,6 @@ SBase_replaceTopLevelAnnotationElement (SBase_t *sb, XMLNode_t *annotation)
 }
 
 
-/**
- * Replaces the given top-level element within the "annotation"
- * subelement of this SBML object and with the annotation element supplied.
- *
- * SBML places a few restrictions on the organization of the content of
- * annotations; these are intended to help software tools read and write
- * the data as well as help reduce conflicts between annotations added by
- * different tools.  Please see the SBML specifications for more details.
- *
- * This method determines the name of the element to be replaced from the
- * annotation argument. Functionally it is equivalent to calling
- * <code> SBase_removeTopLevelAnnotationElement(sb, name);
- * SBase_appendAnnotation(sb, annotation_with_name);
- * </code> with the exception that the placement of the annotation element remains
- * the same.
- *
- * @param sb SBase_t object containing the annotation to be altered
- * @param annotation string representing the replacement top level annotation
- *
- * @return integer value indicating success/failure of the
- * function.  The possible values returned by this function are:
- * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
- * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
- * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT @endlink
- *
- * @see SBase_removeTopLevelAnnotationElement (SBase_t *, const char *)
- * @see SBase_removeTopLevelAnnotationElementWithURI (SBase_t *,
- *  const char *, const char *)
- * @see SBase_replaceTopLevelAnnotationElement (SBase_t *, XMLNode_t *)
- */
 LIBSBML_EXTERN
 int
 SBase_replaceTopLevelAnnotationElementString (SBase_t *sb, char *annotation)
@@ -7614,18 +6834,6 @@ SBase_replaceTopLevelAnnotationElementString (SBase_t *sb, char *annotation)
 }
 
 
-/**
- * Unsets the "metaid" attribute of the given object.
- *
- * @param sb the SBase_t structure
- *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif@~ The possible values
- * returned by this function are:
- * @li LIBSBML_OPERATION_SUCCESS
- * @li LIBSBML_OPERATION_FAILED
- */
 LIBSBML_EXTERN
 int
 SBase_unsetMetaId (SBase_t *sb)
@@ -7637,59 +6845,27 @@ SBase_unsetMetaId (SBase_t *sb)
 }
 
 
-/*
-* Unsets the "id" attribute of the given object.
-*
-* @param sb the SBase_t structure
-*
-* @return integer value indicating success/failure of the
-* function.  @if clike The value is drawn from the
-* enumeration #OperationReturnValues_t. @endif@~ The possible values
-* returned by this function are:
-*
-* @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
-* @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
-*/
-LIBSBML_EXTERN
-int
-SBase_unsetId (SBase_t *sb)
-{
- return sb->unsetId();
-}
-
-
-///**
-// * Unsets the "name" attribute of the given object.
-// *
-// * @param sb the SBase_t structure
-// *
-// * @return integer value indicating success/failure of the
-// * function.  @if clike The value is drawn from the
-// * enumeration #OperationReturnValues_t. @endif@~ The possible values
-// * returned by this function are:
-// *
-// * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
-// * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
-// */
+///*
+//* Unsets the "id" attribute of the given object.
+//*
+//* @param sb the SBase_t structure
+//*
+//* @return integer value indicating success/failure of the
+//* function.  @if clike The value is drawn from the
+//* enumeration #OperationReturnValues_t. @endif@~ The possible values
+//* returned by this function are:
+//*
+//* @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+//* @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
+//*/
 //LIBSBML_EXTERN
 //int
-//SBase_unsetName (SBase_t *sb)
+//SBase_unsetId (SBase_t *sb)
 //{
-//  return sb->unsetName();
+// return sb->unsetId();
 //}
+//
 
-
-/**
- * Unsets the "notes" subelement of the given object.
- *
- * @param sb the SBase_t structure
- *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif@~ The possible values
- * returned by this function are:
- * @li LIBSBML_OPERATION_SUCCESS
- */
 LIBSBML_EXTERN
 int
 SBase_unsetNotes (SBase_t *sb)
@@ -7701,17 +6877,6 @@ SBase_unsetNotes (SBase_t *sb)
 }
 
 
-/**
- * Unsets the "annotation" subelement of the given object.
- *
- * @param sb the SBase_t structure
- *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif@~ The possible values
- * returned by this function are:
- * @li LIBSBML_OPERATION_SUCCESS
- */
 LIBSBML_EXTERN
 int
 SBase_unsetAnnotation (SBase_t *sb)
@@ -7723,18 +6888,6 @@ SBase_unsetAnnotation (SBase_t *sb)
 }
 
 
-/**
- * Unsets the "sboTerm" attribute of the given object.
- *
- * @param sb the SBase_t structure
- *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif@~ The possible values
- * returned by this function are:
- * @li LIBSBML_OPERATION_SUCCESS
- * @li LIBSBML_UNEXPECTED_ATTRIBUTE
- */
 LIBSBML_EXTERN
 int
 SBase_unsetSBOTerm (SBase_t *sb)
@@ -7746,13 +6899,6 @@ SBase_unsetSBOTerm (SBase_t *sb)
 }
 
 
-/**
- * Returns the Model_t structure in which the given instance is located.
- *
- * @param sb the SBase_t structure
- *
- * @return the parent Model_t strucdture of the given object.
- */
 LIBSBML_EXTERN
 const Model_t *
 SBase_getModel (const SBase_t *sb)
@@ -7760,35 +6906,6 @@ SBase_getModel (const SBase_t *sb)
   return (sb != NULL) ? sb->getModel() : NULL;
 }
 
-/**
- * Returns the libSBML type code for this object.
- *
- * This method MAY return the typecode of this SBML object or it MAY
- * return SBML_UNKNOWN.  That is, subclasses of SBase are not required to
- * implement this method to return a typecode.  This method is meant
- * primarily for the LibSBML C interface where class and subclass
- * information is not readily available.
- *
- * @note In libSBML 5, the type of return value has been changed from
- *       typecode (int) to int. The return value is one of enum values defined
- *       for each package. For example, return values will be one of
- *       typecode (int) if this object is defined in SBML core package,
- *       return values will be one of #SBMLLayoutTypeCode_t if this object is
- *       defined in Layout extension (i.e. similar enum types are defined in
- *       each package extension for each SBase subclass)
- *       The value of each typecode can be duplicated between those of
- *       different packages. Thus, to distinguish the typecodes of different
- *       packages, not only the return value of getTypeCode() but also that of
- *       getPackageName() must be checked.
- *
- * @param sb the SBase_t structure
- *
- * @return the typecode (int value) of this SBML object or SBML_UNKNOWN
- * (default).
- *
- * @see getElementName()
- * @see getPackageName()
- */
 LIBSBML_EXTERN
 int
 SBase_getTypeCode (const SBase_t *sb)
@@ -7797,15 +6914,6 @@ SBase_getTypeCode (const SBase_t *sb)
 }
 
 
-/**
- * Returns the XML element name of the given structure.
- *
- * This is overridden by subclasses to return a string appropriate to the
- * SBML component.  For example, Model defines it as returning "model",
- * CompartmentType defines it as returning "compartmentType", etc.
- *
- * @param sb the SBase_t structure
- */
 LIBSBML_EXTERN
 const char *
 SBase_getElementName (const SBase_t *sb)
@@ -7815,16 +6923,6 @@ SBase_getElementName (const SBase_t *sb)
 }
 
 
-/**
- * Returns the line number on which the given object first appears in the
- * XML representation of the SBML document.
- *
- * @param sb the SBase_t structure
- *
- * @return the line number of the given structure
- *
- * @see getColumn().
- */
 LIBSBML_EXTERN
 unsigned int
 SBase_getLine (const SBase_t *sb)
@@ -7833,16 +6931,6 @@ SBase_getLine (const SBase_t *sb)
 }
 
 
-/**
- * Returns the column number on which the given object first appears in the
- * XML representation of the SBML document.
- *
- * @param sb the SBase_t structure
- *
- * @return the column number of this SBML object.
- *
- * @see getLine().
- */
 LIBSBML_EXTERN
 unsigned int
 SBase_getColumn (const SBase_t *sb)
@@ -7851,26 +6939,6 @@ SBase_getColumn (const SBase_t *sb)
 }
 
 
-/**
-  * Predicate returning nonzero true or false depending on whether the
-  * object's level/version and namespace values correspond to a valid
-  * SBML specification.
-  *
-  * The valid combinations of SBML Level, Version and Namespace as of this release
-  * of libSBML are the following:
-  * <ul>
-  * <li> Level&nbsp;1 Version&nbsp;2 "http://www.sbml.org/sbml/level1"
-  * <li> Level&nbsp;2 Version&nbsp;1 "http://www.sbml.org/sbml/level2"
-  * <li> Level&nbsp;2 Version&nbsp;2 "http://www.sbml.org/sbml/level2/version2"
-  * <li> Level&nbsp;2 Version&nbsp;3 "http://www.sbml.org/sbml/level2/version3"
-  * <li> Level&nbsp;2 Version&nbsp;4 "http://www.sbml.org/sbml/level2/version4"
-  * </ul>
-  *
-  * @param sb the SBase_t structure
-  *
-  * @return nonzero (true) if the level, version and namespace values of this
-  * SBML object correspond to a valid set of values, zero (false) otherwise.
-  */
 LIBSBML_EXTERN
 int
 SBase_hasValidLevelVersionNamespaceCombination(SBase_t *sb)
@@ -7895,23 +6963,6 @@ SBase_getPlugin(SBase_t *sb, const char *package)
   return (sb != NULL) ? sb->getPlugin(package) : NULL;
 }
 
-/**
- * Sets the user data of this node. This can be used by the application
- * developer to attach custom information to the node. In case of a deep
- * copy this attribute will passed as it is. The attribute will be never
- * interpreted by this class.
- *
- * @param node defines the node of which the user data should be set.
- * @param userData specifies the new user data.
- *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t.  @endif@~ The possible values
- * returned by this function are:
- * @li LIBSBML_OPERATION_SUCCESS
- * @li LIBSBML_OPERATION_FAILED
- * @li LIBSBML_INVALID_OBJECT
- */
 LIBSBML_EXTERN
 int
 SBase_setUserData(SBase_t* sb, void *userData)
@@ -7921,13 +6972,6 @@ SBase_setUserData(SBase_t* sb, void *userData)
 }
 
 
-/**
- * Returns the user data that has been previously set by setUserData().
- *
- * @param sb the SBase_t structure in question.
- * @return the user data of this node. NULL if no user data has been.
- * @see SBase_setUserData
- */
 LIBSBML_EXTERN
 void *SBase_getUserData(SBase_t* sb)
 {

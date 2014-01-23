@@ -1288,9 +1288,6 @@ operator<< (XMLOutputStream& stream, const XMLAttributes& attributes)
 /** @cond doxygenCOnly */
 
 
-/**
- * Creates a new empty XMLAttributes_t set.
- */
 LIBLAX_EXTERN
 XMLAttributes_t *
 XMLAttributes_create (void)
@@ -1299,11 +1296,6 @@ XMLAttributes_create (void)
 }
 
 
-/**
- * Frees the given XMLAttributes_t structure.
- *
- * @param xa the XMLAttributes_t structure to be freed.
- **/
 LIBLAX_EXTERN
 void
 XMLAttributes_free (XMLAttributes_t *xa)
@@ -1313,13 +1305,6 @@ XMLAttributes_free (XMLAttributes_t *xa)
 }
 
 
-/**
- * Creates a deep copy of the given XMLAttributes_t structure.
- * 
- * @param att the XMLAttributes_t structure to be copied
- * 
- * @return a (deep) copy of the given XMLAttributes_t structure.
- */
 LIBLAX_EXTERN
 XMLAttributes_t *
 XMLAttributes_clone (const XMLAttributes_t* att)
@@ -1329,23 +1314,6 @@ XMLAttributes_clone (const XMLAttributes_t* att)
 }
 
 
-/**
- * Adds a name/value pair to this XMLAttributes_t structure.
- *
- * @param xa the XMLAttributes_t structure 
- * @param name a string, the local name of the attribute.
- * @param value a string, the value of the attribute.
- *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif@~ The possible values
- * returned by this function are:
- * @li LIBSBML_OPERATION_SUCCESS
- * @li LIBSBML_INVALID_OBJECT
- *
- * @note if local name already exists in this attribute set, its value 
- * will be replaced.
- **/
 LIBLAX_EXTERN
 int
 XMLAttributes_add (XMLAttributes_t *xa,
@@ -1357,26 +1325,6 @@ XMLAttributes_add (XMLAttributes_t *xa,
 }
 
 
-/**
- * Adds a name/value pair to this XMLAttributes_t structure with a
- * prefix and URI defining a namespace.
- *
- * @param xa the XMLAttributes_t structure.
- * @param name a string, the local name of the attribute.
- * @param value a string, the value of the attribute.
- * @param uri a string, the namespace URI of the attribute.
- * @param prefix a string, the prefix of the namespace
- *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif@~ The possible values
- * returned by this function are:
- * @li LIBSBML_OPERATION_SUCCESS
- * @li LIBSBML_INVALID_OBJECT
- *
- * @note if local name with the same namespace URI already exists in this 
- * attribute set, its value will be replaced.
- **/
 LIBLAX_EXTERN
 int
 XMLAttributes_addWithNamespace (XMLAttributes_t *xa,
@@ -1390,20 +1338,6 @@ XMLAttributes_addWithNamespace (XMLAttributes_t *xa,
 }
 
 
-/**
-  * Adds an attribute with the given XMLtriple/value pair to this XMLAttributes_t structure.  
-  *
-  * @param xa the XMLAttributes_t structure.
-  * @param triple an XMLTriple_t, the triple of the attribute.
-  * @param value a string, the value of the attribute.
- *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif@~ The possible values
- * returned by this function are:
- * @li LIBSBML_OPERATION_SUCCESS
- * @li LIBSBML_INVALID_OBJECT
- **/
 LIBLAX_EXTERN
 int
 XMLAttributes_addWithTriple ( XMLAttributes_t *xa 
@@ -1415,41 +1349,6 @@ XMLAttributes_addWithTriple ( XMLAttributes_t *xa
 }
 
 
-/**
-  * Adds an attribute with the given name/value pair to this XMLAttributes_t structure.  
-  *
-  * This method is similar to the add method but an attribute with same name wont 
-  * be overwritten. This facilitates the addition of multiple resource attributes 
-  * to a annotations.
-  *
-  * @param xa the XMLAttributes_t structure.
-  * @param name a string, the name of the attribute.
-  * @param value a string, the value of the attribute.
-LIBLAX_EXTERN
-void
-XMLAttributes_addResource (XMLAttributes_t *xa, 
-			   const char *name, 
-			   const char *value)
-{
-  xa->addResource(name, value);
-}
- **/
-
-
-/**
- * Removes an attribute (a name/value pair) from this XMLAttributes set.  
- *
- * @param xa the XMLAttributes_t structure.
- * @param n an integer the index of the resource to be deleted
- *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif@~ The possible values
- * returned by this function are:
- * @li LIBSBML_OPERATION_SUCCESS
- * @li LIBSBML_INDEX_EXCEEDS_SIZE
- * @li LIBSBML_INVALID_OBJECT
- */
 LIBLAX_EXTERN
 int
 XMLAttributes_removeResource (XMLAttributes_t *xa, int n)
@@ -1459,20 +1358,6 @@ XMLAttributes_removeResource (XMLAttributes_t *xa, int n)
 }
 
 
-/**
- * Removes an attribute (a name/value pair) from this XMLAttributes set.  
- *
- * @param xa the XMLAttributes_t structure.
- * @param n an integer the index of the resource to be deleted
- *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif@~ The possible values
- * returned by this function are:
- * @li LIBSBML_OPERATION_SUCCESS
- * @li LIBSBML_INDEX_EXCEEDS_SIZE
- * @li LIBSBML_INVALID_OBJECT
- */
 LIBLAX_EXTERN
 int
 XMLAttributes_remove (XMLAttributes_t *xa, int n)
@@ -1482,25 +1367,6 @@ XMLAttributes_remove (XMLAttributes_t *xa, int n)
 }
 
 
-/**
- * Removes an attribute with the given local name from this XMLAttributes set.  
- *
- * @param xa the XMLAttributes_t structure.
- * @param name a string, the local name of the attribute.
- *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif@~ The possible values
- * returned by this function are:
- * @li LIBSBML_OPERATION_SUCCESS
- * @li LIBSBML_INDEX_EXCEEDS_SIZE
- * @li LIBSBML_INVALID_OBJECT
- *
- * @note A prefix and namespace URI bound to the local name are set to empty 
- * in this function.
- * XMLAttributes_removeByNS(name,uri) or XMLAttributes_removeByTriple(triple) 
- * should be used to remove an attribute with the given local name and namespace.
- */
 LIBLAX_EXTERN
 int
 XMLAttributes_removeByName (XMLAttributes_t *xa, const char* name)
@@ -1510,22 +1376,6 @@ XMLAttributes_removeByName (XMLAttributes_t *xa, const char* name)
 }
 
 
-/**
- * Removes an attribute with the given name and namespace URI from this
- * XMLAttributes set.
- *
- * @param xa the XMLAttributes_t structure.
- * @param name a string, the local name of the attribute for which the index is required.
- * @param uri a string, the namespace URI of the attribute.
- *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif@~ The possible values
- * returned by this function are:
- * @li LIBSBML_OPERATION_SUCCESS
- * @li LIBSBML_INDEX_EXCEEDS_SIZE
- * @li LIBSBML_INVALID_OBJECT
- */
 LIBLAX_EXTERN
 int
 XMLAttributes_removeByNS (XMLAttributes_t *xa, const char* name, const char* uri)
@@ -1535,21 +1385,6 @@ XMLAttributes_removeByNS (XMLAttributes_t *xa, const char* name, const char* uri
 }
 
 
-/**
- * Removes an attribute with the given triple from this XMLAttributes set.
- *
- * @param xa the XMLAttributes_t structure.
- * @param triple an XMLTriple, the XML triple of the attribute for which
- *        the index is required.
- *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif@~ The possible values
- * returned by this function are:
- * @li LIBSBML_OPERATION_SUCCESS
- * @li LIBSBML_INDEX_EXCEEDS_SIZE
- * @li LIBSBML_INVALID_OBJECT
- */
 LIBLAX_EXTERN
 int
 XMLAttributes_removeByTriple (XMLAttributes_t *xa, const XMLTriple_t* triple)
@@ -1559,18 +1394,6 @@ XMLAttributes_removeByTriple (XMLAttributes_t *xa, const XMLTriple_t* triple)
 }
 
 
-/**
- * Clears (deletes) all attributes in this XMLAttributes object.
- *
- * @param xa the XMLAttributes_t structure.
- *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif@~ The possible values
- * returned by this function are:
- * @li LIBSBML_OPERATION_SUCCESS
- * @li LIBSBML_INVALID_OBJECT
- */
 LIBLAX_EXTERN
 int 
 XMLAttributes_clear(XMLAttributes_t *xa)
@@ -1580,14 +1403,6 @@ XMLAttributes_clear(XMLAttributes_t *xa)
 }
 
 
-/**
- * Return the index of an attribute with the given name.
- *
- * @param xa the XMLAttributes_t structure.
- * @param name a string, the local name of the attribute for which the index is required.
- *
- * @return the index of an attribute with the given local name, or -1 if not present.
- */
 LIBLAX_EXTERN
 int
 XMLAttributes_getIndex (const XMLAttributes_t *xa, const char *name)
@@ -1597,16 +1412,6 @@ XMLAttributes_getIndex (const XMLAttributes_t *xa, const char *name)
 }
 
 
-/**
- * Return the index of an attribute with the given name and namespace URI.
- *
- * @param xa the XMLAttributes_t structure.
- * @param name a string, the local name of the attribute for which the index is required.
- * @param uri a string, the namespace URI of the attribute.
- *
- * @return the index of an attribute with the given local name and namespace URI, 
- * or -1 if not present.
- */
 LIBLAX_EXTERN
 int
 XMLAttributes_getIndexByNS (const XMLAttributes_t *xa, const char *name, const char *uri)
@@ -1616,15 +1421,6 @@ XMLAttributes_getIndexByNS (const XMLAttributes_t *xa, const char *name, const c
 }
 
 
-/**
- * Return the index of an attribute with the given XML triple.
- *
- * @param xa the XMLAttributes_t structure.
- * @param triple an XMLTriple, the XML triple of the attribute for which
- *        the index is required.
- *
- * @return the index of an attribute with the given XMLTriple, or -1 if not present.
- */
 LIBLAX_EXTERN
 int 
 XMLAttributes_getIndexByTriple (const XMLAttributes_t *xa, const XMLTriple_t* triple)
@@ -1634,13 +1430,6 @@ XMLAttributes_getIndexByTriple (const XMLAttributes_t *xa, const XMLTriple_t* tr
 }
 
 
-/**
- * Return the number of attributes in the set.
- *
- * @param xa the XMLAttributes_t structure.
- *
- * @return the number of attributes in this XMLAttributes_t structure.
- **/
 LIBLAX_EXTERN
 int
 XMLAttributes_getLength (const XMLAttributes_t *xa)
@@ -1650,13 +1439,6 @@ XMLAttributes_getLength (const XMLAttributes_t *xa)
 }
 
 
-/**
- * Return the number of attributes in the set.
- *
- * @param xa the XMLAttributes_t structure.
- *
- * @return the number of attributes in this XMLAttributes_t structure.
- **/
 LIBLAX_EXTERN
 int
 XMLAttributes_getNumAttributes (const XMLAttributes_t *xa)
@@ -1666,22 +1448,6 @@ XMLAttributes_getNumAttributes (const XMLAttributes_t *xa)
 }
 
 
-/**
- * Return the local name of an attribute in this XMLAttributes_t structure (by position).
- *
- * @param xa the XMLAttributes_t structure.
- * @param index an integer, the position of the attribute whose name is 
- * required.
- *
- * @return the local name of an attribute in this list (by position).  
- *         NULL will be returned if the name is empty.
- *
- * @note If index
- * is out of range, an empty string will be returned.  
- * Use XMLNamespaces_hasAttribute(...) > 0 to test for attribute existence.
- * to test for attribute existence.
- * Returned const char* should be freed with safe_free() by the caller.
- **/
 LIBLAX_EXTERN
 char *
 XMLAttributes_getName (const XMLAttributes_t *xa, int index)
@@ -1691,21 +1457,6 @@ XMLAttributes_getName (const XMLAttributes_t *xa, int index)
 }
 
 
-/**
- * Return the value of an attribute in this XMLAttributes_t structure (by position).
- *
- * @param xa the XMLAttributes_t structure.
- * @param index an integer, the position of the attribute whose value is 
- * required.
- *
- * @return the value of an attribute in the list (by position).  
- *         NULL will be returned if the prefix is empty.
- *
- * @note If index
- * is out of range, an empty string will be returned.  
- * Use XMLNamespaces_hasAttribute(...) > 0 to test for attribute existence.
- * Returned const char* should be freed with safe_free() by the caller.
- **/
 LIBLAX_EXTERN
 char *
 XMLAttributes_getPrefix (const XMLAttributes_t *xa, int index)
@@ -1715,20 +1466,6 @@ XMLAttributes_getPrefix (const XMLAttributes_t *xa, int index)
 }
 
 
-/**
- * Return the namespace URI of an attribute in this XMLAttributes_t structure (by position).
- *
- * @param xa the XMLAttributes_t structure.
- * @param index an integer, the position of the attribute whose namespace URI is 
- * required.
- *
- * @return the namespace URI of an attribute in this list (by position).
- *         NULL will be returned if the URI is empty.
- *
- * @note If index is out of range, an empty string will be returned.  Use
- * XMLNamespaces_hasAttribute(...) > 0 to test for attribute existence.
- * Returned const char* should be freed with safe_free() by the caller.
- **/
 LIBLAX_EXTERN
 char *
 XMLAttributes_getURI (const XMLAttributes_t *xa, int index)
@@ -1738,21 +1475,6 @@ XMLAttributes_getURI (const XMLAttributes_t *xa, int index)
 }
 
 
-/**
- * Return the value of an attribute in this XMLAttributes_t structure (by position).
- *
- * @param xa the XMLAttributes_t structure.
- * @param index an integer, the position of the attribute whose value is 
- * required.
- *
- * @return the value of an attribute in the list (by position).  
- *         NULL will be returned if the value is empty.
- *
- * @note If index
- * is out of range, NULL will be returned.  
- * Use XMLAttributes_hasAttribute(...) > 0 to test for attribute existence.
- * Returned const char* should be freed with safe_free() by the caller.
- **/
 LIBLAX_EXTERN
 char *
 XMLAttributes_getValue (const XMLAttributes_t *xa, int index)
@@ -1762,27 +1484,6 @@ XMLAttributes_getValue (const XMLAttributes_t *xa, int index)
 }
 
 
-/**
- * Return an attribute's value by name.
- *
- * @param xa the XMLAttributes_t structure.
- * @param name a string, the local name of the attribute whose value is required.
- *
- * @return The attribute value as a string.  
- *         NULL will be returned if the value is empty.
- *
- * @note If an attribute with the
- * given local name does not exist, NULL will be returned.  Use
- * XMLAttributes_hasAttributeWithName(...) > 0 to test for attribute existence.
- * A namespace bound to the local name is not checked by this function.
- * Thus, if there are multiple attributes with the given local name and 
- * different namespaces, the value of an attribute with the smallest index 
- * among those attributes will be returned.
- * XMLAttributes_getValueByNS(...) or XMLAttributes_getValueByTriple(...) 
- * should be used to get a value of an attribute with the given local name 
- * and namespace.
- * Returned const char* should be freed with safe_free() by the caller.
- **/
 LIBLAX_EXTERN
 char *
 XMLAttributes_getValueByName (const XMLAttributes_t *xa, const char *name)
@@ -1792,22 +1493,6 @@ XMLAttributes_getValueByName (const XMLAttributes_t *xa, const char *name)
 }
 
 
-/**
- * Return a value of an attribute with the given local name and namespace URI.
- *
- * @param xa the XMLAttributes_t structure.
- * @param name a string, the local name of the attribute whose value is required.
- * @param uri  a string, the namespace URI of the attribute.
- *
- * @return The attribute value as a string.  
- * NULL will be returned if the value is empty.
- *
- * @note If an attribute with the 
- * given local name and namespace URI does not exist, an empty string will be 
- * returned.  
- * Use XMLAttributes_hasAttributeWithNS(...) to test for attribute existence.
- * Returned const char* should be freed with safe_free() by the caller.
- */
 LIBLAX_EXTERN
 char *
 XMLAttributes_getValueByNS (const XMLAttributes_t *xa, const char *name, const char* uri)
@@ -1817,21 +1502,6 @@ XMLAttributes_getValueByNS (const XMLAttributes_t *xa, const char *name, const c
 }
 
 
-/**
- * Return an attribute's value by XMLTriple.
- *
- * @param xa the XMLAttributes_t structure.
- * @param triple an XMLTriple_t, the XML triple of the attribute 
- * whose value is required.
- *
- * @return The attribute value as a string.
- *         NULL will be returned if the value is empty.
- *
- * @note If an attribute with the
- * given XMLTriple does not exist, NULL will be returned.
- * Use XMLAttributes_hasAttributeWithTriple(..) > 0 to test for attribute existence.
- * Returned const char* should be freed with safe_free() by the caller.
- */
 LIBLAX_EXTERN
 char *
 XMLAttributes_getValueByTriple (const XMLAttributes_t *xa, const XMLTriple_t* triple)
@@ -1843,17 +1513,6 @@ XMLAttributes_getValueByTriple (const XMLAttributes_t *xa, const XMLTriple_t* tr
 }
 
 
-/**
- * Predicate returning @c true or @c false depending on whether
- * an attribute with the given index exists in this XMLAttributes_t
- * structure.
- *
- * @param xa the XMLAttributes_t structure.
- * @param index an integer, the position of the attribute.
- *
- * @return @c non-zero (true) if an attribute with the given index exists 
- * in this XMLAttributes_t structure, @c zero (false) otherwise.
- */
 LIBLAX_EXTERN
 int 
 XMLAttributes_hasAttribute (const XMLAttributes_t *xa, int index)
@@ -1863,17 +1522,6 @@ XMLAttributes_hasAttribute (const XMLAttributes_t *xa, int index)
 }
 
 
-/**
- * Predicate returning @c true or @c false depending on whether
- * an attribute with the given local name exists in this XMLAttributes_t
- * structure.
- *
- * @param xa the XMLAttributes_t structure.
- * @param name a string, the local name of the attribute.
- *
- * @return @c non-zero (true) if an attribute with the given local name 
- * exists in this XMLAttributes_t structure, @c zero (false) otherwise.
- */
 LIBLAX_EXTERN
 int 
 XMLAttributes_hasAttributeWithName (const XMLAttributes_t *xa, const char* name)
@@ -1883,19 +1531,6 @@ XMLAttributes_hasAttributeWithName (const XMLAttributes_t *xa, const char* name)
 }
 
 
-/**
- * Predicate returning @c true or @c false depending on whether
- * an attribute with the given local name and namespace URI exists in this 
- * XMLAttributes_t structure.
- *
- * @param xa the XMLAttributes_t structure.
- * @param name a string, the local name of the attribute.
- * @param uri  a string, the namespace URI of the attribute.
- *
- * @return @c non-zero (true) if an attribute with the given local name 
- * and namespace URI exists in this XMLAttributes_t structure, @c zero (false) 
- * otherwise.
- */
 LIBLAX_EXTERN
 int 
 XMLAttributes_hasAttributeWithNS (const XMLAttributes_t *xa, 
@@ -1906,17 +1541,6 @@ XMLAttributes_hasAttributeWithNS (const XMLAttributes_t *xa,
 }
 
 
-/**
- * Predicate returning @c true or @c false depending on whether
- * an attribute with the given XMLtriple_t exists in this XMLAttributes_t
- * structure.
- *
- * @param xa the XMLAttributes_t structure.
- * @param triple an XMLTriple_t, the XML triple of the attribute.
- *
- * @return @c non-zero (true) if an attribute with the given XMLTriple_t
- * exists in this XMLAttributes_t structure, @c zero (false) otherwise.
- */
 LIBLAX_EXTERN
 int 
 XMLAttributes_hasAttributeWithTriple (const XMLAttributes_t *xa, const XMLTriple_t* triple)
@@ -1926,15 +1550,6 @@ XMLAttributes_hasAttributeWithTriple (const XMLAttributes_t *xa, const XMLTriple
 }  
 
 
-/**
- * Predicate returning @c true or @c false depending on whether 
- * this XMLAttributes_t structure is empty.
- *
- * @param xa the XMLAttributes_t structure.
- * 
- * @return @c non-zero (true) if this XMLAttributes_t structure is empty, 
- * @c zero (false) otherwise.
- **/
 LIBLAX_EXTERN
 int
 XMLAttributes_isEmpty (const XMLAttributes_t *xa)
@@ -1944,32 +1559,6 @@ XMLAttributes_isEmpty (const XMLAttributes_t *xa)
 }
 
 
-/**
- * Reads the value for the attribute name into value.  If the given local
- * name was not found or value could be interpreted as a boolean, value is 
- * not modified.
- *
- * According to the W3C XML Schema, valid boolean values are: "true",
- * "false", "1", and "0" (case-insensitive).  For more information, see:
- * http://www.w3.org/TR/xmlschema-2/#boolean
- *
- * If an XMLErrorLog is passed in datatype format errors are logged.  If
- * required is true, missing attributes are also logged.
- *
- * @param xa the XMLAttributes_t structure.
- * @param name a string, the local name of the attribute.
- * @param value a boolean, the value of the attribute.
- * @param log an XMLErrorLog_t, the error log.
- * @param required a boolean, indicating whether the attribute is required.
- *
- * @returns @c non-zero (true) if the attribute was read into value, 
- * @c zero (false) otherwise.
- *
- * @note A namespace bound to the given local name is not checked by this 
- * function. readIntoBooleanByTriple(...) should be used to read a value for 
- * an attribute name with a prefix and namespace.
- *
- **/
 LIBLAX_EXTERN
 int
 XMLAttributes_readIntoBoolean (XMLAttributes_t *xa,
@@ -1989,28 +1578,6 @@ XMLAttributes_readIntoBoolean (XMLAttributes_t *xa,
 }
 
 
-/**
- * Reads the value for the attribute with the given XMLTriple_t into value.  
- * If the XMLTriple_t was not found or value could be interpreted as a boolean, 
- * value is not modified.
- *
- * According to the W3C XML Schema, valid boolean values are: "true",
- * "false", "1", and "0" (case-insensitive).  For more information, see:
- * http://www.w3.org/TR/xmlschema-2/#boolean
- *
- * If an XMLErrorLog is passed in datatype format errors are logged.  If
- * required is true, missing attributes are also logged.
- *
- *
- * @param xa the XMLAttributes_t structure.
- * @param triple an XMLTriple_t, the XML triple of the attribute.
- * @param value a boolean, the value of the attribute.
- * @param log an XMLErrorLog_t, the error log.
- * @param required a boolean, indicating whether the attribute is required.
- *
- * @returns @c non-zero (true) if the attribute was read into value, 
- * @c zero (false) otherwise.
- **/
 LIBLAX_EXTERN
 int
 XMLAttributes_readIntoBooleanByTriple (XMLAttributes_t *xa,
@@ -2031,33 +1598,6 @@ XMLAttributes_readIntoBooleanByTriple (XMLAttributes_t *xa,
 }
 
 
-/**
- * Reads the value for the attribute name into value.  If the given local
- * name was not found or value could be interpreted as a double, value is 
- * not modified.
- *
- * According to the W3C XML Schema, valid doubles are the same as valid
- * doubles for C and the special values "INF", "-INF", and "NaN"
- * (case-sensitive).  For more information, see:
- * http://www.w3.org/TR/xmlschema-2/#double
- *
- * If an XMLErrorLog is passed in datatype format errors are logged.  If
- * required is true, missing attributes are also logged.
- *
- *
- * @param xa the XMLAttributes_t structure.
- * @param name a string, the local name of the attribute.
- * @param value a boolean, the value of the attribute.
- * @param log an XMLErrorLog_t, the error log.
- * @param required a boolean, indicating whether the attribute is required.
- *
- * @returns @c non-zero (true) if the attribute was read into value, 
- * @c zero (false) otherwise.
- *
- * @note A namespace bound to the given local name is not checked by this 
- * function. readIntoDoubleByTriple(...) should be used to read a value for 
- * an attribute name with a prefix and namespace.
- **/
 LIBLAX_EXTERN
 int
 XMLAttributes_readIntoDouble (XMLAttributes_t *xa,
@@ -2071,29 +1611,6 @@ XMLAttributes_readIntoDouble (XMLAttributes_t *xa,
 }
 
 
-/**
- * Reads the value for the attribute with the given XMLTriple_t into value.  
- * If the XMLTriple_t was not found or value could be interpreted as a double,
- * value is not modified.
- *
- * According to the W3C XML Schema, valid doubles are the same as valid
- * doubles for C and the special values "INF", "-INF", and "NaN"
- * (case-sensitive).  For more information, see:
- * http://www.w3.org/TR/xmlschema-2/#double
- *
- * If an XMLErrorLog is passed in datatype format errors are logged.  If
- * required is true, missing attributes are also logged.
- *
- *
- * @param xa the XMLAttributes_t structure.
- * @param triple an XMLTriple_t, the XML triple of the attribute.
- * @param value a boolean, the value of the attribute.
- * @param log an XMLErrorLog_t, the error log.
- * @param required a boolean, indicating whether the attribute is required.
- *
- * @returns @c non-zero (true) if the attribute was read into value, 
- * @c zero (false) otherwise.
- **/
 LIBLAX_EXTERN
 int
 XMLAttributes_readIntoDoubleByTriple (XMLAttributes_t *xa,
@@ -2107,33 +1624,6 @@ XMLAttributes_readIntoDoubleByTriple (XMLAttributes_t *xa,
 }
 
 
-/**
- * Reads the value for the attribute name into value.  If the given local
- * name was not found or value could be interpreted as a long, value is not
- * modified.
- *
- * According to the W3C XML Schema valid integers include zero, *all*
- * positive and *all* negative whole numbers.  For practical purposes, we
- * limit values to what can be stored in a long.  For more information,
- * see: http://www.w3.org/TR/xmlschema-2/#integer
- *
- * If an XMLErrorLog is passed in datatype format errors are logged.  If
- * required is true, missing attributes are also logged.
- *
- *
- * @param xa the XMLAttributes_t structure.
- * @param name a string, the local name of the attribute.
- * @param value a boolean, the value of the attribute.
- * @param log an XMLErrorLog_t, the error log.
- * @param required a boolean, indicating whether the attribute is required.
- *
- * @returns @c non-zero (true) if the attribute was read into value, 
- * @c zero (false) otherwise.
- *
- * @note A namespace bound to the given local name is not checked by this 
- * function. readIntoLongByTriple(...) should be used to read a value for 
- * an attribute name with a prefix and namespace.
- **/
 LIBLAX_EXTERN
 int
 XMLAttributes_readIntoLong (XMLAttributes_t *xa,
@@ -2147,29 +1637,6 @@ XMLAttributes_readIntoLong (XMLAttributes_t *xa,
 }
 
 
-/**
- * Reads the value for the attribute with the given XMLTriple_t into value.  
- * If the XMLTriple_t was not found or value could be interpreted as a long,
- * value is not modified.
- *
- * According to the W3C XML Schema valid integers include zero, *all*
- * positive and *all* negative whole numbers.  For practical purposes, we
- * limit values to what can be stored in a long.  For more information,
- * see: http://www.w3.org/TR/xmlschema-2/#integer
- *
- * If an XMLErrorLog is passed in datatype format errors are logged.  If
- * required is true, missing attributes are also logged.
- *
- *
- * @param xa the XMLAttributes_t structure.
- * @param triple an XMLTriple_t, the XML triple of the attribute.
- * @param value a boolean, the value of the attribute.
- * @param log an XMLErrorLog_t, the error log.
- * @param required a boolean, indicating whether the attribute is required.
- *
- * @returns @c non-zero (true) if the attribute was read into value, 
- * @c zero (false) otherwise.
- **/
 LIBLAX_EXTERN
 int
 XMLAttributes_readIntoLongByTriple (XMLAttributes_t *xa,
@@ -2183,33 +1650,6 @@ XMLAttributes_readIntoLongByTriple (XMLAttributes_t *xa,
 }
 
 
-/**
- * Reads the value for the attribute name into value.  If the given local
- * name was not found or value could be interpreted as an integer, value 
- * is not modified.
- *
- * According to the W3C XML Schema valid integers include zero, *all*
- * positive and *all* negative whole numbers.  For practical purposes, we
- * limit values to what can be stored in a int.  For more information,
- * see: http://www.w3.org/TR/xmlschema-2/#integer
- *
- * If an XMLErrorLog is passed in datatype format errors are logged.  If
- * required is true, missing attributes are also logged.
- *
- *
- * @param xa the XMLAttributes_t structure.
- * @param name a string, the local name of the attribute.
- * @param value a boolean, the value of the attribute.
- * @param log an XMLErrorLog_t, the error log.
- * @param required a boolean, indicating whether the attribute is required.
- *
- * @returns @c non-zero (true) if the attribute was read into value, 
- * @c zero (false) otherwise.
- *
- * @note A namespace bound to the given local name is not checked by this 
- * function. readIntoIntByTriple(...) should be used to read a value for 
- * an attribute name with a prefix and namespace.
- **/
 LIBLAX_EXTERN
 int
 XMLAttributes_readIntoInt (XMLAttributes_t *xa,
@@ -2222,29 +1662,6 @@ XMLAttributes_readIntoInt (XMLAttributes_t *xa,
   return static_cast<int>( xa->readInto(name, *(value), log, required) );
 }
 
-/**
- * Reads the value for the attribute with the given XMLTriple_t into value.  
- * If the XMLTriple_t was not found or value could be interpreted as an integer,
- * value is not modified.
- *
- * According to the W3C XML Schema valid integers include zero, *all*
- * positive and *all* negative whole numbers.  For practical purposes, we
- * limit values to what can be stored in a int.  For more information,
- * see: http://www.w3.org/TR/xmlschema-2/#integer
- *
- * If an XMLErrorLog is passed in datatype format errors are logged.  If
- * required is true, missing attributes are also logged.
- *
- *
- * @param xa the XMLAttributes_t structure.
- * @param triple an XMLTriple_t, the XML triple of the attribute.
- * @param value a boolean, the value of the attribute.
- * @param log an XMLErrorLog_t, the error log.
- * @param required a boolean, indicating whether the attribute is required.
- *
- * @returns @c non-zero (true) if the attribute was read into value, 
- * @c zero (false) otherwise.
- **/
 LIBLAX_EXTERN
 int
 XMLAttributes_readIntoIntByTriple (XMLAttributes_t *xa,
@@ -2258,33 +1675,6 @@ XMLAttributes_readIntoIntByTriple (XMLAttributes_t *xa,
 }
 
 
-/**
- * Reads the value for the attribute name into value.  If the given local
- * name was not found or value could be interpreted as an unsigned int, 
- * value is not modified.
- *
- * According to the W3C XML Schema valid integers include zero, *all*
- * positive and *all* negative whole numbers.  For practical purposes, we
- * limit values to what can be stored in a unsigned int.  For more
- * information, see: http://www.w3.org/TR/xmlschema-2/#integer
- *
- * If an XMLErrorLog is passed in datatype format errors are logged.  If
- * required is true, missing attributes are also logged.
- *
- *
- * @param xa the XMLAttributes_t structure.
- * @param name a string, the local name of the attribute.
- * @param value an unsigned int, the value of the attribute.
- * @param log an XMLErrorLog_t, the error log.
- * @param required a boolean, indicating whether the attribute is required.
- *
- * @returns @c non-zero (true) if the attribute was read into value, 
- * @c zero (false) otherwise.
- *
- * @note A namespace bound to the given local name is not checked by this 
- * function. readIntoUnsignedIntByTriple(...) should be used to read a value for 
- * an attribute name with a prefix and namespace.
- **/
 LIBLAX_EXTERN
 int
 XMLAttributes_readIntoUnsignedInt (XMLAttributes_t *xa,
@@ -2298,29 +1688,6 @@ XMLAttributes_readIntoUnsignedInt (XMLAttributes_t *xa,
 }
 
 
-/**
- * Reads the value for the attribute with the given XMLTriple_t into value.  
- * If the XMLTriple_t was not found or value could be interpreted as an unsigned 
- * integer, value is not modified.
- *
- * According to the W3C XML Schema valid integers include zero, *all*
- * positive and *all* negative whole numbers.  For practical purposes, we
- * limit values to what can be stored in a unsigned int.  For more
- * information, see: http://www.w3.org/TR/xmlschema-2/#integer
- *
- * If an XMLErrorLog is passed in datatype format errors are logged.  If
- * required is true, missing attributes are also logged.
- *
- *
- * @param xa the XMLAttributes_t structure.
- * @param triple an XMLTriple_t, the XML triple of the attribute.
- * @param value an unsigned int, the value of the attribute.
- * @param log an XMLErrorLog_t, the error log.
- * @param required a boolean, indicating whether the attribute is required.
- *
- * @returns @c non-zero (true) if the attribute was read into value, 
- * @c zero (false) otherwise.
- **/
 LIBLAX_EXTERN
 int
 XMLAttributes_readIntoUnsignedIntByTriple (XMLAttributes_t *xa,
@@ -2335,27 +1702,6 @@ XMLAttributes_readIntoUnsignedIntByTriple (XMLAttributes_t *xa,
 
 
 
-/**
- * Reads the value for the attribute name into value.  If the given local
- * name was not found, value is not modified.
- *
- * If an XMLErrorLog is passed in datatype format errors are logged.  If
- * required is true, missing attributes are also logged.
- *
- *
- * @param xa the XMLAttributes_t structure.
- * @param name a string, the local name of the attribute.
- * @param value a string, the value of the attribute.
- * @param log an XMLErrorLog_t, the error log.
- * @param required a boolean, indicating whether the attribute is required.
- *
- * @returns @c non-zero (true) if the attribute was read into value, 
- * @c zero (false) otherwise.
- *
- * @note A namespace bound to the given local name is not checked by this 
- * function. readIntoStringByTriple(...) should be used to read a value for 
- * an attribute name with a prefix and namespace.
- **/
 LIBLAX_EXTERN
 int
 XMLAttributes_readIntoString (XMLAttributes_t *xa,
@@ -2375,23 +1721,6 @@ XMLAttributes_readIntoString (XMLAttributes_t *xa,
 }
 
 
-/**
- * Reads the value for the attribute with the given XMLTriple_t into value.  
- * If the XMLTriple_t was not found, value is not modified.
- *
- * If an XMLErrorLog is passed in datatype format errors are logged.  If
- * required is true, missing attributes are also logged.
- *
- *
- * @param xa the XMLAttributes_t structure.
- * @param triple an XMLTriple_t, the XML triple of the attribute.
- * @param value a string, the value of the attribute.
- * @param log an XMLErrorLog_t, the error log.
- * @param required a boolean, indicating whether the attribute is required.
- *
- * @returns @c non-zero (true) if the attribute was read into value, 
- * @c zero (false) otherwise.
- **/
 LIBLAX_EXTERN
 int
 XMLAttributes_readIntoStringByTriple (XMLAttributes_t *xa,

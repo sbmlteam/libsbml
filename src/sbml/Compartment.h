@@ -2496,8 +2496,10 @@ Compartment_hasRequiredAttributes (Compartment_t *c);
 
 
 /**
- * @return item in this ListOfCompartment with the given @p id or a null pointer if no such
+ * @return item in the @p lo ListOfCompartments with the given @p sid or a null pointer if no such
  * item exists.
+ *
+ * @memberof ListOfCompartments_t
  */
 LIBSBML_EXTERN
 Compartment_t *
@@ -2505,9 +2507,11 @@ ListOfCompartments_getById (ListOf_t *lo, const char *sid);
 
 
 /**
- * Removes item in this ListOf items with the given @p id or a null pointer if no such
+ * Removes item in the @p lo ListOfCompartments with the given @p sid or a null pointer if no such
  * item exists.  The caller owns the returned item and is responsible for
  * deleting it.
+ *
+ * @memberof ListOfCompartments_t
  */
 LIBSBML_EXTERN
 Compartment_t *

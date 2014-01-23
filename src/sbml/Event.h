@@ -2168,7 +2168,7 @@ Event_removeEventAssignmentByVar (Event_t *e, const char *variable);
  * @return item in this ListOfEvent with the given @p id or @c NULL if no such
  * item exists.
  *
- * @memberof Event_t
+ * @memberof ListOfEvents_t
  */
 LIBSBML_EXTERN
 Event_t *
@@ -2180,7 +2180,7 @@ ListOfEvents_getById (ListOf_t *lo, const char *sid);
  * item exists.  The caller owns the returned item and is responsible for
  * deleting it.
  *
- * @memberof Event_t
+ * @memberof ListOfEvents_t
  */
 LIBSBML_EXTERN
 Event_t *

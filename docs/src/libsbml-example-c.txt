@@ -158,9 +158,9 @@ subsections.
 
 @subsection creator Function for creating the model
 
-We begin this function by creating an @link SBMLDocument SBMLDocument
-@endlink object, creating a @link Model Model @endlink object within
-the document object, and setting the @link Model Model @endlink
+We begin this function by creating an @link SBMLDocument_t SBMLDocument_t
+@endlink object, creating a @link Model_t Model_t @endlink object within
+the document object, and setting the @link Model_t Model_t @endlink
 object's identifier.
 
 @verbatim
@@ -185,8 +185,8 @@ Next, we need to define some units in order to properly characterize
 the quantities used in the model.  The libSBML API for unit
 definitions mirrors the SBML object model, which means there is an
 object class for UnitDefinition and an object class for the Unit
-objects that can be placed inside a @link UnitDefinition
-UnitDefinition @endlink object to compose whatever unit is desired.
+objects that can be placed inside a @link UnitDefinition_t
+UnitDefinition_t @endlink object to compose whatever unit is desired.
 The resulting code for creating units is a little bit tedious because
 there is a lot to set up, but on the other hand, it is quite
 straightforward and hopefully easy to follow:
@@ -236,11 +236,11 @@ straightforward and hopefully easy to follow:
 Before going on, we digress to explain one libSBML API idiom
 illustrated in the code above and in the rest of the program below.
 LibSBML provides two main mechanisms for creating objects: class
-constructors (e.g., @link Unit::Unit() Unit() @endlink), and
+constructors (e.g., @link Unit_create() Unit_create() @endlink), and
 <code>create<span class="placeholder"><i>Object</i></span>()</code>
-methods provided by certain object classes such as @link Model Model
+methods provided by certain object classes such as @link Model_t Model_t
 @endlink, where <span class="placeholder"><i>Object</i></span> is
-another object class such as @link UnitDefinition UnitDefinition
+another object class such as @link UnitDefinition_t UnitDefinition_t
 @endlink.  The multiple mechanisms are provided by libSBML for
 flexibility and to support different use-cases, but they also have
 different implications for the overall model structure.
@@ -251,7 +251,7 @@ calls to UnitDefinition::createUnit() above.  These methods create an
 instance and immediately link it into the parent, as well as return a
 pointer to the object created.  By contrast, the other main way of
 creating an object involves first using the class constructor (e.g.,
-@link Unit::Unit() Unit() @endlink) to create an object instance, and
+@link Unit_create() Unit_create() @endlink) to create an object instance, and
 then calling an <code>add<span
 class="placeholder"><i>Object</i></span>(...)</code> method to add the
 instance to another object.  However, the <code>add<span
