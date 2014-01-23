@@ -27,6 +27,27 @@
  */
 
 #include "libsbml-version.h"
+#include <string.h>
+
+#ifdef USE_EXPAT
+#include <expat.h>
+#endif 
+
+#ifdef USE_XERCESC
+#include <xercesc/util/XercesVersion.hpp>
+#endif
+
+#ifdef USE_LIBXML
+#include <libxml/xmlversion.h>
+#endif
+
+#ifdef USE_ZLIB
+#include <zlib.h>
+#endif
+
+#ifdef USE_BZ2
+#include <bzlib.h>
+#endif
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
@@ -67,6 +88,150 @@ getLibSBMLVersionString ()
 { 
   return LIBSBML_VERSION_STRING;
 }
+
+/**
+ * Returns an indication whether libSBML has been compiled with
+ * against a specifiic library. 
+ *
+ * @param option the library to test against, this can be one of
+ *        "expat", "libxml", "xerces-c", "bzip2", "zip"
+ * 
+ * @return 0 in case the libsbml has not been compiled against 
+ *         that library and non-zero otherwise.
+ *
+ * @see getLibSBMLDependencyVersionOf()
+ */
+LIBSBML_EXTERN
+int 
+isLibSBMLCompiledWith(const char* option)
+{
+  if (option == NULL) return 0;
+
+  if (strcmp(option, "expat") == 0)
+  {
+#ifdef USE_EXPAT
+    return 1;
+#else
+    return 0;
+#endif
+  }
+
+  if (strcmp(option, "libxml") == 0 ||
+    strcmp(option, "libxml2") == 0)
+  {
+#ifdef USE_LIBXML
+    return LIBXML_VERSION;
+#else
+    return 0;
+#endif
+  }
+
+  if (strcmp(option, "xerces-c") == 0 ||
+    strcmp(option, "xercesc") == 0)
+  {
+#ifdef USE_XERCES
+    return XERCES_FULLVERSIONNUM;
+#else
+    return 0;
+#endif
+  }
+
+  if (strcmp(option, "zlib") == 0 ||
+    strcmp(option, "zip") == 0)
+  {
+#ifdef USE_ZLIB
+    return ZLIB_VERNUM;
+#else
+    return 0;
+#endif
+  }
+
+  if (strcmp(option, "bzip") == 0 ||
+    strcmp(option, "bzip2") == 0 ||
+    strcmp(option, "bz2") == 0)
+  {
+#ifdef USE_BZ2
+    return 1;
+#else
+    return NULL;
+#endif
+  }
+
+  return 0;
+}
+
+/**
+ * Returns the version string for the dependency library used. 
+ *
+ * @param option the library for which the version
+ *        should be retrieved, this can be one of
+ *        "expat", "libxml", "xerces-c", "bzip2", "zip"
+ * 
+ * @return NULL in case the libsbml has not been compiled against 
+ *         that library and a version string otherwise.
+ *
+ * @see isLibSBMLCompiledWith()
+ */
+LIBSBML_EXTERN
+const char* 
+getLibSBMLDependencyVersionOf(const char* option)
+{
+  if (option == NULL) return NULL;
+  
+  if (strcmp(option, "expat") == 0)
+  {
+#ifdef USE_EXPAT
+    return static_cast<const char*>(XML_ExpatVersion());
+#else
+    return NULL;
+#endif
+  }
+
+  if (strcmp(option, "libxml") == 0 ||
+    strcmp(option, "libxml2") == 0)
+  {
+#ifdef USE_LIBXML
+    return LIBXML_DOTTED_VERSION;
+#else
+    return NULL;
+#endif
+  }
+
+  if (strcmp(option, "xerces-c") == 0 ||
+    strcmp(option, "xercesc") == 0)
+  {
+#ifdef USE_XERCES
+    return XERCES_FULLVERSIONDOT;
+#else
+    return NULL;
+#endif
+  }
+
+  if (strcmp(option, "zlib") == 0 ||
+    strcmp(option, "zip") == 0)
+  {
+#ifdef USE_ZLIB
+    return ZLIB_VERSION;
+#else
+    return NULL;
+#endif
+  }
+
+  if (strcmp(option, "bzip") == 0 ||
+    strcmp(option, "bzip2") == 0 ||
+    strcmp(option, "bz2") == 0)
+  {
+#ifdef USE_BZ2
+    return BZ2_bzlibVersion();
+#else
+    return NULL;
+#endif
+  }
+
+  return NULL;
+}
+
+
 
 LIBSBML_CPP_NAMESPACE_END
 
