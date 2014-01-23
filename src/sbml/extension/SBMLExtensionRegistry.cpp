@@ -426,7 +426,7 @@ SBMLExtensionRegistry::isRegistered(const std::string& uri)
 List* 
 SBMLExtensionRegistry::getRegisteredPackageNames()
 {
-  SBMLExtensionRegistry instance = getInstance();
+  const SBMLExtensionRegistry& instance = getInstance();
   SBMLExtensionMap::const_iterator it = instance.mSBMLExtensionMap.begin();
   List* result = new List();
   IdList  * present = new IdList();
