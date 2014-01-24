@@ -37,6 +37,16 @@ STABLE RELEASE
   - A new version of the SBMLTransforms::evaluateASTNode function
     is available; allowing the user to pass a map of ids and values
 	to the function rather than needing a whole model.
+	
+  - Two new functions are available to allow users to determine
+    the compiled dependencies for the given instance of libSBML.
+	int isLibSBMLCompiledWith(const char* option) will take the name
+	of a dependency library e.g. 'expat' as argument and return a
+	positive integer this library was used to compile libSBML, 0 
+	otherwise.  
+	const char* getLibSBMLDependencyVersionOf(const char* option)
+	takes the name of the library and returns the version number
+	of this library.
 
 * Bug fixes
 
