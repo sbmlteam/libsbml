@@ -221,6 +221,48 @@ INSTALL(FILES ${CMAKE_CURRENT_BINARY_DIR}/libsbml.pth  DESTINATION ${PYTHON_PACK
 INSTALL(FILES ${CMAKE_CURRENT_BINARY_DIR}/libsbml.py  DESTINATION ${PYTHON_PACKAGE_INSTALL_DIR}/libsbml )
 
 
+option(WITH_CREATE_PYTHON_SOURCE   "Generate Python Source Package." OFF)
+if (WITH_CREATE_PYTHON_SOURCE)
+
+SET(PYTHON_SOURCE_OUT_DIR ${CMAKE_CURRENT_BINARY_DIR}/out)
+file(TO_NATIVE_PATH ${PYTHON_SOURCE_OUT_DIR} NATIVE_OUT)
+
+add_custom_command(
+	OUTPUT
+		${PYTHON_SOURCE_OUT_DIR}/setup.py
+	COMMAND "${CMAKE_COMMAND}" 
+	ARGS -E make_directory ${PYTHON_SOURCE_OUT_DIR}
+	COMMAND "${CMAKE_COMMAND}"
+	ARGS -DOUT_DIR=\"${NATIVE_OUT}\" 
+		 -DSRC_DIR=\"${CMAKE_SOURCE_DIR}/src\"
+		 -DBIN_DIR=\"${CMAKE_BINARY_DIR}\"
+		 -P "${CMAKE_SOURCE_DIR}/dev/utilities/python_package/create_package.cmake"
+
+	WORKING_DIRECTORY "${CMAKE_SOURCE_DIR}/dev/utilities/python_package/"
+    COMMENT "Configure Python source package"
+	)
+
+add_custom_target(binding_python_source_config ALL DEPENDS ${PYTHON_SOURCE_OUT_DIR}/setup.py)
+add_dependencies(binding_python_source_config binding_python_swig)
+
+add_custom_command(
+	OUTPUT ${PYTHON_SOURCE_OUT_DIR}/MANIFEST
+
+	COMMAND "${PYTHON_EXECUTABLE}"
+	ARGS setup.py 
+	     sdist
+
+	WORKING_DIRECTORY "${PYTHON_SOURCE_OUT_DIR}"
+    COMMENT "Create Python source package"
+	)
+
+add_custom_target(binding_python_source_package ALL DEPENDS ${PYTHON_SOURCE_OUT_DIR}/MANIFEST)
+add_dependencies(binding_python_source_package binding_python_source_config)
+ 
+
+endif(WITH_CREATE_PYTHON_SOURCE)
+
+
 ####################################################################
 #
 # testing
