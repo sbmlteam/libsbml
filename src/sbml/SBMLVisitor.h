@@ -52,7 +52,9 @@
 #ifdef __cplusplus
 
 
+#include <sbml/common/extern.h>
 #include <sbml/SBMLTypeCodes.h>
+
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
@@ -97,7 +99,7 @@ class Priority;
 class ListOf;
 
 
-class SBMLVisitor
+class LIBSBML_EXTERN SBMLVisitor
 {
 public:
 
