@@ -317,7 +317,17 @@ else()
 	# 		${CMAKE_SOURCE_DIR}/src/sbml/test/test-data
 	# 		${CMAKE_CURRENT_BINARY_DIR}/libsbmlcsP.dll
 	# )
+	
+	# link again, this time against the dynamic librar, as this will reveal
+	# any potential link errors (this library will not be distributed)
+	#
+	add_library(binding_csharp_native_dll_link_check SHARED ${CMAKE_CURRENT_BINARY_DIR}/libsbml_wrap.cpp)
+	add_dependencies(binding_csharp_native_dll_link_check binding_csharp_swig)
+	set_target_properties (binding_csharp_native_dll_link_check PROPERTIES OUTPUT_NAME "DllLinkCheck")
+	target_link_libraries(binding_csharp_native_dll_link_check ${LIBSBML_LIBRARY})
 
+	
+	
 endif()
 
 endif()

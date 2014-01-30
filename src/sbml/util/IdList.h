@@ -37,10 +37,11 @@
 #include <string>
 #include <vector>
 #include <sbml/common/libsbml-namespace.h>
+#include <sbml/common/extern.h>
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
-class IdList
+class LIBSBML_EXTERN IdList
 {
 public:
 
