@@ -213,7 +213,7 @@ typedef enum
      * attempting to convert the SBML document using
      * SBMLLevelVersionConverter::convert() or related methods, the target
      * namespace has been found to be invalid or unset.  (The function
-     * {@link SBMLNamespaces#isValidCombination()} may be useful in
+     * SBMLNamespaces::isValidCombination() may be useful in
      * detecting this situation and preventing the error.)
      */
 
