@@ -42,7 +42,7 @@
 # and also available online as http://sbml.org/software/libsbml/license.html
 # ---------------------------------------------------------------------- -->*/
 
-import os, sys
+import os, sys, re
 from os.path import join
 
 color_table = [
@@ -136,8 +136,9 @@ def find_classes_in_file(filename):
         start = line.find('@class')
         if start < 0:
             continue
-        name = line[start + 6:].strip()
-        classes.append(name)
+        name = re.sub(r'\.', '', line[start + 6:]).strip()
+        if name and (not (name.startswith("doc_") or name.startswith("is "))):
+            classes.append(name)
 
     stream.close()
     return classes
