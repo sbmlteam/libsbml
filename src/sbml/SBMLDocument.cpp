@@ -2102,6 +2102,14 @@ SBMLDocument_checkL2v4Compatibility (SBMLDocument_t *d)
 
 
 LIBSBML_EXTERN
+unsigned int 
+SBMLDocument_checkL3v1Compatibility (SBMLDocument_t *d)
+{
+  return (d != NULL) ? d->checkL3v1Compatibility() : SBML_INT_MAX;
+}
+
+
+LIBSBML_EXTERN
 const SBMLError_t *
 SBMLDocument_getError (SBMLDocument_t *d, unsigned int n)
 {
