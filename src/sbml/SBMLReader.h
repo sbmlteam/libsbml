@@ -456,11 +456,11 @@ LIBSBML_CPP_NAMESPACE_END
 
 #endif /* __cplusplus */
 
-LIBSBML_CPP_NAMESPACE_BEGIN
-BEGIN_C_DECLS
-
 
 #ifndef SWIG
+
+LIBSBML_CPP_NAMESPACE_BEGIN
+BEGIN_C_DECLS
 
 
 /**
@@ -570,9 +570,7 @@ LIBSBML_EXTERN
 int
 SBMLReader_hasBzip2 ();
 
-#endif  /* !SWIG *
- * @memberof SBMLReader_t
- */
+#endif  /* !SWIG */
 
 
 /**
@@ -586,13 +584,20 @@ SBMLReader_hasBzip2 ();
  *
  * @return a pointer to the SBMLDocument read.
  *
+ * @if conly
  * @memberof SBMLReader_t
+ * @endif
  */
 LIBSBML_EXTERN
 SBMLDocument_t *
 readSBML (const char *filename);
 
 
+/**
+ * @if conly
+ * @memberof SBMLReader_t
+ * @endif
+ */
 LIBSBML_EXTERN
 SBMLDocument_t *
 readSBMLFromFile (const char *filename);
@@ -616,7 +621,9 @@ readSBMLFromFile (const char *filename);
  *
  * @return a pointer to the SBMLDocument read.
  *
+ * @if conly
  * @memberof SBMLReader_t
+ * @endif
  */
 LIBSBML_EXTERN
 SBMLDocument_t *
