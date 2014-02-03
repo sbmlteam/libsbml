@@ -46,6 +46,29 @@ BEGIN_C_DECLS
 
 extern char *TestDataDirectory;
 
+START_TEST (test_comp_enable_comp)
+{
+  const string filename(TestDataDirectory);
+  const string cfile = filename + "nocomp.xml";  
+  SBMLDocument* doc = readSBMLFromFile(cfile.c_str());
+  fail_unless(doc->getModel() != NULL);
+  fail_unless(doc->getNumErrors(LIBSBML_SEV_ERROR) == 0);
+
+  fail_unless(doc->isPackageEnabled("comp") == false);
+  fail_unless(doc->getModel()->isPackageEnabled("comp") == false);
+  fail_unless(doc->getModel()->getCompartment(0)->isPackageEnabled("comp") == false);
+
+  int code = doc->enablePackage(CompExtension::getXmlnsL3V1V1(), "comp", true);
+  fail_unless(code == LIBSBML_OPERATION_SUCCESS);
+  doc->setPackageRequired("comp", true);
+
+  fail_unless(doc->isPackageEnabled("comp") == true);
+  fail_unless(doc->getModel()->isPackageEnabled("comp") == true);
+  fail_unless(doc->getModel()->getCompartment(0)->isPackageEnabled("comp") == true);
+
+}
+END_TEST
+
 START_TEST (test_comp_model)
 {
   SBMLNamespaces sbmlns(3,1,"comp",1);
@@ -351,6 +374,7 @@ create_suite_TestExtensionObjects(void)
   tcase_add_test(tcase, test_comp_model);
   tcase_add_test(tcase, test_comp_sbase);
   tcase_add_test(tcase, test_comp_sbmldocument);
+  tcase_add_test(tcase, test_comp_enable_comp);
   tcase_add_test(tcase, test_comp_model_flattening_with_ports);
   tcase_add_test(tcase, test_comp_flatten_exchange4);
   tcase_add_test(tcase, test_comp_flatten_exchange5);
