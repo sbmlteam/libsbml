@@ -100,7 +100,7 @@
  * when translating between text forms and MathML forms, especially if they
  * provide a direct text-string input facility to users of their software
  * systems.<br><br>
- * @htmlinclude L1-math-syntax-warning.html
+ * @copydetails doc_warning_L1_math_string_syntax
  *
  * @param tree the AST to be converted.
  * 
