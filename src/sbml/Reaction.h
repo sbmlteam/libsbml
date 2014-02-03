@@ -1471,286 +1471,816 @@ LIBSBML_CPP_NAMESPACE_END
 LIBSBML_CPP_NAMESPACE_BEGIN
 BEGIN_C_DECLS
 
-/* ----------------------------------------------------------------------------
- * See the .cpp file for the documentation of the following functions.
- * --------------------------------------------------------------------------*/
-
-
+/**
+ * Creates a new Reaction_t structure using the given SBML @p level
+ * and @p version values.
+ *
+ * @param level an unsigned int, the SBML Level to assign to this
+ * Reaction
+ *
+ * @param version an unsigned int, the SBML Version to assign to this
+ * Reaction
+ *
+ * @return a pointer to the newly created Reaction_t structure.
+ *
+ * @note Once a Reaction has been added to an SBMLDocument, the @p
+ * level and @p version for the document @em override those used to create
+ * the Reaction.  Despite this, the ability to supply the values at
+ * creation time is an important aid to creating valid SBML.  Knowledge of
+ * the intended SBML Level and Version  determine whether it is valid to
+ * assign a particular value to an attribute, or whether it is valid to add
+ * an object to an existing SBMLDocument.
+ *
+ * @memberof Reaction_t
+ */
 LIBSBML_EXTERN
 Reaction_t *
 Reaction_create (unsigned int level, unsigned int version);
 
 
+/**
+ * Creates a new Reaction_t structure using the given
+ * SBMLNamespaces_t structure.
+ *
+ * @param sbmlns SBMLNamespaces, a pointer to an SBMLNamespaces structure
+ * to assign to this Reaction
+ *
+ * @return a pointer to the newly created Reaction_t structure.
+ *
+ * @note Once a Reaction has been added to an SBMLDocument, the
+ * @p sbmlns namespaces for the document @em override those used to create
+ * the Reaction.  Despite this, the ability to supply the values at creation 
+ * time is an important aid to creating valid SBML.  Knowledge of the intended 
+ * SBML Level and Version determine whether it is valid to assign a particular 
+ * value to an attribute, or whether it is valid to add an object to an 
+ * existing SBMLDocument.
+ *
+ * @memberof Reaction_t
+ */
 LIBSBML_EXTERN
 Reaction_t *
 Reaction_createWithNS (SBMLNamespaces_t *sbmlns);
 
 
+/**
+ * Frees the given Reaction.
+ *
+ * @memberof Reaction_t
+ */
 LIBSBML_EXTERN
 void
 Reaction_free (Reaction_t *r);
 
 
+/**
+ * @return a (deep) copy of this Reaction.
+ *
+ * @memberof Reaction_t
+ */
 LIBSBML_EXTERN
 Reaction_t *
 Reaction_clone (const Reaction_t *r);
 
 
+/**
+ * Initializes the fields of this Reaction to their defaults:
+ *
+ *   - reversible = 1 (true)
+ *   - fast       = 0 (false)  (L1 only)
+ *
+ * @memberof Reaction_t
+ */
 LIBSBML_EXTERN
 void
 Reaction_initDefaults (Reaction_t *r);
 
 
+/**
+ * Returns a list of XMLNamespaces_t associated with this Reaction_t
+ * structure.
+ *
+ * @param r the Reaction_t structure
+ * 
+ * @return pointer to the XMLNamespaces_t structure associated with 
+ * this SBML object
+ *
+ * @memberof Reaction_t
+ */
 LIBSBML_EXTERN
 const XMLNamespaces_t *
-Reaction_getNamespaces(Reaction_t *c);
+Reaction_getNamespaces(Reaction_t *r);
 
 
+/**
+ * @return the id of this Reaction.
+ *
+ * @memberof Reaction_t
+ */
 LIBSBML_EXTERN
 const char *
 Reaction_getId (const Reaction_t *r);
 
 
+/**
+ * @return the name of this Reaction.
+ *
+ * @memberof Reaction_t
+ */
 LIBSBML_EXTERN
 const char *
 Reaction_getName (const Reaction_t *r);
 
 
+/**
+ * @return the KineticLaw of this Reaction.
+ *
+ * @memberof Reaction_t
+ */
 LIBSBML_EXTERN
 KineticLaw_t *
 Reaction_getKineticLaw (Reaction_t *r);
 
 
+/**
+ * @return the reversible status of this Reaction.
+ *
+ * @memberof Reaction_t
+ */
 LIBSBML_EXTERN
 int
 Reaction_getReversible (const Reaction_t *r);
 
 
+/**
+ * @return the fast status of this Reaction.
+ *
+ * @memberof Reaction_t
+ */
 LIBSBML_EXTERN
 int
 Reaction_getFast (const Reaction_t *r);
 
 
+/**
+ * @return the compartment of this Reaction.
+ *
+ * @memberof Reaction_t
+ */
 LIBSBML_EXTERN
 const char *
 Reaction_getCompartment (const Reaction_t *r);
 
 
+/**
+ * @return true (non-zero) if the id of this Reaction is set, false
+ * (0) otherwise.
+ *
+ * @memberof Reaction_t
+ */
 LIBSBML_EXTERN
 int
 Reaction_isSetId (const Reaction_t *r);
 
 
+/**
+ * @return true (non-zero) if the name of this Reaction is set, false
+ * (0) otherwise.
+ *
+ * @memberof Reaction_t
+ */
 LIBSBML_EXTERN
 int
 Reaction_isSetName (const Reaction_t *r);
 
 
+/**
+ * @return true (non-zero) if the KineticLaw of this Reaction is set,
+ * false (0) otherwise.
+ *
+ * @memberof Reaction_t
+ */
 LIBSBML_EXTERN
 int
 Reaction_isSetKineticLaw (const Reaction_t *r);
 
 
-LIBSBML_EXTERN
-int
-Reaction_isSetCompartment (const Reaction_t *r);
-
-
-LIBSBML_EXTERN
-int
-Reaction_isSetReversible (const Reaction_t *r);
-
-
+/**
+ * @return true (non-zero) if the fast status of this Reaction is set,
+ * false (0) otherwise.
+ *
+ * In L1, fast is optional with a default of false, which means it is
+ * effectively always set.  In L2, however, fast is optional with no
+ * default value, so it may or may not be set to a specific value.
+ *
+ * @memberof Reaction_t
+ */
 LIBSBML_EXTERN
 int
 Reaction_isSetFast (const Reaction_t *r);
 
 
+/**
+ * @return true (non-zero) if the KineticLaw of this Reaction is set,
+ * false (0) otherwise.
+ *
+ * @memberof Reaction_t
+ */
+LIBSBML_EXTERN
+int
+Reaction_isSetCompartment (const Reaction_t *r);
+
+
+/**
+ * @return true (non-zero) if the reversible attribute of this Reaction is set,
+ * false (0) otherwise.
+ *
+ * @memberof Reaction_t
+ */
+LIBSBML_EXTERN
+int
+Reaction_isSetReversible (const Reaction_t *r);
+
+
+/**
+ * Sets the id of this Reaction to a copy of sid.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+ *
+ * @note Using this function with an id of NULL is equivalent to
+ * unsetting the "id" attribute.
+ *
+ * @memberof Reaction_t
+ */
 LIBSBML_EXTERN
 int
 Reaction_setId (Reaction_t *r, const char *sid);
 
 
+/**
+ * Sets the name of this Reaction to a copy of name.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+ *
+ * @note Using this function with the name set to NULL is equivalent to
+ * unsetting the "name" attribute.
+ *
+ * @memberof Reaction_t
+ */
 LIBSBML_EXTERN
 int
 Reaction_setName (Reaction_t *r, const char *name);
 
 
+/**
+ * Sets the KineticLaw of this Reaction to a copy of the given KineticLaw.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_LEVEL_MISMATCH
+ * @li LIBSBML_VERSION_MISMATCH
+ *
+ * @memberof Reaction_t
+ */
 LIBSBML_EXTERN
 int
 Reaction_setKineticLaw (Reaction_t *r, const KineticLaw_t *kl);
 
 
+/**
+ * Sets the reversible status of this Reaction to value (boolean).
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ *
+ * @memberof Reaction_t
+ */
 LIBSBML_EXTERN
 int
 Reaction_setReversible (Reaction_t *r, int value);
 
 
+/**
+ * Sets the fast status of this Reaction to value (boolean).
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ *
+ * @memberof Reaction_t
+ */
 LIBSBML_EXTERN
 int
 Reaction_setFast (Reaction_t *r, int value);
 
 
+/**
+ * Sets the compartment of this Reaction to a copy of compartment.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_UNEXPECTED_ATTRIBUTE
+ * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+ *
+ * @note Using this function with the compartment set to NULL is equivalent to
+ * unsetting the "compartment" attribute.
+ *
+ * @memberof Reaction_t
+ */
 LIBSBML_EXTERN
 int
 Reaction_setCompartment (Reaction_t *r, const char *compartment);
 
 
+/**
+ * Unsets the name of this Reaction.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_OPERATION_FAILED
+ *
+ * @memberof Reaction_t
+ */
 LIBSBML_EXTERN
 int
 Reaction_unsetName (Reaction_t *r);
 
 
-LIBSBML_EXTERN
-int
-Reaction_unsetKineticLaw (Reaction_t *r);
-
-
-LIBSBML_EXTERN
-int
-Reaction_unsetFast (Reaction_t *r);
-
-
+/**
+ * Unsets the compartment of this Reaction.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_UNEXPECTED_ATTRIBUTE
+ * @li LIBSBML_OPERATION_FAILED
+ *
+ * @memberof Reaction_t
+ */
 LIBSBML_EXTERN
 int
 Reaction_unsetCompartment (Reaction_t *r);
 
 
+/**
+ * Unsets the KineticLaw of this Reaction.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_OPERATION_FAILED
+ *
+ * @memberof Reaction_t
+ */
 LIBSBML_EXTERN
 int
-Reaction_hasRequiredAttributes (Reaction_t *p);
+Reaction_unsetKineticLaw (Reaction_t *r);
 
 
+/**
+ * Unsets the fast status of this Reation.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_OPERATION_FAILED
+ *
+ * In L1, fast is optional with a default of false, which means it is
+ * effectively always set.  In L2, however, fast is optional with no
+ * default value, so it may or may not be set to a specific value.
+ *
+ * @memberof Reaction_t
+ */
+LIBSBML_EXTERN
+int
+Reaction_unsetFast (Reaction_t *r);
+
+
+/**
+ * Predicate returning @c true or @c false depending on whether
+ * all the required attributes for this Reaction object
+ * have been set.
+ *
+ * @param r the Reaction_t structure to check.
+ *
+ * @note The required attributes for a Reaction object are:
+ * @li id (name in L1)
+ * @li fast (in L3 only)
+ * @li reversible (in L3 only)
+ *
+ * @return a true if all the required
+ * attributes for this object have been defined, false otherwise.
+ *
+ * @memberof Reaction_t
+ */
+LIBSBML_EXTERN
+int
+Reaction_hasRequiredAttributes (Reaction_t *r);
+
+
+/**
+ * Adds a copy of the given reactant (SpeciesReference) to this Reaction.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_LEVEL_MISMATCH
+ * @li LIBSBML_VERSION_MISMATCH
+ * @li LIBSBML_OPERATION_FAILED
+ *
+ * @memberof Reaction_t
+ */
 LIBSBML_EXTERN
 int
 Reaction_addReactant (Reaction_t *r, const SpeciesReference_t *sr);
 
 
+/**
+ * Adds a copy of the given product (SpeciesReference) to this Reaction.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_LEVEL_MISMATCH
+ * @li LIBSBML_VERSION_MISMATCH
+ * @li LIBSBML_OPERATION_FAILED
+ *
+ * @memberof Reaction_t
+ */
 LIBSBML_EXTERN
 int
 Reaction_addProduct (Reaction_t *r, const SpeciesReference_t *sr);
 
 
+/**
+ * Adds a copy of the given modifier (ModifierSpeciesReference) to this
+ * Reaction.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_UNEXPECTED_ATTRIBUTE
+ * @li LIBSBML_LEVEL_MISMATCH
+ * @li LIBSBML_VERSION_MISMATCH
+ * @li LIBSBML_OPERATION_FAILED
+ *
+ * @memberof Reaction_t
+ */
 LIBSBML_EXTERN
 int
 Reaction_addModifier (Reaction_t *r, const SpeciesReference_t *msr);
 
 
+/**
+ * Creates a new SpeciesReference, adds it to this Reaction's list of
+ * reactants and returns it.
+ *
+ * @memberof Reaction_t
+ */
 LIBSBML_EXTERN
 SpeciesReference_t *
 Reaction_createReactant (Reaction_t *r);
 
 
+/**
+ * Creates a new SpeciesReference, adds it to this Reaction's list of
+ * products and returns it.
+ *
+ * @memberof Reaction_t
+ */
 LIBSBML_EXTERN
 SpeciesReference_t *
 Reaction_createProduct (Reaction_t *r);
 
 
+/**
+ * Creates a new SpeciesReference, adds it to this Reaction's list of
+ * modifiers and returns it.
+ *
+ * @memberof Reaction_t
+ */
 LIBSBML_EXTERN
 SpeciesReference_t *
 Reaction_createModifier (Reaction_t *r);
 
 
+/**
+ * Creates a new KineticLaw for this Reaction and returns it.  If this
+ * Reaction had a previous KineticLaw, it will be destroyed.
+ *
+ * @memberof Reaction_t
+ */
 LIBSBML_EXTERN
 KineticLaw_t *
 Reaction_createKineticLaw (Reaction_t *r);
 
 
+/**
+ * @return the list of Reactants for this Reaction.
+ *
+ * @memberof Reaction_t
+ */
 LIBSBML_EXTERN
 ListOf_t *
 Reaction_getListOfReactants (Reaction_t *r);
 
 
+/**
+ * @return the list of Products for this Reaction.
+ *
+ * @memberof Reaction_t
+ */
 LIBSBML_EXTERN
 ListOf_t *
 Reaction_getListOfProducts (Reaction_t *r);
 
 
+/**
+ * @return the list of Modifiers for this Reaction.
+ *
+ * @memberof Reaction_t
+ */
 LIBSBML_EXTERN
 ListOf_t *
 Reaction_getListOfModifiers (Reaction_t *r);
 
 
+/**
+ * @return the nth reactant (SpeciesReference) of this Reaction.
+ *
+ * @memberof Reaction_t
+ */
 LIBSBML_EXTERN
 SpeciesReference_t *
 Reaction_getReactant (Reaction_t *r, unsigned int n);
 
 
+/**
+ * @return the reactant (SpeciesReference) in this Reaction with the given
+ * species or @c NULL if no such reactant exists.
+ *
+ * @memberof Reaction_t
+ */
 LIBSBML_EXTERN
 SpeciesReference_t *
 Reaction_getReactantBySpecies (Reaction_t *r, const char *species);
 
 
+/**
+ * @return the nth product (SpeciesReference) of this Reaction.
+ *
+ * @memberof Reaction_t
+ */
 LIBSBML_EXTERN
 SpeciesReference_t *
 Reaction_getProduct (Reaction_t *r, unsigned int n);
 
 
+/**
+ * @return the product (SpeciesReference) in this Reaction with the given
+ * species or @c NULL if no such product exists.
+ *
+ * @memberof Reaction_t
+ */
 LIBSBML_EXTERN
 SpeciesReference_t *
 Reaction_getProductBySpecies (Reaction_t *r, const char *species);
 
 
+/**
+ * @return the nth modifier (ModifierSpeciesReference) of this Reaction.
+ *
+ * @memberof Reaction_t
+ */
 LIBSBML_EXTERN
 SpeciesReference_t *
 Reaction_getModifier (Reaction_t *r, unsigned int n);
 
 
+/**
+ * @return the modifier (ModifierSpeciesReference) in this Reaction with
+ * the given species or @c NULL if no such modifier exists.
+ *
+ * @memberof Reaction_t
+ */
 LIBSBML_EXTERN
 SpeciesReference_t *
 Reaction_getModifierBySpecies (Reaction_t *r, const char *species);
 
 
+/**
+ * @return the number of reactants (SpeciesReferences) in this Reaction.
+ *
+ * @memberof Reaction_t
+ */
 LIBSBML_EXTERN
 unsigned int
 Reaction_getNumReactants (const Reaction_t *r);
 
 
+/**
+ * @return the number of products (SpeciesReferences) in this Reaction.
+ *
+ * @memberof Reaction_t
+ */
 LIBSBML_EXTERN
 unsigned int
 Reaction_getNumProducts (const Reaction_t *r);
 
 
+/**
+ * @return the number of modifiers (ModifierSpeciesReferences) in this
+ * Reaction.
+ *
+ * @memberof Reaction_t
+ */
 LIBSBML_EXTERN
 unsigned int
 Reaction_getNumModifiers (const Reaction_t *r);
 
 
+/**
+ * Removes the nth reactant SpeciesReference_t object from this 
+ * Reaction_t object and returns a pointer to it.
+ *
+ * The caller owns the returned object and is responsible for deleting it.
+ *
+ * @param r the Reaction_t structure
+ * @param n the integer index of the reactant SpeciesReference_t to remove
+ *
+ * @return the reactant SpeciesReference_t object removed.  As mentioned 
+ * above, the caller owns the returned object. @c NULL is returned if the 
+ * given index is out of range.
+ *
+ * @memberof Reaction_t
+ */
 LIBSBML_EXTERN
 SpeciesReference_t *
 Reaction_removeReactant (Reaction_t *r, unsigned int n);
 
 
+/**
+ * Removes the reactant SpeciesReference_t object with the given 
+ * "species" attribute from this Reaction_t object and returns a pointer
+ * to it.
+ *
+ * The caller owns the returned object and is responsible for deleting it.
+ *
+ * @param r the Reaction_t structure
+ * @param species the "species" attribute of the reactant SpeciesReference_t 
+ * to remove
+ *
+ * @return the reactant SpeciesReference_t object removed.  As mentioned 
+ * above, the caller owns the returned object. @c NULL is returned if no 
+ * reactant SpeciesReference_t object with the "species" attribute exists 
+ * in this Reaction.
+ *
+ * @memberof Reaction_t
+ */
 LIBSBML_EXTERN
 SpeciesReference_t *
 Reaction_removeReactantBySpecies (Reaction_t *r, const char *species);
 
 
+/**
+ * Removes the nth product SpeciesReference_t object from this 
+ * Reaction_t object and returns a pointer to it.
+ *
+ * The caller owns the returned object and is responsible for deleting it.
+ *
+ * @param r the Reaction_t structure
+ * @param n the integer index of the product SpeciesReference_t to remove
+ *
+ * @return the product SpeciesReference_t object removed.  As mentioned 
+ * above, the caller owns the returned object. @c NULL is returned if the 
+ * given index is out of range.
+ *
+ * @memberof Reaction_t
+ */
 LIBSBML_EXTERN
 SpeciesReference_t *
 Reaction_removeProduct (Reaction_t *r, unsigned int n);
 
 
+/**
+ * Removes the product SpeciesReference_t object with the given 
+ * "species" attribute from this Reaction_t object and returns a pointer
+ * to it.
+ *
+ * The caller owns the returned object and is responsible for deleting it.
+ *
+ * @param r the Reaction_t structure
+ * @param species the "species" attribute of the product SpeciesReference_t 
+ * to remove
+ *
+ * @return the product SpeciesReference_t object removed.  As mentioned 
+ * above, the caller owns the returned object. @c NULL is returned if no 
+ * product SpeciesReference_t object with the "species" attribute exists 
+ * in this Reaction.
+ *
+ * @memberof Reaction_t
+ */
 LIBSBML_EXTERN
 SpeciesReference_t *
 Reaction_removeProductBySpecies (Reaction_t *r, const char *species);
 
 
+/**
+ * Removes the nth modifier SpeciesReference_t object from this 
+ * Reaction_t object and returns a pointer to it.
+ *
+ * The caller owns the returned object and is responsible for deleting it.
+ *
+ * @param r the Reaction_t structure
+ * @param n the integer index of the modifier SpeciesReference_t to remove
+ *
+ * @return the modifier SpeciesReference_t object removed.  As mentioned 
+ * above, the caller owns the returned object. @c NULL is returned if the 
+ * given index is out of range.
+ *
+ * @memberof Reaction_t
+ */
 LIBSBML_EXTERN
 SpeciesReference_t *
 Reaction_removeModifier (Reaction_t *r, unsigned int n);
 
 
+/**
+ * Removes the modifier SpeciesReference_t object with the given 
+ * "species" attribute from this Reaction_t object and returns a pointer
+ * to it.
+ *
+ * The caller owns the returned object and is responsible for deleting it.
+ *
+ * @param r the Reaction_t structure
+ * @param species the "species" attribute of the modifier SpeciesReference_t 
+ * to remove
+ *
+ * @return the modifier SpeciesReference_t object removed.  As mentioned 
+ * above, the caller owns the returned object. @c NULL is returned if no 
+ * modifier SpeciesReference_t object with the "species" attribute exists 
+ * in this Reaction.
+ *
+ * @memberof Reaction_t
+ */
 LIBSBML_EXTERN
 SpeciesReference_t *
 Reaction_removeModifierBySpecies (Reaction_t *r, const char *species);
 
 
+/**
+ * @return item in this ListOfReaction with the given @p id or @c NULL if no such
+ * item exists.
+ *
+ * @memberof Reaction_t
+ */
 LIBSBML_EXTERN
 Reaction_t *
 ListOfReactions_getById (ListOf_t *lo, const char *sid);
 
 
+/**
+ * Removes item in this ListOf items with the given @p id or @c NULL if no such
+ * item exists.  The caller owns the returned item and is responsible for
+ * deleting it.
+ *
+ * @memberof Reaction_t
+ */
 LIBSBML_EXTERN
 Reaction_t *
 ListOfReactions_removeById (ListOf_t *lo, const char *sid);

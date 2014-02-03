@@ -43,6 +43,7 @@ BEGIN_C_DECLS
  * @copydetails doc_what_are_typecodes
  *
  * @copydetails doc_additional_typecode_details
+ *
  */
 typedef enum
 {
@@ -114,6 +115,7 @@ typedef enum
  *
  * @note The caller does not own the returned string and is therefore not
  * allowed to modify it.
+ *
  */
 LIBSBML_EXTERN
 const char *

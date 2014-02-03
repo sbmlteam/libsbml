@@ -1024,147 +1024,508 @@ LIBSBML_CPP_NAMESPACE_END
 LIBSBML_CPP_NAMESPACE_BEGIN
 BEGIN_C_DECLS
 
-
-/* ----------------------------------------------------------------------------
- * See the .cpp file for the documentation of the following functions.
- * --------------------------------------------------------------------------*/
-
-
+/**
+ * Creates a new Parameter_t structure using the given SBML @p level
+ * and @p version values.
+ *
+ * @param level an unsigned int, the SBML Level to assign to this
+ * Parameter
+ *
+ * @param version an unsigned int, the SBML Version to assign to this
+ * Parameter
+ *
+ * @return a pointer to the newly created Parameter_t structure.
+ *
+ * @note Once a Parameter has been added to an SBMLDocument, the @p
+ * level and @p version for the document @em override those used to create
+ * the Parameter.  Despite this, the ability to supply the values at
+ * creation time is an important aid to creating valid SBML.  Knowledge of
+ * the intended SBML Level and Version  determine whether it is valid to
+ * assign a particular value to an attribute, or whether it is valid to add
+ * an object to an existing SBMLDocument.
+ *
+ * @memberof Parameter_t
+ */
 LIBSBML_EXTERN
 Parameter_t *
 Parameter_create (unsigned int level, unsigned int version);
 
 
+/**
+ * Creates a new Parameter_t structure using the given
+ * SBMLNamespaces_t structure.
+ *
+ * @param sbmlns SBMLNamespaces, a pointer to an SBMLNamespaces structure
+ * to assign to this Parameter
+ *
+ * @return a pointer to the newly created Parameter_t structure.
+ *
+ * @note Once a Parameter has been added to an SBMLDocument, the
+ * @p sbmlns namespaces for the document @em override those used to create
+ * the Parameter.  Despite this, the ability to supply the values at creation time
+ * is an important aid to creating valid SBML.  Knowledge of the intended SBML
+ * Level and Version determine whether it is valid to assign a particular value
+ * to an attribute, or whether it is valid to add an object to an existing
+ * SBMLDocument.
+ *
+ * @memberof Parameter_t
+ */
 LIBSBML_EXTERN
 Parameter_t *
 Parameter_createWithNS (SBMLNamespaces_t *sbmlns);
 
 
+/**
+ * Frees the given Parameter_t structure.
+ *
+ * @param p the Parameter_t structure to be freed.
+ *
+ * @memberof Parameter_t
+ */
 LIBSBML_EXTERN
 void
 Parameter_free (Parameter_t *p);
 
 
+/**
+ * Creates a deep copy of the given Parameter_t structure
+ * 
+ * @param p the Parameter_t structure to be copied
+ * 
+ * @return a (deep) copy of the given Parameter_t structure.
+ *
+ * @memberof Parameter_t
+ */
 LIBSBML_EXTERN
 Parameter_t *
 Parameter_clone (const Parameter_t *p);
 
 
+/**
+ * Initializes the attributes of this Parameter_t structure to their defaults.
+ *
+ * The exact results depends on the %SBML Level and Version in use.  The
+ * cases are currently the following:
+ * 
+ * @li (%SBML Level 2 only) constant = 1 (true)
+ *
+ * @param p the Parameter_t structure to initialize
+ *
+ * @memberof Parameter_t
+ */
 LIBSBML_EXTERN
 void
 Parameter_initDefaults (Parameter_t *p);
 
 
+/**
+ * Returns a list of XMLNamespaces_t associated with this Parameter_t
+ * structure.
+ *
+ * @param p the Parameter_t structure
+ * 
+ * @return pointer to the XMLNamespaces_t structure associated with 
+ * this SBML object
+ *
+ * @memberof Parameter_t
+ */
 LIBSBML_EXTERN
 const XMLNamespaces_t *
-Parameter_getNamespaces(Parameter_t *c);
+Parameter_getNamespaces(Parameter_t *p);
 
 
+/**
+ * Takes a Parameter_t structure and returns its identifier.
+ *
+ * @param p the Parameter_t structure whose identifier is sought
+ * 
+ * @return the identifier of this Parameter_t, as a pointer to a string.
+ *
+ * @memberof Parameter_t
+ */
 LIBSBML_EXTERN
 const char *
 Parameter_getId (const Parameter_t *p);
 
 
+/**
+ * Takes a Parameter_t structure and returns its name.
+ *
+ * @param p the Parameter_t whose name is sought.
+ *
+ * @return the name of this Parameter_t, as a pointer to a string.
+ *
+ * @memberof Parameter_t
+ */
 LIBSBML_EXTERN
 const char *
 Parameter_getName (const Parameter_t *p);
 
 
+/**
+ * Takes a Parameter_t structure and returns its value.
+ *
+ * @param p the Parameter_t whose value is sought.
+ *
+ * @return the value assigned to this Parameter_t structure, as a @c double.
+ *
+ * @memberof Parameter_t
+ */
 LIBSBML_EXTERN
 double
 Parameter_getValue (const Parameter_t *p);
 
 
+/**
+ * Takes a Parameter_t structure and returns its units.
+ *
+ * @param p the Parameter_t whose units are sought.
+ *
+ * @return the units assigned to this Parameter_t structure, as a pointer
+ * to a string.  
+ *
+ * @memberof Parameter_t
+ */
 LIBSBML_EXTERN
 const char *
 Parameter_getUnits (const Parameter_t *p);
 
 
+/**
+ * Takes a Parameter_t structure and returns zero or nonzero, depending
+ * on the value of the parameter's "constant" attribute.
+ *
+ * @param p the Parameter_t whose constant value is sought.
+ *
+ * @return the value of the "constant" attribute, with nonzero meaning
+ * true and zero meaning false.
+ *
+ * @memberof Parameter_t
+ */
 LIBSBML_EXTERN
 int
 Parameter_getConstant (const Parameter_t *p);
 
 
+/**
+ * Predicate returning @c true or @c false depending on whether the given
+ * Parameter_t structure's identifier is set.
+ *
+ * @param p the Parameter_t structure to query
+ * 
+ * @return @c non-zero (true) if the "id" attribute of the given
+ * Parameter_t structure is set, zero (false) otherwise.
+ *
+ * @memberof Parameter_t
+ */
 LIBSBML_EXTERN
 int
 Parameter_isSetId (const Parameter_t *p);
 
 
+/**
+ * Predicate returning @c true or @c false depending on whether the given
+ * Parameter_t structure's name is set.
+ *
+ * @param p the Parameter_t structure to query
+ * 
+ * @return @c non-zero (true) if the "name" attribute of the given
+ * Parameter_t structure is set, zero (false) otherwise.
+ *
+ * @memberof Parameter_t
+ */
 LIBSBML_EXTERN
 int
 Parameter_isSetName (const Parameter_t *p);
 
 
+/**
+ * Predicate returning @c true or @c false depending on whether the given
+ * Parameter_t structure's value is set.
+ * 
+ * @param p the Parameter_t structure to query
+ * 
+ * @return @c non-zero (true) if the "value" attribute of the given
+ * Parameter_t structure is set, zero (false) otherwise.
+ *
+ * @note In SBML Level 1 Version 1, a Parameter value is required and
+ * therefore <em>should always be set</em>.  In Level 1 Version 2 and
+ * later, the value is optional, and as such, may or may not be set.
+ *
+ * @memberof Parameter_t
+ */
 LIBSBML_EXTERN
 int
 Parameter_isSetValue (const Parameter_t *p);
 
 
+/**
+ * Predicate returning @c true or @c false depending on whether the given
+ * Parameter_t structure's units have been set.
+ *
+ * @param p the Parameter_t structure to query
+ * 
+ * @return @c non-zero (true) if the "units" attribute of the given
+ * Parameter_t structure is set, zero (false) otherwise.
+ *
+ * @memberof Parameter_t
+ */
 LIBSBML_EXTERN
 int
 Parameter_isSetUnits (const Parameter_t *p);
 
 
+/**
+ * Predicate returning @c true or @c false depending on whether the given
+ * Parameter_t structure's constant attribute have been set.
+ *
+ * @param p the Parameter_t structure to query
+ * 
+ * @return @c non-zero (true) if the "constant" attribute of the given
+ * Parameter_t structure is set, zero (false) otherwise.
+ *
+ * @memberof Parameter_t
+ */
 LIBSBML_EXTERN
 int
 Parameter_isSetConstant (const Parameter_t *p);
 
 
+/**
+ * Assigns the identifier of a Parameter_t structure.
+ *
+ * This makes a copy of the string passed in the param @p sid.
+ *
+ * @param p the Parameter_t structure to set.
+ * @param sid the string to use as the identifier.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+ *
+ * @note Using this function with an id of NULL is equivalent to
+ * unsetting the "id" attribute.
+ *
+ * @memberof Parameter_t
+ */
 LIBSBML_EXTERN
 int
 Parameter_setId (Parameter_t *p, const char *sid);
 
 
+/**
+ * Assign the name of a Parameter_t structure.
+ *
+ * This makes a copy of the string passed in as the argument @p name.
+ *
+ * @param p the Parameter_t structure to set.
+ * @param name the string to use as the name.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+ *
+ * @note Using this function with the name set to NULL is equivalent to
+ * unsetting the "name" attribute.
+ *
+ * @memberof Parameter_t
+ */
 LIBSBML_EXTERN
 int
 Parameter_setName (Parameter_t *p, const char *name);
 
 
+/**
+ * Assign the value of a Parameter_t structure.
+ *
+ * @param p the Parameter_t structure to set.
+ * @param value the @c double value to use.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ *
+ * @memberof Parameter_t
+ */
 LIBSBML_EXTERN
 int
 Parameter_setValue (Parameter_t *p, double value);
 
 
+/**
+ * Assign the units of a Parameter_t structure.
+ *
+ * This makes a copy of the string passed in as the argument @p units.
+ *
+ * @param p the Parameter_t structure to set.
+ * @param units the string to use as the identifier of the units to assign.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+ *
+ * @note Using this function with units set to NULL is equivalent to
+ * unsetting the "units" attribute.
+ *
+ * @memberof Parameter_t
+ */
 LIBSBML_EXTERN
 int
 Parameter_setUnits (Parameter_t *p, const char *units);
 
 
+/**
+ * Assign the "constant" attribute of a Parameter_t structure.
+ *
+ * @param p the Parameter_t structure to set.
+ * @param value the value to assign as the "constant" attribute
+ * of the parameter, either zero for false or nonzero for true.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_UNEXPECTED_ATTRIBUTE
+ *
+ * @memberof Parameter_t
+ */
 LIBSBML_EXTERN
 int
 Parameter_setConstant (Parameter_t *p, int value);
 
 
+/**
+ * Unsets the name of this Parameter_t structure.
+ * 
+ * @param p the Parameter_t structure whose name is to be unset.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_OPERATION_FAILED
+ *
+ * @memberof Parameter_t
+ */
 LIBSBML_EXTERN
 int
 Parameter_unsetName (Parameter_t *p);
 
 
+/**
+ * Unsets the value of this Parameter_t structure.
+ *
+ * In SBML Level 1 Version 1, a parameter is required to have a value and
+ * therefore this attribute <em>should always be set</em>.  In Level 1
+ * Version 2 and beyond, a value is optional, and as such, may or may not be
+ * set.
+ *
+ * @param p the Parameter_t structure whose value is to be unset.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ *
+ * @memberof Parameter_t
+ */
 LIBSBML_EXTERN
 int
 Parameter_unsetValue (Parameter_t *p);
 
 
+/**
+ * Unsets the units of this Parameter_t structure.
+ * 
+ * @param p the Parameter_t structure whose units are to be unset.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_OPERATION_FAILED
+ *
+ * @memberof Parameter_t
+ */
 LIBSBML_EXTERN
 int
 Parameter_unsetUnits (Parameter_t *p);
 
 
+/**
+ * Constructs and returns a UnitDefinition_t structure that expresses 
+ * the units of this Parameter_t structure.
+ *
+ * @param p the Parameter_t structure whose units are to be returned.
+ *
+ * @return a UnitDefinition_t structure that expresses the units 
+ * of this Parameter_t strucuture.
+ *
+ * @note This function returns the units of the Parameter_t expressed 
+ * as a UnitDefinition_t. The units may be those explicitly declared. 
+ * In the case where no units have been declared, @c NULL is returned.
+ *
+ * @memberof Parameter_t
+ */
 LIBSBML_EXTERN
 UnitDefinition_t * 
 Parameter_getDerivedUnitDefinition(Parameter_t *p);
 
 
+/**
+ * Predicate returning @c true or @c false depending on whether
+ * all the required attributes for this Parameter object
+ * have been set.
+ *
+ * @param p the Parameter_t structure to check.
+ *
+ * @note The required attributes for a Parameter object are:
+ * @li id (name in L1)
+ * @li constant (in L3 only)
+ *
+ * @return a true if all the required
+ * attributes for this object have been defined, false otherwise.
+ *
+ * @memberof Parameter_t
+ */
 LIBSBML_EXTERN
 int
 Parameter_hasRequiredAttributes (Parameter_t *p);
 
 
+/**
+ * @return item in this ListOfParameter with the given @p id or @c NULL if no such
+ * item exists.
+ *
+ * @memberof ListOfParameters_t
+ */
 LIBSBML_EXTERN
 Parameter_t *
 ListOfParameters_getById (ListOf_t *lo, const char *sid);
 
 
+/**
+ * Removes item in this ListOf items with the given @p id or @c NULL if no such
+ * item exists.  The caller owns the returned item and is responsible for
+ * deleting it.
+ *
+ * @memberof ListOfParameters_t
+ */
 LIBSBML_EXTERN
 Parameter_t *
 ListOfParameters_removeById (ListOf_t *lo, const char *sid);

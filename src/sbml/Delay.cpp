@@ -631,26 +631,6 @@ Delay::writeElements (XMLOutputStream& stream) const
 /** @cond doxygenCOnly */
 
 
-/**
- * Creates a new Delay_t structure using the given SBML @p level
- * and @p version values.
- *
- * @param level an unsigned int, the SBML Level to assign to this
- * Delay
- *
- * @param version an unsigned int, the SBML Version to assign to this
- * Delay
- *
- * @return a pointer to the newly created Delay_t structure.
- *
- * @note Once a Delay has been added to an SBMLDocument, the @p
- * level and @p version for the document @em override those used to create
- * the Delay.  Despite this, the ability to supply the values at
- * creation time is an important aid to creating valid SBML.  Knowledge of
- * the intended SBML Level and Version  determine whether it is valid to
- * assign a particular value to an attribute, or whether it is valid to add
- * an object to an existing SBMLDocument.
- */
 LIBSBML_EXTERN
 Delay_t *
 Delay_create (unsigned int level, unsigned int version)
@@ -667,23 +647,6 @@ Delay_create (unsigned int level, unsigned int version)
 }
 
 
-/**
- * Creates a new Delay_t structure using the given
- * SBMLNamespaces_t structure.
- *
- * @param sbmlns SBMLNamespaces, a pointer to an SBMLNamespaces structure
- * to assign to this Delay
- *
- * @return a pointer to the newly created Delay_t structure.
- *
- * @note Once a Delay has been added to an SBMLDocument, the
- * @p sbmlns namespaces for the document @em override those used to create
- * the Delay.  Despite this, the ability to supply the values at creation time
- * is an important aid to creating valid SBML.  Knowledge of the intended SBML
- * Level and Version determine whether it is valid to assign a particular value
- * to an attribute, or whether it is valid to add an object to an existing
- * SBMLDocument.
- */
 LIBSBML_EXTERN
 Delay_t *
 Delay_createWithNS (SBMLNamespaces_t* sbmlns)
@@ -700,11 +663,6 @@ Delay_createWithNS (SBMLNamespaces_t* sbmlns)
 }
 
 
-/**
- * Frees the given Delay_t structure.
- *
- * @param t the Delay_t structure to free.
- */
 LIBSBML_EXTERN
 void
 Delay_free (Delay_t *t)
@@ -714,13 +672,6 @@ Delay_free (Delay_t *t)
 }
 
 
-/**
- * Creates and returns a deep copy of the given Delay_t structure.
- *
- * @param t the Delay_t structure to copy. 
- *
- * @return a (deep) copy of the given Delay_t structure @p t.
- */
 LIBSBML_EXTERN
 Delay_t *
 Delay_clone (const Delay_t *t)
@@ -729,15 +680,6 @@ Delay_clone (const Delay_t *t)
 }
 
 
-/**
- * Returns a list of XMLNamespaces_t associated with this Delay_t
- * structure.
- *
- * @param d the Delay_t structure
- * 
- * @return pointer to the XMLNamespaces_t structure associated with 
- * this SBML object
- */
 LIBSBML_EXTERN
 const XMLNamespaces_t *
 Delay_getNamespaces(Delay_t *d)
@@ -745,14 +687,6 @@ Delay_getNamespaces(Delay_t *d)
   return (d != NULL) ? d->getNamespaces() : NULL;
 }
 
-/**
- * Get the mathematical formula for a Delay_t structure and return it as
- * as an ASTNode structure.
- *
- * @param t the Delay_t structure to query.
- * 
- * @return an ASTNode_t structure representing the expression tree.
- */
 LIBSBML_EXTERN
 const ASTNode_t *
 Delay_getMath (const Delay_t *t)
@@ -761,15 +695,6 @@ Delay_getMath (const Delay_t *t)
 }
 
 
-/**
- * Predicate to test whether the formula for the given Delay_t structure
- * is set.
- *
- * @param t the Delay_t structure to query
- *
- * @return @c true if the formula (meaning the @c math subelement) of
- * this Delay is set, @c false otherwise.
- */
 LIBSBML_EXTERN
 int
 Delay_isSetMath (const Delay_t *t)
@@ -778,20 +703,6 @@ Delay_isSetMath (const Delay_t *t)
 }
 
 
-/**
- * Sets the delay expression of the given Delay_t instance to a copy of the
- * given ASTNode_t structure.
- *
- * @param t the Delay_t structure to set.
- * @param math an ASTNode representing a formula tree.
- *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif@~ The possible values
- * returned by this function are:
- * @li LIBSBML_OPERATION_SUCCESS
- * @li LIBSBML_INVALID_OBJECT
- */
 LIBSBML_EXTERN
 int
 Delay_setMath (Delay_t *t, const ASTNode_t *math)
@@ -803,26 +714,6 @@ Delay_setMath (Delay_t *t, const ASTNode_t *math)
 
 }
 
-/**
-  * Calculates and returns a UnitDefinition_t that expresses the units
-  * returned by the math expression of this Delay_t.
-  *
-  * @return a UnitDefinition_t that expresses the units of the math 
-  * expression of this Delay_t.
-  *
-  * Note that the functionality that facilitates unit analysis depends 
-  * on the model as a whole.  Thus, in cases where the object has not 
-  * been added to a model or the model itself is incomplete,
-  * unit analysis is not possible and this method will return @c NULL.
-  *
-  * @note The units are calculated by applying the mathematics 
-  * from the expression to the units of the &lt;ci&gt; elements used 
-  * within the expression. Where there are parameters/numbers
-  * with undeclared units the UnitDefinition_t returned by this
-  * function may not accurately represent the units of the expression.
-  *
-  * @see Delay_containsUndeclaredUnits()
-  */
 LIBSBML_EXTERN
 UnitDefinition_t * 
 Delay_getDerivedUnitDefinition(Delay_t *d)
@@ -831,21 +722,6 @@ Delay_getDerivedUnitDefinition(Delay_t *d)
 }
 
 
-/**
-  * Predicate returning @c true or @c false depending on whether 
-  * the math expression of this Delay_t contains
-  * parameters/numbers with undeclared units.
-  * 
-  * @return @c true if the math expression of this Delay_t
-  * includes parameters/numbers 
-  * with undeclared units, @c false otherwise.
-  *
-  * @note a return value of @c true indicates that the UnitDefinition_t
-  * returned by the getDerivedUnitDefinition function may not 
-  * accurately represent the units of the expression.
-  *
-  * @see Delay_getDerivedUnitDefinition()
-  */
 LIBSBML_EXTERN
 int 
 Delay_containsUndeclaredUnits(Delay_t *d)

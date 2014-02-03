@@ -540,6 +540,8 @@ BEGIN_C_DECLS
  * Creates a new ListOf.
  *
  * @return a pointer to created ListOf.
+ *
+ * @memberof ListOf_t
  */
 LIBSBML_EXTERN
 ListOf_t *
@@ -549,6 +551,8 @@ ListOf_create (unsigned int level, unsigned int version);
  * Frees the given ListOf and its constituent items.
  *
  * This function assumes each item in the list is derived from SBase.
+ *
+ * @memberof ListOf_t
  */
 LIBSBML_EXTERN
 void
@@ -556,6 +560,8 @@ ListOf_free (ListOf_t *lo);
 
 /**
  * @return a (deep) copy of this ListOf items.
+ *
+ * @memberof ListOf_t
  */
 LIBSBML_EXTERN
 ListOf_t *
@@ -564,6 +570,8 @@ ListOf_clone (const ListOf_t *lo);
 
 /**
  * Adds a copy of item to the end of this ListOf items.
+ *
+ * @memberof ListOf_t
  */
 LIBSBML_EXTERN
 int
@@ -571,6 +579,8 @@ ListOf_append (ListOf_t *lo, const SBase_t *item);
 
 /**
  * Adds the given item to the end of this ListOf items.
+ *
+ * @memberof ListOf_t
  */
 LIBSBML_EXTERN
 int
@@ -578,6 +588,8 @@ ListOf_appendAndOwn (ListOf_t *lo, SBase_t *item);
 
 /**
  * Adds clones of the given items from the second list to the end of this ListOf items.
+ *
+ * @memberof ListOf_t
  */
 LIBSBML_EXTERN
 int
@@ -585,6 +597,8 @@ ListOf_appendFrom (ListOf_t *lo, ListOf_t *list);
 
 /**
  * inserts a copy of item to this ListOf items at the given position.
+ *
+ * @memberof ListOf_t
  */
 LIBSBML_EXTERN
 int
@@ -592,6 +606,8 @@ ListOf_insert (ListOf_t *lo, int location, const SBase_t *item);
 
 /**
  * inserts the item to this ListOf items at the given position.
+ *
+ * @memberof ListOf_t
  */
 LIBSBML_EXTERN
 int
@@ -600,6 +616,8 @@ ListOf_insertAndOwn (ListOf_t *lo, int location, SBase_t *item);
 
 /**
  * Returns the nth item in this ListOf items.
+ *
+ * @memberof ListOf_t
  */
 LIBSBML_EXTERN
 SBase_t *
@@ -609,6 +627,8 @@ ListOf_get (ListOf_t *lo, unsigned int n);
 /**
  * @return item in this ListOf items with the given @p sid or @c NULL if no such
  * item exists.
+ *
+ * @memberof ListOf_t
  */
 LIBSBML_EXTERN
 SBase_t *
@@ -617,6 +637,14 @@ ListOf_getById (ListOf_t *lo, const char *sid);
 
 /**
  * Removes all items in this ListOf object.
+ *
+ * If doDelete is true (non-zero), all items in this ListOf object are deleted
+ * and cleared, and thus the caller doesn't have to delete those items.
+ * Otherwise (zero), all items are just cleared from this ListOf object and the 
+ * caller is responsible for deleting all items (In this case, pointers to all 
+ * items should be stored elsewhere before calling this function by the caller).
+ *
+ * @memberof ListOf_t
  */
 LIBSBML_EXTERN
 void
@@ -626,6 +654,8 @@ ListOf_clear (ListOf_t *lo, int doDelete);
  * Removes the nth item from this ListOf items and returns a pointer to
  * it.  The caller owns the returned item and is responsible for deleting
  * it.
+ *
+ * @memberof ListOf_t
  */
 LIBSBML_EXTERN
 SBase_t *
@@ -636,6 +666,8 @@ ListOf_remove (ListOf_t *lo, unsigned int n);
  * Removes item in this ListOf items with the given @p sid or @c NULL if no such
  * item exists.  The caller owns the returned item and is repsonsible for
  * deleting it.
+ *
+ * @memberof ListOf_t
  */
 LIBSBML_EXTERN
 SBase_t *
@@ -644,6 +676,8 @@ ListOf_removeById (ListOf_t *lo, const char *sid);
 
 /**
  * Returns the number of items in this ListOf items.
+ *
+ * @memberof ListOf_t
  */
 LIBSBML_EXTERN
 unsigned int
@@ -652,6 +686,8 @@ ListOf_size (const ListOf_t *lo);
 /**
  * @return the int of SBML objects contained in this ListOf or
  * SBML_UNKNOWN (default).
+ *
+ * @memberof ListOf_t
  */
 LIBSBML_EXTERN
 int

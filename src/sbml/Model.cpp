@@ -5888,26 +5888,6 @@ Model::isPopulatedListFormulaUnitsData()
 /** @cond doxygenCOnly */
 
 
-/**
- * Creates a new Model_t structure using the given SBML @p level
- * and @p version values.
- *
- * @param level an unsigned int, the SBML Level to assign to this
- * Model
- *
- * @param version an unsigned int, the SBML Version to assign to this
- * Model
- *
- * @return a pointer to the newly created Model_t structure.
- *
- * @note Once a Model has been added to an SBMLDocument, the @p
- * level and @p version for the document @em override those used to create
- * the Model.  Despite this, the ability to supply the values at
- * creation time is an important aid to creating valid SBML.  Knowledge of
- * the intended SBML Level and Version  determine whether it is valid to
- * assign a particular value to an attribute, or whether it is valid to add
- * an object to an existing SBMLDocument.
- */
 LIBSBML_EXTERN
 Model_t *
 Model_create (unsigned int level, unsigned int version)
@@ -5924,23 +5904,6 @@ Model_create (unsigned int level, unsigned int version)
 }
 
 
-/**
- * Creates a new Model_t structure using the given
- * SBMLNamespaces_t structure.
- *
- * @param sbmlns SBMLNamespaces, a pointer to an SBMLNamespaces structure
- * to assign to this Model
- *
- * @return a pointer to the newly created Model_t structure.
- *
- * @note Once a Model has been added to an SBMLDocument, the
- * @p sbmlns namespaces for the document @em override those used to create
- * the Model.  Despite this, the ability to supply the values at creation time
- * is an important aid to creating valid SBML.  Knowledge of the intended SBML
- * Level and Version determine whether it is valid to assign a particular value
- * to an attribute, or whether it is valid to add an object to an existing
- * SBMLDocument.
- */
 LIBSBML_EXTERN
 Model_t *
 Model_createWithNS (SBMLNamespaces_t* sbmlns)
@@ -5957,13 +5920,6 @@ Model_createWithNS (SBMLNamespaces_t* sbmlns)
 }
 
 
-/**
- * Creates and returns a deep copy of a given Model_t structure.
- *
- * @param m the Model_t structure to copy
- * 
- * @return a (deep) copy of this Model_t structure.
- */
 LIBSBML_EXTERN
 Model_t *
 Model_clone (const Model_t *m)
@@ -5972,11 +5928,6 @@ Model_clone (const Model_t *m)
 }
 
 
-/**
- * Frees the given Model_t structure.
- *
- * @param m the Model_structure to free
- */
 LIBSBML_EXTERN
 void
 Model_free (Model_t *m)
@@ -5986,15 +5937,6 @@ Model_free (Model_t *m)
 }
 
 
-/**
- * Returns a list of XMLNamespaces_t associated with this Model_t
- * structure.
- *
- * @param m the Model_t structure
- * 
- * @return pointer to the XMLNamespaces_t structure associated with 
- * this SBML object
- */
 LIBSBML_EXTERN
 const XMLNamespaces_t *
 Model_getNamespaces(Model_t *m)
@@ -6003,13 +5945,6 @@ Model_getNamespaces(Model_t *m)
 }
 
 
-/**
- * Get the identifier of the given Model_t structure.
- *
- * @param m the Model_t structure
- * 
- * @return the id of this Model_t structure.
- */
 LIBSBML_EXTERN
 const char *
 Model_getId (const Model_t *m)
@@ -6018,13 +5953,6 @@ Model_getId (const Model_t *m)
 }
 
 
-/**
- * Get the name of the given Model_t structure.
- * 
- * @param m the Model_t structure
- * 
- * @return the name of this Model_t structure.
- */
 LIBSBML_EXTERN
 const char *
 Model_getName (const Model_t *m)
@@ -6033,13 +5961,6 @@ Model_getName (const Model_t *m)
 }
 
 
-/**
- * Get the substanceUnits of the given Model_t structure.
- * 
- * @param m the Model_t structure
- * 
- * @return the substanceUnits of this Model_t structure.
- */
 LIBSBML_EXTERN
 const char *
 Model_getSubstanceUnits (const Model_t *m)
@@ -6049,13 +5970,6 @@ Model_getSubstanceUnits (const Model_t *m)
 }
 
 
-/**
- * Get the timeUnits of the given Model_t structure.
- * 
- * @param m the Model_t structure
- * 
- * @return the timeUnits of this Model_t structure.
- */
 LIBSBML_EXTERN
 const char *
 Model_getTimeUnits (const Model_t *m)
@@ -6064,13 +5978,6 @@ Model_getTimeUnits (const Model_t *m)
 }
 
 
-/**
- * Get the volumeUnits of the given Model_t structure.
- * 
- * @param m the Model_t structure
- * 
- * @return the volumeUnits of this Model_t structure.
- */
 LIBSBML_EXTERN
 const char *
 Model_getVolumeUnits (const Model_t *m)
@@ -6080,13 +5987,6 @@ Model_getVolumeUnits (const Model_t *m)
 }
 
 
-/**
- * Get the areaUnits of the given Model_t structure.
- * 
- * @param m the Model_t structure
- * 
- * @return the areaUnits of this Model_t structure.
- */
 LIBSBML_EXTERN
 const char *
 Model_getAreaUnits (const Model_t *m)
@@ -6095,13 +5995,6 @@ Model_getAreaUnits (const Model_t *m)
 }
 
 
-/**
- * Get the lengthUnits of the given Model_t structure.
- * 
- * @param m the Model_t structure
- * 
- * @return the lengthUnits of this Model_t structure.
- */
 LIBSBML_EXTERN
 const char *
 Model_getLengthUnits (const Model_t *m)
@@ -6111,13 +6004,6 @@ Model_getLengthUnits (const Model_t *m)
 }
 
 
-/**
- * Get the extentUnits of the given Model_t structure.
- * 
- * @param m the Model_t structure
- * 
- * @return the extentUnits of this Model_t structure.
- */
 LIBSBML_EXTERN
 const char *
 Model_getExtentUnits (const Model_t *m)
@@ -6127,13 +6013,6 @@ Model_getExtentUnits (const Model_t *m)
 }
 
 
-/**
- * Get the conversionFactor of the given Model_t structure.
- * 
- * @param m the Model_t structure
- * 
- * @return the conversionFactor of this Model_t structure.
- */
 LIBSBML_EXTERN
 const char *
 Model_getConversionFactor (const Model_t *m)
@@ -6143,15 +6022,6 @@ Model_getConversionFactor (const Model_t *m)
 }
 
 
-/**
- * Predicate for testing whether the identifier of a given Model_t
- * structure is assigned.
- * 
- * @param m the Model_t structure
- * 
- * @return nonzero if the "id" attribute of this Model_t structure is 
- * set, zero (0) otherwise.
- */
 LIBSBML_EXTERN
 int
 Model_isSetId (const Model_t *m)
@@ -6160,15 +6030,6 @@ Model_isSetId (const Model_t *m)
 }
 
 
-/**
- * Predicate for testing whether the name of a given Model_t structure is
- * assigned.
- * 
- * @param m the Model_t structure
- * 
- * @return nonzero if the "name" attribute of this Model_t structure is
- * set, zero (0) otherwise.
- */
 LIBSBML_EXTERN
 int
 Model_isSetName (const Model_t *m)
@@ -6177,15 +6038,6 @@ Model_isSetName (const Model_t *m)
 }
 
 
-/**
- * Predicate for testing whether the substanceUnits of a given Model_t structure is
- * assigned.
- * 
- * @param m the Model_t structure
- * 
- * @return nonzero if the "substanceUnits" attribute of this Model_t structure is
- * set, zero (0) otherwise.
- */
 LIBSBML_EXTERN
 int
 Model_isSetSubstanceUnits (const Model_t *m)
@@ -6194,15 +6046,6 @@ Model_isSetSubstanceUnits (const Model_t *m)
 }
 
 
-/**
- * Predicate for testing whether the timeUnits of a given Model_t structure is
- * assigned.
- * 
- * @param m the Model_t structure
- * 
- * @return nonzero if the "timeUnits" attribute of this Model_t structure is
- * set, zero (0) otherwise.
- */
 LIBSBML_EXTERN
 int
 Model_isSetTimeUnits (const Model_t *m)
@@ -6211,15 +6054,6 @@ Model_isSetTimeUnits (const Model_t *m)
 }
 
 
-/**
- * Predicate for testing whether the volumeUnits of a given Model_t structure is
- * assigned.
- * 
- * @param m the Model_t structure
- * 
- * @return nonzero if the "volumeUnits" attribute of this Model_t structure is
- * set, zero (0) otherwise.
- */
 LIBSBML_EXTERN
 int
 Model_isSetVolumeUnits (const Model_t *m)
@@ -6228,15 +6062,6 @@ Model_isSetVolumeUnits (const Model_t *m)
 }
 
 
-/**
- * Predicate for testing whether the areaUnits of a given Model_t structure is
- * assigned.
- * 
- * @param m the Model_t structure
- * 
- * @return nonzero if the "areaUnits" attribute of this Model_t structure is
- * set, zero (0) otherwise.
- */
 LIBSBML_EXTERN
 int
 Model_isSetAreaUnits (const Model_t *m)
@@ -6245,15 +6070,6 @@ Model_isSetAreaUnits (const Model_t *m)
 }
 
 
-/**
- * Predicate for testing whether the lengthUnits of a given Model_t structure is
- * assigned.
- * 
- * @param m the Model_t structure
- * 
- * @return nonzero if the "lengthUnits" attribute of this Model_t structure is
- * set, zero (0) otherwise.
- */
 LIBSBML_EXTERN
 int
 Model_isSetLengthUnits (const Model_t *m)
@@ -6262,15 +6078,6 @@ Model_isSetLengthUnits (const Model_t *m)
 }
 
 
-/**
- * Predicate for testing whether the extentUnits of a given Model_t structure is
- * assigned.
- * 
- * @param m the Model_t structure
- * 
- * @return nonzero if the "extentUnits" attribute of this Model_t structure is
- * set, zero (0) otherwise.
- */
 LIBSBML_EXTERN
 int
 Model_isSetExtentUnits (const Model_t *m)
@@ -6279,15 +6086,6 @@ Model_isSetExtentUnits (const Model_t *m)
 }
 
 
-/**
- * Predicate for testing whether the conversionFactor of a given Model_t structure is
- * assigned.
- * 
- * @param m the Model_t structure
- * 
- * @return nonzero if the "conversionFactor" attribute of this Model_t structure is
- * set, zero (0) otherwise.
- */
 LIBSBML_EXTERN
 int
 Model_isSetConversionFactor (const Model_t *m)
@@ -6296,24 +6094,6 @@ Model_isSetConversionFactor (const Model_t *m)
 }
 
 
-/**
- * Set the identifier of a given Model_t structure.
- *
- * This copies the string in @p sid.
- * 
- * @param m the Model_t structure
- * @param sid the identifier string
- *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif@~ The possible values
- * returned by this function are:
- * @li LIBSBML_OPERATION_SUCCESS
- * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
- *
- * @note Using this function with an id of NULL is equivalent to
- * unsetting the "id" attribute.
- */
 LIBSBML_EXTERN
 int
 Model_setId (Model_t *m, const char *sid)
@@ -6325,24 +6105,6 @@ Model_setId (Model_t *m, const char *sid)
 }
 
 
-/**
- * Set the identifier of the given Model_t structure.
- * 
- * This copies the string in @p name.
- *
- * @param m the Model_t structure
- * @param name the name string
- *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif@~ The possible values
- * returned by this function are:
- * @li LIBSBML_OPERATION_SUCCESS
- * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
- *
- * @note Using this function with the name set to NULL is equivalent to
- * unsetting the "name" attribute.
- */
 LIBSBML_EXTERN
 int
 Model_setName (Model_t *m, const char *name)
@@ -6354,25 +6116,6 @@ Model_setName (Model_t *m, const char *name)
 }
 
 
-/**
- * Set the substanceUnits attribute of a given Model_t structure.
- *
- * This copies the string in @p units.
- * 
- * @param m the Model_t structure
- * @param units the identifier string
- *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif@~ The possible values
- * returned by this function are:
- * @li LIBSBML_OPERATION_SUCCESS
- * @li LIBSBML_UNEXPECTED_ATTRIBUTE
- * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
- *
- * @note Using this function with units NULL is equivalent to
- * unsetting the "substanceUnits" attribute.
- */
 LIBSBML_EXTERN
 int
 Model_setSubstanceUnits (Model_t *m, const char *units)
@@ -6385,25 +6128,6 @@ Model_setSubstanceUnits (Model_t *m, const char *units)
 }
 
 
-/**
- * Set the timeUnits attribute of a given Model_t structure.
- *
- * This copies the string in @p units.
- * 
- * @param m the Model_t structure
- * @param units the identifier string
- *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif@~ The possible values
- * returned by this function are:
- * @li LIBSBML_OPERATION_SUCCESS
- * @li LIBSBML_UNEXPECTED_ATTRIBUTE
- * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
- *
- * @note Using this function with units NULL is equivalent to
- * unsetting the "timeUnits" attribute.
- */
 LIBSBML_EXTERN
 int
 Model_setTimeUnits (Model_t *m, const char *units)
@@ -6416,25 +6140,6 @@ Model_setTimeUnits (Model_t *m, const char *units)
 }
 
 
-/**
- * Set the volumeUnits attribute of a given Model_t structure.
- *
- * This copies the string in @p units.
- * 
- * @param m the Model_t structure
- * @param units the identifier string
- *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif@~ The possible values
- * returned by this function are:
- * @li LIBSBML_OPERATION_SUCCESS
- * @li LIBSBML_UNEXPECTED_ATTRIBUTE
- * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
- *
- * @note Using this function with units NULL is equivalent to
- * unsetting the "volumeUnits" attribute.
- */
 LIBSBML_EXTERN
 int
 Model_setVolumeUnits (Model_t *m, const char *units)
@@ -6447,25 +6152,6 @@ Model_setVolumeUnits (Model_t *m, const char *units)
 }
 
 
-/**
- * Set the areaUnits attribute of a given Model_t structure.
- *
- * This copies the string in @p units.
- * 
- * @param m the Model_t structure
- * @param units the identifier string
- *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif@~ The possible values
- * returned by this function are:
- * @li LIBSBML_OPERATION_SUCCESS
- * @li LIBSBML_UNEXPECTED_ATTRIBUTE
- * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
- *
- * @note Using this function with units NULL is equivalent to
- * unsetting the "areaUnits" attribute.
- */
 LIBSBML_EXTERN
 int
 Model_setAreaUnits (Model_t *m, const char *units)
@@ -6478,25 +6164,6 @@ Model_setAreaUnits (Model_t *m, const char *units)
 }
 
 
-/**
- * Set the lengthUnits attribute of a given Model_t structure.
- *
- * This copies the string in @p units.
- * 
- * @param m the Model_t structure
- * @param units the identifier string
- *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif@~ The possible values
- * returned by this function are:
- * @li LIBSBML_OPERATION_SUCCESS
- * @li LIBSBML_UNEXPECTED_ATTRIBUTE
- * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
- *
- * @note Using this function with units NULL is equivalent to
- * unsetting the "lengthUnits" attribute.
- */
 LIBSBML_EXTERN
 int
 Model_setLengthUnits (Model_t *m, const char *units)
@@ -6509,25 +6176,6 @@ Model_setLengthUnits (Model_t *m, const char *units)
 }
 
 
-/**
- * Set the extentUnits attribute of a given Model_t structure.
- *
- * This copies the string in @p units.
- * 
- * @param m the Model_t structure
- * @param units the identifier string
- *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif@~ The possible values
- * returned by this function are:
- * @li LIBSBML_OPERATION_SUCCESS
- * @li LIBSBML_UNEXPECTED_ATTRIBUTE
- * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
- *
- * @note Using this function with units NULL is equivalent to
- * unsetting the "extentUnits" attribute.
- */
 LIBSBML_EXTERN
 int
 Model_setExtentUnits (Model_t *m, const char *units)
@@ -6540,25 +6188,6 @@ Model_setExtentUnits (Model_t *m, const char *units)
 }
 
 
-/**
- * Set the conversionFactor attribute of a given Model_t structure.
- *
- * This copies the string in @p sid.
- * 
- * @param m the Model_t structure
- * @param sid the identifier string
- *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif@~ The possible values
- * returned by this function are:
- * @li LIBSBML_OPERATION_SUCCESS
- * @li LIBSBML_UNEXPECTED_ATTRIBUTE
- * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
- *
- * @note Using this function with sid NULL is equivalent to
- * unsetting the "conversionFactor" attribute.
- */
 LIBSBML_EXTERN
 int
 Model_setConversionFactor (Model_t *m, const char *sid)
@@ -6571,18 +6200,6 @@ Model_setConversionFactor (Model_t *m, const char *sid)
 }
 
 
-/**
- * Unsets the "id" attribute of the given Model_t structure.
- *
- * @param m the Model_t structure
- *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif@~ The possible values
- * returned by this function are:
- * @li LIBSBML_OPERATION_SUCCESS
- * @li LIBSBML_OPERATION_FAILED
- */
 LIBSBML_EXTERN
 int
 Model_unsetId (Model_t *m)
@@ -6594,18 +6211,6 @@ Model_unsetId (Model_t *m)
 }
 
 
-/**
- * Unsets the "name" attribute of the given Model_t structure.
- *
- * @param m the Model_t structure
- *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif@~ The possible values
- * returned by this function are:
- * @li LIBSBML_OPERATION_SUCCESS
- * @li LIBSBML_OPERATION_FAILED
- */
 LIBSBML_EXTERN
 int
 Model_unsetName (Model_t *m)
@@ -6617,19 +6222,6 @@ Model_unsetName (Model_t *m)
 }
 
 
-/**
- * Unsets the "substanceUnits" attribute of the given Model_t structure.
- *
- * @param m the Model_t structure
- *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif@~ The possible values
- * returned by this function are:
- * @li LIBSBML_OPERATION_SUCCESS
- * @li LIBSBML_UNEXPECTED_ATTRIBUTE
- * @li LIBSBML_OPERATION_FAILED
- */
 LIBSBML_EXTERN
 int
 Model_unsetSubstanceUnits (Model_t *m)
@@ -6641,19 +6233,6 @@ Model_unsetSubstanceUnits (Model_t *m)
 }
 
 
-/**
- * Unsets the "timeUnits" attribute of the given Model_t structure.
- *
- * @param m the Model_t structure
- *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif@~ The possible values
- * returned by this function are:
- * @li LIBSBML_OPERATION_SUCCESS
- * @li LIBSBML_UNEXPECTED_ATTRIBUTE
- * @li LIBSBML_OPERATION_FAILED
- */
 LIBSBML_EXTERN
 int
 Model_unsetTimeUnits (Model_t *m)
@@ -6665,19 +6244,6 @@ Model_unsetTimeUnits (Model_t *m)
 }
 
 
-/**
- * Unsets the "volumeUnits" attribute of the given Model_t structure.
- *
- * @param m the Model_t structure
- *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif@~ The possible values
- * returned by this function are:
- * @li LIBSBML_OPERATION_SUCCESS
- * @li LIBSBML_UNEXPECTED_ATTRIBUTE
- * @li LIBSBML_OPERATION_FAILED
- */
 LIBSBML_EXTERN
 int
 Model_unsetVolumeUnits (Model_t *m)
@@ -6689,19 +6255,6 @@ Model_unsetVolumeUnits (Model_t *m)
 }
 
 
-/**
- * Unsets the "areaUnits" attribute of the given Model_t structure.
- *
- * @param m the Model_t structure
- *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif@~ The possible values
- * returned by this function are:
- * @li LIBSBML_OPERATION_SUCCESS
- * @li LIBSBML_UNEXPECTED_ATTRIBUTE
- * @li LIBSBML_OPERATION_FAILED
- */
 LIBSBML_EXTERN
 int
 Model_unsetAreaUnits (Model_t *m)
@@ -6713,19 +6266,6 @@ Model_unsetAreaUnits (Model_t *m)
 }
 
 
-/**
- * Unsets the "lengthUnits" attribute of the given Model_t structure.
- *
- * @param m the Model_t structure
- *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif@~ The possible values
- * returned by this function are:
- * @li LIBSBML_OPERATION_SUCCESS
- * @li LIBSBML_UNEXPECTED_ATTRIBUTE
- * @li LIBSBML_OPERATION_FAILED
- */
 LIBSBML_EXTERN
 int
 Model_unsetLengthUnits (Model_t *m)
@@ -6737,19 +6277,6 @@ Model_unsetLengthUnits (Model_t *m)
 }
 
 
-/**
- * Unsets the "extentUnits" attribute of the given Model_t structure.
- *
- * @param m the Model_t structure
- *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif@~ The possible values
- * returned by this function are:
- * @li LIBSBML_OPERATION_SUCCESS
- * @li LIBSBML_UNEXPECTED_ATTRIBUTE
- * @li LIBSBML_OPERATION_FAILED
- */
 LIBSBML_EXTERN
 int
 Model_unsetExtentUnits (Model_t *m)
@@ -6761,19 +6288,6 @@ Model_unsetExtentUnits (Model_t *m)
 }
 
 
-/**
- * Unsets the "conversionFactor" attribute of the given Model_t structure.
- *
- * @param m the Model_t structure
- *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif@~ The possible values
- * returned by this function are:
- * @li LIBSBML_OPERATION_SUCCESS
- * @li LIBSBML_UNEXPECTED_ATTRIBUTE
- * @li LIBSBML_OPERATION_FAILED
- */
 LIBSBML_EXTERN
 int
 Model_unsetConversionFactor (Model_t *m)
@@ -6785,13 +6299,6 @@ Model_unsetConversionFactor (Model_t *m)
 }
 
 
-/**
- * Returns the ModelHistory of the given Model_t structure.
- *
- * @return the ModelHistory of the given Model_t structure.
- * 
- * @param m the Model_t structure
- */
 LIBSBML_EXTERN
 ModelHistory_t * 
 Model_getModelHistory(Model_t *m)
@@ -6799,15 +6306,8 @@ Model_getModelHistory(Model_t *m)
   return (m != NULL) ? m->getModelHistory() : NULL;
 }
 
-/**
- * Predicate for testing whether the ModelHistory of a given Model_t structure is
- * assigned.
- * 
- * @param m the Model_t structure
- * 
- * @return nonzero if the ModelHistory of this Model_t structure is
- * set, zero (0) otherwise.
- */LIBSBML_EXTERN
+
+LIBSBML_EXTERN
 int 
 Model_isSetModelHistory(Model_t *m)
 {
@@ -6815,19 +6315,6 @@ Model_isSetModelHistory(Model_t *m)
 }
 
 
-/**
- * Set the ModelHistory of the given Model_t structure.
- * 
- * @param m the Model_t structure
- * @param history the ModelHistory_t structure
- *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif@~ The possible values
- * returned by this function are:
- * @li LIBSBML_OPERATION_SUCCESS
- * @li LIBSBML_INVALID_OBJECT
- */
 LIBSBML_EXTERN
 int 
 Model_setModelHistory(Model_t *m, ModelHistory_t *history)
@@ -6835,18 +6322,6 @@ Model_setModelHistory(Model_t *m, ModelHistory_t *history)
   return (m != NULL) ? m->setModelHistory(history) : LIBSBML_INVALID_OBJECT;
 }
 
-/**
- * Unsets the ModelHistory of the given Model_t structure.
- * 
- * @param m the Model_t structure
- *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif@~ The possible values
- * returned by this function are:
- * @li LIBSBML_OPERATION_SUCCESS
- * @li LIBSBML_OPERATION_FAILED
- */
 LIBSBML_EXTERN
 int 
 Model_unsetModelHistory(Model_t *m)
@@ -6855,23 +6330,6 @@ Model_unsetModelHistory(Model_t *m)
 }
 
 
-/**
- * Adds a copy of a FunctionDefinition_t structure to a given Model_t
- * structure.
- *
- * @param m the Model_t structure
- * @param fd the FunctionDefinition_t structure to copy and add
- *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif@~ The possible values
- * returned by this function are:
- * @li LIBSBML_OPERATION_SUCCESS
- * @li LIBSBML_LEVEL_MISMATCH
- * @li LIBSBML_VERSION_MISMATCH
- * @li LIBSBML_DUPLICATE_OBJECT_ID
- * @li LIBSBML_OPERATION_FAILED
- */
 LIBSBML_EXTERN
 int
 Model_addFunctionDefinition (Model_t *m, const FunctionDefinition_t *fd)
@@ -6880,22 +6338,6 @@ Model_addFunctionDefinition (Model_t *m, const FunctionDefinition_t *fd)
 }
 
 
-/**
- * Adds a copy of a UnitDefinition_t structure to a given Model_t structure.
- *
- * @param m the Model_t structure
- * @param ud the UnitDefinition_t structure to copy and add
- *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif@~ The possible values
- * returned by this function are:
- * @li LIBSBML_OPERATION_SUCCESS
- * @li LIBSBML_LEVEL_MISMATCH
- * @li LIBSBML_VERSION_MISMATCH
- * @li LIBSBML_DUPLICATE_OBJECT_ID
- * @li LIBSBML_OPERATION_FAILED
- */
 LIBSBML_EXTERN
 int
 Model_addUnitDefinition (Model_t *m, const UnitDefinition_t *ud)
@@ -6904,22 +6346,6 @@ Model_addUnitDefinition (Model_t *m, const UnitDefinition_t *ud)
 }
 
 
-/**
- * Adds a copy of a CompartmentType_t structure to a given Model_t structure.
- *
- * @param m the Model_t structure
- * @param ct the CompartmentType_t structure to copy and add
- *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif@~ The possible values
- * returned by this function are:
- * @li LIBSBML_OPERATION_SUCCESS
- * @li LIBSBML_LEVEL_MISMATCH
- * @li LIBSBML_VERSION_MISMATCH
- * @li LIBSBML_DUPLICATE_OBJECT_ID
- * @li LIBSBML_OPERATION_FAILED
- */
 LIBSBML_EXTERN
 int
 Model_addCompartmentType (Model_t *m, const CompartmentType_t *ct)
@@ -6928,22 +6354,6 @@ Model_addCompartmentType (Model_t *m, const CompartmentType_t *ct)
 }
 
 
-/**
- * Adds a copy of a SpeciesType_t structure to a given Model_t structure.
- *
- * @param m the Model_t structure
- * @param st the SpeciesType_t structure to copy and add
- *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif@~ The possible values
- * returned by this function are:
- * @li LIBSBML_OPERATION_SUCCESS
- * @li LIBSBML_LEVEL_MISMATCH
- * @li LIBSBML_VERSION_MISMATCH
- * @li LIBSBML_DUPLICATE_OBJECT_ID
- * @li LIBSBML_OPERATION_FAILED
- */
 LIBSBML_EXTERN
 int
 Model_addSpeciesType (Model_t *m, const SpeciesType_t *st)
@@ -6952,22 +6362,6 @@ Model_addSpeciesType (Model_t *m, const SpeciesType_t *st)
 }
 
 
-/**
- * Adds a copy of a Compartment_t structure to a given Model_t structure.
- *
- * @param m the Model_t structure
- * @param c the Compartment_t structure to copy and add
- *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif@~ The possible values
- * returned by this function are:
- * @li LIBSBML_OPERATION_SUCCESS
- * @li LIBSBML_LEVEL_MISMATCH
- * @li LIBSBML_VERSION_MISMATCH
- * @li LIBSBML_DUPLICATE_OBJECT_ID
- * @li LIBSBML_OPERATION_FAILED
- */
 LIBSBML_EXTERN
 int
 Model_addCompartment (Model_t *m, const Compartment_t *c)
@@ -6976,22 +6370,6 @@ Model_addCompartment (Model_t *m, const Compartment_t *c)
 }
 
 
-/**
- * Adds a copy of a Species_t structure to a given Model_t structure.
- *
- * @param m the Model_t structure
- * @param s the Species_t structure to copy and add
- *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif@~ The possible values
- * returned by this function are:
- * @li LIBSBML_OPERATION_SUCCESS
- * @li LIBSBML_LEVEL_MISMATCH
- * @li LIBSBML_VERSION_MISMATCH
- * @li LIBSBML_DUPLICATE_OBJECT_ID
- * @li LIBSBML_OPERATION_FAILED
- */
 LIBSBML_EXTERN
 int
 Model_addSpecies (Model_t *m, const Species_t *s)
@@ -7000,22 +6378,6 @@ Model_addSpecies (Model_t *m, const Species_t *s)
 }
 
 
-/**
- * Adds a copy of a Parameter_t structure to a given Model_t structure.
- *
- * @param m the Model_t structure
- * @param p the Parameter_t structure to copy and add
- *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif@~ The possible values
- * returned by this function are:
- * @li LIBSBML_OPERATION_SUCCESS
- * @li LIBSBML_LEVEL_MISMATCH
- * @li LIBSBML_VERSION_MISMATCH
- * @li LIBSBML_DUPLICATE_OBJECT_ID
- * @li LIBSBML_OPERATION_FAILED
- */
 LIBSBML_EXTERN
 int
 Model_addParameter (Model_t *m, const Parameter_t *p)
@@ -7024,22 +6386,6 @@ Model_addParameter (Model_t *m, const Parameter_t *p)
 }
 
 
-/**
- * Adds a copy of a InitialAssignment_t structure to a given Model_t structure.
- *
- * @param m the Model_t structure
- * @param ia the InitialAssignment_t structure to copy and add
- *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif@~ The possible values
- * returned by this function are:
- * @li LIBSBML_OPERATION_SUCCESS
- * @li LIBSBML_LEVEL_MISMATCH
- * @li LIBSBML_VERSION_MISMATCH
- * @li LIBSBML_DUPLICATE_OBJECT_ID
- * @li LIBSBML_OPERATION_FAILED
- */
 LIBSBML_EXTERN
 int
 Model_addInitialAssignment (Model_t *m, const InitialAssignment_t *ia)
@@ -7048,22 +6394,6 @@ Model_addInitialAssignment (Model_t *m, const InitialAssignment_t *ia)
 }
 
 
-/**
- * Adds a copy of a Rule_t structure to a given Model_t structure.
- *
- * @param m the Model_t structure
- * @param r the Rule_t structure to copy and add
- *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif@~ The possible values
- * returned by this function are:
- * @li LIBSBML_OPERATION_SUCCESS
- * @li LIBSBML_LEVEL_MISMATCH
- * @li LIBSBML_VERSION_MISMATCH
- * @li LIBSBML_DUPLICATE_OBJECT_ID
- * @li LIBSBML_OPERATION_FAILED
- */
 LIBSBML_EXTERN
 int
 Model_addRule (Model_t *m, const Rule_t *r)
@@ -7072,21 +6402,6 @@ Model_addRule (Model_t *m, const Rule_t *r)
 }
 
 
-/**
- * Adds a copy of a Constraint_t structure to a given Model_t structure.
- *
- * @param m the Model_t structure
- * @param c the Constraint_t structure to copy and add
- *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif@~ The possible values
- * returned by this function are:
- * @li LIBSBML_OPERATION_SUCCESS
- * @li LIBSBML_LEVEL_MISMATCH
- * @li LIBSBML_VERSION_MISMATCH
- * @li LIBSBML_OPERATION_FAILED
- */
 LIBSBML_EXTERN
 int
 Model_addConstraint (Model_t *m, const Constraint_t *c)
@@ -7095,22 +6410,6 @@ Model_addConstraint (Model_t *m, const Constraint_t *c)
 }
 
 
-/**
- * Adds a copy of a Reaction_t structure to a given Model_t structure.
- *
- * @param m the Model_t structure
- * @param r the Reaction_t structure to copy and add
- *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif@~ The possible values
- * returned by this function are:
- * @li LIBSBML_OPERATION_SUCCESS
- * @li LIBSBML_LEVEL_MISMATCH
- * @li LIBSBML_VERSION_MISMATCH
- * @li LIBSBML_DUPLICATE_OBJECT_ID
- * @li LIBSBML_OPERATION_FAILED
- */
 LIBSBML_EXTERN
 int
 Model_addReaction (Model_t *m, const Reaction_t *r)
@@ -7119,22 +6418,6 @@ Model_addReaction (Model_t *m, const Reaction_t *r)
 }
 
 
-/**
- * Adds a copy of a Event_t structure to a given Model_t structure.
- *
- * @param m the Model_t structure
- * @param e the Event_t structure to copy and add
- *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif@~ The possible values
- * returned by this function are:
- * @li LIBSBML_OPERATION_SUCCESS
- * @li LIBSBML_LEVEL_MISMATCH
- * @li LIBSBML_VERSION_MISMATCH
- * @li LIBSBML_DUPLICATE_OBJECT_ID
- * @li LIBSBML_OPERATION_FAILED
- */
 LIBSBML_EXTERN
 int
 Model_addEvent (Model_t *m, const Event_t *e)
@@ -7143,14 +6426,6 @@ Model_addEvent (Model_t *m, const Event_t *e)
 }
 
 
-/**
- * Creates a new FunctionDefinition_t structure inside the given Model_t
- * and returns a pointer to it.
- *
- * @param m the Model_t structure
- *
- * @return the new FunctionDefinition_t structure
- */
 LIBSBML_EXTERN
 FunctionDefinition_t *
 Model_createFunctionDefinition (Model_t *m)
@@ -7159,14 +6434,6 @@ Model_createFunctionDefinition (Model_t *m)
 }
 
 
-/**
- * Creates a new UnitDefinition_t structure inside the given Model_t and
- * returns a pointer to it.
- *
- * @param m the Model_t structure
- *
- * @return the new UnitDefinition_t structure
- */
 LIBSBML_EXTERN
 UnitDefinition_t *
 Model_createUnitDefinition (Model_t *m)
@@ -7175,18 +6442,6 @@ Model_createUnitDefinition (Model_t *m)
 }
 
 
-/**
- * Creates a new Unit_t structure inside the last UnitDefinition_t
- * structure created in this model and returns a pointer to it.
- *
- * The mechanism by which the UnitDefinition_t structure was created is not
- * significant.  If a UnitDefinition_t does not exist in this model, a new
- * Unit_t structure is @em not created and @c NULL is returned instead.
- *
- * @param m the Model_t structure
- *
- * @return the Unit_t structure created, or @c NULL.
- */
 LIBSBML_EXTERN
 Unit_t *
 Model_createUnit (Model_t *m)
@@ -7195,14 +6450,6 @@ Model_createUnit (Model_t *m)
 }
 
 
-/**
- * Creates a new CompartmentType_t structure inside the given Model_t and
- * returns a pointer to it.
- *
- * @param m the Model_t structure
- *
- * @return the CompartmentType_t structure created
- */
 LIBSBML_EXTERN
 CompartmentType_t *
 Model_createCompartmentType (Model_t *m)
@@ -7211,14 +6458,6 @@ Model_createCompartmentType (Model_t *m)
 }
 
 
-/**
- * Creates a new SpeciesType_t structure inside the given Model_t and
- * returns a pointer to it.
- *
- * @param m the Model_t structure
- *
- * @return the SpeciesType_t structure created
- */
 LIBSBML_EXTERN
 SpeciesType_t *
 Model_createSpeciesType (Model_t *m)
@@ -7227,14 +6466,6 @@ Model_createSpeciesType (Model_t *m)
 }
 
 
-/**
- * Creates a new Compartment_t structure inside the given Model_t and
- * returns a pointer to it.
- *
- * @param m the Model_t structure
- *
- * @return the Compartment_t structure created
- */
 LIBSBML_EXTERN
 Compartment_t *
 Model_createCompartment (Model_t *m)
@@ -7243,14 +6474,6 @@ Model_createCompartment (Model_t *m)
 }
 
 
-/**
- * Creates a new Species_t structure inside the given Model_t and returns a
- * pointer to it.
- *
- * @param m the Model_t structure
- *
- * @return the Species_t structure created
- */
 LIBSBML_EXTERN
 Species_t *
 Model_createSpecies (Model_t *m)
@@ -7259,14 +6482,6 @@ Model_createSpecies (Model_t *m)
 }
 
 
-/**
- * Creates a new Parameter_t structure inside the given Model_t and returns
- * a pointer to it.
- *
- * @param m the Model_t structure
- *
- * @return the Parameter_t structure created
- */
 LIBSBML_EXTERN
 Parameter_t *
 Model_createParameter (Model_t *m)
@@ -7275,14 +6490,6 @@ Model_createParameter (Model_t *m)
 }
 
 
-/**
- * Creates a new InitialAssignment_t structure inside the given Model_t
- * structure and returns it.
- *
- * @param m the Model_t structure
- *
- * @return the InitialAssignment_t structure created
- */
 LIBSBML_EXTERN
 InitialAssignment_t *
 Model_createInitialAssignment (Model_t *m)
@@ -7291,14 +6498,6 @@ Model_createInitialAssignment (Model_t *m)
 }
 
 
-/**
- * Creates a new AlgebraicRule_t structure inside the given Model_t
- * structure and returns a pointer to it.
- *
- * @param m the Model_t structure
- *
- * @return the AlgebraicRule_t structure created.
- */
 LIBSBML_EXTERN
 Rule_t *
 Model_createAlgebraicRule (Model_t *m)
@@ -7307,14 +6506,6 @@ Model_createAlgebraicRule (Model_t *m)
 }
 
 
-/**
- * Creates a new AssignmentRule_t structure inside the given Model_t
- * structure and returns a pointer to it.
- *
- * @param m the Model_t structure
- *
- * @return the AssignmentRule_t structure created
- */
 LIBSBML_EXTERN
 Rule_t *
 Model_createAssignmentRule (Model_t *m)
@@ -7323,14 +6514,6 @@ Model_createAssignmentRule (Model_t *m)
 }
 
 
-/**
- * Creates a new RateRule_t structure inside the given Model_t structure
- * and returns a pointer to it.
- *
- * @param m the Model_t structure
- *
- * @return the RateRule_t structure created.
- */
 LIBSBML_EXTERN
 Rule_t *
 Model_createRateRule (Model_t *m)
@@ -7339,14 +6522,6 @@ Model_createRateRule (Model_t *m)
 }
 
 
-/**
- * Creates a new Constraint_t structure inside the given Model_t structure
- * and returns it.
- *
- * @param m the Model_t structure
- *
- * @return the Constraint_t structure created.
- */
 LIBSBML_EXTERN
 Constraint_t *
 Model_createConstraint (Model_t *m)
@@ -7354,14 +6529,6 @@ Model_createConstraint (Model_t *m)
   return (m != NULL) ? m->createConstraint() : NULL;
 }
 
-/**
- * Creates a new Reaction_t structure inside the given Model_t structure
- * and returns a pointer to it.
- *
- * @param m the Model_t structure
- *
- * @return the Reaction_t structure created.
- */
 LIBSBML_EXTERN
 Reaction_t *
 Model_createReaction (Model_t *m)
@@ -7370,21 +6537,6 @@ Model_createReaction (Model_t *m)
 }
 
 
-/**
- * Creates a new SpeciesReference_t structure for a reactant inside the
- * last Reaction_t structure in the given Model_t structure, and returns a
- * pointer to it.
- *
- * The mechanism by which the last Reaction_t structure was created and
- * added to @p m is not significant.  It could have been created in a
- * variety of ways, for example using Model_createReaction().  If a
- * Reaction_t structure does not exist, a new SpeciesReference_t structure
- * is @em not created and @c NULL is returned instead.
- *
- * @param m the Model_t structure
- * 
- * @return the SpeciesReference object created
- */
 LIBSBML_EXTERN
 SpeciesReference_t *
 Model_createReactant (Model_t *m)
@@ -7393,21 +6545,6 @@ Model_createReactant (Model_t *m)
 }
 
 
-/**
- * Creates a new SpeciesReference_t structure for a product inside the
- * last Reaction_t structure in the given Model_t structure, and returns a
- * pointer to it.
- *
- * The mechanism by which the last Reaction_t structure was created and
- * added to @p m is not significant.  It could have been created in a
- * variety of ways, for example using Model_createReaction().  If a
- * Reaction_t structure does not exist, a new SpeciesReference_t structure
- * is @em not created and @c NULL is returned instead.
- *
- * @param m the Model_t structure
- * 
- * @return the SpeciesReference object created
- */
 LIBSBML_EXTERN
 SpeciesReference_t *
 Model_createProduct (Model_t *m)
@@ -7416,21 +6553,6 @@ Model_createProduct (Model_t *m)
 }
 
 
-/**
- * Creates a new ModifierSpeciesReference_t structure for a reactant inside
- * the last Reaction_t structure in the given Model_t structure, and
- * returns a pointer to it.
- *
- * The mechanism by which the last Reaction_t structure was created and
- * added to @p m is not significant.  It could have been created in a
- * variety of ways, for example using Model_createReaction().  If a
- * Reaction_t structure does not exist, a new ModifierSpeciesReference_t
- * structure is @em not created and @c NULL is returned instead.
- *
- * @param m the Model_t structure
- * 
- * @return the ModifierSpeciesReference object created
- */
 LIBSBML_EXTERN
 SpeciesReference_t *
 Model_createModifier (Model_t *m)
@@ -7440,21 +6562,6 @@ Model_createModifier (Model_t *m)
 }
 
 
-/**
- * Creates a new KineticLaw_t structure inside the last Reaction_t
- * structure in the given Model_t structure, and returns a pointer to it.
- *
- * The mechanism by which the last Reaction_t structure was created and
- * added to @p m is not significant.  It could have been created in a
- * variety of ways, for example using Model_createReaction().  If a
- * Reaction_t structure does not exist for the model, or a Reaction_t
- * structure exists but already contains a KineticLaw_t structure, a new
- * KineticLaw_t is @em not created and @c NULL is returned instead.
- *
- * @param m the Model_t structure
- * 
- * @return the KineticLaw object created
- */
 LIBSBML_EXTERN
 KineticLaw_t *
 Model_createKineticLaw (Model_t *m)
@@ -7463,24 +6570,6 @@ Model_createKineticLaw (Model_t *m)
 }
 
 
-/**
- * Creates a new local Parameter_t structure inside the KineticLaw_t
- * structure of the last Reaction_t structure created inside the given
- * model, and returns a pointer to it.
- *
- * The last KineticLaw_t structure could have been created in a variety of
- * ways.  For example, it could have been added using
- * Model_createKineticLaw(), or it could be the result of using
- * Reaction_createKineticLaw() on the Reaction_t structure created by a
- * Model_createReaction().  If a Reaction_t structure does not exist for
- * this model, or the last Reaction_t structure does not contain a
- * KineticLaw_t structure, a new Parameter_t is @em not created and NULL is
- * returned instead.
- *
- * @param m the Model_t structure
- *
- * @return the Parameter object created
- */
 LIBSBML_EXTERN
 Parameter_t *
 Model_createKineticLawParameter (Model_t *m)
@@ -7489,24 +6578,6 @@ Model_createKineticLawParameter (Model_t *m)
 }
 
 
-/**
- * Creates a new LocalParameter_t structure inside the KineticLaw_t
- * structure of the last Reaction_t structure created inside the given
- * model, and returns a pointer to it.
- *
- * The last KineticLaw_t structure could have been created in a variety of
- * ways.  For example, it could have been added using
- * Model_createKineticLaw(), or it could be the result of using
- * Reaction_createKineticLaw() on the Reaction_t structure created by a
- * Model_createReaction().  If a Reaction_t structure does not exist for
- * this model, or the last Reaction_t structure does not contain a
- * KineticLaw_t structure, a new Parameter_t is @em not created and NULL is
- * returned instead.
- *
- * @param m the Model_t structure
- *
- * @return the LocalParameter object created
- */
 LIBSBML_EXTERN
 LocalParameter_t *
 Model_createKineticLawLocalParameter (Model_t *m)
@@ -7515,14 +6586,6 @@ Model_createKineticLawLocalParameter (Model_t *m)
 }
 
 
-/**
- * Creates a new Event inside the given Model_t structure and returns a
- * pointer to it.
- *
- * @param m the Model_t structure
- *
- * @return a new Event_t structure
- */
 LIBSBML_EXTERN
 Event_t *
 Model_createEvent (Model_t *m)
@@ -7531,21 +6594,6 @@ Model_createEvent (Model_t *m)
 }
 
 
-/**
- * Creates a new EventAssignment_t structure inside the last Event_t
- * structure created in the given Model_t structure, and returns a pointer
- * to it.
- *
- * The mechanism by which the last Event_t structure was created is not
- * significant.  It could have been created in a variety of ways, for
- * example by using Model_createEvent().  If an Event_t structure does not
- * exist, a new EventAssignment_t structure is @em not created and NULL is
- * returned instead.
- *
- * @param m the Model_t structure
- *
- * @return the new EventAssignment_t structure
- */
 LIBSBML_EXTERN
 EventAssignment_t *
 Model_createEventAssignment (Model_t *m)
@@ -7554,21 +6602,6 @@ Model_createEventAssignment (Model_t *m)
 }
 
 
-/**
- * Creates a new Trigger_t structure inside the last Event_t
- * structure created in the given Model_t structure, and returns a pointer
- * to it.
- *
- * The mechanism by which the last Event_t structure was created is not
- * significant.  It could have been created in a variety of ways, for
- * example by using Model_createEvent().  If an Event_t structure does not
- * exist, a new Trigger_t structure is @em not created and NULL is
- * returned instead.
- *
- * @param m the Model_t structure
- *
- * @return the new Trigger_t structure
- */
 LIBSBML_EXTERN
 Trigger_t *
 Model_createTrigger (Model_t *m)
@@ -7577,21 +6610,6 @@ Model_createTrigger (Model_t *m)
 }
 
 
-/**
- * Creates a new Delay_t structure inside the last Event_t
- * structure created in the given Model_t structure, and returns a pointer
- * to it.
- *
- * The mechanism by which the last Event_t structure was created is not
- * significant.  It could have been created in a variety of ways, for
- * example by using Model_createEvent().  If an Event_t structure does not
- * exist, a new Delay_t structure is @em not created and NULL is
- * returned instead.
- *
- * @param m the Model_t structure
- *
- * @return the new Delay_t structure
- */
 LIBSBML_EXTERN
 Delay_t *
 Model_createDelay (Model_t *m)
@@ -7600,14 +6618,6 @@ Model_createDelay (Model_t *m)
 }
 
 
-/**
- * Get the list of FunctionDefinition_t structures contained in the given
- * Model_t structure.
- *
- * @param m the Model_t structure
- *
- * @return the list of FunctionDefinition_t structures
- */
 LIBSBML_EXTERN
 ListOf_t *
 Model_getListOfFunctionDefinitions (Model_t *m)
@@ -7616,14 +6626,6 @@ Model_getListOfFunctionDefinitions (Model_t *m)
 }
 
 
-/**
- * Get the list of UnitDefinition_t structures contained in the given
- * Model_t structure.
- *
- * @param m the Model_t structure
- *
- * @return the list of UnitDefinition_t structures.
- */
 LIBSBML_EXTERN
 ListOf_t *
 Model_getListOfUnitDefinitions (Model_t *m)
@@ -7632,14 +6634,6 @@ Model_getListOfUnitDefinitions (Model_t *m)
 }
 
 
-/**
- * Get the list of CompartmentType_t structures contained in the given
- * Model_t structure.
- *
- * @param m the Model_t structure
- *
- * @return the list of CompartmentType_t structures.
- */
 LIBSBML_EXTERN
 ListOf_t *
 Model_getListOfCompartmentTypes (Model_t *m)
@@ -7648,14 +6642,6 @@ Model_getListOfCompartmentTypes (Model_t *m)
 }
 
 
-/**
- * Get the list of SpeciesType_t structures contained in the given Model_t
- * structure.
- *
- * @param m the Model_t structure
- *
- * @return the list of SpeciesType_t structures.
- */
 LIBSBML_EXTERN
 ListOf_t *
 Model_getListOfSpeciesTypes (Model_t *m)
@@ -7664,14 +6650,6 @@ Model_getListOfSpeciesTypes (Model_t *m)
 }
 
 
-/**
- * Get the list of Compartment_t structures contained in the given Model_t
- * structure.
- *
- * @param m the Model_t structure
- *
- * @return the list of Compartment_t structures.
- */
 LIBSBML_EXTERN
 ListOf_t *
 Model_getListOfCompartments (Model_t *m)
@@ -7680,14 +6658,6 @@ Model_getListOfCompartments (Model_t *m)
 }
 
 
-/**
- * Get the list of Species_t structures contained in the given Model_t
- * structure.
- *
- * @param m the Model_t structure
- *
- * @return the list of Specie_t structures.
- */
 LIBSBML_EXTERN
 ListOf_t *
 Model_getListOfSpecies (Model_t *m)
@@ -7696,14 +6666,6 @@ Model_getListOfSpecies (Model_t *m)
 }
 
 
-/**
- * Get the list of Parameter_t structures contained in the given Model_t
- * structure.
- *
- * @param m the Model_t structure
- *
- * @return the list of Parameter_t structures.
- */
 LIBSBML_EXTERN
 ListOf_t *
 Model_getListOfParameters (Model_t *m)
@@ -7712,14 +6674,6 @@ Model_getListOfParameters (Model_t *m)
 }
 
 
-/**
- * Get the list of InitialAssignment_t structures contained in the given
- * Model_t structure.
- *
- * @param m the Model_t structure
- *
- * @return the list of InitialAssignment_t structures.
- */
 LIBSBML_EXTERN
 ListOf_t *
 Model_getListOfInitialAssignments (Model_t* m)
@@ -7728,14 +6682,6 @@ Model_getListOfInitialAssignments (Model_t* m)
 }
 
 
-/**
- * Get the list of Rule_t structures contained in the given Model_t
- * structure.
- *
- * @param m the Model_t structure
- *
- * @return the list of Rule_t structures.
- */
 LIBSBML_EXTERN
 ListOf_t *
 Model_getListOfRules (Model_t *m)
@@ -7744,14 +6690,6 @@ Model_getListOfRules (Model_t *m)
 }
 
 
-/**
- * Get the list of Constraint_t structures contained in the given Model_t
- * structure.
- *
- * @param m the Model_t structure
- *
- * @return the list of Constraint_t structures.
- */
 LIBSBML_EXTERN
 ListOf_t *
 Model_getListOfConstraints (Model_t* m)
@@ -7760,14 +6698,6 @@ Model_getListOfConstraints (Model_t* m)
 }
 
 
-/**
- * Get the list of Reaction_t structures contained in the given Model_t
- * structure.
- *
- * @param m the Model_t structure
- *
- * @return the list of Reaction_t structures.
- */
 LIBSBML_EXTERN
 ListOf_t *
 Model_getListOfReactions (Model_t *m)
@@ -7776,14 +6706,6 @@ Model_getListOfReactions (Model_t *m)
 }
 
 
-/**
- * Get the list of Event_t structures contained in the given Model_t
- * structure.
- *
- * @param m the Model_t structure
- *
- * @return the list of Event_t structures.
- */
 LIBSBML_EXTERN
 ListOf_t *
 Model_getListOfEvents (Model_t *m)
@@ -7792,15 +6714,6 @@ Model_getListOfEvents (Model_t *m)
 }
 
 
-/**
- * Get the nth FunctionDefinition_t structure contained in the given
- * Model_t structure.
- *
- * @param m the Model_t structure
- * @param n the integer index of the FunctionDefinition_t sought
- *
- * @return the FunctionDefinition_t if found, or @c NULL if not found
- */
 LIBSBML_EXTERN
 FunctionDefinition_t *
 Model_getFunctionDefinition (Model_t *m, unsigned int n)
@@ -7809,15 +6722,6 @@ Model_getFunctionDefinition (Model_t *m, unsigned int n)
 }
 
 
-/**
- * Get the FunctionDefinition_t structure whose identifier is @p sid in the
- * given Model_t structure.
- *
- * @param m the Model_t structure
- * @param sid the identifier of the FunctionDefinition_t structure sought
- *
- * @return the FunctionDefinition_t if found, or @c NULL if not found
- */
 LIBSBML_EXTERN
 FunctionDefinition_t *
 Model_getFunctionDefinitionById (Model_t *m, const char *sid)
@@ -7826,15 +6730,6 @@ Model_getFunctionDefinitionById (Model_t *m, const char *sid)
 }
 
 
-/**
- * Get the nth UnitDefinition_t structure contained in the given
- * Model_t structure.
- *
- * @param m the Model_t structure
- * @param n the integer index of the UnitDefinition_t sought
- *
- * @return the UnitDefinition_t if found, or @c NULL if not found
- */
 LIBSBML_EXTERN
 UnitDefinition_t *
 Model_getUnitDefinition (Model_t *m, unsigned int n)
@@ -7843,15 +6738,6 @@ Model_getUnitDefinition (Model_t *m, unsigned int n)
 }
 
 
-/**
- * Get the UnitDefinition_t structure whose identifier is @p sid in the
- * given Model_t structure.
- *
- * @param m the Model_t structure
- * @param sid the identifier of the UnitDefinition_t structure sought
- *
- * @return the UnitDefinition_t if found, or @c NULL if not found
- */
 LIBSBML_EXTERN
 UnitDefinition_t *
 Model_getUnitDefinitionById (Model_t *m, const char *sid)
@@ -7860,15 +6746,6 @@ Model_getUnitDefinitionById (Model_t *m, const char *sid)
 }
 
 
-/**
- * Get the nth CompartmentType_t structure contained in the given
- * Model_t structure.
- *
- * @param m the Model_t structure
- * @param n the integer index of the CompartmentType_t sought
- *
- * @return the CompartmentType_t if found, or @c NULL if not found
- */
 LIBSBML_EXTERN
 CompartmentType_t *
 Model_getCompartmentType (Model_t *m, unsigned int n)
@@ -7877,15 +6754,6 @@ Model_getCompartmentType (Model_t *m, unsigned int n)
 }
 
 
-/**
- * Get the CompartmentType_t structure whose identifier is @p sid in the
- * given Model_t structure.
- *
- * @param m the Model_t structure
- * @param sid the identifier of the CompartmentType_t structure sought
- *
- * @return the CompartmentType_t if found, or @c NULL if not found
- */
 LIBSBML_EXTERN
 CompartmentType_t *
 Model_getCompartmentTypeById (Model_t *m, const char *sid)
@@ -7894,15 +6762,6 @@ Model_getCompartmentTypeById (Model_t *m, const char *sid)
 }
 
 
-/**
- * Get the nth SpeciesType_t structure contained in the given
- * Model_t structure.
- *
- * @param m the Model_t structure
- * @param n the integer index of the SpeciesType_t sought
- *
- * @return the SpeciesType_t if found, or @c NULL if not found
- */
 LIBSBML_EXTERN
 SpeciesType_t *
 Model_getSpeciesType (Model_t *m, unsigned int n)
@@ -7911,15 +6770,6 @@ Model_getSpeciesType (Model_t *m, unsigned int n)
 }
 
 
-/**
- * Get the SpeciesType_t structure whose identifier is @p sid in the
- * given Model_t structure.
- *
- * @param m the Model_t structure
- * @param sid the identifier of the SpeciesType_t structure sought
- *
- * @return the SpeciesType_t if found, or @c NULL if not found
- */
 LIBSBML_EXTERN
 SpeciesType_t *
 Model_getSpeciesTypeById (Model_t *m, const char *sid)
@@ -7928,15 +6778,6 @@ Model_getSpeciesTypeById (Model_t *m, const char *sid)
 }
 
 
-/**
- * Get the nth Compartment_t structure contained in the given
- * Model_t structure.
- *
- * @param m the Model_t structure
- * @param n the integer index of the Compartment_t sought
- *
- * @return the Compartment_t if found, or @c NULL if not found
- */
 LIBSBML_EXTERN
 Compartment_t *
 Model_getCompartment (Model_t *m, unsigned int n)
@@ -7945,15 +6786,6 @@ Model_getCompartment (Model_t *m, unsigned int n)
 }
 
 
-/**
- * Get the Compartment_t structure whose identifier is @p sid in the
- * given Model_t structure.
- *
- * @param m the Model_t structure
- * @param sid the identifier of the Compartment_t structure sought
- *
- * @return the Compartment_t if found, or @c NULL if not found
- */
 LIBSBML_EXTERN
 Compartment_t *
 Model_getCompartmentById (Model_t *m, const char *sid)
@@ -7962,15 +6794,6 @@ Model_getCompartmentById (Model_t *m, const char *sid)
 }
 
 
-/**
- * Get the nth Species_t structure contained in the given
- * Model_t structure.
- *
- * @param m the Model_t structure
- * @param n the integer index of the Species_t sought
- *
- * @return the Species_t if found, or @c NULL if not found
- */
 LIBSBML_EXTERN
 Species_t *
 Model_getSpecies (Model_t *m, unsigned int n)
@@ -7979,15 +6802,6 @@ Model_getSpecies (Model_t *m, unsigned int n)
 }
 
 
-/**
- * Get the Species_t structure whose identifier is @p sid in the
- * given Model_t structure.
- *
- * @param m the Model_t structure
- * @param sid the identifier of the Species_t structure sought
- *
- * @return the Species_t if found, or @c NULL if not found
- */
 LIBSBML_EXTERN
 Species_t *
 Model_getSpeciesById (Model_t *m, const char *sid)
@@ -7996,15 +6810,6 @@ Model_getSpeciesById (Model_t *m, const char *sid)
 }
 
 
-/**
- * Get the nth Parameter_t structure contained in the given
- * Model_t structure.
- *
- * @param m the Model_t structure
- * @param n the integer index of the Parameter_t sought
- *
- * @return the Parameter_t if found, or @c NULL if not found
- */
 LIBSBML_EXTERN
 Parameter_t *
 Model_getParameter (Model_t *m, unsigned int n)
@@ -8013,15 +6818,6 @@ Model_getParameter (Model_t *m, unsigned int n)
 }
 
 
-/**
- * Get the Parameter_t structure whose identifier is @p sid in the
- * given Model_t structure.
- *
- * @param m the Model_t structure
- * @param sid the identifier of the Parameter_t structure sought
- *
- * @return the Parameter_t if found, or @c NULL if not found
- */
 LIBSBML_EXTERN
 Parameter_t *
 Model_getParameterById (Model_t *m, const char *sid)
@@ -8030,15 +6826,6 @@ Model_getParameterById (Model_t *m, const char *sid)
 }
 
 
-/**
- * Get the nth InitialAssignment_t structure contained in the given
- * Model_t structure.
- *
- * @param m the Model_t structure
- * @param n the integer index of the InitialAssignment_t sought
- *
- * @return the InitialAssignment_t if found, or @c NULL if not found
- */
 LIBSBML_EXTERN
 InitialAssignment_t *
 Model_getInitialAssignment (Model_t *m, unsigned int n)
@@ -8047,13 +6834,6 @@ Model_getInitialAssignment (Model_t *m, unsigned int n)
 }
 
 
-/**
- * @return the InitialAssignment in this Model with the given symbol or
- * @c NULL if no such InitialAssignment exists.
- *
- * @param m the Model_t structure
- * @param symbol the symbol to search for
- */
 LIBSBML_EXTERN
 InitialAssignment_t *
 Model_getInitialAssignmentBySym (Model_t *m, const char *symbol)
@@ -8062,15 +6842,6 @@ Model_getInitialAssignmentBySym (Model_t *m, const char *symbol)
 }
 
 
-/**
- * Get the nth Rule_t structure contained in the given
- * Model_t structure.
- *
- * @param m the Model_t structure
- * @param n the integer index of the Rule_t sought
- *
- * @return the Rule_t if found, or @c NULL if not found
- */
 LIBSBML_EXTERN
 Rule_t *
 Model_getRule (Model_t *m, unsigned int n)
@@ -8079,13 +6850,6 @@ Model_getRule (Model_t *m, unsigned int n)
 }
 
 
-/**
- * @return the Rule in this Model with the given variable or @c NULL if no
- * such Rule exists.
- *
- * @param m the Model_t structure
- * @param variable the variable to search for
- */
 LIBSBML_EXTERN
 Rule_t *
 Model_getRuleByVar (Model_t *m, const char *variable)
@@ -8094,15 +6858,6 @@ Model_getRuleByVar (Model_t *m, const char *variable)
 }
 
 
-/**
- * Get the nth Constraint_t structure contained in the given
- * Model_t structure.
- *
- * @param m the Model_t structure
- * @param n the integer index of the Constraint_t sought
- *
- * @return the Constraint_t if found, or @c NULL if not found
- */
 LIBSBML_EXTERN
 Constraint_t *
 Model_getConstraint (Model_t *m, unsigned int n)
@@ -8111,15 +6866,6 @@ Model_getConstraint (Model_t *m, unsigned int n)
 }
 
 
-/**
- * Get the nth Reaction_t structure contained in the given
- * Model_t structure.
- *
- * @param m the Model_t structure
- * @param n the integer index of the Reaction_t sought
- *
- * @return the Reaction_t if found, or @c NULL if not found
- */
 LIBSBML_EXTERN
 Reaction_t *
 Model_getReaction (Model_t *m, unsigned int n)
@@ -8128,15 +6874,6 @@ Model_getReaction (Model_t *m, unsigned int n)
 }
 
 
-/**
- * Get the Reaction_t structure whose identifier is @p sid in the
- * given Model_t structure.
- *
- * @param m the Model_t structure
- * @param sid the identifier of the Reaction_t structure sought
- *
- * @return the Reaction_t if found, or @c NULL if not found
- */
 LIBSBML_EXTERN
 Reaction_t *
 Model_getReactionById (Model_t *m, const char *sid)
@@ -8144,15 +6881,6 @@ Model_getReactionById (Model_t *m, const char *sid)
   return (m != NULL && sid != NULL) ? m->getReaction(sid) : NULL;
 }
 
-/**
- * Get the SpeciesReference_t structure whose identifier is @p sid in the
- * given Model_t structure.
- *
- * @param m the Model_t structure
- * @param sid the identifier of the SpeciesReference_t structure sought
- *
- * @return the SpeciesReference_t if found, or @c NULL if not found
- */
 LIBSBML_EXTERN
 SpeciesReference_t *
 Model_getSpeciesReferenceById (Model_t *m, const char *sid)
@@ -8162,15 +6890,6 @@ Model_getSpeciesReferenceById (Model_t *m, const char *sid)
 
 
 
-/**
- * Get the nth Event_t structure contained in the given
- * Model_t structure.
- *
- * @param m the Model_t structure
- * @param n the integer index of the Event_t sought
- *
- * @return the Event_t if found, or @c NULL if not found
- */
 LIBSBML_EXTERN
 Event_t *
 Model_getEvent (Model_t *m, unsigned int n)
@@ -8179,15 +6898,6 @@ Model_getEvent (Model_t *m, unsigned int n)
 }
 
 
-/**
- * Get the Event_t structure whose identifier is @p sid in the
- * given Model_t structure.
- *
- * @param m the Model_t structure
- * @param sid the identifier of the Event_t structure sought
- *
- * @return the Event_t if found, or @c NULL if not found
- */
 LIBSBML_EXTERN
 Event_t *
 Model_getEventById (Model_t *m, const char *sid)
@@ -8196,15 +6906,6 @@ Model_getEventById (Model_t *m, const char *sid)
 }
 
 
-/**
- * Get the number of FunctionDefinition_t structures in the given
- * Model_t structure
- *
- * @param m the Model_t structure
- *
- * @return an unsigned integer as the count of FunctionDefinition_t
- * structures in @p m
- */
 LIBSBML_EXTERN
 unsigned int
 Model_getNumFunctionDefinitions (const Model_t *m)
@@ -8213,15 +6914,6 @@ Model_getNumFunctionDefinitions (const Model_t *m)
 }
 
 
-/**
- * Get the number of UnitDefinition_t structures in the given
- * Model_t structure
- *
- * @param m the Model_t structure
- *
- * @return an unsigned integer as the count of UnitDefinition_t
- * structures in @p m
- */
 LIBSBML_EXTERN
 unsigned int
 Model_getNumUnitDefinitions (const Model_t *m)
@@ -8230,15 +6922,6 @@ Model_getNumUnitDefinitions (const Model_t *m)
 }
 
 
-/**
- * Get the number of CompartmentType_t structures in the given
- * Model_t structure
- *
- * @param m the Model_t structure
- *
- * @return an unsigned integer as the count of CompartmentType_t
- * structures in @p m
- */
 LIBSBML_EXTERN
 unsigned int
 Model_getNumCompartmentTypes (const Model_t *m)
@@ -8247,15 +6930,6 @@ Model_getNumCompartmentTypes (const Model_t *m)
 }
 
 
-/**
- * Get the number of SpeciesType_t structures in the given
- * Model_t structure
- *
- * @param m the Model_t structure
- *
- * @return an unsigned integer as the count of SpeciesType_t
- * structures in @p m
- */
 LIBSBML_EXTERN
 unsigned int
 Model_getNumSpeciesTypes (const Model_t *m)
@@ -8264,15 +6938,6 @@ Model_getNumSpeciesTypes (const Model_t *m)
 }
 
 
-/**
- * Get the number of Compartment_t structures in the given
- * Model_t structure
- *
- * @param m the Model_t structure
- *
- * @return an unsigned integer as the count of Compartment_t
- * structures in @p m
- */
 LIBSBML_EXTERN
 unsigned int
 Model_getNumCompartments (const Model_t *m)
@@ -8281,15 +6946,6 @@ Model_getNumCompartments (const Model_t *m)
 }
 
 
-/**
- * Get the number of Specie_t structures in the given
- * Model_t structure
- *
- * @param m the Model_t structure
- *
- * @return an unsigned integer as the count of Specie_t
- * structures in @p m
- */
 LIBSBML_EXTERN
 unsigned int
 Model_getNumSpecies (const Model_t *m)
@@ -8298,14 +6954,6 @@ Model_getNumSpecies (const Model_t *m)
 }
 
 
-/**
- * Get the number of Species_t structure in this Model_t structure having
- * nonzero values for their "boundaryCondition" attribute.
- *
- * @param m the Model_t structure
- *
- * @return an unsigned integer as the count of Species_t structures
- */
 LIBSBML_EXTERN
 unsigned int
 Model_getNumSpeciesWithBoundaryCondition (const Model_t *m)
@@ -8314,15 +6962,6 @@ Model_getNumSpeciesWithBoundaryCondition (const Model_t *m)
 }
 
 
-/**
- * Get the number of Parameter_t structures in the given
- * Model_t structure
- *
- * @param m the Model_t structure
- *
- * @return an unsigned integer as the count of Parameter_t
- * structures in @p m
- */
 LIBSBML_EXTERN
 unsigned int
 Model_getNumParameters (const Model_t *m)
@@ -8331,15 +6970,6 @@ Model_getNumParameters (const Model_t *m)
 }
 
 
-/**
- * Get the number of InitialAssignment_t structures in the given
- * Model_t structure
- *
- * @param m the Model_t structure
- *
- * @return an unsigned integer as the count of InitialAssignment_t
- * structures in @p m
- */
 LIBSBML_EXTERN
 unsigned int
 Model_getNumInitialAssignments (const Model_t *m)
@@ -8348,15 +6978,6 @@ Model_getNumInitialAssignments (const Model_t *m)
 }
 
 
-/**
- * Get the number of Rule_t structures in the given
- * Model_t structure
- *
- * @param m the Model_t structure
- *
- * @return an unsigned integer as the count of Rule_t
- * structures in @p m
- */
 LIBSBML_EXTERN
 unsigned int
 Model_getNumRules (const Model_t *m)
@@ -8365,15 +6986,6 @@ Model_getNumRules (const Model_t *m)
 }
 
 
-/**
- * Get the number of Constraint_t structures in the given
- * Model_t structure
- *
- * @param m the Model_t structure
- *
- * @return an unsigned integer as the count of Constraint_t
- * structures in @p m
- */
 LIBSBML_EXTERN
 unsigned int
 Model_getNumConstraints (const Model_t *m)
@@ -8381,15 +6993,6 @@ Model_getNumConstraints (const Model_t *m)
   return (m != NULL) ? m->getNumConstraints() : SBML_INT_MAX;
 }
 
-/**
- * Get the number of Reaction_t structures in the given
- * Model_t structure
- *
- * @param m the Model_t structure
- *
- * @return an unsigned integer as the count of Reaction_t
- * structures in @p m
- */
 LIBSBML_EXTERN
 unsigned int
 Model_getNumReactions (const Model_t *m)
@@ -8398,15 +7001,6 @@ Model_getNumReactions (const Model_t *m)
 }
 
 
-/**
- * Get the number of Event_t structures in the given
- * Model_t structure
- *
- * @param m the Model_t structure
- *
- * @return an unsigned integer as the count of Event_t
- * structures in @p m
- */
 LIBSBML_EXTERN
 unsigned int
 Model_getNumEvents (const Model_t *m)
@@ -8415,32 +7009,6 @@ Model_getNumEvents (const Model_t *m)
 }
 
 
- /*
-  * Populates the list of FormulaDataUnits with the units derived 
-  * for the model. The list contains elements of class
-  * FormulaUnitsData. 
-  *
-  * The first element of the list refers to the default units
-  * of 'substance per time' derived from the model and has the
-  * unitReferenceId 'subs_per_time'. This facilitates the comparison of units
-  * derived from mathematical formula with the expected units.
-  * 
-  * The next elements of the list record the units of the 
-  * compartments and species established from either explicitly
-  * declared or default units.
-  *
-  * The next elements record the units of any parameters.
-  *
-  * Subsequent elements of the list record the units derived for
-  * each mathematical expression encountered within the model.
-  *
-  * @param m the Model_t structure
-  *
-  * @note This function is utilised by the Unit Consistency Validator.
-  * The List is populated prior to running the validation and thus
-  * the consistency of units can be checked by accessing the members
-  * of the list and comparing the appropriate data.
-  */
 LIBSBML_EXTERN
 void 
 Model_populateListFormulaUnitsData(Model_t *m)
@@ -8450,15 +7018,6 @@ Model_populateListFormulaUnitsData(Model_t *m)
 }
 
 
- /*
-  * Predicate returning @c true or @c false depending on whether 
-  * the list of FormulaUnitsData is populated.
-  *
-  * @param m the Model_t structure
-  * 
-  * @return @c true if the list of FormulaUnitsData is populated, 
-  * @c false otherwise.
-  */
 LIBSBML_EXTERN
 int 
 Model_isPopulatedListFormulaUnitsData(Model_t *m)
@@ -8468,19 +7027,6 @@ Model_isPopulatedListFormulaUnitsData(Model_t *m)
 }
 
 
-/**
- * Removes the nth FunctionDefinition_t object from this Model_t object and
- * returns a pointer to it.
- *
- * The caller owns the returned object and is responsible for deleting it.
- *
- * @param m the Model_t structure
- * @param n the integer index of the FunctionDefinition_t sought
- *
- * @return the FunctionDefinition_t object removed.  As mentioned above, 
- * the caller owns the returned item. @c NULL is returned if the given index 
- * is out of range.
- */
 LIBSBML_EXTERN
 FunctionDefinition_t*
 Model_removeFunctionDefinition (Model_t *m, unsigned int n)
@@ -8492,20 +7038,6 @@ Model_removeFunctionDefinition (Model_t *m, unsigned int n)
 }
 
 
-/**
- * Removes the FunctionDefinition_t object with the given "id" attribute
- * from this Model_t object and returns a pointer to it.
- *
- * The caller owns the returned object and is responsible for deleting it.
- *
- * @param m the Model_t structure
- * @param sid the string of the "id" attribute of the FunctionDefinition_t sought
- *
- * @return the FunctionDefinition_t object removed.  As mentioned above, the 
- * caller owns the returned object. @c NULL is returned if no FunctionDefinition_t
- * object with the identifier exists in this Model_t object.
- *
- */
 LIBSBML_EXTERN
 FunctionDefinition_t*
 Model_removeFunctionDefinitionById (Model_t *m, const char* sid)
@@ -8517,19 +7049,6 @@ Model_removeFunctionDefinitionById (Model_t *m, const char* sid)
 }
 
 
-/**
- * Removes the nth UnitDefinition_t object from this Model_t object and
- * returns a pointer to it.
- *
- * The caller owns the returned object and is responsible for deleting it.
- *
- * @param m the Model_t structure
- * @param n the integer index of the UnitDefinition_t sought
- *
- * @return the UnitDefinition_t object removed.  As mentioned above, 
- * the caller owns the returned item. @c NULL is returned if the given index 
- * is out of range.
- */
 LIBSBML_EXTERN
 UnitDefinition_t*
 Model_removeUnitDefinition (Model_t *m, unsigned int n)
@@ -8541,19 +7060,6 @@ Model_removeUnitDefinition (Model_t *m, unsigned int n)
 }
 
 
-/**
- * Removes the UnitDefinition_t object with the given "id" attribute
- * from this Model_t object and returns a pointer to it.
- *
- * The caller owns the returned object and is responsible for deleting it.
- *
- * @param m the Model_t structure
- * @param sid the string of the "id" attribute of the UnitDefinition_t sought
- *
- * @return the UnitDefinition_t object removed.  As mentioned above, the 
- * caller owns the returned object. @c NULL is returned if no UnitDefinition_t
- * object with the identifier exists in this Model_t object.
- */
 LIBSBML_EXTERN
 UnitDefinition_t*
 Model_removeUnitDefinitionById (Model_t *m, const char* sid)
@@ -8565,19 +7071,6 @@ Model_removeUnitDefinitionById (Model_t *m, const char* sid)
 }
 
 
-/**
- * Removes the nth CompartmentType_t object from this Model_t object and
- * returns a pointer to it.
- *
- * The caller owns the returned object and is responsible for deleting it.
- *
- * @param m the Model_t structure
- * @param n the integer index of the CompartmentType_t sought
- *
- * @return the CompartmentType_t object removed.  As mentioned above, 
- * the caller owns the returned item. @c NULL is returned if the given index 
- * is out of range.
- */
 LIBSBML_EXTERN
 CompartmentType_t*
 Model_removeCompartmentType (Model_t *m, unsigned int n)
@@ -8589,19 +7082,6 @@ Model_removeCompartmentType (Model_t *m, unsigned int n)
 }
 
 
-/**
- * Removes the CompartmentType_t object with the given "id" attribute
- * from this Model_t object and returns a pointer to it.
- *
- * The caller owns the returned object and is responsible for deleting it.
- *
- * @param m the Model_t structure
- * @param sid the string of the "id" attribute of the CompartmentType_t sought
- *
- * @return the CompartmentType_t object removed.  As mentioned above, the 
- * caller owns the returned object. @c NULL is returned if no CompartmentType_t
- * object with the identifier exists in this Model_t object.
- */
 LIBSBML_EXTERN
 CompartmentType_t*
 Model_removeCompartmentTypeById (Model_t *m, const char* sid)
@@ -8613,19 +7093,6 @@ Model_removeCompartmentTypeById (Model_t *m, const char* sid)
 }
 
 
-/**
- * Removes the nth SpeciesType_t object from this Model_t object and
- * returns a pointer to it.
- *
- * The caller owns the returned object and is responsible for deleting it.
- *
- * @param m the Model_t structure
- * @param n the integer index of the SpeciesType_t sought
- *
- * @return the SpeciesType_t object removed.  As mentioned above, 
- * the caller owns the returned item. @c NULL is returned if the given index 
- * is out of range.
- */
 LIBSBML_EXTERN
 SpeciesType_t*
 Model_removeSpeciesType (Model_t *m, unsigned int n)
@@ -8637,19 +7104,6 @@ Model_removeSpeciesType (Model_t *m, unsigned int n)
 }
 
 
-/**
- * Removes the SpeciesType_t object with the given "id" attribute
- * from this Model_t object and returns a pointer to it.
- *
- * The caller owns the returned object and is responsible for deleting it.
- *
- * @param m the Model_t structure
- * @param sid the string of the "id" attribute of the SpeciesType_t sought
- *
- * @return the SpeciesType_t object removed.  As mentioned above, the 
- * caller owns the returned object. @c NULL is returned if no SpeciesType_t
- * object with the identifier exists in this Model_t object.
- */
 LIBSBML_EXTERN
 SpeciesType_t*
 Model_removeSpeciesTypeById (Model_t *m, const char* sid)
@@ -8661,19 +7115,6 @@ Model_removeSpeciesTypeById (Model_t *m, const char* sid)
 }
 
 
-/**
- * Removes the nth Compartment_t object from this Model_t object and
- * returns a pointer to it.
- *
- * The caller owns the returned object and is responsible for deleting it.
- *
- * @param m the Model_t structure
- * @param n the integer index of the Compartment_t sought
- *
- * @return the Compartment_t object removed.  As mentioned above, 
- * the caller owns the returned item. @c NULL is returned if the given index 
- * is out of range.
- */
 LIBSBML_EXTERN
 Compartment_t*
 Model_removeCompartment (Model_t *m, unsigned int n)
@@ -8685,19 +7126,6 @@ Model_removeCompartment (Model_t *m, unsigned int n)
 }
 
 
-/**
- * Removes the Compartment_t object with the given "id" attribute
- * from this Model_t object and returns a pointer to it.
- *
- * The caller owns the returned object and is responsible for deleting it.
- *
- * @param m the Model_t structure
- * @param sid the string of the "id" attribute of the Compartment_t sought
- *
- * @return the Compartment_t object removed.  As mentioned above, the 
- * caller owns the returned object. @c NULL is returned if no Compartment_t
- * object with the identifier exists in this Model_t object.
- */
 LIBSBML_EXTERN
 Compartment_t*
 Model_removeCompartmentById (Model_t *m, const char* sid)
@@ -8709,19 +7137,6 @@ Model_removeCompartmentById (Model_t *m, const char* sid)
 }
 
 
-/**
- * Removes the nth Species_t object from this Model_t object and
- * returns a pointer to it.
- *
- * The caller owns the returned object and is responsible for deleting it.
- *
- * @param m the Model_t structure
- * @param n the integer index of the Species_t sought
- *
- * @return the Species_t object removed.  As mentioned above, 
- * the caller owns the returned item. @c NULL is returned if the given index 
- * is out of range.
- */
 LIBSBML_EXTERN
 Species_t*
 Model_removeSpecies (Model_t *m, unsigned int n)
@@ -8733,19 +7148,6 @@ Model_removeSpecies (Model_t *m, unsigned int n)
 }
 
 
-/**
- * Removes the Species_t object with the given "id" attribute
- * from this Model_t object and returns a pointer to it.
- *
- * The caller owns the returned object and is responsible for deleting it.
- *
- * @param m the Model_t structure
- * @param sid the string of the "id" attribute of the Species_t sought
- *
- * @return the Species_t object removed.  As mentioned above, the 
- * caller owns the returned object. @c NULL is returned if no Species_t
- * object with the identifier exists in this Model_t object.
- */
 LIBSBML_EXTERN
 Species_t*
 Model_removeSpeciesById (Model_t *m, const char* sid)
@@ -8757,19 +7159,6 @@ Model_removeSpeciesById (Model_t *m, const char* sid)
 }
 
 
-/**
- * Removes the nth Parameter_t object from this Model_t object and
- * returns a pointer to it.
- *
- * The caller owns the returned object and is responsible for deleting it.
- *
- * @param m the Model_t structure
- * @param n the integer index of the Parameter_t sought
- *
- * @return the Parameter_t object removed.  As mentioned above, 
- * the caller owns the returned item. @c NULL is returned if the given index 
- * is out of range.
- */
 LIBSBML_EXTERN
 Parameter_t*
 Model_removeParameter (Model_t *m, unsigned int n)
@@ -8781,19 +7170,6 @@ Model_removeParameter (Model_t *m, unsigned int n)
 }
 
 
-/**
- * Removes the Parameter_t object with the given "id" attribute
- * from this Model_t object and returns a pointer to it.
- *
- * The caller owns the returned object and is responsible for deleting it.
- *
- * @param m the Model_t structure
- * @param sid the string of the "id" attribute of the Parameter_t sought
- *
- * @return the Parameter_t object removed.  As mentioned above, the 
- * caller owns the returned object. @c NULL is returned if no Parameter_t
- * object with the identifier exists in this Model_t object.
- */
 LIBSBML_EXTERN
 Parameter_t*
 Model_removeParameterById (Model_t *m, const char* sid)
@@ -8805,19 +7181,6 @@ Model_removeParameterById (Model_t *m, const char* sid)
 }
 
 
-/**
- * Removes the nth InitialAssignment_t object from this Model_t object and
- * returns a pointer to it.
- *
- * The caller owns the returned object and is responsible for deleting it.
- *
- * @param m the Model_t structure
- * @param n the integer index of the InitialAssignment_t sought
- *
- * @return the InitialAssignment_t object removed.  As mentioned above, 
- * the caller owns the returned item. @c NULL is returned if the given index 
- * is out of range.
- */
 LIBSBML_EXTERN
 InitialAssignment_t*
 Model_removeInitialAssignment (Model_t *m, unsigned int n)
@@ -8829,19 +7192,6 @@ Model_removeInitialAssignment (Model_t *m, unsigned int n)
 }
 
 
-/**
- * Removes the InitialAssignment_t object with the given "symbol" attribute
- * from this Model_t object and returns a pointer to it.
- *
- * The caller owns the returned object and is responsible for deleting it.
- *
- * @param m the Model_t structure
- * @param symbol the string of the "symbol" attribute of the InitialAssignment_t sought
- *
- * @return the InitialAssignment_t object removed.  As mentioned above, the 
- * caller owns the returned object. @c NULL is returned if no InitialAssignment_t
- * object with the "symbol" attribute exists in this Model_t object.
- */
 LIBSBML_EXTERN
 InitialAssignment_t*
 Model_removeInitialAssignmentBySym (Model_t *m, const char* symbol)
@@ -8853,19 +7203,6 @@ Model_removeInitialAssignmentBySym (Model_t *m, const char* symbol)
 }
 
 
-/**
- * Removes the nth Rule_t object from this Model_t object and
- * returns a pointer to it.
- *
- * The caller owns the returned object and is responsible for deleting it.
- *
- * @param m the Model_t structure
- * @param n the integer index of the Rule_t sought
- *
- * @return the Rule_t object removed.  As mentioned above, 
- * the caller owns the returned item. @c NULL is returned if the given index 
- * is out of range.
- */
 LIBSBML_EXTERN
 Rule_t*
 Model_removeRule (Model_t *m, unsigned int n)
@@ -8877,19 +7214,6 @@ Model_removeRule (Model_t *m, unsigned int n)
 }
 
 
-/**
- * Removes the Rule_t object with the given "variable" attribute
- * from this Model_t object and returns a pointer to it.
- *
- * The caller owns the returned object and is responsible for deleting it.
- *
- * @param m the Model_t structure
- * @param variable the string of the "variable" attribute of the Rule_t sought
- *
- * @return the Rule_t object removed.  As mentioned above, the 
- * caller owns the returned object. @c NULL is returned if no Rule_t
- * object with the "variable" attribute exists in this Model_t object.
- */
 LIBSBML_EXTERN
 Rule_t*
 Model_removeRuleByVar (Model_t *m, const char* variable)
@@ -8901,19 +7225,6 @@ Model_removeRuleByVar (Model_t *m, const char* variable)
 }
 
 
-/**
- * Removes the nth Constraint_t object from this Model_t object and
- * returns a pointer to it.
- *
- * The caller owns the returned object and is responsible for deleting it.
- *
- * @param m the Model_t structure
- * @param n the integer index of the Constraint_t sought
- *
- * @return the Constraint_t object removed.  As mentioned above, 
- * the caller owns the returned item. @c NULL is returned if the given index 
- * is out of range.
- */
 LIBSBML_EXTERN
 Constraint_t*
 Model_removeConstraint (Model_t *m, unsigned int n)
@@ -8925,19 +7236,6 @@ Model_removeConstraint (Model_t *m, unsigned int n)
 }
 
 
-/**
- * Removes the nth Reaction_t object from this Model_t object and
- * returns a pointer to it.
- *
- * The caller owns the returned object and is responsible for deleting it.
- *
- * @param m the Model_t structure
- * @param n the integer index of the Reaction_t sought
- *
- * @return the Reaction_t object removed.  As mentioned above, 
- * the caller owns the returned item. @c NULL is returned if the given index 
- * is out of range.
- */
 LIBSBML_EXTERN
 Reaction_t*
 Model_removeReaction (Model_t *m, unsigned int n)
@@ -8949,19 +7247,6 @@ Model_removeReaction (Model_t *m, unsigned int n)
 }
 
 
-/**
- * Removes the Reaction_t object with the given "id" attribute
- * from this Model_t object and returns a pointer to it.
- *
- * The caller owns the returned object and is responsible for deleting it.
- *
- * @param m the Model_t structure
- * @param sid the string of the "id" attribute of the Reaction_t sought
- *
- * @return the Reaction_t object removed.  As mentioned above, the 
- * caller owns the returned object. @c NULL is returned if no Reaction_t
- * object with the identifier exists in this Model_t object.
- */
 LIBSBML_EXTERN
 Reaction_t*
 Model_removeReactionById (Model_t *m, const char* sid)
@@ -8973,19 +7258,6 @@ Model_removeReactionById (Model_t *m, const char* sid)
 }
 
 
-/**
- * Removes the nth Event_t object from this Model_t object and
- * returns a pointer to it.
- *
- * The caller owns the returned object and is responsible for deleting it.
- *
- * @param m the Model_t structure
- * @param n the integer index of the Event_t sought
- *
- * @return the Event_t object removed.  As mentioned above, 
- * the caller owns the returned item. @c NULL is returned if the given index 
- * is out of range.
- */
 LIBSBML_EXTERN
 Event_t*
 Model_removeEvent (Model_t *m, unsigned int n)
@@ -8997,19 +7269,6 @@ Model_removeEvent (Model_t *m, unsigned int n)
 }
 
 
-/**
- * Removes the Event_t object with the given "id" attribute
- * from this Model_t object and returns a pointer to it.
- *
- * The caller owns the returned object and is responsible for deleting it.
- *
- * @param m the Model_t structure
- * @param sid the string of the "id" attribute of the Event_t sought
- *
- * @return the Event_t object removed.  As mentioned above, the 
- * caller owns the returned object. @c NULL is returned if no Event_t
- * object with the identifier exists in this Model_t object.
- */
 LIBSBML_EXTERN
 Event_t*
 Model_removeEventById (Model_t *m, const char* sid)
@@ -9023,11 +7282,6 @@ Model_removeEventById (Model_t *m, const char* sid)
 
 /* NOT YET USED but leave in case of future need 
 
-  * Adds a copy of the given FormulaUnitsData object to this Model.
-  *
-  * @param m the Model_t structure
-  * @param fud the FormulaUnitsData_t structure to add
-
 LIBSBML_EXTERN
 void 
 Model_addFormulaUnitsData (Model_t *m, FormulaUnitsData_t* fud)
@@ -9035,13 +7289,6 @@ Model_addFormulaUnitsData (Model_t *m, FormulaUnitsData_t* fud)
   m->addFormulaUnitsData(fud);
 }
 
-
-
- * Creates a new FormulaUnitsData inside this Model and returns it.
- *
- * @param m the Model_t structure
- *
- * @return the FormulaUnitsData_t structure created
 
 LIBSBML_EXTERN
 FormulaUnitsData_t* 
@@ -9051,12 +7298,6 @@ Model_createFormulaUnitsData (Model_t *m)
 }
 
 
- * Get the nth FormulaUnitsData object in this Model.
- *
- * @param m the Model_t structure
- * 
- * @return the nth FormulaUnitsData of this Model.
-
 LIBSBML_EXTERN
 FormulaUnitsData_t* 
 Model_getFormulaUnitsData (Model_t *m, unsigned int n)
@@ -9064,24 +7305,6 @@ Model_getFormulaUnitsData (Model_t *m, unsigned int n)
   return m->getFormulaUnitsData(n);
 }
 
-
-
-  * Get a FormulaUnitsData object based on its unitReferenceId and typecode.
-  *
-  * @param m the Model_t structure
-  * 
-  * @return the FormulaUnitsData in this Model with the unitReferenceId @p sid 
-  * and the typecode (int) @p typecode or @c NULL
-  * if no such FormulaUnitsData exists.
-  *
-  * @note The typecode (int) parameter is necessary as the unitReferenceId
-  * of the FormulaUnitsData need not be unique. For example if a Species
-  * with id 's' is assigned by an AssignmentRule there will be two 
-  * elements of the FormulaUnitsData List with the unitReferenceId 's'; 
-  * one with
-  * typecode 'SBML_SPECIES' referring to the units related to the species, 
-  * the other with typecode 'SBML_ASSIGNMENT_RULE' referring to the units
-  * derived from the math element of the AssignmentRule.
 
 LIBSBML_EXTERN
 FormulaUnitsData_t* 
@@ -9092,12 +7315,6 @@ Model_getFormulaUnitsDataById(Model_t *m, const char* sid,
 }
 
 
-  * Get the number of FormulaUnitsData objects in this Model.
-  * 
-  * @param m the Model_t structure
-  * 
-  * @return the number of FormulaUnitsData in this Model.
-
 LIBSBML_EXTERN
 unsigned int 
 Model_getNumFormulaUnitsData (Model_t *m)
@@ -9106,20 +7323,12 @@ Model_getNumFormulaUnitsData (Model_t *m)
 }
 
 
-
-  * Get the list of FormulaUnitsData object in this Model.
-  * 
-  * @param m the Model_t structure
-  * 
- * @return the list of FormulaUnitsData for this Model.
-
 LIBSBML_EXTERN
 List_t* 
 Model_getListFormulaUnitsData (Model_t *m)
 {
   return m->getListFormulaUnitsData();
 }
-
 
 */
 

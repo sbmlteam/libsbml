@@ -640,77 +640,231 @@ LIBSBML_CPP_NAMESPACE_END
 LIBSBML_CPP_NAMESPACE_BEGIN
 BEGIN_C_DECLS
 
-/* ----------------------------------------------------------------------------
- * See the .cpp file for the documentation of the following functions.
- * --------------------------------------------------------------------------*/
-
-/*
-LIBSBML_EXTERN
-Constraint_t *
-Constraint_createWithLevelVersionAndNamespaces (unsigned int level,
-              unsigned int version, XMLNamespaces_t *xmlns);
-*/
-
+/**
+ * Creates a new Constraint_t structure using the given SBML @p level
+ * and @p version values.
+ *
+ * @param level an unsigned int, the SBML Level to assign to this
+ * Constraint
+ *
+ * @param version an unsigned int, the SBML Version to assign to this
+ * Constraint
+ *
+ * @return a pointer to the newly created Constraint_t structure.
+ *
+ * @note Once a Constraint has been added to an SBMLDocument, the @p
+ * level and @p version for the document @em override those used to create
+ * the Constraint.  Despite this, the ability to supply the values at
+ * creation time is an important aid to creating valid SBML.  Knowledge of
+ * the intended SBML Level and Version  determine whether it is valid to
+ * assign a particular value to an attribute, or whether it is valid to add
+ * an object to an existing SBMLDocument.
+ *
+ * @memberof Constraint_t
+ */
 LIBSBML_EXTERN
 Constraint_t *
 Constraint_create (unsigned int level, unsigned int version);
 
 
+/**
+ * Creates a new Constraint_t structure using the given
+ * SBMLNamespaces_t structure.
+ *
+ * @param sbmlns SBMLNamespaces, a pointer to an SBMLNamespaces structure
+ * to assign to this Constraint
+ *
+ * @return a pointer to the newly created Constraint_t structure.
+ *
+ * @note Once a Constraint has been added to an SBMLDocument, the
+ * @p sbmlns namespaces for the document @em override those used to create
+ * the Constraint.  Despite this, the ability to supply the values at creation 
+ * time is an important aid to creating valid SBML.  Knowledge of the intended 
+ * SBML Level and Version determine whether it is valid to assign a particular 
+ * value to an attribute, or whether it is valid to add an object to an existing
+ * SBMLDocument.
+ *
+ * @memberof Constraint_t
+ */
 LIBSBML_EXTERN
 Constraint_t *
 Constraint_createWithNS (SBMLNamespaces_t *sbmlns);
 
 
+/**
+ * Frees the given Constraint_t structure.
+ *
+ * @memberof Constraint_t
+ */
 LIBSBML_EXTERN
 void
 Constraint_free (Constraint_t *c);
 
 
+/**
+ * Creates and returns a deep copy of the given Constraint_t structure.
+ *
+ * @param c the Constraint_t structure to copy
+ * 
+ * @return a (deep) copy of Constraint_t.
+ *
+ * @memberof Constraint_t
+ */
 LIBSBML_EXTERN
 Constraint_t *
 Constraint_clone (const Constraint_t *c);
 
 
+/**
+ * Returns a list of XMLNamespaces_t associated with this Constraint_t
+ * structure.
+ *
+ * @param c the Constraint_t structure
+ * 
+ * @return pointer to the XMLNamespaces_t structure associated with 
+ * this SBML object
+ *
+ * @memberof Constraint_t
+ */
 LIBSBML_EXTERN
 const XMLNamespaces_t *
 Constraint_getNamespaces(Constraint_t *c);
 
 
+/**
+ * Get the message, if any, associated with this Constraint
+ *
+ * @param c the Constraint_t structure 
+ * 
+ * @return the message for this Constraint, as an XMLNode.
+ *
+ * @memberof Constraint_t
+ */
 LIBSBML_EXTERN
 const XMLNode_t *
 Constraint_getMessage (const Constraint_t *c);
 
 
+/**
+ * Get the message string, if any, associated with this Constraint
+ *
+ * @param c the Constraint_t structure 
+ * 
+ * @return the message for this Constraint, as a string (char*).
+ * @c NULL is returned if the message is not set.
+ *
+ * @note returned char* should be freed with safe_free() by the caller.
+ *
+ * @memberof Constraint_t
+ */
 LIBSBML_EXTERN
 char*
 Constraint_getMessageString (const Constraint_t *c);
 
 
+/**
+ * Get the mathematical expression of this Constraint
+ *
+ * @param c the Constraint_t structure 
+ * 
+ * @return the math for this Constraint, as an ASTNode.
+ *
+ * @memberof Constraint_t
+ */
 LIBSBML_EXTERN
 const ASTNode_t *
 Constraint_getMath (const Constraint_t *c);
 
 
+/**
+ * Predicate returning @c true or @c false depending on whether a
+ * message is defined for this Constraint.
+ *
+ * @param c the Constraint_t structure 
+ * 
+ * @return a nonzero integer if the "message" subelement for this
+ * Constraint is set, zero (0) otherwise.
+ *
+ * @memberof Constraint_t
+ */
 LIBSBML_EXTERN
 int
 Constraint_isSetMessage (const Constraint_t *c);
 
 
+/**
+ * Predicate returning @c true or @c false depending on whether a
+ * mathematical formula is defined for this Constraint.
+ *
+ * @param c the Constraint_t structure 
+ * 
+ * @return a nonzero integer if the "math" subelement for this Constraint
+ * is set, zero (0) otherwise.
+ *
+ * @memberof Constraint_t
+ */
 LIBSBML_EXTERN
 int
 Constraint_isSetMath (const Constraint_t *c);
 
 
+/**
+ * Sets the message of this Constraint.
+ *
+ * @param c the Constraint_t structure
+ *
+ * @param xhtml an XML tree containing XHTML content.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_INVALID_OBJECT
+ *
+ * @memberof Constraint_t
+ */
 LIBSBML_EXTERN
 int
 Constraint_setMessage (Constraint_t *c, const XMLNode_t* xhtml);
 
 
+/**
+ * Sets the mathematical expression of this Constraint.
+ *
+ * @param c the Constraint_t structure
+ *
+ * @param math an ASTNode expression to be assigned as the "math"
+ * subelement of this Constraint
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_INVALID_OBJECT
+ *
+ * @memberof Constraint_t
+ */
 LIBSBML_EXTERN
 int
 Constraint_setMath (Constraint_t *c, const ASTNode_t *math);
 
 
+/**
+ * Unsets the "message" subelement of this Constraint.
+ *
+ * @param c the Constraint_t structure
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_OPERATION_FAILED
+ *
+ * @memberof Constraint_t
+ */
 LIBSBML_EXTERN
 int 
 Constraint_unsetMessage (Constraint_t *c);

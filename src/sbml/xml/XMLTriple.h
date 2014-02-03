@@ -233,61 +233,162 @@ LIBSBML_CPP_NAMESPACE_END
 LIBSBML_CPP_NAMESPACE_BEGIN
 BEGIN_C_DECLS
 
-/* ----------------------------------------------------------------------------
- * See the .cpp file for the documentation of the following functions.
- * --------------------------------------------------------------------------*/
-
-
+/**
+ * Creates a new empty XMLTriple_t structure and returns a pointer to it.
+ *
+ * @return pointer to created XMLTriple_t structure.
+ *
+ * @memberof XMLTriple_t
+ */
 LIBLAX_EXTERN
 XMLTriple_t *
 XMLTriple_create (void);
 
 
+/**
+ * Creates a new XMLTriple_t structure with name, prefix and uri.
+ *
+ * @param name a string, name for the XMLTriple_t structure.
+ * @param uri a string, URI of the XMLTriple_t structure.
+ * @param prefix a string, prefix for the URI of the XMLTriple_t structure.
+ *
+ * @return pointer to the created XMLTriple_t structure.
+ *
+ * @memberof XMLTriple_t
+ */
 LIBLAX_EXTERN
 XMLTriple_t *
 XMLTriple_createWith (const char *name, const char *uri, const char *prefix);
 
 
+/**
+ * Destroys this XMLTriple_t structure.
+ *
+ * @param triple XMLTriple_t structure to be freed.
+ *
+ * @memberof XMLTriple_t
+ */
 LIBLAX_EXTERN
 void
 XMLTriple_free (XMLTriple_t *triple);
 
 
+/**
+ * Creates a deep copy of the given XMLTriple_t structure
+ * 
+ * @param triple the XMLTriple_t structure to be copied
+ * 
+ * @return a (deep) copy of the given XMLTriple_t structure.
+ *
+ * @memberof XMLTriple_t
+ */
 LIBLAX_EXTERN
 XMLTriple_t *
-XMLTriple_clone (const XMLTriple_t* c);
+XMLTriple_clone (const XMLTriple_t* triple);
 
 
+/**
+ * Returns the name from this XMLTriple_t structure.
+ *
+ * @param triple XMLTriple_t structure to be queried.
+ *
+ * @return name from this XMLTriple_t structure.
+ *
+ * @memberof XMLTriple_t
+ */
 LIBLAX_EXTERN
 const char *
 XMLTriple_getName (const XMLTriple_t *triple);
 
 
+/**
+ * Returns the prefix from this XMLTriple_t structure.
+ *
+ * @param triple XMLTriple_t structure to be queried.
+ *
+ * @return prefix from this XMLTriple_t structure.
+ *
+ * @memberof XMLTriple_t
+ */
 LIBLAX_EXTERN
 const char *
 XMLTriple_getPrefix (const XMLTriple_t *triple);
 
 
+/**
+ * Returns the URI from this XMLTriple_t structure.
+ *
+ * @param triple XMLTriple_t structure to be queried.
+ *
+ * @return URI from this XMLTriple_t structure.
+ *
+ * @memberof XMLTriple_t
+ */
 LIBLAX_EXTERN
 const char *
 XMLTriple_getURI (const XMLTriple_t *triple);
 
 
+/**
+ * Returns the prefixed name from this XMLTriple_t structure.
+ *
+ * @param triple XMLTriple_t structure to be queried.
+ *
+ * @return prefixed name from this XMLTriple_t structure.
+ *
+ * @memberof XMLTriple_t
+ */
 LIBLAX_EXTERN
 const char *
 XMLTriple_getPrefixedName (const XMLTriple_t *triple);
 
 
+/**
+ * Predicate returning @c true or @c false depending on whether 
+ * this XMLTriple is empty.
+ * 
+ * @param triple XMLTriple_t structure to be queried.
+ *
+ * @return @c non-zero (true) if this XMLTriple is empty, @c zero (false) otherwise.
+ *
+ * @memberof XMLTriple_t
+ */
 LIBLAX_EXTERN
 int
 XMLTriple_isEmpty(const XMLTriple_t *triple);
 
 
+/**
+ * Predicate returning @c true or @c false depending on whether 
+ * this XMLTriple is equal to the given XMLTriple.
+ * 
+ * @param lhs XMLTriple_t structure to be required.
+ * @param rhs XMLTriple_t structure to be compared with this XMLTriple.
+ *
+ * @return @c non-zero (true) if the combination of name, URI, and prefix of this
+ * XMLTriple is equal to that of the given XMLTriple, 
+ * @c zero (false) otherwise.
+ *
+ * @memberof XMLTriple_t
+ */
 LIBLAX_EXTERN
 int
 XMLTriple_equalTo(const XMLTriple_t *lhs, const XMLTriple_t* rhs);
 
 
+/**
+ * Predicate returning @c true or @c false depending on whether 
+ * this XMLTriple is not equal to the given XMLTriple.
+ * 
+ * @param lhs XMLTriple_t structure to be required.
+ * @param rhs XMLTriple_t structure to be compared with this XMLTriple.
+ *
+ * @return @c non-zero (true) if the combination of name, URI, and prefix of this
+ * XMLTriple is not equal to that of the given XMLTriple, 
+ * @c zero (false) otherwise.
+ *
+ * @memberof XMLTriple_t
+ */
 LIBLAX_EXTERN
 int
 XMLTriple_notEqualTo(const XMLTriple_t *lhs, const XMLTriple_t* rhs);

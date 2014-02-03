@@ -134,6 +134,7 @@ UnitKind_equals (UnitKind_t uk1, UnitKind_t uk2);
  *
  * @note For more information about the libSBML unit codes, please refer to
  * the class documentation for Unit.
+ *
  */
 LIBSBML_EXTERN
 UnitKind_t
@@ -157,6 +158,7 @@ UnitKind_forName (const char *name);
  * 
  * @warning The string returned is a static data value.  The caller does not
  * own the returned string and is therefore not allowed to modify it.
+ *
  */
 LIBSBML_EXTERN
 const char *
@@ -176,6 +178,7 @@ UnitKind_toString (UnitKind_t uk);
  *
  * @note For more information about the libSBML unit codes, please refer to
  * the class documentation for Unit.
+ *
  */
 LIBSBML_EXTERN
 int

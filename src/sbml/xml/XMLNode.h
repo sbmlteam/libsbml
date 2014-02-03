@@ -549,411 +549,1474 @@ LIBSBML_CPP_NAMESPACE_END
 LIBSBML_CPP_NAMESPACE_BEGIN
 BEGIN_C_DECLS
 
-/* ----------------------------------------------------------------------------
- * See the .cpp file for the documentation of the following functions.
- * --------------------------------------------------------------------------*/
-
-
+/**
+ * Creates a new empty XMLNode_t structure with no children
+ * and returns a pointer to it.
+ *
+ * @return pointer to the new XMLNode_t structure.
+ *
+ * @memberof XMLNode_t
+ */
 LIBLAX_EXTERN
 XMLNode_t *
 XMLNode_create (void);
 
 
+/**
+ * Creates a new XMLNode_t structure by copying token and returns a pointer
+ * to it.
+ *
+ * @param token XMLToken_t structure to be copied to XMLNode_t structure.
+ *
+ * @return pointer to the new XMLNode_t structure.
+ *
+ * @memberof XMLNode_t
+ */
 LIBLAX_EXTERN
 XMLNode_t *
 XMLNode_createFromToken (const XMLToken_t *token);
 
 
+/**
+ * Creates a new start element XMLNode_t structure with XMLTriple_t 
+ * and XMLAttributes_t structures set and returns a pointer to it.
+ *
+ * @param triple XMLTriple_t structure to be set.
+ * @param attr XMLAttributes_t structure to be set.
+ *
+ * @return pointer to new XMLNode_t structure.
+ *
+ * @memberof XMLNode_t
+ */
 LIBLAX_EXTERN
 XMLNode_t *
 XMLNode_createStartElement  (const XMLTriple_t *triple,
 			     const XMLAttributes_t *attr);
 
 
+/**
+ * Creates a new start element XMLNode_t structure with XMLTriple_t, 
+ * XMLAttributes_t and XMLNamespaces_t structures set and returns a 
+ * pointer to it.
+ *
+ * @param triple XMLTriple_t structure to be set.
+ * @param attr XMLAttributes_t structure to be set.
+ * @param ns XMLNamespaces_t structure to be set.
+ *
+ * @return pointer to new XMLNode_t structure.
+ *
+ * @memberof XMLNode_t
+ */
 LIBLAX_EXTERN
 XMLNode_t *
 XMLNode_createStartElementNS (const XMLTriple_t *triple,
-			      const XMLAttributes_t *attr,
-			      const XMLNamespaces_t *ns);
+                              const XMLAttributes_t *attr,
+                              const XMLNamespaces_t *ns);
 
 
+/**
+ * Creates a new end element XMLNode_t structure with XMLTriple_t 
+ * structure set and returns a pointer to it.
+ *
+ * @param triple XMLTriple_t structure to be set.
+ *
+ * @return pointer to new XMLNode_t structure.
+ *
+ * @memberof XMLNode_t
+ */
 LIBLAX_EXTERN
 XMLNode_t *
 XMLNode_createEndElement (const XMLTriple_t *triple);
 
-
+/**
+ * Creates a text XMLNode.  Defaults to creating the node with a line number of 0 and a column number of 0.
+ *
+ * @param text the text to be added to the XMLToken
+ *
+ * @memberof XMLNode_t
+ */
 LIBLAX_EXTERN
 XMLNode_t *
 XMLNode_createTextNode (const char *text);
 
 
+/**
+ * Creates a deep copy of the given XMLNode_t structure
+ * 
+ * @param n the XMLNode_t structure to be copied
+ * 
+ * @return a (deep) copy of the given XMLNode_t structure.
+ *
+ * @memberof XMLNode_t
+ */
+LIBLAX_EXTERN
+XMLNode_t *
+XMLNode_clone (const XMLNode_t* n);
+
+
+/**
+ * Destroys this XMLNode_t structure.
+ *
+ * @param node XMLNode_t structure to be freed.
+ *
+ * @memberof XMLNode_t
+ */
 LIBLAX_EXTERN
 void
 XMLNode_free (XMLNode_t *node);
 
 
-LIBLAX_EXTERN
-XMLNode_t *
-XMLNode_clone (const XMLNode_t* c);
-
-
+/**
+ * Adds a copy of child node to this XMLNode_t structure.
+ *
+ * @param node XMLNode_t structure to which child is to be added.
+ * @param child XMLNode_t structure to be added as child.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_INVALID_XML_OPERATION
+ * @li LIBSBML_INVALID_OBJECT
+ *
+ * @memberof XMLNode_t
+ */
 LIBLAX_EXTERN
 int
 XMLNode_addChild (XMLNode_t *node, const XMLNode_t *child);
 
 
+/**
+ * Inserts a copy of child node to this XMLNode_t structure.
+ *
+ * @param node XMLNode_t structure to which child is to be added.
+ * @param n the index at which the given node is inserted
+ * @param child XMLNode_t structure to be inserted as nth child.
+ *
+ * @return the newly inserted child in this XMLNode. 
+ * NULL will be returned if the given child is NULL. 
+ *
+ * @memberof XMLNode_t
+ */
 LIBLAX_EXTERN
 XMLNode_t*
 XMLNode_insertChild (XMLNode_t *node, unsigned int n, const XMLNode_t *child);
 
 
+/**
+ * Removes the nth child of this XMLNode and returned the removed node.
+ *
+ * @param node XMLNode_t structure to which child is to be removed.
+ * @param n the index of the node to be removed
+ *
+ * @return the removed child, or NULL if the given index is out of range. 
+ *
+ * @note This function invalidates all existing references to child nodes 
+ * after the position or first.
+ *
+ * @memberof XMLNode_t
+ */
 LIBLAX_EXTERN
 XMLNode_t* 
 XMLNode_removeChild(XMLNode_t *node, unsigned int n);
 
 
+/**
+ * Removes all children from this node.
+ *
+ * @param node XMLNode_t structure whose children to remove.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_INVALID_OBJECT
+ *
+ * @memberof XMLNode_t
+ */
 LIBLAX_EXTERN
 int
 XMLNode_removeChildren (XMLNode_t *node);
 
 
+/**
+ * Returns the text of this element.
+ *
+ * @param node XMLNode_t structure to be queried.
+ *
+ * @return the characters of this XML text.
+ *
+ * @memberof XMLNode_t
+ */
 LIBLAX_EXTERN
 const char *
 XMLNode_getCharacters (const XMLNode_t *node);
 
 
-LIBLAX_EXTERN
-const char *
-XMLNode_getName (const XMLNode_t *node);
-
-
+/**
+ * Sets the XMLTripe (name, uri and prefix) of this XML element.
+ * Nothing will be done if this XML element is a text node.
+ *
+ * @param node XMLNode_t structure to which the triple to be added.
+ * @param triple an XMLTriple, the XML triple to be set to this XML element.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_INVALID_XML_OPERATION
+ * @li LIBSBML_INVALID_OBJECT
+ *
+ * @memberof XMLNode_t
+ */
 LIBLAX_EXTERN
 int 
 XMLNode_setTriple(XMLNode_t *node, const XMLTriple_t *triple);
 
 
+/**
+ * Returns the (unqualified) name of this XML element.
+ *
+ * @param node XMLNode_t structure to be queried.
+ *
+ * @return the (unqualified) name of this XML element.
+ *
+ * @memberof XMLNode_t
+ */
+LIBLAX_EXTERN
+const char *
+XMLNode_getName (const XMLNode_t *node);
+
+
+/**
+ * Returns the namespace prefix of this XML element.
+ *
+ * @param node XMLNode_t structure to be queried.
+ *
+ * @return the namespace prefix of this XML element.  
+ *
+ * @note If no prefix
+ * exists, an empty string will be return.
+ *
+ * @memberof XMLNode_t
+ */
 LIBLAX_EXTERN
 const char *
 XMLNode_getPrefix (const XMLNode_t *node);
 
 
+/**
+ * Returns the namespace URI of this XML element.
+ *
+ * @param node XMLNode_t structure to be queried.
+ *
+ * @return the namespace URI of this XML element.
+ *
+ * @memberof XMLNode_t
+ */
 LIBLAX_EXTERN
 const char *
 XMLNode_getURI (const XMLNode_t *node);
 
 
+/**
+ * Returns the nth child of this XMLNode_t structure.
+ *
+ * @param node XMLNode_t structure to be queried.
+ * @param n the index of the node to return
+ *
+ * @return the nth child of this XMLNode_t structure.
+ *
+ * @memberof XMLNode_t
+ */
+LIBLAX_EXTERN
+const XMLNode_t *
+XMLNode_getChild (const XMLNode_t *node, const int n);
 
+
+/**
+ * Returns the (non-const) nth child of this XMLNode_t structure.
+ *
+ * @param node XMLNode_t structure to be queried.
+ * @param n the index of the node to return
+ *
+ * @return the non-const nth child of this XMLNode_t structure.
+ *
+ * @memberof XMLNode_t
+ */
+LIBLAX_EXTERN
+XMLNode_t *
+XMLNode_getChildNC (XMLNode_t *node, const unsigned int n);
+
+/**
+ * Returns the (non-const) the first child of the XMLNode_t structure node with the given name.
+ *
+ * If no child with corrsponding name can be found, 
+ * this method returns an empty node.
+ *
+ * @param node XMLNode_t structure to be queried.
+ * @param name the name of the node to return
+ * 
+ * @return the first child of this XMLNode with given name.
+ *
+ * @memberof XMLNode_t
+ */
+LIBLAX_EXTERN
+XMLNode_t *
+XMLNode_getChildForNameNC (XMLNode_t *node, const char*  name);	
+
+/**
+ * Returns the first child of the XMLNode_t structure node with the given name.
+ *
+ * If no child with corrsponding name can be found, 
+ * this method returns an empty node.
+ *
+ * @param node XMLNode_t structure to be queried.
+ * @param name the name of the node to return
+ * 
+ * @return the first child of this XMLNode with given name.
+ *
+ * @memberof XMLNode_t
+ */
+LIBLAX_EXTERN
+const XMLNode_t *
+XMLNode_getChildForName (const XMLNode_t *node, const char*  name);
+
+/**
+ * Return the index of the first child of the XMLNode_t structure node with the given name.
+ *
+ * @param node XMLNode_t structure to be queried.
+ * @param name a string, the name of the child for which the 
+ * index is required.
+ *
+ * @return the index of the first child of node with the given name, or -1 if not present.
+ *
+ * @memberof XMLNode_t
+ */
+LIBLAX_EXTERN
+int 
+XMLNode_getIndex (const XMLNode_t *node, const char*  name);
+
+/**
+ * Return a boolean indicating whether node has a child with the given name.
+ *
+ * @param node XMLNode_t structure to be queried.
+ * @param name a string, the name of the child to be checked.
+ *
+ * @return true (non-zero) if this node has a child with the given name false (zero) otherwise.
+ *
+ * @memberof XMLNode_t
+ */
+LIBLAX_EXTERN
+int 
+XMLNode_hasChild (const XMLNode_t *node, const char*  name);
+
+/**
+ * Compare one XMLNode against another XMLNode returning true (non-zero) if both nodes
+ * represent the same XML tree, or false (zero) otherwise.
+ *
+ *
+ * @param node the original XMLNode_t structure
+ * @param other another XMLNode_t to compare against
+ *
+ * @return true (non-zero) if both nodes
+ * represent the same XML tree, or false (zero) otherwise
+ *
+ * @memberof XMLNode_t
+ */
+LIBLAX_EXTERN
+int 
+XMLNode_equals(const XMLNode_t *node, const XMLNode_t* other);
+
+/**
+ * Returns the number of children for this XMLNode_t structure.
+ *
+ * @param node XMLNode_t structure to be queried.
+ *
+ * @return the number of children for this XMLNode_t structure.
+ *
+ * @memberof XMLNode_t
+ */
+LIBLAX_EXTERN
+unsigned int
+XMLNode_getNumChildren (const XMLNode_t *node);
+
+
+/**
+ * Returns the attributes of this element.
+ *
+ * @param node XMLNode_t structure to be queried.
+ *
+ * @return the XMLAttributes_t of this XML element.
+ *
+ * @memberof XMLNode_t
+ */
 LIBLAX_EXTERN
 const XMLAttributes_t *
 XMLNode_getAttributes (const XMLNode_t *node);
 
 
+/**
+ * Sets an XMLAttributes to this XMLNode.
+ * Nothing will be done if this XMLNode is not a start element.
+ *
+ * @param node XMLNode_t structure to which attributes to be set.
+ * @param attributes XMLAttributes to be set to this XMLNode.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_INVALID_XML_OPERATION
+ * @li LIBSBML_INVALID_OBJECT
+ *
+ * @note This function replaces the existing XMLAttributes with the new one.
+ *
+ * @memberof XMLNode_t
+ */
 LIBLAX_EXTERN
 int 
 XMLNode_setAttributes (XMLNode_t *node, const XMLAttributes_t* attributes);
 
 
+/**
+ * Adds an attribute with the given local name to the attribute set in this XMLNode.
+ * (namespace URI and prefix are empty)
+ * Nothing will be done if this XMLNode is not a start element.
+ *
+ * @param node XMLNode_t structure to which an attribute to be added.
+ * @param name a string, the local name of the attribute.
+ * @param value a string, the value of the attribute.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_INVALID_XML_OPERATION
+ * @li LIBSBML_INVALID_OBJECT
+ *
+ * @note if the local name without namespace URI already exists in the
+ * attribute set, its value will be replaced.
+ *
+ *
+ * @memberof XMLNode_t
+ */
 LIBLAX_EXTERN
 int 
 XMLNode_addAttr ( XMLNode_t *node,  const char* name, const char* value );
-		   
 
+
+/**
+ * Adds an attribute with a prefix and namespace URI to the attribute set 
+ * in this XMLNode optionally 
+ * Nothing will be done if this XMLNode is not a start element.
+ *
+ * @param node XMLNode_t structure to which an attribute to be added.
+ * @param name a string, the local name of the attribute.
+ * @param value a string, the value of the attribute.
+ * @param namespaceURI a string, the namespace URI of the attribute.
+ * @param prefix a string, the prefix of the namespace
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_INVALID_XML_OPERATION
+ * @li LIBSBML_INVALID_OBJECT
+ *
+ * @note if local name with the same namespace URI already exists in the
+ * attribute set, its value and prefix will be replaced.
+ *
+ *
+ * @memberof XMLNode_t
+ */
 LIBLAX_EXTERN
 int 
 XMLNode_addAttrWithNS ( XMLNode_t *node,  const char* name
-	                , const char* value
-    	                , const char* namespaceURI
-	                , const char* prefix      );
+                      , const char* value
+                      , const char* namespaceURI
+                      , const char* prefix      );
 
 
+/**
+ * Adds an attribute with the given XMLTriple/value pair to the attribute set
+ * in this XMLNode.
+ * Nothing will be done if this XMLNode is not a start element.
+ *
+ * @note if local name with the same namespace URI already exists in the 
+ * attribute set, its value and prefix will be replaced.
+ *
+ * @param node XMLNode_t structure to which an attribute to be added.
+ * @param triple an XMLTriple, the XML triple of the attribute.
+ * @param value a string, the value of the attribute.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_INVALID_XML_OPERATION
+ * @li LIBSBML_INVALID_OBJECT
+ *
+ * @memberof XMLNode_t
+ */
 LIBLAX_EXTERN
 int 
 XMLNode_addAttrWithTriple (XMLNode_t *node, const XMLTriple_t *triple, const char* value);
 
 
+/**
+ * Removes an attribute with the given index from the attribute set in
+ * this XMLNode.
+ * Nothing will be done if this XMLNode is not a start element.
+ *
+ * @param node XMLNode_t structure from which an attribute to be removed.
+ * @param n an integer the index of the resource to be deleted
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_INVALID_XML_OPERATION
+ * @li LIBSBML_INDEX_EXCEEDS_SIZE
+ * @li LIBSBML_INVALID_OBJECT
+ *
+ * @memberof XMLNode_t
+ */
 LIBLAX_EXTERN
 int 
 XMLNode_removeAttr (XMLNode_t *node, int n);
 
 
+/**
+ * Removes an attribute with the given local name (without namespace URI) 
+ * from the attribute set in this XMLNode.
+ * Nothing will be done if this XMLNode is not a start element.
+ *
+ * @param node XMLNode_t structure from which an attribute to be removed.
+ * @param name   a string, the local name of the attribute.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_INVALID_XML_OPERATION
+ * @li LIBSBML_INDEX_EXCEEDS_SIZE
+ * @li LIBSBML_INVALID_OBJECT
+ *
+ * @memberof XMLNode_t
+ */
 LIBLAX_EXTERN
 int 
 XMLNode_removeAttrByName (XMLNode_t *node, const char* name);
 
 
+/**
+ * Removes an attribute with the given local name and namespace URI from 
+ * the attribute set in this XMLNode.
+ * Nothing will be done if this XMLNode is not a start element.
+ *
+ * @param node XMLNode_t structure from which an attribute to be removed.
+ * @param name   a string, the local name of the attribute.
+ * @param uri    a string, the namespace URI of the attribute.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_INVALID_XML_OPERATION
+ * @li LIBSBML_INDEX_EXCEEDS_SIZE
+ * @li LIBSBML_INVALID_OBJECT
+ *
+ * @memberof XMLNode_t
+ */
 LIBLAX_EXTERN
 int 
 XMLNode_removeAttrByNS (XMLNode_t *node, const char* name, const char* uri);
 
 
+/**
+ * Removes an attribute with the given XMLTriple from the attribute set 
+ * in this XMLNode.  
+ * Nothing will be done if this XMLNode is not a start element.
+ *
+ * @param node XMLNode_t structure from which an attribute to be removed.
+ * @param triple an XMLTriple, the XML triple of the attribute.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_INVALID_XML_OPERATION
+ * @li LIBSBML_INDEX_EXCEEDS_SIZE
+ * @li LIBSBML_INVALID_OBJECT
+ *
+ * @memberof XMLNode_t
+ */
 LIBLAX_EXTERN
 int 
 XMLNode_removeAttrByTriple (XMLNode_t *node, const XMLTriple_t *triple);
 
 
+/**
+ * Clears (deletes) all attributes in this XMLNode.
+ * Nothing will be done if this XMLNode is not a start element.
+ *
+ * @param node XMLNode_t structure from which attributes to be cleared.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_INVALID_XML_OPERATION
+ * @li LIBSBML_INVALID_OBJECT
+ *
+ * @memberof XMLNode_t
+ */
 LIBLAX_EXTERN
 int 
 XMLNode_clearAttributes(XMLNode_t *node);
 
 
+/**
+ * Return the index of an attribute with the given local name and namespace URI.
+ *
+ * @param node XMLNode_t structure to be queried.
+ * @param name a string, the local name of the attribute.
+ * @param uri  a string, the namespace URI of the attribute.
+ *
+ * @return the index of an attribute with the given local name and namespace URI, 
+ * or -1 if not present.
+ *
+ *
+ * @memberof XMLNode_t
+ */
 LIBLAX_EXTERN
 int 
 XMLNode_getAttrIndex (const XMLNode_t *node, const char* name, const char* uri);
 
 
+/**
+ * Return the index of an attribute with the given XMLTriple.
+ *
+ * @param node XMLNode_t structure to be queried.
+ * @param triple an XMLTriple, the XML triple of the attribute for which 
+ *        the index is required.
+ *
+ * @return the index of an attribute with the given XMLTriple, or -1 if not present.
+ *
+ * @memberof XMLNode_t
+ */
 LIBLAX_EXTERN
 int 
 XMLNode_getAttrIndexByTriple (const XMLNode_t *node, const XMLTriple_t *triple);
 
 
+/**
+ * Return the number of attributes in the attributes set.
+ *
+ * @param node XMLNode_t structure to be queried.
+ *
+ * @return the number of attributes in the attributes set in this XMLNode.
+ *
+ * @memberof XMLNode_t
+ */
 LIBLAX_EXTERN
 int 
 XMLNode_getAttributesLength (const XMLNode_t *node);
 
 
+/**
+ * Return the local name of an attribute in the attributes set in this 
+ * XMLNode (by position).
+ *
+ * @param node XMLNode_t structure to be queried.
+ * @param index an integer, the position of the attribute whose local name 
+ * is required.
+ *
+ * @return the local name of an attribute in this list (by position).  
+ *
+ * @note If index
+ * is out of range, an empty string will be returned.  Use XMLNode_hasAttr(...) 
+ * to test for the attribute existence.
+ *
+ * @memberof XMLNode_t
+ */
 LIBLAX_EXTERN
 char* 
 XMLNode_getAttrName (const XMLNode_t *node, int index);
 
 
+/**
+ * Return the prefix of an attribute in the attribute set in this 
+ * XMLNode (by position).
+ *
+ * @param node XMLNode_t structure to be queried.
+ * @param index an integer, the position of the attribute whose prefix is 
+ * required.
+ *
+ * @return the namespace prefix of an attribute in the attribute set
+ * (by position).  
+ *
+ * @note If index is out of range, an empty string will be
+ * returned. Use XMLNode_hasAttr(...) to test for the attribute existence.
+ *
+ * @memberof XMLNode_t
+ */
 LIBLAX_EXTERN
 char* 
 XMLNode_getAttrPrefix (const XMLNode_t *node, int index);
 
 
+/**
+ * Return the prefixed name of an attribute in the attribute set in this 
+ * XMLNode (by position).
+ *
+ * @param node XMLNode_t structure to be queried.
+ * @param index an integer, the position of the attribute whose prefixed 
+ * name is required.
+ *
+ * @return the prefixed name of an attribute in the attribute set 
+ * (by position).  
+ *
+ * @note If index is out of range, an empty string will be
+ * returned.  Use XMLNode_hasAttr(...) to test for attribute existence.
+ *
+ * @memberof XMLNode_t
+ */
 LIBLAX_EXTERN
 char* 
 XMLNode_getAttrPrefixedName (const XMLNode_t *node, int index);
 
 
+/**
+ * Return the namespace URI of an attribute in the attribute set in this 
+ * XMLNode (by position).
+ *
+ * @param node XMLNode_t structure to be queried.
+ * @param index an integer, the position of the attribute whose namespace 
+ * URI is required.
+ *
+ * @return the namespace URI of an attribute in the attribute set (by position).
+ *
+ * @note If index is out of range, an empty string will be returned.  Use
+ * XMLNode_hasAttr(index) to test for attribute existence.
+ *
+ * @memberof XMLNode_t
+ */
 LIBLAX_EXTERN
 char* 
 XMLNode_getAttrURI (const XMLNode_t *node, int index);
 
 
+/**
+ * Return the value of an attribute in the attribute set in this XMLNode  
+ * (by position).
+ *
+ * @param node XMLNode_t structure to be queried.
+ * @param index an integer, the position of the attribute whose value is 
+ * required.
+ *
+ * @return the value of an attribute in the attribute set (by position).  
+ *
+ * @note If index
+ * is out of range, an empty string will be returned. Use XMLNode_hasAttr(...)
+ * to test for attribute existence.
+ *
+ * @memberof XMLNode_t
+ */
 LIBLAX_EXTERN
 char* 
 XMLNode_getAttrValue (const XMLNode_t *node, int index);
 
 
+/**
+ * Return a value of an attribute with the given local name (without namespace URI).
+ *
+ * @param node XMLNode_t structure to be queried.
+ * @param name a string, the local name of the attribute whose value is required.
+ *
+ * @return The attribute value as a string.  
+ *
+ * @note If an attribute with the given local name (without namespace URI) 
+ * does not exist, an empty string will be returned.  
+ * Use XMLNode_hasAttr(...) to test for attribute existence.
+ *
+ * @memberof XMLNode_t
+ */
 LIBLAX_EXTERN
 char* 
 XMLNode_getAttrValueByName (const XMLNode_t *node, const char* name);
 
 
+/**
+ * Return a value of an attribute with the given local name and namespace URI.
+ *
+ * @param node XMLNode_t structure to be queried.
+ * @param name a string, the local name of the attribute whose value is required.
+ * @param uri  a string, the namespace URI of the attribute.
+ *
+ * @return The attribute value as a string.  
+ *
+ * @note If an attribute with the 
+ * given local name and namespace URI does not exist, an empty string will be 
+ * returned.  
+ * Use XMLNode_hasAttr(name, uri) to test for attribute existence.
+ *
+ * @memberof XMLNode_t
+ */
 LIBLAX_EXTERN
 char* 
 XMLNode_getAttrValueByNS (const XMLNode_t *node, const char* name, const char* uri);
 
 
+/**
+ * Return a value of an attribute with the given XMLTriple.
+ *
+ * @param node XMLNode_t structure to be queried.
+ * @param triple an XMLTriple, the XML triple of the attribute whose 
+ *        value is required.
+ *
+ * @return The attribute value as a string.  
+ *
+ * @note If an attribute with the
+ * given XMLTriple does not exist, an empty string will be returned.  
+ * Use XMLNode_hasAttr(...) to test for attribute existence.
+ *
+ * @memberof XMLNode_t
+ */
 LIBLAX_EXTERN
 char* 
 XMLNode_getAttrValueByTriple (const XMLNode_t *node, const XMLTriple_t *triple);
 
 
+/**
+ * Predicate returning @c true or @c false depending on whether
+ * an attribute with the given index exists in the attribute set in this 
+ * XMLNode.
+ *
+ * @param node XMLNode_t structure to be queried.
+ * @param index an integer, the position of the attribute.
+ *
+ * @return @c non-zero (true) if an attribute with the given index exists in 
+ * the attribute set in this XMLNode, @c zero (false) otherwise.
+ *
+ * @memberof XMLNode_t
+ */
 LIBLAX_EXTERN
 int
 XMLNode_hasAttr (const XMLNode_t *node, int index);
 
 
+/**
+ * Predicate returning @c true or @c false depending on whether
+ * an attribute with the given local name (without namespace URI) 
+ * exists in the attribute set in this XMLNode.
+ *
+ * @param node XMLNode_t structure to be queried.
+ * @param name a string, the local name of the attribute.
+ *
+ * @return @c non-zero (true) if an attribute with the given local name 
+ * (without namespace URI) exists in the attribute set in this XMLNode, 
+ * @c zero (false) otherwise.
+ *
+ * @memberof XMLNode_t
+ */
 LIBLAX_EXTERN
 int
 XMLNode_hasAttrWithName (const XMLNode_t *node, const char* name);
 
+/**
+ * Predicate returning @c true or @c false depending on whether
+ * an attribute with the given local name and namespace URI exists 
+ * in the attribute set in this XMLNode.
+ *
+ * @param node XMLNode_t structure to be queried.
+ * @param name a string, the local name of the attribute.
+ * @param uri  a string, the namespace URI of the attribute.
+ *
+ * @return @c non-zero (true) if an attribute with the given local name 
+ * and namespace URI exists in the attribute set in this XMLNode, 
+ * @c zero (false) otherwise.
+ *
+ * @memberof XMLNode_t
+ */
 LIBLAX_EXTERN
 int
 XMLNode_hasAttrWithNS (const XMLNode_t *node, const char* name, const char* uri);
 
 
+/**
+ * Predicate returning @c true or @c false depending on whether
+ * an attribute with the given XML triple exists in the attribute set in 
+ * this XMLNode 
+ *
+ * @param node XMLNode_t structure to be queried.
+ * @param triple an XMLTriple, the XML triple of the attribute 
+ *
+ * @return @c non-zero (true) if an attribute with the given XML triple exists
+ * in the attribute set in this XMLNode, @c zero (false) otherwise.
+ *
+ *
+ * @memberof XMLNode_t
+ */
 LIBLAX_EXTERN
 int
 XMLNode_hasAttrWithTriple (const XMLNode_t *node, const XMLTriple_t *triple);
 
 
+/**
+ * Predicate returning @c true or @c false depending on whether 
+ * the attribute set in this XMLNode set is empty.
+ * 
+ * @param node XMLNode_t structure to be queried.
+ *
+ * @return @c non-zero (true) if the attribute set in this XMLNode is empty, 
+ * @c zero (false) otherwise.
+ *
+ * @memberof XMLNode_t
+ */
 LIBLAX_EXTERN
 int
 XMLNode_isAttributesEmpty (const XMLNode_t *node);
 
 
 
+/**
+ * Returns the XML namespace declarations for this XML element.
+ *
+ * @param node XMLNode_t structure to be queried.
+ *
+ * @return the XML namespace declarations for this XML element.
+ *
+ * @memberof XMLNode_t
+ */
 LIBLAX_EXTERN
 const XMLNamespaces_t *
 XMLNode_getNamespaces (const XMLNode_t *node);
 
 
+/**
+ * Sets an XMLnamespaces to this XML element.
+ * Nothing will be done if this XMLNode is not a start element.
+ *
+ * @param node XMLNode_t structure to be queried.
+ * @param namespaces XMLNamespaces to be set to this XMLNode.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_INVALID_XML_OPERATION
+ * @li LIBSBML_INVALID_OBJECT
+ *
+ * @note This function replaces the existing XMLNamespaces with the new one.
+ *
+ * @memberof XMLNode_t
+ */
 LIBLAX_EXTERN
 int 
 XMLNode_setNamespaces(XMLNode_t *node, const XMLNamespaces_t* namespaces);
 
 
+/**
+ * Appends an XML namespace prefix and URI pair to this XMLNode.
+ * If there is an XML namespace with the given prefix in this XMLNode, 
+ * then the existing XML namespace will be overwritten by the new one.
+ * Nothing will be done if this XMLNode is not a start element.
+ *
+ * @param node XMLNode_t structure to be queried.
+ * @param uri a string, the uri for the namespace
+ * @param prefix a string, the prefix for the namespace
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_INVALID_XML_OPERATION
+ * @li LIBSBML_INVALID_OBJECT
+ *
+ * @memberof XMLNode_t
+ */
 LIBLAX_EXTERN
 int 
 XMLNode_addNamespace (XMLNode_t *node, const char* uri, const char* prefix);
 
 
+/**
+ * Removes an XML Namespace stored in the given position of the XMLNamespaces
+ * of this XMLNode.
+ * Nothing will be done if this XMLNode is not a start element.
+ *
+ * @param node XMLNode_t structure to be queried.
+ * @param index an integer, position of the removed namespace.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_INVALID_XML_OPERATION
+ * @li LIBSBML_INDEX_EXCEEDS_SIZE
+ * @li LIBSBML_INVALID_OBJECT
+ *
+ * @memberof XMLNode_t
+ */
 LIBLAX_EXTERN
 int 
 XMLNode_removeNamespace (XMLNode_t *node, int index);
 
 
+/**
+ * Removes an XML Namespace with the given prefix.
+ * Nothing will be done if this XMLNode is not a start element.
+ *
+ * @param node XMLNode_t structure to be queried.
+ * @param prefix a string, prefix of the required namespace.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_INVALID_XML_OPERATION
+ * @li LIBSBML_INDEX_EXCEEDS_SIZE
+ * @li LIBSBML_INVALID_OBJECT
+ *
+ * @memberof XMLNode_t
+ */
 LIBLAX_EXTERN
 int 
 XMLNode_removeNamespaceByPrefix (XMLNode_t *node, const char* prefix);
 
 
+/**
+ * Clears (deletes) all XML namespace declarations in the XMLNamespaces 
+ * of this XMLNode.
+ * Nothing will be done if this XMLNode is not a start element.
+ *
+ * @param node XMLNode_t structure to be queried.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_INVALID_XML_OPERATION
+ * @li LIBSBML_INVALID_OBJECT
+ *
+ * @memberof XMLNode_t
+ */
 LIBLAX_EXTERN
 int 
 XMLNode_clearNamespaces (XMLNode_t *node);
 
 
+/**
+ * Look up the index of an XML namespace declaration by URI.
+ *
+ * @param node XMLNode_t structure to be queried.
+ * @param uri a string, uri of the required namespace.
+ *
+ * @return the index of the given declaration, or -1 if not present.
+ *
+ * @memberof XMLNode_t
+ */
 LIBLAX_EXTERN
 int 
 XMLNode_getNamespaceIndex (const XMLNode_t *node, const char* uri);
 
 
+/**
+ * Look up the index of an XML namespace declaration by prefix.
+ *
+ * @param node XMLNode_t structure to be queried.
+ * @param prefix a string, prefix of the required namespace.
+ *
+ * @return the index of the given declaration, or -1 if not present.
+ *
+ * @memberof XMLNode_t
+ */
 LIBLAX_EXTERN
 int 
 XMLNode_getNamespaceIndexByPrefix (const XMLNode_t *node, const char* prefix);
 
 
+/**
+ * Returns the number of XML namespaces stored in the XMLNamespaces 
+ * of this XMLNode.
+ *
+ * @param node XMLNode_t structure to be queried.
+ *
+ * @return the number of namespaces in this list.
+ *
+ * @memberof XMLNode_t
+ */
 LIBLAX_EXTERN
 int 
 XMLNode_getNamespacesLength (const XMLNode_t *node);
 
 
+/**
+ * Look up the prefix of an XML namespace declaration by position.
+ *
+ * Callers should use getNamespacesLength() to find out how many 
+ * namespaces are stored in the XMLNamespaces.
+ *
+ * @param node XMLNode_t structure to be queried.
+ * @param index an integer, position of the removed namespace.
+ * 
+ * @return the prefix of an XML namespace declaration in the XMLNamespaces 
+ * (by position).  
+ *
+ * @note returned char* should be freed with safe_free() by the caller.
+ *
+ * @memberof XMLNode_t
+ */
 LIBLAX_EXTERN
 char* 
 XMLNode_getNamespacePrefix (const XMLNode_t *node, int index);
 
 
+/**
+ * Look up the prefix of an XML namespace declaration by its URI.
+ *
+ * @param node XMLNode_t structure to be queried.
+ * @param uri a string, uri of the required namespace.
+ *
+ * @return the prefix of an XML namespace declaration given its URI.  
+ *
+ * @note returned char* should be freed with safe_free() by the caller.
+ *
+ * @memberof XMLNode_t
+ */
 LIBLAX_EXTERN
 char* 
 XMLNode_getNamespacePrefixByURI (const XMLNode_t *node, const char* uri);
 
 
+/**
+ * Look up the URI of an XML namespace declaration by its position.
+ *
+ * @param node XMLNode_t structure to be queried.
+ * @param index an integer, position of the removed namespace.
+ *
+ * @return the URI of an XML namespace declaration in the XMLNamespaces
+ * (by position).  
+ *
+ * @note returned char* should be freed with safe_free() by the caller.
+ *
+ * @memberof XMLNode_t
+ */
 LIBLAX_EXTERN
 char* 
 XMLNode_getNamespaceURI (const XMLNode_t *node, int index);
 
 
+/**
+ * Look up the URI of an XML namespace declaration by its prefix.
+ *
+ * @param node XMLNode_t structure to be queried.
+ * @param prefix a string, prefix of the required namespace.
+ *
+ * @return the URI of an XML namespace declaration given its prefix.  
+ *
+ * @note returned char* should be freed with safe_free() by the caller.
+ *
+ * @memberof XMLNode_t
+ */
 LIBLAX_EXTERN
 char* 
 XMLNode_getNamespaceURIByPrefix (const XMLNode_t *node, const char* prefix);
 
 
+/**
+ * Predicate returning @c true or @c false depending on whether 
+ * the XMLNamespaces of this XMLNode is empty.
+ * 
+ * @param node XMLNode_t structure to be queried.
+ *
+ * @return @c non-zero (true) if the XMLNamespaces of this XMLNode is empty, 
+ * @c zero (false) otherwise.
+ *
+ * @memberof XMLNode_t
+ */
 LIBLAX_EXTERN
 int
 XMLNode_isNamespacesEmpty (const XMLNode_t *node);
 
 
+/**
+ * Predicate returning @c true or @c false depending on whether 
+ * an XML Namespace with the given URI is contained in the XMLNamespaces of
+ * this XMLNode.
+ * 
+ * @param node XMLNode_t structure to be queried.
+ * @param uri a string, the uri for the namespace
+ *
+ * @return @c no-zero (true) if an XML Namespace with the given URI is 
+ * contained in the XMLNamespaces of this XMLNode,  @c zero (false) otherwise.
+ *
+ * @memberof XMLNode_t
+ */
 LIBLAX_EXTERN
 int
 XMLNode_hasNamespaceURI(const XMLNode_t *node, const char* uri);
 
 
+/**
+ * Predicate returning @c true or @c false depending on whether 
+ * an XML Namespace with the given prefix is contained in the XMLNamespaces of
+ * this XMLNode.
+ *
+ * @param node XMLNode_t structure to be queried.
+ * @param prefix a string, the prefix for the namespace
+ * 
+ * @return @c no-zero (true) if an XML Namespace with the given URI is 
+ * contained in the XMLNamespaces of this XMLNode, @c zero (false) otherwise.
+ *
+ * @memberof XMLNode_t
+ */
 LIBLAX_EXTERN
 int
 XMLNode_hasNamespacePrefix(const XMLNode_t *node, const char* prefix);
 
 
+/**
+ * Predicate returning @c true or @c false depending on whether 
+ * an XML Namespace with the given uri/prefix pair is contained in the 
+ * XMLNamespaces of this XMLNode.
+ *
+ * @param node XMLNode_t structure to be queried.
+ * @param uri a string, the uri for the namespace
+ * @param prefix a string, the prefix for the namespace
+ * 
+ * @return @c non-zero (true) if an XML Namespace with the given uri/prefix pair is 
+ * contained in the XMLNamespaces of this XMLNode,  @c zero (false) otherwise.
+ *
+ * @memberof XMLNode_t
+ */
 LIBLAX_EXTERN
 int
 XMLNode_hasNamespaceNS(const XMLNode_t *node, const char* uri, const char* prefix);
-                        
 
 
-LIBLAX_EXTERN
-int
-XMLNode_isElement (const XMLNode_t *node);
-
-
-LIBLAX_EXTERN
-int
-XMLNode_isEnd (const XMLNode_t *node); 
-
-
-LIBLAX_EXTERN
-int
-XMLNode_isEndFor (const XMLNode_t *node, const XMLNode_t *element);
-
-
-LIBLAX_EXTERN
-int
-XMLNode_isEOF (const XMLNode_t *node);
-
-
-LIBLAX_EXTERN
-int
-XMLNode_isStart (const XMLNode_t *node);
-
-
-LIBLAX_EXTERN
-int
-XMLNode_isText (const XMLNode_t *node);
-
-
-LIBLAX_EXTERN
-int
-XMLNode_setEnd (XMLNode_t *node);
-
-
-LIBLAX_EXTERN
-int
-XMLNode_setEOF (XMLNode_t *node);
-
-
-LIBLAX_EXTERN
-int
-XMLNode_unsetEnd (XMLNode_t *node);
-
-
-LIBLAX_EXTERN
-const XMLNode_t *
-XMLNode_getChild (const XMLNode_t *node, const int n);
-
-
-LIBLAX_EXTERN
-XMLNode_t *
-XMLNode_getChildNC (XMLNode_t *node, const unsigned int n);
-
-LIBLAX_EXTERN
-XMLNode_t *
-XMLNode_getChildForNameNC (XMLNode_t *node, const char*  name);	
-
-LIBLAX_EXTERN
-const XMLNode_t *
-XMLNode_getChildForName (const XMLNode_t *node, const char*  name);
-
-LIBLAX_EXTERN
-int 
-XMLNode_getIndex (const XMLNode_t *node, const char*  name);
-
-LIBLAX_EXTERN
-int 
-XMLNode_hasChild (const XMLNode_t *node, const char*  name);
-
-LIBLAX_EXTERN
-int 
-XMLNode_equals(const XMLNode_t *node, const XMLNode_t* other);
-
-LIBLAX_EXTERN
-unsigned int
-XMLNode_getNumChildren (const XMLNode_t *node);
-
-
+/**
+ * Returns a string which is converted from a given XMLNode. 
+ *
+ * @param node XMLNode_t to be converted to a string.
+ *
+ * @return a string (char*) which is converted from a given XMLNode.
+ *
+ * @note returned char* should be freed with safe_free() by the caller.
+ *
+ * @memberof XMLNode_t
+ */
 LIBLAX_EXTERN
 char *
 XMLNode_toXMLString(const XMLNode_t *node);
 
 
+/**
+ * Returns a string which is converted from a given XMLNode. 
+ *
+ * @param node XMLNode_t to be converted to a string.
+ *
+ * @return a string (char*) which is converted from a given XMLNode.
+ *
+ * @note returned char* should be freed with safe_free() by the caller.
+ *
+ * @memberof XMLNode_t
+ */
 LIBLAX_EXTERN
 const char *
 XMLNode_convertXMLNodeToString(const XMLNode_t *node);
 
 
+/**
+ * Returns an XMLNode_t pointer which is converted from a given string containing
+ * XML content.
+ *
+ * XMLNamespaces (the second argument) must be given if the corresponding 
+ * xmlns attribute is not included in the string of the first argument. 
+ *
+ * @param xml string to be converted to a XML node.
+ * @param xmlns XMLNamespaces_t structure the namespaces to set.
+ *
+ * @return pointer to XMLNode_t structure which is converted from a given string. 
+ *
+ * @memberof XMLNode_t
+ */
 LIBLAX_EXTERN
 XMLNode_t *
 XMLNode_convertStringToXMLNode(const char * xml, const XMLNamespaces_t* xmlns);
+
+
+/**
+ * Predicate returning @c true or @c false depending on whether 
+ * this XMLNode_t structure is an XML element.
+ * 
+ * @param node XMLNode_t structure to be queried.
+ *
+ * @return @c non-zero (true) if this XMLNode_t structure is an XML element, @c zero (false) otherwise.
+ *
+ * @memberof XMLNode_t
+ */
+LIBLAX_EXTERN
+int
+XMLNode_isElement (const XMLNode_t *node);
+
+
+/**
+ * Predicate returning @c true or @c false depending on whether 
+ * this XMLNode_t structure is an XML end element.
+ * 
+ * @param node XMLNode_t structure to be queried.
+ *
+ * @return @c non-zero (true) if this XMLNode_t structure is an XML end element, @c zero (false) otherwise.
+ *
+ * @memberof XMLNode_t
+ */
+LIBLAX_EXTERN
+int
+XMLNode_isEnd (const XMLNode_t *node); 
+
+
+/**
+ * Predicate returning @c true or @c false depending on whether 
+ * this XMLNode_t structure is an XML end element for the given start element.
+ * 
+ * @param node XMLNode_t structure to be queried.
+ * @param element XMLNode_t structure, element for which query is made.
+ *
+ * @return @c non-zero (true) if this XMLNode_t structure is an XML end element for the given
+ * XMLNode_t structure start element, @c zero (false) otherwise.
+ *
+ * @memberof XMLNode_t
+ */
+LIBLAX_EXTERN
+int
+XMLNode_isEndFor (const XMLNode_t *node, const XMLNode_t *element);
+
+
+/**
+ * Predicate returning @c true or @c false depending on whether 
+ * this XMLNode_t structure is an end of file marker.
+ * 
+ * @param node XMLNode_t structure to be queried.
+ *
+ * @return @c non-zero (true) if this XMLNode_t structure is an end of file (input) marker, @c zero (false)
+ * otherwise.
+ *
+ * @memberof XMLNode_t
+ */
+LIBLAX_EXTERN
+int
+XMLNode_isEOF (const XMLNode_t *node);
+
+
+/**
+ * Predicate returning @c true or @c false depending on whether 
+ * this XMLNode_t structure is an XML start element.
+ * 
+ * @param node XMLNode_t structure to be queried.
+ *
+ * @return @c true if this XMLNode_t structure is an XML start element, @c false otherwise.
+ *
+ * @memberof XMLNode_t
+ */
+LIBLAX_EXTERN
+int
+XMLNode_isStart (const XMLNode_t *node);
+
+
+/**
+ * Predicate returning @c true or @c false depending on whether 
+ * this XMLNode_t structure is an XML text element.
+ * 
+ * @param node XMLNode_t structure to be queried.
+ *
+ * @return @c non-zero (true) if this XMLNode_t structure is an XML text element, @c zero (false) otherwise.
+ *
+ * @memberof XMLNode_t
+ */
+LIBLAX_EXTERN
+int
+XMLNode_isText (const XMLNode_t *node);
+
+
+/**
+ * Declares this XML start element is also an end element.
+ *
+ * @param node XMLNode_t structure to be set.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_OPERATION_FAILED
+ * @li LIBSBML_INVALID_OBJECT
+ *
+ * @memberof XMLNode_t
+ */
+LIBLAX_EXTERN
+int
+XMLNode_setEnd (XMLNode_t *node);
+
+
+/**
+ * Declares this XMLNode_t structure is an end-of-file (input) marker.
+ *
+ * @param node XMLNode_t structure to be set.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_OPERATION_FAILED
+ * @li LIBSBML_INVALID_OBJECT
+ *
+ * @memberof XMLNode_t
+ */
+LIBLAX_EXTERN
+int
+XMLNode_setEOF (XMLNode_t *node);
+
+
+/*
+ * Declares this XML start/end element is no longer an end element.
+ *
+ * @param node XMLNode_t structure to be set.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_OPERATION_FAILED
+ * @li LIBSBML_INVALID_OBJECT
+ *
+ * @memberof XMLNode_t
+ */
+LIBLAX_EXTERN
+int
+XMLNode_unsetEnd (XMLNode_t *node);
+
 
 END_C_DECLS
 LIBSBML_CPP_NAMESPACE_END

@@ -328,25 +328,6 @@ XMLErrorLog::changeErrorSeverity(XMLErrorSeverity_t originalSeverity,
 #endif /* __cplusplus */
 /** @cond doxygenCOnly */
 
-/**
- * Writes all errors contained in this log to a string and returns it. 
- *
- * @return a string containing all logged errors.
- */
-LIBLAX_EXTERN
-char*
-XMLErrorLog_toString (XMLErrorLog_t *log)
-{
-  if (log == NULL) return NULL;
-  return safe_strdup(log->toString().c_str());
-}
-
-
-/**
- * Creates a new empty XMLErrorLog_t structure and returns it.
- *
- * @return the new XMLErrorLog_t structure.
- **/
 LIBLAX_EXTERN
 XMLErrorLog_t *
 XMLErrorLog_create (void)
@@ -355,11 +336,6 @@ XMLErrorLog_create (void)
 }
 
 
-/**
- * Frees the given XMLError_t structure.
- *
- * @param log XMLErrorLog_t, the error log to be freed.
- */
 LIBLAX_EXTERN
 void
 XMLErrorLog_free (XMLErrorLog_t *log)
@@ -369,12 +345,6 @@ XMLErrorLog_free (XMLErrorLog_t *log)
 }
 
 
-/**
- * Logs the given XMLError_t structure.
- *
- * @param log XMLErrorLog_t, the error log to be added to.
- * @param error XMLError_t, the error to be logged.
- */
 LIBLAX_EXTERN
 void
 XMLErrorLog_add (XMLErrorLog_t *log, const XMLError_t *error)
@@ -384,14 +354,6 @@ XMLErrorLog_add (XMLErrorLog_t *log, const XMLError_t *error)
 }
 
 
-/**
- * Returns the nth XMLError_t in this log.
- *
- * @param log XMLErrorLog_t, the error log to be queried.
- * @param n unsigned int number of the error to retrieve.
- *
- * @return the nth XMLError_t in this log.
- */
 LIBLAX_EXTERN
 const XMLError_t *
 XMLErrorLog_getError (const XMLErrorLog_t *log, unsigned int n)
@@ -401,13 +363,6 @@ XMLErrorLog_getError (const XMLErrorLog_t *log, unsigned int n)
 }
 
 
-/**
- * Returns the number of errors that have been logged.
- *
- * @param log XMLErrorLog_t, the error log to be queried.
- *
- * @return the number of errors that have been logged.
- */
 LIBLAX_EXTERN
 unsigned int
 XMLErrorLog_getNumErrors (const XMLErrorLog_t *log)
@@ -416,11 +371,6 @@ XMLErrorLog_getNumErrors (const XMLErrorLog_t *log)
   return log->getNumErrors();
 }
 
-/**
- * Removes all errors from this log.
- *
- * @param log XMLErrorLog_t, the error log to be cleared.
- */
 LIBLAX_EXTERN
 void
 XMLErrorLog_clearLog (XMLErrorLog_t *log)
@@ -429,6 +379,14 @@ XMLErrorLog_clearLog (XMLErrorLog_t *log)
   log->clearLog();
 }
 
+
+LIBLAX_EXTERN
+char*
+XMLErrorLog_toString (XMLErrorLog_t *log)
+{
+  if (log == NULL) return NULL;
+  return safe_strdup(log->toString().c_str());
+}
 
 
 LIBLAX_EXTERN

@@ -814,9 +814,6 @@ ostream& operator<< (ostream& s, const XMLError& error)
 /** @cond doxygenCOnly */
 
 
-/**
- * Creates a new XMLError to report that something occurred.
- */
 LIBLAX_EXTERN
 XMLError_t*
 XMLError_create (void)
@@ -825,17 +822,6 @@ XMLError_create (void)
 }
 
 
-/**
- * Creates a new XMLError with the identification number
- * and detailed message set.
- *
- * If the identifier is < 10000, it must be one of the predefined XML layer
- * error codes.
- *
- * @param errorId an unsigned int, the identification number of the error.
- * @param message a string, the error message.
- *
- */
 LIBLAX_EXTERN
 XMLError_t*
 XMLError_createWithIdAndMessage (unsigned int errorId, const char * message)
@@ -844,19 +830,6 @@ XMLError_createWithIdAndMessage (unsigned int errorId, const char * message)
   return new(nothrow) XMLError(errorId, message);
 }
 
-/*
- * Creates a new XMLError to report that something occurred at the given
- * line and column.  Each XMLError also has an identification number, a
- * category, and a severity level associated with it.
- *
- * @param errorId an unsigned int, the identification number of the error.
- * @param message a string, the error message.
- * @param severity XMLErrorSeverity_t, severity of the error.
- * @param category a string, the category to which the error belongs.
- * @param line an unsigned int, the line number at which the error occurs.
- * @param column an unsigned int, the column number at which the error occurs.
- *
- */
 //LIBLAX_EXTERN
 //XMLError_t*
 //XMLError_createWithAll (unsigned int errorId, const char * message, XMLError_Severity severity,
@@ -885,11 +858,6 @@ XMLError_createWithIdAndMessage (unsigned int errorId, const char * message)
 //}
 
 
-/**
- * Frees the given XMLError_t structure.
- *
- * @param error the XMLError_t structure to be freed.
- **/
 LIBLAX_EXTERN
 void
 XMLError_free(XMLError_t* error)
@@ -898,13 +866,6 @@ XMLError_free(XMLError_t* error)
   delete static_cast<XMLError*>(error);
 }
 
-/**
- * Returns the id of this XMLError.
- *
- * @param error the XMLError_t from which to return the id.
- *
- * @return the id of this XMLError.
- */
 LIBLAX_EXTERN
 unsigned int
 XMLError_getErrorId (const XMLError_t *error)
@@ -914,13 +875,6 @@ XMLError_getErrorId (const XMLError_t *error)
 }
 
 
-/**
- * Returns the message text of this XMLError.
- *
- * @param error the XMLError_t from which to return the message.
- *
- * @return the message text of this XMLError.
- */
 LIBLAX_EXTERN
 const char *
 XMLError_getMessage (const XMLError_t *error)
@@ -930,13 +884,6 @@ XMLError_getMessage (const XMLError_t *error)
 }
 
 
-/**
- * Returns the short message text of this XMLError.
- *
- * @param error the XMLError_t from which to return the short message.
- *
- * @return the message text of this XMLError.
- */
 LIBLAX_EXTERN
 const char *
 XMLError_getShortMessage (const XMLError_t *error)
@@ -946,13 +893,6 @@ XMLError_getShortMessage (const XMLError_t *error)
 }
 
 
-/**
- * Return the line number where this XMLError occurred.
- *
- * @param error the XMLError_t from which to return the line number.
- *
- * @return the line number where this XMLError occurred.
- */
 LIBLAX_EXTERN
 unsigned int
 XMLError_getLine (const XMLError_t *error)
@@ -962,13 +902,6 @@ XMLError_getLine (const XMLError_t *error)
 }
 
 
-/**
- * Return the column number where this XMLError occurred.
- *
- * @param error the XMLError_t from which to return the column number.
- *
- * @return the column number where this XMLError occurred.
- */
 LIBLAX_EXTERN
 unsigned int
 XMLError_getColumn (const XMLError_t *error)
@@ -978,14 +911,6 @@ XMLError_getColumn (const XMLError_t *error)
 }
 
 
-/**
- * Return the severity of this XMLError.  The possible values (for the XML
- * layer) are those from the enumeration XMLErrorSeverity_t.
- *
- * @param error the XMLError_t from which to return the severity.
- *
- * @return the severity of this XMLError.
- */
 LIBLAX_EXTERN
 unsigned int
 XMLError_getSeverity (const XMLError_t *error)
@@ -995,13 +920,6 @@ XMLError_getSeverity (const XMLError_t *error)
 }
 
 
-/**
- * Return the severity of this XMLError as a string.erity_t.
- *
- * @param error the XMLError_t from which to return the severity.
- *
- * @return string representing the severity of this XMLError.
- */
 LIBLAX_EXTERN
 const char *
 XMLError_getSeverityAsString (const XMLError_t *error)
@@ -1012,14 +930,6 @@ XMLError_getSeverityAsString (const XMLError_t *error)
 }
 
 
-/**
- * Return the category of this XMLError.  The possible values (for the XML
- * layers) are those from the enumeration XMLErrorCategory_t.
- *
- * @param error the XMLError_t from which to return the category.
- *
- * @return the category of this XMLError.
- */
 LIBLAX_EXTERN
 unsigned int
 XMLError_getCategory (const XMLError_t *error)
@@ -1029,13 +939,6 @@ XMLError_getCategory (const XMLError_t *error)
 }
 
 
-/**
- * Return the category of this XMLError as a string.
- *
- * @param error the XMLError_t from which to return the category.
- *
- * @return string representing the category of this XMLError.
- */
 LIBLAX_EXTERN
 const char *
 XMLError_getCategoryAsString (const XMLError_t *error)
@@ -1046,15 +949,6 @@ XMLError_getCategoryAsString (const XMLError_t *error)
 }
 
 
-/**
- * Predicate returning @c true or @c false depending on whether 
- * this XMLError_t structure is for information only.
- *
- * @param error the XMLError_t.
- *
- * @return @c non-zero (true) if this XMLError is for informational purposes
- * only, @c zero (false) otherwise.
- */
 LIBLAX_EXTERN
 int
 XMLError_isInfo (const XMLError_t *error)
@@ -1064,14 +958,6 @@ XMLError_isInfo (const XMLError_t *error)
 }
 
 
-/**
- * Predicate returning @c true or @c false depending on whether 
- * this XMLError_t structure is a warning.
- *
- * @param error the XMLError_t.
- *
- * @return @c non-zero (true) if this XMLError is a warning, @c zero (false) otherwise.
- */
 LIBLAX_EXTERN
 int
 XMLError_isWarning (const XMLError_t *error)
@@ -1081,14 +967,6 @@ XMLError_isWarning (const XMLError_t *error)
 }
 
 
-/**
- * Predicate returning @c true or @c false depending on whether 
- * this XMLError_t structure is an error.
- *
- * @param error the XMLError_t.
- *
- * @return @c non-zero (true) if this XMLError is an error, @c zero (false) otherwise.
- */
 LIBLAX_EXTERN
 int
 XMLError_isError (const XMLError_t *error)
@@ -1098,14 +976,6 @@ XMLError_isError (const XMLError_t *error)
 }
 
 
-/**
- * Predicate returning @c true or @c false depending on whether 
- * this XMLError_t structure is a fatal error.
- *
- * @param error the XMLError_t.
- *
- * @return @c non-zero (true) if this XMLError is a fatal error, @c zero (false) otherwise.
- */
 LIBLAX_EXTERN
 int
 XMLError_isFatal (const XMLError_t *error)
@@ -1115,15 +985,6 @@ XMLError_isFatal (const XMLError_t *error)
 }
 
 
-/**
- * Outputs this XMLError to stream in the following format (and
- * followed by a newline):
- *
- *   line: (id) message
- *
- * @param error the XMLError_t structure to write.
- * @param stream the stream to write to.
- */
 LIBLAX_EXTERN
 void
 XMLError_print (const XMLError_t *error, FILE *stream)

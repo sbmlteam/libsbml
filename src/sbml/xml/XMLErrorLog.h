@@ -334,56 +334,157 @@ LIBSBML_CPP_NAMESPACE_END
 LIBSBML_CPP_NAMESPACE_BEGIN
 BEGIN_C_DECLS
 
-/* ----------------------------------------------------------------------------
- * See the .cpp file for the documentation of the following functions.
- * --------------------------------------------------------------------------*/
-
-
+/**
+ * Creates a new empty XMLErrorLog_t structure and returns it.
+ *
+ * @return the new XMLErrorLog_t structure.
+ *
+ * @memberof XMLErrorLog_t
+ */
 LIBLAX_EXTERN
 XMLErrorLog_t *
 XMLErrorLog_create (void);
 
 
+/**
+ * Frees the given XMLError_t structure.
+ *
+ * @param log XMLErrorLog_t, the error log to be freed.
+ *
+ * @memberof XMLErrorLog_t
+ */
 LIBLAX_EXTERN
 void
 XMLErrorLog_free (XMLErrorLog_t *log);
 
 
+/**
+ * Logs the given XMLError_t structure.
+ *
+ * @param log XMLErrorLog_t, the error log to be added to.
+ * @param error XMLError_t, the error to be logged.
+ *
+ * @memberof XMLErrorLog_t
+ */
 LIBLAX_EXTERN
 void
 XMLErrorLog_add (XMLErrorLog_t *log, const XMLError_t *error);
 
 
+/**
+ * Returns the nth XMLError_t in this log.
+ *
+ * @param log XMLErrorLog_t, the error log to be queried.
+ * @param n unsigned int number of the error to retrieve.
+ *
+ * @return the nth XMLError_t in this log.
+ *
+ * @memberof XMLErrorLog_t
+ */
 LIBLAX_EXTERN
 const XMLError_t *
 XMLErrorLog_getError (const XMLErrorLog_t *log, unsigned int n);
 
 
+/**
+ * Returns the number of errors that have been logged.
+ *
+ * @param log XMLErrorLog_t, the error log to be queried.
+ *
+ * @return the number of errors that have been logged.
+ *
+ * @memberof XMLErrorLog_t
+ */
 LIBLAX_EXTERN
 unsigned int
 XMLErrorLog_getNumErrors (const XMLErrorLog_t *log);
 
 
+/**
+ * Removes all errors from this log.
+ *
+ * @param log XMLErrorLog_t, the error log to be cleared.
+ *
+ * @memberof XMLErrorLog_t
+ */
 LIBLAX_EXTERN
 void
 XMLErrorLog_clearLog (XMLErrorLog_t *log);
 
+/**
+ * Writes all errors contained in this log to a string and returns it. 
+ *
+ * @param log XMLErrorLog_t, the error log to convert.
+ *
+ * @return a string containing all logged errors.
+ *
+ * @memberof XMLErrorLog_t
+ */
 LIBLAX_EXTERN
 char*
 XMLErrorLog_toString (XMLErrorLog_t *log);
 
+/**
+ * Predicate returning @c true or @c false depending on whether 
+ * the 'severity overridden' flag of this XMLErrorLog_t is set.
+ * 
+ * @param log XMLErrorLog_t structure to be queried.
+ *
+ * @return @c non-zero (true) if the security override is not set to LIBSBML_OVERRIDE_DISABLED, @c zero (false) otherwise.
+ *
+ * @memberof XMLErrorLog_t
+ */
 LIBLAX_EXTERN
 int
 XMLErrorLog_isSeverityOverridden (XMLErrorLog_t *log);
 
+/**
+ * Usets the override of the given XMLErrorLog_t (sets the flag to LIBSBML_OVERRIDE_DISABLED).
+ * 
+ * @param log XMLErrorLog_t structure to be queried.
+ *
+ * @memberof XMLErrorLog_t
+ */
 LIBLAX_EXTERN
 void
 XMLErrorLog_unsetSeverityOverride (XMLErrorLog_t *log);
 
+/**
+ * Returns the current override.
+ *
+ * @return a severity override code.  The possible values are drawn
+ * from the enumeration #XMLErrorSeverityOverride_t:
+ * @li @link XMLErrorSeverityOverride_t#LIBSBML_OVERRIDE_DISABLED LIBSBML_OVERRIDE_DISABLED@endlink
+ * @li @link XMLErrorSeverityOverride_t#LIBSBML_OVERRIDE_DONT_LOG LIBSBML_OVERRIDE_DONT_LOG@endlink
+ * @li @link XMLErrorSeverityOverride_t#LIBSBML_OVERRIDE_WARNING LIBSBML_OVERRIDE_WARNING@endlink
+ * 
+ * @param log XMLErrorLog_t structure to be queried.
+ *
+ * @see XMLErrorLog_setSeverityOverride()
+ *
+ * @memberof XMLErrorLog_t
+ */
 LIBLAX_EXTERN
 XMLErrorSeverityOverride_t
 XMLErrorLog_getSeverityOverride (XMLErrorLog_t *log);
 
+/**
+ * Set the severity override of the given @p log to the given @p overridden value. 
+ * 
+ * @param log XMLErrorLog_t structure to be queried.
+ * @param overridden an override code indicating what to do.  If the value is
+ * @link XMLErrorSeverityOverride_t#LIBSBML_OVERRIDE_DISABLED LIBSBML_OVERRIDE_DISABLED@endlink
+ * (the default setting) all errors logged will be given the severity
+ * specified in their usual definition.   If the value is
+ * @link XMLErrorSeverityOverride_t#LIBSBML_OVERRIDE_WARNING LIBSBML_OVERRIDE_WARNING@endlink,
+ * then all errors will be logged as warnings.  If the value is 
+ * @link XMLErrorSeverityOverride_t#LIBSBML_OVERRIDE_DONT_LOG LIBSBML_OVERRIDE_DONT_LOG@endlink,
+ * no error will be logged, regardless of their severity.
+ *
+ * @see XMLErrorLog_getSeverityOverride()
+ *
+ * @memberof XMLErrorLog_t
+ */
 LIBLAX_EXTERN
 void
 XMLErrorLog_setSeverityOverride (XMLErrorLog_t *log, XMLErrorSeverityOverride_t overridden);

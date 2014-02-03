@@ -624,27 +624,78 @@ LIBSBML_CPP_NAMESPACE_END
 LIBSBML_CPP_NAMESPACE_BEGIN
 BEGIN_C_DECLS
 
-
-/* ----------------------------------------------------------------------------
- * See the .cpp file for the documentation of the following functions.
- * --------------------------------------------------------------------------*/
-
-
+/**
+ * Creates a new LocalParameter_t structure using the given SBML @p level
+ * and @p version values.
+ *
+ * @param level an unsigned int, the SBML Level to assign to this
+ * LocalParameter
+ *
+ * @param version an unsigned int, the SBML Version to assign to this
+ * LocalParameter
+ *
+ * @return a pointer to the newly created LocalParameter_t structure.
+ *
+ * @note Once a LocalParameter has been added to an SBMLDocument, the @p
+ * level and @p version for the document @em override those used to create
+ * the LocalParameter.  Despite this, the ability to supply the values at
+ * creation time is an important aid to creating valid SBML.  Knowledge of
+ * the intended SBML Level and Version  determine whether it is valid to
+ * assign a particular value to an attribute, or whether it is valid to add
+ * an object to an existing SBMLDocument.
+ *
+ * @memberof LocalParameter_t
+ */
 LIBSBML_EXTERN
 LocalParameter_t *
 LocalParameter_create (unsigned int level, unsigned int version);
 
 
+/**
+ * Creates a new LocalParameter_t structure using the given
+ * SBMLNamespaces_t structure.
+ *
+ * @param sbmlns SBMLNamespaces, a pointer to an SBMLNamespaces structure
+ * to assign to this LocalParameter
+ *
+ * @return a pointer to the newly created LocalParameter_t structure.
+ *
+ * @note Once a LocalParameter has been added to an SBMLDocument, the
+ * @p sbmlns namespaces for the document @em override those used to create
+ * the LocalParameter.  Despite this, the ability to supply the values at creation time
+ * is an important aid to creating valid SBML.  Knowledge of the intended SBML
+ * Level and Version determine whether it is valid to assign a particular value
+ * to an attribute, or whether it is valid to add an object to an existing
+ * SBMLDocument.
+ *
+ * @memberof LocalParameter_t
+ */
 LIBSBML_EXTERN
 LocalParameter_t *
 LocalParameter_createWithNS (SBMLNamespaces_t *sbmlns);
 
 
+/**
+ * Frees the given LocalParameter_t structure.
+ *
+ * @param p the LocalParameter_t structure to be freed.
+ *
+ * @memberof LocalParameter_t
+ */
 LIBSBML_EXTERN
 void
 LocalParameter_free (LocalParameter_t *p);
 
 
+/**
+ * Creates a deep copy of the given LocalParameter_t structure
+ * 
+ * @param p the LocalParameter_t structure to be copied
+ * 
+ * @return a (deep) copy of the given LocalParameter_t structure.
+ *
+ * @memberof LocalParameter_t
+ */
 LIBSBML_EXTERN
 LocalParameter_t *
 LocalParameter_clone (const LocalParameter_t *p);
@@ -655,26 +706,74 @@ void
 LocalParameter_initDefaults (LocalParameter_t *p);
 
 
+/**
+ * Returns a list of XMLNamespaces_t associated with this LocalParameter_t
+ * structure.
+ *
+ * @param p the LocalParameter_t structure
+ * 
+ * @return pointer to the XMLNamespaces_t structure associated with 
+ * this SBML object
+ *
+ * @memberof LocalParameter_t
+ */
 LIBSBML_EXTERN
 const XMLNamespaces_t *
-LocalParameter_getNamespaces(LocalParameter_t *c);
+LocalParameter_getNamespaces(LocalParameter_t *p);
 
 
+/**
+ * Takes a LocalParameter_t structure and returns its identifier.
+ *
+ * @param p the LocalParameter_t structure whose identifier is sought
+ * 
+ * @return the identifier of this LocalParameter_t, as a pointer to a string.
+ *
+ * @memberof LocalParameter_t
+ */
 LIBSBML_EXTERN
 const char *
 LocalParameter_getId (const LocalParameter_t *p);
 
 
+/**
+ * Takes a LocalParameter_t structure and returns its name.
+ *
+ * @param p the LocalParameter_t whose name is sought.
+ *
+ * @return the name of this LocalParameter_t, as a pointer to a string.
+ *
+ * @memberof LocalParameter_t
+ */
 LIBSBML_EXTERN
 const char *
 LocalParameter_getName (const LocalParameter_t *p);
 
 
+/**
+ * Takes a LocalParameter_t structure and returns its value.
+ *
+ * @param p the LocalParameter_t whose value is sought.
+ *
+ * @return the value assigned to this LocalParameter_t structure, as a @c double.
+ *
+ * @memberof LocalParameter_t
+ */
 LIBSBML_EXTERN
 double
 LocalParameter_getValue (const LocalParameter_t *p);
 
 
+/**
+ * Takes a LocalParameter_t structure and returns its units.
+ *
+ * @param p the LocalParameter_t whose units are sought.
+ *
+ * @return the units assigned to this LocalParameter_t structure, as a pointer
+ * to a string.  
+ *
+ * @memberof LocalParameter_t
+ */
 LIBSBML_EXTERN
 const char *
 LocalParameter_getUnits (const LocalParameter_t *p);
@@ -685,41 +784,163 @@ int
 LocalParameter_getConstant (const LocalParameter_t *p);
 
 
+/**
+ * Predicate returning @c true or @c false depending on whether the given
+ * LocalParameter_t structure's identifier is set.
+ *
+ * @param p the LocalParameter_t structure to query
+ * 
+ * @return @c non-zero (true) if the "id" attribute of the given
+ * LocalParameter_t structure is set, zero (false) otherwise.
+ *
+ * @memberof LocalParameter_t
+ */
 LIBSBML_EXTERN
 int
 LocalParameter_isSetId (const LocalParameter_t *p);
 
 
+/**
+ * Predicate returning @c true or @c false depending on whether the given
+ * LocalParameter_t structure's name is set.
+ *
+ * @param p the LocalParameter_t structure to query
+ * 
+ * @return @c non-zero (true) if the "name" attribute of the given
+ * LocalParameter_t structure is set, zero (false) otherwise.
+ *
+ * @memberof LocalParameter_t
+ */
 LIBSBML_EXTERN
 int
 LocalParameter_isSetName (const LocalParameter_t *p);
 
 
+/**
+ * Predicate returning @c true or @c false depending on whether the given
+ * LocalParameter_t structure's value is set.
+ * 
+ * @param p the LocalParameter_t structure to query
+ * 
+ * @return @c non-zero (true) if the "value" attribute of the given
+ * LocalParameter_t structure is set, zero (false) otherwise.
+ *
+ * @note In SBML Level 1 Version 1, a LocalParameter value is required and
+ * therefore <em>should always be set</em>.  In Level 1 Version 2 and
+ * later, the value is optional, and as such, may or may not be set.
+ *
+ * @memberof LocalParameter_t
+ */
 LIBSBML_EXTERN
 int
 LocalParameter_isSetValue (const LocalParameter_t *p);
 
 
+/**
+ * Predicate returning @c true or @c false depending on whether the given
+ * LocalParameter_t structure's units have been set.
+ *
+ * @param p the LocalParameter_t structure to query
+ * 
+ * @return @c non-zero (true) if the "units" attribute of the given
+ * LocalParameter_t structure is set, zero (false) otherwise.
+ *
+ * @memberof LocalParameter_t
+ */
 LIBSBML_EXTERN
 int
 LocalParameter_isSetUnits (const LocalParameter_t *p);
 
 
+/**
+ * Assigns the identifier of a LocalParameter_t structure.
+ *
+ * This makes a copy of the string passed in the param @p sid.
+ *
+ * @param p the LocalParameter_t structure to set.
+ * @param sid the string to use as the identifier.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+ *
+ * @note Using this function with an id of NULL is equivalent to
+ * unsetting the "id" attribute.
+ *
+ * @memberof LocalParameter_t
+ */
 LIBSBML_EXTERN
 int
 LocalParameter_setId (LocalParameter_t *p, const char *sid);
 
 
+/**
+ * Assign the name of a LocalParameter_t structure.
+ *
+ * This makes a copy of the string passed in as the argument @p name.
+ *
+ * @param p the LocalParameter_t structure to set.
+ * @param name the string to use as the name.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+ *
+ * @note Using this function with the name set to NULL is equivalent to
+ * unsetting the "name" attribute.
+ *
+ * @memberof LocalParameter_t
+ */
 LIBSBML_EXTERN
 int
 LocalParameter_setName (LocalParameter_t *p, const char *name);
 
 
+/**
+ * Assign the value of a LocalParameter_t structure.
+ *
+ * @param p the LocalParameter_t structure to set.
+ * @param value the @c double value to use.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ *
+ * @memberof LocalParameter_t
+ */
 LIBSBML_EXTERN
 int
 LocalParameter_setValue (LocalParameter_t *p, double value);
 
 
+/**
+ * Assign the units of a LocalParameter_t structure.
+ *
+ * This makes a copy of the string passed in as the argument @p units.
+ *
+ * @param p the LocalParameter_t structure to set.
+ * @param units the string to use as the identifier of the units to assign.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+ *
+ * @note Using this function with units set to NULL is equivalent to
+ * unsetting the "units" attribute.
+ *
+ * @memberof LocalParameter_t
+ */
 LIBSBML_EXTERN
 int
 LocalParameter_setUnits (LocalParameter_t *p, const char *units);
@@ -730,36 +951,125 @@ int
 LocalParameter_setConstant (LocalParameter_t *p, int value);
 
 
+/**
+ * Unsets the name of this LocalParameter_t structure.
+ * 
+ * @param p the LocalParameter_t structure whose name is to be unset.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_OPERATION_FAILED
+ *
+ * @memberof LocalParameter_t
+ */
 LIBSBML_EXTERN
 int
 LocalParameter_unsetName (LocalParameter_t *p);
 
 
+/**
+ * Unsets the value of this LocalParameter_t structure.
+ *
+ * In SBML Level 1 Version 1, a parameter is required to have a value and
+ * therefore this attribute <em>should always be set</em>.  In Level 1
+ * Version 2 and beyond, a value is optional, and as such, may or may not be
+ * set.
+ *
+ * @param p the LocalParameter_t structure whose value is to be unset.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ *
+ * @memberof LocalParameter_t
+ */
 LIBSBML_EXTERN
 int
 LocalParameter_unsetValue (LocalParameter_t *p);
 
 
+/**
+ * Unsets the units of this LocalParameter_t structure.
+ * 
+ * @param p the LocalParameter_t structure whose units are to be unset.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_OPERATION_FAILED
+ *
+ * @memberof LocalParameter_t
+ */
 LIBSBML_EXTERN
 int
 LocalParameter_unsetUnits (LocalParameter_t *p);
 
 
+/**
+  * Predicate returning @c true or @c false depending on whether
+  * all the required attributes for this LocalParameter object
+  * have been set.
+  *
+ * @param p the LocalParameter_t structure to check.
+ *
+  * @note The required attributes for a LocalParameter object are:
+  * @li id (name in L1)
+  *
+  * @return a true if all the required
+  * attributes for this object have been defined, false otherwise.
+  *
+ * @memberof LocalParameter_t
+ */
 LIBSBML_EXTERN
 int
 LocalParameter_hasRequiredAttributes (LocalParameter_t *p);
 
 
+/**
+ * Constructs and returns a UnitDefinition_t structure that expresses 
+ * the units of this LocalParameter_t structure.
+ *
+ * @param p the LocalParameter_t structure whose units are to be returned.
+ *
+ * @return a UnitDefinition_t structure that expresses the units 
+ * of this LocalParameter_t strucuture.
+ *
+ * @note This function returns the units of the LocalParameter_t expressed 
+ * as a UnitDefinition_t. The units may be those explicitly declared. 
+ * In the case where no units have been declared, @c NULL is returned.
+ *
+ * @memberof LocalParameter_t
+ */
 LIBSBML_EXTERN
 UnitDefinition_t * 
 LocalParameter_getDerivedUnitDefinition(LocalParameter_t *p);
 
 
+/**
+ * @return item in this ListOfLocalParameter with the given @p id or @c NULL if no such
+ * item exists.
+ *
+ * @memberof ListOfLocalParameters_t
+ */
 LIBSBML_EXTERN
 LocalParameter_t *
 ListOfLocalParameters_getById (ListOf_t *lo, const char *sid);
 
 
+/**
+ * Removes item in this ListOf items with the given @p id or @c NULL if no such
+ * item exists.  The caller owns the returned item and is responsible for
+ * deleting it.
+ *
+ * @memberof ListOfLocalParameters_t
+ */
 LIBSBML_EXTERN
 LocalParameter_t *
 ListOfLocalParameters_removeById (ListOf_t *lo, const char *sid);

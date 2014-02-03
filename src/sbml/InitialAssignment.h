@@ -888,80 +888,276 @@ LIBSBML_CPP_NAMESPACE_END
 LIBSBML_CPP_NAMESPACE_BEGIN
 BEGIN_C_DECLS
 
-/* ----------------------------------------------------------------------------
- * See the .cpp file for the documentation of the following functions.
- * --------------------------------------------------------------------------*/
-
-
+/**
+ * Creates a new InitialAssignment_t structure using the given SBML @p level
+ * and @p version values.
+ *
+ * @param level an unsigned int, the SBML Level to assign to this
+ * InitialAssignment
+ *
+ * @param version an unsigned int, the SBML Version to assign to this
+ * InitialAssignment
+ *
+ * @return a pointer to the newly created InitialAssignment_t structure.
+ *
+ * @note Once a InitialAssignment has been added to an SBMLDocument, the @p
+ * level and @p version for the document @em override those used to create
+ * the InitialAssignment.  Despite this, the ability to supply the values at
+ * creation time is an important aid to creating valid SBML.  Knowledge of
+ * the intended SBML Level and Version  determine whether it is valid to
+ * assign a particular value to an attribute, or whether it is valid to add
+ * an object to an existing SBMLDocument.
+ *
+ * @memberof InitialAssignment_t
+ */
 LIBSBML_EXTERN
 InitialAssignment_t *
 InitialAssignment_create (unsigned int level, unsigned int version);
 
 
+/**
+ * Creates a new InitialAssignment_t structure using the given
+ * SBMLNamespaces_t structure.
+ *
+ * @param sbmlns SBMLNamespaces, a pointer to an SBMLNamespaces structure
+ * to assign to this InitialAssignment
+ *
+ * @return a pointer to the newly created InitialAssignment_t structure.
+ *
+ * @note Once a InitialAssignment has been added to an SBMLDocument, the
+ * @p sbmlns namespaces for the document @em override those used to create
+ * the InitialAssignment.  Despite this, the ability to supply the values at 
+ * creation time is an important aid to creating valid SBML.  Knowledge of the 
+ * intended SBML Level and Version determine whether it is valid to assign a 
+ * particular value to an attribute, or whether it is valid to add an object to 
+ * an existing SBMLDocument.
+ *
+ * @memberof InitialAssignment_t
+ */
 LIBSBML_EXTERN
 InitialAssignment_t *
 InitialAssignment_createWithNS (SBMLNamespaces_t *sbmlns);
 
 
+/**
+ * Frees the given InitialAssignment_t structure.
+ *
+ * @param ia the InitialAssignment_t structure to free.
+ *
+ * @memberof InitialAssignment_t
+ */
 LIBSBML_EXTERN
 void
 InitialAssignment_free (InitialAssignment_t *ia);
 
 
+/**
+ * Copy constructor; creates a copy of this InitialAssignment.
+ *
+ * @param ia the InitialAssignment_t structure
+ *
+ * @return a (deep) copy of the given InitialAssignment_t structure.
+ *
+ * @memberof InitialAssignment_t
+ */
 LIBSBML_EXTERN
 InitialAssignment_t *
 InitialAssignment_clone (const InitialAssignment_t *ia);
 
 
+/**
+ * Returns a list of XMLNamespaces_t associated with this InitialAssignment_t
+ * structure.
+ *
+ * @param ia the InitialAssignment_t structure
+ * 
+ * @return pointer to the XMLNamespaces_t structure associated with 
+ * this SBML object
+ *
+ * @memberof InitialAssignment_t
+ */
 LIBSBML_EXTERN
 const XMLNamespaces_t *
-InitialAssignment_getNamespaces(InitialAssignment_t *c);
+InitialAssignment_getNamespaces(InitialAssignment_t *ia);
 
 
+/**
+ * Get the value of the "symbol" attribute of this InitialAssignment.
+ *
+ * @param ia the InitialAssignment_t structure
+ * 
+ * @return the identifier string stored as the "symbol" attribute value
+ * in this InitialAssignment.
+ *
+ * @memberof InitialAssignment_t
+ */
 LIBSBML_EXTERN
 const char *
 InitialAssignment_getSymbol (const InitialAssignment_t *ia);
 
 
+/**
+ * Get the mathematical formula of this InitialAssignment.
+ *
+ * @param ia the InitialAssignment_t structure
+ *
+ * @return an ASTNode, the value of the "math" subelement of this
+ * InitialAssignment
+ *
+ * @memberof InitialAssignment_t
+ */
 LIBSBML_EXTERN
 const ASTNode_t *
 InitialAssignment_getMath (const InitialAssignment_t *ia);
 
 
+/**
+ * Predicate returning @c true or @c false depending on whether this
+ * InitialAssignment's "symbol" attribute is set.
+ *
+ * @param ia the InitialAssignment_t structure
+ * 
+ * @return nonzero if the "symbol" attribute of this InitialAssignment
+ * is set, zero (0) otherwise.
+ *
+ * @memberof InitialAssignment_t
+ */
 LIBSBML_EXTERN
 int
 InitialAssignment_isSetSymbol (const InitialAssignment_t *ia);
 
 
+/**
+ * Predicate returning @c true or @c false depending on whether this
+ * InitialAssignment's "math" subelement contains a value.
+ *
+ * @param ia the InitialAssignment_t structure
+ * 
+ * @return nonzero if the "math" for this InitialAssignment is set,
+ * zero (0) otherwise.
+ *
+ * @memberof InitialAssignment_t
+ */
 LIBSBML_EXTERN
 int
 InitialAssignment_isSetMath (const InitialAssignment_t *ia);
 
 
+/**
+ * Sets the "symbol" attribute value of this InitialAssignment
+ *
+ * @param ia the InitialAssignment_t structure
+ *
+ * @param sid the identifier of a Species, Compartment or Parameter
+ * object defined elsewhere in this Model.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+ *
+ * @note Using this function with an id of NULL is equivalent to
+ * unsetting the "symbol" attribute.
+ *
+ * @memberof InitialAssignment_t
+ */
 LIBSBML_EXTERN
 int
 InitialAssignment_setSymbol (InitialAssignment_t *ia, const char *sid);
 
 
+/**
+ * Sets the "math" subelement of this InitialAssignment
+ *
+ * The ASTNode tree passed in @p math is copied.
+ *
+ * @param ia the InitialAssignment_t structure
+ *
+ * @param math an ASTNode tree containing the mathematical expression to
+ * be used as the formula for this InitialAssignment.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_INVALID_OBJECT
+ *
+ * @memberof InitialAssignment_t
+ */
 LIBSBML_EXTERN
 int
 InitialAssignment_setMath (InitialAssignment_t *ia, const ASTNode_t *math);
 
 
+/**
+ * Calculates and returns a UnitDefinition_t that expresses the units
+ * returned by the math expression of this InitialAssignment_t.
+ *
+ * @return a UnitDefinition_t that expresses the units of the math 
+ * expression of this InitialAssignment_t.
+ *
+ * Note that the functionality that facilitates unit analysis depends 
+ * on the model as a whole.  Thus, in cases where the object has not 
+ * been added to a model or the model itself is incomplete,
+ * unit analysis is not possible and this method will return @c NULL.
+ *
+ * @note The units are calculated by applying the mathematics 
+ * from the expression to the units of the &lt;ci&gt; elements used 
+ * within the expression. Where there are parameters/numbers
+ * with undeclared units the UnitDefinition_t returned by this
+ * function may not accurately represent the units of the expression.
+ *
+ * @see InitialAssignment_containsUndeclaredUnits()
+ *
+ * @memberof InitialAssignment_t
+ */
 LIBSBML_EXTERN
 UnitDefinition_t * 
 InitialAssignment_getDerivedUnitDefinition(InitialAssignment_t *ia);
 
 
+/**
+ * Predicate returning @c true or @c false depending on whether 
+ * the math expression of this InitialAssignment_t contains
+ * parameters/numbers with undeclared units.
+ * 
+ * @return @c true if the math expression of this InitialAssignment_t
+ * includes parameters/numbers 
+ * with undeclared units, @c false otherwise.
+ *
+ * @note a return value of @c true indicates that the UnitDefinition_t
+ * returned by the getDerivedUnitDefinition function may not 
+ * accurately represent the units of the expression.
+ *
+ * @see InitialAssignment_getDerivedUnitDefinition()
+ *
+ * @memberof InitialAssignment_t
+ */
 LIBSBML_EXTERN
 int 
 InitialAssignment_containsUndeclaredUnits(InitialAssignment_t *ia);
 
+/**
+ * @return item in this ListOfInitialAssignment with the given @p id or @c NULL if no such
+ * item exists.
+ *
+ * @memberof ListOfInitialAssignments_t
+ */
 LIBSBML_EXTERN
 InitialAssignment_t *
 ListOfInitialAssignments_getById (ListOf_t *lo, const char *sid);
 
 
+/**
+ * Removes item in this ListOf items with the given @p id or @c NULL if no such
+ * item exists.  The caller owns the returned item and is responsible for
+ * deleting it.
+ *
+ * @memberof ListOfInitialAssignments_t
+ */
 LIBSBML_EXTERN
 InitialAssignment_t *
 ListOfInitialAssignments_removeById (ListOf_t *lo, const char *sid);

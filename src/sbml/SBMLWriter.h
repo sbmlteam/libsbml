@@ -331,15 +331,16 @@ LIBSBML_CPP_NAMESPACE_END
 #endif  /* __cplusplus */
 
 
+#ifndef SWIG
+
 LIBSBML_CPP_NAMESPACE_BEGIN
 BEGIN_C_DECLS
 
 
-#ifndef SWIG
-
-
 /**
  * Creates a new SBMLWriter and returns a pointer to it.
+ *
+ * @memberof SBMLWriter_t
  */
 LIBSBML_EXTERN
 SBMLWriter_t *
@@ -347,6 +348,8 @@ SBMLWriter_create (void);
 
 /**
  * Frees the given SBMLWriter.
+ *
+ * @memberof SBMLWriter_t
  */
 LIBSBML_EXTERN
 void
@@ -360,6 +363,14 @@ SBMLWriter_free (SBMLWriter_t *sw);
  *
  *   <!-- Created by <program name> version <program version>
  *   on yyyy-MM-dd HH:mm with libSBML version <libsbml version>. -->
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+ *
+ * @memberof SBMLWriter_t
  */
 LIBSBML_EXTERN
 int
@@ -373,6 +384,14 @@ SBMLWriter_setProgramName (SBMLWriter_t *sw, const char *name);
  *
  *   <!-- Created by <program name> version <program version>
  *   on yyyy-MM-dd HH:mm with libSBML version <libsbml version>. -->
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+ *
+ * @memberof SBMLWriter_t
  */
 LIBSBML_EXTERN
 int
@@ -383,8 +402,15 @@ SBMLWriter_setProgramVersion (SBMLWriter_t *sw, const char *version);
  *
  * @htmlinclude assuming-compressed-file.html
  *
- * @return non-zero on success and zero if the filename could not be opened
- * for writing.
+ * If the filename ends with @em .gz, the file will be compressed by @em gzip.
+ * Similary, if the filename ends with @em .zip or @em .bz2, the file will be
+ * compressed by @em zip or @em bzip2, respectively. Otherwise, the fill will be
+ * uncompressed.
+ * If the filename ends with @em .zip, a filename that will be added to the
+ * zip archive file will end with @em .xml or @em .sbml. For example, the filename
+ * in the zip archive will be @em test.xml if the given filename is @em test.xml.zip
+ * or @em test.zip. Also, the filename in the archive will be @em test.sbml if the
+ * given filename is @em test.sbml.zip.
  *
  * @note To write a gzip/zip file, libSBML needs to be configured and
  * linked with the <a target="_blank" href="http://www.zlib.net/">zlib</a> library at
@@ -395,8 +421,13 @@ SBMLWriter_setProgramVersion (SBMLWriter_t *sw, const char *version);
  * if a compressed filename is given and libSBML was @em not linked with
  * the corresponding required library.
  *
- * @note SBMLReader::hasZlib() and SBMLReader::hasBzip2() can be used to
+ * @note SBMLWriter_hasZlib() and SBMLWriter_hasBzip2() can be used to
  * check whether libSBML has been linked with each library.
+ *
+ * @return non-zero on success and zero if the filename could not be opened
+ * for writing.
+ *
+ * @memberof SBMLWriter_t
  */
 LIBSBML_EXTERN
 int
@@ -404,6 +435,31 @@ SBMLWriter_writeSBML ( SBMLWriter_t         *sw,
                        const SBMLDocument_t *d,
                        const char           *filename );
 
+/**
+ * Writes the given SBML document to filename.
+ *
+ * If the filename ends with @em .gz, the file will be compressed by @em gzip.
+ * Similary, if the filename ends with @em .zip or @em .bz2, the file will be
+ * compressed by @em zip or @em bzip2, respectively. Otherwise, the fill will be
+ * uncompressed.
+ * If the filename ends with @em .zip, a filename that will be added to the
+ * zip archive file will end with @em .xml or @em .sbml. For example, the filename
+ * in the zip archive will be @em test.xml if the given filename is @em test.xml.zip
+ * or @em test.zip. Also, the filename in the archive will be @em test.sbml if the
+ * given filename is @em test.sbml.zip.
+ *
+ * @note To create a gzip/zip file, libSBML needs to be linked with zlib at 
+ * compile time. Also, libSBML needs to be linked with bzip2 to create a bzip2 file.
+ * File unwritable error will be logged and @c zero will be returned if a compressed 
+ * file name is given and libSBML is not linked with the required library.
+ * SBMLWriter_hasZlib() and SBMLWriter_hasBzip2() can be used to check whether
+ * libSBML was linked with the library at compile time.
+ *
+ * @return non-zero on success and zero if the filename could not be opened
+ * for writing.
+ *
+ * @memberof SBMLWriter_t
+ */
 LIBSBML_EXTERN
 int
 SBMLWriter_writeSBMLToFile ( SBMLWriter_t         *sw,
@@ -418,6 +474,8 @@ SBMLWriter_writeSBMLToFile ( SBMLWriter_t         *sw,
  *
  * @return the string on success and @c NULL if one of the underlying parser
  * components fail (rare).
+ *
+ * @memberof SBMLWriter_t
  */
 LIBSBML_EXTERN
 char *
@@ -429,6 +487,8 @@ SBMLWriter_writeSBMLToString (SBMLWriter_t *sw, const SBMLDocument_t *d);
  * libSBML is linked with zlib at compile time.
  *
  * @return @c non-zero if zlib is linked, @c zero otherwise.
+ *
+ * @memberof SBMLWriter_t
  */
 LIBSBML_EXTERN
 int
@@ -440,6 +500,8 @@ SBMLWriter_hasZlib ();
  * libSBML is linked with bzip2 at compile time.
  *
  * @return @c non-zero if bzip2 is linked, @c zero otherwise.
+ *
+ * @memberof SBMLWriter_t
  */
 LIBSBML_EXTERN
 int
@@ -450,9 +512,10 @@ SBMLWriter_hasBzip2 ();
 
 /**
  * Writes the given SBML document @p d to the file named by @p filename.
+ * This convenience function is functionally equivalent to:
  *
- * This function is identical to @if clike SBMLWriter::writeSBMLToFile (const SBMLDocument_t *d, const char *filename)@endif@if java <a href="#writeSBMLToFile(org.sbml.libsbml.SBMLDocument, java.lang.String)"><code>writeSBMLToFile(SBMLDocument d, String filename)</code></a>@endif.
- * 
+ *   SBMLWriter_writeSBML(SBMLWriter_create(), d, filename);
+ *
  * @htmlinclude assuming-compressed-file.html
  *
  * @param d the SBMLDocument object to be written out in XML format
@@ -467,12 +530,12 @@ SBMLWriter_hasBzip2 ();
  * similar) when the compression functionality has not been enabled in
  * the underlying copy of libSBML.
  *
- * @if clike @warning Note that the string is owned by the caller and
- * should be freed (with the normal string <code>free()</code> C++
- * function) after it is no longer needed.@endif@~
- *
  * @see SBMLWriter::hasZlib()
  * @see SBMLWriter::hasBzip2()
+ *
+ * @if conly
+ * @memberof SBMLWriter_t
+ * @endif
  */
 LIBSBML_EXTERN
 int
@@ -480,12 +543,14 @@ writeSBML (const SBMLDocument_t *d, const char *filename);
 
 
 /**
- * Writes the given SBML document @p d to an in-memory string and
- * returns the string.
+ * Writes the given SBML document @p d to an in-memory string and returns a
+ * pointer to it.  The string is owned by the caller and should be freed
+ * (with free()) when no longer needed.  This convenience function is
+ * functionally equivalent to:
  *
- * This is a convenience function that uses the
- * SBMLWriter::writeSBMLToString(const SBMLDocument* d) method internally,
- * yet does not require the caller to create an SBMLWriter object first.
+ *   SBMLWriter_writeSBMLToString(SBMLWriter_create(), d);
+ *
+ * but does not require the caller to create an SBMLWriter object first.
  *
  * @param d an SBMLDocument object to be written out in XML format
  *
@@ -493,8 +558,11 @@ writeSBML (const SBMLDocument_t *d, const char *filename);
  * components fail.
  *
  * @if clike @warning Note that the string is owned by the caller and
- * should be freed (with the normal string <code>free()</code> C++
- * function) after it is no longer needed.@endif@~
+ * should be freed after it is no longer needed.@endif@~
+ *
+ * @if conly
+ * @memberof SBMLWriter_t
+ * @endif
  */
 LIBSBML_EXTERN
 char *
@@ -503,11 +571,11 @@ writeSBMLToString (const SBMLDocument_t *d);
 
 /**
  * Writes the given SBML document @p d to the file @p filename.
+ * This convenience function is functionally equivalent to:
  *
- * This is a convenience function that uses the
- * SBMLWriter::writeSBMLToFile(const SBMLDocument* d, const std::string&
- * filename) method internally, yet does not require the caller to create
- * an SBMLWriter object first.
+ *   SBMLWriter_writeSBMLToFile(SBMLWriter_create(), d, filename);
+ *
+ * but that does not require the caller to create an SBMLWriter object first.
  *
  * @htmlinclude assuming-compressed-file.html
  * 
@@ -529,6 +597,10 @@ writeSBMLToString (const SBMLDocument_t *d);
  *
  * @see SBMLWriter::hasZlib()
  * @see SBMLWriter::hasBzip2()
+ *
+ * @if conly
+ * @memberof SBMLWriter_t
+ * @endif
  */
 LIBSBML_EXTERN
 int

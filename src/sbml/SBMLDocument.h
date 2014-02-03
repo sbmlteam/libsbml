@@ -2118,8 +2118,8 @@ SBMLDocument_setConsistencyChecks(SBMLDocument_t *d,
 LIBSBML_EXTERN
 void
 SBMLDocument_setConsistencyChecksForConversion(SBMLDocument_t *d, 
-                                     int validator,
-                                     int apply);
+                                               SBMLErrorCategory_t category,
+                                               int apply);
 
 /**
  * Performs a set of consistency and validation checks on the given SBML

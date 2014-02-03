@@ -440,101 +440,332 @@ LIBSBML_CPP_NAMESPACE_END
 LIBSBML_CPP_NAMESPACE_BEGIN
 BEGIN_C_DECLS
 
-/* ----------------------------------------------------------------------------
- * See the .cpp file for the documentation of the following functions.
- * --------------------------------------------------------------------------*/
-
-
+/**
+ * Creates a new empty XMLNamespaces_t structure.
+ *
+ * @memberof XMLNamespaces_t
+ */
 LIBLAX_EXTERN
 XMLNamespaces_t *
 XMLNamespaces_create (void);
 
 
+/**
+ * Frees the given XMLNamespaces_t structure.
+ *
+ * @param ns XMLNamespaces structure to be freed.
+ **
+ * @memberof XMLNamespaces_t
+ */
 LIBLAX_EXTERN
 void
 XMLNamespaces_free (XMLNamespaces_t *ns);
 
 
+/**
+ * Creates a deep copy of the given XMLNamespaces_t structure
+ * 
+ * @param ns the XMLNamespaces_t structure to be copied
+ * 
+ * @return a (deep) copy of the given XMLNamespaces_t structure.
+ *
+ * @memberof XMLNamespaces_t
+ */
 LIBLAX_EXTERN
 XMLNamespaces_t *
-XMLNamespaces_clone (const XMLNamespaces_t* c);
+XMLNamespaces_clone (const XMLNamespaces_t* ns);
 
 
+/**
+ * Appends an XML namespace prefix/URI pair to this XMLNamespaces_t 
+ * structure.
+ *
+ * @param ns the XMLNamespaces structure.
+ * @param uri a string, the uri for the namespace.
+ * @param prefix a string, the prefix for the namespace.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_INVALID_OBJECT
+ * @li LIBSBML_OPERATION_FAILED
+ *
+ * @memberof XMLNamespaces_t
+ */
 LIBLAX_EXTERN
 int
 XMLNamespaces_add (XMLNamespaces_t *ns, 
 		   const char *uri, const char *prefix);
 
 
+/**
+ * Removes an XML Namespace stored in the given position of this list.
+ *
+ * @param ns XMLNamespaces structure.
+ * @param index an integer, position of the removed namespace.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_INDEX_EXCEEDS_SIZE
+ * @li LIBSBML_INVALID_OBJECT
+ *
+ * @memberof XMLNamespaces_t
+ */
 LIBLAX_EXTERN
 int 
 XMLNamespaces_remove (XMLNamespaces_t *ns, int index);
 
 
+/**
+ * Removes an XML Namespace with the given Prefix.
+ *
+ * @param ns XMLNamespaces structure.
+ * @param prefix a string, prefix of the required namespace.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_INDEX_EXCEEDS_SIZE
+ * @li LIBSBML_INVALID_OBJECT
+ *
+ * @memberof XMLNamespaces_t
+ */
 LIBLAX_EXTERN
 int 
 XMLNamespaces_removeByPrefix (XMLNamespaces_t *ns, const char* prefix);
 
 
+/**
+ * Clears this XMLNamespaces_t structure.
+ *
+ * @param ns XMLNamespaces structure.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_OPERATION_FAILED
+ **
+ * @memberof XMLNamespaces_t
+ */
 LIBLAX_EXTERN
 int
 XMLNamespaces_clear (XMLNamespaces_t *ns);
 
 
+/**
+ * Lookup the index of an XML namespace declaration by URI.
+ *
+ * @param ns the XMLNamespaces_t structure
+ * @param uri a string, uri of the required namespace.
+ *
+ * @return the index of the given declaration, or -1 if not present.
+ *
+ * @memberof XMLNamespaces_t
+ */
 LIBLAX_EXTERN
 int
 XMLNamespaces_getIndex (const XMLNamespaces_t *ns, const char *uri);
 
 
+/**
+ * Look up the index of an XML namespace declaration by Prefix.
+ *
+ * @param ns the XMLNamespaces_t structure
+ * @param prefix a string, prefix of the required namespace.
+ *
+ * @return the index of the given declaration, or -1 if not present.
+ *
+ * @memberof XMLNamespaces_t
+ */
 LIBLAX_EXTERN
 int XMLNamespaces_getIndexByPrefix (const XMLNamespaces_t *ns, const char* prefix);
 
 
+/**
+ * Returns the total number of URI-and-prefix pairs stored in this
+ * particular XMLNamespaces instance.
+ *
+ * @param ns the XMLNamespaces_t structure
+ *
+ * @return the number of namespaces in this list.
+ *
+ * @memberof XMLNamespaces_t
+ */
 LIBLAX_EXTERN
 int
 XMLNamespaces_getLength (const XMLNamespaces_t *ns);
 
 
+/**
+ * Returns the total number of URI-and-prefix pairs stored in this
+ * particular XMLNamespaces instance.
+ *
+ * This function is an alias for getLength introduced for consistency
+ * with other XML classes.
+ *
+ * @param ns the XMLNamespaces_t structure
+ *
+ * @return the number of namespaces in this list.
+ *
+ * @memberof XMLNamespaces_t
+ */
 LIBLAX_EXTERN
 int
 XMLNamespaces_getNumNamespaces (const XMLNamespaces_t *ns);
 
 
+/**
+ * Look up the prefix of an XML namespace declaration by its position.
+ *
+ * An XMLNamespaces structure stores a list of pairs of namespaces and their
+ * prefixes.  This method returns the prefix of the <code>n</code>th
+ * element in that list (if it exists).  Callers should use
+ * XMLAttributes_getLength() first to find out how many namespaces are
+ * stored in the list.
+ *
+ * @param ns the XMLNamespaces_t structure
+ * @param index an integer, position of the sought-after prefix
+ *
+ * @return the prefix of an XML namespace declaration in this list (by
+ * position), or an empty string if the @p index is out of range
+ *
+ * @see XMLNamespaces_getLength()
+ *
+ * @memberof XMLNamespaces_t
+ */
 LIBLAX_EXTERN
 char *
 XMLNamespaces_getPrefix (const XMLNamespaces_t *ns, int index);
 
 
+/**
+ * Look up the prefix of an XML namespace declaration by its URI.
+ *
+ * An XMLNamespaces structure stores a list of pairs of namespaces and their
+ * prefixes.  This method returns the prefix for a pair that has the
+ * given @p uri.
+ *
+ * @param ns the XMLNamespaces_t structure
+ * @param uri a string, the URI of the prefix being sought
+ *
+ * @return the prefix of an XML namespace declaration given its URI, or
+ * an empty string if no such @p uri exists in this XMLNamespaces structure
+ *
+ * @memberof XMLNamespaces_t
+ */
 LIBLAX_EXTERN
 char *
 XMLNamespaces_getPrefixByURI (const XMLNamespaces_t *ns, const char *uri);
 
 
+/**
+ * Look up the URI of an XML namespace declaration by its position.
+ *
+ * An XMLNamespaces structure stores a list of pairs of namespaces and their
+ * prefixes.  This method returns the URI of the <code>n</code>th element
+ * in that list (if it exists).  Callers should use
+ * XMLAttributes::getLength() first to find out how many namespaces are
+ * stored in the list.
+ *
+ * @param ns the XMLNamespaces_t structure
+ * @param index an integer, position of the required URI.
+ *
+ * @return the URI of an XML namespace declaration in this list (by
+ * position), or an empty string if the @p index is out of range.
+ *
+ * @see XMLNamespaces_getLength()
+ *
+ * @memberof XMLNamespaces_t
+ */
 LIBLAX_EXTERN
 char *
 XMLNamespaces_getURI (const XMLNamespaces_t *ns, int index);
 
 
+/**
+ * Look up the URI of an XML namespace declaration by its prefix.
+ *
+ * An XMLNamespaces object stores a list of pairs of namespaces and their
+ * prefixes.  This method returns the namespace URI for a pair that has
+ * the given @p prefix.
+ *
+ * @param ns the XMLNamespaces_t structure
+ * @param prefix a string, the prefix of the required URI
+ *
+ * @return the URI of an XML namespace declaration having the given @p
+ * prefix, or an empty string if no such prefix-and-URI pair exists
+ * in this XMLNamespaces object
+ *
+ * @if notcpp @htmlinclude warn-default-args-in-docs.html @endif@~
+ * 
+ * @see getURI()
+ *
+ * @memberof XMLNamespaces_t
+ */
 LIBLAX_EXTERN
 char *
 XMLNamespaces_getURIByPrefix (const XMLNamespaces_t *ns, const char *prefix);
 
 
+/**
+ * Predicate returning @c true or @c false depending on whether 
+ * this XMLNamespaces list is empty.
+ * 
+ * @return @c true if this XMLNamespaces list is empty, @c false otherwise.
+ *
+ * @memberof XMLNamespaces_t
+ */
 LIBLAX_EXTERN
 int
 XMLNamespaces_isEmpty (const XMLNamespaces_t *ns);
 
 
+/**
+ * Predicate returning @c true or @c false depending on whether 
+ * an XML Namespace with the given URI is contained in this XMLNamespaces list.
+ * 
+ * @return @c true if an XML Namespace with the given URI is contained in this 
+ * XMLNamespaces list,  @c false otherwise.
+ *
+ * @memberof XMLNamespaces_t
+ */
 LIBLAX_EXTERN
 int 
 XMLNamespaces_hasURI(const XMLNamespaces_t *ns, const char* uri);
 
 
+/**
+ * Predicate returning @c true or @c false depending on whether 
+ * an XML Namespace the given Prefix is contained in this XMLNamespaces list.
+ * 
+ * @return @c true if an XML Namespace with the given URI is contained in this 
+ * XMLNamespaces list, @c false otherwise.
+ *
+ * @memberof XMLNamespaces_t
+ */
 LIBLAX_EXTERN
 int 
 XMLNamespaces_hasPrefix(const XMLNamespaces_t *ns, const char* prefix);
 
 
+/**
+ * Predicate returning @c true or @c false depending on whether
+ * an XML Namespace with the given URI is contained in this XMLNamespaces list.
+ *
+ * @return @c true if an XML Namespace with the given uri/prefix pair is contained
+ * in this XMLNamespaces list,  @c false otherwise.
+ *
+ * @memberof XMLNamespaces_t
+ */
 LIBLAX_EXTERN
 int 
 XMLNamespaces_hasNS(const XMLNamespaces_t *ns, const char* uri, const char* prefix);

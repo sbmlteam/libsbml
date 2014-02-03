@@ -327,9 +327,6 @@ SBMLWriter::hasBzip2()
 /** @cond doxygenCOnly */
 
 
-/**
- * Creates a new SBMLWriter and returns a pointer to it.
- */
 LIBSBML_EXTERN
 SBMLWriter_t *
 SBMLWriter_create ()
@@ -338,9 +335,6 @@ SBMLWriter_create ()
 }
 
 
-/**
- * Frees the given SBMLWriter.
- */
 LIBSBML_EXTERN
 void
 SBMLWriter_free (SBMLWriter_t *sw)
@@ -349,21 +343,6 @@ SBMLWriter_free (SBMLWriter_t *sw)
 }
 
 
-/**
- * Sets the name of this program. i.\ e.\  the one about to write out the
- * SBMLDocument.  If the program name and version are set
- * (setProgramVersion()), the following XML comment, intended for human
- * consumption, will be written at the beginning of the document:
- *
- *   <!-- Created by <program name> version <program version>
- *   on yyyy-MM-dd HH:mm with libsbml version <libsbml version>. -->
- *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif@~ The possible values
- * returned by this function are:
- * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
- */
 LIBSBML_EXTERN
 int
 SBMLWriter_setProgramName (SBMLWriter_t *sw, const char *name)
@@ -375,21 +354,6 @@ SBMLWriter_setProgramName (SBMLWriter_t *sw, const char *name)
 }
 
 
-/**
- * Sets the version of this program. i.\ e.\ the one about to write out the
- * SBMLDocument.  If the program version and name are set
- * (setProgramName()), the following XML comment, intended for human
- * consumption, will be written at the beginning of the document:
- *
- *   <!-- Created by <program name> version <program version>
- *   on yyyy-MM-dd HH:mm with libsbml version <libsbml version>. -->
- *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif@~ The possible values
- * returned by this function are:
- * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
- */
 LIBSBML_EXTERN
 int
 SBMLWriter_setProgramVersion (SBMLWriter_t *sw, const char *version)
@@ -402,29 +366,6 @@ SBMLWriter_setProgramVersion (SBMLWriter_t *sw, const char *version)
 }
 
 
-/**
- * Writes the given SBML document to filename.
- *
- * If the filename ends with @em .gz, the file will be compressed by @em gzip.
- * Similary, if the filename ends with @em .zip or @em .bz2, the file will be
- * compressed by @em zip or @em bzip2, respectively. Otherwise, the fill will be
- * uncompressed.
- * If the filename ends with @em .zip, a filename that will be added to the
- * zip archive file will end with @em .xml or @em .sbml. For example, the filename
- * in the zip archive will be @em test.xml if the given filename is @em test.xml.zip
- * or @em test.zip. Also, the filename in the archive will be @em test.sbml if the
- * given filename is @em test.sbml.zip.
- *
- * @note To create a gzip/zip file, libSBML needs to be linked with zlib at 
- * compile time. Also, libSBML needs to be linked with bzip2 to create a bzip2 file.
- * File unwritable error will be logged and @c zero will be returned if a compressed 
- * file name is given and libSBML is not linked with the required library.
- * SBMLWriter_hasZlib() and SBMLWriter_hasBzip2() can be used to check whether
- * libSBML was linked with the library at compile time.
- *
- * @return non-zero on success and zero if the filename could not be opened
- * for writing.
- */
 LIBSBML_EXTERN
 int
 SBMLWriter_writeSBML ( SBMLWriter_t         *sw,
@@ -439,29 +380,6 @@ SBMLWriter_writeSBML ( SBMLWriter_t         *sw,
 }
 
 
-/**
- * Writes the given SBML document to filename.
- *
- * If the filename ends with @em .gz, the file will be compressed by @em gzip.
- * Similary, if the filename ends with @em .zip or @em .bz2, the file will be
- * compressed by @em zip or @em bzip2, respectively. Otherwise, the fill will be
- * uncompressed.
- * If the filename ends with @em .zip, a filename that will be added to the
- * zip archive file will end with @em .xml or @em .sbml. For example, the filename
- * in the zip archive will be @em test.xml if the given filename is @em test.xml.zip
- * or @em test.zip. Also, the filename in the archive will be @em test.sbml if the
- * given filename is @em test.sbml.zip.
- *
- * @note To create a gzip/zip file, libSBML needs to be linked with zlib at 
- * compile time. Also, libSBML needs to be linked with bzip2 to create a bzip2 file.
- * File unwritable error will be logged and @c zero will be returned if a compressed 
- * file name is given and libSBML is not linked with the required library.
- * SBMLWriter_hasZlib() and SBMLWriter_hasBzip2() can be used to check whether
- * libSBML was linked with the library at compile time.
- *
- * @return non-zero on success and zero if the filename could not be opened
- * for writing.
- */
 LIBSBML_EXTERN
 int
 SBMLWriter_writeSBMLToFile ( SBMLWriter_t         *sw,
@@ -476,14 +394,6 @@ SBMLWriter_writeSBMLToFile ( SBMLWriter_t         *sw,
 }
 
 
-/**
- * Writes the given SBML document to an in-memory string and returns a
- * pointer to it.  The string is owned by the caller and should be freed
- * (with free()) when no longer needed.
- *
- * @return the string on success and NULL if one of the underlying parser
- * components fail (rare).
- */
 LIBSBML_EXTERN
 char *
 SBMLWriter_writeSBMLToString (SBMLWriter_t *sw, const SBMLDocument_t *d)
@@ -495,12 +405,6 @@ SBMLWriter_writeSBMLToString (SBMLWriter_t *sw, const SBMLDocument_t *d)
 }
 
 
-/**
- * Predicate returning @c non-zero or @c zero depending on whether
- * libSBML is linked with zlib at compile time.
- *
- * @return @c non-zero if zlib is linked, @c zero otherwise.
- */
 LIBSBML_EXTERN
 int
 SBMLWriter_hasZlib ()
@@ -509,12 +413,6 @@ SBMLWriter_hasZlib ()
 }
 
 
-/**
- * Predicate returning @c non-zero or @c zero depending on whether
- * libSBML is linked with bzip2 at compile time.
- *
- * @return @c non-zero if bzip2 is linked, @c zero otherwise.
- */
 LIBSBML_EXTERN
 int
 SBMLWriter_hasBzip2 ()
@@ -523,15 +421,6 @@ SBMLWriter_hasBzip2 ()
 }
 
 
-/**
- * Writes the given SBML document to filename.  This convenience function
- * is functionally equivalent to:
- *
- *   SBMLWriter_writeSBML(SBMLWriter_create(), d, filename);
- *
- * @return non-zero on success and zero if the filename could not be opened
- * for writing.
- */
 LIBSBML_EXTERN
 int
 writeSBML (const SBMLDocument_t *d, const char *filename)
@@ -544,15 +433,6 @@ writeSBML (const SBMLDocument_t *d, const char *filename)
 }
 
 
-/**
- * Writes the given SBML document to filename.  This convenience function
- * is functionally equivalent to:
- *
- *   SBMLWriter_writeSBMLToFile(SBMLWriter_create(), d, filename);
- *
- * @return non-zero on success and zero if the filename could not be opened
- * for writing.
- */
 LIBSBML_EXTERN
 int
 writeSBMLToFile (const SBMLDocument_t *d, const char *filename)
@@ -565,17 +445,6 @@ writeSBMLToFile (const SBMLDocument_t *d, const char *filename)
 }
 
 
-/**
- * Writes the given SBML document to an in-memory string and returns a
- * pointer to it.  The string is owned by the caller and should be freed
- * (with free()) when no longer needed.  This convenience function is
- * functionally equivalent to:
- *
- *   SBMLWriter_writeSBMLToString(SBMLWriter_create(), d);
- *
- * @return the string on success and NULL if one of the underlying parser
- * components fail (rare).
- */
 LIBSBML_EXTERN
 char *
 writeSBMLToString (const SBMLDocument_t *d)

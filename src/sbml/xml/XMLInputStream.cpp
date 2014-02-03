@@ -283,9 +283,8 @@ XMLInputStream::setSBMLNamespaces(SBMLNamespaces * sbmlns)
   else
     mSBMLns = NULL;
 }
-/**
- * 
- **/
+
+
 LIBLAX_EXTERN
 XMLInputStream_t *
 XMLInputStream_create (const char* content, int isFile, const char *library)
@@ -295,9 +294,6 @@ XMLInputStream_create (const char* content, int isFile, const char *library)
 }
 
 
-/**
- * 
- **/
 LIBLAX_EXTERN
 void
 XMLInputStream_free (XMLInputStream_t *stream)
@@ -307,9 +303,6 @@ XMLInputStream_free (XMLInputStream_t *stream)
 }  
 
 
-/**
- * 
- **/
 LIBLAX_EXTERN
 const char *
 XMLInputStream_getEncoding (XMLInputStream_t *stream)
@@ -319,9 +312,6 @@ XMLInputStream_getEncoding (XMLInputStream_t *stream)
 }
 
 
-/**
- * 
- **/
 LIBLAX_EXTERN
 XMLErrorLog_t *
 XMLInputStream_getErrorLog (XMLInputStream_t *stream)
@@ -331,9 +321,6 @@ XMLInputStream_getErrorLog (XMLInputStream_t *stream)
 }
 
 
-/**
- * 
- **/
 LIBLAX_EXTERN
 int
 XMLInputStream_isEOF (XMLInputStream_t *stream)
@@ -343,9 +330,6 @@ XMLInputStream_isEOF (XMLInputStream_t *stream)
 }
 
 
-/**
- * 
- **/
 LIBLAX_EXTERN
 int
 XMLInputStream_isError (XMLInputStream_t *stream)
@@ -355,9 +339,6 @@ XMLInputStream_isError (XMLInputStream_t *stream)
 }
 
 
-/**
- * 
- **/
 LIBLAX_EXTERN
 int
 XMLInputStream_isGood (XMLInputStream_t *stream)
@@ -367,9 +348,6 @@ XMLInputStream_isGood (XMLInputStream_t *stream)
 }
 
 
-/**
- * 
- **/
 LIBLAX_EXTERN
 XMLToken_t *
 XMLInputStream_next (XMLInputStream_t *stream)
@@ -379,9 +357,6 @@ XMLInputStream_next (XMLInputStream_t *stream)
 }
 
 
-/**
- * 
- **/
 LIBLAX_EXTERN
 const XMLToken_t *
 XMLInputStream_peek (XMLInputStream_t *stream)
@@ -391,9 +366,6 @@ XMLInputStream_peek (XMLInputStream_t *stream)
 }
 
 
-/**
- * 
- **/
 LIBLAX_EXTERN
 void
 XMLInputStream_skipPastEnd (XMLInputStream_t *stream,
@@ -404,9 +376,6 @@ XMLInputStream_skipPastEnd (XMLInputStream_t *stream,
 }
 
 
-/**
- * 
- **/
 LIBLAX_EXTERN
 void
 XMLInputStream_skipText (XMLInputStream_t *stream)
@@ -416,9 +385,6 @@ XMLInputStream_skipText (XMLInputStream_t *stream)
 }
 
 
-/**
- * 
- **/
 LIBLAX_EXTERN
 int
 XMLInputStream_setErrorLog (XMLInputStream_t *stream, XMLErrorLog_t *log)

@@ -608,16 +608,25 @@ LIBSBML_CPP_NAMESPACE_END
 LIBSBML_CPP_NAMESPACE_BEGIN
 BEGIN_C_DECLS
 
-
-
-/*
-LIBSBML_EXTERN
-CompartmentType_t *
-CompartmentType_createWithLevelVersionAndNamespaces (unsigned int level,
-              unsigned int version, XMLNamespaces_t *xmlns);
-*/
-
 /**
+ * Creates a new CompartmentType_t structure using the given SBML @p level
+ * and @p version values.
+ *
+ * @param level an unsigned int, the SBML Level to assign to this
+ * CompartmentType
+ *
+ * @param version an unsigned int, the SBML Version to assign to this
+ * CompartmentType
+ *
+ * @return a pointer to the newly created CompartmentType_t structure.
+ *
+ * @note Once a CompartmentType has been added to an SBMLDocument, the @p
+ * level and @p version for the document @em override those used to create
+ * the CompartmentType.  Despite this, the ability to supply the values at
+ * creation time is an important aid to creating valid SBML.  Knowledge of
+ * the intended SBML Level and Version  determine whether it is valid to
+ * assign a particular value to an attribute, or whether it is valid to add
+ * an object to an existing SBMLDocument.
  *
  * @memberof CompartmentType_t
  */
@@ -626,66 +635,219 @@ CompartmentType_t *
 CompartmentType_create (unsigned int level, unsigned int version);
 
 
+/**
+ * Creates a new CompartmentType_t structure using the given
+ * SBMLNamespaces_t structure.
+ *
+ * @param sbmlns SBMLNamespaces, a pointer to an SBMLNamespaces structure
+ * to assign to this CompartmentType
+ *
+ * @return a pointer to the newly created CompartmentType_t structure.
+ *
+ * @note Once a CompartmentType has been added to an SBMLDocument, the
+ * @p sbmlns namespaces for the document @em override those used to create
+ * the CompartmentType.  Despite this, the ability to supply the values at 
+ * creation time is an important aid to creating valid SBML.  Knowledge of the 
+ * intended SBML Level and Version determine whether it is valid to assign a 
+ * particular value to an attribute, or whether it is valid to add an object 
+ * to an existing SBMLDocument.
+ *
+ * @memberof CompartmentType_t
+ */
 LIBSBML_EXTERN
 CompartmentType_t *
 CompartmentType_createWithNS (SBMLNamespaces_t *sbmlns);
 
 
+/**
+ * Frees the given CompartmentType_t structure.
+ *
+ * @param ct the CompartmentType_t structure to be freed.
+ *
+ * @memberof CompartmentType_t
+ */
 LIBSBML_EXTERN
 void
 CompartmentType_free (CompartmentType_t *ct);
 
 
+/**
+ * Creates a deep copy of the given CompartmentType_t structure
+ * 
+ * @param ct the CompartmentType_t structure to be copied
+ * 
+ * @return a (deep) copy of this CompartmentType_t structure.
+ *
+ * @memberof CompartmentType_t
+ */
 LIBSBML_EXTERN
 CompartmentType_t *
 CompartmentType_clone (const CompartmentType_t *ct);
 
 
+/**
+ * Returns a list of XMLNamespaces_t associated with this CompartmentType_t
+ * structure.
+ *
+ * @param ct the CompartmentType_t structure
+ * 
+ * @return pointer to the XMLNamespaces_t structure associated with 
+ * this SBML object
+ *
+ * @memberof CompartmentType_t
+ */
 LIBSBML_EXTERN
 const XMLNamespaces_t *
-CompartmentType_getNamespaces(CompartmentType_t *c);
+CompartmentType_getNamespaces(CompartmentType_t *ct);
 
 
+/**
+ * Takes a CompartmentType_t structure and returns its identifier.
+ *
+ * @param ct the CompartmentType_t structure whose identifier is sought
+ * 
+ * @return the identifier of this CompartmentType_t, as a pointer to a string.
+ *
+ * @memberof CompartmentType_t
+ */
 LIBSBML_EXTERN
 const char *
 CompartmentType_getId (const CompartmentType_t *ct);
 
 
+/**
+ * Takes a CompartmentType_t structure and returns its name.
+ *
+ * @param ct the CompartmentType_t whose name is sought.
+ *
+ * @return the name of this CompartmentType_t, as a pointer to a string.
+ *
+ * @memberof CompartmentType_t
+ */
 LIBSBML_EXTERN
 const char *
 CompartmentType_getName (const CompartmentType_t *ct);
 
 
+/**
+ * Predicate returning @c true or @c false depending on whether the given
+ * CompartmentType_t structure's identifier is set.
+ *
+ * @param ct the CompartmentType_t structure to query
+ * 
+ * @return @c non-zero (true) if the "id" field of the given
+ * CompartmentType is set, zero (false) otherwise.
+ *
+ * @memberof CompartmentType_t
+ */
 LIBSBML_EXTERN
 int
 CompartmentType_isSetId (const CompartmentType_t *ct);
 
 
+/**
+ * Predicate returning @c true or @c false depending on whether the given
+ * CompartmentType_t structure's name is set.
+ *
+ * @param ct the CompartmentType_t structure to query
+ * 
+ * @return @c non-zero (true) if the "name" field of the given
+ * CompartmentType is set, zero (false) otherwise.
+ *
+ * @memberof CompartmentType_t
+ */
 LIBSBML_EXTERN
 int
 CompartmentType_isSetName (const CompartmentType_t *ct);
 
 
+/**
+ * Assigns the identifier of a CompartmentType_t structure.
+ *
+ * This makes a copy of the string passed as the argument @p sid.
+ *
+ * @param ct the CompartmentType_t structure to set.
+ * @param sid the string to use as the identifier.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+ *
+ * @note Using this function with an id of NULL is equivalent to
+ * unsetting the "id" attribute.
+ *
+ * @memberof CompartmentType_t
+ */
 LIBSBML_EXTERN
 int
 CompartmentType_setId (CompartmentType_t *ct, const char *sid);
 
 
+/**
+ * Assign the name of a CompartmentType_t structure.
+ *
+ * This makes a copy of the string passed as the argument @p name.
+ *
+ * @param ct the CompartmentType_t structure to set.
+ * @param name the string to use as the name.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+ *
+ * @note Using this function with the name set to NULL is equivalent to
+ * unsetting the "name" attribute.
+ *
+ * @memberof CompartmentType_t
+ */
 LIBSBML_EXTERN
 int
 CompartmentType_setName (CompartmentType_t *ct, const char *name);
 
 
+/**
+ * Unsets the name of a CompartmentType.
+ * 
+ * @param ct the CompartmentType_t structure whose name is to be unset.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_OPERATION_FAILED
+ *
+ * @memberof CompartmentType_t
+ */
 LIBSBML_EXTERN
 int
 CompartmentType_unsetName (CompartmentType_t *ct);
 
 
+/**
+ * @return item in this ListOfCompartmentType with the given @p id or @c NULL if no such
+ * item exists.
+ *
+ * @memberof ListOfCompartmentTypes_t
+ */
 LIBSBML_EXTERN
 CompartmentType_t *
 ListOfCompartmentTypes_getById (ListOf_t *lo, const char *sid);
 
 
+/**
+ * Removes item in this ListOf items with the given @p id or @c NULL if no such
+ * item exists.  The caller owns the returned item and is responsible for
+ * deleting it.
+ *
+ * @memberof ListOfCompartmentTypes_t
+ */
 LIBSBML_EXTERN
 CompartmentType_t *
 ListOfCompartmentTypes_removeById (ListOf_t *lo, const char *sid);

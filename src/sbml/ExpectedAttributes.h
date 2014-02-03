@@ -87,6 +87,7 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 BEGIN_C_DECLS
 
 
+/** @cond doxygenLibsbmlInternal */
 LIBSBML_EXTERN 
 ExpectedAttributes_t *
 ExpectedAttributes_create();
@@ -106,6 +107,7 @@ ExpectedAttributes_get(ExpectedAttributes_t *attr, unsigned int index);
 LIBSBML_EXTERN 
 int
 ExpectedAttributes_hasAttribute(ExpectedAttributes_t *attr, const char* attribute);
+/** @endcond */
 
 END_C_DECLS
 LIBSBML_CPP_NAMESPACE_END

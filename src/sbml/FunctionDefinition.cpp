@@ -1012,26 +1012,6 @@ ListOfFunctionDefinitions::createObject (XMLInputStream& stream)
 #endif /* __cplusplus */
 /** @cond doxygenCOnly */
 
-/**
- * Creates a new FunctionDefinition_t structure using the given SBML @p level
- * and @p version values.
- *
- * @param level an unsigned int, the SBML Level to assign to this
- * FunctionDefinition
- *
- * @param version an unsigned int, the SBML Version to assign to this
- * FunctionDefinition
- *
- * @return a pointer to the newly created FunctionDefinition_t structure.
- *
- * @note Once a FunctionDefinition has been added to an SBMLDocument, the @p
- * level and @p version for the document @em override those used to create
- * the FunctionDefinition.  Despite this, the ability to supply the values at
- * creation time is an important aid to creating valid SBML.  Knowledge of
- * the intended SBML Level and Version  determine whether it is valid to
- * assign a particular value to an attribute, or whether it is valid to add
- * an object to an existing SBMLDocument.
- */
 LIBSBML_EXTERN
 FunctionDefinition_t *
 FunctionDefinition_create (unsigned int level, unsigned int version)
@@ -1048,23 +1028,6 @@ FunctionDefinition_create (unsigned int level, unsigned int version)
 }
 
 
-/**
- * Creates a new FunctionDefinition_t structure using the given
- * SBMLNamespaces_t structure.
- *
- * @param sbmlns SBMLNamespaces, a pointer to an SBMLNamespaces structure
- * to assign to this FunctionDefinition
- *
- * @return a pointer to the newly created FunctionDefinition_t structure.
- *
- * @note Once a FunctionDefinition has been added to an SBMLDocument, the
- * @p sbmlns namespaces for the document @em override those used to create
- * the FunctionDefinition.  Despite this, the ability to supply the values at 
- * creation time is an important aid to creating valid SBML.  Knowledge of the 
- * intended SBML Level and Version determine whether it is valid to assign a 
- * particular value to an attribute, or whether it is valid to add an object to 
- * an existing SBMLDocument.
- */
 LIBSBML_EXTERN
 FunctionDefinition_t *
 FunctionDefinition_createWithNS (SBMLNamespaces_t* sbmlns)
@@ -1081,11 +1044,6 @@ FunctionDefinition_createWithNS (SBMLNamespaces_t* sbmlns)
 }
 
 
-/**
- * Frees the given FunctionDefinition.
- *
- * @param fd the FunctionDefinition_t structure
- */
 LIBSBML_EXTERN
 void
 FunctionDefinition_free (FunctionDefinition_t *fd)
@@ -1095,13 +1053,6 @@ FunctionDefinition_free (FunctionDefinition_t *fd)
 }
 
 
-/**
- * Creates a deep copy of the given FunctionDefinition_t structure
- * 
- * @param fd the FunctionDefinition_t structure to be copied
- * 
- * @return a (deep) copy of the given FunctionDefinition_t structure.
- */
 LIBSBML_EXTERN
 FunctionDefinition_t *
 FunctionDefinition_clone (const FunctionDefinition_t* fd)
@@ -1110,15 +1061,6 @@ FunctionDefinition_clone (const FunctionDefinition_t* fd)
 }
 
 
-/**
- * Returns a list of XMLNamespaces_t associated with this FunctionDefinition_t
- * structure.
- *
- * @param fd the FunctionDefinition_t structure
- * 
- * @return pointer to the XMLNamespaces_t structure associated with 
- * this SBML object
- */
 LIBSBML_EXTERN
 const XMLNamespaces_t *
 FunctionDefinition_getNamespaces(FunctionDefinition_t *fd)
@@ -1127,14 +1069,6 @@ FunctionDefinition_getNamespaces(FunctionDefinition_t *fd)
 }
 
 
-/**
- * Get the identifier of the given FunctionDefinition_t structure.
- *
- * @param fd the FunctionDefinition_t structure
- * 
- * @return the value of the "id" attribute of this FunctionDefinition_t
- * structure.
- */
 LIBSBML_EXTERN
 const char *
 FunctionDefinition_getId (const FunctionDefinition_t *fd)
@@ -1143,13 +1077,6 @@ FunctionDefinition_getId (const FunctionDefinition_t *fd)
 }
 
 
-/**
- * Get the name of the given FunctionDefinition_t structure.
- *
- * @param fd the FunctionDefinition_t structure
- *
- * @return the name of this FunctionDefinition_t structure.
- */
 LIBSBML_EXTERN
 const char *
 FunctionDefinition_getName (const FunctionDefinition_t *fd)
@@ -1158,14 +1085,6 @@ FunctionDefinition_getName (const FunctionDefinition_t *fd)
 }
 
 
-/**
- * Get the mathematical formula implemented by the given function.
- *
- * @param fd the FunctionDefinition_t structure
- * 
- * @return an ASTNode_t tree representing the mathematical formula of this
- * FunctionDefinition_t structure.
- */
 LIBSBML_EXTERN
 const ASTNode_t *
 FunctionDefinition_getMath (const FunctionDefinition_t *fd)
@@ -1174,15 +1093,6 @@ FunctionDefinition_getMath (const FunctionDefinition_t *fd)
 }
 
 
-/**
- * Predicate returning @c true or @c false depending on whether the given
- * Compartment_t structure's "id" attribute is set.
- *
- * @param fd the FunctionDefinition_t structure
- *
- * @return nonzero if the "id" attribute of the FunctionDefinition_t
- * structure is set, zero (0) otherwise.
- */
 LIBSBML_EXTERN
 int
 FunctionDefinition_isSetId (const FunctionDefinition_t *fd)
@@ -1191,15 +1101,6 @@ FunctionDefinition_isSetId (const FunctionDefinition_t *fd)
 }
 
 
-/**
- * Predicate returning @c true or @c false depending on whether the given
- * Compartment_t structure's "name" attribute is set.
- *
- * @param fd the FunctionDefinition_t structure
- *
- * @return nonzero if the "name" attribute of the FunctionDefinition_t
- * structure is set, zero (0) otherwise.
- */
 LIBSBML_EXTERN
 int
 FunctionDefinition_isSetName (const FunctionDefinition_t *fd)
@@ -1208,15 +1109,6 @@ FunctionDefinition_isSetName (const FunctionDefinition_t *fd)
 }
 
 
-/**
- * Predicate returning @c true or @c false depending on whether the given
- * Compartment_t structure's "math" subelement is set.
- *
- * @param fd the FunctionDefinition_t structure
- *
- * @return nonzero if the mathematical expression of this
- * FunctionDefinition is set, zero (0) otherwise.
- */
 LIBSBML_EXTERN
 int
 FunctionDefinition_isSetMath (const FunctionDefinition_t *fd)
@@ -1225,23 +1117,6 @@ FunctionDefinition_isSetMath (const FunctionDefinition_t *fd)
 }
 
 
-/**
- * Sets the value of the "id" attribute of a FunctionDefinition_t structure.
- *
- * @param fd the FunctionDefinition_t structure to set.
- *
- * @param sid the identifier to assign to the "id" attribute of @p fd
- *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif@~ The possible values
- * returned by this function are:
- * @li LIBSBML_OPERATION_SUCCESS
- * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
- *
- * @note Using this function with an id of NULL is equivalent to
- * unsetting the "id" attribute.
- */
 LIBSBML_EXTERN
 int
 FunctionDefinition_setId (FunctionDefinition_t *fd, const char *sid)
@@ -1253,23 +1128,6 @@ FunctionDefinition_setId (FunctionDefinition_t *fd, const char *sid)
 }
 
 
-/**
- * Sets the value of the "name" attribute of a FunctionDefinition_t structure.
- *
- * @param fd the FunctionDefinition_t structure to set.
- *
- * @param name the identifier to assign to the "name" attribute of @p fd
- *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif@~ The possible values
- * returned by this function are:
- * @li LIBSBML_OPERATION_SUCCESS
- * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
- *
- * @note Using this function with the name set to NULL is equivalent to
- * unsetting the "name" attribute.
- */
 LIBSBML_EXTERN
 int
 FunctionDefinition_setName (FunctionDefinition_t *fd, const char *name)
@@ -1281,23 +1139,6 @@ FunctionDefinition_setName (FunctionDefinition_t *fd, const char *name)
 }
 
 
-/**
- * Sets the "math" subelement of a given FunctionDefinition_t structure.
- *
- * The ASTNode_t structure given in @p math is copied.
- *
- * @param fd the FunctionDefinition_t structure to set.
- *
- * @param math the ASTNode_t structure to copy and assign to the "math"
- * subelement of the given FunctionDefinition_t structure
- *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif@~ The possible values
- * returned by this function are:
- * @li LIBSBML_OPERATION_SUCCESS
- * @li LIBSBML_INVALID_OBJECT
- */
 LIBSBML_EXTERN
 int
 FunctionDefinition_setMath (FunctionDefinition_t *fd, const ASTNode_t *math)
@@ -1309,18 +1150,6 @@ FunctionDefinition_setMath (FunctionDefinition_t *fd, const ASTNode_t *math)
 }
 
 
-/**
- * Unsets the "name" attribute of the given FunctionDefinition_t structure.
- * 
- * @param fd the FunctionDefinition_t structure
- *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif@~ The possible values
- * returned by this function are:
- * @li LIBSBML_OPERATION_SUCCESS
- * @li LIBSBML_OPERATION_FAILED
- */
 LIBSBML_EXTERN
 int
 FunctionDefinition_unsetName (FunctionDefinition_t *fd)
@@ -1332,16 +1161,6 @@ FunctionDefinition_unsetName (FunctionDefinition_t *fd)
 }
 
 
-/**
- * Get the nth argument (bound variable) to the given FunctionDefinition_t
- * structure.
- * 
- * @param fd the FunctionDefinition_t structure
- *
- * @param n the index of the argument to return
- *
- * @return an ASTNode_t tree structure for the argument.
- */
 LIBSBML_EXTERN
 const ASTNode_t *
 FunctionDefinition_getArgument (const FunctionDefinition_t *fd, unsigned int n)
@@ -1350,16 +1169,6 @@ FunctionDefinition_getArgument (const FunctionDefinition_t *fd, unsigned int n)
 }
 
 
-/**
- * Get the argument named @p name to the given FunctionDefinition_t structure.
- *
- * @param fd the FunctionDefinition_t structure
- *
- * @param name the exact name (case-sensitive) of the sought-after argument
- *
- * @return an ASTNode_t structure representing the argument (bound
- * variable)
- */
 LIBSBML_EXTERN
 const ASTNode_t *
 FunctionDefinition_getArgumentByName ( FunctionDefinition_t *fd,
@@ -1369,15 +1178,6 @@ FunctionDefinition_getArgumentByName ( FunctionDefinition_t *fd,
 }
 
 
-/**
- * Get the mathematical expression that constitutes the body of the given
- * function definition.
- *
- * @param fd the FunctionDefinition_t structure
- * 
- * @return an ASTNode_t tree that is the "math" subelement" of this
- * FunctionDefinition_t structure
- */
 LIBSBML_EXTERN
 const ASTNode_t *
 FunctionDefinition_getBody (const FunctionDefinition_t *fd)
@@ -1386,15 +1186,6 @@ FunctionDefinition_getBody (const FunctionDefinition_t *fd)
 }
 
 
-/**
- * Predicate returning @c true or @c false depending on whether the given
- * FunctionDefinition_t structure's "math" subelement has a body.
- *
- * @param fd the FunctionDefinition_t structure
- *
- * @return nonzero if the body of this
- * FunctionDefinition is set, zero (0) otherwise.
- */
 LIBSBML_EXTERN
 int
 FunctionDefinition_isSetBody (const FunctionDefinition_t *fd)
@@ -1403,16 +1194,6 @@ FunctionDefinition_isSetBody (const FunctionDefinition_t *fd)
 }
 
 
-
-
-/**
- * Get the number of arguments that the given function definition takes.
- *
- * @param fd the FunctionDefinition_t structure
- * 
- * @return the number of arguments (bound variables) that must be passed
- * to this FunctionDefinition_t structure.
- */
 LIBSBML_EXTERN
 unsigned int
 FunctionDefinition_getNumArguments (const FunctionDefinition_t *fd)
@@ -1422,10 +1203,6 @@ FunctionDefinition_getNumArguments (const FunctionDefinition_t *fd)
 
 
 
-/**
- * @return item in this ListOfFunctionDefinition with the given @p id or @c NULL if no such
- * item exists.
- */
 LIBSBML_EXTERN
 FunctionDefinition_t *
 ListOfFunctionDefinitions_getById (ListOf_t *lo, const char *sid)
@@ -1438,11 +1215,6 @@ ListOfFunctionDefinitions_getById (ListOf_t *lo, const char *sid)
 }
 
 
-/**
- * Removes item in this ListOf items with the given @p id or @c NULL if no such
- * item exists.  The caller owns the returned item and is responsible for
- * deleting it.
- */
 LIBSBML_EXTERN
 FunctionDefinition_t *
 ListOfFunctionDefinitions_removeById (ListOf_t *lo, const char *sid)

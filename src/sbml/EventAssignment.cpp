@@ -975,26 +975,6 @@ ListOfEventAssignments::createObject (XMLInputStream& stream)
 /** @cond doxygenCOnly */
 
 
-/**
- * Creates a new EventAssignment_t structure using the given SBML @p level
- * and @p version values.
- *
- * @param level an unsigned int, the SBML Level to assign to this
- * EventAssignment
- *
- * @param version an unsigned int, the SBML Version to assign to this
- * EventAssignment
- *
- * @return a pointer to the newly created EventAssignment_t structure.
- *
- * @note Once a EventAssignment has been added to an SBMLDocument, the @p
- * level and @p version for the document @em override those used to create
- * the EventAssignment.  Despite this, the ability to supply the values at
- * creation time is an important aid to creating valid SBML.  Knowledge of
- * the intended SBML Level and Version  determine whether it is valid to
- * assign a particular value to an attribute, or whether it is valid to add
- * an object to an existing SBMLDocument.
- */
 LIBSBML_EXTERN
 EventAssignment_t *
 EventAssignment_create (unsigned int level, unsigned int version)
@@ -1011,23 +991,6 @@ EventAssignment_create (unsigned int level, unsigned int version)
 }
 
 
-/**
- * Creates a new EventAssignment_t structure using the given
- * SBMLNamespaces_t structure.
- *
- * @param sbmlns SBMLNamespaces, a pointer to an SBMLNamespaces structure
- * to assign to this EventAssignment
- *
- * @return a pointer to the newly created EventAssignment_t structure.
- *
- * @note Once a EventAssignment has been added to an SBMLDocument, the
- * @p sbmlns namespaces for the document @em override those used to create
- * the EventAssignment.  Despite this, the ability to supply the values at 
- * creation time is an important aid to creating valid SBML.  Knowledge of the 
- * intended SBML Level and Version determine whether it is valid to assign a 
- * particular value to an attribute, or whether it is valid to add an object to 
- * an existing SBMLDocument.
- */
 LIBSBML_EXTERN
 EventAssignment_t *
 EventAssignment_createWithNS (SBMLNamespaces_t* sbmlns)
@@ -1044,11 +1007,6 @@ EventAssignment_createWithNS (SBMLNamespaces_t* sbmlns)
 }
 
 
-/**
- * Frees the given EventAssignment_t structure.
- *
- * @param ea the EventAssignment_t to be freed.
- */
 LIBSBML_EXTERN
 void
 EventAssignment_free (EventAssignment_t *ea)
@@ -1058,13 +1016,6 @@ EventAssignment_free (EventAssignment_t *ea)
 }
 
 
-/**
- * Creates a (deep) copy of the given EventAssignment_t structure.
- *
- * @param ea the EventAssignment_t to be copied
- * 
- * @return a (deep) copy of @p ea.
- */
 LIBSBML_EXTERN
 EventAssignment_t *
 EventAssignment_clone (const EventAssignment_t *ea)
@@ -1073,15 +1024,6 @@ EventAssignment_clone (const EventAssignment_t *ea)
 }
 
 
-/**
- * Returns a list of XMLNamespaces_t associated with this EventAssignment_t
- * structure.
- *
- * @param ea the EventAssignment_t structure
- * 
- * @return pointer to the XMLNamespaces_t structure associated with 
- * this SBML object
- */
 LIBSBML_EXTERN
 const XMLNamespaces_t *
 EventAssignment_getNamespaces(EventAssignment_t *ea)
@@ -1090,14 +1032,6 @@ EventAssignment_getNamespaces(EventAssignment_t *ea)
 }
 
 
-/**
- * Gets the value of the "variable" attribute of this EventAssignment_t
- * structure.
- *
- * @param ea the EventAssignment_t structure to query.
- *
- * @return the identifier stored in the "variable" attribute of @p ea.
- */
 LIBSBML_EXTERN
 const char *
 EventAssignment_getVariable (const EventAssignment_t *ea)
@@ -1106,14 +1040,6 @@ EventAssignment_getVariable (const EventAssignment_t *ea)
 }
 
 
-/**
- * Gets the mathematical formula stored in the given EventAssignment_t
- * structure.
- *
- * @param ea the EventAssignment_t structure to query.
- *
- * @return the ASTNode tree stored in @p ea.
- */
 LIBSBML_EXTERN
 const ASTNode_t *
 EventAssignment_getMath (const EventAssignment_t *ea)
@@ -1122,15 +1048,6 @@ EventAssignment_getMath (const EventAssignment_t *ea)
 }
 
 
-/**
- * Predicate for testing whether the attribute "variable" of the
- * given EventAssignment_t structure is set.
- *
- * @param ea the EventAssignment_t structure to query.
- * 
- * @return nonzero (for true) if the "variable" attribute of @p ea
- * is set, zero (0) otherwise.
- */
 LIBSBML_EXTERN
 int
 EventAssignment_isSetVariable (const EventAssignment_t *ea)
@@ -1139,15 +1056,6 @@ EventAssignment_isSetVariable (const EventAssignment_t *ea)
 }
 
 
-/**
- * Predicate for testing whether the attribute "variable" of the
- * given EventAssignment_t structure is set.
- *
- * @param ea the EventAssignment_t structure to query.
- * 
- * @return nonzero (for true) if the "variable" attribute of @p ea
- * is set, zero (0) otherwise.
- */
 LIBSBML_EXTERN
 int
 EventAssignment_isSetMath (const EventAssignment_t *ea)
@@ -1156,24 +1064,6 @@ EventAssignment_isSetMath (const EventAssignment_t *ea)
 }
 
 
-/**
- * Sets the attribute "variable" of the given EventAssignment_t structure
- * to a copy of the given identifier string.
- *
- * @param ea the EventAssignment_t to set.
- * @param sid the identifier of a Compartment, Species or (global)
- * Parameter defined in this model.
- *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif@~ The possible values
- * returned by this function are:
- * @li LIBSBML_OPERATION_SUCCESS
- * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
- *
- * @note Using this function with an id of NULL is equivalent to
- * unsetting the "variable" attribute.
- */
 LIBSBML_EXTERN
 int
 EventAssignment_setVariable (EventAssignment_t *ea, const char *sid)
@@ -1185,22 +1075,6 @@ EventAssignment_setVariable (EventAssignment_t *ea, const char *sid)
 }
 
 
-/**
- * Sets the "math" subelement content of the given EventAssignment_t
- * structure to the given ASTNode.
- *
- * The given @p math ASTNode is copied.
- *
- * @param ea the EventAssignment_t to set.
- * @param math the ASTNode to copy into @p ea
- *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif@~ The possible values
- * returned by this function are:
- * @li LIBSBML_OPERATION_SUCCESS
- * @li LIBSBML_INVALID_OBJECT
- */
 LIBSBML_EXTERN
 int
 EventAssignment_setMath (EventAssignment_t *ea, const ASTNode_t *math)
@@ -1211,26 +1085,6 @@ EventAssignment_setMath (EventAssignment_t *ea, const ASTNode_t *math)
     return LIBSBML_INVALID_OBJECT;
 }
 
-/**
-  * Calculates and returns a UnitDefinition_t that expresses the units
-  * returned by the math expression of this EventAssignment_t.
-  *
-  * @return a UnitDefinition_t that expresses the units of the math 
-  * expression of this EventAssignment_t.
-  *
-  * Note that the functionality that facilitates unit analysis depends 
-  * on the model as a whole.  Thus, in cases where the object has not 
-  * been added to a model or the model itself is incomplete,
-  * unit analysis is not possible and this method will return @c NULL.
-  *
-  * @note The units are calculated by applying the mathematics 
-  * from the expression to the units of the &lt;ci&gt; elements used 
-  * within the expression. Where there are parameters/numbers
-  * with undeclared units the UnitDefinition_t returned by this
-  * function may not accurately represent the units of the expression.
-  *
-  * @see EventAssignment_containsUndeclaredUnits()
-  */
 LIBSBML_EXTERN
 UnitDefinition_t * 
 EventAssignment_getDerivedUnitDefinition(EventAssignment_t *ea)
@@ -1239,21 +1093,6 @@ EventAssignment_getDerivedUnitDefinition(EventAssignment_t *ea)
 }
 
 
-/**
-  * Predicate returning @c true or @c false depending on whether 
-  * the math expression of this EventAssignment_t contains
-  * parameters/numbers with undeclared units.
-  * 
-  * @return @c true if the math expression of this EventAssignment_t
-  * includes parameters/numbers 
-  * with undeclared units, @c false otherwise.
-  *
-  * @note a return value of @c true indicates that the UnitDefinition_t
-  * returned by the getDerivedUnitDefinition function may not 
-  * accurately represent the units of the expression.
-  *
-  * @see EventAssignment_getDerivedUnitDefinition()
-  */
 LIBSBML_EXTERN
 int 
 EventAssignment_containsUndeclaredUnits(EventAssignment_t *ea)
@@ -1262,10 +1101,6 @@ EventAssignment_containsUndeclaredUnits(EventAssignment_t *ea)
 }
 
 
-/**
- * @return item in this ListOfEventAssignment with the given @p id or @c NULL if no such
- * item exists.
- */
 LIBSBML_EXTERN
 EventAssignment_t *
 ListOfEventAssignments_getById (ListOf_t *lo, const char *sid)
@@ -1278,11 +1113,6 @@ ListOfEventAssignments_getById (ListOf_t *lo, const char *sid)
 }
 
 
-/**
- * Removes item in this ListOf items with the given @p id or @c NULL if no such
- * item exists.  The caller owns the returned item and is responsible for
- * deleting it.
- */
 LIBSBML_EXTERN
 EventAssignment_t *
 ListOfEventAssignments_removeById (ListOf_t *lo, const char *sid)

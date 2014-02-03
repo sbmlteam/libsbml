@@ -470,9 +470,6 @@ operator<< (XMLOutputStream& stream, const XMLNamespaces& namespaces)
 #endif /* __cplusplus */
 /** @cond doxygenCOnly */
 
-/**
- * Creates a new empty XMLNamespaces_t structure.
- */
 LIBLAX_EXTERN
 XMLNamespaces_t *
 XMLNamespaces_create (void)
@@ -481,11 +478,6 @@ XMLNamespaces_create (void)
 }
 
 
-/**
- * Frees the given XMLNamespaces_t structure.
- *
- * @param ns XMLNamespaces structure to be freed.
- **/
 LIBLAX_EXTERN
 void
 XMLNamespaces_free (XMLNamespaces_t *ns)
@@ -495,13 +487,6 @@ XMLNamespaces_free (XMLNamespaces_t *ns)
 }
 
 
-/**
- * Creates a deep copy of the given XMLNamespaces_t structure
- * 
- * @param ns the XMLNamespaces_t structure to be copied
- * 
- * @return a (deep) copy of the given XMLNamespaces_t structure.
- */
 LIBLAX_EXTERN
 XMLNamespaces_t *
 XMLNamespaces_clone (const XMLNamespaces_t* ns)
@@ -511,22 +496,6 @@ XMLNamespaces_clone (const XMLNamespaces_t* ns)
 }
 
 
-/**
- * Appends an XML namespace prefix/URI pair to this XMLNamespaces_t 
- * structure.
- *
- * @param ns the XMLNamespaces structure.
- * @param uri a string, the uri for the namespace.
- * @param prefix a string, the prefix for the namespace.
- *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif@~ The possible values
- * returned by this function are:
- * @li LIBSBML_OPERATION_SUCCESS
- * @li LIBSBML_INVALID_OBJECT
- * @li LIBSBML_OPERATION_FAILED
- */
 LIBLAX_EXTERN
 int
 XMLNamespaces_add (XMLNamespaces_t *ns, 
@@ -537,20 +506,6 @@ XMLNamespaces_add (XMLNamespaces_t *ns,
 }
 
 
-/**
- * Removes an XML Namespace stored in the given position of this list.
- *
- * @param ns XMLNamespaces structure.
- * @param index an integer, position of the removed namespace.
- *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif@~ The possible values
- * returned by this function are:
- * @li LIBSBML_OPERATION_SUCCESS
- * @li LIBSBML_INDEX_EXCEEDS_SIZE
- * @li LIBSBML_INVALID_OBJECT
- */
 LIBLAX_EXTERN
 int XMLNamespaces_remove (XMLNamespaces_t *ns, int index)
 {
@@ -559,20 +514,6 @@ int XMLNamespaces_remove (XMLNamespaces_t *ns, int index)
 }
 
 
-/**
- * Removes an XML Namespace with the given Prefix.
- *
- * @param ns XMLNamespaces structure.
- * @param prefix a string, prefix of the required namespace.
- *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif@~ The possible values
- * returned by this function are:
- * @li LIBSBML_OPERATION_SUCCESS
- * @li LIBSBML_INDEX_EXCEEDS_SIZE
- * @li LIBSBML_INVALID_OBJECT
- */
 LIBLAX_EXTERN
 int XMLNamespaces_removeByPrefix (XMLNamespaces_t *ns, const char* prefix)
 {
@@ -582,18 +523,6 @@ int XMLNamespaces_removeByPrefix (XMLNamespaces_t *ns, const char* prefix)
 
 
 
-/**
- * Clears this XMLNamespaces_t structure.
- *
- * @param ns XMLNamespaces structure.
- *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif@~ The possible values
- * returned by this function are:
- * @li LIBSBML_OPERATION_SUCCESS
- * @li LIBSBML_OPERATION_FAILED
- **/
 LIBLAX_EXTERN
 int
 XMLNamespaces_clear (XMLNamespaces_t *ns)
@@ -603,14 +532,6 @@ XMLNamespaces_clear (XMLNamespaces_t *ns)
 }
 
 
-/**
- * Lookup the index of an XML namespace declaration by URI.
- *
- * @param ns the XMLNamespaces_t structure
- * @param uri a string, uri of the required namespace.
- *
- * @return the index of the given declaration, or -1 if not present.
- */
 LIBLAX_EXTERN
 int
 XMLNamespaces_getIndex (const XMLNamespaces_t *ns, const char *uri)
@@ -620,14 +541,6 @@ XMLNamespaces_getIndex (const XMLNamespaces_t *ns, const char *uri)
 }
 
 
-/**
- * Look up the index of an XML namespace declaration by Prefix.
- *
- * @param ns the XMLNamespaces_t structure
- * @param prefix a string, prefix of the required namespace.
- *
- * @return the index of the given declaration, or -1 if not present.
- */
 LIBLAX_EXTERN
 int XMLNamespaces_getIndexByPrefix (const XMLNamespaces_t *ns, const char* prefix)
 {
@@ -636,9 +549,6 @@ int XMLNamespaces_getIndexByPrefix (const XMLNamespaces_t *ns, const char* prefi
 }
 
 
-/**
- * 
- **/
 LIBLAX_EXTERN
 int
 XMLNamespaces_getLength (const XMLNamespaces_t *ns)
@@ -648,9 +558,6 @@ XMLNamespaces_getLength (const XMLNamespaces_t *ns)
 }
 
 
-/**
- * 
- **/
 LIBLAX_EXTERN
 int
 XMLNamespaces_getNumNamespaces (const XMLNamespaces_t *ns)
@@ -660,9 +567,6 @@ XMLNamespaces_getNumNamespaces (const XMLNamespaces_t *ns)
 }
 
 
-/**
- * 
- **/
 LIBLAX_EXTERN
 char *
 XMLNamespaces_getPrefix (const XMLNamespaces_t *ns, int index)
@@ -672,9 +576,6 @@ XMLNamespaces_getPrefix (const XMLNamespaces_t *ns, int index)
 }
 
 
-/**
- * 
- **/
 LIBLAX_EXTERN
 char *
 XMLNamespaces_getPrefixByURI (const XMLNamespaces_t *ns, const char *uri)
@@ -683,9 +584,6 @@ XMLNamespaces_getPrefixByURI (const XMLNamespaces_t *ns, const char *uri)
   return ns->getPrefix(uri).empty() ? NULL : safe_strdup(ns->getPrefix(uri).c_str());
 }
 
-/**
- * 
- **/
 LIBLAX_EXTERN
 char *
 XMLNamespaces_getURI (const XMLNamespaces_t *ns, int index)
@@ -694,9 +592,6 @@ XMLNamespaces_getURI (const XMLNamespaces_t *ns, int index)
   return ns->getURI(index).empty() ? NULL : safe_strdup(ns->getURI(index).c_str());
 }
 
-/**
- * 
- **/
 LIBLAX_EXTERN
 char *
 XMLNamespaces_getURIByPrefix (const XMLNamespaces_t *ns, const char *prefix)
@@ -706,12 +601,6 @@ XMLNamespaces_getURIByPrefix (const XMLNamespaces_t *ns, const char *prefix)
 }
 
 
-/**
- * Predicate returning @c true or @c false depending on whether 
- * this XMLNamespaces list is empty.
- * 
- * @return @c true if this XMLNamespaces list is empty, @c false otherwise.
- */
 LIBLAX_EXTERN
 int
 XMLNamespaces_isEmpty (const XMLNamespaces_t *ns)
@@ -721,13 +610,6 @@ XMLNamespaces_isEmpty (const XMLNamespaces_t *ns)
 }
 
 
-/**
- * Predicate returning @c true or @c false depending on whether 
- * an XML Namespace with the given URI is contained in this XMLNamespaces list.
- * 
- * @return @c true if an XML Namespace with the given URI is contained in this 
- * XMLNamespaces list,  @c false otherwise.
- */
 LIBLAX_EXTERN
 int 
 XMLNamespaces_hasURI(const XMLNamespaces_t *ns, const char* uri)
@@ -737,13 +619,6 @@ XMLNamespaces_hasURI(const XMLNamespaces_t *ns, const char* uri)
 }
 
 
-/**
- * Predicate returning @c true or @c false depending on whether 
- * an XML Namespace the given Prefix is contained in this XMLNamespaces list.
- * 
- * @return @c true if an XML Namespace with the given URI is contained in this 
- * XMLNamespaces list, @c false otherwise.
- */
 LIBLAX_EXTERN
 int 
 XMLNamespaces_hasPrefix(const XMLNamespaces_t *ns, const char* prefix)
@@ -753,13 +628,6 @@ XMLNamespaces_hasPrefix(const XMLNamespaces_t *ns, const char* prefix)
 }
 
 
-/**
- * Predicate returning @c true or @c false depending on whether
- * an XML Namespace with the given URI is contained in this XMLNamespaces list.
- *
- * @return @c true if an XML Namespace with the given uri/prefix pair is contained
- * in this XMLNamespaces list,  @c false otherwise.
- */
 LIBLAX_EXTERN
 int 
 XMLNamespaces_hasNS(const XMLNamespaces_t *ns, const char* uri, const char* prefix)

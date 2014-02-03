@@ -251,67 +251,130 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 
 BEGIN_C_DECLS
 
-/* ----------------------------------------------------------------------------
- * See the .cpp file for the documentation of the following functions.
- * --------------------------------------------------------------------------*/
-
-
+/**
+ * Creates a new empty XMLInputStream_t structure and returns a pointer to it.
+ *
+ * @return pointer to created XMLInputStream_t structure.
+ *
+ * @memberof XMLInputStream_t
+ */
 LIBLAX_EXTERN
 XMLInputStream_t *
 XMLInputStream_create (const char* content, int isFile, const char *library);
 
 
+/**
+ * Destroys this XMLInputStream_t structure.
+ *
+ * @param stream XMLInputStream_t structure to be freed.
+ *
+ * @memberof XMLInputStream_t
+ */
 LIBLAX_EXTERN
 void
 XMLInputStream_free (XMLInputStream_t *stream);
 
 
+/**
+ * Returns the encoding of the XML stream.
+ *
+ * @param stream XMLInputStream_t structure to be freed.
+ *
+ * @return the encoding of this XMLInputStream_t, as a pointer to a string.
+ *
+ * @memberof XMLInputStream_t
+ */
 LIBLAX_EXTERN
 const char *
 XMLInputStream_getEncoding (XMLInputStream_t *stream);
 
 
+/**
+ * @param stream XMLInputStream_t structure
+ *
+ * @memberof XMLInputStream_t
+ */
 LIBLAX_EXTERN
 XMLErrorLog_t *
 XMLInputStream_getErrorLog (XMLInputStream_t *stream);
 
 
+/**
+ * @param stream XMLInputStream_t structure
+ *
+ * @memberof XMLInputStream_t
+ */
 LIBLAX_EXTERN
 int
 XMLInputStream_isEOF (XMLInputStream_t *stream);
 
 
+/**
+ * @param stream XMLInputStream_t structure
+ *
+ * @memberof XMLInputStream_t
+ */
 LIBLAX_EXTERN
 int
 XMLInputStream_isError (XMLInputStream_t *stream);
 
 
+/**
+ * @param stream XMLInputStream_t structure
+ *
+ * @memberof XMLInputStream_t
+ */
 LIBLAX_EXTERN
 int
 XMLInputStream_isGood (XMLInputStream_t *stream);
 
 
+/**
+ * @param stream XMLInputStream_t structure
+ *
+ * @memberof XMLInputStream_t
+ */
 LIBLAX_EXTERN
 XMLToken_t *
 XMLInputStream_next (XMLInputStream_t *stream);
 
 
+/**
+ * @param stream XMLInputStream_t structure
+ *
+ * @memberof XMLInputStream_t
+ */
 LIBLAX_EXTERN
 const XMLToken_t *
 XMLInputStream_peek (XMLInputStream_t *stream);
 
 
+/**
+ * @param stream XMLInputStream_t structure
+ *
+ * @memberof XMLInputStream_t
+ */
 LIBLAX_EXTERN
 void
 XMLInputStream_skipPastEnd (XMLInputStream_t *stream,
-			    const XMLToken_t *element);
+                            const XMLToken_t *element);
 
 
+/**
+ * @param stream XMLInputStream_t structure
+ *
+ * @memberof XMLInputStream_t
+ */
 LIBLAX_EXTERN
 void
 XMLInputStream_skipText (XMLInputStream_t *stream);
 
 
+/**
+ * @param stream XMLInputStream_t structure
+ *
+ * @memberof XMLInputStream_t
+ */
 LIBLAX_EXTERN
 int
 XMLInputStream_setErrorLog (XMLInputStream_t *stream, XMLErrorLog_t *log);

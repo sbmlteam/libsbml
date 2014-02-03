@@ -327,9 +327,6 @@ Deletion::accept (SBMLVisitor& v) const
 
 #endif /* __cplusplus */
 /** @cond doxygenCOnly */
-/**
- * 
- */
 LIBSBML_EXTERN
 Deletion_t *
 Deletion_create(unsigned int level, unsigned int version,
@@ -339,9 +336,6 @@ Deletion_create(unsigned int level, unsigned int version,
 }
 
 
-/**
- * 
- */
 LIBSBML_EXTERN
 void
 Deletion_free(Deletion_t * d)
@@ -351,9 +345,6 @@ Deletion_free(Deletion_t * d)
 }
 
 
-/**
- * 
- */
 LIBSBML_EXTERN
 Deletion_t *
 Deletion_clone(Deletion_t * d)
@@ -369,9 +360,6 @@ Deletion_clone(Deletion_t * d)
 }
 
 
-/**
- * 
- */
 LIBSBML_EXTERN
 char *
 Deletion_getId(Deletion_t * d)
@@ -383,9 +371,6 @@ Deletion_getId(Deletion_t * d)
 }
 
 
-/**
- * 
- */
 LIBSBML_EXTERN
 char *
 Deletion_getName(Deletion_t * d)
@@ -397,9 +382,6 @@ Deletion_getName(Deletion_t * d)
 }
 
 
-/**
- * 
- */
 LIBSBML_EXTERN
 int
 Deletion_isSetId(Deletion_t * d)
@@ -419,9 +401,6 @@ Deletion_isSetName(Deletion_t * d)
 }
 
 
-/**
- * 
- */
 LIBSBML_EXTERN
 int
 Deletion_setId(Deletion_t * d, const char * id)
@@ -430,9 +409,6 @@ Deletion_setId(Deletion_t * d, const char * id)
 }
 
 
-/**
- * 
- */
 LIBSBML_EXTERN
 int
 Deletion_setName(Deletion_t * d, const char * name)
@@ -441,9 +417,6 @@ Deletion_setName(Deletion_t * d, const char * name)
 }
 
 
-/**
- * 
- */
 LIBSBML_EXTERN
 int
 Deletion_unsetId(Deletion_t * d)
@@ -452,9 +425,6 @@ Deletion_unsetId(Deletion_t * d)
 }
 
 
-/**
- * 
- */
 LIBSBML_EXTERN
 int
 Deletion_unsetName(Deletion_t * d)
@@ -463,9 +433,6 @@ Deletion_unsetName(Deletion_t * d)
 }
 
 
-/**
- * 
- */
 LIBSBML_EXTERN
 int
 Deletion_hasRequiredAttributes(Deletion_t * d)
@@ -474,9 +441,6 @@ Deletion_hasRequiredAttributes(Deletion_t * d)
 }
 
 
-/**
- * 
- */
 LIBSBML_EXTERN
 Deletion_t *
 ListOfDeletions_getById(ListOf_t * lo, const char * sid)
@@ -488,9 +452,6 @@ ListOfDeletions_getById(ListOf_t * lo, const char * sid)
 }
 
 
-/**
- * 
- */
 LIBSBML_EXTERN
 Deletion_t *
 ListOfDeletions_removeById(ListOf_t * lo, const char * sid)
