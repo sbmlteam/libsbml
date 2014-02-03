@@ -560,7 +560,7 @@ Child nodes are added in left-to-right order.
 @li <code>void @link ASTNode::prependChild(ASTNode* child)
 prependChild(ASTNode* child) @endlink</code> adds the given node as a child
 of this AST node.  This method adds child nodes in right-to-left order.
-@li <code>ASTNode* @link ASTNode::getChild(unsigned int n) getChild(unsigned int n)
+@li <code>ASTNode* @link ASTNode::getChild() getChild(unsigned int n)
  @endlink</code> returns the <code>n</code>th child of this
 AST node or @c NULL if this node has no <code>n</code>th child [i.e., if
 <code>n &gt; (node->getNumChildren() - 1)</code>, where <code>node</code>
