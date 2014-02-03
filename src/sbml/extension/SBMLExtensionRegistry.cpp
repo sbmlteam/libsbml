@@ -47,6 +47,8 @@ using namespace std;
 LIBSBML_CPP_NAMESPACE_BEGIN
 #ifdef __cplusplus
 
+
+/** @cond doxygenLibsbmlInternal */
 SBMLExtensionRegistry* SBMLExtensionRegistry::mInstance = NULL;
 
 bool SBMLExtensionRegistry::registered = false;
@@ -61,6 +63,8 @@ SBMLExtensionRegistry::deleteRegistry()
     registered = false;
   }
 }
+/** @cond doxygenLibsbmlInternal */
+
 
 /*
  *
