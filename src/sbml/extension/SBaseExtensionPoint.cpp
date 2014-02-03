@@ -29,6 +29,7 @@
 #include <sbml/common/common.h>
 #include <sbml/common/operationReturnValues.h>
 #include <sbml/extension/SBaseExtensionPoint.h>
+#include <sbml/SBMLTypeCodes.h>
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 #ifdef __cplusplus
@@ -76,7 +77,6 @@ SBaseExtensionPoint::getTypeCode() const
   return mTypeCode; 
 }
 
-
 bool operator==(const SBaseExtensionPoint& lhs, const SBaseExtensionPoint& rhs) 
 {
   if (&lhs == NULL || &rhs == NULL) return false;
@@ -87,6 +87,14 @@ bool operator==(const SBaseExtensionPoint& lhs, const SBaseExtensionPoint& rhs)
   {
     return true;
   }
+
+  if (   (lhs.getTypeCode()    == SBML_GENERIC_SBASE ) 
+      && (lhs.getPackageName() == "all" ) 
+     )
+  {
+    return true;
+  }
+
   return false;
 }
 
