@@ -56,7 +56,7 @@ static const char* PREAMBLE =
     "'not' must have boolean values. (References: L2V2 Section 3.5.8.)";
 
 
-/**
+/*
  * Creates a new Constraint with the given @p id.
  */
 LogicalArgsMathCheck::LogicalArgsMathCheck (unsigned int id, Validator& v) : MathMLBase(id, v)
@@ -64,7 +64,7 @@ LogicalArgsMathCheck::LogicalArgsMathCheck (unsigned int id, Validator& v) : Mat
 }
 
 
-/**
+/*
  * Destroys this Constraint.
  */
 LogicalArgsMathCheck::~LogicalArgsMathCheck ()
@@ -72,7 +72,7 @@ LogicalArgsMathCheck::~LogicalArgsMathCheck ()
 }
 
 
-/**
+/*
  * @return the preamble to use when logging constraint violations.
  */
 const char*
@@ -82,7 +82,7 @@ LogicalArgsMathCheck::getPreamble ()
 }
 
 
-/**
+/*
   * Checks the MathML of the ASTnode 
   * is appropriate for the function being performed
   *
@@ -118,7 +118,7 @@ LogicalArgsMathCheck::checkMath (const Model& m, const ASTNode& node, const SBas
 }
 
   
-/**
+/*
   * Checks that the arguments to logical operators are all boolean
   *
   * If not, an error message is logged.
@@ -140,7 +140,7 @@ LogicalArgsMathCheck::checkMathFromLogical (const Model& m, const ASTNode& node,
 }
 
 
-/**
+/*
  * @return the error message to use when logging constraint violations.
  * This method is called by logFailure.
  *

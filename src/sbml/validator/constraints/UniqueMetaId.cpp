@@ -45,7 +45,7 @@ static const char* PREAMBLE =
     "3.1.6.)";
 
 
-/**
+/*
  * Creates a new UniqueMetaId with the given constraint id.
  */
 UniqueMetaId::UniqueMetaId (unsigned int id, Validator& v) : TConstraint<Model>(id, v)
@@ -53,7 +53,7 @@ UniqueMetaId::UniqueMetaId (unsigned int id, Validator& v) : TConstraint<Model>(
 }
 
 
-/**
+/*
  * Destroys this Constraint.
  */
 UniqueMetaId::~UniqueMetaId ()
@@ -61,7 +61,7 @@ UniqueMetaId::~UniqueMetaId ()
 }
 
 
-/**
+/*
  * @return the fieldname to use logging constraint violations.  If not
  * overridden, "metaid" is returned.
  */
@@ -72,7 +72,7 @@ UniqueMetaId::getFieldname ()
 }
 
 
-/**
+/*
  * @return the preamble to use when logging constraint violations.  The
  * preamble will be prepended to each log message.  If not overriden,
  * returns an empty string.
@@ -84,7 +84,7 @@ UniqueMetaId::getPreamble ()
 }
 
 
-/**
+/*
  * Checks that all ids for some given subset of the Model adhere to this
  * Constraint.  Override the doCheck() method to define your own subset.
  */
@@ -95,7 +95,7 @@ UniqueMetaId::check_ (const Model& m, const Model& object)
 }
 
 
-/**
+/*
  * @return the typename of the given SBase object.
  */
 const char*
@@ -105,7 +105,7 @@ UniqueMetaId::getTypename (const SBase& object)
 }
 
 
-/**
+/*
  * Logs a message that the given @p id (and its corresponding object) have
  * failed to satisfy this constraint.
  */
@@ -115,7 +115,7 @@ UniqueMetaId::logIdConflict (const std::string& id, const SBase& object)
   logFailure(object, getMessage(id, object));
 }
 
-/**
+/*
  * Resets the state of this GlobalConstraint by clearing its internal
  * list of error messages.
  */
@@ -126,7 +126,7 @@ UniqueMetaId::reset ()
 }
 
 
-/**
+/*
  * Checks that the id associated with the given object is unique.  If it
  * is not, logIdConflict is called.
  */
@@ -145,7 +145,7 @@ UniqueMetaId::doCheckMetaId (const SBase& object)
 }
 
 
-/**
+/*
  * @return the error message to use when logging constraint violations.
  * This method is called by logFailure.
  *
@@ -194,7 +194,7 @@ UniqueMetaId::getMessage (const string& id, const SBase& object)
 
   return msg.str();
 }
-/**
+/*
  * Checks that all ids on the following Model objects are unique:
  * FunctionDefinitions, Species, Compartments, global Parameters,
  * Reactions, and Events.

@@ -57,7 +57,7 @@ static const char* PREAMBLE =
     "Section 3.5.8.)";
 
 
-/**
+/*
  * Creates a new Constraint with the given @p id.
  */
 EqualityArgsMathCheck::EqualityArgsMathCheck (unsigned int id, Validator& v) : MathMLBase(id, v)
@@ -65,7 +65,7 @@ EqualityArgsMathCheck::EqualityArgsMathCheck (unsigned int id, Validator& v) : M
 }
 
 
-/**
+/*
  * Destroys this Constraint.
  */
 EqualityArgsMathCheck::~EqualityArgsMathCheck ()
@@ -73,7 +73,7 @@ EqualityArgsMathCheck::~EqualityArgsMathCheck ()
 }
 
 
-/**
+/*
  * @return the preamble to use when logging constraint violations.
  */
 const char*
@@ -83,7 +83,7 @@ EqualityArgsMathCheck::getPreamble ()
 }
 
 
-/**
+/*
   * Checks the MathML of the ASTnode 
   * is appropriate for the function being performed
   *
@@ -118,7 +118,7 @@ EqualityArgsMathCheck::checkMath (const Model& m, const ASTNode& node, const SBa
 }
 
   
-/**
+/*
   * Checks that the arguments to eq or neq are consistent
   * i.e. have same type both boolean or both numeric
   *
@@ -149,7 +149,7 @@ EqualityArgsMathCheck::checkArgs (const Model& m,
 }
 
 
-/**
+/*
  * @return the error message to use when logging constraint violations.
  * This method is called by logFailure.
  *

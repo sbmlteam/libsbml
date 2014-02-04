@@ -44,7 +44,7 @@ using namespace std;
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
-/**
+/*
  * Creates a new Constraint with the given @p id.
  */
 KineticLawVars::KineticLawVars (unsigned int id, Validator& v) :
@@ -53,7 +53,7 @@ KineticLawVars::KineticLawVars (unsigned int id, Validator& v) :
 }
 
 
-/**
+/*
  * Destroys this Constraint.
  */
 KineticLawVars::~KineticLawVars ()
@@ -61,7 +61,7 @@ KineticLawVars::~KineticLawVars ()
 }
 
 
-/**
+/*
  * Checks that all variables referenced in FunctionDefinition bodies are
  * bound variables (function arguments).
  */
@@ -104,7 +104,7 @@ KineticLawVars::check_ (const Model& m, const Reaction& r)
 }
 
 
-/**
+/*
  * Logs a message about an undefined variable in the given
  * FunctionDefinition.
  */

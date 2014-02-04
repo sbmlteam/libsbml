@@ -34,14 +34,14 @@
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
-/**
+/*
  * PACKAGE_NAME is defined (as part of the autoconf process) in
  * libsbml-package.h (which is included by common.h).
  */
 #define MSG_OUT_OF_MEMORY  PACKAGE_NAME ": error: Out of Memory!"
 
 
-/**
+/*
  * If TRACE_MEMORY is defined, safe_malloc and safe_calloc have been
  * redefined in util.h as macros that first call MemTrace_alloc().  We need
  * to undo this definition to compile the *real* safe_malloc() and
@@ -54,7 +54,7 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 #endif
 
 
-/**
+/*
  * Allocates size bytes of memory and returns a pointer to the allocated
  * memory.  If the memory could not be allocated, prints an error message
  * and exits.
@@ -77,7 +77,7 @@ safe_malloc (size_t size)
 }
 
 
-/**
+/*
  * Allocates memory for an array of nmemb elements of size bytes each and
  * returns a pointer to the allocated memory.  The memory is set to zero.
  * If the memory could not be allocated, prints an error message and exits.
@@ -101,7 +101,7 @@ safe_calloc (size_t nmemb, size_t size)
 }
 
 
-/**
+/*
  * Changes the size of the memory block pointed to by ptr to size bytes and
  * returns a new pointer to it.  Note: the new pointer may be different
  * than ptr.  If the memory could not be allocated, prints an error message
@@ -129,7 +129,7 @@ safe_realloc (void *ptr, size_t size)
 
 #ifdef TRACE_MEMORY
 
-/**
+/*
  * The following data are shared among the functions below.
  */
 static int MemTrace_initialized = 0;
@@ -145,7 +145,7 @@ static MemInfoList_t *MemTrace_FreeList;
 static MemInfoList_t *MemTrace_UnmatchedFreeList;
 
 
-/**
+/*
  * Initializes the memory tracing facility.  Multiple calls are gracefully
  * ignored.
  */
@@ -169,7 +169,7 @@ MemTrace_init (void)
 }
 
 
-/**
+/*
  * Resets the memory tracing facility, i.e. starts a new tracing "session".
  */
 void
@@ -187,7 +187,7 @@ MemTrace_reset (void)
 }
 
 
-/**
+/*
  * @return the total number of safe_malloc()s and safe_calloc()s that have
  * occurred in this program up to this point.
  */
@@ -198,7 +198,7 @@ MemTrace_getNumAllocs (void)
 }
 
 
-/**
+/*
  * @return the number of safe_malloc()s and safe_calloc()s that have
  * occurred without corresponding safe_free()s, i.e. a potential memory
  * leak.
@@ -210,7 +210,7 @@ MemTrace_getNumLeaks (void)
 }
 
 
-/**
+/*
  * @return the total number of safe_frees() that have occurred in this
  * program up to this point.
  */
@@ -221,7 +221,7 @@ MemTrace_getNumFrees (void)
 }
 
 
-/**
+/*
  * @return the number of safe_free()s that have no corresponding
  * safe_malloc() or safe_calloc(), i.e. the free has no *matching* memory
  * allocation.
@@ -233,7 +233,7 @@ MemTrace_getNumUnmatchedFrees (void)
 }
 
 
-/**
+/*
  * @return the maximum number of bytes allocated in this program up to this
  * point.
  */
@@ -244,7 +244,7 @@ MemTrace_getMaxBytes (void)
 }
 
 
-/**
+/*
  * Prints the current memory trace statistics to the given stream.
  */
 void
@@ -287,7 +287,7 @@ MemTrace_printStatistics (FILE *stream)
 }
 
 
-/**
+/*
  * Prints the file and line number of all memory leaks that have occurred
  * in this program up to this point.  Output is sent to stream.
  */
@@ -331,7 +331,7 @@ MemTrace_printLeaks (FILE *stream)
 }
 
 
-/**
+/*
  * Traces a memory allocation by adding a MemInfoNode to AllocList.
  * Address is the pointer returned by safe_malloc() or safe_calloc().  Size
  * is the total number of bytes allocated.  Filename and line indicate
@@ -370,7 +370,7 @@ MemTrace_alloc ( void       *address,  size_t       size,
 }
 
 
-/**
+/*
  * Traces a memory reallocation.  This function behaves exactly like
  * MemTrace_alloc(), except that the original pointer passed to realloc()
  * must be passed in as well to ensure it is properly recorded as freed.
@@ -387,7 +387,7 @@ MemTrace_realloc ( void       *address,  size_t       size,  void *original,
 }
 
 
-/**
+/*
  * Traces a memory free by removing the MemInfoNode containing address from
  * AllocList and appending it to FreeList.
  */
@@ -417,7 +417,7 @@ MemTrace_free (void *address, const char *filename, unsigned int line)
 }
 
 
-/**
+/*
  * Creates a new MemInfoList and returns a pointer to it.
  */
 MemInfoList_t *
@@ -434,7 +434,7 @@ MemTrace_MemInfoList_create (void)
 }
 
 
-/**
+/*
  * Frees the given MemInfoList and its constituent MemInfoNodes
  */
 void
@@ -456,7 +456,7 @@ MemTrace_MemInfoList_free (MemInfoList_t *list)
 }
 
 
-/**
+/*
  * Creates a new MemInfoNode and returns a pointer to it.
  */
 MemInfoNode_t *
@@ -476,7 +476,7 @@ MemTrace_MemInfoNode_create ( const void *address,  size_t       size,
 }
 
 
-/**
+/*
  * Appends the given MemInfoNode to the given MemInfoList.
  */
 void
@@ -497,7 +497,7 @@ MemTrace_MemInfoList_append (MemInfoList_t *list, MemInfoNode_t *node)
 }
 
 
-/**
+/*
  * Returns a pointer to the MemInfoNode in MemInfoList with the given
  * address or NULL if address is not found.
  */
@@ -519,7 +519,7 @@ MemTrace_MemInfoList_get (const MemInfoList_t *list, const void *address)
 }
 
 
-/**
+/*
  * Removes the MemInfoNode with the given address from MemInfoList and
  * returns a pointer to it.  If address is not found in the list, NULL is
  * returned.
@@ -532,7 +532,7 @@ MemTrace_MemInfoList_remove (MemInfoList_t *list, const void *address)
   MemInfoNode_t *next;
 
 
-  /**
+  /*
    * curr = node to be removed
    * prev = node before curr (or NULL if curr == list->head)
    * next = node after  curr (or NULL if curr == list->tail)
@@ -540,7 +540,7 @@ MemTrace_MemInfoList_remove (MemInfoList_t *list, const void *address)
   prev = NULL;
   curr = list->head;
 
-  /**
+  /*
    * Point curr to nth item.
    */
   while (curr != NULL)
@@ -559,7 +559,7 @@ MemTrace_MemInfoList_remove (MemInfoList_t *list, const void *address)
 
   if (curr != NULL)
   {
-    /**
+    /*
      * If the first item in the list is being removed, only list->head
      * needs to be updated to remove curr.  Otherwise, prev->next must
      * "forget" about curr and point to next instead.
@@ -573,7 +573,7 @@ MemTrace_MemInfoList_remove (MemInfoList_t *list, const void *address)
       prev->next = next;
     }
 
-    /**
+    /*
      * Regardless of the restructuring above, if the last item in the list
      * has been removed, update list->tail.
      */

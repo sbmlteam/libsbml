@@ -56,7 +56,7 @@ using namespace std;
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
-/**
+/*
  * Creates a new Constraint with the given @p id.
  */
 ArgumentsUnitsCheck::ArgumentsUnitsCheck (unsigned int id, Validator& v) : UnitsBase(id, v)
@@ -64,14 +64,14 @@ ArgumentsUnitsCheck::ArgumentsUnitsCheck (unsigned int id, Validator& v) : Units
 }
 
 
-/**
+/*
  * Destroys this Constraint.
  */
 ArgumentsUnitsCheck::~ArgumentsUnitsCheck ()
 {
 }
 
-/**
+/*
  * @return the preamble to use when logging constraint violations.
  */
 const char*
@@ -83,7 +83,7 @@ ArgumentsUnitsCheck::getPreamble ()
 
 
 
-/**
+/*
   * Checks that the units of the result of the assignment rule
   * are consistent with variable being assigned
   *
@@ -137,7 +137,7 @@ ArgumentsUnitsCheck::checkUnits (const Model& m, const ASTNode& node, const SBas
 }
 
   
-/**
+/*
   * Checks that the units of the delay function are consistent
   *
   * If inconsistent units are found, an error message is logged.
@@ -188,7 +188,7 @@ ArgumentsUnitsCheck::checkUnitsFromDelay (const Model& m,
 
   checkUnits(m, *node.getLeftChild(), sb, inKL, reactNo);
 }
-/**
+/*
   * Checks that the units of the piecewise function are consistent
   *
   * If inconsistent units are found, an error message is logged.
@@ -258,7 +258,7 @@ ArgumentsUnitsCheck::checkUnitsFromPiecewise (const Model& m,
   }
 
 }
-/**
+/*
   * Checks that the units of the function are consistent
   * for a function returning value with same units as argument(s)
   *
@@ -323,7 +323,7 @@ ArgumentsUnitsCheck::checkSameUnitsAsArgs (const Model& m,
 }
 
 
-/**
+/*
  * @return the error message to use when logging constraint violations.
  * This method is called by logFailure.
  *
@@ -346,7 +346,7 @@ ArgumentsUnitsCheck::getMessage (const ASTNode& node, const SBase& object)
 
   return msg.str();
 }
-/**
+/*
 * Logs a message about a function that should return same units
 * as the arguments
 */
@@ -366,7 +366,7 @@ ArgumentsUnitsCheck::logInconsistentSameUnits (const ASTNode & node,
 
 }
 
-/**
+/*
 * Logs a message about a delay function that should have time units
 */
 void 
@@ -386,7 +386,7 @@ ArgumentsUnitsCheck::logInconsistentDelay (const ASTNode & node,
 
 }
 
-/**
+/*
 * Logs a message about a piecewise function that should same units
 */
 void 
@@ -406,7 +406,7 @@ ArgumentsUnitsCheck::logInconsistentPiecewise (const ASTNode & node,
 
 }
 
-/**
+/*
 * Logs a message about the conditional part of a piecewise function 
 * that should have dimensionless units
 */

@@ -169,7 +169,9 @@ util_trim_in_place (char *s);
 /** @endcond */
 
 
-/*
+/**
+ * Returns a representation of @c NaN.
+ * 
  * @return a (quiet) NaN.
  */
 LIBSBML_EXTERN
@@ -177,7 +179,9 @@ double
 util_NaN (void);
 
 
-/*
+/**
+ * Returns a representation of the IEEE-754 "Negative Infinity" value.
+ * 
  * @return IEEE-754 Negative Infinity.
  */
 LIBSBML_EXTERN
@@ -185,7 +189,9 @@ double
 util_NegInf (void);
 
 
-/*
+/**
+ * Returns a representation of the IEEE-754 "Positive Infinity" value.
+ * 
  * @return IEEE-754 Positive Infinity
  */
 LIBSBML_EXTERN
@@ -193,7 +199,9 @@ double
 util_PosInf (void);
 
 
-/*
+/**
+ * Returns a representation of the IEEE-754 "Negative Zero" value.
+ * 
  * @return IEEE-754 Negative Zero.
  */
 LIBSBML_EXTERN
@@ -201,22 +209,26 @@ double
 util_NegZero (void);
 
 
-/*
- * @return -1 if d represents negative infinity, 1 if d represents positive
- * infinity and 0 otherwise.
+/**
+ * Function for testing whether a given value represents negative infinity.
+ *
+ * @param d the floating-point value to test
+ * 
+ * @return @c -1 (for false) if @p d represents negative infinity, @c 1 if
+ * @p d represents positive infinity, and @c 0 otherwise.
  */
 LIBSBML_EXTERN
 int
 util_isInf (double d);
 
-/*
+/**
  * @return 1 if the number is NaN and 0 otherwise.
  */
 LIBSBML_EXTERN
 int
 util_isNaN (double d);
 
-/*
+/**
  * @return 1 if the number is finite and 0 otherwise.
  */
 LIBSBML_EXTERN
@@ -224,33 +236,78 @@ int
 util_isFinite (double d);
 
 
-/*
- * @return true (non-zero) if d is an IEEE-754 negative zero, false (zero)
- * otherwise.
+/**
+ * Function for testing whether a given value represents negative zero.
+ *
+ * @param d the floating-point value to test
+ * 
+ * @return nonzero (for true) if @p d is an IEEE-754 negative zero, zero
+ * (for false) otherwise.
  */
 LIBSBML_EXTERN
 int
 util_isNegZero (double d);
 
 
-/*
- * free this memory
+/**
+ * Function for freeing memory allocated by libSBML functions
+ *
+ * @param element pointer to the object to be freed.  It must
+ * be data that was originally allocated by a libSBML function.
+ * 
+ * This function was introduced to deal with a specific memory issue
+ * arising on Windows OS when using libSBML compiled against a static MSVC
+ * runtime library.  In this situation, it was not possible to use the
+ * standard <code>free()</code> function when freeing memory that was
+ * actually allocated within the libSBML function call.  The following is
+ * an example of where the free function fails and needs to be replaced
+ * with util_free().
+ * @code
+ *    char * formula = SBML_formulaToString(astNode);
+ *    free(formula);
+ * @endcode
+ *
+ * @note This function is only necessary when using a version of libSBML
+ * compiled and linked against a static MSVC runtime library.
  */
 LIBSBML_EXTERN
 void
 util_free (void * element);
 
+/**
+ * Function for freeing memory allocated by libSBML functions
+ *
+ * @param objects pointer to the array to be freed.  It must
+ * be data that was originally allocated by a libSBML function.
+ * @param length number of elements in the array to be freed.
+ * 
+ * This function was introduced to deal with a specific memory issue
+ * arising on Windows OS when using libSBML compiled against a static MSVC
+ * runtime library.  In this situation, it was not possible to use the
+ * standard <code>free()</code> function when freeing memory that was
+ * actually allocated within the libSBML function call.  The following is
+ * an example of where the free function fails and needs to be replaced
+ * with util_freeArray().
+ * @code
+ *    int length;
+ *    SBMLNamespaces_t** supported = SBMLNamespaces_getSupportedNamespaces(&length);
+ *    free(supported);
+ * @endcode
+ *
+ * @note This function is only necessary when using a version of libSBML
+ * compiled and linked against a static MSVC runtime library.
+ */
 LIBSBML_EXTERN
 void
 util_freeArray (void ** objects, int length);
 
-/*
+/**
  * @return the machine epsilon
  */
 LIBSBML_EXTERN 
 double util_epsilon();
 
-/*
+/**
  * @return 1 if the number are equal up to the machine epsilon and 0 otherwise.
  */
 LIBSBML_EXTERN

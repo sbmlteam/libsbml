@@ -39,7 +39,7 @@ using namespace std;
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
-/**
+/*
  * Creates a new UniqueIdBase with the given constraint id.
  */
 UniqueIdBase::UniqueIdBase (unsigned int id, Validator& v) : IdBase(id, v)
@@ -47,7 +47,7 @@ UniqueIdBase::UniqueIdBase (unsigned int id, Validator& v) : IdBase(id, v)
 }
 
 
-/**
+/*
  * Destroys this Constraint.
  */
 UniqueIdBase::~UniqueIdBase ()
@@ -55,7 +55,7 @@ UniqueIdBase::~UniqueIdBase ()
 }
 
 
-/**
+/*
  * Resets the state of this GlobalConstraint by clearing its internal
  * list of error messages.
  */
@@ -66,7 +66,7 @@ UniqueIdBase::reset ()
 }
 
 
-/**
+/*
  * Checks that the id associated with the given object is unique.  If it
  * is not, logIdConflict is called.
  */
@@ -80,7 +80,7 @@ UniqueIdBase::doCheckId (const string& id, const SBase& object)
 }
 
 
-/**
+/*
  * @return the error message to use when logging constraint violations.
  * This method is called by logFailure.
  *

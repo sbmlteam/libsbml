@@ -60,7 +60,7 @@ static const char* PREAMBLE =
     "<parameter> or <reaction> objects defined in the SBML model. "
     "(References: L2V2 Section 3.5.3.)";
 
-/**
+/*
  * Creates a new Constraint with the given @p id.
  */
 CiElementMathCheck::CiElementMathCheck (unsigned int id, Validator& v) : MathMLBase(id, v)
@@ -68,7 +68,7 @@ CiElementMathCheck::CiElementMathCheck (unsigned int id, Validator& v) : MathMLB
 }
 
 
-/**
+/*
  * Destroys this Constraint.
  */
 CiElementMathCheck::~CiElementMathCheck ()
@@ -76,7 +76,7 @@ CiElementMathCheck::~CiElementMathCheck ()
 }
 
 
-/**
+/*
  * @return the preamble to use when logging constraint violations.
  */
 const char*
@@ -86,7 +86,7 @@ CiElementMathCheck::getPreamble ()
 }
 
 
-/**
+/*
   * Checks the MathML of the ASTnode 
   * is appropriate for the function being performed
   *
@@ -115,7 +115,7 @@ CiElementMathCheck::checkMath (const Model& m, const ASTNode& node, const SBase 
 }
 
   
-/**
+/*
   * Checks any &lt;ci&gt; elements in the MathML of the ASTnode 
   * contain the id of an appropriate component of the model
   *
@@ -172,7 +172,7 @@ CiElementMathCheck::checkCiElement (const Model& m,
 }
 
 
-/**
+/*
  * @return the error message to use when logging constraint violations.
  * This method is called by logFailure.
  *

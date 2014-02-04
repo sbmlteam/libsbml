@@ -46,7 +46,7 @@ static const char* PREAMBLE =
     "L2V2 Section 4.10.)";
 
 
-/**
+/*
  * Creates a new Constraint with the given constraint id.
  */
 UniqueSymbolsInInitialAssignments::UniqueSymbolsInInitialAssignments ( unsigned int id,
@@ -56,7 +56,7 @@ UniqueSymbolsInInitialAssignments::UniqueSymbolsInInitialAssignments ( unsigned 
 }
 
 
-/**
+/*
  * Destroys this Constraint.
  */
 UniqueSymbolsInInitialAssignments::~UniqueSymbolsInInitialAssignments ()
@@ -64,7 +64,7 @@ UniqueSymbolsInInitialAssignments::~UniqueSymbolsInInitialAssignments ()
 }
 
 
-/**
+/*
  * @return the preamble to use when logging constraint violations.
  */
 const char*
@@ -74,7 +74,7 @@ UniqueSymbolsInInitialAssignments::getPreamble ()
 }
 
 
-/**
+/*
  * Checks that all ids on UnitDefinitions are unique.
  */
 void

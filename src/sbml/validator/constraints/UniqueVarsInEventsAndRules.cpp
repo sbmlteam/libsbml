@@ -48,7 +48,7 @@ static const char* PREAMBLE =
     "(References: L2V1 Section 4.10.5; L2V2 Section 4.14.)";
 
 
-/**
+/*
  * Creates a new Constraint with the given constraint id.
  */
 UniqueVarsInEventsAndRules::UniqueVarsInEventsAndRules (unsigned int id, Validator& v) :
@@ -57,7 +57,7 @@ UniqueVarsInEventsAndRules::UniqueVarsInEventsAndRules (unsigned int id, Validat
 }
 
 
-/**
+/*
  * Destroys this Constraint.
  */
 UniqueVarsInEventsAndRules::~UniqueVarsInEventsAndRules ()
@@ -65,7 +65,7 @@ UniqueVarsInEventsAndRules::~UniqueVarsInEventsAndRules ()
 }
 
 
-/**
+/*
  * @return the preamble to use when logging constraint violations.
  */
 const char*
@@ -75,7 +75,7 @@ UniqueVarsInEventsAndRules::getPreamble ()
 }
 
 
-/**
+/*
  * Checks that all ids on the following Model objects are unique:
  * event assignments and assignment rules.
  */

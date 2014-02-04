@@ -46,7 +46,7 @@ static const char* PREAMBLE =
     "(References: L2V2 Section 4.4; L2V1 Section 3.4.1 and 4.4.1.)";
 
 
-/**
+/*
  * Creates a new Constraint with the given constraint id.
  */
 UniqueIdsForUnitDefinitions::UniqueIdsForUnitDefinitions ( unsigned int id,
@@ -56,7 +56,7 @@ UniqueIdsForUnitDefinitions::UniqueIdsForUnitDefinitions ( unsigned int id,
 }
 
 
-/**
+/*
  * Destroys this Constraint.
  */
 UniqueIdsForUnitDefinitions::~UniqueIdsForUnitDefinitions ()
@@ -64,7 +64,7 @@ UniqueIdsForUnitDefinitions::~UniqueIdsForUnitDefinitions ()
 }
 
 
-/**
+/*
  * @return the preamble to use when logging constraint violations.
  */
 const char*
@@ -74,7 +74,7 @@ UniqueIdsForUnitDefinitions::getPreamble ()
 }
 
 
-/**
+/*
  * Checks that all ids on UnitDefinitions are unique.
  */
 void

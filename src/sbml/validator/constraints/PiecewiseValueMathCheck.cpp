@@ -59,7 +59,7 @@ static const char* PREAMBLE =
     "Section 3.5.8.)";
 
 
-/**
+/*
  * Creates a new Constraint with the given @p id.
  */
 PiecewiseValueMathCheck::PiecewiseValueMathCheck (unsigned int id, Validator& v) : MathMLBase(id, v)
@@ -67,7 +67,7 @@ PiecewiseValueMathCheck::PiecewiseValueMathCheck (unsigned int id, Validator& v)
 }
 
 
-/**
+/*
  * Destroys this Constraint.
  */
 PiecewiseValueMathCheck::~PiecewiseValueMathCheck ()
@@ -75,7 +75,7 @@ PiecewiseValueMathCheck::~PiecewiseValueMathCheck ()
 }
 
 
-/**
+/*
  * @return the preamble to use when logging constraint violations.
  */
 const char*
@@ -85,7 +85,7 @@ PiecewiseValueMathCheck::getPreamble ()
 }
 
 
-/**
+/*
   * Checks the MathML of the ASTnode 
   * is appropriate for the function being performed
   *
@@ -118,11 +118,11 @@ PiecewiseValueMathCheck::checkMath (const Model& m, const ASTNode& node, const S
 }
 
   
-/**
-  * Checks that the arguments of the branches of a piecewise are consistent
-  *
-  * If not, an error message is logged.
-  */
+/*
+ * Checks that the arguments of the branches of a piecewise are consistent
+ *
+ * If not, an error message is logged.
+ */
 void 
 PiecewiseValueMathCheck::checkPiecewiseArgs (const Model& m, const ASTNode& node, 
                                                   const SBase & sb)
@@ -146,7 +146,7 @@ PiecewiseValueMathCheck::checkPiecewiseArgs (const Model& m, const ASTNode& node
 }
 
 
-/**
+/*
  * @return the error message to use when logging constraint violations.
  * This method is called by logFailure.
  *

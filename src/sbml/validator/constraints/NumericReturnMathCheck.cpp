@@ -60,7 +60,7 @@ static const char* PREAMBLE =
     "'delay' in <event>, and 'math' in <eventAssignment>.";
 
 
-/**
+/*
  * Creates a new Constraint with the given @p id.
  */
 NumericReturnMathCheck::NumericReturnMathCheck (unsigned int id, Validator& v) : MathMLBase(id, v)
@@ -68,7 +68,7 @@ NumericReturnMathCheck::NumericReturnMathCheck (unsigned int id, Validator& v) :
 }
 
 
-/**
+/*
  * Destroys this Constraint.
  */
 NumericReturnMathCheck::~NumericReturnMathCheck ()
@@ -76,7 +76,7 @@ NumericReturnMathCheck::~NumericReturnMathCheck ()
 }
 
 
-/**
+/*
  * @return the preamble to use when logging constraint violations.
  */
 const char*
@@ -86,12 +86,12 @@ NumericReturnMathCheck::getPreamble ()
 }
 
 
-/**
-  * Checks the MathML of the ASTnode 
-  * is appropriate for the function being performed
-  *
-  * If an inconsistency is found, an error message is logged.
-  */
+/*
+ * Checks the MathML of the ASTnode 
+ * is appropriate for the function being performed
+ *
+ * If an inconsistency is found, an error message is logged.
+ */
 void
 NumericReturnMathCheck::checkMath (const Model& m, const ASTNode& node, const SBase & sb)
 {
@@ -141,7 +141,7 @@ NumericReturnMathCheck::checkMath (const Model& m, const ASTNode& node, const SB
 }
 
 
-/**
+/*
  * @return the error message to use when logging constraint violations.
  * This method is called by logFailure.
  *

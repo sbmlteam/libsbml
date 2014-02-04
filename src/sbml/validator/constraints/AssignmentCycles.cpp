@@ -48,7 +48,7 @@ using namespace std;
 LIBSBML_CPP_NAMESPACE_BEGIN
 #ifdef __cplusplus
 
-/**
+/*
  * Creates a new Constraint with the given constraint id.
  */
 AssignmentCycles::AssignmentCycles (unsigned int id, Validator& v) :
@@ -57,7 +57,7 @@ AssignmentCycles::AssignmentCycles (unsigned int id, Validator& v) :
 }
 
 
-/**
+/*
  * Destroys this Constraint.
  */
 AssignmentCycles::~AssignmentCycles ()
@@ -65,7 +65,7 @@ AssignmentCycles::~AssignmentCycles ()
 }
 
 
-/**
+/*
  * Checks that all ids on the following Model objects are unique:
  * event assignments and assignment rules.
  */
@@ -405,7 +405,7 @@ AssignmentCycles::checkForImplicitCompartmentReference(const Model& m)
   }
 }
 
-/**
+/*
   * Logs a message about an undefined &lt;ci&gt; element in the given
   * FunctionDefinition.
   */

@@ -47,7 +47,7 @@ static const char* PREAMBLE =
     "4.11.3.)";
 
 
-/**
+/*
  * Creates a new Constraint with the given constraint id.
  */
 UniqueVarsInRules::UniqueVarsInRules (unsigned int id, Validator& v) :
@@ -56,7 +56,7 @@ UniqueVarsInRules::UniqueVarsInRules (unsigned int id, Validator& v) :
 }
 
 
-/**
+/*
  * Destroys this Constraint.
  */
 UniqueVarsInRules::~UniqueVarsInRules ()
@@ -64,7 +64,7 @@ UniqueVarsInRules::~UniqueVarsInRules ()
 }
 
 
-/**
+/*
  * @return the fieldname ("variable") to use when logging constraint
  * violations.
  */
@@ -75,7 +75,7 @@ UniqueVarsInRules::getFieldname ()
 }
 
 
-/**
+/*
  * @return the preamble to use when logging constraint violations.
  */
 const char*
@@ -85,7 +85,7 @@ UniqueVarsInRules::getPreamble ()
 }
 
 
-/**
+/*
  * Checks that all ids on KineticLawParameters are unique.
  */
 void

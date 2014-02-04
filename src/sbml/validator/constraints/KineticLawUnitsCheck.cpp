@@ -52,7 +52,7 @@ using namespace std;
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
-/**
+/*
  * Creates a new Constraint with the given @p id.
  */
 KineticLawUnitsCheck::KineticLawUnitsCheck (unsigned int id, Validator& v) :
@@ -61,14 +61,14 @@ KineticLawUnitsCheck::KineticLawUnitsCheck (unsigned int id, Validator& v) :
 }
 
 
-/**
+/*
  * Destroys this Constraint.
  */
 KineticLawUnitsCheck::~KineticLawUnitsCheck ()
 {
 }
 
-/**
+/*
  * @return the fieldname to use logging constraint violations.  If not
  * overridden, "id" is returned.
  */
@@ -78,7 +78,7 @@ KineticLawUnitsCheck::getFieldname ()
   return "math";
 }
 
-/**
+/*
  * @return the preamble to use when logging constraint violations.  The
  * preamble will be prepended to each log message.  If not overriden,
  * returns an empty string.
@@ -92,7 +92,7 @@ KineticLawUnitsCheck::getPreamble ()
 
 
 
-/**
+/*
   * Checks that the units of the result of the assignment rule
   * are consistent with variable being assigned
   *
@@ -163,7 +163,7 @@ KineticLawUnitsCheck::check_ (const Model& m, const Model& object)
   }
 
 }
-/**
+/*
  * @return the typename of the given SBase object.
  */
 const char*
@@ -173,7 +173,7 @@ KineticLawUnitsCheck::getTypename (const SBase& object)
 }
 
 
-/**
+/*
  * Logs a message that the given @p id (and its corresponding object) have
  * failed to satisfy this constraint.
  */

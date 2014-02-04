@@ -39,7 +39,7 @@ using namespace std;
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
-/**
+/*
  * Creates a new Constraint with the given @p id.
  */
 MathMLBase::MathMLBase (unsigned int id, Validator& v) :
@@ -48,7 +48,7 @@ MathMLBase::MathMLBase (unsigned int id, Validator& v) :
 }
 
 
-/**
+/*
  * Destroys this Constraint.
  */
 MathMLBase::~MathMLBase ()
@@ -56,7 +56,7 @@ MathMLBase::~MathMLBase ()
 }
 
 
-/**
+/*
  * @return the fieldname to use logging constraint violations.  If not
  * overridden, "math" is returned.
  */
@@ -67,7 +67,7 @@ MathMLBase::getFieldname ()
 }
 
 
-/**
+/*
  * @return the preamble to use when logging constraint violations.  The
  * preamble will be prepended to each log message.  If not overriden,
  * returns an empty string.
@@ -79,7 +79,7 @@ MathMLBase::getPreamble ()
 }
 
 
-/**
+/*
   * loops through all occurences of MathML within a model
   */
 void
@@ -202,7 +202,7 @@ MathMLBase::check_ (const Model& m, const Model& object)
 }
 
 
-/**
+/*
   * Checks the MathML of the children of ASTnode 
   * forces recursion through the AST tree
   *
@@ -256,7 +256,7 @@ MathMLBase::checkChildren (const Model& m,
 //  }
 //}
 //
-/**
+/*
   * Checks the MathML of a function definition 
   * as applied to the arguments supplied to it
   *
@@ -300,7 +300,7 @@ MathMLBase::checkFunction (const Model& m,
 }
 
 
-/**
+/*
  * @return the typename of the given SBase object.
  */
 const char*
@@ -310,7 +310,7 @@ MathMLBase::getTypename (const SBase& object)
 }
 
 
-/**
+/*
  * Logs a message that the math (and its corresponding object) have
  * failed to satisfy this constraint.
  */
@@ -321,7 +321,7 @@ MathMLBase::logMathConflict (const ASTNode& node, const SBase& object)
 }
 
 
-/**
+/*
  * Checks that the math will return a numeric result
  * forces recursion thru the AST tree
  * 
@@ -337,7 +337,7 @@ MathMLBase::returnsNumeric(const Model & m, const ASTNode* node)
   bool temp;
 
 
-  /** a node may have children and is therefore some sort of function
+  /* a node may have children and is therefore some sort of function
    *  or if there are no children we are at the bottom of the tree 
    */
   if (numChildren == 0)
@@ -415,7 +415,7 @@ MathMLBase::returnsNumeric(const Model & m, const ASTNode* node)
 }
 
 
-/**
+/*
   * Checks that the MathML of a function definition 
   * as applied to the arguments supplied to it will return a numeric
   *
@@ -467,7 +467,7 @@ MathMLBase::checkNumericFunction (const Model& m, const ASTNode* node)
   //  }
   //  else
   //  {
-  //    /**
+  //    /*
   //      * create a new ASTNode of this type but with the children
   //      * from the original function
   //      */

@@ -46,7 +46,7 @@ using namespace std;
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
-/**
+/*
  * Creates a new Constraint with the given constraint id.
  */
 SpeciesReactionOrRule::SpeciesReactionOrRule (unsigned int id, Validator& v) :
@@ -55,7 +55,7 @@ SpeciesReactionOrRule::SpeciesReactionOrRule (unsigned int id, Validator& v) :
 }
 
 
-/**
+/*
  * Destroys this Constraint.
  */
 SpeciesReactionOrRule::~SpeciesReactionOrRule ()
@@ -63,7 +63,7 @@ SpeciesReactionOrRule::~SpeciesReactionOrRule ()
 }
 
 
-/**
+/*
   * Checks that any species with boundary condition false
   * is not set by reaction and rules
   */
@@ -132,7 +132,7 @@ SpeciesReactionOrRule::check_ (const Model& m, const Model& object)
   }
 }
 
-/**
+/*
   * Logs a message about species with boundary condition false
   * being set by reaction and rules
   */

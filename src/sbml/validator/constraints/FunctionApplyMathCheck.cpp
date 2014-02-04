@@ -59,7 +59,7 @@ static const char* PREAMBLE =
     "the SBML model. (References: L2V2 Section 4.3.2.)";
 
 
-/**
+/*
  * Creates a new Constraint with the given @p id.
  */
 FunctionApplyMathCheck::FunctionApplyMathCheck (unsigned int id, Validator& v) : MathMLBase(id, v)
@@ -67,7 +67,7 @@ FunctionApplyMathCheck::FunctionApplyMathCheck (unsigned int id, Validator& v) :
 }
 
 
-/**
+/*
  * Destroys this Constraint.
  */
 FunctionApplyMathCheck::~FunctionApplyMathCheck ()
@@ -75,7 +75,7 @@ FunctionApplyMathCheck::~FunctionApplyMathCheck ()
 }
 
 
-/**
+/*
  * @return the preamble to use when logging constraint violations.
  */
 const char*
@@ -85,7 +85,7 @@ FunctionApplyMathCheck::getPreamble ()
 }
 
 
-/**
+/*
   * Checks the MathML of the ASTnode 
   * is appropriate for the function being performed
   *
@@ -112,7 +112,7 @@ FunctionApplyMathCheck::checkMath (const Model& m, const ASTNode& node, const SB
 }
 
   
-/**
+/*
   * Checks that the functionDefinition referred to by a &lt;ci&gt; element exists
   *
   * If <ci> does not refer to functionDefinition id, an error message is logged.
@@ -128,7 +128,7 @@ FunctionApplyMathCheck::checkExists (const Model& m, const ASTNode& node,
 }
 
 
-/**
+/*
  * @return the error message to use when logging constraint violations.
  * This method is called by logFailure.
  *

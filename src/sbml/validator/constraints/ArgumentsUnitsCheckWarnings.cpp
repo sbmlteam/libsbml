@@ -56,7 +56,7 @@ using namespace std;
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
-/**
+/*
  * Creates a new Constraint with the given @p id.
  */
 ArgumentsUnitsCheckWarnings::ArgumentsUnitsCheckWarnings (unsigned int id, Validator& v) : UnitsBase(id, v)
@@ -64,14 +64,14 @@ ArgumentsUnitsCheckWarnings::ArgumentsUnitsCheckWarnings (unsigned int id, Valid
 }
 
 
-/**
+/*
  * Destroys this Constraint.
  */
 ArgumentsUnitsCheckWarnings::~ArgumentsUnitsCheckWarnings ()
 {
 }
 
-/**
+/*
  * @return the preamble to use when logging constraint violations.
  */
 const char*
@@ -83,7 +83,7 @@ ArgumentsUnitsCheckWarnings::getPreamble ()
 
 
 
-/**
+/*
   * Checks that the units of the result of the assignment rule
   * are consistent with variable being assigned
   *
@@ -155,7 +155,7 @@ ArgumentsUnitsCheckWarnings::checkUnits (const Model& m, const ASTNode& node,
 }
 
   
-/**
+/*
   * Checks that the units of the arguments 
   * of the function are dimensionless
   * and that there is only one argument
@@ -199,7 +199,7 @@ ArgumentsUnitsCheckWarnings::checkDimensionlessArgs (const Model& m,
 
 }
 
-/**
+/*
  * @return the error message to use when logging constraint violations.
  * This method is called by logFailure.
  *
@@ -224,7 +224,7 @@ ArgumentsUnitsCheckWarnings::getMessage (const ASTNode& node, const SBase& objec
   return msg.str();
 }
 
-/**
+/*
 * Logs a message about a function that should have dmensionless
 * as the arguments
 */

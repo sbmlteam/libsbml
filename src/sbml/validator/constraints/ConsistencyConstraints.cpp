@@ -259,20 +259,20 @@ START_CONSTRAINT (20305, FunctionDefinition, fd)
   pre( fd.isSetMath()           );
   pre( fd.isSetBody() == true      );
 
-  /**
+  /*
    * need to look at the special case where the body of the lambda function
    * contains only one of the bvar elements
    * eg
    *  <lambda>
-	 *		<bvar>	<ci> v </ci> </bvar>
-	 *		<ci> v </ci>
+   *    <bvar> <ci> v </ci> </bvar>
+   *    <ci> v </ci>
    *  </lambda>
    *
    * OR
    * it contains the csymbol time
    * eg
    *  <lambda>
-	 *		<csymbol encoding="text" 
+   *    <csymbol encoding="text" 
    *    definitionURL="http://www.sbml.org/sbml/symbols/time"> 
    *    time </csymbol>
    *  </lambda>
@@ -286,8 +286,8 @@ START_CONSTRAINT (20305, FunctionDefinition, fd)
     {
       const ASTNode *fdArg = fd.getArgument(n);
       if (fdArg != NULL && 
-	      fdArg->getName() != NULL && 
-		  fd.getBody()->getName() != NULL )
+          fdArg->getName() != NULL && 
+          fd.getBody()->getName() != NULL )
       {
         if (!strcmp(fdArg->getName(), fd.getBody()->getName()))
         {

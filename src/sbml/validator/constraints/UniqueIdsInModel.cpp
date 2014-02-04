@@ -48,7 +48,7 @@ static const char* PREAMBLE =
     "Section 3.4; L2V3 Section 3.3.)";
 
 
-/**
+/*
  * Creates a new Constraint with the given constraint id.
  */
 UniqueIdsInModel::UniqueIdsInModel (unsigned int id, Validator& v) :
@@ -57,7 +57,7 @@ UniqueIdsInModel::UniqueIdsInModel (unsigned int id, Validator& v) :
 }
 
 
-/**
+/*
  * Destroys this Constraint.
  */
 UniqueIdsInModel::~UniqueIdsInModel ()
@@ -65,7 +65,7 @@ UniqueIdsInModel::~UniqueIdsInModel ()
 }
 
 
-/**
+/*
  * @return the preamble to use when logging constraint violations.
  */
 const char*
@@ -75,7 +75,7 @@ UniqueIdsInModel::getPreamble ()
 }
 
 
-/**
+/*
  * Checks that all ids on the following Model objects are unique:
  * FunctionDefinitions, Species, Compartments, global Parameters,
  * Reactions, and Events.

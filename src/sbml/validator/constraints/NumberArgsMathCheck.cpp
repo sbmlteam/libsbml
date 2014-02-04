@@ -56,7 +56,7 @@ static const char* PREAMBLE =
     "appropriate for that operator. (References: SBML L2v3 Section 3.4.1.)";
 
 
-/**
+/*
  * Creates a new Constraint with the given @p id.
  */
 NumberArgsMathCheck::NumberArgsMathCheck (unsigned int id, Validator& v) : MathMLBase(id, v)
@@ -64,7 +64,7 @@ NumberArgsMathCheck::NumberArgsMathCheck (unsigned int id, Validator& v) : MathM
 }
 
 
-/**
+/*
  * Destroys this Constraint.
  */
 NumberArgsMathCheck::~NumberArgsMathCheck ()
@@ -72,7 +72,7 @@ NumberArgsMathCheck::~NumberArgsMathCheck ()
 }
 
 
-/**
+/*
  * @return the preamble to use when logging constraint violations.
  */
 const char*
@@ -82,7 +82,7 @@ NumberArgsMathCheck::getPreamble ()
 }
 
 
-/**
+/*
   * Checks the MathML of the ASTnode 
   * is appropriate for the function being performed
   *
@@ -203,7 +203,7 @@ NumberArgsMathCheck::checkMath (const Model& m, const ASTNode& node, const SBase
 
 }
 
-/**
+/*
   * Checks that the function has only one argument
   */
 void NumberArgsMathCheck::checkUnary(const Model& m, 
@@ -219,7 +219,7 @@ void NumberArgsMathCheck::checkUnary(const Model& m,
   }
 }
 
-/**
+/*
   * Checks that the function has exactly two arguments
   */
 void NumberArgsMathCheck::checkBinary(const Model& m, 
@@ -236,7 +236,7 @@ void NumberArgsMathCheck::checkBinary(const Model& m,
   }
 }
 
-/**
+/*
   * Checks that the functions have either one or two arguments
   */
 void NumberArgsMathCheck::checkSpecialCases(const Model& m, 
@@ -253,7 +253,7 @@ void NumberArgsMathCheck::checkSpecialCases(const Model& m,
   }
 }
 
-/**
+/*
   * Checks that the function has at least two arguments
   */
 void NumberArgsMathCheck::checkAtLeast2Args(const Model& m, 
@@ -280,7 +280,7 @@ void NumberArgsMathCheck::checkPiecewise(const Model& m,
   }
 
 }
-/**
+/*
  * @return the error message to use when logging constraint violations.
  * This method is called by logFailure.
  *

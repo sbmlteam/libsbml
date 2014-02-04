@@ -46,7 +46,7 @@ using namespace std;
 LIBSBML_CPP_NAMESPACE_BEGIN
 
 
-/**
+/*
  * Creates a new Constraint with the given constraint id.
  */
 UniqueSpeciesTypesInCompartment::UniqueSpeciesTypesInCompartment (unsigned int id, Validator& v) :
@@ -55,7 +55,7 @@ UniqueSpeciesTypesInCompartment::UniqueSpeciesTypesInCompartment (unsigned int i
 }
 
 
-/**
+/*
  * Destroys this Constraint.
  */
 UniqueSpeciesTypesInCompartment::~UniqueSpeciesTypesInCompartment ()
@@ -63,7 +63,7 @@ UniqueSpeciesTypesInCompartment::~UniqueSpeciesTypesInCompartment ()
 }
 
 
-/**
+/*
   * Checks that any species with boundary condition false
   * is not set by reaction and rules
   */
@@ -114,7 +114,7 @@ UniqueSpeciesTypesInCompartment::check_ (const Model& m, const Model& object)
   }
 }
 
-/**
+/*
   * Logs a message about species with boundary condition false
   * being set by reaction and rules
   */

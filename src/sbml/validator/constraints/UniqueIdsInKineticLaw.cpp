@@ -49,7 +49,7 @@ static const char* PREAMBLE =
     "4.13.9; L2V1 Sections 3.4.1 and 4.13.5.)";
 
 
-/**
+/*
  * Creates a new Constraint with the given constraint id.
  */
 UniqueIdsInKineticLaw::UniqueIdsInKineticLaw (unsigned int id, Validator& v) :
@@ -58,7 +58,7 @@ UniqueIdsInKineticLaw::UniqueIdsInKineticLaw (unsigned int id, Validator& v) :
 }
 
 
-/**
+/*
  * Destroys this Constraint.
  */
 UniqueIdsInKineticLaw::~UniqueIdsInKineticLaw ()
@@ -66,7 +66,7 @@ UniqueIdsInKineticLaw::~UniqueIdsInKineticLaw ()
 }
 
 
-/**
+/*
  * @return the preamble to use when logging constraint violations.
  */
 const char*
@@ -76,7 +76,7 @@ UniqueIdsInKineticLaw::getPreamble ()
 }
 
 
-/**
+/*
  * Checks that all ids on KineticLawParameters are unique.
  */
 void

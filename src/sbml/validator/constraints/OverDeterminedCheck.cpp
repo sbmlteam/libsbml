@@ -45,7 +45,7 @@ using namespace std;
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
-/**
+/*
  * Creates a new Constraint with the given @p id.
  */
 OverDeterminedCheck::OverDeterminedCheck ( unsigned int id,
@@ -55,7 +55,7 @@ OverDeterminedCheck::OverDeterminedCheck ( unsigned int id,
 }
 
 
-/**
+/*
  * Destroys this Constraint.
  */
 OverDeterminedCheck::~OverDeterminedCheck ()
@@ -75,9 +75,9 @@ OverDeterminedCheck::~OverDeterminedCheck ()
 }
 
 
-/**
-  * Checks that a model is not over determined
-  */
+/*
+ * Checks that a model is not over determined
+ */
 void
 OverDeterminedCheck::check_ (const Model& m, const Model& object)
 {
@@ -117,7 +117,7 @@ OverDeterminedCheck::check_ (const Model& m, const Model& object)
 }
 
 
-/** 
+/* 
  * creates equation vertexes according to the L2V2 spec 4.11.5 for every
  * 1. a Species structure that has the boundaryCondition field set to false 
  * and constant field set to false and which is referenced by one or more 
@@ -135,11 +135,11 @@ OverDeterminedCheck::writeEquationVertexes(const Model& m)
 
   unsigned int n, sr;
 
-  /** a Species structure that has the boundaryCondition field set to false 
-    * and constant field set to false and which is referenced by one or 
-    * more reactant or product lists of a Reaction structure containing 
-    * a KineticLaw structure
-    */
+  /* a Species structure that has the boundaryCondition field set to false 
+   * and constant field set to false and which is referenced by one or 
+   * more reactant or product lists of a Reaction structure containing 
+   * a KineticLaw structure
+   */
   for (n = 0; n < m.getNumReactions(); n++)
   {
     if (m.getReaction(n)->isSetKineticLaw())
@@ -187,7 +187,7 @@ OverDeterminedCheck::writeEquationVertexes(const Model& m)
 }
 
 
-/**
+/*
  * creates variable vertexes according to the L2V2 spec 4.11.5 for
  * (a) every Species, Compartment and Parameter structure which has the
  * Constant field set to false; and 
@@ -265,11 +265,11 @@ OverDeterminedCheck::writeVariableVertexes(const Model& m)
 }
 
 
-/**
-  * creates a bipartite graph according to the L2V2 spec 4.11.5 
-  * creates edges between the equation vertexes and the variable vertexes
-  * graph produced is an id representimg the equation and an IdList
-  * listing the edges the equation vertex is connected to
+/*
+ * creates a bipartite graph according to the L2V2 spec 4.11.5 
+ * creates edges between the equation vertexes and the variable vertexes
+ * graph produced is an id representimg the equation and an IdList
+ * listing the edges the equation vertex is connected to
 */
 void
 OverDeterminedCheck::createGraph(const Model& m)
@@ -287,24 +287,24 @@ OverDeterminedCheck::createGraph(const Model& m)
   ASTNode * node;
   string name;
 
-  /** create a list of ids relating to
-    * 1. species
-    * 2. rules
-    * 3. kinetic laws
-    */
+  /* create a list of ids relating to
+   * 1. species
+   * 2. rules
+   * 3. kinetic laws
+   */
   writeEquationVertexes(m);
   
-  /** create a list relating to variables
-    * 1. compartments
-    * 2. species
-    * 3. parameters
-    * 4. reactions
-    */
+  /* create a list relating to variables
+   * 1. compartments
+   * 2. species
+   * 3. parameters
+   * 4. reactions
+   */
   writeVariableVertexes(m);
 
   /* create the edges for the graph */
 
-  /**
+  /*
    * a Species structure that has the boundaryCondition field set to false 
    * and constant field set to false and which is referenced by the reactant 
    * or product lists of a Reaction structure containing a KineticLaw structure. 
@@ -366,7 +366,7 @@ OverDeterminedCheck::createGraph(const Model& m)
   {
     rule = m.getRule(n);
 
-    /**
+    /*
      * an AssignmentRule or RateRule. 
      * The edge connects the vertex representing the Rule to the vertex
      * representing the variable referenced by the variable field of the rule.
@@ -379,7 +379,7 @@ OverDeterminedCheck::createGraph(const Model& m)
       }
     }
 
-    /**
+    /*
      * the occurrence of a MathML ci symbol referencing a variable within an 
      * AssignmentRule or AlgebraicRule. 
      * The ci element must either reference: (a) a Species, compartment or 
@@ -417,7 +417,7 @@ OverDeterminedCheck::createGraph(const Model& m)
   {
     if (m.getReaction(n)->isSetKineticLaw())
     {
-      /**
+      /*
        * a KineticLaw. 
        * The edge connects the vertex representing the KineticLaw equation 
        * to the variable vertex representing the Reaction containing the 
@@ -428,7 +428,7 @@ OverDeterminedCheck::createGraph(const Model& m)
         joined.append(m.getReaction(n)->getId());
       }
 
-      /**
+      /*
        * the occurrence of a MathML ci symbol referencing a variable within 
        * an KineticLaw. 
        * The ci element must either reference a Species, compartment or 
@@ -464,15 +464,15 @@ OverDeterminedCheck::createGraph(const Model& m)
   }
 }
 
-/**
-  * finds a maximal matching of the bipartite graph
-  * adapted from the only implementation I could find:
-  * # Hopcroft-Karp bipartite max-cardinality mMatching and max independent set
-  * # David Eppstein, UC Irvine, 27 Apr 2002 - Python Cookbook
-  *
-  * returns an IdList of any equation vertexes that are unconnected 
-  * in the maximal matching
-  */ 
+/*
+ * finds a maximal matching of the bipartite graph
+ * adapted from the only implementation I could find:
+ * # Hopcroft-Karp bipartite max-cardinality mMatching and max independent set
+ * # David Eppstein, UC Irvine, 27 Apr 2002 - Python Cookbook
+ *
+ * returns an IdList of any equation vertexes that are unconnected 
+ * in the maximal matching
+ */ 
 IdList 
 OverDeterminedCheck::findMatching()
 {
@@ -611,7 +611,7 @@ OverDeterminedCheck::findMatching()
 }
 
 
-/**
+/*
  * function that looks for alternative paths and adds these to the matching
  * where necessary
  */
@@ -711,11 +711,11 @@ OverDeterminedCheck::Recurse(std::string v)
 }
 
 
-/**
-  * Logs a message about overdetermined model.
-  * As yet this only reports the problem - it doesnt really give
-  * any additional information
-  */
+/*
+ * Logs a message about overdetermined model.
+ * As yet this only reports the problem - it doesnt really give
+ * any additional information
+ */
 void
 OverDeterminedCheck::logOverDetermined (const Model& m, const IdList& unmatch)
 {

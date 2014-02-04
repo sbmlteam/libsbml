@@ -48,7 +48,7 @@ static const char* PREAMBLE =
     "L2V2 Section 4.14.)";
 
 
-/**
+/*
  * Creates a new Constraint with the given constraint id.
  */
 UniqueVarsInEventAssignments::UniqueVarsInEventAssignments ( unsigned int id,
@@ -58,7 +58,7 @@ UniqueVarsInEventAssignments::UniqueVarsInEventAssignments ( unsigned int id,
 }
 
 
-/**
+/*
  * Destroys this Constraint.
  */
 UniqueVarsInEventAssignments::~UniqueVarsInEventAssignments ()
@@ -66,7 +66,7 @@ UniqueVarsInEventAssignments::~UniqueVarsInEventAssignments ()
 }
 
 
-/**
+/*
  * @return the fieldname ("variable") to use when logging constraint
  * violations.
  */
@@ -77,7 +77,7 @@ UniqueVarsInEventAssignments::getFieldname ()
 }
 
 
-/**
+/*
  * @return the preamble to use when logging constraint violations.
  */
 const char*
@@ -87,7 +87,7 @@ UniqueVarsInEventAssignments::getPreamble ()
 }
 
 
-/**
+/*
  * Checks that all ids on KineticLawParameters are unique.
  */
 void

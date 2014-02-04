@@ -292,10 +292,6 @@ LIBSBML_CPP_NAMESPACE_END
 #ifndef SWIG
 /*BEGIN_C_DECLS */
 
-/* ----------------------------------------------------------------------------
- * See the .cpp file for the documentation of the following functions.
- * --------------------------------------------------------------------------*/
-
 #include <sbml/common/sbmlfwd.h>
 
 /* END_C_DECLS */
@@ -305,36 +301,113 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 BEGIN_C_DECLS
 
 
+/**
+ * Creates a new List and returns a pointer to it.
+ *
+ * @memberof List_t
+ */
 LIBSBML_EXTERN
 List_t *
 List_create (void);
 
 
+/**
+ * Creates a new ListNode (with @p item) and returns a pointer to the node.
+ *
+ * @param item the item to create a ListNode_t for.
+ *
+ * @memberof ListNode_t
+ */
 LIBSBML_EXTERN
 ListNode_t *
 ListNode_create (void *item);
 
 
+/**
+ * Frees the given List.
+ *
+ * This function does not free List items.  It frees only the List_t
+ * structure and its constituent ListNode_t structures (if any).
+ *
+ * Presumably, you either i) have pointers to the individual list items
+ * elsewhere in your program and you want to keep them around for awhile
+ * longer or ii) the list has no items (List_size(lst) == 0).  If neither
+ * are true, try List_freeItems() instead.
+ *
+ * @param lst The List_t structure
+ *
+ * @memberof List_t
+ */
 LIBSBML_EXTERN
 void
 List_free (List_t *lst);
 
 
+/**
+ * Frees the given ListNode.
+ *
+ * @param node The ListNode_t structure
+ *
+ * @memberof ListNode_t
+ */
 LIBSBML_EXTERN
 void
 ListNode_free (ListNode_t *node);
 
 
+/**
+ * Adds item to the end of this List.
+ *
+ * @param lst The List_t structure
+ * @param item The item to add to the end of the list
+ *
+ * @memberof List_t
+ */
 LIBSBML_EXTERN
 void
 List_add (List_t *lst, void *item);
 
 
+/**
+ * @return the number of items in this List for which predicate(item)
+ * returns true.
+ *
+ * The typedef for ListItemPredicate is:
+ *
+ *   int (*ListItemPredicate) (const void *item);
+ *
+ * where a return value of non-zero represents true and zero represents
+ * false.
+ *
+ * @param lst The List_t structure
+ * @param predicate The predicate to test the elements of the list against.
+ *
+ * @memberof List_t
+ */
 LIBSBML_EXTERN
 unsigned int
 List_countIf (const List_t *lst, ListItemPredicate predicate);
 
 
+/**
+ * @return the first occurrence of item1 in this List or NULL if item was
+ * not found.  ListItemComparator is a pointer to a function used to find
+ * item.  The typedef for ListItemComparator is:
+ *
+ *   int (*ListItemComparator) (void *item1, void *item2);
+ *
+ * The return value semantics are the same as for strcmp:
+ *
+ *   -1    item1 <  item2,
+ *    0    item1 == item 2
+ *    1    item1 >  item2
+ *
+ * @param lst The List_t structure
+ * @param item1 The item to look for.
+ * @param comparator The pointer to the function used to find the item.
+ *
+ * @memberof List_t
+ */
 LIBSBML_EXTERN
 void *
 List_find ( const List_t       *lst,
@@ -342,26 +415,72 @@ List_find ( const List_t       *lst,
             ListItemComparator comparator );
 
 
+/**
+ * @return a new List containing (pointers to) all items in this List for
+ * which predicate(item) was true.
+ *
+ * The returned list may be empty.
+ *
+ * The caller owns the returned list (but not its constituent items) and is
+ * responsible for freeing it with List_free().
+ *
+ * @param lst The List_t structure
+ * @param predicate The predicate to test the elements of the list against.
+ *
+ * @memberof List_t
+ */
 LIBSBML_EXTERN
 List_t *
 List_findIf (const List_t *lst, ListItemPredicate predicate);
 
 
+/**
+ * Returns the nth item in this List.  If n > List_size(lst) returns NULL.
+ *
+ * @param lst The List_t structure
+ * @param n The index of the item to find.
+ *
+ * @memberof List_t
+ */
 LIBSBML_EXTERN
 void *
 List_get (const List_t *lst, unsigned int n);
 
 
+/**
+ * Adds item to the beginning of this List.
+ *
+ * @param lst The List_t structure
+ * @param item The item to add to the list.
+ *
+ * @memberof List_t
+ */
 LIBSBML_EXTERN
 void
 List_prepend (List_t *lst, void *item);
 
 
+/**
+ * Removes the nth item from this List and returns a pointer to it.  If n >
+ * List_size(lst) returns NULL.
+ *
+ * @param lst The List_t structure
+ * @param n The index of the item to remove.
+ *
+ * @memberof List_t
+ */
 LIBSBML_EXTERN
 void *
 List_remove (List_t *lst, unsigned int n);
 
 
+/**
+ * @return the number of elements in this List.
+ *
+ * @param lst The List_t structure
+ *
+ * @memberof List_t
+ */
 LIBSBML_EXTERN
 unsigned int
 List_size (const List_t *lst);

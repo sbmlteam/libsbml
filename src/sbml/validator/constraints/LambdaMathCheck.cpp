@@ -60,7 +60,7 @@ static const char* PREAMBLE =
     "elsewhere in an SBML model. (References: L2V2 Section 4.3.2.)";
 
 
-/**
+/*
  * Creates a new Constraint with the given @p id.
  */
 LambdaMathCheck::LambdaMathCheck (unsigned int id, Validator& v) : MathMLBase(id, v)
@@ -68,7 +68,7 @@ LambdaMathCheck::LambdaMathCheck (unsigned int id, Validator& v) : MathMLBase(id
 }
 
 
-/**
+/*
  * Destroys this Constraint.
  */
 LambdaMathCheck::~LambdaMathCheck ()
@@ -76,7 +76,7 @@ LambdaMathCheck::~LambdaMathCheck ()
 }
 
 
-/**
+/*
  * @return the preamble to use when logging constraint violations.
  */
 const char*
@@ -86,7 +86,7 @@ LambdaMathCheck::getPreamble ()
 }
 
 
-/**
+/*
   * Checks the MathML of the ASTnode 
   * is appropriate for the function being performed
   *
@@ -114,7 +114,7 @@ LambdaMathCheck::checkMath (const Model& m, const ASTNode& node, const SBase & s
 }
 
   
-/**
+/*
  * @return the error message to use when logging constraint violations.
  * This method is called by logFailure.
  *

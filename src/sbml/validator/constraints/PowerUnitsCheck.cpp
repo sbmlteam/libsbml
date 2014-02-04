@@ -61,7 +61,7 @@ static const char* PREAMBLE =
   "A math expression using power with non-integer units may result in incorrect units.";
 
 
-/**
+/*
  * Creates a new Constraint with the given @p id.
  */
 PowerUnitsCheck::PowerUnitsCheck (unsigned int id, Validator& v) : UnitsBase(id, v)
@@ -69,14 +69,14 @@ PowerUnitsCheck::PowerUnitsCheck (unsigned int id, Validator& v) : UnitsBase(id,
 }
 
 
-/**
+/*
  * Destroys this Constraint.
  */
 PowerUnitsCheck::~PowerUnitsCheck ()
 {
 }
 
-/**
+/*
  * @return the preamble to use when logging constraint violations.
  */
 const char*
@@ -88,12 +88,12 @@ PowerUnitsCheck::getPreamble ()
 
 
 
-/**
-  * Checks that the units of the result of the assignment rule
-  * are consistent with variable being assigned
-  *
-  * If an inconsistent variable is found, an error message is logged.
-  */
+/*
+ * Checks that the units of the result of the assignment rule
+ * are consistent with variable being assigned
+ *
+ * If an inconsistent variable is found, an error message is logged.
+ */
 void
 PowerUnitsCheck::checkUnits (const Model& m, const ASTNode& node, const SBase & sb,
                                  bool inKL, int reactNo)
@@ -125,22 +125,22 @@ PowerUnitsCheck::checkUnits (const Model& m, const ASTNode& node, const SBase & 
 }
 
   
-/**
-  * Checks that the units of the power function are consistent
-  *
-  * If inconsistent units are found, an error message is logged.
-  * 
-  * The two arguments to power, which are of the form power(a, b) 
-  * with the meaning a^b, should be as follows: 
-  * (1) if the second argument is an integer, 
-  *     then the first argument can have any units; 
-  * (2) if the second argument b is a rational number n/m, 
-  * it must be possible to derive the m-th root of (a{unit})n,
-  * where {unit} signifies the units associated with a; 
-  * otherwise, (3) the units of the first argument must be 'dimensionless'. 
-  * The second argument (b) should always have units of 'dimensionless'.
-  *
-  */
+/*
+ * Checks that the units of the power function are consistent
+ *
+ * If inconsistent units are found, an error message is logged.
+ * 
+ * The two arguments to power, which are of the form power(a, b) 
+ * with the meaning a^b, should be as follows: 
+ * (1) if the second argument is an integer, 
+ *     then the first argument can have any units; 
+ * (2) if the second argument b is a rational number n/m, 
+ * it must be possible to derive the m-th root of (a{unit})n,
+ * where {unit} signifies the units associated with a; 
+ * otherwise, (3) the units of the first argument must be 'dimensionless'. 
+ * The second argument (b) should always have units of 'dimensionless'.
+ *
+ */
 void 
 PowerUnitsCheck::checkUnitsFromPower (const Model& m, 
                                         const ASTNode& node, 
@@ -456,7 +456,7 @@ PowerUnitsCheck::checkUnitsFromPower (const Model& m,
 }
 
 
-/**
+/*
  * @return the error message to use when logging constraint violations.
  * This method is called by logFailure.
  *
@@ -545,10 +545,10 @@ PowerUnitsCheck::getMessage (const ASTNode& node, const SBase& object)
 //    checkChildren(m, node, sb);
 //  }
 //}
-/**
-* Logs a message about a function that should return same units
-* as the arguments
-*/
+/*
+ * Logs a message about a function that should return same units
+ * as the arguments
+ */
 void 
 PowerUnitsCheck::logNonDimensionlessPowerConflict (const ASTNode & node, 
                                              const SBase & sb)

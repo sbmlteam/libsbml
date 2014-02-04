@@ -62,9 +62,6 @@
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
-/**
- * @return 1 if the number is NaN and 0 otherwise.
- */
 LIBSBML_EXTERN
 int
 util_isNaN (double d)
@@ -72,9 +69,6 @@ util_isNaN (double d)
   return d != d;
 }
 
-/**
- * @return 1 if the number is finite and 0 otherwise.
- */
 LIBSBML_EXTERN
 int
 util_isFinite (double d)
@@ -82,18 +76,12 @@ util_isFinite (double d)
   return !util_isNaN(d) && !util_isNaN(d-d);
 }
 
-/**
- * @return the machine epsilon
- */
 LIBSBML_EXTERN 
 double util_epsilon()
 {
   return __DBL_EPSILON__;
 }
 
-/**
- * @return 1 if the number are equal up to the machine epsilon and 0 otherwise.
- */
 LIBSBML_EXTERN
 int util_isEqual(double a, double b)
 {
@@ -101,12 +89,6 @@ int util_isEqual(double a, double b)
 }
 
 
-
-/**
- * Identical to snprintf except printing always occurs according to the
- * "C" locale.  This function does not affect the locale of the calling
- * program.
- */
 int
 c_locale_snprintf (char *str, size_t size, const char *format, ...)
 {
@@ -121,11 +103,6 @@ c_locale_snprintf (char *str, size_t size, const char *format, ...)
 }
 
 
-/**
- * Identical to vsnprintf except printing always occurs according to the
- * "C" locale.  This function does not affect the locale of the calling
- * program.
- */
 int
 c_locale_vsnprintf (char *str, size_t size, const char *format, va_list ap)
 {
@@ -149,11 +126,6 @@ c_locale_vsnprintf (char *str, size_t size, const char *format, va_list ap)
 }
 
 
-/**
- * Identical to strtod except conversion always occurs according to the
- * "C" locale.  This function does not affect the locale of the calling
- * program.
- */
 double
 c_locale_strtod (const char *nptr, char **endptr)
 {
@@ -173,11 +145,6 @@ c_locale_strtod (const char *nptr, char **endptr)
 }
 
 
-/**
- * Attempts to open filename for the given access mode and return a pointer
- * to it.  If the filename could not be opened, prints an error message and
- * exits.
- */
 LIBSBML_EXTERN
 FILE *
 safe_fopen (const char *filename, const char *mode)
@@ -205,13 +172,6 @@ safe_fopen (const char *filename, const char *mode)
 }
 
 
-/**
- * Returns a pointer to a new string which is the concatenation of the
- * strings str1 and str2.  Memory for the new string is obtained with
- * safe_malloc() and can be freed with safe_free().
- *
- * NOTE: This strcat behaves differently than standard library strcat().
- */
 LIBSBML_EXTERN
 char *
 safe_strcat (const char *str1, const char *str2)
@@ -234,11 +194,6 @@ safe_strcat (const char *str1, const char *str2)
 }
 
 
-/**
- * @return a pointer to a new string which is a duplicate of the string s.
- * Memory for the string is obtained with safe_malloc() and can be freed
- * with safe_free().
- */
 LIBSBML_EXTERN
 char *
 safe_strdup (const char* s)
@@ -258,12 +213,6 @@ safe_strdup (const char* s)
 }
 
 
-/**
- * Compares two strings s1 and s2, ignoring the case of the characters.
- *
- * @return an integer less than, equal to, or greater than zero if s1 is
- * found, respectively, to be less than, to match, or be greater than s2.
- */
 LIBSBML_EXTERN
 int
 strcmp_insensitive (const char *s1, const char *s2)
@@ -279,9 +228,6 @@ strcmp_insensitive (const char *s1, const char *s2)
 }
 
 
-/**
- * Easier-to-read and NULL-friendly string comparison.
- */
 LIBSBML_EXTERN
 unsigned int
 streq (const char *s, const char *t)
@@ -295,16 +241,6 @@ streq (const char *s, const char *t)
 }
 
 
-/**
- * Peforms a binary search on the string table strings to find string s.
- *
- * All strings from strings[lo] to strings[hi] are searched.  The string
- * comparison function used is strcmp_insensitive().  Since the search is
- * binary, the strings table must be sorted, irrespecitve of case.
- *
- * @return the index of s in strings, if s was found, or stop + 1
- * otherwise.
- */
 LIBSBML_EXTERN
 int
 util_bsearchStringsI (const char **strings, const char *s, int lo, int hi)
@@ -340,9 +276,6 @@ util_bsearchStringsI (const char **strings, const char *s, int lo, int hi)
 }
 
 
-/**
- * @returns true (non-zero) if filename exists, false (zero) otherwise.
- */
 LIBSBML_EXTERN
 int
 util_file_exists (const char *filename)
@@ -357,14 +290,6 @@ util_file_exists (const char *filename)
 }
 
 
-/**
- * Removes leading and trailing whitespace from the string s.
- *
- * @return a pointer to a new string which is a duplicate of the string s,
- * with leading and trailing whitespace removed or NULL is s is NULL.
- *
- * Whitespace is determined by isspace().
- */
 LIBSBML_EXTERN
 char *
 util_trim (const char *s)
@@ -381,7 +306,7 @@ util_trim (const char *s)
   len = (int)strlen(s);
   end = start + len - 1;
 
-  /**
+  /*
    * Skip leading whitespace.
    *
    * When this loop terminates, start will point the first non-whitespace
@@ -393,7 +318,7 @@ util_trim (const char *s)
     len--;
   }
 
-  /**
+  /*
    * Skip trailing whitespace.
    *
    * When this loop terminates, end will point the last non-whitespace
@@ -405,7 +330,7 @@ util_trim (const char *s)
     len--;
   }
 
-  /**
+  /*
    * If len is zero, the string is either empty or pure whitespace.  Set
    * trimmed to an empty string.
    */
@@ -415,7 +340,7 @@ util_trim (const char *s)
     trimmed[0] = '\0';
   }
 
-  /**
+  /*
    * Otherwise...
    */
   else
@@ -430,15 +355,6 @@ util_trim (const char *s)
 }
 
 
-/**
- * Removes leading and trailing whitespace from the string s.
- *
- * @return a pointer to the first non-whitespace character of the string s
- * (which may be the terminating NULL), or NULL if s is NULL.  The first
- * trailing whitespace character will be replaced with NULL.
- *
- * Whitespace is determined by isspace().
- */
 LIBSBML_EXTERN
 char *
 util_trim_in_place (char *s)
@@ -452,7 +368,7 @@ util_trim_in_place (char *s)
   len = (int)strlen(s);
   end = s + len - 1;
 
-  /**
+  /*
    * Skip leading whitespace.
    *
    * When this loop terminates, s will point the first non-whitespace
@@ -464,7 +380,7 @@ util_trim_in_place (char *s)
     len--;
   }
 
-  /**
+  /*
    * Skip trailing whitespace.
    *
    * When this loop terminates, end will point the last non-whitespace
@@ -485,11 +401,6 @@ util_trim_in_place (char *s)
 /** @endcond */
 
 
-/**
- * Returns a representation of @c NaN.
- * 
- * @return a (quiet) NaN.
- */
 LIBSBML_EXTERN
 double
 util_NaN (void)
@@ -501,11 +412,6 @@ util_NaN (void)
 }
 
 
-/**
- * Returns a representation of the IEEE-754 "Negative Infinity" value.
- * 
- * @return IEEE-754 Negative Infinity.
- */
 LIBSBML_EXTERN
 double
 util_NegInf (void)
@@ -517,11 +423,6 @@ util_NegInf (void)
 }
 
 
-/**
- * Returns a representation of the IEEE-754 "Positive Infinity" value.
- * 
- * @return IEEE-754 Positive Infinity
- */
 LIBSBML_EXTERN
 double
 util_PosInf (void)
@@ -533,11 +434,6 @@ util_PosInf (void)
 }
 
 
-/**
- * Returns a representation of the IEEE-754 "Negative Zero" value.
- * 
- * @return IEEE-754 Negative Zero.
- */
 LIBSBML_EXTERN
 double
 util_NegZero (void)
@@ -546,14 +442,6 @@ util_NegZero (void)
 }
 
 
-/**
- * Function for testing whether a given value represents negative infinity.
- *
- * @param d the floating-point value to test
- * 
- * @return @c -1 (for false) if @p d represents negative infinity, @c 1 if
- * @p d represents positive infinity, and @c 0 otherwise.
- */
 LIBSBML_EXTERN
 int
 util_isInf (double d)
@@ -568,14 +456,6 @@ util_isInf (double d)
 }
 
 
-/**
- * Function for testing whether a given value represents negative zero.
- *
- * @param d the floating-point value to test
- * 
- * @return nonzero (for true) if @p d is an IEEE-754 negative zero, zero
- * (for false) otherwise.
- */
 LIBSBML_EXTERN
 int
 util_isNegZero (double d)
@@ -590,27 +470,6 @@ util_isNegZero (double d)
 }
 
 
-/**
- * Function for freeing memory allocated by libSBML functions
- *
- * @param element pointer to the object to be freed.  It must
- * be data that was originally allocated by a libSBML function.
- * 
- * This function was introduced to deal with a specific memory issue
- * arising on Windows OS when using libSBML compiled against a static MSVC
- * runtime library.  In this situation, it was not possible to use the
- * standard <code>free()</code> function when freeing memory that was
- * actually allocated within the libSBML function call.  The following is
- * an example of where the free function fails and needs to be replaced
- * with util_free().
- * @code
- *    char * formula = SBML_formulaToString(astNode);
- *    free(formula);
- * @endcode
- *
- * @note This function is only necessary when using a version of libSBML
- * compiled and linked against a static MSVC runtime library.
- */
 LIBSBML_EXTERN
 void
 util_free (void * element)
@@ -621,29 +480,6 @@ util_free (void * element)
   }
 }
 
-/**
- * Function for freeing memory allocated by libSBML functions
- *
- * @param objects pointer to the array to be freed.  It must
- * be data that was originally allocated by a libSBML function.
- * @param length number of elements in the array to be freed.
- * 
- * This function was introduced to deal with a specific memory issue
- * arising on Windows OS when using libSBML compiled against a static MSVC
- * runtime library.  In this situation, it was not possible to use the
- * standard <code>free()</code> function when freeing memory that was
- * actually allocated within the libSBML function call.  The following is
- * an example of where the free function fails and needs to be replaced
- * with util_freeArray().
- * @code
- *    int length;
- *    SBMLNamespaces_t** supported = SBMLNamespaces_getSupportedNamespaces(&length);
- *    free(supported);
- * @endcode
- *
- * @note This function is only necessary when using a version of libSBML
- * compiled and linked against a static MSVC runtime library.
- */
 LIBSBML_EXTERN
 void
 util_freeArray (void ** objects, int length)

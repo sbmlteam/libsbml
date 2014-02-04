@@ -60,7 +60,7 @@ static const char* PREAMBLE =
     "(References: L2V4 Section 4.3.4.)";
 
 
-/**
+/*
  * Creates a new Constraint with the given @p id.
  */
 FunctionNoArgsMathCheck::FunctionNoArgsMathCheck (unsigned int id, Validator& v) : MathMLBase(id, v)
@@ -68,7 +68,7 @@ FunctionNoArgsMathCheck::FunctionNoArgsMathCheck (unsigned int id, Validator& v)
 }
 
 
-/**
+/*
  * Destroys this Constraint.
  */
 FunctionNoArgsMathCheck::~FunctionNoArgsMathCheck ()
@@ -76,7 +76,7 @@ FunctionNoArgsMathCheck::~FunctionNoArgsMathCheck ()
 }
 
 
-/**
+/*
  * @return the preamble to use when logging constraint violations.
  */
 const char*
@@ -86,7 +86,7 @@ FunctionNoArgsMathCheck::getPreamble ()
 }
 
 
-/**
+/*
   * Checks the MathML of the ASTnode 
   * is appropriate for the function being performed
   *
@@ -113,7 +113,7 @@ FunctionNoArgsMathCheck::checkMath (const Model& m, const ASTNode& node, const S
 }
 
   
-/**
+/*
   * Checks that the functionDefinition referred to by a &lt;ci&gt; element 
   * has the appropriate number of arguments.
   *
@@ -146,7 +146,7 @@ FunctionNoArgsMathCheck::checkNumArgs (const Model& m, const ASTNode& node,
 }
 
 
-/**
+/*
  * @return the error message to use when logging constraint violations.
  * This method is called by logFailure.
  *

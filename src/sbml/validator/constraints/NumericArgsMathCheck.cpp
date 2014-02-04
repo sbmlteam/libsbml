@@ -61,7 +61,7 @@ static const char* PREAMBLE =
     "(References: L2V2 Section 3.5.8.)";
 
 
-/**
+/*
  * Creates a new Constraint with the given @p id.
  */
 NumericArgsMathCheck::NumericArgsMathCheck (unsigned int id, Validator& v) : MathMLBase(id, v)
@@ -69,7 +69,7 @@ NumericArgsMathCheck::NumericArgsMathCheck (unsigned int id, Validator& v) : Mat
 }
 
 
-/**
+/*
  * Destroys this Constraint.
  */
 NumericArgsMathCheck::~NumericArgsMathCheck ()
@@ -77,7 +77,7 @@ NumericArgsMathCheck::~NumericArgsMathCheck ()
 }
 
 
-/**
+/*
  * @return the preamble to use when logging constraint violations.
  */
 const char*
@@ -87,12 +87,12 @@ NumericArgsMathCheck::getPreamble ()
 }
 
 
-/**
-  * Checks the MathML of the ASTnode 
-  * is appropriate for the function being performed
-  *
-  * If an inconsistency is found, an error message is logged.
-  */
+/*
+ * Checks the MathML of the ASTnode 
+ * is appropriate for the function being performed
+ *
+ * If an inconsistency is found, an error message is logged.
+ */
 void
 NumericArgsMathCheck::checkMath (const Model& m, const ASTNode& node, const SBase & sb)
 {
@@ -157,11 +157,11 @@ NumericArgsMathCheck::checkMath (const Model& m, const ASTNode& node, const SBas
 }
 
   
-/**
-  * Checks that the arguments of numeric functions are consistent
-  *
-  * If not, an error message is logged.
-  */
+/*
+ * Checks that the arguments of numeric functions are consistent
+ *
+ * If not, an error message is logged.
+ */
 void 
 NumericArgsMathCheck::checkNumericArgs (const Model& m, const ASTNode& node, 
                                                const SBase & sb)
@@ -179,7 +179,7 @@ NumericArgsMathCheck::checkNumericArgs (const Model& m, const ASTNode& node,
 }
 
 
-/**
+/*
  * @return the error message to use when logging constraint violations.
  * This method is called by logFailure.
  *

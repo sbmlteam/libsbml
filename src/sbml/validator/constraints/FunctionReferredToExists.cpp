@@ -45,7 +45,7 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 #ifdef __cplusplus
 
 
-/**
+/*
  * Creates a new Constraint with the given constraint id.
  */
 FunctionReferredToExists::FunctionReferredToExists (unsigned int id, Validator& v) :
@@ -54,7 +54,7 @@ FunctionReferredToExists::FunctionReferredToExists (unsigned int id, Validator& 
 }
 
 
-/**
+/*
  * Destroys this Constraint.
  */
 FunctionReferredToExists::~FunctionReferredToExists ()
@@ -62,7 +62,7 @@ FunctionReferredToExists::~FunctionReferredToExists ()
 }
 
 
-/**
+/*
  * Checks that all ids on the following Model objects are unique:
  * event assignments and assignment rules.
  */
@@ -83,7 +83,7 @@ FunctionReferredToExists::check_ (const Model& m, const Model& object)
   }
 }
 
-/**
+/*
   * Checks that &lt;ci&gt; element after an apply is already listed as a FunctionDefinition.
   */
 void FunctionReferredToExists::checkCiElements(const FunctionDefinition * fd)
@@ -102,7 +102,7 @@ void FunctionReferredToExists::checkCiElements(const FunctionDefinition * fd)
 
 }
 
-/**
+/*
   * Checks that &lt;ci&gt; element after an apply is already listed as a FunctionDefinition.
   */
 void FunctionReferredToExists::checkCiIsFunction(const FunctionDefinition * fd,
@@ -123,7 +123,7 @@ void FunctionReferredToExists::checkCiIsFunction(const FunctionDefinition * fd,
   }
 }
 
-/**
+/*
   * Logs a message about an undefined &lt;ci&gt; element in the given
   * FunctionDefinition.
   */

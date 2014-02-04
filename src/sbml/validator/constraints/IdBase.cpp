@@ -42,7 +42,7 @@ using namespace std;
 LIBSBML_CPP_NAMESPACE_BEGIN
 
 
-/**
+/*
  * Creates a new IdBase with the given constraint id.
  */
 IdBase::IdBase (unsigned int id, Validator& v) : TConstraint<Model>(id, v)
@@ -50,7 +50,7 @@ IdBase::IdBase (unsigned int id, Validator& v) : TConstraint<Model>(id, v)
 }
 
 
-/**
+/*
  * Destroys this Constraint.
  */
 IdBase::~IdBase ()
@@ -58,7 +58,7 @@ IdBase::~IdBase ()
 }
 
 
-/**
+/*
  * @return the fieldname to use logging constraint violations.  If not
  * overridden, "id" is returned.
  */
@@ -69,7 +69,7 @@ IdBase::getFieldname ()
 }
 
 
-/**
+/*
  * @return the preamble to use when logging constraint violations.  The
  * preamble will be prepended to each log message.  If not overriden,
  * returns an empty string.
@@ -81,7 +81,7 @@ IdBase::getPreamble ()
 }
 
 
-/**
+/*
  * Checks that all ids for some given subset of the Model adhere to this
  * Constraint.  Override the doCheck() method to define your own subset.
  */
@@ -220,7 +220,7 @@ IdBase::checkId (const InitialAssignment& x)
   if (x.isSetSymbol()) doCheckId(x.getSymbol(), x);
 }
 
-/**
+/*
  * @return the typename of the given SBase object.
  */
 const char*
@@ -230,7 +230,7 @@ IdBase::getTypename (const SBase& object)
 }
 
 
-/**
+/*
  * Logs a message that the given @p id (and its corresponding object) have
  * failed to satisfy this constraint.
  */

@@ -56,7 +56,7 @@ static const char* PREAMBLE =
     "value. (References: L2V2 Section 3.5.8.)";
 
 
-/**
+/*
  * Creates a new Constraint with the given @p id.
  */
 PieceBooleanMathCheck::PieceBooleanMathCheck (unsigned int id, Validator& v) : MathMLBase(id, v)
@@ -64,7 +64,7 @@ PieceBooleanMathCheck::PieceBooleanMathCheck (unsigned int id, Validator& v) : M
 }
 
 
-/**
+/*
  * Destroys this Constraint.
  */
 PieceBooleanMathCheck::~PieceBooleanMathCheck ()
@@ -72,7 +72,7 @@ PieceBooleanMathCheck::~PieceBooleanMathCheck ()
 }
 
 
-/**
+/*
  * @return the preamble to use when logging constraint violations.
  */
 const char*
@@ -82,7 +82,7 @@ PieceBooleanMathCheck::getPreamble ()
 }
 
 
-/**
+/*
   * Checks the MathML of the ASTnode 
   * is appropriate for the function being performed
   *
@@ -115,7 +115,7 @@ PieceBooleanMathCheck::checkMath (const Model& m, const ASTNode& node, const SBa
 }
 
   
-/**
+/*
   * Checks that the second argument of a piecewise returns a boolean
   *
   * If not, an error message is logged.
@@ -140,7 +140,7 @@ PieceBooleanMathCheck::checkPiece (const Model& m, const ASTNode& node,
 }
 
 
-/**
+/*
  * @return the error message to use when logging constraint violations.
  * This method is called by logFailure.
  *

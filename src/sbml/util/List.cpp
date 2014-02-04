@@ -358,9 +358,6 @@ List::transferFrom(List* list)
 /** @cond doxygenCOnly */
 
 
-/**
- * Creates a new List and returns a pointer to it.
- */
 LIBSBML_EXTERN
 List_t *
 List_create (void)
@@ -369,9 +366,6 @@ List_create (void)
 }
 
 
-/**
- * Creates a new ListNode (with item) and returns a pointer to it.
- */
 LIBSBML_EXTERN
 ListNode_t *
 ListNode_create (void *item)
@@ -380,17 +374,6 @@ ListNode_create (void *item)
 }
 
 
-/**
- * Frees the given List.
- *
- * This function does not free List items.  It frees only the List_t
- * structure and its constituent ListNode_t structures (if any).
- *
- * Presumably, you either i) have pointers to the individual list items
- * elsewhere in your program and you want to keep them around for awhile
- * longer or ii) the list has no items (List_size(lst) == 0).  If neither
- * are true, try List_freeItems() instead.
- */
 LIBSBML_EXTERN
 void
 List_free (List_t *lst)
@@ -400,9 +383,6 @@ List_free (List_t *lst)
 }
 
 
-/**
- * Frees the given ListNode.
- */
 void
 ListNode_free (ListNode_t *node)
 {
@@ -410,9 +390,6 @@ ListNode_free (ListNode_t *node)
 }
 
 
-/**
- * Adds item to the end of this List.
- */
 LIBSBML_EXTERN
 void
 List_add (List_t *lst, void *item)
@@ -422,17 +399,6 @@ List_add (List_t *lst, void *item)
 }
 
 
-/**
- * @return the number of items in this List for which predicate(item)
- * returns true.
- *
- * The typedef for ListItemPredicate is:
- *
- *   int (*ListItemPredicate) (const void *item);
- *
- * where a return value of non-zero represents true and zero represents
- * false.
- */
 LIBSBML_EXTERN
 unsigned int
 List_countIf (const List_t *lst, ListItemPredicate predicate)
@@ -442,19 +408,6 @@ List_countIf (const List_t *lst, ListItemPredicate predicate)
 }
 
 
-/**
- * @return the first occurrence of item1 in this List or NULL if item was
- * not found.  ListItemComparator is a pointer to a function used to find
- * item.  The typedef for ListItemComparator is:
- *
- *   int (*ListItemComparator) (void *item1, void *item2);
- *
- * The return value semantics are the same as for strcmp:
- *
- *   -1    item1 <  item2,
- *    0    item1 == item 2
- *    1    item1 >  item2
- */
 LIBSBML_EXTERN
 void *
 List_find ( const List_t *lst,
@@ -466,15 +419,6 @@ List_find ( const List_t *lst,
 }
 
 
-/**
- * @return a new List containing (pointers to) all items in this List for
- * which predicate(item) was true.
- *
- * The returned list may be empty.
- *
- * The caller owns the returned list (but not its constituent items) and is
- * responsible for freeing it with List_free().
- */
 LIBSBML_EXTERN
 List_t *
 List_findIf (const List_t *lst, ListItemPredicate predicate)
@@ -484,9 +428,6 @@ List_findIf (const List_t *lst, ListItemPredicate predicate)
 }
 
 
-/**
- * Returns the nth item in this List.  If n > List_size(lst) returns NULL.
- */
 LIBSBML_EXTERN
 void *
 List_get (const List_t *lst, unsigned int n)
@@ -496,9 +437,6 @@ List_get (const List_t *lst, unsigned int n)
 }
 
 
-/**
- * Adds item to the beginning of this List.
- */
 LIBSBML_EXTERN
 void
 List_prepend (List_t *lst, void *item)
@@ -508,10 +446,6 @@ List_prepend (List_t *lst, void *item)
 }
 
 
-/**
- * Removes the nth item from this List and returns a pointer to it.  If n >
- * List_size(lst) returns NULL.
- */
 LIBSBML_EXTERN
 void *
 List_remove (List_t *lst, unsigned int n)
@@ -521,9 +455,6 @@ List_remove (List_t *lst, unsigned int n)
 }
 
 
-/**
- * @return the number of elements in this List.
- */
 LIBSBML_EXTERN
 unsigned int
 List_size (const List_t *lst)

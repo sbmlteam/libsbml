@@ -41,7 +41,7 @@ using namespace std;
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
-/**
+/*
  * Creates a new Constraint with the given @p id.
  */
 CompartmentOutsideCycles::CompartmentOutsideCycles ( unsigned int id,
@@ -51,7 +51,7 @@ CompartmentOutsideCycles::CompartmentOutsideCycles ( unsigned int id,
 }
 
 
-/**
+/*
  * Destroys this Constraint.
  */
 CompartmentOutsideCycles::~CompartmentOutsideCycles ()
@@ -59,7 +59,7 @@ CompartmentOutsideCycles::~CompartmentOutsideCycles ()
 }
 
 
-/**
+/*
  * Checks that no Compartments in Model have a cycle via their 'outside'
  * attribute.
  *
@@ -77,7 +77,7 @@ CompartmentOutsideCycles::check_ (const Model& m, const Model& object)
 }
 
 
-/**
+/*
  * Checks for a cycle by following Compartment c's 'outside' attribute.  If
  * a cycle is found, it is added to the list of found cycles, mCycles.
  */
@@ -107,7 +107,7 @@ CompartmentOutsideCycles::checkForCycle (const Model& m, const Compartment* c)
 }
 
 
-/**
+/*
  * Function Object: Returns true if Compartment c is contained in the given
  * IdList cycle.
  */
@@ -124,7 +124,7 @@ struct CycleContains : public unary_function<IdList, bool>
 };
 
 
-/**
+/*
  * @return true if Compartment c is contained in one of the already found
  * cycles, false otherwise.
  */
@@ -136,7 +136,7 @@ CompartmentOutsideCycles::isInCycle (const Compartment* c)
 }
 
 
-/**
+/*
  * Logs a message about a cycle found starting at Compartment c.
  */
 void

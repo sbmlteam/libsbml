@@ -42,7 +42,7 @@ using namespace std;
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
-/**
+/*
  * Creates a new Constraint with the given @p id.
  */
 FunctionDefinitionVars::FunctionDefinitionVars (unsigned int id, Validator& v) :
@@ -51,7 +51,7 @@ FunctionDefinitionVars::FunctionDefinitionVars (unsigned int id, Validator& v) :
 }
 
 
-/**
+/*
  * Destroys this Constraint.
  */
 FunctionDefinitionVars::~FunctionDefinitionVars ()
@@ -59,7 +59,7 @@ FunctionDefinitionVars::~FunctionDefinitionVars ()
 }
 
 
-/**
+/*
  * Checks that all variables referenced in FunctionDefinition bodies are
  * bound variables (function arguments).
  */
@@ -104,7 +104,7 @@ FunctionDefinitionVars::check_ (const Model& m, const FunctionDefinition& fd)
 }
 
 
-/**
+/*
  * Logs a message about an undefined variable in the given
  * FunctionDefinition.
  */

@@ -48,7 +48,7 @@ using namespace std;
 LIBSBML_CPP_NAMESPACE_BEGIN
 #ifdef __cplusplus
 
-/**
+/*
  * Creates a new Constraint with the given constraint id.
  */
 AssignmentRuleOrdering::AssignmentRuleOrdering (unsigned int id, Validator& v) :
@@ -57,7 +57,7 @@ AssignmentRuleOrdering::AssignmentRuleOrdering (unsigned int id, Validator& v) :
 }
 
 
-/**
+/*
  * Destroys this Constraint.
  */
 AssignmentRuleOrdering::~AssignmentRuleOrdering ()
@@ -65,7 +65,7 @@ AssignmentRuleOrdering::~AssignmentRuleOrdering ()
 }
 
 
-/**
+/*
  * Checks that all ids on the following Model objects are unique:
  * event assignments and assignment rules.
  */

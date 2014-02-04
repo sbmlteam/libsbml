@@ -44,7 +44,7 @@ using namespace std;
 LIBSBML_CPP_NAMESPACE_BEGIN
 
 
-/**
+/*
  * Creates a new Constraint with the given constraint id.
  */
 LocalParameterShadowsIdInModel::LocalParameterShadowsIdInModel (unsigned int id, Validator& v) :
@@ -53,7 +53,7 @@ LocalParameterShadowsIdInModel::LocalParameterShadowsIdInModel (unsigned int id,
 }
 
 
-/**
+/*
  * Destroys this Constraint.
  */
 LocalParameterShadowsIdInModel::~LocalParameterShadowsIdInModel ()
@@ -61,7 +61,7 @@ LocalParameterShadowsIdInModel::~LocalParameterShadowsIdInModel ()
 }
 
 
-/**
+/*
   * Checks that any species with boundary condition false
   * is not set by reaction and rules
   */
@@ -160,7 +160,7 @@ LocalParameterShadowsIdInModel::check_ (const Model& m, const Model& object)
   }
 }
 
-/**
+/*
   * Logs a message about species with boundary condition false
   * being set by reaction and rules
   */

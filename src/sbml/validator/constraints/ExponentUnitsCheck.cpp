@@ -55,7 +55,7 @@ static const char* PREAMBLE =
   "The use of non-integral exponents may result in incorrect units.";
 
 
-/**
+/*
  * Creates a new Constraint with the given @p id.
  */
 ExponentUnitsCheck::ExponentUnitsCheck (unsigned int id, Validator& v) : UnitsBase(id, v)
@@ -63,14 +63,14 @@ ExponentUnitsCheck::ExponentUnitsCheck (unsigned int id, Validator& v) : UnitsBa
 }
 
 
-/**
+/*
  * Destroys this Constraint.
  */
 ExponentUnitsCheck::~ExponentUnitsCheck ()
 {
 }
 
-/**
+/*
  * @return the preamble to use when logging constraint violations.
  */
 const char*
@@ -82,7 +82,7 @@ ExponentUnitsCheck::getPreamble ()
 
 
 
-/**
+/*
   * Checks that the units of the result of the assignment rule
   * are consistent with variable being assigned
   *
@@ -116,7 +116,7 @@ ExponentUnitsCheck::checkUnits (const Model& m, const ASTNode& node, const SBase
 }
 
   
-/**
+/*
   * Checks that the units of the power function are consistent
   *
   * If inconsistent units are found, an error message is logged.
@@ -262,7 +262,7 @@ ExponentUnitsCheck::checkUnitsFromRoot (const Model& m,
 }
 
 
-/**
+/*
  * @return the error message to use when logging constraint violations.
  * This method is called by logFailure.
  *

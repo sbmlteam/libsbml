@@ -44,7 +44,7 @@ using namespace std;
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 #ifdef __cplusplus
-/**
+/*
  * Creates a new Constraint with the given @p id.
  */
 StoichiometryMathVars::StoichiometryMathVars (unsigned int id, Validator& v) :
@@ -53,7 +53,7 @@ StoichiometryMathVars::StoichiometryMathVars (unsigned int id, Validator& v) :
 }
 
 
-/**
+/*
  * Destroys this Constraint.
  */
 StoichiometryMathVars::~StoichiometryMathVars ()
@@ -61,7 +61,7 @@ StoichiometryMathVars::~StoichiometryMathVars ()
 }
 
 
-/**
+/*
  * Checks that all variables referenced in FunctionDefinition bodies are
  * bound variables (function arguments).
  */
@@ -130,7 +130,7 @@ StoichiometryMathVars::check_ (const Model& m, const Reaction& r)
 }
 
 
-/**
+/*
  * Logs a message about an undefined variable in the given
  * FunctionDefinition.
  */

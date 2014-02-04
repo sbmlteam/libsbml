@@ -44,7 +44,7 @@ using namespace std;
 LIBSBML_CPP_NAMESPACE_BEGIN
 
 
-/**
+/*
  * Creates a new Constraint with the given constraint id.
  */
 DuplicateTopLevelAnnotation::DuplicateTopLevelAnnotation (unsigned int id, Validator& v) :
@@ -53,7 +53,7 @@ DuplicateTopLevelAnnotation::DuplicateTopLevelAnnotation (unsigned int id, Valid
 }
 
 
-/**
+/*
  * Destroys this Constraint.
  */
 DuplicateTopLevelAnnotation::~DuplicateTopLevelAnnotation ()
@@ -61,7 +61,7 @@ DuplicateTopLevelAnnotation::~DuplicateTopLevelAnnotation ()
 }
 
 
-/**
+/*
  * Checks whether all annotations have duplicate top level namespaces
  */
 void
@@ -259,7 +259,7 @@ DuplicateTopLevelAnnotation::check_ (const Model& m, const Model& object)
   }
 }
 
-/**
+/*
   * Check the annotation
   */
 void DuplicateTopLevelAnnotation::checkAnnotation(const SBase & object)
@@ -284,7 +284,7 @@ void DuplicateTopLevelAnnotation::checkAnnotation(const SBase & object)
   }
 }
 
-/**
+/*
   * Logs a message about dupliacte top level annotations.
   */
 void

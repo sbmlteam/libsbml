@@ -60,7 +60,7 @@ static const char* PREAMBLE =
     "model. (References: L2V2 Section 3.5.3.)";
 
 
-/**
+/*
  * Creates a new Constraint with the given @p id.
  */
 LocalParameterMathCheck::LocalParameterMathCheck (unsigned int id, Validator& v) : MathMLBase(id, v)
@@ -68,7 +68,7 @@ LocalParameterMathCheck::LocalParameterMathCheck (unsigned int id, Validator& v)
 }
 
 
-/**
+/*
  * Destroys this Constraint.
  */
 LocalParameterMathCheck::~LocalParameterMathCheck ()
@@ -76,7 +76,7 @@ LocalParameterMathCheck::~LocalParameterMathCheck ()
 }
 
 
-/**
+/*
  * @return the preamble to use when logging constraint violations.
  */
 const char*
@@ -86,7 +86,7 @@ LocalParameterMathCheck::getPreamble ()
 }
 
 
-/**
+/*
   * Checks the MathML of the ASTnode 
   * is appropriate for the function being performed
   *
@@ -116,7 +116,7 @@ LocalParameterMathCheck::checkMath (const Model& m, const ASTNode& node, const S
 }
 
   
-/**
+/*
   * Checks any &lt;ci&gt; elements in the MathML of the ASTnode 
   * contain the id of an appropriate component of the model
   *
@@ -158,7 +158,7 @@ LocalParameterMathCheck::checkCiElement (const Model& m,
 }
 
 
-/**
+/*
  * @return the error message to use when logging constraint violations.
  * This method is called by logFailure.
  *
