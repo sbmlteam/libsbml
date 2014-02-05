@@ -331,10 +331,11 @@ LIBSBML_CPP_NAMESPACE_END
 #endif  /* __cplusplus */
 
 
-#ifndef SWIG
-
 LIBSBML_CPP_NAMESPACE_BEGIN
 BEGIN_C_DECLS
+
+
+#ifndef SWIG
 
 
 /**
