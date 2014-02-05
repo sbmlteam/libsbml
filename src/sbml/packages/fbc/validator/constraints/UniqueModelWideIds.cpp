@@ -165,7 +165,7 @@ UniqueModelWideIds::getMessage (const string& id, const SBase& object)
   //
 
   msg << "  The " << getTypename(object)
-      << "id '" << id << "' conflicts with the previously defined "
+      << " id '" << id << "' conflicts with the previously defined "
       << getTypename(previous)
       << " id '" << id << "'";
 
