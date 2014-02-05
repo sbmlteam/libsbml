@@ -377,6 +377,16 @@ LIBSBML_EXTERN
 List_t*
 SBMLExtensionRegistry_getRegisteredPackages();
 
+
+LIBSBML_EXTERN
+int
+SBMLExtensionRegistry_getNumRegisteredPackages();
+
+
+LIBSBML_EXTERN
+char*
+SBMLExtensionRegistry_getRegisteredPackageName(int index);
+
 END_C_DECLS
 LIBSBML_CPP_NAMESPACE_END
 
