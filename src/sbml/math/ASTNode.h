@@ -504,7 +504,7 @@ public:
    * Creates a recursive copy of this node and all its children.
    *
    * @return a copy of this ASTNode and all its children.  The caller owns
-   * the returned ASTNode and is reponsible for deleting it.
+   * the returned ASTNode and is responsible for deleting it.
    */
   LIBSBML_EXTERN
   ASTNode* deepCopy () const;
