@@ -740,9 +740,6 @@ ExternalModelDefinition::getReferencedModel(SBMLDocument* errordoc, set<pair<str
 
 #endif /* __cplusplus */
 /** @cond doxygenCOnly */
-/**
- * 
- */
 LIBSBML_EXTERN
 ExternalModelDefinition_t *
 ExternalModelDefinition_create(unsigned int level, unsigned int version,
@@ -752,9 +749,6 @@ ExternalModelDefinition_create(unsigned int level, unsigned int version,
 }
 
 
-/**
- * 
- */
 LIBSBML_EXTERN
 void
 ExternalModelDefinition_free(ExternalModelDefinition_t * emd)
@@ -764,9 +758,6 @@ ExternalModelDefinition_free(ExternalModelDefinition_t * emd)
 }
 
 
-/**
- * 
- */
 LIBSBML_EXTERN
 ExternalModelDefinition_t *
 ExternalModelDefinition_clone(ExternalModelDefinition_t * emd)
@@ -782,9 +773,6 @@ ExternalModelDefinition_clone(ExternalModelDefinition_t * emd)
 }
 
 
-/**
- * 
- */
 LIBSBML_EXTERN
 char *
 ExternalModelDefinition_getId(ExternalModelDefinition_t * emd)
@@ -796,9 +784,6 @@ ExternalModelDefinition_getId(ExternalModelDefinition_t * emd)
 }
 
 
-/**
- * 
- */
 LIBSBML_EXTERN
 char *
 ExternalModelDefinition_getSource(ExternalModelDefinition_t * emd)
@@ -810,9 +795,6 @@ ExternalModelDefinition_getSource(ExternalModelDefinition_t * emd)
 }
 
 
-/**
- * 
- */
 LIBSBML_EXTERN
 char *
 ExternalModelDefinition_getName(ExternalModelDefinition_t * emd)
@@ -824,9 +806,6 @@ ExternalModelDefinition_getName(ExternalModelDefinition_t * emd)
 }
 
 
-/**
- * 
- */
 LIBSBML_EXTERN
 char *
 ExternalModelDefinition_getModelRef(ExternalModelDefinition_t * emd)
@@ -838,9 +817,6 @@ ExternalModelDefinition_getModelRef(ExternalModelDefinition_t * emd)
 }
 
 
-/**
- * 
- */
 LIBSBML_EXTERN
 int
 ExternalModelDefinition_isSetId(ExternalModelDefinition_t * emd)
@@ -849,9 +825,6 @@ ExternalModelDefinition_isSetId(ExternalModelDefinition_t * emd)
 }
 
 
-/**
- * 
- */
 LIBSBML_EXTERN
 int
 ExternalModelDefinition_isSetSource(ExternalModelDefinition_t * emd)
@@ -860,9 +833,6 @@ ExternalModelDefinition_isSetSource(ExternalModelDefinition_t * emd)
 }
 
 
-/**
- * 
- */
 LIBSBML_EXTERN
 int
 ExternalModelDefinition_isSetName(ExternalModelDefinition_t * emd)
@@ -871,9 +841,6 @@ ExternalModelDefinition_isSetName(ExternalModelDefinition_t * emd)
 }
 
 
-/**
- * 
- */
 LIBSBML_EXTERN
 int
 ExternalModelDefinition_isSetModelRef(ExternalModelDefinition_t * emd)
@@ -882,9 +849,6 @@ ExternalModelDefinition_isSetModelRef(ExternalModelDefinition_t * emd)
 }
 
 
-/**
- * 
- */
 LIBSBML_EXTERN
 int
 ExternalModelDefinition_setId(ExternalModelDefinition_t * emd, const char * id)
@@ -893,9 +857,6 @@ ExternalModelDefinition_setId(ExternalModelDefinition_t * emd, const char * id)
 }
 
 
-/**
- * 
- */
 LIBSBML_EXTERN
 int
 ExternalModelDefinition_setSource(ExternalModelDefinition_t * emd, const char * source)
@@ -904,9 +865,6 @@ ExternalModelDefinition_setSource(ExternalModelDefinition_t * emd, const char * 
 }
 
 
-/**
- * 
- */
 LIBSBML_EXTERN
 int
 ExternalModelDefinition_setName(ExternalModelDefinition_t * emd, const char * name)
@@ -915,9 +873,6 @@ ExternalModelDefinition_setName(ExternalModelDefinition_t * emd, const char * na
 }
 
 
-/**
- * 
- */
 LIBSBML_EXTERN
 int
 ExternalModelDefinition_setModelRef(ExternalModelDefinition_t * emd, const char * modelRef)
@@ -926,9 +881,6 @@ ExternalModelDefinition_setModelRef(ExternalModelDefinition_t * emd, const char 
 }
 
 
-/**
- * 
- */
 LIBSBML_EXTERN
 int
 ExternalModelDefinition_unsetId(ExternalModelDefinition_t * emd)
@@ -937,9 +889,6 @@ ExternalModelDefinition_unsetId(ExternalModelDefinition_t * emd)
 }
 
 
-/**
- * 
- */
 LIBSBML_EXTERN
 int
 ExternalModelDefinition_unsetSource(ExternalModelDefinition_t * emd)
@@ -948,9 +897,6 @@ ExternalModelDefinition_unsetSource(ExternalModelDefinition_t * emd)
 }
 
 
-/**
- * 
- */
 LIBSBML_EXTERN
 int
 ExternalModelDefinition_unsetName(ExternalModelDefinition_t * emd)
@@ -959,9 +905,6 @@ ExternalModelDefinition_unsetName(ExternalModelDefinition_t * emd)
 }
 
 
-/**
- * 
- */
 LIBSBML_EXTERN
 int
 ExternalModelDefinition_unsetModelRef(ExternalModelDefinition_t * emd)
@@ -970,9 +913,6 @@ ExternalModelDefinition_unsetModelRef(ExternalModelDefinition_t * emd)
 }
 
 
-/**
- * 
- */
 LIBSBML_EXTERN
 int
 ExternalModelDefinition_hasRequiredAttributes(ExternalModelDefinition_t * emd)
@@ -981,9 +921,6 @@ ExternalModelDefinition_hasRequiredAttributes(ExternalModelDefinition_t * emd)
 }
 
 
-/**
- * 
- */
 LIBSBML_EXTERN
 ExternalModelDefinition_t *
 ListOfExternalModelDefinitions_getById(ListOf_t * lo, const char * sid)
@@ -995,9 +932,6 @@ ListOfExternalModelDefinitions_getById(ListOf_t * lo, const char * sid)
 }
 
 
-/**
- * 
- */
 LIBSBML_EXTERN
 ExternalModelDefinition_t *
 ListOfExternalModelDefinitions_removeById(ListOf_t * lo, const char * sid)

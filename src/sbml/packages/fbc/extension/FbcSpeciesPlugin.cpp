@@ -371,9 +371,6 @@ void
 #endif /* __cplusplus */
 /** @cond doxygenCOnly */
 
-/**
- *
- */
 LIBSBML_EXTERN
 int
 FbcSpeciesPlugin_getCharge(SBasePlugin_t * fbc)
@@ -382,9 +379,6 @@ FbcSpeciesPlugin_getCharge(SBasePlugin_t * fbc)
     : SBML_INT_MAX;
 }
 
-/**
- *
- */
 LIBSBML_EXTERN
 int
 FbcSpeciesPlugin_isSetCharge(SBasePlugin_t * fbc)
@@ -394,9 +388,6 @@ FbcSpeciesPlugin_isSetCharge(SBasePlugin_t * fbc)
 }
 
 
-/**
- *
- */
 LIBSBML_EXTERN
 int
 FbcSpeciesPlugin_setCharge(SBasePlugin_t * fbc, int charge)
@@ -406,9 +397,6 @@ FbcSpeciesPlugin_setCharge(SBasePlugin_t * fbc, int charge)
 }
 
 
-/**
- *
- */
 LIBSBML_EXTERN
 int
 FbcSpeciesPlugin_unsetCharge(SBasePlugin_t * fbc)
@@ -418,9 +406,6 @@ FbcSpeciesPlugin_unsetCharge(SBasePlugin_t * fbc)
 }
 
 
-/**
- *
- */
 LIBSBML_EXTERN
 char *
 FbcSpeciesPlugin_getChemicalFormula(SBasePlugin_t * fbc)
@@ -433,9 +418,6 @@ FbcSpeciesPlugin_getChemicalFormula(SBasePlugin_t * fbc)
 }
 
 
-/**
- *
- */
 LIBSBML_EXTERN
 int
 FbcSpeciesPlugin_isSetChemicalFormula(SBasePlugin_t * fbc)
@@ -447,9 +429,6 @@ FbcSpeciesPlugin_isSetChemicalFormula(SBasePlugin_t * fbc)
 }
 
 
-/**
- *
- */
 LIBSBML_EXTERN
 int
 FbcSpeciesPlugin_setChemicalFormula(SBasePlugin_t * fbc, const char * chemform)
@@ -460,9 +439,6 @@ FbcSpeciesPlugin_setChemicalFormula(SBasePlugin_t * fbc, const char * chemform)
 }
 
 
-/**
- *
- */
 LIBSBML_EXTERN
 int
 FbcSpeciesPlugin_unsetChemicalFormula(SBasePlugin_t * fbc)

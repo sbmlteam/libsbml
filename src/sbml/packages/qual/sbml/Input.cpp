@@ -1079,9 +1079,6 @@ ListOfInputs::writeXMLNS(XMLOutputStream& stream) const
 #endif /* __cplusplus */  
 /** @cond doxygenCOnly */
 
-/**
- *
- */
 LIBSBML_EXTERN
 Input_t *
 Input_create(unsigned int level, unsigned int version,
@@ -1091,9 +1088,6 @@ Input_create(unsigned int level, unsigned int version,
 }
 
 
-/**
- *
- */
 LIBSBML_EXTERN
 void
 Input_free(Input_t * i)
@@ -1103,9 +1097,6 @@ Input_free(Input_t * i)
 }
 
 
-/**
- *
- */
 LIBSBML_EXTERN
 Input_t *
 Input_clone(Input_t * i)
@@ -1121,9 +1112,6 @@ Input_clone(Input_t * i)
 }
 
 
-/**
- *
- */
 LIBSBML_EXTERN
 char *
 Input_getId(Input_t * i)
@@ -1135,9 +1123,6 @@ Input_getId(Input_t * i)
 }
 
 
-/**
- *
- */
 LIBSBML_EXTERN
 char *
 Input_getQualitativeSpecies(Input_t * i)
@@ -1149,9 +1134,6 @@ Input_getQualitativeSpecies(Input_t * i)
 }
 
 
-/**
- *
- */
 LIBSBML_EXTERN
 InputTransitionEffect_t
 Input_getTransitionEffect(Input_t * i)
@@ -1163,9 +1145,6 @@ Input_getTransitionEffect(Input_t * i)
 }
 
 
-/**
- *
- */
 LIBSBML_EXTERN
 char *
 Input_getName(Input_t * i)
@@ -1177,9 +1156,6 @@ Input_getName(Input_t * i)
 }
 
 
-/**
- *
- */
 LIBSBML_EXTERN
 InputSign_t
 Input_getSign(Input_t * i)
@@ -1191,9 +1167,6 @@ Input_getSign(Input_t * i)
 }
 
 
-/**
- *
- */
 LIBSBML_EXTERN
 int
 Input_getThresholdLevel(Input_t * i)
@@ -1202,9 +1175,6 @@ Input_getThresholdLevel(Input_t * i)
 }
 
 
-/**
- *
- */
 LIBSBML_EXTERN
 int
 Input_isSetId(Input_t * i)
@@ -1213,9 +1183,6 @@ Input_isSetId(Input_t * i)
 }
 
 
-/**
- *
- */
 LIBSBML_EXTERN
 int
 Input_isSetQualitativeSpecies(Input_t * i)
@@ -1224,9 +1191,6 @@ Input_isSetQualitativeSpecies(Input_t * i)
 }
 
 
-/**
- *
- */
 LIBSBML_EXTERN
 int
 Input_isSetTransitionEffect(Input_t * i)
@@ -1235,9 +1199,6 @@ Input_isSetTransitionEffect(Input_t * i)
 }
 
 
-/**
- *
- */
 LIBSBML_EXTERN
 int
 Input_isSetName(Input_t * i)
@@ -1246,9 +1207,6 @@ Input_isSetName(Input_t * i)
 }
 
 
-/**
- *
- */
 LIBSBML_EXTERN
 int
 Input_isSetSign(Input_t * i)
@@ -1257,9 +1215,6 @@ Input_isSetSign(Input_t * i)
 }
 
 
-/**
- *
- */
 LIBSBML_EXTERN
 int
 Input_isSetThresholdLevel(Input_t * i)
@@ -1268,9 +1223,6 @@ Input_isSetThresholdLevel(Input_t * i)
 }
 
 
-/**
- *
- */
 LIBSBML_EXTERN
 int
 Input_setId(Input_t * i, const char * id)
@@ -1279,9 +1231,6 @@ Input_setId(Input_t * i, const char * id)
 }
 
 
-/**
- *
- */
 LIBSBML_EXTERN
 int
 Input_setQualitativeSpecies(Input_t * i, const char * qualitativeSpecies)
@@ -1290,9 +1239,6 @@ Input_setQualitativeSpecies(Input_t * i, const char * qualitativeSpecies)
 }
 
 
-/**
- *
- */
 LIBSBML_EXTERN
 int
 Input_setTransitionEffect(Input_t * i, InputTransitionEffect_t transitionEffect)
@@ -1301,9 +1247,6 @@ Input_setTransitionEffect(Input_t * i, InputTransitionEffect_t transitionEffect)
 }
 
 
-/**
- *
- */
 LIBSBML_EXTERN
 int
 Input_setName(Input_t * i, const char * name)
@@ -1312,9 +1255,6 @@ Input_setName(Input_t * i, const char * name)
 }
 
 
-/**
- *
- */
 LIBSBML_EXTERN
 int
 Input_setSign(Input_t * i, InputSign_t sign)
@@ -1323,9 +1263,6 @@ Input_setSign(Input_t * i, InputSign_t sign)
 }
 
 
-/**
- *
- */
 LIBSBML_EXTERN
 int
 Input_setThresholdLevel(Input_t * i, int thresholdLevel)
@@ -1334,9 +1271,6 @@ Input_setThresholdLevel(Input_t * i, int thresholdLevel)
 }
 
 
-/**
- *
- */
 LIBSBML_EXTERN
 int
 Input_unsetId(Input_t * i)
@@ -1345,9 +1279,6 @@ Input_unsetId(Input_t * i)
 }
 
 
-/**
- *
- */
 LIBSBML_EXTERN
 int
 Input_unsetQualitativeSpecies(Input_t * i)
@@ -1356,9 +1287,6 @@ Input_unsetQualitativeSpecies(Input_t * i)
 }
 
 
-/**
- *
- */
 LIBSBML_EXTERN
 int
 Input_unsetTransitionEffect(Input_t * i)
@@ -1367,9 +1295,6 @@ Input_unsetTransitionEffect(Input_t * i)
 }
 
 
-/**
- *
- */
 LIBSBML_EXTERN
 int
 Input_unsetName(Input_t * i)
@@ -1378,9 +1303,6 @@ Input_unsetName(Input_t * i)
 }
 
 
-/**
- *
- */
 LIBSBML_EXTERN
 int
 Input_unsetSign(Input_t * i)
@@ -1389,9 +1311,6 @@ Input_unsetSign(Input_t * i)
 }
 
 
-/**
- *
- */
 LIBSBML_EXTERN
 int
 Input_unsetThresholdLevel(Input_t * i)
@@ -1400,9 +1319,6 @@ Input_unsetThresholdLevel(Input_t * i)
 }
 
 
-/**
- *
- */
 LIBSBML_EXTERN
 int
 Input_hasRequiredAttributes(Input_t * i)
@@ -1411,9 +1327,6 @@ Input_hasRequiredAttributes(Input_t * i)
 }
 
 
-/**
- *
- */
 LIBSBML_EXTERN
 Input_t *
 ListOfInputs_getById(ListOf_t * lo, const char * sid)
@@ -1425,9 +1338,6 @@ ListOfInputs_getById(ListOf_t * lo, const char * sid)
 }
 
 
-/**
- *
- */
 LIBSBML_EXTERN
 Input_t *
 ListOfInputs_removeById(ListOf_t * lo, const char * sid)

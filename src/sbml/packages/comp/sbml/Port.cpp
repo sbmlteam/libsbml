@@ -375,9 +375,6 @@ Port::accept (SBMLVisitor& v) const
 #endif /* __cplusplus */
 /** @cond doxygenCOnly */
 
-/**
- * 
- */
 LIBSBML_EXTERN
 Port_t *
 Port_create(unsigned int level, unsigned int version,
@@ -387,9 +384,6 @@ Port_create(unsigned int level, unsigned int version,
 }
 
 
-/**
- * 
- */
 LIBSBML_EXTERN
 void
 Port_free(Port_t * p)
@@ -399,9 +393,6 @@ Port_free(Port_t * p)
 }
 
 
-/**
- * 
- */
 LIBSBML_EXTERN
 Port_t *
 Port_clone(Port_t * p)
@@ -417,9 +408,6 @@ Port_clone(Port_t * p)
 }
 
 
-/**
- * 
- */
 LIBSBML_EXTERN
 char *
 Port_getId(Port_t * p)
@@ -431,9 +419,6 @@ Port_getId(Port_t * p)
 }
 
 
-/**
- * 
- */
 LIBSBML_EXTERN
 char *
 Port_getName(Port_t * p)
@@ -445,9 +430,6 @@ Port_getName(Port_t * p)
 }
 
 
-/**
- * 
- */
 LIBSBML_EXTERN
 int
 Port_isSetId(Port_t * p)
@@ -456,9 +438,6 @@ Port_isSetId(Port_t * p)
 }
 
 
-/**
- * 
- */
 LIBSBML_EXTERN
 int
 Port_isSetName(Port_t * p)
@@ -467,9 +446,6 @@ Port_isSetName(Port_t * p)
 }
 
 
-/**
- * 
- */
 LIBSBML_EXTERN
 int
 Port_setId(Port_t * p, const char * id)
@@ -478,9 +454,6 @@ Port_setId(Port_t * p, const char * id)
 }
 
 
-/**
- * 
- */
 LIBSBML_EXTERN
 int
 Port_setName(Port_t * p, const char * name)
@@ -489,9 +462,6 @@ Port_setName(Port_t * p, const char * name)
 }
 
 
-/**
- * 
- */
 LIBSBML_EXTERN
 int
 Port_unsetId(Port_t * p)
@@ -500,9 +470,6 @@ Port_unsetId(Port_t * p)
 }
 
 
-/**
- * 
- */
 LIBSBML_EXTERN
 int
 Port_unsetName(Port_t * p)
@@ -511,9 +478,6 @@ Port_unsetName(Port_t * p)
 }
 
 
-/**
- * 
- */
 LIBSBML_EXTERN
 int
 Port_hasRequiredAttributes(Port_t * p)
@@ -522,9 +486,6 @@ Port_hasRequiredAttributes(Port_t * p)
 }
 
 
-/**
- * 
- */
 LIBSBML_EXTERN
 Port_t *
 ListOfPorts_getById(ListOf_t * lo, const char * sid)
@@ -536,9 +497,6 @@ ListOfPorts_getById(ListOf_t * lo, const char * sid)
 }
 
 
-/**
- * 
- */
 LIBSBML_EXTERN
 Port_t *
 ListOfPorts_removeById(ListOf_t * lo, const char * sid)

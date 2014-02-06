@@ -396,9 +396,6 @@ DefaultTerm::writeAttributes (XMLOutputStream& stream) const
 #endif /* __cplusplus */  
 /** @cond doxygenCOnly */
 
-/**
- *
- */
 LIBSBML_EXTERN
 DefaultTerm_t *
 DefaultTerm_create(unsigned int level, unsigned int version,
@@ -408,9 +405,6 @@ DefaultTerm_create(unsigned int level, unsigned int version,
 }
 
 
-/**
- *
- */
 LIBSBML_EXTERN
 void
 DefaultTerm_free(DefaultTerm_t * dt)
@@ -420,9 +414,6 @@ DefaultTerm_free(DefaultTerm_t * dt)
 }
 
 
-/**
- *
- */
 LIBSBML_EXTERN
 DefaultTerm_t *
 DefaultTerm_clone(DefaultTerm_t * dt)
@@ -438,9 +429,6 @@ DefaultTerm_clone(DefaultTerm_t * dt)
 }
 
 
-/**
- *
- */
 LIBSBML_EXTERN
 int
 DefaultTerm_getResultLevel(DefaultTerm_t * dt)
@@ -449,9 +437,6 @@ DefaultTerm_getResultLevel(DefaultTerm_t * dt)
 }
 
 
-/**
- *
- */
 LIBSBML_EXTERN
 int
 DefaultTerm_isSetResultLevel(DefaultTerm_t * dt)
@@ -460,9 +445,6 @@ DefaultTerm_isSetResultLevel(DefaultTerm_t * dt)
 }
 
 
-/**
- *
- */
 LIBSBML_EXTERN
 int
 DefaultTerm_setResultLevel(DefaultTerm_t * dt, int resultLevel)
@@ -471,9 +453,6 @@ DefaultTerm_setResultLevel(DefaultTerm_t * dt, int resultLevel)
 }
 
 
-/**
- *
- */
 LIBSBML_EXTERN
 int
 DefaultTerm_unsetResultLevel(DefaultTerm_t * dt)
@@ -482,9 +461,6 @@ DefaultTerm_unsetResultLevel(DefaultTerm_t * dt)
 }
 
 
-/**
- *
- */
 LIBSBML_EXTERN
 int
 DefaultTerm_hasRequiredAttributes(DefaultTerm_t * dt)

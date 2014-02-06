@@ -1355,9 +1355,6 @@ void Submodel::createNewConversionFactor(string& cf, const ASTNode* newcf, strin
 #endif /* __cplusplus */
 /** @cond doxygenCOnly */
 
-/**
- * 
- */
 LIBSBML_EXTERN
 Submodel_t *
 Submodel_create(unsigned int level, unsigned int version,
@@ -1367,9 +1364,6 @@ Submodel_create(unsigned int level, unsigned int version,
 }
 
 
-/**
- * 
- */
 LIBSBML_EXTERN
 void
 Submodel_free(Submodel_t * s)
@@ -1379,9 +1373,6 @@ Submodel_free(Submodel_t * s)
 }
 
 
-/**
- * 
- */
 LIBSBML_EXTERN
 Submodel_t *
 Submodel_clone(Submodel_t * s)
@@ -1397,9 +1388,6 @@ Submodel_clone(Submodel_t * s)
 }
 
 
-/**
- * 
- */
 LIBSBML_EXTERN
 char *
 Submodel_getId(Submodel_t * s)
@@ -1411,9 +1399,6 @@ Submodel_getId(Submodel_t * s)
 }
 
 
-/**
- * 
- */
 LIBSBML_EXTERN
 char *
 Submodel_getName(Submodel_t * s)
@@ -1425,9 +1410,6 @@ Submodel_getName(Submodel_t * s)
 }
 
 
-/**
- * 
- */
 LIBSBML_EXTERN
 char *
 Submodel_getModelRef(Submodel_t * s)
@@ -1439,9 +1421,6 @@ Submodel_getModelRef(Submodel_t * s)
 }
 
 
-/**
- * 
- */
 LIBSBML_EXTERN
 char *
 Submodel_getSubstanceConversionFactor(Submodel_t * s)
@@ -1453,9 +1432,6 @@ Submodel_getSubstanceConversionFactor(Submodel_t * s)
 }
 
 
-/**
- * 
- */
 LIBSBML_EXTERN
 char *
 Submodel_getTimeConversionFactor(Submodel_t * s)
@@ -1467,9 +1443,6 @@ Submodel_getTimeConversionFactor(Submodel_t * s)
 }
 
 
-/**
- * 
- */
 LIBSBML_EXTERN
 char *
 Submodel_getExtentConversionFactor(Submodel_t * s)
@@ -1481,9 +1454,6 @@ Submodel_getExtentConversionFactor(Submodel_t * s)
 }
 
 
-/**
- * 
- */
 LIBSBML_EXTERN
 int
 Submodel_isSetId(Submodel_t * s)
@@ -1492,9 +1462,6 @@ Submodel_isSetId(Submodel_t * s)
 }
 
 
-/**
- * 
- */
 LIBSBML_EXTERN
 int
 Submodel_isSetName(Submodel_t * s)
@@ -1503,9 +1470,6 @@ Submodel_isSetName(Submodel_t * s)
 }
 
 
-/**
- * 
- */
 LIBSBML_EXTERN
 int
 Submodel_isSetModelRef(Submodel_t * s)
@@ -1514,9 +1478,6 @@ Submodel_isSetModelRef(Submodel_t * s)
 }
 
 
-/**
- * 
- */
 LIBSBML_EXTERN
 int
 Submodel_isSetSubstanceConversionFactor(Submodel_t * s)
@@ -1525,9 +1486,6 @@ Submodel_isSetSubstanceConversionFactor(Submodel_t * s)
 }
 
 
-/**
- * 
- */
 LIBSBML_EXTERN
 int
 Submodel_isSetTimeConversionFactor(Submodel_t * s)
@@ -1536,9 +1494,6 @@ Submodel_isSetTimeConversionFactor(Submodel_t * s)
 }
 
 
-/**
- * 
- */
 LIBSBML_EXTERN
 int
 Submodel_isSetExtentConversionFactor(Submodel_t * s)
@@ -1547,9 +1502,6 @@ Submodel_isSetExtentConversionFactor(Submodel_t * s)
 }
 
 
-/**
- * 
- */
 LIBSBML_EXTERN
 int
 Submodel_setId(Submodel_t * s, const char * id)
@@ -1558,9 +1510,6 @@ Submodel_setId(Submodel_t * s, const char * id)
 }
 
 
-/**
- * 
- */
 LIBSBML_EXTERN
 int
 Submodel_setName(Submodel_t * s, const char * name)
@@ -1569,9 +1518,6 @@ Submodel_setName(Submodel_t * s, const char * name)
 }
 
 
-/**
- * 
- */
 LIBSBML_EXTERN
 int
 Submodel_setModelRef(Submodel_t * s, const char * modelRef)
@@ -1580,9 +1526,6 @@ Submodel_setModelRef(Submodel_t * s, const char * modelRef)
 }
 
 
-/**
- * 
- */
 LIBSBML_EXTERN
 int
 Submodel_setSubstanceConversionFactor(Submodel_t * s, const char * timeConversionFactor)
@@ -1591,9 +1534,6 @@ Submodel_setSubstanceConversionFactor(Submodel_t * s, const char * timeConversio
 }
 
 
-/**
- * 
- */
 LIBSBML_EXTERN
 int
 Submodel_setTimeConversionFactor(Submodel_t * s, const char * timeConversionFactor)
@@ -1602,9 +1542,6 @@ Submodel_setTimeConversionFactor(Submodel_t * s, const char * timeConversionFact
 }
 
 
-/**
- * 
- */
 LIBSBML_EXTERN
 int
 Submodel_setExtentConversionFactor(Submodel_t * s, const char * extentConversionFactor)
@@ -1613,9 +1550,6 @@ Submodel_setExtentConversionFactor(Submodel_t * s, const char * extentConversion
 }
 
 
-/**
- * 
- */
 LIBSBML_EXTERN
 int
 Submodel_unsetId(Submodel_t * s)
@@ -1624,9 +1558,6 @@ Submodel_unsetId(Submodel_t * s)
 }
 
 
-/**
- * 
- */
 LIBSBML_EXTERN
 int
 Submodel_unsetName(Submodel_t * s)
@@ -1635,9 +1566,6 @@ Submodel_unsetName(Submodel_t * s)
 }
 
 
-/**
- * 
- */
 LIBSBML_EXTERN
 int
 Submodel_unsetModelRef(Submodel_t * s)
@@ -1646,9 +1574,6 @@ Submodel_unsetModelRef(Submodel_t * s)
 }
 
 
-/**
- * 
- */
 LIBSBML_EXTERN
 int
 Submodel_unsetSubstanceConversionFactor(Submodel_t * s)
@@ -1657,9 +1582,6 @@ Submodel_unsetSubstanceConversionFactor(Submodel_t * s)
 }
 
 
-/**
- * 
- */
 LIBSBML_EXTERN
 int
 Submodel_unsetTimeConversionFactor(Submodel_t * s)
@@ -1668,9 +1590,6 @@ Submodel_unsetTimeConversionFactor(Submodel_t * s)
 }
 
 
-/**
- * 
- */
 LIBSBML_EXTERN
 int
 Submodel_unsetExtentConversionFactor(Submodel_t * s)
@@ -1679,9 +1598,6 @@ Submodel_unsetExtentConversionFactor(Submodel_t * s)
 }
 
 
-/**
- * 
- */
 LIBSBML_EXTERN
 int
 Submodel_addDeletion(Submodel_t * s, Deletion_t * d)
@@ -1690,9 +1606,6 @@ Submodel_addDeletion(Submodel_t * s, Deletion_t * d)
 }
 
 
-/**
- * 
- */
 LIBSBML_EXTERN
 Deletion_t *
 Submodel_createDeletion(Submodel_t * s)
@@ -1701,9 +1614,6 @@ Submodel_createDeletion(Submodel_t * s)
 }
 
 
-/**
- * 
- */
 LIBSBML_EXTERN
 ListOf_t *
 Submodel_getListOfDeletions(Submodel_t * s)
@@ -1712,9 +1622,6 @@ Submodel_getListOfDeletions(Submodel_t * s)
 }
 
 
-/**
- * 
- */
 LIBSBML_EXTERN
 Deletion_t *
 Submodel_getDeletion(Submodel_t * s, unsigned int n)
@@ -1723,9 +1630,6 @@ Submodel_getDeletion(Submodel_t * s, unsigned int n)
 }
 
 
-/**
- * 
- */
 LIBSBML_EXTERN
 Deletion_t *
 Submodel_getDeletionById(Submodel_t * s, const char * sid)
@@ -1734,9 +1638,6 @@ Submodel_getDeletionById(Submodel_t * s, const char * sid)
 }
 
 
-/**
- * 
- */
 LIBSBML_EXTERN
 unsigned int
 Submodel_getNumDeletions(Submodel_t * s)
@@ -1745,9 +1646,6 @@ Submodel_getNumDeletions(Submodel_t * s)
 }
 
 
-/**
- * 
- */
 LIBSBML_EXTERN
 Deletion_t *
 Submodel_removeDeletion(Submodel_t * s, unsigned int n)
@@ -1756,9 +1654,6 @@ Submodel_removeDeletion(Submodel_t * s, unsigned int n)
 }
 
 
-/**
- * 
- */
 LIBSBML_EXTERN
 Deletion_t *
 Submodel_removeDeletionById(Submodel_t * s, const char * sid)
@@ -1767,9 +1662,6 @@ Submodel_removeDeletionById(Submodel_t * s, const char * sid)
 }
 
 
-/**
- * 
- */
 LIBSBML_EXTERN
 int
 Submodel_hasRequiredAttributes(Submodel_t * s)
@@ -1778,9 +1670,6 @@ Submodel_hasRequiredAttributes(Submodel_t * s)
 }
 
 
-/**
- * 
- */
 LIBSBML_EXTERN
 Submodel_t *
 ListOfSubmodels_getById(ListOf_t * lo, const char * sid)
@@ -1792,9 +1681,6 @@ ListOfSubmodels_getById(ListOf_t * lo, const char * sid)
 }
 
 
-/**
- * 
- */
 LIBSBML_EXTERN
 Submodel_t *
 ListOfSubmodels_removeById(ListOf_t * lo, const char * sid)

@@ -192,9 +192,6 @@ ReplacedBy::accept (SBMLVisitor& v) const
 #endif /* __cplusplus */
 /** @cond doxygenCOnly */
 
-/**
- * 
- */
 LIBSBML_EXTERN
 ReplacedBy_t *
 ReplacedBy_create(unsigned int level, unsigned int version,
@@ -204,9 +201,6 @@ ReplacedBy_create(unsigned int level, unsigned int version,
 }
 
 
-/**
- * 
- */
 LIBSBML_EXTERN
 void
 ReplacedBy_free(ReplacedBy_t * rb)
@@ -216,9 +210,6 @@ ReplacedBy_free(ReplacedBy_t * rb)
 }
 
 
-/**
- * 
- */
 LIBSBML_EXTERN
 ReplacedBy_t *
 ReplacedBy_clone(ReplacedBy_t * rb)
@@ -234,9 +225,6 @@ ReplacedBy_clone(ReplacedBy_t * rb)
 }
 
 
-/**
- * 
- */
 LIBSBML_EXTERN
 char *
 ReplacedBy_getSubmodelRef(ReplacedBy_t * rb)
@@ -248,9 +236,6 @@ ReplacedBy_getSubmodelRef(ReplacedBy_t * rb)
 }
 
 
-/**
- * 
- */
 LIBSBML_EXTERN
 int
 ReplacedBy_isSetSubmodelRef(ReplacedBy_t * rb)
@@ -259,9 +244,6 @@ ReplacedBy_isSetSubmodelRef(ReplacedBy_t * rb)
 }
 
 
-/**
- * 
- */
 LIBSBML_EXTERN
 int
 ReplacedBy_setSubmodelRef(ReplacedBy_t * rb, const char * submodelRef)
@@ -270,9 +252,6 @@ ReplacedBy_setSubmodelRef(ReplacedBy_t * rb, const char * submodelRef)
 }
 
 
-/**
- * 
- */
 LIBSBML_EXTERN
 int
 ReplacedBy_unsetSubmodelRef(ReplacedBy_t * rb)
@@ -281,9 +260,6 @@ ReplacedBy_unsetSubmodelRef(ReplacedBy_t * rb)
 }
 
 
-/**
- * 
- */
 LIBSBML_EXTERN
 int
 ReplacedBy_hasRequiredAttributes(ReplacedBy_t * rb)

@@ -1114,9 +1114,6 @@ ListOfObjectives::accept(SBMLVisitor& v) const
 #endif /* __cplusplus */
 /** @cond doxygenCOnly */
 
-/**
- *
- */
 LIBSBML_EXTERN
 Objective_t *
 Objective_create(unsigned int level, unsigned int version, unsigned int pkgversion)
@@ -1125,9 +1122,6 @@ Objective_create(unsigned int level, unsigned int version, unsigned int pkgversi
 }
 
 
-/**
- *
- */
 LIBSBML_EXTERN
 const char *
 Objective_getId(Objective_t * obj)
@@ -1139,9 +1133,6 @@ Objective_getId(Objective_t * obj)
 }
 
 
-/**
- *
- */
 LIBSBML_EXTERN
 int
 Objective_isSetId(Objective_t * obj)
@@ -1150,9 +1141,6 @@ Objective_isSetId(Objective_t * obj)
 }
 
 
-/**
- *
- */
 LIBSBML_EXTERN
 int
 Objective_setId(Objective_t * obj, const char * id)
@@ -1161,9 +1149,6 @@ Objective_setId(Objective_t * obj, const char * id)
 }
 
 
-/**
- *
- */
 LIBSBML_EXTERN
 int
 Objective_unsetId(Objective_t * obj)
@@ -1172,9 +1157,6 @@ Objective_unsetId(Objective_t * obj)
 }
 
 
-/**
- *
- */
 LIBSBML_EXTERN
 const char *
 Objective_getName(Objective_t * obj)
@@ -1186,9 +1168,6 @@ Objective_getName(Objective_t * obj)
 }
 
 
-/**
- *
- */
 LIBSBML_EXTERN
 int
 Objective_isSetName(Objective_t * obj)
@@ -1197,9 +1176,6 @@ Objective_isSetName(Objective_t * obj)
 }
 
 
-/**
- *
- */
 LIBSBML_EXTERN
 int
 Objective_setName(Objective_t * obj, const char * name)
@@ -1208,9 +1184,6 @@ Objective_setName(Objective_t * obj, const char * name)
 }
 
 
-/**
- *
- */
 LIBSBML_EXTERN
 int
 Objective_unsetName(Objective_t * obj)
@@ -1220,9 +1193,6 @@ Objective_unsetName(Objective_t * obj)
 
 
 
-/**
- *
- */
 LIBSBML_EXTERN
 const char *
 Objective_getType(Objective_t * obj)
@@ -1234,9 +1204,6 @@ Objective_getType(Objective_t * obj)
 }
 
 
-/**
- *
- */
 LIBSBML_EXTERN
 int
 Objective_isSetType(Objective_t * obj)
@@ -1245,9 +1212,6 @@ Objective_isSetType(Objective_t * obj)
 }
 
 
-/**
- *
- */
 LIBSBML_EXTERN
 int
 Objective_setType(Objective_t * obj, const char * type)
@@ -1256,9 +1220,6 @@ Objective_setType(Objective_t * obj, const char * type)
 }
 
 
-/**
- *
- */
 LIBSBML_EXTERN
 int
 Objective_unsetType(Objective_t * obj)
@@ -1267,9 +1228,6 @@ Objective_unsetType(Objective_t * obj)
 }
 
 
-/**
- *
- */
 LIBSBML_EXTERN
 int
 Objective_addFluxObjective(Objective_t * obj, FluxObjective_t * flux)
@@ -1278,9 +1236,6 @@ Objective_addFluxObjective(Objective_t * obj, FluxObjective_t * flux)
 }
 
 
-/**
- *
- */
 LIBSBML_EXTERN
 FluxObjective_t *
 Objective_getFluxObjective(Objective_t * obj, unsigned int n)
@@ -1289,9 +1244,6 @@ Objective_getFluxObjective(Objective_t * obj, unsigned int n)
 }
 
 
-/**
- *
- */
 LIBSBML_EXTERN
 unsigned int
 Objective_getNumFluxObjectives(Objective_t * obj)
@@ -1300,9 +1252,6 @@ Objective_getNumFluxObjectives(Objective_t * obj)
 }
 
 
-/**
- *
- */
 LIBSBML_EXTERN
 const char *
 ListOfObjectives_getActiveObjective(ListOf_t * lo)
@@ -1315,9 +1264,6 @@ ListOfObjectives_getActiveObjective(ListOf_t * lo)
 }
 
 
-/**
- *
- */
 LIBSBML_EXTERN
 int
 ListOfObjectives_isSetActiveObjective(ListOf_t * lo)
@@ -1326,9 +1272,6 @@ ListOfObjectives_isSetActiveObjective(ListOf_t * lo)
 }
 
 
-/**
- *
- */
 LIBSBML_EXTERN
 int
 ListOfObjectives_setActiveObjective(ListOf_t * lo, const char * obj)
@@ -1337,9 +1280,6 @@ ListOfObjectives_setActiveObjective(ListOf_t * lo, const char * obj)
 }
 
 
-/**
- *
- */
 LIBSBML_EXTERN
 int
 ListOfObjectives_unsetActiveObjective(ListOf_t * lo)
@@ -1357,9 +1297,6 @@ const char* OBJECTIVE_TYPE_STRINGS[] =
 };
 
 
-/**
- *
- */
 LIBSBML_EXTERN
 const char* 
 ObjectiveType_toString(ObjectiveType_t type)
@@ -1375,9 +1312,6 @@ ObjectiveType_toString(ObjectiveType_t type)
 }
 
 
-/**
- *
- */
 LIBSBML_EXTERN
 ObjectiveType_t 
 ObjectiveType_fromString(const char* s)
@@ -1397,9 +1331,6 @@ ObjectiveType_fromString(const char* s)
 }
 
 
-/**
- *
- */
 LIBSBML_EXTERN
 int 
 ObjectiveType_isValidObjectiveType(ObjectiveType_t effect)
@@ -1417,9 +1348,6 @@ ObjectiveType_isValidObjectiveType(ObjectiveType_t effect)
 }
 
 
-/**
- *
- */
 LIBSBML_EXTERN
 int 
 ObjectiveType_isValidObjectiveTypeString(const char* s)

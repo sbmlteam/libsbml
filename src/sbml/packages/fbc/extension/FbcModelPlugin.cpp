@@ -1387,9 +1387,6 @@ FbcModelPlugin::getFluxBoundsForReaction(const std::string& reaction) const
 /** @cond doxygenCOnly */
 
 
-/**
- *
- */
 LIBSBML_EXTERN
 int
 FbcModelPlugin_addFluxBound(SBasePlugin_t * fbc, FluxBound_t * fb)
@@ -1399,9 +1396,6 @@ FbcModelPlugin_addFluxBound(SBasePlugin_t * fbc, FluxBound_t * fb)
 }
 
 
-/**
- *
- */
 LIBSBML_EXTERN
 FluxBound_t *
 FbcModelPlugin_getFluxBound(SBasePlugin_t * fbc, unsigned int n)
@@ -1411,9 +1405,6 @@ FbcModelPlugin_getFluxBound(SBasePlugin_t * fbc, unsigned int n)
 }
 
 
-/**
- *
- */
 LIBSBML_EXTERN
 unsigned int
 FbcModelPlugin_getNumFluxBounds(SBasePlugin_t * fbc)
@@ -1423,9 +1414,6 @@ FbcModelPlugin_getNumFluxBounds(SBasePlugin_t * fbc)
 }
 
 
-/**
- *
- */
 LIBSBML_EXTERN
 int
 FbcModelPlugin_addObjective(SBasePlugin_t * fbc, Objective_t * obj)
@@ -1435,9 +1423,6 @@ FbcModelPlugin_addObjective(SBasePlugin_t * fbc, Objective_t * obj)
 }
 
 
-/**
- *
- */
 LIBSBML_EXTERN
 Objective_t *
 FbcModelPlugin_getObjective(SBasePlugin_t * fbc, unsigned int n)
@@ -1447,9 +1432,6 @@ FbcModelPlugin_getObjective(SBasePlugin_t * fbc, unsigned int n)
 }
 
 
-/**
- *
- */
 LIBSBML_EXTERN
 unsigned int
 FbcModelPlugin_getNumObjectives(SBasePlugin_t * fbc)
@@ -1459,9 +1441,6 @@ FbcModelPlugin_getNumObjectives(SBasePlugin_t * fbc)
 }
 
 
-/**
- *
- */
 LIBSBML_EXTERN
 char *
 FbcModelPlugin_getActiveObjectiveId(SBasePlugin_t * fbc)
@@ -1475,9 +1454,6 @@ FbcModelPlugin_getActiveObjectiveId(SBasePlugin_t * fbc)
 }
 
 
-/**
- *
- */
 LIBSBML_EXTERN
 int
 FbcModelPlugin_setActiveObjectiveId(SBasePlugin_t * fbc, char * activeId)

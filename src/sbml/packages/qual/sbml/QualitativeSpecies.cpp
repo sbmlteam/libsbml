@@ -1049,9 +1049,6 @@ ListOfQualitativeSpecies::writeXMLNS(XMLOutputStream& stream) const
 #endif /* __cplusplus */
 /** @cond doxygenCOnly */
 
-/**
- *
- */
 LIBSBML_EXTERN
 QualitativeSpecies_t *
 QualitativeSpecies_create(unsigned int level, unsigned int version,
@@ -1061,9 +1058,6 @@ QualitativeSpecies_create(unsigned int level, unsigned int version,
 }
 
 
-/**
- *
- */
 LIBSBML_EXTERN
 void
 QualitativeSpecies_free(QualitativeSpecies_t * qs)
@@ -1073,9 +1067,6 @@ QualitativeSpecies_free(QualitativeSpecies_t * qs)
 }
 
 
-/**
- *
- */
 LIBSBML_EXTERN
 QualitativeSpecies_t *
 QualitativeSpecies_clone(QualitativeSpecies_t * qs)
@@ -1091,9 +1082,6 @@ QualitativeSpecies_clone(QualitativeSpecies_t * qs)
 }
 
 
-/**
- *
- */
 LIBSBML_EXTERN
 char *
 QualitativeSpecies_getId(QualitativeSpecies_t * qs)
@@ -1105,9 +1093,6 @@ QualitativeSpecies_getId(QualitativeSpecies_t * qs)
 }
 
 
-/**
- *
- */
 LIBSBML_EXTERN
 char *
 QualitativeSpecies_getCompartment(QualitativeSpecies_t * qs)
@@ -1119,9 +1104,6 @@ QualitativeSpecies_getCompartment(QualitativeSpecies_t * qs)
 }
 
 
-/**
- *
- */
 LIBSBML_EXTERN
 int
 QualitativeSpecies_getConstant(QualitativeSpecies_t * qs)
@@ -1130,9 +1112,6 @@ QualitativeSpecies_getConstant(QualitativeSpecies_t * qs)
 }
 
 
-/**
- *
- */
 LIBSBML_EXTERN
 char *
 QualitativeSpecies_getName(QualitativeSpecies_t * qs)
@@ -1144,9 +1123,6 @@ QualitativeSpecies_getName(QualitativeSpecies_t * qs)
 }
 
 
-/**
- *
- */
 LIBSBML_EXTERN
 int
 QualitativeSpecies_getInitialLevel(QualitativeSpecies_t * qs)
@@ -1155,9 +1131,6 @@ QualitativeSpecies_getInitialLevel(QualitativeSpecies_t * qs)
 }
 
 
-/**
- *
- */
 LIBSBML_EXTERN
 int
 QualitativeSpecies_getMaxLevel(QualitativeSpecies_t * qs)
@@ -1166,9 +1139,6 @@ QualitativeSpecies_getMaxLevel(QualitativeSpecies_t * qs)
 }
 
 
-/**
- *
- */
 LIBSBML_EXTERN
 int
 QualitativeSpecies_isSetId(QualitativeSpecies_t * qs)
@@ -1177,9 +1147,6 @@ QualitativeSpecies_isSetId(QualitativeSpecies_t * qs)
 }
 
 
-/**
- *
- */
 LIBSBML_EXTERN
 int
 QualitativeSpecies_isSetCompartment(QualitativeSpecies_t * qs)
@@ -1188,9 +1155,6 @@ QualitativeSpecies_isSetCompartment(QualitativeSpecies_t * qs)
 }
 
 
-/**
- *
- */
 LIBSBML_EXTERN
 int
 QualitativeSpecies_isSetConstant(QualitativeSpecies_t * qs)
@@ -1199,9 +1163,6 @@ QualitativeSpecies_isSetConstant(QualitativeSpecies_t * qs)
 }
 
 
-/**
- *
- */
 LIBSBML_EXTERN
 int
 QualitativeSpecies_isSetName(QualitativeSpecies_t * qs)
@@ -1210,9 +1171,6 @@ QualitativeSpecies_isSetName(QualitativeSpecies_t * qs)
 }
 
 
-/**
- *
- */
 LIBSBML_EXTERN
 int
 QualitativeSpecies_isSetInitialLevel(QualitativeSpecies_t * qs)
@@ -1221,9 +1179,6 @@ QualitativeSpecies_isSetInitialLevel(QualitativeSpecies_t * qs)
 }
 
 
-/**
- *
- */
 LIBSBML_EXTERN
 int
 QualitativeSpecies_isSetMaxLevel(QualitativeSpecies_t * qs)
@@ -1232,9 +1187,6 @@ QualitativeSpecies_isSetMaxLevel(QualitativeSpecies_t * qs)
 }
 
 
-/**
- *
- */
 LIBSBML_EXTERN
 int
 QualitativeSpecies_setId(QualitativeSpecies_t * qs, const char * id)
@@ -1243,9 +1195,6 @@ QualitativeSpecies_setId(QualitativeSpecies_t * qs, const char * id)
 }
 
 
-/**
- *
- */
 LIBSBML_EXTERN
 int
 QualitativeSpecies_setCompartment(QualitativeSpecies_t * qs, const char * compartment)
@@ -1254,9 +1203,6 @@ QualitativeSpecies_setCompartment(QualitativeSpecies_t * qs, const char * compar
 }
 
 
-/**
- *
- */
 LIBSBML_EXTERN
 int
 QualitativeSpecies_setConstant(QualitativeSpecies_t * qs, int constant)
@@ -1265,9 +1211,6 @@ QualitativeSpecies_setConstant(QualitativeSpecies_t * qs, int constant)
 }
 
 
-/**
- *
- */
 LIBSBML_EXTERN
 int
 QualitativeSpecies_setName(QualitativeSpecies_t * qs, const char * name)
@@ -1276,9 +1219,6 @@ QualitativeSpecies_setName(QualitativeSpecies_t * qs, const char * name)
 }
 
 
-/**
- *
- */
 LIBSBML_EXTERN
 int
 QualitativeSpecies_setInitialLevel(QualitativeSpecies_t * qs, int initialLevel)
@@ -1287,9 +1227,6 @@ QualitativeSpecies_setInitialLevel(QualitativeSpecies_t * qs, int initialLevel)
 }
 
 
-/**
- *
- */
 LIBSBML_EXTERN
 int
 QualitativeSpecies_setMaxLevel(QualitativeSpecies_t * qs, int maxLevel)
@@ -1298,9 +1235,6 @@ QualitativeSpecies_setMaxLevel(QualitativeSpecies_t * qs, int maxLevel)
 }
 
 
-/**
- *
- */
 LIBSBML_EXTERN
 int
 QualitativeSpecies_unsetId(QualitativeSpecies_t * qs)
@@ -1309,9 +1243,6 @@ QualitativeSpecies_unsetId(QualitativeSpecies_t * qs)
 }
 
 
-/**
- *
- */
 LIBSBML_EXTERN
 int
 QualitativeSpecies_unsetCompartment(QualitativeSpecies_t * qs)
@@ -1320,9 +1251,6 @@ QualitativeSpecies_unsetCompartment(QualitativeSpecies_t * qs)
 }
 
 
-/**
- *
- */
 LIBSBML_EXTERN
 int
 QualitativeSpecies_unsetConstant(QualitativeSpecies_t * qs)
@@ -1331,9 +1259,6 @@ QualitativeSpecies_unsetConstant(QualitativeSpecies_t * qs)
 }
 
 
-/**
- *
- */
 LIBSBML_EXTERN
 int
 QualitativeSpecies_unsetName(QualitativeSpecies_t * qs)
@@ -1342,9 +1267,6 @@ QualitativeSpecies_unsetName(QualitativeSpecies_t * qs)
 }
 
 
-/**
- *
- */
 LIBSBML_EXTERN
 int
 QualitativeSpecies_unsetInitialLevel(QualitativeSpecies_t * qs)
@@ -1353,9 +1275,6 @@ QualitativeSpecies_unsetInitialLevel(QualitativeSpecies_t * qs)
 }
 
 
-/**
- *
- */
 LIBSBML_EXTERN
 int
 QualitativeSpecies_unsetMaxLevel(QualitativeSpecies_t * qs)
@@ -1364,9 +1283,6 @@ QualitativeSpecies_unsetMaxLevel(QualitativeSpecies_t * qs)
 }
 
 
-/**
- *
- */
 LIBSBML_EXTERN
 int
 QualitativeSpecies_hasRequiredAttributes(QualitativeSpecies_t * qs)
@@ -1375,9 +1291,6 @@ QualitativeSpecies_hasRequiredAttributes(QualitativeSpecies_t * qs)
 }
 
 
-/**
- *
- */
 LIBSBML_EXTERN
 QualitativeSpecies_t *
 ListOfQualitativeSpecies_getById(ListOf_t * lo, const char * sid)
@@ -1389,9 +1302,6 @@ ListOfQualitativeSpecies_getById(ListOf_t * lo, const char * sid)
 }
 
 
-/**
- *
- */
 LIBSBML_EXTERN
 QualitativeSpecies_t *
 ListOfQualitativeSpecies_removeById(ListOf_t * lo, const char * sid)

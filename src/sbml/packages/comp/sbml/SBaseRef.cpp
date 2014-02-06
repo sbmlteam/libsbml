@@ -1018,9 +1018,6 @@ SBase* SBaseRef::getDirectReference()
 #endif /* __cplusplus */
 /** @cond doxygenCOnly */
 
-/**
- * 
- */
 LIBSBML_EXTERN
 SBaseRef_t *
 SBaseRef_create(unsigned int level, unsigned int version,
@@ -1030,9 +1027,6 @@ SBaseRef_create(unsigned int level, unsigned int version,
 }
 
 
-/**
- * 
- */
 LIBSBML_EXTERN
 void
 SBaseRef_free(SBaseRef_t * sbr)
@@ -1042,9 +1036,6 @@ SBaseRef_free(SBaseRef_t * sbr)
 }
 
 
-/**
- * 
- */
 LIBSBML_EXTERN
 SBaseRef_t *
 SBaseRef_clone(SBaseRef_t * sbr)
@@ -1060,9 +1051,6 @@ SBaseRef_clone(SBaseRef_t * sbr)
 }
 
 
-/**
- * 
- */
 LIBSBML_EXTERN
 char *
 SBaseRef_getPortRef(SBaseRef_t * sbr)
@@ -1074,9 +1062,6 @@ SBaseRef_getPortRef(SBaseRef_t * sbr)
 }
 
 
-/**
- * 
- */
 LIBSBML_EXTERN
 char *
 SBaseRef_getIdRef(SBaseRef_t * sbr)
@@ -1088,9 +1073,6 @@ SBaseRef_getIdRef(SBaseRef_t * sbr)
 }
 
 
-/**
- * 
- */
 LIBSBML_EXTERN
 char *
 SBaseRef_getUnitRef(SBaseRef_t * sbr)
@@ -1102,9 +1084,6 @@ SBaseRef_getUnitRef(SBaseRef_t * sbr)
 }
 
 
-/**
- * 
- */
 LIBSBML_EXTERN
 char *
 SBaseRef_getMetaIdRef(SBaseRef_t * sbr)
@@ -1116,9 +1095,6 @@ SBaseRef_getMetaIdRef(SBaseRef_t * sbr)
 }
 
 
-/**
- * 
- */
 LIBSBML_EXTERN
 SBaseRef_t*
 SBaseRef_getSBaseRef(SBaseRef_t * sbr)
@@ -1130,9 +1106,6 @@ SBaseRef_getSBaseRef(SBaseRef_t * sbr)
 }
 
 
-/**
- * 
- */
 LIBSBML_EXTERN
 int
 SBaseRef_isSetPortRef(SBaseRef_t * sbr)
@@ -1141,9 +1114,6 @@ SBaseRef_isSetPortRef(SBaseRef_t * sbr)
 }
 
 
-/**
- * 
- */
 LIBSBML_EXTERN
 int
 SBaseRef_isSetIdRef(SBaseRef_t * sbr)
@@ -1152,9 +1122,6 @@ SBaseRef_isSetIdRef(SBaseRef_t * sbr)
 }
 
 
-/**
- * 
- */
 LIBSBML_EXTERN
 int
 SBaseRef_isSetUnitRef(SBaseRef_t * sbr)
@@ -1163,9 +1130,6 @@ SBaseRef_isSetUnitRef(SBaseRef_t * sbr)
 }
 
 
-/**
- * 
- */
 LIBSBML_EXTERN
 int
 SBaseRef_isSetMetaIdRef(SBaseRef_t * sbr)
@@ -1174,9 +1138,6 @@ SBaseRef_isSetMetaIdRef(SBaseRef_t * sbr)
 }
 
 
-/**
- * 
- */
 LIBSBML_EXTERN
 int
 SBaseRef_isSetSBaseRef(SBaseRef_t * sbr)
@@ -1185,9 +1146,6 @@ SBaseRef_isSetSBaseRef(SBaseRef_t * sbr)
 }
 
 
-/**
- * 
- */
 LIBSBML_EXTERN
 int
 SBaseRef_setPortRef(SBaseRef_t * sbr, const char * portRef)
@@ -1196,9 +1154,6 @@ SBaseRef_setPortRef(SBaseRef_t * sbr, const char * portRef)
 }
 
 
-/**
- * 
- */
 LIBSBML_EXTERN
 int
 SBaseRef_setIdRef(SBaseRef_t * sbr, const char * idRef)
@@ -1207,9 +1162,6 @@ SBaseRef_setIdRef(SBaseRef_t * sbr, const char * idRef)
 }
 
 
-/**
- * 
- */
 LIBSBML_EXTERN
 int
 SBaseRef_setUnitRef(SBaseRef_t * sbr, const char * unitRef)
@@ -1218,9 +1170,6 @@ SBaseRef_setUnitRef(SBaseRef_t * sbr, const char * unitRef)
 }
 
 
-/**
- * 
- */
 LIBSBML_EXTERN
 int
 SBaseRef_setMetaIdRef(SBaseRef_t * sbr, const char * metaIdRef)
@@ -1229,9 +1178,6 @@ SBaseRef_setMetaIdRef(SBaseRef_t * sbr, const char * metaIdRef)
 }
 
 
-/**
- * 
- */
 LIBSBML_EXTERN
 int
 SBaseRef_setSBaseRef(SBaseRef_t * sbr, SBaseRef_t * sBaseRef)
@@ -1240,9 +1186,6 @@ SBaseRef_setSBaseRef(SBaseRef_t * sbr, SBaseRef_t * sBaseRef)
 }
 
 
-/**
- * 
- */
 LIBSBML_EXTERN
 int
 SBaseRef_unsetPortRef(SBaseRef_t * sbr)
@@ -1251,9 +1194,6 @@ SBaseRef_unsetPortRef(SBaseRef_t * sbr)
 }
 
 
-/**
- * 
- */
 LIBSBML_EXTERN
 int
 SBaseRef_unsetIdRef(SBaseRef_t * sbr)
@@ -1262,9 +1202,6 @@ SBaseRef_unsetIdRef(SBaseRef_t * sbr)
 }
 
 
-/**
- * 
- */
 LIBSBML_EXTERN
 int
 SBaseRef_unsetUnitRef(SBaseRef_t * sbr)
@@ -1273,9 +1210,6 @@ SBaseRef_unsetUnitRef(SBaseRef_t * sbr)
 }
 
 
-/**
- * 
- */
 LIBSBML_EXTERN
 int
 SBaseRef_unsetMetaIdRef(SBaseRef_t * sbr)
@@ -1284,9 +1218,6 @@ SBaseRef_unsetMetaIdRef(SBaseRef_t * sbr)
 }
 
 
-/**
- * 
- */
 LIBSBML_EXTERN
 int
 SBaseRef_unsetSBaseRef(SBaseRef_t * sbr)
@@ -1295,9 +1226,6 @@ SBaseRef_unsetSBaseRef(SBaseRef_t * sbr)
 }
 
 
-/**
- * 
- */
 LIBSBML_EXTERN
 int
 SBaseRef_hasRequiredAttributes(SBaseRef_t * sbr)

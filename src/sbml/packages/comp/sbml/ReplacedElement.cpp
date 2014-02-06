@@ -469,9 +469,6 @@ ReplacedElement::accept (SBMLVisitor& v) const
 #endif /* __cplusplus */
 /** @cond doxygenCOnly */
 
-/**
- * 
- */
 LIBSBML_EXTERN
 ReplacedElement_t *
 ReplacedElement_create(unsigned int level, unsigned int version,
@@ -481,9 +478,6 @@ ReplacedElement_create(unsigned int level, unsigned int version,
 }
 
 
-/**
- * 
- */
 LIBSBML_EXTERN
 void
 ReplacedElement_free(ReplacedElement_t * re)
@@ -493,9 +487,6 @@ ReplacedElement_free(ReplacedElement_t * re)
 }
 
 
-/**
- * 
- */
 LIBSBML_EXTERN
 ReplacedElement_t *
 ReplacedElement_clone(ReplacedElement_t * re)
@@ -511,9 +502,6 @@ ReplacedElement_clone(ReplacedElement_t * re)
 }
 
 
-/**
- * 
- */
 LIBSBML_EXTERN
 char *
 ReplacedElement_getSubmodelRef(ReplacedElement_t * re)
@@ -525,9 +513,6 @@ ReplacedElement_getSubmodelRef(ReplacedElement_t * re)
 }
 
 
-/**
- * 
- */
 LIBSBML_EXTERN
 char *
 ReplacedElement_getDeletion(ReplacedElement_t * re)
@@ -539,9 +524,6 @@ ReplacedElement_getDeletion(ReplacedElement_t * re)
 }
 
 
-/**
- * 
- */
 LIBSBML_EXTERN
 char *
 ReplacedElement_getConversionFactor(ReplacedElement_t * re)
@@ -553,9 +535,6 @@ ReplacedElement_getConversionFactor(ReplacedElement_t * re)
 }
 
 
-/**
- * 
- */
 LIBSBML_EXTERN
 int
 ReplacedElement_isSetSubmodelRef(ReplacedElement_t * re)
@@ -564,9 +543,6 @@ ReplacedElement_isSetSubmodelRef(ReplacedElement_t * re)
 }
 
 
-/**
- * 
- */
 LIBSBML_EXTERN
 int
 ReplacedElement_isSetDeletion(ReplacedElement_t * re)
@@ -575,9 +551,6 @@ ReplacedElement_isSetDeletion(ReplacedElement_t * re)
 }
 
 
-/**
- * 
- */
 LIBSBML_EXTERN
 int
 ReplacedElement_isSetConversionFactor(ReplacedElement_t * re)
@@ -586,9 +559,6 @@ ReplacedElement_isSetConversionFactor(ReplacedElement_t * re)
 }
 
 
-/**
- * 
- */
 LIBSBML_EXTERN
 int
 ReplacedElement_setSubmodelRef(ReplacedElement_t * re, const char * submodelRef)
@@ -597,9 +567,6 @@ ReplacedElement_setSubmodelRef(ReplacedElement_t * re, const char * submodelRef)
 }
 
 
-/**
- * 
- */
 LIBSBML_EXTERN
 int
 ReplacedElement_setDeletion(ReplacedElement_t * re, const char * deletion)
@@ -608,9 +575,6 @@ ReplacedElement_setDeletion(ReplacedElement_t * re, const char * deletion)
 }
 
 
-/**
- * 
- */
 LIBSBML_EXTERN
 int
 ReplacedElement_setConversionFactor(ReplacedElement_t * re, const char * conversionFactor)
@@ -619,9 +583,6 @@ ReplacedElement_setConversionFactor(ReplacedElement_t * re, const char * convers
 }
 
 
-/**
- * 
- */
 LIBSBML_EXTERN
 int
 ReplacedElement_unsetSubmodelRef(ReplacedElement_t * re)
@@ -630,9 +591,6 @@ ReplacedElement_unsetSubmodelRef(ReplacedElement_t * re)
 }
 
 
-/**
- * 
- */
 LIBSBML_EXTERN
 int
 ReplacedElement_unsetDeletion(ReplacedElement_t * re)
@@ -641,9 +599,6 @@ ReplacedElement_unsetDeletion(ReplacedElement_t * re)
 }
 
 
-/**
- * 
- */
 LIBSBML_EXTERN
 int
 ReplacedElement_unsetConversionFactor(ReplacedElement_t * re)
@@ -652,9 +607,6 @@ ReplacedElement_unsetConversionFactor(ReplacedElement_t * re)
 }
 
 
-/**
- * 
- */
 LIBSBML_EXTERN
 int
 ReplacedElement_hasRequiredAttributes(ReplacedElement_t * re)

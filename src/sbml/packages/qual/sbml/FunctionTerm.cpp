@@ -1004,9 +1004,6 @@ ListOfFunctionTerms::accept(SBMLVisitor& v) const
 #endif /* __cplusplus */  
 /** @cond doxygenCOnly */
 
-/**
- *
- */
 LIBSBML_EXTERN
 FunctionTerm_t *
 FunctionTerm_create(unsigned int level, unsigned int version,
@@ -1016,9 +1013,6 @@ FunctionTerm_create(unsigned int level, unsigned int version,
 }
 
 
-/**
- *
- */
 LIBSBML_EXTERN
 void
 FunctionTerm_free(FunctionTerm_t * ft)
@@ -1028,9 +1022,6 @@ FunctionTerm_free(FunctionTerm_t * ft)
 }
 
 
-/**
- *
- */
 LIBSBML_EXTERN
 FunctionTerm_t *
 FunctionTerm_clone(FunctionTerm_t * ft)
@@ -1046,9 +1037,6 @@ FunctionTerm_clone(FunctionTerm_t * ft)
 }
 
 
-/**
- *
- */
 LIBSBML_EXTERN
 int
 FunctionTerm_getResultLevel(FunctionTerm_t * ft)
@@ -1057,9 +1045,6 @@ FunctionTerm_getResultLevel(FunctionTerm_t * ft)
 }
 
 
-/**
- *
- */
 LIBSBML_EXTERN
 int
 FunctionTerm_isSetResultLevel(FunctionTerm_t * ft)
@@ -1068,9 +1053,6 @@ FunctionTerm_isSetResultLevel(FunctionTerm_t * ft)
 }
 
 
-/**
- *
- */
 LIBSBML_EXTERN
 int
 FunctionTerm_setResultLevel(FunctionTerm_t * ft, int resultLevel)
@@ -1079,9 +1061,6 @@ FunctionTerm_setResultLevel(FunctionTerm_t * ft, int resultLevel)
 }
 
 
-/**
- *
- */
 LIBSBML_EXTERN
 int
 FunctionTerm_unsetResultLevel(FunctionTerm_t * ft)
@@ -1090,9 +1069,6 @@ FunctionTerm_unsetResultLevel(FunctionTerm_t * ft)
 }
 
 
-/**
- *
- */
 LIBSBML_EXTERN
 int
 FunctionTerm_hasRequiredAttributes(FunctionTerm_t * ft)
@@ -1101,9 +1077,6 @@ FunctionTerm_hasRequiredAttributes(FunctionTerm_t * ft)
 }
 
 
-/**
- *
- */
 LIBSBML_EXTERN
 FunctionTerm_t *
 ListOfFunctionTerms_getById(ListOf_t * lo, const char * sid)
@@ -1115,9 +1088,6 @@ ListOfFunctionTerms_getById(ListOf_t * lo, const char * sid)
 }
 
 
-/**
- *
- */
 LIBSBML_EXTERN
 FunctionTerm_t *
 ListOfFunctionTerms_removeById(ListOf_t * lo, const char * sid)

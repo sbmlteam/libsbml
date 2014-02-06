@@ -913,9 +913,6 @@ ListOfFluxBounds::writeXMLNS (XMLOutputStream& stream) const
 #endif /* __cplusplus */
 /** @cond doxygenCOnly */
 
-/**
- *
- */
 LIBSBML_EXTERN
 FluxBound_t *
 FluxBound_create(unsigned int level, unsigned int version, unsigned int pkgversion)
@@ -924,9 +921,6 @@ FluxBound_create(unsigned int level, unsigned int version, unsigned int pkgversi
 }
 
 
-/**
- *
- */
 LIBSBML_EXTERN
 const char *
 FluxBound_getId(FluxBound_t * fb)
@@ -938,9 +932,6 @@ FluxBound_getId(FluxBound_t * fb)
 }
 
 
-/**
- *
- */
 LIBSBML_EXTERN
 int
 FluxBound_isSetId(FluxBound_t * fb)
@@ -949,9 +940,6 @@ FluxBound_isSetId(FluxBound_t * fb)
 }
 
 
-/**
- *
- */
 LIBSBML_EXTERN
 int
 FluxBound_setId(FluxBound_t * fb, const char * id)
@@ -960,9 +948,6 @@ FluxBound_setId(FluxBound_t * fb, const char * id)
 }
 
 
-/**
- *
- */
 LIBSBML_EXTERN
 int
 FluxBound_unsetId(FluxBound_t * fb)
@@ -970,9 +955,6 @@ FluxBound_unsetId(FluxBound_t * fb)
   return (fb != NULL) ? fb->unsetId() : LIBSBML_INVALID_OBJECT;
 }
 
-/**
- *
- */
 LIBSBML_EXTERN
 const char *
 FluxBound_getName(FluxBound_t * fb)
@@ -982,9 +964,6 @@ FluxBound_getName(FluxBound_t * fb)
 }
 
 
-/**
- *
- */
 LIBSBML_EXTERN
 int
 FluxBound_isSetName(FluxBound_t * fb)
@@ -994,9 +973,6 @@ FluxBound_isSetName(FluxBound_t * fb)
 }
 
 
-/**
- *
- */
 LIBSBML_EXTERN
 int
 FluxBound_setName(FluxBound_t * fb, const char * name)
@@ -1006,9 +982,6 @@ FluxBound_setName(FluxBound_t * fb, const char * name)
 }
 
 
-/**
- *
- */
 LIBSBML_EXTERN
 int
 FluxBound_unsetName(FluxBound_t * fb)
@@ -1018,9 +991,6 @@ FluxBound_unsetName(FluxBound_t * fb)
 }
 
 
-/**
- *
- */
 LIBSBML_EXTERN
 const char *
 FluxBound_getReaction(FluxBound_t * fb)
@@ -1032,9 +1002,6 @@ FluxBound_getReaction(FluxBound_t * fb)
 }
 
 
-/**
- *
- */
 LIBSBML_EXTERN
 int
 FluxBound_isSetReaction(FluxBound_t * fb)
@@ -1043,9 +1010,6 @@ FluxBound_isSetReaction(FluxBound_t * fb)
 }
 
 
-/**
- *
- */
 LIBSBML_EXTERN
 int
 FluxBound_setReaction(FluxBound_t * fb, const char * reaction)
@@ -1054,9 +1018,6 @@ FluxBound_setReaction(FluxBound_t * fb, const char * reaction)
 }
 
 
-/**
- *
- */
 LIBSBML_EXTERN
 int
 FluxBound_unsetReaction(FluxBound_t * fb)
@@ -1065,9 +1026,6 @@ FluxBound_unsetReaction(FluxBound_t * fb)
 }
 
 
-/**
- *
- */
 LIBSBML_EXTERN
 const char *
 FluxBound_getOperation(FluxBound_t * fb)
@@ -1079,9 +1037,6 @@ FluxBound_getOperation(FluxBound_t * fb)
 }
 
 
-/**
- *
- */
 LIBSBML_EXTERN
 int
 FluxBound_isSetOperation(FluxBound_t * fb)
@@ -1090,9 +1045,6 @@ FluxBound_isSetOperation(FluxBound_t * fb)
 }
 
 
-/**
- *
- */
 LIBSBML_EXTERN
 int
 FluxBound_setOperation(FluxBound_t * fb, const char * operation)
@@ -1101,9 +1053,6 @@ FluxBound_setOperation(FluxBound_t * fb, const char * operation)
 }
 
 
-/**
- *
- */
 LIBSBML_EXTERN
 int
 FluxBound_unsetOperation(FluxBound_t * fb)
@@ -1112,9 +1061,6 @@ FluxBound_unsetOperation(FluxBound_t * fb)
 }
 
 
-/**
- *
- */
 LIBSBML_EXTERN
 double
 FluxBound_getValue(FluxBound_t * fb)
@@ -1123,9 +1069,6 @@ FluxBound_getValue(FluxBound_t * fb)
 }
 
 
-/**
- *
- */
 LIBSBML_EXTERN
 int
 FluxBound_isSetValue(FluxBound_t * fb)
@@ -1134,9 +1077,6 @@ FluxBound_isSetValue(FluxBound_t * fb)
 }
 
 
-/**
- *
- */
 LIBSBML_EXTERN
 int
 FluxBound_setValue(FluxBound_t * fb, double value)
@@ -1145,9 +1085,6 @@ FluxBound_setValue(FluxBound_t * fb, double value)
 }
 
 
-/**
- *
- */
 LIBSBML_EXTERN
 int
 FluxBound_unsetValue(FluxBound_t * fb)
@@ -1168,9 +1105,6 @@ const char* FLUXBOUND_OPERATION_STRINGS[] =
 };
 
 
-/**
- *
- */
 LIBSBML_EXTERN
 const char* 
 FluxBoundOperation_toString(FluxBoundOperation_t type)
@@ -1191,9 +1125,6 @@ FluxBoundOperation_toString(FluxBoundOperation_t type)
 }
 
 
-/**
- *
- */
 LIBSBML_EXTERN
 FluxBoundOperation_t 
 FluxBoundOperation_fromString(const char* s)
@@ -1220,9 +1151,6 @@ FluxBoundOperation_fromString(const char* s)
 }
 
 
-/**
- *
- */
 LIBSBML_EXTERN
 int 
 FluxBoundOperation_isValidFluxBoundOperation(FluxBoundOperation_t effect)
@@ -1240,9 +1168,6 @@ FluxBoundOperation_isValidFluxBoundOperation(FluxBoundOperation_t effect)
 }
 
 
-/**
- *
- */
 LIBSBML_EXTERN
 int 
 FluxBoundOperation_isValidFluxBoundOperationString(const char* s)

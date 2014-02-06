@@ -118,9 +118,6 @@ SBasePluginCreatorBase::getTargetExtensionPoint() const
 
 /** @cond doxygenLibsbmlInternal */
 
-/**
- *
- */
 unsigned int 
 SBasePluginCreatorBase::getNumOfSupportedPackageURI() const
 {
@@ -130,9 +127,6 @@ SBasePluginCreatorBase::getNumOfSupportedPackageURI() const
 
 
 /** @cond doxygenLibsbmlInternal */
-/**
- *
- */
 std::string
 SBasePluginCreatorBase::getSupportedPackageURI(unsigned int i) const
 {
@@ -143,9 +137,6 @@ SBasePluginCreatorBase::getSupportedPackageURI(unsigned int i) const
 
 
 /** @cond doxygenLibsbmlInternal */
-/**
- *
- */
 bool 
 SBasePluginCreatorBase::isSupported(const std::string& uri) const
 {

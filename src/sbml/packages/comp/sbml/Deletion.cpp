@@ -390,9 +390,6 @@ Deletion_isSetId(Deletion_t * d)
 }
 
 
-/**
- * 
- */
 LIBSBML_EXTERN
 int
 Deletion_isSetName(Deletion_t * d)

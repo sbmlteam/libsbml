@@ -713,9 +713,6 @@ ListOfFluxObjectives::createObject (XMLInputStream& stream)
 #endif /* __cplusplus */
 /** @cond doxygenCOnly */
 
-/**
- *
- */
 LIBSBML_EXTERN
 FluxObjective_t *
 FluxObjective_create(unsigned int level, unsigned int version, unsigned int pkgversion)
@@ -724,9 +721,6 @@ FluxObjective_create(unsigned int level, unsigned int version, unsigned int pkgv
 }
 
 
-/**
- *
- */
 LIBSBML_EXTERN
 const char *
 FluxObjective_getId(FluxObjective_t * fb)
@@ -738,9 +732,6 @@ FluxObjective_getId(FluxObjective_t * fb)
 }
 
 
-/**
- *
- */
 LIBSBML_EXTERN
 int
 FluxObjective_isSetId(FluxObjective_t * fb)
@@ -749,9 +740,6 @@ FluxObjective_isSetId(FluxObjective_t * fb)
 }
 
 
-/**
- *
- */
 LIBSBML_EXTERN
 int
 FluxObjective_setId(FluxObjective_t * fb, const char * id)
@@ -760,9 +748,6 @@ FluxObjective_setId(FluxObjective_t * fb, const char * id)
 }
 
 
-/**
- *
- */
 LIBSBML_EXTERN
 int
 FluxObjective_unsetId(FluxObjective_t * fb)
@@ -770,9 +755,6 @@ FluxObjective_unsetId(FluxObjective_t * fb)
   return (fb != NULL) ? fb->unsetId() : LIBSBML_INVALID_OBJECT;
 }
 
-/**
- *
- */
 LIBSBML_EXTERN
 const char *
 FluxObjective_getName(FluxObjective_t * fb)
@@ -782,9 +764,6 @@ FluxObjective_getName(FluxObjective_t * fb)
 }
 
 
-/**
- *
- */
 LIBSBML_EXTERN
 int
 FluxObjective_isSetName(FluxObjective_t * fb)
@@ -794,9 +773,6 @@ FluxObjective_isSetName(FluxObjective_t * fb)
 }
 
 
-/**
- *
- */
 LIBSBML_EXTERN
 int
 FluxObjective_setName(FluxObjective_t * fb, const char * name)
@@ -806,9 +782,6 @@ FluxObjective_setName(FluxObjective_t * fb, const char * name)
 }
 
 
-/**
- *
- */
 LIBSBML_EXTERN
 int
 FluxObjective_unsetName(FluxObjective_t * fb)
@@ -820,9 +793,6 @@ FluxObjective_unsetName(FluxObjective_t * fb)
 
 
 
-/**
- *
- */
 LIBSBML_EXTERN
 const char *
 FluxObjective_getReaction(FluxObjective_t * flux)
@@ -834,9 +804,6 @@ FluxObjective_getReaction(FluxObjective_t * flux)
 }
 
 
-/**
- *
- */
 LIBSBML_EXTERN
 int
 FluxObjective_isSetReaction(FluxObjective_t * flux)
@@ -845,9 +812,6 @@ FluxObjective_isSetReaction(FluxObjective_t * flux)
 }
 
 
-/**
- *
- */
 LIBSBML_EXTERN
 int
 FluxObjective_setReaction(FluxObjective_t * flux, const char * reaction)
@@ -856,9 +820,6 @@ FluxObjective_setReaction(FluxObjective_t * flux, const char * reaction)
 }
 
 
-/**
- *
- */
 LIBSBML_EXTERN
 int
 FluxObjective_unsetReaction(FluxObjective_t * flux)
@@ -867,9 +828,6 @@ FluxObjective_unsetReaction(FluxObjective_t * flux)
 }
 
 
-/**
- *
- */
 LIBSBML_EXTERN
 double
 FluxObjective_getCoefficient(FluxObjective_t * flux)
@@ -878,9 +836,6 @@ FluxObjective_getCoefficient(FluxObjective_t * flux)
 }
 
 
-/**
- *
- */
 LIBSBML_EXTERN
 int
 FluxObjective_isSetCoefficient(FluxObjective_t * flux)
@@ -889,9 +844,6 @@ FluxObjective_isSetCoefficient(FluxObjective_t * flux)
 }
 
 
-/**
- *
- */
 LIBSBML_EXTERN
 int
 FluxObjective_setCoefficient(FluxObjective_t * flux, double coeff)
@@ -900,9 +852,6 @@ FluxObjective_setCoefficient(FluxObjective_t * flux, double coeff)
 }
 
 
-/**
- *
- */
 LIBSBML_EXTERN
 int
 FluxObjective_unsetCoefficient(FluxObjective_t * flux)

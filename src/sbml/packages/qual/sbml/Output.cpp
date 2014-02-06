@@ -996,9 +996,6 @@ ListOfOutputs::writeXMLNS(XMLOutputStream& stream) const
 #endif /* __cplusplus */  
 /** @cond doxygenCOnly */
 
-/**
- *
- */
 LIBSBML_EXTERN
 Output_t *
 Output_create(unsigned int level, unsigned int version,
@@ -1008,9 +1005,6 @@ Output_create(unsigned int level, unsigned int version,
 }
 
 
-/**
- *
- */
 LIBSBML_EXTERN
 void
 Output_free(Output_t * o)
@@ -1020,9 +1014,6 @@ Output_free(Output_t * o)
 }
 
 
-/**
- *
- */
 LIBSBML_EXTERN
 Output_t *
 Output_clone(Output_t * o)
@@ -1038,9 +1029,6 @@ Output_clone(Output_t * o)
 }
 
 
-/**
- *
- */
 LIBSBML_EXTERN
 char *
 Output_getId(Output_t * o)
@@ -1052,9 +1040,6 @@ Output_getId(Output_t * o)
 }
 
 
-/**
- *
- */
 LIBSBML_EXTERN
 char *
 Output_getQualitativeSpecies(Output_t * o)
@@ -1066,9 +1051,6 @@ Output_getQualitativeSpecies(Output_t * o)
 }
 
 
-/**
- *
- */
 LIBSBML_EXTERN
 OutputTransitionEffect_t
 Output_getTransitionEffect(Output_t * o)
@@ -1080,9 +1062,6 @@ Output_getTransitionEffect(Output_t * o)
 }
 
 
-/**
- *
- */
 LIBSBML_EXTERN
 char *
 Output_getName(Output_t * o)
@@ -1094,9 +1073,6 @@ Output_getName(Output_t * o)
 }
 
 
-/**
- *
- */
 LIBSBML_EXTERN
 int
 Output_getOutputLevel(Output_t * o)
@@ -1105,9 +1081,6 @@ Output_getOutputLevel(Output_t * o)
 }
 
 
-/**
- *
- */
 LIBSBML_EXTERN
 int
 Output_isSetId(Output_t * o)
@@ -1116,9 +1089,6 @@ Output_isSetId(Output_t * o)
 }
 
 
-/**
- *
- */
 LIBSBML_EXTERN
 int
 Output_isSetQualitativeSpecies(Output_t * o)
@@ -1127,9 +1097,6 @@ Output_isSetQualitativeSpecies(Output_t * o)
 }
 
 
-/**
- *
- */
 LIBSBML_EXTERN
 int
 Output_isSetTransitionEffect(Output_t * o)
@@ -1138,9 +1105,6 @@ Output_isSetTransitionEffect(Output_t * o)
 }
 
 
-/**
- *
- */
 LIBSBML_EXTERN
 int
 Output_isSetName(Output_t * o)
@@ -1149,9 +1113,6 @@ Output_isSetName(Output_t * o)
 }
 
 
-/**
- *
- */
 LIBSBML_EXTERN
 int
 Output_isSetOutputLevel(Output_t * o)
@@ -1160,9 +1121,6 @@ Output_isSetOutputLevel(Output_t * o)
 }
 
 
-/**
- *
- */
 LIBSBML_EXTERN
 int
 Output_setId(Output_t * o, const char * id)
@@ -1171,9 +1129,6 @@ Output_setId(Output_t * o, const char * id)
 }
 
 
-/**
- *
- */
 LIBSBML_EXTERN
 int
 Output_setQualitativeSpecies(Output_t * o, const char * qualitativeSpecies)
@@ -1182,9 +1137,6 @@ Output_setQualitativeSpecies(Output_t * o, const char * qualitativeSpecies)
 }
 
 
-/**
- *
- */
 LIBSBML_EXTERN
 int
 Output_setTransitionEffect(Output_t * o, OutputTransitionEffect_t transitionEffect)
@@ -1193,9 +1145,6 @@ Output_setTransitionEffect(Output_t * o, OutputTransitionEffect_t transitionEffe
 }
 
 
-/**
- *
- */
 LIBSBML_EXTERN
 int
 Output_setName(Output_t * o, const char * name)
@@ -1204,9 +1153,6 @@ Output_setName(Output_t * o, const char * name)
 }
 
 
-/**
- *
- */
 LIBSBML_EXTERN
 int
 Output_setOutputLevel(Output_t * o, int outputLevel)
@@ -1215,9 +1161,6 @@ Output_setOutputLevel(Output_t * o, int outputLevel)
 }
 
 
-/**
- *
- */
 LIBSBML_EXTERN
 int
 Output_unsetId(Output_t * o)
@@ -1226,9 +1169,6 @@ Output_unsetId(Output_t * o)
 }
 
 
-/**
- *
- */
 LIBSBML_EXTERN
 int
 Output_unsetQualitativeSpecies(Output_t * o)
@@ -1237,9 +1177,6 @@ Output_unsetQualitativeSpecies(Output_t * o)
 }
 
 
-/**
- *
- */
 LIBSBML_EXTERN
 int
 Output_unsetTransitionEffect(Output_t * o)
@@ -1248,9 +1185,6 @@ Output_unsetTransitionEffect(Output_t * o)
 }
 
 
-/**
- *
- */
 LIBSBML_EXTERN
 int
 Output_unsetName(Output_t * o)
@@ -1259,9 +1193,6 @@ Output_unsetName(Output_t * o)
 }
 
 
-/**
- *
- */
 LIBSBML_EXTERN
 int
 Output_unsetOutputLevel(Output_t * o)
@@ -1270,9 +1201,6 @@ Output_unsetOutputLevel(Output_t * o)
 }
 
 
-/**
- *
- */
 LIBSBML_EXTERN
 int
 Output_hasRequiredAttributes(Output_t * o)
@@ -1281,9 +1209,6 @@ Output_hasRequiredAttributes(Output_t * o)
 }
 
 
-/**
- *
- */
 LIBSBML_EXTERN
 Output_t *
 ListOfOutputs_getById(ListOf_t * lo, const char * sid)
@@ -1295,9 +1220,6 @@ ListOfOutputs_getById(ListOf_t * lo, const char * sid)
 }
 
 
-/**
- *
- */
 LIBSBML_EXTERN
 Output_t *
 ListOfOutputs_removeById(ListOf_t * lo, const char * sid)

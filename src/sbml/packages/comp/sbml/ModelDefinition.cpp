@@ -217,9 +217,6 @@ ModelDefinition_free(ModelDefinition_t * md)
 }
 
 
-/**
- * 
- */
 LIBSBML_EXTERN
 ModelDefinition_t *
 ModelDefinition_clone(ModelDefinition_t * md)
