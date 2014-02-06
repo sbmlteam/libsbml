@@ -2,6 +2,11 @@
  * @file    L3FormulaFormatter.c
  * @brief   Formats an AST formula tree as an SBML L3 formula string.
  * @author  Lucian Smith (from FormulaFormatter, by Ben Bornstein)
+ *
+ * @if conly
+ * This file contains the SBML_formulaToL3String() and SBML_formulaToL3StringWithSettings()
+ * functions, both associated with the ASTNode_t structure.
+ * @endif
  * 
  * <!--------------------------------------------------------------------------
  * This file is part of libSBML.  Please visit http://sbml.org for more
@@ -33,107 +38,7 @@
 
 #include <sbml/util/util.h>
 
-/** @cond doxygenCOnly */
-/**
- * Converts an AST to a string representation of a formula using a syntax
- * basically derived from SBML Level&nbsp;1, but expanded.
- *
- * @if clike The text-string form of mathematical formulas produced by
- * SBML_formulaToL3String() and read by SBML_parseFormula() and SBML_parseL3Formula() 
- * are in a C-inspired infix notation.  A formula in
- * this text-string form therefore can be handed to a program that
- * understands SBML mathematical expressions, or used as part
- * of a formula translation system.  The syntax is described in detail in
- * the documentation for ASTNode. @endif@if java The text-string form of
- * mathematical formulas produced by <code><a
- * href="libsbml.html#formulaToString(org.sbml.libsbml.ASTNode)">
- * libsbml.formulaToString()</a></code> and read by
- * <code><a href="libsbml.html#parseFormula(java.lang.String)">
- * libsbml.parseFormula()</a></code> and
- * <code><a href="libsbml.html#parseL3Formula(java.lang.String)">
- * libsbml.parseL3Formula()</a></code> are in a 
- * simple C-inspired infix notation.  A
- * formula in this text-string form therefore can be handed to a program
- * that understands SBML mathematical expressions, or used as
- * part of a formula translation system.  The syntax is described in detail
- * in the documentation for ASTNode.   @endif
- *
- * Note that this facility is provided as a convenience by libSBML&mdash;the
- * MathML standard does not actually define a "string-form" equivalent to
- * MathML expression trees, so the choice of formula syntax is somewhat
- * arbitrary.  The approach taken by libSBML is to use the syntax defined by
- * SBML Level&nbsp;1 (which in fact used a text-string representation of
- * formulas and not MathML).  This formula syntax is based mostly on C
- * programming syntax, and may contain operators, function calls, symbols,
- * and white space characters.  The following table provides the precedence
- * rules for the different entities that may appear in formula strings.
- *
- * @htmlinclude math-precedence-table-l3.html
- * 
- * In the table above, @em operand implies the construct is an operand, @em
- * prefix implies the operation is applied to the following arguments, @em
- * unary implies there is one argument, and @em binary implies there are
- * two arguments.  The values in the <b>Precedence</b> column show how the
- * order of different types of operation are determined.  For example, the
- * expression <code>a * b + c</code> is evaluated as <code>(a * b) +
- * c</code> because the @c * operator has higher precedence.  The
- * <b>Associates</b> column shows how the order of similar precedence
- * operations is determined; for example, <code>a - b + c</code> is
- * evaluated as <code>(a - b) + c</code> because the @c + and @c -
- * operators are left-associative.
- *
- * @warning Note that there are a few differences between the above list,
- * and the list used for the L1 SBML_formulaToString():  the "^" operator
- * has a higher precedence here than the unary "-" operator, which is
- * the reverse case from the L1 formulas.  In addition, the "%" (modulo) 
- * operator has been added (and will be produced from 'piecewise' functions
- * of the appropriate form), and there are new operators for the logical
- * and relational ASTNodes.
- *
- * The function call syntax consists of a function name, followed by optional
- * white space, followed by an opening parenthesis token, followed by a
- * sequence of zero or more arguments separated by commas (with each comma
- * optionally preceded and/or followed by zero or more white space
- * characters, followed by a closing parenthesis token.  The function name
- * must be chosen from one of the pre-defined functions in SBML or a
- * user-defined function in the model.  The following table lists the names
- * of certain common mathematical functions; this table corresponds to
- * Table&nbsp;6 in the <a target="_blank" href="http://sbml.org/Documents/Specifications#SBML_Level_1_Version_2">SBML Level&nbsp;1 Version&nbsp;2 specification</a>, augmented with new functions added for SBML Levels 2 and 3:
- *
- * @htmlinclude string-functions-table-l3.html
- *
- * @warning Note that unlike SBML_formulaToString(), this function will
- * never produce the string 'log' as shorthand for either natural or 
- * base-10 logarithms.  Instead, it will always explicitly produce 
- * 'log10(x)' for base-10 logarithms, 'ln(x)' for natural logarhythms,
- * and 'log(x, y)' for logarithms of arbitrary bases.
- *
- * @warning Note also that for MathML n-ary functions that can take zero
- * or one arguments, the functional form of the operator will be produced.
- * This means that if the function is given an ASTNode of type AST_PLUS 
- * with one or no children, it will produce "plus(x)" and "plus()", respectively.
- * The same thing will happen for AST_TIMES, all logical and relational 
- * operators, and even AST_DIVIDE and AST_MINUS, though it is illegal to
- * have ASTNodes of some of the latter types with one or no children.
- *
- * In addition, ASTNodes that represent constants will be output as follows:
- *
- * @htmlinclude string-values-table-l3.html
- *
- * (with 'INF' and 'NaN' produced for the last two items.
- * 
- *
- * @param tree the AST to be converted.
- * 
- * @return the formula from the given AST as an SBML Level 3 text-string
- * mathematical formula.  The caller owns the returned string and is
- * responsible for freeing it when it is no longer needed.
- *
- * @see SBML_parseFormula()
- * @see SBML_parseL3Formula()
- * @see SBML_formualToString()
- * @see SBML_formulaToL3StringWithSettings()
- */
+/** @cond doxygenIgnored */
 LIBSBML_EXTERN
 char *
 SBML_formulaToL3String (const ASTNode_t *tree)
@@ -145,43 +50,6 @@ SBML_formulaToL3String (const ASTNode_t *tree)
 }
 
 
-/**
- * Converts an AST to a string representation of a formula using a syntax
- * basically derived from SBML Level&nbsp;1, with behavior modifiable with
- * custom settings.
- *
- * This function behaves identically to SBML_formulaToL3String(), but 
- * its behavior can be modified by two settings in the @param settings
- * object, namely:
- *
- * @li ParseUnits:  If this is set to 'true' (the default), the function will 
- *     write out the units of any numerical ASTNodes that have them, producing
- *     (for example) "3 mL", "(3/4) m", or "5.5e-10 M".  If this is set to
- *     'false', this function will only write out the number itself ("3",
- *     "(3/4)", and "5.5e-10", in the previous examples).
- *
- * @li CollapseMinus: If this is set to 'false' (the default), the function
- *     will write out explicitly any doubly-nested unary minus ASTNodes,
- *     producing (for example) "--x" or even "-----3.1".  If this is set
- *     to 'true', the function will collapse the nodes before producing the
- *     infix, producing "x" and "-3.1" in the previous examples.
- *
- * All other settings will not affect the behavior of this function:  the
- * 'parseLog' setting is ignored, and "log10(x)", "ln(x)", and "log(x, y)" 
- * are always produced.  Nothing in the Model object is used, and whether
- * Avogadro is a csymbol or not is immaterial to the produced infix.
- *
- * @param tree the AST to be converted.
- * @param settings the L3ParserSettings object used to modify behavior.
- * 
- * @return the formula from the given AST as an SBML Level 3 text-string
- * mathematical formula.  The caller owns the returned string and is
- * responsible for freeing it when it is no longer needed.
- *
- * @see SBML_parseFormula()
- * @see SBML_parseL3Formula()
- * @see SBML_formulaToL3String()
- */
 LIBSBML_EXTERN
 char *
 SBML_formulaToL3StringWithSettings (const ASTNode_t *tree, const L3ParserSettings_t *settings)

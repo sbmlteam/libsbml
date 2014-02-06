@@ -150,37 +150,122 @@ LIBSBML_CPP_NAMESPACE_END
 LIBSBML_CPP_NAMESPACE_BEGIN
 BEGIN_C_DECLS
 
+/**
+ * Creates an SBasePlugin_t structure with the given uri and the prefix
+ * of the target package extension.
+ *
+ * @param creator the SBasePluginCreatorBase_t structure  
+ * @param uri the package extension uri
+ * @param prefix the package extension prefix
+ * @param xmlns the package extension namespaces
+ *
+ * @return an SBasePlugin_t structure with the given uri and the prefix
+ * of the target package extension, or @c NULL in case an invalid creator, uri 
+ * or prefix was given.
+ *
+ * @memberof SBasePlugin_t
+ */
 LIBSBML_EXTERN
 SBasePlugin_t*
 SBasePluginCreator_createPlugin(SBasePluginCreatorBase_t* creator, 
   const char* uri, const char* prefix, const XMLNamespaces_t* xmlns);
 
+/**
+ * Creates a deep copy of the given SBasePluginCreatorBase_t structure
+ * 
+ * @param creator the SBasePluginCreatorBase_t structure to be copied
+ * 
+ * @return a (deep) copy of the given SBasePluginCreatorBase_t structure.
+ *
+ * @memberof SBasePlugin_t
+ */
 LIBSBML_EXTERN
 SBasePluginCreatorBase_t*
 SBasePluginCreator_clone(SBasePluginCreatorBase_t* creator);
 
 
+/**
+ * Returns the number of supported packages by the given creator object.
+ * 
+ * @param creator the SBasePluginCreatorBase_t structure
+ * 
+ * @return the number of supported packages by the given creator object.
+ *
+ * @memberof SBasePlugin_t
+ */
 LIBSBML_EXTERN
 unsigned int
 SBasePluginCreator_getNumOfSupportedPackageURI(SBasePluginCreatorBase_t* creator);
 
+/**
+ * Returns a copy of the package uri with the specified index. 
+ * 
+ * @param creator the SBasePluginCreatorBase_t structure
+ * @param index the index of the package uri to return
+ * 
+ * @return a copy of the package uri with the specified index
+ * (Has to be freed by the caller). If creator is invalid NULL will 
+ * be returned.
+ *
+ * @memberof SBasePlugin_t
+ */
 LIBSBML_EXTERN
 char*
 SBasePluginCreator_getSupportedPackageURI(SBasePluginCreatorBase_t* creator, 
     unsigned int index);
 
+/**
+ * Returns the SBMLTypeCode tied to the creator object.
+ * 
+ * @param creator the SBasePluginCreatorBase_t structure
+ * 
+ * @return the SBMLTypeCode tied with the creator object or 
+ * LIBSBML_INVALID_OBJECT.
+ *
+ * @memberof SBasePlugin_t
+ */
 LIBSBML_EXTERN
 int
 SBasePluginCreator_getTargetSBMLTypeCode(SBasePluginCreatorBase_t* creator);
 
+/**
+ * Returns the target package name of the creator object.
+ * 
+ * @param creator the SBasePluginCreatorBase_t structure
+ * 
+ * @return the target package name of the creator object, or @c NULL if 
+ * creator is invalid.
+ *
+ * @memberof SBasePlugin_t
+ */
 LIBSBML_EXTERN
 const char*
 SBasePluginCreator_getTargetPackageName(SBasePluginCreatorBase_t* creator);
 
+/**
+ * Returns the SBaseExtensionPoint tied to this creator object.
+ * 
+ * @param creator the SBasePluginCreatorBase_t structure
+ * 
+ * @return the SBaseExtensionPoint of the creator object, or @c NULL if 
+ * creator is invalid.
+ *
+ * @memberof SBasePlugin_t
+ */
 LIBSBML_EXTERN
 const SBaseExtensionPoint_t*
 SBasePluginCreator_getTargetExtensionPoint(SBasePluginCreatorBase_t* creator);
 
+/**
+ * Returns true (1), if a package with the given namespace is supported. 
+ * 
+ * @param creator the SBasePluginCreatorBase_t structure
+ * @param uri the package uri to test
+ * 
+ * @return true (1), if a package with the given namespace is supported.
+ *
+ * @memberof SBasePlugin_t
+ */
 LIBSBML_EXTERN
 int 
 SBasePluginCreator_isSupported(SBasePluginCreatorBase_t* creator, const char* uri);

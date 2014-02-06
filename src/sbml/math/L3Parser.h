@@ -80,6 +80,10 @@ BEGIN_C_DECLS
  * @see <code><a href="libsbml.html#getLastParseL3Error()">getLastParseL3Error()</a></code>
  * @see <code><a href="libsbml.html#getDefaultL3ParserSettings()">getDefaultL3ParserSettings()</a></code>
  * @endif@~
+ *
+ * @if conly
+ * @memberof ASTNode_t
+ * @endif
  */
 LIBSBML_EXTERN
 ASTNode_t *
@@ -133,6 +137,10 @@ SBML_parseL3Formula (const char *formula);
  * @see <code><a href="libsbml.html#getLastParseL3Error()">getLastParseL3Error()</a></code>
  * @see <code><a href="libsbml.html#getDefaultL3ParserSettings()">getDefaultL3ParserSettings()</a></code>
  * @endif@~
+ *
+ * @if conly
+ * @memberof ASTNode_t
+ * @endif
  */
 LIBSBML_EXTERN
 ASTNode_t *
@@ -215,6 +223,10 @@ SBML_parseL3FormulaWithModel (const char *formula, const Model_t * model);
  * @see <code><a href="libsbml.html#getLastParseL3Error()">getLastParseL3Error()</a></code>
  * @see <code><a href="libsbml.html#getDefaultL3ParserSettings()">getDefaultL3ParserSettings()</a></code>
  * @endif@~
+ *
+ * @if conly
+ * @memberof ASTNode_t
+ * @endif
  */
 LIBSBML_EXTERN
 ASTNode_t *
@@ -281,6 +293,10 @@ SBML_parseL3FormulaWithSettings (const char *formula, const L3ParserSettings_t *
  * @see <code><a href="libsbml.html#parseL3FormulaWithModel(java.lang.String, org.sbml.libsbml.Model)">parseL3FormulaWithModel(String formula, Model model)</a></code>
  * @see <code><a href="libsbml.html#getLastParseL3Error()">getLastParseL3Error()</a></code>
  * @endif@~
+ *
+ * @if conly
+ * @memberof L3ParserSettings_t
+ * @endif
  */
 LIBSBML_EXTERN
 L3ParserSettings_t*
@@ -323,6 +339,10 @@ SBML_getDefaultL3ParserSettings ();
  * @see <code><a href="libsbml.html#parseL3FormulaWithModel(java.lang.String, org.sbml.libsbml.Model)">parseL3FormulaWithModel(String formula, Model model)</a></code>
  * @see <code><a href="libsbml.html#getDefaultL3ParserSettings()">getDefaultL3ParserSettings()</a></code>
  * @endif@~
+ *
+ * @if conly
+ * @memberof ASTNode_t
+ * @endif
  */
 LIBSBML_EXTERN
 char*

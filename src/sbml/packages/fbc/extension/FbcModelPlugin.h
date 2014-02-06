@@ -128,7 +128,7 @@ public:
    * Subclasses should override this function if they have their specific
    * elements.
    *
-   * @return true if this pugin object has all the required elements,
+   * @return true if this plugin object has all the required elements,
    * otherwise false will be returned.
    */
   virtual bool hasRequiredElements() const ;

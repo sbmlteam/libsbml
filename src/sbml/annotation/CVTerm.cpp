@@ -452,16 +452,6 @@ CVTerm::resetModifiedFlags()
 /** @cond doxygenCOnly */
 
 
-/**
- * Creates a new CVTerm_t with the given #QualifierType_t value @p type and
- * returns a pointer to it.
- *
- * The possible QualifierTypes are MODEL_QUALIFIER and BIOLOGICAL_QUALIFIER.  
- *
- * @param type a #QualifierType_t
- *
- * @return a pointer to the newly created CVTerm_t structure.
- */
 LIBSBML_EXTERN
 CVTerm_t*
 CVTerm_createWithQualifierType(QualifierType_t type)
@@ -469,22 +459,6 @@ CVTerm_createWithQualifierType(QualifierType_t type)
   return new(nothrow) CVTerm(type);
 }
 
-/**
- * Create a new CVTerm_t from the given XMLNode_t and returns a 
- * pointer to it.
- *
- * RDFAnnotations within a model are stored as a List of CVTerms.  This allows
- * the user to interact with the %CVTerms directly.  When LibSBML reads in a 
- * model containing RDFAnnotations it parses them into a %List of CVTerms and
- * when writing a model it parses the CVTerms into the appropriate annotation
- * structure.  This function creates a %CVTerm from the %XMLNode supplied.
- *
- * @param node an XMLNode_t representing a CVTerm_t.
- *
- * @return a pointer to the newly created CVTerm_t structure.
- *
- * @note this method assumes that the %XMLNode_t is of the correct form
- */
 LIBSBML_EXTERN
 CVTerm_t*
 CVTerm_createFromNode(const XMLNode_t *node)
@@ -494,11 +468,6 @@ CVTerm_createFromNode(const XMLNode_t *node)
 }
 
 
-/**
- * Frees the given CVTerm_t structure.
- *
- * @param term the CVTerm_t structure to be freed.
- */
 LIBSBML_EXTERN
 void
 CVTerm_free(CVTerm_t * term)
@@ -507,13 +476,6 @@ CVTerm_free(CVTerm_t * term)
   delete static_cast<CVTerm*>(term);
 }
 
-/**
- * Creates a deep copy of the given CVTerm_t structure
- * 
- * @param c the CVTerm_t structure to be copied
- * 
- * @return a (deep) copy of the given CVTerm_t structure.
- */
 LIBSBML_EXTERN
 CVTerm_t *
 CVTerm_clone (const CVTerm_t* c)
@@ -523,14 +485,6 @@ CVTerm_clone (const CVTerm_t* c)
 }
 
 
-/**
- * Takes a CVTerm_t structure and returns its #QualifierType_t type.
- *
- * @param term the CVTerm_t structure whose #QualifierType_t value is sought
- *
- * @return the #QualifierType_t value of this CVTerm_t or UNKNOWN_QUALIFIER
- * (default).
- */
 LIBSBML_EXTERN
 QualifierType_t 
 CVTerm_getQualifierType(CVTerm_t * term)
@@ -539,14 +493,6 @@ CVTerm_getQualifierType(CVTerm_t * term)
   return term->getQualifierType();
 }
 
-/**
- * Takes a CVTerm_t structure and returns the #ModelQualifierType_t type.
- *
- * @param term the CVTerm_t structure whose #ModelQualifierType_t is sought.
- *
- * @return the #ModelQualifierType_t value of this CVTerm_t or BQM_UNKNOWN
- * (default).
- */
 LIBSBML_EXTERN
 ModelQualifierType_t 
 CVTerm_getModelQualifierType(CVTerm_t * term)
@@ -555,15 +501,6 @@ CVTerm_getModelQualifierType(CVTerm_t * term)
   return term->getModelQualifierType();
 }
 
-/**
- * Takes a CVTerm_t structure and returns the #BiolQualifierType_t.
- *
- * @param term the CVTerm_t structure whose #BiolQualifierType_t value is
- * sought.
- *
- * @return the #BiolQualifierType_t value of this CVTerm_t or BQB_UNKNOWN
- * (default).
- */
 LIBSBML_EXTERN
 BiolQualifierType_t 
 CVTerm_getBiologicalQualifierType(CVTerm_t * term)
@@ -572,13 +509,6 @@ CVTerm_getBiologicalQualifierType(CVTerm_t * term)
   return term->getBiologicalQualifierType();
 }
 
-/**
- * Takes a CVTerm_t structure and returns the resources.
- * 
- * @param term the CVTerm_t structure whose resources are sought.
- *
- * @return the XMLAttributes_t that store the resources of this CVTerm_t.
- */
 LIBSBML_EXTERN
 XMLAttributes_t * 
 CVTerm_getResources(CVTerm_t * term)
@@ -587,14 +517,6 @@ CVTerm_getResources(CVTerm_t * term)
   return term->getResources();
 }
 
-/**
- * Returns the number of resources for this %CVTerm.
- *
- * @param term the CVTerm_t structure whose resources are sought.
- * 
- * @return the number of resources in the set of XMLAttributes
- * of this %CVTerm.
- */
 LIBSBML_EXTERN
 unsigned int
 CVTerm_getNumResources(CVTerm_t* term)
@@ -604,19 +526,6 @@ CVTerm_getNumResources(CVTerm_t* term)
 }
 
 
-/**
- * Returns the value of the nth resource for this %CVTerm.
- *
- * @param cv the CVTerm_t structure
- * @param n the index of the resource to query
- *
- * @return string representing the value of the nth resource
- * in the set of XMLAttributes of this %CVTerm.
- *
- * @note Since the values of the resource attributes in a CVTerm
- * are URIs this is a convenience function to facilitate
- * interaction with the CVTerm class.
- */
 LIBSBML_EXTERN
 char *
 CVTerm_getResourceURI(CVTerm_t * cv, unsigned int n)
@@ -626,19 +535,6 @@ CVTerm_getResourceURI(CVTerm_t * cv, unsigned int n)
 }
 
 
-/**
- * Sets the "QualifierType_t" of this %CVTerm_t.
- *
- * @param term the CVTerm_t structure to set.
- * @param type the QualifierType_t 
- *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif@~ The possible values
- * returned by this function are:
- * @li LIBSBML_OPERATION_SUCCESS
- * @li LIBSBML_INVALID_OBJECT
- */
 LIBSBML_EXTERN
 int 
 CVTerm_setQualifierType(CVTerm_t * term, QualifierType_t type)
@@ -648,23 +544,6 @@ CVTerm_setQualifierType(CVTerm_t * term, QualifierType_t type)
 }
 
 
-/**
- * Sets the "ModelQualifierType_t" of this %CVTerm.
- *
- * @param term the CVTerm_t structure to set.
- * @param type the ModelQualifierType_t
- *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif@~ The possible values
- * returned by this function are:
- * @li LIBSBML_OPERATION_SUCCESS
- * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
- * @li LIBSBML_INVALID_OBJECT
- *
- * @note if the QualifierType for this object is not MODEL_QUALIFIER
- * then the ModelQualifierType will default to BQM_UNKNOWN.
- */
 LIBSBML_EXTERN
 int 
 CVTerm_setModelQualifierType(CVTerm_t * term, ModelQualifierType_t type)
@@ -674,23 +553,6 @@ CVTerm_setModelQualifierType(CVTerm_t * term, ModelQualifierType_t type)
 }
 
 
-/**
- * Sets the "BiolQualifierType_t" of this %CVTerm_t.
- *
- * @param term the CVTerm_t structure to set.
- * @param type the BiolQualifierType_t
- *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif@~ The possible values
- * returned by this function are:
- * @li LIBSBML_OPERATION_SUCCESS
- * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
- * @li LIBSBML_INVALID_OBJECT
- *
- * @note if the QualifierType for this object is not BIOLOGICAL_QUALIFIER
- * then the BiolQualifierType_t will default to BQB_UNKNOWN.
- */
 LIBSBML_EXTERN
 int 
 CVTerm_setBiologicalQualifierType(CVTerm_t * term, BiolQualifierType_t type)
@@ -699,23 +561,6 @@ CVTerm_setBiologicalQualifierType(CVTerm_t * term, BiolQualifierType_t type)
   return term->setBiologicalQualifierType(type);
 }
 
-/**
- * Sets the "ModelQualifierType_t" of this %CVTerm.
- *
- * @param term the CVTerm_t structure to set.
- * @param qualifier the string representing a model qualifier
- *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif@~ The possible values
- * returned by this function are:
- * @li LIBSBML_OPERATION_SUCCESS
- * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
- * @li LIBSBML_INVALID_OBJECT
- *
- * @note if the QualifierType for this object is not MODEL_QUALIFIER
- * then the ModelQualifierType will default to BQM_UNKNOWN.
- */
 LIBSBML_EXTERN
 int 
 CVTerm_setModelQualifierTypeByString(CVTerm_t * term, const char* qualifier)
@@ -728,23 +573,6 @@ CVTerm_setModelQualifierTypeByString(CVTerm_t * term, const char* qualifier)
 }
 
 
-/**
- * Sets the "BiolQualifierType_t" of this %CVTerm_t.
- *
- * @param term the CVTerm_t structure to set.
- * @param qualifier the string representing a biol qualifier
- *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif@~ The possible values
- * returned by this function are:
- * @li LIBSBML_OPERATION_SUCCESS
- * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
- * @li LIBSBML_INVALID_OBJECT
- *
- * @note if the QualifierType for this object is not BIOLOGICAL_QUALIFIER
- * then the BiolQualifierType_t will default to BQB_UNKNOWN.
- */
 LIBSBML_EXTERN
 int 
 CVTerm_setBiologicalQualifierTypeByString(CVTerm_t * term, const char* qualifier)
@@ -756,23 +584,6 @@ CVTerm_setBiologicalQualifierTypeByString(CVTerm_t * term, const char* qualifier
     return term->setBiologicalQualifierType(qualifier);
 }
 
-/**
- * Adds a resource to the CVTerm_t.
- *
- * @param term the CVTerm_t structure to set.
- * @param resource string representing the resource 
- * e.g. http://www.geneontology.org/#GO:0005892
- *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif@~ The possible values
- * returned by this function are:
- * @li LIBSBML_OPERATION_SUCCESS
- * @li LIBSBML_OPERATION_FAILED
- *
- * @note this method adds the name "rdf:resource" to the attribute prior
- * to adding it to the resources in this CVTerm.
- */
 LIBSBML_EXTERN
 int 
 CVTerm_addResource(CVTerm_t * term, const char * resource)
@@ -781,21 +592,6 @@ CVTerm_addResource(CVTerm_t * term, const char * resource)
   return term->addResource(resource);
 }
 
-/**
- * Removes a resource from the CVTerm_t.
- *
- * @param term the CVTerm_t structure.
- * @param resource string representing the resource 
- * e.g. http://www.geneontology.org/#GO:0005892
- *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif@~ The possible values
- * returned by this function are:
- * @li LIBSBML_OPERATION_SUCCESS
- * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
- * @li LIBSBML_INVALID_OBJECT
- */
 LIBSBML_EXTERN
 int 
 CVTerm_removeResource(CVTerm_t * term, const char * resource)
@@ -841,20 +637,6 @@ const char* BIOL_QUALIFIER_STRINGS[] =
 };
 
 
-/**
- * This method takes a model qualifier type code and returns a string 
- * representing the code.
- *
- * This method takes a model qualifier type as argument 
- * and returns a string name corresponding to that code.  For example, 
- * passing it the qualifier <code>BQM_IS_DESCRIBED_BY</code> will return 
- * the string "<code>isDescribedBy</code>". 
- *
- * @return a human readable qualifier name for the given type.
- *
- * @note The caller does not own the returned string and is therefore not
- * allowed to modify it.
- */
 LIBSBML_EXTERN
 const char* 
 ModelQualifierType_toString(ModelQualifierType_t type)
@@ -869,20 +651,6 @@ ModelQualifierType_toString(ModelQualifierType_t type)
   return MODEL_QUALIFIER_STRINGS[type];
 }
 
-/**
- * This method takes a biol qualifier type code and returns a string 
- * representing the code.
- *
- * This method takes a biol qualifier type as argument 
- * and returns a string name corresponding to that code.  For example, 
- * passing it the qualifier <code>BQB_HAS_VERSION</code> will return 
- * the string "<code>hasVersion</code>". 
- *
- * @return a human readable qualifier name for the given type.
- *
- * @note The caller does not own the returned string and is therefore not
- * allowed to modify it.
- */
 LIBSBML_EXTERN
 const char* 
 BiolQualifierType_toString(BiolQualifierType_t type)
@@ -897,18 +665,6 @@ BiolQualifierType_toString(BiolQualifierType_t type)
   return BIOL_QUALIFIER_STRINGS[type];
 }
 
-/**
- * This method takes a a string and returns a model qualifier
- * representing the string.
- *
- * This method takes a string as argument and returns a model qualifier type 
- * corresponding to that string.  For example, passing it the string 
- * "<code>isDescribedBy</code>" will return the qualifier 
- * <code>BQM_IS_DESCRIBED_BY</code>. 
- *
- * @return a qualifier for the given human readable qualifier name.
- *
- */
 LIBSBML_EXTERN
 ModelQualifierType_t 
 ModelQualifierType_fromString(const char* s)
@@ -924,18 +680,6 @@ ModelQualifierType_fromString(const char* s)
   return BQM_UNKNOWN;
 }
 
-/**
- * This method takes a a string and returns a biol qualifier
- * representing the string.
- *
- * This method takes a string as argument and returns a biol qualifier type 
- * corresponding to that string.  For example, passing it the string 
- * "<code>hasVersion</code>" will return the qualifier 
- * <code>BQB_HAS_VERSION</code>. 
- *
- * @return a qualifier for the given human readable qualifier name.
- *
- */
 LIBSBML_EXTERN
 BiolQualifierType_t 
 BiolQualifierType_fromString(const char* s)

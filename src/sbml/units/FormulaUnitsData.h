@@ -405,10 +405,6 @@ LIBSBML_CPP_NAMESPACE_END
 LIBSBML_CPP_NAMESPACE_BEGIN
 BEGIN_C_DECLS
 
------------------------------------------------------------------------------
- * See the .cpp file for the documentation of the following functions.
- * --------------------------------------------------------------------------
-
 LIBSBML_EXTERN
 FormulaUnitsData_t* 
 FormulaUnitsData_create();

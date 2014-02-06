@@ -227,26 +227,94 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 BEGIN_C_DECLS
 
 
+/**
+ * Creates a deep copy of the given SBMLExtensionNamespaces_t structure
+ * 
+ * @param extns the SBMLExtensionNamespaces_t structure to be copied
+ * 
+ * @return a (deep) copy of the given SBMLExtensionNamespaces_t structure.
+ *
+ * @memberof SBMLExtensionNamespaces_t
+ */
 LIBSBML_EXTERN
 SBMLExtensionNamespaces_t*
 SBMLExtensionNamespaces_clone(SBMLExtensionNamespaces_t* extns);
 
+/**
+ * Frees the given SBMLExtensionNamespaces_t structure
+ * 
+ * @param extns the SBMLExtensionNamespaces_t structure to be freed
+ * 
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT @endlink
+ *
+ * @memberof SBMLExtensionNamespaces_t
+ */
 LIBSBML_EXTERN
 int
 SBMLExtensionNamespaces_free(SBMLExtensionNamespaces_t* extns);
 
+/**
+ * Returns a copy of the string representing the Package XML namespace of the
+ * given namespace structure.
+ *
+ * @param extns the SBMLExtensionNamespaces_t structure 
+ *
+ * @return a copy of the string representing the SBML namespace that reflects 
+ * the SBML Level and Version of the namespace structure.
+ *
+ * @memberof SBMLExtensionNamespaces_t
+ */
 LIBSBML_EXTERN
 char*
 SBMLExtensionNamespaces_getURI(SBMLExtensionNamespaces_t* extns);
 
+/**
+ * Return the SBML Package Version of the SBMLExtensionNamespaces_t structure.
+ *
+ * @param extns the SBMLExtensionNamespaces_t structure 
+ *
+ * @return the SBML Package Version of the SBMLExtensionNamespaces_t structure.
+ *
+ * @memberof SBMLExtensionNamespaces_t
+ */
 LIBSBML_EXTERN
 unsigned int
 SBMLExtensionNamespaces_getPackageVersion(SBMLExtensionNamespaces_t* extns);
 
+/**
+ * Returns a copy of the string representing the Package name of the
+ * given namespace structure.
+ *
+ * @param extns the SBMLExtensionNamespaces_t structure 
+ *
+ * @return a copy of the string representing the package name that of the 
+ * namespace structure.
+ *
+ * @memberof SBMLExtensionNamespaces_t
+ */
 LIBSBML_EXTERN
 char*
 SBMLExtensionNamespaces_getPackageName(SBMLExtensionNamespaces_t* extns);
 
+/*
+ * Sets the package version of the namespace structure.
+ *
+ * @param extns the SBMLExtensionNamespaces_t structure 
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT @endlink
+ *
+ * @memberof SBMLExtensionNamespaces_t
+ */
 LIBSBML_EXTERN
 int
 SBMLExtensionNamespaces_setPackageVersion(SBMLExtensionNamespaces_t* extns,

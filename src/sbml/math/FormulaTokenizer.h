@@ -186,7 +186,7 @@ typedef struct
 
 /**
  * Creates a new FormulaTokenizer_t object for the given @p formula string
- * and returns a pointer to it the object.
+ * and returns a pointer to the object.
  *
  * SBML Level 1 uses a simple text-string representation of mathematical
  * formulas, rather than the MathML-based representation used in SBML
@@ -209,6 +209,10 @@ typedef struct
  * @see FormulaTokenizer_free()
  *
  * @copydetails doc_warning_L1_math_string_syntax
+ *
+ * @if conly
+ * @memberof FormulaTokenizer_t
+ * @endif
  */
 LIBSBML_EXTERN
 FormulaTokenizer_t *
@@ -217,6 +221,10 @@ FormulaTokenizer_createFromFormula (const char *formula);
 
 /**
  * Frees the given FormulaTokenizer_t object @p ft.
+ *
+ * @if conly
+ * @memberof FormulaTokenizer_t
+ * @endif
  */
 LIBSBML_EXTERN
 void
@@ -256,6 +264,10 @@ FormulaTokenizer_free (FormulaTokenizer_t *ft);
  * @see FormulaTokenizer_createFromFormula()
  *
  * @copydetails doc_warning_L1_math_string_syntax
+ *
+ * @if conly
+ * @memberof FormulaTokenizer_t
+ * @endif
  */
 LIBSBML_EXTERN
 Token_t *
@@ -268,6 +280,10 @@ FormulaTokenizer_nextToken (FormulaTokenizer_t *ft);
  * Creates a new Token and returns a point to it.
  *
  * @return a pointer to a token.
+ *
+ * @if conly
+ * @memberof Token_t
+ * @endif
  */
 LIBSBML_EXTERN
 Token_t *
@@ -276,6 +292,10 @@ Token_create (void);
 
 /**
  * Frees the given Token @p t.
+ *
+ * @if conly
+ * @memberof Token_t
+ * @endif
  */
 LIBSBML_EXTERN
 void
@@ -292,6 +312,10 @@ Token_free (Token_t *t);
  * @param t the token to be parsed into an integer.
  *
  * @return the value of the token after it is interpreted as an integer.
+ *
+ * @if conly
+ * @memberof Token_t
+ * @endif
  */
 long
 Token_getInteger (const Token_t *t);
@@ -307,6 +331,10 @@ Token_getInteger (const Token_t *t);
  *
  * @return the value of the token after it is interpreted as a
  * real number.
+ *
+ * @if conly
+ * @memberof Token_t
+ * @endif
  */
 double
 Token_getReal (const Token_t *t);
@@ -319,6 +347,10 @@ Token_getReal (const Token_t *t);
  * valid if the token's type is @c TT_INTEGER, @c TT_REAL, or @c TT_REAL_E.
  *
  * @param t the token whose value is to be negated.
+ *
+ * @if conly
+ * @memberof Token_t
+ * @endif
  */
 void
 Token_negateValue (Token_t *t);

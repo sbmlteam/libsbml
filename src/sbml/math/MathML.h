@@ -88,6 +88,10 @@ BEGIN_C_DECLS
  * @return the root of an AST corresponding to the given mathematical
  * expression, otherwise @c NULL is returned if the given string is @c NULL
  * or invalid.
+ *
+ * @if conly
+ * @memberof ASTNode_t
+ * @endif
  */
 LIBSBML_EXTERN
 ASTNode_t *
@@ -106,6 +110,10 @@ readMathMLFromString (const char *xml);
  * @note The string is owned by the caller and should be freed (with
  * free()) when no longer needed.  @c NULL is returned if the given
  * argument is @c NULL.
+ *
+ * @if conly
+ * @memberof ASTNode_t
+ * @endif
  */
 LIBSBML_EXTERN
 char *

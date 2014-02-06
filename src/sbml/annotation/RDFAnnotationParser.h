@@ -508,36 +508,172 @@ LIBSBML_CPP_NAMESPACE_END
 LIBSBML_CPP_NAMESPACE_BEGIN
 BEGIN_C_DECLS
 
-/* ----------------------------------------------------------------------------
- * See the .cpp file for the documentation of the following functions.
- * --------------------------------------------------------------------------*/
-
+/**
+  * Parses an annotation (given as an XMLNode_t tree) into a list of
+  * CVTerms.
+  *
+  * This is used to take an annotation that has been read into an SBML
+  * model, identify the RDF elements within it, and create a list of
+  * corresponding CVTerms.
+  *
+  * @param annotation XMLNode_t containing the annotation.
+  * 
+  * @param CVTerms list of CVTerms to be created.
+  *
+  * @see RDFAnnotationParser_parseRDFAnnotationWithModelHistory
+  * (const XMLNode_t *annotation)
+  *
+  * @memberof RDFAnnotationParser_t
+  */
 void
 RDFAnnotationParser_parseRDFAnnotation(const XMLNode_t * annotation, 
                                        List_t *CVTerms);
 
+/**
+  * Parses an annotation into a ModelHistory_t structure.
+  *
+  * This is used to take an annotation that has been read into an SBML
+  * model, identify the RDF elements representing model history
+  * information, and create a list of corresponding CVTerms.
+  *
+  * @param annotation XMLNode_t containing the annotation.
+  *
+  * @return a pointer to the ModelHistory_t created.
+  *
+  * @see RDFAnnotationParser_parseRDFAnnotation
+  * (const XMLNode *annotation, List *CVTerms)
+  *
+  * @memberof RDFAnnotationParser_t
+  */
 ModelHistory_t *
 RDFAnnotationParser_parseRDFAnnotationWithModelHistory(
                                         const XMLNode_t * annotation);
 
+/**
+  * Creates a blank annotation and returns the XMLNode_t 
+  * corresonding to it.
+  *
+  * The annotation created by this method is a completely empty SBML
+  * <code>&lt;annotation&gt;</code> element.  One use for this is to
+  * then call createRDFAnnotation() to construct RDF content for this
+  * empty annotation.
+  *
+  * @return a pointer to an XMLNode_t for the annotation
+  *
+  * @see RDFAnnotationParser_createRDFAnnotation()
+  *
+  * @memberof RDFAnnotationParser_t
+  */
 XMLNode_t *
 RDFAnnotationParser_createAnnotation();
 
+/**
+  * Creates blank RDF annotation content organized in the form defined in
+  * Section 6 of the SBML Level 2 Version 4 specification .
+  *
+  * The annotation created by this method has namespace declarations for
+  * all the relevant XML namespaces used in RDF annotations and also has
+  * an empty RDF element.  Note that this is not the containing
+  * <code>&lt;annotation&gt;</code> element; the method createAnnotation()
+  * is available for that purpose.
+  *
+  * @return a pointer to an XMLNode_t represting the annotation.
+  *
+  * @memberof RDFAnnotationParser_t
+  */
 XMLNode_t *
 RDFAnnotationParser_createRDFAnnotation();
 
+/**
+  * Deletes any RDF annotation found in the given XMLNode_t tree and returns
+  * any remaining annotation content.
+  *
+  * The name of the given XMLNode_t must be "annotation", or else this
+  * method returns NULL.
+  *
+  * @param annotation the XMLNode_t tree within which the RDF annotation
+  * is to be found and deleted
+  *
+  * @return the XMLNode_t structure with any RDF annotations deleted
+  *
+  * @memberof RDFAnnotationParser_t
+  */
 XMLNode_t *
 RDFAnnotationParser_deleteRDFAnnotation(XMLNode_t *annotation);
 
+/**
+  * Takes an SBML object and creates an XMLNode_t corresponding to an
+  * RDF "Description" element.
+  *
+  * This method is a handy way of creating RDF description objects linked
+  * by the appropriate "metaid" field, for insertion into RDF annotations
+  * in a model.  (Note that this method does not create a complete
+  * annotation; it only creates a description element.  For creating empty
+  * RDF annotations that can serve as containers for RDF descriptions, see
+  * RDFAnnotationParser_createRDFAnnotation().
+  *
+  * @param obj the object to be annotated
+  *
+  * @return a new XMLNode_t containing the "rdf:about" structure for an
+  * RDF "Description" element.
+  *
+  * @see RDFAnnotationParser_createRDFAnnotation()
+  *
+  * @memberof RDFAnnotationParser_t
+  */
 XMLNode_t *
 RDFAnnotationParser_createRDFDescription(const SBase_t * obj);
 
+/**
+  * Takes a list of CVTerms form an SBML object and 
+  * creates a the RDF "Description" element.
+  *
+  * This essentially takes the given SBML object, reads out the CVTerms
+  * attached to it, calls createRDFDescriptiom() to create an RDF
+  * "Description" element to hold the terms and adds each term with
+  * appropriate qualifiers.
+  *
+  * @param obj the SBML object to start from
+  *
+  * @return the XMLNode_t tree corresponding to the Description element of
+  * an RDF annotation.
+  *
+  * @memberof RDFAnnotationParser_t
+  */
 XMLNode_t *
 RDFAnnotationParser_createCVTerms(const SBase_t * obj);
 
+/**
+  * Takes a list of CVTerms from an SBML object and creates a 
+  * complete SBML annotation around it.
+  *
+  * This essentially takes the given SBML object, calls createRDFDescriptionWithCVTerms
+  * to read out the CVTerms
+  * attached to it, calls createRDFAnnotation() to create an RDF
+  * annotation to hold the terms, and finally calls createAnnotation() to
+  * wrap the result as an SBML <code>&lt;annotation&gt;</code> element.
+  *
+  * @param obj the SBML object to start from
+  *
+  * @return the XMLNode_t tree corresponding to the annotation.
+  *
+  * @memberof RDFAnnotationParser_t
+  */
 XMLNode_t *
 RDFAnnotationParser_parseCVTerms(const SBase_t * obj);
 
+/**
+  * Takes an SBML Model_t object, reads off the model history information
+  * stored in it, and creates a complete SBML annotation to store that
+  * history.
+  *
+  * @param obj a Model_t
+  *
+  * @return the XMLNode_t corresponding to an annotation containing 
+  * MIRIAM-compliant model history information in RDF format
+  *
+  * @memberof RDFAnnotationParser_t
+  */
 XMLNode_t *
 RDFAnnotationParser_parseModelHistory(const SBase_t * obj);
 

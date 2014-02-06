@@ -24,7 +24,7 @@
  * in the file named "LICENSE.txt" included with this software distribution and
  * also available online as http://sbml.org/software/libsbml/license.html
  * ------------------------------------------------------------------------ -->
- * 
+ *
  * @class List
  * @sbmlbrief{core} Simple, plain, generic lists, and associated list
  * utilities.
@@ -40,6 +40,14 @@
  * the SBML SBase class, whereas this List class is not.  ListOf can only
  * be used when a list is actually intended to implement an SBML ListOfX
  * class.  This is why libSBML has both a List and a ListOf.
+ *
+ * @class ListNode
+ * @sbmlbrief{core} The node element of the List class.
+ *
+ * @htmlinclude not-sbml-warning.html
+ *
+ * This class implements the children of the List class, storing the 
+ * item itself, and a pointer to the next item in the list.
  */
 
 #ifndef List_h
@@ -78,11 +86,9 @@ typedef int (*ListItemPredicate) (const void *item);
 
 #ifdef __cplusplus
 
-typedef class ListNode ListNode_t;
-
 #ifndef SWIG
 
-class ListNode
+class LIBSBML_EXTERN ListNode
 {
 public:
   ListNode (void* x): item(x), next(NULL) { }
@@ -92,7 +98,6 @@ public:
 };
 
 #endif  /* !SWIG */
-
 
 class LIBSBML_EXTERN List
 {
@@ -249,8 +254,6 @@ protected:
   /** @endcond */
 };
 
-#else
-  typedef struct ListNode ListNode_t;
 #endif  /* __cplusplus */
 
 
@@ -302,7 +305,7 @@ BEGIN_C_DECLS
 
 
 /**
- * Creates a new List and returns a pointer to it.
+ * Creates a new List_t and returns a pointer to it.
  *
  * @memberof List_t
  */
@@ -312,7 +315,7 @@ List_create (void);
 
 
 /**
- * Creates a new ListNode (with @p item) and returns a pointer to the node.
+ * Creates a new ListNode_t (with @p item) and returns a pointer to the node.
  *
  * @param item the item to create a ListNode_t for.
  *
@@ -324,9 +327,9 @@ ListNode_create (void *item);
 
 
 /**
- * Frees the given List.
+ * Frees the given List_t.
  *
- * This function does not free List items.  It frees only the List_t
+ * This function does not free List_t items.  It frees only the List_t
  * structure and its constituent ListNode_t structures (if any).
  *
  * Presumably, you either i) have pointers to the individual list items
@@ -344,7 +347,7 @@ List_free (List_t *lst);
 
 
 /**
- * Frees the given ListNode.
+ * Frees the given ListNode_t.
  *
  * @param node The ListNode_t structure
  *
@@ -356,7 +359,7 @@ ListNode_free (ListNode_t *node);
 
 
 /**
- * Adds item to the end of this List.
+ * Adds item to the end of this List_t.
  *
  * @param lst The List_t structure
  * @param item The item to add to the end of the list
@@ -369,7 +372,7 @@ List_add (List_t *lst, void *item);
 
 
 /**
- * @return the number of items in this List for which predicate(item)
+ * @return the number of items in this List_t for which predicate(item)
  * returns true.
  *
  * The typedef for ListItemPredicate is:
@@ -390,7 +393,7 @@ List_countIf (const List_t *lst, ListItemPredicate predicate);
 
 
 /**
- * @return the first occurrence of item1 in this List or NULL if item was
+ * @return the first occurrence of item1 in this List_t or NULL if item was
  * not found.  ListItemComparator is a pointer to a function used to find
  * item.  The typedef for ListItemComparator is:
  *
@@ -416,7 +419,7 @@ List_find ( const List_t       *lst,
 
 
 /**
- * @return a new List containing (pointers to) all items in this List for
+ * @return a new List_t containing (pointers to) all items in this List_t for
  * which predicate(item) was true.
  *
  * The returned list may be empty.
@@ -435,7 +438,7 @@ List_findIf (const List_t *lst, ListItemPredicate predicate);
 
 
 /**
- * Returns the nth item in this List.  If n > List_size(lst) returns NULL.
+ * Returns the nth item in this List_t.  If n > List_size(lst) returns NULL.
  *
  * @param lst The List_t structure
  * @param n The index of the item to find.
@@ -448,7 +451,7 @@ List_get (const List_t *lst, unsigned int n);
 
 
 /**
- * Adds item to the beginning of this List.
+ * Adds item to the beginning of this List_t.
  *
  * @param lst The List_t structure
  * @param item The item to add to the list.
@@ -461,7 +464,7 @@ List_prepend (List_t *lst, void *item);
 
 
 /**
- * Removes the nth item from this List and returns a pointer to it.  If n >
+ * Removes the nth item from this List_t and returns a pointer to it.  If n >
  * List_size(lst) returns NULL.
  *
  * @param lst The List_t structure
@@ -475,7 +478,7 @@ List_remove (List_t *lst, unsigned int n);
 
 
 /**
- * @return the number of elements in this List.
+ * @return the number of elements in this List_t.
  *
  * @param lst The List_t structure
  *

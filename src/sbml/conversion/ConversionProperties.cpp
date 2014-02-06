@@ -341,9 +341,6 @@ ConversionProperties::setIntValue(std::string key, int value)
 
 
 
-/** 
- * creates a new conversion properties structure (without namespace)
- */
 LIBSBML_EXTERN
 ConversionProperties_t*
 ConversionProperties_create()
@@ -351,12 +348,6 @@ ConversionProperties_create()
   return new ConversionProperties();
 }
 
-/** 
- * creates a new conversion properties structure
- * with a specific SBML target namespace.
- * 
- * @param sbmlns the target namespace to convert to
- */
 LIBSBML_EXTERN
 ConversionProperties_t*
 ConversionProperties_createWithSBMLNamespace(SBMLNamespaces_t* sbmlns)
@@ -364,13 +355,6 @@ ConversionProperties_createWithSBMLNamespace(SBMLNamespaces_t* sbmlns)
   return new ConversionProperties(sbmlns);
 }
 
-/** 
- * Creates and returns a deep copy of the given ConversionProperties object.
- * 
- * @param cp the conversion properties to clone
- * 
- * @return a (deep) copy of this ConversionProperties object.
- */
 LIBSBML_EXTERN
 ConversionProperties_t*
 ConversionProperties_clone(const ConversionProperties_t* cp)
@@ -378,15 +362,6 @@ ConversionProperties_clone(const ConversionProperties_t* cp)
   return new ConversionProperties();
 }
 
-/**
- * Returns the value as boolean for a given option in the properties
- * object.
- * 
- * @param cp the conversion properties
- * @param key the key for the option.
- * 
- * @return the boolean value of the option with the given key to be freed by the caller, or NULL.
- */
 LIBSBML_EXTERN
 int
 ConversionProperties_getBoolValue(const ConversionProperties_t* cp, const char* key)
@@ -395,15 +370,6 @@ ConversionProperties_getBoolValue(const ConversionProperties_t* cp, const char* 
   return cp->getBoolValue(key);
 }
 
-/**
- * Returns the value as integer for a given option in the properties
- * object.
- * 
- * @param cp the conversion properties
- * @param key the key for the option.
- * 
- * @return the integer value of the option with the given key to be freed by the caller, or -1.
- */
 LIBSBML_EXTERN
 int
 ConversionProperties_getIntValue(const ConversionProperties_t* cp, const char* key)
@@ -412,15 +378,6 @@ ConversionProperties_getIntValue(const ConversionProperties_t* cp, const char* k
   return cp->getIntValue(key);
 }
 
-/**
- * Returns the description string for a given option in the properties
- * object.
- * 
- * @param cp the conversion properties
- * @param key the key for the option.
- * 
- * @return the description text of the option with the given key to be freed by the caller.
- */
 LIBSBML_EXTERN
 char*
 ConversionProperties_getDescription(const ConversionProperties_t* cp, const char* key)
@@ -429,15 +386,6 @@ ConversionProperties_getDescription(const ConversionProperties_t* cp, const char
   return strdup(cp->getDescription(key).c_str());
 }
 
-/**
- * Returns the value as double for a given option in the properties
- * object.
- * 
- * @param cp the conversion properties
- * @param key the key for the option.
- * 
- * @return the double value of the option with the given key to be freed by the caller, or NaN.
- */
 LIBSBML_EXTERN
 double
 ConversionProperties_getDoubleValue(const ConversionProperties_t* cp, const char* key)
@@ -446,15 +394,6 @@ ConversionProperties_getDoubleValue(const ConversionProperties_t* cp, const char
   return cp->getDoubleValue(key);
 }
 
-/**
- * Returns the value as float for a given option in the properties
- * object.
- * 
- * @param cp the conversion properties
- * @param key the key for the option.
- * 
- * @return the float value of the option with the given key to be freed by the caller, or NaN.
- */
 LIBSBML_EXTERN
 float
 ConversionProperties_getFloatValue(const ConversionProperties_t* cp, const char* key)
@@ -463,15 +402,6 @@ ConversionProperties_getFloatValue(const ConversionProperties_t* cp, const char*
   return cp->getFloatValue(key);
 }
 
-/**
- * Returns the value string for a given option in the properties
- * object.
- * 
- * @param cp the conversion properties
- * @param key the key for the option.
- * 
- * @return the string value of the option with the given key to be freed by the caller, or NULL.
- */
 LIBSBML_EXTERN
 char*
 ConversionProperties_getValue(const ConversionProperties_t* cp, const char* key)
@@ -480,14 +410,6 @@ ConversionProperties_getValue(const ConversionProperties_t* cp, const char* key)
   return strdup(cp->getValue(key).c_str());
 }
 
-/**
- * Returns the ConversionOption object for a given key.
- * 
- * @param cp the conversion properties
- * @param key the key for the option.
- * 
- * @return the option with the given key, or NULL.
- */
 LIBSBML_EXTERN
 const ConversionOption_t*
 ConversionProperties_getOption(const ConversionProperties_t* cp, const char* key)
@@ -496,14 +418,6 @@ ConversionProperties_getOption(const ConversionProperties_t* cp, const char* key
   return cp->getOption(key);
 }
 
-/**
- * Returns the type of a given option in the properties object.
- * 
- * @param cp the conversion properties
- * @param key the key for the option.
- * 
- * @return the type of the option with the given key.
- */
 LIBSBML_EXTERN
 ConversionOptionType_t
 ConversionProperties_getType(const ConversionProperties_t* cp, const char* key)
@@ -512,13 +426,6 @@ ConversionProperties_getType(const ConversionProperties_t* cp, const char* key)
   return cp->getType(key);
 }
 
-/**
- * Returns the current target SBML namespace of the conversion properties.
- *
- * @param cp the conversion properties
- *
- * @return the SBMLNamepaces object expressing the target namespace, or NULL.
- */ 
 LIBSBML_EXTERN
 const SBMLNamespaces_t*
 ConversionProperties_getTargetNamespaces(const ConversionProperties_t* cp)
@@ -527,14 +434,6 @@ ConversionProperties_getTargetNamespaces(const ConversionProperties_t* cp)
   return cp->getTargetNamespaces();
 }
 
-/**
- * Checks whether the given properties structure has an option for the given key
- * 
- * @param cp the conversion properties
- * @param key the key for the option.
- * 
- * @return @c 1 if the option exists, @c 0 otherwise.
- */
 LIBSBML_EXTERN
 int
 ConversionProperties_hasOption(const ConversionProperties_t* cp, const char* key)
@@ -543,14 +442,6 @@ ConversionProperties_hasOption(const ConversionProperties_t* cp, const char* key
   return (int)cp->hasOption(key);
 }
 
-/**
- * Tests whether the given conversion properties has a target namespace set
- *
- * @param cp the conversion properties
- *
- * @return @c 1 if the target namespace has been set, @c 0
- * otherwise.
- */ 
 LIBSBML_EXTERN
 int
 ConversionProperties_hasTargetNamespaces(const ConversionProperties_t* cp)
@@ -559,12 +450,6 @@ ConversionProperties_hasTargetNamespaces(const ConversionProperties_t* cp)
   return (int)cp->hasTargetNamespaces();
 }
 
-/** 
- * Sets the target namespace.
- * 
- * @param cp the conversion properties
- * @param sbmlns the target namespace to use.
- */
 LIBSBML_EXTERN
 void
 ConversionProperties_setTargetNamespaces(ConversionProperties_t* cp, SBMLNamespaces_t* sbmlns)
@@ -573,13 +458,6 @@ ConversionProperties_setTargetNamespaces(ConversionProperties_t* cp, SBMLNamespa
   cp->setTargetNamespaces(sbmlns);
 }
 
-/**
- * Sets the value of the option with given key to the given boolean value.
- * 
- * @param cp the conversion properties
- * @param key the key for the option.
- * @param value the new value for the option.
- */
 LIBSBML_EXTERN
 void
 ConversionProperties_setBoolValue(ConversionProperties_t* cp, const char* key, int value)
@@ -588,13 +466,6 @@ ConversionProperties_setBoolValue(ConversionProperties_t* cp, const char* key, i
   cp->setBoolValue(key, (bool)value);
 }
 
-/**
- * Sets the value of the option with given key to the given int value.
- * 
- * @param cp the conversion properties
- * @param key the key for the option.
- * @param value the new value for the option.
- */
 LIBSBML_EXTERN
 void
 ConversionProperties_setIntValue(ConversionProperties_t* cp, const char* key, int value)
@@ -603,13 +474,6 @@ ConversionProperties_setIntValue(ConversionProperties_t* cp, const char* key, in
   cp->setIntValue(key, value);
 }
 
-/**
- * Sets the value of the option with given key to the given double value.
- * 
- * @param cp the conversion properties
- * @param key the key for the option.
- * @param value the new value for the option.
- */
 LIBSBML_EXTERN
 void
 ConversionProperties_setDoubleValue(ConversionProperties_t* cp, const char* key, double value)
@@ -618,13 +482,6 @@ ConversionProperties_setDoubleValue(ConversionProperties_t* cp, const char* key,
   cp->setDoubleValue(key, value);
 }
 
-/**
- * Sets the value of the option with given key to the given float value.
- * 
- * @param cp the conversion properties
- * @param key the key for the option.
- * @param value the new value for the option.
- */
 LIBSBML_EXTERN
 void
 ConversionProperties_setFloatValue(ConversionProperties_t* cp, const char* key, float value)
@@ -633,13 +490,6 @@ ConversionProperties_setFloatValue(ConversionProperties_t* cp, const char* key, 
   cp->setFloatValue(key, value);
 }
 
-/**
- * Sets the value of the option with given key to the given value.
- * 
- * @param cp the conversion properties
- * @param key the key for the option.
- * @param value the new value for the option.
- */
 LIBSBML_EXTERN
 void
 ConversionProperties_setValue(ConversionProperties_t* cp, const char* key, const char* value)
@@ -648,12 +498,6 @@ ConversionProperties_setValue(ConversionProperties_t* cp, const char* key, const
   cp->setValue(key, value);
 }
 
-/**
- * Adds a copy of the given ConversionOption structure to the properties.
- * 
- * @param cp the conversion properties
- * @param option the option to add
- */
 LIBSBML_EXTERN
 void
 ConversionProperties_addOption(ConversionProperties_t* cp, const ConversionOption_t* option)
@@ -662,26 +506,6 @@ ConversionProperties_addOption(ConversionProperties_t* cp, const ConversionOptio
   cp->addOption(*option);
 }
 
-/**
- * Removes the ConversionOption with the given key from the properties.
- * 
- * @param cp the conversion properties
- * @param key the key for the option to remove
- */
-LIBSBML_EXTERN 
-void 
-ConversionProperties_removeOption(ConversionProperties_t* cp, const char* key)
-{
-  if (cp == NULL || key == NULL) return;
-  cp->removeOption(key);
-}
-  
-/**
- * Adds a new ConversionOption structure with the given key to the properties.
- * 
- * @param cp the conversion properties
- * @param key the key for the new option
- */
 LIBSBML_EXTERN
 void
 ConversionProperties_addOptionWithKey(ConversionProperties_t* cp, const char* key)
@@ -690,6 +514,14 @@ ConversionProperties_addOptionWithKey(ConversionProperties_t* cp, const char* ke
   cp->addOption(key);
 }
 
+LIBSBML_EXTERN 
+void 
+ConversionProperties_removeOption(ConversionProperties_t* cp, const char* key)
+{
+  if (cp == NULL || key == NULL) return;
+  cp->removeOption(key);
+}
+  
 LIBSBML_CPP_NAMESPACE_END
 
 #endif  /* __cplusplus */

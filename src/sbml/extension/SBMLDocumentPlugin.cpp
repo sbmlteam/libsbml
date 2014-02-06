@@ -243,18 +243,9 @@ SBMLDocumentPlugin::unsetRequired()
 }
 
 
-/**
- * Creates a new SBMLDocumentPlugin_t structure with the given package
- * uri, prefix and SBMLNamespaces.
- *
- * @param uri the package uri
- * @param prefix the package prefix
- * @param sbmlns the namespaces
- *
- * @return a new SBMLDocumentPlugin_t structure with the given package
- * uri, prefix and SBMLNamespaces. Or null in case a NULL uri or prefix
- * was given.
- */
+#endif /* __cplusplus */
+/** @cond doxygenCOnly */
+
 LIBSBML_EXTERN
 SBMLDocumentPlugin_t*
 SBMLDocumentPlugin_create(const char* uri, const char* prefix,
@@ -265,13 +256,6 @@ SBMLDocumentPlugin_create(const char* uri, const char* prefix,
   return new SBMLDocumentPlugin(sUri, sPrefix, sbmlns);
 }
 
-/**
- * Creates a deep copy of the given SBMLDocumentPlugin_t structure
- *
- * @param plugin the SBMLDocumentPlugin_t structure to be copied
- *
- * @return a (deep) copy of the given SBMLDocumentPlugin_t structure.
- */
 LIBSBML_EXTERN
 SBMLDocumentPlugin_t*
 SBMLDocumentPlugin_clone(SBMLDocumentPlugin_t* plugin)
@@ -280,22 +264,6 @@ SBMLDocumentPlugin_clone(SBMLDocumentPlugin_t* plugin)
   return plugin->clone();
 }
 
-/**
- * Subclasses should override this method to get the list of
- * expected attributes if they have their specific attributes.
- * This function is invoked from corresponding readAttributes()
- * function.
- *
- * @param plugin the SBMLDocumentPlugin_t structure
- * @param attributes the ExpectedAttributes_t structure
- *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif@~ The possible values
- * returned by this function are:
- * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
- * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT @endlink
- */
 LIBSBML_EXTERN
 int
 SBMLDocumentPlugin_addExpectedAttributes(SBMLDocumentPlugin_t* plugin,
@@ -306,21 +274,6 @@ SBMLDocumentPlugin_addExpectedAttributes(SBMLDocumentPlugin_t* plugin,
   return LIBSBML_OPERATION_SUCCESS;
 }
 
-/**
- * Subclasses must override this method to read values from the given
- * XMLAttributes if they have their specific attributes.
- *
- * @param plugin the SBMLDocumentPlugin_t structure
- * @param attributes the XMLAttributes_t structure
- * @param expectedAttributes the ExpectedAttributes_t structure
- *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif@~ The possible values
- * returned by this function are:
- * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
- * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT @endlink
- */
 LIBSBML_EXTERN
 int
 SBMLDocumentPlugin_readAttributes(SBMLDocumentPlugin_t* plugin,
@@ -333,20 +286,6 @@ SBMLDocumentPlugin_readAttributes(SBMLDocumentPlugin_t* plugin,
   return LIBSBML_OPERATION_SUCCESS;
 }
 
-/**
- * Subclasses must override this method to write their XML attributes
- * to the XMLOutputStream if they have their specific attributes.
- *
- * @param plugin the SBMLDocumentPlugin_t structure
- * @param stream the XMLOutputStream_t structure
- *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif@~ The possible values
- * returned by this function are:
- * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
- * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT @endlink
- */
 LIBSBML_EXTERN
 int
 SBMLDocumentPlugin_writeAttributes(SBMLDocumentPlugin_t* plugin,
@@ -357,18 +296,6 @@ SBMLDocumentPlugin_writeAttributes(SBMLDocumentPlugin_t* plugin,
   return LIBSBML_OPERATION_SUCCESS;
 }
 
-/**
- * Returns the value of "required" attribute of corresponding
- * package in the SBMLDocument element. The value is true (1) if the
- * package is required, or false (0) otherwise.
- *
- * @param plugin the SBMLDocumentPlugin_t structure
- *
- * @return the value of "required" attribute of corresponding
- * package in the SBMLDocument element. The value is true (1) if the
- * package is required, or false (0) otherwise. If the plugin is invalid
- * LIBSBML_INVALID_OBJECT will be returned.
- */
 LIBSBML_EXTERN
 int
 SBMLDocumentPlugin_getRequired(SBMLDocumentPlugin_t* plugin)
@@ -377,19 +304,6 @@ SBMLDocumentPlugin_getRequired(SBMLDocumentPlugin_t* plugin)
   return plugin->getRequired();
 }
 
-/**
- * Sets the value of "required" attribute of corresponding
- * package in the SBMLDocument element. The value is true (1) if the
- * package is required, or false (0) otherwise.
- *
- * @param plugin the SBMLDocumentPlugin_t structure
- * @param required the new value for the "required" attribute.
- *
- * @return the value of "required" attribute of corresponding
- * package in the SBMLDocument element. The value is true (1) if the
- * package is required, or false (0) otherwise. If the plugin is invalid
- * LIBSBML_INVALID_OBJECT will be returned.
- */
 LIBSBML_EXTERN
 int
 SBMLDocumentPlugin_setRequired(SBMLDocumentPlugin_t* plugin, int required)
@@ -417,7 +331,5 @@ SBMLDocumentPlugin_unsetRequired(SBMLDocumentPlugin_t* plugin)
 }
 
 
+/** @endcond */
 LIBSBML_CPP_NAMESPACE_END
-
-#endif  /* __cplusplus */
-

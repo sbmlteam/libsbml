@@ -358,7 +358,7 @@ Token_free (Token_t *t)
 }
 
 
-/**
+/*
  * Converts the given Token (which must be of type TT_NAME) to a TT_REAL
  * NaN or Inf as appropriate.
  */

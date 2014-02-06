@@ -151,22 +151,76 @@ LIBSBML_CPP_NAMESPACE_END
 LIBSBML_CPP_NAMESPACE_BEGIN
 BEGIN_C_DECLS
 
+/**
+ * Creates a new SBaseExtensionPoint_t structure with the given arguments
+ * 
+ * @param pkgName the package name for the new structure
+ * @param typeCode the SBML Type code for the new structure
+ * 
+ * @return the newly created SBaseExtensionPoint_t structure or NULL in case 
+ * the given pkgName is invalid (NULL).
+ *
+ * @memberof SBaseExtensionPoint_t
+ */
 LIBSBML_EXTERN 
 SBaseExtensionPoint_t *
 SBaseExtensionPoint_create(const char* pkgName, int typeCode);
 
+/**
+ * Frees the given SBaseExtensionPoint_t structure
+ * 
+ * @param extPoint the SBaseExtensionPoint_t structure to be freed
+ * 
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT @endlink
+ *
+ * @memberof SBaseExtensionPoint_t
+ */
 LIBSBML_EXTERN 
 int
 SBaseExtensionPoint_free(SBaseExtensionPoint_t *extPoint);
 
+/**
+ * Creates a deep copy of the given SBaseExtensionPoint_t structure
+ * 
+ * @param extPoint the SBaseExtensionPoint_t structure to be copied
+ * 
+ * @return a (deep) copy of the given SBaseExtensionPoint_t structure.
+ *
+ * @memberof SBaseExtensionPoint_t
+ */
 LIBSBML_EXTERN 
 SBaseExtensionPoint_t *
 SBaseExtensionPoint_clone(const SBaseExtensionPoint_t *extPoint);
 
+/**
+ * Returns the package name for the given SBaseExtensionPoint_t structure 
+ * 
+ * @param extPoint the SBaseExtensionPoint_t structure 
+ * 
+ * @return the package name for the given SBaseExtensionPoint_t structure or 
+ * NULL. 
+ *
+ * @memberof SBaseExtensionPoint_t
+ */
 LIBSBML_EXTERN 
 char *
 SBaseExtensionPoint_getPackageName(const SBaseExtensionPoint_t *extPoint);
 
+/**
+ * Returns the type code for the given SBaseExtensionPoint_t structure 
+ * 
+ * @param extPoint the SBaseExtensionPoint_t structure 
+ * 
+ * @return the type code for the given SBaseExtensionPoint_t structure or 
+ * LIBSBML_INVALID_OBJECT in case an invalid object is given. 
+ *
+ * @memberof SBaseExtensionPoint_t
+ */
 LIBSBML_EXTERN 
 int
 SBaseExtensionPoint_getTypeCode(const SBaseExtensionPoint_t *extPoint);

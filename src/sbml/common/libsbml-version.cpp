@@ -52,11 +52,6 @@
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
-/**
- * Returns the libSBML version as an integer: version 1.2.3 becomes 10203.
- *
- * @return the libSBML version as an integer: version 1.2.3 becomes 10203.
- */
 LIBSBML_EXTERN
 int 
 getLibSBMLVersion () 
@@ -65,11 +60,6 @@ getLibSBMLVersion ()
 }
 
 
-/**
- * Returns the libSBML version as a string of the form "1.2.3".
- *
- * @return the libSBML version as a string of the form "1.2.3".
- */
 LIBSBML_EXTERN
 const char* 
 getLibSBMLDottedVersion () 
@@ -78,11 +68,6 @@ getLibSBMLDottedVersion ()
 }
 
 
-/**
- * Returns the libSBML version as a string: version 1.2.3 becomes "10203".
- *
- * @return the libSBML version as a string: version 1.2.3 becomes "10203".
- */
 LIBSBML_EXTERN
 const char* 
 getLibSBMLVersionString () 
@@ -90,20 +75,6 @@ getLibSBMLVersionString ()
   return LIBSBML_VERSION_STRING;
 }
 
-/**
- * Returns an indication whether libSBML has been compiled with
- * against a specific library. 
- *
- * @param option the library to test against, this can be one of
- *        "expat", "libxml", "xerces-c", "bzip2", "zip"
- * 
- * @return 0 in case the libSBML has not been compiled against 
- *         that library and non-zero otherwise (for libraries 
- *         that define an integer version number that number will 
- *         be returned).
- *
- * @see getLibSBMLDependencyVersionOf()
- */
 LIBSBML_EXTERN
 int 
 isLibSBMLCompiledWith(const char* option)
@@ -168,18 +139,6 @@ isLibSBMLCompiledWith(const char* option)
   return 0;
 }
 
-/**
- * Returns the version string for the dependency library used. 
- *
- * @param option the library for which the version
- *        should be retrieved, this can be one of
- *        "expat", "libxml", "xerces-c", "bzip2", "zip"
- * 
- * @return NULL in case libSBML has not been compiled against 
- *         that library and a version string otherwise.
- *
- * @see isLibSBMLCompiledWith()
- */
 LIBSBML_EXTERN
 const char* 
 getLibSBMLDependencyVersionOf(const char* option)

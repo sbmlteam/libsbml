@@ -3,6 +3,11 @@
  * @brief   Formats an L3 AST formula tree as an SBML formula string.
  * @author  Lucian Smith
  * 
+ * @if conly
+ * This file contains the SBML_formulaToL3String() and SBML_formulaToL3StringWithSettings()
+ * functions, both associated with the ASTNode_t structure.
+ * @endif
+ * 
  * <!--------------------------------------------------------------------------
  * This file is part of libSBML.  Please visit http://sbml.org for more
  * information about SBML, and the latest version of libSBML.
@@ -47,7 +52,7 @@ BEGIN_C_DECLS
  *
  * @param tree the AST to be converted.
  * 
- * @return the formula from the given AST as an SBML Level 1 text-string
+ * @return the formula from the given AST as an SBML Level 3 text-string
  * mathematical formula.  The caller owns the returned string and is
  * responsible for freeing it when it is no longer needed.
  *
@@ -79,12 +84,57 @@ BEGIN_C_DECLS
  * @see <code><a href="libsbml.html#getLastParseL3Error()">getLastParseL3Error()</a></code>
  * @see <code><a href="libsbml.html#getDefaultL3ParserSettings()">getDefaultL3ParserSettings()</a></code>
  * @endif@~
+ *
+ * @if conly
+ * @memberof ASTNode_t
+ * @endif
  */
 LIBSBML_EXTERN
 char *
 SBML_formulaToL3String (const ASTNode_t *tree);
 
 
+/**
+ * Converts an AST to a string representation of a formula using a syntax
+ * basically derived from SBML Level&nbsp;1, with behavior modifiable with
+ * custom settings.
+ *
+ * This function behaves identically to SBML_formulaToL3String(), but 
+ * its behavior can be modified by two settings in the @param settings
+ * object, namely:
+ *
+ * @li ParseUnits:  If this is set to 'true' (the default), the function will 
+ *     write out the units of any numerical ASTNodes that have them, producing
+ *     (for example) "3 mL", "(3/4) m", or "5.5e-10 M".  If this is set to
+ *     'false', this function will only write out the number itself ("3",
+ *     "(3/4)", and "5.5e-10", in the previous examples).
+ *
+ * @li CollapseMinus: If this is set to 'false' (the default), the function
+ *     will write out explicitly any doubly-nested unary minus ASTNodes,
+ *     producing (for example) "--x" or even "-----3.1".  If this is set
+ *     to 'true', the function will collapse the nodes before producing the
+ *     infix, producing "x" and "-3.1" in the previous examples.
+ *
+ * All other settings will not affect the behavior of this function:  the
+ * 'parseLog' setting is ignored, and "log10(x)", "ln(x)", and "log(x, y)" 
+ * are always produced.  Nothing in the Model object is used, and whether
+ * Avogadro is a csymbol or not is immaterial to the produced infix.
+ *
+ * @param tree the AST to be converted.
+ * @param settings the L3ParserSettings object used to modify behavior.
+ * 
+ * @return the formula from the given AST as an SBML Level 3 text-string
+ * mathematical formula.  The caller owns the returned string and is
+ * responsible for freeing it when it is no longer needed.
+ *
+ * @see SBML_parseFormula()
+ * @see SBML_parseL3Formula()
+ * @see SBML_formulaToL3String()
+ *
+ * @if conly
+ * @memberof ASTNode_t
+ * @endif
+ */
 LIBSBML_EXTERN
 char *
 SBML_formulaToL3StringWithSettings (const ASTNode_t *tree, const L3ParserSettings_t *settings);

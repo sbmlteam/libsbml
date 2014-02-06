@@ -235,47 +235,175 @@ LIBSBML_CPP_NAMESPACE_END
 LIBSBML_CPP_NAMESPACE_BEGIN
 BEGIN_C_DECLS
 
+/**
+ * Creates a new SBMLDocumentPlugin_t structure with the given package
+ * uri, prefix and SBMLNamespaces.
+ *
+ * @param uri the package uri
+ * @param prefix the package prefix
+ * @param sbmlns the namespaces
+ *
+ * @return a new SBMLDocumentPlugin_t structure with the given package
+ * uri, prefix and SBMLNamespaces. Or null in case a NULL uri or prefix
+ * was given.
+ *
+ * @memberof SBMLDocumentPlugin_t
+ */
 LIBSBML_EXTERN
 SBMLDocumentPlugin_t*
 SBMLDocumentPlugin_create(const char* uri, const char* prefix, 
       SBMLNamespaces_t* sbmlns);
 
+/**
+ * Creates a deep copy of the given SBMLDocumentPlugin_t structure
+ *
+ * @param plugin the SBMLDocumentPlugin_t structure to be copied
+ *
+ * @return a (deep) copy of the given SBMLDocumentPlugin_t structure.
+ *
+ * @memberof SBMLDocumentPlugin_t
+ */
 LIBSBML_EXTERN
 SBMLDocumentPlugin_t*
 SBMLDocumentPlugin_clone(SBMLDocumentPlugin_t* plugin);
 
+/**
+ * Subclasses should override this method to get the list of
+ * expected attributes if they have their specific attributes.
+ * This function is invoked from corresponding readAttributes()
+ * function.
+ *
+ * @param plugin the SBMLDocumentPlugin_t structure
+ * @param attributes the ExpectedAttributes_t structure
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT @endlink
+ *
+ * @memberof SBMLDocumentPlugin_t
+ */
 LIBSBML_EXTERN
 int
 SBMLDocumentPlugin_addExpectedAttributes(SBMLDocumentPlugin_t* plugin, 
       ExpectedAttributes_t* attributes);
 
+/**
+ * Subclasses must override this method to read values from the given
+ * XMLAttributes if they have their specific attributes.
+ *
+ * @param plugin the SBMLDocumentPlugin_t structure
+ * @param attributes the XMLAttributes_t structure
+ * @param expectedAttributes the ExpectedAttributes_t structure
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT @endlink
+ *
+ * @memberof SBMLDocumentPlugin_t
+ */
 LIBSBML_EXTERN
 int
 SBMLDocumentPlugin_readAttributes(SBMLDocumentPlugin_t* plugin, 
       const XMLAttributes_t* attributes, 
       const ExpectedAttributes_t* expectedAttributes);
 
+/**
+ * Subclasses must override this method to write their XML attributes
+ * to the XMLOutputStream if they have their specific attributes.
+ *
+ * @param plugin the SBMLDocumentPlugin_t structure
+ * @param stream the XMLOutputStream_t structure
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT @endlink
+ *
+ * @memberof SBMLDocumentPlugin_t
+ */
 LIBSBML_EXTERN
 int
 SBMLDocumentPlugin_writeAttributes(SBMLDocumentPlugin_t* plugin, 
       XMLOutputStream_t* stream);
 
 
+/**
+ * Returns the value of "required" attribute of corresponding
+ * package in the SBMLDocument element. The value is true (1) if the
+ * package is required, or false (0) otherwise.
+ *
+ * @param plugin the SBMLDocumentPlugin_t structure
+ *
+ * @return the value of "required" attribute of corresponding
+ * package in the SBMLDocument element. The value is true (1) if the
+ * package is required, or false (0) otherwise. If the plugin is invalid
+ * LIBSBML_INVALID_OBJECT will be returned.
+ *
+ * @memberof SBMLDocumentPlugin_t
+ */
 LIBSBML_EXTERN
 int
 SBMLDocumentPlugin_getRequired(SBMLDocumentPlugin_t* plugin);
 
 
+/**
+ * Sets the value of "required" attribute of corresponding
+ * package in the SBMLDocument element. The value is true (1) if the
+ * package is required, or false (0) otherwise.
+ *
+ * @param plugin the SBMLDocumentPlugin_t structure
+ * @param required the new value for the "required" attribute.
+ *
+ * @return the value of "required" attribute of corresponding
+ * package in the SBMLDocument element. The value is true (1) if the
+ * package is required, or false (0) otherwise. If the plugin is invalid
+ * LIBSBML_INVALID_OBJECT will be returned.
+ *
+ * @memberof SBMLDocumentPlugin_t
+ */
 LIBSBML_EXTERN
 int
 SBMLDocumentPlugin_setRequired(SBMLDocumentPlugin_t* plugin, int required);
 
 
+/**
+ * Predicate returning @c true or @c false depending on whether the given
+ * SBMLDocumentPlugin_t structure's "required" attribute is set.
+ *
+ * @param plugin the SBMLDocumentPlugin_t structure to query
+ * 
+ * @return @c non-zero (true) if the "required" attribute of the given
+ * SBMLDocumentPlugin_t structure is set, zero (false) otherwise.
+ *
+ * @memberof SBMLDocumentPlugin_t
+ */
 LIBSBML_EXTERN
 int
 SBMLDocumentPlugin_isSetRequired(SBMLDocumentPlugin_t* plugin);
 
 
+/**
+ * Unsets the "required" attribute of this SBMLDocumentPlugin_t structure.
+ * 
+ * @param plugin the SBMLDocumentPlugin_t structure whose "required" attribute is to be unset.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_OPERATION_FAILED
+ *
+ * @memberof SBMLDocumentPlugin_t
+ */
 LIBSBML_EXTERN
 int
 SBMLDocumentPlugin_unsetRequired(SBMLDocumentPlugin_t* plugin);

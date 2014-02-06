@@ -637,6 +637,24 @@ LIBSBML_CPP_NAMESPACE_END
 LIBSBML_CPP_NAMESPACE_BEGIN
 BEGIN_C_DECLS
 
+/**
+ * Creates a date optionally from the individual fields entered as numbers.
+ *
+ * @param year an unsigned int representing the year.
+ * @param month an unsigned int representing the month.
+ * @param day an unsigned int representing the day.
+ * @param hour an unsigned int representing the hour.
+ * @param minute an unsigned int representing the minute.
+ * @param second an unsigned int representing the second.
+ * @param sign an unsigned int representing the sign of the offset 
+ * (0/1 equivalent to +/-). 
+ * @param hoursOffset an unsigned int representing the hoursOffset.
+ * @param minutesOffset an unsigned int representing the minutesOffset.
+ *
+ * @return pointer to the newly created Date_t structure.
+ *
+ * @memberof Date_t
+ */
 LIBSBML_EXTERN
 Date_t *
 Date_createFromValues(unsigned int year, unsigned int month, 
@@ -645,99 +663,400 @@ Date_createFromValues(unsigned int year, unsigned int month,
     unsigned int sign, unsigned int hoursOffset,
     unsigned int minutesOffset);
 
+/**
+ * Creates a date from a string.
+ *
+ * @param date a string representing the date.
+ *
+ * @return pointer to the newly created Date_t structure.
+ *
+ * @note the string should be in W3CDTF format 
+ * YYYY-MM-DDThh:mm:ssTZD (eg 1997-07-16T19:20:30+01:00)
+ * where TZD is the time zone designator.
+ *
+ * @memberof Date_t
+ */
 LIBSBML_EXTERN
 Date_t *
 Date_createFromString (const char * date); 
 
-LIBSBML_EXTERN
-const char *
-Date_getDateAsString(Date_t * date);
-
-LIBSBML_EXTERN
-unsigned int
-Date_getYear(Date_t * date);
-
-LIBSBML_EXTERN
-unsigned int
-Date_getMonth(Date_t * date);
-
-LIBSBML_EXTERN
-unsigned int
-Date_getDay(Date_t * date);
-
-LIBSBML_EXTERN
-unsigned int
-Date_getHour(Date_t * date);
-
-LIBSBML_EXTERN
-unsigned int
-Date_getMinute(Date_t * date);
-
-LIBSBML_EXTERN
-unsigned int
-Date_getSecond(Date_t * date);
-
-LIBSBML_EXTERN
-unsigned int
-Date_getSignOffset(Date_t * date);
-
-LIBSBML_EXTERN
-unsigned int
-Date_getHoursOffset(Date_t * date);
-
-LIBSBML_EXTERN
-unsigned int
-Date_getMinutesOffset(Date_t * date);
-
-LIBSBML_EXTERN
-int
-Date_setYear(Date_t * date, unsigned int value);
-
-LIBSBML_EXTERN
-int
-Date_setMonth(Date_t * date, unsigned int value);
-
-LIBSBML_EXTERN
-int
-Date_setDay(Date_t * date, unsigned int value);
-
-LIBSBML_EXTERN
-int
-Date_setHour(Date_t * date, unsigned int value);
-
-LIBSBML_EXTERN
-int
-Date_setMinute(Date_t * date, unsigned int value);
-
-LIBSBML_EXTERN
-int
-Date_setSecond(Date_t * date, unsigned int value);
-
-LIBSBML_EXTERN
-int
-Date_setSignOffset(Date_t * date, unsigned int value);
-
-LIBSBML_EXTERN
-int
-Date_setHoursOffset(Date_t * date, unsigned int value);
-
-LIBSBML_EXTERN
-int
-Date_setMinutesOffset(Date_t * date, unsigned int value);
-
-LIBSBML_EXTERN
-int
-Date_setDateAsString(Date_t * date, const char *);
-
+/**
+ * Destroys this Date.
+ *
+ * @param date Date_t structure to be freed.
+ *
+ * @memberof Date_t
+ */
 LIBSBML_EXTERN
 void
-Date_free(Date_t *);
+Date_free(Date_t* date);
 
+/**
+ * Creates a deep copy of the given Date_t structure
+ * 
+ * @param date the Date_t structure to be copied
+ * 
+ * @return a (deep) copy of the given Date_t structure.
+ *
+ * @memberof Date_t
+ */
 LIBSBML_EXTERN
 Date_t *
 Date_clone (const Date_t* date);
 
+/**
+ * Returns the Date as a string.
+ *
+ * @param date the Date_t structure to be queried
+ * 
+ * @return the date as a string.
+ *
+ * @memberof Date_t
+ */
+LIBSBML_EXTERN
+const char *
+Date_getDateAsString(Date_t * date);
 
+/**
+ * Returns the year from this Date.
+ *
+ * @param date the Date_t structure to be queried
+ * 
+ * @return the year from this Date.
+ *
+ * @memberof Date_t
+ */
+LIBSBML_EXTERN
+unsigned int
+Date_getYear(Date_t * date);
+
+/**
+ * Returns the month from this Date.
+ *
+ * @param date the Date_t structure to be queried
+ * 
+ * @return the month from this Date.
+ *
+ * @memberof Date_t
+ */
+LIBSBML_EXTERN
+unsigned int
+Date_getMonth(Date_t * date);
+
+/**
+ * Returns the day from this Date.
+ *
+ * @param date the Date_t structure to be queried
+ * 
+ * @return the day from this Date.
+ *
+ * @memberof Date_t
+ */
+LIBSBML_EXTERN
+unsigned int
+Date_getDay(Date_t * date);
+
+/**
+ * Returns the hour from this Date.
+ *
+ * @param date the Date_t structure to be queried
+ * 
+ * @return the hour from this Date.
+ *
+ * @memberof Date_t
+ */
+LIBSBML_EXTERN
+unsigned int
+Date_getHour(Date_t * date);
+
+/**
+ * Returns the minute from this Date.
+ *
+ * @param date the Date_t structure to be queried
+ * 
+ * @return the minute from this Date.
+ *
+ * @memberof Date_t
+ */
+LIBSBML_EXTERN
+unsigned int
+Date_getMinute(Date_t * date);
+
+/**
+ * Returns the seconds from this Date.
+ *
+ * @param date the Date_t structure to be queried
+ * 
+ * @return the seconds from this Date.
+ *
+ * @memberof Date_t
+ */
+LIBSBML_EXTERN
+unsigned int
+Date_getSecond(Date_t * date);
+
+/**
+ * Returns the sign of the offset from this Date.
+ *
+ * @param date the Date_t structure to be queried
+ * 
+ * @return the sign of the offset from this Date.
+ *
+ * @memberof Date_t
+ */
+LIBSBML_EXTERN
+unsigned int
+Date_getSignOffset(Date_t * date);
+
+/**
+ * Returns the hours of the offset from this Date.
+ *
+ * @param date the Date_t structure to be queried
+ * 
+ * @return the hours of the offset from this Date.
+ *
+ * @memberof Date_t
+ */
+LIBSBML_EXTERN
+unsigned int
+Date_getHoursOffset(Date_t * date);
+
+/**
+ * Returns the minutes of the offset from this Date.
+ *
+ * @param date the Date_t structure to be queried
+ * 
+ * @return the minutes of the offset from this Date.
+ *
+ * @memberof Date_t
+ */
+LIBSBML_EXTERN
+unsigned int
+Date_getMinutesOffset(Date_t * date);
+
+/**
+ * Sets the value of the year checking appropriateness.
+ *  
+ * @param date the Date_t structure to be set
+ * @param value an unsigned int representing the year to set.  
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+ * @li LIBSBML_INVALID_OBJECT
+ *
+ * @memberof Date_t
+ */
+LIBSBML_EXTERN
+int
+Date_setYear(Date_t * date, unsigned int value);
+
+/**
+ * Sets the value of the month checking appropriateness.
+ *  
+ * @param date the Date_t structure to be set
+ * @param value an unsigned int representing the month to set.  
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+ * @li LIBSBML_INVALID_OBJECT
+ *
+ * @memberof Date_t
+ */
+LIBSBML_EXTERN
+int
+Date_setMonth(Date_t * date, unsigned int value);
+
+/**
+ * Sets the value of the day checking appropriateness.
+ *  
+ * @param date the Date_t structure to be set
+ * @param value an unsigned int representing the day to set.  
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+ * @li LIBSBML_INVALID_OBJECT
+ *
+ * @memberof Date_t
+ */
+LIBSBML_EXTERN
+int
+Date_setDay(Date_t * date, unsigned int value);
+
+/**
+ * Sets the value of the hour checking appropriateness.
+ *  
+ * @param date the Date_t structure to be set
+ * @param value an unsigned int representing the hour to set.  
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+ * @li LIBSBML_INVALID_OBJECT;
+ *
+ * @memberof Date_t
+ */
+LIBSBML_EXTERN
+int
+Date_setHour(Date_t * date, unsigned int value);
+
+/**
+ * Sets the value of the minute checking appropriateness.
+ *  
+ * @param date the Date_t structure to be set
+ * @param value an unsigned int representing the minute to set.  
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+ * @li LIBSBML_INVALID_OBJECT
+ *
+ * @memberof Date_t
+ */
+LIBSBML_EXTERN
+int
+Date_setMinute(Date_t * date, unsigned int value);
+
+/**
+ * Sets the value of the second checking appropriateness.
+ *  
+ * @param date the Date_t structure to be set
+ * @param value an unsigned int representing the second to set.  
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+ * @li LIBSBML_INVALID_OBJECT
+ *
+ * @memberof Date_t
+ */
+LIBSBML_EXTERN
+int
+Date_setSecond(Date_t * date, unsigned int value);
+
+/**
+ * Sets the value of the offset sign checking appropriateness.
+ *  
+ * @param date the Date_t structure to be set
+ * @param value an unsigned int representing the sign of the 
+ * offset to set.  
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+ * @li LIBSBML_INVALID_OBJECT
+ *
+ * @memberof Date_t
+ */
+LIBSBML_EXTERN
+int
+Date_setSignOffset(Date_t * date, unsigned int value);
+
+/**
+ * Sets the value of the offset hour checking appropriateness.
+ *  
+ * @param date the Date_t structure to be set
+ * @param value an unsigned int representing the hours of the 
+ * offset to set.  
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+ * @li LIBSBML_INVALID_OBJECT
+ *
+ * @memberof Date_t
+ */
+LIBSBML_EXTERN
+int
+Date_setHoursOffset(Date_t * date, unsigned int value);
+
+/**
+ * Sets the value of the offset minutes checking appropriateness.
+ *  
+ * @param date the Date_t structure to be set
+ * @param value an unsigned int representing the minutes of the 
+ * offset to set.  
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+ * @li LIBSBML_INVALID_OBJECT
+ *
+ * @memberof Date_t
+ */
+LIBSBML_EXTERN
+int
+Date_setMinutesOffset(Date_t * date, unsigned int value);
+
+/**
+ * Sets the value of the date from a string.
+ *  
+ * @param date the Date_t structure to be set
+ * @param str string representing the date to set.  
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+ * @li LIBSBML_INVALID_OBJECT
+ *
+ * @memberof Date_t
+ */
+LIBSBML_EXTERN
+int
+Date_setDateAsString(Date_t * date, const char* str);
+
+
+/**
+ * Returns true or false depending on whether this date object represents
+ * a valid date and time value.
+ *
+ * This method verifies that the date/time value stored in this object is
+ * well-formed and represents plausible values.  A time and date value in
+ * the W3C format takes the form YYYY-MM-DDThh:mm:ssXHH:ZZ (e.g.,
+ * <code>1997-07-16T19:20:30+01:00</code>) where XHH:ZZ is the time zone
+ * offset.  This method checks such things as whether the value of the
+ * month number is less than or equal to 12, whether the value of the
+ * minutes number is less than or equal to 59, whether a time zone offset
+ * is set, etc.
+ *
+ * @param date the Date_t structure to be checked
+ *
+ * @return @c true if the date is valid, @c false otherwise.
+ *
+ * @memberof Date_t
+ */
 LIBSBML_EXTERN
 int
 Date_representsValidDate(Date_t *date);

@@ -252,8 +252,10 @@ static const ASTNodeType_t MATHML_TYPES[] =
   , AST_CONSTANT_TRUE
   , AST_LOGICAL_XOR
 };
+/** @endcond */
 
-/**
+/** @cond doxygenLibsbmlInternal */
+/*
  * logs the given erroron the error log of the stream.
  * 
  * @param stream the stream to log the error on
@@ -291,8 +293,10 @@ logError (XMLInputStream& stream, const XMLToken& element, SBMLErrorCode_t code,
       element.getColumn());
   }
 }
+/** @endcond */
 
-/**
+/** @cond doxygenLibsbmlInternal */
+/*
  * @return s with whitespace removed from the beginning and end.
  */
 static const string
@@ -307,14 +311,14 @@ trim (const string& s)
 
   return (begin == string::npos) ? string() : s.substr(begin, end - begin + 1);
 }
+/** @endcond */
 
-
-
+/** @cond doxygenLibsbmlInternal */
 /* ---------------------------------------------------------------------- */
 /*                             MathML Input                               */
 /* ---------------------------------------------------------------------- */
 
-/**
+/*
  * Ensures the given ASTNode has the appropriate number of arguments.  If
  * arguments are missing, appropriate defaults (per the MathML 2.0
  * specification) are added:
@@ -345,9 +349,10 @@ checkFunctionArgs (ASTNode& node)
     }
   }
 }
+/** @endcond */
 
-
-/**
+/** @cond doxygenLibsbmlInternal */
+/*
  * In MathML, &lt;plus/> and &lt;times/> are n-ary operators but the infix
  * FormulaParser represents them as binary operators.  To ensure a
  * consistent AST representation, this function is part of the n-ary to
@@ -365,9 +370,10 @@ reduceBinary (ASTNode& node)
     node.prependChild(op);
   }
 }
+/** @endcond */
 
-
-/**
+/** @cond doxygenLibsbmlInternal */
+/*
  * Sets the type of an ASTNode based on the given MathML &lt;ci&gt; element.
  * Errors will be logged in the stream's SBMLErrorLog object.
  */
@@ -412,9 +418,10 @@ setTypeCI (ASTNode& node, const XMLToken& element, XMLInputStream& stream)
   const string name = trim( stream.next().getCharacters() );
   node.setName( name.c_str() );
 }
+/** @endcond */
 
-
-/**
+/** @cond doxygenLibsbmlInternal */
+/*
  * Sets the type of an ASTNode based on the given MathML &lt;cn> element.
  * Errors will be logged in the stream's SBMLErrorLog object.
  */
@@ -539,12 +546,11 @@ setTypeCN (ASTNode& node, const XMLToken& element, XMLInputStream& stream)
   { 
     node.setUnits(units);
   }
-
-
 }
+/** @endcond */
 
-
-/**
+/** @cond doxygenLibsbmlInternal */
+/*
  * Sets the type of an ASTNode based on the given MathML element (not <ci>
  * or <cn>).
  */
@@ -562,9 +568,10 @@ setTypeOther (ASTNode& node, const XMLToken& element, XMLInputStream& stream)
   if (found) node.setType(MATHML_TYPES[index]);
 
 }
+/** @endcond */
 
-
-/**
+/** @cond doxygenLibsbmlInternal */
+/*
  * Sets the type of an ASTNode based on the given MathML element.
  */
 static void
@@ -596,8 +603,9 @@ setType (ASTNode& node, const XMLToken& element, XMLInputStream& stream)
     setTypeOther(node, element, stream);
   }
 }
+/** @endcond */
 
-
+/** @cond doxygenLibsbmlInternal */
 /* in the MathML spec only certain tags can follow the <math> tag
  * this function returns true if the name represents 
  * these tags called Node within the mathML schema
@@ -623,9 +631,10 @@ isMathMLNodeTag(const string& name)
     else
       return false;
 }
+/** @endcond */
 
-
-/**
+/** @cond doxygenLibsbmlInternal */
+/*
  * Essentially an s-expression parser.
  * Errors will be logged in the stream's SBMLErrorLog object.
  */
@@ -885,7 +894,7 @@ readMathML (ASTNode& node, XMLInputStream& stream, std::string reqd_prefix)
 
   else if (name == "semantics")
   {
-    /** read in attributes */
+    /* read in attributes */
     XMLAttributes tempAtt = elem.getAttributes();
     //node.setDefinitionURL(elem.getAttributes());
     readMathML(node, stream, reqd_prefix);
@@ -894,7 +903,7 @@ readMathML (ASTNode& node, XMLInputStream& stream, std::string reqd_prefix)
     {
       node.setDefinitionURL(*(tempAtt).clone());
     }
-    /** need to look for any annotation on the semantics element **/
+    /* need to look for any annotation on the semantics element **/
     while ( stream.isGood() && !stream.peek().isEndFor(elem))
     {
       if (stream.peek().getName() == "annotation"
@@ -918,9 +927,9 @@ readMathML (ASTNode& node, XMLInputStream& stream, std::string reqd_prefix)
 
   stream.skipPastEnd(elem);
 }
+/** @endcond */
 
-
-
+/** @cond doxygenLibsbmlInternal */
 /* ---------------------------------------------------------------------- */
 /*                             MathML Output                              */
 /* ---------------------------------------------------------------------- */
@@ -932,7 +941,9 @@ static void writeDouble    (const double& , XMLOutputStream&);
 static void writeENotation (const double& , long, XMLOutputStream&);
 static void writeENotation (const string& , const string&, XMLOutputStream&);
 static void writeStartEndElement (const string&, const ASTNode&, XMLOutputStream&);
+/** @endcond */
 
+/** @cond doxygenLibsbmlInternal */
 static void 
 writeStartEndElement (const string& name, const ASTNode& node, XMLOutputStream& stream)
 {
@@ -940,8 +951,10 @@ writeStartEndElement (const string& name, const ASTNode& node, XMLOutputStream& 
 	writeAttributes(node, stream);
 	stream.endElement(name);
 }
+/** @endcond */
 
-/**
+/** @cond doxygenLibsbmlInternal */
+/*
  * Writes the mathml attributes id, class and style if set.
  */
 static void 
@@ -954,8 +967,10 @@ writeAttributes(const ASTNode& node, XMLOutputStream& stream)
   if (node.isSetStyle())
     stream.writeAttribute("style", node.getStyle());
 }
+/** @endcond */
 
-/**
+/** @cond doxygenLibsbmlInternal */
+/*
  * Writes the given ASTNode as a <ci> or <csymbol> element as appropriate.
  */
 static void
@@ -990,9 +1005,10 @@ writeCI (const ASTNode& node, XMLOutputStream& stream, SBMLNamespaces *sbmlns)
     stream.setAutoIndent(true);
   }
 }
+/** @endcond */
 
-
-/**
+/** @cond doxygenLibsbmlInternal */
+/*
  * Writes the given ASTNode as <cn type="real">, <cn type='e-notation'>,
  * <cn type='integer'>, or <cn type='rational'> as appropriate.
  */
@@ -1066,9 +1082,10 @@ writeCN (const ASTNode& node, XMLOutputStream& stream, SBMLNamespaces *sbmlns=NU
     stream.setAutoIndent(true);
   }
 }
+/** @endcond */
 
-
-/**
+/** @cond doxygenLibsbmlInternal */
+/*
  * Writes the given ASTNode as a MathML constant.
  */
 static void
@@ -1090,9 +1107,10 @@ writeConstant (const ASTNode& node, XMLOutputStream& stream)
     default:  break;
   }
 }
+/** @endcond */
 
-
-/**
+/** @cond doxygenLibsbmlInternal */
+/*
  * Writes the given ASTNode as a <csymbol> time or delay element as
  * appropriate.
  */
@@ -1120,9 +1138,10 @@ writeCSymbol (const ASTNode& node, XMLOutputStream& stream, SBMLNamespaces *sbml
   stream.endElement("csymbol");
   stream.setAutoIndent(true);
 }
+/** @endcond */
 
-
-/**
+/** @cond doxygenLibsbmlInternal */
+/*
  * Writes the given double precision value.  This function handles the
  * special case where the value, converted to a string, contains an
  * exponent part.
@@ -1155,9 +1174,10 @@ writeDouble (const double& value, XMLOutputStream& stream)
     writeENotation(mantissa, exponent, stream);
   }
 }
+/** @endcond */
 
-
-/**
+/** @cond doxygenLibsbmlInternal */
+/*
  * Writes the given mantissa and exponent.  This function handles the
  * special case where the mantissa, converted to a string, contains an
  * exponent part.
@@ -1191,9 +1211,10 @@ writeENotation (  const double&    mantissa
 
   writeENotation(mantissa_string, exponent_string, stream);
 }
+/** @endcond */
 
-
-/**
+/** @cond doxygenLibsbmlInternal */
+/*
  * Writes the given string mantissa and exponent.
  */
 static void
@@ -1210,9 +1231,10 @@ writeENotation (  const string&    mantissa
   stream.startEndElement("sep");
   stream << " " << exponent << " ";
 }
+/** @endcond */
 
-
-/**
+/** @cond doxygenLibsbmlInternal */
+/*
  * Writes the two children of the given ASTNode.  The first child is
  * wrapped in a <logbase> element.
  */
@@ -1232,9 +1254,10 @@ writeFunctionLog (const ASTNode& node, XMLOutputStream& stream, SBMLNamespaces *
 
   if ( node.getRightChild() ) writeNode(*node.getRightChild(), stream, sbmlns);
 }
+/** @endcond */
 
-
-/**
+/** @cond doxygenLibsbmlInternal */
+/*
  * Writes the children of the given ASTNode.  The first child is wrapped
  * in a <degree> element.
  */
@@ -1259,9 +1282,10 @@ writeFunctionRoot (const ASTNode& node, XMLOutputStream& stream, SBMLNamespaces 
 
   if ( node.getRightChild() ) writeNode(*node.getRightChild(), stream, sbmlns);
 }
+/** @endcond */
 
-
-/**
+/** @cond doxygenLibsbmlInternal */
+/*
  * Writes the given ASTNode as <apply> <fn/> ... </apply>.
  */
 static void
@@ -1317,9 +1341,10 @@ writeFunction (const ASTNode& node, XMLOutputStream& stream, SBMLNamespaces *sbm
 
   stream.endElement("apply");
 }
+/** @endcond */
 
-
-/**
+/** @cond doxygenLibsbmlInternal */
+/*
  * Writes the given ASTNode as a <lambda> element.
  */
 static void
@@ -1355,9 +1380,10 @@ writeLambda (const ASTNode& node, XMLOutputStream& stream, SBMLNamespaces *sbmln
 
   stream.endElement("lambda");
 }
+/** @endcond */
 
-
-/**
+/** @cond doxygenLibsbmlInternal */
+/*
  * This function formats the children of the given ASTNode and is called by
  * doOperator().
  */
@@ -1420,9 +1446,10 @@ writeOperatorArgs (const ASTNode& node, XMLOutputStream& stream, SBMLNamespaces 
     if (right != NULL) writeNode(*right, stream, sbmlns);
   }
 }
+/** @endcond */
 
-
-/**
+/** @cond doxygenLibsbmlInternal */
+/*
  * Writes the given ASTNode as a <apply> <op/> ... </apply>.
  */
 static void
@@ -1452,9 +1479,10 @@ writeOperator (const ASTNode& node, XMLOutputStream& stream, SBMLNamespaces *sbm
 
   stream.endElement("apply");
 }
+/** @endcond */
 
-
-/**
+/** @cond doxygenLibsbmlInternal */
+/*
  * Formats the given ASTNode as a <piecewise> element.
  */
 static void
@@ -1494,9 +1522,10 @@ writePiecewise (const ASTNode& node, XMLOutputStream& stream, SBMLNamespaces *sb
 
   stream.endElement("piecewise");
 }
+/** @endcond */
 
-
-/**
+/** @cond doxygenLibsbmlInternal */
+/*
  * Formats the given ASTNode as a <semantics> element.
  */
 static void
@@ -1519,14 +1548,15 @@ writeSemantics(const ASTNode& node, XMLOutputStream& stream, bool &inSemantics, 
   stream.endElement("semantics");
   inSemantics = false;
 }
+/** @endcond */
 
-
-/**
+/** @cond doxygenLibsbmlInternal */
+/*
  * Writes the given ASTNode (and its children) to the XMLOutputStream as
  * MathML.
  */
 static void
-  writeNode (const ASTNode& node, XMLOutputStream& stream, SBMLNamespaces *sbmlns)
+writeNode (const ASTNode& node, XMLOutputStream& stream, SBMLNamespaces *sbmlns)
 {
   if (&node == NULL || &stream == NULL) return;
 
@@ -1543,16 +1573,13 @@ static void
   else if (  node.isPiecewise() ) writePiecewise(node, stream, sbmlns);
   else if ( !node.isUnknown  () ) writeFunction (node, stream, sbmlns);
 }
+/** @endcond */
 
 
 #endif /* __cplusplus */
 
-/** @cond doxygenCOnly */
 
-/**
- * Reads the MathML from the given XMLInputStream, constructs a corresponding
- * abstract syntax tree and returns a pointer to the root of the tree.
- */
+/** @cond doxygenLibsbmlInternal */
 LIBSBML_EXTERN
 ASTNode*
 readMathML (XMLInputStream& stream, std::string reqd_prefix)
@@ -1644,12 +1671,9 @@ readMathML (XMLInputStream& stream, std::string reqd_prefix)
 
   return node;
 }
+/** @endcond */
 
-
-/**
- * Writes the given ASTNode (and its children) to the XMLOutputStream as
- * MathML.
- */
+/** @cond doxygenLibsbmlInternal */
 LIBSBML_EXTERN
 void
 writeMathML (const ASTNode* node, XMLOutputStream& stream, SBMLNamespaces *sbmlns)
@@ -1676,8 +1700,6 @@ writeMathML (const ASTNode* node, XMLOutputStream& stream, SBMLNamespaces *sbmln
 
   stream.endElement("math");
 }
-
-
 /** @endcond */
 
 /* ---------------------------------------------------------------------- */

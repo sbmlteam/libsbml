@@ -420,67 +420,273 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 BEGIN_C_DECLS
 
 
+/**
+ * Creates a new ModelHistory_t structure and returns a pointer to it.
+ *
+ * @return pointer to newly created ModelHistory_t structure.
+ *
+ * @memberof ModelHistory_t
+ */
 LIBSBML_EXTERN
 ModelHistory_t * ModelHistory_create ();
 
+/**
+ * Destroys this ModelHistory.
+ *
+ * @param mh ModelHistory_t structure to be freed.
+ *
+ * @memberof ModelHistory_t
+ */
 LIBSBML_EXTERN
-void ModelHistory_free(ModelHistory_t *);
+void ModelHistory_free(ModelHistory_t* mh);
 
+/**
+ * Creates a deep copy of the given ModelHistory_t structure
+ * 
+ * @param mh the ModelHistory_t structure to be copied
+ * 
+ * @return a (deep) copy of the given ModelHistory_t structure.
+ *
+ * @memberof ModelHistory_t
+ */
 LIBSBML_EXTERN
 ModelHistory_t *
 ModelHistory_clone (const ModelHistory_t* mh);
 
 
+/**
+ * Adds a copy of a ModelCreator_t structure to the 
+ * ModelHistory_t structure.
+ *
+ * @param mh the ModelHistory_t structure
+ * @param mc the ModelCreator_t structure to add.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_INVALID_OBJECT
+ * @li LIBSBML_OPERATION_FAILED
+ *
+ * @memberof ModelHistory_t
+ */
 LIBSBML_EXTERN
 int ModelHistory_addCreator(ModelHistory_t * mh, 
                              ModelCreator_t * mc);
 
+/**
+ * Get the number of ModelCreator objects in this 
+ * ModelHistory.
+ * 
+ * @param mh the ModelHistory_t structure
+ * 
+ * @return the number of ModelCreators in this 
+ * ModelHistory.
+ *
+ * @memberof ModelHistory_t
+ */
+LIBSBML_EXTERN
+unsigned int ModelHistory_getNumCreators(ModelHistory_t * mh);
+
+/**
+ * Get the List of ModelCreator objects in this 
+ * ModelHistory.
+ *
+ * @param mh the ModelHistory_t structure
+ * 
+ * @return a pointer to the List_t structure of ModelCreators 
+ * for this ModelHistory_t structure.
+ *
+ * @memberof ModelHistory_t
+ */
+LIBSBML_EXTERN
+List_t * ModelHistory_getListCreators(ModelHistory_t * mh);
+
+/**
+ * Get the nth ModelCreator_t structure in this ModelHistory_t.
+ * 
+ * @param mh the ModelHistory_t structure
+ * @param n an unsigned int indicating which ModelCreator
+ *
+ * @return the nth ModelCreator of this ModelHistory.
+ *
+ * @memberof ModelHistory_t
+ */
+LIBSBML_EXTERN
+ModelCreator_t* ModelHistory_getCreator(ModelHistory_t * mh, unsigned int n);
+
+/**
+ * Sets the createdDate.
+ *  
+ * @param mh the ModelHistory_t structure
+ * @param date the Date_t structure representing the date
+ * the ModelHistory was created. 
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_INVALID_OBJECT
+ *
+ * @memberof ModelHistory_t
+ */
 LIBSBML_EXTERN
 int ModelHistory_setCreatedDate(ModelHistory_t * mh, 
                                  Date_t * date);
 
+/**
+ * Returns the createdDate from the ModelHistory.
+ *
+ * @param mh the ModelHistory_t structure
+ * 
+ * @return Date_t structure representing the createdDate
+ * from the ModelHistory_t structure.
+ *
+ * @memberof ModelHistory_t
+ */
+LIBSBML_EXTERN
+Date_t * ModelHistory_getCreatedDate(ModelHistory_t * mh);
+
+/**
+ * Predicate indicating whether this
+ * ModelHistory's createdDate is set.
+ *
+ * @param mh the ModelHistory_t structure to be queried
+ *
+ * @return true (non-zero) if the createdDate of this 
+ * ModelHistory_t structure is set, false (0) otherwise.
+ *
+ * @memberof ModelHistory_t
+ */
+LIBSBML_EXTERN
+int ModelHistory_isSetCreatedDate(ModelHistory_t * mh);
+
+/**
+ * Sets the modifiedDate.
+ *  
+ * @param mh the ModelHistory_t structure
+ * @param date the Date_t structure representing the date
+ * the ModelHistory was modified. 
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_INVALID_OBJECT
+ *
+ * @memberof ModelHistory_t
+ */
 LIBSBML_EXTERN
 int ModelHistory_setModifiedDate(ModelHistory_t * mh, 
                                   Date_t * date);
 
-LIBSBML_EXTERN
-List_t * ModelHistory_getListCreators(ModelHistory_t * mh);
-
-LIBSBML_EXTERN
-Date_t * ModelHistory_getCreatedDate(ModelHistory_t * mh);
-
+/**
+ * Returns the modifiedDate from the ModelHistory.
+ *
+ * @param mh the ModelHistory_t structure
+ * 
+ * @return Date_t structure representing the modifiedDate
+ * from the ModelHistory_t structure.
+ */
 LIBSBML_EXTERN
 Date_t * ModelHistory_getModifiedDate(ModelHistory_t * mh);
 
-LIBSBML_EXTERN
-unsigned int ModelHistory_getNumCreators(ModelHistory_t * mh);
-
-LIBSBML_EXTERN
-ModelCreator_t* ModelHistory_getCreator(ModelHistory_t * mh, unsigned int n);
-
-LIBSBML_EXTERN
-int ModelHistory_isSetCreatedDate(ModelHistory_t * mh);
-
+/**
+ * Predicate indicating whether this
+ * ModelHistory's modifiedDate is set.
+ *
+ * @param mh the ModelHistory_t structure to be queried
+ *
+ * @return true (non-zero) if the modifiedDate of this 
+ * ModelHistory_t structure is set, false (0) otherwise.
+ *
+ * @memberof ModelHistory_t
+ */
 LIBSBML_EXTERN
 int ModelHistory_isSetModifiedDate(ModelHistory_t * mh);
 
+/**
+ * Adds a copy of a Date_t structure to the 
+ * list of modifiedDates in the ModelHistory_t structure.
+ *
+ * @param mh the ModelHistory_t structure
+ * @param date the Date_t structure to add.
+ *
+ * @memberof ModelHistory_t
+ */
 LIBSBML_EXTERN
 int 
 ModelHistory_addModifiedDate(ModelHistory_t * mh, Date_t * date);
 
+/**
+ * Get the List of Date objects in the list of ModifiedDates 
+ * in this ModelHistory.
+ *
+ * @param mh the ModelHistory_t structure
+ * 
+ * @return a pointer to the List_t structure of Dates 
+ * for this ModelHistory_t structure.
+ *
+ * @memberof ModelHistory_t
+ */
 LIBSBML_EXTERN
 List_t * 
 ModelHistory_getListModifiedDates(ModelHistory_t * mh);
 
+/**
+ * Get the number of modified Date objects in the list of ModifiedDates 
+ * in this ModelHistory.
+ *
+ * @param mh the ModelHistory_t structure
+ * 
+ * @return the number of Dates in the list of ModifiedDates in this 
+ * ModelHistory.
+ *
+ * @memberof ModelHistory_t
+ */
 LIBSBML_EXTERN
 unsigned int 
 ModelHistory_getNumModifiedDates(ModelHistory_t * mh);
 
+/**
+ * Get the nth Date_t structure in the list of ModifiedDates
+ * in this ModelHistory_t.
+ * 
+ * @param mh the ModelHistory_t structure
+ * @param n an unsigned int indicating which Date
+ *
+ * @return the nth Date in the list of ModifiedDates
+ * of this ModelHistory.
+ *
+ * @note A bug in libSBML meant that originally a ModelHistory object
+ * contained only one instance of a ModifiedDate.  In fact the MIRIAM
+ * annotation expects zero or more modified dates and thus the
+ * implementation was changed.  To avoid impacting on existing code
+ * there is a ditinction between the function 
+ * ModelHistory_getModifiedDate which requires no index value and
+ * this function that indexes into a list.
+ *
+ * @memberof ModelHistory_t
+ */
 LIBSBML_EXTERN
 Date_t* 
 ModelHistory_getModifiedDateFromList(ModelHistory_t * mh, unsigned int n);
 
 
+/** 
+ * Checks if the model history has all the required attributes.
+ *
+ * @param mh the ModelHistory_t structure
+ * 
+ * @return true (1) if this ModelHistory_t has all the required elements,
+ * otherwise false (0) will be returned. If an invalid ModelHistory_t 
+ * was provided LIBSBML_INVALID_OBJECT is returned.
+ *
+ * @memberof ModelHistory_t
+ */
 LIBSBML_EXTERN
 int
 ModelHistory_hasRequiredAttributes(ModelHistory_t *mh);

@@ -256,6 +256,8 @@ typedef enum
  * This method takes an SBML operation return value and returns a string representing
  * the code.
  *
+ * @param returnValue the operation return value to convert to a string
+ *
  * @return a human readable name for the given
  * @if clike #OperationReturnValues_t value@else operation return value @endif.
  *

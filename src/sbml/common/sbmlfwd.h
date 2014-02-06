@@ -231,6 +231,12 @@ typedef CLASS_OR_STRUCT ASTNode                   ASTNode_t;
 typedef CLASS_OR_STRUCT List                      List_t;
 
 /**
+ * @var typedef class ListNode ListNode_t
+ * @copydoc ListNode
+ */
+typedef CLASS_OR_STRUCT ListNode                  ListNode_t;
+
+/**
  * @var typedef class ListOf ListOf_t
  * @copydoc ListOf
  */

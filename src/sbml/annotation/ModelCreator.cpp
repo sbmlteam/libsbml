@@ -428,11 +428,6 @@ ModelCreator::resetModifiedFlags()
 
 /** @cond doxygenCOnly */
 
-/**
- * Creates a new ModelCreator_t structure and returns a pointer to it.
- *
- * @return pointer to newly created ModelCreator_t structure.
- */
 LIBSBML_EXTERN
 ModelCreator_t *
 ModelCreator_create()
@@ -440,12 +435,6 @@ ModelCreator_create()
   return new(nothrow) ModelCreator();
 }
 
-/**
- * Creates a new ModelCreator_t structure from an XMLNode_t structure
- * and returns a pointer to it.
- *
- * @return pointer to newly created ModelCreator_t structure.
- */
 LIBSBML_EXTERN
 ModelCreator_t *
 ModelCreator_createFromNode(const XMLNode_t * node)
@@ -455,11 +444,6 @@ ModelCreator_createFromNode(const XMLNode_t * node)
 }
 
 
-/**
- * Destroys this ModelCreator.
- *
- * @param mc ModelCreator_t structure to be freed.
- */
 LIBSBML_EXTERN
 void
 ModelCreator_free(ModelCreator_t * mc)
@@ -469,13 +453,6 @@ ModelCreator_free(ModelCreator_t * mc)
 }
 
 
-/**
- * Creates a deep copy of the given ModelCreator_t structure
- * 
- * @param mc the ModelCreator_t structure to be copied
- * 
- * @return a (deep) copy of the given ModelCreator_t structure.
- */
 LIBSBML_EXTERN
 ModelCreator_t *
 ModelCreator_clone (const ModelCreator_t* mc)
@@ -485,13 +462,6 @@ ModelCreator_clone (const ModelCreator_t* mc)
 }
 
 
-/**
- * Returns the familyName from the ModelCreator.
- * 
- * @param mc the ModelCreator_t structure to be queried
- *
- * @return familyName from the ModelCreator.
- */
 LIBSBML_EXTERN
 const char * 
 ModelCreator_getFamilyName(ModelCreator_t *mc)
@@ -501,13 +471,6 @@ ModelCreator_getFamilyName(ModelCreator_t *mc)
 }
 
 
-/**
- * Returns the givenName from the ModelCreator.
- * 
- * @param mc the ModelCreator_t structure to be queried
- *
- * @return givenName from the ModelCreator.
- */
 LIBSBML_EXTERN
 const char * 
 ModelCreator_getGivenName(ModelCreator_t *mc)
@@ -517,13 +480,6 @@ ModelCreator_getGivenName(ModelCreator_t *mc)
 }
 
 
-/**
- * Returns the email from the ModelCreator.
- * 
- * @param mc the ModelCreator_t structure to be queried
- *
- * @return email from the ModelCreator.
- */
 LIBSBML_EXTERN
 const char * 
 ModelCreator_getEmail(ModelCreator_t *mc)
@@ -533,15 +489,6 @@ ModelCreator_getEmail(ModelCreator_t *mc)
 }
 
 
-/**
- * Returns the organization from the ModelCreator.
- *
- * @note This function is an alias of ModelCreator_getOrganization().
- * 
- * @param mc the ModelCreator_t structure to be queried
- *
- * @return organization from the ModelCreator.
- */
 LIBSBML_EXTERN
 const char * 
 ModelCreator_getOrganisation(ModelCreator_t *mc)
@@ -551,13 +498,6 @@ ModelCreator_getOrganisation(ModelCreator_t *mc)
 }
 
 
-/**
- * Returns the organization from the ModelCreator.
- * 
- * @param mc the ModelCreator_t structure to be queried
- *
- * @return organization from the ModelCreator.
- */
 LIBSBML_EXTERN
 const char * 
 ModelCreator_getOrganization(ModelCreator_t *mc)
@@ -566,15 +506,6 @@ ModelCreator_getOrganization(ModelCreator_t *mc)
 }
 
 
-/**
- * Predicate indicating whether this
- * ModelCreator's familyName is set.
- *
- * @param mc the ModelCreator_t structure to be queried
- *
- * @return true (non-zero) if the familyName of this 
- * ModelCreator_t structure is set, false (0) otherwise.
- */
 LIBSBML_EXTERN
 int 
 ModelCreator_isSetFamilyName(ModelCreator_t *mc)
@@ -584,15 +515,6 @@ ModelCreator_isSetFamilyName(ModelCreator_t *mc)
 }
 
 
-/**
- * Predicate indicating whether this
- * ModelCreator's givenName is set.
- *
- * @param mc the ModelCreator_t structure to be queried
- *
- * @return true (non-zero) if the givenName of this 
- * ModelCreator_t structure is set, false (0) otherwise.
- */
 LIBSBML_EXTERN
 int 
 ModelCreator_isSetGivenName(ModelCreator_t *mc)
@@ -602,15 +524,6 @@ ModelCreator_isSetGivenName(ModelCreator_t *mc)
 }
 
 
-/**
- * Predicate indicating whether this
- * ModelCreator's email is set.
- *
- * @param mc the ModelCreator_t structure to be queried
- *
- * @return true (non-zero) if the email of this 
- * ModelCreator_t structure is set, false (0) otherwise.
- */
 LIBSBML_EXTERN
 int 
 ModelCreator_isSetEmail(ModelCreator_t *mc)
@@ -620,17 +533,6 @@ ModelCreator_isSetEmail(ModelCreator_t *mc)
 }
 
 
-/**
- * Predicate indicating whether this
- * ModelCreator's organization is set.
- *
- * @note This function is an alias of ModelCretor_isSetOrganization().
- *
- * @param mc the ModelCreator_t structure to be queried
- *
- * @return true (non-zero) if the organization of this 
- * ModelCreator_t structure is set, false (0) otherwise.
- */
 LIBSBML_EXTERN
 int 
 ModelCreator_isSetOrganisation(ModelCreator_t *mc)
@@ -640,15 +542,6 @@ ModelCreator_isSetOrganisation(ModelCreator_t *mc)
 }
 
 
-/**
- * Predicate indicating whether this
- * ModelCreator's organization is set.
- *
- * @param mc the ModelCreator_t structure to be queried
- *
- * @return true (non-zero) if the organization of this 
- * ModelCreator_t structure is set, false (0) otherwise.
- */
 LIBSBML_EXTERN
 int 
 ModelCreator_isSetOrganization(ModelCreator_t *mc)
@@ -657,19 +550,6 @@ ModelCreator_isSetOrganization(ModelCreator_t *mc)
 }
 
 
-/**
- * Sets the family name
- *  
- * @param mc the ModelCreator_t structure
- * @param name a string representing the familyName of the ModelCreator. 
- *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif@~ The possible values
- * returned by this function are:
- * @li LIBSBML_OPERATION_SUCCESS
- * @li LIBSBML_INVALID_OBJECT
- */
 LIBSBML_EXTERN
 int 
 ModelCreator_setFamilyName(ModelCreator_t *mc, char * name)
@@ -679,19 +559,6 @@ ModelCreator_setFamilyName(ModelCreator_t *mc, char * name)
 }
 
 
-/**
- * Sets the given name
- *  
- * @param mc the ModelCreator_t structure
- * @param name a string representing the givenName of the ModelCreator. 
- *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif@~ The possible values
- * returned by this function are:
- * @li LIBSBML_OPERATION_SUCCESS
- * @li LIBSBML_INVALID_OBJECT
- */
 LIBSBML_EXTERN
 int 
 ModelCreator_setGivenName(ModelCreator_t *mc, char * name)
@@ -701,19 +568,6 @@ ModelCreator_setGivenName(ModelCreator_t *mc, char * name)
 }
 
 
-/**
- * Sets the email
- *  
- * @param mc the ModelCreator_t structure
- * @param email a string representing the email of the ModelCreator. 
- *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif@~ The possible values
- * returned by this function are:
- * @li LIBSBML_OPERATION_SUCCESS
- * @li LIBSBML_INVALID_OBJECT
- */
 LIBSBML_EXTERN
 int 
 ModelCreator_setEmail(ModelCreator_t *mc, char * email)
@@ -723,21 +577,6 @@ ModelCreator_setEmail(ModelCreator_t *mc, char * email)
 }
 
 
-/**
- * Sets the organization
- *  
- * @param mc the ModelCreator_t structure
- * @param org a string representing the organisation of the ModelCreator. 
- *
- * @note This function is an alias of ModelCretor_setOrganization().
- *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif@~ The possible values
- * returned by this function are:
- * @li LIBSBML_OPERATION_SUCCESS
- * @li LIBSBML_INVALID_OBJECT
- */
 LIBSBML_EXTERN
 int 
 ModelCreator_setOrganisation(ModelCreator_t *mc, char * org)
@@ -747,19 +586,6 @@ ModelCreator_setOrganisation(ModelCreator_t *mc, char * org)
 }
 
 
-/**
- * Sets the organization
- *  
- * @param mc the ModelCreator_t structure
- * @param org a string representing the organisation of the ModelCreator. 
- *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif@~ The possible values
- * returned by this function are:
- * @li LIBSBML_OPERATION_SUCCESS
- * @li LIBSBML_INVALID_OBJECT
- */
 LIBSBML_EXTERN
 int 
 ModelCreator_setOrganization(ModelCreator_t *mc, char * org)
@@ -768,19 +594,6 @@ ModelCreator_setOrganization(ModelCreator_t *mc, char * org)
 }
 
 
-/**
- * Unsets the familyName of this ModelCreator.
- *
- * @param mc the ModelCreator_t structure.
- *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif@~ The possible values
- * returned by this function are:
- * @li LIBSBML_OPERATION_SUCCESS
- * @li LIBSBML_OPERATION_FAILED
- * @li LIBSBML_INVALID_OBJECT
- */
 LIBSBML_EXTERN
 int 
 ModelCreator_unsetFamilyName(ModelCreator_t *mc)
@@ -790,19 +603,6 @@ ModelCreator_unsetFamilyName(ModelCreator_t *mc)
 }
 
 
-/**
- * Unsets the givenName of this ModelCreator.
- *
- * @param mc the ModelCreator_t structure.
- *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif@~ The possible values
- * returned by this function are:
- * @li LIBSBML_OPERATION_SUCCESS
- * @li LIBSBML_OPERATION_FAILED
- * @li LIBSBML_INVALID_OBJECT
- */
 LIBSBML_EXTERN
 int 
 ModelCreator_unsetGivenName(ModelCreator_t *mc)
@@ -812,19 +612,6 @@ ModelCreator_unsetGivenName(ModelCreator_t *mc)
 }
 
 
-/**
- * Unsets the email of this ModelCreator.
- *
- * @param mc the ModelCreator_t structure.
- *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif@~ The possible values
- * returned by this function are:
- * @li LIBSBML_OPERATION_SUCCESS
- * @li LIBSBML_OPERATION_FAILED
- * @li LIBSBML_INVALID_OBJECT
- */
 LIBSBML_EXTERN
 int 
 ModelCreator_unsetEmail(ModelCreator_t *mc)
@@ -834,21 +621,6 @@ ModelCreator_unsetEmail(ModelCreator_t *mc)
 }
 
 
-/**
- * Unsets the organization of this ModelCreator.
- *
- * @param mc the ModelCreator_t structure.
- *
- * @note This function is an alias of ModelCretor_unsetOrganization().
- *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif@~ The possible values
- * returned by this function are:
- * @li LIBSBML_OPERATION_SUCCESS
- * @li LIBSBML_OPERATION_FAILED
- * @li LIBSBML_INVALID_OBJECT
- */
 LIBSBML_EXTERN
 int 
 ModelCreator_unsetOrganisation(ModelCreator_t *mc)
@@ -858,19 +630,6 @@ ModelCreator_unsetOrganisation(ModelCreator_t *mc)
 }
 
 
-/**
- * Unsets the organization of this ModelCreator.
- *
- * @param mc the ModelCreator_t structure.
- *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif@~ The possible values
- * returned by this function are:
- * @li LIBSBML_OPERATION_SUCCESS
- * @li LIBSBML_OPERATION_FAILED
- * @li LIBSBML_INVALID_OBJECT
- */
 LIBSBML_EXTERN
 int 
 ModelCreator_unsetOrganization(ModelCreator_t *mc)
