@@ -366,12 +366,14 @@ List_create (void)
 }
 
 
+/** @cond doxygenLibsbmlInternal */
 LIBSBML_EXTERN
 ListNode_t *
 ListNode_create (void *item)
 {
   return new ListNode(item);
 }
+/** @endcond */
 
 
 LIBSBML_EXTERN
@@ -383,11 +385,13 @@ List_free (List_t *lst)
 }
 
 
+/** @cond doxygenLibsbmlInternal */
 void
 ListNode_free (ListNode_t *node)
 {
   delete static_cast<ListNode*>(node);
 }
+/** @endcond */
 
 
 LIBSBML_EXTERN

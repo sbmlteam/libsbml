@@ -40,14 +40,6 @@
  * the SBML SBase class, whereas this List class is not.  ListOf can only
  * be used when a list is actually intended to implement an SBML ListOfX
  * class.  This is why libSBML has both a List and a ListOf.
- *
- * @class ListNode
- * @sbmlbrief{core} The node element of the List class.
- *
- * @htmlinclude not-sbml-warning.html
- *
- * This class implements the children of the List class, storing the 
- * item itself, and a pointer to the next item in the list.
  */
 
 #ifndef List_h
@@ -88,7 +80,19 @@ typedef int (*ListItemPredicate) (const void *item);
 
 #ifndef SWIG
 
-class LIBSBML_EXTERN ListNode
+/**
+ * @cond doxygenLibsbmlInternal
+ *
+ * 
+ * @class ListNode
+ * @sbmlbrief{core} The node element of the List class.
+ *
+ * @htmlinclude not-sbml-warning.html
+ *
+ * This class implements the children of the List class, storing the 
+ * item itself, and a pointer to the next item in the list.
+ */
+class ListNode
 {
 public:
   ListNode (void* x): item(x), next(NULL) { }
@@ -96,6 +100,7 @@ public:
   void*      item;
   ListNode*  next;
 };
+/** @endcond */
 
 #endif  /* !SWIG */
 
@@ -315,6 +320,8 @@ List_create (void);
 
 
 /**
+ * @cond doxygenLibsbmlInternal
+ *
  * Creates a new ListNode_t (with @p item) and returns a pointer to the node.
  *
  * @param item the item to create a ListNode_t for.
@@ -324,13 +331,13 @@ List_create (void);
 LIBSBML_EXTERN
 ListNode_t *
 ListNode_create (void *item);
-
+/** @endcond */
 
 /**
  * Frees the given List_t.
  *
  * This function does not free List_t items.  It frees only the List_t
- * structure and its constituent ListNode_t structures (if any).
+ * structure and its constituent internal structures (if any).
  *
  * Presumably, you either i) have pointers to the individual list items
  * elsewhere in your program and you want to keep them around for awhile
@@ -347,6 +354,8 @@ List_free (List_t *lst);
 
 
 /**
+ * @cond doxygenLibsbmlInternal
+ *
  * Frees the given ListNode_t.
  *
  * @param node The ListNode_t structure
@@ -356,7 +365,7 @@ List_free (List_t *lst);
 LIBSBML_EXTERN
 void
 ListNode_free (ListNode_t *node);
-
+/** @endcond */
 
 /**
  * Adds item to the end of this List_t.

@@ -230,11 +230,13 @@ typedef CLASS_OR_STRUCT ASTNode                   ASTNode_t;
  */
 typedef CLASS_OR_STRUCT List                      List_t;
 
+/** @cond doxygenLibsbmlInternal */
 /**
  * @var typedef class ListNode ListNode_t
  * @copydoc ListNode
  */
 typedef CLASS_OR_STRUCT ListNode                  ListNode_t;
+/** @endcond */
 
 /**
  * @var typedef class ListOf ListOf_t
