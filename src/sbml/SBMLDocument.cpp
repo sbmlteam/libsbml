@@ -1846,7 +1846,7 @@ SBMLDocument::enablePackageInternal(const std::string& pkgURI, const std::string
 
 
 #endif /* __cplusplus */
-/** @cond doxygenCOnly */
+/** @cond doxygenIgnored */
 
 
 

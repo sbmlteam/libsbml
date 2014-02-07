@@ -544,7 +544,7 @@ SBMLExtensionRegistry::enablePackages(const std::vector<std::string>& packages)
 
 
 #endif /* __cplusplus */
-/** @cond doxygenCOnly */
+/** @cond doxygenIgnored */
 
 
 LIBSBML_EXTERN

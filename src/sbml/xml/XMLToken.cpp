@@ -1287,7 +1287,7 @@ operator<< (XMLOutputStream& stream, const XMLToken& token)
 
 
 #endif /* __cplusplus */
-/** @cond doxygenCOnly */
+/** @cond doxygenIgnored */
 
 
 LIBLAX_EXTERN

@@ -155,7 +155,7 @@ SBMLIdConverter::convert()
   
 }
 
-/** @cond doxygenCOnly */
+/** @cond doxygenIgnored */
 
 
 /** @endcond */

@@ -739,7 +739,7 @@ ExternalModelDefinition::getReferencedModel(SBMLDocument* errordoc, set<pair<str
 }
 
 #endif /* __cplusplus */
-/** @cond doxygenCOnly */
+/** @cond doxygenIgnored */
 LIBSBML_EXTERN
 ExternalModelDefinition_t *
 ExternalModelDefinition_create(unsigned int level, unsigned int version,

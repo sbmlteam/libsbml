@@ -190,7 +190,7 @@ ReplacedBy::accept (SBMLVisitor& v) const
 /** @endcond */
 
 #endif /* __cplusplus */
-/** @cond doxygenCOnly */
+/** @cond doxygenIgnored */
 
 LIBSBML_EXTERN
 ReplacedBy_t *

@@ -1098,7 +1098,7 @@ XMLOutputFileStream::XMLOutputFileStream (  std::ofstream& stream
 /** @endcond */
 
 #endif /* __cplusplus */
-/** @cond doxygenCOnly */
+/** @cond doxygenIgnored */
 
 LIBLAX_EXTERN
 XMLOutputStream_t *

@@ -1072,7 +1072,7 @@ CompSBMLDocumentPlugin::setOverrideCompFlattening(bool overrideCompFlattening)
 
 
 #endif /* __cplusplus */
-/** @cond doxygenCOnly */
+/** @cond doxygenIgnored */
 
 LIBSBML_EXTERN
 ModelDefinition_t *

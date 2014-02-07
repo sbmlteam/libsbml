@@ -198,7 +198,7 @@ ModelDefinition::readAttributes (const XMLAttributes& attributes,
 
 
 #endif /* __cplusplus */
-/** @cond doxygenCOnly */
+/** @cond doxygenIgnored */
 
 LIBSBML_EXTERN
 ModelDefinition_t *

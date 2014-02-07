@@ -326,7 +326,7 @@ XMLErrorLog::changeErrorSeverity(XMLErrorSeverity_t originalSeverity,
 }
 
 #endif /* __cplusplus */
-/** @cond doxygenCOnly */
+/** @cond doxygenIgnored */
 
 LIBLAX_EXTERN
 XMLErrorLog_t *

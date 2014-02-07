@@ -685,7 +685,7 @@ XMLNode CubicBezier::toXML() const
 
 
 #endif /* __cplusplus */
-/** @cond doxygenCOnly */
+/** @cond doxygenIgnored */
 
 LIBSBML_EXTERN
 CubicBezier_t *

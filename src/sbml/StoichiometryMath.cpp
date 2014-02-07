@@ -607,7 +607,7 @@ StoichiometryMath::writeElements (XMLOutputStream& stream) const
 /** @endcond */
 
 #endif /* __cplusplus */
-/** @cond doxygenCOnly */
+/** @cond doxygenIgnored */
 
 
 LIBSBML_EXTERN

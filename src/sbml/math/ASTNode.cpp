@@ -48,41 +48,74 @@ using namespace std;
 LIBSBML_CPP_NAMESPACE_BEGIN
 
 /**
- * ASTNodeType predicates
+ * ASTNodeType predicate
  */
 #define ASTNodeType_isAvogadro(t) \
   (t == AST_NAME_AVOGADRO)
 
+/**
+ * ASTNodeType predicate
+ */
 #define ASTNodeType_isConstant(t) \
   (((t >= AST_CONSTANT_E) && (t <= AST_CONSTANT_TRUE)) || t == AST_NAME_AVOGADRO)
 
+/**
+ * ASTNodeType predicate
+ */
 #define ASTNodeType_isFunction(t) \
   ((t >= AST_FUNCTION) && (t <= AST_FUNCTION_TANH))
 
+/**
+ * ASTNodeType predicate
+ */
 #define ASTNodeType_isLambda(t) \
   (t == AST_LAMBDA)
 
+/**
+ * ASTNodeType predicate
+ */
 #define ASTNodeType_isLogical(t) \
   ((t >= AST_LOGICAL_AND) && (t <= AST_LOGICAL_XOR))
 
+/**
+ * ASTNodeType predicate
+ */
 #define ASTNodeType_isName(t) \
   ((t >= AST_NAME) && (t <= AST_NAME_TIME))
 
+/**
+ * ASTNodeType predicate
+ */
 #define ASTNodeType_isRelational(t) \
   ((t >= AST_RELATIONAL_EQ) && (t <= AST_RELATIONAL_NEQ))
 
+/**
+ * ASTNodeType predicate
+ */
 #define ASTNodeType_isInteger(t) \
   (t == AST_INTEGER)
 
+/**
+ * ASTNodeType predicate
+ */
 #define ASTNodeType_isRational(t) \
   (t == AST_RATIONAL)
 
+/**
+ * ASTNodeType predicate
+ */
 #define ASTNodeType_isReal(t) \
   ((t >= AST_REAL) && (t <= AST_RATIONAL))
 
+/**
+ * ASTNodeType predicate
+ */
 #define ASTNodeType_isNumber(t) \
   (ASTNodeType_isInteger(t) || ASTNodeType_isReal(t))
 
+/**
+ * ASTNodeType predicate
+ */
 #define ASTNodeType_isOperator(t) \
   ( ( t == AST_PLUS   ) || \
     ( t == AST_MINUS  ) || \
@@ -90,6 +123,9 @@ LIBSBML_CPP_NAMESPACE_BEGIN
     ( t == AST_DIVIDE ) || \
     ( t == AST_POWER  ) )
 
+/**
+ * ASTNodeType predicate
+ */
 #define ASTNodeType_isUnknown(t) \
   (t == AST_UNKNOWN)
 
@@ -2651,7 +2687,7 @@ unsigned int ASTNode::getNumVariablesWithUndeclaredUnits(Model * m) const
 #endif /* __cplusplus */
 
 
-/** @cond doxygenCOnly */
+/** @cond doxygenIgnored */
 
 LIBSBML_EXTERN
 ASTNode_t *

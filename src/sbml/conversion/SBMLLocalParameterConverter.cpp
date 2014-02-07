@@ -167,7 +167,7 @@ SBMLLocalParameterConverter::convert()
   
 }
 
-/** @cond doxygenCOnly */
+/** @cond doxygenIgnored */
 
 
 /** @endcond */

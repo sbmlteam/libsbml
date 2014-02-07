@@ -70,11 +70,6 @@ const char* SBML_TYPE_CODE_STRINGS[] =
 };
 
 
-/**
- * @return a human readable name for the given typecode and package name.  
- * The caller does not own the returned string and is therefore not allowed 
- * to modify it.
- */
 LIBSBML_EXTERN
 const char *
 SBMLTypeCode_toString (int tc, const char* pkgName)

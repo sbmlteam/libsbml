@@ -1384,7 +1384,7 @@ FbcModelPlugin::getFluxBoundsForReaction(const std::string& reaction) const
 }
 
 #endif /* __cplusplus */
-/** @cond doxygenCOnly */
+/** @cond doxygenIgnored */
 
 
 LIBSBML_EXTERN

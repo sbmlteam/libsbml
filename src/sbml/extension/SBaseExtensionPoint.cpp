@@ -124,7 +124,7 @@ bool operator<(const SBaseExtensionPoint& lhs, const SBaseExtensionPoint& rhs)
 
 
 #endif /* __cplusplus */
-/** @cond doxygenCOnly */
+/** @cond doxygenIgnored */
 
 LIBSBML_EXTERN 
 SBaseExtensionPoint_t *

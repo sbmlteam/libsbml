@@ -752,7 +752,7 @@ SBMLNamespaces::setNamespaces(XMLNamespaces * xmlns)
 /** @endcond */
 
 #endif /* __cplusplus */
-/** @cond doxygenCOnly */
+/** @cond doxygenIgnored */
 
 LIBSBML_EXTERN
 SBMLNamespaces_t *

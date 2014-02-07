@@ -297,7 +297,7 @@ SBMLFunctionDefinitionConverter::expandFD_errors(unsigned int errors)
 /** @endcond */
 
 
-/** @cond doxygenCOnly */
+/** @cond doxygenIgnored */
 
 
 /** @endcond */

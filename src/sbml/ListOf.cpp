@@ -609,7 +609,7 @@ ListOf::writeAttributes (XMLOutputStream& stream) const
 
 
 #endif /* __cplusplus */
-/** @cond doxygenCOnly */
+/** @cond doxygenIgnored */
 
 
 LIBSBML_EXTERN

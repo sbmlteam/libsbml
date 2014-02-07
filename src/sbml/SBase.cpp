@@ -6348,7 +6348,7 @@ SBase::getElementNamespace() const
 
 #endif /* __cplusplus */
 
-/** @cond doxygenCOnly */
+/** @cond doxygenIgnored */
 
 LIBSBML_EXTERN
 int

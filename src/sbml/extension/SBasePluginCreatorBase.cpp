@@ -149,7 +149,7 @@ SBasePluginCreatorBase::isSupported(const std::string& uri) const
 /** @endcond */
 
 #endif /* __cplusplus */
-/** @cond doxygenCOnly */
+/** @cond doxygenIgnored */
 
 LIBSBML_EXTERN
 SBasePlugin_t*

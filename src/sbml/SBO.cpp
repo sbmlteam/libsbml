@@ -1327,7 +1327,7 @@ SBO::populateSBOTree()
 /** @endcond */
 
 #endif /* __cplusplus */  
-/** @cond doxygenCOnly */
+/** @cond doxygenIgnored */
 
 /** @endcond */
 

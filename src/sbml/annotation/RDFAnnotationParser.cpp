@@ -1370,7 +1370,7 @@ RDFAnnotationParser::hasHistoryRDFAnnotation(const XMLNode *annotation)
   /** @endcond */
 
 #endif /* __cplusplus */
-/** @cond doxygenCOnly */
+/** @cond doxygenIgnored */
 
 void
 RDFAnnotationParser_parseRDFAnnotation(const XMLNode_t * annotation, 

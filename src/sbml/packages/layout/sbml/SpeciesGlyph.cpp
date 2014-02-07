@@ -426,7 +426,7 @@ XMLNode SpeciesGlyph::toXML() const
 
 
 #endif /* __cplusplus */
-/** @cond doxygenCOnly */
+/** @cond doxygenIgnored */
 
 LIBSBML_EXTERN
 SpeciesGlyph_t *

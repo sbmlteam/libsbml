@@ -1002,7 +1002,7 @@ ListOfFunctionTerms::accept(SBMLVisitor& v) const
 
 
 #endif /* __cplusplus */  
-/** @cond doxygenCOnly */
+/** @cond doxygenIgnored */
 
 LIBSBML_EXTERN
 FunctionTerm_t *

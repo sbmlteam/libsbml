@@ -44,7 +44,7 @@ BEGIN_C_DECLS
 
 
 #endif /* __cplusplus */
-/** @cond doxygenCOnly */
+/** @cond doxygenIgnored */
 
 LIBSBML_EXTERN
 SBMLExtensionNamespaces_t*

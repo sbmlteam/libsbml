@@ -1456,7 +1456,7 @@ ListOfTransitions::writeXMLNS(XMLOutputStream& stream) const
 
 
 #endif /* __cplusplus */  
-/** @cond doxygenCOnly */
+/** @cond doxygenIgnored */
 
 LIBSBML_EXTERN
 Transition_t *

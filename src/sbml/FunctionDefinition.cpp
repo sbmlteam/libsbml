@@ -1010,7 +1010,7 @@ ListOfFunctionDefinitions::createObject (XMLInputStream& stream)
 
 
 #endif /* __cplusplus */
-/** @cond doxygenCOnly */
+/** @cond doxygenIgnored */
 
 LIBSBML_EXTERN
 FunctionDefinition_t *

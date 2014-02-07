@@ -426,7 +426,7 @@ ModelCreator::resetModifiedFlags()
 #endif /* __cplusplus */
 
 
-/** @cond doxygenCOnly */
+/** @cond doxygenIgnored */
 
 LIBSBML_EXTERN
 ModelCreator_t *

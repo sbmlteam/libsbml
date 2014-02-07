@@ -675,7 +675,7 @@ Date::resetModifiedFlags()
 #endif /* __cplusplus */
 
 
-/** @cond doxygenCOnly */
+/** @cond doxygenIgnored */
 
 LIBSBML_EXTERN
 Date_t *

@@ -30,7 +30,11 @@
 
 #include <sbml/util/util.h>
 
-/** @cond doxygenCOnly */
+/**
+ * @if conly
+ * @memberof ASTNode_t
+ * @endif
+ */
 LIBSBML_EXTERN
 char *
 SBML_formulaToString (const ASTNode_t *tree)
@@ -51,7 +55,6 @@ SBML_formulaToString (const ASTNode_t *tree)
   }
   return s;
 }
-/** @endcond */
 
 
 /**

@@ -194,7 +194,7 @@ SBMLConverter::getDefaultProperties() const
 }
 
   
-/** @cond doxygenCOnly */
+/** @cond doxygenIgnored */
 
 
 /** @endcond */

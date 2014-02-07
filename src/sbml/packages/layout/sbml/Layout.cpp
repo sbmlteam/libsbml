@@ -2553,7 +2553,7 @@ XMLNode ListOfTextGlyphs::toXML() const
 
 
 #endif /* __cplusplus */
-/** @cond doxygenCOnly */
+/** @cond doxygenIgnored */
 
 LIBSBML_EXTERN
 Layout_t *

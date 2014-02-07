@@ -1137,10 +1137,8 @@ SBMLTransforms::expandInitialAssignment(Species * s,
 /** @endcond */
 
 #endif /* __cplusplus */
-/** @cond doxygenCOnly */
-
-
-LIBSBML_CPP_NAMESPACE_END
+/** @cond doxygenIgnored */
 
 /** @endcond */
 
+LIBSBML_CPP_NAMESPACE_END

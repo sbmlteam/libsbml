@@ -235,7 +235,7 @@ bool operator!=(const XMLTriple& lhs, const XMLTriple& rhs)
 }
 
 #endif /* __cplusplus */
-/** @cond doxygenCOnly */
+/** @cond doxygenIgnored */
 
 
 LIBLAX_EXTERN

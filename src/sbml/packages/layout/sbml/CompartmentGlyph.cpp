@@ -530,7 +530,7 @@ XMLNode CompartmentGlyph::toXML() const
 
 
 #endif /* __cplusplus */
-/** @cond doxygenCOnly */
+/** @cond doxygenIgnored */
 
 LIBSBML_EXTERN
 CompartmentGlyph_t *

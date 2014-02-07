@@ -132,7 +132,7 @@ RateRule::renameSIdRefs(const std::string& oldid, const std::string& newid)
 #endif /* __cplusplus */
 
 
-/** @cond doxygenCOnly */
+/** @cond doxygenIgnored */
 
 /** @endcond */
 LIBSBML_CPP_NAMESPACE_END

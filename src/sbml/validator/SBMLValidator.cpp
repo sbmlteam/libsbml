@@ -248,7 +248,7 @@ SBMLValidator::getNumFailures() const
   return (unsigned int) mFailures.size();
 }
   
-/** @cond doxygenCOnly */
+/** @cond doxygenIgnored */
 
 
 /** @endcond */

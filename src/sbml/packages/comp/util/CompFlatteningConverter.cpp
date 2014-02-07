@@ -984,7 +984,7 @@ CompFlatteningConverter::haveUnflattenableUnrequiredPackages()
 
 
 
-/** @cond doxygenCOnly */
+/** @cond doxygenIgnored */
 
 
 /** @endcond */

@@ -194,7 +194,7 @@ SBMLStripPackageConverter::getPackageToStrip()
 /** @endcond */
 
 
-/** @cond doxygenCOnly */
+/** @cond doxygenIgnored */
 
 
 /** @endcond */

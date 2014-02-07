@@ -1016,7 +1016,7 @@ SBase* SBaseRef::getDirectReference()
 /** @endcond */
 
 #endif /* __cplusplus */
-/** @cond doxygenCOnly */
+/** @cond doxygenIgnored */
 
 LIBSBML_EXTERN
 SBaseRef_t *

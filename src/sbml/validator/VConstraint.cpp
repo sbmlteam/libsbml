@@ -111,7 +111,7 @@ VConstraint::logFailure (const SBase& object, const std::string& message)
 #endif /* __cplusplus */
 
 
-/** @cond doxygenCOnly */
+/** @cond doxygenIgnored */
 
 /** @endcond */
 LIBSBML_CPP_NAMESPACE_END

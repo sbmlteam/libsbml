@@ -836,7 +836,7 @@ SpeciesReferenceGlyph::enablePackageInternal(const std::string& pkgURI,
 
 
 #endif /* __cplusplus */
-/** @cond doxygenCOnly */
+/** @cond doxygenIgnored */
 
 LIBSBML_EXTERN
 SpeciesReferenceGlyph_t *

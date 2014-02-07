@@ -1039,7 +1039,7 @@ SBMLLevelVersionConverter::hasStrictSBO()
 
 
 
-/** @cond doxygenCOnly */
+/** @cond doxygenIgnored */
 
 
 /** @endcond */

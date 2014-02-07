@@ -1353,7 +1353,7 @@ void Submodel::createNewConversionFactor(string& cf, const ASTNode* newcf, strin
 
 
 #endif /* __cplusplus */
-/** @cond doxygenCOnly */
+/** @cond doxygenIgnored */
 
 LIBSBML_EXTERN
 Submodel_t *

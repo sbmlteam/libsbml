@@ -401,7 +401,7 @@ SBMLExtension::getShortMessage(unsigned int index) const
 
 
 #endif /* __cplusplus */
-/** @cond doxygenCOnly */
+/** @cond doxygenIgnored */
 
 LIBSBML_EXTERN
 SBMLExtension_t*

@@ -2499,7 +2499,7 @@ UnitFormulaFormatter::possibleToUseUnitsData(FormulaUnitsData * fud)
 }
 
 #endif /* __cplusplus */
-/** @cond doxygenCOnly */
+/** @cond doxygenIgnored */
 
 /* NOT YET NECESSARY 
 LIBSBML_EXTERN

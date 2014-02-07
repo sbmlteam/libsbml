@@ -249,7 +249,7 @@ SBMLInferUnitsConverter::existsAlready(Model& m, UnitDefinition *newUD)
 
 
 
-/** @cond doxygenCOnly */
+/** @cond doxygenIgnored */
 
 
 /** @endcond */

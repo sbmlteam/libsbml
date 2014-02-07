@@ -726,7 +726,7 @@ unsigned int
   return checkConsistency();  
 }
 
-/** @cond doxygenCOnly */
+/** @cond doxygenIgnored */
 
 
 /** @endcond */

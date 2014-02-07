@@ -371,7 +371,7 @@ SBMLRuleConverter::convert()
   
 }
 
-/** @cond doxygenCOnly */
+/** @cond doxygenIgnored */
 
 
 /** @endcond */

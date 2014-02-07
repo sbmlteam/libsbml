@@ -324,7 +324,7 @@ SBMLWriter::hasBzip2()
 
 
 #endif /* __cplusplus */
-/** @cond doxygenCOnly */
+/** @cond doxygenIgnored */
 
 
 LIBSBML_EXTERN

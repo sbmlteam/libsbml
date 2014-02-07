@@ -628,7 +628,7 @@ XMLNode Dimensions::toXML() const
 
 
 #endif /* __cplusplus */
-/** @cond doxygenCOnly */
+/** @cond doxygenIgnored */
 
 LIBSBML_EXTERN
 Dimensions_t *

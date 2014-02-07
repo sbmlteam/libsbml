@@ -603,7 +603,7 @@ SimpleSpeciesReference::writeAttributes (XMLOutputStream& stream) const
 /** @endcond */
 
 #endif /* __cplusplus */
-/** @cond doxygenCOnly */
+/** @cond doxygenIgnored */
 
 /** @endcond */
 

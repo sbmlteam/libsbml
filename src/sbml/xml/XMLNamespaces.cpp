@@ -468,7 +468,7 @@ operator<< (XMLOutputStream& stream, const XMLNamespaces& namespaces)
 
 
 #endif /* __cplusplus */
-/** @cond doxygenCOnly */
+/** @cond doxygenIgnored */
 
 LIBLAX_EXTERN
 XMLNamespaces_t *

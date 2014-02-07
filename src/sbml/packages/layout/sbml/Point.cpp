@@ -687,7 +687,7 @@ bool Point::accept (SBMLVisitor& v) const
 
 
 #endif /* __cplusplus */
-/** @cond doxygenCOnly */
+/** @cond doxygenIgnored */
 
 LIBSBML_EXTERN
 Point_t *

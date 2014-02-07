@@ -257,7 +257,7 @@ SBMLFileResolver::addAdditionalDir(const std::string& dir)
   mAdditionalDirs.push_back(dir);
 }
 
-/** @cond doxygenCOnly */
+/** @cond doxygenIgnored */
 
 
 /** @endcond */

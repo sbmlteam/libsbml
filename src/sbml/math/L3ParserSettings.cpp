@@ -124,7 +124,7 @@ bool L3ParserSettings::getParseAvogadroCsymbol() const
 #endif /* __cplusplus */
 
 
-/** @cond doxygenCOnly */
+/** @cond doxygenIgnored */
 
 LIBSBML_EXTERN
 L3ParserSettings_t *

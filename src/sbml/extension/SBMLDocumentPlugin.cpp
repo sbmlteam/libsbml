@@ -241,7 +241,7 @@ SBMLDocumentPlugin::unsetRequired()
 
 
 #endif /* __cplusplus */
-/** @cond doxygenCOnly */
+/** @cond doxygenIgnored */
 
 LIBSBML_EXTERN
 SBMLDocumentPlugin_t*

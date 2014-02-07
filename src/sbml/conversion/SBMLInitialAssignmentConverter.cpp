@@ -128,7 +128,7 @@ SBMLInitialAssignmentConverter::convert()
   
 }
 
-/** @cond doxygenCOnly */
+/** @cond doxygenIgnored */
 
 
 /** @endcond */

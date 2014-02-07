@@ -448,7 +448,7 @@ SBMLError::adjustErrorId(unsigned int offset)
 #endif /* __cplusplus */
 
 
-/** @cond doxygenCOnly */
+/** @cond doxygenIgnored */
 
 /** @endcond */
 

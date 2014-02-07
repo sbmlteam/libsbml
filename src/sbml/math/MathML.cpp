@@ -1708,19 +1708,9 @@ writeMathML (const ASTNode* node, XMLOutputStream& stream, SBMLNamespaces *sbmln
 
 
 /**
- * Reads MathML from a text string containing XML and returns the
- * corresponding AST representation of the mathematical formula.
- *
- * The content given as the string @p xml should be a complete,
- * self-contained MathML formula, enclosed by <code>&lt;math
- * xmlns="http://www.w3.org/1998/Math/MathML"></code> and
- * <code>&lt;/math></code> tags.
- *
- * @param xml the MathML to be converted, stored in a character string.
- *
- * @return an ASTnode (the root of the AST representing the mathematical
- * formula in the given XML string), otherwise @c NULL is returned if the 
- * given string is NULL or invalid.
+ * @if conly
+ * @memberof ASTNode_t
+ * @endif
  */
 LIBSBML_EXTERN
 ASTNode_t *
@@ -1766,14 +1756,9 @@ readMathMLFromString (const char *xml)
 
 
 /**
- * Writes the given ASTNode (and its children) as MathML to a string, and
- * returns the string.
- *
- * @param node the AST to be converted to MathML
- *
- * @return the XML representation of the given mathematical expression.
- * The string is owned by the caller and should be freed (with
- * <code>free()</code>) when it is no longer needed.
+ * @if conly
+ * @memberof ASTNode_t
+ * @endif
  */
 LIBSBML_EXTERN
 char *

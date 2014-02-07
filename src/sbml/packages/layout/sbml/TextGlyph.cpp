@@ -551,7 +551,7 @@ XMLNode TextGlyph::toXML() const
 
 
 #endif /* __cplusplus */
-/** @cond doxygenCOnly */
+/** @cond doxygenIgnored */
 
 LIBSBML_EXTERN
 TextGlyph_t *

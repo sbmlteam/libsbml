@@ -806,7 +806,7 @@ BoundingBox::enablePackageInternal(const std::string& pkgURI,
 
 
 #endif /* __cplusplus */
-/** @cond doxygenCOnly */
+/** @cond doxygenIgnored */
 
 LIBSBML_EXTERN
 BoundingBox_t *

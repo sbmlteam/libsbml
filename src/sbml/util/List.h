@@ -63,6 +63,10 @@ LIBSBML_CPP_NAMESPACE_BEGIN
  * <li> 1:  @p item1 >  @p item2
  * </ul>
  * @see List_find()
+ *
+ * @if conly
+ * @memberof List_t
+ * endif
  */
 typedef int (*ListItemComparator) (const void *item1, const void *item2);
 
@@ -73,6 +77,10 @@ typedef int (*ListItemComparator) (const void *item1, const void *item2);
  * returns nonzero (for true) or zero (for false).
  *
  * @see List_countIf()
+ *
+ * @if conly
+ * @memberof List_t
+ * endif
  */
 typedef int (*ListItemPredicate) (const void *item);
 
@@ -287,6 +295,10 @@ protected:
  *
  * As with all line-continuation macros, compile-time errors will still
  * report the correct line number.
+ *
+ * @if conly
+ * @memberof List_t
+ * endif
  */
 #define List_freeItems(list, free_item, type)                \
 {                                                            \
@@ -312,7 +324,9 @@ BEGIN_C_DECLS
 /**
  * Creates a new List_t and returns a pointer to it.
  *
+ * @if conly
  * @memberof List_t
+ * endif
  */
 LIBSBML_EXTERN
 List_t *
@@ -326,7 +340,9 @@ List_create (void);
  *
  * @param item the item to create a ListNode_t for.
  *
- * @memberof ListNode_t
+ * @if conly
+ * @memberof List_t
+ * endif
  */
 LIBSBML_EXTERN
 ListNode_t *
@@ -346,7 +362,9 @@ ListNode_create (void *item);
  *
  * @param lst The List_t structure
  *
+ * @if conly
  * @memberof List_t
+ * endif
  */
 LIBSBML_EXTERN
 void
@@ -373,7 +391,9 @@ ListNode_free (ListNode_t *node);
  * @param lst The List_t structure
  * @param item The item to add to the end of the list
  *
+ * @if conly
  * @memberof List_t
+ * endif
  */
 LIBSBML_EXTERN
 void
@@ -394,7 +414,9 @@ List_add (List_t *lst, void *item);
  * @param lst The List_t structure
  * @param predicate The predicate to test the elements of the list against.
  *
+ * @if conly
  * @memberof List_t
+ * endif
  */
 LIBSBML_EXTERN
 unsigned int
@@ -418,7 +440,9 @@ List_countIf (const List_t *lst, ListItemPredicate predicate);
  * @param item1 The item to look for.
  * @param comparator The pointer to the function used to find the item.
  *
+ * @if conly
  * @memberof List_t
+ * endif
  */
 LIBSBML_EXTERN
 void *
@@ -439,7 +463,9 @@ List_find ( const List_t       *lst,
  * @param lst The List_t structure
  * @param predicate The predicate to test the elements of the list against.
  *
+ * @if conly
  * @memberof List_t
+ * endif
  */
 LIBSBML_EXTERN
 List_t *
@@ -452,7 +478,9 @@ List_findIf (const List_t *lst, ListItemPredicate predicate);
  * @param lst The List_t structure
  * @param n The index of the item to find.
  *
+ * @if conly
  * @memberof List_t
+ * endif
  */
 LIBSBML_EXTERN
 void *
@@ -465,7 +493,9 @@ List_get (const List_t *lst, unsigned int n);
  * @param lst The List_t structure
  * @param item The item to add to the list.
  *
+ * @if conly
  * @memberof List_t
+ * endif
  */
 LIBSBML_EXTERN
 void
@@ -479,7 +509,9 @@ List_prepend (List_t *lst, void *item);
  * @param lst The List_t structure
  * @param n The index of the item to remove.
  *
+ * @if conly
  * @memberof List_t
+ * endif
  */
 LIBSBML_EXTERN
 void *
@@ -491,7 +523,9 @@ List_remove (List_t *lst, unsigned int n);
  *
  * @param lst The List_t structure
  *
+ * @if conly
  * @memberof List_t
+ * endif
  */
 LIBSBML_EXTERN
 unsigned int

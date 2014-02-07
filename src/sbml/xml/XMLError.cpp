@@ -811,7 +811,7 @@ ostream& operator<< (ostream& s, const XMLError& error)
 
 
 #endif /* __cplusplus */
-/** @cond doxygenCOnly */
+/** @cond doxygenIgnored */
 
 
 LIBLAX_EXTERN

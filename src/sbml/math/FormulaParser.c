@@ -293,49 +293,7 @@ static const StateActionPair_t Action[] =
 /** @endcond */
 
 
-/** @cond doxygenCOnly */
 /**
- * Parses the given SBML formula and returns a representation of it as an
- * Abstract Syntax Tree (AST).
- *
- * @copydetails doc_summary_of_string_math 
- *
- * @copydetails doc_warning_L1_math_string_syntax
- * 
- * @param formula the text-string formula expression to be parsed
- *
- * @return the root node of the AST corresponding to the @p formula, or @c
- * NULL if an error occurred in parsing the formula
- *
- * @if clike @see SBML_formulaToString()
- * @see SBML_parseL3FormulaWithSettings()
- * @see SBML_parseL3Formula()
- * @see SBML_parseL3FormulaWithModel()
- * @see SBML_getLastParseL3Error()
- * @see SBML_getDefaultL3ParserSettings()
- * @endif@~
- * @if csharp @see SBML_formulaToString()
- * @see SBML_parseL3FormulaWithSettings()
- * @see SBML_parseL3Formula()
- * @see SBML_parseL3FormulaWithModel()
- * @see SBML_getLastParseL3Error()
- * @see SBML_getDefaultL3ParserSettings()
- * @endif@~
- * @if python @see libsbml.formulaToString()
- * @see libsbml.parseL3FormulaWithSettings()
- * @see libsbml.parseL3Formula()
- * @see libsbml.parseL3FormulaWithModel()
- * @see libsbml.getLastParseL3Error()
- * @see libsbml.getDefaultL3ParserSettings()
- * @endif@~
- * @if java @see <code><a href="libsbml.html#formulaToString(org.sbml.libsbml.ASTNode tree)">libsbml.formulaToString(ASTNode tree)</a></code>
- * @see <code><a href="libsbml.html#parseL3FormulaWithSettings(java.lang.String, org.sbml.libsbml.L3ParserSettings)">libsbml.parseL3FormulaWithSettings(String formula, L3ParserSettings settings)</a></code>
- * @see <code><a href="libsbml.html#parseL3Formula(java.lang.String)">libsbml.parseL3Formula(String formula)</a></code>
- * @see <code><a href="libsbml.html#parseL3FormulaWithModel(java.lang.String, org.sbml.libsbml.Model)">parseL3FormulaWithModel(String formula, Model model)</a></code>
- * @see <code><a href="libsbml.html#getLastParseL3Error()">getLastParseL3Error()</a></code>
- * @see <code><a href="libsbml.html#getDefaultL3ParserSettings()">getDefaultL3ParserSettings()</a></code>
- * @endif@~
- *
  * @if conly
  * @memberof ASTNode_t
  * @endif
@@ -419,7 +377,6 @@ SBML_parseFormula (const char *formula)
 
   return node;
 }
-/** @endcond */
 
 
 /** @cond doxygenLibsbmlInternal */

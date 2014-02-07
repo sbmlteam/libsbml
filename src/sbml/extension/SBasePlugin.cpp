@@ -760,7 +760,7 @@ SBasePlugin::logEmptyString(const std::string &attribute,
 
 
 #endif /* __cplusplus */
-/** @cond doxygenCOnly */
+/** @cond doxygenIgnored */
 
 LIBSBML_EXTERN
 const char* 

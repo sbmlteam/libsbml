@@ -144,7 +144,7 @@ AlgebraicRule::getInternalIdOnly() const
 #endif /* __cplusplus */
 
 
-/** @cond doxygenCOnly */
+/** @cond doxygenIgnored */
 
 /** @endcond */
 LIBSBML_CPP_NAMESPACE_END

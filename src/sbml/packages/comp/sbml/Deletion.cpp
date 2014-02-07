@@ -326,7 +326,7 @@ Deletion::accept (SBMLVisitor& v) const
 
 
 #endif /* __cplusplus */
-/** @cond doxygenCOnly */
+/** @cond doxygenIgnored */
 LIBSBML_EXTERN
 Deletion_t *
 Deletion_create(unsigned int level, unsigned int version,

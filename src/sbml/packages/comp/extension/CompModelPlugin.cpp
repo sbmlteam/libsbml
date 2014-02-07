@@ -1340,7 +1340,7 @@ CompModelPlugin::getRemovedSet()
 /** @endcond */
 
 #endif /* __cplusplus */
-/** @cond doxygenCOnly */
+/** @cond doxygenIgnored */
 LIBSBML_EXTERN
 Submodel_t *
 CompModelPlugin_createSubmodel(CompModelPlugin_t * modelPlug)

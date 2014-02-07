@@ -150,7 +150,7 @@ UniquePortReferences::logReferenceExists (Port& p)
 }
 
 #endif /* __cplusplus */
-/** @cond doxygenCOnly */
+/** @cond doxygenIgnored */
 
 /** @endcond */
 

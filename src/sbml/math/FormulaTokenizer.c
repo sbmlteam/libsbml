@@ -50,9 +50,11 @@ void Token_convertNaNInf (Token_t *t);
 /** @endcond */
 
 
-/*
- * Creates a new FormulaTokenizer for the given formula string and returns
- * a pointer to it.
+/**
+ * @if conly
+ * @memberof FormulaTokenizer_t
+ * @endif
+ */
  */
 LIBSBML_EXTERN
 FormulaTokenizer_t *
@@ -71,8 +73,10 @@ FormulaTokenizer_createFromFormula (const char *formula)
 }
 
 
-/*
- * Frees the given FormulaTokenizer.
+/**
+ * @if conly
+ * @memberof FormulaTokenizer_t
+ * @endif
  */
 LIBSBML_EXTERN
 void
@@ -88,20 +92,6 @@ FormulaTokenizer_free (FormulaTokenizer_t *ft)
 
 /** @cond doxygenInternalLibsbml */
 
-/*
- * Reads a TT_NAME from the FormulaTokenizer into the given Token.  This is
- * a supporting function for FormulaTokenizer_nextToken().
- *
- * A TT_NAME is an SName:
- *
- *   letter ::=  a .. z, A .. Z
- *   digit  ::=  0 .. 9
- *   SName  ::= ( letter |  _  ) ( letter | digit |  _  )*
- *
- * This function assumes the character ft->formula[ft->pos] is either a
- * letter or an underscore.  FormulaTokenizer_nextToken() ensures this
- * precondition before calling this function.
- */
 void
 FormulaTokenizer_getName (FormulaTokenizer_t *ft, Token_t *t)
 {
@@ -128,25 +118,6 @@ FormulaTokenizer_getName (FormulaTokenizer_t *ft, Token_t *t)
 }
 
 
-/*
- * Reads either a TT_INTEGER or a TT_REAL from the FormulaTokenizer into
- * the given Token.  This is a supporting function for
- * FormulaTokenizer_nextToken().
- *
- * This function assumes the character ft->formula[ft->pos] is either a
- * period or a digit.  FormulaTokenizer_nextToken() ensures this
- * precondition before calling this function.
- *
- * Sign characters preceding the number are not recognized, but sign
- * characters in the exponent are recognized.
- *
- * A subtle error case:
- *
- * If the string starting with ft->formula[ft->pos] is some combination of
- * a '.', 'e|E' or '+|-' with no intervening digits, the token will be
- * marked as TT_UNKNOWN and t->value.ch set to ft->formula[ft->pos]
- * (a '.').
- */
 void
 FormulaTokenizer_getNumber (FormulaTokenizer_t *ft, Token_t *t)
 {
@@ -195,7 +166,7 @@ FormulaTokenizer_getNumber (FormulaTokenizer_t *ft, Token_t *t)
     c = ft->formula[ ++ft->pos ];
   }
 
-  /**
+  /*
    * Temporarily terminate ft->formula will a NULL at the character just
    * beyond the end of the number.  This prevents strtod() and strtol()
    * (below) from reading past the end of the number.
@@ -208,7 +179,7 @@ FormulaTokenizer_getNumber (FormulaTokenizer_t *ft, Token_t *t)
   stop = ft->pos;
   len  = stop - start;
 
-  /**
+  /*
    * If the token is composed only of some combination of '.', 'e|E' or
    * '+|-' mark it as TT_UNKNOWN.  Otherwise, strtod() or strtol() should
    * be able to convert it, as all the syntax checking was performed above.
@@ -220,7 +191,7 @@ FormulaTokenizer_getNumber (FormulaTokenizer_t *ft, Token_t *t)
   }
   else if (seendot || seenexp)
   {
-    /**
+    /*
      * Temporarily "hide" the exponent part, so strtod below will convert
      * only the mantissa part.
      */
@@ -233,7 +204,7 @@ FormulaTokenizer_getNumber (FormulaTokenizer_t *ft, Token_t *t)
     t->type       = TT_REAL;
     t->value.real = c_locale_strtod(ft->formula + start, &endptr);
 
-    /**
+    /*
      * Convert the exponent part and "unhide" it.
      */
     if (seenexp)
@@ -250,7 +221,7 @@ FormulaTokenizer_getNumber (FormulaTokenizer_t *ft, Token_t *t)
     t->value.integer = strtol(ft->formula + start, &endptr, 10);
   }
 
-  /**
+  /*
    * Restore the character overwritten above.
    */
   ft->formula[ endpos ] = endchar;
@@ -259,9 +230,10 @@ FormulaTokenizer_getNumber (FormulaTokenizer_t *ft, Token_t *t)
 /** @endcond */
 
 
-/*
- * @return the next token in the formula string.  If no more tokens are
- * available, the token type will be TT_END.
+/**
+ * @if conly
+ * @memberof FormulaTokenizer_t
+ * @endif
  */
 LIBSBML_EXTERN
 Token_t *
@@ -322,10 +294,6 @@ FormulaTokenizer_nextToken (FormulaTokenizer_t *ft)
 
 
 /** @cond doxygenLibsbmlInternal */
-
-/*
- * Creates a new Token and returns a point to it.
- */
 LIBSBML_EXTERN
 Token_t *
 Token_create (void)
@@ -339,9 +307,6 @@ Token_create (void)
 }
 
 
-/*
- * Frees the given Token
- */
 LIBSBML_EXTERN
 void
 Token_free (Token_t *t)
@@ -358,10 +323,6 @@ Token_free (Token_t *t)
 }
 
 
-/*
- * Converts the given Token (which must be of type TT_NAME) to a TT_REAL
- * NaN or Inf as appropriate.
- */
 void
 Token_convertNaNInf (Token_t *t)
 {
@@ -380,12 +341,6 @@ Token_convertNaNInf (Token_t *t)
 }
 
 
-/*
- * @return the value of this Token as a (long) integer.  This function
- * should be called only when the Token's type is TT_INTEGER.  If the type
- * is TT_REAL or TT_REAL_E, the function will cope by truncating the
- * number's fractional part.
- */
 long
 Token_getInteger (const Token_t *t)
 {
@@ -406,11 +361,6 @@ Token_getInteger (const Token_t *t)
 }
 
 
-/*
- * @return the value of this Token as a real (double).  This function
- * should be called only when the Token's is a number (TT_REAL, TT_REAL_E
- * or TT_INTEGER).
- */
 double
 Token_getReal (const Token_t *t)
 {
@@ -436,10 +386,6 @@ Token_getReal (const Token_t *t)
 }
 
 
-/*
- * Negates the value of this Token.  This operation is only valid if the
- * Token's type is TT_INTEGER, TT_REAL, or TT_REAL_E.
- */
 void
 Token_negateValue (Token_t *t)
 {
@@ -455,5 +401,4 @@ Token_negateValue (Token_t *t)
     t->value.real = - (t->value.real);
   }
 }
-
 /** @endcond */

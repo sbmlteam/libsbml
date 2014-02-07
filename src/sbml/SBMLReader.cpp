@@ -321,7 +321,7 @@ SBMLReader::readInternal (const char* content, bool isFile)
 
 
 #endif /* __cplusplus */
-/** @cond doxygenCOnly */
+/** @cond doxygenIgnored */
 
 
 LIBSBML_EXTERN
