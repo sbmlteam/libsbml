@@ -55,7 +55,6 @@ void Token_convertNaNInf (Token_t *t);
  * @memberof FormulaTokenizer_t
  * @endif
  */
- */
 LIBSBML_EXTERN
 FormulaTokenizer_t *
 FormulaTokenizer_createFromFormula (const char *formula)

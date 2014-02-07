@@ -372,51 +372,51 @@ Dimensions_initDefaults (Dimensions_t *d);
  * Sets all sizes of the Dimensions object to the given values.
  *
  * @param d The Dimensions_t structure
- * @param w The value to use for the width of the Dimensions_t
- * @param h The value to use for the height of the Dimensions_t
+ * @param width The value to use for the width of the Dimensions_t
+ * @param height The value to use for the height of the Dimensions_t
  * @param depth The value to use for the depth of the Dimensions_t
  *
  * @memberof Dimensions_t
  */ 
 LIBSBML_EXTERN
 void
-Dimensions_setBounds (Dimensions_t *d, double w, double h, double depth);
+Dimensions_setBounds (Dimensions_t *d, double width, double height, double depth);
 
 /**
  * Sets the width to the given value.
  *
  * @param d The Dimensions_t structure
- * @param w The value to use for the width of the Dimensions_t
+ * @param width The value to use for the width of the Dimensions_t
  *
  * @memberof Dimensions_t
  */ 
 LIBSBML_EXTERN
 void
-Dimensions_setWidth (Dimensions_t *d, double w);
+Dimensions_setWidth (Dimensions_t *d, double width);
 
 /**
  * Sets the height to the given value.
  *
  * @param d The Dimensions_t structure
- * @param h The value to use for the height of the Dimensions_t
+ * @param height The value to use for the height of the Dimensions_t
  *
  * @memberof Dimensions_t
  */ 
 LIBSBML_EXTERN
 void
-Dimensions_setHeight (Dimensions_t *d, double h);
+Dimensions_setHeight (Dimensions_t *d, double height);
 
 /**
  * Sets the depth to the given value.
  *
  * @param d The Dimensions_t structure
- * @param d The value to use for the depth of the Dimensions_t
+ * @param depth The value to use for the depth of the Dimensions_t
  *
  * @memberof Dimensions_t
  */ 
 LIBSBML_EXTERN
 void
-Dimensions_setDepth (Dimensions_t *d, double d);
+Dimensions_setDepth (Dimensions_t *d, double depth);
 
 /**
  * Returns the height.

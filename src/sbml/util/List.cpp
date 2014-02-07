@@ -360,7 +360,7 @@ List::transferFrom(List* list)
 /**
  * @if conly
  * @memberof List_t
- * endif
+ * @endif
  */
 LIBSBML_EXTERN
 List_t *
@@ -383,7 +383,7 @@ ListNode_create (void *item)
 /**
  * @if conly
  * @memberof List_t
- * endif
+ * @endif
  */
 LIBSBML_EXTERN
 void
@@ -406,7 +406,7 @@ ListNode_free (ListNode_t *node)
 /**
  * @if conly
  * @memberof List_t
- * endif
+ * @endif
  */
 LIBSBML_EXTERN
 void
@@ -420,7 +420,7 @@ List_add (List_t *lst, void *item)
 /**
  * @if conly
  * @memberof List_t
- * endif
+ * @endif
  */
 LIBSBML_EXTERN
 unsigned int
@@ -434,7 +434,7 @@ List_countIf (const List_t *lst, ListItemPredicate predicate)
 /**
  * @if conly
  * @memberof List_t
- * endif
+ * @endif
  */
 LIBSBML_EXTERN
 void *
@@ -450,7 +450,7 @@ List_find ( const List_t *lst,
 /**
  * @if conly
  * @memberof List_t
- * endif
+ * @endif
  */
 LIBSBML_EXTERN
 List_t *
@@ -464,7 +464,7 @@ List_findIf (const List_t *lst, ListItemPredicate predicate)
 /**
  * @if conly
  * @memberof List_t
- * endif
+ * @endif
  */
 LIBSBML_EXTERN
 void *
@@ -478,7 +478,7 @@ List_get (const List_t *lst, unsigned int n)
 /**
  * @if conly
  * @memberof List_t
- * endif
+ * @endif
  */
 LIBSBML_EXTERN
 void
@@ -492,7 +492,7 @@ List_prepend (List_t *lst, void *item)
 /**
  * @if conly
  * @memberof List_t
- * endif
+ * @endif
  */
 LIBSBML_EXTERN
 void *
@@ -506,7 +506,7 @@ List_remove (List_t *lst, unsigned int n)
 /**
  * @if conly
  * @memberof List_t
- * endif
+ * @endif
  */
 LIBSBML_EXTERN
 unsigned int

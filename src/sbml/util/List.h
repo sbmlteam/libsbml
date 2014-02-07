@@ -66,7 +66,7 @@ LIBSBML_CPP_NAMESPACE_BEGIN
  *
  * @if conly
  * @memberof List_t
- * endif
+ * @endif
  */
 typedef int (*ListItemComparator) (const void *item1, const void *item2);
 
@@ -80,7 +80,7 @@ typedef int (*ListItemComparator) (const void *item1, const void *item2);
  *
  * @if conly
  * @memberof List_t
- * endif
+ * @endif
  */
 typedef int (*ListItemPredicate) (const void *item);
 
@@ -298,7 +298,7 @@ protected:
  *
  * @if conly
  * @memberof List_t
- * endif
+ * @endif
  */
 #define List_freeItems(list, free_item, type)                \
 {                                                            \
@@ -326,7 +326,7 @@ BEGIN_C_DECLS
  *
  * @if conly
  * @memberof List_t
- * endif
+ * @endif
  */
 LIBSBML_EXTERN
 List_t *
@@ -342,7 +342,7 @@ List_create (void);
  *
  * @if conly
  * @memberof List_t
- * endif
+ * @endif
  */
 LIBSBML_EXTERN
 ListNode_t *
@@ -364,7 +364,7 @@ ListNode_create (void *item);
  *
  * @if conly
  * @memberof List_t
- * endif
+ * @endif
  */
 LIBSBML_EXTERN
 void
@@ -393,7 +393,7 @@ ListNode_free (ListNode_t *node);
  *
  * @if conly
  * @memberof List_t
- * endif
+ * @endif
  */
 LIBSBML_EXTERN
 void
@@ -416,7 +416,7 @@ List_add (List_t *lst, void *item);
  *
  * @if conly
  * @memberof List_t
- * endif
+ * @endif
  */
 LIBSBML_EXTERN
 unsigned int
@@ -442,7 +442,7 @@ List_countIf (const List_t *lst, ListItemPredicate predicate);
  *
  * @if conly
  * @memberof List_t
- * endif
+ * @endif
  */
 LIBSBML_EXTERN
 void *
@@ -465,7 +465,7 @@ List_find ( const List_t       *lst,
  *
  * @if conly
  * @memberof List_t
- * endif
+ * @endif
  */
 LIBSBML_EXTERN
 List_t *
@@ -480,7 +480,7 @@ List_findIf (const List_t *lst, ListItemPredicate predicate);
  *
  * @if conly
  * @memberof List_t
- * endif
+ * @endif
  */
 LIBSBML_EXTERN
 void *
@@ -495,7 +495,7 @@ List_get (const List_t *lst, unsigned int n);
  *
  * @if conly
  * @memberof List_t
- * endif
+ * @endif
  */
 LIBSBML_EXTERN
 void
@@ -511,7 +511,7 @@ List_prepend (List_t *lst, void *item);
  *
  * @if conly
  * @memberof List_t
- * endif
+ * @endif
  */
 LIBSBML_EXTERN
 void *
@@ -525,7 +525,7 @@ List_remove (List_t *lst, unsigned int n);
  *
  * @if conly
  * @memberof List_t
- * endif
+ * @endif
  */
 LIBSBML_EXTERN
 unsigned int
