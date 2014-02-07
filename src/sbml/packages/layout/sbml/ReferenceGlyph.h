@@ -86,14 +86,14 @@ public:
 
   /**
    * Creates a new ReferenceGlyph.  The id is given as the first
-   * argument, the id of the associated reference is given as the
+   * argument, the id of the associated glyph is given as the
    * second argument.  The third argument is the id of the associated
-   * glyph and the fourth argument is the role.
+   * reference and the fourth argument is the role.
    */ 
   
   ReferenceGlyph (LayoutPkgNamespaces* layoutns, const std::string& sid,
-                          const std::string& referenceId,
                           const std::string& glyphId,
+                          const std::string& referenceId,
                           const std::string& role );
         
 

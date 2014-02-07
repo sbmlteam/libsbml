@@ -93,14 +93,14 @@ public:
 
   /**
    * Creates a new SpeciesReferenceGlyph.  The id is given as the first
-   * argument, the id of the associated species reference is given as the
+   * argument, the id of the associated species glyph is given as the
    * second argument.  The third argument is the id of the associated
-   * species glyph and the fourth argument is the role.
+   * species reference and the fourth argument is the role.
    */ 
   
   SpeciesReferenceGlyph (LayoutPkgNamespaces* layoutns, const std::string& sid,
-                          const std::string& speciesReferenceId,
                           const std::string& speciesGlyphId,
+                          const std::string& speciesReferenceId,
                           SpeciesReferenceRole_t role );
         
 
@@ -457,9 +457,9 @@ SpeciesReferenceGlyph_createFrom (const SpeciesReferenceGlyph_t *temp);
 
 /**
  * Creates a new SpeciesReferenceGlyph_t object.  The id is given as the first
- * argument, the id of the associated species reference is given as the
+ * argument, the id of the associated species glyph is given as the
  * second argument.  The third argument is the id of the associated species
- * glyph and the fourth argument is the role.
+ * reference and the fourth argument is the role.
  *
  * @param sid The string to use as the ID of the SpeciesReferenceGlyph_t
  * @param speciesGlyphId The string to use as the species glyph.

@@ -114,9 +114,9 @@ ReferenceGlyph::ReferenceGlyph(LayoutPkgNamespaces* layoutns)
 
 /*
  * Creates a new ReferenceGlyph.  The id is given as the first
- * argument, the id of the associated reference is given as the
+ * argument, the id of the associated glyph is given as the
  * second argument.  The third argument is the id of the associated
- * glyph and the fourth argument is the role.
+ * reference and the fourth argument is the role.
  */ 
 ReferenceGlyph::ReferenceGlyph
 (
@@ -799,13 +799,13 @@ ReferenceGlyph_createFrom (const ReferenceGlyph_t *temp)
 LIBSBML_EXTERN
 ReferenceGlyph_t *
 ReferenceGlyph_createWith (const char *sid,
-                           const char *referenceId,
                            const char *glyphId,
+                           const char *referenceId,
                            const char* role)
 {
   LayoutPkgNamespaces layoutns;
   return new(std::nothrow)
-    ReferenceGlyph(&layoutns, sid ? sid : "", referenceId ? referenceId : "", glyphId ? glyphId : "", role ? role : "");
+    ReferenceGlyph(&layoutns, sid ? sid : "", glyphId ? glyphId : "", referenceId ? referenceId : "", role ? role : "");
 }
 
 

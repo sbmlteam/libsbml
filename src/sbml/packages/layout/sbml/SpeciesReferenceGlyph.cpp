@@ -857,13 +857,13 @@ SpeciesReferenceGlyph_createFrom (const SpeciesReferenceGlyph_t *temp)
 LIBSBML_EXTERN
 SpeciesReferenceGlyph_t *
 SpeciesReferenceGlyph_createWith (const char *sid,
-                                  const char *speciesReferenceId,
                                   const char *speciesGlyphId,
+                                  const char *speciesReferenceId,
                                   SpeciesReferenceRole_t role)
 {
   LayoutPkgNamespaces layoutns;
   return new(std::nothrow)
-    SpeciesReferenceGlyph(&layoutns, sid ? sid : "", speciesReferenceId ? speciesReferenceId : "", speciesGlyphId ? speciesGlyphId : "", role);
+    SpeciesReferenceGlyph(&layoutns, sid ? sid : "", speciesGlyphId ? speciesGlyphId : "", speciesReferenceId ? speciesReferenceId : "", role);
 }
 
 
