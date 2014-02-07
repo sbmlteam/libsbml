@@ -78,7 +78,7 @@ public:
 
         
   /**
-   * Creates a new TextGlpyh. The id is given as the first argument.
+   * Creates a new TextGlyph. The id is given as the first argument.
    *
    * (FOR BACKWARD COMPATIBILITY)
    *
@@ -87,7 +87,7 @@ public:
   TextGlyph (LayoutPkgNamespaces* layoutns, const std::string& id);
 
   /**
-   * Creates a new TextGlpyh. The id is given as the first argument, the
+   * Creates a new TextGlyph. The id is given as the first argument, the
    * text to be displayed as the second.  All other attirbutes are set to
    * the empty string.
    *
@@ -309,128 +309,194 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 BEGIN_C_DECLS
 
 
-/*
- * Creates a new TextGlyph and returns the pointer to it.
+/**
+ * Creates a new TextGlyph_t and returns the pointer to it.
+ *
+ * @memberof TextGlyph_t
  */
 LIBSBML_EXTERN
 TextGlyph_t *
 TextGlyph_create (void);
 
-/*
- * Creates a new TextGlyph from a template.
+/**
+ * Creates a new TextGlyph_t from a template.
+ *
+ * @param temp The TextGlyph_t structure to copy.
+ *
+ * @memberof TextGlyph_t
  */
 LIBSBML_EXTERN
 TextGlyph_t *
 TextGlyph_createFrom (const TextGlyph_t *temp);
 
-/*
- * Creates a new TextGlyph with the given @p id
+/**
+ * Creates a new TextGlyph_t with the given @p id
+ *
+ * @param sid The intended ID of the TextGlyph_t
+ *
+ * @memberof TextGlyph_t
  */
 LIBSBML_EXTERN
 TextGlyph_t *
 TextGlyph_createWith (const char *sid);
 
-/*
- * Creates a new TextGlyph referencing the give text.
+/**
+ * Creates a new TextGlyph_t referencing the given text.
+ *
+ * @param sid The intended ID of the TextGlyph_t
+ * @param text The intended text of the TextGlyph_t
+ *
+ * @memberof TextGlyph_t
  */
 LIBSBML_EXTERN
 TextGlyph_t *
-TextGlyph_createWithText (const char *id, const char *text);
+TextGlyph_createWithText (const char *sid, const char *text);
 
-/*
+/**
  * Frees the memory taken by the given text glyph.
+ *
+ * @param tg The TextGlyph_t structure.
+ *
+ * @memberof TextGlyph_t
  */
 LIBSBML_EXTERN
 void
-TextGlyph_free (TextGlyph_t *cg);
+TextGlyph_free (TextGlyph_t *tg);
 
-/*
+/**
  * Sets the text for the text glyph.
+ *
+ * @param tg The TextGlyph_t structure.
+ * @param text The intended text of the TextGlyph_t
+ *
+ * @memberof TextGlyph_t
  */
 LIBSBML_EXTERN
 void
-TextGlyph_setText (TextGlyph_t *cg, const char *text);
+TextGlyph_setText (TextGlyph_t *tg, const char *text);
 
-/*
+/**
  * Sets the id of the origin of the text for the text glyph.  This can be
  * the id of any valid sbml model object. The name of the object is then
- * taken as the text for the TextGlyph.
+ * taken as the text for the TextGlyph_t.
+ *
+ * @param tg The TextGlyph_t structure.
+ * @param sid The string to use as the ID of the origin of the text.
+ *
+ * @memberof TextGlyph_t
  */
 LIBSBML_EXTERN
 void
-TextGlyph_setOriginOfTextId (TextGlyph_t *cg, const char *sid);
+TextGlyph_setOriginOfTextId (TextGlyph_t *tg, const char *sid);
 
-/*
- * Sets the assoziated GraphicalObject id for the text glyph.  A TextGlyph
- * which is assoziated with a GraphicalObject can be considered as a label
+/**
+ * Sets the associated GraphicalObject_t id for the text glyph.  A TextGlyph_t
+ * which is associated with a GraphicalObject_t can be considered as a label
  * to that object and they might for example be moved together in an
  * editor.
+ *
+ * @param tg The TextGlyph_t structure.
+ * @param sid The string to use as the ID of the GraphicalObject_t.
+ *
+ * @memberof TextGlyph_t
  */
 LIBSBML_EXTERN
 void
-TextGlyph_setGraphicalObjectId (TextGlyph_t *cg, const char *sid);
+TextGlyph_setGraphicalObjectId (TextGlyph_t *tg, const char *sid);
 
 
-/*
+/**
  * Returns the text associated with this text glyph.
+ *
+ * @param tg The TextGlyph_t structure.
+ *
+ * @memberof TextGlyph_t
  */
 LIBSBML_EXTERN
 const char *
-TextGlyph_getText (const TextGlyph_t *cg);
+TextGlyph_getText (const TextGlyph_t *tg);
 
-/*
+/**
  * Returns the id of the origin of the text associated with this text
  * glyph.
+ *
+ * @param tg The TextGlyph_t structure.
+ *
+ * @memberof TextGlyph_t
  */
 LIBSBML_EXTERN
 const char *
-TextGlyph_getOriginOfTextId (const TextGlyph_t *cg);
+TextGlyph_getOriginOfTextId (const TextGlyph_t *tg);
 
-/*
+/**
  * Returns the id of the graphical object associated with this text glyph.
+ *
+ * @param tg The TextGlyph_t structure.
+ *
+ * @memberof TextGlyph_t
  */
 LIBSBML_EXTERN
 const char *
-TextGlyph_getGraphicalObjectId (const TextGlyph_t *cg);
+TextGlyph_getGraphicalObjectId (const TextGlyph_t *tg);
 
 
-/*
+/**
  * Returns true is the text attribute is not the empty string.
+ *
+ * @param tg The TextGlyph_t structure.
+ *
+ * @memberof TextGlyph_t
  */
 LIBSBML_EXTERN
 int
 TextGlyph_isSetText (const TextGlyph_t *tg);
 
 
-/*
+/**
  * Returns true is the originOfText attribute is not the empty string.
+ *
+ * @param tg The TextGlyph_t structure.
+ *
+ * @memberof TextGlyph_t
  */
 LIBSBML_EXTERN
 int
 TextGlyph_isSetOriginOfTextId (const TextGlyph_t *tg);
 
 
-/*
+/**
  * Returns true is the id of the associated graphical object is not the
  * empty string.
+ *
+ * @param tg The TextGlyph_t structure.
+ *
+ * @memberof TextGlyph_t
  */
 LIBSBML_EXTERN
 int
 TextGlyph_isSetGraphicalObjectId (const TextGlyph_t *tg);
 
-/*
+/**
  * Calls initDefaults from GraphicalObject.
+ *
+ * @param tg The TextGlyph_t structure.
+ *
+ * @memberof TextGlyph_t
  */ 
 LIBSBML_EXTERN
 void
 TextGlyph_initDefaults (TextGlyph_t *tg);
 
-/*
- * @return a (deep) copy of this TextGlyph.
+/**
+ * @return a (deep) copy of this TextGlyph_t.
+ *
+ * @param tg The TextGlyph_t structure.
+ *
+ * @memberof TextGlyph_t
  */
 LIBSBML_EXTERN
 TextGlyph_t *
-TextGlyph_clone (const TextGlyph_t *m);
+TextGlyph_clone (const TextGlyph_t *tg);
 
 
 END_C_DECLS

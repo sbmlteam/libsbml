@@ -1670,385 +1670,627 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 BEGIN_C_DECLS
 
 
-/*
- * Creates a new Layout and returns a pointer to it.
+/**
+ * Creates a new Layout_t and returns a pointer to it.
+ *
+ * @memberof Layout_t
  */
 LIBSBML_EXTERN
 Layout_t *
 Layout_create (void);
 
-/*
- * Creates a new Layout with the given @p id and returns a pointer to it.
+/**
+ * Creates a new Layout_t with the given @p id and returns a pointer to it.
+ *
+ * @param sid The id of the created Layout_t
+ *
+ * @memberof Layout_t
  */
 LIBSBML_EXTERN
 Layout_t *
 Layout_createWith (const char *sid);
 
-/*
- * Creates a Layout object from a template.
+/**
+ * Creates a Layout_t object from a template.
+ *
+ * @param temp The Layout_t structure to copy
+ *
+ * @memberof Layout_t
  */
 LIBSBML_EXTERN
 Layout_t *
 Layout_createFrom (const Layout_t *temp);
 
-/*
- * Creates a new Layout with the given width, height and depth and returns
+/**
+ * Creates a new Layout_t with the given width, height and depth and returns
  * a pointer to it.  The depth value defaults to 0.0.
+ *
+ * @param sid    The id of the created Layout_t
+ * @param width  The value of the width.
+ * @param height The value of the height.
+ * @param depth  The value of the depth.
+ *
+ * @memberof Layout_t
  */
 LIBSBML_EXTERN
 Layout_t *
-Layout_createWithSize (const char *id,
+Layout_createWithSize (const char *sid,
                        double width, double height, double depth);
 
-/*
- * Creates a new Layout with the given Dimensions and returns a pointer to
+/**
+ * Creates a new Layout_t with the given Dimensions and returns a pointer to
  * it.
+ *
+ * @param sid        The id of the created Layout_t
+ * @param dimensions The dimensions of the created Layout_t structure.
+ *
+ * @memberof Layout_t
  */
 LIBSBML_EXTERN
 Layout_t *
-Layout_createWithDimensions (const char *id, const Dimensions_t *dimensions);
+Layout_createWithDimensions (const char *sid, const Dimensions_t *dimensions);
 
-/* 
+/** 
  * Frees the memory for the given layout.
+ *
+ * @param l The Layout_t structure
+ *
+ * @memberof Layout_t
  */
 LIBSBML_EXTERN
 void 
 Layout_free (Layout_t *l);
 
 
+/**
+ * Sets the dimensions of the given Layout_t structure
+ *
+ * @param l The Layout_t structure
+ * @param dimensions The dimensions to use for the Layout_t structure.
+ *
+ * @memberof Layout_t
+ */
 LIBSBML_EXTERN
 void
 Layout_setDimensions (Layout_t *l, const Dimensions_t *dimensions);
 
-/*
+/**
  * Adds a new compartment glyph to the list of compartment glyphs.
+ *
+ * @param l The Layout_t structure
+ * @param cg The CompartmentGlyph_t to add to the Layout_t structure.
+ *
+ * @memberof Layout_t
  */
 LIBSBML_EXTERN
 void
 Layout_addCompartmentGlyph (Layout_t *l, CompartmentGlyph_t *cg);
 
-/*
+/**
  * Adds a new species glyph to the list of species glyphs.
+ *
+ * @param l The Layout_t structure
+ * @param sg The SpeciesGlyph_t to add to the Layout_t structure.
+ *
+ * @memberof Layout_t
  */
 LIBSBML_EXTERN
 void
 Layout_addSpeciesGlyph (Layout_t *l, SpeciesGlyph_t *sg);
 
-/*
+/**
  * Adds a new reaction glyph to the list of reaction glyphs.
+ *
+ * @param l The Layout_t structure
+ * @param rg The ReactionGlyph_t to add to the Layout_t structure.
+ *
+ * @memberof Layout_t
  */
 LIBSBML_EXTERN
 void
 Layout_addReactionGlyph (Layout_t *l, ReactionGlyph_t *rg);
 
-/*
+/**
  * Adds a new GraphicalObject to the list of additional graphical objects.
+ *
+ * @param l The Layout_t structure
+ * @param go The GraphicalObject_t to add to the Layout_t structure.
+ *
+ * @memberof Layout_t
  */
 LIBSBML_EXTERN
 void
 Layout_addAdditionalGraphicalObject (Layout_t *l, GraphicalObject_t *go);
 
-/*
+/**
  * Adds a new TextGlyph to the list of text glyphs.
+ *
+ * @param l The Layout_t structure
+ * @param tg The TextGlyph_t to add to the Layout_t structure.
+ *
+ * @memberof Layout_t
  */
 LIBSBML_EXTERN
 void
-Layout_addTextGlyph (Layout_t *l, TextGlyph_t *go);
+Layout_addTextGlyph (Layout_t *l, TextGlyph_t *tg);
 
 
-/*
+/**
  * Returns a pointer to the CompartmentGlyph with the given index.
+ *
+ * @param l The Layout_t structure
+ * @param index The index of the desired CompartmentGlyph_t.
+ *
+ * @memberof Layout_t
  */
 LIBSBML_EXTERN
 CompartmentGlyph_t *
 Layout_getCompartmentGlyph (Layout_t *l, unsigned int index);
 
-/*
+/**
  * Returns a pointer to the SpeciesGlyph with the given index.
+ *
+ * @param l The Layout_t structure
+ * @param index The index of the desired SpeciesGlyph_t.
+ *
+ * @memberof Layout_t
  */
 LIBSBML_EXTERN
 SpeciesGlyph_t *
 Layout_getSpeciesGlyph (Layout_t *l, unsigned int index);
 
 
-/*
+/**
  * Returns a pointer to the ReactionGlyph with the given index.
+ *
+ * @param l The Layout_t structure
+ * @param index The index of the desired ReactionGlyph_t.
+ *
+ * @memberof Layout_t
  */
 LIBSBML_EXTERN
 ReactionGlyph_t *
 Layout_getReactionGlyph (Layout_t *l, unsigned int index);
 
 
-/*
+/**
  * Returns a pointer to the AdditionalGraphicalObject with the given index.
+ *
+ * @param l The Layout_t structure
+ * @param index The index of the desired GraphicalObject_t.
+ *
+ * @memberof Layout_t
  */
 LIBSBML_EXTERN
 GraphicalObject_t *
 Layout_getAdditionalGraphicalObject (Layout_t *l, unsigned int index);
 
-/*
+/**
  * Returns a pointer to the GraphicalObject with the given index.
+ *
+ * @param l The Layout_t structure
+ * @param index The index of the desired TextGlyph_t.
+ *
+ * @memberof Layout_t
  */
 LIBSBML_EXTERN
 TextGlyph_t *
 Layout_getTextGlyph (Layout_t *l, unsigned int index);
 
 
-/*
+/**
  * Returns a pointer to the list of CompartmentGlyphs.
+ *
+ * @param l The Layout_t structure
+ *
+ * @memberof Layout_t
  */
 LIBSBML_EXTERN
 ListOf_t *
 Layout_getListOfCompartmentGlyphs (Layout_t *l);
 
-/*
+/**
  * Returns a pointer to the list of SpeciesGlyphs.
+ *
+ * @param l The Layout_t structure
+ *
+ * @memberof Layout_t
  */
 LIBSBML_EXTERN
 ListOf_t *
 Layout_getListOfSpeciesGlyphs (Layout_t *l);
 
 
-/*
+/**
  * Returns a pointer to the list of ReactionGlyphs.
+ *
+ * @param l The Layout_t structure
+ *
+ * @memberof Layout_t
  */
 LIBSBML_EXTERN
 ListOf_t *
 Layout_getListOfReactionGlyphs (Layout_t *l);
 
 
-/*
+/**
  * Returns a pointer to the list of additional GraphicalObjects.
+ *
+ * @param l The Layout_t structure
+ *
+ * @memberof Layout_t
  */
 LIBSBML_EXTERN
 ListOf_t *
 Layout_getListOfAdditionalGraphicalObjects (Layout_t *l);
 
-/*
+/**
  * Returns a pointer to the list of TextGlyphs.
+ *
+ * @param l The Layout_t structure
+ *
+ * @memberof Layout_t
  */
 LIBSBML_EXTERN
 ListOf_t *
 Layout_getListOfTextGlyphs (Layout_t *l);
 
 
-/*
+/**
  * Returns a Dimensions_t pointer from the layout.
+ *
+ * @param l The Layout_t structure
+ *
+ * @memberof Layout_t
  */
 LIBSBML_EXTERN
 Dimensions_t*
 Layout_getDimensions(Layout_t *l);
 
-/*
+/**
  * Returns the number of CompartmentGlyphs.
+ *
+ * @param l The Layout_t structure
+ *
+ * @memberof Layout_t
  */
 LIBSBML_EXTERN
 unsigned int
 Layout_getNumCompartmentGlyphs (const Layout_t *l);
 
-/*
+/**
  * Returns the number of SpeciesGlyphs.
+ *
+ * @param l The Layout_t structure
+ *
+ * @memberof Layout_t
  */
 LIBSBML_EXTERN
 unsigned int
 Layout_getNumSpeciesGlyphs (const Layout_t *l);
 
 
-/*
+/**
  * Returns the number of ReactionGlyphs.
+ *
+ * @param l The Layout_t structure
+ *
+ * @memberof Layout_t
  */
 LIBSBML_EXTERN
 unsigned int
 Layout_getNumReactionGlyphs (const Layout_t *l);
 
-
-/*
+/**
  * Returns the number of additional GraphicalObjects.
+ *
+ * @param l The Layout_t structure
+ *
+ * @memberof Layout_t
  */
 LIBSBML_EXTERN
 unsigned int
 Layout_getNumAdditionalGraphicalObjects (const Layout_t *l);
 
-/*
+/**
  * Returns the number of TextGlyphs.
+ *
+ * @param l The Layout_t structure
+ *
+ * @memberof Layout_t
  */
 LIBSBML_EXTERN
 unsigned int
 Layout_getNumTextGlyphs (const Layout_t *l);
 
-
-
-/*
+/**
  * Removes the compartment glyph with the given index.  If the index is
  * invalid, nothing is deleted.
+ *
+ * @param l The Layout_t structure
+ * @param index The index of the CompartmentGlyph_t to remove.
+ *
+ * @memberof Layout_t
  */ 
 LIBSBML_EXTERN
 CompartmentGlyph_t *
 Layout_removeCompartmentGlyph (Layout_t *l, unsigned int index);
 
-/*
+/**
  * Removes the species glyph with the given index.  If the index is
  * invalid, nothing is deleted.
+ *
+ * @param l The Layout_t structure
+ * @param index The index of the SpeciesGlyph_t to remove.
+ *
+ * @memberof Layout_t
  */ 
 LIBSBML_EXTERN
 SpeciesGlyph_t *
 Layout_removeSpeciesGlyph (Layout_t *l, unsigned int index);
 
-/*
+/**
  * Removes the reaction glyph with the given index.  If the index is
  * invalid, nothing is deleted.
+ *
+ * @param l The Layout_t structure
+ * @param index The index of the ReactionGlyph_t to remove.
+ *
+ * @memberof Layout_t
  */ 
 LIBSBML_EXTERN
 ReactionGlyph_t *
 Layout_removeReactionGlyph (Layout_t *l, unsigned int index);
  
-/*
+/**
  * Removes the text glyph with the given index.  If the index is invalid,
  * nothing is deleted.
+ *
+ * @param l The Layout_t structure
+ * @param index The index of the TextGlyph_t to remove.
+ *
+ * @memberof Layout_t
  */ 
 LIBSBML_EXTERN
 TextGlyph_t *
 Layout_removeTextGlyph (Layout_t *l, unsigned int index);
  
-/*
+/**
  * Removes the graphical object with the given index.  If the index is
  * invalid, nothing is deleted.
+ *
+ * @param l The Layout_t structure
+ * @param index The index of the GraphicalObject_t to remove.
+ *
+ * @memberof Layout_t
  */ 
 LIBSBML_EXTERN
 GraphicalObject_t *
 Layout_removeAdditionalGraphicalObject (Layout_t *l, unsigned int index);
 
-/*
+/**
  * Removes the compartment glyph with the given @p id.  If the id is
  * not found, nothing is deleted.
+ *
+ * @param l The Layout_t structure
+ * @param id The id of the CompartmentGlyph_t to remove.
+ *
+ * @memberof Layout_t
  */ 
 LIBSBML_EXTERN
 CompartmentGlyph_t *
 Layout_removeCompartmentGlyphWithId (Layout_t *l, const char* id);
 
-/*
+/**
  * Removes the species glyph with the given @p id.  If the id is
  * not found, nothing is deleted.
+ *
+ * @param l The Layout_t structure
+ * @param id The id of the SpeciesGlyph_t to remove.
+ *
+ * @memberof Layout_t
  */ 
 LIBSBML_EXTERN
 SpeciesGlyph_t *
 Layout_removeSpeciesGlyphWithId (Layout_t *l, const char* id);
 
-/*
+/**
  * Removes the species reference glyph with the given @p id.  If the id is
  * not found, nothing is deleted.
+ *
+ * @param l The Layout_t structure
+ * @param id The id of the SpeciesReferenceGlyph_t to remove.
+ *
+ * @memberof Layout_t
  */ 
 LIBSBML_EXTERN
 SpeciesReferenceGlyph_t *
 Layout_removeSpeciesReferenceGlyphWithId (Layout_t *l, const char* id);
 
-/*
+/**
  * Removes the reaction glyph with the given @p id.  If the id is
  * not found, nothing is deleted.
+ *
+ * @param l The Layout_t structure
+ * @param id The id of the ReactionGlyph_t to remove.
+ *
+ * @memberof Layout_t
  */ 
 LIBSBML_EXTERN
 ReactionGlyph_t *
 Layout_removeReactionGlyphWithId (Layout_t *l, const char* id);
  
-/*
+/**
  * Removes the text glyph with the given @p id.  If the id is not found,
  * nothing is deleted.
+ *
+ * @param l The Layout_t structure
+ * @param id The id of the TextGlyph_t to remove.
+ *
+ * @memberof Layout_t
  */ 
 LIBSBML_EXTERN
 TextGlyph_t *
 Layout_removeTextGlyphWithId (Layout_t *l, const char* id);
  
-/*
+/**
  * Removes the graphical object with the given @p id.  If the id is
  * not found, nothing is deleted.
+ *
+ * @param l The Layout_t structure
+ * @param id The id of the GraphicalObject_t to remove.
+ *
+ * @memberof Layout_t
  */ 
 LIBSBML_EXTERN
 GraphicalObject_t *
-Layout_removeAdditionalGraphicalObjectWithId (Layout_t *l, const char* );
+Layout_removeAdditionalGraphicalObjectWithId (Layout_t *l, const char* id);
     
-/*
- * Does nothing since no defaults are defined for Layout.
+/**
+ * Does nothing since no defaults are defined for Layout_t.
+ *
+ * @param l The Layout_t structure
+ *
+ * @memberof Layout_t
  */ 
 LIBSBML_EXTERN
 void
 Layout_initDefaults (Layout_t *l);
 
 
-/*
+/**
  * Creates a ComparmentGlyph_t object, adds it to the end of the
  * compartment glyphs objects list and returns a pointer to the newly
  * created object.
+ *
+ * @param l The Layout_t structure
+ *
+ * @memberof Layout_t
  */
 LIBSBML_EXTERN
 CompartmentGlyph_t *
-Layout_createCompartmentGlyph (Layout_t *);
+Layout_createCompartmentGlyph (Layout_t *l);
 
-/*
+/**
  * Creates a SpeciesGlyph object, adds it to the end of the species glyphs
  * objects list and returns a pointer to the newly created object.
+ *
+ * @param l The Layout_t structure
+ *
+ * @memberof Layout_t
  */
 LIBSBML_EXTERN
 SpeciesGlyph_t *
-Layout_createSpeciesGlyph (Layout_t *);
+Layout_createSpeciesGlyph (Layout_t *l);
 
 
-/*
+/**
  * Creates a ReactionGlyph_t object, adds it to the end of the reaction
  * glyphs objects list and returns a pointer to the newly created object.
+ *
+ * @param l The Layout_t structure
+ *
+ * @memberof Layout_t
  */
 LIBSBML_EXTERN
 ReactionGlyph_t *
-Layout_createReactionGlyph (Layout_t *);
+Layout_createReactionGlyph (Layout_t *l);
 
-/*
+/**
  * Creates a GeneralGlyph_t object, adds it to the end of the additional
  * objects list and returns a pointer to the newly created object.
+ *
+ * @param l The Layout_t structure
+ *
+ * @memberof Layout_t
  */
 LIBSBML_EXTERN
 GeneralGlyph_t *
-Layout_createGeneralGlyph (Layout_t *);
+Layout_createGeneralGlyph (Layout_t *l);
 
 
-/*
+/**
  * Creates a TextGlyph_t object, adds it to the end of the text glyphs
  * objects list and returns a pointer to the newly created object.
+ *
+ * @param l The Layout_t structure
+ *
+ * @memberof Layout_t
  */
 LIBSBML_EXTERN
 TextGlyph_t *
-Layout_createTextGlyph (Layout_t *);
+Layout_createTextGlyph (Layout_t *l);
 
 
-/*
+/**
  * Creates a GraphicalObject object, adds it to the end of the additional
  * graphical objects list and returns a pointer to the newly created
  * object.
+ *
+ * @param l The Layout_t structure
+ *
+ * @memberof Layout_t
  */
 LIBSBML_EXTERN
 GraphicalObject_t *
-Layout_createAdditionalGraphicalObject (Layout_t *);
+Layout_createAdditionalGraphicalObject (Layout_t *l);
 
-/*
- * @return a (deep) copy of this Layout.
+/**
+ * @return a (deep) copy of this Layout_t.
+ *
+ * @param l The Layout_t structure
+ *
+ * @memberof Layout_t
  */
 LIBSBML_EXTERN
 Layout_t *
-Layout_clone (const Layout_t *m);
+Layout_clone (const Layout_t *l);
 
 
+/**
+ * Returns non-zero if the id is set
+ *
+ * @param l The Layout_t structure
+ *
+ * @memberof Layout_t
+ */
 LIBSBML_EXTERN
 int
 Layout_isSetId (const Layout_t *l);
 
+
+/**
+ * Returns the id
+ *
+ * @param l The Layout_t structure
+ *
+ * @memberof Layout_t
+ */
 LIBSBML_EXTERN
 const char *
 Layout_getId (const Layout_t *l);
 
 
+/**
+ * Sets the id
+ *
+ * @param l The Layout_t structure
+ * @param sid The string to use as the ID of the Layout_t
+ *
+ * @memberof Layout_t
+ */
 LIBSBML_EXTERN
 int
 Layout_setId (Layout_t *l, const char *sid);
 
 
+/**
+ * Unsets the id
+ *
+ * @param l The Layout_t structure
+ *
+ * @memberof Layout_t
+ */
 LIBSBML_EXTERN
 void
 Layout_unsetId (Layout_t *l);

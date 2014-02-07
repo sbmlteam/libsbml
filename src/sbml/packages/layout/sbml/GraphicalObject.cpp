@@ -1188,9 +1188,6 @@ XMLNode ListOfGraphicalObjects::toXML() const
 #endif /* __cplusplus */
 /** @cond doxygenCOnly */
 
-/**
- * Creates a new GraphicalObject.
- */
 LIBSBML_EXTERN
 GraphicalObject_t *
 GraphicalObject_create (void)
@@ -1199,9 +1196,6 @@ GraphicalObject_create (void)
 }
 
 
-/**
- * Creates a GraphicalObject from a template.
- */
 LIBSBML_EXTERN
 GraphicalObject_t *
 GraphicalObject_createFrom (const GraphicalObject_t *temp)
@@ -1209,9 +1203,6 @@ GraphicalObject_createFrom (const GraphicalObject_t *temp)
   return new(std::nothrow) GraphicalObject(*temp);
 }
 
-/**
- * Frees all memory taken up by the GraphicalObject.
- */ 
 LIBSBML_EXTERN
 void
 GraphicalObject_free (GraphicalObject_t *go)
@@ -1219,11 +1210,6 @@ GraphicalObject_free (GraphicalObject_t *go)
   delete go;
 }
 
-
-
-/**
- * Sets the boundingbox for the GraphicalObject.
- */ 
 LIBSBML_EXTERN
 void
 GraphicalObject_setBoundingBox (GraphicalObject_t *go, const BoundingBox_t *bb)
@@ -1231,10 +1217,6 @@ GraphicalObject_setBoundingBox (GraphicalObject_t *go, const BoundingBox_t *bb)
   go->setBoundingBox(bb);
 }
 
-
-/**
- * Returns the bounding box for the GraphicalObject.
- */ 
 LIBSBML_EXTERN
 BoundingBox_t *
 GraphicalObject_getBoundingBox (GraphicalObject_t *go)
@@ -1242,10 +1224,6 @@ GraphicalObject_getBoundingBox (GraphicalObject_t *go)
   return go->getBoundingBox();
 }
 
-
-/**
- * Does nothing. No defaults are defined for GraphicalObject.
- */ 
 LIBSBML_EXTERN
 void
 GraphicalObject_initDefaults (GraphicalObject_t *go)
@@ -1253,11 +1231,6 @@ GraphicalObject_initDefaults (GraphicalObject_t *go)
   go->initDefaults();
 }
 
-
-
-/**
- * @return a (deep) copy of this GraphicalObject.
- */
 LIBSBML_EXTERN
 GraphicalObject_t *
 GraphicalObject_clone (const GraphicalObject_t *m)
@@ -1265,10 +1238,6 @@ GraphicalObject_clone (const GraphicalObject_t *m)
   return static_cast<GraphicalObject*>( m->clone() );
 }
 
-
-/**
- * Returns non-zero if the id is set
- */
 LIBSBML_EXTERN
 int
 GraphicalObject_isSetId (const GraphicalObject_t *go)
@@ -1276,9 +1245,6 @@ GraphicalObject_isSetId (const GraphicalObject_t *go)
   return static_cast <int> (go->isSetId());
 }
 
-/**
- * Returns the id
- */
 LIBSBML_EXTERN
 const char *
 GraphicalObject_getId (const GraphicalObject_t *go)
@@ -1286,9 +1252,6 @@ GraphicalObject_getId (const GraphicalObject_t *go)
   return go->isSetId() ? go->getId().c_str() : NULL;
 }
 
-/**
- * Sets the id
- */
 LIBSBML_EXTERN
 int
 GraphicalObject_setId (GraphicalObject_t *go, const char *sid)
@@ -1296,9 +1259,6 @@ GraphicalObject_setId (GraphicalObject_t *go, const char *sid)
   return (sid == NULL) ? go->setId("") : go->setId(sid);
 }
 
-/**
- * Unsets the id
- */
 LIBSBML_EXTERN
 void
 GraphicalObject_unsetId (GraphicalObject_t *go)

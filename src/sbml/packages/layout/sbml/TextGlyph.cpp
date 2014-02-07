@@ -98,7 +98,7 @@ TextGlyph::TextGlyph (LayoutPkgNamespaces* layoutns)
 
 
 /*
- * Creates a new TextGlpyh. The id is given as the first argument.
+ * Creates a new TextGlyph. The id is given as the first argument.
  */ 
 TextGlyph::TextGlyph (LayoutPkgNamespaces* layoutns, const std::string& id)
  : GraphicalObject(layoutns, id)
@@ -121,7 +121,7 @@ TextGlyph::TextGlyph (LayoutPkgNamespaces* layoutns, const std::string& id)
 }
 
 /*
- * Creates a new TextGlpyh. The id is given as the first argument, the text
+ * Creates a new TextGlyph. The id is given as the first argument, the text
  * to be displayed as the second.  All other attirbutes are set to the
  * empty string.
  */ 
@@ -553,9 +553,6 @@ XMLNode TextGlyph::toXML() const
 #endif /* __cplusplus */
 /** @cond doxygenCOnly */
 
-/**
- * Creates a new TextGlyph and returns the pointer to it.
- */
 LIBSBML_EXTERN
 TextGlyph_t *
 TextGlyph_create (void)
@@ -564,9 +561,6 @@ TextGlyph_create (void)
 }
 
 
-/**
- * Creates a new TextGlyph from a template.
- */
 LIBSBML_EXTERN
 TextGlyph_t *
 TextGlyph_createFrom (const TextGlyph_t *temp)
@@ -575,9 +569,6 @@ TextGlyph_createFrom (const TextGlyph_t *temp)
 }
 
 
-/**
- * Creates a new TextGlyph with the given @p id
- */
 LIBSBML_EXTERN
 TextGlyph_t *
 TextGlyph_createWith (const char *sid)
@@ -587,9 +578,6 @@ TextGlyph_createWith (const char *sid)
 }
 
 
-/**
- * Creates a new TextGlyph referencing the give text.
- */
 LIBSBML_EXTERN
 TextGlyph_t *
 TextGlyph_createWithText (const char *id, const char *text)
@@ -599,9 +587,6 @@ TextGlyph_createWithText (const char *id, const char *text)
 }
 
 
-/**
- * Frees the memory taken by the given text glyph.
- */
 LIBSBML_EXTERN
 void
 TextGlyph_free (TextGlyph_t *tg)
@@ -610,9 +595,6 @@ TextGlyph_free (TextGlyph_t *tg)
 }
 
 
-/**
- * Sets the text for the text glyph.
- */
 LIBSBML_EXTERN
 void
 TextGlyph_setText (TextGlyph_t *tg, const char *text)
@@ -621,11 +603,6 @@ TextGlyph_setText (TextGlyph_t *tg, const char *text)
 }
 
 
-/**
- * Sets the id of the origin of the text for the text glyph.  This can be
- * the id of any valid sbml model object. The name of the object is then
- * taken as the text for the TextGlyph.
- */
 LIBSBML_EXTERN
 void
 TextGlyph_setOriginOfTextId (TextGlyph_t *tg, const char *sid)
@@ -634,12 +611,6 @@ TextGlyph_setOriginOfTextId (TextGlyph_t *tg, const char *sid)
 }
 
 
-/**
- * Sets the assoziated GraphicalObject id for the text glyph.  A TextGlyph
- * which is assoziated with a GraphicalObject can be considered as a label
- * to that object and they might for example be moved together in an
- * editor.
- */
 LIBSBML_EXTERN
 void
 TextGlyph_setGraphicalObjectId (TextGlyph_t *tg, const char *sid)
@@ -648,9 +619,6 @@ TextGlyph_setGraphicalObjectId (TextGlyph_t *tg, const char *sid)
 }
 
 
-/**
- * Returns the text associated with this text glyph.
- */
 LIBSBML_EXTERN
 const char *
 TextGlyph_getText (const TextGlyph_t *tg)
@@ -659,10 +627,6 @@ TextGlyph_getText (const TextGlyph_t *tg)
 }
 
 
-/**
- * Returns the id of the origin of the text associated with this text
- * glyph.
- */
 LIBSBML_EXTERN
 const char *
 TextGlyph_getGraphicalObjectId (const TextGlyph_t *tg)
@@ -671,9 +635,6 @@ TextGlyph_getGraphicalObjectId (const TextGlyph_t *tg)
 }
 
 
-/**
- * Returns the id of the graphical object associated with this text glyph.
- */
 LIBSBML_EXTERN
 const char *
 TextGlyph_getOriginOfTextId (const TextGlyph_t *tg)
@@ -682,9 +643,6 @@ TextGlyph_getOriginOfTextId (const TextGlyph_t *tg)
 }
 
 
-/**
- * Returns true is the text attribute is not the empty string.
- */
 LIBSBML_EXTERN
 int
 TextGlyph_isSetText (const TextGlyph_t *tg)
@@ -693,9 +651,6 @@ TextGlyph_isSetText (const TextGlyph_t *tg)
 }
 
 
-/**
- * Returns true is the originOfText attribute is not the empty string.
- */
 LIBSBML_EXTERN
 int
 TextGlyph_isSetOriginOfTextId (const TextGlyph_t *tg)
@@ -704,10 +659,6 @@ TextGlyph_isSetOriginOfTextId (const TextGlyph_t *tg)
 }
 
 
-/**
- * Returns true is the id of the associated graphical object is not the
- * empty string.
- */
 LIBSBML_EXTERN
 int
 TextGlyph_isSetGraphicalObjectId (const TextGlyph_t *tg)
@@ -716,9 +667,6 @@ TextGlyph_isSetGraphicalObjectId (const TextGlyph_t *tg)
 }
 
 
-/**
- * Calls initDefaults from GraphicalObject.
- */ 
 LIBSBML_EXTERN
 void
 TextGlyph_initDefaults (TextGlyph_t *tg)
@@ -726,9 +674,7 @@ TextGlyph_initDefaults (TextGlyph_t *tg)
   tg->initDefaults();
 }
 
-/**
- * @return a (deep) copy of this TextGlyph.
- */
+
 LIBSBML_EXTERN
 TextGlyph_t *
 TextGlyph_clone (const TextGlyph_t *m)

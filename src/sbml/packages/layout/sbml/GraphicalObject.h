@@ -612,72 +612,129 @@ BEGIN_C_DECLS
 
 
 
-/*
- * Creates a new GraphicalObject.
+/**
+ * Creates a new GraphicalObject_t.
+ *
+ * @memberof GraphicalObject_t
  */
 LIBSBML_EXTERN
 GraphicalObject_t *
 GraphicalObject_create (void);
 
 
-/*
- * Creates a GraphicalObject from a template.
+/**
+ * Creates a GraphicalObject_t from a template.
+ *
+ * @param temp The GraphicalObject_t structure to copy.
+ *
+ * @memberof GraphicalObject_t
  */
 LIBSBML_EXTERN
 GraphicalObject_t *
 GraphicalObject_createFrom (const GraphicalObject_t *temp);
 
-/*
- * Frees all memory taken up by the GraphicalObject.
+/**
+ * Frees all memory taken up by the GraphicalObject_t.
+ *
+ * @param go The GraphicalObject_t structure.
+ *
+ * @memberof GraphicalObject_t
  */ 
 LIBSBML_EXTERN
 void
 GraphicalObject_free (GraphicalObject_t *go);
 
 
-/*
- * Sets the boundingbox for the GraphicalObject.
+/**
+ * Sets the boundingbox for the GraphicalObject_t.
+ *
+ * @param go The GraphicalObject_t structure.
+ * @param bb The BoundingBox_t structure to use.
+ *
+ * @memberof GraphicalObject_t
  */ 
 LIBSBML_EXTERN
 void
 GraphicalObject_setBoundingBox (GraphicalObject_t *go, const BoundingBox_t *bb);
 
-/*
- * Returns the bounding box for the GraphicalObject.
+/**
+ * Returns the bounding box for the GraphicalObject_t.
+ *
+ * @param go The GraphicalObject_t structure.
+ *
+ * @memberof GraphicalObject_t
  */ 
 LIBSBML_EXTERN
 BoundingBox_t *
 GraphicalObject_getBoundingBox (GraphicalObject_t *go);
 
-/*
- * Does nothing. No defaults are defined for GraphicalObject.
+/**
+ * Does nothing. No defaults are defined for GraphicalObject_t.
+ *
+ * @param go The GraphicalObject_t structure.
+ *
+ * @memberof GraphicalObject_t
  */ 
 LIBSBML_EXTERN
 void
 GraphicalObject_initDefaults (GraphicalObject_t *go);
 
-/*
- * @return a (deep) copy of this GraphicalObject.
+/**
+ * @return a (deep) copy of this GraphicalObject_t.
+ *
+ * @param go The GraphicalObject_t structure.
+ *
+ * @memberof GraphicalObject_t
  */
 LIBSBML_EXTERN
 GraphicalObject_t *
-GraphicalObject_clone (const GraphicalObject_t *m);
+GraphicalObject_clone (const GraphicalObject_t *go);
 
 
+/**
+ * Returns non-zero if the id is set
+ *
+ * @param go The GraphicalObject_t structure.
+ *
+ * @memberof GraphicalObject_t
+ */
 LIBSBML_EXTERN
 int
 GraphicalObject_isSetId (const GraphicalObject_t *go);
 
+
+/**
+ * Returns the id
+ *
+ * @param go The GraphicalObject_t structure.
+ *
+ * @memberof GraphicalObject_t
+ */
 LIBSBML_EXTERN
 const char *
 GraphicalObject_getId (const GraphicalObject_t *go);
 
 
+/**
+ * Sets the id
+ *
+ * @param go The GraphicalObject_t structure.
+ * @param sid The string to use as the ID of the GraphicalObject_t
+ *
+ * @memberof GraphicalObject_t
+ */
 LIBSBML_EXTERN
 int
 GraphicalObject_setId (GraphicalObject_t *go, const char *sid);
 
 
+/**
+ * Unsets the id
+ *
+ * @param go The GraphicalObject_t structure.
+ *
+ * @memberof GraphicalObject_t
+ */
 LIBSBML_EXTERN
 void
 GraphicalObject_unsetId (GraphicalObject_t *go);

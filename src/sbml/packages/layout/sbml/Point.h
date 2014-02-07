@@ -346,132 +346,213 @@ BEGIN_C_DECLS
 
 
 
-/*
+/**
  * Creates a new point with the coordinates (0.0,0.0,0.0).
+ *
+ * @memberof Point_t
  */ 
 LIBSBML_EXTERN
 Point_t *
 Point_create (void);
 
-/*
- * Creates a new Point with the given coordinates.
+/**
+ * Creates a new Point_t with the given coordinates.
+ *
+ * @param x The value of the x coordinate.
+ * @param y The value of the y coordinate.
+ * @param z The value of the z coordinate.
+ *
+ * @memberof Point_t
  */ 
 LIBSBML_EXTERN
 Point_t *
 Point_createWithCoordinates (double x, double y, double z);
 
-/*
- * Frees all memory for the Point.
+/**
+ * Frees all memory for the Point_t.
+ *
+ * @param p The Point_t structure.
+ *
+ * @memberof Point_t
  */ 
 LIBSBML_EXTERN
 void
 Point_free (Point_t *p);
 
-/*
+/**
  * Sets the Z offset to 0.0
+ *
+ * @param p The Point_t structure.
+ *
+ * @memberof Point_t
  */ 
 LIBSBML_EXTERN
 void
 Point_initDefaults (Point_t *p);
 
-/*
+/**
  * Sets the coordinates to the given values.
+ *
+ * @param p The Point_t structure.
+ * @param x The value of the x coordinate.
+ * @param y The value of the y coordinate.
+ * @param z The value of the z coordinate.
+ *
+ * @memberof Point_t
  */ 
 LIBSBML_EXTERN
 void
 Point_setOffsets (Point_t *p, double x, double y, double z);
 
-/*
+/**
  * Sets the x offset.
+ *
+ * @param p The Point_t structure.
+ * @param x The value of the x coordinate.
+ *
+ * @memberof Point_t
  */ 
 LIBSBML_EXTERN
 void
 Point_setX (Point_t *p, double x);
 
-/*
+/**
  * Sets the y offset.
+ *
+ * @param p The Point_t structure.
+ * @param y The value of the y coordinate.
+ *
+ * @memberof Point_t
  */ 
 LIBSBML_EXTERN
 void
 Point_setY (Point_t *p, double y);
 
-/*
+/**
  * Sets the z offset.
+ *
+ * @param p The Point_t structure.
+ * @param z The value of the z coordinate.
+ *
+ * @memberof Point_t
  */ 
 LIBSBML_EXTERN
 void
 Point_setZ (Point_t *p, double z);
 
-/*
+/**
  * Gets the x offset.
+ *
+ * @param p The Point_t structure.
+ *
+ * @memberof Point_t
  */ 
 LIBSBML_EXTERN
 double
 Point_x (const Point_t *p);
 
-/*
+/**
  * Gets the y offset.
+ *
+ * @param p The Point_t structure.
+ *
+ * @memberof Point_t
  */ 
 LIBSBML_EXTERN
 double
 Point_y (const Point_t *p);
 
-/*
+/**
  * Gets the z offset.
+ *
+ * @param p The Point_t structure.
+ *
+ * @memberof Point_t
  */ 
 LIBSBML_EXTERN
 double
 Point_z (const Point_t *p);
 
 
-/*
+/**
  * Sets the x offset.
+ *
+ * @param p The Point_t structure.
+ * @param x The value of the x offset.
+ *
+ * @memberof Point_t
  */ 
 LIBSBML_EXTERN
 void
 Point_setXOffset (Point_t *p, double x);
 
-/*
+/**
  * Sets the y offset.
+ *
+ * @param p The Point_t structure.
+ * @param y The value of the y offset.
+ *
+ * @memberof Point_t
  */ 
 LIBSBML_EXTERN
 void
 Point_setYOffset (Point_t *p, double y);
 
-/*
+/**
  * Sets the z offset.
+ *
+ * @param p The Point_t structure.
+ * @param z The value of the z offset.
+ *
+ * @memberof Point_t
  */ 
 LIBSBML_EXTERN
 void
 Point_setZOffset (Point_t *p, double z);
 
-/*
+/**
  * Gets the x offset.
+ *
+ * @param p The Point_t structure.
+ *
+ * @memberof Point_t
  */ 
 LIBSBML_EXTERN
 double
 Point_getXOffset (const Point_t *p);
 
-/*
+/**
  * Gets the y offset.
+ *
+ * @param p The Point_t structure.
+ *
+ * @memberof Point_t
  */ 
 LIBSBML_EXTERN
 double
 Point_getYOffset (const Point_t *p);
 
-/*
+/**
  * Gets the z offset.
+ *
+ * @param p The Point_t structure.
+ *
+ * @memberof Point_t
  */ 
 LIBSBML_EXTERN
 double
 Point_getZOffset (const Point_t *p);
 
-/*
- * @return a (deep) copy of this Point.
+/**
+ * @return a (deep) copy of this Point_t.
+ *
+ * @param p The Point_t structure.
+ *
+ * @memberof Point_t
  */
 LIBSBML_EXTERN
 Point_t *
-Point_clone (const Point_t *m);
+Point_clone (const Point_t *p);
 
 
 END_C_DECLS

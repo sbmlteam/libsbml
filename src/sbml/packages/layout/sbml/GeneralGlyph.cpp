@@ -1240,7 +1240,7 @@ GeneralGlyph_createWith (const char *sid)
 
 
 /**
- * Creates a new GeneralGlyph referencing the give reaction.
+ * Creates a new GeneralGlyph referencing the given reaction.
  */
 LIBSBML_EXTERN
 GeneralGlyph_t *

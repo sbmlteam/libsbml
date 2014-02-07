@@ -262,78 +262,117 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 BEGIN_C_DECLS
 
 
-/*
- * Creates a new SpeciesGlyph and returns the pointer to it.
+/**
+ * Creates a new SpeciesGlyph_t and returns the pointer to it.
+ * 
+ * @memberof SpeciesGlyph_t
  */
 LIBSBML_EXTERN
 SpeciesGlyph_t *
 SpeciesGlyph_create (void);
 
-/*
- * Create a new SpeciesGlyph object from a template.
+/**
+ * Create a new SpeciesGlyph_t object from a template.
+ * 
+ * @param temp The SpeciesGlyph_t structure to copy
+ *
+ * @memberof SpeciesGlyph_t
  */
 LIBSBML_EXTERN
 SpeciesGlyph_t *
 SpeciesGlyph_createFrom (const SpeciesGlyph_t *temp);
 
 
-
-/*
- * Creates a new SpeciesGlyph with the given @p id
+/**
+ * Creates a new SpeciesGlyph_t with the given @p id
+ * 
+ * @param sid The id of the created SpeciesGlyph_t
+ *
+ * @memberof SpeciesGlyph_t
  */
 LIBSBML_EXTERN
 SpeciesGlyph_t *
-SpeciesGlyph_createWith (const char *id);
+SpeciesGlyph_createWith (const char *sid);
 
-/*
- * Creates a new SpeciesGlyph referencing with the give species id.
+/**
+ * Creates a new SpeciesGlyph_t referencing with the given id and species id.
+ * 
+ * @param id The id of the created SpeciesGlyph_t
+ * @param speciesId The string to use as the species id
+ *
+ * @memberof SpeciesGlyph_t
  */
 LIBSBML_EXTERN
 SpeciesGlyph_t *
 SpeciesGlyph_createWithSpeciesId (const char *id, const char *speciesId);
 
-/*
+/**
  * Frees the memory taken by the given compartment glyph.
+ * 
+ * @param sg The SpeciesGlyph_t structure
+ *
+ * @memberof SpeciesGlyph_t
  */
 LIBSBML_EXTERN
 void
 SpeciesGlyph_free (SpeciesGlyph_t *sg);
 
-/*
+/**
  * Sets the associated species id. 
+ * 
+ * @param sg The SpeciesGlyph_t structure
+ * @param id The string to use as the species id
+ *
+ * @memberof SpeciesGlyph_t
  */
 LIBSBML_EXTERN
 void
 SpeciesGlyph_setSpeciesId (SpeciesGlyph_t *sg, const char *id);
 
-/*
+/**
  * Gets the the id of the associated species.
+ * 
+ * @param sg The SpeciesGlyph_t structure
+ *
+ * @memberof SpeciesGlyph_t
  */
 LIBSBML_EXTERN
 const char *
 SpeciesGlyph_getSpeciesId (const SpeciesGlyph_t *sg);
 
-/*
+/**
  * Returns 0 if the  id of the associated species is the empty string.
  * otherwise.
+ * 
+ * @param sg The SpeciesGlyph_t structure
+ *
+ * @memberof SpeciesGlyph_t
  */
 LIBSBML_EXTERN
 int
 SpeciesGlyph_isSetSpeciesId (const SpeciesGlyph_t *sg);
 
-/*
+/**
  * Calls initDefaults from GraphicalObject.
+ * 
+ * @param sg The SpeciesGlyph_t structure
+ *
+ * @memberof SpeciesGlyph_t
  */ 
 LIBSBML_EXTERN
 void
 SpeciesGlyph_initDefaults (SpeciesGlyph_t *sg);
 
-/*
- * @return a (deep) copy of this SpeciesGlyph.
+/**
+ * @return a (deep) copy of this SpeciesGlyph_t.
+ * 
+ * @param sg The SpeciesGlyph_t structure
+ *
+ * @memberof SpeciesGlyph_t
  */
 LIBSBML_EXTERN
 SpeciesGlyph_t *
-SpeciesGlyph_clone (const SpeciesGlyph_t *m);
+SpeciesGlyph_clone (const SpeciesGlyph_t *sg);
 
 
 END_C_DECLS

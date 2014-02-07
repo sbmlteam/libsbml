@@ -689,9 +689,6 @@ bool Point::accept (SBMLVisitor& v) const
 #endif /* __cplusplus */
 /** @cond doxygenCOnly */
 
-/**
- * Creates a new point with the coordinates (0.0,0.0,0.0).
- */ 
 LIBSBML_EXTERN
 Point_t *
 Point_create (void)
@@ -700,9 +697,6 @@ Point_create (void)
 }
 
 
-/**
- * Creates a new Point with the given coordinates.
- */ 
 LIBSBML_EXTERN
 Point_t *
 Point_createWithCoordinates (double x, double y, double z)
@@ -712,9 +706,6 @@ Point_createWithCoordinates (double x, double y, double z)
 }
 
 
-/**
- * Frees all memory for the Point.
- */ 
 LIBSBML_EXTERN
 void
 Point_free (Point_t *p)
@@ -723,9 +714,6 @@ Point_free (Point_t *p)
 }
 
 
-/**
- * Sets the Z offset to 0.0
- */ 
 LIBSBML_EXTERN
 void
 Point_initDefaults (Point_t *p)
@@ -734,9 +722,6 @@ Point_initDefaults (Point_t *p)
 }
 
 
-/**
- * Sets the coordinates to the given values.
- */ 
 LIBSBML_EXTERN
 void
 Point_setOffsets (Point_t *p, double x, double y, double z)
@@ -745,9 +730,6 @@ Point_setOffsets (Point_t *p, double x, double y, double z)
 }
 
 
-/**
- * Sets the x offset.
- */ 
 LIBSBML_EXTERN
 void
 Point_setXOffset (Point_t *p, double x)
@@ -756,9 +738,6 @@ Point_setXOffset (Point_t *p, double x)
 }
 
 
-/**
- * Sets the y offset.
- */ 
 LIBSBML_EXTERN
 void
 Point_setYOffset (Point_t *p, double y)
@@ -767,9 +746,6 @@ Point_setYOffset (Point_t *p, double y)
 }
 
 
-/**
- * Sets the z offset.
- */ 
 LIBSBML_EXTERN
 void
 Point_setZOffset (Point_t *p, double z)
@@ -778,9 +754,6 @@ Point_setZOffset (Point_t *p, double z)
 }
 
 
-/**
- * Gets the x offset.
- */ 
 LIBSBML_EXTERN
 double
 Point_getXOffset (const Point_t *p)
@@ -789,9 +762,6 @@ Point_getXOffset (const Point_t *p)
 }
 
 
-/**
- * Gets the y offset.
- */ 
 LIBSBML_EXTERN
 double
 Point_getYOffset (const Point_t *p)
@@ -800,9 +770,6 @@ Point_getYOffset (const Point_t *p)
 }
 
 
-/**
- * Gets the z offset.
- */ 
 LIBSBML_EXTERN
 double
 Point_getZOffset (const Point_t *p)
@@ -811,9 +778,6 @@ Point_getZOffset (const Point_t *p)
 }
 
 
-/**
- * Sets the x offset.
- */ 
 LIBSBML_EXTERN
 void
 Point_setX (Point_t *p, double x)
@@ -822,9 +786,6 @@ Point_setX (Point_t *p, double x)
 }
 
 
-/**
- * Sets the y offset.
- */ 
 LIBSBML_EXTERN
 void
 Point_setY (Point_t *p, double y)
@@ -833,9 +794,6 @@ Point_setY (Point_t *p, double y)
 }
 
 
-/**
- * Sets the z offset.
- */ 
 LIBSBML_EXTERN
 void
 Point_setZ (Point_t *p, double z)
@@ -844,9 +802,6 @@ Point_setZ (Point_t *p, double z)
 }
 
 
-/**
- * Gets the x offset.
- */ 
 LIBSBML_EXTERN
 double
 Point_x (const Point_t *p)
@@ -855,9 +810,6 @@ Point_x (const Point_t *p)
 }
 
 
-/**
- * Gets the y offset.
- */ 
 LIBSBML_EXTERN
 double
 Point_y (const Point_t *p)
@@ -866,9 +818,6 @@ Point_y (const Point_t *p)
 }
 
 
-/**
- * Gets the z offset.
- */ 
 LIBSBML_EXTERN
 double
 Point_z (const Point_t *p)
@@ -876,9 +825,6 @@ Point_z (const Point_t *p)
   return p->z();
 }
 
-/**
- * @return a (deep) copy of this Point.
- */
 LIBSBML_EXTERN
 Point_t *
 Point_clone (const Point_t *m)

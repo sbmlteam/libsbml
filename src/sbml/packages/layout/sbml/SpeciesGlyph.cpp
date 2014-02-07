@@ -427,9 +427,7 @@ XMLNode SpeciesGlyph::toXML() const
 
 #endif /* __cplusplus */
 /** @cond doxygenCOnly */
-/**
- * Creates a new SpeciesGlyph and returns the pointer to it.
- */
+
 LIBSBML_EXTERN
 SpeciesGlyph_t *
 SpeciesGlyph_create (void)
@@ -438,9 +436,6 @@ SpeciesGlyph_create (void)
 }
 
 
-/**
- * Create a new SpeciesGlyph object from a template.
- */
 LIBSBML_EXTERN
 SpeciesGlyph_t *
 SpeciesGlyph_createFrom (const SpeciesGlyph_t *temp)
@@ -449,9 +444,6 @@ SpeciesGlyph_createFrom (const SpeciesGlyph_t *temp)
 }
 
 
-/**
- * Creates a new SpeciesGlyph with the given @p id
- */
 LIBSBML_EXTERN
 SpeciesGlyph_t *
 SpeciesGlyph_createWith (const char *id)
@@ -461,9 +453,6 @@ SpeciesGlyph_createWith (const char *id)
 }
 
 
-/**
- * Creates a new SpeciesGlyph referencing with the give species id.
- */
 LIBSBML_EXTERN
 SpeciesGlyph_t *
 SpeciesGlyph_createWithSpeciesId (const char *sid, const char *speciesId)
@@ -473,9 +462,6 @@ SpeciesGlyph_createWithSpeciesId (const char *sid, const char *speciesId)
 }
 
 
-/**
- * Frees the memory taken by the given compartment glyph.
- */
 LIBSBML_EXTERN
 void
 SpeciesGlyph_free (SpeciesGlyph_t *sg)
@@ -484,60 +470,48 @@ SpeciesGlyph_free (SpeciesGlyph_t *sg)
 }
 
 
-/**
- * Sets the associated species id. 
- */
 LIBSBML_EXTERN
 void
 SpeciesGlyph_setSpeciesId (SpeciesGlyph_t *sg, const char *id)
-{
-    static_cast<SpeciesGlyph*>(sg)->setSpeciesId( id ? id : "" );
+{ 
+  if (sg==NULL) return;
+  static_cast<SpeciesGlyph*>(sg)->setSpeciesId( id ? id : "" );
 }
 
 
-/**
- * Gets the the id of the associated species.
- */
 LIBSBML_EXTERN
 const char *
 SpeciesGlyph_getSpeciesId (const SpeciesGlyph_t *sg)
-{
-    return sg->isSetSpeciesId() ? sg->getSpeciesId().c_str() : NULL ;
+{ 
+  if (sg==NULL) return NULL;
+  return sg->isSetSpeciesId() ? sg->getSpeciesId().c_str() : NULL ;
 }
 
 
-
-/**
- * Returns 0 if the  id of the associated species is the empty string.
- * otherwise.
- */
 LIBSBML_EXTERN
 int
 SpeciesGlyph_isSetSpeciesId (const SpeciesGlyph_t *sg)
-{
+{ 
+  if (sg==NULL) return (int)(false);
   return static_cast<int>( sg->isSetSpeciesId() );
 }
 
 
-/**
- * Calls initDefaults from GraphicalObject.
- */ 
 LIBSBML_EXTERN
 void
 SpeciesGlyph_initDefaults (SpeciesGlyph_t *sg)
-{
+{ 
+  if (sg==NULL) return;
   sg->initDefaults();
 }
 
 
-/**
- * @return a (deep) copy of this SpeciesGlyph.
- */
 LIBSBML_EXTERN
 SpeciesGlyph_t *
-SpeciesGlyph_clone (const SpeciesGlyph_t *m)
-{
-  return static_cast<SpeciesGlyph*>( m->clone() );
+SpeciesGlyph_clone (const SpeciesGlyph_t *sg)
+{ 
+  if (sg==NULL) return NULL;
+  return static_cast<SpeciesGlyph*>( sg->clone() );
 }
 
 /** @endcond */

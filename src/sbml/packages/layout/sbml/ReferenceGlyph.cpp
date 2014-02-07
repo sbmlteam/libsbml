@@ -116,7 +116,7 @@ ReferenceGlyph::ReferenceGlyph(LayoutPkgNamespaces* layoutns)
  * Creates a new ReferenceGlyph.  The id is given as the first
  * argument, the id of the associated reference is given as the
  * second argument.  The third argument is the id of the associated
- * glpyh and the fourth argument is the role.
+ * glyph and the fourth argument is the role.
  */ 
 ReferenceGlyph::ReferenceGlyph
 (
@@ -349,7 +349,7 @@ ReferenceGlyph::getCurveExplicitlySet() const
 }
 
 /*
- * Returns true if the id of the associated glpyh is not the empty
+ * Returns true if the id of the associated glyph is not the empty
  * string.
  */ 
 bool
@@ -779,9 +779,7 @@ ReferenceGlyph::enablePackageInternal(const std::string& pkgURI,
 
 #endif /* __cplusplus */
 /** @cond doxygenCOnly */
-/**
- * Creates a new ReferenceGlyph object and returns a pointer to it.
- */
+
 LIBSBML_EXTERN
 ReferenceGlyph_t *
 ReferenceGlyph_create(void)
@@ -790,9 +788,6 @@ ReferenceGlyph_create(void)
 }
 
 
-/**
- * Creates a new ReferenceGlyph from a template.
- */
 LIBSBML_EXTERN
 ReferenceGlyph_t *
 ReferenceGlyph_createFrom (const ReferenceGlyph_t *temp)
@@ -801,16 +796,12 @@ ReferenceGlyph_createFrom (const ReferenceGlyph_t *temp)
 }
 
 
-/**
- * Creates a new ReferenceGlyph object with the given @p id and returns
- * a pointer to it.
- */
 LIBSBML_EXTERN
 ReferenceGlyph_t *
 ReferenceGlyph_createWith (const char *sid,
-                                  const char *referenceId,
-                                  const char *glyphId,
-                                  const char* role)
+                           const char *referenceId,
+                           const char *glyphId,
+                           const char* role)
 {
   LayoutPkgNamespaces layoutns;
   return new(std::nothrow)
@@ -818,9 +809,6 @@ ReferenceGlyph_createWith (const char *sid,
 }
 
 
-/**
- * Frees the memory for the ReferenceGlyph
- */
 LIBSBML_EXTERN
 void
 ReferenceGlyph_free(ReferenceGlyph_t *srg)
@@ -829,9 +817,6 @@ ReferenceGlyph_free(ReferenceGlyph_t *srg)
 }
 
 
-/**
- * Sets the reference for the glyph.
- */
 LIBSBML_EXTERN
 void
 ReferenceGlyph_setReferenceId (ReferenceGlyph_t *srg,
@@ -841,9 +826,6 @@ ReferenceGlyph_setReferenceId (ReferenceGlyph_t *srg,
 }
 
 
-/**
- * Gets the reference id for the given glyph.
- */
 LIBSBML_EXTERN
 const char *
 ReferenceGlyph_getReferenceId (const ReferenceGlyph_t *srg)
@@ -852,10 +834,6 @@ ReferenceGlyph_getReferenceId (const ReferenceGlyph_t *srg)
 }
 
 
-/**
- * Returns 0 if the reference reference has not been set for this
- * glyph and 1 otherwise.
- */
 LIBSBML_EXTERN
 int
 ReferenceGlyph_isSetReferenceId
@@ -865,9 +843,6 @@ ReferenceGlyph_isSetReferenceId
 }
 
 
-/**
- * Sets the glyph reference for this glyph.
- */
 LIBSBML_EXTERN
 void
 ReferenceGlyph_setGlyphId (ReferenceGlyph_t *srg,
@@ -877,9 +852,6 @@ ReferenceGlyph_setGlyphId (ReferenceGlyph_t *srg,
 }
 
 
-/**
- * Gets the reference id for the given glyph.
- */
 LIBSBML_EXTERN
 const char *
 ReferenceGlyph_getGlyphId (const ReferenceGlyph_t *srg)
@@ -888,10 +860,6 @@ ReferenceGlyph_getGlyphId (const ReferenceGlyph_t *srg)
 }
 
 
-/**
- * Returns 0 if  the reference reference has not  been set for this
- * glyph and 1 otherwise.
- */
 LIBSBML_EXTERN
 int
 ReferenceGlyph_isSetGlyphId (const ReferenceGlyph_t *srg)
@@ -900,9 +868,6 @@ ReferenceGlyph_isSetGlyphId (const ReferenceGlyph_t *srg)
 }
 
 
-/**
- * Sets the curve for the reference glyph.
- */
 LIBSBML_EXTERN
 void
 ReferenceGlyph_setCurve(ReferenceGlyph_t *srg, Curve_t *c)
@@ -911,9 +876,6 @@ ReferenceGlyph_setCurve(ReferenceGlyph_t *srg, Curve_t *c)
 }
 
 
-/**
- * Gets the Curve for the given reference glyph.
- */
 LIBSBML_EXTERN
 Curve_t *
 ReferenceGlyph_getCurve (ReferenceGlyph_t *srg)
@@ -922,9 +884,6 @@ ReferenceGlyph_getCurve (ReferenceGlyph_t *srg)
 }
 
 
-/**
- * Returns true if the Curve has one or more LineSegment.
- */
 LIBSBML_EXTERN
 int
 ReferenceGlyph_isSetCurve (ReferenceGlyph_t *srg)
@@ -933,9 +892,6 @@ ReferenceGlyph_isSetCurve (ReferenceGlyph_t *srg)
 }
 
 
-/**
- * Sets the role of the reference glyph based on the string.  
- */
 LIBSBML_EXTERN
 void
 ReferenceGlyph_setRole (ReferenceGlyph_t *srg,
@@ -945,9 +901,6 @@ ReferenceGlyph_setRole (ReferenceGlyph_t *srg,
 }
 
 
-/**
- * Returns a string representation of the role of the reference.
- */ 
 LIBSBML_EXTERN
 const char*
 ReferenceGlyph_getRole(const ReferenceGlyph_t* srg){
@@ -955,10 +908,6 @@ ReferenceGlyph_getRole(const ReferenceGlyph_t* srg){
 }
 
 
-
-/**
- * Returns true if the role is not empty.
- */ 
 LIBSBML_EXTERN
 int
 ReferenceGlyph_isSetRole (const ReferenceGlyph_t *srg)
@@ -967,9 +916,6 @@ ReferenceGlyph_isSetRole (const ReferenceGlyph_t *srg)
 }
 
 
-/**
- * Calls initDefaults on GraphicalObject 
- */ 
 LIBSBML_EXTERN
 void
 ReferenceGlyph_initDefaults (ReferenceGlyph_t *srg)
@@ -978,11 +924,6 @@ ReferenceGlyph_initDefaults (ReferenceGlyph_t *srg)
 }
 
 
-/**
- * Creates a new LineSegment object, adds it to the end of the list of
- * curve segment objects of the curve and returns a reference to the newly
- * created object.
- */
 LIBSBML_EXTERN
 LineSegment_t *
 ReferenceGlyph_createLineSegment (ReferenceGlyph_t *srg)
@@ -991,11 +932,6 @@ ReferenceGlyph_createLineSegment (ReferenceGlyph_t *srg)
 }  
 
 
-/**
- * Creates a new CubicBezier object, adds it to the end of the list of
- * curve segment objects of the curve and returns a reference to the newly
- * created object.
- */
 LIBSBML_EXTERN
 CubicBezier_t *
 ReferenceGlyph_createCubicBezier (ReferenceGlyph_t *srg)
@@ -1004,9 +940,6 @@ ReferenceGlyph_createCubicBezier (ReferenceGlyph_t *srg)
 }
 
 
-/**
- * @return a (deep) copy of this ReferenceGlyph.
- */
 LIBSBML_EXTERN
 ReferenceGlyph_t *
 ReferenceGlyph_clone (const ReferenceGlyph_t *m)
@@ -1014,9 +947,6 @@ ReferenceGlyph_clone (const ReferenceGlyph_t *m)
   return static_cast<ReferenceGlyph*>( m->clone() );
 }
 
-/**
- * Returns non-zero if the id is set
- */
 LIBSBML_EXTERN
 int
 ReferenceGlyph_isSetId (const ReferenceGlyph_t *srg)
@@ -1024,9 +954,6 @@ ReferenceGlyph_isSetId (const ReferenceGlyph_t *srg)
   return static_cast <int> (srg->isSetId());
 }
 
-/**
- * Returns the id
- */
 LIBSBML_EXTERN
 const char *
 ReferenceGlyph_getId (const ReferenceGlyph_t *srg)
@@ -1034,9 +961,6 @@ ReferenceGlyph_getId (const ReferenceGlyph_t *srg)
   return srg->isSetId() ? srg->getId().c_str() : NULL;
 }
 
-/**
- * Sets the id
- */
 LIBSBML_EXTERN
 int
 ReferenceGlyph_setId (ReferenceGlyph_t *srg, const char *sid)
@@ -1044,9 +968,6 @@ ReferenceGlyph_setId (ReferenceGlyph_t *srg, const char *sid)
   return (sid == NULL) ? srg->setId("") : srg->setId(sid);
 }
 
-/**
- * Unsets the id
- */
 LIBSBML_EXTERN
 void
 ReferenceGlyph_unsetId (ReferenceGlyph_t *srg)

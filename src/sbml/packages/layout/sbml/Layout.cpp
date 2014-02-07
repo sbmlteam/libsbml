@@ -2555,9 +2555,6 @@ XMLNode ListOfTextGlyphs::toXML() const
 #endif /* __cplusplus */
 /** @cond doxygenCOnly */
 
-/**
- * Creates a new Layout and returns a pointer to it.
- */
 LIBSBML_EXTERN
 Layout_t *
 Layout_create (void)
@@ -2566,9 +2563,6 @@ Layout_create (void)
 }
 
 
-/**
- * Creates a new Layout with the given @p id and returns a pointer to it.
- */
 LIBSBML_EXTERN
 Layout_t *
 Layout_createWith (const char *sid)
@@ -2582,9 +2576,6 @@ Layout_createWith (const char *sid)
 }
 
 
-/**
- * Creates a Layout object from a template.
- */
 LIBSBML_EXTERN
     Layout_t *
 Layout_createFrom (const Layout_t *temp)
@@ -2593,10 +2584,6 @@ Layout_createFrom (const Layout_t *temp)
 }
 
 
-/**
- * Creates a new Layout with the given width, height and depth and returns
- * a pointer to it.  The depth value defaults to 0.0.
- */
 LIBSBML_EXTERN
 Layout_t *
 Layout_createWithSize (const char *id,
@@ -2610,10 +2597,6 @@ Layout_createWithSize (const char *id,
 }
 
 
-/**
- * Creates a new Layout with the given Dimensions and returns a pointer to
- * it.
- */
 LIBSBML_EXTERN
 Layout_t *
 Layout_createWithDimensions (const char *id, const Dimensions_t *dimensions)
@@ -2623,9 +2606,6 @@ Layout_createWithDimensions (const char *id, const Dimensions_t *dimensions)
 }
 
 
-/** 
- * Frees the memory for the given layout.
- */
 LIBSBML_EXTERN
 void
 Layout_free (Layout_t *l)
@@ -2634,10 +2614,6 @@ Layout_free (Layout_t *l)
 }
 
 
-
-/**
- * Sets the dimensions of the layout.
- */
 LIBSBML_EXTERN
 void
 Layout_setDimensions (Layout_t *l, const Dimensions_t *dimensions)
@@ -2646,9 +2622,6 @@ Layout_setDimensions (Layout_t *l, const Dimensions_t *dimensions)
 }
 
 
-/**
- * Adds a new compartment glyph to the list of compartment glyphs.
- */
 LIBSBML_EXTERN
 void
 Layout_addCompartmentGlyph (Layout_t *l, CompartmentGlyph_t *cg)
@@ -2657,9 +2630,6 @@ Layout_addCompartmentGlyph (Layout_t *l, CompartmentGlyph_t *cg)
 }
 
 
-/**
- * Adds a new species glyph to the list of species glyphs.
- */
 LIBSBML_EXTERN
 void
 Layout_addSpeciesGlyph (Layout_t *l, SpeciesGlyph_t *sg)
@@ -2668,9 +2638,6 @@ Layout_addSpeciesGlyph (Layout_t *l, SpeciesGlyph_t *sg)
 }
 
 
-/**
- * Adds a new reaction glyph to the list of reaction glyphs.
- */
 LIBSBML_EXTERN
 void
 Layout_addReactionGlyph (Layout_t *l, ReactionGlyph_t *rg)
@@ -2679,9 +2646,6 @@ Layout_addReactionGlyph (Layout_t *l, ReactionGlyph_t *rg)
 }
 
 
-/**
- * Adds a new TextGlyph to the list of text glyphs.
- */
 LIBSBML_EXTERN
 void
 Layout_addTextGlyph (Layout_t *l, TextGlyph_t *tg)
@@ -2690,9 +2654,6 @@ Layout_addTextGlyph (Layout_t *l, TextGlyph_t *tg)
 }
 
 
-/**
- * Adds a new GraphicalObject to the list of additional graphical objects.
- */
 LIBSBML_EXTERN
 void
 Layout_addAdditionalGraphicalObject (Layout_t *l, GraphicalObject_t *go)
@@ -2701,9 +2662,6 @@ Layout_addAdditionalGraphicalObject (Layout_t *l, GraphicalObject_t *go)
 }
 
 
-/**
- * Returns a pointer to the CompartmentGlyph with the given index.
- */
 LIBSBML_EXTERN
 CompartmentGlyph_t *
 Layout_getCompartmentGlyph (Layout_t *l, unsigned int index)
@@ -2712,9 +2670,6 @@ Layout_getCompartmentGlyph (Layout_t *l, unsigned int index)
 }
 
 
-/**
- * Returns a pointer to the SpeciesGlyph with the given index.
- */
 LIBSBML_EXTERN
 SpeciesGlyph_t *
 Layout_getSpeciesGlyph (Layout_t *l, unsigned int index)
@@ -2723,9 +2678,6 @@ Layout_getSpeciesGlyph (Layout_t *l, unsigned int index)
 }
 
 
-/**
- * Returns a pointer to the ReactionGlyph with the given index.
- */
 LIBSBML_EXTERN
 ReactionGlyph_t *
 Layout_getReactionGlyph (Layout_t *l, unsigned int index)
@@ -2734,9 +2686,6 @@ Layout_getReactionGlyph (Layout_t *l, unsigned int index)
 }
 
 
-/**
- * Returns a pointer to the AdditionalGraphicalObject with the given index.
- */
 LIBSBML_EXTERN
 TextGlyph_t *
 Layout_getTextGlyph (Layout_t *l, unsigned int index)
@@ -2746,9 +2695,6 @@ Layout_getTextGlyph (Layout_t *l, unsigned int index)
 
 
 
-/**
- * Returns a pointer to the GraphicalObject with the given index.
- */
 LIBSBML_EXTERN
 GraphicalObject_t *
 Layout_getAdditionalGraphicalObject (Layout_t *l, unsigned int index)
@@ -2757,9 +2703,6 @@ Layout_getAdditionalGraphicalObject (Layout_t *l, unsigned int index)
 }
 
 
-/**
- * Returns a pointer to the list of CompartmentGlyphs.
- */
 LIBSBML_EXTERN
 ListOf_t *
 Layout_getListOfCompartmentGlyphs (Layout_t *l)
@@ -2768,9 +2711,6 @@ Layout_getListOfCompartmentGlyphs (Layout_t *l)
 }
 
 
-/**
- * Returns a pointer to the list of SpeciesGlyphs.
- */
 LIBSBML_EXTERN
 ListOf_t *
 Layout_getListOfSpeciesGlyphs (Layout_t *l)
@@ -2779,9 +2719,6 @@ Layout_getListOfSpeciesGlyphs (Layout_t *l)
 }
 
 
-/**
- * Returns a pointer to the list of ReactionGlyphs.
- */
 LIBSBML_EXTERN
 ListOf_t *
 Layout_getListOfReactionGlyphs (Layout_t *l)
@@ -2790,9 +2727,6 @@ Layout_getListOfReactionGlyphs (Layout_t *l)
 }
 
 
-/**
- * Returns a pointer to the list of TextGlyphs.
- */
 LIBSBML_EXTERN
 ListOf_t *
 Layout_getListOfTextGlyphs (Layout_t *l)
@@ -2801,9 +2735,6 @@ Layout_getListOfTextGlyphs (Layout_t *l)
 }
 
 
-/**
- * Returns a pointer to the list of additional GraphicalObjects.
- */
 LIBSBML_EXTERN
 ListOf_t *
 Layout_getListOfAdditionalGraphicalObjects (Layout_t *l)
@@ -2812,10 +2743,6 @@ Layout_getListOfAdditionalGraphicalObjects (Layout_t *l)
 }
 
 
-
-/**
- * @return the dimensions of the layout
- */
 LIBSBML_EXTERN
 Dimensions_t*
 Layout_getDimensions(Layout_t *l)
@@ -2824,9 +2751,6 @@ Layout_getDimensions(Layout_t *l)
 }
 
 
-/**
- * Returns the number of CompartmentGlyphs.
- */
 LIBSBML_EXTERN
 unsigned int
 Layout_getNumCompartmentGlyphs (const Layout_t *l)
@@ -2835,9 +2759,6 @@ Layout_getNumCompartmentGlyphs (const Layout_t *l)
 }
 
 
-/**
- * Returns the number of SpeciesGlyphs.
- */
 LIBSBML_EXTERN
 unsigned int
 Layout_getNumSpeciesGlyphs (const Layout_t *l)
@@ -2846,9 +2767,6 @@ Layout_getNumSpeciesGlyphs (const Layout_t *l)
 }
 
 
-/**
- * Returns the number of ReactionGlyphs.
- */
 LIBSBML_EXTERN
 unsigned int
 Layout_getNumReactionGlyphs (const Layout_t *l)
@@ -2857,9 +2775,6 @@ Layout_getNumReactionGlyphs (const Layout_t *l)
 }
 
 
-/**
- * Returns the number of TextGlyphs.
- */
 LIBSBML_EXTERN
 unsigned int
 Layout_getNumTextGlyphs (const Layout_t *l)
@@ -2868,9 +2783,6 @@ Layout_getNumTextGlyphs (const Layout_t *l)
 }
 
 
-/**
- * Returns the number of additional GraphicalObject.
- */
 LIBSBML_EXTERN
 unsigned int
 Layout_getNumAdditionalGraphicalObjects (const Layout_t *l)
@@ -2879,9 +2791,6 @@ Layout_getNumAdditionalGraphicalObjects (const Layout_t *l)
 }
 
 
-/**
- * Does nothing since no defaults are defined for Layout.
- */ 
 LIBSBML_EXTERN
 void
 Layout_initDefaults (Layout_t *l)
@@ -2891,11 +2800,6 @@ Layout_initDefaults (Layout_t *l)
 
 
 
-/**
- * Creates a ComparmentGlyph_t object, adds it to the end of the
- * compartment glyphs objects list and returns a pointer to the newly
- * created object.
- */
 LIBSBML_EXTERN
 CompartmentGlyph_t *
 Layout_createCompartmentGlyph (Layout_t *l)
@@ -2904,10 +2808,6 @@ Layout_createCompartmentGlyph (Layout_t *l)
 }
 
 
-/**
- * Creates a SpeciesGlyph object, adds it to the end of the species glyphs
- * objects list and returns a pointer to the newly created object.
- */
 LIBSBML_EXTERN
 SpeciesGlyph_t *
 Layout_createSpeciesGlyph (Layout_t *l)
@@ -2916,10 +2816,6 @@ Layout_createSpeciesGlyph (Layout_t *l)
 }
 
 
-/**
- * Creates a ReactionGlyph_t object, adds it to the end of the reaction
- * glyphs objects list and returns a pointer to the newly created object.
- */
 LIBSBML_EXTERN
 ReactionGlyph_t *
 Layout_createReactionGlyph (Layout_t *l)
@@ -2927,10 +2823,7 @@ Layout_createReactionGlyph (Layout_t *l)
   return l->createReactionGlyph();
 }
 
-/**
- * Creates a GeneralGlyph_t object, adds it to the end of the additional
- * objects list and returns a pointer to the newly created object.
- */
+
 LIBSBML_EXTERN
 GeneralGlyph_t *
 Layout_createGeneralGlyph (Layout_t *l)
@@ -2939,11 +2832,6 @@ Layout_createGeneralGlyph (Layout_t *l)
 }
 
 
-
-/**
- * Creates a TextGlyph_t object, adds it to the end of the text glyphs
- * objects list and returns a pointer to the newly created object.
- */
 LIBSBML_EXTERN
 TextGlyph_t *
 Layout_createTextGlyph (Layout_t *l)
@@ -2952,11 +2840,6 @@ Layout_createTextGlyph (Layout_t *l)
 }
 
 
-/**
- * Creates a GraphicalObject object, adds it to the end of the additional
- * graphical objects list and returns a pointer to the newly created
- * object.
- */
 LIBSBML_EXTERN
 GraphicalObject_t *
 Layout_createAdditionalGraphicalObject (Layout_t *l)
@@ -2964,11 +2847,6 @@ Layout_createAdditionalGraphicalObject (Layout_t *l)
   return l->createAdditionalGraphicalObject();
 }
 
-/**
- * Remove the compartment glyph with the given index.
- * A pointer to the removed object is returned. If no object was removed, NULL
- * is returned.
- */
 LIBSBML_EXTERN
 CompartmentGlyph_t*
 Layout_removeCompartmentGlyph(Layout_t* l, unsigned int index)
@@ -2976,11 +2854,6 @@ Layout_removeCompartmentGlyph(Layout_t* l, unsigned int index)
     return l->removeCompartmentGlyph(index);
 }
 
-/**
- * Remove the species glyph with the given index.
- * A pointer to the removed object is returned. If no object was removed, NULL
- * is returned.
- */
 LIBSBML_EXTERN
 SpeciesGlyph_t*
 Layout_removeSpeciesGlyph(Layout_t* l, unsigned int index)
@@ -2988,11 +2861,6 @@ Layout_removeSpeciesGlyph(Layout_t* l, unsigned int index)
     return l->removeSpeciesGlyph(index);
 }
 
-/**
- * Remove the reaction glyph with the given index.
- * A pointer to the removed object is returned. If no object was removed, NULL
- * is returned.
- */
 LIBSBML_EXTERN
 ReactionGlyph_t*
 Layout_removeReactionGlyph(Layout_t* l, unsigned int index)
@@ -3000,11 +2868,6 @@ Layout_removeReactionGlyph(Layout_t* l, unsigned int index)
     return l->removeReactionGlyph(index);
 }
 
-/**
- * Remove the text glyph with the given index.
- * A pointer to the removed object is returned. If no object was removed, NULL
- * is returned.
- */
 LIBSBML_EXTERN
 TextGlyph_t*
 Layout_removeTextGlyph(Layout_t* l, unsigned int index)
@@ -3012,11 +2875,6 @@ Layout_removeTextGlyph(Layout_t* l, unsigned int index)
     return l->removeTextGlyph(index);
 }
 
-/**
- * Remove the graphical object with the given index.
- * A pointer to the removed object is returned. If no object was removed, NULL
- * is returned.
- */
 LIBSBML_EXTERN
 GraphicalObject_t*
 Layout_removeAdditionalGraphicalObject(Layout_t* l, unsigned int index)
@@ -3024,11 +2882,6 @@ Layout_removeAdditionalGraphicalObject(Layout_t* l, unsigned int index)
     return l->removeAdditionalGraphicalObject(index);
 }
 
-/**
- * Remove the compartment glyph with the given @p id.
- * A pointer to the removed object is returned. If no object was removed, NULL
- * is returned.
- */
 LIBSBML_EXTERN
 CompartmentGlyph_t*
 Layout_removeCompartmentGlyphWithId(Layout_t* l, const char* id)
@@ -3036,11 +2889,6 @@ Layout_removeCompartmentGlyphWithId(Layout_t* l, const char* id)
     return l->removeCompartmentGlyph(id);
 }
 
-/**
- * Remove the species glyph with the given @p id.
- * A pointer to the removed object is returned. If no object was removed, NULL
- * is returned.
- */
 LIBSBML_EXTERN
 SpeciesGlyph_t*
 Layout_removeSpeciesGlyphWithId(Layout_t* l, const char* id)
@@ -3048,11 +2896,6 @@ Layout_removeSpeciesGlyphWithId(Layout_t* l, const char* id)
     return l->removeSpeciesGlyph(id);
 }
 
-/**
- * Remove the reaction glyph with the given @p id.
- * A pointer to the removed object is returned. If no object was removed, NULL
- * is returned.
- */
 LIBSBML_EXTERN
 ReactionGlyph_t*
 Layout_removeReactionGlyphWithId(Layout_t* l, const char* id)
@@ -3060,11 +2903,6 @@ Layout_removeReactionGlyphWithId(Layout_t* l, const char* id)
     return l->removeReactionGlyph(id);
 }
 
-/**
- * Remove the text glyph with the given @p id.
- * A pointer to the removed object is returned. If no object was removed, NULL
- * is returned.
- */
 LIBSBML_EXTERN
 TextGlyph_t*
 Layout_removeTextGlyphWithId(Layout_t* l, const char* id)
@@ -3072,11 +2910,6 @@ Layout_removeTextGlyphWithId(Layout_t* l, const char* id)
     return l->removeTextGlyph(id);
 }
 
-/**
- * Remove the species reference glyph with the given @p id.
- * A pointer to the removed object is returned. If no object was removed, NULL
- * is returned.
- */
 LIBSBML_EXTERN
 SpeciesReferenceGlyph_t*
 Layout_removeSpeciesReferenceGlyphWithId(Layout_t* l, const char* id)
@@ -3084,11 +2917,6 @@ Layout_removeSpeciesReferenceGlyphWithId(Layout_t* l, const char* id)
     return l->removeSpeciesReferenceGlyph(id);
 }
 
-/**
- * Remove the graphical object with the given @p id.
- * A pointer to the removed object is returned. If no object was removed, NULL
- * is returned.
- */
 LIBSBML_EXTERN
 GraphicalObject_t*
 Layout_removeAdditionalGraphicalObjectWithId(Layout_t* l, const char* id)
@@ -3096,9 +2924,6 @@ Layout_removeAdditionalGraphicalObjectWithId(Layout_t* l, const char* id)
     return l->removeAdditionalGraphicalObject(id);
 }
 
-/**
- * @return a (deep) copy of this Layout.
- */
 LIBSBML_EXTERN
 Layout_t *
 Layout_clone (const Layout_t *m)
@@ -3107,9 +2932,6 @@ Layout_clone (const Layout_t *m)
 }
 
 
-/**
- * Returns non-zero if the id is set
- */
 LIBSBML_EXTERN
 int
 Layout_isSetId (const Layout_t *l)
@@ -3117,9 +2939,6 @@ Layout_isSetId (const Layout_t *l)
   return static_cast <int> (l->isSetId());
 }
 
-/**
- * Returns the id
- */
 LIBSBML_EXTERN
 const char *
 Layout_getId (const Layout_t *l)
@@ -3127,9 +2946,6 @@ Layout_getId (const Layout_t *l)
   return l->isSetId() ? l->getId().c_str() : NULL;
 }
 
-/**
- * Sets the id
- */
 LIBSBML_EXTERN
 int
 Layout_setId (Layout_t *l, const char *sid)
@@ -3137,9 +2953,6 @@ Layout_setId (Layout_t *l, const char *sid)
   return (sid == NULL) ? l->setId("") : l->setId(sid);
 }
 
-/**
- * Unsets the id
- */
 LIBSBML_EXTERN
 void
 Layout_unsetId (Layout_t *l)

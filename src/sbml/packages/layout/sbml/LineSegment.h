@@ -361,87 +361,137 @@ BEGIN_C_DECLS
 
 
 
-/*
- * Creates a LineSegment and returns the pointer.
+/**
+ * Creates a LineSegment_t and returns the pointer.
+ *
+ * @memberof LineSegment_t
  */
 LIBSBML_EXTERN
 LineSegment_t *
 LineSegment_create (void);
 
 
-/*
- * Creates a LineSegment from a template.
+/**
+ * Creates a LineSegment_t from a template.
+ *
+ * @param temp The LineSegment_t structure to copy.
+ *
+ * @memberof LineSegment_t
  */
 LIBSBML_EXTERN
 LineSegment_t *
 LineSegment_createFrom (const LineSegment_t *temp);
 
-/*
- * Creates a LineSegment with the given points and returns the pointer.
+/**
+ * Creates a LineSegment_t with the given points and returns the pointer.
+ *
+ * @param start The Point_t at which the line segment starts
+ * @param end   The Point_t at which the line segment ends
+ *
+ * @memberof LineSegment_t
  */
 LIBSBML_EXTERN
 LineSegment_t *
 LineSegment_createWithPoints (const Point_t *start, const Point_t *end);
 
-/*
- * Creates a LineSegment with the given coordinates and returns the
+/**
+ * Creates a LineSegment_t with the given coordinates and returns the
  * pointer.
+ *
+ * @param x1 The value of the x coordinate of the start Point_t.
+ * @param y1 The value of the y coordinate of the start Point_t.
+ * @param z1 The value of the z coordinate of the start Point_t.
+ * @param x2 The value of the x coordinate of the end Point_t.
+ * @param y2 The value of the y coordinate of the end Point_t.
+ * @param z2 The value of the z coordinate of the end Point_t.
+ *
+ * @memberof LineSegment_t
  */
 LIBSBML_EXTERN
 LineSegment_t *
 LineSegment_createWithCoordinates (double x1, double y1, double z1,
                                    double x2, double y2, double z2);
 
-/*
+/**
  * Frees the memory for the line segment.
+ *
+ * @param ls The LineSegment_t structure.
+ *
+ * @memberof LineSegment_t
  */
 LIBSBML_EXTERN
 void
 LineSegment_free (LineSegment_t *ls);
 
 
-/*
+/**
  * Initializes the start point with a copy of the given Point object.
+ *
+ * @param ls The LineSegment_t structure.
+ * @param start The Point_t at which the line segment starts
+ *
+ * @memberof LineSegment_t
  */
 LIBSBML_EXTERN
 void 
 LineSegment_setStart (LineSegment_t *ls, const Point_t *start);
 
-/*
+/**
  * Initializes the end point with a copy of the given Point object.
+ *
+ * @param ls  The LineSegment_t structure.
+ * @param end The Point_t at which the line segment ends
+ *
+ * @memberof LineSegment_t
  */
 LIBSBML_EXTERN
 void 
 LineSegment_setEnd (LineSegment_t *ls, const Point_t *end);
 
 
-/*
+/**
  * Returns the start point of the line.
+ *
+ * @param ls The LineSegment_t structure.
+ *
+ * @memberof LineSegment_t
  */ 
 LIBSBML_EXTERN
 Point_t *
 LineSegment_getStart (LineSegment_t *ls);
 
-/*
+/**
  * Returns the end point of the line.
+ *
+ * @param ls The LineSegment_t structure.
+ *
+ * @memberof LineSegment_t
  */ 
 LIBSBML_EXTERN
 Point_t *
 LineSegment_getEnd (LineSegment_t *ls);
 
-/*
- * Does noting since no defaults are defined for LineSegment.
+/**
+ * Does noting since no defaults are defined for LineSegment_t.
+ *
+ * @param ls The LineSegment_t structure.
+ *
+ * @memberof LineSegment_t
  */ 
 LIBSBML_EXTERN
 void
 LineSegment_initDefaults (LineSegment_t *ls);
 
-/*
- * @return a (deep) copy of this LineSegment.
+/**
+ * @return a (deep) copy of this LineSegment_t.
+ *
+ * @param ls The LineSegment_t structure.
+ *
+ * @memberof LineSegment_t
  */
 LIBSBML_EXTERN
 LineSegment_t *
-LineSegment_clone (const LineSegment_t *m);
+LineSegment_clone (const LineSegment_t *ls);
 
 
 END_C_DECLS

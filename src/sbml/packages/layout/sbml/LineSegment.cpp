@@ -700,9 +700,6 @@ LineSegment::enablePackageInternal(const std::string& pkgURI,
 #endif /* __cplusplus */
 /** @cond doxygenCOnly */
 
-/**
- * Creates a LineSegment and returns the pointer.
- */
 LIBSBML_EXTERN
 LineSegment_t *
 LineSegment_create (void)
@@ -711,9 +708,6 @@ LineSegment_create (void)
 }
 
 
-/**
- * Creates a LineSegment from a template.
- */
 LIBSBML_EXTERN
 LineSegment_t *
 LineSegment_createFrom (const LineSegment_t *temp)
@@ -722,9 +716,6 @@ LineSegment_createFrom (const LineSegment_t *temp)
 }
 
 
-/**
- * Creates a LineSegment with the given points and returns the pointer.
- */
 LIBSBML_EXTERN
 LineSegment_t *
 LineSegment_createWithPoints (const Point_t *start, const Point_t *end)
@@ -734,9 +725,6 @@ LineSegment_createWithPoints (const Point_t *start, const Point_t *end)
 }
 
 
-/**
- * Creates a LineSegment with the given coordinates and returns the pointer.
- */
 LIBSBML_EXTERN
 LineSegment_t *
 LineSegment_createWithCoordinates (double x1, double y1, double z1,
@@ -747,9 +735,6 @@ LineSegment_createWithCoordinates (double x1, double y1, double z1,
 }
 
 
-/**
- * Frees the memory for the line segment.
- */
 LIBSBML_EXTERN
 void
 LineSegment_free (LineSegment_t *ls)
@@ -758,9 +743,6 @@ LineSegment_free (LineSegment_t *ls)
 }
 
 
-/**
- * Initializes the start point with a copy of the given Point object.
- */
 LIBSBML_EXTERN
 void
 LineSegment_setStart (LineSegment_t *ls, const Point_t *start)
@@ -769,9 +751,6 @@ LineSegment_setStart (LineSegment_t *ls, const Point_t *start)
 }
 
 
-/**
- * Initializes the end point with a copy of the given Point object.
- */
 LIBSBML_EXTERN
 void
 LineSegment_setEnd (LineSegment_t *ls, const Point_t *end)
@@ -780,9 +759,6 @@ LineSegment_setEnd (LineSegment_t *ls, const Point_t *end)
 }
 
 
-/**
- * Returns the start point of the line.
- */ 
 LIBSBML_EXTERN
 Point_t *
 LineSegment_getStart (LineSegment_t *ls)
@@ -791,9 +767,6 @@ LineSegment_getStart (LineSegment_t *ls)
 }
 
 
-/**
- * Returns the end point of the line.
- */ 
 LIBSBML_EXTERN
 Point_t *
 LineSegment_getEnd (LineSegment_t *ls)
@@ -802,9 +775,6 @@ LineSegment_getEnd (LineSegment_t *ls)
 }
 
 
-/**
- * Does nothing since no defaults are defined for LineSegment.
- */ 
 LIBSBML_EXTERN
 void
 LineSegment_initDefaults (LineSegment_t *ls)
@@ -812,9 +782,7 @@ LineSegment_initDefaults (LineSegment_t *ls)
   ls->initDefaults();
 }
 
-/**
- * @return a (deep) copy of this LineSegment.
- */
+
 LIBSBML_EXTERN
 LineSegment_t *
 LineSegment_clone (const LineSegment_t *m)
