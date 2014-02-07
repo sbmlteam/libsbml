@@ -253,6 +253,25 @@ START_TEST ( test_ReferenceGlyph_assignmentOperator )
 END_TEST
 
 
+START_TEST ( test_ReferenceGlyph_createWith )
+{
+  ReferenceGlyph* srg1= ReferenceGlyph_createWith("id", "glyphId", "referenceId", "product");
+  fail_unless(srg1->getId()          == "id");
+  fail_unless(srg1->getGlyphId()     == "glyphId");
+  fail_unless(srg1->getReferenceId() == "referenceId");
+  fail_unless(srg1->getRole()        == "product");
+  delete srg1;
+
+  LayoutPkgNamespaces layoutns(3, 1, 1, "layout");
+  ReferenceGlyph srg(&layoutns, "id", "glyphId", "referenceId", "product");
+  fail_unless(srg.getId()          == "id");
+  fail_unless(srg.getGlyphId()     == "glyphId");
+  fail_unless(srg.getReferenceId() == "referenceId");
+  fail_unless(srg.getRole()        == "product");
+}
+END_TEST
+
+
 
 Suite *
 create_suite_ReferenceGlyph (void)
@@ -264,18 +283,19 @@ create_suite_ReferenceGlyph (void)
                             ReferenceGlyphTest_setup,
                             ReferenceGlyphTest_teardown );
   
-  tcase_add_test( tcase, test_ReferenceGlyph_new                   );
-  tcase_add_test( tcase, test_ReferenceGlyph_new_with_data         );
-  tcase_add_test( tcase, test_ReferenceGlyph_setGlyphId     );
-  tcase_add_test( tcase, test_ReferenceGlyph_setReferenceId );
-  tcase_add_test( tcase, test_ReferenceGlyph_setRole               );
-  tcase_add_test( tcase, test_ReferenceGlyph_getRole         );
-  tcase_add_test( tcase, test_ReferenceGlyph_setCurve              );
-  tcase_add_test( tcase, test_ReferenceGlyph_setCurve_NULL         );
-  tcase_add_test( tcase, test_ReferenceGlyph_createLineSegment     );
-  tcase_add_test( tcase, test_ReferenceGlyph_createCubicBezier     );
-  tcase_add_test( tcase, test_ReferenceGlyph_copyConstructor       );
-  tcase_add_test( tcase, test_ReferenceGlyph_assignmentOperator    );
+  tcase_add_test( tcase, test_ReferenceGlyph_new                );
+  tcase_add_test( tcase, test_ReferenceGlyph_new_with_data      );
+  tcase_add_test( tcase, test_ReferenceGlyph_setGlyphId         );
+  tcase_add_test( tcase, test_ReferenceGlyph_setReferenceId     );
+  tcase_add_test( tcase, test_ReferenceGlyph_setRole            );
+  tcase_add_test( tcase, test_ReferenceGlyph_getRole            );
+  tcase_add_test( tcase, test_ReferenceGlyph_setCurve           );
+  tcase_add_test( tcase, test_ReferenceGlyph_setCurve_NULL      );
+  tcase_add_test( tcase, test_ReferenceGlyph_createLineSegment  );
+  tcase_add_test( tcase, test_ReferenceGlyph_createCubicBezier  );
+  tcase_add_test( tcase, test_ReferenceGlyph_copyConstructor    );
+  tcase_add_test( tcase, test_ReferenceGlyph_assignmentOperator );
+  tcase_add_test( tcase, test_ReferenceGlyph_createWith         );
   
   suite_add_tcase(suite, tcase);
   

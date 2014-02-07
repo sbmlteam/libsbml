@@ -294,6 +294,25 @@ END_TEST
 
 
 
+START_TEST ( test_SpeciesReferenceGlyph_createWith )
+{
+  SpeciesReferenceGlyph* srg1= SpeciesReferenceGlyph_createWith("id", "glyphId", "referenceId", SPECIES_ROLE_PRODUCT);
+  fail_unless(srg1->getId()                 == "id");
+  fail_unless(srg1->getSpeciesGlyphId()     == "glyphId");
+  fail_unless(srg1->getSpeciesReferenceId() == "referenceId");
+  fail_unless(srg1->getRole()               == SPECIES_ROLE_PRODUCT);
+  delete srg1;
+
+  LayoutPkgNamespaces layoutns(3, 1, 1, "layout");
+  SpeciesReferenceGlyph srg(&layoutns, "id", "glyphId", "referenceId", SPECIES_ROLE_PRODUCT);
+  fail_unless(srg.getId()                 == "id");
+  fail_unless(srg.getSpeciesGlyphId()     == "glyphId");
+  fail_unless(srg.getSpeciesReferenceId() == "referenceId");
+  fail_unless(srg.getRole()               == SPECIES_ROLE_PRODUCT);
+}
+END_TEST
+
+
 Suite *
 create_suite_SpeciesReferenceGlyph (void)
 {
@@ -317,6 +336,7 @@ create_suite_SpeciesReferenceGlyph (void)
   tcase_add_test( tcase, test_SpeciesReferenceGlyph_createCubicBezier     );
   tcase_add_test( tcase, test_SpeciesReferenceGlyph_copyConstructor       );
   tcase_add_test( tcase, test_SpeciesReferenceGlyph_assignmentOperator    );
+  tcase_add_test( tcase, test_SpeciesReferenceGlyph_createWith            );
   
   suite_add_tcase(suite, tcase);
   
