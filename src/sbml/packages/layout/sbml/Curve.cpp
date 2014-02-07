@@ -665,9 +665,6 @@ Curve::accept (SBMLVisitor& v) const
 #endif /* __cplusplus */
 /** @cond doxygenCOnly */
 
-/**
- * Creates a new curve and returns the pointer to it.
- */
 LIBSBML_EXTERN
 Curve_t *
 Curve_create (void)
@@ -676,9 +673,6 @@ Curve_create (void)
 }
 
 
-/**
- * Creates a new Curve object from a template.
- */
 LIBSBML_EXTERN
 Curve_t *
 Curve_createFrom (const Curve_t *temp)
@@ -687,9 +681,6 @@ Curve_createFrom (const Curve_t *temp)
 }
 
 
-/**
- * Frees the memory taken by the Curve.
- */
 LIBSBML_EXTERN
 void
 Curve_free (Curve_t *c)
@@ -698,9 +689,6 @@ Curve_free (Curve_t *c)
 }
 
 
-/**
- * Adds a LineSegment.
- */
 LIBSBML_EXTERN
 void
 Curve_addCurveSegment (Curve_t *c, LineSegment_t *ls)
@@ -709,9 +697,6 @@ Curve_addCurveSegment (Curve_t *c, LineSegment_t *ls)
 }
 
 
-/**
- * Returns the number of line segments.
- */
 LIBSBML_EXTERN
 unsigned int
 Curve_getNumCurveSegments (const Curve_t *c)
@@ -720,9 +705,6 @@ Curve_getNumCurveSegments (const Curve_t *c)
 }
 
 
-/**
- * Returns the line segment with the given index.
- */
 LIBSBML_EXTERN
 LineSegment_t *
 Curve_getCurveSegment (const Curve_t *c, unsigned int index)
@@ -731,9 +713,6 @@ Curve_getCurveSegment (const Curve_t *c, unsigned int index)
 }
 
 
-/**
- * Returns the ListOf object that holds all the curve segments.
- */ 
 LIBSBML_EXTERN
 ListOf_t *
 Curve_getListOfCurveSegments (Curve_t *c)
@@ -742,9 +721,6 @@ Curve_getListOfCurveSegments (Curve_t *c)
 }
 
 
-/**
- * Does nothing since no defaults are defined for Curve.
- */ 
 LIBSBML_EXTERN
 void
 Curve_initDefaults (Curve_t *c)
@@ -753,10 +729,6 @@ Curve_initDefaults (Curve_t *c)
 }
 
 
-/**
- * Creates a new LineSegment and adds it to the end of the list.  A pointer
- * to the new LineSegment object is returned.
- */
 LIBSBML_EXTERN
 LineSegment_t *
 Curve_createLineSegment (Curve_t *c)
@@ -765,10 +737,6 @@ Curve_createLineSegment (Curve_t *c)
 }
 
 
-/**
- * Creates a new CubicBezier and adds it to the end of the list.  A pointer
- * to the new CubicBezier object is returned.
- */
 LIBSBML_EXTERN
 CubicBezier_t *
 Curve_createCubicBezier (Curve_t *c)
@@ -776,9 +744,7 @@ Curve_createCubicBezier (Curve_t *c)
   return c->createCubicBezier();
 }
 
-/**
- * @return a (deep) copy of this Curve.
- */
+
 LIBSBML_EXTERN
 Curve_t *
 Curve_clone (const Curve_t *m)

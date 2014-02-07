@@ -282,106 +282,163 @@ protected:
 BEGIN_C_DECLS
 
 
-/*
+/**
  * Creates a new CompartmentGlyph and returns the pointer to it.
+ *
+ * @memberof CompartmentGlyph_t
  */
 LIBSBML_EXTERN
 CompartmentGlyph_t *
 CompartmentGlyph_create ();
 
 
-/*
+/**
  * Creates a new CompartmentGlyph from a template.
+ *
+ * @param temp The CompartmentGlyph_t structure to copy.
+ *
+ * @memberof CompartmentGlyph_t
  */
 LIBSBML_EXTERN
 CompartmentGlyph_t *
-CompartmentGlyph_createFrom (const CompartmentGlyph_t *cg);
+CompartmentGlyph_createFrom (const CompartmentGlyph_t *temp);
 
-/*
+/**
  * Creates a new CompartmentGlyph with the given @p sid
+ *
+ * @param sid The id of the created CompartmentGlyph_t
+ *
+ * @memberof CompartmentGlyph_t
  */
 LIBSBML_EXTERN
 CompartmentGlyph_t *
 CompartmentGlyph_createWith (const char *sid);
 
-/*
+/**
  * Creates a new CompartmentGlyph with the given @p sid
+ *
+ * @param sid The id of the created CompartmentGlyph_t
+ * @param compId The compartment id of the created CompartmentGlyph_t
+ *
+ * @memberof CompartmentGlyph_t
  */
 LIBSBML_EXTERN
 CompartmentGlyph_t *
 CompartmentGlyph_createWithCompartmentId (const char *sid, const char *compId);
 
-/*
+/**
  * Frees the memory taken by the given compartment glyph.
+ *
+ * @param cg The CompartmentGlyph_t structure.
+ *
+ * @memberof CompartmentGlyph_t
  */
 LIBSBML_EXTERN
 void
 CompartmentGlyph_free (CompartmentGlyph_t *cg);
 
 
-/*
+/**
  * Sets the reference compartment for the compartment glyph.
+ *
+ * @param cg The CompartmentGlyph_t structure.
+ * @param id The string to use as the compartment id
+ *
+ * @memberof CompartmentGlyph_t
  */
 LIBSBML_EXTERN
 void
 CompartmentGlyph_setCompartmentId (CompartmentGlyph_t *cg, const char *id);
 
-/*
+/**
  * Gets the reference compartments id for the given compartment glyph.
+ *
+ * @param cg The CompartmentGlyph_t structure.
+ *
+ * @memberof CompartmentGlyph_t
  */
 LIBSBML_EXTERN
 const char *
 CompartmentGlyph_getCompartmentId (const CompartmentGlyph_t *cg);
 
-/*
+/**
  * Returns 0 if the reference compartment has not been set for this glyph
  * and 1 otherwise.
+ *
+ * @param cg The CompartmentGlyph_t structure.
+ *
+ * @memberof CompartmentGlyph_t
  */
 LIBSBML_EXTERN
 int
 CompartmentGlyph_isSetCompartmentId (const CompartmentGlyph_t *cg);
 
-/*
+/**
  * Returns the compartment order.
+ *
+ * @param cg The CompartmentGlyph_t structure.
+ *
+ * @memberof CompartmentGlyph_t
  */          
 LIBSBML_EXTERN
 double
 CompartmentGlyph_getOrder (const CompartmentGlyph_t *cg);
       
-/*
+/**
  * Sets the compartment order
+ *
+ * @param cg The CompartmentGlyph_t structure.
+ * @param order The value to use as the order of the CompartmentGlyph_t
+ *
+ * @memberof CompartmentGlyph_t
  */   
 LIBSBML_EXTERN
 int
 CompartmentGlyph_setOrder (CompartmentGlyph_t *cg, double order);
 
-/*
+/**
  * Sets the compartment order
+ *
+ * @param cg The CompartmentGlyph_t structure.
+ *
+ * @memberof CompartmentGlyph_t
  */   
 LIBSBML_EXTERN
 int
 CompartmentGlyph_unsetOrder (CompartmentGlyph_t *cg);
 
-/*
+/**
  * Returns true if the compartment order has been set
+ *
+ * @param cg The CompartmentGlyph_t structure.
+ *
+ * @memberof CompartmentGlyph_t
  */    
 LIBSBML_EXTERN
 int
 CompartmentGlyph_isSetOrder (const CompartmentGlyph_t *cg);
 
-/*
+/**
  * Calls initDefaults from GraphicalObject.
+ *
+ * @param cg The CompartmentGlyph_t structure.
+ *
+ * @memberof CompartmentGlyph_t
  */ 
 LIBSBML_EXTERN
 void
 CompartmentGlyph_initDefaults (CompartmentGlyph_t *cg);
 
-/*
+/**
  * @return a (deep) copy of this CompartmentGlyph.
+ *
+ * @param cg The CompartmentGlyph_t structure.
+ *
+ * @memberof CompartmentGlyph_t
  */
 LIBSBML_EXTERN
 CompartmentGlyph_t *
-CompartmentGlyph_clone (const CompartmentGlyph_t *m);
+CompartmentGlyph_clone (const CompartmentGlyph_t *cg);
 
 
 END_C_DECLS

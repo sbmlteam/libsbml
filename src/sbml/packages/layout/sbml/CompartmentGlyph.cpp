@@ -532,9 +532,6 @@ XMLNode CompartmentGlyph::toXML() const
 #endif /* __cplusplus */
 /** @cond doxygenCOnly */
 
-/**
- * Creates a new CompartmentGlyph and returns the pointer to it.
- */
 LIBSBML_EXTERN
 CompartmentGlyph_t *
 CompartmentGlyph_create(void)
@@ -543,9 +540,6 @@ CompartmentGlyph_create(void)
 }
 
 
-/**
- * Creates a new CompartmentGlyph from a template.
- */
 LIBSBML_EXTERN
 CompartmentGlyph_t *
 CompartmentGlyph_createFrom (const CompartmentGlyph_t *temp)
@@ -554,9 +548,6 @@ CompartmentGlyph_createFrom (const CompartmentGlyph_t *temp)
 }
 
 
-/**
- * Creates a new CompartmentGlyph with the given @p id
- */
 LIBSBML_EXTERN
 CompartmentGlyph_t *
 CompartmentGlyph_createWith (const char *id)
@@ -566,9 +557,6 @@ CompartmentGlyph_createWith (const char *id)
 }
 
 
-/**
- * Creates a new CompartmentGlyph with the given @p id
- */
 LIBSBML_EXTERN
 CompartmentGlyph_t *
 CompartmentGlyph_createWithCompartmentId (const char *sid, const char *compId)
@@ -578,9 +566,6 @@ CompartmentGlyph_createWithCompartmentId (const char *sid, const char *compId)
 }
 
 
-/**
- * Frees the memory taken by the given compartment glyph.
- */
 LIBSBML_EXTERN
 void
 CompartmentGlyph_free (CompartmentGlyph_t *cg)
@@ -588,9 +573,6 @@ CompartmentGlyph_free (CompartmentGlyph_t *cg)
   delete cg;
 }
 
-/**
- * Returns the compartment order.
- */          
 LIBSBML_EXTERN
 double
 CompartmentGlyph_getOrder (const CompartmentGlyph_t *cg)
@@ -599,9 +581,6 @@ CompartmentGlyph_getOrder (const CompartmentGlyph_t *cg)
  return static_cast<const CompartmentGlyph*>(cg)->getOrder();
 }
       
-/**
- * Sets the compartment order
- */   
 LIBSBML_EXTERN
 int
 CompartmentGlyph_setOrder (CompartmentGlyph_t *cg, double order)
@@ -610,9 +589,6 @@ CompartmentGlyph_setOrder (CompartmentGlyph_t *cg, double order)
   return static_cast<CompartmentGlyph*>(cg)->setOrder(order);
 }
 
-/**
- * Sets the compartment order
- */   
 LIBSBML_EXTERN
 int
 CompartmentGlyph_unsetOrder (CompartmentGlyph_t *cg)
@@ -621,9 +597,6 @@ CompartmentGlyph_unsetOrder (CompartmentGlyph_t *cg)
   return static_cast<CompartmentGlyph*>(cg)->unsetOrder();
 }
 
-/**
- * Returns true if the compartment order has been set
- */    
 LIBSBML_EXTERN
 int
 CompartmentGlyph_isSetOrder (const CompartmentGlyph_t *cg)
@@ -632,9 +605,6 @@ CompartmentGlyph_isSetOrder (const CompartmentGlyph_t *cg)
   return static_cast<const CompartmentGlyph*>(cg)->isSetOrder();
 }
 
-/**
- * Sets the reference compartment for the compartment glyph.
- */
 LIBSBML_EXTERN
 void
 CompartmentGlyph_setCompartmentId (CompartmentGlyph_t *cg, const char* id)
@@ -643,9 +613,6 @@ CompartmentGlyph_setCompartmentId (CompartmentGlyph_t *cg, const char* id)
 }
 
 
-/**
- * Gets the reference compartments id for the given compartment glyph.
- */
 LIBSBML_EXTERN
 const char *
 CompartmentGlyph_getCompartmentId (const CompartmentGlyph_t *cg)
@@ -654,10 +621,6 @@ CompartmentGlyph_getCompartmentId (const CompartmentGlyph_t *cg)
 }
 
 
-/**
- * Returns 0 if the reference compartment has not been set for this glyph
- * and 1 otherwise.
- */
 LIBSBML_EXTERN
 int
 CompartmentGlyph_isSetCompartmentId (const CompartmentGlyph_t *cg)
@@ -666,9 +629,6 @@ CompartmentGlyph_isSetCompartmentId (const CompartmentGlyph_t *cg)
 }
 
 
-/**
- * Calls initDefaults from GraphicalObject.
- */ 
 LIBSBML_EXTERN
 void
 CompartmentGlyph_initDefaults (CompartmentGlyph_t *cg)
@@ -676,9 +636,6 @@ CompartmentGlyph_initDefaults (CompartmentGlyph_t *cg)
   cg->initDefaults();
 }
 
-/**
- * @return a (deep) copy of this CompartmentGlyph.
- */
 LIBSBML_EXTERN
 CompartmentGlyph_t *
 CompartmentGlyph_clone (const CompartmentGlyph_t *m)

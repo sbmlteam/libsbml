@@ -610,8 +610,6 @@ LIBSBML_CPP_NAMESPACE_END
 LIBSBML_CPP_NAMESPACE_BEGIN
 BEGIN_C_DECLS
 
-
-
 /**
  * Creates a new GraphicalObject_t.
  *

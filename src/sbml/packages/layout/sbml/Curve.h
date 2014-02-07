@@ -455,93 +455,142 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 BEGIN_C_DECLS
 
 
-/*
+/**
  * Creates a new curve and returns the pointer to it.
+ *
+ * @memberof Curve_t
  */
 LIBSBML_EXTERN
 Curve_t *
 Curve_create ();
 
-/*
- * Creates a new Curve object from a template.
+/**
+ * Creates a new Curve_t object from a template.
+ *
+ * @param temp The Curve_t structure to copy.
+ *
+ * @memberof Curve_t
  */
 LIBSBML_EXTERN
 Curve_t *
-Curve_createFrom (const Curve_t *c);
+Curve_createFrom (const Curve_t *temp);
 
-/*
- * Frees the memory taken by the Curve.
+/**
+ * Frees the memory taken by the Curve_t.
+ *
+ * @param c The Curve_t structure.
+ *
+ * @memberof Curve_t
  */
 LIBSBML_EXTERN
 void
 Curve_free (Curve_t *c);
 
 
-/*
+/**
  * Adds a LineSegment.
+ *
+ * @param c The Curve_t structure.
+ * @param ls The LineSegment_t structure to add.
+ *
+ * @memberof Curve_t
  */
 LIBSBML_EXTERN
 void
 Curve_addCurveSegment (Curve_t *c, LineSegment_t *ls);
 
-/*
+/**
  * Returns the number of line segments.
+ *
+ * @param c The Curve_t structure.
+ *
+ * @memberof Curve_t
  */
 LIBSBML_EXTERN
 unsigned int
 Curve_getNumCurveSegments (const Curve_t *c);
 
-/*
+/**
  * Returns the line segment with the given index.
+ *
+ * @param c The Curve_t structure.
+ * @param index The index of the curve segment to return.
+ *
+ * @memberof Curve_t
  */
 LIBSBML_EXTERN
 LineSegment_t *
 Curve_getCurveSegment (const Curve_t *c, unsigned int index);
 
-/*
+/**
  * Returns the ListOf object that holds all the curve segments.
+ *
+ * @param c The Curve_t structure.
+ *
+ * @memberof Curve_t
  */ 
 LIBSBML_EXTERN
 ListOf_t *
-Curve_getListOfCurveSegments (Curve_t *curve);
+Curve_getListOfCurveSegments (Curve_t *c);
 
-/*
+/**
  * Removes the curve segment with the given index.  If the index is
  * invalid, nothing is done.
+ *
+ * @param c The Curve_t structure.
+ * @param index The index of the curve segment to remove.
+ *
+ * @memberof Curve_t
  */ 
 LIBSBML_EXTERN
 LineSegment_t *
 Curve_removeCurveSegment (Curve_t *c, unsigned int index);
 
-/*
- * Does nothing since no defaults are defined for Curve.
+/**
+ * Does nothing since no defaults are defined for Curve_t.
+ *
+ * @param c The Curve_t structure.
+ *
+ * @memberof Curve_t
  */ 
 LIBSBML_EXTERN
 void
 Curve_initDefaults (Curve_t *c);
 
-/*
+/**
  * Creates a new LineSegment and adds it to the end of the list.  A pointer
  * to the new LineSegment object is returned.
+ *
+ * @param c The Curve_t structure.
+ *
+ * @memberof Curve_t
  */
 LIBSBML_EXTERN
 LineSegment_t *
 Curve_createLineSegment (Curve_t *c);
 
-/*
+/**
  * Creates a new CubicBezier and adds it to the end of the list.  A pointer
  * to the new CubicBezier object is returned.
+ *
+ * @param c The Curve_t structure.
+ *
+ * @memberof Curve_t
  */
 LIBSBML_EXTERN
 CubicBezier_t *
 Curve_createCubicBezier (Curve_t *c);
 
-/*
- * @return a (deep) copy of this Curve.
+/**
+ * @return a (deep) copy of this Curve_t.
+ *
+ * @param c The Curve_t structure.
+ *
+ * @memberof Curve_t
  */
 LIBSBML_EXTERN
 Curve_t *
-Curve_clone (const Curve_t *m);
+Curve_clone (const Curve_t *c);
 
 
 

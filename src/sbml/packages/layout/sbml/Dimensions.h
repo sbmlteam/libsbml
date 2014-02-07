@@ -324,110 +324,176 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 BEGIN_C_DECLS
 
 
-/*
+/**
  * Creates a new Dimensions object with all sizes set to 0.0.
+ *
+ * @memberof Dimensions_t
  */ 
 LIBSBML_EXTERN
 Dimensions_t *
 Dimensions_create ();
 
-/*
+/**
  * Creates a new Dimensions object with the given sizes.
+ *
+ * @param w The width of the created Dimensions_t
+ * @param h The height of the created Dimensions_t
+ * @param d The depth of the created Dimensions_t
+ *
+ * @memberof Dimensions_t
  */ 
 LIBSBML_EXTERN
 Dimensions_t *
 Dimensions_createWithSize (double w, double h, double d);
 
-/*
+/**
  * Frees memory taken up by the Dimensions object.
+ *
+ * @param d The Dimensions_t structure
+ *
+ * @memberof Dimensions_t
  */ 
 LIBSBML_EXTERN
 void
 Dimensions_free (Dimensions_t *d);
 
-/*
+/**
  * Sets the depth to 0.0
+ *
+ * @param d The Dimensions_t structure
+ *
+ * @memberof Dimensions_t
  */ 
 LIBSBML_EXTERN
 void
 Dimensions_initDefaults (Dimensions_t *d);
 
-/*
+/**
  * Sets all sizes of the Dimensions object to the given values.
+ *
+ * @param d The Dimensions_t structure
+ * @param w The value to use for the width of the Dimensions_t
+ * @param h The value to use for the height of the Dimensions_t
+ * @param depth The value to use for the depth of the Dimensions_t
+ *
+ * @memberof Dimensions_t
  */ 
 LIBSBML_EXTERN
 void
-Dimensions_setBounds (Dimensions_t *dim, double w, double h, double d);
+Dimensions_setBounds (Dimensions_t *d, double w, double h, double depth);
 
-/*
+/**
  * Sets the width to the given value.
+ *
+ * @param d The Dimensions_t structure
+ * @param w The value to use for the width of the Dimensions_t
+ *
+ * @memberof Dimensions_t
  */ 
 LIBSBML_EXTERN
 void
-Dimensions_setWidth (Dimensions_t *p, double w);
+Dimensions_setWidth (Dimensions_t *d, double w);
 
-/*
+/**
  * Sets the height to the given value.
+ *
+ * @param d The Dimensions_t structure
+ * @param h The value to use for the height of the Dimensions_t
+ *
+ * @memberof Dimensions_t
  */ 
 LIBSBML_EXTERN
 void
-Dimensions_setHeight (Dimensions_t *p, double h);
+Dimensions_setHeight (Dimensions_t *d, double h);
 
-/*
+/**
  * Sets the depth to the given value.
+ *
+ * @param d The Dimensions_t structure
+ * @param d The value to use for the depth of the Dimensions_t
+ *
+ * @memberof Dimensions_t
  */ 
 LIBSBML_EXTERN
 void
-Dimensions_setDepth (Dimensions_t *dim, double d);
+Dimensions_setDepth (Dimensions_t *d, double d);
 
-/*
+/**
  * Returns the height.
+ *
+ * @param d The Dimensions_t structure
+ *
+ * @memberof Dimensions_t
  */
 LIBSBML_EXTERN
 double
-Dimensions_height (const Dimensions_t *p);
+Dimensions_height (const Dimensions_t *d);
 
-/*
+/**
  * Returns the width.
+ *
+ * @param d The Dimensions_t structure
+ *
+ * @memberof Dimensions_t
  */
 LIBSBML_EXTERN
 double
-Dimensions_width (const Dimensions_t *p);
+Dimensions_width (const Dimensions_t *d);
 
-/*
+/**
  * Returns the depth.
+ *
+ * @param d The Dimensions_t structure
+ *
+ * @memberof Dimensions_t
  */ 
 LIBSBML_EXTERN
 double
-Dimensions_depth (const Dimensions_t *p);
+Dimensions_depth (const Dimensions_t *d);
 
-/*
+/**
  * Returns the height.
+ *
+ * @param d The Dimensions_t structure
+ *
+ * @memberof Dimensions_t
  */
 LIBSBML_EXTERN
 double
-Dimensions_getHeight (const Dimensions_t *p);
+Dimensions_getHeight (const Dimensions_t *d);
 
-/*
+/**
  * Returns the width.
+ *
+ * @param d The Dimensions_t structure
+ *
+ * @memberof Dimensions_t
  */
 LIBSBML_EXTERN
 double
-Dimensions_getWidth (const Dimensions_t *p);
+Dimensions_getWidth (const Dimensions_t *d);
 
-/*
+/**
  * Returns the depth.
+ *
+ * @param d The Dimensions_t structure
+ *
+ * @memberof Dimensions_t
  */ 
 LIBSBML_EXTERN
 double
-Dimensions_getDepth (const Dimensions_t *p);
+Dimensions_getDepth (const Dimensions_t *d);
 
-/*
+/**
  * @return a (deep) copy of this Dimensions.
+ *
+ * @param d The Dimensions_t structure
+ *
+ * @memberof Dimensions_t
  */
 LIBSBML_EXTERN
 Dimensions_t *
-Dimensions_clone (const Dimensions_t *m);
+Dimensions_clone (const Dimensions_t *d);
 
 
 

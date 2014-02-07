@@ -464,189 +464,319 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 BEGIN_C_DECLS
 
 
-/*
+/**
  * Function that creates a BoundingBox_t object with position set to
  * (0.0,0.0,0.0) and dimensions set to (0.0,0.0,0.0). The id is set to the
  * empty string.
+ *
+ * @memberof BoundingBox_t
  */
 LIBSBML_EXTERN
 BoundingBox_t *
 BoundingBox_create (void);
 
-/*
+/**
  * ZFunction that creates a BoundingBox_t object with position set to
  * (0.0,0.0,0.0) and dimensions set to (0.0,0.0,0.0).  The id is set to the
  * given string.
+ *
+ * @param sid The id of the created BoundingBox_t
+ *
+ * @memberof BoundingBox_t
  */
 LIBSBML_EXTERN
 BoundingBox_t *
-BoundingBox_createWith (const char *id);
+BoundingBox_createWith (const char *sid);
 
-/*
+/**
  * Function that creates a BoundingBox_t object with the coordinates and
  * sizes given as arguments. The id is set to the empty string.
+ *
+ * @param sid The id of the created BoundingBox_t
+ * @param x The value of the x coordinate of the position Point_t.
+ * @param y The value of the y coordinate of the position Point_t.
+ * @param z The value of the z coordinate of the position Point_t.
+ * @param width  The value of the width.
+ * @param height The value of the height.
+ * @param depth  The value of the depth.
+ *
+ * @memberof BoundingBox_t
  */ 
 LIBSBML_EXTERN
 BoundingBox_t *
-BoundingBox_createWithCoordinates (const char *id, double x, double y, double z,
+BoundingBox_createWithCoordinates (const char *sid, double x, double y, double z,
                                    double width, double height, double depth);
 
-/*
+/**
  * Frees all memory taken by the given BoundingBox_t object.
+ *
+ * @param bb The BoundingBox_t structure.
+ *
+ * @memberof BoundingBox_t
  */ 
 LIBSBML_EXTERN
 void
 BoundingBox_free (BoundingBox_t *bb);
 
-/*
+/**
  * Does nothing since no defaults are defined for BoundingBox.
-  */
+ *
+ * @param bb The BoundingBox_t structure.
+ *
+ * @memberof BoundingBox_t
+ */
 LIBSBML_EXTERN
 void
 BoundingBox_initDefaults (BoundingBox_t *bb);
 
-/*
+/**
  * Returns the position as a Point_t object.
+ *
+ * @param bb The BoundingBox_t structure.
+ *
+ * @memberof BoundingBox_t
  */ 
 LIBSBML_EXTERN
 Point_t *
 BoundingBox_getPosition (BoundingBox_t *bb);
 
-/*
+/**
  * Returns the dimensions as a Dimensions_t object.
+ *
+ * @param bb The BoundingBox_t structure.
+ *
+ * @memberof BoundingBox_t
  */ 
 LIBSBML_EXTERN
 Dimensions_t *
 BoundingBox_getDimensions (BoundingBox_t *bb);
 
-/*
+/**
  * Sets the position to a copy of the Point_t object given as argument.
-  */
+ *
+ * @param bb The BoundingBox_t structure.
+ * @param p The Point_t to use as the position of the BoundingBox_t
+ *
+ * @memberof BoundingBox_t
+ */
 LIBSBML_EXTERN
 void
 BoundingBox_setPosition (BoundingBox_t *bb, const Point_t *p);
 
-/*
+/**
  * Sets the dimensions to a copy of the Dimensions_t object given.
+ *
+ * @param bb The BoundingBox_t structure.
+ * @param d The Dimensions_t to use as the dimensions of the BoundingBox_t
+ *
+ * @memberof BoundingBox_t
  */ 
 LIBSBML_EXTERN
 void
 BoundingBox_setDimensions (BoundingBox_t *bb, const Dimensions_t *d);
 
-/*
+/**
  * Sets the x offset of the bounding box.
+ *
+ * @param bb The BoundingBox_t structure.
+ * @param x The value of the x coordinate.
+ *
+ * @memberof BoundingBox_t
  */
 LIBSBML_EXTERN
 void
-BoundingBox_setX(BoundingBox_t* bb,double x);
+BoundingBox_setX(BoundingBox_t* bb, double x);
 
 
-/*
+/**
  * Sets the y offset of the bounding box.
+ *
+ * @param bb The BoundingBox_t structure.
+ * @param y The value of the y coordinate.
+ *
+ * @memberof BoundingBox_t
  */
 LIBSBML_EXTERN
 void
-BoundingBox_setY(BoundingBox_t* bb,double y);
+BoundingBox_setY(BoundingBox_t* bb, double y);
 
 
-/*
+/**
  * Sets the z offset of the bounding box.
+ *
+ * @param bb The BoundingBox_t structure.
+ * @param z The value of the z coordinate.
+ *
+ * @memberof BoundingBox_t
  */
 LIBSBML_EXTERN
 void
-BoundingBox_setZ(BoundingBox_t* bb,double z);
+BoundingBox_setZ(BoundingBox_t* bb, double z);
 
 
-/*
+/**
  * Sets the width of the bounding box.
+ *
+ * @param bb The BoundingBox_t structure.
+ * @param width  The value of the width.
+ *
+ * @memberof BoundingBox_t
  */
 LIBSBML_EXTERN
 void
-BoundingBox_setWidth(BoundingBox_t* bb,double width);
+BoundingBox_setWidth(BoundingBox_t* bb, double width);
 
 
-/*
+/**
  * Sets the height of the bounding box.
+ *
+ * @param bb The BoundingBox_t structure.
+ * @param height The value of the height.
+ *
+ * @memberof BoundingBox_t
  */
 LIBSBML_EXTERN
 void
-BoundingBox_setHeight(BoundingBox_t* bb,double height);
+BoundingBox_setHeight(BoundingBox_t* bb, double height);
 
 
-/*
+/**
  * Sets the depth of the bounding box.
+ *
+ * @param bb The BoundingBox_t structure.
+ * @param depth  The value of the depth.
+ *
+ * @memberof BoundingBox_t
  */
 LIBSBML_EXTERN
 void
-BoundingBox_setDepth(BoundingBox_t* bb,double depth);
+BoundingBox_setDepth(BoundingBox_t* bb, double depth);
 
-/*
+/**
  * Returns the x offset of the bounding box.
+ *
+ * @param bb The BoundingBox_t structure.
+ *
+ * @memberof BoundingBox_t
  */
 LIBSBML_EXTERN
 double
 BoundingBox_x(BoundingBox_t* bb);
 
 
-/*
+/**
  * Returns the y offset of the bounding box.
+ *
+ * @param bb The BoundingBox_t structure.
+ *
+ * @memberof BoundingBox_t
  */
 LIBSBML_EXTERN
 double
 BoundingBox_y(BoundingBox_t* bb);
 
 
-/*
+/**
  * Returns the z offset of the bounding box.
+ *
+ * @param bb The BoundingBox_t structure.
+ *
+ * @memberof BoundingBox_t
  */
 LIBSBML_EXTERN
 double
 BoundingBox_z(BoundingBox_t* bb);
 
 
-/*
+/**
  * Returns the width of the bounding box.
+ *
+ * @param bb The BoundingBox_t structure.
+ *
+ * @memberof BoundingBox_t
  */
 LIBSBML_EXTERN
 double
 BoundingBox_width(BoundingBox_t* bb);
 
-/*
+/**
  * Returns the height of the bounding box.
+ *
+ * @param bb The BoundingBox_t structure.
+ *
+ * @memberof BoundingBox_t
  */
 LIBSBML_EXTERN
 double
 BoundingBox_height(BoundingBox_t* bb);
 
-/*
+/**
  * Returns the depth of the bounding box.
+ *
+ * @param bb The BoundingBox_t structure.
+ *
+ * @memberof BoundingBox_t
  */
 LIBSBML_EXTERN
 double
 BoundingBox_depth(BoundingBox_t* bb);
 
-/*
+/**
  * @return a (deep) copy of this BoundingBox.
+ *
+ * @param bb The BoundingBox_t structure.
+ *
+ * @memberof BoundingBox_t
  */
 LIBSBML_EXTERN
 BoundingBox_t *
-BoundingBox_clone (const BoundingBox_t *m);
+BoundingBox_clone (const BoundingBox_t *bb);
 
 
+/**
+ * Returns non-zero if the id is set
+ *
+ * @param bb The BoundingBox_t structure.
+ *
+ * @memberof BoundingBox_t
+ */
 LIBSBML_EXTERN
 int
 BoundingBox_isSetId (const BoundingBox_t *bb);
 
+
+/**
+ * Returns the id
+ *
+ * @param bb The BoundingBox_t structure.
+ *
+ * @memberof BoundingBox_t
+ */
 LIBSBML_EXTERN
 const char *
 BoundingBox_getId (const BoundingBox_t *bb);
 
 
+/**
+ * Sets the id
+ *
+ * @param bb The BoundingBox_t structure.
+ * @param sid The value of the id.
+ *
+ * @memberof BoundingBox_t
+ */
 LIBSBML_EXTERN
 int
 BoundingBox_setId (BoundingBox_t *bb, const char *sid);
 
 
+/**
+ * Unsets the id
+ *
+ * @param bb The BoundingBox_t structure.
+ *
+ * @memberof BoundingBox_t
+ */
 LIBSBML_EXTERN
 void
 BoundingBox_unsetId (BoundingBox_t *bb);

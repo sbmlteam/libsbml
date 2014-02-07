@@ -126,12 +126,12 @@ ReferenceGlyph::ReferenceGlyph
   const std::string& referenceId,
   const std::string& role
 ) :
-  GraphicalObject    ( layoutns, sid      )
+  GraphicalObject    ( layoutns, sid  )
   , mReference       ( referenceId )
   , mGlyph           ( glyphId     )
-  , mRole            ( role               )
-  ,mCurve            ( layoutns)
-   ,mCurveExplicitlySet (false)
+  , mRole            ( role        )
+  , mCurve           ( layoutns    )
+  , mCurveExplicitlySet (false)
 {
   connectToChild();
 

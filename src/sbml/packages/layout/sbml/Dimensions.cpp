@@ -630,9 +630,6 @@ XMLNode Dimensions::toXML() const
 #endif /* __cplusplus */
 /** @cond doxygenCOnly */
 
-/**
- * Creates a new Dimensions object with all sizes set to 0.0.
- */ 
 LIBSBML_EXTERN
 Dimensions_t *
 Dimensions_create (void)
@@ -640,9 +637,6 @@ Dimensions_create (void)
   return new(std::nothrow) Dimensions;
 }
 
-/**
- * Creates a new Dimensions object with the given sizes.
- */ 
 LIBSBML_EXTERN
 Dimensions_t *
 Dimensions_createWithSize (double w, double h, double d)
@@ -651,10 +645,6 @@ Dimensions_createWithSize (double w, double h, double d)
   return new(std::nothrow) Dimensions(&layoutns, w, h, d);
 }
 
-
-/**
- * Frees memory taken up by the Dimensions object.
- */ 
 LIBSBML_EXTERN
 void
 Dimensions_free (Dimensions_t *d)
@@ -662,10 +652,6 @@ Dimensions_free (Dimensions_t *d)
   delete d;
 }
 
-
-/**
- * Sets the depth to 0.0
- */ 
 LIBSBML_EXTERN
 void
 Dimensions_initDefaults (Dimensions_t *d)
@@ -673,10 +659,6 @@ Dimensions_initDefaults (Dimensions_t *d)
   d->initDefaults();
 }
 
-
-/**
- * Sets all sizes of the Dimensions object to the given values.
- */ 
 LIBSBML_EXTERN
 void
 Dimensions_setBounds (Dimensions_t *dim, double w, double h, double d)
@@ -684,10 +666,6 @@ Dimensions_setBounds (Dimensions_t *dim, double w, double h, double d)
   dim->setBounds(w, h, d);
 }
 
-
-/**
- * Sets the width to the given value.
- */ 
 LIBSBML_EXTERN
 void
 Dimensions_setWidth (Dimensions_t *d, double w)
@@ -695,10 +673,6 @@ Dimensions_setWidth (Dimensions_t *d, double w)
   d->setWidth(w);
 }
 
-
-/**
- * Sets the height to the given value.
- */ 
 LIBSBML_EXTERN
 void
 Dimensions_setHeight (Dimensions_t *d, double h)
@@ -706,10 +680,6 @@ Dimensions_setHeight (Dimensions_t *d, double h)
   d->setHeight(h);
 }
 
-
-/**
- * Sets the depth to the given value.
- */ 
 LIBSBML_EXTERN
 void
 Dimensions_setDepth (Dimensions_t *dim, double d)
@@ -717,10 +687,6 @@ Dimensions_setDepth (Dimensions_t *dim, double d)
   dim->setDepth(d);
 }
 
-
-/**
- * Returns the width.
- */
 LIBSBML_EXTERN
 double
 Dimensions_width (const Dimensions_t *d)
@@ -728,10 +694,6 @@ Dimensions_width (const Dimensions_t *d)
   return d->width();
 }
 
-
-/**
- * Returns the height.
- */
 LIBSBML_EXTERN
 double
 Dimensions_height(const Dimensions_t *d)
@@ -739,9 +701,6 @@ Dimensions_height(const Dimensions_t *d)
   return d->height();
 }
 
-/**
- * Returns the depth.
- */
 LIBSBML_EXTERN
 double
 Dimensions_depth (const Dimensions_t *d)
@@ -749,9 +708,6 @@ Dimensions_depth (const Dimensions_t *d)
   return d->depth();
 }
 
-/**
- * Returns the width.
- */
 LIBSBML_EXTERN
 double
 Dimensions_getWidth (const Dimensions_t *d)
@@ -759,10 +715,6 @@ Dimensions_getWidth (const Dimensions_t *d)
   return d->width();
 }
 
-
-/**
- * Returns the height.
- */
 LIBSBML_EXTERN
 double
 Dimensions_getHeight(const Dimensions_t *d)
@@ -770,9 +722,6 @@ Dimensions_getHeight(const Dimensions_t *d)
   return d->height();
 }
 
-/**
- * Returns the depth.
- */
 LIBSBML_EXTERN
 double
 Dimensions_getDepth (const Dimensions_t *d)
@@ -780,10 +729,6 @@ Dimensions_getDepth (const Dimensions_t *d)
   return d->depth();
 }
 
-
-/**
- * @return a (deep) copy of this Dimensions.
- */
 LIBSBML_EXTERN
 Dimensions_t *
 Dimensions_clone (const Dimensions_t *m)
