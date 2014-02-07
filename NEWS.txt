@@ -1,6 +1,79 @@
            libSBML NEWS -- History of user-visible changes
 
 ====================================================================
+5.9.3 (Current svn)
+====================================================================
+
+STABLE RELEASE
+
+* New features
+
+  - 'comp' package-specific updates:
+
+  - 'fbc' package-specific updates:
+
+  - 'layout' package-specific updates:
+
+  - 'qual' package-specific updates:
+  
+
+* Bug fixes
+
+  - There were issues with propogating the enable package
+    functionality through the children of an element.  
+	This has been fixed.
+
+  - 'comp' package-specific updates:
+
+  - 'fbc' package-specific updates:
+
+  - 'layout' package-specific updates:
+
+  - 'qual' package-specific updates:
+
+* Configuration/build system changes
+
+  - There were issues with classes exported across the Windows dll
+    interface. These have been fixed and additional tests to catch
+	these issues have been implemented.  Thanks to Andy Somogyi
+	for reporting the problem.
+
+* Miscellaneous
+
+EXPERIMENTAL RELEASE
+
+* New features
+
+  - 'distrib' package-specific updates:
+
+  - 'groups' package-specific updates:
+
+  - 'multi' package-specific updates:
+
+  - 'render' package-specific updates:
+
+  - 'req' package-specific updates:
+
+  - 'spatial' package-specific updates:
+
+
+ * Bug fixes
+
+  - 'distrib' package-specific updates:
+
+  - 'groups' package-specific updates:
+
+  - 'multi' package-specific updates:
+
+  - 'render' package-specific updates:
+
+  - 'req' package-specific updates:
+
+  - 'spatial' package-specific updates:
+
+  
+
+====================================================================
 5.9.2-experimental (2014-01-31)
 ====================================================================
 
