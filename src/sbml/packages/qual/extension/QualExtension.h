@@ -291,6 +291,8 @@ public:
 //
 typedef SBMLExtensionNamespaces<QualExtension> QualPkgNamespaces; 
 
+#endif  /* __cplusplus */
+
 /**
  * @enum  SBMLQualTypeCode_t
  * @brief SBMLQualTypeCode_t is the enumeration of possible types from the 'qual' package.
@@ -312,5 +314,4 @@ typedef enum
 
 LIBSBML_CPP_NAMESPACE_END
 
-#endif  /* __cplusplus */
 #endif  /* QualExtension_h */

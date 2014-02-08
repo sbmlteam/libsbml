@@ -326,6 +326,8 @@ public:
 //
 typedef SBMLExtensionNamespaces<LayoutExtension> LayoutPkgNamespaces; 
 
+#endif  /* __cplusplus */
+
 /**
  * @enum  SBMLLayoutTypeCode_t
  * @brief SBMLLayoutTypeCode_t is the enumeration of possible types from the 'layout' package.
@@ -356,5 +358,4 @@ typedef enum
 
 LIBSBML_CPP_NAMESPACE_END
 
-#endif  /* __cplusplus */
 #endif  /* LayoutExtension_h */

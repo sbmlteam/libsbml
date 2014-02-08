@@ -237,6 +237,8 @@ public:
 //
 typedef SBMLExtensionNamespaces<FbcExtension> FbcPkgNamespaces; 
 
+#endif  /* __cplusplus */
+
 /**
  * @enum  SBMLFbcTypeCode_t
  * @brief SBMLFbcTypeCode_t is the enumeration of possible types from the 'fbc' package.
@@ -257,5 +259,4 @@ typedef enum
 
 LIBSBML_CPP_NAMESPACE_END
 
-#endif  /* __cplusplus */
 #endif  /* FbcExtension_h */
