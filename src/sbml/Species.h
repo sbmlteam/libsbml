@@ -1893,10 +1893,10 @@ Species_getSubstanceUnits (const Species_t *s);
  * 
  * @return the spatialSizeUnits of the given Species_t.
  * 
- * @warning In versions of SBML Level~2 before Version 3, the Species_t
+ * @warning In versions of SBML Level&nbsp;2 before Version&nbsp;3, the Species_t
  * structure included an attribute called "spatialSizeUnits", which allowed
  * explicitly setting the units of size for initial concentration.  This
- * attribute was removed in SBML Level 2 Version 3.  LibSBML retains this
+ * attribute was removed in SBML Level 2 Version&nbsp;3.  LibSBML retains this
  * attribute for compatibility with older definitions of Level 2, but its
  * use is strongly discouraged because it is incompatible with Level 2
  * Versions 3 and 4.
@@ -1959,7 +1959,7 @@ Species_getBoundaryCondition (const Species_t *s);
  * 
  * @return the charge of the given Species_t structure.
  *
- * @note Beginning in SBML Level 2 Version 2, the "charge" attribute on
+ * @note Beginning in SBML Level 2 Version&nbsp;2, the "charge" attribute on
  * Species_t is deprecated and its use strongly discouraged.  Its presence
  * is considered a misfeature in earlier definitions of SBML because its
  * implications for the mathematics of a model were never defined, and in
@@ -2134,10 +2134,10 @@ Species_isSetSubstanceUnits (const Species_t *s);
  * @return true (nonzero) if the "spatialSizeUnits" attribute of the given
  * Species_t structure is set, false (0) otherwise.
  * 
- * @warning In versions of SBML Level~2 before Version 3, the 
+ * @warning In versions of SBML Level&nbsp;2 before Version&nbsp;3, the 
  * Species_t included an attribute called "spatialSizeUnits", which allowed
  * explicitly setting the units of size for initial concentration.  This
- * attribute was removed in SBML Level 2 Version 3.  LibSBML retains this
+ * attribute was removed in SBML Level 2 Version&nbsp;3.  LibSBML retains this
  * attribute for compatibility with older definitions of Level 2, but its
  * use is strongly discouraged because it is incompatible with Level 2
  * Versions 3 and 4.
@@ -2175,7 +2175,7 @@ Species_isSetUnits (const Species_t *s);
  * @return true (nonzero) if the "charge" attribute of the given
  * Species_t structure is set, false (0) otherwise.
  *
- * @note Beginning in SBML Level 2 Version 2, the "charge" attribute on
+ * @note Beginning in SBML Level 2 Version&nbsp;2, the "charge" attribute on
  * Species_t in SBML is deprecated and its use strongly discouraged.  Its
  * presence is considered a misfeature in earlier definitions of SBML
  * because its implications for the mathematics of a model were never
@@ -2469,10 +2469,10 @@ Species_setSubstanceUnits (Species_t *s, const char *sid);
  * @note Using this function with an id of NULL is equivalent to
  * unsetting the "spatialSizeUnits" attribute.
  * 
- * @warning In versions of SBML Level~2 before Version 3, the structure
+ * @warning In versions of SBML Level&nbsp;2 before Version&nbsp;3, the structure
  * Species_t included an attribute called "spatialSizeUnits", which allowed
  * explicitly setting the units of size for initial concentration.  This
- * attribute was removed in SBML Level 2 Version 3.  LibSBML retains this
+ * attribute was removed in SBML Level 2 Version&nbsp;3.  LibSBML retains this
  * attribute for compatibility with older definitions of Level 2, but its
  * use is strongly discouraged because it is incompatible with Level 2
  * Versions 3 and 4.
@@ -2571,7 +2571,7 @@ Species_setBoundaryCondition (Species_t *s, int value);
  * @li LIBSBML_OPERATION_SUCCESS
  * @li LIBSBML_UNEXPECTED_ATTRIBUTE
  *
- * @note Beginning in SBML Level 2 Version 2, the "charge" attribute on
+ * @note Beginning in SBML Level 2 Version&nbsp;2, the "charge" attribute on
  * Species_t in SBML is deprecated and its use strongly discouraged.  Its
  * presence is considered a misfeature in earlier definitions of SBML
  * because its implications for the mathematics of a model were never
@@ -2746,10 +2746,10 @@ Species_unsetSubstanceUnits (Species_t *s);
  * @li LIBSBML_OPERATION_SUCCESS
  * @li LIBSBML_OPERATION_FAILED
  * 
- * @warning In versions of SBML Level~2 before Version 3, the structure
+ * @warning In versions of SBML Level&nbsp;2 before Version&nbsp;3, the structure
  * Species_t included an attribute called "spatialSizeUnits", which allowed
  * explicitly setting the units of size for initial concentration.  This
- * attribute was removed in SBML Level 2 Version 3.  LibSBML retains this
+ * attribute was removed in SBML Level 2 Version&nbsp;3.  LibSBML retains this
  * attribute for compatibility with older definitions of Level 2, but its
  * use is strongly discouraged because it is incompatible with Level 2
  * Versions 3 and 4.
@@ -2794,7 +2794,7 @@ Species_unsetUnits (Species_t *s);
  * @li LIBSBML_OPERATION_SUCCESS
  * @li LIBSBML_OPERATION_FAILED
  *
- * @note Beginning in SBML Level 2 Version 2, the "charge" attribute on
+ * @note Beginning in SBML Level 2 Version&nbsp;2, the "charge" attribute on
  * Species_t in SBML is deprecated and its use strongly discouraged.  Its
  * presence is considered a misfeature in earlier definitions of SBML
  * because its implications for the mathematics of a model were never
