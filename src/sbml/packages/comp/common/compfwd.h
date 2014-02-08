@@ -38,6 +38,8 @@
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
+/** @cond (!conly) */
+
 
 /**
  * @var typedef class SBaseRef SBaseRef_t
@@ -94,6 +96,8 @@ typedef CLASS_OR_STRUCT Submodel                     Submodel_t;
  */
 typedef CLASS_OR_STRUCT CompSBMLDocumentPlugin       CompSBMLDocumentPlugin_t;
 
+/** @endcond */
+
 
 /** @cond doxygenLibsbmlInternal */
 /**
@@ -104,12 +108,15 @@ typedef CLASS_OR_STRUCT CompModelPlugin               CompModelPlugin_t;
 /** @endcond */
 
 
+/** @cond (!conly) */
+
 /**
  * @var typedef class ModelDefinition ModelDefinition_t
  * @copydoc ModelDefinition
  */
 typedef CLASS_OR_STRUCT ModelDefinition              ModelDefinition_t;
 
+/** @endcond */
 
 
 LIBSBML_CPP_NAMESPACE_END

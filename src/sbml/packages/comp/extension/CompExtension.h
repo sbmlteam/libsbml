@@ -45,11 +45,7 @@
 
 #include <vector>
 
-#endif  /* __cplusplus */
-
 LIBSBML_CPP_NAMESPACE_BEGIN
-
-#ifdef __cplusplus
 
 class LIBSBML_EXTERN CompExtension : public SBMLExtension
 {
@@ -256,8 +252,6 @@ typedef SBMLExtensionNamespaces<CompExtension> CompPkgNamespaces;
 
 #endif  /* __cplusplus */
 
-BEGIN_C_DECLS
-
 /**
  * @enum  SBMLCompTypeCode_t
  * @brief SBMLCompTypeCode_t is the enumeration of possible types from the 'comp' package.
@@ -267,7 +261,7 @@ BEGIN_C_DECLS
  * @copydetails doc_additional_typecode_details
  */
 typedef enum
-  {
+{
     SBML_COMP_SUBMODEL                = 250 /*!< Submodel */
   , SBML_COMP_MODELDEFINITION         = 251 /*!< ModelDefinition */
   , SBML_COMP_EXTERNALMODELDEFINITION = 252 /*!< ExternalModelDefinition */
@@ -276,10 +270,8 @@ typedef enum
   , SBML_COMP_REPLACEDELEMENT         = 255 /*!< ReplacedElement */
   , SBML_COMP_REPLACEDBY              = 256 /*!< ReplacedBy */
   , SBML_COMP_PORT                    = 257 /*!< Port */
+} SBMLCompTypeCode_t;
 
-  } SBMLCompTypeCode_t;
-
-END_C_DECLS
 
 LIBSBML_CPP_NAMESPACE_END
 

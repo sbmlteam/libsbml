@@ -270,7 +270,7 @@ GroupsExtension::getSBMLExtensionNamespaces(const std::string &uri) const
  * and <em>SBML_GROUPS_MEMBER</em> corresponds to the Member (&lt;member&gt;) class, respectively.
  *
  *
- *  <p> Similarly, #SBMLLayoutTypeCode_t 
+ *  <p> Similarly, SBMLLayoutTypeCode_t 
  *   for layout package is defined in LayoutExtension.h as follows: </p>
  *
 @verbatim  
@@ -299,7 +299,7 @@ GroupsExtension::getSBMLExtensionNamespaces(const std::string &uri) const
  *
  *  <p>
  *   The value of each typecode can be duplicated between those of different 
- *   packages (In the above SBMLayoutTypeCode_t and SBMLGroupsTypeCode_t types, 
+ *   packages (In the above SBMLLayoutTypeCode_t and SBMLGroupsTypeCode_t types, 
  *   unique values are assigned to enum values, but this is not mandatory.)
  *  </p>
  *
