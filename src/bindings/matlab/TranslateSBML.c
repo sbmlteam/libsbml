@@ -41,6 +41,8 @@
 
 #ifdef USE_FBC
 
+#include <sbml/extension/SBasePlugin.h>
+
 #include <sbml/packages/fbc/extension/FbcExtension.h>
 #include <sbml/packages/fbc/extension/FbcModelPlugin.h>
 #include <sbml/packages/fbc/extension/FbcSpeciesPlugin.h>
@@ -138,7 +140,7 @@ static mxArray * mxFluxObjectiveReturn       = NULL;
 
 char *    pacActiveObj              = NULL;
 
-
+/*
 typedef enum
 {
     SBML_FBC_ASSOCIATION      = 800
@@ -147,7 +149,7 @@ typedef enum
    ,SBML_FBC_GENEASSOCIATION  = 803
    ,SBML_FBC_OBJECTIVE        = 804
 } SBMLFbcTypeCode_t;
-
+*/
 
 /**
  * NAME:    mexFunction
@@ -1230,7 +1232,7 @@ GetNamespaces(SBMLDocument_t * document)
  * FUNCTION:  converts typecode to humanly readable string
  */
 char *
-TypecodeToChar (SBMLTypeCode_t typecode)
+TypecodeToChar (int typecode)
 {
   char * pacTypecode;
 
