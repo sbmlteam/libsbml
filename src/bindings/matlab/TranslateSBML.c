@@ -87,7 +87,7 @@ void GetNamespaces   (SBMLDocument_t *);
 
 
 mxArray * CreateIntScalar (int);
-char    * TypecodeToChar  (SBMLTypeCode_t);
+char    * TypecodeToChar  (int);
 char    * RuleType_toString (RuleType_t);
 char    * ErrorSeverity_toString(unsigned int);
 
