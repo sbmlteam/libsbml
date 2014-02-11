@@ -229,9 +229,12 @@ START_TEST (test_read_MathML_2)
   r = m->getRule(0);
   const ASTNode *r_math = r->getMath();
 
-  fail_unless (r_math->getType() == AST_CONSTANT_TRUE, NULL);
-  fail_unless (r_math->getNumChildren() == 0, NULL);
-  fail_unless (!strcmp(SBML_formulaToString(r_math), "true"), NULL);
+  /* the fact that this would be read is a bug */
+  fail_unless(r_math == NULL);
+  
+  //fail_unless (r_math->getType() == AST_CONSTANT_TRUE, NULL);
+  //fail_unless (r_math->getNumChildren() == 0, NULL);
+  //fail_unless (!strcmp(SBML_formulaToString(r_math), "true"), NULL);
   //fail_unless (r_math->getNumVariablesWithUndeclaredUnits() == 0);
   //fail_unless( r_math->containsVariable("c") == false );
   //fail_unless( r_math->containsVariable("x") == false );
@@ -262,19 +265,17 @@ START_TEST (test_read_MathML_2)
   child1 = r1_math->getChild(0);
   child2 = r1_math->getChild(1);
 
-  fail_unless (child1->getType() == AST_REAL, NULL);
-  fail_unless (child1->getNumChildren() == 0, NULL);
-  fail_unless (!strcmp(SBML_formulaToString(child1), "3"), NULL);
-  //fail_unless( child1->containsVariable("c") == false );
-  //fail_unless( child1->containsVariable("x") == false );
-  //fail_unless( child1->containsVariable("p") == false );
+  fail_unless (child1->getType() == AST_QUALIFIER_LOGBASE, NULL);
+  fail_unless (child1->getNumChildren() == 1, NULL);
 
   fail_unless (child2->getType() == AST_NAME, NULL);
   fail_unless (child2->getNumChildren() == 0, NULL);
   fail_unless (!strcmp(SBML_formulaToString(child2), "x"), NULL);
-  //fail_unless( child2->containsVariable("c") == false );
-  //fail_unless( child2->containsVariable("x") == true );
-  //fail_unless( child2->containsVariable("p") == false );
+
+  child2 = child1->getChild(0);
+  fail_unless (child2->getType() == AST_REAL, NULL);
+  fail_unless (child2->getNumChildren() == 0, NULL);
+  fail_unless (!strcmp(SBML_formulaToString(child2), "3"), NULL);
 
 
   delete d;

@@ -337,7 +337,7 @@ private:
   std::map<const ASTNode*, unsigned int>    canIgnoreUndeclaredUnitsMap;  
 
   UnitDefinition * inverseFunctionOnUnits(UnitDefinition* expectedUD,
-    const ASTNode * math, ASTNodeType_t functionType, bool inKL, int reactNo, 
+    const ASTNode * math, int functionType, bool inKL, int reactNo, 
     bool unknownInLeftChild = false);
 
   /** @endcond */

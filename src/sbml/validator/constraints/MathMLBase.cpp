@@ -331,7 +331,7 @@ bool
 MathMLBase::returnsNumeric(const Model & m, const ASTNode* node)
 {
   unsigned int n, count;
-  ASTNodeType_t type = node->getType();
+  int type = node->getType();
   unsigned int numChildren = node->getNumChildren();
   bool numeric;
   bool temp;
@@ -404,6 +404,18 @@ MathMLBase::returnsNumeric(const Model & m, const ASTNode* node)
           numeric = true;
         break;
       }
+    }
+    else if (node->isQualifier())
+    {
+      if (numChildren > 1)
+      {
+        numeric = false;
+      }
+      else
+      {
+        numeric = returnsNumeric(m, node->getChild(0));
+      }
+
     }
     else /* not a function that returns a number */
     {

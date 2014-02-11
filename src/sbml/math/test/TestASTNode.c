@@ -3479,6 +3479,56 @@ START_TEST (test_ASTNode_replaceArgument)
 END_TEST
 
 
+START_TEST (test_ASTNode_replaceArgument1)
+{
+  ASTNode_t *node = SBML_parseFormula("x*y");
+  ASTNode_t *user = ASTNode_createWithType(AST_FUNCTION);
+  ASTNode_setName(user, "f");
+
+  ASTNode_t *c1 = ASTNode_create();
+  ASTNode_t *c2 = ASTNode_create();
+
+  const char* bvar = "x";
+
+  ASTNode_setName(c1, "x");
+  ASTNode_setName(c2, "y");
+  ASTNode_addChild(user, c1);
+  ASTNode_addChild(user, c2);
+
+  fail_unless( !strcmp(SBML_formulaToString(user), "f(x, y)")); 
+
+
+  ASTNode_replaceArgument(node, bvar, user);
+
+  fail_unless( !strcmp(SBML_formulaToString(node), "f(x, y) * y")); 
+
+  ASTNode_free(node);
+  ASTNode_free(user);
+}
+END_TEST
+
+
+START_TEST (test_ASTNode_replaceArgument2)
+{
+  ASTNode_t *node = SBML_parseFormula("x*y");
+  ASTNode_t *user = ASTNode_createWithType(AST_NAME_TIME);
+  ASTNode_setName(user, "f");
+
+  const char* bvar = "x";
+
+  ASTNode_replaceArgument(node, bvar, user);
+
+  fail_unless( !strcmp(SBML_formulaToString(node), "f * y")); 
+  ASTNode_t * child = ASTNode_getChild(node, 0);
+
+  fail_unless (ASTNode_getType(child) == AST_NAME_TIME);
+
+  ASTNode_free(node);
+  ASTNode_free(user);
+}
+END_TEST
+
+
 START_TEST (test_ASTNode_removeChild)
 {
   ASTNode_t *node = ASTNode_create();
@@ -4646,6 +4696,8 @@ create_suite_ASTNode (void)
   tcase_add_test( tcase, test_ASTNode_children                );
   tcase_add_test( tcase, test_ASTNode_getListOfNodes          );
   tcase_add_test( tcase, test_ASTNode_replaceArgument         );
+  tcase_add_test( tcase, test_ASTNode_replaceArgument1         );
+  tcase_add_test( tcase, test_ASTNode_replaceArgument2         );
   tcase_add_test( tcase, test_ASTNode_removeChild             );
   tcase_add_test( tcase, test_ASTNode_replaceChild            );
   tcase_add_test( tcase, test_ASTNode_insertChild             );

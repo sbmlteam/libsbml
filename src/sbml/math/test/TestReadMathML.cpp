@@ -32,6 +32,7 @@
 #include <sbml/util/util.h>
 
 #include <sbml/math/FormulaFormatter.h>
+#include <sbml/math/FormulaParser.h>
 #include <sbml/math/ASTNode.h>
 #include <sbml/math/MathML.h>
 
@@ -1361,7 +1362,7 @@ START_TEST (test_element_semantics)
 
   N = readMathMLFromString(s);
 
-  fail_unless( N->getSemanticsFlag() == true );
+  fail_unless( N->isSemantics() == true );
   fail_unless( N != NULL );
 
 
@@ -1387,7 +1388,7 @@ START_TEST (test_element_semantics_URL)
 
   fail_unless( N != NULL );
 
-  fail_unless( N->getSemanticsFlag() == true );
+  fail_unless( N->isSemantics() == true );
   fail_unless( N->getDefinitionURL()->getValue(0) == "foobar");
 
   F = SBML_formulaToString(N);
@@ -1412,7 +1413,7 @@ START_TEST (test_element_semantics_annotation)
 
   fail_unless( N != NULL );
 
-  fail_unless( N->getSemanticsFlag() == true );
+  fail_unless( N->isSemantics() == true );
   fail_unless( N->getNumSemanticsAnnotations() == 1);
 
   std::string ann1 = XMLNode::convertXMLNodeToString(N->getSemanticsAnnotation(0));
@@ -1444,7 +1445,7 @@ START_TEST (test_element_semantics_annxml)
 
   fail_unless( N != NULL );
 
-  fail_unless( N->getSemanticsFlag() == true );
+  fail_unless( N->isSemantics() == true );
   fail_unless( N->getNumSemanticsAnnotations() == 1);
 
   std::string ann1 = XMLNode::convertXMLNodeToString(N->getSemanticsAnnotation(0));
@@ -1474,7 +1475,7 @@ START_TEST (test_element_semantics_lambda)
 
   N = readMathMLFromString(s);
 
-  fail_unless( N->getSemanticsFlag() == true );
+  fail_unless( N->isSemantics() == true );
   fail_unless( N != NULL );
 
 
@@ -1501,7 +1502,7 @@ START_TEST (test_element_semantics_URL_lambda)
 
   fail_unless( N != NULL );
 
-  fail_unless( N->getSemanticsFlag() == true );
+  fail_unless( N->isSemantics() == true );
   fail_unless( N->getDefinitionURL()->getValue(0) == "foobar");
 
   F = SBML_formulaToString(N);
@@ -1527,7 +1528,7 @@ START_TEST (test_element_semantics_ann_lambda)
 
   fail_unless( N != NULL );
 
-  fail_unless( N->getSemanticsFlag() == true );
+  fail_unless( N->isSemantics() == true );
   fail_unless( N->getNumSemanticsAnnotations() == 1);
 
   std::string ann1 = XMLNode::convertXMLNodeToString(N->getSemanticsAnnotation(0));
@@ -1560,7 +1561,7 @@ START_TEST (test_element_semantics_annxml_lambda)
 
   fail_unless( N != NULL );
 
-  fail_unless( N->getSemanticsFlag() == true );
+  fail_unless( N->isSemantics() == true );
   fail_unless( N->getNumSemanticsAnnotations() == 1);
 
   std::string ann1 = XMLNode::convertXMLNodeToString(N->getSemanticsAnnotation(0));
@@ -1869,8 +1870,10 @@ START_TEST (test_element_invalid_mathml)
   N = readMathMLFromString(NULL);
   fail_unless( N == NULL );
 
+  // in making read from string and read from file consistent this 
+  // would not be NULL node 
   N = readMathMLFromString(invalid);
-  fail_unless( N == NULL );
+  fail_unless( N != NULL );
 }
 END_TEST
 
@@ -1997,6 +2000,78 @@ START_TEST (test_convert_unary_plus)
 }
 END_TEST
 
+
+START_TEST (test_element_child_func)
+{
+  const char* s = wrapMathML
+  (
+    "<apply>"
+    "  <cos/>"
+    "  <apply>"
+    "    <power/>"
+    "    <ci> x </ci>"
+    "    <cn> 2 </cn>"
+    "  </apply>\n"
+    "</apply>\n"
+  );
+
+
+
+  N = readMathMLFromString(s);
+
+  fail_unless( N != NULL );
+
+  F = SBML_formulaToString(N);
+  fail_unless( !strcmp(F, "cos(pow(x, 2))") );
+
+  ASTNode * child = N->getChild(0);
+
+  ASTNode * c1 = new ASTNode(AST_NAME);
+  c1->setName("y");
+
+  child->replaceChild(0, c1);
+
+  F = SBML_formulaToString(N);
+  fail_unless( !strcmp(F, "cos(pow(y, 2))") );
+
+}
+END_TEST
+
+
+START_TEST (test_element_child_func1)
+{
+  N = new ASTNode(AST_FUNCTION_COS);
+
+  ASTNode *pow = new ASTNode(AST_FUNCTION_POWER);
+  ASTNode *x = new ASTNode(AST_NAME);
+  x->setName("x");
+  ASTNode *two = new ASTNode(AST_REAL);
+  two->setValue(2.0);
+
+  pow->addChild(x);
+  pow->addChild(two);
+  N->addChild(pow);
+
+
+  fail_unless( N != NULL );
+
+  F = SBML_formulaToString(N);
+  fail_unless( !strcmp(F, "cos(pow(x, 2))") );
+
+  ASTNode * child = N->getChild(0);
+
+  ASTNode * c1 = new ASTNode(AST_NAME);
+  c1->setName("y");
+
+  child->replaceChild(0, c1);
+
+  F = SBML_formulaToString(N);
+  fail_unless( !strcmp(F, "cos(pow(y, 2))") );
+
+}
+END_TEST
+
+
 Suite *
 create_suite_ReadMathML ()
 {
@@ -2109,12 +2184,18 @@ create_suite_ReadMathML ()
   tcase_add_test( tcase, test_element_cn_id                );
   tcase_add_test( tcase, test_element_cn_class             );
   tcase_add_test( tcase, test_element_cn_style             );
+  
+  
   // this fails while default level/version is 2/4
   // but other validation fails if I change it to 3/1
   
   // tcase_add_test( tcase, test_element_ci_definitionURL       );
+  
+  
   tcase_add_test( tcase, test_element_csymbol_avogadro              );
 
+  tcase_add_test( tcase, test_element_child_func             );
+  tcase_add_test( tcase, test_element_child_func1             );
   suite_add_tcase(suite, tcase);
 
   return suite;

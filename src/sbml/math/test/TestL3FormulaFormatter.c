@@ -28,6 +28,7 @@
 #include <sbml/common/common.h>
 
 #include <sbml/math/L3FormulaFormatter.h>
+#include <sbml/math/FormulaParser.h>
 #include <sbml/math/L3Parser.h>
 #include <sbml/math/L3ParserSettings.h>
 //extern int isTranslatedModulo (const ASTNode_t* node);

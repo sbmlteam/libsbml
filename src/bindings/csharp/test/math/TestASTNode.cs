@@ -642,7 +642,7 @@ namespace LibSBMLCSTest.math {
       assertTrue( child.getType() == libsbml.AST_INTEGER );
       assertTrue( child.getInteger() == 2 );
       assertTrue( child.getNumChildren() == 0 );
-      copy = node.deepCopy();
+      copy = (ASTNode)node.deepCopy();
       assertTrue( copy != node );
       assertTrue( copy.getType() == libsbml.AST_PLUS );
       assertTrue( copy.getCharacter() == '+' );
@@ -669,7 +669,7 @@ namespace LibSBMLCSTest.math {
       assertTrue( node.getType() == libsbml.AST_NAME );
       assertTrue((  "Foo" == node.getName() ));
       assertTrue( node.getNumChildren() == 0 );
-      copy = node.deepCopy();
+      copy = (ASTNode)node.deepCopy();
       assertTrue( copy != node );
       assertTrue( copy.getType() == libsbml.AST_NAME );
       assertTrue((  "Foo" == copy.getName() ));
@@ -686,7 +686,7 @@ namespace LibSBMLCSTest.math {
       assertTrue( node.getType() == libsbml.AST_FUNCTION );
       assertTrue((  "Foo" == node.getName() ));
       assertTrue( node.getNumChildren() == 0 );
-      copy = node.deepCopy();
+      copy = (ASTNode)node.deepCopy();
       assertTrue( copy != node );
       assertTrue( copy.getType() == libsbml.AST_FUNCTION );
       assertTrue((  "Foo" == copy.getName() ));
@@ -703,7 +703,7 @@ namespace LibSBMLCSTest.math {
       assertTrue( node.getType() == libsbml.AST_FUNCTION_ABS );
       assertTrue((  "ABS" == node.getName() ));
       assertTrue( node.getNumChildren() == 0 );
-      copy = node.deepCopy();
+      copy = (ASTNode)node.deepCopy();
       assertTrue( copy != node );
       assertTrue( copy.getType() == libsbml.AST_FUNCTION_ABS );
       assertTrue((  "ABS" == copy.getName() ));

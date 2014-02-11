@@ -163,6 +163,11 @@ public:
 
 protected:
 
+  unsigned int determineNumberChildren(const std::string element = "");
+
+  unsigned int determineNumSpecificChildren(const std::string qualifier,
+    const std::string container);
+
   bool mInChars;
   bool mInStart;
   bool mEOFSeen;
@@ -172,6 +177,9 @@ protected:
 
   XMLToken             mCurrent;
   std::deque<XMLToken> mTokens;
+
+  friend class XMLInputStream;
+
 };
 
 

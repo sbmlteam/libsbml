@@ -630,7 +630,7 @@ public class TestASTNode {
     assertTrue( child.getType() == libsbml.AST_INTEGER );
     assertTrue( child.getInteger() == 2 );
     assertTrue( child.getNumChildren() == 0 );
-    copy = node.deepCopy();
+    copy = (ASTNode)node.deepCopy();
     assertTrue( !copy.equals(node) );
     assertTrue( copy.getType() == libsbml.AST_PLUS );
     assertTrue( copy.getCharacter() == '+' );
@@ -657,7 +657,7 @@ public class TestASTNode {
     assertTrue( node.getType() == libsbml.AST_NAME );
     assertTrue(node.getName().equals( "Foo"));
     assertTrue( node.getNumChildren() == 0 );
-    copy = node.deepCopy();
+    copy = (ASTNode)node.deepCopy();
     assertTrue( !copy.equals(node) );
     assertTrue( copy.getType() == libsbml.AST_NAME );
     assertTrue(copy.getName().equals( "Foo"));
@@ -674,7 +674,7 @@ public class TestASTNode {
     assertTrue( node.getType() == libsbml.AST_FUNCTION );
     assertTrue(node.getName().equals( "Foo"));
     assertTrue( node.getNumChildren() == 0 );
-    copy = node.deepCopy();
+    copy = (ASTNode)node.deepCopy();
     assertTrue( !copy.equals(node) );
     assertTrue( copy.getType() == libsbml.AST_FUNCTION );
     assertTrue(copy.getName().equals( "Foo"));
@@ -691,7 +691,7 @@ public class TestASTNode {
     assertTrue( node.getType() == libsbml.AST_FUNCTION_ABS );
     assertTrue(node.getName().equals( "ABS"));
     assertTrue( node.getNumChildren() == 0 );
-    copy = node.deepCopy();
+    copy = (ASTNode)node.deepCopy();
     assertTrue( !copy.equals(node) );
     assertTrue( copy.getType() == libsbml.AST_FUNCTION_ABS );
     assertTrue(copy.getName().equals( "ABS"));

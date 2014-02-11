@@ -179,10 +179,7 @@ public class TestReadFromFile1 {
     assertTrue( r1_math.getParentSBMLObject().equals(r) );
     kl = m.getReaction(0).getKineticLaw();
     ASTNode kl_math = kl.getMath();
-    assertTrue( kl_math.getType() == libsbml.AST_REAL );
-    assertTrue( kl_math.getNumChildren() == 0 );
-    assertTrue(libsbml.formulaToString(kl_math).equals( "4.5"));
-    assertTrue( kl_math.getParentSBMLObject().equals(kl) );
+    assertTrue( kl_math == null );
     d = null;
   }
 

@@ -263,6 +263,288 @@ XMLTokenizer::characters (const XMLToken& data)
   }
 }
 
+unsigned int
+XMLTokenizer::determineNumberChildren(const std::string element)
+{
+  unsigned int numChildren = 0;
+  std::string closingTag = element;
+  bool forcedElement = true;
+  if (closingTag.empty() == true) 
+  {
+    closingTag = "apply";
+    forcedElement = false;
+  }
+
+  // if there is only one token there cannot be any children 
+  size_t size = mTokens.size();
+  if (size < 2)
+  {
+    return numChildren;
+  }
+
+  // we assume that the first unread token is a 
+  // function and that at some point in the
+  // list of tokens we will hit the end of the 
+  // element for that function
+  // need to count the number of starts
+
+  unsigned int index = 0;
+  XMLToken firstUnread = mTokens.at(index);
+  while (firstUnread.isText() && index < size - 1)
+  {
+    // skip any text
+    index++;
+    firstUnread = mTokens.at(index);
+  }
+
+  // dont know why I put this
+  // it messes up reading a vector
+  // and I cannot find any read that actual uses it
+
+  //if (firstUnread.getName() == "ci"
+  //  && firstUnread.isEnd() == false)
+  //{
+  //  return numChildren;
+  //}
+  //else if (firstUnread.isStart() != true 
+  //  && firstUnread.isEnd() != true)
+  //if (firstUnread.isStart() != true 
+  //  && firstUnread.isEnd() != true)
+  //{
+  //  return numChildren;
+  //}
+
+
+  index = 1;
+  if (forcedElement == true)
+  {
+    index = 0;
+  }
+
+  unsigned int depth = 0;
+  std::string name;
+  XMLToken next = mTokens.at(index);
+  while (index < size-2)
+  {
+    // skip any text elements
+    while(next.isText() == true && index < size-1)
+    {
+      index++;
+      next = mTokens.at(index);
+    }
+    if (next.isEnd() == true && next.getName() == closingTag)
+    {
+       break;
+    }
+    // iterate to first start element
+    while (next.isStart() == false && index < size-1)
+    {
+      index++;
+      next = mTokens.at(index);
+    }
+
+    // check we have not reached the end
+    // this would be a bad place if we have so set num children to zero
+    if (index == size)
+    {
+      numChildren = 0;
+      break;
+    }
+
+    // record the name of the start element
+    name = next.getName();
+    numChildren++;
+
+ //   index++;
+    // check we have not reached the end
+    if (index + 1 == size)
+    {
+      numChildren = 0;
+      break;
+    }
+    else if (next.isEnd() == false)
+    {
+      index++;
+      if (index < size)
+      {
+        next = mTokens.at(index);
+      }
+      else
+      {
+        break;
+      }
+    }
+
+    // iterate to the end of </name>
+    // checking that we have not got a nested element <name></name>
+    while (index < size-1)
+    {
+      if (next.isStart() == true && next.isEnd() == false && next.getName() == name)
+      {
+        depth++;
+      }
+
+      if (next.isEnd() == true && next.getName() == name)
+      {
+        if (depth == 0)
+        {
+          break;
+        }
+        else
+        {
+          depth--;
+        }
+      }
+
+      index++;
+      next = mTokens.at(index);
+    }
+
+    index++;
+    if (index < size)
+    {
+      next = mTokens.at(index);
+    }
+  }  
+
+  return numChildren;
+}
+
+unsigned int
+XMLTokenizer::determineNumSpecificChildren(const std::string qualifier, 
+                                        const std::string container)
+{
+  unsigned int numQualifiers = 0;
+
+  size_t size = mTokens.size();
+  if (size < 2)
+  {
+    return numQualifiers;
+  }
+
+  unsigned int depth = 0;
+  unsigned int index = 0;
+  std::string name;
+  
+  XMLToken next = mTokens.at(index);
+  name = next.getName();
+  if (next.isStart() == true && next.isEnd() == true && index < size)
+  {
+    //if (qualifier.empty() == false && name == qualifier)
+    //{
+      numQualifiers++;
+      index++;
+      next = mTokens.at(index);
+    //}
+    //else
+    //{
+    //  index++;
+    //  next = mTokens.at(index);
+    //}
+  }
+
+  while (index < size-2)
+  {
+    // skip any text elements
+    while(next.isText() == true && index < size-1)
+    {
+      index++;
+      next = mTokens.at(index);
+    }
+
+    if (next.isEnd() == true && next.getName() == container)
+    {
+      break;
+    }
+    // iterate to first start element
+    while (next.isStart() == false && index < size-1)
+    {
+      index++;
+      next = mTokens.at(index);
+    }
+
+    if (next.isStart() == true && next.isEnd() == true)
+    {
+      if (qualifier.empty() == true)
+      {
+        // if we are not looking for a specifc element then
+        // we may have a child that is a start and end
+        // such as <true/>
+        numQualifiers++;
+      }
+      index++;
+      if (index < size)
+      {
+        next = mTokens.at(index);
+        continue;
+      }
+    }
+    // check we have not reached the end
+    // this would be a bad place if we have so set num children to zero
+    if (index == size)
+    {
+      numQualifiers = 0;
+      break;
+    }
+
+    // record the name of the start element
+    name = next.getName();
+    if (qualifier.empty() == true || name == qualifier)
+    {
+      numQualifiers++;
+    }
+
+//    index++;
+    // check we have not reached the end
+    if (index+1 == size)
+    {
+      numQualifiers = 0;
+      break;
+    }
+    else
+    {
+      index++;
+      next = mTokens.at(index);
+    }
+
+    // iterate to the end of </name>
+    // checking that we have not got a nested element <name></name>
+    while (index < size-1)
+    {
+      if (next.isStart() == true && next.getName() == name)
+      {
+        depth++;
+      }
+
+      if (next.isEnd() == true && next.getName() == name)
+      {
+        if (depth == 0)
+        {
+          break;
+        }
+        else
+        {
+          depth--;
+        }
+      }
+
+      index++;
+      if (index < size)
+      {
+        next = mTokens.at(index);
+      }
+    }
+
+    index++;
+    if (index < size)
+    {
+      next = mTokens.at(index);
+    }
+  }  
+
+  return numQualifiers;
+}
+
 /** @endcond */
 
 LIBSBML_CPP_NAMESPACE_END

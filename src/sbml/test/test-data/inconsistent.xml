@@ -47,7 +47,11 @@
               <math xmlns="http://www.w3.org/1998/Math/MathML">
                   <apply>
                     <ci> gg </ci>
-                    <times/> <ci> x </ci> <ci> x1 </ci>
+                    <apply>
+                      <times/>
+                      <ci> x </ci>
+                      <ci> x1 </ci>
+                    </apply>
                   </apply>
               </math>
 		  </initialAssignment>

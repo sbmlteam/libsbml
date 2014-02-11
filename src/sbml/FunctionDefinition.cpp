@@ -361,7 +361,41 @@ FunctionDefinition::unsetName ()
 const ASTNode*
 FunctionDefinition::getArgument (unsigned int n) const
 {
-  return (n < getNumArguments()) ? mMath->getChild(n) : NULL;
+  if (mMath == NULL) return NULL;
+  
+  /* if the math is not a lambda this function can cause issues
+   * elsewhere, technically if the math is not a lambda
+   * function the body is NULL
+   */
+  ASTNode * lambda = NULL;
+
+  if (mMath->isLambda() == true)
+  {
+    lambda = mMath;
+  }
+  else
+  {
+    if ((getLevel() == 2 && getVersion() > 2) || getLevel() > 2)
+    {
+      if (mMath->isSemantics() == true && mMath->getNumChildren() == 1)
+      {
+        lambda = mMath->getChild(0);
+      }
+    }
+  }
+
+  if (lambda == NULL)
+  {
+    return NULL;
+  }
+  else if (n < getNumArguments())
+  {
+    return lambda->getChild(n);
+  }
+  else
+  {
+    return NULL;
+  }
 }
 
 
@@ -399,21 +433,43 @@ const ASTNode*
 FunctionDefinition::getBody () const
 {
   if (mMath == NULL) return NULL;
+  
   /* if the math is not a lambda this function can cause issues
    * elsewhere, technically if the math is not a lambda
    * function the body is NULL
    */
-  if (!(mMath->isLambda())) return NULL;
+  ASTNode * lambda = NULL;
 
-  unsigned int nc = mMath->getNumChildren();
+  if (mMath->isLambda() == true)
+  {
+    lambda = mMath;
+  }
+  else
+  {
+    if ((getLevel() == 2 && getVersion() > 2) || getLevel() > 2)
+    {
+      if (mMath->isSemantics() == true && mMath->getNumChildren() == 1)
+      {
+        lambda = mMath->getChild(0);
+      }
+    }
+  }
+
+  if (lambda == NULL)
+  {
+    return NULL;
+  }
+
+
+  unsigned int nc = lambda->getNumChildren();
   /* here we do actually need to look at whether something is a bvar
    * and not just assume that the last child is a function body 
    * it should be BUT it might not be
    */
 
-  if (nc > 0 && !(mMath->getChild(nc-1)->isBvar()))
+  if (nc > 0 && lambda->getNumBvars() < nc)
   {
-    return mMath->getChild(nc-1);
+    return lambda->getChild(nc-1);
   }
   else
   {
@@ -429,23 +485,44 @@ FunctionDefinition::getBody () const
 ASTNode*
 FunctionDefinition::getBody ()
 {
-   if (mMath == NULL) return NULL;
-
+  if (mMath == NULL) return NULL;
+  
   /* if the math is not a lambda this function can cause issues
    * elsewhere, technically if the math is not a lambda
    * function the body is NULL
    */
-  if (!(mMath->isLambda())) return NULL;
+  ASTNode * lambda = NULL;
 
-  unsigned int nc = mMath->getNumChildren();
+  if (mMath->isLambda() == true)
+  {
+    lambda = mMath;
+  }
+  else
+  {
+    if ((getLevel() == 2 && getVersion() > 2) || getLevel() > 2)
+    {
+      if (mMath->isSemantics() == true && mMath->getNumChildren() == 1)
+      {
+        lambda = mMath->getChild(0);
+      }
+    }
+  }
+
+  if (lambda == NULL)
+  {
+    return NULL;
+  }
+
+
+  unsigned int nc = lambda->getNumChildren();
   /* here we do actually need to look at whether something is a bvar
    * and not just assume that the last child is a function body 
    * it should be BUT it might not be
    */
 
-  if (nc > 0 && !(mMath->getChild(nc-1)->isBvar()))
+  if (nc > 0 && lambda->getNumBvars() < nc)
   {
-    return mMath->getChild(nc-1);
+    return lambda->getChild(nc-1);
   }
   else
   {
@@ -471,25 +548,39 @@ FunctionDefinition::isSetBody () const
 unsigned int
 FunctionDefinition::getNumArguments () const
 {
+  if (isSetMath() == false)
+  {
+    return 0;
+  }
+
   /* if the math is not a lambda this function can cause issues
    * elsewhere, technically if the math is not a lambda
    * function there are no arguments
    */
-  if ( !isSetMath()
-    || !(mMath->isLambda())
-    || mMath->getNumChildren() == 0) 
+  ASTNode * lambda = NULL;
+
+  if (mMath->isLambda() == true)
+  {
+    lambda = mMath;
+  }
+  else
+  {
+    if ((getLevel() == 2 && getVersion() > 2) || getLevel() > 2)
+    {
+      if (mMath->isSemantics() == true && mMath->getNumChildren() == 1)
+      {
+        lambda = mMath->getChild(0);
+      }
+    }
+  }
+
+  if ( lambda == NULL)
+  {
     return 0;
+  }
   else 
   {
-    /* here we do actually need to look at whether something is a bvar
-     * and not just assume that the last child is a function body 
-     */
-
-    unsigned int num = mMath->getNumChildren();
-    if (mMath->getChild(num-1)->isBvar())
-      return num;
-    else
-      return num - 1;
+    return lambda->getNumBvars();
   }
 }
 

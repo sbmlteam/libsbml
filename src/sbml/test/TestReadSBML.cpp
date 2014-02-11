@@ -364,7 +364,6 @@ START_TEST (test_ReadSBML_FunctionDefinition_OnlyBVars)
   fail_unless(numErrors == 1);
   error = SBMLDocument_getError(D, 0);
   
-  //fail_unless(XMLError_getErrorId(error) == NotSchemaConformant);
   fail_unless(XMLError_getErrorId(error) == NoBodyInFunctionDef);
   
   fail_unless( Model_getNumFunctionDefinitions(M) == 1 );

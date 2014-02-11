@@ -88,7 +88,7 @@ QualCSymbolMathCheck::check_ (const Model& m, const Model& object)
 void
 QualCSymbolMathCheck::checkMath (const Model& m, const ASTNode& node, const SBase & sb)
 {
-  ASTNodeType_t type = node.getType();
+  int type = node.getType();
     
   /* if the node is a &lt;ci&gt; element it will have type AST_NAME
    * check that this name is an appropriate component of the model */

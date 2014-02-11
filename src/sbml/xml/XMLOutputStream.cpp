@@ -37,6 +37,7 @@
 #include <sbml/util/util.h>
 #include <sbml/common/common.h>
 #include <sbml/common/libsbml-version.h>
+#include <sbml/SBMLNamespaces.h>
 
 /** @cond doxygenIgnored */
 
@@ -213,6 +214,7 @@ XMLOutputStream::XMLOutputStream (  std::ostream&       stream
  , mInText  ( false    )
  , mSkipNextIndent ( false    )
  , mNextAmpersandIsRef( false )
+ , mSBMLns (NULL)
 {
   if (&stream == NULL)
     throw XMLConstructorException();
@@ -1071,6 +1073,23 @@ XMLOutputStream::operator<< (const char& c)
 
 
 /** @cond doxygenLibsbmlInternal */
+
+SBMLNamespaces *
+XMLOutputStream::getSBMLNamespaces()
+{
+  return mSBMLns;
+}
+
+void
+XMLOutputStream::setSBMLNamespaces(SBMLNamespaces * sbmlns)
+{
+  if (sbmlns != NULL)
+    mSBMLns = sbmlns->clone();
+  else
+    mSBMLns = NULL;
+}
+
+
 
 XMLOutputStringStream::XMLOutputStringStream (  std::ostringstream& stream
                    , const std::string&  encoding

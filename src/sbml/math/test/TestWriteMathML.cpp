@@ -391,7 +391,10 @@ START_TEST (test_MathMLFormatter_constant_infinity_neg)
 {
   const char* expected = wrapMathML
   (
-    "  <apply> <minus/> <infinity/> </apply>\n"
+    "  <apply>\n"
+    "    <minus/>\n"
+    "    <infinity/>\n"
+    "  </apply>\n"
   );
 
   N = new ASTNode;
@@ -824,7 +827,7 @@ START_TEST (test_MathMLFormatter_semantics)
   );
 
   N = SBML_parseFormula("lt(x, 0)");
-  N->setSemanticsFlag();
+  N->addSemanticsAnnotation(NULL);
   S = writeMathMLToString(N);
 
   fail_unless( equals(expected, S) );
@@ -849,7 +852,7 @@ START_TEST (test_MathMLFormatter_semantics_url)
   xa->add("definitionURL", "foobar");
   
   N = SBML_parseFormula("lt(x, 0)");
-  N->setSemanticsFlag();
+  N->addSemanticsAnnotation(NULL);
   N->setDefinitionURL(*xa);
   S = writeMathMLToString(N);
 
@@ -885,7 +888,7 @@ START_TEST (test_MathMLFormatter_semantics_ann)
   ann->addChild(textNode);
   
   N = SBML_parseFormula("lt(x, 0)");
-  N->setSemanticsFlag();
+  //N->setSemanticsFlag();
   N->addSemanticsAnnotation(ann);
 
   S = writeMathMLToString(N);
@@ -937,7 +940,7 @@ START_TEST (test_MathMLFormatter_semantics_annxml)
   ann->addChild(foo);
   
   N = SBML_parseFormula("lt(x, 0)");
-  N->setSemanticsFlag();
+  //N->setSemanticsFlag();
   N->addSemanticsAnnotation(ann);
 
   S = writeMathMLToString(N);

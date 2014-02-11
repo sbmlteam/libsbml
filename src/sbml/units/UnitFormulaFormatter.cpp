@@ -86,7 +86,7 @@ UnitFormulaFormatter::getUnitDefinition(const ASTNode * node,
   ++depthRecursiveCall;
 
 
-  ASTNodeType_t type = node->getType();
+  int type = node->getType();
 
   switch (type) 
   {
@@ -204,6 +204,12 @@ UnitFormulaFormatter::getUnitDefinition(const ASTNode * node,
       ud = getUnitDefinitionFromDelay(node, inKL, reactNo);
       break;
 
+      /* new types */
+    case AST_QUALIFIER_DEGREE:
+    case AST_QUALIFIER_LOGBASE:
+
+      ud = getUnitDefinition(node->getChild(0), inKL, reactNo);
+      break;
 
   /* others */
 
@@ -652,7 +658,7 @@ UnitFormulaFormatter::getUnitDefinitionFromRoot(const ASTNode * node,
   UnitDefinition *tempUD2 = NULL;
   unsigned int i;
   Unit * unit;
-  ASTNode * child;
+  ASTNode * child, * child1;
 
   tempUD = getUnitDefinition(node->getRightChild(), inKL, reactNo);
   ud = new UnitDefinition(model->getSBMLNamespaces());
@@ -660,7 +666,17 @@ UnitFormulaFormatter::getUnitDefinitionFromRoot(const ASTNode * node,
   if (node->getNumChildren() == 1)
     return ud;
 
-  child = node->getLeftChild();
+  child1 = node->getLeftChild();
+  
+  if (child1->isQualifier() == true)
+  {
+    child = child1->getChild(0);
+  }
+  else
+  {
+    child = node->getLeftChild();
+  }
+
   for (i = 0; i < tempUD->getNumUnits(); i++)
   {
     unit = tempUD->getUnit(i);
@@ -2393,7 +2409,7 @@ UnitFormulaFormatter::inferUnitDefinition(UnitDefinition* expectedUD,
 
 UnitDefinition *
 UnitFormulaFormatter::inverseFunctionOnUnits(UnitDefinition* expectedUD,
-    const ASTNode * math, ASTNodeType_t functionType, 
+    const ASTNode * math, int functionType, 
     bool inKL, int reactNo, bool unknownInLeftChild)
 {
   UnitDefinition * resolvedUD = NULL;

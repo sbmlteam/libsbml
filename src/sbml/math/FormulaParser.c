@@ -29,6 +29,7 @@
 
 #include <sbml/math/FormulaTokenizer.h>
 #include <sbml/math/FormulaParser.h>
+#include <sbml/math/ASTTypes.h>
 
 
 /** @cond doxygenLibsbmlInternal */

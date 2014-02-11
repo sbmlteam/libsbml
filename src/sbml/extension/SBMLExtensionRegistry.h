@@ -319,6 +319,8 @@ private:
   friend class SBMLDocument;
   friend class SBasePlugin;
   friend class SBase;
+  friend class ASTBasePlugin;
+  friend class ASTBase;
   template <class SBMLExtensionType> friend class SBMLExtensionNamespaces;
   template<class SBasePluginType, class SBMLExtensionType> friend class SBasePluginCreator;
 

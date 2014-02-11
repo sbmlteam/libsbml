@@ -47,6 +47,7 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 /** @cond doxygenLibsbmlInternal */
 
 class ASTNode;
+class ASTBasePlugin;
 class XMLInputStream;
 class XMLOutputStream;
 

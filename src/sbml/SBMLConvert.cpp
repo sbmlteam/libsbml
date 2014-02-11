@@ -44,6 +44,8 @@
 #include <sbml/util/IdList.h>
 #include <sbml/util/ElementFilter.h>
 
+#include <sbml/math/FormulaParser.h>
+
 LIBSBML_CPP_NAMESPACE_BEGIN
 /** @cond doxygenLibsbmlInternal **/
 

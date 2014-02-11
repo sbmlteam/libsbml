@@ -95,7 +95,7 @@ LambdaMathCheck::getPreamble ()
 void
 LambdaMathCheck::checkMath (const Model& m, const ASTNode& node, const SBase & sb)
 {
-  ASTNodeType_t type = node.getType();
+  int type = node.getType();
     
   /* a lambda function outside a functionDefinition is a conflict */
   switch (type) 

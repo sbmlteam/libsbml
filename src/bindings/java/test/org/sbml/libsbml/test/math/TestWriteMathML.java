@@ -356,8 +356,10 @@ public class TestWriteMathML {
 
   public void test_MathMLFormatter_constant_infinity_neg()
   {
-    String expected = wrapMathML("  <apply> <minus/> <infinity/> </apply>\n"  
-    );
+    String expected = wrapMathML("  <apply>\n" +
+    "    <minus/>\n" +
+    "    <infinity/>\n" +
+    "  </apply>\n");
     N = new ASTNode();
     N.setValue(- util_PosInf());
     S = libsbml.writeMathMLToString(N);

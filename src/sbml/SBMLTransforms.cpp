@@ -88,7 +88,8 @@ SBMLTransforms::replaceFD(ASTNode * node, const FunctionDefinition *fd, const Id
   if ((node == NULL) || (fd == NULL))
     return;
   
-  if (node->isFunction() 
+  if (node->isFunction()
+    && node->getName() != NULL
       && node->getName() == fd->getId()
       && (idsToExclude == NULL || !idsToExclude->contains(fd->getId())))
   {
@@ -114,21 +115,16 @@ SBMLTransforms::replaceBvars(ASTNode * node, const FunctionDefinition *fd)
 
   if (fd != NULL && fd->isSetMath())
     {
-      noBvars = fd->getNumArguments();
-      if (noBvars == 0)
-      {
-        fdMath = fd->getMath()->getLeftChild()->deepCopy();
-      }
-      else
-      {
-        fdMath = fd->getMath()->getRightChild()->deepCopy();
-      }
-   
+      noBvars = fd->getMath()->getNumBvars();
+      fdMath = fd->getMath()->getRightChild()->deepCopy();
+
       for (unsigned int i = 0, nodeCount = 0; i < noBvars; i++, nodeCount++)
       {
         if (nodeCount < node->getNumChildren())
+        {
           fdMath->replaceArgument(fd->getArgument(i)->getName(), 
                                             node->getChild(nodeCount));
+        }
       }
     }
     (*node) = *fdMath;
@@ -577,8 +573,11 @@ SBMLTransforms::evaluateASTNode(const ASTNode * node, const IdValueMap& values, 
     }
     else
     {
-      result = evaluateASTNode(node->getChild(0), values, m) +
-               evaluateASTNode(node->getChild(1), values, m) ;
+      result = evaluateASTNode(node->getChild(0), values, m);
+      for (unsigned int i = 1; i < node->getNumChildren(); i++)
+      {
+        result = result + evaluateASTNode(node->getChild(i), values, m) ;
+      }
     }
     break;
 
@@ -601,8 +600,11 @@ SBMLTransforms::evaluateASTNode(const ASTNode * node, const IdValueMap& values, 
     }
     else
     {
-      result = evaluateASTNode(node->getChild(0), values, m) *
-        evaluateASTNode(node->getChild(1), values, m);
+      result = evaluateASTNode(node->getChild(0), values, m);
+      for (unsigned int i = 1; i < node->getNumChildren(); i++)
+      {
+        result = result * evaluateASTNode(node->getChild(i), values, m) ;
+      }
     }
     break;
 

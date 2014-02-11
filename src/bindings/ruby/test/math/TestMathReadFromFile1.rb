@@ -86,10 +86,7 @@ class TestMathReadFromFile1 < Test::Unit::TestCase
     assert( r1_math.getParentSBMLObject() == r )
     kl = m.getReaction(0).getKineticLaw()
     kl_math = kl.getMath()
-    assert( kl_math.getType() == LibSBML::AST_REAL )
-    assert( kl_math.getNumChildren() == 0 )
-    assert ((  "4.5" == LibSBML::formulaToString(kl_math) ))
-    assert( kl_math.getParentSBMLObject() == kl )
+    assert( kl_math == nil )
     d = nil
   end
 

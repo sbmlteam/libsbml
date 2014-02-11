@@ -510,6 +510,7 @@ GroupsExtension::init()
 
 #include <sbml/extension/SBasePluginCreatorBase.h>
 #include <sbml/extension/SBaseExtensionPoint.h>
+#include <sbml/extension/ASTBasePlugin.h>
 
   /** @cond doxygenLibsbmlInternal */
 #ifndef SWIG
@@ -713,6 +714,32 @@ public:
    */
   const SBasePluginCreatorBase*  getSBasePluginCreator(unsigned int i) const;
 
+  /**
+   * 
+   * Adds the given ASTBasePlugin object to this package
+   * extension.
+   *
+   * @param astPlugin the ASTBasePlugin object 
+   * of this package extension.
+   */
+  int setASTBasePlugin(const ASTBasePlugin* astPlugin);
+
+
+  /**
+   * Returns an ASTBasePlugin of this package extension.
+   *
+   * @return an ASTBasePlugin of this package extension.
+   */
+  const ASTBasePlugin* getASTBasePlugin() const;
+  
+  
+  /**
+   * Returns an ASTBasePlugin of this package extension.
+   *
+   * @return an ASTBasePlugin of this package extension.
+   */
+  ASTBasePlugin* getASTBasePlugin();
+
 #endif // SWIG
 
   /**
@@ -721,6 +748,16 @@ public:
    * @return the number of SBasePlugin objects stored in this object.
    */
   int getNumOfSBasePlugins() const;
+
+
+  /**
+   * Predicate returning @c true if this package extension has 
+   * an ASTBasePlugin attribute set.
+   *
+   * @return @c true if the ASTBasePlugin of
+   * this package extension is set, @c false otherwise.
+   */
+  bool isSetASTBasePlugin() const;
 
 
   /**
@@ -945,6 +982,7 @@ protected:
   bool                                 mIsEnabled;
   SupportedPackageURIList              mSupportedPackageURI;
   std::vector<SBasePluginCreatorBase*> mSBasePluginCreators;
+  ASTBasePlugin*                       mASTBasePlugin;
 
   /** @endcond */
 

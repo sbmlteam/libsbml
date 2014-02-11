@@ -285,6 +285,20 @@ XMLInputStream::setSBMLNamespaces(SBMLNamespaces * sbmlns)
 }
 
 
+unsigned int
+XMLInputStream::determineNumberChildren(const std::string elementName)
+{
+  return this->mTokenizer.determineNumberChildren(elementName);
+}
+
+
+unsigned int
+XMLInputStream::determineNumSpecificChildren(const std::string childName,
+                                          const std::string container)
+{
+  return this->mTokenizer.determineNumSpecificChildren(childName, container);
+}
+
 LIBLAX_EXTERN
 XMLInputStream_t *
 XMLInputStream_create (const char* content, int isFile, const char *library)

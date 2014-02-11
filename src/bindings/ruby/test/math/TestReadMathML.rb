@@ -697,7 +697,7 @@ class TestReadMathML < Test::Unit::TestCase
     @@n = LibSBML::readMathMLFromString(nil)
     assert( @@n == nil )
     @@n = LibSBML::readMathMLFromString(invalid)
-    assert( @@n == nil )
+    assert( @@n != nil )
   end
 
   def test_element_lambda

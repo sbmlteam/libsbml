@@ -249,6 +249,7 @@
 #include <sbml/SBMLDocument.h>
 
 #include <sbml/extension/SBMLExtension.h>
+#include <sbml/extension/ASTBasePlugin.h>
 
 
 #ifdef __cplusplus

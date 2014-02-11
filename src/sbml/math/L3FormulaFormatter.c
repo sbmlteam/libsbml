@@ -31,6 +31,7 @@
  * ---------------------------------------------------------------------- -->*/
 
 #include <sbml/common/common.h>
+#include <sbml/math/FormulaFormatter.h>
 #include <sbml/math/L3FormulaFormatter.h>
 #include <sbml/math/L3ParserSettings.h>
 #include <sbml/math/ASTNode.h>
@@ -381,7 +382,7 @@ L3FormulaFormatter_format (StringBuffer_t *sb, const ASTNode_t *node, const L3Pa
 void
 L3FormulaFormatter_formatFunction (StringBuffer_t *sb, const ASTNode_t *node, const L3ParserSettings_t *settings)
 {
-  ASTNodeType_t type = ASTNode_getType(node);
+  int type = ASTNode_getType(node);
   switch (type)
   {
   case AST_PLUS:
@@ -417,7 +418,7 @@ L3FormulaFormatter_formatFunction (StringBuffer_t *sb, const ASTNode_t *node, co
 void
 L3FormulaFormatter_formatOperator (StringBuffer_t *sb, const ASTNode_t *node)
 {
-  ASTNodeType_t type = ASTNode_getType(node);
+  int type = ASTNode_getType(node);
 
   if (type == AST_FUNCTION_POWER ||
       type == AST_POWER) {
@@ -513,7 +514,7 @@ L3FormulaFormatter_formatReal (StringBuffer_t *sb, const ASTNode_t *node, const 
 void
 L3FormulaFormatter_formatLogicalRelational (StringBuffer_t *sb, const ASTNode_t *node)
 {
-  ASTNodeType_t type = ASTNode_getType(node);
+  int type = ASTNode_getType(node);
 
   StringBuffer_appendChar(sb, ' ');
   switch(type)
@@ -591,6 +592,18 @@ L3FormulaFormatter_visit ( const ASTNode_t *parent,
   else if (ASTNode_hasTypeAndNumChildren(node, AST_LOGICAL_NOT, 1))
   {
     L3FormulaFormatter_visitUNot(parent, node, sb, settings);
+  }
+  else if (ASTNode_hasTypeAndNumChildren(node, AST_QUALIFIER_LOGBASE, 1))
+  {
+    L3FormulaFormatter_visit(node, ASTNode_getChild(node, 0), sb, settings);
+  }
+  else if (ASTNode_hasTypeAndNumChildren(node, AST_QUALIFIER_DEGREE, 1))
+  {
+    L3FormulaFormatter_visit(node, ASTNode_getChild(node, 0), sb, settings);
+  }
+  else if (ASTNode_hasTypeAndNumChildren(node, AST_SEMANTICS, 1))
+  {
+    L3FormulaFormatter_visit(node, ASTNode_getChild(node, 0), sb, settings);
   }
   else
   {

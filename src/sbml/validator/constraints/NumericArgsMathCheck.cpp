@@ -96,7 +96,7 @@ NumericArgsMathCheck::getPreamble ()
 void
 NumericArgsMathCheck::checkMath (const Model& m, const ASTNode& node, const SBase & sb)
 {
-  ASTNodeType_t type = node.getType();
+  int type = node.getType();
 
   switch (type) 
   {

@@ -176,7 +176,7 @@ FormulaFormatter_format (StringBuffer_t *sb, const ASTNode_t *node)
 void
 FormulaFormatter_formatFunction (StringBuffer_t *sb, const ASTNode_t *node)
 {
-  ASTNodeType_t type = ASTNode_getType(node);
+  int type = ASTNode_getType(node);
 
 
   switch (type)
@@ -219,7 +219,7 @@ FormulaFormatter_formatFunction (StringBuffer_t *sb, const ASTNode_t *node)
 void
 FormulaFormatter_formatOperator (StringBuffer_t *sb, const ASTNode_t *node)
 {
-  ASTNodeType_t type = ASTNode_getType(node);
+  int type = ASTNode_getType(node);
 
 
   if (type != AST_POWER)
@@ -332,6 +332,18 @@ FormulaFormatter_visit ( const ASTNode_t *parent,
   else if (ASTNode_hasTypeAndNumChildren(node, AST_TIMES, 0))
   {
     StringBuffer_appendInt(sb, 1);
+  }
+  else if (ASTNode_hasTypeAndNumChildren(node, AST_QUALIFIER_LOGBASE, 1))
+  {
+    FormulaFormatter_visit(node, ASTNode_getChild(node, 0), sb);
+  }
+  else if (ASTNode_hasTypeAndNumChildren(node, AST_QUALIFIER_DEGREE, 1))
+  {
+    FormulaFormatter_visit(node, ASTNode_getChild(node, 0), sb);
+  }
+  else if (ASTNode_hasTypeAndNumChildren(node, AST_SEMANTICS, 1))
+  {
+    FormulaFormatter_visit(node, ASTNode_getChild(node, 0), sb);
   }
   else
   {

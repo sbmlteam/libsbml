@@ -132,8 +132,8 @@ namespace LibSBMLCSTest.math {
       ASTNode n = libsbml.parseFormula("c");
       assertEquals( true, n.isWellFormedASTNode() );
       ASTNode d = libsbml.parseFormula("d");
-      n.addChild(d);
-      assertEquals( false, (n.isWellFormedASTNode()) );
+      int i = n.addChild(d);
+      assertEquals(i, libsbml.LIBSBML_INVALID_OBJECT);
       n = null;
     }
 
@@ -142,8 +142,8 @@ namespace LibSBMLCSTest.math {
       ASTNode n = libsbml.parseFormula("1.2");
       assertEquals( true, n.isWellFormedASTNode() );
       ASTNode d = libsbml.parseFormula("d");
-      n.addChild(d);
-      assertEquals( false, (n.isWellFormedASTNode()) );
+      int i = n.addChild(d);
+      assertEquals(i, libsbml.LIBSBML_INVALID_OBJECT);
       n = null;
     }
 
@@ -243,11 +243,11 @@ namespace LibSBMLCSTest.math {
       ASTNode n = new ASTNode(libsbml.AST_DIVIDE);
       assertEquals( false, (n.isWellFormedASTNode()) );
       ASTNode c = libsbml.parseFormula("c");
-      n.addChild(c.deepCopy());
+      n.addChild((ASTNode)c.deepCopy());
       assertEquals( false, (n.isWellFormedASTNode()) );
-      n.addChild(c.deepCopy());
+      n.addChild((ASTNode)c.deepCopy());
       assertEquals( true, (n.isWellFormedASTNode()) );
-      n.addChild(c.deepCopy());
+      n.addChild((ASTNode)c.deepCopy());
       assertEquals( false, (n.isWellFormedASTNode()) );
       n = new ASTNode(libsbml.AST_TIMES);
       assertEquals( true, (n.isWellFormedASTNode()) );

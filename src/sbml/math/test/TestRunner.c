@@ -54,12 +54,15 @@ Suite *create_suite_FormulaTokenizer (void);
 Suite *create_suite_ReadMathML       (void);
 Suite *create_suite_WriteMathML      (void);
 Suite *create_suite_WriteMathMLFromAST      (void);
+Suite *create_suite_NewReadMathML       (void);
+Suite *create_suite_NewWriteMathMLFromAST      (void);
 
 Suite *create_suite_TestReadFromFile1      (void);
 Suite *create_suite_TestReadFromFile2      (void);
 
 Suite *create_suite_TestValidASTNode  (void);
 
+Suite *create_suite_NewASTNode          (void);
 
 /**
  * Global.
@@ -113,14 +116,17 @@ main (void)
   srunner_add_suite( runner, create_suite_L3FormulaParserC () );
   srunner_add_suite( runner, create_suite_FormulaTokenizer () );
   srunner_add_suite( runner, create_suite_ReadMathML       () );
+  srunner_add_suite( runner, create_suite_NewReadMathML       () );
   srunner_add_suite( runner, create_suite_WriteMathML      () );
   srunner_add_suite( runner, create_suite_WriteMathMLFromAST      () );
+  srunner_add_suite( runner, create_suite_NewWriteMathMLFromAST      () );
 
   srunner_add_suite( runner, create_suite_TestReadFromFile1() );
   srunner_add_suite( runner, create_suite_TestReadFromFile2() );
  
   srunner_add_suite( runner, create_suite_TestValidASTNode() );
 
+  srunner_add_suite( runner, create_suite_NewASTNode() );
 
 
   /* srunner_set_fork_status(runner, CK_NOFORK); */

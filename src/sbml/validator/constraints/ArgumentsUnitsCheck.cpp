@@ -93,7 +93,7 @@ void
 ArgumentsUnitsCheck::checkUnits (const Model& m, const ASTNode& node, const SBase & sb,
                                  bool inKL, int reactNo)
 {
-  ASTNodeType_t type = node.getType();
+  int type = node.getType();
 
   switch (type) 
   {

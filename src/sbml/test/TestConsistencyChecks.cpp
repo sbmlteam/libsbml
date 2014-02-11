@@ -100,7 +100,7 @@ START_TEST (test_consistency_checks)
   errors = d->checkConsistency();
 
   fail_unless(errors == 0);
- /* fail_unless(d->getError(0)->getErrorId() == 80701);*/
+
 
   delete d;
 }

@@ -2,11 +2,12 @@
  * \file    libsbml.h
  * \brief   Language-independent SWIG includes for wrapping libSBML
  * \author  Ben Bornstein
- * 
+ *
  * <!--------------------------------------------------------------------------
  * This file is part of libSBML.  Please visit http://sbml.org for more
  * information about SBML, and the latest version of libSBML.
  *
+
  * Copyright (C) 2009-2013 jointly by the following organizations: 
  *     1. California Institute of Technology, Pasadena, CA, USA
  *     2. EMBL European Bioinformatics Institute (EBML-EBI), Hinxton, UK
@@ -92,6 +93,32 @@
 #include <sbml/validator/SBMLValidator.h>
 #include <sbml/validator/SBMLExternalValidator.h>
 
+
+#include <sbml/math/ASTTypes.h>
+#include <sbml/math/ASTBase.h>
+//#include <sbml/math/ASTBinaryFunctionNode.h>
+//#include <sbml/math/ASTCiFunctionNode.h>
+//#include <sbml/math/ASTCiNumberNode.h>
+//#include <sbml/math/ASTCnBase.h>
+//#include <sbml/math/ASTCnExponentialNode.h>
+//#include <sbml/math/ASTCnIntegerNode.h>
+//#include <sbml/math/ASTCnRationalNode.h>
+//#include <sbml/math/ASTCnRealNode.h>
+//#include <sbml/math/ASTConstantNumberNode.h>
+//#include <sbml/math/ASTCSymbol.h>
+//#include <sbml/math/ASTCSymbolAvogadroNode.h>
+//#include <sbml/math/ASTCSymbolDelayNode.h>
+//#include <sbml/math/ASTCSymbolTimeNode.h>
+//#include <sbml/math/ASTFunction.h>
+//#include <sbml/math/ASTFunctionBase.h>
+//#include <sbml/math/ASTLambdaFunctionNode.h>
+//#include <sbml/math/ASTNaryFunctionNode.h>
+//#include <sbml/math/ASTNumber.h>
+//#include <sbml/math/ASTPiecewiseFunctionNode.h>
+//#include <sbml/math/ASTQualifierNode.h>
+//#include <sbml/math/ASTSemanticsNode.h>
+//#include <sbml/math/ASTUnaryFunctionNode.h>
+
 #include <sbml/math/ASTNode.h>
 #include <sbml/math/MathML.h>
 #include <sbml/math/FormulaFormatter.h>
@@ -127,6 +154,7 @@
 #include <sbml/extension/SBMLExtensionException.h>
 #include <sbml/extension/SBMLExtensionNamespaces.h>
 #include <sbml/extension/SBMLExtensionRegistry.h>
+#include <sbml/extension/ASTBasePlugin.h>
 
 #include "ListWrapper.h"
 

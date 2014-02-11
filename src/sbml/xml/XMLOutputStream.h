@@ -296,9 +296,26 @@ public:
    * Increases the indentation level for this XMLOutputStream.
    */
   void upIndent ();
+  
   /** @cond doxygenLibsbmlInternal */
 
   bool getStringStream()   { return mStringStream;  }
+
+  /**
+   * Returns the SBMLNamespaces object attached to this XMLInputStream
+   * if it has been set, NULL otherwise.
+   *
+   * @return the SBMLNamespaces object or NULL if none has been set.
+   */
+  SBMLNamespaces * getSBMLNamespaces();
+
+  
+  /**
+   * Sets the SBMLNamespaces object to allow this stream to reference
+   * the available SBML namespaces being read.
+   */
+   void setSBMLNamespaces(SBMLNamespaces * sbmlns);
+
   /** @endcond */
 
 private:
@@ -405,6 +422,8 @@ protected:
   // this bool value is used to identify if the next character is '&' 
   // for a character reference or predefined entity.
   bool mNextAmpersandIsRef;
+
+  SBMLNamespaces* mSBMLns;
 
   /* this is needed for the derived classes used to create the C wrapper */
   bool mStringStream;

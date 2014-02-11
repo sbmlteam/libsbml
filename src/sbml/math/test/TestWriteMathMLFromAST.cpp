@@ -391,7 +391,10 @@ START_TEST (test_MathMLFromAST_constant_infinity_neg)
 {
   const char* expected = wrapMathML
   (
-    "  <apply> <minus/> <infinity/> </apply>\n"
+    "  <apply>\n"
+    "    <minus/>\n"
+    "    <infinity/>\n"
+    "  </apply>\n"
   );
 
   N = new ASTNode;
@@ -599,6 +602,57 @@ START_TEST (test_MathMLFromAST_plus_nary_4)
   N->addChild(c2);
   N->addChild(times);
   N->addChild(c3);
+  
+  S = writeMathMLToString(N);
+
+  fail_unless( equals(expected, S) );
+}
+END_TEST
+
+
+START_TEST (test_MathMLFromAST_plus_nary_5)
+{
+  const char* expected = wrapMathML
+  (
+    "  <apply>\n"
+    "    <plus/>\n"
+    "    <cn type=\"integer\"> 1 </cn>\n"
+    "    <cn type=\"integer\"> 4 </cn>\n"
+    "    <cn type=\"integer\"> 5 </cn>\n"
+    "    <cn type=\"integer\"> 3 </cn>\n"
+    "    <cn type=\"integer\"> 2 </cn>\n"
+    "  </apply>\n"
+  );
+
+//  N = SBML_parseFormula("1 + (2 + 3)");
+  
+  N = new ASTNode(AST_PLUS);
+  
+  ASTNode *c1 = new ASTNode(AST_INTEGER);
+  c1->setValue(1);
+  ASTNode *c2 = new ASTNode(AST_INTEGER);
+  c2->setValue(2);
+  ASTNode *c3 = new ASTNode(AST_INTEGER);
+  c3->setValue(3);
+  ASTNode *c4 = new ASTNode(AST_INTEGER);
+  c4->setValue(4);
+  ASTNode *c5 = new ASTNode(AST_INTEGER);
+  c5->setValue(5);
+  
+  ASTNode *plus = new ASTNode(AST_PLUS);
+  plus->addChild(c4);
+  plus->addChild(c5);
+
+  ASTNode *plus1 = new ASTNode(AST_PLUS);
+  plus1->addChild(plus);
+  plus1->addChild(c3);
+
+  ASTNode *plus2 = new ASTNode(AST_PLUS);
+  plus2->addChild(plus1);
+  plus2->addChild(c2);
+  
+  N->addChild(c1);
+  N->addChild(plus2);
   
   S = writeMathMLToString(N);
 
@@ -910,7 +964,7 @@ START_TEST (test_MathMLFromAST_semantics)
   );
 
   N = SBML_parseFormula("lt(x, 0)");
-  N->setSemanticsFlag();
+  N->addSemanticsAnnotation(NULL);
   S = writeMathMLToString(N);
 
   fail_unless( equals(expected, S) );
@@ -935,7 +989,7 @@ START_TEST (test_MathMLFromAST_semantics_url)
   xa->add("definitionURL", "foobar");
   
   N = SBML_parseFormula("lt(x, 0)");
-  N->setSemanticsFlag();
+  N->addSemanticsAnnotation(NULL);
   N->setDefinitionURL(*xa);
   S = writeMathMLToString(N);
 
@@ -971,7 +1025,7 @@ START_TEST (test_MathMLFromAST_semantics_ann)
   ann->addChild(textNode);
   
   N = SBML_parseFormula("lt(x, 0)");
-  N->setSemanticsFlag();
+  N->addSemanticsAnnotation(NULL);
   N->addSemanticsAnnotation(ann);
 
   S = writeMathMLToString(N);
@@ -1023,7 +1077,6 @@ START_TEST (test_MathMLFromAST_semantics_annxml)
   ann->addChild(foo);
   
   N = SBML_parseFormula("lt(x, 0)");
-  N->setSemanticsFlag();
   N->addSemanticsAnnotation(ann);
 
   S = writeMathMLToString(N);
@@ -1151,6 +1204,7 @@ create_suite_WriteMathMLFromAST ()
   tcase_add_test( tcase, test_MathMLFromAST_plus_nary_2           );
   tcase_add_test( tcase, test_MathMLFromAST_plus_nary_3           );
   tcase_add_test( tcase, test_MathMLFromAST_plus_nary_4           );
+  tcase_add_test( tcase, test_MathMLFromAST_plus_nary_5           );
   tcase_add_test( tcase, test_MathMLFromAST_minus                 );
   tcase_add_test( tcase, test_MathMLFromAST_minus_unary_1         );
   tcase_add_test( tcase, test_MathMLFromAST_minus_unary_2         );

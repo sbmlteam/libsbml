@@ -191,9 +191,79 @@ public:
    */
   std::string toString ();
 
+
+  /**
+   * Returns the SBMLNamespaces object attached to this XMLInputStream
+   * if it has been set, NULL otherwise.
+   *
+   * @return the SBMLNamespaces object or NULL if none has been set.
+   */
   SBMLNamespaces * getSBMLNamespaces();
 
-  void setSBMLNamespaces(SBMLNamespaces * sbmlns);
+  
+  /**
+   * Sets the SBMLNamespaces object to allow this stream to reference
+   * the available SBML namespaces being read.
+   */
+   void setSBMLNamespaces(SBMLNamespaces * sbmlns);
+
+
+  /**
+   * Analyses the tokens in the stream and returns the number of 
+   * child tokens of the given element.
+   *
+   * @param elementName a string representing the name of the element
+   * for which the number of children are to be determined.
+   *
+   * This function allows information from the input stream to be determined
+   * without the  need to actually read and consume the tokens in
+   * the stream. This functionality
+   * is particularly utilized when reading MathML. 
+   *
+   * The function will return the number of child elements of the
+   * element represented by the elementName supplied, i.e. the number
+   * of child elements encountered before the closing tag for the
+   * elementname supplied.  If the elementName
+   * has not been supplied then the function assumes that it is reading
+   * an apply element followed by a function element.
+   *
+   * @note This function assumes the stream has been read up to and 
+   * including the element elementName.
+   *
+   * @return an unsigned int giving the number of children of the
+   * element specified.
+   */
+  unsigned int determineNumberChildren(const std::string elementName = "");
+  
+  
+  /**
+   * Analyses the tokens in the stream and returns the number of 
+   * child tokens of the specified type within the given element.
+   *
+   * @param childName a string representing the name of the child
+   * element whose number is to be determined.
+   * @param container a string representing the name of the element
+   * for which the number of children are to be determined.
+   *
+   * This function allows information from the input stream to be determined
+   * without the  need to actually read and consume the tokens in
+   * the stream. This functionality
+   * is particularly utilized when reading MathML. 
+   *
+   * The function will return the number of child elements of the
+   * element represented by the childName supplied within the element
+   * specified by the container, i.e. the number
+   * of child elements encountered before the closing tag for the
+   * container supplied. 
+   *
+   * @note This function assumes the stream has been read up to and 
+   * including the element container.
+   *
+   * @return an unsigned int giving the number of children of type childName
+   * within the container element specified.
+   */
+  unsigned int determineNumSpecificChildren(const std::string childName,
+    const std::string container);
 
 private:
   /** @cond doxygenLibsbmlInternal */

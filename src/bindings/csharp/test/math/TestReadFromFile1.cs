@@ -189,10 +189,7 @@ namespace LibSBMLCSTest.math {
       assertTrue( r1_math.getParentSBMLObject() == r );
       kl = m.getReaction(0).getKineticLaw();
       ASTNode kl_math = kl.getMath();
-      assertTrue( kl_math.getType() == libsbml.AST_REAL );
-      assertTrue( kl_math.getNumChildren() == 0 );
-      assertTrue((  "4.5" == libsbml.formulaToString(kl_math) ));
-      assertTrue( kl_math.getParentSBMLObject() == kl );
+      assertTrue( kl_math == null );
       d = null;
     }
 

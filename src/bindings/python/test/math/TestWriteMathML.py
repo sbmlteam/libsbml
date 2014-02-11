@@ -254,8 +254,10 @@ class TestWriteMathML(unittest.TestCase):
     pass  
 
   def test_MathMLFormatter_constant_infinity_neg(self):
-    expected = wrapMathML("  <apply> <minus/> <infinity/> </apply>\n"  
-    )
+    expected = wrapMathML("  <apply>\n" + 
+    "    <minus/>\n" + 
+    "    <infinity/>\n" + 
+    "  </apply>\n")
     self.N = libsbml.ASTNode()
     self.N.setValue(- util_PosInf())
     self.S = libsbml.writeMathMLToString(self.N)

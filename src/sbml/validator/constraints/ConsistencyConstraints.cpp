@@ -187,13 +187,46 @@ START_CONSTRAINT (20301, FunctionDefinition, fd)
       "one and only one <lambda> or a <semantics> element containing one "
       "and only one <lambda> element.";
   }
+  
+  bool fail = false;
 
-  if (fd.getLevel() == 2 && fd.getVersion() < 3)
+  if (fd.getMath()->isLambda() == false)
   {
-    inv( !fd.getMath()->getSemanticsFlag() );
+    if ((fd.getLevel() == 2 && fd.getVersion() > 2) || fd.getLevel() > 2)
+    {
+      if (fd.getMath()->isSemantics() == true)
+      {
+        if (fd.getMath()->getNumChildren() == 1)
+        {
+          if (fd.getMath()->getChild(0)->isLambda() == false)
+          {
+            fail = true;
+          }
+        }
+        else
+        {
+          fail = true;
+        }
+      }
+      else
+      {
+        fail = true;
+      }
+    }
+    else
+    {
+      fail = true;
+    }
   }
 
-  inv( fd.getMath()->isLambda() );
+  //if (fd.getLevel() == 2 && fd.getVersion() < 3)
+  //{
+  //  inv( !fd.getMath()->isSemantics() );
+  //}
+
+  //inv( fd.getMath()->isLambda() );
+
+  inv(fail == false);
 }
 END_CONSTRAINT
 
@@ -351,7 +384,7 @@ START_CONSTRAINT (99301, FunctionDefinition, fd)
 
   while (it != astlist.end())
   {
-    ASTNodeType_t type = (*it)->getType();
+    int type = (*it)->getType();
 
     inv(type != AST_NAME_TIME);
     ++it;

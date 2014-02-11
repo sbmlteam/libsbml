@@ -94,6 +94,7 @@ START_TEST (test_read_MathML_1)
   fail_unless (fd_math->getNumChildren() == 2, NULL);
   fail_unless (!strcmp(SBML_formulaToString(fd_math), "lambda(x, )"), NULL);
   fail_unless (fd_math->getParentSBMLObject() == fd, NULL);
+  fail_unless (fd_math->getNumBvars() == 1);
   //fail_unless (fd_math->getNumVariablesWithUndeclaredUnits() == 0);
   //fail_unless( fd_math->containsVariable("c") == false );
   //fail_unless( fd_math->containsVariable("x") == true );
@@ -192,10 +193,13 @@ START_TEST (test_read_MathML_1)
   kl = m->getReaction(0)->getKineticLaw();
   const ASTNode *kl_math = kl->getMath();
 
-  fail_unless (kl_math->getType() == AST_REAL, NULL);
-  fail_unless (kl_math->getNumChildren() == 0, NULL);
-  fail_unless (!strcmp(SBML_formulaToString(kl_math), "4.5"), NULL);
-  fail_unless (kl_math->getParentSBMLObject() == kl, NULL);
+  /* the fact that this would be read is a bug */
+  fail_unless(kl_math == NULL);
+
+  //fail_unless (kl_math->getType() == AST_REAL, NULL);
+  //fail_unless (kl_math->getNumChildren() == 0, NULL);
+  //fail_unless (!strcmp(SBML_formulaToString(kl_math), "4.5"), NULL);
+  //fail_unless (kl_math->getParentSBMLObject() == kl, NULL);
   //fail_unless (kl_math->getNumVariablesWithUndeclaredUnits() == 0);
   //fail_unless( kl_math->containsVariable("c") == false );
   //fail_unless( kl_math->containsVariable("x") == false );

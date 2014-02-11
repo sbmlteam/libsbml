@@ -2,7 +2,7 @@
  * \file    libsbml.i
  * \brief   Language-independent SWIG directives for wrapping libSBML
  * \author  Ben Bornstein and Ben Kovitz
- * 
+ *
  * <!--------------------------------------------------------------------------
  * This file is part of libSBML.  Please visit http://sbml.org for more
  * information about SBML, and the latest version of libSBML.
@@ -556,7 +556,7 @@ LIBSBML_CPP_NAMESPACE_USE
 %include <sbml/util/IdentifierTransformer.h>
 %include <sbml/util/ElementFilter.h>
 
-%include sbml/SBMLReader.h
+%include <sbml/SBMLReader.h>
 %include sbml/SBMLWriter.h
 %include sbml/SBMLTypeCodes.h
 %include sbml/SBase.h
@@ -610,6 +610,9 @@ LIBSBML_CPP_NAMESPACE_USE
 %include sbml/validator/SBMLValidator.h
 %include sbml/validator/SBMLExternalValidator.h
 
+%include <sbml/math/ASTTypes.h>
+%include <sbml/math/ASTBase.h>
+
 %include sbml/math/MathML.h
 %include sbml/math/ASTNode.h
 %include sbml/math/FormulaParser.h
@@ -645,7 +648,7 @@ LIBSBML_CPP_NAMESPACE_USE
 %include sbml/extension/SBMLExtensionException.h
 %include sbml/extension/SBMLExtensionNamespaces.h
 %include sbml/extension/SBMLExtensionRegistry.h
-
+%include <sbml/extension/ASTBasePlugin.h>
 
 %include "../swig/libsbml-packages.i"
 
