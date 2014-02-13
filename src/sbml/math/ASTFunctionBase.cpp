@@ -28,6 +28,8 @@
  * ------------------------------------------------------------------------ -->
  */
 
+#include <limits.h>
+
 #include <sbml/math/ASTFunctionBase.h>
 #include <sbml/util/List.h>
 #include <sbml/math/ASTNode.h>

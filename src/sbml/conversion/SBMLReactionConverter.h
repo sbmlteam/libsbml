@@ -49,8 +49,8 @@
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
-typedef std::vector<std::pair<std::string, ASTNode *>>             RuleMap;
-typedef std::vector<std::pair<std::string, ASTNode *>>::iterator   RuleMapIter;
+typedef std::vector< std::pair<std::string, ASTNode *> >             RuleMap;
+typedef std::vector< std::pair<std::string, ASTNode *> >::iterator   RuleMapIter;
 
 class LIBSBML_EXTERN SBMLReactionConverter : public SBMLConverter
 {
