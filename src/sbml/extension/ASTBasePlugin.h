@@ -86,7 +86,7 @@ public:
    *
    * @return the prefix of the package extension of this plugin object.
    */
-  const std::string& getPrefix() const;
+  virtual const std::string& getPrefix() const;
 
 
   /**
