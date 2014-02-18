@@ -69,7 +69,10 @@ determineNumBvars(XMLInputStream & stream)
 {
   unsigned int n = 0;
 
-  n = stream.determineNumSpecificChildren("bvar", "lambda");
+  const std::string bvar = "bvar";
+  const std::string lambda = "lambda";
+
+  n = stream.determineNumSpecificChildren(bvar, lambda);
 
   return n;
 }
@@ -79,7 +82,9 @@ determineNumArgs(XMLInputStream & stream, const std::string& nodeName)
 {
   unsigned int n = 0;
 
-  n = stream.determineNumSpecificChildren("", nodeName);
+  const std::string emptyString = "";
+
+  n = stream.determineNumSpecificChildren(emptyString, nodeName);
 
   return n;
 }
@@ -89,7 +94,10 @@ determineNumPiece(XMLInputStream & stream)
 {
   unsigned int n = 0;
 
-  n = stream.determineNumSpecificChildren("piece", "piecewise");
+  const std::string piece = "piece";
+  const std::string piecewise = "piecewise";
+
+  n = stream.determineNumSpecificChildren(piece, piecewise);
 
   return n;
 }
@@ -99,7 +107,10 @@ hasOtherwise(XMLInputStream & stream)
 {
   unsigned int n = 0;
 
-  n = stream.determineNumSpecificChildren("otherwise", "piecewise");
+  const std::string otherwise = "otherwise";
+  const std::string piecewise = "piecewise";
+
+  n = stream.determineNumSpecificChildren(otherwise, piecewise);
 
   if (n > 0)
     return true;
@@ -112,9 +123,12 @@ determineNumAnnotations(XMLInputStream & stream)
 {
   unsigned int n = 0, n1 = 0;
 
-  n = stream.determineNumSpecificChildren("annotation", "semantics");
-  n1 = stream.determineNumSpecificChildren
-                              ("annotation-xml", "semantics");
+  const std::string annot = "annotation";
+  const std::string annot_xml = "annotation-xml";
+  const std::string semantics = "semantics";
+
+  n = stream.determineNumSpecificChildren(annot, semantics);
+  n1 = stream.determineNumSpecificChildren(annot_xml, semantics);
     
   return n + n1;
 }
