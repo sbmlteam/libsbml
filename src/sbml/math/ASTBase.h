@@ -182,7 +182,7 @@ public:
 
   virtual bool readAttributes (const XMLAttributes& attributes,
                                const ExpectedAttributes& expectedAttributes,
-                               XMLInputStream& stream, XMLToken element);
+                               XMLInputStream& stream, const XMLToken& element);
 
   virtual void logError (XMLInputStream& stream, const XMLToken& element, 
     SBMLErrorCode_t code,
@@ -308,7 +308,8 @@ public:
 
 protected:
 
-  void checkPrefix(XMLInputStream& stream, std::string reqd_prefix, XMLToken element);
+  void checkPrefix(XMLInputStream& stream, const std::string& reqd_prefix, 
+    const XMLToken& element);
 
   void writeStartEndElement(XMLOutputStream& stream) const;
 

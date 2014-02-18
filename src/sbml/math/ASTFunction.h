@@ -256,25 +256,25 @@ protected:
   void reset();
 
   bool readApply(XMLInputStream& stream, const std::string& reqd_prefix,
-                  const XMLToken currentElement);
+                  const XMLToken& currentElement);
 
   bool readLambda(XMLInputStream& stream, const std::string& reqd_prefix,
-                  const XMLToken currentElement);
+                  const XMLToken& currentElement);
 
   bool readPiecewise(XMLInputStream& stream, const std::string& reqd_prefix,
-                  const XMLToken currentElement);
+                  const XMLToken& currentElement);
 
   bool readQualifier(XMLInputStream& stream, const std::string& reqd_prefix,
-                  const XMLToken currentElement);
+                  const XMLToken& currentElement);
 
   bool readCiFunction(XMLInputStream& stream, const std::string& reqd_prefix,
-                  const XMLToken currentElement);
+                  const XMLToken& currentElement);
 
   bool readCSymbol(XMLInputStream& stream, const std::string& reqd_prefix,
-                  const XMLToken currentElement);
+                  const XMLToken& currentElement);
 
   bool readSemantics(XMLInputStream& stream, const std::string& reqd_prefix,
-                  const XMLToken currentElement);
+                  const XMLToken& currentElement);
 
   friend class ASTNode;
   friend class ASTSemanticsNode;

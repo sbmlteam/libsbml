@@ -279,13 +279,13 @@ public:
 
 
   virtual bool read(XMLInputStream& stream, const std::string& reqd_prefix,
-                                            const XMLToken currentElement);
+                                            const XMLToken& currentElement);
   virtual void addExpectedAttributes(ExpectedAttributes& attributes, 
                                      XMLInputStream& stream, int type);
 
   virtual bool readAttributes (const XMLAttributes& attributes,
                                const ExpectedAttributes& expectedAttributes,
-                               XMLInputStream& stream, XMLToken element,
+                               XMLInputStream& stream, const XMLToken& element,
                                int type);
 
   virtual void writeAttributes(XMLOutputStream& stream, int type) const;

@@ -212,7 +212,7 @@ ASTCnBase::addExpectedAttributes(ExpectedAttributes& attributes,
 bool 
 ASTCnBase::readAttributes(const XMLAttributes& attributes,
                        const ExpectedAttributes& expectedAttributes,
-                               XMLInputStream& stream, XMLToken element)
+                               XMLInputStream& stream, const XMLToken& element)
 {
   bool read = ASTBase::readAttributes(attributes, expectedAttributes,
                                       stream, element);

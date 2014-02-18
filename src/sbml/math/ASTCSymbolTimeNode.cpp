@@ -179,7 +179,7 @@ ASTCSymbolTimeNode::addExpectedAttributes(ExpectedAttributes& attributes,
 bool 
 ASTCSymbolTimeNode::readAttributes(const XMLAttributes& attributes,
                        const ExpectedAttributes& expectedAttributes,
-                               XMLInputStream& stream, XMLToken element)
+                               XMLInputStream& stream, const XMLToken& element)
 {
   bool read = ASTBase::readAttributes(attributes, expectedAttributes,
                                       stream, element);

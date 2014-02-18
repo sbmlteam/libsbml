@@ -42,7 +42,8 @@ using namespace std;
 LIBSBML_CPP_NAMESPACE_BEGIN
 
 static unsigned int
-determineNumChildren(XMLInputStream & stream, const std::string element = "")
+determineNumChildren(XMLInputStream & stream, 
+                     const std::string& element = "")
 {
   unsigned int n = 0;
 
@@ -52,8 +53,9 @@ determineNumChildren(XMLInputStream & stream, const std::string element = "")
 }
 
 static unsigned int
-determineNumQualifiers(XMLInputStream & stream, const std::string qualifier,
-                       const std::string container)
+determineNumQualifiers(XMLInputStream & stream, 
+                       const std::string& qualifier,
+                       const std::string& container)
 {
   unsigned int n = 0;
 
@@ -111,8 +113,9 @@ determineNumAnnotations(XMLInputStream & stream)
   unsigned int n = 0, n1 = 0;
 
   n = stream.determineNumSpecificChildren("annotation", "semantics");
-  n1 = stream.determineNumSpecificChildren("annotation-xml", "semantics");
-
+  n1 = stream.determineNumSpecificChildren
+                              ("annotation-xml", "semantics");
+    
   return n + n1;
 }
 /**
@@ -3193,7 +3196,7 @@ ASTFunction::read(XMLInputStream& stream, const std::string& reqd_prefix)
 
 bool 
 ASTFunction::readApply(XMLInputStream& stream, const std::string& reqd_prefix,
-                        const XMLToken currentElement)
+                        const XMLToken& currentElement)
 {
   bool read = false;
   
@@ -3317,7 +3320,7 @@ ASTFunction::readApply(XMLInputStream& stream, const std::string& reqd_prefix,
 
 bool 
 ASTFunction::readLambda(XMLInputStream& stream, const std::string& reqd_prefix,
-                        const XMLToken currentElement)
+                        const XMLToken& currentElement)
 {
   bool read = false;
   
@@ -3325,8 +3328,10 @@ ASTFunction::readLambda(XMLInputStream& stream, const std::string& reqd_prefix,
   const XMLToken nextElement = stream.peek();
   const string&  nextName = nextElement.getName();
   
-  unsigned int numChildren = determineNumChildren(stream, "lambda");
-  unsigned int numBvars = determineNumBvars(stream);
+  unsigned int numChildren = 0, numBvars = 0;
+  
+  numChildren = determineNumChildren(stream, "lambda");
+  numBvars = determineNumBvars(stream);
     
   reset();
   
@@ -3361,7 +3366,7 @@ ASTFunction::readLambda(XMLInputStream& stream, const std::string& reqd_prefix,
 
 bool 
 ASTFunction::readPiecewise(XMLInputStream& stream, const std::string& reqd_prefix,
-                        const XMLToken currentElement)
+                        const XMLToken& currentElement)
 {
   bool read = false;
   
@@ -3415,9 +3420,10 @@ ASTFunction::readPiecewise(XMLInputStream& stream, const std::string& reqd_prefi
 
 bool 
 ASTFunction::readQualifier(XMLInputStream& stream, const std::string& reqd_prefix,
-                        const XMLToken currentElement)
+                        const XMLToken& currentElement)
 {
   bool read = false;
+
   const string&  currentName = currentElement.getName();
   
   stream.skipText();
@@ -3473,7 +3479,7 @@ ASTFunction::readQualifier(XMLInputStream& stream, const std::string& reqd_prefi
 
 bool 
 ASTFunction::readCiFunction(XMLInputStream& stream, const std::string& reqd_prefix,
-                        const XMLToken currentElement)
+                        const XMLToken& currentElement)
 {
   bool read = false;
 
@@ -3537,7 +3543,7 @@ ASTFunction::readCiFunction(XMLInputStream& stream, const std::string& reqd_pref
 
 bool 
 ASTFunction::readCSymbol(XMLInputStream& stream, const std::string& reqd_prefix,
-                        const XMLToken currentElement)
+                        const XMLToken& currentElement)
 {
   bool read = false;
   
@@ -3576,7 +3582,7 @@ ASTFunction::readCSymbol(XMLInputStream& stream, const std::string& reqd_prefix,
 
 bool 
 ASTFunction::readSemantics(XMLInputStream& stream, const std::string& reqd_prefix,
-                        const XMLToken currentElement)
+                        const XMLToken& currentElement)
 {
   bool read = false;
   const string&  currentName = currentElement.getName();
@@ -3585,7 +3591,9 @@ ASTFunction::readSemantics(XMLInputStream& stream, const std::string& reqd_prefi
   const XMLToken nextElement = stream.peek();
   const string&  nextName = nextElement.getName();
   
-  unsigned int numChildren = determineNumAnnotations(stream);
+  unsigned int numChildren = 0;
+  
+  numChildren = determineNumAnnotations(stream);
 
   reset();
 

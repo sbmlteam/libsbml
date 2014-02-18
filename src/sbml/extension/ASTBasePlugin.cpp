@@ -402,7 +402,7 @@ ASTBasePlugin::getPackageName() const
 
 bool
 ASTBasePlugin::read(XMLInputStream& stream, const std::string& reqd_prefix,
-                    const XMLToken currentElement)
+                    const XMLToken& currentElement)
 {
   return false;
 }
@@ -416,7 +416,7 @@ ASTBasePlugin::addExpectedAttributes(ExpectedAttributes& attributes,
 bool 
 ASTBasePlugin::readAttributes(const XMLAttributes& attributes,
                        const ExpectedAttributes& expectedAttributes,
-                               XMLInputStream& stream, XMLToken element,
+                               XMLInputStream& stream, const XMLToken& element,
                                int type)
 {
   return true;

@@ -98,7 +98,7 @@ public:
 
   virtual bool readAttributes (const XMLAttributes& attributes,
                                const ExpectedAttributes& expectedAttributes,
-                               XMLInputStream& stream, XMLToken element);
+                               XMLInputStream& stream, const XMLToken& element);
 
   virtual int getTypeCode () const;
 

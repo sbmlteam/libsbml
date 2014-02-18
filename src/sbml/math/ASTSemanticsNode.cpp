@@ -278,7 +278,7 @@ ASTSemanticsNode::addExpectedAttributes(ExpectedAttributes& attributes,
 bool 
 ASTSemanticsNode::readAttributes(const XMLAttributes& attributes,
                        const ExpectedAttributes& expectedAttributes,
-                               XMLInputStream& stream, XMLToken element)
+                               XMLInputStream& stream, const XMLToken& element)
 {
   bool read = ASTBase::readAttributes(attributes, expectedAttributes,
                                       stream, element);

@@ -1087,7 +1087,7 @@ ASTBase::addExpectedAttributes(ExpectedAttributes& attributes,
 bool 
 ASTBase::readAttributes(const XMLAttributes& attributes,
                        const ExpectedAttributes& expectedAttributes,
-                               XMLInputStream& stream, XMLToken element)
+                               XMLInputStream& stream, const XMLToken& element)
 {
   bool read = true;
 
@@ -1645,8 +1645,8 @@ ASTBase::logError (XMLInputStream& stream, const XMLToken& element, SBMLErrorCod
 }
 
 void
-ASTBase::checkPrefix(XMLInputStream &stream, std::string reqd_prefix, 
-                     XMLToken element)
+ASTBase::checkPrefix(XMLInputStream &stream, const std::string& reqd_prefix, 
+                     const XMLToken& element)
 {
   if (!reqd_prefix.empty())
   {

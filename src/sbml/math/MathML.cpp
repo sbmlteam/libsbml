@@ -84,7 +84,7 @@ hasSeriousErrors(XMLErrorLog* log, unsigned int index)
 
 LIBSBML_EXTERN
 ASTNode*
-readMathML (XMLInputStream& stream, std::string reqd_prefix)
+readMathML (XMLInputStream& stream, const std::string& reqd_prefix)
 {
   if (&stream == NULL) return NULL;
 
