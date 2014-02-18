@@ -2300,7 +2300,7 @@ ASTNode::insertChild(unsigned int n, ASTNode* newChild)
   else if (mFunction != NULL)
   {
     unsigned int size = mFunction->getNumChildren();
-    if (n < size)
+    if (n <= size)
     {
       inserted = mFunction->insertChild(n, newChild);
     }

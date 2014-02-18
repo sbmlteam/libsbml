@@ -6763,7 +6763,54 @@ START_TEST (test_ASTNode_csymbol_4)
 }
 END_TEST
 
+START_TEST (test_ASTNode_replace)
+{
+  ASTNode* node = readMathMLFromString(
+    "<math xmlns='http://www.w3.org/1998/Math/MathML'>\n"
+    "  <csymbol encoding='text' definitionURL='http://www.sbml.org/sbml/symbols/time'> time </csymbol>\n"
+    "</math>"
+    );
 
+  fail_unless(node != NULL);
+  
+  ASTNode*function = SBML_parseFormula("X");
+  ASTNode*function1 = SBML_parseFormula("Y");
+
+  ASTNode* temp = node;
+  node = new ASTNode(AST_DIVIDE);
+  node->addChild(temp);
+  node->addChild(function->deepCopy());
+
+  std::string formula = SBML_formulaToString(node);
+  fail_unless(formula == "time / X");
+
+  node->replaceIDWithFunction("X", function1);
+  formula = SBML_formulaToString(node);
+  fail_unless(formula == "time / Y");
+
+  ASTNode* ast1 = new ASTNode(AST_TIMES);
+  ast1->addChild(function->deepCopy());
+  ast1->addChild(node->deepCopy());
+  
+  formula = SBML_formulaToString(ast1);
+  fail_unless(formula == "X * (time / Y)");
+
+  ASTNode* divTemplate = new ASTNode(AST_DIVIDE);
+  divTemplate->addChild(function1->deepCopy());
+
+  divTemplate->insertChild(0, function->deepCopy());
+  formula = SBML_formulaToString(divTemplate);
+  fail_unless(formula == "X / Y");
+
+  fail_unless(divTemplate->removeChild(1) == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(divTemplate->insertChild(1, function1->deepCopy()) == LIBSBML_OPERATION_SUCCESS);
+  formula = SBML_formulaToString(divTemplate);
+  fail_unless(formula == "X / Y");
+
+  delete node;
+
+}
+END_TEST
 Suite *
 create_suite_NewASTNode (void) 
 { 
@@ -6771,6 +6818,7 @@ create_suite_NewASTNode (void)
   TCase *tcase = tcase_create("ASTNode");
 
 
+  tcase_add_test( tcase, test_ASTNode_replace                  );
   tcase_add_test( tcase, test_ASTNode_create                  );
   tcase_add_test( tcase, test_ASTNode_getInteger                 );
   tcase_add_test( tcase, test_ASTNode_getReal                 );
