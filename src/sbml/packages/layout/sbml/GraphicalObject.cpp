@@ -872,17 +872,42 @@ void GraphicalObject::writeAttributes (XMLOutputStream& stream) const
 }
 /** @endcond */
 
+
+
 /** @cond doxygenLibsbmlInternal */
+
+#if LIBSBML_HAS_PACKAGE_RENDER
+
+bool isL3RenderNamespaceDeclared(const SBMLDocument* doc, const RenderGraphicalObjectPlugin* plugin)
+{
+  if (doc == NULL || plugin == NULL) return false;
+  if (doc->getSBMLNamespaces() == NULL) return false;
+  if (doc->getSBMLNamespaces()->getNamespaces() == NULL) return false;
+
+  const std::string& prefix = plugin->getPrefix();
+  const std::string& uri = doc->getSBMLNamespaces()->getNamespaces()->getURI(plugin->getPrefix());
+
+  return !uri.empty() && uri != RenderExtension::getXmlnsL2();
+
+}
+
+#endif
+
 void 
 GraphicalObject::writeXMLNS (XMLOutputStream& stream) const
 {
 #if LIBSBML_HAS_PACKAGE_RENDER
   const RenderGraphicalObjectPlugin* plugin = static_cast<const RenderGraphicalObjectPlugin*>(getPlugin("render"));
-  if (getLevel() < 3 &&  plugin != NULL && plugin->isSetObjectRole())
+  if ( plugin != NULL && plugin->isSetObjectRole())
   {
+    // need to define this namespace also if it was not yet declared on the document!
+    if (getLevel() < 3 || 
+       !isL3RenderNamespaceDeclared(getSBMLDocument(),plugin) )
+    {
     XMLNamespaces xmlns;
     xmlns.add(plugin->getURI(), plugin->getPrefix());
     stream << xmlns;
+    }
   }
 #endif
 }
