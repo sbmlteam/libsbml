@@ -233,7 +233,7 @@ public:
    * @return an unsigned int giving the number of children of the
    * element specified.
    */
-  unsigned int determineNumberChildren(const std::string elementName = "");
+  unsigned int determineNumberChildren(const std::string& elementName = "");
   
   
   /**
@@ -262,8 +262,8 @@ public:
    * @return an unsigned int giving the number of children of type childName
    * within the container element specified.
    */
-  unsigned int determineNumSpecificChildren(const std::string childName,
-    const std::string container);
+  unsigned int determineNumSpecificChildren(const std::string& childName,  
+    const std::string& container);
 
 private:
   /** @cond doxygenLibsbmlInternal */
@@ -293,6 +293,7 @@ protected:
    * XMLToken or a fatal error occurs.
    */
   void queueToken ();
+  void requeueToken ();
 
 
   bool mIsError;

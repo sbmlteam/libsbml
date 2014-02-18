@@ -264,8 +264,9 @@ XMLTokenizer::characters (const XMLToken& data)
 }
 
 unsigned int
-XMLTokenizer::determineNumberChildren(const std::string element)
+XMLTokenizer::determineNumberChildren(bool & valid, const std::string& element)
 {
+  valid = false;
   unsigned int numChildren = 0;
   std::string closingTag = element;
   bool forcedElement = true;
@@ -297,23 +298,29 @@ XMLTokenizer::determineNumberChildren(const std::string element)
     firstUnread = mTokens.at(index);
   }
 
-  // dont know why I put this
-  // it messes up reading a vector
-  // and I cannot find any read that actual uses it
 
-  //if (firstUnread.getName() == "ci"
-  //  && firstUnread.isEnd() == false)
-  //{
-  //  return numChildren;
-  //}
-  //else if (firstUnread.isStart() != true 
-  //  && firstUnread.isEnd() != true)
-  //if (firstUnread.isStart() != true 
-  //  && firstUnread.isEnd() != true)
-  //{
-  //  return numChildren;
-  //}
+  // if we have an apply the firstToken should be a function
+  // that is both a start and an end
+  // unless we are reading a user function
+  // or a csymbol
+  // if teh tag is not a start and an end this is an error
+  // we want to exit
+  // but be happy that the read is ok
+  // and the error gets logged elsewhere
+  if (closingTag == "apply")
+  {
+    std::string firstName = firstUnread.getName();
 
+    if (firstName != "ci" && firstName != "csymbol")
+    {
+      if (firstUnread.isStart() != true 
+        || (firstUnread.isStart() == true &&  firstUnread.isEnd() != true))
+      {
+        valid = true;
+        return numChildren;
+      }
+    }
+  }
 
   index = 1;
   if (forcedElement == true)
@@ -323,6 +330,7 @@ XMLTokenizer::determineNumberChildren(const std::string element)
 
   unsigned int depth = 0;
   std::string name;
+  bool cleanBreak = false;
   XMLToken next = mTokens.at(index);
   while (index < size-2)
   {
@@ -334,7 +342,8 @@ XMLTokenizer::determineNumberChildren(const std::string element)
     }
     if (next.isEnd() == true && next.getName() == closingTag)
     {
-       break;
+      valid = true;
+      break;
     }
     // iterate to first start element
     while (next.isStart() == false && index < size-1)
@@ -377,6 +386,7 @@ XMLTokenizer::determineNumberChildren(const std::string element)
 
     // iterate to the end of </name>
     // checking that we have not got a nested element <name></name>
+    cleanBreak = false;
     while (index < size-1)
     {
       if (next.isStart() == true && next.isEnd() == false && next.getName() == name)
@@ -388,6 +398,7 @@ XMLTokenizer::determineNumberChildren(const std::string element)
       {
         if (depth == 0)
         {
+          cleanBreak = true;
           break;
         }
         else
@@ -405,15 +416,27 @@ XMLTokenizer::determineNumberChildren(const std::string element)
     {
       next = mTokens.at(index);
     }
-  }  
+  } 
+
+  // we might have hit the end of the loop and the end of the correct tag
+  // but teh loop hits before it can record that it was valid
+  if (valid == false && cleanBreak == true)
+  {
+  if (index >= size-2 && next.isEnd() == true && next.getName() == closingTag)
+  {
+      valid = true;
+  }
+  }
 
   return numChildren;
 }
 
 unsigned int
-XMLTokenizer::determineNumSpecificChildren(const std::string qualifier, 
-                                        const std::string container)
+XMLTokenizer::determineNumSpecificChildren(bool & valid, 
+                                           const std::string& qualifier, 
+                                        const std::string& container)
 {
+  valid = false;
   unsigned int numQualifiers = 0;
 
   size_t size = mTokens.size();
@@ -442,6 +465,7 @@ XMLTokenizer::determineNumSpecificChildren(const std::string qualifier,
     //  next = mTokens.at(index);
     //}
   }
+  bool cleanBreak = false;
 
   while (index < size-2)
   {
@@ -454,6 +478,7 @@ XMLTokenizer::determineNumSpecificChildren(const std::string qualifier,
 
     if (next.isEnd() == true && next.getName() == container)
     {
+      valid = true;
       break;
     }
     // iterate to first start element
@@ -509,6 +534,7 @@ XMLTokenizer::determineNumSpecificChildren(const std::string qualifier,
 
     // iterate to the end of </name>
     // checking that we have not got a nested element <name></name>
+    cleanBreak = false;
     while (index < size-1)
     {
       if (next.isStart() == true && next.getName() == name)
@@ -520,6 +546,7 @@ XMLTokenizer::determineNumSpecificChildren(const std::string qualifier,
       {
         if (depth == 0)
         {
+          cleanBreak = true;
           break;
         }
         else
@@ -541,6 +568,19 @@ XMLTokenizer::determineNumSpecificChildren(const std::string qualifier,
       next = mTokens.at(index);
     }
   }  
+
+  // we might have hit the end of the loop and the end of the correct tag
+  if (valid == false && cleanBreak == true)
+  {
+  if (index >= size-2 && next.isEnd() == true && next.getName() == container)
+  {
+      valid = true;
+  }
+  }
+  //if (index >= size-2 && next.isEnd() == true && next.getName() == container)
+  //{
+  //    valid = true;
+  //}
 
   return numQualifiers;
 }

@@ -163,10 +163,11 @@ public:
 
 protected:
 
-  unsigned int determineNumberChildren(const std::string element = "");
+  unsigned int determineNumberChildren(bool & valid, 
+                                       const std::string& element = "");
 
-  unsigned int determineNumSpecificChildren(const std::string qualifier,
-    const std::string container);
+  unsigned int determineNumSpecificChildren(bool & valid, 
+               const std::string& qualifier,  const std::string& container);
 
   bool mInChars;
   bool mInStart;

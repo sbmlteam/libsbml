@@ -224,6 +224,20 @@ XMLInputStream::queueToken ()
 }
 
 
+void
+XMLInputStream::requeueToken ()
+{
+  if ( !isGood() ) return;
+
+  bool success = success = mParser->parseNext();
+
+  if (success == false && isEOF() == false)
+  {
+    mIsError = true;
+  }
+}
+
+
 /*
  * Sets the XMLErrorLog this stream will use to log errors.
  */
@@ -286,17 +300,43 @@ XMLInputStream::setSBMLNamespaces(SBMLNamespaces * sbmlns)
 
 
 unsigned int
-XMLInputStream::determineNumberChildren(const std::string elementName)
+XMLInputStream::determineNumberChildren(const std::string& elementName)
 {
-  return this->mTokenizer.determineNumberChildren(elementName);
+  bool valid = false;
+  unsigned int num = this->mTokenizer.determineNumberChildren(valid, elementName);
+
+  while (isGood() == true && valid == false)
+  {
+    requeueToken();
+    if (isGood() == true)
+    {
+      num = this->mTokenizer.determineNumberChildren(valid, elementName);
+    }
+  }
+
+  return num;
 }
 
 
 unsigned int
-XMLInputStream::determineNumSpecificChildren(const std::string childName,
-                                          const std::string container)
+XMLInputStream::determineNumSpecificChildren(const std::string& childName,
+                                             const std::string& container)
 {
-  return this->mTokenizer.determineNumSpecificChildren(childName, container);
+  bool valid = false;
+  unsigned int num = this->mTokenizer.determineNumSpecificChildren(valid, 
+                                                       childName, container);
+
+  while (isGood() == true && valid == false)
+  {
+    requeueToken();
+    if (isGood() == true)
+    {
+      num = this->mTokenizer.determineNumSpecificChildren(valid, 
+                                                       childName, container);
+    }
+  }
+
+  return num;
 }
 
 LIBLAX_EXTERN
