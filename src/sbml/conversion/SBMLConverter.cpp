@@ -148,6 +148,20 @@ SBMLConverter::setDocument(const SBMLDocument* doc)
 
 
 
+int 
+SBMLConverter::setDocument(SBMLDocument* doc)
+{
+  if (mDocument == doc)
+  {
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+
+  mDocument = doc;
+  return LIBSBML_OPERATION_SUCCESS;
+}
+
+
+
 int
 SBMLConverter::convert()
 {

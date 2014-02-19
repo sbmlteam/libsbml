@@ -164,6 +164,22 @@ public:
   virtual int setDocument(const SBMLDocument* doc);
 
 
+  /**
+   * Sets the current SBML document to the given SBMLDocument object.
+   * 
+   * @param doc the document to use for this conversion.
+   * 
+   * @return integer value indicating the success/failure of the operation.
+   * @if clike The value is drawn from the enumeration
+   * #OperationReturnValues_t. @endif@~ The set of possible values that may
+   * be returned ultimately depends on the specific subclass of
+   * SBMLConverter being used, but the default method can return the
+   * following values:
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+   */
+  virtual int setDocument(SBMLDocument* doc);
+
+
 private:
 
   ASTNode * createRateRuleMathForSpecies(const std::string& spId, 

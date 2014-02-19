@@ -102,8 +102,31 @@ SBMLReactionConverter::matchesProperties(const ConversionProperties &props) cons
   return true;
 }
 
+
 int 
 SBMLReactionConverter::setDocument(const SBMLDocument* doc)
+{
+  if (SBMLConverter::setDocument(doc) == LIBSBML_OPERATION_SUCCESS)
+  {
+    if (mDocument != NULL)
+    {
+      mOriginalModel = mDocument->getModel()->clone();
+      return LIBSBML_OPERATION_SUCCESS;
+    }
+    else
+    {
+      return LIBSBML_OPERATION_SUCCESS;
+    }
+  }
+  else
+  {
+    return LIBSBML_OPERATION_FAILED;
+  }
+}
+
+
+int 
+SBMLReactionConverter::setDocument(SBMLDocument* doc)
 {
   if (SBMLConverter::setDocument(doc) == LIBSBML_OPERATION_SUCCESS)
   {
