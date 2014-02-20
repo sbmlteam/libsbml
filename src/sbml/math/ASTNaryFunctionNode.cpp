@@ -43,8 +43,7 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 
 ASTNaryFunctionNode::ASTNaryFunctionNode (int type) :
   ASTFunctionBase(type)
-    //, mCalcNumChildren ( 0 )
-
+    , mReducedToBinary (false)
 {
 }
   
@@ -54,7 +53,7 @@ ASTNaryFunctionNode::ASTNaryFunctionNode (int type) :
    */
 ASTNaryFunctionNode::ASTNaryFunctionNode (const ASTNaryFunctionNode& orig):
   ASTFunctionBase(orig)
-    //, mCalcNumChildren (orig.mCalcNumChildren)
+    , mReducedToBinary (orig.mReducedToBinary)
 {
 }
   /**
@@ -66,7 +65,7 @@ ASTNaryFunctionNode::operator=(const ASTNaryFunctionNode& rhs)
   if(&rhs!=this)
   {
     this->ASTFunctionBase::operator =(rhs);
-    //mCalcNumChildren = rhs.mCalcNumChildren;
+    mReducedToBinary = rhs.mReducedToBinary;
   }
   return *this;
 }
@@ -572,8 +571,53 @@ ASTNaryFunctionNode::hasCorrectNumberArguments() const
 }
 
 
+void
+ASTNaryFunctionNode::reduceOperatorsToBinary()
+{
+  unsigned int numChildren = getNumChildren();
+  /* number of children should be greater than 2 */
+  if (numChildren < 3)
+    return;
+
+  /* only work with times and plus */
+  int type = getType();
+  if (type != AST_TIMES && type != AST_PLUS)
+    return;
 
 
+  ASTFunction* op = new ASTFunction( getType() );
+  ASTFunction* op2 = new ASTFunction( getType() );
+
+  // add the first two children to the first node
+  op->addChild(getChild(0));
+  op->addChild(getChild(1));
+
+  op2->addChild(op);
+
+  for (unsigned int n = 2; n < numChildren; n++)
+  {
+    op2->addChild(getChild(n));
+  }
+
+  swapChildren(op2);
+
+  setReducedToBinary(true);
+
+  reduceOperatorsToBinary();
+}
+
+void
+ASTNaryFunctionNode::setReducedToBinary(bool reduced)
+{
+  mReducedToBinary = reduced;
+}
+
+
+bool
+ASTNaryFunctionNode::getReducedToBinary() const
+{
+  return mReducedToBinary;
+}
 LIBSBML_CPP_NAMESPACE_END
 
 

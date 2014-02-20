@@ -563,13 +563,16 @@ START_TEST (test_element_operator_plus_threeargs)
   fail_unless( N != NULL );
 
   fail_unless( N->getType() == AST_PLUS);
-  fail_unless( N->getNumChildren() == 3);
-  fail_unless( N->getChild(0)->getType() == AST_INTEGER);
-  fail_unless( N->getChild(0)->getInteger() == 1);
+  /* old behaviour num children  2 */
+  fail_unless( N->getNumChildren() == 2);
   fail_unless( N->getChild(1)->getType() == AST_INTEGER);
-  fail_unless( N->getChild(1)->getInteger() == 2);
-  fail_unless( N->getChild(2)->getType() == AST_INTEGER);
-  fail_unless( N->getChild(2)->getInteger() == 3);
+  fail_unless( N->getChild(1)->getInteger() == 3);
+  fail_unless( N->getChild(0)->getType() == AST_PLUS);
+  fail_unless( N->getChild(0)->getNumChildren() == 2);
+  fail_unless( N->getChild(0)->getChild(0)->getType() == AST_INTEGER);
+  fail_unless( N->getChild(0)->getChild(0)->getInteger() == 1);
+  fail_unless( N->getChild(0)->getChild(1)->getType() == AST_INTEGER);
+  fail_unless( N->getChild(0)->getChild(1)->getInteger() == 2);
 
   //F = SBML_formulaToString(N);
   //fail_unless( !strcmp(F, "1 + 2 + 3") );
@@ -618,7 +621,14 @@ START_TEST (test_element_operator_times)
 
   fail_unless( N != NULL );
   fail_unless ( N->getType() == AST_TIMES);
-  fail_unless ( N->getNumChildren() == 3);
+
+  /* old behaviour */
+  fail_unless ( N->getNumChildren() == 2);
+  fail_unless( N->getChild(1)->getType() == AST_NAME);
+  fail_unless( N->getChild(0)->getType() == AST_TIMES);
+  fail_unless( N->getChild(0)->getNumChildren() == 2);
+  //fail_unless( N->getChild(1)->getChild(0)->getType() == AST_NAME);
+  //fail_unless( N->getChild(1)->getChild(1)->getType() == AST_NAME);
 
   //F = SBML_formulaToString(N);
   //fail_unless( !strcmp(F, "x * y * z") );

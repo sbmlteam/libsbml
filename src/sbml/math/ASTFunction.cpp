@@ -3310,6 +3310,12 @@ ASTFunction::readApply(XMLInputStream& stream, const std::string& reqd_prefix,
       read = mNaryFunction->read(stream, reqd_prefix);
       if (read == true && mNaryFunction != NULL)
       {
+        if (numChildren > 2 && (type == AST_TIMES || type == AST_PLUS))
+        {
+          /* HACK to repliacte old behaviour */
+          mNaryFunction->reduceOperatorsToBinary();
+        }
+          
         this->ASTBase::syncMembersAndResetParentsFrom(mNaryFunction);
         done = true;
       }

@@ -95,13 +95,21 @@ public:
 
   virtual int getTypeCode () const;
 
+  void reduceOperatorsToBinary();
+
+  bool getReducedToBinary() const;
+
 
 protected:
 
   /** @cond doxygenLibsbmlInternal */
 
 
+  bool mReducedToBinary;
+
   friend class ASTFunction;
+
+  void setReducedToBinary(bool reduced);
 
   /** @endcond */
 };
