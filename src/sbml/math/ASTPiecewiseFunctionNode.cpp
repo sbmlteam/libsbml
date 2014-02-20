@@ -156,17 +156,90 @@ ASTPiecewiseFunctionNode::addChild(ASTBase* child, bool inRead)
     if (child->getType() != AST_CONSTRUCTOR_PIECE && 
         child->getType() != AST_CONSTRUCTOR_OTHERWISE)
     {
-      // if this is an odd number then it could be otherwise
-      unsigned int currentNum = ASTFunctionBase::getNumChildren();
+      // this child does not have a piece/otherwise but if 
+      // the rest of the function does then it needs to fit in with that
 
-      if ((currentNum+1)%2 == 0)
+      unsigned int currentNum = getNumChildren();
+
+      if (usingChildConstructors() == false)
       {
-        setNumPiece(getNumPiece()+1);
-        setHasOtherwise(false);
+        if ((currentNum+1)%2 == 0)
+        {
+          setNumPiece(getNumPiece()+1);
+          setHasOtherwise(false);
+        }
+        else
+        {
+          setHasOtherwise(true);
+        }
+     
+        return ASTFunctionBase::addChild(child);
       }
       else
       {
-        setHasOtherwise(true);
+        ASTBase * lastChild = 
+          ASTFunctionBase::getChild(ASTFunctionBase::getNumChildren()-1);
+        if (lastChild == NULL)
+        { // we have a serious issue going on but may as well just
+          // add the child
+          return ASTFunctionBase::addChild(child);
+        }
+        else if (lastChild->getType() == AST_CONSTRUCTOR_PIECE)
+        {
+          ASTNode * piece = dynamic_cast<ASTNode*>(lastChild);
+
+          if (piece == NULL)
+          {
+            return LIBSBML_OPERATION_FAILED;
+          }
+          if (piece->getNumChildren() == 1)
+          {
+            return piece->addChild((ASTNode*)(child));
+          }
+          else
+          {
+            ASTNode * otherwise = new ASTNode(AST_CONSTRUCTOR_OTHERWISE);
+            if (otherwise->addChild((ASTNode*)(child)) == LIBSBML_OPERATION_SUCCESS)
+            {
+              setHasOtherwise(true);
+              return ASTFunctionBase::addChild(otherwise);
+            }
+            else
+            {
+              return LIBSBML_OPERATION_FAILED;
+            }
+          }
+        }
+        else
+        {
+          ASTNode * otherwise = dynamic_cast<ASTNode*>(lastChild);
+
+          if (otherwise == NULL || otherwise->getNumChildren() != 1)
+          {
+            return LIBSBML_OPERATION_FAILED;
+          }
+
+          ASTNode * piece = new ASTNode(AST_CONSTRUCTOR_PIECE);
+          // add teh child from teh otherwise
+          if (piece->addChild(otherwise->getChild(0)) != LIBSBML_OPERATION_SUCCESS)
+          {
+            return LIBSBML_OPERATION_FAILED;
+          }
+          else
+          {
+            if (piece->addChild((ASTNode*)(child)) == LIBSBML_OPERATION_SUCCESS)
+            {
+              this->removeChild(currentNum-1);
+              setHasOtherwise(false);
+              setNumPiece(getNumPiece() + 1);
+              return ASTFunctionBase::addChild(piece);
+            }
+            else
+            {
+              return LIBSBML_OPERATION_FAILED;
+            }
+          }
+        }
       }
     }
     else
@@ -179,10 +252,14 @@ ASTPiecewiseFunctionNode::addChild(ASTBase* child, bool inRead)
       {
         setHasOtherwise(true);
       }
+    
+      return ASTFunctionBase::addChild(child);
     }
   }
-
-  return ASTFunctionBase::addChild(child);
+  else
+  {
+    return ASTFunctionBase::addChild(child);
+  }
 }
 
 ASTBase* 
@@ -195,27 +272,32 @@ ASTPiecewiseFunctionNode::getChild (unsigned int n) const
    */
 
   unsigned int numChildren = ASTFunctionBase::getNumChildren();
+  if (numChildren == 0)
+  {
+    return NULL;
+  }
 
   // determine index that we actually want
   unsigned int childNo = (unsigned int)(n/2);
   unsigned int pieceIndex = (unsigned int)(n%2);
 
+  ASTBase * base = NULL;
+  if (childNo < numChildren)
+  {
+    base = ASTFunctionBase::getChild(childNo);
+  }
+
+
   if (getHasOtherwise() == true && childNo == numChildren - 1)
   {
-    if (ASTFunctionBase::getChild(childNo)->getType() 
-                                            == AST_CONSTRUCTOR_OTHERWISE)
+    if (base == NULL)
     {
-      ASTBase * base = ASTFunctionBase::getChild(childNo);
+      return NULL;
+    }
+
+    if (base->getType() == AST_CONSTRUCTOR_OTHERWISE)
+    {
       ASTNode * otherwise = dynamic_cast<ASTNode*>(base);
-      //ASTFunction * otherwise;
-      //if (base->getFunction() != NULL)
-      //{
-      //  otherwise = static_cast<ASTFunction*>(base->getFunction());
-      //}
-      //else
-      //{
-      //  otherwise = static_cast<ASTFunction*>(base);
-      //}
 
       if (otherwise != NULL)
       {
@@ -235,22 +317,12 @@ ASTPiecewiseFunctionNode::getChild (unsigned int n) const
     }
     else
     {
-      return ASTFunctionBase::getChild(childNo);
+      return base;
     }
   }
-  else if (ASTFunctionBase::getChild(childNo)->getType() 
-                                               == AST_CONSTRUCTOR_PIECE)
+  else if (base != NULL && base->getType() == AST_CONSTRUCTOR_PIECE)
   {
-    ASTBase * base = ASTFunctionBase::getChild(childNo);
     ASTNode * piece = dynamic_cast<ASTNode*>(base);
-    //if (base->getFunction() != NULL)
-    //{
-    //  piece = static_cast<ASTFunction*>(base->getFunction());
-    //}
-    //else
-    //{
-    //  piece = static_cast<ASTFunction*>(base);
-    //}
 
     if (piece != NULL)
     {
@@ -283,7 +355,23 @@ unsigned int
 ASTPiecewiseFunctionNode::getNumChildren() const
 {
   /* HACK TO REPLICATE OLD AST */
-  unsigned int numChildren = getNumPiece() * 2;
+  unsigned int numChildren = 0;
+  
+  for (unsigned int i = 0; i < getNumPiece(); i++)
+  {
+    ASTBase * base = ASTFunctionBase::getChild(i);
+    ASTNode * piece = dynamic_cast<ASTNode*>(base);
+
+    if (piece != NULL && piece->getType() == AST_CONSTRUCTOR_PIECE)
+    {
+      numChildren += piece->getNumChildren();
+    }
+    else
+    {
+      // fail safe - a piece should have 2 children
+      numChildren += 2;
+    }
+  }
   if (getHasOtherwise() == true)
   {
     numChildren++;
@@ -293,6 +381,148 @@ ASTPiecewiseFunctionNode::getNumChildren() const
 }
 
 
+int 
+ASTPiecewiseFunctionNode::removeChild(unsigned int n)
+{
+  int removed = LIBSBML_INDEX_EXCEEDS_SIZE;
+  /* HACK TO REPLICATE OLD AST */
+  /* do not return a node with teh piece or otherwise type
+   * return the correct child of the piece type
+   * or the child of the otherwise
+   */
+
+  unsigned int numChildren = ASTFunctionBase::getNumChildren();
+  // determine index that we actually want
+  unsigned int childNo = (unsigned int)(n/2);
+  unsigned int pieceIndex = (unsigned int)(n%2);
+  unsigned int size = getNumChildren();
+  if (size == 0)
+  {
+    return LIBSBML_OPERATION_FAILED;
+  }
+
+  if (n < size)
+  {
+    if (getHasOtherwise() == true && childNo == numChildren - 1)
+    {
+      removed = ASTFunctionBase::removeChild(childNo);
+      mHasOtherwise = false;
+    }
+    else if (ASTFunctionBase::getChild(childNo)->getType() 
+                                                 == AST_CONSTRUCTOR_PIECE)
+    {
+      ASTBase * base = ASTFunctionBase::getChild(childNo);
+      ASTNode * piece = dynamic_cast<ASTNode*>(base);
+
+      if (piece != NULL)
+      {
+        if (piece->getNumChildren() > pieceIndex)
+        {
+          removed = piece->removeChild(pieceIndex);
+          if (removed == LIBSBML_OPERATION_SUCCESS &&
+            piece->getNumChildren() == 0)
+          {
+            removed = this->ASTFunctionBase::removeChild(childNo);
+            mNumPiece = mNumPiece - 1;
+          }
+        }
+        else
+        {
+          removed = LIBSBML_OPERATION_FAILED;
+        }
+      }
+      else
+      {
+        removed = LIBSBML_OPERATION_FAILED;
+      }
+    }
+    else if (n < numChildren)
+    {
+      removed =  ASTFunctionBase::removeChild(n);
+    }
+    else
+    {
+      removed = LIBSBML_OPERATION_FAILED;
+    }
+  }
+
+  return removed;
+}
+
+
+int 
+ASTPiecewiseFunctionNode::prependChild(ASTBase* child)
+{
+  return insertChild(0, child);
+}
+
+
+int 
+ASTPiecewiseFunctionNode::insertChild(unsigned int n, ASTBase* newChild)
+{
+  int inserted = LIBSBML_INDEX_EXCEEDS_SIZE;
+  
+  unsigned int numChildrenForUser = getNumChildren();
+
+  if (n > numChildrenForUser)
+  {
+    return inserted;
+  }
+  else if (n == numChildrenForUser)
+  {
+    return addChild(newChild);
+  }
+  else
+  {
+    vector < ASTBase *> copyChildren;
+    unsigned int i;
+    for (i = n; i < numChildrenForUser; i++)
+    {
+      copyChildren.push_back(getChild(i));
+    }
+    for (i = numChildrenForUser; i > n; i--)
+    {
+      removeChild(i-1);
+    }
+
+    unsigned int success = addChild(newChild);
+
+    i = 0;
+    while (success == LIBSBML_OPERATION_SUCCESS && i < copyChildren.size())
+    {
+      success = addChild(copyChildren.at(i));
+      i++;
+    }
+
+    inserted = success;
+  }
+
+  return inserted;
+}
+
+
+bool
+ASTPiecewiseFunctionNode::usingChildConstructors() const
+{
+  bool usingChildConstructors = false;
+
+  if (getNumChildren() != ASTFunctionBase::getNumChildren())
+  {
+    // generally this will be true
+    usingChildConstructors = true;
+  }
+  else
+  {
+    ASTBase * base = ASTFunctionBase::getChild(getNumChildren() - 1);
+    if (base != NULL && (base->getType() == AST_CONSTRUCTOR_PIECE
+      || base->getType() == AST_CONSTRUCTOR_OTHERWISE))
+    {
+      usingChildConstructors = true;
+    }
+  }
+
+  return usingChildConstructors;
+}
 
 
 unsigned int 

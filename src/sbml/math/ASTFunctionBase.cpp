@@ -157,6 +157,12 @@ ASTFunctionBase::addChild(ASTBase * child)
 ASTBase* 
 ASTFunctionBase::getChild (unsigned int n) const
 {
+  // should not get here if the index is too big - but why not just check
+  if (n >= mChildren.size())
+  {
+    return NULL;
+  }
+
   return static_cast<ASTBase*>( mChildren[n] );
 }
 
@@ -175,12 +181,11 @@ int
 ASTFunctionBase::removeChild(unsigned int n)
 {
   int removed = LIBSBML_INDEX_EXCEEDS_SIZE;
-  unsigned int size = getNumChildren();
+  unsigned int size = static_cast<unsigned int>(mChildren.size());
   if (n < size)
   {
-    //delete mChildren[n];
     mChildren.erase(mChildren.begin() + n);
-    if (getNumChildren() == size-1)
+    if (mChildren.size() == size-1)
     {
       removed = LIBSBML_OPERATION_SUCCESS;
     }
@@ -195,7 +200,7 @@ ASTFunctionBase::prependChild(ASTBase* child)
 {
   if (child == NULL) return LIBSBML_INVALID_OBJECT;
 
-  unsigned int numBefore = getNumChildren();
+  unsigned int numBefore = ASTFunctionBase::getNumChildren();
   child->setIsChildFlag(true);
   
   bool childIsNode = dynamic_cast<ASTNode*>(child);
@@ -217,7 +222,7 @@ ASTFunctionBase::prependChild(ASTBase* child)
 
   }
   
-  if (getNumChildren() == numBefore + 1)
+  if (ASTFunctionBase::getNumChildren() == numBefore + 1)
   {
     return LIBSBML_OPERATION_SUCCESS;
   }
@@ -235,7 +240,7 @@ ASTFunctionBase::replaceChild(unsigned int n, ASTBase* newChild)
 
   int replaced = LIBSBML_INDEX_EXCEEDS_SIZE;
 
-  unsigned int size = getNumChildren();
+  unsigned int size = ASTFunctionBase::getNumChildren();
   if (n < size)
   {
     //delete mChildren[n];
@@ -257,7 +262,7 @@ ASTFunctionBase::insertChild(unsigned int n, ASTBase* newChild)
 
   int inserted = LIBSBML_INDEX_EXCEEDS_SIZE;
 
-  unsigned int size = getNumChildren();
+  unsigned int size = ASTFunctionBase::getNumChildren();
   if (n == 0)
   {
     prependChild(newChild);
@@ -292,7 +297,7 @@ ASTFunctionBase::insertChild(unsigned int n, ASTBase* newChild)
 
     }
 
-    if (getNumChildren() == size + 1)
+    if (ASTFunctionBase::getNumChildren() == size + 1)
     {
       inserted = LIBSBML_OPERATION_SUCCESS;
     }
