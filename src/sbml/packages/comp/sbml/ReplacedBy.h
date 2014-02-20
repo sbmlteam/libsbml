@@ -201,42 +201,135 @@ LIBSBML_CPP_NAMESPACE_END
 LIBSBML_CPP_NAMESPACE_BEGIN
 BEGIN_C_DECLS
 
+/**
+ * Creates a new ReplacedBy_t structure using the given SBML @p level
+ * and @p version values.
+ *
+ * @param level an unsigned int, the SBML Level to assign to this
+ * ReplacedBy_t
+ * @param version an unsigned int, the SBML Version to assign to this
+ * ReplacedBy_t
+ * @param pkgVersion an unsigned int, the SBML 'Qual' package Version to assign to this
+ * ReplacedBy_t
+ *
+ * @return a pointer to the newly created ReplacedBy_t structure.
+ *
+ * @memberof ReplacedBy_t
+ */
 LIBSBML_EXTERN
 ReplacedBy_t *
 ReplacedBy_create(unsigned int level, unsigned int version,
                   unsigned int pkgVersion);
 
 
+/**
+ * Frees the given ReplacedBy_t structure.
+ *
+ * @param rb the ReplacedBy_t structure to free.
+ *
+ * @memberof ReplacedBy_t
+ */
 LIBSBML_EXTERN
 void
 ReplacedBy_free(ReplacedBy_t * rb);
 
 
+/**
+ * Returns a copy of the given ReplacedBy_t structure.
+ *
+ * @param rb the ReplacedBy_t structure to copy.
+ * 
+ * @return a (deep) copy of the ReplacedBy_t.
+ *
+ * @memberof ReplacedBy_t
+ */
 LIBSBML_EXTERN
 ReplacedBy_t *
 ReplacedBy_clone(ReplacedBy_t * rb);
 
 
+/**
+ * Takes a ReplacedBy_t structure and returns its submodelRef.
+ *
+ * @param rb the ReplacedBy_t whose submodelRef is sought.
+ *
+ * @return the submodelRef of the given ReplacedBy_t, as a pointer to a string.
+ *
+ * @memberof ReplacedBy_t
+ */
 LIBSBML_EXTERN
 char *
 ReplacedBy_getSubmodelRef(ReplacedBy_t * rb);
 
 
+/**
+ * Predicate returning @c true or @c false depending on whether the given
+ * ReplacedBy_t structure's submodelRef is set.
+ *
+ * @param rb the ReplacedBy_t structure to query
+ * 
+ * @return @c non-zero (true) if the "submodelRef" attribute of the given
+ * ReplacedBy_t structure is set, zero (false) otherwise.
+ *
+ * @memberof ReplacedBy_t
+ */
 LIBSBML_EXTERN
 int
 ReplacedBy_isSetSubmodelRef(ReplacedBy_t * rb);
 
 
+/**
+ * Sets the submodelRef of the given ReplacedBy_t to a copy of @p submodelRef.
+ *
+ * @param rb the ReplacedBy_t structure to set
+ * @param submodelRef the submodelRef to assign to the given ReplacedBy_t's "submodelRef" attribute.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE @endlink
+ *
+ * @note Using this function with the name set to NULL is equivalent to
+ * unsetting the "submodelRef" attribute.
+ *
+ * @memberof ReplacedBy_t
+ */
 LIBSBML_EXTERN
 int
 ReplacedBy_setSubmodelRef(ReplacedBy_t * rb, const char * submodelRef);
 
 
+/**
+ * Unsets the "submodelRef" attribute of the given ReplacedBy_t structure.
+ *
+ * @param rb the ReplacedBy_t structure to unset
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
+ *
+ * @memberof ReplacedBy_t
+ */
 LIBSBML_EXTERN
 int
 ReplacedBy_unsetSubmodelRef(ReplacedBy_t * rb);
 
 
+/**
+  * Predicate returning @c true or @c false depending on whether
+  * all the required attributes for the given ReplacedBy_t structure
+  * have been set.
+  *
+  * @note The required attributes for a ReplacedBy_t structure are:
+  * @li useValuesfromTriggerTime ( L3 onwards )
+  *
+ * @memberof ReplacedBy_t
+ */
 LIBSBML_EXTERN
 int
 ReplacedBy_hasRequiredAttributes(ReplacedBy_t * rb);

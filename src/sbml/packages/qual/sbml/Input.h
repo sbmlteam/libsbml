@@ -776,191 +776,668 @@ LIBSBML_CPP_NAMESPACE_END
 LIBSBML_CPP_NAMESPACE_BEGIN
 BEGIN_C_DECLS
 
+/**
+ * Creates a new Input_t structure using the given SBML @p level
+ * and @p version values.
+ *
+ * @param level an unsigned int, the SBML Level to assign to this
+ * Input_t
+ * @param version an unsigned int, the SBML Version to assign to this
+ * Input_t
+ * @param pkgVersion an unsigned int, the SBML 'Qual' package Version to assign to this
+ * Input_t
+ *
+ * @return a pointer to the newly created Input_t structure.
+ *
+ * @memberof Input_t
+ */
 LIBSBML_EXTERN
 Input_t *
 Input_create(unsigned int level, unsigned int version,
              unsigned int pkgVersion);
 
 
+/**
+ * Frees the given Input_t structure.
+ *
+ * @param i the Input_t structure to free.
+ *
+ * @memberof Input_t
+ */
 LIBSBML_EXTERN
 void
 Input_free(Input_t * i);
 
 
+/**
+ * Returns a copy of the given Input_t structure.
+ *
+ * @param i the Input_t structure to copy.
+ * 
+ * @return a (deep) copy of the Input_t.
+ *
+ * @memberof Input_t
+ */
 LIBSBML_EXTERN
 Input_t *
 Input_clone(Input_t * i);
 
 
+/**
+ * Takes an Input_t structure and returns its identifier.
+ *
+ * @param i the Input_t structure whose identifier is sought
+ * 
+ * @return the identifier of this Input_t, as a pointer to a string.
+ *
+ * @memberof Input_t
+ */
 LIBSBML_EXTERN
 char *
 Input_getId(Input_t * i);
 
 
+/**
+ * Takes a Input_t structure and returns its qualitativeSpecies.
+ *
+ * @param i the Input_t whose qualitativeSpecies is sought.
+ *
+ * @return the qualitativeSpecies of the given Input_t, as a pointer to a string.
+ *
+ * @memberof Input_t
+ */
 LIBSBML_EXTERN
 char *
 Input_getQualitativeSpecies(Input_t * i);
 
 
+/**
+ * Takes a Input_t structure and returns its transitionEffect as a ENUMTYPE 
+ * (an enumerated value of legal possible values for the attribute).
+ *
+ * @param i the Input_t whose transitionEffect is sought.
+ *
+ * @return the transitionEffect of the given Input_t, as a ENUMTYPE
+ *
+ * @memberof Input_t
+ */
 LIBSBML_EXTERN
 InputTransitionEffect_t
 Input_getTransitionEffect(Input_t * i);
 
 
+/**
+ * Takes a Input_t structure and returns its name.
+ *
+ * @param i the Input_t whose name is sought.
+ *
+ * @return the name of this Input_t, as a pointer to a string.
+ *
+ * @memberof Input_t
+ */
 LIBSBML_EXTERN
 char *
 Input_getName(Input_t * i);
 
 
+/**
+ * Takes a Input_t structure and returns its sign as a ENUMTYPE 
+ * (an enumerated value of legal possible values for the attribute).
+ *
+ * @param i the Input_t whose sign is sought.
+ *
+ * @return the sign of the given Input_t, as a ENUMTYPE
+ *
+ * @memberof Input_t
+ */
 LIBSBML_EXTERN
 InputSign_t
 Input_getSign(Input_t * i);
 
 
+/**
+ * Takes a Input_t structure and returns its thresholdLevel.
+ *
+ * @param i the Input_t whose thresholdLevel is sought.
+ *
+ * @return the thresholdLevel attribute of the given Input_t, as an @c int.
+ *
+ * @memberof Input_t
+ */
 LIBSBML_EXTERN
 int
 Input_getThresholdLevel(Input_t * i);
 
 
+/**
+ * Predicate returning @c true or @c false depending on whether the given
+ * Input_t structure's identifier is set.
+ *
+ * @param i the Input_t structure to query
+ * 
+ * @return @c non-zero (true) if the "id" attribute of the given
+ * Input_t structure is set, zero (false) otherwise.
+ *
+ * @memberof Input_t
+ */
 LIBSBML_EXTERN
 int
 Input_isSetId(Input_t * i);
 
 
+/**
+ * Predicate returning @c true or @c false depending on whether the given
+ * Input_t structure's qualitativeSpecies is set.
+ *
+ * @param i the Input_t structure to query
+ * 
+ * @return @c non-zero (true) if the "qualitativeSpecies" attribute of the given
+ * Input_t structure is set, zero (false) otherwise.
+ *
+ * @memberof Input_t
+ */
 LIBSBML_EXTERN
 int
 Input_isSetQualitativeSpecies(Input_t * i);
 
 
+/**
+ * Predicate returning @c true or @c false depending on whether the given
+ * Input_t structure's transitionEffect is set.
+ *
+ * @param i the Input_t structure to query
+ * 
+ * @return @c non-zero (true) if the "transitionEffect" attribute of the given
+ * Input_t structure is set, zero (false) otherwise.
+ *
+ * @memberof Input_t
+ */
 LIBSBML_EXTERN
 int
 Input_isSetTransitionEffect(Input_t * i);
 
 
+/**
+ * Predicate returning @c true or @c false depending on whether the given
+ * Input_t structure's name is set.
+ *
+ * @param i the Input_t structure to query
+ * 
+ * @return @c non-zero (true) if the "name" attribute of the given
+ * Input_t structure is set, zero (false) otherwise.
+ *
+ * @memberof Input_t
+ */
 LIBSBML_EXTERN
 int
 Input_isSetName(Input_t * i);
 
 
+/**
+ * Predicate returning @c true or @c false depending on whether the given
+ * Input_t structure's sign is set.
+ *
+ * @param i the Input_t structure to query
+ * 
+ * @return @c non-zero (true) if the "sign" attribute of the given
+ * Input_t structure is set, zero (false) otherwise.
+ *
+ * @memberof Input_t
+ */
 LIBSBML_EXTERN
 int
 Input_isSetSign(Input_t * i);
 
 
+/**
+ * Predicate returning @c true or @c false depending on whether the given
+ * Input_t structure's thresholdLevel is set.
+ *
+ * @param i the Input_t structure to query
+ * 
+ * @return @c non-zero (true) if the "thresholdLevel" attribute of the given
+ * Input_t structure is set, zero (false) otherwise.
+ *
+ * @memberof Input_t
+ */
 LIBSBML_EXTERN
 int
 Input_isSetThresholdLevel(Input_t * i);
 
 
+/**
+ * Assigns the identifier of an Input_t structure.
+ *
+ * This makes a copy of the string passed in the param @p sid.
+ *
+ * @param i the Input_t structure to set.
+ * @param sid the string to use as the identifier.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE @endlink
+ *
+ * @note Using this function with an id of NULL is equivalent to
+ * unsetting the "id" attribute.
+ *
+ * @memberof Input_t
+ */
 LIBSBML_EXTERN
 int
-Input_setId(Input_t * i, const char * id);
+Input_setId(Input_t * i, const char * sid);
 
 
+/**
+ * Sets the qualitativeSpecies of the given Input_t to a copy of @p qualitativeSpecies.
+ *
+ * @param i the Input_t structure to set
+ * @param qualitativeSpecies the qualitativeSpecies to assign to the given Input_t's "qualitativeSpecies" attribute.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE @endlink
+ *
+ * @note Using this function with the name set to NULL is equivalent to
+ * unsetting the "qualitativeSpecies" attribute.
+ *
+ * @memberof Input_t
+ */
 LIBSBML_EXTERN
 int
 Input_setQualitativeSpecies(Input_t * i, const char * qualitativeSpecies);
 
 
+/**
+ * Sets the transitionEffect of this Input_t to a copy of the given InputTransitionEffect_t.
+ *
+ * @param i the Input_t structure to set
+ * @param transitionEffect the InputTransitionEffect_t structure to use.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_LEVEL_MISMATCH LIBSBML_LEVEL_MISMATCH @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_VERSION_MISMATCH LIBSBML_VERSION_MISMATCH @endlink
+ *
+ * @memberof Input_t
+ */
 LIBSBML_EXTERN
 int
 Input_setTransitionEffect(Input_t * i, InputTransitionEffect_t transitionEffect);
 
 
+/**
+ * Sets the name of the given Input_t to a copy of @p name.
+ *
+ * @param i the Input_t structure to set
+ * @param name the name to assign to the given Input_t's "name" attribute.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE @endlink
+ *
+ * @note Using this function with the name set to NULL is equivalent to
+ * unsetting the "name" attribute.
+ *
+ * @memberof Input_t
+ */
 LIBSBML_EXTERN
 int
 Input_setName(Input_t * i, const char * name);
 
 
+/**
+ * Sets the sign of this Input_t to a copy of the given InputSign_t.
+ *
+ * @param i the Input_t structure to set
+ * @param sign the InputSign_t structure to use.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_LEVEL_MISMATCH LIBSBML_LEVEL_MISMATCH @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_VERSION_MISMATCH LIBSBML_VERSION_MISMATCH @endlink
+ *
+ * @memberof Input_t
+ */
 LIBSBML_EXTERN
 int
 Input_setSign(Input_t * i, InputSign_t sign);
 
 
+/**
+ * Sets the "thresholdLevel" attribute of the given Input_t
+ * structure.
+ *
+ * @param i the Input_t structure
+ * 
+ * @param thresholdLevel the value of thresholdLevel to assign to the "thresholdLevel" attribute
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_UNEXPECTED_ATTRIBUTE LIBSBML_UNEXPECTED_ATTRIBUTE @endlink
+ *
+ * @memberof Input_t
+ */
 LIBSBML_EXTERN
 int
 Input_setThresholdLevel(Input_t * i, int thresholdLevel);
 
 
+/**
+ * Unsets the "id" attribute of the given Input_t structure.
+ *
+ * @param i the Input_t structure to unset
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
+ *
+ * @memberof Input_t
+ */
 LIBSBML_EXTERN
 int
 Input_unsetId(Input_t * i);
 
 
+/**
+ * Unsets the "qualitativeSpecies" attribute of the given Input_t structure.
+ *
+ * @param i the Input_t structure to unset
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
+ *
+ * @memberof Input_t
+ */
 LIBSBML_EXTERN
 int
 Input_unsetQualitativeSpecies(Input_t * i);
 
 
+/**
+ * Unsets the "transitionEffect" attribute of the given Input_t structure.
+ *
+ * @param i the Input_t structure to unset
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
+ *
+ * @memberof Input_t
+ */
 LIBSBML_EXTERN
 int
 Input_unsetTransitionEffect(Input_t * i);
 
 
+/**
+ * Unsets the "name" attribute of the given Input_t structure.
+ *
+ * @param i the Input_t structure to unset
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
+ *
+ * @memberof Input_t
+ */
 LIBSBML_EXTERN
 int
 Input_unsetName(Input_t * i);
 
 
+/**
+ * Unsets the "sign" attribute of the given Input_t structure.
+ *
+ * @param i the Input_t structure to unset
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
+ *
+ * @memberof Input_t
+ */
 LIBSBML_EXTERN
 int
 Input_unsetSign(Input_t * i);
 
 
+/**
+ * Unsets the "thresholdLevel" attribute of the given Input_t structure.
+ *
+ * @param i the Input_t structure to unset
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
+ *
+ * @memberof Input_t
+ */
 LIBSBML_EXTERN
 int
 Input_unsetThresholdLevel(Input_t * i);
 
 
+/**
+  * Predicate returning @c true or @c false depending on whether
+  * all the required attributes for the given Input_t structure
+  * have been set.
+  *
+  * @note The required attributes for a Input_t structure are:
+  * @li useValuesfromTriggerTime ( L3 onwards )
+  *
+ * @memberof Input_t
+ */
 LIBSBML_EXTERN
 int
 Input_hasRequiredAttributes(Input_t * i);
 
 
+/**
+ * Return the Input_t indicated by the given @p sid.
+ *
+ * @param lo the ListOf_t structure to use
+ *
+ * @param sid a string, the identifier of the
+ * Input_t is being sought.
+ *
+ * @return the Input_t for the given variable, or @c NULL if no such
+ * Input_t exits.
+ *
+ * @memberof Input_t
+ */
 LIBSBML_EXTERN
 Input_t *
 ListOfInputs_getById(ListOf_t * lo, const char * sid);
 
 
+/**
+ * Removes the Input_t object with the given @p sid
+ * from the given ListOfInputs_t object and returns a pointer to it.
+ *
+ * The caller owns the returned object and is responsible for deleting it.
+ *
+ * @param lo the ListOf_t structure
+ * @param sid the string of the "id" attribute of the Input_t sought
+ *
+ * @return the Input_t object removed.  As mentioned above, the 
+ * caller owns the returned object. @c NULL is returned if no Input_t
+ * object with the "id" attribute exists in the given ListOfInputs_t object.
+ *
+ * @memberof Input_t
+ */
 LIBSBML_EXTERN
 Input_t *
 ListOfInputs_removeById(ListOf_t * lo, const char * sid);
 
-
+/**
+ * Returns the string version of the provided InputTransitionEffect_t enumeration.
+ *
+ * @param effect The InputTransitionEffect_t enumeration to convert
+ *
+ * @return A string corresponding to the given effect:  "none", 
+ * "consumption", or NULL if the value is INPUT_TRANSITION_EFFECT_UNKNOWN 
+ * or another invalid enumeration value.
+ *
+ * @memberof Input_t
+ */
 LIBSBML_EXTERN
 const char* 
 InputTransitionEffect_toString(InputTransitionEffect_t effect);
 
-
+/**
+ * Returns the InputTransitionEffect_t enumeration corresponding to 
+ * the given string, or INPUT_TRANSITION_EFFECT_UNKNOWN if there is 
+ * no such match.  The matching is case-sensitive:  "none" will 
+ * return INPUT_TRANSITION_EFFECT_NONE, but "NONE" will return 
+ * INPUT_TRANSITION_EFFECT_UNKNOWN.
+ *
+ * @param s The string to convert to an InputTransitionEffect_t
+ *
+ * @return The corresponding InputTransitionEffect_t, or 
+ * INPUT_TRANSITION_EFFECT_UNKNOWN if no match found.
+ *
+ * @memberof Input_t
+ */
 LIBSBML_EXTERN
 InputTransitionEffect_t 
 InputTransitionEffect_fromString(const char* s);
 
 
+/**
+ * Predicate returning @c true (non-zero) or @c false (zero) depending on whether the given
+ * InputTransitionEffect_t is valid.
+ *
+ * @param effect the InputTransitionEffect_t enumeration to query
+ * 
+ * @return @c non-zero (true) if the InputTransitionEffect_t is
+ * INPUT_TRANSITION_EFFECT_NONE or INPUT_TRANSITION_EFFECT_CONSUMPTION,
+ * zero (false) otherwise (including INPUT_TRANSITION_EFFECT_UNKNOWN).
+ *
+ * @memberof Input_t
+ */
 LIBSBML_EXTERN
 int 
 InputTransitionEffect_isValidInputTransitionEffect(InputTransitionEffect_t effect);
 
 
+/**
+ * Predicate returning @c true (non-zero) or @c false (zero) depending 
+ * on whether the given string is a valid InputTransitionEffect_t.  
+ * The matching is case-sensitive:  "none" will return @c true, but 
+ * "NONE" will return @c false.
+ *
+ * @param s The string to query
+ * 
+ * @return @c non-zero (true) if the string is
+ * "none" or "consumption"; zero (false) otherwise.
+ *
+ * @memberof Input_t
+ */
 LIBSBML_EXTERN
 int 
 InputTransitionEffect_isValidInputTransitionEffectString(const char* s);
 
-
+/**
+ * Returns the string version of the provided InputSign_t enumeration.
+ *
+ * @param effect The InputSign_t enumeration to convert
+ *
+ * @return A string corresponding to the given effect:  "positive", 
+ * "negative", "dual", "unknown", or NULL if the value is INPUT_SIGN_VALUE_NOTSET
+ * or some other invalid enumeration value.
+ *
+ * @memberof Input_t
+ */
 LIBSBML_EXTERN
 const char* 
 InputSign_toString(InputSign_t effect);
 
+
+/**
+ * Returns the InputSign_t enumeration corresponding to 
+ * the given string, or INPUT_SIGN_VALUE_NOTSET if there is 
+ * no such match.  The matching is case-sensitive:  "negative" will 
+ * return INPUT_SIGN_NEGATIVE, but "Negative" will return 
+ * INPUT_SIGN_VALUE_NOTSET.
+ *
+ * @param s The string to convert to an InputSign_t
+ *
+ * @return The corresponding InputSign_t, or INPUT_SIGN_VALUE_NOTSET if no match found.
+ *
+ * @memberof Input_t
+ */
 LIBSBML_EXTERN
 InputSign_t 
 InputSign_fromString(const char* s);
 
 
+/**
+ * Predicate returning @c true (non-zero) or @c false (zero) depending on whether the given
+ * InputSign_t is valid.
+ *
+ * @param effect the InputSign_t enumeration to query
+ * 
+ * @return @c non-zero (true) if the InputSign_t is INPUT_SIGN_POSITIVE, 
+ * INPUT_SIGN_NEGATIVE, INPUT_SIGN_DUAL, or INPUT_SIGN_UNKNOWN;
+ * zero (false) otherwise (including INPUT_SIGN_VALUE_NOTSET).
+ *
+ * @memberof Input_t
+ */
 LIBSBML_EXTERN
 int 
 InputSign_isValidInputSign(InputSign_t effect);
 
 
+/**
+ * Predicate returning @c true (non-zero) or @c false (zero) depending 
+ * on whether the given string is a valid InputSign_t.  
+ * The matching is case-sensitive:  "negative" will return @c true, but 
+ * "Negative" will return @c false.
+ *
+ * @param s The string to query
+ * 
+ * @return @c non-zero (true) if the string is "positive",
+ * "negative", "dual", or "unknown"; zero (false) otherwise.
+ *
+ * @memberof Input_t
+ */
 LIBSBML_EXTERN
 int 
 InputSign_isValidInputSignString(const char* s);

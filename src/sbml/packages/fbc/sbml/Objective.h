@@ -345,6 +345,11 @@ public:
    * @return integer value indicating success/failure of the
    * operation. The possible return values are:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+   * @li @link OperationReturnValues_t#LIBSBML_LEVEL_MISMATCH LIBSBML_LEVEL_MISMATCH @endlink
+   * @li @link OperationReturnValues_t#LIBSBML_VERSION_MISMATCH LIBSBML_VERSION_MISMATCH @endlink
+   * @li @link OperationReturnValues_t#LIBSBML_PKG_VERSION_MISMATCH LIBSBML_PKG_VERSION_MISMATCH @endlink
+   * @li @link OperationReturnValues_t#LIBSBML_DUPLICATE_OBJECT_ID LIBSBML_DUPLICATE_OBJECT_ID @endlink
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
    */
   int addFluxObjective (const FluxObjective* member);
 
@@ -838,128 +843,438 @@ LIBSBML_CPP_NAMESPACE_END
 LIBSBML_CPP_NAMESPACE_BEGIN
 BEGIN_C_DECLS
 
-/*
- * C API will be added here.
+/**
+ * Creates a new Objective_t structure using the given SBML @p level
+ * and @p version values.
+ *
+ * @param level an unsigned int, the SBML Level to assign to this
+ * Objective_t
+ * @param version an unsigned int, the SBML Version to assign to this
+ * Objective_t
+ * @param pkgVersion an unsigned int, the SBML 'Qual' package Version to assign to this
+ * Objective_t
+ *
+ * @return a pointer to the newly created Objective_t structure.
+ *
+ * @memberof Objective_t
  */
-
 LIBSBML_EXTERN
 Objective_t *
-Objective_create(unsigned int level, unsigned int version, unsigned int pkgversion);
+Objective_create(unsigned int level, unsigned int version, unsigned int pkgVersion);
 
 
+/**
+ * Takes an Objective_t structure and returns its identifier.
+ *
+ * @param obj the Objective_t structure whose identifier is sought
+ * 
+ * @return the identifier of the given Objective_t, as a pointer to a string.
+ *
+ * @memberof Objective_t
+ */
 LIBSBML_EXTERN
 const char *
 Objective_getId(Objective_t * obj);
 
 
+/**
+ * Predicate returning @c true or @c false depending on whether the given
+ * Objective_t structure's identifier is set.
+ *
+ * @param obj the Objective_t structure to query
+ * 
+ * @return @c non-zero (true) if the "id" attribute of the given
+ * Objective_t structure is set, zero (false) otherwise.
+ *
+ * @memberof Objective_t
+ */
 LIBSBML_EXTERN
 int
 Objective_isSetId(Objective_t * obj);
 
 
+/**
+ * Assigns the identifier of an Objective_t structure.
+ *
+ * This makes a copy of the string passed in the param @p sid.
+ *
+ * @param obj the Objective_t structure to set.
+ * @param sid the string to use as the identifier.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE @endlink
+ *
+ * @note Using this function with an id of NULL is equivalent to
+ * unsetting the "id" attribute.
+ *
+ * @memberof Objective_t
+ */
 LIBSBML_EXTERN
 int
-Objective_setId(Objective_t * obj, const char * id);
+Objective_setId(Objective_t * obj, const char * sid);
 
 
+/**
+ * Unsets the "id" attribute of the given Objective_t structure.
+ *
+ * @param obj the Objective_t structure to unset
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
+ *
+ * @memberof Objective_t
+ */
 LIBSBML_EXTERN
 int
 Objective_unsetId(Objective_t * obj);
 
+/**
+ * Takes a Objective_t structure and returns its name.
+ *
+ * @param obj the Objective_t whose name is sought.
+ *
+ * @return the name of the given Objective_t, as a pointer to a string.
+ *
+ * @memberof Objective_t
+ */
 LIBSBML_EXTERN
 const char *
 Objective_getName(Objective_t * obj);
 
 
+/**
+ * Predicate returning @c true or @c false depending on whether the given
+ * Objective_t structure's name is set.
+ *
+ * @param obj the Objective_t structure to query
+ * 
+ * @return @c non-zero (true) if the "name" attribute of the given
+ * Objective_t structure is set, zero (false) otherwise.
+ *
+ * @memberof Objective_t
+ */
 LIBSBML_EXTERN
 int
 Objective_isSetName(Objective_t * obj);
 
 
+/**
+ * Sets the name of the given Objective_t to a copy of @p name.
+ *
+ * @param obj the Objective_t structure to set
+ * @param name the name to assign to the given Objective_t's "name" attribute.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE @endlink
+ *
+ * @note Using this function with the name set to NULL is equivalent to
+ * unsetting the "name" attribute.
+ *
+ * @memberof Objective_t
+ */
 LIBSBML_EXTERN
 int
 Objective_setName(Objective_t * obj, const char * name);
 
 
+/**
+ * Unsets the "name" attribute of the given Objective_t structure.
+ *
+ * @param obj the Objective_t structure to unset
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
+ *
+ * @memberof Objective_t
+ */
 LIBSBML_EXTERN
 int
 Objective_unsetName(Objective_t * obj);
 
 
+/**
+ * Takes a Objective_t structure and returns its type.
+ *
+ * @param obj the Objective_t whose type is sought.
+ *
+ * @return the type of the given Objective_t, as a pointer to a string.
+ *
+ * @memberof Objective_t
+ */
 LIBSBML_EXTERN
 const char *
 Objective_getType(Objective_t * obj);
 
 
+/**
+ * Predicate returning @c true or @c false depending on whether the given
+ * Objective_t structure's type is set.
+ *
+ * @param obj the Objective_t structure to query
+ * 
+ * @return @c non-zero (true) if the "type" attribute of the given
+ * Objective_t structure is set, zero (false) otherwise.
+ *
+ * @memberof Objective_t
+ */
 LIBSBML_EXTERN
 int
 Objective_isSetType(Objective_t * obj);
 
 
+/**
+ * Sets the type of the given Objective_t to a copy of @p type.
+ *
+ * @param obj the Objective_t structure to set
+ * @param type the type to assign to the given Objective_t's "type" attribute.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE @endlink
+ *
+ * @note Using this function with the name set to NULL is equivalent to
+ * unsetting the "type" attribute.
+ *
+ * @memberof Objective_t
+ */
 LIBSBML_EXTERN
 int
 Objective_setType(Objective_t * obj, const char * type);
 
 
+/**
+ * Unsets the "type" attribute of the given Objective_t structure.
+ *
+ * @param obj the Objective_t structure to unset
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
+ *
+ * @memberof Objective_t
+ */
 LIBSBML_EXTERN
 int
 Objective_unsetType(Objective_t * obj);
 
 
 
+/**
+ * Appends a copy of the given FluxObjective_t structure to the given Objective_t
+ * structure.
+ *
+ * @param obj the Objective_t structure to which the FluxObjective_t should be
+ * added
+ *
+ * @param fo a FluxObjective_t structure to add
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_LEVEL_MISMATCH LIBSBML_LEVEL_MISMATCH @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_VERSION_MISMATCH LIBSBML_VERSION_MISMATCH @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_PKG_VERSION_MISMATCH LIBSBML_PKG_VERSION_MISMATCH @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_DUPLICATE_OBJECT_ID LIBSBML_DUPLICATE_OBJECT_ID @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
+ *
+ * @memberof Objective_t
+ */
 LIBSBML_EXTERN
 int
-Objective_addFluxObjective(Objective_t * obj, FluxObjective_t * flux);
+Objective_addFluxObjective(Objective_t * obj, FluxObjective_t * fo);
 
 
+/**
+ * Return a specific FluxObjective_t structure of the given Objective_t.
+ *
+ * @param obj the Objective_t structure to use
+ *
+ * @param n an integer, the index of the FluxObjective_t structure to return
+ * 
+ * @return the nth FluxObjective_t of the given Objective_t, or @c NULL if no such FluxObjective_t exists.
+ *
+ * @memberof Objective_t
+ */
 LIBSBML_EXTERN
 FluxObjective_t *
 Objective_getFluxObjective(Objective_t * obj, unsigned int n);
 
 
+/**
+ * Returns the number of FluxObjective_t objects attached to the given
+ * Objective_t.
+ *
+ * @param obj the Objective_t structure to use
+ * 
+ * @return the number of FluxObjective_t structures in the given Objective_t.
+ *
+ * @memberof Objective_t
+ */
 LIBSBML_EXTERN
 unsigned int
 Objective_getNumFluxObjectives(Objective_t * obj);
 
 
+/**
+ * Takes a Objective_t structure and returns its activeObjective.
+ *
+ * @param lo the ListOf_t whose activeObjective is sought.
+ *
+ * @return the activeObjective of the given Objective_t, as a pointer to a string.
+ *
+ * @memberof Objective_t
+ */
 LIBSBML_EXTERN
 const char *
 ListOfObjectives_getActiveObjective(ListOf_t * lo);
 
 
+/**
+ * Predicate returning @c true or @c false depending on whether the given
+ * Objective_t structure's activeObjective is set.
+ *
+ * @param lo the ListOf_t structure to query
+ * 
+ * @return @c non-zero (true) if the "activeObjective" attribute of the given
+ * Objective_t structure is set, zero (false) otherwise.
+ *
+ * @memberof Objective_t
+ */
 LIBSBML_EXTERN
 int
 ListOfObjectives_isSetActiveObjective(ListOf_t * lo);
 
 
+/**
+ * Sets the activeObjective of the given Objective_t to a copy of @p activeObjective.
+ *
+ * @param lo the ListOf_t structure to set
+ * @param activeObjective the activeObjective to assign to the given Objective_t's "activeObjective" attribute.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE @endlink
+ *
+ * @note Using this function with the name set to NULL is equivalent to
+ * unsetting the "activeObjective" attribute.
+ *
+ * @memberof Objective_t
+ */
 LIBSBML_EXTERN
 int
-ListOfObjectives_setActiveObjective(ListOf_t * lo, const char * obj);
+ListOfObjectives_setActiveObjective(ListOf_t * lo, const char * activeObjective);
 
 
+/**
+ * Unsets the "activeObjective" attribute of the given Objective_t structure.
+ *
+ * @param lo the ListOf_t structure to unset
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
+ *
+ * @memberof Objective_t
+ */
 LIBSBML_EXTERN
 int
 ListOfObjectives_unsetActiveObjective(ListOf_t * lo);
 
-
-
-
-
+/**
+ * Returns the string version of the provided ObjectiveType_t enumeration.
+ *
+ * @param type The ObjectiveType_t enumeration to convert
+ *
+ * @return A string corresponding to the given effect:  "maximize", 
+ * "minimize", or NULL if the value is OBJECTIVE_TYPE_UNKNOWN 
+ * or another invalid enumeration value.
+ *
+ * @memberof Objective_t
+ */
 LIBSBML_EXTERN
 const char* 
 ObjectiveType_toString(ObjectiveType_t type);
 
 
+/**
+ * Returns the ObjectiveType_t enumeration corresponding to 
+ * the given string, or OBJECTIVE_TYPE_UNKNOWN if there is 
+ * no such match.  The matching is case-sensitive:  "maximize" will 
+ * return OBJECTIVE_TYPE_MAXIMIZE, but "Maximize" will return 
+ * OBJECTIVE_TYPE_UNKNOWN.
+ *
+ * @param s The string to convert to an ObjectiveType_t
+ *
+ * @return The corresponding ObjectiveType_t, or 
+ * OBJECTIVE_TYPE_UNKNOWN if no match found.
+ *
+ * @memberof Objective_t
+ */
 LIBSBML_EXTERN
 ObjectiveType_t 
 ObjectiveType_fromString(const char* s);
 
 
+/**
+ * Predicate returning @c true (non-zero) or @c false (zero) depending on whether the given
+ * ObjectiveType_t is valid.
+ *
+ * @param type the ObjectiveType_t enumeration to query
+ * 
+ * @return @c non-zero (true) if the ObjectiveType_t is
+ * OBJECTIVE_TYPE_MAXIMIZE or OBJECTIVE_TYPE_MINIMIZE;
+ * zero (false) otherwise (including OBJECTIVE_TYPE_UNKNOWN).
+ *
+ * @memberof Objective_t
+ */
 LIBSBML_EXTERN
 int 
 ObjectiveType_isValidObjectiveType(ObjectiveType_t type);
 
 
+/**
+ * Predicate returning @c true (non-zero) or @c false (zero) depending 
+ * on whether the given string is a valid ObjectiveType_t.  
+ * The matching is case-sensitive:  "maximize" will return @c true, but 
+ * "Maximize" will return @c false.
+ *
+ * @param s The string to query
+ * 
+ * @return @c non-zero (true) if the string is
+ * "maximize" or "minimize"; zero (false) otherwise.
+ *
+ * @memberof Objective_t
+ */
 LIBSBML_EXTERN
 int 
 ObjectiveType_isValidObjectiveTypeString(const char* s);

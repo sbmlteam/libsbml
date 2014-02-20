@@ -728,152 +728,533 @@ LIBSBML_CPP_NAMESPACE_END
 LIBSBML_CPP_NAMESPACE_BEGIN
 BEGIN_C_DECLS
 
+/**
+ * Creates a new QualitativeSpecies_t structure using the given SBML @p level
+ * and @p version values.
+ *
+ * @param level an unsigned int, the SBML Level to assign to this
+ * QualitativeSpecies_t
+ * @param version an unsigned int, the SBML Version to assign to this
+ * QualitativeSpecies_t
+ * @param pkgVersion an unsigned int, the SBML 'Qual' package Version to assign to this
+ * QualitativeSpecies_t
+ *
+ * @return a pointer to the newly created QualitativeSpecies_t structure.
+ *
+ * @memberof QualitativeSpecies_t
+ */
 LIBSBML_EXTERN
 QualitativeSpecies_t *
 QualitativeSpecies_create(unsigned int level, unsigned int version,
                           unsigned int pkgVersion);
 
 
+/**
+ * Frees the given QualitativeSpecies_t structure.
+ *
+ * @param qs the QualitativeSpecies_t structure to free.
+ *
+ * @memberof QualitativeSpecies_t
+ */
 LIBSBML_EXTERN
 void
 QualitativeSpecies_free(QualitativeSpecies_t * qs);
 
 
+/**
+ * Returns a copy of the given QualitativeSpecies_t structure.
+ *
+ * @param qs the QualitativeSpecies_t structure to copy.
+ * 
+ * @return a (deep) copy of the QualitativeSpecies_t.
+ *
+ * @memberof QualitativeSpecies_t
+ */
 LIBSBML_EXTERN
 QualitativeSpecies_t *
 QualitativeSpecies_clone(QualitativeSpecies_t * qs);
 
 
+/**
+ * Takes an QualitativeSpecies_t structure and returns its identifier.
+ *
+ * @param qs the QualitativeSpecies_t structure whose identifier is sought
+ * 
+ * @return the identifier of this QualitativeSpecies_t, as a pointer to a string.
+ *
+ * @memberof QualitativeSpecies_t
+ */
 LIBSBML_EXTERN
 char *
 QualitativeSpecies_getId(QualitativeSpecies_t * qs);
 
 
+/**
+ * Takes a QualitativeSpecies_t structure and returns its compartment.
+ *
+ * @param qs the QualitativeSpecies_t whose compartment is sought.
+ *
+ * @return the compartment of the given QualitativeSpecies_t, as a pointer to a string.
+ *
+ * @memberof QualitativeSpecies_t
+ */
 LIBSBML_EXTERN
 char *
 QualitativeSpecies_getCompartment(QualitativeSpecies_t * qs);
 
 
+/**
+ * Takes a QualitativeSpecies_t structure and returns its constant.
+ *
+ * @param qs the QualitativeSpecies_t whose constant is sought.
+ *
+ * @return nonzero (true) if the given QualitativeSpecies_t structure's
+ * "constant" attribute value is nonzero, zero (0) otherwise.
+ *
+ * @memberof QualitativeSpecies_t
+ */
 LIBSBML_EXTERN
 int
 QualitativeSpecies_getConstant(QualitativeSpecies_t * qs);
 
 
+/**
+ * Takes a QualitativeSpecies_t structure and returns its name.
+ *
+ * @param qs the QualitativeSpecies_t whose name is sought.
+ *
+ * @return the name of this QualitativeSpecies_t, as a pointer to a string.
+ *
+ * @memberof QualitativeSpecies_t
+ */
 LIBSBML_EXTERN
 char *
 QualitativeSpecies_getName(QualitativeSpecies_t * qs);
 
 
+/**
+ * Takes a QualitativeSpecies_t structure and returns its initialLevel.
+ *
+ * @param qs the QualitativeSpecies_t whose initialLevel is sought.
+ *
+ * @return the initialLevel attribute of the given QualitativeSpecies_t, as an @c int.
+ *
+ * @memberof QualitativeSpecies_t
+ */
 LIBSBML_EXTERN
 int
 QualitativeSpecies_getInitialLevel(QualitativeSpecies_t * qs);
 
 
+/**
+ * Takes a QualitativeSpecies_t structure and returns its maxLevel.
+ *
+ * @param qs the QualitativeSpecies_t whose maxLevel is sought.
+ *
+ * @return the maxLevel attribute of the given QualitativeSpecies_t, as an @c int.
+ *
+ * @memberof QualitativeSpecies_t
+ */
 LIBSBML_EXTERN
 int
 QualitativeSpecies_getMaxLevel(QualitativeSpecies_t * qs);
 
 
+/**
+ * Predicate returning @c true or @c false depending on whether the given
+ * QualitativeSpecies_t structure's identifier is set.
+ *
+ * @param qs the QualitativeSpecies_t structure to query
+ * 
+ * @return @c non-zero (true) if the "id" attribute of the given
+ * QualitativeSpecies_t structure is set, zero (false) otherwise.
+ *
+ * @memberof QualitativeSpecies_t
+ */
 LIBSBML_EXTERN
 int
 QualitativeSpecies_isSetId(QualitativeSpecies_t * qs);
 
 
+/**
+ * Predicate returning @c true or @c false depending on whether the given
+ * QualitativeSpecies_t structure's compartment is set.
+ *
+ * @param qs the QualitativeSpecies_t structure to query
+ * 
+ * @return @c non-zero (true) if the "compartment" attribute of the given
+ * QualitativeSpecies_t structure is set, zero (false) otherwise.
+ *
+ * @memberof QualitativeSpecies_t
+ */
 LIBSBML_EXTERN
 int
 QualitativeSpecies_isSetCompartment(QualitativeSpecies_t * qs);
 
 
+/**
+ * Predicate returning @c true or @c false depending on whether the given
+ * QualitativeSpecies_t structure's constant is set.
+ *
+ * @param qs the QualitativeSpecies_t structure to query
+ * 
+ * @return @c non-zero (true) if the "constant" attribute of the given
+ * QualitativeSpecies_t structure is set, zero (false) otherwise.
+ *
+ * @memberof QualitativeSpecies_t
+ */
 LIBSBML_EXTERN
 int
 QualitativeSpecies_isSetConstant(QualitativeSpecies_t * qs);
 
 
+/**
+ * Predicate returning @c true or @c false depending on whether the given
+ * QualitativeSpecies_t structure's name is set.
+ *
+ * @param qs the QualitativeSpecies_t structure to query
+ * 
+ * @return @c non-zero (true) if the "name" attribute of the given
+ * QualitativeSpecies_t structure is set, zero (false) otherwise.
+ *
+ * @memberof QualitativeSpecies_t
+ */
 LIBSBML_EXTERN
 int
 QualitativeSpecies_isSetName(QualitativeSpecies_t * qs);
 
 
+/**
+ * Predicate returning @c true or @c false depending on whether the given
+ * QualitativeSpecies_t structure's initialLevel is set.
+ *
+ * @param qs the QualitativeSpecies_t structure to query
+ * 
+ * @return @c non-zero (true) if the "initialLevel" attribute of the given
+ * QualitativeSpecies_t structure is set, zero (false) otherwise.
+ *
+ * @memberof QualitativeSpecies_t
+ */
 LIBSBML_EXTERN
 int
 QualitativeSpecies_isSetInitialLevel(QualitativeSpecies_t * qs);
 
 
+/**
+ * Predicate returning @c true or @c false depending on whether the given
+ * QualitativeSpecies_t structure's maxLevel is set.
+ *
+ * @param qs the QualitativeSpecies_t structure to query
+ * 
+ * @return @c non-zero (true) if the "maxLevel" attribute of the given
+ * QualitativeSpecies_t structure is set, zero (false) otherwise.
+ *
+ * @memberof QualitativeSpecies_t
+ */
 LIBSBML_EXTERN
 int
 QualitativeSpecies_isSetMaxLevel(QualitativeSpecies_t * qs);
 
 
+/**
+ * Assigns the identifier of an QualitativeSpecies_t structure.
+ *
+ * This makes a copy of the string passed in the param @p sid.
+ *
+ * @param qs the QualitativeSpecies_t structure to set.
+ * @param sid the string to use as the identifier.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE @endlink
+ *
+ * @note Using this function with an id of NULL is equivalent to
+ * unsetting the "id" attribute.
+ *
+ * @memberof QualitativeSpecies_t
+ */
 LIBSBML_EXTERN
 int
-QualitativeSpecies_setId(QualitativeSpecies_t * qs, const char * id);
+QualitativeSpecies_setId(QualitativeSpecies_t * qs, const char * sid);
 
 
+/**
+ * Sets the compartment of the given QualitativeSpecies_t to a copy of @p compartment.
+ *
+ * @param qs the QualitativeSpecies_t structure to set
+ * @param compartment the compartment to assign to the given QualitativeSpecies_t's "compartment" attribute.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE @endlink
+ *
+ * @note Using this function with the name set to NULL is equivalent to
+ * unsetting the "compartment" attribute.
+ *
+ * @memberof QualitativeSpecies_t
+ */
 LIBSBML_EXTERN
 int
 QualitativeSpecies_setCompartment(QualitativeSpecies_t * qs, const char * compartment);
 
 
+/**
+ * Sets the "constant" attribute of this QualitativeSpecies_t to @p constant.
+ * 
+ * @param qs the QualitativeSpecies_t structure to set
+ * @param constant the value of the "constant" attribute, converted to a boolean: 
+ * all nonzero values set the "constant" attribute to 'true', and a value of 
+ * zero (0) will set the "constant" attribute to 'false'.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_UNEXPECTED_ATTRIBUTE LIBSBML_UNEXPECTED_ATTRIBUTE @endlink
+ *
+ * @memberof QualitativeSpecies_t
+ */
 LIBSBML_EXTERN
 int
 QualitativeSpecies_setConstant(QualitativeSpecies_t * qs, int constant);
 
 
+/**
+ * Sets the name of the given QualitativeSpecies_t to a copy of @p name.
+ *
+ * @param qs the QualitativeSpecies_t structure to set
+ * @param name the name to assign to the given QualitativeSpecies_t's "name" attribute.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE @endlink
+ *
+ * @note Using this function with the name set to NULL is equivalent to
+ * unsetting the "name" attribute.
+ *
+ * @memberof QualitativeSpecies_t
+ */
 LIBSBML_EXTERN
 int
 QualitativeSpecies_setName(QualitativeSpecies_t * qs, const char * name);
 
 
+/**
+ * Sets the "initialLevel" attribute of the given QualitativeSpecies_t
+ * structure.
+ *
+ * @param qs the QualitativeSpecies_t structure
+ * 
+ * @param initialLevel the value of initialLevel to assign to the "initialLevel" attribute
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_UNEXPECTED_ATTRIBUTE LIBSBML_UNEXPECTED_ATTRIBUTE @endlink
+ *
+ * @memberof QualitativeSpecies_t
+ */
 LIBSBML_EXTERN
 int
 QualitativeSpecies_setInitialLevel(QualitativeSpecies_t * qs, int initialLevel);
 
 
+/**
+ * Sets the "maxLevel" attribute of the given QualitativeSpecies_t
+ * structure.
+ *
+ * @param qs the QualitativeSpecies_t structure
+ * 
+ * @param maxLevel the value of maxLevel to assign to the "maxLevel" attribute
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_UNEXPECTED_ATTRIBUTE LIBSBML_UNEXPECTED_ATTRIBUTE @endlink
+ *
+ * @memberof QualitativeSpecies_t
+ */
 LIBSBML_EXTERN
 int
 QualitativeSpecies_setMaxLevel(QualitativeSpecies_t * qs, int maxLevel);
 
 
+/**
+ * Unsets the "id" attribute of the given QualitativeSpecies_t structure.
+ *
+ * @param qs the QualitativeSpecies_t structure to unset
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
+ *
+ * @memberof QualitativeSpecies_t
+ */
 LIBSBML_EXTERN
 int
 QualitativeSpecies_unsetId(QualitativeSpecies_t * qs);
 
 
+/**
+ * Unsets the "compartment" attribute of the given QualitativeSpecies_t structure.
+ *
+ * @param qs the QualitativeSpecies_t structure to unset
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
+ *
+ * @memberof QualitativeSpecies_t
+ */
 LIBSBML_EXTERN
 int
 QualitativeSpecies_unsetCompartment(QualitativeSpecies_t * qs);
 
 
+/**
+ * Unsets the "constant" attribute of the given QualitativeSpecies_t structure.
+ *
+ * @param qs the QualitativeSpecies_t structure to unset
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
+ *
+ * @memberof QualitativeSpecies_t
+ */
 LIBSBML_EXTERN
 int
 QualitativeSpecies_unsetConstant(QualitativeSpecies_t * qs);
 
 
+/**
+ * Unsets the "name" attribute of the given QualitativeSpecies_t structure.
+ *
+ * @param qs the QualitativeSpecies_t structure to unset
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
+ *
+ * @memberof QualitativeSpecies_t
+ */
 LIBSBML_EXTERN
 int
 QualitativeSpecies_unsetName(QualitativeSpecies_t * qs);
 
 
+/**
+ * Unsets the "initialLevel" attribute of the given QualitativeSpecies_t structure.
+ *
+ * @param qs the QualitativeSpecies_t structure to unset
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
+ *
+ * @memberof QualitativeSpecies_t
+ */
 LIBSBML_EXTERN
 int
 QualitativeSpecies_unsetInitialLevel(QualitativeSpecies_t * qs);
 
 
+/**
+ * Unsets the "maxLevel" attribute of the given QualitativeSpecies_t structure.
+ *
+ * @param qs the QualitativeSpecies_t structure to unset
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
+ *
+ * @memberof QualitativeSpecies_t
+ */
 LIBSBML_EXTERN
 int
 QualitativeSpecies_unsetMaxLevel(QualitativeSpecies_t * qs);
 
 
+/**
+  * Predicate returning @c true or @c false depending on whether
+  * all the required attributes for the given QualitativeSpecies_t structure
+  * have been set.
+  *
+  * @note The required attributes for a QualitativeSpecies_t structure are:
+  * @li useValuesfromTriggerTime ( L3 onwards )
+  *
+ * @memberof QualitativeSpecies_t
+ */
 LIBSBML_EXTERN
 int
 QualitativeSpecies_hasRequiredAttributes(QualitativeSpecies_t * qs);
 
 
+/**
+ * Return the QualitativeSpecies_t indicated by the given @p sid.
+ *
+ * @param lo the ListOf_t structure to use
+ *
+ * @param sid a string, the identifier of the
+ * QualitativeSpecies_t is being sought.
+ *
+ * @return the QualitativeSpecies_t for the given variable, or @c NULL if no such
+ * QualitativeSpecies_t exits.
+ *
+ * @memberof QualitativeSpecies_t
+ */
 LIBSBML_EXTERN
 QualitativeSpecies_t *
 ListOfQualitativeSpecies_getById(ListOf_t * lo, const char * sid);
 
 
+/**
+ * Removes the QualitativeSpecies_t object with the given @p sid
+ * from the given QualitativeSpecies_t object and returns a pointer to it.
+ *
+ * The caller owns the returned object and is responsible for deleting it.
+ *
+ * @param lo the ListOf_t structure
+ * @param sid the string of the "id" attribute of the QualitativeSpecies_t sought
+ *
+ * @return the QualitativeSpecies_t object removed.  As mentioned above, the 
+ * caller owns the returned object. @c NULL is returned if no QualitativeSpecies_t
+ * object with the "id" attribute exists in the given ListOf_t object.
+ *
+ * @memberof QualitativeSpecies_t
+ */
 LIBSBML_EXTERN
 QualitativeSpecies_t *
 ListOfQualitativeSpecies_removeById(ListOf_t * lo, const char * sid);

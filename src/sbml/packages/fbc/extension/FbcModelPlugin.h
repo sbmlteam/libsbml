@@ -704,44 +704,157 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 BEGIN_C_DECLS
 
 
+/**
+ * Appends a copy of the given FluxBound_t structure to the given FbcModelPlugin_t
+ * structure.
+ *
+ * @param fmp the FbcModelPlugin_t structure to which the FluxBound_t should be
+ * added
+ *
+ * @param fb a FluxBound_t structure to add
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_LEVEL_MISMATCH LIBSBML_LEVEL_MISMATCH @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_VERSION_MISMATCH LIBSBML_VERSION_MISMATCH @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_PKG_VERSION_MISMATCH LIBSBML_PKG_VERSION_MISMATCH @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_DUPLICATE_OBJECT_ID LIBSBML_DUPLICATE_OBJECT_ID @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
+ *
+ * @memberof FbcModelPlugin_t
+ */
 LIBSBML_EXTERN
 int
-FbcModelPlugin_addFluxBound(SBasePlugin_t * fbc, FluxBound_t * fb);
+FbcModelPlugin_addFluxBound(SBasePlugin_t * fmp, FluxBound_t * fb);
 
 
+/**
+ * Return a specific FluxBound_t structure of the given FbcModelPlugin_t.
+ *
+ * @param fmp the FbcModelPlugin_t structure to use
+ *
+ * @param n an integer, the index of the FluxBound_t structure to return
+ * 
+ * @return the nth FluxBound_t of the given FbcModelPlugin_t, or @c NULL if no such FluxBound_t exists.
+ *
+ * @memberof FbcModelPlugin_t
+ */
 LIBSBML_EXTERN
 FluxBound_t *
-FbcModelPlugin_getFluxBound(SBasePlugin_t * fbc, unsigned int n);
+FbcModelPlugin_getFluxBound(SBasePlugin_t * fmp, unsigned int n);
 
 
+/**
+ * Returns the number of EventAssignment_t objects attached to the given
+ * FbcModelPlugin_t.
+ *
+ * @param fmp the FbcModelPlugin_t structure to use
+ * 
+ * @return the number of EventAssignment_t structures in the given FbcModelPlugin_t.
+ *
+ * @memberof FbcModelPlugin_t
+ */
 LIBSBML_EXTERN
 unsigned int
-FbcModelPlugin_getNumFluxBounds(SBasePlugin_t * fbc);
+FbcModelPlugin_getNumFluxBounds(SBasePlugin_t * fmp);
 
 
+/**
+ * Appends a copy of the given Objective_t structure to the given FbcModelPlugin_t
+ * structure.
+ *
+ * @param fmp the FbcModelPlugin_t structure to which the Objective_t should be
+ * added
+ *
+ * @param obj an Objective_t structure to add
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_LEVEL_MISMATCH LIBSBML_LEVEL_MISMATCH @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_VERSION_MISMATCH LIBSBML_VERSION_MISMATCH @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_PKG_VERSION_MISMATCH LIBSBML_PKG_VERSION_MISMATCH @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_DUPLICATE_OBJECT_ID LIBSBML_DUPLICATE_OBJECT_ID @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
+ *
+ * @memberof FbcModelPlugin_t
+ */
 LIBSBML_EXTERN
 int
-FbcModelPlugin_addObjective(SBasePlugin_t * fbc, Objective_t * obj);
+FbcModelPlugin_addObjective(SBasePlugin_t * fmp, Objective_t * obj);
 
 
+/**
+ * Return a specific Objective_t structure of the given FbcModelPlugin_t.
+ *
+ * @param fmp the FbcModelPlugin_t structure to use
+ *
+ * @param n an integer, the index of the Objective_t structure to return
+ * 
+ * @return the nth Objective_t of the given FbcModelPlugin_t, or @c NULL if no such Objective_t exists.
+ *
+ * @memberof FbcModelPlugin_t
+ */
 LIBSBML_EXTERN
 Objective_t *
-FbcModelPlugin_getObjective(SBasePlugin_t * fbc, unsigned int n);
+FbcModelPlugin_getObjective(SBasePlugin_t * fmp, unsigned int n);
 
 
+/**
+ * Returns the number of Objective_t objects attached to the given
+ * FbcModelPlugin_t.
+ *
+ * @param fmp the FbcModelPlugin_t structure to use
+ * 
+ * @return the number of Objective_t structures in the given FbcModelPlugin_t.
+ *
+ * @memberof FbcModelPlugin_t
+ */
 LIBSBML_EXTERN
 unsigned int
-FbcModelPlugin_getNumObjectives(SBasePlugin_t * fbc);
+FbcModelPlugin_getNumObjectives(SBasePlugin_t * fmp);
 
 
+/**
+ * Takes a FbcModelPlugin_t structure and returns the id of the current activeObjective.
+ *
+ * @param fmp the FbcModelPlugin_t whose id of the current activeObjective is sought.
+ *
+ * @return the id of the current activeObjective of the given FbcModelPlugin_t, as a pointer to a string.
+ *
+ * @memberof FbcModelPlugin_t
+ */
 LIBSBML_EXTERN
 char *
-FbcModelPlugin_getActiveObjectiveId(SBasePlugin_t * fbc);
+FbcModelPlugin_getActiveObjectiveId(SBasePlugin_t * fmp);
 
 
+/**
+ * Sets the activeObjective of the given FbcModelPlugin_t to a copy of @p activeObjective.
+ *
+ * @param fmp the FbcModelPlugin_t structure to set
+ * @param activeObjective the activeObjective to assign to the given FbcModelPlugin_t's "activeObjective" attribute.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE @endlink
+ *
+ * @note Using this function with the name set to NULL is equivalent to
+ * unsetting the "activeObjective" attribute.
+ *
+ * @memberof FbcModelPlugin_t
+ */
 LIBSBML_EXTERN
 int
-FbcModelPlugin_setActiveObjectiveId(SBasePlugin_t * fbc, char * activeId);
+FbcModelPlugin_setActiveObjectiveId(SBasePlugin_t * fmp, const char * activeObjective);
 
 
 END_C_DECLS

@@ -670,6 +670,17 @@ LIBSBML_CPP_NAMESPACE_END
 LIBSBML_CPP_NAMESPACE_BEGIN
 BEGIN_C_DECLS
 
+/**
+ * Creates a new, empty ModelDefinition_t structure, adds it to the given
+ * CompSBMLDocumentPlugin_t, and returns the ModelDefinition_t.
+ *
+ * @param docPlug the CompSBMLDocumentPlugin_t structure to which the ModelDefinition_t should be
+ * added
+ *
+ * @return the newly-created empty ModelDefinition_t.
+ *
+ * @memberof CompSBMLDocumentPlugin_t
+ */
 LIBSBML_EXTERN
 ModelDefinition_t *
 CompSBMLDocumentPlugin_createModelDefinition(CompSBMLDocumentPlugin_t * docPlug);

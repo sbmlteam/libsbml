@@ -524,112 +524,391 @@ LIBSBML_CPP_NAMESPACE_END
 LIBSBML_CPP_NAMESPACE_BEGIN
 BEGIN_C_DECLS
 
+/**
+ * Creates a new ExternalModelDefinition_t structure using the given SBML @p level
+ * and @p version values.
+ *
+ * @param level an unsigned int, the SBML Level to assign to this
+ * ExternalModelDefinition_t
+ * @param version an unsigned int, the SBML Version to assign to this
+ * ExternalModelDefinition_t
+ * @param pkgVersion an unsigned int, the SBML 'Qual' package Version to assign to this
+ * ExternalModelDefinition_t
+ *
+ * @return a pointer to the newly created ExternalModelDefinition_t structure.
+ *
+ * @memberof ExternalModelDefinition_t
+ */
 LIBSBML_EXTERN
 ExternalModelDefinition_t *
 ExternalModelDefinition_create(unsigned int level, unsigned int version,
                                unsigned int pkgVersion);
 
 
+/**
+ * Frees the given ExternalModelDefinition_t structure.
+ *
+ * @param emd the ExternalModelDefinition_t structure to free.
+ *
+ * @memberof ExternalModelDefinition_t
+ */
 LIBSBML_EXTERN
 void
 ExternalModelDefinition_free(ExternalModelDefinition_t * emd);
 
 
+/**
+ * Returns a copy of the given ExternalModelDefinition_t structure.
+ *
+ * @param emd the ExternalModelDefinition_t structure to copy.
+ * 
+ * @return a (deep) copy of the ExternalModelDefinition_t.
+ *
+ * @memberof ExternalModelDefinition_t
+ */
 LIBSBML_EXTERN
 ExternalModelDefinition_t *
 ExternalModelDefinition_clone(ExternalModelDefinition_t * emd);
 
 
+/**
+ * Takes an ExternalModelDefinition_t structure and returns its identifier.
+ *
+ * @param emd the ExternalModelDefinition_t structure whose identifier is sought
+ * 
+ * @return the identifier of the given ExternalModelDefinition_t, as a pointer to a string.
+ *
+ * @memberof ExternalModelDefinition_t
+ */
 LIBSBML_EXTERN
 char *
 ExternalModelDefinition_getId(ExternalModelDefinition_t * emd);
 
 
+/**
+ * Takes a ExternalModelDefinition_t structure and returns its source.
+ *
+ * @param emd the ExternalModelDefinition_t whose source is sought.
+ *
+ * @return the source of the given ExternalModelDefinition_t, as a pointer to a string.
+ *
+ * @memberof ExternalModelDefinition_t
+ */
 LIBSBML_EXTERN
 char *
 ExternalModelDefinition_getSource(ExternalModelDefinition_t * emd);
 
 
+/**
+ * Takes a ExternalModelDefinition_t structure and returns its name.
+ *
+ * @param emd the ExternalModelDefinition_t whose name is sought.
+ *
+ * @return the name of the given ExternalModelDefinition_t, as a pointer to a string.
+ *
+ * @memberof ExternalModelDefinition_t
+ */
 LIBSBML_EXTERN
 char *
 ExternalModelDefinition_getName(ExternalModelDefinition_t * emd);
 
 
+/**
+ * Takes a ExternalModelDefinition_t structure and returns its modelRef.
+ *
+ * @param emd the ExternalModelDefinition_t whose modelRef is sought.
+ *
+ * @return the modelRef of the given ExternalModelDefinition_t, as a pointer to a string.
+ *
+ * @memberof ExternalModelDefinition_t
+ */
 LIBSBML_EXTERN
 char *
 ExternalModelDefinition_getModelRef(ExternalModelDefinition_t * emd);
 
 
+/**
+ * Predicate returning @c true or @c false depending on whether the given
+ * ExternalModelDefinition_t structure's identifier is set.
+ *
+ * @param emd the ExternalModelDefinition_t structure to query
+ * 
+ * @return @c non-zero (true) if the "id" attribute of the given
+ * ExternalModelDefinition_t structure is set, zero (false) otherwise.
+ *
+ * @memberof ExternalModelDefinition_t
+ */
 LIBSBML_EXTERN
 int
 ExternalModelDefinition_isSetId(ExternalModelDefinition_t * emd);
 
 
+/**
+ * Predicate returning @c true or @c false depending on whether the given
+ * ExternalModelDefinition_t structure's source is set.
+ *
+ * @param emd the ExternalModelDefinition_t structure to query
+ * 
+ * @return @c non-zero (true) if the "source" attribute of the given
+ * ExternalModelDefinition_t structure is set, zero (false) otherwise.
+ *
+ * @memberof ExternalModelDefinition_t
+ */
 LIBSBML_EXTERN
 int
 ExternalModelDefinition_isSetSource(ExternalModelDefinition_t * emd);
 
 
+/**
+ * Predicate returning @c true or @c false depending on whether the given
+ * ExternalModelDefinition_t structure's name is set.
+ *
+ * @param emd the ExternalModelDefinition_t structure to query
+ * 
+ * @return @c non-zero (true) if the "name" attribute of the given
+ * ExternalModelDefinition_t structure is set, zero (false) otherwise.
+ *
+ * @memberof ExternalModelDefinition_t
+ */
 LIBSBML_EXTERN
 int
 ExternalModelDefinition_isSetName(ExternalModelDefinition_t * emd);
 
 
+/**
+ * Predicate returning @c true or @c false depending on whether the given
+ * ExternalModelDefinition_t structure's modelRef is set.
+ *
+ * @param emd the ExternalModelDefinition_t structure to query
+ * 
+ * @return @c non-zero (true) if the "modelRef" attribute of the given
+ * ExternalModelDefinition_t structure is set, zero (false) otherwise.
+ *
+ * @memberof ExternalModelDefinition_t
+ */
 LIBSBML_EXTERN
 int
 ExternalModelDefinition_isSetModelRef(ExternalModelDefinition_t * emd);
 
 
+/**
+ * Assigns the identifier of an ExternalModelDefinition_t structure.
+ *
+ * This makes a copy of the string passed in the param @p sid.
+ *
+ * @param emd the ExternalModelDefinition_t structure to set.
+ * @param sid the string to use as the identifier.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE @endlink
+ *
+ * @note Using this function with an id of NULL is equivalent to
+ * unsetting the "id" attribute.
+ *
+ * @memberof ExternalModelDefinition_t
+ */
 LIBSBML_EXTERN
 int
-ExternalModelDefinition_setId(ExternalModelDefinition_t * emd, const char * id);
+ExternalModelDefinition_setId(ExternalModelDefinition_t * emd, const char * sid);
 
 
+/**
+ * Sets the source of the given ExternalModelDefinition_t to a copy of @p source.
+ *
+ * @param emd the ExternalModelDefinition_t structure to set
+ * @param source the source to assign to the given ExternalModelDefinition_t's "source" attribute.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE @endlink
+ *
+ * @note Using this function with the name set to NULL is equivalent to
+ * unsetting the "source" attribute.
+ *
+ * @memberof ExternalModelDefinition_t
+ */
 LIBSBML_EXTERN
 int
 ExternalModelDefinition_setSource(ExternalModelDefinition_t * emd, const char * source);
 
 
+/**
+ * Sets the name of the given ExternalModelDefinition_t to a copy of @p name.
+ *
+ * @param emd the ExternalModelDefinition_t structure to set
+ * @param name the name to assign to the given ExternalModelDefinition_t's "name" attribute.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE @endlink
+ *
+ * @note Using this function with the name set to NULL is equivalent to
+ * unsetting the "name" attribute.
+ *
+ * @memberof ExternalModelDefinition_t
+ */
 LIBSBML_EXTERN
 int
 ExternalModelDefinition_setName(ExternalModelDefinition_t * emd, const char * name);
 
 
+/**
+ * Sets the modelRef of the given ExternalModelDefinition_t to a copy of @p modelRef.
+ *
+ * @param emd the ExternalModelDefinition_t structure to set
+ * @param modelRef the modelRef to assign to the given ExternalModelDefinition_t's "modelRef" attribute.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE @endlink
+ *
+ * @note Using this function with the name set to NULL is equivalent to
+ * unsetting the "modelRef" attribute.
+ *
+ * @memberof ExternalModelDefinition_t
+ */
 LIBSBML_EXTERN
 int
 ExternalModelDefinition_setModelRef(ExternalModelDefinition_t * emd, const char * modelRef);
 
 
+/**
+ * Unsets the "id" attribute of the given ExternalModelDefinition_t structure.
+ *
+ * @param emd the ExternalModelDefinition_t structure to unset
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
+ *
+ * @memberof ExternalModelDefinition_t
+ */
 LIBSBML_EXTERN
 int
 ExternalModelDefinition_unsetId(ExternalModelDefinition_t * emd);
 
 
+/**
+ * Unsets the "source" attribute of the given ExternalModelDefinition_t structure.
+ *
+ * @param emd the ExternalModelDefinition_t structure to unset
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
+ *
+ * @memberof ExternalModelDefinition_t
+ */
 LIBSBML_EXTERN
 int
 ExternalModelDefinition_unsetSource(ExternalModelDefinition_t * emd);
 
 
+/**
+ * Unsets the "name" attribute of the given ExternalModelDefinition_t structure.
+ *
+ * @param emd the ExternalModelDefinition_t structure to unset
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
+ *
+ * @memberof ExternalModelDefinition_t
+ */
 LIBSBML_EXTERN
 int
 ExternalModelDefinition_unsetName(ExternalModelDefinition_t * emd);
 
 
+/**
+ * Unsets the "modelRef" attribute of the given ExternalModelDefinition_t structure.
+ *
+ * @param emd the ExternalModelDefinition_t structure to unset
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
+ *
+ * @memberof ExternalModelDefinition_t
+ */
 LIBSBML_EXTERN
 int
 ExternalModelDefinition_unsetModelRef(ExternalModelDefinition_t * emd);
 
 
+/**
+  * Predicate returning @c true or @c false depending on whether
+  * all the required attributes for the given ExternalModelDefinition_t structure
+  * have been set.
+  *
+  * @note The required attributes for a ExternalModelDefinition_t structure are:
+  * @li useValuesfromTriggerTime ( L3 onwards )
+  *
+ * @memberof ExternalModelDefinition_t
+ */
 LIBSBML_EXTERN
 int
 ExternalModelDefinition_hasRequiredAttributes(ExternalModelDefinition_t * emd);
 
 
+/**
+ * Return the ExternalModelDefinition_t indicated by the given @p sid.
+ *
+ * @param lo the ListOf_t structure to use
+ *
+ * @param sid a string, the identifier of the
+ * ExternalModelDefinition_t is being sought.
+ *
+ * @return the ExternalModelDefinition_t for the given variable, or @c NULL if no such
+ * ExternalModelDefinition_t exits.
+ *
+ * @memberof ExternalModelDefinition_t
+ */
 LIBSBML_EXTERN
 ExternalModelDefinition_t *
 ListOfExternalModelDefinitions_getById(ListOf_t * lo, const char * sid);
 
 
+/**
+ * Removes the ExternalModelDefinition_t object with the given @p sid
+ * from the given ListOf_t object and returns a pointer to it.
+ *
+ * The caller owns the returned object and is responsible for deleting it.
+ *
+ * @param lo the ListOf_t structure
+ * @param sid the string of the "id" attribute of the ExternalModelDefinition_t sought
+ *
+ * @return the ExternalModelDefinition_t object removed.  As mentioned above, the 
+ * caller owns the returned object. @c NULL is returned if no ExternalModelDefinition_t
+ * object with the "id" attribute exists in the given ListOf_t object.
+ *
+ * @memberof ExternalModelDefinition_t
+ */
 LIBSBML_EXTERN
 ExternalModelDefinition_t *
 ListOfExternalModelDefinitions_removeById(ListOf_t * lo, const char * sid);

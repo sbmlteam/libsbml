@@ -709,122 +709,423 @@ LIBSBML_CPP_NAMESPACE_END
 LIBSBML_CPP_NAMESPACE_BEGIN
 BEGIN_C_DECLS
 
+/**
+ * Creates a new SBaseRef_t structure using the given SBML @p level
+ * and @p version values.
+ *
+ * @param level an unsigned int, the SBML Level to assign to this
+ * SBaseRef_t
+ * @param version an unsigned int, the SBML Version to assign to this
+ * SBaseRef_t
+ * @param pkgVersion an unsigned int, the SBML 'Qual' package Version to assign to this
+ * SBaseRef_t
+ *
+ * @return a pointer to the newly created SBaseRef_t structure.
+ *
+ * @memberof SBaseRef_t
+ */
 LIBSBML_EXTERN
 SBaseRef_t *
 SBaseRef_create(unsigned int level, unsigned int version,
                 unsigned int pkgVersion);
 
 
+/**
+ * Frees the given SBaseRef_t structure.
+ *
+ * @param sbr the SBaseRef_t structure to free.
+ *
+ * @memberof SBaseRef_t
+ */
 LIBSBML_EXTERN
 void
 SBaseRef_free(SBaseRef_t * sbr);
 
 
+/**
+ * Returns a copy of the given SBaseRef_t structure.
+ *
+ * @param sbr the SBaseRef_t structure to copy.
+ * 
+ * @return a (deep) copy of the SBaseRef_t.
+ *
+ * @memberof SBaseRef_t
+ */
 LIBSBML_EXTERN
 SBaseRef_t *
 SBaseRef_clone(SBaseRef_t * sbr);
 
 
+/**
+ * Takes a SBaseRef_t structure and returns its portRef.
+ *
+ * @param sbr the SBaseRef_t whose portRef is sought.
+ *
+ * @return the portRef of the given SBaseRef_t, as a pointer to a string.
+ *
+ * @memberof SBaseRef_t
+ */
 LIBSBML_EXTERN
 char *
 SBaseRef_getPortRef(SBaseRef_t * sbr);
 
 
+/**
+ * Takes a SBaseRef_t structure and returns its idRef.
+ *
+ * @param sbr the SBaseRef_t whose idRef is sought.
+ *
+ * @return the idRef of the given SBaseRef_t, as a pointer to a string.
+ *
+ * @memberof SBaseRef_t
+ */
 LIBSBML_EXTERN
 char *
 SBaseRef_getIdRef(SBaseRef_t * sbr);
 
 
+/**
+ * Takes a SBaseRef_t structure and returns its unitRef.
+ *
+ * @param sbr the SBaseRef_t whose unitRef is sought.
+ *
+ * @return the unitRef of the given SBaseRef_t, as a pointer to a string.
+ *
+ * @memberof SBaseRef_t
+ */
 LIBSBML_EXTERN
 char *
 SBaseRef_getUnitRef(SBaseRef_t * sbr);
 
 
+/**
+ * Takes a SBaseRef_t structure and returns its metaIdRef.
+ *
+ * @param sbr the SBaseRef_t whose metaIdRef is sought.
+ *
+ * @return the metaIdRef of the given SBaseRef_t, as a pointer to a string.
+ *
+ * @memberof SBaseRef_t
+ */
 LIBSBML_EXTERN
 char *
 SBaseRef_getMetaIdRef(SBaseRef_t * sbr);
 
 
+/**
+ * Takes a SBaseRef_t structure and returns its child SBaseRef_t, or @c NULL if 
+ * no such child exists.
+ *
+ * @param sbr the SBaseRef_t whose child SBaseRef_t is sought.
+ *
+ * @return the child SBaseRef_t of the given SBaseRef_t, or @c NULL if 
+ * no such child exists.
+ *
+ * @memberof SBaseRef_t
+ */
 LIBSBML_EXTERN
 SBaseRef_t*
 SBaseRef_getSBaseRef(SBaseRef_t * sbr);
 
 
+/**
+ * Predicate returning @c true or @c false depending on whether the given
+ * SBaseRef_t structure's portRef is set.
+ *
+ * @param sbr the SBaseRef_t structure to query
+ * 
+ * @return @c non-zero (true) if the "portRef" attribute of the given
+ * SBaseRef_t structure is set, zero (false) otherwise.
+ *
+ * @memberof SBaseRef_t
+ */
 LIBSBML_EXTERN
 int
 SBaseRef_isSetPortRef(SBaseRef_t * sbr);
 
 
+/**
+ * Predicate returning @c true or @c false depending on whether the given
+ * SBaseRef_t structure's idRef is set.
+ *
+ * @param sbr the SBaseRef_t structure to query
+ * 
+ * @return @c non-zero (true) if the "idRef" attribute of the given
+ * SBaseRef_t structure is set, zero (false) otherwise.
+ *
+ * @memberof SBaseRef_t
+ */
 LIBSBML_EXTERN
 int
 SBaseRef_isSetIdRef(SBaseRef_t * sbr);
 
 
+/**
+ * Predicate returning @c true or @c false depending on whether the given
+ * SBaseRef_t structure's unitRef is set.
+ *
+ * @param sbr the SBaseRef_t structure to query
+ * 
+ * @return @c non-zero (true) if the "unitRef" attribute of the given
+ * SBaseRef_t structure is set, zero (false) otherwise.
+ *
+ * @memberof SBaseRef_t
+ */
 LIBSBML_EXTERN
 int
 SBaseRef_isSetUnitRef(SBaseRef_t * sbr);
 
 
+/**
+ * Predicate returning @c true or @c false depending on whether the given
+ * SBaseRef_t structure's metaIdRef is set.
+ *
+ * @param sbr the SBaseRef_t structure to query
+ * 
+ * @return @c non-zero (true) if the "metaIdRef" attribute of the given
+ * SBaseRef_t structure is set, zero (false) otherwise.
+ *
+ * @memberof SBaseRef_t
+ */
 LIBSBML_EXTERN
 int
 SBaseRef_isSetMetaIdRef(SBaseRef_t * sbr);
 
 
+/**
+ * Predicate returning @c true or @c false depending on whether the given
+ * SBaseRef_t structure's child SBaseRef_t is set.
+ *
+ * @param sbr the SBaseRef_t structure to query
+ * 
+ * @return @c non-zero (true) if the SBaseRef_t child of the given
+ * SBaseRef_t structure is set, zero (false) otherwise.
+ *
+ * @memberof SBaseRef_t
+ */
 LIBSBML_EXTERN
 int
 SBaseRef_isSetSBaseRef(SBaseRef_t * sbr);
 
 
+/**
+ * Sets the portRef of the given SBaseRef_t to a copy of @p portRef.
+ *
+ * @param sbr the SBaseRef_t structure to set
+ * @param portRef the portRef to assign to the given SBaseRef_t's "portRef" attribute.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE @endlink
+ *
+ * @note Using this function with the name set to NULL is equivalent to
+ * unsetting the "portRef" attribute.
+ *
+ * @memberof SBaseRef_t
+ */
 LIBSBML_EXTERN
 int
 SBaseRef_setPortRef(SBaseRef_t * sbr, const char * portRef);
 
 
+/**
+ * Sets the idRef of the given SBaseRef_t to a copy of @p idRef.
+ *
+ * @param sbr the SBaseRef_t structure to set
+ * @param idRef the idRef to assign to the given SBaseRef_t's "idRef" attribute.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE @endlink
+ *
+ * @note Using this function with the name set to NULL is equivalent to
+ * unsetting the "idRef" attribute.
+ *
+ * @memberof SBaseRef_t
+ */
 LIBSBML_EXTERN
 int
 SBaseRef_setIdRef(SBaseRef_t * sbr, const char * idRef);
 
 
+/**
+ * Sets the unitRef of the given SBaseRef_t to a copy of @p unitRef.
+ *
+ * @param sbr the SBaseRef_t structure to set
+ * @param unitRef the unitRef to assign to the given SBaseRef_t's "unitRef" attribute.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE @endlink
+ *
+ * @note Using this function with the name set to NULL is equivalent to
+ * unsetting the "unitRef" attribute.
+ *
+ * @memberof SBaseRef_t
+ */
 LIBSBML_EXTERN
 int
 SBaseRef_setUnitRef(SBaseRef_t * sbr, const char * unitRef);
 
 
+/**
+ * Sets the metaIdRef of the given SBaseRef_t to a copy of @p metaIdRef.
+ *
+ * @param sbr the SBaseRef_t structure to set
+ * @param metaIdRef the metaIdRef to assign to the given SBaseRef_t's "metaIdRef" attribute.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE @endlink
+ *
+ * @note Using this function with the name set to NULL is equivalent to
+ * unsetting the "metaIdRef" attribute.
+ *
+ * @memberof SBaseRef_t
+ */
 LIBSBML_EXTERN
 int
 SBaseRef_setMetaIdRef(SBaseRef_t * sbr, const char * metaIdRef);
 
 
+/**
+ * Sets the sBaseRef of this SBaseRef_t to a copy of the given SBaseRef_t.
+ *
+ * @param sbr the SBaseRef_t structure to set
+ * @param sBaseRef the SBaseRef_t structure to use.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_LEVEL_MISMATCH LIBSBML_LEVEL_MISMATCH @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_VERSION_MISMATCH LIBSBML_VERSION_MISMATCH @endlink
+ *
+ * @memberof SBaseRef_t
+ */
 LIBSBML_EXTERN
 int
 SBaseRef_setSBaseRef(SBaseRef_t * sbr, SBaseRef_t * sBaseRef);
 
 
+/**
+ * Unsets the "portRef" attribute of the given SBaseRef_t structure.
+ *
+ * @param sbr the SBaseRef_t structure to unset
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
+ *
+ * @memberof SBaseRef_t
+ */
 LIBSBML_EXTERN
 int
 SBaseRef_unsetPortRef(SBaseRef_t * sbr);
 
 
+/**
+ * Unsets the "idRef" attribute of the given SBaseRef_t structure.
+ *
+ * @param sbr the SBaseRef_t structure to unset
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
+ *
+ * @memberof SBaseRef_t
+ */
 LIBSBML_EXTERN
 int
 SBaseRef_unsetIdRef(SBaseRef_t * sbr);
 
 
+/**
+ * Unsets the "unitRef" attribute of the given SBaseRef_t structure.
+ *
+ * @param sbr the SBaseRef_t structure to unset
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
+ *
+ * @memberof SBaseRef_t
+ */
 LIBSBML_EXTERN
 int
 SBaseRef_unsetUnitRef(SBaseRef_t * sbr);
 
 
+/**
+ * Unsets the "metaIdRef" attribute of the given SBaseRef_t structure.
+ *
+ * @param sbr the SBaseRef_t structure to unset
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
+ *
+ * @memberof SBaseRef_t
+ */
 LIBSBML_EXTERN
 int
 SBaseRef_unsetMetaIdRef(SBaseRef_t * sbr);
 
 
+/**
+ * Removes the SBaseRef_t child of the given SBaseRef_t structure.
+ *
+ * @param sbr the SBaseRef_t structure to unset
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
+ *
+ * @memberof SBaseRef_t
+ */
 LIBSBML_EXTERN
 int
 SBaseRef_unsetSBaseRef(SBaseRef_t * sbr);
 
 
+/**
+  * Predicate returning @c true or @c false depending on whether
+  * all the required attributes for the given SBaseRef_t structure
+  * have been set.
+  *
+  * @note The required attributes for a SBaseRef_t structure are:
+  * @li useValuesfromTriggerTime ( L3 onwards )
+  *
+ * @memberof SBaseRef_t
+ */
 LIBSBML_EXTERN
 int
 SBaseRef_hasRequiredAttributes(SBaseRef_t * sbr);

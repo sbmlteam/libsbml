@@ -47,7 +47,6 @@ Submodel::Submodel (unsigned int level, unsigned int version, unsigned int pkgVe
   , mId("")
   , mName("")
   , mModelRef("")
-  , mSubstanceConversionFactor("")
   , mTimeConversionFactor("")
   , mExtentConversionFactor("")
   , mListOfDeletions()
@@ -63,7 +62,6 @@ Submodel::Submodel(CompPkgNamespaces* compns)
   , mId("")
   , mName("")
   , mModelRef("")
-  , mSubstanceConversionFactor("")
   , mTimeConversionFactor("")
   , mExtentConversionFactor("")
   , mListOfDeletions()
@@ -80,7 +78,6 @@ Submodel::Submodel(const Submodel& source)
   , mId(source.mId)
   , mName(source.mName)
   , mModelRef(source.mModelRef)
-  , mSubstanceConversionFactor(source.mSubstanceConversionFactor)
   , mTimeConversionFactor(source.mTimeConversionFactor)
   , mExtentConversionFactor(source.mExtentConversionFactor)
   , mListOfDeletions(source.mListOfDeletions)
@@ -98,7 +95,6 @@ Submodel& Submodel::operator=(const Submodel& source)
     mId = source.mId;
     mName = source.mName;
     mModelRef = source.mModelRef;
-    mSubstanceConversionFactor = source.mSubstanceConversionFactor;
     mTimeConversionFactor = source.mTimeConversionFactor;
     mExtentConversionFactor = source.mExtentConversionFactor;
     mListOfDeletions = source.mListOfDeletions;
@@ -279,42 +275,29 @@ Submodel::unsetModelRef ()
 int
 Submodel::setSubstanceConversionFactor (const std::string& substanceConversionFactor)
 {
-  if (!SyntaxChecker::isValidSBMLSId(substanceConversionFactor)) 
-  {
-    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
-  }
-  mSubstanceConversionFactor = substanceConversionFactor;
-  return LIBSBML_OPERATION_SUCCESS;
+  return LIBSBML_INVALID_ATTRIBUTE_VALUE;
 }
 
 
 const string&
 Submodel::getSubstanceConversionFactor () const
 {
-  return mSubstanceConversionFactor;
+  static string blank("");
+  return blank;
 }
 
 
 bool
 Submodel::isSetSubstanceConversionFactor () const
 {
-  return (mSubstanceConversionFactor.empty() == false);
+  return false;
 }
 
 
 int
 Submodel::unsetSubstanceConversionFactor ()
 {
-  mSubstanceConversionFactor.erase();
-
-  if (mSubstanceConversionFactor.empty())
-  {
-    return LIBSBML_OPERATION_SUCCESS;
-  }
-  else
-  {
-    return LIBSBML_OPERATION_FAILED;
-  }
+  return LIBSBML_OPERATION_FAILED;
 }
 
 
@@ -530,7 +513,6 @@ Submodel::addExpectedAttributes(ExpectedAttributes& attributes)
   attributes.add("id");
   attributes.add("name");
   attributes.add("modelRef");
-  attributes.add("substanceConversionFactor");
   attributes.add("timeConversionFactor");
   attributes.add("extentConversionFactor");
 }
@@ -639,12 +621,6 @@ Submodel::readAttributes (const XMLAttributes& attributes,
         logInvalidId("comp:modelRef", mModelRef, "Submodel");
       }
     }
-    XMLTriple triplescf("substanceConversionFactor", mURI, getPrefix());
-    if (attributes.readInto(triplescf, mSubstanceConversionFactor, getErrorLog(), false, getLine(), getColumn())) {
-      if (!SyntaxChecker::isValidSBMLSId(mSubstanceConversionFactor)) {
-        logInvalidId("comp:substanceConversionFactor", mSubstanceConversionFactor);
-      }
-    }
     XMLTriple tripletcf("timeConversionFactor", mURI, getPrefix());
     if (attributes.readInto(tripletcf, mTimeConversionFactor, getErrorLog(), false, getLine(), getColumn())) {
       if (!SyntaxChecker::isValidSBMLSId(mTimeConversionFactor)) {
@@ -675,9 +651,6 @@ Submodel::writeAttributes (XMLOutputStream& stream) const
   }
   if (isSetModelRef()) {
     stream.writeAttribute("modelRef", getPrefix(), mModelRef);
-  }
-  if (isSetSubstanceConversionFactor()) {
-    stream.writeAttribute("substanceConversionFactor", getPrefix(), mSubstanceConversionFactor);
   }
   if (isSetTimeConversionFactor()) {
     stream.writeAttribute("timeConversionFactor", getPrefix(), mTimeConversionFactor);
@@ -1425,10 +1398,7 @@ LIBSBML_EXTERN
 char *
 Submodel_getSubstanceConversionFactor(Submodel_t * s)
 {
-  if (s == NULL)
-    return NULL;
-
-  return s->getSubstanceConversionFactor().empty() ? NULL : safe_strdup(s->getSubstanceConversionFactor().c_str());
+  return NULL;
 }
 
 
@@ -1482,7 +1452,7 @@ LIBSBML_EXTERN
 int
 Submodel_isSetSubstanceConversionFactor(Submodel_t * s)
 {
-  return (s != NULL) ? static_cast<int>(s->isSetSubstanceConversionFactor()) : 0;
+  return 0;
 }
 
 
@@ -1528,9 +1498,9 @@ Submodel_setModelRef(Submodel_t * s, const char * modelRef)
 
 LIBSBML_EXTERN
 int
-Submodel_setSubstanceConversionFactor(Submodel_t * s, const char * timeConversionFactor)
+Submodel_setSubstanceConversionFactor(Submodel_t * s, const char * substanceConversionFactor)
 {
-  return (s != NULL) ? s->setSubstanceConversionFactor(timeConversionFactor) : LIBSBML_INVALID_OBJECT;
+  return LIBSBML_INVALID_ATTRIBUTE_VALUE;
 }
 
 
@@ -1578,7 +1548,7 @@ LIBSBML_EXTERN
 int
 Submodel_unsetSubstanceConversionFactor(Submodel_t * s)
 {
-  return (s != NULL) ? s->unsetSubstanceConversionFactor() : LIBSBML_INVALID_OBJECT;
+  return LIBSBML_OPERATION_FAILED;
 }
 
 

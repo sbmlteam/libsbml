@@ -663,57 +663,188 @@ LIBSBML_CPP_NAMESPACE_END
 LIBSBML_CPP_NAMESPACE_BEGIN
 BEGIN_C_DECLS
 
+/**
+ * Creates a new FunctionTerm_t structure using the given SBML @p level
+ * and @p version values.
+ *
+ * @param level an unsigned int, the SBML Level to assign to this
+ * FunctionTerm_t
+ * @param version an unsigned int, the SBML Version to assign to this
+ * FunctionTerm_t
+ * @param pkgVersion an unsigned int, the SBML 'Qual' package Version to assign to this
+ * FunctionTerm_t
+ *
+ * @return a pointer to the newly created FunctionTerm_t structure.
+ *
+ * @memberof FunctionTerm_t
+ */
 LIBSBML_EXTERN
 FunctionTerm_t *
 FunctionTerm_create(unsigned int level, unsigned int version,
                     unsigned int pkgVersion);
 
 
+/**
+ * Frees the given FunctionTerm_t structure.
+ *
+ * @param ft the FunctionTerm_t structure to free.
+ *
+ * @memberof FunctionTerm_t
+ */
 LIBSBML_EXTERN
 void
 FunctionTerm_free(FunctionTerm_t * ft);
 
 
+/**
+ * Returns a copy of the given FunctionTerm_t structure.
+ *
+ * @param ft the FunctionTerm_t structure to copy.
+ * 
+ * @return a (deep) copy of the FunctionTerm_t.
+ *
+ * @memberof FunctionTerm_t
+ */
 LIBSBML_EXTERN
 FunctionTerm_t *
 FunctionTerm_clone(FunctionTerm_t * ft);
 
 
+/**
+ * Takes a FunctionTerm_t structure and returns its resultLevel.
+ *
+ * @param ft the FunctionTerm_t whose resultLevel is sought.
+ *
+ * @return the resultLevel attribute of the given FunctionTerm_t, as an @c int.
+ *
+ * @memberof FunctionTerm_t
+ */
 LIBSBML_EXTERN
 int
 FunctionTerm_getResultLevel(FunctionTerm_t * ft);
 
 
+/**
+ * Predicate returning @c true or @c false depending on whether the given
+ * FunctionTerm_t structure's resultLevel is set.
+ *
+ * @param ft the FunctionTerm_t structure to query
+ * 
+ * @return @c non-zero (true) if the "resultLevel" attribute of the given
+ * FunctionTerm_t structure is set, zero (false) otherwise.
+ *
+ * @memberof FunctionTerm_t
+ */
 LIBSBML_EXTERN
 int
 FunctionTerm_isSetResultLevel(FunctionTerm_t * ft);
 
 
+/**
+ * Sets the "resultLevel" attribute of the given FunctionTerm_t
+ * structure.
+ *
+ * @param ft the FunctionTerm_t structure
+ * 
+ * @param resultLevel the value of resultLevel to assign to the "resultLevel" attribute
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_UNEXPECTED_ATTRIBUTE LIBSBML_UNEXPECTED_ATTRIBUTE @endlink
+ *
+ * @memberof FunctionTerm_t
+ */
 LIBSBML_EXTERN
 int
 FunctionTerm_setResultLevel(FunctionTerm_t * ft, int resultLevel);
 
 
+/**
+ * Unsets the "resultLevel" attribute of the given FunctionTerm_t structure.
+ *
+ * @param ft the FunctionTerm_t structure to unset
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
+ *
+ * @memberof FunctionTerm_t
+ */
 LIBSBML_EXTERN
 int
 FunctionTerm_unsetResultLevel(FunctionTerm_t * ft);
 
 
+/**
+  * Predicate returning @c true or @c false depending on whether
+  * all the required attributes for the given FunctionTerm_t structure
+  * have been set.
+  *
+  * @note The required attributes for a FunctionTerm_t structure are:
+  * @li useValuesfromTriggerTime ( L3 onwards )
+  *
+ * @memberof FunctionTerm_t
+ */
 LIBSBML_EXTERN
 int
 FunctionTerm_hasRequiredAttributes(FunctionTerm_t * ft);
 
 
+/**
+  * Predicate returning @c true or @c false depending on whether
+  * all the required elements for the given FunctionTerm_t structure
+  * have been set.
+  *
+  * @note The required elements for an FunctionTerm_t object are:
+  * @li trigger
+  * @li listOfEventAssignments (requirement removed in L3)
+  *
+ * @memberof FunctionTerm_t
+ */
 LIBSBML_EXTERN
 int
 FunctionTerm_hasRequiredElements(FunctionTerm_t * ft);
 
 
+/**
+ * Return the FunctionTerm_t indicated by the given @p sid.
+ *
+ * @param lo the ListOf_t structure to use
+ *
+ * @param sid a string, the identifier of the
+ * FunctionTerm_t is being sought.
+ *
+ * @return the FunctionTerm_t for the given variable, or @c NULL if no such
+ * FunctionTerm_t exits.
+ *
+ * @memberof FunctionTerm_t
+ */
 LIBSBML_EXTERN
 FunctionTerm_t *
 ListOfFunctionTerms_getById(ListOf_t * lo, const char * sid);
 
 
+/**
+ * Removes the FunctionTerm_t object with the given @p sid
+ * from the given ListOf_t object and returns a pointer to it.
+ *
+ * The caller owns the returned object and is responsible for deleting it.
+ *
+ * @param lo the ListOf_t structure
+ * @param sid the string of the "id" attribute of the FunctionTerm_t sought
+ *
+ * @return the FunctionTerm_t object removed.  As mentioned above, the 
+ * caller owns the returned object. @c NULL is returned if no FunctionTerm_t
+ * object with the "id" attribute exists in the given ListOf_t object.
+ *
+ * @memberof FunctionTerm_t
+ */
 LIBSBML_EXTERN
 FunctionTerm_t *
 ListOfFunctionTerms_removeById(ListOf_t * lo, const char * sid);

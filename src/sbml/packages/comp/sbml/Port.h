@@ -369,72 +369,247 @@ LIBSBML_CPP_NAMESPACE_END
 LIBSBML_CPP_NAMESPACE_BEGIN
 BEGIN_C_DECLS
 
+/**
+ * Creates a new Port_t structure using the given SBML @p level
+ * and @p version values.
+ *
+ * @param level an unsigned int, the SBML Level to assign to this
+ * Port_t
+ * @param version an unsigned int, the SBML Version to assign to this
+ * Port_t
+ * @param pkgVersion an unsigned int, the SBML 'Qual' package Version to assign to this
+ * Port_t
+ *
+ * @return a pointer to the newly created Port_t structure.
+ *
+ * @memberof Port_t
+ */
 LIBSBML_EXTERN
 Port_t *
 Port_create(unsigned int level, unsigned int version,
             unsigned int pkgVersion);
 
 
+/**
+ * Frees the given Port_t structure.
+ *
+ * @param p the Port_t structure to free.
+ *
+ * @memberof Port_t
+ */
 LIBSBML_EXTERN
 void
 Port_free(Port_t * p);
 
 
+/**
+ * Returns a copy of the given Port_t structure.
+ *
+ * @param p the Port_t structure to copy.
+ * 
+ * @return a (deep) copy of the Port_t.
+ *
+ * @memberof Port_t
+ */
 LIBSBML_EXTERN
 Port_t *
 Port_clone(Port_t * p);
 
 
+/**
+ * Takes an Port_t structure and returns its identifier.
+ *
+ * @param p the Port_t structure whose identifier is sought
+ * 
+ * @return the identifier of the given Port_t, as a pointer to a string.
+ *
+ * @memberof Port_t
+ */
 LIBSBML_EXTERN
 char *
 Port_getId(Port_t * p);
 
 
+/**
+ * Takes a Port_t structure and returns its name.
+ *
+ * @param p the Port_t whose name is sought.
+ *
+ * @return the name of the given Port_t, as a pointer to a string.
+ *
+ * @memberof Port_t
+ */
 LIBSBML_EXTERN
 char *
 Port_getName(Port_t * p);
 
 
+/**
+ * Predicate returning @c true or @c false depending on whether the given
+ * Port_t structure's identifier is set.
+ *
+ * @param p the Port_t structure to query
+ * 
+ * @return @c non-zero (true) if the "id" attribute of the given
+ * Port_t structure is set, zero (false) otherwise.
+ *
+ * @memberof Port_t
+ */
 LIBSBML_EXTERN
 int
 Port_isSetId(Port_t * p);
 
 
+/**
+ * Predicate returning @c true or @c false depending on whether the given
+ * Port_t structure's name is set.
+ *
+ * @param p the Port_t structure to query
+ * 
+ * @return @c non-zero (true) if the "name" attribute of the given
+ * Port_t structure is set, zero (false) otherwise.
+ *
+ * @memberof Port_t
+ */
 LIBSBML_EXTERN
 int
 Port_isSetName(Port_t * p);
 
 
+/**
+ * Assigns the identifier of an Port_t structure.
+ *
+ * This makes a copy of the string passed in the param @p sid.
+ *
+ * @param p the Port_t structure to set.
+ * @param sid the string to use as the identifier.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE @endlink
+ *
+ * @note Using this function with an id of NULL is equivalent to
+ * unsetting the "id" attribute.
+ *
+ * @memberof Port_t
+ */
 LIBSBML_EXTERN
 int
-Port_setId(Port_t * p, const char * id);
+Port_setId(Port_t * p, const char * sid);
 
 
+/**
+ * Sets the name of the given Port_t to a copy of @p name.
+ *
+ * @param p the Port_t structure to set
+ * @param name the name to assign to the given Port_t's "name" attribute.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE @endlink
+ *
+ * @note Using this function with the name set to NULL is equivalent to
+ * unsetting the "name" attribute.
+ *
+ * @memberof Port_t
+ */
 LIBSBML_EXTERN
 int
 Port_setName(Port_t * p, const char * name);
 
 
+/**
+ * Unsets the "id" attribute of the given Port_t structure.
+ *
+ * @param p the Port_t structure to unset
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
+ *
+ * @memberof Port_t
+ */
 LIBSBML_EXTERN
 int
 Port_unsetId(Port_t * p);
 
 
+/**
+ * Unsets the "name" attribute of the given Port_t structure.
+ *
+ * @param p the Port_t structure to unset
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
+ *
+ * @memberof Port_t
+ */
 LIBSBML_EXTERN
 int
 Port_unsetName(Port_t * p);
 
 
+/**
+  * Predicate returning @c true or @c false depending on whether
+  * all the required attributes for the given Port_t structure
+  * have been set.
+  *
+  * @note The required attributes for a Port_t structure are:
+  * @li useValuesfromTriggerTime ( L3 onwards )
+  *
+ * @memberof Port_t
+ */
 LIBSBML_EXTERN
 int
 Port_hasRequiredAttributes(Port_t * p);
 
 
+/**
+ * Return the Port_t indicated by the given @p sid.
+ *
+ * @param lo the ListOf_t structure to use
+ *
+ * @param sid a string, the identifier of the
+ * Port_t is being sought.
+ *
+ * @return the Port_t for the given variable, or @c NULL if no such
+ * Port_t exits.
+ *
+ * @memberof Port_t
+ */
 LIBSBML_EXTERN
 Port_t *
 ListOfPorts_getById(ListOf_t * lo, const char * sid);
 
 
+/**
+ * Removes the Port_t object with the given @p sid
+ * from the given ListOf_t object and returns a pointer to it.
+ *
+ * The caller owns the returned object and is responsible for deleting it.
+ *
+ * @param lo the ListOf_t structure
+ * @param sid the string of the "id" attribute of the Port_t sought
+ *
+ * @return the Port_t object removed.  As mentioned above, the 
+ * caller owns the returned object. @c NULL is returned if no Port_t
+ * object with the "id" attribute exists in the given ListOf_t object.
+ *
+ * @memberof Port_t
+ */
 LIBSBML_EXTERN
 Port_t *
 ListOfPorts_removeById(ListOf_t * lo, const char * sid);

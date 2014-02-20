@@ -1456,7 +1456,7 @@ FbcModelPlugin_getActiveObjectiveId(SBasePlugin_t * fbc)
 
 LIBSBML_EXTERN
 int
-FbcModelPlugin_setActiveObjectiveId(SBasePlugin_t * fbc, char * activeId)
+FbcModelPlugin_setActiveObjectiveId(SBasePlugin_t * fbc, const char * activeId)
 {
   return (fbc != NULL) 
     ? static_cast<FbcModelPlugin *>(fbc)->setActiveObjectiveId(activeId) 

@@ -654,130 +654,472 @@ LIBSBML_CPP_NAMESPACE_END
 LIBSBML_CPP_NAMESPACE_BEGIN
 BEGIN_C_DECLS
 
-/*
- * C API will be added here.
+/**
+ * Creates a new FluxBound_t structure using the given SBML @p level
+ * and @p version values.
+ *
+ * @param level an unsigned int, the SBML Level to assign to this
+ * FluxBound_t
+ * @param version an unsigned int, the SBML Version to assign to this
+ * FluxBound_t
+ * @param pkgVersion an unsigned int, the SBML 'Qual' package Version to assign to this
+ * FluxBound_t
+ *
+ * @return a pointer to the newly created FluxBound_t structure.
+ *
+ * @memberof FluxBound_t
  */
-
 LIBSBML_EXTERN
 FluxBound_t *
-FluxBound_create(unsigned int level, unsigned int version, unsigned int pkgversion);
+FluxBound_create(unsigned int level, unsigned int version, unsigned int pkgVersion);
 
 
+/**
+ * Takes an FluxBound_t structure and returns its identifier.
+ *
+ * @param fb the FluxBound_t structure whose identifier is sought
+ * 
+ * @return the identifier of the given FluxBound_t, as a pointer to a string.
+ *
+ * @memberof FluxBound_t
+ */
 LIBSBML_EXTERN
 const char *
 FluxBound_getId(FluxBound_t * fb);
 
 
+/**
+ * Predicate returning @c true or @c false depending on whether the given
+ * FluxBound_t structure's identifier is set.
+ *
+ * @param fb the FluxBound_t structure to query
+ * 
+ * @return @c non-zero (true) if the "id" attribute of the given
+ * FluxBound_t structure is set, zero (false) otherwise.
+ *
+ * @memberof FluxBound_t
+ */
 LIBSBML_EXTERN
 int
 FluxBound_isSetId(FluxBound_t * fb);
 
 
+/**
+ * Assigns the identifier of an FluxBound_t structure.
+ *
+ * This makes a copy of the string passed in the param @p sid.
+ *
+ * @param fb the FluxBound_t structure to set.
+ * @param sid the string to use as the identifier.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE @endlink
+ *
+ * @note Using this function with an id of NULL is equivalent to
+ * unsetting the "id" attribute.
+ *
+ * @memberof FluxBound_t
+ */
 LIBSBML_EXTERN
 int
-FluxBound_setId(FluxBound_t * fb, const char * id);
+FluxBound_setId(FluxBound_t * fb, const char * sid);
 
 
+/**
+ * Unsets the "id" attribute of the given FluxBound_t structure.
+ *
+ * @param fb the FluxBound_t structure to unset
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
+ *
+ * @memberof FluxBound_t
+ */
 LIBSBML_EXTERN
 int
 FluxBound_unsetId(FluxBound_t * fb);
 
+/**
+ * Takes a FluxBound_t structure and returns its name.
+ *
+ * @param fb the FluxBound_t whose name is sought.
+ *
+ * @return the name of the given FluxBound_t, as a pointer to a string.
+ *
+ * @memberof FluxBound_t
+ */
 LIBSBML_EXTERN
 const char *
 FluxBound_getName(FluxBound_t * fb);
 
 
+/**
+ * Predicate returning @c true or @c false depending on whether the given
+ * FluxBound_t structure's name is set.
+ *
+ * @param fb the FluxBound_t structure to query
+ * 
+ * @return @c non-zero (true) if the "name" attribute of the given
+ * FluxBound_t structure is set, zero (false) otherwise.
+ *
+ * @memberof FluxBound_t
+ */
 LIBSBML_EXTERN
 int
 FluxBound_isSetName(FluxBound_t * fb);
 
 
+/**
+ * Sets the name of the given FluxBound_t to a copy of @p name.
+ *
+ * @param fb the FluxBound_t structure to set
+ * @param name the name to assign to the given FluxBound_t's "name" attribute.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE @endlink
+ *
+ * @note Using this function with the name set to NULL is equivalent to
+ * unsetting the "name" attribute.
+ *
+ * @memberof FluxBound_t
+ */
 LIBSBML_EXTERN
 int
 FluxBound_setName(FluxBound_t * fb, const char * name);
 
 
+/**
+ * Unsets the "name" attribute of the given FluxBound_t structure.
+ *
+ * @param fb the FluxBound_t structure to unset
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
+ *
+ * @memberof FluxBound_t
+ */
 LIBSBML_EXTERN
 int
 FluxBound_unsetName(FluxBound_t * fb);
 
 
+/**
+ * Takes a FluxBound_t structure and returns its reaction.
+ *
+ * @param fb the FluxBound_t whose reaction is sought.
+ *
+ * @return the reaction of the given FluxBound_t, as a pointer to a string.
+ *
+ * @memberof FluxBound_t
+ */
 LIBSBML_EXTERN
 const char *
 FluxBound_getReaction(FluxBound_t * fb);
 
 
+/**
+ * Predicate returning @c true or @c false depending on whether the given
+ * FluxBound_t structure's reaction is set.
+ *
+ * @param fb the FluxBound_t structure to query
+ * 
+ * @return @c non-zero (true) if the "reaction" attribute of the given
+ * FluxBound_t structure is set, zero (false) otherwise.
+ *
+ * @memberof FluxBound_t
+ */
 LIBSBML_EXTERN
 int
 FluxBound_isSetReaction(FluxBound_t * fb);
 
 
+/**
+ * Sets the reaction of the given FluxBound_t to a copy of @p reaction.
+ *
+ * @param fb the FluxBound_t structure to set
+ * @param reaction the reaction to assign to the given FluxBound_t's "reaction" attribute.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE @endlink
+ *
+ * @note Using this function with the name set to NULL is equivalent to
+ * unsetting the "reaction" attribute.
+ *
+ * @memberof FluxBound_t
+ */
 LIBSBML_EXTERN
 int
 FluxBound_setReaction(FluxBound_t * fb, const char * reaction);
 
 
+/**
+ * Unsets the "reaction" attribute of the given FluxBound_t structure.
+ *
+ * @param fb the FluxBound_t structure to unset
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
+ *
+ * @memberof FluxBound_t
+ */
 LIBSBML_EXTERN
 int
 FluxBound_unsetReaction(FluxBound_t * fb);
 
 
+/**
+ * Takes a FluxBound_t structure and returns its operation.
+ *
+ * @param fb the FluxBound_t whose operation is sought.
+ *
+ * @return the operation of the given FluxBound_t, as a pointer to a string.
+ *
+ * @memberof FluxBound_t
+ */
 LIBSBML_EXTERN
 const char *
 FluxBound_getOperation(FluxBound_t * fb);
 
 
+/**
+ * Predicate returning @c true or @c false depending on whether the given
+ * FluxBound_t structure's operation is set.
+ *
+ * @param fb the FluxBound_t structure to query
+ * 
+ * @return @c non-zero (true) if the "operation" attribute of the given
+ * FluxBound_t structure is set, zero (false) otherwise.
+ *
+ * @memberof FluxBound_t
+ */
 LIBSBML_EXTERN
 int
 FluxBound_isSetOperation(FluxBound_t * fb);
 
 
+/**
+ * Sets the operation of the given FluxBound_t to a copy of @p operation.
+ *
+ * @param fb the FluxBound_t structure to set
+ * @param operation the operation to assign to the given FluxBound_t's "operation" attribute.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE @endlink
+ *
+ * @note Using this function with the name set to NULL is equivalent to
+ * unsetting the "operation" attribute.
+ *
+ * @memberof FluxBound_t
+ */
 LIBSBML_EXTERN
 int
 FluxBound_setOperation(FluxBound_t * fb, const char * operation);
 
 
+/**
+ * Unsets the "operation" attribute of the given FluxBound_t structure.
+ *
+ * @param fb the FluxBound_t structure to unset
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
+ *
+ * @memberof FluxBound_t
+ */
 LIBSBML_EXTERN
 int
 FluxBound_unsetOperation(FluxBound_t * fb);
 
 
+/**
+ * Takes a FluxBound_t structure and returns its value.
+ *
+ * @param fb the FluxBound_t whose value is sought.
+ *
+ * @return the value attribute of the given FluxBound_t, as a @c double.
+ *
+ * @memberof FluxBound_t
+ */
 LIBSBML_EXTERN
 double
 FluxBound_getValue(FluxBound_t * fb);
 
 
+/**
+ * Predicate returning @c true or @c false depending on whether the given
+ * FluxBound_t structure's value is set.
+ *
+ * @param fb the FluxBound_t structure to query
+ * 
+ * @return @c non-zero (true) if the "value" attribute of the given
+ * FluxBound_t structure is set, zero (false) otherwise.
+ *
+ * @memberof FluxBound_t
+ */
 LIBSBML_EXTERN
 int
 FluxBound_isSetValue(FluxBound_t * fb);
 
 
+/**
+ * Sets the "value" attribute of the given FluxBound_t
+ * structure.
+ *
+ * @param fb the FluxBound_t structure
+ * 
+ * @param value the value of value to assign to the "value" attribute
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_UNEXPECTED_ATTRIBUTE LIBSBML_UNEXPECTED_ATTRIBUTE @endlink
+ *
+ * @memberof FluxBound_t
+ */
 LIBSBML_EXTERN
 int
 FluxBound_setValue(FluxBound_t * fb, double value);
 
 
+/**
+ * Unsets the "value" attribute of the given FluxBound_t structure.
+ *
+ * @param fb the FluxBound_t structure to unset
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
+ *
+ * @memberof FluxBound_t
+ */
 LIBSBML_EXTERN
 int
 FluxBound_unsetValue(FluxBound_t * fb);
 
-
-
+/**
+ * Returns the string version of the provided FluxBoundOperation_t enumeration.
+ *
+ * @param type The FluxBoundOperation_t enumeration to convert
+ *
+ * @return A string corresponding to the given effect:  "lessEqual", 
+ * "greaterEqual", "equal", or NULL if the value is FLUXBOUND_OPERATION_UNKNOWN 
+ * or another invalid enumeration value.
+ *
+ * @note In an earlier version of this specification, "less" and "greater" were
+ * options that were dropped in the final version of the specification.
+ * Accordingly, "less" is always converted to "lessEqual", and "greater" is 
+ * always converted to "greaterEqual".
+ *
+ * @memberof FluxBound_t
+ */
 LIBSBML_EXTERN
 const char* 
 FluxBoundOperation_toString(FluxBoundOperation_t type);
 
 
+/**
+ * Returns the FluxBoundOperation_t enumeration corresponding to 
+ * the given string, or FLUXBOUND_OPERATION_UNKNOWN if there is 
+ * no such match.  The matching is case-sensitive:  "lessEqual" will 
+ * return FLUXBOUND_OPERATION_LESS_EQUAL, but "lessequal" will return 
+ * FLUXBOUND_OPERATION_UNKNOWN.
+ *
+ * @param s The string to convert to an FluxBoundOperation_t
+ *
+ * @return The corresponding FluxBoundOperation_t, or 
+ * FLUXBOUND_OPERATION_UNKNOWN if no match found.
+ *
+ * @note In an earlier version of this specification, "less" and "greater" were
+ * options that were dropped in the final version of the specification.
+ * Accordingly, "less" is always converted to "lessEqual", and "greater" is 
+ * always converted to "greaterEqual".
+ *
+ * @memberof FluxBound_t
+ */
 LIBSBML_EXTERN
 FluxBoundOperation_t 
 FluxBoundOperation_fromString(const char* s);
 
 
+/**
+ * Predicate returning @c true (non-zero) or @c false (zero) depending on whether the given
+ * FluxBoundOperation_t is valid.
+ *
+ * @param type the FluxBoundOperation_t enumeration to query
+ * 
+ * @return @c non-zero (true) if the FluxBoundOperation_t is
+ * FLUXBOUND_OPERATION_LESS_EQUAL, FLUXBOUND_OPERATION_GREATER_EQUAL, 
+ * FLUXBOUND_OPERATION_LESS, FLUXBOUND_OPERATION_GREATER, or 
+ * FLUXBOUND_OPERATION_EQUAL;
+ * zero (false) otherwise (including FLUXBOUND_OPERATION_UNKNOWN).
+ *
+ * @note In an earlier version of this specification, "less" and "greater" were
+ * options that were dropped in the final version of the specification.
+ * Accordingly, "less" is always converted to "lessEqual", and "greater" is 
+ * always converted to "greaterEqual".
+ *
+ * @memberof FluxBound_t
+ */
 LIBSBML_EXTERN
 int 
 FluxBoundOperation_isValidFluxBoundOperation(FluxBoundOperation_t type);
 
 
+/**
+ * Predicate returning @c true (non-zero) or @c false (zero) depending 
+ * on whether the given string is a valid FluxBoundOperation_t.  
+ * The matching is case-sensitive:  "lessEqual" will return @c true, but 
+ * "lessequal" will return @c false.
+ *
+ * @param s The string to query
+ * 
+ * @return @c non-zero (true) if the string is
+ * "lessEqual", "greaterEqual", "less", "greater", or "equal"; zero (false) otherwise.
+ *
+ * @note In an earlier version of this specification, "less" and "greater" were
+ * options that were dropped in the final version of the specification.
+ * Accordingly, "less" is always converted to "lessEqual", and "greater" is 
+ * always converted to "greaterEqual".
+ *
+ * @memberof FluxBound_t
+ */
 LIBSBML_EXTERN
 int 
 FluxBoundOperation_isValidFluxBoundOperationString(const char* s);

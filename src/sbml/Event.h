@@ -1070,7 +1070,7 @@ public:
    * Predicate returning @c true if all the required attributes for this
    * Event object have been set.
    *
-   * @note The required attributes for a Event object are:
+   * @note The required attributes for an Event object are:
    * @li "useValuesfromTriggerTime" (required in SBML Level&nbsp;3)
    */
   virtual bool hasRequiredAttributes() const;
@@ -1078,10 +1078,10 @@ public:
 
   /**
    * Predicate returning @c true if
-   * all the required elements for this Event object
+   * all the required elements for the given Event_t structure
    * have been set.
    *
-   * @note The required elements for a Event object are:
+   * @note The required elements for an Event object are:
    * @li "trigger"
    * @li "listOfEventAssignments" (required in SBML Level&nbsp;2, optional in Level&nbsp;3)
    */
@@ -1233,7 +1233,7 @@ public:
 
 
    /**
-   * Get a Event from the ListOfEvents.
+   * Get an Event from the ListOfEvents.
    *
    * @param n the index number of the Event to get.
    * 
@@ -1245,7 +1245,7 @@ public:
 
 
   /**
-   * Get a Event from the ListOfEvents.
+   * Get an Event from the ListOfEvents.
    *
    * @param n the index number of the Event to get.
    * 
@@ -1257,7 +1257,7 @@ public:
 
 
   /**
-   * Get a Event from the ListOfEvents
+   * Get an Event from the ListOfEvents
    * based on its identifier.
    *
    * @param sid a string representing the identifier 
@@ -1274,7 +1274,7 @@ public:
 
 
   /**
-   * Get a Event from the ListOfEvents
+   * Get an Event from the ListOfEvents
    * based on its identifier.
    *
    * @param sid a string representing the identifier 
@@ -1371,16 +1371,16 @@ BEGIN_C_DECLS
  * and @p version values.
  *
  * @param level an unsigned int, the SBML Level to assign to this
- * Event
+ * Event_t
  *
  * @param version an unsigned int, the SBML Version to assign to this
- * Event
+ * Event_t
  *
  * @return a pointer to the newly created Event_t structure.
  *
- * @note Once a Event has been added to an SBMLDocument, the @p
+ * @note Once an Event_t has been added to an SBMLDocument, the @p
  * level and @p version for the document @em override those used to create
- * the Event.  Despite this, the ability to supply the values at
+ * the Event_t.  Despite this, the ability to supply the values at
  * creation time is an important aid to creating valid SBML.  Knowledge of
  * the intended SBML Level and Version  determine whether it is valid to
  * assign a particular value to an attribute, or whether it is valid to add
@@ -1398,13 +1398,13 @@ Event_create (unsigned int level, unsigned int version);
  * SBMLNamespaces_t structure.
  *
  * @param sbmlns SBMLNamespaces, a pointer to an SBMLNamespaces structure
- * to assign to this Event
+ * to assign to the given Event_t
  *
  * @return a pointer to the newly created Event_t structure.
  *
- * @note Once a Event has been added to an SBMLDocument, the
+ * @note Once an Event_t has been added to an SBMLDocument, the
  * @p sbmlns namespaces for the document @em override those used to create
- * the Event.  Despite this, the ability to supply the values at creation time
+ * the Event_t.  Despite this, the ability to supply the values at creation time
  * is an important aid to creating valid SBML.  Knowledge of the intended SBML
  * Level and Version determine whether it is valid to assign a particular value
  * to an attribute, or whether it is valid to add an object to an existing
@@ -1444,7 +1444,7 @@ Event_clone (const Event_t *e);
 
 
 /**
- * Returns a list of XMLNamespaces_t associated with this Event_t
+ * Returns a list of XMLNamespaces_t associated with the given Event_t
  * structure.
  *
  * @param e the Event_t structure
@@ -1464,7 +1464,7 @@ Event_getNamespaces(Event_t *e);
  *
  * @param e the Event_t structure whose identifier is sought
  * 
- * @return the identifier of this Event_t, as a pointer to a string.
+ * @return the identifier of the given Event_t, as a pointer to a string.
  *
  * @memberof Event_t
  */
@@ -1474,11 +1474,11 @@ Event_getId (const Event_t *e);
 
 
 /**
- * Takes a Event_t structure and returns its name.
+ * Takes an Event_t structure and returns its name.
  *
  * @param e the Event_t whose name is sought.
-
- * @return the name of this Event_t, as a pointer to a string.
+ *
+ * @return the name of the given Event_t, as a pointer to a string.
  *
  * @memberof Event_t
  */
@@ -1492,7 +1492,7 @@ Event_getName (const Event_t *e);
  *
  * @param e the Event_t structure whose trigger definition is sought.
  * 
- * @return the Trigger_t of this Event.
+ * @return the Trigger_t of the given Event_t.
  *
  * @memberof Event_t
  */
@@ -1506,7 +1506,7 @@ Event_getTrigger (Event_t *e);
  *
  * @param e the Event_t structure whose delay definition is sought.
  * 
- * @return the Delay_t of this Event.
+ * @return the Delay_t of the given Event_t.
  *
  * @memberof Event_t
  */
@@ -1520,7 +1520,7 @@ Event_getDelay (Event_t *e);
  *
  * @param e the Event_t structure whose delay definition is sought.
  * 
- * @return the Priority_t of this Event.
+ * @return the Priority_t of the given Event_t.
  *
  * @memberof Event_t
  */
@@ -1535,9 +1535,9 @@ Event_getPriority (Event_t *e);
  *
  * @param e the Event_t structure whose "timeUnits" value is sought
  * 
- * @return the timeUnits of this Event
+ * @return the timeUnits of the given Event_t
  *
- * @warning Definitions of Event in SBML Level 2 Versions 1 and 2
+ * @warning Definitions of Event_t in SBML Level 2 Versions 1 and 2
  * included the additional attribute called "timeUnits", but it was
  * removed in SBML Level 2 Version 3.  LibSBML supports this attribute
  * for compatibility with previous versions of SBML Level 2, but its use
@@ -1556,7 +1556,7 @@ Event_getTimeUnits (const Event_t *e);
  *
  * @param e the Event_t structure whose "useValuesFromTriggerTime" value is sought
  * 
- * @return the useValuesFromTriggerTime of this Event
+ * @return the useValuesFromTriggerTime of the given Event_t
  *
  * @memberof Event_t
  */
@@ -1654,7 +1654,7 @@ Event_isSetPriority (const Event_t *e);
  * @return @c non-zero (true) if a value for the "timeUnits" attribute is
  * assigned in the given Event_t structure, zero (false) otherwise.
  *
- * @warning Definitions of Event in SBML Level 2 Versions 1 and 2
+ * @warning Definitions of Event_t in SBML Level 2 Versions 1 and 2
  * included the additional attribute called "timeUnits", but it was
  * removed in SBML Level 2 Version 3.  LibSBML supports this attribute
  * for compatibility with previous versions of SBML Level 2, but its use
@@ -1709,10 +1709,10 @@ Event_setId (Event_t *e, const char *sid);
 
 
 /**
- * Sets the name of this Event to a copy of @p name.
+ * Sets the name of the given Event_t to a copy of @p name.
  *
  * @param e the Event_t structure to set
- * @param name the name to assign to this Event_t's "name" attribute.
+ * @param name the name to assign to the given Event_t's "name" attribute.
  *
  * @return integer value indicating success/failure of the
  * function.  @if clike The value is drawn from the
@@ -1732,7 +1732,7 @@ Event_setName (Event_t *e, const char *name);
 
 
 /**
- * Sets the trigger of this Event to a copy of the given Trigger.
+ * Sets the trigger of the given Event_t to a copy of the given Trigger.
  *
  * @param e the Event_t structure to set
  * @param trigger the Trigger_t structure to use.
@@ -1753,7 +1753,7 @@ Event_setTrigger (Event_t *e, const Trigger_t *trigger);
 
 
 /**
- * Sets the delay of this Event to a copy of the given Delay.
+ * Sets the delay of the given Event_t to a copy of the given Delay.
  * 
  * @param e the Event_t structure to set
  * @param delay the Delay_t structure to use.
@@ -1774,7 +1774,7 @@ Event_setDelay (Event_t *e, const Delay_t *delay);
 
 
 /**
- * Sets the priority of this Event to a copy of the given Priority.
+ * Sets the priority of the given Event_t to a copy of the given Priority.
  * 
  * @param e the Event_t structure to set
  * @param priority the Priority_t structure to use.
@@ -1796,13 +1796,13 @@ Event_setPriority (Event_t *e, const Priority_t *priority);
 
 
 /**
- * Sets the "timeUnits" attribute of this Event to a copy of @p sid.
+ * Sets the "timeUnits" attribute of the given Event_t to a copy of @p sid.
  * 
  * @param e the Event_t structure to set
  * @param sid the identifier of the units to use as the value of the
  * "timeUnits" attribute
  *
- * @warning Definitions of Event in SBML Level 2 Versions 1 and 2
+ * @warning Definitions of Event_t in SBML Level 2 Versions 1 and 2
  * included the additional attribute called "timeUnits", but it was
  * removed in SBML Level 2 Version 3.  LibSBML supports this attribute
  * for compatibility with previous versions of SBML Level 2, but its use
@@ -1827,7 +1827,7 @@ Event_setTimeUnits (Event_t *e, const char *sid);
 
 
 /**
- * Sets the "useValuesFromTriggerTime" attribute of this Event to a @p value.
+ * Sets the "useValuesFromTriggerTime" attribute of the given Event_t to a @p value.
  * 
  * @param e the Event_t structure to set
  * @param value the value of the "useValuesFromTriggerTime" attribute
@@ -1847,7 +1847,7 @@ Event_setUseValuesFromTriggerTime (Event_t *e, int value);
 
 
 /**
- * Unsets the "id" attribute of this Event_t structure.
+ * Unsets the "id" attribute of the given Event_t structure.
  *
  * @param e the Event_t structure to unset
  *
@@ -1866,7 +1866,7 @@ Event_unsetId (Event_t *e);
 
 
 /**
- * Unsets the "name" attribute of this Event_t structure.
+ * Unsets the "name" attribute of the given Event_t structure.
  *
  * @param e the Event_t structure to unset
  *
@@ -1885,7 +1885,7 @@ Event_unsetName (Event_t *e);
 
 
 /**
- * Unsets the delay of this Event.
+ * Unsets the delay of the given Event_t.
  *
  * @param e the Event_t structure to unset
  *
@@ -1904,7 +1904,7 @@ Event_unsetDelay (Event_t *e);
 
 
 /**
- * Unsets the priority of this Event.
+ * Unsets the priority of the given Event_t.
  *
  * @param e the Event_t structure to unset
  *
@@ -1923,7 +1923,7 @@ Event_unsetPriority (Event_t *e);
 
 
 /**
- * Unsets the "timeUnits" attribute of this Event.
+ * Unsets the "timeUnits" attribute of the given Event_t.
  *
  * @param e the Event_t structure to unset
  *
@@ -1934,7 +1934,7 @@ Event_unsetPriority (Event_t *e);
  * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
  * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
  *
- * @warning Definitions of Event in SBML Level 2 Versions 1 and 2
+ * @warning Definitions of Event_t in SBML Level 2 Versions 1 and 2
  * included the additional attribute called "timeUnits", but it was
  * removed in SBML Level 2 Version 3.  LibSBML supports this attribute
  * for compatibility with previous versions of SBML Level 2, but its use
@@ -1949,10 +1949,10 @@ Event_unsetTimeUnits (Event_t *e);
 
 /**
   * Predicate returning @c true or @c false depending on whether
-  * all the required attributes for this Event object
+  * all the required attributes for the given Event_t structure
   * have been set.
   *
-  * @note The required attributes for a Event object are:
+  * @note The required attributes for an Event_t structure are:
   * @li useValuesfromTriggerTime ( L3 onwards )
   *
  * @memberof Event_t
@@ -1964,10 +1964,10 @@ Event_hasRequiredAttributes (Event_t *e);
 
 /**
   * Predicate returning @c true or @c false depending on whether
-  * all the required elements for this Event object
+  * all the required elements for the given Event_t structure
   * have been set.
   *
-  * @note The required elements for a Event object are:
+  * @note The required elements for an Event_t object are:
   * @li trigger
   * @li listOfEventAssignments (requirement removed in L3)
   *
@@ -1979,10 +1979,10 @@ Event_hasRequiredElements (Event_t *e);
 
 
 /**
- * Appends a copy of the given EventAssignment_t structure to this Event_t
+ * Appends a copy of the given EventAssignment_t structure to the given Event_t
  * structure.
  *
- * @param e the Event_t structure to which the event assignment should be
+ * @param e the Event_t structure to which the EventAssignment_t should be
  * added
  *
  * @param ea an EventAssignment_t structure to add
@@ -2006,7 +2006,7 @@ Event_addEventAssignment (Event_t *e, const EventAssignment_t *ea);
 
 /**
  * Creates a new, empty EventAssignment_t structure, adds it to this
- * Event's list of event assignments, and returns the EventAssignment_t.
+ * Event_t's list of event assignments, and returns the EventAssignment_t.
  *
  * @param e the Event_t structure to which the event assignment should be
  * added
@@ -2020,7 +2020,7 @@ Event_createEventAssignment (Event_t *e);
 
 /**
  * Creates a new, empty Trigger_t structure, adds it to this
- * Event, and returns the Trigger_t.
+ * Event_t, and returns the Trigger_t.
  *
  * @param e the Event_t structure to which the trigger should be
  * added
@@ -2034,7 +2034,7 @@ Event_createTrigger (Event_t *e);
 
 /**
  * Creates a new, empty Delay_t structure, adds it to this
- * Event, and returns the Delay_t.
+ * Event_t, and returns the Delay_t.
  *
  * @param e the Event_t structure to which the delay should be
  * added
@@ -2048,7 +2048,7 @@ Event_createDelay (Event_t *e);
 
 /**
  * Creates a new, empty Priority_t structure, adds it to this
- * Event, and returns the Priority_t.
+ * Event_t, and returns the Priority_t.
  *
  * @param e the Event_t structure to which the priority should be
  * added
@@ -2061,12 +2061,12 @@ Event_createPriority (Event_t *e);
 
 
 /**
- * Get the list of EventAssignment_t structures from this Event_t
+ * Get the list of EventAssignment_t structures from the given Event_t
  * structure.
  *
  * @param e the Event_t structure to use.
  *
- * @return the list of EventAssignments for this Event.
+ * @return the list of EventAssignments for the given Event_t.
  *
  * @memberof Event_t
  */
@@ -2076,13 +2076,13 @@ Event_getListOfEventAssignments (Event_t *e);
 
 
 /**
- * Return a specific EventAssignment_t structure of this Event_t.
+ * Return a specific EventAssignment_t structure of the given Event_t.
  *
  * @param e the Event_t structure to use
  *
  * @param n an integer, the index of the EventAssignment_t structure to return
  * 
- * @return the nth EventAssignment_t of this Event.
+ * @return the nth EventAssignment_t of the given Event_t, or @c NULL if no such EventAssignment_t exists.
  *
  * @memberof Event_t
  */
@@ -2110,12 +2110,12 @@ Event_getEventAssignmentByVar (Event_t *e, const char *variable);
 
 
 /**
- * Returns the number of EventAssignment_t objects attached to this
- * Event.
+ * Returns the number of EventAssignment_t objects attached to the given
+ * Event_t.
  *
  * @param e the Event_t structure to use
  * 
- * @return the number of EventAssignment_t structures in this Event.
+ * @return the number of EventAssignment_t structures in the given Event_t.
  *
  * @memberof Event_t
  */
@@ -2125,7 +2125,7 @@ Event_getNumEventAssignments (const Event_t *e);
 
 
 /**
- * Removes the nth EventAssignment_t object from this Event_t object and
+ * Removes the nth EventAssignment_t object from the given Event_t object and
  * returns a pointer to it.
  *
  * The caller owns the returned object and is responsible for deleting it.
@@ -2146,7 +2146,7 @@ Event_removeEventAssignment (Event_t *e, unsigned int n);
 
 /**
  * Removes the EventAssignment_t object with the given "variable" attribute
- * from this Event_t object and returns a pointer to it.
+ * from the given Event_t object and returns a pointer to it.
  *
  * The caller owns the returned object and is responsible for deleting it.
  *
@@ -2155,7 +2155,7 @@ Event_removeEventAssignment (Event_t *e, unsigned int n);
  *
  * @return the EventAssignment_t object removed.  As mentioned above, the 
  * caller owns the returned object. @c NULL is returned if no EventAssignment_t
- * object with the "variable" attribute exists in this Event_t object.
+ * object with the "variable" attribute exists in the given Event_t object.
  *
  * @memberof Event_t
  */

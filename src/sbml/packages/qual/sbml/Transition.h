@@ -1138,197 +1138,704 @@ LIBSBML_CPP_NAMESPACE_END
 LIBSBML_CPP_NAMESPACE_BEGIN
 BEGIN_C_DECLS
 
+/**
+ * Creates a new Transition_t structure using the given SBML @p level
+ * and @p version values.
+ *
+ * @param level an unsigned int, the SBML Level to assign to this
+ * Transition_t
+ * @param version an unsigned int, the SBML Version to assign to this
+ * Transition_t
+ * @param pkgVersion an unsigned int, the SBML 'Qual' package Version to assign to this
+ * Transition_t
+ *
+ * @return a pointer to the newly created Transition_t structure.
+ *
+ * @memberof Transition_t
+ */
 LIBSBML_EXTERN
 Transition_t *
 Transition_create(unsigned int level, unsigned int version,
                   unsigned int pkgVersion);
 
 
+/**
+ * Frees the given Transition_t structure.
+ *
+ * @param t the Transition_t structure to free.
+ *
+ * @memberof Transition_t
+ */
 LIBSBML_EXTERN
 void
 Transition_free(Transition_t * t);
 
 
+/**
+ * Returns a copy of the given Transition_t structure.
+ *
+ * @param t the Transition_t structure to copy.
+ * 
+ * @return a (deep) copy of the Transition_t.
+ *
+ * @memberof Transition_t
+ */
 LIBSBML_EXTERN
 Transition_t *
 Transition_clone(Transition_t * t);
 
 
+/**
+ * Takes an Transition_t structure and returns its identifier.
+ *
+ * @param t the Transition_t structure whose identifier is sought
+ * 
+ * @return the identifier of this Transition_t, as a pointer to a string.
+ *
+ * @memberof Transition_t
+ */
 LIBSBML_EXTERN
 char *
 Transition_getId(Transition_t * t);
 
 
+/**
+ * Takes a Transition_t structure and returns its name.
+ *
+ * @param t the Transition_t whose name is sought.
+ *
+ * @return the name of this Transition_t, as a pointer to a string.
+ *
+ * @memberof Transition_t
+ */
 LIBSBML_EXTERN
 char *
 Transition_getName(Transition_t * t);
 
 
+/**
+ * Predicate returning @c true or @c false depending on whether the given
+ * Transition_t structure's identifier is set.
+ *
+ * @param t the Transition_t structure to query
+ * 
+ * @return @c non-zero (true) if the "id" attribute of the given
+ * Transition_t structure is set, zero (false) otherwise.
+ *
+ * @memberof Transition_t
+ */
 LIBSBML_EXTERN
 int
 Transition_isSetId(Transition_t * t);
 
 
+/**
+ * Predicate returning @c true or @c false depending on whether the given
+ * Transition_t structure's name is set.
+ *
+ * @param t the Transition_t structure to query
+ * 
+ * @return @c non-zero (true) if the "name" attribute of the given
+ * Transition_t structure is set, zero (false) otherwise.
+ *
+ * @memberof Transition_t
+ */
 LIBSBML_EXTERN
 int
 Transition_isSetName(Transition_t * t);
 
 
+/**
+ * Assigns the identifier of an Transition_t structure.
+ *
+ * This makes a copy of the string passed in the param @p sid.
+ *
+ * @param t the Transition_t structure to set.
+ * @param sid the string to use as the identifier.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE @endlink
+ *
+ * @note Using this function with an id of NULL is equivalent to
+ * unsetting the "id" attribute.
+ *
+ * @memberof Transition_t
+ */
 LIBSBML_EXTERN
 int
-Transition_setId(Transition_t * t, const char * id);
+Transition_setId(Transition_t * t, const char * sid);
 
 
+/**
+ * Sets the name of the given Transition_t to a copy of @p name.
+ *
+ * @param t the Transition_t structure to set
+ * @param name the name to assign to the given Transition_t's "name" attribute.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE @endlink
+ *
+ * @note Using this function with the name set to NULL is equivalent to
+ * unsetting the "name" attribute.
+ *
+ * @memberof Transition_t
+ */
 LIBSBML_EXTERN
 int
 Transition_setName(Transition_t * t, const char * name);
 
 
+/**
+ * Unsets the "id" attribute of the given Transition_t structure.
+ *
+ * @param t the Transition_t structure to unset
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
+ *
+ * @memberof Transition_t
+ */
 LIBSBML_EXTERN
 int
 Transition_unsetId(Transition_t * t);
 
 
+/**
+ * Unsets the "name" attribute of the given Transition_t structure.
+ *
+ * @param t the Transition_t structure to unset
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
+ *
+ * @memberof Transition_t
+ */
 LIBSBML_EXTERN
 int
 Transition_unsetName(Transition_t * t);
 
 
+/**
+ * Appends a copy of the given Input_t structure to the given Transition_t
+ * structure.
+ *
+ * @param t the Transition_t structure to which the Input_t should be
+ * added
+ *
+ * @param i an Input_t structure to add
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_LEVEL_MISMATCH LIBSBML_LEVEL_MISMATCH @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_VERSION_MISMATCH LIBSBML_VERSION_MISMATCH @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_PKG_VERSION_MISMATCH LIBSBML_PKG_VERSION_MISMATCH @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_DUPLICATE_OBJECT_ID LIBSBML_DUPLICATE_OBJECT_ID @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
+ *
+ * @memberof Transition_t
+ */
 LIBSBML_EXTERN
 int
 Transition_addInput(Transition_t * t, Input_t * i);
 
 
+/**
+ * Creates a new, empty Input_t structure, adds it to the given
+ * Transition_t, and returns the Input_t.
+ *
+ * @param t the Transition_t structure to which the Input_t should be
+ * added
+ *
+ * @return the newly-created empty Input_t.
+ *
+ * @memberof Transition_t
+ */
 LIBSBML_EXTERN
 Input_t *
 Transition_createInput(Transition_t * t);
 
 
+/**
+ * Get the list of Input_t structures from the given Transition_t
+ * structure.
+ *
+ * @param t the Transition_t structure to use.
+ *
+ * @return the list of Input_t's for the given Transition_t.
+ *
+ * @memberof Transition_t
+ */
 LIBSBML_EXTERN
 ListOf_t *
 Transition_getListOfInputs(Transition_t * t);
 
 
+/**
+ * Return a specific Input_t structure of the given Transition_t.
+ *
+ * @param t the Transition_t structure to use
+ *
+ * @param n an integer, the index of the Input_t structure to return
+ * 
+ * @return the nth Input_t of the given Transition_t, or @c NULL if no such Input_t exists.
+ *
+ * @memberof Transition_t
+ */
 LIBSBML_EXTERN
 Input_t *
 Transition_getInput(Transition_t * t, unsigned int n);
 
 
+/**
+ * Return the Input_t indicated by the given @p sid.
+ *
+ * @param t the Transition_t structure to use
+ *
+ * @param sid a string, the identifier of the
+ * Input_t is being sought.
+ *
+ * @return the Input_t for the given variable, or @c NULL if no such
+ * Input_t exits.
+ *
+ * @memberof Transition_t
+ */
 LIBSBML_EXTERN
 Input_t *
 Transition_getInputById(Transition_t * t, const char * sid);
 
 
+/**
+ * Returns the number of EventAssignment_t objects attached to the given
+ * Transition_t.
+ *
+ * @param t the Transition_t structure to use
+ * 
+ * @return the number of EventAssignment_t structures in the given Transition_t.
+ *
+ * @memberof Transition_t
+ */
 LIBSBML_EXTERN
 unsigned int
 Transition_getNumInputs(Transition_t * t);
 
 
+/**
+ * Removes the nth Input_t object from the given Transition_t object and
+ * returns a pointer to it.
+ *
+ * The caller owns the returned object and is responsible for deleting it.
+ *
+ * @param t the Transition_t structure
+ * @param n the integer index of the Input_t sought
+ *
+ * @return the Input_t object removed.  As mentioned above, 
+ * the caller owns the returned item. @c NULL is returned if the given index 
+ * is out of range.
+ *
+ * @memberof Transition_t
+ */
 LIBSBML_EXTERN
 Input_t *
 Transition_removeInput(Transition_t * t, unsigned int n);
 
 
+/**
+ * Removes the Input_t object with the given @p sid
+ * from the given Transition_t object and returns a pointer to it.
+ *
+ * The caller owns the returned object and is responsible for deleting it.
+ *
+ * @param t the Transition_t structure
+ * @param sid the string of the "id" attribute of the Input_t sought
+ *
+ * @return the Input_t object removed.  As mentioned above, the 
+ * caller owns the returned object. @c NULL is returned if no Input_t
+ * object with the "id" attribute exists in the given Transition_t object.
+ *
+ * @memberof Transition_t
+ */
 LIBSBML_EXTERN
 Input_t *
 Transition_removeInputById(Transition_t * t, const char * sid);
 
 
+/**
+ * Appends a copy of the given Output_t structure to the given Transition_t
+ * structure.
+ *
+ * @param t the Transition_t structure to which the Output_t should be
+ * added
+ *
+ * @param o an Output_t structure to add
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_LEVEL_MISMATCH LIBSBML_LEVEL_MISMATCH @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_VERSION_MISMATCH LIBSBML_VERSION_MISMATCH @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_PKG_VERSION_MISMATCH LIBSBML_PKG_VERSION_MISMATCH @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_DUPLICATE_OBJECT_ID LIBSBML_DUPLICATE_OBJECT_ID @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
+ *
+ * @memberof Transition_t
+ */
 LIBSBML_EXTERN
 int
 Transition_addOutput(Transition_t * t, Output_t * o);
 
 
+/**
+ * Creates a new, empty Output_t structure, adds it to the given
+ * Transition_t, and returns the Output_t.
+ *
+ * @param t the Transition_t structure to which the Output_t should be
+ * added
+ *
+ * @return the newly-created empty Output_t.
+ *
+ * @memberof Transition_t
+ */
 LIBSBML_EXTERN
 Output_t *
 Transition_createOutput(Transition_t * t);
 
 
+/**
+ * Get the list of Output_t structures from the given Transition_t
+ * structure.
+ *
+ * @param t the Transition_t structure to use.
+ *
+ * @return the list of Output_t's for the given Transition_t.
+ *
+ * @memberof Transition_t
+ */
 LIBSBML_EXTERN
 ListOf_t *
 Transition_getListOfOutputs(Transition_t * t);
 
 
+/**
+ * Return a specific Output_t structure of the given Transition_t.
+ *
+ * @param t the Transition_t structure to use
+ *
+ * @param n an integer, the index of the Output_t structure to return
+ * 
+ * @return the nth Output_t of the given Transition_t, or @c NULL if no such Output_t exists.
+ *
+ * @memberof Transition_t
+ */
 LIBSBML_EXTERN
 Output_t *
 Transition_getOutput(Transition_t * t, unsigned int n);
 
 
+/**
+ * Return the Output_t indicated by the given @p sid.
+ *
+ * @param t the Transition_t structure to use
+ *
+ * @param sid a string, the identifier of the
+ * Output_t is being sought.
+ *
+ * @return the Output_t for the given variable, or @c NULL if no such
+ * Output_t exits.
+ *
+ * @memberof Transition_t
+ */
 LIBSBML_EXTERN
 Output_t *
 Transition_getOutputById(Transition_t * t, const char * sid);
 
 
+/**
+ * Returns the number of EventAssignment_t objects attached to the given
+ * Transition_t.
+ *
+ * @param t the Transition_t structure to use
+ * 
+ * @return the number of EventAssignment_t structures in the given Transition_t.
+ *
+ * @memberof Transition_t
+ */
 LIBSBML_EXTERN
 unsigned int
 Transition_getNumOutputs(Transition_t * t);
 
 
+/**
+ * Removes the nth Output_t object from the given Transition_t object and
+ * returns a pointer to it.
+ *
+ * The caller owns the returned object and is responsible for deleting it.
+ *
+ * @param t the Transition_t structure
+ * @param n the integer index of the Output_t sought
+ *
+ * @return the Output_t object removed.  As mentioned above, 
+ * the caller owns the returned item. @c NULL is returned if the given index 
+ * is out of range.
+ *
+ * @memberof Transition_t
+ */
 LIBSBML_EXTERN
 Output_t *
 Transition_removeOutput(Transition_t * t, unsigned int n);
 
 
+/**
+ * Removes the Output_t object with the given @p sid
+ * from the given Transition_t object and returns a pointer to it.
+ *
+ * The caller owns the returned object and is responsible for deleting it.
+ *
+ * @param t the Transition_t structure
+ * @param sid the string of the "id" attribute of the Output_t sought
+ *
+ * @return the Output_t object removed.  As mentioned above, the 
+ * caller owns the returned object. @c NULL is returned if no Output_t
+ * object with the "id" attribute exists in the given Transition_t object.
+ *
+ * @memberof Transition_t
+ */
 LIBSBML_EXTERN
 Output_t *
 Transition_removeOutputById(Transition_t * t, const char * sid);
 
 
+/**
+ * Appends a copy of the given FunctionTerm_t structure to the given Transition_t
+ * structure.
+ *
+ * @param t the Transition_t structure to which the FunctionTerm_t should be
+ * added
+ *
+ * @param ft a FunctionTerm_t structure to add
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_LEVEL_MISMATCH LIBSBML_LEVEL_MISMATCH @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_VERSION_MISMATCH LIBSBML_VERSION_MISMATCH @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_PKG_VERSION_MISMATCH LIBSBML_PKG_VERSION_MISMATCH @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_DUPLICATE_OBJECT_ID LIBSBML_DUPLICATE_OBJECT_ID @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
+ *
+ * @memberof Transition_t
+ */
 LIBSBML_EXTERN
 int
 Transition_addFunctionTerm(Transition_t * t, FunctionTerm_t * ft);
 
 
+/**
+ * Creates a new, empty FunctionTerm_t structure, adds it to the given
+ * Transition_t, and returns the FunctionTerm_t.
+ *
+ * @param t the Transition_t structure to which the FunctionTerm_t should be
+ * added
+ *
+ * @return the newly-created empty FunctionTerm_t.
+ *
+ * @memberof Transition_t
+ */
 LIBSBML_EXTERN
 FunctionTerm_t *
 Transition_createFunctionTerm(Transition_t * t);
 
 
+/**
+ * Get the list of FunctionTerm_t structures from the given Transition_t
+ * structure.
+ *
+ * @param t the Transition_t structure to use.
+ *
+ * @return the list of FunctionTerm_t's for the given Transition_t.
+ *
+ * @memberof Transition_t
+ */
 LIBSBML_EXTERN
 ListOf_t *
 Transition_getListOfFunctionTerms(Transition_t * t);
 
 
+/**
+ * Return a specific FunctionTerm_t structure of the given Transition_t.
+ *
+ * @param t the Transition_t structure to use
+ *
+ * @param n an integer, the index of the FunctionTerm_t structure to return
+ * 
+ * @return the nth FunctionTerm_t of the given Transition_t, or @c NULL if no such FunctionTerm_t exists.
+ *
+ * @memberof Transition_t
+ */
 LIBSBML_EXTERN
 FunctionTerm_t *
 Transition_getFunctionTerm(Transition_t * t, unsigned int n);
 
 
+/**
+ * Return the FunctionTerm_t indicated by the given @p sid.
+ *
+ * @param t the Transition_t structure to use
+ *
+ * @param sid a string, the identifier of the
+ * FunctionTerm_t is being sought.
+ *
+ * @return the FunctionTerm_t for the given variable, or @c NULL if no such
+ * FunctionTerm_t exits.
+ *
+ * @memberof Transition_t
+ */
 LIBSBML_EXTERN
 FunctionTerm_t *
 Transition_getFunctionTermById(Transition_t * t, const char * sid);
 
 
+/**
+ * Returns the number of EventAssignment_t objects attached to the given
+ * Transition_t.
+ *
+ * @param t the Transition_t structure to use
+ * 
+ * @return the number of EventAssignment_t structures in the given Transition_t.
+ *
+ * @memberof Transition_t
+ */
 LIBSBML_EXTERN
 unsigned int
 Transition_getNumFunctionTerms(Transition_t * t);
 
 
+/**
+ * Removes the nth FunctionTerm_t object from the given Transition_t object and
+ * returns a pointer to it.
+ *
+ * The caller owns the returned object and is responsible for deleting it.
+ *
+ * @param t the Transition_t structure
+ * @param n the integer index of the FunctionTerm_t sought
+ *
+ * @return the FunctionTerm_t object removed.  As mentioned above, 
+ * the caller owns the returned item. @c NULL is returned if the given index 
+ * is out of range.
+ *
+ * @memberof Transition_t
+ */
 LIBSBML_EXTERN
 FunctionTerm_t *
 Transition_removeFunctionTerm(Transition_t * t, unsigned int n);
 
 
+/**
+ * Removes the FunctionTerm_t object with the given @p sid
+ * from the given Transition_t object and returns a pointer to it.
+ *
+ * The caller owns the returned object and is responsible for deleting it.
+ *
+ * @param t the Transition_t structure
+ * @param sid the string of the "id" attribute of the FunctionTerm_t sought
+ *
+ * @return the FunctionTerm_t object removed.  As mentioned above, the 
+ * caller owns the returned object. @c NULL is returned if no FunctionTerm_t
+ * object with the "id" attribute exists in the given Transition_t object.
+ *
+ * @memberof Transition_t
+ */
 LIBSBML_EXTERN
 FunctionTerm_t *
 Transition_removeFunctionTermById(Transition_t * t, const char * sid);
 
 
+/**
+  * Predicate returning @c true or @c false depending on whether
+  * all the required attributes for the given Transition_t structure
+  * have been set.
+  *
+  * @note The required attributes for a Transition_t structure are:
+  * @li useValuesfromTriggerTime ( L3 onwards )
+  *
+ * @memberof Transition_t
+ */
 LIBSBML_EXTERN
 int
 Transition_hasRequiredAttributes(Transition_t * t);
 
 
+/**
+  * Predicate returning @c true or @c false depending on whether
+  * all the required elements for the given Transition_t structure
+  * have been set.
+  *
+  * @note The required elements for an Transition_t object are:
+  * @li trigger
+  * @li listOfEventAssignments (requirement removed in L3)
+  *
+ * @memberof Transition_t
+ */
 LIBSBML_EXTERN
 int
 Transition_hasRequiredElements(Transition_t * t);
 
 
+/**
+ * Return the Transition_t indicated by the given @p sid.
+ *
+ * @param lo the ListOf_t structure to use
+ *
+ * @param sid a string, the identifier of the
+ * Transition_t is being sought.
+ *
+ * @return the Transition_t for the given variable, or @c NULL if no such
+ * Transition_t exits.
+ *
+ * @memberof Transition_t
+ */
 LIBSBML_EXTERN
 Transition_t *
 ListOfTransitions_getById(ListOf_t * lo, const char * sid);
 
 
+/**
+ * Removes the Transition_t object with the given @p sid
+ * from the given ListOf_t object and returns a pointer to it.
+ *
+ * The caller owns the returned object and is responsible for deleting it.
+ *
+ * @param lo the ListOf_t structure
+ * @param sid the string of the "id" attribute of the Transition_t sought
+ *
+ * @return the Transition_t object removed.  As mentioned above, the 
+ * caller owns the returned object. @c NULL is returned if no Transition_t
+ * object with the "id" attribute exists in the given ListOf_t object.
+ *
+ * @memberof Transition_t
+ */
 LIBSBML_EXTERN
 Transition_t *
 ListOfTransitions_removeById(ListOf_t * lo, const char * sid);

@@ -414,82 +414,279 @@ LIBSBML_CPP_NAMESPACE_END
 LIBSBML_CPP_NAMESPACE_BEGIN
 BEGIN_C_DECLS
 
+/**
+ * Creates a new ReplacedElement_t structure using the given SBML @p level
+ * and @p version values.
+ *
+ * @param level an unsigned int, the SBML Level to assign to this
+ * ReplacedElement_t
+ * @param version an unsigned int, the SBML Version to assign to this
+ * ReplacedElement_t
+ * @param pkgVersion an unsigned int, the SBML 'Qual' package Version to assign to this
+ * ReplacedElement_t
+ *
+ * @return a pointer to the newly created ReplacedElement_t structure.
+ *
+ * @memberof ReplacedElement_t
+ */
 LIBSBML_EXTERN
 ReplacedElement_t *
 ReplacedElement_create(unsigned int level, unsigned int version,
                        unsigned int pkgVersion);
 
 
+/**
+ * Frees the given ReplacedElement_t structure.
+ *
+ * @param re the ReplacedElement_t structure to free.
+ *
+ * @memberof ReplacedElement_t
+ */
 LIBSBML_EXTERN
 void
 ReplacedElement_free(ReplacedElement_t * re);
 
 
+/**
+ * Returns a copy of the given ReplacedElement_t structure.
+ *
+ * @param re the ReplacedElement_t structure to copy.
+ * 
+ * @return a (deep) copy of the ReplacedElement_t.
+ *
+ * @memberof ReplacedElement_t
+ */
 LIBSBML_EXTERN
 ReplacedElement_t *
 ReplacedElement_clone(ReplacedElement_t * re);
 
 
+/**
+ * Takes a ReplacedElement_t structure and returns its submodelRef.
+ *
+ * @param re the ReplacedElement_t whose submodelRef is sought.
+ *
+ * @return the submodelRef of the given ReplacedElement_t, as a pointer to a string.
+ *
+ * @memberof ReplacedElement_t
+ */
 LIBSBML_EXTERN
 char *
 ReplacedElement_getSubmodelRef(ReplacedElement_t * re);
 
 
+/**
+ * Takes a ReplacedElement_t structure and returns its deletion.
+ *
+ * @param re the ReplacedElement_t whose deletion is sought.
+ *
+ * @return the deletion of the given ReplacedElement_t, as a pointer to a string.
+ *
+ * @memberof ReplacedElement_t
+ */
 LIBSBML_EXTERN
 char *
 ReplacedElement_getDeletion(ReplacedElement_t * re);
 
 
+/**
+ * Takes a ReplacedElement_t structure and returns its conversionFactor.
+ *
+ * @param re the ReplacedElement_t whose conversionFactor is sought.
+ *
+ * @return the conversionFactor of the given ReplacedElement_t, as a pointer to a string.
+ *
+ * @memberof ReplacedElement_t
+ */
 LIBSBML_EXTERN
 char *
 ReplacedElement_getConversionFactor(ReplacedElement_t * re);
 
 
+/**
+ * Predicate returning @c true or @c false depending on whether the given
+ * ReplacedElement_t structure's submodelRef is set.
+ *
+ * @param re the ReplacedElement_t structure to query
+ * 
+ * @return @c non-zero (true) if the "submodelRef" attribute of the given
+ * ReplacedElement_t structure is set, zero (false) otherwise.
+ *
+ * @memberof ReplacedElement_t
+ */
 LIBSBML_EXTERN
 int
 ReplacedElement_isSetSubmodelRef(ReplacedElement_t * re);
 
 
+/**
+ * Predicate returning @c true or @c false depending on whether the given
+ * ReplacedElement_t structure's deletion is set.
+ *
+ * @param re the ReplacedElement_t structure to query
+ * 
+ * @return @c non-zero (true) if the "deletion" attribute of the given
+ * ReplacedElement_t structure is set, zero (false) otherwise.
+ *
+ * @memberof ReplacedElement_t
+ */
 LIBSBML_EXTERN
 int
 ReplacedElement_isSetDeletion(ReplacedElement_t * re);
 
 
+/**
+ * Predicate returning @c true or @c false depending on whether the given
+ * ReplacedElement_t structure's conversionFactor is set.
+ *
+ * @param re the ReplacedElement_t structure to query
+ * 
+ * @return @c non-zero (true) if the "conversionFactor" attribute of the given
+ * ReplacedElement_t structure is set, zero (false) otherwise.
+ *
+ * @memberof ReplacedElement_t
+ */
 LIBSBML_EXTERN
 int
 ReplacedElement_isSetConversionFactor(ReplacedElement_t * re);
 
 
+/**
+ * Sets the submodelRef of the given ReplacedElement_t to a copy of @p submodelRef.
+ *
+ * @param re the ReplacedElement_t structure to set
+ * @param submodelRef the submodelRef to assign to the given ReplacedElement_t's "submodelRef" attribute.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE @endlink
+ *
+ * @note Using this function with the name set to NULL is equivalent to
+ * unsetting the "submodelRef" attribute.
+ *
+ * @memberof ReplacedElement_t
+ */
 LIBSBML_EXTERN
 int
 ReplacedElement_setSubmodelRef(ReplacedElement_t * re, const char * submodelRef);
 
 
+/**
+ * Sets the deletion of the given ReplacedElement_t to a copy of @p deletion.
+ *
+ * @param re the ReplacedElement_t structure to set
+ * @param deletion the deletion to assign to the given ReplacedElement_t's "deletion" attribute.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE @endlink
+ *
+ * @note Using this function with the name set to NULL is equivalent to
+ * unsetting the "deletion" attribute.
+ *
+ * @memberof ReplacedElement_t
+ */
 LIBSBML_EXTERN
 int
 ReplacedElement_setDeletion(ReplacedElement_t * re, const char * deletion);
 
 
+/**
+ * Sets the conversionFactor of the given ReplacedElement_t to a copy of @p conversionFactor.
+ *
+ * @param re the ReplacedElement_t structure to set
+ * @param conversionFactor the conversionFactor to assign to the given ReplacedElement_t's "conversionFactor" attribute.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE @endlink
+ *
+ * @note Using this function with the name set to NULL is equivalent to
+ * unsetting the "conversionFactor" attribute.
+ *
+ * @memberof ReplacedElement_t
+ */
 LIBSBML_EXTERN
 int
 ReplacedElement_setConversionFactor(ReplacedElement_t * re, const char * conversionFactor);
 
 
+/**
+ * Unsets the "submodelRef" attribute of the given ReplacedElement_t structure.
+ *
+ * @param re the ReplacedElement_t structure to unset
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
+ *
+ * @memberof ReplacedElement_t
+ */
 LIBSBML_EXTERN
 int
 ReplacedElement_unsetSubmodelRef(ReplacedElement_t * re);
 
 
+/**
+ * Unsets the "deletion" attribute of the given ReplacedElement_t structure.
+ *
+ * @param re the ReplacedElement_t structure to unset
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
+ *
+ * @memberof ReplacedElement_t
+ */
 LIBSBML_EXTERN
 int
 ReplacedElement_unsetDeletion(ReplacedElement_t * re);
 
 
+/**
+ * Unsets the "conversionFactor" attribute of the given ReplacedElement_t structure.
+ *
+ * @param re the ReplacedElement_t structure to unset
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
+ *
+ * @memberof ReplacedElement_t
+ */
 LIBSBML_EXTERN
 int
 ReplacedElement_unsetConversionFactor(ReplacedElement_t * re);
 
 
+/**
+  * Predicate returning @c true or @c false depending on whether
+  * all the required attributes for the given ReplacedElement_t structure
+  * have been set.
+  *
+  * @note The required attributes for a ReplacedElement_t structure are:
+  * @li useValuesfromTriggerTime ( L3 onwards )
+  *
+ * @memberof ReplacedElement_t
+ */
 LIBSBML_EXTERN
 int
 ReplacedElement_hasRequiredAttributes(ReplacedElement_t * re);

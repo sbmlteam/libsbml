@@ -275,41 +275,144 @@ LIBSBML_CPP_NAMESPACE_END
 LIBSBML_CPP_NAMESPACE_BEGIN
 BEGIN_C_DECLS
 
+/**
+ * Takes a FbcSpeciesPlugin_t structure and returns its charge.
+ *
+ * @param fbc the FbcSpeciesPlugin_t whose charge is sought.
+ *
+ * @return the charge attribute of the given FbcSpeciesPlugin_t, as an @c int.
+ *
+ * @memberof FbcSpeciesPlugin_t
+ */
 LIBSBML_EXTERN
 int
 FbcSpeciesPlugin_getCharge(SBasePlugin_t * fbc);
 
 
+/**
+ * Predicate returning @c true or @c false depending on whether the given
+ * FbcSpeciesPlugin_t structure's charge is set.
+ *
+ * @param fbc the FbcSpeciesPlugin_t structure to query
+ * 
+ * @return @c non-zero (true) if the "charge" attribute of the given
+ * FbcSpeciesPlugin_t structure is set, zero (false) otherwise.
+ *
+ * @memberof FbcSpeciesPlugin_t
+ */
 LIBSBML_EXTERN
 int
 FbcSpeciesPlugin_isSetCharge(SBasePlugin_t * fbc);
 
 
+/**
+ * Sets the "charge" attribute of the given FbcSpeciesPlugin_t
+ * structure.
+ *
+ * @param fbc the FbcSpeciesPlugin_t structure
+ * 
+ * @param charge the value of charge to assign to the "charge" attribute
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_UNEXPECTED_ATTRIBUTE LIBSBML_UNEXPECTED_ATTRIBUTE @endlink
+ *
+ * @memberof FbcSpeciesPlugin_t
+ */
 LIBSBML_EXTERN
 int
 FbcSpeciesPlugin_setCharge(SBasePlugin_t * fbc, int charge);
 
 
+/**
+ * Unsets the "charge" attribute of the given FbcSpeciesPlugin_t structure.
+ *
+ * @param fbc the FbcSpeciesPlugin_t structure to unset
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
+ *
+ * @memberof FbcSpeciesPlugin_t
+ */
 LIBSBML_EXTERN
 int
 FbcSpeciesPlugin_unsetCharge(SBasePlugin_t * fbc);
 
 
+/**
+ * Takes a FbcSpeciesPlugin_t structure and returns its chemicalFormula.
+ *
+ * @param fbc the FbcSpeciesPlugin_t whose chemicalFormula is sought.
+ *
+ * @return the chemicalFormula of the given FbcSpeciesPlugin_t, as a pointer to a string.
+ *
+ * @memberof FbcSpeciesPlugin_t
+ */
 LIBSBML_EXTERN
 char *
 FbcSpeciesPlugin_getChemicalFormula(SBasePlugin_t * fbc);
 
 
+/**
+ * Predicate returning @c true or @c false depending on whether the given
+ * FbcSpeciesPlugin_t structure's chemicalFormula is set.
+ *
+ * @param fbc the FbcSpeciesPlugin_t structure to query
+ * 
+ * @return @c non-zero (true) if the "chemicalFormula" attribute of the given
+ * FbcSpeciesPlugin_t structure is set, zero (false) otherwise.
+ *
+ * @memberof FbcSpeciesPlugin_t
+ */
 LIBSBML_EXTERN
 int
 FbcSpeciesPlugin_isSetChemicalFormula(SBasePlugin_t * fbc);
 
 
+/**
+ * Sets the chemicalFormula of the given FbcSpeciesPlugin_t to a copy of @p chemicalFormula.
+ *
+ * @param fbc the FbcSpeciesPlugin_t structure to set
+ * @param chemicalFormula the chemicalFormula to assign to the given FbcSpeciesPlugin_t's "chemicalFormula" attribute.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE @endlink
+ *
+ * @note Using this function with the name set to NULL is equivalent to
+ * unsetting the "chemicalFormula" attribute.
+ *
+ * @memberof FbcSpeciesPlugin_t
+ */
 LIBSBML_EXTERN
 int
-FbcSpeciesPlugin_setChemicalFormula(SBasePlugin_t * fbc, const char * chemform);
+FbcSpeciesPlugin_setChemicalFormula(SBasePlugin_t * fbc, const char * chemicalFormula);
 
 
+/**
+ * Unsets the "chemicalFormula" attribute of the given FbcSpeciesPlugin_t structure.
+ *
+ * @param fbc the FbcSpeciesPlugin_t structure to unset
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
+ *
+ * @memberof FbcSpeciesPlugin_t
+ */
 LIBSBML_EXTERN
 int
 FbcSpeciesPlugin_unsetChemicalFormula(SBasePlugin_t * fbc);

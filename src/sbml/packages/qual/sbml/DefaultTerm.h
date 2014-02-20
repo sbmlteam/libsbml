@@ -296,42 +296,134 @@ LIBSBML_CPP_NAMESPACE_END
 LIBSBML_CPP_NAMESPACE_BEGIN
 BEGIN_C_DECLS
 
+/**
+ * Creates a new DefaultTerm_t structure using the given SBML @p level
+ * and @p version values.
+ *
+ * @param level an unsigned int, the SBML Level to assign to this
+ * DefaultTerm_t
+ * @param version an unsigned int, the SBML Version to assign to this
+ * DefaultTerm_t
+ * @param pkgVersion an unsigned int, the SBML 'Qual' package Version to assign to this
+ * DefaultTerm_t
+ *
+ * @return a pointer to the newly created DefaultTerm_t structure.
+ *
+ * @memberof DefaultTerm_t
+ */
 LIBSBML_EXTERN
 DefaultTerm_t *
 DefaultTerm_create(unsigned int level, unsigned int version,
                    unsigned int pkgVersion);
 
 
+/**
+ * Frees the given DefaultTerm_t structure.
+ *
+ * @param dt the DefaultTerm_t structure to free.
+ *
+ * @memberof DefaultTerm_t
+ */
 LIBSBML_EXTERN
 void
 DefaultTerm_free(DefaultTerm_t * dt);
 
 
+/**
+ * Returns a copy of the given DefaultTerm_t structure.
+ *
+ * @param dt the DefaultTerm_t structure to copy.
+ * 
+ * @return a (deep) copy of the DefaultTerm_t.
+ *
+ * @memberof DefaultTerm_t
+ */
 LIBSBML_EXTERN
 DefaultTerm_t *
 DefaultTerm_clone(DefaultTerm_t * dt);
 
 
+/**
+ * Takes a DefaultTerm_t structure and returns its resultLevel.
+ *
+ * @param dt the DefaultTerm_t whose resultLevel is sought.
+ *
+ * @return the resultLevel attribute of the given DefaultTerm_t, as an @c int.
+ *
+ * @memberof DefaultTerm_t
+ */
 LIBSBML_EXTERN
 int
 DefaultTerm_getResultLevel(DefaultTerm_t * dt);
 
 
+/**
+ * Predicate returning @c true or @c false depending on whether the given
+ * DefaultTerm_t structure's resultLevel is set.
+ *
+ * @param dt the DefaultTerm_t structure to query
+ * 
+ * @return @c non-zero (true) if the "resultLevel" attribute of the given
+ * DefaultTerm_t structure is set, zero (false) otherwise.
+ *
+ * @memberof DefaultTerm_t
+ */
 LIBSBML_EXTERN
 int
 DefaultTerm_isSetResultLevel(DefaultTerm_t * dt);
 
 
+/**
+ * Sets the "resultLevel" attribute of the given DefaultTerm_t
+ * structure.
+ *
+ * @param dt the DefaultTerm_t structure
+ * 
+ * @param resultLevel the value of resultLevel to assign to the "resultLevel" attribute
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_UNEXPECTED_ATTRIBUTE LIBSBML_UNEXPECTED_ATTRIBUTE @endlink
+ *
+ * @memberof DefaultTerm_t
+ */
 LIBSBML_EXTERN
 int
 DefaultTerm_setResultLevel(DefaultTerm_t * dt, int resultLevel);
 
 
+/**
+ * Unsets the "resultLevel" attribute of the given DefaultTerm_t structure.
+ *
+ * @param dt the DefaultTerm_t structure to unset
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
+ *
+ * @memberof DefaultTerm_t
+ */
 LIBSBML_EXTERN
 int
 DefaultTerm_unsetResultLevel(DefaultTerm_t * dt);
 
 
+/**
+  * Predicate returning @c true or @c false depending on whether
+  * all the required attributes for the given DefaultTerm_t structure
+  * have been set.
+  *
+  * @note The required attributes for a DefaultTerm_t structure are:
+  * @li useValuesfromTriggerTime ( L3 onwards )
+  *
+ * @memberof DefaultTerm_t
+ */
 LIBSBML_EXTERN
 int
 DefaultTerm_hasRequiredAttributes(DefaultTerm_t * dt);

@@ -338,72 +338,247 @@ LIBSBML_CPP_NAMESPACE_END
 LIBSBML_CPP_NAMESPACE_BEGIN
 BEGIN_C_DECLS
 
+/**
+ * Creates a new Deletion_t structure using the given SBML @p level
+ * and @p version values.
+ *
+ * @param level an unsigned int, the SBML Level to assign to this
+ * Deletion_t
+ * @param version an unsigned int, the SBML Version to assign to this
+ * Deletion_t
+ * @param pkgVersion an unsigned int, the SBML 'Qual' package Version to assign to this
+ * Deletion_t
+ *
+ * @return a pointer to the newly created Deletion_t structure.
+ *
+ * @memberof Deletion_t
+ */
 LIBSBML_EXTERN
 Deletion_t *
 Deletion_create(unsigned int level, unsigned int version,
                 unsigned int pkgVersion);
 
 
+/**
+ * Frees the given Deletion_t structure.
+ *
+ * @param d the Deletion_t structure to free.
+ *
+ * @memberof Deletion_t
+ */
 LIBSBML_EXTERN
 void
 Deletion_free(Deletion_t * d);
 
 
+/**
+ * Returns a copy of the given Deletion_t structure.
+ *
+ * @param d the Deletion_t structure to copy.
+ * 
+ * @return a (deep) copy of the Deletion_t.
+ *
+ * @memberof Deletion_t
+ */
 LIBSBML_EXTERN
 Deletion_t *
 Deletion_clone(Deletion_t * d);
 
 
+/**
+ * Takes an Deletion_t structure and returns its identifier.
+ *
+ * @param d the Deletion_t structure whose identifier is sought
+ * 
+ * @return the identifier of the given Deletion_t, as a pointer to a string.
+ *
+ * @memberof Deletion_t
+ */
 LIBSBML_EXTERN
 char *
 Deletion_getId(Deletion_t * d);
 
 
+/**
+ * Takes a Deletion_t structure and returns its name.
+ *
+ * @param d the Deletion_t whose name is sought.
+ *
+ * @return the name of the given Deletion_t, as a pointer to a string.
+ *
+ * @memberof Deletion_t
+ */
 LIBSBML_EXTERN
 char *
 Deletion_getName(Deletion_t * d);
 
 
+/**
+ * Predicate returning @c true or @c false depending on whether the given
+ * Deletion_t structure's identifier is set.
+ *
+ * @param d the Deletion_t structure to query
+ * 
+ * @return @c non-zero (true) if the "id" attribute of the given
+ * Deletion_t structure is set, zero (false) otherwise.
+ *
+ * @memberof Deletion_t
+ */
 LIBSBML_EXTERN
 int
 Deletion_isSetId(Deletion_t * d);
 
 
+/**
+ * Predicate returning @c true or @c false depending on whether the given
+ * Deletion_t structure's name is set.
+ *
+ * @param d the Deletion_t structure to query
+ * 
+ * @return @c non-zero (true) if the "name" attribute of the given
+ * Deletion_t structure is set, zero (false) otherwise.
+ *
+ * @memberof Deletion_t
+ */
 LIBSBML_EXTERN
 int
 Deletion_isSetName(Deletion_t * d);
 
 
+/**
+ * Assigns the identifier of an Deletion_t structure.
+ *
+ * This makes a copy of the string passed in the param @p sid.
+ *
+ * @param d the Deletion_t structure to set.
+ * @param sid the string to use as the identifier.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE @endlink
+ *
+ * @note Using this function with an id of NULL is equivalent to
+ * unsetting the "id" attribute.
+ *
+ * @memberof Deletion_t
+ */
 LIBSBML_EXTERN
 int
-Deletion_setId(Deletion_t * d, const char * id);
+Deletion_setId(Deletion_t * d, const char * sid);
 
 
+/**
+ * Sets the name of the given Deletion_t to a copy of @p name.
+ *
+ * @param d the Deletion_t structure to set
+ * @param name the name to assign to the given Deletion_t's "name" attribute.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE @endlink
+ *
+ * @note Using this function with the name set to NULL is equivalent to
+ * unsetting the "name" attribute.
+ *
+ * @memberof Deletion_t
+ */
 LIBSBML_EXTERN
 int
 Deletion_setName(Deletion_t * d, const char * name);
 
 
+/**
+ * Unsets the "id" attribute of the given Deletion_t structure.
+ *
+ * @param d the Deletion_t structure to unset
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
+ *
+ * @memberof Deletion_t
+ */
 LIBSBML_EXTERN
 int
 Deletion_unsetId(Deletion_t * d);
 
 
+/**
+ * Unsets the "name" attribute of the given Deletion_t structure.
+ *
+ * @param d the Deletion_t structure to unset
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
+ *
+ * @memberof Deletion_t
+ */
 LIBSBML_EXTERN
 int
 Deletion_unsetName(Deletion_t * d);
 
 
+/**
+  * Predicate returning @c true or @c false depending on whether
+  * all the required attributes for the given Deletion_t structure
+  * have been set.
+  *
+  * @note The required attributes for a Deletion_t structure are:
+  * @li useValuesfromTriggerTime ( L3 onwards )
+  *
+ * @memberof Deletion_t
+ */
 LIBSBML_EXTERN
 int
 Deletion_hasRequiredAttributes(Deletion_t * d);
 
 
+/**
+ * Return the Deletion_t indicated by the given @p sid.
+ *
+ * @param lo the ListOf_t structure to use
+ *
+ * @param sid a string, the identifier of the
+ * Deletion_t is being sought.
+ *
+ * @return the Deletion_t for the given variable, or @c NULL if no such
+ * Deletion_t exits.
+ *
+ * @memberof Deletion_t
+ */
 LIBSBML_EXTERN
 Deletion_t *
 ListOfDeletions_getById(ListOf_t * lo, const char * sid);
 
 
+/**
+ * Removes the Deletion_t object with the given @p sid
+ * from the given ListOf_t object and returns a pointer to it.
+ *
+ * The caller owns the returned object and is responsible for deleting it.
+ *
+ * @param lo the ListOf_t structure
+ * @param sid the string of the "id" attribute of the Deletion_t sought
+ *
+ * @return the Deletion_t object removed.  As mentioned above, the 
+ * caller owns the returned object. @c NULL is returned if no Deletion_t
+ * object with the "id" attribute exists in the given ListOf_t object.
+ *
+ * @memberof Deletion_t
+ */
 LIBSBML_EXTERN
 Deletion_t *
 ListOfDeletions_removeById(ListOf_t * lo, const char * sid);

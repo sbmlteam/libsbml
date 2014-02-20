@@ -633,6 +633,17 @@ LIBSBML_CPP_NAMESPACE_END
 LIBSBML_CPP_NAMESPACE_BEGIN
 BEGIN_C_DECLS
 
+/**
+ * Creates a new, empty Submodel_t structure, adds it to the given
+ * CompModelPlugin_t, and returns the Submodel_t.
+ *
+ * @param modelPlug the CompModelPlugin_t structure to which the Submodel_t should be
+ * added
+ *
+ * @return the newly-created empty Submodel_t.
+ *
+ * @memberof CompModelPlugin_t
+ */
 LIBSBML_EXTERN
 Submodel_t *
 CompModelPlugin_createSubmodel(CompModelPlugin_t * modelPlug);

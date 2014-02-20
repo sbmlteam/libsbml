@@ -600,13 +600,13 @@ public:
 
 
   /**
-   * Get a Output from the ListOfInputs
+   * Get a Output from the ListOfOutputs
    * based on the qualitativeSpecies to which it refers.
    *
    * @param sid a string representing the qualitativeSpecies attribute
    * of the Output to get.
    *
-   * @return the first Output in this ListOfInputs
+   * @return the first Output in this ListOfOutputs
    * with the given qualitativeSpecies or NULL if no such
    * Output exists.
    *
@@ -617,13 +617,13 @@ public:
 
 
   /**
-   * Get a Output from the ListOfInputs
+   * Get a Output from the ListOfOutputs
    * based on the qualitativeSpecies to which it refers.
    *
    * @param sid a string representing the qualitativeSpecies attribute
    * of the Output to get.
    *
-   * @return the first Output in this ListOfInputs
+   * @return the first Output in this ListOfOutputs
    * with the given qualitativeSpecies or NULL if no such
    * Output exists.
    *
@@ -634,7 +634,7 @@ public:
 
 
   /**
-   * Removes the nth Input from this ListOfInputs
+   * Removes the nth Output from this ListOfOutputs
    * and returns a pointer to it.
    *
    * The caller owns the returned item and is responsible for deleting it.
@@ -724,152 +724,532 @@ LIBSBML_CPP_NAMESPACE_END
 LIBSBML_CPP_NAMESPACE_BEGIN
 BEGIN_C_DECLS
 
+/**
+ * Creates a new Output_t structure using the given SBML @p level
+ * and @p version values.
+ *
+ * @param level an unsigned int, the SBML Level to assign to this
+ * Output_t
+ * @param version an unsigned int, the SBML Version to assign to this
+ * Output_t
+ * @param pkgVersion an unsigned int, the SBML 'Qual' package Version to assign to this
+ * Output_t
+ *
+ * @return a pointer to the newly created Output_t structure.
+ *
+ * @memberof Output_t
+ */
 LIBSBML_EXTERN
 Output_t *
 Output_create(unsigned int level, unsigned int version,
               unsigned int pkgVersion);
 
 
+/**
+ * Frees the given Output_t structure.
+ *
+ * @param o the Output_t structure to free.
+ *
+ * @memberof Output_t
+ */
 LIBSBML_EXTERN
 void
 Output_free(Output_t * o);
 
 
+/**
+ * Returns a copy of the given Output_t structure.
+ *
+ * @param o the Output_t structure to copy.
+ * 
+ * @return a (deep) copy of the Output_t.
+ *
+ * @memberof Output_t
+ */
 LIBSBML_EXTERN
 Output_t *
 Output_clone(Output_t * o);
 
 
+/**
+ * Takes an Output_t structure and returns its identifier.
+ *
+ * @param o the Output_t structure whose identifier is sought
+ * 
+ * @return the identifier of this Output_t, as a pointer to a string.
+ *
+ * @memberof Output_t
+ */
 LIBSBML_EXTERN
 char *
 Output_getId(Output_t * o);
 
 
+/**
+ * Takes a Output_t structure and returns its qualitativeSpecies.
+ *
+ * @param o the Output_t whose qualitativeSpecies is sought.
+ *
+ * @return the qualitativeSpecies of the given Output_t, as a pointer to a string.
+ *
+ * @memberof Output_t
+ */
 LIBSBML_EXTERN
 char *
 Output_getQualitativeSpecies(Output_t * o);
 
 
+/**
+ * Takes a Output_t structure and returns its transitionEffect as a ENUMTYPE 
+ * (an enumerated value of legal possible values for the attribute).
+ *
+ * @param o the Output_t whose transitionEffect is sought.
+ *
+ * @return the transitionEffect of the given Output_t, as a ENUMTYPE
+ *
+ * @memberof Output_t
+ */
 LIBSBML_EXTERN
 OutputTransitionEffect_t
 Output_getTransitionEffect(Output_t * o);
 
 
+/**
+ * Takes a Output_t structure and returns its name.
+ *
+ * @param o the Output_t whose name is sought.
+ *
+ * @return the name of this Output_t, as a pointer to a string.
+ *
+ * @memberof Output_t
+ */
 LIBSBML_EXTERN
 char *
 Output_getName(Output_t * o);
 
 
+/**
+ * Takes a Output_t structure and returns its outputLevel.
+ *
+ * @param o the Output_t whose outputLevel is sought.
+ *
+ * @return the outputLevel attribute of the given Output_t, as an @c int.
+ *
+ * @memberof Output_t
+ */
 LIBSBML_EXTERN
 int
 Output_getOutputLevel(Output_t * o);
 
 
+/**
+ * Predicate returning @c true or @c false depending on whether the given
+ * Output_t structure's identifier is set.
+ *
+ * @param o the Output_t structure to query
+ * 
+ * @return @c non-zero (true) if the "id" attribute of the given
+ * Output_t structure is set, zero (false) otherwise.
+ *
+ * @memberof Output_t
+ */
 LIBSBML_EXTERN
 int
 Output_isSetId(Output_t * o);
 
 
+/**
+ * Predicate returning @c true or @c false depending on whether the given
+ * Output_t structure's qualitativeSpecies is set.
+ *
+ * @param o the Output_t structure to query
+ * 
+ * @return @c non-zero (true) if the "qualitativeSpecies" attribute of the given
+ * Output_t structure is set, zero (false) otherwise.
+ *
+ * @memberof Output_t
+ */
 LIBSBML_EXTERN
 int
 Output_isSetQualitativeSpecies(Output_t * o);
 
 
+/**
+ * Predicate returning @c true or @c false depending on whether the given
+ * Output_t structure's transitionEffect is set.
+ *
+ * @param o the Output_t structure to query
+ * 
+ * @return @c non-zero (true) if the "transitionEffect" attribute of the given
+ * Output_t structure is set, zero (false) otherwise.
+ *
+ * @memberof Output_t
+ */
 LIBSBML_EXTERN
 int
 Output_isSetTransitionEffect(Output_t * o);
 
 
+/**
+ * Predicate returning @c true or @c false depending on whether the given
+ * Output_t structure's name is set.
+ *
+ * @param o the Output_t structure to query
+ * 
+ * @return @c non-zero (true) if the "name" attribute of the given
+ * Output_t structure is set, zero (false) otherwise.
+ *
+ * @memberof Output_t
+ */
 LIBSBML_EXTERN
 int
 Output_isSetName(Output_t * o);
 
 
+/**
+ * Predicate returning @c true or @c false depending on whether the given
+ * Output_t structure's outputLevel is set.
+ *
+ * @param o the Output_t structure to query
+ * 
+ * @return @c non-zero (true) if the "outputLevel" attribute of the given
+ * Output_t structure is set, zero (false) otherwise.
+ *
+ * @memberof Output_t
+ */
 LIBSBML_EXTERN
 int
 Output_isSetOutputLevel(Output_t * o);
 
 
+/**
+ * Assigns the identifier of an Output_t structure.
+ *
+ * This makes a copy of the string passed in the param @p sid.
+ *
+ * @param o the Output_t structure to set.
+ * @param sid the string to use as the identifier.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE @endlink
+ *
+ * @note Using this function with an id of NULL is equivalent to
+ * unsetting the "id" attribute.
+ *
+ * @memberof Output_t
+ */
 LIBSBML_EXTERN
 int
-Output_setId(Output_t * o, const char * id);
+Output_setId(Output_t * o, const char * sid);
 
 
+/**
+ * Sets the qualitativeSpecies of the given Output_t to a copy of @p qualitativeSpecies.
+ *
+ * @param o the Output_t structure to set
+ * @param qualitativeSpecies the qualitativeSpecies to assign to the given Output_t's "qualitativeSpecies" attribute.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE @endlink
+ *
+ * @note Using this function with the name set to NULL is equivalent to
+ * unsetting the "qualitativeSpecies" attribute.
+ *
+ * @memberof Output_t
+ */
 LIBSBML_EXTERN
 int
 Output_setQualitativeSpecies(Output_t * o, const char * qualitativeSpecies);
 
 
+/**
+ * Sets the transitionEffect of the given Output_t to a copy of @p transitionEffect.
+ *
+ * @param o the Output_t structure to set
+ * @param transitionEffect the transitionEffect to assign to the given Output_t's "transitionEffect" attribute.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE @endlink
+ *
+ * @note Using this function with the name set to NULL is equivalent to
+ * unsetting the "transitionEffect" attribute.
+ *
+ * @memberof Output_t
+ */
 LIBSBML_EXTERN
 int
 Output_setTransitionEffect(Output_t * o, const char * transitionEffect);
 
 
+/**
+ * Sets the name of the given Output_t to a copy of @p name.
+ *
+ * @param o the Output_t structure to set
+ * @param name the name to assign to the given Output_t's "name" attribute.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE @endlink
+ *
+ * @note Using this function with the name set to NULL is equivalent to
+ * unsetting the "name" attribute.
+ *
+ * @memberof Output_t
+ */
 LIBSBML_EXTERN
 int
 Output_setName(Output_t * o, const char * name);
 
 
+/**
+ * Sets the "outputLevel" attribute of the given Output_t
+ * structure.
+ *
+ * @param o the Output_t structure
+ * 
+ * @param outputLevel the value of outputLevel to assign to the "outputLevel" attribute
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_UNEXPECTED_ATTRIBUTE LIBSBML_UNEXPECTED_ATTRIBUTE @endlink
+ *
+ * @memberof Output_t
+ */
 LIBSBML_EXTERN
 int
 Output_setOutputLevel(Output_t * o, int outputLevel);
 
 
+/**
+ * Unsets the "id" attribute of the given Output_t structure.
+ *
+ * @param o the Output_t structure to unset
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
+ *
+ * @memberof Output_t
+ */
 LIBSBML_EXTERN
 int
 Output_unsetId(Output_t * o);
 
 
+/**
+ * Unsets the "qualitativeSpecies" attribute of the given Output_t structure.
+ *
+ * @param o the Output_t structure to unset
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
+ *
+ * @memberof Output_t
+ */
 LIBSBML_EXTERN
 int
 Output_unsetQualitativeSpecies(Output_t * o);
 
 
+/**
+ * Unsets the "transitionEffect" attribute of the given Output_t structure.
+ *
+ * @param o the Output_t structure to unset
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
+ *
+ * @memberof Output_t
+ */
 LIBSBML_EXTERN
 int
 Output_unsetTransitionEffect(Output_t * o);
 
 
+/**
+ * Unsets the "name" attribute of the given Output_t structure.
+ *
+ * @param o the Output_t structure to unset
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
+ *
+ * @memberof Output_t
+ */
 LIBSBML_EXTERN
 int
 Output_unsetName(Output_t * o);
 
 
+/**
+ * Unsets the "outputLevel" attribute of the given Output_t structure.
+ *
+ * @param o the Output_t structure to unset
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
+ *
+ * @memberof Output_t
+ */
 LIBSBML_EXTERN
 int
 Output_unsetOutputLevel(Output_t * o);
 
 
+/**
+  * Predicate returning @c true or @c false depending on whether
+  * all the required attributes for the given Output_t structure
+  * have been set.
+  *
+  * @note The required attributes for a Output_t structure are:
+  * @li useValuesfromTriggerTime ( L3 onwards )
+  *
+ * @memberof Output_t
+ */
 LIBSBML_EXTERN
 int
 Output_hasRequiredAttributes(Output_t * o);
 
 
+/**
+ * Return the Output_t indicated by the given @p sid.
+ *
+ * @param lo the ListOf_t structure to use
+ *
+ * @param sid a string, the identifier of the
+ * Output_t is being sought.
+ *
+ * @return the Output_t for the given variable, or @c NULL if no such
+ * Output_t exits.
+ *
+ * @memberof Output_t
+ */
 LIBSBML_EXTERN
 Output_t *
 ListOfOutputs_getById(ListOf_t * lo, const char * sid);
 
 
+/**
+ * Removes the Output_t object with the given @p sid
+ * from the given ListOf_t object and returns a pointer to it.
+ *
+ * The caller owns the returned object and is responsible for deleting it.
+ *
+ * @param lo the ListOf_t structure
+ * @param sid the string of the "id" attribute of the Output_t sought
+ *
+ * @return the Output_t object removed.  As mentioned above, the 
+ * caller owns the returned object. @c NULL is returned if no Output_t
+ * object with the "id" attribute exists in the given ListOf_t object.
+ *
+ * @memberof Output_t
+ */
 LIBSBML_EXTERN
 Output_t *
 ListOfOutputs_removeById(ListOf_t * lo, const char * sid);
 
-
+/**
+ * Returns the string version of the provided OutputTransitionEffect_t enumeration.
+ *
+ * @param effect The OutputTransitionEffect_t enumeration to convert
+ *
+ * @return A string corresponding to the given effect:  "production", 
+ * "assignmentLevel", or NULL if the value is OUTPUT_TRANSITION_EFFECT_UNKNOWN 
+ * or another invalid enumeration value.
+ *
+ * @memberof Output_t
+ */
 LIBSBML_EXTERN
 const char* 
 OutputTransitionEffect_toString(OutputTransitionEffect_t effect);
 
 
+/**
+ * Returns the OutputTransitionEffect_t enumeration corresponding to 
+ * the given string, or OUTPUT_TRANSITION_EFFECT_UNKNOWN if there is 
+ * no such match.  The matching is case-sensitive:  "production" will 
+ * return OUTPUT_TRANSITION_EFFECT_PRODUCTION, but "Production" will return 
+ * OUTPUT_TRANSITION_EFFECT_UNKNOWN.
+ *
+ * @param s The string to convert to an OutputTransitionEffect_t
+ *
+ * @return The corresponding OutputTransitionEffect_t, or 
+ * OUTPUT_TRANSITION_EFFECT_UNKNOWN if no match found.
+ *
+ * @memberof Output_t
+ */
 LIBSBML_EXTERN
 OutputTransitionEffect_t 
 OutputTransitionEffect_fromString(const char* s);
 
 
+/**
+ * Predicate returning @c true (non-zero) or @c false (zero) depending on whether the given
+ * OutputTransitionEffect_t is valid.
+ *
+ * @param effect the OutputTransitionEffect_t enumeration to query
+ * 
+ * @return @c non-zero (true) if the OutputTransitionEffect_t is
+ * OUTPUT_TRANSITION_EFFECT_PRODUCTION or OUTPUT_TRANSITION_EFFECT_ASSIGNMENT_LEVEL,
+ * zero (false) otherwise (including OUTPUT_TRANSITION_EFFECT_UNKNOWN).
+ *
+ * @memberof Output_t
+ */
 LIBSBML_EXTERN
 int 
 OutputTransitionEffect_isValidOutputTransitionEffect(OutputTransitionEffect_t effect);
 
 
+/**
+ * Predicate returning @c true (non-zero) or @c false (zero) depending 
+ * on whether the given string is a valid OutputTransitionEffect_t.  
+ * The matching is case-sensitive:  "production" will return @c true, but 
+ * "Production" will return @c false.
+ *
+ * @param s The string to query
+ * 
+ * @return @c non-zero (true) if the string is
+ * "production" or "assignmentLevel"; zero (false) otherwise.
+ *
+ * @memberof Output_t
+ */
 LIBSBML_EXTERN
 int 
 OutputTransitionEffect_isValidOutputTransitionEffectString(const char* s);

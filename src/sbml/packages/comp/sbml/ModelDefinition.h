@@ -193,22 +193,50 @@ LIBSBML_CPP_NAMESPACE_END
 LIBSBML_CPP_NAMESPACE_BEGIN
 BEGIN_C_DECLS
 
-//
-// C API will be added here.
-//
+/**
+ * Creates a new ModelDefinition_t structure using the given SBML @p level
+ * and @p version values.
+ *
+ * @param level an unsigned int, the SBML Level to assign to this
+ * ModelDefinition_t
+ * @param version an unsigned int, the SBML Version to assign to this
+ * ModelDefinition_t
+ * @param pkgVersion an unsigned int, the SBML 'comp' package Version to assign to this
+ * ModelDefinition_t
+ *
+ * @return a pointer to the newly created ModelDefinition_t structure.
+ *
+ * @memberof ModelDefinition_t
+ */
 LIBSBML_EXTERN
 ModelDefinition_t *
 ModelDefinition_create(unsigned int level, unsigned int version,
                        unsigned int pkgVersion);
 
+/**
+ * Frees the given ModelDefinition_t structure.
+ *
+ * @param md the ModelDefinition_t structure to free.
+ *
+ * @memberof ModelDefinition_t
+ */
 LIBSBML_EXTERN
 void
-ModelDefinition_free(ModelDefinition_t * emd);
+ModelDefinition_free(ModelDefinition_t * md);
 
 
+/**
+ * Returns a copy of the given ModelDefinition_t structure.
+ *
+ * @param md the ModelDefinition_t structure to copy.
+ * 
+ * @return a (deep) copy of the ModelDefinition_t.
+ *
+ * @memberof ModelDefinition_t
+ */
 LIBSBML_EXTERN
 ModelDefinition_t *
-ModelDefinition_clone(ModelDefinition_t * emd);
+ModelDefinition_clone(ModelDefinition_t * md);
 
 
 

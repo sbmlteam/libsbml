@@ -115,7 +115,6 @@ protected:
   std::string   mId;
   std::string   mName;
   std::string   mModelRef;
-  std::string   mSubstanceConversionFactor;
   std::string   mTimeConversionFactor;
   std::string   mExtentConversionFactor;
   ListOfDeletions  mListOfDeletions;
@@ -327,42 +326,36 @@ public:
 
 
   /**
-   * Returns the value of the "substanceConversionFactor" attribute of this
-   * Submodel.
+   * Returns an empty string, since "substanceConversionFactor" is not a part of the comp spec.
    *
-   * @return the value of the "substanceConversionFactor" attribute of this Submodel.
+   * @return an empty string
    */
   virtual const std::string& getSubstanceConversionFactor () const;
 
 
   /**
-   * Predicate returning @c true or @c false depending on whether this
-   * Submodel's "substanceConversionFactor" attribute has been set.
+   * Returns @c false, since "substanceConversionFactor" is not a part of the comp spec.
    *
-   * @return @c true if this Submodel's "substanceConversionFactor" attribute has been set, 
-   * otherwise @c false is returned.
+   * @return @c false.
    */
   virtual bool isSetSubstanceConversionFactor () const;
 
   
   /**
-   * Sets the value of the "substanceConversionFactor" attribute of this
-   * Submodel.  Fails if the id is not a valid syntax for an SIdRef.
+   * Automatically fails, since "substanceConversionFactor" is not a part of the comp spec.
    *
    * @return integer value indicating success/failure of the
-   * operation. The possible return values are:
-   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+   * operation. The possible return value is:
    * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE @endlink
    */
   virtual int setSubstanceConversionFactor (const std::string& id);
 
 
   /**
-   * Unsets the value of the "substanceConversionFactor" attribute of this Submodel.
+   * Automatically fails, since "substanceConversionFactor" is not a part of the comp spec.
    *
    * @return integer value indicating success/failure of the
-   * operation. The possible return values are:
-   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+   * operation. The possible return value is:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
    */
   virtual int unsetSubstanceConversionFactor ();
@@ -846,197 +839,691 @@ LIBSBML_CPP_NAMESPACE_END
 LIBSBML_CPP_NAMESPACE_BEGIN
 BEGIN_C_DECLS
 
+/**
+ * Creates a new Submodel_t structure using the given SBML @p level
+ * and @p version values.
+ *
+ * @param level an unsigned int, the SBML Level to assign to this
+ * Submodel_t
+ * @param version an unsigned int, the SBML Version to assign to this
+ * Submodel_t
+ * @param pkgVersion an unsigned int, the SBML 'Qual' package Version to assign to this
+ * Submodel_t
+ *
+ * @return a pointer to the newly created Submodel_t structure.
+ *
+ * @memberof Submodel_t
+ */
 LIBSBML_EXTERN
 Submodel_t *
 Submodel_create(unsigned int level, unsigned int version,
                 unsigned int pkgVersion);
 
 
+/**
+ * Frees the given Submodel_t structure.
+ *
+ * @param s the Submodel_t structure to free.
+ *
+ * @memberof Submodel_t
+ */
 LIBSBML_EXTERN
 void
 Submodel_free(Submodel_t * s);
 
 
+/**
+ * Returns a copy of the given Submodel_t structure.
+ *
+ * @param s the Submodel_t structure to copy.
+ * 
+ * @return a (deep) copy of the Submodel_t.
+ *
+ * @memberof Submodel_t
+ */
 LIBSBML_EXTERN
 Submodel_t *
 Submodel_clone(Submodel_t * s);
 
 
+/**
+ * Takes an Submodel_t structure and returns its identifier.
+ *
+ * @param s the Submodel_t structure whose identifier is sought
+ * 
+ * @return the identifier of the given Submodel_t, as a pointer to a string.
+ *
+ * @memberof Submodel_t
+ */
 LIBSBML_EXTERN
 char *
 Submodel_getId(Submodel_t * s);
 
 
+/**
+ * Takes a Submodel_t structure and returns its name.
+ *
+ * @param s the Submodel_t whose name is sought.
+ *
+ * @return the name of the given Submodel_t, as a pointer to a string.
+ *
+ * @memberof Submodel_t
+ */
 LIBSBML_EXTERN
 char *
 Submodel_getName(Submodel_t * s);
 
 
+/**
+ * Takes a Submodel_t structure and returns its modelRef.
+ *
+ * @param s the Submodel_t whose modelRef is sought.
+ *
+ * @return the modelRef of the given Submodel_t, as a pointer to a string.
+ *
+ * @memberof Submodel_t
+ */
 LIBSBML_EXTERN
 char *
 Submodel_getModelRef(Submodel_t * s);
 
 
+/**
+ * Returns NULL, since "substanceConversionFactor" is not a part of the comp spec.
+ *
+ * @param s the Submodel_t whose substanceConversionFactor is sought.
+ *
+ * @return NULL
+ *
+ * @memberof Submodel_t
+ */
 LIBSBML_EXTERN
 char *
 Submodel_getSubstanceConversionFactor(Submodel_t * s);
 
 
+/**
+ * Takes a Submodel_t structure and returns its timeConversionFactor.
+ *
+ * @param s the Submodel_t whose timeConversionFactor is sought.
+ *
+ * @return the timeConversionFactor of the given Submodel_t, as a pointer to a string.
+ *
+ * @memberof Submodel_t
+ */
 LIBSBML_EXTERN
 char *
 Submodel_getTimeConversionFactor(Submodel_t * s);
 
 
+/**
+ * Takes a Submodel_t structure and returns its extentConversionFactor.
+ *
+ * @param s the Submodel_t whose extentConversionFactor is sought.
+ *
+ * @return the extentConversionFactor of the given Submodel_t, as a pointer to a string.
+ *
+ * @memberof Submodel_t
+ */
 LIBSBML_EXTERN
 char *
 Submodel_getExtentConversionFactor(Submodel_t * s);
 
 
+/**
+ * Predicate returning @c true or @c false depending on whether the given
+ * Submodel_t structure's identifier is set.
+ *
+ * @param s the Submodel_t structure to query
+ * 
+ * @return @c non-zero (true) if the "id" attribute of the given
+ * Submodel_t structure is set, zero (false) otherwise.
+ *
+ * @memberof Submodel_t
+ */
 LIBSBML_EXTERN
 int
 Submodel_isSetId(Submodel_t * s);
 
 
+/**
+ * Predicate returning @c true or @c false depending on whether the given
+ * Submodel_t structure's name is set.
+ *
+ * @param s the Submodel_t structure to query
+ * 
+ * @return @c non-zero (true) if the "name" attribute of the given
+ * Submodel_t structure is set, zero (false) otherwise.
+ *
+ * @memberof Submodel_t
+ */
 LIBSBML_EXTERN
 int
 Submodel_isSetName(Submodel_t * s);
 
 
+/**
+ * Predicate returning @c true or @c false depending on whether the given
+ * Submodel_t structure's modelRef is set.
+ *
+ * @param s the Submodel_t structure to query
+ * 
+ * @return @c non-zero (true) if the "modelRef" attribute of the given
+ * Submodel_t structure is set, zero (false) otherwise.
+ *
+ * @memberof Submodel_t
+ */
 LIBSBML_EXTERN
 int
 Submodel_isSetModelRef(Submodel_t * s);
 
 
+/**
+ * Returns @c false, since "substanceConversionFactor" is not a part of the comp spec.
+ *
+ * @param s the Submodel_t structure to query
+ * 
+ * @return @c 0 (false)
+ *
+ * @memberof Submodel_t
+ */
 LIBSBML_EXTERN
 int
 Submodel_isSetSubstanceConversionFactor(Submodel_t * s);
 
 
+/**
+ * Predicate returning @c true or @c false depending on whether the given
+ * Submodel_t structure's timeConversionFactor is set.
+ *
+ * @param s the Submodel_t structure to query
+ * 
+ * @return @c non-zero (true) if the "timeConversionFactor" attribute of the given
+ * Submodel_t structure is set, zero (false) otherwise.
+ *
+ * @memberof Submodel_t
+ */
 LIBSBML_EXTERN
 int
 Submodel_isSetTimeConversionFactor(Submodel_t * s);
 
 
+/**
+ * Predicate returning @c true or @c false depending on whether the given
+ * Submodel_t structure's extentConversionFactor is set.
+ *
+ * @param s the Submodel_t structure to query
+ * 
+ * @return @c non-zero (true) if the "extentConversionFactor" attribute of the given
+ * Submodel_t structure is set, zero (false) otherwise.
+ *
+ * @memberof Submodel_t
+ */
 LIBSBML_EXTERN
 int
 Submodel_isSetExtentConversionFactor(Submodel_t * s);
 
 
+/**
+ * Assigns the identifier of an Submodel_t structure.
+ *
+ * This makes a copy of the string passed in the param @p sid.
+ *
+ * @param s the Submodel_t structure to set.
+ * @param sid the string to use as the identifier.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE @endlink
+ *
+ * @note Using this function with an id of NULL is equivalent to
+ * unsetting the "id" attribute.
+ *
+ * @memberof Submodel_t
+ */
 LIBSBML_EXTERN
 int
-Submodel_setId(Submodel_t * s, const char * id);
+Submodel_setId(Submodel_t * s, const char * sid);
 
 
+/**
+ * Sets the name of the given Submodel_t to a copy of @p name.
+ *
+ * @param s the Submodel_t structure to set
+ * @param name the name to assign to the given Submodel_t's "name" attribute.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE @endlink
+ *
+ * @note Using this function with the name set to NULL is equivalent to
+ * unsetting the "name" attribute.
+ *
+ * @memberof Submodel_t
+ */
 LIBSBML_EXTERN
 int
 Submodel_setName(Submodel_t * s, const char * name);
 
 
+/**
+ * Sets the modelRef of the given Submodel_t to a copy of @p modelRef.
+ *
+ * @param s the Submodel_t structure to set
+ * @param modelRef the modelRef to assign to the given Submodel_t's "modelRef" attribute.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE @endlink
+ *
+ * @note Using this function with the name set to NULL is equivalent to
+ * unsetting the "modelRef" attribute.
+ *
+ * @memberof Submodel_t
+ */
 LIBSBML_EXTERN
 int
 Submodel_setModelRef(Submodel_t * s, const char * modelRef);
 
 
+/**
+ * Automatically fails, since "substanceConversionFactor" is not a part of the comp spec.
+ *
+ * @param s the Submodel_t structure to set
+ * @param substanceConversionFactor the substanceConversionFactor to ignore
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible value
+ * returned by this function is:
+ * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE @endlink
+ *
+ * @memberof Submodel_t
+ */
 LIBSBML_EXTERN
 int
-Submodel_setSubstanceConversionFactor(Submodel_t * s, const char * timeConversionFactor);
+Submodel_setSubstanceConversionFactor(Submodel_t * s, const char * substanceConversionFactor);
 
 
+/**
+ * Sets the timeConversionFactor of the given Submodel_t to a copy of @p timeConversionFactor.
+ *
+ * @param s the Submodel_t structure to set
+ * @param timeConversionFactor the timeConversionFactor to assign to the given Submodel_t's "timeConversionFactor" attribute.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE @endlink
+ *
+ * @note Using this function with the name set to NULL is equivalent to
+ * unsetting the "timeConversionFactor" attribute.
+ *
+ * @memberof Submodel_t
+ */
 LIBSBML_EXTERN
 int
 Submodel_setTimeConversionFactor(Submodel_t * s, const char * timeConversionFactor);
 
 
+/**
+ * Sets the extentConversionFactor of the given Submodel_t to a copy of @p extentConversionFactor.
+ *
+ * @param s the Submodel_t structure to set
+ * @param extentConversionFactor the extentConversionFactor to assign to the given Submodel_t's "extentConversionFactor" attribute.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE @endlink
+ *
+ * @note Using this function with the name set to NULL is equivalent to
+ * unsetting the "extentConversionFactor" attribute.
+ *
+ * @memberof Submodel_t
+ */
 LIBSBML_EXTERN
 int
 Submodel_setExtentConversionFactor(Submodel_t * s, const char * extentConversionFactor);
 
 
+/**
+ * Unsets the "id" attribute of the given Submodel_t structure.
+ *
+ * @param s the Submodel_t structure to unset
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
+ *
+ * @memberof Submodel_t
+ */
 LIBSBML_EXTERN
 int
 Submodel_unsetId(Submodel_t * s);
 
 
+/**
+ * Unsets the "name" attribute of the given Submodel_t structure.
+ *
+ * @param s the Submodel_t structure to unset
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
+ *
+ * @memberof Submodel_t
+ */
 LIBSBML_EXTERN
 int
 Submodel_unsetName(Submodel_t * s);
 
 
+/**
+ * Unsets the "modelRef" attribute of the given Submodel_t structure.
+ *
+ * @param s the Submodel_t structure to unset
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
+ *
+ * @memberof Submodel_t
+ */
 LIBSBML_EXTERN
 int
 Submodel_unsetModelRef(Submodel_t * s);
 
 
+/**
+ * Automatically fails, since "substanceConversionFactor" is not a part of the comp spec.
+ *
+ * @param s the Submodel_t structure to unset
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible value
+ * returned by this function is:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
+ *
+ * @memberof Submodel_t
+ */
 LIBSBML_EXTERN
 int
 Submodel_unsetSubstanceConversionFactor(Submodel_t * s);
 
 
+/**
+ * Unsets the "timeConversionFactor" attribute of the given Submodel_t structure.
+ *
+ * @param s the Submodel_t structure to unset
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
+ *
+ * @memberof Submodel_t
+ */
 LIBSBML_EXTERN
 int
 Submodel_unsetTimeConversionFactor(Submodel_t * s);
 
 
+/**
+ * Unsets the "extentConversionFactor" attribute of the given Submodel_t structure.
+ *
+ * @param s the Submodel_t structure to unset
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
+ *
+ * @memberof Submodel_t
+ */
 LIBSBML_EXTERN
 int
 Submodel_unsetExtentConversionFactor(Submodel_t * s);
 
 
+/**
+ * Appends a copy of the given Deletion_t structure to the given Submodel_t
+ * structure.
+ *
+ * @param s the Submodel_t structure to which the Deletion_t should be
+ * added
+ *
+ * @param d a Deletion_t structure to add
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_LEVEL_MISMATCH LIBSBML_LEVEL_MISMATCH @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_VERSION_MISMATCH LIBSBML_VERSION_MISMATCH @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_PKG_VERSION_MISMATCH LIBSBML_PKG_VERSION_MISMATCH @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_DUPLICATE_OBJECT_ID LIBSBML_DUPLICATE_OBJECT_ID @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
+ *
+ * @memberof Submodel_t
+ */
 LIBSBML_EXTERN
 int
 Submodel_addDeletion(Submodel_t * s, Deletion_t * d);
 
 
+/**
+ * Creates a new, empty Deletion_t structure, adds it to the given
+ * Submodel_t, and returns the Deletion_t.
+ *
+ * @param s the Submodel_t structure to which the Deletion_t should be
+ * added
+ *
+ * @return the newly-created empty Deletion_t.
+ *
+ * @memberof Submodel_t
+ */
 LIBSBML_EXTERN
 Deletion_t *
 Submodel_createDeletion(Submodel_t * s);
 
 
+/**
+ * Get the list of Deletion_t structures from the given Submodel_t
+ * structure.
+ *
+ * @param s the Submodel_t structure to use.
+ *
+ * @return the list of CHILDTYPEs for the given Submodel_t.
+ *
+ * @memberof Submodel_t
+ */
 LIBSBML_EXTERN
 ListOf_t *
 Submodel_getListOfDeletions(Submodel_t * s) ;
 
 
+/**
+ * Return a specific Deletion_t structure of the given Submodel_t.
+ *
+ * @param s the Submodel_t structure to use
+ *
+ * @param n an integer, the index of the Deletion_t structure to return
+ * 
+ * @return the nth Deletion_t of the given Submodel_t, or @c NULL if no such Deletion_t exists.
+ *
+ * @memberof Submodel_t
+ */
 LIBSBML_EXTERN
 Deletion_t *
 Submodel_getDeletion(Submodel_t * s, unsigned int n);
 
 
+/**
+ * Return the Deletion_t indicated by the given @p sid.
+ *
+ * @param s the Submodel_t structure to use
+ *
+ * @param sid a string, the identifier of the
+ * Deletion_t is being sought.
+ *
+ * @return the Deletion_t for the given variable, or @c NULL if no such
+ * Deletion_t exits.
+ *
+ * @memberof Submodel_t
+ */
 LIBSBML_EXTERN
 Deletion_t *
 Submodel_getDeletionById(Submodel_t * s, const char * sid);
 
 
+/**
+ * Returns the number of EventAssignment_t objects attached to the given
+ * Submodel_t.
+ *
+ * @param s the Submodel_t structure to use
+ * 
+ * @return the number of EventAssignment_t structures in the given Submodel_t.
+ *
+ * @memberof Submodel_t
+ */
 LIBSBML_EXTERN
 unsigned int
 Submodel_getNumDeletions(Submodel_t * s);
 
 
+/**
+ * Removes the nth Deletion_t object from the given Submodel_t object and
+ * returns a pointer to it.
+ *
+ * The caller owns the returned object and is responsible for deleting it.
+ *
+ * @param s the Submodel_t structure
+ * @param n the integer index of the Deletion_t sought
+ *
+ * @return the Deletion_t object removed.  As mentioned above, 
+ * the caller owns the returned item. @c NULL is returned if the given index 
+ * is out of range.
+ *
+ * @memberof Submodel_t
+ */
 LIBSBML_EXTERN
 Deletion_t *
 Submodel_removeDeletion(Submodel_t * s, unsigned int n);
 
 
+/**
+ * Removes the Deletion_t object with the given @p sid
+ * from the given Submodel_t object and returns a pointer to it.
+ *
+ * The caller owns the returned object and is responsible for deleting it.
+ *
+ * @param s the Submodel_t structure
+ * @param sid the string of the "id" attribute of the Deletion_t sought
+ *
+ * @return the Deletion_t object removed.  As mentioned above, the 
+ * caller owns the returned object. @c NULL is returned if no Deletion_t
+ * object with the "id" attribute exists in the given Submodel_t object.
+ *
+ * @memberof Submodel_t
+ */
 LIBSBML_EXTERN
 Deletion_t *
 Submodel_removeDeletionById(Submodel_t * s, const char * sid);
 
 
+/**
+  * Predicate returning @c true or @c false depending on whether
+  * all the required attributes for the given Submodel_t structure
+  * have been set.
+  *
+  * @note The required attributes for a Submodel_t structure are:
+  * @li useValuesfromTriggerTime ( L3 onwards )
+  *
+ * @memberof Submodel_t
+ */
 LIBSBML_EXTERN
 int
 Submodel_hasRequiredAttributes(Submodel_t * s);
 
 
+/**
+  * Predicate returning @c true or @c false depending on whether
+  * all the required elements for the given Submodel_t structure
+  * have been set.
+  *
+  * @note The required elements for an Submodel_t object are:
+  * @li trigger
+  * @li listOfEventAssignments (requirement removed in L3)
+  *
+ * @memberof Submodel_t
+ */
 LIBSBML_EXTERN
 int
 Submodel_hasRequiredElements(Submodel_t * s);
 
 
+/**
+ * Return the Submodel_t indicated by the given @p sid.
+ *
+ * @param lo the ListOf_t structure to use
+ *
+ * @param sid a string, the identifier of the
+ * Submodel_t is being sought.
+ *
+ * @return the Submodel_t for the given variable, or @c NULL if no such
+ * Submodel_t exits.
+ *
+ * @memberof Submodel_t
+ */
 LIBSBML_EXTERN
 Submodel_t *
 ListOfSubmodels_getById(ListOf_t * lo, const char * sid);
 
 
+/**
+ * Removes the Submodel_t object with the given @p sid
+ * from the given ListOf_t object and returns a pointer to it.
+ *
+ * The caller owns the returned object and is responsible for deleting it.
+ *
+ * @param lo the ListOf_t structure
+ * @param sid the string of the "id" attribute of the Submodel_t sought
+ *
+ * @return the Submodel_t object removed.  As mentioned above, the 
+ * caller owns the returned object. @c NULL is returned if no Submodel_t
+ * object with the "id" attribute exists in the given ListOf_t object.
+ *
+ * @memberof Submodel_t
+ */
 LIBSBML_EXTERN
 Submodel_t *
 ListOfSubmodels_removeById(ListOf_t * lo, const char * sid);

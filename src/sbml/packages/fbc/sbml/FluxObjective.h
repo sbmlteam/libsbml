@@ -563,93 +563,314 @@ LIBSBML_CPP_NAMESPACE_END
 LIBSBML_CPP_NAMESPACE_BEGIN
 BEGIN_C_DECLS
 
-/*
- * C API will be added here.
+/**
+ * Creates a new FluxObjective_t structure using the given SBML @p level
+ * and @p version values.
+ *
+ * @param level an unsigned int, the SBML Level to assign to this
+ * FluxObjective_t
+ * @param version an unsigned int, the SBML Version to assign to this
+ * FluxObjective_t
+ * @param pkgVersion an unsigned int, the SBML 'Qual' package Version to assign to this
+ * FluxObjective_t
+ *
+ * @return a pointer to the newly created FluxObjective_t structure.
+ *
+ * @memberof FluxObjective_t
  */
 LIBSBML_EXTERN
 FluxObjective_t *
-FluxObjective_create(unsigned int level, unsigned int version, unsigned int pkgversion);
+FluxObjective_create(unsigned int level, unsigned int version, unsigned int pkgVersion);
 
 
 
+/**
+ * Takes an FluxObjective_t structure and returns its identifier.
+ *
+ * @param fo the FluxObjective_t structure whose identifier is sought
+ * 
+ * @return the identifier of the given FluxObjective_t, as a pointer to a string.
+ *
+ * @memberof FluxObjective_t
+ */
 LIBSBML_EXTERN
 const char *
-FluxObjective_getId(FluxObjective_t * fb);
+FluxObjective_getId(FluxObjective_t * fo);
 
 
+/**
+ * Predicate returning @c true or @c false depending on whether the given
+ * FluxObjective_t structure's identifier is set.
+ *
+ * @param fo the FluxObjective_t structure to query
+ * 
+ * @return @c non-zero (true) if the "id" attribute of the given
+ * FluxObjective_t structure is set, zero (false) otherwise.
+ *
+ * @memberof FluxObjective_t
+ */
 LIBSBML_EXTERN
 int
-FluxObjective_isSetId(FluxObjective_t * fb);
+FluxObjective_isSetId(FluxObjective_t * fo);
 
 
+/**
+ * Assigns the identifier of an FluxObjective_t structure.
+ *
+ * This makes a copy of the string passed in the param @p sid.
+ *
+ * @param fo the FluxObjective_t structure to set.
+ * @param sid the string to use as the identifier.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE @endlink
+ *
+ * @note Using this function with an id of NULL is equivalent to
+ * unsetting the "id" attribute.
+ *
+ * @memberof FluxObjective_t
+ */
 LIBSBML_EXTERN
 int
-FluxObjective_setId(FluxObjective_t * fb, const char * id);
+FluxObjective_setId(FluxObjective_t * fo, const char * sid);
 
 
+/**
+ * Unsets the "id" attribute of the given FluxObjective_t structure.
+ *
+ * @param fo the FluxObjective_t structure to unset
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
+ *
+ * @memberof FluxObjective_t
+ */
 LIBSBML_EXTERN
 int
-FluxObjective_unsetId(FluxObjective_t * fb);
+FluxObjective_unsetId(FluxObjective_t * fo);
 
+/**
+ * Takes a FluxObjective_t structure and returns its name.
+ *
+ * @param fo the FluxObjective_t whose name is sought.
+ *
+ * @return the name of the given FluxObjective_t, as a pointer to a string.
+ *
+ * @memberof FluxObjective_t
+ */
 LIBSBML_EXTERN
 const char *
-FluxObjective_getName(FluxObjective_t * fb);
+FluxObjective_getName(FluxObjective_t * fo);
 
 
+/**
+ * Predicate returning @c true or @c false depending on whether the given
+ * FluxObjective_t structure's name is set.
+ *
+ * @param fo the FluxObjective_t structure to query
+ * 
+ * @return @c non-zero (true) if the "name" attribute of the given
+ * FluxObjective_t structure is set, zero (false) otherwise.
+ *
+ * @memberof FluxObjective_t
+ */
 LIBSBML_EXTERN
 int
-FluxObjective_isSetName(FluxObjective_t * fb);
+FluxObjective_isSetName(FluxObjective_t * fo);
 
 
+/**
+ * Sets the name of the given FluxObjective_t to a copy of @p name.
+ *
+ * @param fo the FluxObjective_t structure to set
+ * @param name the name to assign to the given FluxObjective_t's "name" attribute.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE @endlink
+ *
+ * @note Using this function with the name set to NULL is equivalent to
+ * unsetting the "name" attribute.
+ *
+ * @memberof FluxObjective_t
+ */
 LIBSBML_EXTERN
 int
-FluxObjective_setName(FluxObjective_t * fb, const char * name);
+FluxObjective_setName(FluxObjective_t * fo, const char * name);
 
 
+/**
+ * Unsets the "name" attribute of the given FluxObjective_t structure.
+ *
+ * @param fo the FluxObjective_t structure to unset
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
+ *
+ * @memberof FluxObjective_t
+ */
 LIBSBML_EXTERN
 int
-FluxObjective_unsetName(FluxObjective_t * fb);
+FluxObjective_unsetName(FluxObjective_t * fo);
 
 
 
+/**
+ * Takes a FluxObjective_t structure and returns its reaction.
+ *
+ * @param fo the FluxObjective_t whose reaction is sought.
+ *
+ * @return the reaction of the given FluxObjective_t, as a pointer to a string.
+ *
+ * @memberof FluxObjective_t
+ */
 LIBSBML_EXTERN
 const char *
-FluxObjective_getReaction(FluxObjective_t * flux);
+FluxObjective_getReaction(FluxObjective_t * fo);
 
 
+/**
+ * Predicate returning @c true or @c false depending on whether the given
+ * FluxObjective_t structure's reaction is set.
+ *
+ * @param fo the FluxObjective_t structure to query
+ * 
+ * @return @c non-zero (true) if the "reaction" attribute of the given
+ * FluxObjective_t structure is set, zero (false) otherwise.
+ *
+ * @memberof FluxObjective_t
+ */
 LIBSBML_EXTERN
 int
-FluxObjective_isSetReaction(FluxObjective_t * flux);
+FluxObjective_isSetReaction(FluxObjective_t * fo);
 
 
+/**
+ * Sets the reaction of the given FluxObjective_t to a copy of @p reaction.
+ *
+ * @param fo the FluxObjective_t structure to set
+ * @param reaction the reaction to assign to the given FluxObjective_t's "reaction" attribute.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE @endlink
+ *
+ * @note Using this function with the name set to NULL is equivalent to
+ * unsetting the "reaction" attribute.
+ *
+ * @memberof FluxObjective_t
+ */
 LIBSBML_EXTERN
 int
-FluxObjective_setReaction(FluxObjective_t * flux, const char * reaction);
+FluxObjective_setReaction(FluxObjective_t * fo, const char * reaction);
 
 
+/**
+ * Unsets the "reaction" attribute of the given FluxObjective_t structure.
+ *
+ * @param fo the FluxObjective_t structure to unset
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
+ *
+ * @memberof FluxObjective_t
+ */
 LIBSBML_EXTERN
 int
-FluxObjective_unsetReaction(FluxObjective_t * flux);
+FluxObjective_unsetReaction(FluxObjective_t * fo);
 
 
+/**
+ * Takes a FluxObjective_t structure and returns its coefficient.
+ *
+ * @param fo the FluxObjective_t whose coefficient is sought.
+ *
+ * @return the coefficient attribute of the given FluxObjective_t, as a @c double.
+ *
+ * @memberof FluxObjective_t
+ */
 LIBSBML_EXTERN
 double
-FluxObjective_getCoefficient(FluxObjective_t * flux);
+FluxObjective_getCoefficient(FluxObjective_t * fo);
 
 
+/**
+ * Predicate returning @c true or @c false depending on whether the given
+ * FluxObjective_t structure's coefficient is set.
+ *
+ * @param fo the FluxObjective_t structure to query
+ * 
+ * @return @c non-zero (true) if the "coefficient" attribute of the given
+ * FluxObjective_t structure is set, zero (false) otherwise.
+ *
+ * @memberof FluxObjective_t
+ */
 LIBSBML_EXTERN
 int
-FluxObjective_isSetCoefficient(FluxObjective_t * flux);
+FluxObjective_isSetCoefficient(FluxObjective_t * fo);
 
 
+/**
+ * Sets the "coefficient" attribute of the given FluxObjective_t
+ * structure.
+ *
+ * @param fo the FluxObjective_t structure
+ * 
+ * @param coefficient the value of coefficient to assign to the "coefficient" attribute
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_UNEXPECTED_ATTRIBUTE LIBSBML_UNEXPECTED_ATTRIBUTE @endlink
+ *
+ * @memberof FluxObjective_t
+ */
 LIBSBML_EXTERN
 int
-FluxObjective_setCoefficient(FluxObjective_t * flux, double coeff);
+FluxObjective_setCoefficient(FluxObjective_t * fo, double coefficient);
 
 
+/**
+ * Unsets the "coefficient" attribute of the given FluxObjective_t structure.
+ *
+ * @param fo the FluxObjective_t structure to unset
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
+ *
+ * @memberof FluxObjective_t
+ */
 LIBSBML_EXTERN
 int
-FluxObjective_unsetCoefficient(FluxObjective_t * flux);
+FluxObjective_unsetCoefficient(FluxObjective_t * fo);
 
 
 
