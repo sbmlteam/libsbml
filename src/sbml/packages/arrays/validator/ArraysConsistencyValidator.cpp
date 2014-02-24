@@ -1,6 +1,8 @@
+  /** @cond doxygenLibsbmlInternal */
+
 /**
- * @file:   ArraysExtensionTypes.h
- * @brief:  Implementation of the ArraysExtensionTypes class
+ * @file:   ArraysConsistencyValidator.cpp
+ * @brief:  Implementation of the ArraysConsistencyValidator class
  * @author: SBMLTeam
  *
  * <!--------------------------------------------------------------------------
@@ -25,17 +27,27 @@
  * and also available online as http://sbml.org/software/libsbml/license.html
  * ------------------------------------------------------------------------ -->
  */
-#ifndef ArraysExtensionTypes_H
-#define ArraysExtensionTypes_H
 
-#include <sbml/packages/arrays/common/arraysfwd.h>
 
-#include <sbml/packages/arrays/extension/ArraysExtension.h>
-#include <sbml/packages/arrays/extension/ArraysSBMLDocumentPlugin.h>
-#include <sbml/packages/arrays/extension/ArraysSBasePlugin.h>
+#ifndef doxygen_ignore
 
-#include <sbml/packages/arrays/sbml/Dimension.h>
-#include <sbml/packages/arrays/sbml/Index.h>
+#include <sbml/packages/arrays/validator/ArraysConsistencyValidator.h>
 
-#endif  /* ArraysExtensionTypes_H */
+#include "constraints/ArraysConsistencyConstraints.cpp"
+
+LIBSBML_CPP_NAMESPACE_BEGIN
+
+void
+ArraysConsistencyValidator::init ()
+{
+#define  AddingConstraintsToValidator 1
+#include "constraints/ArraysConsistencyConstraints.cpp"
+}
+
+LIBSBML_CPP_NAMESPACE_END
+
+#endif  /* __doxygen_ignore */
+
+  /** @endcond doxygenLibsbmlInternal */
+
 

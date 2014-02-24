@@ -42,10 +42,12 @@
 #include <sbml/xml/XMLInputStream.h>
 #include <sbml/xml/XMLOutputStream.h>
 #include <sbml/extension/ASTBasePlugin.h>
-#include <sbml/packages/arrays/sbml/Dimension.h>
-#include <sbml/packages/arrays/sbml/Index.h>
+#include <sbml/packages/arrays/math/ASTArraysVectorFunctionNode.h>
 
 LIBSBML_CPP_NAMESPACE_BEGIN
+
+
+
 
 class LIBSBML_EXTERN ArraysASTPlugin : public ASTBasePlugin
 {
@@ -56,7 +58,6 @@ public:
    */
   ArraysASTPlugin (const std::string &uri);
 
-  ArraysASTPlugin ();
 
   /**
    * Copy constructor. Creates a copy of this SBase object.
@@ -85,24 +86,6 @@ public:
 
 
 
-  /**
-   * Subclasses must override this method to create, store, and then
-   * return an SBML object corresponding to the next XMLToken in the
-   * XMLInputStream if they have their specific elements.
-   *
-   * @return the SBML object corresponding to next XMLToken in the
-   * XMLInputStream or NULL if the token was not recognized.
-   */
-  virtual NewASTNode* createObject (XMLInputStream& stream);
-
-
-  /**
-   * Subclasses must override this method to write out their contained
-   * SBML objects as XML elements if they have their specific elements.
-   */
-  virtual void writeElements (XMLOutputStream& stream) const;
-
-
 
   // ---------------------------------------------------------
   //
@@ -112,19 +95,6 @@ public:
   // ---------------------------------------------------------
 
   /** @cond doxygenLibsbmlInternal */
-
-  /**
-   * Sets the parent SBMLDocument of this plugin object.
-   *
-   * Subclasses which contain one or more SBase derived elements must
-   * override this function.
-   *
-   * @param d the SBMLDocument object to use
-   *
-   * @see connectToParent
-   * @see enablePackageInternal
-   */
-  virtual void setSBMLDocument (SBMLDocument* d);
 
 
   /**
@@ -160,36 +130,66 @@ public:
    */
   virtual void enablePackageInternal(const std::string& pkgURI,
                                      const std::string& pkgPrefix, bool flag);
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
+  const std::string& getPackageName() const;
 
-  virtual NewASTNode* getMath() const;
 
-  virtual bool isSetMath() const;
+  //virtual void write(XMLOutputStream& stream) const;
+  virtual bool read(XMLInputStream& stream, const std::string& reqd_prefix,
+                                            const XMLToken currentElement);
 
-  virtual int setMath(const NewASTNode* math);
+  //virtual void addExpectedAttributes(ExpectedAttributes& attributes, 
+  //                                   XMLInputStream& stream, int type);
 
-  virtual int unsetMath();
+  //virtual bool readAttributes (const XMLAttributes& attributes,
+  //                             const ExpectedAttributes& expectedAttributes,
+  //                             XMLInputStream& stream, XMLToken element,
+  //                             int type);
 
-    virtual bool read(XMLInputStream& stream);
 
-  virtual bool representsNumberNode(int type) const;
+  //virtual void writeAttributes(XMLOutputStream& stream, int type) const;
+  //virtual void writeXMLNS(XMLOutputStream& stream) const;
+  virtual int getTypeFromName(const std::string& name) const;
+  virtual const char * getNameFromType(int type) const;
   virtual bool isFunction(int type) const;
   virtual bool representsUnaryFunction(int type) const;
   virtual bool representsBinaryFunction(int type) const;
   virtual bool representsNaryFunction(int type) const;
+  virtual bool isFunctionNode(int type) const;
+  virtual bool isTopLevelMathMLFunctionNodeTag(const std::string& name) const;
 
-    virtual int getTypeFromName(const std::string& name) const;
-  virtual const char * getNameFromType(int type) const;
+  virtual const ASTBase * getMath() const;
+
+  virtual bool isSetMath() const;
+
+  virtual void createMath(int type);
+
+  virtual int addChild(ASTBase * child);
+
+  virtual ASTBase* getChild (unsigned int n) const;
+
+  virtual unsigned int getNumChildren() const;
+
+  virtual int insertChild(unsigned int n, ASTBase* newChild);
+
+  virtual int prependChild(ASTBase* newChild);
+
+  virtual int removeChild(unsigned int n);
+
+  virtual int replaceChild(unsigned int n, ASTBase* newChild);
 
 protected:
   /** @cond doxygenLibsbmlInternal */
 
+  void reset();
+
+  bool readVector(XMLInputStream& stream, const std::string& reqd_prefix,
+                        const XMLToken currentElement);
   /*-- data members --*/
 
-  NewASTNode* mMath;
+  ASTArraysVectorFunctionNode* mVector;
 
-
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 };
 
 LIBSBML_CPP_NAMESPACE_END

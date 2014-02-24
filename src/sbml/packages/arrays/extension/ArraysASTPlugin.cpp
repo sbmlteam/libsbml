@@ -28,8 +28,7 @@
  */
 
 #include <sbml/packages/arrays/extension/ArraysASTPlugin.h>
-#include <sbml/math/NewASTNode.h>
-//#include <sbml/packages/arrays/sbml/ASTCnLogicalNode.h>
+#include <sbml/packages/arrays/extension/ArraysExtension.h>
 
 #include <iostream>
 using namespace std;
@@ -39,43 +38,49 @@ using namespace std;
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
-static const char* QUAL_MATHML_ELEMENTS[] =
+static unsigned int
+determineNumChildren(XMLInputStream & stream, const std::string element = "")
 {
-    "selector"
-  , "sum"
+  unsigned int n = 0;
+
+  n = stream.determineNumberChildren(element);
+
+  return n;
+}
+
+
+static const char* ARRAYS_MATHML_ELEMENTS[] =
+{
+    "determinant"
+  , "outerproduct"
+  , "scalarproduct"
+  , "selector"
+  , "transpose"
+  , "vector"
+  , "vectorproduct"
 };
 
-static const int QUAL_MATHML_TYPES[] =
+static const int ARRAYS_MATHML_TYPES[] =
 {
-    AST_ARRAYS_FUNCTION_SELECTOR
-  , AST_FUNCTION_SUM
+    AST_LINEAR_ALGEBRA_DETERMINANT
+  , AST_LINEAR_ALGEBRA_OUTER_PRODUCT
+  , AST_LINEAR_ALGEBRA_SCALAR_PRODUCT
+  , AST_LINEAR_ALGEBRA_SELECTOR
+  , AST_LINEAR_ALGEBRA_TRANSPOSE
+  , AST_LINEAR_ALGEBRA_VECTOR_CONSTRUCTOR
+  , AST_LINEAR_ALGEBRA_VECTOR_PRODUCT
+  , AST_ARRAYS_UNKNOWN
 };
-
-static const char* QUAL_MATHML_FUNCTIONS[] =
-{
-    "selector"
-  , "sum"
-};
-
 
 /*
  * Constructor
  */
 ArraysASTPlugin::ArraysASTPlugin (const std::string &uri)
   : ASTBasePlugin(uri)
-  , mMath (NULL)
+  , mVector (NULL)
 {
 }
 
-
-/*
- * Constructor
- */
-ArraysASTPlugin::ArraysASTPlugin ()
-  : ASTBasePlugin()
-  , mMath (NULL)
-{
-}
 
 
 /*
@@ -83,8 +88,13 @@ ArraysASTPlugin::ArraysASTPlugin ()
  */
 ArraysASTPlugin::ArraysASTPlugin(const ArraysASTPlugin& orig)
   : ASTBasePlugin(orig)
-  , mMath (orig.mMath)
+  , mVector (NULL)
 {
+  if ( orig.mVector  != NULL)
+  {
+    mVector = static_cast<ASTArraysVectorFunctionNode*>
+                                 ( orig.mVector->deepCopy() );
+  }
 }
 
 
@@ -93,7 +103,6 @@ ArraysASTPlugin::ArraysASTPlugin(const ArraysASTPlugin& orig)
  */
 ArraysASTPlugin::~ArraysASTPlugin () 
 {
-  delete mMath;
 }
 
 /*
@@ -105,7 +114,18 @@ ArraysASTPlugin::operator=(const ArraysASTPlugin& orig)
   if(&orig!=this)
   {
     this->ASTBasePlugin::operator =(orig);
-    mMath = orig.mMath;
+
+    delete mVector;
+    if ( orig.mVector  != NULL)
+    {
+      mVector = static_cast<ASTArraysVectorFunctionNode*>
+                                  ( orig.mVector->deepCopy() );
+    }
+    else
+    {
+      mVector = NULL;
+    }
+
   }    
   return *this;
 }
@@ -123,68 +143,242 @@ ArraysASTPlugin::clone () const
 }
 
 
-/*
- *
- */
-NewASTNode*
-ArraysASTPlugin::createObject(XMLInputStream& stream)
+const std::string& 
+ArraysASTPlugin::getPackageName() const
 {
-  NewASTNode*        object = 0;
-
-  const std::string&   name   = stream.peek().getName();
-  const XMLNamespaces& xmlns  = stream.peek().getNamespaces();
-  const std::string&   prefix = stream.peek().getPrefix();
-
-  //const std::string& targetPrefix = (xmlns.hasURI(mURI)) ? xmlns.getPrefix(mURI) : mPrefix;
-  //
-  //if (prefix == targetPrefix)
-  //{
-    //if ( name == "math" ) 
-    //{
-    //  object = mMath;
-    //
-    //}          
-  //}    
-
-  return object;
+  static string arrays("arrays"); 
+  return (mSBMLExt != NULL) ? mSBMLExt->getName() : arrays;
 }
 
+
 bool
-ArraysASTPlugin::read(XMLInputStream& stream)
+ArraysASTPlugin::read(XMLInputStream& stream, const std::string& reqd_prefix, 
+                                             const XMLToken currentElement)
 {
   bool read = false;
-  const XMLToken element = stream.peek();
-  const string&  name = element.getName();
   
-    
+  stream.skipText();
+  
+  const string&  currentName = currentElement.getName();
+
+  //ASTBase::checkPrefix(stream, reqd_prefix, currentElement);
+  
+  // create appropriate sub class
+  if (currentName == "vector")
+  {
+    read = readVector(stream, reqd_prefix, currentElement);
+  }
+ 
   return read;
 }
 
 
-/*
- *
- */
-void
-ArraysASTPlugin::writeElements (XMLOutputStream& stream) const
+bool 
+ArraysASTPlugin::readVector(XMLInputStream& stream, const std::string& reqd_prefix,
+                        const XMLToken currentElement)
 {
-  if (isSetMath() == true)
+  bool read = false;
+  
+  stream.skipText();
+  const XMLToken nextElement = stream.peek();
+  const string&  nextName = nextElement.getName();
+  
+  unsigned int numChildren = determineNumChildren(stream, "vector");
+    
+  mVector = new ASTArraysVectorFunctionNode();
+  
+  mVector->setExpectedNumChildren(numChildren);
+  
+  // read attributes on this element here since we have already consumed
+  // the element
+  ExpectedAttributes expectedAttributes;
+  mVector->addExpectedAttributes(expectedAttributes, stream);
+  read = mVector->ASTBase::readAttributes(currentElement.getAttributes(), 
+                                expectedAttributes, stream, currentElement);
+  if (read == false)
   {
-    mMath->write(stream);
+    mVector = NULL;
+  }
+  else
+  {  
+    read = mVector->read(stream, reqd_prefix);
+  }
+
+  return read;
+}
+
+
+void
+ArraysASTPlugin::reset()
+{
+  mVector = NULL;
+}
+
+
+const ASTBase* 
+ArraysASTPlugin::getMath() const
+{
+  if (mVector != NULL)
+  {
+    return mVector;
+  }
+  else
+  {
+    return NULL;
   }
 }
 
 
-/*
- * Sets the parent SBMLDocument of this SBML object.
- *
- * @param d the SBMLDocument object to use
- */
-void 
-ArraysASTPlugin::setSBMLDocument (SBMLDocument* d)
-{
-  ASTBasePlugin::setSBMLDocument(d);
 
+bool
+ArraysASTPlugin::isSetMath() const
+{
+  if (mVector != NULL)
+  {
+    return true;
+  }
+  else
+  {
+    return false;
+  }
 }
+
+
+void
+ArraysASTPlugin::createMath(int type)
+{
+  reset();
+  switch (type)
+  {
+  case AST_LINEAR_ALGEBRA_VECTOR_CONSTRUCTOR:
+    mVector = new ASTArraysVectorFunctionNode();
+    break;
+  default:
+    break;
+  }
+}
+
+
+int 
+ArraysASTPlugin::addChild(ASTBase * child)
+{ 
+  if (child == NULL)
+  {
+    return LIBSBML_INVALID_OBJECT;
+  }
+
+  if (mVector != NULL)
+  {
+    return mVector->addChild(child);
+  }
+  else
+  {
+    return LIBSBML_INVALID_OBJECT;
+  }
+}
+
+
+ASTBase* 
+ArraysASTPlugin::getChild (unsigned int n) const
+{ 
+  if (mVector != NULL)
+  {
+    return mVector->getChild(n);
+  }
+  else
+  {
+    return NULL;
+  }
+}
+
+
+unsigned int 
+ArraysASTPlugin::getNumChildren() const
+{ 
+  if (mVector != NULL)
+  {
+    return mVector->getNumChildren();
+  }
+  else
+  {
+    return 0;
+  }
+}
+
+
+int 
+ArraysASTPlugin::insertChild(unsigned int n, ASTBase* newChild)
+{ 
+  if (mVector != NULL)
+  {
+    return mVector->insertChild(n, newChild);
+  }
+  else
+  {
+    return LIBSBML_INVALID_OBJECT;
+  }
+}
+
+
+int 
+ArraysASTPlugin::prependChild(ASTBase* newChild)
+{ 
+  if (mVector != NULL)
+  {
+    return mVector->prependChild(newChild);
+  }
+  else
+  {
+    return LIBSBML_INVALID_OBJECT;
+  }
+}
+
+
+int 
+ArraysASTPlugin::removeChild(unsigned int n)
+{ 
+  if (mVector != NULL)
+  {
+    return mVector->removeChild(n);
+  }
+  else
+  {
+    return LIBSBML_INVALID_OBJECT;
+  }
+}
+
+
+int 
+ArraysASTPlugin::replaceChild(unsigned int n, ASTBase* newChild)
+{ 
+  if (mVector != NULL)
+  {
+    return mVector->replaceChild(n, newChild);
+  }
+  else
+  {
+    return LIBSBML_INVALID_OBJECT;
+  }
+}
+
+/* default for components that have no required elements */
+//bool
+//ArraysASTPlugin::hasRequiredElements() const
+//{
+//  bool allPresent = true;
+//
+//  if (mArraysitativeSpecies.size() < 1)
+//  {
+//    allPresent = false;    
+//  }
+//  if (mTransitions.size() < 1)
+//  {
+//    allPresent = false;    
+//  }
+//  return allPresent;
+//}
+//
+//
 
 
 /*
@@ -211,61 +405,6 @@ ArraysASTPlugin::enablePackageInternal(const std::string& pkgURI,
 }
 
   
-NewASTNode* 
-ArraysASTPlugin::getMath() const
-{
-  return mMath;
-}
-
-bool 
-ArraysASTPlugin::isSetMath() const
-{
-  return (mMath != NULL);
-}
-
-int 
-ArraysASTPlugin::setMath(const NewASTNode* math)
-{
-  if (mMath == math) 
-  {
-    return LIBSBML_OPERATION_SUCCESS;
-  }
-  else if (math == NULL)
-  {
-    delete mMath;
-    mMath = NULL;
-    return LIBSBML_OPERATION_SUCCESS;
-  }
-  //else if (!(math->isWellFormedASTNode()))
-  //{
-  //  return LIBSBML_INVALID_OBJECT;
-  //}
-  else
-  {
-    delete mMath;
-//    mMath = (math != NULL) ? math->deepCopy() : NULL;
-    //if (mMath != NULL) mMath->setParentSBMLObject(this);
-    return LIBSBML_OPERATION_SUCCESS;
-  }
-}
-
-  
-int 
-ArraysASTPlugin::unsetMath()
-{
-  delete mMath;
-  mMath = NULL;
-  return LIBSBML_OPERATION_SUCCESS;
-}
-
-bool 
-ArraysASTPlugin::representsNumberNode(int type) const
-{
-  bool valid = false;
-
-  return valid;
-}
-
 
 bool 
 ArraysASTPlugin::isFunction(int type) const
@@ -274,7 +413,12 @@ ArraysASTPlugin::isFunction(int type) const
 
   switch (type)
   {
-    case AST_ARRAYS_FUNCTION_SELECTOR:
+    case AST_LINEAR_ALGEBRA_SELECTOR:
+    case AST_LINEAR_ALGEBRA_DETERMINANT:
+    case AST_LINEAR_ALGEBRA_TRANSPOSE:
+    case AST_LINEAR_ALGEBRA_VECTOR_PRODUCT:
+    case AST_LINEAR_ALGEBRA_SCALAR_PRODUCT:
+    case AST_LINEAR_ALGEBRA_OUTER_PRODUCT:
       valid = true;
       break;
     default:
@@ -284,11 +428,41 @@ ArraysASTPlugin::isFunction(int type) const
   return valid;
 }
 
+
+bool 
+ArraysASTPlugin::isFunctionNode(int type) const
+{
+  bool valid = false;
+
+  switch (type)
+  {
+    case AST_LINEAR_ALGEBRA_VECTOR_CONSTRUCTOR:
+      valid = true;
+      break;
+    default:
+      break;
+
+  }
+  return valid;
+}
+
+
+
 bool 
 ArraysASTPlugin::representsUnaryFunction(int type) const
 {
   bool valid = false;
 
+  switch (type)
+  {
+    case AST_LINEAR_ALGEBRA_DETERMINANT:
+    case AST_LINEAR_ALGEBRA_TRANSPOSE:
+      valid = true;
+      break;
+    default:
+      break;
+
+  }
   return valid;
 }
 
@@ -298,6 +472,17 @@ ArraysASTPlugin::representsBinaryFunction(int type) const
 {
   bool valid = false;
 
+  switch (type)
+  {
+    case AST_LINEAR_ALGEBRA_VECTOR_PRODUCT:
+    case AST_LINEAR_ALGEBRA_SCALAR_PRODUCT:
+    case AST_LINEAR_ALGEBRA_OUTER_PRODUCT:
+      valid = true;
+      break;
+    default:
+      break;
+
+  }
   return valid;
 }
 
@@ -309,7 +494,7 @@ ArraysASTPlugin::representsNaryFunction(int type) const
 
   switch (type)
   {
-    case AST_ARRAYS_FUNCTION_SELECTOR:
+    case AST_LINEAR_ALGEBRA_SELECTOR:
       valid = true;
       break;
     default:
@@ -320,19 +505,33 @@ ArraysASTPlugin::representsNaryFunction(int type) const
 }
 
 
+bool 
+ArraysASTPlugin::isTopLevelMathMLFunctionNodeTag(const std::string& name) const
+{
+  bool valid = false;
+
+  if (name == "vector")
+  {
+    valid = true;
+  }
+
+  return valid;
+}
+
+
 int 
 ArraysASTPlugin::getTypeFromName(const std::string& name) const
 {
   int type = AST_UNKNOWN;
 
-  static const int size = sizeof(QUAL_MATHML_ELEMENTS) / sizeof(QUAL_MATHML_ELEMENTS[0]);
+  static const int size = sizeof(ARRAYS_MATHML_ELEMENTS) / sizeof(ARRAYS_MATHML_ELEMENTS[0]);
 
-  int  index = util_bsearchStringsI(QUAL_MATHML_ELEMENTS, name.c_str(), 0, size - 1);
+  int  index = util_bsearchStringsI(ARRAYS_MATHML_ELEMENTS, name.c_str(), 0, size - 1);
   bool found = (index < size);
 
   if (found) 
   {
-    type = QUAL_MATHML_TYPES[index];
+    type = ARRAYS_MATHML_TYPES[index];
   }
 
   return type;
@@ -341,10 +540,26 @@ ArraysASTPlugin::getTypeFromName(const std::string& name) const
 const char * 
 ArraysASTPlugin::getNameFromType(int type) const
 {
-  const char* name = QUAL_MATHML_FUNCTIONS[type - AST_ARRAYS_FUNCTION_SELECTOR];
-  return name;
-}
+  std::string name = "";
 
+  static const int size = sizeof(ARRAYS_MATHML_ELEMENTS) / sizeof(ARRAYS_MATHML_ELEMENTS[0]);
+  if (type >= AST_LINEAR_ALGEBRA_DETERMINANT && type < AST_ARRAYS_UNKNOWN)
+  {
+    bool found = false;
+    unsigned int i;
+    for (i = 0; i < size, found == false; i++)
+    {
+      if (type == ARRAYS_MATHML_TYPES[i])
+        found = true;
+    }
+    if (found == true)
+    {
+      name = ARRAYS_MATHML_ELEMENTS[i-1];
+    }
+  }
+
+  return safe_strdup(name.c_str());
+}
 LIBSBML_CPP_NAMESPACE_END
 
 #endif  /* __cplusplus */

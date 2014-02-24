@@ -1,6 +1,8 @@
+  /** @cond doxygenLibsbmlInternal */
+
 /**
- * @file:   ArraysExtensionTypes.h
- * @brief:  Implementation of the ArraysExtensionTypes class
+ * @file:   ArraysIdentifierConsistencyValidator.h
+ * @brief:  Implementation of the ArraysIdentifierConsistencyValidator class
  * @author: SBMLTeam
  *
  * <!--------------------------------------------------------------------------
@@ -25,17 +27,36 @@
  * and also available online as http://sbml.org/software/libsbml/license.html
  * ------------------------------------------------------------------------ -->
  */
-#ifndef ArraysExtensionTypes_H
-#define ArraysExtensionTypes_H
 
-#include <sbml/packages/arrays/common/arraysfwd.h>
 
-#include <sbml/packages/arrays/extension/ArraysExtension.h>
-#include <sbml/packages/arrays/extension/ArraysSBMLDocumentPlugin.h>
-#include <sbml/packages/arrays/extension/ArraysSBasePlugin.h>
+#ifndef ArraysIdentifierConsistencyValidator_H__
+#define ArraysIdentifierConsistencyValidator_H__
 
-#include <sbml/packages/arrays/sbml/Dimension.h>
-#include <sbml/packages/arrays/sbml/Index.h>
 
-#endif  /* ArraysExtensionTypes_H */
+#ifdef __cplusplus
+
+#include <sbml/packages/arrays/validator/ArraysValidator.h>
+
+LIBSBML_CPP_NAMESPACE_BEGIN
+
+class ArraysIdentifierConsistencyValidator: public ArraysValidator
+{
+public:
+
+  ArraysIdentifierConsistencyValidator () :
+    ArraysValidator(LIBSBML_CAT_IDENTIFIER_CONSISTENCY) { }
+
+  virtual ~ArraysIdentifierConsistencyValidator () { }
+
+   virtual void init ();
+};
+
+LIBSBML_CPP_NAMESPACE_END
+
+#endif  /* __cplusplus*/
+#endif  /* ArraysIdentifierConsistencyValidator_H__ */
+
+
+  /** @endcond doxygenLibsbmlInternal */
+
 

@@ -1,6 +1,8 @@
+  /** @cond doxygenLibsbmlInternal */
+
 /**
- * @file:   ArraysExtensionTypes.h
- * @brief:  Implementation of the ArraysExtensionTypes class
+ * @file:   ArraysConsistencyConstraints.cpp
+ * @brief:  Implementation of the ArraysConsistencyConstraints class
  * @author: SBMLTeam
  *
  * <!--------------------------------------------------------------------------
@@ -25,17 +27,25 @@
  * and also available online as http://sbml.org/software/libsbml/license.html
  * ------------------------------------------------------------------------ -->
  */
-#ifndef ArraysExtensionTypes_H
-#define ArraysExtensionTypes_H
 
-#include <sbml/packages/arrays/common/arraysfwd.h>
+#ifndef  AddingConstraintsToValidator
 
-#include <sbml/packages/arrays/extension/ArraysExtension.h>
-#include <sbml/packages/arrays/extension/ArraysSBMLDocumentPlugin.h>
-#include <sbml/packages/arrays/extension/ArraysSBasePlugin.h>
+#include <sbml/validator/VConstraint.h>
 
-#include <sbml/packages/arrays/sbml/Dimension.h>
-#include <sbml/packages/arrays/sbml/Index.h>
+#include <sbml/packages/arrays/validator/ArraysSBMLError.h>
 
-#endif  /* ArraysExtensionTypes_H */
+#endif  /* AddingConstrainstToValidator */
+
+#include <sbml/validator/ConstraintMacros.h>
+
+/** @cond doxygenIgnored */
+
+using namespace std;
+
+/** @endcond */
+
+/** PUT CONSTRAINTS HERE */
+
+  /** @endcond doxygenLibsbmlInternal */
+
 

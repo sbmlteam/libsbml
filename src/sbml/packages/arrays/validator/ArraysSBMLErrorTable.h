@@ -1,6 +1,6 @@
 /**
- * @file:   ArraysExtensionTypes.h
- * @brief:  Implementation of the ArraysExtensionTypes class
+ * @file:   ArraysSBMLErrorTable.h
+ * @brief:  Implementation of the ArraysSBMLErrorTable class
  * @author: SBMLTeam
  *
  * <!--------------------------------------------------------------------------
@@ -25,17 +25,37 @@
  * and also available online as http://sbml.org/software/libsbml/license.html
  * ------------------------------------------------------------------------ -->
  */
-#ifndef ArraysExtensionTypes_H
-#define ArraysExtensionTypes_H
 
-#include <sbml/packages/arrays/common/arraysfwd.h>
 
-#include <sbml/packages/arrays/extension/ArraysExtension.h>
-#include <sbml/packages/arrays/extension/ArraysSBMLDocumentPlugin.h>
-#include <sbml/packages/arrays/extension/ArraysSBasePlugin.h>
+#ifndef ArraysSBMLErrorTable_H__
+#define ArraysSBMLErrorTable_H__
 
-#include <sbml/packages/arrays/sbml/Dimension.h>
-#include <sbml/packages/arrays/sbml/Index.h>
 
-#endif  /* ArraysExtensionTypes_H */
+#include <sbml/packages/arrays/validator/ArraysSBMLError.h>
+
+LIBSBML_CPP_NAMESPACE_BEGIN
+
+  /** @cond doxygenLibsbmlInternal */
+
+static const packageErrorTableEntry arraysErrorTable[] = 
+{
+  //8010100
+  {  ArraysUnknownError,
+    "Unknown error from arrays",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_ERROR,
+    "Unknown error from arrays",
+    { " "
+    }
+  }
+
+};
+
+
+LIBSBML_CPP_NAMESPACE_END
+
+  /** @endcond doxygenLibsbmlInternal */
+
+
+#endif  /*  ArraysSBMLErrorTable_h__  */
 

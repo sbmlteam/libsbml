@@ -1,6 +1,6 @@
 /**
- * @file:   ArraysExtensionTypes.h
- * @brief:  Implementation of the ArraysExtensionTypes class
+ * @file:   ArraysSBMLError.h
+ * @brief:  Implementation of the ArraysSBMLError class
  * @author: SBMLTeam
  *
  * <!--------------------------------------------------------------------------
@@ -25,17 +25,28 @@
  * and also available online as http://sbml.org/software/libsbml/license.html
  * ------------------------------------------------------------------------ -->
  */
-#ifndef ArraysExtensionTypes_H
-#define ArraysExtensionTypes_H
 
-#include <sbml/packages/arrays/common/arraysfwd.h>
 
-#include <sbml/packages/arrays/extension/ArraysExtension.h>
-#include <sbml/packages/arrays/extension/ArraysSBMLDocumentPlugin.h>
-#include <sbml/packages/arrays/extension/ArraysSBasePlugin.h>
+#ifndef ArraysSBMLError_H__
+#define ArraysSBMLError_H__
 
-#include <sbml/packages/arrays/sbml/Dimension.h>
-#include <sbml/packages/arrays/sbml/Index.h>
 
-#endif  /* ArraysExtensionTypes_H */
+
+LIBSBML_CPP_NAMESPACE_BEGIN
+
+BEGIN_C_DECLS
+
+
+typedef enum
+{
+  ArraysUnknownError                  = 8010100
+
+
+}  ArraysSBMLErrorCode_t;
+
+END_C_DECLS
+
+LIBSBML_CPP_NAMESPACE_END
+
+#endif  /*  ArraysSBMLError_h__  */
 
