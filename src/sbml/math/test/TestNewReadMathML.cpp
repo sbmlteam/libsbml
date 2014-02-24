@@ -101,7 +101,7 @@ START_TEST (test_element_cn_default)
   fail_unless( N != NULL );
 
   fail_unless( N->getType()        == AST_REAL );
-  fail_unless( N->getReal()        == 12345.7  );
+  fail_unless( util_isEqual(N->getReal(), 12345.7)  );
   fail_unless( N->getNumChildren() == 0        );
 }
 END_TEST
@@ -117,7 +117,7 @@ START_TEST (test_element_cn_real)
   fail_unless( N != NULL );
 
   fail_unless( N->getType()        == AST_REAL );
-  fail_unless( N->getReal()        == 12345.7  );
+  fail_unless( util_isEqual(N->getReal(), 12345.7)  );
   fail_unless( N->getNumChildren() == 0        );
 }
 END_TEST
@@ -156,7 +156,7 @@ START_TEST (test_element_cn_rational)
   fail_unless( N->getNumerator()   == 12342   );
   fail_unless( N->getDenominator() == 2342342 );
   fail_unless( N->getNumChildren() == 0       );
-  fail_unless( N->getReal()       == (12342.0/2342342));
+  fail_unless( util_isEqual(N->getReal(), (12342.0/2342342)));
 }
 END_TEST
 
@@ -171,10 +171,10 @@ START_TEST (test_element_cn_e_notation)
   fail_unless( N != NULL );
 
   fail_unless( N->getType()        == AST_REAL_E );
-  fail_unless( N->getMantissa()    == 12.3 );
+  fail_unless( util_isEqual(N->getMantissa(), 12.3) );
   fail_unless( N->getExponent()    == 5    );
   fail_unless( N->getNumChildren() == 0    );
-  fail_unless( N->getReal()       == 12.3e5 );
+  fail_unless( util_isEqual(N->getReal(), 12.3e5) );
 }
 END_TEST
 
@@ -2251,7 +2251,7 @@ START_TEST (test_element_bug_apply_ci_1)
   fail_unless( c != NULL );
 
   fail_unless( c->getType() == AST_REAL );
-  fail_unless( c->getReal() == 1        );
+  fail_unless( util_isEqual(c->getReal(), 1)        );
   fail_unless( c->getNumChildren() == 0 );
 }
 END_TEST
@@ -2327,7 +2327,7 @@ START_TEST (test_element_bug_csymbol_1)
   fail_unless( c != NULL );
 
   fail_unless( c->getType()        == AST_REAL );
-  fail_unless( c->getReal()        == 5000     );
+  fail_unless( util_isEqual(c->getReal(), 5000)     );
   fail_unless( c->getNumChildren() == 0        );
 }
 END_TEST
@@ -2359,7 +2359,7 @@ START_TEST (test_element_bug_cn_e_notation_1)
   fail_unless( N != NULL );
 
   fail_unless( N->getType()        == AST_REAL_E );
-  fail_unless( N->getMantissa()    ==  2.0 );
+  fail_unless( util_isEqual(N->getMantissa(), 2.0) );
   fail_unless( N->getExponent()    == -8.0 );
   fail_unless( N->getNumChildren() ==  0   );
 }
@@ -2376,7 +2376,7 @@ START_TEST (test_element_bug_cn_e_notation_2)
   fail_unless( N != NULL );
 
   fail_unless( N->getType()        == AST_REAL_E );
-  fail_unless( N->getMantissa()    == -3.0 );
+  fail_unless( util_isEqual(N->getMantissa(), -3.0) );
   fail_unless( N->getExponent()    ==  4.0 );
   fail_unless( N->getNumChildren() ==  0   );
 }
@@ -2393,7 +2393,7 @@ START_TEST (test_element_bug_cn_e_notation_3)
   fail_unless( N != NULL );
 
   fail_unless( N->getType()        == AST_REAL_E );
-  fail_unless( N->getMantissa()    == -6.0 );
+  fail_unless( util_isEqual(N->getMantissa(), -6.0) );
   fail_unless( N->getExponent()    == -1.0 );
   fail_unless( N->getNumChildren() ==  0   );
 }
@@ -2450,7 +2450,7 @@ START_TEST (test_element_bug_csymbol_delay_1)
   fail_unless( c != NULL );
 
   fail_unless( c->getType()        == AST_REAL );
-  fail_unless( c->getReal()        == 0.1      );
+  fail_unless( util_isEqual(c->getReal(), 0.1)      );
   fail_unless( c->getNumChildren() == 0        );
 }
 END_TEST
@@ -2490,7 +2490,7 @@ START_TEST (test_element_cn_units)
   fail_unless( N != NULL );
 
   fail_unless( N->getType()        == AST_REAL );
-  fail_unless( N->getReal()        == 12345.7  );
+  fail_unless( util_isEqual(N->getReal(), 12345.7)  );
   fail_unless( N->getUnits()       == "mole"   );
   fail_unless( N->getNumChildren() == 0        );
 }
@@ -2522,7 +2522,7 @@ START_TEST (test_element_cn_units2)
   fail_unless( N != NULL );
 
   fail_unless( N->getType()        == AST_RATIONAL );
-  fail_unless( N->getReal()        == 6.0  );
+  fail_unless( util_isEqual(N->getReal(), 6.0)  );
   fail_unless( N->getUnits()       == "mole"   );
   fail_unless( N->getNumChildren() == 0        );
 }
@@ -2538,7 +2538,7 @@ START_TEST (test_element_cn_units3)
   fail_unless( N != NULL );
 
   fail_unless( N->getType()        == AST_REAL_E );
-  fail_unless( N->getReal()        == 1200  );
+  fail_unless( util_isEqual(N->getReal(), 1200)  );
   fail_unless( N->getUnits()       == "mole"   );
   fail_unless( N->getNumChildren() == 0        );
 }
@@ -2554,7 +2554,7 @@ START_TEST (test_element_cn_units4)
   fail_unless( N != NULL );
 
   fail_unless( N->getType()        == AST_RATIONAL );
-  fail_unless( N->getReal()        == 6.0  );
+  fail_unless( util_isEqual(N->getReal(), 6.0)  );
   fail_unless( N->getUnits()       == "mole"   );
   fail_unless( N->getNumChildren() == 0        );
   fail_unless( N->getId()          == "ff" );
@@ -2571,7 +2571,7 @@ START_TEST (test_element_cn_id)
   fail_unless( N != NULL );
 
   fail_unless( N->getType()        == AST_REAL );
-  fail_unless( N->getReal()        == 12345.7  );
+  fail_unless( util_isEqual(N->getReal(), 12345.7)  );
   fail_unless( N->getId()          == "test"   );
   fail_unless( N->getNumChildren() == 0        );
 }
@@ -2586,7 +2586,7 @@ START_TEST (test_element_cn_class)
   fail_unless( N != NULL );
 
   fail_unless( N->getType()        == AST_REAL );
-  fail_unless( N->getReal()        == 12345.7  );
+  fail_unless( util_isEqual(N->getReal(), 12345.7)  );
   fail_unless( N->getClass()       == "test"   );
   fail_unless( N->getNumChildren() == 0        );
 }
@@ -2601,7 +2601,7 @@ START_TEST (test_element_cn_style)
   fail_unless( N != NULL );
 
   fail_unless( N->getType()        == AST_REAL );
-  fail_unless( N->getReal()        == 12345.7  );
+  fail_unless( util_isEqual(N->getReal(), 12345.7)  );
   fail_unless( N->getStyle()       == "test"   );
   fail_unless( N->getNumChildren() == 0        );
 }
@@ -2783,7 +2783,7 @@ START_TEST (test_convert_unary_plus)
   ASTNode * child = N->getChild(0);
 
   fail_unless( child->getType() == AST_REAL);
-  fail_unless (child->getReal() == 1);
+  fail_unless (util_isEqual(child->getReal(), 1));
 
   //char* result = SBML_formulaToString(N);
 

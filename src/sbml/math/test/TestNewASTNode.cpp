@@ -1236,20 +1236,19 @@ START_TEST (test_ASTNode_getReal)
 
   n->setValue(1.6);
 
-  fail_unless(n->getReal() == 1.6);
+  fail_unless(util_isEqual(n->getReal(), 1.6));
 
   /** 12.3e3 **/
   n->setType(AST_REAL_E);
   n->setValue(12.3, 3);
 
-  double val = fabs(n->getReal() - 12300.0);
-  fail_unless(val < DBL_EPSILON);
+  fail_unless(util_isEqual(n->getReal(), 12300.0));
 
   ///** 1/2 **/
   n->setType(AST_RATIONAL);
   n->setValue(long(1), 2);
 
-  fail_unless(n->getReal() == 0.5);
+  fail_unless(util_isEqual(n->getReal(), 0.5));
   
   fail_unless(n->isWellFormedASTNode() == true);
 
@@ -1280,7 +1279,7 @@ START_TEST (test_ASTNode_getRational)
   fail_unless(n->getType() == AST_RATIONAL);
   fail_unless(n->getNumerator() == 4);
   fail_unless(n->getDenominator() == 2);
-  fail_unless(n->getReal() == 2);
+  fail_unless(util_isEqual(n->getReal(), 2));
 
   fail_unless(n->isWellFormedASTNode() == true);
 
@@ -1294,9 +1293,9 @@ START_TEST (test_ASTNode_getRealE)
   n->setValue(4.2, long(2));
 
   fail_unless(n->getType() == AST_REAL_E);
-  fail_unless(n->getMantissa() == 4.2);
+  fail_unless(util_isEqual(n->getMantissa(), 4.2));
   fail_unless(n->getExponent() == 2);
-  fail_unless(n->getReal() == 4.2e2);
+  fail_unless(util_isEqual(n->getReal(), 4.2e2));
 
   fail_unless(n->isWellFormedASTNode() == true);
 
@@ -1548,7 +1547,7 @@ START_TEST (test_ASTNode_setCharacter)
   fail_unless( node->getCharacter() == 0        );
   fail_unless( !strcmp(node->getName(), "foo")  );
   fail_unless( node->getInteger()   == 0        );
-  fail_unless( node->getReal()      == 0        );
+  fail_unless( util_isEqual(node->getReal(), 0)        );
   fail_unless( node->getExponent()  == 0        );
   fail_unless( node->getDenominator() == 1      );
 
@@ -1557,7 +1556,7 @@ START_TEST (test_ASTNode_setCharacter)
   fail_unless( node->getCharacter() == '+'      );
   fail_unless( node->getName()      == NULL     );
   fail_unless( node->getInteger()   == 0        );
-  fail_unless( node->getReal()      == 0        );
+  fail_unless( util_isEqual(node->getReal(), 0)        );
   fail_unless( node->getExponent()  == 0        );
   fail_unless( node->getDenominator() == 1      );
 
@@ -1566,7 +1565,7 @@ START_TEST (test_ASTNode_setCharacter)
   fail_unless( node->getCharacter() == '-'       );
   fail_unless( node->getName()      == NULL     );
   fail_unless( node->getInteger()   == 0        );
-  fail_unless( node->getReal()      == 0        );
+  fail_unless( util_isEqual(node->getReal(), 0)        );
   fail_unless( node->getExponent()  == 0        );
   fail_unless( node->getDenominator() == 1      );
 
@@ -1575,7 +1574,7 @@ START_TEST (test_ASTNode_setCharacter)
   fail_unless( node->getCharacter() == '*'       );
   fail_unless( node->getName()      == NULL     );
   fail_unless( node->getInteger()   == 0        );
-  fail_unless( node->getReal()      == 0        );
+  fail_unless( util_isEqual(node->getReal(), 0)        );
   fail_unless( node->getExponent()  == 0        );
   fail_unless( node->getDenominator() == 1      );
 
@@ -1584,7 +1583,7 @@ START_TEST (test_ASTNode_setCharacter)
   fail_unless( node->getCharacter() == '/'        );
   fail_unless( node->getName()      == NULL     );
   fail_unless( node->getInteger()   == 0        );
-  fail_unless( node->getReal()      == 0        );
+  fail_unless( util_isEqual(node->getReal(), 0)        );
   fail_unless( node->getExponent()  == 0        );
   fail_unless( node->getDenominator() == 1      );
 
@@ -1593,7 +1592,7 @@ START_TEST (test_ASTNode_setCharacter)
   fail_unless( node->getCharacter() == '^'       );
   fail_unless( node->getName()      == NULL     );
   fail_unless( node->getInteger()   == 0        );
-  fail_unless( node->getReal()      == 0        );
+  fail_unless( util_isEqual(node->getReal(), 0)        );
   fail_unless( node->getExponent()  == 0        );
   fail_unless( node->getDenominator() == 1      );
 
@@ -1602,7 +1601,7 @@ START_TEST (test_ASTNode_setCharacter)
   fail_unless( node->getCharacter() == '$'         );
   fail_unless( node->getName()      == NULL     );
   fail_unless( node->getInteger()   == 0        );
-  fail_unless( node->getReal()      == 0        );
+  fail_unless( util_isEqual(node->getReal(), 0)        );
   fail_unless( node->getExponent()  == 0        );
   fail_unless( node->getDenominator() == 1      );
 
@@ -1625,7 +1624,7 @@ START_TEST (test_ASTNode_setName_1)
   fail_unless( !strcmp(node->getName(), name) );
   fail_unless( node->getCharacter() == 0        );
   fail_unless( node->getInteger()   == 0        );
-  fail_unless( node->getReal()      == 0        );
+  fail_unless( util_isEqual(node->getReal(), 0)        );
   fail_unless( node->getExponent()  == 0        );
   fail_unless( node->getDenominator() == 1      );
 
@@ -1647,7 +1646,7 @@ START_TEST (test_ASTNode_setName_1)
   fail_unless( !strcmp(node->getName(), "cos") );
   fail_unless( node->getCharacter() == 0        );
   fail_unless( node->getInteger()   == 0        );
-  fail_unless( node->getReal()      == 0        );
+  fail_unless( util_isEqual(node->getReal(), 0)        );
   fail_unless( node->getExponent()  == 0        );
   fail_unless( node->getDenominator() == 1      );
 
@@ -1657,7 +1656,7 @@ START_TEST (test_ASTNode_setName_1)
   fail_unless( !strcmp(node->getName(), name) );
   fail_unless( node->getCharacter() == '+'        );
   fail_unless( node->getInteger()   == 0        );
-  fail_unless( node->getReal()      == 0        );
+  fail_unless( util_isEqual(node->getReal(), 0)        );
   fail_unless( node->getExponent()  == 0        );
   fail_unless( node->getDenominator() == 1      );
 
@@ -1777,7 +1776,7 @@ START_TEST (test_ASTNode_setInteger)
   fail_unless( !strcmp(node->getName(), "foo") );
   fail_unless( node->getCharacter() == 0        );
   fail_unless( node->getInteger()   == 0        );
-  fail_unless( node->getReal()      == 0        );
+  fail_unless( util_isEqual(node->getReal(), 0)        );
   fail_unless( node->getExponent()  == 0        );
   fail_unless( node->getDenominator() == 1      );
   fail_unless( node->getStyle() == "style"      );
@@ -1788,7 +1787,7 @@ START_TEST (test_ASTNode_setInteger)
   fail_unless( node->getInteger() == 0         );
   fail_unless( node->getName()== NULL );
   fail_unless( node->getCharacter() == 0        );
-  fail_unless( node->getReal()      == 3.2        );
+  fail_unless( util_isEqual(node->getReal(), 3.2)        );
   fail_unless( node->getExponent()  == 0        );
   fail_unless( node->getDenominator() == 1      );
   fail_unless( node->getStyle() == "style"      );
@@ -1799,7 +1798,7 @@ START_TEST (test_ASTNode_setInteger)
   fail_unless( node->getInteger() == 321         );
   fail_unless( node->getName()== NULL );
   fail_unless( node->getCharacter() == 0        );
-  fail_unless( node->getReal()      == 0        );
+  fail_unless( util_isEqual(node->getReal(), 0)        );
   fail_unless( node->getExponent()  == 0        );
   fail_unless( node->getDenominator() == 1      );
 
@@ -1823,30 +1822,30 @@ START_TEST (test_ASTNode_setReal)
   fail_unless( node->getInteger() == 0         );
   fail_unless( node->getName() == NULL );
   fail_unless( node->getCharacter() == 0        );
-  fail_unless( node->getReal()      == 32.1        );
+  fail_unless( util_isEqual(node->getReal(), 32.1)        );
   fail_unless( node->getExponent()  == 0        );
   fail_unless( node->getDenominator() == 1      );
-  fail_unless( node->getMantissa() == 32.1     );
+  fail_unless( util_isEqual(node->getMantissa(), 32.1)     );
 
   node->setValue(long(45), long(90));
   fail_unless( node->getType() == AST_RATIONAL );
   fail_unless( node->getInteger() == 45         );
   fail_unless( node->getName() == NULL );
   fail_unless( node->getCharacter() == 0        );
-  fail_unless( node->getReal()      == 0.5        );
+  fail_unless( util_isEqual(node->getReal(), 0.5)        );
   fail_unless( node->getExponent()  == 0        );
   fail_unless( node->getDenominator() == 90      );
-  fail_unless( node->getMantissa() == 0     );
+  fail_unless( util_isEqual(node->getMantissa(), 0)     );
 
   node->setValue(32.0, 4);
   fail_unless( node->getType() == AST_REAL_E );
   fail_unless( node->getInteger() == 0         );
   fail_unless( node->getName() == NULL );
   fail_unless( node->getCharacter() == 0        );
-  fail_unless( node->getReal()      == 320000        );
+  fail_unless( util_isEqual(node->getReal(), 320000)        );
   fail_unless( node->getExponent()  == 4        );
   fail_unless( node->getDenominator() == 1      );
-  fail_unless( node->getMantissa() == 32     );
+  fail_unless( util_isEqual(node->getMantissa(), 32)     );
 
   delete node;
 }
@@ -1863,10 +1862,10 @@ START_TEST (test_ASTNode_setValue)
   fail_unless( node->getInteger() == 0         );
   fail_unless( node->getName() == NULL );
   fail_unless( node->getCharacter() == 0        );
-  fail_unless( node->getReal()      == 32.1        );
+  fail_unless( util_isEqual(node->getReal(), 32.1)        );
   fail_unless( node->getExponent()  == 0        );
   fail_unless( node->getDenominator() == 1      );
-  fail_unless( node->getMantissa() == 32.1     );
+  fail_unless( util_isEqual(node->getMantissa(), 32.1)     );
   fail_unless( node->getClass() == "c");
 
   delete node;
@@ -1878,10 +1877,10 @@ START_TEST (test_ASTNode_setValue)
   fail_unless( node->getInteger() == 45         );
   fail_unless( node->getName() == NULL );
   fail_unless( node->getCharacter() == 0        );
-  fail_unless( node->getReal()      == 0.5        );
+  fail_unless( util_isEqual(node->getReal(), 0.5)        );
   fail_unless( node->getExponent()  == 0        );
   fail_unless( node->getDenominator() == 90      );
-  fail_unless( node->getMantissa() == 0     );
+  fail_unless( util_isEqual(node->getMantissa(), 0)     );
   fail_unless( node->getClass() == "c");
 
   delete node;
@@ -1893,10 +1892,10 @@ START_TEST (test_ASTNode_setValue)
   fail_unless( node->getInteger() == 0         );
   fail_unless( node->getName() == NULL );
   fail_unless( node->getCharacter() == 0        );
-  fail_unless( node->getReal()      == 320000        );
+  fail_unless( util_isEqual(node->getReal(), 320000)        );
   fail_unless( node->getExponent()  == 4        );
   fail_unless( node->getDenominator() == 1      );
-  fail_unless( node->getMantissa() == 32     );
+  fail_unless( util_isEqual(node->getMantissa(), 32)     );
   fail_unless( node->getClass() == "c");
 
   delete node;
@@ -1908,10 +1907,10 @@ START_TEST (test_ASTNode_setValue)
   fail_unless( node->getInteger() == 4         );
   fail_unless( node->getName() == NULL );
   fail_unless( node->getCharacter() == 0        );
-  fail_unless( node->getReal()      == 0        );
+  fail_unless( util_isEqual(node->getReal(), 0)        );
   fail_unless( node->getExponent()  == 0        );
   fail_unless( node->getDenominator() == 1      );
-  fail_unless( node->getMantissa() == 0     );
+  fail_unless( util_isEqual(node->getMantissa(), 0)     );
   fail_unless( node->getClass() == "c");
 
   delete node;
@@ -1923,10 +1922,10 @@ START_TEST (test_ASTNode_setValue)
   fail_unless( node->getInteger() == 4         );
   fail_unless( node->getName() == NULL );
   fail_unless( node->getCharacter() == 0        );
-  fail_unless( node->getReal()      == 0        );
+  fail_unless( util_isEqual(node->getReal(), 0)        );
   fail_unless( node->getExponent()  == 0        );
   fail_unless( node->getDenominator() == 1      );
-  fail_unless( node->getMantissa() == 0     );
+  fail_unless( util_isEqual(node->getMantissa(), 0)     );
   fail_unless( node->getClass() == "c");
 
   delete node;
@@ -2050,9 +2049,9 @@ START_TEST (test_ASTNode_setType_3)
 
   fail_unless( node->getType() == AST_RATIONAL);
   fail_unless( node->getInteger() == 0);
-  fail_unless( node->getMantissa() == 0);
+  fail_unless( util_isEqual(node->getMantissa(), 0));
   fail_unless( node->getExponent() == 0);
-  fail_unless( node->getReal() == 0);
+  fail_unless( util_isEqual(node->getReal(), 0));
   fail_unless( node->getDenominator() == 1);
   fail_unless( node->getNumerator() == 0);
   fail_unless( node->getId() == "s");
@@ -2080,7 +2079,7 @@ START_TEST (test_ASTNode_setType_4)
   fail_unless( node->getParentSBMLObject() == m);
   fail_unless( node->isConstant() == false);
   fail_unless( node->isName() == true);
-  fail_unless( node->getReal() == 0);
+  fail_unless( util_isEqual(node->getReal(), 0));
   fail_unless( node->getDefinitionURLString() == "http://www.sbml.org/sbml/symbols/time");
   //fail_unless( node->getEncoding() == "text");
 
@@ -2174,7 +2173,7 @@ START_TEST (test_ASTNode_setType_7)
   fail_unless( strcmp(node->getName(), "t") == 0);
   fail_unless( node->getParentSBMLObject() == m);
   fail_unless( node->isName() == true);
-  fail_unless( node->getReal() == 0);
+  fail_unless( util_isEqual(node->getReal(), 0));
   fail_unless( node->getDefinitionURLString() == "http://www.sbml.org/sbml/symbols/time");
 
   node->setType(AST_REAL);
@@ -2185,7 +2184,7 @@ START_TEST (test_ASTNode_setType_7)
   fail_unless( node->getParentSBMLObject() == m);
   fail_unless( node->isName() == false);
   fail_unless( node->getDefinitionURLString() == "");
-  fail_unless( node->getReal() == 0);
+  fail_unless( util_isEqual(node->getReal(), 0));
 
   delete node;
 }
@@ -2257,9 +2256,9 @@ START_TEST (test_ASTNode_setType_9)
 
   fail_unless( node->getType() == AST_NAME);
   fail_unless( node->getInteger() == 0);
-  fail_unless( node->getMantissa() == 0);
+  fail_unless( util_isEqual(node->getMantissa(), 0));
   fail_unless( node->getExponent() == 0);
-  fail_unless( node->getReal() == 0);
+  fail_unless( util_isEqual(node->getReal(), 0));
   fail_unless( node->getDenominator() == 1);
   fail_unless( node->getNumerator() == 0);
   fail_unless( node->getId() == "s");
@@ -2297,9 +2296,9 @@ START_TEST (test_ASTNode_setType_10)
 
   fail_unless( node->getType() == AST_PLUS);
   fail_unless( node->getInteger() == 0);
-  fail_unless( node->getMantissa() == 0);
+  fail_unless( util_isEqual(node->getMantissa(), 0));
   fail_unless( node->getExponent() == 0);
-  fail_unless( node->getReal() == 0);
+  fail_unless( util_isEqual(node->getReal(), 0));
   fail_unless( node->getDenominator() == 1);
   fail_unless( node->getNumerator() == 0);
   fail_unless( node->getId() == "s");
@@ -2337,9 +2336,9 @@ START_TEST (test_ASTNode_setType_11)
 
   fail_unless( node->getType() == AST_FUNCTION_COS);
   fail_unless( node->getInteger() == 0);
-  fail_unless( node->getMantissa() == 0);
+  fail_unless( util_isEqual(node->getMantissa(), 0));
   fail_unless( node->getExponent() == 0);
-  fail_unless( node->getReal() == 0);
+  fail_unless( util_isEqual(node->getReal(), 0));
   fail_unless( node->getDenominator() == 1);
   fail_unless( node->getNumerator() == 0);
   fail_unless( node->getId() == "s");
@@ -2377,9 +2376,9 @@ START_TEST (test_ASTNode_setType_12)
 
   fail_unless( node->getType() == AST_DIVIDE);
   fail_unless( node->getInteger() == 0);
-  fail_unless( node->getMantissa() == 0);
+  fail_unless( util_isEqual(node->getMantissa(), 0));
   fail_unless( node->getExponent() == 0);
-  fail_unless( node->getReal() == 0);
+  fail_unless( util_isEqual(node->getReal(), 0));
   fail_unless( node->getDenominator() == 1);
   fail_unless( node->getNumerator() == 0);
   fail_unless( node->getId() == "s");
@@ -2437,7 +2436,7 @@ START_TEST (test_ASTNode_setType_14)
   fail_unless( strcmp(node->getName(), "t") == 0);
   fail_unless( node->getParentSBMLObject() == m);
   fail_unless( node->isName() == true);
-  fail_unless( node->getReal() == 0);
+  fail_unless( util_isEqual(node->getReal(), 0));
   fail_unless( node->getDefinitionURLString() == "http://www.sbml.org/sbml/symbols/time");
 
   node->setType(AST_LAMBDA);
@@ -2448,7 +2447,7 @@ START_TEST (test_ASTNode_setType_14)
   fail_unless( node->getParentSBMLObject() == m);
   fail_unless( node->isName() == false);
   fail_unless( node->getDefinitionURLString() == "");
-  fail_unless( node->getReal() == 0);
+  fail_unless( util_isEqual(node->getReal(), 0));
 
   delete node;
 }
@@ -2468,7 +2467,7 @@ START_TEST (test_ASTNode_setType_15)
   fail_unless( strcmp(node->getName(), "t") == 0);
   fail_unless( node->getParentSBMLObject() == m);
   fail_unless( node->isName() == true);
-  fail_unless( node->getReal() == 0);
+  fail_unless( util_isEqual(node->getReal(), 0));
   fail_unless( node->getDefinitionURLString() == "http://www.sbml.org/sbml/symbols/time");
 
   node->setType(AST_FUNCTION_PIECEWISE);
@@ -2479,7 +2478,7 @@ START_TEST (test_ASTNode_setType_15)
   fail_unless( node->getParentSBMLObject() == m);
   fail_unless( node->isName() == false);
   fail_unless( node->getDefinitionURLString() == "");
-  fail_unless( node->getReal() == 0);
+  fail_unless( util_isEqual(node->getReal(), 0));
 
   delete node;
 }
@@ -2499,7 +2498,7 @@ START_TEST (test_ASTNode_setType_16)
   fail_unless( strcmp(node->getName(), "t") == 0);
   fail_unless( node->getParentSBMLObject() == m);
   fail_unless( node->isName() == true);
-  fail_unless( node->getReal() == 0);
+  fail_unless( util_isEqual(node->getReal(), 0));
   fail_unless( node->getDefinitionURLString() 
     == "http://www.sbml.org/sbml/symbols/time");
 
@@ -2512,7 +2511,7 @@ START_TEST (test_ASTNode_setType_16)
   fail_unless( node->isName() == false);
   fail_unless( node->getDefinitionURLString() 
     == "http://www.sbml.org/sbml/symbols/delay");
-  fail_unless( node->getReal() == 0);
+  fail_unless( util_isEqual(node->getReal(), 0));
 
   delete node;
 }
@@ -2544,9 +2543,9 @@ START_TEST (test_ASTNode_setType_17)
 
   fail_unless( node->getType() == AST_FUNCTION_DELAY);
   fail_unless( node->getInteger() == 0);
-  fail_unless( node->getMantissa() == 0);
+  fail_unless( util_isEqual(node->getMantissa(), 0));
   fail_unless( node->getExponent() == 0);
-  fail_unless( node->getReal() == 0);
+  fail_unless( util_isEqual(node->getReal(), 0));
   fail_unless( node->getDenominator() == 1);
   fail_unless( node->getNumerator() == 0);
   fail_unless( node->getId() == "s");
@@ -2571,9 +2570,9 @@ START_TEST (test_ASTNode_setType_18)
 
   fail_unless( node->getType() == AST_PLUS);
   fail_unless( node->getInteger() == 0);
-  fail_unless( node->getMantissa() == 0);
+  fail_unless( util_isEqual(node->getMantissa(), 0));
   fail_unless( node->getExponent() == 0);
-  fail_unless( node->getReal() == 0);
+  fail_unless( util_isEqual(node->getReal(), 0));
   fail_unless( node->getDenominator() == 1);
   fail_unless( node->getNumerator() == 0);
   fail_unless( node->getId() == "s");
@@ -2584,9 +2583,9 @@ START_TEST (test_ASTNode_setType_18)
 
   fail_unless( node->getType() == AST_INTEGER);
   fail_unless( node->getInteger() == 0);
-  fail_unless( node->getMantissa() == 0);
+  fail_unless( util_isEqual(node->getMantissa(), 0));
   fail_unless( node->getExponent() == 0);
-  fail_unless( node->getReal() == 0);
+  fail_unless( util_isEqual(node->getReal(), 0));
   fail_unless( node->getDenominator() == 1);
   fail_unless( node->getNumerator() == 0);
   fail_unless( node->getId() == "s");
@@ -2607,9 +2606,9 @@ START_TEST (test_ASTNode_setType_19)
 
   fail_unless( node->getType() == AST_FUNCTION_COS);
   fail_unless( node->getInteger() == 0);
-  fail_unless( node->getMantissa() == 0);
+  fail_unless( util_isEqual(node->getMantissa(), 0));
   fail_unless( node->getExponent() == 0);
-  fail_unless( node->getReal() == 0);
+  fail_unless( util_isEqual(node->getReal(), 0));
   fail_unless( node->getDenominator() == 1);
   fail_unless( node->getNumerator() == 0);
   fail_unless( node->getId() == "s");
@@ -2620,9 +2619,9 @@ START_TEST (test_ASTNode_setType_19)
 
   fail_unless( node->getType() == AST_RATIONAL);
   fail_unless( node->getInteger() == 0);
-  fail_unless( node->getMantissa() == 0);
+  fail_unless( util_isEqual(node->getMantissa(), 0));
   fail_unless( node->getExponent() == 0);
-  fail_unless( node->getReal() == 0);
+  fail_unless( util_isEqual(node->getReal(), 0));
   fail_unless( node->getDenominator() == 1);
   fail_unless( node->getNumerator() == 0);
   fail_unless( node->getId() == "s");
@@ -2643,9 +2642,9 @@ START_TEST (test_ASTNode_setType_20)
 
   fail_unless( node->getType() == AST_DIVIDE);
   fail_unless( node->getInteger() == 0);
-  fail_unless( node->getMantissa() == 0);
+  fail_unless( util_isEqual(node->getMantissa(), 0));
   fail_unless( node->getExponent() == 0);
-  fail_unless( node->getReal() == 0);
+  fail_unless( util_isEqual(node->getReal(), 0));
   fail_unless( node->getDenominator() == 1);
   fail_unless( node->getNumerator() == 0);
   fail_unless( node->getId() == "s");
@@ -2656,9 +2655,9 @@ START_TEST (test_ASTNode_setType_20)
 
   fail_unless( node->getType() == AST_REAL_E);
   fail_unless( node->getInteger() == 0);
-  fail_unless( node->getMantissa() == 0);
+  fail_unless( util_isEqual(node->getMantissa(), 0));
   fail_unless( node->getExponent() == 0);
-  fail_unless( node->getReal() == 0);
+  fail_unless( util_isEqual(node->getReal(), 0));
   fail_unless( node->getDenominator() == 1);
   fail_unless( node->getNumerator() == 0);
   fail_unless( node->getId() == "s");
@@ -2679,9 +2678,9 @@ START_TEST (test_ASTNode_setType_21)
 
   fail_unless( node->getType() == AST_FUNCTION);
   fail_unless( node->getInteger() == 0);
-  fail_unless( node->getMantissa() == 0);
+  fail_unless( util_isEqual(node->getMantissa(), 0));
   fail_unless( node->getExponent() == 0);
-  fail_unless( node->getReal() == 0);
+  fail_unless( util_isEqual(node->getReal(), 0));
   fail_unless( node->getDenominator() == 1);
   fail_unless( node->getNumerator() == 0);
   fail_unless( node->getId() == "s");
@@ -2692,9 +2691,9 @@ START_TEST (test_ASTNode_setType_21)
 
   fail_unless( node->getType() == AST_REAL);
   fail_unless( node->getInteger() == 0);
-  fail_unless( node->getMantissa() == 0);
+  fail_unless( util_isEqual(node->getMantissa(), 0));
   fail_unless( node->getExponent() == 0);
-  fail_unless( node->getReal() == 0);
+  fail_unless( util_isEqual(node->getReal(), 0));
   fail_unless( node->getDenominator() == 1);
   fail_unless( node->getNumerator() == 0);
   fail_unless( node->getId() == "s");
@@ -2715,9 +2714,9 @@ START_TEST (test_ASTNode_setType_22)
 
   fail_unless( node->getType() == AST_PLUS);
   fail_unless( node->getInteger() == 0);
-  fail_unless( node->getMantissa() == 0);
+  fail_unless( util_isEqual(node->getMantissa(), 0));
   fail_unless( node->getExponent() == 0);
-  fail_unless( node->getReal() == 0);
+  fail_unless( util_isEqual(node->getReal(), 0));
   fail_unless( node->getDenominator() == 1);
   fail_unless( node->getNumerator() == 0);
   fail_unless( node->getId() == "s");
@@ -2730,9 +2729,9 @@ START_TEST (test_ASTNode_setType_22)
 
   fail_unless( node->getType() == AST_NAME);
   fail_unless( node->getInteger() == 0);
-  fail_unless( node->getMantissa() == 0);
+  fail_unless( util_isEqual(node->getMantissa(), 0));
   fail_unless( node->getExponent() == 0);
-  fail_unless( node->getReal() == 0);
+  fail_unless( util_isEqual(node->getReal(), 0));
   fail_unless( node->getDenominator() == 1);
   fail_unless( node->getNumerator() == 0);
   fail_unless( node->getId() == "s");
@@ -2755,9 +2754,9 @@ START_TEST (test_ASTNode_setType_23)
 
   fail_unless( node->getType() == AST_PLUS);
   fail_unless( node->getInteger() == 0);
-  fail_unless( node->getMantissa() == 0);
+  fail_unless( util_isEqual(node->getMantissa(), 0));
   fail_unless( node->getExponent() == 0);
-  fail_unless( node->getReal() == 0);
+  fail_unless( util_isEqual(node->getReal(), 0));
   fail_unless( node->getDenominator() == 1);
   fail_unless( node->getNumerator() == 0);
   fail_unless( node->getId() == "s");
@@ -2769,9 +2768,9 @@ START_TEST (test_ASTNode_setType_23)
 
   fail_unless( node->getType() == AST_CONSTANT_E);
   fail_unless( node->getInteger() == 0);
-  fail_unless( node->getMantissa() == 0);
+  fail_unless( util_isEqual(node->getMantissa(), 0));
   fail_unless( node->getExponent() == 0);
-  fail_unless( node->getReal() == 0);
+  fail_unless( util_isEqual(node->getReal(), 0));
   fail_unless( node->getDenominator() == 1);
   fail_unless( node->getNumerator() == 0);
   fail_unless( node->getId() == "s");
@@ -2793,9 +2792,9 @@ START_TEST (test_ASTNode_setType_24)
 
   fail_unless( node->getType() == AST_PLUS);
   fail_unless( node->getInteger() == 0);
-  fail_unless( node->getMantissa() == 0);
+  fail_unless( util_isEqual(node->getMantissa(), 0));
   fail_unless( node->getExponent() == 0);
-  fail_unless( node->getReal() == 0);
+  fail_unless( util_isEqual(node->getReal(), 0));
   fail_unless( node->getDenominator() == 1);
   fail_unless( node->getNumerator() == 0);
   fail_unless( node->getId() == "s");
@@ -2838,9 +2837,9 @@ START_TEST (test_ASTNode_setType_25)
 
   fail_unless( node->getType() == AST_PLUS);
   fail_unless( node->getInteger() == 0);
-  fail_unless( node->getMantissa() == 0);
+  fail_unless( util_isEqual(node->getMantissa(), 0));
   fail_unless( node->getExponent() == 0);
-  fail_unless( node->getReal() == 0);
+  fail_unless( util_isEqual(node->getReal(), 0));
   fail_unless( node->getDenominator() == 1);
   fail_unless( node->getNumerator() == 0);
   fail_unless( node->getId() == "s");
@@ -2854,9 +2853,9 @@ START_TEST (test_ASTNode_setType_25)
 
   fail_unless( node->getType() == AST_NAME_TIME);
   fail_unless( node->getInteger() == 0);
-  fail_unless( node->getMantissa() == 0);
+  fail_unless( util_isEqual(node->getMantissa(), 0));
   fail_unless( node->getExponent() == 0);
-  fail_unless( node->getReal() == 0);
+  fail_unless( util_isEqual(node->getReal(), 0));
   fail_unless( node->getDenominator() == 1);
   fail_unless( node->getNumerator() == 0);
   fail_unless( node->getId() == "s");
@@ -2881,9 +2880,9 @@ START_TEST (test_ASTNode_setType_26)
 
   fail_unless( node->getType() == AST_FUNCTION_DELAY);
   fail_unless( node->getInteger() == 0);
-  fail_unless( node->getMantissa() == 0);
+  fail_unless( util_isEqual(node->getMantissa(), 0));
   fail_unless( node->getExponent() == 0);
-  fail_unless( node->getReal() == 0);
+  fail_unless( util_isEqual(node->getReal(), 0));
   fail_unless( node->getDenominator() == 1);
   fail_unless( node->getNumerator() == 0);
   fail_unless( node->getId() == "s");
@@ -2898,9 +2897,9 @@ START_TEST (test_ASTNode_setType_26)
 
   fail_unless( node->getType() == AST_NAME_TIME);
   fail_unless( node->getInteger() == 0);
-  fail_unless( node->getMantissa() == 0);
+  fail_unless( util_isEqual(node->getMantissa(), 0));
   fail_unless( node->getExponent() == 0);
-  fail_unless( node->getReal() == 0);
+  fail_unless( util_isEqual(node->getReal(), 0));
   fail_unless( node->getDenominator() == 1);
   fail_unless( node->getNumerator() == 0);
   fail_unless( node->getId() == "s");
@@ -3581,9 +3580,9 @@ START_TEST (test_ASTNode_setNewTypes_1)
 
   fail_unless( node->getType() == AST_QUALIFIER_BVAR);
   fail_unless( node->getInteger() == 0);
-  fail_unless( node->getMantissa() == 0);
+  fail_unless( util_isEqual(node->getMantissa(), 0));
   fail_unless( node->getExponent() == 0);
-  fail_unless( node->getReal() == 0);
+  fail_unless( util_isEqual(node->getReal(), 0));
   fail_unless( node->getDenominator() == 1);
   fail_unless( node->getNumerator() == 0);
   fail_unless( node->getId() == "s");
@@ -3611,7 +3610,7 @@ START_TEST (test_ASTNode_setNewTypes_2)
   fail_unless( node->getParentSBMLObject() == m);
   fail_unless( node->isName() == true);
   fail_unless( node->isQualifier() == false);
-  fail_unless( node->getReal() == 0);
+  fail_unless( util_isEqual(node->getReal(), 0));
   fail_unless( node->getDefinitionURLString() 
     == "http://www.sbml.org/sbml/symbols/time");
 
@@ -3625,7 +3624,7 @@ START_TEST (test_ASTNode_setNewTypes_2)
   fail_unless( node->isQualifier() == true);
   fail_unless( node->getDefinitionURLString() 
     == "");
-  fail_unless( node->getReal() == 0);
+  fail_unless( util_isEqual(node->getReal(), 0));
 
   delete node;
 }
@@ -3658,9 +3657,9 @@ START_TEST (test_ASTNode_setNewTypes_3)
 
   fail_unless( node->getType() == AST_SEMANTICS);
   fail_unless( node->getInteger() == 0);
-  fail_unless( node->getMantissa() == 0);
+  fail_unless( util_isEqual(node->getMantissa(), 0));
   fail_unless( node->getExponent() == 0);
-  fail_unless( node->getReal() == 0);
+  fail_unless( util_isEqual(node->getReal(), 0));
   fail_unless( node->getDenominator() == 1);
   fail_unless( node->getNumerator() == 0);
   fail_unless( node->getId() == "s");
@@ -3688,7 +3687,7 @@ START_TEST (test_ASTNode_setNewTypes_4)
   fail_unless( node->getParentSBMLObject() == m);
   fail_unless( node->isName() == true);
   fail_unless( node->isSemantics() == false);
-  fail_unless( node->getReal() == 0);
+  fail_unless( util_isEqual(node->getReal(), 0));
   fail_unless( node->getDefinitionURLString() 
     == "http://www.sbml.org/sbml/symbols/time");
 
@@ -3701,7 +3700,7 @@ START_TEST (test_ASTNode_setNewTypes_4)
   fail_unless( node->isName() == false);
   fail_unless( node->getDefinitionURLString() 
     == "http://www.sbml.org/sbml/symbols/time");
-  fail_unless( node->getReal() == 0);
+  fail_unless( util_isEqual(node->getReal(), 0));
   fail_unless( node->isSemantics() == true);
 
   delete node;
@@ -4958,7 +4957,7 @@ START_TEST (test_ASTNode_avogadro)
 
   fail_unless(!strcmp(n->getName(), "NA"));
   double val = n->getReal();
-  fail_unless(val == 6.02214179e23);
+  fail_unless(util_isEqual(val, 6.02214179e23));
   fail_unless(n->isConstant() == true);
   fail_unless(n->isWellFormedASTNode() == true);
 
@@ -4974,7 +4973,7 @@ START_TEST (test_ASTNode_avogadro_1)
 
   fail_unless(!strcmp(n->getName(), "NA"));
   double val = n->getReal();
-  fail_unless(val == 6.02214179e23);
+  fail_unless(util_isEqual(val, 6.02214179e23));
   fail_unless(n->isConstant() == true);
   fail_unless(n->isWellFormedASTNode() == true);
 
@@ -4990,7 +4989,7 @@ START_TEST (test_ASTNode_avogadro_bug)
 
   fail_unless(!strcmp(n->getName(), "NA"));
   double val = n->getReal();
-  fail_unless(val == 6.02214179e23);
+  fail_unless(util_isEqual(val, 6.02214179e23));
   fail_unless(n->isConstant() == true);
   fail_unless(n->isWellFormedASTNode() == true);
 
