@@ -31,7 +31,7 @@
 #include <sbml/Model.h>
 
 #include <sbml/util/ElementFilter.h>
-#include <sbml/util/IdentifierTransformer.h>
+#include <sbml/util/PrefixTransformer.h>
 
 using namespace std;
 
@@ -44,6 +44,7 @@ CompModelPlugin::CompModelPlugin (const std::string &uri, const std::string &pre
   , mListOfPorts(compns)
   , mDivider("__")
   , mRemoved()
+  , mTransformer(NULL)
 {
   connectToChild();
 }
@@ -55,6 +56,7 @@ CompModelPlugin::CompModelPlugin(const CompModelPlugin& orig)
   , mListOfPorts(orig.mListOfPorts)
   , mDivider("__")
   , mRemoved() //If we're making a copy, the list of things we've removed is new.
+  , mTransformer(orig.mTransformer)
 {
   connectToChild();
 }
@@ -74,6 +76,7 @@ CompModelPlugin::operator=(const CompModelPlugin& orig)
     mListOfPorts = orig.mListOfPorts;
     mDivider = orig.mDivider;
     mRemoved.clear(); //If we're making a copy, the list of things we've removed is new.
+    mTransformer = orig.mTransformer;
     connectToChild();
   }
   return *this;
@@ -1035,43 +1038,6 @@ void CompModelPlugin::findUniqueSubmodPrefixes(vector<string>& submodids, List* 
 }
 /** @endcond */
 
-/** 
- * Simple IdentifierTransformer, that prefixes all given 
- * elements with the prefix given to the constructor. 
- * 
- * this will prefix metaids, unitsids and sids. 
- */ 
-class PrefixTransformer : public IdentifierTransformer
-{
-  string mPrefix;
-public: 
-  PrefixTransformer (const string& prefix) 
-  : mPrefix(prefix) {}
-  
-  virtual int transform(SBase* element)
-  {
-    // if there is nothing to do return ... 
-    if (element == NULL) 
-    return LIBSBML_OPERATION_SUCCESS;
-  
-    // prefix meta id if we have one ... 
-    if (element->isSetMetaId())
-    {
-      if (element->setMetaId(mPrefix + element->getMetaId()) != LIBSBML_OPERATION_SUCCESS)
-        return LIBSBML_OPERATION_FAILED;
-    }
-
-    // prefix other ids (unitsid, or sid) ...
-    // skip local parameters
-    if (element->isSetId() && element->getTypeCode() != SBML_LOCAL_PARAMETER)
-    {
-      if (element->setId(mPrefix + element->getId()) != LIBSBML_OPERATION_SUCCESS)
-        return LIBSBML_OPERATION_FAILED;
-    }
-    return LIBSBML_OPERATION_SUCCESS;
-  }
-};
-
 /** @cond doxygenLibsbmlInternal */
 void CompModelPlugin::renameIDs(List* allElements, const string& prefix)
 {
@@ -1079,14 +1045,25 @@ void CompModelPlugin::renameIDs(List* allElements, const string& prefix)
   vector<pair<string, string> > renamedSIds;
   vector<pair<string, string> > renamedUnitSIds;
   vector<pair<string, string> > renamedMetaIds;
-  //PrefixTransformer trans(prefix);
+  
+  // if a custom prefix transformer was specified, then set the 
+  // current prefix
+  if (isSetTransformer())
+    mTransformer->setPrefix(prefix);
+  
   for (unsigned long el=0; el < allElements->getSize(); ++el) 
   {
     SBase* element = static_cast<SBase*>(allElements->get(el));
     string id = element->getId();
     string metaid = element->getMetaId();
-    //element->transformIdentifiers(&trans);
-    element->prependStringToAllIdentifiers(prefix);
+    
+    // if a custom prefix transformer was specified, use it, other wise
+    // default to the sbase method. 
+    if (isSetTransformer())
+      element->transformIdentifiers(mTransformer);
+    else 
+      element->prependStringToAllIdentifiers(prefix);
+
     if (element->getTypeCode() == SBML_LOCAL_PARAMETER) {
       element->setId(id); //Change it back.  This would perhaps be better served by overriding 'prependStringToAllIdentifiers' but hey.
     }
@@ -1330,6 +1307,33 @@ CompModelPlugin::accept(SBMLVisitor& v) const
 }
 
 /** @endcond */
+
+void 
+CompModelPlugin::setTransformer(PrefixTransformer* transformer)
+{
+  mTransformer = transformer;
+}
+
+PrefixTransformer* 
+CompModelPlugin::getTransformer()
+{
+  return mTransformer;
+}
+
+bool 
+CompModelPlugin::isSetTransformer()
+{
+  return mTransformer != NULL;
+}
+
+
+void 
+CompModelPlugin::unsetTransformer()
+{
+  mTransformer = NULL;
+}
+
+
 
 /** @cond doxygenLibsbmlInternal */
 std::set<SBase*>* 

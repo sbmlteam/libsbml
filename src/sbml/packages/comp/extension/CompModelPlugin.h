@@ -67,15 +67,17 @@
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
+class PrefixTransformer;
 
 class LIBSBML_EXTERN CompModelPlugin : public CompSBasePlugin
 {
 protected:
 
   /** @cond doxygenLibsbmlInternal */
-  ListOfSubmodels  mListOfSubmodels;
-  ListOfPorts      mListOfPorts;
-  std::string      mDivider;
+  ListOfSubmodels    mListOfSubmodels;
+  ListOfPorts        mListOfPorts;
+  std::string        mDivider;
+
   /** @endcond */
 
 public:
@@ -470,8 +472,37 @@ public:
 
   /** @endcond */
 
+  /**
+   * Sets the custom transformer that is to be used, instead of the standard
+   * prefixing with the given divider. This makes it possible to finely control
+   * how elements are altered. 
+   * 
+   * If not set, only ids and meta ids will be prefixed. 
+   * 
+   * NOTE: the model plugin only holds the pointer to the element it does not 
+   *       take ownership of it. Thus the calling program is responsible of 
+   *       freeing the transformer when no longer needed (i.e after the 
+   *       SBML document has been deleted)
+   *      
+   */
+  void setTransformer(PrefixTransformer* transformer);
 
-  protected:
+  /**
+   * @return any custom transformer set for prefix operations, will be NULL by default.
+   */
+  PrefixTransformer* getTransformer();
+  
+  /**
+   * @return an indicator, whether a custom transformer has been set. 
+   */
+  bool isSetTransformer();
+
+  /**
+   * Unsets any custom prefix transformers. 
+   */
+  void unsetTransformer();
+
+protected:
 
   /**
    * Flatten and return a copy of this hierarchical model.
@@ -530,6 +561,22 @@ private:
    */
   std::set<SBase*>  mRemoved;
   /** @endcond */
+
+protected:
+  
+
+  /** @cond doxygenLibsbmlInternal */
+  /*
+   * A custom transformer that can be provided by the user, if they prefer
+   * customized modification of elements, instead of simply prefixing their ids.
+   * 
+   * It is declared here, as we don't want to upset the compile order established
+   * in previous releases. 
+   */
+  PrefixTransformer* mTransformer;
+  /** @endcond */
+
+private:
 
   /*
    * Combine mListOfPorts and mListOfSubmodels.  If this is called from
