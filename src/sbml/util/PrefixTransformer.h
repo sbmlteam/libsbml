@@ -50,7 +50,9 @@ class SBase;
  */ 
 class LIBSBML_EXTERN PrefixTransformer : public IdentifierTransformer
 {
+protected:
   std::string mPrefix;
+
 public: 
   /**
    * Default contructor
