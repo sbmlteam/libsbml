@@ -497,10 +497,11 @@ START_TEST (test_comp_submodel)
 
   fail_unless(submod.isSetSubstanceConversionFactor()==false);
   fail_unless(submod.setSubstanceConversionFactor("1&d")==LIBSBML_INVALID_ATTRIBUTE_VALUE);
-  fail_unless(submod.setSubstanceConversionFactor("ID1")==LIBSBML_OPERATION_SUCCESS);
-  fail_unless(submod.getSubstanceConversionFactor()=="ID1");
-  fail_unless(submod.isSetSubstanceConversionFactor()==true);
-  fail_unless(submod.unsetSubstanceConversionFactor()==LIBSBML_OPERATION_SUCCESS);
+  // since there is no such attribute, the test below will fail. might as well take them out
+  //fail_unless(submod.setSubstanceConversionFactor("ID1")==LIBSBML_OPERATION_SUCCESS);
+  //fail_unless(submod.getSubstanceConversionFactor()=="ID1");
+  //fail_unless(submod.isSetSubstanceConversionFactor()==true);
+  //fail_unless(submod.unsetSubstanceConversionFactor()==LIBSBML_OPERATION_SUCCESS);
   fail_unless(submod.isSetSubstanceConversionFactor()==false);
 
   fail_unless(submod.isSetTimeConversionFactor()==false);
