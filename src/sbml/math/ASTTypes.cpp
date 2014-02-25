@@ -558,3 +558,4 @@ getNameFromCoreType(int type)
 /** @endcond */
 
 
+LIBSBML_CPP_NAMESPACE_END
