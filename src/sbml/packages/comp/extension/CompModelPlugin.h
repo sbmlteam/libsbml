@@ -490,12 +490,12 @@ public:
   /**
    * @return any custom transformer set for prefix operations, will be NULL by default.
    */
-  PrefixTransformer* getTransformer();
+  PrefixTransformer* getTransformer() const;
   
   /**
    * @return an indicator, whether a custom transformer has been set. 
    */
-  bool isSetTransformer();
+  bool isSetTransformer() const;
 
   /**
    * Unsets any custom prefix transformers. 

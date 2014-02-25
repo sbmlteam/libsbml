@@ -1315,13 +1315,13 @@ CompModelPlugin::setTransformer(PrefixTransformer* transformer)
 }
 
 PrefixTransformer* 
-CompModelPlugin::getTransformer()
+CompModelPlugin::getTransformer() const
 {
   return mTransformer;
 }
 
 bool 
-CompModelPlugin::isSetTransformer()
+CompModelPlugin::isSetTransformer() const
 {
   return mTransformer != NULL;
 }
