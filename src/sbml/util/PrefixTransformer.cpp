@@ -51,7 +51,7 @@ PrefixTransformer::PrefixTransformer (const std::string& prefix)
 int PrefixTransformer::transform(SBase* element)
 {
   // if there is nothing to do return ... 
-  if (element == NULL) 
+  if (element == NULL || mPrefix.empty()) 
   return LIBSBML_OPERATION_SUCCESS;
 
   // prefix meta id if we have one ... 
