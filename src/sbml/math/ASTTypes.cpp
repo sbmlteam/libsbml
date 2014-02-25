@@ -539,7 +539,7 @@ getNameFromCoreType(int type)
       bool found = false;
       static const int size = sizeof(MATHML_ELEMENTS) / sizeof(MATHML_ELEMENTS[0]);
       unsigned int i;
-      for (i = 0; i < size, found == false; i++)
+      for (i = 0; i < size && found == false; i++)
       {
         if (type == MATHML_TYPES[i])
           found = true;
