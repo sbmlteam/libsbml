@@ -171,9 +171,9 @@ LIBSBML_CPP_NAMESPACE_END
 
 #include <string>
 
-class ASTBasePlugin;
-
 LIBSBML_CPP_NAMESPACE_BEGIN
+
+class ASTBasePlugin;
 
 LIBSBML_EXTERN
 bool representsNumber(int type);
