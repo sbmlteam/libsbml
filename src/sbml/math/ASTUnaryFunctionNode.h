@@ -40,7 +40,11 @@
 
 #include <vector>
 
+/* open doxygen comment */
+
 using namespace std;
+
+/* end doxygen comment */
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
@@ -95,11 +99,6 @@ public:
 
 protected:
 
-  /** @cond doxygenLibsbmlInternal */
-
-  
-
-  /** @endcond */
 };
 
 LIBSBML_CPP_NAMESPACE_END

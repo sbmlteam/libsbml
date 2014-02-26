@@ -102,7 +102,7 @@ public:
 
 protected:
 
-  /** @cond doxygenLibsbmlInternal */
+  /* open doxygen comment */
 
 
   bool mReducedToBinary;
@@ -111,7 +111,7 @@ protected:
 
   void setReducedToBinary(bool reduced);
 
-  /** @endcond */
+  /* end doxygen comment */
 };
 
 LIBSBML_CPP_NAMESPACE_END

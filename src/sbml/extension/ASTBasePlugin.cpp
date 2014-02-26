@@ -41,7 +41,6 @@
 LIBSBML_CPP_NAMESPACE_BEGIN
 
 
-/** @cond doxygenLibsbmlInternal */
 /*
  * Constructor
  */
@@ -53,7 +52,7 @@ ASTBasePlugin::ASTBasePlugin (const std::string &uri)
   ,mPrefix("")
 {
 }
-/** @cond doxygenLibsbmlInternal */
+
 /*
  * Constructor
  */
@@ -65,10 +64,10 @@ ASTBasePlugin::ASTBasePlugin ()
   ,mPrefix("")
 {
 }
-/** @endcond */
 
 
-/** @cond doxygenLibsbmlInternal */
+
+
 /*
 * Copy constructor. Creates a copy of this ASTBasePlugin object.
 */
@@ -83,7 +82,7 @@ ASTBasePlugin::ASTBasePlugin(const ASTBasePlugin& orig)
     mSBMLNS = orig.mSBMLNS->clone();
   }
 }
-/** @endcond */
+
 
 
 /*
@@ -123,7 +122,6 @@ ASTBasePlugin::clone () const
 }
 
 
-/** @cond doxygenLibsbmlInternal */
 /*
  * Sets the given SBMLDocument as a parent document.
  */
@@ -133,10 +131,10 @@ ASTBasePlugin::setSBMLExtension (const SBMLExtension* ext)
   mSBMLExt = ext;  
   return LIBSBML_OPERATION_SUCCESS;
 }
-/** @endcond */
 
 
-/** @cond doxygenLibsbmlInternal */
+
+
 /*
  * Sets the parent SBML object of this plugin object to
  * this object and child elements (if any).
@@ -147,7 +145,7 @@ ASTBasePlugin::connectToParent (ASTBase* astbase)
 {
   mParent = astbase;
 }
-/** @endcond */
+
 
 
 
@@ -200,7 +198,6 @@ ASTBasePlugin::getParentASTObject () const
 }
 
 
-/** @cond doxygenLibsbmlInternal */
 
 bool 
 ASTBasePlugin::isSetMath() const
@@ -289,7 +286,6 @@ ASTBasePlugin::stripPackage(const std::string& pkgPrefix, bool flag)
   return true;
 }
 
-/** @endcond */
 
 
 /*
@@ -316,7 +312,7 @@ ASTBasePlugin::getVersion() const
 }
 
 
-/** @cond doxygenLibsbmlInternal */
+/* open doxygen comment */
 SBMLNamespaces *
 ASTBasePlugin::getSBMLNamespaces() const
 {
@@ -325,7 +321,7 @@ ASTBasePlugin::getSBMLNamespaces() const
   else
     return new SBMLNamespaces();
 }
-/** @endcond */
+/* end doxygen comment */
 
 
 /*

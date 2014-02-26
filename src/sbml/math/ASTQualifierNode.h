@@ -86,11 +86,11 @@ public:
 
 protected:
 
-  /** @cond doxygenLibsbmlInternal */
+  /* open doxygen comment */
 
   friend class ASTFunction;
 
-  /** @endcond */
+  /* end doxygen comment */
 };
 
 LIBSBML_CPP_NAMESPACE_END

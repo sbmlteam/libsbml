@@ -92,14 +92,14 @@ public:
 
 protected:
 
-  /** @cond doxygenLibsbmlInternal */
+  /* open doxygen comment */
 
   unsigned int mNumBvars;
 
   
   friend class ASTFunction;
 
-  /** @endcond */
+  /* end doxygen comment */
 };
 
 LIBSBML_CPP_NAMESPACE_END

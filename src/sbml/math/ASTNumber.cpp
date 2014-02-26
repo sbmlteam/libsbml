@@ -32,11 +32,11 @@
 #include <sbml/math/ASTFunction.h>
 #include <sbml/extension/ASTBasePlugin.h>
 
-/** @cond doxygen-ignored */
+/* open doxygen comment */
 
 using namespace std;
 
-/** @endcond */
+/* end doxygen comment */
 
 #ifdef _MSC_VER
 #  define isnan(d)  _isnan(d)

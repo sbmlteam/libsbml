@@ -91,11 +91,6 @@ public:
 
 protected:
 
-  /** @cond doxygenLibsbmlInternal */
-
-  
-
-  /** @endcond */
 };
 
 LIBSBML_CPP_NAMESPACE_END

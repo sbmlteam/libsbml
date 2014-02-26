@@ -102,7 +102,7 @@ public:
 
 protected:
 
-  /** @cond doxygenLibsbmlInternal */
+  /* open doxygen comment */
 
   unsigned int mNumPiece;
   bool mHasOtherwise;
@@ -112,7 +112,7 @@ protected:
 
   bool usingChildConstructors() const;
 
-  /** @endcond */
+  /* end doxygen comment */
 };
 
 LIBSBML_CPP_NAMESPACE_END

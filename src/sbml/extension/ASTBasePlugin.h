@@ -99,7 +99,7 @@ public:
 
 
 
-  /** @cond doxygenLibsbmlInternal */
+  /* open doxygen comment */
 
   // ---------------------------------------------------------
   //
@@ -150,7 +150,7 @@ public:
   virtual bool stripPackage(const std::string& pkgPrefix, bool flag);
 
 
-  /** @endcond */
+  /* end doxygen comment */
 
   // ----------------------------------------------------------
 
@@ -177,7 +177,7 @@ public:
    */
   std::string getURI() const;
 
-  /** @cond doxygenLibsbmlInternal */
+  /* open doxygen comment */
 
   /**
    * Returns the parent ASTNode object to which this plugin 
@@ -188,9 +188,9 @@ public:
    */
   ASTBase* getParentASTObject ();
 
-  /** @endcond */
+  /* end doxygen comment */
 
-  /** @cond doxygenLibsbmlInternal */
+  /* open doxygen comment */
 
   /**
    * Returns the parent ASTNode object to which this plugin 
@@ -202,7 +202,7 @@ public:
   const ASTBase* getParentASTObject () const;
 
   
-  /** @endcond */
+  /* end doxygen comment */
 
   /**
    * Sets the XML namespace to which this element belongs to.
@@ -252,7 +252,7 @@ public:
 
 
   
-  /** @cond doxygenLibsbmlInternal */
+  /* open doxygen comment */
   virtual SBMLNamespaces * getSBMLNamespaces() const;
 
 
@@ -318,10 +318,10 @@ public:
 
   virtual const char * getNameFromType(int type) const;
 
-  /** @endcond */
+  /* end doxygen comment */
 
 protected:
-  /** @cond doxygenLibsbmlInternal */
+  /* open doxygen comment */
   /**
    * Constructor. Creates an ASTBasePlugin object with the URI and 
    * prefix of an package extension.
@@ -365,7 +365,7 @@ protected:
   //
   std::string          mPrefix;
 
-  /** @endcond */
+  /* end doxygen comment */
 };
 
 LIBSBML_CPP_NAMESPACE_END

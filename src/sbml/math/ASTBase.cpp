@@ -32,15 +32,15 @@
 #include <sbml/math/ASTNumber.h>
 #include <sbml/extension/SBMLExtensionRegistry.h>
 
-/** @cond doxygen-ignored */
+/* open doxygen comment */
 
 using namespace std;
 
-/** @endcond */
+/* end doxygen comment */
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
-/** @cond doxygenLibsbmlInternal */
+/* open doxygen comment */
 
 ///*
 // * Used by the Destructor to delete each item in mPlugins.
@@ -82,7 +82,7 @@ struct CloneASTPluginEntityNoParent : public unary_function<ASTBasePlugin*, ASTB
   }
 };
 
-/** @endcond */
+/* end doxygen comment */
 
 
 

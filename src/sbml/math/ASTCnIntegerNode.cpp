@@ -35,11 +35,11 @@
 
 #include <sstream>
 
-/** @cond doxygen-ignored */
+/* open doxygen comment */
 
 using namespace std;
 
-/** @endcond */
+/* end doxygen comment */
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 

@@ -136,12 +136,7 @@ public:
 
 protected:
 
-  /** @cond doxygenLibsbmlInternal */
-
-
-
-
-  /** @cond doxygenLibsbmlInternal */
+  /* open doxygen comment */
 
   std::vector<ASTBase*> mChildren;
 
@@ -167,7 +162,7 @@ protected:
   //void *mUserData;
   
 
-  /** @endcond */
+  /* end doxygen comment */
 };
 
 LIBSBML_CPP_NAMESPACE_END
