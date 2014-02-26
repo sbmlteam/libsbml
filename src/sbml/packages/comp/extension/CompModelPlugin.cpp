@@ -672,11 +672,20 @@ CompModelPlugin::instantiateSubmodels()
     Submodel* submodel = mListOfSubmodels.get(sub);
     // Instead of 'instantiate', since we might have already 
     // been instantiated ourselves from above.
-    const Model* submodinst = submodel->getInstantiation(); 
+    Model* submodinst = submodel->getInstantiation(); 
     
     if (submodinst == NULL ) {
       //'getInstantiation' already sets any errors that might have occurred.
       return LIBSBML_OPERATION_FAILED;
+    }
+    
+    // if we have a transformer specified, then we need to propagate it, so it can
+    // be used
+    if (isSetTransformer())
+    {
+      CompModelPlugin* other = dynamic_cast<CompModelPlugin*>(submodinst->getPlugin("comp"));
+      if (other != NULL)
+        other->setTransformer(getTransformer());
     }
   }
 
