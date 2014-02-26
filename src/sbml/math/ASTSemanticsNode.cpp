@@ -222,8 +222,8 @@ ASTSemanticsNode::swapChildren(ASTFunction* that)
 
   ASTFunction * childFunc = child0->getFunction();
 
-  ASTFunction * child = new ASTFunction(child0->getType());
-  child->syncMembersAndTypeFrom(childFunc, child0->getType());
+  ASTFunction * child = new ASTFunction(child0->getTypeAsInt());
+  child->syncMembersAndTypeFrom(childFunc, child0->getTypeAsInt());
 
   success = child->swapChildren(that);
 

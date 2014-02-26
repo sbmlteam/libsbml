@@ -1175,7 +1175,7 @@ ASTCSymbol::syncMembersAndTypeFrom(ASTNumber* rhs, int type)
   if (mTime != NULL)
   {
     mTime->ASTBase::syncMembersAndResetParentsFrom(rhs);
-    mTime->setType(type);
+    mTime->setTypeFromInt(type);
     if (rhs->isSetName() == true)
     {
       mTime->setName(rhs->getName());
@@ -1185,7 +1185,7 @@ ASTCSymbol::syncMembersAndTypeFrom(ASTNumber* rhs, int type)
   else if (mDelay != NULL)
   {
     mDelay->ASTBase::syncMembersAndResetParentsFrom(rhs);
-    mDelay->setType(type);
+    mDelay->setTypeFromInt(type);
     if (rhs->isSetName() == true)
     {
       mDelay->setName(rhs->getName());
@@ -1195,7 +1195,7 @@ ASTCSymbol::syncMembersAndTypeFrom(ASTNumber* rhs, int type)
   else if (mAvogadro != NULL)
   {
     mAvogadro->ASTBase::syncMembersAndResetParentsFrom(rhs);
-    mAvogadro->setType(type);
+    mAvogadro->setTypeFromInt(type);
     if (rhs->isSetName() == true)
     {
       mAvogadro->setName(rhs->getName());
@@ -1217,7 +1217,7 @@ ASTCSymbol::syncMembersAndTypeFrom(ASTFunction* rhs, int type)
   if (mTime != NULL)
   {
     mTime->ASTBase::syncMembersAndResetParentsFrom(rhs);
-    mTime->setType(type);
+    mTime->setTypeFromInt(type);
     if (rhs->isSetName() == true)
     {
       mTime->setName(rhs->getName());
@@ -1227,7 +1227,7 @@ ASTCSymbol::syncMembersAndTypeFrom(ASTFunction* rhs, int type)
   else if (mDelay != NULL)
   {
     mDelay->ASTBase::syncMembersAndResetParentsFrom(rhs);
-    mDelay->setType(type);
+    mDelay->setTypeFromInt(type);
     if (rhs->isSetName() == true)
     {
       mDelay->setName(rhs->getName());
@@ -1237,7 +1237,7 @@ ASTCSymbol::syncMembersAndTypeFrom(ASTFunction* rhs, int type)
   else if (mAvogadro != NULL)
   {
     mAvogadro->ASTBase::syncMembersAndResetParentsFrom(rhs);
-    mAvogadro->setType(type);
+    mAvogadro->setTypeFromInt(type);
     if (rhs->isSetName() == true)
     {
       mAvogadro->setName(rhs->getName());

@@ -128,7 +128,9 @@ typedef enum
   , AST_CONSTRUCTOR_OTHERWISE/*!< Otherwise constructor (MathML <code>&lt;otherwise&gt;</code>) */
 
   , AST_UNKNOWN /*!< Unknown node:  will not produce any MathML */
+  , AST_ORIGINATES_IN_PACKAGE /*!< This node uses math that is only available in an L3 package */
 } ASTNodeType_t;
+
 
 /** @cond doxygenLibsbmlInternal */
 

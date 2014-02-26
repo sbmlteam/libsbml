@@ -58,6 +58,7 @@ public:
   ASTBase (int type = AST_UNKNOWN);
 
   ASTBase (SBMLNamespaces* sbmlns, int type = AST_UNKNOWN);
+ 
   /**
    * Copy constructor
    */
@@ -91,9 +92,12 @@ public:
    * 
    * @return the type of this ASTNode.
    */
-  virtual int getType () const;
+  virtual ASTNodeType_t getType () const;
 
 
+  int getTypeFromPackage () const;
+
+  int getTypeAsInt() const;
   bool isSetType(); 
 
   /**
@@ -108,7 +112,9 @@ public:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE @endlink
    */
-  virtual int setType (int type);
+  virtual int setType (ASTNodeType_t type);
+
+  int setTypeFromInt(int type);
 
 
   /* helper functions to establish types */
@@ -337,7 +343,8 @@ protected:
 
   bool mIsChildFlag;
 
-  int mType;
+  ASTNodeType_t mType;
+  int mTypeFromPackage;
   
   // additional MathML attributes
   std::string mId;

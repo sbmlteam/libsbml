@@ -331,7 +331,7 @@ bool
 MathMLBase::returnsNumeric(const Model & m, const ASTNode* node)
 {
   unsigned int n, count;
-  int type = node->getType();
+  ASTNodeType_t type = node->getType();
   unsigned int numChildren = node->getNumChildren();
   bool numeric;
   bool temp;

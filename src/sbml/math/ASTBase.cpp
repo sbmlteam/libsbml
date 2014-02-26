@@ -94,7 +94,7 @@ ASTBase::ASTBase (int type) :
    , mParentSBMLObject ( NULL )
    , mUserData ( NULL )
 {
-  setType(type);
+  setTypeFromInt(type);
 
   loadASTPlugins(NULL);
 
@@ -113,7 +113,7 @@ ASTBase::ASTBase (SBMLNamespaces* sbmlns, int type) :
    , mParentSBMLObject ( NULL )
    , mUserData ( NULL )
 {
-  setType(type);
+  setTypeFromInt(type);
 
   loadASTPlugins(sbmlns);
 }
@@ -125,6 +125,7 @@ ASTBase::ASTBase (SBMLNamespaces* sbmlns, int type) :
 ASTBase::ASTBase (const ASTBase& orig):
    mIsChildFlag          ( orig.mIsChildFlag )  
   , mType                ( orig.mType )
+  , mTypeFromPackage     ( orig.mTypeFromPackage)
   , mId                  (orig.mId)
   , mClass               (orig.mClass)
   , mStyle               (orig.mStyle)
@@ -151,6 +152,7 @@ ASTBase::operator=(const ASTBase& rhs)
   {
     mIsChildFlag          = rhs.mIsChildFlag;
     mType                 = rhs.mType;
+    mTypeFromPackage      = rhs.mTypeFromPackage;
     mId                   = rhs.mId;
     mClass                = rhs.mClass;
     mStyle                = rhs.mStyle;
@@ -316,11 +318,34 @@ ASTBase::unsetStyle()
   }
 }
 
-int
+ASTNodeType_t
 ASTBase::getType () const
 {
   return mType;
 }
+
+
+int
+ASTBase::getTypeFromPackage () const
+{
+  return mTypeFromPackage;
+}
+
+
+
+int
+ASTBase::getTypeAsInt () const
+{
+  if (mType == AST_ORIGINATES_IN_PACKAGE)
+  {
+    return mTypeFromPackage;
+  }
+  else
+  {
+    return (int)(mType);
+  }
+}
+
 
 
 bool 
@@ -331,9 +356,34 @@ ASTBase::isSetType()
 
 
 int 
-ASTBase::setType (int type)
+ASTBase::setType (ASTNodeType_t type)
 {
   mType = type;
+  mTypeFromPackage = AST_UNKNOWN;
+  if (type == AST_UNKNOWN)
+  {
+    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+  }
+  else
+  {
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+}
+
+
+int 
+ASTBase::setTypeFromInt (int type)
+{
+  if (type < AST_ORIGINATES_IN_PACKAGE)
+  {
+    mType = (ASTNodeType_t)(type);
+    mTypeFromPackage = AST_UNKNOWN;
+  }
+  else
+  {
+    mType = AST_ORIGINATES_IN_PACKAGE;
+    mTypeFromPackage = type;
+  }
   if (type == AST_UNKNOWN)
   {
     return LIBSBML_INVALID_ATTRIBUTE_VALUE;
@@ -359,7 +409,7 @@ ASTBase::isBoolean() const
 {
   bool boolean = false;
 
-  int type = getType();
+  ASTNodeType_t type = getType();
   if (isLogical() == true || isRelational() == true
     || type == AST_CONSTANT_TRUE || type == AST_CONSTANT_FALSE)
   {
@@ -371,7 +421,7 @@ ASTBase::isBoolean() const
     while(boolean == false && i < getNumPlugins())
     {
       const ASTBasePlugin* plugin = static_cast<const ASTBasePlugin*>(getPlugin(i)); 
-      if (plugin->isLogical(getType()) == true)
+      if (plugin->isLogical(getTypeFromPackage()) == true)
       {
         boolean = true;
       }
@@ -389,7 +439,8 @@ ASTBase::isBinaryFunction() const
 {
   bool isFunction = false;
 
-  if (representsBinaryFunction(getType()) == true)
+  int type = getTypeAsInt();
+  if (representsBinaryFunction(type) == true)
   {
     isFunction = true;
   }
@@ -399,7 +450,7 @@ ASTBase::isBinaryFunction() const
     while(isFunction == false && i < getNumPlugins())
     {
       const ASTBasePlugin* plugin = static_cast<const ASTBasePlugin*>(getPlugin(i)); 
-      if (plugin->representsBinaryFunction(getType()) == true)
+      if (plugin->representsBinaryFunction(type) == true)
       {
         isFunction = true;
       }
@@ -474,7 +525,7 @@ ASTBase::isConstantNumber() const
     while(isNumber == false && i < getNumPlugins())
     {
       const ASTBasePlugin* plugin = static_cast<const ASTBasePlugin*>(getPlugin(i)); 
-      if (plugin->isConstantNumber(getType()) == true)
+      if (plugin->isConstantNumber(getTypeAsInt()) == true)
       {
         isNumber = true;
       }
@@ -506,7 +557,7 @@ ASTBase::isCSymbolFunction() const
     while(isCsymbolFunc == false && i < getNumPlugins())
     {
       const ASTBasePlugin* plugin = static_cast<const ASTBasePlugin*>(getPlugin(i)); 
-      if (plugin->isCSymbolFunction(getType()) == true)
+      if (plugin->isCSymbolFunction(getTypeAsInt()) == true)
       {
         isCsymbolFunc = true;
       }
@@ -539,7 +590,7 @@ ASTBase::isCSymbolNumber() const
     while(isNumber == false && i < getNumPlugins())
     {
       const ASTBasePlugin* plugin = static_cast<const ASTBasePlugin*>(getPlugin(i)); 
-      if (plugin->isCSymbolNumber(getType()) == true)
+      if (plugin->isCSymbolNumber(getTypeAsInt()) == true)
       {
         isNumber = true;
       }
@@ -566,7 +617,7 @@ ASTBase::isFunction() const
     while(isFunction == false && i < getNumPlugins())
     {
       const ASTBasePlugin* plugin = static_cast<const ASTBasePlugin*>(getPlugin(i)); 
-      if (plugin->isFunction(getType()) == true)
+      if (plugin->isFunction(getTypeAsInt()) == true)
       {
         isFunction = true;
       }
@@ -597,7 +648,7 @@ ASTBase::isLogical() const
 {
   bool isLogical = false;
 
-  int type = getType();
+  int type = getTypeAsInt();
   if (type >= AST_LOGICAL_AND && type <= AST_LOGICAL_XOR)
   {
     isLogical = true;
@@ -608,7 +659,7 @@ ASTBase::isLogical() const
     while(isLogical == false && i < getNumPlugins())
     {
       const ASTBasePlugin* plugin = static_cast<const ASTBasePlugin*>(getPlugin(i)); 
-      if (plugin->isLogical(getType()) == true)
+      if (plugin->isLogical(type) == true)
       {
         isLogical = true;
       }
@@ -642,7 +693,7 @@ ASTBase::isName() const
     while(isName == false && i < getNumPlugins())
     {
       const ASTBasePlugin* plugin = static_cast<const ASTBasePlugin*>(getPlugin(i)); 
-      if (plugin->isName(getType()) == true)
+      if (plugin->isName(getTypeAsInt()) == true)
       {
         isName = true;
       }
@@ -659,11 +710,13 @@ ASTBase::isNaryFunction() const
 {
   bool isFunction = false;
 
-  if (representsNaryFunction(getType()) == true)
+  int type = getTypeAsInt();
+
+  if (representsNaryFunction(type) == true)
   {
     isFunction = true;
   }
-  else if (representsFunctionRequiringAtLeastTwoArguments(getType()) == true)
+  else if (representsFunctionRequiringAtLeastTwoArguments(type) == true)
   {
     isFunction = true;
   }
@@ -673,7 +726,7 @@ ASTBase::isNaryFunction() const
     while(isFunction == false && i < getNumPlugins())
     {
       const ASTBasePlugin* plugin = static_cast<const ASTBasePlugin*>(getPlugin(i)); 
-      if (plugin->representsNaryFunction(getType()) == true)
+      if (plugin->representsNaryFunction(type) == true)
       {
         isFunction = true;
       }
@@ -707,7 +760,7 @@ ASTBase::isNumber() const
     while(isNumber == false && i < getNumPlugins())
     {
       const ASTBasePlugin* plugin = static_cast<const ASTBasePlugin*>(getPlugin(i)); 
-      if (plugin->isNumber(getType()) == true)
+      if (plugin->isNumber(getTypeAsInt()) == true)
       {
         isNumber = true;
       }
@@ -724,7 +777,7 @@ ASTBase::isOperator() const
 {
   bool isOperator = false;
 
-  int type = getType();
+  int type = getTypeAsInt();
   if (type == AST_PLUS || type == AST_MINUS || type == AST_TIMES
     || type == AST_DIVIDE || type == AST_POWER)
   {
@@ -736,7 +789,7 @@ ASTBase::isOperator() const
     while(isOperator == false && i < getNumPlugins())
     {
       const ASTBasePlugin* plugin = static_cast<const ASTBasePlugin*>(getPlugin(i)); 
-      if (plugin->isOperator(getType()) == true)
+      if (plugin->isOperator(type) == true)
       {
         isOperator = true;
       }
@@ -760,7 +813,7 @@ ASTBase::isQualifier() const
 {
   bool isQualifier = false;
 
-  if (representsQualifier(getType()) == true)
+  if (representsQualifier(getTypeAsInt()) == true)
   {
     isQualifier = true;
   }
@@ -800,7 +853,7 @@ ASTBase::isRelational() const
 {
   bool relational = false;
 
-  int type = getType();
+  int type = getTypeAsInt();
   if (type >= AST_RELATIONAL_EQ && type <= AST_RELATIONAL_NEQ)
   {
     relational = true;
@@ -811,7 +864,7 @@ ASTBase::isRelational() const
     while(relational == false && i < getNumPlugins())
     {
       const ASTBasePlugin* plugin = static_cast<const ASTBasePlugin*>(getPlugin(i)); 
-      if (plugin->isRelational(getType()) == true)
+      if (plugin->isRelational(type) == true)
       {
         relational = true;
       }
@@ -842,7 +895,9 @@ ASTBase::isUnaryFunction() const
 {
   bool isFunction = false;
 
-  if (representsUnaryFunction(getType()) == true)
+  int type = getTypeAsInt();
+
+  if (representsUnaryFunction(type) == true)
   {
     isFunction = true;
   }
@@ -852,7 +907,7 @@ ASTBase::isUnaryFunction() const
     while(isFunction == false && i < getNumPlugins())
     {
       const ASTBasePlugin* plugin = static_cast<const ASTBasePlugin*>(getPlugin(i)); 
-      if (plugin->representsUnaryFunction(getType()) == true)
+      if (plugin->representsUnaryFunction(type) == true)
       {
         isFunction = true;
       }
@@ -903,7 +958,7 @@ ASTBase::isNumberNode() const
     while(isNumberNode == false && i < getNumPlugins())
     {
       const ASTBasePlugin* plugin = static_cast<const ASTBasePlugin*>(getPlugin(i)); 
-      if (plugin->isNumberNode(getType()) == true)
+      if (plugin->isNumberNode(getTypeAsInt()) == true)
       {
         isNumberNode = true;
       }
@@ -938,7 +993,7 @@ ASTBase::isFunctionNode() const
     while(isFunctionNode == false && i < getNumPlugins())
     {
       const ASTBasePlugin* plugin = static_cast<const ASTBasePlugin*>(getPlugin(i)); 
-      if (plugin->isFunctionNode(getType()) == true)
+      if (plugin->isFunctionNode(getTypeAsInt()) == true)
       {
         isFunctionNode = true;
       }
@@ -1080,7 +1135,7 @@ ASTBase::addExpectedAttributes(ExpectedAttributes& attributes,
   
   for (unsigned int i = 0; i < getNumPlugins(); i++)
   {
-    getPlugin(i)->addExpectedAttributes(attributes, stream, mType);
+    getPlugin(i)->addExpectedAttributes(attributes, stream, getTypeAsInt());
   }
 }
 
@@ -1179,7 +1234,7 @@ ASTBase::readAttributes(const XMLAttributes& attributes,
   while (read == true && i < getNumPlugins())
   {
     read = getPlugin(i)->readAttributes(attributes, expectedAttributes, 
-                                        stream, element, mType);
+                                        stream, element, getTypeAsInt());
     i++;
   }
 
@@ -1373,7 +1428,7 @@ ASTBase::writeStartEndElement (XMLOutputStream& stream) const
 {
   if (&stream == NULL) return;
 
-  std::string name = getNameFromType(mType);
+  std::string name = getNameFromType(getTypeAsInt());
 	stream.startElement(name);
   writeAttributes(stream);
 	stream.endElement(name);
@@ -1383,7 +1438,7 @@ ASTBase::writeStartEndElement (XMLOutputStream& stream) const
 void 
 ASTBase::writeStartElement (XMLOutputStream& stream) const
 {
-  std::string name = getNameFromType(mType);
+  std::string name = getNameFromType(getTypeAsInt());
 	stream.startElement(name);
   writeAttributes(stream);
 }
@@ -1402,7 +1457,7 @@ ASTBase::writeAttributes (XMLOutputStream& stream) const
 
   for (unsigned int i = 0; i < getNumPlugins(); i++)
   {
-    getPlugin(i)->writeAttributes(stream, mType);
+    getPlugin(i)->writeAttributes(stream, getTypeAsInt());
   }
 }
 

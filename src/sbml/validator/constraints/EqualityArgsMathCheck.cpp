@@ -92,7 +92,7 @@ EqualityArgsMathCheck::getPreamble ()
 void
 EqualityArgsMathCheck::checkMath (const Model& m, const ASTNode& node, const SBase & sb)
 {
-  int type = node.getType();
+  ASTNodeType_t type = node.getType();
 
   /* check arguments of eq or neq */
   switch (type) 

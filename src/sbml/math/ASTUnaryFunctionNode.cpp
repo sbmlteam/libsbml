@@ -186,8 +186,6 @@ ASTUnaryFunctionNode::write(XMLOutputStream& stream) const
 {
   if (&stream == NULL) return;
 
-  int type  = getType();
-
   stream.startElement("apply");
     
   //const char * name = ASTBase::getNameFromType(type);
@@ -244,7 +242,7 @@ ASTUnaryFunctionNode::read(XMLInputStream& stream, const std::string& reqd_prefi
 
   const char*      name = element.getName().c_str();
 
-  setType(getTypeFromName(name));
+  setTypeFromInt(getTypeFromName(name));
   ASTBase::read(stream, reqd_prefix);
 
   unsigned int numChildrenAdded = 0;

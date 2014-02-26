@@ -464,7 +464,7 @@ ASTNaryFunctionNode::read(XMLInputStream& stream, const std::string& reqd_prefix
   const char*      name = element.getName().c_str();
 
   int type = getTypeFromName(name);
-  setType(type);
+  setTypeFromInt(type);
   ASTBase::read(stream, reqd_prefix);
 
   unsigned int numChildrenAdded = 0;
@@ -590,8 +590,8 @@ ASTNaryFunctionNode::reduceOperatorsToBinary()
     return;
 
 
-  ASTFunction* op = new ASTFunction( getType() );
-  ASTFunction* op2 = new ASTFunction( getType() );
+  ASTFunction* op = new ASTFunction( getTypeAsInt() );
+  ASTFunction* op2 = new ASTFunction( getTypeAsInt() );
 
   // add the first two children to the first node
   op->addChild(getChild(0));

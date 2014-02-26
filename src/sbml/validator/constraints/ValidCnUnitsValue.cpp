@@ -98,7 +98,7 @@ ValidCnUnitsValue::checkMath (const Model& m, const ASTNode& node, const SBase &
   }
   else
   {
-    int type = node.getType();
+    ASTNodeType_t type = node.getType();
 
     switch (type) 
     {

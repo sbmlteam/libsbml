@@ -1724,7 +1724,7 @@ ASTNumber::setNameAndChangeType(const std::string& name)
   {
     return mCSymbol->setName(name);
   }
-  else if (representsNumber(getType()) == true)
+  else if (representsNumber(getTypeAsInt()) == true)
   {
     reset();
     mCiNumber = new ASTCiNumberNode();
@@ -2411,7 +2411,7 @@ ASTNumber::syncMembersAndTypeFrom(ASTNumber* rhs, int type)
   if (mInteger != NULL)
   {
     mInteger->ASTBase::syncMembersAndResetParentsFrom(rhs);
-    mInteger->setType(type);
+    mInteger->setTypeFromInt(type);
     if (rhs->isSetUnits() == true)
     {
       mInteger->setUnits(rhs->getUnits());
@@ -2426,7 +2426,7 @@ ASTNumber::syncMembersAndTypeFrom(ASTNumber* rhs, int type)
   else if (mRational != NULL)
   {
     mRational->ASTBase::syncMembersAndResetParentsFrom(rhs);
-    mRational->setType(type);
+    mRational->setTypeFromInt(type);
     if (rhs->isSetUnits() == true)
     {
       mRational->setUnits(rhs->getUnits());
@@ -2445,7 +2445,7 @@ ASTNumber::syncMembersAndTypeFrom(ASTNumber* rhs, int type)
   else if (mReal != NULL)
   {
     mReal->ASTBase::syncMembersAndResetParentsFrom(rhs);
-    mReal->setType(type);
+    mReal->setTypeFromInt(type);
     if (rhs->isSetUnits() == true)
     {
       mReal->setUnits(rhs->getUnits());
@@ -2460,7 +2460,7 @@ ASTNumber::syncMembersAndTypeFrom(ASTNumber* rhs, int type)
   else if (mExponential != NULL)
   {
     mExponential->ASTBase::syncMembersAndResetParentsFrom(rhs);
-    mExponential->setType(type);
+    mExponential->setTypeFromInt(type);
     if (rhs->isSetUnits() == true)
     {
       mExponential->setUnits(rhs->getUnits());
@@ -2479,7 +2479,7 @@ ASTNumber::syncMembersAndTypeFrom(ASTNumber* rhs, int type)
   else if (mCiNumber != NULL)
   {
     mCiNumber->ASTBase::syncMembersAndResetParentsFrom(rhs);
-    mCiNumber->setType(type);
+    mCiNumber->setTypeFromInt(type);
     if (rhs->isSetName() == true)
     {
       mCiNumber->setName(rhs->getName());
@@ -2493,7 +2493,7 @@ ASTNumber::syncMembersAndTypeFrom(ASTNumber* rhs, int type)
   else if (mConstant != NULL)
   {
     mConstant->ASTBase::syncMembersAndResetParentsFrom(rhs);
-    mConstant->setType(type);
+    mConstant->setTypeFromInt(type);
     if (rhs->isSetConstantValue() == true)
     {
       mConstant->setValue(rhs->getValue());
@@ -2523,31 +2523,31 @@ ASTNumber::syncMembersAndTypeFrom(ASTFunction* rhs, int type)
   if (mInteger != NULL)
   {
     mInteger->ASTBase::syncMembersAndResetParentsFrom(rhs);
-    mInteger->setType(type);
+    mInteger->setTypeFromInt(type);
     this->ASTBase::syncMembersFrom(mInteger);
   }
   else if (mRational != NULL)
   {
     mRational->ASTBase::syncMembersAndResetParentsFrom(rhs);
-    mRational->setType(type);
+    mRational->setTypeFromInt(type);
     this->ASTBase::syncMembersFrom(mRational);
   }
   else if (mReal != NULL)
   {
     mReal->ASTBase::syncMembersAndResetParentsFrom(rhs);
-    mReal->setType(type);
+    mReal->setTypeFromInt(type);
     this->ASTBase::syncMembersFrom(mReal);
   }
   else if (mExponential != NULL)
   {
     mExponential->ASTBase::syncMembersAndResetParentsFrom(rhs);
-    mExponential->setType(type);
+    mExponential->setTypeFromInt(type);
     this->ASTBase::syncMembersFrom(mExponential);
   }
   else if (mCiNumber != NULL)
   {
     mCiNumber->ASTBase::syncMembersAndResetParentsFrom(rhs);
-    mCiNumber->setType(type);
+    mCiNumber->setTypeFromInt(type);
     if (rhs->isSetDefinitionURL() == true)
     {
       mCiNumber->setDefinitionURL(rhs->getDefinitionURL());
@@ -2557,7 +2557,7 @@ ASTNumber::syncMembersAndTypeFrom(ASTFunction* rhs, int type)
   else if (mConstant != NULL)
   {
     mConstant->ASTBase::syncMembersAndResetParentsFrom(rhs);
-    mConstant->setType(type);
+    mConstant->setTypeFromInt(type);
     this->ASTBase::syncMembersFrom(mConstant);
   }
   else if (mCSymbol != NULL)

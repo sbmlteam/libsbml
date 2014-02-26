@@ -162,7 +162,7 @@ public:
    * infinity and notanumber, AST_REAL is returned, and the parser must then
    * examine the string again to discover what to do with the ASTNode.
    */
-  int getSymbolFor(std::string name) const;
+  ASTNodeType_t getSymbolFor(std::string name) const;
   /**
    * Compares 'name' against a list of known functions allowed in the MathML
    * of SBML Level 2 and 3.  Multiple mappings of string->type are present,
@@ -171,7 +171,7 @@ public:
    * user preference is taken into consideration, 'name' must once again
    * be checked.
    */
-  int getFunctionFor(std::string name) const;
+  ASTNodeType_t getFunctionFor(std::string name) const;
   /**
    * This function creates an ASTNode that is a 'piecewise' function that
    * mimics the 'modulo' function 'x % y'.  It was modified from the
@@ -1670,7 +1670,7 @@ yyreduce:
                         && l3p->model->getParameter(name) == NULL
                         && l3p->model->getSpeciesReference(name) == NULL)) {
                      //The symbol is not used in any other mathematical context in the SBML model, so we can see if it matches a list of pre-defined names
-                     int type = l3p->getSymbolFor(name);
+                     ASTNodeType_t type = l3p->getSymbolFor(name);
                      if (type != AST_UNKNOWN) (yyval.astnode)->setType(type);
                      if (type==AST_REAL) {
                        if (l3p->caselessStrCmp(name, "inf"))          (yyval.astnode)->setValue(numeric_limits<double>::infinity());
@@ -1882,7 +1882,7 @@ yyreduce:
                    (yyval.astnode)->setName((yyvsp[(1) - (3)].word)->c_str());
                    if (l3p->model == NULL || l3p->model->getFunctionDefinition(name) == NULL) {
                      //The symbol is not used in any other mathematical context in the SBML model, so we can see if it matches a list of pre-defined names
-                     int type = l3p->getFunctionFor(name);
+                     ASTNodeType_t type = l3p->getFunctionFor(name);
                      if (type != AST_UNKNOWN) (yyval.astnode)->setType(type);
                      if (l3p->checkNumArguments((yyval.astnode))) YYABORT;
                    }
@@ -1899,7 +1899,7 @@ yyreduce:
                    (yyval.astnode)->setType(AST_FUNCTION);
                    if (l3p->model == NULL || l3p->model->getFunctionDefinition(name) == NULL) {
                      //The symbol is not used in any other mathematical context in the SBML model, so we can see if it matches a list of pre-defined names
-                     int type = l3p->getFunctionFor(name);
+                     ASTNodeType_t type = l3p->getFunctionFor(name);
                      if (type != AST_UNKNOWN) (yyval.astnode)->setType(type);
                      if (type==AST_FUNCTION_ROOT && l3p->caselessStrCmp(name, "sqrt")) {
                        //If the number of arguments is wrong, set an error now instead of waiting for later.
@@ -2438,7 +2438,7 @@ L3Parser::~L3Parser ()
   }
 }
 
-int L3Parser::getSymbolFor(string name) const
+ASTNodeType_t L3Parser::getSymbolFor(string name) const
 {
   if (caselessStrCmp(name, "true"))         return AST_CONSTANT_TRUE;
   if (caselessStrCmp(name, "false"))        return AST_CONSTANT_FALSE;
@@ -2453,7 +2453,7 @@ int L3Parser::getSymbolFor(string name) const
   return AST_UNKNOWN;
 }
 
-int L3Parser::getFunctionFor(string name) const
+ASTNodeType_t L3Parser::getFunctionFor(string name) const
 {
   if (caselessStrCmp(name, "abs"))      return AST_FUNCTION_ABS;
   if (caselessStrCmp(name, "acos"))     return AST_FUNCTION_ARCCOS;

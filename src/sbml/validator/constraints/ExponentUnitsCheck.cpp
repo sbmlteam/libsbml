@@ -92,7 +92,7 @@ void
 ExponentUnitsCheck::checkUnits (const Model& m, const ASTNode& node, const SBase & sb,
                                  bool inKL, int reactNo)
 {
-  int type = node.getType();
+  ASTNodeType_t type = node.getType();
 
   switch (type) 
   {

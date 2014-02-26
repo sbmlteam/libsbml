@@ -45,7 +45,7 @@ ASTQualifierNode::ASTQualifierNode (int type) :
   ASTFunctionBase(type)
 
 {
-  ASTFunctionBase::setType(type);
+  ASTFunctionBase::setTypeFromInt(type);
 }
   
   
@@ -151,13 +151,11 @@ ASTQualifierNode::write(XMLOutputStream& stream) const
 {
   if (&stream == NULL) return;
 
-  int type  = getType();
-    
-  const char * name = ASTBase::getNameFromType(type);
+  const char * name = ASTBase::getNameFromType(getTypeAsInt());
   
   ASTBase::writeStartElement(stream);
 
-  
+  int type = getTypeAsInt();
   /* HACK TO REPLICATE OLD AST */
   /* old ast behaviour would only write one child 
    * for a qualifier degree/logbase/bvar

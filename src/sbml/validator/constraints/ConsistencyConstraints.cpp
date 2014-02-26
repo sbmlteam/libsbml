@@ -384,7 +384,7 @@ START_CONSTRAINT (99301, FunctionDefinition, fd)
 
   while (it != astlist.end())
   {
-    int type = (*it)->getType();
+    ASTNodeType_t type = (*it)->getType();
 
     inv(type != AST_NAME_TIME);
     ++it;

@@ -86,7 +86,7 @@ UnitFormulaFormatter::getUnitDefinition(const ASTNode * node,
   ++depthRecursiveCall;
 
 
-  int type = node->getType();
+  ASTNodeType_t type = node->getType();
 
   switch (type) 
   {
@@ -2409,7 +2409,7 @@ UnitFormulaFormatter::inferUnitDefinition(UnitDefinition* expectedUD,
 
 UnitDefinition *
 UnitFormulaFormatter::inverseFunctionOnUnits(UnitDefinition* expectedUD,
-    const ASTNode * math, int functionType, 
+    const ASTNode * math, ASTNodeType_t functionType, 
     bool inKL, int reactNo, bool unknownInLeftChild)
 {
   UnitDefinition * resolvedUD = NULL;

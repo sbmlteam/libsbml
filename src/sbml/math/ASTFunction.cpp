@@ -2231,7 +2231,7 @@ ASTFunction::isSetName() const
 int 
 ASTFunction::setName(const std::string& name)
 {
-  int type = getType();
+  int type = getTypeAsInt();
   if (mUserFunction != NULL)
   {
     return mUserFunction->setName(name);
@@ -2262,7 +2262,7 @@ ASTFunction::setName(const std::string& name)
 int 
 ASTFunction::setNameAndChangeType(const std::string& name)
 {
-  int type = getType();
+  int type = getTypeAsInt();
   if (mUserFunction != NULL)
   {
     return mUserFunction->setName(name);
@@ -3659,25 +3659,25 @@ ASTFunction::syncMembersAndTypeFrom(ASTNumber* rhs, int type)
   if (mUnaryFunction != NULL)
   {
     mUnaryFunction->ASTBase::syncMembersAndResetParentsFrom(rhs);
-    mUnaryFunction->setType(type);
+    mUnaryFunction->setTypeFromInt(type);
     this->ASTBase::syncMembersFrom(mUnaryFunction);
   }
   else if (mBinaryFunction != NULL)
   {
     mBinaryFunction->ASTBase::syncMembersAndResetParentsFrom(rhs);
-    mBinaryFunction->setType(type);
+    mBinaryFunction->setTypeFromInt(type);
     this->ASTBase::syncMembersFrom(mBinaryFunction);
   }
   else if (mNaryFunction != NULL)
   {
     mNaryFunction->ASTBase::syncMembersAndResetParentsFrom(rhs);
-    mNaryFunction->setType(type);
+    mNaryFunction->setTypeFromInt(type);
     this->ASTBase::syncMembersFrom(mNaryFunction);
   }
   else if (mUserFunction != NULL)
   {
     mUserFunction->ASTBase::syncMembersAndResetParentsFrom(rhs);
-    mUserFunction->setType(type);
+    mUserFunction->setTypeFromInt(type);
     if (rhs->isSetName() == true)
     {
       mUserFunction->setName(rhs->getName());
@@ -3691,13 +3691,13 @@ ASTFunction::syncMembersAndTypeFrom(ASTNumber* rhs, int type)
   else if (mLambda != NULL)
   {
     mLambda->ASTBase::syncMembersAndResetParentsFrom(rhs);
-    mLambda->setType(type);
+    mLambda->setTypeFromInt(type);
     this->ASTBase::syncMembersFrom(mLambda);
   }
   else if (mPiecewise != NULL)
   {
     mPiecewise->ASTBase::syncMembersAndResetParentsFrom(rhs);
-    mPiecewise->setType(type);
+    mPiecewise->setTypeFromInt(type);
     this->ASTBase::syncMembersFrom(mPiecewise);
   }
   else if (mCSymbol != NULL)
@@ -3708,13 +3708,13 @@ ASTFunction::syncMembersAndTypeFrom(ASTNumber* rhs, int type)
   else if (mQualifier != NULL)
   {
     mQualifier->ASTBase::syncMembersAndResetParentsFrom(rhs);
-    mQualifier->setType(type);
+    mQualifier->setTypeFromInt(type);
     this->ASTBase::syncMembersFrom(mQualifier);
   }
   else if (mSemantics != NULL)
   {
     mSemantics->ASTBase::syncMembersAndResetParentsFrom(rhs);
-    mSemantics->setType(type);
+    mSemantics->setTypeFromInt(type);
     if (rhs->isSetDefinitionURL() == true)
     {
       mSemantics->setDefinitionURL(rhs->getDefinitionURL());
@@ -3734,25 +3734,25 @@ ASTFunction::syncMembersAndTypeFrom(ASTFunction* rhs, int type)
   if (mUnaryFunction != NULL)
   {
     mUnaryFunction->ASTBase::syncMembersAndResetParentsFrom(rhs);
-    mUnaryFunction->setType(type);
+    mUnaryFunction->setTypeFromInt(type);
     this->ASTBase::syncMembersFrom(mUnaryFunction);
   }
   else if (mBinaryFunction != NULL)
   {
     mBinaryFunction->ASTBase::syncMembersAndResetParentsFrom(rhs);
-    mBinaryFunction->setType(type);
+    mBinaryFunction->setTypeFromInt(type);
     this->ASTBase::syncMembersFrom(mBinaryFunction);
   }
   else if (mNaryFunction != NULL)
   {
     mNaryFunction->ASTBase::syncMembersAndResetParentsFrom(rhs);
-    mNaryFunction->setType(type);
+    mNaryFunction->setTypeFromInt(type);
     this->ASTBase::syncMembersFrom(mNaryFunction);
   }
   else if (mUserFunction != NULL)
   {
     mUserFunction->ASTBase::syncMembersAndResetParentsFrom(rhs);
-    mUserFunction->setType(type);
+    mUserFunction->setTypeFromInt(type);
     if (rhs->isSetName() == true)
     {
       mUserFunction->setName(rhs->getName());
@@ -3766,7 +3766,7 @@ ASTFunction::syncMembersAndTypeFrom(ASTFunction* rhs, int type)
   else if (mLambda != NULL)
   {
     mLambda->ASTBase::syncMembersAndResetParentsFrom(rhs);
-    mLambda->setType(type);
+    mLambda->setTypeFromInt(type);
     // taking a punt that we are creating a lamda from a function
     // that we have parsed so set the numBvars
     mLambda->setNumBvars(rhs->getNumChildren() - 1);
@@ -3775,7 +3775,7 @@ ASTFunction::syncMembersAndTypeFrom(ASTFunction* rhs, int type)
   else if (mPiecewise != NULL)
   {
     mPiecewise->ASTBase::syncMembersAndResetParentsFrom(rhs);
-    mPiecewise->setType(type);
+    mPiecewise->setTypeFromInt(type);
     this->ASTBase::syncMembersFrom(mPiecewise);
   }
   else if (mCSymbol != NULL)
@@ -3786,13 +3786,13 @@ ASTFunction::syncMembersAndTypeFrom(ASTFunction* rhs, int type)
   else if (mQualifier != NULL)
   {
     mQualifier->ASTBase::syncMembersAndResetParentsFrom(rhs);
-    mQualifier->setType(type);
+    mQualifier->setTypeFromInt(type);
     this->ASTBase::syncMembersFrom(mQualifier);
   }
   else if (mSemantics != NULL)
   {
     mSemantics->ASTBase::syncMembersAndResetParentsFrom(rhs);
-    mSemantics->setType(type);
+    mSemantics->setTypeFromInt(type);
     if (rhs->isSetDefinitionURL() == true)
     {
       mSemantics->setDefinitionURL(rhs->getDefinitionURL());
@@ -3824,7 +3824,7 @@ ASTFunction::syncMembersAndTypeFrom(ASTFunction* rhs, int type)
     if (node != NULL)
     {
       node->ASTBase::syncMembersAndResetParentsFrom(rhs);
-      node->setType(type);
+      node->setTypeFromInt(type);
       this->ASTBase::syncMembersFrom(node);
     }
   }

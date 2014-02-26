@@ -380,7 +380,7 @@ ASTBinaryFunctionNode::read(XMLInputStream& stream, const std::string& reqd_pref
   const char*      name = element.getName().c_str();
 
   int type = getTypeFromName(name);
-  setType(type);
+  setTypeFromInt(type);
   ASTBase::read(stream, reqd_prefix);
 
   unsigned int numChildrenAdded = 0;
@@ -447,7 +447,7 @@ ASTBinaryFunctionNode::hasCorrectNumberArguments() const
 {
   bool correctNumArgs = true;
 
-  int type = getType();
+  ASTNodeType_t type = getType();
   unsigned int numChildren = getNumChildren();
 
   // look at specific types that have odd requirements
@@ -463,7 +463,7 @@ ASTBinaryFunctionNode::hasCorrectNumberArguments() const
     {
       // we have only one child
       // if it is a qualifier type then it is incorrect
-      if (representsQualifier(getChild(0)->getType()) == true)
+      if (representsQualifier(getChild(0)->getTypeAsInt()) == true)
       {
         correctNumArgs = false;
       }

@@ -202,7 +202,24 @@ public:
    *
    * @if notcpp @htmlinclude warn-default-args-in-docs.html @endif@~
    */
+  ASTNode (ASTNodeType_t type);
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /* constructor for use by mathml reader */
+  ASTNode(SBMLNamespaces* sbmlns, ASTNodeType_t type);
+
+  /** *endcond */
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /*
+   * Creates and returns a new ASTNode.
+   */
   ASTNode (int type = AST_UNKNOWN);
+
+  /** *endcond */
 
 
   /** @cond doxygenLibsbmlInternal */
@@ -744,7 +761,22 @@ int (*ASTNodePredicate) (const ASTNode_t *node);
    * 
    * @return the type of this ASTNode.
    */
-  int getType () const;
+  ASTNodeType_t getType () const;
+
+
+  /**
+   * Gets the type of this ASTNode where the type originates within an
+   * SBML Level 3 package.  The value returned is one of the
+   * enumeration values for the given package or @link ASTNodeType_t#AST_UNKNOWN
+   * AST_UNKNOWN@endlink, if the ASTNode represents a core math construct.
+   *
+   * @note When the ASTNode is of a type from a package the ASTNodeType_t value
+   * returned by getType() will be @link ASTNodeType_t#AST_ORIGINATES_IN_PACKAGE
+   * AST_ORIGINATES_IN_PACKAGE@endlink
+   * 
+   * @return the type of this ASTNode.
+   */
+  int getTypeFromPackage () const;
 
 
   /**
@@ -1309,7 +1341,7 @@ setValue(value, 0);
    * @note A side-effect of doing this is that any numerical values previously
    * stored in this node are reset to zero.
    */
-  int setType (int type);
+  int setType (ASTNodeType_t type);
 
 
   /**
@@ -1736,7 +1768,7 @@ ASTNode_create (void);
  */
 LIBSBML_EXTERN
 ASTNode_t *
-ASTNode_createWithType (int type);
+ASTNode_createWithType (ASTNodeType_t type);
 
 
 /**
@@ -2326,7 +2358,7 @@ ASTNode_getPrecedence (const ASTNode_t *node);
  * @memberof ASTNode_t
  */
 LIBSBML_EXTERN
-int
+ASTNodeType_t
 ASTNode_getType (const ASTNode_t *node);
 
 
@@ -2865,7 +2897,7 @@ ASTNode_isUPlus (const ASTNode_t *node);
  */
 LIBSBML_EXTERN
 int
-ASTNode_hasTypeAndNumChildren(const ASTNode_t *node, int type, unsigned int numchildren);
+ASTNode_hasTypeAndNumChildren(const ASTNode_t *node, ASTNodeType_t type, unsigned int numchildren);
 
 
 /**
@@ -3125,7 +3157,7 @@ ASTNode_setRealWithExponent (ASTNode_t *node, double mantissa, long exponent);
  */
 LIBSBML_EXTERN
 int
-ASTNode_setType (ASTNode_t *node, int type);
+ASTNode_setType (ASTNode_t *node, ASTNodeType_t type);
 
 
 /**

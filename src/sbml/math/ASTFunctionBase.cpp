@@ -343,7 +343,7 @@ ASTFunctionBase::writeArgumentsOfType(XMLOutputStream& stream, int type) const
 {
   if (&stream == NULL) return;
 
-  int thisType = getType();
+  int thisType = getTypeAsInt();
 
   unsigned int numChildren = getNumChildren();
 
@@ -352,7 +352,7 @@ ASTFunctionBase::writeArgumentsOfType(XMLOutputStream& stream, int type) const
     // replicate old behaviour of rolling out embedded plus/time nodes
     for (unsigned int i = 0; i < numChildren; i++)
     {
-      if (getChild(i)->getType() == type)
+      if (getChild(i)->getTypeAsInt() == type)
       {
         ASTFunctionBase * c = static_cast<ASTFunctionBase*>(getChild(i));
         if (c != NULL)

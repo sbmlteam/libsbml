@@ -175,7 +175,7 @@ ASTConstantNumberNode::write(XMLOutputStream& stream) const
 
   std::string name;
 
-  int type  = getType();
+  ASTNodeType_t type  = getType();
   bool constantNumber = false;
 
   switch ( type )
@@ -230,7 +230,7 @@ ASTConstantNumberNode::read(XMLInputStream& stream, const std::string& reqd_pref
   ASTBase::read(stream, reqd_prefix);
 
   int type = ASTBase::getTypeFromName(name);
-  setType(type);
+  setTypeFromInt(type);
   
   if (name == "notanumber")
   {

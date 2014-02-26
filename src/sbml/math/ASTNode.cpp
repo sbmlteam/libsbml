@@ -57,6 +57,102 @@ struct DeleteASTPluginEntity : public unary_function<ASTBasePlugin*, void>
 
 #ifdef __cplusplus
 
+ASTNode::ASTNode (ASTNodeType_t type) :
+        ASTBase ((int)(type))
+      , mNumber  ( NULL )
+      , mFunction ( NULL )
+      , mChar (0)
+      , mHistoricalName ("")
+{
+  if (type == AST_UNKNOWN)
+  {
+    // user has not told us; need to assume something so lets go with 
+    // a function
+    mFunction = new ASTFunction ((int)(type));
+    this->ASTBase::syncMembersFrom(mFunction);
+  }
+  else if (representsNumber((int)(type)) == true)
+  {
+    mNumber = new ASTNumber ((int)(type));
+    this->ASTBase::syncPluginsFrom(mNumber);
+  }
+  else if (representsFunction((int)(type)) == true
+    || representsQualifier((int)(type)) == true
+    || type == AST_FUNCTION
+    || type == AST_FUNCTION_PIECEWISE
+    || type == AST_LAMBDA
+    || type == AST_SEMANTICS)
+  {
+    mFunction = new ASTFunction ((int)(type));
+    this->ASTBase::syncPluginsFrom(mFunction);
+  }
+  else
+  {
+    bool found = false;
+    for (unsigned int i = 0; i < ASTBase::getNumPlugins(); i++)
+    {
+      if (found == false 
+        && (representsFunction((int)(type), ASTBase::getPlugin(i)) == true
+        || isTopLevelMathMLFunctionNodeTag(getNameFromType((int)(type))) == true))
+      {
+        mFunction = new ASTFunction ((int)(type));
+        this->ASTBase::syncPluginsFrom(mFunction);
+        found = true;
+      }
+
+    }
+  }
+
+  for (unsigned int i = 0; i < getNumPlugins(); i++)
+  {
+    getPlugin(i)->connectToParent(this);
+  }
+}
+  
+
+ASTNode::ASTNode (SBMLNamespaces* sbmlns, ASTNodeType_t type) :
+        ASTBase (sbmlns, (int)(type))
+      , mNumber  ( NULL )
+      , mFunction ( NULL )
+      , mChar (0)
+      , mHistoricalName ("")
+{
+  if (type == AST_UNKNOWN)
+  {
+    // user has not told us; need to assume something so lets go with 
+    // a function
+    mFunction = new ASTFunction ((int)(type));
+  }
+  else if (representsNumber((int)(type)) == true)
+  {
+    mNumber = new ASTNumber ((int)(type));
+  }
+  else if (representsFunction((int)(type)) == true
+    || representsQualifier((int)(type)) == true
+    || type == AST_FUNCTION
+    || type == AST_FUNCTION_PIECEWISE
+    || type == AST_LAMBDA
+    || type == AST_SEMANTICS)
+  {
+    mFunction = new ASTFunction ((int)(type));
+  }
+  else
+  {
+    bool found = false;
+    for (unsigned int i = 0; i < ASTBase::getNumPlugins(); i++)
+    {
+      if (found == false 
+        && representsFunction((int)(type), ASTBase::getPlugin(i)) == true)
+      {
+        mFunction = new ASTFunction ((int)(type));
+        found = true;
+      }
+
+    }
+  }
+}
+  
+
 ASTNode::ASTNode (int type) :
         ASTBase (type)
       , mNumber  ( NULL )
@@ -235,14 +331,14 @@ ASTNode::ASTNode (const ASTNode& orig) :
 {
   if (orig.mNumber != NULL)
   {
-    mNumber = new ASTNumber(orig.getType());
-    mNumber->syncMembersAndTypeFrom(orig.mNumber, orig.getType());
+    mNumber = new ASTNumber(orig.getTypeAsInt());
+    mNumber->syncMembersAndTypeFrom(orig.mNumber, orig.getTypeAsInt());
     this->ASTBase::syncMembersAndResetParentsFrom(mNumber);     
   }
   else if (orig.mFunction != NULL)
   {
-    mFunction = new ASTFunction(orig.getType());
-    mFunction->syncMembersAndTypeFrom(orig.mFunction, orig.getType());
+    mFunction = new ASTFunction(orig.getTypeAsInt());
+    mFunction->syncMembersAndTypeFrom(orig.mFunction, orig.getTypeAsInt());
     this->ASTBase::syncMembersAndResetParentsFrom(mFunction);
   }
   //if (orig.mNumber != NULL)
@@ -270,14 +366,14 @@ ASTNode::operator=(const ASTNode& rhs)
 
     if (rhs.mNumber != NULL)
     {
-      mNumber = new ASTNumber(rhs.getType());
-      mNumber->syncMembersAndTypeFrom(rhs.mNumber, rhs.getType());
+      mNumber = new ASTNumber(rhs.getTypeAsInt());
+      mNumber->syncMembersAndTypeFrom(rhs.mNumber, rhs.getTypeAsInt());
       this->ASTBase::syncMembersAndResetParentsFrom(mNumber);     
     }
     else if (rhs.mFunction != NULL)
     {
-      mFunction = new ASTFunction(rhs.getType());
-      mFunction->syncMembersAndTypeFrom(rhs.mFunction, rhs.getType());
+      mFunction = new ASTFunction(rhs.getTypeAsInt());
+      mFunction->syncMembersAndTypeFrom(rhs.mFunction, rhs.getTypeAsInt());
       this->ASTBase::syncMembersAndResetParentsFrom(mFunction);
     }
   }
@@ -539,7 +635,7 @@ ASTNode::getName () const
        */
       if (getType() >= AST_NAME_TIME)
       {
-        result = getNameFromType(getType());
+        result = getNameFromType(getTypeAsInt());
       }
       else if (getType() == AST_NAME_AVOGADRO)
       {
@@ -708,7 +804,7 @@ ASTNode::getStyle() const
 }
 
 
-int 
+ASTNodeType_t 
 ASTNode::getType () const
 {
   if (mNumber != NULL)
@@ -722,6 +818,24 @@ ASTNode::getType () const
   else
   {
     return ASTBase::getType();
+  }
+}
+
+
+int 
+ASTNode::getTypeFromPackage () const
+{
+  if (mNumber != NULL)
+  {
+    return mNumber->getTypeFromPackage();
+  }
+  else if (mFunction != NULL)
+  {
+    return mFunction->getTypeFromPackage();
+  }
+  else
+  {
+    return ASTBase::getTypeFromPackage();
   }
 }
 
@@ -955,7 +1069,7 @@ ASTNode::setStyle(const std::string& style)
 
 
 int 
-ASTNode::setType (int type) 
+ASTNode::setType (ASTNodeType_t type) 
 {
   if (getType() == type)
   {
@@ -979,22 +1093,22 @@ ASTNode::setType (int type)
   
   reset(); 
 
-  if (representsNumber(type))
+  if (representsNumber((int)(type)))
   {
-    mNumber = new ASTNumber(type);
+    mNumber = new ASTNumber((int)(type));
     if (copyNumber != NULL)
     {
-      mNumber->syncMembersAndTypeFrom(copyNumber, type);
+      mNumber->syncMembersAndTypeFrom(copyNumber, (int)(type));
       this->ASTBase::syncMembersAndResetParentsFrom(mNumber);
     }
     else if (copyFunction != NULL)
     {
-      mNumber->syncMembersAndTypeFrom(copyFunction, type);
+      mNumber->syncMembersAndTypeFrom(copyFunction, (int)(type));
       this->ASTBase::syncMembersAndResetParentsFrom(mNumber);
     }
   }
-  else if (representsFunction(type) 
-    || representsQualifier(type) 
+  else if (representsFunction((int)(type)) 
+    || representsQualifier((int)(type)) 
     || type == AST_FUNCTION
     || type == AST_LAMBDA
     || type == AST_FUNCTION_DELAY
@@ -1002,15 +1116,15 @@ ASTNode::setType (int type)
     || type == AST_SEMANTICS
     || type == AST_UNKNOWN)
   {
-    mFunction = new ASTFunction(type);
+    mFunction = new ASTFunction((int)(type));
     if (copyNumber != NULL)
     {
-      mFunction->syncMembersAndTypeFrom(copyNumber, type);
+      mFunction->syncMembersAndTypeFrom(copyNumber, (int)(type));
       this->ASTBase::syncMembersAndResetParentsFrom(mFunction);
     }
     else if (copyFunction != NULL)
     {
-      mFunction->syncMembersAndTypeFrom(copyFunction, type);
+      mFunction->syncMembersAndTypeFrom(copyFunction, (int)(type));
       this->ASTBase::syncMembersAndResetParentsFrom(mFunction);
     }
 
@@ -1054,9 +1168,9 @@ ASTNode::setType (int type)
     for (unsigned int i = 0; i < ASTBase::getNumPlugins(); i++)
     {
       if (found == false 
-        && representsFunction(type, ASTBase::getPlugin(i)) == true)
+        && representsFunction((int)(type), ASTBase::getPlugin(i)) == true)
       {
-        mFunction = new ASTFunction (type);
+        mFunction = new ASTFunction ((int)(type));
         found = true;
       }
 
@@ -2688,8 +2802,8 @@ ASTNode::reduceToBinary()
   if (numChildren < 3)
     return;
 
-  ASTNode* op = new ASTNode( getType() );
-  ASTNode* op2 = new ASTNode( getType() );
+  ASTNode* op = new ASTNode( getTypeAsInt() );
+  ASTNode* op2 = new ASTNode( getTypeAsInt() );
 
   // add the first two children to the first node
   op->addChild(getChild(0));
@@ -3300,9 +3414,9 @@ ASTNode_create (void)
 
 LIBSBML_EXTERN
 ASTNode_t *
-ASTNode_createWithType (int type)
+ASTNode_createWithType (ASTNodeType_t type)
 {
-  return new(nothrow) ASTNode(type);
+  return new(nothrow) ASTNode((int)(type));
 }
 
 
@@ -3514,7 +3628,7 @@ ASTNode_getPrecedence (const ASTNode_t *node)
 
 
 LIBSBML_EXTERN
-int
+ASTNodeType_t
 ASTNode_getType (const ASTNode_t *node)
 {
   if (node == NULL) return AST_UNKNOWN;
@@ -3786,10 +3900,10 @@ ASTNode_isUPlus (const ASTNode_t *node)
 
 LIBSBML_EXTERN
 int
-ASTNode_hasTypeAndNumChildren(const ASTNode_t *node, int type, unsigned int numchildren)
+ASTNode_hasTypeAndNumChildren(const ASTNode_t *node, ASTNodeType_t type, unsigned int numchildren)
 {
   if (node==NULL) return (int) false;
-  return node->hasTypeAndNumChildren(type, numchildren);
+  return node->hasTypeAndNumChildren((int)(type), numchildren);
 }
 
 
@@ -3900,7 +4014,7 @@ ASTNode_setRealWithExponent (ASTNode_t *node, double mantissa, long exponent)
 
 LIBSBML_EXTERN
 int
-ASTNode_setType (ASTNode_t *node, int type)
+ASTNode_setType (ASTNode_t *node, ASTNodeType_t type)
 {
   if (node == NULL) return LIBSBML_INVALID_OBJECT;
   return static_cast<ASTNode*>(node)->setType(type);
