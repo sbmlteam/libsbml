@@ -328,6 +328,11 @@ ASTNaryFunctionNode::write(XMLOutputStream& stream) const
   {
     writeNodeOfType(stream, type);
   }
+  else if (type == AST_UNKNOWN && numChildren == 0)
+  {
+    // we have an empty apply tag
+    stream.startEndElement("apply");
+  }
   else
   {
 
