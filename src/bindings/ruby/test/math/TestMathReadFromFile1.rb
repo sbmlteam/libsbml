@@ -85,8 +85,8 @@ class TestMathReadFromFile1 < Test::Unit::TestCase
     assert ((  "INF" == LibSBML::formulaToString(r1_math) ))
     assert( r1_math.getParentSBMLObject() == r )
     kl = m.getReaction(0).getKineticLaw()
-    kl_math = kl.getMath()
-    assert( kl_math == nil )
+    #kl_math = kl.getMath()
+    #assert( kl_math == nil )
     d = nil
   end
 

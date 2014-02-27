@@ -255,65 +255,6 @@ SWIGEXPORT void SWIGSTDCALL SWIGRegisterWStringCallback_$module(SWIG_CSharpWStri
 		return new SBasePlugin(cPtr,owner);
 	}
 	
-	
-	public static ASTBase DowncastASTBase(IntPtr cPtr, bool owner)
-    {
-		if (cPtr.Equals(IntPtr.Zero)) return null;
-	
-		ASTBase ab = new ASTBase(cPtr,false);
-		switch( ab.getTypeCode() )
-		{
-			default:
-			case (int)libsbml.AST_TYPECODE_BASE:
-			return new ASTBase(cPtr, owner);
-			/*
-			case (int)libsbml.AST_TYPECODE_CN_BASE:
-			return new ASTCnBase(cPtr, owner);
-			case (int)libsbml.AST_TYPECODE_FUNCTION_BASE:
-			return new ASTFunctionBase(cPtr, owner);
-			case (int)libsbml.AST_TYPECODE_NUMBER:
-			return new ASTNumber(cPtr, owner);
-			case (int)libsbml.AST_TYPECODE_CN_INTEGER:
-			return new ASTCnIntegerNode(cPtr, owner);
-			case (int)libsbml.AST_TYPECODE_CN_EXPONENTIAL:
-			return new ASTCnExponentialNode(cPtr, owner);
-			case (int)libsbml.AST_TYPECODE_CN_RATIONAL:
-			return new ASTCnRationalNode(cPtr, owner);
-			case (int)libsbml.AST_TYPECODE_CN_REAL:
-			return new ASTCnRealNode(cPtr, owner);
-			case (int)libsbml.AST_TYPECODE_CSYMBOL:
-			return new ASTCSymbol(cPtr, owner);
-			case (int)libsbml.AST_TYPECODE_CSYMBOL_AVOGADRO:
-			return new ASTCSymbolAvogadroNode(cPtr, owner);
-			case (int)libsbml.AST_TYPECODE_CSYMBOL_DELAY:
-			return new ASTCSymbolDelayNode(cPtr, owner);
-			case (int)libsbml.AST_TYPECODE_CSYMBOL_TIME:
-			return new ASTCSymbolTimeNode(cPtr, owner);
-			case (int)libsbml.AST_TYPECODE_FUNCTION:
-			return new ASTFunction(cPtr, owner);
-			case (int)libsbml.AST_TYPECODE_FUNCTION_UNARY:
-			return new ASTUnaryFunctionNode(cPtr, owner);
-			case (int)libsbml.AST_TYPECODE_FUNCTION_BINARY:
-			return new ASTBinaryFunctionNode(cPtr, owner);
-			case (int)libsbml.AST_TYPECODE_FUNCTION_NARY:
-			return new ASTNaryFunctionNode(cPtr, owner);
-			case (int)libsbml.AST_TYPECODE_FUNCTION_PIECEWISE:
-			return new ASTPiecewiseFunctionNode(cPtr, owner);
-			case (int)libsbml.AST_TYPECODE_FUNCTION_LAMBDA:
-			return new ASTLambdaFunctionNode(cPtr, owner);
-			case (int)libsbml.AST_TYPECODE_FUNCTION_CI:
-			return new ASTCiFunctionNode(cPtr, owner);
-			case (int)libsbml.AST_TYPECODE_FUNCTION_SEMANTIC:
-			return new ASTSemanticsNode(cPtr, owner);
-			case (int)libsbml.AST_TYPECODE_FUNCTION_QUALIFIER:
-			return new ASTQualifierNode(cPtr, owner);*/
-			case (int)libsbml.AST_TYPECODE_ASTNODE:
-			return new ASTNode(cPtr, owner);
-	
-		}	
-		//return new ASTBase(cPtr, owner);
-    }
-
 
 	public static SBase DowncastSBase(IntPtr cPtr, bool owner)
 	{
@@ -501,8 +442,84 @@ SWIGEXPORT void SWIGSTDCALL SWIGRegisterWStringCallback_$module(SWIG_CSharpWStri
 		}
 		return new SBase(cPtr, owner);
 	}
+	
+%}
+#ifndef LIBSBML_USE_LEGACY_MATH
+
+%pragma(csharp) modulecode =
+%{	
+	public static ASTBase DowncastASTBase(IntPtr cPtr, bool owner)
+    {
+		if (cPtr.Equals(IntPtr.Zero)) return null;
+	
+		ASTBase ab = new ASTBase(cPtr,false);
+		switch( ab.getTypeCode() )
+		{
+			default:
+			case (int)libsbml.AST_TYPECODE_BASE:
+			return new ASTBase(cPtr, owner);
+			/*
+			case (int)libsbml.AST_TYPECODE_CN_BASE:
+			return new ASTCnBase(cPtr, owner);
+			case (int)libsbml.AST_TYPECODE_FUNCTION_BASE:
+			return new ASTFunctionBase(cPtr, owner);
+			case (int)libsbml.AST_TYPECODE_NUMBER:
+			return new ASTNumber(cPtr, owner);
+			case (int)libsbml.AST_TYPECODE_CN_INTEGER:
+			return new ASTCnIntegerNode(cPtr, owner);
+			case (int)libsbml.AST_TYPECODE_CN_EXPONENTIAL:
+			return new ASTCnExponentialNode(cPtr, owner);
+			case (int)libsbml.AST_TYPECODE_CN_RATIONAL:
+			return new ASTCnRationalNode(cPtr, owner);
+			case (int)libsbml.AST_TYPECODE_CN_REAL:
+			return new ASTCnRealNode(cPtr, owner);
+			case (int)libsbml.AST_TYPECODE_CSYMBOL:
+			return new ASTCSymbol(cPtr, owner);
+			case (int)libsbml.AST_TYPECODE_CSYMBOL_AVOGADRO:
+			return new ASTCSymbolAvogadroNode(cPtr, owner);
+			case (int)libsbml.AST_TYPECODE_CSYMBOL_DELAY:
+			return new ASTCSymbolDelayNode(cPtr, owner);
+			case (int)libsbml.AST_TYPECODE_CSYMBOL_TIME:
+			return new ASTCSymbolTimeNode(cPtr, owner);
+			case (int)libsbml.AST_TYPECODE_FUNCTION:
+			return new ASTFunction(cPtr, owner);
+			case (int)libsbml.AST_TYPECODE_FUNCTION_UNARY:
+			return new ASTUnaryFunctionNode(cPtr, owner);
+			case (int)libsbml.AST_TYPECODE_FUNCTION_BINARY:
+			return new ASTBinaryFunctionNode(cPtr, owner);
+			case (int)libsbml.AST_TYPECODE_FUNCTION_NARY:
+			return new ASTNaryFunctionNode(cPtr, owner);
+			case (int)libsbml.AST_TYPECODE_FUNCTION_PIECEWISE:
+			return new ASTPiecewiseFunctionNode(cPtr, owner);
+			case (int)libsbml.AST_TYPECODE_FUNCTION_LAMBDA:
+			return new ASTLambdaFunctionNode(cPtr, owner);
+			case (int)libsbml.AST_TYPECODE_FUNCTION_CI:
+			return new ASTCiFunctionNode(cPtr, owner);
+			case (int)libsbml.AST_TYPECODE_FUNCTION_SEMANTIC:
+			return new ASTSemanticsNode(cPtr, owner);
+			case (int)libsbml.AST_TYPECODE_FUNCTION_QUALIFIER:
+			return new ASTQualifierNode(cPtr, owner);*/
+			case (int)libsbml.AST_TYPECODE_ASTNODE:
+			return new ASTNode(cPtr, owner);
+	
+		}	
+		//return new ASTBase(cPtr, owner);
+    }
+
 %}
 
+
+/**
+ * Convert ASTBase objects into the most specific object possible.
+ */
+%typemap("csout", excode=SWIGEXCODE) ASTBase*
+{
+	ASTBase ret = (ASTBase) libsbml.DowncastASTBase($imcall, $owner);$excode
+	return ret;
+}
+
+
+#endif
 
 /**
  * Convert SBMLNamespaces objects into the most specific object possible.
@@ -541,15 +558,6 @@ SWIGEXPORT void SWIGSTDCALL SWIGRegisterWStringCallback_$module(SWIG_CSharpWStri
 {
         SBasePlugin ret = (SBasePlugin) libsbml.DowncastSBasePlugin($imcall, $owner);$excode
         return ret;
-}
-
-/**
- * Convert ASTBase objects into the most specific object possible.
- */
-%typemap("csout", excode=SWIGEXCODE) ASTBase*
-{
-	ASTBase ret = (ASTBase) libsbml.DowncastASTBase($imcall, $owner);$excode
-	return ret;
 }
 
 /**

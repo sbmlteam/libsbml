@@ -137,6 +137,8 @@ include_directories(${CMAKE_CURRENT_SOURCE_DIR}/../swig)
 include_directories(${CMAKE_SOURCE_DIR}/include)
 include_directories(${RUBY_INCLUDE_DIRS})
 include_directories(${RUBY_HDR_DIR})
+include_directories(BEFORE ${CMAKE_BINARY_DIR}/src)
+
 if (EXTRA_INCLUDE_DIRS) 
  include_directories(${EXTRA_INCLUDE_DIRS})
 endif(EXTRA_INCLUDE_DIRS)

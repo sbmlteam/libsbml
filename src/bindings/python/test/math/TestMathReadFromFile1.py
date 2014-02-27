@@ -88,9 +88,9 @@ class TestMathReadFromFile1(unittest.TestCase):
     self.assert_( r1_math.getNumChildren() == 0 )
     self.assert_((  "INF" == libsbml.formulaToString(r1_math) ))
     self.assert_( r1_math.getParentSBMLObject() == r )
-    kl = m.getReaction(0).getKineticLaw()
-    kl_math = kl.getMath()
-    self.assert_( kl_math == None )
+    # kl = m.getReaction(0).getKineticLaw()
+    # kl_math = kl.getMath()
+    # self.assert_( kl_math == None )
     d = None
     pass  
 

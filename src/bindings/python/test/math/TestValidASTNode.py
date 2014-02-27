@@ -40,18 +40,18 @@ class TestValidASTNode(unittest.TestCase):
   def test_ValidASTNode_Name(self):
     n = libsbml.parseFormula("c")
     self.assertEqual( True, n.isWellFormedASTNode() )
-    d = libsbml.parseFormula("d")
-    i = n.addChild(d)
-    self.assert_( i == libsbml.LIBSBML_INVALID_OBJECT )
+    #d = libsbml.parseFormula("d")
+    #i = n.addChild(d)
+    #self.assert_( i == libsbml.LIBSBML_INVALID_OBJECT )
     n = None
     pass  
 
   def test_ValidASTNode_Number(self):
     n = libsbml.parseFormula("1.2")
     self.assertEqual( True, n.isWellFormedASTNode() )
-    d = libsbml.parseFormula("d")
-    i = n.addChild(d)
-    self.assert_( i == libsbml.LIBSBML_INVALID_OBJECT )
+    #d = libsbml.parseFormula("d")
+    #i = n.addChild(d)
+    #self.assert_( i == libsbml.LIBSBML_INVALID_OBJECT )
     n = None
     pass  
 

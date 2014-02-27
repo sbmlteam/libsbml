@@ -131,9 +131,9 @@ namespace LibSBMLCSTest.math {
     {
       ASTNode n = libsbml.parseFormula("c");
       assertEquals( true, n.isWellFormedASTNode() );
-      ASTNode d = libsbml.parseFormula("d");
-      int i = n.addChild(d);
-      assertEquals(i, libsbml.LIBSBML_INVALID_OBJECT);
+      //ASTNode d = libsbml.parseFormula("d");
+      //int i = n.addChild(d);
+      //assertEquals(i, libsbml.LIBSBML_INVALID_OBJECT);
       n = null;
     }
 
@@ -141,9 +141,9 @@ namespace LibSBMLCSTest.math {
     {
       ASTNode n = libsbml.parseFormula("1.2");
       assertEquals( true, n.isWellFormedASTNode() );
-      ASTNode d = libsbml.parseFormula("d");
-      int i = n.addChild(d);
-      assertEquals(i, libsbml.LIBSBML_INVALID_OBJECT);
+      //ASTNode d = libsbml.parseFormula("d");
+      //int i = n.addChild(d);
+      //assertEquals(i, libsbml.LIBSBML_INVALID_OBJECT);
       n = null;
     }
 

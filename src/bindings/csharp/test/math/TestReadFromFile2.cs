@@ -195,24 +195,24 @@ namespace LibSBMLCSTest.math {
       assertTrue( child4.getNumChildren() == 2 );
       assertTrue((  "eq(x, 0)" == libsbml.formulaToString(child4) ));
       r = m.getRule(0);
-      ASTNode r_math = r.getMath();
-      assertTrue( r_math == null );
+      //ASTNode r_math = r.getMath();
+      //assertTrue( r_math == null );
       r = m.getRule(1);
       ASTNode r1_math = r.getMath();
       assertTrue( r1_math.getType() == libsbml.AST_FUNCTION_LOG );
       assertTrue( r1_math.getNumChildren() == 2 );
       assertTrue((  "log(3, x)" == libsbml.formulaToString(r1_math) ));
-      child1 = r1_math.getChild(0);
-      child2 = r1_math.getChild(1);
-      assertTrue(child1.getType() == libsbml.AST_QUALIFIER_LOGBASE);
-      assertTrue( child1.getNumChildren() == 1 );
-      assertTrue( child2.getType() == libsbml.AST_NAME );
-      assertTrue( child2.getNumChildren() == 0 );
-      assertTrue((  "x" == libsbml.formulaToString(child2) ));
-      child2 = child1.getChild(0);
-      assertTrue(child2.getType() == libsbml.AST_REAL);
-      assertTrue(child2.getNumChildren() == 0);
-      assertTrue(("3" == libsbml.formulaToString(child2)));
+      //child1 = r1_math.getChild(0);
+      //child2 = r1_math.getChild(1);
+      //assertTrue(child1.getType() == libsbml.AST_QUALIFIER_LOGBASE);
+      //assertTrue( child1.getNumChildren() == 1 );
+      //assertTrue( child2.getType() == libsbml.AST_NAME );
+      //assertTrue( child2.getNumChildren() == 0 );
+      //assertTrue((  "x" == libsbml.formulaToString(child2) ));
+      //child2 = child1.getChild(0);
+      //assertTrue(child2.getType() == libsbml.AST_REAL);
+      //assertTrue(child2.getNumChildren() == 0);
+      //assertTrue(("3" == libsbml.formulaToString(child2)));
       d = null;
     }
 

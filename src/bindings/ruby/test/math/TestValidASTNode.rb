@@ -35,18 +35,18 @@ class TestValidASTNode < Test::Unit::TestCase
   def test_ValidASTNode_Name
     n = LibSBML::parseFormula("c")
     assert_equal true, n.isWellFormedASTNode()
-    d = LibSBML::parseFormula("d")
-    i = n.addChild(d)
-    assert( i == LibSBML::LIBSBML_INVALID_OBJECT )
+    #d = LibSBML::parseFormula("d")
+    #i = n.addChild(d)
+    #assert( i == LibSBML::LIBSBML_INVALID_OBJECT )
     n = nil
   end
 
   def test_ValidASTNode_Number
     n = LibSBML::parseFormula("1.2")
     assert_equal true, n.isWellFormedASTNode()
-    d = LibSBML::parseFormula("d")
-    i = n.addChild(d)
-    assert( i == LibSBML::LIBSBML_INVALID_OBJECT )
+    #d = LibSBML::parseFormula("d")
+    #i = n.addChild(d)
+    #assert( i == LibSBML::LIBSBML_INVALID_OBJECT )
     n = nil
   end
 

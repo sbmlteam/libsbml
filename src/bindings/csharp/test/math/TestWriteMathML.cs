@@ -371,14 +371,15 @@ namespace LibSBMLCSTest.math {
 
     public void test_MathMLFormatter_constant_infinity_neg()
     {
-      string expected = wrapMathML("  <apply>\n" +
-    "    <minus/>\n" +
-    "    <infinity/>\n" +
-    "  </apply>\n");
-      N = new ASTNode();
-      N.setValue(- util_PosInf());
-      S = libsbml.writeMathMLToString(N);
-      assertEquals( true, equals(expected,S) );
+    //  string expected = wrapMathML("  <apply>\n" +
+    //"    <minus/>\n" +
+    //"    <infinity/>\n" +
+    //"  </apply>\n");
+    //  N = new ASTNode();
+    //  N.setValue(- util_PosInf());
+    //  S = libsbml.writeMathMLToString(N);
+
+    //  assertEquals( true, equals(expected,S) );
     }
 
     public void test_MathMLFormatter_constant_notanumber()

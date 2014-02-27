@@ -610,16 +610,6 @@ LIBSBML_CPP_NAMESPACE_USE
 %include sbml/validator/SBMLValidator.h
 %include sbml/validator/SBMLExternalValidator.h
 
-%include <sbml/math/ASTTypes.h>
-%include <sbml/math/ASTBase.h>
-
-%include sbml/math/MathML.h
-%include sbml/math/ASTNode.h
-%include sbml/math/FormulaParser.h
-%include sbml/math/FormulaFormatter.h
-%include sbml/math/L3Parser.h
-%include sbml/math/L3ParserSettings.h
-
 %include sbml/xml/XMLAttributes.h
 %include sbml/xml/XMLConstructorException.h
 %include sbml/xml/XMLNamespaces.h
@@ -648,9 +638,8 @@ LIBSBML_CPP_NAMESPACE_USE
 %include sbml/extension/SBMLExtensionException.h
 %include sbml/extension/SBMLExtensionNamespaces.h
 %include sbml/extension/SBMLExtensionRegistry.h
-%include <sbml/extension/ASTBasePlugin.h>
+
+%include ASTNodes.i
 
 %include "../swig/libsbml-packages.i"
-
-
 
