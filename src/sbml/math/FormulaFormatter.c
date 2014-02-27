@@ -176,7 +176,7 @@ FormulaFormatter_format (StringBuffer_t *sb, const ASTNode_t *node)
 void
 FormulaFormatter_formatFunction (StringBuffer_t *sb, const ASTNode_t *node)
 {
-  int type = ASTNode_getType(node);
+  ASTNodeType_t type = ASTNode_getType(node);
 
 
   switch (type)
@@ -219,7 +219,7 @@ FormulaFormatter_formatFunction (StringBuffer_t *sb, const ASTNode_t *node)
 void
 FormulaFormatter_formatOperator (StringBuffer_t *sb, const ASTNode_t *node)
 {
-  int type = ASTNode_getType(node);
+  ASTNodeType_t type = ASTNode_getType(node);
 
 
   if (type != AST_POWER)

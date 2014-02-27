@@ -382,7 +382,7 @@ L3FormulaFormatter_format (StringBuffer_t *sb, const ASTNode_t *node, const L3Pa
 void
 L3FormulaFormatter_formatFunction (StringBuffer_t *sb, const ASTNode_t *node, const L3ParserSettings_t *settings)
 {
-  int type = ASTNode_getType(node);
+  ASTNodeType_t type = ASTNode_getType(node);
   switch (type)
   {
   case AST_PLUS:
@@ -418,7 +418,7 @@ L3FormulaFormatter_formatFunction (StringBuffer_t *sb, const ASTNode_t *node, co
 void
 L3FormulaFormatter_formatOperator (StringBuffer_t *sb, const ASTNode_t *node)
 {
-  int type = ASTNode_getType(node);
+  ASTNodeType_t type = ASTNode_getType(node);
 
   if (type == AST_FUNCTION_POWER ||
       type == AST_POWER) {
@@ -514,7 +514,7 @@ L3FormulaFormatter_formatReal (StringBuffer_t *sb, const ASTNode_t *node, const 
 void
 L3FormulaFormatter_formatLogicalRelational (StringBuffer_t *sb, const ASTNode_t *node)
 {
-  int type = ASTNode_getType(node);
+  ASTNodeType_t type = ASTNode_getType(node);
 
   StringBuffer_appendChar(sb, ' ');
   switch(type)
