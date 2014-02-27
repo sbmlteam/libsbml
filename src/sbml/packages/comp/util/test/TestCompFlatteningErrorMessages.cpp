@@ -203,7 +203,7 @@ START_TEST(test_comp_flatten_invalid4)
   // Create an incorrect external model definition.
   ExternalModelDefinition* emd = compdoc->createExternalModelDefinition();
   emd->setId("Mod1");
-  emd->setSource("f:x");
+  emd->setSource("nonexistent:x");
 
   //Now try to flatten it
   converter->setDocument(document);
@@ -257,9 +257,9 @@ START_TEST(test_comp_flatten_invalid5)
   // Create an incorrect external model definition.
   ExternalModelDefinition* emd = compdoc->createExternalModelDefinition();
   emd->setId("Mod1");
-  emd->setSource("f:x");
+  emd->setSource("nonexistent:x");
 
-  document->setLocationURI("x:y");
+  document->setLocationURI("nonexistent2:y");
 
   //Now try to flatten it
   converter->setDocument(document);
@@ -312,7 +312,7 @@ START_TEST(test_comp_flatten_invalid6)
   // Create an incorrect external model definition.
   ExternalModelDefinition* emd = compdoc->createExternalModelDefinition();
   emd->setId("Mod1");
-  emd->setSource("f:x");
+  emd->setSource("nonexistent:x");
 
   //Now try to flatten it
   converter->setDocument(document);

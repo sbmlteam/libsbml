@@ -161,7 +161,7 @@ SBMLUri::parse(const std::string& uri)
     return;
   advance(prot_i, prot_end.length());
 
-  if (*(prot_i+1) == ':')
+  if ((prot_i + 1) != constUri.end() && *(prot_i + 1) == ':')
   {
     // turns out there are invalid urls being used internally, of the form 
     // file:drive:/ ... this is just plain wrong but needs to be parsed correctly
