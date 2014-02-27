@@ -2230,6 +2230,34 @@ ASTNode::setDefinitionURL(XMLAttributes url)
   return LIBSBML_OPERATION_SUCCESS;
 }
 
+
+LIBSBML_EXTERN
+bool 
+ASTNode::isQualifier() const
+{
+  return false;
+}
+
+LIBSBML_EXTERN
+bool
+ASTNode::isSemantics() const
+{
+  return false;
+}
+
+LIBSBML_EXTERN
+unsigned int 
+ASTNode::getNumBvars() const
+{
+  //unsigned int num = 0;
+  //for (unsigned int i = 0; i < getNumChildren(); ++i)
+  //  if (getChild(i)->isBvar()) ++num;
+  //  
+  //return num;
+  return getNumChildren() >= 1 ? getNumChildren() - 1 : 0;
+}
+
+
 bool
 ASTNode::hasCorrectNumberArguments() const
 {

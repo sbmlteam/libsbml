@@ -1762,6 +1762,33 @@ setValue(value, 0);
 
   /** @endcond */
 
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+  * Predicate returning @c true (non-zero) if this node is a MathML
+  * qualifier (i.e., @c bvar, @c degree, @c base, @c piece, @c otherwise),
+  * @c false (zero) otherwise.
+  *
+  * @return @c true if this ASTNode is a MathML qualifier.
+  */
+  LIBSBML_EXTERN
+  virtual bool isQualifier() const;
+
+  /**
+  * Predicate returning @c true (non-zero) if this node is a MathML
+  * semantics node, @c false (zero) otherwise.
+  *
+  * @return @c true if this ASTNode is a MathML semantics node.
+  */
+  LIBSBML_EXTERN
+  virtual bool isSemantics() const;
+
+  LIBSBML_EXTERN
+  unsigned int getNumBvars() const;
+
+  /** @endcond */
+
 protected:
   /** @cond doxygenLibsbmlInternal */
 
