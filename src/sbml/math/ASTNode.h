@@ -1500,16 +1500,17 @@ setValue(value, 0);
   void replaceArgument(const std::string& bvar, ASTNode *arg);
 
 
-  /** @cond doxygenLibsbmlInternal */
-
   /**
    * Sets the parent SBML object.
-   * 
+   *
    * @param sb the parent SBML object of this ASTNode.
+   *
+   * @return integer value indicating success/failure of the
+   * function.  The possible values returned by this function are:
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
    */
   int setParentSBMLObject(SBase* sb);
-
-  /** @endcond */
 
 
   /**
@@ -3384,16 +3385,14 @@ SBase_t *
 ASTNode_getParentSBMLObject(ASTNode_t* node);
 
 
-/** @cond doxygenLibsbmlInternal */
 /**
  * @param node the node to modify
  *
  * @memberof ASTNode_t
  */
 LIBSBML_EXTERN
-void 
+void
 ASTNode_setParentSBMLObject(ASTNode_t* node, SBase_t * sb);
-/** @endcond */
 
 
 /**
