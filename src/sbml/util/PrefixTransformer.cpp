@@ -82,3 +82,5 @@ PrefixTransformer::setPrefix(const std::string& prefix)
 {
   mPrefix = prefix;
 }
+
+/** @endcond */
