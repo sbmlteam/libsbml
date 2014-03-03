@@ -883,6 +883,13 @@ L3FormulaFormatter_isFunction (const ASTNode_t *node,
   case AST_CONSTANT_FALSE:
   case AST_CONSTANT_PI:
   case AST_CONSTANT_TRUE:
+  /* new elements to the enum that should not get hit */
+  case AST_QUALIFIER_BVAR:
+  case AST_QUALIFIER_LOGBASE:
+  case AST_QUALIFIER_DEGREE:
+  case AST_SEMANTICS:
+  case AST_CONSTRUCTOR_PIECE:
+  case AST_CONSTRUCTOR_OTHERWISE:
     return 0;
 
   case AST_LOGICAL_XOR:
@@ -924,6 +931,10 @@ L3FormulaFormatter_isFunction (const ASTNode_t *node,
   case AST_FUNCTION_TANH:
   case AST_UNKNOWN:
     return 1;
+
+    /* this one will need work */
+  case AST_ORIGINATES_IN_PACKAGE:
+    return 0;
   }
   //Shouldn't ever get here
   assert(0);
