@@ -47,7 +47,14 @@ CK_CPPSTART
 
 Suite *create_suite_TestCompSBaseObjects      (void);
 Suite *create_suite_TestReadWriteSBaseObjects (void);
+Suite *create_suite_TestComp_Deletion (void);
+Suite *create_suite_TestComp_ExternalModelDefinition (void);
+Suite *create_suite_TestComp_ModelDefinition (void);
 Suite *create_suite_TestComp_Port (void);
+Suite *create_suite_TestComp_ReplacedBy (void);
+Suite *create_suite_TestComp_ReplacedElement (void);
+Suite *create_suite_TestComp_SBaseRef (void);
+Suite *create_suite_TestComp_Submodel (void);
 
 
 /**
@@ -95,7 +102,14 @@ main (void)
 
   SRunner *runner = srunner_create( create_suite_TestCompSBaseObjects() );
   srunner_add_suite( runner, create_suite_TestReadWriteSBaseObjects() );
+  srunner_add_suite( runner, create_suite_TestComp_Deletion() );
+  srunner_add_suite( runner, create_suite_TestComp_ExternalModelDefinition() );
+  srunner_add_suite( runner, create_suite_TestComp_ModelDefinition() );
   srunner_add_suite( runner, create_suite_TestComp_Port() );
+  srunner_add_suite( runner, create_suite_TestComp_ReplacedBy() );
+  srunner_add_suite( runner, create_suite_TestComp_ReplacedElement() );
+  srunner_add_suite( runner, create_suite_TestComp_SBaseRef() );
+  srunner_add_suite( runner, create_suite_TestComp_Submodel() );
 
   /* srunner_set_fork_status(runner, CK_NOFORK); */
 

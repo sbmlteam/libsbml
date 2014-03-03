@@ -86,7 +86,7 @@ START_TEST (test_comp_submodel_create)
   fail_unless( !Submodel_isSetSubstanceConversionFactor   (P) );
   fail_unless( !Submodel_isSetTimeConversionFactor   (P) );
   fail_unless( !Submodel_isSetExtentConversionFactor   (P) );
-  fail_unless( !Submodel_getNumDeletions(P)==0 );
+  fail_unless( Submodel_getNumDeletions(P)==0 );
 }
 END_TEST
 
@@ -187,29 +187,17 @@ END_TEST
 
 START_TEST (test_comp_submodel_substanceConversionFactor)
 {
+  //There is no substance conversion factor any more--all related functions should fail.
   const char *substanceConversionFactor = "My_Favorite_Factory";
 
-
   fail_unless( !Submodel_isSetSubstanceConversionFactor(P) );
 
-  Submodel_setSubstanceConversionFactor(P, substanceConversionFactor);
+  fail_unless(Submodel_setSubstanceConversionFactor(P, substanceConversionFactor) == LIBSBML_INVALID_ATTRIBUTE_VALUE) ;
 
-  fail_unless( !strcmp(Submodel_getSubstanceConversionFactor(P), substanceConversionFactor) );
-  fail_unless( Submodel_isSetSubstanceConversionFactor(P) );
-
-  if (Submodel_getSubstanceConversionFactor(P) == substanceConversionFactor)
-  {
-    fail("Submodel_setSubstanceConversionFactor(...) did not make a copy of string.");
-  }
-
-  Submodel_unsetSubstanceConversionFactor(P);
-  
+  fail_unless( Submodel_getSubstanceConversionFactor(P) == NULL );
   fail_unless( !Submodel_isSetSubstanceConversionFactor(P) );
 
-  if (Submodel_getSubstanceConversionFactor(P) != NULL)
-  {
-    fail("Submodel_unsetSubstanceConversionFactor(P) did not clear string.");
-  }
+  fail_unless(Submodel_unsetSubstanceConversionFactor(P) == LIBSBML_OPERATION_FAILED);
 }
 END_TEST
 
@@ -276,6 +264,7 @@ START_TEST (test_comp_submodel_deletion)
 {
   Deletion_t *deletion = Deletion_create(3, 1, 1);
   const char* delname = "deletion";
+  SBaseRef_setIdRef((SBaseRef*)deletion, "ref_id");
 
 
   fail_unless( Submodel_getNumDeletions(P) == 0 );
@@ -320,6 +309,10 @@ START_TEST (test_comp_submodel_hasRequiredAttributes )
   fail_unless ( !Submodel_hasRequiredAttributes(P));
 
   SBaseRef_setIdRef((SBaseRef_t*)(P), "s");
+  
+  fail_unless ( !Submodel_hasRequiredAttributes(P));
+
+  Submodel_setModelRef(P, "sub1");
   
   fail_unless ( Submodel_hasRequiredAttributes(P));
 
