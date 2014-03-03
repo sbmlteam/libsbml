@@ -1,5 +1,5 @@
 /**
- * @file    libsbml-config-common.h.cmake
+ * @file    libsbml-config-common.h
  * @brief   Configuration variables 
  * @author  Ben Bornstein
  *
