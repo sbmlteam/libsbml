@@ -2230,6 +2230,20 @@ ASTNode::setDefinitionURL(XMLAttributes url)
   return LIBSBML_OPERATION_SUCCESS;
 }
 
+  
+bool 
+ASTNode::isBvar() const 
+{ 
+  return mIsBvar; 
+}
+
+
+void 
+ASTNode::setBvar() 
+{ 
+  mIsBvar = true; 
+}
+
 
 LIBSBML_EXTERN
 bool 
@@ -2242,19 +2256,18 @@ LIBSBML_EXTERN
 bool
 ASTNode::isSemantics() const
 {
-  return false;
+  return getSemanticsFlag();
 }
 
 LIBSBML_EXTERN
 unsigned int 
 ASTNode::getNumBvars() const
 {
-  //unsigned int num = 0;
-  //for (unsigned int i = 0; i < getNumChildren(); ++i)
-  //  if (getChild(i)->isBvar()) ++num;
-  //  
-  //return num;
-  return getNumChildren() >= 1 ? getNumChildren() - 1 : 0;
+  unsigned int num = getNumChildren();
+  if (getChild(num - 1)->isBvar())
+    return num;
+  else
+    return num - 1;
 }
 
 

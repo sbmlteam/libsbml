@@ -377,7 +377,8 @@ FunctionDefinition::getArgument (unsigned int n) const
   {
     if ((getLevel() == 2 && getVersion() > 2) || getLevel() > 2)
     {
-      if (mMath->isSemantics() == true && mMath->getNumChildren() == 1)
+      if (mMath->isSemantics() == true && mMath->getNumChildren() == 1
+        && mMath->getChild(0)->isLambda() == true)
       {
         lambda = mMath->getChild(0);
       }
@@ -448,7 +449,8 @@ FunctionDefinition::getBody () const
   {
     if ((getLevel() == 2 && getVersion() > 2) || getLevel() > 2)
     {
-      if (mMath->isSemantics() == true && mMath->getNumChildren() == 1)
+      if (mMath->isSemantics() == true && mMath->getNumChildren() == 1
+        && mMath->getChild(0)->isLambda() == true)
       {
         lambda = mMath->getChild(0);
       }
@@ -501,7 +503,8 @@ FunctionDefinition::getBody ()
   {
     if ((getLevel() == 2 && getVersion() > 2) || getLevel() > 2)
     {
-      if (mMath->isSemantics() == true && mMath->getNumChildren() == 1)
+      if (mMath->isSemantics() == true && mMath->getNumChildren() == 1
+        && mMath->getChild(0)->isLambda() == true)
       {
         lambda = mMath->getChild(0);
       }
@@ -567,7 +570,8 @@ FunctionDefinition::getNumArguments () const
   {
     if ((getLevel() == 2 && getVersion() > 2) || getLevel() > 2)
     {
-      if (mMath->isSemantics() == true && mMath->getNumChildren() == 1)
+      if (mMath->isSemantics() == true && mMath->getNumChildren() == 1
+        && mMath->getChild(0)->isLambda() == true)
       {
         lambda = mMath->getChild(0);
       }

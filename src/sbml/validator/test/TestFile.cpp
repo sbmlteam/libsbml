@@ -190,6 +190,57 @@ TestFile::getFilesIn ( const string& directory,
         || id == 20518)
         continue;
       //}
+#ifdef LIBSBML_USE_LEGACY_MATH
+
+      /* some files got renumbered with the change in ast code
+       * only because they logged only one error instead
+       * of previously logging two
+       *
+       * take these out of the test if the legacy math is used
+       */
+      unsigned int num = file.getSequenceId();
+      if (id == 99224) 
+      {
+        switch(num)
+        {
+        case 1:
+        case 2:
+        case 3:
+        case 7:
+          if (file.getNumFailures() > 0)
+            continue;
+          break;
+        default:
+          break;
+        }
+      }
+      else if (id == 10201)
+      {
+        if (num == 7 && file.getNumFailures() > 0) 
+          continue;
+      }
+      else if (id == 10205)
+      {
+        switch(num)
+        {
+        case 1:
+        case 2:
+        case 3:
+        case 4:
+        case 5:
+          if (file.getNumFailures() > 0)
+            continue;
+          break;
+        case 12:
+          if (file.getNumFailures() == 0)
+            continue;
+          break;
+        default:
+          break;
+        }
+      }
+
+#endif
 
       if ((begin == 0 && end == 0) || (id >= begin && id <= end))
       {

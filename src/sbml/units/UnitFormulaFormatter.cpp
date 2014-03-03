@@ -204,12 +204,12 @@ UnitFormulaFormatter::getUnitDefinition(const ASTNode * node,
       ud = getUnitDefinitionFromDelay(node, inKL, reactNo);
       break;
 
-      /* new types */
-    case AST_QUALIFIER_DEGREE:
-    case AST_QUALIFIER_LOGBASE:
+    //  /* new types */
+    //case AST_QUALIFIER_DEGREE:
+    //case AST_QUALIFIER_LOGBASE:
 
-      ud = getUnitDefinition(node->getChild(0), inKL, reactNo);
-      break;
+    //  ud = getUnitDefinition(node->getChild(0), inKL, reactNo);
+    //  break;
 
   /* others */
 
@@ -235,7 +235,15 @@ UnitFormulaFormatter::getUnitDefinition(const ASTNode * node,
     case AST_UNKNOWN:
     default:
     
-      ud = new UnitDefinition(model->getSBMLNamespaces());
+      if (node->isQualifier() == true)
+      {
+        /* code so that old and new ast classes will do the right thing */
+        ud = getUnitDefinition(node->getChild(0), inKL, reactNo);
+      }
+      else
+      {
+        ud = new UnitDefinition(model->getSBMLNamespaces());
+      }
       break;
   }
   // as a safety catch 

@@ -190,9 +190,17 @@ START_CONSTRAINT (20301, FunctionDefinition, fd)
   
   bool fail = false;
 
-  if (fd.getMath()->isLambda() == false)
+  if (fd.getLevel() == 2 && fd.getVersion() < 3)
   {
-    if ((fd.getLevel() == 2 && fd.getVersion() > 2) || fd.getLevel() > 2)
+    // must be a lambda but no semantics
+    if (fd.getMath()->isLambda() == false)
+      fail = true;
+    else if (fd.getMath()->isSemantics() == true)
+      fail = true;
+  }
+  else
+  {
+    if (fd.getMath()->isLambda() == false)
     {
       if (fd.getMath()->isSemantics() == true)
       {
@@ -213,15 +221,11 @@ START_CONSTRAINT (20301, FunctionDefinition, fd)
         fail = true;
       }
     }
-    else
-    {
-      fail = true;
-    }
   }
 
   //if (fd.getLevel() == 2 && fd.getVersion() < 3)
   //{
-  //  inv( !fd.getMath()->isSemantics() );
+  //  inv( !fd.getMath()->getSemanticsFlag() );
   //}
 
   //inv( fd.getMath()->isLambda() );

@@ -1757,8 +1757,8 @@ setValue(value, 0);
 
   /** @cond doxygenLibsbmlInternal */
     
-  bool isBvar() const { return mIsBvar; };
-  void setBvar() { mIsBvar = true; };
+  bool isBvar() const;
+  void setBvar();
 
   /** @endcond */
 
