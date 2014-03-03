@@ -5278,36 +5278,36 @@ START_TEST (test_ASTNode_returnsBoolean)
   node->addChild(c3);
   fail_unless(node->returnsBoolean() == 0);
 
-  // func with no model
-//  n = SBML_parseFormula("func1(X)");
-  fail_unless(node->returnsBoolean() == 0);
-
   delete node;
+
+  // func with no model
+  ASTNode * n = SBML_parseFormula("func1(X)");
+
   // TO DO
   //// func with model that does not contain that func
-  //SBMLDocument_t *doc = SBMLDocument_createWithLevelAndVersion(3,1);
-  //Model_t* model = SBMLDocument_createModel(doc);
-  //Constraint_t *c = Model_createConstraint(model);
-  //Constraint_setMath(c, n);
-  //const ASTNode *math;
+  SBMLDocument_t *doc = SBMLDocument_createWithLevelAndVersion(3,1);
+  Model_t* model = SBMLDocument_createModel(doc);
+  Constraint_t *c = Model_createConstraint(model);
+  Constraint_setMath(c, n);
+  const ASTNode *math;
 
-  //math = Constraint_getMath(c);
-  //fail_unless(ASTNode_returnsBoolean(math) == 0);
+  math = Constraint_getMath(c);
+  fail_unless(ASTNode_returnsBoolean(math) == 0);
 
-  //// func with model but func has no math
-  //FunctionDefinition_t* fd = Model_createFunctionDefinition(model);
-  //FunctionDefinition_setId(fd, "func1");
-  //fail_unless(ASTNode_returnsBoolean(math) == 0);
+  // func with model but func has no math
+  FunctionDefinition_t* fd = Model_createFunctionDefinition(model);
+  FunctionDefinition_setId(fd, "func1");
+  fail_unless(ASTNode_returnsBoolean(math) == 0);
 
-  //// func with model func returns boolean
-  //FunctionDefinition_setMath(fd, SBML_parseFormula("lambda(x, true)"));
-  //fail_unless(ASTNode_returnsBoolean(math) == 1);
+  // func with model func returns boolean
+  FunctionDefinition_setMath(fd, SBML_parseFormula("lambda(x, true)"));
+  fail_unless(ASTNode_returnsBoolean(math) == 1);
 
-  //// func with model func returns number
-  //FunctionDefinition_setMath(fd, SBML_parseFormula("lambda(x, 6)"));
-  //fail_unless(ASTNode_returnsBoolean(math) == 0);
-  //delete n;
-  //SBMLDocument_free(doc);
+  // func with model func returns number
+  FunctionDefinition_setMath(fd, SBML_parseFormula("lambda(x, 6)"));
+  fail_unless(ASTNode_returnsBoolean(math) == 0);
+  delete n;
+  SBMLDocument_free(doc);
 }
 END_TEST
 
