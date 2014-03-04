@@ -191,6 +191,7 @@ include_directories(BEFORE ${CMAKE_CURRENT_SOURCE_DIR}/../swig)
 include_directories(BEFORE ${CMAKE_SOURCE_DIR}/include)
 include_directories(BEFORE ${PERL_INCLUDE_PATH})
 include_directories(BEFORE ${CMAKE_BINARY_DIR}/src)
+include_directories(BEFORE ${CMAKE_CURRENT_BINARY_DIR})
 
 if (EXTRA_INCLUDE_DIRS) 
  include_directories(${EXTRA_INCLUDE_DIRS})

@@ -1524,7 +1524,10 @@ def main (args):
   # Now, do the main processing pass, writing the output as we go along.
   
   if language == 'perl':
-    infile = open(os.path.abspath('LibSBML.txt'), 'r')
+    if (os.path.exists(os.path.abspath('LibSBML.txt'))):
+      infile = open(os.path.abspath('LibSBML.txt'), 'r')
+    else:
+      infile = open(h_include_path + '/bindings/perl/LibSBML.txt', 'r')
     stream.write(infile.read())
     stream.write('=head1 FUNCTION INDEX\n\n=over 8\n\n')
 
