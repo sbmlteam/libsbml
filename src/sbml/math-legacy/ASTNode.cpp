@@ -2230,7 +2230,7 @@ ASTNode::setDefinitionURL(XMLAttributes url)
   return LIBSBML_OPERATION_SUCCESS;
 }
 
-  
+LIBSBML_EXTERN
 bool 
 ASTNode::isBvar() const 
 { 
@@ -2238,6 +2238,7 @@ ASTNode::isBvar() const
 }
 
 
+LIBSBML_EXTERN
 void 
 ASTNode::setBvar() 
 { 

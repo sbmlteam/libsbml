@@ -508,6 +508,8 @@ GroupsExtension::init()
   }
 #endif
 
+#include <sbml/common/libsbml-config-common.h>
+
 #include <sbml/extension/SBasePluginCreatorBase.h>
 #include <sbml/extension/SBaseExtensionPoint.h>
 #include <sbml/extension/ASTBasePlugin.h>
@@ -714,6 +716,8 @@ public:
    */
   const SBasePluginCreatorBase*  getSBasePluginCreator(unsigned int i) const;
 
+
+#ifndef LIBSBML_USE_LEGACY_MATH
   /**
    * 
    * Adds the given ASTBasePlugin object to this package
@@ -740,6 +744,20 @@ public:
    */
   ASTBasePlugin* getASTBasePlugin();
 
+
+
+  /**
+  * Predicate returning @c true if this package extension has
+  * an ASTBasePlugin attribute set.
+  *
+  * @return @c true if the ASTBasePlugin of
+  * this package extension is set, @c false otherwise.
+  */
+  bool isSetASTBasePlugin() const;
+
+
+#endif /* LIBSBML_USE_LEGACY_MATH */
+
 #endif // SWIG
 
   /**
@@ -748,17 +766,6 @@ public:
    * @return the number of SBasePlugin objects stored in this object.
    */
   int getNumOfSBasePlugins() const;
-
-
-  /**
-   * Predicate returning @c true if this package extension has 
-   * an ASTBasePlugin attribute set.
-   *
-   * @return @c true if the ASTBasePlugin of
-   * this package extension is set, @c false otherwise.
-   */
-  bool isSetASTBasePlugin() const;
-
 
   /**
    * Returns the number of supported package Namespace (package versions) of this 
@@ -982,8 +989,10 @@ protected:
   bool                                 mIsEnabled;
   SupportedPackageURIList              mSupportedPackageURI;
   std::vector<SBasePluginCreatorBase*> mSBasePluginCreators;
-  ASTBasePlugin*                       mASTBasePlugin;
 
+#ifndef LIBSBML_USE_LEGACY_MATH
+  ASTBasePlugin*                       mASTBasePlugin;
+#endif /* LIBSBML_USE_LEGACY_MATH */
   /** @endcond */
 
 

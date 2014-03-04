@@ -27,6 +27,8 @@ endif()
 set(TEST_LIBSBML_LIBS ${TEST_LIB} ${LIBCHECK_LIBRARY})
 set(TEST_FILES ${CPP_FILES} ${C_FILES} ${H_FILES})
 include_directories(BEFORE ${CMAKE_SOURCE_DIR}/src)
+include_directories(BEFORE ${CMAKE_BINARY_DIR}/src)
+
 include_directories(${LIBCHECK_INCLUDE_DIR})
 add_executable(test_comp_sbase ${TEST_FILES})
 target_link_libraries(test_comp_sbase ${TEST_LIBSBML_LIBS})

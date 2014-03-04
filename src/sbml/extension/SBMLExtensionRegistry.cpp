@@ -35,8 +35,7 @@
 #include <iostream>
 #include <string>
 
-#include "RegisterExtensions.h"
-
+#include <sbml/extension/RegisterExtensions.h>
 
 #ifdef __cplusplus
 
@@ -81,7 +80,7 @@ SBMLExtensionRegistry::getInstance()
   if (!registered)
   {
     registered = true;
-    #include "RegisterExtensions.cxx"
+    #include <sbml/extension/RegisterExtensions.cxx>
   }
   return *mInstance;
 }

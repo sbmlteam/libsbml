@@ -53,7 +53,9 @@ static const packageErrorTableEntry defaultErrorTable[] =
 
 SBMLExtension::SBMLExtension ()
  : mIsEnabled(true)
+#ifndef LIBSBML_USE_LEGACY_MATH
  , mASTBasePlugin (NULL)
+#endif
 {
 }
 
@@ -61,10 +63,12 @@ SBMLExtension::SBMLExtension ()
 /*
  * Copy constructor.
  */
-SBMLExtension::SBMLExtension(const SBMLExtension& orig): 
- mIsEnabled(orig.mIsEnabled), 
- mSupportedPackageURI(orig.mSupportedPackageURI),
- mASTBasePlugin(orig.mASTBasePlugin)
+SBMLExtension::SBMLExtension(const SBMLExtension& orig)
+ : mIsEnabled(orig.mIsEnabled)
+ , mSupportedPackageURI(orig.mSupportedPackageURI)
+#ifndef LIBSBML_USE_LEGACY_MATH
+ , mASTBasePlugin(orig.mASTBasePlugin)
+#endif
 {
   for (size_t i=0; i < orig.mSBasePluginCreators.size(); i++)
     mSBasePluginCreators.push_back(orig.mSBasePluginCreators[i]->clone());
@@ -89,7 +93,10 @@ SBMLExtension::operator=(const SBMLExtension& orig)
 {  
   mIsEnabled = orig.mIsEnabled; 
   mSupportedPackageURI = orig.mSupportedPackageURI; 
+
+#ifndef LIBSBML_USE_LEGACY_MATH
   mASTBasePlugin = orig.mASTBasePlugin;
+#endif /* LIBSBML_USE_LEGACY_MATH */
 
   for (size_t i=0; i < mSBasePluginCreators.size(); i++)
     delete mSBasePluginCreators[i];
@@ -157,6 +164,7 @@ SBMLExtension::addSBasePluginCreator(const SBasePluginCreatorBase* sbaseExt)
 /** @endcond */
 
 
+#ifndef LIBSBML_USE_LEGACY_MATH
 /** @cond doxygenLibsbmlInternal */
 
 int 
@@ -179,6 +187,35 @@ SBMLExtension::setASTBasePlugin(const ASTBasePlugin* astPlugin)
 
 /** @endcond */
 
+
+bool
+SBMLExtension::isSetASTBasePlugin() const
+{
+  return (mASTBasePlugin != NULL);
+}
+
+
+/** @cond doxygenLibsbmlInternal */
+
+ASTBasePlugin*
+SBMLExtension::getASTBasePlugin()
+{
+  return mASTBasePlugin;
+}
+
+/** @endcond */
+
+/** @cond doxygenLibsbmlInternal */
+
+const ASTBasePlugin*
+SBMLExtension::getASTBasePlugin() const
+{
+  return const_cast<SBMLExtension*>(this)->getASTBasePlugin();
+}
+
+/** @endcond */
+
+#endif /* LIBSBML_USE_LEGACY_MATH */
 
 /** @cond doxygenLibsbmlInternal */
 SBasePluginCreatorBase*
@@ -215,26 +252,6 @@ SBMLExtension::getSBasePluginCreator(const SBaseExtensionPoint& extPoint) const
 
 
 /** @cond doxygenLibsbmlInternal */
-
-ASTBasePlugin*
-SBMLExtension::getASTBasePlugin()
-{
-  return mASTBasePlugin;
-}
-
-/** @endcond */
-
-/** @cond doxygenLibsbmlInternal */
-
-const ASTBasePlugin*
-SBMLExtension::getASTBasePlugin() const
-{
-  return const_cast<SBMLExtension*>(this)->getASTBasePlugin();
-}
-
-/** @endcond */
-
-/** @cond doxygenLibsbmlInternal */
 SBasePluginCreatorBase*
 SBMLExtension::getSBasePluginCreator(unsigned int n)
 {
@@ -258,12 +275,6 @@ SBMLExtension::getNumOfSBasePlugins() const
   return (int)mSBasePluginCreators.size();
 }
 
-
-bool 
-SBMLExtension::isSetASTBasePlugin() const
-{
-  return (mASTBasePlugin != NULL);
-}
 
 /*
  *

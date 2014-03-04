@@ -127,6 +127,10 @@ include(CPack)
 # Here we have the main configuration options for libsbml.
 #
 
+option(LIBSBML_USE_LEGACY_MATH  "Use the legacy math implementation instead of the one supporting packages" OFF)
+mark_as_advanced(LIBSBML_USE_LEGACY_MATH)
+
+
 # Build static / shared library
 # option(BUILD_SHARED_LIBS  "Build shared library. (Set to OFF to build static libraries.)" OFF)
 

@@ -30,6 +30,8 @@ set(TEST_FILES ${CPP_FILES} ${C_FILES} ${H_FILES})
 
 
 include_directories(BEFORE ${CMAKE_SOURCE_DIR}/src)
+include_directories(BEFORE ${CMAKE_BINARY_DIR}/src)
+
 include_directories(${LIBCHECK_INCLUDE_DIR})
 add_executable(test_fbc_validator ${TEST_FILES})
 target_link_libraries(test_fbc_validator ${TEST_LIBSBML_LIBS})

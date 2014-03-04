@@ -98,4 +98,7 @@
    application in case of an allocation / file system error. */
 #cmakedefine EXIT_ON_ERROR 1
 
+/* Define to specify that the legacy math implementation ought to be used. */
+#cmakedefine LIBSBML_USE_LEGACY_MATH 1
+
 #include "libsbml-config-packages.h"

@@ -1,7 +1,5 @@
 ###############################################################################
 #
-# 
-#
 # Description       : CMake build script for the native libsbml tests
 # Original author(s): Frank Bergmann <fbergman@caltech.edu>
 # Organization      : California Institute of Technology
@@ -34,15 +32,21 @@
 # 
 if(WITH_CHECK)
 
-	add_subdirectory(annotation/test)
-	add_subdirectory(conversion/test)
-	add_subdirectory(extension/test)
-	add_subdirectory(math/test)
-	add_subdirectory(test)
-	add_subdirectory(units/test)
-	add_subdirectory(util/test)
-	add_subdirectory(validator/test)
-	add_subdirectory(xml/test)
+  add_subdirectory(annotation/test)
+  add_subdirectory(conversion/test)
+  add_subdirectory(extension/test)
+
+  if (LIBSBML_USE_LEGACY_MATH)
+    add_subdirectory(math-legacy/test)
+  else(LIBSBML_USE_LEGACY_MATH)
+    add_subdirectory(math/test)
+  endif(LIBSBML_USE_LEGACY_MATH)
+
+  add_subdirectory(test)
+  add_subdirectory(units/test)
+  add_subdirectory(util/test)
+  add_subdirectory(validator/test)
+  add_subdirectory(xml/test)
 
 endif()
 

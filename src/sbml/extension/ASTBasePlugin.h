@@ -33,6 +33,9 @@
 #ifndef ASTBasePlugin_h
 #define ASTBasePlugin_h
 
+#include <sbml/common/libsbml-config-common.h>
+
+#ifndef LIBSBML_USE_LEGACY_MATH
 
 #include <sbml/common/sbmlfwd.h>
 #include <sbml/SBMLTypeCodes.h>
@@ -382,6 +385,8 @@ END_C_DECLS
 LIBSBML_CPP_NAMESPACE_END
 
 #endif  /* !SWIG */
+
+#endif /* LIBSBML_USE_LEGACY_MATH */
 
 #endif  /* ASTBasePlugin_h */
 

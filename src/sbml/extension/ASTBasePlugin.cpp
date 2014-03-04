@@ -30,13 +30,21 @@
  * ------------------------------------------------------------------------ -->
  */
 
+
+#include <sbml/common/libsbml-config-common.h>
 #include <sbml/extension/ASTBasePlugin.h>
+
+#ifndef LIBSBML_USE_LEGACY_MATH
+
 #include <sbml/extension/SBMLExtensionRegistry.h>
 
 #ifdef __cplusplus
 
+#include <string>
 #include <sstream>
 #include <iostream>
+
+using namespace std;
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
@@ -569,4 +577,4 @@ LIBSBML_CPP_NAMESPACE_END
 
 /** @endcond */
 
-
+#endif

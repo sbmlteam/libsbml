@@ -19,6 +19,8 @@ file(GLOB CPP_FILES ${CMAKE_CURRENT_SOURCE_DIR}/*.cpp )
 set(TEST_FILES ${CPP_FILES} ${C_FILES})
 
 include_directories(BEFORE ${CMAKE_SOURCE_DIR}/src )
+include_directories(BEFORE ${CMAKE_BINARY_DIR}/src)
+
 include_directories(${LIBCHECK_INCLUDE_DIR})
 add_executable(test_extension_package_qual ${TEST_FILES})
 target_link_libraries(test_extension_package_qual ${LIBSBML_LIBRARY}-static ${LIBCHECK_LIBRARY})

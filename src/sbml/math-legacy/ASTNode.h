@@ -1757,7 +1757,10 @@ setValue(value, 0);
 
   /** @cond doxygenLibsbmlInternal */
     
+  LIBSBML_EXTERN
   bool isBvar() const;
+  
+  LIBSBML_EXTERN
   void setBvar();
 
   /** @endcond */

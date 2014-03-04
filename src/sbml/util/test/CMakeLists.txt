@@ -6,6 +6,8 @@
 
 file(GLOB TEST_FILES_UTIL ${CMAKE_CURRENT_SOURCE_DIR}/*.c)
 include_directories(${LIBCHECK_INCLUDE_DIR})
+include_directories(BEFORE ${CMAKE_BINARY_DIR}/src)
+
 if (EXTRA_INCLUDE_DIRS) 
  include_directories(${EXTRA_INCLUDE_DIRS})
 endif(EXTRA_INCLUDE_DIRS)

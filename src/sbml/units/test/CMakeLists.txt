@@ -17,6 +17,8 @@ file(GLOB H_FILES ${CMAKE_CURRENT_SOURCE_DIR}/*.h )
 set(TEST_FILES ${CPP_FILES} ${C_FILES} ${H_FILES})
 
 include_directories(BEFORE ${CMAKE_SOURCE_DIR}/src)
+include_directories(BEFORE ${CMAKE_BINARY_DIR}/src)
+
 if (EXTRA_INCLUDE_DIRS) 
  include_directories(${EXTRA_INCLUDE_DIRS})
 endif(EXTRA_INCLUDE_DIRS)
