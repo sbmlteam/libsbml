@@ -36,6 +36,7 @@
 #endif  /* WIN32 */
 
 #include <iostream>
+#include <sbml/common/libsbml-config-common.h>
 #include "TestFile.h"
 
 /** @cond doxygenIgnored */
