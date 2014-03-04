@@ -670,7 +670,8 @@ function compile_mex(include_dir, library_dir, matlab_octave)
 
 function success = do_compile_mex(include_dir, library_dir, matlab_octave, altoptions)
 
-  inc_arg    = ['-I', include_dir, '-I', library_dir];
+   inc_arg    = ['-I', include_dir];
+   inc_arg2   = ['-I', library_dir];
   lib_arg    = ['-L', library_dir];
   added_args = [' '];
 
@@ -686,43 +687,43 @@ function success = do_compile_mex(include_dir, library_dir, matlab_octave, altop
     if isWindows()
       fhandle = @mex;
       disp('  - Building TranslateSBML ...');
-      feval(fhandle, 'TranslateSBML.c', inc_arg, library_dir, '-DWIN32');
+      feval(fhandle, 'TranslateSBML.c', inc_arg, inc_arg2, library_dir, '-DWIN32');
       disp('  - Building OutputSBML ...');
-      feval(fhandle, 'OutputSBML.c', inc_arg, library_dir, '-DWIN32');
+      feval(fhandle, 'OutputSBML.c', inc_arg, inc_arg2, library_dir, '-DWIN32');
     else
       fhandle = @mex;
       disp('  - Building TranslateSBML ...');
       if ~isempty(altoptions)
-        feval(fhandle, 'TranslateSBML.c', '-f', altoptions, inc_arg, lib_arg, added_args);
+        feval(fhandle, 'TranslateSBML.c', '-f', altoptions, inc_arg, inc_arg2, lib_arg, added_args);
       else
-        feval(fhandle, 'TranslateSBML.c', inc_arg, lib_arg, added_args);
+        feval(fhandle, 'TranslateSBML.c', inc_arg, inc_arg2, lib_arg, added_args);
       end;
       disp('  - Building OutputSBML ...');
       if ~isempty(altoptions)
-        feval(fhandle, 'OutputSBML.c', '-f', altoptions, inc_arg, lib_arg, added_args);
+        feval(fhandle, 'OutputSBML.c', '-f', altoptions, inc_arg, inc_arg2, lib_arg, added_args);
       else
-        feval(fhandle, 'OutputSBML.c', inc_arg, lib_arg, added_args);
+        feval(fhandle, 'OutputSBML.c', inc_arg, inc_arg2, lib_arg, added_args);
       end;
     end;
   else
     if isWindows()
       fhandle = @mkoctfile;
       disp('  - Building TranslateSBML ...');
-      feval(fhandle, '--mex', 'TranslateSBML.c', '-DUSE_OCTAVE', inc_arg, ...
+      feval(fhandle, '--mex', 'TranslateSBML.c', '-DUSE_OCTAVE', inc_arg, inc_arg2, ...
             '-lbz2', '-lz', library_dir);
       disp('  - Building OutputSBML ...');
-      feval(fhandle, '--mex', 'OutputSBML.c', '-DUSE_OCTAVE', inc_arg, ...
+      feval(fhandle, '--mex', 'OutputSBML.c', '-DUSE_OCTAVE', inc_arg, inc_arg2, ...
             '-lbz2', '-lz', library_dir);
     else
       fhandle = @mkoctfile;
       disp('  - Building TranslateSBML ...');
-      feval(fhandle, '--mex', 'TranslateSBML.c', '-DUSE_OCTAVE', inc_arg, ...
+      feval(fhandle, '--mex', 'TranslateSBML.c', '-DUSE_OCTAVE', inc_arg, inc_arg2, ...
             '-lbz2', '-lz', lib_arg, added_args);
       disp('  - Building OutputSBML ...');
-      feval(fhandle, '--mex', 'OutputSBML.c', '-DUSE_OCTAVE', inc_arg, ...
+      feval(fhandle, '--mex', 'OutputSBML.c', '-DUSE_OCTAVE', inc_arg, inc_arg2, ...
             '-lbz2', '-lz', lib_arg, added_args);
     end;
-%   mkoctfile --mex TranslateSBML.c -DUSE_OCTAVE inc_arg -lbz2 -lz lib_arg;
+%   mkoctfile --mex TranslateSBML.c -DUSE_OCTAVE inc_arg inc_arg2 -lbz2 -lz lib_arg;
   end;
 
   transFile = strcat('TranslateSBML.', mexext());
