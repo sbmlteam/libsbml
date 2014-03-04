@@ -566,12 +566,21 @@ BEGIN_C_DECLS
  * and L3P_AVOGADRO_IS_CSYMBOL.
  *
  * @return a pointer to the newly created L3ParserSettings_t structure.
+ *
+ * @memberof L3ParserSettings_t
  */
 LIBSBML_EXTERN
 L3ParserSettings_t *
 L3ParserSettings_create ();
 
 
+/**
+ * Frees the given L3ParserSettings_t structure.
+ *
+ * @param settings the L3ParserSettings_t to free
+ *
+ * @memberof L3ParserSettings_t
+ */
 LIBSBML_EXTERN
 void
 L3ParserSettings_free (L3ParserSettings_t * settings);
@@ -586,6 +595,8 @@ L3ParserSettings_free (L3ParserSettings_t * settings);
  *
  * @param settings the L3ParserSettings_t structure on which to set the Model.
  * @param model The Model* object to which infix strings are to be compared.
+ *
+ * @memberof L3ParserSettings_t
  */
 LIBSBML_EXTERN
 void
@@ -598,6 +609,8 @@ L3ParserSettings_setModel (L3ParserSettings_t * settings, const Model_t * model)
  * @param settings the L3ParserSettings_t structure from which to get the Model.
  *
  * @return the Model_t* object associated with this L3ParserSettings_t object.
+ *
+ * @memberof L3ParserSettings_t
  */
 LIBSBML_EXTERN
 const Model_t *
@@ -608,6 +621,8 @@ L3ParserSettings_getModel (const L3ParserSettings_t * settings);
  * Unsets the model associated with this L3ParserSettings_t object.
  *
  * @param settings the L3ParserSettings_t structure on which to unset the Model.
+ *
+ * @memberof L3ParserSettings_t
  */
 LIBSBML_EXTERN
 void
@@ -626,6 +641,8 @@ L3ParserSettings_unsetModel (L3ParserSettings_t * settings);
  * @param settings the L3ParserSettings_t structure on which to set the option.
  * @param type ParseLogType_t log parsing option to associate with this 
  * L3ParserSettings_t object.
+ *
+ * @memberof L3ParserSettings_t
  */
 LIBSBML_EXTERN
 void
@@ -646,6 +663,8 @@ L3ParserSettings_setParseLog (L3ParserSettings_t * settings, ParseLogType_t type
  * @return ParseLogType_t log parsing option to associate with this 
  * L3ParserSettings_t object.  Returns L3P_PARSE_LOG_AS_LOG10 (0) if @param settings
  * is NULL.
+ *
+ * @memberof L3ParserSettings_t
  */
 LIBSBML_EXTERN
 ParseLogType_t
@@ -661,6 +680,8 @@ L3ParserSettings_getParseLog (const L3ParserSettings_t * settings);
  * @param settings the L3ParserSettings_t structure on which to set the option.
  * @param flag an integer indicating whether unary minus should be collapsed 
  * (non-zero) or not (zero).
+ *
+ * @memberof L3ParserSettings_t
  */
 LIBSBML_EXTERN
 void
@@ -678,6 +699,8 @@ L3ParserSettings_setParseCollapseMinus (L3ParserSettings_t * settings, int flag)
  * @return an integer indicating whether unary minus should be collapsed 
  * (non-zero) or not (zero).  Returns zero (0) if @param settings
  * is NULL.
+ *
+ * @memberof L3ParserSettings_t
  */
 LIBSBML_EXTERN
 int
@@ -690,6 +713,8 @@ L3ParserSettings_getParseCollapseMinus (const L3ParserSettings_t * settings);
  * @param settings the L3ParserSettings_t structure on which to set the option.
  * @param flag an integer indicating whether numbers should be considered as 
  * a having units (non-zero) or not (zero).
+ *
+ * @memberof L3ParserSettings_t
  */
 LIBSBML_EXTERN
 void
@@ -704,6 +729,8 @@ L3ParserSettings_setParseUnits (L3ParserSettings_t * settings, int flag);
  * @return an integer indicating whether numbers should be considered as 
  * a having units (non-zero) or not (zero).  Returns zero (0) if @param settings
  * is NULL.
+ *
+ * @memberof L3ParserSettings_t
  */
 LIBSBML_EXTERN
 int
@@ -716,6 +743,8 @@ L3ParserSettings_getParseUnits (const L3ParserSettings_t * settings);
  * @param settings the L3ParserSettings_t structure on which to set the option.
  * @param flag an integer indicating whether avogadro should be considered as 
  * a csymbol (non-zero) or not (zero).
+ *
+ * @memberof L3ParserSettings_t
  */
 LIBSBML_EXTERN
 void
@@ -730,6 +759,8 @@ L3ParserSettings_setParseAvogadroCsymbol (L3ParserSettings_t * settings, int fla
  * @return an integer indicating whether avogadro should be considered as 
  * a csymbol (non-zero) or not (zero).  Returns zero (0) if @param settings
  * is NULL.
+ *
+ * @memberof L3ParserSettings_t
  */
 LIBSBML_EXTERN
 int
