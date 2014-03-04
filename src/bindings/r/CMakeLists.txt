@@ -134,6 +134,7 @@ file(GLOB SWIG_DEPENDENCIES
 # generate files that include all packages: 
 #
 
+
 # - local-packages.i
 file(GLOB DOWNCAST_EXTENSION RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} "${CMAKE_CURRENT_SOURCE_DIR}/local-*.i")
 list(REMOVE_ITEM DOWNCAST_EXTENSION "local-packages.i")
@@ -141,7 +142,7 @@ list(REMOVE_ITEM DOWNCAST_EXTENSION "local-packages.i")
 update_ifile(
    "local-packages.i" 
    ${CMAKE_CURRENT_BINARY_DIR} 
-   ${DOWNCAST_EXTENSION} 
+   "${DOWNCAST_EXTENSION}"
 )
 
 # - local-downcast.cpp
@@ -149,7 +150,7 @@ file(GLOB DOWNCAST_EXTENSION RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} "${CMAKE_CURRE
 update_cfile(
    "local-downcast.cpp" 
    ${CMAKE_CURRENT_BINARY_DIR} 
-   ${DOWNCAST_EXTENSION} 
+   "${DOWNCAST_EXTENSION}"
 )
 
 # - local-downcast-extension.cpp
@@ -157,7 +158,7 @@ file(GLOB DOWNCAST_EXTENSION RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} "${CMAKE_CURRE
 update_cfile(
    "local-downcast-extension.cpp" 
    ${CMAKE_CURRENT_BINARY_DIR} 
-   ${DOWNCAST_EXTENSION} 
+   "${DOWNCAST_EXTENSION}" 
 )
 
 # - local-downcast-namespaces.cpp
@@ -165,7 +166,7 @@ file(GLOB DOWNCAST_EXTENSION RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} "${CMAKE_CURRE
 update_cfile(
    "local-downcast-namespaces.cpp" 
    ${CMAKE_CURRENT_BINARY_DIR} 
-   ${DOWNCAST_EXTENSION} 
+   "${DOWNCAST_EXTENSION}"
 )
 
 # - local-downcast-plugins.cpp
@@ -173,7 +174,7 @@ file(GLOB DOWNCAST_EXTENSION RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} "${CMAKE_CURRE
 update_cfile(
    "local-downcast-plugins.cpp" 
    ${CMAKE_CURRENT_BINARY_DIR} 
-   ${DOWNCAST_EXTENSION} 
+   "${DOWNCAST_EXTENSION}"
 )
 
 #

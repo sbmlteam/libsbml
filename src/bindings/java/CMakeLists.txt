@@ -92,7 +92,7 @@ file(GLOB DOWNCAST_EXTENSION RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} "${CMAKE_CURRE
 update_ifile(
    "local-downcast-extension.i" 
    ${CMAKE_CURRENT_BINARY_DIR} 
-   ${DOWNCAST_EXTENSION} 
+   "${DOWNCAST_EXTENSION}"
 )
 
 # - local-downcast-namespaces.i
@@ -100,7 +100,7 @@ file(GLOB DOWNCAST_EXTENSION RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} "${CMAKE_CURRE
 update_ifile(
    "local-downcast-namespaces.i" 
    ${CMAKE_CURRENT_BINARY_DIR} 
-   ${DOWNCAST_EXTENSION} 
+   "${DOWNCAST_EXTENSION}"
 )
 
 # - local-packages.i
@@ -108,7 +108,7 @@ file(GLOB DOWNCAST_EXTENSION RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} "${CMAKE_CURRE
 update_ifile(
    "local-packages.i" 
    ${CMAKE_CURRENT_BINARY_DIR} 
-   ${DOWNCAST_EXTENSION} 
+   "${DOWNCAST_EXTENSION}"
 )
 
 # 
