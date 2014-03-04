@@ -162,6 +162,7 @@ macro(build_matlab_file fileName)
 		# so let us try this one on windows
 		
 		file(TO_NATIVE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/${fileName}.c" src)
+		file(TO_NATIVE_PATH "${CMAKE_CURRENT_BINARY_DIR}/../../" include_path0)
 		file(TO_NATIVE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/../../" include_path1)
 		file(TO_NATIVE_PATH "${CMAKE_SOURCE_DIR}/include" include_path2)
 
@@ -178,6 +179,7 @@ macro(build_matlab_file fileName)
 			COMMAND "${MATLAB_MEX_COMMAND}"
 			ARGS 
 				${src}
+				-I${include_path0}
 				-I${include_path1}
 				-I${include_path2}
 				${sbml_import}
@@ -203,6 +205,7 @@ macro(build_matlab_file fileName)
 		
 		COMMAND "${MATLAB_MEX_COMMAND}"
 		ARGS 
+			-I"${CMAKE_CURRENT_BINARY_DIR}/../../"
 			-I"${CMAKE_CURRENT_SOURCE_DIR}/../../"
 			-I"${CMAKE_SOURCE_DIR}/include"
 			-c

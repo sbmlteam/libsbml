@@ -79,6 +79,7 @@ macro(build_octave_file fileName)
 			-o ${CMAKE_CURRENT_BINARY_DIR}/${fileName}.mex
 			--mex
 			-DUSE_OCTAVE		 
+			-I${CMAKE_CURRENT_BINARY_DIR}/../../
 			-I${CMAKE_CURRENT_SOURCE_DIR}/../../
 			-I${CMAKE_SOURCE_DIR}/include
 			${CMAKE_CURRENT_SOURCE_DIR}/../matlab/${fileName}.c

@@ -670,7 +670,7 @@ function compile_mex(include_dir, library_dir, matlab_octave)
 
 function success = do_compile_mex(include_dir, library_dir, matlab_octave, altoptions)
 
-  inc_arg    = ['-I', include_dir];
+  inc_arg    = ['-I', include_dir, '-I', library_dir];
   lib_arg    = ['-L', library_dir];
   added_args = [' '];
 
