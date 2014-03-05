@@ -54,7 +54,7 @@ STABLE RELEASE
 	  const SBMLDocument object. Since the converters change the
 	  document and indeed the code immediate re-cast the document
 	  object this function was both confusing and inaccurate. 
-	  There is not a setDocument function that does not expect
+	  There is now a setDocument function that does not expect
 	  a const SBMLDocument object.
 	  
 
@@ -67,7 +67,7 @@ STABLE RELEASE
     - There were some discrepancies between the naming of arguments
       to some constructors and the actual values being set using
       these arguments. These have been corrected without changing
-      the actual behaviour. 
+      the resulting behaviour. 
   
     - On occasion when an L2 document with layout and render
       annotations was being upgraded to L3 the render namespace 
