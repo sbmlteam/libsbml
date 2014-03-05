@@ -525,6 +525,13 @@ LocalParameter_clone (const LocalParameter_t *p)
 
 
 LIBSBML_EXTERN
+void
+LocalParameter_initDefaults (LocalParameter_t *p)
+{
+  return;
+}
+
+LIBSBML_EXTERN
 const XMLNamespaces_t *
 LocalParameter_getNamespaces(LocalParameter_t *p)
 {
@@ -560,6 +567,14 @@ const char *
 LocalParameter_getUnits (const LocalParameter_t *p)
 {
   return (p != NULL && p->isSetUnits()) ? p->getUnits().c_str() : NULL;
+}
+
+
+LIBSBML_EXTERN
+int
+LocalParameter_getConstant (const LocalParameter_t *p)
+{
+  return 1;
 }
 
 
@@ -638,6 +653,13 @@ LocalParameter_setUnits (LocalParameter_t *p, const char *units)
     return LIBSBML_INVALID_OBJECT;
 }
 
+
+LIBSBML_EXTERN
+int
+LocalParameter_setConstant (LocalParameter_t *p, int value)
+{
+  return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+}
 
 LIBSBML_EXTERN
 int
