@@ -575,6 +575,6 @@ LIBSBML_CPP_NAMESPACE_END
 #endif  /* __cplusplus */
 
 
-/** @endcond */
+#endif /* LIBSBML_USE_LEGACY_MATH */
 
-#endif
+/** @endcond */
