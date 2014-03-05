@@ -476,7 +476,7 @@ int ModelHistory_addCreator(ModelHistory_t * mh,
                              ModelCreator_t * mc);
 
 /**
- * Get the number of ModelCreator objects in this 
+ * Get the number of ModelCreator_t structures in this 
  * ModelHistory.
  * 
  * @param mh the ModelHistory_t structure
@@ -490,7 +490,7 @@ LIBSBML_EXTERN
 unsigned int ModelHistory_getNumCreators(ModelHistory_t * mh);
 
 /**
- * Get the List of ModelCreator objects in this 
+ * Get the List of ModelCreator_t structures in this 
  * ModelHistory.
  *
  * @param mh the ModelHistory_t structure
@@ -622,7 +622,7 @@ int
 ModelHistory_addModifiedDate(ModelHistory_t * mh, Date_t * date);
 
 /**
- * Get the List of Date objects in the list of ModifiedDates 
+ * Get the List of Date_t structures in the list of ModifiedDates 
  * in this ModelHistory.
  *
  * @param mh the ModelHistory_t structure
@@ -637,7 +637,7 @@ List_t *
 ModelHistory_getListModifiedDates(ModelHistory_t * mh);
 
 /**
- * Get the number of modified Date objects in the list of ModifiedDates 
+ * Get the number of modified Date_t structures in the list of ModifiedDates 
  * in this ModelHistory.
  *
  * @param mh the ModelHistory_t structure
@@ -661,7 +661,7 @@ ModelHistory_getNumModifiedDates(ModelHistory_t * mh);
  * @return the nth Date in the list of ModifiedDates
  * of this ModelHistory.
  *
- * @note A bug in libSBML meant that originally a ModelHistory object
+ * @note A bug in libSBML meant that originally a ModelHistory_t structure
  * contained only one instance of a ModifiedDate.  In fact the MIRIAM
  * annotation expects zero or more modified dates and thus the
  * implementation was changed.  To avoid impacting on existing code

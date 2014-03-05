@@ -403,11 +403,11 @@ ConversionOption_t*
 ConversionOption_create(const char* key);
 
 /** 
- * Creates and returns a deep copy of the ConversionOption object.
+ * Creates and returns a deep copy of the ConversionOption_t structure.
  * 
  * @param co the conversion option to clone
  *
- * @return a (deep) copy of the ConversionOption object.
+ * @return a (deep) copy of the ConversionOption_t structure.
  *
  * @memberof ConversionOption_t
  */

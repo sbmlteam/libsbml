@@ -3218,7 +3218,7 @@ ASTNode_setStyle (ASTNode_t *node, const char *style);
 /**
  * Sets the units of the given node.
  *
- * The units will be set @em only if the ASTNode_t object in @p node
+ * The units will be set @em only if the ASTNode_t structure in @p node
  * represents a MathML <code>&lt;cn&gt;</code> element, i.e., represents a
  * number.  Callers may use ASTNode_isNumber() to inquire whether the node is
  * of that type.
@@ -3372,11 +3372,11 @@ ASTNode_reduceToBinary(ASTNode_t* node);
 
 
 /**
- * Returns the parent SBML structure containing the given node.
+ * Returns the parent SBase_t structure containing the given node.
  *
  * @param node the node to query
  *
- * @return a pointer to the object structure containing the given node.
+ * @return a pointer to the structure containing the given node.
  *
  * @memberof ASTNode_t
  */
@@ -3386,10 +3386,10 @@ ASTNode_getParentSBMLObject(ASTNode_t* node);
 
 
 /**
- * Sets the parent SBML object.
+ * Sets the parent SBase_t structure.
  *
  * @param node the node to modify
- * @param sb the parent SBML object of this ASTNode.
+ * @param sb the parent SBase_t structure of this ASTNode.
  *
  * @return integer value indicating success/failure of the
  * function.  The possible values returned by this function are:

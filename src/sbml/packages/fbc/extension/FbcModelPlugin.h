@@ -748,7 +748,7 @@ FbcModelPlugin_getFluxBound(SBasePlugin_t * fmp, unsigned int n);
 
 
 /**
- * Returns the number of EventAssignment_t objects attached to the given
+ * Returns the number of EventAssignment_t structures attached to the given
  * FbcModelPlugin_t.
  *
  * @param fmp the FbcModelPlugin_t structure to use
@@ -806,7 +806,7 @@ FbcModelPlugin_getObjective(SBasePlugin_t * fmp, unsigned int n);
 
 
 /**
- * Returns the number of Objective_t objects attached to the given
+ * Returns the number of Objective_t structures attached to the given
  * FbcModelPlugin_t.
  *
  * @param fmp the FbcModelPlugin_t structure to use

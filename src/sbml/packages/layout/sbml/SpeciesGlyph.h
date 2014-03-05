@@ -272,7 +272,7 @@ SpeciesGlyph_t *
 SpeciesGlyph_create (void);
 
 /**
- * Create a new SpeciesGlyph_t object from a template.
+ * Create a new SpeciesGlyph_t structure from a template.
  * 
  * @param temp The SpeciesGlyph_t structure to copy
  *

@@ -506,7 +506,7 @@ SBMLReader_free (SBMLReader_t *sr);
  *   }\n
  * </code>
  *
- * @param sr The SBMLReader_t object to use
+ * @param sr The SBMLReader_t structure to use
  *
  * @param filename a string giving the path to a file where the XML
  * content is to be found.
@@ -547,7 +547,7 @@ SBMLReader_readSBML (SBMLReader_t *sr, const char *filename);
  *   }\n
  * </code>
  *
- * @param sr The SBMLReader_t object to use
+ * @param sr The SBMLReader_t structure to use
  *
  * @param filename a string giving the path to a file where the XML
  * content is to be found.
@@ -575,7 +575,7 @@ SBMLReader_readSBMLFromFile (SBMLReader_t *sr, const char *filename);
  * the method documentation for readSBML(filename) for example error
  * checking code.
  *
- * @param sr the SBMLReader_t object to use
+ * @param sr the SBMLReader_t structure to use
  *
  * @param xml the input xml string.
  *
@@ -732,7 +732,7 @@ readSBMLFromFile (const char *filename);
  * an XML declaration string will be prepended.
  *
  * This method will report an error if the given string @p xml is not SBML.
- * The error will be logged in the error log of the SBMLDocument_t object
+ * The error will be logged in the error log of the SBMLDocument_t structure
  * returned by this method.  Calling programs can inspect this error log to
  * determine the nature of the problem.  Please refer to the definition of
  * SBMLDocument for more information about the error reporting mechanism.

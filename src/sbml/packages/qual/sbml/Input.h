@@ -1288,17 +1288,17 @@ ListOfInputs_getById(ListOf_t * lo, const char * sid);
 
 
 /**
- * Removes the Input_t object with the given @p sid
- * from the given ListOfInputs_t object and returns a pointer to it.
+ * Removes the Input_t structure with the given @p sid
+ * from the given ListOfInputs_t structure and returns a pointer to it.
  *
- * The caller owns the returned object and is responsible for deleting it.
+ * The caller owns the returned structure and is responsible for deleting it.
  *
  * @param lo the ListOf_t structure
  * @param sid the string of the "id" attribute of the Input_t sought
  *
- * @return the Input_t object removed.  As mentioned above, the 
- * caller owns the returned object. @c NULL is returned if no Input_t
- * object with the "id" attribute exists in the given ListOfInputs_t object.
+ * @return the Input_t structure removed.  As mentioned above, the 
+ * caller owns the returned structure. @c NULL is returned if no Input_t
+ * structure with the "id" attribute exists in the given ListOfInputs_t structure.
  *
  * @memberof Input_t
  */

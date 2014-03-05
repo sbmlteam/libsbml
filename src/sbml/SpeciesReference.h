@@ -488,7 +488,7 @@ public:
    * "stoichiometryMath" subelement.  However, as a convenience to users,
    * libSBML allows the creation and manipulation of rational-number
    * stoichiometries by supplying the numerator and denominator directly
-   * rather than having to manually create an ASTNode structure.  LibSBML
+   * rather than having to manually create an ASTNode object.  LibSBML
    * will write out the appropriate constructs (either a combination of
    * "stoichiometry" and "denominator" in the case of SBML Level&nbsp;1, or a
    * "stoichiometryMath" subelement in the case of SBML Level&nbsp;2).
@@ -635,7 +635,7 @@ public:
    * "stoichiometryMath" subelement.  However, as a convenience to users,
    * libSBML allows the creation and manipulation of rational-number
    * stoichiometries by supplying the numerator and denominator directly
-   * rather than having to manually create an ASTNode structure.  LibSBML
+   * rather than having to manually create an ASTNode object.  LibSBML
    * will write out the appropriate constructs (either a combination of
    * "stoichiometry" and "denominator" in the case of SBML Level&nbsp;1, or
    * a "stoichiometryMath" subelement in the case of SBML Level&nbsp;2).
@@ -1220,7 +1220,7 @@ BEGIN_C_DECLS
  * creation time is an important aid to creating valid SBML.  Knowledge of
  * the intended SBML Level and Version  determine whether it is valid to
  * assign a particular value to an attribute, or whether it is valid to add
- * an object to an existing SBMLDocument.
+ * a structure to an existing SBMLDocument.
  *
  * @memberof SpeciesReference_t
  */
@@ -1233,7 +1233,7 @@ SpeciesReference_create (unsigned int level, unsigned int version);
  * Creates a new SpeciesReference_t structure using the given
  * SBMLNamespaces_t structure.
  *
- * @param sbmlns SBMLNamespaces, a pointer to an SBMLNamespaces structure
+ * @param sbmlns SBMLNamespaces_t, a pointer to an SBMLNamespaces_t structure
  * to assign to this SpeciesReference_t
  *
  * @return a pointer to the newly created SpeciesReference_t structure.
@@ -1243,7 +1243,7 @@ SpeciesReference_create (unsigned int level, unsigned int version);
  * the SpeciesReference_t.  Despite this, the ability to supply the values at 
  * creation time is an important aid to creating valid SBML.  Knowledge of the 
  * intended SBML Level and Version determine whether it is valid to assign a 
- * particular value to an attribute, or whether it is valid to add an object 
+ * particular value to an attribute, or whether it is valid to add a structure 
  * to an existing SBMLDocument.
  *
  * @memberof SpeciesReference_t
@@ -1271,7 +1271,7 @@ SpeciesReference_createWithNS (SBMLNamespaces_t *sbmlns);
  * the values at creation time is an important aid to creating valid SBML.  
  * Knowledge of the intended SBML Level and Version determine whether it is
  * valid to assign a particular value to an attribute, or whether it is valid 
- * to add an object to an existing SBMLDocument.
+ * to add a structure to an existing SBMLDocument.
  *
  * @memberof SpeciesReference_t
  */
@@ -1284,8 +1284,8 @@ SpeciesReference_createModifier (unsigned int level, unsigned int version);
  * Creates a new ModifierSpeciesReference (SpeciesReference_t) structure 
  * using the given SBMLNamespaces_t structure.
  *
- * @param sbmlns SBMLNamespaces, a pointer to an SBMLNamespaces structure
- * to assign to this ModifierSpeciesReference
+ * @param sbmlns SBMLNamespaces_t, a pointer to an SBMLNamespaces_t structure
+ * to assign to this ModifierSpeciesReference_t
  *
  * @return a pointer to the newly created SpeciesReference_t structure.
  *
@@ -1294,7 +1294,7 @@ SpeciesReference_createModifier (unsigned int level, unsigned int version);
  * the ModifierSpeciesReference. Despite this, the ability to supply the values 
  * at creation time is an important aid to creating valid SBML.  Knowledge of 
  * the intended SBML Level and Version determine whether it is valid to assign a 
- * particular value to an attribute, or whether it is valid to add an object to 
+ * particular value to an attribute, or whether it is valid to add a structure to 
  * an existing SBMLDocument.
  *
  * @memberof SpeciesReference_t
@@ -1357,7 +1357,7 @@ SpeciesReference_initDefaults (SpeciesReference_t *sr);
  * @param sr the SpeciesReference_t structure
  * 
  * @return pointer to the XMLNamespaces_t structure associated with 
- * this SBML object
+ * this structure
  *
  * @memberof SpeciesReference_t
  */
@@ -1473,7 +1473,7 @@ SpeciesReference_getStoichiometryMath (SpeciesReference_t *sr);
  * However, as a convenience to users, libSBML allows the creation and
  * manipulation of rational-number stoichiometries by supplying the
  * numerator and denominator directly rather than having to manually create
- * an ASTNode structure.  LibSBML will write out the appropriate constructs
+ * an ASTNode_t structure.  LibSBML will write out the appropriate constructs
  * (either a combination of "stoichiometry" and "denominator" in the case
  * of SBML Level 1, or a "stoichiometryMath" subelement in the case of SBML
  * Level 2).
@@ -1776,7 +1776,7 @@ SpeciesReference_setStoichiometryMath (  SpeciesReference_t *sr
  * However, as a convenience to users, libSBML allows the creation and
  * manipulation of rational-number stoichiometries by supplying the
  * numerator and denominator directly rather than having to manually create
- * an ASTNode structure.  LibSBML will write out the appropriate constructs
+ * an ASTNode_t structure.  LibSBML will write out the appropriate constructs
  * (either a combination of "stoichiometry" and "denominator" in the case
  * of SBML Level 1, or a "stoichiometryMath" subelement in the case of SBML
  * Level 2).
@@ -1910,12 +1910,12 @@ SpeciesReference_unsetStoichiometry (SpeciesReference_t *sr);
 
 /**
   * Predicate returning @c true or @c false depending on whether
-  * all the required attributes for this SpeciesReference_t object
+  * all the required attributes for this SpeciesReference_t structure
   * have been set.
   *
  * @param sr the SpeciesReference_t structure to check.
  *
-  * @note The required attributes for a SpeciesReference_t object are:
+  * @note The required attributes for a SpeciesReference_t structure are:
   * @li species
   * @li constant (in L3 only)
   *

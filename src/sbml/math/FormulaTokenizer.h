@@ -185,8 +185,8 @@ typedef struct
 
 
 /**
- * Creates a new FormulaTokenizer_t object for the given @p formula string
- * and returns a pointer to the object.
+ * Creates a new FormulaTokenizer_t structure for the given @p formula string
+ * and returns a pointer to the structure.
  *
  * SBML Level 1 uses a simple text-string representation of mathematical
  * formulas, rather than the MathML-based representation used in SBML
@@ -202,7 +202,7 @@ typedef struct
  * @param formula the text string that contains the mathematical formula to
  * be tokenized.
  * 
- * @return a FormulaTokenizer_t object that tracks the state of tokenizing
+ * @return a FormulaTokenizer_t structure that tracks the state of tokenizing
  * the string.
  *
  * @see FormulaTokenizer_nextToken()
@@ -220,7 +220,7 @@ FormulaTokenizer_createFromFormula (const char *formula);
 
 
 /**
- * Frees the given FormulaTokenizer_t object @p ft.
+ * Frees the given FormulaTokenizer_t structure @p ft.
  *
  * @if conly
  * @memberof FormulaTokenizer_t
@@ -253,7 +253,7 @@ FormulaTokenizer_free (FormulaTokenizer_t *ft);
  * tokenizer system, such as FormulaTokenizer_createFromFormula() and
  * FormulaTokenizer_getName().
  *
- * @param ft the object tracking the current tokenization state.
+ * @param ft the structure tracking the current tokenization state.
  *
  * @return a pointer to a token.  If no more tokens are available, the
  * token type will be @c TT_END.  Please consult the documentation for the

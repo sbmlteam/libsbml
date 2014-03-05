@@ -1406,7 +1406,7 @@ Submodel_getDeletionById(Submodel_t * s, const char * sid);
 
 
 /**
- * Returns the number of EventAssignment_t objects attached to the given
+ * Returns the number of EventAssignment_t structures attached to the given
  * Submodel_t.
  *
  * @param s the Submodel_t structure to use
@@ -1421,15 +1421,15 @@ Submodel_getNumDeletions(Submodel_t * s);
 
 
 /**
- * Removes the nth Deletion_t object from the given Submodel_t object and
+ * Removes the nth Deletion_t structure from the given Submodel_t structure and
  * returns a pointer to it.
  *
- * The caller owns the returned object and is responsible for deleting it.
+ * * The caller owns the returned structure and is responsible for deleting it.
  *
  * @param s the Submodel_t structure
  * @param n the integer index of the Deletion_t sought
  *
- * @return the Deletion_t object removed.  As mentioned above, 
+ * @return the Deletion_t structure removed.  As mentioned above, 
  * the caller owns the returned item. @c NULL is returned if the given index 
  * is out of range.
  *
@@ -1441,17 +1441,17 @@ Submodel_removeDeletion(Submodel_t * s, unsigned int n);
 
 
 /**
- * Removes the Deletion_t object with the given @p sid
- * from the given Submodel_t object and returns a pointer to it.
+ * Removes the Deletion_t structure with the given @p sid
+ * from the given Submodel_t structure and returns a pointer to it.
  *
- * The caller owns the returned object and is responsible for deleting it.
+ * * The caller owns the returned structure and is responsible for deleting it.
  *
  * @param s the Submodel_t structure
  * @param sid the string of the "id" attribute of the Deletion_t sought
  *
- * @return the Deletion_t object removed.  As mentioned above, the 
- * caller owns the returned object. @c NULL is returned if no Deletion_t
- * object with the "id" attribute exists in the given Submodel_t object.
+ * @return the Deletion_t structure removed.  As mentioned above, the 
+ * caller owns the returned structure. @c NULL is returned if no Deletion_t
+ * structure with the "id" attribute exists in the given Submodel_t structure.
  *
  * @memberof Submodel_t
  */
@@ -1480,7 +1480,7 @@ Submodel_hasRequiredAttributes(Submodel_t * s);
   * all the required elements for the given Submodel_t structure
   * have been set.
   *
-  * @note The required elements for an Submodel_t object are:
+  * @note The required elements for an Submodel_t structure are:
   * @li trigger
   * @li listOfEventAssignments (requirement removed in L3)
   *
@@ -1510,17 +1510,17 @@ ListOfSubmodels_getById(ListOf_t * lo, const char * sid);
 
 
 /**
- * Removes the Submodel_t object with the given @p sid
- * from the given ListOf_t object and returns a pointer to it.
+ * Removes the Submodel_t structure with the given @p sid
+ * from the given ListOf_t structure and returns a pointer to it.
  *
- * The caller owns the returned object and is responsible for deleting it.
+ * * The caller owns the returned structure and is responsible for deleting it.
  *
  * @param lo the ListOf_t structure
  * @param sid the string of the "id" attribute of the Submodel_t sought
  *
- * @return the Submodel_t object removed.  As mentioned above, the 
- * caller owns the returned object. @c NULL is returned if no Submodel_t
- * object with the "id" attribute exists in the given ListOf_t object.
+ * @return the Submodel_t structure removed.  As mentioned above, the 
+ * caller owns the returned structure. @c NULL is returned if no Submodel_t
+ * structure with the "id" attribute exists in the given ListOf_t structure.
  *
  * @memberof Submodel_t
  */

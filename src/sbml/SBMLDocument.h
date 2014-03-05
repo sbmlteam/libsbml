@@ -1665,6 +1665,21 @@ SBMLDocument_t *
 SBMLDocument_createWithLevelAndVersion (unsigned int level, unsigned int version);
 
 
+/**
+ * Creates a new SBMLDocument using the given SBMLNamespaces_t structure 
+ * @p sbmlns.
+ *
+ * @copydetails doc_what_are_sbmlnamespaces 
+ *
+ * @param sbmlns an SBMLNamespaces_t structure.
+ *
+ * @throws @if python ValueError @else SBMLConstructorException @endif@~
+ * Thrown if the given @p level and @p version combination, or this kind
+ * of SBML structure, are either invalid or mismatched with respect to the
+ * parent SBMLDocument_t structure.
+ *
+ * @memberof SBMLDocument_t
+ */
 LIBSBML_EXTERN
 SBMLDocument_t *
 SBMLDocument_createWithSBMLNamespaces (SBMLNamespaces_t *sbmlns);
@@ -1726,7 +1741,7 @@ SBMLDocument_getVersion (const SBMLDocument_t *d);
 
 
 /**
- * Returns the Model object stored in this SBMLDocument_t structure.
+ * Returns the Model_t structure stored in this SBMLDocument_t structure.
  *
  * @param d the SBMLDocument_t structure
  * 
@@ -1898,7 +1913,7 @@ SBMLDocument_setLevelAndVersion (  SBMLDocument_t *d
  * SBMLDocument::setConsistencyChecks function.  If either the source
  * or the potential target model have validation errors, the conversion
  * is not performed.  When a strict conversion is successful, the
- * underlying SBML object model is altered to reflect the new level
+ * underlying SBML structure model is altered to reflect the new level
  * and version.  Thus information that cannot be converted (e.g. sboTerms)
  * will be lost.  
  *
@@ -1997,10 +2012,36 @@ LIBSBML_EXTERN
 Model_t *
 SBMLDocument_createModel (SBMLDocument_t *d);
 
+
+/**
+ * Sets the location of this SBMLDocument.
+ *
+ * Called automatically when readSBMLFromFile is used, but may be set
+ * manually as well.
+ *
+ * @param d the SBMLDocument_t structure
+ * @param location the location URI of the document.
+ *
+ * @memberof SBMLDocument_t
+ */
 LIBSBML_EXTERN
 void 
 SBMLDocument_setLocationURI (SBMLDocument_t *d, const char* location);
 
+/**
+ * Get the location of this SBMLDocument.
+ *
+ * If this document was read from a file or had its location set manually,
+ * that filename or set location will be returned, otherwise, an empty
+ * string is returned.
+ *
+ * @param d the SBMLDocument_t structure to query
+ *
+ * @return The filename or set location of the document, or an empty string if
+ * no such information is found.
+ *
+ * @memberof SBMLDocument_t
+ */
 LIBSBML_EXTERN
 char*
 SBMLDocument_getLocationURI(SBMLDocument_t *d);
@@ -2036,7 +2077,7 @@ SBMLDocument_getLocationURI(SBMLDocument_t *d);
  * model construction.
  * 
  * By default, all validation checks are applied to the model in an
- * SBMLDocument object @em unless setConsistencyChecks() is called to
+ * SBMLDocument_t structure @em unless setConsistencyChecks() is called to
  * indicate that only a subset should be applied.
  *
  * @param d the SBMLDocument_t structure
@@ -2048,7 +2089,7 @@ SBMLDocument_getLocationURI(SBMLDocument_t *d);
  * category should be applied or not. 
  * 
  * @note The default (i.e., performing all checks) applies to each new
- * SBMLDocument object created.  This means that each time a model is
+ * SBMLDocument_t structure created.  This means that each time a model is
  * read using SBMLReader::readSBML(), SBMLReader::readSBMLFromString, or
  * the global functions readSBML() and readSBMLFromString(), a new
  * SBMLDocument is created and for that document all checks are enabled.
@@ -2094,7 +2135,7 @@ SBMLDocument_setConsistencyChecks(SBMLDocument_t *d,
  * model construction.
  * 
  * By default, all validation checks are applied to the model in an
- * SBMLDocument object @em unless setConsistencyChecks() is called to
+ * SBMLDocument_t structure @em unless setConsistencyChecks() is called to
  * indicate that only a subset should be applied.
  *
  * @param d the SBMLDocument_t structure
@@ -2106,7 +2147,7 @@ SBMLDocument_setConsistencyChecks(SBMLDocument_t *d,
  * category should be applied or not. 
  * 
  * @note The default (i.e., performing all checks) applies to each new
- * SBMLDocument object created.  This means that each time a model is
+ * SBMLDocument_t structure created.  This means that each time a model is
  * read using SBMLReader::readSBML(), SBMLReader::readSBMLFromString, or
  * the global functions readSBML() and readSBMLFromString(), a new
  * SBMLDocument is created and for that document all checks are enabled.
@@ -2128,7 +2169,7 @@ SBMLDocument_setConsistencyChecksForConversion(SBMLDocument_t *d,
  * If this method returns a nonzero value (meaning, one or more
  * consistency checks have failed for SBML document), the failures may be
  * due to warnings @em or errors.  Callers should inspect the severity
- * flag in the individual SBMLError objects returned by getError() to
+ * flag in the individual SBMLError_t structures returned by getError() to
  * determine the nature of the failures.
  *
  * @param d the SBMLDocument_t structure
@@ -2142,6 +2183,27 @@ unsigned int
 SBMLDocument_checkConsistency (SBMLDocument_t *d);
 
 
+/**
+ * Performs consistency checking and validation on the given SBML document.
+ *
+ * If this method returns a nonzero value (meaning, one or more
+ * consistency checks have failed for SBML document), the failures may be
+ * due to warnings @em or errors.  Callers should inspect the severity
+ * flag in the individual SBMLError_t structures returned by
+ * SBMLDocument_getError() to determine the nature of the failures.
+ *
+ * @note unlike SBMLDocument_checkConsistency(), this method will write the document
+ *       in order to determine all errors for the document. This will 
+ *       also clear the error log. 
+ *
+ * @param d the SBMLDocument_t structure
+ *
+ * @return the number of failed checks (errors) encountered.
+ *
+ * @see SBMLDocument_checkConsistency()
+ *
+ * @memberof SBMLDocument_t
+ */
 LIBSBML_EXTERN
 unsigned int
 SBMLDocument_validateSBML (SBMLDocument_t *d);
@@ -2402,7 +2464,7 @@ SBMLDocument_getDefaultVersion ();
  *
  * @param d the SBMLDocument_t structure
  * 
- * @return pointer to the XMLNamespaces_t structure associated with this SBML object
+ * @return pointer to the XMLNamespaces_t structure associated with this SBML structure
  *
  * @memberof SBMLDocument_t
  */
@@ -2411,33 +2473,157 @@ const XMLNamespaces_t *
 SBMLDocument_getNamespaces(SBMLDocument_t *d);
 
 
+/**
+ * Sets the SBMLnamespaces 
+ *
+ * @param d the SBMLDocument_t structure to change
+ * @param sbmlns The SBMLNamespaces_t structure to set
+ * 
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT  @endlink
+ *
+ * @memberof SBMLDocument_t
+ */
 LIBSBML_EXTERN
 int
 SBMLDocument_setSBMLNamespaces (SBMLDocument_t *d, SBMLNamespaces_t * sbmlns);
 
 
+/**
+ * Returns the <code>required</code> attribute of the given package
+ * extension.
+ *
+ * @note The name of package must not be given if the package is not
+ * enabled.
+ *
+ * @param d the SBMLDocument_t structure to check
+ * @param package the name or URI of the package extension.
+ *
+ * @return true (non-zero) if the package is flagged as
+ * being required in this SBML document, false (0) otherwise.
+ *
+ * @deprecated Replaced in libSBML 5.2.0 by
+ * SBMLDocument_getPackageRequired()
+ *
+ * @memberof SBMLDocument_t
+ */
 LIBSBML_EXTERN
 int
 SBMLDocument_getPkgRequired (SBMLDocument_t *d, const char * package);
 
+/**
+ * Returns the <code>required</code> attribute of the given package
+ * extension.
+ *
+ * @note The name of package must not be given if the package is not
+ * enabled.
+ *
+ * @param d the SBMLDocument_t structure to check
+ * @param package the name or URI of the package extension.
+ *
+ * @return true (non-zero) if the package is flagged as
+ * being required in this SBML document, false (0) otherwise.
+ *
+ * @memberof SBMLDocument_t
+ */
 LIBSBML_EXTERN
 int
 SBMLDocument_getPackageRequired (SBMLDocument_t *d, const char * package);
 
 
+/**
+ * Sets the value of the <code>required</code> attribute for the given
+ * package.
+ *
+ * @note The name of package must not be given if the package is not
+ * enabled.
+ *
+ * @param d the SBMLDocument_t structure
+ * @param package the name or URI of the package extension.
+ * @param flag a Boolean value.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_PKG_UNKNOWN_VERSION LIBSBML_PKG_UNKNOWN_VERSION @endlink
+ *
+ * @deprecated Replaced in libSBML 5.2.0 by
+ * SBMLDocument_setPackageRequired()
+ *
+ * @memberof SBMLDocument_t
+ */
 LIBSBML_EXTERN
 int
 SBMLDocument_setPkgRequired (SBMLDocument_t *d, const char * package, int flag);
 
+/**
+ * Sets the value of the <code>required</code> attribute for the given
+ * package.
+ *
+ * @note The name of package must not be given if the package is not
+ * enabled.
+ *
+ * @param d the SBMLDocument_t structure
+ * @param package the name or URI of the package extension.
+ * @param flag a Boolean value.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_PKG_UNKNOWN_VERSION LIBSBML_PKG_UNKNOWN_VERSION @endlink
+ *
+ * @memberof SBMLDocument_t
+ */
 LIBSBML_EXTERN
 int
 SBMLDocument_setPackageRequired (SBMLDocument_t *d, const char * package, int flag);
 
 
+/**
+ * Tests whether the required attribute of the given package extension
+ * is defined.
+ *
+ * @note The name of package must not be given if the package is not
+ * enabled.
+ *
+ * @param d the SBMLDocument_t structure
+ * @param package the name or URI of the package extension.
+ *
+ * @return @c non-zero (true) if the required attribute of the given package extension
+ * is defined, @c zero (false) otherwise.
+ *
+ * @deprecated Replaced in libSBML 5.2.0 by
+ * SBMLDocument_isSetPackageRequired()
+ *
+ * @memberof SBMLDocument_t
+ */
 LIBSBML_EXTERN
 int
 SBMLDocument_isSetPkgRequired (SBMLDocument_t *d, const char * package);
 
+/**
+ * Tests whether the required attribute of the given package extension
+ * is defined.
+ *
+ * @note The name of package must not be given if the package is not
+ * enabled.
+ *
+ * @param d the SBMLDocument_t structure
+ * @param package the name or URI of the package extension.
+ *
+ * @return @c non-zero (true) if the required attribute of the given package extension
+ * is defined, @c zero (false) otherwise.
+ *
+ * @memberof SBMLDocument_t
+ */
 LIBSBML_EXTERN
 int
 SBMLDocument_isSetPackageRequired (SBMLDocument_t *d, const char * package);

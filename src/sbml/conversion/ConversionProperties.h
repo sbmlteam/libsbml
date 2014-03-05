@@ -404,11 +404,11 @@ ConversionProperties_t*
 ConversionProperties_createWithSBMLNamespace(SBMLNamespaces_t* sbmlns);
 
 /** 
- * Creates and returns a deep copy of the given ConversionProperties object.
+ * Creates and returns a deep copy of the given ConversionProperties_t structure.
  * 
  * @param cp the conversion properties to clone
  * 
- * @return a (deep) copy of this ConversionProperties object.
+ * @return a (deep) copy of this ConversionProperties_t structure.
  *
  * @memberof ConversionProperties_t
  */
@@ -418,7 +418,7 @@ ConversionProperties_clone(const ConversionProperties_t* cp);
 
 /**
  * Returns the value as boolean for a given option in the properties
- * object.
+ * structure.
  * 
  * @param cp the conversion properties
  * @param key the key for the option.
@@ -433,7 +433,7 @@ ConversionProperties_getBoolValue(const ConversionProperties_t* cp, const char* 
 
 /**
  * Returns the value as integer for a given option in the properties
- * object.
+ * structure.
  * 
  * @param cp the conversion properties
  * @param key the key for the option.
@@ -448,7 +448,7 @@ ConversionProperties_getIntValue(const ConversionProperties_t* cp, const char* k
 
 /**
  * Returns the description string for a given option in the properties
- * object.
+ * structure.
  * 
  * @param cp the conversion properties
  * @param key the key for the option.
@@ -463,7 +463,7 @@ ConversionProperties_getDescription(const ConversionProperties_t* cp, const char
 
 /**
  * Returns the value as double for a given option in the properties
- * object.
+ * structure.
  * 
  * @param cp the conversion properties
  * @param key the key for the option.
@@ -478,7 +478,7 @@ ConversionProperties_getDoubleValue(const ConversionProperties_t* cp, const char
 
 /**
  * Returns the value as float for a given option in the properties
- * object.
+ * structure.
  * 
  * @param cp the conversion properties
  * @param key the key for the option.
@@ -493,7 +493,7 @@ ConversionProperties_getFloatValue(const ConversionProperties_t* cp, const char*
 
 /**
  * Returns the value string for a given option in the properties
- * object.
+ * structure.
  * 
  * @param cp the conversion properties
  * @param key the key for the option.
@@ -507,7 +507,7 @@ char*
 ConversionProperties_getValue(const ConversionProperties_t* cp, const char* key);
 
 /**
- * Returns the ConversionOption object for a given key.
+ * Returns the ConversionOption_t structure for a given key.
  * 
  * @param cp the conversion properties
  * @param key the key for the option.
@@ -521,7 +521,7 @@ const ConversionOption_t*
 ConversionProperties_getOption(const ConversionProperties_t* cp, const char* key);
 
 /**
- * Returns the type of a given option in the properties object.
+ * Returns the type of a given option in the properties structure.
  * 
  * @param cp the conversion properties
  * @param key the key for the option.
@@ -539,7 +539,7 @@ ConversionProperties_getType(const ConversionProperties_t* cp, const char* key);
  *
  * @param cp the conversion properties
  *
- * @return the SBMLNamepaces object expressing the target namespace, or NULL.
+ * @return the SBMLNamepaces_t structure expressing the target namespace, or NULL.
  *
  * @memberof ConversionProperties_t
  */ 
@@ -653,7 +653,7 @@ void
 ConversionProperties_setValue(ConversionProperties_t* cp, const char* key, const char* value);
 
 /**
- * Adds a copy of the given ConversionOption structure to the properties.
+ * Adds a copy of the given ConversionOption_t structure to the properties.
  * 
  * @param cp the conversion properties
  * @param option the option to add
@@ -665,7 +665,7 @@ void
 ConversionProperties_addOption(ConversionProperties_t* cp, const ConversionOption_t* option);
 
 /**
- * Adds a new ConversionOption structure with the given key to the properties.
+ * Adds a new ConversionOption_t structure with the given key to the properties.
  * 
  * @param cp the conversion properties
  * @param key the key for the new option

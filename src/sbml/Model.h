@@ -3725,7 +3725,7 @@ BEGIN_C_DECLS
  * creation time is an important aid to creating valid SBML.  Knowledge of
  * the intended SBML Level and Version  determine whether it is valid to
  * assign a particular value to an attribute, or whether it is valid to add
- * an object to an existing SBMLDocument.
+ * a structure to an existing SBMLDocument.
  *
  * @memberof Model_t
  */
@@ -3738,8 +3738,8 @@ Model_create (unsigned int level, unsigned int version);
  * Creates a new Model_t structure using the given
  * SBMLNamespaces_t structure.
  *
- * @param sbmlns SBMLNamespaces, a pointer to an SBMLNamespaces structure
- * to assign to this Model
+ * @param sbmlns SBMLNamespaces_t, a pointer to an SBMLNamespaces_t structure
+ * to assign to this Model_t
  *
  * @return a pointer to the newly created Model_t structure.
  *
@@ -3748,7 +3748,7 @@ Model_create (unsigned int level, unsigned int version);
  * the Model.  Despite this, the ability to supply the values at creation time
  * is an important aid to creating valid SBML.  Knowledge of the intended SBML
  * Level and Version determine whether it is valid to assign a particular value
- * to an attribute, or whether it is valid to add an object to an existing
+ * to an attribute, or whether it is valid to add a structure to an existing
  * SBMLDocument.
  *
  * @memberof Model_t
@@ -3791,7 +3791,7 @@ Model_free (Model_t *m);
  * @param m the Model_t structure
  * 
  * @return pointer to the XMLNamespaces_t structure associated with 
- * this SBML object
+ * this structure
  *
  * @memberof Model_t
  */
@@ -5052,7 +5052,7 @@ Model_createReaction (Model_t *m);
  *
  * @param m the Model_t structure
  * 
- * @return the SpeciesReference object created
+ * @return the SpeciesReference_t structure created
  *
  * @memberof Model_t
  */
@@ -5074,7 +5074,7 @@ Model_createReactant (Model_t *m);
  *
  * @param m the Model_t structure
  * 
- * @return the SpeciesReference object created
+ * @return the SpeciesReference_t structure created
  *
  * @memberof Model_t
  */
@@ -5096,7 +5096,7 @@ Model_createProduct (Model_t *m);
  *
  * @param m the Model_t structure
  * 
- * @return the ModifierSpeciesReference object created
+ * @return the ModifierSpeciesReference_t structure created
  *
  * @memberof Model_t
  */
@@ -5118,7 +5118,7 @@ Model_createModifier (Model_t *m);
  *
  * @param m the Model_t structure
  * 
- * @return the KineticLaw object created
+ * @return the KineticLaw_t structure created
  *
  * @memberof Model_t
  */
@@ -5143,7 +5143,7 @@ Model_createKineticLaw (Model_t *m);
  *
  * @param m the Model_t structure
  *
- * @return the Parameter object created
+ * @return the Parameter_t structure created
  *
  * @memberof Model_t
  */
@@ -5168,7 +5168,7 @@ Model_createKineticLawParameter (Model_t *m);
  *
  * @param m the Model_t structure
  *
- * @return the LocalParameter object created
+ * @return the LocalParameter_t structure created
  *
  * @memberof Model_t
  */
@@ -6074,15 +6074,15 @@ Model_isPopulatedListFormulaUnitsData(Model_t *m);
 
 
 /**
- * Removes the nth FunctionDefinition_t object from this Model_t object and
+ * Removes the nth FunctionDefinition_t structure from this Model_t structure and
  * returns a pointer to it.
  *
- * The caller owns the returned object and is responsible for deleting it.
+ * The caller owns the returned structure and is responsible for deleting it.
  *
  * @param m the Model_t structure
  * @param n the integer index of the FunctionDefinition_t sought
  *
- * @return the FunctionDefinition_t object removed.  As mentioned above, 
+ * @return the FunctionDefinition_t structure removed.  As mentioned above, 
  * the caller owns the returned item. @c NULL is returned if the given index 
  * is out of range.
  *
@@ -6094,17 +6094,17 @@ Model_removeFunctionDefinition (Model_t *m, unsigned int n);
 
 
 /**
- * Removes the FunctionDefinition_t object with the given "id" attribute
- * from this Model_t object and returns a pointer to it.
+ * Removes the FunctionDefinition_t structure with the given "id" attribute
+ * from this Model_t structure and returns a pointer to it.
  *
- * The caller owns the returned object and is responsible for deleting it.
+ * The caller owns the returned structure and is responsible for deleting it.
  *
  * @param m the Model_t structure
  * @param sid the string of the "id" attribute of the FunctionDefinition_t sought
  *
- * @return the FunctionDefinition_t object removed.  As mentioned above, the 
- * caller owns the returned object. @c NULL is returned if no FunctionDefinition_t
- * object with the identifier exists in this Model_t object.
+ * @return the FunctionDefinition_t structure removed.  As mentioned above, the 
+ * caller owns the returned structure. @c NULL is returned if no FunctionDefinition_t
+ * structure with the identifier exists in this Model_t structure.
  *
  *
  * @memberof Model_t
@@ -6115,15 +6115,15 @@ Model_removeFunctionDefinitionById (Model_t *m, const char* sid);
 
 
 /**
- * Removes the nth UnitDefinition_t object from this Model_t object and
+ * Removes the nth UnitDefinition_t structure from this Model_t structure and
  * returns a pointer to it.
  *
- * The caller owns the returned object and is responsible for deleting it.
+ * The caller owns the returned structure and is responsible for deleting it.
  *
  * @param m the Model_t structure
  * @param n the integer index of the UnitDefinition_t sought
  *
- * @return the UnitDefinition_t object removed.  As mentioned above, 
+ * @return the UnitDefinition_t structure removed.  As mentioned above, 
  * the caller owns the returned item. @c NULL is returned if the given index 
  * is out of range.
  *
@@ -6135,17 +6135,17 @@ Model_removeUnitDefinition (Model_t *m, unsigned int n);
 
 
 /**
- * Removes the UnitDefinition_t object with the given "id" attribute
- * from this Model_t object and returns a pointer to it.
+ * Removes the UnitDefinition_t structure with the given "id" attribute
+ * from this Model_t structure and returns a pointer to it.
  *
- * The caller owns the returned object and is responsible for deleting it.
+ * The caller owns the returned structure and is responsible for deleting it.
  *
  * @param m the Model_t structure
  * @param sid the string of the "id" attribute of the UnitDefinition_t sought
  *
- * @return the UnitDefinition_t object removed.  As mentioned above, the 
- * caller owns the returned object. @c NULL is returned if no UnitDefinition_t
- * object with the identifier exists in this Model_t object.
+ * @return the UnitDefinition_t structure removed.  As mentioned above, the 
+ * caller owns the returned structure. @c NULL is returned if no UnitDefinition_t
+ * structure with the identifier exists in this Model_t structure.
  *
  * @memberof Model_t
  */
@@ -6155,15 +6155,15 @@ Model_removeUnitDefinitionById (Model_t *m, const char* sid);
 
 
 /**
- * Removes the nth CompartmentType_t object from this Model_t object and
+ * Removes the nth CompartmentType_t structure from this Model_t structure and
  * returns a pointer to it.
  *
- * The caller owns the returned object and is responsible for deleting it.
+ * The caller owns the returned structure and is responsible for deleting it.
  *
  * @param m the Model_t structure
  * @param n the integer index of the CompartmentType_t sought
  *
- * @return the CompartmentType_t object removed.  As mentioned above, 
+ * @return the CompartmentType_t structure removed.  As mentioned above, 
  * the caller owns the returned item. @c NULL is returned if the given index 
  * is out of range.
  *
@@ -6175,17 +6175,17 @@ Model_removeCompartmentType (Model_t *m, unsigned int n);
 
 
 /**
- * Removes the CompartmentType_t object with the given "id" attribute
- * from this Model_t object and returns a pointer to it.
+ * Removes the CompartmentType_t structure with the given "id" attribute
+ * from this Model_t structure and returns a pointer to it.
  *
- * The caller owns the returned object and is responsible for deleting it.
+ * The caller owns the returned structure and is responsible for deleting it.
  *
  * @param m the Model_t structure
  * @param sid the string of the "id" attribute of the CompartmentType_t sought
  *
- * @return the CompartmentType_t object removed.  As mentioned above, the 
- * caller owns the returned object. @c NULL is returned if no CompartmentType_t
- * object with the identifier exists in this Model_t object.
+ * @return the CompartmentType_t structure removed.  As mentioned above, the 
+ * caller owns the returned structure. @c NULL is returned if no CompartmentType_t
+ * structure with the identifier exists in this Model_t structure.
  *
  * @memberof Model_t
  */
@@ -6195,15 +6195,15 @@ Model_removeCompartmentTypeById (Model_t *m, const char* sid);
 
 
 /**
- * Removes the nth SpeciesType_t object from this Model_t object and
+ * Removes the nth SpeciesType_t structure from this Model_t structure and
  * returns a pointer to it.
  *
- * The caller owns the returned object and is responsible for deleting it.
+ * The caller owns the returned structure and is responsible for deleting it.
  *
  * @param m the Model_t structure
  * @param n the integer index of the SpeciesType_t sought
  *
- * @return the SpeciesType_t object removed.  As mentioned above, 
+ * @return the SpeciesType_t structure removed.  As mentioned above, 
  * the caller owns the returned item. @c NULL is returned if the given index 
  * is out of range.
  *
@@ -6215,17 +6215,17 @@ Model_removeSpeciesType (Model_t *m, unsigned int n);
 
 
 /**
- * Removes the SpeciesType_t object with the given "id" attribute
- * from this Model_t object and returns a pointer to it.
+ * Removes the SpeciesType_t structure with the given "id" attribute
+ * from this Model_t structure and returns a pointer to it.
  *
- * The caller owns the returned object and is responsible for deleting it.
+ * The caller owns the returned structure and is responsible for deleting it.
  *
  * @param m the Model_t structure
  * @param sid the string of the "id" attribute of the SpeciesType_t sought
  *
- * @return the SpeciesType_t object removed.  As mentioned above, the 
- * caller owns the returned object. @c NULL is returned if no SpeciesType_t
- * object with the identifier exists in this Model_t object.
+ * @return the SpeciesType_t structure removed.  As mentioned above, the 
+ * caller owns the returned structure. @c NULL is returned if no SpeciesType_t
+ * structure with the identifier exists in this Model_t structure.
  *
  * @memberof Model_t
  */
@@ -6235,15 +6235,15 @@ Model_removeSpeciesTypeById (Model_t *m, const char* sid);
 
 
 /**
- * Removes the nth Compartment_t object from this Model_t object and
+ * Removes the nth Compartment_t structure from this Model_t structure and
  * returns a pointer to it.
  *
- * The caller owns the returned object and is responsible for deleting it.
+ * The caller owns the returned structure and is responsible for deleting it.
  *
  * @param m the Model_t structure
  * @param n the integer index of the Compartment_t sought
  *
- * @return the Compartment_t object removed.  As mentioned above, 
+ * @return the Compartment_t structure removed.  As mentioned above, 
  * the caller owns the returned item. @c NULL is returned if the given index 
  * is out of range.
  *
@@ -6255,17 +6255,17 @@ Model_removeCompartment (Model_t *m, unsigned int n);
 
 
 /**
- * Removes the Compartment_t object with the given "id" attribute
- * from this Model_t object and returns a pointer to it.
+ * Removes the Compartment_t structure with the given "id" attribute
+ * from this Model_t structure and returns a pointer to it.
  *
- * The caller owns the returned object and is responsible for deleting it.
+ * The caller owns the returned structure and is responsible for deleting it.
  *
  * @param m the Model_t structure
  * @param sid the string of the "id" attribute of the Compartment_t sought
  *
- * @return the Compartment_t object removed.  As mentioned above, the 
- * caller owns the returned object. @c NULL is returned if no Compartment_t
- * object with the identifier exists in this Model_t object.
+ * @return the Compartment_t structure removed.  As mentioned above, the 
+ * caller owns the returned structure. @c NULL is returned if no Compartment_t
+ * structure with the identifier exists in this Model_t structure.
  *
  * @memberof Model_t
  */
@@ -6275,15 +6275,15 @@ Model_removeCompartmentById (Model_t *m, const char* sid);
 
 
 /**
- * Removes the nth Species_t object from this Model_t object and
+ * Removes the nth Species_t structure from this Model_t structure and
  * returns a pointer to it.
  *
- * The caller owns the returned object and is responsible for deleting it.
+ * The caller owns the returned structure and is responsible for deleting it.
  *
  * @param m the Model_t structure
  * @param n the integer index of the Species_t sought
  *
- * @return the Species_t object removed.  As mentioned above, 
+ * @return the Species_t structure removed.  As mentioned above, 
  * the caller owns the returned item. @c NULL is returned if the given index 
  * is out of range.
  *
@@ -6295,17 +6295,17 @@ Model_removeSpecies (Model_t *m, unsigned int n);
 
 
 /**
- * Removes the Species_t object with the given "id" attribute
- * from this Model_t object and returns a pointer to it.
+ * Removes the Species_t structure with the given "id" attribute
+ * from this Model_t structure and returns a pointer to it.
  *
- * The caller owns the returned object and is responsible for deleting it.
+ * The caller owns the returned structure and is responsible for deleting it.
  *
  * @param m the Model_t structure
  * @param sid the string of the "id" attribute of the Species_t sought
  *
- * @return the Species_t object removed.  As mentioned above, the 
- * caller owns the returned object. @c NULL is returned if no Species_t
- * object with the identifier exists in this Model_t object.
+ * @return the Species_t structure removed.  As mentioned above, the 
+ * caller owns the returned structure. @c NULL is returned if no Species_t
+ * structure with the identifier exists in this Model_t structure.
  *
  * @memberof Model_t
  */
@@ -6315,15 +6315,15 @@ Model_removeSpeciesById (Model_t *m, const char* sid);
 
 
 /**
- * Removes the nth Parameter_t object from this Model_t object and
+ * Removes the nth Parameter_t structure from this Model_t structure and
  * returns a pointer to it.
  *
- * The caller owns the returned object and is responsible for deleting it.
+ * The caller owns the returned structure and is responsible for deleting it.
  *
  * @param m the Model_t structure
  * @param n the integer index of the Parameter_t sought
  *
- * @return the Parameter_t object removed.  As mentioned above, 
+ * @return the Parameter_t structure removed.  As mentioned above, 
  * the caller owns the returned item. @c NULL is returned if the given index 
  * is out of range.
  *
@@ -6335,17 +6335,17 @@ Model_removeParameter (Model_t *m, unsigned int n);
 
 
 /**
- * Removes the Parameter_t object with the given "id" attribute
- * from this Model_t object and returns a pointer to it.
+ * Removes the Parameter_t structure with the given "id" attribute
+ * from this Model_t structure and returns a pointer to it.
  *
- * The caller owns the returned object and is responsible for deleting it.
+ * The caller owns the returned structure and is responsible for deleting it.
  *
  * @param m the Model_t structure
  * @param sid the string of the "id" attribute of the Parameter_t sought
  *
- * @return the Parameter_t object removed.  As mentioned above, the 
- * caller owns the returned object. @c NULL is returned if no Parameter_t
- * object with the identifier exists in this Model_t object.
+ * @return the Parameter_t structure removed.  As mentioned above, the 
+ * caller owns the returned structure. @c NULL is returned if no Parameter_t
+ * structure with the identifier exists in this Model_t structure.
  *
  * @memberof Model_t
  */
@@ -6355,15 +6355,15 @@ Model_removeParameterById (Model_t *m, const char* sid);
 
 
 /**
- * Removes the nth InitialAssignment_t object from this Model_t object and
+ * Removes the nth InitialAssignment_t structure from this Model_t structure and
  * returns a pointer to it.
  *
- * The caller owns the returned object and is responsible for deleting it.
+ * The caller owns the returned structure and is responsible for deleting it.
  *
  * @param m the Model_t structure
  * @param n the integer index of the InitialAssignment_t sought
  *
- * @return the InitialAssignment_t object removed.  As mentioned above, 
+ * @return the InitialAssignment_t structure removed.  As mentioned above, 
  * the caller owns the returned item. @c NULL is returned if the given index 
  * is out of range.
  *
@@ -6375,17 +6375,17 @@ Model_removeInitialAssignment (Model_t *m, unsigned int n);
 
 
 /**
- * Removes the InitialAssignment_t object with the given "symbol" attribute
- * from this Model_t object and returns a pointer to it.
+ * Removes the InitialAssignment_t structure with the given "symbol" attribute
+ * from this Model_t structure and returns a pointer to it.
  *
- * The caller owns the returned object and is responsible for deleting it.
+ * The caller owns the returned structure and is responsible for deleting it.
  *
  * @param m the Model_t structure
  * @param symbol the string of the "symbol" attribute of the InitialAssignment_t sought
  *
- * @return the InitialAssignment_t object removed.  As mentioned above, the 
- * caller owns the returned object. @c NULL is returned if no InitialAssignment_t
- * object with the "symbol" attribute exists in this Model_t object.
+ * @return the InitialAssignment_t structure removed.  As mentioned above, the 
+ * caller owns the returned structure. @c NULL is returned if no InitialAssignment_t
+ * structure with the "symbol" attribute exists in this Model_t structure.
  *
  * @memberof Model_t
  */
@@ -6395,15 +6395,15 @@ Model_removeInitialAssignmentBySym (Model_t *m, const char* symbol);
 
 
 /**
- * Removes the nth Rule_t object from this Model_t object and
+ * Removes the nth Rule_t structure from this Model_t structure and
  * returns a pointer to it.
  *
- * The caller owns the returned object and is responsible for deleting it.
+ * The caller owns the returned structure and is responsible for deleting it.
  *
  * @param m the Model_t structure
  * @param n the integer index of the Rule_t sought
  *
- * @return the Rule_t object removed.  As mentioned above, 
+ * @return the Rule_t structure removed.  As mentioned above, 
  * the caller owns the returned item. @c NULL is returned if the given index 
  * is out of range.
  *
@@ -6415,17 +6415,17 @@ Model_removeRule (Model_t *m, unsigned int n);
 
 
 /**
- * Removes the Rule_t object with the given "variable" attribute
- * from this Model_t object and returns a pointer to it.
+ * Removes the Rule_t structure with the given "variable" attribute
+ * from this Model_t structure and returns a pointer to it.
  *
- * The caller owns the returned object and is responsible for deleting it.
+ * The caller owns the returned structure and is responsible for deleting it.
  *
  * @param m the Model_t structure
  * @param variable the string of the "variable" attribute of the Rule_t sought
  *
- * @return the Rule_t object removed.  As mentioned above, the 
- * caller owns the returned object. @c NULL is returned if no Rule_t
- * object with the "variable" attribute exists in this Model_t object.
+ * @return the Rule_t structure removed.  As mentioned above, the 
+ * caller owns the returned structure. @c NULL is returned if no Rule_t
+ * structure with the "variable" attribute exists in this Model_t structure.
  *
  * @memberof Model_t
  */
@@ -6435,15 +6435,15 @@ Model_removeRuleByVar (Model_t *m, const char* variable);
 
 
 /**
- * Removes the nth Constraint_t object from this Model_t object and
+ * Removes the nth Constraint_t structure from this Model_t structure and
  * returns a pointer to it.
  *
- * The caller owns the returned object and is responsible for deleting it.
+ * The caller owns the returned structure and is responsible for deleting it.
  *
  * @param m the Model_t structure
  * @param n the integer index of the Constraint_t sought
  *
- * @return the Constraint_t object removed.  As mentioned above, 
+ * @return the Constraint_t structure removed.  As mentioned above, 
  * the caller owns the returned item. @c NULL is returned if the given index 
  * is out of range.
  *
@@ -6455,15 +6455,15 @@ Model_removeConstraint (Model_t *m, unsigned int n);
 
 
 /**
- * Removes the nth Reaction_t object from this Model_t object and
+ * Removes the nth Reaction_t structure from this Model_t structure and
  * returns a pointer to it.
  *
- * The caller owns the returned object and is responsible for deleting it.
+ * The caller owns the returned structure and is responsible for deleting it.
  *
  * @param m the Model_t structure
  * @param n the integer index of the Reaction_t sought
  *
- * @return the Reaction_t object removed.  As mentioned above, 
+ * @return the Reaction_t structure removed.  As mentioned above, 
  * the caller owns the returned item. @c NULL is returned if the given index 
  * is out of range.
  *
@@ -6475,17 +6475,17 @@ Model_removeReaction (Model_t *m, unsigned int n);
 
 
 /**
- * Removes the Reaction_t object with the given "id" attribute
- * from this Model_t object and returns a pointer to it.
+ * Removes the Reaction_t structure with the given "id" attribute
+ * from this Model_t structure and returns a pointer to it.
  *
- * The caller owns the returned object and is responsible for deleting it.
+ * The caller owns the returned structure and is responsible for deleting it.
  *
  * @param m the Model_t structure
  * @param sid the string of the "id" attribute of the Reaction_t sought
  *
- * @return the Reaction_t object removed.  As mentioned above, the 
- * caller owns the returned object. @c NULL is returned if no Reaction_t
- * object with the identifier exists in this Model_t object.
+ * @return the Reaction_t structure removed.  As mentioned above, the 
+ * caller owns the returned structure. @c NULL is returned if no Reaction_t
+ * structure with the identifier exists in this Model_t structure.
  *
  * @memberof Model_t
  */
@@ -6495,15 +6495,15 @@ Model_removeReactionById (Model_t *m, const char* sid);
 
 
 /**
- * Removes the nth Event_t object from this Model_t object and
+ * Removes the nth Event_t structure from this Model_t structure and
  * returns a pointer to it.
  *
- * The caller owns the returned object and is responsible for deleting it.
+ * The caller owns the returned structure and is responsible for deleting it.
  *
  * @param m the Model_t structure
  * @param n the integer index of the Event_t sought
  *
- * @return the Event_t object removed.  As mentioned above, 
+ * @return the Event_t structure removed.  As mentioned above, 
  * the caller owns the returned item. @c NULL is returned if the given index 
  * is out of range.
  *
@@ -6515,17 +6515,17 @@ Model_removeEvent (Model_t *m, unsigned int n);
 
 
 /**
- * Removes the Event_t object with the given "id" attribute
- * from this Model_t object and returns a pointer to it.
+ * Removes the Event_t structure with the given "id" attribute
+ * from this Model_t structure and returns a pointer to it.
  *
- * The caller owns the returned object and is responsible for deleting it.
+ * The caller owns the returned structure and is responsible for deleting it.
  *
  * @param m the Model_t structure
  * @param sid the string of the "id" attribute of the Event_t sought
  *
- * @return the Event_t object removed.  As mentioned above, the 
- * caller owns the returned object. @c NULL is returned if no Event_t
- * object with the identifier exists in this Model_t object.
+ * @return the Event_t structure removed.  As mentioned above, the 
+ * caller owns the returned structure. @c NULL is returned if no Event_t
+ * structure with the identifier exists in this Model_t structure.
  *
  * @memberof Model_t
  */
@@ -6535,7 +6535,7 @@ Model_removeEventById (Model_t *m, const char* sid);
 
 /* not yet exposed but leave in case we need them
 
- * Adds a copy of the given FormulaUnitsData object to this Model.
+ * Adds a copy of the given FormulaUnitsData_t structure to this Model.
  *
  * @param m the Model_t structure
  * @param fud the FormulaUnitsData_t structure to add
@@ -6556,7 +6556,7 @@ FormulaUnitsData_t*
 Model_createFormulaUnitsData (Model_t *m);
 
 
- * Get the nth FormulaUnitsData object in this Model.
+ * Get the nth FormulaUnitsData_t structure in this Model.
  *
  * @param m the Model_t structure
  * 
@@ -6567,7 +6567,7 @@ FormulaUnitsData_t*
 Model_getFormulaUnitsData (Model_t *m, unsigned int n);
 
 
- * Get a FormulaUnitsData object based on its unitReferenceId and typecode.
+ * Get a FormulaUnitsData_t structure based on its unitReferenceId and typecode.
  *
  * @param m the Model_t structure
  * 
@@ -6589,7 +6589,7 @@ FormulaUnitsData_t*
 Model_getFormulaUnitsDataById(Model_t *m, const char* sid, int);
 
 
- * Get the number of FormulaUnitsData objects in this Model.
+ * Get the number of FormulaUnitsData_t structures in this Model.
  * 
  * @param m the Model_t structure
  * 
@@ -6600,7 +6600,7 @@ unsigned int
 Model_getNumFormulaUnitsData (Model_t *m);
 
 
- * Get the list of FormulaUnitsData object in this Model.
+ * Get the list of FormulaUnitsData_t structure in this Model.
  * 
  * @param m the Model_t structure
  * 

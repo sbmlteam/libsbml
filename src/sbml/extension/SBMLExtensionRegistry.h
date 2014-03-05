@@ -358,7 +358,7 @@ SBMLExtensionRegistry_addExtension(const SBMLExtension_t* extension);
  *
  * @param package the URI or name of the package extension
  *
- * @return a clone of the SBMLExtension object with the given package URI or name. 
+ * @return a clone of the SBMLExtension_t structure with the given package URI or name. 
  * Or NULL in case of an invalid package name.
  * 
  * @note The returned extension is to be freed (i.e.: deleted) by the caller!

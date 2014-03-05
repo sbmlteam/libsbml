@@ -1691,7 +1691,7 @@ Layout_t *
 Layout_createWith (const char *sid);
 
 /**
- * Creates a Layout_t object from a template.
+ * Creates a Layout_t structure from a template.
  *
  * @param temp The Layout_t structure to copy
  *
@@ -2159,9 +2159,9 @@ Layout_initDefaults (Layout_t *l);
 
 
 /**
- * Creates a ComparmentGlyph_t object, adds it to the end of the
- * compartment glyphs objects list and returns a pointer to the newly
- * created object.
+ * Creates a ComparmentGlyph_t structure, adds it to the end of the
+ * compartment glyphs list and returns a pointer to the newly
+ * created structure.
  *
  * @param l The Layout_t structure
  *
@@ -2172,8 +2172,8 @@ CompartmentGlyph_t *
 Layout_createCompartmentGlyph (Layout_t *l);
 
 /**
- * Creates a SpeciesGlyph object, adds it to the end of the species glyphs
- * objects list and returns a pointer to the newly created object.
+ * Creates a SpeciesGlyph_t structure, adds it to the end of the species glyphs
+ * list and returns a pointer to the newly created structure.
  *
  * @param l The Layout_t structure
  *
@@ -2185,8 +2185,8 @@ Layout_createSpeciesGlyph (Layout_t *l);
 
 
 /**
- * Creates a ReactionGlyph_t object, adds it to the end of the reaction
- * glyphs objects list and returns a pointer to the newly created object.
+ * Creates a ReactionGlyph_t structure, adds it to the end of the reaction
+ * glyphs list and returns a pointer to the newly created structure.
  *
  * @param l The Layout_t structure
  *
@@ -2197,8 +2197,8 @@ ReactionGlyph_t *
 Layout_createReactionGlyph (Layout_t *l);
 
 /**
- * Creates a GeneralGlyph_t object, adds it to the end of the additional
- * objects list and returns a pointer to the newly created object.
+ * Creates a GeneralGlyph_t structure, adds it to the end of the additional
+ * objects list and returns a pointer to the newly created structure.
  *
  * @param l The Layout_t structure
  *
@@ -2210,8 +2210,8 @@ Layout_createGeneralGlyph (Layout_t *l);
 
 
 /**
- * Creates a TextGlyph_t object, adds it to the end of the text glyphs
- * objects list and returns a pointer to the newly created object.
+ * Creates a TextGlyph_t structure, adds it to the end of the text glyphs
+ * list and returns a pointer to the newly created structure.
  *
  * @param l The Layout_t structure
  *
@@ -2223,9 +2223,9 @@ Layout_createTextGlyph (Layout_t *l);
 
 
 /**
- * Creates a GraphicalObject object, adds it to the end of the additional
+ * Creates a GraphicalObject_t structure, adds it to the end of the additional
  * graphical objects list and returns a pointer to the newly created
- * object.
+ * structure.
  *
  * @param l The Layout_t structure
  *

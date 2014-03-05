@@ -636,11 +636,11 @@ ListOf_getById (ListOf_t *lo, const char *sid);
 #endif
 
 /**
- * Removes all items in this ListOf object.
+ * Removes all items in this ListOf_t structure.
  *
- * If doDelete is true (non-zero), all items in this ListOf object are deleted
+ * If doDelete is true (non-zero), all items in this ListOf_t structure are deleted
  * and cleared, and thus the caller doesn't have to delete those items.
- * Otherwise (zero), all items are just cleared from this ListOf object and the 
+ * Otherwise (zero), all items are just cleared from this ListOf_t structure and the 
  * caller is responsible for deleting all items (In this case, pointers to all 
  * items should be stored elsewhere before calling this function by the caller).
  *
@@ -651,7 +651,7 @@ void
 ListOf_clear (ListOf_t *lo, int doDelete);
 
 /**
- * Removes the nth item from this ListOf items and returns a pointer to
+ * Removes the nth item from this ListOf_t items and returns a pointer to
  * it.  The caller owns the returned item and is responsible for deleting
  * it.
  *
@@ -684,7 +684,7 @@ unsigned int
 ListOf_size (const ListOf_t *lo);
 
 /**
- * @return the int of SBML objects contained in this ListOf or
+ * @return the int of SBML structures contained in this ListOf or
  * SBML_UNKNOWN (default).
  *
  * @memberof ListOf_t

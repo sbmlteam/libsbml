@@ -1167,17 +1167,17 @@ ListOfOutputs_getById(ListOf_t * lo, const char * sid);
 
 
 /**
- * Removes the Output_t object with the given @p sid
- * from the given ListOf_t object and returns a pointer to it.
+ * Removes the Output_t structure with the given @p sid
+ * from the given ListOf_t structure and returns a pointer to it.
  *
- * The caller owns the returned object and is responsible for deleting it.
+ * The caller owns the returned structure and is responsible for deleting it.
  *
  * @param lo the ListOf_t structure
  * @param sid the string of the "id" attribute of the Output_t sought
  *
- * @return the Output_t object removed.  As mentioned above, the 
- * caller owns the returned object. @c NULL is returned if no Output_t
- * object with the "id" attribute exists in the given ListOf_t object.
+ * @return the Output_t structure removed.  As mentioned above, the 
+ * caller owns the returned structure. @c NULL is returned if no Output_t
+ * structure with the "id" attribute exists in the given ListOf_t structure.
  *
  * @memberof Output_t
  */

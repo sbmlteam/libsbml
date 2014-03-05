@@ -1175,7 +1175,7 @@ BEGIN_C_DECLS
  * creation time is an important aid to creating valid SBML.  Knowledge of
  * the intended SBML Level and Version  determine whether it is valid to
  * assign a particular value to an attribute, or whether it is valid to add
- * an object to an existing SBMLDocument.
+ * a structure to an existing SBMLDocument.
  *
  * @memberof KineticLaw_t
  */
@@ -1188,8 +1188,8 @@ KineticLaw_create (unsigned int level, unsigned int version);
  * Creates a new KineticLaw_t structure using the given
  * SBMLNamespaces_t structure.
  *
- * @param sbmlns SBMLNamespaces, a pointer to an SBMLNamespaces structure
- * to assign to this KineticLaw
+ * @param sbmlns SBMLNamespaces_t, a pointer to an SBMLNamespaces_t structure
+ * to assign to this KineticLaw_t
  *
  * @return a pointer to the newly created KineticLaw_t structure.
  *
@@ -1198,7 +1198,7 @@ KineticLaw_create (unsigned int level, unsigned int version);
  * the KineticLaw.  Despite this, the ability to supply the values at creation time
  * is an important aid to creating valid SBML.  Knowledge of the intended SBML
  * Level and Version determine whether it is valid to assign a particular value
- * to an attribute, or whether it is valid to add an object to an existing
+ * to an attribute, or whether it is valid to add a structure to an existing
  * SBMLDocument.
  *
  * @memberof KineticLaw_t
@@ -1241,7 +1241,7 @@ KineticLaw_clone (const KineticLaw_t *kl);
  * @param kl the KineticLaw_t structure
  * 
  * @return pointer to the XMLNamespaces_t structure associated with 
- * this SBML object
+ * this structure
  *
  * @memberof KineticLaw_t
  */
@@ -1877,15 +1877,15 @@ KineticLaw_containsUndeclaredUnits(KineticLaw_t *kl);
 
 
 /**
- * Removes the nth Parameter_t object from the list of local parameters
- * in this KineticLaw_t object and returns a pointer to it.
+ * Removes the nth Parameter_t structure from the list of local parameters
+ * in this KineticLaw_t structure and returns a pointer to it.
  *
- * The caller owns the returned object and is responsible for deleting it.
+ * The caller owns the returned structure and is responsible for deleting it.
  *
  * @param kl the KineticLaw_t structure
  * @param n the integer index of the Parameter_t sought
  *
- * @return the Parameter_t object removed.  As mentioned above, 
+ * @return the Parameter_t structure removed.  As mentioned above, 
  * the caller owns the returned item. @c NULL is returned if the given index 
  * is out of range.
  *
@@ -1897,15 +1897,15 @@ KineticLaw_removeParameter (KineticLaw_t *kl, unsigned int n);
 
 
 /**
- * Removes the nth LocalParameter_t object from the list of local parameters
- * in this KineticLaw_t object and returns a pointer to it.
+ * Removes the nth LocalParameter_t structure from the list of local parameters
+ * in this KineticLaw_t structure and returns a pointer to it.
  *
- * The caller owns the returned object and is responsible for deleting it.
+ * The caller owns the returned structure and is responsible for deleting it.
  *
  * @param kl the KineticLaw_t structure
  * @param n the integer index of the LocalParameter_t sought
  *
- * @return the LocalParameter_t object removed.  As mentioned above, 
+ * @return the LocalParameter_t structure removed.  As mentioned above, 
  * the caller owns the returned item. @c NULL is returned if the given index 
  * is out of range.
  *
@@ -1917,18 +1917,18 @@ KineticLaw_removeLocalParameter (KineticLaw_t *kl, unsigned int n);
 
 
 /**
- * Removes the Parameter_t object with the given "id" attribute
- * from the list of local parameters in this KineticLaw_t object and 
+ * Removes the Parameter_t structure with the given "id" attribute
+ * from the list of local parameters in this KineticLaw_t structure and 
  * returns a pointer to it.
  *
- * The caller owns the returned object and is responsible for deleting it.
+ * The caller owns the returned structure and is responsible for deleting it.
  *
  * @param kl the KineticLaw_t structure
  * @param sid the string of the "id" attribute of the Parameter_t sought
  *
- * @return the Parameter_t object removed.  As mentioned above, the 
- * caller owns the returned object. @c NULL is returned if no KineticLaw_t
- * object with the identifier exists in this KineticLaw_t object.
+ * @return the Parameter_t structure removed.  As mentioned above, the 
+ * caller owns the returned structure. @c NULL is returned if no KineticLaw_t
+ * structure with the identifier exists in this KineticLaw_t structure.
  *
  * @memberof KineticLaw_t
  */
@@ -1938,18 +1938,18 @@ KineticLaw_removeParameterById (KineticLaw_t *kl, const char *sid);
 
 
 /**
- * Removes the LocalParameter_t object with the given "id" attribute
- * from the list of local parameters in this KineticLaw_t object and 
+ * Removes the LocalParameter_t structure with the given "id" attribute
+ * from the list of local parameters in this KineticLaw_t structure and 
  * returns a pointer to it.
  *
- * The caller owns the returned object and is responsible for deleting it.
+ * The caller owns the returned structure and is responsible for deleting it.
  *
  * @param kl the KineticLaw_t structure
  * @param sid the string of the "id" attribute of the LocalParameter_t sought
  *
- * @return the LocalParameter_t object removed.  As mentioned above, the 
- * caller owns the returned object. @c NULL is returned if no KineticLaw_t
- * object with the identifier exists in this KineticLaw_t object.
+ * @return the LocalParameter_t structure removed.  As mentioned above, the 
+ * caller owns the returned structure. @c NULL is returned if no KineticLaw_t
+ * structure with the identifier exists in this KineticLaw_t structure.
  *
  * @memberof KineticLaw_t
  */

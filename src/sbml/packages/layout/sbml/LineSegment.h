@@ -425,7 +425,7 @@ LineSegment_free (LineSegment_t *ls);
 
 
 /**
- * Initializes the start point with a copy of the given Point object.
+ * Initializes the start point with a copy of the given Point_t structure.
  *
  * @param ls The LineSegment_t structure.
  * @param start The Point_t at which the line segment starts
@@ -437,7 +437,7 @@ void
 LineSegment_setStart (LineSegment_t *ls, const Point_t *start);
 
 /**
- * Initializes the end point with a copy of the given Point object.
+ * Initializes the end point with a copy of the given Point_t structure.
  *
  * @param ls  The LineSegment_t structure.
  * @param end The Point_t at which the line segment ends

@@ -1042,7 +1042,7 @@ BEGIN_C_DECLS
  * creation time is an important aid to creating valid SBML.  Knowledge of
  * the intended SBML Level and Version  determine whether it is valid to
  * assign a particular value to an attribute, or whether it is valid to add
- * an object to an existing SBMLDocument.
+ * a structure to an existing SBMLDocument.
  *
  * @memberof Parameter_t
  */
@@ -1055,8 +1055,8 @@ Parameter_create (unsigned int level, unsigned int version);
  * Creates a new Parameter_t structure using the given
  * SBMLNamespaces_t structure.
  *
- * @param sbmlns SBMLNamespaces, a pointer to an SBMLNamespaces structure
- * to assign to this Parameter
+ * @param sbmlns SBMLNamespaces_t, a pointer to an SBMLNamespaces_t structure
+ * to assign to this Parameter_t
  *
  * @return a pointer to the newly created Parameter_t structure.
  *
@@ -1065,7 +1065,7 @@ Parameter_create (unsigned int level, unsigned int version);
  * the Parameter.  Despite this, the ability to supply the values at creation time
  * is an important aid to creating valid SBML.  Knowledge of the intended SBML
  * Level and Version determine whether it is valid to assign a particular value
- * to an attribute, or whether it is valid to add an object to an existing
+ * to an attribute, or whether it is valid to add a structure to an existing
  * SBMLDocument.
  *
  * @memberof Parameter_t
@@ -1125,7 +1125,7 @@ Parameter_initDefaults (Parameter_t *p);
  * @param p the Parameter_t structure
  * 
  * @return pointer to the XMLNamespaces_t structure associated with 
- * this SBML object
+ * this structure
  *
  * @memberof Parameter_t
  */
@@ -1489,17 +1489,17 @@ Parameter_getDerivedUnitDefinition(Parameter_t *p);
 
 /**
  * Predicate returning @c true or @c false depending on whether
- * all the required attributes for this Parameter object
+ * all the required attributes for this Parameter_t structure
  * have been set.
  *
  * @param p the Parameter_t structure to check.
  *
- * @note The required attributes for a Parameter object are:
+ * @note The required attributes for a Parameter_t structure are:
  * @li id (name in L1)
  * @li constant (in L3 only)
  *
  * @return a true if all the required
- * attributes for this object have been defined, false otherwise.
+ * attributes for this structure have been defined, false otherwise.
  *
  * @memberof Parameter_t
  */

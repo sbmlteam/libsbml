@@ -438,7 +438,7 @@ SyntaxChecker_isValidUnitSId(const char * units);
  * requirements of the SBML specification.
  *
  * @param node the XMLNode_t structure to be checked for conformance.
- * @param sbmlns the SBMLNamespaces_t structure associated with the object.
+ * @param sbmlns the SBMLNamespaces_t structure associated with the @p node.
  *
  * @return @c true (non-zero) if the XMLNode_t structure conforms, 
  * @c false (0) otherwise.

@@ -122,7 +122,7 @@ public:
    * Returns a List of all child SBase objects, including those nested to an
    * arbitrary depth
    *
-   * @return a List* of pointers to all children objects.
+   * @return a List* of pointers to all children structures.
    */
   virtual List* getAllElements(ElementFilter* filter=NULL);
 
@@ -406,7 +406,7 @@ BEGIN_C_DECLS
 
 
 /**
- * Creates a new ReferenceGlyph_t object and returns a pointer to it.
+ * Creates a new ReferenceGlyph_t structure and returns a pointer to it.
  *
  * @memberof ReferenceGlyph_t
  */
@@ -613,9 +613,9 @@ void
 ReferenceGlyph_initDefaults (ReferenceGlyph_t *rg);
 
 /**
- * Creates a new LineSegment object, adds it to the end of the list of
- * curve segment objects of the curve and returns a reference to the newly
- * created object.
+ * Creates a new LineSegment_t structure, adds it to the end of the list of
+ * curve segments of the curve and returns a reference to the newly
+ * created structure.
  *
  * @param rg The ReferenceGlyph_t structure
  *
@@ -626,9 +626,9 @@ LineSegment_t *
 ReferenceGlyph_createLineSegment (ReferenceGlyph_t *rg);
 
 /**
- * Creates a new CubicBezier object, adds it to the end of the list of
- * curve segment objects of the curve and returns a reference to the newly
- * created object.
+ * Creates a new CubicBezier_t structure, adds it to the end of the list of
+ * curve segment of the curve and returns a reference to the newly
+ * created structure.
  *
  * @param rg The ReferenceGlyph_t structure
  *

@@ -907,7 +907,7 @@ BEGIN_C_DECLS
  *
  * @param plugin the plugin structure
  * 
- * @return the URI of the package extension of this plugin object, or NULL
+ * @return the URI of the package extension of this plugin structure, or NULL
  * in case an invalid plugin structure is provided. 
  *
  * @memberof SBasePlugin_t
@@ -977,13 +977,13 @@ SBasePlugin_free(SBasePlugin_t* plugin);
 
 /**
  * Subclasses must override this method to create, store, and then
- * return an SBML object corresponding to the next XMLToken in the
+ * return an SBML structure corresponding to the next XMLToken in the
  * XMLInputStream if they have their specific elements.
  *
  * @param plugin the SBasePlugin_t structure 
  * @param stream the XMLInputStream_t structure to read from
  *
- * @return the SBML object corresponding to next XMLToken in the
+ * @return the SBML structure corresponding to next XMLToken in the
  * XMLInputStream or NULL if the token was not recognized or plugin or stream 
  * were NULL.
  *
@@ -1014,7 +1014,7 @@ SBasePlugin_readOtherXML(SBasePlugin_t* plugin, SBase_t* parentObject, XMLInputS
 
 /**
  * Subclasses must override this method to write out their contained
- * SBML objects as XML elements if they have their specific elements.
+ * SBML structures as XML elements if they have their specific elements.
  *
  * @param plugin the SBasePlugin_t structure  
  * @param stream the XMLOutputStream_t structure to write to
@@ -1040,7 +1040,7 @@ SBasePlugin_writeElements(SBasePlugin_t* plugin, XMLInputStream_t* stream);
  *
  * @param plugin the SBasePlugin_t structure  
  * 
- * @return true (1) if this plugin object has all the required elements,
+ * @return true (1) if this plugin structure has all the required elements,
  * otherwise false (0) will be returned. If an invalid plugin 
  * was provided LIBSBML_INVALID_OBJECT is returned.
  *
@@ -1125,7 +1125,7 @@ SBasePlugin_writeAttributes(SBasePlugin_t* plugin,
  *
  * @param plugin the SBasePlugin_t structure  
  * 
- * @return true (1) if this plugin object has all the required attributes,
+ * @return true (1) if this plugin structure has all the required attributes,
  * otherwise false (0) will be returned. If an invalid plugin 
  * was provided LIBSBML_INVALID_OBJECT is returned.
  *
@@ -1138,9 +1138,9 @@ SBasePlugin_hasRequiredAttributes(SBasePlugin_t* plugin);
 /**
  * Subclasses should override this method to write required xmlns attributes
  * to the XMLOutputStream (if any). 
- * The xmlns attribute will be written in the element to which the object
+ * The xmlns attribute will be written in the element to which the structure
  * is connected. For example, xmlns attributes written by this function will
- * be added to Model element if this plugin object connected to the Model 
+ * be added to Model element if this plugin structure connected to the Model 
  * element.
  * 
  * @param plugin the SBasePlugin_t structure  
@@ -1166,7 +1166,7 @@ SBasePlugin_writeXMLNS(SBasePlugin_t* plugin, XMLOutputStream_t* stream);
  * override this function.
  *
  * @param plugin the SBasePlugin_t structure  
- * @param d the SBMLDocument object to use
+ * @param d the SBMLDocument_t structure to use
  *
  * @see SBasePlugin_connectToParent
  * @see SBasePlugin_enablePackageInternal
@@ -1185,11 +1185,11 @@ int
 SBasePlugin_setSBMLDocument(SBasePlugin_t* plugin, SBMLDocument_t* d);
 
 /**
- * Sets the parent SBML object of this plugin structure to
- * this object and child elements (if any).
- * (Creates a child-parent relationship by this plugin object)
+ * Sets the parent SBML structure of this plugin structure to
+ * this structure and child elements (if any).
+ * (Creates a child-parent relationship by this plugin structure)
  *
- * This function is called when this object is created by
+ * This function is called when this structure is created by
  * the parent element.
  * Subclasses must override this this function if they have one
  * or more child elements. Also, SBasePlugin::connectToParent()
@@ -1216,7 +1216,7 @@ SBasePlugin_connectToParent(SBasePlugin_t* plugin, SBase_t* sbase);
 
 /**
  * Enables/Disables the given package with child elements in this plugin 
- * object (if any).
+ * structure (if any).
  * (This is an internal implementation invoked from 
  *  SBase::enablePackageInternal() function)
  *
@@ -1251,7 +1251,7 @@ SBasePlugin_enablePackageInternal(SBasePlugin_t* plugin,
  *
  * @param plugin the SBasePlugin_t structure  
  *
- * @return the parent SBMLDocument object of this plugin object or NULL if 
+ * @return the parent SBMLDocument_t structure of this plugin structure or NULL if 
  * no document is set, or the plugin structure is invalid. 
  *
  * @memberof SBasePlugin_t
@@ -1261,11 +1261,11 @@ SBMLDocument_t*
 SBasePlugin_getSBMLDocument(SBasePlugin_t* plugin);
 
 /**
- * Returns the parent SBase structure to which this plugin structure is connected.
+ * Returns the parent SBase_t structure to which this plugin structure is connected.
  *
  * @param plugin the SBasePlugin_t structure  
  *
- * @return the parent SBase structure to which this plugin structure is connected
+ * @return the parent SBase_t structure to which this plugin structure is connected
  * or NULL if sbase structure is set, or the plugin structure is invalid. 
  *
  * @memberof SBasePlugin_t
@@ -1281,7 +1281,7 @@ SBasePlugin_getParentSBMLObject(SBasePlugin_t* plugin);
  * @param plugin the SBasePlugin_t structure  
  *
  * @return the SBML level of the package extension of
- * this plugin object or SBML_INT_MAX if the structure is invalid.
+ * this plugin structure or SBML_INT_MAX if the structure is invalid.
  *
  * @memberof SBasePlugin_t
  */
@@ -1296,7 +1296,7 @@ SBasePlugin_getLevel(SBasePlugin_t* plugin);
  * @param plugin the SBasePlugin_t structure  
  *
  * @return the SBML version of the package extension of
- * this plugin object or SBML_INT_MAX if the structure is invalid.
+ * this plugin structure or SBML_INT_MAX if the structure is invalid.
  *
  * @memberof SBasePlugin_t
  */
@@ -1311,7 +1311,7 @@ SBasePlugin_getVersion(SBasePlugin_t* plugin);
  * @param plugin the SBasePlugin_t structure  
  *
  * @return the package version of the package extension of
- * this plugin object or SBML_INT_MAX if the structure is invalid.
+ * this plugin structure or SBML_INT_MAX if the structure is invalid.
  *
  * @memberof SBasePlugin_t
  */

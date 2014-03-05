@@ -92,18 +92,22 @@ LIBSBML_EXTERN
 ExpectedAttributes_t *
 ExpectedAttributes_create();
 
+/* Clone the provided ExpectedAttributes_t structure */
 LIBSBML_EXTERN 
 ExpectedAttributes_t *
 ExpectedAttributes_clone(ExpectedAttributes_t *attr);
 
+/* Add the provided attribute to the ExpectedAttributes_t structure */
 LIBSBML_EXTERN 
 int
 ExpectedAttributes_add(ExpectedAttributes_t *attr, const char* attribute);
 
+/* Get the attribute at the provided index of the provided ExpectedAttributes_t structure */
 LIBSBML_EXTERN 
 char*
 ExpectedAttributes_get(ExpectedAttributes_t *attr, unsigned int index);
 
+/* Check the provided ExpectedAttributes_t structure to see if it contains the provided attribute*/
 LIBSBML_EXTERN 
 int
 ExpectedAttributes_hasAttribute(ExpectedAttributes_t *attr, const char* attribute);

@@ -119,11 +119,11 @@ OverDeterminedCheck::check_ (const Model& m, const Model& object)
 
 /* 
  * creates equation vertexes according to the L2V2 spec 4.11.5 for every
- * 1. a Species structure that has the boundaryCondition field set to false 
+ * 1. a Species that has the boundaryCondition field set to false 
  * and constant field set to false and which is referenced by one or more 
- * reactant or product lists of a Reaction structure containing a KineticLaw structure
- * 2. a Rule structure
- * 3. a KineticLaw structure
+ * reactant or product lists of a Reaction containing a KineticLaw 
+ * 2. a Rule 
+ * 3. a KineticLaw 
  */
 void
 OverDeterminedCheck::writeEquationVertexes(const Model& m)
@@ -135,10 +135,10 @@ OverDeterminedCheck::writeEquationVertexes(const Model& m)
 
   unsigned int n, sr;
 
-  /* a Species structure that has the boundaryCondition field set to false 
+  /* a Species that has the boundaryCondition field set to false 
    * and constant field set to false and which is referenced by one or 
-   * more reactant or product lists of a Reaction structure containing 
-   * a KineticLaw structure
+   * more reactant or product lists of a Reaction containing 
+   * a KineticLaw
    */
   for (n = 0; n < m.getNumReactions(); n++)
   {

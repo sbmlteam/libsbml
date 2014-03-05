@@ -1039,10 +1039,10 @@ Date_setDateAsString(Date_t * date, const char* str);
 
 
 /**
- * Returns true or false depending on whether this date object represents
+ * Returns true or false depending on whether this date structure represents
  * a valid date and time value.
  *
- * This method verifies that the date/time value stored in this object is
+ * This method verifies that the date/time value stored in this structure is
  * well-formed and represents plausible values.  A time and date value in
  * the W3C format takes the form YYYY-MM-DDThh:mm:ssXHH:ZZ (e.g.,
  * <code>1997-07-16T19:20:30+01:00</code>) where XHH:ZZ is the time zone

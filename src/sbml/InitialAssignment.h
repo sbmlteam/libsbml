@@ -906,7 +906,7 @@ BEGIN_C_DECLS
  * creation time is an important aid to creating valid SBML.  Knowledge of
  * the intended SBML Level and Version  determine whether it is valid to
  * assign a particular value to an attribute, or whether it is valid to add
- * an object to an existing SBMLDocument.
+ * a structure to an existing SBMLDocument.
  *
  * @memberof InitialAssignment_t
  */
@@ -919,8 +919,8 @@ InitialAssignment_create (unsigned int level, unsigned int version);
  * Creates a new InitialAssignment_t structure using the given
  * SBMLNamespaces_t structure.
  *
- * @param sbmlns SBMLNamespaces, a pointer to an SBMLNamespaces structure
- * to assign to this InitialAssignment
+ * @param sbmlns SBMLNamespaces_t, a pointer to an SBMLNamespaces_t structure
+ * to assign to this InitialAssignment_t
  *
  * @return a pointer to the newly created InitialAssignment_t structure.
  *
@@ -929,7 +929,7 @@ InitialAssignment_create (unsigned int level, unsigned int version);
  * the InitialAssignment.  Despite this, the ability to supply the values at 
  * creation time is an important aid to creating valid SBML.  Knowledge of the 
  * intended SBML Level and Version determine whether it is valid to assign a 
- * particular value to an attribute, or whether it is valid to add an object to 
+ * particular value to an attribute, or whether it is valid to add a structure to 
  * an existing SBMLDocument.
  *
  * @memberof InitialAssignment_t
@@ -972,7 +972,7 @@ InitialAssignment_clone (const InitialAssignment_t *ia);
  * @param ia the InitialAssignment_t structure
  * 
  * @return pointer to the XMLNamespaces_t structure associated with 
- * this SBML object
+ * this structure
  *
  * @memberof InitialAssignment_t
  */
@@ -1049,7 +1049,7 @@ InitialAssignment_isSetMath (const InitialAssignment_t *ia);
  * @param ia the InitialAssignment_t structure
  *
  * @param sid the identifier of a Species, Compartment or Parameter
- * object defined elsewhere in this Model.
+ * structure defined elsewhere in this Model.
  *
  * @return integer value indicating success/failure of the
  * function.  @if clike The value is drawn from the
@@ -1100,7 +1100,7 @@ InitialAssignment_setMath (InitialAssignment_t *ia, const ASTNode_t *math);
  * expression of this InitialAssignment_t.
  *
  * Note that the functionality that facilitates unit analysis depends 
- * on the model as a whole.  Thus, in cases where the object has not 
+ * on the model as a whole.  Thus, in cases where the structure has not 
  * been added to a model or the model itself is incomplete,
  * unit analysis is not possible and this method will return @c NULL.
  *

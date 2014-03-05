@@ -1125,7 +1125,7 @@ Objective_getFluxObjective(Objective_t * obj, unsigned int n);
 
 
 /**
- * Returns the number of FluxObjective_t objects attached to the given
+ * Returns the number of FluxObjective_t structures attached to the given
  * Objective_t.
  *
  * @param obj the Objective_t structure to use

@@ -436,7 +436,7 @@ BEGIN_C_DECLS
 
 
 /**
- * Creates a new SpeciesReferenceGlyph_t object and returns a pointer to it.
+ * Creates a new SpeciesReferenceGlyph_t structure and returns a pointer to it.
  *
  * @memberof SpeciesReferenceGlyph_t
  */
@@ -456,7 +456,7 @@ SpeciesReferenceGlyph_t *
 SpeciesReferenceGlyph_createFrom (const SpeciesReferenceGlyph_t *temp);
 
 /**
- * Creates a new SpeciesReferenceGlyph_t object.  The id is given as the first
+ * Creates a new SpeciesReferenceGlyph_t structure.  The id is given as the first
  * argument, the id of the associated species glyph is given as the
  * second argument.  The third argument is the id of the associated species
  * reference and the fourth argument is the role.
@@ -657,9 +657,9 @@ void
 SpeciesReferenceGlyph_initDefaults (SpeciesReferenceGlyph_t *srg);
 
 /**
- * Creates a new LineSegment object, adds it to the end of the list of
- * curve segment objects of the curve and returns a reference to the newly
- * created object.
+ * Creates a new LineSegment_t structure, adds it to the end of the list of
+ * curve segment of the curve and returns a reference to the newly
+ * created structure.
  *
  * @param srg The SpeciesReferenceGlyph_t structure
  *
@@ -670,9 +670,9 @@ LineSegment_t *
 SpeciesReferenceGlyph_createLineSegment (SpeciesReferenceGlyph_t *srg);
 
 /**
- * Creates a new CubicBezier object, adds it to the end of the list of
- * curve segment objects of the curve and returns a reference to the newly
- * created object.
+ * Creates a new CubicBezier_t structure, adds it to the end of the list of
+ * curve segments of the curve and returns a reference to the newly
+ * created structure.
  *
  * @param srg The SpeciesReferenceGlyph_t structure
  *

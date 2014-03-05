@@ -669,19 +669,19 @@ BEGIN_C_DECLS
  * Creates a new SBMLNamespaces_t structure corresponding to the given SBML
  * @p level and @p version.
  *
- * SBMLNamespaces objects are used in libSBML to communicate SBML Level
+ * SBMLNamespaces_t structures are used in libSBML to communicate SBML Level
  * and Version data between constructors and other methods.  The
- * SBMLNamespaces object class tracks 3-tuples (triples) consisting of
+ * SBMLNamespaces_t structure class tracks 3-tuples (triples) consisting of
  * SBML Level, Version, and the corresponding SBML XML namespace.  Most
- * constructors for SBML objects in libSBML take a SBMLNamespaces object
+ * constructors for SBML structures in libSBML take a SBMLNamespaces_t structure
  * as an argument, thereby allowing the constructor to produce the proper
  * combination of attributes and other internal data structures for the
  * given SBML Level and Version.
  *
  * The plural name "SBMLNamespaces" is not a mistake, because in SBML
- * Level&nbsp;3, objects may have extensions added by Level&nbsp;3
+ * Level&nbsp;3, structures may have extensions added by Level&nbsp;3
  * packages used by a given model; however, until the introduction of
- * SBML Level&nbsp;3, the SBMLNamespaces object only records one SBML
+ * SBML Level&nbsp;3, the SBMLNamespaces_t structure only records one SBML
  * Level/Version/namespace combination at a time.
  *
  * @param level the SBML level

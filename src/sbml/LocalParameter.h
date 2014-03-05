@@ -642,7 +642,7 @@ BEGIN_C_DECLS
  * creation time is an important aid to creating valid SBML.  Knowledge of
  * the intended SBML Level and Version  determine whether it is valid to
  * assign a particular value to an attribute, or whether it is valid to add
- * an object to an existing SBMLDocument.
+ * a structure to an existing SBMLDocument.
  *
  * @memberof LocalParameter_t
  */
@@ -655,8 +655,8 @@ LocalParameter_create (unsigned int level, unsigned int version);
  * Creates a new LocalParameter_t structure using the given
  * SBMLNamespaces_t structure.
  *
- * @param sbmlns SBMLNamespaces, a pointer to an SBMLNamespaces structure
- * to assign to this LocalParameter
+ * @param sbmlns SBMLNamespaces_t, a pointer to an SBMLNamespaces_t structure
+ * to assign to this LocalParameter_t
  *
  * @return a pointer to the newly created LocalParameter_t structure.
  *
@@ -665,7 +665,7 @@ LocalParameter_create (unsigned int level, unsigned int version);
  * the LocalParameter.  Despite this, the ability to supply the values at creation time
  * is an important aid to creating valid SBML.  Knowledge of the intended SBML
  * Level and Version determine whether it is valid to assign a particular value
- * to an attribute, or whether it is valid to add an object to an existing
+ * to an attribute, or whether it is valid to add a structure to an existing
  * SBMLDocument.
  *
  * @memberof LocalParameter_t
@@ -701,6 +701,13 @@ LocalParameter_t *
 LocalParameter_clone (const LocalParameter_t *p);
 
 
+/**
+ * Does nothing:  this function initializes structures according to their defaults in SBML Level 2, but Local Parameters did not exist in SBML Level 2.
+ * 
+ * @param p the LocalParameter_t structure to be ignored
+ * 
+ * @memberof LocalParameter_t
+ */
 LIBSBML_EXTERN
 void
 LocalParameter_initDefaults (LocalParameter_t *p);
@@ -713,7 +720,7 @@ LocalParameter_initDefaults (LocalParameter_t *p);
  * @param p the LocalParameter_t structure
  * 
  * @return pointer to the XMLNamespaces_t structure associated with 
- * this SBML object
+ * this structure
  *
  * @memberof LocalParameter_t
  */
@@ -779,6 +786,15 @@ const char *
 LocalParameter_getUnits (const LocalParameter_t *p);
 
 
+/**
+ * Because a LocalParameter_t has no 'constant' attribute, always returns 'true', as local parameters in SBML may not vary.
+ *
+ * @param p the LocalParameter_t to ignore.
+ *
+ * @return @c non-zero (true).
+ *
+ * @memberof LocalParameter_t
+ */
 LIBSBML_EXTERN
 int
 LocalParameter_getConstant (const LocalParameter_t *p);
@@ -945,7 +961,21 @@ LIBSBML_EXTERN
 int
 LocalParameter_setUnits (LocalParameter_t *p, const char *units);
 
-
+/*
+ * Because LocalParameter_t structures don't have a 'constant' attribute, this function always
+ * returns @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE @endlink.
+ *
+ * @param p the LocalParameter_t structure to leave unchanged.
+ * @param value The boolean value to ignore.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible value
+ * returned by this function is:
+ * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE @endlink
+ *
+ * @memberof LocalParameter_t
+ */
 LIBSBML_EXTERN
 int
 LocalParameter_setConstant (LocalParameter_t *p, int value);

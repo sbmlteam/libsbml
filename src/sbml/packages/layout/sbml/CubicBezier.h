@@ -452,7 +452,7 @@ CubicBezier_createWithPoints (const Point_t *start, const Point_t *base1,
 
 
 /**
- * Creates a CubicBezier_t object from a template.
+ * Creates a CubicBezier_t structure from a template.
  *
  * @param temp The CubicBezier_t structure to copy.
  *

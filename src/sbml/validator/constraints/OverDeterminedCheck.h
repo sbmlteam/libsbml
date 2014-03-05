@@ -78,19 +78,19 @@ protected:
 
   /** 
    * creates equation vertexes according to the L2V2 spec 4.11.5 for every
-   * 1. a Species structure that has the boundaryCondition field set to false 
+   * 1. a Species object that has the boundaryCondition field set to false 
    * and constant field set to false and which is referenced by one or more 
-   * reactant or product lists of a Reaction structure containing a KineticLaw structure
-   * 2. a Rule structure
-   * 3. a KineticLaw structure
+   * reactant or product lists of a Reaction object containing a KineticLaw object
+   * 2. a Rule object
+   * 3. a KineticLaw object
    */
   void writeEquationVertexes(const Model &);
 
   /**
    * creates variable vertexes according to the L2V2 spec 4.11.5 for
-   * (a) every Species, Compartment and Parameter structure which has the
+   * (a) every Species, Compartment and Parameter object which has the
    * Constant field set to false; and 
-   * (b) for every Reaction structure.
+   * (b) for every Reaction object.
    */
   void writeVariableVertexes(const Model &);
 

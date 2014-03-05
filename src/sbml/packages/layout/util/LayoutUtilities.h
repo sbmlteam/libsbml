@@ -32,9 +32,19 @@
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
+/**
+ * Converts the given SBase* object to an XMLNode, with the appropriate namespace defined.
+ */
 LIBSBML_EXTERN XMLNode getXmlNodeForSBase(const SBase* object);
+
+/**
+ * If defined, adds the 'metaid' attribute from the provided SBase object to the XMLAttributes object.
+ */
 LIBSBML_EXTERN void addSBaseAttributes(const SBase& object,XMLAttributes& att);
 
+/**
+ * If defined, adds the 'id' attribute from the provided SBase object to the XMLAttributes object.
+ */
 LIBSBML_EXTERN void addGraphicalObjectAttributes(const GraphicalObject& object,XMLAttributes& att);
 
 /**

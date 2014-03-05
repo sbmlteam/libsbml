@@ -465,7 +465,7 @@ BEGIN_C_DECLS
 
 
 /**
- * Function that creates a BoundingBox_t object with position set to
+ * Function that creates a BoundingBox_t structure with position set to
  * (0.0,0.0,0.0) and dimensions set to (0.0,0.0,0.0). The id is set to the
  * empty string.
  *
@@ -476,7 +476,7 @@ BoundingBox_t *
 BoundingBox_create (void);
 
 /**
- * ZFunction that creates a BoundingBox_t object with position set to
+ * ZFunction that creates a BoundingBox_t structure with position set to
  * (0.0,0.0,0.0) and dimensions set to (0.0,0.0,0.0).  The id is set to the
  * given string.
  *
@@ -489,7 +489,7 @@ BoundingBox_t *
 BoundingBox_createWith (const char *sid);
 
 /**
- * Function that creates a BoundingBox_t object with the coordinates and
+ * Function that creates a BoundingBox_t structure with the coordinates and
  * sizes given as arguments. The id is set to the empty string.
  *
  * @param sid The id of the created BoundingBox_t
@@ -508,7 +508,7 @@ BoundingBox_createWithCoordinates (const char *sid, double x, double y, double z
                                    double width, double height, double depth);
 
 /**
- * Frees all memory taken by the given BoundingBox_t object.
+ * Frees all memory taken by the given BoundingBox_t structure.
  *
  * @param bb The BoundingBox_t structure.
  *
@@ -530,7 +530,7 @@ void
 BoundingBox_initDefaults (BoundingBox_t *bb);
 
 /**
- * Returns the position as a Point_t object.
+ * Returns the position as a Point_t structure.
  *
  * @param bb The BoundingBox_t structure.
  *
@@ -541,7 +541,7 @@ Point_t *
 BoundingBox_getPosition (BoundingBox_t *bb);
 
 /**
- * Returns the dimensions as a Dimensions_t object.
+ * Returns the dimensions as a Dimensions_t structure.
  *
  * @param bb The BoundingBox_t structure.
  *
@@ -552,7 +552,7 @@ Dimensions_t *
 BoundingBox_getDimensions (BoundingBox_t *bb);
 
 /**
- * Sets the position to a copy of the Point_t object given as argument.
+ * Sets the position to a copy of the Point_t structure given as argument.
  *
  * @param bb The BoundingBox_t structure.
  * @param p The Point_t to use as the position of the BoundingBox_t
@@ -564,7 +564,7 @@ void
 BoundingBox_setPosition (BoundingBox_t *bb, const Point_t *p);
 
 /**
- * Sets the dimensions to a copy of the Dimensions_t object given.
+ * Sets the dimensions to a copy of the Dimensions_t structure given.
  *
  * @param bb The BoundingBox_t structure.
  * @param d The Dimensions_t to use as the dimensions of the BoundingBox_t

@@ -325,7 +325,7 @@ BEGIN_C_DECLS
 
 
 /**
- * Creates a new Dimensions object with all sizes set to 0.0.
+ * Creates a new Dimensions_t structure with all sizes set to 0.0.
  *
  * @memberof Dimensions_t
  */ 
@@ -334,7 +334,7 @@ Dimensions_t *
 Dimensions_create ();
 
 /**
- * Creates a new Dimensions object with the given sizes.
+ * Creates a new Dimensions_t structure with the given sizes.
  *
  * @param w The width of the created Dimensions_t
  * @param h The height of the created Dimensions_t
@@ -347,7 +347,7 @@ Dimensions_t *
 Dimensions_createWithSize (double w, double h, double d);
 
 /**
- * Frees memory taken up by the Dimensions object.
+ * Frees memory taken up by the Dimensions_t structure.
  *
  * @param d The Dimensions_t structure
  *
@@ -369,7 +369,7 @@ void
 Dimensions_initDefaults (Dimensions_t *d);
 
 /**
- * Sets all sizes of the Dimensions object to the given values.
+ * Sets all sizes of the Dimensions_t structure to the given values.
  *
  * @param d The Dimensions_t structure
  * @param width The value to use for the width of the Dimensions_t

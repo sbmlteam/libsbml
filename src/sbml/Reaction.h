@@ -35,7 +35,7 @@
  * stoichiometries), along with optional modifier species, an optional rate
  * at which the reaction takes place, and optional parameters.  
  * 
- * As with other major object in SBML, Reaction has a mandatory attribute,
+ * As with other major objects in SBML, Reaction has a mandatory attribute,
  * "id", used to give the compartment type an identifier.  The identifier
  * must be a text string conforming to the identifer syntax permitted in
  * SBML.  In SBML Level&nbsp;2 and Level&nbsp;3, the reaction "id"
@@ -1489,7 +1489,7 @@ BEGIN_C_DECLS
  * creation time is an important aid to creating valid SBML.  Knowledge of
  * the intended SBML Level and Version  determine whether it is valid to
  * assign a particular value to an attribute, or whether it is valid to add
- * an object to an existing SBMLDocument.
+ * a structure to an existing SBMLDocument.
  *
  * @memberof Reaction_t
  */
@@ -1502,8 +1502,8 @@ Reaction_create (unsigned int level, unsigned int version);
  * Creates a new Reaction_t structure using the given
  * SBMLNamespaces_t structure.
  *
- * @param sbmlns SBMLNamespaces, a pointer to an SBMLNamespaces structure
- * to assign to this Reaction
+ * @param sbmlns SBMLNamespaces_t, a pointer to an SBMLNamespaces_t structure
+ * to assign to this Reaction_t
  *
  * @return a pointer to the newly created Reaction_t structure.
  *
@@ -1512,7 +1512,7 @@ Reaction_create (unsigned int level, unsigned int version);
  * the Reaction.  Despite this, the ability to supply the values at creation 
  * time is an important aid to creating valid SBML.  Knowledge of the intended 
  * SBML Level and Version determine whether it is valid to assign a particular 
- * value to an attribute, or whether it is valid to add an object to an 
+ * value to an attribute, or whether it is valid to add a structure to an 
  * existing SBMLDocument.
  *
  * @memberof Reaction_t
@@ -1562,7 +1562,7 @@ Reaction_initDefaults (Reaction_t *r);
  * @param r the Reaction_t structure
  * 
  * @return pointer to the XMLNamespaces_t structure associated with 
- * this SBML object
+ * this structure
  *
  * @memberof Reaction_t
  */
@@ -1887,18 +1887,18 @@ Reaction_unsetFast (Reaction_t *r);
 
 /**
  * Predicate returning @c true or @c false depending on whether
- * all the required attributes for this Reaction object
+ * all the required attributes for this Reaction_t structure
  * have been set.
  *
  * @param r the Reaction_t structure to check.
  *
- * @note The required attributes for a Reaction object are:
+ * @note The required attributes for a Reaction_t structure are:
  * @li id (name in L1)
  * @li fast (in L3 only)
  * @li reversible (in L3 only)
  *
  * @return a true if all the required
- * attributes for this object have been defined, false otherwise.
+ * attributes for this structure have been defined, false otherwise.
  *
  * @memberof Reaction_t
  */
@@ -2135,16 +2135,16 @@ Reaction_getNumModifiers (const Reaction_t *r);
 
 
 /**
- * Removes the nth reactant SpeciesReference_t object from this 
- * Reaction_t object and returns a pointer to it.
+ * Removes the nth reactant SpeciesReference_t structure from this 
+ * Reaction_t structure and returns a pointer to it.
  *
- * The caller owns the returned object and is responsible for deleting it.
+ * The caller owns the returned structure and is responsible for deleting it.
  *
  * @param r the Reaction_t structure
  * @param n the integer index of the reactant SpeciesReference_t to remove
  *
- * @return the reactant SpeciesReference_t object removed.  As mentioned 
- * above, the caller owns the returned object. @c NULL is returned if the 
+ * @return the reactant SpeciesReference_t structure removed.  As mentioned 
+ * above, the caller owns the returned structure. @c NULL is returned if the 
  * given index is out of range.
  *
  * @memberof Reaction_t
@@ -2155,19 +2155,19 @@ Reaction_removeReactant (Reaction_t *r, unsigned int n);
 
 
 /**
- * Removes the reactant SpeciesReference_t object with the given 
- * "species" attribute from this Reaction_t object and returns a pointer
+ * Removes the reactant SpeciesReference_t structure with the given 
+ * "species" attribute from this Reaction_t structure and returns a pointer
  * to it.
  *
- * The caller owns the returned object and is responsible for deleting it.
+ * The caller owns the returned structure and is responsible for deleting it.
  *
  * @param r the Reaction_t structure
  * @param species the "species" attribute of the reactant SpeciesReference_t 
  * to remove
  *
- * @return the reactant SpeciesReference_t object removed.  As mentioned 
- * above, the caller owns the returned object. @c NULL is returned if no 
- * reactant SpeciesReference_t object with the "species" attribute exists 
+ * @return the reactant SpeciesReference_t structure removed.  As mentioned 
+ * above, the caller owns the returned structure. @c NULL is returned if no 
+ * reactant SpeciesReference_t structure with the "species" attribute exists 
  * in this Reaction.
  *
  * @memberof Reaction_t
@@ -2178,16 +2178,16 @@ Reaction_removeReactantBySpecies (Reaction_t *r, const char *species);
 
 
 /**
- * Removes the nth product SpeciesReference_t object from this 
- * Reaction_t object and returns a pointer to it.
+ * Removes the nth product SpeciesReference_t structure from this 
+ * Reaction_t structure and returns a pointer to it.
  *
- * The caller owns the returned object and is responsible for deleting it.
+ * The caller owns the returned structure and is responsible for deleting it.
  *
  * @param r the Reaction_t structure
  * @param n the integer index of the product SpeciesReference_t to remove
  *
- * @return the product SpeciesReference_t object removed.  As mentioned 
- * above, the caller owns the returned object. @c NULL is returned if the 
+ * @return the product SpeciesReference_t structure removed.  As mentioned 
+ * above, the caller owns the returned structure. @c NULL is returned if the 
  * given index is out of range.
  *
  * @memberof Reaction_t
@@ -2198,19 +2198,19 @@ Reaction_removeProduct (Reaction_t *r, unsigned int n);
 
 
 /**
- * Removes the product SpeciesReference_t object with the given 
- * "species" attribute from this Reaction_t object and returns a pointer
+ * Removes the product SpeciesReference_t structure with the given 
+ * "species" attribute from this Reaction_t structure and returns a pointer
  * to it.
  *
- * The caller owns the returned object and is responsible for deleting it.
+ * The caller owns the returned structure and is responsible for deleting it.
  *
  * @param r the Reaction_t structure
  * @param species the "species" attribute of the product SpeciesReference_t 
  * to remove
  *
- * @return the product SpeciesReference_t object removed.  As mentioned 
- * above, the caller owns the returned object. @c NULL is returned if no 
- * product SpeciesReference_t object with the "species" attribute exists 
+ * @return the product SpeciesReference_t structure removed.  As mentioned 
+ * above, the caller owns the returned structure. @c NULL is returned if no 
+ * product SpeciesReference_t structure with the "species" attribute exists 
  * in this Reaction.
  *
  * @memberof Reaction_t
@@ -2221,16 +2221,16 @@ Reaction_removeProductBySpecies (Reaction_t *r, const char *species);
 
 
 /**
- * Removes the nth modifier SpeciesReference_t object from this 
- * Reaction_t object and returns a pointer to it.
+ * Removes the nth modifier SpeciesReference_t structure from this 
+ * Reaction_t structure and returns a pointer to it.
  *
- * The caller owns the returned object and is responsible for deleting it.
+ * The caller owns the returned structure and is responsible for deleting it.
  *
  * @param r the Reaction_t structure
  * @param n the integer index of the modifier SpeciesReference_t to remove
  *
- * @return the modifier SpeciesReference_t object removed.  As mentioned 
- * above, the caller owns the returned object. @c NULL is returned if the 
+ * @return the modifier SpeciesReference_t structure removed.  As mentioned 
+ * above, the caller owns the returned structure. @c NULL is returned if the 
  * given index is out of range.
  *
  * @memberof Reaction_t
@@ -2241,19 +2241,19 @@ Reaction_removeModifier (Reaction_t *r, unsigned int n);
 
 
 /**
- * Removes the modifier SpeciesReference_t object with the given 
- * "species" attribute from this Reaction_t object and returns a pointer
+ * Removes the modifier SpeciesReference_t structure with the given 
+ * "species" attribute from this Reaction_t structure and returns a pointer
  * to it.
  *
- * The caller owns the returned object and is responsible for deleting it.
+ * The caller owns the returned structure and is responsible for deleting it.
  *
  * @param r the Reaction_t structure
  * @param species the "species" attribute of the modifier SpeciesReference_t 
  * to remove
  *
- * @return the modifier SpeciesReference_t object removed.  As mentioned 
- * above, the caller owns the returned object. @c NULL is returned if no 
- * modifier SpeciesReference_t object with the "species" attribute exists 
+ * @return the modifier SpeciesReference_t structure removed.  As mentioned 
+ * above, the caller owns the returned structure. @c NULL is returned if no 
+ * modifier SpeciesReference_t structure with the "species" attribute exists 
  * in this Reaction.
  *
  * @memberof Reaction_t

@@ -703,7 +703,7 @@ BEGIN_C_DECLS
  * creation time is an important aid to creating valid SBML.  Knowledge of
  * the intended SBML Level and Version  determine whether it is valid to
  * assign a particular value to an attribute, or whether it is valid to add
- * an object to an existing SBMLDocument.
+ * a structure to an existing SBMLDocument.
  *
  * @memberof StoichiometryMath_t
  */
@@ -716,7 +716,7 @@ StoichiometryMath_create (unsigned int level, unsigned int version);
  * Creates a new StoichiometryMath_t structure using the given
  * SBMLNamespaces_t structure.
  *
- * @param sbmlns SBMLNamespaces, a pointer to an SBMLNamespaces structure
+ * @param sbmlns SBMLNamespaces_t, a pointer to an SBMLNamespaces_t structure
  * to assign to this StoichiometryMath_t
  *
  * @return a pointer to the newly created StoichiometryMath_t structure.
@@ -726,7 +726,7 @@ StoichiometryMath_create (unsigned int level, unsigned int version);
  * the StoichiometryMath_t.  Despite this, the ability to supply the values at 
  * creation time is an important aid to creating valid SBML.  Knowledge of the
  * intended SBML Level and Version determine whether it is valid to assign a 
- * particular value to an attribute, or whether it is valid to add an object 
+ * particular value to an attribute, or whether it is valid to add a structure 
  * to an existing SBMLDocument.
  *
  * @memberof StoichiometryMath_t
@@ -763,7 +763,7 @@ StoichiometryMath_clone (const StoichiometryMath_t *t);
  * @param sm the StoichiometryMath_t structure
  * 
  * @return pointer to the XMLNamespaces_t structure associated with 
- * this SBML object
+ * this structure
  *
  * @memberof StoichiometryMath_t
  */

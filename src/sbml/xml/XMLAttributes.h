@@ -1401,7 +1401,7 @@ XMLAttributes_removeByTriple (XMLAttributes_t *xa, const XMLTriple_t* triple);
 
 
 /**
- * Clears (deletes) all attributes in this XMLAttributes object.
+ * Clears (deletes) all attributes in this XMLAttributes structure.
  *
  * @param xa the XMLAttributes_t structure.
  *

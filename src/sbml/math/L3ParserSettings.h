@@ -559,7 +559,7 @@ BEGIN_C_DECLS
 
 
 /**
- * Creates a new L3ParserSettings_t object and returns a pointer to it
+ * Creates a new L3ParserSettings_t structure and returns a pointer to it
  *
  * @note This functions sets the Model* to NULL, and other settings to 
  * L3P_PARSE_LOG_AS_LOG10, L3P_EXPAND_UNARY_MINUS, L3P_PARSE_UNITS, 
@@ -587,14 +587,14 @@ L3ParserSettings_free (L3ParserSettings_t * settings);
 
 
 /**
- * Sets the model associated with this L3ParserSettings_t object
+ * Sets the model associated with this L3ParserSettings_t structure
  * to the provided pointer.  
  *
  * @note A copy of the Model is not made, so modifications to the Model itself 
  * may affect future parsing.
  *
  * @param settings the L3ParserSettings_t structure on which to set the Model.
- * @param model The Model* object to which infix strings are to be compared.
+ * @param model The Model_t structure to which infix strings are to be compared.
  *
  * @memberof L3ParserSettings_t
  */
@@ -604,11 +604,11 @@ L3ParserSettings_setModel (L3ParserSettings_t * settings, const Model_t * model)
 
 
 /**
- * Retrieves the model associated with this L3ParserSettings_t object.  
+ * Retrieves the model associated with this L3ParserSettings_t structure.  
  *
  * @param settings the L3ParserSettings_t structure from which to get the Model.
  *
- * @return the Model_t* object associated with this L3ParserSettings_t object.
+ * @return the Model_t structure associated with this L3ParserSettings_t structure.
  *
  * @memberof L3ParserSettings_t
  */
@@ -618,7 +618,7 @@ L3ParserSettings_getModel (const L3ParserSettings_t * settings);
 
 
 /**
- * Unsets the model associated with this L3ParserSettings_t object.
+ * Unsets the model associated with this L3ParserSettings_t structure.
  *
  * @param settings the L3ParserSettings_t structure on which to unset the Model.
  *
@@ -630,7 +630,7 @@ L3ParserSettings_unsetModel (L3ParserSettings_t * settings);
 
 
 /**
- * Sets the log parsing option associated with this L3ParserSettings_t object.  
+ * Sets the log parsing option associated with this L3ParserSettings_t structure.  
  *
  * This option allows the user to specify how the infix expression 'log(x)'
  * is parsed in a MathML ASTNode. The options are:
@@ -640,7 +640,7 @@ L3ParserSettings_unsetModel (L3ParserSettings_t * settings);
  *
  * @param settings the L3ParserSettings_t structure on which to set the option.
  * @param type ParseLogType_t log parsing option to associate with this 
- * L3ParserSettings_t object.
+ * L3ParserSettings_t structure.
  *
  * @memberof L3ParserSettings_t
  */
@@ -650,7 +650,7 @@ L3ParserSettings_setParseLog (L3ParserSettings_t * settings, ParseLogType_t type
 
 
 /**
- * Retrieves the log parsing option associated with this L3ParserSettings_t object.  
+ * Retrieves the log parsing option associated with this L3ParserSettings_t structure.  
  *
  * This option allows the user to specify how the infix expression 'log(x)'
  * is parsed in a MathML ASTNode. The options are:
@@ -661,7 +661,7 @@ L3ParserSettings_setParseLog (L3ParserSettings_t * settings, ParseLogType_t type
  * @param settings the L3ParserSettings_t structure on which to set the Model.
  *
  * @return ParseLogType_t log parsing option to associate with this 
- * L3ParserSettings_t object.  Returns L3P_PARSE_LOG_AS_LOG10 (0) if @param settings
+ * L3ParserSettings_t structure.  Returns L3P_PARSE_LOG_AS_LOG10 (0) if @param settings
  * is NULL.
  *
  * @memberof L3ParserSettings_t
@@ -672,7 +672,7 @@ L3ParserSettings_getParseLog (const L3ParserSettings_t * settings);
 
 
 /**
- * Sets the collapse minus option associated with this L3ParserSettings_t object.  
+ * Sets the collapse minus option associated with this L3ParserSettings_t structure.  
  *
  * This option allows the user to specify how the infix expression '-4'
  * is parsed in a MathML ASTNode. 
@@ -689,7 +689,7 @@ L3ParserSettings_setParseCollapseMinus (L3ParserSettings_t * settings, int flag)
 
 
 /**
- * Retrieves the collapse minus option associated with this L3ParserSettings_t object.  
+ * Retrieves the collapse minus option associated with this L3ParserSettings_t structure.  
  *
  * This option allows the user to specify how the infix expression '-4'
  * is parsed in a MathML ASTNode. 
@@ -708,7 +708,7 @@ L3ParserSettings_getParseCollapseMinus (const L3ParserSettings_t * settings);
 
 
 /**
- * Sets the units option associated with this L3ParserSettings_t object.  
+ * Sets the units option associated with this L3ParserSettings_t structure.  
  *
  * @param settings the L3ParserSettings_t structure on which to set the option.
  * @param flag an integer indicating whether numbers should be considered as 
@@ -722,7 +722,7 @@ L3ParserSettings_setParseUnits (L3ParserSettings_t * settings, int flag);
 
 
 /**
- * Retrieves the units option associated with this L3ParserSettings_t object.  
+ * Retrieves the units option associated with this L3ParserSettings_t structure.  
  *
  * @param settings the L3ParserSettings_t structure from which to get the option.
  *
@@ -738,7 +738,7 @@ L3ParserSettings_getParseUnits (const L3ParserSettings_t * settings);
 
 
 /**
- * Sets the avogadro csymbol option associated with this L3ParserSettings_t object.  
+ * Sets the avogadro csymbol option associated with this L3ParserSettings_t structure.  
  *
  * @param settings the L3ParserSettings_t structure on which to set the option.
  * @param flag an integer indicating whether avogadro should be considered as 
@@ -752,7 +752,7 @@ L3ParserSettings_setParseAvogadroCsymbol (L3ParserSettings_t * settings, int fla
 
 
 /**
- * Retrieves the avogadro csymbol option associated with this L3ParserSettings_t object.  
+ * Retrieves the avogadro csymbol option associated with this L3ParserSettings_t structure.  
  *
  * @param settings the L3ParserSettings_t structure from which to get the option.
  *

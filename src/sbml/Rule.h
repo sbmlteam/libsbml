@@ -353,7 +353,7 @@ public:
    * Sets the "math" subelement of this Rule to a copy of the given
    * ASTNode.
    *
-   * @param math the ASTNode structure of the mathematical formula.
+   * @param math the ASTNode_t structure of the mathematical formula.
    *
    * @return integer value indicating success/failure of the
    * function.  The possible values
@@ -1107,7 +1107,7 @@ BEGIN_C_DECLS
  * creation time is an important aid to creating valid SBML.  Knowledge of
  * the intended SBML Level and Version  determine whether it is valid to
  * assign a particular value to an attribute, or whether it is valid to add
- * an object to an existing SBMLDocument.
+ * a structure to an existing SBMLDocument.
  *
  * @memberof Rule_t
  */
@@ -1120,7 +1120,7 @@ Rule_createAlgebraic (unsigned int level, unsigned int version);
  * Creates a new AlgebraicRule (Rule_t) structure using the given
  * SBMLNamespaces_t structure.
  *
- * @param sbmlns SBMLNamespaces, a pointer to an SBMLNamespaces structure
+ * @param sbmlns SBMLNamespaces_t, a pointer to an SBMLNamespaces_t structure
  * to assign to this AlgebraicRule
  *
  * @return a pointer to the newly created Rule_t structure.
@@ -1130,7 +1130,7 @@ Rule_createAlgebraic (unsigned int level, unsigned int version);
  * the AlgebraicRule.  Despite this, the ability to supply the values at creation 
  * time is an important aid to creating valid SBML.  Knowledge of the intended 
  * SBML Level and Version determine whether it is valid to assign a particular 
- * value to an attribute, or whether it is valid to add an object to an existing
+ * value to an attribute, or whether it is valid to add a structure to an existing
  * SBMLDocument.
  *
  * @memberof Rule_t
@@ -1158,7 +1158,7 @@ Rule_createAlgebraicWithNS (SBMLNamespaces_t *sbmlns);
  * creation time is an important aid to creating valid SBML.  Knowledge of
  * the intended SBML Level and Version  determine whether it is valid to
  * assign a particular value to an attribute, or whether it is valid to add
- * an object to an existing SBMLDocument.
+ * a structure to an existing SBMLDocument.
  *
  * @memberof Rule_t
  */
@@ -1171,7 +1171,7 @@ Rule_createAssignment (unsigned int level, unsigned int version);
  * Creates a new AssignmentRule (Rule_t) structure using the given
  * SBMLNamespaces_t structure.
  *
- * @param sbmlns SBMLNamespaces, a pointer to an SBMLNamespaces structure
+ * @param sbmlns SBMLNamespaces_t, a pointer to an SBMLNamespaces_t structure
  * to assign to this AssignmentRule
  *
  * @return a pointer to the newly created Rule_t structure.
@@ -1181,7 +1181,7 @@ Rule_createAssignment (unsigned int level, unsigned int version);
  * the AssignmentRule.  Despite this, the ability to supply the values at creation
  * time is an important aid to creating valid SBML.  Knowledge of the intended
  * SBML Level and Version determine whether it is valid to assign a particular
- * value to an attribute, or whether it is valid to add an object to an existing
+ * * value to an attribute, or whether it is valid to add a structure to an existing
  * SBMLDocument.
  *
  * @memberof Rule_t
@@ -1209,7 +1209,7 @@ Rule_createAssignmentWithNS (SBMLNamespaces_t *sbmlns);
  * creation time is an important aid to creating valid SBML.  Knowledge of
  * the intended SBML Level and Version  determine whether it is valid to
  * assign a particular value to an attribute, or whether it is valid to add
- * an object to an existing SBMLDocument.
+ * a structure to an existing SBMLDocument.
  *
  * @memberof Rule_t
  */
@@ -1222,8 +1222,8 @@ Rule_createRate (unsigned int level, unsigned int version);
  * Creates a new RateRule (Rule_t) structure using the given
  * SBMLNamespaces_t structure.
  *
- * @param sbmlns SBMLNamespaces, a pointer to an SBMLNamespaces structure
- * to assign to this RateRule
+ * @param sbmlns SBMLNamespaces_t, a pointer to an SBMLNamespaces_t structure
+ * to assign to this RateRule_t
  *
  * @return a pointer to the newly created Rule_t structure.
  *
@@ -1232,7 +1232,7 @@ Rule_createRate (unsigned int level, unsigned int version);
  * the RateRule.  Despite this, the ability to supply the values at creation
  * time is an important aid to creating valid SBML.  Knowledge of the intended
  * SBML Level and Version determine whether it is valid to assign a particular
- * value to an attribute, or whether it is valid to add an object to an existing
+ * * value to an attribute, or whether it is valid to add a structure to an existing
  * SBMLDocument.
  *
  * @memberof Rule_t
@@ -1269,7 +1269,7 @@ Rule_clone (const Rule_t *r);
  * @param r the Rule_t structure
  * 
  * @return pointer to the XMLNamespaces_t structure associated with 
- * this SBML object
+ * this structure
  *
  * @memberof Rule_t
  */
@@ -1574,7 +1574,7 @@ Rule_isSpeciesConcentration (const Rule_t *r);
 
 
 /**
- * @return the typecode (int) of SBML objects contained in this ListOf or
+ * @return the typecode (int) of SBML structures contained in this ListOf or
  * (default).
  *
  * @memberof Rule_t
@@ -1626,7 +1626,7 @@ Rule_setL1TypeCode (Rule_t *r, int L1Type);
  * expression of this Rule_t.
  *
  * Note that the functionality that facilitates unit analysis depends 
- * on the model as a whole.  Thus, in cases where the object has not 
+ * on the model as a whole.  Thus, in cases where the structure has not 
  * been added to a model or the model itself is incomplete,
  * unit analysis is not possible and this method will return @c NULL.
  *

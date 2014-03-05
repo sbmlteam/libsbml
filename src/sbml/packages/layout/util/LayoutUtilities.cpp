@@ -71,10 +71,6 @@ LIBSBML_EXTERN XMLNode getXmlNodeForSBase(const SBase* object)
   return result;
 }
 
-/**
- * Copies the attributes from source to target.
- * this is used in the assignment operators and copy constructors
- */
 LIBSBML_EXTERN
 void 
 copySBaseAttributes(const SBase& source,SBase& target)

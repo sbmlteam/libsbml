@@ -946,7 +946,7 @@ BEGIN_C_DECLS
  * creation time is an important aid to creating valid SBML.  Knowledge of
  * the intended SBML Level and Version  determine whether it is valid to
  * assign a particular value to an attribute, or whether it is valid to add
- * an object to an existing SBMLDocument.
+ * a structure to an existing SBMLDocument.
  *
  * @memberof EventAssignment_t
  */
@@ -959,8 +959,8 @@ EventAssignment_create (unsigned int level, unsigned int version);
  * Creates a new EventAssignment_t structure using the given
  * SBMLNamespaces_t structure.
  *
- * @param sbmlns SBMLNamespaces, a pointer to an SBMLNamespaces structure
- * to assign to this EventAssignment
+ * @param sbmlns SBMLNamespaces_t, a pointer to an SBMLNamespaces_t structure
+ * to assign to this EventAssignment_t
  *
  * @return a pointer to the newly created EventAssignment_t structure.
  *
@@ -969,7 +969,7 @@ EventAssignment_create (unsigned int level, unsigned int version);
  * the EventAssignment.  Despite this, the ability to supply the values at 
  * creation time is an important aid to creating valid SBML.  Knowledge of the 
  * intended SBML Level and Version determine whether it is valid to assign a 
- * particular value to an attribute, or whether it is valid to add an object to 
+ * particular value to an attribute, or whether it is valid to add a structure to 
  * an existing SBMLDocument.
  *
  * @memberof EventAssignment_t
@@ -1012,7 +1012,7 @@ EventAssignment_clone (const EventAssignment_t *ea);
  * @param ea the EventAssignment_t structure
  * 
  * @return pointer to the XMLNamespaces_t structure associated with 
- * this SBML object
+ * this structure
  *
  * @memberof EventAssignment_t
  */
@@ -1139,7 +1139,7 @@ EventAssignment_setMath (EventAssignment_t *ea, const ASTNode_t *math);
  * expression of this EventAssignment_t.
  *
  * Note that the functionality that facilitates unit analysis depends 
- * on the model as a whole.  Thus, in cases where the object has not 
+ * on the model as a whole.  Thus, in cases where the structure has not 
  * been added to a model or the model itself is incomplete,
  * unit analysis is not possible and this method will return @c NULL.
  *

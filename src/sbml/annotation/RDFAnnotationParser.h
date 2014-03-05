@@ -663,7 +663,7 @@ XMLNode_t *
 RDFAnnotationParser_parseCVTerms(const SBase_t * obj);
 
 /**
-  * Takes an SBML Model_t object, reads off the model history information
+  * Takes an SBML Model_t structure, reads off the model history information
   * stored in it, and creates a complete SBML annotation to store that
   * history.
   *

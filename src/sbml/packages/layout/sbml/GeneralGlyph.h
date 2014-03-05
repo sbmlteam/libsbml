@@ -694,7 +694,7 @@ GeneralGlyph_create (void);
 
 
 /*
- * Creates a new GeneralGlyph_t object from a template.
+ * Creates a new GeneralGlyph_t structure from a template.
  *
  * @param temp The GeneralGlyph_t structure to copy.
  *
@@ -881,9 +881,9 @@ int
 GeneralGlyph_isSetCurve (GeneralGlyph_t *gg);
 
 /*
- * Creates a new ReferenceGlyph_t object, adds it to the end of the
- * list of reference objects and returns a pointer to the newly
- * created object.
+ * Creates a new ReferenceGlyph_t structure, adds it to the end of the
+ * list of reference glyphs and returns a pointer to the newly
+ * created structure.
  *
  * @param gg The GeneralGlyph_t structure.
  *
@@ -894,9 +894,9 @@ ReferenceGlyph_t *
 GeneralGlyph_createReferenceGlyph (GeneralGlyph_t *gg);
 
 /*
- * Creates a new ReferenceGlyph_t object, adds it to the end of the
- * list of reference objects and returns a pointer to the newly
- * created object.
+ * Creates a new ReferenceGlyph_t structure, adds it to the end of the
+ * list of reference glyphs and returns a pointer to the newly
+ * created structure.
  *
  * @param gg The GeneralGlyph_t structure.
  *
@@ -907,9 +907,9 @@ ReferenceGlyph_t *
 GeneralGlyph_createReferenceGlyph (GeneralGlyph_t *gg);
 
 /*
- * Creates a new LineSegment object, adds it to the end of the list of
- * curve segments objects and returns a pointer to the newly created
- * object.
+ * Creates a new LineSegment_t structure, adds it to the end of the list of
+ * curve segments and returns a pointer to the newly created
+ * structure.
  *
  * @param gg The GeneralGlyph_t structure.
  *
@@ -920,9 +920,9 @@ LineSegment_t *
 GeneralGlyph_createLineSegment (GeneralGlyph_t *gg);
 
 /*
- * Creates a new CubicBezier object, adds it to the end of the list of
- * curve segments objects and returns a pointer to the newly created
- * object.
+ * Creates a new CubicBezier_t structure, adds it to the end of the list of
+ * curve segments and returns a pointer to the newly created
+ * structure.
  *
  * @param gg The GeneralGlyph_t structure.
  *
@@ -934,7 +934,7 @@ GeneralGlyph_createCubicBezier (GeneralGlyph_t *gg);
 
 /*
  * Remove the reference glyph with the given index.
- * A pointer to the object is returned. If no object has been removed, NULL
+ * A pointer to the structure is returned. If no structure has been removed, NULL
  * is returned.
  *
  * @param gg The GeneralGlyph_t structure.
@@ -947,7 +947,7 @@ GeneralGlyph_removeReferenceGlyph(GeneralGlyph_t* gg, unsigned int index);
 
 /*
  * Remove the reference glyph with the given @p id.
- * A pointer to the object is returned. If no object has been removed, NULL
+ * A pointer to the structure is returned. If no structure has been removed, NULL
  * is returned.
  *
  * @param gg The GeneralGlyph_t structure.

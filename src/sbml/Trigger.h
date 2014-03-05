@@ -619,7 +619,7 @@ BEGIN_C_DECLS
  * creation time is an important aid to creating valid SBML.  Knowledge of
  * the intended SBML Level and Version  determine whether it is valid to
  * assign a particular value to an attribute, or whether it is valid to add
- * an object to an existing SBMLDocument.
+ * a structure to an existing SBMLDocument.
  *
  * @memberof Trigger_t
  */
@@ -632,8 +632,8 @@ Trigger_create (unsigned int level, unsigned int version);
  * Creates a new Trigger_t structure using the given
  * SBMLNamespaces_t structure.
  *
- * @param sbmlns SBMLNamespaces, a pointer to an SBMLNamespaces structure
- * to assign to this Trigger
+ * @param sbmlns SBMLNamespaces_t, a pointer to an SBMLNamespaces_t structure
+ * to assign to this Trigger_t
  *
  * @return a pointer to the newly created Trigger_t structure.
  *
@@ -642,7 +642,7 @@ Trigger_create (unsigned int level, unsigned int version);
  * the Trigger_t.  Despite this, the ability to supply the values at creation time
  * is an important aid to creating valid SBML.  Knowledge of the intended SBML
  * Level and Version determine whether it is valid to assign a particular value
- * to an attribute, or whether it is valid to add an object to an existing
+ * to an attribute, or whether it is valid to add a structure to an existing
  * SBMLDocument.
  *
  * @memberof Trigger_t
@@ -679,7 +679,7 @@ Trigger_clone (const Trigger_t *t);
  * @param t the Trigger_t structure
  * 
  * @return pointer to the XMLNamespaces_t structure associated with 
- * this SBML object
+ * this structure
  *
  * @memberof Trigger_t
  */

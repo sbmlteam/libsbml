@@ -1144,7 +1144,7 @@ CVTerm_setQualifierType(CVTerm_t * term, QualifierType_t type);
  * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE @endlink
  * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT @endlink
  *
- * @note if the QualifierType for this object is not MODEL_QUALIFIER
+ * @note if the QualifierType for this structure is not MODEL_QUALIFIER
  * then the ModelQualifierType will default to BQM_UNKNOWN.
  *
  * @memberof CVTerm_t
@@ -1168,7 +1168,7 @@ CVTerm_setModelQualifierType(CVTerm_t * term, ModelQualifierType_t type);
  * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE @endlink
  * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT @endlink
  *
- * @note if the QualifierType for this object is not BIOLOGICAL_QUALIFIER
+ * @note if the QualifierType for this structure is not BIOLOGICAL_QUALIFIER
  * then the BiolQualifierType_t will default to BQB_UNKNOWN.
  *
  * @memberof CVTerm_t
@@ -1192,7 +1192,7 @@ CVTerm_setBiologicalQualifierType(CVTerm_t * term, BiolQualifierType_t type);
  * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE @endlink
  * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT @endlink
  *
- * @note if the QualifierType for this object is not MODEL_QUALIFIER
+ * @note if the QualifierType for this structure is not MODEL_QUALIFIER
  * then the ModelQualifierType will default to BQM_UNKNOWN.
  *
  * @memberof CVTerm_t
@@ -1216,7 +1216,7 @@ CVTerm_setModelQualifierTypeByString(CVTerm_t * term, const char* qualifier);
  * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE @endlink
  * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT @endlink
  *
- * @note if the QualifierType for this object is not BIOLOGICAL_QUALIFIER
+ * @note if the QualifierType for this structure is not BIOLOGICAL_QUALIFIER
  * then the BiolQualifierType_t will default to BQB_UNKNOWN.
  *
  * @memberof CVTerm_t

@@ -465,7 +465,7 @@ Curve_t *
 Curve_create ();
 
 /**
- * Creates a new Curve_t object from a template.
+ * Creates a new Curve_t structure from a template.
  *
  * @param temp The Curve_t structure to copy.
  *
@@ -523,7 +523,7 @@ LineSegment_t *
 Curve_getCurveSegment (const Curve_t *c, unsigned int index);
 
 /**
- * Returns the ListOf object that holds all the curve segments.
+ * Returns the ListOf_t structure that holds all the curve segments.
  *
  * @param c The Curve_t structure.
  *
@@ -558,8 +558,8 @@ void
 Curve_initDefaults (Curve_t *c);
 
 /**
- * Creates a new LineSegment and adds it to the end of the list.  A pointer
- * to the new LineSegment object is returned.
+ * Creates a new LineSegment_t and adds it to the end of the list.  A pointer
+ * to the new LineSegment_t structure is returned.
  *
  * @param c The Curve_t structure.
  *
@@ -570,8 +570,8 @@ LineSegment_t *
 Curve_createLineSegment (Curve_t *c);
 
 /**
- * Creates a new CubicBezier and adds it to the end of the list.  A pointer
- * to the new CubicBezier object is returned.
+ * Creates a new CubicBezier_t and adds it to the end of the list.  A pointer
+ * to the new CubicBezier_t structure is returned.
  *
  * @param c The Curve_t structure.
  *

@@ -39,7 +39,7 @@
  * UnitDefinition class is the container, and Unit instances are placed
  * inside UnitDefinition instances.
  *
- * A Unit structure has four attributes named "kind", "exponent", "scale"
+ * A Unit has four attributes named "kind", "exponent", "scale"
  * and "multiplier".  It represents a (possibly transformed) reference to a
  * base unit.  The attribute "kind" on Unit indicates the chosen base unit.
  * Its value must be one of the text strings listed below; this list
@@ -60,7 +60,7 @@
  * The attribute named "exponent" on Unit represents an exponent on the
  * unit.  In SBML Level&nbsp;2, the attribute is optional and has a default
  * value of @c 1 (one); in SBML Level&nbsp;3, the attribute is mandatory
- * and there is no default value.  A Unit structure also has an attribute
+ * and there is no default value.  A Unit also has an attribute
  * called "scale"; its value must be an integer exponent for a power-of-ten
  * multiplier used to set the scale of the unit.  For example, a unit
  * having a "kind" value of @c gram and a "scale" value of @c -3 signifies
@@ -1415,7 +1415,7 @@ BEGIN_C_DECLS
  * creation time is an important aid to creating valid SBML.  Knowledge of
  * the intended SBML Level and Version  determine whether it is valid to
  * assign a particular value to an attribute, or whether it is valid to add
- * an object to an existing SBMLDocument.
+ * a structure to an existing SBMLDocument.
  *
  * @memberof Unit_t
  */
@@ -1428,8 +1428,8 @@ Unit_create (unsigned int level, unsigned int version);
  * Creates a new Unit_t structure using the given
  * SBMLNamespaces_t structure.
  *
- * @param sbmlns SBMLNamespaces, a pointer to an SBMLNamespaces structure
- * to assign to this Unit
+ * @param sbmlns SBMLNamespaces, a pointer to an SBMLNamespaces_t structure
+ * to assign to this Unit_t
  *
  * @return a pointer to the newly created Unit_t structure.
  *
@@ -1438,7 +1438,7 @@ Unit_create (unsigned int level, unsigned int version);
  * the Unit.  Despite this, the ability to supply the values at creation time
  * is an important aid to creating valid SBML.  Knowledge of the intended SBML
  * Level and Version determine whether it is valid to assign a particular value
- * to an attribute, or whether it is valid to add an object to an existing
+ * to an attribute, or whether it is valid to add a structure to an existing
  * SBMLDocument.
  *
  * @memberof Unit_t
@@ -1498,7 +1498,7 @@ Unit_initDefaults (Unit_t *u);
  * @param u the Unit_t structure
  * 
  * @return pointer to the XMLNamespaces_t structure associated with 
- * this SBML object.
+ * this structure.
  *
  * @memberof Unit_t
  */
@@ -2333,17 +2333,17 @@ Unit_setOffset (Unit_t *u, double value);
 
 /**
  * Predicate returning @c true or @c false depending on whether
- * all the required attributes for this Unit object
+ * all the required attributes for this Unit_t structure
  * have been set.
  *
- * @note The required attributes for a Unit object are:
+ * @note The required attributes for a Unit_t structure are:
  * @li kind
  * @li exponent (L3 on)
  * @li multiplier (L3 on)
  * @li scale (L3 on)
  *
  * @return a boolean value indicating whether all the required
- * elements for this object have been defined.
+ * elements for this structure have been defined.
  *
  * @memberof Unit_t
  */

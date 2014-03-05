@@ -1295,7 +1295,7 @@ BEGIN_C_DECLS
  * creation time is an important aid to creating valid SBML.  Knowledge of 
  * the intended SBML Level and Version  determine whether it is valid to 
  * assign a particular value to an attribute, or whether it is valid to add 
- * an object to an existing SBMLDocument.
+ * a structure to an existing SBMLDocument.
  *
  * @memberof UnitDefinition_t
  */
@@ -1308,8 +1308,8 @@ UnitDefinition_create (unsigned int level, unsigned int version);
  * Creates a new UnitDefinition_t structure using the given 
  * SBMLNamespaces_t structure.
  *
- * @param sbmlns SBMLNamespaces, a pointer to an SBMLNamespaces structure
- * to assign to this UnitDefinition
+ * @param sbmlns SBMLNamespaces, a pointer to an SBMLNamespaces_t structure
+ * to assign to this UnitDefinition_t
  *
  * @return a pointer to the newly created UnitDefinition_t structure.
  *
@@ -1318,7 +1318,7 @@ UnitDefinition_create (unsigned int level, unsigned int version);
  * the UnitDefinition.  Despite this, the ability to supply the values at
  * creation time is an important aid to creating valid SBML.  Knowledge of
  * the intended SBML Level and Version determine whether it is valid to assign
- * a particular value to an attribute, or whether it is valid to add an object
+ * a particular value to an attribute, or whether it is valid to add a structure
  * to an existing SBMLDocument.
  *
  * @memberof UnitDefinition_t
@@ -1359,7 +1359,7 @@ UnitDefinition_clone (const UnitDefinition_t *ud);
  * @param ud the UnitDefinition_t structure
  * 
  * @return pointer to the XMLNamespaces_t structure associated with 
- * this SBML structure
+ * this structure
  *
  * @memberof UnitDefinition_t
  */

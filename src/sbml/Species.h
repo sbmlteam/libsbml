@@ -1687,7 +1687,7 @@ BEGIN_C_DECLS
  * creation time is an important aid to creating valid SBML.  Knowledge of
  * the intended SBML Level and Version  determine whether it is valid to
  * assign a particular value to an attribute, or whether it is valid to add
- * an object to an existing SBMLDocument.
+ * a structure to an existing SBMLDocument.
  *
  * @memberof Species_t
  */
@@ -1700,7 +1700,7 @@ Species_create (unsigned int level, unsigned int version);
  * Creates a new Species_t structure using the given
  * SBMLNamespaces_t structure.
  *
- * @param sbmlns SBMLNamespaces, a pointer to an SBMLNamespaces structure
+ * @param sbmlns SBMLNamespaces_t, a pointer to an SBMLNamespaces_t structure
  * to assign to this Species_t
  *
  * @return a pointer to the newly created Species_t structure.
@@ -1710,7 +1710,7 @@ Species_create (unsigned int level, unsigned int version);
  * the Species_t.  Despite this, the ability to supply the values at creation time
  * is an important aid to creating valid SBML.  Knowledge of the intended SBML
  * Level and Version determine whether it is valid to assign a particular value
- * to an attribute, or whether it is valid to add an object to an existing
+ * to an attribute, or whether it is valid to add a structure to an existing
  * SBMLDocument.
  *
  * @memberof Species_t
@@ -1771,7 +1771,7 @@ Species_initDefaults (Species_t *s);
  * @param s the Species_t structure
  * 
  * @return pointer to the XMLNamespaces_t structure associated with 
- * this SBML object
+ * this structure
  *
  * @memberof Species_t
  */
@@ -1812,7 +1812,7 @@ Species_getName (const Species_t *s);
 
 /**
  * Get the species type of this Species_t structure, as indicated by the
- * Species_t structure object's "speciesType" attribute value.
+ * Species_t structure's "speciesType" attribute value.
  *
  * @param s the Species_t structure
  * 
@@ -2845,7 +2845,7 @@ Species_unsetConversionFactor (Species_t *s);
  * this Species_t and it's Compartment_t.
  *
  * Note that the functionality that facilitates unit analysis depends 
- * on the model as a whole.  Thus, in cases where the object has not 
+ * on the model as a whole.  Thus, in cases where the structure has not 
  * been added to a model or the model itself is incomplete,
  * unit analysis is not possible and this method will return @c NULL.
  *
@@ -2859,12 +2859,12 @@ Species_getDerivedUnitDefinition(Species_t *s);
 
 /**
  * Predicate returning @c true or @c false depending on whether
- * all the required attributes for this Species_t object
+ * all the required attributes for this Species_t structure
  * have been set.
  *
  * @param s the Species_t structure to check.
  *
- * @note The required attributes for a Species_t object are:
+ * @note The required attributes for a Species_t structure are:
  * @li id (name L1)
  * @li compartment
  * @li initialAmount (L1 only)
@@ -2873,7 +2873,7 @@ Species_getDerivedUnitDefinition(Species_t *s);
  * @li constant (L3 on)
  *
  * @return a true if all the required
- * attributes for this object have been defined, false otherwise.
+ * attributes for this structure have been defined, false otherwise.
  *
  * @memberof Species_t
  */

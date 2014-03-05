@@ -633,7 +633,7 @@ ReactionGlyph_create (void);
 
 
 /**
- * Creates a new ReactionGlyph_t object from a template.
+ * Creates a new ReactionGlyph_t structure from a template.
  *
  * @param temp The ReactionGlyph_t structure to copy.
  *
@@ -725,8 +725,8 @@ int
 ReactionGlyph_isSetReactionId (const ReactionGlyph_t *rg);
 
 /**
- * Add a SpeciesReferenceGlyph object to the list of
- * SpeciesReferenceGlyphs.
+ * Add a SpeciesReferenceGlyph_t structure to the list of
+ * SpeciesReferenceGlyph_t's.
  *
  * @param rg The ReactionGlyph_t structure.
  * @param srg The SpeciesReferenceGlyph_t structure to add.
@@ -764,7 +764,7 @@ ReactionGlyph_getSpeciesReferenceGlyph (ReactionGlyph_t *rg,
 
 
 /**
- * Returns the list object that holds all species reference glyphs.
+ * Returns the list structure that holds all species reference glyphs.
  *
  * @param rg The ReactionGlyph_t structure.
  *
@@ -834,9 +834,9 @@ int
 ReactionGlyph_isSetCurve (ReactionGlyph_t *rg);
 
 /**
- * Creates a new SpeciesReferenceGlyph_t object, adds it to the end of the
- * list of species reference objects and returns a pointer to the newly
- * created object.
+ * Creates a new SpeciesReferenceGlyph_t structure, adds it to the end of the
+ * list of species reference glyphs and returns a pointer to the newly
+ * created structure.
  *
  * @param rg The ReactionGlyph_t structure.
  *
@@ -847,9 +847,9 @@ SpeciesReferenceGlyph_t *
 ReactionGlyph_createSpeciesReferenceGlyph (ReactionGlyph_t *rg);
 
 /**
- * Creates a new SpeciesReferenceGlyph_t object, adds it to the end of the
- * list of species reference objects and returns a pointer to the newly
- * created object.
+ * Creates a new SpeciesReferenceGlyph_t structure, adds it to the end of the
+ * list of species reference glyphs and returns a pointer to the newly
+ * created structure.
  *
  * @param rg The ReactionGlyph_t structure.
  *
@@ -860,9 +860,9 @@ SpeciesReferenceGlyph_t *
 ReactionGlyph_createSpeciesReferenceGlyph (ReactionGlyph_t *rg);
 
 /**
- * Creates a new LineSegment object, adds it to the end of the list of
- * curve segments objects and returns a pointer to the newly created
- * object.
+ * Creates a new LineSegment_t structure, adds it to the end of the list of
+ * curve segments and returns a pointer to the newly created
+ * structure.
  *
  * @param rg The ReactionGlyph_t structure.
  *
@@ -873,9 +873,9 @@ LineSegment_t *
 ReactionGlyph_createLineSegment (ReactionGlyph_t *rg);
 
 /**
- * Creates a new CubicBezier object, adds it to the end of the list of
- * curve segments objects and returns a pointer to the newly created
- * object.
+ * Creates a new CubicBezier_t structure, adds it to the end of the list of
+ * curve segments and returns a pointer to the newly created
+ * structure.
  *
  * @param rg The ReactionGlyph_t structure.
  *
@@ -887,7 +887,7 @@ ReactionGlyph_createCubicBezier (ReactionGlyph_t *rg);
 
 /**
  * Remove the species reference glyph with the given index.
- * A pointer to the object is returned. If no object has been removed, NULL
+ * A pointer to the structure is returned. If no structure has been removed, NULL
  * is returned.
  *
  * @param rg The ReactionGlyph_t structure.
@@ -901,7 +901,7 @@ ReactionGlyph_removeSpeciesReferenceGlyph(ReactionGlyph_t* rg,unsigned int index
 
 /**
  * Remove the species reference glyph with the given @p id.
- * A pointer to the object is returned. If no object has been removed, NULL
+ * A pointer to the structure is returned. If no structure has been removed, NULL
  * is returned.
  *
  * @param rg The ReactionGlyph_t structure.

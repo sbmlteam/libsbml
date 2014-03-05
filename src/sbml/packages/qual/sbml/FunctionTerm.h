@@ -801,7 +801,7 @@ FunctionTerm_hasRequiredAttributes(FunctionTerm_t * ft);
   * all the required elements for the given FunctionTerm_t structure
   * have been set.
   *
-  * @note The required elements for an FunctionTerm_t object are:
+  * @note The required elements for an FunctionTerm_t structure are:
   * @li trigger
   * @li listOfEventAssignments (requirement removed in L3)
   *
@@ -831,17 +831,17 @@ ListOfFunctionTerms_getById(ListOf_t * lo, const char * sid);
 
 
 /**
- * Removes the FunctionTerm_t object with the given @p sid
- * from the given ListOf_t object and returns a pointer to it.
+ * Removes the FunctionTerm_t structure with the given @p sid
+ * from the given ListOf_t structure and returns a pointer to it.
  *
- * The caller owns the returned object and is responsible for deleting it.
+ * The caller owns the returned structure and is responsible for deleting it.
  *
  * @param lo the ListOf_t structure
  * @param sid the string of the "id" attribute of the FunctionTerm_t sought
  *
- * @return the FunctionTerm_t object removed.  As mentioned above, the 
- * caller owns the returned object. @c NULL is returned if no FunctionTerm_t
- * object with the "id" attribute exists in the given ListOf_t object.
+ * @return the FunctionTerm_t structure removed.  As mentioned above, the 
+ * caller owns the returned structure. @c NULL is returned if no FunctionTerm_t
+ * structure with the "id" attribute exists in the given ListOf_t structure.
  *
  * @memberof FunctionTerm_t
  */

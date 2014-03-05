@@ -1384,7 +1384,7 @@ BEGIN_C_DECLS
  * creation time is an important aid to creating valid SBML.  Knowledge of
  * the intended SBML Level and Version  determine whether it is valid to
  * assign a particular value to an attribute, or whether it is valid to add
- * an object to an existing SBMLDocument.
+ * a structure to an existing SBMLDocument.
  *
  * @memberof Event_t
  */
@@ -1397,7 +1397,7 @@ Event_create (unsigned int level, unsigned int version);
  * Creates a new Event_t structure using the given
  * SBMLNamespaces_t structure.
  *
- * @param sbmlns SBMLNamespaces, a pointer to an SBMLNamespaces structure
+ * @param sbmlns SBMLNamespaces_t, a pointer to an SBMLNamespaces_t structure
  * to assign to the given Event_t
  *
  * @return a pointer to the newly created Event_t structure.
@@ -1407,7 +1407,7 @@ Event_create (unsigned int level, unsigned int version);
  * the Event_t.  Despite this, the ability to supply the values at creation time
  * is an important aid to creating valid SBML.  Knowledge of the intended SBML
  * Level and Version determine whether it is valid to assign a particular value
- * to an attribute, or whether it is valid to add an object to an existing
+ * to an attribute, or whether it is valid to add a structure to an existing
  * SBMLDocument.
  *
  * @memberof Event_t
@@ -1450,7 +1450,7 @@ Event_clone (const Event_t *e);
  * @param e the Event_t structure
  * 
  * @return pointer to the XMLNamespaces_t structure associated with 
- * this SBML object
+ * this structure
  *
  * @memberof Event_t
  */
@@ -1967,7 +1967,7 @@ Event_hasRequiredAttributes (Event_t *e);
   * all the required elements for the given Event_t structure
   * have been set.
   *
-  * @note The required elements for an Event_t object are:
+  * @note The required elements for an Event_t structure are:
   * @li trigger
   * @li listOfEventAssignments (requirement removed in L3)
   *
@@ -2110,7 +2110,7 @@ Event_getEventAssignmentByVar (Event_t *e, const char *variable);
 
 
 /**
- * Returns the number of EventAssignment_t objects attached to the given
+ * Returns the number of EventAssignment_t structures attached to the given
  * Event_t.
  *
  * @param e the Event_t structure to use
@@ -2125,15 +2125,15 @@ Event_getNumEventAssignments (const Event_t *e);
 
 
 /**
- * Removes the nth EventAssignment_t object from the given Event_t object and
+ * Removes the nth EventAssignment_t structure from the given Event_t structure and
  * returns a pointer to it.
  *
- * The caller owns the returned object and is responsible for deleting it.
+ * The caller owns the returned structure and is responsible for deleting it.
  *
  * @param e the Event_t structure
  * @param n the integer index of the EventAssignment_t sought
  *
- * @return the EventAssignment_t object removed.  As mentioned above, 
+ * @return the EventAssignment_t structure removed.  As mentioned above, 
  * the caller owns the returned item. @c NULL is returned if the given index 
  * is out of range.
  *
@@ -2145,17 +2145,17 @@ Event_removeEventAssignment (Event_t *e, unsigned int n);
 
 
 /**
- * Removes the EventAssignment_t object with the given "variable" attribute
- * from the given Event_t object and returns a pointer to it.
+ * Removes the EventAssignment_t structure with the given "variable" attribute
+ * from the given Event_t structure and returns a pointer to it.
  *
- * The caller owns the returned object and is responsible for deleting it.
+ * The caller owns the returned structure and is responsible for deleting it.
  *
  * @param e the Event_t structure
  * @param variable the string of the "variable" attribute of the EventAssignment_t sought
  *
- * @return the EventAssignment_t object removed.  As mentioned above, the 
- * caller owns the returned object. @c NULL is returned if no EventAssignment_t
- * object with the "variable" attribute exists in the given Event_t object.
+ * @return the EventAssignment_t structure removed.  As mentioned above, the 
+ * caller owns the returned structure. @c NULL is returned if no EventAssignment_t
+ * structure with the "variable" attribute exists in the given Event_t structure.
  *
  * @memberof Event_t
  */

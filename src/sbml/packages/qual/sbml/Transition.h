@@ -1424,7 +1424,7 @@ Transition_getInputById(Transition_t * t, const char * sid);
 
 
 /**
- * Returns the number of EventAssignment_t objects attached to the given
+ * Returns the number of EventAssignment_t structures attached to the given
  * Transition_t.
  *
  * @param t the Transition_t structure to use
@@ -1439,15 +1439,15 @@ Transition_getNumInputs(Transition_t * t);
 
 
 /**
- * Removes the nth Input_t object from the given Transition_t object and
+ * Removes the nth Input_t structure from the given Transition_t structure and
  * returns a pointer to it.
  *
- * The caller owns the returned object and is responsible for deleting it.
+ * The caller owns the returned structure and is responsible for deleting it.
  *
  * @param t the Transition_t structure
  * @param n the integer index of the Input_t sought
  *
- * @return the Input_t object removed.  As mentioned above, 
+ * @return the Input_t structure removed.  As mentioned above, 
  * the caller owns the returned item. @c NULL is returned if the given index 
  * is out of range.
  *
@@ -1459,17 +1459,17 @@ Transition_removeInput(Transition_t * t, unsigned int n);
 
 
 /**
- * Removes the Input_t object with the given @p sid
- * from the given Transition_t object and returns a pointer to it.
+ * Removes the Input_t structure with the given @p sid
+ * from the given Transition_t structure and returns a pointer to it.
  *
- * The caller owns the returned object and is responsible for deleting it.
+ * The caller owns the returned structure and is responsible for deleting it.
  *
  * @param t the Transition_t structure
  * @param sid the string of the "id" attribute of the Input_t sought
  *
- * @return the Input_t object removed.  As mentioned above, the 
- * caller owns the returned object. @c NULL is returned if no Input_t
- * object with the "id" attribute exists in the given Transition_t object.
+ * @return the Input_t structure removed.  As mentioned above, the 
+ * caller owns the returned structure. @c NULL is returned if no Input_t
+ * structure with the "id" attribute exists in the given Transition_t structure.
  *
  * @memberof Transition_t
  */
@@ -1571,7 +1571,7 @@ Transition_getOutputById(Transition_t * t, const char * sid);
 
 
 /**
- * Returns the number of EventAssignment_t objects attached to the given
+ * Returns the number of EventAssignment_t structures attached to the given
  * Transition_t.
  *
  * @param t the Transition_t structure to use
@@ -1586,15 +1586,15 @@ Transition_getNumOutputs(Transition_t * t);
 
 
 /**
- * Removes the nth Output_t object from the given Transition_t object and
+ * Removes the nth Output_t structure from the given Transition_t structure and
  * returns a pointer to it.
  *
- * The caller owns the returned object and is responsible for deleting it.
+ * The caller owns the returned structure and is responsible for deleting it.
  *
  * @param t the Transition_t structure
  * @param n the integer index of the Output_t sought
  *
- * @return the Output_t object removed.  As mentioned above, 
+ * @return the Output_t structure removed.  As mentioned above, 
  * the caller owns the returned item. @c NULL is returned if the given index 
  * is out of range.
  *
@@ -1606,17 +1606,17 @@ Transition_removeOutput(Transition_t * t, unsigned int n);
 
 
 /**
- * Removes the Output_t object with the given @p sid
- * from the given Transition_t object and returns a pointer to it.
+ * Removes the Output_t structure with the given @p sid
+ * from the given Transition_t structure and returns a pointer to it.
  *
- * The caller owns the returned object and is responsible for deleting it.
+ * The caller owns the returned structure and is responsible for deleting it.
  *
  * @param t the Transition_t structure
  * @param sid the string of the "id" attribute of the Output_t sought
  *
- * @return the Output_t object removed.  As mentioned above, the 
- * caller owns the returned object. @c NULL is returned if no Output_t
- * object with the "id" attribute exists in the given Transition_t object.
+ * @return the Output_t structure removed.  As mentioned above, the 
+ * caller owns the returned structure. @c NULL is returned if no Output_t
+ * structure with the "id" attribute exists in the given Transition_t structure.
  *
  * @memberof Transition_t
  */
@@ -1718,7 +1718,7 @@ Transition_getFunctionTermById(Transition_t * t, const char * sid);
 
 
 /**
- * Returns the number of EventAssignment_t objects attached to the given
+ * Returns the number of EventAssignment_t structures attached to the given
  * Transition_t.
  *
  * @param t the Transition_t structure to use
@@ -1733,15 +1733,15 @@ Transition_getNumFunctionTerms(Transition_t * t);
 
 
 /**
- * Removes the nth FunctionTerm_t object from the given Transition_t object and
+ * Removes the nth FunctionTerm_t structure from the given Transition_t structure and
  * returns a pointer to it.
  *
- * The caller owns the returned object and is responsible for deleting it.
+ * The caller owns the returned structure and is responsible for deleting it.
  *
  * @param t the Transition_t structure
  * @param n the integer index of the FunctionTerm_t sought
  *
- * @return the FunctionTerm_t object removed.  As mentioned above, 
+ * @return the FunctionTerm_t structure removed.  As mentioned above, 
  * the caller owns the returned item. @c NULL is returned if the given index 
  * is out of range.
  *
@@ -1753,17 +1753,17 @@ Transition_removeFunctionTerm(Transition_t * t, unsigned int n);
 
 
 /**
- * Removes the FunctionTerm_t object with the given @p sid
- * from the given Transition_t object and returns a pointer to it.
+ * Removes the FunctionTerm_t structure with the given @p sid
+ * from the given Transition_t structure and returns a pointer to it.
  *
- * The caller owns the returned object and is responsible for deleting it.
+ * The caller owns the returned structure and is responsible for deleting it.
  *
  * @param t the Transition_t structure
  * @param sid the string of the "id" attribute of the FunctionTerm_t sought
  *
- * @return the FunctionTerm_t object removed.  As mentioned above, the 
- * caller owns the returned object. @c NULL is returned if no FunctionTerm_t
- * object with the "id" attribute exists in the given Transition_t object.
+ * @return the FunctionTerm_t structure removed.  As mentioned above, the 
+ * caller owns the returned structure. @c NULL is returned if no FunctionTerm_t
+ * structure with the "id" attribute exists in the given Transition_t structure.
  *
  * @memberof Transition_t
  */
@@ -1792,7 +1792,7 @@ Transition_hasRequiredAttributes(Transition_t * t);
   * all the required elements for the given Transition_t structure
   * have been set.
   *
-  * @note The required elements for an Transition_t object are:
+  * @note The required elements for an Transition_t structure are:
   * @li trigger
   * @li listOfEventAssignments (requirement removed in L3)
   *
@@ -1822,17 +1822,17 @@ ListOfTransitions_getById(ListOf_t * lo, const char * sid);
 
 
 /**
- * Removes the Transition_t object with the given @p sid
- * from the given ListOf_t object and returns a pointer to it.
+ * Removes the Transition_t structure with the given @p sid
+ * from the given ListOf_t structure and returns a pointer to it.
  *
- * The caller owns the returned object and is responsible for deleting it.
+ * The caller owns the returned structure and is responsible for deleting it.
  *
  * @param lo the ListOf_t structure
  * @param sid the string of the "id" attribute of the Transition_t sought
  *
- * @return the Transition_t object removed.  As mentioned above, the 
- * caller owns the returned object. @c NULL is returned if no Transition_t
- * object with the "id" attribute exists in the given ListOf_t object.
+ * @return the Transition_t structure removed.  As mentioned above, the 
+ * caller owns the returned structure. @c NULL is returned if no Transition_t
+ * structure with the "id" attribute exists in the given ListOf_t structure.
  *
  * @memberof Transition_t
  */

@@ -658,7 +658,7 @@ BEGIN_C_DECLS
  * creation time is an important aid to creating valid SBML.  Knowledge of
  * the intended SBML Level and Version  determine whether it is valid to
  * assign a particular value to an attribute, or whether it is valid to add
- * an object to an existing SBMLDocument.
+ * a structure to an existing SBMLDocument.
  *
  * @memberof Constraint_t
  */
@@ -671,8 +671,8 @@ Constraint_create (unsigned int level, unsigned int version);
  * Creates a new Constraint_t structure using the given
  * SBMLNamespaces_t structure.
  *
- * @param sbmlns SBMLNamespaces, a pointer to an SBMLNamespaces structure
- * to assign to this Constraint
+ * @param sbmlns SBMLNamespaces_t, a pointer to an SBMLNamespaces_t structure
+ * to assign to this Constraint_t
  *
  * @return a pointer to the newly created Constraint_t structure.
  *
@@ -681,7 +681,7 @@ Constraint_create (unsigned int level, unsigned int version);
  * the Constraint.  Despite this, the ability to supply the values at creation 
  * time is an important aid to creating valid SBML.  Knowledge of the intended 
  * SBML Level and Version determine whether it is valid to assign a particular 
- * value to an attribute, or whether it is valid to add an object to an existing
+ * value to an attribute, or whether it is valid to add a structure to an existing
  * SBMLDocument.
  *
  * @memberof Constraint_t
@@ -722,7 +722,7 @@ Constraint_clone (const Constraint_t *c);
  * @param c the Constraint_t structure
  * 
  * @return pointer to the XMLNamespaces_t structure associated with 
- * this SBML object
+ * this structure
  *
  * @memberof Constraint_t
  */

@@ -1641,7 +1641,7 @@ Compartment_initDefaults (Compartment_t *c);
  * @param c the Compartment_t structure.
  *
  * @return pointer to the XMLNamespaces_t structure associated with this SBML
- * object
+ * structure
  *
  * @memberof Compartment_t
  */
@@ -2460,7 +2460,7 @@ Compartment_unsetSpatialDimensions (Compartment_t *c);
  * this Compartment_t.
  *
  * @note The libSBML system for unit analysis depends on the model as a
- * whole.  In cases where the Compartment object has not yet been added
+ * whole.  In cases where the Compartment_t structure has not yet been added
  * to a model, or the model itself is incomplete, unit analysis is not
  * possible, and consequently this method will return a null pointer.
  *
@@ -2476,7 +2476,7 @@ Compartment_getDerivedUnitDefinition(Compartment_t *c);
 
 /**
  * Predicate returning @c 1 or @c 0 depending on whether
- * all the required attributes for this Compartment object
+ * all the required attributes for this Compartment_t structure
  * have been set.
  *
  * @param c the Compartment_t structure to check.
@@ -2485,7 +2485,7 @@ Compartment_getDerivedUnitDefinition(Compartment_t *c);
  * @li id (name in SBML Level 1 only)
  * @li constant (in SBML Level 3 only)
  *
- * @return true if all the required attributes for this object have been
+ * @return true if all the required attributes for this structure have been
  * defined, false otherwise.
  *
  * @memberof Compartment_t

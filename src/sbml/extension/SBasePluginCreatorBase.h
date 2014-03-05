@@ -185,11 +185,11 @@ SBasePluginCreator_clone(SBasePluginCreatorBase_t* creator);
 
 
 /**
- * Returns the number of supported packages by the given creator object.
+ * Returns the number of supported packages by the given creator structure.
  * 
  * @param creator the SBasePluginCreatorBase_t structure
  * 
- * @return the number of supported packages by the given creator object.
+ * @return the number of supported packages by the given creator structure.
  *
  * @memberof SBasePlugin_t
  */
@@ -215,11 +215,11 @@ SBasePluginCreator_getSupportedPackageURI(SBasePluginCreatorBase_t* creator,
     unsigned int index);
 
 /**
- * Returns the SBMLTypeCode tied to the creator object.
+ * Returns the SBMLTypeCode tied to the creator structure.
  * 
  * @param creator the SBasePluginCreatorBase_t structure
  * 
- * @return the SBMLTypeCode tied with the creator object or 
+ * @return the SBMLTypeCode tied with the creator structure or 
  * LIBSBML_INVALID_OBJECT.
  *
  * @memberof SBasePlugin_t
@@ -229,11 +229,11 @@ int
 SBasePluginCreator_getTargetSBMLTypeCode(SBasePluginCreatorBase_t* creator);
 
 /**
- * Returns the target package name of the creator object.
+ * Returns the target package name of the creator structure.
  * 
  * @param creator the SBasePluginCreatorBase_t structure
  * 
- * @return the target package name of the creator object, or @c NULL if 
+ * @return the target package name of the creator structure, or @c NULL if 
  * creator is invalid.
  *
  * @memberof SBasePlugin_t
@@ -243,11 +243,11 @@ const char*
 SBasePluginCreator_getTargetPackageName(SBasePluginCreatorBase_t* creator);
 
 /**
- * Returns the SBaseExtensionPoint tied to this creator object.
+ * Returns the SBaseExtensionPoint tied to this creator structure.
  * 
  * @param creator the SBasePluginCreatorBase_t structure
  * 
- * @return the SBaseExtensionPoint of the creator object, or @c NULL if 
+ * @return the SBaseExtensionPoint of the creator structure, or @c NULL if 
  * creator is invalid.
  *
  * @memberof SBasePlugin_t

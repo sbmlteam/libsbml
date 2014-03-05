@@ -3727,7 +3727,7 @@ SBase_getMetaId (SBase_t *sb);
  *
  * @param sb the SBase_t structure
  *
- * @return the parent SBMLDocument of this SBML object.
+ * @return the parent SBMLDocument of this SBML structure.
  *
  * @memberof SBase_t
  */
@@ -3742,7 +3742,7 @@ SBase_getSBMLDocument (SBase_t *sb);
  *
  * @param sb the SBase_t structure
  *
- * @return the parent SBase  of this SBML object.
+ * @return the parent SBase  of this SBML structure.
  *
  * @memberof SBase_t
  */
@@ -3755,17 +3755,17 @@ SBase_getParentSBMLObject (SBase_t *sb);
  * Returns the ancestor SBase_t structure of the given SBase_t
  * structure that corresponds to the given type.
  *
- * This function allows any object to determine its exact
+ * This function allows any structure to determine its exact
  * location/function within a model. For example a
- * StoichiometryMath object has ancestors of type SpeciesReference,
- * ListOf(Products/Reactants), Reaction, ListOfReactions and Model;
+ * StoichiometryMath_t structure has ancestors of type SpeciesReference_t,
+ * ListOf_t(Products/Reactants), Reaction_t, ListOfReactions_t and Model_t;
  * any of which can be accessed via this function.
  *
  * @param sb the SBase_t structure
  * @param type the typecode (int) of the structure to be returned
  * @param pkgName the name of the package that defines the @param type
  *
- * @return the ancestor SBase_t structure of this SBML object with
+ * @return the ancestor SBase_t structure of this SBML structure with
  * the corresponding typecode (int), NULL if there is no ancestor of
  * this type.
  *
@@ -3785,7 +3785,7 @@ SBase_getAncestorOfType (SBase_t *sb, int type, const char* pkgName);
  * NNNNNNN integer portion.  Thus, in libSBML, the "sboTerm" attribute on
  * SBase_t has data type @c int, and SBO identifiers are stored simply as
  * integers.  SBO terms are a type of optional annotation, and each
- * different class of SBML object derived from SBase_t imposes its own
+ * different class of SBML structure derived from SBase_t imposes its own
  * requirements about the values permitted for "sboTerm".  Please consult
  * the SBML Level 2 Version 4 specification for more information about
  * the use of SBO and the "sboTerm" attribute.
@@ -3804,7 +3804,7 @@ SBase_getSBOTerm (const SBase_t *sb);
 
 /**
  * Returns the string representation of the "sboTerm" attribute of
- * this object.
+ * this structure.
  *
  * In SBML Level 2 Versions 2, 3 and 4, the data type of the attribute is a
  * string of the form SBO:NNNNNNN, where NNNNNNN is a seven digit integer
@@ -3813,7 +3813,7 @@ SBase_getSBOTerm (const SBase_t *sb);
  * SBase has data type @c int, and SBO identifiers are stored simply as
  * integers.  This function recreates the string representation from the
  * stored value.  SBO terms are a type of optional annotation, and each
- * different class of SBML object derived from SBase imposes its own
+ * different class of SBML structure derived from SBase imposes its own
  * requirements about the values permitted for "sboTerm".  Please consult
  * the SBML Level 2 Version 4 specification for more information about
  * the use of SBO and the "sboTerm" attribute.
@@ -3830,7 +3830,7 @@ SBase_getSBOTermID (const SBase_t *sb);
 
 /**
  * Returns the identifiers.org URL  representation of the "sboTerm" attribute of
- * this object.
+ * this structure.
  *
  * @return the value of the "sboTerm" attribute as a string of the form
  * http://identifiers.org/biomodels.sbo/SBO:NNNNNNN, or @c NULL if the value is not set.
@@ -3843,7 +3843,7 @@ SBase_getSBOTermAsURL (const SBase_t *sb);
 
 
 /**
- * Returns the line number on which the given object first appears in the
+ * Returns the line number on which the given structure first appears in the
  * XML representation of the SBML document.
  *
  * @param sb the SBase_t structure
@@ -3860,12 +3860,12 @@ SBase_getLine (const SBase_t *sb);
 
 
 /**
- * Returns the column number on which the given object first appears in the
+ * Returns the column number on which the given structure first appears in the
  * XML representation of the SBML document.
  *
  * @param sb the SBase_t structure
  *
- * @return the column number of this SBML object.
+ * @return the column number of this SBML structure.
  *
  * @see getLine().
  *
@@ -3877,11 +3877,11 @@ SBase_getColumn (const SBase_t *sb);
 
 
 /**
- * Returns the notes from given SBML object.
+ * Returns the notes from given SBML structure.
  *
- * @param sb the given SBML object.
+ * @param sb the given SBML structure.
  *
- * @return the XMLNode_t structure representing the notes from this object.
+ * @return the XMLNode_t structure representing the notes from this structure.
  *
  * @memberof SBase_t
  */
@@ -3891,13 +3891,13 @@ SBase_getNotes (SBase_t *sb);
 
 
 /**
- * Returns the notes string from given SBML object.
+ * Returns the notes string from given SBML structure.
  * The string is owned by the caller and should be freed
  * (with free()) when no longer needed.
  *
- * @param sb the given SBML object.
+ * @param sb the given SBML structure.
  *
- * @return the string (char*) representing the notes from this object.
+ * @return the string (char*) representing the notes from this structure.
  *
  * @memberof SBase_t
  */
@@ -3907,11 +3907,11 @@ SBase_getNotesString (SBase_t *sb);
 
 
 /**
- * Returns the annotation from given SBML object.
+ * Returns the annotation from given SBML structure.
  *
- * @param sb the given SBML object.
+ * @param sb the given SBML structure.
  *
- * @return the XMLNode_t structure representing the annotation from this object.
+ * @return the XMLNode_t structure representing the annotation from this structure.
  *
  * @memberof SBase_t
  */
@@ -3921,13 +3921,13 @@ SBase_getAnnotation (SBase_t *sb);
 
 
 /**
- * Returns the annotation string from given SBML object.
+ * Returns the annotation string from given SBML structure.
  * The string is owned by the caller and should be freed
  * (with free()) when no longer needed.
  *
- * @param sb the given SBML object.
+ * @param sb the given SBML structure.
  *
- * @return the string (char*) representing the annotation from this object.
+ * @return the string (char*) representing the annotation from this structure.
  *
  * @memberof SBase_t
  */
@@ -3942,7 +3942,7 @@ SBase_getAnnotationString (SBase_t *sb);
  *
  * @param sb the SBase_t structure to query
  *
- * @return nonzero (for true) if the "metaid" attribute of this SBML object
+ * @return nonzero (for true) if the "metaid" attribute of this SBML structure
  * is set, zero (for false) otherwise.
  *
  * @memberof SBase_t
@@ -3958,7 +3958,7 @@ SBase_isSetMetaId (const SBase_t *sb);
  *
  * @param sb the SBase_t structure to query
  *
- * @return nonzero (for true) if the "notes" subelement of this SBML object
+ * @return nonzero (for true) if the "notes" subelement of this SBML structure
  * is set, zero (for false) otherwise.
  *
  * @memberof SBase_t
@@ -3974,7 +3974,7 @@ SBase_isSetNotes (const SBase_t *sb);
  *
  * @param sb the SBase_t structure to query
  *
- * @return nonzero (for true) if the "annotation" subelement of this SBML object
+ * @return nonzero (for true) if the "annotation" subelement of this SBML structure
  * is set, zero (for false) otherwise.
  *
  * @memberof SBase_t
@@ -3990,7 +3990,7 @@ SBase_isSetAnnotation (const SBase_t *sb);
  *
  * @param sb the SBase_t structure to query
  *
- * @return nonzero (for true) if the "sboTerm" attribute of this SBML object
+ * @return nonzero (for true) if the "sboTerm" attribute of this SBML structure
  * is set, zero (for false) otherwise.
  *
  * @memberof SBase_t
@@ -4001,7 +4001,7 @@ SBase_isSetSBOTerm(const SBase_t *sb);
 
 
 /**
- * Sets the value of the "metaid" attribute of the given object.
+ * Sets the value of the "metaid" attribute of the given structure.
  *
  * The string @p metaid is copied.  The value of @p metaid must be an
  * identifier conforming to the syntax defined by the XML 1.0 data type
@@ -4044,7 +4044,7 @@ SBase_setMetaId (SBase_t *sb, const char *metaid);
  * storing the NNNNNNN integer portion.  Thus, in libSBML, the "sboTerm"
  * attribute on SBase_t has data type @c int, and SBO identifiers are
  * stored simply as integers.  SBO terms are a type of optional annotation,
- * and each different class of SBML object derived from SBase_t imposes its
+ * and each different class of SBML structure derived from SBase_t imposes its
  * own requirements about the values permitted for "sboTerm".  Please
  * consult the SBML Level 2 Version 4 specification for more information
  * about the use of SBO and the "sboTerm" attribute.
@@ -4076,7 +4076,7 @@ SBase_setSBOTerm (SBase_t *sb, int value);
  * only storing the NNNNNNN integer portion converted from the given string.
  * Thus, in libSBML, the "sboTerm" attribute on SBase has data type @c int,
  * and SBO identifiers are stored simply as integers.  SBO terms are a type
- * of optional annotation, and each different class of SBML object derived
+ * of optional annotation, and each different class of SBML structure derived
  * from SBase imposes its own requirements about the values permitted for
  * "sboTerm".  Please consult the SBML Level 2 Version 4 specification for
  * more information about the use of SBO and the "sboTerm" attribute.
@@ -4101,7 +4101,7 @@ SBase_setSBOTermID (SBase_t *sb, const char* sboid);
 
 
 /**
- * Sets the namespaces relevant of this SBML object.
+ * Sets the namespaces relevant of this SBML structure.
  *
  * @param sb the SBase_t structure
  *
@@ -4121,9 +4121,9 @@ SBase_setNamespaces (SBase_t *sb, XMLNamespaces_t *xmlns);
 
 
 /**
- * Sets the notes for the given SBML object.
+ * Sets the notes for the given SBML structure.
  *
- * @param sb the given SBML object.
+ * @param sb the given SBML structure.
  * @param notes the XMLNode_t structure respresenting the notes.
  *
  * @return integer value indicating success/failure of the
@@ -4141,9 +4141,9 @@ SBase_setNotes (SBase_t *sb, XMLNode_t *notes);
 
 
 /**
- * Sets the notes for the given SBML object.
+ * Sets the notes for the given SBML structure.
  *
- * @param sb the given SBML object.
+ * @param sb the given SBML structure.
  * @param notes the string (const char*) respresenting the notes.
  *
  * @return integer value indicating success/failure of the
@@ -4162,9 +4162,9 @@ SBase_setNotesString (SBase_t *sb, char *notes);
 
 
 /**
- * Sets the notes for the given SBML object.
+ * Sets the notes for the given SBML structure.
  *
- * @param sb the given SBML object.
+ * @param sb the given SBML structure.
  * @param notes the string (const char*) respresenting the notes.
  *
  * @return integer value indicating success/failure of the
@@ -4183,9 +4183,9 @@ SBase_setNotesStringAddMarkup (SBase_t *sb, char *notes);
 
 
 /**
- * Appends the notes for the given SBML object.
+ * Appends the notes for the given SBML structure.
  *
- * @param sb the given SBML object.
+ * @param sb the given SBML structure.
  * @param notes the XMLNode_t structure respresenting the notes.
  *
  * @return integer value indicating success/failure of the
@@ -4204,9 +4204,9 @@ SBase_appendNotes (SBase_t *sb, XMLNode_t *notes);
 
 
 /**
- * Appends the notes for the given SBML object.
+ * Appends the notes for the given SBML structure.
  *
- * @param sb the given SBML object.
+ * @param sb the given SBML structure.
  * @param notes the string (const char*) respresenting the notes.
  *
  * @return integer value indicating success/failure of the
@@ -4225,9 +4225,9 @@ SBase_appendNotesString (SBase_t *sb, char *notes);
 
 
 /**
- * Sets the annotation for the given SBML object.
+ * Sets the annotation for the given SBML structure.
  *
- * @param sb the given SBML object.
+ * @param sb the given SBML structure.
  * @param annotation the XMLNode_t structure respresenting the annotation.
  *
  * @return integer value indicating success/failure of the
@@ -4244,9 +4244,9 @@ SBase_setAnnotation (SBase_t *sb, XMLNode_t *annotation);
 
 
 /**
- * Sets the annotation for the given SBML object.
+ * Sets the annotation for the given SBML structure.
  *
- * @param sb the given SBML object.
+ * @param sb the given SBML structure.
  * @param annotation the string (const char*) respresenting the annotation.
  *
  * @return integer value indicating success/failure of the
@@ -4264,9 +4264,9 @@ SBase_setAnnotationString (SBase_t *sb, char *annotation);
 
 
 /**
- * Appends the annotation for the given SBML object.
+ * Appends the annotation for the given SBML structure.
  *
- * @param sb the given SBML object.
+ * @param sb the given SBML structure.
  * @param annotation the XMLNode_t structure respresenting the annotation.
  *
  * @return integer value indicating success/failure of the
@@ -4284,9 +4284,9 @@ SBase_appendAnnotation (SBase_t *sb, XMLNode_t *annotation);
 
 
 /**
- * Appends the annotation for the given SBML object.
+ * Appends the annotation for the given SBML structure.
  *
- * @param sb the given SBML object.
+ * @param sb the given SBML structure.
  * @param annotation the string (const char*) respresenting the annotation.
  *
  * @return integer value indicating success/failure of the
@@ -4305,7 +4305,7 @@ SBase_appendAnnotationString (SBase_t *sb, char *annotation);
 
 /**
  * Removes the top-level element within the "annotation"
- * subelement of this SBML object with the given name.
+ * subelement of this SBML structure with the given name.
  *
  * SBML places a few restrictions on the organization of the content of
  * annotations; these are intended to help software tools read and write
@@ -4315,7 +4315,7 @@ SBase_appendAnnotationString (SBase_t *sb, char *annotation);
  * Calling this method allows a particular annotation element to be removed
  * whilst the remaining annotations remain intact.
  *
- * @param sb SBase_t object containing the annotation to be altered
+ * @param sb SBase_t structure containing the annotation to be altered
  * @param name a string representing the name of the top level
  * annotation element that is to be removed
  *
@@ -4340,7 +4340,7 @@ SBase_removeTopLevelAnnotationElement (SBase_t *sb, char *name);
 
 /**
  * Removes the top-level element within the "annotation"
- * subelement of this SBML object with the given name and URI.
+ * subelement of this SBML structure with the given name and URI.
  *
  * SBML places a few restrictions on the organization of the content of
  * annotations; these are intended to help software tools read and write
@@ -4350,7 +4350,7 @@ SBase_removeTopLevelAnnotationElement (SBase_t *sb, char *name);
  * Calling this method allows a particular annotation element to be removed
  * whilst the remaining annotations remain intact.
  *
- * @param sb SBase_t object containing the annotation to be altered
+ * @param sb SBase_t structure containing the annotation to be altered
  * @param name a string representing the name of the top level
  * annotation element that is to be removed
  * @param uri a string that is used to check both the name
@@ -4377,7 +4377,7 @@ SBase_removeTopLevelAnnotationElementWithURI (SBase_t *sb, const char *name,
 
 /**
  * Replaces the given top-level element within the "annotation"
- * subelement of this SBML object and with the annotation element supplied.
+ * subelement of this SBML structure and with the annotation element supplied.
  *
  * SBML places a few restrictions on the organization of the content of
  * annotations; these are intended to help software tools read and write
@@ -4391,7 +4391,7 @@ SBase_removeTopLevelAnnotationElementWithURI (SBase_t *sb, const char *name,
  * </code> with the exception that the placement of the annotation element remains
  * the same.
  *
- * @param sb SBase_t object containing the annotation to be altered
+ * @param sb SBase_t structure containing the annotation to be altered
  * @param annotation XMLNode representing the replacement top level annotation
  *
  * @return integer value indicating success/failure of the
@@ -4414,7 +4414,7 @@ SBase_replaceTopLevelAnnotationElement (SBase_t *sb, XMLNode_t *annotation);
 
 /**
  * Replaces the given top-level element within the "annotation"
- * subelement of this SBML object and with the annotation element supplied.
+ * subelement of this SBML structure and with the annotation element supplied.
  *
  * SBML places a few restrictions on the organization of the content of
  * annotations; these are intended to help software tools read and write
@@ -4428,7 +4428,7 @@ SBase_replaceTopLevelAnnotationElement (SBase_t *sb, XMLNode_t *annotation);
  * </code> with the exception that the placement of the annotation element remains
  * the same.
  *
- * @param sb SBase_t object containing the annotation to be altered
+ * @param sb SBase_t structure containing the annotation to be altered
  * @param annotation string representing the replacement top level annotation
  *
  * @return integer value indicating success/failure of the
@@ -4450,7 +4450,7 @@ SBase_replaceTopLevelAnnotationElementString (SBase_t *sb, char *annotation);
 
 
 /**
- * Unsets the "metaid" attribute of the given object.
+ * Unsets the "metaid" attribute of the given structure.
  *
  * @param sb the SBase_t structure
  *
@@ -4469,7 +4469,7 @@ SBase_unsetMetaId (SBase_t *sb);
 
 
 /**
- * Unsets the "notes" subelement of the given object.
+ * Unsets the "notes" subelement of the given structure.
  *
  * @param sb the SBase_t structure
  *
@@ -4487,7 +4487,7 @@ SBase_unsetNotes (SBase_t *sb);
 
 
 /**
- * Unsets the "annotation" subelement of the given object.
+ * Unsets the "annotation" subelement of the given structure.
  *
  * @param sb the SBase_t structure
  *
@@ -4505,7 +4505,7 @@ SBase_unsetAnnotation (SBase_t *sb);
 
 
 /**
- * Unsets the "sboTerm" attribute of the given object.
+ * Unsets the "sboTerm" attribute of the given structure.
  *
  * @param sb the SBase_t structure
  *
@@ -4524,9 +4524,9 @@ SBase_unsetSBOTerm (SBase_t *sb);
 
 
 /**
- * Adds a copy of the given CVTerm to this SBML object.
+ * Adds a copy of the given CVTerm to this SBML structure.
  *
- * @param sb the object to add the CVTerm to
+ * @param sb the structure to add the CVTerm to
  * @param term the CVTerm_t to assign
  *
  * @return integer value indicating success/failure of the
@@ -4539,7 +4539,7 @@ SBase_unsetSBOTerm (SBase_t *sb);
  * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT @endlink
  *
  * @note The annotation constructed from a CVTerm uses the metaid
- * of the object to identify it.  Adding a CVTerm to an object
+ * of the structure to identify it.  Adding a CVTerm to an structure
  * where the 'metaId' attribute has not been set will fail with the
  * return value LIBSBML_UNEXPECTED_ATTRIBUTE.
  *
@@ -4551,10 +4551,10 @@ SBase_addCVTerm(SBase_t *sb, CVTerm_t *term);
 
 
 /**
- * Adds a copy of the given CVTerm to this SBML object creating
+ * Adds a copy of the given CVTerm to this SBML structure creating
  * a new bBag element with the same identifier.
  *
- * @param sb the object to add the CVTerm to
+ * @param sb the structure to add the CVTerm to
  * @param term the CVTerm_t to assign
  *
  * @return integer value indicating success/failure of the
@@ -4567,7 +4567,7 @@ SBase_addCVTerm(SBase_t *sb, CVTerm_t *term);
  * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT @endlink
  *
  * @note The annotation constructed from a CVTerm uses the metaid
- * of the object to identify it.  Adding a CVTerm to an object
+ * of the structure to identify it.  Adding a CVTerm to an structure
  * where the 'metaId' attribute has not been set will fail with the
  * return value LIBSBML_UNEXPECTED_ATTRIBUTE.
  *
@@ -4579,12 +4579,12 @@ SBase_addCVTermNewBag(SBase_t *sb, CVTerm_t *term);
 
 
 /**
- * Returns a list of CVTerm objects in the annotations of this SBML
- * object.
+ * Returns a list of CVTerm structures in the annotations of this SBML
+ * structure.
  *
- * @param sb the object to getCVTerms from
+ * @param sb the structure to getCVTerms from
  *
- * @return the list of CVTerms for this SBML object.
+ * @return the list of CVTerms for this SBML structure.
  *
  * @memberof SBase_t
  */
@@ -4594,12 +4594,12 @@ SBase_getCVTerms(SBase_t *sb);
 
 
 /**
- * Returns the number of CVTerm objects in the annotations of this SBML
- * object.
+ * Returns the number of CVTerm structures in the annotations of this SBML
+ * structure.
  *
- * @param sb the object to getCVTerms from
+ * @param sb the structure to getCVTerms from
  *
- * @return the number of CVTerms for this SBML object.
+ * @return the number of CVTerms for this SBML structure.
  *
  * @memberof SBase_t
  */
@@ -4610,12 +4610,12 @@ SBase_getNumCVTerms(SBase_t *sb);
 
 /**
  * Returns the nth CVTerm in the list of CVTerms of this SBML
- * object.
+ * structure.
  *
- * @param sb the object to getCVTerms from
+ * @param sb the structure to getCVTerms from
  * @param n unsigned int the index of the CVTerm to retrieve
  *
- * @return the nth CVTerm in the list of CVTerms for this SBML object.
+ * @return the nth CVTerm in the list of CVTerms for this SBML structure.
  *
  * @memberof SBase_t
  */
@@ -4626,9 +4626,9 @@ SBase_getCVTerm(SBase_t *sb, unsigned int n);
 
 /**
  * Clears the list of CVTerms of this SBML
- * object.
+ * structure.
  *
- * @param sb the object to clear CVTerms from
+ * @param sb the structure to clear CVTerms from
  *
  * @return integer value indicating success/failure of the
  * function.  @if clike The value is drawn from the
@@ -4715,7 +4715,7 @@ SBase_unsetModelHistory(SBase_t *sb);
  * Returns the BiologicalQualifier associated with this resource,
  * BQB_UNKNOWN if the resource does not exist.
  *
- * @param sb the object to query
+ * @param sb the structure to query
  * @param resource string representing the resource; e.g.,
  * "http://www.geneontology.org/#GO:0005892"
  *
@@ -4732,7 +4732,7 @@ SBase_getResourceBiologicalQualifier(SBase_t *sb, const char * resource);
  * Returns the ModelQualifier associated with this resource,
  * BQM_UNKNOWN if the resource does not exist.
  *
- * @param sb the object to query
+ * @param sb the structure to query
  * @param resource string representing the resource; e.g.,
  * "http://www.geneontology.org/#GO:0005892"
  *
@@ -4750,7 +4750,7 @@ SBase_getResourceModelQualifier(SBase_t *sb, const char * resource);
  *
  * @param sb the SBase_t structure
  *
- * @return the parent Model_t strucdture of the given object.
+ * @return the parent Model_t strucdture of the given structure.
  *
  * @memberof SBase_t
  */
@@ -4764,7 +4764,7 @@ SBase_getModel (const SBase_t *sb);
  *
  * @param sb the SBase_t structure to query
  *
- * @return the SBML level of the given object.
+ * @return the SBML level of the given structure.
  *
  * @see getVersion()
  *
@@ -4780,7 +4780,7 @@ SBase_getLevel (const SBase_t *sb);
  *
  * @param sb the SBase_t structure to query
  *
- * @return the SBML version of the given object.
+ * @return the SBML version of the given structure.
  *
  * @see getLevel()
  *
@@ -4792,9 +4792,9 @@ SBase_getVersion (const SBase_t *sb);
 
 
 /**
- * Returns the libSBML type code for this object.
+ * Returns the libSBML type code for this structure.
  *
- * This method MAY return the typecode of this SBML object or it MAY
+ * This method MAY return the typecode of this SBML structure or it MAY
  * return SBML_UNKNOWN.  That is, subclasses of SBase are not required to
  * implement this method to return a typecode.  This method is meant
  * primarily for the LibSBML C interface where class and subclass
@@ -4803,8 +4803,8 @@ SBase_getVersion (const SBase_t *sb);
  * @note In libSBML 5, the type of return value has been changed from
  * typecode (int) to int. The return value is one of enum values defined for
  * each package. For example, return values will be one of typecode (int) if
- * this object is defined in SBML core package, return values will be one of
- * SBMLLayoutTypeCode_t if this object is defined in Layout extension
+ * this structure is defined in SBML core package, return values will be one of
+ * SBMLLayoutTypeCode_t if this structure is defined in Layout extension
  * (i.e. similar enum types are defined in each package extension for each
  * SBase subclass) The value of each typecode can be duplicated between those
  * of different packages. Thus, to distinguish the typecodes of different
@@ -4813,7 +4813,7 @@ SBase_getVersion (const SBase_t *sb);
  *
  * @param sb the SBase_t structure
  *
- * @return the typecode (int value) of this SBML object or SBML_UNKNOWN
+ * @return the typecode (int value) of this SBML structure or SBML_UNKNOWN
  * (default).
  *
  * @see getElementName()
@@ -4843,25 +4843,25 @@ SBase_getElementName (const SBase_t *sb);
 
 
 /**
-  * Predicate returning nonzero true or false depending on whether the
-  * object's level/version and namespace values correspond to a valid
-  * SBML specification.
-  *
-  * The valid combinations of SBML Level, Version and Namespace as of this release
-  * of libSBML are the following:
-  * <ul>
-  * <li> Level&nbsp;1 Version&nbsp;2 "http://www.sbml.org/sbml/level1"
-  * <li> Level&nbsp;2 Version&nbsp;1 "http://www.sbml.org/sbml/level2"
-  * <li> Level&nbsp;2 Version&nbsp;2 "http://www.sbml.org/sbml/level2/version2"
-  * <li> Level&nbsp;2 Version&nbsp;3 "http://www.sbml.org/sbml/level2/version3"
-  * <li> Level&nbsp;2 Version&nbsp;4 "http://www.sbml.org/sbml/level2/version4"
-  * </ul>
-  *
-  * @param sb the SBase_t structure
-  *
-  * @return nonzero (true) if the level, version and namespace values of this
-  * SBML object correspond to a valid set of values, zero (false) otherwise.
-  *
+ * Predicate returning nonzero true or false depending on whether the
+ * structure's level/version and namespace values correspond to a valid
+ * SBML specification.
+ *
+ * The valid combinations of SBML Level, Version and Namespace as of this release
+ * of libSBML are the following:
+ * <ul>
+ * <li> Level&nbsp;1 Version&nbsp;2 "http://www.sbml.org/sbml/level1"
+ * <li> Level&nbsp;2 Version&nbsp;1 "http://www.sbml.org/sbml/level2"
+ * <li> Level&nbsp;2 Version&nbsp;2 "http://www.sbml.org/sbml/level2/version2"
+ * <li> Level&nbsp;2 Version&nbsp;3 "http://www.sbml.org/sbml/level2/version3"
+ * <li> Level&nbsp;2 Version&nbsp;4 "http://www.sbml.org/sbml/level2/version4"
+ * </ul>
+ *
+ * @param sb the SBase_t structure
+ *
+ * @return nonzero (true) if the level, version and namespace values of this
+ * SBML structure correspond to a valid set of values, zero (false) otherwise.
+ *
  * @memberof SBase_t
  */
 LIBSBML_EXTERN
@@ -4869,10 +4869,35 @@ int
 SBase_hasValidLevelVersionNamespaceCombination(SBase_t *sb);
 
 
+/**
+ * Returns the number of plug-in structures (extenstion interfaces) for SBML
+ * Level&nbsp;3 package extensions known.
+ *
+ * @copydetails doc_what_are_plugins
+ *
+ * @param sb the SBase_t structure to query
+ *
+ * @return the number of plug-in structures (extension interfaces) of
+ * package extensions known by this instance of libSBML.
+ *
+ * @memberof SBase_t
+ */
 LIBSBML_EXTERN
 int
 SBase_getNumPlugins(SBase_t *sb);
 
+/**
+ * Returns a plug-in structure (extension interface) for an SBML Level&nbsp;3
+ * package extension with the given package name or URI.
+ *
+ * @copydetails doc_what_are_plugins
+ *
+ * @param sb the SBase_t structure
+ * @param package the name or URI of the package
+ *
+ * @return the plug-in structure (the libSBML extension interface) of
+ * a package extension with the given package name or URI.
+ */
 LIBSBML_EXTERN
 SBasePlugin_t* 
 SBase_getPlugin(SBase_t *sb, const char *package);
@@ -4914,38 +4939,164 @@ LIBSBML_EXTERN
 void *
 SBase_getUserData(SBase_t* sb);
 
+/**
+ * Returns the first child element found that has the given @p id in the
+ * model-wide @c SId namespace, or @c NULL if no such structure is found.
+ *
+ * @param sb the SBase_t structure in question.
+ * @param id string representing the "id" attribute value of the structure
+ * to find.
+ *
+ * @return pointer to the first element found with the given identifier.
+ *
+ * @memberof SBase_t
+ */
 LIBSBML_EXTERN 
 SBase_t* 
 SBase_getElementBySId(SBase_t* sb, const char* id);
 
+/**
+ * Returns the first child element it can find with a specific "metaid"
+ * attribute value, or @c NULL if no such structure is found.
+ *
+ * @copydetails doc_what_is_metaid
+ *
+ * @param sb the SBase_t structure in question.
+ * @param metaid string representing the "metaid" attribute value of the
+ * structure to find.
+ *
+ * @return pointer to the first element found with the given meta-identifier.
+ *
+ * @memberof SBase_t
+ */
 LIBSBML_EXTERN 
 SBase_t* 
 SBase_getElementByMetaId(SBase_t* sb, const char* metaid);
 
+/**
+ * Returns a List_t structure of all child SBase_t structures, including those nested to
+ * an arbitrary depth.
+ *
+ * @param sb the SBase_t structure in question.
+ *
+ * @return a pointer to a List_t of pointers to all children structures.
+ *
+ * @memberof SBase_t
+ */
 LIBSBML_EXTERN 
 List_t* 
 SBase_getAllElements(SBase_t* sb);
 
+/**
+ * Renames all the @c SIdRef attributes on this element, including any
+ * found in MathML content (if such exists).
+ *
+ * @copydetails doc_what_is_sidref 
+ *
+ * This method works by looking at all attributes and (if appropriate)
+ * mathematical formulas, comparing the identifiers to the value of @p
+ * oldid.  If any matches are found, the matching identifiers are replaced
+ * with @p newid.  The method does @em not descend into child elements.
+ *
+ * @param sb the SBase_t structure in question.
+ * @param oldid the old identifier
+ * @param newid the new identifier
+ *
+ * @memberof SBase_t
+ */
 LIBSBML_EXTERN 
 void 
 SBase_renameSIdRefs(SBase_t* sb, const char* oldid, const char* newid);
 
+/**
+ * Renames all the meta-identifier attributes on this element.
+ *
+ * @copydetails doc_what_is_metaidref
+ *
+ * This method works by looking at all meta-identifier attribute values,
+ * comparing the identifiers to the value of @p oldid.  If any matches are
+ * found, the matching identifiers are replaced with @p newid.  The method
+ * does @em not descend into child elements.
+ *
+ * @param sb the SBase_t structure in question.
+ * @param oldid the old identifier
+ * @param newid the new identifier
+ *
+ * @memberof SBase_t
+ */
 LIBSBML_EXTERN 
 void 
 SBase_renameMetaIdRefs(SBase_t* sb, const char* oldid, const char* newid);
 
+/**
+ * Renames all the @c UnitSIdRef attributes on this element.
+ *
+ * @copydetails doc_what_is_unitsidref 
+ *
+ * This method works by looking at all unit identifier attribute values
+ * (including, if appropriate, inside mathematical formulas), comparing the
+ * unit identifiers to the value of @p oldid.  If any matches are found,
+ * the matching identifiers are replaced with @p newid.  The method does
+ * @em not descend into child elements.
+ *
+ * @param sb the SBase_t structure in question.
+ * @param oldid the old identifier
+ * @param newid the new identifier
+ *
+ * @memberof SBase_t
+ */
 LIBSBML_EXTERN 
 void 
 SBase_renameUnitSIdRefs(SBase_t* sb, const char* oldid, const char* newid);
 
+/**
+ * Returns the first child element found that has the given @p id in the
+ * model-wide SId namespace from all plug-ins associated with this
+ * element, or @c NULL if no such structure is found.
+ *
+ * @param sb the SBase_t structure in question.
+ * @param id string representing the id of structures to find
+ *
+ * @return pointer to the first element found with the given @p id.
+ *
+ * @memberof SBase_t
+ */
 LIBSBML_EXTERN 
 SBase_t* 
 SBase_getElementFromPluginsBySId(SBase_t* sb, const char* id);
 
+/**
+ * Returns the first child element it can find with the given @p metaid from
+ * all plug-ins associated with this element, or @c NULL if no such structure
+ * is found.
+ *
+ * @param sb the SBase_t structure in question.
+ * @param metaid string representing the metaid of structures to find
+ *
+ * @return pointer to the first element found with the given @p metaid.
+ *
+ * @memberof SBase_t
+ */
 LIBSBML_EXTERN 
 SBase_t* 
 SBase_getElementFromPluginsByMetaId(SBase_t* sb, const char* metaid);
 
+/**
+ * Returns a List_t of all child SBase_t structures contained in SBML package
+ * plug-ins.
+ *
+ * @copydetails doc_what_are_plugins
+ *
+ * This method walks down the list of all SBML Level&nbsp;3 packages used
+ * by this structure and returns all child structures defined by those packages.
+ *
+ * @param sb the SBase_t structure in question.
+ *
+ * @return a pointer to a List_t of pointers to all children structures from
+ * plug-ins.
+ *
+ * @memberof SBase_t
+ */
 LIBSBML_EXTERN 
 List_t* 
 SBase_getAllElementsFromPlugins(SBase_t* sb);
