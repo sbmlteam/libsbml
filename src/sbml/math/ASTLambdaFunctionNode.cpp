@@ -155,6 +155,8 @@ ASTLambdaFunctionNode::setNumBvars(unsigned int numBvars)
   return LIBSBML_OPERATION_SUCCESS;
 
 }
+
+
 int
 ASTLambdaFunctionNode::addChild(ASTBase* child, bool inRead)
 {
@@ -174,6 +176,16 @@ ASTLambdaFunctionNode::addChild(ASTBase* child, bool inRead)
     }
     else
     {
+      /* HACK TO REPLICATE OLD AST */
+      /* we are not adding a bvar but we may be promoting the last child to 
+       * bvar status by adding an argument which means that the previous
+       * arguments are all seen as bvars
+       */
+      if (getNumChildren() > getNumBvars() )
+      {
+        mNumBvars++;
+      }
+
       return ASTNaryFunctionNode::addChild(child);
     }
   }
@@ -228,7 +240,82 @@ ASTLambdaFunctionNode::getChild (unsigned int n) const
   }
 }
 
+
+int 
+ASTLambdaFunctionNode::removeChild(unsigned int n)
+{
+  int removed = LIBSBML_INDEX_EXCEEDS_SIZE;
+
+  /* need to keep track of whether we have removed a bvar */
+
+  unsigned int numChildren = getNumChildren();
   
+
+  unsigned int numBvars = getNumBvars();
+  if (numBvars == 0)
+  {
+    /* we are removing the body - if the index is appropriate */
+    return ASTFunctionBase::removeChild(n);
+  }
+
+  if (n < numBvars)
+  {
+    setNumBvars(numBvars - 1);
+  }
+
+  return ASTFunctionBase::removeChild(n);
+}
+
+
+int 
+ASTLambdaFunctionNode::prependChild(ASTBase* child)
+{
+  return insertChild(0, child);
+}
+
+
+int 
+ASTLambdaFunctionNode::insertChild(unsigned int n, ASTBase* newChild)
+{
+  int inserted = LIBSBML_INDEX_EXCEEDS_SIZE;
+  unsigned int numChildrenForUser = getNumChildren();
+
+  if (n > numChildrenForUser)
+  {
+    return inserted;
+  }
+  else if (n == numChildrenForUser)
+  {
+    return addChild(newChild);
+  }
+  else
+  {
+    vector < ASTBase *> copyChildren;
+    unsigned int i;
+    for (i = n; i < numChildrenForUser; i++)
+    {
+      copyChildren.push_back(getChild(i));
+    }
+    for (i = numChildrenForUser; i > n; i--)
+    {
+      removeChild(i-1);
+    }
+
+    unsigned int success = addChild(newChild);
+
+    i = 0;
+    while (success == LIBSBML_OPERATION_SUCCESS && i < copyChildren.size())
+    {
+      success = addChild(copyChildren.at(i));
+      i++;
+    }
+
+    inserted = success;
+  }
+
+  return inserted;
+}
+
 
 
 void

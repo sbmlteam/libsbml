@@ -77,6 +77,8 @@ public:
 
   virtual int swapChildren(ASTFunction* that);
 
+  virtual ASTBase* getChild (unsigned int n) const;
+
   bool isUMinus() const;
 
   bool isUPlus() const;

@@ -247,6 +247,274 @@ START_TEST (test_ChildFunctions_addToPiecewise_3)
 END_TEST
 
 
+START_TEST (test_ChildFunctions_addToLambda_1)
+{
+  const char* expected = wrapMathML
+  (
+    "  <lambda>\n"
+    "    <bvar>\n"
+    "      <ci> x </ci>\n"
+    "    </bvar>\n"
+    "    <bvar>\n"
+    "      <ci> y </ci>\n"
+    "    </bvar>\n"
+    "    <ci> newChild </ci>\n"
+    "  </lambda>\n"
+  );
+
+  const char* original = wrapMathML
+  (
+    "<lambda>"
+    "  <bvar> <ci>x</ci> </bvar>"
+    "  <ci>y</ci>"
+    "</lambda>"
+  );
+
+  N = readMathMLFromString(original);
+
+  /* old behaviour - we should have 2 children */
+  fail_unless(N->getNumChildren() == 2);
+
+  ASTNode * newChild = new ASTNode(AST_NAME);
+  newChild->setName("newChild");
+  
+  int i = N->addChild(newChild);
+
+  fail_unless ( i == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(N->getNumChildren() == 3);
+
+  S = writeMathMLToString(N);
+
+  fail_unless( equals(expected, S) );
+}
+END_TEST
+
+
+START_TEST (test_ChildFunctions_addToLog_1)
+{
+  const char* expected = wrapMathML
+  (
+    "  <apply>\n"
+    "    <log/>\n"
+    "    <logbase>\n"
+    "      <cn type=\"integer\"> 3 </cn>\n"
+    "    </logbase>\n"
+    "    <ci> newChild </ci>\n"
+    "  </apply>\n"
+  );
+
+  const char* original = wrapMathML
+  (
+    "<apply> <log/> <logbase> <cn type='integer'> 3 </cn> </logbase>"
+    "               <ci> x </ci>"
+    "</apply>"
+  );
+
+  N = readMathMLFromString(original);
+
+  /* old behaviour - we should have 2 children */
+  fail_unless(N->getNumChildren() == 2);
+
+  ASTNode * newChild = new ASTNode(AST_NAME);
+  newChild->setName("newChild");
+  
+  int i = N->addChild(newChild);
+
+  /* old behaviour will 'replace' the last child when it is written out
+   * but it does have 3 children 
+   */ 
+  fail_unless ( i == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(N->getNumChildren() == 3);
+
+  S = writeMathMLToString(N);
+
+  fail_unless( equals(expected, S) );
+}
+END_TEST
+
+
+START_TEST (test_ChildFunctions_addToLog_2)
+{
+  const char* expected = wrapMathML
+  (
+    "  <apply>\n"
+    "    <log/>\n"
+    "    <logbase>\n"
+    "      <cn type=\"integer\"> 10 </cn>\n"
+    "    </logbase>\n"
+    "    <ci> newChild </ci>\n"
+    "  </apply>\n"
+  );
+
+  const char* original = wrapMathML
+  (
+    "<apply> <log/> "
+    "               <ci> x </ci>"
+    "</apply>"
+  );
+
+  N = readMathMLFromString(original);
+
+  /* old behaviour - we should have 2 children */
+  fail_unless(N->getNumChildren() == 2);
+
+  ASTNode * newChild = new ASTNode(AST_NAME);
+  newChild->setName("newChild");
+  
+  int i = N->addChild(newChild);
+
+  /* old behaviour will 'replace' the last child when it is written out
+   * but it does have 3 children 
+   */ 
+  fail_unless ( i == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(N->getNumChildren() == 3);
+
+  S = writeMathMLToString(N);
+
+  fail_unless( equals(expected, S) );
+}
+END_TEST
+
+
+START_TEST (test_ChildFunctions_addToLog_3)
+{
+  const char* expected = wrapMathML
+  (
+    "  <apply>\n"
+    "    <log/>\n"
+    "  </apply>\n"
+  );
+
+  N = new ASTNode(AST_FUNCTION_LOG);
+
+  ASTNode * newChild = new ASTNode(AST_NAME);
+  newChild->setName("newChild");
+  
+  int i = N->addChild(newChild);
+
+  fail_unless ( i == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(N->getNumChildren() == 1);
+
+  S = writeMathMLToString(N);
+
+  fail_unless( equals(expected, S) );
+}
+END_TEST
+
+
+START_TEST (test_ChildFunctions_addToRoot_1)
+{
+  const char* expected = wrapMathML
+  (
+    "  <apply>\n"
+    "    <root/>\n"
+    "    <degree>\n"
+    "      <cn type=\"integer\"> 3 </cn>\n"
+    "    </degree>\n"
+    "    <ci> newChild </ci>\n"
+    "  </apply>\n"
+  );
+
+  const char* original = wrapMathML
+  (
+    "<apply> <root/> <degree> <cn type='integer'> 3 </cn> </degree>"
+    "               <ci> x </ci>"
+    "</apply>"
+  );
+
+  N = readMathMLFromString(original);
+
+  /* old behaviour - we should have 2 children */
+  fail_unless(N->getNumChildren() == 2);
+
+  ASTNode * newChild = new ASTNode(AST_NAME);
+  newChild->setName("newChild");
+  
+  int i = N->addChild(newChild);
+
+  /* old behaviour will 'replace' the last child when it is written out
+   * but it does have 3 children 
+   */ 
+  fail_unless ( i == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(N->getNumChildren() == 3);
+
+  S = writeMathMLToString(N);
+
+  fail_unless( equals(expected, S) );
+}
+END_TEST
+
+
+START_TEST (test_ChildFunctions_addToRoot_2)
+{
+  const char* expected = wrapMathML
+  (
+    "  <apply>\n"
+    "    <root/>\n"
+    "    <degree>\n"
+    "      <cn type=\"integer\"> 2 </cn>\n"
+    "    </degree>\n"
+    "    <ci> newChild </ci>\n"
+    "  </apply>\n"
+  );
+
+  const char* original = wrapMathML
+  (
+    "<apply> <root/> "
+    "               <ci> x </ci>"
+    "</apply>"
+  );
+
+  N = readMathMLFromString(original);
+
+  /* old behaviour - we should have 2 children */
+  fail_unless(N->getNumChildren() == 2);
+
+  ASTNode * newChild = new ASTNode(AST_NAME);
+  newChild->setName("newChild");
+  
+  int i = N->addChild(newChild);
+
+  /* old behaviour will 'replace' the last child when it is written out
+   * but it does have 3 children 
+   */ 
+  fail_unless ( i == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(N->getNumChildren() == 3);
+
+  S = writeMathMLToString(N);
+
+  fail_unless( equals(expected, S) );
+}
+END_TEST
+
+
+START_TEST (test_ChildFunctions_addToRoot_3)
+{
+  const char* expected = wrapMathML
+  (
+    "  <apply>\n"
+    "    <root/>\n"
+    "    <ci> newChild </ci>\n"
+    "  </apply>\n"
+  );
+
+  N = new ASTNode(AST_FUNCTION_ROOT);
+
+  ASTNode * newChild = new ASTNode(AST_NAME);
+  newChild->setName("newChild");
+  
+  int i = N->addChild(newChild);
+
+  fail_unless ( i == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(N->getNumChildren() == 1);
+
+  S = writeMathMLToString(N);
+
+  fail_unless( equals(expected, S) );
+}
+END_TEST
+
+
 START_TEST (test_ChildFunctions_getChild)
 {
 
@@ -363,6 +631,270 @@ START_TEST (test_ChildFunctions_getChildFromPiecewise_2)
 
   fail_unless ( child->getType() == AST_NAME);
   fail_unless( strcmp(child->getName(), "y") == 0); 
+}
+END_TEST
+
+
+START_TEST (test_ChildFunctions_getChildFromLambda_1)
+{
+  const char* original = wrapMathML
+  (
+    "<lambda>"
+    "  <bvar> <ci>x</ci> </bvar>"
+    "  <apply> <cos/><ci>x</ci></apply>"
+    "</lambda>"
+ );
+
+  N = readMathMLFromString(original);
+
+  /* old behaviour - we should have 2 children */
+  fail_unless(N->getNumChildren() == 2);
+
+  /* check we fail nicely if we try to access more children */
+  ASTNode * child = N->getChild(3);
+
+  fail_unless ( child == NULL);
+
+  child = N->getChild(2);
+
+  fail_unless ( child == NULL);
+
+  child = N->getChild(0);
+
+  fail_unless ( child->getType() == AST_NAME);
+  fail_unless( strcmp(child->getName(), "x") == 0); 
+
+  child = N->getChild(1);
+
+  fail_unless ( child->getType() == AST_FUNCTION_COS);
+  fail_unless (child->getNumChildren() == 1);
+
+  ASTNode * child1 = child->getChild(0);
+
+  fail_unless ( child1->getType() == AST_NAME);
+  fail_unless( strcmp(child1->getName(), "x") == 0); 
+}
+END_TEST
+
+
+START_TEST (test_ChildFunctions_getChildFromLambda_2)
+{
+  N = new ASTNode(AST_LAMBDA);
+
+  ASTNode * c1 = new ASTNode(AST_NAME);
+  c1->setName("y");
+  N->addChild(c1);
+  ASTNode * c2 = new ASTNode(AST_FUNCTION_ABS);
+  ASTNode * c3 = new ASTNode(AST_NAME);
+  c3->setName("y");
+  c2->addChild(c3);
+
+  N->addChild(c2);
+
+  /* old behaviour - we should have 2 children */
+  fail_unless(N->getNumChildren() == 2);
+
+  /* check we fail nicely if we try to access more children */
+  ASTNode * child = N->getChild(3);
+
+  fail_unless ( child == NULL);
+
+  child = N->getChild(2);
+
+  fail_unless ( child == NULL);
+
+  child = N->getChild(0);
+
+  fail_unless ( child->getType() == AST_NAME);
+  fail_unless( strcmp(child->getName(), "y") == 0); 
+
+  child = N->getChild(1);
+
+  fail_unless ( child->getType() == AST_FUNCTION_ABS);
+  fail_unless (child->getNumChildren() == 1);
+
+  ASTNode * child1 = child->getChild(0);
+
+  fail_unless ( child1->getType() == AST_NAME);
+  fail_unless( strcmp(child1->getName(), "y") == 0); 
+}
+END_TEST
+
+
+START_TEST (test_ChildFunctions_getChildFromLog_1)
+{
+  const char* original = wrapMathML
+  (
+    "<apply> <log/> "
+    "               <ci> x </ci>"
+    "</apply>"
+  );
+
+  N = readMathMLFromString(original);
+
+  /* old behaviour - we should have 2 children */
+  fail_unless(N->getNumChildren() == 2);
+
+  ASTNode * child = N->getChild(0);
+
+  fail_unless(child->getType() == AST_INTEGER);
+  fail_unless(child->getInteger() == 10);
+
+  child = N->getChild(1);
+
+  fail_unless(child->getType() == AST_NAME);
+  fail_unless( strcmp(child->getName(), "x") == 0); 
+
+}
+END_TEST
+
+
+START_TEST (test_ChildFunctions_getChildFromLog_2)
+{
+  const char* original = wrapMathML
+  (
+    "<apply> <log/> <logbase> <cn type='integer'> 3 </cn> </logbase>"
+    "               <ci> x </ci>"
+    "</apply>"
+  );
+
+  N = readMathMLFromString(original);
+
+  /* old behaviour - we should have 2 children */
+  fail_unless(N->getNumChildren() == 2);
+
+  ASTNode * child = N->getChild(0);
+
+  fail_unless(child->getType() == AST_INTEGER);
+  fail_unless(child->getInteger() == 3);
+
+  child = N->getChild(1);
+
+  fail_unless(child->getType() == AST_NAME);
+  fail_unless( strcmp(child->getName(), "x") == 0); 
+
+}
+END_TEST
+
+
+START_TEST (test_ChildFunctions_getChildFromLog_3)
+{
+  N = new ASTNode(AST_FUNCTION_LOG);
+
+  ASTNode * c = new ASTNode(AST_QUALIFIER_LOGBASE);
+  ASTNode * c1 = new ASTNode(AST_INTEGER);
+  c1->setValue(2);
+
+  c->addChild(c1);
+  N->addChild(c);
+
+  ASTNode * c3 = new ASTNode(AST_NAME);
+  c3->setName("x");
+  N->addChild(c3);
+
+
+  /* old behaviour - we should have 2 children */
+  fail_unless(N->getNumChildren() == 2);
+
+  ASTNode * child = N->getChild(0);
+
+  fail_unless(child->getType() == AST_INTEGER);
+  fail_unless(child->getInteger() == 2);
+
+  child = N->getChild(1);
+
+  fail_unless(child->getType() == AST_NAME);
+  fail_unless( strcmp(child->getName(), "x") == 0); 
+
+}
+END_TEST
+
+
+START_TEST (test_ChildFunctions_getChildFromRoot_1)
+{
+  const char* original = wrapMathML
+  (
+    "<apply> <root/> "
+    "               <ci> x </ci>"
+    "</apply>"
+  );
+
+  N = readMathMLFromString(original);
+
+  /* old behaviour - we should have 2 children */
+  fail_unless(N->getNumChildren() == 2);
+
+  ASTNode * child = N->getChild(0);
+
+  fail_unless(child->getType() == AST_INTEGER);
+  fail_unless(child->getInteger() == 2);
+
+  child = N->getChild(1);
+
+  fail_unless(child->getType() == AST_NAME);
+  fail_unless( strcmp(child->getName(), "x") == 0); 
+
+}
+END_TEST
+
+
+START_TEST (test_ChildFunctions_getChildFromRoot_2)
+{
+  const char* original = wrapMathML
+  (
+    "<apply> <root/> <degree> <cn type='integer'> 3 </cn> </degree>"
+    "               <ci> x </ci>"
+    "</apply>"
+  );
+
+  N = readMathMLFromString(original);
+
+  /* old behaviour - we should have 2 children */
+  fail_unless(N->getNumChildren() == 2);
+
+  ASTNode * child = N->getChild(0);
+
+  fail_unless(child->getType() == AST_INTEGER);
+  fail_unless(child->getInteger() == 3);
+
+  child = N->getChild(1);
+
+  fail_unless(child->getType() == AST_NAME);
+  fail_unless( strcmp(child->getName(), "x") == 0); 
+
+}
+END_TEST
+
+
+START_TEST (test_ChildFunctions_getChildFromRoot_3)
+{
+  N = new ASTNode(AST_FUNCTION_ROOT);
+
+  ASTNode * c = new ASTNode(AST_QUALIFIER_DEGREE);
+  ASTNode * c1 = new ASTNode(AST_INTEGER);
+  c1->setValue(2);
+
+  c->addChild(c1);
+  N->addChild(c);
+
+  ASTNode * c3 = new ASTNode(AST_NAME);
+  c3->setName("x");
+  N->addChild(c3);
+
+
+  /* old behaviour - we should have 2 children */
+  fail_unless(N->getNumChildren() == 2);
+
+  ASTNode * child = N->getChild(0);
+
+  fail_unless(child->getType() == AST_INTEGER);
+  fail_unless(child->getInteger() == 2);
+
+  child = N->getChild(1);
+
+  fail_unless(child->getType() == AST_NAME);
+  fail_unless( strcmp(child->getName(), "x") == 0); 
+
 }
 END_TEST
 
@@ -566,6 +1098,460 @@ START_TEST (test_ChildFunctions_removeFromPiecewise_3)
   fail_unless(N->getNumChildren() == 1);
   
   /* lets look at the bad piecewise */
+  S = writeMathMLToString(N);
+
+  fail_unless( equals(expected, S) );
+
+}
+END_TEST
+
+
+START_TEST (test_ChildFunctions_removeFromLambda_1)
+{
+  const char* expected = wrapMathML
+  (
+    "  <lambda>\n"
+    "    <bvar>\n"
+    "      <ci> y </ci>\n"
+    "    </bvar>\n"
+    "    <apply>\n"
+    "      <plus/>\n"
+    "      <ci> x </ci>\n"
+    "      <ci> y </ci>\n"
+    "    </apply>\n"
+    "  </lambda>\n"
+  );
+
+  const char* original = wrapMathML
+  (
+    "<lambda>"
+    "    <bvar> <ci>x</ci> </bvar>"
+    "    <bvar> <ci>y</ci> </bvar>"
+    "    <apply> <plus/> <ci>x</ci> <ci>y</ci> </apply>"
+    "</lambda>"
+  );
+
+  N = readMathMLFromString(original);
+
+  /* old behaviour - we should have 3 children */
+  fail_unless(N->getNumChildren() == 3);
+  fail_unless(N->getNumBvars() == 2);
+
+  /* check we fail nicely if we try to access more children */
+  int i = N->removeChild(3);
+
+  fail_unless ( i == LIBSBML_INDEX_EXCEEDS_SIZE);
+  
+  i = N->removeChild(0);
+
+  fail_unless ( i == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(N->getNumChildren() == 2);
+  fail_unless(N->getNumBvars() == 1);
+  
+  S = writeMathMLToString(N);
+
+  fail_unless( equals(expected, S) );
+
+}
+END_TEST
+
+
+START_TEST (test_ChildFunctions_removeFromLambda_2)
+{
+  const char* expected = wrapMathML
+  (
+    "  <lambda>\n"
+    "    <bvar>\n"
+    "      <ci> x </ci>\n"
+    "    </bvar>\n"
+    "    <apply>\n"
+    "      <plus/>\n"
+    "      <ci> x </ci>\n"
+    "      <ci> y </ci>\n"
+    "    </apply>\n"
+    "  </lambda>\n"
+  );
+
+  const char* original = wrapMathML
+  (
+    "<lambda>"
+    "    <bvar> <ci>x</ci> </bvar>"
+    "    <bvar> <ci>y</ci> </bvar>"
+    "    <apply> <plus/> <ci>x</ci> <ci>y</ci> </apply>"
+    "</lambda>"
+  );
+
+  N = readMathMLFromString(original);
+
+  /* old behaviour - we should have 3 children */
+  fail_unless(N->getNumChildren() == 3);
+  fail_unless(N->getNumBvars() == 2);
+
+  int i = N->removeChild(1);
+
+  fail_unless ( i == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(N->getNumChildren() == 2);
+  fail_unless(N->getNumBvars() == 1);
+  
+  S = writeMathMLToString(N);
+
+  fail_unless( equals(expected, S) );
+
+}
+END_TEST
+
+
+START_TEST (test_ChildFunctions_removeFromLambda_3)
+{
+  const char* expected = wrapMathML
+  (
+    "  <lambda>\n"
+    "    <bvar>\n"
+    "      <ci> x </ci>\n"
+    "    </bvar>\n"
+    "    <bvar>\n"
+    "      <ci> y </ci>\n"
+    "    </bvar>\n"
+    "  </lambda>\n"
+  );
+
+  const char* original = wrapMathML
+  (
+    "<lambda>"
+    "    <bvar> <ci>x</ci> </bvar>"
+    "    <bvar> <ci>y</ci> </bvar>"
+    "    <apply> <plus/> <ci>x</ci> <ci>y</ci> </apply>"
+    "</lambda>"
+  );
+
+  N = readMathMLFromString(original);
+
+  /* old behaviour - we should have 3 children */
+  fail_unless(N->getNumChildren() == 3);
+  fail_unless(N->getNumBvars() == 2);
+
+  int i = N->removeChild(2);
+
+  fail_unless ( i == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(N->getNumChildren() == 2);
+  fail_unless(N->getNumBvars() == 2);
+  
+  S = writeMathMLToString(N);
+
+  fail_unless( equals(expected, S) );
+
+}
+END_TEST
+
+
+START_TEST (test_ChildFunctions_removeFromLog_1)
+{
+  const char* expected = wrapMathML
+  (
+    "  <apply>\n"
+    "    <log/>\n"
+    "  </apply>\n"
+  );
+
+  const char* original = wrapMathML
+  (
+    "<apply> <log/> <logbase> <cn type='integer'> 3 </cn> </logbase>"
+    "               <ci> x </ci>"
+    "</apply>"
+  );
+
+  N = readMathMLFromString(original);
+
+  fail_unless(N->getNumChildren() == 2);
+
+  /* check we fail nicely if we try to access more children */
+  int i = N->removeChild(3);
+
+  fail_unless ( i == LIBSBML_INDEX_EXCEEDS_SIZE);
+  
+  i = N->removeChild(1);
+
+  fail_unless ( i == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(N->getNumChildren() == 1);
+  
+  ASTNode* child = N->getChild(0);
+  fail_unless(child->getType() == AST_INTEGER);
+  
+  S = writeMathMLToString(N);
+
+  fail_unless( equals(expected, S) );
+
+}
+END_TEST
+
+
+START_TEST (test_ChildFunctions_removeFromLog_2)
+{
+  const char* expected = wrapMathML
+  (
+    "  <apply>\n"
+    "    <log/>\n"
+    "  </apply>\n"
+  );
+
+  const char* original = wrapMathML
+  (
+    "<apply> <log/>"
+    "               <ci> x </ci>"
+    "</apply>"
+  );
+
+  N = readMathMLFromString(original);
+
+  fail_unless(N->getNumChildren() == 2);
+
+  /* check we fail nicely if we try to access more children */
+  int i = N->removeChild(3);
+
+  fail_unless ( i == LIBSBML_INDEX_EXCEEDS_SIZE);
+  
+  i = N->removeChild(1);
+
+  fail_unless ( i == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(N->getNumChildren() == 1);
+  
+  ASTNode* child = N->getChild(0);
+  fail_unless(child->getType() == AST_INTEGER);
+   
+  S = writeMathMLToString(N);
+
+  fail_unless( equals(expected, S) );
+
+}
+END_TEST
+
+
+START_TEST (test_ChildFunctions_removeFromLog_3)
+{
+  const char* expected = wrapMathML
+  (
+    "  <apply>\n"
+    "    <log/>\n"
+    "  </apply>\n"
+  );
+
+  const char* original = wrapMathML
+  (
+    "<apply> <log/> <logbase> <cn type='integer'> 3 </cn> </logbase>"
+    "               <ci> x </ci>"
+    "</apply>"
+  );
+
+  N = readMathMLFromString(original);
+
+  fail_unless(N->getNumChildren() == 2);
+
+  int i = N->removeChild(0);
+
+  fail_unless ( i == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(N->getNumChildren() == 1);
+  
+  ASTNode* child = N->getChild(0);
+  fail_unless(child->getType() == AST_NAME);
+   
+  S = writeMathMLToString(N);
+
+  fail_unless( equals(expected, S) );
+
+}
+END_TEST
+
+
+START_TEST (test_ChildFunctions_removeFromLog_4)
+{
+  const char* expected = wrapMathML
+  (
+    "  <apply>\n"
+    "    <log/>\n"
+    "  </apply>\n"
+  );
+
+  const char* original = wrapMathML
+  (
+    "<apply> <log/>"
+    "               <ci> x </ci>"
+    "</apply>"
+  );
+
+  N = readMathMLFromString(original);
+
+  fail_unless(N->getNumChildren() == 2);
+
+  int i = N->removeChild(0);
+
+  fail_unless ( i == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(N->getNumChildren() == 1);
+
+  ASTNode* child = N->getChild(0);
+  fail_unless(child->getType() == AST_NAME);
+  
+  S = writeMathMLToString(N);
+
+  fail_unless( equals(expected, S) );
+
+}
+END_TEST
+
+
+START_TEST (test_ChildFunctions_removeFromRoot_1)
+{
+  const char* expected = wrapMathML
+  (
+    "  <apply>\n"
+    "    <root/>\n"
+    "    <degree>\n"
+    "      <cn type=\"integer\"> 3 </cn>\n"
+    "    </degree>\n"
+    "  </apply>\n"
+  );
+
+  const char* original = wrapMathML
+  (
+    "<apply> <root/> <degree> <cn type='integer'> 3 </cn> </degree>"
+    "               <ci> x </ci>"
+    "</apply>"
+  );
+
+  N = readMathMLFromString(original);
+
+  fail_unless(N->getNumChildren() == 2);
+
+  /* check we fail nicely if we try to access more children */
+  int i = N->removeChild(3);
+
+  fail_unless ( i == LIBSBML_INDEX_EXCEEDS_SIZE);
+  
+  i = N->removeChild(1);
+
+  fail_unless ( i == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(N->getNumChildren() == 1);
+  
+  ASTNode* child = N->getChild(0);
+  fail_unless(child->getType() == AST_INTEGER);
+  
+  S = writeMathMLToString(N);
+
+  fail_unless( equals(expected, S) );
+
+}
+END_TEST
+
+
+START_TEST (test_ChildFunctions_removeFromRoot_2)
+{
+  const char* expected = wrapMathML
+  (
+    "  <apply>\n"
+    "    <root/>\n"
+    "    <degree>\n"
+    "      <cn type=\"integer\"> 2 </cn>\n"
+    "    </degree>\n"
+    "  </apply>\n"
+  );
+
+  const char* original = wrapMathML
+  (
+    "<apply> <root/>"
+    "               <ci> x </ci>"
+    "</apply>"
+  );
+
+  N = readMathMLFromString(original);
+
+  fail_unless(N->getNumChildren() == 2);
+
+  /* check we fail nicely if we try to access more children */
+  int i = N->removeChild(3);
+
+  fail_unless ( i == LIBSBML_INDEX_EXCEEDS_SIZE);
+  
+  i = N->removeChild(1);
+
+  fail_unless ( i == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(N->getNumChildren() == 1);
+  
+  ASTNode* child = N->getChild(0);
+  fail_unless(child->getType() == AST_INTEGER);
+   
+  S = writeMathMLToString(N);
+
+  fail_unless( equals(expected, S) );
+
+}
+END_TEST
+
+
+START_TEST (test_ChildFunctions_removeFromRoot_3)
+{
+  const char* expected = wrapMathML
+  (
+    "  <apply>\n"
+    "    <root/>\n"
+    "    <ci> x </ci>\n"
+    "  </apply>\n"
+  );
+
+  const char* original = wrapMathML
+  (
+    "<apply> <root/> <degree> <cn type='integer'> 3 </cn> </degree>"
+    "               <ci> x </ci>"
+    "</apply>"
+  );
+
+  N = readMathMLFromString(original);
+
+  fail_unless(N->getNumChildren() == 2);
+
+  int i = N->removeChild(0);
+
+  fail_unless ( i == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(N->getNumChildren() == 1);
+  
+  ASTNode* child = N->getChild(0);
+  fail_unless(child->getType() == AST_NAME);
+   
+  S = writeMathMLToString(N);
+
+  fail_unless( equals(expected, S) );
+
+}
+END_TEST
+
+
+START_TEST (test_ChildFunctions_removeFromRoot_4)
+{
+  const char* expected = wrapMathML
+  (
+    "  <apply>\n"
+    "    <root/>\n"
+    "    <ci> x </ci>\n"
+    "  </apply>\n"
+  );
+
+  const char* original = wrapMathML
+  (
+    "<apply> <root/>"
+    "               <ci> x </ci>"
+    "</apply>"
+  );
+
+  N = readMathMLFromString(original);
+
+  fail_unless(N->getNumChildren() == 2);
+
+  int i = N->removeChild(0);
+
+  fail_unless ( i == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(N->getNumChildren() == 1);
+
+  ASTNode* child = N->getChild(0);
+  fail_unless(child->getType() == AST_NAME);
+  
   S = writeMathMLToString(N);
 
   fail_unless( equals(expected, S) );
@@ -826,6 +1812,426 @@ START_TEST (test_ChildFunctions_insertIntoPiecewise_3)
 END_TEST
 
 
+START_TEST (test_ChildFunctions_insertIntoLambda_1)
+{
+  const char* expected = wrapMathML
+  (
+    "  <lambda>\n"
+    "    <bvar>\n"
+    "      <ci> x </ci>\n"
+    "    </bvar>\n"
+    "    <bvar>\n"
+    "      <ci> y </ci>\n"
+    "    </bvar>\n"
+    "    <ci> newChild </ci>\n"
+    "  </lambda>\n"
+  );
+
+  const char* original = wrapMathML
+  (
+    "<lambda>"
+    "    <bvar> <ci>x</ci> </bvar>"
+    "    <ci>y</ci>"
+    "</lambda>"
+  );
+
+  N = readMathMLFromString(original);
+
+  /* old behaviour - we should have 2 children */
+  fail_unless(N->getNumChildren() == 2);
+  fail_unless(N->getNumBvars() == 1);
+
+  ASTNode * newChild = new ASTNode(AST_NAME);
+  newChild->setName("newChild");
+  
+  /* check we fail nicely if we try to access more children */
+  int i = N->insertChild(3, newChild);
+
+  fail_unless ( i == LIBSBML_INDEX_EXCEEDS_SIZE);
+  fail_unless(N->getNumChildren() == 2);
+
+  /* insert at end */
+  i = N->insertChild(2, newChild);
+
+  fail_unless ( i == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(N->getNumChildren() == 3);
+  fail_unless(N->getNumBvars() == 2);
+
+  S = writeMathMLToString(N);
+
+  fail_unless( equals(expected, S) );
+}
+END_TEST
+
+
+START_TEST (test_ChildFunctions_insertIntoLambda_2)
+{
+  const char* expected = wrapMathML
+  (
+    "  <lambda>\n"
+    "    <bvar>\n"
+    "      <ci> x </ci>\n"
+    "    </bvar>\n"
+    "    <bvar>\n"
+    "      <ci> newChild </ci>\n"
+    "    </bvar>\n"
+    "    <apply>\n"
+    "      <plus/>\n"
+    "      <ci> x </ci>\n"
+    "      <ci> y </ci>\n"
+    "    </apply>\n"
+    "  </lambda>\n"
+  );
+
+  const char* original = wrapMathML
+  (
+    "<lambda>"
+    "    <bvar> <ci>x</ci> </bvar>"
+    "    <apply> <plus/> <ci>x</ci> <ci>y</ci> </apply>"
+    "</lambda>"
+  );
+
+  N = readMathMLFromString(original);
+
+  /* old behaviour - we should have 2 children */
+  fail_unless(N->getNumChildren() == 2);
+  fail_unless(N->getNumBvars() == 1);
+
+  ASTNode * newChild = new ASTNode(AST_NAME);
+  newChild->setName("newChild");
+  
+  int i = N->insertChild(1, newChild);
+
+  fail_unless ( i == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(N->getNumChildren() == 3);
+  fail_unless(N->getNumBvars() == 2);
+
+  S = writeMathMLToString(N);
+
+  fail_unless( equals(expected, S) );
+}
+END_TEST
+
+
+START_TEST (test_ChildFunctions_insertIntoLambda_3)
+{
+  const char* expected = wrapMathML
+  (
+    "  <lambda>\n"
+    "    <bvar>\n"
+    "      <ci> newChild </ci>\n"
+    "    </bvar>\n"
+    "    <bvar>\n"
+    "      <ci> x </ci>\n"
+    "    </bvar>\n"
+    "    <apply>\n"
+    "      <plus/>\n"
+    "      <ci> x </ci>\n"
+    "      <ci> y </ci>\n"
+    "    </apply>\n"
+    "  </lambda>\n"
+  );
+
+  const char* original = wrapMathML
+  (
+    "<lambda>"
+    "    <bvar> <ci>x</ci> </bvar>"
+    "    <apply> <plus/> <ci>x</ci> <ci>y</ci> </apply>"
+    "</lambda>"
+  );
+
+  N = readMathMLFromString(original);
+
+  /* old behaviour - we should have 2 children */
+  fail_unless(N->getNumChildren() == 2);
+  fail_unless(N->getNumBvars() == 1);
+
+  ASTNode * newChild = new ASTNode(AST_NAME);
+  newChild->setName("newChild");
+  
+  int i = N->insertChild(0, newChild);
+
+  fail_unless ( i == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(N->getNumChildren() == 3);
+  fail_unless(N->getNumBvars() == 2);
+
+  S = writeMathMLToString(N);
+
+  fail_unless( equals(expected, S) );
+}
+END_TEST
+
+
+START_TEST (test_ChildFunctions_insertIntoLog_1)
+{
+  const char* expected = wrapMathML
+  (
+    "  <apply>\n"
+    "    <log/>\n"
+    "    <logbase>\n"
+    "      <cn type=\"integer\"> 3 </cn>\n"
+    "    </logbase>\n"
+    "    <ci> newChild </ci>\n"
+    "  </apply>\n"
+  );
+
+  const char* original = wrapMathML
+  (
+    "<apply> <log/> <logbase> <cn type='integer'> 3 </cn> </logbase>"
+    "               <ci> x </ci>"
+    "</apply>"
+  );
+
+  N = readMathMLFromString(original);
+
+  fail_unless(N->getNumChildren() == 2);
+
+  ASTNode * newChild = new ASTNode(AST_NAME);
+  newChild->setName("newChild");
+  
+  /* check we fail nicely if we try to access more children */
+  int i = N->insertChild(3, newChild);
+
+  fail_unless ( i == LIBSBML_INDEX_EXCEEDS_SIZE);
+  fail_unless(N->getNumChildren() == 2);
+
+  i = N->insertChild(2, newChild);
+
+  /* old behaviour will 'replace' the last child when it is written out
+   * but it does have 3 children 
+   */ 
+  fail_unless ( i == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(N->getNumChildren() == 3);
+
+  S = writeMathMLToString(N);
+
+  fail_unless( equals(expected, S) );
+}
+END_TEST
+
+
+START_TEST (test_ChildFunctions_insertIntoLog_2)
+{
+  const char* expected = wrapMathML
+  (
+    "  <apply>\n"
+    "    <log/>\n"
+    "    <logbase>\n"
+    "      <cn type=\"integer\"> 3 </cn>\n"
+    "    </logbase>\n"
+    "    <ci> x </ci>\n"
+    "  </apply>\n"
+  );
+
+  const char* original = wrapMathML
+  (
+    "<apply> <log/> <logbase> <cn type='integer'> 3 </cn> </logbase>"
+    "               <ci> x </ci>"
+    "</apply>"
+  );
+
+  N = readMathMLFromString(original);
+
+  fail_unless(N->getNumChildren() == 2);
+
+  ASTNode * newChild = new ASTNode(AST_NAME);
+  newChild->setName("newChild");
+  
+  int i = N->insertChild(1, newChild);
+
+  /* old behaviour will 'replace' the last child when it is written out
+   * but it does have 3 children 
+   */ 
+  fail_unless ( i == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(N->getNumChildren() == 3);
+
+  S = writeMathMLToString(N);
+
+  fail_unless( equals(expected, S) );
+}
+END_TEST
+
+
+START_TEST (test_ChildFunctions_insertIntoLog_3)
+{
+  const char* expected = wrapMathML
+  (
+    "  <apply>\n"
+    "    <log/>\n"
+    "    <logbase>\n"
+    "      <ci> newChild </ci>\n"
+    "    </logbase>\n"
+    "    <ci> x </ci>\n"
+    "  </apply>\n"
+  );
+
+  const char* original = wrapMathML
+  (
+    "<apply> <log/> <logbase> <cn type='integer'> 3 </cn> </logbase>"
+    "               <ci> x </ci>"
+    "</apply>"
+  );
+
+  N = readMathMLFromString(original);
+
+  fail_unless(N->getNumChildren() == 2);
+
+  ASTNode * newChild = new ASTNode(AST_NAME);
+  newChild->setName("newChild");
+  
+  int i = N->insertChild(0, newChild);
+
+  /* old behaviour will 'replace' the first child when it is written out
+   * but it does have 3 children 
+   */ 
+  fail_unless ( i == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(N->getNumChildren() == 3);
+
+  S = writeMathMLToString(N);
+
+  ASTNode * child = N->getChild(1);
+  fail_unless(child->getType() == AST_INTEGER);
+
+  fail_unless( equals(expected, S) );
+}
+END_TEST
+
+
+START_TEST (test_ChildFunctions_insertIntoRoot_1)
+{
+  const char* expected = wrapMathML
+  (
+    "  <apply>\n"
+    "    <root/>\n"
+    "    <degree>\n"
+    "      <cn type=\"integer\"> 3 </cn>\n"
+    "    </degree>\n"
+    "    <ci> newChild </ci>\n"
+    "  </apply>\n"
+  );
+
+  const char* original = wrapMathML
+  (
+    "<apply> <root/> <degree> <cn type='integer'> 3 </cn> </degree>"
+    "               <ci> x </ci>"
+    "</apply>"
+  );
+
+  N = readMathMLFromString(original);
+
+  fail_unless(N->getNumChildren() == 2);
+
+  ASTNode * newChild = new ASTNode(AST_NAME);
+  newChild->setName("newChild");
+  
+  /* check we fail nicely if we try to access more children */
+  int i = N->insertChild(3, newChild);
+
+  fail_unless ( i == LIBSBML_INDEX_EXCEEDS_SIZE);
+  fail_unless(N->getNumChildren() == 2);
+
+  i = N->insertChild(2, newChild);
+
+  /* old behaviour will 'replace' the last child when it is written out
+   * but it does have 3 children 
+   */ 
+  fail_unless ( i == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(N->getNumChildren() == 3);
+
+  S = writeMathMLToString(N);
+
+  fail_unless( equals(expected, S) );
+}
+END_TEST
+
+
+START_TEST (test_ChildFunctions_insertIntoRoot_2)
+{
+  const char* expected = wrapMathML
+  (
+    "  <apply>\n"
+    "    <root/>\n"
+    "    <degree>\n"
+    "      <cn type=\"integer\"> 3 </cn>\n"
+    "    </degree>\n"
+    "    <ci> x </ci>\n"
+    "  </apply>\n"
+  );
+
+  const char* original = wrapMathML
+  (
+    "<apply> <root/> <degree> <cn type='integer'> 3 </cn> </degree>"
+    "               <ci> x </ci>"
+    "</apply>"
+  );
+
+  N = readMathMLFromString(original);
+
+  fail_unless(N->getNumChildren() == 2);
+
+  ASTNode * newChild = new ASTNode(AST_NAME);
+  newChild->setName("newChild");
+  
+  int i = N->insertChild(1, newChild);
+
+  /* old behaviour will 'replace' the last child when it is written out
+   * but it does have 3 children 
+   */ 
+  fail_unless ( i == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(N->getNumChildren() == 3);
+
+  S = writeMathMLToString(N);
+
+  fail_unless( equals(expected, S) );
+}
+END_TEST
+
+
+START_TEST (test_ChildFunctions_insertIntoRoot_3)
+{
+  const char* expected = wrapMathML
+  (
+    "  <apply>\n"
+    "    <root/>\n"
+    "    <degree>\n"
+    "      <ci> newChild </ci>\n"
+    "    </degree>\n"
+    "    <ci> x </ci>\n"
+    "  </apply>\n"
+  );
+
+  const char* original = wrapMathML
+  (
+    "<apply> <root/> <degree> <cn type='integer'> 3 </cn> </degree>"
+    "               <ci> x </ci>"
+    "</apply>"
+  );
+
+  N = readMathMLFromString(original);
+
+  fail_unless(N->getNumChildren() == 2);
+
+  ASTNode * newChild = new ASTNode(AST_NAME);
+  newChild->setName("newChild");
+  
+  int i = N->insertChild(0, newChild);
+
+  /* old behaviour will 'replace' the first child when it is written out
+   * but it does have 3 children 
+   */ 
+  fail_unless ( i == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(N->getNumChildren() == 3);
+
+  S = writeMathMLToString(N);
+
+  ASTNode * child = N->getChild(1);
+  fail_unless(child->getType() == AST_INTEGER);
+
+  fail_unless( equals(expected, S) );
+}
+END_TEST
+
+
 Suite *
 create_suite_TestChildFunctions ()
 {
@@ -838,18 +2244,53 @@ create_suite_TestChildFunctions ()
   tcase_add_test( tcase, test_ChildFunctions_addToPiecewise_1  );
   tcase_add_test( tcase, test_ChildFunctions_addToPiecewise_2  );
   tcase_add_test( tcase, test_ChildFunctions_addToPiecewise_3  );
+  tcase_add_test( tcase, test_ChildFunctions_addToLambda_1  );
+  tcase_add_test( tcase, test_ChildFunctions_addToLog_1  );
+  tcase_add_test( tcase, test_ChildFunctions_addToLog_2  );
+  tcase_add_test( tcase, test_ChildFunctions_addToLog_3  );
+  tcase_add_test( tcase, test_ChildFunctions_addToRoot_1  );
+  tcase_add_test( tcase, test_ChildFunctions_addToRoot_2  );
+  tcase_add_test( tcase, test_ChildFunctions_addToRoot_3  );
   tcase_add_test( tcase, test_ChildFunctions_getChild             );
   tcase_add_test( tcase, test_ChildFunctions_getChildFromPiecewise_1  );
   tcase_add_test( tcase, test_ChildFunctions_getChildFromPiecewise_2  );
+  tcase_add_test( tcase, test_ChildFunctions_getChildFromLambda_1  );
+  tcase_add_test( tcase, test_ChildFunctions_getChildFromLambda_2  );
+  tcase_add_test( tcase, test_ChildFunctions_getChildFromLog_1  );
+  tcase_add_test( tcase, test_ChildFunctions_getChildFromLog_2  );
+  tcase_add_test( tcase, test_ChildFunctions_getChildFromLog_3  );
+  tcase_add_test( tcase, test_ChildFunctions_getChildFromRoot_1  );
+  tcase_add_test( tcase, test_ChildFunctions_getChildFromRoot_2  );
+  tcase_add_test( tcase, test_ChildFunctions_getChildFromRoot_3  );
   tcase_add_test( tcase, test_ChildFunctions_remove               );
   tcase_add_test( tcase, test_ChildFunctions_removeFromPiecewise_1  );
   tcase_add_test( tcase, test_ChildFunctions_removeFromPiecewise_2  );
   tcase_add_test( tcase, test_ChildFunctions_removeFromPiecewise_3  );
+  tcase_add_test( tcase, test_ChildFunctions_removeFromLambda_1  );
+  tcase_add_test( tcase, test_ChildFunctions_removeFromLambda_2  );
+  tcase_add_test( tcase, test_ChildFunctions_removeFromLambda_3  );
+  tcase_add_test( tcase, test_ChildFunctions_removeFromLog_1  );
+  tcase_add_test( tcase, test_ChildFunctions_removeFromLog_2  );
+  tcase_add_test( tcase, test_ChildFunctions_removeFromLog_3  );
+  tcase_add_test( tcase, test_ChildFunctions_removeFromLog_4  );
+  tcase_add_test( tcase, test_ChildFunctions_removeFromRoot_1  );
+  tcase_add_test( tcase, test_ChildFunctions_removeFromRoot_2  );
+  tcase_add_test( tcase, test_ChildFunctions_removeFromRoot_3  );
+  tcase_add_test( tcase, test_ChildFunctions_removeFromRoot_4  );
   tcase_add_test( tcase, test_ChildFunctions_replace               );
   tcase_add_test( tcase, test_ChildFunctions_insert               );
   tcase_add_test( tcase, test_ChildFunctions_insertIntoPiecewise_1               );
   tcase_add_test( tcase, test_ChildFunctions_insertIntoPiecewise_2               );
   tcase_add_test( tcase, test_ChildFunctions_insertIntoPiecewise_3               );
+  tcase_add_test( tcase, test_ChildFunctions_insertIntoLambda_1               );
+  tcase_add_test( tcase, test_ChildFunctions_insertIntoLambda_2               );
+  tcase_add_test( tcase, test_ChildFunctions_insertIntoLambda_3               );
+  tcase_add_test( tcase, test_ChildFunctions_insertIntoLog_1               );
+  tcase_add_test( tcase, test_ChildFunctions_insertIntoLog_2               );
+  tcase_add_test( tcase, test_ChildFunctions_insertIntoLog_3               );
+  tcase_add_test( tcase, test_ChildFunctions_insertIntoRoot_1               );
+  tcase_add_test( tcase, test_ChildFunctions_insertIntoRoot_2               );
+  tcase_add_test( tcase, test_ChildFunctions_insertIntoRoot_3               );
 
   suite_add_tcase(suite, tcase);
 

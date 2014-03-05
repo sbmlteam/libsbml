@@ -88,9 +88,9 @@ public:
 
 
 
-  virtual bool isLog10() const;
+  bool isLog10() const;
 
-  virtual bool isSqrt() const;
+  bool isSqrt() const;
 
   virtual bool hasCorrectNumberArguments() const;
 

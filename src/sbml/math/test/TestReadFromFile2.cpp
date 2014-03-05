@@ -265,17 +265,14 @@ START_TEST (test_read_MathML_2)
   child1 = r1_math->getChild(0);
   child2 = r1_math->getChild(1);
 
-  fail_unless (child1->getType() == AST_QUALIFIER_LOGBASE, NULL);
-  fail_unless (child1->getNumChildren() == 1, NULL);
+  fail_unless (child1->getType() == AST_REAL, NULL);
+  fail_unless (child1->getNumChildren() == 0, NULL);
+  fail_unless (!strcmp(SBML_formulaToString(child1), "3"), NULL);
 
   fail_unless (child2->getType() == AST_NAME, NULL);
   fail_unless (child2->getNumChildren() == 0, NULL);
   fail_unless (!strcmp(SBML_formulaToString(child2), "x"), NULL);
 
-  child2 = child1->getChild(0);
-  fail_unless (child2->getType() == AST_REAL, NULL);
-  fail_unless (child2->getNumChildren() == 0, NULL);
-  fail_unless (!strcmp(SBML_formulaToString(child2), "3"), NULL);
 
 
   delete d;

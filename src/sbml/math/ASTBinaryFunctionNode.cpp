@@ -140,10 +140,54 @@ ASTBinaryFunctionNode::swapChildren(ASTFunction* that)
 }
 
 
+ASTBase* 
+ASTBinaryFunctionNode::getChild (unsigned int n) const
+{
+  if (this->getType() != AST_FUNCTION_LOG)
+  {
+    return ASTFunctionBase::getChild(n);
+  }
+  else
+  {
+    /* HACK TO REPLICATE OLD AST */
+    /* do not return a node with teh logbase type
+     * return the child of the logbase
+     */
+    if (ASTFunctionBase::getNumChildren() <= n)
+    {
+      return NULL;
+    }
+
+    if (ASTFunctionBase::getChild(n)->getType() == AST_QUALIFIER_LOGBASE)
+    {
+      ASTBase * base = ASTFunctionBase::getChild(n);
+      ASTNode * logbase = dynamic_cast<ASTNode*>(base);
+      if (logbase != NULL)
+      {
+        if (logbase->getNumChildren() > 0)
+        {
+          return logbase->getChild(0);
+        }
+        else
+        {
+          return NULL;
+        }
+      }
+      else
+      {
+        return NULL;
+      }
+    }
+    else
+    {
+      return ASTFunctionBase::getChild(n);
+    }
+  }
+}
 
 
 bool
-ASTBinaryFunctionNode::isLog10()
+ASTBinaryFunctionNode::isLog10() const
 {
   bool valid = false;
 
@@ -153,7 +197,7 @@ ASTBinaryFunctionNode::isLog10()
   {
     if (getNumChildren() == 2)
     {
-      base1 = getChild(0);
+      base1 = ASTFunctionBase::getChild(0);
       ASTFunction* fun = dynamic_cast<ASTFunction*>(base1);
       if (fun != NULL)
       {
@@ -206,9 +250,8 @@ ASTBinaryFunctionNode::isLog10()
   return valid;
 }
 
-
 bool
-ASTBinaryFunctionNode::isSqrt()
+ASTBinaryFunctionNode::isSqrt() const
 {
   bool valid = false;
 
@@ -318,43 +361,22 @@ ASTBinaryFunctionNode::write(XMLOutputStream& stream) const
    */
   else if (type == AST_FUNCTION_LOG)
   {
-    if (getChild(0)->getType() != AST_QUALIFIER_LOGBASE)
+    if (numChildren > 1)
     {
-      ASTQualifierNode * logbase = new ASTQualifierNode(AST_QUALIFIER_LOGBASE);
-      if (numChildren == 1)
+      if (ASTFunctionBase::getChild(0)->getType() != AST_QUALIFIER_LOGBASE)
       {
-        ASTCnIntegerNode * int10 = new ASTCnIntegerNode();
-        int10->setInteger(10);
-        logbase->addChild(int10->deepCopy());
+        ASTQualifierNode * logbase = new ASTQualifierNode(AST_QUALIFIER_LOGBASE);
+        logbase->addChild(ASTFunctionBase::getChild(0)->deepCopy());
+        logbase->write(stream);
+        delete logbase;
+        ASTFunctionBase::getChild(numChildren-1)->write(stream);
       }
       else
       {
-        logbase->addChild(getChild(0)->deepCopy());
+        /* if there is only 1 child that is logbase we dont write either */
+        ASTFunctionBase::getChild(0)->write(stream);
+        ASTFunctionBase::getChild(numChildren-1)->write(stream);
       }
-      logbase->write(stream);
-      delete logbase;
-      ASTFunctionBase::getChild(numChildren-1)->write(stream);
-    }
-    else
-    {
-      ASTFunctionBase::getChild(0)->write(stream);
-      ASTFunctionBase::getChild(numChildren-1)->write(stream);
-    }
-  }
-  else if (numChildren >= 2 && type == AST_FUNCTION_ROOT)
-  {
-    if (getChild(0)->getType() != AST_QUALIFIER_DEGREE)
-    {
-      ASTQualifierNode * degree = new ASTQualifierNode(AST_QUALIFIER_DEGREE);
-      degree->addChild(getChild(0)->deepCopy());
-      degree->write(stream);
-      delete degree;
-      ASTFunctionBase::getChild(numChildren-1)->write(stream);
-    }
-    else
-    {
-      ASTFunctionBase::getChild(0)->write(stream);
-      ASTFunctionBase::getChild(numChildren-1)->write(stream);
     }
   }
   else
@@ -463,7 +485,7 @@ ASTBinaryFunctionNode::hasCorrectNumberArguments() const
     {
       // we have only one child
       // if it is a qualifier type then it is incorrect
-      if (representsQualifier(getChild(0)->getTypeAsInt()) == true)
+      if (representsQualifier(ASTFunctionBase::getChild(0)->getTypeAsInt()) == true)
       {
         correctNumArgs = false;
       }

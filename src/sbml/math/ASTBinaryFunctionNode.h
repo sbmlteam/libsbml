@@ -74,15 +74,15 @@ public:
 
   virtual int swapChildren(ASTFunction* that);
 
-  virtual void write(XMLOutputStream& stream) const;
+  virtual ASTBase* getChild (unsigned int n) const;
 
+  virtual void write(XMLOutputStream& stream) const;
 
   virtual bool read(XMLInputStream& stream, const std::string& reqd_prefix="");
 
+  bool isLog10() const;
 
-  virtual bool isLog10();
-
-  virtual bool isSqrt();
+  bool isSqrt() const;
 
   virtual bool hasCorrectNumberArguments() const;
 

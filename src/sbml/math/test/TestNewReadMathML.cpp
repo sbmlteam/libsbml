@@ -1339,12 +1339,15 @@ START_TEST (test_element_log_1)
   
   ASTNode * c = N->getChild(0);
 
-  fail_unless(c->getType() == AST_QUALIFIER_LOGBASE);
-  fail_unless(c->getNumChildren() == 1);
+  //fail_unless(c->getType() == AST_QUALIFIER_LOGBASE);
+  //fail_unless(c->getNumChildren() == 1);
 
-  ASTNode * c1 = c->getChild(0);
-  fail_unless(c1->getType() == AST_INTEGER);
-  fail_unless(c1->getNumChildren() == 0);
+  //ASTNode * c1 = c->getChild(0);
+  //fail_unless(c1->getType() == AST_INTEGER);
+  //fail_unless(c1->getNumChildren() == 0);
+  fail_unless(c->getType() == AST_INTEGER);
+  fail_unless(c->getNumChildren() == 0);
+  fail_unless(c->getInteger() == 3);
 
 
   c = N->getChild(1);
@@ -1374,14 +1377,17 @@ START_TEST (test_element_log_2)
   
   ASTNode * c = N->getChild(0);
 
-  fail_unless(c->getType() == AST_QUALIFIER_LOGBASE);
-  fail_unless(c->getNumChildren() == 1);
+  //fail_unless(c->getType() == AST_QUALIFIER_LOGBASE);
+  //fail_unless(c->getNumChildren() == 1);
 
-  ASTNode * c1 = c->getChild(0);
-  fail_unless(c1->getType() == AST_INTEGER);
-  fail_unless(c1->getInteger() == 10);
-  fail_unless(c1->getNumChildren() == 0);
+  //ASTNode * c1 = c->getChild(0);
+  //fail_unless(c1->getType() == AST_INTEGER);
+  //fail_unless(c1->getInteger() == 10);
+  //fail_unless(c1->getNumChildren() == 0);
 
+  fail_unless(c->getType() == AST_INTEGER);
+  fail_unless(c->getInteger() == 10);
+  fail_unless(c->getNumChildren() == 0);
 
   c = N->getChild(1);
 
@@ -1414,12 +1420,15 @@ START_TEST (test_element_log_3)
   
   ASTNode * c = N->getChild(0);
 
-  fail_unless(c->getType() == AST_QUALIFIER_LOGBASE);
-  fail_unless(c->getNumChildren() == 1);
+  //fail_unless(c->getType() == AST_QUALIFIER_LOGBASE);
+  //fail_unless(c->getNumChildren() == 1);
 
-  ASTNode * c1 = c->getChild(0);
-  fail_unless(c1->getType() == AST_INTEGER);
-  fail_unless(c1->getNumChildren() == 0);
+  //ASTNode * c1 = c->getChild(0);
+  //fail_unless(c1->getType() == AST_INTEGER);
+  //fail_unless(c1->getNumChildren() == 0);
+
+  fail_unless(c->getType() == AST_INTEGER);
+  fail_unless(c->getNumChildren() == 0);
 
 
   c = N->getChild(1);
@@ -1727,8 +1736,11 @@ START_TEST (test_element_root_1)
 
   ASTNode * c = N->getChild(0);
 
-  fail_unless(c->getType() == AST_QUALIFIER_DEGREE);
-  fail_unless(c->getNumChildren() == 1);
+  //fail_unless(c->getType() == AST_QUALIFIER_DEGREE);
+  //fail_unless(c->getNumChildren() == 1);
+  fail_unless(c->getType() == AST_INTEGER);
+  fail_unless(c->getNumChildren() == 0);
+  fail_unless(c->getInteger() == 3);
 
   c = N->getChild(1);
 
@@ -1757,14 +1769,17 @@ START_TEST (test_element_root_2)
 
   ASTNode * c = N->getChild(0);
 
-  fail_unless(c->getType() == AST_QUALIFIER_DEGREE);
-  fail_unless(c->getNumChildren() == 1);
+  //fail_unless(c->getType() == AST_QUALIFIER_DEGREE);
+  //fail_unless(c->getNumChildren() == 1);
 
-  ASTNode * c1 = c->getChild(0);
+  //ASTNode * c1 = c->getChild(0);
 
-  fail_unless(c1->getType() == AST_INTEGER);
-  fail_unless(c1->getNumChildren() == 0);
-  fail_unless(c1->getInteger() == 2);
+  //fail_unless(c1->getType() == AST_INTEGER);
+  //fail_unless(c1->getNumChildren() == 0);
+  //fail_unless(c1->getInteger() == 2);
+  fail_unless(c->getType() == AST_INTEGER);
+  fail_unless(c->getNumChildren() == 0);
+  fail_unless(c->getInteger() == 2);
 
 
   c = N->getChild(1);
@@ -1798,8 +1813,12 @@ START_TEST (test_element_root_3)
 
   ASTNode * c = N->getChild(0);
 
-  fail_unless(c->getType() == AST_QUALIFIER_DEGREE);
-  fail_unless(c->getNumChildren() == 1);
+  //fail_unless(c->getType() == AST_QUALIFIER_DEGREE);
+  //fail_unless(c->getNumChildren() == 1);
+
+  fail_unless(c->getType() == AST_INTEGER);
+  fail_unless(c->getNumChildren() == 0);
+  fail_unless(c->getInteger() == 2);
 
   c = N->getChild(1);
 
@@ -1832,8 +1851,12 @@ START_TEST (test_element_root_4)
 
   ASTNode * c = N->getChild(0);
 
-  fail_unless(c->getType() == AST_QUALIFIER_DEGREE);
-  fail_unless(c->getNumChildren() == 1);
+  //fail_unless(c->getType() == AST_QUALIFIER_DEGREE);
+  //fail_unless(c->getNumChildren() == 1);
+
+  fail_unless(c->getType() == AST_INTEGER);
+  fail_unless(c->getNumChildren() == 0);
+  fail_unless(c->getInteger() == 2);
 
   fail_unless(N->isSqrt() == false);
 

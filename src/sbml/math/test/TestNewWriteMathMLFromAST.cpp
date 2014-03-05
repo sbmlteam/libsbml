@@ -2089,6 +2089,8 @@ create_suite_NewWriteMathMLFromAST ()
   tcase_add_test( tcase, test_MathMLFromAST_sin                   );
   tcase_add_test( tcase, test_MathMLFromAST_log                   );
 
+    // TO DO - crash
+
   // this one - log with one argument does not work for now
   // since we need to replicate old behaviour
 //  tcase_add_test( tcase, test_MathMLFromAST_log_1                   );

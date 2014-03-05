@@ -138,6 +138,52 @@ ASTNaryFunctionNode::swapChildren(ASTFunction* that)
 }
 
 
+ASTBase* 
+ASTNaryFunctionNode::getChild (unsigned int n) const
+{
+  if (this->getType() != AST_FUNCTION_ROOT)
+  {
+    return ASTFunctionBase::getChild(n);
+  }
+  else
+  {
+    /* HACK TO REPLICATE OLD AST */
+    /* do not return a node with teh degree type
+     * return the child of the degree
+     */
+    if (ASTFunctionBase::getNumChildren() <= n)
+    {
+      return NULL;
+    }
+
+    if (ASTFunctionBase::getChild(n)->getType() == AST_QUALIFIER_DEGREE)
+    {
+      ASTBase * base = ASTFunctionBase::getChild(n);
+      ASTNode * degree = dynamic_cast<ASTNode*>(base);
+      if (degree != NULL)
+      {
+        if (degree->getNumChildren() > 0)
+        {
+          return degree->getChild(0);
+        }
+        else
+        {
+          return NULL;
+        }
+      }
+      else
+      {
+        return NULL;
+      }
+    }
+    else
+    {
+      return ASTFunctionBase::getChild(n);
+    }
+  }
+}
+
+
 
 bool
 ASTNaryFunctionNode::isUMinus() const
@@ -178,7 +224,7 @@ ASTNaryFunctionNode::isLog10() const
     // or two where teh first is the logbase of 10
     if (getNumChildren() == 1)
     {
-      ASTBase * base1 = getChild(0);
+      ASTBase * base1 = ASTFunctionBase::getChild(0);
       if (base1->isQualifier() == false)
       {
         valid = true;
@@ -186,7 +232,7 @@ ASTNaryFunctionNode::isLog10() const
     }
     else if (getNumChildren() == 2)
     {
-      ASTBase * base1 = getChild(0);
+      ASTBase * base1 = ASTFunctionBase::getChild(0);
       ASTFunction* fun = dynamic_cast<ASTFunction*>(base1);
       if (fun != NULL)
       {
@@ -262,7 +308,7 @@ ASTNaryFunctionNode::isSqrt() const
     }
     else if (getNumChildren() == 2)
     {
-      ASTBase * base1 = getChild(0);
+      ASTBase * base1 = ASTFunctionBase::getChild(0);
       ASTFunction* fun = dynamic_cast<ASTFunction*>(base1);
       if (fun != NULL)
       {
@@ -352,45 +398,28 @@ ASTNaryFunctionNode::write(XMLOutputStream& stream) const
      * however if the node is read in with a logbase and then more than
      * further children it uses teh first as the value operated on
      */
-    if (numChildren >= 2 && type == AST_FUNCTION_LOG)
+    if (type == AST_FUNCTION_ROOT)
     {
-      if (getChild(0)->getType() != AST_QUALIFIER_LOGBASE)
+      if (numChildren > 1)
       {
-        ASTQualifierNode * logbase = new ASTQualifierNode(AST_QUALIFIER_LOGBASE);
-        logbase->addChild(getChild(0)->deepCopy());
-        logbase->write(stream);
-        delete logbase;
-        ASTFunctionBase::getChild(numChildren-1)->write(stream);
-      }
-      else
-      {
-        ASTFunctionBase::getChild(0)->write(stream);
-        ASTFunctionBase::getChild(numChildren-1)->write(stream);
-      }
-    }
-    else if (type == AST_FUNCTION_ROOT)
-    {
-      if (getChild(0)->getType() != AST_QUALIFIER_DEGREE)
-      {
-        ASTQualifierNode * degree = new ASTQualifierNode(AST_QUALIFIER_DEGREE);
-        if (numChildren == 1)
+        if (ASTFunctionBase::getChild(0)->getType() != AST_QUALIFIER_DEGREE)
         {
-          ASTCnIntegerNode * int2 = new ASTCnIntegerNode();
-          int2->setInteger(2);
-          degree->addChild(int2->deepCopy());
+          ASTQualifierNode * logbase = new ASTQualifierNode(AST_QUALIFIER_DEGREE);
+          logbase->addChild(ASTFunctionBase::getChild(0)->deepCopy());
+          logbase->write(stream);
+          delete logbase;
+          ASTFunctionBase::getChild(numChildren-1)->write(stream);
         }
         else
         {
-          degree->addChild(getChild(0)->deepCopy());
+          /* if there is only 1 child that is logbase we dont write either */
+          ASTFunctionBase::getChild(0)->write(stream);
+          ASTFunctionBase::getChild(numChildren-1)->write(stream);
         }
-        degree->write(stream);
-        delete degree;
-        ASTFunctionBase::getChild(numChildren-1)->write(stream);
       }
       else
       {
         ASTFunctionBase::getChild(0)->write(stream);
-        ASTFunctionBase::getChild(numChildren-1)->write(stream);
       }
     }
     else
@@ -422,16 +451,16 @@ ASTNaryFunctionNode::writeNodeOfType(XMLOutputStream& stream, int type,
   {
     for (unsigned int i = 0; i < numChildren; i++)
     {
-      if (getChild(i)->getType() == type)
+      if (ASTFunctionBase::getChild(i)->getType() == type)
       {
-        ASTFunction* fun = dynamic_cast<ASTFunction*>(getChild(i));
+        ASTFunction* fun = dynamic_cast<ASTFunction*>(ASTFunctionBase::getChild(i));
         if (fun != NULL)
         {
           fun->writeNodeOfType(stream, type, true);
         }
         else
         {
-          ASTNode* newAST = dynamic_cast<ASTNode*>(getChild(i));
+          ASTNode* newAST = dynamic_cast<ASTNode*>(ASTFunctionBase::getChild(i));
           if (newAST != NULL)
           {
             newAST->writeNodeOfType(stream, type, true);
@@ -440,7 +469,7 @@ ASTNaryFunctionNode::writeNodeOfType(XMLOutputStream& stream, int type,
       }
       else
       {
-        getChild(i)->write(stream);
+        ASTFunctionBase::getChild(i)->write(stream);
       }
     }
   }
@@ -509,7 +538,7 @@ ASTNaryFunctionNode::read(XMLInputStream& stream, const std::string& reqd_prefix
 
   if (read == true && type == AST_FUNCTION_ROOT 
     && getExpectedNumChildren() == 1 
-    && getChild(0)->getType() != AST_QUALIFIER_DEGREE)
+    && ASTFunctionBase::getChild(0)->getType() != AST_QUALIFIER_DEGREE)
   {
     /* HACK TO REPLICATE OLD BEHAVIOUR */
     /* we need to add the qualifier child for the degree 2 */
@@ -560,7 +589,7 @@ ASTNaryFunctionNode::hasCorrectNumberArguments() const
     {
       // we have only one child
       // if it is a qualifier type then it is incorrect
-      if (representsQualifier(getChild(0)->getType()) == true)
+      if (representsQualifier(ASTFunctionBase::getChild(0)->getType()) == true)
       {
         correctNumArgs = false;
       }
