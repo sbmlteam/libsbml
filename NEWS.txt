@@ -8,7 +8,33 @@ STABLE RELEASE
 
 * New features
 
+  - New ASTNode infrastructure
+  
+    The code underlying the ASTNode class has been refactored to
+    facilitate the extension of MathML by SBML L3 packages.  The
+    API and behaviour has not changed except in places where 
+    invalid MathML was being incorrectly parsed or created. It is 
+    no longer possible to add a child to an ASTNode that represents
+    a number, for example.
+    
+    Extensive testing has been done to ensure that the API and 
+    correct behaviour of the ASTNode class remains unchanged and 
+    unless you have derived your own classes from the ASTNode class 
+    this change should not affect your implementation in any way. 
+    
+    ** Please inform us if this turns out to be incorrect. We have 
+    tried to anticipate and test use cases but we are aware that
+    it is possible that we have missed some.
+    
+    In order to allow people to continue to use the original AST code
+    should they choose, the source code archives provide this code 
+    within a 'math-legacy' directory and the CMake configuration files 
+    provide an option to build using this legacy code.
+
   - 'comp' package-specific updates:
+  
+    - Tests have been added for the C API, which did expose some
+      missing functions. These have now been added.
 
   - 'fbc' package-specific updates:
 
@@ -21,13 +47,31 @@ STABLE RELEASE
 
   - There were issues with propogating the enable package
     functionality through the children of an element.  
-	This has been fixed.
+	  This has been fixed.
+	  
+	- The converters that apply structural changes to the 
+	  SBML document used a setDocument function that expected a
+	  const SBMLDocument object. Since the converters change the
+	  document and indeed the code immediate re-cast the document
+	  object this function was both confusing and inaccurate. 
+	  There is not a setDocument function that does not expect
+	  a const SBMLDocument object.
+	  
 
   - 'comp' package-specific updates:
 
   - 'fbc' package-specific updates:
 
   - 'layout' package-specific updates:
+  
+    - There were some discrepancies between the naming of arguments
+      to some constructors and the actual values being set using
+      these arguments. These have been corrected without changing
+      the actual behaviour. 
+  
+    - On occasion when an L2 document with layout and render
+      annotations was being upgraded to L3 the render namespace 
+      was missed from the annotation in the L3 document. 
 
   - 'qual' package-specific updates:
 
@@ -35,10 +79,15 @@ STABLE RELEASE
 
   - There were issues with classes exported across the Windows dll
     interface. These have been fixed and additional tests to catch
-	these issues have been implemented.  Thanks to Andy Somogyi
-	for reporting the problem.
+	  these issues have been implemented.  Thanks to Andy Somogyi
+	  for reporting the problem.
 
 * Miscellaneous
+
+  - Python installers for various Linux distributions are available
+    from the Open Build Service and via pypi. Links to the relevant
+    release can be found in the documentation on SourceForge download
+    pages for libsbml.
 
 EXPERIMENTAL RELEASE
 
@@ -49,6 +98,11 @@ EXPERIMENTAL RELEASE
   - 'groups' package-specific updates:
 
   - 'multi' package-specific updates:
+  
+    - The ability to extend ASTNodes and hence use extended MathML
+      has been added and thus it is now possible to use the attributes
+      on the <ci> elements of math as specified by the 'multi' 
+      package. The example relating to this has been updated accordingly.
 
   - 'render' package-specific updates:
 
@@ -66,6 +120,10 @@ EXPERIMENTAL RELEASE
   - 'multi' package-specific updates:
 
   - 'render' package-specific updates:
+
+    - On occasion when an L2 document with layout and render
+      annotations was being upgraded to L3 the render namespace 
+      was missed from the annotation in the L3 document. 
 
   - 'req' package-specific updates:
 
