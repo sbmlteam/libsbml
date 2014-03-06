@@ -246,9 +246,6 @@ ASTLambdaFunctionNode::removeChild(unsigned int n)
 {
   /* need to keep track of whether we have removed a bvar */
 
-  /*unsigned int numChildren =*/ getNumChildren();
-  
-
   unsigned int numBvars = getNumBvars();
   if (numBvars == 0)
   {
