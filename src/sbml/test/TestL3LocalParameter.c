@@ -188,6 +188,24 @@ START_TEST (test_L3_LocalParameter_value)
 END_TEST
 
 
+START_TEST (test_L3_LocalParameter_constant)
+{
+  /* a local Parameter does not have a constant attribute but
+   * because it derives from parameter it inherits one
+   * need to make sure these do the right thing
+   */
+
+  fail_unless(LocalParameter_getConstant(P) == 1);
+
+  int i = LocalParameter_setConstant(P, 0);
+
+  fail_unless ( i == LIBSBML_UNEXPECTED_ATTRIBUTE );
+  
+  fail_unless(LocalParameter_getConstant(P) == 1);
+}
+END_TEST
+
+
 START_TEST (test_L3_LocalParameter_createWithNS )
 {
   XMLNamespaces_t *xmlns = XMLNamespaces_create();
@@ -268,6 +286,7 @@ create_suite_L3_LocalParameter (void)
   tcase_add_test( tcase, test_L3_LocalParameter_name             );
   tcase_add_test( tcase, test_L3_LocalParameter_units            );
   tcase_add_test( tcase, test_L3_LocalParameter_value);
+  tcase_add_test( tcase, test_L3_LocalParameter_constant);
   tcase_add_test( tcase, test_L3_LocalParameter_createWithNS         );
   tcase_add_test( tcase, test_L3_LocalParameter_hasRequiredAttributes        );
   tcase_add_test( tcase, test_L3_LocalParameter_NS              );

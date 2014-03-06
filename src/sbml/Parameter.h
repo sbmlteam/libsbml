@@ -372,7 +372,7 @@ public:
    * @see isSetConstant()
    * @see setConstant(@if java boolean flag@endif)
    */
-  bool getConstant () const;
+  virtual bool getConstant () const;
 
 
   /**
@@ -446,7 +446,7 @@ public:
    * @see getConstant()
    * @see setConstant(@if java boolean flag@endif)
    */
-  bool isSetConstant () const;
+  virtual bool isSetConstant () const;
 
 
   /**
@@ -530,7 +530,7 @@ public:
    * @see getConstant()
    * @see isSetConstant()
    */
-  int setConstant (bool flag);
+  virtual int setConstant (bool flag);
 
 
   /**

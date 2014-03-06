@@ -154,6 +154,38 @@ LocalParameter::clone () const
   return new LocalParameter(*this);
 }
 
+/* a local Parameter does not have a constant attribute but
+ * because it derives from parameter it inherits one
+ * need to make sure these do the right thing
+ */
+
+/*
+ * @return true as a localParameter is always constant.
+ */
+bool
+LocalParameter::getConstant () const
+{
+  return true;
+}
+
+/*
+ * @return false as a local parameter does not have this attribute
+ */
+bool
+LocalParameter::isSetConstant () const
+{
+  return false;
+}
+
+/*
+ * Sets the constant field of this Parameter to value.
+ */
+int
+LocalParameter::setConstant (bool flag)
+{
+  return LIBSBML_UNEXPECTED_ATTRIBUTE;
+}
+
 
 /*
   * Constructs and returns a UnitDefinition that expresses the units of this 
@@ -574,7 +606,7 @@ LIBSBML_EXTERN
 int
 LocalParameter_getConstant (const LocalParameter_t *p)
 {
-  return 1;
+  return (p != NULL) ?  static_cast<int>( p->getConstant() ) : 0;
 }
 
 
@@ -658,7 +690,10 @@ LIBSBML_EXTERN
 int
 LocalParameter_setConstant (LocalParameter_t *p, int value)
 {
-  return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+  if (p != NULL)
+    return p->setConstant( static_cast<bool>(value) );
+  else
+    return LIBSBML_INVALID_OBJECT;
 }
 
 LIBSBML_EXTERN

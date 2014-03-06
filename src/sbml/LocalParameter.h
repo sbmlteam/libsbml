@@ -355,6 +355,18 @@ public:
    */
   virtual bool hasRequiredAttributes() const ;
 
+  /** @cond doxygenLibsbmlInternal */
+
+  /* a local Parameter does not have a constant attribute but
+   * because it derives from parameter it inherits one
+   * need to make sure these do the right thing
+   */
+  virtual bool getConstant () const;
+
+  virtual bool isSetConstant () const;
+
+  virtual int setConstant (bool flag);
+  /** @endcond */
 
 protected:
   /** @cond doxygenLibsbmlInternal */
