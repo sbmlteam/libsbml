@@ -99,7 +99,7 @@ public:
    * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE @endlink
    */
 
-  virtual int addChild(ASTBase * child);
+  virtual int addChild(ASTBase * child, bool inRead = false);
 
   virtual ASTBase* getChild (unsigned int n) const;
 

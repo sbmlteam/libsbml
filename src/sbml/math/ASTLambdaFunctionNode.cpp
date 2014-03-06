@@ -244,11 +244,9 @@ ASTLambdaFunctionNode::getChild (unsigned int n) const
 int 
 ASTLambdaFunctionNode::removeChild(unsigned int n)
 {
-  int removed = LIBSBML_INDEX_EXCEEDS_SIZE;
-
   /* need to keep track of whether we have removed a bvar */
 
-  unsigned int numChildren = getNumChildren();
+  /*unsigned int numChildren =*/ getNumChildren();
   
 
   unsigned int numBvars = getNumBvars();

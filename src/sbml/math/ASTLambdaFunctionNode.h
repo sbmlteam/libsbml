@@ -79,6 +79,7 @@ public:
   unsigned int getNumBvars() const;
 
   virtual int addChild(ASTBase* child, bool inRead = false);
+  using ASTFunctionBase::addChild;
 
   virtual ASTBase* getChild (unsigned int n) const;
 

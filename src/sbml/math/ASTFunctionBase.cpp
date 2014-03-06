@@ -116,7 +116,7 @@ ASTFunctionBase::getTypeCode () const
 
 
 int 
-ASTFunctionBase::addChild(ASTBase * child)
+ASTFunctionBase::addChild(ASTBase * child, bool /*inRead = false*/)
 {
   if (child == NULL)
   {

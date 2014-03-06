@@ -3377,14 +3377,14 @@ ASTNode::reset()
 
 
 ASTNumber *   
-ASTNode::getNumber()
+ASTNode::getNumber() const 
 { 
   return mNumber;   
 }
   
   
 ASTFunction * 
-ASTNode::getFunction()
+ASTNode::getFunction() const
 { 
   return mFunction; 
 }

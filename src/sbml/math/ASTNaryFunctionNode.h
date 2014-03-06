@@ -76,6 +76,7 @@ public:
   virtual ASTNaryFunctionNode* deepCopy () const;
 
   virtual int swapChildren(ASTFunction* that);
+  using ASTFunctionBase::swapChildren;
 
   virtual ASTBase* getChild (unsigned int n) const;
 

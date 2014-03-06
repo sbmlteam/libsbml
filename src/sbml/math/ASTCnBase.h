@@ -99,7 +99,10 @@ public:
   int unsetUnitsPrefix();
 
   virtual void syncMembersFrom(ASTCnBase* rhs);
+  using ASTBase::syncMembersFrom;
   virtual void syncMembersAndResetParentsFrom(ASTCnBase* rhs);
+  using ASTBase::syncMembersAndResetParentsFrom;
+
   virtual void addExpectedAttributes(ExpectedAttributes& attributes, 
                                      XMLInputStream& stream);
 

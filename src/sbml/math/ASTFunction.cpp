@@ -52,6 +52,7 @@ determineNumChildren(XMLInputStream & stream,
   return n;
 }
 
+#if 0
 static unsigned int
 determineNumQualifiers(XMLInputStream & stream, 
                        const std::string& qualifier,
@@ -63,6 +64,7 @@ determineNumQualifiers(XMLInputStream & stream,
 
   return n;
 }
+#endif
 
 static unsigned int
 determineNumBvars(XMLInputStream & stream)
@@ -3346,7 +3348,7 @@ ASTFunction::readLambda(XMLInputStream& stream, const std::string& reqd_prefix,
   
   stream.skipText();
   const XMLToken nextElement = stream.peek();
-  const string&  nextName = nextElement.getName();
+  //const string&  nextName = nextElement.getName();
   
   unsigned int numChildren = 0, numBvars = 0;
   
@@ -3448,7 +3450,7 @@ ASTFunction::readQualifier(XMLInputStream& stream, const std::string& reqd_prefi
   
   stream.skipText();
   const XMLToken nextElement = stream.peek();
-  const string&  nextName = nextElement.getName();
+  //const string&  nextName = nextElement.getName();
   
   unsigned int numChildren;
   
@@ -3505,7 +3507,7 @@ ASTFunction::readCiFunction(XMLInputStream& stream, const std::string& reqd_pref
 
   stream.skipText();
   const XMLToken nextElement = stream.peek();
-  const string&  nextName = nextElement.getName();
+  //const string&  nextName = nextElement.getName();
   
   unsigned int numChildren;
     
@@ -3569,7 +3571,7 @@ ASTFunction::readCSymbol(XMLInputStream& stream, const std::string& reqd_prefix,
   
   stream.skipText();
   const XMLToken nextElement = stream.peek();
-  const string&  nextName = nextElement.getName();
+  //const string&  nextName = nextElement.getName();
   
   unsigned int numChildren = determineNumChildren(stream);
     
@@ -3609,7 +3611,7 @@ ASTFunction::readSemantics(XMLInputStream& stream, const std::string& reqd_prefi
   
   stream.skipText();
   const XMLToken nextElement = stream.peek();
-  const string&  nextName = nextElement.getName();
+  //const string&  nextName = nextElement.getName();
   
   unsigned int numChildren = 0;
   

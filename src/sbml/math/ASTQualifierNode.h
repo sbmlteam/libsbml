@@ -73,8 +73,11 @@ public:
   virtual ASTQualifierNode* deepCopy () const;
 
   virtual int addChild(ASTBase* child, bool inRead = false);
+  using ASTFunctionBase::addChild;
 
   virtual int swapChildren(ASTFunction* that);
+  using ASTFunctionBase::swapChildren;
+
 
   virtual void write(XMLOutputStream& stream) const;
   virtual bool read(XMLInputStream& stream, const std::string& reqd_prefix="");

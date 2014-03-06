@@ -278,8 +278,8 @@ ExtModelReferenceCycles::logCycle (const Model& m, std::string id,
   // want to log the error on a comp object
   // this is the main model - if there was no docPlugin/externalMDefs 
   // it would have quite by now
-  const CompSBMLDocumentPlugin* docPlug = (CompSBMLDocumentPlugin*)
-    (m.getSBMLDocument()->getPlugin("comp"));
+  //const CompSBMLDocumentPlugin* docPlug = (CompSBMLDocumentPlugin*)
+  //  (m.getSBMLDocument()->getPlugin("comp"));
   COMP_CREATE_NS(compns, m.getSBMLNamespaces());
   ExternalModelDefinition *extMD = new ExternalModelDefinition(compns);
   logFailure(*(extMD));

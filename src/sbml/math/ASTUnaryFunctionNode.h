@@ -80,6 +80,7 @@ public:
   virtual ASTUnaryFunctionNode* deepCopy () const;
 
   virtual int swapChildren(ASTFunction* that);
+  using ASTFunctionBase::swapChildren;
 
   virtual void write(XMLOutputStream& stream) const;
 

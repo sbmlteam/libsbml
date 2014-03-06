@@ -305,7 +305,7 @@ ASTSemanticsNode::readAttributes(const XMLAttributes& attributes,
 bool 
 ASTSemanticsNode::read(XMLInputStream& stream, const std::string& reqd_prefix)
 {
-  bool read = false;
+  //bool read = false;
   ASTBase * child = NULL;
   const XMLToken element = stream.peek ();
 

@@ -268,6 +268,7 @@ class CompValidatingVisitor: public SBMLVisitor
 {
 public:
 
+  using SBMLVisitor::visit;
   CompValidatingVisitor (CompValidator& v, const Model& m) : v(v), m(m) { }
 
   virtual bool visit (const Port &x)

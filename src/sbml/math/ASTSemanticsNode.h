@@ -77,6 +77,7 @@ public:
 
 
   virtual int swapChildren(ASTFunction* that);
+  using ASTFunctionBase::swapChildren;
 
   // functions for semantics
   int addSemanticsAnnotation (XMLNode* sAnnotation);

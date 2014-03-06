@@ -1711,7 +1711,7 @@ protected:
   /*
    * return the number member variable
    */
-  virtual ASTNumber *   getNumber();
+  virtual ASTNumber *   getNumber() const;
 
   /** @endcond */
 
@@ -1720,7 +1720,7 @@ protected:
   /*
    * return the function member variable
    */
-  virtual ASTFunction * getFunction();
+  virtual ASTFunction * getFunction() const;
 
   /** @endcond */
 

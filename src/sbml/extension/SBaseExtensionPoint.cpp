@@ -43,6 +43,11 @@ SBaseExtensionPoint::SBaseExtensionPoint(const std::string& pkgName, int typeCod
 {
 }
 
+SBaseExtensionPoint::~SBaseExtensionPoint()
+{
+
+}
+
 
 /*
  * copy constructor

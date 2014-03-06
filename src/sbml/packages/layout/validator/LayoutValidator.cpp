@@ -311,6 +311,7 @@ class LayoutValidatingVisitor: public SBMLVisitor
 {
 public:
 
+  using SBMLVisitor::visit;
   LayoutValidatingVisitor (LayoutValidator& v, const Model& m) : v(v), m(m) { }
   virtual void visit (const Model &x)
   {

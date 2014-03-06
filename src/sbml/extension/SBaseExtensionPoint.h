@@ -92,7 +92,9 @@ public:
   /**
    * constructor
    */
-  SBaseExtensionPoint(const std::string& pkgName, int typeCode);  
+  SBaseExtensionPoint(const std::string& pkgName, int typeCode);
+
+  virtual ~SBaseExtensionPoint();
 
 
   /**

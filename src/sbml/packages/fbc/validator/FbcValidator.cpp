@@ -248,6 +248,8 @@ class FbcValidatingVisitor: public SBMLVisitor
 {
 public:
 
+  using SBMLVisitor::visit;
+  
   FbcValidatingVisitor (FbcValidator& v, const Model& m) : v(v), m(m) { }
 
   bool visit (const FluxBound &x)
