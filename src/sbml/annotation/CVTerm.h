@@ -970,11 +970,11 @@ CVTerm_createWithQualifierType(QualifierType_t type);
  * Create a new CVTerm_t from the given XMLNode_t and returns a 
  * pointer to it.
  *
- * RDFAnnotations within a model are stored as a List of CVTerms.  This allows
- * the user to interact with the %CVTerms directly.  When LibSBML reads in a 
- * model containing RDFAnnotations it parses them into a %List of CVTerms and
- * when writing a model it parses the CVTerms into the appropriate annotation
- * structure.  This function creates a %CVTerm from the %XMLNode supplied.
+ * RDFAnnotations within a model are stored as a List_t of CVTerm_t's.  This allows
+ * the user to interact with the CVTerm_t's directly.  When LibSBML reads in a 
+ * model containing RDFAnnotations it parses them into a %List of CVTerm_t's and
+ * when writing a model it parses the CVTerm_t's into the appropriate annotation
+ * structure.  This function creates a CVTerm_t from the XMLNode_t supplied.
  *
  * @param node an XMLNode_t representing a CVTerm_t.
  *
@@ -1076,12 +1076,12 @@ CVTerm_getResources(CVTerm_t* term);
 
 
 /**
- * Returns the number of resources for this %CVTerm.
+ * Returns the number of resources for this %CVTerm_t.
  *
  * @param term the CVTerm_t structure whose resources are sought.
  * 
  * @return the number of resources in the set of XMLAttributes
- * of this %CVTerm.
+ * of this %CVTerm_t.
  *
  * @memberof CVTerm_t
  */
@@ -1091,17 +1091,17 @@ CVTerm_getNumResources(CVTerm_t* term);
 
 
 /**
- * Returns the value of the nth resource for this %CVTerm.
+ * Returns the value of the nth resource for this %CVTerm_t.
  *
  * @param term the CVTerm_t structure
  * @param n the index of the resource to query
  *
  * @return string representing the value of the nth resource
- * in the set of XMLAttributes of this %CVTerm.
+ * in the set of XMLAttributes of this %CVTerm_t.
  *
- * @note Since the values of the resource attributes in a CVTerm
+ * @note Since the values of the resource attributes in a CVTerm_t
  * are URIs this is a convenience function to facilitate
- * interaction with the CVTerm class.
+ * interaction with the CVTerm_t structure.
  *
  * @memberof CVTerm_t
  */
@@ -1131,7 +1131,7 @@ CVTerm_setQualifierType(CVTerm_t * term, QualifierType_t type);
 
 
 /**
- * Sets the "ModelQualifierType_t" of this %CVTerm.
+ * Sets the "ModelQualifierType_t" of this %CVTerm_t.
  *
  * @param term the CVTerm_t structure to set.
  * @param type the ModelQualifierType_t
@@ -1144,8 +1144,8 @@ CVTerm_setQualifierType(CVTerm_t * term, QualifierType_t type);
  * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE @endlink
  * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT @endlink
  *
- * @note if the QualifierType for this structure is not MODEL_QUALIFIER
- * then the ModelQualifierType will default to BQM_UNKNOWN.
+ * @note if the QualifierType_t for this structure is not MODEL_QUALIFIER
+ * then the ModelQualifierType_t will default to BQM_UNKNOWN.
  *
  * @memberof CVTerm_t
  */
@@ -1168,7 +1168,7 @@ CVTerm_setModelQualifierType(CVTerm_t * term, ModelQualifierType_t type);
  * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE @endlink
  * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT @endlink
  *
- * @note if the QualifierType for this structure is not BIOLOGICAL_QUALIFIER
+ * @note if the QualifierType_t for this structure is not BIOLOGICAL_QUALIFIER
  * then the BiolQualifierType_t will default to BQB_UNKNOWN.
  *
  * @memberof CVTerm_t
@@ -1179,7 +1179,7 @@ CVTerm_setBiologicalQualifierType(CVTerm_t * term, BiolQualifierType_t type);
 
 
 /**
- * Sets the "ModelQualifierType_t" of this %CVTerm.
+ * Sets the "ModelQualifierType_t" of this %CVTerm_t.
  *
  * @param term the CVTerm_t structure to set.
  * @param qualifier the string representing a model qualifier
@@ -1192,8 +1192,8 @@ CVTerm_setBiologicalQualifierType(CVTerm_t * term, BiolQualifierType_t type);
  * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE @endlink
  * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT @endlink
  *
- * @note if the QualifierType for this structure is not MODEL_QUALIFIER
- * then the ModelQualifierType will default to BQM_UNKNOWN.
+ * @note if the QualifierType_t for this structure is not MODEL_QUALIFIER
+ * then the ModelQualifierType_t will default to BQM_UNKNOWN.
  *
  * @memberof CVTerm_t
  */
@@ -1216,7 +1216,7 @@ CVTerm_setModelQualifierTypeByString(CVTerm_t * term, const char* qualifier);
  * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE @endlink
  * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT @endlink
  *
- * @note if the QualifierType for this structure is not BIOLOGICAL_QUALIFIER
+ * @note if the QualifierType_t for this structure is not BIOLOGICAL_QUALIFIER
  * then the BiolQualifierType_t will default to BQB_UNKNOWN.
  *
  * @memberof CVTerm_t
@@ -1240,7 +1240,7 @@ CVTerm_setBiologicalQualifierTypeByString(CVTerm_t * term, const char* qualifier
  * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
  *
  * @note this method adds the name "rdf:resource" to the attribute prior
- * to adding it to the resources in this CVTerm.
+ * to adding it to the resources in this CVTerm_t.
  *
  * @memberof CVTerm_t
  */

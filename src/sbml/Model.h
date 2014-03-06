@@ -3712,20 +3712,20 @@ BEGIN_C_DECLS
  * and @p version values.
  *
  * @param level an unsigned int, the SBML Level to assign to this
- * Model
+ * Model_t
  *
  * @param version an unsigned int, the SBML Version to assign to this
- * Model
+ * Model_t
  *
  * @return a pointer to the newly created Model_t structure.
  *
- * @note Once a Model has been added to an SBMLDocument, the @p
+ * @note Once a Model_t has been added to an SBMLDocument_t, the @p
  * level and @p version for the document @em override those used to create
- * the Model.  Despite this, the ability to supply the values at
+ * the Model_t.  Despite this, the ability to supply the values at
  * creation time is an important aid to creating valid SBML.  Knowledge of
  * the intended SBML Level and Version  determine whether it is valid to
  * assign a particular value to an attribute, or whether it is valid to add
- * a structure to an existing SBMLDocument.
+ * a structure to an existing SBMLDocument_t.
  *
  * @memberof Model_t
  */
@@ -3743,13 +3743,13 @@ Model_create (unsigned int level, unsigned int version);
  *
  * @return a pointer to the newly created Model_t structure.
  *
- * @note Once a Model has been added to an SBMLDocument, the
+ * @note Once a Model_t has been added to an SBMLDocument_t, the
  * @p sbmlns namespaces for the document @em override those used to create
- * the Model.  Despite this, the ability to supply the values at creation time
+ * the Model_t.  Despite this, the ability to supply the values at creation time
  * is an important aid to creating valid SBML.  Knowledge of the intended SBML
  * Level and Version determine whether it is valid to assign a particular value
  * to an attribute, or whether it is valid to add a structure to an existing
- * SBMLDocument.
+ * SBMLDocument_t.
  *
  * @memberof Model_t
  */
@@ -4481,9 +4481,9 @@ Model_unsetConversionFactor (Model_t *m);
 
 
 /**
- * Returns the ModelHistory of the given Model_t structure.
+ * Returns the ModelHistory_t of the given Model_t structure.
  *
- * @return the ModelHistory of the given Model_t structure.
+ * @return the ModelHistory_t of the given Model_t structure.
  * 
  * @param m the Model_t structure
  *
@@ -4495,12 +4495,12 @@ Model_getModelHistory(Model_t *m);
 
 
 /**
- * Predicate for testing whether the ModelHistory of a given Model_t structure is
+ * Predicate for testing whether the ModelHistory_t of a given Model_t structure is
  * assigned.
  * 
  * @param m the Model_t structure
  * 
- * @return nonzero if the ModelHistory of this Model_t structure is
+ * @return nonzero if the ModelHistory_t of this Model_t structure is
  * set, zero (0) otherwise.
  *
  * @memberof Model_t
@@ -4511,7 +4511,7 @@ Model_isSetModelHistory(Model_t *m);
 
 
 /**
- * Set the ModelHistory of the given Model_t structure.
+ * Set the ModelHistory_t of the given Model_t structure.
  * 
  * @param m the Model_t structure
  * @param history the ModelHistory_t structure
@@ -4531,7 +4531,7 @@ Model_setModelHistory(Model_t *m, ModelHistory_t *history);
 
 
 /**
- * Unsets the ModelHistory of the given Model_t structure.
+ * Unsets the ModelHistory_t of the given Model_t structure.
  * 
  * @param m the Model_t structure
  *
@@ -5084,19 +5084,19 @@ Model_createProduct (Model_t *m);
 
 
 /**
- * Creates a new ModifierSpeciesReference_t structure for a reactant inside
+ * Creates a new modifier SpeciesReference_t structure for a reactant inside
  * the last Reaction_t structure in the given Model_t structure, and
  * returns a pointer to it.
  *
  * The mechanism by which the last Reaction_t structure was created and
  * added to @p m is not significant.  It could have been created in a
  * variety of ways, for example using Model_createReaction().  If a
- * Reaction_t structure does not exist, a new ModifierSpeciesReference_t
+ * Reaction_t structure does not exist, a new modifier SpeciesReference_t
  * structure is @em not created and @c NULL is returned instead.
  *
  * @param m the Model_t structure
  * 
- * @return the ModifierSpeciesReference_t structure created
+ * @return the modifier SpeciesReference_t structure created
  *
  * @memberof Model_t
  */
@@ -5679,8 +5679,8 @@ Model_getInitialAssignment (Model_t *m, unsigned int n);
 
 
 /**
- * @return the InitialAssignment in this Model with the given symbol or
- * @c NULL if no such InitialAssignment exists.
+ * @return the InitialAssignment_t in this Model_t with the given symbol or
+ * @c NULL if no such InitialAssignment_t exists.
  *
  * @param m the Model_t structure
  * @param symbol the symbol to search for
@@ -5709,8 +5709,8 @@ Model_getRule (Model_t *m, unsigned int n);
 
 
 /**
- * @return the Rule in this Model with the given variable or @c NULL if no
- * such Rule exists.
+ * @return the Rule_t in this Model_t with the given variable or @c NULL if no
+ * such Rule_t exists.
  *
  * @param m the Model_t structure
  * @param variable the variable to search for
@@ -6535,7 +6535,7 @@ Model_removeEventById (Model_t *m, const char* sid);
 
 /* not yet exposed but leave in case we need them
 
- * Adds a copy of the given FormulaUnitsData_t structure to this Model.
+ * Adds a copy of the given FormulaUnitsData_t structure to this Model_t.
  *
  * @param m the Model_t structure
  * @param fud the FormulaUnitsData_t structure to add
@@ -6545,7 +6545,7 @@ void
 Model_addFormulaUnitsData (Model_t *m, FormulaUnitsData_t* fud);
 
 
- * Creates a new FormulaUnitsData inside this Model and returns it.
+ * Creates a new FormulaUnitsData_t inside this Model_t and returns it.
  *
  * @param m the Model_t structure
  *
@@ -6556,11 +6556,11 @@ FormulaUnitsData_t*
 Model_createFormulaUnitsData (Model_t *m);
 
 
- * Get the nth FormulaUnitsData_t structure in this Model.
+ * Get the nth FormulaUnitsData_t structure in this Model_t.
  *
  * @param m the Model_t structure
  * 
- * @return the nth FormulaUnitsData of this Model.
+ * @return the nth FormulaUnitsData_t of this Model_t.
 
 LIBSBML_EXTERN
 FormulaUnitsData_t* 
@@ -6571,40 +6571,40 @@ Model_getFormulaUnitsData (Model_t *m, unsigned int n);
  *
  * @param m the Model_t structure
  * 
- * @return the FormulaUnitsData in this Model with the unitReferenceId @p sid 
+ * @return the FormulaUnitsData_t in this Model_t with the unitReferenceId @p sid 
  * and the typecode (int) @p typecode or @c NULL
  * if no such FormulaUnitsData exists.
  *
  * @note The typecode (int) parameter is necessary as the unitReferenceId
- * of the FormulaUnitsData need not be unique. For example if a Species
- * with id 's' is assigned by an AssignmentRule there will be two 
- * elements of the FormulaUnitsData List with the unitReferenceId 's'; 
+ * of the FormulaUnitsData_t need not be unique. For example if a Species_t
+ * with id 's' is assigned by an AssignmentRule_t there will be two 
+ * elements of the FormulaUnitsData_t List with the unitReferenceId 's'; 
  * one with
  * typecode 'SBML_SPECIES' referring to the units related to the species, 
  * the other with typecode 'SBML_ASSIGNMENT_RULE' referring to the units
- * derived from the math element of the AssignmentRule.
+ * derived from the math element of the AssignmentRule_t.
 
 LIBSBML_EXTERN
 FormulaUnitsData_t* 
 Model_getFormulaUnitsDataById(Model_t *m, const char* sid, int);
 
 
- * Get the number of FormulaUnitsData_t structures in this Model.
+ * Get the number of FormulaUnitsData_t structures in this Model_t.
  * 
  * @param m the Model_t structure
  * 
- * @return the number of FormulaUnitsData in this Model.
+ * @return the number of FormulaUnitsData_t in this Model_t.
 
 LIBSBML_EXTERN
 unsigned int 
 Model_getNumFormulaUnitsData (Model_t *m);
 
 
- * Get the list of FormulaUnitsData_t structure in this Model.
+ * Get the list of FormulaUnitsData_t structure in this Model_t.
  * 
  * @param m the Model_t structure
  * 
- * @return the list of FormulaUnitsData for this Model.
+ * @return the list of FormulaUnitsData_t for this Model_t.
 
 LIBSBML_EXTERN
 List_t* 

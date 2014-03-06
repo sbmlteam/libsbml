@@ -485,7 +485,7 @@ double
 Dimensions_getDepth (const Dimensions_t *d);
 
 /**
- * @return a (deep) copy of this Dimensions.
+ * @return a (deep) copy of this Dimensions_t.
  *
  * @param d The Dimensions_t structure
  *

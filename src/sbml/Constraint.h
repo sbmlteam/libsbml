@@ -645,20 +645,20 @@ BEGIN_C_DECLS
  * and @p version values.
  *
  * @param level an unsigned int, the SBML Level to assign to this
- * Constraint
+ * Constraint_t
  *
  * @param version an unsigned int, the SBML Version to assign to this
- * Constraint
+ * Constraint_t
  *
  * @return a pointer to the newly created Constraint_t structure.
  *
- * @note Once a Constraint has been added to an SBMLDocument, the @p
+ * @note Once a Constraint_t has been added to an SBMLDocument_t, the @p
  * level and @p version for the document @em override those used to create
- * the Constraint.  Despite this, the ability to supply the values at
+ * the Constraint_t.  Despite this, the ability to supply the values at
  * creation time is an important aid to creating valid SBML.  Knowledge of
  * the intended SBML Level and Version  determine whether it is valid to
  * assign a particular value to an attribute, or whether it is valid to add
- * a structure to an existing SBMLDocument.
+ * a structure to an existing SBMLDocument_t.
  *
  * @memberof Constraint_t
  */
@@ -676,13 +676,13 @@ Constraint_create (unsigned int level, unsigned int version);
  *
  * @return a pointer to the newly created Constraint_t structure.
  *
- * @note Once a Constraint has been added to an SBMLDocument, the
+ * @note Once a Constraint_t has been added to an SBMLDocument_t, the
  * @p sbmlns namespaces for the document @em override those used to create
- * the Constraint.  Despite this, the ability to supply the values at creation 
+ * the Constraint_t.  Despite this, the ability to supply the values at creation 
  * time is an important aid to creating valid SBML.  Knowledge of the intended 
  * SBML Level and Version determine whether it is valid to assign a particular 
  * value to an attribute, or whether it is valid to add a structure to an existing
- * SBMLDocument.
+ * SBMLDocument_t.
  *
  * @memberof Constraint_t
  */
@@ -732,11 +732,11 @@ Constraint_getNamespaces(Constraint_t *c);
 
 
 /**
- * Get the message, if any, associated with this Constraint
+ * Get the message, if any, associated with this Constraint_t
  *
  * @param c the Constraint_t structure 
  * 
- * @return the message for this Constraint, as an XMLNode.
+ * @return the message for this Constraint_t, as an XMLNode_t.
  *
  * @memberof Constraint_t
  */
@@ -746,11 +746,11 @@ Constraint_getMessage (const Constraint_t *c);
 
 
 /**
- * Get the message string, if any, associated with this Constraint
+ * Get the message string, if any, associated with this Constraint_t
  *
  * @param c the Constraint_t structure 
  * 
- * @return the message for this Constraint, as a string (char*).
+ * @return the message for this Constraint_t, as a string (char*).
  * @c NULL is returned if the message is not set.
  *
  * @note returned char* should be freed with safe_free() by the caller.
@@ -763,11 +763,11 @@ Constraint_getMessageString (const Constraint_t *c);
 
 
 /**
- * Get the mathematical expression of this Constraint
+ * Get the mathematical expression of this Constraint_t
  *
  * @param c the Constraint_t structure 
  * 
- * @return the math for this Constraint, as an ASTNode.
+ * @return the math for this Constraint_t, as an ASTNode_t.
  *
  * @memberof Constraint_t
  */
@@ -778,12 +778,12 @@ Constraint_getMath (const Constraint_t *c);
 
 /**
  * Predicate returning @c true or @c false depending on whether a
- * message is defined for this Constraint.
+ * message is defined for this Constraint_t.
  *
  * @param c the Constraint_t structure 
  * 
  * @return a nonzero integer if the "message" subelement for this
- * Constraint is set, zero (0) otherwise.
+ * Constraint_t is set, zero (0) otherwise.
  *
  * @memberof Constraint_t
  */
@@ -794,11 +794,11 @@ Constraint_isSetMessage (const Constraint_t *c);
 
 /**
  * Predicate returning @c true or @c false depending on whether a
- * mathematical formula is defined for this Constraint.
+ * mathematical formula is defined for this Constraint_t.
  *
  * @param c the Constraint_t structure 
  * 
- * @return a nonzero integer if the "math" subelement for this Constraint
+ * @return a nonzero integer if the "math" subelement for this Constraint_t
  * is set, zero (0) otherwise.
  *
  * @memberof Constraint_t
@@ -809,7 +809,7 @@ Constraint_isSetMath (const Constraint_t *c);
 
 
 /**
- * Sets the message of this Constraint.
+ * Sets the message of this Constraint_t.
  *
  * @param c the Constraint_t structure
  *
@@ -830,12 +830,12 @@ Constraint_setMessage (Constraint_t *c, const XMLNode_t* xhtml);
 
 
 /**
- * Sets the mathematical expression of this Constraint.
+ * Sets the mathematical expression of this Constraint_t.
  *
  * @param c the Constraint_t structure
  *
- * @param math an ASTNode expression to be assigned as the "math"
- * subelement of this Constraint
+ * @param math an ASTNode_t expression to be assigned as the "math"
+ * subelement of this Constraint_t
  *
  * @return integer value indicating success/failure of the
  * function.  @if clike The value is drawn from the
@@ -852,7 +852,7 @@ Constraint_setMath (Constraint_t *c, const ASTNode_t *math);
 
 
 /**
- * Unsets the "message" subelement of this Constraint.
+ * Unsets the "message" subelement of this Constraint_t.
  *
  * @param c the Constraint_t structure
  *

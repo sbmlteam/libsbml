@@ -402,7 +402,7 @@ BEGIN_C_DECLS
 
 
 /**
- * Creates a CubicBezier and returns the pointer.
+ * Creates a CubicBezier_t and returns the pointer.
  *
  * @memberof CubicBezier_t
  */
@@ -411,7 +411,7 @@ CubicBezier_t *
 CubicBezier_create ();
 
 /**
- * Creates a CubicBezier with the given points and returns the pointer.
+ * Creates a CubicBezier_t with the given points and returns the pointer.
  *
  * @param x1 The value of the x coordinate of the start Point_t.
  * @param y1 The value of the y coordinate of the start Point_t.
@@ -436,7 +436,7 @@ CubicBezier_createWithCoordinates (double x1, double y1, double z1,
                                    double x4, double y4, double z4);
 
 /**
- * Creates a CubicBezier with the given coordinates and returns the pointer.
+ * Creates a CubicBezier_t with the given coordinates and returns the pointer.
  *
  * @param start The value of the 'start' Point_t
  * @param base1 The value of the 'base1' Point_t

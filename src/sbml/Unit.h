@@ -1402,20 +1402,20 @@ BEGIN_C_DECLS
  * and @p version values.
  *
  * @param level an unsigned int, the SBML Level to assign to this
- * Unit
+ * Unit_t
  *
  * @param version an unsigned int, the SBML Version to assign to this
- * Unit
+ * Unit_t
  *
  * @return a pointer to the newly created Unit_t structure.
  *
- * @note Once a Unit has been added to an SBMLDocument, the @p
+ * @note Once a Unit_t has been added to an SBMLDocument_t, the @p
  * level and @p version for the document @em override those used to create
- * the Unit.  Despite this, the ability to supply the values at
+ * the Unit_t.  Despite this, the ability to supply the values at
  * creation time is an important aid to creating valid SBML.  Knowledge of
  * the intended SBML Level and Version  determine whether it is valid to
  * assign a particular value to an attribute, or whether it is valid to add
- * a structure to an existing SBMLDocument.
+ * a structure to an existing SBMLDocument_t.
  *
  * @memberof Unit_t
  */
@@ -1433,13 +1433,13 @@ Unit_create (unsigned int level, unsigned int version);
  *
  * @return a pointer to the newly created Unit_t structure.
  *
- * @note Once a Unit has been added to an SBMLDocument, the
+ * @note Once a Unit_t has been added to an SBMLDocument_t, the
  * @p sbmlns namespaces for the document @em override those used to create
- * the Unit.  Despite this, the ability to supply the values at creation time
+ * the Unit_t.  Despite this, the ability to supply the values at creation time
  * is an important aid to creating valid SBML.  Knowledge of the intended SBML
  * Level and Version determine whether it is valid to assign a particular value
  * to an attribute, or whether it is valid to add a structure to an existing
- * SBMLDocument.
+ * SBMLDocument_t.
  *
  * @memberof Unit_t
  */
@@ -1475,8 +1475,8 @@ Unit_clone (const Unit_t* u);
 
 
 /**
- * Initializes the attributes of this Unit (except for "kind") to their
- * defaults values.
+ * Initializes the attributes of this Unit_t (except for "kind") to their
+ * default values.
  *
  * The default values are as follows:
  * 
@@ -1510,7 +1510,7 @@ Unit_getNamespaces(Unit_t *u);
 /**
  * Returns the "kind" attribute value of the given unit @p u.
  * 
- * @return the value of the "kind" attribute of this Unit as a value from
+ * @return the value of the "kind" attribute of this Unit_t as a value from
  * the UnitKind_t enumeration.
  *
  * @memberof Unit_t
@@ -1556,7 +1556,7 @@ Unit_getExponentAsDouble (const Unit_t *u);
  *
  * @param u a Unit_t structure
  *
- * @return the "scale" value of this Unit, as an integer.
+ * @return the "scale" value of this Unit_t, as an integer.
  *
  * @memberof Unit_t
  */
@@ -1571,7 +1571,7 @@ Unit_getScale (const Unit_t *u);
  * 
  * @param u a Unit_t structure
  *
- * @return the "multiplier" value of this Unit, as a double
+ * @return the "multiplier" value of this Unit_t, as a double
  *
  * @memberof Unit_t
  */
@@ -1586,7 +1586,7 @@ Unit_getMultiplier (const Unit_t *u);
  * 
  * @param u a Unit_t structure
  *
- * @return the "offset" value of this Unit, as a double
+ * @return the "offset" value of this Unit_t, as a double
  *
  * @warning The "offset" attribute is only available in SBML Level 2
  * Version 1.  This attribute is not present in SBML Level 2 Version 2 or
@@ -2425,7 +2425,7 @@ Unit_areEquivalent(Unit_t * unit1, Unit_t * unit2);
  * Manipulates the attributes of the Unit_t to express the unit with the 
  * value of the scale attribute reduced to zero.
  *
- * For example, 1 millimetre can be expressed as a Unit with kind=@c
+ * For example, 1 millimetre can be expressed as a Unit_t with kind=@c
  * "metre" multiplier=@c "1" scale=@c "-3" exponent=@c "1". It can also be
  * expressed as a Unit_t with kind=@c "metre"
  * multiplier=<code>"0.001"</code> scale=@c "0" exponent=@c "1".

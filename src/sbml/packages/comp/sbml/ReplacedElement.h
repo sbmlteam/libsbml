@@ -7,7 +7,8 @@
  * This file is part of libSBML.  Please visit http://sbml.org for more
  * information about SBML, and the latest version of libSBML.
  *
- * Copyright 2011 California Institute of Technology.
+ * Copyright (C) 2011-2014 by the California Institute of Technology,
+ *     Pasadena, CA, USA
  * 
  * This library is free software; you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by

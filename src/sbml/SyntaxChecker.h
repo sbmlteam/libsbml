@@ -445,7 +445,7 @@ SyntaxChecker_isValidUnitSId(const char * units);
  *
  * @note the optional SBMLNamespaces_t argument can be used to
  * check for the declaration of the XHTML namespace at the top-level
- * within an SBMLDocument.
+ * within an SBMLDocument_t.
  *
  * @memberof SyntaxChecker_t
  */

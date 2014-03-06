@@ -465,7 +465,7 @@ ModelCreator_t *
 ModelCreator_createFromNode(const XMLNode_t * node);
 
 /**
- * Destroys this ModelCreator.
+ * Destroys this ModelCreator_t.
  *
  * @param mc ModelCreator_t structure to be freed.
  *
@@ -490,11 +490,11 @@ ModelCreator_clone (const ModelCreator_t* mc);
 
 
 /**
- * Returns the familyName from the ModelCreator.
+ * Returns the familyName from the ModelCreator_t.
  * 
  * @param mc the ModelCreator_t structure to be queried
  *
- * @return familyName from the ModelCreator.
+ * @return familyName from the ModelCreator_t.
  *
  * @memberof ModelCreator_t
  */
@@ -503,11 +503,11 @@ const char *
 ModelCreator_getFamilyName(ModelCreator_t *mc);
 
 /**
- * Returns the givenName from the ModelCreator.
+ * Returns the givenName from the ModelCreator_t.
  * 
  * @param mc the ModelCreator_t structure to be queried
  *
- * @return givenName from the ModelCreator.
+ * @return givenName from the ModelCreator_t.
  *
  * @memberof ModelCreator_t
  */
@@ -516,11 +516,11 @@ const char *
 ModelCreator_getGivenName(ModelCreator_t *mc);
 
 /**
- * Returns the email from the ModelCreator.
+ * Returns the email from the ModelCreator_t.
  * 
  * @param mc the ModelCreator_t structure to be queried
  *
- * @return email from the ModelCreator.
+ * @return email from the ModelCreator_t.
  *
  * @memberof ModelCreator_t
  */
@@ -529,13 +529,13 @@ const char *
 ModelCreator_getEmail(ModelCreator_t *mc);
 
 /**
- * Returns the organization from the ModelCreator.
+ * Returns the organization from the ModelCreator_t.
  *
  * @note This function is an alias of ModelCreator_getOrganization().
  * 
  * @param mc the ModelCreator_t structure to be queried
  *
- * @return organization from the ModelCreator.
+ * @return organization from the ModelCreator_t.
  *
  * @memberof ModelCreator_t
  */
@@ -544,11 +544,11 @@ const char *
 ModelCreator_getOrganisation(ModelCreator_t *mc);
 
 /**
- * Returns the organization from the ModelCreator.
+ * Returns the organization from the ModelCreator_t.
  * 
  * @param mc the ModelCreator_t structure to be queried
  *
- * @return organization from the ModelCreator.
+ * @return organization from the ModelCreator_t.
  *
  * @memberof ModelCreator_t
  */
@@ -558,7 +558,7 @@ ModelCreator_getOrganization(ModelCreator_t *mc);
 
 /**
  * Predicate indicating whether this
- * ModelCreator's familyName is set.
+ * ModelCreator_t's familyName is set.
  *
  * @param mc the ModelCreator_t structure to be queried
  *
@@ -573,7 +573,7 @@ ModelCreator_isSetFamilyName(ModelCreator_t *mc);
 
 /**
  * Predicate indicating whether this
- * ModelCreator's givenName is set.
+ * ModelCreator_t's givenName is set.
  *
  * @param mc the ModelCreator_t structure to be queried
  *
@@ -588,7 +588,7 @@ ModelCreator_isSetGivenName(ModelCreator_t *mc);
 
 /**
  * Predicate indicating whether this
- * ModelCreator's email is set.
+ * ModelCreator_t's email is set.
  *
  * @param mc the ModelCreator_t structure to be queried
  *
@@ -603,7 +603,7 @@ ModelCreator_isSetEmail(ModelCreator_t *mc);
 
 /**
  * Predicate indicating whether this
- * ModelCreator's organization is set.
+ * ModelCreator_t's organization is set.
  *
  * @note This function is an alias of ModelCretor_isSetOrganization().
  *
@@ -620,7 +620,7 @@ ModelCreator_isSetOrganisation(ModelCreator_t *mc);
 
 /**
  * Predicate indicating whether this
- * ModelCreator's organization is set.
+ * ModelCreator_t's organization is set.
  *
  * @param mc the ModelCreator_t structure to be queried
  *
@@ -637,7 +637,7 @@ ModelCreator_isSetOrganization(ModelCreator_t *mc);
  * Sets the family name
  *  
  * @param mc the ModelCreator_t structure
- * @param name a string representing the familyName of the ModelCreator. 
+ * @param name a string representing the familyName of the ModelCreator_t. 
  *
  * @return integer value indicating success/failure of the
  * function.  @if clike The value is drawn from the
@@ -656,7 +656,7 @@ ModelCreator_setFamilyName(ModelCreator_t *mc, char * name);
  * Sets the given name
  *  
  * @param mc the ModelCreator_t structure
- * @param name a string representing the givenName of the ModelCreator. 
+ * @param name a string representing the givenName of the ModelCreator_t. 
  *
  * @return integer value indicating success/failure of the
  * function.  @if clike The value is drawn from the
@@ -675,7 +675,7 @@ ModelCreator_setGivenName(ModelCreator_t *mc, char * name);
  * Sets the email
  *  
  * @param mc the ModelCreator_t structure
- * @param email a string representing the email of the ModelCreator. 
+ * @param email a string representing the email of the ModelCreator_t. 
  *
  * @return integer value indicating success/failure of the
  * function.  @if clike The value is drawn from the
@@ -694,7 +694,7 @@ ModelCreator_setEmail(ModelCreator_t *mc, char * email);
  * Sets the organization
  *  
  * @param mc the ModelCreator_t structure
- * @param org a string representing the organisation of the ModelCreator. 
+ * @param org a string representing the organisation of the ModelCreator_t. 
  *
  * @note This function is an alias of ModelCretor_setOrganization().
  *
@@ -715,7 +715,7 @@ ModelCreator_setOrganisation(ModelCreator_t *mc, char* org);
  * Sets the organization
  *  
  * @param mc the ModelCreator_t structure
- * @param org a string representing the organisation of the ModelCreator. 
+ * @param org a string representing the organisation of the ModelCreator_t. 
  *
  * @return integer value indicating success/failure of the
  * function.  @if clike The value is drawn from the
@@ -731,7 +731,7 @@ int
 ModelCreator_setOrganization(ModelCreator_t *mc, char* org);
 
 /**
- * Unsets the familyName of this ModelCreator.
+ * Unsets the familyName of this ModelCreator_t.
  *
  * @param mc the ModelCreator_t structure.
  *
@@ -750,7 +750,7 @@ int
 ModelCreator_unsetFamilyName(ModelCreator_t *mc);
 
 /**
- * Unsets the givenName of this ModelCreator.
+ * Unsets the givenName of this ModelCreator_t.
  *
  * @param mc the ModelCreator_t structure.
  *
@@ -769,7 +769,7 @@ int
 ModelCreator_unsetGivenName(ModelCreator_t *mc);
 
 /**
- * Unsets the email of this ModelCreator.
+ * Unsets the email of this ModelCreator_t.
  *
  * @param mc the ModelCreator_t structure.
  *
@@ -788,11 +788,11 @@ int
 ModelCreator_unsetEmail(ModelCreator_t *mc);
 
 /**
- * Unsets the organization of this ModelCreator.
+ * Unsets the organization of this ModelCreator_t.
  *
  * @param mc the ModelCreator_t structure.
  *
- * @note This function is an alias of ModelCretor_unsetOrganization().
+ * @note This function is an alias of ModelCreator_unsetOrganization().
  *
  * @return integer value indicating success/failure of the
  * function.  @if clike The value is drawn from the
@@ -809,7 +809,7 @@ int
 ModelCreator_unsetOrganisation(ModelCreator_t *mc);
 
 /**
- * Unsets the organization of this ModelCreator.
+ * Unsets the organization of this ModelCreator_t.
  *
  * @param mc the ModelCreator_t structure.
  *

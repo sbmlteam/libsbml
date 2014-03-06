@@ -1164,7 +1164,7 @@ protected:
 /** @cond doxygenLibsbmlInternal */
 
 /**
- * Outputs the given XMLError (or the derived class (e.g. SBMLError) ) to stream 
+ * Outputs the given XMLError_t (or the derived class (e.g. SBMLError) ) to stream 
  * by invoking the print function which is implemented as a virtual function in
  * the class.
  *
@@ -1261,11 +1261,11 @@ XMLError_free(XMLError_t* error);
 
 
 /**
- * Returns the id of this XMLError.
+ * Returns the id of this XMLError_t.
  *
  * @param error the XMLError_t from which to return the id.
  *
- * @return the id of this XMLError.
+ * @return the id of this XMLError_t.
  *
  * @memberof XMLError_t
  */
@@ -1275,11 +1275,11 @@ XMLError_getErrorId (const XMLError_t *error);
 
 
 /**
- * Returns the message text of this XMLError.
+ * Returns the message text of this XMLError_t.
  *
  * @param error the XMLError_t from which to return the message.
  *
- * @return the message text of this XMLError.
+ * @return the message text of this XMLError_t.
  *
  * @memberof XMLError_t
  */
@@ -1289,11 +1289,11 @@ XMLError_getMessage (const XMLError_t *error);
 
 
 /**
- * Returns the short message text of this XMLError.
+ * Returns the short message text of this XMLError_t.
  *
  * @param error the XMLError_t from which to return the short message.
  *
- * @return the message text of this XMLError.
+ * @return the message text of this XMLError_t.
  *
  * @memberof XMLError_t
  */
@@ -1303,11 +1303,11 @@ XMLError_getShortMessage (const XMLError_t *error);
 
 
 /**
- * Return the line number where this XMLError occurred.
+ * Return the line number where this XMLError_t occurred.
  *
  * @param error the XMLError_t from which to return the line number.
  *
- * @return the line number where this XMLError occurred.
+ * @return the line number where this XMLError_t occurred.
  *
  * @memberof XMLError_t
  */
@@ -1317,11 +1317,11 @@ XMLError_getLine (const XMLError_t *error);
 
 
 /**
- * Return the column number where this XMLError occurred.
+ * Return the column number where this XMLError_t occurred.
  *
  * @param error the XMLError_t from which to return the column number.
  *
- * @return the column number where this XMLError occurred.
+ * @return the column number where this XMLError_t occurred.
  *
  * @memberof XMLError_t
  */
@@ -1331,12 +1331,12 @@ XMLError_getColumn (const XMLError_t *error);
 
 
 /**
- * Return the severity of this XMLError.  The possible values (for the XML
+ * Return the severity of this XMLError_t.  The possible values (for the XML
  * layer) are those from the enumeration XMLErrorSeverity_t.
  *
  * @param error the XMLError_t from which to return the severity.
  *
- * @return the severity of this XMLError.
+ * @return the severity of this XMLError_t.
  *
  * @memberof XMLError_t
  */
@@ -1346,11 +1346,11 @@ XMLError_getSeverity (const XMLError_t *error);
 
 
 /**
- * Return the severity of this XMLError as a string.erity_t.
+ * Return the severity of this XMLError_t as a string.erity_t.
  *
  * @param error the XMLError_t from which to return the severity.
  *
- * @return string representing the severity of this XMLError.
+ * @return string representing the severity of this XMLError_t.
  *
  * @memberof XMLError_t
  */
@@ -1360,12 +1360,12 @@ XMLError_getSeverityAsString (const XMLError_t *error);
 
 
 /**
- * Return the category of this XMLError.  The possible values (for the XML
+ * Return the category of this XMLError_t.  The possible values (for the XML
  * layers) are those from the enumeration XMLErrorCategory_t.
  *
  * @param error the XMLError_t from which to return the category.
  *
- * @return the category of this XMLError.
+ * @return the category of this XMLError_t.
  *
  * @memberof XMLError_t
  */
@@ -1375,11 +1375,11 @@ XMLError_getCategory (const XMLError_t *error);
 
 
 /**
- * Return the category of this XMLError as a string.
+ * Return the category of this XMLError_t as a string.
  *
  * @param error the XMLError_t from which to return the category.
  *
- * @return string representing the category of this XMLError.
+ * @return string representing the category of this XMLError_t.
  *
  * @memberof XMLError_t
  */
@@ -1394,7 +1394,7 @@ XMLError_getCategoryAsString (const XMLError_t *error);
  *
  * @param error the XMLError_t.
  *
- * @return @c non-zero (true) if this XMLError is for informational purposes
+ * @return @c non-zero (true) if this XMLError_t is for informational purposes
  * only, @c zero (false) otherwise.
  *
  * @memberof XMLError_t
@@ -1410,7 +1410,7 @@ XMLError_isInfo (const XMLError_t *error);
  *
  * @param error the XMLError_t.
  *
- * @return @c non-zero (true) if this XMLError is a warning, @c zero (false) otherwise.
+ * @return @c non-zero (true) if this XMLError_t is a warning, @c zero (false) otherwise.
  *
  * @memberof XMLError_t
  */
@@ -1425,7 +1425,7 @@ XMLError_isWarning (const XMLError_t *error);
  *
  * @param error the XMLError_t.
  *
- * @return @c non-zero (true) if this XMLError is an error, @c zero (false) otherwise.
+ * @return @c non-zero (true) if this XMLError_t is an error, @c zero (false) otherwise.
  *
  * @memberof XMLError_t
  */
@@ -1440,7 +1440,7 @@ XMLError_isError (const XMLError_t *error);
  *
  * @param error the XMLError_t.
  *
- * @return @c non-zero (true) if this XMLError is a fatal error, @c zero (false) otherwise.
+ * @return @c non-zero (true) if this XMLError_t is a fatal error, @c zero (false) otherwise.
  *
  * @memberof XMLError_t
  */
@@ -1450,7 +1450,7 @@ XMLError_isFatal (const XMLError_t *error);
 
 
 /**
- * Outputs this XMLError to stream in the following format (and
+ * Outputs this XMLError_t to stream in the following format (and
  * followed by a newline):
  *
  *   line: (id) message

@@ -480,7 +480,7 @@ XMLNamespaces_clone (const XMLNamespaces_t* ns);
  * Appends an XML namespace prefix/URI pair to this XMLNamespaces_t 
  * structure.
  *
- * @param ns the XMLNamespaces structure.
+ * @param ns the XMLNamespaces_t structure.
  * @param uri a string, the uri for the namespace.
  * @param prefix a string, the prefix for the namespace.
  *
@@ -522,7 +522,7 @@ XMLNamespaces_remove (XMLNamespaces_t *ns, int index);
 
 
 /**
- * Removes an XML Namespace with the given Prefix.
+ * Removes an XML Namespace with the given @p prefix.
  *
  * @param ns XMLNamespaces structure.
  * @param prefix a string, prefix of the required namespace.
@@ -658,7 +658,7 @@ XMLNamespaces_getPrefix (const XMLNamespaces_t *ns, int index);
  * @param uri a string, the URI of the prefix being sought
  *
  * @return the prefix of an XML namespace declaration given its URI, or
- * an empty string if no such @p uri exists in this XMLNamespaces structure
+ * an empty string if no such @p uri exists in this XMLNamespaces_t structure
  *
  * @memberof XMLNamespaces_t
  */
@@ -703,7 +703,7 @@ XMLNamespaces_getURI (const XMLNamespaces_t *ns, int index);
  *
  * @return the URI of an XML namespace declaration having the given @p
  * prefix, or an empty string if no such prefix-and-URI pair exists
- * in this XMLNamespaces object
+ * in this XMLNamespaces_t object
  *
  * @if notcpp @htmlinclude warn-default-args-in-docs.html @endif@~
  * 
@@ -718,9 +718,9 @@ XMLNamespaces_getURIByPrefix (const XMLNamespaces_t *ns, const char *prefix);
 
 /**
  * Predicate returning @c true or @c false depending on whether 
- * this XMLNamespaces list is empty.
+ * this XMLNamespaces_t list is empty.
  * 
- * @return @c true if this XMLNamespaces list is empty, @c false otherwise.
+ * @return @c true if this XMLNamespaces_t list is empty, @c false otherwise.
  *
  * @memberof XMLNamespaces_t
  */
@@ -731,7 +731,7 @@ XMLNamespaces_isEmpty (const XMLNamespaces_t *ns);
 
 /**
  * Predicate returning @c true or @c false depending on whether 
- * an XML Namespace with the given URI is contained in this XMLNamespaces list.
+ * an XML Namespace with the given URI is contained in this XMLNamespaces_t list.
  * 
  * @return @c true if an XML Namespace with the given URI is contained in this 
  * XMLNamespaces list,  @c false otherwise.
@@ -745,7 +745,7 @@ XMLNamespaces_hasURI(const XMLNamespaces_t *ns, const char* uri);
 
 /**
  * Predicate returning @c true or @c false depending on whether 
- * an XML Namespace the given Prefix is contained in this XMLNamespaces list.
+ * an XML Namespace the given @p prefix is contained in this XMLNamespaces_t list.
  * 
  * @return @c true if an XML Namespace with the given URI is contained in this 
  * XMLNamespaces list, @c false otherwise.
@@ -759,10 +759,10 @@ XMLNamespaces_hasPrefix(const XMLNamespaces_t *ns, const char* prefix);
 
 /**
  * Predicate returning @c true or @c false depending on whether
- * an XML Namespace with the given URI is contained in this XMLNamespaces list.
+ * an XML Namespace with the given URI is contained in this XMLNamespaces_t list.
  *
  * @return @c true if an XML Namespace with the given uri/prefix pair is contained
- * in this XMLNamespaces list,  @c false otherwise.
+ * in this XMLNamespaces_t list,  @c false otherwise.
  *
  * @memberof XMLNamespaces_t
  */

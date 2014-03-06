@@ -430,7 +430,7 @@ void
 CompartmentGlyph_initDefaults (CompartmentGlyph_t *cg);
 
 /**
- * @return a (deep) copy of this CompartmentGlyph.
+ * @return a (deep) copy of this CompartmentGlyph_t.
  *
  * @param cg The CompartmentGlyph_t structure.
  *

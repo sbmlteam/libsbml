@@ -1378,13 +1378,13 @@ BEGIN_C_DECLS
  *
  * @return a pointer to the newly created Event_t structure.
  *
- * @note Once an Event_t has been added to an SBMLDocument, the @p
+ * @note Once an Event_t has been added to an SBMLDocument_t, the @p
  * level and @p version for the document @em override those used to create
  * the Event_t.  Despite this, the ability to supply the values at
  * creation time is an important aid to creating valid SBML.  Knowledge of
  * the intended SBML Level and Version  determine whether it is valid to
  * assign a particular value to an attribute, or whether it is valid to add
- * a structure to an existing SBMLDocument.
+ * a structure to an existing SBMLDocument_t.
  *
  * @memberof Event_t
  */
@@ -1402,13 +1402,13 @@ Event_create (unsigned int level, unsigned int version);
  *
  * @return a pointer to the newly created Event_t structure.
  *
- * @note Once an Event_t has been added to an SBMLDocument, the
+ * @note Once an Event_t has been added to an SBMLDocument_t, the
  * @p sbmlns namespaces for the document @em override those used to create
  * the Event_t.  Despite this, the ability to supply the values at creation time
  * is an important aid to creating valid SBML.  Knowledge of the intended SBML
  * Level and Version determine whether it is valid to assign a particular value
  * to an attribute, or whether it is valid to add a structure to an existing
- * SBMLDocument.
+ * SBMLDocument_t.
  *
  * @memberof Event_t
  */
@@ -1732,7 +1732,7 @@ Event_setName (Event_t *e, const char *name);
 
 
 /**
- * Sets the trigger of the given Event_t to a copy of the given Trigger.
+ * Sets the trigger of the given Event_t to a copy of the given Trigger_t.
  *
  * @param e the Event_t structure to set
  * @param trigger the Trigger_t structure to use.
@@ -1753,7 +1753,7 @@ Event_setTrigger (Event_t *e, const Trigger_t *trigger);
 
 
 /**
- * Sets the delay of the given Event_t to a copy of the given Delay.
+ * Sets the delay of the given Event_t to a copy of the given Delay_t.
  * 
  * @param e the Event_t structure to set
  * @param delay the Delay_t structure to use.
@@ -1774,7 +1774,7 @@ Event_setDelay (Event_t *e, const Delay_t *delay);
 
 
 /**
- * Sets the priority of the given Event_t to a copy of the given Priority.
+ * Sets the priority of the given Event_t to a copy of the given Priority_t.
  * 
  * @param e the Event_t structure to set
  * @param priority the Priority_t structure to use.
@@ -2165,7 +2165,7 @@ Event_removeEventAssignmentByVar (Event_t *e, const char *variable);
 
 
 /**
- * @return item in this ListOfEvent with the given @p id or @c NULL if no such
+ * @return item in this ListOf_t of Event_t's with the given @p id or @c NULL if no such
  * item exists.
  *
  * @memberof ListOfEvents_t
@@ -2176,7 +2176,7 @@ ListOfEvents_getById (ListOf_t *lo, const char *sid);
 
 
 /**
- * Removes item in this ListOf items with the given @p id or @c NULL if no such
+ * Removes item in this ListOf_t items with the given @p id or @c NULL if no such
  * item exists.  The caller owns the returned item and is responsible for
  * deleting it.
  *

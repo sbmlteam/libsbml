@@ -933,20 +933,20 @@ BEGIN_C_DECLS
  * and @p version values.
  *
  * @param level an unsigned int, the SBML Level to assign to this
- * EventAssignment
+ * EventAssignment_t
  *
  * @param version an unsigned int, the SBML Version to assign to this
- * EventAssignment
+ * EventAssignment_t
  *
  * @return a pointer to the newly created EventAssignment_t structure.
  *
- * @note Once a EventAssignment has been added to an SBMLDocument, the @p
+ * @note Once a EventAssignment_t has been added to an SBMLDocument_t, the @p
  * level and @p version for the document @em override those used to create
- * the EventAssignment.  Despite this, the ability to supply the values at
+ * the EventAssignment_t.  Despite this, the ability to supply the values at
  * creation time is an important aid to creating valid SBML.  Knowledge of
  * the intended SBML Level and Version  determine whether it is valid to
  * assign a particular value to an attribute, or whether it is valid to add
- * a structure to an existing SBMLDocument.
+ * a structure to an existing SBMLDocument_t.
  *
  * @memberof EventAssignment_t
  */
@@ -964,13 +964,13 @@ EventAssignment_create (unsigned int level, unsigned int version);
  *
  * @return a pointer to the newly created EventAssignment_t structure.
  *
- * @note Once a EventAssignment has been added to an SBMLDocument, the
+ * @note Once a EventAssignment_t has been added to an SBMLDocument_t, the
  * @p sbmlns namespaces for the document @em override those used to create
- * the EventAssignment.  Despite this, the ability to supply the values at 
+ * the EventAssignment_t.  Despite this, the ability to supply the values at 
  * creation time is an important aid to creating valid SBML.  Knowledge of the 
  * intended SBML Level and Version determine whether it is valid to assign a 
  * particular value to an attribute, or whether it is valid to add a structure to 
- * an existing SBMLDocument.
+ * an existing SBMLDocument_t.
  *
  * @memberof EventAssignment_t
  */
@@ -1042,7 +1042,7 @@ EventAssignment_getVariable (const EventAssignment_t *ea);
  *
  * @param ea the EventAssignment_t structure to query.
  *
- * @return the ASTNode tree stored in @p ea.
+ * @return the ASTNode_t tree stored in @p ea.
  *
  * @memberof EventAssignment_t
  */
@@ -1088,8 +1088,8 @@ EventAssignment_isSetMath (const EventAssignment_t *ea);
  * to a copy of the given identifier string.
  *
  * @param ea the EventAssignment_t to set.
- * @param sid the identifier of a Compartment, Species or (global)
- * Parameter defined in this model.
+ * @param sid the identifier of a Compartment_t, Species_t or (global)
+ * Parameter_t defined in this model.
  *
  * @return integer value indicating success/failure of the
  * function.  @if clike The value is drawn from the
@@ -1110,12 +1110,12 @@ EventAssignment_setVariable (EventAssignment_t *ea, const char *sid);
 
 /**
  * Sets the "math" subelement content of the given EventAssignment_t
- * structure to the given ASTNode.
+ * structure to the given ASTNode_t.
  *
- * The given @p math ASTNode is copied.
+ * The given @p math ASTNode_t is copied.
  *
  * @param ea the EventAssignment_t to set.
- * @param math the ASTNode to copy into @p ea
+ * @param math the ASTNode_t to copy into @p ea
  *
  * @return integer value indicating success/failure of the
  * function.  @if clike The value is drawn from the
@@ -1181,7 +1181,7 @@ EventAssignment_containsUndeclaredUnits(EventAssignment_t *ea);
 
 
 /**
- * @return item in this ListOfEventAssignment with the given @p id or @c NULL if no such
+ * @return item in this ListOf_t of EventAssignment_t's with the given @p id or @c NULL if no such
  * item exists.
  *
  * @memberof ListOfEventAssignments_t
@@ -1192,7 +1192,7 @@ ListOfEventAssignments_getById (ListOf_t *lo, const char *sid);
 
 
 /**
- * Removes item in this ListOf items with the given @p id or @c NULL if no such
+ * Removes item in this ListOf_t items with the given @p id or @c NULL if no such
  * item exists.  The caller owns the returned item and is responsible for
  * deleting it.
  *

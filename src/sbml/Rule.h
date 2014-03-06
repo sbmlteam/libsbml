@@ -1094,20 +1094,20 @@ BEGIN_C_DECLS
  * @p level and @p version values.
  *
  * @param level an unsigned int, the SBML Level to assign to this
- * AlgebraicRule
+ * algebraic Rule_t
  *
  * @param version an unsigned int, the SBML Version to assign to this
- * AlgebraicRule
+ * algebraic Rule_t
  *
  * @return a pointer to the newly created Rule_t structure.
  *
- * @note Once a AlgebraicRule has been added to an SBMLDocument, the @p
+ * @note Once an algebraic Rule_t has been added to an SBMLDocument_t, the @p
  * level and @p version for the document @em override those used to create
- * the AlgebraicRule.  Despite this, the ability to supply the values at
+ * the algebraic Rule_t.  Despite this, the ability to supply the values at
  * creation time is an important aid to creating valid SBML.  Knowledge of
  * the intended SBML Level and Version  determine whether it is valid to
  * assign a particular value to an attribute, or whether it is valid to add
- * a structure to an existing SBMLDocument.
+ * a structure to an existing SBMLDocument_t.
  *
  * @memberof Rule_t
  */
@@ -1121,17 +1121,17 @@ Rule_createAlgebraic (unsigned int level, unsigned int version);
  * SBMLNamespaces_t structure.
  *
  * @param sbmlns SBMLNamespaces_t, a pointer to an SBMLNamespaces_t structure
- * to assign to this AlgebraicRule
+ * to assign to this algebraic Rule_t
  *
  * @return a pointer to the newly created Rule_t structure.
  *
- * @note Once a AlgebraicRule has been added to an SBMLDocument, the
+ * @note Once an algebraic Rule_t has been added to an SBMLDocument_t, the
  * @p sbmlns namespaces for the document @em override those used to create
- * the AlgebraicRule.  Despite this, the ability to supply the values at creation 
+ * the algebraic Rule_t.  Despite this, the ability to supply the values at creation 
  * time is an important aid to creating valid SBML.  Knowledge of the intended 
  * SBML Level and Version determine whether it is valid to assign a particular 
  * value to an attribute, or whether it is valid to add a structure to an existing
- * SBMLDocument.
+ * SBMLDocument_t.
  *
  * @memberof Rule_t
  */
@@ -1145,20 +1145,20 @@ Rule_createAlgebraicWithNS (SBMLNamespaces_t *sbmlns);
  * @p level and @p version values.
  *
  * @param level an unsigned int, the SBML Level to assign to this
- * AssignmentRule
+ * assignment Rule_t
  *
  * @param version an unsigned int, the SBML Version to assign to this
- * AssignmentRule
+ * assignment Rule_t
  *
  * @return a pointer to the newly created Rule_t structure.
  *
- * @note Once a AssignmentRule has been added to an SBMLDocument, the @p
+ * @note Once an assignment Rule_t has been added to an SBMLDocument_t, the @p
  * level and @p version for the document @em override those used to create
- * the AssignmentRule.  Despite this, the ability to supply the values at
+ * the assignment Rule_t.  Despite this, the ability to supply the values at
  * creation time is an important aid to creating valid SBML.  Knowledge of
  * the intended SBML Level and Version  determine whether it is valid to
  * assign a particular value to an attribute, or whether it is valid to add
- * a structure to an existing SBMLDocument.
+ * a structure to an existing SBMLDocument_t.
  *
  * @memberof Rule_t
  */
@@ -1172,17 +1172,17 @@ Rule_createAssignment (unsigned int level, unsigned int version);
  * SBMLNamespaces_t structure.
  *
  * @param sbmlns SBMLNamespaces_t, a pointer to an SBMLNamespaces_t structure
- * to assign to this AssignmentRule
+ * to assign to this assignment Rule_t
  *
  * @return a pointer to the newly created Rule_t structure.
  *
- * @note Once a AssignmentRule has been added to an SBMLDocument, the
+ * @note Once an assignment Rule_t has been added to an SBMLDocument_t, the
  * @p sbmlns namespaces for the document @em override those used to create
- * the AssignmentRule.  Despite this, the ability to supply the values at creation
+ * the assignment Rule_t.  Despite this, the ability to supply the values at creation
  * time is an important aid to creating valid SBML.  Knowledge of the intended
  * SBML Level and Version determine whether it is valid to assign a particular
  * * value to an attribute, or whether it is valid to add a structure to an existing
- * SBMLDocument.
+ * SBMLDocument_t.
  *
  * @memberof Rule_t
  */
@@ -1196,20 +1196,20 @@ Rule_createAssignmentWithNS (SBMLNamespaces_t *sbmlns);
  * @p level and @p version values.
  *
  * @param level an unsigned int, the SBML Level to assign to this
- * RateRule
+ * rate Rule_t
  *
  * @param version an unsigned int, the SBML Version to assign to this
- * RateRule
+ * rate Rule_t
  *
  * @return a pointer to the newly created Rule_t structure.
  *
- * @note Once a RateRule has been added to an SBMLDocument, the @p
+ * @note Once a rate Rule_t has been added to an SBMLDocument_t, the @p
  * level and @p version for the document @em override those used to create
- * the RateRule.  Despite this, the ability to supply the values at
+ * the rate Rule_t.  Despite this, the ability to supply the values at
  * creation time is an important aid to creating valid SBML.  Knowledge of
  * the intended SBML Level and Version  determine whether it is valid to
  * assign a particular value to an attribute, or whether it is valid to add
- * a structure to an existing SBMLDocument.
+ * a structure to an existing SBMLDocument_t.
  *
  * @memberof Rule_t
  */
@@ -1223,17 +1223,17 @@ Rule_createRate (unsigned int level, unsigned int version);
  * SBMLNamespaces_t structure.
  *
  * @param sbmlns SBMLNamespaces_t, a pointer to an SBMLNamespaces_t structure
- * to assign to this RateRule_t
+ * to assign to this rate Rule_t
  *
  * @return a pointer to the newly created Rule_t structure.
  *
- * @note Once a RateRule has been added to an SBMLDocument, the
+ * @note Once a rate Rule_t has been added to an SBMLDocument_t, the
  * @p sbmlns namespaces for the document @em override those used to create
- * the RateRule.  Despite this, the ability to supply the values at creation
+ * the rate Rule_t.  Despite this, the ability to supply the values at creation
  * time is an important aid to creating valid SBML.  Knowledge of the intended
  * SBML Level and Version determine whether it is valid to assign a particular
  * * value to an attribute, or whether it is valid to add a structure to an existing
- * SBMLDocument.
+ * SBMLDocument_t.
  *
  * @memberof Rule_t
  */
@@ -1243,7 +1243,7 @@ Rule_createRateWithNS (SBMLNamespaces_t *sbmlns);
 
 
 /**
- * Destroys this Rule.
+ * Destroys this Rule_t.
  *
  * @memberof Rule_t
  */
@@ -1253,7 +1253,7 @@ Rule_free (Rule_t *r);
 
 
 /**
- * @return a (deep) copy of this Rule.
+ * @return a (deep) copy of this Rule_t.
  *
  * @memberof Rule_t
  */
@@ -1289,7 +1289,7 @@ Rule_getNamespaces(Rule_t *r);
  * provided for SBML Level 1 compatibility, but developers are encouraged
  * to use the AST mechanisms.  
  *
- * @return the formula for this Rule.
+ * @return the formula for this Rule_t.
  *
  * @memberof Rule_t
  */
@@ -1299,7 +1299,7 @@ Rule_getFormula (const Rule_t *r);
 
 
 /**
- * @return the math for this Rule.
+ * @return the math for this Rule_t.
  *
  * @memberof Rule_t
  */
@@ -1309,7 +1309,7 @@ Rule_getMath (const Rule_t *r);
 
 
 /**
- * @return the type of this Rule, either RULE_TYPE_RATE or
+ * @return the type of this Rule_t, either RULE_TYPE_RATE or
  * RULE_TYPE_SCALAR.
  *
  * @memberof Rule_t
@@ -1320,7 +1320,7 @@ Rule_getType (const Rule_t *r);
 
 
 /**
- * @return the variable for this Rule.
+ * @return the variable for this Rule_t.
  *
  * @memberof Rule_t
  */
@@ -1330,7 +1330,7 @@ Rule_getVariable (const Rule_t *r);
 
 
 /**
- * @return the units for this Rule (L1 ParameterRules only).
+ * @return the units for this Rule_t (L1 ParameterRules only).
  *
  * @memberof Rule_t
  */
@@ -1341,7 +1341,7 @@ Rule_getUnits (const Rule_t *r);
 
 /**
  * @return true (non-zero) if the formula (or equivalently the math) for
- * this Rule is set, false (0) otherwise.
+ * this Rule_t is set, false (0) otherwise.
  *
  * @memberof Rule_t
  */
@@ -1352,7 +1352,7 @@ Rule_isSetFormula (const Rule_t *r);
 
 /**
  * @return true (non-zero) if the math (or equivalently the formula) for
- * this Rule is set, false (0) otherwise.
+ * this Rule_t is set, false (0) otherwise.
  *
  * @memberof Rule_t
  */
@@ -1362,7 +1362,7 @@ Rule_isSetMath (const Rule_t *r);
 
 
 /**
- * @return true (non-zero) if the variable of this Rule is set, false
+ * @return true (non-zero) if the variable of this Rule_t is set, false
  * (0) otherwise.
  *
  * @memberof Rule_t
@@ -1373,7 +1373,7 @@ Rule_isSetVariable (const Rule_t *r);
 
 
 /**
- * @return true (non-zero) if the units for this Rule is set, false
+ * @return true (non-zero) if the units for this Rule_t is set, false
  * (0) otherwise (L1 ParameterRules only).
  *
  * @memberof Rule_t
@@ -1384,7 +1384,7 @@ Rule_isSetUnits (const Rule_t *r);
 
 
 /**
- * Sets the formula of this Rule to a copy of string.
+ * Sets the formula of this Rule_t to a copy of string.
  *
  * @return integer value indicating success/failure of the
  * function.  @if clike The value is drawn from the
@@ -1411,7 +1411,7 @@ Rule_setFormula (Rule_t *r, const char *formula);
 
 
 /**
- * Sets the math of this Rule to a copy of the given ASTNode.
+ * Sets the math of this Rule_t to a copy of the given ASTNode_t.
  *
  * @return integer value indicating success/failure of the
  * function.  @if clike The value is drawn from the
@@ -1428,7 +1428,7 @@ Rule_setMath (Rule_t *r, const ASTNode_t *math);
 
 
 /**
- * Sets the variable of this RateRule to a copy of sid.
+ * Sets the variable of this Rule_t to a copy of sid.
  *
  * @return integer value indicating success/failure of the
  * function.  @if clike The value is drawn from the
@@ -1449,7 +1449,7 @@ Rule_setVariable (Rule_t *r, const char *sid);
 
 
 /**
- * Sets the units for this Rule to a copy of sname (L1 ParameterRules
+ * Sets the units for this Rule_t to a copy of sname (L1 ParameterRules
  * only).
  *
  * @return integer value indicating success/failure of the
@@ -1471,7 +1471,7 @@ Rule_setUnits (Rule_t *r, const char *sname);
 
 
 /**
- * Unsets the units for this Rule (L1 ParameterRules only).
+ * Unsets the units for this Rule_t (L1 ParameterRules only).
  *
  * @return integer value indicating success/failure of the
  * function.  @if clike The value is drawn from the
@@ -1488,7 +1488,7 @@ Rule_unsetUnits (Rule_t *r);
 
 
 /**
- * @return true (non-zero) if this Rule is an AlgebraicRule, false (0)
+ * @return true (non-zero) if this Rule_t is an AlgebraicRule, false (0)
  * otherwise.
  *
  * @memberof Rule_t
@@ -1499,7 +1499,7 @@ Rule_isAlgebraic (const Rule_t *r);
 
 
 /**
- * @return true (non-zero) if this Rule is an AssignmentRule, false (0)
+ * @return true (non-zero) if this Rule_t is an AssignmentRule, false (0)
  * otherwise.
  *
  * @memberof Rule_t
@@ -1510,10 +1510,10 @@ Rule_isAssignment (const Rule_t *r);
 
 
 /**
- * This method attempts to lookup the Rule's variable in the Model's list
+ * This method attempts to lookup the Rule_t's variable in the Model_t's list
  * of Compartments.
  *
- * @return true (non-zero) if this Rule is a CompartmentVolumeRule, false
+ * @return true (non-zero) if this Rule_t is a CompartmentVolumeRule, false
  * (0) otherwise.
  *
  * @memberof Rule_t
@@ -1524,10 +1524,10 @@ Rule_isCompartmentVolume (const Rule_t *r);
 
 
 /**
- * This method attempts to lookup the Rule's variable in the Model's list
+ * This method attempts to lookup the Rule_t's variable in the Model_t's list
  * of Parameters.
  *
- * @return true (non-zero) if this Rule is a ParameterRule, false (0)
+ * @return true (non-zero) if this Rule_t is a ParameterRule, false (0)
  * otherwise.
  *
  * @memberof Rule_t
@@ -1538,7 +1538,7 @@ Rule_isParameter (const Rule_t *r);
 
 
 /**
- * @return true (non-zero) if this Rule is a RateRule (L2) or has
+ * @return true (non-zero) if this Rule_t is a RateRule (L2) or has
  * type="rate" (L1), false (0) otherwise.
  *
  * @memberof Rule_t
@@ -1549,7 +1549,7 @@ Rule_isRate (const Rule_t *r);
 
 
 /**
- * @return true (non-zero) if this Rule is an AssignmentRule (L2) has
+ * @return true (non-zero) if this Rule_t is an AssignmentRule (L2) has
  * type="scalar" (L1), false (0) otherwise.
  *
  * @memberof Rule_t
@@ -1560,10 +1560,10 @@ Rule_isScalar (const Rule_t *r);
 
 
 /**
- * This method attempts to lookup the Rule's variable in the Model's list
+ * This method attempts to lookup the Rule_t's variable in the Model_t's list
  * of Species.
  *
- * @return true (non-zero) if this Rule is a SpeciesConcentrationRule, false
+ * @return true (non-zero) if this Rule_t is a species concentration Rule_t, false
  * (0) otherwise.
  *
  * @memberof Rule_t
@@ -1574,7 +1574,7 @@ Rule_isSpeciesConcentration (const Rule_t *r);
 
 
 /**
- * @return the typecode (int) of SBML structures contained in this ListOf or
+ * @return the typecode (int) of SBML structures contained in this ListOf_t or
  * (default).
  *
  * @memberof Rule_t
@@ -1585,7 +1585,7 @@ Rule_getTypeCode (const Rule_t *r);
 
 
 /**
- * @return the SBML Level 1 typecode for this Rule or SBML_UNKNOWN
+ * @return the SBML Level 1 typecode for this Rule_t or SBML_UNKNOWN
  * (default).
  *
  * @memberof Rule_t
@@ -1596,10 +1596,10 @@ Rule_getL1TypeCode (const Rule_t *r);
 
 
 /**
- * Sets the SBML Level&nbsp;1 typecode for this Rule.
+ * Sets the SBML Level&nbsp;1 typecode for this Rule_t.
  *
  * @param r the Rule_t structure
- * @param L1Type the SBML Level&nbsp;1 typecode for this Rule
+ * @param L1Type the SBML Level&nbsp;1 typecode for this Rule_t
  * (@c SBML_COMPARTMENT_VOLUME_RULE, @c SBML_PARAMETER_RULE,
  * or @c SBML_SPECIES_CONCENTRATION_RULE).
  *
@@ -1667,7 +1667,7 @@ int
 Rule_containsUndeclaredUnits(Rule_t *ia);
 
 /**
- * @return item in this ListOfRule with the given @p id or @c NULL if no such
+ * @return item in this ListOf_t of Rule_t's with the given @p id or @c NULL if no such
  * item exists.
  *
  * @memberof ListOfRules_t
@@ -1678,7 +1678,7 @@ ListOfRules_getById (ListOf_t *lo, const char *sid);
 
 
 /**
- * Removes item in this ListOf items with the given @p id or @c NULL if no such
+ * Removes item in this ListOf_t items with the given @p id or @c NULL if no such
  * item exists.  The caller owns the returned item and is responsible for
  * deleting it.
  *

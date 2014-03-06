@@ -337,7 +337,7 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 BEGIN_C_DECLS
 
 /**
- * Add the given SBMLExtension_t to the SBMLExtensionRegistry.
+ * Add the given SBMLExtension_t to the SBMLExtensionRegistry_t.
  *
  * @param extension the SBMLExtension_t structure to be added.
  *   
@@ -373,7 +373,7 @@ SBMLExtensionRegistry_getExtension(const char* package);
  * Returns an SBasePluginCreator_t structure with the combination of the given 
  * extension point and URI of the package extension.
  *
- * @param extPoint the SBaseExtensionPoint
+ * @param extPoint the SBaseExtensionPoint_t
  * @param uri the URI of the target package extension.
  *
  * @return the SBasePluginCreator_t with the combination of the given 
@@ -389,7 +389,7 @@ SBMLExtensionRegistry_getSBasePluginCreator(const SBaseExtensionPoint_t* extPoin
 /**
  * Returns a copied array of SBasePluginCreators with the given extension point.
  *
- * @param extPoint the SBaseExtensionPoint
+ * @param extPoint the SBaseExtensionPoint_t
  * @param length pointer to a variable holding the length of the array returned. 
  *
  * @return an array of SBasePluginCreators with the given typecode.
@@ -469,7 +469,7 @@ SBMLExtensionRegistry_isRegistered(const char* uri);
 /**
  * Returns the number of SBMLExtension_t structures for the given extension point.
  *
- * @param extPoint the SBaseExtensionPoint
+ * @param extPoint the SBaseExtensionPoint_t
  *
  * @return the number of SBMLExtension_t structures for the given extension point.
  *

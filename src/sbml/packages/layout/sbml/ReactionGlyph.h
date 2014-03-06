@@ -750,7 +750,7 @@ unsigned int
 ReactionGlyph_getNumSpeciesReferenceGlyphs (const ReactionGlyph_t *rg);
 
 /**
- * Returns the pointer to the SpeciesReferenceGlyphs for the given index.
+ * Returns the pointer to the SpeciesReferenceGlyph_t's for the given index.
  *
  * @param rg The ReactionGlyph_t structure.
  * @param index The index of the SpeciesReferenceGlyph_t to return.
@@ -812,7 +812,7 @@ void
 ReactionGlyph_setCurve (ReactionGlyph_t *rg, Curve_t *c);
 
 /**
- * Gets the Curve for the given reaction glyph.
+ * Gets the Curve_t for the given reaction glyph.
  *
  * @param rg The ReactionGlyph_t structure.
  *
@@ -823,7 +823,7 @@ Curve_t *
 ReactionGlyph_getCurve (ReactionGlyph_t *rg);
 
 /**
- * Returns true if the Curve has one or more LineSegment.
+ * Returns true if the Curve_t has one or more LineSegment.
  *
  * @param rg The ReactionGlyph_t structure.
  *

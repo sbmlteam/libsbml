@@ -292,7 +292,7 @@ SBMLDocumentPlugin_addExpectedAttributes(SBMLDocumentPlugin_t* plugin,
 
 /**
  * Subclasses must override this method to read values from the given
- * XMLAttributes if they have their specific attributes.
+ * XMLAttributes_t if they have their specific attributes.
  *
  * @param plugin the SBMLDocumentPlugin_t structure
  * @param attributes the XMLAttributes_t structure
@@ -315,7 +315,7 @@ SBMLDocumentPlugin_readAttributes(SBMLDocumentPlugin_t* plugin,
 
 /**
  * Subclasses must override this method to write their XML attributes
- * to the XMLOutputStream if they have their specific attributes.
+ * to the XMLOutputStream_t if they have their specific attributes.
  *
  * @param plugin the SBMLDocumentPlugin_t structure
  * @param stream the XMLOutputStream_t structure
@@ -337,13 +337,13 @@ SBMLDocumentPlugin_writeAttributes(SBMLDocumentPlugin_t* plugin,
 
 /**
  * Returns the value of "required" attribute of corresponding
- * package in the SBMLDocument element. The value is true (1) if the
+ * package in the SBMLDocument_t element. The value is true (1) if the
  * package is required, or false (0) otherwise.
  *
  * @param plugin the SBMLDocumentPlugin_t structure
  *
  * @return the value of "required" attribute of corresponding
- * package in the SBMLDocument element. The value is true (1) if the
+ * package in the SBMLDocument_t element. The value is true (1) if the
  * package is required, or false (0) otherwise. If the plugin is invalid
  * LIBSBML_INVALID_OBJECT will be returned.
  *
@@ -356,14 +356,14 @@ SBMLDocumentPlugin_getRequired(SBMLDocumentPlugin_t* plugin);
 
 /**
  * Sets the value of "required" attribute of corresponding
- * package in the SBMLDocument element. The value is true (1) if the
+ * package in the SBMLDocument_t element. The value is true (1) if the
  * package is required, or false (0) otherwise.
  *
  * @param plugin the SBMLDocumentPlugin_t structure
  * @param required the new value for the "required" attribute.
  *
  * @return the value of "required" attribute of corresponding
- * package in the SBMLDocument element. The value is true (1) if the
+ * package in the SBMLDocument_t element. The value is true (1) if the
  * package is required, or false (0) otherwise. If the plugin is invalid
  * LIBSBML_INVALID_OBJECT will be returned.
  *

@@ -488,7 +488,7 @@ Curve_free (Curve_t *c);
 
 
 /**
- * Adds a LineSegment.
+ * Adds a LineSegment_t to a Curve_t.
  *
  * @param c The Curve_t structure.
  * @param ls The LineSegment_t structure to add.

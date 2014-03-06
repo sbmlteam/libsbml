@@ -697,13 +697,13 @@ BEGIN_C_DECLS
  *
  * @return a pointer to the newly created StoichiometryMath_t structure.
  *
- * @note Once a StoichiometryMath_t has been added to an SBMLDocument, the @p
+ * @note Once a StoichiometryMath_t has been added to an SBMLDocument_t, the @p
  * level and @p version for the document @em override those used to create
  * the StoichiometryMath_t.  Despite this, the ability to supply the values at
  * creation time is an important aid to creating valid SBML.  Knowledge of
  * the intended SBML Level and Version  determine whether it is valid to
  * assign a particular value to an attribute, or whether it is valid to add
- * a structure to an existing SBMLDocument.
+ * a structure to an existing SBMLDocument_t.
  *
  * @memberof StoichiometryMath_t
  */
@@ -721,13 +721,13 @@ StoichiometryMath_create (unsigned int level, unsigned int version);
  *
  * @return a pointer to the newly created StoichiometryMath_t structure.
  *
- * @note Once a StoichiometryMath_t has been added to an SBMLDocument, the
+ * @note Once a StoichiometryMath_t has been added to an SBMLDocument_t, the
  * @p sbmlns namespaces for the document @em override those used to create
  * the StoichiometryMath_t.  Despite this, the ability to supply the values at 
  * creation time is an important aid to creating valid SBML.  Knowledge of the
  * intended SBML Level and Version determine whether it is valid to assign a 
  * particular value to an attribute, or whether it is valid to add a structure 
- * to an existing SBMLDocument.
+ * to an existing SBMLDocument_t.
  *
  * @memberof StoichiometryMath_t
  */
@@ -794,7 +794,7 @@ StoichiometryMath_isSetMath (const StoichiometryMath_t *t);
 
 
 /**
- * Sets the math of this StoichiometryMath_t to a copy of the given ASTNode.
+ * Sets the math of this StoichiometryMath_t to a copy of the given ASTNode_t.
  *
  * @return integer value indicating success/failure of the
  * function.  @if clike The value is drawn from the
@@ -811,12 +811,12 @@ StoichiometryMath_setMath (StoichiometryMath_t *t, const ASTNode_t *math);
 
 
 /**
- * Calculates and returns a UnitDefinition that expresses the units
+ * Calculates and returns a UnitDefinition_t that expresses the units
  * returned by the math expression in this StoichiometryMath_t.
  *
  * @param math the StoichiometryMath_t structure to check
  *
- * @return A UnitDefinition that expresses the units of the math 
+ * @return A UnitDefinition_t that expresses the units of the math 
  *
  *
  * The units are calculated based on the mathematical expression in the
@@ -857,7 +857,7 @@ StoichiometryMath_getDerivedUnitDefinition(StoichiometryMath_t *math);
  * includes parameters/numbers 
  * with undeclared units, @c false otherwise.
  *
- * @note A return value of @c true indicates that the UnitDefinition
+ * @note A return value of @c true indicates that the UnitDefinition_t
  * returned by getDerivedUnitDefinition() may not accurately represent
  * the units of the expression.
  *

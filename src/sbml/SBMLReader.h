@@ -465,7 +465,7 @@ BEGIN_C_DECLS
 
 
 /**
- * Creates a new SBMLReader and returns it.  By default, XML Schema
+ * Creates a new SBMLReader_t and returns it.  By default, XML Schema
  * validation is off.
  *
  * @memberof SBMLReader_t
@@ -475,7 +475,7 @@ SBMLReader_t *
 SBMLReader_create (void);
 
 /**
- * Frees the given SBMLReader.
+ * Frees the given SBMLReader_t.
  *
  * @memberof SBMLReader_t
  */

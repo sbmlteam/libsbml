@@ -4006,7 +4006,7 @@ SBase_isSetSBOTerm(const SBase_t *sb);
  * The string @p metaid is copied.  The value of @p metaid must be an
  * identifier conforming to the syntax defined by the XML 1.0 data type
  * ID.  Among other things, this type requires that a value is unique
- * among all the values of type XML ID in an SBMLDocument.  Although SBML
+ * among all the values of type XML ID in an SBMLDocument_t.  Although SBML
  * only uses XML ID for the "metaid" attribute, callers should be careful
  * if they use XML ID's in XML portions of a model that are not defined
  * by SBML, such as in the application-specific content of the
@@ -4524,9 +4524,9 @@ SBase_unsetSBOTerm (SBase_t *sb);
 
 
 /**
- * Adds a copy of the given CVTerm to this SBML structure.
+ * Adds a copy of the given CVTerm_t to this SBML structure.
  *
- * @param sb the structure to add the CVTerm to
+ * @param sb the structure to add the CVTerm_t to
  * @param term the CVTerm_t to assign
  *
  * @return integer value indicating success/failure of the
@@ -4538,8 +4538,8 @@ SBase_unsetSBOTerm (SBase_t *sb);
  * @li @link OperationReturnValues_t#LIBSBML_UNEXPECTED_ATTRIBUTE LIBSBML_UNEXPECTED_ATTRIBUTE @endlink
  * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT @endlink
  *
- * @note The annotation constructed from a CVTerm uses the metaid
- * of the structure to identify it.  Adding a CVTerm to an structure
+ * @note The annotation constructed from a CVTerm_t uses the metaid
+ * of the structure to identify it.  Adding a CVTerm_t to an structure
  * where the 'metaId' attribute has not been set will fail with the
  * return value LIBSBML_UNEXPECTED_ATTRIBUTE.
  *
@@ -4551,10 +4551,10 @@ SBase_addCVTerm(SBase_t *sb, CVTerm_t *term);
 
 
 /**
- * Adds a copy of the given CVTerm to this SBML structure creating
+ * Adds a copy of the given CVTerm_t to this SBML structure creating
  * a new bBag element with the same identifier.
  *
- * @param sb the structure to add the CVTerm to
+ * @param sb the structure to add the CVTerm_t to
  * @param term the CVTerm_t to assign
  *
  * @return integer value indicating success/failure of the
@@ -4566,8 +4566,8 @@ SBase_addCVTerm(SBase_t *sb, CVTerm_t *term);
  * @li @link OperationReturnValues_t#LIBSBML_UNEXPECTED_ATTRIBUTE LIBSBML_UNEXPECTED_ATTRIBUTE @endlink
  * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT @endlink
  *
- * @note The annotation constructed from a CVTerm uses the metaid
- * of the structure to identify it.  Adding a CVTerm to an structure
+ * @note The annotation constructed from a CVTerm_t uses the metaid
+ * of the structure to identify it.  Adding a CVTerm_t to an structure
  * where the 'metaId' attribute has not been set will fail with the
  * return value LIBSBML_UNEXPECTED_ATTRIBUTE.
  *
@@ -4609,13 +4609,13 @@ SBase_getNumCVTerms(SBase_t *sb);
 
 
 /**
- * Returns the nth CVTerm in the list of CVTerms of this SBML
+ * Returns the nth CVTerm in the list of CVTerm_t's of this SBML
  * structure.
  *
- * @param sb the structure to getCVTerms from
- * @param n unsigned int the index of the CVTerm to retrieve
+ * @param sb the structure to get CVTerm_t's from
+ * @param n unsigned int the index of the CVTerm_t to retrieve
  *
- * @return the nth CVTerm in the list of CVTerms for this SBML structure.
+ * @return the nth CVTerm_t in the list of CVTerm_t's for this SBML structure.
  *
  * @memberof SBase_t
  */
@@ -4625,10 +4625,10 @@ SBase_getCVTerm(SBase_t *sb, unsigned int n);
 
 
 /**
- * Clears the list of CVTerms of this SBML
+ * Clears the list of CVTerm_t's of this SBML
  * structure.
  *
- * @param sb the structure to clear CVTerms from
+ * @param sb the structure to clear CVTerm_t's from
  *
  * @return integer value indicating success/failure of the
  * function.  @if clike The value is drawn from the
@@ -4645,9 +4645,9 @@ SBase_unsetCVTerms(SBase_t *sb);
 
 
 /**
- * Returns the ModelHistory of the given SBase_t structure.
+ * Returns the ModelHistory_t of the given SBase_t structure.
  *
- * @return the ModelHistory of the given SBase_t structure.
+ * @return the ModelHistory_t of the given SBase_t structure.
  *
  * @param sb the SBase_t structure
  *
@@ -4658,12 +4658,12 @@ ModelHistory_t *
 SBase_getModelHistory(SBase_t *sb);
 
 /**
- * Predicate for testing whether the ModelHistory of a given SBase_t structure is
+ * Predicate for testing whether the ModelHistory_t of a given SBase_t structure is
  * assigned.
  *
  * @param sb the SBase_t structure
  *
- * @return nonzero if the ModelHistory of this SBase_t structure is
+ * @return nonzero if the ModelHistory_t of this SBase_t structure is
  * set, zero (0) otherwise.
  *
  * @memberof SBase_t
@@ -4674,7 +4674,7 @@ SBase_isSetModelHistory(SBase_t *sb);
 
 
 /**
- * Set the ModelHistory of the given SBase_t structure.
+ * Set the ModelHistory_t of the given SBase_t structure.
  *
  * @param sb the SBase_t structure
  * @param history the ModelHistory_t structure
@@ -4693,7 +4693,7 @@ int
 SBase_setModelHistory(SBase_t *sb, ModelHistory_t *history);
 
 /**
- * Unsets the ModelHistory of the given SBase_t structure.
+ * Unsets the ModelHistory_t of the given SBase_t structure.
  *
  * @param sb the SBase_t structure
  *
@@ -4712,7 +4712,7 @@ SBase_unsetModelHistory(SBase_t *sb);
 
 
 /**
- * Returns the BiologicalQualifier associated with this resource,
+ * Returns the Biological Qualifier associated with this resource,
  * BQB_UNKNOWN if the resource does not exist.
  *
  * @param sb the structure to query
@@ -4729,7 +4729,7 @@ SBase_getResourceBiologicalQualifier(SBase_t *sb, const char * resource);
 
 
 /**
- * Returns the ModelQualifier associated with this resource,
+ * Returns the Model Qualifier associated with this resource,
  * BQM_UNKNOWN if the resource does not exist.
  *
  * @param sb the structure to query

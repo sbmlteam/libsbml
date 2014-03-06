@@ -1071,7 +1071,7 @@ SBMLExtension_addSBasePluginCreator(SBMLExtension_t* ext,
  * bound to the given extension point.
  *
  * @param ext the SBMLExtension_t structure 
- * @param extPoint the SBaseExtensionPoint to which the returned 
+ * @param extPoint the SBaseExtensionPoint_t to which the returned 
  * SBasePluginCreatorBase_t structure bound.
  *
  * @return an SBasePluginCreatorBase_t structure of this package extension 

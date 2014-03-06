@@ -774,20 +774,20 @@ BEGIN_C_DECLS
  * and @p version values.
  *
  * @param level an unsigned int, the SBML Level to assign to this
- * FunctionDefinition
+ * FunctionDefinition_t
  *
  * @param version an unsigned int, the SBML Version to assign to this
- * FunctionDefinition
+ * FunctionDefinition_t
  *
  * @return a pointer to the newly created FunctionDefinition_t structure.
  *
- * @note Once a FunctionDefinition has been added to an SBMLDocument, the @p
+ * @note Once a FunctionDefinition_t has been added to an SBMLDocument_t, the @p
  * level and @p version for the document @em override those used to create
- * the FunctionDefinition.  Despite this, the ability to supply the values at
+ * the FunctionDefinition_t.  Despite this, the ability to supply the values at
  * creation time is an important aid to creating valid SBML.  Knowledge of
  * the intended SBML Level and Version  determine whether it is valid to
  * assign a particular value to an attribute, or whether it is valid to add
- * a structure to an existing SBMLDocument.
+ * a structure to an existing SBMLDocument_t.
  *
  * @memberof FunctionDefinition_t
  */
@@ -805,13 +805,13 @@ FunctionDefinition_create (unsigned int level, unsigned int version);
  *
  * @return a pointer to the newly created FunctionDefinition_t structure.
  *
- * @note Once a FunctionDefinition has been added to an SBMLDocument, the
+ * @note Once a FunctionDefinition_t has been added to an SBMLDocument_t, the
  * @p sbmlns namespaces for the document @em override those used to create
- * the FunctionDefinition.  Despite this, the ability to supply the values at 
+ * the FunctionDefinition_t.  Despite this, the ability to supply the values at 
  * creation time is an important aid to creating valid SBML.  Knowledge of the 
  * intended SBML Level and Version determine whether it is valid to assign a 
  * particular value to an attribute, or whether it is valid to add a structure to 
- * an existing SBMLDocument.
+ * an existing SBMLDocument_t.
  *
  * @memberof FunctionDefinition_t
  */
@@ -821,7 +821,7 @@ FunctionDefinition_createWithNS (SBMLNamespaces_t *sbmlns);
 
 
 /**
- * Frees the given FunctionDefinition.
+ * Frees the given FunctionDefinition_t.
  *
  * @param fd the FunctionDefinition_t structure
  *
@@ -945,7 +945,7 @@ FunctionDefinition_isSetName (const FunctionDefinition_t *fd);
  * @param fd the FunctionDefinition_t structure
  *
  * @return nonzero if the mathematical expression of this
- * FunctionDefinition is set, zero (0) otherwise.
+ * FunctionDefinition_t is set, zero (0) otherwise.
  *
  * @memberof FunctionDefinition_t
  */
@@ -1103,7 +1103,7 @@ FunctionDefinition_getBody (const FunctionDefinition_t *fd);
  * @param fd the FunctionDefinition_t structure
  *
  * @return nonzero if the body of this
- * FunctionDefinition is set, zero (0) otherwise.
+ * FunctionDefinition_t is set, zero (0) otherwise.
  *
  * @memberof FunctionDefinition_t
  */
@@ -1128,7 +1128,7 @@ FunctionDefinition_getNumArguments (const FunctionDefinition_t *fd);
 
 
 /**
- * @return item in this ListOfFunctionDefinition with the given @p id or @c NULL if no such
+ * @return item in this ListOf_t of FunctionDefinition_t's with the given @p id or @c NULL if no such
  * item exists.
  *
  * @memberof ListOfFunctionDefinitions_t
@@ -1139,7 +1139,7 @@ ListOfFunctionDefinitions_getById (ListOf_t *lo, const char *sid);
 
 
 /**
- * Removes item in this ListOf items with the given @p id or @c NULL if no such
+ * Removes item in this ListOf_t items with the given @p id or @c NULL if no such
  * item exists.  The caller owns the returned item and is responsible for
  * deleting it.
  *

@@ -572,7 +572,7 @@ void
 XMLOutputStream_writeXMLDecl (XMLOutputStream_t *stream);
 
 /**
- * Increases the indentation level for this XMLOutputStream.
+ * Increases the indentation level for this XMLOutputStream_t.
  *
  * @memberof XMLTriple_t
  */
@@ -581,7 +581,7 @@ void
 XMLOutputStream_upIndent(XMLOutputStream_t *stream);
 
 /**
- * Decreases the indentation level for this XMLOutputStream.
+ * Decreases the indentation level for this XMLOutputStream_t.
  *
  * @memberof XMLTriple_t
  */
@@ -590,7 +590,7 @@ void
 XMLOutputStream_downIndent(XMLOutputStream_t *stream);
 
 /**
- * Writes the given XML end element name to this XMLOutputStream.
+ * Writes the given XML end element name to this XMLOutputStream_t.
  *
  * @memberof XMLTriple_t
  */
@@ -600,7 +600,7 @@ XMLOutputStream_endElement (XMLOutputStream_t *stream, const char* name);
 
 /**
  * Writes the given XML end element 'prefix:name' to this
- * XMLOutputStream.
+ * XMLOutputStream_t.
  *
  * @memberof XMLTriple_t
  */
@@ -610,7 +610,7 @@ XMLOutputStream_endElementTriple (XMLOutputStream_t *stream,
                                   const XMLTriple_t *triple);
 
 /**
- * Turns automatic indentation on or off for this XMLOutputStream.
+ * Turns automatic indentation on or off for this XMLOutputStream_t.
  *
  * @memberof XMLTriple_t
  */
@@ -619,7 +619,7 @@ void
 XMLOutputStream_setAutoIndent (XMLOutputStream_t *stream, int indent);
 
 /**
- * Writes the given XML start element name to this XMLOutputStream.
+ * Writes the given XML start element name to this XMLOutputStream_t.
  *
  * @memberof XMLTriple_t
  */
@@ -629,7 +629,7 @@ XMLOutputStream_startElement (XMLOutputStream_t *stream, const char* name);
 
 /**
  * Writes the given XML start element 'prefix:name' to this
- * XMLOutputStream.
+ * XMLOutputStream_t.
  *
  * @memberof XMLTriple_t
  */
@@ -639,7 +639,7 @@ XMLOutputStream_startElementTriple (XMLOutputStream_t *stream,
                                     const XMLTriple_t *triple);
 
 /**
- * Writes the given XML start and end element name to this XMLOutputStream.
+ * Writes the given XML start and end element name to this XMLOutputStream_t.
  *
  * @memberof XMLTriple_t
  */
@@ -649,7 +649,7 @@ XMLOutputStream_startEndElement (XMLOutputStream_t *stream, const char* name);
 
 /**
  * Writes the given XML start and end element 'prefix:name' to this
- * XMLOutputStream.
+ * XMLOutputStream_t.
  *
  * @memberof XMLTriple_t
  */
@@ -659,7 +659,7 @@ XMLOutputStream_startEndElementTriple (XMLOutputStream_t *stream,
                                        const XMLTriple_t *triple);
 
 /**
- * Writes the given attribute, name="value" to this XMLOutputStream.
+ * Writes the given attribute, name="value" to this XMLOutputStream_t.
  *
  * @memberof XMLTriple_t
  */
@@ -670,7 +670,7 @@ XMLOutputStream_writeAttributeChars (XMLOutputStream_t *stream,
 
 /**
  * Writes the given attribute, prefix:name="value" to this
- * XMLOutputStream.
+ * XMLOutputStream_t.
  *
  * @memberof XMLTriple_t
  */
@@ -682,7 +682,7 @@ XMLOutputStream_writeAttributeCharsTriple (XMLOutputStream_t *stream,
 
 /**
  * Writes the given attribute, name="true" or name="false" to this
- * XMLOutputStream.
+ * XMLOutputStream_t.
  *
  * @memberof XMLTriple_t
  */
@@ -694,7 +694,7 @@ XMLOutputStream_writeAttributeBool (XMLOutputStream_t *stream,
 
 /**
  * Writes the given attribute, prefix:name="true" or prefix:name="false"
- * to this XMLOutputStream.
+ * to this XMLOutputStream_t.
  *
  * @memberof XMLTriple_t
  */
@@ -705,7 +705,7 @@ XMLOutputStream_writeAttributeBoolTriple (XMLOutputStream_t *stream,
                                           const int flag);
 
 /**
- * Writes the given attribute, name="value" to this XMLOutputStream.
+ * Writes the given attribute, name="value" to this XMLOutputStream_t.
  *
  * @memberof XMLTriple_t
  */
@@ -716,7 +716,7 @@ XMLOutputStream_writeAttributeDouble (XMLOutputStream_t *stream,
                                       const double value);
 
 /**
- * Writes the given attribute, prefix:name="value" to this XMLOutputStream.
+ * Writes the given attribute, prefix:name="value" to this XMLOutputStream_t.
  *
  * @memberof XMLTriple_t
  */
@@ -727,7 +727,7 @@ XMLOutputStream_writeAttributeDoubleTriple (XMLOutputStream_t *stream,
                                             const double value);
 
 /**
- * Writes the given attribute, name="value" to this XMLOutputStream.
+ * Writes the given attribute, name="value" to this XMLOutputStream_t.
  *
  * @memberof XMLTriple_t
  */
@@ -738,7 +738,7 @@ XMLOutputStream_writeAttributeLong (XMLOutputStream_t *stream,
                                     const long value);
 
 /**
- * Writes the given attribute, prefix:name="value" to this XMLOutputStream.
+ * Writes the given attribute, prefix:name="value" to this XMLOutputStream_t.
  *
  * @memberof XMLTriple_t
  */
@@ -749,7 +749,7 @@ XMLOutputStream_writeAttributeLongTriple (XMLOutputStream_t *stream,
                                           const long value);
 
 /**
- * Writes the given attribute, name="value" to this XMLOutputStream.
+ * Writes the given attribute, name="value" to this XMLOutputStream_t.
  *
  * @memberof XMLTriple_t
  */
@@ -760,7 +760,7 @@ XMLOutputStream_writeAttributeInt (XMLOutputStream_t *stream,
                                    const int value);
 
 /**
- * Writes the given attribute, prefix:name="value" to this XMLOutputStream.
+ * Writes the given attribute, prefix:name="value" to this XMLOutputStream_t.
  *
  * @memberof XMLTriple_t
  */
@@ -771,7 +771,7 @@ XMLOutputStream_writeAttributeIntTriple (XMLOutputStream_t *stream,
                                          const int value);
 
 /**
- * Writes the given attribute, name="value" to this XMLOutputStream.
+ * Writes the given attribute, name="value" to this XMLOutputStream_t.
  *
  * @memberof XMLTriple_t
  */
@@ -782,7 +782,7 @@ XMLOutputStream_writeAttributeUInt (XMLOutputStream_t *stream,
                                     const unsigned int value);
 
 /**
- * Writes the given attribute, prefix:name="value" to this XMLOutputStream.
+ * Writes the given attribute, prefix:name="value" to this XMLOutputStream_t.
  *
  * @memberof XMLTriple_t
  */

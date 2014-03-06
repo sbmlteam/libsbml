@@ -629,9 +629,9 @@ XMLNode_t *
 XMLNode_createEndElement (const XMLTriple_t *triple);
 
 /**
- * Creates a text XMLNode.  Defaults to creating the node with a line number of 0 and a column number of 0.
+ * Creates a text XMLNode_t.  Defaults to creating the node with a line number of 0 and a column number of 0.
  *
- * @param text the text to be added to the XMLToken
+ * @param text the text to be added to the XMLToken_t
  *
  * @memberof XMLNode_t
  */
@@ -694,7 +694,7 @@ XMLNode_addChild (XMLNode_t *node, const XMLNode_t *child);
  * @param n the index at which the given node is inserted
  * @param child XMLNode_t structure to be inserted as nth child.
  *
- * @return the newly inserted child in this XMLNode. 
+ * @return the newly inserted child in this XMLNode_t. 
  * NULL will be returned if the given child is NULL. 
  *
  * @memberof XMLNode_t
@@ -705,7 +705,7 @@ XMLNode_insertChild (XMLNode_t *node, unsigned int n, const XMLNode_t *child);
 
 
 /**
- * Removes the nth child of this XMLNode and returned the removed node.
+ * Removes the nth child of this XMLNode_t and returned the removed node.
  *
  * @param node XMLNode_t structure to which child is to be removed.
  * @param n the index of the node to be removed
@@ -756,11 +756,11 @@ XMLNode_getCharacters (const XMLNode_t *node);
 
 
 /**
- * Sets the XMLTripe (name, uri and prefix) of this XML element.
+ * Sets the XMLTripe_t (name, uri and prefix) of this XML element.
  * Nothing will be done if this XML element is a text node.
  *
  * @param node XMLNode_t structure to which the triple to be added.
- * @param triple an XMLTriple, the XML triple to be set to this XML element.
+ * @param triple an XMLTriple_t, the XML triple to be set to this XML element.
  *
  * @return integer value indicating success/failure of the
  * function.  @if clike The value is drawn from the
@@ -860,7 +860,7 @@ XMLNode_getChildNC (XMLNode_t *node, const unsigned int n);
  * @param node XMLNode_t structure to be queried.
  * @param name the name of the node to return
  * 
- * @return the first child of this XMLNode with given name.
+ * @return the first child of this XMLNode_t with given name.
  *
  * @memberof XMLNode_t
  */
@@ -877,7 +877,7 @@ XMLNode_getChildForNameNC (XMLNode_t *node, const char*  name);
  * @param node XMLNode_t structure to be queried.
  * @param name the name of the node to return
  * 
- * @return the first child of this XMLNode with given name.
+ * @return the first child of this XMLNode_t with given name.
  *
  * @memberof XMLNode_t
  */
@@ -960,11 +960,11 @@ XMLNode_getAttributes (const XMLNode_t *node);
 
 
 /**
- * Sets an XMLAttributes to this XMLNode.
- * Nothing will be done if this XMLNode is not a start element.
+ * Sets an XMLAttributes_t to this XMLNode_t.
+ * Nothing will be done if this XMLNode_t is not a start element.
  *
  * @param node XMLNode_t structure to which attributes to be set.
- * @param attributes XMLAttributes to be set to this XMLNode.
+ * @param attributes XMLAttributes to be set to this XMLNode_t.
  *
  * @return integer value indicating success/failure of the
  * function.  @if clike The value is drawn from the
@@ -974,7 +974,7 @@ XMLNode_getAttributes (const XMLNode_t *node);
  * @li @link OperationReturnValues_t#LIBSBML_INVALID_XML_OPERATION LIBSBML_INVALID_XML_OPERATION @endlink
  * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT @endlink
  *
- * @note This function replaces the existing XMLAttributes with the new one.
+ * @note This function replaces the existing XMLAttributes_t with the new one.
  *
  * @memberof XMLNode_t
  */
@@ -984,9 +984,9 @@ XMLNode_setAttributes (XMLNode_t *node, const XMLAttributes_t* attributes);
 
 
 /**
- * Adds an attribute with the given local name to the attribute set in this XMLNode.
+ * Adds an attribute with the given local name to the attribute set in this XMLNode_t.
  * (namespace URI and prefix are empty)
- * Nothing will be done if this XMLNode is not a start element.
+ * Nothing will be done if this XMLNode_t is not a start element.
  *
  * @param node XMLNode_t structure to which an attribute to be added.
  * @param name a string, the local name of the attribute.
@@ -1013,8 +1013,8 @@ XMLNode_addAttr ( XMLNode_t *node,  const char* name, const char* value );
 
 /**
  * Adds an attribute with a prefix and namespace URI to the attribute set 
- * in this XMLNode optionally 
- * Nothing will be done if this XMLNode is not a start element.
+ * in this XMLNode_t optionally 
+ * Nothing will be done if this XMLNode_t is not a start element.
  *
  * @param node XMLNode_t structure to which an attribute to be added.
  * @param name a string, the local name of the attribute.
@@ -1046,14 +1046,14 @@ XMLNode_addAttrWithNS ( XMLNode_t *node,  const char* name
 
 /**
  * Adds an attribute with the given XMLTriple/value pair to the attribute set
- * in this XMLNode.
- * Nothing will be done if this XMLNode is not a start element.
+ * in this XMLNode_t.
+ * Nothing will be done if this XMLNode_t is not a start element.
  *
  * @note if local name with the same namespace URI already exists in the 
  * attribute set, its value and prefix will be replaced.
  *
  * @param node XMLNode_t structure to which an attribute to be added.
- * @param triple an XMLTriple, the XML triple of the attribute.
+ * @param triple an XMLTriple_t, the XML triple of the attribute.
  * @param value a string, the value of the attribute.
  *
  * @return integer value indicating success/failure of the
@@ -1073,8 +1073,8 @@ XMLNode_addAttrWithTriple (XMLNode_t *node, const XMLTriple_t *triple, const cha
 
 /**
  * Removes an attribute with the given index from the attribute set in
- * this XMLNode.
- * Nothing will be done if this XMLNode is not a start element.
+ * this XMLNode_t.
+ * Nothing will be done if this XMLNode_t is not a start element.
  *
  * @param node XMLNode_t structure from which an attribute to be removed.
  * @param n an integer the index of the resource to be deleted
@@ -1097,8 +1097,8 @@ XMLNode_removeAttr (XMLNode_t *node, int n);
 
 /**
  * Removes an attribute with the given local name (without namespace URI) 
- * from the attribute set in this XMLNode.
- * Nothing will be done if this XMLNode is not a start element.
+ * from the attribute set in this XMLNode_t.
+ * Nothing will be done if this XMLNode_t is not a start element.
  *
  * @param node XMLNode_t structure from which an attribute to be removed.
  * @param name   a string, the local name of the attribute.
@@ -1121,8 +1121,8 @@ XMLNode_removeAttrByName (XMLNode_t *node, const char* name);
 
 /**
  * Removes an attribute with the given local name and namespace URI from 
- * the attribute set in this XMLNode.
- * Nothing will be done if this XMLNode is not a start element.
+ * the attribute set in this XMLNode_t.
+ * Nothing will be done if this XMLNode_t is not a start element.
  *
  * @param node XMLNode_t structure from which an attribute to be removed.
  * @param name   a string, the local name of the attribute.
@@ -1145,12 +1145,12 @@ XMLNode_removeAttrByNS (XMLNode_t *node, const char* name, const char* uri);
 
 
 /**
- * Removes an attribute with the given XMLTriple from the attribute set 
- * in this XMLNode.  
- * Nothing will be done if this XMLNode is not a start element.
+ * Removes an attribute with the given XMLTriple_t from the attribute set 
+ * in this XMLNode_t.  
+ * Nothing will be done if this XMLNode_t is not a start element.
  *
  * @param node XMLNode_t structure from which an attribute to be removed.
- * @param triple an XMLTriple, the XML triple of the attribute.
+ * @param triple an XMLTriple_t, the XML triple of the attribute.
  *
  * @return integer value indicating success/failure of the
  * function.  @if clike The value is drawn from the
@@ -1169,8 +1169,8 @@ XMLNode_removeAttrByTriple (XMLNode_t *node, const XMLTriple_t *triple);
 
 
 /**
- * Clears (deletes) all attributes in this XMLNode.
- * Nothing will be done if this XMLNode is not a start element.
+ * Clears (deletes) all attributes in this XMLNode_t.
+ * Nothing will be done if this XMLNode_t is not a start element.
  *
  * @param node XMLNode_t structure from which attributes to be cleared.
  *
@@ -1208,13 +1208,13 @@ XMLNode_getAttrIndex (const XMLNode_t *node, const char* name, const char* uri);
 
 
 /**
- * Return the index of an attribute with the given XMLTriple.
+ * Return the index of an attribute with the given XMLTriple_t.
  *
  * @param node XMLNode_t structure to be queried.
- * @param triple an XMLTriple, the XML triple of the attribute for which 
+ * @param triple an XMLTriple_t, the XML triple of the attribute for which 
  *        the index is required.
  *
- * @return the index of an attribute with the given XMLTriple, or -1 if not present.
+ * @return the index of an attribute with the given XMLTriple_t, or -1 if not present.
  *
  * @memberof XMLNode_t
  */
@@ -1228,7 +1228,7 @@ XMLNode_getAttrIndexByTriple (const XMLNode_t *node, const XMLTriple_t *triple);
  *
  * @param node XMLNode_t structure to be queried.
  *
- * @return the number of attributes in the attributes set in this XMLNode.
+ * @return the number of attributes in the attributes set in this XMLNode_t.
  *
  * @memberof XMLNode_t
  */
@@ -1239,7 +1239,7 @@ XMLNode_getAttributesLength (const XMLNode_t *node);
 
 /**
  * Return the local name of an attribute in the attributes set in this 
- * XMLNode (by position).
+ * XMLNode_t (by position).
  *
  * @param node XMLNode_t structure to be queried.
  * @param index an integer, the position of the attribute whose local name 
@@ -1321,7 +1321,7 @@ XMLNode_getAttrURI (const XMLNode_t *node, int index);
 
 
 /**
- * Return the value of an attribute in the attribute set in this XMLNode  
+ * Return the value of an attribute in the attribute set in this XMLNode_t 
  * (by position).
  *
  * @param node XMLNode_t structure to be queried.
@@ -1382,16 +1382,16 @@ XMLNode_getAttrValueByNS (const XMLNode_t *node, const char* name, const char* u
 
 
 /**
- * Return a value of an attribute with the given XMLTriple.
+ * Return a value of an attribute with the given XMLTriple_t.
  *
  * @param node XMLNode_t structure to be queried.
- * @param triple an XMLTriple, the XML triple of the attribute whose 
+ * @param triple an XMLTriple_t, the XML triple of the attribute whose 
  *        value is required.
  *
  * @return The attribute value as a string.  
  *
  * @note If an attribute with the
- * given XMLTriple does not exist, an empty string will be returned.  
+ * given XMLTriple_t does not exist, an empty string will be returned.  
  * Use XMLNode_hasAttr(...) to test for attribute existence.
  *
  * @memberof XMLNode_t
@@ -1410,7 +1410,7 @@ XMLNode_getAttrValueByTriple (const XMLNode_t *node, const XMLTriple_t *triple);
  * @param index an integer, the position of the attribute.
  *
  * @return @c non-zero (true) if an attribute with the given index exists in 
- * the attribute set in this XMLNode, @c zero (false) otherwise.
+ * the attribute set in this XMLNode_t, @c zero (false) otherwise.
  *
  * @memberof XMLNode_t
  */
@@ -1422,13 +1422,13 @@ XMLNode_hasAttr (const XMLNode_t *node, int index);
 /**
  * Predicate returning @c true or @c false depending on whether
  * an attribute with the given local name (without namespace URI) 
- * exists in the attribute set in this XMLNode.
+ * exists in the attribute set in this XMLNode_t.
  *
  * @param node XMLNode_t structure to be queried.
  * @param name a string, the local name of the attribute.
  *
  * @return @c non-zero (true) if an attribute with the given local name 
- * (without namespace URI) exists in the attribute set in this XMLNode, 
+ * (without namespace URI) exists in the attribute set in this XMLNode_t, 
  * @c zero (false) otherwise.
  *
  * @memberof XMLNode_t
@@ -1440,14 +1440,14 @@ XMLNode_hasAttrWithName (const XMLNode_t *node, const char* name);
 /**
  * Predicate returning @c true or @c false depending on whether
  * an attribute with the given local name and namespace URI exists 
- * in the attribute set in this XMLNode.
+ * in the attribute set in this XMLNode_t.
  *
  * @param node XMLNode_t structure to be queried.
  * @param name a string, the local name of the attribute.
  * @param uri  a string, the namespace URI of the attribute.
  *
  * @return @c non-zero (true) if an attribute with the given local name 
- * and namespace URI exists in the attribute set in this XMLNode, 
+ * and namespace URI exists in the attribute set in this XMLNode_t, 
  * @c zero (false) otherwise.
  *
  * @memberof XMLNode_t
@@ -1460,13 +1460,13 @@ XMLNode_hasAttrWithNS (const XMLNode_t *node, const char* name, const char* uri)
 /**
  * Predicate returning @c true or @c false depending on whether
  * an attribute with the given XML triple exists in the attribute set in 
- * this XMLNode 
+ * this XMLNode_t
  *
  * @param node XMLNode_t structure to be queried.
- * @param triple an XMLTriple, the XML triple of the attribute 
+ * @param triple an XMLTriple_t, the XML triple of the attribute 
  *
  * @return @c non-zero (true) if an attribute with the given XML triple exists
- * in the attribute set in this XMLNode, @c zero (false) otherwise.
+ * in the attribute set in this XMLNode_t, @c zero (false) otherwise.
  *
  *
  * @memberof XMLNode_t
@@ -1478,11 +1478,11 @@ XMLNode_hasAttrWithTriple (const XMLNode_t *node, const XMLTriple_t *triple);
 
 /**
  * Predicate returning @c true or @c false depending on whether 
- * the attribute set in this XMLNode set is empty.
+ * the attribute set in this XMLNode_t set is empty.
  * 
  * @param node XMLNode_t structure to be queried.
  *
- * @return @c non-zero (true) if the attribute set in this XMLNode is empty, 
+ * @return @c non-zero (true) if the attribute set in this XMLNode_t is empty, 
  * @c zero (false) otherwise.
  *
  * @memberof XMLNode_t
@@ -1508,11 +1508,11 @@ XMLNode_getNamespaces (const XMLNode_t *node);
 
 
 /**
- * Sets an XMLnamespaces to this XML element.
- * Nothing will be done if this XMLNode is not a start element.
+ * Sets an XMLnamespaces_t to this XML element.
+ * Nothing will be done if this XMLNode_t is not a start element.
  *
  * @param node XMLNode_t structure to be queried.
- * @param namespaces XMLNamespaces to be set to this XMLNode.
+ * @param namespaces XMLNamespaces_t to be set to this XMLNode_t.
  *
  * @return integer value indicating success/failure of the
  * function.  @if clike The value is drawn from the
@@ -1522,7 +1522,7 @@ XMLNode_getNamespaces (const XMLNode_t *node);
  * @li @link OperationReturnValues_t#LIBSBML_INVALID_XML_OPERATION LIBSBML_INVALID_XML_OPERATION @endlink
  * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT @endlink
  *
- * @note This function replaces the existing XMLNamespaces with the new one.
+ * @note This function replaces the existing XMLNamespaces_t with the new one.
  *
  * @memberof XMLNode_t
  */
@@ -1532,10 +1532,10 @@ XMLNode_setNamespaces(XMLNode_t *node, const XMLNamespaces_t* namespaces);
 
 
 /**
- * Appends an XML namespace prefix and URI pair to this XMLNode.
- * If there is an XML namespace with the given prefix in this XMLNode, 
+ * Appends an XML namespace prefix and URI pair to this XMLNode_t.
+ * If there is an XML namespace with the given prefix in this XMLNode_t, 
  * then the existing XML namespace will be overwritten by the new one.
- * Nothing will be done if this XMLNode is not a start element.
+ * Nothing will be done if this XMLNode_t is not a start element.
  *
  * @param node XMLNode_t structure to be queried.
  * @param uri a string, the uri for the namespace
@@ -1557,9 +1557,9 @@ XMLNode_addNamespace (XMLNode_t *node, const char* uri, const char* prefix);
 
 
 /**
- * Removes an XML Namespace stored in the given position of the XMLNamespaces
- * of this XMLNode.
- * Nothing will be done if this XMLNode is not a start element.
+ * Removes an XML Namespace stored in the given position of the XMLNamespaces_t
+ * of this XMLNode_t.
+ * Nothing will be done if this XMLNode_t is not a start element.
  *
  * @param node XMLNode_t structure to be queried.
  * @param index an integer, position of the removed namespace.
@@ -1582,7 +1582,7 @@ XMLNode_removeNamespace (XMLNode_t *node, int index);
 
 /**
  * Removes an XML Namespace with the given prefix.
- * Nothing will be done if this XMLNode is not a start element.
+ * Nothing will be done if this XMLNode_t is not a start element.
  *
  * @param node XMLNode_t structure to be queried.
  * @param prefix a string, prefix of the required namespace.
@@ -1604,9 +1604,9 @@ XMLNode_removeNamespaceByPrefix (XMLNode_t *node, const char* prefix);
 
 
 /**
- * Clears (deletes) all XML namespace declarations in the XMLNamespaces 
- * of this XMLNode.
- * Nothing will be done if this XMLNode is not a start element.
+ * Clears (deletes) all XML namespace declarations in the XMLNamespaces_t 
+ * of this XMLNode_t.
+ * Nothing will be done if this XMLNode_t is not a start element.
  *
  * @param node XMLNode_t structure to be queried.
  *
@@ -1656,8 +1656,8 @@ XMLNode_getNamespaceIndexByPrefix (const XMLNode_t *node, const char* prefix);
 
 
 /**
- * Returns the number of XML namespaces stored in the XMLNamespaces 
- * of this XMLNode.
+ * Returns the number of XML namespaces stored in the XMLNamespaces_t 
+ * of this XMLNode_t.
  *
  * @param node XMLNode_t structure to be queried.
  *
@@ -1679,7 +1679,7 @@ XMLNode_getNamespacesLength (const XMLNode_t *node);
  * @param node XMLNode_t structure to be queried.
  * @param index an integer, position of the removed namespace.
  * 
- * @return the prefix of an XML namespace declaration in the XMLNamespaces 
+ * @return the prefix of an XML namespace declaration in the XMLNamespaces_t 
  * (by position).  
  *
  * @note returned char* should be freed with safe_free() by the caller.
@@ -1714,7 +1714,7 @@ XMLNode_getNamespacePrefixByURI (const XMLNode_t *node, const char* uri);
  * @param node XMLNode_t structure to be queried.
  * @param index an integer, position of the removed namespace.
  *
- * @return the URI of an XML namespace declaration in the XMLNamespaces
+ * @return the URI of an XML namespace declaration in the XMLNamespaces_t
  * (by position).  
  *
  * @note returned char* should be freed with safe_free() by the caller.
@@ -1745,11 +1745,11 @@ XMLNode_getNamespaceURIByPrefix (const XMLNode_t *node, const char* prefix);
 
 /**
  * Predicate returning @c true or @c false depending on whether 
- * the XMLNamespaces of this XMLNode is empty.
+ * the XMLNamespaces_t of this XMLNode_t is empty.
  * 
  * @param node XMLNode_t structure to be queried.
  *
- * @return @c non-zero (true) if the XMLNamespaces of this XMLNode is empty, 
+ * @return @c non-zero (true) if the XMLNamespaces_t of this XMLNode_t is empty, 
  * @c zero (false) otherwise.
  *
  * @memberof XMLNode_t
@@ -1761,14 +1761,14 @@ XMLNode_isNamespacesEmpty (const XMLNode_t *node);
 
 /**
  * Predicate returning @c true or @c false depending on whether 
- * an XML Namespace with the given URI is contained in the XMLNamespaces of
- * this XMLNode.
+ * an XML Namespace with the given URI is contained in the XMLNamespaces_t of
+ * this XMLNode_t.
  * 
  * @param node XMLNode_t structure to be queried.
  * @param uri a string, the uri for the namespace
  *
  * @return @c no-zero (true) if an XML Namespace with the given URI is 
- * contained in the XMLNamespaces of this XMLNode,  @c zero (false) otherwise.
+ * contained in the XMLNamespaces_t of this XMLNode_t,  @c zero (false) otherwise.
  *
  * @memberof XMLNode_t
  */
@@ -1779,14 +1779,14 @@ XMLNode_hasNamespaceURI(const XMLNode_t *node, const char* uri);
 
 /**
  * Predicate returning @c true or @c false depending on whether 
- * an XML Namespace with the given prefix is contained in the XMLNamespaces of
- * this XMLNode.
+ * an XML Namespace with the given prefix is contained in the XMLNamespaces_t of
+ * this XMLNode_t.
  *
  * @param node XMLNode_t structure to be queried.
  * @param prefix a string, the prefix for the namespace
  * 
  * @return @c no-zero (true) if an XML Namespace with the given URI is 
- * contained in the XMLNamespaces of this XMLNode, @c zero (false) otherwise.
+ * contained in the XMLNamespaces_t of this XMLNode_t, @c zero (false) otherwise.
  *
  * @memberof XMLNode_t
  */
@@ -1798,14 +1798,14 @@ XMLNode_hasNamespacePrefix(const XMLNode_t *node, const char* prefix);
 /**
  * Predicate returning @c true or @c false depending on whether 
  * an XML Namespace with the given uri/prefix pair is contained in the 
- * XMLNamespaces of this XMLNode.
+ * XMLNamespaces_t of this XMLNode_t.
  *
  * @param node XMLNode_t structure to be queried.
  * @param uri a string, the uri for the namespace
  * @param prefix a string, the prefix for the namespace
  * 
  * @return @c non-zero (true) if an XML Namespace with the given uri/prefix pair is 
- * contained in the XMLNamespaces of this XMLNode,  @c zero (false) otherwise.
+ * contained in the XMLNamespaces_t of this XMLNode_t,  @c zero (false) otherwise.
  *
  * @memberof XMLNode_t
  */
@@ -1815,11 +1815,11 @@ XMLNode_hasNamespaceNS(const XMLNode_t *node, const char* uri, const char* prefi
 
 
 /**
- * Returns a string which is converted from a given XMLNode. 
+ * Returns a string which is converted from a given XMLNode_t. 
  *
  * @param node XMLNode_t to be converted to a string.
  *
- * @return a string (char*) which is converted from a given XMLNode.
+ * @return a string (char*) which is converted from a given XMLNode_t.
  *
  * @note returned char* should be freed with safe_free() by the caller.
  *
@@ -1831,11 +1831,11 @@ XMLNode_toXMLString(const XMLNode_t *node);
 
 
 /**
- * Returns a string which is converted from a given XMLNode. 
+ * Returns a string which is converted from a given XMLNode_t. 
  *
  * @param node XMLNode_t to be converted to a string.
  *
- * @return a string (char*) which is converted from a given XMLNode.
+ * @return a string (char*) which is converted from a given XMLNode_t.
  *
  * @note returned char* should be freed with safe_free() by the caller.
  *

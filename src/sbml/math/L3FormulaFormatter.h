@@ -146,7 +146,7 @@ SBML_formulaToL3StringWithSettings (const ASTNode_t *tree, const L3ParserSetting
 
 
 /**
- * @return true (non-zero) if the given ASTNode is to be 
+ * @return true (non-zero) if the given ASTNode_t is to be 
  * formatted as a function.
  */
 int
@@ -154,7 +154,7 @@ L3FormulaFormatter_isFunction (const ASTNode_t *node, const L3ParserSettings_t *
 
 
 /**
- * @return true (non-zero) if the given child ASTNode should be grouped
+ * @return true (non-zero) if the given child ASTNode_t should be grouped
  * (with parenthesis), false (0) otherwise.
  *
  * A node should be group if it is not an argument to a function and
@@ -171,35 +171,35 @@ L3FormulaFormatter_isGrouped (const ASTNode_t *parent, const ASTNode_t *child, c
 
 
 /**
- * Formats the given ASTNode as an SBML L1 token and appends the result to
- * the given StringBuffer.
+ * Formats the given ASTNode_t as an SBML L1 token and appends the result to
+ * the given StringBuffer_t.
  */
 void
 L3FormulaFormatter_format (StringBuffer_t *sb, const ASTNode_t *node, const L3ParserSettings_t *settings);
 
 
 /**
- * Formats the given ASTNode as an SBML L1 function name and appends the
- * result to the given StringBuffer.
+ * Formats the given ASTNode_t as an SBML L1 function name and appends the
+ * result to the given StringBuffer_t.
  */
 void
 L3FormulaFormatter_formatFunction (StringBuffer_t *sb, const ASTNode_t *node, const L3ParserSettings_t *settings);
 
 
 /**
- * Formats the given ASTNode as an SBML L3 operator and appends the result
- * to the given StringBuffer.
+ * Formats the given ASTNode_t as an SBML L3 operator and appends the result
+ * to the given StringBuffer_t.
  */
 void
 L3FormulaFormatter_formatOperator (StringBuffer_t *sb, const ASTNode_t *node);
 
 /**
- * Formats the given ASTNode as a rational number and appends the result to
- * the given StringBuffer.  This amounts to:
+ * Formats the given ASTNode_t as a rational number and appends the result to
+ * the given StringBuffer_t.  This amounts to:
  *
  *   "(numerator/denominator)"
  *
- * If the ASTNode has defined units, and the settings object is set to parse units, this function will append
+ * If the ASTNode_t has defined units, and the settings object is set to parse units, this function will append
  * a string with that unit name.
  */
 void
@@ -207,10 +207,10 @@ L3FormulaFormatter_formatRational (StringBuffer_t *sb, const ASTNode_t *node, co
 
 
 /**
- * Formats the given ASTNode as a real number and appends the result to
- * the given StringBuffer.
+ * Formats the given ASTNode_t as a real number and appends the result to
+ * the given StringBuffer_t.
  *
- * If the ASTNode has defined units, and the settings object is set to parse units, this function will append
+ * If the ASTNode_t has defined units, and the settings object is set to parse units, this function will append
  * a string with that unit name.
  */
 void
@@ -218,14 +218,14 @@ L3FormulaFormatter_formatReal (StringBuffer_t *sb, const ASTNode_t *node, const 
 
 
 /**
- * Formats the given logical or relational ASTNode as an infix 
- * internal operator and appends the result to the given StringBuffer.
+ * Formats the given logical or relational ASTNode_t as an infix 
+ * internal operator and appends the result to the given StringBuffer_t.
  */
 void
 L3FormulaFormatter_formatLogicalRelational(StringBuffer_t *sb, const ASTNode_t *node);
 
 /**
- * Visits the given ASTNode node.  This function is really just a
+ * Visits the given ASTNode_t node.  This function is really just a
  * dispatcher to either SBML_formulaToL3String_visitFunction() or
  * SBML_formulaToL3String_visitOther().
  */
@@ -237,7 +237,7 @@ L3FormulaFormatter_visit ( const ASTNode_t *parent,
 
 
 /**
- * Visits the given ASTNode as a function.  For this node only the
+ * Visits the given ASTNode_t as a function.  For this node only the
  * traversal is preorder.
  */
 void
@@ -248,7 +248,7 @@ L3FormulaFormatter_visitFunction ( const ASTNode_t *parent,
 
 
 /**
- * Visits the given ASTNode as the function "log(10, x)" and in doing so,
+ * Visits the given ASTNode_t as the function "log(10, x)" and in doing so,
  * formats it as "log10(x)" (where x is any subexpression).
  */
 void
@@ -259,7 +259,7 @@ L3FormulaFormatter_visitLog10 ( const ASTNode_t *parent,
 
 
 /**
- * Visits the given ASTNode as the function "root(2, x)" and in doing so,
+ * Visits the given ASTNode_t as the function "root(2, x)" and in doing so,
  * formats it as "sqrt(x)" (where x is any subexpression).
  */
 void
@@ -270,7 +270,7 @@ L3FormulaFormatter_visitSqrt ( const ASTNode_t *parent,
 
 
 /**
- * Visits the given ASTNode as a unary minus.  For this node only the
+ * Visits the given ASTNode_t as a unary minus.  For this node only the
  * traversal is preorder.
  */
 void
@@ -281,7 +281,7 @@ L3FormulaFormatter_visitUMinus ( const ASTNode_t *parent,
 
 
 /**
- * Visits the given ASTNode as a unary not.
+ * Visits the given ASTNode_t as a unary not.
  */
 void
 L3FormulaFormatter_visitUNot ( const ASTNode_t *parent,
@@ -289,7 +289,7 @@ L3FormulaFormatter_visitUNot ( const ASTNode_t *parent,
                                StringBuffer_t  *sb, 
                                const L3ParserSettings_t *settings );
 /**
- * Visits the given ASTNode, translating it from the complicated
+ * Visits the given ASTNode_t, translating it from the complicated
  * piecewise function to the much simpler 'x % y' form.
  */
 void
@@ -299,7 +299,7 @@ L3FormulaFormatter_visitModulo ( const ASTNode_t *parent,
                                  const L3ParserSettings_t *settings );
 
   /**
- * Visits the given ASTNode and continues the inorder traversal.
+ * Visits the given ASTNode_t and continues the inorder traversal.
  */
 void
 L3FormulaFormatter_visitOther ( const ASTNode_t *parent,

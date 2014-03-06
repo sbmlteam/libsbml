@@ -155,7 +155,7 @@ StringBuffer_appendReal (StringBuffer_t *sb, double r);
 
 /**
  * Appends a string representation of the given exp to this
- * StringBuffer.
+ * StringBuffer_t.
  *
  * This function is equivalent to:
  *

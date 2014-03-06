@@ -590,10 +590,10 @@ L3ParserSettings_free (L3ParserSettings_t * settings);
  * Sets the model associated with this L3ParserSettings_t structure
  * to the provided pointer.  
  *
- * @note A copy of the Model is not made, so modifications to the Model itself 
+ * @note A copy of the Model_t is not made, so modifications to the Model_t itself 
  * may affect future parsing.
  *
- * @param settings the L3ParserSettings_t structure on which to set the Model.
+ * @param settings the L3ParserSettings_t structure on which to set the Model_t.
  * @param model The Model_t structure to which infix strings are to be compared.
  *
  * @memberof L3ParserSettings_t
@@ -606,7 +606,7 @@ L3ParserSettings_setModel (L3ParserSettings_t * settings, const Model_t * model)
 /**
  * Retrieves the model associated with this L3ParserSettings_t structure.  
  *
- * @param settings the L3ParserSettings_t structure from which to get the Model.
+ * @param settings the L3ParserSettings_t structure from which to get the Model_t.
  *
  * @return the Model_t structure associated with this L3ParserSettings_t structure.
  *
@@ -620,7 +620,7 @@ L3ParserSettings_getModel (const L3ParserSettings_t * settings);
 /**
  * Unsets the model associated with this L3ParserSettings_t structure.
  *
- * @param settings the L3ParserSettings_t structure on which to unset the Model.
+ * @param settings the L3ParserSettings_t structure on which to unset the Model_t.
  *
  * @memberof L3ParserSettings_t
  */
@@ -658,7 +658,7 @@ L3ParserSettings_setParseLog (L3ParserSettings_t * settings, ParseLogType_t type
  * @li L3P_PARSE_LOG_AS_LN (1)
  * @li L3P_PARSE_LOG_AS_ERROR (2)
  *
- * @param settings the L3ParserSettings_t structure on which to set the Model.
+ * @param settings the L3ParserSettings_t structure on which to set the Model_t.
  *
  * @return ParseLogType_t log parsing option to associate with this 
  * L3ParserSettings_t structure.  Returns L3P_PARSE_LOG_AS_LOG10 (0) if @param settings

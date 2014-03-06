@@ -615,13 +615,13 @@ BEGIN_C_DECLS
  *
  * @return a pointer to the newly created SpeciesType_t structure.
  *
- * @note Once a SpeciesType_t has been added to an SBMLDocument, the @p
+ * @note Once a SpeciesType_t has been added to an SBMLDocument_t, the @p
  * level and @p version for the document @em override those used to create
  * the SpeciesType_t.  Despite this, the ability to supply the values at
  * creation time is an important aid to creating valid SBML.  Knowledge of
  * the intended SBML Level and Version  determine whether it is valid to
  * assign a particular value to an attribute, or whether it is valid to add
- * a structure to an existing SBMLDocument.
+ * a structure to an existing SBMLDocument_t.
  *
  * @memberof SpeciesType_t
  */
@@ -639,13 +639,13 @@ SpeciesType_create (unsigned int level, unsigned int version);
  *
  * @return a pointer to the newly created SpeciesType_t structure.
  *
- * @note Once a SpeciesType_t has been added to an SBMLDocument, the
+ * @note Once a SpeciesType_t has been added to an SBMLDocument_t, the
  * @p sbmlns namespaces for the document @em override those used to create
  * the SpeciesType_t. Despite this, the ability to supply the values at creation 
  * time is an important aid to creating valid SBML.  Knowledge of the intended 
  * SBML Level and Version determine whether it is valid to assign a particular 
  * value to an attribute, or whether it is valid to add a structure to an existing
- * SBMLDocument.
+ * SBMLDocument_t.
  *
  * @memberof SpeciesType_t
  */
@@ -837,7 +837,7 @@ ListOfSpeciesTypes_getById (ListOf_t *lo, const char *sid);
 
 
 /**
- * Removes item in this ListOf items with the given @p id or @c NULL if no such
+ * Removes item in this ListOf_t items with the given @p id or @c NULL if no such
  * item exists.  The caller owns the returned item and is responsible for
  * deleting it.
  *

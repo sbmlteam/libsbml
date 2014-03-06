@@ -1214,13 +1214,13 @@ BEGIN_C_DECLS
  *
  * @return a pointer to the newly created SpeciesReference_t structure.
  *
- * @note Once a SpeciesReference_t has been added to an SBMLDocument, the @p
+ * @note Once a SpeciesReference_t has been added to an SBMLDocument_t, the @p
  * level and @p version for the document @em override those used to create
  * the SpeciesReference_t.  Despite this, the ability to supply the values at
  * creation time is an important aid to creating valid SBML.  Knowledge of
  * the intended SBML Level and Version  determine whether it is valid to
  * assign a particular value to an attribute, or whether it is valid to add
- * a structure to an existing SBMLDocument.
+ * a structure to an existing SBMLDocument_t.
  *
  * @memberof SpeciesReference_t
  */
@@ -1238,13 +1238,13 @@ SpeciesReference_create (unsigned int level, unsigned int version);
  *
  * @return a pointer to the newly created SpeciesReference_t structure.
  *
- * @note Once a SpeciesReference_t has been added to an SBMLDocument, the
+ * @note Once a SpeciesReference_t has been added to an SBMLDocument_t, the
  * @p sbmlns namespaces for the document @em override those used to create
  * the SpeciesReference_t.  Despite this, the ability to supply the values at 
  * creation time is an important aid to creating valid SBML.  Knowledge of the 
  * intended SBML Level and Version determine whether it is valid to assign a 
  * particular value to an attribute, or whether it is valid to add a structure 
- * to an existing SBMLDocument.
+ * to an existing SBMLDocument_t.
  *
  * @memberof SpeciesReference_t
  */
@@ -1265,13 +1265,13 @@ SpeciesReference_createWithNS (SBMLNamespaces_t *sbmlns);
  *
  * @return a pointer to the newly created SpeciesReference_t structure.
  *
- * @note Once a ModifierSpeciesReference has been added to an SBMLDocument, 
+ * @note Once a modifier SpeciesReference_t has been added to an SBMLDocument_t, 
  * the @p level and @p version for the document @em override those used to 
- * create the ModifierSpeciesReference.  Despite this, the ability to supply 
+ * create the modifier SpeciesReference_t.  Despite this, the ability to supply 
  * the values at creation time is an important aid to creating valid SBML.  
  * Knowledge of the intended SBML Level and Version determine whether it is
  * valid to assign a particular value to an attribute, or whether it is valid 
- * to add a structure to an existing SBMLDocument.
+ * to add a structure to an existing SBMLDocument_t.
  *
  * @memberof SpeciesReference_t
  */
@@ -1285,17 +1285,17 @@ SpeciesReference_createModifier (unsigned int level, unsigned int version);
  * using the given SBMLNamespaces_t structure.
  *
  * @param sbmlns SBMLNamespaces_t, a pointer to an SBMLNamespaces_t structure
- * to assign to this ModifierSpeciesReference_t
+ * to assign to this modifier SpeciesReference_t
  *
  * @return a pointer to the newly created SpeciesReference_t structure.
  *
- * @note Once a ModifierSpeciesReference has been added to an SBMLDocument, 
+ * @note Once a modifier SpeciesReference_t has been added to an SBMLDocument_t, 
  * the @p sbmlns namespaces for the document @em override those used to create
- * the ModifierSpeciesReference. Despite this, the ability to supply the values 
+ * the modifier SpeciesReference_t. Despite this, the ability to supply the values 
  * at creation time is an important aid to creating valid SBML.  Knowledge of 
  * the intended SBML Level and Version determine whether it is valid to assign a 
  * particular value to an attribute, or whether it is valid to add a structure to 
- * an existing SBMLDocument.
+ * an existing SBMLDocument_t.
  *
  * @memberof SpeciesReference_t
  */
@@ -1746,8 +1746,7 @@ SpeciesReference_createStoichiometryMath (SpeciesReference_t *sr);
  *
  * @param sr The SpeciesReference_t structure to use.
  *
- * @param math An ASTNode expression tree to use as the content of the
- * "stoichiometryMath" subelement.
+ * @param math The StoichiometryMath_t structure to use in the given SpeciesReference_t.
  *
  * @return integer value indicating success/failure of the
  * function.  @if clike The value is drawn from the
@@ -1930,7 +1929,7 @@ SpeciesReference_hasRequiredAttributes (SpeciesReference_t *sr);
 
 
 /**
- * @return item in this ListOfSpeciesReference with the given @p id or @c NULL if no such
+ * @return item in this ListOf_t of SpeciesReference_t's with the given @p id or @c NULL if no such
  * item exists.
  *
  * @memberof ListOfSpeciesReferences_t
@@ -1941,7 +1940,7 @@ ListOfSpeciesReferences_getById (ListOf_t *lo, const char *sid);
 
 
 /**
- * Removes item in this ListOf items with the given @p id or @c NULL if no such
+ * Removes item in this ListOf_t items with the given @p id or @c NULL if no such
  * item exists.  The caller owns the returned item and is responsible for
  * deleting it.
  *

@@ -649,20 +649,20 @@ BEGIN_C_DECLS
  * and @p version values.
  *
  * @param level an unsigned int, the SBML Level to assign to this
- * Delay
+ * Delay_t
  *
  * @param version an unsigned int, the SBML Version to assign to this
- * Delay
+ * Delay_t
  *
  * @return a pointer to the newly created Delay_t structure.
  *
- * @note Once a Delay has been added to an SBMLDocument, the @p
+ * @note Once a Delay_t has been added to an SBMLDocument_t, the @p
  * level and @p version for the document @em override those used to create
- * the Delay.  Despite this, the ability to supply the values at
+ * the Delay_t.  Despite this, the ability to supply the values at
  * creation time is an important aid to creating valid SBML.  Knowledge of
  * the intended SBML Level and Version  determine whether it is valid to
  * assign a particular value to an attribute, or whether it is valid to add
- * a structure to an existing SBMLDocument.
+ * a structure to an existing SBMLDocument_t.
  *
  * @memberof Delay_t
  */
@@ -680,13 +680,13 @@ Delay_create (unsigned int level, unsigned int version);
  *
  * @return a pointer to the newly created Delay_t structure.
  *
- * @note Once a Delay has been added to an SBMLDocument, the
+ * @note Once a Delay_t has been added to an SBMLDocument_t, the
  * @p sbmlns namespaces for the document @em override those used to create
- * the Delay.  Despite this, the ability to supply the values at creation time
+ * the Delay_t.  Despite this, the ability to supply the values at creation time
  * is an important aid to creating valid SBML.  Knowledge of the intended SBML
  * Level and Version determine whether it is valid to assign a particular value
  * to an attribute, or whether it is valid to add a structure to an existing
- * SBMLDocument.
+ * SBMLDocument_t.
  *
  * @memberof Delay_t
  */
@@ -759,7 +759,7 @@ Delay_getMath (const Delay_t *d);
  * @param d the Delay_t structure to query
  *
  * @return @c true if the formula (meaning the @c math subelement) of
- * this Delay is set, @c false otherwise.
+ * this Delay_t is set, @c false otherwise.
  *
  * @memberof Delay_t
  */
@@ -773,7 +773,7 @@ Delay_isSetMath (const Delay_t *d);
  * given ASTNode_t structure.
  *
  * @param d the Delay_t structure to set.
- * @param math an ASTNode representing a formula tree.
+ * @param math an ASTNode_t representing a formula tree.
  *
  * @return integer value indicating success/failure of the
  * function.  @if clike The value is drawn from the

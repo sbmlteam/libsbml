@@ -1288,7 +1288,7 @@ XMLAttributes_addWithTriple (XMLAttributes_t *xa, const XMLTriple_t* triple, con
 
 
 /**
- * Removes an attribute (a name/value pair) from this XMLAttributes set.  
+ * Removes an attribute (a name/value pair) from this XMLAttributes_t set.  
  *
  * @param xa the XMLAttributes_t structure.
  * @param n an integer the index of the resource to be deleted
@@ -1309,7 +1309,7 @@ XMLAttributes_removeResource (XMLAttributes_t *xa, int n);
 
 
 /**
- * Removes an attribute (a name/value pair) from this XMLAttributes set.  
+ * Removes an attribute (a name/value pair) from this XMLAttributes_t set.  
  *
  * @param xa the XMLAttributes_t structure.
  * @param n an integer the index of the resource to be deleted
@@ -1330,7 +1330,7 @@ XMLAttributes_remove (XMLAttributes_t *xa, int n);
 
 
 /**
- * Removes an attribute with the given local name from this XMLAttributes set.  
+ * Removes an attribute with the given local name from this XMLAttributes_t set.  
  *
  * @param xa the XMLAttributes_t structure.
  * @param name a string, the local name of the attribute.
@@ -1357,7 +1357,7 @@ XMLAttributes_removeByName (XMLAttributes_t *xa, const char* name);
 
 /**
  * Removes an attribute with the given name and namespace URI from this
- * XMLAttributes set.
+ * XMLAttributes_t set.
  *
  * @param xa the XMLAttributes_t structure.
  * @param name a string, the local name of the attribute for which the index is required.
@@ -1379,10 +1379,10 @@ XMLAttributes_removeByNS (XMLAttributes_t *xa, const char* name, const char* uri
 
 
 /**
- * Removes an attribute with the given triple from this XMLAttributes set.
+ * Removes an attribute with the given triple from this XMLAttributes_t set.
  *
  * @param xa the XMLAttributes_t structure.
- * @param triple an XMLTriple, the XML triple of the attribute for which
+ * @param triple an XMLTriple_t, the XML triple of the attribute for which
  *        the index is required.
  *
  * @return integer value indicating success/failure of the
@@ -1401,7 +1401,7 @@ XMLAttributes_removeByTriple (XMLAttributes_t *xa, const XMLTriple_t* triple);
 
 
 /**
- * Clears (deletes) all attributes in this XMLAttributes structure.
+ * Clears (deletes) all attributes in this XMLAttributes_t structure.
  *
  * @param xa the XMLAttributes_t structure.
  *
@@ -1455,10 +1455,10 @@ XMLAttributes_getIndexByNS (const XMLAttributes_t *xa, const char *name, const c
  * Return the index of an attribute with the given XML triple.
  *
  * @param xa the XMLAttributes_t structure.
- * @param triple an XMLTriple, the XML triple of the attribute for which
+ * @param triple an XMLTriple_t, the XML triple of the attribute for which
  *        the index is required.
  *
- * @return the index of an attribute with the given XMLTriple, or -1 if not present.
+ * @return the index of an attribute with the given XMLTriple_t, or -1 if not present.
  *
  * @memberof XMLAttributes_t
  */
@@ -1645,7 +1645,7 @@ LIBLAX_EXTERN
  *         NULL will be returned if the value is empty.
  *
  * @note If an attribute with the
- * given XMLTriple does not exist, NULL will be returned.
+ * given XMLTriple_t does not exist, NULL will be returned.
  * Use XMLAttributes_hasAttributeWithTriple(..) > 0 to test for attribute existence.
  * Returned const char* should be freed with safe_free() by the caller.
  *
@@ -1754,7 +1754,7 @@ XMLAttributes_isEmpty (const XMLAttributes_t *xa);
  * "false", "1", and "0" (case-insensitive).  For more information, see:
  * http://www.w3.org/TR/xmlschema-2/#boolean
  *
- * If an XMLErrorLog is passed in datatype format errors are logged.  If
+ * If an XMLErrorLog_t is passed in datatype format errors are logged.  If
  * required is true, missing attributes are also logged.
  *
  * @param xa the XMLAttributes_t structure.
@@ -1791,7 +1791,7 @@ XMLAttributes_readIntoBoolean (XMLAttributes_t *xa,
  * "false", "1", and "0" (case-insensitive).  For more information, see:
  * http://www.w3.org/TR/xmlschema-2/#boolean
  *
- * If an XMLErrorLog is passed in datatype format errors are logged.  If
+ * If an XMLErrorLog_t is passed in datatype format errors are logged.  If
  * required is true, missing attributes are also logged.
  *
  *
@@ -1825,7 +1825,7 @@ XMLAttributes_readIntoBooleanByTriple (XMLAttributes_t *xa,
  * (case-sensitive).  For more information, see:
  * http://www.w3.org/TR/xmlschema-2/#double
  *
- * If an XMLErrorLog is passed in datatype format errors are logged.  If
+ * If an XMLErrorLog_t is passed in datatype format errors are logged.  If
  * required is true, missing attributes are also logged.
  *
  *
@@ -1863,7 +1863,7 @@ XMLAttributes_readIntoDouble (XMLAttributes_t *xa,
  * (case-sensitive).  For more information, see:
  * http://www.w3.org/TR/xmlschema-2/#double
  *
- * If an XMLErrorLog is passed in datatype format errors are logged.  If
+ * If an XMLErrorLog_t is passed in datatype format errors are logged.  If
  * required is true, missing attributes are also logged.
  *
  *
@@ -1897,7 +1897,7 @@ XMLAttributes_readIntoDoubleByTriple (XMLAttributes_t *xa,
  * limit values to what can be stored in a long.  For more information,
  * see: http://www.w3.org/TR/xmlschema-2/#integer
  *
- * If an XMLErrorLog is passed in datatype format errors are logged.  If
+ * If an XMLErrorLog_t is passed in datatype format errors are logged.  If
  * required is true, missing attributes are also logged.
  *
  *
@@ -1935,7 +1935,7 @@ XMLAttributes_readIntoLong (XMLAttributes_t *xa,
  * limit values to what can be stored in a long.  For more information,
  * see: http://www.w3.org/TR/xmlschema-2/#integer
  *
- * If an XMLErrorLog is passed in datatype format errors are logged.  If
+ * If an XMLErrorLog_t is passed in datatype format errors are logged.  If
  * required is true, missing attributes are also logged.
  *
  *
@@ -1969,7 +1969,7 @@ XMLAttributes_readIntoLongByTriple (XMLAttributes_t *xa,
  * limit values to what can be stored in a int.  For more information,
  * see: http://www.w3.org/TR/xmlschema-2/#integer
  *
- * If an XMLErrorLog is passed in datatype format errors are logged.  If
+ * If an XMLErrorLog_t is passed in datatype format errors are logged.  If
  * required is true, missing attributes are also logged.
  *
  *
@@ -2007,7 +2007,7 @@ XMLAttributes_readIntoInt (XMLAttributes_t *xa,
  * limit values to what can be stored in a int.  For more information,
  * see: http://www.w3.org/TR/xmlschema-2/#integer
  *
- * If an XMLErrorLog is passed in datatype format errors are logged.  If
+ * If an XMLErrorLog_t is passed in datatype format errors are logged.  If
  * required is true, missing attributes are also logged.
  *
  *
@@ -2041,7 +2041,7 @@ XMLAttributes_readIntoIntByTriple (XMLAttributes_t *xa,
  * limit values to what can be stored in a unsigned int.  For more
  * information, see: http://www.w3.org/TR/xmlschema-2/#integer
  *
- * If an XMLErrorLog is passed in datatype format errors are logged.  If
+ * If an XMLErrorLog_t is passed in datatype format errors are logged.  If
  * required is true, missing attributes are also logged.
  *
  *
@@ -2079,7 +2079,7 @@ XMLAttributes_readIntoUnsignedInt (XMLAttributes_t *xa,
  * limit values to what can be stored in a unsigned int.  For more
  * information, see: http://www.w3.org/TR/xmlschema-2/#integer
  *
- * If an XMLErrorLog is passed in datatype format errors are logged.  If
+ * If an XMLErrorLog_t is passed in datatype format errors are logged.  If
  * required is true, missing attributes are also logged.
  *
  *
@@ -2107,7 +2107,7 @@ XMLAttributes_readIntoUnsignedIntByTriple (XMLAttributes_t *xa,
  * Reads the value for the attribute name into value.  If the given local
  * name was not found, value is not modified.
  *
- * If an XMLErrorLog is passed in datatype format errors are logged.  If
+ * If an XMLErrorLog_t is passed in datatype format errors are logged.  If
  * required is true, missing attributes are also logged.
  *
  *
@@ -2139,7 +2139,7 @@ XMLAttributes_readIntoString (XMLAttributes_t *xa,
  * Reads the value for the attribute with the given XMLTriple_t into value.  
  * If the XMLTriple_t was not found, value is not modified.
  *
- * If an XMLErrorLog is passed in datatype format errors are logged.  If
+ * If an XMLErrorLog_t is passed in datatype format errors are logged.  If
  * required is true, missing attributes are also logged.
  *
  *

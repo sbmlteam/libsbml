@@ -609,17 +609,17 @@ BEGIN_C_DECLS
  * Trigger_t
  *
  * @param version an unsigned int, the SBML Version to assign to this
- * Trigger
+ * Trigger_t
  *
  * @return a pointer to the newly created Trigger_t structure.
  *
- * @note Once a Trigger_t has been added to an SBMLDocument, the @p
+ * @note Once a Trigger_t has been added to an SBMLDocument_t, the @p
  * level and @p version for the document @em override those used to create
  * the Trigger_t.  Despite this, the ability to supply the values at
  * creation time is an important aid to creating valid SBML.  Knowledge of
  * the intended SBML Level and Version  determine whether it is valid to
  * assign a particular value to an attribute, or whether it is valid to add
- * a structure to an existing SBMLDocument.
+ * a structure to an existing SBMLDocument_t.
  *
  * @memberof Trigger_t
  */
@@ -637,13 +637,13 @@ Trigger_create (unsigned int level, unsigned int version);
  *
  * @return a pointer to the newly created Trigger_t structure.
  *
- * @note Once a Trigger_t has been added to an SBMLDocument, the
+ * @note Once a Trigger_t has been added to an SBMLDocument_t, the
  * @p sbmlns namespaces for the document @em override those used to create
  * the Trigger_t.  Despite this, the ability to supply the values at creation time
  * is an important aid to creating valid SBML.  Knowledge of the intended SBML
  * Level and Version determine whether it is valid to assign a particular value
  * to an attribute, or whether it is valid to add a structure to an existing
- * SBMLDocument.
+ * SBMLDocument_t.
  *
  * @memberof Trigger_t
  */
@@ -770,7 +770,7 @@ Trigger_isSetPersistent (const Trigger_t *t);
 
 
 /**
- * Sets the math of this Trigger_t to a copy of the given ASTNode.
+ * Sets the math of this Trigger_t to a copy of the given ASTNode_t.
  *
  * @return integer value indicating success/failure of the
  * function.  @if clike The value is drawn from the

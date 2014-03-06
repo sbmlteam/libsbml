@@ -1718,7 +1718,7 @@ Layout_createWithSize (const char *sid,
                        double width, double height, double depth);
 
 /**
- * Creates a new Layout_t with the given Dimensions and returns a pointer to
+ * Creates a new Layout_t with the given Dimensions_t and returns a pointer to
  * it.
  *
  * @param sid        The id of the created Layout_t
@@ -1816,7 +1816,7 @@ Layout_addTextGlyph (Layout_t *l, TextGlyph_t *tg);
 
 
 /**
- * Returns a pointer to the CompartmentGlyph with the given index.
+ * Returns a pointer to the CompartmentGlyph_t with the given index.
  *
  * @param l The Layout_t structure
  * @param index The index of the desired CompartmentGlyph_t.
@@ -1828,7 +1828,7 @@ CompartmentGlyph_t *
 Layout_getCompartmentGlyph (Layout_t *l, unsigned int index);
 
 /**
- * Returns a pointer to the SpeciesGlyph with the given index.
+ * Returns a pointer to the SpeciesGlyph_t with the given index.
  *
  * @param l The Layout_t structure
  * @param index The index of the desired SpeciesGlyph_t.
@@ -1841,7 +1841,7 @@ Layout_getSpeciesGlyph (Layout_t *l, unsigned int index);
 
 
 /**
- * Returns a pointer to the ReactionGlyph with the given index.
+ * Returns a pointer to the ReactionGlyph_t with the given index.
  *
  * @param l The Layout_t structure
  * @param index The index of the desired ReactionGlyph_t.
@@ -1854,7 +1854,7 @@ Layout_getReactionGlyph (Layout_t *l, unsigned int index);
 
 
 /**
- * Returns a pointer to the AdditionalGraphicalObject with the given index.
+ * Returns a pointer to the AdditionalGraphicalObject_t with the given index.
  *
  * @param l The Layout_t structure
  * @param index The index of the desired GraphicalObject_t.
@@ -1866,7 +1866,7 @@ GraphicalObject_t *
 Layout_getAdditionalGraphicalObject (Layout_t *l, unsigned int index);
 
 /**
- * Returns a pointer to the GraphicalObject with the given index.
+ * Returns a pointer to the GraphicalObject_t with the given index.
  *
  * @param l The Layout_t structure
  * @param index The index of the desired TextGlyph_t.
@@ -1879,7 +1879,7 @@ Layout_getTextGlyph (Layout_t *l, unsigned int index);
 
 
 /**
- * Returns a pointer to the list of CompartmentGlyphs.
+ * Returns a pointer to the list of CompartmentGlyph_t's.
  *
  * @param l The Layout_t structure
  *

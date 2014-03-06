@@ -1282,20 +1282,20 @@ BEGIN_C_DECLS
  * and @p version values.
  *
  * @param level an unsigned int, the SBML Level to assign to this 
- * UnitDefinition
+ * UnitDefinition_t
  *
  * @param version an unsigned int, the SBML Version to assign to this
- * UnitDefinition
+ * UnitDefinition_t
  * 
  * @return a pointer to the newly created UnitDefinition_t structure.
  *
- * @note Once a UnitDefinition has been added to an SBMLDocument, the @p 
+ * @note Once a UnitDefinition_t has been added to an SBMLDocument_t, the @p 
  * level and @p version for the document @em override those used to create 
- * the UnitDefinition.  Despite this, the ability to supply the values at 
+ * the UnitDefinition_t.  Despite this, the ability to supply the values at 
  * creation time is an important aid to creating valid SBML.  Knowledge of 
  * the intended SBML Level and Version  determine whether it is valid to 
  * assign a particular value to an attribute, or whether it is valid to add 
- * a structure to an existing SBMLDocument.
+ * a structure to an existing SBMLDocument_t.
  *
  * @memberof UnitDefinition_t
  */
@@ -1313,13 +1313,13 @@ UnitDefinition_create (unsigned int level, unsigned int version);
  *
  * @return a pointer to the newly created UnitDefinition_t structure.
  *
- * @note Once a UnitDefinition has been added to an SBMLDocument, the
+ * @note Once a UnitDefinition_t has been added to an SBMLDocument_t, the
  * @p sbmlns namespaces for the document @em override those used to create
- * the UnitDefinition.  Despite this, the ability to supply the values at
+ * the UnitDefinition_t.  Despite this, the ability to supply the values at
  * creation time is an important aid to creating valid SBML.  Knowledge of
  * the intended SBML Level and Version determine whether it is valid to assign
  * a particular value to an attribute, or whether it is valid to add a structure
- * to an existing SBMLDocument.
+ * to an existing SBMLDocument_t.
  *
  * @memberof UnitDefinition_t
  */
@@ -1468,7 +1468,7 @@ UnitDefinition_isVariantOfLength (const UnitDefinition_t *ud);
  *
  * @param ud the UnitDefinition_t to query.
  *
- * @return @c true if this UnitDefinition is a variant of the built-in
+ * @return @c true if this UnitDefinition_t is a variant of the built-in
  * unit substance, meaning moles or items with only abritrary variations
  * in scale or multiplier values; @c false otherwise.
  *
@@ -1485,7 +1485,7 @@ UnitDefinition_isVariantOfSubstance (const UnitDefinition_t *ud);
  *
  * @param ud the UnitDefinition_t to query.
  *
- * @return @c true if this UnitDefinition is a variant of the built-in
+ * @return @c true if this UnitDefinition_t is a variant of the built-in
  * unit time, meaning seconds with only abritrary variations in scale or
  * multiplier values; @c false otherwise.
  *
@@ -1502,7 +1502,7 @@ UnitDefinition_isVariantOfTime (const UnitDefinition_t *ud);
  *
  * @param ud the UnitDefinition_t to query.
  *
- * @return @c true if this UnitDefinition is a variant of the built-in
+ * @return @c true if this UnitDefinition_t is a variant of the built-in
  * unit volume, meaning litre or cubic metre with only abritrary
  * variations in scale or multiplier values; @c false otherwise.
  *
@@ -1519,7 +1519,7 @@ UnitDefinition_isVariantOfVolume (const UnitDefinition_t *ud);
  *
  * @param ud the UnitDefinition_t to query.
  *
- * @return @c true if this UnitDefinition is a variant of dimensionless,
+ * @return @c true if this UnitDefinition_t is a variant of dimensionless,
  * meaning dimensionless with only abritrary variations in scale or
  * multiplier values; @c false otherwise.
  *
@@ -1536,7 +1536,7 @@ UnitDefinition_isVariantOfDimensionless (const UnitDefinition_t *ud);
  *
  * @param ud the UnitDefinition_t to query.
  *
- * @return @c true if this UnitDefinition is a variant of mass, meaning
+ * @return @c true if this UnitDefinition_t is a variant of mass, meaning
  * gram or kilogram with only abritrary variations in scale or multiplier
  * values; @c false otherwise.
  *
@@ -1554,7 +1554,7 @@ UnitDefinition_isVariantOfMass (const UnitDefinition_t *ud);
  *
  * @param ud the UnitDefinition_t to query.
  *
- * @return @c true if this UnitDefinition is a variant of the built-in
+ * @return @c true if this UnitDefinition_t is a variant of the built-in
  * unit substance per built-in unit time, meaning it contains two units
  * one of which is a variant of substance and the other is a variant of
  * time which an exponent of -1; @c false otherwise.
@@ -1634,10 +1634,10 @@ UnitDefinition_unsetName (UnitDefinition_t *ud);
 
 
 /**
- * Adds a copy of the given Unit to the given UnitDefinition_t structure.
+ * Adds a copy of the given Unit_t to the given UnitDefinition_t structure.
  *
  * @param ud the UnitDefinition_t structure.
- * @param u the Unit instance to add.
+ * @param u the Unit_t instance to add.
  *
  * @return integer value indicating success/failure of the
  * function.  @if clike The value is drawn from the
@@ -1682,7 +1682,7 @@ UnitDefinition_createUnit (UnitDefinition_t *ud);
  * 
  * @param ud the UnitDefinition_t to use
  *
- * @return the ListOfUnits value for the given UnitDefinition_t.
+ * @return the ListOf_t containing the Unit_t's for the given UnitDefinition_t.
  *
  * @memberof UnitDefinition_t
  */
@@ -1776,7 +1776,7 @@ void
 UnitDefinition_simplify(UnitDefinition_t * ud);
 
 /** 
- * Alphabetically orders the Unit_t structures within the ListOfUnits of a
+ * Alphabetically orders the Unit_t structures within the list of Unit_t's of a
  * @param ud UnitDefinition_t.
  *
  * @param ud the UnitDefinition_t structure whose units are to be reordered.
@@ -1892,8 +1892,8 @@ UnitDefinition_combine(UnitDefinition_t * ud1, UnitDefinition_t * ud2);
  * @param ud1 the first UnitDefinition_t structure 
  * @param ud2 the second UnitDefinition_t structure
  *
- * @return a UnitDefinition which represents the division of the 
- * units of the two argument UnitDefinitions.
+ * @return a UnitDefinition_t which represents the division of the 
+ * units of the two argument UnitDefinition_t's.
  *
  * @memberof UnitDefinition_t
  */
@@ -1936,7 +1936,7 @@ UnitDefinition_printUnits(UnitDefinition_t * ud, int compact);
 
 
 /**
- * @return item in this ListOfUnitDefinitions with the given @p id or @c NULL if no such
+ * @return item in this ListOf_t of UnitDefinition_t's with the given @p id or @c NULL if no such
  * item exists.
  *
  * @memberof ListOfUnitDefinitions_t
@@ -1947,7 +1947,7 @@ ListOfUnitDefinitions_getById (ListOf_t *lo, const char *sid);
 
 
 /**
- * Removes item in this ListOf items with the given @p id or @c NULL if no such
+ * Removes item in this ListOf_t items with the given @p id or @c NULL if no such
  * item exists.  The caller owns the returned item and is responsible for
  * deleting it.
  *

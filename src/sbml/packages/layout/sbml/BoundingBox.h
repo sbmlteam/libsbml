@@ -722,7 +722,7 @@ double
 BoundingBox_depth(BoundingBox_t* bb);
 
 /**
- * @return a (deep) copy of this BoundingBox.
+ * @return a (deep) copy of this BoundingBox_t.
  *
  * @param bb The BoundingBox_t structure.
  *

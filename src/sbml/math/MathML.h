@@ -62,7 +62,7 @@ readMathML (XMLInputStream& stream, const std::string& reqd_prefix="");
 
 
 /**
- * Writes the given ASTNode (and its children) to the XMLOutputStream as
+ * Writes the given ASTNode (and its children) to the XMLOutputStream_t as
  * MathML.
  */
 LIBSBML_EXTERN
@@ -100,7 +100,7 @@ readMathMLFromString (const char *xml);
 
 
 /**
- * Writes the given ASTNode (and its children) to a string as MathML, and
+ * Writes the given ASTNode_t (and its children) to a string as MathML, and
  * returns the string.
  *
  * @param node the root of an AST to write out to the stream.

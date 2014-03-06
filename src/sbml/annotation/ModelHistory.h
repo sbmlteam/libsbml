@@ -431,7 +431,7 @@ LIBSBML_EXTERN
 ModelHistory_t * ModelHistory_create ();
 
 /**
- * Destroys this ModelHistory.
+ * Destroys this ModelHistory_t.
  *
  * @param mh ModelHistory_t structure to be freed.
  *
@@ -490,7 +490,7 @@ LIBSBML_EXTERN
 unsigned int ModelHistory_getNumCreators(ModelHistory_t * mh);
 
 /**
- * Get the List of ModelCreator_t structures in this 
+ * Get the List_t of ModelCreator_t structures in this 
  * ModelHistory.
  *
  * @param mh the ModelHistory_t structure
@@ -507,9 +507,9 @@ List_t * ModelHistory_getListCreators(ModelHistory_t * mh);
  * Get the nth ModelCreator_t structure in this ModelHistory_t.
  * 
  * @param mh the ModelHistory_t structure
- * @param n an unsigned int indicating which ModelCreator
+ * @param n an unsigned int indicating which ModelCreator_t
  *
- * @return the nth ModelCreator of this ModelHistory.
+ * @return the nth ModelCreator of this ModelHistory_t.
  *
  * @memberof ModelHistory_t
  */
@@ -521,7 +521,7 @@ ModelCreator_t* ModelHistory_getCreator(ModelHistory_t * mh, unsigned int n);
  *  
  * @param mh the ModelHistory_t structure
  * @param date the Date_t structure representing the date
- * the ModelHistory was created. 
+ * the ModelHistory_t was created. 
  *
  * @return integer value indicating success/failure of the
  * function.  @if clike The value is drawn from the
@@ -537,7 +537,7 @@ int ModelHistory_setCreatedDate(ModelHistory_t * mh,
                                  Date_t * date);
 
 /**
- * Returns the createdDate from the ModelHistory.
+ * Returns the createdDate from the ModelHistory_t.
  *
  * @param mh the ModelHistory_t structure
  * 
@@ -551,7 +551,7 @@ Date_t * ModelHistory_getCreatedDate(ModelHistory_t * mh);
 
 /**
  * Predicate indicating whether this
- * ModelHistory's createdDate is set.
+ * ModelHistory_t's createdDate is set.
  *
  * @param mh the ModelHistory_t structure to be queried
  *
@@ -568,7 +568,7 @@ int ModelHistory_isSetCreatedDate(ModelHistory_t * mh);
  *  
  * @param mh the ModelHistory_t structure
  * @param date the Date_t structure representing the date
- * the ModelHistory was modified. 
+ * the ModelHistory_t was modified. 
  *
  * @return integer value indicating success/failure of the
  * function.  @if clike The value is drawn from the
@@ -584,19 +584,21 @@ int ModelHistory_setModifiedDate(ModelHistory_t * mh,
                                   Date_t * date);
 
 /**
- * Returns the modifiedDate from the ModelHistory.
+ * Returns the modifiedDate from the ModelHistory_t.
  *
  * @param mh the ModelHistory_t structure
  * 
  * @return Date_t structure representing the modifiedDate
  * from the ModelHistory_t structure.
+ *
+ * @memberof ModelHistory_t
  */
 LIBSBML_EXTERN
 Date_t * ModelHistory_getModifiedDate(ModelHistory_t * mh);
 
 /**
  * Predicate indicating whether this
- * ModelHistory's modifiedDate is set.
+ * ModelHistory_t's modifiedDate is set.
  *
  * @param mh the ModelHistory_t structure to be queried
  *
@@ -622,8 +624,8 @@ int
 ModelHistory_addModifiedDate(ModelHistory_t * mh, Date_t * date);
 
 /**
- * Get the List of Date_t structures in the list of ModifiedDates 
- * in this ModelHistory.
+ * Get the List_t of Date_t structures in the list of ModifiedDates 
+ * in this ModelHistory_t.
  *
  * @param mh the ModelHistory_t structure
  * 
@@ -638,12 +640,12 @@ ModelHistory_getListModifiedDates(ModelHistory_t * mh);
 
 /**
  * Get the number of modified Date_t structures in the list of ModifiedDates 
- * in this ModelHistory.
+ * in this ModelHistory_t.
  *
  * @param mh the ModelHistory_t structure
  * 
  * @return the number of Dates in the list of ModifiedDates in this 
- * ModelHistory.
+ * ModelHistory_t.
  *
  * @memberof ModelHistory_t
  */
@@ -656,17 +658,17 @@ ModelHistory_getNumModifiedDates(ModelHistory_t * mh);
  * in this ModelHistory_t.
  * 
  * @param mh the ModelHistory_t structure
- * @param n an unsigned int indicating which Date
+ * @param n an unsigned int indicating which Date_t
  *
- * @return the nth Date in the list of ModifiedDates
- * of this ModelHistory.
+ * @return the nth Date_t in the list of ModifiedDates
+ * of this ModelHistory_t.
  *
  * @note A bug in libSBML meant that originally a ModelHistory_t structure
- * contained only one instance of a ModifiedDate.  In fact the MIRIAM
+ * contained only one instance of a ModifiedDate_t.  In fact the MIRIAM
  * annotation expects zero or more modified dates and thus the
  * implementation was changed.  To avoid impacting on existing code
  * there is a ditinction between the function 
- * ModelHistory_getModifiedDate which requires no index value and
+ * ModelHistory_getModifiedDate() which requires no index value and
  * this function that indexes into a list.
  *
  * @memberof ModelHistory_t

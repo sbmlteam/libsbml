@@ -641,20 +641,20 @@ BEGIN_C_DECLS
  * and @p version values.
  *
  * @param level an unsigned int, the SBML Level to assign to this
- * LocalParameter
+ * LocalParameter_t
  *
  * @param version an unsigned int, the SBML Version to assign to this
- * LocalParameter
+ * LocalParameter_t
  *
  * @return a pointer to the newly created LocalParameter_t structure.
  *
- * @note Once a LocalParameter has been added to an SBMLDocument, the @p
+ * @note Once a LocalParameter_t has been added to an SBMLDocument_t, the @p
  * level and @p version for the document @em override those used to create
- * the LocalParameter.  Despite this, the ability to supply the values at
+ * the LocalParameter_t.  Despite this, the ability to supply the values at
  * creation time is an important aid to creating valid SBML.  Knowledge of
  * the intended SBML Level and Version  determine whether it is valid to
  * assign a particular value to an attribute, or whether it is valid to add
- * a structure to an existing SBMLDocument.
+ * a structure to an existing SBMLDocument_t.
  *
  * @memberof LocalParameter_t
  */
@@ -672,13 +672,13 @@ LocalParameter_create (unsigned int level, unsigned int version);
  *
  * @return a pointer to the newly created LocalParameter_t structure.
  *
- * @note Once a LocalParameter has been added to an SBMLDocument, the
+ * @note Once a LocalParameter_t has been added to an SBMLDocument_t, the
  * @p sbmlns namespaces for the document @em override those used to create
- * the LocalParameter.  Despite this, the ability to supply the values at creation time
+ * the LocalParameter_t.  Despite this, the ability to supply the values at creation time
  * is an important aid to creating valid SBML.  Knowledge of the intended SBML
  * Level and Version determine whether it is valid to assign a particular value
  * to an attribute, or whether it is valid to add a structure to an existing
- * SBMLDocument.
+ * SBMLDocument_t.
  *
  * @memberof LocalParameter_t
  */
@@ -853,7 +853,7 @@ LocalParameter_isSetName (const LocalParameter_t *p);
  * @return @c non-zero (true) if the "value" attribute of the given
  * LocalParameter_t structure is set, zero (false) otherwise.
  *
- * @note In SBML Level 1 Version 1, a LocalParameter value is required and
+ * @note In SBML Level 1 Version 1, a LocalParameter_t value is required and
  * therefore <em>should always be set</em>.  In Level 1 Version 2 and
  * later, the value is optional, and as such, may or may not be set.
  *
@@ -1095,7 +1095,7 @@ LocalParameter_getDerivedUnitDefinition(LocalParameter_t *p);
 
 
 /**
- * @return item in this ListOfLocalParameter with the given @p id or @c NULL if no such
+ * @return item in this ListOf_t of LocalParameter_t's with the given @p id or @c NULL if no such
  * item exists.
  *
  * @memberof ListOfLocalParameters_t
@@ -1106,7 +1106,7 @@ ListOfLocalParameters_getById (ListOf_t *lo, const char *sid);
 
 
 /**
- * Removes item in this ListOf items with the given @p id or @c NULL if no such
+ * Removes item in this ListOf_t items with the given @p id or @c NULL if no such
  * item exists.  The caller owns the returned item and is responsible for
  * deleting it.
  *

@@ -544,7 +544,7 @@ void
 ReferenceGlyph_setCurve (ReferenceGlyph_t *rg, Curve_t *c);
 
 /**
- * Gets the Curve for the given reference glyph.
+ * Gets the Curve_t for the given reference glyph.
  *
  * @param rg The ReferenceGlyph_t structure
  *
@@ -555,7 +555,7 @@ Curve_t *
 ReferenceGlyph_getCurve (ReferenceGlyph_t *rg);
 
 /**
- * Returns true if the Curve has one or more LineSegment.
+ * Returns true if the Curve_t has one or more LineSegment.
  *
  * @param rg The ReferenceGlyph_t structure
  *

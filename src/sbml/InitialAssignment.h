@@ -893,20 +893,20 @@ BEGIN_C_DECLS
  * and @p version values.
  *
  * @param level an unsigned int, the SBML Level to assign to this
- * InitialAssignment
+ * InitialAssignment_t
  *
  * @param version an unsigned int, the SBML Version to assign to this
- * InitialAssignment
+ * InitialAssignment_t
  *
  * @return a pointer to the newly created InitialAssignment_t structure.
  *
- * @note Once a InitialAssignment has been added to an SBMLDocument, the @p
+ * @note Once a InitialAssignment_t has been added to an SBMLDocument_t, the @p
  * level and @p version for the document @em override those used to create
- * the InitialAssignment.  Despite this, the ability to supply the values at
+ * the InitialAssignment_t.  Despite this, the ability to supply the values at
  * creation time is an important aid to creating valid SBML.  Knowledge of
  * the intended SBML Level and Version  determine whether it is valid to
  * assign a particular value to an attribute, or whether it is valid to add
- * a structure to an existing SBMLDocument.
+ * a structure to an existing SBMLDocument_t.
  *
  * @memberof InitialAssignment_t
  */
@@ -924,13 +924,13 @@ InitialAssignment_create (unsigned int level, unsigned int version);
  *
  * @return a pointer to the newly created InitialAssignment_t structure.
  *
- * @note Once a InitialAssignment has been added to an SBMLDocument, the
+ * @note Once a InitialAssignment_t has been added to an SBMLDocument_t, the
  * @p sbmlns namespaces for the document @em override those used to create
- * the InitialAssignment.  Despite this, the ability to supply the values at 
+ * the InitialAssignment_t.  Despite this, the ability to supply the values at 
  * creation time is an important aid to creating valid SBML.  Knowledge of the 
  * intended SBML Level and Version determine whether it is valid to assign a 
  * particular value to an attribute, or whether it is valid to add a structure to 
- * an existing SBMLDocument.
+ * an existing SBMLDocument_t.
  *
  * @memberof InitialAssignment_t
  */
@@ -952,7 +952,7 @@ InitialAssignment_free (InitialAssignment_t *ia);
 
 
 /**
- * Copy constructor; creates a copy of this InitialAssignment.
+ * Copy constructor; creates a copy of this InitialAssignment_t.
  *
  * @param ia the InitialAssignment_t structure
  *
@@ -982,12 +982,12 @@ InitialAssignment_getNamespaces(InitialAssignment_t *ia);
 
 
 /**
- * Get the value of the "symbol" attribute of this InitialAssignment.
+ * Get the value of the "symbol" attribute of this InitialAssignment_t.
  *
  * @param ia the InitialAssignment_t structure
  * 
  * @return the identifier string stored as the "symbol" attribute value
- * in this InitialAssignment.
+ * in this InitialAssignment_t.
  *
  * @memberof InitialAssignment_t
  */
@@ -997,12 +997,12 @@ InitialAssignment_getSymbol (const InitialAssignment_t *ia);
 
 
 /**
- * Get the mathematical formula of this InitialAssignment.
+ * Get the mathematical formula of this InitialAssignment_t.
  *
  * @param ia the InitialAssignment_t structure
  *
- * @return an ASTNode, the value of the "math" subelement of this
- * InitialAssignment
+ * @return an ASTNode_t, the value of the "math" subelement of this
+ * InitialAssignment_t
  *
  * @memberof InitialAssignment_t
  */
@@ -1013,11 +1013,11 @@ InitialAssignment_getMath (const InitialAssignment_t *ia);
 
 /**
  * Predicate returning @c true or @c false depending on whether this
- * InitialAssignment's "symbol" attribute is set.
+ * InitialAssignment_t's "symbol" attribute is set.
  *
  * @param ia the InitialAssignment_t structure
  * 
- * @return nonzero if the "symbol" attribute of this InitialAssignment
+ * @return nonzero if the "symbol" attribute of this InitialAssignment_t
  * is set, zero (0) otherwise.
  *
  * @memberof InitialAssignment_t
@@ -1029,11 +1029,11 @@ InitialAssignment_isSetSymbol (const InitialAssignment_t *ia);
 
 /**
  * Predicate returning @c true or @c false depending on whether this
- * InitialAssignment's "math" subelement contains a value.
+ * InitialAssignment_t's "math" subelement contains a value.
  *
  * @param ia the InitialAssignment_t structure
  * 
- * @return nonzero if the "math" for this InitialAssignment is set,
+ * @return nonzero if the "math" for this InitialAssignment_t is set,
  * zero (0) otherwise.
  *
  * @memberof InitialAssignment_t
@@ -1044,12 +1044,12 @@ InitialAssignment_isSetMath (const InitialAssignment_t *ia);
 
 
 /**
- * Sets the "symbol" attribute value of this InitialAssignment
+ * Sets the "symbol" attribute value of this InitialAssignment_t
  *
  * @param ia the InitialAssignment_t structure
  *
- * @param sid the identifier of a Species, Compartment or Parameter
- * structure defined elsewhere in this Model.
+ * @param sid the identifier of a Species_t, Compartment_t or Parameter_t
+ * structure defined elsewhere in this Model_t.
  *
  * @return integer value indicating success/failure of the
  * function.  @if clike The value is drawn from the
@@ -1069,14 +1069,14 @@ InitialAssignment_setSymbol (InitialAssignment_t *ia, const char *sid);
 
 
 /**
- * Sets the "math" subelement of this InitialAssignment
+ * Sets the "math" subelement of this InitialAssignment_t
  *
  * The ASTNode tree passed in @p math is copied.
  *
  * @param ia the InitialAssignment_t structure
  *
- * @param math an ASTNode tree containing the mathematical expression to
- * be used as the formula for this InitialAssignment.
+ * @param math an ASTNode_t tree containing the mathematical expression to
+ * be used as the formula for this InitialAssignment_t.
  *
  * @return integer value indicating success/failure of the
  * function.  @if clike The value is drawn from the
@@ -1141,7 +1141,7 @@ int
 InitialAssignment_containsUndeclaredUnits(InitialAssignment_t *ia);
 
 /**
- * @return item in this ListOfInitialAssignment with the given @p id or @c NULL if no such
+ * @return item in this ListOf_t of InitialAssignment_t's with the given @p id or @c NULL if no such
  * item exists.
  *
  * @memberof ListOfInitialAssignments_t
@@ -1152,7 +1152,7 @@ ListOfInitialAssignments_getById (ListOf_t *lo, const char *sid);
 
 
 /**
- * Removes item in this ListOf items with the given @p id or @c NULL if no such
+ * Removes item in this ListOf_t items with the given @p id or @c NULL if no such
  * item exists.  The caller owns the returned item and is responsible for
  * deleting it.
  *

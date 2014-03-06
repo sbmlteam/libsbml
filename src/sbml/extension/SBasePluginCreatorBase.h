@@ -215,11 +215,11 @@ SBasePluginCreator_getSupportedPackageURI(SBasePluginCreatorBase_t* creator,
     unsigned int index);
 
 /**
- * Returns the SBMLTypeCode tied to the creator structure.
+ * Returns the SBMLTypeCode_t tied to the creator structure.
  * 
  * @param creator the SBasePluginCreatorBase_t structure
  * 
- * @return the SBMLTypeCode tied with the creator structure or 
+ * @return the SBMLTypeCode_t tied with the creator structure or 
  * LIBSBML_INVALID_OBJECT.
  *
  * @memberof SBasePlugin_t
@@ -243,11 +243,11 @@ const char*
 SBasePluginCreator_getTargetPackageName(SBasePluginCreatorBase_t* creator);
 
 /**
- * Returns the SBaseExtensionPoint tied to this creator structure.
+ * Returns the SBaseExtensionPoint_t tied to this creator structure.
  * 
  * @param creator the SBasePluginCreatorBase_t structure
  * 
- * @return the SBaseExtensionPoint of the creator structure, or @c NULL if 
+ * @return the SBaseExtensionPoint_t of the creator structure, or @c NULL if 
  * creator is invalid.
  *
  * @memberof SBasePlugin_t

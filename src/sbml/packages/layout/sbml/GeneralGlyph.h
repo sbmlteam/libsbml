@@ -776,8 +776,8 @@ int
 GeneralGlyph_isSetReferenceId (const GeneralGlyph_t *gg);
 
 /*
- * Add a ReferenceGlyph object to the list of
- * ReferenceGlyphs.
+ * Add a ReferenceGlyph_t object to the list of
+ * ReferenceGlyph_t's.
  *
  * @param gg The GeneralGlyph_t structure.
  *
@@ -800,7 +800,7 @@ unsigned int
 GeneralGlyph_getNumReferenceGlyphs (const GeneralGlyph_t *gg);
 
 /*
- * Returns the pointer to the ReferenceGlyphs for the given index.
+ * Returns the pointer to the ReferenceGlyph_t's for the given index.
  *
  * @param gg The GeneralGlyph_t structure.
  *
@@ -859,7 +859,7 @@ void
 GeneralGlyph_setCurve (GeneralGlyph_t *gg, Curve_t *c);
 
 /*
- * Gets the Curve for the given reaction glyph.
+ * Gets the Curve_t for the given reaction glyph.
  *
  * @param gg The GeneralGlyph_t structure.
  *
@@ -870,7 +870,7 @@ Curve_t *
 GeneralGlyph_getCurve (GeneralGlyph_t *gg);
 
 /*
- * Returns true if the Curve has one or more LineSegment.
+ * Returns true if the Curve_t has one or more LineSegment.
  *
  * @param gg The GeneralGlyph_t structure.
  *

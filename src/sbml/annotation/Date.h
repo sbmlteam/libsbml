@@ -681,7 +681,7 @@ Date_t *
 Date_createFromString (const char * date); 
 
 /**
- * Destroys this Date.
+ * Destroys this Date_t.
  *
  * @param date Date_t structure to be freed.
  *
@@ -705,7 +705,7 @@ Date_t *
 Date_clone (const Date_t* date);
 
 /**
- * Returns the Date as a string.
+ * Returns the Date_t as a string.
  *
  * @param date the Date_t structure to be queried
  * 
@@ -718,11 +718,11 @@ const char *
 Date_getDateAsString(Date_t * date);
 
 /**
- * Returns the year from this Date.
+ * Returns the year from this Date_t.
  *
  * @param date the Date_t structure to be queried
  * 
- * @return the year from this Date.
+ * @return the year from this Date_t.
  *
  * @memberof Date_t
  */
@@ -731,11 +731,11 @@ unsigned int
 Date_getYear(Date_t * date);
 
 /**
- * Returns the month from this Date.
+ * Returns the month from this Date_t.
  *
  * @param date the Date_t structure to be queried
  * 
- * @return the month from this Date.
+ * @return the month from this Date_t.
  *
  * @memberof Date_t
  */
@@ -744,11 +744,11 @@ unsigned int
 Date_getMonth(Date_t * date);
 
 /**
- * Returns the day from this Date.
+ * Returns the day from this Date_t.
  *
  * @param date the Date_t structure to be queried
  * 
- * @return the day from this Date.
+ * @return the day from this Date_t.
  *
  * @memberof Date_t
  */
@@ -757,11 +757,11 @@ unsigned int
 Date_getDay(Date_t * date);
 
 /**
- * Returns the hour from this Date.
+ * Returns the hour from this Date_t.
  *
  * @param date the Date_t structure to be queried
  * 
- * @return the hour from this Date.
+ * @return the hour from this Date_t.
  *
  * @memberof Date_t
  */
@@ -770,11 +770,11 @@ unsigned int
 Date_getHour(Date_t * date);
 
 /**
- * Returns the minute from this Date.
+ * Returns the minute from this Date_t.
  *
  * @param date the Date_t structure to be queried
  * 
- * @return the minute from this Date.
+ * @return the minute from this Date_t.
  *
  * @memberof Date_t
  */
@@ -783,11 +783,11 @@ unsigned int
 Date_getMinute(Date_t * date);
 
 /**
- * Returns the seconds from this Date.
+ * Returns the seconds from this Date_t.
  *
  * @param date the Date_t structure to be queried
  * 
- * @return the seconds from this Date.
+ * @return the seconds from this Date_t.
  *
  * @memberof Date_t
  */
@@ -796,11 +796,11 @@ unsigned int
 Date_getSecond(Date_t * date);
 
 /**
- * Returns the sign of the offset from this Date.
+ * Returns the sign of the offset from this Date_t.
  *
  * @param date the Date_t structure to be queried
  * 
- * @return the sign of the offset from this Date.
+ * @return the sign of the offset from this Date_t.
  *
  * @memberof Date_t
  */
@@ -809,11 +809,11 @@ unsigned int
 Date_getSignOffset(Date_t * date);
 
 /**
- * Returns the hours of the offset from this Date.
+ * Returns the hours of the offset from this Date_t.
  *
  * @param date the Date_t structure to be queried
  * 
- * @return the hours of the offset from this Date.
+ * @return the hours of the offset from this Date_t.
  *
  * @memberof Date_t
  */
@@ -822,11 +822,11 @@ unsigned int
 Date_getHoursOffset(Date_t * date);
 
 /**
- * Returns the minutes of the offset from this Date.
+ * Returns the minutes of the offset from this Date_t.
  *
  * @param date the Date_t structure to be queried
  * 
- * @return the minutes of the offset from this Date.
+ * @return the minutes of the offset from this Date_t.
  *
  * @memberof Date_t
  */

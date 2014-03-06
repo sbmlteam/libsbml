@@ -1476,20 +1476,20 @@ BEGIN_C_DECLS
  * and @p version values.
  *
  * @param level an unsigned int, the SBML Level to assign to this
- * Reaction
+ * Reaction_t
  *
  * @param version an unsigned int, the SBML Version to assign to this
- * Reaction
+ * Reaction_t
  *
  * @return a pointer to the newly created Reaction_t structure.
  *
- * @note Once a Reaction has been added to an SBMLDocument, the @p
+ * @note Once a Reaction_t has been added to an SBMLDocument_t, the @p
  * level and @p version for the document @em override those used to create
- * the Reaction.  Despite this, the ability to supply the values at
+ * the Reaction_t.  Despite this, the ability to supply the values at
  * creation time is an important aid to creating valid SBML.  Knowledge of
  * the intended SBML Level and Version  determine whether it is valid to
  * assign a particular value to an attribute, or whether it is valid to add
- * a structure to an existing SBMLDocument.
+ * a structure to an existing SBMLDocument_t.
  *
  * @memberof Reaction_t
  */
@@ -1507,13 +1507,13 @@ Reaction_create (unsigned int level, unsigned int version);
  *
  * @return a pointer to the newly created Reaction_t structure.
  *
- * @note Once a Reaction has been added to an SBMLDocument, the
+ * @note Once a Reaction_t has been added to an SBMLDocument_t, the
  * @p sbmlns namespaces for the document @em override those used to create
- * the Reaction.  Despite this, the ability to supply the values at creation 
+ * the Reaction_t.  Despite this, the ability to supply the values at creation 
  * time is an important aid to creating valid SBML.  Knowledge of the intended 
  * SBML Level and Version determine whether it is valid to assign a particular 
  * value to an attribute, or whether it is valid to add a structure to an 
- * existing SBMLDocument.
+ * existing SBMLDocument_t.
  *
  * @memberof Reaction_t
  */
@@ -1523,7 +1523,7 @@ Reaction_createWithNS (SBMLNamespaces_t *sbmlns);
 
 
 /**
- * Frees the given Reaction.
+ * Frees the given Reaction_t.
  *
  * @memberof Reaction_t
  */
@@ -1533,7 +1533,7 @@ Reaction_free (Reaction_t *r);
 
 
 /**
- * @return a (deep) copy of this Reaction.
+ * @return a (deep) copy of this Reaction_t.
  *
  * @memberof Reaction_t
  */
@@ -1543,7 +1543,7 @@ Reaction_clone (const Reaction_t *r);
 
 
 /**
- * Initializes the fields of this Reaction to their defaults:
+ * Initializes the fields of this Reaction_t to their defaults:
  *
  *   - reversible = 1 (true)
  *   - fast       = 0 (false)  (L1 only)
@@ -1572,7 +1572,7 @@ Reaction_getNamespaces(Reaction_t *r);
 
 
 /**
- * @return the id of this Reaction.
+ * @return the id of this Reaction_t.
  *
  * @memberof Reaction_t
  */
@@ -1582,7 +1582,7 @@ Reaction_getId (const Reaction_t *r);
 
 
 /**
- * @return the name of this Reaction.
+ * @return the name of this Reaction_t.
  *
  * @memberof Reaction_t
  */
@@ -1592,7 +1592,7 @@ Reaction_getName (const Reaction_t *r);
 
 
 /**
- * @return the KineticLaw of this Reaction.
+ * @return the KineticLaw_t of this Reaction_t.
  *
  * @memberof Reaction_t
  */
@@ -1602,7 +1602,7 @@ Reaction_getKineticLaw (Reaction_t *r);
 
 
 /**
- * @return the reversible status of this Reaction.
+ * @return the reversible status of this Reaction_t.
  *
  * @memberof Reaction_t
  */
@@ -1612,7 +1612,7 @@ Reaction_getReversible (const Reaction_t *r);
 
 
 /**
- * @return the fast status of this Reaction.
+ * @return the fast status of this Reaction_t.
  *
  * @memberof Reaction_t
  */
@@ -1622,7 +1622,7 @@ Reaction_getFast (const Reaction_t *r);
 
 
 /**
- * @return the compartment of this Reaction.
+ * @return the compartment of this Reaction_t.
  *
  * @memberof Reaction_t
  */
@@ -1632,7 +1632,7 @@ Reaction_getCompartment (const Reaction_t *r);
 
 
 /**
- * @return true (non-zero) if the id of this Reaction is set, false
+ * @return true (non-zero) if the id of this Reaction_t is set, false
  * (0) otherwise.
  *
  * @memberof Reaction_t
@@ -1643,7 +1643,7 @@ Reaction_isSetId (const Reaction_t *r);
 
 
 /**
- * @return true (non-zero) if the name of this Reaction is set, false
+ * @return true (non-zero) if the name of this Reaction_t is set, false
  * (0) otherwise.
  *
  * @memberof Reaction_t
@@ -1654,7 +1654,7 @@ Reaction_isSetName (const Reaction_t *r);
 
 
 /**
- * @return true (non-zero) if the KineticLaw of this Reaction is set,
+ * @return true (non-zero) if the KineticLaw_t of this Reaction_t is set,
  * false (0) otherwise.
  *
  * @memberof Reaction_t
@@ -1665,7 +1665,7 @@ Reaction_isSetKineticLaw (const Reaction_t *r);
 
 
 /**
- * @return true (non-zero) if the fast status of this Reaction is set,
+ * @return true (non-zero) if the fast status of this Reaction_t is set,
  * false (0) otherwise.
  *
  * In L1, fast is optional with a default of false, which means it is
@@ -1680,7 +1680,7 @@ Reaction_isSetFast (const Reaction_t *r);
 
 
 /**
- * @return true (non-zero) if the KineticLaw of this Reaction is set,
+ * @return true (non-zero) if the KineticLaw_t of this Reaction_t is set,
  * false (0) otherwise.
  *
  * @memberof Reaction_t
@@ -1691,7 +1691,7 @@ Reaction_isSetCompartment (const Reaction_t *r);
 
 
 /**
- * @return true (non-zero) if the reversible attribute of this Reaction is set,
+ * @return true (non-zero) if the reversible attribute of this Reaction_t is set,
  * false (0) otherwise.
  *
  * @memberof Reaction_t
@@ -1702,7 +1702,7 @@ Reaction_isSetReversible (const Reaction_t *r);
 
 
 /**
- * Sets the id of this Reaction to a copy of sid.
+ * Sets the id of this Reaction_t to a copy of sid.
  *
  * @return integer value indicating success/failure of the
  * function.  @if clike The value is drawn from the
@@ -1722,7 +1722,7 @@ Reaction_setId (Reaction_t *r, const char *sid);
 
 
 /**
- * Sets the name of this Reaction to a copy of name.
+ * Sets the name of this Reaction_t to a copy of name.
  *
  * @return integer value indicating success/failure of the
  * function.  @if clike The value is drawn from the
@@ -1742,7 +1742,7 @@ Reaction_setName (Reaction_t *r, const char *name);
 
 
 /**
- * Sets the KineticLaw of this Reaction to a copy of the given KineticLaw.
+ * Sets the KineticLaw_t of this Reaction_t to a copy of the given KineticLaw_t.
  *
  * @return integer value indicating success/failure of the
  * function.  @if clike The value is drawn from the
@@ -1760,7 +1760,7 @@ Reaction_setKineticLaw (Reaction_t *r, const KineticLaw_t *kl);
 
 
 /**
- * Sets the reversible status of this Reaction to value (boolean).
+ * Sets the reversible status of this Reaction_t to value (boolean).
  *
  * @return integer value indicating success/failure of the
  * function.  @if clike The value is drawn from the
@@ -1776,7 +1776,7 @@ Reaction_setReversible (Reaction_t *r, int value);
 
 
 /**
- * Sets the fast status of this Reaction to value (boolean).
+ * Sets the fast status of this Reaction_t to value (boolean).
  *
  * @return integer value indicating success/failure of the
  * function.  @if clike The value is drawn from the
@@ -1792,7 +1792,7 @@ Reaction_setFast (Reaction_t *r, int value);
 
 
 /**
- * Sets the compartment of this Reaction to a copy of compartment.
+ * Sets the compartment of this Reaction_t to a copy of compartment.
  *
  * @return integer value indicating success/failure of the
  * function.  @if clike The value is drawn from the
@@ -1813,7 +1813,7 @@ Reaction_setCompartment (Reaction_t *r, const char *compartment);
 
 
 /**
- * Unsets the name of this Reaction.
+ * Unsets the name of this Reaction_t.
  *
  * @return integer value indicating success/failure of the
  * function.  @if clike The value is drawn from the
@@ -1830,7 +1830,7 @@ Reaction_unsetName (Reaction_t *r);
 
 
 /**
- * Unsets the compartment of this Reaction.
+ * Unsets the compartment of this Reaction_t.
  *
  * @return integer value indicating success/failure of the
  * function.  @if clike The value is drawn from the
@@ -1848,7 +1848,7 @@ Reaction_unsetCompartment (Reaction_t *r);
 
 
 /**
- * Unsets the KineticLaw of this Reaction.
+ * Unsets the KineticLaw_t of this Reaction_t.
  *
  * @return integer value indicating success/failure of the
  * function.  @if clike The value is drawn from the
@@ -1865,7 +1865,7 @@ Reaction_unsetKineticLaw (Reaction_t *r);
 
 
 /**
- * Unsets the fast status of this Reation.
+ * Unsets the fast status of this Reation_t.
  *
  * @return integer value indicating success/failure of the
  * function.  @if clike The value is drawn from the
@@ -1908,7 +1908,7 @@ Reaction_hasRequiredAttributes (Reaction_t *r);
 
 
 /**
- * Adds a copy of the given reactant (SpeciesReference) to this Reaction.
+ * Adds a copy of the given reactant (SpeciesReference_t) to this Reaction_t.
  *
  * @return integer value indicating success/failure of the
  * function.  @if clike The value is drawn from the
@@ -1927,7 +1927,7 @@ Reaction_addReactant (Reaction_t *r, const SpeciesReference_t *sr);
 
 
 /**
- * Adds a copy of the given product (SpeciesReference) to this Reaction.
+ * Adds a copy of the given product (SpeciesReference_t) to this Reaction_t.
  *
  * @return integer value indicating success/failure of the
  * function.  @if clike The value is drawn from the
@@ -1946,8 +1946,8 @@ Reaction_addProduct (Reaction_t *r, const SpeciesReference_t *sr);
 
 
 /**
- * Adds a copy of the given modifier (ModifierSpeciesReference) to this
- * Reaction.
+ * Adds a copy of the given modifier (modifier SpeciesReference_t) to this
+ * Reaction_t.
  *
  * @return integer value indicating success/failure of the
  * function.  @if clike The value is drawn from the
@@ -1967,7 +1967,7 @@ Reaction_addModifier (Reaction_t *r, const SpeciesReference_t *msr);
 
 
 /**
- * Creates a new SpeciesReference, adds it to this Reaction's list of
+ * Creates a new SpeciesReference, adds it to this Reaction_t's list of
  * reactants and returns it.
  *
  * @memberof Reaction_t
@@ -1978,7 +1978,7 @@ Reaction_createReactant (Reaction_t *r);
 
 
 /**
- * Creates a new SpeciesReference, adds it to this Reaction's list of
+ * Creates a new SpeciesReference, adds it to this Reaction_t's list of
  * products and returns it.
  *
  * @memberof Reaction_t
@@ -1989,7 +1989,7 @@ Reaction_createProduct (Reaction_t *r);
 
 
 /**
- * Creates a new SpeciesReference, adds it to this Reaction's list of
+ * Creates a new SpeciesReference, adds it to this Reaction_t's list of
  * modifiers and returns it.
  *
  * @memberof Reaction_t
@@ -2000,8 +2000,8 @@ Reaction_createModifier (Reaction_t *r);
 
 
 /**
- * Creates a new KineticLaw for this Reaction and returns it.  If this
- * Reaction had a previous KineticLaw, it will be destroyed.
+ * Creates a new KineticLaw_t for this Reaction_t and returns it.  If this
+ * Reaction_t had a previous KineticLaw_t, it will be destroyed.
  *
  * @memberof Reaction_t
  */
@@ -2011,7 +2011,7 @@ Reaction_createKineticLaw (Reaction_t *r);
 
 
 /**
- * @return the list of Reactants for this Reaction.
+ * @return the list of Reactants for this Reaction_t.
  *
  * @memberof Reaction_t
  */
@@ -2021,7 +2021,7 @@ Reaction_getListOfReactants (Reaction_t *r);
 
 
 /**
- * @return the list of Products for this Reaction.
+ * @return the list of Products for this Reaction_t.
  *
  * @memberof Reaction_t
  */
@@ -2031,7 +2031,7 @@ Reaction_getListOfProducts (Reaction_t *r);
 
 
 /**
- * @return the list of Modifiers for this Reaction.
+ * @return the list of Modifiers for this Reaction_t.
  *
  * @memberof Reaction_t
  */
@@ -2041,7 +2041,7 @@ Reaction_getListOfModifiers (Reaction_t *r);
 
 
 /**
- * @return the nth reactant (SpeciesReference) of this Reaction.
+ * @return the nth reactant (SpeciesReference_t) of this Reaction_t.
  *
  * @memberof Reaction_t
  */
@@ -2051,7 +2051,7 @@ Reaction_getReactant (Reaction_t *r, unsigned int n);
 
 
 /**
- * @return the reactant (SpeciesReference) in this Reaction with the given
+ * @return the reactant (SpeciesReference_t) in this Reaction_t with the given
  * species or @c NULL if no such reactant exists.
  *
  * @memberof Reaction_t
@@ -2062,7 +2062,7 @@ Reaction_getReactantBySpecies (Reaction_t *r, const char *species);
 
 
 /**
- * @return the nth product (SpeciesReference) of this Reaction.
+ * @return the nth product (SpeciesReference_t) of this Reaction_t.
  *
  * @memberof Reaction_t
  */
@@ -2072,7 +2072,7 @@ Reaction_getProduct (Reaction_t *r, unsigned int n);
 
 
 /**
- * @return the product (SpeciesReference) in this Reaction with the given
+ * @return the product (SpeciesReference_t) in this Reaction_t with the given
  * species or @c NULL if no such product exists.
  *
  * @memberof Reaction_t
@@ -2083,7 +2083,7 @@ Reaction_getProductBySpecies (Reaction_t *r, const char *species);
 
 
 /**
- * @return the nth modifier (ModifierSpeciesReference) of this Reaction.
+ * @return the nth modifier (modifier SpeciesReference_t) of this Reaction_t.
  *
  * @memberof Reaction_t
  */
@@ -2093,7 +2093,7 @@ Reaction_getModifier (Reaction_t *r, unsigned int n);
 
 
 /**
- * @return the modifier (ModifierSpeciesReference) in this Reaction with
+ * @return the modifier (modifier SpeciesReference_t) in this Reaction_t with
  * the given species or @c NULL if no such modifier exists.
  *
  * @memberof Reaction_t
@@ -2104,7 +2104,7 @@ Reaction_getModifierBySpecies (Reaction_t *r, const char *species);
 
 
 /**
- * @return the number of reactants (SpeciesReferences) in this Reaction.
+ * @return the number of reactants (SpeciesReference_t's) in this Reaction_t.
  *
  * @memberof Reaction_t
  */
@@ -2114,7 +2114,7 @@ Reaction_getNumReactants (const Reaction_t *r);
 
 
 /**
- * @return the number of products (SpeciesReferences) in this Reaction.
+ * @return the number of products (SpeciesReference_t's) in this Reaction_t.
  *
  * @memberof Reaction_t
  */
@@ -2124,8 +2124,8 @@ Reaction_getNumProducts (const Reaction_t *r);
 
 
 /**
- * @return the number of modifiers (ModifierSpeciesReferences) in this
- * Reaction.
+ * @return the number of modifiers (modifier SpeciesReference_t's) in this
+ * Reaction_t.
  *
  * @memberof Reaction_t
  */
@@ -2168,7 +2168,7 @@ Reaction_removeReactant (Reaction_t *r, unsigned int n);
  * @return the reactant SpeciesReference_t structure removed.  As mentioned 
  * above, the caller owns the returned structure. @c NULL is returned if no 
  * reactant SpeciesReference_t structure with the "species" attribute exists 
- * in this Reaction.
+ * in this Reaction_t.
  *
  * @memberof Reaction_t
  */
@@ -2211,7 +2211,7 @@ Reaction_removeProduct (Reaction_t *r, unsigned int n);
  * @return the product SpeciesReference_t structure removed.  As mentioned 
  * above, the caller owns the returned structure. @c NULL is returned if no 
  * product SpeciesReference_t structure with the "species" attribute exists 
- * in this Reaction.
+ * in this Reaction_t.
  *
  * @memberof Reaction_t
  */
@@ -2254,7 +2254,7 @@ Reaction_removeModifier (Reaction_t *r, unsigned int n);
  * @return the modifier SpeciesReference_t structure removed.  As mentioned 
  * above, the caller owns the returned structure. @c NULL is returned if no 
  * modifier SpeciesReference_t structure with the "species" attribute exists 
- * in this Reaction.
+ * in this Reaction_t.
  *
  * @memberof Reaction_t
  */
@@ -2264,7 +2264,7 @@ Reaction_removeModifierBySpecies (Reaction_t *r, const char *species);
 
 
 /**
- * @return item in this ListOfReaction with the given @p id or @c NULL if no such
+ * @return item in this ListOf_t of Reaction_t's with the given @p id or @c NULL if no such
  * item exists.
  *
  * @memberof Reaction_t
@@ -2275,7 +2275,7 @@ ListOfReactions_getById (ListOf_t *lo, const char *sid);
 
 
 /**
- * Removes item in this ListOf items with the given @p id or @c NULL if no such
+ * Removes item in this ListOf_t items with the given @p id or @c NULL if no such
  * item exists.  The caller owns the returned item and is responsible for
  * deleting it.
  *

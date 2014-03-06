@@ -1745,7 +1745,7 @@ SBMLDocument_getVersion (const SBMLDocument_t *d);
  *
  * @param d the SBMLDocument_t structure
  * 
- * @return the Model contained in this SBMLDocument_t structure.
+ * @return the Model_t contained in this SBMLDocument_t structure.
  *
  * @memberof SBMLDocument_t
  */
@@ -1755,15 +1755,15 @@ SBMLDocument_getModel (SBMLDocument_t *d);
 
 
 /**
- * Removes any FunctionDefinitions from the document and expands
+ * Removes any FunctionDefinition_t's from the document and expands
  * any instances of their use within &gt;math&lt; elements.
  *
- * For example a Model contains a FunctionDefinition with id f
+ * For example a Model_t contains a FunctionDefinition_t with id f
  * representing the math expression: f(x, y) = x * y.
- * The math element of the KineticLaw uses f(s, p).
- * The outcome of the function is that the math of the KineticLaw
+ * The math element of the KineticLaw_t uses f(s, p).
+ * The outcome of the function is that the math of the KineticLaw_t
  * now represents the math expression: s * p and the model no longer
- * contains any FunctionDefinitions.
+ * contains any FunctionDefinition_t's.
  * 
  * @param d the SBMLDocument_t structure
  *
@@ -1784,15 +1784,15 @@ SBMLDocument_expandFunctionDefintions (SBMLDocument_t *d);
 
 
 /**
- * Removes any InitialAssignments from the document and replaces
+ * Removes any InitialAssignment_t's from the document and replaces
  * the appropriate values.
  *
- * For example a Model contains a InitialAssignment with symbol k
- * where k is the id of a Parameter.
+ * For example a Model_t contains a InitialAssignment_t with symbol k
+ * where k is the id of a Parameter_t.
  * The outcome of the function is that the value attribute of
- * the Parameter is the value calculated using the math expression
- * of the InitialAssignment and the corresponding InitialAssignment
- * has been removed from the Model.
+ * the Parameter_t is the value calculated using the math expression
+ * of the InitialAssignment_t and the corresponding InitialAssignment_t
+ * has been removed from the Model_t.
  * 
  * @param d the SBMLDocument_t structure
  *
@@ -1805,9 +1805,9 @@ SBMLDocument_expandFunctionDefintions (SBMLDocument_t *d);
  * with invalid SBML the transformation will not be done and the
  * function will return @c false.  As part of the process the 
  * function will check that it has values for any components
- * referred to by the math elements of InitialAssignments.  In
+ * referred to by the math elements of InitialAssignment_t's.  In
  * the case where not all values have been declared the particular
- * InitialAssignment will not be removed and the function will 
+ * InitialAssignment_t will not be removed and the function will 
  * return @c false.
  *
  * @memberof SBMLDocument_t
@@ -1818,7 +1818,7 @@ SBMLDocument_expandInitialAssignments (SBMLDocument_t *d);
 
 
 /**
- * Sets the SBML Level and Version of this SBMLDocument, attempting to
+ * Sets the SBML Level and Version of this SBMLDocument_t, attempting to
  * convert the model as needed.
  *
  * This method is used to convert models between Levels and Versions of
@@ -1867,7 +1867,7 @@ SBMLDocument_setLevelAndVersion (  SBMLDocument_t *d
 
 
 /**
- * Sets the SBML Level and Version of this SBMLDocument, attempting to
+ * Sets the SBML Level and Version of this SBMLDocument_t, attempting to
  * convert the model as needed.
  *
  * This method is used to convert models between Levels and Versions of
@@ -1927,7 +1927,7 @@ SBMLDocument_setLevelAndVersionStrict (  SBMLDocument_t *d
 
 
 /**
- * Sets the SBML Level and Version of this SBMLDocument, attempting to
+ * Sets the SBML Level and Version of this SBMLDocument_t, attempting to
  * convert the model as needed.
  *
  * This method is used to convert models between Levels and Versions of
@@ -2014,9 +2014,9 @@ SBMLDocument_createModel (SBMLDocument_t *d);
 
 
 /**
- * Sets the location of this SBMLDocument.
+ * Sets the location of this SBMLDocument_t.
  *
- * Called automatically when readSBMLFromFile is used, but may be set
+ * Called automatically when readSBMLFromFile() is used, but may be set
  * manually as well.
  *
  * @param d the SBMLDocument_t structure
@@ -2029,7 +2029,7 @@ void
 SBMLDocument_setLocationURI (SBMLDocument_t *d, const char* location);
 
 /**
- * Get the location of this SBMLDocument.
+ * Get the location of this SBMLDocument_t.
  *
  * If this document was read from a file or had its location set manually,
  * that filename or set location will be returned, otherwise, an empty
@@ -2474,7 +2474,7 @@ SBMLDocument_getNamespaces(SBMLDocument_t *d);
 
 
 /**
- * Sets the SBMLnamespaces 
+ * Sets the SBMLnamespaces_t 
  *
  * @param d the SBMLDocument_t structure to change
  * @param sbmlns The SBMLNamespaces_t structure to set

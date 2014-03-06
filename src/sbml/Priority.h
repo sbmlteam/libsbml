@@ -546,20 +546,20 @@ BEGIN_C_DECLS
  * and @p version values.
  *
  * @param level an unsigned int, the SBML Level to assign to this
- * Priority
+ * Priority_t
  *
  * @param version an unsigned int, the SBML Version to assign to this
- * Priority
+ * Priority_t
  *
  * @return a pointer to the newly created Priority_t structure.
  *
- * @note Once a Priority has been added to an SBMLDocument, the @p
+ * @note Once a Priority_t has been added to an SBMLDocument_t, the @p
  * level and @p version for the document @em override those used to create
- * the Priority.  Despite this, the ability to supply the values at
+ * the Priority_t.  Despite this, the ability to supply the values at
  * creation time is an important aid to creating valid SBML.  Knowledge of
  * the intended SBML Level and Version  determine whether it is valid to
  * assign a particular value to an attribute, or whether it is valid to add
- * a structure to an existing SBMLDocument.
+ * a structure to an existing SBMLDocument_t.
  *
  * @memberof Priority_t
  */
@@ -577,13 +577,13 @@ Priority_create (unsigned int level, unsigned int version);
  *
  * @return a pointer to the newly created Priority_t structure.
  *
- * @note Once a Priority has been added to an SBMLDocument, the
+ * @note Once a Priority_t has been added to an SBMLDocument_t, the
  * @p sbmlns namespaces for the document @em override those used to create
- * the Priority.  Despite this, the ability to supply the values at creation time
+ * the Priority_t.  Despite this, the ability to supply the values at creation time
  * is an important aid to creating valid SBML.  Knowledge of the intended SBML
  * Level and Version determine whether it is valid to assign a particular value
  * to an attribute, or whether it is valid to add a structure to an existing
- * SBMLDocument.
+ * SBMLDocument_t.
  *
  * @memberof Priority_t
  */
@@ -656,7 +656,7 @@ Priority_getMath (const Priority_t *p);
  * @param p the Priority_t structure to query
  *
  * @return @c true if the formula (meaning the @c math subelement) of
- * this Priority is set, @c false otherwise.
+ * this Priority_t is set, @c false otherwise.
  *
  * @memberof Priority_t
  */
@@ -670,7 +670,7 @@ Priority_isSetMath (const Priority_t *p);
  * given ASTNode_t structure.
  *
  * @param p the Priority_t structure to set.
- * @param math an ASTNode representing a formula tree.
+ * @param math an ASTNode_t representing a formula tree.
  *
  * @return integer value indicating success/failure of the
  * function.  @if clike The value is drawn from the

@@ -677,7 +677,7 @@ void
 ConversionProperties_addOptionWithKey(ConversionProperties_t* cp, const char* key);
 
 /**
- * Removes the ConversionOption with the given key from the properties.
+ * Removes the ConversionOption_t with the given key from the properties.
  * 
  * @param cp the conversion properties
  * @param key the key for the option to remove

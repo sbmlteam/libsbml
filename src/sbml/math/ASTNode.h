@@ -1854,7 +1854,7 @@ ASTNode_freeName (ASTNode_t *node);
  * child node (the argument) will be transformed to a node of type
  * @link ASTNodeType_t#AST_FUNCTION_POWER AST_FUNCTION_POWER@endlink with
  * two children.  The first child will remain unchanged, but the second
- * child will be an ASTNode of type @link ASTNodeType_t#AST_INTEGER
+ * child will be an ASTNode_t of type @link ASTNodeType_t#AST_INTEGER
  * AST_INTEGER@endlink and a value of 2.  The function names that result
  * in structural changes are: @c log10, @c sqr, and @c sqrt.
  *
@@ -2029,7 +2029,7 @@ ASTNode_deepCopy (const ASTNode_t *node);
  * @param node the node whose child should be obtained.
  * @param n the index of the desired child node.
  *
- * @return the nth child of this ASTNode or a null pointer if this node has
+ * @return the nth child of this ASTNode_t or a null pointer if this node has
  * no nth child (<code>n &gt; </code> ASTNode_getNumChildre() <code>- 1</code>).
  *
  * @see ASTNode_getNumChildren()
@@ -2906,7 +2906,7 @@ ASTNode_hasTypeAndNumChildren(const ASTNode_t *node, ASTNodeType_t type, unsigne
  *
  * "Unknown" nodes have the type @link ASTNodeType_t#AST_UNKNOWN
  * AST_UNKNOWN@endlink.  Nodes with unknown types will not appear in an
- * ASTNode tree returned by libSBML based upon valid SBML input; the only
+ * ASTNode_t tree returned by libSBML based upon valid SBML input; the only
  * situation in which a node with type @link ASTNodeType_t#AST_UNKNOWN
  * AST_UNKNOWN@endlink may appear is immediately after having create a new,
  * untyped node using the ASTNode_t constructor.  Callers creating nodes
@@ -3032,7 +3032,7 @@ ASTNode_setCharacter (ASTNode_t *node, char value);
 /**
  * Sets the node to represent a named entity.
  *
- * As a side-effect, this ASTNode object's type will be reset to @link
+ * As a side-effect, this ASTNode_t object's type will be reset to @link
  * ASTNodeType_t#AST_NAME AST_NAME@endlink if (and <em>only if</em>) the @p
  * node was previously an operator (i.e., ASTNode_isOperator() returns true),
  * number (i.e., ASTNode_isNumber() returns true), or unknown.  This allows
@@ -3389,7 +3389,7 @@ ASTNode_getParentSBMLObject(ASTNode_t* node);
  * Sets the parent SBase_t structure.
  *
  * @param node the node to modify
- * @param sb the parent SBase_t structure of this ASTNode.
+ * @param sb the parent SBase_t structure of this ASTNode_t.
  *
  * @return integer value indicating success/failure of the
  * function.  The possible values returned by this function are:
@@ -3548,7 +3548,7 @@ ASTNode_hasCorrectNumberArguments(ASTNode_t* node);
  *
  * @return @c 1 if @p node is well-formed, @c 0 otherwise.
  *
- * @note An ASTNode may be well-formed, with each node and its children
+ * @note An ASTNode_t may be well-formed, with each node and its children
  * having the appropriate number of children for the given type, but may
  * still be invalid in the context of its use within an SBML model.
  *

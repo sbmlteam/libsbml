@@ -574,7 +574,7 @@ void
 SpeciesReferenceGlyph_setCurve (SpeciesReferenceGlyph_t *srg, Curve_t *c);
 
 /**
- * Gets the Curve for the given species reference glyph.
+ * Gets the Curve_t for the given species reference glyph.
  *
  * @param srg The SpeciesReferenceGlyph_t structure
  *
@@ -585,7 +585,7 @@ Curve_t *
 SpeciesReferenceGlyph_getCurve (SpeciesReferenceGlyph_t *srg);
 
 /**
- * Returns true if the Curve has one or more LineSegment.
+ * Returns true if the Curve_t has one or more LineSegment_t's.
  *
  * @param srg The SpeciesReferenceGlyph_t structure
  *

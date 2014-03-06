@@ -978,13 +978,13 @@ SBasePlugin_free(SBasePlugin_t* plugin);
 /**
  * Subclasses must override this method to create, store, and then
  * return an SBML structure corresponding to the next XMLToken in the
- * XMLInputStream if they have their specific elements.
+ * XMLInputStream_t if they have their specific elements.
  *
  * @param plugin the SBasePlugin_t structure 
  * @param stream the XMLInputStream_t structure to read from
  *
  * @return the SBML structure corresponding to next XMLToken in the
- * XMLInputStream or NULL if the token was not recognized or plugin or stream 
+ * XMLInputStream_t or NULL if the token was not recognized or plugin or stream 
  * were NULL.
  *
  * @memberof SBasePlugin_t
@@ -995,7 +995,7 @@ SBasePlugin_createObject(SBasePlugin_t* plugin, XMLInputStream_t* stream);
 
 /**
  * Subclasses should override this method to read (and store) XHTML,
- * MathML, etc. directly from the XMLInputStream if the target elements
+ * MathML, etc. directly from the XMLInputStream_t if the target elements
  * can't be parsed by SBase::readAnnotation() and/or SBase::readNotes() 
  * functions
  *
@@ -1075,7 +1075,7 @@ SBasePlugin_addExpectedAttributes(SBasePlugin_t* plugin,
 
 /**
  * Subclasses must override this method to read values from the given
- * XMLAttributes if they have their specific attributes.
+ * XMLAttributes_t if they have their specific attributes.
  * 
  * @param plugin the SBasePlugin_t structure  
  * @param attributes the XMLAttributes_t structure  
@@ -1098,7 +1098,7 @@ SBasePlugin_readAttributes(SBasePlugin_t* plugin,
 
 /**
  * Subclasses must override this method to write their XML attributes
- * to the XMLOutputStream if they have their specific attributes.
+ * to the XMLOutputStream_t if they have their specific attributes.
  * 
  * @param plugin the SBasePlugin_t structure  
  * @param stream the XMLOutputStream_t structure  
@@ -1137,10 +1137,10 @@ SBasePlugin_hasRequiredAttributes(SBasePlugin_t* plugin);
 
 /**
  * Subclasses should override this method to write required xmlns attributes
- * to the XMLOutputStream (if any). 
+ * to the XMLOutputStream_t (if any). 
  * The xmlns attribute will be written in the element to which the structure
  * is connected. For example, xmlns attributes written by this function will
- * be added to Model element if this plugin structure connected to the Model 
+ * be added to Model_t element if this plugin structure connected to the Model_t 
  * element.
  * 
  * @param plugin the SBasePlugin_t structure  

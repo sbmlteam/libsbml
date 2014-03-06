@@ -96,7 +96,7 @@ SBML_formulaToString (const ASTNode_t *tree);
 
 
 /**
- * @return true (non-zero) if the given ASTNode is to formatted as a
+ * @return true (non-zero) if the given ASTNode_t is to formatted as a
  * function.
  */
 int
@@ -121,32 +121,32 @@ FormulaFormatter_isGrouped (const ASTNode_t *parent, const ASTNode_t *child);
 
 
 /**
- * Formats the given ASTNode as an SBML L1 token and appends the result to
- * the given StringBuffer.
+ * Formats the given ASTNode_t as an SBML L1 token and appends the result to
+ * the given StringBuffer_t.
  */
 void
 FormulaFormatter_format (StringBuffer_t *sb, const ASTNode_t *node);
 
 
 /**
- * Formats the given ASTNode as an SBML L1 function name and appends the
- * result to the given StringBuffer.
+ * Formats the given ASTNode_t as an SBML L1 function name and appends the
+ * result to the given StringBuffer_t.
  */
 void
 FormulaFormatter_formatFunction (StringBuffer_t *sb, const ASTNode_t *node);
 
 
 /**
- * Formats the given ASTNode as an SBML L1 operator and appends the result
- * to the given StringBuffer.
+ * Formats the given ASTNode_t as an SBML L1 operator and appends the result
+ * to the given StringBuffer_t.
  */
 void
 FormulaFormatter_formatOperator (StringBuffer_t *sb, const ASTNode_t *node);
 
 
 /**
- * Formats the given ASTNode as a rational number and appends the result to
- * the given StringBuffer.  For SBML L1 this amounts to:
+ * Formats the given ASTNode_t as a rational number and appends the result to
+ * the given StringBuffer_t.  For SBML L1 this amounts to:
  *
  *   "(numerator/denominator)"
  */
@@ -155,15 +155,15 @@ FormulaFormatter_formatRational (StringBuffer_t *sb, const ASTNode_t *node);
 
 
 /**
- * Formats the given ASTNode as a real number and appends the result to
- * the given StringBuffer.
+ * Formats the given ASTNode_t as a real number and appends the result to
+ * the given StringBuffer_t.
  */
 void
 FormulaFormatter_formatReal (StringBuffer_t *sb, const ASTNode_t *node);
 
 
 /**
- * Visits the given ASTNode node.  This function is really just a
+ * Visits the given ASTNode_t node.  This function is really just a
  * dispatcher to either SBML_formulaToString_visitFunction() or
  * SBML_formulaToString_visitOther().
  */
@@ -174,7 +174,7 @@ FormulaFormatter_visit ( const ASTNode_t *parent,
 
 
 /**
- * Visits the given ASTNode as a function.  For this node only the
+ * Visits the given ASTNode_t as a function.  For this node only the
  * traversal is preorder.
  */
 void
@@ -184,7 +184,7 @@ FormulaFormatter_visitFunction ( const ASTNode_t *parent,
 
 
 /**
- * Visits the given ASTNode as the function "log(10, x)" and in doing so,
+ * Visits the given ASTNode_t as the function "log(10, x)" and in doing so,
  * formats it as "log10(x)" (where x is any subexpression).
  */
 void
@@ -194,7 +194,7 @@ FormulaFormatter_visitLog10 ( const ASTNode_t *parent,
 
 
 /**
- * Visits the given ASTNode as the function "root(2, x)" and in doing so,
+ * Visits the given ASTNode_t as the function "root(2, x)" and in doing so,
  * formats it as "sqrt(x)" (where x is any subexpression).
  */
 void
@@ -204,7 +204,7 @@ FormulaFormatter_visitSqrt ( const ASTNode_t *parent,
 
 
 /**
- * Visits the given ASTNode as a unary minus.  For this node only the
+ * Visits the given ASTNode_t as a unary minus.  For this node only the
  * traversal is preorder.
  */
 void
@@ -214,7 +214,7 @@ FormulaFormatter_visitUMinus ( const ASTNode_t *parent,
 
 
 /**
- * Visits the given ASTNode and continues the inorder traversal.
+ * Visits the given ASTNode_t and continues the inorder traversal.
  */
 void
 FormulaFormatter_visitOther ( const ASTNode_t *parent,

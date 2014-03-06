@@ -548,9 +548,9 @@ ListOf_t *
 ListOf_create (unsigned int level, unsigned int version);
 
 /**
- * Frees the given ListOf and its constituent items.
+ * Frees the given ListOf_t and its constituent items.
  *
- * This function assumes each item in the list is derived from SBase.
+ * This function assumes each item in the list is derived from SBase_t.
  *
  * @memberof ListOf_t
  */
@@ -559,7 +559,7 @@ void
 ListOf_free (ListOf_t *lo);
 
 /**
- * @return a (deep) copy of this ListOf items.
+ * @return a (deep) copy of this ListOf_t items.
  *
  * @memberof ListOf_t
  */
@@ -569,7 +569,7 @@ ListOf_clone (const ListOf_t *lo);
 
 
 /**
- * Adds a copy of item to the end of this ListOf items.
+ * Adds a copy of item to the end of this ListOf_t items.
  *
  * @memberof ListOf_t
  */
@@ -578,7 +578,7 @@ int
 ListOf_append (ListOf_t *lo, const SBase_t *item);
 
 /**
- * Adds the given item to the end of this ListOf items.
+ * Adds the given item to the end of this ListOf_t items.
  *
  * @memberof ListOf_t
  */
@@ -587,7 +587,7 @@ int
 ListOf_appendAndOwn (ListOf_t *lo, SBase_t *item);
 
 /**
- * Adds clones of the given items from the second list to the end of this ListOf items.
+ * Adds clones of the given items from the second list to the end of this ListOf_t items.
  *
  * @memberof ListOf_t
  */
@@ -596,7 +596,7 @@ int
 ListOf_appendFrom (ListOf_t *lo, ListOf_t *list);
 
 /**
- * inserts a copy of item to this ListOf items at the given position.
+ * inserts a copy of item to this ListOf_t items at the given position.
  *
  * @memberof ListOf_t
  */
@@ -605,7 +605,7 @@ int
 ListOf_insert (ListOf_t *lo, int location, const SBase_t *item);
 
 /**
- * inserts the item to this ListOf items at the given position.
+ * inserts the item to this ListOf_t items at the given position.
  *
  * @memberof ListOf_t
  */
@@ -615,7 +615,7 @@ ListOf_insertAndOwn (ListOf_t *lo, int location, SBase_t *item);
 
 
 /**
- * Returns the nth item in this ListOf items.
+ * Returns the nth item in this ListOf_t items.
  *
  * @memberof ListOf_t
  */
@@ -625,7 +625,7 @@ ListOf_get (ListOf_t *lo, unsigned int n);
 
 #if (0)
 /**
- * @return item in this ListOf items with the given @p sid or @c NULL if no such
+ * @return item in this ListOf_t items with the given @p sid or @c NULL if no such
  * item exists.
  *
  * @memberof ListOf_t
@@ -663,7 +663,7 @@ ListOf_remove (ListOf_t *lo, unsigned int n);
 
 #if (0)
 /**
- * Removes item in this ListOf items with the given @p sid or @c NULL if no such
+ * Removes item in this ListOf_t items with the given @p sid or @c NULL if no such
  * item exists.  The caller owns the returned item and is repsonsible for
  * deleting it.
  *
@@ -675,7 +675,7 @@ ListOf_removeById (ListOf_t *lo, const char *sid);
 #endif
 
 /**
- * Returns the number of items in this ListOf items.
+ * Returns the number of items in this ListOf_t items.
  *
  * @memberof ListOf_t
  */
@@ -684,7 +684,7 @@ unsigned int
 ListOf_size (const ListOf_t *lo);
 
 /**
- * @return the int of SBML structures contained in this ListOf or
+ * @return the int of SBML structures contained in this ListOf_t or
  * SBML_UNKNOWN (default).
  *
  * @memberof ListOf_t

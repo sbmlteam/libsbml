@@ -189,7 +189,7 @@ MemTrace_realloc ( void       *address,  size_t       size,  void *original,
                    const char *filename, unsigned int line );
 
 /**
- * Traces a memory free by removing the MemInfoNode containing address from
+ * Traces a memory free by removing the MemInfoNode_t containing address from
  * AllocList and appending it to FreeList.
  */
 void
@@ -233,39 +233,39 @@ typedef struct
 
 
 /**
- * Creates a new MemInfoList and returns a pointer to it.
+ * Creates a new MemInfoList_t and returns a pointer to it.
  */
 MemInfoList_t *
 MemTrace_MemInfoList_create (void);
 
 /**
- * Creates a new MemInfoNode and returns a pointer to it.
+ * Creates a new MemInfoNode_t and returns a pointer to it.
  */
 MemInfoNode_t *
 MemTrace_MemInfoNode_create ( const void *address,  size_t       size,
                               const char *filename, unsigned int line );
 
 /**
- * Frees the given MemInfoList and its constituent MemInfoNodes
+ * Frees the given MemInfoList_t and its constituent MemInfoNode_t's
  */
 void
 MemTrace_MemInfoList_free (MemInfoList_t *list);
 
 /**
- * Appends the given MemInfoNode to the given MemInfoList.
+ * Appends the given MemInfoNode_t to the given MemInfoList_t.
  */
 void
 MemTrace_MemInfoList_append (MemInfoList_t *list, MemInfoNode_t *node);
 
 /**
- * Returns a pointer to the MemInfoNode in MemInfoList with the given
+ * Returns a pointer to the MemInfoNode_t in MemInfoList_t with the given
  * address or NULL if address is not found.
  */
 MemInfoNode_t *
 MemTrace_MemInfoList_get (const MemInfoList_t *list, const void *address);
 
 /**
- * Removes the MemInfoNode with the given address from MemInfoList and
+ * Removes the MemInfoNode_t with the given address from MemInfoList_t and
  * returns a pointer to it.  If address is not found in the list, NULL is
  * returned.
  */
