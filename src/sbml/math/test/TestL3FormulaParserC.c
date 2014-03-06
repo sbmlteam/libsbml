@@ -26,6 +26,7 @@
  * ---------------------------------------------------------------------- -->*/
 
 #include <sbml/common/common.h>
+#include <sbml/math/FormulaFormatter.h>
 #include <sbml/math/L3Parser.h>
 #include <sbml/math/L3ParserSettings.h>
 #include <sbml/Model.h>
@@ -937,9 +938,12 @@ END_TEST
 START_TEST (test_SBML_C_parseL3Formula_modulo)
 {
   ASTNode_t *r = SBML_parseL3Formula("x % y");
-  //Instead of trying to go through everything individually, we'll just test the round-tripping:
-  fail_unless( !strcmp(SBML_formulaToString(r), "piecewise(x - y * ceil(x / y), xor(lt(x, 0), lt(y, 0)), x - y * floor(x / y))"), NULL );
-ASTNode_free(r);
+  fail_unless(r != NULL);
+  char* formula = SBML_formulaToString(r);
+  fail_unless(formula != NULL);
+  int result = strcmp(formula, "piecewise(x - y * ceil(x / y), xor(lt(x, 0), lt(y, 0)), x - y * floor(x / y))");
+  fail_unless( result == 0 );
+  ASTNode_free(r);
 }
 END_TEST
 

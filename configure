@@ -26446,6 +26446,11 @@ ac_config_files="$ac_config_files src/sbml/math/Makefile"
 ac_config_files="$ac_config_files src/sbml/math/test/Makefile"
 
 
+ac_config_files="$ac_config_files src/sbml/math-legacy/Makefile"
+
+ac_config_files="$ac_config_files src/sbml/math-legacy/test/Makefile"
+
+
 ac_config_files="$ac_config_files src/sbml/units/Makefile"
 
 ac_config_files="$ac_config_files src/sbml/units/test/Makefile"
@@ -27512,6 +27517,8 @@ do
     "src/sbml/annotation/test/Makefile") CONFIG_FILES="$CONFIG_FILES src/sbml/annotation/test/Makefile" ;;
     "src/sbml/math/Makefile") CONFIG_FILES="$CONFIG_FILES src/sbml/math/Makefile" ;;
     "src/sbml/math/test/Makefile") CONFIG_FILES="$CONFIG_FILES src/sbml/math/test/Makefile" ;;
+    "src/sbml/math-legacy/Makefile") CONFIG_FILES="$CONFIG_FILES src/sbml/math-legacy/Makefile" ;;
+    "src/sbml/math-legacy/test/Makefile") CONFIG_FILES="$CONFIG_FILES src/sbml/math-legacy/test/Makefile" ;;
     "src/sbml/units/Makefile") CONFIG_FILES="$CONFIG_FILES src/sbml/units/Makefile" ;;
     "src/sbml/units/test/Makefile") CONFIG_FILES="$CONFIG_FILES src/sbml/units/test/Makefile" ;;
     "src/sbml/Makefile") CONFIG_FILES="$CONFIG_FILES src/sbml/Makefile" ;;

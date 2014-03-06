@@ -44,7 +44,7 @@ include @top_srcdir@/config/makefile-common-vars.mk
 # set `subdir' to an absolute path, or some `make' actions will fail.
 
 srcdir  = @srcdir@
-thisdir = src/sbml/math
+thisdir = src/sbml/math-legacy
 
 # Variables `headers', `sources', `libraries', `extra_CPPFLAGS',
 # `extra_CXXFLAGS', `extra_LDFLAGS' and `distfiles' are used by the default
@@ -103,14 +103,15 @@ distfiles = $(sources) $(headers) Makefile.in
 # The default action is to remake everything.  Those rules which are not
 # defined below are defined in makefile-common-actions.mk.
 
-all: Makefile default
+all: Makefile 
+# default
 
 
 # -----------------------------------------------------------------------------
 # Checking.
 # -----------------------------------------------------------------------------
 
-check: check-recursive
+#check: check-recursive
 
 
 # -----------------------------------------------------------------------------
@@ -129,24 +130,39 @@ tags: etags ctags
 # in 'all' as a default to make sure files get compiled if someone does
 # 'make install' from the top level without first doing a 'make'.
 
-install: all install-headers
+install:
 
-installcheck: all installcheck-headers
+uninstall:
 
-uninstall: uninstall-headers
+installcheck:
+
+#install: all install-headers
+
+#installcheck: all installcheck-headers
+
+#uninstall: uninstall-headers
 
 
 # -----------------------------------------------------------------------------
 # Cleaning.
 # -----------------------------------------------------------------------------
 
-clean: clean-normal clean-recursive
+clean: clean-normal
 
-distclean: distclean-normal distclean-recursive
+distclean: distclean-normal
 
-mostlyclean: mostlyclean-normal mostlyclean-recursive
+mostlyclean: mostlyclean-normal
 
-maintainer-clean: maintainer-clean-normal maintainer-clean-recursive
+maintainer-clean: maintainer-clean-normal
+
+
+#clean: clean-normal clean-recursive
+
+#distclean: distclean-normal distclean-recursive
+
+#mostlyclean: mostlyclean-normal mostlyclean-recursive
+
+#maintainer-clean: maintainer-clean-normal maintainer-clean-recursive
 
 
 # -----------------------------------------------------------------------------

@@ -140,7 +140,8 @@ static mxArray * mxFluxObjectiveReturn       = NULL;
 
 char *    pacActiveObj              = NULL;
 
-/*
+#ifndef USE_FBC
+
 typedef enum
 {
     SBML_FBC_ASSOCIATION      = 800
@@ -149,7 +150,8 @@ typedef enum
    ,SBML_FBC_GENEASSOCIATION  = 803
    ,SBML_FBC_OBJECTIVE        = 804
 } SBMLFbcTypeCode_t;
-*/
+
+#endif
 
 /**
  * NAME:    mexFunction
