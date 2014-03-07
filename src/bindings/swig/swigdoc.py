@@ -623,9 +623,10 @@ def translateInclude (match):
     stream  = open(doc_include_path + '/common-text/' + file, 'r')
     content = stream.read()
     stream.close()
-  except Exception, e:
+  except (Exception,):
+    e = sys.exc_info()[1]
     print('Warning: cannot expand common-text: ' + file)
-    print e
+    print(e)
 
   content = removeHTMLcomments(content)
 
@@ -1518,7 +1519,8 @@ def main (args):
 
   try: 
     libsbml_classes  = sorted(list(set(libsbml_classes)))
-  except Exception, e:
+  except (Exception,):
+    e = sys.exc_info()[1]
     pass
 
   # Now, do the main processing pass, writing the output as we go along.
@@ -1553,7 +1555,8 @@ def main (args):
   try:
     tmpstream.flush()
     tmpstream.close()
-  except Exception, e:
+  except (Exception,):
+    e = sys.exc_info()[1]
     #FB: not printing the warning below, as after all the documentation file
     #    has been correctly created. 
     pass
