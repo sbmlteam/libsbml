@@ -82,6 +82,15 @@ SBMLExternalValidator::clone() const
   return new SBMLExternalValidator(*this);
 }
 
+/*
+ * Destroy this object.
+ */
+SBMLExternalValidator::~SBMLExternalValidator ()
+{
+
+}
+
+
 const std::string& 
 SBMLExternalValidator::getProgram()  const
 {

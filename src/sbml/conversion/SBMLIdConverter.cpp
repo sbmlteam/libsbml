@@ -71,6 +71,14 @@ SBMLIdConverter::clone() const
 }
 
 
+/*
+ * Destroy this object.
+ */
+SBMLIdConverter::~SBMLIdConverter ()
+{
+}
+
+
 ConversionProperties
 SBMLIdConverter::getDefaultProperties() const
 {

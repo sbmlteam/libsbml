@@ -134,6 +134,12 @@ public:
 
 
   /**
+   * Destroy this SBMLRuleConverter object.
+   */
+  virtual ~SBMLRuleConverter ();
+
+
+  /**
    * Returns @c true if this converter object's properties match the given
    * properties.
    *

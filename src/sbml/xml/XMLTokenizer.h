@@ -66,7 +66,7 @@ public:
   /**
    * Destroys this XMLTokenizer.
    */
-  ~XMLTokenizer ();
+  virtual ~XMLTokenizer ();
 
 
   /**

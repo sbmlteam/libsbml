@@ -37,6 +37,11 @@ IdFilter::IdFilter() : ElementFilter()
 }
 
 
+IdFilter::~IdFilter()
+{
+}
+
+
 bool 
 IdFilter::filter(const SBase* element)
 {

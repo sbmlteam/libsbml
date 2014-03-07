@@ -71,6 +71,14 @@ SBMLFunctionDefinitionConverter::clone() const
   return new SBMLFunctionDefinitionConverter(*this);
 }
 
+/*
+ * Destroy this object.
+ */
+SBMLFunctionDefinitionConverter::~SBMLFunctionDefinitionConverter ()
+{
+}
+
+
 ConversionProperties
 SBMLFunctionDefinitionConverter::getDefaultProperties() const
 {

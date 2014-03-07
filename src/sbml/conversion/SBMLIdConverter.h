@@ -84,6 +84,12 @@ public:
 
 
   /**
+   * Destroy this SBMLIdConverter object.
+   */
+  virtual ~SBMLIdConverter ();
+
+
+  /**
    * Returns @c true if this converter object's properties match the given
    * properties.
    *

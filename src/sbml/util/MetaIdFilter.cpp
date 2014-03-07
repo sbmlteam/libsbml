@@ -37,6 +37,11 @@ MetaIdFilter::MetaIdFilter() : ElementFilter()
 }
 
 
+MetaIdFilter::~MetaIdFilter()
+{
+}
+
+
 bool 
 MetaIdFilter::filter(const SBase* element)
 {

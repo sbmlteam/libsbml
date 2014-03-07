@@ -70,9 +70,17 @@ CobraToFbcConverter::CobraToFbcConverter(const CobraToFbcConverter& orig) :
 }
 
 SBMLConverter* 
-  CobraToFbcConverter::clone() const
+CobraToFbcConverter::clone() const
 {
   return new CobraToFbcConverter(*this);
+}
+
+
+/*
+ * Destroy this object.
+ */
+CobraToFbcConverter::~CobraToFbcConverter ()
+{
 }
 
 

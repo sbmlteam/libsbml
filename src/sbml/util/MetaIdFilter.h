@@ -42,7 +42,9 @@ class LIBSBML_EXTERN MetaIdFilter : public ElementFilter
 public:
 	MetaIdFilter();
 
-	virtual bool filter(const SBase* element);
+  virtual ~MetaIdFilter();
+
+  virtual bool filter(const SBase* element);
 
 };
 

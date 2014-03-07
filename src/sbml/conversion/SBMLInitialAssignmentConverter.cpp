@@ -69,6 +69,14 @@ SBMLInitialAssignmentConverter::clone() const
 }
 
 
+/*
+ * Destroy this object.
+ */
+SBMLInitialAssignmentConverter::~SBMLInitialAssignmentConverter ()
+{
+}
+
+
 ConversionProperties
 SBMLInitialAssignmentConverter::getDefaultProperties() const
 {

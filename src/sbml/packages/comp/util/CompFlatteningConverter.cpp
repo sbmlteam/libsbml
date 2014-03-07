@@ -78,9 +78,17 @@ SBMLConverter(orig)
 }
 
 SBMLConverter* 
-  CompFlatteningConverter::clone() const
+CompFlatteningConverter::clone() const
 {
   return new CompFlatteningConverter(*this);
+}
+
+
+/*
+ * Destroy this object.
+ */
+CompFlatteningConverter::~CompFlatteningConverter ()
+{
 }
 
 

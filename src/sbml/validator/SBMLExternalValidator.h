@@ -68,6 +68,12 @@ public:
 
   
   /**
+   * Destroy this object.
+   */
+  virtual ~SBMLExternalValidator ();
+
+
+  /**
    * the actual conversion 
    * 
    * @return status code represeting success/failure/conversion impossible

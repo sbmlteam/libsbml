@@ -69,10 +69,18 @@ SBMLConverter(orig)
 }
 
 SBMLConverter* 
-  SBMLRuleConverter::clone() const
+SBMLRuleConverter::clone() const
 {
   return new SBMLRuleConverter(*this);
 }
+
+/*
+ * Destroy this object.
+ */
+SBMLRuleConverter::~SBMLRuleConverter ()
+{
+}
+
 
 ConversionProperties
   SBMLRuleConverter::getDefaultProperties() const

@@ -42,7 +42,9 @@ class LIBSBML_EXTERN IdFilter : public ElementFilter
 public:
 	IdFilter();
 
-	virtual bool filter(const SBase* element);
+  virtual ~IdFilter();
+
+  virtual bool filter(const SBase* element);
 
 };
 

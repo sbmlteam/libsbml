@@ -76,6 +76,14 @@ SBMLLocalParameterConverter::clone() const
 }
 
 
+/*
+ * Destroy this object.
+ */
+SBMLLocalParameterConverter::~SBMLLocalParameterConverter ()
+{
+}
+
+
 ConversionProperties
 SBMLLocalParameterConverter::getDefaultProperties() const
 {

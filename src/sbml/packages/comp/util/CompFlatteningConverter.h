@@ -77,6 +77,12 @@ public:
 
 
   /**
+   * Destroy this CompFlatteningConverter object.
+   */
+  virtual ~CompFlatteningConverter ();
+
+
+  /**
    * This function determines whether a given converter matches the 
    * configuration properties given. 
    * 

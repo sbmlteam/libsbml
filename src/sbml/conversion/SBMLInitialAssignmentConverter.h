@@ -126,6 +126,12 @@ public:
 
 
   /**
+   * Destroy this SBMLInitialAssignmentConverter object.
+   */
+  virtual ~SBMLInitialAssignmentConverter ();
+
+
+  /**
    * Returns @c true if this converter object's properties match the given
    * properties.
    *

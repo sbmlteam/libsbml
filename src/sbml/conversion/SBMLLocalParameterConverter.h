@@ -84,6 +84,12 @@ public:
 
 
   /**
+   * Destroy this SBMLLocalParameterConverter object.
+   */
+  virtual ~SBMLLocalParameterConverter ();
+
+
+  /**
    * Returns @c true if this converter object's properties match the given
    * properties.
    *

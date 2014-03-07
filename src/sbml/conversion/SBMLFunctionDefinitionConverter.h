@@ -108,6 +108,12 @@ public:
 
 
   /**
+   * Destroy this SBMLFunctionDefinitionConverter object.
+   */
+  virtual ~SBMLFunctionDefinitionConverter ();
+
+
+  /**
    * Returns @c true if this converter object's properties match the given
    * properties.
    *

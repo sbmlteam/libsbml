@@ -461,6 +461,12 @@ public:
   virtual SBMLValidator* clone() const;
 
 
+  /**
+   * Destroy this object.
+   */
+  virtual ~SBMLInternalValidator ();
+
+
   /** 
    * Runs the validations.
    * 

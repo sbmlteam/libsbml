@@ -395,6 +395,14 @@ SBMLError::SBMLError(const SBMLError& orig) :
 }
 
 
+ /*
+ * Destroys this SBMLError.
+ */
+SBMLError::~SBMLError ()
+{
+}
+
+
 /** @cond doxygenLibsbmlInternal **/
 /*
  * clone function

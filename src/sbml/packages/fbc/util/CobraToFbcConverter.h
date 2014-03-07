@@ -77,6 +77,12 @@ public:
 
 
   /**
+   * Destroy this CobraToFbcConverter object.
+   */
+  virtual ~CobraToFbcConverter ();
+
+
+  /**
    * This function determines whether a given converter matches the 
    * configuration properties given. 
    * 

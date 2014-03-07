@@ -76,9 +76,18 @@ SBMLValidator(orig), mApplicableValidators(orig.mApplicableValidators),
 }
 
 SBMLValidator* 
-  SBMLInternalValidator::clone() const
+SBMLInternalValidator::clone() const
 {
   return new SBMLInternalValidator(*this);
+}
+
+
+/*
+ * Destroy this object.
+ */
+SBMLInternalValidator::~SBMLInternalValidator ()
+{
+
 }
 
 

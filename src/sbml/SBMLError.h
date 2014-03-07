@@ -1154,6 +1154,11 @@ public:
    */
   SBMLError(const SBMLError& orig);
 
+  /**
+   * Destroys this SBMLError.
+   */  
+  virtual ~SBMLError();
+
 
 #ifndef SWIG
 
