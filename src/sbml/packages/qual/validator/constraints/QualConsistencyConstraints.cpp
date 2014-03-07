@@ -58,17 +58,20 @@ START_CONSTRAINT (QualRequiredTrueIfTransitions, Model, x)
 {
   bool fail = false;
 
-  QualSBMLDocumentPlugin * plug = (QualSBMLDocumentPlugin*)(x.getSBMLDocument()
-    ->getPlugin("qual"));
-  QualModelPlugin *plug1 = (QualModelPlugin*)(x.getPlugin("qual"));
+  // do not ever log this error as the interpretation of required
+  // changed
 
-  pre (plug->isSetRequired());
+  //QualSBMLDocumentPlugin * plug = (QualSBMLDocumentPlugin*)(x.getSBMLDocument()
+  //  ->getPlugin("qual"));
+  //QualModelPlugin *plug1 = (QualModelPlugin*)(x.getPlugin("qual"));
 
-  if (plug->getRequired() == false
-    && plug1->getNumTransitions() > 0)
-  {
-    fail = true;
-  }
+  //pre (plug->isSetRequired());
+
+  //if (plug->getRequired() == false
+  //  && plug1->getNumTransitions() > 0)
+  //{
+  //  fail = true;
+  //}
 
   inv(fail == false );
 }
@@ -123,11 +126,13 @@ EXTERN_CONSTRAINT( QualQSAssignedOnlyOnce, QSAssignedOnce            )
 // 20401 - 20404 - caught at read
 
 //20405 - some caught at read but need to catch missing function terms
-START_CONSTRAINT (QualTransitionLOElements, ListOfFunctionTerms, loft)
+START_CONSTRAINT (QualTransitionLOElements, Transition, t)
 {
   bool fail = false;
 
-  if (loft.size() == 0 && loft.isSetDefaultTerm() == false)
+  const ListOfFunctionTerms *loft = t.getListOfFunctionTerms();
+
+  if (loft->size() == 0 && loft->isSetDefaultTerm() == false)
   {
     fail = true;
   }
