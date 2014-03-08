@@ -683,7 +683,7 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 BEGIN_C_DECLS
 
 
-/*
+/**
  * Creates a new GeneralGlyph_t and returns the pointer to it.
  *
  * @memberof GeneralGlyph_t
@@ -693,7 +693,7 @@ GeneralGlyph_t *
 GeneralGlyph_create (void);
 
 
-/*
+/**
  * Creates a new GeneralGlyph_t structure from a template.
  *
  * @param temp The GeneralGlyph_t structure to copy.
@@ -704,7 +704,8 @@ LIBSBML_EXTERN
 GeneralGlyph_t *
 GeneralGlyph_createFrom (const GeneralGlyph_t *temp);
 
-/*
+
+/**
  * Creates a new GeneralGlyph_t with the given @p sid
  *
  * @param gg The GeneralGlyph_t structure.
@@ -716,7 +717,8 @@ LIBSBML_EXTERN
 GeneralGlyph_t *
 GeneralGlyph_createWith (const char *sid);
 
-/*
+
+/**
  * Creates a new GeneralGlyph_t referencing the given element.
  *
  * @param gg The GeneralGlyph_t structure.
@@ -729,7 +731,8 @@ LIBSBML_EXTERN
 GeneralGlyph_t *
 GeneralGlyph_createWithReferenceId (const char *sid, const char *referenceId);
 
-/*
+
+/**
  * Frees the memory taken by the given glyph.
  *
  * @param gg The GeneralGlyph_t structure.
@@ -740,7 +743,8 @@ LIBSBML_EXTERN
 void
 GeneralGlyph_free (GeneralGlyph_t *gg);
 
-/*
+
+/**
  * Sets the reference for the glyph.
  *
  * @param gg The GeneralGlyph_t structure.
@@ -752,7 +756,8 @@ LIBSBML_EXTERN
 void
 GeneralGlyph_setReferenceId (GeneralGlyph_t *gg,const char *id);
 
-/*
+
+/**
  * Gets the reference id for the given glyph.
  *
  * @param gg The GeneralGlyph_t structure.
@@ -763,7 +768,8 @@ LIBSBML_EXTERN
 const char *
 GeneralGlyph_getReferenceId (const GeneralGlyph_t *gg);
 
-/*
+
+/**
  * Returns 0 if the reference element has not been set for this glyph and
  * 1 otherwise.
  *
@@ -775,7 +781,8 @@ LIBSBML_EXTERN
 int
 GeneralGlyph_isSetReferenceId (const GeneralGlyph_t *gg);
 
-/*
+
+/**
  * Add a ReferenceGlyph_t object to the list of
  * ReferenceGlyph_t's.
  *
@@ -788,7 +795,7 @@ void
 GeneralGlyph_addReferenceGlyph (GeneralGlyph_t   *gg,
                                 ReferenceGlyph_t *srg);
 
-/*
+/**
  * Returns the number of ReferenceGlyphs for the GeneralGlyph_t.
  *
  * @param gg The GeneralGlyph_t structure.
@@ -799,7 +806,8 @@ LIBSBML_EXTERN
 unsigned int
 GeneralGlyph_getNumReferenceGlyphs (const GeneralGlyph_t *gg);
 
-/*
+
+/**
  * Returns the pointer to the ReferenceGlyph_t's for the given index.
  *
  * @param gg The GeneralGlyph_t structure.
@@ -812,7 +820,7 @@ GeneralGlyph_getReferenceGlyph (GeneralGlyph_t *gg,
                                 unsigned int index);
 
 
-/*
+/**
  * Returns the list object that holds all reference glyphs.
  *
  * @param gg The GeneralGlyph_t structure.
@@ -823,7 +831,8 @@ LIBSBML_EXTERN
 ListOf_t *
 GeneralGlyph_getListOfReferenceGlyphs (GeneralGlyph_t *gg);
 
-/*
+
+/**
  * Removes the reference glyph with the given index.  If the index
  * is invalid, nothing is removed.
  *
@@ -836,7 +845,7 @@ ReferenceGlyph_t *
 GeneralGlyph_removeReferenceGlyph (GeneralGlyph_t *gg,
                                    unsigned int index);
 
-/*
+/**
  * Calls initDefaults from GraphicalObject.
  *
  * @param gg The GeneralGlyph_t structure.
@@ -847,7 +856,8 @@ LIBSBML_EXTERN
 void
 GeneralGlyph_initDefaults (GeneralGlyph_t *gg);
 
-/*
+
+/**
  * Sets the curve for the reaction glyph.
  *
  * @param gg The GeneralGlyph_t structure.
@@ -858,7 +868,8 @@ LIBSBML_EXTERN
 void
 GeneralGlyph_setCurve (GeneralGlyph_t *gg, Curve_t *c);
 
-/*
+
+/**
  * Gets the Curve_t for the given reaction glyph.
  *
  * @param gg The GeneralGlyph_t structure.
@@ -869,7 +880,8 @@ LIBSBML_EXTERN
 Curve_t *
 GeneralGlyph_getCurve (GeneralGlyph_t *gg);
 
-/*
+
+/**
  * Returns true if the Curve_t has one or more LineSegment.
  *
  * @param gg The GeneralGlyph_t structure.
@@ -880,7 +892,8 @@ LIBSBML_EXTERN
 int
 GeneralGlyph_isSetCurve (GeneralGlyph_t *gg);
 
-/*
+
+/**
  * Creates a new ReferenceGlyph_t structure, adds it to the end of the
  * list of reference glyphs and returns a pointer to the newly
  * created structure.
@@ -893,7 +906,8 @@ LIBSBML_EXTERN
 ReferenceGlyph_t *
 GeneralGlyph_createReferenceGlyph (GeneralGlyph_t *gg);
 
-/*
+
+/**
  * Creates a new ReferenceGlyph_t structure, adds it to the end of the
  * list of reference glyphs and returns a pointer to the newly
  * created structure.
@@ -906,7 +920,8 @@ LIBSBML_EXTERN
 ReferenceGlyph_t *
 GeneralGlyph_createReferenceGlyph (GeneralGlyph_t *gg);
 
-/*
+
+/**
  * Creates a new LineSegment_t structure, adds it to the end of the list of
  * curve segments and returns a pointer to the newly created
  * structure.
@@ -919,7 +934,8 @@ LIBSBML_EXTERN
 LineSegment_t *
 GeneralGlyph_createLineSegment (GeneralGlyph_t *gg);
 
-/*
+
+/**
  * Creates a new CubicBezier_t structure, adds it to the end of the list of
  * curve segments and returns a pointer to the newly created
  * structure.
@@ -932,7 +948,8 @@ LIBSBML_EXTERN
 CubicBezier_t *
 GeneralGlyph_createCubicBezier (GeneralGlyph_t *gg);
 
-/*
+
+/**
  * Remove the reference glyph with the given index.
  * A pointer to the structure is returned. If no structure has been removed, NULL
  * is returned.
@@ -945,7 +962,8 @@ LIBSBML_EXTERN
 ReferenceGlyph_t*
 GeneralGlyph_removeReferenceGlyph(GeneralGlyph_t* gg, unsigned int index);
 
-/*
+
+/**
  * Remove the reference glyph with the given @p id.
  * A pointer to the structure is returned. If no structure has been removed, NULL
  * is returned.
@@ -958,7 +976,8 @@ LIBSBML_EXTERN
 ReferenceGlyph_t*
 GeneralGlyph_removeReferenceGlyphWithId(GeneralGlyph_t* gg, const char* id);
 
-/*
+
+/**
  * Returns the index of the reference glyph with the given @p id.
  * If the reaction glyph does not contain a reference glyph with this
  * id, UINT_MAX from limits.h is returned.
@@ -971,7 +990,8 @@ LIBSBML_EXTERN
 unsigned int
 GeneralGlyph_getIndexForReferenceGlyph(GeneralGlyph_t* gg,const char* id);
 
-/*
+
+/**
  * @return a (deep) copy of this GeneralGlyph_t.
  *
  * @param gg The GeneralGlyph_t structure.
