@@ -49,10 +49,7 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 
 #ifdef __cplusplus
 
-
-
-#endif /* __cplusplus */
-
+/** @cond doxygenLibsbmlInternal */
 bool
 hasSeriousErrors(XMLErrorLog* log, unsigned int index)
 {
@@ -79,9 +76,9 @@ hasSeriousErrors(XMLErrorLog* log, unsigned int index)
 
   return seriousErrors;
 }
+/** @endcond */
 
 /** @cond doxygenLibsbmlInternal */
-
 LIBSBML_EXTERN
 ASTNode*
 readMathML (XMLInputStream& stream, const std::string& reqd_prefix)
@@ -108,7 +105,6 @@ readMathML (XMLInputStream& stream, const std::string& reqd_prefix)
 /** @endcond */
 
 /** @cond doxygenLibsbmlInternal */
-
 LIBSBML_EXTERN
 void
 writeMathML (const ASTNode* node, XMLOutputStream& stream, SBMLNamespaces *sbmlns)
@@ -117,9 +113,9 @@ writeMathML (const ASTNode* node, XMLOutputStream& stream, SBMLNamespaces *sbmln
   stream.setSBMLNamespaces(sbmlns);
   node->write(stream);
 }
-
-
 /** @endcond */
+
+#endif /* __cplusplus */
 
 /* ---------------------------------------------------------------------- */
 /*                           Public Functions                             */

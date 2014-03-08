@@ -1998,7 +1998,7 @@ int
 XMLNode_setEOF (XMLNode_t *node);
 
 
-/*
+/**
  * Declares this XML start/end element is no longer an end element.
  *
  * @param node XMLNode_t structure to be set.

@@ -2226,7 +2226,7 @@ int
 XMLToken_setEOF (XMLToken_t *token);
 
 
-/*
+/**
  * Declares this XML start/end element is no longer an end element.
  *
  * @param token XMLToken_t structure to be set.

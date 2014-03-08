@@ -80,6 +80,10 @@ BEGIN_C_DECLS
  * @see <code><a href="libsbml.html#getLastParseL3Error()">getLastParseL3Error()</a></code>
  * @see <code><a href="libsbml.html#getDefaultL3ParserSettings()">getDefaultL3ParserSettings()</a></code>
  * @endif@~
+ *
+ * @if conly
+ * @memberof ASTNode_t
+ * @endif
  */
 LIBSBML_EXTERN
 ASTNode_t *

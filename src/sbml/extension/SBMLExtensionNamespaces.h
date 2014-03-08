@@ -301,10 +301,11 @@ LIBSBML_EXTERN
 char*
 SBMLExtensionNamespaces_getPackageName(SBMLExtensionNamespaces_t* extns);
 
-/*
+/**
  * Sets the package version of the namespace structure.
  *
  * @param extns the SBMLExtensionNamespaces_t structure 
+ * @param pkgVersion the package version to use
  *
  * @return integer value indicating success/failure of the
  * function.  @if clike The value is drawn from the

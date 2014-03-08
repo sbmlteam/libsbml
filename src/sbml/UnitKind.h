@@ -111,6 +111,10 @@ typedef enum
  *
  * @note For more information about the libSBML unit codes, please refer to
  * the class documentation for Unit.
+ *
+ * @if conly
+ * @memberof Unit_t
+ * @endif
  */
 LIBSBML_EXTERN
 int
@@ -135,6 +139,9 @@ UnitKind_equals (UnitKind_t uk1, UnitKind_t uk2);
  * @note For more information about the libSBML unit codes, please refer to
  * the class documentation for Unit.
  *
+ * @if conly
+ * @memberof Unit_t
+ * @endif
  */
 LIBSBML_EXTERN
 UnitKind_t
@@ -159,6 +166,9 @@ UnitKind_forName (const char *name);
  * @warning The string returned is a static data value.  The caller does not
  * own the returned string and is therefore not allowed to modify it.
  *
+ * @if conly
+ * @memberof Unit_t
+ * @endif
  */
 LIBSBML_EXTERN
 const char *
@@ -179,6 +189,9 @@ UnitKind_toString (UnitKind_t uk);
  * @note For more information about the libSBML unit codes, please refer to
  * the class documentation for Unit.
  *
+ * @if conly
+ * @memberof Unit_t
+ * @endif
  */
 LIBSBML_EXTERN
 int

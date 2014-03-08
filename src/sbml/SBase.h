@@ -4067,7 +4067,7 @@ int
 SBase_setSBOTerm (SBase_t *sb, int value);
 
 
-/*
+/**
  * Sets the value of the "sboTerm" attribute by string.
  *
  * In SBML Level 2 Versions 2, 3 and 4, the data type of the SBML "sboTerm"
@@ -4083,7 +4083,7 @@ SBase_setSBOTerm (SBase_t *sb, int value);
  *
  * @param sb the SBase_t structure
  *
- * @param value the SBO identifier string of the form SBO:NNNNNNN
+ * @param sboid the SBO identifier string of the form SBO:NNNNNNN
  *
  * @return integer value indicating success/failure of the
  * function.  @if clike The value is drawn from the
@@ -4897,6 +4897,8 @@ SBase_getNumPlugins(SBase_t *sb);
  *
  * @return the plug-in structure (the libSBML extension interface) of
  * a package extension with the given package name or URI.
+ *
+ * @memberof SBase_t
  */
 LIBSBML_EXTERN
 SBasePlugin_t* 

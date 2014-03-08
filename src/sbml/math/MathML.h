@@ -45,13 +45,14 @@
 LIBSBML_CPP_NAMESPACE_BEGIN
 
 /** @cond doxygenLibsbmlInternal */
-
 class ASTNode;
 class ASTBasePlugin;
 class XMLInputStream;
 class XMLOutputStream;
+/** @endcond */
 
 
+/** @cond doxygenLibsbmlInternal */
 /**
  * Reads the MathML from the given XMLInputStream, constructs a corresponding
  * abstract syntax tree and returns a pointer to the root of the tree.
@@ -59,8 +60,10 @@ class XMLOutputStream;
 LIBSBML_EXTERN
 ASTNode*
 readMathML (XMLInputStream& stream, const std::string& reqd_prefix="");
+/** @endcond */
 
 
+/** @cond doxygenLibsbmlInternal */
 /**
  * Writes the given ASTNode (and its children) to the XMLOutputStream_t as
  * MathML.
@@ -68,8 +71,6 @@ readMathML (XMLInputStream& stream, const std::string& reqd_prefix="");
 LIBSBML_EXTERN
 void
 writeMathML (const ASTNode* node, XMLOutputStream& stream, SBMLNamespaces *sbmlns=NULL);
-
-
 /** @endcond */
 
 LIBSBML_CPP_NAMESPACE_END

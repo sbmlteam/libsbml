@@ -26,8 +26,8 @@
 * ------------------------------------------------------------------------ -->
 */
 
-#ifndef RegisterConverters_h
-#define RegisterConverters_h
+#ifndef RegisterConverters_cpp
+#define RegisterConverters_cpp
 
 #include <sbml/conversion/SBMLConverterRegister.h>
 
@@ -48,6 +48,7 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 // All new converters are registered here once. If a converter is not in this
 // list it needs to be registered manually. 
   
+/** @cond doxygenLibsbmlInternal */
 static SBMLConverterRegister<SBMLRuleConverter> registerRuleConverter;
 static SBMLConverterRegister<SBMLIdConverter> registerIdConverter;
 static SBMLConverterRegister<SBMLFunctionDefinitionConverter> registerFDConverter;
@@ -58,10 +59,11 @@ static SBMLConverterRegister<SBMLUnitsConverter> registerUnitsConverter;
 static SBMLConverterRegister<SBMLInferUnitsConverter> registerInferUnitsConverter;
 static SBMLConverterRegister<SBMLLocalParameterConverter> registerlocaLParameterConverter;
 static SBMLConverterRegister<SBMLReactionConverter> registerReactionConverter;
+/** @endcond */
 
 LIBSBML_CPP_NAMESPACE_END
 
 
 
-#endif
+#endif /* RegisterConverters_cpp */
 

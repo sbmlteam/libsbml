@@ -973,7 +973,7 @@ LIBSBML_EXTERN
 int
 LocalParameter_setUnits (LocalParameter_t *p, const char *units);
 
-/*
+/**
  * Because LocalParameter_t structures don't have a 'constant' attribute, this function always
  * returns @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE @endlink.
  *

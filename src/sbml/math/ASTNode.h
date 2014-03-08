@@ -172,6 +172,10 @@ LIBSBML_CPP_NAMESPACE_BEGIN
  *
  * @if conly @see ASTNode_getListOfNodes()@else @see ASTNode::getListOfNodes()@endif
  * @if conly @see ASTNode_fillListOfNodes()@else @see ASTNode::fillListOfNodes()@endif
+ *
+ * @if conly
+ * @memberof ASTNode_t
+ * @endif
  */
 typedef int (*ASTNodePredicate) (const ASTNode_t *node);
 

@@ -70,7 +70,11 @@ const char* UNIT_KIND_STRINGS[] =
   , "(Invalid UnitKind)"
 };
 
-
+/**
+ * @if conly
+ * @memberof Unit_t
+ * @endif
+ */
 LIBSBML_EXTERN
 int
 UnitKind_equals (UnitKind_t uk1, UnitKind_t uk2)
@@ -84,6 +88,11 @@ UnitKind_equals (UnitKind_t uk1, UnitKind_t uk2)
 }
 
 
+/**
+ * @if conly
+ * @memberof Unit_t
+ * @endif
+ */
 LIBSBML_EXTERN
 UnitKind_t
 UnitKind_forName (const char *name)
@@ -100,6 +109,11 @@ UnitKind_forName (const char *name)
 }
 
 
+/**
+ * @if conly
+ * @memberof Unit_t
+ * @endif
+ */
 LIBSBML_EXTERN
 const char *
 UnitKind_toString (UnitKind_t uk)
@@ -113,9 +127,14 @@ UnitKind_toString (UnitKind_t uk)
 }
 
 
+/**
+ * @if conly
+ * @memberof Unit_t
+ * @endif
+ */
 LIBSBML_EXTERN
 int
-UnitKind_isValidUnitKindString (const char *string, unsigned int level, unsigned int version)
+UnitKind_isValidUnitKindString (const char *str, unsigned int level, unsigned int version)
 {
   UnitKind_t uk = UnitKind_forName(string);
   if (level == 1)

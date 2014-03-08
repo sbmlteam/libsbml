@@ -44,6 +44,10 @@ LIBSBML_CPP_NAMESPACE_BEGIN
  * 
  * @see @if conly ASTNode_getType() @else ASTNode::getType() @endif
  * @see @if conly ASTNode_canonicalize() @else ASTNode::canonicalize() @endif
+ *
+ * @if conly
+ * @memberof ASTNode_t
+ * @endif
  */
 typedef enum
 {

@@ -1020,6 +1020,8 @@ BEGIN_C_DECLS
  * @param ext the SBMLExtension_t structure to be copied
  * 
  * @return a (deep) copy of the given SBMLExtension_t structure.
+ *
+ * @memberof SBMLExtension_t
  */
 LIBSBML_EXTERN
 SBMLExtension_t*
@@ -1066,7 +1068,7 @@ int
 SBMLExtension_addSBasePluginCreator(SBMLExtension_t* ext, 
       SBasePluginCreatorBase_t *sbaseExt );
 
-/*
+/**
  * Returns an SBasePluginCreatorBase_t structure of this package extension
  * bound to the given extension point.
  *
