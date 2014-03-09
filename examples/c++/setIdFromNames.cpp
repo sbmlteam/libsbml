@@ -79,10 +79,10 @@ private:
 	std::string nameToSbmlId(const std::string & name)
 	{
 	// We convert all non allowed characters to '_'
-	// letter ::= ’a’..’z’,’A’..’Z’
-	// digit  ::= ’0’..’9’
-	// idChar ::= letter | digit | ’_’
-	// SId    ::= (letter | ’_’ ) idChar*
+	// letter ::= 'a'..'z','A'..'Z'
+	// digit  ::= '0'..'9'
+	// idChar ::= letter | digit | '_'
+	// SId    ::= (letter | '_' ) idChar*
 	
 	std::ostringstream IdStream;
 	
