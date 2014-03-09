@@ -136,7 +136,7 @@ LIBSBML_EXTERN
 int
 UnitKind_isValidUnitKindString (const char *str, unsigned int level, unsigned int version)
 {
-  UnitKind_t uk = UnitKind_forName(string);
+  UnitKind_t uk = UnitKind_forName(str);
   if (level == 1)
   {
     return uk != UNIT_KIND_INVALID;
@@ -151,3 +151,4 @@ UnitKind_isValidUnitKindString (const char *str, unsigned int level, unsigned in
       return uk != UNIT_KIND_INVALID;
   }
 }
+
