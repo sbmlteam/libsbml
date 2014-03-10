@@ -412,7 +412,10 @@ public:
 
   ListOfFunctionTerms(const ListOfFunctionTerms& orig);
 
+  
   ListOfFunctionTerms& operator=(const ListOfFunctionTerms& rhs);
+  
+  
   /**
    * Creates and returns a deep copy of this ListOfFunctionTerms object.
    *
@@ -421,6 +424,10 @@ public:
   virtual ListOfFunctionTerms* clone () const;
 
 
+  /**
+   * Destroys this ListOfFunctionTerms object.
+   */
+  virtual ~ListOfFunctionTerms();
 
   /**
    * Get a FunctionTerm from the ListOfFunctionTerms.

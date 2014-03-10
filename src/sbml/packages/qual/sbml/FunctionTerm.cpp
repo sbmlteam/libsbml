@@ -684,6 +684,11 @@ ListOfFunctionTerms::operator=(const ListOfFunctionTerms& rhs)
   }
   return *this;
 }
+
+ListOfFunctionTerms::~ListOfFunctionTerms()
+{
+  delete mDefaultTerm;
+}
 /*
  * Get a FunctionTerm from the ListOfFunctionTerms by index.
 */
