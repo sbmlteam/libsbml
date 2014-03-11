@@ -989,7 +989,7 @@ Submodel::replaceElement(SBase* toReplace, SBase* replacement)
     }
   }
 
-  delete allElements;
+  delete allelements;
   return LIBSBML_OPERATION_FAILED;
 }
 
