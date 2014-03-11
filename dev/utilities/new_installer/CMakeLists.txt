@@ -1,7 +1,5 @@
 ###############################################################################
 #
-# 
-#
 # Description       : build script to configure the windows installer
 # Original author(s): Frank Bergmann <fbergman@caltech.edu>
 # Organization      : California Institute of Technology
