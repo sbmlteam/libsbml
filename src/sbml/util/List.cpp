@@ -26,7 +26,7 @@
  * ---------------------------------------------------------------------- -->*/
 
 #include <stdio.h>
-#include <stdlib.h>
+#include <sbml/util/util.h>
 #include <sbml/util/List.h>
 
 LIBSBML_CPP_NAMESPACE_BEGIN
@@ -362,7 +362,7 @@ List::freeListAndChildren(List* list)
   if (list == NULL) return;
   for (int i = 0; i < list->getSize(); ++i)
   {
-    free(list->get(i));
+    util_free(list->get(i));
   }
   delete list;
   list = NULL;
