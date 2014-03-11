@@ -5,7 +5,6 @@
  * @author  Akiya Jouraku (Modified this file for layout package of SBML Level 3
  * in libSBML 5)
  *
- *
  * Copyright 2004 European Media Laboratories Research gGmbH
  *
  * This library is free software; you can redistribute it and/or modify it
@@ -41,8 +40,6 @@
  *
  *     http://www.eml-research.de/english/Research/BCB/
  *     mailto:ralph.gauges@eml-r.villa-bosch.de
- *
- * Contributor(s):
  */
 
 #include "sbml/SBMLTypes.h"

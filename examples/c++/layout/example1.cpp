@@ -40,8 +40,6 @@
  *
  *     http://www.eml-research.de/english/Research/BCB/
  *     mailto:ralph.gauges@eml-r.villa-bosch.de
- *
- * Contributor(s):
  */
 
 #include "sbml/SBMLDocument.h"

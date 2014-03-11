@@ -4,7 +4,8 @@
  * @author  Rainer Machne <raim@tbi.univie.ac.at>
  * @author  Ben Bornstein
  * @author  Michael Hucka
- *   * Copyright 2003 Rainer Machne
+ *
+ * Copyright 2003 Rainer Machne
  *
  * This library is free software; you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by

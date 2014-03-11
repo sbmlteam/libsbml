@@ -4,7 +4,6 @@
 ## @brief   Builds the c++ example programs
 ## @author  Michael Hucka
 ##
-##
 ## <!--------------------------------------------------------------------------
 ## This file is part of libSBML.  Please visit http://sbml.org for more
 ## information about SBML, and the latest version of libSBML.
@@ -120,7 +119,7 @@ addCustomValidator: addCustomValidator.cpp
 
 callExternalValidator: callExternalValidator.cpp
 	$(CXX) $(CXXFLAGS) $(CPPFLAGS) $(LDFLAGS) -o $@ $^ $(LIBS)
-	
+
 appendAnnotation: appendAnnotation.cpp util.c
 	$(CXX) $(CXXFLAGS) $(CPPFLAGS) $(LDFLAGS) -o $@ $^ $(LIBS)
 

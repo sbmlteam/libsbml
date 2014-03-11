@@ -4,16 +4,49 @@
  * @author  Frank Bergmann
  *
  * This example implements two ways of converting the Layout / Render information
- * contained in the SBML file. 
- * 
+ * contained in the SBML file.
+ *
  * method 1: Is implemented in the LayoutConverter class, it navigates through
  *           all classes of the Layout / Render extension and sets their element
- *           namespace to the new one. 
- * 
+ *           namespace to the new one.
+ *
  * method 2: Is implemented in the SimpleLayoutConverter class. This class makes
  *           use of the new functionality of the elements reporting the namespace
- *           of the parent document when possible. 
- *  
+ *           of the parent document when possible.
+ *
+ * <!--------------------------------------------------------------------------
+ * This sample program is distributed under a different license than the rest
+ * of libSBML.  This program uses the open-source MIT license, as follows:
+ *
+ * Copyright (c) 2013-2014 by the California Institute of Technology
+ * (California, USA), the European Bioinformatics Institute (EBML-EBI, UK)
+ * and the University of Heidelberg (Germany), with support from the National
+ * Institutes of Health (USA) under grant R01GM070923.  All rights reserved.
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a
+ * copy of this software and associated documentation files (the "Software"),
+ * to deal in the Software without restriction, including without limitation
+ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ * and/or sell copies of the Software, and to permit persons to whom the
+ * Software is furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
+ * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+ * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
+ * DEALINGS IN THE SOFTWARE.
+ *
+ * Neither the name of the California Institute of Technology (Caltech), nor
+ * of the European Bioinformatics Institute (EMBL-EBI), nor of the University
+ * of Heidelberg, nor the names of any contributors, may be used to endorse
+ * or promote products derived from this software without specific prior
+ * written permission.
+ * ------------------------------------------------------------------------ -->
  */
 
 #include <iostream>
