@@ -84,6 +84,18 @@ typedef int (*ListItemComparator) (const void *item1, const void *item2);
  */
 typedef int (*ListItemPredicate) (const void *item);
 
+/**
+ * ListDeleteItemFunc
+ *
+ * This is a typedef for a pointer to a function that takes a List item and
+ * deletes / frees it as apropriate. 
+ *
+ * @if conly
+ * @memberof List_t
+ * @endif
+ */
+typedef void (*ListDeleteItemFunc) (void *item);
+
 #ifdef __cplusplus
 
 #ifndef SWIG
@@ -259,21 +271,14 @@ public:
 
   /** @cond doxygenLibsbmlInternal */
 
-  /** 
-   * Free all child elements of the given list, and then delete the list itself. 
-   * 
-   * This function is to be used, if child elements of the list have been allocated with malloc
-   * 
-   */
-  static void freeListAndChildren(List* list);
-
  /**
   * Delete all child elements of the given list, and then the list itself.
   *
-  * This function is to be used, if child elements of the list have been created with new.
+  * The child elements are to be deleted by the predicate, that will be called with 
+  * each element
   *
   */
-  static void deleteListAndChildren(List* list);
+  static void deleteListAndChildrenWith(List* list, ListDeleteItemFunc delteFunc);
 
   /** @cond doxygenLibsbmlInternal */
 

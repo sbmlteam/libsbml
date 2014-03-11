@@ -355,30 +355,24 @@ List::transferFrom(List* list)
   list->size = 0;
 }
 
-
 void 
-List::freeListAndChildren(List* list)
+List::deleteListAndChildrenWith(List* list, ListDeleteItemFunc delteFunc)
 {
-  if (list == NULL) return;
-  for (int i = 0; i < list->getSize(); ++i)
+  if (list == NULL || delteFunc == NULL) return;
+  
+  ListNode     *node = list->head;
+
+  while (node != NULL)
   {
-    util_free(list->get(i));
+    delteFunc(node->item);
+
+    node = node->next;
   }
+
   delete list;
   list = NULL;
 }
 
-void 
-List::deleteListAndChildren(List* list)
-{
-  if (list == NULL) return;
-  for (int i = 0; i < list->getSize(); ++i)
-  {
-    delete list->get(i);
-  }
-  delete list;
-  list = NULL;
-}
 
 
 #endif /* __cplusplus */

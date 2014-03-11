@@ -417,6 +417,11 @@ SBMLExtensionRegistry::isEnabled(const std::string& uri)
   return (sbmlext) ? sbmlext->mIsEnabled : false;
 }
 
+void DeleteStringChild(void* child)
+{
+  if (child == NULL) return;
+  free ((char*)child);
+}
 
 /*
  * Checks if the extension with the given URI is registered (true) or not (false)
@@ -453,7 +458,7 @@ SBMLExtensionRegistry::getNumRegisteredPackages()
 {
   List* names = getRegisteredPackageNames();
   unsigned int result = names->getSize();
-  List::freeListAndChildren(names);  
+  List::deleteListAndChildrenWith(names, DeleteStringChild);  
   return result;
 }
 
@@ -464,7 +469,7 @@ SBMLExtensionRegistry::getRegisteredPackageName(unsigned int index)
   List* names = getRegisteredPackageNames();
   char * name = (char *) (names->get(index));
   string result(name);
-  List::freeListAndChildren(names);
+  List::deleteListAndChildrenWith(names, DeleteStringChild);  
   return result;
 }
 
