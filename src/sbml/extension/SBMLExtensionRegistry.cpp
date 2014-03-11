@@ -437,8 +437,9 @@ SBMLExtensionRegistry::getRegisteredPackageNames()
   {    
     if (present->contains((*it).second->getName().c_str()) == false)
     {
-      result->add(safe_strdup((*it).second->getName().c_str()));
-      present->append(safe_strdup((*it).second->getName().c_str()));
+      char *name = safe_strdup((*it).second->getName().c_str());
+      result->add(name);
+      present->append(name);
     }
     it++;
   }
@@ -449,7 +450,10 @@ SBMLExtensionRegistry::getRegisteredPackageNames()
 unsigned int 
 SBMLExtensionRegistry::getNumRegisteredPackages()
 {
-  return (unsigned int) getRegisteredPackageNames()->getSize();
+  List* names = getRegisteredPackageNames();
+  unsigned int result = names->getSize();
+  delete names;
+  return result;
 }
 
 
