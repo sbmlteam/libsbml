@@ -89,6 +89,12 @@ STABLE RELEASE
     release can be found in the documentation on SourceForge download
     pages for libsbml.
 
+  - Changed the copyright statement for all example programs that we
+    produced ourselves to use a less restrictive license, so that
+    users can use the examples in their software without limitation.
+    The new license is the MIT license.
+
+
 EXPERIMENTAL RELEASE
 
 * New features
