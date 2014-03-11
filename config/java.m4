@@ -41,10 +41,10 @@ AC_DEFUN([CONFIG_PROG_JAVA],
 
   AC_ARG_WITH(java-bin-check,
     AS_HELP_STRING([--without-jre-check], [disable checking for 32 vs. 64-bit JRE]),
-      	  [  if test "x$withval" = "xno"; then
-  		bin_check_nonfatal=1
-  	     fi
-  	  ]
+          [  if test "x$withval" = "xno"; then
+        bin_check_nonfatal=1
+         fi
+      ]
     )
 
   if test "$with_java" != "no"; then
@@ -158,7 +158,9 @@ AC_DEFUN([CONFIG_PROG_JAVA],
       done
     fi
 
-    dnl Need to find the include files.
+    dnl
+    dnl Next, look for the JNI header files and related files.
+    dnl
 
     case "$host" in
       *darwin*)
@@ -169,10 +171,10 @@ AC_DEFUN([CONFIG_PROG_JAVA],
               headers="$framework/Versions/Current/Headers"
             elif test -e "$framework/Versions/CurrentJDK/Headers"; then
               headers="$framework/Versions/CurrentJDK/Headers"
-            elif test -e "$framework/Versions/1.6.0/Headers"; then
-              headers="$framework/Versions/1.6.0/Headers"
-            elif test -e "$framework/Versions/1.6/Headers"; then
-              headers="$framework/Versions/1.6/Headers"
+            elif test -e "$framework/Versions/1.7.0/Headers"; then
+              headers="$framework/Versions/1.7.0/Headers"
+            elif test -e "$framework/Versions/1.7/Headers"; then
+              headers="$framework/Versions/1.7/Headers"
             fi
             ;;
           6)
@@ -195,38 +197,35 @@ AC_DEFUN([CONFIG_PROG_JAVA],
               headers="$framework/Versions/1.5/Headers"
             fi
             ;;
-          4)
-            dnl MacOS X's installation of Java 1.4.2 is broken: the header
-            dnl files are missing entirely, and there are dangling symlinks.
-            dnl The following are ugly kludges to try to do the best we can.
-            dnl One of the things this does deliberately is use the 1.4.1
-            dnl headers directory on the Mac even for Java 1.4.2 if the
-            dnl 1.4.2 headers directory can't be found.  Yuck.
-            dnl 2004-07-07 <mhucka@caltech.edu>
-            if test $JAVA_VER_SUBMINOR -eq 2; then
-              if test -e "$framework/Versions/1.4.2/Headers"; then
-                headers="$framework/Versions/1.4.2/Headers"
-                elif test -e "$framework/Versions/1.4.1/Headers"; then
-                headers="$framework/Versions/1.4.1/Headers"
-              fi;
-            elif test $JAVA_VER_SUBMINOR -eq 1; then
-              if test -e "$framework/Versions/1.4.1/Headers"; then
-                headers="$framework/Versions/1.4.1/Headers"
-              fi;
-            fi
-            ;;
         esac
 
-        if test -e "$headers/jni.h"; then
-          JAVA_CPPFLAGS="$JAVA_CPPFLAGS -I\"$headers\""
-          parent=`dirname "$headers"`
-		  if test -e "$parent/Classes/classes.jar"; then
-			JAVADOC_JAR="$parent/Classes/classes.jar"
-		  else
-			JAVADOC_JAR="${parent}JDK/Classes/classes.jar"
-		  fi
+        if ! test -e "$headers/jni.h"; then
+          if test $macosx_minor_vers -ge 9; then
+            AC_MSG_ERROR([
+Cannot find Java include files.  
+Note that Mac OS X 10.9 (Mavericks) does not provide a JDK by default.
+You may need to install Apple's "Java for OS X Developer Package"
+distribution, which you can find by visiting http://developer.apple.com
+and searching for "java", then selecting the most recent distribution.
+At the time of this writing, the full name was "Java for OS X 2013-005
+Developer Package".  As an alternative, you can try to use Oracle's
+distribution of Java for Mac OS X.
+])
+          else
+            AC_MSG_ERROR([
+Cannot find Java include files. Your environment may lack a Java
+development kit installation.
+])
+          fi
+        fi
+
+        JAVA_CPPFLAGS="$JAVA_CPPFLAGS -I\"$headers\""
+
+        parent=`dirname "$headers"`
+        if test -e "$parent/Classes/classes.jar"; then
+          JAVADOC_JAR="$parent/Classes/classes.jar"
         else
-          AC_MSG_ERROR([Cannot find Java include files.])
+          JAVADOC_JAR="${parent}JDK/Classes/classes.jar"
         fi
       ;;
 
@@ -247,10 +246,10 @@ AC_DEFUN([CONFIG_PROG_JAVA],
             headers="${parent}/include"
             JAVA_CPPFLAGS="$JAVA_CPPFLAGS -I\"${headers}\""
           else
-	    dnl Not there either.  Are we dealing with gcj?
+        dnl Not there either.  Are we dealing with gcj?
 
-	    if `$JAVA -version 2>&1 | grep -q gcj`; then
-	      dnl Yes, gcj.  Try its special place.
+        if `$JAVA -version 2>&1 | grep -q gcj`; then
+          dnl Yes, gcj.  Try its special place.
 
               if test -d "/usr/lib/jvm/java-gcj/include"; then
                 headers="/usr/lib/jvm/java-gcj/include"
@@ -264,7 +263,7 @@ AC_DEFUN([CONFIG_PROG_JAVA],
           fi
         fi
 
-	dnl Some platforms have additional system-specific include dirs.
+    dnl Some platforms have additional system-specific include dirs.
 
         case "$host_os" in
           *cygwin*) JAVA_CPPFLAGS="$JAVA_CPPFLAGS -I\"$parent/include/win32\"";;
@@ -281,28 +280,28 @@ AC_DEFUN([CONFIG_PROG_JAVA],
 
     case $host in
     *darwin*)
-	JAVA_LDFLAGS="${JAVA_LDFLAGS} -bundle_loader \"${JAVA}\""
-	;;
+    JAVA_LDFLAGS="${JAVA_LDFLAGS} -bundle_loader \"${JAVA}\""
+    ;;
     *)
-	JAVA_LDFLAGS=
-	;;
+    JAVA_LDFLAGS=
+    ;;
     esac
 
     dnl On MacOS X, the JNI library needs an oddball extension.
 
     case $host in
     *darwin*)
-	JNIEXT="jnilib"
-	JNIBASENAME="libsbmlj"
-	;;
+    JNIEXT="jnilib"
+    JNIBASENAME="libsbmlj"
+    ;;
     *cygwin*)
-	JNIEXT="dll"
-	JNIBASENAME="libsbmlj"
-	;;
+    JNIEXT="dll"
+    JNIBASENAME="libsbmlj"
+    ;;
     *)
-	JNIEXT="so"
-	JNIBASENAME="libsbmlj"
-	;;
+    JNIEXT="so"
+    JNIBASENAME="libsbmlj"
+    ;;
     esac
 
     if test -z "$headers"; then
@@ -327,7 +326,7 @@ AC_DEFUN([CONFIG_PROG_JAVA],
           dnl We're on MacOS 10.6, which makes 64-bit bins unless told not to.
 
           AC_MSG_CHECKING([whether this is a 64-bit version of Java])
-	  BUILD_JAVA_DATA_TEST
+      BUILD_JAVA_DATA_TEST
           if test "`(cd ${srcdir}/config; $JAVA printJavaDataModel)`" = "64"; then
             AC_MSG_RESULT([yes])
 
@@ -375,7 +374,7 @@ architecture check.
 
           else
             AC_MSG_RESULT([no])
-    	    dnl Java reports being 32-bit, but we're on a 64-bit system.
+            dnl Java reports being 32-bit, but we're on a 64-bit system.
 
             AC_MSG_CHECKING([whether only 64-bit libSBML binaries are being made])
             if echo $CFLAGS $CXXFLAGS | egrep -q "arch x86_64"; then
@@ -422,7 +421,7 @@ configure to bypass this architecture check.
           dnl can still be executed.
 
           AC_MSG_CHECKING([whether this is a 64-bit version of Java])
-	  BUILD_JAVA_DATA_TEST
+      BUILD_JAVA_DATA_TEST
           if test "`(cd ${srcdir}/config; $JAVA printJavaDataModel)`" = "64"; then
             AC_MSG_RESULT([yes])
 
@@ -525,7 +524,7 @@ configure to bypass this architecture check.
           dnl We're on a system that makes 64-bit binaries by default.
 
           AC_MSG_CHECKING([whether JRE is a 64-bit version])
-	  BUILD_JAVA_DATA_TEST
+      BUILD_JAVA_DATA_TEST
           if test "`(cd ${srcdir}/config; $JAVA printJavaDataModel)`" = "64"; then
             AC_MSG_RESULT([yes])
 
@@ -550,7 +549,7 @@ for configure to bypass this architecture check.
 
           else
             AC_MSG_RESULT([no])
-  	    dnl Java reports being 32-bit, but we're on a 64-bit system.
+        dnl Java reports being 32-bit, but we're on a 64-bit system.
 
             AC_MSG_CHECKING([whether 32-bit libSBML binaries are being made])
             if echo $CFLAGS $CXXFLAGS | egrep -q "m32"; then
