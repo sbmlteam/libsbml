@@ -85,7 +85,7 @@ START_TEST (test_getAllElements_transition)
   fail_unless ( allElems->get(5) == t->getFunctionTerm(0));
   fail_unless ( allElems->get(6) == t->getDefaultTerm());
 
-
+  delete allElems;
   delete document;  
 }
 END_TEST

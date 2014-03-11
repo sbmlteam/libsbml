@@ -62,6 +62,7 @@ SBMLExtensionRegistry::deleteRegistry()
     registered = false;
   }
 }
+
 /** @cond doxygenLibsbmlInternal */
 
 
@@ -452,7 +453,7 @@ SBMLExtensionRegistry::getNumRegisteredPackages()
 {
   List* names = getRegisteredPackageNames();
   unsigned int result = names->getSize();
-  delete names;
+  List::freeListAndChildren(names);  
   return result;
 }
 
@@ -463,7 +464,7 @@ SBMLExtensionRegistry::getRegisteredPackageName(unsigned int index)
   List* names = getRegisteredPackageNames();
   char * name = (char *) (names->get(index));
   string result(name);
-  delete names;
+  List::freeListAndChildren(names);
   return result;
 }
 

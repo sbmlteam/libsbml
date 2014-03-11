@@ -419,6 +419,9 @@ Model::renameAllIds(IdentifierTransformer* idTransformer, ElementFilter* filter)
   
   //Rename the SIds, UnitSIds, and MetaIDs
   renameIDs(allElements, idTransformer);
+  
+  delete allElements;
+  
   return LIBSBML_OPERATION_SUCCESS;
 }
 /** @endcond */

@@ -257,6 +257,27 @@ public:
    */
   void transferFrom(List* list);
 
+  /** @cond doxygenLibsbmlInternal */
+
+  /** 
+   * Free all child elements of the given list, and then delete the list itself. 
+   * 
+   * This function is to be used, if child elements of the list have been allocated with malloc
+   * 
+   */
+  static void freeListAndChildren(List* list);
+
+ /**
+  * Delete all child elements of the given list, and then the list itself.
+  *
+  * This function is to be used, if child elements of the list have been created with new.
+  *
+  */
+  static void deleteListAndChildren(List* list);
+
+  /** @cond doxygenLibsbmlInternal */
+
+
 protected:
   /** @cond doxygenLibsbmlInternal */
 

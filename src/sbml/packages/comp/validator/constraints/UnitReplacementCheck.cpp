@@ -157,7 +157,8 @@ UnitReplacementCheck::check_ (const Model& m, const Model& object)
     }
   }
 
-  
+  delete allElements;
+
   /* get all elements that have replaced elements */
   allElements = const_cast<Model *>(&m)->getAllElements(&repByFilter);
 
@@ -173,6 +174,7 @@ UnitReplacementCheck::check_ (const Model& m, const Model& object)
                                         (plug->getReplacedBy())));
   }
 
+  delete allElements;
 }
 
 void 

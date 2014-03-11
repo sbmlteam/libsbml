@@ -257,7 +257,9 @@ LayoutSBMLDocumentPlugin::populateValidationLists()
     mMetaIdList.append(static_cast<SBase*>
                       (allElementsWithMetaid->get(i))->getMetaId());
   }
-
+  
+  delete allElementsWithMetaid;
+  
   IdFilter idFilter;
 
   mElementsWithId = doc->getModel()->getAllElements(&idFilter);

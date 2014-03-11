@@ -402,7 +402,7 @@ START_TEST (test_GetMultipleObjects_allElements)
 
   List* list = d->getAllElements();
   fail_unless(list->getSize() == 37);
-
+  delete list;
   delete d;
 }
 END_TEST
@@ -440,7 +440,7 @@ START_TEST (test_GetMultipleObjects_withFilter)
  List* list = d->getAllElements(&test);
  fail_unless(list->getSize() == 1);
  fail_unless(static_cast<SBase*>(list->get(0))->getId() == "conv");
-
+ delete list;
   delete d;
 }
 END_TEST

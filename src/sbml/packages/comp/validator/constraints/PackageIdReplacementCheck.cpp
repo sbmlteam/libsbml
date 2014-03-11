@@ -156,7 +156,8 @@ PackageIdReplacementCheck::check_ (const Model& m, const Model& object)
     }
   }
 
-  
+  delete allElements;
+
   /* get all elements that have replaced elements */
   allElements = const_cast<Model *>(&m)->getAllElements(&repByFilter);
 
@@ -171,6 +172,8 @@ PackageIdReplacementCheck::check_ (const Model& m, const Model& object)
     checkReferencedElement(*(const_cast<ReplacedBy*>
                                         (plug->getReplacedBy())));
   }
+
+  delete allElements;
 
 }
 

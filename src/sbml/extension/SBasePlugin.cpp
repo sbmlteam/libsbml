@@ -156,9 +156,11 @@ SBasePlugin::getElementBySId(const std::string& id)
     SBase* obj = (SBase*)(allElementsWithIds->get(i));
     if (obj->getId() == id)
     {
+      delete allElementsWithIds;
       return obj;
      }
   }
+  delete allElementsWithIds;
   return NULL;
 }
 
@@ -175,9 +177,12 @@ SBasePlugin::getElementByMetaId(const std::string& metaid)
     SBase* obj = (SBase*)(allElementsWithIds->get(i));
     if (obj->getMetaId() == metaid)
     {
+      delete allElementsWithIds;
       return obj;
-     }
+    }
   }
+
+  delete allElementsWithIds;
   return NULL;
 }
 

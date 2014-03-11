@@ -1188,6 +1188,7 @@ START_CONSTRAINT (CompIdRefMustReferenceObject, Port, p)
     mIds.append(static_cast<SBase*>(allElements->get(i))->getId());
   }
 
+  delete allElements;
 
   if (mIds.contains(p.getIdRef()) == false)
   {
@@ -1260,6 +1261,7 @@ START_CONSTRAINT (CompIdRefMustReferenceObject, Deletion, d)
     mIds.append(static_cast<SBase*>(allElements->get(i))->getId());
   }
 
+  delete allElements;
 
   if (mIds.contains(d.getIdRef()) == false)
   {
@@ -1330,6 +1332,7 @@ START_CONSTRAINT (CompIdRefMustReferenceObject, ReplacedElement, repE)
     mIds.append(static_cast<SBase*>(allElements->get(i))->getId());
   }
 
+  delete allElements;
 
   if (mIds.contains(repE.getIdRef()) == false)
   {
@@ -1389,6 +1392,7 @@ START_CONSTRAINT (CompIdRefMustReferenceObject, ReplacedBy, repBy)
     mIds.append(static_cast<SBase*>(allElements->get(i))->getId());
   }
 
+  delete allElements;
 
   if (mIds.contains(repBy.getIdRef()) == false)
   {
@@ -1494,6 +1498,8 @@ START_CONSTRAINT (CompIdRefMustReferenceObject, SBaseRef, sbRef)
   {
     mIds.append(static_cast<SBase*>(allElements->get(i))->getId());
   }
+
+  delete allElements;
 
 
   if (mIds.contains(sbRef.getIdRef()) == false)
@@ -1882,6 +1888,7 @@ START_CONSTRAINT (CompMetaIdRefMustReferenceObject, Deletion, d)
     mIds.append(static_cast<SBase*>(allElements->get(i))->getMetaId());
   }
 
+  delete allElements;
 
   if (mIds.contains(d.getMetaIdRef()) == false)
   {
@@ -1952,6 +1959,7 @@ START_CONSTRAINT (CompMetaIdRefMustReferenceObject, ReplacedElement, repE)
     mIds.append(static_cast<SBase*>(allElements->get(i))->getMetaId());
   }
 
+  delete allElements;
 
   if (mIds.contains(repE.getMetaIdRef()) == false)
   {
@@ -2011,6 +2019,7 @@ START_CONSTRAINT (CompMetaIdRefMustReferenceObject, ReplacedBy, repBy)
     mIds.append(static_cast<SBase*>(allElements->get(i))->getMetaId());
   }
 
+  delete allElements;
 
   if (mIds.contains(repBy.getMetaIdRef()) == false)
   {
@@ -2117,6 +2126,7 @@ START_CONSTRAINT (CompMetaIdRefMustReferenceObject, SBaseRef, sbRef)
     mIds.append(static_cast<SBase*>(allElements->get(i))->getMetaId());
   }
 
+  delete allElements;
 
   if (mIds.contains(sbRef.getMetaIdRef()) == false)
   {

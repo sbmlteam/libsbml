@@ -989,6 +989,7 @@ Submodel::replaceElement(SBase* toReplace, SBase* replacement)
     }
   }
 
+  delete allElements;
   return LIBSBML_OPERATION_FAILED;
 }
 
@@ -1032,7 +1033,7 @@ Submodel::getAllInstantiatedElements()
   }
   for (size_t l=0; l<sublists.size(); l++) {
     allElements->transferFrom(sublists[l]);
-  }
+  }  
   return allElements;
 }
 
@@ -1272,6 +1273,9 @@ int Submodel::convertTimeAndExtentWith(const ASTNode* tcf, const ASTNode* xcf, c
       }
     }
   }
+
+  delete allelements;
+
   return LIBSBML_OPERATION_SUCCESS;
 }
 

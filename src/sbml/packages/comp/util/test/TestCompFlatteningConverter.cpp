@@ -147,6 +147,12 @@ void TestFlattenedPair(string file1, string file2)
 
   SBMLConverter* converter = SBMLConverterRegistry::getInstance().getConverterFor(*props);
   
+  int test = 0;
+  if (file1 == "test20.xml")
+  {
+    test = 1;
+  }
+
   // load document
   string cfile = filename + file1;  
   SBMLDocument* doc = readSBMLFromFile(cfile.c_str());
@@ -161,6 +167,7 @@ void TestFlattenedPair(string file1, string file2)
 
   converter->setDocument(doc);
   int result = converter->convert();
+  string testString = doc->toSBML();
 
   // fail if conversion was not valid
   fail_unless(result == LIBSBML_OPERATION_SUCCESS);
@@ -185,6 +192,17 @@ void TestFlattenedPair(string file1, string file2)
   string ffile = filename + file2;
   SBMLDocument* fdoc = readSBMLFromFile(ffile.c_str());
   string flatModel = writeSBMLToString(fdoc);
+
+  if (flatModel != newModel)
+  {
+    stringstream outName; outName << "converter_fail_new_" << file1;
+    writeSBMLToFile(doc, outName.str().c_str());
+    outName.str("");
+    outName.clear();
+    outName << "converter_fail_flat_" << file1;
+    writeSBMLToFile(fdoc, outName.str().c_str());
+  }
+
   fail_unless(flatModel == newModel);
 
   delete doc;
@@ -1945,130 +1963,131 @@ create_suite_TestFlatteningConverter (void)
   TCase *tcase = tcase_create("SBMLCompFlatteningConverter");
   Suite *suite = suite_create("SBMLCompFlatteningConverter");
   
-  tcase_add_test(tcase, test_comp_flatten_double_ext2);
-  tcase_add_test(tcase, test_comp_get_flattening_converter);
-  tcase_add_test(tcase, test_comp_flatten_aggregate);
-  tcase_add_test(tcase, test_comp_flatten_enzyme_identical);
-  tcase_add_test(tcase, test_comp_flatten_complexified);
-  tcase_add_test(tcase, test_comp_flatten_complexified2);
-  tcase_add_test(tcase, test_comp_flatten_qtpop);
-  tcase_add_test(tcase, test_comp_flatten_double_ext1);
-  tcase_add_test(tcase, test_comp_flatten_spec1);
-  tcase_add_test(tcase, test_comp_flatten_spec2);
-  tcase_add_test(tcase, test_comp_flatten_spec3);
-  tcase_add_test(tcase, test_comp_flatten_spec4);
-  tcase_add_test(tcase, test_comp_flatten_dropports);
-  tcase_add_test(tcase, test_comp_flatten_exchange1);
-  tcase_add_test(tcase, test_comp_flatten_exchange2); 
-  tcase_add_test(tcase, test_comp_flatten_exchange3);
-  tcase_add_test(tcase, test_comp_flatten_replace_rules_and_constraints);
-  tcase_add_test(tcase, test_comp_flatten_test1);
-  tcase_add_test(tcase, test_comp_flatten_test2);
-  tcase_add_test(tcase, test_comp_flatten_test3);
-  tcase_add_test(tcase, test_comp_flatten_test4);
-  tcase_add_test(tcase, test_comp_flatten_test5);
-  tcase_add_test(tcase, test_comp_flatten_test6);
-  tcase_add_test(tcase, test_comp_flatten_test7);
-  tcase_add_test(tcase, test_comp_flatten_test8);
-  tcase_add_test(tcase, test_comp_flatten_test9);
-  tcase_add_test(tcase, test_comp_flatten_test10);
-  tcase_add_test(tcase, test_comp_flatten_test11);
-  tcase_add_test(tcase, test_comp_flatten_test12);
-  tcase_add_test(tcase, test_comp_flatten_test13);
-  tcase_add_test(tcase, test_comp_flatten_test14);
-  tcase_add_test(tcase, test_comp_flatten_test14_ports);
-  tcase_add_test(tcase, test_comp_flatten_test15);
-  tcase_add_test(tcase, test_comp_flatten_test16);
-  tcase_add_test(tcase, test_comp_flatten_test17);
-  tcase_add_test(tcase, test_comp_flatten_test18);
-  tcase_add_test(tcase, test_comp_flatten_test19);
   tcase_add_test(tcase, test_comp_flatten_test20);
-  tcase_add_test(tcase, test_comp_flatten_test21);
-  tcase_add_test(tcase, test_comp_flatten_test22);
-  tcase_add_test(tcase, test_comp_flatten_test23);
-  tcase_add_test(tcase, test_comp_flatten_test24);
-  tcase_add_test(tcase, test_comp_flatten_test25);
-  tcase_add_test(tcase, test_comp_flatten_test26);
-  tcase_add_test(tcase, test_comp_flatten_test27);
-  tcase_add_test(tcase, test_comp_flatten_test28);
-  tcase_add_test(tcase, test_comp_flatten_test29);
-  tcase_add_test(tcase, test_comp_flatten_test30);
-  tcase_add_test(tcase, test_comp_flatten_test31);
-  tcase_add_test(tcase, test_comp_flatten_test32);
-  tcase_add_test(tcase, test_comp_flatten_test33);
-  tcase_add_test(tcase, test_comp_flatten_test34);
-  tcase_add_test(tcase, test_comp_flatten_test35);
-  tcase_add_test(tcase, test_comp_flatten_test36);
-  tcase_add_test(tcase, test_comp_flatten_test37);
-  tcase_add_test(tcase, test_comp_flatten_test38);
-  tcase_add_test(tcase, test_comp_flatten_test39);
-  tcase_add_test(tcase, test_comp_flatten_test40);
-  tcase_add_test(tcase, test_comp_flatten_test41);
-  tcase_add_test(tcase, test_comp_flatten_test42);
-  tcase_add_test(tcase, test_comp_flatten_test43);
-  tcase_add_test(tcase, test_comp_flatten_test44);
-  tcase_add_test(tcase, test_comp_flatten_test45);
-  tcase_add_test(tcase, test_comp_flatten_test46);
-  tcase_add_test(tcase, test_comp_flatten_test47);
-  tcase_add_test(tcase, test_comp_flatten_test48);
-  tcase_add_test(tcase, test_comp_flatten_test49);
-  tcase_add_test(tcase, test_comp_flatten_test50);
-  tcase_add_test(tcase, test_comp_flatten_test51);
-  tcase_add_test(tcase, test_comp_flatten_test52);
-  tcase_add_test(tcase, test_comp_flatten_test53);
-  tcase_add_test(tcase, test_comp_flatten_test54);
-  tcase_add_test(tcase, test_comp_flatten_test55);
-  tcase_add_test(tcase, test_comp_flatten_test56);
-  tcase_add_test(tcase, test_comp_flatten_test57);
-  tcase_add_test(tcase, test_comp_flatten_test58);
-  tcase_add_test(tcase, test_comp_flatten_test59);
-  tcase_add_test(tcase, test_comp_flatten_test60);
-  tcase_add_test(tcase, test_comp_flatten_test61);
-
-  tcase_add_test(tcase, test_comp_flatten_id_collisions);
-  tcase_add_test(tcase, test_comp_flatten_id_collisions2);
-
-  tcase_add_test(tcase, test_comp_flatten_nested_replace_delete);
-  tcase_add_test(tcase, test_comp_flatten_nested_replace_delete2);
-
-  tcase_add_test(tcase, test_comp_flatten_converter_properties1);
-  tcase_add_test(tcase, test_comp_flatten_converter_properties2);
-  tcase_add_test(tcase, test_comp_flatten_converter_properties3);
-  tcase_add_test(tcase, test_comp_flatten_converter_properties4);
-  tcase_add_test(tcase, test_comp_flatten_converter_properties5);
-  tcase_add_test(tcase, test_comp_flatten_converter_properties6);
-  tcase_add_test(tcase, test_comp_flatten_converter_properties7);
-  tcase_add_test(tcase, test_comp_flatten_converter_properties8);
-  tcase_add_test(tcase, test_comp_flatten_converter_properties9);
-  tcase_add_test(tcase, test_comp_flatten_converter_properties10);
-
-  tcase_add_test(tcase, test_comp_flatten_converter_layout1);
-  tcase_add_test(tcase, test_comp_flatten_converter_layout2);
-  tcase_add_test(tcase, test_comp_flatten_converter_layout3);
-  tcase_add_test(tcase, test_comp_flatten_converter_layout4);
-  tcase_add_test(tcase, test_comp_flatten_converter_fbc1);
-  tcase_add_test(tcase, test_comp_flatten_converter_fbc2);
-  tcase_add_test(tcase, test_comp_flatten_converter_fbc3);
-  tcase_add_test(tcase, test_comp_flatten_converter_fbc4);
-  tcase_add_test(tcase, test_comp_flatten_converter_fbc5);
-  tcase_add_test(tcase, test_comp_flatten_converter_fbc6);
-  tcase_add_test(tcase, test_comp_flatten_converter_fbc7);
-  tcase_add_test(tcase, test_comp_flatten_converter_fbc8);
-  tcase_add_test(tcase, test_comp_flatten_converter_fbc9);
-  tcase_add_test(tcase, test_comp_flatten_converter_fbc10);
-  tcase_add_test(tcase, test_comp_flatten_converter_fbc11);
-  tcase_add_test(tcase, test_comp_flatten_converter_qual1);
-  tcase_add_test(tcase, test_comp_flatten_converter_qual2);
-  tcase_add_test(tcase, test_comp_flatten_converter_qual3);
-  tcase_add_test(tcase, test_comp_flatten_converter_qual4);
-  tcase_add_test(tcase, test_comp_flatten_converter_qual5);
-  tcase_add_test(tcase, test_comp_flatten_converter_qual6);
-  tcase_add_test(tcase, test_comp_flatten_converter_qual7);
-  tcase_add_test(tcase, test_comp_flatten_converter_qual8);
-  tcase_add_test(tcase, test_comp_flatten_converter_qual9);
-  tcase_add_test(tcase, test_comp_flatten_converter_qual10);
-
-  tcase_add_test(tcase, test_comp_validator_44781839);
+  //tcase_add_test(tcase, test_comp_flatten_test21);
+  //tcase_add_test(tcase, test_comp_flatten_test22);
+  //tcase_add_test(tcase, test_comp_flatten_test23);
+  //tcase_add_test(tcase, test_comp_flatten_test24);
+  //tcase_add_test(tcase, test_comp_flatten_test25);
+  //
+  //tcase_add_test(tcase, test_comp_flatten_double_ext2);
+  //tcase_add_test(tcase, test_comp_get_flattening_converter);
+  //tcase_add_test(tcase, test_comp_flatten_aggregate);
+  //tcase_add_test(tcase, test_comp_flatten_enzyme_identical);
+  //tcase_add_test(tcase, test_comp_flatten_complexified);
+  //tcase_add_test(tcase, test_comp_flatten_complexified2);
+  //tcase_add_test(tcase, test_comp_flatten_qtpop);
+  //tcase_add_test(tcase, test_comp_flatten_double_ext1);
+  //tcase_add_test(tcase, test_comp_flatten_spec1);
+  //tcase_add_test(tcase, test_comp_flatten_spec2);
+  //tcase_add_test(tcase, test_comp_flatten_spec3);
+  //tcase_add_test(tcase, test_comp_flatten_spec4);
+  //tcase_add_test(tcase, test_comp_flatten_dropports);
+  //tcase_add_test(tcase, test_comp_flatten_exchange1);
+  //tcase_add_test(tcase, test_comp_flatten_exchange2); 
+  //tcase_add_test(tcase, test_comp_flatten_exchange3);
+  //tcase_add_test(tcase, test_comp_flatten_replace_rules_and_constraints);
+  //tcase_add_test(tcase, test_comp_flatten_test1);
+  //tcase_add_test(tcase, test_comp_flatten_test2);
+  //tcase_add_test(tcase, test_comp_flatten_test3);
+  //tcase_add_test(tcase, test_comp_flatten_test4);
+  //tcase_add_test(tcase, test_comp_flatten_test5);
+  //tcase_add_test(tcase, test_comp_flatten_test6);
+  //tcase_add_test(tcase, test_comp_flatten_test7);
+  //tcase_add_test(tcase, test_comp_flatten_test8);
+  //tcase_add_test(tcase, test_comp_flatten_test9);
+  //tcase_add_test(tcase, test_comp_flatten_test10);
+  //tcase_add_test(tcase, test_comp_flatten_test11);
+  //tcase_add_test(tcase, test_comp_flatten_test12);
+  //tcase_add_test(tcase, test_comp_flatten_test13);
+  //tcase_add_test(tcase, test_comp_flatten_test14);
+  //tcase_add_test(tcase, test_comp_flatten_test14_ports);
+  //tcase_add_test(tcase, test_comp_flatten_test15);
+  //tcase_add_test(tcase, test_comp_flatten_test16);
+  //tcase_add_test(tcase, test_comp_flatten_test17);
+  //tcase_add_test(tcase, test_comp_flatten_test18);
+  //tcase_add_test(tcase, test_comp_flatten_test19);
+  //tcase_add_test(tcase, test_comp_flatten_test26);
+  //tcase_add_test(tcase, test_comp_flatten_test27);
+  //tcase_add_test(tcase, test_comp_flatten_test28);
+  //tcase_add_test(tcase, test_comp_flatten_test29);
+  //tcase_add_test(tcase, test_comp_flatten_test30);
+  //tcase_add_test(tcase, test_comp_flatten_test31);
+  //tcase_add_test(tcase, test_comp_flatten_test32);
+  //tcase_add_test(tcase, test_comp_flatten_test33);
+  //tcase_add_test(tcase, test_comp_flatten_test34);
+  //tcase_add_test(tcase, test_comp_flatten_test35);
+  //tcase_add_test(tcase, test_comp_flatten_test36);
+  //tcase_add_test(tcase, test_comp_flatten_test37);
+  //tcase_add_test(tcase, test_comp_flatten_test38);
+  //tcase_add_test(tcase, test_comp_flatten_test39);
+  //tcase_add_test(tcase, test_comp_flatten_test40);
+  //tcase_add_test(tcase, test_comp_flatten_test41);
+  //tcase_add_test(tcase, test_comp_flatten_test42);
+  //tcase_add_test(tcase, test_comp_flatten_test43);
+  //tcase_add_test(tcase, test_comp_flatten_test44);
+  //tcase_add_test(tcase, test_comp_flatten_test45);
+  //tcase_add_test(tcase, test_comp_flatten_test46);
+  //tcase_add_test(tcase, test_comp_flatten_test47);
+  //tcase_add_test(tcase, test_comp_flatten_test48);
+  //tcase_add_test(tcase, test_comp_flatten_test49);
+  //tcase_add_test(tcase, test_comp_flatten_test50);
+  //tcase_add_test(tcase, test_comp_flatten_test51);
+  //tcase_add_test(tcase, test_comp_flatten_test52);
+  //tcase_add_test(tcase, test_comp_flatten_test53);
+  //tcase_add_test(tcase, test_comp_flatten_test54);
+  //tcase_add_test(tcase, test_comp_flatten_test55);
+  //tcase_add_test(tcase, test_comp_flatten_test56);
+  //tcase_add_test(tcase, test_comp_flatten_test57);
+  //tcase_add_test(tcase, test_comp_flatten_test58);
+  //tcase_add_test(tcase, test_comp_flatten_test59);
+  //tcase_add_test(tcase, test_comp_flatten_test60);
+  //tcase_add_test(tcase, test_comp_flatten_test61);
+  //
+  //tcase_add_test(tcase, test_comp_flatten_id_collisions);
+  //tcase_add_test(tcase, test_comp_flatten_id_collisions2);
+  //
+  //tcase_add_test(tcase, test_comp_flatten_nested_replace_delete);
+  //tcase_add_test(tcase, test_comp_flatten_nested_replace_delete2);
+  //
+  //tcase_add_test(tcase, test_comp_flatten_converter_properties1);
+  //tcase_add_test(tcase, test_comp_flatten_converter_properties2);
+  //tcase_add_test(tcase, test_comp_flatten_converter_properties3);
+  //tcase_add_test(tcase, test_comp_flatten_converter_properties4);
+  //tcase_add_test(tcase, test_comp_flatten_converter_properties5);
+  //tcase_add_test(tcase, test_comp_flatten_converter_properties6);
+  //tcase_add_test(tcase, test_comp_flatten_converter_properties7);
+  //tcase_add_test(tcase, test_comp_flatten_converter_properties8);
+  //tcase_add_test(tcase, test_comp_flatten_converter_properties9);
+  //tcase_add_test(tcase, test_comp_flatten_converter_properties10);
+  //
+  //tcase_add_test(tcase, test_comp_flatten_converter_layout1);
+  //tcase_add_test(tcase, test_comp_flatten_converter_layout2);
+  //tcase_add_test(tcase, test_comp_flatten_converter_layout3);
+  //tcase_add_test(tcase, test_comp_flatten_converter_layout4);
+  //tcase_add_test(tcase, test_comp_flatten_converter_fbc1);
+  //tcase_add_test(tcase, test_comp_flatten_converter_fbc2);
+  //tcase_add_test(tcase, test_comp_flatten_converter_fbc3);
+  //tcase_add_test(tcase, test_comp_flatten_converter_fbc4);
+  //tcase_add_test(tcase, test_comp_flatten_converter_fbc5);
+  //tcase_add_test(tcase, test_comp_flatten_converter_fbc6);
+  //tcase_add_test(tcase, test_comp_flatten_converter_fbc7);
+  //tcase_add_test(tcase, test_comp_flatten_converter_fbc8);
+  //tcase_add_test(tcase, test_comp_flatten_converter_fbc9);
+  //tcase_add_test(tcase, test_comp_flatten_converter_fbc10);
+  //tcase_add_test(tcase, test_comp_flatten_converter_fbc11);
+  //tcase_add_test(tcase, test_comp_flatten_converter_qual1);
+  //tcase_add_test(tcase, test_comp_flatten_converter_qual2);
+  //tcase_add_test(tcase, test_comp_flatten_converter_qual3);
+  //tcase_add_test(tcase, test_comp_flatten_converter_qual4);
+  //tcase_add_test(tcase, test_comp_flatten_converter_qual5);
+  //tcase_add_test(tcase, test_comp_flatten_converter_qual6);
+  //tcase_add_test(tcase, test_comp_flatten_converter_qual7);
+  //tcase_add_test(tcase, test_comp_flatten_converter_qual8);
+  //tcase_add_test(tcase, test_comp_flatten_converter_qual9);
+  //tcase_add_test(tcase, test_comp_flatten_converter_qual10);
+  //
+  //tcase_add_test(tcase, test_comp_validator_44781839);
  
   suite_add_tcase(suite, tcase);
 

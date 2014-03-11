@@ -563,6 +563,9 @@ Model* CompModelPlugin::flattenModel() const
     }
   }
 
+  // delete the list
+  delete allelements;
+
   for (unsigned int el=0; el<nonReplacedElements.size(); el++) 
   {
     SBase* element = nonReplacedElements[el];
@@ -575,8 +578,7 @@ Model* CompModelPlugin::flattenModel() const
     }
   }
 
-  // delete the list
-  delete allelements;
+
 
   //Finally, unset the document again.
   flat->setSBMLDocument(NULL);

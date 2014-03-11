@@ -138,8 +138,11 @@ SBMLIdConverter::convert()
 	  		continue;
 
 		// return error code in case new id is invalid		
-		if (!SyntaxChecker::isValidSBMLSId(newIds.at(j)))
-			return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+      if (!SyntaxChecker::isValidSBMLSId(newIds.at(j)))
+      {
+        delete allElements;
+        return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+      }
 			
 	  	current->setId(newIds.at(j));
 		renamed[currentIds.at(j)] = newIds.at(j);
@@ -158,6 +161,8 @@ SBMLIdConverter::convert()
 	  }
   }
   
+  delete allElements;
+
   if (success) return LIBSBML_OPERATION_SUCCESS;
   return LIBSBML_OPERATION_FAILED;
   

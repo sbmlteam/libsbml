@@ -1389,6 +1389,8 @@ Model::dealWithModelUnits()
     }
     addUnitDefinition(ud);
   }
+
+  delete elements;
 }
 
 void

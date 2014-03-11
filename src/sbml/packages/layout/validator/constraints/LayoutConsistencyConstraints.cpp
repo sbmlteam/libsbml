@@ -574,6 +574,8 @@ START_CONSTRAINT (LayoutTGGraphicalObjectMustRefObject, TextGlyph, glyph)
 
     i++;
   }
+  
+  delete allGO;
 
   if (match == false)
   {
@@ -834,6 +836,8 @@ START_CONSTRAINT (LayoutREFGGlyphMustRefObject, ReferenceGlyph, glyph)
 
     i++;
   }
+
+  delete allGO;
 
   if (match == false)
   {

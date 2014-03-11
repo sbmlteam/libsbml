@@ -123,6 +123,7 @@ UniqueReplacedReferences::check_ (const Model& m, const Model& object)
     }
   }
 
+  delete allElements;
   delete mReferencedElements;
 }
 
