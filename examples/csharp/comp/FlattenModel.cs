@@ -1,4 +1,4 @@
-﻿/**
+/**
  * @file    FlattenModel.cs
  * @brief   Flattens the comp code from the given SBML file.
  * @author  Sarah Keating

@@ -1,4 +1,4 @@
-﻿#!/usr/bin/env python
+#!/usr/bin/env python
 ##
 ## @file    setIdFromNames.py
 ## @brief   Utility program, renaming all SIds that also has

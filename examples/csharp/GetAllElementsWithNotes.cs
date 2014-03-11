@@ -1,4 +1,4 @@
-﻿/**
+/**
  * @file    GetAllElementsWithNotes.cs
  * @brief   Utility program, demontrating how to use the element filter
  *          class to search the model for elements with specific attributes

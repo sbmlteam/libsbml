@@ -1,4 +1,4 @@
-﻿/**
+/**
  * @file    SetIdFromNames.cs
  * @brief   Utility program, renaming all SIds that also have 
  *          names specified. The new id will be derived from 
