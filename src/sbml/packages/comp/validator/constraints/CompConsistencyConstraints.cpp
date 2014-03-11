@@ -1313,8 +1313,8 @@ START_CONSTRAINT (CompIdRefMustReferenceObject, ReplacedElement, repE)
   msg += "'.";
 
   /* need to be using the correct model */
-  ReferencedModel *ref = new ReferencedModel(m, repE);
-  const Model* referencedModel = ref->getReferencedModel();
+  ReferencedModel ref(m, repE);
+  const Model* referencedModel = ref.getReferencedModel();
 
   pre (referencedModel != NULL);
 
