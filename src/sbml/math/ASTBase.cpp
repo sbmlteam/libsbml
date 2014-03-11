@@ -1428,10 +1428,13 @@ ASTBase::writeStartEndElement (XMLOutputStream& stream) const
 {
   if (&stream == NULL) return;
 
-  std::string name = getNameFromType(getTypeAsInt());
+  const char * name = getNameFromType(getTypeAsInt());
 	stream.startElement(name);
   writeAttributes(stream);
 	stream.endElement(name);
+
+  util_free((void*)(name));
+
 }
 
 

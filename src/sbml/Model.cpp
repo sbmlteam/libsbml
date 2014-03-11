@@ -139,7 +139,7 @@ Model::~Model ()
   if (mFormulaUnitsData != NULL)
   {  
     unsigned int size = mFormulaUnitsData->getSize();
-    while (size--) 
+    while (--size) 
       delete static_cast<FormulaUnitsData*>( mFormulaUnitsData->remove(0) );
     delete mFormulaUnitsData;
   }
@@ -5678,12 +5678,9 @@ Model::addFormulaUnitsData (const FormulaUnitsData* fud)
   if (mFormulaUnitsData == NULL)
   {
     mFormulaUnitsData = new List();
-    mFormulaUnitsData->add((void *) fud->clone());
   }
-  else
-  {
-    mFormulaUnitsData->add((void *)fud->clone());
-  }
+
+  mFormulaUnitsData->add((void *)fud->clone());
 }
 /** @endcond */
 
@@ -5714,6 +5711,7 @@ Model::createFormulaUnitsData ()
 const FormulaUnitsData*
 Model::getFormulaUnitsData (unsigned int n) const
 {
+  if (mFormulaUnitsData == NULL) return NULL;
   return static_cast<const FormulaUnitsData*>( mFormulaUnitsData->get(n) );
 }
 /** @endcond */
@@ -5726,6 +5724,7 @@ Model::getFormulaUnitsData (unsigned int n) const
 FormulaUnitsData*
 Model::getFormulaUnitsData (unsigned int n)
 {
+  if (mFormulaUnitsData == NULL) return NULL;
   return static_cast<FormulaUnitsData*>( mFormulaUnitsData->get(n) );
 }
 /** @endcond */
@@ -5835,6 +5834,7 @@ Model::getFormulaUnitsDataForAssignment(const std::string& sid)
 unsigned int
 Model::getNumFormulaUnitsData () const
 {
+  if (mFormulaUnitsData == NULL) return 0;
   return mFormulaUnitsData->getSize();
 }
 /** @endcond */

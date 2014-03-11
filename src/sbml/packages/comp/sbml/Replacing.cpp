@@ -426,6 +426,7 @@ Replacing::updateIDs(SBase* oldnames, SBase* newnames)
     }
   }
   //LS DEBUG And here is where we would need some sort of way to check for ids that were not 'id' or 'metaid'.
+  delete allElements;
   return ret;
 }
 /** @endcond */
@@ -484,6 +485,7 @@ int Replacing::performConversions(SBase* replacement, ASTNode*& conversionFactor
     element->replaceSIDWithFunction(id, &divide);
     element->multiplyAssignmentsToSIdByFunction(id, conversionFactor);
   }
+  delete allElements;
   return ret;
 }
 /** @endcond */

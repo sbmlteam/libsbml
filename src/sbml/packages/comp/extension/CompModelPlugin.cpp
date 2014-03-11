@@ -575,6 +575,9 @@ Model* CompModelPlugin::flattenModel() const
     }
   }
 
+  // delete the list
+  delete allelements;
+
   //Finally, unset the document again.
   flat->setSBMLDocument(NULL);
 
@@ -827,10 +830,12 @@ int CompModelPlugin::saveAllReferencedElements(set<SBase*> uniqueRefs, set<SBase
               }
               else 
               {
+                delete allElements;
                 return ret;
               }
             }
             else {
+              delete allElements;
               return ret;
             }
           }
@@ -853,6 +858,7 @@ int CompModelPlugin::saveAllReferencedElements(set<SBase*> uniqueRefs, set<SBase
                 error += " has a <replacedBy> child and is also pointed to by a <port>, <deletion>, <replacedElement>, or one or more <replacedBy> objects.";
                 doc->getErrorLog()->logPackageError("comp", CompNoMultipleReferences, getPackageVersion(), getLevel(), getVersion(), error);
               }
+              delete allElements;
               return LIBSBML_OPERATION_FAILED;
             }
             adddirect = replacedBys.insert(direct).second;
@@ -886,11 +892,14 @@ int CompModelPlugin::saveAllReferencedElements(set<SBase*> uniqueRefs, set<SBase
                 }
                 doc->getErrorLog()->logPackageError("comp", CompNoMultipleReferences, getPackageVersion(), getLevel(), getVersion(), error);
               }
+              delete allElements;
               return LIBSBML_OPERATION_FAILED;
             }
           }
     }
   }
+
+  delete allElements;
 
   //Now call saveAllReferencedElements for all instantiated submodels.
   for (unsigned long sm=0; sm<getNumSubmodels(); sm++) {
@@ -960,6 +969,7 @@ CompModelPlugin::renameAllIDsAndPrepend(const std::string& prefix)
     Model* inst = subm->getInstantiation();
     if (inst==NULL) {
       //'getInstantiation' will set its own error messages.
+      delete allElements;
       return LIBSBML_OPERATION_FAILED;
     }
     CompModelPlugin* instp = static_cast<CompModelPlugin*>(inst->getPlugin(getPrefix()));
@@ -969,20 +979,28 @@ CompModelPlugin::renameAllIDsAndPrepend(const std::string& prefix)
         string error = "Unable to rename elements in CompModelPlugin::renameAllIDsAndPrepend: no valid 'comp' plugin for the model instantiated from submodel " + subm->getId();
         doc->getErrorLog()->logPackageError("comp", CompModelFlatteningFailed, getPackageVersion(), getLevel(), getVersion(), error);
       }
+      delete allElements;
       return LIBSBML_OPERATION_FAILED;
     }
     int ret = instp->renameAllIDsAndPrepend(prefix + submodids[sm]);
     if (ret != LIBSBML_OPERATION_SUCCESS) {
       //'renameAllIds..' will set its own error messages.
+      delete allElements;
       return ret;
     }
   }
 
   //Finally, actually rename the elements in *this* model with the prefix.
-  if (prefix.empty()) return LIBSBML_OPERATION_SUCCESS; //Nothing to add
+  if (prefix.empty()) 
+  {
+    delete allElements;
+    return LIBSBML_OPERATION_SUCCESS; //Nothing to add
+  }
 
   //Rename the SIds, UnitSIds, and MetaIDs, and references to them.
   renameIDs(allElements, prefix);
+  delete allElements;
+
   return LIBSBML_OPERATION_SUCCESS;
 }
 
@@ -1221,6 +1239,7 @@ int CompModelPlugin::collectRenameAndConvertReplacements(set<SBase*>* removed, s
       rbs.push_back(reference);
     }
   }
+  delete allElements;
 
   //ReplacedElement replacements
   for (size_t re=0; re<res.size(); re++) {
@@ -1285,6 +1304,7 @@ int CompModelPlugin::removeCollectedElements(set<SBase*>* removed, set<SBase*>* 
         SBase* element = static_cast<SBase*>(children->get(el));
         removed->insert(element);
       }
+      delete children;
       CompBase::removeFromParentAndPorts(removeme, removed);
     }
     toremove->erase(removeme);

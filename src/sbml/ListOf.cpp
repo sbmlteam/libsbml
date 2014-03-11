@@ -95,7 +95,7 @@ struct Clone : public unary_function<SBase*, SBase*>
 /*
  * Copy constructor. Creates a copy of this ListOf items.
  */
-ListOf::ListOf (const ListOf& orig) : SBase(orig)
+ListOf::ListOf (const ListOf& orig) : SBase(orig), mItems()
 {
   mItems.resize( orig.size() );
   transform( orig.mItems.begin(), orig.mItems.end(), mItems.begin(), Clone() );

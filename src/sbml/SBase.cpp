@@ -442,7 +442,7 @@ SBase::SBase(const SBase& orig)
   mPlugins.resize( orig.mPlugins.size() );
   transform( orig.mPlugins.begin(), orig.mPlugins.end(),
              mPlugins.begin(), ClonePluginEntity() );
-  for (size_t i=0; i < mPlugins.size(); i++)
+  for (size_t i=0; i < mPlugins.size(); ++i)
   {
     mPlugins[i]->connectToParent(this);
   }
@@ -465,7 +465,7 @@ SBase::~SBase ()
   if (mCVTerms != NULL)
   {
     unsigned int size = mCVTerms->getSize();
-    while (size--) delete static_cast<CVTerm*>( mCVTerms->remove(0) );
+    while (--size) delete static_cast<CVTerm*>( mCVTerms->remove(0) );
     delete mCVTerms;
   }
   if (mHistory != NULL) delete mHistory;
@@ -847,7 +847,7 @@ SBase::getUserData() const
 int
 SBase::setUserData(void *userData)
 {
-	this->mUserData = userData;
+  this->mUserData = userData;
   if (mUserData != NULL)
   {
     return LIBSBML_OPERATION_SUCCESS;

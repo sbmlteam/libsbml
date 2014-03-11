@@ -456,8 +456,11 @@ SBMLExtensionRegistry::getNumRegisteredPackages()
 std::string
 SBMLExtensionRegistry::getRegisteredPackageName(unsigned int index)
 {
-  char * name = (char *) (getRegisteredPackageNames()->get(index));
-  return string(name);
+  List* names = getRegisteredPackageNames();
+  char * name = (char *) (names->get(index));
+  string result(name);
+  delete names;
+  return result;
 }
 
 void 
