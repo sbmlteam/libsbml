@@ -1,4 +1,4 @@
-visifunction buildSBML(varargin)
+function buildSBML(varargin)
 % Builds the MATLAB language interface for libSBML.
 %
 % This script is meant to be invoked from libSBML's MATLAB bindings
