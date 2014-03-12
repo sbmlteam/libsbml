@@ -1040,6 +1040,7 @@ Submodel::getAllInstantiatedElements()
   }
   for (size_t l=0; l<sublists.size(); l++) {
     allElements->transferFrom(sublists[l]);
+    delete sublists[l];
   }  
   return allElements;
 }

@@ -265,9 +265,10 @@ SBase::getAllElementsFromPlugins(ElementFilter *filter)
   for (size_t i=0; i < mPlugins.size(); i++)
   {
     List* sublist = mPlugins[i]->getAllElements(filter);
-    if (sublist != NULL && sublist->getSize() > 0)
+    if (sublist != NULL)
     {
-      ret->transferFrom(sublist);
+      if (sublist->getSize() > 0)
+        ret->transferFrom(sublist);
       delete sublist;
     }
   }

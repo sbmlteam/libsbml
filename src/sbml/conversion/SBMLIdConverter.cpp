@@ -132,27 +132,27 @@ SBMLIdConverter::convert()
   // rename ids 
   for (unsigned int i = 0; i < allElements->getSize(); ++i)
   {
-	  SBase* current = static_cast<SBase*>(allElements->get(i));
-      if (current == NULL || !current->isSetId() 
-	      || current->getTypeCode() == SBML_LOCAL_PARAMETER)
-	  continue;	 
-	  		
-	  for (unsigned int j = 0; j < currentIds.size(); ++j)
-	  {
-	  	if (current->getId() != currentIds.at(j))
-	  		continue;
+    SBase* current = static_cast<SBase*>(allElements->get(i));
+    if (current == NULL || !current->isSetId() 
+      || current->getTypeCode() == SBML_LOCAL_PARAMETER)
+      continue;	 
 
-		// return error code in case new id is invalid		
+    for (unsigned int j = 0; j < currentIds.size(); ++j)
+    {
+      if (current->getId() != currentIds.at(j))
+        continue;
+
+      // return error code in case new id is invalid		
       if (!SyntaxChecker::isValidSBMLSId(newIds.at(j)))
       {
         delete allElements;
         return LIBSBML_INVALID_ATTRIBUTE_VALUE;
       }
-			
-	  	current->setId(newIds.at(j));
-		renamed[currentIds.at(j)] = newIds.at(j);
-	  	break;
-	  }	
+
+      current->setId(newIds.at(j));
+      renamed[currentIds.at(j)] = newIds.at(j);
+      break;
+    }	
   }
 
   // update all references that we changed
