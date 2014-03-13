@@ -358,12 +358,7 @@ distfiles =						     \
         python-substitutions/XMLInputStream.py		     \
         python-substitutions/XMLOutputStream.py		     \
         pythondocpreprocessor.py			     \
-        sbml.js						     \
-        templates/c++.txt				     \
-        templates/c.txt					     \
-        templates/m4.txt				     \
-        templates/makefile.txt                               \
-        templates/python.txt
+        sbml.js
 
 # Additional odds and ends.
 
