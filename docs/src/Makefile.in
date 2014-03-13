@@ -100,6 +100,8 @@ endif
 # for `make dist'.  Normally you wouldn't want to remove documentation
 # files, but the following are all generated files and directories.
 
+extra_clean = class-list.txt *.class libsbml.py
+
 # We don't want to remove the formatted docs during a regular make clean,
 # only a distclean.
 
@@ -118,8 +120,7 @@ extra_distclean =                           \
         doxygen-config-matlab.txt           \
         doxygen-config-octave.txt           \
         doxygen-config-perl.txt             \
-        doxygen-config-python.txt           \
-        libsbml.py
+        doxygen-config-python.txt
 
 # The `make dist' rules for this directory are more complicated than usual.
 # There are additional separate rules below.
