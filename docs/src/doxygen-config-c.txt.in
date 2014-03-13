@@ -162,7 +162,7 @@ EXCLUDE += ../../src/sbml/common/sbmlfwd.h \
 # input file. Doxygen will then use the output that the filter program writes 
 # to standard output.
 
-INPUT_FILTER = ./c-doc-filter.py
+INPUT_FILTER = ./filters/doc-filter-c.py
 
 # If the FILTER_SOURCE_FILES tag is set to YES, the input filter (if set using
 # INPUT_FILTER ) will also be used to filter the input files that are used for

@@ -1,6 +1,6 @@
 #!/usr/bin/env python                        # -*- python-indent-offset: 2 -*-
 #
-# @file    pythondocfilter.py
+# @file    doc-filter-python.py
 # @brief   Post-process libSBML's Python doc strings for use by Doxygen.
 # @author  Michael Hucka
 #

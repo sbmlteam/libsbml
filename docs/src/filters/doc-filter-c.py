@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 #
-# @file   c-doc-filter.py
+# @file   doc-filter-c.py
 # @brief  Post-process libSBML's source files for creating C docs with Doxygen.
 # @author Michael Hucka
 # @date   Created 2013-12-19

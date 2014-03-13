@@ -81,7 +81,7 @@ FILE_PATTERNS          = *.cs
 # input file. Doxygen will then use the output that the filter program writes 
 # to standard output.
 
-INPUT_FILTER           = ./csdocfilter.py
+INPUT_FILTER           = ./filters/doc-filter-csharp.py
 
 # The RECURSIVE tag can be used to turn specify whether or not subdirectories 
 # should be searched for input files as well. Possible values are YES and NO. 

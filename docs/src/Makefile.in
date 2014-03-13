@@ -128,7 +128,6 @@ extra_distclean =                           \
 distfiles =						     \
         SBMLDoclet.java					     \
         Makefile.in					     \
-	c-doc-filter.py					     \
 	common-graphics/biology-qualifiers.png		     \
 	common-graphics/biology-qualifiers.txt		     \
         common-graphics/cmake-configure-macos.png	     \
@@ -195,7 +194,6 @@ distfiles =						     \
         common-text/unitkind-table.txt			     \
         common-text/warn-default-args-in-docs.html	     \
         common-text/xmlid-syntax.html			     \
-        csdocfilter.py					     \
 	css/generate-pkg-stylesheet.py			     \
 	css/libsbml-base-stylesheet.css			     \
 	css/libsbml-doxygen-navtree.css			     \
@@ -230,6 +228,9 @@ distfiles =						     \
         examples/readmath.cpp				     \
         examples/readSBML.java				     \
         examples/simpleread.cpp				     \
+	filters/doc-filter-c.py				     \
+	filters/doc-filter-cs.py			     \
+	filters/doc-filter-python.py			     \
         force-serif-font-off.html			     \
         force-serif-font-on.html			     \
 	generate-class-name-list.py			     \
@@ -349,7 +350,6 @@ distfiles =						     \
         python-substitutions/SwigPyIterator.py		     \
         python-substitutions/XMLInputStream.py		     \
         python-substitutions/XMLOutputStream.py		     \
-        pythondocfilter.py				     \
         pythondocpreprocessor.py			     \
         sbml.js						     \
         templates/c++.txt				     \

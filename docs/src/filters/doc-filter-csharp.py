@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 #
-# @file    csdocfilter.py
+# @file    doc-filter-csharp.py
 # @brief   Post-process libSBML's csharp doc strings for use by Doxygen.
 # @author  Michael Hucka
 #
