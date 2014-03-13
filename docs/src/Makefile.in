@@ -100,7 +100,7 @@ endif
 # for `make dist'.  Normally you wouldn't want to remove documentation
 # files, but the following are all generated files and directories.
 
-extra_clean = class-list.txt *.class libsbml.py
+extra_clean = class-list.txt *.class libsbml.py java-files
 
 # We don't want to remove the formatted docs during a regular make clean,
 # only a distclean.
@@ -108,19 +108,22 @@ extra_clean = class-list.txt *.class libsbml.py
 extra_distclean =                           \
         Makefile                            \
         $(docs)                             \
-        *.class                             \
         common-text/libsbml-version.html    \
-        doxygen-version-specific.txt        \
-        java-files                          \
-        libsbml-installation.html           \
-        xml                                 \
         doxygen-config-c.txt                \
         doxygen-config-cpp.txt              \
         doxygen-config-csharp.txt           \
         doxygen-config-matlab.txt           \
         doxygen-config-octave.txt           \
         doxygen-config-perl.txt             \
-        doxygen-config-python.txt
+        doxygen-config-python.txt	    \
+        doxygen-version-specific.txt	    \
+	libsbml-group-comp-intro.html	    \
+	libsbml-group-core-intro.html	    \
+	libsbml-group-fbc-intro.html	    \
+	libsbml-group-layout-intro.html	    \
+	libsbml-group-qual-intro.html	    \
+        libsbml-installation.html           \
+        xml
 
 # The `make dist' rules for this directory are more complicated than usual.
 # There are additional separate rules below.
@@ -738,6 +741,7 @@ endef
 define create_extensions_page
   ./generate-extensions-summary.py $(1) > java-extensions-list.html
   $(call merge_html,java-extensions-list.html,extensions-summary.html,extensions for SBML Level 3 packages)
+  rm -f java-extensions-list.html
 endef
 
 
