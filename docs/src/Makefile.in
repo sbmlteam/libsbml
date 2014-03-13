@@ -100,7 +100,12 @@ endif
 # for `make dist'.  Normally you wouldn't want to remove documentation
 # files, but the following are all generated files and directories.
 
-extra_clean = class-list.txt *.class libsbml.py java-files
+extra_clean =			     \
+	*.class			     \
+	class-list.txt		     \
+        doxygen-version-specific.txt \
+	java-files		     \
+	libsbml.py
 
 # We don't want to remove the formatted docs during a regular make clean,
 # only a distclean.
@@ -116,7 +121,6 @@ extra_distclean =                           \
         doxygen-config-octave.txt           \
         doxygen-config-perl.txt             \
         doxygen-config-python.txt	    \
-        doxygen-version-specific.txt	    \
 	libsbml-group-comp-intro.html	    \
 	libsbml-group-core-intro.html	    \
 	libsbml-group-fbc-intro.html	    \
