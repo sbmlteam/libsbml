@@ -1,13 +1,13 @@
 
                             l i b S B M L
 
-	    Sarah Keating, Akiya Jouraku, Frank Bergmann,
-		   Ben Bornstein and Michael Hucka
+	    Sarah Keating, Frank Bergmann, Ben Bornstein,
+            Akiya Jouraku, Lucian Smith and Michael Hucka
 	   with contributions from (in alphabetical order):
      Gordon Ball, Bill Denney, Christoph Flamm, Akira Funahashi,
      Ralph Gauges, Martin Ginkel, Alex Gutteridge, Stefan Hoops,
     Totte Karlsson, Moriyoshi Koizumi, Ben Kovitz, Rainer Machne,
-          Nicolas Rodriguez, Lucian Smith, and many others.
+                 Nicolas Rodriguez, and many others.
 
   Please see the file NEWS.txt for a log of recent changes in libSBML
 
