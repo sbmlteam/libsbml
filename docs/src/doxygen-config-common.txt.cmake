@@ -406,10 +406,6 @@ INPUT =                                    \
 # same list with a few additions -- not a good approach.)
 
 EXCLUDE =                                                                                    \
-  force-serif-font-off.html                                                                  \
-  force-serif-font-on.html                                                                   \
-  plain-font-off.html                                                                        \
-  plain-font-on.html                                                                         \
   ../../src/sbml/extension/ISBMLExtensionNamespaces.cpp                                      \
   ../../src/sbml/extension/ISBMLExtensionNamespaces.h                                        \
   ../../src/sbml/sbml/SBMLTransforms.cpp                                                     \

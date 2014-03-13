@@ -92,8 +92,6 @@ EXAMPLE_PATH           = common-text examples . ../.. ../../examples/c \
                          ../../examples/c/comp
 
 INPUT =                                    \
-  doxygen-regular-text-end.html            \
-  doxygen-regular-text-start.html          \
   libsbml-accessing.txt                    \
   libsbml-blurb.txt                        \
   libsbml-changes.txt                      \

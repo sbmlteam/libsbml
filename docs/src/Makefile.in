@@ -170,6 +170,10 @@ distfiles =						     \
         common-text/astnode-illustration.html		     \
         common-text/astnode-types.html			     \
         common-text/comment-set-methods.html		     \
+        common-text/doxygen-regular-text-end.html	     \
+        common-text/doxygen-regular-text-start.html	     \
+        common-text/force-serif-font-off.html		     \
+        common-text/force-serif-font-on.html		     \
         common-text/level-1-uses-text-string-math.html	     \
         common-text/enzymatic-reaction-equation.html	     \
         common-text/libsbml-facility-only-warning.html	     \
@@ -182,6 +186,8 @@ distfiles =						     \
         common-text/note-reading-zipped-files.html	     \
         common-text/note-writing-zipped-files.html	     \
         common-text/parameter-addition-overrides-values.html \
+        common-text/plain-font-off.html			     \
+        common-text/plain-font-on.html			     \
         common-text/pkg-marker-comp.html		     \
         common-text/pkg-marker-fbc.html			     \
         common-text/pkg-marker-layout.html		     \
@@ -226,16 +232,12 @@ distfiles =						     \
 	doxygen-layout-csharp.xml			     \
 	doxygen-layout-notcpp.xml			     \
 	doxygen-layout-python.xml			     \
-	doxygen-regular-text-end.html			     \
-	doxygen-regular-text-start.html			     \
         examples/readmath.cpp				     \
         examples/readSBML.java				     \
         examples/simpleread.cpp				     \
 	filters/doc-filter-c.py				     \
 	filters/doc-filter-cs.py			     \
 	filters/doc-filter-python.py			     \
-        force-serif-font-off.html			     \
-        force-serif-font-on.html			     \
 	generate-class-name-list.py			     \
 	generate-extensions-summary.py			     \
         java-skip.txt					     \
@@ -329,8 +331,6 @@ distfiles =						     \
         libsbml-python-reading-files.txt		     \
         libsbml-reading-files.txt			     \
         libsbml-release-info.txt			     \
-        plain-font-off.html				     \
-        plain-font-on.html				     \
 	prettify/README.txt				     \
 	prettify/prettify.css				     \
 	prettify/prettify.js				     \
