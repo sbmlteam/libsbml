@@ -96,3 +96,11 @@ ENABLED_SECTIONS       = csharp notclike doxygenCsharpOnly
 ALIASES += sbmldefgroup{2}=""
 ALIASES += sbmlingroup{1}=""
 ALIASES += sbmlendgroup=""
+
+EXCLUDE +=  \
+  ../../src/bindings/csharp/csharp-files/libsbmlPINVOKE.cs                                   \
+  ../../src/bindings/csharp/csharp-files/SWIGTYPE_p_packageErrorTableEntry.cs                \
+  ../../src/bindings/csharp/csharp-files/SWIGTYPE_p_List.cs                                  \
+  ../../src/bindings/csharp/csharp-files/SWIGTYPE_p_std__ostream.cs                          \
+  ../../src/bindings/csharp/csharp-files/SWIGTYPE_p_std__vectorT_SBMLNamespaces_const_p_t.cs \
+  ../../src/bindings/csharp/csharp-files/SBMLTransforms.cs

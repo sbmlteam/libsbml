@@ -637,13 +637,7 @@ EXCLUDE =                                                                       
   ../../src/sbml/xml/XercesParser.cpp                                                        \
   ../../src/sbml/xml/XercesParser.h                                                          \
   ../../src/sbml/xml/XercesTranscode.cpp                                                     \
-  ../../src/sbml/xml/XercesTranscode.h                                                       \
-  ../../src/bindings/csharp/csharp-files/libsbmlPINVOKE.cs                                   \
-  ../../src/bindings/csharp/csharp-files/SWIGTYPE_p_packageErrorTableEntry.cs                \
-  ../../src/bindings/csharp/csharp-files/SWIGTYPE_p_List.cs                                  \
-  ../../src/bindings/csharp/csharp-files/SWIGTYPE_p_std__ostream.cs                          \
-  ../../src/bindings/csharp/csharp-files/SWIGTYPE_p_std__vectorT_SBMLNamespaces_const_p_t.cs \
-  ../../src/bindings/csharp/csharp-files/SBMLTransforms.cs
+  ../../src/sbml/xml/XercesTranscode.h
 
 # The RECURSIVE tag can be used to turn specify whether or not subdirectories 
 # should be searched for input files as well. Possible values are YES and NO. 

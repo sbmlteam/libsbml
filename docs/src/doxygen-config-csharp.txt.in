@@ -127,6 +127,13 @@ EXCLUDE_SYMBOLS         =  \
   SBMLTransforms           \
   SBaseExtensionPoint
 
+EXCLUDE +=  \
+  ../../src/bindings/csharp/csharp-files/libsbmlPINVOKE.cs                                   \
+  ../../src/bindings/csharp/csharp-files/SWIGTYPE_p_packageErrorTableEntry.cs                \
+  ../../src/bindings/csharp/csharp-files/SWIGTYPE_p_List.cs                                  \
+  ../../src/bindings/csharp/csharp-files/SWIGTYPE_p_std__ostream.cs                          \
+  ../../src/bindings/csharp/csharp-files/SWIGTYPE_p_std__vectorT_SBMLNamespaces_const_p_t.cs \
+  ../../src/bindings/csharp/csharp-files/SBMLTransforms.cs
 
 EXAMPLE_PATH           = common-text examples . ../.. ../../examples/csharp \
                          ../../examples/csharp/comp ../../examples/csharp/layout \
