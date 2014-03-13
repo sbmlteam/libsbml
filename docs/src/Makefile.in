@@ -103,8 +103,10 @@ endif
 extra_clean =			     \
 	*.class			     \
 	class-list.txt		     \
+	doxygen-config.txt	     \
         doxygen-version-specific.txt \
 	java-files		     \
+	libsbml.pc		     \
 	libsbml.py
 
 # We don't want to remove the formatted docs during a regular make clean,
@@ -127,6 +129,7 @@ extra_distclean =                           \
 	libsbml-group-layout-intro.html	    \
 	libsbml-group-qual-intro.html	    \
         libsbml-installation.html           \
+	perlmod				    \
         xml
 
 # The `make dist' rules for this directory are more complicated than usual.
