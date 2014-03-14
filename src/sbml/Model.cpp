@@ -144,8 +144,11 @@ Model::~Model ()
   if (mFormulaUnitsData != NULL)
   {  
     unsigned int size = mFormulaUnitsData->getSize();
-    while (--size) 
+    while (size > 0) 
+    {
       delete static_cast<FormulaUnitsData*>( mFormulaUnitsData->remove(0) );
+      size--;
+    }
     delete mFormulaUnitsData;
   }
 }

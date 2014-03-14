@@ -448,7 +448,7 @@ int Replacing::performConversions(SBase* replacement, ASTNode** conversionFactor
     //convertConversionFactor sets its own error messages.
     return ret;
   }
-  if (conversionFactor==NULL) {
+  if (*conversionFactor==NULL) {
     return ret;
   }
   if (replacement==NULL) {

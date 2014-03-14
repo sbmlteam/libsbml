@@ -2967,7 +2967,7 @@ ASTNode::getNumVariablesWithUndeclaredUnits(Model * m) const
         {
           number++;
         }
-        delete ud;
+        //delete ud;
       }
       else if (m->getCompartment(id) != NULL)
       {
@@ -2976,7 +2976,7 @@ ASTNode::getNumVariablesWithUndeclaredUnits(Model * m) const
         {
           number++;
         }
-        delete ud;
+        //delete ud;
       }
       else if (kl != NULL && kl->getParameter(id) != NULL)
       {
@@ -2997,7 +2997,7 @@ ASTNode::getNumVariablesWithUndeclaredUnits(Model * m) const
         {
           number++;
         }
-        delete ud;
+        //delete ud;
       }
       /* actually these always are considered to be dimensionless */
       //else if (allowSpeciesRef == true && m->getSpeciesReference(id) != NULL)
