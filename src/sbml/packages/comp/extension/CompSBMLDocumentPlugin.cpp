@@ -871,7 +871,8 @@ CompSBMLDocumentPlugin::checkConsistency()
         static_cast<CompSBMLDocumentPlugin*>(dummyDoc->getPlugin("comp"));
 
       /* now swap the existing model with the modeldefinition */
-      dummyPlugin->addModelDefinition(new ModelDefinition(*dummyModel));
+      ModelDefinition dummyDef(*dummyModel);
+      dummyPlugin->addModelDefinition(&dummyDef);
 
       dummyDoc->setModel(getModelDefinition(i));
 

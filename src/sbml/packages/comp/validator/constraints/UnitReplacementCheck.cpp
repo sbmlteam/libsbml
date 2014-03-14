@@ -278,14 +278,34 @@ UnitReplacementCheck::checkReferencedElement(ReplacedElement& repE,
     cfPresent = true;
   }
 
-  if (parentUnits == NULL || refElemUnits == NULL)
+  if (parentUnits == NULL)
   {
+    if  (refElemUnits != NULL)
+    {
+      delete refElemUnits;
+      refElemUnits = NULL;
+    }
+
     return;
   }
+
+  if (refElemUnits == NULL)
+  {
+    if  (parentUnits != NULL)
+    {
+      delete parentUnits;
+      parentUnits = NULL;
+    }
+
+    return;
+  }
+
 
   if (parent->containsUndeclaredUnits() == true ||
     refElem->containsUndeclaredUnits() == true)
   {
+    delete parentUnits;
+    delete refElemUnits;
     return;
   }
 
@@ -316,6 +336,8 @@ UnitReplacementCheck::checkReferencedElement(ReplacedElement& repE,
     }
   }
 
+  delete parentUnits;
+  delete refElemUnits;
 
 }
 

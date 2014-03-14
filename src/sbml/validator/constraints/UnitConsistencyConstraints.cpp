@@ -573,6 +573,9 @@ START_CONSTRAINT (99508, Parameter, p)
   msg += "or further unit errors related to this object may not be accurate.";
 
   inv( !(ud->getNumUnits() == 0));
+
+  delete const_cast<UnitDefinition*>(ud);
+
 }
 END_CONSTRAINT
 
