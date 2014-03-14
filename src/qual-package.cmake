@@ -33,7 +33,7 @@
 
 if(ENABLE_QUAL)
 
-include(../qual-package.cmake)
+include(${CMAKE_SOURCE_DIR}/qual-package.cmake)
 
 #build up sources
 set(QUAL_SOURCES)

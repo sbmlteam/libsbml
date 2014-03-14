@@ -9,7 +9,7 @@
 
 if(ENABLE_FBC)
 
-include(../fbc-package.cmake)
+include(${CMAKE_SOURCE_DIR}/fbc-package.cmake)
 
 #build up sources
 set(FBC_SOURCES)
