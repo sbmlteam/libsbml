@@ -281,6 +281,7 @@ CompFlatteningConverter::convert()
     result = reconstructDocument(flatmodel, *(dummy), true );
     if (result != LIBSBML_OPERATION_SUCCESS)
     {
+      delete flatmodel;
       restoreNamespaces();
       return result;
     }
@@ -340,6 +341,7 @@ CompFlatteningConverter::convert()
         }
       }
       delete dummy;
+      delete flatmodel;
       restoreNamespaces();
       return LIBSBML_CONV_INVALID_SRC_DOCUMENT;
     }
@@ -368,6 +370,7 @@ CompFlatteningConverter::convert()
     return result;
   }
 
+  delete flatmodel;
   return LIBSBML_OPERATION_SUCCESS;
 }
 
