@@ -121,5 +121,8 @@ int main(int argc,char** argv)
   }
 
   writeSBML(document, outputFile);
+  
+  delete converter;
+  delete document;
 
 }
