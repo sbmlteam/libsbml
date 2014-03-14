@@ -1094,6 +1094,12 @@ XMLOutputStream::setSBMLNamespaces(SBMLNamespaces * sbmlns)
     mSBMLns = NULL;
 }
 
+XMLOutputStream::~XMLOutputStream()
+{
+  if (mSBMLns != NULL) 
+    delete mSBMLns;
+}
+
 
 
 XMLOutputStringStream::XMLOutputStringStream (  std::ostringstream& stream

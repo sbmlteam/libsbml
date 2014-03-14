@@ -72,6 +72,8 @@ public:
                    , const std::string&   programName  = ""
                    , const std::string&  programVersion = "");
 
+  virtual ~XMLOutputStream();
+
   /**
    * Writes the given XML end element name to this XMLOutputStream.
    */
