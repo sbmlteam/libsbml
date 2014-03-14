@@ -280,7 +280,7 @@ UnitReplacementCheck::checkReferencedElement(ReplacedElement& repE,
 
   if (parentUnits == NULL)
   {
-    if  (refElemUnits != NULL)
+    if  (refElemUnits != NULL && refElem->getTypeCode() == SBML_PARAMETER)
     {
       delete refElemUnits;
       refElemUnits = NULL;
@@ -291,7 +291,7 @@ UnitReplacementCheck::checkReferencedElement(ReplacedElement& repE,
 
   if (refElemUnits == NULL)
   {
-    if  (parentUnits != NULL)
+    if  (parentUnits != NULL  && parent->getTypeCode() == SBML_PARAMETER)
     {
       delete parentUnits;
       parentUnits = NULL;
@@ -304,7 +304,9 @@ UnitReplacementCheck::checkReferencedElement(ReplacedElement& repE,
   if (parent->containsUndeclaredUnits() == true ||
     refElem->containsUndeclaredUnits() == true)
   {
+    if (parent->getTypeCode() == SBML_PARAMETER)
     delete parentUnits;
+    if (refElem->getTypeCode() == SBML_PARAMETER)
     delete refElemUnits;
     return;
   }
@@ -336,8 +338,10 @@ UnitReplacementCheck::checkReferencedElement(ReplacedElement& repE,
     }
   }
 
-  delete parentUnits;
-  delete refElemUnits;
+  if (parent->getTypeCode() == SBML_PARAMETER)
+    delete parentUnits;
+  if (refElem->getTypeCode() == SBML_PARAMETER)
+    delete refElemUnits;
 
 }
 
