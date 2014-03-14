@@ -265,7 +265,8 @@ UnitReplacementCheck::checkReferencedElement(ReplacedElement& repE,
   UnitDefinition *parentUnits = parent->getDerivedUnitDefinition();
   
   UnitDefinition *refElemUnits = refElem->getDerivedUnitDefinition();
-  
+  bool deleteRefElemUnits = refElem->getTypeCode() == SBML_PARAMETER;
+
   bool cfPresent = false;
   /* adjust the refElement units for conversion factor */
   if (repE.isSetConversionFactor() == true)
@@ -275,12 +276,13 @@ UnitReplacementCheck::checkReferencedElement(ReplacedElement& repE,
     UnitDefinition *ud = p->getDerivedUnitDefinition();
     refElemUnits = UnitDefinition::combine(refElemUnits, ud);
     delete ud;
+    deleteRefElemUnits = true;
     cfPresent = true;
   }
 
   if (parentUnits == NULL)
   {
-    if  (refElemUnits != NULL && refElem->getTypeCode() == SBML_PARAMETER)
+    if  (refElemUnits != NULL && deleteRefElemUnits)
     {
       delete refElemUnits;
       refElemUnits = NULL;
@@ -306,7 +308,7 @@ UnitReplacementCheck::checkReferencedElement(ReplacedElement& repE,
   {
     if (parent->getTypeCode() == SBML_PARAMETER)
     delete parentUnits;
-    if (refElem->getTypeCode() == SBML_PARAMETER)
+    if (deleteRefElemUnits)
     delete refElemUnits;
     return;
   }
@@ -340,7 +342,7 @@ UnitReplacementCheck::checkReferencedElement(ReplacedElement& repE,
 
   if (parent->getTypeCode() == SBML_PARAMETER)
     delete parentUnits;
-  if (refElem->getTypeCode() == SBML_PARAMETER)
+  if (deleteRefElemUnits)
     delete refElemUnits;
 
 }
