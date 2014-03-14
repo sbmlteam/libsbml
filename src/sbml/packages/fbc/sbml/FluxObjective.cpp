@@ -698,6 +698,7 @@ ListOfFluxObjectives::createObject (XMLInputStream& stream)
       FBC_CREATE_NS(fbcns, getSBMLNamespaces());
       object = new FluxObjective(fbcns);
       appendAndOwn(object);
+      delete fbcns;
       //mItems.push_back(object);
     } 
     catch(...)

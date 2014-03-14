@@ -317,6 +317,7 @@ SubmodelReferenceCycles::logCycle (const Model& m, std::string id,
   // want to log the error on a comp object
   COMP_CREATE_NS(compns, m.getSBMLNamespaces());
   Submodel *sub = new Submodel(compns);
+  delete compns;
   logFailure(*(sub));
 }  
 

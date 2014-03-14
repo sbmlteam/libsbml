@@ -1269,6 +1269,7 @@ Layout::createCompartmentGlyph ()
   CompartmentGlyph* p = new CompartmentGlyph(layoutns);
 
   this->mCompartmentGlyphs.appendAndOwn(p);
+  delete layoutns;
   return p;
 }
 
@@ -1284,6 +1285,7 @@ Layout::createSpeciesGlyph ()
   SpeciesGlyph* p = new SpeciesGlyph(layoutns);
 
   this->mSpeciesGlyphs.appendAndOwn(p);
+  delete layoutns;
   return p;
 }
 
@@ -1299,6 +1301,7 @@ Layout::createReactionGlyph ()
   ReactionGlyph* p = new ReactionGlyph(layoutns);
 
   this->mReactionGlyphs.appendAndOwn(p);  
+  delete layoutns;
   return p;
 }
 
@@ -1313,6 +1316,7 @@ Layout::createGeneralGlyph ()
   GeneralGlyph* g = new GeneralGlyph(layoutns);
 
   this->mAdditionalGraphicalObjects.appendAndOwn(g);
+  delete layoutns;
   return g;
 }
 
@@ -1328,6 +1332,7 @@ Layout::createTextGlyph ()
   TextGlyph* p = new TextGlyph(layoutns);
 
   this->mTextGlyphs.appendAndOwn(p);
+  delete layoutns;
   return p;
 }
 
@@ -1344,6 +1349,7 @@ Layout::createAdditionalGraphicalObject ()
   GraphicalObject* p = new GraphicalObject(layoutns);
 
   this->mAdditionalGraphicalObjects.appendAndOwn(p);
+  delete layoutns;
   return p;
 }
 
@@ -1920,7 +1926,7 @@ ListOfLayouts::createObject (XMLInputStream& stream)
     LAYOUT_CREATE_NS(layoutns,this->getSBMLNamespaces());
     object = new Layout(layoutns);
     appendAndOwn(object);
-    //mItems.push_back(object);
+    delete layoutns;
   }
 
   return object;
@@ -2091,6 +2097,7 @@ ListOfCompartmentGlyphs::createObject (XMLInputStream& stream)
     LAYOUT_CREATE_NS(layoutns,this->getSBMLNamespaces());
     object = new CompartmentGlyph(layoutns);
     appendAndOwn(object);
+    delete layoutns;
 //    mItems.push_back(object);
   }
 
@@ -2242,6 +2249,7 @@ ListOfSpeciesGlyphs::createObject (XMLInputStream& stream)
     LAYOUT_CREATE_NS(layoutns,this->getSBMLNamespaces());
     object = new SpeciesGlyph(layoutns);
     appendAndOwn(object);
+    delete layoutns;
 //    mItems.push_back(object);
   }
 
@@ -2390,6 +2398,7 @@ ListOfReactionGlyphs::createObject (XMLInputStream& stream)
     LAYOUT_CREATE_NS(layoutns,this->getSBMLNamespaces());
     object = new ReactionGlyph(layoutns);
     appendAndOwn(object);
+    delete layoutns;
 //    mItems.push_back(object);
   }
 
@@ -2538,6 +2547,7 @@ ListOfTextGlyphs::createObject (XMLInputStream& stream)
     LAYOUT_CREATE_NS(layoutns,this->getSBMLNamespaces());
     object = new TextGlyph(layoutns);
     appendAndOwn(object);
+    delete layoutns;
 //    mItems.push_back(object);
   }
 

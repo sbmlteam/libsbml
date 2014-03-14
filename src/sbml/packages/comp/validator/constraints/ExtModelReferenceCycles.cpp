@@ -280,6 +280,7 @@ ExtModelReferenceCycles::logCycle (const Model& m, std::string id,
   //  (m.getSBMLDocument()->getPlugin("comp"));
   COMP_CREATE_NS(compns, m.getSBMLNamespaces());
   ExternalModelDefinition *extMD = new ExternalModelDefinition(compns);
+  delete compns;
   logFailure(*(extMD));
 }  
 

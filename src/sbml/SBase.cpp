@@ -3790,10 +3790,11 @@ SBase::getSBMLNamespaces() const
 {
   if (mSBML != NULL)
     return mSBML->mSBMLNamespaces;
-  else if (mSBMLNamespaces != NULL)
-    return mSBMLNamespaces;
-  else
-    return new SBMLNamespaces();
+  
+  // initialize SBML namespace if need be
+  if (mSBMLNamespaces == NULL)
+    const_cast<SBase*>(this)->mSBMLNamespaces = new SBMLNamespaces();
+  return mSBMLNamespaces;  
 }
 
 /** @endcond */

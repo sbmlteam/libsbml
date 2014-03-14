@@ -389,6 +389,7 @@ CompSBMLDocumentPlugin::createModelDefinition ()
   COMP_CREATE_NS(compns, getSBMLNamespaces());
   ModelDefinition* m = new ModelDefinition(compns);
   mListOfModelDefinitions.appendAndOwn(m);
+  delete compns;
   return m;
 }
 
@@ -519,6 +520,7 @@ CompSBMLDocumentPlugin::createExternalModelDefinition ()
   COMP_CREATE_NS(compns, getSBMLNamespaces());
   ExternalModelDefinition* m = new ExternalModelDefinition(compns);
   mListOfExternalModelDefinitions.appendAndOwn(m);
+  delete compns;
   return m;
 }
 

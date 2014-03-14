@@ -152,6 +152,7 @@ ListOfPorts::createObject (XMLInputStream& stream)
     COMP_CREATE_NS(compns, getSBMLNamespaces());
     object = new Port(compns);
     appendAndOwn(object);
+    delete compns;
   }
 
   return object;

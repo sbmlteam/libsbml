@@ -469,6 +469,7 @@ Transition::createInput()
   {
     QUAL_CREATE_NS(qualns, getSBMLNamespaces());
     i = new Input(qualns);
+    delete qualns;
   }
   catch (...)
   {
@@ -654,6 +655,7 @@ Transition::createOutput()
   {
     QUAL_CREATE_NS(qualns, getSBMLNamespaces());
     o = new Output(qualns);
+    delete qualns;
   }
   catch (...)
   {
@@ -813,6 +815,7 @@ Transition::createFunctionTerm()
   {
     QUAL_CREATE_NS(qualns, getSBMLNamespaces());
     ft = new FunctionTerm(qualns);
+    delete qualns;
   }
   catch (...)
   {
@@ -839,6 +842,7 @@ Transition::createDefaultTerm()
   {
     QUAL_CREATE_NS(qualns, getSBMLNamespaces());
     dt = new DefaultTerm(qualns);
+    delete qualns;
   }
   catch (...)
   {
@@ -1424,6 +1428,7 @@ ListOfTransitions::createObject(XMLInputStream& stream)
     QUAL_CREATE_NS(qualns, getSBMLNamespaces());
     object = new Transition(qualns);
     appendAndOwn(object);
+    delete qualns;
   }
 
   return object;

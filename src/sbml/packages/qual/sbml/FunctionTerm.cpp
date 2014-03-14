@@ -893,7 +893,7 @@ ListOfFunctionTerms::createObject(XMLInputStream& stream)
      */
     object = getDefaultTerm();
   }
-
+  delete qualns;
   return object;
 }
 

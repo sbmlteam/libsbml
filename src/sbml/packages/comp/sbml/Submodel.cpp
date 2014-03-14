@@ -488,6 +488,7 @@ Submodel::createDeletion ()
   COMP_CREATE_NS(compns, getSBMLNamespaces());
   Deletion* m = new Deletion(compns);
   mListOfDeletions.appendAndOwn(m);
+  delete compns;
   return m;
 }
 

@@ -160,6 +160,7 @@ ListOfDeletions::createObject (XMLInputStream& stream)
     COMP_CREATE_NS(compns, getSBMLNamespaces());
     object = new Deletion(compns);
     appendAndOwn(object);
+    delete compns;
   }
 
   return object;

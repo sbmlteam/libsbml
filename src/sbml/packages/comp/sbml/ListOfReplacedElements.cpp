@@ -114,6 +114,7 @@ ListOfReplacedElements::createObject (XMLInputStream& stream)
     COMP_CREATE_NS(compns, getSBMLNamespaces());
     object = new ReplacedElement(compns);
     appendAndOwn(object);
+    delete compns;
     //mItems.push_back(object);
   }
 

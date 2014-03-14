@@ -332,6 +332,7 @@ Curve::createLineSegment ()
   LineSegment* ls = new LineSegment(layoutns);
 
   this->mCurveSegments.appendAndOwn(ls);
+  delete layoutns;
   return ls;
 }
 
@@ -346,6 +347,7 @@ CubicBezier* Curve::createCubicBezier ()
   CubicBezier* cb = new CubicBezier(layoutns);
 
   this->mCurveSegments.appendAndOwn(cb);
+  delete layoutns;
   return cb;
 }
 
@@ -623,6 +625,7 @@ ListOfLineSegments::createObject (XMLInputStream& stream)
 			getErrorLog()->logPackageError("layout", LayoutXsiTypeSyntax,
 			               getPackageVersion(), getLevel(), getVersion());
     }
+    delete layoutns;
   }
   
   if(object) appendAndOwn(object);

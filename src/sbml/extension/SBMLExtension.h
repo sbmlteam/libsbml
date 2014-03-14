@@ -509,7 +509,8 @@ GroupsExtension::init()
          if (!variable->getNamespaces()->hasURI(xmlns->getURI(i)))\
            variable->getNamespaces()->add(xmlns->getURI(i), xmlns->getPrefix(i));\
        }\
-    }\
+      }\
+      else { variable = new type(*variable); }\
   }
 #endif
 

@@ -451,7 +451,7 @@ FbcModelPlugin::readOtherXML (SBase* parentObject, XMLInputStream& stream)
     // that the annotation wasn't read. 
     readAnnotationFromStream = false;
   }
-  
+  delete fbcns;
   return readAnnotationFromStream;
 #endif
 }
@@ -726,6 +726,7 @@ FluxBound*
   {
     FBC_CREATE_NS(fbcns, getSBMLNamespaces());
     bound = new FluxBound(fbcns);
+    delete fbcns;
   }
   catch(...)
   {
@@ -943,10 +944,10 @@ Objective*
   Objective* objective = NULL;
 
   try
-  {  
-    
+  {      
     FBC_CREATE_NS(fbcns, getSBMLNamespaces());
     objective = new Objective(fbcns);
+    delete fbcns;
   }
   catch(...)
   {
@@ -1210,6 +1211,7 @@ GeneAssociation*
   {
     FBC_CREATE_NS(fbcns, getSBMLNamespaces());
     association = new GeneAssociation(fbcns);
+    delete fbcns;
   }
   catch(...)
   {

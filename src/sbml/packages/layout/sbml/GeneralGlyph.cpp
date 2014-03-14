@@ -602,6 +602,7 @@ GeneralGlyph::createReferenceGlyph ()
   ReferenceGlyph* srg = new ReferenceGlyph(layoutns);
 
   this->mReferenceGlyphs.appendAndOwn(srg);
+  delete layoutns;
   return srg;
 }
 
@@ -1126,6 +1127,7 @@ ListOfReferenceGlyphs::createObject (XMLInputStream& stream)
     LAYOUT_CREATE_NS(layoutns,this->getSBMLNamespaces());
     object = new ReferenceGlyph(layoutns);
     appendAndOwn(object);
+    delete layoutns;
   }
 
   return object;

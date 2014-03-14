@@ -1045,8 +1045,9 @@ ListOfInputs::createObject(XMLInputStream& stream)
     QUAL_CREATE_NS(qualns, getSBMLNamespaces());
     object = new Input(qualns);
     appendAndOwn(object);
+    delete qualns;
   }
-
+  
   return object;
 }
 

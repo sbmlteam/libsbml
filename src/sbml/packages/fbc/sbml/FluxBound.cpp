@@ -877,6 +877,7 @@ ListOfFluxBounds::createObject (XMLInputStream& stream)
       FBC_CREATE_NS(fbcns, getSBMLNamespaces());
       object = new FluxBound(fbcns);
       appendAndOwn(object);
+      delete fbcns;
       //mItems.push_back(object);
     } 
     catch(...)

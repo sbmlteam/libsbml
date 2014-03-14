@@ -527,6 +527,7 @@ SBaseRef::createSBaseRef ()
   {
     COMP_CREATE_NS(compns, getSBMLNamespaces());
     mSBaseRef = new SBaseRef(compns);
+    delete compns;
   }
   catch (...)
   {
@@ -638,6 +639,7 @@ SBaseRef::createObject (XMLInputStream& stream)
       mSBaseRef = new SBaseRef(compns);
       object = mSBaseRef;
       object->connectToParent(this);
+      delete compns;
     }
     else if ( name == "sbaseRef" ) {
       if (errlog != NULL) {
@@ -648,6 +650,7 @@ SBaseRef::createObject (XMLInputStream& stream)
       mSBaseRef = new SBaseRef(compns);
       object = mSBaseRef;
       object->connectToParent(this);
+      delete compns;
     }
   }
   return object;

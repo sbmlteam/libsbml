@@ -1138,55 +1138,49 @@ ListOfGraphicalObjects::createObject (XMLInputStream& stream)
   SBase*        object = 0;
 
 
+  LAYOUT_CREATE_NS(layoutns,this->getSBMLNamespaces());
   if (name == "graphicalObject")
   {
-    LAYOUT_CREATE_NS(layoutns,this->getSBMLNamespaces());
     object = new GraphicalObject(layoutns);
     appendAndOwn(object);
   }
   else if (name == "generalGlyph")
   {
-    LAYOUT_CREATE_NS(layoutns,this->getSBMLNamespaces());
     object = new GeneralGlyph(layoutns);
     appendAndOwn(object);
   }
   else if (name == "textGlyph")
   {
-    LAYOUT_CREATE_NS(layoutns,this->getSBMLNamespaces());
     object = new TextGlyph(layoutns);
     appendAndOwn(object);
   }
   else if (name == "speciesGlyph")
   {
-    LAYOUT_CREATE_NS(layoutns,this->getSBMLNamespaces());
     object = new SpeciesGlyph(layoutns);
     appendAndOwn(object);
   }
   else if (name == "compartmentGlyph")
   {
-    LAYOUT_CREATE_NS(layoutns,this->getSBMLNamespaces());
     object = new CompartmentGlyph(layoutns);
     appendAndOwn(object);
   }
   else if (name == "reactionGlyph")
   {
-    LAYOUT_CREATE_NS(layoutns,this->getSBMLNamespaces());
     object = new ReactionGlyph(layoutns);
     appendAndOwn(object);
   }
   else if (name == "speciesReferenceGlyph")
   {
-    LAYOUT_CREATE_NS(layoutns,this->getSBMLNamespaces());
     object = new SpeciesReferenceGlyph(layoutns);
     appendAndOwn(object);
   }
   else if (name == "referenceGlyph")
   {
-    LAYOUT_CREATE_NS(layoutns,this->getSBMLNamespaces());
     object = new ReferenceGlyph(layoutns);
     appendAndOwn(object);
   }
 
+  delete layoutns;
   return object;
 }
 /** @endcond */
