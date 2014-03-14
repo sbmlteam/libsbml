@@ -443,6 +443,8 @@ FbcModelPlugin::readOtherXML (SBase* parentObject, XMLInputStream& stream)
       
       readAnnotationFromStream = true;
     }
+    
+    delete fbcns;
   }
   catch(...)
   {
@@ -451,7 +453,7 @@ FbcModelPlugin::readOtherXML (SBase* parentObject, XMLInputStream& stream)
     // that the annotation wasn't read. 
     readAnnotationFromStream = false;
   }
-  delete fbcns;
+  
   return readAnnotationFromStream;
 #endif
 }

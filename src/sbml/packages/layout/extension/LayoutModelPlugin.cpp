@@ -478,6 +478,7 @@ LayoutModelPlugin::createLayout ()
   {  
     LAYOUT_CREATE_NS(layoutns,getSBMLNamespaces());
     l = new Layout(layoutns);
+    delete layoutns;
   }
   catch(...)
   {

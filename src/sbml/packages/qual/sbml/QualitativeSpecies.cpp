@@ -1018,6 +1018,7 @@ ListOfQualitativeSpecies::createObject(XMLInputStream& stream)
     QUAL_CREATE_NS(qualns, getSBMLNamespaces());
     object = new QualitativeSpecies(qualns);
     appendAndOwn(object);
+    delete qualns;
   }
 
   return object;

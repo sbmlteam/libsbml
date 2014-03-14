@@ -472,6 +472,7 @@ ReactionGlyph::createSpeciesReferenceGlyph ()
   SpeciesReferenceGlyph* srg = new SpeciesReferenceGlyph(layoutns);
 
   this->mSpeciesReferenceGlyphs.appendAndOwn(srg);
+  delete layoutns;
   return srg;
 }
 
@@ -940,6 +941,7 @@ ListOfSpeciesReferenceGlyphs::createObject (XMLInputStream& stream)
     LAYOUT_CREATE_NS(layoutns,this->getSBMLNamespaces());
     object = new SpeciesReferenceGlyph(layoutns);
     appendAndOwn(object);
+    delete layoutns;
 //    mItems.push_back(object);
   }
 

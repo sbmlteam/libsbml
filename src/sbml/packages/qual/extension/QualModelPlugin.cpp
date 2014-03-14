@@ -430,6 +430,7 @@ QualModelPlugin::createQualitativeSpecies ()
   {  
     QUAL_CREATE_NS(qualns, getSBMLNamespaces());
     g = new QualitativeSpecies(qualns);
+    delete qualns;
   }
   catch(...)
   {
@@ -615,6 +616,7 @@ QualModelPlugin::createTransition ()
   {  
     QUAL_CREATE_NS(qualns, getSBMLNamespaces());
     g = new Transition(qualns);
+    delete qualns;
   }
   catch(...)
   {
