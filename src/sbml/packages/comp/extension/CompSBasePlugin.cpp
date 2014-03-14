@@ -157,6 +157,7 @@ CompSBasePlugin::createObject(XMLInputStream& stream)
       mReplacedBy = new ReplacedBy(compns);
       object = mReplacedBy;
       object->connectToParent(getParentSBMLObject());
+      delete compns;
     }
   }
   return object;
@@ -351,6 +352,7 @@ CompSBasePlugin::createReplacedElement ()
   COMP_CREATE_NS(compns, getSBMLNamespaces());
   ReplacedElement* m = new ReplacedElement(compns);
   mListOfReplacedElements->appendAndOwn(m);
+  delete compns;
   return m;
 }
 
@@ -424,6 +426,7 @@ CompSBasePlugin::createReplacedBy()
   COMP_CREATE_NS(compns, getSBMLNamespaces());
   mReplacedBy = new ReplacedBy(compns);
   mReplacedBy->connectToParent(getParentSBMLObject());
+  delete compns;
   return mReplacedBy;
 }
 
@@ -531,6 +534,7 @@ CompSBasePlugin::createListOfReplacedElements()
     COMP_CREATE_NS(compns, getSBMLNamespaces());
     mListOfReplacedElements = new ListOfReplacedElements(compns);
     mListOfReplacedElements->connectToParent(getParentSBMLObject());
+    delete compns;
   }
 }
 
