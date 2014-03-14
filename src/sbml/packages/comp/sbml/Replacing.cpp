@@ -338,7 +338,7 @@ Replacing::replaceWithAndMaybeDelete(SBase* replacement, bool deleteme, ASTNode*
   if (ret != LIBSBML_OPERATION_SUCCESS) return ret;
 
   //Perform any conversions on references in the submodel.
-  ret = performConversions(replacement, conversionFactor);
+  ret = performConversions(replacement, &conversionFactor);
   if (ret != LIBSBML_OPERATION_SUCCESS) return ret;
 
   //Finally, recurse down if there are things the replaced element itself replaced (or used to be replaced by)
@@ -440,7 +440,7 @@ Replacing::updateIDs(SBase* oldnames, SBase* newnames)
 
 
 /** @cond doxygenLibsbmlInternal */
-int Replacing::performConversions(SBase* replacement, ASTNode*& conversionFactor)
+int Replacing::performConversions(SBase* replacement, ASTNode** conversionFactor)
 {
   SBMLDocument* doc = getSBMLDocument();
   int ret = convertConversionFactor(conversionFactor);
@@ -485,12 +485,12 @@ int Replacing::performConversions(SBase* replacement, ASTNode*& conversionFactor
   replacementAST.setName(id.c_str());
   ASTNode divide(AST_DIVIDE);
   divide.addChild(replacementAST.deepCopy());
-  divide.addChild(conversionFactor->deepCopy());
+  divide.addChild((*conversionFactor)->deepCopy());
   List* allElements = replacedmod->getAllElements();
   for (unsigned int e=0; e<allElements->getSize(); e++) {
     SBase* element = static_cast<SBase*>(allElements->get(e));
     element->replaceSIDWithFunction(id, &divide);
-    element->multiplyAssignmentsToSIdByFunction(id, conversionFactor);
+    element->multiplyAssignmentsToSIdByFunction(id, *conversionFactor);
   }
   delete allElements;
   return ret;
@@ -499,29 +499,29 @@ int Replacing::performConversions(SBase* replacement, ASTNode*& conversionFactor
 
 
 /** @cond doxygenLibsbmlInternal */
-int Replacing::convertConversionFactor(ASTNode*& conversionFactor)
+int Replacing::convertConversionFactor(ASTNode** conversionFactor)
 {
   int ret = LIBSBML_OPERATION_SUCCESS;
   ASTNode* newCF = NULL;
   if (mConversionFactor=="") {
-    newCF = conversionFactor;
+    newCF = *conversionFactor;
   }
   else {
     ASTNode factor(AST_NAME);
     factor.setName(mConversionFactor.c_str());
-    if (conversionFactor==NULL) {
+    if (*conversionFactor==NULL) {
       newCF = new ASTNode(factor);
-      conversionFactor = newCF;
+      *conversionFactor = newCF;
     }
-    else if (conversionFactor->getType()==AST_NAME) {
+    else if ((*conversionFactor)->getType()==AST_NAME) {
       newCF = new ASTNode(AST_TIMES);
-      newCF->addChild(conversionFactor);
-      newCF->addChild(&factor);
-      conversionFactor = newCF;
+      newCF->addChild(*conversionFactor);
+      newCF->addChild(factor.deepCopy());
+      *conversionFactor = newCF;
     }
-    else if (conversionFactor->getType()==AST_TIMES) {
-      conversionFactor->addChild(factor.deepCopy());
-      newCF = conversionFactor;
+    else if ((*conversionFactor)->getType()==AST_TIMES) {
+      (*conversionFactor)->addChild(factor.deepCopy());
+      newCF = *conversionFactor;
     }
     else {
       SBMLDocument* doc = getSBMLDocument();

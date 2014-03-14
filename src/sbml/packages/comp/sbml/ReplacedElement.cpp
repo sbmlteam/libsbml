@@ -385,7 +385,7 @@ int ReplacedElement::performReplacementAndCollect(set<SBase*>* removed, set<SBas
 
   //Perform any conversions on references in the submodel.
   ASTNode* blank = NULL;
-  ret = performConversions(parent, blank);
+  ret = performConversions(parent, &blank);
   if (ret != LIBSBML_OPERATION_SUCCESS) return ret;
 
   CompSBasePlugin* refplug = static_cast<CompSBasePlugin*>(ref->getPlugin(getPrefix()));

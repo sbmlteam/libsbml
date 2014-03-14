@@ -311,7 +311,7 @@ protected:
    * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT @endlink
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
    */
-  virtual int performConversions(SBase* replacement, ASTNode*& conversionFactor);
+  virtual int performConversions(SBase* replacement, ASTNode** conversionFactor);
   /** @endcond */
 
 
@@ -319,7 +319,7 @@ protected:
   /**
    * Multiply this element's conversion factor (if present) to the @p conversionFactor.
    */
-  virtual int convertConversionFactor(ASTNode*& conversionFactor);
+  virtual int convertConversionFactor(ASTNode** conversionFactor);
   /** @endcond */
 
 

@@ -297,6 +297,7 @@ CompModelPlugin::createSubmodel ()
   COMP_CREATE_NS(compns, getSBMLNamespaces());
   Submodel* m = new Submodel(compns);
   mListOfSubmodels.appendAndOwn(m);
+  delete compns;
   return m;
 }
 
@@ -427,6 +428,7 @@ CompModelPlugin::createPort ()
   COMP_CREATE_NS(compns, getSBMLNamespaces());
   Port* m = new Port(compns);
   mListOfPorts.appendAndOwn(m);
+  delete compns;
   return m;
 }
 
