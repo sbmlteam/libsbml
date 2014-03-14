@@ -422,7 +422,8 @@ CompExtension::init()
 
   // 6. Register the flattening converter
 
-  SBMLConverterRegistry::getInstance().addConverter(new CompFlatteningConverter());
+  CompFlatteningConverter c1;
+  SBMLConverterRegistry::getInstance().addConverter(&c1);
 
 }
 /** @endcond */

@@ -376,8 +376,10 @@ FbcExtension::init()
   
   // 5. Register the cobra converter
   
-  SBMLConverterRegistry::getInstance().addConverter(new CobraToFbcConverter());
-  SBMLConverterRegistry::getInstance().addConverter(new FbcToCobraConverter());
+  CobraToFbcConverter c1;
+  SBMLConverterRegistry::getInstance().addConverter(&c1);
+  FbcToCobraConverter c2;
+  SBMLConverterRegistry::getInstance().addConverter(&c2);
   
 }
 /** @endcond */
