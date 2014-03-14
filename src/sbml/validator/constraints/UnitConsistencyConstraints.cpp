@@ -534,42 +534,45 @@ END_CONSTRAINT
 START_CONSTRAINT (99508, Compartment, c)
 {
   pre ( c.getLevel() > 2);
-  pre ( c.getDerivedUnitDefinition() != NULL);
+  const UnitDefinition * ud = c.getDerivedUnitDefinition();
+  pre ( ud != NULL);
   
   msg = "The units of the <compartment> '";
   msg += c.getId() ;
   msg += "' cannot be fully checked. Unit consistency reported as either no errors ";
   msg += "or further unit errors related to this object may not be accurate.";
 
-  inv( !(c.getDerivedUnitDefinition()->getNumUnits() == 0));
+  inv( !(ud->getNumUnits() == 0));
 }
 END_CONSTRAINT
 
 START_CONSTRAINT (99508, Species, s)
 {
   pre ( s.getLevel() > 2);
-  pre ( s.getDerivedUnitDefinition() != NULL);
+  const UnitDefinition * ud = s.getDerivedUnitDefinition();
+  pre ( ud != NULL);
   
   msg = "The units of the <species> '";
   msg += s.getId() ;
   msg += "' cannot be fully checked. Unit consistency reported as either no errors ";
   msg += "or further unit errors related to this object may not be accurate.";
 
-  inv( !(s.getDerivedUnitDefinition()->getNumUnits() == 0));
+  inv( !(ud->getNumUnits() == 0));
 }
 END_CONSTRAINT
 
 START_CONSTRAINT (99508, Parameter, p)
 {
   pre ( p.getLevel() > 2);
-  pre ( p.getDerivedUnitDefinition() != NULL);
+  const UnitDefinition * ud = p.getDerivedUnitDefinition();
+  pre ( ud != NULL);
   
   msg = "The units of the <parameter> '";
   msg += p.getId() ;
   msg += "' cannot be fully checked. Unit consistency reported as either no errors ";
   msg += "or further unit errors related to this object may not be accurate.";
 
-  inv( !(p.getDerivedUnitDefinition()->getNumUnits() == 0));
+  inv( !(ud->getNumUnits() == 0));
 }
 END_CONSTRAINT
 

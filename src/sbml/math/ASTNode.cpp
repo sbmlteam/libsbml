@@ -2962,36 +2962,42 @@ ASTNode::getNumVariablesWithUndeclaredUnits(Model * m) const
       }
       else if (m->getSpecies(id) != NULL)
       {
-        if (m->getSpecies(id)->getDerivedUnitDefinition()->getNumUnits() == 0)
+        UnitDefinition *ud = m->getSpecies(id)->getDerivedUnitDefinition();
+        if (ud == NULL || ud->getNumUnits() == 0)
         {
           number++;
         }
+        delete ud;
       }
       else if (m->getCompartment(id) != NULL)
       {
-         if (m->getCompartment(id)->getDerivedUnitDefinition()
-                                                         ->getNumUnits() == 0)
+        UnitDefinition *ud = m->getCompartment(id)->getDerivedUnitDefinition();
+        if (ud == NULL || ud->getNumUnits() == 0)
         {
           number++;
         }
+        delete ud;
       }
       else if (kl != NULL && kl->getParameter(id) != NULL)
       {
-        if (kl->getParameter(id)->getDerivedUnitDefinition() == NULL ||
-          kl->getParameter(id)->getDerivedUnitDefinition()->getNumUnits() == 0)
+        UnitDefinition *ud = kl->getParameter(id)->getDerivedUnitDefinition();
+        if (ud == NULL || ud->getNumUnits() == 0)
         {
           number++;
         }
+        delete ud;
       }
       else if (allowReactionId == true 
          && m->getReaction(id) != NULL 
          && m->getReaction(id)->getKineticLaw() != NULL)
       {
-         if (m->getReaction(id)->getKineticLaw()->getDerivedUnitDefinition()
-                                                         ->getNumUnits() == 0)
+        UnitDefinition *ud = m->getReaction(id)->getKineticLaw()
+                                               ->getDerivedUnitDefinition();
+        if (ud == NULL || ud->getNumUnits() == 0)
         {
           number++;
         }
+        delete ud;
       }
       /* actually these always are considered to be dimensionless */
       //else if (allowSpeciesRef == true && m->getSpeciesReference(id) != NULL)

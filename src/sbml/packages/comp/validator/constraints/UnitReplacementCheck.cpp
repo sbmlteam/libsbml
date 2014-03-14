@@ -272,8 +272,9 @@ UnitReplacementCheck::checkReferencedElement(ReplacedElement& repE,
   {
     Parameter * p = const_cast<Model *>(&m)
                                    ->getParameter(repE.getConversionFactor());
-    refElemUnits = UnitDefinition::combine(refElemUnits, 
-                                           p->getDerivedUnitDefinition());
+    UnitDefinition *ud = p->getDerivedUnitDefinition();
+    refElemUnits = UnitDefinition::combine(refElemUnits, ud);
+    delete ud;
     cfPresent = true;
   }
 
@@ -323,18 +324,23 @@ void
 UnitReplacementCheck::logMismatchUnits (ReplacedBy& repBy, 
                                            SBase* refElem, SBase* parent)
 {
+  UnitDefinition * ud = parent->getDerivedUnitDefinition();
   msg = "The ";
   msg += SBMLTypeCode_toString(parent->getTypeCode(), 
                                parent->getPackageName().c_str());
   msg += " object with units ";
-  msg += UnitDefinition::printUnits(parent->getDerivedUnitDefinition(), true);
+  msg += UnitDefinition::printUnits(ud, true);
   msg += " is replaced by the ";
   msg += SBMLTypeCode_toString(refElem->getTypeCode(), 
                                refElem->getPackageName().c_str());
   msg += " object with units ";
-  msg += UnitDefinition::printUnits(refElem->getDerivedUnitDefinition(), true);
+
+  ud = refElem->getDerivedUnitDefinition();
+
+  msg += UnitDefinition::printUnits(ud, true);
   msg += ".";
 
+  delete ud;
 
   logFailure(repBy);
 }

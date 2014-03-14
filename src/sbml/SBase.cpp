@@ -471,7 +471,11 @@ SBase::~SBase ()
   if (mCVTerms != NULL)
   {
     unsigned int size = mCVTerms->getSize();
-    while (--size) delete static_cast<CVTerm*>( mCVTerms->remove(0) );
+    while (size > 0) 
+    {
+      delete static_cast<CVTerm*>( mCVTerms->remove(0) );
+      size--;
+    }
     delete mCVTerms;
   }
   if (mHistory != NULL) delete mHistory;

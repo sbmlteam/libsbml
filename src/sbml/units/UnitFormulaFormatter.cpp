@@ -2227,6 +2227,7 @@ UnitFormulaFormatter::getSpeciesExtentUnitDefinition(const Species * species)
     ud = new UnitDefinition(model->getSBMLNamespaces());
     mContainsUndeclaredUnits = true;
     mCanIgnoreUndeclaredUnits = 0;
+    delete modelExtent;
     return ud;
   }
 
@@ -2249,6 +2250,8 @@ UnitFormulaFormatter::getSpeciesExtentUnitDefinition(const Species * species)
     ud = new UnitDefinition(model->getSBMLNamespaces());
     mContainsUndeclaredUnits = true;
     mCanIgnoreUndeclaredUnits = 0;
+    delete modelExtent;
+    delete conversion;
     return ud;
   }
   

@@ -5700,7 +5700,7 @@ Model::addFormulaUnitsData (const FormulaUnitsData* fud)
 FormulaUnitsData*
 Model::createFormulaUnitsData ()
 {
-  FormulaUnitsData* fud = new FormulaUnitsData;
+  FormulaUnitsData* fud = new FormulaUnitsData();
   if (mFormulaUnitsData == NULL)
   {
     mFormulaUnitsData = new List();
