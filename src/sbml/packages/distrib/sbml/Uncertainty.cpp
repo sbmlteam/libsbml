@@ -453,7 +453,7 @@ Uncertainty::createObject(XMLInputStream& stream)
   SBase* object = NULL;
 
   DISTRIB_CREATE_NS(distribns, getSBMLNamespaces());
-
+  delete distribns;
 
   return object;
 }
