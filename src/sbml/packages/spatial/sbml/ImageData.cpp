@@ -380,6 +380,7 @@ ImageData* ImageData::readImageData (XMLInputStream& stream)
 		// create an ImageData object
     SPATIAL_CREATE_NS(spatialns, stream.getSBMLNamespaces());
 		id = new ImageData(spatialns);
+		delete spatialns;
 
 		XMLAttributes attributes = nextToken.getAttributes();
 

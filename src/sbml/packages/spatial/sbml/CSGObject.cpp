@@ -833,6 +833,7 @@ ListOfCSGObjects::createObject (XMLInputStream& stream)
     SPATIAL_CREATE_NS(spatialns, this->getSBMLNamespaces());
 	object = new CSGObject(spatialns);
 	appendAndOwn(object);
+	delete spatialns;
   }
 
   return object;

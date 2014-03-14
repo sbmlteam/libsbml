@@ -403,6 +403,7 @@ ListOfGeometryDefinitions::createObject (XMLInputStream& stream)
 
   appendAndOwn(object);
 
+  delete spatialns;
   return object;
 }
 

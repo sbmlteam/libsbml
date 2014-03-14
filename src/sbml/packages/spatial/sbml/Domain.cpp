@@ -551,6 +551,7 @@ ListOfDomains::createObject (XMLInputStream& stream)
       SPATIAL_CREATE_NS(spatialns, this->getSBMLNamespaces());
 	  object = new Domain(spatialns);
 	  appendAndOwn(object);
+	  delete spatialns;
       //mItems.push_back(object);
   }
 

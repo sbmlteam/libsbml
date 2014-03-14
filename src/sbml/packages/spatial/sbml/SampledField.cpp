@@ -567,6 +567,7 @@ SampledField::createImageData ()
   {
     SPATIAL_CREATE_NS(spatialNs, getSBMLNamespaces());
     mImageData = new ImageData(spatialNs);
+    delete spatialNs;
   }
   catch (...)
   {

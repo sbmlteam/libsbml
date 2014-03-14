@@ -502,6 +502,7 @@ ListOfCompartmentMappings::createObject (XMLInputStream& stream)
       SPATIAL_CREATE_NS(spatialns, this->getSBMLNamespaces());
 	  object = new CompartmentMapping(spatialns);
 	  appendAndOwn(object);
+	  delete spatialns;
       //mItems.push_back(object);
   }
 

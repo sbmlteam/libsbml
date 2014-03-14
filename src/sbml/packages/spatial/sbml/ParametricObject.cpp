@@ -320,6 +320,7 @@ ParametricObject::createPolygonObject ()
   {
     SPATIAL_CREATE_NS(spatialNs, mSBMLNamespaces)
     mPolygonObject = new PolygonObject(spatialNs);
+    delete spatialNs;
   }
   catch (...)
   {
@@ -587,6 +588,7 @@ ListOfParametricObjects::createObject (XMLInputStream& stream)
       SPATIAL_CREATE_NS(spatialns, this->getSBMLNamespaces());
 	  object = new ParametricObject(spatialns);
 	  appendAndOwn(object);
+	  delete spatialns;
       //mItems.push_back(object);
   }
 

@@ -454,6 +454,7 @@ CoordinateComponent::createBoundaryMin ()
   {
     SPATIAL_CREATE_NS(spatialns, getSBMLNamespaces());
     mBoundaryMin = new BoundaryMin(spatialns);
+    delete spatialns;
   }
   catch (...)
   {
@@ -486,6 +487,7 @@ CoordinateComponent::createBoundaryMax ()
   {
     SPATIAL_CREATE_NS(spatialns, getSBMLNamespaces());
     mBoundaryMax = new BoundaryMax(spatialns);
+    delete spatialns;
   }
   catch (...)
   {
@@ -586,6 +588,7 @@ CoordinateComponent::createObject (XMLInputStream& stream)
 	  object = mBoundaryMax;
   }
 
+  delete spatialns;
   return object;
 
 }
@@ -817,6 +820,7 @@ ListOfCoordinateComponents::createObject (XMLInputStream& stream)
       SPATIAL_CREATE_NS(spatialns, this->getSBMLNamespaces());
 	  object = new CoordinateComponent(spatialns);
 	  appendAndOwn(object);
+	  delete spatialns;
       //mItems.push_back(object);
   }
 

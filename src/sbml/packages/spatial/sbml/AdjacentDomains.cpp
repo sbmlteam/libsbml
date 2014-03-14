@@ -448,6 +448,7 @@ ListOfAdjacentDomains::createObject (XMLInputStream& stream)
       SPATIAL_CREATE_NS(spatialns, this->getSBMLNamespaces());
 	  object = new AdjacentDomains(spatialns);
 	  appendAndOwn(object);
+	  delete spatialns;
       //mItems.push_back(object);
   }
 

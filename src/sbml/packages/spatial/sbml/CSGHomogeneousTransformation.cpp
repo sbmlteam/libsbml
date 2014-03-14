@@ -256,6 +256,7 @@ CSGHomogeneousTransformation::createForwardTransform ()
     //const unsigned int sbmlVersion = getVersion();
     SPATIAL_CREATE_NS(spatialNs, mSBMLNamespaces)
     mForwardTransform = new TransformationComponents(spatialNs);
+    delete spatialNs;
   }
   catch (...)
   {
@@ -288,6 +289,7 @@ CSGHomogeneousTransformation::createInverseTransform ()
   {
     SPATIAL_CREATE_NS(spatialNs, mSBMLNamespaces)
     mInverseTransform = new TransformationComponents(spatialNs);
+    delete spatialNs;
   }
   catch (...)
   {

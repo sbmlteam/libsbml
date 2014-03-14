@@ -500,6 +500,7 @@ ListOfCSGNodes::createObject (XMLInputStream& stream)
 	object = new CSGSetOperator(spatialns);
   }
 
+  delete spatialns;
   appendAndOwn(object);
 
   return object;
