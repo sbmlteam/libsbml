@@ -141,6 +141,7 @@ ArraysSBasePlugin::createObject (XMLInputStream& stream)
     } 
   } 
 
+  delete arraysns;
   return object; 
 }
 
@@ -303,6 +304,7 @@ ArraysSBasePlugin::createIndex ()
   {
     ARRAYS_CREATE_NS(arraysns, getSBMLNamespaces());
     i = new Index(arraysns);
+    delete arraysns;
   }
   catch(...)
   {
@@ -455,6 +457,7 @@ ArraysSBasePlugin::createDimension ()
   {
     ARRAYS_CREATE_NS(arraysns, getSBMLNamespaces());
     d = new Dimension(arraysns);
+    delete arraysns;
   }
   catch(...)
   {

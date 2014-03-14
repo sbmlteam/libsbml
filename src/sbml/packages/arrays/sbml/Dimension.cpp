@@ -839,6 +839,7 @@ ListOfDimensions::createObject(XMLInputStream& stream)
     ARRAYS_CREATE_NS(arraysns, getSBMLNamespaces());
     object = new Dimension(arraysns);
     appendAndOwn(object);
+    delete arraysns;
   }
 
   return object;

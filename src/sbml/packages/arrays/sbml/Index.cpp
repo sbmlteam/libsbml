@@ -827,6 +827,7 @@ ListOfIndices::createObject(XMLInputStream& stream)
     ARRAYS_CREATE_NS(arraysns, getSBMLNamespaces());
     object = new Index(arraysns);
     appendAndOwn(object);
+    delete arraysns;
   }
 
   return object;
