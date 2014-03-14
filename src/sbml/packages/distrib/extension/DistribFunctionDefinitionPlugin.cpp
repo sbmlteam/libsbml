@@ -125,6 +125,7 @@ DistribFunctionDefinitionPlugin::createObject (XMLInputStream& stream)
       object = mDrawFromDistribution;
 
     } 
+    delete distribns;
   } 
 
   return object; 
@@ -230,6 +231,7 @@ DistribFunctionDefinitionPlugin::createDrawFromDistribution()
 
   mDrawFromDistribution->setSBMLDocument(this->getSBMLDocument());
 
+  delete distribns;
   return mDrawFromDistribution;
 }
 

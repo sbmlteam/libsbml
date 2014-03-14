@@ -432,7 +432,7 @@ DistribInput::createObject(XMLInputStream& stream)
   SBase* object = NULL;
 
   DISTRIB_CREATE_NS(distribns, getSBMLNamespaces());
-
+  delete distribns;
 
   return object;
 }
@@ -782,6 +782,7 @@ ListOfDistribInputs::createObject(XMLInputStream& stream)
     DISTRIB_CREATE_NS(distribns, getSBMLNamespaces());
     object = new DistribInput(distribns);
     appendAndOwn(object);
+    delete distribns;
   }
 
   return object;

@@ -347,6 +347,7 @@ DrawFromDistribution::createDistribInput()
   {
     DISTRIB_CREATE_NS(distribns, getSBMLNamespaces());
     di = new DistribInput(distribns);
+    delete distribns;
   }
   catch (...)
   {
@@ -527,6 +528,8 @@ DrawFromDistribution::createObject(XMLInputStream& stream)
   {
     object = &mDistribInputs;
   }
+  
+  delete distribns;
 
   return object;
 }

@@ -125,6 +125,7 @@ DistribSBasePlugin::createObject (XMLInputStream& stream)
       object = mUncertainty;
 
     } 
+    delete distribns;
   } 
 
   return object; 
@@ -229,6 +230,7 @@ DistribSBasePlugin::createUncertainty()
   mUncertainty = new Uncertainty(distribns);
 
   mUncertainty->setSBMLDocument(this->getSBMLDocument());
+  delete distribns;
   return mUncertainty;
 }
 
