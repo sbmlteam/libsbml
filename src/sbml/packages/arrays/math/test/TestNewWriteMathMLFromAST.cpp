@@ -113,6 +113,7 @@ START_TEST (test_MathMLFromAST_vector)
   );
 
   N = new ASTNode(AST_LINEAR_ALGEBRA_VECTOR_CONSTRUCTOR);
+  fail_unless( N->getPackageName() == "arrays");
 
   ASTNode * c1 = new ASTNode(AST_NAME);
   fail_unless(c1->setName("x") == LIBSBML_OPERATION_SUCCESS);
@@ -161,6 +162,7 @@ START_TEST (test_MathMLFromAST_matrix)
   fail_unless(cos->addChild(int1) == LIBSBML_OPERATION_SUCCESS);
 
   ASTNode *row1 = new ASTNode(AST_LINEAR_ALGEBRA_MATRIXROW_CONSTRUCTOR);
+  fail_unless( row1->getPackageName() == "arrays");
 
   fail_unless(row1->addChild(cos) == LIBSBML_OPERATION_SUCCESS);
   fail_unless(row1->addChild(y) == LIBSBML_OPERATION_SUCCESS);
@@ -173,11 +175,13 @@ START_TEST (test_MathMLFromAST_matrix)
   fail_unless(int3->setValue((long)(4)) == LIBSBML_OPERATION_SUCCESS);
 
   ASTNode *row2 = new ASTNode(AST_LINEAR_ALGEBRA_MATRIXROW_CONSTRUCTOR);
+  fail_unless( row2->getPackageName() == "arrays");
 
   fail_unless(row2->addChild(int2) == LIBSBML_OPERATION_SUCCESS);
   fail_unless(row2->addChild(int3) == LIBSBML_OPERATION_SUCCESS);
 
   N = new ASTNode(AST_LINEAR_ALGEBRA_MATRIX_CONSTRUCTOR);
+  fail_unless( N->getPackageName() == "arrays");
 
   fail_unless(N->addChild(row1) == LIBSBML_OPERATION_SUCCESS);
   fail_unless(N->addChild(row2) == LIBSBML_OPERATION_SUCCESS);
@@ -205,6 +209,7 @@ START_TEST (test_MathMLFromAST_transpose)
 
 
   N = new ASTNode(AST_LINEAR_ALGEBRA_TRANSPOSE);
+  fail_unless( N->getPackageName() == "arrays");
 
   fail_unless(N->addChild(y) == LIBSBML_OPERATION_SUCCESS);
 
@@ -234,6 +239,7 @@ START_TEST (test_MathMLFromAST_scalarproduct)
   fail_unless(z->setName("z") == LIBSBML_OPERATION_SUCCESS);
 
   N = new ASTNode(AST_LINEAR_ALGEBRA_SCALAR_PRODUCT);
+  fail_unless( N->getPackageName() == "arrays");
 
   fail_unless(N->addChild(y) == LIBSBML_OPERATION_SUCCESS);
   fail_unless(N->addChild(z) == LIBSBML_OPERATION_SUCCESS);
@@ -268,6 +274,7 @@ START_TEST (test_MathMLFromAST_selector)
   fail_unless(int1->setValue((long)(5)) == LIBSBML_OPERATION_SUCCESS);
 
   N = new ASTNode(AST_LINEAR_ALGEBRA_SELECTOR);
+  fail_unless( N->getPackageName() == "arrays");
 
   fail_unless(N->addChild(y) == LIBSBML_OPERATION_SUCCESS);
   fail_unless(N->addChild(z) == LIBSBML_OPERATION_SUCCESS);

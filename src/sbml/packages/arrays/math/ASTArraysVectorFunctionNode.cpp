@@ -85,7 +85,7 @@ ASTArraysVectorFunctionNode::write(XMLOutputStream& stream) const
 {
   if (&stream == NULL) return;
 
-  std::string name = getNameFromType(this->getTypeAsInt());
+  std::string name = getNameFromType(this->getExtendedType());
   stream.startElement(name);
   
   ASTBase::writeAttributes(stream);

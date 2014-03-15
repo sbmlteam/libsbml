@@ -65,7 +65,7 @@ START_TEST (test_ASTNode_create)
 
 
   fail_unless( n->getType() == AST_ORIGINATES_IN_PACKAGE);
-  fail_unless( n->getTypeAsInt() == AST_LINEAR_ALGEBRA_VECTOR_CONSTRUCTOR);
+  fail_unless( n->getExtendedType() == AST_LINEAR_ALGEBRA_VECTOR_CONSTRUCTOR);
   fail_unless( n->getCharacter() == '\0' );
   fail_unless( strcmp(n->getName(), "vector") == 0);
   fail_unless( n->getInteger  () == 0    );
@@ -74,6 +74,8 @@ START_TEST (test_ASTNode_create)
   fail_unless( n->getNumChildren() == 0 );
 
   fail_unless( n->getParentSBMLObject() == NULL );
+
+  fail_unless( n->getPackageName() == "arrays");
 
   //EventAssignment_free(ea);
 
@@ -95,7 +97,7 @@ START_TEST (test_ASTNode_deepCopy_1)
   node->getRightChild()->setValue(long (2) );
 
   fail_unless( node->getType() == AST_ORIGINATES_IN_PACKAGE );
-  fail_unless( node->getTypeAsInt() == AST_LINEAR_ALGEBRA_VECTOR_CONSTRUCTOR );
+  fail_unless( node->getExtendedType() == AST_LINEAR_ALGEBRA_VECTOR_CONSTRUCTOR );
   fail_unless( node->getNumChildren() == 2        );
 
   child = node->getLeftChild();
@@ -115,7 +117,7 @@ START_TEST (test_ASTNode_deepCopy_1)
 
   fail_unless( copy != node );
   fail_unless( copy->getType() == AST_ORIGINATES_IN_PACKAGE );
-  fail_unless( copy->getTypeAsInt() == AST_LINEAR_ALGEBRA_VECTOR_CONSTRUCTOR );
+  fail_unless( copy->getExtendedType() == AST_LINEAR_ALGEBRA_VECTOR_CONSTRUCTOR );
   fail_unless( copy->getNumChildren() == 2        );
 
   child = copy->getLeftChild();
@@ -162,7 +164,7 @@ START_TEST (test_ASTNode_setNewTypes_1)
   node->setType(AST_LINEAR_ALGEBRA_DETERMINANT);
 
   fail_unless( node->getType() == AST_ORIGINATES_IN_PACKAGE );
-  fail_unless( node->getTypeAsInt() == AST_LINEAR_ALGEBRA_DETERMINANT );
+  fail_unless( node->getExtendedType() == AST_LINEAR_ALGEBRA_DETERMINANT );
   fail_unless( node->getInteger() == 0);
   fail_unless( util_isEqual(node->getMantissa(), 0));
   fail_unless( node->getExponent() == 0);

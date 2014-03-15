@@ -104,21 +104,23 @@ START_TEST (test_element_vector)
 
   fail_unless( N != NULL );
   fail_unless( N->getType() == AST_ORIGINATES_IN_PACKAGE);
-  fail_unless( N->getTypeAsInt() == AST_LINEAR_ALGEBRA_VECTOR_CONSTRUCTOR);
+  fail_unless( N->getExtendedType() == AST_LINEAR_ALGEBRA_VECTOR_CONSTRUCTOR);
   fail_unless( N->getNumChildren() == 2);
+  fail_unless( N->getPackageName() == "arrays");
 
   ASTNode * child = N->getChild(0);
 
   fail_unless( child != NULL );
   fail_unless( child->getType() == AST_FUNCTION_COS);
-  fail_unless( child->getTypeAsInt() == AST_FUNCTION_COS);
+  fail_unless( child->getExtendedType() == AST_FUNCTION_COS);
   fail_unless( child->getNumChildren() == 1);
+  fail_unless( child->getPackageName() == "core");
 
   ASTNode *c1 = child->getChild(0);
 
   fail_unless( c1 != NULL );
   fail_unless( c1->getType() == AST_INTEGER);
-  fail_unless( c1->getTypeAsInt() == AST_INTEGER);
+  fail_unless( c1->getExtendedType() == AST_INTEGER);
   fail_unless( c1->getNumChildren() == 0);
   fail_unless( c1->getInteger() == 5);
 
@@ -126,7 +128,7 @@ START_TEST (test_element_vector)
 
   fail_unless( child != NULL );
   fail_unless( child->getType() == AST_NAME);
-  fail_unless( child->getTypeAsInt() == AST_NAME);
+  fail_unless( child->getExtendedType() == AST_NAME);
   fail_unless( strcmp(child->getName(), "y") == 0);
   fail_unless( child->getNumChildren() == 0);
 
@@ -165,35 +167,39 @@ START_TEST (test_element_matrix)
 
   fail_unless( N != NULL );
   fail_unless( N->getType() == AST_ORIGINATES_IN_PACKAGE);
-  fail_unless( N->getTypeAsInt() == AST_LINEAR_ALGEBRA_MATRIX_CONSTRUCTOR);
+  fail_unless( N->getExtendedType() == AST_LINEAR_ALGEBRA_MATRIX_CONSTRUCTOR);
   fail_unless( N->getNumChildren() == 2);
+  fail_unless( N->getPackageName() == "arrays");
 
   ASTNode * child = N->getChild(0);
 
   fail_unless( child != NULL );
   fail_unless( child->getType() == AST_ORIGINATES_IN_PACKAGE);
-  fail_unless( child->getTypeAsInt() == AST_LINEAR_ALGEBRA_MATRIXROW_CONSTRUCTOR);
+  fail_unless( child->getExtendedType() == AST_LINEAR_ALGEBRA_MATRIXROW_CONSTRUCTOR);
   fail_unless( child->getNumChildren() == 2);
+  fail_unless( child->getPackageName() == "arrays");
 
   ASTNode *c1 = child->getChild(0);
 
   fail_unless( c1 != NULL );
   fail_unless( c1->getType() == AST_FUNCTION_COS);
-  fail_unless( c1->getTypeAsInt() == AST_FUNCTION_COS);
+  fail_unless( c1->getExtendedType() == AST_FUNCTION_COS);
   fail_unless( c1->getNumChildren() == 1);
+  fail_unless( c1->getPackageName() == "core");
 
   child = N->getChild(1);
 
   fail_unless( child != NULL );
   fail_unless( child->getType() == AST_ORIGINATES_IN_PACKAGE);
-  fail_unless( child->getTypeAsInt() == AST_LINEAR_ALGEBRA_MATRIXROW_CONSTRUCTOR);
+  fail_unless( child->getExtendedType() == AST_LINEAR_ALGEBRA_MATRIXROW_CONSTRUCTOR);
   fail_unless( child->getNumChildren() == 2);
+  fail_unless( child->getPackageName() == "arrays");
 
   c1 = child->getChild(0);
 
   fail_unless( c1 != NULL );
   fail_unless( c1->getType() == AST_INTEGER);
-  fail_unless( c1->getTypeAsInt() == AST_INTEGER);
+  fail_unless( c1->getExtendedType() == AST_INTEGER);
   fail_unless( c1->getNumChildren() == 0);
   fail_unless( c1->getInteger() == 2);
 }
@@ -218,16 +224,18 @@ START_TEST (test_element_determinant)
 
   fail_unless( N != NULL );
   fail_unless( N->getType() == AST_ORIGINATES_IN_PACKAGE);
-  fail_unless( N->getTypeAsInt() == AST_LINEAR_ALGEBRA_DETERMINANT);
+  fail_unless( N->getExtendedType() == AST_LINEAR_ALGEBRA_DETERMINANT);
   fail_unless( N->getNumChildren() == 1);
+  fail_unless( N->getPackageName() == "arrays");
 
   ASTNode * child = N->getChild(0);
 
   fail_unless( child != NULL );
   fail_unless( child->getType() == AST_NAME);
-  fail_unless( child->getTypeAsInt() == AST_NAME);
+  fail_unless( child->getExtendedType() == AST_NAME);
   fail_unless( strcmp(child->getName(), "A") == 0);
   fail_unless( child->getNumChildren() == 0);
+  fail_unless( child->getPackageName() == "core");
 }
 END_TEST
 
@@ -251,14 +259,15 @@ START_TEST (test_element_vectorproduct)
 
   fail_unless( N != NULL );
   fail_unless( N->getType() == AST_ORIGINATES_IN_PACKAGE);
-  fail_unless( N->getTypeAsInt() == AST_LINEAR_ALGEBRA_VECTOR_PRODUCT);
+  fail_unless( N->getExtendedType() == AST_LINEAR_ALGEBRA_VECTOR_PRODUCT);
   fail_unless( N->getNumChildren() == 2);
+  fail_unless( N->getPackageName() == "arrays");
 
   ASTNode * child = N->getChild(0);
 
   fail_unless( child != NULL );
   fail_unless( child->getType() == AST_NAME);
-  fail_unless( child->getTypeAsInt() == AST_NAME);
+  fail_unless( child->getExtendedType() == AST_NAME);
   fail_unless( strcmp(child->getName(), "A") == 0);
   fail_unless( child->getNumChildren() == 0);
 
@@ -266,9 +275,10 @@ START_TEST (test_element_vectorproduct)
 
   fail_unless( child != NULL );
   fail_unless( child->getType() == AST_NAME);
-  fail_unless( child->getTypeAsInt() == AST_NAME);
+  fail_unless( child->getExtendedType() == AST_NAME);
   fail_unless( strcmp(child->getName(), "B") == 0);
   fail_unless( child->getNumChildren() == 0);
+  fail_unless( child->getPackageName() == "core");
 }
 END_TEST
 
@@ -292,22 +302,24 @@ START_TEST (test_element_selector)
 
   fail_unless( N != NULL );
   fail_unless( N->getType() == AST_ORIGINATES_IN_PACKAGE);
-  fail_unless( N->getTypeAsInt() == AST_LINEAR_ALGEBRA_SELECTOR);
+  fail_unless( N->getExtendedType() == AST_LINEAR_ALGEBRA_SELECTOR);
   fail_unless( N->getNumChildren() == 2);
+  fail_unless( N->getPackageName() == "arrays");
 
   ASTNode * child = N->getChild(0);
 
   fail_unless( child != NULL );
   fail_unless( child->getType() == AST_NAME);
-  fail_unless( child->getTypeAsInt() == AST_NAME);
+  fail_unless( child->getExtendedType() == AST_NAME);
   fail_unless( strcmp(child->getName(), "A") == 0);
   fail_unless( child->getNumChildren() == 0);
+  fail_unless( child->getPackageName() == "core");
 
   child = N->getChild(1);
 
   fail_unless( child != NULL );
   fail_unless( child->getType() == AST_NAME);
-  fail_unless( child->getTypeAsInt() == AST_NAME);
+  fail_unless( child->getExtendedType() == AST_NAME);
   fail_unless( strcmp(child->getName(), "i") == 0);
   fail_unless( child->getNumChildren() == 0);
 
