@@ -1,4 +1,6 @@
 /**
+ * @cond doxygenLibsbmlInternal
+ *
  * @file    ExpatAttributes.h
  * @brief   Creates new XMLAttributes from "raw" Expat attributes.
  * @author  Ben Bornstein
@@ -42,8 +44,6 @@
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
-/** @cond doxygenLibsbmlInternal */
-
 class ExpatAttributes : public XMLAttributes
 {
 public:
@@ -66,9 +66,9 @@ public:
   virtual ~ExpatAttributes ();
 };
 
-/** @endcond */
-
 LIBSBML_CPP_NAMESPACE_END
 
 #endif  /* __cplusplus */
 #endif  /* ExpatAttributes_h */
+
+/** @endcond */

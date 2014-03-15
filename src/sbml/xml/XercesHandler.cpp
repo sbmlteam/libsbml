@@ -1,4 +1,6 @@
 /**
+ * @cond doxygenLibsbmlInternal
+ *
  * @file    XercesHandler.cpp
  * @brief   Redirect Xerces-C++ SAX2 events to an XMLHandler
  * @author  Ben Bornstein
@@ -41,16 +43,11 @@
 #include <sbml/xml/XercesTranscode.h>
 #include <sbml/xml/XercesHandler.h>
 
-/** @cond doxygenIgnored */
-
 using namespace std;
 using namespace xercesc;
 
-/** @endcond */
-
 LIBSBML_CPP_NAMESPACE_BEGIN
 
-/** @cond doxygenLibsbmlInternal */
 
 /**
  * @return the prefix portion of the XML qualified name, or an empty
@@ -75,31 +72,29 @@ XercesHandler::XercesHandler (XMLHandler& handler) :
 }
 
 
- /** @cond doxygenLibsbmlInternal */
-  /**
-   * Copy Constructor
-   */
-  XercesHandler::XercesHandler (const XercesHandler& other)
-    : mHandler(other.mHandler)
-    , mLocator(other.mLocator)
-  {
-  }
-  /** @endcond */
+/**
+ * Copy Constructor
+ */
+XercesHandler::XercesHandler (const XercesHandler& other)
+  : mHandler(other.mHandler)
+  , mLocator(other.mLocator)
+{
+}
 
-  /** @cond doxygenLibsbmlInternal */
-  /**
-   * Assignment operator
-   */
-  XercesHandler& XercesHandler::operator=(const XercesHandler& other)
-  {
-    if (this == &other) return *this;
 
-    mHandler = other.mHandler;
-    mLocator = other.mLocator;
+/**
+ * Assignment operator
+ */
+XercesHandler& XercesHandler::operator=(const XercesHandler& other)
+{
+  if (this == &other) return *this;
 
-    return *this;
-  }
-  /** @endcond */
+  mHandler = other.mHandler;
+  mLocator = other.mLocator;
+
+  return *this;
+}
+
 
 /**
  * Destroys this XercesHandler.
@@ -246,7 +241,7 @@ XercesHandler::setDocumentLocator (const xercesc::Locator* const locator)
   mLocator = locator;
 }
 
-/** @endcond */
 
 LIBSBML_CPP_NAMESPACE_END
 
+/** @endcond */

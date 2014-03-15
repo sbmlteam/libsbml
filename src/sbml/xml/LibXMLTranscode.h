@@ -1,4 +1,6 @@
 /**
+ * @cond doxygenLibsbmlInternal
+ *
  * @file    LibXMLTranscode.h
  * @brief   Transcodes a LibXML xmlChar string to UTF-8.
  * @author  Ben Bornstein
@@ -41,8 +43,6 @@
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
-/** @cond doxygenLibsbmlInternal */
-
 /**
  * Transcodes a LibXML xmlChar* string to UTF-8.  This class offers
  * implicit conversion to a C++ string.
@@ -73,10 +73,9 @@ private:
 
 };
 
-/** @endcond */
-
 LIBSBML_CPP_NAMESPACE_END
 
 #endif  /* __cplusplus */
 #endif  /* LibXMLTranscode_h */
 
+/** @endcond */

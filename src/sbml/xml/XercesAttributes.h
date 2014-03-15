@@ -1,4 +1,6 @@
 /**
+ * @cond doxygenLibsbmlInternal
+ *
  * @file    XercesAttributes.h
  * @brief   Creates new XMLAttributes from "raw" Xerces-C++ attributes.
  * @author  Ben Bornstein
@@ -42,8 +44,6 @@
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
-/** @cond doxygenLibsbmlInternal */
-
 class XercesAttributes : public XMLAttributes
 {
 public:
@@ -62,9 +62,10 @@ public:
   virtual ~XercesAttributes ();
 };
 
-/** @endcond */
 
 LIBSBML_CPP_NAMESPACE_END
 
 #endif  /* __cplusplus */
 #endif  /* XercesAttributes_h */
+
+/** @endcond */

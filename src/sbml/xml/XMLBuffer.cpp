@@ -1,4 +1,6 @@
 /**
+ * @cond doxygenLibsbmlInternal
+ *
  * @file    XMLBuffer.cpp
  * @brief   XMLBuffer interface
  * @author  Ben Bornstein
@@ -33,8 +35,6 @@
 #include <sbml/xml/XMLBuffer.h>
 
 LIBSBML_CPP_NAMESPACE_BEGIN
-
-/** @cond doxygenLibsbmlInternal */
 
 /*
  * Creates a new XMLBuffer.

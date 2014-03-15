@@ -1,4 +1,6 @@
 /**
+ * @cond doxygenLibsbmlInternal
+ *
  * @file    XMLMemoryBuffer.cpp
  * @brief   XMLMemoryBuffer implements the XMLBuffer interface for files
  * @author  Ben Bornstein
@@ -34,9 +36,8 @@
 #include <sbml/xml/XMLMemoryBuffer.h>
 
 using namespace std;
-LIBSBML_CPP_NAMESPACE_BEGIN
 
-/** @cond doxygenLibsbmlInternal */
+LIBSBML_CPP_NAMESPACE_BEGIN
 
 /*
  * Creates a XMLBuffer based on the given sequence of bytes in buffer.
@@ -97,6 +98,7 @@ XMLMemoryBuffer::error ()
   return (mBuffer == NULL);
 }
 
-/** @endcond */
 
 LIBSBML_CPP_NAMESPACE_END
+
+/** @endcond */

@@ -1,4 +1,6 @@
 /**
+ * @cond doxygenLibsbmlInternal
+ *
  * @file    XMLInputStream.h
  * @brief   XMLInputStream
  * @author  Ben Bornstein
@@ -53,8 +55,6 @@
 #include <sbml/xml/XMLTokenizer.h>
 
 LIBSBML_CPP_NAMESPACE_BEGIN
-
-/** @cond doxygenLibsbmlInternal */
 
 class XMLErrorLog;
 class XMLParser;
@@ -271,19 +271,17 @@ public:
     const std::string& container);
 
 private:
-  /** @cond doxygenLibsbmlInternal */
   /**
    * Copy Constructor, made private so as to notify users, that copying an input stream is not supported. 
    */
   XMLInputStream (const XMLInputStream& other);
-  /** @endcond */
 
-  /** @cond doxygenLibsbmlInternal */
+
   /**
    * Assignment operator, made private so as to notify users, that copying an input stream is not supported. 
    */
   XMLInputStream& operator=(const XMLInputStream& other);
-  /** @endcond */
+
 
 protected:
 
@@ -311,21 +309,17 @@ protected:
 
 };
 
-/** @endcond */
-
 LIBSBML_CPP_NAMESPACE_END
 
 #endif  /* __cplusplus */
-
 
 
 #ifndef SWIG
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
-/** @cond doxygenLibsbmlInternal */
-
 BEGIN_C_DECLS
+
 
 /**
  * Creates a new empty XMLInputStream_t structure and returns a pointer to it.
@@ -457,9 +451,9 @@ XMLInputStream_setErrorLog (XMLInputStream_t *stream, XMLErrorLog_t *log);
 
 END_C_DECLS
 
-/** @endcond */
-
 LIBSBML_CPP_NAMESPACE_END
 
 #endif  /* !SWIG */
 #endif  /* XMLInputStream_h */
+
+/** @endcond */

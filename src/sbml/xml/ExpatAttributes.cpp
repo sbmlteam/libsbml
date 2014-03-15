@@ -1,4 +1,6 @@
 /**
+ * @cond doxygenLibsbmlInternal
+ *
  * @file    ExpatAttributes.cpp
  * @brief   Creates new XMLAttributes from "raw" Expat attributes.
  * @author  Ben Bornstein
@@ -32,16 +34,9 @@
 
 #include <sbml/xml/ExpatAttributes.h>
 
-/** @cond doxygenIgnored */
-
 using namespace std;
 
 LIBSBML_CPP_NAMESPACE_BEGIN
-
-/** @endcond */
-
-
-/** @cond doxygenLibsbmlInternal */
 
 /**
  * Creates a new XMLAttributes set from the given "raw" Expat attributes.

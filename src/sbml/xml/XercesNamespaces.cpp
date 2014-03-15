@@ -1,4 +1,6 @@
 /**
+ * @cond doxygenLibsbmlInternal
+ *
  * @file    XercesNamespaces.cpp
  * @brief   Extracts XML namespace declarations from Xerces-C++ attributes.
  * @author  Ben Bornstein
@@ -33,17 +35,11 @@
 #include <sbml/xml/XercesTranscode.h>
 #include <sbml/xml/XercesNamespaces.h>
 
-/** @cond doxygenIgnored */
-
 using namespace std;
 using namespace xercesc;
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
-/** @endcond */
-
-
-/** @cond doxygenLibsbmlInternal */
 
 /**
  * Creates a new list of XML namespaces declarations from a "raw" Xerces-C++
@@ -76,6 +72,7 @@ XercesNamespaces::XercesNamespaces (const xercesc::Attributes& attrs)
 XercesNamespaces::~XercesNamespaces ()
 {
 }
+
 
 LIBSBML_CPP_NAMESPACE_END
 

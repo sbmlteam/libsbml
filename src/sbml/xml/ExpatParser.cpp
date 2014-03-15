@@ -1,4 +1,6 @@
 /**
+ * @cond doxygenLibsbmlInternal
+ *
  * @file    ExpatParser.cpp
  * @brief   Adapts the Expat XML parser to the XMLParser interface
  * @author  Ben Bornstein <ben.bornstein@jpl.nasa.gov>
@@ -45,16 +47,9 @@
 
 #include <sbml/compress/CompressCommon.h>
 
-/** @cond doxygenIgnored */
-
 using namespace std;
 
 LIBSBML_CPP_NAMESPACE_BEGIN
-
-/** @endcond */
-
-
-/** @cond doxygenLibsbmlInternal */
 
 static const int BUFFER_SIZE = 8192;
 

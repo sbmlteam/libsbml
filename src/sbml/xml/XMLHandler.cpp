@@ -1,4 +1,6 @@
 /**
+ * @cond doxygenLibsbmlInternal
+ *
  * @file    XMLHandler.cpp
  * @brief   XMLHandler interface
  * @author  Ben Bornstein
@@ -33,15 +35,9 @@
 #include <sbml/xml/XMLHandler.h>
 #include <sbml/xml/XMLToken.h>
 
-/** @cond doxygenIgnored */
-
 using namespace std;
 
-/** @endcond */
-
 LIBSBML_CPP_NAMESPACE_BEGIN
-
-/** @cond doxygenLibsbmlInternal */
 
 /*
  * Creates a new XMLHandler.
@@ -50,14 +46,14 @@ XMLHandler::XMLHandler ()
 {
 }
 
-/** @cond doxygenLibsbmlInternal */
+
 /**
  * Copy Constructor
  */
 XMLHandler::XMLHandler (const XMLHandler& other)
 {
 }
-/** @endcond */
+
 
 /*
  * Destroys this XMLHandler.
@@ -139,8 +135,6 @@ XMLHandler::characters (const XMLToken& data)
 {
 }
 
-
-/** @endcond */
-
 LIBSBML_CPP_NAMESPACE_END
 
+/** @endcond */

@@ -1,4 +1,6 @@
 /**
+ * @cond doxygenLibsbmlInternal
+ *
  * @file    XMLBuffer.h
  * @brief   XMLBuffer interface
  * @author  Ben Bornstein
@@ -37,8 +39,6 @@
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
-/** @cond doxygenLibsbmlInternal */
-
 class LIBLAX_EXTERN XMLBuffer
 {
 public:
@@ -75,9 +75,8 @@ protected:
   XMLBuffer& operator= (const XMLBuffer&);
 };
 
-/** @endcond */
-
 LIBSBML_CPP_NAMESPACE_END
 
 #endif  /* XMLBuffer_h */
 
+/** @endcond */

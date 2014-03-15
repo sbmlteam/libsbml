@@ -1,4 +1,6 @@
 /**
+ * @cond doxygenLibsbmlInternal
+ *
  * @file    ExpatHandler.h
  * @brief   Redirect Expat events to an XMLHandler
  * @author  Ben Bornstein
@@ -43,8 +45,6 @@
 #include <sbml/xml/XMLError.h>
 
 
-/** @cond doxygenLibsbmlInternal */
-
 LIBSBML_CPP_NAMESPACE_BEGIN
 
 
@@ -58,19 +58,17 @@ public:
    */
   ExpatHandler (XML_Parser parser, XMLHandler& handler);
 
-  /** @cond doxygenLibsbmlInternal */
+
   /**
    * Copy Constructor
    */
   ExpatHandler (const ExpatHandler& other);
-  /** @endcond */
 
-  /** @cond doxygenLibsbmlInternal */
+
   /**
    * Assignment operator
    */
   ExpatHandler& operator=(const ExpatHandler& other);
-  /** @endcond */
 
 
   /**
@@ -171,9 +169,9 @@ protected:
 };
 
 
-/** @endcond */
-
 LIBSBML_CPP_NAMESPACE_END
 
 #endif  /* __cplusplus */
 #endif  /* ExpatHandler_h */
+
+/** @endcond */

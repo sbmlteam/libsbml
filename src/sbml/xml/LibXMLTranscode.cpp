@@ -1,4 +1,6 @@
 /**
+ * @cond doxygenLibsbmlInternal
+ *
  * @file    LibXMLTranscode.cpp
  * @brief   Transcodes a LibXML xmlChar string to UTF-8.
  * @author  Akiya Jouraku
@@ -32,15 +34,9 @@
 
 #include <sbml/xml/LibXMLTranscode.h>
 
-/** @cond doxygenIgnored */
-
 using namespace std;
 
-/** @endcond */
-
 LIBSBML_CPP_NAMESPACE_BEGIN
-
-/** @cond doxygenLibsbmlInternal */
 
 static const string NCRAmp = "&#38;"; 
 
@@ -94,9 +90,6 @@ LibXMLTranscode::operator string ()
   }
 }
 
-
-/** @endcond */
-
 LIBSBML_CPP_NAMESPACE_END
 
-
+/** @endcond */

@@ -1,4 +1,6 @@
 /**
+ * @cond doxygenLibsbmlInternal
+ *
  * @file    XercesTranscode.cpp
  * @brief   Transcodes a Xerces-C++ XMLCh* string to an UTF-8 string.
  * @author  Akiya Jouraku
@@ -35,17 +37,11 @@
 #include <xercesc/util/TransService.hpp>
 #include <xercesc/util/XMLString.hpp>
 
-/** @cond doxygenIgnored */
-
 using namespace std;
 using namespace xercesc;
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
-/** @endcond */
-
-
-/** @cond doxygenLibsbmlInternal */
 
 /**
  * convert the given internal XMLCh* string to the UTF-8 char* string.
@@ -124,7 +120,7 @@ XercesTranscode::transcodeToUTF8(const XMLCh* src_str)
   return utf8_str;
 }
 
+
 LIBSBML_CPP_NAMESPACE_END
 
 /** @endcond */
-

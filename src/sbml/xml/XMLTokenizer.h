@@ -1,4 +1,6 @@
 /**
+ * @cond doxygenLibsbmlInternal
+ *
  * @file    XMLTokenizer.h
  * @brief   Uses an XMLHandler to deliver an XML stream as a series of tokens
  * @author  Ben Bornstein
@@ -48,8 +50,6 @@
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
-/** @cond doxygenLibsbmlInternal */
-
 class LIBLAX_EXTERN XMLToken;
 
 class LIBSBML_EXTERN XMLTokenizer : public XMLHandler
@@ -61,12 +61,12 @@ public:
    */
   XMLTokenizer ();
 
-  /** @cond doxygenLibsbmlInternal */
+
   /**
    * Copy Constructor
    */
   XMLTokenizer (const XMLTokenizer& other);
-  /** @endcond */
+
 
   /**
    * Destroys this XMLTokenizer.
@@ -189,10 +189,9 @@ protected:
 };
 
 
-/** @endcond */
-
 LIBSBML_CPP_NAMESPACE_END
 
 #endif  /* __cplusplus */
-
 #endif  /* XMLTokenizer_h */
+
+/** @endcond */

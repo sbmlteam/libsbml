@@ -1,4 +1,6 @@
 /**
+ * @cond doxygenLibsbmlInternal
+ *
  * @file    XMLOutputStream.h
  * @brief   XMLOutputStream
  * @author  Ben Bornstein
@@ -304,7 +306,6 @@ public:
    */
   void upIndent ();
   
-  /** @cond doxygenLibsbmlInternal */
 
   bool getStringStream()   { return mStringStream;  }
 
@@ -323,26 +324,21 @@ public:
    */
    void setSBMLNamespaces(SBMLNamespaces * sbmlns);
 
-  /** @endcond */
 
 private:
-  /** @cond doxygenLibsbmlInternal */
   /**
    * Copy Constructor, made private so as to notify users, that copying an input stream is not supported. 
    */
   XMLOutputStream (const XMLOutputStream& other);
-  /** @endcond */
 
-  /** @cond doxygenLibsbmlInternal */
+
   /**
    * Assignment operator, made private so as to notify users, that copying an input stream is not supported. 
    */
   XMLOutputStream& operator=(const XMLOutputStream& other);
-  /** @endcond */
+
 
 protected:
-  /** @cond doxygenLibsbmlInternal */
-
   /**
    * Unitialized XMLOutputStreams may only be created by subclasses.
    */
@@ -437,11 +433,8 @@ protected:
   void setStringStream()   { mStringStream = true;  }
   void unsetStringStream() { mStringStream = false; }
 
-  /** @endcond */
 };
 
-
-/** @cond doxygenLibsbmlInternal */
 
 class LIBLAX_EXTERN XMLOutputStringStream : public XMLOutputStream
 {
@@ -482,8 +475,6 @@ public:
                        , const std::string&  programVersion = "");
 
 };
-
-/** @endcond */
 
 
 LIBSBML_CPP_NAMESPACE_END
@@ -841,3 +832,4 @@ LIBSBML_CPP_NAMESPACE_END
 #endif  /* !SWIG */
 #endif  /* XMLOutputStream_h */
 
+/** @endcond */

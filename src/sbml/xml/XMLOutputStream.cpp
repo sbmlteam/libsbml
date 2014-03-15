@@ -1,4 +1,6 @@
 /**
+ * @cond doxygenLibsbmlInternal
+ *
  * @file    XMLOutputStream.cpp
  * @brief   XMLOutputStream
  * @author  Ben Bornstein
@@ -44,11 +46,7 @@
 #include <sbml/common/libsbml-version.h>
 #include <sbml/SBMLNamespaces.h>
 
-/** @cond doxygenIgnored */
-
 using namespace std;
-
-/** @endcond */
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 #ifdef __cplusplus
@@ -175,7 +173,6 @@ bool hasPredefinedEntity(const std::string &chars, size_t index)
 }   
 
 
-/** @cond doxygenLibsbmlInternal */
 /**
  * Copy Constructor, made private so as to notify users, that copying an input stream is not supported. 
  */
@@ -191,9 +188,8 @@ XMLOutputStream::XMLOutputStream (const XMLOutputStream& other)
   , mStringStream(other.mStringStream)
 {
 }
-/** @endcond */
 
-/** @cond doxygenLibsbmlInternal */
+
 /**
  * Assignment operator, made private so as to notify users, that copying an input stream is not supported. 
  */
@@ -201,7 +197,7 @@ XMLOutputStream& XMLOutputStream::operator=(const XMLOutputStream& other)
 {
   return *this;
 }
-/** @endcond */
+
 
 /*
  * Creates a new XMLOutputStream that wraps stream.
@@ -766,7 +762,6 @@ XMLOutputStream::upIndent ()
 }
 
 
-/** @cond doxygenLibsbmlInternal */
 /*
  * Outputs indentation whitespace.
  */
@@ -779,10 +774,8 @@ XMLOutputStream::writeIndent (bool isEnd)
     for (unsigned int n = 0; n < mIndent; ++n) mStream << ' ' << ' ';
   }
 }
-/** @endcond */
 
 
-/** @cond doxygenLibsbmlInternal */
 /*
  * Outputs the given characters to the underlying stream.
  */
@@ -800,10 +793,8 @@ XMLOutputStream::writeChars (const std::string& chars)
     *this << c;
   }
 }
-/** @endcond */
 
 
-/** @cond doxygenLibsbmlInternal */
 /*
  * Outputs name.
  */
@@ -818,10 +809,8 @@ XMLOutputStream::writeName (const std::string& name, const std::string &prefix)
 
   writeChars(name);
 }
-/** @endcond */
 
 
-/** @cond doxygenLibsbmlInternal */
 /*
  * Outputs prefix:name.
  */
@@ -836,10 +825,8 @@ XMLOutputStream::writeName (const XMLTriple& triple)
 
   writeChars( triple.getName() );
 }
-/** @endcond */
 
 
-/** @cond doxygenLibsbmlInternal */
 /*
  * Outputs value in quotes.
  */
@@ -861,10 +848,8 @@ XMLOutputStream::writeValue (const char* value)
   writeChars(value);
   mStream << '"';
 }
-/** @endcond */
 
 
-/** @cond doxygenLibsbmlInternal */
 /*
  * Outputs "true" or "false" in quotes.
  */
@@ -873,10 +858,8 @@ XMLOutputStream::writeValue (const bool& value)
 {
   mStream << '=' << '"' << (value ? "true" : "false") << '"';
 }
-/** @endcond */
 
 
-/** @cond doxygenLibsbmlInternal */
 /*
  * Outputs the double value in quotes, or "INF", "-INF", or "NaN".
  */
@@ -905,10 +888,8 @@ XMLOutputStream::writeValue (const double& value)
 
   mStream << '"';
 }
-/** @endcond */
 
 
-/** @cond doxygenLibsbmlInternal */
 /*
  * Outputs the long value in quotes.
  */
@@ -917,10 +898,8 @@ XMLOutputStream::writeValue (const long& value)
 {
   mStream << '=' << '"' << value << '"';
 }
-/** @endcond */
 
 
-/** @cond doxygenLibsbmlInternal */
 /*
  * Outputs the int value in quotes.
  */
@@ -929,10 +908,8 @@ XMLOutputStream::writeValue (const int& value)
 {
   mStream << '=' << '"' << value << '"';
 }
-/** @endcond */
 
 
-/** @cond doxygenLibsbmlInternal */
 /*
  * Outputs the int value in quotes.
  */
@@ -941,7 +918,6 @@ XMLOutputStream::writeValue (const unsigned int& value)
 {
   mStream << '=' << '"' << value << '"';
 }
-/** @endcond */
 
 
 /*
@@ -1077,8 +1053,6 @@ XMLOutputStream::operator<< (const char& c)
 }
 
 
-/** @cond doxygenLibsbmlInternal */
-
 SBMLNamespaces *
 XMLOutputStream::getSBMLNamespaces()
 {
@@ -1115,6 +1089,7 @@ XMLOutputStringStream::XMLOutputStringStream (  std::ostringstream& stream
   setStringStream();
 }
 
+
 XMLOutputFileStream::XMLOutputFileStream (  std::ofstream& stream
                    , const std::string&  encoding
                    , bool                writeXMLDecl
@@ -1125,10 +1100,9 @@ XMLOutputFileStream::XMLOutputFileStream (  std::ofstream& stream
 {
 }
 
-/** @endcond */
 
 #endif /* __cplusplus */
-/** @cond doxygenIgnored */
+
 
 LIBLAX_EXTERN
 XMLOutputStream_t *
@@ -1477,8 +1451,6 @@ XMLOutputStream_getString(XMLOutputStream_t* stream)
 }
 
 
-/** @endcond */
-
 LIBSBML_CPP_NAMESPACE_END
 
-
+/** @endcond */

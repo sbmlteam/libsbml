@@ -1,4 +1,6 @@
 /**
+ * @cond doxygenLibsbmlInternal
+ *
  * @file    XercesParser.cpp
  * @brief   Adapts the Xerces-C++ XML parser to the XMLParser interface
  * @author  Ben Bornstein
@@ -53,18 +55,11 @@
 
 #include <sbml/common/common.h>
 
-
-/** @cond doxygenIgnored */
-
 using namespace std;
 using namespace xercesc;
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
-/** @endcond */
-
-
-/** @cond doxygenLibsbmlInternal */
 
 /*
  * Table mapping Xerces error codes to ours.  The error code numbers are not

@@ -1,4 +1,6 @@
 /**
+ * @cond doxygenLibsbmlInternal
+ *
  * @file    LibXMLHandler.h
  * @brief   Redirect LibXML events to an XMLHandler
  * @author  Ben Bornstein
@@ -43,8 +45,6 @@ class LibXMLAttributes;
 class LibXMLNamespaces;
 
 
-/** @cond doxygenLibsbmlInternal */
-
 class LibXMLHandler
 {
 public:
@@ -55,19 +55,18 @@ public:
    */
   LibXMLHandler (XMLHandler& handler);
 
-  /** @cond doxygenLibsbmlInternal */
+
   /**
    * Copy Constructor
    */
   LibXMLHandler (const LibXMLHandler& other);
-  /** @endcond */
 
-  /** @cond doxygenLibsbmlInternal */
+
   /**
    * Assignment operator
    */
   LibXMLHandler& operator=(const LibXMLHandler& other);
-  /** @endcond */
+
 
   /**
    * Destroys this LibXMLHandler.
@@ -177,10 +176,8 @@ protected:
   const xmlSAXLocator* mLocator;
 };
 
-
-/** @endcond */
-
 LIBSBML_CPP_NAMESPACE_END
 
 #endif  /* LibXMLHandler_h */
 
+/** @endcond */

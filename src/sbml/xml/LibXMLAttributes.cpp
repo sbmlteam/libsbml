@@ -1,4 +1,6 @@
 /**
+ * @cond doxygenLibsbmlInternal
+ *
  * @file    LibXMLAttributes.cpp
  * @brief   Creates new XMLAttributes from "raw" LibXML attributes.
  * @author  Ben Bornstein
@@ -33,15 +35,10 @@
 #include <sbml/xml/LibXMLTranscode.h>
 #include <sbml/xml/LibXMLAttributes.h>
 
-/** @cond doxygenIgnored */
-
 using namespace std;
-
-/** @endcond */
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
-/** @cond doxygenLibsbmlInternal */
 
 /**
  * Creates a new XMLAttributes set from the given "raw" LibXML attributes.
@@ -80,7 +77,7 @@ LibXMLAttributes::~LibXMLAttributes ()
 {
 }
 
-/** @endcond */
 
 LIBSBML_CPP_NAMESPACE_END
 
+/** @endcond */

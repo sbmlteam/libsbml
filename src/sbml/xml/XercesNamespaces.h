@@ -1,4 +1,6 @@
 /**
+ * @cond doxygenLibsbmlInternal
+ *
  * @file    XercesNamespaces.h
  * @brief   Extracts XML namespace declarations from Xerces-C++ attributes.
  * @author  Ben Bornstein
@@ -42,7 +44,6 @@
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
-/** @cond doxygenLibsbmlInternal */
 
 class XercesNamespaces : public XMLNamespaces
 {
@@ -61,10 +62,10 @@ public:
   virtual ~XercesNamespaces ();
 };
 
-/** @endcond */
 
 LIBSBML_CPP_NAMESPACE_END
 
 #endif  /* __cplusplus */
 #endif  /* XercesNamespaces_h */
 
+/** @endcond */

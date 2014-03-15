@@ -1,4 +1,6 @@
 /**
+ * @cond doxygenLibsbmlInternal
+ *
  * @file    ExpatParser.h
  * @brief   Adapts the Expat XML parser to the XMLParser interface
  * @author  Ben Bornstein
@@ -43,8 +45,6 @@
 #include <sbml/xml/ExpatHandler.h>
 
 LIBSBML_CPP_NAMESPACE_BEGIN
-
-/** @cond doxygenLibsbmlInternal */
 
 class XMLBuffer;
 class XMLHandler;
@@ -161,10 +161,9 @@ private:
 };
 
 
-/** @endcond */
-
 LIBSBML_CPP_NAMESPACE_END
 
 #endif  /* __cplusplus */
 #endif  /* ExpatParser_h */
 
+/** @endcond */

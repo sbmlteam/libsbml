@@ -1,4 +1,6 @@
 /**
+ * @cond doxygenLibsbmlInternal
+ *
  * @file    LibXMLParser.cpp
  * @brief   Adapts the LibXML XML parser to the XMLParser interface
  * @author  Ben Bornstein
@@ -44,15 +46,9 @@
 #include <sbml/compress/CompressCommon.h>
 
 
-/** @cond doxygenIgnored */
-
 using namespace std;
 
-/** @endcond */
-
 LIBSBML_CPP_NAMESPACE_BEGIN
-
-/** @cond doxygenLibsbmlInternal */
 
 static const int BUFFER_SIZE = 8192;
 
@@ -448,7 +444,6 @@ LibXMLParser::parseReset ()
 }
 
 
-/** @endcond */
-
 LIBSBML_CPP_NAMESPACE_END
 
+/** @endcond */

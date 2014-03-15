@@ -1,4 +1,6 @@
 /**
+ * @cond doxygenLibsbmlInternal
+ *
  * @file    LibXMLAttributes.h
  * @brief   Creates new XMLAttributes from "raw" LibXML attributes.
  * @author  Ben Bornstein
@@ -42,8 +44,6 @@
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
-/** @cond doxygenLibsbmlInternal */
-
 class LibXMLAttributes : public XMLAttributes
 {
 public:
@@ -62,9 +62,9 @@ public:
   virtual ~LibXMLAttributes ();
 };
 
-/** @endcond */
-
 LIBSBML_CPP_NAMESPACE_END
 
 #endif  /* __cplusplus */
 #endif  /* LibXMLAttributes_h */
+
+/** @endcond */

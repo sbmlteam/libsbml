@@ -1,4 +1,6 @@
 /**
+ * @cond doxygenLibsbmlInternal
+ *
  * @file    XercesAttributes.cpp
  * @brief   Creates new XMLAttributes from "raw" Xerces-C++ attributes.
  * @author  Ben Bornstein
@@ -33,17 +35,11 @@
 #include <sbml/xml/XercesTranscode.h>
 #include <sbml/xml/XercesAttributes.h>
 
-/** @cond doxygenIgnored */
-
 using namespace std;
 using namespace xercesc;
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
-/** @endcond */
-
-
-/** @cond doxygenLibsbmlInternal */
 
 /**
  * Creates a new XMLAttributes set that wraps the given "raw" Xerces-C++
@@ -87,6 +83,7 @@ XercesAttributes::XercesAttributes (const Attributes& attrs,
 XercesAttributes::~XercesAttributes ()
 {
 }
+
 
 LIBSBML_CPP_NAMESPACE_END
 

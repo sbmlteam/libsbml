@@ -1,4 +1,6 @@
 /**
+ * @cond doxygenLibsbmlInternal
+ *
  * @file    XMLFileBuffer.cpp
  * @brief   XMLFileBuffer implements the XMLBuffer interface
  * @author  Ben Bornstein
@@ -40,15 +42,9 @@
 #include <sbml/compress/CompressCommon.h>
 #include <sbml/compress/InputDecompressor.h>
 
-/** @cond doxygenIgnored */
-
 using namespace std;
 
-/** @endcond */
-
 LIBSBML_CPP_NAMESPACE_BEGIN
-
-/** @cond doxygenLibsbmlInternal */
 
 /*
  * Creates a XMLBuffer based on the given file.  The file will be opened
@@ -151,8 +147,6 @@ XMLFileBuffer::error ()
   else return true;
 }
 
-/** @endcond */
-
 LIBSBML_CPP_NAMESPACE_END
 
-
+/** @endcond */

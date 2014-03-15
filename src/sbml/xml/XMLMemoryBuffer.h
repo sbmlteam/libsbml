@@ -1,4 +1,6 @@
 /**
+ * @cond doxygenLibsbmlInternal
+ *
  * @file    XMLMemoryBuffer.h
  * @brief   XMLMemoryBuffer implements the XMLBuffer interface for files
  * @author  Ben Bornstein
@@ -36,8 +38,6 @@
 #include <sbml/xml/XMLBuffer.h>
 
 LIBSBML_CPP_NAMESPACE_BEGIN
-
-/** @cond doxygenLibsbmlInternal */
 
 class XMLMemoryBuffer : public XMLBuffer
 {
@@ -89,9 +89,8 @@ private:
   unsigned int  mOffset;
 };
 
-/** @endcond */
-
 LIBSBML_CPP_NAMESPACE_END
 
 #endif  /* XMLMemoryBuffer_h */
 
+/** @endcond */

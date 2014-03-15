@@ -1,4 +1,6 @@
 /**
+ * @cond doxygenLibsbmlInternal
+ *
  * @file    XMLParser.h
  * @brief   XMLParser interface and factory
  * @author  Ben Bornstein
@@ -172,8 +174,6 @@ public:
 
 
 protected:
-  /** @cond doxygenLibsbmlInternal */
-
   /**
    * Creates a new XMLParser.  The parser will notify the given XMLHandler
    * of parse events and errors.
@@ -183,14 +183,13 @@ protected:
    */
   XMLParser ();
 
-
   XMLErrorLog* mErrorLog;
-
-  /** @endcond */
 };
+
 
 LIBSBML_CPP_NAMESPACE_END
 
 #endif  /* __cplusplus */
 #endif  /* XMLParser_h */
 
+/** @endcond */

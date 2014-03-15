@@ -1,4 +1,6 @@
 /**
+ * @cond doxygenLibsbmlInternal
+ *
  * @file    LibXMLParser.h
  * @brief   Adapts the LibXML XML parser to the XMLParser interface
  * @author  Ben Bornstein
@@ -44,7 +46,6 @@
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
-/** @cond doxygenLibsbmlInternal */
 
 class XMLBuffer;
 class XMLHandler;
@@ -163,4 +164,3 @@ LIBSBML_CPP_NAMESPACE_END
 #endif  /* LibXMLParser_h */
 
 /** @endcond */
-

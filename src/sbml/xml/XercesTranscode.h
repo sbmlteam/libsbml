@@ -1,4 +1,6 @@
 /**
+ * @cond doxygenLibsbmlInternal
+ *
  * @file    XercesTranscode.h
  * @brief   Transcodes a Xerces-C++ XMLCh* string to the local code page.
  * @author  Ben Bornstein
@@ -49,7 +51,6 @@ typedef XMLSize_t    XercesSize_t;
 typedef XMLFileLoc   XercesFileLoc;
 #endif
 
-/** @cond doxygenLibsbmlInternal */
 
 /**
  * Transcodes a Xerces-C++ XMLCh* string to the UTF8 string.  This
@@ -82,9 +83,10 @@ private:
 
 };
 
-/** @endcond */
 
 LIBSBML_CPP_NAMESPACE_END
 
 #endif  /* __cplusplus */
 #endif  /* XercesTranscode_h */
+
+/** @endcond */

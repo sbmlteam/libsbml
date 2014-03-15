@@ -1,4 +1,6 @@
 /**
+ * @cond doxygenLibsbmlInternal
+ *
  * @file    XercesParser.h
  * @brief   Adapts the Xerces-C++ XML parser to the XMLParser interface
  * @author  Ben Bornstein
@@ -43,8 +45,6 @@
 #include <sbml/xml/XMLError.h>
 
 LIBSBML_CPP_NAMESPACE_BEGIN
-
-/** @cond doxygenLibsbmlInternal */
 
 class SAX2XMLReader;
 class XMLHandler;
@@ -166,9 +166,10 @@ private:
 
 };
 
-/** @endcond */
 
 LIBSBML_CPP_NAMESPACE_END
 
 #endif  /* __cplusplus */
 #endif  /* XercesParser_h */
+
+/** @endcond */

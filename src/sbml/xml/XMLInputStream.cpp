@@ -1,4 +1,6 @@
 /**
+ * @cond doxygenLibsbmlInternal
+ *
  * @file    XMLInputStream.cpp
  * @brief   XMLInputStream
  * @author  Ben Bornstein
@@ -35,15 +37,9 @@
 
 #include <sbml/xml/XMLInputStream.h>
 
-/** @cond doxygenIgnored */
-
 using namespace std;
 
-/** @endcond */
-
 LIBSBML_CPP_NAMESPACE_BEGIN
-
-/** @cond doxygenLibsbmlInternal */
 
 class XMLParser;
 
@@ -72,7 +68,6 @@ XMLInputStream::XMLInputStream (  const char*   content
     mIsError = true; 
 }
 
- /** @cond doxygenLibsbmlInternal */
  /**
  * Copy Constructor, made private so as to notify users, that copying an input stream is not supported. 
  */
@@ -82,9 +77,8 @@ XMLInputStream::XMLInputStream (  const char*   content
    , mSBMLns(NULL)
  {
  }
- /** @endcond */
 
- /** @cond doxygenLibsbmlInternal */
+
  /**
  * Assignment operator, made private so as to notify users, that copying an input stream is not supported. 
  */
@@ -94,7 +88,7 @@ XMLInputStream::XMLInputStream (  const char*   content
    mIsError = true;
    return *this;
  }
- /** @endcond */
+
 
 /*
  * Destroys this XMLInputStream.
@@ -452,8 +446,7 @@ XMLInputStream_setErrorLog (XMLInputStream_t *stream, XMLErrorLog_t *log)
   return stream->setErrorLog(log);
 }
 
-/** @endcond */
 
 LIBSBML_CPP_NAMESPACE_END
 
-
+/** @endcond */

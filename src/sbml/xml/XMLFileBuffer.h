@@ -1,4 +1,6 @@
 /**
+ * @cond doxygenLibsbmlInternal
+ *
  * @file    XMLFileBuffer.h
  * @brief   XMLFileBuffer implements the XMLBuffer interface for files
  * @author  Ben Bornstein
@@ -44,8 +46,6 @@
 #include <sbml/xml/XMLBuffer.h>
 
 LIBSBML_CPP_NAMESPACE_BEGIN
-
-/** @cond doxygenLibsbmlInternal */
 
 class XMLFileBuffer : public XMLBuffer
 {
@@ -98,10 +98,9 @@ private:
   std::istream* mStream;
 };
 
-/** @endcond */
-
 LIBSBML_CPP_NAMESPACE_END
 
 #endif  /* __cplusplus */
 #endif  /* XMLFileBuffer_h */
 
+/** @endcond */

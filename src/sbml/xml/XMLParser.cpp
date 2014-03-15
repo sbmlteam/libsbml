@@ -1,4 +1,6 @@
 /**
+ * @cond doxygenLibsbmlInternal
+ *
  * @file    XMLParser.cpp
  * @brief   XMLParser interface and factory
  * @author  Ben Bornstein
@@ -48,11 +50,7 @@
 #include <sbml/xml/XMLErrorLog.h>
 #include <sbml/xml/XMLParser.h>
 
-/** @cond doxygenIgnored */
-
 using namespace std;
-
-/** @endcond */
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
@@ -132,6 +130,7 @@ XMLParser::setErrorLog (XMLErrorLog* log)
   }
 }
 
+
 LIBSBML_CPP_NAMESPACE_END
 
-
+/** @endcond */

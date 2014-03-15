@@ -1,4 +1,6 @@
 /**
+ * @cond doxygenLibsbmlInternal
+ *
  * @file    XMLHandler.h
  * @brief   XMLHandler interface
  * @author  Ben Bornstein
@@ -47,10 +49,7 @@
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
-/** @cond doxygenLibsbmlInternal */
-
 class XMLToken;
-
 
 class LIBLAX_EXTERN XMLHandler
 {
@@ -61,12 +60,12 @@ public:
    */
   XMLHandler ();
 
-  /** @cond doxygenLibsbmlInternal */
+
   /**
    * Copy Constructor
    */
   XMLHandler (const XMLHandler& other);
-  /** @endcond */
+
 
   /**
    * Destroys this XMLHandler.
@@ -129,11 +128,9 @@ public:
   virtual void characters (const XMLToken& data);
 };
 
-
-/** @endcond */
-
 LIBSBML_CPP_NAMESPACE_END
 
 #endif  /* __cplusplus */
 #endif  /* XMLHandler_h */
 
+/** @endcond */

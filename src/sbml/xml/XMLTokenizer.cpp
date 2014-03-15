@@ -1,4 +1,6 @@
 /**
+ * @cond doxygenLibsbmlInternal
+ *
  * @file    XMLTokenizer.cpp
  * @brief   Uses an XMLHandler to deliver an XML stream as a series of tokens
  * @author  Ben Bornstein
@@ -35,15 +37,9 @@
 #include <sbml/xml/XMLToken.h>
 #include <sbml/xml/XMLTokenizer.h>
 
-/** @cond doxygenIgnored */
-
 using namespace std;
 
-/** @endcond */
-
 LIBSBML_CPP_NAMESPACE_BEGIN
-
-/** @cond doxygenLibsbmlInternal */
 
 /*
  * Creates a new XMLTokenizer.
@@ -55,7 +51,7 @@ XMLTokenizer::XMLTokenizer () :
 {
 }
 
-/** @cond doxygenLibsbmlInternal */
+
 /**
  * Copy Constructor
  */
@@ -69,7 +65,6 @@ XMLTokenizer::XMLTokenizer (const XMLTokenizer& other)
   , mTokens(other.mTokens)
 {
 }
-/** @endcond */
 
 
 /*
@@ -590,7 +585,7 @@ XMLTokenizer::determineNumSpecificChildren(bool & valid,
   return numQualifiers;
 }
 
-/** @endcond */
 
 LIBSBML_CPP_NAMESPACE_END
 
+/** @endcond */

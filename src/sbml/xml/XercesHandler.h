@@ -1,4 +1,6 @@
 /**
+ * @cond doxygenLibsbmlInternal
+ *
  * @file    XercesHandler.h
  * @brief   Redirect Xerces-C++ SAX2 events to an XMLHandler
  * @author  Ben Bornstein
@@ -43,8 +45,6 @@
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
-/** @cond doxygenLibsbmlInternal */
-
 class XercesHandler : public xercesc::DefaultHandler
 {
 public:
@@ -55,19 +55,18 @@ public:
    */
   XercesHandler (XMLHandler& handler);
 
-  /** @cond doxygenLibsbmlInternal */
+
   /**
    * Copy Constructor
    */
   XercesHandler (const XercesHandler& other);
-  /** @endcond */
 
-  /** @cond doxygenLibsbmlInternal */
+
   /**
    * Assignment operator
    */
   XercesHandler& operator=(const XercesHandler& other);
-  /** @endcond */
+
 
   /**
    * Destroys this XercesHandler.
@@ -152,10 +151,10 @@ protected:
   const xercesc::Locator*  mLocator;
 };
 
-/** @endcond */
 
 LIBSBML_CPP_NAMESPACE_END
 
 #endif  /* __cplusplus */
 #endif  /* XercesHandler_h */
 
+/** @endcond */

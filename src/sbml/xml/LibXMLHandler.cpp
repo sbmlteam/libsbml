@@ -1,4 +1,6 @@
 /**
+ * @cond doxygenLibsbmlInternal
+ *
  * @file    LibXMLHandler.cpp
  * @brief   Redirect LibXML events to an XMLHandler
  * @author  Ben Bornstein
@@ -39,15 +41,9 @@
 #include <sbml/xml/LibXMLTranscode.h>
 #include <sbml/xml/LibXMLHandler.h>
 
-/** @cond doxygenIgnored */
-
 using namespace std;
 
-/** @endcond */
-
 LIBSBML_CPP_NAMESPACE_BEGIN
-
-/** @cond doxygenLibsbmlInternal */
 
 /**
  * The functions below are internal to this file.  They simply redirect to
@@ -169,7 +165,7 @@ LibXMLHandler::LibXMLHandler (XMLHandler& handler) :
 {
 }
 
-/** @cond doxygenLibsbmlInternal */
+
 /**
 * Copy Constructor
 */
@@ -179,9 +175,8 @@ LibXMLHandler::LibXMLHandler (const LibXMLHandler& other)
   , mLocator (other.mLocator)
 {
 }
-/** @endcond */
 
-/** @cond doxygenLibsbmlInternal */
+
 /**
 * Assignment operator
 */
@@ -195,8 +190,6 @@ LibXMLHandler& LibXMLHandler::operator=(const LibXMLHandler& other)
 
   return *this;
 }
-/** @endcond */
-
 
 
 /**
@@ -361,7 +354,7 @@ LibXMLHandler::getLine () const
     return 0;
 }
 
-/** @endcond */
 
 LIBSBML_CPP_NAMESPACE_END
 
+/** @endcond */
