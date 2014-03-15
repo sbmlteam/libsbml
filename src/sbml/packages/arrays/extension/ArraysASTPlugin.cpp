@@ -52,6 +52,8 @@ determineNumChildren(XMLInputStream & stream, const std::string element = "")
 static const char* ARRAYS_MATHML_ELEMENTS[] =
 {
     "determinant"
+  , "matrix"
+  , "matrixrow"
   , "outerproduct"
   , "scalarproduct"
   , "selector"
@@ -63,6 +65,8 @@ static const char* ARRAYS_MATHML_ELEMENTS[] =
 static const int ARRAYS_MATHML_TYPES[] =
 {
     AST_LINEAR_ALGEBRA_DETERMINANT
+  , AST_LINEAR_ALGEBRA_MATRIX_CONSTRUCTOR
+  , AST_LINEAR_ALGEBRA_MATRIXROW_CONSTRUCTOR
   , AST_LINEAR_ALGEBRA_OUTER_PRODUCT
   , AST_LINEAR_ALGEBRA_SCALAR_PRODUCT
   , AST_LINEAR_ALGEBRA_SELECTOR
@@ -78,6 +82,7 @@ static const int ARRAYS_MATHML_TYPES[] =
 ArraysASTPlugin::ArraysASTPlugin (const std::string &uri)
   : ASTBasePlugin(uri)
   , mVector (NULL)
+  , mMatrix (NULL)
 {
 }
 
@@ -89,11 +94,18 @@ ArraysASTPlugin::ArraysASTPlugin (const std::string &uri)
 ArraysASTPlugin::ArraysASTPlugin(const ArraysASTPlugin& orig)
   : ASTBasePlugin(orig)
   , mVector (NULL)
+  , mMatrix (NULL)
 {
   if ( orig.mVector  != NULL)
   {
     mVector = static_cast<ASTArraysVectorFunctionNode*>
                                  ( orig.mVector->deepCopy() );
+  }
+  
+  if ( orig.mMatrix  != NULL)
+  {
+    mMatrix = static_cast<ASTArraysMatrixFunctionNode*>
+                                 ( orig.mMatrix->deepCopy() );
   }
 }
 
@@ -126,6 +138,17 @@ ArraysASTPlugin::operator=(const ArraysASTPlugin& orig)
       mVector = NULL;
     }
 
+    delete mMatrix;
+    if ( orig.mMatrix  != NULL)
+    {
+      mMatrix = static_cast<ASTArraysMatrixFunctionNode*>
+                                  ( orig.mMatrix->deepCopy() );
+    }
+    else
+    {
+      mMatrix = NULL;
+    }
+
   }    
   return *this;
 }
@@ -153,7 +176,7 @@ ArraysASTPlugin::getPackageName() const
 
 bool
 ArraysASTPlugin::read(XMLInputStream& stream, const std::string& reqd_prefix, 
-                                             const XMLToken currentElement)
+                                             const XMLToken& currentElement)
 {
   bool read = false;
   
@@ -168,6 +191,14 @@ ArraysASTPlugin::read(XMLInputStream& stream, const std::string& reqd_prefix,
   {
     read = readVector(stream, reqd_prefix, currentElement);
   }
+  else if (currentName == "matrix")
+  {
+    read = readMatrix(stream, reqd_prefix, currentElement);
+  }
+  else if (currentName == "matrixrow")
+  {
+    read = readMatrixRow(stream, reqd_prefix, currentElement);
+  }
  
   return read;
 }
@@ -175,7 +206,7 @@ ArraysASTPlugin::read(XMLInputStream& stream, const std::string& reqd_prefix,
 
 bool 
 ArraysASTPlugin::readVector(XMLInputStream& stream, const std::string& reqd_prefix,
-                        const XMLToken currentElement)
+                        const XMLToken& currentElement)
 {
   bool read = false;
   
@@ -208,10 +239,81 @@ ArraysASTPlugin::readVector(XMLInputStream& stream, const std::string& reqd_pref
 }
 
 
+bool 
+ArraysASTPlugin::readMatrix(XMLInputStream& stream, const std::string& reqd_prefix,
+                        const XMLToken& currentElement)
+{
+  bool read = false;
+  
+  stream.skipText();
+  const XMLToken nextElement = stream.peek();
+  const string&  nextName = nextElement.getName();
+  
+  unsigned int numChildren = determineNumChildren(stream, "matrix");
+    
+  mMatrix = new ASTArraysMatrixFunctionNode();
+  
+  mMatrix->setExpectedNumChildren(numChildren);
+  
+  // read attributes on this element here since we have already consumed
+  // the element
+  ExpectedAttributes expectedAttributes;
+  mMatrix->addExpectedAttributes(expectedAttributes, stream);
+  read = mMatrix->ASTBase::readAttributes(currentElement.getAttributes(), 
+                                expectedAttributes, stream, currentElement);
+  if (read == false)
+  {
+    mMatrix = NULL;
+  }
+  else
+  {  
+    read = mMatrix->read(stream, reqd_prefix);
+  }
+
+  return read;
+}
+
+
+bool 
+ArraysASTPlugin::readMatrixRow(XMLInputStream& stream, const std::string& reqd_prefix,
+                        const XMLToken& currentElement)
+{
+  bool read = false;
+  
+  stream.skipText();
+  const XMLToken nextElement = stream.peek();
+  const string&  nextName = nextElement.getName();
+  
+  unsigned int numChildren = determineNumChildren(stream, "matrixrow");
+    
+  mVector = new ASTArraysVectorFunctionNode(AST_LINEAR_ALGEBRA_MATRIXROW_CONSTRUCTOR);
+  
+  mVector->setExpectedNumChildren(numChildren);
+  
+  // read attributes on this element here since we have already consumed
+  // the element
+  ExpectedAttributes expectedAttributes;
+  mVector->addExpectedAttributes(expectedAttributes, stream);
+  read = mVector->ASTBase::readAttributes(currentElement.getAttributes(), 
+                                expectedAttributes, stream, currentElement);
+  if (read == false)
+  {
+    mVector = NULL;
+  }
+  else
+  {  
+    read = mVector->read(stream, reqd_prefix);
+  }
+
+  return read;
+}
+
+
 void
 ArraysASTPlugin::reset()
 {
   mVector = NULL;
+  mMatrix = NULL;
 }
 
 
@@ -221,6 +323,10 @@ ArraysASTPlugin::getMath() const
   if (mVector != NULL)
   {
     return mVector;
+  }
+  else if (mMatrix != NULL)
+  {
+    return mMatrix;
   }
   else
   {
@@ -234,6 +340,10 @@ bool
 ArraysASTPlugin::isSetMath() const
 {
   if (mVector != NULL)
+  {
+    return true;
+  }
+  else if (mMatrix != NULL)
   {
     return true;
   }
@@ -253,6 +363,12 @@ ArraysASTPlugin::createMath(int type)
   case AST_LINEAR_ALGEBRA_VECTOR_CONSTRUCTOR:
     mVector = new ASTArraysVectorFunctionNode();
     break;
+  case AST_LINEAR_ALGEBRA_MATRIX_CONSTRUCTOR:
+    mMatrix = new ASTArraysMatrixFunctionNode();
+    break;
+  case AST_LINEAR_ALGEBRA_MATRIXROW_CONSTRUCTOR:
+    mVector = new ASTArraysVectorFunctionNode(AST_LINEAR_ALGEBRA_MATRIXROW_CONSTRUCTOR);
+    break;
   default:
     break;
   }
@@ -271,6 +387,10 @@ ArraysASTPlugin::addChild(ASTBase * child)
   {
     return mVector->addChild(child);
   }
+  else if (mMatrix != NULL)
+  {
+    return mMatrix->addChild(child);
+  }
   else
   {
     return LIBSBML_INVALID_OBJECT;
@@ -284,6 +404,10 @@ ArraysASTPlugin::getChild (unsigned int n) const
   if (mVector != NULL)
   {
     return mVector->getChild(n);
+  }
+  else if (mMatrix != NULL)
+  {
+    return mMatrix->getChild(n);
   }
   else
   {
@@ -299,6 +423,10 @@ ArraysASTPlugin::getNumChildren() const
   {
     return mVector->getNumChildren();
   }
+  else if (mMatrix != NULL)
+  {
+    return mMatrix->getNumChildren();
+  }
   else
   {
     return 0;
@@ -312,6 +440,10 @@ ArraysASTPlugin::insertChild(unsigned int n, ASTBase* newChild)
   if (mVector != NULL)
   {
     return mVector->insertChild(n, newChild);
+  }
+  else if (mMatrix != NULL)
+  {
+    return mMatrix->insertChild(n, newChild);
   }
   else
   {
@@ -327,6 +459,10 @@ ArraysASTPlugin::prependChild(ASTBase* newChild)
   {
     return mVector->prependChild(newChild);
   }
+  else if (mMatrix != NULL)
+  {
+    return mMatrix->prependChild(newChild);
+  }
   else
   {
     return LIBSBML_INVALID_OBJECT;
@@ -341,6 +477,10 @@ ArraysASTPlugin::removeChild(unsigned int n)
   {
     return mVector->removeChild(n);
   }
+  else if (mMatrix != NULL)
+  {
+    return mMatrix->removeChild(n);
+  }
   else
   {
     return LIBSBML_INVALID_OBJECT;
@@ -354,6 +494,64 @@ ArraysASTPlugin::replaceChild(unsigned int n, ASTBase* newChild)
   if (mVector != NULL)
   {
     return mVector->replaceChild(n, newChild);
+  }
+  else if (mMatrix != NULL)
+  {
+    return mMatrix->replaceChild(n, newChild);
+  }
+  else
+  {
+    return LIBSBML_INVALID_OBJECT;
+  }
+}
+
+
+int 
+ArraysASTPlugin::swapChildren(ASTFunction* that)
+{ 
+  ASTArraysVectorFunctionNode * vectorToSwap = NULL;
+  ASTArraysMatrixFunctionNode * matrixToSwap = NULL;
+  ArraysASTPlugin * plugin = 
+    static_cast<ArraysASTPlugin *>(that->getPlugin("arrays"));
+  if (plugin != NULL && plugin->isSetMath() == true)
+  {
+    vectorToSwap = plugin->getVector();
+
+    if (vectorToSwap == NULL)
+    {
+      matrixToSwap = plugin->getMatrix();
+    }
+  }
+
+  if (mVector != NULL)
+  {
+    if (vectorToSwap != NULL)
+    {
+      return mVector->ASTFunctionBase::swapChildren(vectorToSwap);
+    }
+    else if (matrixToSwap != NULL)
+    {
+      return mVector->ASTFunctionBase::swapChildren(matrixToSwap);
+    }
+    else
+    {
+      return mVector->swapChildren(that);
+    }
+  }
+  else if (mMatrix != NULL)
+  {
+    if (vectorToSwap != NULL)
+    {
+      return mMatrix->ASTFunctionBase::swapChildren(vectorToSwap);
+    }
+    else if (matrixToSwap != NULL)
+    {
+      return mMatrix->ASTFunctionBase::swapChildren(matrixToSwap);
+    }
+    else
+    {
+      return mMatrix->swapChildren(that);
+    }
   }
   else
   {
@@ -437,6 +635,8 @@ ArraysASTPlugin::isFunctionNode(int type) const
   switch (type)
   {
     case AST_LINEAR_ALGEBRA_VECTOR_CONSTRUCTOR:
+    case AST_LINEAR_ALGEBRA_MATRIX_CONSTRUCTOR:
+    case AST_LINEAR_ALGEBRA_MATRIXROW_CONSTRUCTOR:
       valid = true;
       break;
     default:
@@ -514,6 +714,14 @@ ArraysASTPlugin::isTopLevelMathMLFunctionNodeTag(const std::string& name) const
   {
     valid = true;
   }
+  else if (name == "matrix")
+  {
+    valid = true;
+  }
+  else if (name == "matrixrow")
+  {
+    valid = true;
+  }
 
   return valid;
 }
@@ -560,6 +768,24 @@ ArraysASTPlugin::getNameFromType(int type) const
 
   return safe_strdup(name.c_str());
 }
+
+
+ASTArraysVectorFunctionNode *
+ArraysASTPlugin::getVector() const
+{
+  return mVector;
+}
+
+
+
+ASTArraysMatrixFunctionNode *
+ArraysASTPlugin::getMatrix() const
+{
+  return mMatrix;
+}
+
+
+
 LIBSBML_CPP_NAMESPACE_END
 
 #endif  /* __cplusplus */

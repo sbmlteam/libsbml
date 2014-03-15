@@ -43,6 +43,7 @@
 #include <sbml/xml/XMLOutputStream.h>
 #include <sbml/extension/ASTBasePlugin.h>
 #include <sbml/packages/arrays/math/ASTArraysVectorFunctionNode.h>
+#include <sbml/packages/arrays/math/ASTArraysMatrixFunctionNode.h>
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
@@ -131,12 +132,12 @@ public:
   virtual void enablePackageInternal(const std::string& pkgURI,
                                      const std::string& pkgPrefix, bool flag);
   /** @endcond */
-  const std::string& getPackageName() const;
+  virtual const std::string& getPackageName() const;
 
 
   //virtual void write(XMLOutputStream& stream) const;
   virtual bool read(XMLInputStream& stream, const std::string& reqd_prefix,
-                                            const XMLToken currentElement);
+                                            const XMLToken& currentElement);
 
   //virtual void addExpectedAttributes(ExpectedAttributes& attributes, 
   //                                   XMLInputStream& stream, int type);
@@ -178,16 +179,31 @@ public:
 
   virtual int replaceChild(unsigned int n, ASTBase* newChild);
 
+  virtual int swapChildren(ASTFunction* that);
+
+  ASTArraysVectorFunctionNode * getVector() const;
+
+  ASTArraysMatrixFunctionNode * getMatrix() const;
+
 protected:
   /** @cond doxygenLibsbmlInternal */
 
   void reset();
 
   bool readVector(XMLInputStream& stream, const std::string& reqd_prefix,
-                        const XMLToken currentElement);
+                        const XMLToken& currentElement);
+  
+  
+  bool readMatrix(XMLInputStream& stream, const std::string& reqd_prefix,
+                        const XMLToken& currentElement);
+
+
+  bool readMatrixRow(XMLInputStream& stream, const std::string& reqd_prefix,
+                        const XMLToken& currentElement);
   /*-- data members --*/
 
   ASTArraysVectorFunctionNode* mVector;
+  ASTArraysMatrixFunctionNode* mMatrix;
 
   /** @endcond */
 };

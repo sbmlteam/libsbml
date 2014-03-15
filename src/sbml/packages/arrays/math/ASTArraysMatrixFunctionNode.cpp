@@ -1,5 +1,5 @@
 /**
- * @file    ASTArraysVectorFunctionNode.cpp
+ * @file    ASTArraysMatrixFunctionNode.cpp
  * @brief   Base Abstract Syntax Tree (AST) class.
  * @author  Sarah Keating
  * 
@@ -26,7 +26,7 @@
  * ------------------------------------------------------------------------ -->
  */
 
-#include <sbml/packages/arrays/math/ASTArraysVectorFunctionNode.h>
+#include <sbml/packages/arrays/math/ASTArraysMatrixFunctionNode.h>
 #include <sbml/math/ASTNaryFunctionNode.h>
 #include <sbml/math/ASTNumber.h>
 #include <sbml/math/ASTFunction.h>
@@ -39,7 +39,7 @@ using namespace std;
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
-ASTArraysVectorFunctionNode::ASTArraysVectorFunctionNode (int type) :
+ASTArraysMatrixFunctionNode::ASTArraysMatrixFunctionNode (int type) :
   ASTNaryFunctionNode(type)
 {
 }
@@ -48,15 +48,15 @@ ASTArraysVectorFunctionNode::ASTArraysVectorFunctionNode (int type) :
   /**
    * Copy constructor
    */
-ASTArraysVectorFunctionNode::ASTArraysVectorFunctionNode (const ASTArraysVectorFunctionNode& orig):
+ASTArraysMatrixFunctionNode::ASTArraysMatrixFunctionNode (const ASTArraysMatrixFunctionNode& orig):
   ASTNaryFunctionNode(orig)
 {
 }
   /**
    * Assignment operator for ASTNode.
    */
-ASTArraysVectorFunctionNode&
-ASTArraysVectorFunctionNode::operator=(const ASTArraysVectorFunctionNode& rhs)
+ASTArraysMatrixFunctionNode&
+ASTArraysMatrixFunctionNode::operator=(const ASTArraysMatrixFunctionNode& rhs)
 {
   if(&rhs!=this)
   {
@@ -67,29 +67,29 @@ ASTArraysVectorFunctionNode::operator=(const ASTArraysVectorFunctionNode& rhs)
   /**
    * Destroys this ASTNode, including any child nodes.
    */
-ASTArraysVectorFunctionNode::~ASTArraysVectorFunctionNode ()
+ASTArraysMatrixFunctionNode::~ASTArraysMatrixFunctionNode ()
 {
 }
 
   /**
    * Creates a copy (clone).
    */
-ASTArraysVectorFunctionNode*
-ASTArraysVectorFunctionNode::deepCopy () const
+ASTArraysMatrixFunctionNode*
+ASTArraysMatrixFunctionNode::deepCopy () const
 {
-  return new ASTArraysVectorFunctionNode(*this);
+  return new ASTArraysMatrixFunctionNode(*this);
 }
 
 void
-ASTArraysVectorFunctionNode::write(XMLOutputStream& stream) const
+ASTArraysMatrixFunctionNode::write(XMLOutputStream& stream) const
 {
   if (&stream == NULL) return;
 
-  std::string name = getNameFromType(this->getTypeAsInt());
-  stream.startElement(name);
+  stream.startElement("matrix");
   
   ASTBase::writeAttributes(stream);
 
+ 
   /* write children */
 
   for (unsigned int i = 0; i < ASTFunctionBase::getNumChildren(); i++)
@@ -97,12 +97,12 @@ ASTArraysVectorFunctionNode::write(XMLOutputStream& stream) const
     ASTFunctionBase::getChild(i)->write(stream);
   }
     
-  stream.endElement(name);
+  stream.endElement("matrix");
 
 }
 
 bool
-ASTArraysVectorFunctionNode::read(XMLInputStream& stream, const std::string& reqd_prefix)
+ASTArraysMatrixFunctionNode::read(XMLInputStream& stream, const std::string& reqd_prefix)
 {
   bool read = false;
   ASTBase * child = NULL;
@@ -119,11 +119,14 @@ ASTArraysVectorFunctionNode::read(XMLInputStream& stream, const std::string& req
 
     name = stream.peek().getName().c_str();
 
-    if (representsNumber(ASTBase::getTypeFromName(name)) == true)
+    if (strcmp(name, "matrixrow") != 0)
     {
-      child = new ASTNumber();
+      std::string message = 
+        "A <matrix> element must contain <matrixrow> child elements.";
+      logError(stream, element, BadMathMLNodeType, message);   
+      break;
     }
-    else 
+    else
     {
       child = new ASTFunction();
     }

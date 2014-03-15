@@ -139,9 +139,10 @@ ArraysSBasePlugin::createObject (XMLInputStream& stream)
         mDimensions.getSBMLDocument()->enableDefaultNS(mURI, true); 
       } 
     } 
+  
+    delete arraysns;
   } 
 
-  delete arraysns;
   return object; 
 }
 
