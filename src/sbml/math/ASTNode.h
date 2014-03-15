@@ -1354,6 +1354,23 @@ setValue(value, 0);
 
 
   /**
+   * Sets the type of this ASTNode to the given int which may come from
+   * ASTTypeCode_t or an enumeration of AST types in an SBML L3 package.
+   *
+   * @param type the integer representing the type to which this node should be set
+   *
+   * @return integer value indicating success/failure of the
+   * function.  The possible values returned by this function are:
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+   * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE @endlink
+   *
+   * @note A side-effect of doing this is that any numerical values previously
+   * stored in this node are reset to zero.
+   */
+  int setType (int type);
+
+
+  /**
    * Sets the units of this ASTNode to units.
    *
    * The units will be set @em only if this ASTNode object represents a

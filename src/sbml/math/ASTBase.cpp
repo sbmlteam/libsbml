@@ -1593,6 +1593,7 @@ ASTBase::syncMembersFrom(ASTBase* rhs)
 
   mIsChildFlag          = rhs->mIsChildFlag;
   mType                 = rhs->mType;
+  mTypeFromPackage      = rhs->mTypeFromPackage;
   mId                   = rhs->mId;
   mClass                = rhs->mClass;
   mStyle                = rhs->mStyle;
@@ -1618,6 +1619,7 @@ ASTBase::syncPluginsFrom(ASTBase* rhs)
 
   mIsChildFlag          = rhs->mIsChildFlag;
   mType                 = rhs->mType;
+  mTypeFromPackage      = rhs->mTypeFromPackage;
   mId                   = rhs->mId;
   mClass                = rhs->mClass;
   mStyle                = rhs->mStyle;
@@ -1643,6 +1645,7 @@ ASTBase::syncMembersAndResetParentsFrom(ASTBase* rhs)
 
   mIsChildFlag          = rhs->mIsChildFlag;
   mType                 = rhs->mType;
+  mTypeFromPackage      = rhs->mTypeFromPackage;
   mId                   = rhs->mId;
   mClass                = rhs->mClass;
   mStyle                = rhs->mStyle;

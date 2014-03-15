@@ -102,7 +102,7 @@ public:
    *
    * @return the package name of this plugin object.
    */
-  const std::string& getPackageName() const;
+  virtual const std::string& getPackageName() const;
 
 
 
@@ -284,6 +284,7 @@ public:
 
   virtual int replaceChild(unsigned int n, ASTBase* newChild);
 
+  virtual int swapChildren(ASTFunction* that);
 
 
   virtual bool read(XMLInputStream& stream, const std::string& reqd_prefix,

@@ -963,6 +963,28 @@ ASTFunction::swapChildren(ASTFunction* that)
   {
     return mSemantics->swapChildren(that);
   }
+  else if (mIsOther == true)
+  {
+    if (mPackageName.empty() == false)
+    {
+      return getPlugin(mPackageName)->swapChildren(that);
+    }
+    else
+    {
+      unsigned int i = 0;
+      while (i < getNumPlugins())
+      {
+        if (getPlugin(i)->isSetMath() == true)
+        {
+          return getPlugin(i)->swapChildren(that);
+        }
+        i++;
+      }
+
+      // nothing happened
+      return LIBSBML_OPERATION_FAILED;
+    }
+  }
   else
   {
     return LIBSBML_OPERATION_FAILED;
@@ -3198,11 +3220,12 @@ ASTFunction::read(XMLInputStream& stream, const std::string& reqd_prefix)
       if (read == true)
       {
         reset();
-        setType(getPlugin(i)->getMath()->getType());
+        setTypeFromInt(getPlugin(i)->getMath()->getTypeAsInt());
         //this->ASTBase::syncMembersAndResetParentsFrom((ASTBase*)
         //                                           (getPlugin(i)->getMath()));
         mIsOther = true;
       }
+      i++;
     }
   }
 
@@ -3738,6 +3761,7 @@ ASTFunction::syncMembersAndTypeFrom(ASTNumber* rhs, int type)
 void
 ASTFunction::syncMembersAndTypeFrom(ASTFunction* rhs, int type)
 {
+  bool copyChildren = true;
   if (mUnaryFunction != NULL)
   {
     mUnaryFunction->ASTBase::syncMembersAndResetParentsFrom(rhs);
@@ -3833,14 +3857,19 @@ ASTFunction::syncMembersAndTypeFrom(ASTFunction* rhs, int type)
       node->ASTBase::syncMembersAndResetParentsFrom(rhs);
       node->setTypeFromInt(type);
       this->ASTBase::syncMembersFrom(node);
+      // note this will clone plugins and therefore any children they may have
+      // so do not recopy teh children
+      copyChildren = false;
     }
   }
 
-  for (unsigned int i = 0; i < rhs->getNumChildren(); i++)
+  if (copyChildren == true)
   {
-    this->addChild(rhs->getChild(i)->deepCopy());
+    for (unsigned int i = 0; i < rhs->getNumChildren(); i++)
+    {
+      this->addChild(rhs->getChild(i)->deepCopy());
+    }
   }
-
 }
 
 

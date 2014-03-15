@@ -134,7 +134,7 @@ writeMathML (const ASTNode* node, XMLOutputStream& stream, SBMLNamespaces *sbmln
  */
 LIBSBML_EXTERN
 ASTNode_t *
-readMathMLFromString (const char *xml)
+readMathMLFromString (const char *xml, XMLNamespaces_t * xmlns)
 {
   if (xml == NULL) return NULL;
 
@@ -162,6 +162,10 @@ readMathMLFromString (const char *xml)
 
   stream.setErrorLog(&log);
   SBMLNamespaces sbmlns;
+  if (xmlns != NULL)
+  {
+    sbmlns.addNamespaces(xmlns);
+  }
   stream.setSBMLNamespaces(&sbmlns);
 
   unsigned int numErrorsB4Read = stream.getErrorLog()->getNumErrors();

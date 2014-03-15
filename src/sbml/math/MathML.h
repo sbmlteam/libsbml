@@ -102,7 +102,7 @@ BEGIN_C_DECLS
  */
 LIBSBML_EXTERN
 ASTNode_t *
-readMathMLFromString (const char *xml);
+readMathMLFromString (const char *xml, XMLNamespaces_t * xmlns = NULL);
 
 
 /**

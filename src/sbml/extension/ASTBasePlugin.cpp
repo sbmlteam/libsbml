@@ -281,6 +281,12 @@ ASTBasePlugin::replaceChild(unsigned int n, ASTBase* newChild)
   return LIBSBML_INVALID_OBJECT; 
 }
 
+int 
+ASTBasePlugin::swapChildren(ASTFunction* that)
+{ 
+  return LIBSBML_INVALID_OBJECT; 
+}
+
 /*
  * Enables/Disables the given package with child elements in this plugin
  * object (if any).
