@@ -581,7 +581,7 @@ class-list.txt: $(core-sources) generate-class-name-list.py
 	./generate-class-name-list.py $(TOP_SRCDIR)/src/sbml > class-list.txt
 
 c-manual $(c-manual): doxygen-config-c.txt $(core-sources) $(css-files) \
-  c-doc-filter.py class-list.txt
+  filters/doc-filter-c.py class-list.txt
 	mkdir -p $(c-manual)
 	$(call preprocess_doxygen)
 	$(call run_doxygen,doxygen-config-c.txt,$(c-manual),"")
