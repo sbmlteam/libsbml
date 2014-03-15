@@ -168,7 +168,6 @@ ASTFunction::ASTFunction (int type) :
   , mQualifier        ( NULL )
   , mSemantics        ( NULL )
   , mIsOther          ( false )
-  , mPackageName      ( "" )
 {
   if (this->ASTBase::isUnaryFunction() == true)
   {
@@ -230,7 +229,7 @@ ASTFunction::ASTFunction (int type) :
       if (getPlugin(i)->isFunctionNode(type) == true)
       {
         getPlugin(i)->createMath(type);
-        mPackageName = getPlugin(i)->getPackageName();
+        this->setPackageName(getPlugin(i)->getPackageName());
         done = true;
       }
       i++;
@@ -260,7 +259,6 @@ ASTFunction::ASTFunction (const ASTFunction& orig):
       , mQualifier        ( NULL )
       , mSemantics        ( NULL )
       , mIsOther          ( orig.mIsOther )
-      , mPackageName      ( orig.mPackageName)
 {
   if ( orig.mUnaryFunction  != NULL)
   {
@@ -314,7 +312,6 @@ ASTFunction::operator=(const ASTFunction& rhs)
   {
     this->ASTBase::operator =(rhs);
     mIsOther          = rhs.mIsOther;
-    mPackageName      = rhs.mPackageName;
     
     delete mUnaryFunction;
     if ( rhs.mUnaryFunction  != NULL)
@@ -491,7 +488,7 @@ ASTFunction::addChild(ASTBase * child)
   }
   else if (mIsOther == true)
   {
-    if (mPackageName.empty() == false)
+    if (mPackageName.empty() == false && mPackageName != "core")
     {
       return getPlugin(mPackageName)->addChild(child);
     }
@@ -558,7 +555,7 @@ ASTFunction::getChild (unsigned int n) const
   }
   else if (mIsOther == true)
   {
-    if (mPackageName.empty() == false)
+    if (mPackageName.empty() == false && mPackageName != "core")
     {
       return getPlugin(mPackageName)->getChild(n);
     }
@@ -625,7 +622,7 @@ ASTFunction::getNumChildren() const
   }
   else if (mIsOther == true)
   {
-    if (mPackageName.empty() == false)
+    if (mPackageName.empty() == false && mPackageName != "core")
     {
       return getPlugin(mPackageName)->getNumChildren();
     }
@@ -693,7 +690,7 @@ ASTFunction::removeChild(unsigned int n)
   }
   else if (mIsOther == true)
   {
-    if (mPackageName.empty() == false)
+    if (mPackageName.empty() == false && mPackageName != "core")
     {
       return getPlugin(mPackageName)->removeChild(n);
     }
@@ -761,7 +758,7 @@ ASTFunction::prependChild(ASTBase* newChild)
   }
   else if (mIsOther == true)
   {
-    if (mPackageName.empty() == false)
+    if (mPackageName.empty() == false && mPackageName != "core")
     {
       return getPlugin(mPackageName)->prependChild(newChild);
     }
@@ -829,7 +826,7 @@ ASTFunction::replaceChild(unsigned int n, ASTBase* newChild)
   }
   else if (mIsOther == true)
   {
-    if (mPackageName.empty() == false)
+    if (mPackageName.empty() == false && mPackageName != "core")
     {
       return getPlugin(mPackageName)->replaceChild(n, newChild);
     }
@@ -897,7 +894,7 @@ ASTFunction::insertChild(unsigned int n, ASTBase* newChild)
   }
   else if (mIsOther == true)
   {
-    if (mPackageName.empty() == false)
+    if (mPackageName.empty() == false && mPackageName != "core")
     {
       return getPlugin(mPackageName)->insertChild(n, newChild);
     }
@@ -965,7 +962,7 @@ ASTFunction::swapChildren(ASTFunction* that)
   }
   else if (mIsOther == true)
   {
-    if (mPackageName.empty() == false)
+    if (mPackageName.empty() == false && mPackageName != "core")
     {
       return getPlugin(mPackageName)->swapChildren(that);
     }
@@ -1036,7 +1033,7 @@ ASTFunction::setClass(std::string className)
     }
     else if (mIsOther == true)
     {
-      if (mPackageName.empty() == false)
+      if (mPackageName.empty() == false && mPackageName != "core")
       {
         success = const_cast<ASTBase*>(getPlugin(mPackageName)->getMath())
                                        ->setClass(className);
@@ -1118,7 +1115,7 @@ ASTFunction::setId(std::string id)
     }
     else if (mIsOther == true)
     {
-      if (mPackageName.empty() == false)
+      if (mPackageName.empty() == false && mPackageName != "core")
       {
         success = const_cast<ASTBase*>(getPlugin(mPackageName)->getMath())
                                        ->setId(id);
@@ -1200,7 +1197,7 @@ ASTFunction::setStyle(std::string style)
     }
     else if (mIsOther == true)
     {
-      if (mPackageName.empty() == false)
+      if (mPackageName.empty() == false && mPackageName != "core")
       {
         success = const_cast<ASTBase*>(getPlugin(mPackageName)->getMath())
                                        ->setStyle(style);
@@ -1282,7 +1279,7 @@ ASTFunction::unsetClass()
     }
     else if (mIsOther == true)
     {
-      if (mPackageName.empty() == false)
+      if (mPackageName.empty() == false && mPackageName != "core")
       {
         success = const_cast<ASTBase*>(getPlugin(mPackageName)->getMath())
                                        ->unsetClass();
@@ -1364,7 +1361,7 @@ ASTFunction::unsetId()
     }
     else if (mIsOther == true)
     {
-      if (mPackageName.empty() == false)
+      if (mPackageName.empty() == false && mPackageName != "core")
       {
         success = const_cast<ASTBase*>(getPlugin(mPackageName)->getMath())
                                        ->unsetId();
@@ -1446,7 +1443,7 @@ ASTFunction::unsetStyle()
     }
     else if (mIsOther == true)
     {
-      if (mPackageName.empty() == false)
+      if (mPackageName.empty() == false && mPackageName != "core")
       {
         success = const_cast<ASTBase*>(getPlugin(mPackageName)->getMath())
                                        ->unsetStyle();
@@ -1525,7 +1522,7 @@ ASTFunction::isSetClass() const
   }
   else if (mIsOther == true)
   {
-    if (mPackageName.empty() == false)
+    if (mPackageName.empty() == false && mPackageName != "core")
     {
       return const_cast<ASTBase*>(getPlugin(mPackageName)->getMath())
                                      ->isSetClass();
@@ -1594,7 +1591,7 @@ ASTFunction::isSetId() const
   }
   else if (mIsOther == true)
   {
-    if (mPackageName.empty() == false)
+    if (mPackageName.empty() == false && mPackageName != "core")
     {
       return const_cast<ASTBase*>(getPlugin(mPackageName)->getMath())
                                      ->isSetId();
@@ -1663,7 +1660,7 @@ ASTFunction::isSetStyle() const
   }
   else if (mIsOther == true)
   {
-    if (mPackageName.empty() == false)
+    if (mPackageName.empty() == false && mPackageName != "core")
     {
       return const_cast<ASTBase*>(getPlugin(mPackageName)->getMath())
                                      ->isSetStyle();
@@ -1733,7 +1730,7 @@ ASTFunction::getClass() const
   }
   else if (mIsOther == true)
   {
-    if (mPackageName.empty() == false)
+    if (mPackageName.empty() == false && mPackageName != "core")
     {
       return const_cast<ASTBase*>(getPlugin(mPackageName)->getMath())
                                      ->getClass();
@@ -1803,7 +1800,7 @@ ASTFunction::getId() const
   }
   else if (mIsOther == true)
   {
-    if (mPackageName.empty() == false)
+    if (mPackageName.empty() == false && mPackageName != "core")
     {
       return const_cast<ASTBase*>(getPlugin(mPackageName)->getMath())
                                      ->getId();
@@ -1873,7 +1870,7 @@ ASTFunction::getStyle() const
   }
   else if (mIsOther == true)
   {
-    if (mPackageName.empty() == false)
+    if (mPackageName.empty() == false && mPackageName != "core")
     {
       return const_cast<ASTBase*>(getPlugin(mPackageName)->getMath())
                                      ->getStyle();
@@ -1946,7 +1943,7 @@ ASTFunction::setParentSBMLObject(SBase* sb)
     }
     else if (mIsOther == true)
     {
-      if (mPackageName.empty() == false)
+      if (mPackageName.empty() == false && mPackageName != "core")
       {
         success = const_cast<ASTBase*>(getPlugin(mPackageName)->getMath())
                                        ->setParentSBMLObject(sb);
@@ -2028,7 +2025,7 @@ ASTFunction::setUserData(void* userData)
     }
     else if (mIsOther == true)
     {
-      if (mPackageName.empty() == false)
+      if (mPackageName.empty() == false && mPackageName != "core")
       {
         success = const_cast<ASTBase*>(getPlugin(mPackageName)->getMath())
                                        ->setUserData(userData);
@@ -2106,7 +2103,7 @@ ASTFunction::getParentSBMLObject() const
   }
   else if (mIsOther == true)
   {
-    if (mPackageName.empty() == false)
+    if (mPackageName.empty() == false && mPackageName != "core")
     {
       return const_cast<ASTBase*>(getPlugin(mPackageName)->getMath())
                                      ->getParentSBMLObject();
@@ -2176,7 +2173,7 @@ ASTFunction::getUserData() const
   }
   else if (mIsOther == true)
   {
-    if (mPackageName.empty() == false)
+    if (mPackageName.empty() == false && mPackageName != "core")
     {
       return const_cast<ASTBase*>(getPlugin(mPackageName)->getMath())
                                      ->getUserData();
@@ -2260,7 +2257,7 @@ ASTFunction::isSetName() const
 int 
 ASTFunction::setName(const std::string& name)
 {
-  int type = getTypeAsInt();
+  int type = getExtendedType();
   if (mUserFunction != NULL)
   {
     return mUserFunction->setName(name);
@@ -2291,7 +2288,7 @@ ASTFunction::setName(const std::string& name)
 int 
 ASTFunction::setNameAndChangeType(const std::string& name)
 {
-  int type = getTypeAsInt();
+  int type = getExtendedType();
   if (mUserFunction != NULL)
   {
     return mUserFunction->setName(name);
@@ -2940,7 +2937,7 @@ ASTFunction::isWellFormedNode() const
   }
   else if (mIsOther == true)
   {
-    if (mPackageName.empty() == false)
+    if (mPackageName.empty() == false && mPackageName != "core")
     {
       return const_cast<ASTBase*>(getPlugin(mPackageName)->getMath())
                                      ->isWellFormedNode();
@@ -3009,7 +3006,7 @@ ASTFunction::hasCorrectNumberArguments() const
   }
   else if (mIsOther == true)
   {
-    if (mPackageName.empty() == false)
+    if (mPackageName.empty() == false && mPackageName != "core")
     {
       return const_cast<ASTBase*>(getPlugin(mPackageName)->getMath())
                                      ->hasCorrectNumberArguments();
@@ -3220,7 +3217,8 @@ ASTFunction::read(XMLInputStream& stream, const std::string& reqd_prefix)
       if (read == true)
       {
         reset();
-        setTypeFromInt(getPlugin(i)->getMath()->getTypeAsInt());
+        setTypeFromInt(getPlugin(i)->getMath()->getExtendedType());
+        this->setPackageName(getPlugin(i)->getPackageName());
         //this->ASTBase::syncMembersAndResetParentsFrom((ASTBase*)
         //                                           (getPlugin(i)->getMath()));
         mIsOther = true;
@@ -3306,6 +3304,11 @@ ASTFunction::readApply(XMLInputStream& stream, const std::string& reqd_prefix,
       read = mUnaryFunction->read(stream, reqd_prefix);
       if (read == true && mUnaryFunction != NULL)
       {
+        // if the type came from a plugin set the packagename
+        if (type > AST_UNKNOWN)
+        {
+          mUnaryFunction->setPackageName(plugin->getPackageName());
+        }
         this->ASTBase::syncMembersAndResetParentsFrom(mUnaryFunction);
         done = true;
       }
@@ -3323,6 +3326,11 @@ ASTFunction::readApply(XMLInputStream& stream, const std::string& reqd_prefix,
       read = mBinaryFunction->read(stream, reqd_prefix);
       if (read == true && mBinaryFunction != NULL)
       {
+        // if the type came from a plugin set the packagename
+        if (type > AST_UNKNOWN)
+        {
+          mBinaryFunction->setPackageName(plugin->getPackageName());
+        }
         this->ASTBase::syncMembersAndResetParentsFrom(mBinaryFunction);
         done = true;
       }
@@ -3346,6 +3354,11 @@ ASTFunction::readApply(XMLInputStream& stream, const std::string& reqd_prefix,
           mNaryFunction->reduceOperatorsToBinary();
         }
           
+        // if the type came from a plugin set the packagename
+        if (type > AST_UNKNOWN)
+        {
+          mNaryFunction->setPackageName(plugin->getPackageName());
+        }
         this->ASTBase::syncMembersAndResetParentsFrom(mNaryFunction);
         done = true;
       }
@@ -3833,7 +3846,7 @@ ASTFunction::syncMembersAndTypeFrom(ASTFunction* rhs, int type)
   else if (mIsOther == true)
   {
     ASTBase * node = NULL;
-    if (mPackageName.empty() == false)
+    if (mPackageName.empty() == false && mPackageName != "core")
     {
       node = const_cast<ASTBase*>(getPlugin(mPackageName)->getMath());
     }

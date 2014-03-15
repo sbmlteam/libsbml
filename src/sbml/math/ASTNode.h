@@ -774,10 +774,8 @@ int (*ASTNodePredicate) (const ASTNode_t *node);
 
 
   /**
-   * Gets the type of this ASTNode where the type originates within an
-   * SBML Level 3 package.  The value returned is one of the
-   * enumeration values for the given package or @link ASTNodeType_t#AST_UNKNOWN
-   * AST_UNKNOWN@endlink, if the ASTNode represents a core math construct.
+   * Gets the type of this ASTNode where the type may be either a core
+   * ASTTypeCode_t or a value of an enumeration from an SBML L3 package.t.
    *
    * @note When the ASTNode is of a type from a package the ASTNodeType_t value
    * returned by getType() will be @link ASTNodeType_t#AST_ORIGINATES_IN_PACKAGE
@@ -785,9 +783,9 @@ int (*ASTNodePredicate) (const ASTNode_t *node);
    * 
    * @return the type of this ASTNode.
    */
-  int getTypeFromPackage () const;
-
-
+  virtual int getExtendedType() const;
+  
+  
   /**
    * Gets the units of this ASTNode.  
    *
@@ -1684,6 +1682,11 @@ setValue(value, 0);
 
   /** @endcond */
 
+  /** @cond doxygenLibsbmlInternal */
+
+  virtual const std::string& getPackageName () const;
+
+  /** @endcond */
 
 protected:
 

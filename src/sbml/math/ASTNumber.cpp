@@ -1729,7 +1729,7 @@ ASTNumber::setNameAndChangeType(const std::string& name)
   {
     return mCSymbol->setName(name);
   }
-  else if (representsNumber(getTypeAsInt()) == true)
+  else if (representsNumber(getExtendedType()) == true)
   {
     reset();
     mCiNumber = new ASTCiNumberNode();

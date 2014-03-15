@@ -336,14 +336,14 @@ ASTNode::ASTNode (const ASTNode& orig) :
 {
   if (orig.mNumber != NULL)
   {
-    mNumber = new ASTNumber(orig.getTypeAsInt());
-    mNumber->syncMembersAndTypeFrom(orig.mNumber, orig.getTypeAsInt());
+    mNumber = new ASTNumber(orig.getExtendedType());
+    mNumber->syncMembersAndTypeFrom(orig.mNumber, orig.getExtendedType());
     this->ASTBase::syncMembersAndResetParentsFrom(mNumber);     
   }
   else if (orig.mFunction != NULL)
   {
-    mFunction = new ASTFunction(orig.getTypeAsInt());
-    mFunction->syncMembersAndTypeFrom(orig.mFunction, orig.getTypeAsInt());
+    mFunction = new ASTFunction(orig.getExtendedType());
+    mFunction->syncMembersAndTypeFrom(orig.mFunction, orig.getExtendedType());
     this->ASTBase::syncMembersAndResetParentsFrom(mFunction);
   }
   //if (orig.mNumber != NULL)
@@ -371,14 +371,14 @@ ASTNode::operator=(const ASTNode& rhs)
 
     if (rhs.mNumber != NULL)
     {
-      mNumber = new ASTNumber(rhs.getTypeAsInt());
-      mNumber->syncMembersAndTypeFrom(rhs.mNumber, rhs.getTypeAsInt());
+      mNumber = new ASTNumber(rhs.getExtendedType());
+      mNumber->syncMembersAndTypeFrom(rhs.mNumber, rhs.getExtendedType());
       this->ASTBase::syncMembersAndResetParentsFrom(mNumber);     
     }
     else if (rhs.mFunction != NULL)
     {
-      mFunction = new ASTFunction(rhs.getTypeAsInt());
-      mFunction->syncMembersAndTypeFrom(rhs.mFunction, rhs.getTypeAsInt());
+      mFunction = new ASTFunction(rhs.getExtendedType());
+      mFunction->syncMembersAndTypeFrom(rhs.mFunction, rhs.getExtendedType());
       this->ASTBase::syncMembersAndResetParentsFrom(mFunction);
     }
   }
@@ -640,7 +640,7 @@ ASTNode::getName () const
        */
       if (getType() >= AST_NAME_TIME)
       {
-        result = getNameFromType(getTypeAsInt());
+        result = getNameFromType(getExtendedType());
       }
       else if (getType() == AST_NAME_AVOGADRO)
       {
@@ -828,19 +828,37 @@ ASTNode::getType () const
 
 
 int 
-ASTNode::getTypeFromPackage () const
+ASTNode::getExtendedType () const
 {
   if (mNumber != NULL)
   {
-    return mNumber->getTypeFromPackage();
+    return mNumber->getExtendedType();
   }
   else if (mFunction != NULL)
   {
-    return mFunction->getTypeFromPackage();
+    return mFunction->getExtendedType();
   }
   else
   {
-    return ASTBase::getTypeFromPackage();
+    return ASTBase::getExtendedType();
+  }
+}
+
+
+const std::string&
+ASTNode::getPackageName () const
+{
+  if (mNumber != NULL)
+  {
+    return mNumber->getPackageName();
+  }
+  else if (mFunction != NULL)
+  {
+    return mFunction->getPackageName();
+  }
+  else
+  {
+    return ASTBase::getPackageName();
   }
 }
 
@@ -1076,7 +1094,7 @@ ASTNode::setStyle(const std::string& style)
 int 
 ASTNode::setType (int type) 
 {
-  if (getTypeAsInt() == type)
+  if (getExtendedType() == type)
   {
     return LIBSBML_OPERATION_SUCCESS;
   }
@@ -2824,8 +2842,8 @@ ASTNode::reduceToBinary()
   if (numChildren < 3)
     return;
 
-  ASTNode* op = new ASTNode( getTypeAsInt() );
-  ASTNode* op2 = new ASTNode( getTypeAsInt() );
+  ASTNode* op = new ASTNode( getExtendedType() );
+  ASTNode* op2 = new ASTNode( getExtendedType() );
 
   // add the first two children to the first node
   op->addChild(getChild(0));

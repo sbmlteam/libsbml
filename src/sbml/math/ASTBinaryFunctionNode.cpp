@@ -490,7 +490,7 @@ ASTBinaryFunctionNode::hasCorrectNumberArguments() const
     {
       // we have only one child
       // if it is a qualifier type then it is incorrect
-      if (representsQualifier(ASTFunctionBase::getChild(0)->getTypeAsInt()) == true)
+      if (representsQualifier(ASTFunctionBase::getChild(0)->getExtendedType()) == true)
       {
         correctNumArgs = false;
       }

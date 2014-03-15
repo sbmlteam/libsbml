@@ -98,6 +98,7 @@ struct CloneASTPluginEntityNoParent : public unary_function<ASTBasePlugin*, ASTB
 
 ASTBase::ASTBase (int type) :
    mIsChildFlag     ( false )
+   , mPackageName      ( "core" )
    , mId ("")
    , mClass ("")
    , mStyle ("")
@@ -108,6 +109,27 @@ ASTBase::ASTBase (int type) :
 
   loadASTPlugins(NULL);
 
+  std::string name = "";
+  // need to set the package name
+  if (getNumPlugins() > 0)
+  {
+    unsigned int i = 0;
+    while (name.empty() == true && i < getNumPlugins())
+    {
+      const ASTBasePlugin* plugin = static_cast<const ASTBasePlugin*>(getPlugin(i)); 
+      name = plugin->getNameFromType(type);
+      if (name == "AST_unknown")
+      {
+        name.clear();
+      }
+      i++;
+    }
+    if (name.empty() == false && i < getNumPlugins())
+    {
+      setPackageName(getPlugin(i-1)->getPackageName());
+    }
+  }
+  
   for (unsigned int i = 0; i < getNumPlugins(); i++)
   {
     getPlugin(i)->connectToParent(this);
@@ -117,6 +139,7 @@ ASTBase::ASTBase (int type) :
 
 ASTBase::ASTBase (SBMLNamespaces* sbmlns, int type) :
    mIsChildFlag     ( false )
+   , mPackageName      ( "core" )
    , mId ("")
    , mClass ("")
    , mStyle ("")
@@ -126,6 +149,28 @@ ASTBase::ASTBase (SBMLNamespaces* sbmlns, int type) :
   setTypeFromInt(type);
 
   loadASTPlugins(sbmlns);
+  
+  std::string name = "";
+  // need to set the package name
+  if (getNumPlugins() > 0)
+  {
+    unsigned int i = 0;
+    while (name.empty() == true && i < getNumPlugins())
+    {
+      const ASTBasePlugin* plugin = static_cast<const ASTBasePlugin*>(getPlugin(i)); 
+      name = plugin->getNameFromType(type);
+      if (name == "AST_unknown")
+      {
+        name.clear();
+      }
+      i++;
+    }
+    if (name.empty() == false && i < getNumPlugins())
+    {
+      setPackageName(getPlugin(i-1)->getPackageName());
+    }
+  }
+  
 }
   
 
@@ -136,6 +181,7 @@ ASTBase::ASTBase (const ASTBase& orig):
    mIsChildFlag          ( orig.mIsChildFlag )  
   , mType                ( orig.mType )
   , mTypeFromPackage     ( orig.mTypeFromPackage)
+  , mPackageName         ( orig.mPackageName )
   , mId                  (orig.mId)
   , mClass               (orig.mClass)
   , mStyle               (orig.mStyle)
@@ -163,6 +209,7 @@ ASTBase::operator=(const ASTBase& rhs)
     mIsChildFlag          = rhs.mIsChildFlag;
     mType                 = rhs.mType;
     mTypeFromPackage      = rhs.mTypeFromPackage;
+    mPackageName          = rhs.mPackageName;
     mId                   = rhs.mId;
     mClass                = rhs.mClass;
     mStyle                = rhs.mStyle;
@@ -336,15 +383,7 @@ ASTBase::getType () const
 
 
 int
-ASTBase::getTypeFromPackage () const
-{
-  return mTypeFromPackage;
-}
-
-
-
-int
-ASTBase::getTypeAsInt () const
+ASTBase::getExtendedType () const
 {
   if (mType == AST_ORIGINATES_IN_PACKAGE)
   {
@@ -405,6 +444,20 @@ ASTBase::setTypeFromInt (int type)
 }
 
 
+const std::string&
+ASTBase::getPackageName() const
+{
+  return mPackageName;
+}
+
+
+int
+ASTBase::setPackageName(const std::string& name)
+{
+  mPackageName = name;
+  return LIBSBML_OPERATION_SUCCESS;
+}
+
 /* helper functions */
 
 bool 
@@ -431,7 +484,7 @@ ASTBase::isBoolean() const
     while(boolean == false && i < getNumPlugins())
     {
       const ASTBasePlugin* plugin = static_cast<const ASTBasePlugin*>(getPlugin(i)); 
-      if (plugin->isLogical(getTypeFromPackage()) == true)
+      if (plugin->isLogical(getExtendedType()) == true)
       {
         boolean = true;
       }
@@ -449,7 +502,7 @@ ASTBase::isBinaryFunction() const
 {
   bool isFunction = false;
 
-  int type = getTypeAsInt();
+  int type = getExtendedType();
   if (representsBinaryFunction(type) == true)
   {
     isFunction = true;
@@ -535,7 +588,7 @@ ASTBase::isConstantNumber() const
     while(isNumber == false && i < getNumPlugins())
     {
       const ASTBasePlugin* plugin = static_cast<const ASTBasePlugin*>(getPlugin(i)); 
-      if (plugin->isConstantNumber(getTypeAsInt()) == true)
+      if (plugin->isConstantNumber(getExtendedType()) == true)
       {
         isNumber = true;
       }
@@ -567,7 +620,7 @@ ASTBase::isCSymbolFunction() const
     while(isCsymbolFunc == false && i < getNumPlugins())
     {
       const ASTBasePlugin* plugin = static_cast<const ASTBasePlugin*>(getPlugin(i)); 
-      if (plugin->isCSymbolFunction(getTypeAsInt()) == true)
+      if (plugin->isCSymbolFunction(getExtendedType()) == true)
       {
         isCsymbolFunc = true;
       }
@@ -600,7 +653,7 @@ ASTBase::isCSymbolNumber() const
     while(isNumber == false && i < getNumPlugins())
     {
       const ASTBasePlugin* plugin = static_cast<const ASTBasePlugin*>(getPlugin(i)); 
-      if (plugin->isCSymbolNumber(getTypeAsInt()) == true)
+      if (plugin->isCSymbolNumber(getExtendedType()) == true)
       {
         isNumber = true;
       }
@@ -627,7 +680,7 @@ ASTBase::isFunction() const
     while(isFunction == false && i < getNumPlugins())
     {
       const ASTBasePlugin* plugin = static_cast<const ASTBasePlugin*>(getPlugin(i)); 
-      if (plugin->isFunction(getTypeAsInt()) == true)
+      if (plugin->isFunction(getExtendedType()) == true)
       {
         isFunction = true;
       }
@@ -658,7 +711,7 @@ ASTBase::isLogical() const
 {
   bool isLogical = false;
 
-  int type = getTypeAsInt();
+  int type = getExtendedType();
   if (type >= AST_LOGICAL_AND && type <= AST_LOGICAL_XOR)
   {
     isLogical = true;
@@ -703,7 +756,7 @@ ASTBase::isName() const
     while(isName == false && i < getNumPlugins())
     {
       const ASTBasePlugin* plugin = static_cast<const ASTBasePlugin*>(getPlugin(i)); 
-      if (plugin->isName(getTypeAsInt()) == true)
+      if (plugin->isName(getExtendedType()) == true)
       {
         isName = true;
       }
@@ -720,7 +773,7 @@ ASTBase::isNaryFunction() const
 {
   bool isFunction = false;
 
-  int type = getTypeAsInt();
+  int type = getExtendedType();
 
   if (representsNaryFunction(type) == true)
   {
@@ -770,7 +823,7 @@ ASTBase::isNumber() const
     while(isNumber == false && i < getNumPlugins())
     {
       const ASTBasePlugin* plugin = static_cast<const ASTBasePlugin*>(getPlugin(i)); 
-      if (plugin->isNumber(getTypeAsInt()) == true)
+      if (plugin->isNumber(getExtendedType()) == true)
       {
         isNumber = true;
       }
@@ -787,7 +840,7 @@ ASTBase::isOperator() const
 {
   bool isOperator = false;
 
-  int type = getTypeAsInt();
+  int type = getExtendedType();
   if (type == AST_PLUS || type == AST_MINUS || type == AST_TIMES
     || type == AST_DIVIDE || type == AST_POWER)
   {
@@ -823,7 +876,7 @@ ASTBase::isQualifier() const
 {
   bool isQualifier = false;
 
-  if (representsQualifier(getTypeAsInt()) == true)
+  if (representsQualifier(getExtendedType()) == true)
   {
     isQualifier = true;
   }
@@ -863,7 +916,7 @@ ASTBase::isRelational() const
 {
   bool relational = false;
 
-  int type = getTypeAsInt();
+  int type = getExtendedType();
   if (type >= AST_RELATIONAL_EQ && type <= AST_RELATIONAL_NEQ)
   {
     relational = true;
@@ -905,7 +958,7 @@ ASTBase::isUnaryFunction() const
 {
   bool isFunction = false;
 
-  int type = getTypeAsInt();
+  int type = getExtendedType();
 
   if (representsUnaryFunction(type) == true)
   {
@@ -968,7 +1021,7 @@ ASTBase::isNumberNode() const
     while(isNumberNode == false && i < getNumPlugins())
     {
       const ASTBasePlugin* plugin = static_cast<const ASTBasePlugin*>(getPlugin(i)); 
-      if (plugin->isNumberNode(getTypeAsInt()) == true)
+      if (plugin->isNumberNode(getExtendedType()) == true)
       {
         isNumberNode = true;
       }
@@ -1003,7 +1056,7 @@ ASTBase::isFunctionNode() const
     while(isFunctionNode == false && i < getNumPlugins())
     {
       const ASTBasePlugin* plugin = static_cast<const ASTBasePlugin*>(getPlugin(i)); 
-      if (plugin->isFunctionNode(getTypeAsInt()) == true)
+      if (plugin->isFunctionNode(getExtendedType()) == true)
       {
         isFunctionNode = true;
       }
@@ -1145,7 +1198,7 @@ ASTBase::addExpectedAttributes(ExpectedAttributes& attributes,
   
   for (unsigned int i = 0; i < getNumPlugins(); i++)
   {
-    getPlugin(i)->addExpectedAttributes(attributes, stream, getTypeAsInt());
+    getPlugin(i)->addExpectedAttributes(attributes, stream, getExtendedType());
   }
 }
 
@@ -1244,7 +1297,7 @@ ASTBase::readAttributes(const XMLAttributes& attributes,
   while (read == true && i < getNumPlugins())
   {
     read = getPlugin(i)->readAttributes(attributes, expectedAttributes, 
-                                        stream, element, getTypeAsInt());
+                                        stream, element, getExtendedType());
     i++;
   }
 
@@ -1438,7 +1491,7 @@ ASTBase::writeStartEndElement (XMLOutputStream& stream) const
 {
   if (&stream == NULL) return;
 
-  const char * name = getNameFromType(getTypeAsInt());
+  const char * name = getNameFromType(getExtendedType());
 	stream.startElement(name);
   writeAttributes(stream);
 	stream.endElement(name);
@@ -1451,7 +1504,7 @@ ASTBase::writeStartEndElement (XMLOutputStream& stream) const
 void 
 ASTBase::writeStartElement (XMLOutputStream& stream) const
 {
-  std::string name = getNameFromType(getTypeAsInt());
+  std::string name = getNameFromType(getExtendedType());
 	stream.startElement(name);
   writeAttributes(stream);
 }
@@ -1470,7 +1523,7 @@ ASTBase::writeAttributes (XMLOutputStream& stream) const
 
   for (unsigned int i = 0; i < getNumPlugins(); i++)
   {
-    getPlugin(i)->writeAttributes(stream, getTypeAsInt());
+    getPlugin(i)->writeAttributes(stream, getExtendedType());
   }
 }
 
@@ -1594,6 +1647,7 @@ ASTBase::syncMembersFrom(ASTBase* rhs)
   mIsChildFlag          = rhs->mIsChildFlag;
   mType                 = rhs->mType;
   mTypeFromPackage      = rhs->mTypeFromPackage;
+  mPackageName          = rhs->mPackageName;
   mId                   = rhs->mId;
   mClass                = rhs->mClass;
   mStyle                = rhs->mStyle;
@@ -1620,6 +1674,7 @@ ASTBase::syncPluginsFrom(ASTBase* rhs)
   mIsChildFlag          = rhs->mIsChildFlag;
   mType                 = rhs->mType;
   mTypeFromPackage      = rhs->mTypeFromPackage;
+  mPackageName          = rhs->mPackageName;
   mId                   = rhs->mId;
   mClass                = rhs->mClass;
   mStyle                = rhs->mStyle;
@@ -1646,6 +1701,7 @@ ASTBase::syncMembersAndResetParentsFrom(ASTBase* rhs)
   mIsChildFlag          = rhs->mIsChildFlag;
   mType                 = rhs->mType;
   mTypeFromPackage      = rhs->mTypeFromPackage;
+  mPackageName          = rhs->mPackageName;
   mId                   = rhs->mId;
   mClass                = rhs->mClass;
   mStyle                = rhs->mStyle;

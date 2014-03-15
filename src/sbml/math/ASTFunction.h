@@ -297,7 +297,6 @@ protected:
   ASTSemanticsNode *          mSemantics;
   
   bool mIsOther;
-  std::string mPackageName;
 
 };
 

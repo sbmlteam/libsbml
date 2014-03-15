@@ -100,9 +100,10 @@ public:
   virtual ASTNodeType_t getType () const;
 
 
-  int getTypeFromPackage () const;
 
-  int getTypeAsInt() const;
+  virtual int getExtendedType() const;
+  
+  
   bool isSetType(); 
 
   /**
@@ -316,6 +317,10 @@ public:
 
   virtual int getTypeCode () const;
 
+  virtual const std::string& getPackageName() const;
+
+  int setPackageName(const std::string& name);
+
 
 protected:
 
@@ -350,6 +355,7 @@ protected:
 
   ASTNodeType_t mType;
   int mTypeFromPackage;
+  std::string mPackageName;
   
   // additional MathML attributes
   std::string mId;

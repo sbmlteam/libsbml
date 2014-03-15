@@ -624,8 +624,8 @@ ASTNaryFunctionNode::reduceOperatorsToBinary()
     return;
 
 
-  ASTFunction* op = new ASTFunction( getTypeAsInt() );
-  ASTFunction* op2 = new ASTFunction( getTypeAsInt() );
+  ASTFunction* op = new ASTFunction( getExtendedType() );
+  ASTFunction* op2 = new ASTFunction( getExtendedType() );
 
   // add the first two children to the first node
   op->addChild(getChild(0));

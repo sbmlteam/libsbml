@@ -156,11 +156,11 @@ ASTQualifierNode::write(XMLOutputStream& stream) const
 {
   if (&stream == NULL) return;
 
-  const char * name = ASTBase::getNameFromType(getTypeAsInt());
+  const char * name = ASTBase::getNameFromType(getExtendedType());
   
   ASTBase::writeStartElement(stream);
 
-  int type = getTypeAsInt();
+  int type = getExtendedType();
   /* HACK TO REPLICATE OLD AST */
   /* old ast behaviour would only write one child 
    * for a qualifier degree/logbase/bvar
