@@ -204,6 +204,18 @@ SBMLNamespaces::getSupportedNamespaces()
   return result;
 }
 
+
+void 
+SBMLNamespaces::freeSBMLNamespaces(List * supportedNS)
+{
+  if (supportedNS == NULL) return;
+  for (unsigned int i = 0; i < supportedNS->getSize(); i++)
+  {
+    delete (SBMLNamespaces*)supportedNS->get(i);
+  }
+  delete supportedNS;
+}
+
 /*
  * Assignment operator for SBMLNamespaces.
  */
@@ -824,6 +836,7 @@ SBMLNamespaces_getSupportedNamespaces(int *length)
   {
     result[i] = ((SBMLNamespaces*)supported->get(i))->clone();
   }
+  SBMLNamespaces::freeSBMLNamespaces(const_cast<List*>(supported));
   return result;
 }
 

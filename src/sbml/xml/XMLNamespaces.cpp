@@ -113,7 +113,6 @@ XMLNamespaces::clone () const
   return new XMLNamespaces(*this);
 }
 
-
 /*
  * Appends an XML namespace prefix/URI pair to this list of namespace
  * declarations.
@@ -142,8 +141,8 @@ XMLNamespaces::add (const std::string& uri, const std::string& prefix)
         sbmlCoreNS = true;
         break;
       }
-    }
-
+    }    
+    SBMLNamespaces::freeSBMLNamespaces(const_cast<List*>(supportedNS));    
   }
 
   if (sbmlCoreNS == true)

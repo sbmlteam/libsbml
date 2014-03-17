@@ -930,7 +930,7 @@ GraphicalObject::writeXMLNS (XMLOutputStream& stream) const
 #else
 
   if (getLevel() < 3)
-    for (unsigned int i = 0; i < mAttributesOfUnknownPkg.getNumAttributes(); ++i)
+    for (int i = 0; i < mAttributesOfUnknownPkg.getNumAttributes(); ++i)
     {
       if (mAttributesOfUnknownPkg.getName(i) == "objectRole" && !mAttributesOfUnknownPkg.getPrefix(i).empty())
       {
