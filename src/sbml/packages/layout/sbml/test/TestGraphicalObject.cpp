@@ -33,13 +33,7 @@
 #include <sbml/common/common.h>
 #include <sbml/common/extern.h>
 
-#include <sbml/packages/layout/sbml/GraphicalObject.h>
-#include <sbml/packages/layout/sbml/GeneralGlyph.h>
-#include <sbml/packages/layout/sbml/TextGlyph.h>
-#include <sbml/packages/layout/sbml/ReferenceGlyph.h>
-#include <sbml/packages/layout/sbml/BoundingBox.h>
-#include <sbml/packages/layout/sbml/Dimensions.h>
-#include <sbml/packages/layout/sbml/Point.h>
+#include <sbml/packages/layout/common/LayoutExtensionTypes.h>
 
 #include <sbml/conversion/ConversionProperties.h>
 #include <sbml/extension/SBasePlugin.h>
@@ -47,6 +41,8 @@
 #include <check.h>
 
 LIBSBML_CPP_NAMESPACE_USE
+
+extern char *TestDataDirectory;
 
 BEGIN_C_DECLS
 
@@ -373,6 +369,46 @@ START_TEST ( test_GeneralGlyph_new )
 }
 END_TEST
 
+START_TEST(test_GraphicalObject_readL2FileWithRenderAnnotation)
+{
+  std::string  fileName(TestDataDirectory);
+  fileName += "/l2-with-render.xml";
+
+  SBMLDocument* doc = readSBMLFromFile(fileName.c_str());
+
+  fail_unless(doc->getModel() != NULL);
+
+  LayoutModelPlugin* plug = static_cast<LayoutModelPlugin*>(doc->getModel()->getPlugin("layout"));
+
+  fail_unless(plug != NULL);
+
+  SpeciesGlyph* importantGlyph = plug->getLayout(0)->getSpeciesGlyph(0);
+
+  fail_unless(importantGlyph != NULL);
+
+#if !LIBSBML_HAS_PACKAGE_RENDER
+
+  fail_unless(doc->getErrorLog()->getNumErrors() == 0);
+
+  char* xml = importantGlyph->toSBML();
+
+  fail_unless(xml != NULL);
+
+  free(xml);
+
+  char* saved = writeSBMLToString(doc);
+
+  delete doc;
+  doc = readSBMLFromString(saved);
+  fail_unless(doc->getModel() != NULL);
+  fail_unless(doc->getErrorLog()->getNumErrors() == 0);
+
+#endif
+
+  delete doc;
+}
+END_TEST
+
 Suite *
 create_suite_GraphicalObject (void)
 {
@@ -395,6 +431,7 @@ create_suite_GraphicalObject (void)
   tcase_add_test( tcase, test_GraphicalObject_setBoundingBox                   );
   tcase_add_test( tcase, test_GraphicalObject_copyConstructor                  );
   tcase_add_test( tcase, test_GraphicalObject_assignmentOperator               );
+  tcase_add_test( tcase, test_GraphicalObject_readL2FileWithRenderAnnotation   );
   
   suite_add_tcase(suite, tcase);
   

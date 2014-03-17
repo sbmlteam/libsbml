@@ -684,6 +684,19 @@ void GraphicalObject::readAttributes (const XMLAttributes& attributes,
 				getErrorLog()->remove(UnknownCoreAttribute);
         int tc = this->getTypeCode();
 
+#if !LIBSBML_HAS_PACKAGE_RENDER
+
+        if (getLevel() == 2 && details.find("'render:objectRole'") != string::npos)
+        {
+          std::string role;
+          attributes.readInto("objectRole", role);
+          int index = attributes.getIndex("objectRole");
+          mAttributesOfUnknownPkg.add("objectRole", role, attributes.getURI(index),attributes.getPrefix(index));
+        }
+        else
+#endif
+
+
         switch (tc)
         {
         case SBML_LAYOUT_COMPARTMENTGLYPH:
@@ -914,6 +927,20 @@ GraphicalObject::writeXMLNS (XMLOutputStream& stream) const
     stream << xmlns;
     }
   }
+#else
+
+  if (getLevel() < 3)
+    for (unsigned int i = 0; i < mAttributesOfUnknownPkg.getNumAttributes(); ++i)
+    {
+      if (mAttributesOfUnknownPkg.getName(i) == "objectRole" && !mAttributesOfUnknownPkg.getPrefix(i).empty())
+      {
+        XMLNamespaces xmlns;
+        xmlns.add(mAttributesOfUnknownPkg.getURI(i), mAttributesOfUnknownPkg.getPrefix(i));
+        stream << xmlns;
+        break;
+      }
+    }
+
 #endif
 }
 /** @endcond */
