@@ -686,7 +686,7 @@ void GraphicalObject::readAttributes (const XMLAttributes& attributes,
 
 #if !LIBSBML_HAS_PACKAGE_RENDER
 
-        if (getLevel() == 2 && details.find("'render:objectRole'") != string::npos)
+        if (getLevel() == 2 && details.find("'render:objectRole'") != std::string::npos)
         {
           std::string role;
           attributes.readInto("objectRole", role);
