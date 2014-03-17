@@ -430,6 +430,7 @@ QualModelPlugin::createQualitativeSpecies ()
   {  
     QUAL_CREATE_NS(qualns, getSBMLNamespaces());
     g = new QualitativeSpecies(qualns);
+    mQualitativeSpecies.appendAndOwn(g);
     delete qualns;
   }
   catch(...)
@@ -442,8 +443,6 @@ QualModelPlugin::createQualitativeSpecies ()
      *  of error happened in this function.)
      */
   }
-
-  if (g) mQualitativeSpecies.appendAndOwn(g);
 
   return g;
 }
@@ -616,6 +615,7 @@ QualModelPlugin::createTransition ()
   {  
     QUAL_CREATE_NS(qualns, getSBMLNamespaces());
     g = new Transition(qualns);
+    mTransitions.appendAndOwn(g);
     delete qualns;
   }
   catch(...)
@@ -628,8 +628,6 @@ QualModelPlugin::createTransition ()
      *  of error happened in this function.)
      */
   }
-
-  if (g) mTransitions.appendAndOwn(g);
 
   return g;
 }

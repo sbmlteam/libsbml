@@ -289,7 +289,8 @@ int
   // convert model to L2V1 (as L2V2 is the last model that had charge)
   mDocument->setConversionValidators(AllChecksON & UnitsCheckOFF);
   
-  ConversionProperties prop(new SBMLNamespaces(2,1));
+  SBMLNamespaces l2ns(2,1);
+  ConversionProperties prop(&l2ns);
   prop.addOption("strict", false, "should validity be preserved");
   prop.addOption("ignorePackages", true, "convert even if packages are used");
   prop.addOption("setLevelAndVersion", true, "convert the document to the given level and version");

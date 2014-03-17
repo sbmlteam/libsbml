@@ -497,7 +497,8 @@ bool
 SBMLDocument::setLevelAndVersion (unsigned int level, unsigned int version,
                                   bool strict, bool ignorePackages)
 {
-  ConversionProperties prop(new SBMLNamespaces(level, version));
+  SBMLNamespaces sbmlns(level, version);
+  ConversionProperties prop(&sbmlns);
   prop.addOption("strict", strict, "should validity be preserved");
   prop.addOption("setLevelAndVersion", true, "convert the document to the given level and version");
   prop.addOption("ignorePackages", ignorePackages);

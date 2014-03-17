@@ -940,13 +940,13 @@ CompSBMLDocumentPlugin::checkConsistency()
   if (mFlattenAndCheck == true && mOverrideCompFlattening == false)
   {
     SBMLDocument * dummyDoc = doc->clone();
-    ConversionProperties* props = new ConversionProperties();
+    ConversionProperties props;
     
-    props->addOption("flatten comp");
-    props->addOption("performValidation", false);
+    props.addOption("flatten comp");
+    props.addOption("performValidation", false);
 
     SBMLConverter* converter = 
-               SBMLConverterRegistry::getInstance().getConverterFor(*props);
+               SBMLConverterRegistry::getInstance().getConverterFor(props);
     
 
     converter->setDocument(dummyDoc);

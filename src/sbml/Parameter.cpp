@@ -1136,7 +1136,7 @@ Parameter::inferUnits(Model* m, bool globalParameter)
     derivedUD = inferUnitsFromKineticLaw(kl, uff, m);
   }
 
-
+  delete uff;
   return derivedUD;
 }
 

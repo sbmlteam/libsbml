@@ -559,13 +559,14 @@ FunctionTerm::readOtherXML (XMLInputStream& stream)
     // the following assumes that the SBML Namespaces object is valid
     if (stream.getSBMLNamespaces() == NULL)
     {
-      stream.setSBMLNamespaces(new SBMLNamespaces(getLevel(), getVersion()));
+      stream.setSBMLNamespaces(getSBMLNamespaces());
     }
 
     delete mMath;
     mMath = readMathML(stream, prefix);
     if (mMath != NULL) mMath->setParentSBMLObject(this);
     read  = true;
+    stream.setSBMLNamespaces(NULL);
   }
 
   /* ------------------------------

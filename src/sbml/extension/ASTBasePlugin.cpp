@@ -335,10 +335,10 @@ ASTBasePlugin::getVersion() const
 SBMLNamespaces *
 ASTBasePlugin::getSBMLNamespaces() const
 {
-  if (mSBMLNS != NULL)
-    return mSBMLNS;
-  else
-    return new SBMLNamespaces();
+  if (mSBMLNS == NULL)
+    const_cast<ASTBasePlugin*>(this)->mSBMLNS = new SBMLNamespaces();
+  return mSBMLNS;
+
 }
 /* end doxygen comment */
 

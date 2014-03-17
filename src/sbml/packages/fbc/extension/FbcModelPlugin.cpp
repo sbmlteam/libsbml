@@ -193,7 +193,7 @@ void
 LIBSBML_EXTERN
 void
 parseFbcAnnotation(XMLNode * annotation, ListOfGeneAssociations& associations,
-                   FbcPkgNamespaces*fbcns)
+                   FbcPkgNamespaces* fbcns)
 {
   
   if (!annotation) return;
@@ -240,7 +240,7 @@ parseFbcAnnotation(XMLNode * annotation, ListOfGeneAssociations& associations,
       
       if (name2 == "geneAssociation")
       {
-        ga = new GeneAssociation(plOGATop->getChild(n), new FbcPkgNamespaces(*fbcns));
+        ga = new GeneAssociation(plOGATop->getChild(n), fbcns);
         associations.appendAndOwn(ga);
       }
       
@@ -1388,6 +1388,7 @@ FbcModelPlugin::getFluxBoundsForReaction(const std::string& reaction) const
 
   if (loFB->size() == 0)
   {
+    delete loFB;
     loFB = NULL;
   }
 

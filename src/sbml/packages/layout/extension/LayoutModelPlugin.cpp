@@ -473,11 +473,12 @@ LayoutModelPlugin::addLayout (const Layout* layout)
 Layout*
 LayoutModelPlugin::createLayout ()
 {
-  Layout* l = 0;
+  Layout* l = NULL;
   try
   {  
     LAYOUT_CREATE_NS(layoutns,getSBMLNamespaces());
     l = new Layout(layoutns);
+    mLayouts.appendAndOwn(l);
     delete layoutns;
   }
   catch(...)
@@ -491,8 +492,6 @@ LayoutModelPlugin::createLayout ()
      */
   }    
   
-  if (l) mLayouts.appendAndOwn(l);
-
   return l;
 }
 

@@ -170,6 +170,8 @@ readMathMLFromString (const char *xml)
   
   bool read = ast->read(stream);
   
+  stream.setSBMLNamespaces(NULL);
+  
   if (read == false 
     || hasSeriousErrors(stream.getErrorLog(), numErrorsB4Read) == true)
   {

@@ -188,7 +188,8 @@ int
 
   mDocument->setConversionValidators(AllChecksON & UnitsCheckOFF);
 
-  ConversionProperties prop(new SBMLNamespaces(3,1));
+  SBMLNamespaces l3ns(3,1);
+  ConversionProperties prop(&l3ns);
   prop.addOption("strict", false, "should validity be preserved");
   prop.addOption("ignorePackages", true, "convert even if packages are used");
   prop.addOption("setLevelAndVersion", true, "convert the document to the given level and version");

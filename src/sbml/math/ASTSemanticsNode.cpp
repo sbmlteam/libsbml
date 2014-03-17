@@ -48,12 +48,12 @@ using namespace std;
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
-ASTSemanticsNode::ASTSemanticsNode (int type) :
-  ASTFunctionBase(type)
-    , mDefinitionURL ( "" )
-    , mNumAnnotations ( 0 )
+ASTSemanticsNode::ASTSemanticsNode (int type) 
+  : ASTFunctionBase(type)
+  , mDefinitionURL ( "" )
+  , mNumAnnotations ( 0 )
 {
-  mSemanticsAnnotations   = new List;
+  mSemanticsAnnotations = new List;
 
 }
   
@@ -61,11 +61,12 @@ ASTSemanticsNode::ASTSemanticsNode (int type) :
 /**
  * Copy constructor
  */
-  ASTSemanticsNode::ASTSemanticsNode (const ASTSemanticsNode& orig):
-  ASTFunctionBase(orig)
-    , mDefinitionURL (orig.mDefinitionURL)
-    , mNumAnnotations (orig.mNumAnnotations)
+ASTSemanticsNode::ASTSemanticsNode (const ASTSemanticsNode& orig)
+  : ASTFunctionBase(orig)
+  , mDefinitionURL (orig.mDefinitionURL)
+  , mNumAnnotations (orig.mNumAnnotations)
 {
+  mSemanticsAnnotations = new List;
   for (unsigned int c = 0; c < orig.getNumSemanticsAnnotations(); ++c)
   {
     addSemanticsAnnotation( orig.getSemanticsAnnotation(c)->clone() );
@@ -86,7 +87,7 @@ ASTSemanticsNode::operator=(const ASTSemanticsNode& rhs)
     mNumAnnotations = rhs.mNumAnnotations;
     
     unsigned int size = mSemanticsAnnotations->getSize();
-    while (size--) 
+    while (size-- > 0) 
     {
       delete static_cast<XMLNode*>( mSemanticsAnnotations->remove(0) );
     }
@@ -106,6 +107,12 @@ ASTSemanticsNode::operator=(const ASTSemanticsNode& rhs)
  */
 ASTSemanticsNode::~ASTSemanticsNode ()
 {
+  unsigned int size = mSemanticsAnnotations->getSize();
+  while (size-- > 0) 
+  {
+    delete static_cast<XMLNode*>( mSemanticsAnnotations->remove(0) );
+  }
+  delete mSemanticsAnnotations;
 }
 
 
