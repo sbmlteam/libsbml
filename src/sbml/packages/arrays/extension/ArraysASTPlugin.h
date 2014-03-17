@@ -48,6 +48,12 @@
 LIBSBML_CPP_NAMESPACE_BEGIN
 
 
+typedef enum
+{
+  AST_TYPECODE_VECTOR_CONSTRUCTOR = 50
+, AST_TYPECODE_MATRIX_CONSTRUCTOR
+} ASTArrays_Class_TypeCode_t;
+
 
 
 class LIBSBML_EXTERN ArraysASTPlugin : public ASTBasePlugin
@@ -184,6 +190,8 @@ public:
   ASTArraysVectorFunctionNode * getVector() const;
 
   ASTArraysMatrixFunctionNode * getMatrix() const;
+
+  ArraysASTNodeType_t getASTType() const;
 
 protected:
   /** @cond doxygenLibsbmlInternal */

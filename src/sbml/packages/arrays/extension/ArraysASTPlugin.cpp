@@ -785,6 +785,30 @@ ArraysASTPlugin::getMatrix() const
 }
 
 
+ArraysASTNodeType_t
+ArraysASTPlugin::getASTType() const
+{
+  int type = AST_ARRAYS_UNKNOWN;
+  if (isSetMath() == true)
+  {
+    type = getMath()->getExtendedType();
+  }
+  else if (getParentASTObject() != NULL)
+  {
+    type = getParentASTObject()->getExtendedType();
+  }
+
+
+  if (type >= AST_LINEAR_ALGEBRA_DETERMINANT &&
+    type < AST_ARRAYS_UNKNOWN)
+  {
+    return (ArraysASTNodeType_t)(type);
+  }
+  else
+  {
+    return (ArraysASTNodeType_t)(AST_ARRAYS_UNKNOWN);
+  }
+}
 
 LIBSBML_CPP_NAMESPACE_END
 

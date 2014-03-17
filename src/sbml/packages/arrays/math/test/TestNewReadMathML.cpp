@@ -42,6 +42,7 @@
 
 #include <sbml/xml/XMLNode.h>
 #include <sbml/packages/arrays/extension/ArraysExtension.h>
+#include <sbml/packages/arrays/extension/ArraysASTPlugin.h>
 
 LIBSBML_CPP_NAMESPACE_USE
 
@@ -133,6 +134,17 @@ START_TEST (test_element_vector)
   fail_unless( child->getNumChildren() == 0);
 
 
+  ArraysASTPlugin* plugin = static_cast<ArraysASTPlugin*>(N->getPlugin("arrays"));
+  
+  fail_unless(plugin != NULL);
+  fail_unless(plugin->getASTType() == AST_LINEAR_ALGEBRA_VECTOR_CONSTRUCTOR);
+
+
+  plugin = static_cast<ArraysASTPlugin*>(child->getPlugin("arrays"));
+  
+  fail_unless(plugin != NULL);
+  fail_unless(plugin->getASTType() == AST_ARRAYS_UNKNOWN);
+
 }
 END_TEST
 
@@ -202,6 +214,12 @@ START_TEST (test_element_matrix)
   fail_unless( c1->getExtendedType() == AST_INTEGER);
   fail_unless( c1->getNumChildren() == 0);
   fail_unless( c1->getInteger() == 2);
+  
+  ArraysASTPlugin* plugin = static_cast<ArraysASTPlugin*>(N->getPlugin("arrays"));
+  
+  fail_unless(plugin != NULL);
+  fail_unless(plugin->getASTType() == AST_LINEAR_ALGEBRA_MATRIX_CONSTRUCTOR);
+
 }
 END_TEST
 
@@ -236,6 +254,12 @@ START_TEST (test_element_determinant)
   fail_unless( strcmp(child->getName(), "A") == 0);
   fail_unless( child->getNumChildren() == 0);
   fail_unless( child->getPackageName() == "core");
+
+  ArraysASTPlugin* plugin = static_cast<ArraysASTPlugin*>(N->getPlugin("arrays"));
+  
+  fail_unless(plugin != NULL);
+  fail_unless(plugin->getASTType() == AST_LINEAR_ALGEBRA_DETERMINANT);
+
 }
 END_TEST
 
@@ -279,6 +303,12 @@ START_TEST (test_element_vectorproduct)
   fail_unless( strcmp(child->getName(), "B") == 0);
   fail_unless( child->getNumChildren() == 0);
   fail_unless( child->getPackageName() == "core");
+
+  ArraysASTPlugin* plugin = static_cast<ArraysASTPlugin*>(N->getPlugin("arrays"));
+  
+  fail_unless(plugin != NULL);
+  fail_unless(plugin->getASTType() == AST_LINEAR_ALGEBRA_VECTOR_PRODUCT);
+
 }
 END_TEST
 
@@ -322,6 +352,11 @@ START_TEST (test_element_selector)
   fail_unless( child->getExtendedType() == AST_NAME);
   fail_unless( strcmp(child->getName(), "i") == 0);
   fail_unless( child->getNumChildren() == 0);
+
+  ArraysASTPlugin* plugin = static_cast<ArraysASTPlugin*>(N->getPlugin("arrays"));
+  
+  fail_unless(plugin != NULL);
+  fail_unless(plugin->getASTType() == AST_LINEAR_ALGEBRA_SELECTOR);
 
 }
 END_TEST

@@ -27,9 +27,11 @@
  */
 
 #include <sbml/packages/arrays/math/ASTArraysMatrixFunctionNode.h>
+#include <sbml/packages/arrays/extension/ArraysASTPlugin.h>
 #include <sbml/math/ASTNaryFunctionNode.h>
 #include <sbml/math/ASTNumber.h>
 #include <sbml/math/ASTFunction.h>
+
 
 /** @cond doxygen-ignored */
 
@@ -153,6 +155,14 @@ ASTArraysMatrixFunctionNode::read(XMLInputStream& stream, const std::string& req
 
   return read;
 }
+
+
+int
+ASTArraysMatrixFunctionNode::getTypeCode () const
+{
+  return AST_TYPECODE_MATRIX_CONSTRUCTOR;
+}
+
 
 
 

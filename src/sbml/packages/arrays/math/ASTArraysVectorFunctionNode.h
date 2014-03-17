@@ -90,6 +90,7 @@ public:
   virtual void write(XMLOutputStream& stream) const;
   virtual bool read(XMLInputStream& stream, const std::string& reqd_prefix="");
 
+  virtual int getTypeCode () const;
 
 protected:
 

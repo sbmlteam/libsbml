@@ -27,6 +27,7 @@
  */
 
 #include <sbml/packages/arrays/math/ASTArraysVectorFunctionNode.h>
+#include <sbml/packages/arrays/extension/ArraysASTPlugin.h>
 #include <sbml/math/ASTNaryFunctionNode.h>
 #include <sbml/math/ASTNumber.h>
 #include <sbml/math/ASTFunction.h>
@@ -150,6 +151,15 @@ ASTArraysVectorFunctionNode::read(XMLInputStream& stream, const std::string& req
 
   return read;
 }
+
+
+int
+ASTArraysVectorFunctionNode::getTypeCode () const
+{
+  return AST_TYPECODE_VECTOR_CONSTRUCTOR;
+}
+
+
 
 
 
