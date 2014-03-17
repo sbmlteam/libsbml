@@ -118,6 +118,7 @@ main (int argc, char *argv[])
 	 << "have the ability to convert this model or (automatic)" << endl
 	 << "conversion is not possible in this case." << endl;
 
+    delete document;
     return errors;
   }   
   else if (errors > 0)
@@ -134,6 +135,7 @@ main (int argc, char *argv[])
     writeSBML(document, outputFile);
   }
 
+  delete document;
   return 0;
 }
 

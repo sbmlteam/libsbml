@@ -533,6 +533,7 @@ START_CONSTRAINT (91020, Reaction, r)
                      ->getListOfNodes((ASTNodePredicate) ASTNode_isAvogadro);
 
   inv( names->getSize() == 0 );
+  delete names;
 }
 END_CONSTRAINT
 
@@ -545,6 +546,7 @@ START_CONSTRAINT (91020, AssignmentRule, r)
                      ->getListOfNodes((ASTNodePredicate) ASTNode_isAvogadro);
 
   inv( names->getSize() == 0 );
+  delete names;
 }
 END_CONSTRAINT
 
@@ -557,6 +559,7 @@ START_CONSTRAINT (91020, RateRule, r)
                      ->getListOfNodes((ASTNodePredicate) ASTNode_isAvogadro);
 
   inv( names->getSize() == 0 );
+  delete names;
 }
 END_CONSTRAINT
 
@@ -569,6 +572,7 @@ START_CONSTRAINT (91020, AlgebraicRule, r)
                      ->getListOfNodes((ASTNodePredicate) ASTNode_isAvogadro);
 
   inv( names->getSize() == 0 );
+  delete names;
 }
 END_CONSTRAINT
 
@@ -581,6 +585,7 @@ START_CONSTRAINT (91020, InitialAssignment, ia)
                      ->getListOfNodes((ASTNodePredicate) ASTNode_isAvogadro);
 
   inv( names->getSize() == 0 );
+  delete names;
 }
 END_CONSTRAINT
 
