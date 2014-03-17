@@ -564,17 +564,23 @@ END_CONSTRAINT
 START_CONSTRAINT (99508, Parameter, p)
 {
   pre ( p.getLevel() > 2);
-  const UnitDefinition * ud = p.getDerivedUnitDefinition();
-  pre ( ud != NULL);
+  UnitDefinition * ud =  const_cast<UnitDefinition*>(p.getDerivedUnitDefinition());
+  
+  bool isNotNull = ud != NULL;
+  int numUnits = isNotNull ? ud->getNumUnits() : 0;
+  
+  delete(ud);
+  
+  if (!isNotNull)  
+
+  pre ( isNotNull);
   
   msg = "The units of the <parameter> '";
   msg += p.getId() ;
   msg += "' cannot be fully checked. Unit consistency reported as either no errors ";
   msg += "or further unit errors related to this object may not be accurate.";
 
-  inv( !(ud->getNumUnits() == 0));
-
-  delete const_cast<UnitDefinition*>(ud);
+  inv( !(numUnits == 0));  
 
 }
 END_CONSTRAINT
