@@ -100,7 +100,7 @@ START_TEST (test_element_vector)
 
 
 
-  N = readMathMLFromString(s, NS);
+  N = readMathMLFromStringWithNamespaces(s, NS);
 
   fail_unless( N != NULL );
   fail_unless( N->getType() == AST_ORIGINATES_IN_PACKAGE);
@@ -163,7 +163,7 @@ START_TEST (test_element_matrix)
 
 
 
-  N = readMathMLFromString(s, NS);
+  N = readMathMLFromStringWithNamespaces(s, NS);
 
   fail_unless( N != NULL );
   fail_unless( N->getType() == AST_ORIGINATES_IN_PACKAGE);
@@ -220,7 +220,7 @@ START_TEST (test_element_determinant)
 
 
 
-  N = readMathMLFromString(s, NS);
+  N = readMathMLFromStringWithNamespaces(s, NS);
 
   fail_unless( N != NULL );
   fail_unless( N->getType() == AST_ORIGINATES_IN_PACKAGE);
@@ -255,7 +255,7 @@ START_TEST (test_element_vectorproduct)
 
 
 
-  N = readMathMLFromString(s, NS);
+  N = readMathMLFromStringWithNamespaces(s, NS);
 
   fail_unless( N != NULL );
   fail_unless( N->getType() == AST_ORIGINATES_IN_PACKAGE);
@@ -298,7 +298,7 @@ START_TEST (test_element_selector)
 
 
 
-  N = readMathMLFromString(s, NS);
+  N = readMathMLFromStringWithNamespaces(s, NS);
 
   fail_unless( N != NULL );
   fail_unless( N->getType() == AST_ORIGINATES_IN_PACKAGE);
