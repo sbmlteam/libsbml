@@ -52,6 +52,7 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 LayoutSBMLDocumentPlugin::LayoutSBMLDocumentPlugin (const std::string &uri, 
                                                     const std::string &prefix, LayoutPkgNamespaces *layoutns)
   : SBMLDocumentPlugin(uri,prefix, layoutns)
+  , mElementsWithId(NULL)
   , mValidationListsPopulated ( false )
 {
 }
@@ -59,6 +60,7 @@ LayoutSBMLDocumentPlugin::LayoutSBMLDocumentPlugin (const std::string &uri,
 
 LayoutSBMLDocumentPlugin::LayoutSBMLDocumentPlugin(const LayoutSBMLDocumentPlugin& orig)
   : SBMLDocumentPlugin(orig)
+  , mElementsWithId(NULL)
   , mValidationListsPopulated ( false )
 {
 }
@@ -70,7 +72,11 @@ LayoutSBMLDocumentPlugin::operator=(const LayoutSBMLDocumentPlugin& orig)
   if(&orig!=this)
   {
     SBMLDocumentPlugin::operator =(orig);
-    mValidationListsPopulated = orig.mValidationListsPopulated;
+    if (mElementsWithId != NULL) 
+    delete mElementsWithId;
+    mValidationListsPopulated = false;
+    mElementsWithId = NULL;
+    
   }    
   return *this;
 }
@@ -90,6 +96,7 @@ LayoutSBMLDocumentPlugin::clone () const
  */
 LayoutSBMLDocumentPlugin::~LayoutSBMLDocumentPlugin () 
 {
+  if (mElementsWithId != NULL) delete mElementsWithId;
 }
 
 
@@ -247,7 +254,10 @@ LayoutSBMLDocumentPlugin::haveValidationListsBeenPopulated() const
 void
 LayoutSBMLDocumentPlugin::populateValidationLists()
 {
-  mElementsWithId = new List();
+  
+  delete mElementsWithId;
+  mElementsWithId = NULL;
+  
   mMetaIdList.clear();
   mIdList.clear();
 
