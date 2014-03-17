@@ -134,7 +134,61 @@ writeMathML (const ASTNode* node, XMLOutputStream& stream, SBMLNamespaces *sbmln
  */
 LIBSBML_EXTERN
 ASTNode_t *
-readMathMLFromString (const char *xml, XMLNamespaces_t * xmlns)
+readMathMLFromString (const char *xml)
+{
+  if (xml == NULL) return NULL;
+
+  const char* dummy_xml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>";
+  const char* xmlstr_c;
+  
+  if (!strncmp(xml, dummy_xml, 14))
+  {
+    xmlstr_c = xml;
+  }
+  else
+  {
+    std::ostringstream oss;
+    const char* dummy_xml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>";
+
+    oss << dummy_xml;
+    oss << xml;
+
+
+    xmlstr_c = safe_strdup(oss.str().c_str());
+  }
+
+  XMLInputStream stream(xmlstr_c, false);
+  SBMLErrorLog   log;
+
+  stream.setErrorLog(&log);
+  SBMLNamespaces sbmlns;
+  stream.setSBMLNamespaces(&sbmlns);
+
+  unsigned int numErrorsB4Read = stream.getErrorLog()->getNumErrors();
+  
+  ASTNode* ast = new ASTNode(&sbmlns);
+  
+  bool read = ast->read(stream);
+  
+  if (read == false 
+    || hasSeriousErrors(stream.getErrorLog(), numErrorsB4Read) == true)
+  {
+    delete ast;
+    return NULL;
+  }
+
+  return ast;
+}
+
+
+/**
+ * @if conly
+ * @memberof ASTNode_t
+ * @endif
+ */
+LIBSBML_EXTERN
+ASTNode_t *
+readMathMLFromStringWithNamespaces (const char *xml, XMLNamespaces_t * xmlns)
 {
   if (xml == NULL) return NULL;
 

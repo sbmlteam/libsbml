@@ -102,7 +102,28 @@ BEGIN_C_DECLS
  */
 LIBSBML_EXTERN
 ASTNode_t *
-readMathMLFromString (const char *xml, XMLNamespaces_t * xmlns = NULL);
+readMathMLFromString (const char *xml);
+
+
+/**
+ * Reads the MathML from the given XML string, constructs a corresponding
+ * abstract syntax tree, and returns a pointer to the root of the tree.
+ *
+ * @param xml a string containing a full MathML expression
+ * @param xmlns a XMLNamespaces_t object containing namespaces that
+ * are considered active during the read e.g. an L3 package namespace
+ *
+ * @return the root of an AST corresponding to the given mathematical
+ * expression, otherwise @c NULL is returned if the given string is @c NULL
+ * or invalid.
+ *
+ * @if conly
+ * @memberof ASTNode_t
+ * @endif
+ */
+LIBSBML_EXTERN
+ASTNode_t *
+readMathMLFromStringWithNamespaces (const char *xml, XMLNamespaces_t * xmlns);
 
 
 /**
