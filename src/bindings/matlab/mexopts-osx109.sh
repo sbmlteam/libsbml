@@ -259,7 +259,7 @@ echo "Error: Did not imbed 'options.sh' code"; exit 1 #imbed options.sh mac 12
             SDKROOT='/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk'
             MACOSX_DEPLOYMENT_TARGET='10.9'
             ARCHS='x86_64'
-            CFLAGS="-fno-common -no-cpp-precomp -arch $ARCHS -isysroot $SDKROOT -mmacosx-version-min=$MACOSX_DEPLOYMENT_TARGET"
+            CFLAGS="-fno-common -std=c++11 -no-cpp-precomp -arch $ARCHS -isysroot $SDKROOT -mmacosx-version-min=$MACOSX_DEPLOYMENT_TARGET"
             CFLAGS="$CFLAGS  -fexceptions"
             CLIBS="$MLIBS"
             COPTIMFLAGS='-O2 -DNDEBUG'
@@ -271,7 +271,7 @@ echo "Error: Did not imbed 'options.sh' code"; exit 1 #imbed options.sh mac 12
             # C++keyLanguage: C++
             # C++keyVersion:
             CXX=g++
-            CXXFLAGS="-fno-common -no-cpp-precomp -fexceptions -arch $ARCHS -isysroot $SDKROOT -mmacosx-version-min=$MACOSX_DEPLOYMENT_TARGET"
+            CXXFLAGS="-fno-common -std=c++11 -no-cpp-precomp -fexceptions -arch $ARCHS -isysroot $SDKROOT -mmacosx-version-min=$MACOSX_DEPLOYMENT_TARGET"
             CXXLIBS="$MLIBS -lstdc++"
             CXXOPTIMFLAGS='-O2 -DNDEBUG'
             CXXDEBUGFLAGS='-g'
