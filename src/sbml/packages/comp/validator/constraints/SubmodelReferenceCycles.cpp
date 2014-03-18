@@ -315,10 +315,13 @@ SubmodelReferenceCycles::logCycle (const Model& m, std::string id,
   msg += "'.";
 
   // want to log the error on a comp object
+  // otherwise it does not get picked up as comp error and will
+  // not find itself in the correct table
   COMP_CREATE_NS(compns, m.getSBMLNamespaces());
-  Submodel *sub = new Submodel(compns);
+  Submodel sub = Submodel(compns);
   delete compns;
-  logFailure(*(sub));
+
+  logFailure(sub);
 }  
 
 
