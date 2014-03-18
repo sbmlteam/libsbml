@@ -205,13 +205,13 @@ echo "Error: Did not imbed 'options.sh' code"; exit 1 #imbed options.sh mac 12
             # CkeyManufacturer: GNU
             # CkeyLanguage: C
             # CkeyVersion:
-            CC='gcc'
+            CC='g++'
             SDKROOT='/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk'
             MACOSX_DEPLOYMENT_TARGET='10.9'
             ARCHS='i386'
             CFLAGS="-fno-common -std=c++11 -no-cpp-precomp -arch $ARCHS -isysroot $SDKROOT -mmacosx-version-min=$MACOSX_DEPLOYMENT_TARGET"
             CFLAGS="$CFLAGS  -fexceptions"
-            CLIBS="$MLIBS"
+            CLIBS="$MLIBS -lstdc++"
             COPTIMFLAGS='-O2 -DNDEBUG'
             CDEBUGFLAGS='-g'
 #
@@ -255,13 +255,13 @@ echo "Error: Did not imbed 'options.sh' code"; exit 1 #imbed options.sh mac 12
             # CkeyManufacturer: GNU
             # CkeyLanguage: C
             # CkeyVersion:
-            CC='gcc'
+            CC='g++'
             SDKROOT='/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk'
             MACOSX_DEPLOYMENT_TARGET='10.9'
             ARCHS='x86_64'
             CFLAGS="-fno-common -std=c++11 -no-cpp-precomp -arch $ARCHS -isysroot $SDKROOT -mmacosx-version-min=$MACOSX_DEPLOYMENT_TARGET"
             CFLAGS="$CFLAGS  -fexceptions"
-            CLIBS="$MLIBS"
+            CLIBS="$MLIBS -lstdc++"
             COPTIMFLAGS='-O2 -DNDEBUG'
             CDEBUGFLAGS='-g'
 #

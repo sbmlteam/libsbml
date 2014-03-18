@@ -55,9 +55,9 @@
 #endif
 
 
-static char * timeSymbol = "";
-static char * delaySymbol = "";
-static char * avoSymbol = "";
+static char * timeSymbol = NULL;
+static char * delaySymbol = NULL;
+static char * avoSymbol = NULL;
 
 int fbcPresent;
 
@@ -171,9 +171,6 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
   mxArray * mxOctave[1];
   int inInstaller = 0;
   char * msgTxt = NULL;
-  timeSymbol = "";
-  delaySymbol = "";
-  avoSymbol = "";
   fbcPresent = 0;
 
   /* determine whether we are in octave or matlab */
@@ -219,11 +216,11 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
 
 /**
  * we know have the option of a third argument that indicates that we
- * want teh structure to ONLY contain expected fields or not
+ * want the structure to ONLY contain expected fields or not
  */
 if (nrhs > 2)
 {
-  mxModel[1] = prhs[2];
+  mxModel[1] = (mxArray *)prhs[2];
 }  
 else
 {
@@ -322,6 +319,12 @@ else
     delaySymbol = (char *)mxCalloc(nBuflen, sizeof(char));
     nStatus = mxGetString(mxDelaySymbol, delaySymbol, (mwSize)(nBuflen));
   }
+  else
+  {
+    timeSymbol = (char *)mxCalloc(0, sizeof(char));
+    delaySymbol = (char *)mxCalloc(0, sizeof(char));
+
+  }
 
   if (nLevel > 2)
   {
@@ -329,6 +332,10 @@ else
     nBuflen = (mxGetM(mxAvoSymbol)*mxGetN(mxAvoSymbol)+1);
     avoSymbol = (char *)mxCalloc(nBuflen, sizeof(char));
     nStatus = mxGetString(mxAvoSymbol, avoSymbol, (mwSize)(nBuflen)); 
+  }
+  else
+  {
+    avoSymbol = (char *)mxCalloc(0, sizeof(char));
   }
 
   /* add any saved namespaces */
