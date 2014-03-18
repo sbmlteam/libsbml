@@ -597,10 +597,13 @@ following example fragment illustrates this:
  * package plug-ins.</span>
 @endverbatim
 
-As a convention, please put @c @@note blocks at the end of a documentation
-block, but before any @c @@warning blocks, and put @c @@warning blocks last,
-at the end of a documentation block, unless there is a special reason to put
-it higher.
+As a convention, please put @c @@note blocks after other text such as
+parameter lists and general explanations.  Put @c @@warning blocks after any
+@c @@note blocks, but put @c @@warning blocks @em before @c @@see blocks, and
+put @c @@see very last in documentation.  Sometimes there are exceptional
+situations were it's better to put warnings higher in the documentation of a
+class or method, but in most cases, the sequence should be: @c @@note, @c
+@@warning, and @c @@see.
 
 
 @subsection coding-figures 4.5 Figures
@@ -731,8 +734,6 @@ Formats the following paragraph with the heading "Note:".  Useful to call
 out something special about a class, function, file or other entity, such
 as a behavior that should be brought to the attention of users or a note
 about API changes compared to previous versions of the software or SBML.
-As a convention, please put @c @@note blocks at the end of a documentation
-block, for uniformity in the API documentation.
 </td></tr>
 <tr><td>@c @@return</td>
 <td>
@@ -746,15 +747,17 @@ more information.
 <tr><td>@c @@see</td>
 <td>
 Formats a reference to another entity in the documentation.  Commonly used
-to refer to related classes or methods.
+to refer to related classes or methods.  As a convention, please put @c @@see
+blocks at the very end of a documentation block, for uniformity in the
+API documentation.
 </td></tr>
 <tr><td>@c @@warning</td>
 <td>
 Formats the following paragraph with the heading "Warning:".  This is a
 stronger statement than @c @@note, and is useful to call attention to
 backward-incompatible changes or potentially error-provoking situations.
-As a convention, please put @c @@warning blocks at the end of a documentation
-block, for uniformity in the API documentation, and please wrap them with
+As a convention, please put @c @@warning blocks after @c @@note blocks
+in documentation, and please wrap them with
 an HTML span element with the CSS class "warning".  (See discussion in
 Section @ref coding-common-text.)
 </td></tr>
