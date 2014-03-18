@@ -321,8 +321,8 @@ else
   }
   else
   {
-    timeSymbol = (char *)mxCalloc(0, sizeof(char));
-    delaySymbol = (char *)mxCalloc(0, sizeof(char));
+    timeSymbol = (char *)mxCalloc(1, sizeof(char));
+    delaySymbol = (char *)mxCalloc(1, sizeof(char));
 
   }
 
@@ -335,7 +335,7 @@ else
   }
   else
   {
-    avoSymbol = (char *)mxCalloc(0, sizeof(char));
+    avoSymbol = (char *)mxCalloc(1, sizeof(char));
   }
 
   /* add any saved namespaces */
