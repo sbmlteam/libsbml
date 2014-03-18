@@ -457,8 +457,8 @@ The <code>@@copydetails</code> method described above works well for most
 situations, except when you need to use significant HTML commands for special
 formatting.  Some HTML commands will either be intercepted by Doxygen, or
 else it may become very awkward to write the HTML as comments in a
-<code>.h</code>.  In those cases, using Doxygen's <code>@@htmlinclude</code>
-can be a better option.
+<code>.h</code> file.  In those cases, using Doxygen's
+<code>@@htmlinclude</code> can be a better option.
 
 The <code>@@htmlinclude</code> command takes a single argument, the name of a
 file.  This file must be placed in a preconfigured location; we use the
