@@ -51,6 +51,90 @@ using namespace std;
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
+
+
+/*
+ * String Constants
+ */
+static const char *AST_LAMBDA_STRING = "lambda";
+
+static const char *AST_CONSTANT_STRINGS[] =
+{
+  "exponentiale"
+  , "false"
+  , "pi"
+  , "true"
+};
+
+static const char *AST_FUNCTION_STRINGS[] =
+{
+  "abs"
+  , "arccos"
+  , "arccosh"
+  , "arccot"
+  , "arccoth"
+  , "arccsc"
+  , "arccsch"
+  , "arcsec"
+  , "arcsech"
+  , "arcsin"
+  , "arcsinh"
+  , "arctan"
+  , "arctanh"
+  , "ceiling"
+  , "cos"
+  , "cosh"
+  , "cot"
+  , "coth"
+  , "csc"
+  , "csch"
+  , "delay"
+  , "exp"
+  , "factorial"
+  , "floor"
+  , "ln"
+  , "log"
+  , "piecewise"
+  , "power"
+  , "root"
+  , "sec"
+  , "sech"
+  , "sin"
+  , "sinh"
+  , "tan"
+  , "tanh"
+};
+
+
+static const char *AST_LOGICAL_STRINGS[] =
+{
+  "and"
+  , "not"
+  , "or"
+  , "xor"
+};
+
+
+static const char *AST_RELATIONAL_STRINGS[] =
+{
+  "eq"
+  , "geq"
+  , "gt"
+  , "leq"
+  , "lt"
+  , "neq"
+};
+
+
+static const char *AST_OPERATOR_STRINGS[] =
+{
+  "divide"
+  , "minus"
+  , "plus"
+  , "times"
+  , "power"
+};
+
 /*
  * Used by the Destructor to delete each item in mPlugins.
  */
@@ -3113,89 +3197,6 @@ ASTNode::canonicalize ()
 
   return found;
 }
-
-/*
- * String Constants
- */
-static const char *AST_LAMBDA_STRING = "lambda";
-
-static const char *AST_CONSTANT_STRINGS[] =
-{
-    "exponentiale"
-  , "false"
-  , "pi"
-  , "true"
-};
-
-static const char *AST_FUNCTION_STRINGS[] =
-{
-    "abs"
-  , "arccos"
-  , "arccosh"
-  , "arccot"
-  , "arccoth"
-  , "arccsc"
-  , "arccsch"
-  , "arcsec"
-  , "arcsech"
-  , "arcsin"
-  , "arcsinh"
-  , "arctan"
-  , "arctanh"
-  , "ceiling"
-  , "cos"
-  , "cosh"
-  , "cot"
-  , "coth"
-  , "csc"
-  , "csch"
-  , "delay"
-  , "exp"
-  , "factorial"
-  , "floor"
-  , "ln"
-  , "log"
-  , "piecewise"
-  , "power"
-  , "root"
-  , "sec"
-  , "sech"
-  , "sin"
-  , "sinh"
-  , "tan"
-  , "tanh"
-};
-
-
-static const char *AST_LOGICAL_STRINGS[] =
-{
-    "and"
-  , "not"
-  , "or"
-  , "xor"
-};
-
-
-static const char *AST_RELATIONAL_STRINGS[] =
-{
-    "eq"
-  , "geq"
-  , "gt"
-  , "leq"
-  , "lt"
-  , "neq"
-};
-
-
-static const char *AST_OPERATOR_STRINGS[] =
-{
-    "divide"
-  , "minus"
-  , "plus"
-  , "times"
-  , "power"
-};
-
 
 
 bool
