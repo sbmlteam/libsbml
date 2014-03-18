@@ -49,7 +49,7 @@ both Doxygen and Javadoc.
 beginning with two asterisks (@c *) characters, as in the following example:
 @verbatim
 /**
- * Comments that start with two astericks within which commands understood by
+ * Comments that start with two asterisks within which commands understood by
  * Doxygen will begin with the character @.
  */ 
 @endverbatim
@@ -438,7 +438,7 @@ by the name of the fake class.  Here is an example:
  * @sbmlbrief{core} Implementation of SBML Level&nbsp;2's %ListOfCompartments
  * construct.
  * 
- * @@copydetails doc_what_is_listof
+ * @copydetails doc_what_is_listof
  */
 @endverbatim
 
@@ -483,7 +483,7 @@ in a documentation string.
 
 It is worth reiterating that normal Doxygen processing is not performed
 inside the contents of the file included through this mechanism.
-Cross-references will not be made, the Doxygen <code>@@</code> commands will
+Cross-references will not be made, the Doxygen <code>@@</code>&nbsp;commands will
 be ignored, etc.  For most cases, it is preferrable to use the
 <code>@@copydetails</code> approach described in the previous section.
 
@@ -492,7 +492,7 @@ be ignored, etc.  For most cases, it is preferrable to use the
 
 Most of the time, you can rely on Doxygen's ability to connect a written
 reference to a class or method to the definition of that class or method.  In
-a few cases, however,, you must write an explicit <code>@@link</code>
+a few cases, however, you must write an explicit <code>@@link</code>
 ... <code>@@endlink</code> command.  The syntax of this Doxygen command
 consists of the target of the link, optionally followed by a name to be used
 for the link.
@@ -511,19 +511,21 @@ method on the Compartment class.  In these cases, the name of the link is
 given as simply the name of the enumeration member without the enumeration
 prefix:
 @verbatim
-/**
- * Sets the value of the "id" attribute of this Compartment.
- *
- * The string @p sid is copied.  Note that SBML has strict requirements
- * for the syntax of identifiers.  @htmlinclude id-syntax.html
- *
- * @param sid the string to use as the identifier of this Compartment
- *
- * @return integer value indicating success/failure of the
- * function.  The possible values returned by this function are:
- * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
- * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE @endlink
- */
+  /**
+   * Sets the value of the "id" attribute of this Compartment.
+   *
+   * The string @p sid is copied.
+   *
+   * @copydetails doc_id_syntax
+   *
+   * @param sid the string to use as the identifier of this Compartment
+   *
+   * @return integer value indicating success/failure of the
+   * function.  The possible values
+   * returned by this function are:
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+   * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE @endlink
+   */
 virtual int setId (const std::string& sid);
 @endverbatim
 
@@ -600,9 +602,7 @@ be highlighted.
 To call out something special about a class, function, file or other entity,
 such as a behavior that should be brought to the attention of users or a note
 about API changes, please use the @c @@note command.  This formats the next
-paragraph with the heading "Note:".  As a convention, please put @c @@note
-blocks at the end of a documentation block but before any @c @@warning
-blocks.
+paragraph with the heading "Note:".
 
 To make a stronger statement, for example to warn users about potentially
 error-provoking situations or backward-incompatible changes in the API, use
@@ -621,8 +621,10 @@ following example fragment illustrates this:
  * package plug-ins.</span>
 @endverbatim
 
-As a convention, please put @c @@warning blocks last, at the end of a
-documentation block, unless there is a special reason to put it higher.
+As a convention, please put @c @@note blocks at the end of a documentation
+block, but before any @c @@warning blocks, and put @c @@warning blocks last,
+at the end of a documentation block, unless there is a special reason to put
+it higher.
 
 
 @subsection coding-figures 4.5 Figures
@@ -647,7 +649,7 @@ commands when you use it: once with @c html and once with @c latex.
 
 The following is a summary of the doxygen commands we have found useful so
 far in documenting libSBML.  This is only intended as a quick orientation;
-they are illustrated in the other sections below, and the complete details
+they are illustrated in the other sections above, and the complete details
 of their definitions and use can be found online at the <a
 href="http://www.doxygen.org">Doxygen</a> website.
 
