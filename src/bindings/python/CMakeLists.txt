@@ -135,8 +135,9 @@ ADD_CUSTOM_COMMAND(
     ARGS	-I${CMAKE_CURRENT_SOURCE_DIR}/../swig/
 			-I${CMAKE_CURRENT_SOURCE_DIR} 
 			-I${CMAKE_CURRENT_BINARY_DIR} 
-			-I${CMAKE_SOURCE_DIR}/src
-			-I${CMAKE_SOURCE_DIR}/include
+			-I${LIBSBML_ROOT_BINARY_DIR}/src
+			-I${LIBSBML_ROOT_SOURCE_DIR}/src
+			-I${LIBSBML_ROOT_SOURCE_DIR}/include
 			-c++
 			-python		
 			${SWIG_EXTRA_ARGS}		 
@@ -152,8 +153,9 @@ ADD_CUSTOM_COMMAND(
     ARGS	-I${CMAKE_CURRENT_SOURCE_DIR}/../swig/
 			-I${CMAKE_CURRENT_SOURCE_DIR} 
 			-I${CMAKE_CURRENT_BINARY_DIR} 
-			-I${CMAKE_SOURCE_DIR}/src
-			-I${CMAKE_SOURCE_DIR}/include
+			-I${LIBSBML_ROOT_BINARY_DIR}/src
+			-I${LIBSBML_ROOT_SOURCE_DIR}/src
+			-I${LIBSBML_ROOT_SOURCE_DIR}/include
 			-c++
 			-python		
 			${SWIG_EXTRA_ARGS}		 
@@ -177,9 +179,9 @@ add_custom_target(binding_python_swig ALL DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/li
 
 include_directories(${CMAKE_CURRENT_SOURCE_DIR})
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/../swig)
-include_directories(${CMAKE_SOURCE_DIR}/include)
+include_directories(${LIBSBML_ROOT_SOURCE_DIR}/include)
 include_directories(${PYTHON_INCLUDE_DIRS})
-include_directories(BEFORE ${CMAKE_BINARY_DIR}/src)
+include_directories(BEFORE ${LIBSBML_ROOT_BINARY_DIR}/src)
 include_directories(BEFORE ${CMAKE_CURRENT_BINARY_DIR})
 
 if (EXTRA_INCLUDE_DIRS) 
@@ -242,11 +244,11 @@ add_custom_command(
 	ARGS -E make_directory ${PYTHON_SOURCE_OUT_DIR}
 	COMMAND "${CMAKE_COMMAND}"
 	ARGS -DOUT_DIR=\"${NATIVE_OUT}\" 
-		 -DSRC_DIR=\"${CMAKE_SOURCE_DIR}/src\"
-		 -DBIN_DIR=\"${CMAKE_BINARY_DIR}\"
-		 -P "${CMAKE_SOURCE_DIR}/dev/utilities/python_package/create_package.cmake"
+		 -DSRC_DIR=\"${LIBSBML_ROOT_SOURCE_DIR}/src\"
+		 -DBIN_DIR=\"${LIBSBML_ROOT_BINARY_DIR}\"
+		 -P "${LIBSBML_ROOT_SOURCE_DIR}/dev/utilities/python_package/create_package.cmake"
 
-	WORKING_DIRECTORY "${CMAKE_SOURCE_DIR}/dev/utilities/python_package/"
+	WORKING_DIRECTORY "${LIBSBML_ROOT_SOURCE_DIR}/dev/utilities/python_package/"
     COMMENT "Configure Python source package"
 	)
 

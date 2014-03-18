@@ -34,8 +34,8 @@ file(GLOB H_FILES ${CMAKE_CURRENT_SOURCE_DIR}/*.h )
 set(TEST_FILES ${CPP_FILES} ${C_FILES} ${H_FILES})
 
 include_directories(${LIBCHECK_INCLUDE_DIR})
-include_directories(BEFORE  ${CMAKE_SOURCE_DIR}/src)
-include_directories(BEFORE ${CMAKE_BINARY_DIR}/src)
+include_directories(BEFORE  ${LIBSBML_ROOT_SOURCE_DIR}/src)
+include_directories(BEFORE ${LIBSBML_ROOT_BINARY_DIR}/src)
 
 
 add_executable(test_sbml_package_fbc ${TEST_FILES})

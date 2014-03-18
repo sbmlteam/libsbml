@@ -158,15 +158,16 @@ ADD_CUSTOM_COMMAND(
 	COMMAND "${PYTHON_EXECUTABLE}"
 	ARGS	"${CMAKE_CURRENT_SOURCE_DIR}/../swig/swigdoc.py"
 			java
-			-I"${CMAKE_SOURCE_DIR}/src"
-			-D"${CMAKE_SOURCE_DIR}/docs/src"
+			-I"${LIBSBML_ROOT_SOURCE_DIR}/src"
+			-D"${LIBSBML_ROOT_SOURCE_DIR}/docs/src"
 			"${CMAKE_CURRENT_SOURCE_DIR}/../swig/libsbml.i"
 			"${CMAKE_CURRENT_BINARY_DIR}/javadoc.i"	
     COMMAND "${SWIG_EXECUTABLE}"
     ARGS -I${CMAKE_CURRENT_SOURCE_DIR}/../swig/
          -I${CMAKE_CURRENT_SOURCE_DIR} 
-		 -I${CMAKE_SOURCE_DIR}/src
-		 -I${CMAKE_SOURCE_DIR}/include
+		 -I${LIBSBML_ROOT_BINARY_DIR}/src
+		 -I${LIBSBML_ROOT_SOURCE_DIR}/src
+		 -I${LIBSBML_ROOT_SOURCE_DIR}/include
 		 -c++
 		 -java
 		 -package org.sbml.libsbml
@@ -184,8 +185,8 @@ add_custom_target(binding_java_swig ALL DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/libs
 	
 include_directories(${CMAKE_CURRENT_SOURCE_DIR})
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/../swig)
-include_directories(${CMAKE_SOURCE_DIR}/include)
-include_directories(BEFORE ${CMAKE_BINARY_DIR}/src)
+include_directories(${LIBSBML_ROOT_SOURCE_DIR}/include)
+include_directories(BEFORE ${LIBSBML_ROOT_BINARY_DIR}/src)
 
 if (EXTRA_INCLUDE_DIRS) 
  include_directories(${EXTRA_INCLUDE_DIRS})

@@ -133,16 +133,17 @@ ADD_CUSTOM_COMMAND(
 	COMMAND "${PYTHON_EXECUTABLE}"
 	ARGS	"${CMAKE_CURRENT_SOURCE_DIR}/../swig/swigdoc.py"
 			csharp
-			-I"${CMAKE_SOURCE_DIR}/src"
-			-D"${CMAKE_SOURCE_DIR}/docs/src"
+			-I"${LIBSBML_ROOT_SOURCE_DIR}/src"
+			-D"${LIBSBML_ROOT_SOURCE_DIR}/docs/src"
 			"${CMAKE_CURRENT_SOURCE_DIR}/../swig/libsbml.i"
 			"${CMAKE_CURRENT_BINARY_DIR}/csdoc.i"
     COMMAND "${CMAKE_COMMAND}"
     ARGS  -E make_directory "${LIBSBML_CS_FILES}"
     COMMAND "${SWIG_EXECUTABLE}"
     ARGS -I${CMAKE_CURRENT_SOURCE_DIR}/../swig/
-         -I${CMAKE_SOURCE_DIR}/src
-         -I${CMAKE_SOURCE_DIR}/include
+         -I${LIBSBML_ROOT_BINARY_DIR}/src
+         -I${LIBSBML_ROOT_SOURCE_DIR}/src
+         -I${LIBSBML_ROOT_SOURCE_DIR}/include
          -I${CMAKE_CURRENT_SOURCE_DIR}
 	     -c++
 	     -csharp
@@ -178,8 +179,8 @@ endif()
 
 include_directories(${CMAKE_CURRENT_SOURCE_DIR})
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/../swig)
-include_directories(BEFORE ${CMAKE_SOURCE_DIR}/src)
-include_directories(BEFORE ${CMAKE_BINARY_DIR}/src)
+include_directories(BEFORE ${LIBSBML_ROOT_SOURCE_DIR}/src)
+include_directories(BEFORE ${LIBSBML_ROOT_BINARY_DIR}/src)
 
 if (EXTRA_INCLUDE_DIRS) 
  include_directories(${EXTRA_INCLUDE_DIRS})
@@ -271,7 +272,7 @@ if(UNIX)
 	  NAME test_csharp_bindings
 	  COMMAND mono
 	          ${CMAKE_CURRENT_BINARY_DIR}/TestRW.exe
-			  ${CMAKE_SOURCE_DIR}/examples/sample-models/from-spec/level-2/
+			  ${LIBSBML_ROOT_SOURCE_DIR}/examples/sample-models/from-spec/level-2/
 			  -p $<TARGET_FILE_DIR:binding_csharp_native_lib>)
 
 	# to run the compiled tests
@@ -279,7 +280,7 @@ if(UNIX)
 	  NAME test_csharp_bindings_full
       COMMAND mono
 			${CMAKE_CURRENT_BINARY_DIR}/TestRunner.exe
-			-d ${CMAKE_SOURCE_DIR}/src/sbml/test/test-data
+			-d ${LIBSBML_ROOT_SOURCE_DIR}/src/sbml/test/test-data
 			-l ${CMAKE_CURRENT_BINARY_DIR}/libsbmlcsP.dll
 			-w ${CMAKE_CURRENT_SOURCE_DIR}
 			-p $<TARGET_FILE_DIR:binding_csharp_native_lib>)
@@ -288,7 +289,7 @@ if(UNIX)
 	# add_test(test_csharp_bindings_full  mono
 	# 		${CMAKE_CURRENT_BINARY_DIR}/TestRunner.exe
 	# 		${CMAKE_CURRENT_SOURCE_DIR}/test
-	# 		${CMAKE_SOURCE_DIR}/src/sbml/test/test-data
+	# 		${LIBSBML_ROOT_SOURCE_DIR}/src/sbml/test/test-data
 	# 		${CMAKE_CURRENT_BINARY_DIR}/libsbmlcsP.dll
 	# )
 
@@ -302,17 +303,17 @@ if(UNIX)
 	endif()
 else()
 
-	include(${CMAKE_SOURCE_DIR}/common.cmake)
-	copy_files( ${CMAKE_SOURCE_DIR}/dependencies/bin/ ${CMAKE_CURRENT_BINARY_DIR} *.dll )
+	include(${LIBSBML_ROOT_SOURCE_DIR}/common.cmake)
+	copy_files( ${LIBSBML_ROOT_SOURCE_DIR}/dependencies/bin/ ${CMAKE_CURRENT_BINARY_DIR} *.dll )
 
 	add_test(NAME test_csharp_bindings
-		COMMAND ${CMAKE_CURRENT_BINARY_DIR}/TestRW.exe ${CMAKE_SOURCE_DIR}/examples/sample-models/from-spec/level-2/
+		COMMAND ${CMAKE_CURRENT_BINARY_DIR}/TestRW.exe ${LIBSBML_ROOT_SOURCE_DIR}/examples/sample-models/from-spec/level-2/
 		-p $<TARGET_FILE_DIR:binding_csharp_native_lib>)
 
 	#  to run the compiled tests
 	add_test(NAME test_csharp_bindings_full
 			COMMAND ${CMAKE_CURRENT_BINARY_DIR}/TestRunner.exe
-			-d ${CMAKE_SOURCE_DIR}/src/sbml/test/test-data
+			-d ${LIBSBML_ROOT_SOURCE_DIR}/src/sbml/test/test-data
 			-l ${CMAKE_CURRENT_BINARY_DIR}/libsbmlcsP.dll
 			-w ${CMAKE_CURRENT_SOURCE_DIR}
 			-p $<TARGET_FILE_DIR:binding_csharp_native_lib>)
@@ -322,7 +323,7 @@ else()
 	# add_test(test_csharp_bindings_full
 	# 		${CMAKE_CURRENT_BINARY_DIR}/TestRunner.exe
 	# 		${CMAKE_CURRENT_SOURCE_DIR}/test
-	# 		${CMAKE_SOURCE_DIR}/src/sbml/test/test-data
+	# 		${LIBSBML_ROOT_SOURCE_DIR}/src/sbml/test/test-data
 	# 		${CMAKE_CURRENT_BINARY_DIR}/libsbmlcsP.dll
 	# )
 	

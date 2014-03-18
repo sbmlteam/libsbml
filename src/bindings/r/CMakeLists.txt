@@ -52,7 +52,7 @@ if (NOT R_INCLUDE_DIRS)
               $ENV{ProgramW6432}/R/R-2.15.2/include
               $ENV{ProgramFiles}/R/R-2.15.1/include
               $ENV{ProgramW6432}/R/R-2.15.1/include
-              ${CMAKE_SOURCE_DIR}/include
+              ${LIBSBML_ROOT_SOURCE_DIR}/include
               ${LIBSBML_DEPENDENCY_DIR}/include
         DOC "The directory containing the R include files."
         )
@@ -77,7 +77,7 @@ if (NOT R_LIB)
             $ENV{ProgramFiles}/R/R-2.15.1/bin${R_SUFFIX}
             $ENV{ProgramW6432}/R/R-2.15.1/bin${R_SUFFIX}
             /Library/Frameworks/R.framework/Versions/Current/Resources/lib
-            ${CMAKE_SOURCE_DIR}
+            ${LIBSBML_ROOT_SOURCE_DIR}
             ${LIBSBML_DEPENDENCY_DIR}/lib
 			DOC "The file name of the R library."
 			)
@@ -202,8 +202,9 @@ ADD_CUSTOM_COMMAND(
     COMMAND "${SWIG_EXECUTABLE}"
     ARGS	-I${CMAKE_CURRENT_SOURCE_DIR}/../swig/
 			-I${CMAKE_CURRENT_SOURCE_DIR} 
-			-I${CMAKE_SOURCE_DIR}/src
-			-I${CMAKE_SOURCE_DIR}/include
+			-I${LIBSBML_ROOT_BINARY_DIR}/src
+			-I${LIBSBML_ROOT_SOURCE_DIR}/src
+			-I${LIBSBML_ROOT_SOURCE_DIR}/include
 			-c++
 			-r
 			${SWIG_EXTRA_ARGS}		 
@@ -226,9 +227,9 @@ if(WIN32)
 endif()
 include_directories(${CMAKE_CURRENT_SOURCE_DIR})
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/../swig)
-include_directories(${CMAKE_SOURCE_DIR}/include)
+include_directories(${LIBSBML_ROOT_SOURCE_DIR}/include)
 include_directories(${R_INCLUDE_DIRS})
-include_directories(BEFORE ${CMAKE_BINARY_DIR}/src)
+include_directories(BEFORE ${LIBSBML_ROOT_BINARY_DIR}/src)
 include_directories(BEFORE ${CMAKE_CURRENT_BINARY_DIR})
 
 if (EXTRA_INCLUDE_DIRS) 

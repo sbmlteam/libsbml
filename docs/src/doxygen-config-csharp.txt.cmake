@@ -62,7 +62,7 @@ INPUT =                            \
   libsbml-uninstallation.txt       \
   libsbml-extension-support-classes.txt \
   libsbml-howto-implement-extension.txt \
-  @CMAKE_BINARY_DIR@/src/bindings/csharp/csharp-files/
+  @LIBSBML_ROOT_BINARY_DIR@/src/bindings/csharp/csharp-files/
 
 # If the value of the INPUT tag contains directories, you can use the 
 # FILE_PATTERNS tag to specify one or more wildcard pattern (like *.cpp 

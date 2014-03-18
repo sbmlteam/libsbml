@@ -169,7 +169,7 @@ macro(build_matlab_file fileName)
 		file(TO_NATIVE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/${fileName}.c" src)
 		file(TO_NATIVE_PATH "${CMAKE_CURRENT_BINARY_DIR}/../../" include_path0)
 		file(TO_NATIVE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/../../" include_path1)
-		file(TO_NATIVE_PATH "${CMAKE_SOURCE_DIR}/include" include_path2)
+		file(TO_NATIVE_PATH "${LIBSBML_ROOT_SOURCE_DIR}/include" include_path2)
 
 		get_property(sbml_import TARGET ${LIBSBML_LIBRARY} PROPERTY LOCATION)
 		string(REPLACE ".dll" ".lib" sbml_import ${sbml_import})
@@ -212,7 +212,7 @@ macro(build_matlab_file fileName)
 		ARGS 
 			-I"${CMAKE_CURRENT_BINARY_DIR}/../../"
 			-I"${CMAKE_CURRENT_SOURCE_DIR}/../../"
-			-I"${CMAKE_SOURCE_DIR}/include"
+			-I"${LIBSBML_ROOT_SOURCE_DIR}/include"
 			-c
 			${MATLAB_MEX_EXTRA_ARGS}
 			"${CMAKE_CURRENT_SOURCE_DIR}/${fileName}.c"
@@ -266,7 +266,7 @@ else()
 	endif()
 	
 	include_directories(${MATLAB_INCLUDE_DIR})
-	include_directories(BEFORE ${CMAKE_BINARY_DIR}/src)
+	include_directories(BEFORE ${LIBSBML_ROOT_BINARY_DIR}/src)
 
 	if (EXTRA_INCLUDE_DIRS) 
 	  include_directories(${EXTRA_INCLUDE_DIRS})

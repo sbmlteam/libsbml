@@ -29,11 +29,11 @@
 ## and also available online as http://sbml.org/software/libsbml/license.html
 ## ------------------------------------------------------------------------ -->
 
-include(${CMAKE_SOURCE_DIR}/common.cmake)
+include(${LIBSBML_ROOT_SOURCE_DIR}/common.cmake)
 
 file(GLOB TEST_FILES ${CMAKE_CURRENT_SOURCE_DIR}/*.c ${CMAKE_CURRENT_SOURCE_DIR}/*.cpp)
-include_directories(BEFORE ${CMAKE_SOURCE_DIR}/src)
-include_directories(BEFORE ${CMAKE_BINARY_DIR}/src)
+include_directories(BEFORE ${LIBSBML_ROOT_SOURCE_DIR}/src)
+include_directories(BEFORE ${LIBSBML_ROOT_BINARY_DIR}/src)
 
 if (EXTRA_INCLUDE_DIRS) 
  include_directories(${EXTRA_INCLUDE_DIRS})

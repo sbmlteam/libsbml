@@ -72,8 +72,8 @@ find_library(LIBSBML_LIBS
                    ${LIBSBML_SOURCE_BUILD/install/lib}
                    ${LIBSBML_SOURCE_BUILD/src/.libs}
                    /usr/lib /usr/local/lib
-                   ${CMAKE_SOURCE_DIR}
-                   ${CMAKE_SOURCE_DIR}/dependencies/lib
+                   ${LIBSBML_ROOT_SOURCE_DIR}
+                   ${LIBSBML_ROOT_SOURCE_DIR}/dependencies/lib
              )
 
 if (NOT UNIX)
@@ -154,14 +154,14 @@ include(${LIBSBML_SOURCE_INTEGRATE}/common.cmake)
 
 add_custom_target(integrate
 	COMMENT Copy all package files to the specified libsbml source directory.
-        COMMAND ${CMAKE_COMMAND} -E copy "${CMAKE_SOURCE_DIR}/comp-package.cmake" ${LIBSBML_SOURCE_INTEGRATE}/
-        COMMAND ${CMAKE_COMMAND} -E copy "${CMAKE_SOURCE_DIR}/src/comp-package.cmake" ${LIBSBML_SOURCE_INTEGRATE}/src/
+        COMMAND ${CMAKE_COMMAND} -E copy "${LIBSBML_ROOT_SOURCE_DIR}/comp-package.cmake" ${LIBSBML_SOURCE_INTEGRATE}/
+        COMMAND ${CMAKE_COMMAND} -E copy "${LIBSBML_ROOT_SOURCE_DIR}/src/comp-package.cmake" ${LIBSBML_SOURCE_INTEGRATE}/src/
 
 	# copy language binding files
-        COMMAND ${CMAKE_COMMAND}  -E copy_directory "${CMAKE_SOURCE_DIR}/src/bindings" ${LIBSBML_SOURCE_INTEGRATE}/src/bindings
+        COMMAND ${CMAKE_COMMAND}  -E copy_directory "${LIBSBML_ROOT_SOURCE_DIR}/src/bindings" ${LIBSBML_SOURCE_INTEGRATE}/src/bindings
 
         # copy package files
-        COMMAND ${CMAKE_COMMAND} -E copy_directory  "${CMAKE_SOURCE_DIR}/src/sbml/packages/comp" ${LIBSBML_SOURCE_INTEGRATE}/src/sbml/packages/comp
+        COMMAND ${CMAKE_COMMAND} -E copy_directory  "${LIBSBML_ROOT_SOURCE_DIR}/src/sbml/packages/comp" ${LIBSBML_SOURCE_INTEGRATE}/src/sbml/packages/comp
 		
 	VERBATIM
         )
@@ -169,8 +169,8 @@ add_custom_target(integrate
 #There may be some way to convert original-bindings into installed-binding with a string REPLACE directive or
 # something, but I couldn't get it to work.  So instead of using something like this:
 file(GLOB original-bindings
-          ${CMAKE_SOURCE_DIR}/src/bindings/*/*-comp* 
-          ${CMAKE_SOURCE_DIR}/src/bindings/*/comp-* 
+          ${LIBSBML_ROOT_SOURCE_DIR}/src/bindings/*/*-comp* 
+          ${LIBSBML_ROOT_SOURCE_DIR}/src/bindings/*/comp-* 
     )
 
 file(GLOB installed-bindings

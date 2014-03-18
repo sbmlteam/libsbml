@@ -34,7 +34,7 @@ file(GLOB H_FILES ${CMAKE_CURRENT_SOURCE_DIR}/*.h )
 # figure out whether we are doing an individual build, or whether 
 # this package has already been integrated
 set (TEST_LIB)
-if (EXISTS "${CMAKE_SOURCE_DIR}/VERSION.txt")
+if (EXISTS "${LIBSBML_ROOT_SOURCE_DIR}/VERSION.txt")
   # integrated
   set (TEST_LIB ${LIBSBML_LIBRARY}-static)
 else()
@@ -45,8 +45,8 @@ endif()
 set(TEST_LIBSBML_LIBS ${TEST_LIB} ${LIBCHECK_LIBRARY})
 
 set(TEST_FILES ${CPP_FILES} ${C_FILES} ${H_FILES})
-include_directories(BEFORE ${CMAKE_SOURCE_DIR}/src)
-include_directories(BEFORE ${CMAKE_BINARY_DIR}/src)
+include_directories(BEFORE ${LIBSBML_ROOT_SOURCE_DIR}/src)
+include_directories(BEFORE ${LIBSBML_ROOT_BINARY_DIR}/src)
 
 include_directories(${LIBCHECK_INCLUDE_DIR})
 add_executable(test_comp_util ${TEST_FILES})

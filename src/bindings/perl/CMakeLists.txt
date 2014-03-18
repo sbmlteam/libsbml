@@ -132,8 +132,9 @@ ADD_CUSTOM_COMMAND(
     COMMAND "${SWIG_EXECUTABLE}"
     ARGS	-I${CMAKE_CURRENT_SOURCE_DIR}/../swig/
 			-I${CMAKE_CURRENT_SOURCE_DIR} 
-			-I${CMAKE_SOURCE_DIR}/src
-			-I${CMAKE_SOURCE_DIR}/include
+			-I${LIBSBML_ROOT_BINARY_DIR}/src
+			-I${LIBSBML_ROOT_SOURCE_DIR}/src
+			-I${LIBSBML_ROOT_SOURCE_DIR}/include
 			-c++
 			-perl5
 			-proxy
@@ -193,9 +194,9 @@ file(APPEND "${CMAKE_CURRENT_BINARY_DIR}/LibSBML.cpp" "\n\n")
 
 include_directories(BEFORE ${CMAKE_CURRENT_SOURCE_DIR})
 include_directories(BEFORE ${CMAKE_CURRENT_SOURCE_DIR}/../swig)
-include_directories(BEFORE ${CMAKE_SOURCE_DIR}/include)
+include_directories(BEFORE ${LIBSBML_ROOT_SOURCE_DIR}/include)
 include_directories(BEFORE ${PERL_INCLUDE_PATH})
-include_directories(BEFORE ${CMAKE_BINARY_DIR}/src)
+include_directories(BEFORE ${LIBSBML_ROOT_BINARY_DIR}/src)
 include_directories(BEFORE ${CMAKE_CURRENT_BINARY_DIR})
 
 if (EXTRA_INCLUDE_DIRS) 

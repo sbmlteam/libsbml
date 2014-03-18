@@ -34,6 +34,11 @@
 cmake_minimum_required(VERSION 2.6)
 project(libsbml)
 
+set(LIBSBML_ROOT_SOURCE_DIR "${CMAKE_SOURCE_DIR}" CACHE PATH
+    "Path to the libsbml root build directory")
+set(LIBSBML_ROOT_BINARY_DIR "${CMAKE_BINARY_DIR}" CACHE PATH
+    "Path to the libsbml root build directory")
+
 include (CMakeTestCCompiler)
 include (CheckCSourceCompiles)
 include (CheckCXXSourceCompiles)
@@ -231,10 +236,10 @@ if("${CMAKE_BUILD_TYPE}" STREQUAL "")
 endif()
 
 # Set the default dependency directory.
-set(LIBSBML_DEPENDENCY_DIR ${CMAKE_SOURCE_DIR}/dependencies/ CACHE PATH
+set(LIBSBML_DEPENDENCY_DIR ${LIBSBML_SOURCE_DIR}/dependencies/ CACHE PATH
     "Directory containing libraries that libSBML depends upon. (Particularly important on Windows.)")
 if("${LIBSBML_DEPENDENCY_DIR}" STREQUAL "")
-  set(LIBSBML_DEPENDENCY_DIR ${CMAKE_SOURCE_DIR}/dependencies/ CACHE PATH
+  set(LIBSBML_DEPENDENCY_DIR ${LIBSBML_SOURCE_DIR}/dependencies/ CACHE PATH
   "Directory containing libraries that libSBML depends upon. (Particularly important on Windows.)" FORCE)
 endif()
 
@@ -440,7 +445,7 @@ if(WITH_BZIP2)
         # bug in the current cmake version so for now only issue this
         # warning on linux
         if(UNIX)
-            message(WARNING "The bz2 library does not appear to be valid because it is missing some required symbols. Please check that ${LIBBZ_LIBRARY} is the bzip2 library. For details about the error, please see ${CMAKE_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/CMakeError.log")
+            message(WARNING "The bz2 library does not appear to be valid because it is missing some required symbols. Please check that ${LIBBZ_LIBRARY} is the bzip2 library. For details about the error, please see ${LIBSBML_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/CMakeError.log")
         endif()
     endif()
     if(NOT EXISTS "${LIBBZ_INCLUDE_DIR}/bzlib.h")
@@ -511,7 +516,7 @@ if(WITH_ZLIB)
         # bug in the current cmake version so for now only issue this
         # warning on linux
         if(UNIX)
-            message(WARNING "The zlib library does not appear to be valid because it is missing certain required symbols. Please check that ${LIBZ_LIBRARY} is the zlib library. For details about the error, please see ${CMAKE_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/CMakeError.log")
+            message(WARNING "The zlib library does not appear to be valid because it is missing certain required symbols. Please check that ${LIBZ_LIBRARY} is the zlib library. For details about the error, please see ${LIBSBML_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/CMakeError.log")
         endif()
     endif()
 
@@ -768,7 +773,7 @@ endif(UNIX)
 # Disable in-source build
 #
 
-if("${CMAKE_SOURCE_DIR}" STREQUAL "${CMAKE_BINARY_DIR}" )
+if("${LIBSBML_SOURCE_DIR}" STREQUAL "${LIBSBML_BINARY_DIR}" )
     message(FATAL_ERROR "In-source builds of libSBML are disabled. Please create a separate build directory.")
 endif()
 
@@ -978,9 +983,9 @@ endif()
 
 
 # print selected packages if configured previously
-if(EXISTS ${CMAKE_BINARY_DIR}/CMakeCache.txt)
+if(EXISTS ${LIBSBML_BINARY_DIR}/CMakeCache.txt)
 
-    file(STRINGS  ${CMAKE_BINARY_DIR}/CMakeCache.txt cache)
+    file(STRINGS  ${LIBSBML_BINARY_DIR}/CMakeCache.txt cache)
     set(last_line)
     foreach(line ${cache})
         string(LENGTH "${line}" length)

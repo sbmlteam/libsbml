@@ -38,7 +38,7 @@ if(UNIX)
 	endif()
 endif()
 
-include(${CMAKE_SOURCE_DIR}/common.cmake)
+include(${LIBSBML_ROOT_SOURCE_DIR}/common.cmake)
 
 file(GLOB C_FILES ${CMAKE_CURRENT_SOURCE_DIR}/*.c)
 
@@ -53,8 +53,8 @@ set(TEST_FILES ${CPP_FILES} ${C_FILES} ${H_FILES})
 
 
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/..)
-include_directories(BEFORE ${CMAKE_SOURCE_DIR}/src)
-include_directories(BEFORE ${CMAKE_BINARY_DIR}/src)
+include_directories(BEFORE ${LIBSBML_ROOT_SOURCE_DIR}/src)
+include_directories(BEFORE ${LIBSBML_ROOT_BINARY_DIR}/src)
 
 if (EXTRA_INCLUDE_DIRS) 
  include_directories(${EXTRA_INCLUDE_DIRS})
