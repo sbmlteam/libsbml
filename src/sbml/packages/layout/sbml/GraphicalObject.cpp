@@ -2,7 +2,7 @@
  * @file    GraphicalObject.cpp
  * @brief   Implementation of GraphicalObject for SBML Layout.
  * @author  Ralph Gauges
- * 
+ *
  * <!--------------------------------------------------------------------------
  * This file is part of libSBML.  Please visit http://sbml.org for more
  * information about SBML, and the latest version of libSBML.
@@ -11,14 +11,14 @@
  *     1. California Institute of Technology, Pasadena, CA, USA
  *     2. EMBL European Bioinformatics Institute (EBML-EBI), Hinxton, UK
  *     3. University of Heidelberg, Heidelberg, Germany
- * 
- * Copyright (C) 2009-2013 jointly by the following organizations: 
+ *
+ * Copyright (C) 2009-2013 jointly by the following organizations:
  *     1. California Institute of Technology, Pasadena, CA, USA
  *     2. EMBL European Bioinformatics Institute (EBML-EBI), Hinxton, UK
- *  
+ *
  * Copyright (C) 2004-2008 by European Media Laboratories Research gGmbH,
  *     Heidelberg, Germany
- * 
+ *
  * This library is free software; you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation.  A copy of the license agreement is provided
@@ -56,7 +56,7 @@ GraphicalObject::getAllElements(ElementFilter *filter)
   List* ret = new List();
   List* sublist = NULL;
 
-  ADD_FILTERED_ELEMENT(ret, sublist, mBoundingBox, filter);  
+  ADD_FILTERED_ELEMENT(ret, sublist, mBoundingBox, filter);
 
   ADD_FILTERED_FROM_PLUGIN(ret, sublist, filter);
 
@@ -67,7 +67,7 @@ void
 GraphicalObject::renameMetaIdRefs(const std::string& oldid, const std::string& newid)
 {
   SBase::renameMetaIdRefs(oldid, newid);
-  if (isSetMetaIdRef() && mMetaIdRef == oldid) 
+  if (isSetMetaIdRef() && mMetaIdRef == oldid)
   {
     mMetaIdRef = newid;
   }
@@ -76,26 +76,26 @@ GraphicalObject::renameMetaIdRefs(const std::string& oldid, const std::string& n
 /*
  * Creates a new GraphicalObject.
  */
-GraphicalObject::GraphicalObject(unsigned int level, unsigned int version, unsigned int pkgVersion) 
- : SBase (level,version)
-  , mId("")
-  , mMetaIdRef ("")
-  , mBoundingBox(level,version,pkgVersion)
-  , mBoundingBoxExplicitlySet (false)
+GraphicalObject::GraphicalObject(unsigned int level, unsigned int version, unsigned int pkgVersion)
+: SBase(level, version)
+, mId("")
+, mMetaIdRef("")
+, mBoundingBox(level, version, pkgVersion)
+, mBoundingBoxExplicitlySet(false)
 {
-  setSBMLNamespacesAndOwn(new LayoutPkgNamespaces(level,version,pkgVersion));  
+  setSBMLNamespacesAndOwn(new LayoutPkgNamespaces(level, version, pkgVersion));
 }
 
 
 /*
  * Creates a new GraphicalObject with the given @p id.
  */
-GraphicalObject::GraphicalObject (LayoutPkgNamespaces* layoutns)
- : SBase(layoutns)
-  , mId ("")
-  , mMetaIdRef ("")
-  , mBoundingBox(layoutns)
-  , mBoundingBoxExplicitlySet (false)
+GraphicalObject::GraphicalObject(LayoutPkgNamespaces* layoutns)
+: SBase(layoutns)
+, mId("")
+, mMetaIdRef("")
+, mBoundingBox(layoutns)
+, mBoundingBoxExplicitlySet(false)
 {
   //
   // set the element namespace of this object
@@ -114,12 +114,12 @@ GraphicalObject::GraphicalObject (LayoutPkgNamespaces* layoutns)
 /*
  * Creates a new GraphicalObject with the given @p id.
  */
-GraphicalObject::GraphicalObject (LayoutPkgNamespaces* layoutns, const std::string& id)
- : SBase(layoutns)
-  , mId (id)
-  , mMetaIdRef ("")
-  , mBoundingBox(layoutns)
-  , mBoundingBoxExplicitlySet (false )
+GraphicalObject::GraphicalObject(LayoutPkgNamespaces* layoutns, const std::string& id)
+: SBase(layoutns)
+, mId(id)
+, mMetaIdRef("")
+, mBoundingBox(layoutns)
+, mBoundingBoxExplicitlySet(false)
 {
   //
   // set the element namespace of this object
@@ -139,13 +139,13 @@ GraphicalObject::GraphicalObject (LayoutPkgNamespaces* layoutns, const std::stri
  * Creates a new GraphicalObject with the given @p id and 2D coordinates for
  * the bounding box.
  */
-GraphicalObject::GraphicalObject (LayoutPkgNamespaces* layoutns, const std::string& id,
-                                  double x, double y, double w, double h)
-  :  SBase(layoutns)
-  , mId (id)
-  , mMetaIdRef ("")
-  , mBoundingBox( BoundingBox(layoutns, "", x, y, 0.0, w, h, 0.0))
-  , mBoundingBoxExplicitlySet (true)
+GraphicalObject::GraphicalObject(LayoutPkgNamespaces* layoutns, const std::string& id,
+  double x, double y, double w, double h)
+  : SBase(layoutns)
+  , mId(id)
+  , mMetaIdRef("")
+  , mBoundingBox(BoundingBox(layoutns, "", x, y, 0.0, w, h, 0.0))
+  , mBoundingBoxExplicitlySet(true)
 {
   //
   // set the element namespace of this object
@@ -165,14 +165,14 @@ GraphicalObject::GraphicalObject (LayoutPkgNamespaces* layoutns, const std::stri
  * Creates a new GraphicalObject with the given @p id and 3D coordinates for
  * the bounding box.
  */
-GraphicalObject::GraphicalObject (LayoutPkgNamespaces* layoutns, const std::string& id,
-                                  double x, double y, double z,
-                                  double w, double h, double d)
+GraphicalObject::GraphicalObject(LayoutPkgNamespaces* layoutns, const std::string& id,
+  double x, double y, double z,
+  double w, double h, double d)
   : SBase(layoutns)
-  , mId (id)
-  , mMetaIdRef ("")
-  , mBoundingBox( BoundingBox(layoutns, "", x, y, z, w, h, d))
-  , mBoundingBoxExplicitlySet (true)
+  , mId(id)
+  , mMetaIdRef("")
+  , mBoundingBox(BoundingBox(layoutns, "", x, y, z, w, h, d))
+  , mBoundingBoxExplicitlySet(true)
 {
   //
   // set the element namespace of this object
@@ -192,14 +192,14 @@ GraphicalObject::GraphicalObject (LayoutPkgNamespaces* layoutns, const std::stri
  * Creates a new GraphicalObject with the given @p id and 3D coordinates for
  * the bounding box.
  */
-GraphicalObject::GraphicalObject (LayoutPkgNamespaces* layoutns, const std::string& id,
-                                  const Point*       p,
-                                  const Dimensions*  d)
+GraphicalObject::GraphicalObject(LayoutPkgNamespaces* layoutns, const std::string& id,
+  const Point*       p,
+  const Dimensions*  d)
   : SBase(layoutns)
-  , mId (id)
-  , mMetaIdRef ("")
-  , mBoundingBox( BoundingBox(layoutns, "", p, d) )
-  , mBoundingBoxExplicitlySet (true)
+  , mId(id)
+  , mMetaIdRef("")
+  , mBoundingBox(BoundingBox(layoutns, "", p, d))
+  , mBoundingBoxExplicitlySet(true)
 {
   //
   // set the element namespace of this object
@@ -219,22 +219,22 @@ GraphicalObject::GraphicalObject (LayoutPkgNamespaces* layoutns, const std::stri
  * Creates a new GraphicalObject with the given @p id and 3D coordinates for
  * the bounding box.
  */
-GraphicalObject::GraphicalObject (LayoutPkgNamespaces* layoutns, const std::string& id, const BoundingBox* bb)
-  : SBase(layoutns)
-  , mId (id)
-  , mMetaIdRef ("")
-  , mBoundingBox(layoutns)
-  , mBoundingBoxExplicitlySet ( false)
+GraphicalObject::GraphicalObject(LayoutPkgNamespaces* layoutns, const std::string& id, const BoundingBox* bb)
+: SBase(layoutns)
+, mId(id)
+, mMetaIdRef("")
+, mBoundingBox(layoutns)
+, mBoundingBoxExplicitlySet(false)
 {
   //
   // set the element namespace of this object
   //
   setElementNamespace(layoutns->getURI());
 
-  if(bb)
+  if (bb)
   {
-      this->mBoundingBox=*bb;
-      mBoundingBoxExplicitlySet = true;
+    this->mBoundingBox = *bb;
+    mBoundingBoxExplicitlySet = true;
   }
 
   connectToChild();
@@ -249,57 +249,57 @@ GraphicalObject::GraphicalObject (LayoutPkgNamespaces* layoutns, const std::stri
  * Creates a new GraphicalObject from the given XMLNode
  */
 GraphicalObject::GraphicalObject(const XMLNode& node, unsigned int l2version)
- : SBase(2,l2version)  
+: SBase(2, l2version)
 {
   //
   // (TODO) check the xmlns of layout extension
   //
 
-  setSBMLNamespacesAndOwn(new LayoutPkgNamespaces(2,l2version));  
+  setSBMLNamespacesAndOwn(new LayoutPkgNamespaces(2, l2version));
 
   loadPlugins(getSBMLNamespaces());
 
-    const XMLAttributes& attributes=node.getAttributes();
-    const XMLNode* child;
-    //ExpectedAttributes ea(getElementName());
-    ExpectedAttributes ea;
-    addExpectedAttributes(ea);
-    this->readAttributes(attributes,ea);
-    unsigned int n=0,nMax = node.getNumChildren();
-    while(n<nMax)
+  const XMLAttributes& attributes = node.getAttributes();
+  const XMLNode* child;
+  //ExpectedAttributes ea(getElementName());
+  ExpectedAttributes ea;
+  addExpectedAttributes(ea);
+  this->readAttributes(attributes, ea);
+  unsigned int n = 0, nMax = node.getNumChildren();
+  while (n < nMax)
+  {
+    child = &node.getChild(n);
+    const std::string& childName = child->getName();
+    if (childName == "boundingBox")
     {
-        child=&node.getChild(n);
-        const std::string& childName=child->getName();
-        if(childName=="boundingBox")
-        {
-            this->mBoundingBox=BoundingBox(*child);
-            mBoundingBoxExplicitlySet = true;
-        }
-        else if(childName=="annotation")
-        {
-            this->mAnnotation=new XMLNode(*child);
-        }
-        else if(childName=="notes")
-        {
-            this->mNotes=new XMLNode(*child);
-        }
-        else
-        {
-            //throw;
-        }
-        ++n;
-    }    
+      this->mBoundingBox = BoundingBox(*child);
+      mBoundingBoxExplicitlySet = true;
+    }
+    else if (childName == "annotation")
+    {
+      this->mAnnotation = new XMLNode(*child);
+    }
+    else if (childName == "notes")
+    {
+      this->mNotes = new XMLNode(*child);
+    }
+    else
+    {
+      //throw;
+    }
+    ++n;
+  }
 
 #if LIBSBML_HAS_PACKAGE_RENDER
 
-    // explicitly read render plugin for now until we sorted this whole reading from 
-    // XMLNode business
-    RenderGraphicalObjectPlugin *rplugin = static_cast<RenderGraphicalObjectPlugin *>(getPlugin("render"));
-    if (rplugin != NULL) {
-      ExpectedAttributes expected;
-      expected.add("objectRole");
-      rplugin->readAttributes(node.getAttributes(), expected);
-    }
+  // explicitly read render plugin for now until we sorted this whole reading from 
+  // XMLNode business
+  RenderGraphicalObjectPlugin *rplugin = static_cast<RenderGraphicalObjectPlugin *>(getPlugin("render"));
+  if (rplugin != NULL) {
+    ExpectedAttributes expected;
+    expected.add("objectRole");
+    rplugin->readAttributes(node.getAttributes(), expected);
+  }
 #endif
 
 
@@ -310,14 +310,14 @@ GraphicalObject::GraphicalObject(const XMLNode& node, unsigned int l2version)
 /*
  * Copy constructor.
  */
-GraphicalObject::GraphicalObject(const GraphicalObject& source):SBase(source)
+GraphicalObject::GraphicalObject(const GraphicalObject& source) :SBase(source)
 {
-    this->mId = source.mId;
-    this->mMetaIdRef = source.mMetaIdRef;
-    this->mBoundingBox=*source.getBoundingBox();
-    this->mBoundingBoxExplicitlySet = source.mBoundingBoxExplicitlySet;
+  this->mId = source.mId;
+  this->mMetaIdRef = source.mMetaIdRef;
+  this->mBoundingBox = *source.getBoundingBox();
+  this->mBoundingBoxExplicitlySet = source.mBoundingBoxExplicitlySet;
 
-    connectToChild();
+  connectToChild();
 }
 
 /*
@@ -325,12 +325,12 @@ GraphicalObject::GraphicalObject(const GraphicalObject& source):SBase(source)
  */
 GraphicalObject& GraphicalObject::operator=(const GraphicalObject& source)
 {
-  if(&source!=this)
+  if (&source != this)
   {
     this->SBase::operator=(source);
     this->mId = source.mId;
     this->mMetaIdRef = source.mMetaIdRef;
-    this->mBoundingBox=*source.getBoundingBox();
+    this->mBoundingBox = *source.getBoundingBox();
     this->mBoundingBoxExplicitlySet = source.mBoundingBoxExplicitlySet;
 
     connectToChild();
@@ -341,8 +341,8 @@ GraphicalObject& GraphicalObject::operator=(const GraphicalObject& source)
 
 /*
  * Destructor.
- */ 
-GraphicalObject::~GraphicalObject ()
+ */
+GraphicalObject::~GraphicalObject()
 {
 }
 
@@ -350,7 +350,7 @@ GraphicalObject::~GraphicalObject ()
 /*
   * Returns the value of the "id" attribute of this GraphicalObject.
   */
-const std::string& GraphicalObject::getId () const
+const std::string& GraphicalObject::getId() const
 {
   return mId;
 }
@@ -360,7 +360,7 @@ const std::string& GraphicalObject::getId () const
   * Predicate returning @c true or @c false depending on whether this
   * GraphicalObject's "id" attribute has been set.
   */
-bool GraphicalObject::isSetId () const
+bool GraphicalObject::isSetId() const
 {
   return (mId.empty() == false);
 }
@@ -368,18 +368,18 @@ bool GraphicalObject::isSetId () const
 /*
   * Sets the value of the "id" attribute of this GraphicalObject.
   */
-int GraphicalObject::setId (const std::string& id)
+int GraphicalObject::setId(const std::string& id)
 {
   if (&id != NULL && id.empty())
-       return unsetId();
-  return SyntaxChecker::checkAndSetSId(id,mId);
+    return unsetId();
+  return SyntaxChecker::checkAndSetSId(id, mId);
 }
 
 
 /*
   * Unsets the value of the "id" attribute of this GraphicalObject.
   */
-int GraphicalObject::unsetId ()
+int GraphicalObject::unsetId()
 {
   mId.erase();
   if (mId.empty())
@@ -396,7 +396,7 @@ int GraphicalObject::unsetId ()
 /*
   * Returns the value of the "metaidRef" attribute of this GraphicalObject.
   */
-const std::string& GraphicalObject::getMetaIdRef () const
+const std::string& GraphicalObject::getMetaIdRef() const
 {
   return mMetaIdRef;
 }
@@ -406,7 +406,7 @@ const std::string& GraphicalObject::getMetaIdRef () const
   * Predicate returning @c true or @c false depending on whether this
   * GraphicalObject's "metaidRef" attribute has been set.
   */
-bool GraphicalObject::isSetMetaIdRef () const
+bool GraphicalObject::isSetMetaIdRef() const
 {
   return (mMetaIdRef.empty() == false);
 }
@@ -414,18 +414,18 @@ bool GraphicalObject::isSetMetaIdRef () const
 /*
   * Sets the value of the "metaidRef" attribute of this GraphicalObject.
   */
-int GraphicalObject::setMetaIdRef (const std::string& metaid)
+int GraphicalObject::setMetaIdRef(const std::string& metaid)
 {
   if (&metaid != NULL && metaid.empty())
     return unsetMetaIdRef();
-  return SyntaxChecker::checkAndSetSId(metaid,mMetaIdRef);
+  return SyntaxChecker::checkAndSetSId(metaid, mMetaIdRef);
 }
 
 
 /*
   * Unsets the value of the "metaidRef" attribute of this GraphicalObject.
   */
-int GraphicalObject::unsetMetaIdRef ()
+int GraphicalObject::unsetMetaIdRef()
 {
   mMetaIdRef.erase();
   if (mMetaIdRef.empty())
@@ -441,11 +441,11 @@ int GraphicalObject::unsetMetaIdRef ()
 
 /*
  * Sets the boundingbox for the GraphicalObject.
- */ 
+ */
 void
-GraphicalObject::setBoundingBox (const BoundingBox* bb)
+GraphicalObject::setBoundingBox(const BoundingBox* bb)
 {
-  if(bb==NULL) return;  
+  if (bb == NULL) return;
   this->mBoundingBox = *bb;
   this->mBoundingBox.connectToParent(this);
   this->mBoundingBoxExplicitlySet = true;
@@ -454,19 +454,19 @@ GraphicalObject::setBoundingBox (const BoundingBox* bb)
 
 /*
  * Returns the bounding box for the GraphicalObject.
- */ 
+ */
 const BoundingBox*
-GraphicalObject::getBoundingBox () const
+GraphicalObject::getBoundingBox() const
 {
   return &this->mBoundingBox;
-} 
+}
 
 
 /*
  * Returns the bounding box for the GraphicalObject.
- */ 
+ */
 BoundingBox*
-GraphicalObject::getBoundingBox ()
+GraphicalObject::getBoundingBox()
 {
   return &this->mBoundingBox;
 }
@@ -480,9 +480,9 @@ GraphicalObject::getBoundingBoxExplicitlySet() const
 
 /*
  * Does nothing. No defaults are defined for GraphicalObject.
- */ 
+ */
 void
-GraphicalObject::initDefaults ()
+GraphicalObject::initDefaults()
 {
 }
 
@@ -490,7 +490,7 @@ GraphicalObject::initDefaults ()
  * Returns the XML element name of
  * this SBML object.
  */
-const std::string& GraphicalObject::getElementName () const 
+const std::string& GraphicalObject::getElementName() const
 {
   static const std::string name = "graphicalObject";
   return name;
@@ -499,19 +499,19 @@ const std::string& GraphicalObject::getElementName () const
 /*
  * @return a (deep) copy of this GraphicalObject.
  */
-GraphicalObject* 
-GraphicalObject::clone () const
+GraphicalObject*
+GraphicalObject::clone() const
 {
-    return new GraphicalObject(*this);
+  return new GraphicalObject(*this);
 }
 
 
 /** @cond doxygenLibsbmlInternal */
 SBase*
-GraphicalObject::createObject (XMLInputStream& stream)
+GraphicalObject::createObject(XMLInputStream& stream)
 {
 
-  const std::string& name   = stream.peek().getName();
+  const std::string& name = stream.peek().getName();
   SBase*        object = 0;
 
   if (name == "boundingBox")
@@ -523,35 +523,35 @@ GraphicalObject::createObject (XMLInputStream& stream)
       switch (tc)
       {
       case SBML_LAYOUT_COMPARTMENTGLYPH:
-        getErrorLog()->logPackageError("layout", LayoutCGAllowedElements, 
+        getErrorLog()->logPackageError("layout", LayoutCGAllowedElements,
           getPackageVersion(), getLevel(), getVersion());
         break;
       case SBML_LAYOUT_REACTIONGLYPH:
-        getErrorLog()->logPackageError("layout", LayoutRGAllowedElements, 
+        getErrorLog()->logPackageError("layout", LayoutRGAllowedElements,
           getPackageVersion(), getLevel(), getVersion());
         break;
       case SBML_LAYOUT_SPECIESGLYPH:
-        getErrorLog()->logPackageError("layout", LayoutSGAllowedElements, 
+        getErrorLog()->logPackageError("layout", LayoutSGAllowedElements,
           getPackageVersion(), getLevel(), getVersion());
         break;
       case SBML_LAYOUT_SPECIESREFERENCEGLYPH:
-        getErrorLog()->logPackageError("layout", LayoutSRGAllowedElements, 
+        getErrorLog()->logPackageError("layout", LayoutSRGAllowedElements,
           getPackageVersion(), getLevel(), getVersion());
         break;
       case SBML_LAYOUT_TEXTGLYPH:
-        getErrorLog()->logPackageError("layout", LayoutTGAllowedElements, 
+        getErrorLog()->logPackageError("layout", LayoutTGAllowedElements,
           getPackageVersion(), getLevel(), getVersion());
         break;
       case SBML_LAYOUT_REFERENCEGLYPH:
-        getErrorLog()->logPackageError("layout", LayoutREFGAllowedElements, 
+        getErrorLog()->logPackageError("layout", LayoutREFGAllowedElements,
           getPackageVersion(), getLevel(), getVersion());
         break;
       case SBML_LAYOUT_GENERALGLYPH:
-        getErrorLog()->logPackageError("layout", LayoutGGAllowedElements, 
+        getErrorLog()->logPackageError("layout", LayoutGGAllowedElements,
           getPackageVersion(), getLevel(), getVersion());
         break;
       default:
-        getErrorLog()->logPackageError("layout", LayoutGOMustContainBoundingBox, 
+        getErrorLog()->logPackageError("layout", LayoutGOMustContainBoundingBox,
           getPackageVersion(), getLevel(), getVersion());
         break;
       }
@@ -577,18 +577,18 @@ GraphicalObject::addExpectedAttributes(ExpectedAttributes& attributes)
 /** @endcond */
 
 /** @cond doxygenLibsbmlInternal */
-void GraphicalObject::readAttributes (const XMLAttributes& attributes,
-                                      const ExpectedAttributes& expectedAttributes)
+void GraphicalObject::readAttributes(const XMLAttributes& attributes,
+  const ExpectedAttributes& expectedAttributes)
 {
-  const unsigned int sbmlLevel   = getLevel  ();
+  const unsigned int sbmlLevel = getLevel();
   const unsigned int sbmlVersion = getVersion();
 
   unsigned int numErrs;
 
-	/* look to see whether an unknown attribute error was logged
-	 * during the read of the listOfTextGlyphs - which will have
-	 * happened immediately prior to this read
-	*/
+  /* look to see whether an unknown attribute error was logged
+   * during the read of the listOfTextGlyphs - which will have
+   * happened immediately prior to this read
+   */
 
   bool loSubGlyphs = false;
   if (getParentSBMLObject() != NULL
@@ -597,91 +597,91 @@ void GraphicalObject::readAttributes (const XMLAttributes& attributes,
     loSubGlyphs = true;
   }
 
-	if (getErrorLog() != NULL && loSubGlyphs == true &&
-	    static_cast<ListOfGraphicalObjects*>(getParentSBMLObject())->size() < 2)
-	{
-		numErrs = getErrorLog()->getNumErrors();
-		for (int n = numErrs-1; n >= 0; n--)
-		{
-			if (getErrorLog()->getError(n)->getErrorId() == UnknownPackageAttribute)
-			{
-				const std::string details =
-				      getErrorLog()->getError(n)->getMessage();
-				getErrorLog()->remove(UnknownPackageAttribute);
-			  getErrorLog()->logPackageError("layout", 
-                                  LayoutLOSubGlyphAllowedAttribs,
-			            getPackageVersion(), sbmlLevel, sbmlVersion, details);
-			}
-			else if (getErrorLog()->getError(n)->getErrorId() == UnknownCoreAttribute)
-			{
-				const std::string details =
-				           getErrorLog()->getError(n)->getMessage();
-				getErrorLog()->remove(UnknownCoreAttribute);
-			  getErrorLog()->logPackageError("layout", 
-                                  LayoutLOSubGlyphAllowedAttribs,
-			            getPackageVersion(), sbmlLevel, sbmlVersion, details);
-			}
-		}
-	}
+  if (getErrorLog() != NULL && loSubGlyphs == true &&
+    static_cast<ListOfGraphicalObjects*>(getParentSBMLObject())->size() < 2)
+  {
+    numErrs = getErrorLog()->getNumErrors();
+    for (int n = numErrs - 1; n >= 0; n--)
+    {
+      if (getErrorLog()->getError(n)->getErrorId() == UnknownPackageAttribute)
+      {
+        const std::string details =
+          getErrorLog()->getError(n)->getMessage();
+        getErrorLog()->remove(UnknownPackageAttribute);
+        getErrorLog()->logPackageError("layout",
+          LayoutLOSubGlyphAllowedAttribs,
+          getPackageVersion(), sbmlLevel, sbmlVersion, details);
+      }
+      else if (getErrorLog()->getError(n)->getErrorId() == UnknownCoreAttribute)
+      {
+        const std::string details =
+          getErrorLog()->getError(n)->getMessage();
+        getErrorLog()->remove(UnknownCoreAttribute);
+        getErrorLog()->logPackageError("layout",
+          LayoutLOSubGlyphAllowedAttribs,
+          getPackageVersion(), sbmlLevel, sbmlVersion, details);
+      }
+    }
+  }
 
-  SBase::readAttributes(attributes,expectedAttributes);
+  SBase::readAttributes(attributes, expectedAttributes);
 
 
-	// look to see whether an unknown attribute error was logged
-	if (getErrorLog() != NULL)
-	{
-		numErrs = getErrorLog()->getNumErrors();
-		for (int n = numErrs-1; n >= 0; n--)
-		{
-			if (getErrorLog()->getError(n)->getErrorId() == UnknownPackageAttribute)
-			{
-				const std::string details =
-				                  getErrorLog()->getError(n)->getMessage();
-				getErrorLog()->remove(UnknownPackageAttribute);
-        
+  // look to see whether an unknown attribute error was logged
+  if (getErrorLog() != NULL)
+  {
+    numErrs = getErrorLog()->getNumErrors();
+    for (int n = numErrs - 1; n >= 0; n--)
+    {
+      if (getErrorLog()->getError(n)->getErrorId() == UnknownPackageAttribute)
+      {
+        const std::string details =
+          getErrorLog()->getError(n)->getMessage();
+        getErrorLog()->remove(UnknownPackageAttribute);
+
         int tc = this->getTypeCode();
 
         switch (tc)
         {
         case SBML_LAYOUT_COMPARTMENTGLYPH:
-          getErrorLog()->logPackageError("layout", LayoutCGAllowedAttributes, 
-            getPackageVersion(), sbmlLevel, sbmlVersion);
+          getErrorLog()->logPackageError("layout", LayoutCGAllowedAttributes,
+            getPackageVersion(), sbmlLevel, sbmlVersion, details);
           break;
         case SBML_LAYOUT_REACTIONGLYPH:
-          getErrorLog()->logPackageError("layout", LayoutRGAllowedAttributes, 
-            getPackageVersion(), sbmlLevel, sbmlVersion);
+          getErrorLog()->logPackageError("layout", LayoutRGAllowedAttributes,
+            getPackageVersion(), sbmlLevel, sbmlVersion, details);
           break;
         case SBML_LAYOUT_SPECIESGLYPH:
-          getErrorLog()->logPackageError("layout", LayoutSGAllowedAttributes, 
-            getPackageVersion(), sbmlLevel, sbmlVersion);
+          getErrorLog()->logPackageError("layout", LayoutSGAllowedAttributes,
+            getPackageVersion(), sbmlLevel, sbmlVersion, details);
           break;
         case SBML_LAYOUT_SPECIESREFERENCEGLYPH:
-          getErrorLog()->logPackageError("layout", LayoutSRGAllowedAttributes, 
-            getPackageVersion(), sbmlLevel, sbmlVersion);
+          getErrorLog()->logPackageError("layout", LayoutSRGAllowedAttributes,
+            getPackageVersion(), sbmlLevel, sbmlVersion, details);
           break;
         case SBML_LAYOUT_TEXTGLYPH:
-          getErrorLog()->logPackageError("layout", LayoutTGAllowedAttributes, 
-            getPackageVersion(), sbmlLevel, sbmlVersion);
+          getErrorLog()->logPackageError("layout", LayoutTGAllowedAttributes,
+            getPackageVersion(), sbmlLevel, sbmlVersion, details);
           break;
         case SBML_LAYOUT_REFERENCEGLYPH:
-          getErrorLog()->logPackageError("layout", LayoutREFGAllowedAttributes, 
-            getPackageVersion(), sbmlLevel, sbmlVersion);
+          getErrorLog()->logPackageError("layout", LayoutREFGAllowedAttributes,
+            getPackageVersion(), sbmlLevel, sbmlVersion, details);
           break;
         case SBML_LAYOUT_GENERALGLYPH:
-          getErrorLog()->logPackageError("layout", LayoutGGAllowedAttributes, 
-            getPackageVersion(), sbmlLevel, sbmlVersion);
+          getErrorLog()->logPackageError("layout", LayoutGGAllowedAttributes,
+            getPackageVersion(), sbmlLevel, sbmlVersion, details);
           break;
         default:
-          getErrorLog()->logPackageError("layout", LayoutGOAllowedAttributes, 
-            getPackageVersion(), sbmlLevel, sbmlVersion);
+          getErrorLog()->logPackageError("layout", LayoutGOAllowedAttributes,
+            getPackageVersion(), sbmlLevel, sbmlVersion, details);
           break;
         }
-			}
-			else if (getErrorLog()->getError(n)->getErrorId() == UnknownCoreAttribute)
-			{
-				const std::string details =
-				                  getErrorLog()->getError(n)->getMessage();
-				getErrorLog()->remove(UnknownCoreAttribute);
+      }
+      else if (getErrorLog()->getError(n)->getErrorId() == UnknownCoreAttribute)
+      {
+        const std::string details =
+          getErrorLog()->getError(n)->getMessage();
+        getErrorLog()->remove(UnknownCoreAttribute);
         int tc = this->getTypeCode();
 
 #if !LIBSBML_HAS_PACKAGE_RENDER
@@ -691,7 +691,7 @@ void GraphicalObject::readAttributes (const XMLAttributes& attributes,
           std::string role;
           attributes.readInto("objectRole", role);
           int index = attributes.getIndex("objectRole");
-          mAttributesOfUnknownPkg.add("objectRole", role, attributes.getURI(index),attributes.getPrefix(index));
+          mAttributesOfUnknownPkg.add("objectRole", role, attributes.getURI(index), attributes.getPrefix(index));
         }
         else
 #endif
@@ -699,57 +699,57 @@ void GraphicalObject::readAttributes (const XMLAttributes& attributes,
 
         switch (tc)
         {
-        case SBML_LAYOUT_COMPARTMENTGLYPH:
-          getErrorLog()->logPackageError("layout", 
-            LayoutCGAllowedCoreAttributes, 
-            getPackageVersion(), sbmlLevel, sbmlVersion);
-          break;
-        case SBML_LAYOUT_REACTIONGLYPH:
-          getErrorLog()->logPackageError("layout", 
-            LayoutRGAllowedCoreAttributes, 
-            getPackageVersion(), sbmlLevel, sbmlVersion);
-          break;
-        case SBML_LAYOUT_SPECIESGLYPH:
-          getErrorLog()->logPackageError("layout", 
-            LayoutSGAllowedCoreAttributes, 
-            getPackageVersion(), sbmlLevel, sbmlVersion);
-          break;
-        case SBML_LAYOUT_SPECIESREFERENCEGLYPH:
-          getErrorLog()->logPackageError("layout", 
-            LayoutSRGAllowedCoreAttributes, 
-            getPackageVersion(), sbmlLevel, sbmlVersion);
-          break;
-        case SBML_LAYOUT_TEXTGLYPH:
-          getErrorLog()->logPackageError("layout", 
-            LayoutTGAllowedCoreAttributes, 
-            getPackageVersion(), sbmlLevel, sbmlVersion);
-          break;
-        case SBML_LAYOUT_REFERENCEGLYPH:
-          getErrorLog()->logPackageError("layout", 
-            LayoutREFGAllowedCoreAttributes, 
-            getPackageVersion(), sbmlLevel, sbmlVersion);
-          break;
-        case SBML_LAYOUT_GENERALGLYPH:
-          getErrorLog()->logPackageError("layout", 
-            LayoutGGAllowedCoreAttributes, 
-            getPackageVersion(), sbmlLevel, sbmlVersion);
-          break;
-        default:
-          getErrorLog()->logPackageError("layout", 
-            LayoutGOAllowedCoreAttributes, 
-            getPackageVersion(), sbmlLevel, sbmlVersion);
-          break;
+          case SBML_LAYOUT_COMPARTMENTGLYPH:
+            getErrorLog()->logPackageError("layout",
+              LayoutCGAllowedCoreAttributes,
+              getPackageVersion(), sbmlLevel, sbmlVersion, details);
+            break;
+          case SBML_LAYOUT_REACTIONGLYPH:
+            getErrorLog()->logPackageError("layout",
+              LayoutRGAllowedCoreAttributes,
+              getPackageVersion(), sbmlLevel, sbmlVersion, details);
+            break;
+          case SBML_LAYOUT_SPECIESGLYPH:
+            getErrorLog()->logPackageError("layout",
+              LayoutSGAllowedCoreAttributes,
+              getPackageVersion(), sbmlLevel, sbmlVersion, details);
+            break;
+          case SBML_LAYOUT_SPECIESREFERENCEGLYPH:
+            getErrorLog()->logPackageError("layout",
+              LayoutSRGAllowedCoreAttributes,
+              getPackageVersion(), sbmlLevel, sbmlVersion, details);
+            break;
+          case SBML_LAYOUT_TEXTGLYPH:
+            getErrorLog()->logPackageError("layout",
+              LayoutTGAllowedCoreAttributes,
+              getPackageVersion(), sbmlLevel, sbmlVersion, details);
+            break;
+          case SBML_LAYOUT_REFERENCEGLYPH:
+            getErrorLog()->logPackageError("layout",
+              LayoutREFGAllowedCoreAttributes,
+              getPackageVersion(), sbmlLevel, sbmlVersion, details);
+            break;
+          case SBML_LAYOUT_GENERALGLYPH:
+            getErrorLog()->logPackageError("layout",
+              LayoutGGAllowedCoreAttributes,
+              getPackageVersion(), sbmlLevel, sbmlVersion, details);
+            break;
+          default:
+            getErrorLog()->logPackageError("layout",
+              LayoutGOAllowedCoreAttributes,
+              getPackageVersion(), sbmlLevel, sbmlVersion, details);
+            break;
         }
-			}
-		}
-	}
+      }
+    }
+  }
 
   // id reqd
   bool assigned = attributes.readInto("id", mId);
 
   if (getErrorLog() != NULL)
   {
-  
+
     if (assigned == true)
     {
       // "id" attribute is set to this fbc element
@@ -761,13 +761,13 @@ void GraphicalObject::readAttributes (const XMLAttributes& attributes,
         //
         logEmptyString(mId, sbmlLevel, sbmlVersion, "<layout>");
       }
-      else if (!SyntaxChecker::isValidSBMLSId(mId)) 
+      else if (!SyntaxChecker::isValidSBMLSId(mId))
       {
         //
         // Logs an error if the "id" attribute doesn't
         // conform to the SBML type SId.
         //
-        getErrorLog()->logPackageError("layout", LayoutSIdSyntax, 
+        getErrorLog()->logPackageError("layout", LayoutSIdSyntax,
           getPackageVersion(), sbmlLevel, sbmlVersion);
       }
     }
@@ -778,35 +778,35 @@ void GraphicalObject::readAttributes (const XMLAttributes& attributes,
       switch (tc)
       {
       case SBML_LAYOUT_COMPARTMENTGLYPH:
-        getErrorLog()->logPackageError("layout", LayoutCGAllowedAttributes, 
+        getErrorLog()->logPackageError("layout", LayoutCGAllowedAttributes,
           getPackageVersion(), sbmlLevel, sbmlVersion);
         break;
       case SBML_LAYOUT_REACTIONGLYPH:
-        getErrorLog()->logPackageError("layout", LayoutRGAllowedAttributes, 
+        getErrorLog()->logPackageError("layout", LayoutRGAllowedAttributes,
           getPackageVersion(), sbmlLevel, sbmlVersion);
         break;
       case SBML_LAYOUT_SPECIESGLYPH:
-        getErrorLog()->logPackageError("layout", LayoutSGAllowedAttributes, 
+        getErrorLog()->logPackageError("layout", LayoutSGAllowedAttributes,
           getPackageVersion(), sbmlLevel, sbmlVersion);
         break;
       case SBML_LAYOUT_SPECIESREFERENCEGLYPH:
-        getErrorLog()->logPackageError("layout", LayoutSRGAllowedAttributes, 
+        getErrorLog()->logPackageError("layout", LayoutSRGAllowedAttributes,
           getPackageVersion(), sbmlLevel, sbmlVersion);
         break;
       case SBML_LAYOUT_TEXTGLYPH:
-        getErrorLog()->logPackageError("layout", LayoutTGAllowedAttributes, 
+        getErrorLog()->logPackageError("layout", LayoutTGAllowedAttributes,
           getPackageVersion(), sbmlLevel, sbmlVersion);
         break;
       case SBML_LAYOUT_REFERENCEGLYPH:
-        getErrorLog()->logPackageError("layout", LayoutREFGAllowedAttributes, 
+        getErrorLog()->logPackageError("layout", LayoutREFGAllowedAttributes,
           getPackageVersion(), sbmlLevel, sbmlVersion);
         break;
       case SBML_LAYOUT_GENERALGLYPH:
-        getErrorLog()->logPackageError("layout", LayoutGGAllowedAttributes, 
+        getErrorLog()->logPackageError("layout", LayoutGGAllowedAttributes,
           getPackageVersion(), sbmlLevel, sbmlVersion);
         break;
       default:
-        getErrorLog()->logPackageError("layout", LayoutGOAllowedAttributes, 
+        getErrorLog()->logPackageError("layout", LayoutGOAllowedAttributes,
           getPackageVersion(), sbmlLevel, sbmlVersion);
         break;
       }
@@ -815,42 +815,42 @@ void GraphicalObject::readAttributes (const XMLAttributes& attributes,
   assigned = attributes.readInto("metaidRef", mMetaIdRef);
   if (assigned == true && getErrorLog() != NULL)
   {
-    if (!SyntaxChecker::isValidInternalSId(mMetaIdRef)) 
+    if (!SyntaxChecker::isValidInternalSId(mMetaIdRef))
     {
       int tc = this->getTypeCode();
 
       switch (tc)
       {
       case SBML_LAYOUT_COMPARTMENTGLYPH:
-        getErrorLog()->logPackageError("layout", LayoutCGMetaIdRefMustBeIDREF, 
+        getErrorLog()->logPackageError("layout", LayoutCGMetaIdRefMustBeIDREF,
           getPackageVersion(), sbmlLevel, sbmlVersion);
         break;
       case SBML_LAYOUT_REACTIONGLYPH:
-        getErrorLog()->logPackageError("layout", LayoutRGMetaIdRefMustBeIDREF, 
+        getErrorLog()->logPackageError("layout", LayoutRGMetaIdRefMustBeIDREF,
           getPackageVersion(), sbmlLevel, sbmlVersion);
         break;
       case SBML_LAYOUT_SPECIESGLYPH:
-        getErrorLog()->logPackageError("layout", LayoutSGMetaIdRefMustBeIDREF, 
+        getErrorLog()->logPackageError("layout", LayoutSGMetaIdRefMustBeIDREF,
           getPackageVersion(), sbmlLevel, sbmlVersion);
         break;
       case SBML_LAYOUT_SPECIESREFERENCEGLYPH:
-        getErrorLog()->logPackageError("layout", LayoutSRGMetaIdRefMustBeIDREF, 
+        getErrorLog()->logPackageError("layout", LayoutSRGMetaIdRefMustBeIDREF,
           getPackageVersion(), sbmlLevel, sbmlVersion);
         break;
       case SBML_LAYOUT_TEXTGLYPH:
-        getErrorLog()->logPackageError("layout", LayoutTGMetaIdRefMustBeIDREF, 
+        getErrorLog()->logPackageError("layout", LayoutTGMetaIdRefMustBeIDREF,
           getPackageVersion(), sbmlLevel, sbmlVersion);
         break;
       case SBML_LAYOUT_REFERENCEGLYPH:
-        getErrorLog()->logPackageError("layout", LayoutREFGMetaIdRefMustBeIDREF, 
+        getErrorLog()->logPackageError("layout", LayoutREFGMetaIdRefMustBeIDREF,
           getPackageVersion(), sbmlLevel, sbmlVersion);
         break;
       case SBML_LAYOUT_GENERALGLYPH:
-        getErrorLog()->logPackageError("layout", LayoutGGMetaIdRefMustBeIDREF, 
+        getErrorLog()->logPackageError("layout", LayoutGGMetaIdRefMustBeIDREF,
           getPackageVersion(), sbmlLevel, sbmlVersion);
         break;
       default:
-        getErrorLog()->logPackageError("layout", LayoutGOMetaIdRefMustBeIDREF, 
+        getErrorLog()->logPackageError("layout", LayoutGOMetaIdRefMustBeIDREF,
           getPackageVersion(), sbmlLevel, sbmlVersion);
         break;
       }
@@ -861,7 +861,7 @@ void GraphicalObject::readAttributes (const XMLAttributes& attributes,
 
 /** @cond doxygenLibsbmlInternal */
 void
-GraphicalObject::writeElements (XMLOutputStream& stream) const
+GraphicalObject::writeElements(XMLOutputStream& stream) const
 {
   SBase::writeElements(stream);
 
@@ -875,7 +875,7 @@ GraphicalObject::writeElements (XMLOutputStream& stream) const
 /** @endcond */
 
 /** @cond doxygenLibsbmlInternal */
-void GraphicalObject::writeAttributes (XMLOutputStream& stream) const
+void GraphicalObject::writeAttributes(XMLOutputStream& stream) const
 {
   SBase::writeAttributes(stream);
   stream.writeAttribute("id", getPrefix(), mId);
@@ -911,8 +911,8 @@ bool isL3RenderNamespaceDeclared(const SBMLDocument* doc, const RenderGraphicalO
 
 #endif
 
-void 
-GraphicalObject::writeXMLNS (XMLOutputStream& stream) const
+void
+GraphicalObject::writeXMLNS(XMLOutputStream& stream) const
 {
 #if LIBSBML_HAS_PACKAGE_RENDER
   const RenderGraphicalObjectPlugin* plugin = static_cast<const RenderGraphicalObjectPlugin*>(getPlugin("render"));
@@ -920,11 +920,11 @@ GraphicalObject::writeXMLNS (XMLOutputStream& stream) const
   {
     // need to define this namespace also if it was not yet declared on the document!
     if (getLevel() < 3 || 
-       !isL3RenderNamespaceDeclared(getSBMLDocument(),plugin) )
+      !isL3RenderNamespaceDeclared(getSBMLDocument(),plugin) )
     {
-    XMLNamespaces xmlns;
-    xmlns.add(plugin->getURI(), plugin->getPrefix());
-    stream << xmlns;
+      XMLNamespaces xmlns;
+      xmlns.add(plugin->getURI(), plugin->getPrefix());
+      stream << xmlns;
     }
   }
 #else
@@ -950,7 +950,7 @@ GraphicalObject::writeXMLNS (XMLOutputStream& stream) const
  * Returns the package type code  for this object.
  */
 int
-GraphicalObject::getTypeCode () const
+GraphicalObject::getTypeCode() const
 {
   return SBML_LAYOUT_GRAPHICALOBJECT;
 }
@@ -960,17 +960,17 @@ GraphicalObject::getTypeCode () const
  * Accepts the given SBMLVisitor.
  */
 bool
-GraphicalObject::accept (SBMLVisitor& v) const
-{   
+GraphicalObject::accept(SBMLVisitor& v) const
+{
   v.visit(*this);
-  
+
   if (getBoundingBoxExplicitlySet() == true)
   {
     this->mBoundingBox.accept(v);
   }
 
   v.leave(*this);
-  
+
   return true;
 }
 
@@ -979,7 +979,7 @@ GraphicalObject::accept (SBMLVisitor& v) const
  */
 XMLNode GraphicalObject::toXML() const
 {
- return getXmlNodeForSBase(this);
+  return getXmlNodeForSBase(this);
 }
 
 
@@ -988,7 +988,7 @@ XMLNode GraphicalObject::toXML() const
  * Sets the parent SBMLDocument of this SBML object.
  */
 void
-GraphicalObject::setSBMLDocument (SBMLDocument* d)
+GraphicalObject::setSBMLDocument(SBMLDocument* d)
 {
   SBase::setSBMLDocument(d);
 
@@ -1019,11 +1019,11 @@ GraphicalObject::connectToChild()
  */
 void
 GraphicalObject::enablePackageInternal(const std::string& pkgURI,
-                                       const std::string& pkgPrefix, bool flag)
+const std::string& pkgPrefix, bool flag)
 {
-  SBase::enablePackageInternal(pkgURI,pkgPrefix,flag);
+  SBase::enablePackageInternal(pkgURI, pkgPrefix, flag);
 
-  mBoundingBox.enablePackageInternal(pkgURI,pkgPrefix,flag);
+  mBoundingBox.enablePackageInternal(pkgURI, pkgPrefix, flag);
 }
 /** @endcond */
 
@@ -1033,8 +1033,8 @@ GraphicalObject::enablePackageInternal(const std::string& pkgURI,
  * Ctor.
  */
 ListOfGraphicalObjects::ListOfGraphicalObjects(LayoutPkgNamespaces* layoutns)
-  : ListOf(layoutns)
-  , mElementName("listOfAdditionalGraphicalObjects")
+: ListOf(layoutns)
+, mElementName("listOfAdditionalGraphicalObjects")
 {
   //
   // set the element namespace of this object
@@ -1047,10 +1047,10 @@ ListOfGraphicalObjects::ListOfGraphicalObjects(LayoutPkgNamespaces* layoutns)
  * Ctor.
  */
 ListOfGraphicalObjects::ListOfGraphicalObjects(unsigned int level, unsigned int version, unsigned int pkgVersion)
-  : ListOf(level,version)
-  , mElementName("listOfAdditionalGraphicalObjects")
+: ListOf(level, version)
+, mElementName("listOfAdditionalGraphicalObjects")
 {
-  setSBMLNamespacesAndOwn(new LayoutPkgNamespaces(level,version,pkgVersion));
+  setSBMLNamespacesAndOwn(new LayoutPkgNamespaces(level, version, pkgVersion));
 };
 
 
@@ -1058,7 +1058,7 @@ ListOfGraphicalObjects::ListOfGraphicalObjects(unsigned int level, unsigned int 
  * @return a (deep) copy of this ListOfGraphicalObjects.
  */
 ListOfGraphicalObjects*
-ListOfGraphicalObjects::clone () const
+ListOfGraphicalObjects::clone() const
 {
   return new ListOfGraphicalObjects(*this);
 }
@@ -1069,7 +1069,7 @@ ListOfGraphicalObjects::clone () const
  * SBML_UNKNOWN (default).
  */
 int
-ListOfGraphicalObjects::getItemTypeCode () const
+ListOfGraphicalObjects::getItemTypeCode() const
 {
   return SBML_LAYOUT_GRAPHICALOBJECT;
 }
@@ -1080,13 +1080,13 @@ ListOfGraphicalObjects::getItemTypeCode () const
  * this SBML object.
  */
 const std::string&
-ListOfGraphicalObjects::getElementName () const
-{  
+ListOfGraphicalObjects::getElementName() const
+{
   return mElementName;
 }
 
 /** @cond doxygenLibsbmlInternal */
-void 
+void
 ListOfGraphicalObjects::setElementName(const std::string &elementName)
 {
   mElementName = elementName;
@@ -1112,40 +1112,40 @@ ListOfGraphicalObjects::get(unsigned int n) const
 
 /* return item by id */
 GraphicalObject*
-ListOfGraphicalObjects::get (const std::string& sid)
+ListOfGraphicalObjects::get(const std::string& sid)
 {
-  return const_cast<GraphicalObject*>( 
-    static_cast<const ListOfGraphicalObjects&>(*this).get(sid) );
+  return const_cast<GraphicalObject*>(
+    static_cast<const ListOfGraphicalObjects&>(*this).get(sid));
 }
 
 
 /* return item by id */
 const GraphicalObject*
-ListOfGraphicalObjects::get (const std::string& sid) const
+ListOfGraphicalObjects::get(const std::string& sid) const
 {
   std::vector<SBase*>::const_iterator result;
 
-  result = std::find_if( mItems.begin(), mItems.end(), IdEq<GraphicalObject>(sid) );
+  result = std::find_if(mItems.begin(), mItems.end(), IdEq<GraphicalObject>(sid));
   return (result == mItems.end()) ? 0 : static_cast <GraphicalObject*> (*result);
 }
 
 
 /* Removes the nth item from this list */
 GraphicalObject*
-ListOfGraphicalObjects::remove (unsigned int n)
+ListOfGraphicalObjects::remove(unsigned int n)
 {
-   return static_cast<GraphicalObject*>(ListOf::remove(n));
+  return static_cast<GraphicalObject*>(ListOf::remove(n));
 }
 
 
 /* Removes item in this list by id */
 GraphicalObject*
-ListOfGraphicalObjects::remove (const std::string& sid)
+ListOfGraphicalObjects::remove(const std::string& sid)
 {
   SBase* item = 0;
   std::vector<SBase*>::iterator result;
 
-  result = std::find_if( mItems.begin(), mItems.end(), IdEq<GraphicalObject>(sid) );
+  result = std::find_if(mItems.begin(), mItems.end(), IdEq<GraphicalObject>(sid));
 
   if (result != mItems.end())
   {
@@ -1159,13 +1159,13 @@ ListOfGraphicalObjects::remove (const std::string& sid)
 
 /** @cond doxygenLibsbmlInternal */
 SBase*
-ListOfGraphicalObjects::createObject (XMLInputStream& stream)
+ListOfGraphicalObjects::createObject(XMLInputStream& stream)
 {
-  const std::string& name   = stream.peek().getName();
+  const std::string& name = stream.peek().getName();
   SBase*        object = 0;
 
 
-  LAYOUT_CREATE_NS(layoutns,this->getSBMLNamespaces());
+  LAYOUT_CREATE_NS(layoutns, this->getSBMLNamespaces());
   if (name == "graphicalObject")
   {
     object = new GraphicalObject(layoutns);
@@ -1213,25 +1213,25 @@ ListOfGraphicalObjects::createObject (XMLInputStream& stream)
 /** @endcond */
 
 /** @cond doxygenLibsbmlInternal */
-bool 
+bool
 ListOfGraphicalObjects::isValidTypeForList(SBase * item)
 {
   int tc = item->getTypeCode();
-  return ((tc == SBML_LAYOUT_COMPARTMENTGLYPH )
-    ||    (tc == SBML_LAYOUT_REACTIONGLYPH )
-    ||    (tc == SBML_LAYOUT_SPECIESGLYPH )
-    ||    (tc == SBML_LAYOUT_SPECIESREFERENCEGLYPH )
-    ||    (tc == SBML_LAYOUT_TEXTGLYPH )
-    ||    (tc == SBML_LAYOUT_GRAPHICALOBJECT )
-    ||    (tc == SBML_LAYOUT_REFERENCEGLYPH )
-    ||    (tc == SBML_LAYOUT_GENERALGLYPH )
+  return ((tc == SBML_LAYOUT_COMPARTMENTGLYPH)
+    || (tc == SBML_LAYOUT_REACTIONGLYPH)
+    || (tc == SBML_LAYOUT_SPECIESGLYPH)
+    || (tc == SBML_LAYOUT_SPECIESREFERENCEGLYPH)
+    || (tc == SBML_LAYOUT_TEXTGLYPH)
+    || (tc == SBML_LAYOUT_GRAPHICALOBJECT)
+    || (tc == SBML_LAYOUT_REFERENCEGLYPH)
+    || (tc == SBML_LAYOUT_GENERALGLYPH)
     );
 }
 /** @endcond */
 
 XMLNode ListOfGraphicalObjects::toXML() const
 {
-  return getXmlNodeForSBase(this);  
+  return getXmlNodeForSBase(this);
 }
 
 
@@ -1241,7 +1241,7 @@ XMLNode ListOfGraphicalObjects::toXML() const
 
 LIBSBML_EXTERN
 GraphicalObject_t *
-GraphicalObject_create (void)
+GraphicalObject_create(void)
 {
   return new(std::nothrow) GraphicalObject;
 }
@@ -1249,70 +1249,70 @@ GraphicalObject_create (void)
 
 LIBSBML_EXTERN
 GraphicalObject_t *
-GraphicalObject_createFrom (const GraphicalObject_t *temp)
+GraphicalObject_createFrom(const GraphicalObject_t *temp)
 {
   return new(std::nothrow) GraphicalObject(*temp);
 }
 
 LIBSBML_EXTERN
 void
-GraphicalObject_free (GraphicalObject_t *go)
+GraphicalObject_free(GraphicalObject_t *go)
 {
   delete go;
 }
 
 LIBSBML_EXTERN
 void
-GraphicalObject_setBoundingBox (GraphicalObject_t *go, const BoundingBox_t *bb)
+GraphicalObject_setBoundingBox(GraphicalObject_t *go, const BoundingBox_t *bb)
 {
   go->setBoundingBox(bb);
 }
 
 LIBSBML_EXTERN
 BoundingBox_t *
-GraphicalObject_getBoundingBox (GraphicalObject_t *go)
+GraphicalObject_getBoundingBox(GraphicalObject_t *go)
 {
   return go->getBoundingBox();
 }
 
 LIBSBML_EXTERN
 void
-GraphicalObject_initDefaults (GraphicalObject_t *go)
+GraphicalObject_initDefaults(GraphicalObject_t *go)
 {
   go->initDefaults();
 }
 
 LIBSBML_EXTERN
 GraphicalObject_t *
-GraphicalObject_clone (const GraphicalObject_t *m)
+GraphicalObject_clone(const GraphicalObject_t *m)
 {
-  return static_cast<GraphicalObject*>( m->clone() );
+  return static_cast<GraphicalObject*>(m->clone());
 }
 
 LIBSBML_EXTERN
 int
-GraphicalObject_isSetId (const GraphicalObject_t *go)
+GraphicalObject_isSetId(const GraphicalObject_t *go)
 {
   return static_cast <int> (go->isSetId());
 }
 
 LIBSBML_EXTERN
 const char *
-GraphicalObject_getId (const GraphicalObject_t *go)
+GraphicalObject_getId(const GraphicalObject_t *go)
 {
   return go->isSetId() ? go->getId().c_str() : NULL;
 }
 
 LIBSBML_EXTERN
 int
-GraphicalObject_setId (GraphicalObject_t *go, const char *sid)
+GraphicalObject_setId(GraphicalObject_t *go, const char *sid)
 {
   return (sid == NULL) ? go->setId("") : go->setId(sid);
 }
 
 LIBSBML_EXTERN
 void
-GraphicalObject_unsetId (GraphicalObject_t *go)
+GraphicalObject_unsetId(GraphicalObject_t *go)
 {
   go->unsetId();
 }
