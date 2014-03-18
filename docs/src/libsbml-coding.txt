@@ -503,24 +503,7 @@ Here is an example, drawn from the documentation of the return type of a
 method on the Compartment class.  In these cases, the name of the link is
 given as simply the name of the enumeration member without the enumeration
 prefix:
-@verbatim
-  /**
-   * Sets the value of the "id" attribute of this Compartment.
-   *
-   * The string @p sid is copied.
-   *
-   * @copydetails doc_id_syntax
-   *
-   * @param sid the string to use as the identifier of this Compartment
-   *
-   * @return integer value indicating success/failure of the
-   * function.  The possible values
-   * returned by this function are:
-   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
-   * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE @endlink
-   */
-virtual int setId (const std::string& sid);
-@endverbatim
+@htmlinclude libsbml-coding-link-example.html
 
 Another situation that calls for explicit links involves the non-C++
 languages.  There, it is common to need to refer to a constant defined on the
