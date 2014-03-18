@@ -438,7 +438,7 @@ by the name of the fake class.  Here is an example:
  * @sbmlbrief{core} Implementation of SBML Level&nbsp;2's %ListOfCompartments
  * construct.
  * 
- * @copydetails doc_what_is_listof
+ * @@copydetails doc_what_is_listof
  */
 @endverbatim
 
