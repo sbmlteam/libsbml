@@ -1389,9 +1389,21 @@ SBMLUnitsConverter::convertAST(ASTNode *ast, Model & m)
   {
     // do the conversion
     SBase *sb = ast->getParentSBMLObject();
+    bool dummySBaseObject = false;
     if (sb == NULL)
+    {
+      // here we just need a default SBase object so that
+      // convertUnits can look at what type of object
+      // I chose AlgebraicRule as it will never have units
+      // and I accnot create a generic SBase object
       sb = new AlgebraicRule(m.getSBMLNamespaces());
+      dummySBaseObject = true;
+    }
     converted = convertUnits(*(sb), m, emptyString, ast);
+    if (dummySBaseObject == true)
+    {
+      delete sb;
+    }
   }
 
   unsigned int n = 0; 

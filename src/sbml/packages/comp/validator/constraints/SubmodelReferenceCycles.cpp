@@ -318,7 +318,7 @@ SubmodelReferenceCycles::logCycle (const Model& m, std::string id,
   // otherwise it does not get picked up as comp error and will
   // not find itself in the correct table
   COMP_CREATE_NS(compns, m.getSBMLNamespaces());
-  Submodel sub = Submodel(compns);
+  Submodel sub(compns);
   delete compns;
 
   logFailure(sub);
