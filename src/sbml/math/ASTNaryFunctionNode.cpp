@@ -640,10 +640,28 @@ ASTNaryFunctionNode::reduceOperatorsToBinary()
 
   swapChildren(op2);
 
+  // valgrind says we are leaking a lot of memory here 
+  // but we cannot delete op2 since its children are the children of the
+  // current element
+  // neither addChild not swapChildren make copies of things
+
+  // we could remove the children and delete the object
+  // removeChild does not destroy the object
+  // merely removes it from the mChildren vector
+  unsigned int i = op2->getNumChildren();
+  while (i > 0)
+  {
+    op2->removeChild(i-1);
+    i--;
+  }
+
+  delete op2;
+
   setReducedToBinary(true);
 
   reduceOperatorsToBinary();
 }
+
 
 void
 ASTNaryFunctionNode::setReducedToBinary(bool reduced)
