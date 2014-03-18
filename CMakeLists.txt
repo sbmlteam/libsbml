@@ -236,10 +236,10 @@ if("${CMAKE_BUILD_TYPE}" STREQUAL "")
 endif()
 
 # Set the default dependency directory.
-set(LIBSBML_DEPENDENCY_DIR ${LIBSBML_SOURCE_DIR}/dependencies/ CACHE PATH
+set(LIBSBML_DEPENDENCY_DIR ${LIBSBML_ROOT_SOURCE_DIR}/dependencies/ CACHE PATH
     "Directory containing libraries that libSBML depends upon. (Particularly important on Windows.)")
 if("${LIBSBML_DEPENDENCY_DIR}" STREQUAL "")
-  set(LIBSBML_DEPENDENCY_DIR ${LIBSBML_SOURCE_DIR}/dependencies/ CACHE PATH
+  set(LIBSBML_DEPENDENCY_DIR ${LIBSBML_ROOT_SOURCE_DIR}/dependencies/ CACHE PATH
   "Directory containing libraries that libSBML depends upon. (Particularly important on Windows.)" FORCE)
 endif()
 
@@ -773,7 +773,7 @@ endif(UNIX)
 # Disable in-source build
 #
 
-if("${LIBSBML_SOURCE_DIR}" STREQUAL "${LIBSBML_BINARY_DIR}" )
+if("${LIBSBML_ROOT_SOURCE_DIR}" STREQUAL "${LIBSBML_ROOT_BINARY_DIR}" )
     message(FATAL_ERROR "In-source builds of libSBML are disabled. Please create a separate build directory.")
 endif()
 
@@ -983,9 +983,9 @@ endif()
 
 
 # print selected packages if configured previously
-if(EXISTS ${LIBSBML_BINARY_DIR}/CMakeCache.txt)
+if(EXISTS ${LIBSBML_ROOT_BINARY_DIR}/CMakeCache.txt)
 
-    file(STRINGS  ${LIBSBML_BINARY_DIR}/CMakeCache.txt cache)
+    file(STRINGS  ${LIBSBML_ROOT_BINARY_DIR}/CMakeCache.txt cache)
     set(last_line)
     foreach(line ${cache})
         string(LENGTH "${line}" length)
