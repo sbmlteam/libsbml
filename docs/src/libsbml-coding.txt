@@ -648,74 +648,63 @@ href="http://www.doxygen.org">Doxygen</a> website.
 
 <table border="0" class="centered text-table width80 normal-font alt-row-colors">
 <tr>
-    <th>Command</th>
+    <th align="left">Command</th>
     <th>Meaning</th>
 </tr>
-
-<tr><td class="simpletableleft">@c @@author</td>
-<td class="simpletableright">
+<tr><td>@c @@author</td>
+<td>
 Names the author of the entity being described (a file, a class, etc.).
-</td><td></td></tr>
-
-<tr><td class="simpletableleft">@c @@brief</td>
-<td class="simpletableright">
+</td></tr>
+<tr><td>@c @@brief</td>
+<td>
 Provides a one-sentence description of the entity being described (a file,
-a class, etc.).</td><td></td></tr>
-
-<tr><td class="simpletableleft">@c @@bug</td>
-<td class="simpletableright">
+a class, etc.).</td></tr>
+<tr><td>@c @@bug</td>
+<td>
 Formats the following paragraph with the heading "Bugs:".  Useful to
 indicate that something is known to be a problem in some part of the code. 
 As a convention, please put @c @@bug blocks at the end of a documentation
 block, for uniformity in the API documentation.
-</td><td></td></tr>
-
-<tr><td class="simpletableleft">@c @@c</td>
-<td class="simpletableright">
+</td></tr>
+<tr><td>@c @@c</td>
+<td>
 Puts the following word in typewriter ("code") font.  To style more than one
 word, use <code>&lt;code&gt;the words&lt;/code&gt;</code>.  If you need to
 put something that contains HTML tags in typewriter font, use the
 <code>&lt;code&gt;the words&lt;/code&gt;</code> form, and use the HTML
 character codes <code>\&lt;</code> and<code>\&gt;</code> to embed the
 opening '@c &lt;' and '@c &gt;' characters inside <code>the words</code>.
-</td><td></td></tr>
-
-<tr><td class="simpletableleft">@c @@class</td>
-<td class="simpletableright">
+</td></tr>
+<tr><td>@c @@class</td>
+<td>
 Declares that the following documentation block refers to the named class.
 Useful only when the block does not immediately precede the class
 definition (e.g., when it's at the beginning of the file). 
-</td><td></td></tr>
-
-<tr><td class="simpletableleft">@c @@copydetails</td>
-<td class="simpletableright">
+</td></tr>
+<tr><td>@c @@copydetails</td>
+<td>
 Copies the "detail" portion of the documentation of the given symbol.  Please
 see Section @ref coding-copydetails for more information.
-</td><td></td></tr>
-
-<tr><td class="simpletableleft">@c @@em</td>
-<td class="simpletableright">
+</td></tr>
+<tr><td>@c @@em</td>
+<td>
 Puts the following word in italic font, for emphasis.  To put multiple words
 in italics, use <code>&lt;em&gt;the words&lt;/em&gt;</code>.
-</td><td></td></tr>
-
-<tr><td class="simpletableleft">@c @@enum</td>
-<td class="simpletableright">
+</td></tr>
+<tr><td>@c @@enum</td>
+<td>
 Defines an enumeration.  Otherwise identical to @c @@class.
-</td><td></td></tr>
-
-<tr><td class="simpletableleft">@c @@file</td>
-<td class="simpletableright">
-Defines the name of the current file.</td><td></td></tr>
-
-<tr><td class="simpletableleft">@c @@htmlinclude</td>
-<td class="simpletableright">
+</td></tr>
+<tr><td>@c @@file</td>
+<td>
+Defines the name of the current file.</td></tr>
+<tr><td>@c @@htmlinclude</td>
+<td>
 Insert the contents of the named file.  The file can contain HTML 
 formatting instructions.
-</td><td></td></tr>
-
-<tr><td class="simpletableleft">@c @@if ... @em symbol @c @@else ... @c @@endif</td>
-<td class="simpletableright">
+</td></tr>
+<tr><td>@c @@if ... @em symbol @c @@else ... @c @@endif</td>
+<td>
 Makes content visible depending on whether the @em symbol immediately
 following the @c @@if is defined.  If it is defined, the text after the
 symbol and before either the @c @@else (if it is present) or the @c @@endif
@@ -729,65 +718,55 @@ the next character after @c @@endif is a punctuation character or it is the
 end of the text block, put the sequence <code>@@~</code> after the @c
 @@endif.  In other words, write <code>@@endif@@~</code> in the input, rather
 than a bare @c @@endif.
-
-</td><td></td></tr>
-
-<tr><td class="simpletableleft">@c @@li</td>
-<td class="simpletableright">
+</td></tr>
+<tr><td>@c @@li</td>
+<td>
 Starts (or continues) a bullet list.  You can insert the first @c @@li in
 a comment, and the item will continue until a paragraph break or the
 next @c @@li command.  (Note: even though Doxygen will also recognize
 hyphens at the beginning of a line as starting a  list item, avoid using 
 that approach in favor of the @c @@li command.
-</td><td></td></tr>
-
-<tr><td class="simpletableleft">@c @@p</td>
-<td class="simpletableright">
+</td></tr>
+<tr><td>@c @@p</td>
+<td>
 Puts the following word in typewriter ("code") font.  This form is preferred
 when the word is a parameter to a method or function.
-</td><td></td></tr>
-
-<tr><td class="simpletableleft">@c @@param</td>
-<td class="simpletableright">
+</td></tr>
+<tr><td>@c @@param</td>
+<td>
 Declares a parameter to a method or function.  The first word following
 @c @@param will be the name of the parameter, and the rest of the text (up to
 a period or blank) will be used as the description.
-</td><td></td></tr>
-
-<tr><td class="simpletableleft">@c @@n</td>
-<td class="simpletableright">
+</td></tr>
+<tr><td>@c @@n</td>
+<td>
 Forces a newline, like HTML's <code>&lt;br&gt;</code>.
-</td><td></td></tr>
-
-<tr><td class="simpletableleft">@c @@note</td>
-<td class="simpletableright">
+</td></tr>
+<tr><td>@c @@note</td>
+<td>
 Formats the following paragraph with the heading "Note:".  Useful to call
 out something special about a class, function, file or other entity, such
 as a behavior that should be brought to the attention of users or a note
 about API changes compared to previous versions of the software or SBML.
 As a convention, please put @c @@note blocks at the end of a documentation
 block, for uniformity in the API documentation.
-</td><td></td></tr>
-
-<tr><td class="simpletableleft">@c @@return</td>
-<td class="simpletableright">
+</td></tr>
+<tr><td>@c @@return</td>
+<td>
 Declares the return value from a method or function.
-</td><td></td></tr>
-
-<tr><td class="simpletableleft">@c @@sbmlbrief</td>
-<td class="simpletableright">
+</td></tr>
+<tr><td>@c @@sbmlbrief</td>
+<td>
 Special command defined for libSBML; see Section @ref coding-doc-h for 
 more information.
-</td><td></td></tr>
-
-<tr><td class="simpletableleft">@c @@see</td>
-<td class="simpletableright">
+</td></tr>
+<tr><td>@c @@see</td>
+<td>
 Formats a reference to another entity in the documentation.  Commonly used
 to refer to related classes or methods.
-</td><td></td></tr>
-
-<tr><td class="simpletableleft">@c @@warning</td>
-<td class="simpletableright">
+</td></tr>
+<tr><td>@c @@warning</td>
+<td>
 Formats the following paragraph with the heading "Warning:".  This is a
 stronger statement than @c @@note, and is useful to call attention to
 backward-incompatible changes or potentially error-provoking situations.
@@ -795,8 +774,7 @@ As a convention, please put @c @@warning blocks at the end of a documentation
 block, for uniformity in the API documentation, and please wrap them with
 an HTML span element with the CSS class "warning".  (See discussion in
 Section @ref coding-common-text.)
-</td><td></td></tr>
-
+</td></tr>
 </table>
 
 Many HTML commands will work in comments for Doxygen.  For example, a
