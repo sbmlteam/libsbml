@@ -542,7 +542,6 @@ typedef struct {
 #ifdef __cplusplus
 
 #include <vector>
-class L3ParserSettingsPlugin;
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
@@ -726,6 +725,7 @@ public:
 
 #ifndef LIBSBML_USE_LEGACY_MATH
   /**
+   * 
    * Adds the given ASTBasePlugin object to this package
    * extension.
    *
@@ -760,43 +760,6 @@ public:
   * this package extension is set, @c false otherwise.
   */
   bool isSetASTBasePlugin() const;
-
-
-  /**
-   * Adds the given L3ParserSettingsPlugin object to this package
-   * extension.
-   *
-   * @param astPlugin the L3ParserSettingsPlugin object 
-   * of this package extension.
-   */
-  int setL3ParserSettingsPlugin(const L3ParserSettingsPlugin* astPlugin);
-
-
-  /**
-   * Returns an L3ParserSettingsPlugin of this package extension.
-   *
-   * @return an L3ParserSettingsPlugin of this package extension.
-   */
-  const L3ParserSettingsPlugin* getL3ParserSettingsPlugin() const;
-  
-  
-  /**
-   * Returns an L3ParserSettingsPlugin of this package extension.
-   *
-   * @return an L3ParserSettingsPlugin of this package extension.
-   */
-  L3ParserSettingsPlugin* getL3ParserSettingsPlugin();
-
-
-
-  /**
-  * Predicate returning @c true if this package extension has
-  * an L3ParserSettingsPlugin attribute set.
-  *
-  * @return @c true if the L3ParserSettingsPlugin of
-  * this package extension is set, @c false otherwise.
-  */
-  bool isSetL3ParserSettingsPlugin() const;
 
 
 #endif /* LIBSBML_USE_LEGACY_MATH */
@@ -1035,7 +998,6 @@ protected:
 
 #ifndef LIBSBML_USE_LEGACY_MATH
   ASTBasePlugin*                       mASTBasePlugin;
-  L3ParserSettingsPlugin*              mL3ParserSettingsPlugin;
 #endif /* LIBSBML_USE_LEGACY_MATH */
   /** @endcond */
 
