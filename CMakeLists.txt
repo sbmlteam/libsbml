@@ -35,7 +35,7 @@ cmake_minimum_required(VERSION 2.6)
 project(libsbml)
 
 set(LIBSBML_ROOT_SOURCE_DIR "${CMAKE_SOURCE_DIR}" CACHE PATH
-    "Path to the libsbml root build directory")
+    "Path to the libsbml root source directory")
 set(LIBSBML_ROOT_BINARY_DIR "${CMAKE_BINARY_DIR}" CACHE PATH
     "Path to the libsbml root build directory")
 
