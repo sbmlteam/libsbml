@@ -16,9 +16,9 @@ file(GLOB H_FILES ${CMAKE_CURRENT_SOURCE_DIR}/*.h )
 set(TEST_LIBSBML_LIBS ${LIBSBML_LIBRARY}-static ${LIBCHECK_LIBRARY})
 
 set(TEST_FILES ${CPP_FILES} ${C_FILES} ${H_FILES})
-include_directories(${CMAKE_SOURCE_DIR}/src)
+include_directories(${LIBSBML_ROOT_SOURCE_DIR}/src)
 include_directories(${LIBCHECK_INCLUDE_DIR})
-include_directories(BEFORE ${CMAKE_BINARY_DIR}/src)
+include_directories(BEFORE ${LIBSBML_ROOT_BINARY_DIR}/src)
 
 add_executable(test_distrib_util ${TEST_FILES})
 target_link_libraries(test_distrib_util ${TEST_LIBSBML_LIBS})
