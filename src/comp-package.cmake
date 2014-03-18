@@ -9,7 +9,7 @@
 
 if(ENABLE_COMP)
 
-include(${CMAKE_SOURCE_DIR}/comp-package.cmake)
+include(${LIBSBML_ROOT_SOURCE_DIR}/comp-package.cmake)
 
 #build up sources
 set(COMP_SOURCES)

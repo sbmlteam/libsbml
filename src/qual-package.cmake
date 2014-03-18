@@ -33,7 +33,7 @@
 
 if(ENABLE_QUAL)
 
-include(${CMAKE_SOURCE_DIR}/qual-package.cmake)
+include(${LIBSBML_ROOT_SOURCE_DIR}/qual-package.cmake)
 
 #build up sources
 set(QUAL_SOURCES)

@@ -220,8 +220,8 @@ install(FILES ${additional_ext} DESTINATION include/sbml/extension)
 # specify include directories
 #
 
-include_directories(BEFORE ${CMAKE_SOURCE_DIR}/src/sbml)
-include_directories(BEFORE ${CMAKE_SOURCE_DIR}/src)
+include_directories(BEFORE ${LIBSBML_ROOT_SOURCE_DIR}/src/sbml)
+include_directories(BEFORE ${LIBSBML_ROOT_SOURCE_DIR}/src)
 include_directories(BEFORE ${CMAKE_CURRENT_BINARY_DIR})
 include_directories(BEFORE ${CMAKE_CURRENT_BINARY_DIR}/src)
 include_directories(BEFORE ${CMAKE_CURRENT_BINARY_DIR}/src/sbml)
