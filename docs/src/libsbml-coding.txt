@@ -141,7 +141,7 @@ at the beginning and
 @endverbatim
 at the end of the block.  This is merely a convention used in libSBML and not
 something that Doxygen defines; we simply use the normal Doxygen conditional
-test operator <code>@cond</code> and give it a symbol we never define:
+test operator <code>@@cond</code> and give it a symbol we never define:
 "doxygenLibsbmlInternal".  The symbol name is chosen to suggest the
 purpose.
 @li If an entire file should be omitted from the user documentation, use the
