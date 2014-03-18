@@ -34,6 +34,7 @@
 
 #include <sbml/packages/layout/common/LayoutExtensionTypes.h>
 #include <sbml/packages/layout/validator/LayoutValidator.h>
+#include <sbml/SBMLReader.h>
 
 	/** @cond doxygenLibsbmlInternal */
 

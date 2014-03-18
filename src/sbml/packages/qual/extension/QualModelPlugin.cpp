@@ -34,6 +34,8 @@
 
 #include <sbml/packages/qual/extension/QualModelPlugin.h>
 #include <sbml/packages/qual/validator/QualSBMLError.h>
+#include <sbml/util/ElementFilter.h>
+#include <sbml/Model.h>
 
 #include <iostream>
 using namespace std;

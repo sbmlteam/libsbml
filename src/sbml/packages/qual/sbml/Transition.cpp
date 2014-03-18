@@ -34,6 +34,7 @@
 
 #include <sbml/packages/qual/sbml/Transition.h>
 #include <sbml/packages/qual/validator/QualSBMLError.h>
+#include <sbml/util/ElementFilter.h>
 
 
 using namespace std;

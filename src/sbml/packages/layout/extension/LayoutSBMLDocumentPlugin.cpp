@@ -37,6 +37,7 @@
 
 #include <sbml/util/MetaIdFilter.h>
 #include <sbml/util/IdFilter.h>
+#include <sbml/Model.h>
 
 
 #ifdef __cplusplus

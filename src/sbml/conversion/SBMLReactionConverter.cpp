@@ -38,6 +38,8 @@
 #include <sbml/SBMLDocument.h>
 #include <sbml/SyntaxChecker.h>
 #include <sbml/Model.h>
+#include <sbml/AssignmentRule.h>
+#include <sbml/RateRule.h>
 
 #ifdef __cplusplus
 

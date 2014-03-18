@@ -33,6 +33,7 @@
 #include <sbml/validator/VConstraint.h>
 #include <sbml/packages/qual/validator/QualValidator.h>
 #include <sbml/packages/qual/common/QualExtensionTypes.h>
+#include <sbml/SBMLReader.h>
 
 /** @cond doxygenIgnored */
 

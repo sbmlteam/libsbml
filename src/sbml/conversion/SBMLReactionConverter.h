@@ -51,6 +51,7 @@
 
 #include <map>
 #include <string>
+class SpeciesReference;
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 

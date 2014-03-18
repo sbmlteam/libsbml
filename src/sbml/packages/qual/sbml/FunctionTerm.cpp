@@ -35,6 +35,7 @@
 #include <sbml/packages/qual/sbml/FunctionTerm.h>
 #include <sbml/packages/qual/validator/QualSBMLError.h>
 #include <sbml/math/MathML.h>
+#include <sbml/util/ElementFilter.h>
 
 
 using namespace std;

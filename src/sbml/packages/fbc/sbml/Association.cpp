@@ -36,6 +36,7 @@
 
 #include <sbml/packages/fbc/sbml/Association.h>
 #include <sbml/packages/fbc/extension/FbcExtension.h>
+#include <sbml/math/FormulaParser.h>
 
 using namespace std;
 
