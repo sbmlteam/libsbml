@@ -385,7 +385,7 @@ in documenting multiple similar objects.  Unfortunately, Doxygen does not
 offer any other means of copying text fragments except for
 <code>@@htmlinclude</code> (discussed below), and the alternative versions of
 the <code>@@copydetails</code> command (i.e., <code>@@copybrief</code> and
-<code>@@copydoc</code>) have undersirable properties in the output the
+<code>@@copydoc</code>) have undesirable properties in the output they
 produce.  Consequently, we have resorted to using <code>@@copydetails</code>
 in combination with some conventions to achieve what we need.
 
@@ -447,7 +447,7 @@ The use of <code>@@copydetails</code> has the advantage that all of the
 normal Doxygen processing will be done within the text block.  Importantly,
 this includes the automatic linking of cross-reference to classes, methods,
 and other objects.  In general, the use of <code>@@copydetails</code> is
-preferrable to the use of <code>@@htmlinclude</code> described below, but in
+preferable to the use of <code>@@htmlinclude</code> described below, but in
 some situations you ned to resort to the latter command.
 
 
@@ -477,7 +477,7 @@ in a documentation string.
 It is worth reiterating that normal Doxygen processing is not performed
 inside the contents of the file included through this mechanism.
 Cross-references will not be made, the Doxygen <code>@@</code>&nbsp;commands will
-be ignored, etc.  For most cases, it is preferrable to use the
+be ignored, etc.  For most cases, it is preferable to use the
 <code>@@copydetails</code> approach described in the previous section.
 
 
@@ -677,7 +677,7 @@ word, use <code>&lt;code&gt;the words&lt;/code&gt;</code>.  If you need to
 put something that contains HTML tags in typewriter font, use the
 <code>&lt;code&gt;the words&lt;/code&gt;</code> form, and use the HTML
 character codes <code>\&lt;</code> and<code>\&gt;</code> to embed the
-openening '@c &lt;' and '@c &gt;' characters inside <code>the words</code>.
+opening '@c &lt;' and '@c &gt;' characters inside <code>the words</code>.
 </td><td></td></tr>
 
 <tr><td class="simpletableleft">@c @@class</td>
