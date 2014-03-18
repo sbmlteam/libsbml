@@ -695,28 +695,21 @@ ASTNode::getNumerator () const
 const char* 
 ASTNode::getOperatorName () const
 {
-  const char * name = NULL;
-  switch(getType()) 
+  switch(mType) 
   {
   case AST_DIVIDE:
-    name = "divide";
-    break;
+    return AST_OPERATOR_STRINGS[0];
   case AST_MINUS:
-    name = "minus";
-    break;
+    return AST_OPERATOR_STRINGS[1];
   case AST_PLUS:
-    name = "plus";
-    break;
+    return AST_OPERATOR_STRINGS[2];
   case AST_TIMES:
-    name = "times";
-    break;
+    return AST_OPERATOR_STRINGS[3];
   case AST_POWER:
-    name = "power";
-    break;
+    return AST_OPERATOR_STRINGS[4];
   default:
-    break;
+    return NULL;
   }
-  return name;
 }
 
 
