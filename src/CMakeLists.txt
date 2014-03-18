@@ -169,15 +169,24 @@ check_library_exists(m sqrt "" HAVE_LIBM)
 configure_file(
     ${CMAKE_CURRENT_SOURCE_DIR}/sbml/common/libsbml-config-common.h.cmake
     ${CMAKE_CURRENT_BINARY_DIR}/sbml/common/libsbml-config-common.h
-    )
+)
 
 # Replace: @PACKAGE_VERSION@ and @LIBSBML_VERSION_NUMERIC@
 configure_file (
   "${CMAKE_CURRENT_SOURCE_DIR}/sbml/common/libsbml-version.h.cmake"
   "${CMAKE_CURRENT_BINARY_DIR}/sbml/common/libsbml-version.h"
-  )
+)
 
+configure_file (
+  "${CMAKE_CURRENT_SOURCE_DIR}/sbml/common/libsbml-namespace.h.cmake"
+  "${CMAKE_CURRENT_BINARY_DIR}/sbml/common/libsbml-namespace.h"
+)
 
+configure_file (
+  "${CMAKE_CURRENT_SOURCE_DIR}/sbml/common/libsbml-package.h.cmake"
+  "${CMAKE_CURRENT_BINARY_DIR}/sbml/common/libsbml-package.h"
+)
+  
 ###############################################################################
 #
 # mark header files for installation
