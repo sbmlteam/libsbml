@@ -432,15 +432,8 @@ consisting of a line of dashes. Example:
 @endverbatim
 @li To use the text, that is, to insert a text block somewhere in the body of
 a documentation string, use the command <code>@@copydetails</code> followed
-by the name of the fake class.  Here is an example:
-@verbatim
- * @class ListOfCompartments
- * @sbmlbrief{core} Implementation of SBML Level&nbsp;2's %ListOfCompartments
- * construct.
- * 
- * @@copydetails doc_what_is_listof
- */
-@endverbatim
+by the name of the (fake) documentation class.  Here is an example:
+@htmlinclude libsbml-coding-copydetails-example.html
 
 Finally where should you put these <code>@@class</code> definitions for
 creating reusable text blocks?  Use one of the following two locations:
