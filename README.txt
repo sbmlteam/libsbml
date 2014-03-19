@@ -424,7 +424,7 @@ Licensing and Distribution Terms for libSBML:
 
 Copyright (C) 2009-2013 jointly by the following organizations: 
     1. California Institute of Technology, Pasadena, CA, USA
-    2. EMBL European Bioinformatics Institute (EBML-EBI), Hinxton, UK
+    2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
  
 Copyright (C) 2006-2008 by the California Institute of Technology,
     Pasadena, CA, USA 

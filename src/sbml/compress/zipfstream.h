@@ -9,7 +9,7 @@
  *
  * Copyright (C) 2013-2014 jointly by the following organizations:
  *     1. California Institute of Technology, Pasadena, CA, USA
- *     2. EMBL European Bioinformatics Institute (EBML-EBI), Hinxton, UK
+ *     2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
  *     3. University of Heidelberg, Heidelberg, Germany
  *
  * Copyright 2005-2010 California Institute of Technology.
