@@ -120,7 +120,7 @@ public:
    */
   virtual int setType (ASTNodeType_t type);
 
-  int setTypeFromInt(int type);
+  virtual int setType(int type);
 
 
   /* helper functions to establish types */

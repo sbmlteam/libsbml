@@ -407,7 +407,7 @@ ASTBinaryFunctionNode::read(XMLInputStream& stream, const std::string& reqd_pref
   const char*      name = element.getName().c_str();
 
   int type = getTypeFromName(name);
-  setTypeFromInt(type);
+  setType(type);
   ASTBase::read(stream, reqd_prefix);
 
   unsigned int numChildrenAdded = 0;

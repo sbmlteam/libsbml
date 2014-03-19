@@ -50,7 +50,7 @@ ASTQualifierNode::ASTQualifierNode (int type) :
   ASTFunctionBase(type)
 
 {
-  ASTFunctionBase::setTypeFromInt(type);
+  ASTFunctionBase::setType(type);
 }
   
   

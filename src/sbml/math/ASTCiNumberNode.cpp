@@ -68,7 +68,7 @@ ASTCiNumberNode::ASTCiNumberNode (int type) :
     , mName       ( "" )
     , mDefinitionURL ( "" )
 {
-    ASTBase::setTypeFromInt(type);
+    ASTBase::setType(type);
 }
   
 

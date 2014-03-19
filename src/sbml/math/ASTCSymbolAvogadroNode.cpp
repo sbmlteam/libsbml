@@ -69,7 +69,7 @@ ASTCSymbolAvogadroNode::ASTCSymbolAvogadroNode (int type) :
     , mName       ( "" )
     , mDefinitionURL ( "" )
 {
-  ASTConstantNumberNode::setTypeFromInt(type);
+  ASTConstantNumberNode::setType(type);
   ASTConstantNumberNode::setValue(6.02214179e23);
   setEncoding("text");
   setDefinitionURL("http://www.sbml.org/sbml/symbols/avogadro");

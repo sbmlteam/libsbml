@@ -1302,7 +1302,7 @@ ASTNode::setType (int type)
     delete copyFunction;
   }
 
-  return ASTBase::setTypeFromInt(type);
+  return ASTBase::setType(type);
 }
 
 

@@ -105,7 +105,7 @@ ASTBase::ASTBase (int type) :
    , mParentSBMLObject ( NULL )
    , mUserData ( NULL )
 {
-  setTypeFromInt(type);
+  setType(type);
 
   loadASTPlugins(NULL);
 
@@ -146,7 +146,7 @@ ASTBase::ASTBase (SBMLNamespaces* sbmlns, int type) :
    , mParentSBMLObject ( NULL )
    , mUserData ( NULL )
 {
-  setTypeFromInt(type);
+  setType(type);
 
   loadASTPlugins(sbmlns);
   
@@ -421,7 +421,7 @@ ASTBase::setType (ASTNodeType_t type)
 
 
 int 
-ASTBase::setTypeFromInt (int type)
+ASTBase::setType (int type)
 {
   if (type < AST_ORIGINATES_IN_PACKAGE)
   {
