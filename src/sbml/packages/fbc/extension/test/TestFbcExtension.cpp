@@ -17,6 +17,7 @@
 #include <sbml/packages/fbc/sbml/Association.h>
 #include <sbml/extension/SBMLExtensionRegistry.h>
 #include <sbml/SBMLTypeCodes.h>
+#include <sbml/SBMLReader.h>
 #include <string>
 
 /** @cond doxygenIgnored */

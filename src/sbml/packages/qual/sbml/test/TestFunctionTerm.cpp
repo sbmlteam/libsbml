@@ -39,6 +39,7 @@
 #include <check.h>
 #include <sbml/common/extern.h>
 #include <sbml/math/L3Parser.h>
+#include <sbml/math/FormulaFormatter.h>
 #include <sbml/packages/qual/common/QualExtensionTypes.h>
 #include <sbml/extension/SBMLExtensionRegistry.h>
 #include <sbml/SBMLTypeCodes.h>

@@ -61,6 +61,7 @@
 #include <sbml/units/FormulaUnitsData.h>
 
 #include <sbml/math/ASTNode.h>
+#include <sbml/math/FormulaParser.h>
 
 #include <check.h>
 

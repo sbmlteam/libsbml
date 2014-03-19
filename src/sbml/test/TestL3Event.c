@@ -37,6 +37,7 @@
 #include <sbml/Trigger.h>
 #include <sbml/xml/XMLNamespaces.h>
 #include <sbml/SBMLDocument.h>
+#include <sbml/math/FormulaParser.h>
 
 #include <check.h>
 

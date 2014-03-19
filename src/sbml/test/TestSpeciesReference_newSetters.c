@@ -38,6 +38,7 @@
 #include <sbml/SBMLDocument.h>
 #include <sbml/StoichiometryMath.h>
 #include <sbml/math/ASTNode.h>
+#include <sbml/math/FormulaParser.h>
 
 #include <check.h>
 

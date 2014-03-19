@@ -37,6 +37,8 @@
 
 #include <sbml/conversion/ConversionProperties.h>
 #include <sbml/extension/SBasePlugin.h>
+#include <sbml/SBMLReader.h>
+#include <sbml/SBMLWriter.h>
 
 #include <check.h>
 

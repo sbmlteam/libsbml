@@ -38,6 +38,7 @@
 #include <sbml/EventAssignment.h>
 #include <sbml/Model.h>
 #include <sbml/SBMLDocument.h>
+#include <sbml/math/MathML.h>
 #include <sbml/xml/XMLNode.h>
 
 #include <limits.h>
