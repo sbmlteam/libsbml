@@ -1,7 +1,7 @@
 /** @page libsbml-other Extending the libSBML API
 
 @htmlinclude doxygen-regular-text-start.html
-- @subpage libsbml-coding for developers and contributors
+- @subpage libsbml-coding
 - @subpage libsbml-extending
 @htmlinclude doxygen-regular-text-end.html
 
