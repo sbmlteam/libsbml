@@ -27,7 +27,7 @@ combination of tools.  For almost all languages (C++, C#, C, Python, and
 others), the cornerstone of the approach is the open-source software tool <a
 href="http://www.doxygen.org">Doxygen</a>; for Java, we use Javadoc instead.
 We write the documentation in source code and auxiliary files in a way that
-both Javadoc and Doxygen can process or more less equally, which requires
+both Javadoc and Doxygen can process more or less equally, which requires
 that programmers and documentation authors follow various conventions
 described in the rest of this document.  In addition, we use various
 home-grown scripts and programs to massage the output of SWIG to produce
