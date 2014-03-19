@@ -779,122 +779,64 @@ for how it works, to help find problems when the output produced is not
 what's expected.  This section summarizes the sequences of events for the
 different types of documentation.
 
+@subsection doc-process-c 6.1 The sequence for generating C++ and C documentation
 
-@subsection doc-process-java 6.1 The process for generating Java documentation
+The steps below are executed by the Makefile located in the directory
+<code>docs/src/</code>.  They are invoked by the command <code>make
+cpp-manual</code> (for C++) or <code>make c-manual</code> (for C).
 
-The process for the Java API documentation is different from all the others
-because it does not use Doxygen; instead, it uses Javadoc, the common Java
-documentation-generation tool.  In principle we @em could use Doxygen for
-Java as well, but the output produced by Doxygen is different in appearance
-and structure than what Javadoc produces.  We felt that using Javadoc would
-provide something closer to what Java developers are accustomed to seeing,
-and therefore would be better for Java developers.
-
-The process for generating the Java API documentation actually begins @em
-before you run <code>make java-manual</code> in the <code>docs/src/</code>
-directory: it begins with the process involving the execution of SWIG.  For
-completeness, the sequence below encompasses this.
-
--# Before the documentation can be produced&mdash;that is, before the
-   remaining steps below can be executed&mdash;the Java bindings files for
-   libSBML must be generated.  This process is triggered by a regular
-   <code>make</code> or <code>cmake</code> at the top level of the libSBML
-   source code directory.  It will invoke SWIG at some point, but before it
-   invokes SWIG, it will run the custom Python program
-   <code>src/bindings/swig/swigdoc.py</code>.  This Python program reads all
-   the libSBML source code files, copies the class and method comments found
-   therein, performs pattern matching and substitution in the text of those
-   comments to produce versions that follow Javadoc conventions, and writes
-   the modified results to the file <code>src/bindings/java/javadoc.i</code>.
-   This file will be read by SWIG when it runs.  When SWIG produces the
-   actual Java files that it writes in
-   <code>src/bindings/java/java-files/</code>, it uses the comment strings in
-   this file as the source of the documentation strings attached to the Java
-   class and method definitions.
-
--# The remaining steps below to produce the formatted API documentation
-   output are executed by the Makefile located in the directory
-   <code>docs/src/</code>.  They are invoked by the command <code>make
-   java-manual</code>.  (Note that the steps @em above are always performed
-   during a build of libSBML, regardless of whether you generate documentation.)
-
--# The <code>make java-manual</code> process first generates a CSS stylesheet
+-# The process first generates a CSS stylesheet
    (<code>css/libsbml-package-stylesheet.css</code>) to define formatting
    rules tailored for each class defined by each Level&nbsp;3 package
    extension for libSBML.  This is done by the Python program
-   <code>css/generate-pkg-stylesheet.py</code>.  This program works by 
+   <code>css/generate-pkg-stylesheet.py</code>.  This program works by
    walking down the libSBML package source code directory, examining every
    <code>.h</code> file looking for @c @@class statements, and collecting the
-   list of class names, then producing a <code>.css</code> file with rules for 
-   every class found. The rules define the color symbols associated with every
-   package and written in places such as the left-hand list of class names in
-   the Javadoc output.  (This complicated process is necessary because
-   Javadoc provides no other hooks to modify the appearance of class
-   description pages.)
+   list of class names, then producing a <code>.css</code> file with rules
+   for every class found. The rules define the color symbols associated with
+   every SBML Level&nbsp;3 package class in the libSBML API documentation.
 
--# The Java files previously produced by SWIG for the Java API are copied
-   from their location in <code>src/bindings/java/java-files/</code> to a
-   temporary directory in <code>docs/src</code>.
+-# Next, Doxygen is executed @em twice.  This double run of Doxygen is
+   necessary to use the @c @@ingroup command in the way we use it to produce
+   pages that list all the classes associated with a given SBML Level&nbsp;3
+   package.
+<ol style="margin-above: 0.5em; list-style-type: lower-roman">
 
--# The Java files located in <code>docs/src/java-substitutions/</code> are
-   copied into the same temporary directory as the previous step, @em
-   overwriting some of the files originally created by SWIG.  These
-   substitutions are necessary for various reasons, including the inability
-   to attach documentation to some types of objects produced by SWIG.  The
-   files in <code>docs/src/java-substitutions/</code> do not contain any Java
-   code, only comments.  Two points are important to note.  First, the
-   comments are in Javadoc format, @em not in Doxygen format, because the
-   next step will feed the files as-is to Javadoc.  Second, if the original
-   source code changes, <strong>the substitution files must be modified by
-   hand</strong> to account for the changes.  This is an obvious maintenance
-   problem, but we currently have no better solution.
+<li>In the first run of Doxygen, the definition of the macro @c
+   @@sbmlbrief is altered so that it invokes the Doxygen command @c
+   @@addindex with the name of the each libSBML Python class.  The results of
+   this run are a number of JavaScript files produced by Doxygen (files
+   like <code>navtreeindex.js</code>, <code>navtree.js</code>, etc.).  These
+   files are saved aside temporarily while the next step is performed.
 
--# Next, Javadoc is executed on the contents of the temporary directory
-   mentioned in the previous step, to generate the basic HTML output files to
-   the destination directory.  Javadoc is invoked with a custom doclet that
-   implements features not available in the default Javadoc doclet, such as
-   skipping the files that are listed in <code>docs/src/java-skip.txt</code>,
-   detecting the tag @c @@internal in method comments and omitting those
-   methods from the output, and adding some comments to some methods (at the
-   moment, the <code>delete()</code> method).
+<li>In the second run of Doxygen, the definition of @c @@sbmlbrief is reverted
+   to its normal form, in which it invokes the Doxygen command @c @@ingroup.
+   This produces the pages in the section titled "Level 3 Extensions"
+   in the final documentation.
 
--# A number of unmodified additional files are copied to the destination
-   directory: CSS style files, JavaScript files, image files, and so on.
+<li>The (correct) index files produced in the first run of Doxygen are used
+   to replace the (incorrect) index files from the second run.
 
--# A number of additional HTML files are copied from <code>docs/src/</code>
-   to the destination directory, but using a procedure that prepends a
-   header, appends a footer, and performs substitutions on variables in the
-   files (for the title and the libSBML version number) to produce their
-   final version in the output directory.  These files are for the front
-   page of the API documentation, installation procedures, etc.; basically,
-   content that is not class or method documentation.
+</ol>
+-# Finally, a number of unmodified additional files are copied to the
+   destination directory: CSS style files, JavaScript files, image files, and
+   so on.
 
--# The HTML page that lists the libSBML SBML Level&nbsp;3 extensions is
-   generated using a Python program,
-   <code>docs/src/generate-extensions-summary.py</code>. The file is
-   generated by rewriting an HTML page generated by Javadoc.  The
-   transformations include adding the color codes for different Level&nbsp;3
-   packages.
-
--# All of the HTML files in the output directory are modified to insert a
-   directive to include the <code>sbml.js</code> JavaScript file and to
-   rewrite some of the text in the files (e.g., to remove the word "Package",
-   which is a Java term that has a different meaning for SBML).
-
--# Finally, the Java example files are copied from
-   <code>examples/java/</code> to a subdirectory in the destination output
-   directory, along the way being modified to wrap them in HTML code.
+Without the double run of Doxygen described above, the left-hand table of
+contents produced by Doxygen is dysfunctional.  If you encounter a broken
+table of contents, then it may indicate something went wrong in the two-step
+process described above.
 
 
 
-@subsection doc-process-c 6.2 The sequence for generating C++ and C documentation
+@subsection doc-process-python 6.2 The sequence for generating Python documentation
 
-@subsection doc-process-python 6.3 The sequence for generating Python documentation
-
-The process for generating the Python API documentation begins @em
-before you run <code>make python-manual</code> in the <code>docs/src/</code>
-directory: it begins with the process involving the execution of SWIG.  For
-completeness, the sequence below encompasses this.
+The process for generating the Python API documentation is more involved than
+the one for C++ and C documentation described above, though some parts are
+the same.  The process for Python begins @em before you run <code>make
+python-manual</code> in the <code>docs/src/</code> directory: it begins with
+the process involving the execution of SWIG.  For completeness, the sequence
+below encompasses this.
 
 -# Before the documentation can be produced&mdash;that is, before the
    remaining steps below can be executed&mdash;the Python language interface
@@ -998,10 +940,111 @@ completeness, the sequence below encompasses this.
    destination directory: CSS style files, JavaScript files, image files, and
    so on.
 
-Without the double run of Doxygen described above, the left-hand table of
-contents produced by Doxygen is dysfunctional.  If you encounter a broken
-table of contents, then it may indicate something went wrong in the two-step
-process described above.
+
+@subsection doc-process-java 6.3 The process for generating Java documentation
+
+The process for the Java API documentation is different from all the others
+because it does not use Doxygen; instead, it uses Javadoc, the common Java
+documentation-generation tool.  In principle we @em could use Doxygen for
+Java as well, but the output produced by Doxygen is different in appearance
+and structure than what Javadoc produces.  We felt that using Javadoc would
+provide something closer to what Java developers are accustomed to seeing,
+and therefore would be better for Java developers.
+
+The process for generating the Java API documentation actually begins @em
+before you run <code>make java-manual</code> in the <code>docs/src/</code>
+directory: it begins with the process involving the execution of SWIG.  For
+completeness, the sequence below encompasses this.
+
+-# Before the documentation can be produced&mdash;that is, before the
+   remaining steps below can be executed&mdash;the Java bindings files for
+   libSBML must be generated.  This process is triggered by a regular
+   <code>make</code> or <code>cmake</code> at the top level of the libSBML
+   source code directory.  It will invoke SWIG at some point, but before it
+   invokes SWIG, it will run the custom Python program
+   <code>src/bindings/swig/swigdoc.py</code>.  This Python program reads all
+   the libSBML source code files, copies the class and method comments found
+   therein, performs pattern matching and substitution in the text of those
+   comments to produce versions that follow Javadoc conventions, and writes
+   the modified results to the file <code>src/bindings/java/javadoc.i</code>.
+   This file will be read by SWIG when it runs.  When SWIG produces the
+   actual Java files that it writes in
+   <code>src/bindings/java/java-files/</code>, it uses the comment strings in
+   this file as the source of the documentation strings attached to the Java
+   class and method definitions.
+
+-# The remaining steps below to produce the formatted API documentation
+   output are executed by the Makefile located in the directory
+   <code>docs/src/</code>.  They are invoked by the command <code>make
+   java-manual</code>.  (Note that the steps @em above are always performed
+   during a build of libSBML, regardless of whether you generate documentation.)
+
+-# The <code>make java-manual</code> process first generates a CSS stylesheet
+   (<code>css/libsbml-package-stylesheet.css</code>) to define formatting
+   rules tailored for each class defined by each Level&nbsp;3 package
+   extension for libSBML.  This is done by the Python program
+   <code>css/generate-pkg-stylesheet.py</code>.  This program works by 
+   walking down the libSBML package source code directory, examining every
+   <code>.h</code> file looking for @c @@class statements, and collecting the
+   list of class names, then producing a <code>.css</code> file with rules for 
+   every class found. The rules define the color symbols associated with every
+   package and written in places such as the left-hand list of class names in
+   the Javadoc output.  (This complicated process is necessary because
+   Javadoc provides no other hooks to modify the appearance of class
+   description pages.)
+
+-# The Java files previously produced by SWIG for the Java API are copied
+   from their location in <code>src/bindings/java/java-files/</code> to a
+   temporary directory in <code>docs/src</code>.
+
+-# The Java files located in <code>docs/src/java-substitutions/</code> are
+   copied into the same temporary directory as the previous step, @em
+   overwriting some of the files originally created by SWIG.  These
+   substitutions are necessary for various reasons, including the inability
+   to attach documentation to some types of objects produced by SWIG.  The
+   files in <code>docs/src/java-substitutions/</code> do not contain any Java
+   code, only comments.  Two points are important to note.  First, the
+   comments are in Javadoc format, @em not in Doxygen format, because the
+   next step will feed the files as-is to Javadoc.  Second, if the original
+   source code changes, <strong>the substitution files must be modified by
+   hand</strong> to account for the changes.  This is an obvious maintenance
+   problem, but we currently have no better solution.
+
+-# Next, Javadoc is executed on the contents of the temporary directory
+   mentioned in the previous step, to generate the basic HTML output files to
+   the destination directory.  Javadoc is invoked with a custom doclet that
+   implements features not available in the default Javadoc doclet, such as
+   skipping the files that are listed in <code>docs/src/java-skip.txt</code>,
+   detecting the tag @c @@internal in method comments and omitting those
+   methods from the output, and adding some comments to some methods (at the
+   moment, the <code>delete()</code> method).
+
+-# A number of unmodified additional files are copied to the destination
+   directory: CSS style files, JavaScript files, image files, and so on.
+
+-# A number of additional HTML files are copied from <code>docs/src/</code>
+   to the destination directory, but using a procedure that prepends a
+   header, appends a footer, and performs substitutions on variables in the
+   files (for the title and the libSBML version number) to produce their
+   final version in the output directory.  These files are for the front
+   page of the API documentation, installation procedures, etc.; basically,
+   content that is not class or method documentation.
+
+-# The HTML page that lists the libSBML SBML Level&nbsp;3 extensions is
+   generated using a Python program,
+   <code>docs/src/generate-extensions-summary.py</code>. The file is
+   generated by rewriting an HTML page generated by Javadoc.  The
+   transformations include adding the color codes for different Level&nbsp;3
+   packages.
+
+-# All of the HTML files in the output directory are modified to insert a
+   directive to include the <code>sbml.js</code> JavaScript file and to
+   rewrite some of the text in the files (e.g., to remove the word "Package",
+   which is a Java term that has a different meaning for SBML).
+
+-# Finally, the Java example files are copied from
+   <code>examples/java/</code> to a subdirectory in the destination output
+   directory, along the way being modified to wrap them in HTML code.
 
 
 @section coding-misc-doxygen 7. Miscellaneous Doxygen notes
