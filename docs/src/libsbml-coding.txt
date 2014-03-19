@@ -587,8 +587,9 @@ heading "Warning:".  <strong>Important</strong>: due to limitations in our
 documentation pipeline (in particular, in the use of Javadoc), the desired
 formatting can currently only be achieved through the use of an additional
 explicit bit of HTML code.  Specifically, please wrap the paragraph with an
-HTML span element puts the contents in the CSS class "warning".  The
-following example fragment illustrates this:
+HTML <code>&lt;span&gt;</code> element that puts the paragraph contents
+inside the CSS class "warning".  The following example fragment illustrates
+this:
 @verbatim
  * @class doc_warning_typecodes_not_unique
  *
