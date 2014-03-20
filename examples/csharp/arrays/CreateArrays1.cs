@@ -19,7 +19,7 @@ class Program
         comp.setConstant(true);
 
         // set dimensions
-        var compPlugin = (ArraysCompartmentPlugin)comp.getPlugin("arrays");
+        var compPlugin = (ArraysSBasePlugin)comp.getPlugin("arrays");
         var dim = compPlugin.createDimension();
         dim.setId("i");
         dim.setSize("n");
@@ -32,7 +32,7 @@ class Program
         species.setBoundaryCondition(false);
         species.setConstant(false);
 
-        var splugin = (ArraysSpeciesPlugin)species.getPlugin("arrays");
+        var splugin = (ArraysSBasePlugin)species.getPlugin("arrays");
         dim = splugin.createDimension();
         dim.setId("i");
         dim.setSize("n");
@@ -44,7 +44,7 @@ class Program
         species.setBoundaryCondition(false);
         species.setConstant(false);
 
-        splugin = (ArraysSpeciesPlugin)species.getPlugin("arrays");
+        splugin = (ArraysSBasePlugin)species.getPlugin("arrays");
         dim = splugin.createDimension();
         dim.setId("i");
         dim.setSize("n");
@@ -56,7 +56,7 @@ class Program
         species.setBoundaryCondition(false);
         species.setConstant(false);
 
-        splugin = (ArraysSpeciesPlugin)species.getPlugin("arrays");
+        splugin = (ArraysSBasePlugin)species.getPlugin("arrays");
         dim = splugin.createDimension();
         dim.setId("i");
         dim.setSize("n");
@@ -73,7 +73,7 @@ class Program
         reaction.setReversible(false);
         reaction.setFast(false);
 
-        var reactionPlugin = (ArraysReactionPlugin)reaction.getPlugin("arrays");
+        var reactionPlugin = (ArraysSBasePlugin)reaction.getPlugin("arrays");
         dim = reactionPlugin.createDimension();
         dim.setId("i");
         dim.setSize("n");
@@ -81,13 +81,13 @@ class Program
         var speciesRef = reaction.createReactant();
         speciesRef.setSpecies("A");
         speciesRef.setConstant(false);
-        var refPlugin = (ArraysSpeciesReferencePlugin)speciesRef.getPlugin("arrays");
+        var refPlugin = (ArraysSBasePlugin)speciesRef.getPlugin("arrays");
         var index = refPlugin.createIndex();
-		var ast = new NewASTNode(libsbml.AST_ARRAYS_FUNCTION_SELECTOR);
-        var ci = new NewASTNode(libsbml.AST_NAME);
+		var ast = new ASTNode(libsbml.AST_LINEAR_ALGEBRA_SELECTOR);
+        var ci = new ASTNode(libsbml.AST_NAME);
         ci.setName("A");
         ast.addChild(ci);
-        ci = new NewASTNode(libsbml.AST_NAME);
+        ci = new ASTNode(libsbml.AST_NAME);
         ci.setName("i");
         ast.addChild(ci);
         index.setMath(ast);
@@ -95,13 +95,13 @@ class Program
         speciesRef = reaction.createProduct();
         speciesRef.setSpecies("C");
         speciesRef.setConstant(false);
-        refPlugin = (ArraysSpeciesReferencePlugin)speciesRef.getPlugin("arrays");
+        refPlugin = (ArraysSBasePlugin)speciesRef.getPlugin("arrays");
         index = refPlugin.createIndex();
-		ast = new NewASTNode(libsbml.AST_ARRAYS_FUNCTION_SELECTOR);
-        ci = new NewASTNode(libsbml.AST_NAME);
+		ast = new ASTNode(libsbml.AST_LINEAR_ALGEBRA_SELECTOR);
+        ci = new ASTNode(libsbml.AST_NAME);
         ci.setName("C");
         ast.addChild(ci);
-        ci = new NewASTNode(libsbml.AST_NAME);
+        ci = new ASTNode(libsbml.AST_NAME);
         ci.setName("i");
         ast.addChild(ci);
         index.setMath(ast);
