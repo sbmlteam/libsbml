@@ -7,7 +7,7 @@ import org.sbml.libsbml.Compartment;
 import org.sbml.libsbml.Dimension;
 import org.sbml.libsbml.Index;
 import org.sbml.libsbml.Model;
-import org.sbml.libsbml.NewASTNode;
+import org.sbml.libsbml.ASTNode;
 import org.sbml.libsbml.Parameter;
 import org.sbml.libsbml.Reaction;
 import org.sbml.libsbml.SBMLDocument;
@@ -32,7 +32,7 @@ public class createArrays1
         comp.setConstant(true);
 
         // set dimensions
-        ArraysCompartmentPlugin compPlugin = (ArraysCompartmentPlugin) comp.getPlugin("arrays");
+        ArraysSBasePlugin compPlugin = (ArraysSBasePlugin) comp.getPlugin("arrays");
         Dimension dim = compPlugin.createDimension();
         dim.setId("i");
         dim.setSize("n");
@@ -45,7 +45,7 @@ public class createArrays1
         species.setBoundaryCondition(false);
         species.setConstant(false);
 
-        ArraysSpeciesPlugin splugin = (ArraysSpeciesPlugin) species.getPlugin("arrays");
+        ArraysSBasePlugin splugin = (ArraysSBasePlugin) species.getPlugin("arrays");
         dim = splugin.createDimension();
         dim.setId("i");
         dim.setSize("n");
@@ -57,7 +57,7 @@ public class createArrays1
         species.setBoundaryCondition(false);
         species.setConstant(false);
 
-        splugin = (ArraysSpeciesPlugin) species.getPlugin("arrays");
+        splugin = (ArraysSBasePlugin) species.getPlugin("arrays");
         dim = splugin.createDimension();
         dim.setId("i");
         dim.setSize("n");
@@ -69,7 +69,7 @@ public class createArrays1
         species.setBoundaryCondition(false);
         species.setConstant(false);
 
-        splugin = (ArraysSpeciesPlugin) species.getPlugin("arrays");
+        splugin = (ArraysSBasePlugin) species.getPlugin("arrays");
         dim = splugin.createDimension();
         dim.setId("i");
         dim.setSize("n");
@@ -86,7 +86,7 @@ public class createArrays1
         reaction.setReversible(false);
         reaction.setFast(false);
 
-        ArraysReactionPlugin reactionPlugin = (ArraysReactionPlugin) reaction.getPlugin("arrays");
+        ArraysSBasePlugin reactionPlugin = (ArraysSBasePlugin) reaction.getPlugin("arrays");
         dim = reactionPlugin.createDimension();
         dim.setId("i");
         dim.setSize("n");
@@ -94,13 +94,13 @@ public class createArrays1
         SpeciesReference speciesRef = reaction.createReactant();
         speciesRef.setSpecies("A");
         speciesRef.setConstant(false);
-        ArraysSpeciesReferencePlugin refPlugin = (ArraysSpeciesReferencePlugin) speciesRef.getPlugin("arrays");
+        ArraysSBasePlugin refPlugin = (ArraysSBasePlugin) speciesRef.getPlugin("arrays");
         Index index = refPlugin.createIndex();
-        NewASTNode ast = new NewASTNode(libsbml.AST_ARRAYS_FUNCTION_SELECTOR);
-        NewASTNode ci = new NewASTNode(libsbml.AST_NAME);
+        ASTNode ast = new ASTNode(libsbml.AST_LINEAR_ALGEBRA_SELECTOR);
+        ASTNode ci = new ASTNode(libsbml.AST_NAME);
         ci.setName("A");
         ast.addChild(ci);
-        ci = new NewASTNode(libsbml.AST_NAME);
+        ci = new ASTNode(libsbml.AST_NAME);
         ci.setName("i");
         ast.addChild(ci);
         index.setMath(ast);
@@ -108,14 +108,14 @@ public class createArrays1
         speciesRef = reaction.createProduct();
         speciesRef.setSpecies("C");
         speciesRef.setConstant(false);
-        refPlugin = (ArraysSpeciesReferencePlugin) speciesRef.getPlugin("arrays");
+        refPlugin = (ArraysSBasePlugin) speciesRef.getPlugin("arrays");
         index = refPlugin.createIndex();
-        ast = new NewASTNode(libsbml.AST_FUNCTION);
+        ast = new ASTNode(libsbml.AST_FUNCTION);
         ast.setName("selector");
-        ci = new NewASTNode(libsbml.AST_NAME);
+        ci = new ASTNode(libsbml.AST_NAME);
         ci.setName("C");
         ast.addChild(ci);
-        ci = new NewASTNode(libsbml.AST_NAME);
+        ci = new ASTNode(libsbml.AST_NAME);
         ci.setName("i");
         ast.addChild(ci);
         index.setMath(ast);

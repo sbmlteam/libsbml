@@ -1,12 +1,11 @@
 ﻿import org.sbml.libsbml.ASTNode;
-import org.sbml.libsbml.ArraysInitialAssignmentPlugin;
-import org.sbml.libsbml.ArraysParameterPlugin;
+import org.sbml.libsbml.ArraysSBasePlugin;
 import org.sbml.libsbml.ArraysPkgNamespaces;
 import org.sbml.libsbml.Dimension;
 import org.sbml.libsbml.Index;
 import org.sbml.libsbml.InitialAssignment;
 import org.sbml.libsbml.Model;
-import org.sbml.libsbml.NewASTNode;
+import org.sbml.libsbml.ASTNode;
 import org.sbml.libsbml.Parameter;
 import org.sbml.libsbml.SBMLDocument;
 import org.sbml.libsbml.libsbml;
@@ -37,7 +36,7 @@ public class createArrays2
         param.setValue(5.7);
         param.setConstant(true);
 
-        ArraysParameterPlugin paramPlugin = (ArraysParameterPlugin) param.getPlugin("arrays");
+        ArraysSBasePlugin paramPlugin = (ArraysSBasePlugin) param.getPlugin("arrays");
         Dimension dim = paramPlugin.createDimension();
         dim.setId("i");
         dim.setSize("n");
@@ -46,7 +45,7 @@ public class createArrays2
         param.setId("y");
         param.setConstant(false);
 
-        paramPlugin = (ArraysParameterPlugin) param.getPlugin("arrays");
+        paramPlugin = (ArraysSBasePlugin) param.getPlugin("arrays");
         dim = paramPlugin.createDimension();
         dim.setId("i");
         dim.setSize("n");
@@ -55,7 +54,7 @@ public class createArrays2
         param.setId("z");
         param.setConstant(false);
 
-        paramPlugin = (ArraysParameterPlugin) param.getPlugin("arrays");
+        paramPlugin = (ArraysSBasePlugin) param.getPlugin("arrays");
         dim = paramPlugin.createDimension();
         dim.setId("i");
         dim.setSize("n");
@@ -74,17 +73,17 @@ public class createArrays2
         ast.setValue(5.7);
         assignment.setMath(ast);
 
-        ArraysInitialAssignmentPlugin assignmentPlugin = (ArraysInitialAssignmentPlugin) assignment.getPlugin("arrays");
+        ArraysSBasePlugin assignmentPlugin = (ArraysSBasePlugin) assignment.getPlugin("arrays");
         dim = assignmentPlugin.createDimension();
         dim.setId("i");
         dim.setSize("m");
 
         Index index = assignmentPlugin.createIndex();
-        NewASTNode newAst = new NewASTNode(libsbml.AST_ARRAYS_FUNCTION_SELECTOR);
-        NewASTNode ci = new NewASTNode(libsbml.AST_NAME);
+        ASTNode newAst = new ASTNode(libsbml.AST_LINEAR_ALGEBRA_SELECTOR);
+        ASTNode ci = new ASTNode(libsbml.AST_NAME);
         ci.setName("z");
         newAst.addChild(ci);
-        ci = new NewASTNode(libsbml.AST_NAME);
+        ci = new ASTNode(libsbml.AST_NAME);
         ci.setName("i");
         newAst.addChild(ci);
         index.setMath(newAst);
@@ -95,22 +94,22 @@ public class createArrays2
         ast.setValue(3.2);
         assignment.setMath(ast);
 
-        assignmentPlugin = (ArraysInitialAssignmentPlugin) assignment.getPlugin("arrays");
+        assignmentPlugin = (ArraysSBasePlugin) assignment.getPlugin("arrays");
         dim = assignmentPlugin.createDimension();
         dim.setId("i");
         dim.setSize("m");
 
         index = assignmentPlugin.createIndex();
-        newAst = new NewASTNode(libsbml.AST_ARRAYS_FUNCTION_SELECTOR);
-        ci = new NewASTNode(libsbml.AST_NAME);
+        newAst = new ASTNode(libsbml.AST_LINEAR_ALGEBRA_SELECTOR);
+        ci = new ASTNode(libsbml.AST_NAME);
         ci.setName("z");
         newAst.addChild(ci);
-        NewASTNode plus = new NewASTNode(libsbml.AST_PLUS);
+        ASTNode plus = new ASTNode(libsbml.AST_PLUS);
 
-        ci = new NewASTNode(libsbml.AST_NAME);
+        ci = new ASTNode(libsbml.AST_NAME);
         ci.setName("i");
         plus.addChild(ci);
-        ci = new NewASTNode(libsbml.AST_NAME);
+        ci = new ASTNode(libsbml.AST_NAME);
         ci.setName("m");
         plus.addChild(ci);
         newAst.addChild(plus);
