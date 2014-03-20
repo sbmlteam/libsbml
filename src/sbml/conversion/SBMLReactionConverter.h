@@ -162,11 +162,7 @@ public:
    * @warning Even though the @p doc is 'const', it is immediately cast 
    * to a non-const version, which is then usually changed by the 
    * converter upon a successful conversion.  This function is here 
-   * solely to preserve backwards compatibility.Note:  Even though the 
-   * document is 'const', it is immediately cast to a non-const version, 
-   * which is then usually changed by the converter upon a successful 
-   * conversion.  This function is here solely to preserve backwards 
-   * compatibility.
+   * solely to preserve backwards compatibility.
    * 
    * @return integer value indicating the success/failure of the operation.
    * @if clike The value is drawn from the enumeration
