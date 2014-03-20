@@ -755,7 +755,7 @@ ArraysASTPlugin::getNameFromType(int type) const
   {
     bool found = false;
     unsigned int i;
-    for (i = 0; i < size, found == false; i++)
+    for (i = 0; i < size && found == false; i++)
     {
       if (type == ARRAYS_MATHML_TYPES[i])
         found = true;
