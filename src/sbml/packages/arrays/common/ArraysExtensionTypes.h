@@ -34,6 +34,9 @@
 #include <sbml/packages/arrays/extension/ArraysSBMLDocumentPlugin.h>
 #include <sbml/packages/arrays/extension/ArraysSBasePlugin.h>
 
+#include <sbml/packages/arrays/math/ASTArraysMatrixFunctionNode.h>
+#include <sbml/packages/arrays/math/ASTArraysVectorFunctionNode.h>
+
 #include <sbml/packages/arrays/sbml/Dimension.h>
 #include <sbml/packages/arrays/sbml/Index.h>
 
