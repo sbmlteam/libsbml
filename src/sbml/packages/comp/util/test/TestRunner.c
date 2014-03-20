@@ -31,6 +31,78 @@
 #include <sbml/common/extern.h>
 
 
+/* START: workaround for VS2013 bug */
+/* from https://connect.microsoft.com/VisualStudio/feedback/details/806362/ */
+
+#if defined(_M_IX86) && _MSC_VER >= 1800 && _MSC_VER < 1900
+
+#pragma warning(disable:4075) // C4075: warning about unknown initializer section
+#pragma init_seg( ".CRT$XCB" ) // section sorts alphabetically before any user code section
+
+extern "C" void _except1();
+extern "C" void _ftol3_except();
+extern "C" int __stdcall VirtualProtect( void*, int, int, int* );
+
+// ABI specifies empty FPU stack on entry and exit of a non-inlined function
+static __declspec(noinline) unsigned __int32 ConvertInfinityToUint32()
+{
+    volatile double zero = 0.0;
+    return (unsigned __int32)(1.0 / zero);
+}
+
+static __declspec(naked) void HackedEndOfFtol3Except()
+{
+    _asm call _except1
+    _asm fstp st( 0 )
+    _asm add esp, 0x20
+    _asm ret
+}
+
+static bool PatchVS2013FPUStackBug()
+{
+    // If the top-of-stack bits of the status word changed, then converting
+    // an infinity or NaN to uint32 has leaked an FPU stack entry.
+    volatile short swBefore, swAfter;
+    _asm fnstsw swBefore
+    ConvertInfinityToUint32();
+    _asm fnstsw swAfter
+    if ( (swBefore & 0x3800) == (swAfter & 0x3800) )
+        return true; // already patched, either by MS or by this hack
+
+    // Fix the FPU stack, then fix the _ftol3_except function itself
+    _asm fstp st( 0 )
+
+    char* p = (char*)&_ftol3_except;
+    // Edit-and-continue builds use a relative jump to protect the actual function.
+    if ( p[0] == '\xE9' )
+    {
+        p = p + 5 + *(int*)(p + 1);
+    }
+    // The _ftol3_except function begins with SUB ESP, 20 then WAIT; call to _except1 is at 57 bytes
+    // (relative offset for call is bytes 58-62) followed by ADD ESP,0x20 then the final RET.
+    if ( p[0] == '\x83' && p[1] == '\xEC' && p[2] == '\x20' && p[3] == '\x9B' &&
+        p[57] == '\xE8' && p[62] == '\x83' && p[63] == '\xC4' && p[64] == '\x20' && p[65] == '\xC3' )
+    {
+        // Replace call to _except1 with a jump to HackedEndOfFtol3Except
+        int old = 0x20;
+        VirtualProtect( p + 57, 5, 0x40, &old );
+        p[57] = '\xE9';
+        *(int*)(p + 58) = (int)&HackedEndOfFtol3Except - (int)(p + 62);
+        VirtualProtect( p + 57, 5, old, &old );
+        return true;
+    }
+    return false;
+}
+
+#pragma comment(linker, "/include:_g_bPatchedVS2013FPUStackBug")
+extern "C" bool g_bPatchedVS2013FPUStackBug = PatchVS2013FPUStackBug();
+
+#endif
+
+/* END: workaround for VS2013 bug */ 
+
+
+
 /**
  * Test suite creation function prototypes.
  *
