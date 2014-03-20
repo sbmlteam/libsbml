@@ -53,6 +53,7 @@ foreach(example
 	echoSBML
 	inferUnits
 	inlineFunctionDefintions
+	convertReactions
 	getAllElementsWithNotes
 	printAnnotation
 	printMath

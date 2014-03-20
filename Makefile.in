@@ -107,6 +107,7 @@ examples =                                                          \
   examples/c++/getAllElementsWithNotes.cpp                          \
   examples/c++/inferUnits.cpp                                       \
   examples/c++/inlineFunctionDefintions.cpp                         \
+  examples/c++/convertReactions.cpp                                 \
   examples/c++/printAnnotation.cpp                                  \
   examples/c++/printMath.cpp                                        \
   examples/c++/printNotes.cpp                                       \
