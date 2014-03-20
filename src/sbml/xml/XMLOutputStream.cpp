@@ -1062,6 +1062,9 @@ XMLOutputStream::getSBMLNamespaces()
 void
 XMLOutputStream::setSBMLNamespaces(SBMLNamespaces * sbmlns)
 {
+  if (mSBMLns  != NULL)
+    delete mSBMLns;
+  
   if (sbmlns != NULL)
     mSBMLns = sbmlns->clone();
   else
