@@ -324,6 +324,9 @@ public:
 
 protected:
 
+  void resetPackageName();
+
+
   void checkPrefix(XMLInputStream& stream, const std::string& reqd_prefix, 
     const XMLToken& element);
 

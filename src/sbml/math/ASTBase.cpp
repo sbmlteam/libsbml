@@ -109,27 +109,10 @@ ASTBase::ASTBase (int type) :
 
   loadASTPlugins(NULL);
 
-  std::string name = "";
   // need to set the package name
-  if (getNumPlugins() > 0)
-  {
-    unsigned int i = 0;
-    while (name.empty() == true && i < getNumPlugins())
-    {
-      const ASTBasePlugin* plugin = static_cast<const ASTBasePlugin*>(getPlugin(i)); 
-      name = plugin->getNameFromType(type);
-      if (name == "AST_unknown")
-      {
-        name.clear();
-      }
-      i++;
-    }
-    if (name.empty() == false && i < getNumPlugins())
-    {
-      setPackageName(getPlugin(i-1)->getPackageName());
-    }
-  }
-  
+
+  resetPackageName();
+
   for (unsigned int i = 0; i < getNumPlugins(); i++)
   {
     getPlugin(i)->connectToParent(this);
@@ -150,26 +133,9 @@ ASTBase::ASTBase (SBMLNamespaces* sbmlns, int type) :
 
   loadASTPlugins(sbmlns);
   
-  std::string name = "";
   // need to set the package name
-  if (getNumPlugins() > 0)
-  {
-    unsigned int i = 0;
-    while (name.empty() == true && i < getNumPlugins())
-    {
-      const ASTBasePlugin* plugin = static_cast<const ASTBasePlugin*>(getPlugin(i)); 
-      name = plugin->getNameFromType(type);
-      if (name == "AST_unknown")
-      {
-        name.clear();
-      }
-      i++;
-    }
-    if (name.empty() == false && i < getNumPlugins())
-    {
-      setPackageName(getPlugin(i-1)->getPackageName());
-    }
-  }
+
+  resetPackageName();
   
 }
   
@@ -408,6 +374,7 @@ int
 ASTBase::setType (ASTNodeType_t type)
 {
   mType = type;
+  mPackageName = "core";
   mTypeFromPackage = AST_UNKNOWN;
   if (type == AST_UNKNOWN)
   {
@@ -427,11 +394,13 @@ ASTBase::setType (int type)
   {
     mType = (ASTNodeType_t)(type);
     mTypeFromPackage = AST_UNKNOWN;
+    mPackageName = "core";
   }
   else
   {
     mType = AST_ORIGINATES_IN_PACKAGE;
     mTypeFromPackage = type;
+    resetPackageName();
   }
   if (type == AST_UNKNOWN)
   {
@@ -1739,6 +1708,31 @@ ASTBase::syncMembersAndResetParentsFrom(ASTBase* rhs)
   }
 }
 
+
+void
+ASTBase::resetPackageName()
+{
+  std::string name = "";
+  int type = getExtendedType();
+  if (getNumPlugins() > 0)
+  {
+    unsigned int i = 0;
+    while (name.empty() == true && i < getNumPlugins())
+    {
+      const ASTBasePlugin* plugin = static_cast<const ASTBasePlugin*>(getPlugin(i)); 
+      name = plugin->getNameFromType(type);
+      if (name == "AST_unknown")
+      {
+        name.clear();
+      }
+      i++;
+    }
+    if (name.empty() == false && i <= getNumPlugins())
+    {
+      mPackageName = getPlugin(i-1)->getPackageName();
+    }
+  }
+}
 
 void
 ASTBase::logError (XMLInputStream& stream, const XMLToken& element, SBMLErrorCode_t code,
