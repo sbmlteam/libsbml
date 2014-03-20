@@ -2336,6 +2336,18 @@ public:
   getInitialAssignment (const std::string& symbol) const;
 
 
+ /**
+  * Get an InitialAssignment object based on the symbol to which it
+  * assigns a value.
+  *
+  * @return the InitialAssignment in this Model with the given "symbol"
+  * attribute value or @c NULL if no such InitialAssignment exists.
+  */
+  const InitialAssignment*
+    getInitialAssignmentForSymbol(const std::string& symbol) const;
+
+
+
   /**
    * Get an InitialAssignment object based on the symbol to which it
    * assigns a value.
@@ -2345,6 +2357,16 @@ public:
    */
   InitialAssignment* getInitialAssignment (const std::string& symbol);
 
+
+
+ /**
+  * Get an InitialAssignment object based on the symbol to which it
+  * assigns a value.
+  *
+  * @return the InitialAssignment in this Model with the given "symbol"
+  * attribute value or @c NULL if no such InitialAssignment exists.
+  */
+  InitialAssignment* getInitialAssignmentForSymbol(const std::string& symbol);
 
   /**
    * Get the nth Rule object in this Model.
@@ -2378,6 +2400,23 @@ public:
    * value or @c NULL if no such Rule exists.
    */
   Rule* getRule (const std::string& variable);
+
+  /**
+  * Get a Rule object based on the variable to which it assigns a value.
+  *
+  * @return the Rule in this Model with the given "variable" attribute
+  * value or @c NULL if no such Rule exists.
+  */
+  const Rule* getRuleForVariable(const std::string& variable) const;
+
+
+  /**
+  * Get a Rule object based on the variable to which it assigns a value.
+  *
+  * @return the Rule in this Model with the given "variable" attribute
+  * value or @c NULL if no such Rule exists.
+  */
+  Rule* getRuleForVariable(const std::string& variable);
 
 
   /**
@@ -2415,6 +2454,40 @@ public:
    */
   RateRule* getRateRule (const std::string& variable);
 
+  /**
+  * Get a Rule object based on the variable to which it assigns a value.
+  *
+  * @return the Rule in this Model with the given "variable" attribute
+  * value or @c NULL if no such Rule exists.
+  */
+  const AssignmentRule* getAssignmentRuleForVariable(const std::string& variable) const;
+
+
+  /**
+  * Get a Rule object based on the variable to which it assigns a value.
+  *
+  * @return the Rule in this Model with the given "variable" attribute
+  * value or @c NULL if no such Rule exists.
+  */
+  AssignmentRule* getAssignmentRuleForVariable(const std::string& variable);
+
+
+  /**
+  * Get a Rule object based on the variable to which it assigns a value.
+  *
+  * @return the Rule in this Model with the given "variable" attribute
+  * value or @c NULL if no such Rule exists.
+  */
+  const RateRule* getRateRuleForVariable(const std::string& variable) const;
+
+
+  /**
+  * Get a Rule object based on the variable to which it assigns a value.
+  *
+  * @return the Rule in this Model with the given "variable" attribute
+  * value or @c NULL if no such Rule exists.
+  */
+  RateRule* getRateRuleForVariable(const std::string& variable);
 
   /**
    * Get the nth Constraint object in this Model.

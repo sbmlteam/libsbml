@@ -2829,6 +2829,16 @@ Model::getInitialAssignment (const std::string& symbol) const
   );
 }
 
+/*
+ * @return the InitialAssignment in this Model with the given symbol or
+ * @c NULL if no such InitialAssignment exists.
+ */
+const InitialAssignment*
+Model::getInitialAssignmentForSymbol(const std::string& symbol) const
+{
+  return getInitialAssignment(symbol);
+}
+
  
 /*
  * @return the InitialAssignment in this Model with the given symbol or
@@ -2838,6 +2848,17 @@ InitialAssignment*
 Model::getInitialAssignment (const std::string& symbol)
 {
   return static_cast<InitialAssignment*>( mInitialAssignments.get(symbol) );
+}
+
+
+/*
+ * @return the InitialAssignment in this Model with the given symbol or
+ * @c NULL if no such InitialAssignment exists.
+ */
+InitialAssignment*
+Model::getInitialAssignmentForSymbol(const std::string& symbol)
+{
+  return getInitialAssignment(symbol);
 }
 
 
@@ -2881,6 +2902,29 @@ Model::getRule (const std::string& variable)
 {
   return static_cast<Rule*>( mRules.get(variable) );
 }
+
+
+/*
+ * @return the Rule in this Model with the given variable or @c NULL if no
+ * such Rule exists.
+ */
+const Rule*
+Model::getRuleForVariable(const std::string& variable) const
+{
+  return getRule(variable);
+}
+
+
+/*
+ * @return the Rule in this Model with the given symbol or @c NULL if no
+ * such Rule exists.
+ */
+Rule*
+Model::getRuleForVariable(const std::string& variable)
+{
+  return getRule(variable);
+}
+
 
 
 /*
@@ -2961,6 +3005,51 @@ Model::getRateRule (const std::string& variable)
   {
     return NULL;
   }
+}
+
+
+/*
+ * @return the Rule in this Model with the given variable or @c NULL if no
+ * such Rule exists.
+ */
+const AssignmentRule*
+Model::getAssignmentRuleForVariable(const std::string& variable) const
+{
+  return getAssignmentRule(variable);
+}
+
+
+/*
+ * @return the Rule in this Model with the given symbol or @c NULL if no
+ * such Rule exists.
+ */
+AssignmentRule*
+Model::getAssignmentRuleForVariable(const std::string& variable)
+{
+  return getAssignmentRule(variable);
+}
+
+
+
+/*
+ * @return the Rule in this Model with the given variable or @c NULL if no
+ * such Rule exists.
+ */
+const RateRule*
+Model::getRateRuleForVariable(const std::string& variable) const
+{
+  return getRateRule(variable);
+}
+
+
+/*
+ * @return the Rule in this Model with the given symbol or @c NULL if no
+ * such Rule exists.
+ */
+RateRule*
+Model::getRateRuleForVariable(const std::string& variable)
+{
+  return getRateRule(variable);
 }
 
 
