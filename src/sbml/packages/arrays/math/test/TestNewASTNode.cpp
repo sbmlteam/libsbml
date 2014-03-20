@@ -151,6 +151,7 @@ START_TEST (test_ASTNode_setNewTypes_1)
   node->setParentSBMLObject(m);
 
   fail_unless( node->getType() == AST_INTEGER);
+  fail_unless( node->getPackageName() == "core");
   fail_unless( node->getInteger() == 2);
   fail_unless( util_isEqual(node->getMantissa(), 0));
   fail_unless( node->getExponent() == 0);
@@ -165,6 +166,7 @@ START_TEST (test_ASTNode_setNewTypes_1)
 
   fail_unless( node->getType() == AST_ORIGINATES_IN_PACKAGE );
   fail_unless( node->getExtendedType() == AST_LINEAR_ALGEBRA_DETERMINANT );
+  fail_unless( node->getPackageName() == "arrays");
   fail_unless( node->getInteger() == 0);
   fail_unless( util_isEqual(node->getMantissa(), 0));
   fail_unless( node->getExponent() == 0);
