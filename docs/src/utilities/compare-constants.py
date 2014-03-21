@@ -41,7 +41,35 @@
 
 import sys, re
 
-def search_file(file, pattern, exclude_regexp, results):
+#
+# Globally-scoped variables.
+#
+
+# List of symbols that show up in SWIG-generated output but that are internal
+# and should not be documented in the user API docs.
+#
+exclusion_list = ['MathCheckOFF',
+                  'MathCheckON',
+                  'OverdeterCheckOFF',
+                  'OverdeterCheckON',
+                  'PracticeCheckOFF',
+                  'PracticeCheckON',
+                  'SBMLCheckOFF',
+                  'SBMLCheckON',
+                  'SBOCheckOFF',
+                  'SBOCheckON',
+                  'UnitsCheckOFF',
+                  'UnitsCheckON',
+                  'IdCheckOFF',
+                  'IdCheckON',
+                  'AllChecksON']
+
+#
+# Utility functions.
+#
+
+def search_file(file, pattern, exclude, results):
+    exclude_regexp = r'\A' + r'\Z|\A'.join(exclude) + r'\Z'
     for line in file:
         if pattern.match(line):
             found = pattern.match(line).group(1)
@@ -49,36 +77,39 @@ def search_file(file, pattern, exclude_regexp, results):
                 results.append(found)
 
 
+#
+# Main code.
+#
+
 def main (args):
-    """usage: compare-constants.py original.java substitution.java"""
+    """usage: compare-constants.py original-file substitution-file
+    Figures out the language (Java, Python) from the file name extension.
+    """
+
+    global exclusion_list
 
     original = open(args[1], 'r')
     substitution = open(args[2], 'r')
-
-    exclude  = "MathCheckOFF|MathCheckON|OverdeterCheckOFF|OverdeterCheckON"
-    exclude += "|PracticeCheckOFF|PracticeCheckON|SBMLCheckOFF|SBMLCheckON"
-    exclude += "|SBOCheckOFF|SBOCheckON|UnitsCheckOFF|UnitsCheckON"
-    exclude += "|IdCheckOFF|IdCheckON|AllChecksON"
 
     if args[1].endswith('.java'):
         pattern = re.compile(r'^\s*public final static \w+ (\w+)')
     elif args[1].endswith('.py'):
         pattern = re.compile(r'\A(\w+) =')
-        exclude += "|_swigregister|\Acerr\Z|\Aclog\Z|\Acout\Z|\Acvar\Z"
+        exclusion_list += ['_swigregister', 'cerr', 'clog', 'cout', 'cvar']
 
     original_names = []
     substitution_names = []
 
-    search_file(original, pattern, exclude, original_names)
-    search_file(substitution, pattern, exclude, substitution_names)
+    search_file(original, pattern, exclusion_list, original_names)
+    search_file(substitution, pattern, exclusion_list, substitution_names)
 
     diff_original = set(original_names) - set(substitution_names)
     diff_substitution = set(substitution_names) - set(original_names)
 
     if len(diff_original) > 0 or len(diff_substitution) > 0:
         print("")
-        print("***************************************************************")
-        print("Warning: differences found in documentation substitutions")
+        print("*"*79)
+        print("Warning: differences found in documentation substitution files.")
 
     if len(diff_original) > 0:
         print("The following exist in " + args[1])
@@ -92,7 +123,7 @@ def main (args):
         print("Extra: " + "\nExtra: ".join(sorted(diff_substitution)))
 
     if len(diff_original) > 0 or len(diff_substitution) > 0:
-        print("***************************************************************")
+        print("*"*79)
 
 
 if __name__ == '__main__':
