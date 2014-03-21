@@ -40,7 +40,6 @@ LAYOUT_FILE = doxygen-layout-notcpp.xml
 INPUT =                            \
   libsbml-accessing.txt            \
   libsbml-changes.txt              \
-  libsbml-blurb.txt                \
   libsbml-old-news.txt             \
   libsbml-communications.txt       \
   libsbml-features.txt             \
@@ -50,7 +49,6 @@ INPUT =                            \
   libsbml-matlab-mainpage.txt      \
   libsbml-matlab-reading-files.txt \
   libsbml-release-info.txt         \
-  libsbml-news.txt                 \
-  libsbml-papers.txt
+  libsbml-news.txt
 
 SEARCHENGINE = NO

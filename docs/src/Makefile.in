@@ -264,13 +264,11 @@ distfiles =						     \
         libsbml-accessing.txt				     \
         libsbml-authors.html				     \
         libsbml-blurb.html				     \
-        libsbml-blurb.txt				     \
         libsbml-changes.txt				     \
         libsbml-coding.txt				     \
         libsbml-communications.html			     \
         libsbml-communications.txt			     \
         libsbml-conversion-warnings.html		     \
-        libsbml-conversion-warnings.txt			     \
 	libsbml-core-versus-packages.html		     \
 	libsbml-core-versus-packages.txt		     \
         libsbml-csharp-example-files.txt		     \
@@ -325,7 +323,6 @@ distfiles =						     \
         libsbml-old-news.txt				     \
         libsbml-other.txt				     \
         libsbml-papers.html				     \
-        libsbml-papers.txt				     \
         libsbml-programming.txt				     \
 	libsbml-programming-csharp.txt			     \
 	libsbml-programming-python.txt			     \

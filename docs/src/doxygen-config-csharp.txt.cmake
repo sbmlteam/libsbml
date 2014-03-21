@@ -47,7 +47,6 @@ OPTIMIZE_OUTPUT_JAVA   = YES
 INPUT =                            \
   libsbml-accessing.txt            \
   libsbml-coding.txt               \
-  libsbml-blurb.txt                \
   libsbml-communications.txt       \
   libsbml-example.txt              \
   libsbml-features.txt             \
@@ -57,7 +56,6 @@ INPUT =                            \
   libsbml-mainpage.txt             \
   libsbml-math.txt                 \
   libsbml-news.txt                 \
-  libsbml-papers.txt               \
   libsbml-reading-files.txt        \
   libsbml-uninstallation.txt       \
   libsbml-extension-support-classes.txt \

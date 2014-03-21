@@ -83,7 +83,6 @@ BRIEF_MEMBER_DESC      = NO
 
 INPUT = \
   libsbml-accessing.txt                 \
-  libsbml-blurb.txt                     \
   libsbml-changes.txt                   \
   libsbml-coding.txt                    \
   libsbml-communications.txt            \
@@ -104,7 +103,6 @@ INPUT = \
   libsbml-news.txt                      \
   libsbml-old-news.txt                  \
   libsbml-other.txt                     \
-  libsbml-papers.txt                    \
   libsbml-programming-python.txt        \
   libsbml-python-creating-model.txt     \
   libsbml-python-example-files.txt      \

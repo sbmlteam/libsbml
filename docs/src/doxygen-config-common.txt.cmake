@@ -332,7 +332,6 @@ WARN_LOGFILE           =
 
 INPUT =                                    \
   libsbml-accessing.txt                    \
-  libsbml-blurb.txt                        \
   libsbml-changes.txt                      \
   libsbml-coding.txt                       \
   libsbml-core-versus-packages.txt         \
@@ -357,7 +356,6 @@ INPUT =                                    \
   libsbml-news.txt                         \
   libsbml-old-news.txt                     \
   libsbml-other.txt                        \
-  libsbml-papers.txt                       \
   libsbml-release-info.txt                 \
   libsbml-programming.txt                  \
   libsbml-reading-files.txt                \
