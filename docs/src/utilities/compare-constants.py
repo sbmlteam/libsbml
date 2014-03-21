@@ -95,7 +95,7 @@ def main (args):
         pattern = re.compile(r'^\s*public final static \w+ (\w+)')
     elif args[1].endswith('.py'):
         pattern = re.compile(r'\A(\w+) =')
-        exclusion_list += ['_swigregister', 'cerr', 'clog', 'cout', 'cvar']
+        exclusion_list += ['\w+_swigregister', 'cerr', 'clog', 'cout', 'cvar']
 
     original_names = []
     substitution_names = []
