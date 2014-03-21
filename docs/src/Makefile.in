@@ -210,7 +210,6 @@ distfiles =						     \
         common-text/unitkind-table.txt			     \
         common-text/warn-default-args-in-docs.html	     \
         common-text/xmlid-syntax.html			     \
-	css/generate-pkg-stylesheet.py			     \
 	css/libsbml-base-stylesheet.css			     \
 	css/libsbml-doxygen-navtree.css			     \
 	css/libsbml-doxygen-stylesheet.css		     \
@@ -245,8 +244,6 @@ distfiles =						     \
 	filters/doc-filter-c.py				     \
 	filters/doc-filter-cs.py			     \
 	filters/doc-filter-python.py			     \
-	generate-class-name-list.py			     \
-	generate-extensions-summary.py			     \
         java-skip.txt					     \
         java-substitutions/ASTNodeList.java		     \
         java-substitutions/CompPkgNamespaces.java	     \
@@ -360,8 +357,12 @@ distfiles =						     \
         python-substitutions/SwigPyIterator.py		     \
         python-substitutions/XMLInputStream.py		     \
         python-substitutions/XMLOutputStream.py		     \
-        pythondocpreprocessor.py			     \
-        sbml.js
+        sbml.js						     \
+        utilities/compare-constants.py			     \
+        utilities/generate-pkg-stylesheet.py		     \
+	utilities/generate-class-name-list.py		     \
+	utilities/generate-extensions-summary.py	     \
+	utilities/pythondocpreprocessor.py
 
 # Additional odds and ends.
 
@@ -473,9 +474,9 @@ core-sources = \
   $(wildcard libsbml-*.html) \
   $(expanded-html-files)
 
-css/libsbml-package-stylesheet.css: css/generate-pkg-stylesheet.py \
+css/libsbml-package-stylesheet.css: utilities/generate-pkg-stylesheet.py \
   $(core-sources) css/libsbml-javadoc-stylesheet.css
-	css/generate-pkg-stylesheet.py $(TOP_SRCDIR)/src/sbml/packages > $@
+	utilities/generate-pkg-stylesheet.py $(TOP_SRCDIR)/src/sbml/packages > $@
 
 css-files =			     \
   css/libsbml-base-stylesheet.css    \
@@ -582,8 +583,8 @@ cpp-manual $(cpp-manual): doxygen-config-cpp.txt $(core-sources) $(css-files)
 	$(call run_doxygen,doxygen-config-cpp.txt,$(cpp-manual),"")
 	$(call postprocess_doxygen,$(cpp-manual))
 
-class-list.txt: $(core-sources) generate-class-name-list.py
-	./generate-class-name-list.py $(TOP_SRCDIR)/src/sbml > class-list.txt
+class-list.txt: $(core-sources) utilities/generate-class-name-list.py
+	utilities/generate-class-name-list.py $(TOP_SRCDIR)/src/sbml > class-list.txt
 
 c-manual $(c-manual): doxygen-config-c.txt $(core-sources) $(css-files) \
   filters/doc-filter-c.py class-list.txt
@@ -606,7 +607,7 @@ python-ignorable-warnings = \
 python-manual $(python-manual): doxygen-config-python.txt $(python-sources)
 	mkdir -p $(python-manual)
 	$(call compare_constants,$(python-input),python-substitutions/libsbml.py)
-	./pythondocpreprocessor.py $(python-input) libsbml.py $(wildcard $(python-subst-dir)/*.py)
+	utilities/pythondocpreprocessor.py $(python-input) libsbml.py $(wildcard $(python-subst-dir)/*.py)
 	$(call preprocess_doxygen)
 	$(call run_doxygen,doxygen-config-python.txt,$(python-manual),$(python-ignorable-warnings))
 	$(call postprocess_doxygen,$(python-manual))
@@ -747,7 +748,7 @@ define fix_broken_highlighting
 endef
 
 define create_extensions_page
-  ./generate-extensions-summary.py $(1) > java-extensions-list.html
+  utilities/generate-extensions-summary.py $(1) > java-extensions-list.html
   $(call merge_html,java-extensions-list.html,extensions-summary.html,extensions for SBML Level 3 packages)
   rm -f java-extensions-list.html
 endef
