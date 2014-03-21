@@ -487,6 +487,10 @@ css-files =			     \
   css/libsbml-package-stylesheet.css \
   css/libsbml-reset-stylesheet.css	
 
+define compare_constants
+  utilities/compare-constants.py $(1) $(2)
+endef
+
 # If this copy of libSBML hasn't been configured with Doxygen support, we
 # throw an error in the "else" clause of the next conditional.
 
@@ -601,6 +605,7 @@ python-ignorable-warnings = \
 
 python-manual $(python-manual): doxygen-config-python.txt $(python-sources)
 	mkdir -p $(python-manual)
+	$(call compare_constants,$(python-input),python-substitutions/libsbml.py)
 	./pythondocpreprocessor.py $(python-input) libsbml.py $(wildcard $(python-subst-dir)/*.py)
 	$(call preprocess_doxygen)
 	$(call run_doxygen,doxygen-config-python.txt,$(python-manual),$(python-ignorable-warnings))
@@ -771,12 +776,14 @@ java-ignorable-warnings = "warning - @param argument|Custom tags that could"
 # a way to do the right thing with SWIG, or javadoc, and this is the least
 # complicated approach.
 
-java-source-dir = ../../src/bindings/java/java-files
-java-local-dir  = java-files
-java-subst-dir  = java-substitutions
-java-class-path = org/sbml/libsbml
+java-source-dir	    = ../../src/bindings/java/java-files
+java-local-dir	    = java-files
+java-subst-dir	    = java-substitutions
+java-class-path	    = org/sbml/libsbml
+java-constants-file = $(java-source-dir)/org/sbml/libsbml/libsbmlConstants.java
 
 java-manual $(java-manual): $(core-sources) $(css-files) SBMLDoclet.class
+	$(call compare_constants,$(java-constants-file),$(java-subst-dir)/libsbmlConstants.java)
 	rm -rf $(java-local-dir)
 	mkdir -p $(java-local-dir)/$(java-class-path)
 	cp -rp $(java-source-dir)/$(java-class-path)/* $(java-local-dir)/$(java-class-path)
