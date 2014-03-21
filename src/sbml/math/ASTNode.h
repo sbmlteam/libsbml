@@ -219,7 +219,7 @@ public:
   /* constructor for use by mathml reader */
   ASTNode(SBMLNamespaces* sbmlns, ASTNodeType_t type);
 
-  /** *endcond */
+  /** @endcond */
 
   /** @cond doxygenLibsbmlInternal */
 
@@ -228,7 +228,7 @@ public:
    */
   ASTNode (int type = AST_UNKNOWN);
 
-  /** *endcond */
+  /** @endcond */
 
 
   /** @cond doxygenLibsbmlInternal */
@@ -236,7 +236,7 @@ public:
   /* constructor for use by mathml reader */
   ASTNode(SBMLNamespaces* sbmlns, int type = AST_UNKNOWN);
 
-  /** *endcond */
+  /** @endcond */
 
   /**
    * Creates a new ASTNode from the given Token.  The resulting ASTNode
