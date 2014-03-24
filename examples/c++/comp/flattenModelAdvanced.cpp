@@ -107,6 +107,8 @@ public:
 		return LIBSBML_OPERATION_SUCCESS;
 
 		// set up ids
+    // this will rename the SIds and SIdRefs as
+    // the comp flattening routine does by default
 		PrefixTransformer::transform(element);
 
 		// skip local parameters, as they are not renamed
@@ -114,6 +116,8 @@ public:
 		return LIBSBML_OPERATION_SUCCESS;
 
 		// setup names
+    // here we want to rename the name attribute to also indicate if
+    // the element came from a subModel
 		if (element->isSetName())
 		{
 			std::stringstream newName;
@@ -172,6 +176,10 @@ int main(int argc,char** argv)
 	}
 
 	// add the advanced prefix transformer to the comp plugin
+  // this transformer will be used during the flattening process
+  // to rename Sids and SIdRefs (as would happen by default)
+  // but allows teh user to specify other changes that they
+  // may wsh to be made (e.g. rename the name attribute)
 	CompModelPlugin* mPlug = dynamic_cast<CompModelPlugin*>(document->getModel()->getPlugin("comp"));
 	CPrefixNameTransformer trans;
 
