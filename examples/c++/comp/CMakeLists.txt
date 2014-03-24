@@ -43,6 +43,7 @@ endif(EXTRA_INCLUDE_DIRS)
 foreach(example 
 
 	flattenModel
+	flattenModelAdvanced
 	spec_example1
 	spec_example2
 	spec_example3
