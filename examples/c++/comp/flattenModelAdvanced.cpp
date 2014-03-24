@@ -177,8 +177,8 @@ int main(int argc,char** argv)
 
 	// add the advanced prefix transformer to the comp plugin
   // this transformer will be used during the flattening process
-  // to rename Sids and SIdRefs (as would happen by default)
-  // but allows teh user to specify other changes that they
+  // to rename SIds and SIdRefs (as would happen by default)
+  // but allows the user to specify other changes that they
   // may wsh to be made (e.g. rename the name attribute)
 	CompModelPlugin* mPlug = dynamic_cast<CompModelPlugin*>(document->getModel()->getPlugin("comp"));
 	CPrefixNameTransformer trans;
