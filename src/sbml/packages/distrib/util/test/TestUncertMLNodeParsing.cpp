@@ -31,6 +31,12 @@
 #include <sbml/SBMLDocument.h>
 #include <sbml/packages/distrib/common/DistribExtensionTypes.h>
 
+
+#ifdef LIBSBML_USE_STRICT_INCLUDES
+#include <sbml/Model.h>
+#endif
+
+
 #include <check.h>
 
 using namespace std;

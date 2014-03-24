@@ -29,6 +29,11 @@
 
 #include <sbml/packages/distrib/extension/DistribFunctionDefinitionPlugin.h>
 
+#ifdef LIBSBML_USE_STRICT_INCLUDES
+#include <sbml/Model.h>
+#endif
+
+
 
 using namespace std;
 
