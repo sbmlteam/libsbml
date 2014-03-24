@@ -29,6 +29,12 @@
 
 #include <sbml/packages/arrays/extension/ArraysSBasePlugin.h>
 
+#ifdef LIBSBML_USE_STRICT_INCLUDES
+#include <sbml/util/ElementFilter.h>
+#include <sbml/Model.h>
+#endif
+
+
 
 using namespace std;
 
