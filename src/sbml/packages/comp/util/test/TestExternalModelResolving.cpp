@@ -28,6 +28,7 @@
 #include <sbml/packages/comp/extension/CompSBMLDocumentPlugin.h>
 #include <sbml/packages/comp/validator/CompSBMLErrorTable.h>
 #include <sbml/packages/comp/sbml/ExternalModelDefinition.h>
+#include <sbml/SBMLReader.h>
 
 #include <check.h>
 
@@ -86,6 +87,24 @@ START_TEST (test_comp_externalmodelresolving_)
 END_TEST
 
 
+START_TEST (test_comp_externalmodelresolving_files)
+{ 
+  // load the document
+  string fileuri(TestDataDirectory);
+  fileuri = fileuri + "subdir/localExtMod.xml";
+  SBMLDocument *document = readSBMLFromFile(fileuri.c_str());
+  CompSBMLDocumentPlugin* compdoc = static_cast<CompSBMLDocumentPlugin*>(document->getPlugin("comp"));
+
+  ExternalModelDefinition* extdef = compdoc->getExternalModelDefinition(0);
+  fail_unless(extdef != NULL);
+  Model* resolvedmod = extdef->getReferencedModel();
+  fail_unless(resolvedmod != NULL);
+
+  delete document;
+ }
+END_TEST
+
+
 Suite *
 create_suite_TestExternalModelResolving (void)
 { 
@@ -93,6 +112,7 @@ create_suite_TestExternalModelResolving (void)
   Suite *suite = suite_create("ExternalModelResolving");
   
   tcase_add_test(tcase, test_comp_externalmodelresolving_);
+  tcase_add_test(tcase, test_comp_externalmodelresolving_files);
   suite_add_tcase(suite, tcase);
 
   return suite;
