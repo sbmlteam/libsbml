@@ -323,14 +323,6 @@ SBMLInternalValidator::checkConsistency (bool writeDocument)
   }
   */
 
-  IdentifierConsistencyValidator id_validator;
-  ConsistencyValidator validator;
-  SBOConsistencyValidator sbo_validator;
-  MathMLConsistencyValidator math_validator;
-  UnitConsistencyValidator unit_validator;
-  OverdeterminedValidator over_validator;
-  ModelingPracticeValidator practice_validator;
-
   SBMLDocument *doc;
   SBMLErrorLog *log = getErrorLog();
   
@@ -351,6 +343,7 @@ SBMLInternalValidator::checkConsistency (bool writeDocument)
 
   if (id)
   {
+    IdentifierConsistencyValidator id_validator;
     id_validator.init();
     nerrors = id_validator.validate(*doc);
     if (nerrors > 0) 
@@ -407,6 +400,7 @@ SBMLInternalValidator::checkConsistency (bool writeDocument)
 
   if (sbml)
   {
+    ConsistencyValidator validator;
     validator.init();
     nerrors = validator.validate(*doc);
     total_errors += nerrors;
@@ -425,6 +419,7 @@ SBMLInternalValidator::checkConsistency (bool writeDocument)
 
   if (sbo)
   {
+    SBOConsistencyValidator sbo_validator;
     sbo_validator.init();
     nerrors = sbo_validator.validate(*doc);
     total_errors += nerrors;
@@ -443,6 +438,7 @@ SBMLInternalValidator::checkConsistency (bool writeDocument)
 
   if (math)
   {
+    MathMLConsistencyValidator math_validator;
     math_validator.init();
     nerrors = math_validator.validate(*doc);
     total_errors += nerrors;
@@ -461,6 +457,7 @@ SBMLInternalValidator::checkConsistency (bool writeDocument)
 
   if (units)
   {
+    UnitConsistencyValidator unit_validator;
     unit_validator.init();
     nerrors = unit_validator.validate(*doc);
     total_errors += nerrors;
@@ -481,6 +478,7 @@ SBMLInternalValidator::checkConsistency (bool writeDocument)
    * changed this as would have bailed */
   if (over)
   {
+    OverdeterminedValidator over_validator;
     over_validator.init();
     nerrors = over_validator.validate(*doc);
     total_errors += nerrors;
@@ -499,6 +497,7 @@ SBMLInternalValidator::checkConsistency (bool writeDocument)
 
   if (practice)
   {
+    ModelingPracticeValidator practice_validator;
     practice_validator.init();
     nerrors = practice_validator.validate(*doc);
     if (nerrors > 0) 
