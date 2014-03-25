@@ -30,9 +30,7 @@
 #include <sbml/packages/distrib/common/DistribExtensionTypes.h>
 #include <sbml/packages/distrib/validator/DistribValidator.h>
 
-#ifdef LIBSBML_USE_STRICT_INCLUDES
 #include <sbml/SBMLReader.h>
-#endif
 
 
   /** @cond doxygenLibsbmlInternal */
