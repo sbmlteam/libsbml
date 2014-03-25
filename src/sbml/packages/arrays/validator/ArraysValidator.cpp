@@ -30,9 +30,7 @@
 #include <sbml/packages/arrays/common/ArraysExtensionTypes.h>
 #include <sbml/packages/arrays/validator/ArraysValidator.h>
 
-#ifdef LIBSBML_USE_STRICT_INCLUDES
 #include <sbml/SBMLReader.h>
-#endif
 
 
   /** @cond doxygenLibsbmlInternal */
