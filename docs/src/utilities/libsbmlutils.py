@@ -75,7 +75,6 @@ def classes_in_dir(dir, swig_too):
 def classes_in_file(filename):
     stream = open(filename)
     classes = []
-    print filename
     if filename.endswith('.h'):
         classes = classes_in_header_file(stream)
     elif filename.endswith('.i'):
