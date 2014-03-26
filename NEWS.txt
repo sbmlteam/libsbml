@@ -163,6 +163,9 @@ STABLE RELEASE
     users can use the examples in their software without limitation.
     The new license is the MIT license.
 
+  - Added missing 3rd party software acknowledgement to the LICENSE.*
+    files for the Python argparse library by Steven J. Bethard.
+
 
 EXPERIMENTAL RELEASE
 
