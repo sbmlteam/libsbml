@@ -10,65 +10,48 @@
 # files, and in every file it finds, it looks for the string "@class"
 # followed by a word.  It extracts the word.  In the end, it prints to
 # standard output all the words it found.
+#
+#<!---------------------------------------------------------------------------
+# This file is part of libSBML.  Please visit http://sbml.org for more
+# information about SBML, and the latest version of libSBML.
+#
+# Copyright (C) 2013-2014 jointly by the following organizations:
+#     1. California Institute of Technology, Pasadena, CA, USA
+#     2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
+#     3. University of Heidelberg, Heidelberg, Germany
+#
+# Copyright (C) 2009-2013 jointly by the following organizations:
+#     1. California Institute of Technology, Pasadena, CA, USA
+#     2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
+#
+# Copyright (C) 2006-2008 by the California Institute of Technology,
+#     Pasadena, CA, USA
+#
+# Copyright (C) 2002-2005 jointly by the following organizations:
+#     1. California Institute of Technology, Pasadena, CA, USA
+#     2. Japan Science and Technology Agency, Japan
+#
+# This library is free software; you can redistribute it and/or modify it
+# under the terms of the GNU Lesser General Public License as published by
+# the Free Software Foundation.  A copy of the license agreement is provided
+# in the file named "LICENSE.txt" included with this software distribution
+# and also available online as http://sbml.org/software/libsbml/license.html
+#----------------------------------------------------------------------- -->*/
 
 import os, sys, re
+from libsbmlutils import find_classes
 from os.path import join
 
 
-#
-# Helper functions.
-#
-
-def find_classes_in_file(filename):
-    classes = []
-    stream = open(filename)
-    for line in stream.readlines():
-        start = line.find('@class')
-        if start < 0:
-            continue
-        # Sometimes we have "@class Name." instead of "@class Name"
-        name = re.sub(r'\.', '', line[start + 6:]).strip()
-        # Ignore a few cases.
-        if name and (not (name.startswith("doc_") or name.startswith("is "))):
-            classes.append(name)
-
-    stream.close()
-    return classes
-
-
-def find_classes(files):
-    classes = []
-    for f in files:
-        classes += find_classes_in_file(f)
-    return classes
-
-
-#
-# Main driver.
-#
-
 def main(args):
     if len(args) != 2:
-	print "Must be given one argument: the path to the libSBML src/sbml dir"
+        print "Must be given one argument: the path to the libSBML src/sbml dir"
         sys.exit(1)
 
-    src_sbml_dir = args[1]
-
-    files = []
-    for root, dir, found_files in os.walk(src_sbml_dir):
-        for tail in found_files:
-            files.append(os.path.join(root, tail))
-            files = [f for f in files if f.endswith('.h')]
-            files = filter(lambda x: not x.endswith('fwd.h'), files)
-            files = filter(lambda x: not x.endswith('ExtensionTypes.h'), files)
-
-    classes = find_classes(files)
-    classes = [re.sub('_t', '', c) for c in classes]
+    classes = [re.sub('_t', '', c) for c in find_classes(args[1], True)]
     for c in sorted(set(classes)):
         print c
 
 
-
 if __name__ == '__main__':
   main(sys.argv)
-
