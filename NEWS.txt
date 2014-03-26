@@ -1,7 +1,7 @@
            libSBML NEWS -- History of user-visible changes
 
 ====================================================================
-5.9.3 (Current svn)
+5.10.0 (2014-04-10)
 ====================================================================
 
 STABLE RELEASE
@@ -44,14 +44,14 @@ STABLE RELEASE
     found at examples/c++/convertReactions.cpp.
     
   - There are new functions available on the Model class:
-    InitialAssignment* getInitialAssignmentForSymbol(const std::string& symbol);
-    Rule* getRuleForVariable(const std::string& variable);
-    AssignmentRule* getAssignmentRuleForVariable(const std::string& variable);
-    RateRule* getRateRuleForVariable(const std::string& variable);
+    InitialAssignment* getInitialAssignmentBySymbol(const std::string& symbol);
+    Rule* getRuleByVariable(const std::string& variable);
+    AssignmentRule* getAssignmentRuleByVariable(const std::string& variable);
+    RateRule* getRateRuleByVariable(const std::string& variable);
     These functions return the designated object using the 'symbol' or
     'variable' attribute.  This is duplicate functionality as the 
     objects can be retrieved using getRule and getInitialAssignment. 
-    However the other similar functions on the Model class retriev 
+    However the other similar functions on the Model class retrieve 
     objects by the 'id' attribute. If future versions of SBML introduce 
     the 'id' attribute on Rules and InitialAssignments we will need 
     functions that act differently.
@@ -59,15 +59,21 @@ STABLE RELEASE
     
   - 'comp' package-specific updates:
   
+    - The code that facilitates file resolving in relation to
+      ExternalModelDefinitions has been reviewed and made as robust
+      as possible.
+      
+    - The ability to customize the way SIds and SIdRefs are
+      renamed during the flattening process has been added. A
+      class of type PrefixTransformer can be created and assigned. 
+      This allows the user to add additional changes to the renaming
+      process. An example that illustrates the use of this facility
+      to also rename the 'name' attribute of objects originating in
+      subModels has been included in the examples/c++/comp directory.
+  
     - Tests have been added for the C API, which did expose some
       missing functions. These have now been added.
 	  
-  - 'fbc' package-specific updates:
-
-  - 'layout' package-specific updates:
-
-  - 'qual' package-specific updates:
-  
 
 * Bug fixes
 
@@ -86,12 +92,8 @@ STABLE RELEASE
 	- There were some inconsistencies in the behaviour of a
 	  LocalParameter from SBML L3 in relation to the 'constant'
 	  attribute. These have been fixed.
+
 	  
-
-  - 'comp' package-specific bug fixes:
-  
-  - 'fbc' package-specific bug fixes:
-
   - 'layout' package-specific bug fixes:
   
     - There were some discrepancies between the naming of arguments
@@ -107,6 +109,7 @@ STABLE RELEASE
       handled by the layout code when render was disabled. 
       This has been corrected.
 
+
   - 'qual' package-specific bug fixes:
   
     - Certain validation errors were not being correctly reported;
@@ -114,9 +117,10 @@ STABLE RELEASE
       have been fixed.  Thanks to Nicolas Rodriguez for reporting
       the problems.
 
+
 * Configuration/build system changes
 
-  - WARNING: There is a bug in the Micosoft Visual Studio 2013
+  - WARNING: There is a bug in the Microsoft Visual Studio 2013
     compiler that can cause strange output when doing repetitive
     reading and writing.  We became aware of this when running
     our unit tests on the comp flattening routines.  
@@ -145,11 +149,11 @@ STABLE RELEASE
     build directory to facilitate different builds using the 
     same src tree. 
   
-
   - There were issues with classes exported across the Windows dll
     interface. These have been fixed and additional tests to catch
 	  these issues have been implemented.  Thanks to Andy Somogyi
 	  for reporting the problem.
+
 
 * Miscellaneous
 
@@ -171,9 +175,12 @@ EXPERIMENTAL RELEASE
 
 * New features
 
-  - 'distrib' package-specific updates:
+  - Support for the 'arrays' package according to the specification
+    dated September 11, 2013 (0.1 alpha) has been added to the
+    experimental release files. Note the extended MathML is accessible
+    via the ASTNode class however this version does not yet include
+    support for parsing to and from infix notation.
 
-  - 'groups' package-specific updates:
 
   - 'multi' package-specific updates:
   
@@ -182,32 +189,15 @@ EXPERIMENTAL RELEASE
       on the <ci> elements of math as specified by the 'multi' 
       package. The example relating to this has been updated accordingly.
 
-  - 'render' package-specific updates:
-
-  - 'req' package-specific updates:
-
-  - 'spatial' package-specific updates:
-
 
  * Bug fixes
 
-  - 'distrib' package-specific updates:
-
-  - 'groups' package-specific updates:
-
-  - 'multi' package-specific updates:
-
-  - 'render' package-specific updates:
+  - 'render' package-specific bug fixes:
 
     - On occasion when an L2 document with layout and render
       annotations was being upgraded to L3 the render namespace 
       was missed from the annotation in the L3 document. 
 
-  - 'req' package-specific updates:
-
-  - 'spatial' package-specific updates:
-
-  
 
 ====================================================================
 5.9.2-experimental (2014-01-31)
