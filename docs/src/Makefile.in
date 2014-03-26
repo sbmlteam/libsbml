@@ -332,9 +332,6 @@ distfiles =						     \
         libsbml-python-reading-files.txt		     \
         libsbml-reading-files.txt			     \
         libsbml-release-info.txt			     \
-	prettify/README.txt				     \
-	prettify/prettify.css				     \
-	prettify/prettify.js				     \
         python-substitutions/ASTNodeList.py		     \
         python-substitutions/CVTermList.py		     \
         python-substitutions/CompPkgNamespaces.py	     \
@@ -359,6 +356,9 @@ distfiles =						     \
         utilities/generate-pkg-stylesheet.py		     \
 	utilities/generate-class-name-list.py		     \
 	utilities/generate-extensions-summary.py	     \
+	utilities/prettify/README.txt			     \
+	utilities/prettify/prettify.css			     \
+	utilities/prettify/prettify.js			     \
 	utilities/pythondocpreprocessor.py
 
 # Additional odds and ends.
@@ -802,7 +802,7 @@ java-manual $(java-manual): $(core-sources) $(css-files) SBMLDoclet.class
         2>&1 | egrep -v $(java-ignorable-warnings)
 	cp -f $(css-files) $(java-manual)
 	cp -f $(css-files) $(java-manual)/$(java-class-path)
-	cp -f prettify/prettify.js prettify/prettify.css $(java-manual)
+	cp -f utilities/prettify/prettify.js utilities/prettify/prettify.css $(java-manual)
 	cp -f $(logo-files) $(java-manual)
 	cp -f $(logo-files) $(java-manual)/$(java-class-path)/
 	cp -f common-graphics/*.gif $(java-manual)
