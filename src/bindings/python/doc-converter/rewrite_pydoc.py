@@ -274,7 +274,7 @@ def rewrite_each(match, include_dir, graphics_dir, quietly):
 
     if re.search('@internal', body):   # Skip everything if it's internal.
         body = "Internal implementation method.\n"
-    else:        
+    else:
         body = rewrite_one_body(body, include_dir, graphics_dir, quietly)
     return feature_line + body + tail
 
@@ -326,24 +326,24 @@ def rewrite_one_body(body, include_dir, graphics_dir, quietly):
 
     # Translate basic HTML constructs.
 
-    body = re.sub(r'&lt;',       '<',                                    body)
-    body = re.sub(r'&le;',       '<=',                                   body)
-    body = re.sub(r'&gt;',       '>',                                    body)
-    body = re.sub(r'&ge;',       '>=',                                   body)
-    body = re.sub(r'&ne;',       '!=',                                   body)
-    body = re.sub(r'&pi;',       'Pi',                                   body)
-    body = re.sub(r'&#34;',      '\\"',                                  body)
-    body = re.sub(r'&#64;',      '@',                                    body)
-    body = re.sub(r'&quot;',     '\\\\"',                                body)
-    body = re.sub(r'&[lr]quo;',  '\\\\"',                                body)
-    body = re.sub(r'&nbsp;',     ' ',                                    body)
-    body = re.sub(r'&ndash;',    '-',                                    body)
-    body = re.sub(r'&mdash;',    ' -- ',                                 body)
-    body = re.sub(r'<br>\s*',    '\n',                                   body)
+    body = re.sub(r'&lt;',       '<',                                 body)
+    body = re.sub(r'&le;',       '<=',                                body)
+    body = re.sub(r'&gt;',       '>',                                 body)
+    body = re.sub(r'&ge;',       '>=',                                body)
+    body = re.sub(r'&ne;',       '!=',                                body)
+    body = re.sub(r'&pi;',       'Pi',                                body)
+    body = re.sub(r'&#34;',      '\\"',                               body)
+    body = re.sub(r'&#64;',      '@',                                 body)
+    body = re.sub(r'&quot;',     '\\\\"',                             body)
+    body = re.sub(r'&[lr]quo;',  '\\\\"',                             body)
+    body = re.sub(r'&nbsp;',     ' ',                                 body)
+    body = re.sub(r'&ndash;',    '-',                                 body)
+    body = re.sub(r'&mdash;',    ' -- ',                              body)
+    body = re.sub(r'<br>\s*',    '\n',                                body)
     body = re.sub(r'<ul(\s+.*?)?>\s*', '\n',                          body)
-    body = re.sub(r'</ul>\s*',            '',                            body)
+    body = re.sub(r'</ul>\s*',         '',                            body)
     body = re.sub(r'<li(\s+.*?)?>\s*', '\n' + ' '*list_indent + '* ', body)
-    body = re.sub(r'</li>\s*',            '',                            body)
+    body = re.sub(r'</li>\s*',         '',                            body)
 
     # Matched pairs of tags.
 
@@ -409,13 +409,13 @@ def rewrite_one_body(body, include_dir, graphics_dir, quietly):
     body = p.sub(r'\1', body)
 
     p = re.compile(r'@note(\s*)', re.IGNORECASE)
-    body = p.sub(r'Note:\n\n', body)    
+    body = p.sub(r'Note:\n\n', body)
 
     p = re.compile(r'@docnote(\s*)', re.IGNORECASE)
-    body = p.sub(r'Documentation note:\n\n', body)    
+    body = p.sub(r'Documentation note:\n\n', body)
 
     p = re.compile(r'@warning(\s*)', re.IGNORECASE)
-    body = p.sub(r'WARNING:\n\n', body)    
+    body = p.sub(r'WARNING:\n\n', body)
 
     p = re.compile(r'@sbmlpackage{(\w+)}', re.IGNORECASE)
     body = p.sub(r'', body)
