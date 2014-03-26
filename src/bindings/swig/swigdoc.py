@@ -8,7 +8,6 @@
 # @author Michael Hucka
 # @author Frank Bergmann
 #
-#
 #<!---------------------------------------------------------------------------
 # This file is part of libSBML.  Please visit http://sbml.org for more
 # information about SBML, and the latest version of libSBML.
@@ -18,17 +17,17 @@
 #     2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
 #     3. University of Heidelberg, Heidelberg, Germany
 #
-# Copyright (C) 2009-2013 jointly by the following organizations: 
+# Copyright (C) 2009-2013 jointly by the following organizations:
 #     1. California Institute of Technology, Pasadena, CA, USA
 #     2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
-#  
+#
 # Copyright (C) 2006-2008 by the California Institute of Technology,
-#     Pasadena, CA, USA 
-#  
-# Copyright (C) 2002-2005 jointly by the following organizations: 
+#     Pasadena, CA, USA
+#
+# Copyright (C) 2002-2005 jointly by the following organizations:
 #     1. California Institute of Technology, Pasadena, CA, USA
 #     2. Japan Science and Technology Agency, Japan
-# 
+#
 # This library is free software; you can redistribute it and/or modify it
 # under the terms of the GNU Lesser General Public License as published by
 # the Free Software Foundation.  A copy of the license agreement is provided
@@ -37,6 +36,8 @@
 #----------------------------------------------------------------------- -->*/
 
 import sys, string, os.path, re
+sys.path.append('../../../docs/src/utilities')
+import argparse, libsbmlutils
 
 #
 # Globally-scoped variables
@@ -168,6 +169,8 @@ class CHeader:
     docstring   = ''
     lines       = ''
 
+    global language
+
     for line in stream.readlines():
       stripped = line.strip()
 
@@ -226,7 +229,7 @@ class CHeader:
         if stripped.startswith('* @class'):
           classname = stripped[8:].strip()
           if classname.endswith('.'):
-            classname = classname[:-1]          
+            classname = classname[:-1]
         else:
           inClassDocs = False
 
@@ -374,6 +377,8 @@ class Method:
     was declared constant and/or internal.
     """
 
+    global language
+
     self.name       = name
     self.isConst    = isConst
     self.isInternal = isInternal
@@ -441,6 +446,10 @@ class CClassDoc:
 
     # Take out excess leading blank lines.
     docstring = re.sub('/\*\*(\s+\*)+', r'/** \n *', docstring)
+
+    # Add marker for internal classes.
+    if isInternal:
+      docstring = re.sub('\*/', r'* @internal\n */', docstring)
 
     self.docstring  = docstring
     self.name       = name
@@ -1206,7 +1215,7 @@ def rewriteDocstringForPerl (docstring):
 
 
 
-def processClassMethods(ostream, cclass):
+def processClassMethods(ostream, c):
   # In the Python docs, we have to combine the docstring for methods with
   # different signatures and write out a single method docstring.  In the
   # other languages, we write out separate docstrings for every method
@@ -1214,20 +1223,20 @@ def processClassMethods(ostream, cclass):
 
   if language == 'python':
     written = {}
-    for m in cclass.methods:
+    for m in c.methods:
       if m.name + m.args in written:
         continue
       if m.name.startswith('~'):
         continue
 
-      if cclass.methodVariants[m.name].__len__() > 1:
+      if c.methodVariants[m.name].__len__() > 1:
 
         # This method has more than one variant.  It's possible some or all
         # of them are marked @internal.  Therefore, before we start writing
         # a statement that there are multiple variants, we must check that
         # we're left with more than one non-internal method to document.
         count = 0
-        for argVariant in list(cclass.methodVariants[m.name].values()):
+        for argVariant in list(c.methodVariants[m.name].values()):
           if re.search('@internal', argVariant.docstring) == None:
             count += 1
         if count <= 1:
@@ -1237,7 +1246,7 @@ def processClassMethods(ostream, cclass):
                  ' arguments\n they accept.  Each is described separately' + \
                  ' below.\n'
 
-        for argVariant in list(cclass.methodVariants[m.name].values()):
+        for argVariant in list(c.methodVariants[m.name].values()):
           # Each entry in the methodVariants dictionary is itself a dictionary.
           # The dictionary entries are keyed by method arguments (as strings).
           # The dictionary values are the 'func' objects we use.
@@ -1251,10 +1260,10 @@ def processClassMethods(ostream, cclass):
           written[argVariant.name + argVariant.args] = 1
       else:
         newdoc = rewriteDocstringForPython(m.docstring)
-      ostream.write(formatMethodDocString(m.name, cclass.name, newdoc, m.isInternal, m.args))
+      ostream.write(formatMethodDocString(m.name, c.name, newdoc, m.isInternal, m.args))
       written[m.name + m.args] = 1
   else: # Not python
-    for m in cclass.methods:
+    for m in c.methods:
       if m.name.startswith('~'):
         continue
       if language == 'java':
@@ -1262,8 +1271,9 @@ def processClassMethods(ostream, cclass):
       elif language == 'csharp':
         newdoc = rewriteDocstringForCSharp(m.docstring)
       elif language == 'perl':
-        newdoc = rewriteDocstringForPerl(m.docstring)  
-      ostream.write(formatMethodDocString(m.name, cclass.name, newdoc, m.isInternal, m.args))
+        newdoc = rewriteDocstringForPerl(m.docstring)
+      # print c.name + ": " + m.name + " " + str(m.isInternal)
+      ostream.write(formatMethodDocString(m.name, c.name, newdoc, m.isInternal, m.args))
 
   ostream.flush()
 
@@ -1285,9 +1295,12 @@ def formatMethodDocString (methodname, classname, docstring, isInternal, args=No
   elif language == 'perl':
     pre  = '=item'
     post = ''
-  else:
+  elif language == 'python':
     pre  = '%feature("docstring")'
-    post = ''
+    if isInternal:
+      post = '\n\n@internal'
+    else:
+      post = ''
 
   output = pre + ' '
 
@@ -1318,28 +1331,28 @@ def generateFunctionDocString (methodname, docstring, args, isInternal):
 
 
 
-def generateClassDocString (docstring, classname):
+def generateClassDocString (docstring, classname, isInternal):
   pretext   = ''
   separator = ''
   posttext  = ''
-  
+
   if language == 'java':
     pretext   = '%typemap(javaimports) '
     separator = ' "\n'
     posttext  = '\n"\n\n\n'
     docstring = rewriteDocstringForJava(docstring).strip()
 
-  elif language == 'csharp':
-    pretext   = '%typemap(csimports) '
-    separator = ' "\n using System;\n using System.Runtime.InteropServices;\n\n'
-    posttext  = '\n"\n\n\n'
-    docstring = rewriteDocstringForCSharp(docstring).strip()
-
   elif language == 'python':
     pretext   = '%feature("docstring") '
     separator = ' "\n'
     posttext  = '\n";\n\n\n'
     docstring = rewriteDocstringForPython(docstring).strip()
+
+  elif language == 'csharp':
+    pretext   = '%typemap(csimports) '
+    separator = ' "\n using System;\n using System.Runtime.InteropServices;\n\n'
+    posttext  = '\n"\n\n\n'
+    docstring = rewriteDocstringForCSharp(docstring).strip()
 
   elif language == 'perl':
     pretext   = '=back\n\n=head2 '
@@ -1373,8 +1386,7 @@ def processFunctions (ostream, functions):
 
 def processClassDocs (ostream, classDocs):
   for c in classDocs:
-    if c.isInternal == False:
-      ostream.write(generateClassDocString(c.docstring, c.name))
+    ostream.write(generateClassDocString(c.docstring, c.name, c.isInternal))
 
 
 
@@ -1410,7 +1422,7 @@ def postProcessOutputForPython(contents):
   contents = re.sub(r'\\f\$\\times\\f\$', '*', contents)
   contents = re.sub(r'&quot;', '\\\"', contents)
 
-  # Doxygen understand <nobr>
+  # Doxygen doesn't understand <nobr>.
 
   contents = re.sub(r'</?nobr>', '', contents)
 
@@ -1427,10 +1439,10 @@ def postProcessOutput(istream, ostream):
 
   p = re.compile('@copydetails\s+(\w+)')
   contents = p.sub(translateCopydetails, contents)
-    
+
   # Do additional post-processing on a language-specific basis.
 
-  if language == 'python':  
+  if language == 'python':
     contents = postProcessOutputForPython(contents)
   elif language == 'java':
     # Javadoc doesn't have an @htmlinclude command, so we process the file
@@ -1441,71 +1453,73 @@ def postProcessOutput(istream, ostream):
   ostream.write(contents)
 
 
+#
+# Command-line argument handling.
+#
 
-def classes_in_header_file(filename):
-    classes = []
-    stream = open(filename)
-    for line in stream.readlines():
-        start = line.find('@class')
-        if start < 0:
-            continue
-        name = re.sub(r'\.', '', line[start + 6:]).strip()
-        if name and (not (name.startswith("doc_") or name.startswith("is "))):
-          classes.append(name)
+__desc_end = '''This file is part of libSBML.  Please visit http://sbml.org for
+more information about SBML, and the latest version of libSBML.'''
 
-    stream.close()
-    return classes
-
-
-
-def classes_in_swig_file(filename):
-    classes = []
-    stream = open(filename)
-    for line in stream.readlines():
-        start = line.find('%template(')
-        if start < 0:
-            continue
-        end = line.find(')')
-        name = line[start + 10:end].strip()
-        if name:
-          classes.append(name)
-
-    stream.close()
-    return classes
+def parse_cmdline(direct_args = None):
+    parser = argparse.ArgumentParser(epilog=__desc_end)
+    parser.add_argument("-d", "--define", action='append',
+                        help="define a preprocessor constant")
+    parser.add_argument("-l", "--language", required=True,
+                        help="language for which to generate SWIG docstrings")
+    parser.add_argument("-m", "--master", required=True,
+                        help="top-level SWIG interface .i file to read")
+    parser.add_argument("-o", "--output", required=True,
+                        help="output file where SWIG docstrings will be written")
+    parser.add_argument("-t", "--top", required=True,
+                        help="path to top of libSBML source directory")
+    return parser.parse_args(direct_args)
 
 
 
-def find_classes(files, func):
-    classes = []
-    for f in files:
-        classes += func(f)
-    return classes
+def expanded_path(path):
+    if path: return os.path.expanduser(os.path.expandvars(path))
+    else:    return ''
 
+
+
+def get_language(direct_args = None):
+    return direct_args.language
+
+
+
+def get_master_file(direct_args = None):
+    return os.path.abspath(expanded_path(direct_args.master))
+
+
+
+def get_output_file(direct_args = None):
+    return os.path.abspath(expanded_path(direct_args.output))
+
+
+
+def get_top_dir(direct_args = None):
+    return os.path.abspath(expanded_path(direct_args.top))
+
+
+
+def get_defines(direct_args = None):
+  return direct_args.define
 
 
 def main (args):
-  """usage: swigdoc.py [java | python | perl | csharp] -Ipath -Dpath libsbml.i output.i
-
-  java | python | perl | csharp  generate docstrings for this language module.
-  path                           is the path to the libsbml src/ directory.
-  libsbml.i                      is the master libsbml SWIG interface file.
-  output.i                       is the file to output the SWIG docstrings.
-  """
-
   global doc_include_path
   global header_files
   global language
   global libsbml_classes
+  global preprocessor_defines
 
-  if len(args) != 6:
-    print((main.__doc__))
-    sys.exit(1)
-
-  language         = args[1]
-  h_include_path   = args[2].replace('-I', '')
-  doc_include_path = args[3].replace('-D', '')
-  main_swig_file   = os.path.abspath(args[4]) # libsbml.i
-  output_swig_file = args[5]
+  args                 = parse_cmdline()
+  language             = get_language(args)
+  main_swig_file       = get_master_file(args)
+  output_swig_file     = get_output_file(args)
+  h_include_path       = os.path.join(get_top_dir(args), 'src')
+  doc_include_path     = os.path.join(get_top_dir(args), 'docs', 'src')
+  preprocessor_defines = get_defines(args)
 
   # We first write all our output to a temporary file.  Later, we open this
   # file, post-process it, and write the final output to the real destination.
@@ -1519,17 +1533,17 @@ def main (args):
 
   swig_files       = get_swig_files(main_swig_file)
   header_files     = get_header_files(swig_files, h_include_path)
-  libsbml_classes  = find_classes(header_files, classes_in_header_file)
-  libsbml_classes += find_classes(swig_files, classes_in_swig_file)
+  libsbml_classes  = libsbmlutils.find_classes(header_files)
+  libsbml_classes += libsbmlutils.find_classes(swig_files)
 
-  try: 
+  try:
     libsbml_classes  = sorted(list(set(libsbml_classes)))
   except (Exception,):
     e = sys.exc_info()[1]
     pass
 
   # Now, do the main processing pass, writing the output as we go along.
-  
+
   if language == 'perl':
     if (os.path.exists(os.path.abspath('LibSBML.txt'))):
       infile = open(os.path.abspath('LibSBML.txt'), 'r')
