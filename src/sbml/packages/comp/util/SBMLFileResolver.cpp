@@ -157,10 +157,13 @@ SBMLFileResolver::resolveUri(const std::string &sUri, const std::string& sBaseUr
   if (uri.getScheme() != "file" && baseUri.getScheme() != "file")
     return NULL;
 
+
+  // also moved this as Lucian suggests that if there is a local file
+  // it is not necessarily the one referenced
   // greedily pick up the first file we see before trying more
   // elaborate means
-  if (fileExists(fileName))
-    return new SBMLUri(fileName);
+  //if (fileExists(fileName))
+  //  return new SBMLUri(fileName);
     
     
   std::vector<std::string>::const_iterator it = mAdditionalDirs.begin();
@@ -176,13 +179,20 @@ SBMLFileResolver::resolveUri(const std::string &sUri, const std::string& sBaseUr
     ++it;
   }
   
-  fileName = baseUri.relativeTo(uri.getPath()).getPath();  
-  if (fileExists(fileName))
-    return new SBMLUri(fileName);
-  // missing root?
-  prefixFileIfNeeded(fileName);
-  if (fileExists(fileName))
-    return new SBMLUri(fileName);
+
+  // if we do this here we may end up adding a file name to a path 
+  // that already contains a filename
+  // which is obviously illogical
+  // it should fail neatly and move on to try without the filename
+  // but just to be totally careful lets move it to afterwards
+
+  //fileName = baseUri.relativeTo(uri.getPath()).getPath();  
+  //if (fileExists(fileName))
+  //  return new SBMLUri(fileName);
+  //// missing root?
+  //prefixFileIfNeeded(fileName);
+  //if (fileExists(fileName))
+  //  return new SBMLUri(fileName);
 
 
   // adjust for baseUri, when invoked with *full* filename, rather than just the path
@@ -199,6 +209,19 @@ SBMLFileResolver::resolveUri(const std::string &sUri, const std::string& sBaseUr
       return new SBMLUri(fileName);
 
   }
+
+  fileName = baseUri.relativeTo(uri.getPath()).getPath();  
+  if (fileExists(fileName))
+    return new SBMLUri(fileName);
+  // missing root?
+  prefixFileIfNeeded(fileName);
+  if (fileExists(fileName))
+    return new SBMLUri(fileName);
+
+  // well lets just check ...
+  fileName = sUri;
+  if (fileExists(fileName))
+    return new SBMLUri(fileName);
 
   // we could scramble a bit more by continuing to search but for now that 
   // ought to be it.

@@ -245,6 +245,22 @@ START_TEST (test_comp_fileresolver_resolve_5)
 END_TEST
   
   
+START_TEST (test_comp_fileresolver_resolve_6)
+{ 
+  string filename(TestDataDirectory);
+  size_t pos = filename.rfind('/');
+  if (pos != filename.npos)
+  {
+    filename = filename.substr(0, pos);
+  }
+  SBMLFileResolver fr;
+  SBMLDocument* doc2 = fr.resolve("enzyme_model.xml", filename);
+  fail_unless(doc2 != NULL);
+  fail_unless(doc2->getModel() != NULL);
+}
+END_TEST
+  
+  
 START_TEST (test_comp_resolverregistry_1)
 { 
   SBMLResolverRegistry &registry = SBMLResolverRegistry::getInstance();
@@ -287,6 +303,7 @@ create_suite_TestURIResolvers (void)
   tcase_add_test(tcase, test_comp_fileresolver_resolve_3);
   tcase_add_test(tcase, test_comp_fileresolver_resolve_4);
   tcase_add_test(tcase, test_comp_fileresolver_resolve_5);
+  tcase_add_test(tcase, test_comp_fileresolver_resolve_6);
   tcase_add_test(tcase, test_comp_resolverregistry_1);
   tcase_add_test(tcase, test_comp_resolverregistry_2);
   suite_add_tcase(suite, tcase);
