@@ -2834,7 +2834,7 @@ Model::getInitialAssignment (const std::string& symbol) const
  * @c NULL if no such InitialAssignment exists.
  */
 const InitialAssignment*
-Model::getInitialAssignmentForSymbol(const std::string& symbol) const
+Model::getInitialAssignmentBySymbol(const std::string& symbol) const
 {
   return getInitialAssignment(symbol);
 }
@@ -2856,7 +2856,7 @@ Model::getInitialAssignment (const std::string& symbol)
  * @c NULL if no such InitialAssignment exists.
  */
 InitialAssignment*
-Model::getInitialAssignmentForSymbol(const std::string& symbol)
+Model::getInitialAssignmentBySymbol(const std::string& symbol)
 {
   return getInitialAssignment(symbol);
 }
@@ -2909,7 +2909,7 @@ Model::getRule (const std::string& variable)
  * such Rule exists.
  */
 const Rule*
-Model::getRuleForVariable(const std::string& variable) const
+Model::getRuleByVariable(const std::string& variable) const
 {
   return getRule(variable);
 }
@@ -2920,7 +2920,7 @@ Model::getRuleForVariable(const std::string& variable) const
  * such Rule exists.
  */
 Rule*
-Model::getRuleForVariable(const std::string& variable)
+Model::getRuleByVariable(const std::string& variable)
 {
   return getRule(variable);
 }
@@ -3013,7 +3013,7 @@ Model::getRateRule (const std::string& variable)
  * such Rule exists.
  */
 const AssignmentRule*
-Model::getAssignmentRuleForVariable(const std::string& variable) const
+Model::getAssignmentRuleByVariable(const std::string& variable) const
 {
   return getAssignmentRule(variable);
 }
@@ -3024,7 +3024,7 @@ Model::getAssignmentRuleForVariable(const std::string& variable) const
  * such Rule exists.
  */
 AssignmentRule*
-Model::getAssignmentRuleForVariable(const std::string& variable)
+Model::getAssignmentRuleByVariable(const std::string& variable)
 {
   return getAssignmentRule(variable);
 }
@@ -3036,7 +3036,7 @@ Model::getAssignmentRuleForVariable(const std::string& variable)
  * such Rule exists.
  */
 const RateRule*
-Model::getRateRuleForVariable(const std::string& variable) const
+Model::getRateRuleByVariable(const std::string& variable) const
 {
   return getRateRule(variable);
 }
@@ -3047,7 +3047,7 @@ Model::getRateRuleForVariable(const std::string& variable) const
  * such Rule exists.
  */
 RateRule*
-Model::getRateRuleForVariable(const std::string& variable)
+Model::getRateRuleByVariable(const std::string& variable)
 {
   return getRateRule(variable);
 }
