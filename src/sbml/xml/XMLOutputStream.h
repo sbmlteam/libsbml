@@ -34,8 +34,6 @@
  *
  * @class XMLOutputStream
  * @sbmlbrief{core} Interface to an XML output stream.
- *
- * @if notclike @internal @endif@~
  */
 
 #ifndef XMLOutputStream_h

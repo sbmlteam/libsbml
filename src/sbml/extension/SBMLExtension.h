@@ -32,6 +32,8 @@
  *
  * @class SBMLExtension
  * @sbmlbrief{core} The core component of SBML's package extension.
+ * 
+ * @if notclike @internal @endif@~
  *
  * SBMLExtension class (abstract class) is a core component of package extension
  * which needs to be extended by package developers. 

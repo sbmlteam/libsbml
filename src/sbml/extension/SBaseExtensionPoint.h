@@ -33,6 +33,8 @@
  * @class SBaseExtensionPoint
  * @sbmlbrief{core} Representation of an extension point of SBML's package
  * extension.
+ * 
+ * @if notclike @internal @endif@~
  *
  * SBaseExtensionPoint represents an element to be extended (extension point) and the
  * extension point is identified by a combination of a package name and a typecode of the 

@@ -34,8 +34,6 @@
  *
  * @class XMLInputStream
  * @sbmlbrief{core} An interface to an XML input stream.
- *
- * @if notclike @internal @endif@~
  */
 
 #ifndef XMLInputStream_h
