@@ -156,8 +156,6 @@ OPTIMIZE_OUTPUT_JAVA    = YES
 # hiding more than intended).
 
 EXCLUDE_SYMBOLS =                      \
-  ISBMLExtensionNamespaces             \
-  SBMLExtension                        \
   SBMLFunctionDefinitionConverter_init \
   SBMLInitialAssignmentConverter_init  \
   SBMLLevelVersionConverter_init       \
