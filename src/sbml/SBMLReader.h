@@ -403,6 +403,13 @@ public:
    *
    * @return a pointer to the SBMLDocument created from the SBML content.
    *
+   * @note When using this method to read an SBMLDocument that uses 
+   * the SBML L3 Hierarchical Model Composition package (comp) the
+   * document location cannot be set automatically. Thus, if the model
+   * contains references to ExternalModelDefinitions, it will be necessary
+   * to manually set the document URI location (setLocationURI) in order 
+   * to facilitate resolving these models.
+   *
    * @see SBMLReader::readSBML(@if java String filename@endif)
    */
   SBMLDocument* readSBMLFromString (const std::string& xml);
@@ -586,6 +593,13 @@ SBMLReader_readSBMLFromFile (SBMLReader_t *sr, const char *filename);
  *
  * @return a pointer to the SBMLDocument read.
  *
+ * @note When using this method to read an SBMLDocument that uses 
+ * the SBML L3 Hierarchical Model Composition package (comp) the
+ * document location cannot be set automatically. Thus, if the model
+ * contains references to ExternalModelDefinitions, it will be necessary
+ * to manually set the document URI location (setLocationURI) in order 
+ * to facilitate resolving these models.
+ *
  * @memberof SBMLReader_t
  */
 LIBSBML_EXTERN
@@ -743,6 +757,13 @@ readSBMLFromFile (const char *filename);
  * SBMLDocument for more information about the error reporting mechanism.
  *
  * @return a pointer to the SBMLDocument_t read.
+ *
+ * @note When using this method to read an SBMLDocument that uses 
+ * the SBML L3 Hierarchical Model Composition package (comp) the
+ * document location cannot be set automatically. Thus, if the model
+ * contains references to ExternalModelDefinitions, it will be necessary
+ * to manually set the document URI location (setLocationURI) in order 
+ * to facilitate resolving these models.
  *
  * @if conly
  * @memberof SBMLReader_t
