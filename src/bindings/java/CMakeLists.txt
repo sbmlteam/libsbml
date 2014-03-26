@@ -157,11 +157,10 @@ ADD_CUSTOM_COMMAND(
 	ARGS    -E make_directory  ${CMAKE_CURRENT_BINARY_DIR}/java-files/org/sbml/libsbml
 	COMMAND "${PYTHON_EXECUTABLE}"
 	ARGS	"${CMAKE_CURRENT_SOURCE_DIR}/../swig/swigdoc.py"
-			java
-			-I"${LIBSBML_ROOT_SOURCE_DIR}/src"
-			-D"${LIBSBML_ROOT_SOURCE_DIR}/docs/src"
-			"${CMAKE_CURRENT_SOURCE_DIR}/../swig/libsbml.i"
-			"${CMAKE_CURRENT_BINARY_DIR}/javadoc.i"	
+			--language java
+			--top "${LIBSBML_ROOT_SOURCE_DIR}"
+			--master "${CMAKE_CURRENT_SOURCE_DIR}/../swig/libsbml.i"
+			--output "${CMAKE_CURRENT_BINARY_DIR}/javadoc.i"	
     COMMAND "${SWIG_EXECUTABLE}"
     ARGS -I${CMAKE_CURRENT_SOURCE_DIR}/../swig/
          -I${CMAKE_CURRENT_SOURCE_DIR} 

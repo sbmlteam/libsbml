@@ -451,8 +451,8 @@ endif
 
 # generate C# documentation
 csdoc.i: $(main_sources) $(swig_sources) ../swig/swigdoc.py $(wildcard ../swig/*.i)
-	../swig/swigdoc.py csharp -I../.. -D../../../docs/src ../swig/libsbml.i csdoc.i
-
+	../swig/swigdoc.py --language csharp --top ../../.. \
+		--master ../swig/libsbml.i --output csdoc.i
 
 # libsbml_wrap.cpp (for non-Windows) and libsbml_wrap-win.cpp (for Windows)
 # stand-in for the .cs files.  Their creation results in the creation of the .cs 

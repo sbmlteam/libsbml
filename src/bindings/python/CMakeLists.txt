@@ -118,11 +118,10 @@ ADD_CUSTOM_COMMAND(
     OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/libsbml_wrap.cpp
 	COMMAND "${PYTHON_EXECUTABLE}"
 	ARGS	"${CMAKE_CURRENT_SOURCE_DIR}/../swig/swigdoc.py"
-			python
-			-I"${CMAKE_CURRENT_SOURCE_DIR}/../.."
-			-D"${CMAKE_CURRENT_SOURCE_DIR}/../../../docs/src"
-			"${CMAKE_CURRENT_SOURCE_DIR}/../swig/libsbml.i"
-			"${CMAKE_CURRENT_BINARY_DIR}/pydoc-doxygen.i"
+			--language python
+			--top "${LIBSBML_ROOT_SOURCE_DIR}"
+			--master "${CMAKE_CURRENT_SOURCE_DIR}/../swig/libsbml.i"
+			--output "${CMAKE_CURRENT_BINARY_DIR}/pydoc-doxygen.i"
     COMMAND "${PYTHON_EXECUTABLE}"
 	ARGS	"${CMAKE_CURRENT_SOURCE_DIR}/doc-converter/rewrite_pydoc.py"
 			-f "${CMAKE_CURRENT_BINARY_DIR}/pydoc-doxygen.i"

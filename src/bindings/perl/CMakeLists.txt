@@ -124,11 +124,10 @@ ADD_CUSTOM_COMMAND(
     OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/LibSBML_wrap.cpp ${CMAKE_CURRENT_BINARY_DIR}/LibSBML.pod
 	COMMAND "${PYTHON_EXECUTABLE}"
 	ARGS	"${CMAKE_CURRENT_SOURCE_DIR}/../swig/swigdoc.py"
-			perl
-			-I"${CMAKE_CURRENT_SOURCE_DIR}/../.."
-			-D"${CMAKE_CURRENT_SOURCE_DIR}/../../../docs/src"
-			"${CMAKE_CURRENT_SOURCE_DIR}/../swig/libsbml.i"
-			"${CMAKE_CURRENT_BINARY_DIR}/LibSBML.pod"		
+			--language perl
+			--top "${LIBSBML_ROOT_SOURCE_DIR}"
+			--master "${CMAKE_CURRENT_SOURCE_DIR}/../swig/libsbml.i"
+			--output "${CMAKE_CURRENT_BINARY_DIR}/LibSBML.pod"		
     COMMAND "${SWIG_EXECUTABLE}"
     ARGS	-I${CMAKE_CURRENT_SOURCE_DIR}/../swig/
 			-I${CMAKE_CURRENT_SOURCE_DIR} 

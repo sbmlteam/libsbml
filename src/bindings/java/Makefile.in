@@ -370,7 +370,8 @@ endif
 # processed by swigdoc.py.
 
 javadoc.i: $(main_sources) $(swig_sources) ../swig/swigdoc.py $(wildcard ../swig/*.i)
-	../swig/swigdoc.py java -I../.. -D../../../docs/src ../swig/libsbml.i javadoc.i
+	../swig/swigdoc.py --language java --top ../../.. \
+		--master ../swig/libsbml.i --output javadoc.i
 
 libsbml_wrap.cpp $(outpath): javadoc.i $(swig_sources) $(main_sources) \
     $(shell $(call check_comp)) $(shell $(call check_fbc)) \

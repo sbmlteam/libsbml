@@ -132,11 +132,10 @@ ADD_CUSTOM_COMMAND(
     ARGS  -E remove_directory "${LIBSBML_CS_FILES}"
 	COMMAND "${PYTHON_EXECUTABLE}"
 	ARGS	"${CMAKE_CURRENT_SOURCE_DIR}/../swig/swigdoc.py"
-			csharp
-			-I"${LIBSBML_ROOT_SOURCE_DIR}/src"
-			-D"${LIBSBML_ROOT_SOURCE_DIR}/docs/src"
-			"${CMAKE_CURRENT_SOURCE_DIR}/../swig/libsbml.i"
-			"${CMAKE_CURRENT_BINARY_DIR}/csdoc.i"
+			--language csharp
+			--top "${LIBSBML_ROOT_SOURCE_DIR}"
+			--master "${CMAKE_CURRENT_SOURCE_DIR}/../swig/libsbml.i"
+			--output "${CMAKE_CURRENT_BINARY_DIR}/csdoc.i"
     COMMAND "${CMAKE_COMMAND}"
     ARGS  -E make_directory "${LIBSBML_CS_FILES}"
     COMMAND "${SWIG_EXECUTABLE}"
