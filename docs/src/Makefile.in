@@ -580,8 +580,11 @@ cpp-manual $(cpp-manual): doxygen-config-cpp.txt $(core-sources) $(css-files)
 	$(call run_doxygen,doxygen-config-cpp.txt,$(cpp-manual),"")
 	$(call postprocess_doxygen,$(cpp-manual))
 
+# The file class-list.txt is needed by filters/doc-filter-c.py, which is
+# called by Doxygen.  The configuration setting is in doxygen-config-c.txt.
+
 class-list.txt: $(core-sources) utilities/generate-class-name-list.py
-	utilities/generate-class-name-list.py $(TOP_SRCDIR)/src/sbml > class-list.txt
+	utilities/generate-class-name-list.py $(TOP_SRCDIR)/src > class-list.txt
 
 c-manual $(c-manual): doxygen-config-c.txt $(core-sources) $(css-files) \
   filters/doc-filter-c.py class-list.txt
