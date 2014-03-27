@@ -1014,10 +1014,10 @@ completeness, the sequence below encompasses this.
    mentioned in the previous step, to generate the basic HTML output files to
    the destination directory.  Javadoc is invoked with a custom doclet that
    implements features not available in the default Javadoc doclet, such as
-   skipping the files that are listed in <code>docs/src/java-skip.txt</code>,
-   detecting the tag @c @@internal in method comments and omitting those
-   methods from the output, and adding some comments to some methods (at the
-   moment, the <code>delete()</code> method).
+   skipping internal SWIG methods with a certain name, detecting the tag @c
+   @@internal in method comments and omitting those methods from the output,
+   and adding some comments to some methods (at the moment, the
+   <code>delete()</code> method).
 
 -# A number of unmodified additional files are copied to the destination
    directory: CSS style files, JavaScript files, image files, and so on.
