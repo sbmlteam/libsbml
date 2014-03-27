@@ -129,9 +129,9 @@ links to their definitions in the API documentation.  However, sometimes you
 put a percentage sign (\%) in front of it, as in @c \%%Model.  Doxygen will
 remove the percentage sign and leave the rest of the word unlinked, resulting
 in the plain word %Model appearing in the finished document.
-@li Sometimes code is meant to be part of the internal implementation and
-not advertised to users of the library.  To make Doxygen ignore blocks of
-code, wrap the code with the comment
+@li Sometimes methods are meant to be part of the internal implementation and
+not advertised to users of the library.  To make Doxygen ignore methods,
+wrap their declarations in the <code>.h</code> files with the comment
 @verbatim
 /** @cond doxygenLibsbmlInternal */
 @endverbatim
@@ -143,7 +143,13 @@ at the end of the block.  This is merely a convention used in libSBML and not
 something that Doxygen defines; we simply use the normal Doxygen conditional
 test operator <code>@@cond</code> and give it a symbol we never define:
 "doxygenLibsbmlInternal".  The symbol name is chosen to suggest the
-purpose.
+purpose.  Note: if there are multiple methods to be marked in this way,
+<strong>wrap them individually</strong>, placing the <code>@@cond</code>
+and <code>@@endcond</code> pairs immediately before and after each method.
+This makes it much easier to notice what is happening in the source files.
+The alternative approach (putting single <code>@@cond</code> and
+<code>@@endcond</code> pairs around a group of methods) makes it much harder
+to determine which methods are marked as internal in a file.
 @li If an entire file should be omitted from the user documentation, use the
 same <code>@@cond doxygenLibsbmlInternal</code> method but put the conditional
 near the top of the file and the <code>@@endcond</code> at the very end of the
