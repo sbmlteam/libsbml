@@ -316,13 +316,12 @@ L3FormulaFormatter_isGrouped (const ASTNode_t *parent, const ASTNode_t *child, c
          */
         if (ASTNode_getLeftChild(parent) == child)
         {
+          pt = ASTNode_getType(parent);
+          ct = ASTNode_getType(child);
           if (ASTNode_isLogical(parent) || ASTNode_isRelational(parent)) {
-            group = 0;
+            group = !(pt == ct);
           }
           else {
-            pt = ASTNode_getType(parent);
-            ct = ASTNode_getType(child);
-
             group = !((pt == ct) || (pt == AST_PLUS || pt == AST_TIMES));
           }
         }

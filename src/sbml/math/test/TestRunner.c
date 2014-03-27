@@ -58,17 +58,17 @@ Suite *create_suite_L3FormulaParserC (void);
 Suite *create_suite_FormulaTokenizer (void);
 Suite *create_suite_ReadMathML       (void);
 Suite *create_suite_WriteMathML      (void);
-Suite *create_suite_WriteMathMLFromAST      (void);
-Suite *create_suite_NewReadMathML       (void);
-Suite *create_suite_NewWriteMathMLFromAST      (void);
+Suite *create_suite_WriteMathMLFromAST    (void);
+Suite *create_suite_NewReadMathML         (void);
+Suite *create_suite_NewWriteMathMLFromAST (void);
 
-Suite *create_suite_TestReadFromFile1      (void);
-Suite *create_suite_TestReadFromFile2      (void);
+Suite *create_suite_TestReadFromFile1     (void);
+Suite *create_suite_TestReadFromFile2     (void);
 
-Suite *create_suite_TestValidASTNode  (void);
+Suite *create_suite_TestValidASTNode      (void);
 
-Suite *create_suite_NewASTNode          (void);
-Suite *create_suite_TestChildFunctions          (void);
+Suite *create_suite_NewASTNode            (void);
+Suite *create_suite_TestChildFunctions    (void);
 
 /**
  * Global.
