@@ -125,12 +125,12 @@ public class SBMLDoclet extends Doclet
 {
     private static List m_args = new ArrayList();
     private static Set m_excludeSet = new HashSet();
-     
+
     /**
      * First executes the doclet that exclude files.
      * Then it executes the doclet that processes the classes and excludes
      * things marked with @exclude.
-     * 
+     *
      * @param args  the Javadoc arguments from the command line
      */
     public static void main(String[] args)
@@ -143,12 +143,12 @@ public class SBMLDoclet extends Doclet
         name = SBMLProcessingDoclet.class.getName();
         Main.execute(name, name, (String[]) m_args.toArray(new String[] {}));
     }
-    
+
     /* --------------------------------------------------------------------- */
 
     /**
      * File exclusion handler class.
-     * 
+     *
      * This code was originally taken from:
      * @(#)SBMLDoclet.java	1.1 04/08/31
      * http://java.sun.com/developer/JDCTechTips/2004/tt1214.html
@@ -171,13 +171,12 @@ public class SBMLDoclet extends Doclet
                     m_excludeSet.contains(classes[i].containingPackage().name())) {
                     root.printNotice("Excluding " + classes[i].qualifiedName());
                     continue;
-                
                 }
                 m_args.add(classes[i].position().file().getPath());   
             }
             return true;
         }
-    
+
         /**
          * Let every option be valid.  The real validation happens in the standard
          * doclet, not here.  Remove the "-excludefile" and "-subpackages" options
@@ -207,7 +206,7 @@ public class SBMLDoclet extends Doclet
             }
             return true;
         }
-    
+
         /**
          * Parse the file that specifies which classes and packages to exclude from
          * the output. You can write comments in this file by starting the line with
@@ -226,7 +225,7 @@ public class SBMLDoclet extends Doclet
                 m_excludeSet.add(line.trim());
             }
         }
-    
+
         /**
          * Method required to validate the length of the given option.  This is a
          * bit ugly but the options must be hard coded here.  Otherwise, Javadoc
@@ -242,7 +241,7 @@ public class SBMLDoclet extends Doclet
             if (option.equalsIgnoreCase("-excludefile")) {
                 return 2;   
             }
-        
+
             //General options
             if (option.equals("-author") ||
                 option.equals("-docfilessubdirs") ||
@@ -272,8 +271,8 @@ public class SBMLDoclet extends Doclet
             } else if (option.equals("-group") ||
                        option.equals("-linkoffline")) {
                 return 3;
-            } 
-        
+            }
+
             //Standard doclet options
             option = option.toLowerCase();
             if (option.equals("-nodeprecatedlist") ||
@@ -325,19 +324,22 @@ public class SBMLDoclet extends Doclet
     public static class SBMLProcessingDoclet
         extends Doclet
     {
+        private static RootDoc the_root;
+
         public static boolean validOptions(String[][] options,
                                            DocErrorReporter reporter)
         {
             return Standard.validOptions(options, reporter);
         }
-    
+
         public static int optionLength(String option)
         {
             return Standard.optionLength(option);
         }
-        
+
         public static boolean start(RootDoc root)
         {
+            the_root = root;
             return Standard.start((RootDoc) process(root, RootDoc.class));
         }
 
@@ -345,17 +347,41 @@ public class SBMLDoclet extends Doclet
         {
             if (doc instanceof ProgramElementDoc)
             {
-                if (((ProgramElementDoc) doc).containingPackage().tags("internal").length > 0)
+                ProgramElementDoc pdoc = (ProgramElementDoc) doc;
+                if (pdoc.containingPackage().tags("internal").length > 0)
                     return true;
             }
             return doc.tags("internal").length > 0;
+        }
+
+        private static boolean isSWIGWrapper(Doc doc)
+        {
+            if (doc instanceof ProgramElementDoc)
+            {
+                ProgramElementDoc pdoc = (ProgramElementDoc) doc;
+                if (pdoc.containingPackage().name().startsWith("SWIGTYPE_p"))
+                    return true;
+            }
+            return doc.name().startsWith("SWIGTYPE_p");
+        }
+
+        private static boolean isJNIclass(Doc doc)
+        {
+            if (doc instanceof ProgramElementDoc)
+            {
+                ProgramElementDoc pdoc = (ProgramElementDoc) doc;
+                if (pdoc.containingPackage().name().startsWith("libsbmlJNI"))
+                    return true;
+            }
+            return doc.name().startsWith("libsbmlJNI");
         }
 
         private static boolean isDeleteMethod(Doc doc)
         {
             if (doc instanceof ProgramElementDoc)
             {
-                if (((ProgramElementDoc) doc).qualifiedName().endsWith("delete"))
+                ProgramElementDoc pdoc = (ProgramElementDoc) doc;
+                if (pdoc.qualifiedName().endsWith("delete"))
                     return true;
             }
             return (doc.isMethod() && doc.name().equals("delete"));
@@ -382,12 +408,20 @@ public class SBMLDoclet extends Doclet
                     Object entry = array[i];
                     if (entry instanceof Doc)
                     {
-                        if (markedInternal((Doc) entry))
+                        Doc item = (Doc) entry;
+
+                        if (markedInternal(item))
                             continue;
 
-                        if (isDeleteMethod((Doc)entry))
+                        if (isSWIGWrapper(item) || isJNIclass(item))
                         {
-                            ((Doc) entry).setRawCommentText(
+                            the_root.printNotice("SBMLDoclet: skipping " + item);
+                            continue;
+                        }
+
+                        if (isDeleteMethod(item))
+                        {
+                            item.setRawCommentText(
                                  "Explicitly deletes the underlying native object." +
                                  "<p>" +
                                  "In general, application software will not need to call this method " +
@@ -420,7 +454,7 @@ public class SBMLDoclet extends Doclet
             implements InvocationHandler
         {
             private Object target;
-        
+
             public InternalTagHandler(Object target)
             {
                 this.target = target;

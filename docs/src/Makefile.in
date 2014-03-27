@@ -244,7 +244,6 @@ distfiles =                                                  \
         filters/doc-filter-c.py                              \
         filters/doc-filter-cs.py                             \
         filters/doc-filter-python.py                         \
-        java-skip.txt                                        \
         java-substitutions/ASTNodeList.java                  \
         java-substitutions/CompPkgNamespaces.java            \
         java-substitutions/CVTermList.java                   \
@@ -789,7 +788,7 @@ java-manual $(java-manual): $(core-sources) $(css-files) SBMLDoclet.class
 	mkdir -p $(java-local-dir)/$(java-class-path)
 	cp -rp $(java-source-dir)/$(java-class-path)/* $(java-local-dir)/$(java-class-path)
 	cp -rp $(java-subst-dir)/* $(java-local-dir)/$(java-class-path)
-	$(JAVA) -cp $(JAVADOC_JAR):. SBMLDoclet -excludefile java-skip.txt \
+	$(JAVA) -cp $(JAVADOC_JAR):. SBMLDoclet \
 	    -use -public -version -author -sourcetab 4 -keywords -nohelp \
 	    -link http://java.sun.com/j2se/1.5.0/docs/api \
 	    -header $(javadoc-header) \
