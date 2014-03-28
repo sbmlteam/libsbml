@@ -213,6 +213,7 @@ extra_clean =			      \
 
 extra_distclean =		      \
 	$(installed_files_list)	      \
+	libsbml.py		      \
 	libsbml.pyc		      \
 	local-downcast-extension.i    \
 	local-downcast-extension.cpp  \
