@@ -806,7 +806,8 @@ ListOfDistribInputs::writeXMLNS(XMLOutputStream& stream) const
 
   if (prefix.empty())
   {
-    if (getNamespaces()->hasURI(DistribExtension::getXmlnsL3V1V1()))
+    XMLNamespaces* thisxmlns = getNamespaces();
+    if (thisxmlns && thisxmlns->hasURI(DistribExtension::getXmlnsL3V1V1()))
     {
       xmlns.add(DistribExtension::getXmlnsL3V1V1(),prefix);
     }
