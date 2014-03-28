@@ -183,6 +183,52 @@ if test "$enable_compression" != no; then
   AC_SUBST(USE_COMPRESSION, 1)
 fi
 
+dnl ---------------------------------------------------------------------------
+dnl LIBSBML_SHARED_VERSION
+dnl ---------------------------------------------------------------------------
+
+AC_ARG_ENABLE([shared-version],
+  AS_HELP_STRING([--enable-shared-version@<:@=ARG@:>@],
+                 [include version number into shared library @<:@default=yes@:>@]),
+  [enable_shared_version=$enableval],
+  [enable_shared_version=yes])
+
+if test "$enable_shared_version" != no; then
+  AC_DEFINE([LIBSBML_SHARED_VERSION], 1, [Define to 1 to include the version number in the shared library.])
+  AC_SUBST(LIBSBML_SHARED_VERSION, 1)
+fi
+
+dnl ---------------------------------------------------------------------------
+dnl LIBSBML_USE_LEGACY_MATH
+dnl ---------------------------------------------------------------------------
+
+AC_ARG_ENABLE([legacy-math],
+  AS_HELP_STRING([--enable-legacy-math@<:@=ARG@:>@],
+                 [use legacy AST math implementation @<:@default=no@:>@]),
+  [enable_use_legacy_math=$enableval],
+  [enable_use_legacy_math=no])
+
+if test "$enable_use_legacy_math" != no; then
+  AC_DEFINE([LIBSBML_USE_LEGACY_MATH], 1, [Define to 1 to use the legacy math AST implementation.])
+  AC_SUBST(LIBSBML_USE_LEGACY_MATH, 1)
+fi
+
+dnl ---------------------------------------------------------------------------
+dnl LIBSBML_USE_STRICT_INCLUDES
+dnl ---------------------------------------------------------------------------
+
+AC_ARG_ENABLE([strict-includes],
+  AS_HELP_STRING([--enable-strict-includes@<:@=ARG@:>@],
+                 [use strict .h inclusion rules @<:@default=no@:>@]),
+  [enable_use_strict_includes=$enableval],
+  [enable_use_strict_includes=no])
+
+if test "$enable_use_strict_includes" != no; then
+  AC_DEFINE([LIBSBML_USE_STRICT_INCLUDES], 1, [Define to 1 to use strict include rules for header files.])
+  AC_SUBST(LIBSBML_USE_STRICT_INCLUDES, 1)
+fi
+
+
 dnl Other cmd-line options are defined in the individual .m4 files in the
 dnl config/ subdirectory.
 
