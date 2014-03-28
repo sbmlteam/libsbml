@@ -4,7 +4,7 @@
 Stable
 ==========================================================================
 The libSBML code for SBML Level 3 accepted packages has been integrated
-with the main libsbml trunk of the SVN repository.
+with the main libSBML trunk of the SVN repository.
 
 https://svn.code.sf.net/p/sbml/code/trunk/libsbml
 

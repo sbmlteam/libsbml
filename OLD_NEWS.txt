@@ -996,7 +996,7 @@ Version 3.2.0 (released 2008-08-20)
     read a file with a malformed schemaLocation attribute placed on
     the <sbml> element.  This problem turned out to be caused by more
     than one issue (see bug fixes below).  One issue was that
-    libsbml's Xerces parser code called getLine()/getColumn() in a
+    libSBML's Xerces parser code called getLine()/getColumn() in a
     situation where it doesn't report a valid number.  On some
     systems, the end result was a seg fault, whereas on others the
     numbers returned are merely crazy.  This problem has been
@@ -1362,7 +1362,7 @@ Version 3.0.2 (released 2007-11-28)
 
   - Python build was not sufficiently isolated from the user's
     installation directories and could have picked up
-    previously-installed older versions of libsbml on the system at
+    previously-installed older versions of libSBML on the system at
     build time and test time.  Fixed. 
 
   - "make uninstall" should now properly remove everything installed
@@ -1545,26 +1545,26 @@ Version 3.0.0 Prerelease
 
     + Other API changes:
 
-        const string& SBase::getNotes()           /* libsbml 2.3.4 */
-        XMLNode*      SBase::getNotes()           /* libsbml 3.0.0 */
+        const string& SBase::getNotes()           /* libSBML 2.3.4 */
+        XMLNode*      SBase::getNotes()           /* libSBML 3.0.0 */
     
-        void SBase::setAnnotation(const std::string&) /* libsbml 2.3.4 */
-        void SBase::setAnnotation(XMLNode*)       /* libsbml 3.0.0 */
+        void SBase::setAnnotation(const std::string&) /* libSBML 2.3.4 */
+        void SBase::setAnnotation(XMLNode*)       /* libSBML 3.0.0 */
     
-        void SBase::setNotes(const std::string&)  /* libsbml 3.0.0 */
-        void SBase::setNotes(XMLNode*)            /* libsbml 2.3.4 */
+        void SBase::setNotes(const std::string&)  /* libSBML 3.0.0 */
+        void SBase::setNotes(XMLNode*)            /* libSBML 2.3.4 */
 
-        const ASTNode* Event::getDelay()          /* libsbml 3.0.0 */
-        const Delay*   Event::getDelay()          /* libsbml 2.3.4 */
+        const ASTNode* Event::getDelay()          /* libSBML 3.0.0 */
+        const Delay*   Event::getDelay()          /* libSBML 2.3.4 */
      
-        const ASTNode* Event::getTrigger()        /* libsbml 3.0.0 */
-        const Trigger* Event::getTrigger()        /* libsbml 2.3.4 */
+        const ASTNode* Event::getTrigger()        /* libSBML 3.0.0 */
+        const Trigger* Event::getTrigger()        /* libSBML 2.3.4 */
          
-        void Event::setDelay(ASTNode*)            /* libsbml 3.0.0 */
-        void Event::setDelay(const Delay*)        /* libsbml 2.3.4 */
+        void Event::setDelay(ASTNode*)            /* libSBML 3.0.0 */
+        void Event::setDelay(const Delay*)        /* libSBML 2.3.4 */
     
-        void Event::setTrigger(ASTNode*)          /* libsbml 3.0.0 */
-        void Event::setTrigger(const Trigger*)    /* libsbml 2.3.4 */
+        void Event::setTrigger(ASTNode*)          /* libSBML 3.0.0 */
+        void Event::setTrigger(const Trigger*)    /* libSBML 2.3.4 */
     
 
   - There is new API documentation for C++, C and Java.  The
@@ -1841,7 +1841,7 @@ Version 2.3.2
 
   - Configuring with --with-check on MacOSX would cause -Lyes/lib to be
     added to the LDFLAGS.  This bug in config/libcheck.m4 is now fixed.
-    (Tracker libsbml case #57.)
+    (Tracker libSBML case #57.)
 
   - Minor layout extension bug fixes.
 
@@ -1983,7 +1983,7 @@ Version 2.3.0
           human consumption) at the beginning of the file:
 
             <!-- Created by <program name> version <program version>
-            on yyyy-MM-dd HH:mm with libsbml version <libsbml version>. -->
+            on yyyy-MM-dd HH:mm with libSBML version <libsbml version>. -->
 
   - Added const versions of the getListOfXXX() methods for Model,
     UnitDefinition, Reaction, KineticLaw, and Events.
@@ -2393,16 +2393,16 @@ Version 2.0.3
 
 * Major New Features:
 
-    - Stephan Hoops has contributed a port of libsbml to use the Expat
+    - Stephan Hoops has contributed a port of libSBML to use the Expat
       XML parser library as an alternative to Xerces.  To build
-      libsbml to use Expat:
+      libSBML to use Expat:
 
         ./configure --with-expat[=PATH]
 
       All checks but one pass with Expat enabled (See Bugs below).
-      There are currently two caveats to using Expat with libsbml:
+      There are currently two caveats to using Expat with libSBML:
 
-        1.  libsbml *will not* be able to validate SBML and MathML
+        1.  libSBML *will not* be able to validate SBML and MathML
             content against an XML Schema.  Expat has no facilities
             for XML Schema validation.
 
@@ -2413,7 +2413,7 @@ Version 2.0.3
             information).
 
     - Rainer Machne has contributed an example program that evaluates
-      infix expressions and prints their results using the libsbml AST
+      infix expressions and prints their results using the libSBML AST
       API.  See examples/evaluateMath.c.
 
 
@@ -2431,11 +2431,11 @@ Version 2.0.3
       sequence.  Thanks to Jo Matthews for reporting this bug.
 
       NOTE: This bug has not yet been fixed in the Expat version of
-      libsbml.  While Expat reads and writes UTF-8 by default, it
+      libSBML.  While Expat reads and writes UTF-8 by default, it
       comes with no APIs to manipulate or translate Unicode encodings.
       Writing such a conversion routine and ensuring it is
       cross-platform is non-trivial and would hold up this release of
-      libsbml for too long.
+      libSBML for too long.
 
 * Released December 19, 2003
 
@@ -2448,7 +2448,7 @@ Version 2.0.2
 
 * Major New Features:
 
-    - Sarah Keating has contributed a Matlab interface to libsbml and
+    - Sarah Keating has contributed a Matlab interface to libSBML and
       tools to load, store and view (via a Matlab GUI) a database of
       models (from a .mat file).  See the README.txt in
       bindings/matlab/SBMLToolbox for build instructions and
@@ -2457,7 +2457,7 @@ Version 2.0.2
 * Bug Fixes:
 
     - Writing SBML L2 documents with FunctionDefinitions would cause
-      libsbml to crash (segfault).  The cause was a typo in
+      libSBML to crash (segfault).  The cause was a typo in
       SBMLFormatter.cpp where a call to listOfUnitDefinitions() should
       have been (and is now) listOfFunctionDefinitions() (Thanks to Jo
       Matthews for reporting an anomaly that led to the discovery of
@@ -2559,7 +2559,7 @@ Version 2.0.1
 * Improved Windows build and binary distribution:
 
     - Andrew Finney constructed an MSVC++ project file and a set of
-      batch files to build both regular and debug versions of libsbml
+      batch files to build both regular and debug versions of libSBML
       and all example programs.
 
     - Xerces-C++ 2.2.0 headers, DLLs and .lib files are included with
@@ -2631,16 +2631,16 @@ Version 2.0.0
         - MathMLDocument_t *readMathMLFromString(cont char *xml)
 
       Again, these are provided purely for convenience.  Under normal
-      circumstances, libsbml performs all conversions behind the
+      circumstances, libSBML performs all conversions behind the
       scenes when necessary.
 
 
 * L1 to L2 Changes:
 
-  libsbml stores both L1 and L2 models in the same memory structure.
+  libSBML stores both L1 and L2 models in the same memory structure.
   While the L1 getters, setters, isSet and unset functions exist for
   backward compatibility there are some changes of which users of
-  previous versions of libsbml should be aware:
+  previous versions of libSBML should be aware:
 
     - Compartment:
 
@@ -2666,11 +2666,11 @@ Version 2.0.0
 
         - The use of .denominator is deprecated in L2.
 
-          However, libsbml still uses denominator in L2 models.  When
+          However, libSBML still uses denominator in L2 models.  When
           reading a <stoichiometry Math> if the content is a single
-          <CNN type='rational'>, libsbml will discard the
+          <CNN type='rational'>, libSBML will discard the
           stoichiometry Math and set stoichiometry and denominator
-          directly.  Similarly, libsbml will write <stoichiometryMath>
+          directly.  Similarly, libSBML will write <stoichiometryMath>
           in L2 documents if the .stoichiometryMath field is not set
           and the denominator is not 1.
 
@@ -2698,7 +2698,7 @@ Version 2.0.0
 * A new subdirectory, xml-schemas/, contains schemas for SBML L1v1,
   L1v2, L2v1 and MathML 2.
 
-* Xerces-C 2.3.0 is now supported by libsbml.  Older versions of
+* Xerces-C 2.3.0 is now supported by libSBML.  Older versions of
   Xerces-C (2.2.0 and 2.1.0) are still supported.
 
 
@@ -2712,14 +2712,14 @@ Version 1.1.2
 ======================================================================
 
 * A new subdirectory, examples, contains a few small programs that
-  demonstrate how libsbml may be used.
+  demonstrate how libSBML may be used.
 
 * IEEE-754 NaN, +Inf, -Inf and -0.0 are handled correctly and
   consistently on all supported platforms.  In previous versions, these
   values were not represented, read or written correctly on native
   Windows and under Cygwin.
 
-  When writing these values to XML, libsbml now strictly adheres to the
+  When writing these values to XML, libSBML now strictly adheres to the
   XML Schema specification for doubles, namely exactly: "NaN", "INF",
   "-INF" and "-0".
 
@@ -2730,18 +2730,18 @@ Version 1.1.2
 * SBMLWriter now defaults to an output encoding of UTF-8.
 
 * SBML_parseFormula() now returns NULL if the formula contains an
-  error.  The next version of libsbml will return the position of the
+  error.  The next version of libSBML will return the position of the
   syntax error.
 
 * Added method: SBMLDocument_setModel().
 
-* To build and run the libsbml test suite now requires an explicit
+* To build and run the libSBML test suite now requires an explicit
   configure option:
 
     ./configure  --enable-check
 
   In addition, 'check' needs to be installed (http://check.sf.net/).
-  Under Cygwin ONLY, due to a limitation of Libtool, if libsbml is
+  Under Cygwin ONLY, due to a limitation of Libtool, if libSBML is
   built with --check-enabled, a DLL cannot be built.  So, after
   testing, re-run configure without enabling check then 'make' and
   'make install' as usual.

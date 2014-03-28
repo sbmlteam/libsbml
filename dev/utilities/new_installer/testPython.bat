@@ -39,8 +39,8 @@ echo.
 echo Please call this script with three arguments: 
 echo. 
 echo - python interpreter
-echo - libsbml python build
-echo - libsbml python test directory
+echo - libSBML python build
+echo - libSBML python test directory
 echo. 
 goto ALL_DONE
 

@@ -99,7 +99,7 @@ echo.
 goto ALL_DONE
 :MISSING_DEPENDENCIES
 echo.
-echo An error occured while trying to build libsbml for windows
+echo An error occured while trying to build libSBML for windows
 echo please ensure that the dependencies are present. They are 
 echo assumed to be in:
 echo.

@@ -168,8 +168,8 @@ goto ALL_DONE
 
 :MISSING_DEPENDENCIES
 echo.
-echo Please ensure, that libsbml, has been build prior to running
-echo this script it is assumed that the following conditions are
+echo Please ensure that libSBML has been build prior to running
+echo this script.  It is assumed that the following conditions are
 echo met: 
 echo   build dir exists: %BUILD_DIR_32_BIT%
 echo   32bit install dir exists: %INSTALL_DIR_32%

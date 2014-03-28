@@ -1,6 +1,6 @@
 @echo off 
 
-REM This file will configure the libsbml build for windows (32 and 64 bit)
+REM This file will configure the libSBML build for windows (32 and 64 bit)
 REM
 REM 2011/08/17 Frank T. Bergmann
 REM

@@ -84,19 +84,19 @@ ready-to-install precompiled binaries for many systems.
 2.2 CMake
 ---------
 
-CMake (www.cmake.org) is the new build system for libsbml and can be
+CMake (www.cmake.org) is the new build system for libSBML and can be
 used on all platforms.  Using CMake is the only way to compile
-libsbml with packages from source (libsbml without packages can
+libSBML with packages from source (libsbml without packages can
 still be built from source with the old GNU makefiles system, see below).
 
 To build using CMake, the first step is to create a new build
 directory.  Typically, this is created as a new subdirectory of
-the libsbml source tree, as libsbml/build/
+the libSBML source tree, as libsbml/build/
 
 The simplest step from there is to run the CMake GUI, 'cmake-gui'.
 If run from the command line, the easiest method is to cd to the new
 'build' directory, then run 'cmake-gui' with the root directory of
-the libsbml source as an argument, or '..':
+the libSBML source as an argument, or '..':
 
 cd libsbml/
 mkdir build
@@ -109,10 +109,10 @@ need to tell it the location of the source code (libsbml/) and where
 to build the binaries (libsbml/build/).
 
 From there, push the 'Configure' button.  This will take you to a
-new window where you are asked what to use to build libsbml.  On
+new window where you are asked what to use to build libSBML.  On
 Unix, selecting 'Unix Makefiles' is probably a good option; on Windows,
 Visual Studios or Cygwin/MSys will work; just be sure to use the same
-system as the software for which you plan to use libsbml.
+system as the software for which you plan to use libSBML.
 
 Selecting 'Finish' will take you back to the original window, and
 configuration will start.  It is likely that one or more systems will
@@ -143,7 +143,7 @@ Once 'Configure' makes it through with no errors, you can then click on
 the 'Generate' button, which will create the necessary files for whatever
 system you selected.  A Makefile will be generated for unix makefiles; a
 'libsbml.sln' file for Visual Studio.  From there, use those files as they
-were intended to be used, and compile libsbml!
+were intended to be used, and compile libSBML!
 
 It is not necessary to use the cmake gui to create your build system.
 Once you know what options you want to set, it is possible to set them
@@ -153,7 +153,7 @@ cmake -DOPTION=setting
 
 in other words, '-D', the option you want to set, an equal sign, and the
 value to which you want to set it.  For example, if the various dependency
-libraries could be found automatically, and you wished to build libsbml
+libraries could be found automatically, and you wished to build libSBML
 with java bindings and the layout package, you would change to your
 newly-created 'build' directory, and type:
 
@@ -163,7 +163,7 @@ cmake -DENABLE_LAYOUT=ON -DWITH_JAVA=ON
 2.3 GNU makefiles (Linux, MacOS X, FreeBSD, and Solaris)
 -------------------------------------------------------
 
-For builds of libsbml that do not include any packages (with the exception
+For builds of libSBML that do not include any packages (with the exception
 of layout), the old GNU make system is available.  At the Unix command
 prompt, untar the distribution, cd into it (e.g.,libsbml-5.8.0/), and
 first type:
