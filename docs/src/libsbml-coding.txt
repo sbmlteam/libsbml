@@ -146,10 +146,11 @@ test operator <code>@@cond</code> and give it a symbol we never define:
 purpose.  Note: if there are multiple methods to be marked in this way,
 <strong>wrap them individually</strong>, placing the <code>@@cond</code>
 and <code>@@endcond</code> pairs immediately before and after each method.
-This makes it much easier to notice what is happening in the source files.
-The alternative approach (putting single <code>@@cond</code> and
-<code>@@endcond</code> pairs around a group of methods) makes it much harder
-to determine which methods are marked as internal in a file.
+This makes it much more likely that a reader will notice what is happening in
+the source files.  The alternative approach (putting single
+<code>@@cond</code> and <code>@@endcond</code> pairs around a group of
+methods) makes it much harder to determine which methods are marked as
+internal in a file.
 @li If an entire file should be omitted from the user documentation, use the
 same <code>@@cond doxygenLibsbmlInternal</code> method but put the conditional
 near the top of the file and the <code>@@endcond</code> at the very end of the
@@ -162,6 +163,21 @@ file.  In other words, the top of your file should look like this example:
  * @brief   Creates new XMLAttributes from "raw" Expat attributes.
  * ...
 @endverbatim
+
+@li Always put a @c @@class declaration in every file for every class, even
+if they are marked as internal using the
+<code>@@cond doxygenLibsbmlInternal</code> method described above.  Due to
+the way our documentation toolchain works, in order for Doxygen and Javadoc
+to see the markers we insert to indicate internal classes and methods, it is
+necessary for classes to have an @c @@class declaration <em>even if</em> a 
+file has the <code>@@cond doxygenLibsbmlInternal</code> guards around it.  
+In other words, the file still needs to have the @c @@class definition for
+things to work.  The easiest convention to adopt is simply to always put the
+@c @@class and @c @@sbmlbrief pairs in every class, no matter what.  If the
+file is for internal code, then also put the
+<code>@@cond doxygenLibsbmlInternal</code> around the entire contents inside.
+The use of @c @@sbmlbrief and @c @@class is discussed further in Section @ref
+coding-doc-h below.
 @li Do <strong>not</strong> use <code>@@retval</code> for describing return
 values; instead, use <code>@@return</code> because (1) it is what Javadoc uses
 and (2) the narrative form of <code>@@return</code> lets you provide more
