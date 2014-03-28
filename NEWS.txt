@@ -27,16 +27,16 @@ STABLE RELEASE
     it is possible that we have missed some.
     
     In order to allow people to continue to use the original AST code
-    should they choose, the source code archives provide this code 
-    within a 'math-legacy' directory and the CMake configuration files 
-    provide an option to build using this legacy code.
+    if they choose, the source code archives provide this code within
+    a 'math-legacy' directory and the libSBML configuration system
+    provides an option to build libSBML using this legacy code.
 
-  - General maintenance: We have done a number of sweeps of code to
-    identify and add such things as missing virtual functions.  We have
-    also investigated memory leaks reported by users and have done
-    some extensive memory leak checking on the more intensive
-    functionality such as validation/comp flattening etc.  This
-    is however an ongoing task.
+  - General maintenance: we have done a number of sweeps of code to
+    identify and add such things as missing virtual functions.  We
+    have also investigated memory leaks reported by users and have
+    done some extensive memory leak checking on the more intensive
+    functionality such as validation/comp flattening etc.  However,
+    this remains an ongoing task.
     
   - There is a new converter, the SBMLReactionConverter, which
     will replace any Reactions within a Model with the equivalent
@@ -49,17 +49,17 @@ STABLE RELEASE
     AssignmentRule* getAssignmentRuleByVariable(const std::string& variable);
     RateRule* getRateRuleByVariable(const std::string& variable);
     These functions return the designated object using the 'symbol' or
-    'variable' attribute.  This is duplicate functionality as the 
-    objects can be retrieved using getRule and getInitialAssignment. 
-    However the other similar functions on the Model class retrieve 
-    objects by the 'id' attribute. If future versions of SBML introduce 
-    the 'id' attribute on Rules and InitialAssignments we will need 
-    functions that act differently.
+    'variable' attribute.  This is duplicate functionality as the
+    objects can be retrieved using getRule and getInitialAssignment.
+    However the other similar functions on the Model class retrieve
+    objects by the 'id' attribute. If future versions of SBML
+    introduce the 'id' attribute on Rules and InitialAssignments we
+    will need functions that act differently.
     
-    
+
   - 'comp' package-specific updates:
   
-    - The code that facilitates file resolving in relation to
+    - The code that facilitates resolving files in relation to
       ExternalModelDefinitions has been reviewed and made as robust
       as possible.
       
@@ -71,29 +71,28 @@ STABLE RELEASE
       to also rename the 'name' attribute of objects originating in
       subModels has been included in the examples/c++/comp directory.
   
-    - Tests have been added for the C API, which did expose some
-      missing functions. These have now been added.
+    - Unit tests have been added for the C API, and this exposed some
+      missing functions. The missing functions have now been added.
 	  
 
 * Bug fixes
 
-  - There were issues with propagating the enable package
-    functionality through the children of an element.  
-	  This has been fixed.
+  - There were issues with propagating the package-enabling
+    functionality through the children of an element.  These issues
+    have been resolved.
 	  
-	- The converters that apply structural changes to the 
-	  SBML document used a setDocument function that expected a
-	  const SBMLDocument object. Since the converters change the
-	  document and indeed the code immediate re-cast the document
-	  object this function was both confusing and inaccurate. 
-	  There is now a setDocument function that does not expect
-	  a const SBMLDocument object.
-	  
-	- There were some inconsistencies in the behaviour of a
-	  LocalParameter from SBML L3 in relation to the 'constant'
-	  attribute. These have been fixed.
+  - The converters that apply structural changes to the SBML document
+    used a setDocument function that expected a const SBMLDocument
+    object. Since the converters change the document, and in fact
+    immediately re-cast the document object, this function was both
+    confusing and inaccurate.  There is now a setDocument function
+    that does not expect a const SBMLDocument object.
+    
+  - There were some inconsistencies in the behaviour of LocalParameter
+    objects from SBML Level 3 in relation to the 'constant'
+    attribute. These have been fixed.
 
-	  
+
   - 'layout' package-specific bug fixes:
   
     - There were some discrepancies between the naming of arguments
@@ -101,74 +100,78 @@ STABLE RELEASE
       these arguments. These have been corrected without changing
       the resulting behaviour. 
   
-    - On occasion when an L2 document with layout and render
-      annotations was being upgraded to L3 the render namespace 
-      was missed from the annotation in the L3 document. 
+    - Sometimes when an SBML Level 2 document with 'layout' and
+      'render' annotations was upgraded to SBML Level 3, the 'render'
+      namespace went missed from the annotation in the Level 3
+      document.  This has been fixed.
       
-    - The render 'objectRole' attribute was not being correctly 
-      handled by the layout code when render was disabled. 
-      This has been corrected.
+    - The 'render' package "objectRole" attribute was not being
+      correctly handled by the 'layout' code when the 'render' package
+      was disabled.  This has been corrected.
 
 
   - 'qual' package-specific bug fixes:
   
-    - Certain validation errors were not being correctly reported;
-      with either missing information or bad line numbers. These
-      have been fixed.  Thanks to Nicolas Rodriguez for reporting
-      the problems.
+    - Certain validation errors were not being correctly reported,
+      with either missing information or bad line numbers.  This
+      problem has been fixed.  Thanks to Nicolas Rodriguez for
+      reporting the problem.
 
 
 * Configuration/build system changes
 
   - WARNING: There is a bug in the Microsoft Visual Studio 2013
-    compiler that can cause strange output when doing repetitive
-    reading and writing.  We became aware of this when running
-    our unit tests on the comp flattening routines.  
+    compiler that can cause strange output when doing repetitive file
+    reading and writing.  We became aware of this when running our
+    unit tests on the comp flattening routines.
     http://connect.microsoft.com/VisualStudio/feedback/details/
-    808199/visual-c-2013-floating-point-broken-on-first-use
-    We included a fix in our test files (libsbml/src/sbml/packages
-    /comp/util/test/TestRunner.c) but users should be aware
-    that this is an issue that may arise with this particular 
-    version of the MSVC compiler.
+    808199/visual-c-2013-floating-point-broken-on-first-use We
+    included a fix in our test files (libsbml/src/sbml/packages
+    /comp/util/test/TestRunner.c) but users should be aware that this
+    is an issue that may arise with this particular version of the
+    MSVC compiler.
 
   - The CMake files have been updated to allow for the use when
     libSBML is merely being referenced within a CMake build, rather
     being specifically built.
     
-  - Both a GNUMake and CMake configuration generate certain 
-    header files that are specific to the build being requested.
-    Previously libSBML src code included project files for MSVC
-    and thus these files were checked into SVN and included within
-    the released src archive. This potential causes problems for
-    people wishing to create different build configurations from
-    the same src code.  Given that using CMake it is possible to
-    generate MSVC projects we no longer include these in the src
-    archive and therefore it is not necessary to include the
-    header files generated by configuration.  Thus these have been
-    removed and for CMake users will be generated within the
-    build directory to facilitate different builds using the 
-    same src tree. 
+  - Both the GNU make and CMake configuration systems generate certain
+    header files that are specific to the libSBML build being
+    requested.  Previously, libSBML source code included project
+    definition files for MSVC.  These files were checked into SVN and
+    included within the released src archive distribution.  Their
+    inclusion could potentially cause problems for people who wanted
+    to create different build configurations from the same source
+    code.  Given that with CMake it is possible to generate MSVC
+    project files directly, we no longer include them in the source
+    archive distribution, and therefore, it is also not necessary to
+    include the header files generated by the configuration process.
+    Thus, these header files have been removed, and for CMake users
+    they will be generated within the build directory to facilitate
+    different builds using the same src tree.
   
   - There were issues with classes exported across the Windows dll
-    interface. These have been fixed and additional tests to catch
-	  these issues have been implemented.  Thanks to Andy Somogyi
-	  for reporting the problem.
+    interface.  These have been fixed, and we have added additional
+    tests to catch these issues.  Thanks to Andy Somogyi for reporting
+    the problem.
 
 
 * Miscellaneous
 
-  - Python installers for various Linux distributions are available
-    from the Open Build Service and via pypi. Links to the relevant
-    release can be found in the documentation on SourceForge download
-    pages for libSBML.
+  - Python installers for various Linux distributions are now
+    available from the Open Build Service and via pypi. Links to the
+    relevant release can be found in the documentation on SourceForge
+    download pages for libSBML.
 
-  - Changed the copyright statement for all example programs that we
-    produced ourselves to use a less restrictive license, so that
-    users can use the examples in their software without limitation.
-    The new license is the MIT license.
+  - The copyright statement for all example programs that we produced
+    ourselves has been changed to use a less restrictive license, so
+    that users can use the examples in their software without
+    limitation.  The new license is the MIT license.
 
-  - Added missing 3rd party software acknowledgement to the LICENSE.*
-    files for the Python argparse library by Steven J. Bethard.
+  - The LICENSE.* files for libSBML now include a previously-missing
+    3rd party software acknowledgement for the Python argparse library
+    by Steven J. Bethard.  (The argparse.py module is included with
+    libSBML distributions.)
 
 
 EXPERIMENTAL RELEASE
@@ -178,8 +181,8 @@ EXPERIMENTAL RELEASE
   - Support for the 'arrays' package according to the specification
     dated September 11, 2013 (0.1 alpha) has been added to the
     experimental release files. Note the extended MathML is accessible
-    via the ASTNode class however this version does not yet include
-    support for parsing to and from infix notation.
+    via the ASTNode class; however, the current version version does
+    not yet include support for parsing to and from infix notation.
 
 
   - 'multi' package-specific updates:
@@ -197,6 +200,7 @@ EXPERIMENTAL RELEASE
     - On occasion when an L2 document with layout and render
       annotations was being upgraded to L3 the render namespace 
       was missed from the annotation in the L3 document. 
+
 
 
 ====================================================================
