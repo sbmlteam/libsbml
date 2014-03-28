@@ -31,7 +31,9 @@
 #
 ###############################################################################
 
-option(ENABLE_COMP     "Enable hierarchical model composition package"    OFF )
+option(ENABLE_COMP
+"Enable libSBML support for the SBML Level 3 Hierarchical Model
+Composition ('comp') package." OFF)
 
 if(ENABLE_COMP)
 	add_definitions(-DUSE_COMP)

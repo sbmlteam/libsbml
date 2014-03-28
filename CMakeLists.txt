@@ -35,9 +35,9 @@ cmake_minimum_required(VERSION 2.6)
 project(libsbml)
 
 set(LIBSBML_ROOT_SOURCE_DIR "${CMAKE_SOURCE_DIR}" CACHE PATH
-    "Path to the libsbml root source directory")
+    "Path to the libSBML root source directory")
 set(LIBSBML_ROOT_BINARY_DIR "${CMAKE_BINARY_DIR}" CACHE PATH
-    "Path to the libsbml root build directory")
+    "Path to the libSBML root build directory")
 
 include (CMakeTestCCompiler)
 include (CheckCSourceCompiles)
@@ -138,7 +138,9 @@ include(CPack)
 # Here we have the main configuration options for libsbml.
 #
 
-option(LIBSBML_USE_LEGACY_MATH  "Use the legacy math implementation instead of the one supporting packages" OFF)
+option(LIBSBML_USE_LEGACY_MATH
+"Use libSBML's legacy math implementation of ASTs instead of the one
+introduced in libSBML 5.10 to better support SBML Level 3 packages." OFF)
 mark_as_advanced(LIBSBML_USE_LEGACY_MATH)
 
 
@@ -149,14 +151,14 @@ mark_as_advanced(LIBSBML_USE_LEGACY_MATH)
 option(WITH_EXAMPLES "Compile the libSBML example programs."  OFF)
 
 # Which language bindings should be built
-option(WITH_CSHARP   "Generate C# language bindings."     OFF)
-option(WITH_JAVA     "Generate Java language bindings."   OFF)
-option(WITH_PYTHON   "Generate Python language bindings." OFF)
-option(WITH_PERL     "Generate Perl language bindings."   OFF)
-option(WITH_RUBY     "Generate Ruby language bindings"    OFF)
-option(WITH_R        "Generate R language bindings"       OFF)
-option(WITH_OCTAVE   "Generate Octave language bindings." OFF)
-option(WITH_MATLAB   "Generate MATLAB language bindings." OFF)
+option(WITH_CSHARP   "Generate the C# language interface for libSBML."     OFF)
+option(WITH_JAVA     "Generate the Java language interface for libSBML."   OFF)
+option(WITH_PYTHON   "Generate the Python language interface for libSBML." OFF)
+option(WITH_PERL     "Generate the Perl language interface for libSBML."   OFF)
+option(WITH_RUBY     "Generate the Ruby language interface for libSBML"    OFF)
+option(WITH_R        "Generate the R language interface for libSBML"       OFF)
+option(WITH_OCTAVE   "Generate the Octave language interface for libSBML." OFF)
+option(WITH_MATLAB   "Generate the MATLAB language interface for libSBML." OFF)
 
 # Add an option to compile with all warnings shown
 option(WITH_WALL     "Compile with -Wall, so that the compiler will display all warnings." OFF)
@@ -171,7 +173,9 @@ if(WITH_WALL)
 endif()
 
 # Add an option to instruct libSBML to not include SBMLTypes.h and other files internally.
-option(LIBSBML_USE_STRICT_INCLUDES     "Compile using strict includes (this will mean libSBML header files won't use SBMLTypes.h among others)" OFF)
+option(LIBSBML_USE_STRICT_INCLUDES
+"Compile using 'strict includes' rules: libSBML header files won't
+use SBMLTypes.h, among others." OFF)
 if(LIBSBML_USE_STRICT_INCLUDES)
 	add_definitions(-DLIBSBML_USE_STRICT_INCLUDES)
 endif(LIBSBML_USE_STRICT_INCLUDES)
@@ -196,7 +200,9 @@ mark_as_advanced(EXIT_ON_ERROR)
 
 # Use the version number in the shared library.
 #
-option (LIBSBML_SHARED_VERSION "Build the libsbml shared library with version information" ON)
+option (LIBSBML_SHARED_VERSION
+"Include version information into the libSBML shared library
+that will be compiled." ON)
 mark_as_advanced(LIBSBML_SHARED_VERSION)
 
 # Enable the generation of unit tests. If enabled, all test runners
@@ -204,7 +210,9 @@ mark_as_advanced(LIBSBML_SHARED_VERSION)
 # This won't work in Visual Studio 2003, so we disable this option there.
 #
 if(NOT ${CMAKE_GENERATOR} MATCHES "Visual Studio 6" AND NOT ${CMAKE_GENERATOR} MATCHES "Visual Studio 7")
-    option(WITH_CHECK    "Compile unit tests. Run with 'make test' or 'ctest'." OFF)
+    option(WITH_CHECK
+"Compile the libSBML unit tests. (You can then run them with the
+commands 'make test' or 'ctest'.)" OFF)
 endif()
 
 # Choose the xml parsing library to be used.
@@ -223,24 +231,27 @@ mark_as_advanced(WITH_DOXYGEN)
 # Re-generate the swig bindings? This really should be on by default
 # otherwise one might have the wrong wrapper code without support for
 # the libsbml packages one wants.
-option(WITH_SWIG     "Regenerate SWIG-based language bindings."  ON )
+option(WITH_SWIG     "Regenerate the programming language interface code
+(for Java, Python, etc.) using SWIG."  ON )
 
 # Set build type default.
 set(CMAKE_BUILD_TYPE "Release" CACHE STRING
-    "Choose the build type. The options are: None (CMAKE_CXX_FLAGS or
-     CMAKE_C_FLAGS are used), Debug, Release, RelWithDebInfo, MinSizeRel.")
+  "Choose the type of build to perform. The options are: None (CMAKE_CXX_FLAGS
+or CMAKE_C_FLAGS are used), Debug, Release, RelWithDebInfo, MinSizeRel.")
 if("${CMAKE_BUILD_TYPE}" STREQUAL "")
   set(CMAKE_BUILD_TYPE "Release" CACHE STRING
-  "Choose the build type. The options are: None (CMAKE_CXX_FLAGS or
-  CMAKE_C_FLAGS are used), Debug, Release, RelWithDebInfo, MinSizeRel." FORCE)
+    "Choose the type of build to perform. The options are: None (CMAKE_CXX_FLAGS
+or CMAKE_C_FLAGS are used), Debug, Release, RelWithDebInfo, MinSizeRel." FORCE)
 endif()
 
 # Set the default dependency directory.
 set(LIBSBML_DEPENDENCY_DIR ${LIBSBML_ROOT_SOURCE_DIR}/dependencies/ CACHE PATH
-    "Directory containing libraries that libSBML depends upon. (Particularly important on Windows.)")
+  "Directory containing libraries that libSBML depends upon.
+(Particularly important on Windows.)")
 if("${LIBSBML_DEPENDENCY_DIR}" STREQUAL "")
   set(LIBSBML_DEPENDENCY_DIR ${LIBSBML_ROOT_SOURCE_DIR}/dependencies/ CACHE PATH
-  "Directory containing libraries that libSBML depends upon. (Particularly important on Windows.)" FORCE)
+    "Directory containing libraries that libSBML depends upon.
+(Particularly important on Windows.)" FORCE)
 endif()
 
 
@@ -273,11 +284,13 @@ if(WITH_SWIG)
               /usr/local/bin
               /opt/local/bin
               /usr/bin
-        DOC "The file name of the swig executable."
+        DOC "The file name of the SWIG executable."
         )
     find_package(SWIG)
     if (SWIG_FOUND AND SWIG_VERSION VERSION_LESS "2.0.4")
-    	message(WARNING "You are using swig version ${SWIG_VERSION} while we recommend at least version 2.0.4.")
+    	message(WARNING
+"You are using SWIG version ${SWIG_VERSION}.  We strongly recommend
+using at least version 2.0.4.")
     endif()
     set(SWIG_EXTRA_ARGS)
 endif(WITH_SWIG)
@@ -316,7 +329,9 @@ if(WITH_EXPAT)
     set(LIBSBML_XML_LIBRARY_LIBS ${LIBEXPAT_LIBRARY})
 
     if(NOT EXISTS "${LIBEXPAT_INCLUDE_DIR}/expat.h")
-        message(FATAL_ERROR "The include directory specified for Expat appears to be invalid.  It should contain the file expat.h, but it does not.")
+        message(FATAL_ERROR
+"The include directory specified for Expat appears to be invalid.
+It should contain the file expat.h, but it does not.")
     endif()
 endif(WITH_EXPAT)
 
@@ -353,7 +368,9 @@ if(WITH_LIBXML)
     set(LIBSBML_XML_LIBRARY_LIBS ${LIBXML_LIBRARY})
 
     if(NOT EXISTS "${LIBXML_INCLUDE_DIR}/libxml/parser.h")
-        message(FATAL_ERROR "The include directory specified for libxml appears to be invalid.  It should contain the file libxml/parser.h, but it does not.")
+        message(FATAL_ERROR
+"The include directory specified for libxml appears to be invalid.
+It should contain the file libxml/parser.h, but it does not.")
     endif()
 endif(WITH_LIBXML)
 
@@ -387,7 +404,10 @@ if(WITH_XERCES)
     set(LIBSBML_XML_LIBRARY_LIBS ${XERCES_LIBRARY})
 
     if(NOT EXISTS "${XERCES_INCLUDE_DIR}/xercesc/parsers/XercesDOMParser.hpp")
-        message(FATAL_ERROR "The include directory specified for Xerces appears to be invalid.  It should contain the file xercesc/parsers/XercesDOMParser.hpp, but it does not.")
+        message(FATAL_ERROR
+"The include directory specified for Xerces appears to be invalid.
+It should contain the file xercesc/parsers/XercesDOMParser.hpp, but
+it does not.")
     endif()
 
 endif(WITH_XERCES)
@@ -445,11 +465,18 @@ if(WITH_BZIP2)
         # bug in the current cmake version so for now only issue this
         # warning on linux
         if(UNIX)
-            message(WARNING "The bz2 library does not appear to be valid because it is missing some required symbols. Please check that ${LIBBZ_LIBRARY} is the bzip2 library. For details about the error, please see ${LIBSBML_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/CMakeError.log")
+            message(WARNING 
+"The chosen bz2 library does not appear to be valid because it is
+missing some required symbols. Please check that ${LIBBZ_LIBRARY}
+is the bzip2 library. For details about the error, please see
+${LIBSBML_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/CMakeError.log")
         endif()
     endif()
     if(NOT EXISTS "${LIBBZ_INCLUDE_DIR}/bzlib.h")
-        message(FATAL_ERROR "The bz2 include directory does not appear to be valid.  It should contain the file bzlib.h, but it does not.")
+        message(FATAL_ERROR
+"The include directory specified for the bz2 library does not
+appear to be valid.  It should contain the file bzlib.h, but
+it does not.")
     endif()
 
 
@@ -461,8 +488,12 @@ endif(WITH_BZIP2)
 # list of additional files to link against.
 #
 
-set(EXTRA_LIBS "" CACHE STRING "Semicolon separatred list of additional libraries to link against." )
-set(EXTRA_INCLUDE_DIRS "" CACHE STRING "Semicolon separated list of additional include directories." )
+set(EXTRA_LIBS "" CACHE STRING
+"List of additional libraries to link against.  Separate multiple
+names using semicolons." )
+set(EXTRA_INCLUDE_DIRS "" CACHE STRING
+"List of additional include directories to use during compilation.
+Separate multiple directories using semicolons." )
 
 
 ###############################################################################
@@ -516,12 +547,18 @@ if(WITH_ZLIB)
         # bug in the current cmake version so for now only issue this
         # warning on linux
         if(UNIX)
-            message(WARNING "The zlib library does not appear to be valid because it is missing certain required symbols. Please check that ${LIBZ_LIBRARY} is the zlib library. For details about the error, please see ${LIBSBML_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/CMakeError.log")
+            message(WARNING
+"The chosen zlib library does not appear to be valid because it is
+missing certain required symbols. Please check that ${LIBZ_LIBRARY} is
+the correct zlib library. For details about the error, please see
+${LIBSBML_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/CMakeError.log")
         endif()
     endif()
 
     if(NOT EXISTS "${LIBZ_INCLUDE_DIR}/zlib.h")
-        message(FATAL_ERROR "The zlib include directory does not appear to be valid. It should contain the file zlib.h, but it does not.")
+        message(FATAL_ERROR
+"The include directory specified for zlib does not appear to be
+valid. It should contain the file zlib.h, but it does not.")
     endif()
 
 endif(WITH_ZLIB)
@@ -594,7 +631,9 @@ if(WITH_CHECK)
               )
 
     if(NOT EXISTS "${LIBCHECK_INCLUDE_DIR}/check.h")
-        message(FATAL_ERROR "The 'check' include directory appears to be invalid. It should contain the file check.h, but it does not.")
+        message(FATAL_ERROR
+"The include directory specified for the 'check' library appears to be
+invalid. It should contain the file check.h, but it does not.")
     endif()
 
     if(${CMAKE_GENERATOR} MATCHES "Visual Studio 6" OR ${CMAKE_GENERATOR} MATCHES "Visual Studio 7")
@@ -665,10 +704,12 @@ if(UNIX)
         # On OSX it is common to build universal binaries to support multiple
         # processor architectures. The default behavior is not to build
         # multiple architectures, as most users might not need that.
-        option(ENABLE_UNIVERSAL "Create universal binaries on Mac OS X." OFF)
+        option(ENABLE_UNIVERSAL
+          "Create 'universal' binaries on Mac OS X. (Not available on
+other operating systems.)" OFF)
 
         set(CMAKE_OSX_ARCHITECTURES "${CMAKE_OSX_ARCHITECTURES}" CACHE STRING
-           "A semicolon-separated list of build architectures to be used.")
+           "A semicolon-separated list of architectures for which libSBML should be built.")
         if(ENABLE_UNIVERSAL)
             
             # if universal binaries are requested and none defined so far
@@ -686,17 +727,17 @@ if(UNIX)
 
                    # OSX Lion no longer supports ppc architecture
                    set(CMAKE_OSX_ARCHITECTURES "i386;x86_64" CACHE STRING
-                      "A semicolon-separated list of build architectures to be used." FORCE)
+                      "A semicolon-separated list of architectures for which libSBML should be built." FORCE)
 
                 elseif(OSX_SDK_VERSION AND OSX_SDK_VERSION  VERSION_LESS "10.7" )
 
                    set(CMAKE_OSX_ARCHITECTURES "i386;ppc;x86_64" CACHE STRING
-                       "A semicolon-separated list of build architectures to be used." FORCE)
+                       "A semicolon-separated list of architectures for which libSBML should be built." FORCE)
 
                 else()
 
                    set(CMAKE_OSX_ARCHITECTURES "i386;x86_64" CACHE STRING
-                       "A semicolon-separated list of build architectures to be used." FORCE)
+                       "A semicolon-separated list of architectures for which libSBML should be built." FORCE)
 
                 endif()
             endif()
@@ -795,7 +836,9 @@ if(WITH_XERCES)
 endif()
 
 if(LIBRARY_COUNT GREATER 1)
-    message(FATAL_ERROR "Only one XML library should be chosen. Please select only one of the following options: WITH_LIBXML, WITH_EXPAT or WITH_XERCES.")
+    message(FATAL_ERROR
+"Only one XML library should be chosen. Please select only one of the
+following options: WITH_LIBXML, WITH_EXPAT or WITH_XERCES.")
 endif()
 
 
@@ -805,7 +848,9 @@ endif()
 #
 
 if(LIBRARY_COUNT EQUAL 0)
-    message(FATAL_ERROR "A XML library must be selected. Please select one of the following: WITH_LIBXML, WITH_EXPAT or WITH_XERCES.")
+    message(FATAL_ERROR
+"A XML library must be selected. Please select one of the following
+options: WITH_LIBXML, WITH_EXPAT or WITH_XERCES.")
 endif()
 
 ###############################################################################
@@ -919,7 +964,7 @@ if(WITH_SWIG)
     message(STATUS "  Using SWIG                       = ${SWIG_EXECUTABLE}")
     
     if (SWIG_FOUND AND SWIG_VERSION VERSION_LESS "2.0.4")
-    	message(WARNING "   You are using swig version ${SWIG_VERSION} while we recommend at least version 2.0.4.")
+    	message(WARNING "   You are using SWIG version ${SWIG_VERSION}. We strongly recommend at least version 2.0.4.")
     endif()
 
 endif()
@@ -960,9 +1005,9 @@ message(STATUS "
 ")
 
 if(WITH_CPP_NAMESPACE)
-    message(STATUS "  Using C++ namespace for libSBML (libsbml) = yes")
+    message(STATUS "  Using C++ namespace for libSBML ('libsbml') = yes")
 else()
-    message(STATUS "  Using C++ namespace for libSBML (libsbml) = no")
+    message(STATUS "  Using C++ namespace for libSBML ('libsbml') = no")
 endif()
 
 if(APPLE)
@@ -974,9 +1019,9 @@ if(APPLE)
         list(SORT CMAKE_OSX_ARCHITECTURES)
         list(LENGTH CMAKE_OSX_ARCHITECTURES NUM_ARCHS)
         if(NUMARCHS EQUAL 1)
-            message(STATUS "  Building universal binaries               = no (using ${CMAKE_OSX_ARCHITECTURES})")
+            message(STATUS "  Building 'universal' binaries             = no (using ${CMAKE_OSX_ARCHITECTURES})")
         else()
-            message(STATUS "  Building universal binaries               = yes (using ${CMAKE_OSX_ARCHITECTURES})")
+            message(STATUS "  Building 'universal' binaries             = yes (using ${CMAKE_OSX_ARCHITECTURES})")
         endif()
     endif()
 endif()
