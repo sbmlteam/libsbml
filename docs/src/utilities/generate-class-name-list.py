@@ -39,8 +39,9 @@
 #----------------------------------------------------------------------- -->*/
 
 import os, sys, re
-from libsbmlutils import find_classes
 from os.path import join
+sys.path.append('../../../src/bindings/swig')
+from libsbmlutils import find_classes
 
 
 def main(args):

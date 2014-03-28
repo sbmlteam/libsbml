@@ -47,8 +47,11 @@
 # and also available online as http://sbml.org/software/libsbml/license.html
 # ---------------------------------------------------------------------- -->*/
 
-import os, sys, re, libsbmlutils
+import os, sys, re
 from os.path import join
+sys.path.append('../../../src/bindings/swig')
+from libsbmlutils import find_classes
+
 
 color_table = [
     # Name, 	red, 	green, 	blue
@@ -163,7 +166,7 @@ def main(args):
         print pkg_separator_template.format(pkg)
 
         color   = next(entry for entry in color_table if entry[0] == pkg)
-        classes = libsbmlutils.find_classes(os.path.join(src_dir, pkg))
+        classes = find_classes(os.path.join(src_dir, pkg))
         last    = classes[-1]
 
         # There is a spectacularly obscure bug in Safari that necessitates
