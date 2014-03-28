@@ -89,16 +89,19 @@ it.  Xerces versions 2.2 &#150; 2.5, and
 <!-- ---------------------------------------------------------------------- -->
 <h3><a class="anchor" name="unix-cmake">2.1 Configuring using CMake</a></h3>
 
-
 <p> If you do not already have CMake installed on your system, please make
 sure to download and install a copy of CMake version 2.8.4 or later from <a
 target="_blank" href="http://www.cmake.org/">cmake.org</a> on your computer
-system.  Then, download and unzip the libSBML source code archive from the
+system.  Also download and unzip the libSBML source code archive from the
 <a target="_blank"
 href="http://sf.net/projects/sbml/files/libsbml/@PACKAGE_VERSION@">download
 area on SourceForge.net</a> and save the archive somewhere on your file
-system, then unpack it.  Next, start up the CMake graphical user interface
-(GUI).  It will look something like the following screenshot:
+system, then unpack it.
+
+<p> Next, start up the CMake graphical user interface (GUI).  This GUI is a
+configuration tool that allows you to select options for configuring your
+libSBML build and then generate makefiles for running the actual build.  The
+GUI will look something similar to the following screenshot:
 
 <center style="width: 500px;
 margin: 1em auto">
@@ -108,14 +111,28 @@ Mac&nbsp;OS&nbsp;X version of CMake; it will look similar but not identical
 on other operating systems.
 </center>
 
-<p> Click on the <b>Browse Source...</b> button and navigate to the directory
-where you unpacked the libSBML source code archive on your file system.
-CMake should automatically fill in the next line, <b>Where to build the
-binaries</b>, using a subdirectory named <code>build</code> within the
-directory where your source code is located.  (If it does not, fill in the
-field in the CMake interface yourself.)  Then, click on the
-<b>Configure</b> button.  CMake should display a dialog similar to the
-following.
+<p> In the CMake interface, click on the <b>Browse Source...</b> button and
+navigate to the directory where you unpacked the libSBML source code archive on 
+your file system.  CMake should automatically fill in the next line, <em>Where to
+build the binaries</em>, using a subdirectory named <code>build</code> within
+the directory where your libSBML source code is located.  (If it does not,
+please fill in this field in the CMake interface yourself.)
+
+<p> After filling in the fields at the top of the interface, click on
+the <b>Configure</b> button.  If this is the first time you have executed
+CMake's Configure command in the libSBML source directory, you may see a dialog
+such as the following, asking you whether it can create a subdirectory where it
+will compile libSBML.  Click on the "Yes" button if the directory location is
+acceptable.
+
+<center style="margin: 1em auto">
+<img class="screenshot" src="cmake-build-dir-dialog.png">
+<p style="font-style: italic; width: 500px"> Dialog presented by CMake before
+it creates the subdirectory that it will use to compile libSBML.
+</center>
+
+After the dialog above, CMake should then display a dialog similar to the
+next one.
 
 <center style="margin: 1em auto">
 <img class="screenshot" src="cmake-configure-macos.png">
@@ -125,10 +142,11 @@ under Mac&nbsp;OS&nbsp;X.
 
 <p> Unless you have special requirements, select the default choices of
 "<b>Unix Makefiles</b>" and "<b>Use default native compilers</b>", then
-click the <b>Done</b> button.  This will close the selection dialog,
-whereupon CMake will read the libSBML configuration files and populate the
-options area in the CMake window with various libSBML options.  These new
-options are displayed in red, as illustrated in the following screenshot.
+click the <b>Done</b> button.  This will close the selection dialog, whereupon
+CMake will read the libSBML configuration files and populate the options area
+in the CMake GUI with various options for controlling how libSBML is built.
+These new options are displayed in red, as illustrated in the following
+screenshot.
 
 <center style="margin: 1em auto">
 <img class="screenshot" src="cmake-options-red.png"> <p style="font-style: italic; width: 500px">
@@ -136,32 +154,59 @@ Screenshot of the CMake interface after the configuration step.
 </center>
 
 <p> In this panel, you can set values for various libSBML configuration/build
-options.  For example, you can set the location into which the compiled
-libSBML libraries will be installed by clicking on the line for
-<code>CMAKE_INSTALL_PREFIX</code> and replacing the default value with a
-value of your choosing.  To find out the meaning of a particular option,
-hover your mouse/pointer over the item for a few seconds until the tooltip
-text appears.
+options.  To find out the meaning of a particular option, <strong>hover your
+mouse/pointer over the item for a few seconds until a tooltip
+appears</strong>&mdash;it will provide a short description of the option under
+the cursor.  There are numerous options available; below, we point out just a
+few that are especially popular for customization:
+<ul>
 
-<p> Select the options with which you wish to build libSBML.  All the
-options for configuring libSBML, including language bindings and SBML
-Level&nbsp;3 packages, are listed here and may be selected/deselected as
-required.  For instance, to include the Java language bindings, click the
-check-box for <code>WITH_JAVA</code>.
+<li><code>CMAKE_INSTALL_PREFIX</code>: the location into which the compiled
+libSBML libraries.  After clicking on this field, you can type a directory path
+directly into the field or click on the square 
+<span style="background-color: #bbb; border:1px solid #777">...</span> icon to
+invoke a file/open dialog.
 
-<p> Once you are done configuring, click on CMake's <b>Configure</b>
-button.  This will cause CMake to process the configuration options, and if
-it lacks any information, it will highlight the options in red, indicating
-that you need to make additional choices or resolve conflicting choices.
-You may need to iterate between setting options and clicking the
-<b>Configure</b> button until there are no options left in red and the
-<b>Generate</b> button becomes enabled.
+<li><code>WITH_JAVA</code>, <code>WITH_PYTHON</code>, etc.: toggle whether to
+build the language bindings for programming languages supported by libSBML,
+such as C#, Java, MATLAB, Octave, Perl, Python, R, Ruby, and possibly others.
 
-<p> Next, click on the <b>Generate</b> button.  This will cause CMake to
-create configuration files for the compilation environment you selected in
-the beginning (e.g., Visual Studio under Windows, or regular Unix makefiles
-under Mac&nbsp;OS or Linux, and so on).  The files will be placed in the "build"
-directory you indicated in the second line of the CMake GUI.
+<li><code>ENABLE_COMP</code>, <code>ENABLE_QUAL</code>, etc.: toggle whether
+support for various SBML Level&nbsp;3 packages is included.  The names
+following the <code>ENABLE_</code> part are the package nicknames:
+&ldquo;comp&rdquo; for the Hierarchical Model Composition package,
+&ldquo;qual&rdquo; for the Qualitative Models package, and so on.
+
+<li><code>WITH_EXPAT</code>, <code>WITH_XERCES</code>: by default, libSBML will
+use the  <a
+target="_blank" href="http://xmlsoft.org">libxml2</a> XML library.  If you
+prefer to use Expat or Xerces, select one of these options instead.
+
+</ul>
+
+<p> Note that selecting options and configuring libSBML using the GUI actually
+involves a two-step process:
+<ol>
+
+<li>Select options in the panel.
+
+<li>Click on CMake's <b>Configure</b> button.  This causes CMake to process the
+configuration options, and if the chosen options require additional
+information, CMake will update the list in the window and highlight some items
+in red.  This indicates that CMake requests you to make additional choices,
+provide additional information or resolve conflicting choices.
+</ol>
+
+You may need to iterate in between the two steps above, setting options and
+clicking the <b>Configure</b> button, until there are no options left in red
+and the <b>Generate</b> button becomes enabled.
+
+<p> Once you are satisfied with the options selected and there are no more
+red items the dialog box, click on the <b>Generate</b> button.  This will cause
+CMake to create configuration files for the compilation environment you
+selected in the beginning (e.g., Visual Studio under Windows, or regular Unix
+makefiles under Mac&nbsp;OS or Linux, and so on).  The files will be placed in
+the "build" directory you indicated in the second line of the CMake GUI.
 
 <p> Now please proceed to Section 2.3, <a
 href="#unix-compiling"><i>Compiling and installing LibSBML</i></a>.
@@ -637,17 +682,24 @@ generation of the makefiles), the final steps are to run the compilation
 process followed by a command to install libSBML on your system.  
 
 <p> If you are using CMake, then in a terminal/shell window, first
-<code>cd</code> into the <code>build</code> directory that you indicated to
-CMake in the second line of the CMake GUI.  Otherwise, if you are using GNU
-make and <i>not</i> using CMake, simply stay in the top level of the
-libSBML source code directory.  There, execute the following commands to
-compile and install libSBML:
+<code>cd</code> into the "build" directory that you indicated to CMake in the
+second line of the CMake GUI during the configuration step described in
+Section 2.1, <a href="#unix-cmake"><i>Configuring using CMake</i></a> above.
+For instance, if your "build" directory is simply named <code>build</code>,
+then do
+
+<div class="fragment"><pre class="fragment">
+cd build
+</pre></div>
+
+<p> (If you are using GNU make and <i>not</i> using CMake, simply stay in the
+top level of the libSBML source code directory.) Next, execute the following
+commands to compile and install libSBML:
 
 <div class="fragment"><pre class="fragment">
 make               # Note: use 'gmake' on FreeBSD
 make install       # Note: use 'gmake install' on FreeBSD
 </pre></div>
-
 
 <p> Note that you will probably have to perform the <code>make
 install</code> command as the user 'root' on your system if you used the

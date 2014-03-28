@@ -140,6 +140,7 @@ distfiles =                                                  \
         Makefile.in                                          \
         common-graphics/biology-qualifiers.png               \
         common-graphics/biology-qualifiers.txt               \
+        common-graphics/cmake-build-dir-dialog.png           \
         common-graphics/cmake-configure-macos.png            \
         common-graphics/cmake-configure-windows.png          \
         common-graphics/cmake-empty-screenshot.png           \
