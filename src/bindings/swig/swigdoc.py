@@ -1647,8 +1647,8 @@ def main (args):
 
   swig_files       = get_swig_files(main_swig_file)
   header_files     = get_header_files(swig_files, h_include_path)
-  libsbml_classes  = libsbmlutils.find_classes(header_files)
-  libsbml_classes += libsbmlutils.find_classes(swig_files)
+  libsbml_classes  = find_classes(header_files)
+  libsbml_classes += find_classes(swig_files)
   #libsbml_classes  = libsbmlutils.find_classes(header_files)
   #libsbml_classes += libsbmlutils.find_classes(swig_files)
 
