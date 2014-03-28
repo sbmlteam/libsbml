@@ -30,6 +30,8 @@
  * and also available online as http://sbml.org/software/libsbml/license.html
  * ------------------------------------------------------------------------ -->
  *
+ * @class SBMLExtensionException
+ * @sbmlbrief{core} Exceptions for libSBML extensions for SBML Level 3 packages.
  */
 
 #ifndef SBMLExtensionException_h

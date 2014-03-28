@@ -31,6 +31,9 @@
  * in the file named "LICENSE.txt" included with this software distribution and
  * also available online as http://sbml.org/software/libsbml/license.html
  * ------------------------------------------------------------------------ -->
+ *
+ * @class ASTBase
+ * @sbmlbrief{Core} Base node for AST classes.
  */
 
 #ifndef ASTBase_h
