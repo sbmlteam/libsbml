@@ -851,7 +851,8 @@ ListOfIndices::writeXMLNS(XMLOutputStream& stream) const
 
   if (prefix.empty())
   {
-    if (getNamespaces()->hasURI(ArraysExtension::getXmlnsL3V1V1()))
+    XMLNamespaces* thisxmlns = getNamespaces();
+    if (thisxmlns && thisxmlns->hasURI(ArraysExtension::getXmlnsL3V1V1()))
     {
       xmlns.add(ArraysExtension::getXmlnsL3V1V1(),prefix);
     }
