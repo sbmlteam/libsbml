@@ -113,6 +113,10 @@ public:
   bool isSetEncoding() const;
   bool isSetName() const;
 
+  /* user data */
+  bool isSetParentSBMLObject() const;
+  bool isSetUserData() const;
+
   /************************************* 
    * set functions 
    */
@@ -143,10 +147,15 @@ public:
   int unsetId();
   int unsetStyle();
 
+
   /* other attributes */
   int unsetDefinitionURL();
   int unsetEncoding();
   int unsetName();
+
+  /* user data */
+  int unsetParentSBMLObject();
+  int unsetUserData();
 
   /************************************* 
    * manipulating child functions 

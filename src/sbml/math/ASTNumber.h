@@ -139,6 +139,7 @@ public:
 
   /* user data */
   bool isSetUserData() const;
+  bool isSetParentSBMLObject() const;
 
   /************************************* 
    * set functions 
@@ -197,6 +198,10 @@ public:
   int unsetName();  
   int unsetUnits();
   int unsetUnitsPrefix();
+
+  /* user data */
+  int unsetParentSBMLObject();
+  int unsetUserData();
 
 
   /************************************* 

@@ -6257,6 +6257,36 @@ START_TEST (test_ASTNode_ParentSBMLObject)
 END_TEST
 
 
+START_TEST (test_ASTNode_ParentSBMLObject_1)
+{
+  ASTNode *n = new ASTNode();
+
+  fail_unless(n->getParentSBMLObject() == NULL);
+  fail_unless(n->isSetParentSBMLObject() == false);
+
+  Species * s = new Species(3,1);
+  int i = n->setParentSBMLObject((SBase*)(s));
+
+  fail_unless ( i == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(n->getParentSBMLObject() != NULL);
+  fail_unless(n->isSetParentSBMLObject() == true);
+
+  SBase * sb = n->getParentSBMLObject();
+
+  fail_unless( sb == s);
+
+  i = n->unsetParentSBMLObject();
+
+  fail_unless ( i == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(n->getParentSBMLObject() == NULL);
+  fail_unless(n->isSetParentSBMLObject() == false);
+
+  delete n;
+  delete s;
+}
+END_TEST
+
+
 START_TEST (test_ASTNode_hasTypeAndNumChildren)
 {
   ASTNode *n = new ASTNode(AST_PLUS);
@@ -6480,15 +6510,18 @@ START_TEST (test_ASTNode_userData_1)
   Model * m = new Model(3,1);
   
   fail_unless(n->getUserData() == NULL);
+  fail_unless(n->isSetUserData() == false);
 
   n->setUserData((void*)(m));
 
   fail_unless(n->getUserData() != NULL);
   fail_unless(n->getUserData() == m);
+  fail_unless(n->isSetUserData() == true);
   
   n->setUserData(NULL);
 
   fail_unless(n->getUserData() == NULL);
+  fail_unless(n->isSetUserData() == false);
 
   delete n;
 }
@@ -6502,15 +6535,18 @@ START_TEST (test_ASTNode_userData_2)
   Model * m = new Model(3,1);
   
   fail_unless(n->getUserData() == NULL);
+  fail_unless(n->isSetUserData() == false);
 
   n->setUserData((void*)(m));
 
   fail_unless(n->getUserData() != NULL);
   fail_unless(n->getUserData() == m);
+  fail_unless(n->isSetUserData() == true);
   
-  n->setUserData(NULL);
+  n->unsetUserData();
 
   fail_unless(n->getUserData() == NULL);
+  fail_unless(n->isSetUserData() == false);
 
   delete n;
 }
@@ -6956,6 +6992,7 @@ create_suite_NewASTNode (void)
   tcase_add_test( tcase, test_ASTNode_testConvenienceIs              );
   
   tcase_add_test( tcase, test_ASTNode_ParentSBMLObject         );
+  tcase_add_test( tcase, test_ASTNode_ParentSBMLObject_1         );
   
   tcase_add_test( tcase, test_ASTNode_hasTypeAndNumChildren         );
   tcase_add_test( tcase, test_ASTNode_hasUnits         );

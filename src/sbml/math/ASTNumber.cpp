@@ -623,6 +623,47 @@ ASTNumber::unsetId()
 
 
 int 
+ASTNumber::unsetParentSBMLObject()
+{
+  int success = ASTBase::unsetParentSBMLObject();
+
+  if (success == LIBSBML_OPERATION_SUCCESS)
+  {
+    if (mExponential != NULL)
+    {
+      success =  mExponential->unsetParentSBMLObject();
+    }
+    else if (mInteger != NULL)
+    {
+      success =  mInteger->unsetParentSBMLObject();
+    }
+    else if (mRational != NULL)
+    {
+      success =  mRational->unsetParentSBMLObject();
+    }
+    else if (mReal != NULL)
+    {
+      success =  mReal->unsetParentSBMLObject();
+    }
+    else if (mCiNumber != NULL)
+    {
+      success =  mCiNumber->unsetParentSBMLObject();
+    }
+    else if (mConstant != NULL)
+    {
+      success =  mConstant->unsetParentSBMLObject();
+    }
+    else if (mCSymbol != NULL)
+    {
+      success =  mCSymbol->unsetParentSBMLObject();
+    }
+  }
+
+  return success;
+}
+
+
+int 
 ASTNumber::unsetStyle()
 {
   int success = ASTBase::unsetStyle();
@@ -656,6 +697,47 @@ ASTNumber::unsetStyle()
     else if (mCSymbol != NULL)
     {
       success =  mCSymbol->unsetStyle();
+    }
+  }
+
+  return success;
+}
+
+
+int 
+ASTNumber::unsetUserData()
+{
+  int success = ASTBase::unsetUserData();
+
+  if (success == LIBSBML_OPERATION_SUCCESS)
+  {
+    if (mExponential != NULL)
+    {
+      success =  mExponential->unsetUserData();
+    }
+    else if (mInteger != NULL)
+    {
+      success =  mInteger->unsetUserData();
+    }
+    else if (mRational != NULL)
+    {
+      success =  mRational->unsetUserData();
+    }
+    else if (mReal != NULL)
+    {
+      success =  mReal->unsetUserData();
+    }
+    else if (mCiNumber != NULL)
+    {
+      success =  mCiNumber->unsetUserData();
+    }
+    else if (mConstant != NULL)
+    {
+      success =  mConstant->unsetUserData();
+    }
+    else if (mCSymbol != NULL)
+    {
+      success =  mCSymbol->unsetUserData();
     }
   }
 
@@ -726,123 +808,190 @@ ASTNumber::unsetUnitsPrefix()
 bool 
 ASTNumber::isSetClass() const
 {
-  bool success = ASTBase::isSetClass();
-
-  if (success == LIBSBML_OPERATION_SUCCESS)
+  if (mExponential != NULL)
   {
-    if (mExponential != NULL)
-    {
-      success =  mExponential->isSetClass();
-    }
-    else if (mInteger != NULL)
-    {
-      success =  mInteger->isSetClass();
-    }
-    else if (mRational != NULL)
-    {
-      success =  mRational->isSetClass();
-    }
-    else if (mReal != NULL)
-    {
-      success =  mReal->isSetClass();
-    }
-    else if (mCiNumber != NULL)
-    {
-      success =  mCiNumber->isSetClass();
-    }
-    else if (mConstant != NULL)
-    {
-      success =  mConstant->isSetClass();
-    }
-    else if (mCSymbol != NULL)
-    {
-      success =  mCSymbol->isSetClass();
-    }
+    return mExponential->isSetClass();
   }
-
-  return success;
+  else if (mInteger != NULL)
+  {
+    return mInteger->isSetClass();
+  }
+  else if (mRational != NULL)
+  {
+    return mRational->isSetClass();
+  }
+  else if (mReal != NULL)
+  {
+    return mReal->isSetClass();
+  }
+  else if (mCiNumber != NULL)
+  {
+    return mCiNumber->isSetClass();
+  }
+  else if (mConstant != NULL)
+  {
+    return mConstant->isSetClass();
+  }
+  else if (mCSymbol != NULL)
+  {
+    return mCSymbol->isSetClass();
+  }
+  else
+  {
+    return ASTBase::isSetClass();
+  }
 }
 
 
 bool 
 ASTNumber::isSetId() const
 {
-  bool success = ASTBase::isSetId();
-
-  if (success == LIBSBML_OPERATION_SUCCESS)
+  if (mExponential != NULL)
   {
-    if (mExponential != NULL)
-    {
-      success =  mExponential->isSetId();
-    }
-    else if (mInteger != NULL)
-    {
-      success =  mInteger->isSetId();
-    }
-    else if (mRational != NULL)
-    {
-      success =  mRational->isSetId();
-    }
-    else if (mReal != NULL)
-    {
-      success =  mReal->isSetId();
-    }
-    else if (mCiNumber != NULL)
-    {
-      success =  mCiNumber->isSetId();
-    }
-    else if (mConstant != NULL)
-    {
-      success =  mConstant->isSetId();
-    }
-    else if (mCSymbol != NULL)
-    {
-      success =  mCSymbol->isSetId();
-    }
+    return mExponential->isSetId();
   }
+  else if (mInteger != NULL)
+  {
+    return mInteger->isSetId();
+  }
+  else if (mRational != NULL)
+  {
+    return mRational->isSetId();
+  }
+  else if (mReal != NULL)
+  {
+    return mReal->isSetId();
+  }
+  else if (mCiNumber != NULL)
+  {
+    return mCiNumber->isSetId();
+  }
+  else if (mConstant != NULL)
+  {
+    return mConstant->isSetId();
+  }
+  else if (mCSymbol != NULL)
+  {
+    return mCSymbol->isSetId();
+  }
+  else
+  {
+    return ASTBase::isSetId();
+  }
+}
 
-  return success;
+
+bool 
+ASTNumber::isSetParentSBMLObject() const
+{
+  if (mExponential != NULL)
+  {
+    return mExponential->isSetParentSBMLObject();
+  }
+  else if (mInteger != NULL)
+  {
+    return mInteger->isSetParentSBMLObject();
+  }
+  else if (mRational != NULL)
+  {
+    return mRational->isSetParentSBMLObject();
+  }
+  else if (mReal != NULL)
+  {
+    return mReal->isSetParentSBMLObject();
+  }
+  else if (mCiNumber != NULL)
+  {
+    return mCiNumber->isSetParentSBMLObject();
+  }
+  else if (mConstant != NULL)
+  {
+    return mConstant->isSetParentSBMLObject();
+  }
+  else if (mCSymbol != NULL)
+  {
+    return mCSymbol->isSetParentSBMLObject();
+  }
+  else
+  {
+    return ASTBase::isSetParentSBMLObject();
+  }
 }
 
 
 bool 
 ASTNumber::isSetStyle() const
 {
-  bool success = ASTBase::isSetStyle();
-
-  if (success == LIBSBML_OPERATION_SUCCESS)
+  if (mExponential != NULL)
   {
-    if (mExponential != NULL)
-    {
-      success =  mExponential->isSetStyle();
-    }
-    else if (mInteger != NULL)
-    {
-      success =  mInteger->isSetStyle();
-    }
-    else if (mRational != NULL)
-    {
-      success =  mRational->isSetStyle();
-    }
-    else if (mReal != NULL)
-    {
-      success =  mReal->isSetStyle();
-    }
-    else if (mCiNumber != NULL)
-    {
-      success =  mCiNumber->isSetStyle();
-    }
-    else if (mConstant != NULL)
-    {
-      success =  mConstant->isSetStyle();
-    }
-    else if (mCSymbol != NULL)
-    {
-      success =  mCSymbol->isSetStyle();
-    }
+    return mExponential->isSetStyle();
   }
+  else if (mInteger != NULL)
+  {
+    return mInteger->isSetStyle();
+  }
+  else if (mRational != NULL)
+  {
+    return mRational->isSetStyle();
+  }
+  else if (mReal != NULL)
+  {
+    return mReal->isSetStyle();
+  }
+  else if (mCiNumber != NULL)
+  {
+    return mCiNumber->isSetStyle();
+  }
+  else if (mConstant != NULL)
+  {
+    return mConstant->isSetStyle();
+  }
+  else if (mCSymbol != NULL)
+  {
+    return mCSymbol->isSetStyle();
+  }
+  else
+  {
+    return ASTBase::isSetStyle();
+  }
+}
 
-  return success;
+
+bool 
+ASTNumber::isSetUserData() const
+{
+  if (mExponential != NULL)
+  {
+    return mExponential->isSetUserData();
+  }
+  else if (mInteger != NULL)
+  {
+    return mInteger->isSetUserData();
+  }
+  else if (mRational != NULL)
+  {
+    return mRational->isSetUserData();
+  }
+  else if (mReal != NULL)
+  {
+    return mReal->isSetUserData();
+  }
+  else if (mCiNumber != NULL)
+  {
+    return mCiNumber->isSetUserData();
+  }
+  else if (mConstant != NULL)
+  {
+    return mConstant->isSetUserData();
+  }
+  else if (mCSymbol != NULL)
+  {
+    return mCSymbol->isSetUserData();
+  }
+  else
+  {
+    return ASTBase::isSetUserData();
+  }
 }
 
 

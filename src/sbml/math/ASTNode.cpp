@@ -1589,63 +1589,72 @@ ASTNode::setValue(double mantissa, long exponent)
 bool 
 ASTNode::isSetClass() const
 {
-  bool success = ASTBase::isSetClass();
-
-  if (success == true)
+  if (mNumber != NULL)
   {
-    if (mNumber != NULL)
-    {
-      success = mNumber->isSetClass();
-    }
-    else if (mFunction != NULL)
-    {
-      success = mFunction->isSetClass();
-    }
+    return mNumber->isSetClass();
   }
-
-  return success;
+  else if (mFunction != NULL)
+  {
+    return mFunction->isSetClass();
+  }
+  else
+  {
+    return ASTBase::isSetClass();
+  }
 }
   
 
 bool 
 ASTNode::isSetId() const
 {
-  bool success = ASTBase::isSetId();
-
-  if (success == true)
+  if (mNumber != NULL)
   {
-    if (mNumber != NULL)
-    {
-      success = mNumber->isSetId();
-    }
-    else if (mFunction != NULL)
-    {
-      success = mFunction->isSetId();
-    }
+    return mNumber->isSetId();
   }
+  else if (mFunction != NULL)
+  {
+    return mFunction->isSetId();
+  }
+  else
+  {
+    return ASTBase::isSetId();
+  }
+}
+  
 
-  return success;
+bool 
+ASTNode::isSetParentSBMLObject() const
+{
+  if (mNumber != NULL)
+  {
+    return mNumber->isSetParentSBMLObject();
+  }
+  else if (mFunction != NULL)
+  {
+    return mFunction->isSetParentSBMLObject();
+  }
+  else
+  {
+    return ASTBase::isSetParentSBMLObject();
+  }
 }
   
 
 bool 
 ASTNode::isSetStyle() const
 {
-  bool success = ASTBase::isSetStyle();
-
-  if (success == true)
+  if (mNumber != NULL)
   {
-    if (mNumber != NULL)
-    {
-      success = mNumber->isSetStyle();
-    }
-    else if (mFunction != NULL)
-    {
-      success = mFunction->isSetStyle();
-    }
+    return mNumber->isSetStyle();
   }
-
-  return success;
+  else if (mFunction != NULL)
+  {
+    return mFunction->isSetStyle();
+  }
+  else
+  {
+    return ASTBase::isSetStyle();
+  }
 }
   
 
@@ -1699,6 +1708,27 @@ ASTNode::unsetId()
     else if (mFunction != NULL)
     {
       success = mFunction->unsetId();
+    }
+  }
+
+  return success;
+}
+  
+
+int 
+ASTNode::unsetParentSBMLObject()
+{
+  int success = ASTBase::unsetParentSBMLObject();
+
+  if (success == LIBSBML_OPERATION_SUCCESS)
+  {
+    if (mNumber != NULL)
+    {
+      success = mNumber->unsetParentSBMLObject();
+    }
+    else if (mFunction != NULL)
+    {
+      success = mFunction->unsetParentSBMLObject();
     }
   }
 
@@ -3169,6 +3199,45 @@ ASTNode::getUserData() const
 }
 
 
+bool 
+ASTNode::isSetUserData() const
+{
+  if (mNumber != NULL)
+  {
+    return mNumber->isSetUserData();
+  }
+  else if (mFunction != NULL)
+  {
+    return mFunction->isSetUserData();
+  }
+  else
+  {
+    return ASTBase::isSetUserData();
+  }
+}
+  
+
+int 
+ASTNode::unsetUserData()
+{
+  int success = ASTBase::unsetUserData();
+
+  if (success == LIBSBML_OPERATION_SUCCESS)
+  {
+    if (mNumber != NULL)
+    {
+      success = mNumber->unsetUserData();
+    }
+    else if (mFunction != NULL)
+    {
+      success = mFunction->unsetUserData();
+    }
+  }
+
+  return success;
+}
+  
+
 bool
 ASTNode::canonicalize ()
 {
@@ -4175,11 +4244,30 @@ ASTNode_getParentSBMLObject(ASTNode_t* node)
 
 
 LIBSBML_EXTERN
-void
+int
 ASTNode_setParentSBMLObject(ASTNode_t* node, SBase_t * sb)
 {
-  if (node == NULL) return;
-  node->setParentSBMLObject(sb);
+  if (node == NULL) return LIBSBML_INVALID_OBJECT;
+  return node->setParentSBMLObject(sb);
+}
+
+
+LIBSBML_EXTERN
+int 
+ASTNode_unsetParentSBMLObject(ASTNode_t* node)
+{
+  if (node == NULL) return LIBSBML_INVALID_OBJECT;
+  return node->unsetParentSBMLObject();
+}
+
+
+
+LIBSBML_EXTERN
+int
+ASTNode_isSetParentSBMLObject(ASTNode_t* node)
+{
+  if (node == NULL) return (int) false;
+  return static_cast<int>(node->isSetParentSBMLObject());
 }
 
 
@@ -4247,10 +4335,29 @@ ASTNode_setUserData(ASTNode_t* node, void *userData)
 
 
 LIBSBML_EXTERN
-void *ASTNode_getUserData(ASTNode_t* node)
+void *
+ASTNode_getUserData(ASTNode_t* node)
 {
   if (node == NULL) return NULL;
   return node->getUserData();
+}
+
+
+LIBSBML_EXTERN
+int
+ASTNode_unsetUserData(ASTNode_t* node)
+{
+  if (node == NULL) return LIBSBML_INVALID_OBJECT;
+  return node->unsetUserData();
+}
+
+
+LIBSBML_EXTERN
+int
+ASTNode_isSetUserData(ASTNode_t* node)
+{
+  if (node == NULL) return (int) false;
+  return static_cast<int>(node->isSetUserData());
 }
 
 LIBSBML_EXTERN

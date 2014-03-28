@@ -1399,6 +1399,88 @@ ASTFunction::unsetId()
 
 
 int 
+ASTFunction::unsetParentSBMLObject()
+{
+  int success = ASTBase::unsetParentSBMLObject();
+
+  if (success == LIBSBML_OPERATION_SUCCESS)
+  {
+    if (mUnaryFunction != NULL)
+    {
+      success =  mUnaryFunction->unsetParentSBMLObject();
+    }
+    else if (mBinaryFunction != NULL)
+    {
+      success =  mBinaryFunction->unsetParentSBMLObject();
+    }
+    else if (mNaryFunction != NULL)
+    {
+      success =  mNaryFunction->unsetParentSBMLObject();
+    }
+    else if (mUserFunction != NULL)
+    {
+      success =  mUserFunction->unsetParentSBMLObject();
+    }
+    else if (mLambda != NULL)
+    {
+      success =  mLambda->unsetParentSBMLObject();
+    }
+    else if (mPiecewise != NULL)
+    {
+      success =  mPiecewise->unsetParentSBMLObject();
+    }
+    else if (mCSymbol != NULL)
+    {
+      success =  mCSymbol->unsetParentSBMLObject();
+    }
+    else if (mQualifier != NULL)
+    {
+      success =  mQualifier->unsetParentSBMLObject();
+    }
+    else if (mSemantics != NULL)
+    {
+      success =  mSemantics->unsetParentSBMLObject();
+    }
+    else if (mIsOther == true)
+    {
+      if (mPackageName.empty() == false && mPackageName != "core")
+      {
+        success = const_cast<ASTBase*>(getPlugin(mPackageName)->getMath())
+                                       ->unsetParentSBMLObject();
+      }
+      else
+      {
+        unsigned int i = 0;
+        bool found = false;
+        while (found == false && i < getNumPlugins())
+        {
+          if (getPlugin(i)->isSetMath() == true)
+          {
+            success = const_cast<ASTBase*>(getPlugin(i)->getMath())
+                                           ->unsetParentSBMLObject();
+            found = true;
+          }
+          i++;
+        }
+
+        // nothing happened
+        if (found == false)
+        {
+          success = LIBSBML_INVALID_OBJECT;
+        }
+      }
+    }
+    else
+    {
+      success = LIBSBML_INVALID_OBJECT;
+    }
+  }
+
+  return success;
+}
+
+
+int 
 ASTFunction::unsetStyle()
 {
   int success = ASTBase::unsetStyle();
@@ -1478,7 +1560,6 @@ ASTFunction::unsetStyle()
 
   return success;
 }
-
 
 
 bool 
@@ -1620,6 +1701,75 @@ ASTFunction::isSetId() const
 
 
 bool 
+ASTFunction::isSetParentSBMLObject() const
+{
+  if (mUnaryFunction != NULL)
+  {
+    return mUnaryFunction->isSetParentSBMLObject();
+  }
+  else if (mBinaryFunction != NULL)
+  {
+    return mBinaryFunction->isSetParentSBMLObject();
+  }
+  else if (mNaryFunction != NULL)
+  {
+    return mNaryFunction->isSetParentSBMLObject();
+  }
+  else if (mUserFunction != NULL)
+  {
+    return mUserFunction->isSetParentSBMLObject();
+  }
+  else if (mLambda != NULL)
+  {
+    return mLambda->isSetParentSBMLObject();
+  }
+  else if (mPiecewise != NULL)
+  {
+    return mPiecewise->isSetParentSBMLObject();
+  }
+  else if (mCSymbol != NULL)
+  {
+    return mCSymbol->isSetParentSBMLObject();
+  }
+  else if (mQualifier != NULL)
+  {
+    return mQualifier->isSetParentSBMLObject();
+  }
+  else if (mSemantics != NULL)
+  {
+    return mSemantics->isSetParentSBMLObject();
+  }
+  else if (mIsOther == true)
+  {
+    if (mPackageName.empty() == false && mPackageName != "core")
+    {
+      return const_cast<ASTBase*>(getPlugin(mPackageName)->getMath())
+                                     ->isSetParentSBMLObject();
+    }
+    else
+    {
+      unsigned int i = 0;
+      while (i < getNumPlugins())
+      {
+        if (getPlugin(i)->isSetMath() == true)
+        {
+          return const_cast<ASTBase*>(getPlugin(i)->getMath())
+                                         ->isSetParentSBMLObject();
+        }
+        i++;
+      }
+      
+      return ASTBase::isSetParentSBMLObject();
+    }
+  }
+  else
+  {
+    return ASTBase::isSetParentSBMLObject();
+  }
+}
+
+
+bool 
 ASTFunction::isSetStyle() const
 {
   if (mUnaryFunction != NULL)
@@ -1688,7 +1838,158 @@ ASTFunction::isSetStyle() const
 }
 
 
+bool 
+ASTFunction::isSetUserData() const
+{
+  if (mUnaryFunction != NULL)
+  {
+    return mUnaryFunction->isSetUserData();
+  }
+  else if (mBinaryFunction != NULL)
+  {
+    return mBinaryFunction->isSetUserData();
+  }
+  else if (mNaryFunction != NULL)
+  {
+    return mNaryFunction->isSetUserData();
+  }
+  else if (mUserFunction != NULL)
+  {
+    return mUserFunction->isSetUserData();
+  }
+  else if (mLambda != NULL)
+  {
+    return mLambda->isSetUserData();
+  }
+  else if (mPiecewise != NULL)
+  {
+    return mPiecewise->isSetUserData();
+  }
+  else if (mCSymbol != NULL)
+  {
+    return mCSymbol->isSetUserData();
+  }
+  else if (mQualifier != NULL)
+  {
+    return mQualifier->isSetUserData();
+  }
+  else if (mSemantics != NULL)
+  {
+    return mSemantics->isSetUserData();
+  }
+  else if (mIsOther == true)
+  {
+    if (mPackageName.empty() == false && mPackageName != "core")
+    {
+      return const_cast<ASTBase*>(getPlugin(mPackageName)->getMath())
+                                     ->isSetUserData();
+    }
+    else
+    {
+      unsigned int i = 0;
+      while (i < getNumPlugins())
+      {
+        if (getPlugin(i)->isSetMath() == true)
+        {
+          return const_cast<ASTBase*>(getPlugin(i)->getMath())
+                                         ->isSetUserData();
+        }
+        i++;
+      }
+      
+      return ASTBase::isSetUserData();
+    }
+  }
+  else
+  {
+    return ASTBase::isSetUserData();
+  }
+}
+
+
   
+int 
+ASTFunction::unsetUserData()
+{
+  int success = ASTBase::unsetUserData();
+
+  if (success == LIBSBML_OPERATION_SUCCESS)
+  {
+    if (mUnaryFunction != NULL)
+    {
+      success =  mUnaryFunction->unsetUserData();
+    }
+    else if (mBinaryFunction != NULL)
+    {
+      success =  mBinaryFunction->unsetUserData();
+    }
+    else if (mNaryFunction != NULL)
+    {
+      success =  mNaryFunction->unsetUserData();
+    }
+    else if (mUserFunction != NULL)
+    {
+      success =  mUserFunction->unsetUserData();
+    }
+    else if (mLambda != NULL)
+    {
+      success =  mLambda->unsetUserData();
+    }
+    else if (mPiecewise != NULL)
+    {
+      success =  mPiecewise->unsetUserData();
+    }
+    else if (mCSymbol != NULL)
+    {
+      success =  mCSymbol->unsetUserData();
+    }
+    else if (mQualifier != NULL)
+    {
+      success =  mQualifier->unsetUserData();
+    }
+    else if (mSemantics != NULL)
+    {
+      success =  mSemantics->unsetUserData();
+    }
+    else if (mIsOther == true)
+    {
+      if (mPackageName.empty() == false && mPackageName != "core")
+      {
+        success = const_cast<ASTBase*>(getPlugin(mPackageName)->getMath())
+                                       ->unsetUserData();
+      }
+      else
+      {
+        unsigned int i = 0;
+        bool found = false;
+        while (found == false && i < getNumPlugins())
+        {
+          if (getPlugin(i)->isSetMath() == true)
+          {
+            success = const_cast<ASTBase*>(getPlugin(i)->getMath())
+                                           ->unsetUserData();
+            found = true;
+          }
+          i++;
+        }
+
+        // nothing happened
+        if (found == false)
+        {
+          success = LIBSBML_INVALID_OBJECT;
+        }
+      }
+    }
+    else
+    {
+      success = LIBSBML_INVALID_OBJECT;
+    }
+  }
+
+  return success;
+}
+
+
 std::string 
 ASTFunction::getClass() const
 {

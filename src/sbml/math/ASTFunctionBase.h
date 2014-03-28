@@ -147,25 +147,9 @@ protected:
 
 
   unsigned int mCalcNumChildren;
-  //virtual bool read(XMLInputStream* stream);
 
   unsigned int getExpectedNumChildren() const;
 
-  //void writeArgumentsOfType(XMLOutputStream& stream, int type) const;
-
-  //List *mSemanticsAnnotations;
-  //bool mHasSemantics;
-
-  //SBase *mParentSBMLObject;
-
-
-  // additional MathML attributes
-  //std::string mId;
-  //std::string mClass;
-  //std::string mStyle;
-
-  //void *mUserData;
-  
 
   /* end doxygen comment */
 };

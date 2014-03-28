@@ -222,6 +222,8 @@ public:
   bool isSetId() const;
   bool isSetStyle() const;
 
+  bool isSetParentSBMLObject() const;
+
   int setClass(std::string className);
   int setId(std::string id);
   int setStyle(std::string style);
@@ -231,6 +233,8 @@ public:
   int unsetClass();
   int unsetId();
   int unsetStyle();
+
+  int unsetParentSBMLObject();
 
   virtual ASTBase* getFunction() const;
   //int setCharacter(char value);
@@ -306,8 +310,10 @@ public:
 
   const char * getNameFromType(int type) const;
 
-  virtual int setUserData(void *userData);
-  virtual void *getUserData() const;
+  int setUserData(void *userData);
+  void *getUserData() const;
+  bool isSetUserData() const;
+  int unsetUserData();
   
   //virtual void syncMembersFrom(ASTBase* rhs);
   virtual void writeNodeOfType(XMLOutputStream& stream, int type, 

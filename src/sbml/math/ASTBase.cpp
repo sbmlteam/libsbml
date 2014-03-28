@@ -251,6 +251,13 @@ ASTBase::isSetId() const
 }
 
 
+bool
+ASTBase::isSetParentSBMLObject() const
+{
+  return (mParentSBMLObject != NULL);
+}
+
+
 bool 
 ASTBase::isSetStyle() const
 {
@@ -317,6 +324,21 @@ ASTBase::unsetId()
 {
   mId = "";
   if (mId.empty() == true)
+  {
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else
+  {
+    return LIBSBML_OPERATION_FAILED;
+  }
+}
+
+
+int 
+ASTBase::unsetParentSBMLObject()
+{
+  mParentSBMLObject = NULL;
+  if (mParentSBMLObject == NULL)
   {
     return LIBSBML_OPERATION_SUCCESS;
   }
@@ -1121,6 +1143,28 @@ void *
 ASTBase::getUserData() const
 {
 	return mUserData;
+}
+
+
+bool
+ASTBase::isSetUserData() const
+{
+  return (mUserData != NULL);
+}
+
+
+int
+ASTBase::unsetUserData()
+{
+	mUserData = NULL;
+  if (mUserData == NULL)
+  {
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else
+  {
+    return LIBSBML_OPERATION_FAILED;
+  }
 }
 
 

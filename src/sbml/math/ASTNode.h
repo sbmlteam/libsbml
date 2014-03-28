@@ -1546,6 +1546,26 @@ setValue(value, 0);
 
 
   /**
+   * Unsets the parent SBML object.
+   *
+   * @return integer value indicating success/failure of the
+   * function.  The possible values returned by this function are:
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
+   */
+  int unsetParentSBMLObject();
+
+
+  /**
+   * Returns @c true (non-zero) if this node has a value for 
+   * the parent SBML object.
+   *
+   * @return true if this ASTNode has an parent SBML object set, false otherwise.
+   */
+  bool isSetParentSBMLObject() const;
+
+
+  /**
    * Reduces this ASTNode to a binary tree.
    * 
    * Example: if this ASTNode is <code>and(x, y, z)</code>, then the 
@@ -1569,7 +1589,7 @@ setValue(value, 0);
   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
   */
-  virtual int setUserData(void *userData);
+  int setUserData(void *userData);
 
 
  /**
@@ -1581,7 +1601,36 @@ setValue(value, 0);
   * @see ASTNode::setUserData
   * @endif@~
   */
-  virtual void *getUserData() const;
+  void *getUserData() const;
+
+
+ /**
+  * Unsets the user data of this node.
+  *
+  * The user data can be used by the application developer to attach custom
+  * information to the node.  In case of a deep copy, this attribute will
+  * passed as it is. The attribute will be never interpreted by this class.
+  * 
+  * @param userData specifies the new user data. 
+  *
+  * @return integer value indicating success/failure of the
+  * function.  The possible values returned by this function are:
+  * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+  * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
+  */
+  int unsetUserData();
+
+
+ /**
+  * Returns @c true (non-zero) if this node has the user data object set.
+  *
+  * @return true if this ASTNode has a user data object set, false otherwise.
+  *
+  * @if clike
+  * @see ASTNode::setUserData
+  * @endif@~
+  */
+  bool isSetUserData() const;
 
 
  /**
@@ -3415,6 +3464,20 @@ ASTNode_getParentSBMLObject(ASTNode_t* node);
 
 
 /**
+ * Returns true if the given node's parent SBML object is set.
+ *
+ * @param node the node to query
+ *
+ * @return @c 1 if the parent SBML object is set, @c 0 otherwise.
+ *
+ * @memberof ASTNode_t
+ */
+LIBSBML_EXTERN
+int
+ASTNode_isSetParentSBMLObject(ASTNode_t* node);
+
+
+/**
  * Sets the parent SBase_t structure.
  *
  * @param node the node to modify
@@ -3424,12 +3487,31 @@ ASTNode_getParentSBMLObject(ASTNode_t* node);
  * function.  The possible values returned by this function are:
  * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
  * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT @endlink
  *
  * @memberof ASTNode_t
  */
 LIBSBML_EXTERN
-void
+int
 ASTNode_setParentSBMLObject(ASTNode_t* node, SBase_t * sb);
+
+
+/**
+ * Unsets the parent SBase_t structure.
+ *
+ * @param node the node to modify
+ *
+ * @return integer value indicating success/failure of the
+ * function.  The possible values returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT @endlink
+ *
+ * @memberof ASTNode_t
+ */
+LIBSBML_EXTERN
+int
+ASTNode_unsetParentSBMLObject(ASTNode_t* node);
 
 
 /**
@@ -3544,6 +3626,47 @@ ASTNode_setUserData(ASTNode_t* node, void *userData);
 LIBSBML_EXTERN
 void *
 ASTNode_getUserData(ASTNode_t* node);
+
+
+/**
+ * Unsets the user data of the given node.
+ *
+ * The user data can be used by the application developer to attach custom
+ * information to the node. In case of a deep copy, this attribute will
+ * passed as it is. The attribute will be never interpreted by this class.
+ *
+ * @param node the node to modify
+ *
+ * @return integer value indicating success/failure of the
+ * function.  The possible values returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
+ *
+ * @see ASTNode_getUserData()
+ * @see ASTNode_setUserData()
+ *
+ * @memberof ASTNode_t
+ */
+LIBSBML_EXTERN
+int
+ASTNode_unsetUserData(ASTNode_t* node);
+
+
+/**
+ * Returns true if the given node's user data object is set.
+ *
+ * @param node the node to query
+ *
+ * @return @c 1 if the user data object is set, @c 0 otherwise.
+ *
+ * @see ASTNode_setUserData()
+ *
+ * @memberof ASTNode_t
+ */
+LIBSBML_EXTERN
+int
+ASTNode_isSetUserData(ASTNode_t* node);
 
 
 /**

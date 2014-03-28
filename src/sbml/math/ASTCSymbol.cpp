@@ -522,78 +522,163 @@ ASTCSymbol::unsetStyle()
 }
 
 
-bool 
-ASTCSymbol::isSetClass() const
+int 
+ASTCSymbol::unsetParentSBMLObject()
 {
-  bool success = ASTBase::isSetClass();
+  int success = ASTBase::unsetParentSBMLObject();
 
   if (success == LIBSBML_OPERATION_SUCCESS)
   {
     if (mTime != NULL)
     {
-      success =  mTime->ASTBase::isSetClass();
+      success =  mTime->ASTBase::unsetParentSBMLObject();
     }
     else if (mDelay != NULL)
     {
-      success =  mDelay->ASTBase::isSetClass();
+      success =  mDelay->ASTBase::unsetParentSBMLObject();
     }
     else if (mAvogadro != NULL)
     {
-      success =  mAvogadro->ASTBase::isSetClass();
+      success =  mAvogadro->ASTBase::unsetParentSBMLObject();
     }
   }
 
   return success;
+}
+
+
+int 
+ASTCSymbol::unsetUserData()
+{
+  int success = ASTBase::unsetUserData();
+
+  if (success == LIBSBML_OPERATION_SUCCESS)
+  {
+    if (mTime != NULL)
+    {
+      success =  mTime->ASTBase::unsetUserData();
+    }
+    else if (mDelay != NULL)
+    {
+      success =  mDelay->ASTBase::unsetUserData();
+    }
+    else if (mAvogadro != NULL)
+    {
+      success =  mAvogadro->ASTBase::unsetUserData();
+    }
+  }
+
+  return success;
+}
+
+
+bool 
+ASTCSymbol::isSetClass() const
+{
+  if (mTime != NULL)
+  {
+    return mTime->ASTBase::isSetClass();
+  }
+  else if (mDelay != NULL)
+  {
+    return mDelay->ASTBase::isSetClass();
+  }
+  else if (mAvogadro != NULL)
+  {
+    return mAvogadro->ASTBase::isSetClass();
+  }
+  else
+  {
+    return ASTBase::isSetClass();
+  }
 }
 
 
 bool 
 ASTCSymbol::isSetId() const
 {
-  bool success = ASTBase::isSetId();
-
-  if (success == LIBSBML_OPERATION_SUCCESS)
+  if (mTime != NULL)
   {
-    if (mTime != NULL)
-    {
-      success =  mTime->ASTBase::isSetId();
-    }
-    else if (mDelay != NULL)
-    {
-      success =  mDelay->ASTBase::isSetId();
-    }
-    else if (mAvogadro != NULL)
-    {
-      success =  mAvogadro->ASTBase::isSetId();
-    }
+    return mTime->ASTBase::isSetId();
   }
-
-  return success;
+  else if (mDelay != NULL)
+  {
+    return mDelay->ASTBase::isSetId();
+  }
+  else if (mAvogadro != NULL)
+  {
+    return mAvogadro->ASTBase::isSetId();
+  }
+  else
+  {
+    return ASTBase::isSetId();
+  }
 }
 
 
 bool 
 ASTCSymbol::isSetStyle() const
 {
-  bool success = ASTBase::isSetStyle();
-
-  if (success == LIBSBML_OPERATION_SUCCESS)
+  if (mTime != NULL)
   {
-    if (mTime != NULL)
-    {
-      success =  mTime->ASTBase::isSetStyle();
-    }
-    else if (mDelay != NULL)
-    {
-      success =  mDelay->ASTBase::isSetStyle();
-    }
-    else if (mAvogadro != NULL)
-    {
-      success =  mAvogadro->ASTBase::isSetStyle();
-    }
+    return mTime->ASTBase::isSetStyle();
   }
+  else if (mDelay != NULL)
+  {
+    return mDelay->ASTBase::isSetStyle();
+  }
+  else if (mAvogadro != NULL)
+  {
+    return mAvogadro->ASTBase::isSetStyle();
+  }
+  else
+  {
+    return ASTBase::isSetStyle();
+  }
+}
 
-  return success;
+
+bool 
+ASTCSymbol::isSetParentSBMLObject() const
+{
+  if (mTime != NULL)
+  {
+    return mTime->ASTBase::isSetParentSBMLObject();
+  }
+  else if (mDelay != NULL)
+  {
+    return mDelay->ASTBase::isSetParentSBMLObject();
+  }
+  else if (mAvogadro != NULL)
+  {
+    return mAvogadro->ASTBase::isSetParentSBMLObject();
+  }
+  else
+  {
+    return ASTBase::isSetParentSBMLObject();
+  }
+}
+
+
+bool 
+ASTCSymbol::isSetUserData() const
+{
+  if (mTime != NULL)
+  {
+    return mTime->ASTBase::isSetUserData();
+  }
+  else if (mDelay != NULL)
+  {
+    return mDelay->ASTBase::isSetUserData();
+  }
+  else if (mAvogadro != NULL)
+  {
+    return mAvogadro->ASTBase::isSetUserData();
+  }
+  else
+  {
+    return ASTBase::isSetUserData();
+  }
 }
 
 
