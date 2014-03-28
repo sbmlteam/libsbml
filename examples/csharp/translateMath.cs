@@ -90,7 +90,6 @@ public class TranslateMath
                 line = Console.ReadLine();
             }
         }
-        return 0;
     }
 
 
