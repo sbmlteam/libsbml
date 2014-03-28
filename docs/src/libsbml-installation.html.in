@@ -21,8 +21,9 @@
 <li><a href="#unix-docs         ">2.2.g Configuring for generating documentation</a></li>
 <li><a href="#unix-unit-testing ">2.2.h Configuring for software unit testing</a></li>
 </ul>
-
 <li><a href="#unix-compiling">2.3 Compiling and installing</a></li>
+
+<li><a href="#unix-advanced">2.4 Advanced configuration options</a></li>
 </ul>
 
 </td></tr><tr><td>
@@ -718,6 +719,40 @@ above, you may need to perform additional steps so that software can find
 the libSBML library files at <em>run</em> time.  Please see the
 instructions on <a href="libsbml-accessing.html"><i>Making libSBML accessible
 to your software</i></a> provided on a separate page of this documentation.
+
+
+
+<!-- ---------------------------------------------------------------------- -->
+<h3><a class="anchor" name="unix-advanced">2.4 Advanced configuration options</a></h3>
+
+<p> Whether you use CMake or GNU make, there are some additional advanced
+options that are uncommonly used, but still worth explaining.  We list the
+options below using their names as they appear in the CMake configuration
+screen; the alternative <code>configure</code> approach uses slightly
+different command-line flag names, but still similar to the names below.
+<ul>
+<li><code>LIBSBML_SHARED_VERSION</code>: This flag controls whether the
+version number should be written into the libSBML shared library.
+
+<li><code>LIBSBML_USE_LEGACY_MATH</code>: Introduced in the 5.10 release of
+libSBML, this option controls whether libSBML should be compiled with the
+prior (legacy) version of the Abstract Syntax Tree (AST) code.  As of version
+5.10, libSBML uses a new plug-in <code>ASTNode</code> architecture that
+permits support for extensions to the MathML syntax; this is necessary to
+support some SBML Level&nbsp;3 packages.  The new AST version is the default.
+Normal user code should not experience issues with the new architecture, but
+if you have unexpected dependencies on features of the legacy code, then you
+may need to enable this option.
+
+<li><code>LIBSBML_USE_STRICT_INCLUDES</code>: This flag is intended for
+libSBML developers; it permits faster recompilation of libSBML by reducing
+the files that are <code>#include</code>'d in certain ways, such that
+changing a single libSBML class does not cause as many dependencies to be
+triggered.  This option makes no difference to compilation except when you
+make changes to libSBML class definitions and recompile libSBML, so there is
+no advantage for regular user code to enable this option.
+
+</ul>
 
 
 <!-- ---------------------------------------------------------------------- -->
