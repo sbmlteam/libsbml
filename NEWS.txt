@@ -173,6 +173,10 @@ STABLE RELEASE
     by Steven J. Bethard.  (The argparse.py module is included with
     libSBML distributions.)
 
+  - A number of extraneous files have been removed from the
+    documentation source directory (docs/src/); in addition, the
+    directory has undergone some minor restructuring.
+
 
 EXPERIMENTAL RELEASE
 
