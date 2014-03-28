@@ -225,26 +225,6 @@ TestFile::getFilesIn ( const string& directory,
         if (num == 7 && file.getNumFailures() > 0) 
           continue;
       }
-      else if (id == 10205)
-      {
-        switch(num)
-        {
-        case 1:
-        case 2:
-        case 3:
-        case 4:
-        case 5:
-          if (file.getNumFailures() > 0)
-            continue;
-          break;
-        case 12:
-          if (file.getNumFailures() == 0)
-            continue;
-          break;
-        default:
-          break;
-        }
-      }
 
 #endif
 

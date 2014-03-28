@@ -215,6 +215,8 @@ protected:
 
   unsigned int getExpectedNumChildren() const;
 
+  void setInReadFromApply(bool inReadFromApply);
+
   void reset();
 
   friend class ASTNumber;
@@ -229,6 +231,9 @@ protected:
   bool mIsOther;
 
   unsigned int mCalcNumChildren;
+
+  /* HACK TO REPLICATE OLD AST */
+  bool mInReadFromApply;
 
 };
 

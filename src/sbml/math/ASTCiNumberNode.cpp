@@ -210,7 +210,8 @@ ASTCiNumberNode::addExpectedAttributes(ExpectedAttributes& attributes,
 {
   ASTBase::addExpectedAttributes(attributes, stream);
 
-  if (stream.getSBMLNamespaces()->getLevel() > 2)
+  if (stream.getSBMLNamespaces() != NULL
+    && stream.getSBMLNamespaces()->getLevel() > 2)
   {
     attributes.add("definitionURL");
   }

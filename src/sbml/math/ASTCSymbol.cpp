@@ -58,6 +58,7 @@ ASTCSymbol::ASTCSymbol (int type) :
   , mAvogadro  ( NULL )
   , mIsOther   ( false )
   , mCalcNumChildren ( 0 )
+  , mInReadFromApply ( false)
 {
   switch (type)
   {
@@ -90,6 +91,7 @@ ASTCSymbol::ASTCSymbol (const ASTCSymbol& orig):
   , mAvogadro  ( NULL )
   , mIsOther        ( orig.mIsOther )
   , mCalcNumChildren ( orig.mCalcNumChildren )
+  , mInReadFromApply ( orig.mInReadFromApply)
 {
   if ( orig.mTime  != NULL)
   {
@@ -120,6 +122,7 @@ ASTCSymbol::operator=(const ASTCSymbol& rhs)
     this->ASTBase::operator =(rhs);
     mIsOther        = rhs.mIsOther;
     mCalcNumChildren = rhs.mCalcNumChildren;
+    mInReadFromApply = rhs.mInReadFromApply;
 
 
     delete mTime;
@@ -1105,11 +1108,49 @@ ASTCSymbol::read(XMLInputStream& stream, const std::string& reqd_prefix)
     }
     else if (url == URL_AVOGADRO)
     {
-      mAvogadro = new ASTCSymbolAvogadroNode();
-      read = mAvogadro->read(stream, reqd_prefix);
-      if (read == true && mAvogadro != NULL)
+      if (stream.getSBMLNamespaces() != NULL 
+        && stream.getSBMLNamespaces()->getLevel() > 2)
       {
-        this->ASTBase::syncMembersAndResetParentsFrom(mAvogadro);
+        mAvogadro = new ASTCSymbolAvogadroNode();
+        read = mAvogadro->read(stream, reqd_prefix);
+        if (read == true && mAvogadro != NULL)
+        {
+          this->ASTBase::syncMembersAndResetParentsFrom(mAvogadro);
+        }
+      }
+      else
+      {
+        /* HACK TO REPLICATE OLD AST */
+        /* old code would create a node of type name or
+         * a user function with the given name
+         * if teh url was not recognised
+         */
+        if (mInReadFromApply == false)
+        {
+          mTime = new ASTCSymbolTimeNode();
+          read = mTime->read(stream, reqd_prefix);
+          if (read == true && mTime != NULL)
+          {
+            std::string name = mTime->getName();
+            mTime->setType(AST_NAME);
+            mTime->setName(name);
+            this->ASTBase::syncMembersAndResetParentsFrom(mTime);
+          }
+        }
+        else
+        {
+          mDelay = new ASTCSymbolDelayNode();
+          mDelay->setExpectedNumChildren(getExpectedNumChildren());
+          read = mDelay->read(stream, reqd_prefix);
+          if (read == true && mDelay != NULL)
+          {
+            std::string name = mDelay->getName();
+            mDelay->setType(AST_FUNCTION);
+            mDelay->setName(name);
+            this->ASTBase::syncMembersAndResetParentsFrom(mDelay);
+          }
+        }
+        logError(stream, element, BadCsymbolDefinitionURLValue);      
       }
     }
     else if (url == URL_TIME)
@@ -1123,13 +1164,37 @@ ASTCSymbol::read(XMLInputStream& stream, const std::string& reqd_prefix)
     }
     else
     {
+      /* HACK TO REPLICATE OLD AST */
+        /* old code would create a node of type name or
+         * a user function with the given name
+         * if teh url was not recognised
+         */
+      if (mInReadFromApply == false)
+      {
+        mTime = new ASTCSymbolTimeNode();
+        read = mTime->read(stream, reqd_prefix);
+        if (read == true && mTime != NULL)
+        {
+          std::string name = mTime->getName();
+          mTime->setType(AST_NAME);
+          mTime->setName(name);
+          this->ASTBase::syncMembersAndResetParentsFrom(mTime);
+        }
+      }
+      else
+      {
+        mDelay = new ASTCSymbolDelayNode();
+        mDelay->setExpectedNumChildren(getExpectedNumChildren());
+        read = mDelay->read(stream, reqd_prefix);
+        if (read == true && mDelay != NULL)
+        {
+          std::string name = mDelay->getName();
+          mDelay->setType(AST_FUNCTION);
+          mDelay->setName(name);
+          this->ASTBase::syncMembersAndResetParentsFrom(mDelay);
+        }
+      }
       logError(stream, element, BadCsymbolDefinitionURLValue);      
-      //read = getPlugin(0)->read(stream, reqd_prefix);
-      //if (read == true && getPlugin(0)->getMath() != NULL)
-      //{
-      //  setType(getPlugin(0)->getMath()->getType());
-      //  mIsOther = true;
-      //}
     }
   }
 
@@ -1255,6 +1320,11 @@ ASTCSymbol::syncMembersAndTypeFrom(ASTFunction* rhs, int type)
 }
 
 
+void
+ASTCSymbol::setInReadFromApply(bool inReadFromApply)
+{
+  mInReadFromApply = inReadFromApply;
+}
 
 
 

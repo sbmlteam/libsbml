@@ -820,6 +820,7 @@ typedef enum
 , FailedMathMLReadOfExponential         = 99222 /*!< Missing or invalid exponential expression in MathML. */
 , FailedMathMLReadOfRational            = 99223 /*!< Missing or invalid rational expression in MathML. */
 , BadMathMLNodeType                     = 99224 /*!< Invalid MathML element. */
+, InvalidMathMLAttribute                = 99225 /*!< Attribute not allowed on this element */
 , NoTimeSymbolInFunctionDef             = 99301 /*!< Use of <code>&lt;csymbol&gt;</code> for 'time' not allowed within FunctionDefinition objects. */
 , NoBodyInFunctionDef                   = 99302 /*!< There must be a <code>&lt;lambda&gt;</code> body within the <code>&lt;math&gt;</code> element of a FunctionDefinition object. */
 , DanglingUnitSIdRef                    = 99303 /*!< Units must refer to valid unit or unitDefinition. */

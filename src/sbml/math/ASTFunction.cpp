@@ -3621,9 +3621,19 @@ ASTFunction::readCSymbol(XMLInputStream& stream, const std::string& reqd_prefix,
   mCSymbol = new ASTCSymbol();
   
   mCSymbol->setExpectedNumChildren(numChildren);
+
+  /* HACK TO REPLICATE OLD AST */
+  /* old code would create a node of type name or
+   * a user function with the given name
+   * if the url was not recognised
+   * need to know we are reading an apply
+   */
+  mCSymbol->setInReadFromApply(true);
   
   read = mCSymbol->read(stream, reqd_prefix);
   
+  mCSymbol->setInReadFromApply(false);
+
   if (read == true && mCSymbol != NULL)
   {
     if (mNaryFunction != NULL)

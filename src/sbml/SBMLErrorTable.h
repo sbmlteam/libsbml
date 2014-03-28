@@ -8251,6 +8251,21 @@ static const sbmlErrorTableEntry errorTable[] =
     "<semantics>. (References: L2V3 Appendix B)"
   },
 
+  //99225
+  {   
+    InvalidMathMLAttribute,   
+    "Invalid MathML attribute",
+    LIBSBML_CAT_MATHML_CONSISTENCY,   
+    LIBSBML_SEV_NOT_APPLICABLE,   
+    LIBSBML_SEV_NOT_APPLICABLE,   
+    LIBSBML_SEV_ERROR,   
+    LIBSBML_SEV_ERROR,   
+    LIBSBML_SEV_ERROR,   
+    LIBSBML_SEV_ERROR,   
+    LIBSBML_SEV_ERROR,
+    "An invalid MathML attribute has been encountered."
+  },
+
   //99301
   {   
     NoTimeSymbolInFunctionDef,   

@@ -68,7 +68,6 @@ hasSeriousErrors(XMLErrorLog* log, unsigned int index)
     switch (errorId)
     {
       case BadMathMLNodeType:
-      case BadCsymbolDefinitionURLValue:
       case BadMathML:
         seriousErrors = true;
         break;

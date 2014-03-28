@@ -757,9 +757,20 @@ readMathML (ASTNode& node, XMLInputStream& stream, std::string reqd_prefix)
   }
 
 
-  if ( !units.empty() && name != "cn")
+  if ( !units.empty())
   {
-    logError(stream, elem, DisallowedMathUnitsUse);    
+    if (stream.getSBMLNamespaces() != NULL
+      && stream.getSBMLNamespaces()->getLevel() > 2)
+    {
+      if (name != "cn")
+      {
+        logError(stream, elem, DisallowedMathUnitsUse);    
+      }
+    }
+    else
+    {
+      logError(stream, elem, InvalidMathMLAttribute);
+    }
   }
 
   if (name == "apply" || name == "lambda" || name == "piecewise")

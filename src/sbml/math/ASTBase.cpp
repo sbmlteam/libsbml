@@ -1216,7 +1216,17 @@ ASTBase::readAttributes(const XMLAttributes& attributes,
       }
       else if (name == "units")
       {
-        logError(stream, element, DisallowedMathUnitsUse, message);    
+        if (stream.getSBMLNamespaces() != NULL
+          && stream.getSBMLNamespaces()->getLevel() > 2)
+        {
+          logError(stream, element, DisallowedMathUnitsUse, message);   
+        }
+        else
+        {
+          message = "The 'units' attribute was introduced in SBML Level 3.";
+          logError(stream, element, InvalidMathMLAttribute, message);  
+        }
+
       }
       else
       {
