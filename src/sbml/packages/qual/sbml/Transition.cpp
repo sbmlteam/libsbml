@@ -1453,7 +1453,8 @@ ListOfTransitions::writeXMLNS(XMLOutputStream& stream) const
 
   if (prefix.empty())
   {
-    if (getNamespaces()->hasURI(QualExtension::getXmlnsL3V1V1()))
+    XMLNamespaces* thisxmlns = getNamespaces();
+    if (thisxmlns && thisxmlns->hasURI(QualExtension::getXmlnsL3V1V1()))
     {
       xmlns.add(QualExtension::getXmlnsL3V1V1(),prefix);
     }

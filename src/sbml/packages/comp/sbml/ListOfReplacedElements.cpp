@@ -132,7 +132,8 @@ ListOfReplacedElements::writeXMLNS (XMLOutputStream& stream) const
 
   if (prefix.empty())
   {
-    if (getNamespaces()->hasURI(CompExtension::getXmlnsL3V1V1()))
+    XMLNamespaces* thisxmlns = getNamespaces();
+    if (thisxmlns && thisxmlns->hasURI(CompExtension::getXmlnsL3V1V1()))
     {
       xmlns.add(CompExtension::getXmlnsL3V1V1(),prefix);
     }

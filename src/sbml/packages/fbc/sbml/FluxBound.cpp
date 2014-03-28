@@ -906,7 +906,8 @@ ListOfFluxBounds::writeXMLNS (XMLOutputStream& stream) const
 
   if (prefix.empty())
   {
-    if (getNamespaces()->hasURI(FbcExtension::getXmlnsL3V1V1()))
+    XMLNamespaces* thisxmlns = getNamespaces();
+    if (thisxmlns && thisxmlns->hasURI(FbcExtension::getXmlnsL3V1V1()))
     {
       xmlns.add(FbcExtension::getXmlnsL3V1V1(),prefix);
     }

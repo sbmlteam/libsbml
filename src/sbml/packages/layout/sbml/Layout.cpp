@@ -1942,11 +1942,12 @@ ListOfLayouts::writeXMLNS (XMLOutputStream& stream) const
 
   std::string prefix = getPrefix();
 
-    if (getNamespaces()->hasURI(LayoutExtension::getXmlnsL3V1V1()))
+    XMLNamespaces* thisxmlns = getNamespaces();
+    if (thisxmlns && thisxmlns->hasURI(LayoutExtension::getXmlnsL3V1V1()))
     {
       xmlns.add(LayoutExtension::getXmlnsL3V1V1(),prefix);
     }
-    if (getNamespaces()->hasURI(LayoutExtension::getXmlnsL2()))
+    if (thisxmlns && thisxmlns->hasURI(LayoutExtension::getXmlnsL2()))
     {
       xmlns.add(LayoutExtension::getXmlnsL2(),prefix);
     }
