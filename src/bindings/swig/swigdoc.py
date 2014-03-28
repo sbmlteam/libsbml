@@ -39,6 +39,7 @@ import sys, string, os.path, re
 sys.path.append('../../../docs/src/utilities')
 import argparse, libsbmlutils
 
+
 #
 # Globally-scoped variables
 #
@@ -48,6 +49,7 @@ doc_include_path = ''
 ignored_hfiles   = ['ListWrapper.h']
 ignored_ifiles   = ['std_string.i', 'javadoc.i', 'spatial-package.i']
 libsbmlclasses   = []
+
 
 # In some languages like C#, we have to be careful about the method declaration
 # that we put on the swig %{java|cs}methodmodifiers.  In particular, in C#, if
@@ -118,6 +120,7 @@ overriders = \
 'XMLNode'                   : [ 'clone' ]
 }
 
+
 #
 # Global variable for tracking all class docs, so that we can handle
 # cross-references like @copydetails that may refer to files other
@@ -126,215 +129,205 @@ overriders = \
 
 allclassdocs = {}
 
+
+#
+# Global list of preprocessor symbols defined via the --define option to
+# swigdoc.py on the command line.  'SWIG' and '__cplusplus' are always
+# defined by default.  (C is the only language for which we would not define
+# __cplusplus, but for C, we don't use swigdoc.py anyway.)
+#
+
+preprocessor_defines = ['SWIG', '__cplusplus']
+
+
 #
 # Classes and methods.
 #
 
 class CHeader:
   """CHeader encapsulates the C++ class and C function definitions
-  found within a C header file.  It has the following public
-  attributes:
-
-    - classes
-    - functions
+  found within a C header file.
   """
 
-  def __init__ (self, stream):
-    """CHeader (stream=None) -> CHeader
+  def __init__(self, stream, language, defines):
+    self.language    = language
+    self.classes     = []
+    self.functions   = []
+    self.classDocs   = []
 
-    Creates a new CHeader reading from the given stream.
-    """
+    self.inClass     = False
+    self.inClassDocs = False
+    self.inDocs      = False
+    self.isInternal  = False
+    self.ignoreThis  = False
 
-    self.classes   = [ ]
-    self.functions = [ ]
-    self.classDocs = [ ]
+    self.classname   = ''
+    self.docstring   = ''
+    self.lines       = ''
 
     if stream is not None:
-      self.read(stream)
+      read_loop(self.header_line_parser, stream.readlines(), defines)
 
 
-  def read (self, stream):
-    """read (PushBackStream)
 
-    Reads a C/C++ header file from the given stream.
-    """
-    inClass     = False
-    inClassDocs = False
-    inDocs      = False
-    inFunc      = False
-    inSkip      = False
-    isInternal  = False
-    ignoreThis  = False
+  def header_line_parser(self, line):
+    stripped = line.strip()
 
-    docstring   = ''
-    lines       = ''
+    # Track things that we flag as internal, so that we can
+    # remove them from the documentation.
 
-    global language
+    if (stripped.find('@cond doxygenLibsbmlInternal') >= 0): self.isInternal = True
+    if (stripped.find('@endcond') >= 0):                     self.isInternal = False
 
-    for line in stream.readlines():
-      stripped = line.strip()
+    # Watch for class description, usually at top of file.
 
-      if stripped == '#ifndef SWIG':
-        inSkip = True
-      if stripped.startswith('#endif') and (stripped.find('SWIG') >= 0):
-        inSkip = False
-      if inSkip: continue
+    if (not self.inClassDocs) and stripped.startswith('* @class'):
+      self.inClassDocs = True
+      self.classname = stripped[8:].strip()
+      if self.classname.endswith('.'):
+        self.classname = self.classname[:-1]
+      self.docstring = ''
+      return
 
-      # Track things that we flag as internal, so that we can
-      # remove them from the documentation.
+    if self.inClassDocs:
+      if stripped.startswith('* @brief'):
+        self.docstring += ' * ' + stripped[9:].strip() + '\n'
+        return
+      elif stripped.startswith('* @sbmlbrief{'):
+        end = stripped.find('}')
+        pkg = stripped[13:end]
+        rest = stripped[end + 1:].strip()
+        marker = '@htmlinclude pkg-marker-' + pkg + '.html'
 
-      if (stripped.find('@cond doxygenLibsbmlInternal') >= 0): isInternal = True
-      if (stripped.find('@endcond') >= 0):                     isInternal = False
-
-      # Watch for class description, usually at top of file.
-
-      if (not inClassDocs) and stripped.startswith('* @class'):
-        inClassDocs = True
-        classname = stripped[8:].strip()
-        if classname.endswith('.'):
-          classname = classname[:-1]
-        docstring = ''
-        continue
-
-      if inClassDocs:
-        if stripped.startswith('* @brief'):
-          docstring += ' * ' + stripped[9:].strip() + '\n'
-          continue
-        elif stripped.startswith('* @sbmlbrief{'):
-          end = stripped.find('}')
-          pkg = stripped[13:end]
-          rest = stripped[end + 1:].strip()
-          marker = '@htmlinclude pkg-marker-' + pkg + '.html'
-
-          # In the case of Java, the output of swigdoc is fed to Javadoc and
-          # not Doxygen.  So, we do our own processing of our special Doxygen
-          # aliases.  If we're not doing this for Java, we leave them in.
-          if language == 'java':
-            docstring += ' * ' + marker + ' ' + rest + '\n'
-          else:
-            group = '@sbmlpackage{' + pkg + '}'
-            docstring += ' * \n * ' + group + '\n *\n' + marker + ' ' + rest + '\n'
-          continue
-        elif not stripped.endswith('*/') and not stripped.startswith('* @class'):
-          docstring += line
-          continue
+        # In the case of Java, the output of swigdoc is fed to Javadoc and
+        # not Doxygen.  So, we do our own processing of our special Doxygen
+        # aliases.  If we're not doing this for Java, we leave them in.
+        if self.language == 'java':
+          self.docstring += ' * ' + marker + ' ' + rest + '\n'
         else:
-          if not classname.startswith("doc_"):
-            docstring = '/**\n' + docstring + ' */'
-          docstring = removeHTMLcomments(docstring)
-          doc = CClassDoc(docstring, classname, isInternal)
-          self.classDocs.append(doc)
+          group = '@sbmlpackage{' + pkg + '}'
+          self.docstring += ' * \n * ' + group + '\n *\n' + marker + ' ' + rest + '\n'
+        return
+      elif not stripped.endswith('*/') and not stripped.startswith('* @class'):
+        self.docstring += line
+        return
+      else:
+        if not self.classname.startswith("doc_"):
+          self.docstring = '/**\n' + self.docstring + ' */'
+        self.docstring = removeHTMLcomments(self.docstring)
+        doc = CClassDoc(self.docstring, self.classname, self.isInternal)
+        self.classDocs.append(doc)
 
-        # There may be more class docs in the same comment.
-        if stripped.startswith('* @class'):
-          classname = stripped[8:].strip()
-          if classname.endswith('.'):
-            classname = classname[:-1]
-        else:
-          inClassDocs = False
+      # There may be more class docs in the same comment.
+      if stripped.startswith('* @class'):
+        self.classname = stripped[8:].strip()
+        if self.classname.endswith('.'):
+          self.classname = self.classname[:-1]
+      else:
+        self.inClassDocs = False
 
-        docstring = ''
-        continue
+      self.docstring = ''
+      return
 
-      # Watch for class definition, methods and out-of-class functions.
+    # Watch for class definition, methods and out-of-class functions.
 
-      if stripped.startswith('class ') and not stripped.endswith(';'):
-        ignoreThis = False
-        inClass   = True
-        classname = line[6:].split(':')[0].strip()
-        if classname[:6] == 'LIBSBM' or classname[:6] == 'LIBLAX':
-          classname = classname.split(' ')[1].strip()
-        self.classes.append( CClass(classname) )
-        continue
+    if stripped.startswith('class ') and not stripped.endswith(';'):
+      self.ignoreThis = False
+      self.inClass = True
+      self.classname = line[6:].split(':')[0].strip()
+      if self.classname[:6] == 'LIBSBM' or self.classname[:6] == 'LIBLAX':
+        self.classname = self.classname.split(' ')[1].strip()
+      self.classes.append( CClass(self.classname) )
+      return
 
-      if stripped == '};':
-        inClass = False
-        continue
+    if stripped == '};':
+      self.inClass = False
+      return
 
-      if stripped == '/**':
-        docstring  = ''
-        lines      = ''
-        ignoreThis = False
-        inDocs     = True
+    if stripped == '/**':
+      self.docstring  = ''
+      self.lines      = ''
+      self.ignoreThis = False
+      self.inDocs     = True
 
-      if inDocs:
-        docstring += line
-        inDocs     = (stripped != '*/')
-        continue
+    if self.inDocs:
+      self.docstring += line
+      self.inDocs     = (stripped != '*/')
+      return
 
-      # If we get here, we're no longer inside a comment block.
-      # Start saving lines, but skip embedded comments.
+    # If we get here, we're no longer inside a comment block.
+    # Start saving lines, but skip embedded comments.
 
-      if stripped.startswith('#') or (stripped.find('typedef') >= 0):
-        ignoreThis = True
-        continue
+    if stripped.startswith('#') or (stripped.find('typedef') >= 0):
+      self.ignoreThis = True
+      return
 
-      if not ignoreThis:
-        cppcomment = stripped.find('//')
-        if cppcomment != -1:
-          stripped = stripped[:cppcomment]
-        lines += stripped + ' '         # Space avoids jamming code together.
+    if not self.ignoreThis:
+      cppcomment = stripped.find('//')
+      if cppcomment != -1:
+        stripped = stripped[:cppcomment]
+      self.lines += stripped + ' '         # Space avoids jamming code together.
 
-        # Keep an eye out for the end of the declaration.
-        if not stripped.startswith('*') and \
-               (stripped.endswith(';') or stripped.endswith(')') or stripped.endswith('}')):
+      # Keep an eye out for the end of the declaration.
+      if not stripped.startswith('*') and \
+         (stripped.endswith(';') or stripped.endswith(')') or stripped.endswith('}')):
 
-          # It might be a forward declaration.  Skip it.
-          if lines.startswith('class'):
-            continue
+        # It might be a forward declaration.  Skip it.
+        if self.lines.startswith('class'):
+          return
 
-          # It might be a C++ operator redefinition.  Skip it.
-          if lines.find('operator') >= 0:
-            continue
+        # It might be a C++ operator redefinition.  Skip it.
+        if self.lines.find('operator') >= 0:
+          return
 
-          # It might be an enum.  Skip it.
-          # If it's not an enum at this point, parse it.
-          if stripped.endswith('}'):
-            lines   = lines[:lines.rfind('{')]
-          if not stripped.startswith('enum'):
+        # It might be an enum.  Skip it.
+        # If it's not an enum at this point, parse it.
+        if stripped.endswith('}'):
+          self.lines = self.lines[:self.lines.rfind('{')]
+        if not stripped.startswith('enum'):
 
-            # If this segment begins with a comment, we need to skip over it.
-            searchstart = lines.rfind('*/')
-            if (searchstart < 0):
-              searchstart = 0
+          # If this segment begins with a comment, we need to skip over it.
+          searchstart = self.lines.rfind('*/')
+          if (searchstart < 0):
+            searchstart = 0
 
-            # Find (we hope) the end of the method name.
-            stop = lines[searchstart:].find('(')
+          # Find (we hope) the end of the method name.
+          stop = self.lines[searchstart:].find('(')
 
-            # Pull out the method name & signature.
-            if (stop > 0):
-              name     = lines[searchstart : searchstart + stop].split()[-1]
-              endparen = lines.rfind(')')
-              args     = lines[searchstart + stop : endparen + 1]
-              isConst  = lines[endparen:].rfind('const')
+          # Pull out the method name & signature.
+          if (stop > 0):
+            name     = self.lines[searchstart : searchstart + stop].split()[-1]
+            endparen = self.lines.rfind(')')
+            args     = self.lines[searchstart + stop : endparen + 1]
+            isConst  = self.lines[endparen:].rfind('const')
 
-              if len(docstring) > 0:
-                # Remove embedded HTML comments before we store the doc string.
-                docstring = removeHTMLcomments(docstring)
-              else:
-                # We have an empty docstring.  Put in something so that later
-                # stages can do whatever postprocessing they need.
-                docstring = '/** */'
+            if len(self.docstring) > 0:
+              # Remove embedded HTML comments before we store the doc string.
+              self.docstring = removeHTMLcomments(self.docstring)
+            else:
+              # We have an empty self.docstring.  Put in something so that later
+              # stages can do whatever postprocessing they need.
+              self.docstring = '/** */'
 
-              # Swig doesn't seem to mind C++ argument lists, even though they
-              # have "const", "&", etc. So I'm leaving the arg list unmodified.
-              func = Method(isInternal, docstring, name, args, (isConst > 0))
+            # Swig doesn't seem to mind C++ argument lists, even though they
+            # have "const", "&", etc. So I'm leaving the arg list unmodified.
+            func = Method(self.isInternal, self.docstring, name, args, (isConst > 0))
 
-              # Reset buffer for the next iteration, to skip the part seen.
-              lines = lines[endparen + 2:]
-              docstring = ''
+            # Reset buffer for the next iteration, to skip the part seen.
+            self.lines = self.lines[endparen + 2:]
+            self.docstring = ''
 
-              if inClass:
-                c = self.classes[-1]
-                c.methods.append(func)
+            if self.inClass:
+              c = self.classes[-1]
+              c.methods.append(func)
 
-                # Record method variants that take different arguments.
-                if c.methodVariants.get(name) == None:
-                  c.methodVariants[name] = {}
-                c.methodVariants[name][args] = func
-              else:
-                self.functions.append(func)
-                # FIXME need do nc variants
+              # Record method variants that take different arguments.
+              if c.methodVariants.get(name) == None:
+                c.methodVariants[name] = {}
+              c.methodVariants[name][args] = func
+            else:
+              self.functions.append(func)
+              # FIXME need do nc variants
 
 
 
@@ -457,6 +450,73 @@ class CClassDoc:
 
 
 
+def read_loop(line_parser_func, lines, defined_symbols):
+  """Non-recursive function to call 'line_parser_func'() on each line
+  of 'lines', paying attention to #if/#ifdef/#ifndef/#else/#endif
+  conditionals.  'defined_symbols' is a list of the symbols to check when
+  reading #if/#ifdef/#ifndef conditions."""
+
+  # symbol_stack holds the current #if condition symbol
+  # state_stack holds the skipping state before the current #if symbol was seen
+
+  symbol_stack = []
+  state_stack  = []
+
+  skipping = False
+  for line in lines:
+    split = line.split()
+    if split:
+      start = split[0]
+      if start == '#if' or start == '#ifdef':
+        state_stack.append(skipping)
+        symbol_stack.append(split[1])
+        if not skipping:
+          skipping = True
+          for symbol in defined_symbols:
+            if split[1] == symbol:
+              skipping = False
+              break
+      elif start == '#ifndef':
+        state_stack.append(skipping)
+        symbol_stack.append('!' + split[1])
+        if not skipping:
+          for symbol in defined_symbols:
+            if split[1] == symbol:
+              skipping = True
+              break
+      elif start == '#else':
+        previous = symbol_stack[-1]
+        skipping = state_stack[-1]
+        if not skipping:
+          for symbol in defined_symbols:
+            if previous == symbol:
+              skipping = True
+              break
+            elif previous == '!' + symbol:
+              skipping = False
+              break
+      elif start == '#endif':
+        previous = symbol_stack.pop()
+        skipping = state_stack.pop()
+    if not skipping:
+      line_parser_func(line)
+
+
+
+def find_inclusions(extension, lines, ignored_list):
+  includes = []
+  def inclusions_line_parser(line):
+    split = line.split()
+    if split and split[0] == '%include':
+      filename = re.sub('["<>]', '', split[1]).strip()
+      if filename.endswith(extension) and filename not in ignored_list:
+        includes.append(filename)
+
+  read_loop(inclusions_line_parser, lines, preprocessor_defines)
+  return includes
+
+
+
 def get_swig_files (swig_file, included_files=[], parent_dirs=[]):
   """
   Builds a list of all the files %include'd recursively from the given
@@ -476,18 +536,12 @@ def get_swig_files (swig_file, included_files=[], parent_dirs=[]):
   lines  = stream.readlines()
   stream.close()
 
-  # Create list of %include statements found in the file.
+  # Create list of %include'd .i files found in the file, but filter out
+  # the ones we ignore.
 
-  includes = [line for line in lines if line.strip().startswith('%include')]
-  includes = [re.sub('["<>]', '', entry) for entry in includes]
-  includes = [entry.replace('%include', '').strip() for entry in includes]
+  ifiles = find_inclusions('.i', lines, ignored_ifiles)
 
-  # Look for %include's of .i files, and read those as additional files to
-  # search for .h files later below.
-
-  ifiles = [file for file in includes if file.strip().endswith('.i')]
-  ifiles = [file for file in ifiles if file not in ignored_ifiles]
-
+  # Recursively look for files that are included by the files we found.
   # SWIG searches multiple paths for %include'd .i files.  We just look in
   # the directories of the .i files we encounter.
   found_ifiles = []
@@ -504,24 +558,6 @@ def get_swig_files (swig_file, included_files=[], parent_dirs=[]):
 
 
 
-def extract_header_files (file):
-  """
-  Return a list of the .h files found in the given SWIG .i file.
-  """
-
-  stream = open(file)
-  lines  = stream.readlines()
-  stream.close()
-  
-  includes = [line for line in lines if line.strip().startswith('%include')]
-  includes = [re.sub('["<>]', '', entry) for entry in includes]
-  includes = [file for file in includes if file.strip().endswith('.h')]
-  includes = [entry.replace('%include', '').strip() for entry in includes]
-
-  return includes
-
-
-
 def get_header_files (swig_files, include_path):
   """
   Reads the list of %include directives from the given SWIG (.i) files, and
@@ -530,11 +566,9 @@ def get_header_files (swig_files, include_path):
 
   hfiles = []
   for file in swig_files:
-    hfiles.extend(extract_header_files(file))
-
-  # Remove .h files we ignore.
-
-  hfiles = [file for file in hfiles if file not in ignored_hfiles]
+    stream = open(file)
+    hfiles.extend(find_inclusions('.h', stream.readlines(), ignored_hfiles))
+    stream.close()
 
   # Convert the .h file names to absolute paths.  This is slightly tricky
   # because the file might be in the current directory, or in the
@@ -1012,7 +1046,7 @@ def rewriteDocstringForJava (docstring):
   #  docstring = p.sub(removeStar, docstring)
 
   # The syntax for @link is vastly different.
-  
+
   p = re.compile('@link([\s/*]+[\w\s,.:#()*]+[\s/*]*[\w():#]+[\s/*]*)@endlink', re.DOTALL)
   docstring = p.sub(r'{@link \1}', docstring)
 
@@ -1390,8 +1424,8 @@ def processClassDocs (ostream, classDocs):
 
 
 
-def processFile (filename, ostream):
-  """processFile (filename, ostream)
+def processFile (filename, ostream, language, preprocessor_defines):
+  """processFile (filename, ostream, language, preprocessor_defines)
 
   Reads the the given header file and writes to ostream the necessary SWIG
   incantation to annotate each method (or function) with a docstring
@@ -1399,7 +1433,7 @@ def processFile (filename, ostream):
   """
 
   istream = open(filename)
-  header  = CHeader(istream)
+  header  = CHeader(istream, language, preprocessor_defines)
   istream.close()
 
   processClassDocs(ostream, header.classDocs)
@@ -1454,7 +1488,7 @@ def postProcessOutput(istream, ostream):
 
 
 #
-# Command-line argument handling.
+# Top-level main function and command-line argument parser.
 #
 
 __desc_end = '''This file is part of libSBML.  Please visit http://sbml.org for
@@ -1463,7 +1497,7 @@ more information about SBML, and the latest version of libSBML.'''
 def parse_cmdline(direct_args = None):
     parser = argparse.ArgumentParser(epilog=__desc_end)
     parser.add_argument("-d", "--define", action='append',
-                        help="define a preprocessor constant")
+                        help="define #ifdef symbol when scanning files for includes")
     parser.add_argument("-l", "--language", required=True,
                         help="language for which to generate SWIG docstrings")
     parser.add_argument("-m", "--master", required=True,
@@ -1503,7 +1537,9 @@ def get_top_dir(direct_args = None):
 
 
 def get_defines(direct_args = None):
-  return direct_args.define
+  if direct_args.define: return direct_args.define
+  else:                  return []
+
 
 
 def main (args):
@@ -1513,13 +1549,13 @@ def main (args):
   global libsbml_classes
   global preprocessor_defines
 
-  args                 = parse_cmdline()
-  language             = get_language(args)
-  main_swig_file       = get_master_file(args)
-  output_swig_file     = get_output_file(args)
-  h_include_path       = os.path.join(get_top_dir(args), 'src')
-  doc_include_path     = os.path.join(get_top_dir(args), 'docs', 'src')
-  preprocessor_defines = get_defines(args)
+  args                  = parse_cmdline()
+  language              = get_language(args)
+  main_swig_file        = get_master_file(args)
+  output_swig_file      = get_output_file(args)
+  h_include_path        = os.path.join(get_top_dir(args), 'src')
+  doc_include_path      = os.path.join(get_top_dir(args), 'docs', 'src')
+  preprocessor_defines += get_defines(args)
 
   # We first write all our output to a temporary file.  Later, we open this
   # file, post-process it, and write the final output to the real destination.
@@ -1553,7 +1589,7 @@ def main (args):
     stream.write('=head1 FUNCTION INDEX\n\n=over 8\n\n')
 
   for file in header_files:
-    processFile(file, stream)
+    processFile(file, stream, language, preprocessor_defines)
 
   if os.path.exists('local-doc-extras.i'):
     stream.write('\n%include "local-doc-extras.i"\n')
