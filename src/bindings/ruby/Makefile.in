@@ -127,18 +127,22 @@ SWIGFLAGS      += $(RUBY_CPPFLAGS) -I../swig
 # SBML package plug-ins
 ifdef USE_COMP
   SWIGFLAGS      += -DUSE_COMP
+  SWIGDOCDEFINES += --define USE_COMP
 endif # USE_COMP  
 
 ifdef USE_FBC
   SWIGFLAGS      += -DUSE_FBC
+  SWIGDOCDEFINES += --define USE_FBC
 endif # USE_FBC  
 
 ifdef USE_LAYOUT
   SWIGFLAGS      += -DUSE_LAYOUT
+  SWIGDOCDEFINES += --define USE_LAYOUT
 endif # USE_LAYOUT  
 
 ifdef USE_QUAL
   SWIGFLAGS      += -DUSE_QUAL
+  SWIGDOCDEFINES += --define USE_QUAL
 endif # USE_QUAL  
 
 

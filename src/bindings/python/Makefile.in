@@ -119,18 +119,22 @@ SWIGFLAGS      += $(PYTHON_CPPFLAGS) -I../swig
 # SBML package plug-ins
 ifdef USE_COMP
   SWIGFLAGS      += -DUSE_COMP
+  SWIGDOCDEFINES += --define USE_COMP
 endif # USE_COMP  
 
 ifdef USE_FBC
   SWIGFLAGS      += -DUSE_FBC
+  SWIGDOCDEFINES += --define USE_FBC
 endif # USE_FBC  
 
 ifdef USE_LAYOUT
   SWIGFLAGS      += -DUSE_LAYOUT
+  SWIGDOCDEFINES += --define USE_LAYOUT
 endif # USE_LAYOUT  
 
 ifdef USE_QUAL
   SWIGFLAGS      += -DUSE_QUAL
+  SWIGDOCDEFINES += --define USE_QUAL
 endif # USE_QUAL  
 
 
@@ -202,11 +206,24 @@ distfiles =							  \
 python_test_path = test
 python_test_files = $(wildcard $(python_test_path)/**/Test*.py)
 
-extra_clean     = build $(python_test_files:.py=.pyc) $(wildcard test.xml.*)
-extra_distclean = libsbml.pyc setup.py $(installed_files_list) \
-	local-downcast-extension.i local-downcast-extension.cpp \
-	local-downcast-namespaces.i local-downcast-namespaces.cpp \
-	local-packages.i local-downcast-plugins.cpp local-downcast.cpp
+extra_clean =			      \
+	build			      \
+	$(python_test_files:.py=.pyc) \
+	$(wildcard test.xml.*)
+
+extra_distclean =		      \
+	$(installed_files_list)	      \
+	libsbml.pyc		      \
+	local-downcast-extension.i    \
+	local-downcast-extension.cpp  \
+	local-downcast-namespaces.i   \
+	local-downcast-namespaces.cpp \
+	local-packages.i	      \
+	local-downcast-plugins.cpp    \
+	local-downcast.cpp	      \
+	pydoc-doxygen.i		      \
+	pydoc-normal.i		      \
+	setup.py
 
 # We generate _libsbml.$(PYTHON_EXT) (C++ library for Python bindings) with
 # an object file in this directory (libsbml_wrap.o) and other object files
@@ -385,17 +402,15 @@ else
   endef
 endif
 
-# Note: in SWIG 1.3.39, a compilation error can happen in SWIG-generated
-# code (libsbml_wrap.cpp) when using Python 3.x on 64-bit platforms.  To
-# avoid this, we add a cast (int* -> Py_ssize_t*) to the 3rd argument of
-# PyBytes_AsStringAndSize() function call in the file by using the sed
-# command in the following block.  (The SWIG problem is fixed in 1.3.40.)
-
 libsbml.py: libsbml_wrap.cpp
+
+# Generate the documentation files.  pydoc-normal.i is used to create the
+# help strings that are incorporated into the Python code, so that users
+# can use the interactive "help" function in Python.
 
 pydoc-doxygen.i: $(swig_sources) $(main_sources) ../swig/swigdoc.py \
   doc-converter/rewrite_pydoc.py ../swig/libsbml.i
-	../swig/swigdoc.py --language python --top ../../.. \
+	../swig/swigdoc.py --language python --top ../../.. $(SWIGDOCDEFINES) \
 		--master ../swig/libsbml.i --output pydoc-doxygen.i
 
 pydoc-normal.i: pydoc-doxygen.i

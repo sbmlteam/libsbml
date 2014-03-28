@@ -93,18 +93,22 @@ PACKAGE_ARGS=
 
 ifeq ("@USE_COMP@", "1")
 	PACKAGE_ARGS += -DUSE_COMP
+	SWIGDOCDEFINES += --define USE_COMP
 endif
 
 ifeq ("@USE_FBC@", "1")
 	PACKAGE_ARGS += -DUSE_FBC
+	SWIGDOCDEFINES += --define USE_FBC
 endif
 
 ifeq ("@USE_LAYOUT@", "1")
 	PACKAGE_ARGS += -DUSE_LAYOUT
+	SWIGDOCDEFINES += --define USE_LAYOUT
 endif
 
 ifeq ("@USE_QUAL@", "1")
 	PACKAGE_ARGS += -DUSE_QUAL
+	SWIGDOCDEFINES += --define USE_QUAL
 endif
 
 main_sources = \
@@ -118,7 +122,8 @@ LibSBML_wrap.cxx: LibSBML.pod $(swig_sources)
 	@SWIG@ @SWIGFLAGS@ -c++ -perl5 -proxy $(PACKAGE_ARGS) -I../../../include -I../.. LibSBML.i 
 
 LibSBML.pod: $(main_sources) ../swig/libsbml.i ../swig/swigdoc.py
-	../swig/swigdoc.py perl -I../.. -D../../../docs/src ../swig/libsbml.i LibSBML.pod
+	../swig/swigdoc.py --language perl --top ../../.. $(SWIGDOCDEFINES) \
+		--master ../swig/libsbml.i --output LibSBML.pod
 
 MYPACKLIST = $(DESTINSTALLSITEARCH)/auto/$(FULLEXT)/.packlist
 #MYPERLLOCAL = $(INSTALLARCHLIB)/perllocal.pod
