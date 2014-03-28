@@ -1,21 +1,26 @@
 # WARNING: This .svnignore file is not understood by SVN directly.
 # WARNING: It is meant to be used in conjunction with our script in 
 # WARNING: sbml/trunk/project/scripts/svn-update-from-svnignore.sh
-Makefile
 .deps
+.libs
+Makefile
+TestRW.exe
+TestRunner.exe
+csdoc.i
 csharp-files
 csharp-files-win
 libsbml_wrap-win.cpp
+libsbml_wrap-win.h
 libsbml_wrap.cpp
-.libs
-libsbmlcs.snk
+libsbml_wrap.h
 libsbmlcs.dylib
+libsbmlcs.snk
 libsbmlcsP.dll
-TestRunner.exe
+local-downcast-extension.i
+local-downcast-namespaces.i
+local-packages.i
+test.xml
+test.xml.bz2
 test.xml.gz
-TestRW.exe
 test.xml.zip
 test2.xml
-test.xml.bz2
-test.xml
-csdoc.i
