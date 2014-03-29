@@ -46,7 +46,7 @@ namespace CompExamples
 {
   public class CompExample1
   {
-    private static int Main(string[] args)
+    public static int Main(string[] args)
     {
       int retval = 0;
       SBMLNamespaces sbmlns = new SBMLNamespaces(3, 1, "comp", 1);
