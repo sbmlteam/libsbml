@@ -112,7 +112,7 @@ message("Creating: TestRunner.exe")
 execute_process(
 	COMMAND "${CSHARP_COMPILER}"
 		 -target:exe
-		 -nowarn:108,109,114,1570,1572,1573,1574,1591,642,1718,168,219
+		 -nowarn:108,109,114,1570,1572,1573,1574,1591,642,1718,168,219,414
 		 -r:${MANAGED_LIB}
 		 -out:${TEST_RUNNER}
 		 ${CSHARP_EXTRA_ARGS}
