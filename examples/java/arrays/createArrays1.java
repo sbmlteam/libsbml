@@ -1,4 +1,4 @@
-﻿import org.sbml.libsbml.ArraysCompartmentPlugin;
+import org.sbml.libsbml.ArraysCompartmentPlugin;
 import org.sbml.libsbml.ArraysPkgNamespaces;
 import org.sbml.libsbml.ArraysReactionPlugin;
 import org.sbml.libsbml.ArraysSpeciesPlugin;

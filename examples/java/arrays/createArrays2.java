@@ -1,4 +1,4 @@
-﻿import org.sbml.libsbml.ASTNode;
+import org.sbml.libsbml.ASTNode;
 import org.sbml.libsbml.ArraysSBasePlugin;
 import org.sbml.libsbml.ArraysPkgNamespaces;
 import org.sbml.libsbml.Dimension;
