@@ -176,7 +176,17 @@ public interface libsbmlConstants
      * properties of the {@link SBMLNamespaces} objects possessed by the
      * SBML objects do not correspond in some way.
      */
-    public final static int LIBSBML_NAMESPACE_MISMATCH = -10;
+    public final static int LIBSBML_NAMESPACES_MISMATCH = -10;
+
+
+    /**
+     * One of the possible libSBML operation return codes.
+     * <p>
+     * This error is typically returned in situations where the
+     * appendAnnotation function is being used to add an annotation that has
+     * a namespace that is already present in the existing annotation.
+     */
+    public final static int LIBSBML_DUPLICATE_ANNOTATION_NS = -11;
 
 
     /**
@@ -1056,55 +1066,6 @@ public interface libsbmlConstants
 
   
 
-    /**
-     * The default SBML Level in this release of libSBML.
-     */
-    public final static int SBML_DEFAULT_LEVEL = 3;
-  
-
-    /**
-     * The default Version within the default SBML Level in this release of
-     * libSBML.
-     */
-    public final static int SBML_DEFAULT_VERSION = 1;
-  
-
-    /**
-     * Character string storing the XML namespace URI for SBML Level&nbsp;1.
-     */
-    public final static String SBML_XMLNS_L1 = "http://www.sbml.org/sbml/level1";
-  
-
-    /**
-     * Character string storing the XML namespace URI for SBML Level&nbsp;2 Version&nbsp;1.
-     */
-    public final static String SBML_XMLNS_L2V1 = "http://www.sbml.org/sbml/level2";
-  
-
-    /**
-     * Character string storing the XML namespace URI for SBML Level&nbsp;2 Version&nbsp;2.
-     */
-    public final static String SBML_XMLNS_L2V2 = "http://www.sbml.org/sbml/level2/version2";
-  
-
-    /**
-     * Character string storing the XML namespace URI for SBML Level&nbsp;2 Version&nbsp;3.
-     */
-    public final static String SBML_XMLNS_L2V3 = "http://www.sbml.org/sbml/level2/version3";
-  
-
-    /**
-     * Character string storing the XML namespace URI for SBML Level&nbsp;2 Version&nbsp;4.
-     */
-    public final static String SBML_XMLNS_L2V4 = "http://www.sbml.org/sbml/level2/version4";
-  
-
-    /**
-     * Character string storing the XML namespace URI for SBML Level&nbsp;3 Version&nbsp;1 Core.
-     */
-    public final static String SBML_XMLNS_L3V1 = "http://www.sbml.org/sbml/level3/version1/core";
-
-
     // ASTNodeType_t 
   
 
@@ -1553,7 +1514,56 @@ public interface libsbmlConstants
      * One of the possible {@link ASTNode} types.  Each {@link ASTNode} has
      * a type whose value is one of the elements of this enumeration.
      */
+    public final static int AST_CONSTRUCTOR_OTHERWISE = AST_RELATIONAL_NEQ + 1;
+
+
+    /**
+     * One of the possible {@link ASTNode} types.  Each {@link ASTNode} has
+     * a type whose value is one of the elements of this enumeration.
+     */
+    public final static int AST_CONSTRUCTOR_PIECE = AST_CONSTRUCTOR_OTHERWISE + 1;
+
+
+    /**
+     * One of the possible {@link ASTNode} types.  Each {@link ASTNode} has
+     * a type whose value is one of the elements of this enumeration.
+     */
+    public final static int AST_QUALIFIER_BVAR = AST_CONSTRUCTOR_PIECE + 1;
+
+
+    /**
+     * One of the possible {@link ASTNode} types.  Each {@link ASTNode} has
+     * a type whose value is one of the elements of this enumeration.
+     */
+    public final static int AST_QUALIFIER_DEGREE = AST_QUALIFIER_BVAR + 1;
+
+
+    /**
+     * One of the possible {@link ASTNode} types.  Each {@link ASTNode} has
+     * a type whose value is one of the elements of this enumeration.
+     */
+    public final static int AST_QUALIFIER_LOGBASE = AST_QUALIFIER_DEGREE + 1;
+
+
+    /**
+     * One of the possible {@link ASTNode} types.  Each {@link ASTNode} has
+     * a type whose value is one of the elements of this enumeration.
+     */
+    public final static int AST_SEMANTICS = AST_QUALIFIER_LOGBASE + 1;
+
+
+    /**
+     * One of the possible {@link ASTNode} types.  Each {@link ASTNode} has
+     * a type whose value is one of the elements of this enumeration.
+     */
     public final static int AST_UNKNOWN = AST_RELATIONAL_NEQ + 1;
+
+
+    /**
+     * One of the possible {@link ASTNode} types.  Each {@link ASTNode} has
+     * a type whose value is one of the elements of this enumeration.
+     */
+    public final static int AST_ORIGINATES_IN_PACKAGE = AST_UNKNOWN + 1;
 
 
     // ParseLogType_t
@@ -5386,6 +5396,15 @@ public interface libsbmlConstants
      */
     public final static int BadMathMLNodeType = 99224;
   
+
+    /**
+     * A value in the enumeration of all the SBML error and warning codes
+     * for objects of class {@link SBMLError}.  Please consult the
+     * documentation for {@link SBMLError} for an explanation of the
+     * meaning of this particular error code.
+     */
+    public final static int InvalidMathMLAttribute = 99225;
+
 
     /**
      * A value in the enumeration of all the SBML error and warning codes
