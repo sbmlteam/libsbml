@@ -1,8 +1,5 @@
-import org.sbml.libsbml.ArraysCompartmentPlugin;
+import org.sbml.libsbml.ArraysSBasePlugin;
 import org.sbml.libsbml.ArraysPkgNamespaces;
-import org.sbml.libsbml.ArraysReactionPlugin;
-import org.sbml.libsbml.ArraysSpeciesPlugin;
-import org.sbml.libsbml.ArraysSpeciesReferencePlugin;
 import org.sbml.libsbml.Compartment;
 import org.sbml.libsbml.Dimension;
 import org.sbml.libsbml.Index;
