@@ -147,7 +147,7 @@ public:
    * If the given @p package is enabled, returns @c true; otherwise,
    * returns @c false.
    *
-   * @returns the status (enabled = <b>true</b>, disabled = <b>false</b> of the given package.
+   * @return the status (enabled = <b>true</b>, disabled = <b>false</b> of the given package.
    */
   static bool isPackageEnabled(const std::string& package);
   
