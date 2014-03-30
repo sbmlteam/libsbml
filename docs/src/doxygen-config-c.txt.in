@@ -88,7 +88,7 @@ PREDEFINED             = LIBSBML_EXTERN:="" \
 			 LIBSBML_CPP_NAMESPACE_BEGIN:="" \
 			 LIBSBML_CPP_NAMESPACE_END:=""
 
-EXAMPLE_PATH           = common-text examples . ../.. ../../examples/c \
+EXAMPLE_PATH           = common-text . ../.. ../../examples/c \
                          ../../examples/c/comp
 
 INPUT =                                    \
