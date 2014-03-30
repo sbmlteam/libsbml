@@ -3295,6 +3295,11 @@ BadMathMLNodeType = _libsbml.BadMathMLNodeType
     ## documentation for SBMLError for an explanation of the
     ## meaning of this particular error code.
 
+InvalidMathMLAttribute = _libsbml.InvalidMathMLAttribute
+    ## @var long InvalidMathMLAttribute
+    ##
+    ## Attribute not allowed on this element. 
+
 NoTimeSymbolInFunctionDef = _libsbml.NoTimeSymbolInFunctionDef
     ## @var long NoTimeSymbolInFunctionDef
     ## 
@@ -3590,6 +3595,16 @@ L3SpatialDimensionsUnset = _libsbml.L3SpatialDimensionsUnset
     ## for objects of class SBMLError.  Please consult the
     ## documentation for SBMLError for an explanation of the
     ## meaning of this particular error code.
+
+UnknownCoreAttribute = _libsbml.UnknownCoreAttribute
+    ## @var long UnknownCoreAttribute
+    ##
+    ## Encountered an unknow attribute in the core SBML Level 3 namespace.
+
+UnknownPackageAttribute = _libsbml.UnknownPackageAttribute
+    ## @var long UnknownPackageAttribute
+    ##
+    ## Encountered an unknown attribute in an SBML Level 3 package namespace.
 
 PackageConversionNotSupported = _libsbml.PackageConversionNotSupported
     ## @var long PackageConversionNotSupported
@@ -4151,166 +4166,6 @@ SBML_PRIORITY = _libsbml.SBML_PRIORITY
     ## The names of the type codes all begin with the characters
     ## <code>SBML_</code>.
 
-LIBSBML_OPERATION_SUCCESS = _libsbml.LIBSBML_OPERATION_SUCCESS
-    ## @var long LIBSBML_OPERATION_SUCCESS
-    ## @brief One of the possible libSBML operation return codes.
-    ##
-    ## This code has the following meaning: The operation was successful.
-  
-LIBSBML_INDEX_EXCEEDS_SIZE = _libsbml.LIBSBML_INDEX_EXCEEDS_SIZE
-    ## @var long LIBSBML_INDEX_EXCEEDS_SIZE
-    ## @brief One of the possible libSBML operation return codes.
-    ##
-    ## This code has the following meaning: An index parameter exceeded the
-    ## bounds of a data array or other collection used in the operation.
-    ## This return value is typically returned by methods that take index
-    ## numbers to refer to lists of objects, when the caller has provided
-    ## an index that exceeds the bounds of the list.  LibSBML provides
-    ## methods for checking the size of list/sequence/collection
-    ## structures, and callers should verify the sizes before calling
-    ## methods that take index numbers.
-
-LIBSBML_UNEXPECTED_ATTRIBUTE = _libsbml.LIBSBML_UNEXPECTED_ATTRIBUTE
-    ## @var long LIBSBML_UNEXPECTED_ATTRIBUTE
-    ## @brief One of the possible libSBML operation return codes.
-    ##
-    ## This code has the following meaning: The attribute that is the
-    ## subject of this operation is not valid for the combination of SBML
-    ## Level and Version for the underlying object.  This can happen
-    ## because libSBML strives to offer a uniform API for all SBML Levels
-    ## and Versions, but some object attributes and elements are not
-    ## defined for all SBML Levels and Versions.  Calling programs are
-    ## expected to be aware of which object structures they are working
-    ## with, but when errors of this kind occur, they are reported using
-    ## this return value.
-     
-LIBSBML_OPERATION_FAILED = _libsbml.LIBSBML_OPERATION_FAILED
-    ## @var long LIBSBML_OPERATION_FAILED
-    ## @brief One of the possible libSBML operation return codes.
-    ##
-    ## This code has the following meaning: The requested action could not
-    ## be performed.  This can occur in a variety of contexts, such as
-    ## passing a null object as a parameter in a situation where it does
-    ## not make sense to permit a null object.
-  
-LIBSBML_INVALID_ATTRIBUTE_VALUE = _libsbml.LIBSBML_INVALID_ATTRIBUTE_VALUE
-    ## @var long LIBSBML_INVALID_ATTRIBUTE_VALUE
-    ## @brief One of the possible libSBML operation return codes.
-    ##
-    ## This code has the following meaning: A value passed as an argument
-    ## to the method is not of a type that is valid for the operation or
-    ## kind of object involved.  For example, this return code is used when
-    ## a calling program attempts to set an SBML object identifier to a
-    ## string whose syntax does not conform to the SBML identifier syntax.
-  
-LIBSBML_INVALID_OBJECT = _libsbml.LIBSBML_INVALID_OBJECT
-    ## @var long LIBSBML_INVALID_OBJECT
-    ## @brief One of the possible libSBML operation return codes.
-    ##
-    ## This code has the following meaning: The object passed as an
-    ## argument to the method is not of a type that is valid for the
-    ## operation or kind of object involved.  For example, handing an
-    ## invalidly-constructed ASTNode to a method expecting an
-    ## ASTNode will result in this error.
-  
-LIBSBML_DUPLICATE_OBJECT_ID = _libsbml.LIBSBML_DUPLICATE_OBJECT_ID
-    ## @var long LIBSBML_DUPLICATE_OBJECT_ID
-    ## @brief One of the possible libSBML operation return codes.
-    ##
-    ## This code has the following meaning: There already exists an object
-    ## with this identifier in the context where this operation is being
-    ## attempted.  This error is typically returned in situations where
-    ## SBML object identifiers must be unique, such as attempting to add
-    ## two species with the same identifier to a model.
-  
-LIBSBML_LEVEL_MISMATCH = _libsbml.LIBSBML_LEVEL_MISMATCH
-    ## @var long LIBSBML_LEVEL_MISMATCH
-    ## @brief One of the possible libSBML operation return codes.
-    ##
-    ## This code has the following meaning: The SBML Level associated with
-    ## the object does not match the Level of the parent object.  This
-    ## error can happen when an SBML component such as a species or
-    ## compartment object is created outside of a model and a calling
-    ## program then attempts to add the object to a model that has a
-    ## different SBML Level defined.
-  
-LIBSBML_VERSION_MISMATCH = _libsbml.LIBSBML_VERSION_MISMATCH
-    ## @var long LIBSBML_VERSION_MISMATCH
-    ## @brief One of the possible libSBML operation return codes.
-    ##
-    ## This code has the following meaning: The SBML Version within the
-    ## SBML Level associated with the object does not match the Version of
-    ## the parent object.  This error can happen when an SBML component
-    ## such as a species or compartment object is created outside of a
-    ## model and a calling program then attempts to add the object to a
-    ## model that has a different SBML Level+Version combination.
-
-LIBSBML_INVALID_XML_OPERATION = _libsbml.LIBSBML_INVALID_XML_OPERATION
-    ## @var long LIBSBML_INVALID_XML_OPERATION
-    ## @brief One of the possible libSBML operation return codes.
-    ##
-    ## This code has the following meaning: The XML operation attempted is
-    ## not valid for the object or context involved.  This error is
-    ## typically returned by the XML interface layer of libSBML, when a
-    ## calling program attempts to construct or manipulate XML in an
-    ## invalid way.
-
-LIBSBML_NAMESPACE_MISMATCH = _libsbml.LIBSBML_NAMESPACE_MISMATCH
-    ## @var long LIBSBML_NAMESPACE_MISMATCH
-    ## @brief One of the possible libSBML operation return codes.
-    ##
-    ## This code has the following meaning: The operation attempt could not
-    ## be performed because the object(s) involved have mismatched XML
-    ## namespaces for SBML Level/Versions.  This typically means the
-    ## properties of the SBMLNamespaces objects possessed by the
-    ## SBML objects do not correspond in some way.
-     
-LIBSBML_ANNOTATION_NAME_NOT_FOUND = _libsbml.LIBSBML_ANNOTATION_NAME_NOT_FOUND
-    ## @var long LIBSBML_ANNOTATION_NAME_NOT_FOUND
-    ## @brief One of the possible libSBML operation return codes.
-    ##
-    ## This code has the following meaning: The existing annotation does
-    ## not have a top-level element with the given name. This error is
-    ## typically returned in situations one of the annotation replacement
-    ## functions is being used to replace or remove an annotation with a
-    ## name that does not match the name of any top-level element that is
-    ## already present in the existing annotation.
-
-LIBSBML_ANNOTATION_NS_NOT_FOUND = _libsbml.LIBSBML_ANNOTATION_NS_NOT_FOUND
-    ## @var long LIBSBML_ANNOTATION_NS_NOT_FOUND
-    ## @brief One of the possible libSBML operation return codes.
-    ##
-    ## This code has the following meaning: The existing annotation does
-    ## not have a top-level element with the given namespace. This error is
-    ## typically returned in situations where one of the annotation
-    ## replacement functinos is being used to remove an annotation with a
-    ## namespace that does not match the namespace of any top-level element
-    ## that is already present in the existing annotation.
-
-LIBSBML_PKG_VERSION_MISMATCH  = _libsbml.LIBSBML_PKG_VERSION_MISMATCH
-    ## @var long LIBSBML_PKG_VERSION_MISMATCH
-    ## @brief One of the possible libSBML package operation return codes.
-    ##
-    ## This code has the following meaning: the Version of the package
-    ## extension within the SBML Level and version associated with the
-    ## object does not match the Version of the parent object. This error
-    ## can happen when an SBML component object is created outside of a
-    ## model, and a calling program then attempts to add the object to a
-    ## model that has a different SBML Level+Version+Package Version
-    ## combination.
-
-LIBSBML_PKG_UNKNOWN           = _libsbml.LIBSBML_PKG_UNKNOWN
-    ## @var long LIBSBML_PKG_UNKNOWN
-    ## @brief One of the possible libSBML package operation return codes.
-    ##
-    ## This code has the following meaning: the required package extension
-    ## is unknown. This error is typically returned when creating an object
-    ## of SBase derived class with the required package, creating
-    ## an object of SBMLNamespaces or its derived class with the
-    ## required package, or invoking functions depending on the required
-    ## package.  To avoid this error, the library of the required package
-    ## needs to be linked.
-
 UNIT_KIND_AMPERE = _libsbml.UNIT_KIND_AMPERE
     ## @var long UNIT_KIND_AMPERE
     ## @brief One of the possible predefined SBML units.
@@ -4474,6 +4329,11 @@ RULE_TYPE_INVALID = _libsbml.RULE_TYPE_INVALID
 AST_UNKNOWN = _libsbml.AST_UNKNOWN
     ## @var long AST_UNKNOWN
     ## @brief One of the possible SBML Rule object types.
+
+AST_ORIGINATES_IN_PACKAGE = _libsbml.AST_ORIGINATES_IN_PACKAGE
+    ## @var long AST_ORIGINATES_IN_PACKAGE
+    ## @brief This node uses math that is only available in an
+    ## SBML Level 3 package.
 
 AST_PLUS = _libsbml.AST_PLUS
     ## @var long AST_PLUS
@@ -4853,6 +4713,42 @@ AST_RELATIONAL_NEQ = _libsbml.AST_RELATIONAL_NEQ
     ## One of the possible ASTNode types.  Each ASTNode has
     ## a type whose value is one of the elements of this enumeration.
 
+AST_CONSTRUCTOR_OTHERWISE = _libsbml.AST_CONSTRUCTOR_OTHERWISE
+    ## @var long AST_CONSTRUCTOR_OTHERWISE
+    ##
+    ## One of the possible ASTNode types.  Each ASTNode has
+    ## a type whose value is one of the elements of this enumeration.
+
+AST_CONSTRUCTOR_PIECE = _libsbml.AST_CONSTRUCTOR_PIECE
+    ## @var long AST_CONSTRUCTOR_PIECE
+    ##
+    ## One of the possible ASTNode types.  Each ASTNode has
+    ## a type whose value is one of the elements of this enumeration.
+
+AST_QUALIFIER_BVAR = _libsbml.AST_QUALIFIER_BVAR
+    ## @var long AST_QUALIFIER_BVAR
+    ##
+    ## One of the possible ASTNode types.  Each ASTNode has
+    ## a type whose value is one of the elements of this enumeration.
+
+AST_QUALIFIER_DEGREE = _libsbml.AST_QUALIFIER_DEGREE
+    ## @var long AST_QUALIFIER_DEGREE
+    ##
+    ## One of the possible ASTNode types.  Each ASTNode has
+    ## a type whose value is one of the elements of this enumeration.
+
+AST_QUALIFIER_LOGBASE = _libsbml.AST_QUALIFIER_LOGBASE
+    ## @var long AST_QUALIFIER_LOGBASE
+    ##
+    ## One of the possible ASTNode types.  Each ASTNode has
+    ## a type whose value is one of the elements of this enumeration.
+
+AST_SEMANTICS = _libsbml.AST_SEMANTICS
+    ## @var long AST_SEMANTICS
+    ##
+    ## One of the possible ASTNode types.  Each ASTNode has
+    ## a type whose value is one of the elements of this enumeration.
+
 L3P_PARSE_LOG_AS_LOG10 = _libsbml.L3P_PARSE_LOG_AS_LOG10
     ## @var long L3P_PARSE_LOG_AS_LOG10
     ##
@@ -5109,8 +5005,8 @@ LIBSBML_INVALID_XML_OPERATION = _libsbml.LIBSBML_INVALID_XML_OPERATION
     ## calling program attempts to construct or manipulate XML in an
     ## invalid way.
 
-LIBSBML_NAMESPACE_MISMATCH = _libsbml.LIBSBML_NAMESPACE_MISMATCH
-    ## @var long LIBSBML_NAMESPACE_MISMATCH
+LIBSBML_NAMESPACES_MISMATCH = _libsbml.LIBSBML_NAMESPACES_MISMATCH
+    ## @var long LIBSBML_NAMESPACES_MISMATCH
     ## @brief One of the possible libSBML operation return codes.
     ##
     ## This code has the following meaning: The operation attempt could not
@@ -5130,6 +5026,38 @@ LIBSBML_PKG_VERSION_MISMATCH = _libsbml.LIBSBML_PKG_VERSION_MISMATCH
     ## model, and a calling program then attempts to add the object to a
     ## model that has a different SBML Level+Version+Package Version
     ## combination.
+
+LIBSBML_DUPLICATE_ANNOTATION_NS = _libsbml.LIBSBML_DUPLICATE_ANNOTATION_NS
+    ## @var long LIBSBML_DUPLICATE_ANNOTATION_NS
+    ## @brief There already exists a top level annotation with the same
+    ## namespace as annoation being appended.
+    ##
+    ## This error is typically returned in situations where the
+    ## appendAnnotation function is being used to add an annotation that has
+    ## a namespace that is already present in the existing annotation.
+
+LIBSBML_ANNOTATION_NAME_NOT_FOUND = _libsbml.LIBSBML_ANNOTATION_NAME_NOT_FOUND
+    ## @var long LIBSBML_ANNOTATION_NAME_NOT_FOUND
+    ## @brief The existing annotation does not have a top-level element with
+    ## the given name.
+    ##
+    ## This error is typically returned in situations where the
+    ## replaceTopLevelAnnotationElement function or the
+    ## removeTopLevelAnnotationElement function is being used to replace or
+    ## remove an annotation with a name that does not match the name of any
+    ## top-level element that is already present in the existing annotation.
+
+LIBSBML_ANNOTATION_NS_NOT_FOUND = _libsbml.LIBSBML_ANNOTATION_NS_NOT_FOUND
+    ## @var long LIBSBML_ANNOTATION_NS_NOT_FOUND
+    ## @brief The existing annotation does not have a top-level element with
+    ## the given namespace.
+    ##
+    ## This error is typically returned in situations where the
+    ## replaceTopLevelAnnotationElement function or the
+    ## removeTopLevelAnnotationElement function is being used to replace or
+    ## remove an annotation with a namespace that does not match the
+    ## namespace of any top-level element that is already present in the
+    ## existing annotation.
 
 LIBSBML_PKG_UNKNOWN = _libsbml.LIBSBML_PKG_UNKNOWN
     ## @var long LIBSBML_PKG_UNKNOWN
@@ -5230,6 +5158,17 @@ LIBSBML_CONV_CONVERSION_NOT_AVAILABLE = _libsbml.LIBSBML_CONV_CONVERSION_NOT_AVA
     ##
     ## This code has the following meaning: conversion with the given
     ## properties is not yet available.
+
+LIBSBML_CONV_PKG_CONSIDERED_UNKNOWN = _libsbml.LIBSBML_CONV_PKG_CONSIDERED_UNKNOWN
+    ## @var long LIBSBML_CONV_PKG_CONSIDERED_UNKNOWN
+    ## @brief The package that is being stripped is not an enabled package
+    ## but considered by libSBML to be an unrecognized package.
+    ##
+    ## This error is typically returned when calling the StripPackage
+    ## converter requesting that a package for which code is not available be
+    ## stripped. Thus the containing document will not be altered as the
+    ## elements and attributes for this package are stored as unknown package
+    ## information and will be written out as such.
 
 CNV_TYPE_BOOL = _libsbml.CNV_TYPE_BOOL
     ## @var long CNV_TYPE_BOOL
