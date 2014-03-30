@@ -479,7 +479,7 @@ typedef enum
 , PieceNeedsBoolean                     = 10213 /*!< The second argument of a <code>&lt;piece&gt;</code> expression must yield a Boolean value. */
 , ApplyCiMustBeUserFunction             = 10214 /*!< A <code>&lt;ci&gt;</code> element in this context must refer to a function definition. */
 , ApplyCiMustBeModelComponent           = 10215 /*!< A <code>&lt;ci&gt;</code> element in this context must refer to a model component. */
-, KineticLawParametersAreLocalOnly      = 10216 /*!< Cannot use a KineticLaw local parameter outside of its local scope. */
+, KineticLawParametersAreLocalOnly      = 10216 /*!< Cannot use a KineticLaw's local parameter outside of its local scope. */
 , MathResultMustBeNumeric               = 10217 /*!< A formula's result in this context must be a numerical value. */
 , OpsNeedCorrectNumberOfArgs            = 10218 /*!< Incorrect number of arguments given to MathML operator. */
 , InvalidNoArgsPassedToFunctionDef      = 10219 /*!< Incorrect number of arguments given to function invocation. */
@@ -488,7 +488,7 @@ typedef enum
 , DuplicateComponentId                  = 10301 /*!< Duplicate 'id' attribute value. */
 , DuplicateUnitDefinitionId             = 10302 /*!< Duplicate unit definition 'id' attribute value. */
 , DuplicateLocalParameterId             = 10303 /*!< Duplicate local parameter 'id' attribute value. */
-, MultipleAssignmentOrRateRules         = 10304 /*!< Multiple rules for the same variable are not allowed. */
+, MultipleAssignmentOrRateRules         = 10304 /*!< Multiple SBML rules for the same variable are not allowed. */
 , MultipleEventAssignmentsForId         = 10305 /*!< Multiple event assignments for the same variable are not allowed. */
 , EventAndAssignmentRuleForId           = 10306 /*!< An event assignment and an assignment rule must not have the same value for 'variable'. */
 , DuplicateMetaId                       = 10307 /*!< Duplicate 'metaid' attribute value. */
@@ -545,7 +545,7 @@ typedef enum
 , NotesNotInXHTMLNamespace              = 10801 /*!< Notes must be placed in the XHTML XML namespace. */
 , NotesContainsXMLDecl                  = 10802 /*!< XML declarations are not permitted in Notes objects. */
 , NotesContainsDOCTYPE                  = 10803 /*!< XML DOCTYPE elements are not permitted in Notes objects. */
-, InvalidNotesContent                   = 10804 /*!< Invalid notes content found. */
+, InvalidNotesContent                   = 10804 /*!< Invalid Notes object content found. */
 , OnlyOneNotesElementAllowed            = 10805 /*!< Only one Notes subobject is permitted on a given SBML object. */
 , InvalidNamespaceOnSBML                = 20101 /*!< Invalid XML namespace for the SBML container element. */
 , MissingOrInconsistentLevel            = 20102 /*!< Missing or inconsistent value for the 'level' attribute. */
@@ -589,7 +589,7 @@ typedef enum
 , AllowedAttributesOnListOfEvents       = 20232 /*!< Invalid attribute found on the ListOfEvents object. */
 , FunctionDefMathNotLambda              = 20301 /*!< Invalid expression found in the function definition. */
 , InvalidApplyCiInLambda                = 20302 /*!< Invalid forward reference in the MathML <code>&lt;apply&gt;</code><code>&lt;ci&gt;</code>...<code>&lt;/ci&gt;</code><code>&lt;/apply&gt;</code> expression. */
-, RecursiveFunctionDefinition           = 20303 /*!< Recursive function definitions are not permitted. */
+, RecursiveFunctionDefinition           = 20303 /*!< Recursive function definitions are not permitted in SBML. */
 , InvalidCiInLambda                     = 20304 /*!< Invalid <code>&lt;ci&gt;</code> reference found inside the <code>&lt;lambda&gt;</code> mathematical formula. */
 , InvalidFunctionDefReturnType          = 20305 /*!< A function's return type must be either a number or a Boolean. */
 , OneMathElementPerFunc                 = 20306 /*!< A FunctionDefinition object must contain one <code>&lt;math&gt;</code> element. */
@@ -616,7 +616,7 @@ typedef enum
 , ZeroDimensionalCompartmentUnits       = 20502 /*!< Invalid use of the 'units' attribute for a zero-dimensional compartment. */
 , ZeroDimensionalCompartmentConst       = 20503 /*!< Zero-dimensional compartments must be defined to be constant. */
 , UndefinedOutsideCompartment           = 20504 /*!< Invalid value for the 'outside' attribute of a Compartment object. */
-, RecursiveCompartmentContainment       = 20505 /*!< Recursive nesting of compartments via the 'outside' attribute is not permitted. */
+, RecursiveCompartmentContainment       = 20505 /*!< Recursive nesting of compartments via the 'outside' attribute is not permitted in SBML. */
 , ZeroDCompartmentContainment           = 20506 /*!< Invalid nesting of zero-dimensional compartments. */
 , Invalid1DCompartmentUnits             = 20507 /*!< Invalid value for the 'units' attribute of a one-dimensional compartment. */
 , Invalid2DCompartmentUnits             = 20508 /*!< Invalid value for the 'units' attribute of a two-dimensional compartment. */
@@ -750,7 +750,7 @@ typedef enum
 , ConversionFactorNotInL1               = 91015 /*!< SBML Level 1 does not support the 'conversionFactor' attribute. */
 , CompartmentNotOnL1Reaction            = 91016 /*!< SBML Level 1 does not support the 'compartment' attribute on Reaction objects. */
 , ExtentUnitsNotSubstance               = 91017 /*!< Units of extent must be compatible with units of substance. */
-, GlobalUnitsNotDeclared                = 91018 /*!< Global units must be refer to unit kind or unitDefinition. */
+, GlobalUnitsNotDeclared                = 91018 /*!< Global units must be refer to a predefined unit kind or a UnitDefinition. */
 , HasOnlySubstanceUnitsNotinL1          = 91019 /*!< The concept of hasOnlySubstanceUnits was not available in SBML Level 1. */
 , AvogadroNotSupported                  = 91020 /*!< Avogadro not supported in Levels 2 and 1. */
 , NoConstraintsInL2v1                   = 92001 /*!< SBML Level 2 Version 1 does not support Constraint objects. */
@@ -808,7 +808,7 @@ typedef enum
 , InvalidRuleOrdering                   = 99106 /*!< Invalid ordering of rules. */
 , RequiredPackagePresent                = 99107 /*!< The SBML document requires an SBML Level 3 package unavailable in this software. */
 , UnrequiredPackagePresent              = 99108 /*!< The SBML document uses an SBML Level 3 package unavailable in this software. */
-, PackageRequiredShouldBeFalse          = 99109 /*!< This package expects required to be false. */
+, PackageRequiredShouldBeFalse          = 99109 /*!< This package expects the 'required' attribute to be "false". */
 , SubsUnitsAllowedInKL                  = 99127 /*!< Disallowed value for attribute 'substanceUnits' on KineticLaw object. */
 , TimeUnitsAllowedInKL                  = 99128 /*!< Disallowed value for attribute 'timeUnits' on KineticLaw object. */
 , FormulaInLevel1KL                     = 99129 /*!< Only predefined functions are allowed in SBML Level 1 formulas. */
@@ -820,7 +820,7 @@ typedef enum
 , FailedMathMLReadOfExponential         = 99222 /*!< Missing or invalid exponential expression in MathML. */
 , FailedMathMLReadOfRational            = 99223 /*!< Missing or invalid rational expression in MathML. */
 , BadMathMLNodeType                     = 99224 /*!< Invalid MathML element. */
-, InvalidMathMLAttribute                = 99225 /*!< Attribute not allowed on this element */
+, InvalidMathMLAttribute                = 99225 /*!< Invalid MathML attribute on this element */
 , NoTimeSymbolInFunctionDef             = 99301 /*!< Use of <code>&lt;csymbol&gt;</code> for 'time' not allowed within FunctionDefinition objects. */
 , NoBodyInFunctionDef                   = 99302 /*!< There must be a <code>&lt;lambda&gt;</code> body within the <code>&lt;math&gt;</code> element of a FunctionDefinition object. */
 , DanglingUnitSIdRef                    = 99303 /*!< Units must refer to valid unit or unitDefinition. */
@@ -829,7 +829,7 @@ typedef enum
 , RDFAboutTagNotMetaid                  = 99403 /*!< RDF <code>&lt;about&gt;</code> tag is not metaid. */
 , RDFNotCompleteModelHistory            = 99404 /*!< RDF does not contain valid ModelHistory. */
 , RDFNotModelHistory                    = 99405 /*!< RDF does not result in a ModelHistory. */
-, AnnotationNotElement                  = 99406 /*!< Annotation must contain element. */
+, AnnotationNotElement                  = 99406 /*!< An Annotation must contain one or more subelements. */
 , InconsistentArgUnitsWarnings          = 99502 /*!< This is an internal error that reverts to 10501. */
 , InconsistentPowerUnitsWarnings        = 99503 /*!< This is an internal error that reverts to 10501. */
 , InconsistentExponUnitsWarnings        = 99504 /*!< This is an internal error that reverts to 10501. */
