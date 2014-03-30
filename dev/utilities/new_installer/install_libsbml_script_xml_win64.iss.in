@@ -54,6 +54,7 @@ var
   PythonPresent: Boolean;
   Python27Present: Boolean;
   Python32Present: Boolean;
+  Python34Present: Boolean;
   PerlPresent: Boolean;
   PerlVersion: String;
   
@@ -180,6 +181,25 @@ begin
   Result := Root;
 end;
 
+{function to return python 3.4 dir directory}
+function GetPython34Dir(S : String): String;
+var
+  Root:String;
+  Key: String;
+
+begin
+  Key := '';
+  Root := '';
+  Key := Key + 'Software\Python\PythonCore\3.4\InstallPath\';
+  if RegQueryStringValue(HKLM, Key, '', Root) then begin
+    Root:= Root + 'Lib\site-packages\';
+    Python34Present := True;
+  end else begin
+    Python34Present := False;
+  end;
+  Result := Root;
+end;
+
 function GetJavaDir(Param: String): String;
 begin
   { Return the selected DataDir }
@@ -272,8 +292,9 @@ begin
   GetPython26Dir('');
   GetPython27Dir('');
   GetPython32Dir('');
+  GetPython34Dir('');
   PerlRoot := GetInstalledPerlDir('');
-  if (not Python26Present) and (not Python27Present) and (not Python32Present) then begin
+  if (not Python26Present) and (not Python27Present) and (not Python32Present) and (not Python34Present) then begin
     PythonPresent := False;
   end else begin
     PythonPresent := True;
@@ -329,6 +350,7 @@ begin
   PythonPage.Add('Python 2.6');
   PythonPage.Add('Python 2.7');
   PythonPage.Add('Python 3.2');
+  PythonPage.Add('Python 3.4');
 
 
   { java page : location to install java binding }
@@ -389,7 +411,9 @@ begin
       MsgBox('Python 2.7 cannot be detected on the system. Cannot install to site-packages directory.', mbError, MB_OK);
 	end else if (not Python32Present) and  (PythonPage.SelectedValueIndex = 2) then begin
       MsgBox('Python 3.2 cannot be detected on the system. Cannot install to site-packages directory.', mbError, MB_OK);
-    end;
+    end else if (not Python34Present) and  (PythonPage.SelectedValueIndex = 3) then begin
+      MsgBox('Python 3.4 cannot be detected on the system. Cannot install to site-packages directory.', mbError, MB_OK);
+	end;
     Result := True;
   end else if CurPageId = InstallOptionsPage.ID then begin
     JavaPage.Values[0] := ExpandConstant('{app}/bindings/java');
@@ -464,7 +488,13 @@ begin
         S := S + 'Installing libSBML Python 3.2 files to site-packages directory' + NewLine;
         S := S + '      ' + GetPython32Dir('');
         S := S + NewLine;
-       end;
+      end else if (PythonPage.SelectedValueIndex = 3) then begin
+        S := S + NewLine;
+        S := S + 'Installing libSBML Python 3.4 files to site-packages directory' + NewLine;
+        S := S + '      ' + GetPython34Dir('');
+        S := S + NewLine;
+            
+	  end;
   end;
 
 
@@ -472,6 +502,14 @@ begin
 end;
 
 { function to return flag as to whether to write libraries to other directories directory}
+function GetPython34() : Boolean;
+begin
+  if (InstallOptionsPage.Values[4] = True) and (PythonPage.SelectedValueIndex = 3) then
+    Result := True
+  else
+    Result := False;
+end;
+
 function GetPython32() : Boolean;
 begin
   if (InstallOptionsPage.Values[4] = True) and (PythonPage.SelectedValueIndex = 2) then
@@ -539,6 +577,7 @@ end;
 Filename: "{app}\bindings\python\libSBML-@PACKAGE_VERSION@-win-py2.6-amd64.exe"; Check: GetPython26;
 Filename: "{app}\bindings\python\libSBML-@PACKAGE_VERSION@-win-py2.7-amd64.exe"; Check: GetPython27;
 Filename: "{app}\bindings\python\libSBML-@PACKAGE_VERSION@-win-py3.2-amd64.exe"; Check: GetPython32;
+Filename: "{app}\bindings\python\libSBML-@PACKAGE_VERSION@-win-py3.4-amd64.exe"; Check: GetPython34;
 Filename: "{app}\bindings\matlab\libSBML-@PACKAGE_VERSION@-win-matlab-x64.exe"; Check: GetMatlab;
 
 
