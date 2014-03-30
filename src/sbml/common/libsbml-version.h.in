@@ -115,7 +115,7 @@ getLibSBMLVersionString ();
  *         that define an integer version number that number will 
  *         be returned).
  *
- * @see getLibSBMLDependencyVersionOf()
+ * @see getLibSBMLDependencyVersionOf(const char* option)
  */
 LIBSBML_EXTERN
 int 
@@ -132,7 +132,7 @@ isLibSBMLCompiledWith(const char* option);
  * @return NULL in case libSBML has not been compiled against 
  *         that library and a version string otherwise.
  *
- * @see isLibSBMLCompiledWith()
+ * @see isLibSBMLCompiledWith(const char* option)
  */
 LIBSBML_EXTERN
 const char* 
