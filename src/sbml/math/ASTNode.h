@@ -464,7 +464,7 @@ public:
    * with an argument of @c 0.
    *
    * @see getNumChildren()
-   * @see getChild()
+   * @see getChild(unsigned int n)
    * @see getRightChild()
    */
   ASTNode* getLeftChild () const;
@@ -483,7 +483,7 @@ getChild( getNumChildren() - 1 );
    *
    * @see getNumChildren()
    * @see getLeftChild()
-   * @see getChild()
+   * @see getChild(unsigned int n)
    */
   ASTNode* getRightChild () const;
 
