@@ -446,6 +446,75 @@ class CClassDoc:
     self.isInternal = isInternal
 
 
+# Example case for working out the algorithm for read_loop().
+# Preprocessor symbols are X, Y, Z.
+# Start:
+#
+# X not defined
+# Y not defined
+# Z defined
+#
+# skipping = false
+# states = []
+# symbols = []
+#
+# #ifdef X
+#
+#   skipping = true
+#   states[0] = false
+#   symbols[0] = X
+#
+#   ; should ignore rest of this until outer #else
+#
+#   #ifndef Y
+#
+#   #else
+#
+#   #endif
+#
+# #else
+#
+#   skipping = false
+#   states[0] = false
+#   symbols[0] = X
+#
+# #endif
+#
+# skipping = false
+# states = []
+# symbols = []
+#
+# #ifdef Z
+#
+#   skipping = false
+#   states[0] = false
+#   symbols[0] = Z
+#
+#   #ifndef Y
+#
+#     skipping = false
+#     states[1] = false
+#     symbols[1] = Y
+#
+#   #else
+#
+#     skipping = true
+#     states[1] = false
+#     symbols[1] = Y
+#
+#   #endif
+#
+#   skipping = false
+#   states[0] = false
+#   symbols[0] = Z
+#
+# #else
+#
+#   skipping = true
+#   states[0] = false
+#   symbols[0] = Z
+#
+# #endif
 
 def read_loop(line_parser_func, lines, defined_symbols):
   """Non-recursive function to call 'line_parser_func'() on each line
@@ -456,45 +525,34 @@ def read_loop(line_parser_func, lines, defined_symbols):
   # symbol_stack holds the current #if condition symbol
   # state_stack holds the skipping state before the current #if symbol was seen
 
-  symbol_stack = []
-  state_stack  = []
-
+  states   = [False]
   skipping = False
+
   for line in lines:
     split = line.split()
     if split:
       start = split[0]
       if start == '#if' or start == '#ifdef':
-        state_stack.append(skipping)
-        symbol_stack.append(split[1])
-        if not skipping:
-          skipping = True
-          for symbol in defined_symbols:
-            if split[1] == symbol:
-              skipping = False
-              break
+        states.append(skipping)
+        if skipping:
+          continue
+        skipping = True
+        for s in defined_symbols:
+          if split[1] == s:
+            skipping = False
+            break
       elif start == '#ifndef':
-        state_stack.append(skipping)
-        symbol_stack.append('!' + split[1])
-        if not skipping:
-          for symbol in defined_symbols:
-            if split[1] == symbol:
-              skipping = True
-              break
-      elif start == '#else':
-        previous = symbol_stack[-1]
-        skipping = state_stack[-1]
-        if not skipping:
-          for symbol in defined_symbols:
-            if previous == symbol:
-              skipping = True
-              break
-            elif previous == '!' + symbol:
-              skipping = False
-              break
+        states.append(skipping)
+        if skipping:
+          continue
+        for s in defined_symbols:
+          if split[1] == s:
+            skipping = True
+            break
       elif start == '#endif':
-        previous = symbol_stack.pop()
-        skipping = state_stack.pop()
+        skipping = states.pop()
+      elif start == '#else' and not skipping:
+        skipping = not states[-1]
     if not skipping:
       line_parser_func(line)
 
