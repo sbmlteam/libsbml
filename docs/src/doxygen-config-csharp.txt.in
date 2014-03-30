@@ -133,7 +133,7 @@ EXCLUDE +=  \
   ../../src/bindings/csharp/csharp-files/SWIGTYPE_p_std__vectorT_SBMLNamespaces_const_p_t.cs \
   ../../src/bindings/csharp/csharp-files/SBMLTransforms.cs
 
-EXAMPLE_PATH           = common-text examples . ../.. ../../examples/csharp \
+EXAMPLE_PATH           = common-text . ../.. ../../examples/csharp \
                          ../../examples/csharp/comp ../../examples/csharp/layout \
                          ../../examples/csharp/fbc ../../examples/csharp/qual 
 
