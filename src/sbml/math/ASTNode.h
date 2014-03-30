@@ -1610,8 +1610,6 @@ setValue(value, 0);
   * The user data can be used by the application developer to attach custom
   * information to the node.  In case of a deep copy, this attribute will
   * passed as it is. The attribute will be never interpreted by this class.
-  * 
-  * @param userData specifies the new user data. 
   *
   * @return integer value indicating success/failure of the
   * function.  The possible values returned by this function are:
