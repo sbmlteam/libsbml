@@ -159,11 +159,13 @@ LocalParameter::clone () const
   return new LocalParameter(*this);
 }
 
+
 /* a local Parameter does not have a constant attribute but
  * because it derives from parameter it inherits one
  * need to make sure these do the right thing
  */
 
+/** @cond doxygenLibsbmlInternal */
 /*
  * @return true as a localParameter is always constant.
  */
@@ -172,7 +174,10 @@ LocalParameter::getConstant () const
 {
   return true;
 }
+/** @endcond */
 
+
+/** @cond doxygenLibsbmlInternal */
 /*
  * @return false as a local parameter does not have this attribute
  */
@@ -181,7 +186,10 @@ LocalParameter::isSetConstant () const
 {
   return false;
 }
+/** @endcond */
 
+
+/** @cond doxygenLibsbmlInternal */
 /*
  * Sets the constant field of this Parameter to value.
  */
@@ -190,6 +198,7 @@ LocalParameter::setConstant (bool flag)
 {
   return LIBSBML_UNEXPECTED_ATTRIBUTE;
 }
+/** @endcond */
 
 
 /*

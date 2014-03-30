@@ -199,6 +199,7 @@ ASTNode::ASTNode (ASTNodeType_t type) :
 }
   
 
+/** @cond doxygenLibsbmlInternal */
 ASTNode::ASTNode (SBMLNamespaces* sbmlns, ASTNodeType_t type) :
         ASTBase (sbmlns, (int)(type))
       , mNumber  ( NULL )
@@ -240,8 +241,10 @@ ASTNode::ASTNode (SBMLNamespaces* sbmlns, ASTNodeType_t type) :
     }
   }
 }
+/** @endcond */
   
 
+/** @cond doxygenLibsbmlInternal */
 ASTNode::ASTNode (int type) :
         ASTBase (type)
       , mNumber  ( NULL )
@@ -293,8 +296,10 @@ ASTNode::ASTNode (int type) :
     getPlugin(i)->connectToParent(this);
   }
 }
-  
+/** @endcond */  
 
+
+/** @cond doxygenLibsbmlInternal */
 ASTNode::ASTNode (SBMLNamespaces* sbmlns, int type) :
         ASTBase (sbmlns, type)
       , mNumber  ( NULL )
@@ -336,8 +341,10 @@ ASTNode::ASTNode (SBMLNamespaces* sbmlns, int type) :
     }
   }
 }
+/** @endcond */
   
 
+/** @cond doxygenLibsbmlInternal */
 ASTNode::ASTNode (ASTNumber* number) :
 ASTBase (number->getType())
       , mNumber  ( number )
@@ -347,8 +354,10 @@ ASTBase (number->getType())
 {
   this->syncMembersFrom(number);
 }
+/** @endcond */
 
 
+/** @cond doxygenLibsbmlInternal */
 ASTNode::ASTNode (ASTFunction* function) :
 ASTBase (function->getType())
       , mNumber  ( NULL )
@@ -358,7 +367,10 @@ ASTBase (function->getType())
 {
   this->syncMembersFrom(function);
 }
+/** @endcond */
 
+
+/** @cond doxygenLibsbmlInternal */
 ASTNode::ASTNode (Token_t* token):
 ASTBase()
 {
@@ -406,6 +418,7 @@ ASTBase()
     getPlugin(i)->connectToParent(this);
   }
 }
+/** @endcond */
 
 
 /*
@@ -440,6 +453,8 @@ ASTNode::ASTNode (const ASTNode& orig) :
   //  mFunction = static_cast<ASTFunction*>( orig.mFunction->deepCopy() );
   //}
 }
+
+
 /*
  * 
    * Assignment operator for ASTNode.
@@ -468,6 +483,8 @@ ASTNode::operator=(const ASTNode& rhs)
   }
   return *this;
 }
+
+
 /*
    * Destroys this ASTNode, including any child nodes.
    */
@@ -479,11 +496,14 @@ ASTNode::~ASTNode ()
 
 }
 
+
+/** @cond doxygenLibsbmlInternal */
 int
 ASTNode::getTypeCode () const
 {
   return AST_TYPECODE_ASTNODE;
 }
+/** @endcond */
 
 
 /*
@@ -740,6 +760,7 @@ ASTNode::getName () const
 }
 
 
+/** @cond doxygenLibsbmlInternal */
 unsigned int 
 ASTNode::getNumBvars() const
 {
@@ -756,6 +777,7 @@ ASTNode::getNumBvars() const
     return 0;
   }
 }
+/** @endcond */
 
 
 long 
@@ -922,6 +944,7 @@ ASTNode::getExtendedType () const
 }
 
 
+/** @cond doxygenLibsbmlInternal */
 const std::string&
 ASTNode::getPackageName () const
 {
@@ -938,6 +961,7 @@ ASTNode::getPackageName () const
     return ASTBase::getPackageName();
   }
 }
+/** @endcond */
 
 
 std::string 

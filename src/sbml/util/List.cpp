@@ -360,6 +360,7 @@ List::transferFrom(List* list)
   list->size = 0;
 }
 
+/** @cond doxygenLibsbmlInternal */
 void 
 List::deleteListAndChildrenWith(List* list, ListDeleteItemFunc delteFunc)
 {
@@ -377,7 +378,7 @@ List::deleteListAndChildrenWith(List* list, ListDeleteItemFunc delteFunc)
   delete list;
   list = NULL;
 }
-
+/** @endcond */
 
 
 #endif /* __cplusplus */
