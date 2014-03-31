@@ -293,6 +293,7 @@ if(WITH_SWIG)
 using at least version 2.0.4.")
     endif()
     set(SWIG_EXTRA_ARGS)
+    set(SWIG_SWIGDOCDEFINES)
 endif(WITH_SWIG)
 
 

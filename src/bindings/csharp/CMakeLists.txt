@@ -136,6 +136,7 @@ ADD_CUSTOM_COMMAND(
 			--top "${LIBSBML_ROOT_SOURCE_DIR}"
 			--master "${CMAKE_CURRENT_SOURCE_DIR}/../swig/libsbml.i"
 			--output "${CMAKE_CURRENT_BINARY_DIR}/csdoc.i"
+			${SWIG_SWIGDOCDEFINES}
     COMMAND "${CMAKE_COMMAND}"
     ARGS  -E make_directory "${LIBSBML_CS_FILES}"
     COMMAND "${SWIG_EXECUTABLE}"
