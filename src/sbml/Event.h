@@ -2168,10 +2168,16 @@ LIBSBML_EXTERN
 EventAssignment_t *
 Event_removeEventAssignmentByVar (Event_t *e, const char *variable);
 
-
 /**
- * @return item in this ListOf_t of Event_t's with the given @p id or @c NULL if no such
- * item exists.
+ * Returns the Event_t structure having a given identifier.
+ *
+ * @param lo the ListOfEvents_t structure to search.
+ * @param sid the "id" attribute value being sought.
+ *
+ * @return item in the @p lo ListOfEvents with the given @p sid or a
+ * null pointer if no such item exists.
+ *
+ * @see ListOf_t
  *
  * @memberof ListOfEvents_t
  */
@@ -2181,9 +2187,17 @@ ListOfEvents_getById (ListOf_t *lo, const char *sid);
 
 
 /**
- * Removes item in this ListOf_t items with the given @p id or @c NULL if no such
- * item exists.  The caller owns the returned item and is responsible for
- * deleting it.
+ * Removes a Event_t structure based on its identifier.
+ *
+ * The caller owns the returned item and is responsible for deleting it.
+ *
+ * @param lo the list of Event_t structures to search.
+ * @param sid the "id" attribute value of the structure to remove
+ *
+ * @return The Event_t structure removed, or a null pointer if no such
+ * item exists in @p lo.
+ *
+ * @see ListOf_t
  *
  * @memberof ListOfEvents_t
  */

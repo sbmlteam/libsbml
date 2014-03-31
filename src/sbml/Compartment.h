@@ -2528,11 +2528,13 @@ Compartment_hasRequiredAttributes (Compartment_t *c);
 /**
  * Returns the Compartment_t structure having a given identifier.
  *
- * @param lo the ListOfCompartments_t structure to search.
+ * @param lo the list of Compartments_t structures to search.
  * @param sid the "id" attribute value being sought.
  *
  * @return item in the @p lo ListOfCompartments with the given @p sid or a
  * null pointer if no such item exists.
+ *
+ * @see ListOf_t
  *
  * @memberof ListOfCompartments_t
  */
@@ -2546,8 +2548,13 @@ ListOfCompartments_getById (ListOf_t *lo, const char *sid);
  *
  * The caller owns the returned item and is responsible for deleting it.
  *
+ * @param lo the list of Compartment_t structures to search.
+ * @param sid the "id" attribute value of the structure to remove
+ *
  * @return The Compartment_t structure removed, or a null pointer if no such
- * item exists in the @p lo list of compartments.
+ * item exists in @p lo.
+ *
+ * @see ListOf_t
  *
  * @memberof ListOfCompartments_t
  */

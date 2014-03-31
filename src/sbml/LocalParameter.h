@@ -1100,8 +1100,15 @@ LocalParameter_getDerivedUnitDefinition(LocalParameter_t *p);
 
 
 /**
- * @return item in this ListOf_t of LocalParameter_t's with the given @p id or @c NULL if no such
- * item exists.
+ * Returns the LocalParameter_t structure having a given identifier.
+ *
+ * @param lo the ListOfLocalParameters_t structure to search.
+ * @param sid the "id" attribute value being sought.
+ *
+ * @return item in the @p lo ListOfLocalParameters with the given @p sid or a
+ * null pointer if no such item exists.
+ *
+ * @see ListOf_t
  *
  * @memberof ListOfLocalParameters_t
  */
@@ -1111,9 +1118,17 @@ ListOfLocalParameters_getById (ListOf_t *lo, const char *sid);
 
 
 /**
- * Removes item in this ListOf_t items with the given @p id or @c NULL if no such
- * item exists.  The caller owns the returned item and is responsible for
- * deleting it.
+ * Removes a LocalParameter_t structure based on its identifier.
+ *
+ * The caller owns the returned item and is responsible for deleting it.
+ *
+ * @param lo the list of LocalParameter_t structures to search.
+ * @param sid the "id" attribute value of the structure to remove
+ *
+ * @return The LocalParameter_t structure removed, or a null pointer if no such
+ * item exists in @p lo.
+ *
+ * @see ListOf_t
  *
  * @memberof ListOfLocalParameters_t
  */
