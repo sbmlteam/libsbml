@@ -156,7 +156,7 @@ OPTIMIZE_OUTPUT_JAVA    = YES
 # (or have completely unique names, so there's no chance of accidentally
 # hiding more than intended).
 
-EXCLUDE_SYMBOLS =                      \
+EXCLUDE_SYMBOLS +=                     \
   SBMLFunctionDefinitionConverter_init \
   SBMLInitialAssignmentConverter_init  \
   SBMLLevelVersionConverter_init       \
