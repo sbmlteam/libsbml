@@ -192,11 +192,15 @@ SBMLExtension::setASTBasePlugin(const ASTBasePlugin* astPlugin)
 /** @endcond */
 
 
+/** @cond doxygenLibsbmlInternal */
+
 bool
 SBMLExtension::isSetASTBasePlugin() const
 {
   return (mASTBasePlugin != NULL);
 }
+
+/** @endcond */
 
 
 /** @cond doxygenLibsbmlInternal */
@@ -208,6 +212,7 @@ SBMLExtension::getASTBasePlugin()
 }
 
 /** @endcond */
+
 
 /** @cond doxygenLibsbmlInternal */
 
