@@ -127,7 +127,6 @@ LIBSBML_CPP_NAMESPACE_USE
 %ignore ASTNode::setSemanticsFlag;
 %ignore ASTNode::unsetSemanticsFlag;
 %ignore ASTNode::getSemanticsFlag;
-%ignore ASTNode::setDefinitionURL;
 %ignore ASTNode::setUserData;
 %ignore ASTNode::getUserData;
 %ignore ASTNode::setParentSBMLObject;
