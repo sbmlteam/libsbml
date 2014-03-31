@@ -1819,6 +1819,7 @@ ASTNode::freeName()
 }
 
 
+/** @cond doxygenLibsbmlInternal */
 bool
 ASTNode::hasCnUnits() const
 {
@@ -1831,8 +1832,10 @@ ASTNode::hasCnUnits() const
 
   return hasCnUnits;
 }
+/** @endcond */
 
 
+/** @cond doxygenLibsbmlInternal */
 std::string
 ASTNode::getUnitsPrefix() const
 {
@@ -1847,8 +1850,11 @@ ASTNode::getUnitsPrefix() const
     return emptyString;
   }
 }
+/** @endcond */
 
-  // functions for semantics
+
+// functions for semantics
+
 int 
 ASTNode::addSemanticsAnnotation (XMLNode* sAnnotation)
 {
@@ -2612,6 +2618,7 @@ ASTNode::swapChildren(ASTNode* that)
 }
 
 
+/** @cond doxygenLibsbmlInternal */
 void 
 ASTNode::write(XMLOutputStream& stream) const
 {
@@ -2669,8 +2676,10 @@ ASTNode::write(XMLOutputStream& stream) const
   }
 
 }
+/** @endcond */
 
 
+/** @cond doxygenLibsbmlInternal */
 void 
 ASTNode::writeNodeOfType(XMLOutputStream& stream, int type, 
     bool inChildNode) const
@@ -2680,8 +2689,10 @@ if (mFunction != NULL)
     mFunction->writeNodeOfType(stream, type, inChildNode);
   }
 }
+/** @endcond */
 
 
+/** @cond doxygenLibsbmlInternal */
 bool
 ASTNode::read(XMLInputStream& stream, const std::string& reqd_prefix)
 {
@@ -2763,6 +2774,7 @@ ASTNode::read(XMLInputStream& stream, const std::string& reqd_prefix)
 
   return read;
 }
+/** @endcond */
 
 
 List* 
@@ -2948,6 +2960,7 @@ ASTNode::renameUnitSIdRefs(const std::string& oldid, const std::string& newid)
 }
 
 
+/** @cond doxygenLibsbmlInternal */
 void 
 ASTNode::replaceIDWithFunction(const std::string& id, const ASTNode* function)
 {
@@ -2965,6 +2978,7 @@ ASTNode::replaceIDWithFunction(const std::string& id, const ASTNode* function)
     }
   }
 }
+/** @endcond */
 
 
 void
@@ -3031,6 +3045,7 @@ ASTNode::hasCorrectNumberArguments() const
 }
 
 
+/** @cond doxygenLibsbmlInternal */
 bool 
 ASTNode::containsVariable(const std::string id) const
 {
@@ -3055,8 +3070,10 @@ ASTNode::containsVariable(const std::string id) const
   
   return found;
 }
+/** @endcond */
 
 
+/** @cond doxygenLibsbmlInternal */
 unsigned int 
 ASTNode::getNumVariablesWithUndeclaredUnits(Model * m) const
 {
@@ -3184,6 +3201,7 @@ ASTNode::getNumVariablesWithUndeclaredUnits(Model * m) const
 
   return number;
 }
+/** @endcond */
 
 
 int
@@ -3294,6 +3312,7 @@ ASTNode::canonicalize ()
 }
 
 
+/** @cond doxygenLibsbmlInternal */
 bool
 ASTNode::canonicalizeConstant ()
 {
@@ -3316,8 +3335,10 @@ ASTNode::canonicalizeConstant ()
 
   return found;
 }
+/** @endcond */
 
 
+/** @cond doxygenLibsbmlInternal */
 bool
 ASTNode::canonicalizeFunction ()
 {
@@ -3361,8 +3382,10 @@ ASTNode::canonicalizeFunction ()
 
   return found;
 }
+/** @endcond */
 
 
+/** @cond doxygenLibsbmlInternal */
 bool
 ASTNode::canonicalizeFunctionL1 ()
 {
@@ -3452,8 +3475,10 @@ ASTNode::canonicalizeFunctionL1 ()
    */
   return (mType != AST_FUNCTION);
 }
+/** @endcond */
 
 
+/** @cond doxygenLibsbmlInternal */
 bool
 ASTNode::canonicalizeLogical ()
 {
@@ -3475,9 +3500,10 @@ ASTNode::canonicalizeLogical ()
 
   return found;
 }
+/** @endcond */
 
 
-
+/** @cond doxygenLibsbmlInternal */
 bool
 ASTNode::canonicalizeRelational ()
 {
@@ -3499,7 +3525,10 @@ ASTNode::canonicalizeRelational ()
 
   return found;
 }
+/** @endcond */
 
+
+/** @cond doxygenLibsbmlInternal */
 void
 ASTNode::reset()
 {
@@ -3517,22 +3546,28 @@ ASTNode::reset()
 
   //mChar = 0;
 }
+/** @endcond */
 
 
-ASTNumber *   
-ASTNode::getNumber() const 
-{ 
-  return mNumber;   
+/** @cond doxygenLibsbmlInternal */
+ASTNumber *
+ASTNode::getNumber() const
+{
+  return mNumber;
 }
-  
-  
-ASTFunction * 
+/** @endcond */
+
+
+/** @cond doxygenLibsbmlInternal */
+ASTFunction *
 ASTNode::getFunction() const
-{ 
-  return mFunction; 
+{
+  return mFunction;
 }
+/** @endcond */
 
 
+/** @cond doxygenLibsbmlInternal */
 void
 ASTNode::connectPlugins()
 {
@@ -3541,6 +3576,8 @@ ASTNode::connectPlugins()
     getPlugin(i)->connectToParent(this);
   }
 }
+/** @endcond */
+
 
 #endif /* __cplusplus */
 
