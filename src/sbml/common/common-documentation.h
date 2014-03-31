@@ -41,11 +41,17 @@
  * @class doc_what_is_listof
  *
  * @par
- * The various ListOf___ classes in SBML are merely containers used for
- * organizing the main components of an SBML model.  All are derived from
- * the abstract class SBase, and inherit the various attributes and
- * subelements of SBase, such as "metaid" as and "annotation".  The
- * ListOf___ classes do not add any attributes of their own.
+ * The various ListOf___ @if conly structures @else classes@endif@~ in SBML
+ * are merely containers used for organizing the main components of an SBML
+ * model.  In libSBML's implementation, ListOf___
+ * @if conly data structures @else classes@endif@~ are derived from the
+ * intermediate utility @if conly structure @else class@endif@~ ListOf, which
+ * is not defined by the SBML specifications but serves as a useful
+ * programmatic construct.  ListOf is itself is in turn derived from SBase,
+ * which provides all of the various ListOf___
+ * @if conly data structures @else classes@endif@~ with common features
+ * defined by the SBML specification, such as "metaid" attributes and
+ * annotations.
  *
  * The relationship between the lists and the rest of an SBML model is
  * illustrated by the following (for SBML Level&nbsp;2 Version&nbsp;4):
@@ -53,14 +59,14 @@
  * @htmlinclude listof-illustration.html
  *
  * Readers may wonder about the motivations for using the ListOf___
- * containers.  A simpler approach in XML might be to place the components
- * all directly at the top level of the model definition.  The choice made
- * in SBML is to group them within XML elements named after
- * ListOf<em>Classname</em>, in part because it helps organize the
+ * containers in SBML.  A simpler approach in XML might be to place the
+ * components all directly at the top level of the model definition.  The
+ * choice made in SBML is to group them within XML elements named after
+ * %ListOf<em>Classname</em>, in part because it helps organize the
  * components.  More importantly, the fact that the container classes are
  * derived from SBase means that software tools can add information @em about
  * the lists themselves into each list container's "annotation".
- * 
+ *
  * @see ListOfFunctionDefinitions
  * @see ListOfUnitDefinitions
  * @see ListOfCompartmentTypes
@@ -73,6 +79,16 @@
  * @see ListOfConstraints
  * @see ListOfReactions
  * @see ListOfEvents
+ *
+ * @if conly
+ * @note In the C API for libSBML, functions that in other language APIs
+ * would be inherited by the various ListOf___ structures not shown in the
+ * pages for the individual ListOf___'s.  Instead, the functions are defined
+ * on ListOf_t.  <strong>Please consult the documentation for ListOf_t for
+ * the many common functions available for manipulating ListOf___
+ * structures</strong>.  The documentation for the individual ListOf___
+ * structures (ListOfCompartments_t, ListOfReactions_t, etc.) does not reveal
+ * all of the functionality available. @endif@~
  *
  * <!-- ------------------------------------------------------------------- -->
  * @class doc_what_are_sbmlnamespaces
