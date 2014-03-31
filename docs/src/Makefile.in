@@ -281,15 +281,11 @@ distfiles =                                                  \
         libsbml-features.html                                \
         libsbml-features.txt                                 \
         libsbml-group-comp-intro.html.in                     \
-        libsbml-group-comp-intro.txt                         \
         libsbml-group-core-intro.html.in                     \
-        libsbml-group-core-intro.txt                         \
         libsbml-group-fbc-intro.html.in                      \
-        libsbml-group-fbc-intro.txt                          \
         libsbml-group-layout-intro.html.in                   \
-        libsbml-group-layout-intro.txt                       \
         libsbml-group-qual-intro.html.in                     \
-        libsbml-group-qual-intro.txt                         \
+        libsbml-groups.txt                                   \
         libsbml-howto-implement-extension.txt                \
         libsbml-installation.html.in                         \
         libsbml-installation.txt                             \

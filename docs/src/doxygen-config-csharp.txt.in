@@ -53,11 +53,7 @@ INPUT =                                 \
   libsbml-extending.txt                 \
   libsbml-extension-support-classes.txt \
   libsbml-features.txt                  \
-  libsbml-group-comp-intro.txt          \
-  libsbml-group-core-intro.txt          \
-  libsbml-group-fbc-intro.txt           \
-  libsbml-group-layout-intro.txt        \
-  libsbml-group-qual-intro.txt          \
+  libsbml-groups.txt                    \
   libsbml-howto-implement-extension.txt \
   libsbml-installation.txt              \
   libsbml-issues.txt                    \
