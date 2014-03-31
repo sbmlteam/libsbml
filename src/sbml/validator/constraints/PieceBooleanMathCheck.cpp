@@ -96,6 +96,12 @@ PieceBooleanMathCheck::getPreamble ()
 void
 PieceBooleanMathCheck::checkMath (const Model& m, const ASTNode& node, const SBase & sb)
 {
+  /* should not be here but why not catch it rather than crash*/
+  if (&(node) == NULL)
+  {
+    return;
+  }
+
   ASTNodeType_t type = node.getType();
 
   switch (type) 
@@ -133,7 +139,7 @@ PieceBooleanMathCheck::checkPiece (const Model& m, const ASTNode& node,
   unsigned int numPieces = numChildren;
 
   if ((numChildren % 2) != 0) numPieces--;
-
+  
   for (unsigned int n = 1; n < numPieces; n += 2)
   {
     if (!node.getChild(n)->isBoolean())

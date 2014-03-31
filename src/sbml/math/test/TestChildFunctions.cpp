@@ -1607,6 +1607,265 @@ START_TEST (test_ChildFunctions_replace)
 END_TEST
 
 
+START_TEST (test_ChildFunctions_replaceInPiecewise_1)
+{
+  const char* expected = wrapMathML
+  (
+    "  <piecewise>\n"
+    "    <piece>\n"
+    "      <ci> newChild </ci>\n"
+    "      <apply>\n"
+    "        <lt/>\n"
+    "        <ci> x </ci>\n"
+    "        <cn> 0 </cn>\n"
+    "      </apply>\n"
+    "    </piece>\n"
+    "  </piecewise>\n"
+  );
+
+  const char* original = wrapMathML
+  (
+    "<piecewise>"
+    "  <piece>"
+    "    <ci> x </ci>"
+    "    <apply> <lt/> <ci>x</ci> <cn>0</cn> </apply>"
+    "  </piece>"
+    "</piecewise>"
+  );
+
+  N = readMathMLFromString(original);
+
+  /* old behaviour - we should have 2 children */
+  fail_unless(N->getNumChildren() == 2);
+
+  ASTNode * newChild = new ASTNode(AST_NAME);
+  newChild->setName("newChild");
+
+  /* check we fail nicely if we try to access more children */
+  int i = N->replaceChild(3, newChild);
+
+  fail_unless ( i == LIBSBML_INDEX_EXCEEDS_SIZE);
+  fail_unless(N->getNumChildren() == 2);
+
+  i = N->replaceChild(2, newChild);
+
+  fail_unless ( i == LIBSBML_INDEX_EXCEEDS_SIZE);
+  fail_unless(N->getNumChildren() == 2);
+
+  i = N->replaceChild(0, newChild);
+
+  fail_unless ( i == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(N->getNumChildren() == 2);
+
+  ASTNode *child = N->getChild(0);
+
+  fail_unless( child->getType() == AST_NAME);
+  fail_unless( strcmp(child->getName(), "newChild") == 0); 
+
+  S = writeMathMLToString(N);
+
+  fail_unless( equals(expected, S) );
+
+}
+END_TEST
+
+
+START_TEST (test_ChildFunctions_replaceInPiecewise_2)
+{
+  const char* expected = wrapMathML
+  (
+    "  <piecewise>\n"
+    "    <piece>\n"
+    "      <ci> x </ci>\n"
+    "      <apply>\n"
+    "        <lt/>\n"
+    "        <ci> x </ci>\n"
+    "        <cn> 0 </cn>\n"
+    "      </apply>\n"
+    "    </piece>\n"
+    "    <otherwise>\n"
+    "      <ci> newChild </ci>\n"
+    "    </otherwise>\n"
+    "  </piecewise>\n"
+  );
+
+  const char* original = wrapMathML
+  (
+    "<piecewise>"
+    "  <piece>"
+    "    <ci> x </ci>"
+    "    <apply> <lt/> <ci>x</ci> <cn>0</cn> </apply>"
+    "  </piece>"
+    "  <otherwise> <ci> x </ci> </otherwise>"
+    "</piecewise>"
+  );
+
+  N = readMathMLFromString(original);
+
+  /* old behaviour - we should have 3 children */
+  fail_unless(N->getNumChildren() == 3);
+
+  ASTNode * newChild = new ASTNode(AST_NAME);
+  newChild->setName("newChild");
+
+  /* check we fail nicely if we try to access more children */
+  int i = N->replaceChild(4, newChild);
+
+  fail_unless ( i == LIBSBML_INDEX_EXCEEDS_SIZE);
+  fail_unless(N->getNumChildren() == 3);
+
+  i = N->replaceChild(3, newChild);
+
+  fail_unless ( i == LIBSBML_INDEX_EXCEEDS_SIZE);
+  fail_unless(N->getNumChildren() == 3);
+
+  i = N->replaceChild(2, newChild);
+
+  fail_unless ( i == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(N->getNumChildren() == 3);
+
+  ASTNode *child = N->getChild(2);
+
+  fail_unless( child->getType() == AST_NAME);
+  fail_unless( strcmp(child->getName(), "newChild") == 0); 
+
+  S = writeMathMLToString(N);
+
+  fail_unless( equals(expected, S) );
+
+}
+END_TEST
+
+
+START_TEST (test_ChildFunctions_replaceInPiecewise_3)
+{
+  const char* expected = wrapMathML
+  (
+    "  <piecewise>\n"
+    "    <piece>\n"
+    "      <ci> x </ci>\n"
+    "      <apply>\n"
+    "        <plus/>\n"
+    "        <ci> a </ci>\n"
+    "        <ci> b </ci>\n"
+    "      </apply>\n"
+    "    </piece>\n"
+    "    <otherwise>\n"
+    "      <ci> x </ci>\n"
+    "    </otherwise>\n"
+    "  </piecewise>\n"
+  );
+
+  const char* original = wrapMathML
+  (
+    "<piecewise>"
+    "  <piece>"
+    "    <ci> x </ci>"
+    "    <apply> <lt/> <ci>x</ci> <cn>0</cn> </apply>"
+    "  </piece>"
+    "  <otherwise> <ci> x </ci> </otherwise>"
+    "</piecewise>"
+  );
+
+  N = readMathMLFromString(original);
+
+  /* old behaviour - we should have 3 children */
+  fail_unless(N->getNumChildren() == 3);
+
+  ASTNode * newChild = SBML_parseFormula("a + b");
+
+  int i = N->replaceChild(1, newChild);
+
+  fail_unless ( i == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(N->getNumChildren() == 3);
+
+  ASTNode *child = N->getChild(1);
+
+  fail_unless( child->getType() == AST_PLUS);
+  fail_unless( child->getNumChildren() == 2);
+
+  S = writeMathMLToString(N);
+
+  fail_unless( equals(expected, S) );
+
+}
+END_TEST
+
+
+START_TEST (test_ChildFunctions_replaceInPiecewise_4)
+{
+  const char* expected = wrapMathML
+  (
+    "  <piecewise>\n"
+    "    <piece>\n"
+    "      <apply>\n"
+    "        <cos/>\n"
+    "        <ci> x </ci>\n"
+    "      </apply>\n"
+    "      <apply>\n"
+    "        <lt/>\n"
+    "        <ci> x </ci>\n"
+    "        <cn> 0 </cn>\n"
+    "      </apply>\n"
+    "    </piece>\n"
+    "    <piece>\n"
+    "      <cn> 0 </cn>\n"
+    "      <apply>\n"
+    "        <eq/>\n"
+    "        <ci> x </ci>\n"
+    "        <cn> 0 </cn>\n"
+    "      </apply>\n"
+    "    </piece>\n"
+    "    <piece>\n"
+    "      <cn type=\"integer\"> 3 </cn>\n"
+    "      <apply>\n"
+    "        <gt/>\n"
+    "        <ci> x </ci>\n"
+    "        <cn> 0 </cn>\n"
+    "      </apply>\n"
+    "    </piece>\n"
+    "  </piecewise>\n"
+  );
+
+  const char* original = wrapMathML
+  (
+    "<piecewise>"
+    "  <piece>"
+    "    <apply> <cos/> <ci>x</ci> </apply>"
+    "    <apply> <lt/> <ci>x</ci> <cn>0</cn> </apply>"
+    "  </piece>"
+    "  <piece>"
+    "    <cn>0</cn>"
+    "    <apply> <eq/> <ci>x</ci> <cn>0</cn> </apply>"
+    "  </piece>"
+    "  <piece>"
+    "    <ci>x</ci>"
+    "    <apply> <gt/> <ci>x</ci> <cn>0</cn> </apply>"
+    "  </piece>"
+    "</piecewise>"
+  );
+
+  N = readMathMLFromString(original);
+
+  /* old behaviour - we should have 6 children */
+  fail_unless(N->getNumChildren() == 6);
+
+  ASTNode * newChild = SBML_parseFormula("3");
+
+  int i = N->replaceChild(4, newChild);
+
+  fail_unless ( i == LIBSBML_OPERATION_SUCCESS);
+
+  fail_unless(N->getNumChildren() == 6);
+  
+  S = writeMathMLToString(N);
+
+  fail_unless( equals(expected, S) );
+
+}
+END_TEST
+
+
 START_TEST (test_ChildFunctions_insert)
 {
 
@@ -1803,6 +2062,59 @@ START_TEST (test_ChildFunctions_insertIntoPiecewise_3)
 
   ASTNode * newChild = new ASTNode(AST_NAME);
   newChild->setName("newChild");
+  
+  /* check we fail nicely if we try to access more children */
+  int i = N->prependChild(newChild);
+
+  fail_unless ( i == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(N->getNumChildren() == 3);
+
+  S = writeMathMLToString(N);
+
+  fail_unless( equals(expected, S) );
+}
+END_TEST
+
+
+START_TEST (test_ChildFunctions_insertIntoPiecewise_4)
+{
+  const char* expected = wrapMathML
+  (
+    "  <piecewise>\n"
+    "    <piece>\n"
+    "      <apply>\n"
+    "        <plus/>\n"
+    "        <ci> a </ci>\n"
+    "        <ci> b </ci>\n"
+    "      </apply>\n"
+    "      <cn> 0 </cn>\n"
+    "    </piece>\n"
+    "    <otherwise>\n"
+    "      <apply>\n"
+    "        <eq/>\n"
+    "        <ci> x </ci>\n"
+    "        <cn> 0 </cn>\n"
+    "      </apply>\n"
+    "    </otherwise>\n"
+    "  </piecewise>\n"
+  );
+
+  const char* original = wrapMathML
+  (
+    "<piecewise>"
+    "  <piece>"
+    "    <cn>0</cn>"
+    "    <apply> <eq/> <ci>x</ci> <cn>0</cn> </apply>"
+    "  </piece>"
+    "</piecewise>"
+  );
+
+  N = readMathMLFromString(original);
+
+  /* old behaviour - we should have 2 children */
+  fail_unless(N->getNumChildren() == 2);
+
+  ASTNode * newChild = SBML_parseFormula("a + b");
   
   /* check we fail nicely if we try to access more children */
   int i = N->prependChild(newChild);
@@ -2283,10 +2595,15 @@ create_suite_TestChildFunctions ()
   tcase_add_test( tcase, test_ChildFunctions_removeFromRoot_3  );
   tcase_add_test( tcase, test_ChildFunctions_removeFromRoot_4  );
   tcase_add_test( tcase, test_ChildFunctions_replace               );
+  tcase_add_test( tcase, test_ChildFunctions_replaceInPiecewise_1  );
+  tcase_add_test( tcase, test_ChildFunctions_replaceInPiecewise_2  );
+  tcase_add_test( tcase, test_ChildFunctions_replaceInPiecewise_3  );
+  tcase_add_test( tcase, test_ChildFunctions_replaceInPiecewise_4  );
   tcase_add_test( tcase, test_ChildFunctions_insert               );
   tcase_add_test( tcase, test_ChildFunctions_insertIntoPiecewise_1               );
   tcase_add_test( tcase, test_ChildFunctions_insertIntoPiecewise_2               );
   tcase_add_test( tcase, test_ChildFunctions_insertIntoPiecewise_3               );
+  tcase_add_test( tcase, test_ChildFunctions_insertIntoPiecewise_4               );
   tcase_add_test( tcase, test_ChildFunctions_insertIntoLambda_1               );
   tcase_add_test( tcase, test_ChildFunctions_insertIntoLambda_2               );
   tcase_add_test( tcase, test_ChildFunctions_insertIntoLambda_3               );

@@ -99,6 +99,12 @@ FunctionApplyMathCheck::getPreamble ()
 void
 FunctionApplyMathCheck::checkMath (const Model& m, const ASTNode& node, const SBase & sb)
 {
+  /* should not be here but why not catch it rather than crash*/
+  if (&(node) == NULL)
+  {
+    return;
+  }
+
   ASTNodeType_t type = node.getType();
 
   switch (type) 

@@ -250,7 +250,7 @@ ASTFunctionBase::replaceChild(unsigned int n, ASTBase* newChild)
   {
     //delete mChildren[n];
     mChildren.erase(mChildren.begin() + n);
-    if (insertChild(n, newChild) == LIBSBML_OPERATION_SUCCESS)
+    if (ASTFunctionBase::insertChild(n, newChild) == LIBSBML_OPERATION_SUCCESS)
     {
       replaced = LIBSBML_OPERATION_SUCCESS;
     }
@@ -270,7 +270,7 @@ ASTFunctionBase::insertChild(unsigned int n, ASTBase* newChild)
   unsigned int size = ASTFunctionBase::getNumChildren();
   if (n == 0)
   {
-    prependChild(newChild);
+    ASTFunctionBase::prependChild(newChild);
     inserted = LIBSBML_OPERATION_SUCCESS;
   }
   else if (n <= size) 

@@ -3534,6 +3534,66 @@ START_TEST (test_ASTNode_replaceArgument2)
 END_TEST
 
 
+START_TEST (test_ASTNode_replaceArgument3)
+{
+  ASTNode_t *node = SBML_parseFormula("piecewise(x, gt(x, y), x)");
+  ASTNode_t *repl1 = SBML_parseFormula("a/b");
+  ASTNode_t *repl2 = SBML_parseFormula("2");
+
+  const char* bvar = "x";
+
+  ASTNode_replaceArgument(node, bvar, repl2);
+
+  fail_unless( !strcmp(SBML_formulaToString(node), "piecewise(2, gt(2, y), 2)")); 
+
+  ASTNode_replaceArgument(node, "y", repl1);
+
+  fail_unless( !strcmp(SBML_formulaToString(node), "piecewise(2, gt(2, a / b), 2)")); 
+  ASTNode_free(node);
+}
+END_TEST
+
+
+START_TEST (test_ASTNode_replaceArgument4)
+{
+  ASTNode_t *node = SBML_parseFormula("piecewise(x, gt(x, y), y)");
+  ASTNode_t *repl1 = SBML_parseFormula("a/b");
+  ASTNode_t *repl2 = SBML_parseFormula("2");
+
+  const char* bvar = "x";
+
+  ASTNode_replaceArgument(node, bvar, repl2);
+
+  fail_unless( !strcmp(SBML_formulaToString(node), "piecewise(2, gt(2, y), y)")); 
+
+  ASTNode_replaceArgument(node, "y", repl1);
+
+  fail_unless( !strcmp(SBML_formulaToString(node), "piecewise(2, gt(2, a / b), a / b)")); 
+  ASTNode_free(node);
+}
+END_TEST
+
+
+START_TEST (test_ASTNode_replaceArgument5)
+{
+  ASTNode_t *node = SBML_parseFormula("piecewise(y, gt(x, y), x)");
+  ASTNode_t *repl1 = SBML_parseFormula("a/b");
+  ASTNode_t *repl2 = SBML_parseFormula("2");
+
+  const char* bvar = "x";
+
+  ASTNode_replaceArgument(node, bvar, repl2);
+
+  fail_unless( !strcmp(SBML_formulaToString(node), "piecewise(y, gt(2, y), 2)")); 
+
+  ASTNode_replaceArgument(node, "y", repl1);
+
+  fail_unless( !strcmp(SBML_formulaToString(node), "piecewise(a / b, gt(2, a / b), 2)")); 
+  ASTNode_free(node);
+}
+END_TEST
+
+
 START_TEST (test_ASTNode_removeChild)
 {
   ASTNode_t *node = ASTNode_create();
@@ -4703,6 +4763,9 @@ create_suite_ASTNode (void)
   tcase_add_test( tcase, test_ASTNode_replaceArgument         );
   tcase_add_test( tcase, test_ASTNode_replaceArgument1         );
   tcase_add_test( tcase, test_ASTNode_replaceArgument2         );
+  tcase_add_test( tcase, test_ASTNode_replaceArgument3         );
+  tcase_add_test( tcase, test_ASTNode_replaceArgument4         );
+  tcase_add_test( tcase, test_ASTNode_replaceArgument5         );
   tcase_add_test( tcase, test_ASTNode_removeChild             );
   tcase_add_test( tcase, test_ASTNode_replaceChild            );
   tcase_add_test( tcase, test_ASTNode_insertChild             );

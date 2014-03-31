@@ -506,6 +506,153 @@ ASTPiecewiseFunctionNode::insertChild(unsigned int n, ASTBase* newChild)
 }
 
 
+
+int 
+ASTPiecewiseFunctionNode::replaceChild(unsigned int n, ASTBase* newChild)
+{
+  int replaced = LIBSBML_INDEX_EXCEEDS_SIZE;
+  
+  unsigned int numChildrenForUser = getNumChildren();
+
+  if (n > numChildrenForUser)
+  {
+    return replaced;
+  }
+  else
+  {
+    //replaced = removeChild(n);
+    //if (replaced == LIBSBML_OPERATION_SUCCESS)
+    //{
+      // really want to call insert child but this can have issues with
+      // teh fact that we have just removed a child
+      // so call a private version
+      replaced = insertChildForReplace(n, newChild);
+    //}
+  }
+
+  return replaced;
+}
+
+
+int 
+ASTPiecewiseFunctionNode::insertChildForReplace(unsigned int n, ASTBase* newChild)
+{
+  int inserted = LIBSBML_INDEX_EXCEEDS_SIZE;
+
+  unsigned int numChildren = ASTFunctionBase::getNumChildren();
+  unsigned int numChildrenForUser = getNumChildren();
+
+  // determine index that we actually want
+  unsigned int childNo = (unsigned int)(n/2);
+  unsigned int pieceIndex = (unsigned int)(n%2);
+
+  if (numChildren == numChildrenForUser)
+  {
+    // we have an old style piecewise function
+    childNo = n;
+    pieceIndex = n;
+  }
+
+  ASTBase * base = NULL;
+  if (childNo < numChildren)
+  {
+    base = ASTFunctionBase::getChild(childNo);
+  }
+
+
+  if (getHasOtherwise() == true && childNo == numChildren - 1)
+  {
+    if (base == NULL)
+    {
+      return inserted;
+    }
+
+    if (base->getType() == AST_CONSTRUCTOR_OTHERWISE)
+    {
+      ASTNode * otherwise = dynamic_cast<ASTNode*>(base);
+
+      if (otherwise != NULL)
+      {
+        inserted = otherwise->replaceChild(0, 
+                                            static_cast<ASTNode*>(newChild));
+      }
+      else
+      {
+        return inserted;
+      }
+    }
+    else
+    {
+      inserted = ASTFunctionBase::replaceChild(childNo, newChild);
+    }
+  }
+  else if (base != NULL && base->getType() == AST_CONSTRUCTOR_PIECE)
+  {
+    ASTNode * piece = dynamic_cast<ASTNode*>(base);
+
+    if (piece != NULL)
+    {
+      if (piece->getNumChildren() > pieceIndex)
+      {
+        inserted = piece->replaceChild(pieceIndex, static_cast<ASTNode*>(newChild));
+      }
+      else
+      {
+        return inserted;
+      }
+    }
+    else
+    {
+      return inserted;
+    }
+  }
+  else if (n < numChildren)
+  {
+    return ASTFunctionBase::replaceChild(n, newChild);
+  }
+  else
+  {
+    return inserted;
+  }
+
+  return inserted;
+
+  //unsigned int numChildren = ASTFunctionBase::getNumChildren();
+
+  //vector < ASTBase *> copyChildren;
+  //unsigned int i;
+  //for (i = n; i < numChildren; i++)
+  //{
+  //  ASTBase * child = getChild(i);
+  //  // this might be NULL if we have deleted part of the piece function
+  //  if (child != NULL)
+  //  {
+  //    copyChildren.push_back(getChild(i));
+  //  }
+  //}
+  //for (i = numChildren; i > n; i--)
+  //{
+  //  ASTFunctionBase::removeChild(i-1);
+  //}
+
+  //unsigned int success = addChild(newChild);
+
+  //i = 0;
+  //while (success == LIBSBML_OPERATION_SUCCESS && i < copyChildren.size())
+  //{
+  //  success = addChild(copyChildren.at(i));
+  //  i++;
+  //}
+
+  //inserted = success;
+
+  //return inserted;
+}
+
+
+
+
+
 bool
 ASTPiecewiseFunctionNode::usingChildConstructors() const
 {

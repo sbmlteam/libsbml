@@ -2873,7 +2873,9 @@ ASTNode::replaceArgument(const std::string& bvar, ASTNode *arg)
               syncMembersAndTypeFrom(arg->getFunction(), arg->getType());
           }
 
-          this->replaceChild(i, newChild);
+          this->replaceChild(i, newChild->deepCopy());
+
+          delete newChild;
         }
       }
     }

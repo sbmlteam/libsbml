@@ -93,6 +93,12 @@ QualCSymbolMathCheck::check_ (const Model& m, const Model& object)
 void
 QualCSymbolMathCheck::checkMath (const Model& m, const ASTNode& node, const SBase & sb)
 {
+  /* should not be here but why not catch it rather than crash*/
+  if (&(node) == NULL)
+  {
+    return;
+  }
+
   ASTNodeType_t type = node.getType();
     
   /* if the node is a &lt;ci&gt; element it will have type AST_NAME

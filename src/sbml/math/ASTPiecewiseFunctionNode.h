@@ -98,6 +98,8 @@ public:
 
   virtual int insertChild(unsigned int n, ASTBase* newChild);
 
+  virtual int replaceChild(unsigned int n, ASTBase* newChild);
+
   virtual void write(XMLOutputStream& stream) const;
   virtual bool read(XMLInputStream& stream, const std::string& reqd_prefix="");
 
@@ -118,6 +120,7 @@ protected:
 
   bool usingChildConstructors() const;
 
+  int insertChildForReplace(unsigned int n, ASTBase* newChild);
   /* end doxygen comment */
 };
 
