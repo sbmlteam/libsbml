@@ -1689,22 +1689,6 @@ setValue(value, 0);
 
   /** @cond doxygenLibsbmlInternal */
 
-  /**
-   * Sets the attribute "definitionURL".
-   *
-   * @param url, string representing the definiionURL to be set
-   *
-   * @return integer value indicating success/failure of the
-   * function.  The possible values returned by this function are:
-   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
-   * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT @endlink
-   */
-  int setDefinitionURL(const std::string& url);
-
-  /** @endcond */
-
-  /** @cond doxygenLibsbmlInternal */
-
   /*
    * writes the node to the stream 
    */
