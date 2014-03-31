@@ -129,7 +129,6 @@ LIBSBML_CPP_NAMESPACE_USE
 %ignore ASTNode::getSemanticsFlag;
 %ignore ASTNode::setUserData;
 %ignore ASTNode::getUserData;
-%ignore ASTNode::setParentSBMLObject;
 
 /** 
  * Ignore the list that can't be wrapped
