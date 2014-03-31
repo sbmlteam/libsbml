@@ -35,8 +35,7 @@
 ###############################################################################
 
 option(ENABLE_LAYOUT
-"Enable libSBML support for the SBML Level 3 Graphical Layout
-('layout') package." OFF)
+"Enable libSBML support for the SBML Level 3 Graphical Layout ('layout') package." OFF)
 
 if(ENABLE_LAYOUT)
 	add_definitions( -DUSE_LAYOUT )

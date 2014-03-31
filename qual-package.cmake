@@ -32,8 +32,7 @@
 ###############################################################################
 
 option(ENABLE_QUAL
-"Enable libSBML support for the SBML Level 3 Qualitative Models
-('qual') package." OFF)
+"Enable libSBML support for the SBML Level 3 Qualitative Models ('qual') package." OFF)
 
 if(ENABLE_QUAL)
 	add_definitions(-DUSE_QUAL)

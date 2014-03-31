@@ -32,8 +32,7 @@
 ###############################################################################
 
 option(ENABLE_FBC
-"Enable libSBML support for the SBML Level 3 Flux Balance Constraints
-('fbc') package." OFF)
+"Enable libSBML support for the SBML Level 3 Flux Balance Constraints ('fbc') package." OFF)
 
 if(ENABLE_FBC)
     SET(USE_FBC TRUE)
