@@ -330,20 +330,11 @@ distfiles =                                                  \
         python-substitutions/CompPkgNamespaces.py            \
         python-substitutions/DateList.py                     \
         python-substitutions/FbcPkgNamespaces.py             \
-        python-substitutions/ISBMLExtensionNamespaces.py     \
         python-substitutions/LayoutPkgNamespaces.py          \
-        python-substitutions/libsbml.py                      \
         python-substitutions/ModelCreatorList.py             \
         python-substitutions/QualPkgNamespaces.py            \
-        python-substitutions/SBMLExtension.py                \
         python-substitutions/SBMLNamespacesList.py           \
-        python-substitutions/SBMLTransforms.py               \
-        python-substitutions/SBaseExtensionPoint.py          \
-        python-substitutions/SBaseList.py                    \
-        python-substitutions/string.py                       \
-        python-substitutions/SwigPyIterator.py               \
-        python-substitutions/XMLInputStream.py               \
-        python-substitutions/XMLOutputStream.py              \
+        python-substitutions/libsbml.py                      \
         sbml.js                                              \
         utilities/compare-constants.py                       \
         utilities/generate-pkg-stylesheet.py                 \
