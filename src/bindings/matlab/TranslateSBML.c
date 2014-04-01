@@ -1074,6 +1074,15 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
     mxSetField( plhs[0], 0, "notes"      , mxCreateString(pacNotes)       );
     mxSetField( plhs[0], 0, "annotation", mxCreateString(pacAnnotations) );
 
+    if (strcmp(pacAnnotations, "") != 0)
+    {
+      free((char*)pacAnnotations);
+    }
+    if (strcmp(pacNotes, "") != 0)
+    {
+      free((char*)pacNotes);
+    }
+
     if (unSBMLLevel == 2)
     {
       if (unSBMLVersion > 1) 
@@ -1164,14 +1173,6 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
     plhs[0] = mxCreateStructArray(0, 0, 0, NULL);
   }
 
-  if (strcmp(pacAnnotations, "") != 0)
-  {
-    free((char*)pacAnnotations);
-  }
-  if (strcmp(pacNotes, "") != 0)
-  {
-    free((char*)pacNotes);
-  }
 
 
 }
@@ -1837,6 +1838,16 @@ GetSpecies ( Model_t      *pModel,
     }
     mxSetField(mxSpeciesReturn, i, "notes",mxCreateString(pacNotes));
     mxSetField(mxSpeciesReturn, i, "annotation",mxCreateString(pacAnnotations));
+
+    if (strcmp(pacAnnotations, "") != 0)
+    {
+      free((char*)pacAnnotations);
+    }
+    if (strcmp(pacNotes, "") != 0)
+    {
+      free((char*)pacNotes);
+    }
+
     if ((unSBMLLevel == 2 && unSBMLVersion > 2) || unSBMLLevel > 2) 
     {
       mxSetField(mxSpeciesReturn,i,"sboTerm",CreateIntScalar(nSBO)); 
@@ -1898,14 +1909,7 @@ GetSpecies ( Model_t      *pModel,
      }
     }
   }
-  if (strcmp(pacAnnotations, "") != 0)
-  {
-    free((char*)pacAnnotations);
-  }
-  if (strcmp(pacNotes, "") != 0)
-  {
-    free((char*)pacNotes);
-  }
+
 }
 
 
@@ -2090,6 +2094,16 @@ GetUnitDefinition ( Model_t      *pModel,
     }
     mxSetField(mxUnitDefReturn, i, "notes",mxCreateString(pacNotes));
     mxSetField(mxUnitDefReturn, i, "annotation",mxCreateString(pacAnnotations));
+
+    if (strcmp(pacAnnotations, "") != 0)
+    {
+      free((char*)pacAnnotations);
+    }
+    if (strcmp(pacNotes, "") != 0)
+    {
+      free((char*)pacNotes);
+    }
+
     if ((unSBMLLevel == 2 && unSBMLVersion > 2) || unSBMLLevel > 2)
     {
       mxSetField(mxUnitDefReturn,i,"sboTerm",CreateIntScalar(nSBO)); 
@@ -2102,15 +2116,6 @@ GetUnitDefinition ( Model_t      *pModel,
     mxSetField(mxUnitDefReturn,i,"unit",mxUnitReturn); 
     
     mxUnitReturn = NULL;
-
-    if (strcmp(pacAnnotations, "") != 0)
-    {
-      free((char*)pacAnnotations);
-    }
-    if (strcmp(pacNotes, "") != 0)
-    {
-      free((char*)pacNotes);
-    }
 
   }
 }
@@ -4879,6 +4884,16 @@ GetModifier ( Reaction_t   *pReaction,
     }
     mxSetField(mxModifierReturn, i, "notes",mxCreateString(pacNotes));
     mxSetField(mxModifierReturn, i, "annotation",mxCreateString(pacAnnotations));
+
+    if (strcmp(pacAnnotations, "") != 0)
+    {
+      free((char*)pacAnnotations);
+    }
+    if (strcmp(pacNotes, "") != 0)
+    {
+      free((char*)pacNotes);
+    }
+
     if ((unSBMLLevel == 2 && unSBMLVersion > 2) || unSBMLLevel > 2)
     {
       mxSetField(mxModifierReturn,i,"sboTerm",CreateIntScalar(nSBO)); 
@@ -4892,15 +4907,6 @@ GetModifier ( Reaction_t   *pReaction,
     if (unSBMLLevel == 2 && unSBMLVersion == 2)
     {
       mxSetField(mxModifierReturn,i,"sboTerm",CreateIntScalar(nSBO));
-    }
-
-    if (strcmp(pacAnnotations, "") != 0)
-    {
-      free((char*)pacAnnotations);
-    }
-    if (strcmp(pacNotes, "") != 0)
-    {
-      free((char*)pacNotes);
     }
 
   }
@@ -5344,6 +5350,18 @@ GetRule ( Model_t      *pModel,
     }
     mxSetField(mxListRuleReturn, i, "notes",mxCreateString(pacNotes));
     mxSetField(mxListRuleReturn, i, "annotation",mxCreateString(pacAnnotations));
+
+
+    if (strcmp(pacAnnotations, "") != 0)
+    {
+      free((char*)pacAnnotations);
+    }
+    if (strcmp(pacNotes, "") != 0)
+    {
+      free((char*)pacNotes);
+    }
+
+
     if (unSBMLLevel == 1){
         mxSetField(mxListRuleReturn,i,"type",mxCreateString(pacType));
     }
@@ -5358,16 +5376,7 @@ GetRule ( Model_t      *pModel,
     mxSetField(mxListRuleReturn,i,"name",mxCreateString(pacName)); 
     mxSetField(mxListRuleReturn,i,"units",mxCreateString(pacUnits)); 
 
-    if (strcmp(pacAnnotations, "") != 0)
-    {
-      free((char*)pacAnnotations);
-    }
-    if (strcmp(pacNotes, "") != 0)
-    {
-      free((char*)pacNotes);
-    }
-
-  }  
+  }
 }
 
 
@@ -5566,14 +5575,6 @@ GetFunctionDefinition ( Model_t      *pModel,
     mxSetField(mxFunctionDefReturn, i, "metaid", mxCreateString(pacMetaid));
     mxSetField(mxFunctionDefReturn, i, "notes",mxCreateString(pacNotes));
     mxSetField(mxFunctionDefReturn, i, "annotation",mxCreateString(pacAnnotations));
-    if ((unSBMLLevel == 2 && unSBMLVersion != 1) || unSBMLLevel > 2)
-    {
-      mxSetField(mxFunctionDefReturn,i,"sboTerm",CreateIntScalar(nSBO)); 
-    }
-    mxSetField(mxFunctionDefReturn,i,"name",mxCreateString(pacName)); 
-    mxSetField(mxFunctionDefReturn,i,"id",mxCreateString(pacId)); 
-    mxSetField(mxFunctionDefReturn,i,"math",mxCreateString(pacFormula)); 
-
 
     if (strcmp(pacAnnotations, "") != 0)
     {
@@ -5583,6 +5584,15 @@ GetFunctionDefinition ( Model_t      *pModel,
     {
       free((char*)pacNotes);
     }
+
+    if ((unSBMLLevel == 2 && unSBMLVersion != 1) || unSBMLLevel > 2)
+    {
+      mxSetField(mxFunctionDefReturn,i,"sboTerm",CreateIntScalar(nSBO)); 
+    }
+    mxSetField(mxFunctionDefReturn,i,"name",mxCreateString(pacName)); 
+    mxSetField(mxFunctionDefReturn,i,"id",mxCreateString(pacId)); 
+    mxSetField(mxFunctionDefReturn,i,"math",mxCreateString(pacFormula)); 
+
 
   }
 }
@@ -5885,6 +5895,16 @@ GetEvent (Model_t      *pModel,
     mxSetField(mxEventReturn, i, "metaid", mxCreateString(pacMetaid));
     mxSetField(mxEventReturn, i, "notes",mxCreateString(pacNotes));
     mxSetField(mxEventReturn, i, "annotation",mxCreateString(pacAnnotations));
+
+    if (strcmp(pacAnnotations, "") != 0)
+    {
+      free((char*)pacAnnotations);
+    }
+    if (strcmp(pacNotes, "") != 0)
+    {
+      free((char*)pacNotes);
+    }
+
     if ((unSBMLLevel == 2 && unSBMLVersion > 2) || unSBMLLevel > 2) 
     {
       mxSetField(mxEventReturn,i,"sboTerm",CreateIntScalar(nSBO)); 
@@ -5924,14 +5944,6 @@ GetEvent (Model_t      *pModel,
     mxDelayReturn = NULL;
     mxPriorityReturn = NULL;
 
-    if (strcmp(pacAnnotations, "") != 0)
-    {
-      free((char*)pacAnnotations);
-    }
-    if (strcmp(pacNotes, "") != 0)
-    {
-      free((char*)pacNotes);
-    }
 
   }
 }
@@ -6120,7 +6132,17 @@ GetEventAssignment ( Event_t      *pEvent,
     mxSetField(mxEventAssignReturn, i, "metaid", mxCreateString(pacMetaid));
     mxSetField(mxEventAssignReturn, i, "notes",mxCreateString(pacNotes));
     mxSetField(mxEventAssignReturn, i, "annotation",mxCreateString(pacAnnotations));
-    if ((unSBMLLevel == 2 && unSBMLVersion > 2) || unSBMLLevel > 2) 
+
+    if (strcmp(pacAnnotations, "") != 0)
+    {
+     free((char*)pacAnnotations);
+    }
+    if (strcmp(pacNotes, "") != 0)
+    {
+     free((char*)pacNotes);
+    }
+
+    if ((unSBMLLevel == 2 && unSBMLVersion > 2) || unSBMLLevel > 2)
     {
       mxSetField(mxEventAssignReturn,i,"sboTerm",CreateIntScalar(nSBO)); 
     }
@@ -6131,14 +6153,6 @@ GetEventAssignment ( Event_t      *pEvent,
     }
     mxSetField(mxEventAssignReturn,i,"math",mxCreateString(pacFormula)); 
 
-    if (strcmp(pacAnnotations, "") != 0)
-    {
-      free((char*)pacAnnotations);
-    }
-    if (strcmp(pacNotes, "") != 0)
-    {
-      free((char*)pacNotes);
-    }
 
   }
 
@@ -6311,7 +6325,17 @@ GetTrigger ( Event_t      *pEvent,
   mxSetField(mxTriggerReturn, 0, "metaid", mxCreateString(pacMetaid));
   mxSetField(mxTriggerReturn, 0, "notes",      mxCreateString(pacNotes));
   mxSetField(mxTriggerReturn, 0, "annotation", mxCreateString(pacAnnotations));
-  mxSetField(mxTriggerReturn, 0, "sboTerm",    CreateIntScalar(nSBO)); 
+
+  if (strcmp(pacAnnotations, "") != 0)
+  {
+      free((char*)pacAnnotations);
+  }
+  if (strcmp(pacNotes, "") != 0)
+  {
+      free((char*)pacNotes);
+  }
+
+  mxSetField(mxTriggerReturn, 0, "sboTerm",    CreateIntScalar(nSBO));
   if (unSBMLLevel > 2)
   {
     mxSetField(mxTriggerReturn, 0, "persistent", CreateIntScalar(nPersistent));
@@ -6319,14 +6343,6 @@ GetTrigger ( Event_t      *pEvent,
   }
   mxSetField(mxTriggerReturn, 0, "math",       mxCreateString(pacFormula)); 
 
-  if (strcmp(pacAnnotations, "") != 0)
-  {
-    free((char*)pacAnnotations);
-  }
-  if (strcmp(pacNotes, "") != 0)
-  {
-    free((char*)pacNotes);
-  }
 
   }
 }
@@ -6481,8 +6497,7 @@ GetDelay ( Event_t      *pEvent,
     mxSetField(mxDelayReturn, 0, "metaid", mxCreateString(pacMetaid));
     mxSetField(mxDelayReturn, 0, "notes",      mxCreateString(pacNotes));
     mxSetField(mxDelayReturn, 0, "annotation", mxCreateString(pacAnnotations));
-    mxSetField(mxDelayReturn, 0, "sboTerm",    CreateIntScalar(nSBO)); 
-    mxSetField(mxDelayReturn, 0, "math",       mxCreateString(pacFormula)); 
+
 
     if (strcmp(pacAnnotations, "") != 0)
     {
@@ -6492,6 +6507,10 @@ GetDelay ( Event_t      *pEvent,
     {
       free((char*)pacNotes);
     }
+
+    mxSetField(mxDelayReturn, 0, "sboTerm",    CreateIntScalar(nSBO)); 
+    mxSetField(mxDelayReturn, 0, "math",       mxCreateString(pacFormula)); 
+
 
   }
 }
@@ -6635,17 +6654,19 @@ GetPriority ( Event_t      *pEvent,
   mxSetField(mxPriorityReturn, 0, "metaid", mxCreateString(pacMetaid));
   mxSetField(mxPriorityReturn, 0, "notes",      mxCreateString(pacNotes));
   mxSetField(mxPriorityReturn, 0, "annotation", mxCreateString(pacAnnotations));
-  mxSetField(mxPriorityReturn, 0, "sboTerm",    CreateIntScalar(nSBO)); 
-  mxSetField(mxPriorityReturn, 0, "math",       mxCreateString(pacFormula)); 
 
   if (strcmp(pacAnnotations, "") != 0)
   {
-    free((char*)pacAnnotations);
+      free((char*)pacAnnotations);
   }
   if (strcmp(pacNotes, "") != 0)
   {
-    free((char*)pacNotes);
+      free((char*)pacNotes);
   }
+
+  mxSetField(mxPriorityReturn, 0, "sboTerm",    CreateIntScalar(nSBO));
+  mxSetField(mxPriorityReturn, 0, "math",       mxCreateString(pacFormula)); 
+
 
   }
 }
@@ -6948,12 +6969,7 @@ GetCompartmentType (Model_t      *pModel,
     mxSetField(mxCompartmentTypeReturn, i, "metaid", mxCreateString(pacMetaid));
     mxSetField(mxCompartmentTypeReturn, i, "notes",mxCreateString(pacNotes));
     mxSetField(mxCompartmentTypeReturn, i, "annotation",mxCreateString(pacAnnotations));
-    if (unSBMLLevel == 2 && unSBMLVersion > 2) 
-    {
-      mxSetField(mxCompartmentTypeReturn,i,"sboTerm",CreateIntScalar(nSBO)); 
-    }
-    mxSetField(mxCompartmentTypeReturn,i,"name",mxCreateString(pacName)); 
-    mxSetField(mxCompartmentTypeReturn,i,"id",mxCreateString(pacId)); 
+
 
     if (strcmp(pacAnnotations, "") != 0)
     {
@@ -6963,6 +6979,14 @@ GetCompartmentType (Model_t      *pModel,
     {
       free((char*)pacNotes);
     }
+
+    if (unSBMLLevel == 2 && unSBMLVersion > 2) 
+    {
+      mxSetField(mxCompartmentTypeReturn,i,"sboTerm",CreateIntScalar(nSBO)); 
+    }
+    mxSetField(mxCompartmentTypeReturn,i,"name",mxCreateString(pacName)); 
+    mxSetField(mxCompartmentTypeReturn,i,"id",mxCreateString(pacId)); 
+
 
   }
 }
@@ -7107,12 +7131,7 @@ GetSpeciesType (Model_t      *pModel,
     mxSetField(mxSpeciesTypeReturn, i, "metaid", mxCreateString(pacMetaid));
     mxSetField(mxSpeciesTypeReturn, i, "notes",mxCreateString(pacNotes));
     mxSetField(mxSpeciesTypeReturn, i, "annotation",mxCreateString(pacAnnotations));
-    if (unSBMLLevel == 2 && unSBMLVersion > 2) 
-    {
-      mxSetField(mxSpeciesTypeReturn,i,"sboTerm",CreateIntScalar(nSBO)); 
-    }
-    mxSetField(mxSpeciesTypeReturn,i,"name",mxCreateString(pacName)); 
-    mxSetField(mxSpeciesTypeReturn,i,"id",mxCreateString(pacId)); 
+
 
     if (strcmp(pacAnnotations, "") != 0)
     {
@@ -7122,6 +7141,14 @@ GetSpeciesType (Model_t      *pModel,
     {
       free((char*)pacNotes);
     }
+
+    if (unSBMLLevel == 2 && unSBMLVersion > 2) 
+    {
+      mxSetField(mxSpeciesTypeReturn,i,"sboTerm",CreateIntScalar(nSBO)); 
+    }
+    mxSetField(mxSpeciesTypeReturn,i,"name",mxCreateString(pacName)); 
+    mxSetField(mxSpeciesTypeReturn,i,"id",mxCreateString(pacId)); 
+
 
   }
 }
@@ -7295,6 +7322,18 @@ GetInitialAssignment (Model_t      *pModel,
     mxSetField(mxInitialAssignReturn, i, "metaid", mxCreateString(pacMetaid));
     mxSetField(mxInitialAssignReturn, i, "notes",      mxCreateString(pacNotes));
     mxSetField(mxInitialAssignReturn, i, "annotation", mxCreateString(pacAnnotations));
+
+
+    if (strcmp(pacAnnotations, "") != 0)
+    {
+      free((char*)pacAnnotations);
+    }
+    if (strcmp(pacNotes, "") != 0)
+    {
+      free((char*)pacNotes);
+    }
+
+
     if ((unSBMLLevel == 2 && unSBMLVersion > 2) || unSBMLLevel > 2) 
     {
       mxSetField(mxInitialAssignReturn,i,"sboTerm",CreateIntScalar(nSBO)); 
@@ -7306,14 +7345,6 @@ GetInitialAssignment (Model_t      *pModel,
     }
     mxSetField(mxInitialAssignReturn, i, "math",       mxCreateString(pacMath)); 
 
-    if (strcmp(pacAnnotations, "") != 0)
-    {
-      free((char*)pacAnnotations);
-    }
-    if (strcmp(pacNotes, "") != 0)
-    {
-      free((char*)pacNotes);
-    }
 
   }
 }
@@ -7491,9 +7522,6 @@ GetConstraint (Model_t      *pModel,
     mxSetField(mxConstraintReturn, i, "metaid", mxCreateString(pacMetaid));
     mxSetField(mxConstraintReturn, i, "notes",mxCreateString(pacNotes));
     mxSetField(mxConstraintReturn, i, "annotation",mxCreateString(pacAnnotations));
-    mxSetField(mxConstraintReturn,i,"sboTerm",CreateIntScalar(nSBO)); 
-    mxSetField(mxConstraintReturn,i,"math",mxCreateString(pacMath)); 
-    mxSetField(mxConstraintReturn,i,"message",mxCreateString(pacMessage)); 
 
     if (strcmp(pacAnnotations, "") != 0)
     {
@@ -7503,6 +7531,11 @@ GetConstraint (Model_t      *pModel,
     {
       free((char*)pacNotes);
     }
+
+    mxSetField(mxConstraintReturn,i,"sboTerm",CreateIntScalar(nSBO)); 
+    mxSetField(mxConstraintReturn,i,"math",mxCreateString(pacMath)); 
+    mxSetField(mxConstraintReturn,i,"message",mxCreateString(pacMessage)); 
+
 
   }
 }
@@ -7640,12 +7673,7 @@ GetFluxBound (Model_t      *pModel,
     mxSetField(mxFluxBoundReturn, i, "metaid", mxCreateString(pacMetaid));
     mxSetField(mxFluxBoundReturn, i, "notes",mxCreateString(pacNotes));
     mxSetField(mxFluxBoundReturn, i, "annotation",mxCreateString(pacAnnotations));
-    mxSetField(mxFluxBoundReturn,i,"sboTerm",CreateIntScalar(nSBO)); 
-    mxSetField(mxFluxBoundReturn,i,"fbc_id",mxCreateString(pacId)); 
-    mxSetField(mxFluxBoundReturn,i,"fbc_reaction",mxCreateString(pacReaction)); 
-    mxSetField(mxFluxBoundReturn,i,"fbc_operation",mxCreateString(pacOperation)); 
-    mxSetField(mxFluxBoundReturn,i,"fbc_value",mxCreateDoubleScalar(dValue)); 
-    mxSetField(mxFluxBoundReturn,i,"isSetfbc_value",CreateIntScalar(unIsSetValue)); 
+
 
     if (strcmp(pacAnnotations, "") != 0)
     {
@@ -7655,6 +7683,14 @@ GetFluxBound (Model_t      *pModel,
     {
       free((char*)pacNotes);
     }
+
+    mxSetField(mxFluxBoundReturn,i,"sboTerm",CreateIntScalar(nSBO)); 
+    mxSetField(mxFluxBoundReturn,i,"fbc_id",mxCreateString(pacId)); 
+    mxSetField(mxFluxBoundReturn,i,"fbc_reaction",mxCreateString(pacReaction)); 
+    mxSetField(mxFluxBoundReturn,i,"fbc_operation",mxCreateString(pacOperation)); 
+    mxSetField(mxFluxBoundReturn,i,"fbc_value",mxCreateDoubleScalar(dValue)); 
+    mxSetField(mxFluxBoundReturn,i,"isSetfbc_value",CreateIntScalar(unIsSetValue)); 
+
 
 
   }
@@ -7779,23 +7815,24 @@ GetObjective (Model_t      *pModel,
     mxSetField(mxObjectiveReturn, i, "metaid", mxCreateString(pacMetaid));
     mxSetField(mxObjectiveReturn, i, "notes",mxCreateString(pacNotes));
     mxSetField(mxObjectiveReturn, i, "annotation",mxCreateString(pacAnnotations));
+
+    if (strcmp(pacAnnotations, "") != 0)
+    {
+      free((char*)pacAnnotations);
+      pacAnnotations = NULL;
+    }
+    if (strcmp(pacNotes, "") != 0)
+    {
+      free((char*)pacNotes);
+      pacNotes = NULL;
+    }
+
     mxSetField(mxObjectiveReturn,i,"sboTerm",CreateIntScalar(nSBO)); 
     mxSetField(mxObjectiveReturn,i,"fbc_id",mxCreateString(pacId)); 
     mxSetField(mxObjectiveReturn,i,"fbc_type",mxCreateString(pacType)); 
     mxSetField(mxObjectiveReturn,i,"fbc_fluxObjective",mxFluxObjectiveReturn); 
 
     mxFluxObjectiveReturn = NULL;
-
-    if (strcmp(pacAnnotations, "") != 0)
-    {
-      free((char*)pacAnnotations);
-    }
-    if (strcmp(pacNotes, "") != 0)
-    {
-      free((char*)pacNotes);
-    }
-  
-
   }
 }
 
@@ -7916,10 +7953,6 @@ GetFluxObjective (Objective_t      *pObjective,
     mxSetField(mxFluxObjectiveReturn, i, "metaid", mxCreateString(pacMetaid));
     mxSetField(mxFluxObjectiveReturn, i, "notes",mxCreateString(pacNotes));
     mxSetField(mxFluxObjectiveReturn, i, "annotation",mxCreateString(pacAnnotations));
-    mxSetField(mxFluxObjectiveReturn,i,"sboTerm",CreateIntScalar(nSBO)); 
-    mxSetField(mxFluxObjectiveReturn,i,"fbc_reaction",mxCreateString(pacReaction)); 
-    mxSetField(mxFluxObjectiveReturn,i,"fbc_coefficient",mxCreateDoubleScalar(dCoefficient)); 
-    mxSetField(mxFluxObjectiveReturn,i,"isSetfbc_coefficient",CreateIntScalar(unIsSetCoefficient)); 
 
     if (strcmp(pacAnnotations, "") != 0)
     {
@@ -7929,6 +7962,12 @@ GetFluxObjective (Objective_t      *pObjective,
     {
       free((char*)pacNotes);
     }
+
+    mxSetField(mxFluxObjectiveReturn,i,"sboTerm",CreateIntScalar(nSBO)); 
+    mxSetField(mxFluxObjectiveReturn,i,"fbc_reaction",mxCreateString(pacReaction)); 
+    mxSetField(mxFluxObjectiveReturn,i,"fbc_coefficient",mxCreateDoubleScalar(dCoefficient)); 
+    mxSetField(mxFluxObjectiveReturn,i,"isSetfbc_coefficient",CreateIntScalar(unIsSetCoefficient)); 
+
   
 
   }
