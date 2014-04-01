@@ -233,7 +233,7 @@ INSTALL(FILES ${CMAKE_CURRENT_BINARY_DIR}/libsbml.py  DESTINATION ${PYTHON_PACKA
 
 
 option(WITH_CREATE_PYTHON_SOURCE   "Generate Python Source Package." OFF)
-if (WITH_CREATE_PYTHON_SOURCE)
+if (WITH_CREATE_PYTHON_SOURCE AND EXISTS "${LIBSBML_ROOT_SOURCE_DIR}/dev/utilities/python_package/")
 
 SET(PYTHON_SOURCE_OUT_DIR ${CMAKE_CURRENT_BINARY_DIR}/out)
 file(TO_NATIVE_PATH ${PYTHON_SOURCE_OUT_DIR} NATIVE_OUT)
@@ -249,6 +249,7 @@ add_custom_command(
 		 -DBIN_DIR=\"${LIBSBML_ROOT_BINARY_DIR}\"
 		 -P "${LIBSBML_ROOT_SOURCE_DIR}/dev/utilities/python_package/create_package.cmake"
 
+	DEPENDS ${LIBSBML_ROOT_SOURCE_DIR}/VERSION.txt
 	WORKING_DIRECTORY "${LIBSBML_ROOT_SOURCE_DIR}/dev/utilities/python_package/"
     COMMENT "Configure Python source package"
 	)
@@ -263,6 +264,8 @@ add_custom_command(
 	ARGS setup.py 
 	     sdist
 
+	DEPENDS ${PYTHON_SOURCE_OUT_DIR}/setup.py
+	        ${LIBSBML_ROOT_SOURCE_DIR}/dev/utilities/python_package/create_package.cmake
 	WORKING_DIRECTORY "${PYTHON_SOURCE_OUT_DIR}"
     COMMENT "Create Python source package"
 	)

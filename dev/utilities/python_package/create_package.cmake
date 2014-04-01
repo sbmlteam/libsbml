@@ -120,7 +120,7 @@ foreach( directory ${DIRECTORIES} )
   
   file (MAKE_DIRECTORY ${OUT_DIR}/base/${directory})
   
-  file (GLOB SOURCE_FILES RELATIVE ${LIBSBML_ROOT_SOURCE_DIR}  
+  file (GLOB SOURCE_FILES RELATIVE ${CMAKE_CURRENT_SOURCE_DIR}  
         ${SRC_DIR}/${directory}/*.cpp 
         ${SRC_DIR}/${directory}/*.c 
 		${SRC_DIR}/${directory}/*.h 
@@ -142,7 +142,7 @@ file (GLOB SOURCE_FILES
 file(REMOVE ${SOURCE_FILES})
 
 # copy swigable files 
-file (GLOB SOURCE_FILES RELATIVE ${LIBSBML_ROOT_SOURCE_DIR}  
+file (GLOB SOURCE_FILES RELATIVE ${CMAKE_CURRENT_SOURCE_DIR}  
         ${SRC_DIR}/bindings/python/*.cpp 
     	${SRC_DIR}/bindings/python/*.h 
     	${SRC_DIR}/bindings/python/*.i 
@@ -158,6 +158,16 @@ file(
     COPY ${SOURCE_FILES} 
     DESTINATION ${OUT_DIR}/base/
 ) 
+
+file (GLOB HEADER_FILES
+        ${BIN_DIR}/src/sbml/common/*.h
+)		
+
+file(
+    COPY ${HEADER_FILES} 
+    DESTINATION ${OUT_DIR}/base/sbml/common
+) 
+
 
 # copy swigged files 
 file(
@@ -177,7 +187,7 @@ endif()
 file (MAKE_DIRECTORY ${OUT_DIR}/swig)
 
 # copy swig directory (needed as it is referenced directly)
-file (GLOB SOURCE_FILES RELATIVE ${LIBSBML_ROOT_SOURCE_DIR}  
+file (GLOB SOURCE_FILES RELATIVE ${CMAKE_CURRENT_SOURCE_DIR}  
         ${SRC_DIR}/bindings/swig/*.cpp 
     	${SRC_DIR}/bindings/swig/*.h 
     	${SRC_DIR}/bindings/swig/*.i 
@@ -231,9 +241,9 @@ endif()
 # copy manifest template
 file(
     COPY 
-	  ${LIBSBML_ROOT_SOURCE_DIR}/MANIFEST.in
+	  ${CMAKE_CURRENT_SOURCE_DIR}/MANIFEST.in
     DESTINATION ${OUT_DIR}/
 ) 
 
 #configure version in setup.py
-configure_file(${LIBSBML_ROOT_SOURCE_DIR}/setup.py.in ${OUT_DIR}/setup.py)
+configure_file(${CMAKE_CURRENT_SOURCE_DIR}/setup.py.in ${OUT_DIR}/setup.py)
