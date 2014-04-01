@@ -1,6 +1,4 @@
 /**
- * @cond doxygenLibsbmlInternal
- *
  * @file    XMLInputStream.h
  * @brief   XMLInputStream
  * @author  Ben Bornstein
@@ -453,5 +451,3 @@ LIBSBML_CPP_NAMESPACE_END
 
 #endif  /* !SWIG */
 #endif  /* XMLInputStream_h */
-
-/** @endcond */
