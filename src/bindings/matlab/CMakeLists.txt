@@ -38,16 +38,17 @@ find_package(Matlab)
 # on windows let us build the library using MSVC, on Linux and OS X we choose
 # to build with the buildSBML script by default
 set(MATLAB_MEX_DEFAULT)
+set(WITH_MATLAB_BUILDSBML_DEFAULT)
 if (UNIX)
-   set(WITH_MATLAB_BUILDSBML ON)
+   set(WITH_MATLAB_BUILDSBML_DEFAULT ON)
    set(MATLAB_MEX_DEFAULT OFF)
 else()
-   set(WITH_MATLAB_BUILDSBML OFF)
+   set(WITH_MATLAB_BUILDSBML_DEFAULT OFF)
    set(MATLAB_MEX_DEFAULT OFF)
 endif()
 
 option(WITH_MATLAB_BUILDSBML   
-      "Generate Matlab bindings using the buildsbml script from matlab"     ${WITH_MATLAB_BUILDSBML} )
+      "Generate Matlab bindings using the buildsbml script from matlab."     ${WITH_MATLAB_BUILDSBML_DEFAULT} )
 option(WITH_MATLAB_MEX   
       "Generate Matlab bindings using MEX compiler "     ${MATLAB_MEX_DEFAULT} )
 
