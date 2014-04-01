@@ -91,9 +91,9 @@ void GetNamespaces   (SBMLDocument_t *);
 
 
 mxArray * CreateIntScalar (int);
-char    * TypecodeToChar  (int);
-char    * RuleType_toString (RuleType_t);
-char    * ErrorSeverity_toString(unsigned int);
+const char    * TypecodeToChar  (int);
+const char    * RuleType_toString (RuleType_t);
+const char    * ErrorSeverity_toString(unsigned int);
 
 void LookForCSymbolTime(ASTNode_t *);
 void LookForCSymbolDelay(ASTNode_t *);
@@ -1166,7 +1166,7 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
 
 }
 
-char *
+const char *
 ErrorSeverity_toString(unsigned int severity)
 {
   char * pacSeverity;
@@ -1244,10 +1244,10 @@ GetNamespaces(SBMLDocument_t * document)
  *
  * FUNCTION:  converts typecode to humanly readable string
  */
-char *
+const char *
 TypecodeToChar (int typecode)
 {
-  char * pacTypecode;
+  const char * pacTypecode;
 
   switch (typecode)
   {
@@ -1751,6 +1751,8 @@ GetSpecies ( Model_t      *pModel,
         pacChemicalFormula = FbcSpeciesPlugin_getChemicalFormula(SBase_getPlugin((SBase_t *)(pSpecies), "fbc"));
         nCharge            = FbcSpeciesPlugin_getCharge(SBase_getPlugin((SBase_t *)(pSpecies), "fbc"));
         unIsSetCharge      = FbcSpeciesPlugin_isSetCharge(SBase_getPlugin((SBase_t *)(pSpecies), "fbc"));
+#else
+        unFBCVersion = 0;
 #endif
       }
     }
@@ -6585,7 +6587,7 @@ LookForCSymbolAvo(ASTNode_t * astMath)
 }
 
 
-char *
+const char *
 RuleType_toString (RuleType_t typecode)
 {
   char * pacTypecode;
