@@ -122,6 +122,8 @@ ADD_CUSTOM_COMMAND(
 			--top "${LIBSBML_ROOT_SOURCE_DIR}"
 			--master "${CMAKE_CURRENT_SOURCE_DIR}/../swig/libsbml.i"
 			--output "${CMAKE_CURRENT_BINARY_DIR}/pydoc-doxygen.i"
+			${SWIG_SWIGDOCDEFINES}
+			
     COMMAND "${PYTHON_EXECUTABLE}"
 	ARGS	"${CMAKE_CURRENT_SOURCE_DIR}/doc-converter/rewrite_pydoc.py"
 			-f "${CMAKE_CURRENT_BINARY_DIR}/pydoc-doxygen.i"
