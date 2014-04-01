@@ -228,7 +228,7 @@ XMLInputStream::requeueToken ()
 {
   if ( !isGood() ) return;
 
-  bool success = success = mParser->parseNext();
+  bool success = mParser->parseNext();
 
   if (success == false && isEOF() == false)
   {
