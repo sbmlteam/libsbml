@@ -37,7 +37,6 @@ inc_dirs = ["/usr/include/libxml2"]
 libs = ["xml2", "bz2", "z"]
 package_name = '"libsbml"'
 definitions = []
-extra_args = []
 packages = [
   ('USE_COMP', None),
   ('USE_QUAL', None),
@@ -46,8 +45,6 @@ packages = [
 ]
 if platform.system() == 'Darwin': 
   current_os = 'DARWIN'
-  # Clang no longer supports GCC arguments, and will fail in the future
-  extra_args = [ '-Wunused-command-line-argument-hard-error-in-future' ]
 elif platform.system() == 'Windows':
   current_os = 'WIN32'
   package_name = '\\"libsbml\\"'
@@ -104,7 +101,6 @@ setup(name             = "python-libsbml",
                               basepath + "/sbml/packages/comp/validator", 
                               basepath + "/sbml/packages/comp/validator/constraints", 
                               "."],
-							extra_compile_args = extra_args,
                             libraries = libs,
                             library_dirs = lib_dirs
                             )
