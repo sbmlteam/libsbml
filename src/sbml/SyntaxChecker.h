@@ -79,12 +79,7 @@ public:
    *
    * @copydetails doc_id_syntax
    *
-   * @if notclike @note Because this is a @em static method, the
-   * non-C++ language interfaces for libSBML will contain two variants.  One
-   * will be a static method on the class (i.e., SyntaxChecker), and the
-   * other will be a standalone top-level function with the name
-   * SyntaxChecker_isValidSBMLSId(). They are functionally
-   * identical. @endif@~
+   * @copydetails doc_note_static_methods
    *
    * @see @if clike isValidUnitSId(std::string sid) @else SyntaxChecker::isValidUnitSId(std::string sid) @endif@~
    * @see @if clike isValidXMLID(std::string sid) @else SyntaxChecker::isValidXMLID(std::string sid) @endif@~
@@ -128,12 +123,7 @@ public:
    *
    * @note @htmlinclude xmlid-syntax.html
    *
-   * @if notclike @note Because this is a @em static method, the
-   * non-C++ language interfaces for libSBML will contain two variants.  One
-   * will be a static method on the class (i.e., SyntaxChecker), and the
-   * other will be a standalone top-level function with the name
-   * SyntaxChecker_isValidXMLID(). They are functionally
-   * identical. @endif@~
+   * @copydetails doc_note_static_methods
    * 
    * @see @if clike isValidSBMLSId(std::string sid) @else SyntaxChecker::isValidSBMLSId(std::string sid) @endif@~
    * @see @if clike isValidUnitSId(std::string sid) @else SyntaxChecker::isValidUnitSId(std::string sid) @endif@~
@@ -166,12 +156,7 @@ public:
    * href="http://www.w3.org/TR/xmlschema-2/#anyURI">anyURI</a>, 
    * @c false otherwise.
    *
-   * @if notclike @note Because this is a @em static method, the
-   * non-C++ language interfaces for libSBML will contain two variants.  One
-   * will be a static method on the class (i.e., SyntaxChecker), and the
-   * other will be a standalone top-level function with the name
-   * SyntaxChecker_isValidXMLanyURI(). They are functionally
-   * identical. @endif@~
+   * @copydetails doc_note_static_methods
    */  
   static bool isValidXMLanyURI(std::string uri);
 
@@ -200,12 +185,7 @@ public:
    *
    * @note @htmlinclude unitid-syntax.html
    *
-   * @if notclike @note Because this is a @em static method, the
-   * non-C++ language interfaces for libSBML will contain two variants.  One
-   * will be a static method on the class (i.e., SyntaxChecker), and the
-   * other will be a standalone top-level function with the name
-   * SyntaxChecker_isValidUnitSId(). They are functionally
-   * identical. @endif@~
+   * @copydetails doc_note_static_methods
    *
    * @see @if clike isValidSBMLSId(std::string sid) @else SyntaxChecker::isValidSBMLSId(std::string sid) @endif@~
    * @see @if clike isValidXMLID(std::string sid) @else SyntaxChecker::isValidXMLID(std::string sid) @endif@~
@@ -273,12 +253,7 @@ public:
    *
    * @return @c true if the XMLNode content conforms, @c false otherwise.
    *
-   * @if notclike @note Because this is a @em static method, the
-   * non-C++ language interfaces for libSBML will contain two variants.  One
-   * will be a static method on the class (i.e., SyntaxChecker), and the
-   * other will be a standalone top-level function with the name
-   * SyntaxChecker_hasExpectedXHTMLSyntax(). They are functionally
-   * identical. @endif@~
+   * @copydetails doc_note_static_methods
    *
    * @if notcpp @htmlinclude warn-default-args-in-docs.html @endif@~
    */

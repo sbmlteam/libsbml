@@ -681,15 +681,16 @@ public:
 
 
   /** @cond doxygenLibsbmlInternal */
-
   /**
    * Sets the parent SBMLDocument of this SBML object.
    *
    * @param d the SBMLDocument to use
    */
   virtual void setSBMLDocument (SBMLDocument* d);
+  /** @endcond */
 
 
+  /** @cond doxygenLibsbmlInternal */
   /**
    * Sets this SBML object to child SBML objects (if any).
    * (Creates a child-parent relationship by the parent)
@@ -703,8 +704,10 @@ public:
    * @see enablePackageInternal
    */
   virtual void connectToChild ();
+  /** @endcond */
 
 
+  /** @cond doxygenLibsbmlInternal */
   /**
    * Enables/Disables the given package with this element and child
    * elements (if any).
@@ -715,8 +718,8 @@ public:
    */
   virtual void enablePackageInternal(const std::string& pkgURI,
                                      const std::string& pkgPrefix, bool flag);
-
   /** @endcond */
+
 
   /**
    * Returns the libSBML type code for this object instance.
@@ -743,7 +746,7 @@ public:
   virtual const std::string& getElementName () const;
 
 
-  /** 
+  /**
    * Simplifies the UnitDefinition such that any given kind of Unit object
    * occurs only once in the ListOfUnits.
    *
@@ -767,30 +770,22 @@ public:
    *
    * @param ud the UnitDefinition object to be simplified.
    *
-   * @if notclike @note Because this is a @em static method, the
-   * non-C++ language interfaces for libSBML will contain two variants.  One
-   * will be a static method on the class (i.e., UnitDefinition), and the
-   * other will be a standalone top-level function with the name
-   * UnitDefinition_simplify(). They are functionally identical. @endif@~
+   * @copydetails doc_note_static_methods
    */
   static void simplify(UnitDefinition * ud);
 
 
-  /** 
+  /**
    * Alphabetically orders the Unit objects within the ListOfUnits of a
    * UnitDefinition.
    *
    * @param ud the UnitDefinition object whose units are to be reordered.
    *
-   * @if notclike @note Because this is a @em static method, the
-   * non-C++ language interfaces for libSBML will contain two variants.  One
-   * will be a static method on the class (i.e., UnitDefinition), and the
-   * other will be a standalone top-level function with the name
-   * UnitDefinition_reorder(). They are functionally identical. @endif@~
+   * @copydetails doc_note_static_methods
    */
   static void reorder(UnitDefinition * ud);
 
-  
+
   /**
    * Convert a given UnitDefinition into a new UnitDefinition object
    * that uses SI units.
@@ -800,16 +795,12 @@ public:
    * @return a new UnitDefinition object representing the results of the
    * conversion.
    *
-   * @if notclike @note Because this is a @em static method, the
-   * non-C++ language interfaces for libSBML will contain two variants.  One
-   * will be a static method on the class (i.e., UnitDefinition), and the
-   * other will be a standalone top-level function with the name
-   * UnitDefinition_convertToSI(). They are functionally identical. @endif@~
+   * @copydetails doc_note_static_methods
    */
   static UnitDefinition * convertToSI(const UnitDefinition *ud);
 
 
-  /** 
+  /**
    * Predicate returning @c true if two
    * UnitDefinition objects are identical.
    *
@@ -827,11 +818,7 @@ public:
    * @return @c true if all the Unit objects in ud1 are identical to the
    * Unit objects of ud2, @c false otherwise.
    *
-   * @if notclike @note Because this is a @em static method, the
-   * non-C++ language interfaces for libSBML will contain two variants.  One
-   * will be a static method on the class (i.e., UnitDefinition), and the
-   * other will be a standalone top-level function with the name
-   * UnitDefinition_areIdentical(). They are functionally identical. @endif@~
+   * @copydetails doc_note_static_methods
    *
    * @see UnitDefinition::areEquivalent(const UnitDefinition * ud1, const %UnitDefinition * ud2)
    * @see Unit::areIdentical(Unit * unit1, %Unit * unit2)
@@ -840,7 +827,7 @@ public:
                            const UnitDefinition * ud2);
 
 
-  /** 
+  /**
    * Predicate returning @c true if two
    * UnitDefinition objects are equivalent.
    *
@@ -858,11 +845,7 @@ public:
    * @return @c true if all the Unit objects in ud1 are equivalent
    * to the Unit objects in ud2, @c false otherwise.
    *
-   * @if notclike @note Because this is a @em static method, the
-   * non-C++ language interfaces for libSBML will contain two variants.  One
-   * will be a static method on the class (i.e., UnitDefinition), and the
-   * other will be a standalone top-level function with the name
-   * UnitDefinition_areEquivalent(). They are functionally identical. @endif@~
+   * @copydetails doc_note_static_methods
    *
    * @see UnitDefinition::areIdentical(const UnitDefinition * ud1, const %UnitDefinition * ud2)
    * @see Unit::areEquivalent(Unit * unit1, %Unit * unit2)
@@ -877,7 +860,7 @@ public:
   /** @endcond */
 
 
-  /** 
+  /**
    * Combines two UnitDefinition objects into a single UnitDefinition.
    *
    * This takes UnitDefinition objects @p ud1 and @p ud2, and creates a
@@ -890,16 +873,12 @@ public:
    * @return a UnitDefinition which represents the product of the 
    * units of the two argument UnitDefinitions.
    *
-   * @if notclike @note Because this is a @em static method, the
-   * non-C++ language interfaces for libSBML will contain two variants.  One
-   * will be a static method on the class (i.e., UnitDefinition), and the
-   * other will be a standalone top-level function with the name
-   * UnitDefinition_combine(). They are functionally identical. @endif@~
+   * @copydetails doc_note_static_methods
    */
   static UnitDefinition* combine(UnitDefinition * ud1, UnitDefinition * ud2);
 
 
-  /** 
+  /**
    * Combines two UnitDefinition objects into a single UnitDefinition as
    * a division.
    *
@@ -913,16 +892,12 @@ public:
    * @return a UnitDefinition which represents the division of the 
    * units of the two argument UnitDefinitions.
    *
-   * @if notclike @note Because this is a @em static method, the
-   * non-C++ language interfaces for libSBML will contain two variants.  One
-   * will be a static method on the class (i.e., UnitDefinition), and the
-   * other will be a standalone top-level function with the name
-   * UnitDefinition_combine(). They are functionally identical. @endif@~
+   * @copydetails doc_note_static_methods
    */
   static UnitDefinition* divide(UnitDefinition * ud1, UnitDefinition * ud2);
 
 
-  /** 
+  /**
    * Expresses the given definition in a plain-text form.
    *
    * For example,
@@ -950,11 +925,7 @@ public:
    * @return a string expressing the unit definition defined by the given
    * UnitDefinition object @p ud.
    *
-   * @if notclike @note Because this is a @em static method, the
-   * non-C++ language interfaces for libSBML will contain two variants.  One
-   * will be a static method on the class (i.e., UnitDefinition), and the
-   * other will be a standalone top-level function with the name
-   * UnitDefinition_printUnits(). They are functionally identical. @endif@~
+   * @copydetails doc_note_static_methods
    */
   static std::string printUnits(const UnitDefinition * ud, 
                                 bool compact = false);
@@ -1807,7 +1778,7 @@ LIBSBML_EXTERN
 UnitDefinition_t * 
 UnitDefinition_convertToSI(UnitDefinition_t * ud);
 
-/** 
+/**
  * Predicate returning @c true if two
  * UnitDefinition_t structures are identical.
  *
@@ -1825,11 +1796,7 @@ UnitDefinition_convertToSI(UnitDefinition_t * ud);
  * @return @c true if all the Unit_t structures in ud1 are identical to the
  * Unit_t structures of ud2, @c false otherwise.
  *
- * @if notclike @note Because this is a @em static method, the
- * non-C++ language interfaces for libSBML will contain two variants.  One
- * will be a static method on the class (i.e., UnitDefinition), and the
- * other will be a standalone top-level function with the name
- * UnitDefinition_areIdentical(). They are functionally identical. @endif@~
+ * @copydetails doc_note_static_methods
  *
  * @see UnitDefinition_areEquivalent()
  * @see Unit_areIdentical()
@@ -1840,7 +1807,8 @@ LIBSBML_EXTERN
 int 
 UnitDefinition_areIdentical(UnitDefinition_t * ud1, UnitDefinition_t * ud2);
 
-/** 
+
+/**
  * Predicate returning @c true if two
  * UnitDefinition_t structures are equivalent.
  *

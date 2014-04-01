@@ -911,12 +911,7 @@ public:
    * @note The predefined unit identifiers @c "length" and @c "area" were
    * added in Level&nbsp;2 Version&nbsp;1.
    *
-   * @if notclike @note Because this is a @em static method, the
-   * non-C++ language interfaces for libSBML will contain two variants.  One
-   * will be a static method on the class (i.e., Unit), and the
-   * other will be a standalone top-level function with the name
-   * Unit_isBuiltIn(). They are functionally
-   * identical. @endif@~
+   * @copydetails doc_note_static_methods
    */
   static bool isBuiltIn (const std::string& name, unsigned int level);
 
@@ -948,18 +943,13 @@ public:
    * and&nbsp;2 and again slightly between Level&nbsp;2 Versions&nbsp;1
    * and&nbsp;2.
    *
-   * @if notclike @note Because this is a @em static method, the
-   * non-C++ language interfaces for libSBML will contain two variants.  One
-   * will be a static method on the class (i.e., Unit), and the
-   * other will be a standalone top-level function with the name
-   * Unit_isUnitKind(). They are functionally
-   * identical. @endif@~
+   * @copydetails doc_note_static_methods
    */
   static bool isUnitKind (const std::string& name,
                           unsigned int level, unsigned int version);
 
 
-  /** 
+  /**
    * Predicate returning @c true if two
    * Unit objects are identical.
    *
@@ -974,19 +964,14 @@ public:
    * @return @c true if all the attributes of unit1 are identical
    * to the attributes of unit2, @c false otherwise.
    *
-   * @if notclike @note Because this is a @em static method, the
-   * non-C++ language interfaces for libSBML will contain two variants.  One
-   * will be a static method on the class (i.e., Unit), and the
-   * other will be a standalone top-level function with the name
-   * Unit_areIdentical(). They are functionally
-   * identical. @endif@~
+   * @copydetails doc_note_static_methods
    *
    * @see @if clike areEquivalent() @else Unit::areEquivalent(Unit u1, %Unit u2) @endif@~
    */
   static bool areIdentical(Unit * unit1, Unit * unit2);
 
 
-  /** 
+  /**
    * Predicate returning @c true if 
    * Unit objects are equivalent.
    *
@@ -1004,19 +989,14 @@ public:
    * identical to the kind and exponent attributes of unit2, @c false
    * otherwise.
    *
-   * @if notclike @note Because this is a @em static method, the
-   * non-C++ language interfaces for libSBML will contain two variants.  One
-   * will be a static method on the class (i.e., Unit), and the
-   * other will be a standalone top-level function with the name
-   * Unit_areEquivalent(). They are functionally
-   * identical. @endif@~
+   * @copydetails doc_note_static_methods
    * 
    * @see @if clike areIdentical() @else Unit::areIdentical(Unit u1, %Unit u2) @endif@~
    */
   static bool areEquivalent(Unit * unit1, Unit * unit2);
 
 
-  /** 
+  /**
    * Manipulates the attributes of the Unit to express the unit with the 
    * value of the scale attribute reduced to zero.
    *
@@ -1031,12 +1011,7 @@ public:
    * possible values returned by this function are:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    *
-   * @if notclike @note Because this is a @em static method, the
-   * non-C++ language interfaces for libSBML will contain two variants.  One
-   * will be a static method on the class (i.e., Unit), and the
-   * other will be a standalone top-level function with the name
-   * Unit_removeScale(). They are functionally
-   * identical. @endif@~
+   * @copydetails doc_note_static_methods
    *
    * @see @if clike convertToSI() @else Unit::convertToSI(Unit u) @endif@~
    * @see @if clike merge() @else Unit::merge(Unit u1, Unit u2) @endif@~
@@ -1044,10 +1019,10 @@ public:
   static int removeScale(Unit * unit);
 
 
-  /** 
+  /**
    * Merges two Unit objects with the same "kind" attribute value into a
    * single Unit.
-   * 
+   *
    * For example, the following,
    * @verbatim
  <unit kind="metre" exponent="2"/>
@@ -1064,12 +1039,7 @@ public:
    * 
    * @param unit2 the second Unit object to merge with the first
    *
-   * @if notclike @note Because this is a @em static method, the
-   * non-C++ language interfaces for libSBML will contain two variants.  One
-   * will be a static method on the class (i.e., Unit), and the
-   * other will be a standalone top-level function with the name
-   * Unit_merge(). They are functionally
-   * identical. @endif@~
+   * @copydetails doc_note_static_methods
    * 
    * @see @if clike convertToSI() @else Unit::convertToSI(Unit u) @endif@~
    * @see @if clike removeScale() @else Unit::removeScale(Unit u) @endif@~
@@ -1090,12 +1060,7 @@ public:
    *
    * @return a UnitDefinition object containing the SI unit.
    *
-   * @if notclike @note Because this is a @em static method, the
-   * non-C++ language interfaces for libSBML will contain two variants.  One
-   * will be a static method on the class (i.e., Unit), and the
-   * other will be a standalone top-level function with the name
-   * Unit_convertToSI(). They are functionally
-   * identical. @endif@~
+   * @copydetails doc_note_static_methods
    *
    * @see @if clike merge() @else Unit::merge(Unit u1, Unit u2) @endif@~
    */

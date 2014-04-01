@@ -97,8 +97,11 @@ public:
    * @param fd the FunctionDefinition to be expanded
    *
    * @param idsToExclude an optional list of function definition ids to exclude.
+   *
+   * @copydetails doc_note_static_methods
    */
-  static void replaceFD(ASTNode * math, const FunctionDefinition * fd, const IdList* idsToExclude = NULL);
+  static void replaceFD(ASTNode * math, const FunctionDefinition * fd,
+                        const IdList* idsToExclude = NULL);
 
 
   /**
@@ -117,15 +120,18 @@ public:
    * @param lofd the ListOfFunctionDefinitions to be expanded
    * 
    * @param idsToExclude an optional list of function definition ids to exclude.
+   *
+   * @copydetails doc_note_static_methods
    */
-  static void replaceFD(ASTNode * math, const ListOfFunctionDefinitions * lofd, const IdList* idsToExclude = NULL);
-  
+  static void replaceFD(ASTNode * math, const ListOfFunctionDefinitions * lofd,
+                        const IdList* idsToExclude = NULL);
+
 
   static bool expandInitialAssignments(Model * m);
 
-  
+
   static double evaluateASTNode(const ASTNode * node, const Model * m = NULL);
-  
+
 #ifndef SWIG
   static double evaluateASTNode(const ASTNode * node, const IdValueMap& values, const Model * m = NULL);
   static double evaluateASTNode(const ASTNode * node, const std::map<std::string, double>& values, const Model * m = NULL);
