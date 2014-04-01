@@ -124,9 +124,9 @@ static mxArray * mxDelayReturn               = NULL;
 static mxArray * mxStoichiometryMathReturn   = NULL;
 static mxArray * mxPriorityReturn            = NULL;
 
-char *    pacCSymbolTime              = NULL;
-char *    pacCSymbolDelay              = NULL;
-char *    pacCSymbolAvo              = NULL;
+const char *    pacCSymbolTime              = NULL;
+const char *    pacCSymbolDelay              = NULL;
+const char *    pacCSymbolAvo              = NULL;
 
 int fbcPresent = 0;
 
@@ -142,7 +142,7 @@ static mxArray * mxFluxBoundReturn           = NULL;
 static mxArray * mxObjectiveReturn           = NULL;
 static mxArray * mxFluxObjectiveReturn       = NULL;
 
-char *    pacActiveObj              = NULL;
+const char *    pacActiveObj              = NULL;
 
 #ifndef USE_FBC
 
@@ -1169,7 +1169,7 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
 const char *
 ErrorSeverity_toString(unsigned int severity)
 {
-  char * pacSeverity;
+  const char * pacSeverity;
   switch(severity)
   {
   case 0:
@@ -6469,7 +6469,7 @@ LookForCSymbolTime(ASTNode_t * astMath)
         * replace the name in this instance
         */
       if (pacCSymbolTime == NULL) {
-        pacCSymbolTime = (char *) ASTNode_getName(astMath);
+        pacCSymbolTime = (const char *) ASTNode_getName(astMath);
       }
       else {
         ASTNode_setName(astMath, pacCSymbolTime);
@@ -6493,7 +6493,7 @@ LookForCSymbolTime(ASTNode_t * astMath)
          * replace the name in this instance
          */
         if (pacCSymbolTime == NULL) {
-          pacCSymbolTime = (char *) ASTNode_getName(astChild);
+          pacCSymbolTime = (const char *) ASTNode_getName(astChild);
         }
         else {
           ASTNode_setName(astChild, pacCSymbolTime);
@@ -6521,7 +6521,7 @@ LookForCSymbolDelay(ASTNode_t * astMath)
       * replace the name in this instance
       */
     if (pacCSymbolDelay == NULL) {
-      pacCSymbolDelay = (char *) ASTNode_getName(astMath);
+      pacCSymbolDelay = (const char *) ASTNode_getName(astMath);
     }
     else {
       ASTNode_setName(astMath, pacCSymbolDelay);
@@ -6552,7 +6552,7 @@ LookForCSymbolAvo(ASTNode_t * astMath)
         * replace the name in this instance
         */
       if (pacCSymbolAvo == NULL) {
-        pacCSymbolAvo = (char *) ASTNode_getName(astMath);
+        pacCSymbolAvo = (const char *) ASTNode_getName(astMath);
       }
       else {
         ASTNode_setName(astMath, pacCSymbolAvo);
@@ -6576,7 +6576,7 @@ LookForCSymbolAvo(ASTNode_t * astMath)
          * replace the name in this instance
          */
         if (pacCSymbolAvo == NULL) {
-          pacCSymbolAvo = (char *) ASTNode_getName(astChild);
+          pacCSymbolAvo = (const char *) ASTNode_getName(astChild);
         }
         else {
           ASTNode_setName(astChild, pacCSymbolAvo);
@@ -6590,7 +6590,7 @@ LookForCSymbolAvo(ASTNode_t * astMath)
 const char *
 RuleType_toString (RuleType_t typecode)
 {
-  char * pacTypecode;
+  const char * pacTypecode;
 
   switch (typecode)
   {
