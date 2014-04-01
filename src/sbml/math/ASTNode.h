@@ -62,64 +62,17 @@
  * and
  * @if clike SBML_parseL3Formula()@endif@if csharp SBML_parseL3Formula()@endif@if python libsbml.parseL3Formula()@endif@if java <code><a href="libsbml.html#parseL3Formula(java.lang.String)">libsbml.parseL3Formula(String formula)</a></code>@endif@~
  * are in a simple C-inspired infix notation.  A
- * formula in this text-string form can be handed to a program that
- * understands SBML mathematical expressions, or used as part
- * of a translation system.  The libSBML distribution comes with an example
- * program in the @c "examples" subdirectory called @c translateMath that
- * implements an interactive command-line demonstration of translating
- * infix formulas into MathML and vice-versa.
+ * formula in one of these two text-string formats can be handed to a program
+ * that understands SBML mathematical expressions, or used as part of a
+ * translation system.  The libSBML distribution comes with example
+ * programs in the @c "examples" subdirectory that demonstrate such things
+ * as translating infix formulas into MathML and vice-versa.
  *
- * The formula strings may contain operators, function calls, symbols, and
- * white space characters.  The allowable white space characters are tab
- * and space.  The following are illustrative examples of formulas
- * expressed in the syntax:
- * 
- * @verbatim
-0.10 * k4^2
-@endverbatim
- * @verbatim
-(vm * s1)/(km + s1)
-@endverbatim
- *
- * The following table shows the precedence rules in this syntax.  In the
- * Class column, @em operand implies the construct is an operand, @em
- * prefix implies the operation is applied to the following arguments, @em
- * unary implies there is one argument, and @em binary implies there are
- * two arguments.  The values in the Precedence column show how the order
- * of different types of operation are determined.  For example, the
- * expression <em>a * b + c</em> is evaluated as <em>(a * b) + c</em>
- * because the <code>*</code> operator has higher precedence.  The
- * Associates column shows how the order of similar precedence operations
- * is determined; for example, <em>a - b + c</em> is evaluated as <em>(a -
- * b) + c</em> because the <code>+</code> and <code>-</code> operators are
- * left-associative.  The precedence and associativity rules are taken from
- * the C programming language, except for the symbol <code>^</code>, which
- * is used in C for a different purpose.  (Exponentiation can be invoked
- * using either <code>^</code> or the function @c power.)
- * 
- * @htmlinclude math-precedence-table.html 
- *
- * A program parsing a formula in an SBML model should assume that names
- * appearing in the formula are the identifiers of Species, Parameter,
- * Compartment, FunctionDefinition, Reaction (in SBML Levels&nbsp;2
- * and&nbsp;3), or SpeciesReference (in SBML Level&nbsp;3 only) objects
- * defined in a model.  When a function call is involved, the syntax
- * consists of a function identifier, followed by optional white space,
- * followed by an opening parenthesis, followed by a sequence of zero or
- * more arguments separated by commas (with each comma optionally preceded
- * and/or followed by zero or more white space characters), followed by a
- * closing parenthesis.  There is an almost one-to-one mapping between the
- * list of predefined functions available, and those defined in MathML.
- * All of the MathML functions are recognized; this set is larger than the
- * functions defined in SBML Level&nbsp;1.  In the subset of functions that
- * overlap between MathML and SBML Level&nbsp;1, there exist a few
- * differences.  The following table summarizes the differences between the
- * predefined functions in SBML Level&nbsp;1 and the MathML equivalents in
- * SBML Levels&nbsp;2 and &nbsp;3:
- * 
- * @htmlinclude math-functions.html
- * 
- * @copydetails doc_warning_L1_math_string_syntax
+ * Please see the documentation for the functions
+ * @if clike SBML_parseFormula()@endif@if csharp SBML_parseFormula()@endif@if python libsbml.parseFormula()@endif@if java <code><a href="libsbml.html#parseFormula(java.lang.String)">libsbml.parseFormula(String formula)</a></code>@endif@~
+ * and
+ * @if clike SBML_parseL3Formula()@endif@if csharp SBML_parseL3Formula()@endif@if python libsbml.parseL3Formula()@endif@if java <code><a href="libsbml.html#parseL3Formula(java.lang.String)">libsbml.parseL3Formula(String formula)</a></code>@endif@~
+ * for detailed explanations of the infix syntax they accept.
  *
  * @if clike @see SBML_parseL3Formula()@endif@~
  * @if csharp @see SBML_parseL3Formula()@endif@~
@@ -129,6 +82,10 @@
  * @if csharp @see SBML_parseFormula()@endif@~
  * @if python @see libsbml.parseFormula()@endif@~
  * @if java @see <code><a href="libsbml.html#parseFormula(String formula)">libsbml.parseFormula(String formula)</a></code>@endif@~
+ * @if clike @see SBML_formulaToString()@endif@~
+ * @if csharp @see SBML_formulaToString()@endif@~
+ * @if python @see libsbml.formulaToString()@endif@~
+ * @if java @see <code><a href="libsbml.html#formulaToString(org.sbml.libsbml.ASTNode)">libsbml.formulaToString()</a></code>@endif@~
  */
 
 /**
@@ -146,9 +103,36 @@
  * structure of the mathematical formula it represents, and may even render
  * the representation invalid.  Callers need to be careful to use this method
  * in the context of other operations to create complete and correct
- * formulas.  The method @if conly ASTNode_isWellFormedASTNode()@else
- * ASTNode::isWellFormedASTNode()@endif@~ may also be useful for checking the
- * results of node modifications.
+ * formulas.  The method
+ * @if conly ASTNode_isWellFormedASTNode()@else ASTNode::isWellFormedASTNode()@endif@~
+ * may also be useful for checking the results of node modifications.
+ *
+ * <!-- ------------------------------------------------------------------- -->
+ * @class doc_about_mathml_semantic_annotations
+ *
+ * The <code>&lt;semantics&gt;</code> element is a MathML&nbsp;2.0 construct
+ * that can be used to associate additional information with a MathML
+ * construct.  The construct can be used to decorate a MathML expressions with
+ * a sequence of one or more <code>&lt;annotation&gt;</code> or
+ * <code>&lt;annotation-xml&gt;</code> elements.  Each such element contains a
+ * pair of items; the first is a symbol that acts as an attribute or key, and
+ * the second is the value associated with the attribute or key.  Please refer
+ * to the MathML&nbsp;2.0 documentation, particularly the <a target="_blank"
+ * href="http://www.w3.org/TR/2007/WD-MathML3-20071005/chapter5.html#mixing.semantic.annotations">Section
+ * 5.2, Semantic Annotations</a> for more information about these constructs.
+ *
+ * <!-- ------------------------------------------------------------------- -->
+ * @class doc_note_mathml_semantic_annotations_uncommon
+ *
+ * @note Although SBML permits the use of the MathML
+ * <code>&lt;semantics&gt;</code> annotation construct, the truth is that
+ * this construct has so far (at this time of this writing, which is early
+ * 2014) seen very little use in SBML software.  The full implications of
+ * using these annotations are still poorly understood.  If you wish to
+ * use this construct, we urge you to discuss possible uses and applications
+ * on the SBML discussion lists, particularly <a target="_blank"
+ * href="http://sbml.org/Forums">sbml-discuss</a> and/or <a target="_blank"
+ * href="http://sbml.org/Forums">sbml-interoperability</a>.
  */
 
 #ifndef ASTNode_h
@@ -173,7 +157,7 @@ LIBSBML_CPP_NAMESPACE_BEGIN
  * and @if conly ASTNode_getListOfNodes() @else ASTNode::getListOfNodes() @endif.
  *
  * A pointer to a function that takes an ASTNode and returns @if conly @c 1
- * (true) or @c 0 (false) @else @c true (non-zero) or @c false (0)@endif.
+ * (true) or @c 0 (false) @else @c true (nonzero) or @c false (0)@endif.
  *
  * @if conly @see ASTNode_getListOfNodes()@else @see ASTNode::getListOfNodes()@endif
  * @if conly @see ASTNode_fillListOfNodes()@else @see ASTNode::fillListOfNodes()@endif
@@ -196,7 +180,7 @@ class LIBSBML_EXTERN ASTNode : public ASTBase
 public:
 
   /**
-   * Creates and returns a new ASTNode.
+   * Creates a new ASTNode.
    *
    * Unless the argument @p type is given, the returned node will by
    * default have a type of @link ASTNodeType_t#AST_UNKNOWN
@@ -239,21 +223,23 @@ public:
   /** @endcond */
 
   /**
-   * Creates a new ASTNode from the given Token.  The resulting ASTNode
-   * will contain the same data as the Token.
+   * Creates a new ASTNode from the given Token.
    *
-   * @param token the Token to add.
+   * The resulting ASTNode will contain the same data as the given @p token.
+   *
+   * @param token the token to use as a starting point for creating the
+   * ASTNode object.
    */
   ASTNode (Token_t *token);
 
-  
+
   /**
    * Copy constructor; creates a deep copy of the given ASTNode.
    *
    * @param orig the ASTNode to be copied.
    */
   ASTNode (const ASTNode& orig);
-  
+
 
   /**
    * Assignment operator for ASTNode.
@@ -269,7 +255,7 @@ public:
 
   /**
    * Frees the name of this ASTNode and sets it to @c NULL.
-   * 
+   *
    * This operation is only applicable to ASTNode objects corresponding to
    * operators, numbers, or @link ASTNodeType_t#AST_UNKNOWN
    * AST_UNKNOWN@endlink.  This method has no effect on other types of
@@ -284,24 +270,19 @@ public:
 
 
   /**
-   * Converts this ASTNode to a canonical form and returns @c true if
-   * successful, @c false otherwise.
+   * Converts this ASTNode to a canonical form.
    *
    * The rules determining the canonical form conversion are as follows:
-   * <ul>
    *
-   * <li> If the node type is @link ASTNodeType_t#AST_NAME AST_NAME@endlink
+   * @li If the node type is @link ASTNodeType_t#AST_NAME AST_NAME@endlink
    * and the node name matches @c "ExponentialE", @c "Pi", @c "True" or @c
-   * "False" the node type is converted to the corresponding 
+   * "False" the node type is converted to the corresponding
    * <code>AST_CONSTANT_</code><em><span class="placeholder">X</span></em> type.
-   *
-   * <li> If the node type is an @link ASTNodeType_t#AST_FUNCTION
+   * @li If the node type is an @link ASTNodeType_t#AST_FUNCTION
    * AST_FUNCTION@endlink and the node name matches an SBML (MathML) function name, logical operator name, or
    * relational operator name, the node is converted to the corresponding
    * <code>AST_FUNCTION_</code><em><span class="placeholder">X</span></em> or
    * <code>AST_LOGICAL_</code><em><span class="placeholder">X</span></em> type.
-   *
-   * </ul>
    *
    * SBML Level&nbsp;1 function names are searched first; thus, for
    * example, canonicalizing @c log will result in a node type of @link
@@ -317,6 +298,9 @@ public:
    * child will be an ASTNode of type @link ASTNodeType_t#AST_INTEGER
    * AST_INTEGER@endlink and a value of 2.  The function names that result
    * in structural changes are: @c log10, @c sqr, and @c sqrt.
+   *
+   * @return @c true if this node was successfully converted to
+   * canonical form, @c false otherwise.
    */
    bool canonicalize ();
 
@@ -345,8 +329,9 @@ public:
 
 
   /**
-   * Adds the given node as a child of this ASTNode.  This method adds
-   * child nodes from right to left.
+   * Adds the given node as a child of this ASTNode.
+   *
+   * This method adds child nodes from right to left.
    *
    * @param child the ASTNode instance to add
    *
@@ -408,8 +393,8 @@ public:
 
 
   /**
-   * Inserts the given ASTNode at point n in the list of children
-   * of this ASTNode.
+   * Inserts the given ASTNode node at a given point in the current ASTNode's
+   * list of children.
    *
    * @param n unsigned int the index of the ASTNode being added
    * @param newChild ASTNode to insert as the nth child
@@ -440,7 +425,7 @@ public:
 
 
   /**
-   * Gets a child of this node according to its index number.
+   * Returns the child at index n of this node.
    *
    * @param n the index of the child to get
    *
@@ -457,21 +442,21 @@ public:
 
 
   /**
-   * Gets the left child of this node.
+   * Returns the left child of this node.
    *
    * @return the left child of this ASTNode.  This is equivalent to calling
    * @if clike getChild()@else ASTNode::getChild(unsigned int)@endif@~
    * with an argument of @c 0.
    *
    * @see getNumChildren()
-   * @see getChild(unsigned int n)
+   * @see getChild(@if java unsigned int n@endif)
    * @see getRightChild()
    */
   ASTNode* getLeftChild () const;
 
 
   /**
-   * Gets the right child of this node.
+   * Returns the right child of this node.
    *
    * @return the right child of this ASTNode, or @c NULL if this node has no
    * right child.  If
@@ -483,13 +468,13 @@ getChild( getNumChildren() - 1 );
    *
    * @see getNumChildren()
    * @see getLeftChild()
-   * @see getChild(unsigned int n)
+   * @see getChild(@if java unsigned int n@endif)
    */
   ASTNode* getRightChild () const;
 
 
   /**
-   * Gets the number of children that this node has.
+   * Returns the number of children of this node.
    *
    * @return the number of children of this ASTNode, or 0 is this node has
    * no children.
@@ -498,9 +483,10 @@ getChild( getNumChildren() - 1 );
 
 
   /**
-   * Adds the given XMLNode as a <em>semantic annotation</em> of this ASTNode.
+   * Adds the given XMLNode as a MathML <code>&lt;semantics&gt;</code>
+   * element to this ASTNode.
    *
-   * @htmlinclude about-semantic-annotations.html
+   * @copydetails doc_about_mathml_semantic_annotations
    *
    * @param sAnnotation the annotation to add.
    *
@@ -509,43 +495,49 @@ getChild( getNumChildren() - 1 );
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
    *
-   * @note Although SBML permits the semantic annotation construct in
-   * MathML expressions, the truth is that this construct has so far (at
-   * this time of this writing, which is early 2011) seen very little use
-   * in SBML software.  The full implications of using semantic annotations
-   * are still poorly understood.  If you wish to use this construct, we
-   * urge you to discuss possible uses and applications on the SBML
-   * discussion lists, particularly <a target="_blank"
-   * href="http://sbml.org/Forums">sbml-discuss&#64;caltech.edu</a> and/or <a
-   * target="_blank"
-   * href="http://sbml.org/Forums">sbml-interoperability&#64;caltech.edu</a>.
+   * @copydetails doc_note_mathml_semantic_annotations_uncommon
+   *
+   * @see ASTNode::getNumSemanticsAnnotations()
+   * @see ASTNode::getSemanticsAnnotation(@if java unsigned int n@endif)
    */
   int addSemanticsAnnotation (XMLNode* sAnnotation);
 
 
   /**
-   * Gets the number of <em>semantic annotation</em> elements inside this node.
+   * Returns the number of MathML <code>&lt;semantics&gt;</code> element
+   * elements on this node.
    *
-   * @htmlinclude about-semantic-annotations.html
-   * 
+   * @copydetails doc_about_mathml_semantic_annotations
+   *
    * @return the number of annotations of this ASTNode.
    *
-   * @see ASTNode::addSemanticsAnnotation(XMLNode* sAnnotation)
+   * @copydetails doc_note_mathml_semantic_annotations_uncommon
+   *
+   * @see ASTNode::addSemanticsAnnotation(@if java XMLNode* sAnnotation@endif)
+   * @see ASTNode::getSemanticsAnnotation(@if java unsigned int n@endif)
    */
   unsigned int getNumSemanticsAnnotations () const;
 
 
   /**
-   * Gets the nth semantic annotation of this node.
+   * Returns the nth MathML <code>&lt;semantics&gt;</code> element on this
+   * ASTNode.
    *
-   * @htmlinclude about-semantic-annotations.html
-   * 
-   * @return the nth annotation of this ASTNode, or @c NULL if this node has
+   * @copydetails doc_about_mathml_semantic_annotations
+   *
+   * @param n the index of the annotation to return.  Callers should
+   * use ASTNode::getNumSemanticsAnnotations() to first find out how
+   * many annotations there are.
+   *
+   * @return the nth annotation inside this ASTNode, or @c NULL if this node has
    * no nth annotation (<code>n &gt;</code>
    * @if clike getNumSemanticsAnnotations()@else ASTNode::getNumSemanticsAnnotations()@endif@~
    * <code>- 1</code>).
    *
-   * @see ASTNode::addSemanticsAnnotation(XMLNode* sAnnotation)
+   * @copydetails doc_note_mathml_semantic_annotations_uncommon
+   *
+   * @see ASTNode::addSemanticsAnnotation(@if java XMLNode* sAnnotation@endif)
+   * @see ASTNode::getNumSemanticsAnnotations()
    */
   XMLNode* getSemanticsAnnotation (unsigned int n) const;
 
@@ -555,25 +547,26 @@ getChild( getNumChildren() - 1 );
    *
    * This performs a depth-first search of the tree rooted at this ASTNode
    * object, and returns a List of nodes for which the given function
-   * <code>predicate(node)</code> returns @c true (non-zero).
-   *
+   * <code>predicate(node)</code> returns @c true.
    * For portability between different programming languages, the predicate
    * is passed in as a pointer to a function.  @if clike The function
    * definition must have the type @link ASTNode.h::ASTNodePredicate
-   * ASTNodePredicate @endlink, which is defined as
+   * ASTNodePredicate@endlink, which is defined as
    * @verbatim
 int (*ASTNodePredicate) (const ASTNode *node);
 @endverbatim
-   * where a return value of non-zero represents @c true and zero
+   * where a return value of nonzero represents @c true and zero
    * represents @c false. @endif
    *
    * @param predicate the predicate to use
    *
    * @return the list of nodes for which the predicate returned @c true
-   * (non-zero).  The List returned is owned by the caller and should be
+   *.  The List returned is owned by the caller and should be
    * deleted after the caller is done using it.  The ASTNode objects in the
    * list; however, are not owned by the caller (as they still belong to
    * the tree itself), and therefore should not be deleted.
+   *
+   * @see ASTNode::fillListOfNodes(@if java ASTNodePredicate predicate, List* lst@endif)
    */
   List* getListOfNodes (ASTNodePredicate predicate) const;
 
@@ -583,34 +576,33 @@ int (*ASTNodePredicate) (const ASTNode *node);
    * predicate.
    *
    * This method is identical to calling
-   * getListOfNodes(ASTNodePredicate predicate) const,
-   * except that instead of creating a new List object, it uses the one
-   * passed in as argument @p lst.  This method a depth-first search of the
-   * tree rooted at this ASTNode object, and adds to the list @p lst the
-   * nodes for which the given function <code>predicate(node)</code> returns
-   * @c true (non-zero).
+   * ASTNode::getListOfNodes(@if java ASTNodePredicate predicate@endif), except
+   * that instead of creating a new List object, it uses the one passed in as
+   * argument @p lst.  This method a depth-first search of the tree rooted at
+   * this ASTNode object, and adds to the list @p lst the nodes for which the
+   * given function <code>predicate(node)</code> returns @c true.
    *
    * For portability between different programming languages, the predicate
    * is passed in as a pointer to a function.  The function definition must
-   * have the type @link ASTNode.h::ASTNodePredicate ASTNodePredicate
-   * @endlink, which is defined as
+   * have the type @link ASTNode.h::ASTNodePredicate
+   * ASTNodePredicate@endlink, which is defined as
    * @verbatim
 int (*ASTNodePredicate) (const ASTNode_t *node);
 @endverbatim
-   * where a return value of non-zero represents @c true and zero
+   * where a return value of nonzero represents @c true and zero
    * represents @c false.
    *
    * @param predicate the predicate to use.
    *
    * @param lst the List to which ASTNode objects should be added.
    *
-   * @see getListOfNodes(ASTNodePredicate predicate) const
+   * @see getListOfNodes(@if java ASTNodePredicate predicate@endif)
    */
   void fillListOfNodes (ASTNodePredicate predicate, List* lst) const;
 
 
   /**
-   * Gets the value of this node as a single character.
+   * Returns the value of this node as a single character.
    *
    * This function should be called only when
    * @if clike getType()@else ASTNode::getType()@endif@~ returns
@@ -626,168 +618,220 @@ int (*ASTNodePredicate) (const ASTNode_t *node);
 
 
   /**
-   * Gets the id of this ASTNode.
+   * Returns the MathML @c id attribute value of this ASTNode.
    *
    * @return the MathML id of this ASTNode.
+   *
+   * @see isSetId()
+   * @see setId(@if java const std::string& id@endif)
+   * @see unsetId()
    */
   std::string getId () const;
 
 
   /**
-   * Gets the class of this ASTNode.
+   * Returns the MathML @c class attribute value of this ASTNode.
    *
-   * @return the MathML class of this ASTNode.
+   * @return the MathML class of this ASTNode, if any exists.
+   *
+   * @see isSetClass()
+   * @see @if java setClassName(const std::string& id)@else setClass()@endif@~
+   * @see unsetClass()
    */
   std::string getClass () const;
 
 
   /**
-   * Gets the style of this ASTNode.
+   * Returns the MathML @c style attribute value of this ASTNode.
    *
-   * @return the MathML style of this ASTNode.
+   * @return the MathML style of this ASTNode, if any exists.
+   *
+   * @see isSetStyle()
+   * @see setStyle(@if java const std::string& id@endif)
+   * @see unsetStyle()
    */
   std::string getStyle () const;
 
 
   /**
-   * Gets the value of this node as an integer.
+   * Returns the value of this node as an integer.
    *
-   * This function should be called only when @if clike getType()@else
-   * ASTNode::getType()@endif@~ <code>== @link ASTNodeType_t#AST_INTEGER
-   * AST_INTEGER@endlink</code>.
+   * If this node type is @link ASTNodeType_t#AST_RATIONAL
+   * AST_RATIONAL@endlink, this method returns the value of the numerator.
    *
    * @return the value of this ASTNode as a (<code>long</code>) integer.
+   *
+   * @note This function should be called only when
+   * @if clike getType()@else ASTNode::getType()@endif@~ returns
+   * @link ASTNodeType_t#AST_INTEGER AST_INTEGER@endlink or
+   * @link ASTNodeType_t#AST_RATIONAL AST_RATIONAL@endlink.
+   * It will return @c 0 if the node type is @em not one of these, but since
+   * @c 0 may be a valid value for integer, it is important to be sure that
+   * the node type is one of the expected types in order to understand if @c
+   * 0 is the actual value.
    */
   long getInteger () const;
 
 
   /**
-   * Gets the value of this node as a string.
+   * Returns the value of this node as a string.
    *
    * This function may be called on nodes that (1) are not operators, i.e.,
-   * nodes for which @if clike isOperator()@else
-   * ASTNode::isOperator()@endif@~ returns @c false, and (2) are not numbers,
-   * i.e., @if clike isNumber()@else ASTNode::isNumber()@endif@~ returns @c
-   * false.
+   * nodes for which @if clike isOperator()@else ASTNode::isOperator()@endif@~ 
+   * returns @c false, and (2) are not numbers, i.e.,
+   * @if clike isNumber()@else ASTNode::isNumber()@endif@~ returns @c false.
    *
-   * @return the value of this ASTNode as a string.
+   * @return the value of this ASTNode as a string, or @c NULL if it is
+   * a node that does not have a name equivalent (e.g., if it is a number).
    */
   const char* getName () const;
 
 
   /**
-   * Gets the value of this operator node as a string.  This function may be called
-   * on nodes that are operators, i.e., nodes for which
-   * @if clike isOperator()@else ASTNode::isOperator()@endif@~
-   * returns @c true.
-   * 
-   * @return the name of this operator ASTNode as a string (or NULL if not an operator).
+   * Returns the value of this operator node as a string.
+   *
+   * This function may be called on nodes that are operators, i.e., nodes for
+   * which @if clike isOperator()@else ASTNode::isOperator()@endif@~ returns
+   * @c true.
+   *
+   * @return the name of this operator ASTNode as a string (or @c NULL if not
+   * an operator).
    */
   const char* getOperatorName () const;
 
 
   /**
-   * Gets the value of the numerator of this node.  This function should be
-   * called only when
-   * @if clike getType()@else ASTNode::getType()@endif@~
-   * <code>== @link ASTNodeType_t#AST_RATIONAL AST_RATIONAL@endlink</code>.
-   * 
-   * @return the value of the numerator of this ASTNode.  
+   * Returns the value of the numerator of this node.
+   *
+   * This function should be called only when
+   * @if clike getType()@else ASTNode::getType()@endif@~ returns
+   * @link ASTNodeType_t#AST_RATIONAL AST_RATIONAL@endlink or
+   * @link ASTNodeType_t#AST_INTEGER AST_INTEGER@endlink.
+   *
+   * @return the value of the numerator of this ASTNode.
    */
   long getNumerator () const;
 
 
   /**
-   * Gets the value of the denominator of this node.  This function should
-   * be called only when
-   * @if clike getType()@else ASTNode::getType()@endif@~
-   * <code>== @link ASTNodeType_t#AST_RATIONAL AST_RATIONAL@endlink</code>.
-   * 
-   * @return the value of the denominator of this ASTNode.
+   * Returns the value of the denominator of this node.
+   *
+   * @return the value of the denominator of this ASTNode, or @c 1 if
+   * this node has no numerical value.
+   *
+   * @note This function should be called only when
+   * @if clike getType()@else ASTNode::getType()@endif@~ returns
+   * @link ASTNodeType_t#AST_RATIONAL AST_RATIONAL@endlink.
+   * It will return @c 1 if the node type is another type, but since @c 1 may
+   * be a valid value for the denominator of a rational number, it is
+   * important to be sure that the node type is the correct type in order to
+   * correctly interpret the returned value.
    */
   long getDenominator () const;
 
 
   /**
-   * Gets the real-numbered value of this node.  This function
-   * should be called only when
-   * @if clike isReal()@else ASTNode::isReal()@endif@~
-   * <code>== true</code>.
+   * Returns the real-numbered value of this node.
    *
    * This function performs the necessary arithmetic if the node type is
    * @link ASTNodeType_t#AST_REAL_E AST_REAL_E@endlink (<em>mantissa *
-   * 10<sup> exponent</sup></em>) or @link ASTNodeType_t#AST_RATIONAL
-   * AST_RATIONAL@endlink (<em>numerator / denominator</em>).
-   * 
-   * @return the value of this ASTNode as a real (double).
+   * 10<sup> exponent</sup></em>) or
+   * @link ASTNodeType_t#AST_RATIONAL AST_RATIONAL@endlink
+   * (<em>numerator / denominator</em>).
+   *
+   * @return the value of this ASTNode as a real (double), or @c 0
+   * if this is not a node that holds a number.
+   *
+   * @note This function should be called only when this ASTNode has a
+   * numerical value type.  It will return @c 0 if the node type is another
+   * type, but since @c 0 may be a valid value, it is important to be sure
+   * that the node type is the correct type in order to correctly interpret
+   * the returned value.
    */
   double getReal () const;
 
 
   /**
-   * Gets the mantissa value of this node.  This function should be called
-   * only when @if clike getType()@else ASTNode::getType()@endif@~
-   * returns @link ASTNodeType_t#AST_REAL_E AST_REAL_E@endlink
-   * or @link ASTNodeType_t#AST_REAL AST_REAL@endlink.
-   * If @if clike getType()@else ASTNode::getType()@endif@~
-   * returns @link ASTNodeType_t#AST_REAL AST_REAL@endlink,
-   * this method is identical to
-   * @if clike getReal()@else ASTNode::getReal()@endif.
-   * 
-   * @return the value of the mantissa of this ASTNode. 
+   * Returns the mantissa value of this node.
+   *
+   * If @if clike getType()@else ASTNode::getType()@endif@~ returns
+   * @link ASTNodeType_t#AST_REAL AST_REAL@endlink, this method is
+   * identical to ASTNode::getReal().
+   *
+   * @return the value of the mantissa of this ASTNode, or @c 0 if this
+   * node is not a type that has a real-numbered value.
+   *
+   * @note This function should be called only when
+   * @if clike getType()@else ASTNode::getType()@endif@~ returns
+   * @link ASTNodeType_t#AST_REAL_E AST_REAL_E@endlink,
+   * @link ASTNodeType_t#AST_REAL AST_REAL@endlink or
+   * @link ASTNodeType_t#AST_NAME_AVOGADRO AST_NAME_AVOGADRO@endlink.  It
+   * will return @c 0 if the node type is another type, but since @c 0 may be
+   * a valid value, it is important to be sure that the node type is the
+   * correct type in order to correctly interpret the returned value.
    */
   double getMantissa () const;
 
 
   /**
-   * Gets the exponent value of this ASTNode.  This function should be
-   * called only when
+   * Returns the exponent value of this ASTNode.
+   *
+   * @return the value of the exponent of this ASTNode, or @c 0 if this
+   * is not a type of node that has an exponent.
+   *
+   * @note This function should be called only when
    * @if clike getType()@else ASTNode::getType()@endif@~
-   * returns @link ASTNodeType_t#AST_REAL_E AST_REAL_E@endlink
-   * or @link ASTNodeType_t#AST_REAL AST_REAL@endlink.
-   * 
-   * @return the value of the exponent of this ASTNode.
+   * returns @link ASTNodeType_t#AST_REAL_E AST_REAL_E@endlink.
+   * It will return @c 0 if the node type is another type, but since @c 0 may
+   * be a valid value, it is important to be sure that the node type is the
+   * correct type in order to correctly interpret the returned value.
    */
   long getExponent () const;
 
 
   /**
-   * Gets the precedence of this node in the infix math syntax of SBML
-   * Level&nbsp;1.  For more information about the infix syntax, see the
-   * discussion about <a href="#math-convert">text string formulas</a> at
-   * the top of the documentation for ASTNode.
-   * 
+   * Returns the precedence of this node in the infix math syntax of SBML
+   * Level&nbsp;1.
+   *
+   * For more information about the infix syntax, see the discussion about <a
+   * href="#math-convert">text string formulas</a> at the top of the
+   * documentation for ASTNode.
+   *
    * @return an integer indicating the precedence of this ASTNode
    */
   int getPrecedence () const;
 
 
   /**
-   * Gets the type of this ASTNode.  The value returned is one of the
-   * enumeration values such as @link ASTNodeType_t#AST_LAMBDA
-   * AST_LAMBDA@endlink, @link ASTNodeType_t#AST_PLUS AST_PLUS@endlink,
-   * etc.
-   * 
+   * Returns the type of this ASTNode.
+   *
+   * The value returned is one of the enumeration values such as
+   * @link ASTNodeType_t#AST_LAMBDA AST_LAMBDA@endlink,
+   * @link ASTNodeType_t#AST_PLUS AST_PLUS@endlink, etc.
+   *
    * @return the type of this ASTNode.
    */
   ASTNodeType_t getType () const;
 
 
   /**
-   * Gets the type of this ASTNode where the type may be either a core
-   * ASTTypeCode_t or a value of an enumeration from an SBML L3 package.t.
+   * Returns the extended type of this ASTNode.
    *
-   * @note When the ASTNode is of a type from a package the ASTNodeType_t value
-   * returned by getType() will be @link ASTNodeType_t#AST_ORIGINATES_IN_PACKAGE
-   * AST_ORIGINATES_IN_PACKAGE@endlink
-   * 
+   * The type may be either a core
+   * @if notclike integer type code@else ASTNodeType_t value@endif
+   * or a value of a type code from an SBML Level&nbsp;3 package.
+   *
    * @return the type of this ASTNode.
+   *
+   * @note When the ASTNode is of a type from a package, the
+   * value returned by ASTNode::getExtendedType() will be @link
+   * ASTNodeType_t#AST_ORIGINATES_IN_PACKAGE AST_ORIGINATES_IN_PACKAGE@endlink.
    */
   virtual int getExtendedType() const;
-  
-  
+
+
   /**
-   * Gets the units of this ASTNode.  
+   * Returns the units of this ASTNode.
    *
    * @htmlinclude about-sbml-units-attrib.html
    * 
@@ -805,10 +849,16 @@ int (*ASTNodePredicate) (const ASTNode_t *node);
 
 
   /**
-   * Returns @c true (non-zero) if this node is the special 
-   * symbol @c avogadro.  The predicate returns @c false (zero) otherwise.
-   * 
-   * @return @c true if this ASTNode is the special symbol avogadro.
+   * Returns @c true if this node represents the predefined
+   * value for Avogadro's constant.
+   *
+   * SBML Level&nbsp;3 introduced a predefined MathML <code>&lt;csymbol&gt;</code>
+   * for the value of Avogadro's constant.  LibSBML stores this internally as
+   * a node of type @link ASTNodeType_t#AST_NAME_AVOGADRO AST_NAME_AVOGADRO@endlink.
+   * This method returns @c true if this node has that type.
+   *
+   * @return @c true if this ASTNode is the special symbol avogadro,
+   * @c false otherwise.
    *
    * @if clike @see SBML_parseL3Formula()@endif@~
    * @if csharp @see SBML_parseL3Formula()@endif@~
@@ -819,59 +869,69 @@ int (*ASTNodePredicate) (const ASTNode_t *node);
 
 
   /**
-   * Returns @c true (non-zero) if this node has a boolean type
-   * (a logical operator, a relational operator, or the constants @c true
-   * or @c false).
+   * Returns @c true if this node has a Boolean type.
    *
-   * @return true if this ASTNode is a boolean, false otherwise.
+   * The ASTNode objects that have Boolean types are the logical operators,
+   * relational operators, and the constants @c true or @c false.
+   *
+   * @return @c true if this ASTNode has a Boolean type, @c false otherwise.
    */
   virtual bool isBoolean () const;
 
 
   /**
-   * Returns @c true (non-zero) if this node returns a boolean type
-   * or @c false (zero) otherwise.
+   * Returns @c true if this node returns a Boolean value.
    *
-   * This function looks at the whole ASTNode rather than just the top 
-   * level of the ASTNode. Thus it will consider return values from
-   * piecewise statements.  In addition, if this ASTNode uses a function
-   * call, the return value of the functionDefinition will be determined.
-   * Note that this is only possible where the ASTNode can trace its parent
-   * Model, that is, the ASTNode must represent the math element of some
-   * SBML object that has already been added to an instance of an SBMLDocument.
+   * This function looks at the whole ASTNode rather than just the top level
+   * of the ASTNode. Thus, it will consider return values from piecewise
+   * statements.  In addition, if this ASTNode uses a function call to a
+   * user-defined function, the return value of the corresponding
+   * FunctionDefinition object will be determined.  Note that this is only
+   * possible where the ASTNode can trace its parent Model; that is, the
+   * ASTNode must represent the <code>&lt;math&gt;</code> element of some
+   * SBML object that has already been added to an instance of an
+   * SBMLDocument.
+   *
+   * @param model the Model to use as context
    *
    * @see isBoolean()
    *
-   * @return true if this ASTNode returns a boolean, false otherwise.
+   * @return true if this ASTNode returns a boolean, @c false otherwise.
    */
   bool returnsBoolean (const Model* model=NULL) const;
 
 
   /**
-   * Returns @c true (non-zero) if this node represents a MathML
-   * constant (e.g., @c true, @c Pi).
-   * 
-   * @return @c true if this ASTNode is a MathML constant, @c false otherwise.
-   * 
-   * @note this function will also return @c true for @link
+   * Returns @c true if this node represents a MathML
+   * constant.
+   *
+   * Examples of MathML constants include such things as pi.
+   *
+   * @return @c true if this ASTNode is a MathML constant, @c false
+   * otherwise.
+   *
+   * @note This function will also return @c true for nodes of type @link
    * ASTNodeType_t#AST_NAME_AVOGADRO AST_NAME_AVOGADRO@endlink in SBML Level&nbsp;3.
    */
   virtual bool isConstant () const;
 
 
   /**
-   * Returns @c true (non-zero) if this node represents a
-   * MathML function (e.g., <code>abs()</code>), or an SBML Level&nbsp;1
-   * function, or a user-defined function.
-   * 
+   * Returns @c true if this node represents a function.
+   *
+   * The three types of functions in SBML are MathML functions (e.g.,
+   * <code>abs()</code>), SBML Level&nbsp;1 functions (in the SBML
+   * Level&nbsp;1 math syntax), and user-defined functions (using
+   * FunctionDefinition in SBML Level&nbsp;2 and&nbsp;3).
+   *
    * @return @c true if this ASTNode is a function, @c false otherwise.
    */
   virtual bool isFunction () const;
 
 
   /**
-   * Returns @c true (non-zero) if this node represents
-   * the special IEEE 754 value infinity, @c false (zero) otherwise.
+   * Returns @c true if this node represents the special IEEE 754
+   * value for infinity.
    *
    * @return @c true if this ASTNode is the special IEEE 754 value infinity,
    * @c false otherwise.
@@ -880,8 +940,7 @@ int (*ASTNodePredicate) (const ASTNode_t *node);
 
 
   /**
-   * Returns @c true (non-zero) if this node contains an
-   * integer value, @c false (zero) otherwise.
+   * Returns @c true if this node contains an integer value.
    *
    * @return @c true if this ASTNode is of type @link
    * ASTNodeType_t#AST_INTEGER AST_INTEGER@endlink, @c false otherwise.
@@ -890,8 +949,8 @@ int (*ASTNodePredicate) (const ASTNode_t *node);
 
 
   /**
-   * Returns @c true (non-zero) if this node is a MathML
-   * <code>&lt;lambda&gt;</code>, @c false (zero) otherwise.
+   * Returns @c true if this node is a MathML
+   * <code>&lt;lambda&gt;</code>.
    * 
    * @return @c true if this ASTNode is of type @link ASTNodeType_t#AST_LAMBDA
    * AST_LAMBDA@endlink, @c false otherwise.
@@ -900,14 +959,14 @@ int (*ASTNodePredicate) (const ASTNode_t *node);
 
 
   /**
-   * Returns @c true (non-zero) if this node represents a 
-   * @c log10 function, @c false (zero) otherwise.  More precisely, this
-   * predicate returns @c true if the node type is @link
+   * Returns @c true if this node represents a @c log10 function.
+   *
+   * More precisely, this predicate returns @c true if the node type is @link
    * ASTNodeType_t#AST_FUNCTION_LOG AST_FUNCTION_LOG@endlink with two
    * children, the first of which is an @link ASTNodeType_t#AST_INTEGER
    * AST_INTEGER@endlink equal to 10.
    * 
-   * @return @c true if the given ASTNode represents a log10() function, @c
+   * @return @c true if the given ASTNode represents a @c log10() function, @c
    * false otherwise.
    *
    * @if clike @see SBML_parseL3Formula()@endif@~
@@ -919,39 +978,46 @@ int (*ASTNodePredicate) (const ASTNode_t *node);
 
 
   /**
-   * Returns @c true (non-zero) if this node is a MathML
-   * logical operator (i.e., @c and, @c or, @c not, @c xor).
+   * Returns @c true if this node is a MathML logical operator.
+   *
+   * The possible MathML logical operators are @c and, @c or, @c not, and @c
+   * xor.
    * 
-   * @return @c true if this ASTNode is a MathML logical operator
+   * @return @c true if this ASTNode is a MathML logical operator, @c false
+   * otherwise.
    */
   virtual bool isLogical () const;
 
 
   /**
-   * Returns @c true (non-zero) if this node is a user-defined
-   * variable name in SBML L1, L2 (MathML), or the special symbols @c time
-   * or @c avogadro.  The predicate returns @c false (zero) otherwise.
-   * 
+   * Returns @c true if this node is a user-defined variable name
+   * or the symbols for time or Avogadro's constant.
+   *
+   * SBML Levels&nbsp;2 and&nbsp;3 provides <code>&lt;csymbol&gt;</code>
+   * definitions for "time" and "avogadro", which can be used to represent
+   * simulation time and Avogadro's constant in MathML.
+   *
    * @return @c true if this ASTNode is a user-defined variable name in SBML
-   * L1, L2 (MathML) or the special symbols delay or time.
+   * or the special symbols for time or Avogadro's constant. It returns @c
+   * false otherwise.
    */
   virtual bool isName () const;
 
 
   /**
-   * Returns @c true (non-zero) if this node represents the
-   * special IEEE 754 value "not a number" (NaN), @c false (zero)
-   * otherwise.
+   * Returns @c true if this node represents the special IEEE 754
+   * value "not a number" (NaN).
    * 
-   * @return @c true if this ASTNode is the special IEEE 754 NaN.
+   * @return @c true if this ASTNode is the special IEEE 754 NaN, @c false
+   * otherwise.
    */
   bool isNaN () const;
 
 
   /**
-   * Returns @c true (non-zero) if this node represents the
-   * special IEEE 754 value "negative infinity", @c false (zero) otherwise.
-   * 
+   * Returns @c true if this node represents the special IEEE 754
+   * value "negative infinity".
+   *
    * @return @c true if this ASTNode is the special IEEE 754 value negative
    * infinity, @c false otherwise.
    */
@@ -959,60 +1025,61 @@ int (*ASTNodePredicate) (const ASTNode_t *node);
 
 
   /**
-   * Returns @c true (non-zero) if this node contains a number,
-   * @c false (zero) otherwise.  This is functionally equivalent to the
-   * following code:
-   * @verbatim
- isInteger() || isReal()
- @endverbatim
-   * 
+   * Returns @c true if this node contains a number.
+   *
    * @return @c true if this ASTNode is a number, @c false otherwise.
    */
   virtual bool isNumber () const;
 
 
   /**
-   * Returns @c true (non-zero) if this node is a mathematical
-   * operator, meaning, <code>+</code>, <code>-</code>, <code>*</code>, 
-   * <code>/</code> or <code>^</code> (power).
-   * 
-   * @return @c true if this ASTNode is an operator.
+   * Returns @c true if this node is a mathematical
+   * operator.
+   *
+   * The possible mathematical operators in the MathML syntax supported by
+   * SBML are <code>+</code>, <code>-</code>, <code>*</code>, <code>/</code>
+   * and <code>^</code> (power).
+   *
+   * @return @c true if this ASTNode is an operator, @c false otherwise.
    */
   virtual bool isOperator () const;
 
 
   /**
-   * Returns @c true (non-zero) if this node is the MathML
-   * <code>&lt;piecewise&gt;</code> construct, @c false (zero) otherwise.
+   * Returns @c true if this node is the MathML
+   * <code>&lt;piecewise&gt;</code> construct.
    * 
-   * @return @c true if this ASTNode is a MathML @c piecewise function
+   * @return @c true if this ASTNode is a MathML @c piecewise function,
+   * @c false otherwise.
    */
   virtual bool isPiecewise () const;
 
 
   /**
-   * Predicate returning @c true (non-zero) if this node is a MathML
-   * qualifier (i.e., @c bvar, @c degree, @c base, @c piece, @c otherwise), 
-   * @c false (zero) otherwise.
+   * Predicate returning @c true if this node is a MathML
+   * qualifier.
+   *
+   * The MathML qualifier node types are @c bvar, @c degree, @c base, @c
+   * piece, and @c otherwise.
    * 
-   * @return @c true if this ASTNode is a MathML qualifier.
+   * @return @c true if this ASTNode is a MathML qualifier, @c false
+   * otherwise.
    */
   virtual bool isQualifier() const;
 
 
   /**
-   * Returns @c true (non-zero) if this node represents a rational
-   * number, @c false (zero) otherwise.
+   * Returns @c true if this node represents a rational number.
    * 
    * @return @c true if this ASTNode is of type @link
-   * ASTNodeType_t#AST_RATIONAL AST_RATIONAL@endlink.
+   * ASTNodeType_t#AST_RATIONAL AST_RATIONAL@endlink, @c
+   * false otherwise.
    */
   virtual bool isRational () const;
 
 
   /**
-   * Returns @c true (non-zero) if this node can represent a
-   * real number, @c false (zero) otherwise.
+   * Returns @c true if this node can represent a real number.
    *
    * More precisely, this node must be of one of the following types: @link
    * ASTNodeType_t#AST_REAL AST_REAL@endlink, @link ASTNodeType_t#AST_REAL_E
@@ -1026,43 +1093,45 @@ int (*ASTNodePredicate) (const ASTNode_t *node);
 
 
   /**
-   * Returns @c true (non-zero) if this node is a MathML
-   * relational operator, meaning <code>==</code>, <code>&gt;=</code>,
+   * Returns @c true if this node is a MathML
+   * relational operator.
+   *
+   * The MathML relational operators are <code>==</code>, <code>&gt;=</code>,
    * <code>&gt;</code>, <code>&lt;</code>, and <code>!=</code>.
    *
    * @return @c true if this ASTNode is a MathML relational operator, @c
-   * false otherwise
+   * false otherwise.
    */
   virtual bool isRelational () const;
 
 
   /**
-   * Predicate returning @c true (non-zero) if this node is a MathML
-   * semantics node, @c false (zero) otherwise.
-   * 
-   * @return @c true if this ASTNode is a MathML semantics node.
+   * Predicate returning @c true if this node is a MathML
+   * semantics node.
+   *
+   * @return @c true if this ASTNode is a MathML semantics node, @c false
+   * otherwise.
    */
   virtual bool isSemantics() const;
 
-  
+
   /**
-   * Returns @c true (non-zero) if this node represents a
-   * square root function, @c false (zero) otherwise.
+   * Returns @c true if this node represents a square root
+   * function.
    *
    * More precisely, the node type must be @link
    * ASTNodeType_t#AST_FUNCTION_ROOT AST_FUNCTION_ROOT@endlink with two
    * children, the first of which is an @link ASTNodeType_t#AST_INTEGER
    * AST_INTEGER@endlink node having value equal to 2.
    * 
-   * @return @c true if the given ASTNode represents a sqrt() function,
-   * @c false otherwise.
+   * @return @c true if the given ASTNode represents a <code>sqrt()</code>
+   * function, @c false otherwise.
    */
   bool isSqrt () const;
 
 
   /**
-   * Returns @c true (non-zero) if this node is a unary minus
-   * operator, @c false (zero) otherwise.
+   * Returns @c true if this node is a unary minus operator.
    *
    * A node is defined as a unary minus node if it is of type @link
    * ASTNodeType_t#AST_MINUS AST_MINUS@endlink and has exactly one child.
@@ -1077,7 +1146,8 @@ int (*ASTNodePredicate) (const ASTNode_t *node);
    * (@link ASTNodeType_t#AST_NAME AST_NAME@endlink) cannot
    * be "collapsed", so this predicate function is necessary.
    * 
-   * @return @c true if this ASTNode is a unary minus, @c false otherwise.
+   * @return @c true if this ASTNode is a unary minus, @c false
+   * otherwise.
    *
    * @if clike @see SBML_parseL3Formula()@endif@~
    * @if csharp @see SBML_parseL3Formula()@endif@~
@@ -1088,10 +1158,10 @@ int (*ASTNodePredicate) (const ASTNode_t *node);
 
 
   /**
-   * Returns @c true (non-zero) if this node is a unary plus
-   * operator, @c false (zero) otherwise.  A node is defined as a unary
-   * minus node if it is of type @link ASTNodeType_t#AST_MINUS
-   * AST_MINUS@endlink and has exactly one child.
+   * Returns @c true if this node is a unary plus operator.
+   *
+   * A node is defined as a unary plus node if it is of type @link
+   * ASTNodeType_t#AST_PLUS AST_PLUS@endlink and has exactly one child.
    *
    * @return @c true if this ASTNode is a unary plus, @c false otherwise.
    */
@@ -1099,19 +1169,23 @@ int (*ASTNodePredicate) (const ASTNode_t *node);
 
 
   /**
-  * Returns @c true if this node is of type @param type
-  * and has @param numchildren number of children.  Designed
-  * for use in cases where it is useful to discover if the node is
-  * a unary not or unary minus, or a times node with no children, etc.
+  * Returns @c true if this node is of a certain type with a specific number
+  * of children.
   *
-  * @return @c true if this ASTNode is has the specified type and number
-  *         of children, @c false otherwise.
+  * Designed for use in cases where it is useful to discover if the node is a
+  * unary not or unary minus, or a times node with no children, etc.
+  *
+  * @param type the type of ASTNode sought.
+  * @param numchildren the number of child nodes sought.
+  *
+  * @return @c true if this ASTNode is has the specified type and number of
+  * children, @c false otherwise.
   */
   int hasTypeAndNumChildren(int type, unsigned int numchildren) const;
 
 
   /**
-   * Returns @c true (non-zero) if this node has an unknown type.
+   * Returns @c true if this node has an unknown type.
    *
    * "Unknown" nodes have the type @link ASTNodeType_t#AST_UNKNOWN
    * AST_UNKNOWN@endlink.  Nodes with unknown types will not appear in an
@@ -1129,48 +1203,70 @@ int (*ASTNodePredicate) (const ASTNode_t *node);
 
 
   /**
-   * Returns @c true (non-zero) if this node has a value for the MathML
-   * attribute "id".
+   * Returns @c true if this node has a value for the MathML
+   * attribute @c id.
    *
-   * @return true if this ASTNode has an attribute id, false otherwise.
+   * @return true if this ASTNode has an attribute id, @c false
+   * otherwise.
+   *
+   * @see isSetClass()
+   * @see isSetStyle()
+   * @see setId(@if java const std::string& id@endif)
+   * @see unsetId()
    */
   bool isSetId() const;
 
 
   /**
-   * Returns @c true (non-zero) if this node has a value for the MathML
-   * attribute "class".
+   * Returns @c true if this node has a value for the MathML
+   * attribute @c class.
    *
-   * @return true if this ASTNode has an attribute class, false otherwise.
+   * @return true if this ASTNode has an attribute class, @c false
+   * otherwise.
+   *
+   * @see isSetId()
+   * @see isSetStyle()
+   * @see @if java setClassName(const std::string& id)@else setClass()@endif@~
+   * @see unsetClass()
    */
   bool isSetClass() const;
 
 
   /**
-   * Returns @c true (non-zero) if this node has a value for the MathML
-   * attribute "style".
+   * Returns @c true if this node has a value for the MathML
+   * attribute @c style.
    *
-   * @return true if this ASTNode has an attribute style, false otherwise.
+   * @return true if this ASTNode has an attribute style, @c false
+   * otherwise.
+   *
+   * @see isSetClass()
+   * @see isSetId()
+   * @see setStyle(@if java const std::string& id@endif)
+   * @see unsetStyle()
    */
   bool isSetStyle() const;
 
 
   /**
-   * Returns @c true (non-zero) if this node has the attribute
+   * Returns @c true if this node has the attribute
    * <code>sbml:units</code>.
    *
    * @htmlinclude about-sbml-units-attrib.html
    *
-   * @return @c true if this ASTNode has units associated with it, @c false otherwise.
+   * @return @c true if this ASTNode has units associated with it, @c false
+   * otherwise.
    *
    * @note The <code>sbml:units</code> attribute is only available in SBML
    * Level&nbsp;3.  It may not be used in Levels 1&ndash;2 of SBML.
+   *
+   * @see hasUnits()
+   * @see setUnits(@if java const std::string& units@endif)
    */
   bool isSetUnits() const;
 
 
   /**
-   * Returns @c true (non-zero) if this node or any of its
+   * Returns @c true if this node or any of its
    * children nodes have the attribute <code>sbml:units</code>.
    *
    * @htmlinclude about-sbml-units-attrib.html
@@ -1180,6 +1276,9 @@ int (*ASTNodePredicate) (const ASTNode_t *node);
    *
    * @note The <code>sbml:units</code> attribute is only available in SBML
    * Level&nbsp;3.  It may not be used in Levels 1&ndash;2 of SBML.
+   *
+   * @see isSetUnits()
+   * @see setUnits(@if java const std::string& units@endif)
    */
    bool hasUnits() const;
 
@@ -1201,37 +1300,56 @@ int (*ASTNodePredicate) (const ASTNode_t *node);
 
 
   /**
-   * Sets the MathML id of this ASTNode to id.
+   * Sets the MathML attribute @c id of this ASTNode.
    *
    * @param id @c string representing the identifier.
    *
    * @return integer value indicating success/failure of the
    * function.  The possible values returned by this function are:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+   *
+   * @see isSetId()
+   * @see getId()
+   * @see unsetId()
    */
   int setId(const std::string& id);
 
 
   /**
-   * Sets the MathML class of this ASTNode to className.
+   * Sets the MathML attribute @c class of this ASTNode.
    *
    * @param className @c string representing the MathML class for this node.
    *
    * @return integer value indicating success/failure of the
    * function.  The possible values returned by this function are:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+   *
+   * @if java
+   * @note In the API interfaces for languages other than Java, this method
+   * is named <code>setClass()</code>, but in Java it is renamed
+   * <code>setClassName()</code> to avoid a name collision with Java's
+   * standard object method of the same name.
+   * @endif@~
+   *
+   * @see isSetClass()
+   * @see getClass()
+   * @see unsetClass()
    */
   int setClass(const std::string& className);
 
 
   /**
-   * Sets the MathML style of this ASTNode to style.
+   * Sets the MathML attribute @c style of this ASTNode.
    *
    * @param style @c string representing the identifier.
    *
    * @return integer value indicating success/failure of the
    * function.  The possible values returned by this function are:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+   *
+   * @see isSetStyle()
+   * @see getStyle()
+   * @see unsetStyle()
    */
   int setStyle(const std::string& style);
 
@@ -1239,18 +1357,18 @@ int (*ASTNodePredicate) (const ASTNode_t *node);
   /**
    * Sets the value of this ASTNode to the given name.
    *
-   * As a side-effect, this ASTNode object's type will be reset to
+   * As a side effect, this ASTNode object's type will be reset to
    * @link ASTNodeType_t#AST_NAME AST_NAME@endlink if (and <em>only
-   * if</em>) the ASTNode was previously an operator (
+   * if</em>) the ASTNode was previously an operator (i.e.,
    * @if clike isOperator()@else ASTNode::isOperator()@endif@~
-   * <code>== true</code>), number (
-   * @if clike isNumber()@else ASTNode::isNumber()@endif@~
-   * <code>== true</code>), or unknown.
+   * returns @c true), number
+   * (i.e., @if clike isNumber()@else ASTNode::isNumber()@endif@~
+   * returns @c true), or unknown.
    * This allows names to be set for @link ASTNodeType_t#AST_FUNCTION
    * AST_FUNCTION@endlink nodes and the like.
    *
    * @param name the string containing the name to which this node's value
-   * should be set
+   * should be set.
    *
    * @return integer value indicating success/failure of the function.  The
    * possible values returned by this function are:
@@ -1260,10 +1378,12 @@ int (*ASTNodePredicate) (const ASTNode_t *node);
 
 
   /**
-   * Sets the value of this ASTNode to the given integer and sets the node
-   * type to @link ASTNodeType_t#AST_INTEGER AST_INTEGER@endlink.
+   * Sets the value of this ASTNode to the given integer
    *
-   * @param value the integer to which this node's value should be set
+   * As a side effect, this operation sets the node type to @link
+   * ASTNodeType_t#AST_INTEGER AST_INTEGER@endlink.
+   *
+   * @param value the integer to which this node's value should be set.
    *
    * @return integer value indicating success/failure of the function.  The
    * possible values returned by this function are:
@@ -1273,10 +1393,12 @@ int (*ASTNodePredicate) (const ASTNode_t *node);
 
 
   /**
-   * Sets the value of this ASTNode to the given (@c long) integer and sets
-   * the node type to @link ASTNodeType_t#AST_INTEGER AST_INTEGER@endlink.
+   * Sets the value of this ASTNode to the given (@c long) integer
    *
-   * @param value the integer to which this node's value should be set
+   * As a side effect, this operation sets the node type to @link
+   * ASTNodeType_t#AST_INTEGER AST_INTEGER@endlink.
+   *
+   * @param value the integer to which this node's value should be set.
    *
    * @return integer value indicating success/failure of the function.  The
    * possible values returned by this function are:
@@ -1286,12 +1408,13 @@ int (*ASTNodePredicate) (const ASTNode_t *node);
 
 
   /**
-   * Sets the value of this ASTNode to the given rational in two parts: the
-   * numerator and denominator.  The node type is set to @link
+   * Sets the value of this ASTNode to the given rational.
+   *
+   * As a side effect, this operation sets the node type to @link
    * ASTNodeType_t#AST_RATIONAL AST_RATIONAL@endlink.
    *
-   * @param numerator the numerator value of the rational
-   * @param denominator the denominator value of the rational
+   * @param numerator the numerator value of the rational.
+   * @param denominator the denominator value of the rational.
    *
    * @return integer value indicating success/failure of the function.  The
    * possible values returned by this function are:
@@ -1301,8 +1424,10 @@ int (*ASTNodePredicate) (const ASTNode_t *node);
 
 
   /**
-   * Sets the value of this ASTNode to the given real (@c double) and sets
-   * the node type to @link ASTNodeType_t#AST_REAL AST_REAL@endlink.
+   * Sets the value of this ASTNode to the given real (@c double).
+   *
+   * As a side effect, this operation sets the node type to @link
+   * ASTNodeType_t#AST_REAL AST_REAL@endlink.
    *
    * This is functionally equivalent to:
    * @verbatim
@@ -1310,23 +1435,23 @@ setValue(value, 0);
 @endverbatim
    *
    * @param value the @c double format number to which this node's value
-   * should be set
+   * should be set.
    *
    * @return integer value indicating success/failure of the function.  The
-   * possible values returned by this function are: @li @link
-   * OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS
-   * LIBSBML_OPERATION_SUCCESS @endlink
+   * possible values returned by this function are:
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    */
   int setValue(double value);
 
 
   /**
-   * Sets the value of this ASTNode to the given real (@c double) in two
-   * parts: the mantissa and the exponent.  The node type is set to
+   * Sets the value of this ASTNode to the given real (@c double)
+   *
+   * As a side effet, this operation sets the node type to
    * @link ASTNodeType_t#AST_REAL_E AST_REAL_E@endlink.
    *
-   * @param mantissa the mantissa of this node's real-numbered value
-   * @param exponent the exponent of this node's real-numbered value
+   * @param mantissa the mantissa of this node's real-numbered value.
+   * @param exponent the exponent of this node's real-numbered value.
    *
    * @return integer value indicating success/failure of the
    * function.  The possible values returned by this function are:
@@ -1338,32 +1463,41 @@ setValue(value, 0);
   /**
    * Sets the type of this ASTNode to the given type code.
    *
-   * @param type the type to which this node should be set
+   * @param type the type to which this node should be set.
    *
    * @return integer value indicating success/failure of the
    * function.  The possible values returned by this function are:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE @endlink
    *
-   * @note A side-effect of doing this is that any numerical values previously
-   * stored in this node are reset to zero.
+   * @note A side-effect of doing this is that any numerical values
+   * previously stored in this node are reset to zero.
+   *
+   * @see getType() 
+   * @see setType(int Type)
    */
   int setType (ASTNodeType_t type);
 
 
   /**
-   * Sets the type of this ASTNode to the given int which may come from
-   * ASTTypeCode_t or an enumeration of AST types in an SBML L3 package.
+   * Sets the type of this ASTNode.
    *
-   * @param type the integer representing the type to which this node should be set
+   * This uses integer type codes, which may come from ASTNodeType_t or an
+   * enumeration of AST types in an SBML Level&nbsp;3 package.
+   *
+   * @param type the integer representing the type to which this node should
+   * be set.
    *
    * @return integer value indicating success/failure of the
    * function.  The possible values returned by this function are:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE @endlink
    *
-   * @note A side-effect of doing this is that any numerical values previously
-   * stored in this node are reset to zero.
+   * @note A side-effect of doing this is that any numerical values
+   * previously stored in this node are reset to zero.
+   *
+   * @see getType() 
+   * @see setType(ASTNodeType_t type)
    */
   int setType (int type);
 
@@ -1389,16 +1523,18 @@ setValue(value, 0);
    *
    * @note The <code>sbml:units</code> attribute is only available in SBML
    * Level&nbsp;3.  It may not be used in Levels 1&ndash;2 of SBML.
+   *
+   * @see isSetUnits()
+   * @see hasUnits()
    */
   int setUnits(const std::string& units);
 
 
   /**
-   * Swaps the children of this ASTNode object with the children of the
-   * given ASTNode object.
+   * Swaps the children of this node with the children of another node.
    *
    * @param that the other node whose children should be used to replace
-   * <em>this</em> node's children
+   * <em>this</em> node's children.
    *
    * @return integer value indicating success/failure of the
    * function.  The possible values returned by this function are:
@@ -1409,14 +1545,22 @@ setValue(value, 0);
 
 
   /**
-   * Renames all the SIdRef attributes on this node and any child node
+   * Renames all the SIdRef attributes on this node and its child nodes.
+   *
+   * @param oldid the old identifier.
+   * @param newid the new identifier.
    */
   virtual void renameSIdRefs(const std::string& oldid, const std::string& newid);
 
 
   /**
-   * Renames all the UnitSIdRef attributes on this node and any child node.
-   * (The only place UnitSIDRefs appear in MathML <code>&lt;cn&gt;</code> elements.)
+   * Renames all the UnitSIdRef attributes on this node and its child nodes.
+   *
+   * The only place UnitSIDRefs appear in MathML <code>&lt;cn&gt;</code>
+   * elements, so the effects of this method are limited to that.
+   *
+   * @param oldid the old identifier.
+   * @param newid the new identifier.
    */
   virtual void renameUnitSIdRefs(const std::string& oldid, const std::string& newid);
 
@@ -1455,7 +1599,7 @@ setValue(value, 0);
   int unsetUnits();
 
   /**
-   * Unsets the MathML id of this ASTNode.
+   * Unsets the MathML @c id attribute of this ASTNode.
    *
    * @return integer value indicating success/failure of the
    * function.  The possible values returned by this function are:
@@ -1466,7 +1610,7 @@ setValue(value, 0);
   
 
   /**
-   * Unsets the MathML class of this ASTNode.
+   * Unsets the MathML @c class attribute of this ASTNode.
    *
    * @return integer value indicating success/failure of the
    * function.  The possible values returned by this function are:
@@ -1477,7 +1621,7 @@ setValue(value, 0);
 
 
   /**
-   * Unsets the MathML style of this ASTNode.
+   * Unsets the MathML @c style attribute of this ASTNode.
    *
    * @return integer value indicating success/failure of the
    * function.  The possible values returned by this function are:
@@ -1488,51 +1632,64 @@ setValue(value, 0);
 
 
   /**
-   * Sets the MathML attribute "definitionURL".
+   * Sets the MathML attribute @c definitionURL.
    *
-   * @param url the URL value for the "definitionURL" attribute.
+   * @param url the URL value for the @c definitionURL attribute.
    *
    * @return integer value indicating success/failure of the
    * function.  The possible values returned by this function are:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT @endlink
+   *
+   * @see setDefinitionURL(const std::string& url)
+   * @see getDefinitionURL()
+   * @see getDefinitionURLString()
    */
   int setDefinitionURL(XMLAttributes url);
 
 
   /**
-   * Sets the MathML attribute "definitionURL".
+   * Sets the MathML attribute @c definitionURL.
    *
-   * @param url the URL value for the "definitionURL" attribute.
+   * @param url the URL value for the @c definitionURL attribute.
    *
    * @return integer value indicating success/failure of the
    * function.  The possible values returned by this function are:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT @endlink
+   *
+   * @see setDefinitionURL(XMLAttributes url)
+   * @see getDefinitionURL()
+   * @see getDefinitionURLString()
    */
   int setDefinitionURL(const std::string& url);
 
 
   /**
-   * Gets the MathML "definitionURL" attribute value.
+   * Returns the MathML @c definitionURL attribute value.
    *
    * @return the value of the @c definitionURL attribute, in the form of
    * a libSBML XMLAttributes object.
+   *
+   * @see setDefinitionURL(XMLAttributes url)
+   * @see setDefinitionURL(const std::string& url)
+   * @see getDefinitionURLString()
    */
   XMLAttributes* getDefinitionURL() const;
 
 
   /**
-   * Replaces occurences of a given name within this ASTNode with the
-   * name/value/formula represented by @p arg.
-   * 
+   * Replaces occurrences of a given name with a given ASTNode.
+   *
    * For example, if the formula in this ASTNode is <code>x + y</code>,
    * then the <code>&lt;bvar&gt;</code> is @c x and @c arg is an ASTNode
    * representing the real value @c 3.  This method substitutes @c 3 for @c
    * x within this ASTNode object.
    *
-   * @param bvar a string representing the variable name to be substituted
-   * @param arg an ASTNode representing the name/value/formula to substitute
+   * @param bvar a string representing the variable name to be substituted.
+   *
+   * @param arg an ASTNode representing the name/value/formula to use as
+   * a replacement.
    */
   void replaceArgument(const std::string& bvar, ASTNode *arg);
 
@@ -1546,14 +1703,20 @@ setValue(value, 0);
    * function.  The possible values returned by this function are:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
+   *
+   * @see isSetParentSBMLObject()
+   * @see getParentSBMLObject()
    */
   int setParentSBMLObject(SBase* sb);
 
 
   /**
    * Returns the parent SBML object.
-   * 
+   *
    * @return the parent SBML object of this ASTNode.
+   *
+   * @see isSetParentSBMLObject()
+   * @see setParentSBMLObject(@if java SBase* sb@endif)
    */
   SBase * getParentSBMLObject() const;
 
@@ -1570,37 +1733,46 @@ setValue(value, 0);
 
 
   /**
-   * Returns @c true (non-zero) if this node has a value for 
-   * the parent SBML object.
+   * Returns @c true if this node has a value for the parent SBML
+   * object.
    *
-   * @return true if this ASTNode has an parent SBML object set, false otherwise.
+   * @return true if this ASTNode has an parent SBML object set, @c false otherwise.
+   *
+   * @see getParentSBMLObject()
+   * @see setParentSBMLObject(@if java SBase* sb@endif)
    */
   bool isSetParentSBMLObject() const;
 
 
   /**
    * Reduces this ASTNode to a binary tree.
-   * 
+   *
    * Example: if this ASTNode is <code>and(x, y, z)</code>, then the 
    * formula of the reduced node is <code>and(and(x, y), z)</code>.  The
    * operation replaces the formula stored in the current ASTNode object.
    */
   void reduceToBinary();
 
-  
+
  /**
   * Sets the user data of this node.
   *
   * The user data can be used by the application developer to attach custom
   * information to the node.  In case of a deep copy, this attribute will
   * passed as it is. The attribute will be never interpreted by this class.
-  * 
-  * @param userData specifies the new user data. 
+  *
+  * @param userData specifies the new user data.
   *
   * @return integer value indicating success/failure of the
   * function.  The possible values returned by this function are:
   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
+  *
+  * @if clike 
+  * @see ASTNode::isSetUserData()
+  * @see ASTNode::getUserData()
+  * @see ASTNode::unsetUserData()
+  * @endif
   */
   int setUserData(void *userData);
 
@@ -1608,10 +1780,13 @@ setValue(value, 0);
  /**
   * Returns the user data that has been previously set via setUserData().
   *
-  * @return the user data of this node, or @c NULL if no user data has been set.
+  * @return the user data of this node, or @c NULL if no user data has been
+  * set.
   *
   * @if clike
-  * @see ASTNode::setUserData
+  * @see ASTNode::isSetUserData()
+  * @see ASTNode::setUserData()
+  * @see ASTNode::unsetUserData()
   * @endif@~
   */
   void *getUserData() const;
@@ -1628,17 +1803,26 @@ setValue(value, 0);
   * function.  The possible values returned by this function are:
   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
+  *
+  * @if clike
+  * @see ASTNode::setUserData()
+  * @see ASTNode::getUserData()
+  * @see ASTNode::isSetUserData()
+  * @endif@~
   */
   int unsetUserData();
 
 
  /**
-  * Returns @c true (non-zero) if this node has the user data object set.
+  * Returns @c true if this node has a user data object.
   *
-  * @return true if this ASTNode has a user data object set, false otherwise.
+  * @return true if this ASTNode has a user data object set, @c false
+  * otherwise.
   *
   * @if clike
-  * @see ASTNode::setUserData
+  * @see ASTNode::setUserData()
+  * @see ASTNode::getUserData()
+  * @see ASTNode::unsetUserData()
   * @endif@~
   */
   bool isSetUserData() const;
@@ -1660,17 +1844,17 @@ setValue(value, 0);
 
 
  /**
-  * Returns @c true or @c false depending on whether this
-  * ASTNode has the correct number of children for its type.
+  * Returns @c true if this ASTNode has the correct number of children for
+  * its type.
   *
   * For example, an ASTNode with type @link ASTNodeType_t#AST_PLUS
   * AST_PLUS@endlink expects 2 child nodes.
   *
-  * @note This function performs a check on the top-level node only.  Child
-  * nodes are not checked.
-  *
   * @return @c true if this ASTNode has the appropriate number of children
   * for its type, @c false otherwise.
+  *
+  * @note This function performs a check on the top-level node only.  Child
+  * nodes are not checked.
   *
   * @see isWellFormedASTNode()
   */
@@ -1680,9 +1864,13 @@ setValue(value, 0);
   /* additional to original AST */
   
   /**
-   * Gets the MathML @c definitionURL attribute value as a string.
+   * Returns the MathML @c definitionURL attribute value as a string.
    *
    * @return the value of the @c definitionURL attribute, as a string.
+   *
+   * @see getDefinitionURL()
+   * @see setDefinitionURL(const std::string& url)
+   * @see setDefinitionURL(XMLAttributes url)
    */
   const std::string& getDefinitionURLString() const;
 
@@ -2097,7 +2285,7 @@ ASTNode_deepCopy (const ASTNode_t *node);
 
 
 /**
- * Gets a child of a node according to its index number.
+ * Returns a child of a node according to its index number.
  *
  * @param node the node whose child should be obtained.
  * @param n the index of the desired child node.
@@ -2182,22 +2370,22 @@ ASTNode_getNumChildren (const ASTNode_t *node);
  * This function performs a depth-first search of the tree rooted at the
  * given ASTNode_t structure, and returns a List_t structure of nodes for
  * which the given function <code>predicate(node)</code> returns true (i.e.,
- * non-zero).
+ * nonzero).
  *
  * The predicate is passed in as a pointer to a function.  The function
- * definition must have the type @link ASTNode.h::ASTNodePredicate ASTNodePredicate
- * @endlink, which is defined as
+ * definition must have the type @link ASTNode.h::ASTNodePredicate
+ * ASTNodePredicate@endlink, which is defined as
  * @verbatim
  int (*ASTNodePredicate) (const ASTNode_t *node);
  @endverbatim
- * where a return value of non-zero represents true and zero
+ * where a return value of nonzero represents true and zero
  * represents false.
  *
  * @param node the node at which the search is to be started
  * @param predicate the predicate to use
  *
  * @return the list of nodes for which the predicate returned true (i.e.,
- * non-zero).  The List_t structure returned is owned by the caller and
+ * nonzero).  The List_t structure returned is owned by the caller and
  * should be deleted after the caller is done using it.  The ASTNode_t
  * structures in the list, however, are @em not owned by the caller (as they
  * still belong to the tree itself), and therefore should @em not be deleted.
@@ -2219,15 +2407,15 @@ ASTNode_getListOfNodes (const ASTNode_t *node, ASTNodePredicate predicate);
  * of creating a new List_t structure, it uses the one passed in as argument
  * @p lst.  This function performs a depth-first search of the tree rooted at
  * the given ASTNode_t structure, and adds to @p lst the nodes for which the
- * given function <code>predicate(node)</code> returns true (i.e., non-zero).
+ * given function <code>predicate(node)</code> returns true (i.e., nonzero).
  *
  * The predicate is passed in as a pointer to a function.  The function
- * definition must have the type @link ASTNode.h::ASTNodePredicate ASTNodePredicate
- * @endlink, which is defined as
+ * definition must have the type @link ASTNode.h::ASTNodePredicate
+ * ASTNodePredicate@endlink, which is defined as
  * @verbatim
  int (*ASTNodePredicate) (const ASTNode_t *node);
  @endverbatim
- * where a return value of non-zero represents true and zero
+ * where a return value of nonzero represents true and zero
  * represents false.
  *
  * @param node the node at which the search is to be started
@@ -2246,7 +2434,7 @@ ASTNode_fillListOfNodes ( const ASTNode_t  *node,
 
 
 /**
- * Gets the value of a node as a single character.
+ * Returns the value of a node as a single character.
  *
  * This function should be called only when ASTNode_getType() returns
  * @link ASTNodeType_t#AST_PLUS AST_PLUS@endlink,
@@ -2269,7 +2457,7 @@ ASTNode_getCharacter (const ASTNode_t *node);
 
 
 /**
- * Gets the value of a node as an integer.
+ * Returns the value of a node as an integer.
  *
  * This function should be called only when ASTNode_getType() returns @link
  * ASTNodeType_t#AST_INTEGER AST_INTEGER@endlink for the given @p node.
@@ -2287,7 +2475,7 @@ ASTNode_getInteger (const ASTNode_t *node);
 
 
 /**
- * Gets the value of a node as a string.
+ * Returns the value of a node as a string.
  *
  * This function may be called on nodes that (1) are not operators, i.e.,
  * nodes for which ASTNode_isOperator() returns false (@c 0), and (2) are not
@@ -2305,7 +2493,7 @@ ASTNode_getName (const ASTNode_t *node);
 
 
 /**
- * Gets the numerator value of a node representing a rational number.
+ * Returns the numerator value of a node representing a rational number.
  *
  * This function should be called only when ASTNode_getType() returns @link
  * ASTNodeType_t#AST_RATIONAL AST_RATIONAL@endlink for the given @p node.
@@ -2325,7 +2513,7 @@ ASTNode_getNumerator (const ASTNode_t *node);
 
 
 /**
- * Gets the numerator value of a node representing a rational number.
+ * Returns the numerator value of a node representing a rational number.
  *
  * This function should be called only when ASTNode_getType() returns @link
  * ASTNodeType_t#AST_RATIONAL AST_RATIONAL@endlink for the given @p node.
@@ -2347,7 +2535,7 @@ ASTNode_getDenominator (const ASTNode_t *node);
 /**
  * Get the real-numbered value of a node.
  *
- * This function should be called only when ASTNode_isReal() returns non-zero
+ * This function should be called only when ASTNode_isReal() returns nonzero
  * for @p node. This function performs the necessary arithmetic if the node
  * type is @link ASTNodeType_t#AST_REAL_E AST_REAL_E@endlink (<em>mantissa *
  * 10<sup> exponent</sup></em>) or @link ASTNodeType_t#AST_RATIONAL
@@ -2405,7 +2593,7 @@ ASTNode_getExponent (const ASTNode_t *node);
 
 
 /**
- * Gets the precedence of a node in the infix math syntax of SBML
+ * Returns the precedence of a node in the infix math syntax of SBML
  * Level&nbsp;1.
  *
  * @copydetails doc_summary_of_string_math
@@ -2437,7 +2625,7 @@ ASTNode_getType (const ASTNode_t *node);
 
 
 /**
- * Returns the MathML "id" attribute of a given node.
+ * Returns the MathML @c id attribute of a given node.
  *
  * @param node the node whose identifier should be returned
  *
@@ -2451,7 +2639,7 @@ ASTNode_getId(const ASTNode_t * node);
 
 
 /**
- * Returns the MathML "class" attribute of a given node.
+ * Returns the MathML @c class attribute of a given node.
  *
  * @param node the node whose class should be returned
  *
@@ -2465,11 +2653,11 @@ ASTNode_getClass(const ASTNode_t * node);
 
 
 /**
- * Returns the MathML "style" attribute of a given node.
+ * Returns the MathML @c style attribute of a given node.
  *
  * @param node the node
  *
- * @return a string representing the "style" value, or a null value if @p is
+ * @return a string representing the @c style value, or a null value if @p is
  * a null pointer.
  *
  * @memberof ASTNode_t
@@ -2674,7 +2862,7 @@ ASTNode_isLambda (const ASTNode_t *node);
  * children, the first of which is an @link ASTNodeType_t#AST_INTEGER
  * AST_INTEGER@endlink equal to @c 10.
  *
- * @return @c 1 if @p node represents a log10() function, @c 0
+ * @return @c 1 if @p node represents a @c log10() function, @c 0
  * otherwise.
  *
  * @see SBML_parseL3Formula()
@@ -2998,7 +3186,7 @@ ASTNode_isUnknown (const ASTNode_t *node);
 
 
 /**
- * Returns true if the given node's MathML "id" attribute is set.
+ * Returns true if the given node's MathML @c id attribute is set.
  *
  * @param node the node to query
  *
@@ -3012,7 +3200,7 @@ ASTNode_isSetId (const ASTNode_t *node);
 
 
 /**
- * Returns true if the given node's MathML "class" attribute is set.
+ * Returns true if the given node's MathML @c class attribute is set.
  *
  * @param node the node to query
  *
@@ -3026,7 +3214,7 @@ ASTNode_isSetClass (const ASTNode_t *node);
 
 
 /**
- * Returns true if the given node's MathML "style" attribute is set.
+ * Returns true if the given node's MathML @c style attribute is set.
  *
  * @param node the node to query
  *
@@ -3235,7 +3423,7 @@ ASTNode_setType (ASTNode_t *node, ASTNodeType_t type);
 
 
 /**
- * Sets the MathML "id" attribute of the given node.
+ * Sets the MathML @c id attribute of the given node.
  *
  * @param node the node to set
  * @param id the identifier to use
@@ -3253,10 +3441,10 @@ ASTNode_setId (ASTNode_t *node, const char *id);
 
 
 /**
- * Sets the MathML "class" of the given node.
+ * Sets the MathML @c class of the given node.
  *
  * @param node the node to set
- * @param className the new value for the "class" attribute
+ * @param className the new value for the @c class attribute
  *
  * @return integer value indicating success/failure of the function.  The
  * possible values returned by this function are:
@@ -3271,10 +3459,10 @@ ASTNode_setClass (ASTNode_t *node, const char *className);
 
 
 /**
- * Sets the MathML "style" of the given node.
+ * Sets the MathML @c style of the given node.
  *
  * @param node the node to set
- * @param style the new value for the "style" attribute
+ * @param style the new value for the @c style attribute
  *
  * @return integer value indicating success/failure of the function.  The
  * possible values returned by this function are:
@@ -3338,7 +3526,7 @@ ASTNode_swapChildren (ASTNode_t *node, ASTNode_t *that);
 
 
 /**
- * Unsets the MathML "id" attribute of the given node.
+ * Unsets the MathML @c id attribute of the given node.
  *
  * @param node the node to modify
  *
@@ -3356,7 +3544,7 @@ ASTNode_unsetId (ASTNode_t *node);
 
 
 /**
- * Unsets the MathML "class" attribute of the given node.
+ * Unsets the MathML @c class attribute of the given node.
  *
  * @param node the node to modify
  *
@@ -3374,7 +3562,7 @@ ASTNode_unsetClass (ASTNode_t *node);
 
 
 /**
- * Unsets the MathML "style" attribute of the given node.
+ * Unsets the MathML @c style attribute of the given node.
  *
  * @param node the node to modify
  *
@@ -3510,7 +3698,7 @@ ASTNode_unsetParentSBMLObject(ASTNode_t* node);
 
 
 /**
- * Adds a given XML node structure as a MathML <em>semantic annotation</em>
+ * Adds a given XML node structure as a MathML <code>&lt;semantics&gt;</code> element
  * of a given ASTNode_t structure.
  *
  * @htmlinclude about-semantic-annotations.html
@@ -3707,11 +3895,11 @@ ASTNode_isWellFormedASTNode(ASTNode_t* node);
 
 
 /**
- * Returns the MathML "definitionURL" attribute value of the given node.
+ * Returns the MathML @c definitionURL attribute value of the given node.
  *
  * @param node the node to query
  *
- * @return the value of the "definitionURL" attribute in the form of a
+ * @return the value of the @c definitionURL attribute in the form of a
  * libSBML XMLAttributes_t structure, or a null pointer if @p node does not
  * have a value for the attribute.
  *
@@ -3725,12 +3913,12 @@ ASTNode_getDefinitionURL(ASTNode_t* node);
 
 
 /**
- * Returns the MathML "definitionURL" attribute value of the given node as a
+ * Returns the MathML @c definitionURL attribute value of the given node as a
  * string.
  *
  * @param node the node to query
  *
- * @return the value of the "definitionURL" attribute in the form of a
+ * @return the value of the @c definitionURL attribute in the form of a
  * string, or a null pointer if @p node does not have a value for the
  * attribute.
  *
@@ -3744,7 +3932,7 @@ ASTNode_getDefinitionURLString(ASTNode_t* node);
 
 
 /**
- * Sets the MathML "definitionURL" attribute of the given node.
+ * Sets the MathML @c definitionURL attribute of the given node.
  *
  * @param node the node to modify
  * @param defnURL the value to which the attribute should be set
@@ -3762,7 +3950,7 @@ ASTNode_setDefinitionURL(ASTNode_t* node, XMLAttributes_t * defnURL);
 
 
 /**
- * Sets the MathML "definitionURL" attribute of the given node.
+ * Sets the MathML @c definitionURL attribute of the given node.
  *
  * @param node the node to modify
  * @param defnURL a string to which the attribute should be set
