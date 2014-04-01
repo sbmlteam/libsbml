@@ -240,7 +240,7 @@ distfiles =                                                  \
         doxygen-layout-notcpp.xml                            \
         doxygen-layout-python.xml                            \
         filters/doc-filter-c.py                              \
-        filters/doc-filter-cs.py                             \
+        filters/doc-filter-csharp.py                         \
         filters/doc-filter-python.py                         \
         java-substitutions/ASTNodeList.java                  \
         java-substitutions/CompPkgNamespaces.java            \
