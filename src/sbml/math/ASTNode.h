@@ -805,11 +805,21 @@ int (*ASTNodePredicate) (const ASTNode_t *node);
   /**
    * Returns the type of this ASTNode.
    *
-   * The value returned is one of the enumeration values such as
+   * The value returned is one of the Core AST type codes such as
    * @link ASTNodeType_t#AST_LAMBDA AST_LAMBDA@endlink,
    * @link ASTNodeType_t#AST_PLUS AST_PLUS@endlink, etc.
    *
    * @return the type of this ASTNode.
+   *
+   * @note The introduction of extensibility in SBML Level&nbsp;3 brings with
+   * it a need to allow for the possibility of node types that are defined by
+   * plug-ins implementing SBML Level&nbsp;3 packages.  If a given ASTNode is
+   * a construct created by a package rather than libSBML Core, then
+   * getType() will return @link ASTNodeType_t#AST_ORIGINATES_IN_PACKAGE
+   * AST_ORIGINATES_IN_PACKAGE@endlink.  Callers can then obtain the
+   * package-specific type by calling getExtendedType().
+   *
+   * @see getExtendedType()
    */
   ASTNodeType_t getType () const;
 
@@ -819,13 +829,18 @@ int (*ASTNodePredicate) (const ASTNode_t *node);
    *
    * The type may be either a core
    * @if notclike integer type code@else ASTNodeType_t value@endif
-   * or a value of a type code from an SBML Level&nbsp;3 package.
+   * or a value of a type code defined by an SBML Level&nbsp;3 package.
    *
    * @return the type of this ASTNode.
    *
    * @note When the ASTNode is of a type from a package, the
-   * value returned by ASTNode::getExtendedType() will be @link
-   * ASTNodeType_t#AST_ORIGINATES_IN_PACKAGE AST_ORIGINATES_IN_PACKAGE@endlink.
+   * value returned by ASTNode::getType() will be @link
+   * ASTNodeType_t#AST_ORIGINATES_IN_PACKAGE AST_ORIGINATES_IN_PACKAGE@endlink
+   * and getExtendedType() will return a package-specific type code.
+   * To find out the possible package-specific types (if any), please
+   * consult the documentation for the particular package.
+   *
+   * @see getType()
    */
   virtual int getExtendedType() const;
 
