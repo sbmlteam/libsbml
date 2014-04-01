@@ -158,12 +158,9 @@ EXCLUDE_SYMBOLS +=                     \
   SBMLLevelVersionConverter_init       \
   SBMLRuleConverter_init               \
   SBMLStripPackageConverter_init       \
-  SBMLTransforms                       \
   SBMLUnitsConverter_init              \
   SBaseExtensionPoint                  \
   SwigPyIterator                       \
-  XMLInputStream                       \
-  XMLOutputStream                      \
   swig_import_helper                   \
   weakref_proxy                        \
   _newclass                            \
