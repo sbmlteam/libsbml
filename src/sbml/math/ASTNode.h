@@ -3701,7 +3701,7 @@ ASTNode_unsetParentSBMLObject(ASTNode_t* node);
  * Adds a given XML node structure as a MathML <code>&lt;semantics&gt;</code> element
  * of a given ASTNode_t structure.
  *
- * @htmlinclude about-semantic-annotations.html
+ * @copydetails doc_about_mathml_semantic_annotations
  *
  * @param node the node to modify
  * @param annotation the annotation to add
@@ -3712,16 +3712,7 @@ ASTNode_unsetParentSBMLObject(ASTNode_t* node);
  * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
  * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
  *
- * @note Although SBML permits the semantic annotation construct in
- * MathML expressions, the truth is that this construct has so far (at
- * this time of this writing, which is early 2011) seen very little use
- * in SBML software.  The full implications of using semantic annotations
- * are still poorly understood.  If you wish to use this construct, we
- * urge you to discuss possible uses and applications on the SBML
- * discussion lists, particularly <a target="_blank"
- * href="http://sbml.org/Forums">sbml-discuss&#64;caltech.edu</a> and/or <a
- * target="_blank"
- * href="http://sbml.org/Forums">sbml-interoperability&#64;caltech.edu</a>.
+ * @copydetails doc_note_mathml_semantic_annotations_uncommon
  *
  * @memberof ASTNode_t
  */
@@ -3751,7 +3742,7 @@ ASTNode_getNumSemanticsAnnotations(ASTNode_t* node);
 /**
  * Returns the nth MathML semantic annotation attached to the given node.
  *
- * @htmlinclude about-semantic-annotations.html
+ * @copydetails doc_about_mathml_semantic_annotations
  *
  * @param node the node to query
  * @param n the index of the semantic annotation to fetch
@@ -3759,6 +3750,8 @@ ASTNode_getNumSemanticsAnnotations(ASTNode_t* node);
  * @return the nth semantic annotation on @p node , or a null pointer if the
  * node has no nth annotation (which would mean that <code>n &gt;
  * ASTNode_getNumSemanticsAnnotations(node) - 1</code>).
+ *
+ * @copydetails doc_note_mathml_semantic_annotations_uncommon
  *
  * @see ASTNode_addSemanticsAnnotation()
  *
