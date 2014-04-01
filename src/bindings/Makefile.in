@@ -93,6 +93,7 @@ swig_extras =                \
   swig/OStream.cpp           \
   swig/OStream.h             \
   swig/std_set.i             \
+  swig/ASTNodes.i            \
   swig/argparse.py           \
   swig/libsbmlutils.py       \
   CMakeLists.txt
