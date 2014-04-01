@@ -105,19 +105,11 @@ public:
    * corresponding CVTerm (controlled vocabulary term) objects.
    *
    * @param annotation XMLNode containing the annotation.
-   * 
    * @param CVTerms list of CVTerm objects to be created.
-   * @param stream optional XMLInputStream that facilitates error logging
-   * @param metaId optional metaId, if set only the rdf annotation for this metaId will be returned.
+   * @param metaId optional metaId, if set only the RDF annotation for this metaId will be returned.
+   * @param stream optional XMLInputStream that facilitates error logging.
    *
-   * @if notclike @note Because this is a @em static method, the non-C++
-   * language interfaces for libSBML will contain two variants.  One will
-   * be a static method on the class (i.e., RDFAnnotationParser), and the
-   * other will be a standalone top-level function with the name
-   * RDFAnnotationParser_parseRDFAnnotation(). They are functionally
-   * identical. @endif@~
-   *
-   * @see @if clike parseRDFAnnotation(const XMLNode *annotation) @else RDFAnnotationParser::parseRDFAnnotation(const XMLNode *annotation) @endif@~
+   * @copydetails doc_note_static_methods
    */
   static void parseRDFAnnotation(const XMLNode *annotation, List *CVTerms,
                   const char* metaId = NULL, XMLInputStream* stream = NULL);
@@ -132,14 +124,9 @@ public:
    *
    * @param annotation XMLNode containing the annotation.
    * @param stream optional XMLInputStream that facilitates error logging
-   * @param metaId optional metaId, if set only the rdf annotation for this metaId will be returned.
+   * @param metaId optional metaId, if set only the RDF annotation for this metaId will be returned.
    *
-   * @if notclike @note Because this is a @em static method, the non-C++
-   * language interfaces for libSBML will contain two variants.  One will
-   * be a static method on the class (i.e., RDFAnnotationParser), and the
-   * other will be a standalone top-level function with the name
-   * RDFAnnotationParser_parseRDFAnnotation(). They are functionally
-   * identical. @endif@~
+   * @copydetails doc_note_static_methods
    *
    * @return a pointer to the ModelHistory created.
    */
@@ -207,12 +194,7 @@ success = sbmlObject.setAnnotation(annot)           # Set object's annotation to
    *
    * @return a pointer to an XMLNode for the annotation
    *
-   * @if notclike @note Because this is a @em static method, the non-C++
-   * language interfaces for libSBML will contain two variants.  One will
-   * be a static method on the class (i.e., RDFAnnotationParser), and the
-   * other will be a standalone top-level function with the name
-   * RDFAnnotationParser_createAnnotation(). They are functionally
-   * identical. @endif@~
+   * @copydetails doc_note_static_methods
    *
    * @see @if clike createRDFAnnotation() @else RDFAnnotationParser::createRDFAnnotation() @endif@~
    */
@@ -243,12 +225,7 @@ success = sbmlObject.setAnnotation(annot)           # Set object's annotation to
    *
    * @return a pointer to an XMLNode
    *
-   * @if notclike @note Because this is a @em static method, the non-C++
-   * language interfaces for libSBML will contain two variants.  One will
-   * be a static method on the class (i.e., RDFAnnotationParser), and the
-   * other will be a standalone top-level function with the name
-   * RDFAnnotationParser_createRDFAnnotation(). They are functionally
-   * identical. @endif@~
+   * @copydetails doc_note_static_methods
    *
    * @see @if clike createAnnotation() @else RDFAnnotationParser::createAnnotation() @endif@~
    */
@@ -283,12 +260,7 @@ success = sbmlObject.setAnnotation(annot)           # Set object's annotation to
    * @return a new XMLNode containing the "rdf:Description" element with
    * its "about" attribute value set to the @p object meta identifier.
    *
-   * @if notclike @note Because this is a @em static method, the non-C++
-   * language interfaces for libSBML will contain two variants.  One will
-   * be a static method on the class (i.e., RDFAnnotationParser), and the
-   * other will be a standalone top-level function with the name
-   * RDFAnnotationParser_createRDFDescription(). They are functionally
-   * identical. @endif@~
+   * @copydetails doc_note_static_methods
    *
    * @see @if clike createRDFAnnotation() @else RDFAnnotationParser::createRDFAnnotation() @endif@~
    */
@@ -308,12 +280,7 @@ success = sbmlObject.setAnnotation(annot)           # Set object's annotation to
    * @return the XMLNode tree corresponding to the Description element of
    * an RDF annotation.
    *
-   * @if notclike @note Because this is a @em static method, the non-C++
-   * language interfaces for libSBML will contain two variants.  One will
-   * be a static method on the class (i.e., RDFAnnotationParser), and the
-   * other will be a standalone top-level function with the name
-   * createRDFDescription(@if java SBase obj@endif). They are functionally
-   * identical. @endif@~
+   * @copydetails doc_note_static_methods
    */
   static XMLNode * createCVTerms(const SBase *obj);
 
@@ -334,12 +301,7 @@ success = sbmlObject.setAnnotation(annot)           # Set object's annotation to
    *
    * @return the XMLNode tree corresponding to the annotation.
    *
-   * @if notclike @note Because this is a @em static method, the non-C++
-   * language interfaces for libSBML will contain two variants.  One will
-   * be a static method on the class (i.e., RDFAnnotationParser), and the
-   * other will be a standalone top-level function with the name
-   * RDFAnnotationParser_parseCVTerms(). They are functionally
-   * identical. @endif@~
+   * @copydetails doc_note_static_methods
    */
   static XMLNode * parseCVTerms(const SBase * obj);
 
@@ -357,12 +319,7 @@ success = sbmlObject.setAnnotation(annot)           # Set object's annotation to
    * @note If the object does not have a history element stored then
    * @c NULL is returned even if CVTerms are present.
    *
-   * @if notclike @note Because this is a @em static method, the non-C++
-   * language interfaces for libSBML will contain two variants.  One will
-   * be a static method on the class (i.e., RDFAnnotationParser), and the
-   * other will be a standalone top-level function with the name
-   * RDFAnnotationParser_parseModelHistory(@if java Sbase obj@endif). They
-   * are functionally identical. @endif@~
+   * @copydetails doc_note_static_methods
    */
   static XMLNode * parseModelHistory(const SBase * obj);
 
@@ -376,12 +333,7 @@ success = sbmlObject.setAnnotation(annot)           # Set object's annotation to
    * @return the XMLNode corresponding to an annotation containing 
    * MIRIAM-compliant model history information in RDF format.
    *
-   * @if notclike @note Because this is a @em static method, the non-C++
-   * language interfaces for libSBML will contain two variants.  One will
-   * be a static method on the class (i.e., RDFAnnotationParser), and the
-   * other will be a standalone top-level function with the name
-   * RDFAnnotationParser_parseOnlyModelHistory(). They are functionally
-   * identical. @endif@~
+   * @copydetails doc_note_static_methods
    */
   static XMLNode * parseOnlyModelHistory(const SBase * obj);
 
@@ -403,12 +355,7 @@ success = sbmlObject.setAnnotation(annot)           # Set object's annotation to
    * @return the XMLNode structure that is left after RDF annotations are
    * deleted.
    *
-   * @if notclike @note Because this is a @em static method, the non-C++
-   * language interfaces for libSBML will contain two variants.  One will
-   * be a static method on the class (i.e., RDFAnnotationParser), and the
-   * other will be a standalone top-level function with the name
-   * RDFAnnotationParser_deleteRDFAnnotation(). They are functionally
-   * identical. @endif@~
+   * @copydetails doc_note_static_methods
    */
   static XMLNode * deleteRDFAnnotation(const XMLNode *annotation);
 
@@ -430,12 +377,7 @@ success = sbmlObject.setAnnotation(annot)           # Set object's annotation to
    * @return the XMLNode structure that is left after RDF annotations are
    * deleted.
    *
-   * @if notclike @note Because this is a @em static method, the non-C++
-   * language interfaces for libSBML will contain two variants.  One will
-   * be a static method on the class (i.e., RDFAnnotationParser), and the
-   * other will be a standalone top-level function with the name
-   * RDFAnnotationParser_deleteRDFAnnotation(). They are functionally
-   * identical. @endif@~
+   * @copydetails doc_note_static_methods
    */
   static XMLNode * deleteRDFHistoryAnnotation(const XMLNode *annotation);
 
@@ -457,12 +399,7 @@ success = sbmlObject.setAnnotation(annot)           # Set object's annotation to
    * @return the XMLNode structure that is left after RDF annotations are
    * deleted.
    *
-   * @if notclike @note Because this is a @em static method, the non-C++
-   * language interfaces for libSBML will contain two variants.  One will
-   * be a static method on the class (i.e., RDFAnnotationParser), and the
-   * other will be a standalone top-level function with the name
-   * RDFAnnotationParser_deleteRDFAnnotation(). They are functionally
-   * identical. @endif@~
+   * @copydetails doc_note_static_methods
    */
   static XMLNode * deleteRDFCVTermAnnotation(const XMLNode *annotation);
 
