@@ -66,10 +66,11 @@
  * In SBML Levels 2 and&nbsp;3, Reaction object identifiers can be
  * referenced in the "math" expression of an algebraic rule, but reaction
  * rates can never be <em>determined</em> by algebraic rules.  This is true
- * even when a reaction does not contain a KineticLaw element.  (In such
- * cases of missing KineticLaw elements, the model is valid but incomplete;
- * the rates of reactions lacking kinetic laws are simply undefined, and
- * not determined by the algebraic rule.)
+ * even when a reaction does not contain a KineticLaw
+ * @if conly structure @else object@endif.  (In such cases of missing
+ * kinetic law definitions, the model is valid but incomplete; the rates of
+ * reactions lacking kinetic laws are simply undefined, and not determined by
+ * the algebraic rule.)
  * 
  * @copydetails doc_rules_general_summary
  */ 
@@ -84,17 +85,18 @@
  *
  * @class doc_algebraicrule_setting_lv
  *
- * @note Upon the addition of an AlgebraicRule object to an SBMLDocument
- * (e.g., using Model::addRule(@if java Rule r@endif)), the SBML Level, SBML
- * Version and XML namespace of the document @em override the values used
- * when creating the AlgebraicRule object via the AlgebraicRule constructors.
- * This is necessary to ensure that an SBML document has a consistent overall
- * structure.  Nevertheless, the ability to supply the values at the time of
- * creation of a AlgebraicRule is an important aid to producing valid SBML.
- * Knowledge of the intented SBML Level and Version determine whether it is
- * valid to assign a particular value to an attribute, or whether it is valid
- * to add an object to an existing SBMLDocument.
- * 
+ * @note Upon the addition of an AlgebraicRule
+ * @if conly structure @else object@endif@~ to an SBMLDocument, the SBML
+ * Level, SBML Version and XML namespace of the document @em override the
+ * values used when creating the AlgebraicRule
+ * @if conly structure @else object@endif@~ via the AlgebraicRule
+ * constructors.  This is necessary to ensure that an SBML document has a
+ * consistent overall structure.  Nevertheless, the ability to supply the
+ * values at the time of creation of a AlgebraicRule is an important aid to
+ * producing valid SBML.  Knowledge of the intented SBML Level and Version
+ * determine whether it is valid to assign a particular value to an
+ * attribute, or whether it is valid to add an object to an existing
+ * SBMLDocument.
  */
 
 #ifndef AlgebraicRule_h
@@ -123,13 +125,12 @@ class LIBSBML_EXTERN AlgebraicRule : public Rule
 public:
 
   /**
-   * Creates a new AlgebraicRule using the given SBML @p level and @p version
-   * values.
+   * Creates a new AlgebraicRule object using the given SBML @p level and @p
+   * version values.
    *
-   * @param level an unsigned int, the SBML Level to assign to this AlgebraicRule
+   * @param level the SBML Level to assign to this AlgebraicRule object.
    *
-   * @param version an unsigned int, the SBML Version to assign to this
-   * AlgebraicRule
+   * @param version the SBML Version to assign to this AlgebraicRule object.
    *
    * @throws @if python ValueError @else SBMLConstructorException @endif
    * Thrown if the given @p level and @p version combination, or this kind
@@ -142,7 +143,7 @@ public:
 
 
   /**
-   * Creates a new AlgebraicRule using the given SBMLNamespaces object
+   * Creates a new AlgebraicRule object using the given SBMLNamespaces object
    * @p sbmlns.
    *
    * The SBMLNamespaces object encapsulates SBML Level/Version/namespaces
@@ -203,9 +204,8 @@ public:
 
 
   /**
-   * Predicate returning @c true if
-   * all the required attributes for this AlgebraicRule object
-   * have been set.
+   * Predicate returning @c true if all the required attributes for this
+   * AlgebraicRule object have been set.
    *
    * @note In SBML Levels&nbsp;2&ndash;3, there is no required attribute
    * for an AlgebraicRule object.  For Level&nbsp;1, the only required
