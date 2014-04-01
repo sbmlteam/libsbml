@@ -8141,4 +8141,15 @@ e><a href="libsbml.html#parseL3Formula(java.lang.String)">libsbml.parseL3Formula
 <td class="s-na">N</td>
 <td class="s-error">E</td></tr>
 </table>
+ *
+ * <!-- ------------------------------------------------------------------- -->
+ * @class doc_note_static_methods
+ *
+ * @if python @note Because this is a static method on a class, the Python
+ * language interface for libSBML will contain two variants.  One will be the
+ * expected, normal static method on the class (i.e., a regular
+ * <em>methodName</em>), and the other will be a standalone top-level
+ * function with the name <em>ClassName_methodName()</em>. This is merely an
+ * artifact of how the language interfaces are created in libSBML.  The
+ * methods are functionally identical. @endif@~
  */
