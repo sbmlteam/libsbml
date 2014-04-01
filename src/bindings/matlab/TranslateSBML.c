@@ -43,10 +43,9 @@
 #include <sbml/SBMLTypes.h>
 #include <sbml/util/util.h>
 
+#include <sbml/extension/SBasePlugin.h>
 
 #ifdef USE_FBC
-
-#include <sbml/extension/SBasePlugin.h>
 
 #include <sbml/packages/fbc/extension/FbcExtension.h>
 #include <sbml/packages/fbc/extension/FbcModelPlugin.h>
@@ -428,18 +427,18 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
   char * pacErrors1, * pacError1;
   unsigned int i;
   mxArray *mxPrompt[2], *mxReply[1], *mxWarn[1], *mxPrompt1[2];
-  char *pacPromptValid = "Do you want to validate the model? Enter y/n ";
-  char *pacPromptLoadAnyway = "Do you want to load the model anyway? Enter y/n ";
-  char *pacPromptValidAnyway = "There are errors found during reading. Do you want to continue validation? Enter y/n ";
+  const char *pacPromptValid = "Do you want to validate the model? Enter y/n ";
+  const char *pacPromptLoadAnyway = "Do you want to load the model anyway? Enter y/n ";
+  const char *pacPromptValidAnyway = "There are errors found during reading. Do you want to continue validation? Enter y/n ";
   char *pacReply;
   char *pacWarn;
-  char *pacNone = "No model returned.";
-  char *pacList = "Do you want to exclude the warnings from the list? Enter y/n ";
+  const char *pacNone = "No model returned.";
+  const char *pacList = "Do you want to exclude the warnings from the list? Enter y/n ";
   unsigned int usingOctave = 0;
   mxArray * mxOctave[1];
   int outputErrors = 0;
   char * msgTxt = NULL;
-  char *pacL3packages = "Level 3 packages detected. Information WILL be lost.";
+  const char *pacL3packages = "Level 3 packages detected. Information WILL be lost.";
   int packages = 0;
 
   pacCSymbolTime = NULL;
@@ -631,7 +630,8 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
   if (SBMLDocument_getModel(sbmlDocument) == NULL)
   {
     pacReply = (char *)mxCalloc(3,sizeof(char));
-    pacReply = "n";
+    pacReply[0] = 'n';
+    pacReply[1] = '\0';
     /*mxPrompt[0] = mxCreateString("Fatal errors were encountered; read was abandoned");
     */
     if (outputErrors == 1)
@@ -805,7 +805,8 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
       if (errors == 0 && listFlag == 0)
       {
         pacReply = (char *)mxCalloc(3,sizeof(char));
-        pacReply = "y";
+        pacReply[0] = 'y';
+        pacReply[1] = '\0';
       }
       else if (validateFlag == 0)
       {
@@ -813,7 +814,8 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
         mexCallMATLAB(0, NULL, 1, mxErrors, "disp");
         mxDestroyArray(mxErrors[0]);
         pacReply = (char *)mxCalloc(3,sizeof(char));
-        pacReply = "y";
+        pacReply[0] = 'y';
+        pacReply[1] = '\0';
       }
       else
       {
@@ -829,7 +831,9 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
         else
         {
           pacReply = (char *)mxCalloc(3,sizeof(char));
-          pacReply = "y";
+          pacReply[0] = 'y';
+          pacReply[1] = '\0';
+
         }
       }
 
@@ -838,7 +842,9 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
     else
     {
       pacReply = (char *)mxCalloc(3,sizeof(char));
-      pacReply = "y";
+      pacReply[0] = 'y';
+      pacReply[1] = '\0';
+
     }
   }
   /* if pacReply is 'y' we read the Model */
