@@ -526,6 +526,23 @@ LIBSBML_CPP_NAMESPACE_USE
 
 %extend RDFAnnotationParser
 {
+  /**
+   * Parses an annotation (given as an XMLNode tree) into a list of
+   * CVTerm objects.
+   *
+   * This is used to take an annotation that has been read into an SBML
+   * model, identify the RDF elements within it, and create a list of
+   * corresponding CVTerm (controlled vocabulary term) objects.
+   *
+   * @param annotation XMLNode containing the annotation.
+   * @param CVTerms list of CVTerm objects to be created.
+   *
+   * @copydetails doc_note_static_methods
+   *
+   * @see @if clike parseRDFAnnotation(const XMLNode *annotation) @else RDFAnnotationParser::parseRDFAnnotation(const XMLNode *annotation) @endif@~
+   *
+   * @htmlinclude warn-default-args-in-docs.html
+   */
   static void parseRDFAnnotation(const XMLNode *annotation, ListWrapper<CVTerm> *CVTerms)
   {
     if (!CVTerms) return;
@@ -533,7 +550,26 @@ LIBSBML_CPP_NAMESPACE_USE
     List *list = CVTerms->getList();
     RDFAnnotationParser::parseRDFAnnotation(annotation,list);
   }
-  
+
+  /**
+   * Parses an annotation (given as an XMLNode tree) into a list of
+   * CVTerm objects.
+   *
+   * This is used to take an annotation that has been read into an SBML
+   * model, identify the RDF elements within it, and create a list of
+   * corresponding CVTerm (controlled vocabulary term) objects.
+   *
+   * @param annotation XMLNode containing the annotation.
+   * @param CVTerms list of CVTerm objects to be created.
+   * @param metaId optional metaId, if set only the RDF annotation for this metaId will be returned.
+   * @param stream optional XMLInputStream that facilitates error logging.
+   *
+   * @copydetails doc_note_static_methods
+   *
+   * @see @if clike parseRDFAnnotation(const XMLNode *annotation) @else RDFAnnotationParser::parseRDFAnnotation(const XMLNode *annotation) @endif@~
+   *
+   * @htmlinclude warn-default-args-in-docs.html
+   */
   static void parseRDFAnnotation(const XMLNode *annotation, ListWrapper<CVTerm> *CVTerms, const char* metaId = NULL, XMLInputStream* stream = NULL)
   {
     if (!CVTerms) return;
