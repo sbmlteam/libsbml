@@ -31,7 +31,7 @@
  * ---------------------------------------------------------------------- -->
  *
  * @class ListOf
- * @sbmlbrief{core} Parent class for the various SBML "ListOfXYZ" classes.
+ * @sbmlbrief{core} Parent class for libSBML's "ListOfXYZ" classes.
  *
  * @htmlinclude not-sbml-warning.html
  *
@@ -39,7 +39,7 @@
  * class for implementing the ListOf__ classes.  It provides methods for
  * working generically with the various SBML lists of objects in a program.
  * LibSBML uses this separate list class rather than ordinary
- * @if clike C&#43;&#43; @endif@if java Java@endif@if python Python@endif@~ lists,
+ * @if conly C@endif@if cpp C++; @endif@if java Java@endif@if python Python@endif@~ lists,
  * so that it can provide the methods and features associated with SBase.
  *
  * @copydetails doc_what_is_listof 
@@ -95,21 +95,22 @@ public:
    * Creates a new ListOf object.
    *
    * @param level the SBML Level; if not assigned, defaults to the
-   * value of SBML_DEFAULT_LEVEL.
+   * value of SBMLDocument::getDefaultLevel().
    * 
    * @param version the Version within the SBML Level; if not assigned,
-   * defaults to the value of SBML_DEFAULT_VERSION.
+   * defaults to the value of SBMLDocument::getDefaultVersion().
    * 
    * @if notcpp @htmlinclude warn-default-args-in-docs.html @endif@~
    */
   ListOf (unsigned int level   = SBML_DEFAULT_LEVEL, 
           unsigned int version = SBML_DEFAULT_VERSION);
-          
+
 
   /**
    * Creates a new ListOf with SBMLNamespaces object.
    *
-   * @param sbmlns the set of namespaces that this ListOf should contain.
+   * @param sbmlns the set of SBML namespaces that this ListOf should
+   * contain.
    */
   ListOf (SBMLNamespaces* sbmlns);
 
@@ -121,7 +122,7 @@ public:
 
 
   /**
-   * Copy constructor;  creates a copy of this ListOf.
+   * Copy constructor; creates a copy of this ListOf.
    *
    * @param orig the ListOf instance to copy.
    */
@@ -155,71 +156,77 @@ public:
 
 
   /**
-   * Adds item to the end of this ListOf.
+   * Adds an item to the end of this ListOf's list of items.
    *
-   * This variant of the method makes a clone of the @p item handed to it.
-   * This means that when the ListOf is destroyed, the original items will
-   * not be destroyed.
+   * This method makes a clone of the @p item handed to it.  This means that
+   * when the ListOf object is destroyed, the original items will not be
+   * destroyed.  For a method with an alternative ownership behavior, see the
+   * ListOf::appendAndOwn(SBase* item) method.
    *
    * @param item the item to be added to the list.
    *
    * @see appendAndOwn(SBase* item)
+   * @see appendFrom(const ListOf* list)
    */
   int append (const SBase* item);
 
 
   /**
-   * Adds item to the end of this ListOf.
+   * Adds an item to the end of this ListOf's list of items.
    *
-   * This variant of the method does not clone the @p item handed to it;
-   * instead, it assumes ownership of it.  This means that when the ListOf
-   * is destroyed, the item will be destroyed along with it.
+   * This method does not clone the @p item handed to it; instead, it assumes
+   * ownership of it.  This means that when the ListOf is destroyed, the item
+   * will be destroyed along with it.  For a method with an alternative
+   * ownership behavior, see the ListOf::append(SBase* item) method.
    *
    * @param item the item to be added to the list.
    *
    * @see append(const SBase* item)
+   * @see appendFrom(const ListOf* list)
    */
   int appendAndOwn (SBase* item);
 
 
   /**
-   * Adds a clone of all items in the provided ListOf to this object.
+   * Adds a clone of a list of items to this ListOf's list.
    *
-   * This means that when this ListOf is destroyed, the original items will
-   * not be destroyed.
+   * Note that because this clones the objects handed to it, the original
+   * items will not be destroyed when this ListOf object is destroyed.
    *
-   * @param list A list of items to be added.
+   * @param list a list of items to be added.
    *
    * @see append(const SBase* item)
+   * @see appendAndOwn(SBase* item)
    */
-  virtual int appendFrom(const ListOf* list);
-  
+  virtual int appendFrom (const ListOf* list);
 
-  /** 
-   * Inserts the item at the given position of this ListOf
-   * 
-   * This variant of the method makes a clone of the @p item handet to it. 
+
+  /**
+   * Inserts an item at a given position in this ListOf's list of items.
+   *
+   * This variant of the method makes a clone of the @p item handed to it.
    * This means that when the ListOf is destroyed, the original items will
-   * not be destroyed. 
-   * 
-   * @param location the location where to insert the item
-   * @param item the item to be inserted to the list
-   * 
+   * not be destroyed.  For an alternative method with different ownership
+   * behavior, see insertAndOwn(int location, SBase* item).
+   *
+   * @param location the location in the list where to insert the item.
+   * @param item the item to be inserted to the list.
+   *
    * @see insertAndOwn(int location, SBase* item)
    */
-  int insert(int location, const SBase* item);
+  int insert (int location, const SBase* item);
 
 
-  /** 
-   * Inserts the item at the given position of this ListOf
-   * 
-   * This variant of the method makes a clone of the @p item handet to it. 
+  /**
+   * Inserts an item at a given position in this ListOf's list of items.
+   *
+   * This variant of the method makes a clone of the @p item handet to it.
    * This means that when the ListOf is destroyed, the original items will
-   * not be destroyed. 
-   * 
+   * not be destroyed.
+   *
    * @param location the location where to insert the item
    * @param item the item to be inserted to the list
-   * 
+   *
    * @see insert(int location, const SBase* item)
    */
   int insertAndOwn(int location, SBase* item);
@@ -229,7 +236,7 @@ public:
    * Get an item from the list.
    *
    * @param n the index number of the item to get.
-   * 
+   *
    * @return the nth item in this ListOf items.
    *
    * @see size()
@@ -250,36 +257,41 @@ public:
 
 
   /**
-   * Returns the first child element found that has the given @p id in the
-   * model-wide SId namespace, or @c NULL if no such object is found.
+   * Returns the first child element found that has the given identifier.
    *
-   * @param id string representing the id of objects to find
+   * This method searches this ListOf's list of items for SBML objects based
+   * on their "id" attribute value in the model-wide SId namespace.
    *
-   * @return pointer to the first element found with the given @p id.
+   * @param id string representing the id of objects to find.
+   *
+   * @return the first element found with the given @p id, or @c NULL if no
+   * such object is found.
    */
   virtual SBase* getElementBySId(const std::string& id);
-  
-  
+
+
   /**
-   * Returns the first child element it can find with the given @p metaid, or
-   * @c NULL if no such object is found.
+   * Returns the first child element found with the given @p metaid.
    *
    * @param metaid string representing the metaid of objects to find
    *
-   * @return pointer to the first element found with the given @p metaid.
+   * @return the first element found with the given @p metaid, or @c NULL if
+   * no such object is found.
    */
   virtual SBase* getElementByMetaId(const std::string& metaid);
 
-  
+
   /**
-   * Returns a List of all child SBase objects, including those nested to an
-   * arbitrary depth
+   * Returns a List of all child SBase objects.
    *
-   * @return a List of pointers to all children objects.
+   * The values returned include all children of the objects in this ListOf
+   * list, nested to an arbitrary depth.
+   *
+   * @return a List of pointers to all child objects.
    */
   virtual List* getAllElements(ElementFilter* filter=NULL);
-  
-  
+
+
 #if 0
   /**
    * Get an item from the list based on its identifier.
@@ -317,16 +329,16 @@ public:
    *
    * If parameter @p doDelete is @c true (default), all items in this ListOf
    * object are deleted and cleared, and thus the caller doesn't have to
-   * delete those items.  Otherwise, all items are just cleared from this
-   * ListOf object and the caller is responsible for deleting all items.  (In
-   * that case, pointers to all items should be stored elsewhere before
-   * calling this function.)
+   * delete those items.  Otherwise, all items are cleared only from this
+   * ListOf object; the caller is still responsible for deleting all items.
+   * (In the latter case, callers are advised to store pointers to all items
+   * elsewhere before calling this function.)
    *
    * @param doDelete if @c true (default), all items are deleted and cleared.
    * Otherwise, all items are just cleared and not deleted.
-   * 
+   *
    * @if notcpp @htmlinclude warn-default-args-in-docs.html @endif@~
-   */ 
+   */
   void clear (bool doDelete = true);
 
 
@@ -343,14 +355,12 @@ public:
    * enumeration #OperationReturnValues_t. @endif@~ The possible values
    * returned by this function are:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
-   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
    */
   virtual int removeFromParentAndDelete();
 
 
   /**
-   * Removes the <em>n</em>th item from this ListOf items and returns a
-   * pointer to it.
+   * Removes the <em>n</em>th item from this ListOf items and returns it.
    *
    * The caller owns the returned item and is responsible for deleting it.
    *
@@ -379,8 +389,8 @@ public:
 
 
   /**
-   * Get the size of this ListOf.
-   * 
+   * Returns number of items in this ListOf list.
+   *
    * @return the number of items in this ListOf items.
    */
   unsigned int size () const;
@@ -552,6 +562,7 @@ LIBSBML_EXTERN
 ListOf_t *
 ListOf_create (unsigned int level, unsigned int version);
 
+
 /**
  * Frees the given ListOf_t and its constituent items.
  *
@@ -562,6 +573,7 @@ ListOf_create (unsigned int level, unsigned int version);
 LIBSBML_EXTERN
 void
 ListOf_free (ListOf_t *lo);
+
 
 /**
  * @return a (deep) copy of this ListOf_t items.
@@ -582,6 +594,7 @@ LIBSBML_EXTERN
 int
 ListOf_append (ListOf_t *lo, const SBase_t *item);
 
+
 /**
  * Adds the given item to the end of this ListOf_t items.
  *
@@ -590,6 +603,7 @@ ListOf_append (ListOf_t *lo, const SBase_t *item);
 LIBSBML_EXTERN
 int
 ListOf_appendAndOwn (ListOf_t *lo, SBase_t *item);
+
 
 /**
  * Adds clones of the given items from the second list to the end of this ListOf_t items.
@@ -600,6 +614,7 @@ LIBSBML_EXTERN
 int
 ListOf_appendFrom (ListOf_t *lo, ListOf_t *list);
 
+
 /**
  * inserts a copy of item to this ListOf_t items at the given position.
  *
@@ -608,6 +623,7 @@ ListOf_appendFrom (ListOf_t *lo, ListOf_t *list);
 LIBSBML_EXTERN
 int
 ListOf_insert (ListOf_t *lo, int location, const SBase_t *item);
+
 
 /**
  * inserts the item to this ListOf_t items at the given position.
@@ -628,6 +644,7 @@ LIBSBML_EXTERN
 SBase_t *
 ListOf_get (ListOf_t *lo, unsigned int n);
 
+
 #if (0)
 /**
  * @return item in this ListOf_t items with the given @p sid or @c NULL if no such
@@ -639,6 +656,7 @@ LIBSBML_EXTERN
 SBase_t *
 ListOf_getById (ListOf_t *lo, const char *sid);
 #endif
+
 
 /**
  * Removes all items in this ListOf_t structure.
@@ -655,6 +673,7 @@ LIBSBML_EXTERN
 void
 ListOf_clear (ListOf_t *lo, int doDelete);
 
+
 /**
  * Removes the nth item from this ListOf_t items and returns a pointer to
  * it.  The caller owns the returned item and is responsible for deleting
@@ -665,6 +684,7 @@ ListOf_clear (ListOf_t *lo, int doDelete);
 LIBSBML_EXTERN
 SBase_t *
 ListOf_remove (ListOf_t *lo, unsigned int n);
+
 
 #if (0)
 /**
@@ -679,6 +699,7 @@ SBase_t *
 ListOf_removeById (ListOf_t *lo, const char *sid);
 #endif
 
+
 /**
  * Returns the number of items in this ListOf_t items.
  *
@@ -687,6 +708,7 @@ ListOf_removeById (ListOf_t *lo, const char *sid);
 LIBSBML_EXTERN
 unsigned int
 ListOf_size (const ListOf_t *lo);
+
 
 /**
  * @return the int of SBML structures contained in this ListOf_t or
