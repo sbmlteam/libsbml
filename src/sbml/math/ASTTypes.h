@@ -218,7 +218,7 @@ LIBSBML_EXTERN
 int getCoreTypeFromName(const std::string& name);
 
 LIBSBML_EXTERN
-const std::string getNameFromCoreType(int type);
+const char* getNameFromCoreType(int type);
 
 LIBSBML_EXTERN
 bool isCoreTopLevelMathMLFunctionNodeTag(const std::string& name);

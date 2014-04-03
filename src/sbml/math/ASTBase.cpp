@@ -1518,9 +1518,7 @@ ASTBase::writeStartEndElement (XMLOutputStream& stream) const
 	stream.startElement(name);
   writeAttributes(stream);
 	stream.endElement(name);
-
-  util_free((void*)(name));
-
+  
 }
 
 
@@ -1581,24 +1579,25 @@ ASTBase::getTypeFromName(const std::string& name) const
 const char* 
 ASTBase::getNameFromType(int type) const
 {
-  std::string name = getNameFromCoreType(type);
+  const char* name = getNameFromCoreType(type);
   
   if (getNumPlugins() > 0)
   {
     unsigned int i = 0;
-    while (name.empty() == true && i < getNumPlugins())
+    bool empty = name == NULL || strcmp(name, "") == 0;
+    while (empty == true && i < getNumPlugins())
     {
       const ASTBasePlugin* plugin = static_cast<const ASTBasePlugin*>(getPlugin(i)); 
       name = plugin->getNameFromType(type);
-      if (name == "AST_unknown")
+      if (strcmp(name, "AST_unknown") == 0)
       {
-        name.clear();
+        name = "";
       }
       i++;
     }
   }
 
-  return safe_strdup(name.c_str());
+  return name;
 }
 
 

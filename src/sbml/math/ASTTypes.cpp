@@ -503,10 +503,10 @@ getCoreTypeFromName(const std::string& name)
 }
 
 
-const std::string 
+const char*
 getNameFromCoreType(int type)
 {
-  std::string name = "";
+  const char* name = "";
   if (type == AST_UNKNOWN
     || type == AST_FUNCTION)
   {
