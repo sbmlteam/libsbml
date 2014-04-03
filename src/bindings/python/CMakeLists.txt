@@ -274,7 +274,7 @@ add_custom_target(binding_python_source_package ALL DEPENDS ${PYTHON_SOURCE_OUT_
 add_dependencies(binding_python_source_package binding_python_source_config)
  
 
-endif(WITH_CREATE_PYTHON_SOURCE)
+endif(WITH_CREATE_PYTHON_SOURCE AND EXISTS "${LIBSBML_ROOT_SOURCE_DIR}/dev/utilities/python_package/")
 
 
 ####################################################################
