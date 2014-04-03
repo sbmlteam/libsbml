@@ -27,6 +27,7 @@
 
 #include <sbml/packages/comp/sbml/Submodel.h>
 #include <sbml/packages/comp/extension/CompExtension.h>
+#include <sbml/packages/comp/sbml/SBaseRef.h>
 
 #include <sbml/SBMLDocument.h>
 
@@ -262,7 +263,7 @@ START_TEST (test_comp_submodel_deletion)
 {
   Deletion_t *deletion = Deletion_create(3, 1, 1);
   const char* delname = "deletion";
-  SBaseRef_setIdRef((SBaseRef*)deletion, "ref_id");
+  SBaseRef_setIdRef((SBaseRef_t*)deletion, "ref_id");
 
 
   fail_unless( Submodel_getNumDeletions(P) == 0 );
