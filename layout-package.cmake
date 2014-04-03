@@ -37,6 +37,8 @@
 option(ENABLE_LAYOUT
 "Enable libSBML support for the SBML Level 3 Graphical Layout ('layout') package." OFF)
 
+list(APPEND LIBSBML_PACKAGE_SUMMARY "SBML 'layout' package = ${ENABLE_LAYOUT}")
+
 if(ENABLE_LAYOUT)
 	add_definitions( -DUSE_LAYOUT )
 	set(LIBSBML_PACKAGE_INCLUDES ${LIBSBML_PACKAGE_INCLUDES} "LIBSBML_HAS_PACKAGE_LAYOUT")

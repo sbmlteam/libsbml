@@ -34,6 +34,8 @@
 option(ENABLE_COMP
 "Enable libSBML support for the SBML Level 3 Hierarchical Model Composition ('comp') package." OFF)
 
+list(APPEND LIBSBML_PACKAGE_SUMMARY "SBML 'comp' package   = ${ENABLE_COMP}")
+
 if(ENABLE_COMP)
 	add_definitions(-DUSE_COMP)
 	set(LIBSBML_PACKAGE_INCLUDES ${LIBSBML_PACKAGE_INCLUDES} "LIBSBML_HAS_PACKAGE_COMP")

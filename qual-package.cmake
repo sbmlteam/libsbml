@@ -34,6 +34,8 @@
 option(ENABLE_QUAL
 "Enable libSBML support for the SBML Level 3 Qualitative Models ('qual') package." OFF)
 
+list(APPEND LIBSBML_PACKAGE_SUMMARY "SBML 'qual' package   = ${ENABLE_QUAL}")
+
 if(ENABLE_QUAL)
 	add_definitions(-DUSE_QUAL)
 	set(LIBSBML_PACKAGE_INCLUDES ${LIBSBML_PACKAGE_INCLUDES} "LIBSBML_HAS_PACKAGE_QUAL")

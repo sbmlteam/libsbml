@@ -34,6 +34,8 @@
 option(ENABLE_FBC
 "Enable libSBML support for the SBML Level 3 Flux Balance Constraints ('fbc') package." OFF)
 
+list(APPEND LIBSBML_PACKAGE_SUMMARY "SBML 'fbc' package    = ${ENABLE_FBC}")
+
 if(ENABLE_FBC)
     SET(USE_FBC TRUE)
 	set(LIBSBML_PACKAGE_INCLUDES ${LIBSBML_PACKAGE_INCLUDES} "LIBSBML_HAS_PACKAGE_FBC")
