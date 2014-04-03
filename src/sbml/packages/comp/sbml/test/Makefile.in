@@ -47,8 +47,15 @@ thisdir   = src/sbml/packages/comp/sbml/test
 # `extra_CXXFLAGS', `extra_LDFLAGS' and `distfiles' are used by the default
 # rules in `makefile-common-actions.mk' included at the end.
 
-test_sources =		       \
-	TestPort.c	       \
+test_sources =		               \
+    TestDeletion.c                 \
+	TestExternalModelDefinition.c  \
+	TestModelDefinition.c          \
+	TestPort.c	                   \
+	TestReplacedBy.c               \
+	TestReplacedElement.c          \
+	TestSBaseRef.c                 \
+	TestSubmodel.c                 \
 	TestReadWriteSBase.cpp \
 	TestRunner.c	       \
 	TestSBaseObjects.cpp
