@@ -76,6 +76,9 @@ distfiles =                     \
   Makefile.in                   \
   libsbml-version.h.cmake       \
   libsbml-config-common.h.cmake \
+  libsbml-namespace.h.cmake     \
+  libsbml-package.h.cmake       \
+  libsbml-version.h.cmake       \
   common.h                      \
   extern.h                      \
   libsbml-config.h              \
