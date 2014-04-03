@@ -65,6 +65,7 @@ headers   = \
 	StringBuffer.h \
 	ElementFilter.h \
 	IdentifierTransformer.h \
+	PrefixTransformer.h \
 	util.h
 
 header_inst_prefix = util
@@ -79,6 +80,7 @@ sources   = \
 	StringBuffer.c \
 	ElementFilter.cpp \
 	IdentifierTransformer.cpp \
+	PrefixTransformer.cpp \
 	util.c
 
 extra_CPPFLAGS = -DPACKAGE_NAME=\"$(PACKAGE_NAME)\"
