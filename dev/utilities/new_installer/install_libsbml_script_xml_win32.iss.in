@@ -217,6 +217,7 @@ begin
     Result := PerlRoot + 'lib\auto\LibSBML';
 end;
 
+
 {function to check whether a preinstalled version number is later than the
   current installation
   returns 1 is the version installed is later than this version
@@ -226,24 +227,61 @@ function LaterVersion(VersionNo, CurrentVers : String) : Integer;
 var
   First, Second, Third: Longint;
   CurrentFirst, CurrentSecond, CurrentThird: Longint;
-  Later : Integer;
+  Later, nTemp, nCurrent : Integer;
 begin
   if (VersionNo = '') then begin
     First := 0;
     Second := 0;
     Third := 0;
   end else begin
-    First := StrToInt(StrGet(VersionNo, 1));
-    Second := StrToInt(StrGet(VersionNo, 3));
+    nTemp := 1;
+    nCurrent := nTemp;
+    while (StrGet(VersionNo, nTemp) <> '.') and (nTemp < Length(VersionNo)) do
+    begin
+      nTemp := nTemp + 1
+    end;
+    First := StrToInt(Copy(VersionNo, nCurrent, nTemp -1 ));
+    nCurrent := nTemp + 1;
+    nTemp := 1;
+    while (StrGet(VersionNo, nTemp) <> '.') and (nTemp < Length(VersionNo)) do
+    begin
+      nTemp := nTemp + 1
+    end;
+    Second := StrToInt(Copy(VersionNo, nCurrent, nTemp -1));
     if (Length(VersionNo) > 3) then begin
-      Third := StrToInt(StrGet(VersionNo, 5));
+      nCurrent := nTemp + 1;
+      nTemp := 1;
+      while (StrGet(VersionNo, nTemp) <> '.') and (nTemp < Length(VersionNo)) do
+      begin
+        nTemp := nTemp + 1
+      end;
+      Third :=  StrToInt(Copy(VersionNo, nCurrent, nTemp  -1));
     end else begin
       Third := 0  ;
     end;
   end;
-  CurrentFirst := StrToInt(StrGet(CurrentVers, 1));
-  CurrentSecond := StrToInt(StrGet(CurrentVers, 3));
-  CurrentThird := StrToInt(StrGet(CurrentVers, 5));
+
+  nTemp := 1;
+  nCurrent := nTemp ;
+  while (StrGet(CurrentVers, nTemp) <> '.') and (nTemp < Length(CurrentVers)) do
+  begin
+    nTemp := nTemp + 1
+  end;
+  CurrentFirst := StrToInt(Copy(CurrentVers, nCurrent, nTemp -1));
+  nCurrent := nTemp + 1;
+  nTemp := 1;
+  while (StrGet(CurrentVers, nTemp) <> '.') and (nTemp < Length(CurrentVers)) do
+  begin
+    nTemp := nTemp + 1
+  end;
+  CurrentSecond := StrToInt(Copy(CurrentVers, nCurrent, nTemp  -1));
+  nCurrent := nTemp + 1;
+  nTemp := 1;
+  while (StrGet(CurrentVers, nTemp) <> '.') and (nTemp < Length(CurrentVers)) do
+  begin
+    nTemp := nTemp + 1
+  end;
+  CurrentThird := StrToInt(Copy(CurrentVers, nCurrent, nTemp -1 ));
 
   if (First > CurrentFirst) then  begin
     Later := 1;
