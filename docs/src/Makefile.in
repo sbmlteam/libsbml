@@ -194,8 +194,10 @@ distfiles =                                                  \
         common-text/note-reading-zipped-files.html           \
         common-text/note-writing-zipped-files.html           \
         common-text/parameter-addition-overrides-values.html \
+        common-text/listof-illustration.html                 \
         common-text/plain-font-off.html                      \
         common-text/plain-font-on.html                       \
+        common-text/pkg-marker-core.html                     \
         common-text/pkg-marker-comp.html                     \
         common-text/pkg-marker-fbc.html                      \
         common-text/pkg-marker-layout.html                   \
