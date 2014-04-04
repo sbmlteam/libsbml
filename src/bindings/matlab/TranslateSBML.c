@@ -1076,11 +1076,11 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
 
     if (strcmp(pacAnnotations, "") != 0)
     {
-      free((char*)pacAnnotations);
+      util_free((char*)pacAnnotations);
     }
     if (strcmp(pacNotes, "") != 0)
     {
-      free((char*)pacNotes);
+      util_free((char*)pacNotes);
     }
 
     if (unSBMLLevel == 2)
@@ -1841,11 +1841,11 @@ GetSpecies ( Model_t      *pModel,
 
     if (strcmp(pacAnnotations, "") != 0)
     {
-      free((char*)pacAnnotations);
+      util_free((char*)pacAnnotations);
     }
     if (strcmp(pacNotes, "") != 0)
     {
-      free((char*)pacNotes);
+      util_free((char*)pacNotes);
     }
 
     if ((unSBMLLevel == 2 && unSBMLVersion > 2) || unSBMLLevel > 2) 
@@ -2097,11 +2097,11 @@ GetUnitDefinition ( Model_t      *pModel,
 
     if (strcmp(pacAnnotations, "") != 0)
     {
-      free((char*)pacAnnotations);
+      util_free((char*)pacAnnotations);
     }
     if (strcmp(pacNotes, "") != 0)
     {
-      free((char*)pacNotes);
+      util_free((char*)pacNotes);
     }
 
     if ((unSBMLLevel == 2 && unSBMLVersion > 2) || unSBMLLevel > 2)
@@ -2433,11 +2433,11 @@ GetCompartment ( Model_t      *pModel,
 
     if (strcmp(pacAnnotations, "") != 0)
     {
-      free((char*)pacAnnotations);
+      util_free((char*)pacAnnotations);
     }
     if (strcmp(pacNotes, "") != 0)
     {
-      free((char*)pacNotes);
+      util_free((char*)pacNotes);
     }
 
     if ((unSBMLLevel == 2 && unSBMLVersion > 2) || unSBMLLevel > 2)
@@ -2724,11 +2724,11 @@ GetParameter ( Model_t      *pModel,
 
     if (strcmp(pacAnnotations, "") != 0)
     {
-      free((char*)pacAnnotations);
+      util_free((char*)pacAnnotations);
     }
     if (strcmp(pacNotes, "") != 0)
     {
-      free((char*)pacNotes);
+      util_free((char*)pacNotes);
     }
 
     if ((unSBMLLevel == 2 && unSBMLVersion > 2) || unSBMLLevel > 2) 
@@ -3028,11 +3028,11 @@ void GetReaction ( Model_t      *pModel,
 
     if (strcmp(pacAnnotations, "") != 0)
     {
-      free((char*)pacAnnotations);
+      util_free((char*)pacAnnotations);
     }
     if (strcmp(pacNotes, "") != 0)
     {
-      free((char*)pacNotes);
+      util_free((char*)pacNotes);
     }
 
     if ((unSBMLLevel == 2 && unSBMLVersion > 2) || unSBMLLevel > 2) 
@@ -3275,11 +3275,11 @@ GetUnit ( UnitDefinition_t *pUnitDefinition,
 
     if (strcmp(pacAnnotations, "") != 0)
     {
-      free((char*)pacAnnotations);
+      util_free((char*)pacAnnotations);
     }
     if (strcmp(pacNotes, "") != 0)
     {
-      free((char*)pacNotes);
+      util_free((char*)pacNotes);
     }
 
     if ((unSBMLLevel == 2 && unSBMLVersion > 2) || unSBMLLevel > 2)
@@ -3567,11 +3567,11 @@ GetReactants ( Reaction_t   *pReaction,
 
     if (strcmp(pacAnnotations, "") != 0)
     {
-      free((char*)pacAnnotations);
+      util_free((char*)pacAnnotations);
     }
     if (strcmp(pacNotes, "") != 0)
     {
-      free((char*)pacNotes);
+      util_free((char*)pacNotes);
     }
 
     if ((unSBMLLevel == 2 && unSBMLVersion > 2) || unSBMLLevel > 2) 
@@ -3878,11 +3878,11 @@ const int nNoFields_l2v2 = 12;
 
     if (strcmp(pacAnnotations, "") != 0)
     {
-      free((char*)pacAnnotations);
+      util_free((char*)pacAnnotations);
     }
     if (strcmp(pacNotes, "") != 0)
     {
-      free((char*)pacNotes);
+      util_free((char*)pacNotes);
     }
 
     if ((unSBMLLevel == 2 && unSBMLVersion > 2) || unSBMLLevel > 2) 
@@ -4072,11 +4072,11 @@ GetStoichiometryMath ( SpeciesReference_t      *pSpeciesReference,
 
   if (strcmp(pacAnnotations, "") != 0)
   {
-    free((char*)pacAnnotations);
+    util_free((char*)pacAnnotations);
   }
   if (strcmp(pacNotes, "") != 0)
   {
-    free((char*)pacNotes);
+    util_free((char*)pacNotes);
   }
 
   mxSetField(mxStoichiometryMathReturn, 0, "sboTerm",    CreateIntScalar(nSBO)); 
@@ -4408,11 +4408,11 @@ GetKineticLaw ( Reaction_t   *pReaction,
 
   if (strcmp(pacAnnotations, "") != 0)
   {
-    free((char*)pacAnnotations);
+    util_free((char*)pacAnnotations);
   }
   if (strcmp(pacNotes, "") != 0)
   {
-    free((char*)pacNotes);
+    util_free((char*)pacNotes);
   }
 
   if ((unSBMLLevel == 2 && unSBMLVersion > 2) || unSBMLLevel > 2) 
@@ -4698,11 +4698,11 @@ GetKineticLawParameters ( KineticLaw_t *pKineticLaw,
 
     if (strcmp(pacAnnotations, "") != 0)
     {
-      free((char*)pacAnnotations);
+      util_free((char*)pacAnnotations);
     }
     if (strcmp(pacNotes, "") != 0)
     {
-      free((char*)pacNotes);
+      util_free((char*)pacNotes);
     }
 
     if ((unSBMLLevel == 2 && unSBMLVersion > 2) || unSBMLLevel > 2) 
@@ -4887,11 +4887,11 @@ GetModifier ( Reaction_t   *pReaction,
 
     if (strcmp(pacAnnotations, "") != 0)
     {
-      free((char*)pacAnnotations);
+      util_free((char*)pacAnnotations);
     }
     if (strcmp(pacNotes, "") != 0)
     {
-      free((char*)pacNotes);
+      util_free((char*)pacNotes);
     }
 
     if ((unSBMLLevel == 2 && unSBMLVersion > 2) || unSBMLLevel > 2)
@@ -5354,11 +5354,11 @@ GetRule ( Model_t      *pModel,
 
     if (strcmp(pacAnnotations, "") != 0)
     {
-      free((char*)pacAnnotations);
+      util_free((char*)pacAnnotations);
     }
     if (strcmp(pacNotes, "") != 0)
     {
-      free((char*)pacNotes);
+      util_free((char*)pacNotes);
     }
 
 
@@ -5578,11 +5578,11 @@ GetFunctionDefinition ( Model_t      *pModel,
 
     if (strcmp(pacAnnotations, "") != 0)
     {
-      free((char*)pacAnnotations);
+      util_free((char*)pacAnnotations);
     }
     if (strcmp(pacNotes, "") != 0)
     {
-      free((char*)pacNotes);
+      util_free((char*)pacNotes);
     }
 
     if ((unSBMLLevel == 2 && unSBMLVersion != 1) || unSBMLLevel > 2)
@@ -5898,11 +5898,11 @@ GetEvent (Model_t      *pModel,
 
     if (strcmp(pacAnnotations, "") != 0)
     {
-      free((char*)pacAnnotations);
+      util_free((char*)pacAnnotations);
     }
     if (strcmp(pacNotes, "") != 0)
     {
-      free((char*)pacNotes);
+      util_free((char*)pacNotes);
     }
 
     if ((unSBMLLevel == 2 && unSBMLVersion > 2) || unSBMLLevel > 2) 
@@ -6135,11 +6135,11 @@ GetEventAssignment ( Event_t      *pEvent,
 
     if (strcmp(pacAnnotations, "") != 0)
     {
-     free((char*)pacAnnotations);
+     util_free((char*)pacAnnotations);
     }
     if (strcmp(pacNotes, "") != 0)
     {
-     free((char*)pacNotes);
+     util_free((char*)pacNotes);
     }
 
     if ((unSBMLLevel == 2 && unSBMLVersion > 2) || unSBMLLevel > 2)
@@ -6328,11 +6328,11 @@ GetTrigger ( Event_t      *pEvent,
 
   if (strcmp(pacAnnotations, "") != 0)
   {
-      free((char*)pacAnnotations);
+      util_free((char*)pacAnnotations);
   }
   if (strcmp(pacNotes, "") != 0)
   {
-      free((char*)pacNotes);
+      util_free((char*)pacNotes);
   }
 
   mxSetField(mxTriggerReturn, 0, "sboTerm",    CreateIntScalar(nSBO));
@@ -6501,11 +6501,11 @@ GetDelay ( Event_t      *pEvent,
 
     if (strcmp(pacAnnotations, "") != 0)
     {
-      free((char*)pacAnnotations);
+      util_free((char*)pacAnnotations);
     }
     if (strcmp(pacNotes, "") != 0)
     {
-      free((char*)pacNotes);
+      util_free((char*)pacNotes);
     }
 
     mxSetField(mxDelayReturn, 0, "sboTerm",    CreateIntScalar(nSBO)); 
@@ -6657,11 +6657,11 @@ GetPriority ( Event_t      *pEvent,
 
   if (strcmp(pacAnnotations, "") != 0)
   {
-      free((char*)pacAnnotations);
+      util_free((char*)pacAnnotations);
   }
   if (strcmp(pacNotes, "") != 0)
   {
-      free((char*)pacNotes);
+      util_free((char*)pacNotes);
   }
 
   mxSetField(mxPriorityReturn, 0, "sboTerm",    CreateIntScalar(nSBO));
@@ -6973,11 +6973,11 @@ GetCompartmentType (Model_t      *pModel,
 
     if (strcmp(pacAnnotations, "") != 0)
     {
-      free((char*)pacAnnotations);
+      util_free((char*)pacAnnotations);
     }
     if (strcmp(pacNotes, "") != 0)
     {
-      free((char*)pacNotes);
+      util_free((char*)pacNotes);
     }
 
     if (unSBMLLevel == 2 && unSBMLVersion > 2) 
@@ -7135,11 +7135,11 @@ GetSpeciesType (Model_t      *pModel,
 
     if (strcmp(pacAnnotations, "") != 0)
     {
-      free((char*)pacAnnotations);
+      util_free((char*)pacAnnotations);
     }
     if (strcmp(pacNotes, "") != 0)
     {
-      free((char*)pacNotes);
+      util_free((char*)pacNotes);
     }
 
     if (unSBMLLevel == 2 && unSBMLVersion > 2) 
@@ -7326,11 +7326,11 @@ GetInitialAssignment (Model_t      *pModel,
 
     if (strcmp(pacAnnotations, "") != 0)
     {
-      free((char*)pacAnnotations);
+      util_free((char*)pacAnnotations);
     }
     if (strcmp(pacNotes, "") != 0)
     {
-      free((char*)pacNotes);
+      util_free((char*)pacNotes);
     }
 
 
@@ -7525,11 +7525,11 @@ GetConstraint (Model_t      *pModel,
 
     if (strcmp(pacAnnotations, "") != 0)
     {
-      free((char*)pacAnnotations);
+      util_free((char*)pacAnnotations);
     }
     if (strcmp(pacNotes, "") != 0)
     {
-      free((char*)pacNotes);
+      util_free((char*)pacNotes);
     }
 
     mxSetField(mxConstraintReturn,i,"sboTerm",CreateIntScalar(nSBO)); 
@@ -7677,11 +7677,11 @@ GetFluxBound (Model_t      *pModel,
 
     if (strcmp(pacAnnotations, "") != 0)
     {
-      free((char*)pacAnnotations);
+      util_free((char*)pacAnnotations);
     }
     if (strcmp(pacNotes, "") != 0)
     {
-      free((char*)pacNotes);
+      util_free((char*)pacNotes);
     }
 
     mxSetField(mxFluxBoundReturn,i,"sboTerm",CreateIntScalar(nSBO)); 
@@ -7818,12 +7818,12 @@ GetObjective (Model_t      *pModel,
 
     if (strcmp(pacAnnotations, "") != 0)
     {
-      free((char*)pacAnnotations);
+      util_free((char*)pacAnnotations);
       pacAnnotations = NULL;
     }
     if (strcmp(pacNotes, "") != 0)
     {
-      free((char*)pacNotes);
+      util_free((char*)pacNotes);
       pacNotes = NULL;
     }
 
@@ -7956,11 +7956,11 @@ GetFluxObjective (Objective_t      *pObjective,
 
     if (strcmp(pacAnnotations, "") != 0)
     {
-      free((char*)pacAnnotations);
+      util_free((char*)pacAnnotations);
     }
     if (strcmp(pacNotes, "") != 0)
     {
-      free((char*)pacNotes);
+      util_free((char*)pacNotes);
     }
 
     mxSetField(mxFluxObjectiveReturn,i,"sboTerm",CreateIntScalar(nSBO)); 
