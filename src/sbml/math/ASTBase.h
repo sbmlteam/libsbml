@@ -33,7 +33,7 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class ASTBase
- * @sbmlbrief{Core} Base node for AST classes.
+ * @sbmlbrief{core} Base node for AST classes.
  */
 
 #ifndef ASTBase_h

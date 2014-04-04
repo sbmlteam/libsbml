@@ -33,7 +33,7 @@
  * ---------------------------------------------------------------------- -->
  *
  * @class IdList
- * @sbmlbrief{Core} Maintains a list of SIds.
+ * @sbmlbrief{core} Maintains a list of SIds.
  */
 
 #ifndef IdList_h
