@@ -235,14 +235,14 @@ begin
   end else begin
     nTemp := 1;
     nCurrent := nTemp;
-    while (StrGet(VersionNo, nTemp) <> '.') and (nTemp < Length(VersionNo)) do
+    while (StrGet(VersionNo, nCurrent + nTemp - 1) <> '.') and (nTemp < Length(VersionNo)) do
     begin
       nTemp := nTemp + 1
     end;
     First := StrToInt(Copy(VersionNo, nCurrent, nTemp -1 ));
     nCurrent := nTemp + 1;
     nTemp := 1;
-    while (StrGet(VersionNo, nTemp) <> '.') and (nTemp < Length(VersionNo)) do
+    while (StrGet(VersionNo, nCurrent + nTemp - 1) <> '.') and (nTemp < Length(VersionNo)) do
     begin
       nTemp := nTemp + 1
     end;
@@ -250,7 +250,7 @@ begin
     if (Length(VersionNo) > 3) then begin
       nCurrent := nTemp + 1;
       nTemp := 1;
-      while (StrGet(VersionNo, nTemp) <> '.') and (nTemp < Length(VersionNo)) do
+      while (StrGet(VersionNo, nCurrent + nTemp - 1) <> '.') and (nTemp < Length(VersionNo)) do
       begin
         nTemp := nTemp + 1
       end;
@@ -262,21 +262,21 @@ begin
 
   nTemp := 1;
   nCurrent := nTemp ;
-  while (StrGet(CurrentVers, nTemp) <> '.') and (nTemp < Length(CurrentVers)) do
+  while (StrGet(CurrentVers, nCurrent + nTemp - 1) <> '.') and (nTemp < Length(CurrentVers)) do
   begin
     nTemp := nTemp + 1
   end;
   CurrentFirst := StrToInt(Copy(CurrentVers, nCurrent, nTemp -1));
   nCurrent := nTemp + 1;
   nTemp := 1;
-  while (StrGet(CurrentVers, nTemp) <> '.') and (nTemp < Length(CurrentVers)) do
+  while (StrGet(CurrentVers, nCurrent + nTemp - 1) <> '.') and (nTemp < Length(CurrentVers)) do
   begin
     nTemp := nTemp + 1
   end;
   CurrentSecond := StrToInt(Copy(CurrentVers, nCurrent, nTemp  -1));
   nCurrent := nTemp + 1;
   nTemp := 1;
-  while (StrGet(CurrentVers, nTemp) <> '.') and (nTemp < Length(CurrentVers)) do
+  while (StrGet(CurrentVers, nCurrent + nTemp - 1) <> '.') and (nTemp < Length(CurrentVers)) do
   begin
     nTemp := nTemp + 1
   end;
