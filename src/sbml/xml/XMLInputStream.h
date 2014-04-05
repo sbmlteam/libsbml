@@ -292,7 +292,7 @@ protected:
    * XMLToken or a fatal error occurs.
    */
   void queueToken ();
-  void requeueToken ();
+  bool requeueToken ();
 
 
   bool mIsError;

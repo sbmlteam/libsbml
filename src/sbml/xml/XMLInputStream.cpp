@@ -223,17 +223,21 @@ XMLInputStream::queueToken ()
 }
 
 
-void
+bool
 XMLInputStream::requeueToken ()
 {
-  if ( !isGood() ) return;
+  bool success = false;
+  if ( !isGood() ) return success;
+  else if (this->mTokenizer.mEOFSeen == true) return success;
 
-  bool success = mParser->parseNext();
+  success = mParser->parseNext();
 
   if (success == false && isEOF() == false)
   {
     mIsError = true;
   }
+
+  return success;
 }
 
 
@@ -304,10 +308,11 @@ XMLInputStream::determineNumberChildren(const std::string& elementName)
   bool valid = false;
   unsigned int num = this->mTokenizer.determineNumberChildren(valid, elementName);
 
-  while (isGood() == true && valid == false)
+  bool canReQ = true;
+  while (canReQ == true && isGood() == true && valid == false)
   {
-    requeueToken();
-    if (isGood() == true)
+    canReQ = requeueToken();
+    if (canReQ == true)
     {
       num = this->mTokenizer.determineNumberChildren(valid, elementName);
     }
