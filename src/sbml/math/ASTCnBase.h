@@ -95,7 +95,8 @@ public:
   
   int unsetUnits();
 
-  std::string getUnitsPrefix() const;
+  virtual const std::string& getUnitsPrefix() const;
+  virtual bool hasCnUnits() const;
 
   bool isSetUnitsPrefix() const;
 

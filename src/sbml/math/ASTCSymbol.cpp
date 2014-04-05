@@ -1140,6 +1140,33 @@ ASTCSymbol::hasCorrectNumberArguments() const
   }
 }
 
+bool
+ASTCSymbol::hasCnUnits() const
+{
+  if (mDelay != NULL)
+  {
+    return mDelay->hasCnUnits();
+  }
+  else
+  {
+    return false;
+  }
+}
+
+
+
+const std::string &
+ASTCSymbol::getUnitsPrefix() const
+{
+  if (mDelay != NULL)
+  {
+    return mDelay->getUnitsPrefix();
+  }
+  else
+  {
+    return ASTBase::getUnitsPrefix();
+  }
+}
 
 void 
 ASTCSymbol::write(XMLOutputStream& stream) const

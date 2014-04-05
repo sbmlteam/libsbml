@@ -144,7 +144,7 @@ ASTCnBase::unsetUnits()
 }
 
 
-std::string 
+const std::string& 
 ASTCnBase::getUnitsPrefix() const
 {
   return mUnitsPrefix;
@@ -178,6 +178,13 @@ ASTCnBase::unsetUnitsPrefix()
   {
     return LIBSBML_OPERATION_FAILED;
   }
+}
+
+
+bool
+ASTCnBase::hasCnUnits() const
+{
+  return (mUnits.empty() == false);
 }
 
 

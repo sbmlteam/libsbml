@@ -419,7 +419,44 @@ ASTFunctionBase::hasCorrectNumberArguments() const
 }
 
 
+bool
+ASTFunctionBase::hasCnUnits() const
+{
+  bool hasUnits = false;
 
+  unsigned int i = 0;
+  while (hasUnits == false && i < ASTFunctionBase::getNumChildren())
+  {
+    hasUnits = ASTFunctionBase::getChild(i)->hasCnUnits();
+    i++;
+  }
+
+  return hasUnits;
+}
+
+
+const std::string&
+ASTFunctionBase::getUnitsPrefix() const
+{
+  std::string units("");
+
+  unsigned int i = 0;
+  unsigned int numChildren = ASTFunctionBase::getNumChildren();
+  while (units.empty() == true && i < numChildren)
+  {
+    units = ASTFunctionBase::getChild(i)->getUnitsPrefix();
+    i++;
+  }
+
+  if (units.empty() == false && i <= numChildren)
+  {
+    return ASTFunctionBase::getChild(i-1)->getUnitsPrefix();
+  }
+  else
+  {
+    return ASTBase::getUnitsPrefix();
+  }
+}
 
 
 

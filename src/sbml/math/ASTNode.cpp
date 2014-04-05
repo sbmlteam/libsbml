@@ -1829,6 +1829,10 @@ ASTNode::hasCnUnits() const
   {
     hasCnUnits = mNumber->hasCnUnits();
   }
+  else if (mFunction != NULL)
+  {
+    hasCnUnits = mFunction->hasCnUnits();
+  }
 
   return hasCnUnits;
 }
@@ -1836,18 +1840,20 @@ ASTNode::hasCnUnits() const
 
 
 /** @cond doxygenLibsbmlInternal */
-std::string
+const std::string&
 ASTNode::getUnitsPrefix() const
 {
-  static std::string emptyString = "";
-
   if (mNumber != NULL)
   {
     return mNumber->getUnitsPrefix();
   }
+  else if (mFunction != NULL)
+  {
+    return mFunction->getUnitsPrefix();
+  }
   else
   {
-    return emptyString;
+    return ASTBase::getUnitsPrefix();
   }
 }
 /** @endcond */

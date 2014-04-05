@@ -194,6 +194,9 @@ public:
   virtual bool hasCorrectNumberArguments() const;
  
  
+  virtual bool hasCnUnits() const;
+  virtual const std::string& getUnitsPrefix() const;
+
   /************************************* 
    * access member variable functions 
    */

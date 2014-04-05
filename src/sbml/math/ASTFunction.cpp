@@ -3198,6 +3198,146 @@ ASTFunction::isUPlus() const
 
 
 bool 
+ASTFunction::hasCnUnits() const
+{
+  if (mUnaryFunction != NULL)
+  {
+    return mUnaryFunction->hasCnUnits();
+  }
+  else if (mBinaryFunction != NULL)
+  {
+    return mBinaryFunction->hasCnUnits();
+  }
+  else if (mNaryFunction != NULL)
+  {
+    return mNaryFunction->hasCnUnits();
+  }
+  else if (mUserFunction != NULL)
+  {
+    return mUserFunction->hasCnUnits();
+  }
+  else if (mLambda != NULL)
+  {
+    return mLambda->hasCnUnits();
+  }
+  else if (mPiecewise != NULL)
+  {
+    return mPiecewise->hasCnUnits();
+  }
+  else if (mCSymbol != NULL)
+  {
+    return mCSymbol->hasCnUnits();
+  }
+  else if (mQualifier != NULL)
+  {
+    return mQualifier->hasCnUnits();
+  }
+  else if (mSemantics != NULL)
+  {
+    return mSemantics->hasCnUnits();
+  }
+  else if (mIsOther == true)
+  {
+    if (mPackageName.empty() == false && mPackageName != "core")
+    {
+      return const_cast<ASTBase*>(getPlugin(mPackageName)->getMath())
+                                     ->hasCnUnits();
+    }
+    else
+    {
+      unsigned int i = 0;
+      while (i < getNumPlugins())
+      {
+        if (getPlugin(i)->isSetMath() == true)
+        {
+          return const_cast<ASTBase*>(getPlugin(i)->getMath())
+                                         ->hasCnUnits();
+        }
+        i++;
+      }
+      
+      return ASTBase::hasCnUnits();
+    }
+  }
+  else
+  {
+    return ASTBase::hasCnUnits();
+  }
+}
+
+
+
+const std::string& 
+ASTFunction::getUnitsPrefix() const
+{
+  if (mUnaryFunction != NULL)
+  {
+    return mUnaryFunction->getUnitsPrefix();
+  }
+  else if (mBinaryFunction != NULL)
+  {
+    return mBinaryFunction->getUnitsPrefix();
+  }
+  else if (mNaryFunction != NULL)
+  {
+    return mNaryFunction->getUnitsPrefix();
+  }
+  else if (mUserFunction != NULL)
+  {
+    return mUserFunction->getUnitsPrefix();
+  }
+  else if (mLambda != NULL)
+  {
+    return mLambda->getUnitsPrefix();
+  }
+  else if (mPiecewise != NULL)
+  {
+    return mPiecewise->getUnitsPrefix();
+  }
+  else if (mCSymbol != NULL)
+  {
+    return mCSymbol->getUnitsPrefix();
+  }
+  else if (mQualifier != NULL)
+  {
+    return mQualifier->getUnitsPrefix();
+  }
+  else if (mSemantics != NULL)
+  {
+    return mSemantics->getUnitsPrefix();
+  }
+  else if (mIsOther == true)
+  {
+    if (mPackageName.empty() == false && mPackageName != "core")
+    {
+      return const_cast<ASTBase*>(getPlugin(mPackageName)->getMath())
+                                     ->getUnitsPrefix();
+    }
+    else
+    {
+      unsigned int i = 0;
+      while (i < getNumPlugins())
+      {
+        if (getPlugin(i)->isSetMath() == true)
+        {
+          return const_cast<ASTBase*>(getPlugin(i)->getMath())
+                                         ->getUnitsPrefix();
+        }
+        i++;
+      }
+      
+      return ASTBase::getUnitsPrefix();
+    }
+  }
+  else
+  {
+    return ASTBase::getUnitsPrefix();
+  }
+}
+
+
+
+bool 
 ASTFunction::isWellFormedNode() const
 {
   if (mUnaryFunction != NULL)

@@ -1277,11 +1277,9 @@ ASTNumber::getUserData() const
 
 
 
-std::string
+const std::string&
 ASTNumber::getUnitsPrefix() const
 {
-  static std::string emptyString = "";
-  
   if (mExponential != NULL)
   {
     return mExponential->getUnitsPrefix();
@@ -1304,7 +1302,7 @@ ASTNumber::getUnitsPrefix() const
   }
   else
   {
-    return emptyString;
+    return ASTBase::getUnitsPrefix();
   }
 }
 
@@ -2323,19 +2321,19 @@ ASTNumber::hasCnUnits() const
   
   if (mExponential != NULL)
   {
-    hasCnUnits =  mExponential->isSetUnits();
+    hasCnUnits =  mExponential->hasCnUnits();
   }
   else if (mInteger != NULL)
   {
-    hasCnUnits =  mInteger->isSetUnits();
+    hasCnUnits =  mInteger->hasCnUnits();
   }
   else if (mRational != NULL)
   {
-    hasCnUnits =  mRational->isSetUnits();
+    hasCnUnits =  mRational->hasCnUnits();
   }
   else if (mReal != NULL)
   {
-    hasCnUnits =  mReal->isSetUnits();
+    hasCnUnits =  mReal->hasCnUnits();
   }
 
   return hasCnUnits;

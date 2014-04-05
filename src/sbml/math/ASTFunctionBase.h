@@ -138,6 +138,8 @@ public:
 
   virtual int getTypeCode () const;
 
+  virtual bool hasCnUnits() const;
+  virtual const std::string& getUnitsPrefix() const;
 
 protected:
 

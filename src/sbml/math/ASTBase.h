@@ -330,6 +330,8 @@ public:
 
   int setPackageName(const std::string& name);
 
+  virtual bool hasCnUnits() const;
+  virtual const std::string& getUnitsPrefix() const;
 
 protected:
 
@@ -377,6 +379,8 @@ protected:
   SBase * mParentSBMLObject;
 
   void * mUserData;
+
+  std::string mEmptyString;
 
   //char mChar;
 

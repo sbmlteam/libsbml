@@ -104,6 +104,7 @@ ASTBase::ASTBase (int type) :
    , mStyle ("")
    , mParentSBMLObject ( NULL )
    , mUserData ( NULL )
+   , mEmptyString ("")
 {
   setType(type);
 
@@ -128,6 +129,7 @@ ASTBase::ASTBase (SBMLNamespaces* sbmlns, int type) :
    , mStyle ("")
    , mParentSBMLObject ( NULL )
    , mUserData ( NULL )
+   , mEmptyString ("")
 {
   setType(type);
 
@@ -153,6 +155,7 @@ ASTBase::ASTBase (const ASTBase& orig):
   , mStyle               (orig.mStyle)
   , mParentSBMLObject    (orig.mParentSBMLObject)
   , mUserData            (orig.mUserData)
+  , mEmptyString         (orig.mEmptyString)
 {
   mPlugins.resize( orig.mPlugins.size() );
   transform( orig.mPlugins.begin(), orig.mPlugins.end(), 
@@ -181,6 +184,7 @@ ASTBase::operator=(const ASTBase& rhs)
     mStyle                = rhs.mStyle;
     mParentSBMLObject     = rhs.mParentSBMLObject;
     mUserData             = rhs.mUserData;
+    mEmptyString          = rhs.mEmptyString;
 
     mPlugins.clear();
     mPlugins.resize( rhs.mPlugins.size() );
@@ -1181,6 +1185,19 @@ ASTBase::hasCorrectNumberArguments() const
   return true;
 }
 
+
+bool
+ASTBase::hasCnUnits() const
+{
+  return false;
+}
+
+
+const std::string&
+ASTBase::getUnitsPrefix() const
+{
+  return mEmptyString;
+}
 
 
 

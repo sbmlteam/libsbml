@@ -1965,7 +1965,7 @@ protected:
 
   /* additional to original astnode */
   bool hasCnUnits() const;
-  std::string getUnitsPrefix() const;
+  const std::string& getUnitsPrefix() const;
 
   /* constructors for wrapping a number or a function node into
    * a newASTNode

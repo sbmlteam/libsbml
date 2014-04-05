@@ -106,7 +106,7 @@ public:
   const std::string& getEncoding() const;
   const std::string& getName() const;
   std::string getUnits() const;
-  std::string getUnitsPrefix() const;
+  const std::string& getUnitsPrefix() const;
 
   /* user data */
   SBase* getParentSBMLObject() const;
@@ -232,7 +232,8 @@ public:
   bool isUMinus() const;
   bool isUnknown() const;
   bool isUPlus() const;
-  bool hasCnUnits() const;
+  
+  virtual bool hasCnUnits() const;
   
   
  

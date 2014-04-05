@@ -221,6 +221,8 @@ public:
   bool isUnknown() const;
   bool isUPlus() const;
   
+  virtual bool hasCnUnits() const;
+  virtual const std::string& getUnitsPrefix() const;
   
   /************************************* 
    * access member variable functions 
