@@ -139,7 +139,7 @@ copy /y %PACKAGE_DIR%\examples\python\%PACKAGE_NAME%\*.py       examples\python\
 copy /y %PACKAGE_DIR%\examples\ruby\%PACKAGE_NAME%\*.rb         examples\ruby\%PACKAGE_NAME%\
 copy /y %PACKAGE_DIR%\examples\perl\%PACKAGE_NAME%\*.pl         examples\perl\%PACKAGE_NAME%\
 copy /y %PACKAGE_DIR%\examples\r\%PACKAGE_NAME%\*.R             examples\r\%PACKAGE_NAME%\
-copy /y %PACKAGE_DIR%\sample-models\%PACKAGE_NAME%\*.xml        examples\sample-models\%PACKAGE_NAME%\
+copy /y %PACKAGE_DIR%\examples\sample-models\%PACKAGE_NAME%\*.xml        examples\sample-models\%PACKAGE_NAME%\
 
 cd examples
 rename cpp "c++"
