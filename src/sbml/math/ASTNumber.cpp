@@ -43,7 +43,7 @@ using namespace std;
 
 /* end doxygen comment */
 
-#ifdef _MSC_VER
+#if defined(_MSC_VER) || defined(__BORLANDC__)
 #  define isnan(d)  _isnan(d)
 #endif
 

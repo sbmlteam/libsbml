@@ -373,7 +373,7 @@ ASTBasePlugin::getURI() const
   if (mSBMLExt == NULL) 
     return getElementNamespace();
   
-  const std::string &package = (mSBMLExt != NULL) ? mSBMLExt->getName() : "";
+  const std::string &package = (mSBMLExt != NULL) ? mSBMLExt->getName() : std::string("");
 
   SBMLNamespaces* sbmlns = getSBMLNamespaces();
 
