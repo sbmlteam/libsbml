@@ -156,6 +156,7 @@ distfiles =                                                  \
         common-graphics/ftv2folderopen.png                   \
         common-graphics/hellojsp-screenshot.png              \
         common-graphics/icon-format-pdf-44px.jpg             \
+        common-graphics/icon-format-html-44px.jpg            \
         common-graphics/layout-example.png                   \
         common-graphics/listof-illustration.svg              \
         common-graphics/model-qualifiers.png                 \
@@ -185,6 +186,8 @@ distfiles =                                                  \
         common-text/level-1-uses-text-string-math.html       \
         common-text/enzymatic-reaction-equation.html         \
         common-text/libsbml-facility-only-warning.html       \
+        common-text/libsbml-coding-copydetails-example.html  \
+        common-text/libsbml-coding-link-example.html         \
         common-text/libsbml-version.html.in                  \
         common-text/listof-illustration.txt                  \
         common-text/math-functions.html                      \
@@ -214,6 +217,7 @@ distfiles =                                                  \
         common-text/warn-default-args-in-docs.html           \
         common-text/xmlid-syntax.html                        \
         css/libsbml-base-stylesheet.css                      \
+        css/libsbml-c-stylesheet.css                         \
         css/libsbml-doxygen-navtree.css                      \
         css/libsbml-doxygen-stylesheet.css                   \
         css/libsbml-doxygen-tabs.css                         \
@@ -237,6 +241,7 @@ distfiles =                                                  \
         doxygen-config-python.txt.in                         \
         doxygen-footer.html                                  \
         doxygen-header.html                                  \
+        doxygen-layout-c.xml                                 \
         doxygen-layout-cpp.xml                               \
         doxygen-layout-csharp.xml                            \
         doxygen-layout-notcpp.xml                            \
@@ -272,6 +277,7 @@ distfiles =                                                  \
         libsbml-core-versus-packages.txt                     \
         libsbml-csharp-example-files.txt                     \
         libsbml-csharp-mainpage.txt                          \
+        libsbml-python-math.txt                              \
         libsbml-csharp-math.txt                              \
         libsbml-csharp-reading-files.txt                     \
         libsbml-doxygen.html                                 \
@@ -328,6 +334,7 @@ distfiles =                                                  \
         libsbml-reading-files.txt                            \
         libsbml-release-info.txt                             \
         python-substitutions/ASTNodeList.py                  \
+        python-substitutions/SBaseList.py                    \
         python-substitutions/CVTermList.py                   \
         python-substitutions/CompPkgNamespaces.py            \
         python-substitutions/DateList.py                     \
