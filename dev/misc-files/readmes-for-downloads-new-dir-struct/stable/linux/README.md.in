@@ -21,7 +21,10 @@ packages.  The following language interfaces are also contained:
 Please navigate to either the [32-bit](32-bit) or [64-bit](64-bit) folders, to match the
 version of the operating system you are using.
 
-If you need the MATLAB/Octave or python language interfaces, or need to use a
+####Python installers
+Python installers for various Linux distributions can be obtained from the [Open Build Service](http://software.opensuse.org/download.html?project=home%3Afbergman%3Alibsbml&package=python-libsbml "Open Build Service").
+
+If you need the MATLAB/Octave language interfaces, or need to use a
 different XML parser library, it will be necessary to build libSBML yourself
 from the source distribution using suitable configuration flags.  The
 procedure is described in the libSBML documentation.  The source and

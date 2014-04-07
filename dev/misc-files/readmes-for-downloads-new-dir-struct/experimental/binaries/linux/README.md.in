@@ -4,6 +4,9 @@
 This directory contains binary versions of libSBML compiled with plug-ins
 supporting draft SBML Level 3 package specifications for Linux systems.
 
+####Python installers
+Python installers for various Linux distributions can be obtained from the [Open Build Service](http://software.opensuse.org/download.html?project=home%3Afbergman%3Alibsbml&package=python-libsbml-experimental "Open Build Service").
+
 Please note: the code in these directories reflects the current state of
 development of SBML Level 3 packages and the libSBML plug-ins for the
 packages. Many of the SBML Level 3 package specifications have not yet been
