@@ -57,6 +57,7 @@ thisdir = .
 examples =                                                          \
   examples/README.txt                                               \
   examples/CMakeLists.txt                                           \
+  examples/examples/layout-package.cmake                            \
   examples/c/CMakeLists.txt                                         \
   examples/c++/CMakeLists.txt                                       \
   examples/csharp/CMakeLists.txt                                    \
@@ -126,6 +127,7 @@ examples =                                                          \
   examples/c++/util.c                                               \
   examples/c++/util.h                                               \
   examples/c++/validateSBML.cpp                                     \
+  examples/c++/layout/CMakeLists.txt                                \
   examples/c++/layout/Makefile.in                                   \
   examples/c++/layout/addLayout.cpp                                 \
   examples/c++/layout/convertLayout.cpp                             \
@@ -193,12 +195,15 @@ examples =                                                          \
   examples/java/unsetAnnotation.java                                \
   examples/java/unsetNotes.java                                     \
   examples/java/validateSBML.java                                   \
-  examples/java/layout/layout_example1.java                                \
-  examples/java/layout/layout_example1_L3.java                             \
+  examples/java/layout/CMakeLists.txt                               \
+  examples/java/layout/layout_example1.java                         \
+  examples/java/layout/layout_example1_L3.java                      \
   examples/perl/layout/example1-L3.pl                               \
-  examples/python/layout/example1-L3.py                             \
   examples/ruby/layout/example1-L3.rb                               \
+  examples/csharp/layout/CMakeLists.txt                             \
   examples/csharp/layout/example1-L3.cs                             \
+  examples/python/layout/example1-L3.py                             \
+  examples/python/layout/convertLayout.py                           \
   examples/python/layout/example1.py                                \
   examples/perl/addCVTerms.pl                                       \
   examples/perl/addCustomValidator.pl                               \
