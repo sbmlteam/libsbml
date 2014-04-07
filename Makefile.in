@@ -57,7 +57,7 @@ thisdir = .
 examples =                                                          \
   examples/README.txt                                               \
   examples/CMakeLists.txt                                           \
-  examples/examples/layout-package.cmake                            \
+  examples/layout-package.cmake                                     \
   examples/c/CMakeLists.txt                                         \
   examples/c++/CMakeLists.txt                                       \
   examples/csharp/CMakeLists.txt                                    \
