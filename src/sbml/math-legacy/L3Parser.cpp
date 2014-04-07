@@ -317,6 +317,11 @@ LIBSBML_CPP_NAMESPACE_END
 extern int sbml_yydebug;
 #endif
 
+ #ifdef __BORLANDC__
+ #undef DOUBLE
+ #endif
+
+
 /* Tokens.  */
 #ifndef YYTOKENTYPE
 # define YYTOKENTYPE
