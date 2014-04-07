@@ -20,7 +20,7 @@ packages.  The following language interfaces are also contained:
 	
 * R (as a separate installer)
 	
-Please navigate to either the 32-bit or 64-bit folders, to match the
+Please navigate to either the [32-bit](32-bit) or [64-bit](64-bit) folders, to match the
 version of the operating system you are using.
 
 If you need to use a different XML parser library, you will need to build
