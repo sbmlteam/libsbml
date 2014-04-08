@@ -1611,6 +1611,7 @@ ASTBase::getNameFromType(int type) const
         name = "";
       }
       i++;
+      empty = (strcmp(name, "") == 0);
     }
   }
 
