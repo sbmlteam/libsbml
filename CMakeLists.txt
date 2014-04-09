@@ -786,15 +786,23 @@ else(UNIX)
         install(FILES ${WIN32_DEPENDENCIES} DESTINATION lib)
         if(WITH_LIBXML)
 		  if (EXTRA_LIBS STREQUAL "")
-		  # populate EXTRA_LIBS variable
-          find_library(LIBICONV_LIBRARY
-              NAMES libiconv.lib iconv.lib iconv
-              PATHS /usr/lib /usr/local/lib
-                    ${CMAKE_OSX_SYSROOT}/usr/lib
-                    ${LIBSBML_DEPENDENCY_DIR}/lib
-              DOC "The file name of the libiconv library."
+		    # populate EXTRA_LIBS variable
+              find_library(LIBICONV_LIBRARY
+                NAMES libiconv.lib iconv.lib iconv
+                PATHS /usr/lib /usr/local/lib
+                      ${CMAKE_OSX_SYSROOT}/usr/lib
+                      ${LIBSBML_DEPENDENCY_DIR}/lib
+                DOC "The file name of the libiconv library."
               )
-		  set(EXTRA_LIBS "WS2_32.lib;${LIBICONV_LIBRARY};${LIBZ_LIBRARY};" CACHE STRING "List of additional libraries to link against." FORCE)
+		    
+		    set(ADDITIONAL_LIBS)
+		    if (EXISTS ${LIBICONV_LIBRARY})
+		 	 set(ADDITIONAL_LIBS "${ADDITIONAL_LIBS}${LIBICONV_LIBRARY};")
+		    endif()
+		    if (EXISTS ${LIBZ_LIBRARY})
+		    set(ADDITIONAL_LIBS "${ADDITIONAL_LIBS}${LIBZ_LIBRARY};")
+		    endif()
+		    set(EXTRA_LIBS "WS2_32.lib;${ADDITIONAL_LIBS}" CACHE STRING "List of additional libraries to link against." FORCE)
 		  endif()
 		endif()
     elseif(CYGWIN)
