@@ -7,19 +7,19 @@
       <parameter id="m" value="10" constant="true"/>
       <!-- this sets teh value of all elements of x to 5.7 -->
       <parameter id="x" value="5.7" constant="true">
-        <arrays:orderedListOfDimensions>
-          <arrays:dimension arrays:id="i" arrays:size="n"/>
-        </arrays:orderedListOfDimensions>
+        <arrays:listOfDimensions>
+          <arrays:dimension arrays:id="i" arrays:size="n" arrays:dim="0"/>
+        </arrays:listOfDimensions>
       </parameter>
       <parameter id="y" constant="false">
-        <arrays:orderedListOfDimensions>
-          <arrays:dimension arrays:id="i" arrays:size="n"/>
-        </arrays:orderedListOfDimensions>
+        <arrays:listOfDimensions>
+          <arrays:dimension arrays:id="i" arrays:size="n" arrays:dim="0"/>
+        </arrays:listOfDimensions>
       </parameter>
       <parameter id="z" constant="false">
-        <arrays:orderedListOfDimensions>
-          <arrays:dimension arrays:id="i" arrays:size="n"/>
-        </arrays:orderedListOfDimensions>
+        <arrays:listOfDimensions>
+          <arrays:dimension arrays:id="i" arrays:size="n" arrays:dim="0"/>
+        </arrays:listOfDimensions>
       </parameter>
     </listOfParameters>
     <listOfInitialAssignments>
@@ -34,43 +34,35 @@
         <math xmlns="http://www.w3.org/1998/Math/MathML">
           <cn> 5.7 </cn>
         </math>
-        <arrays:orderedListOfDimensions>
-          <arrays:dimension arrays:id="i" arrays:size="m"/>
-        </arrays:orderedListOfDimensions>
-        <arrays:orderedListOfIndices>
-          <arrays:index>
+        <arrays:listOfDimensions>
+          <arrays:dimension arrays:id="i" arrays:size="m" arrays:dim="0"/>
+        </arrays:listOfDimensions>
+        <arrays:listOfIndices>
+          <arrays:index  arrays:dim="0" arrays:referencedAttribute="symbol">
             <math xmlns="http://www.w3.org/1998/Math/MathML">
-              <apply>
-                <selector/>
-                <ci> z </ci>
-                <ci> i </ci>
-              </apply>
+               <ci> i </ci>
             </math>
           </arrays:index>
-        </arrays:orderedListOfIndices>
+        </arrays:listOfIndices>
       </initialAssignment>
       <initialAssignment symbol="z">
         <math xmlns="http://www.w3.org/1998/Math/MathML">
           <cn> 3.2 </cn>
         </math>
-        <arrays:orderedListOfDimensions>
-          <arrays:dimension arrays:id="i" arrays:size="m"/>
-        </arrays:orderedListOfDimensions>
-        <arrays:orderedListOfIndices>
-          <arrays:index>
+        <arrays:listOfDimensions>
+          <arrays:dimension arrays:id="i" arrays:size="m" arrays:dim="0"/>
+        </arrays:listOfDimensions>
+        <arrays:listOfIndices>
+          <arrays:index arrays:dim="0" arrays:referencedAttribute="symbol">
             <math xmlns="http://www.w3.org/1998/Math/MathML">
               <apply>
-                <selector/>
-                <ci> z </ci>
-                <apply>
-                  <plus/>
+                 <plus/>
                   <ci> i </ci>
                   <ci> m </ci>
                 </apply>
-              </apply>
             </math>
           </arrays:index>
-        </arrays:orderedListOfIndices>
+        </arrays:listOfIndices>
       </initialAssignment>
     </listOfInitialAssignments>
   </model>
