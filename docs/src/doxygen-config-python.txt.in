@@ -153,6 +153,7 @@ OPTIMIZE_OUTPUT_JAVA    = YES
 # hiding more than intended).
 
 EXCLUDE_SYMBOLS +=                     \
+  ElementFilter                        \
   SBMLFunctionDefinitionConverter_init \
   SBMLInitialAssignmentConverter_init  \
   SBMLLevelVersionConverter_init       \

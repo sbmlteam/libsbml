@@ -116,6 +116,7 @@ ENABLED_SECTIONS       = csharp notclike notcpp doxygenCsharpOnly
 # don't expose outside of the core.
 
 EXCLUDE_SYMBOLS         +=  \
+  ElementFilter \
   ISBMLExtensionNamespaces \
   SBMLExtension            \
   SBMLTransforms           \
