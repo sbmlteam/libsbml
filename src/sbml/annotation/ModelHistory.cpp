@@ -236,7 +236,7 @@ ModelHistory::setCreatedDate(Date* date)
 
 
 /*
- * sets teh modiefied date
+ * sets the modiefied date
  */
 int 
 ModelHistory::setModifiedDate(Date* date)

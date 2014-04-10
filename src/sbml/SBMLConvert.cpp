@@ -1194,7 +1194,7 @@ Model::dealWithModelUnits()
   {
     std::string volume = getVolumeUnits();
     // if in an L3 model a user used volume as an id of a UnitDefinition
-    // but they declared the volume units of teh model to be something 
+    // but they declared the volume units of the model to be something 
     // else then the UD with id volume is nothing to do with the 
     // L2 interpretation of volume
     // so replace that UD and all references to it 
@@ -1235,7 +1235,7 @@ Model::dealWithModelUnits()
   {
     std::string area = getAreaUnits();
     // if in an L3 model a user used area as an id of a UnitDefinition
-    // but they declared the area units of teh model to be something 
+    // but they declared the area units of the model to be something 
     // else then the UD with id area is nothing to do with the 
     // L2 interpretation of area
     // so replace that UD and all references to it 
@@ -1276,7 +1276,7 @@ Model::dealWithModelUnits()
   {
     std::string length = getLengthUnits();
     // if in an L3 model a user used length as an id of a UnitDefinition
-    // but they declared the length units of teh model to be something 
+    // but they declared the length units of the model to be something 
     // else then the UD with id length is nothing to do with the 
     // L2 interpretation of length
     // so replace that UD and all references to it 
@@ -1317,7 +1317,7 @@ Model::dealWithModelUnits()
   {
     std::string substance = getSubstanceUnits();
     // if in an L3 model a user used substance as an id of a UnitDefinition
-    // but they declared the substance units of teh model to be something 
+    // but they declared the substance units of the model to be something 
     // else then the UD with id substance is nothing to do with the 
     // L2 interpretation of substance
     // so replace that UD and all references to it 
@@ -1358,7 +1358,7 @@ Model::dealWithModelUnits()
   {
     std::string time = getTimeUnits();
     // if in an L3 model a user used time as an id of a UnitDefinition
-    // but they declared the time units of teh model to be something 
+    // but they declared the time units of the model to be something 
     // else then the UD with id time is nothing to do with the 
     // L2 interpretation of time
     // so replace that UD and all references to it 

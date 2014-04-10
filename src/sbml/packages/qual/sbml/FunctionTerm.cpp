@@ -890,7 +890,7 @@ ListOfFunctionTerms::createObject(XMLInputStream& stream)
     object = new DefaultTerm(qualns);
     setDefaultTerm(static_cast<DefaultTerm*>(object));
 
-    /* teh setFunction clones the object and so need to reassign the pointer
+    /* the setFunction clones the object and so need to reassign the pointer
      * or subsequent read of the term is to the wrong object
      */
     object = getDefaultTerm();

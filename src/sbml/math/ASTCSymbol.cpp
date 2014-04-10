@@ -1235,7 +1235,7 @@ ASTCSymbol::read(XMLInputStream& stream, const std::string& reqd_prefix)
         /* HACK TO REPLICATE OLD AST */
         /* old code would create a node of type name or
          * a user function with the given name
-         * if teh url was not recognised
+         * if the url was not recognised
          */
         if (mInReadFromApply == false)
         {
@@ -1279,7 +1279,7 @@ ASTCSymbol::read(XMLInputStream& stream, const std::string& reqd_prefix)
       /* HACK TO REPLICATE OLD AST */
         /* old code would create a node of type name or
          * a user function with the given name
-         * if teh url was not recognised
+         * if the url was not recognised
          */
       if (mInReadFromApply == false)
       {

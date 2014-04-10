@@ -4322,7 +4322,7 @@ ASTFunction::syncMembersAndTypeFrom(ASTFunction* rhs, int type)
       node->setType(type);
       this->ASTBase::syncMembersFrom(node);
       // note this will clone plugins and therefore any children they may have
-      // so do not recopy teh children
+      // so do not recopy the children
       copyChildren = false;
     }
   }

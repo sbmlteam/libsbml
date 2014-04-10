@@ -225,7 +225,7 @@ ASTPiecewiseFunctionNode::addChild(ASTBase* child, bool inRead)
           }
 
           ASTNode * piece = new ASTNode(AST_CONSTRUCTOR_PIECE);
-          // add teh child from teh otherwise
+          // add the child from the otherwise
           if (piece->addChild(otherwise->getChild(0)) != LIBSBML_OPERATION_SUCCESS)
           {
             return LIBSBML_OPERATION_FAILED;
@@ -271,7 +271,7 @@ ASTBase*
 ASTPiecewiseFunctionNode::getChild (unsigned int n) const
 {
   /* HACK TO REPLICATE OLD AST */
-  /* do not return a node with teh piece or otherwise type
+  /* do not return a node with the piece or otherwise type
    * return the correct child of the piece type
    * or the child of the otherwise
    */
@@ -391,7 +391,7 @@ ASTPiecewiseFunctionNode::removeChild(unsigned int n)
 {
   int removed = LIBSBML_INDEX_EXCEEDS_SIZE;
   /* HACK TO REPLICATE OLD AST */
-  /* do not return a node with teh piece or otherwise type
+  /* do not return a node with the piece or otherwise type
    * return the correct child of the piece type
    * or the child of the otherwise
    */
@@ -524,7 +524,7 @@ ASTPiecewiseFunctionNode::replaceChild(unsigned int n, ASTBase* newChild)
     //if (replaced == LIBSBML_OPERATION_SUCCESS)
     //{
       // really want to call insert child but this can have issues with
-      // teh fact that we have just removed a child
+      // the fact that we have just removed a child
       // so call a private version
       replaced = insertChildForReplace(n, newChild);
     //}

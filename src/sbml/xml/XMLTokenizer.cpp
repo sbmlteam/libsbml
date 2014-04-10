@@ -303,7 +303,7 @@ XMLTokenizer::determineNumberChildren(bool & valid, const std::string& element)
   // that is both a start and an end
   // unless we are reading a user function
   // or a csymbol
-  // if teh tag is not a start and an end this is an error
+  // if the tag is not a start and an end this is an error
   // we want to exit
   // but be happy that the read is ok
   // and the error gets logged elsewhere
@@ -419,7 +419,7 @@ XMLTokenizer::determineNumberChildren(bool & valid, const std::string& element)
   } 
 
   // we might have hit the end of the loop and the end of the correct tag
-  // but teh loop hits before it can record that it was valid
+  // but the loop hits before it can record that it was valid
   if (valid == false && cleanBreak == true)
   {
   if (index >= size-2 && next.isEnd() == true && next.getName() == closingTag)

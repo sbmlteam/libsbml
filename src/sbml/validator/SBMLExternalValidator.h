@@ -174,7 +174,7 @@ public:
   /**
    * Sets the additional arguments
    *
-   * @param args teh additional arguments
+   * @param args the additional arguments
    */
   void setArguments(std::vector<std::string> args);
 

@@ -3173,7 +3173,7 @@ public:
    * that corrsponds to a variable object or @c NULL
    * if no such FormulaUnitsData exists.
    *
-   * @note  This function restricts teh search to classes that can be varied
+   * @note  This function restricts the search to classes that can be varied
    * Species, Compartment, Parameter, SpeciesReference.
    */
   FormulaUnitsData* 
@@ -3187,7 +3187,7 @@ public:
    * that corrsponds to a variable object or @c NULL
    * if no such FormulaUnitsData exists.
    *
-   * @note  This function restricts teh search to classes that can be varied
+   * @note  This function restricts the search to classes that can be varied
    * Species, Compartment, Parameter, SpeciesReference.
    */
   FormulaUnitsData* 

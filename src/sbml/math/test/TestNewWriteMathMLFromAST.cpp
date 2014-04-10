@@ -2134,7 +2134,7 @@ create_suite_NewWriteMathMLFromAST ()
   tcase_add_test( tcase, test_MathMLFromAST_func_style                 );
   tcase_add_test( tcase, test_MathMLFromAST_nested_funcs                 );
 
-  // this will not work as teh function is not currently intended
+  // this will not work as the function is not currently intended
   // to work on the whole AST only its children
   //tcase_add_test( tcase, test_MathMLFromAST_replaceIDWithFunction_1    );
   tcase_add_test( tcase, test_MathMLFromAST_replaceIDWithFunction_2    );

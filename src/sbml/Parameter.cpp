@@ -1359,7 +1359,7 @@ Parameter::inferUnitsFromEvent(Event * e, UnitFormulaFormatter *uff, Model *m)
       // usually at this point we check the fud which should represent the
       // LHS
       // delay cannot use the possibleToUseUnitsData function as
-      // for a delay this refers to teh RHS which we know 
+      // for a delay this refers to the RHS which we know 
       // has a variable with undeclared units  SO it will claim it
       // cannot be used
    

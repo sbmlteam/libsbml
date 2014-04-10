@@ -2353,7 +2353,7 @@ UnitFormulaFormatter::inferUnitDefinition(UnitDefinition* expectedUD,
   ASTNode * child1 = NULL, * child2 = NULL;
   unsigned int numChildren = math->getNumChildren();
 
-  // is teh math just the ci element
+  // is the math just the ci element
   if (numChildren == 0 && math->getType() == AST_NAME
     && math->getName() == id)
   {

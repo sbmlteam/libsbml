@@ -945,7 +945,7 @@ START_CONSTRAINT (CompPortRefMustReferencePort, Deletion, d)
 
   if (plug1->getPort(d.getPortRef()) == NULL)
   {
-    /* take out for now since I was right teh first time
+    /* take out for now since I was right the first time
      * the reference should be there without need to instantiate
      */
     //// it is possible that the referenced model needs to actually instantiate
@@ -993,7 +993,7 @@ START_CONSTRAINT (CompPortRefMustReferencePort, ReplacedElement, repE)
 
   if (plug1->getPort(repE.getPortRef()) == NULL)
   {
-    /* take out for now since I was right teh first time
+    /* take out for now since I was right the first time
      * the reference should be there without need to instantiate
      */
     //// it is possible that the referenced model needs to actually instantiate
@@ -1041,7 +1041,7 @@ START_CONSTRAINT (CompPortRefMustReferencePort, ReplacedBy, repBy)
 
   if (plug1->getPort(repBy.getPortRef()) == NULL)
   {
-    /* take out for now since I was right teh first time
+    /* take out for now since I was right the first time
      * the reference should be there without need to instantiate
      */
     //// it is possible that the referenced model needs to actually instantiate
@@ -1125,7 +1125,7 @@ START_CONSTRAINT (CompPortRefMustReferencePort, SBaseRef, sbRef)
 
   if (plug1->getPort(sbRef.getPortRef()) == NULL)
   {
-    /* take out for now since I was right teh first time
+    /* take out for now since I was right the first time
      * the reference should be there without need to instantiate
      */
     //// it is possible that the referenced model needs to actually instantiate
@@ -1190,7 +1190,7 @@ START_CONSTRAINT (CompIdRefMustReferenceObject, Port, p)
 
   if (mIds.contains(p.getIdRef()) == false)
   {
-    /* take out for now since I was right teh first time
+    /* take out for now since I was right the first time
      * the reference should be there without need to instantiate
      */
     //// it is possible that the referenced model needs to actually instantiate
@@ -1263,7 +1263,7 @@ START_CONSTRAINT (CompIdRefMustReferenceObject, Deletion, d)
 
   if (mIds.contains(d.getIdRef()) == false)
   {
-    /* take out for now since I was right teh first time
+    /* take out for now since I was right the first time
      * the reference should be there without need to instantiate
      */
     //// it is possible that the referenced model needs to actually instantiate
@@ -1334,7 +1334,7 @@ START_CONSTRAINT (CompIdRefMustReferenceObject, ReplacedElement, repE)
 
   if (mIds.contains(repE.getIdRef()) == false)
   {
-    /* take out for now since I was right teh first time
+    /* take out for now since I was right the first time
      * the reference should be there without need to instantiate
      */
     //// it is possible that the referenced model needs to actually instantiate
@@ -1394,7 +1394,7 @@ START_CONSTRAINT (CompIdRefMustReferenceObject, ReplacedBy, repBy)
 
   if (mIds.contains(repBy.getIdRef()) == false)
   {
-    /* take out for now since I was right teh first time
+    /* take out for now since I was right the first time
      * the reference should be there without need to instantiate
      */
     //// it is possible that the referenced model needs to actually instantiate
@@ -1502,7 +1502,7 @@ START_CONSTRAINT (CompIdRefMustReferenceObject, SBaseRef, sbRef)
 
   if (mIds.contains(sbRef.getIdRef()) == false)
   {
-    /* take out for now since I was right teh first time
+    /* take out for now since I was right the first time
      * the reference should be there without need to instantiate
      */
     //// it is possible that the referenced model needs to actually instantiate
@@ -1537,7 +1537,7 @@ START_CONSTRAINT (CompUnitRefMustReferenceUnitDef, Port, p)
 
   if (m.getUnitDefinition(p.getUnitRef()) == NULL)
   {
-    /* take out for now since I was right teh first time
+    /* take out for now since I was right the first time
      * the reference should be there without need to instantiate
      */
     //// it is possible that the referenced model needs to actually instantiate
@@ -1583,7 +1583,7 @@ START_CONSTRAINT (CompUnitRefMustReferenceUnitDef, Deletion, d)
 
   if (referencedModel->getUnitDefinition(d.getUnitRef()) == NULL)
   {
-    /* take out for now since I was right teh first time
+    /* take out for now since I was right the first time
      * the reference should be there without need to instantiate
      */
     //// it is possible that the referenced model needs to actually instantiate
@@ -1627,7 +1627,7 @@ START_CONSTRAINT (CompUnitRefMustReferenceUnitDef, ReplacedElement, repE)
 
   if (referencedModel->getUnitDefinition(repE.getUnitRef()) == NULL)
   {
-    /* take out for now since I was right teh first time
+    /* take out for now since I was right the first time
      * the reference should be there without need to instantiate
      */
     //// it is possible that the referenced model needs to actually instantiate
@@ -1671,7 +1671,7 @@ START_CONSTRAINT (CompUnitRefMustReferenceUnitDef, ReplacedBy, repBy)
 
   if (referencedModel->getUnitDefinition(repBy.getUnitRef()) == NULL)
   {
-    /* take out for now since I was right teh first time
+    /* take out for now since I was right the first time
      * the reference should be there without need to instantiate
      */
     //// it is possible that the referenced model needs to actually instantiate
@@ -1751,7 +1751,7 @@ START_CONSTRAINT (CompUnitRefMustReferenceUnitDef, SBaseRef, sbRef)
 
   if (referencedModel->getUnitDefinition(sbRef.getUnitRef()) == NULL)
   {
-    /* take out for now since I was right teh first time
+    /* take out for now since I was right the first time
      * the reference should be there without need to instantiate
      */
     //// it is possible that the referenced model needs to actually instantiate
@@ -1817,7 +1817,7 @@ START_CONSTRAINT (CompMetaIdRefMustReferenceObject, Port, p)
 
   if (mIds.contains(p.getMetaIdRef()) == false)
   {
-    /* take out for now since I was right teh first time
+    /* take out for now since I was right the first time
      * the reference should be there without need to instantiate
      */
     //// it is possible that the referenced model needs to actually instantiate
@@ -1890,7 +1890,7 @@ START_CONSTRAINT (CompMetaIdRefMustReferenceObject, Deletion, d)
 
   if (mIds.contains(d.getMetaIdRef()) == false)
   {
-    /* take out for now since I was right teh first time
+    /* take out for now since I was right the first time
      * the reference should be there without need to instantiate
      */
     //// it is possible that the referenced model needs to actually instantiate
@@ -1961,7 +1961,7 @@ START_CONSTRAINT (CompMetaIdRefMustReferenceObject, ReplacedElement, repE)
 
   if (mIds.contains(repE.getMetaIdRef()) == false)
   {
-    /* take out for now since I was right teh first time
+    /* take out for now since I was right the first time
      * the reference should be there without need to instantiate
      */
     //// it is possible that the referenced model needs to actually instantiate
@@ -2021,7 +2021,7 @@ START_CONSTRAINT (CompMetaIdRefMustReferenceObject, ReplacedBy, repBy)
 
   if (mIds.contains(repBy.getMetaIdRef()) == false)
   {
-    /* take out for now since I was right teh first time
+    /* take out for now since I was right the first time
      * the reference should be there without need to instantiate
      */
     //// it is possible that the referenced model needs to actually instantiate
@@ -2128,7 +2128,7 @@ START_CONSTRAINT (CompMetaIdRefMustReferenceObject, SBaseRef, sbRef)
 
   if (mIds.contains(sbRef.getMetaIdRef()) == false)
   {
-    /* take out for now since I was right teh first time
+    /* take out for now since I was right the first time
      * the reference should be there without need to instantiate
      */
     //// it is possible that the referenced model needs to actually instantiate

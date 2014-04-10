@@ -852,7 +852,7 @@ CompSBMLDocumentPlugin::checkConsistency()
       /* a document clone does not clone the error log as this was deemed
        * to be a situation where you wanted an empty log
        *
-       * BUT for some of teh comp rules they actually need to know 
+       * BUT for some of the comp rules they actually need to know 
        * whether there are unrecognised packages present
        * so add these errors if they exist in the original
        */

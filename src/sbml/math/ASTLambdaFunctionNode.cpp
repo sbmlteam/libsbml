@@ -203,7 +203,7 @@ ASTBase*
 ASTLambdaFunctionNode::getChild (unsigned int n) const
 {
   /* HACK TO REPLICATE OLD AST */
-  /* do not return a node with teh bvar type
+  /* do not return a node with the bvar type
    * return the child of the bvar type
    */
   if (ASTFunctionBase::getNumChildren() <= n)

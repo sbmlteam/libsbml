@@ -6953,7 +6953,7 @@ create_suite_NewASTNode (void)
   tcase_add_test( tcase, test_ASTNode_nested_children                );
   tcase_add_test( tcase, test_ASTNode_nested_children1                );
 
-  // need teh formula parse to test this as it is a nightmare to just create
+  // need the formula parse to test this as it is a nightmare to just create
 //  tcase_add_test( tcase, test_ASTNode_getListOfNodes          );
 
   tcase_add_test( tcase, test_ASTNode_getListOfNodes1          );

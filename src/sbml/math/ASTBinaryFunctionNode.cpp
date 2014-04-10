@@ -155,7 +155,7 @@ ASTBinaryFunctionNode::getChild (unsigned int n) const
   else
   {
     /* HACK TO REPLICATE OLD AST */
-    /* do not return a node with teh logbase type
+    /* do not return a node with the logbase type
      * return the child of the logbase
      */
     if (ASTFunctionBase::getNumChildren() <= n)
