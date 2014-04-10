@@ -1,8 +1,6 @@
 /**
- * @cond doxygenLibsbmlInternal
- *
  * @file    ElementFilter.h
- * @brief   Base class of all element filters as used by getAllElements
+ * @brief   Base class of element filters.
  * @author  Frank T. Bergmann
  * 
  * <!--------------------------------------------------------------------------
@@ -33,7 +31,34 @@
  * ---------------------------------------------------------------------- -->
  *
  * @class ElementFilter
- * @sbmlbrief{core}
+ * @sbmlbrief{core} Base class for filter functions.
+ *
+ * @if notclike @internal @endif@~
+ *
+ * @htmlinclude libsbml-facility-only-warning.html
+ *
+ * Some libSBML objects provide the ability to return lists of components;
+ * for example, Model::getAllElements() returns all child objects of a Model
+ * object.  To provide callers with greater control over exactly what is
+ * returned, these methods take optional arguments in the form of filters.
+ * The ElementFilter class is the parent class for these filters.
+ */
+
+/**
+ * <!-- ~ ~ ~ ~ ~ Start of common documentation strings ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+ * The following text is used as common documentation blocks copied multiple
+ * times elsewhere in this file.  The use of @class is a hack needed because
+ * Doxygen's @copydetails command has limited functionality.  Symbols
+ * beginning with "doc_" are marked as ignored in our Doxygen configuration.
+ * ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~  -->
+ *
+ * @class doc_what_is_user_data
+ *
+ * @par
+ * The user data associated with an SBML object can be used by an application
+ * developer to attach custom information to that object in the model.  In case
+ * of a deep copy, this attribute will passed as it is.  The attribute will never
+ * be interpreted by libSBML.
  */
 
 #ifndef ElementFilter_h
@@ -104,22 +129,73 @@ class LIBSBML_EXTERN ElementFilter
 {
 public:
 
+  /**
+   * Creates a new ElementFilter object.
+   */
   ElementFilter();
+
+
+  /**
+   * Destroys this ElementFilter.
+   */
   virtual ~ElementFilter();
+
+
+  /**
+   * Predicate to test elements.
+   *
+   * This is the central predicate of the ElementFilter class.  In subclasses
+   * of ElementFilter, callers should implement this method such that it
+   * returns @c true for @p element arguments that are "desirable" and @c
+   * false for those that are "undesirable" in whatever filtering context the
+   * ElementFilter subclass is designed to be used.
+   *
+   * @param element the element to be tested.
+   *
+   * @return @c true if the @p element is desirable or should be kept,
+   * @c false otherwise.
+   */
   virtual bool filter(const SBase* element);
-  
-  #ifndef SWIG
+
+
+  /**
+   * Returns the user data that has been previously set via setUserData().
+   *
+   * @copydetails doc_what_is_user_data
+   *
+   * @return the user data of this node, or @c NULL if no user data has been set.
+   *
+   * @if clike
+   * @see ASTNode::setUserData(void *userData)
+   * @endif@~
+   */
   void* getUserData();
+
+
+  /**
+   * Sets the user data of this element.
+   *
+   * @copydetails doc_what_is_user_data
+   *
+   * @param userData specifies the new user data.
+   *
+   * @return integer value indicating success/failure of the
+   * function.  The possible values returned by this function are:
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED@endlink
+   */
   void setUserData(void* userData);
-  #endif
-  
+
+
 private:
+  /** @cond doxygenLibsbmlInternal */
+
   void* mUserData;
+
+  /** @endcond */
 };
 
 LIBSBML_CPP_NAMESPACE_END
 
 #endif  /* __cplusplus */
 #endif  /* ElementFilter_h */
-
-/** @endcond */
