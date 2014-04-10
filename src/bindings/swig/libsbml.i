@@ -111,7 +111,6 @@ LIBSBML_CPP_NAMESPACE_USE
  */
 #pragma SWIG nowarn=516
 
-
 /**
  * Ignore the Visitor pattern accept() method (for now) on all SBML
  * objects.
@@ -127,10 +126,8 @@ LIBSBML_CPP_NAMESPACE_USE
 %ignore ASTNode::setSemanticsFlag;
 %ignore ASTNode::unsetSemanticsFlag;
 %ignore ASTNode::getSemanticsFlag;
-%ignore ASTNode::setUserData;
-%ignore ASTNode::getUserData;
 
-/** 
+/**
  * Ignore the list that can't be wrapped
  */
 %ignore SBMLExtensionRegistry::getRegisteredPackageNames;
@@ -183,7 +180,6 @@ LIBSBML_CPP_NAMESPACE_USE
 %ignore SBMLValidator::getFailures;
 %ignore SBMLExternalValidator::getArguments;
 %ignore SBMLExternalValidator::setArguments;
-
 
 /**
  * Ignore 'static ParentMap mParent;' in SBO.h
@@ -417,6 +413,12 @@ LIBSBML_CPP_NAMESPACE_USE
 %newobject UnitDefinition::convertToSI;
 %newobject UnitDefinition::combine;
 
+/**
+ * We can't currently support attaching arbitrary user data to
+ * libSBML objects.
+ */
+%ignore *::setUserData;
+%ignore *::getUserData;
 
 /**
  * In the wrapped languages, these methods will appear as:
@@ -432,23 +434,20 @@ LIBSBML_CPP_NAMESPACE_USE
 %rename(getDefaultL3ParserSettings)    SBML_getDefaultL3ParserSettings;
 %rename(getLastParseL3Error)    SBML_getLastParseL3Error;
 
-
 /**
- * 
+ *
  * wraps "List* ASTNode::getListOfNodes(ASTNodePredicate)" function
- * as "ListWrapper<ASTNode>* ASTNode::getListOfNodes()" function 
- * which returns a list of all ASTNodes. 
+ * as "ListWrapper<ASTNode>* ASTNode::getListOfNodes()" function
+ * which returns a list of all ASTNodes.
  *
  */
 
 %ignore SBase::getAllElementsFromPlugins;
 %ignore SBasePlugin::getAllElements;
 %ignore SBase::getAllElements;
-%ignore SBase::setUserData;
-%ignore SBase::getUserData;
 %ignore Model::renameIDs(List* elements, IdentifierTransformer* idTransformer);
 
-%extend Model 
+%extend Model
 {
    void renameIDs(ListWrapper<SBase>* elements, IdentifierTransformer *idTransformer)
    {
