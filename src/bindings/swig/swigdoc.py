@@ -741,12 +741,13 @@ def translateInclude (match):
 
 
 def translateCopydetails (match):
-  name = match.group(1)
+  operator = match.group(1)
+  name = match.group(2)
   if (name in allclassdocs):
     text = allclassdocs[name]
   else:
     # If it's not found, just write out what we read in.
-    text = '@copydetails ' + name
+    text = operator + name
   return text
 
 
@@ -976,7 +977,7 @@ def sanitizeForHTML (docstring):
 
   # Massage method cross-references.
 
-  p = re.compile('(\s+)(\S+?)::(\w+\s*\([^)]*?\))', re.MULTILINE)
+  p = re.compile('(\W+)(\w+?)::(\w+\s*\([^)]*?\))', re.MULTILINE)
   if language == 'csharp':
     docstring = p.sub(translateCSharpCrossRef, docstring)
   elif language == 'java':
@@ -1526,7 +1527,13 @@ def postProcessOutput(istream, ostream):
 
   contents = istream.read()
 
-  p = re.compile('@copydetails\s+(\w+)')
+  # Hack: do it twice, to catch situations where the first substituted
+  # content uses @copydetails itself.  This is not quite right -- what if
+  # there are 3 levels of reference?  It should be done more intelligently.
+
+  p = re.compile('@copy(details|doc)\s+(\w+)')
+  contents = p.sub(translateCopydetails, contents)
+  p = re.compile('@copy(details|doc)\s+(\w+)')
   contents = p.sub(translateCopydetails, contents)
 
   # Do additional post-processing on a language-specific basis.
