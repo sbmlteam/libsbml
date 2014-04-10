@@ -88,8 +88,12 @@
 #include <sbml/conversion/SBMLConverter.h>
 #include <sbml/conversion/SBMLConverterRegistry.h>
 #include <sbml/conversion/SBMLFunctionDefinitionConverter.h>
+#include <sbml/conversion/SBMLIdConverter.h>
+#include <sbml/conversion/SBMLInferUnitsConverter.h>
 #include <sbml/conversion/SBMLInitialAssignmentConverter.h>
 #include <sbml/conversion/SBMLLevelVersionConverter.h>
+#include <sbml/conversion/SBMLLocalParameterConverter.h>
+#include <sbml/conversion/SBMLReactionConverter.h>
 #include <sbml/conversion/SBMLRuleConverter.h>
 #include <sbml/conversion/SBMLStripPackageConverter.h>
 #include <sbml/conversion/SBMLUnitsConverter.h>
