@@ -227,17 +227,17 @@ public:
    *
    * This method fails if the id is not a valid syntax for an IDREF (@link
    * OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE
-   * LIBSBML_INVALID_ATTRIBUTE_VALUE @endlink), or if the SBaseRef already
+   * LIBSBML_INVALID_ATTRIBUTE_VALUE@endlink), or if the SBaseRef already
    * points to an element of the submodel using a different interface (@link
    * OperationReturnValues_t#LIBSBML_OPERATION_FAILED
-   * LIBSBML_OPERATION_FAILED @endlink).  An sBaseRef must use exactly one
+   * LIBSBML_OPERATION_FAILED@endlink).  An sBaseRef must use exactly one
    * method to point to a submodel element.
    *
    * @return integer value indicating success/failure of the
    * operation. The possible return values are:
-   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
-   * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE @endlink
-   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+   * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE@endlink
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED@endlink
    */
   virtual int setMetaIdRef (const std::string& id);
 
@@ -247,8 +247,8 @@ public:
    *
    * @return integer value indicating success/failure of the
    * operation. The possible return values are:
-   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
-   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED@endlink
    */
   virtual int unsetMetaIdRef ();
 
@@ -275,17 +275,17 @@ public:
    * Sets the value of the "portRef" attribute of this SBaseRef.  Fails if
    * the id is not a valid syntax for a PortSIdRef (@link
    * OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE
-   * LIBSBML_INVALID_ATTRIBUTE_VALUE @endlink), or if the SBaseRef already
+   * LIBSBML_INVALID_ATTRIBUTE_VALUE@endlink), or if the SBaseRef already
    * points to an element of the submodel using a different interface (@link
    * OperationReturnValues_t#LIBSBML_OPERATION_FAILED
-   * LIBSBML_OPERATION_FAILED @endlink).  An SBaseRef must use exactly one
+   * LIBSBML_OPERATION_FAILED@endlink).  An SBaseRef must use exactly one
    * method to point to a submodel element.
    *
    * @return integer value indicating success/failure of the
    * operation. The possible return values are:
-   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
-   * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE @endlink
-   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+   * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE@endlink
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED@endlink
    */
   virtual int setPortRef (const std::string& id);
 
@@ -295,8 +295,8 @@ public:
    *
    * @return integer value indicating success/failure of the
    * operation. The possible return values are:
-   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
-   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED@endlink
    */
   virtual int unsetPortRef ();
 
@@ -324,17 +324,17 @@ public:
    *
    * This method fails if the id is not a valid syntax for an SIdRef (@link
    * OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE
-   * LIBSBML_INVALID_ATTRIBUTE_VALUE @endlink), or if the SBaseRef already
+   * LIBSBML_INVALID_ATTRIBUTE_VALUE@endlink), or if the SBaseRef already
    * points to an element of the submodel using a different interface (@link
    * OperationReturnValues_t#LIBSBML_OPERATION_FAILED
-   * LIBSBML_OPERATION_FAILED @endlink).  A sBaseRef must use exactly one
+   * LIBSBML_OPERATION_FAILED@endlink).  A sBaseRef must use exactly one
    * method to point to a submodel element.
    *
    * @return integer value indicating success/failure of the
    * operation. The possible return values are:
-   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
-   * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE @endlink
-   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+   * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE@endlink
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED@endlink
    */
   virtual int setIdRef (const std::string& id);
 
@@ -344,8 +344,8 @@ public:
    *
    * @return integer value indicating success/failure of the
    * operation. The possible return values are:
-   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
-   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED@endlink
    */
   virtual int unsetIdRef ();
 
@@ -373,17 +373,17 @@ public:
    *
    * This method fails if the id is not a valid syntax for a UnitSIdRef (@link
    * OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE
-   * LIBSBML_INVALID_ATTRIBUTE_VALUE @endlink), or if the SBaseRef already
+   * LIBSBML_INVALID_ATTRIBUTE_VALUE@endlink), or if the SBaseRef already
    * points to an element of the submodel using a different interface (@link
    * OperationReturnValues_t#LIBSBML_OPERATION_FAILED
-   * LIBSBML_OPERATION_FAILED @endlink).  A sBaseRef must use exactly one
+   * LIBSBML_OPERATION_FAILED@endlink).  A sBaseRef must use exactly one
    * method to point to a submodel element.
    *
    * @return integer value indicating success/failure of the
    * operation. The possible return values are:
-   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
-   * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE @endlink
-   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+   * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE@endlink
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED@endlink
    */
   virtual int setUnitRef (const std::string& id);
 
@@ -393,8 +393,8 @@ public:
    *
    * @return integer value indicating success/failure of the
    * operation. The possible return values are:
-   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
-   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED@endlink
    */
   virtual int unsetUnitRef ();
 
@@ -436,11 +436,11 @@ public:
    *
    * @return integer value indicating success/failure of the
    * operation. The possible return values are:
-   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
-   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
-   * @li @link OperationReturnValues_t#LIBSBML_LEVEL_MISMATCH LIBSBML_LEVEL_MISMATCH @endlink
-   * @li @link OperationReturnValues_t#LIBSBML_VERSION_MISMATCH LIBSBML_VERSION_MISMATCH @endlink
-   * @li @link OperationReturnValues_t#LIBSBML_PKG_VERSION_MISMATCH LIBSBML_VERSION_MISMATCH @endlink
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED@endlink
+   * @li @link OperationReturnValues_t#LIBSBML_LEVEL_MISMATCH LIBSBML_LEVEL_MISMATCH@endlink
+   * @li @link OperationReturnValues_t#LIBSBML_VERSION_MISMATCH LIBSBML_VERSION_MISMATCH@endlink
+   * @li @link OperationReturnValues_t#LIBSBML_PKG_VERSION_MISMATCH LIBSBML_VERSION_MISMATCH@endlink
    */
   int setSBaseRef (const SBaseRef* sBaseRef);
 
@@ -460,8 +460,8 @@ public:
    *
    * @return integer value indicating success/failure of the
    * operation. The possible return values are:
-   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
-   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED@endlink
    */
   virtual int unsetSBaseRef();
 
@@ -485,8 +485,7 @@ public:
 
 
   /**
-   * Renames all the SIdRef attributes on this element if they match
-   * @p oldid, but not any found in child or plugin elements.
+   * @copydoc doc_renamesidref_common
    */
   virtual void renameSIdRefs(const std::string& oldid, const std::string& newid);
 
@@ -589,8 +588,8 @@ public:
    *
    * @return integer value indicating success/failure of the
    * operation. The possible return values are:
-   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
-   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED@endlink
    */
   virtual int saveReferencedElement();
 
@@ -628,8 +627,8 @@ public:
    *
    * @return integer value indicating success/failure of the
    * operation. The possible return values are:
-   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
-   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED@endlink
    */
   virtual int removeFromParentAndDelete();
 
@@ -925,8 +924,8 @@ SBaseRef_isSetSBaseRef(SBaseRef_t * sbr);
  * function.  @if clike The value is drawn from the
  * enumeration #OperationReturnValues_t. @endif@~ The possible values
  * returned by this function are:
- * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
- * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE@endlink
  *
  * @note Using this function with the name set to NULL is equivalent to
  * unsetting the "portRef" attribute.
@@ -948,8 +947,8 @@ SBaseRef_setPortRef(SBaseRef_t * sbr, const char * portRef);
  * function.  @if clike The value is drawn from the
  * enumeration #OperationReturnValues_t. @endif@~ The possible values
  * returned by this function are:
- * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
- * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE@endlink
  *
  * @note Using this function with the name set to NULL is equivalent to
  * unsetting the "idRef" attribute.
@@ -971,8 +970,8 @@ SBaseRef_setIdRef(SBaseRef_t * sbr, const char * idRef);
  * function.  @if clike The value is drawn from the
  * enumeration #OperationReturnValues_t. @endif@~ The possible values
  * returned by this function are:
- * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
- * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE@endlink
  *
  * @note Using this function with the name set to NULL is equivalent to
  * unsetting the "unitRef" attribute.
@@ -994,8 +993,8 @@ SBaseRef_setUnitRef(SBaseRef_t * sbr, const char * unitRef);
  * function.  @if clike The value is drawn from the
  * enumeration #OperationReturnValues_t. @endif@~ The possible values
  * returned by this function are:
- * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
- * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE@endlink
  *
  * @note Using this function with the name set to NULL is equivalent to
  * unsetting the "metaIdRef" attribute.
@@ -1017,9 +1016,9 @@ SBaseRef_setMetaIdRef(SBaseRef_t * sbr, const char * metaIdRef);
  * function.  @if clike The value is drawn from the
  * enumeration #OperationReturnValues_t. @endif@~ The possible values
  * returned by this function are:
- * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
- * @li @link OperationReturnValues_t#LIBSBML_LEVEL_MISMATCH LIBSBML_LEVEL_MISMATCH @endlink
- * @li @link OperationReturnValues_t#LIBSBML_VERSION_MISMATCH LIBSBML_VERSION_MISMATCH @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_LEVEL_MISMATCH LIBSBML_LEVEL_MISMATCH@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_VERSION_MISMATCH LIBSBML_VERSION_MISMATCH@endlink
  *
  * @memberof SBaseRef_t
  */
@@ -1037,8 +1036,8 @@ SBaseRef_setSBaseRef(SBaseRef_t * sbr, SBaseRef_t * sBaseRef);
  * function.  @if clike The value is drawn from the
  * enumeration #OperationReturnValues_t. @endif@~ The possible values
  * returned by this function are:
- * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
- * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED@endlink
  *
  * @memberof SBaseRef_t
  */
@@ -1056,8 +1055,8 @@ SBaseRef_unsetPortRef(SBaseRef_t * sbr);
  * function.  @if clike The value is drawn from the
  * enumeration #OperationReturnValues_t. @endif@~ The possible values
  * returned by this function are:
- * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
- * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED@endlink
  *
  * @memberof SBaseRef_t
  */
@@ -1075,8 +1074,8 @@ SBaseRef_unsetIdRef(SBaseRef_t * sbr);
  * function.  @if clike The value is drawn from the
  * enumeration #OperationReturnValues_t. @endif@~ The possible values
  * returned by this function are:
- * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
- * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED@endlink
  *
  * @memberof SBaseRef_t
  */
@@ -1094,8 +1093,8 @@ SBaseRef_unsetUnitRef(SBaseRef_t * sbr);
  * function.  @if clike The value is drawn from the
  * enumeration #OperationReturnValues_t. @endif@~ The possible values
  * returned by this function are:
- * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
- * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED@endlink
  *
  * @memberof SBaseRef_t
  */
@@ -1113,8 +1112,8 @@ SBaseRef_unsetMetaIdRef(SBaseRef_t * sbr);
  * function.  @if clike The value is drawn from the
  * enumeration #OperationReturnValues_t. @endif@~ The possible values
  * returned by this function are:
- * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
- * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED@endlink
  *
  * @memberof SBaseRef_t
  */
