@@ -35,15 +35,24 @@ inadvertently.
 Some versions of MATLAB produced for Linux include a version of the stdc++
 library that conflicts with the version provided by the operating
 system. This copy of the library is installed in MATLAB's own
-directories. This may cause a conflict when MATLAB tries to run or compile
-code involving LibSBML.  (Example error message:
-<em><code>"/unix/bin/glnxa64/../../sys/os/glnxa64/libstdc++.so.6: version
-`GLIBCXX_3.4.11' not found"</code></em>.)
+directories. This may cause a conflict not in building libSBML, but
+<em>running</em> MATLAB code that use libSBML, such as
+<code>TranslateSBML</code> (the MATLAB interface function provided as part of
+libSBML).  The result is that MATLAB will produce an error messages such as
+<em><code>"libSBML is not linked"</code></em> or
+<em><code>"/unix/bin/glnxa64/../../sys/os/glnxa64/libstdc++.so.6: 
+version `GLIBCXX_3.4.11' not found"</code></em>.
 
 <p> The solution is to preload the system stdc++ library before invoking
 MATLAB.  You can accomplish this by setting the Linux environment variable
 <code>LD_PRELOAD</code> to the path of the system's <code>libstdc++</code>
-library file.  This will take the form of the following:
+library file.  You must first locate this file on your particular operating
+system.  Giving a precise recipe for finding the file is difficult because it
+differs slightly by operating system, but it is often found in a subdirectory
+of <code>/usr/lib</code> and will be named <code>libstdc++.so.6</code>.
+
+<p> Once you know the path to the stdc++ library file, set the value of
+<code>LD_PRELOAD</code> This will take the form of the following:
 
 <pre class="fragment">
 export LD_PRELOAD=/path/to/system/libstdc++</code>
