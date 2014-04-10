@@ -67,6 +67,16 @@ href="http://sf.net/projects/sbml/files/libsbml/@PACKAGE_VERSION@">
 href="http://sf.net/projects/sbml/files/libsbml/@PACKAGE_VERSION@">SourceForge download page</a> for libSBML.  The "stable" directory contains downloads for the main release, while the "experimental" directory contains beta-test code for such things as SBML Level&nbsp;3 packages.
 </center>
 
+<p> Special installers are available as a convenience for some popular
+special cases, notably the Python 2.5, 2.6, 2.7 and 3.2 language bindings on
+Windows systems.
+
+<p> For some other systems, due to the large number of possible
+combinations of operating system distributions and Python versions, we
+currently are unable to provide ready-to-run libSBML installers.  For those
+cases, it is necessary to build libSBML from the source distribution.  The
+rest of this document explains the procedure for doing this.
+
 
 <!-- ---------------------------------------------------------------------- -->
 <h2><a class="anchor" name="detailed-unix">2. Procedures for Linux, Mac OS X, FreeBSD, Solaris and Cygwin</a></h2>
@@ -112,12 +122,13 @@ Mac&nbsp;OS&nbsp;X version of CMake; it will look similar but not identical
 on other operating systems.
 </center>
 
-<p> In the CMake interface, click on the <b>Browse Source...</b> button and
+<p> In the CMake interface, first click on the <b>Browse Source...</b> button and
 navigate to the directory where you unpacked the libSBML source code archive on 
-your file system.  CMake should automatically fill in the next line, <em>Where to
-build the binaries</em>, using a subdirectory named <code>build</code> within
-the directory where your libSBML source code is located.  (If it does not,
-please fill in this field in the CMake interface yourself.)
+your file system.  Next, check the value of the field <em>Where to
+build the binaries</em>.  This is the path to the directory where CMake will
+build the binaries; if it is blank, or CMake filled it with a different value
+than what you prefer, click on the <b>Browse Build...</b> button to change
+the directory listed there.
 
 <p> After filling in the fields at the top of the interface, click on
 the <b>Configure</b> button.  If this is the first time you have executed
