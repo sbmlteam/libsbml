@@ -134,12 +134,13 @@ class LIBSBML_EXTERN List
 public:
 
   /**
-   * Creates a new List.
+   * Creates a new List object.
    */
   List ();
 
+
   /**
-   * Destroys the given List.
+   * Destroys this List object.
    *
    * This function does not delete List items.  It destroys only the List
    * and its constituent ListNodes (if any).
